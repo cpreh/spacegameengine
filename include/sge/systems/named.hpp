@@ -31,7 +31,8 @@ namespace sge
 namespace systems
 {
 
-struct named {
+class named {
+public:
 	SGE_SYMBOL named(
 		any const &,
 		string const &);

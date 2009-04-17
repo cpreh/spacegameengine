@@ -34,9 +34,9 @@ namespace detail
 template<
 	typename T
 >
-struct is_dynamic
+class is_dynamic
 :
-boost::is_same<
+public boost::is_same<
 	T,
 	dynamic_size
 >

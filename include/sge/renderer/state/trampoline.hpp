@@ -35,12 +35,12 @@ namespace state
 template<
 	typename T
 >
-struct var;
+class var;
 
 template<
 	typename T
 >
-struct trampoline {
+class trampoline {
 	SGE_NONCOPYABLE(trampoline)
 public:
 	typedef typename traits<T>::available_states state_type;

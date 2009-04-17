@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 #include <sge/iconv.hpp>
 
-struct sge::x11::class_hint::impl {
+class sge::x11::class_hint::impl {
+public:
 	SGE_NONCOPYABLE(impl)
 public:
 	impl();

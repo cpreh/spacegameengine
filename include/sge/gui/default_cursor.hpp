@@ -6,6 +6,7 @@
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/point.hpp>
 #include <sge/renderer/device_fwd.hpp>
+#include <sge/texture/no_fragmented.hpp>
 #include <sge/image/loader_fwd.hpp>
 
 namespace sge
@@ -24,6 +25,7 @@ public:
 	SGE_GUI_SYMBOL sge::sprite::object &mutable_sprite();
 	SGE_GUI_SYMBOL virtual ~default_cursor();
 private:
+	sge::texture::no_fragmented texture_;
 	sge::sprite::object sprite_;
 	sge::sprite::point const click_;
 };

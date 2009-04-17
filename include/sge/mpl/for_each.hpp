@@ -34,7 +34,8 @@ namespace detail
 {
 
 template<bool done = true>
-struct for_each_impl {
+class for_each_impl {
+public:
 	template<
 		typename Iterator,
 		typename LastIterator,
@@ -49,7 +50,8 @@ struct for_each_impl {
 };
 
 template<>
-struct for_each_impl<false> {
+class for_each_impl<false> {
+public:
 	template<
 		typename Iterator,
 		typename LastIterator,

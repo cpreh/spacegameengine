@@ -1,7 +1,7 @@
 #ifndef SGE_GUI_LAYOUTS_NULL_HPP_INCLUDED
 #define SGE_GUI_LAYOUTS_NULL_HPP_INCLUDED
 
-#include <sge/gui/layout.hpp>
+#include <sge/gui/layouts/base.hpp>
 #include <sge/gui/export.hpp>
 
 namespace sge
@@ -10,7 +10,7 @@ namespace gui
 {
 namespace layouts
 {
-class null : public layout
+class null : public base
 {
 	public:
 	SGE_GUI_SYMBOL null();

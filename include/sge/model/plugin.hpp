@@ -33,7 +33,8 @@ namespace plugin
 namespace detail
 {
 
-template<> struct traits<model::loader> {
+template<> class traits<model::loader> {
+public:
 	SGE_SYMBOL static address_name plugin_loader_name();
 	SGE_SYMBOL static capabilities::type plugin_type();
 	typedef model::loader* (*loader_fun)();

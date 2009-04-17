@@ -33,7 +33,8 @@ namespace plugin
 namespace detail
 {
 
-template<> struct traits<audio::player> {
+template<> class traits<audio::player> {
+public:
 	SGE_SYMBOL static address_name plugin_loader_name();
 	SGE_SYMBOL static capabilities::type plugin_type();
 	typedef audio::player* (*loader_fun)();

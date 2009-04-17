@@ -29,7 +29,8 @@ int error_handler(
 	Display *,
 	XErrorEvent *);
 
-struct init {
+class init {
+public:
 	init();
 } init_;
 

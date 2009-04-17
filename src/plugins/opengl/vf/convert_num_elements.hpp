@@ -40,7 +40,8 @@ namespace ogl
 namespace vf
 {
 
-struct convert_num_elements : boost::static_visitor<GLint> {
+class convert_num_elements : public boost::static_visitor<GLint> {
+public:
 	GLint operator()(
 		renderer::vf::dynamic_vector const &) const;
 	GLint operator()(

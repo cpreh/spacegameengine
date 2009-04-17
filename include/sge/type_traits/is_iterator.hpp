@@ -45,9 +45,9 @@ namespace type_traits
 template<
 	typename  T
 >
-struct is_iterator
+class is_iterator
 :
-boost::false_type
+public boost::false_type
 {};
 
 template<
@@ -57,11 +57,11 @@ template<
 	typename W,
 	typename X
 >
-struct is_iterator<
+class is_iterator<
 	std::iterator<T,U,V,W,X> 
 >
 :
-boost::true_type
+public boost::true_type
 {};
 
 template<
@@ -70,19 +70,19 @@ template<
 	typename R,
 	typename V
 >
-struct is_iterator<
+class is_iterator<
 	boost::transform_iterator<U, I, R, V>
 >
 :
-boost::true_type
+public boost::true_type
 {};
 
 template<
 	typename T
 >
-struct is_iterator<T *>
+class is_iterator<T *>
 :
-boost::true_type
+public boost::true_type
 {};
 
 }

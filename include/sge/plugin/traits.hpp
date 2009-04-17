@@ -29,7 +29,7 @@ namespace plugin
 namespace detail
 {
 
-template<typename T> struct traits;
+template<typename T> class traits;
 
 typedef char const *address_name;
 

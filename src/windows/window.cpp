@@ -43,7 +43,8 @@ LRESULT CALLBACK wnd_proc(
 }
 
 // TODO: why did HackLife do this?
-/*struct sge::windows::window::signal_combiner {
+/*class sge::windows::window::signal_combiner {
+public:
 	typedef callback_return_type result_type;
 
 	template<typename InputIterator>

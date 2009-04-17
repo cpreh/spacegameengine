@@ -37,7 +37,8 @@ class object;
 
 class SGE_CLASS_SYMBOL texture_animation : public animation {
 public:
-	struct loop_method {
+	class loop_method {
+	public:
 		enum type {
 			repeat,
 			stop_at_end

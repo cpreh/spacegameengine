@@ -39,10 +39,11 @@ typedef std::codecvt<
 template<
 	typename OutCh
 >
-struct call_traits;
+class call_traits;
 
 template<>
-struct call_traits<char> {
+class call_traits<char> {
+public:
 	static std::codecvt_base::result
 	conv(
 		codecvt_t const &cvt,
@@ -66,7 +67,8 @@ struct call_traits<char> {
 };
 
 template<>
-struct call_traits<wchar_t> {
+class call_traits<wchar_t> {
+public:
 	static std::codecvt_base::result
 	conv(
 		codecvt_t const &cvt,

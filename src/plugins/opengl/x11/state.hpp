@@ -42,7 +42,7 @@ namespace sge
 {
 namespace renderer
 {
-struct parameters;
+class parameters;
 }
 
 namespace ogl

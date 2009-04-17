@@ -3,7 +3,7 @@
 
 #include <sge/gui/detail/managers/fwd.hpp>
 #include <sge/gui/detail/submanager.hpp>
-#include <sge/gui/widget_fwd.hpp>
+#include <sge/gui/widgets/fwd.hpp>
 #include <set>
 
 namespace sge
@@ -18,12 +18,12 @@ class compiler : public submanager
 {
 	public:
 	compiler(mouse &,render &);
-	void add(widget &);
+	void add(widgets::base &);
 	void update();
-	void remove(widget &);
-	void invalidate(widget &);
+	void remove(widgets::base &);
+	void invalidate(widgets::base &);
 	private:
-	typedef std::set<widget*> recompile_container;
+	typedef std::set<widgets::base*> recompile_container;
 
 	mouse &mouse_;
 	render &render_;

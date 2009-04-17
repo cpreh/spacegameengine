@@ -2,7 +2,7 @@
 #define SGE_GUI_MAKE_IMAGE_HPP_INCLUDED
 
 #include <sge/image/object_fwd.hpp>
-#include <sge/gui/image.hpp>
+#include <sge/gui/image_fwd.hpp>
 #include <sge/gui/export.hpp>
 
 namespace sge

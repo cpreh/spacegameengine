@@ -28,7 +28,7 @@ namespace ogl
 namespace vf
 {
 
-struct client_state;
+class client_state;
 
 void global_client_state(
 	client_state const &);

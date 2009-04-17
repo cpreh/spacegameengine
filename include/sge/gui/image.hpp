@@ -1,16 +1,30 @@
 #ifndef SGE_GUI_IMAGE_HPP_INCLUDED
 #define SGE_GUI_IMAGE_HPP_INCLUDED
 
+#include <sge/gui/dim.hpp>
+#include <sge/gui/image_fwd.hpp>
+#include <sge/gui/image_view.hpp>
 #include <sge/renderer/image.hpp>
-#include <sge/shared_ptr.hpp>
 
 namespace sge
 {
 namespace gui
 {
-typedef renderer::rgba8_image image;
-typedef shared_ptr<image> image_ptr;
-typedef shared_ptr<image const> const_image_ptr;
+// this wraps the gil stuff in renderer::rgba8_image (such as the dimension
+// type being coord_t)
+class image
+{
+public:
+	image();
+	explicit image(dim const &);
+	dim const size() const;
+	image_view const view();
+	const_image_view const const_view() const;
+	void resize(dim const &);
+private:
+	typedef renderer::rgba8_image impl_type;
+	impl_type impl_;
+};
 }
 }
 

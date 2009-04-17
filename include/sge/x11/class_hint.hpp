@@ -42,7 +42,7 @@ public:
 	SGE_SYMBOL ~class_hint();
 	SGE_SYMBOL XClassHint *get() const;
 private:
-	struct impl;
+	class impl;
 
 	scoped_ptr<impl> impl_;
 	std::string const app_name,

@@ -1,5 +1,5 @@
 #include <sge/gui/layouts/null.hpp>
-#include <sge/gui/widget.hpp>
+#include <sge/gui/widgets/base.hpp>
 #include <sge/gui/manager.hpp>
 #include <sge/gui/log.hpp>
 
@@ -13,7 +13,7 @@ sge::gui::logger mylogger(
 
 sge::gui::layouts::null::null()
 : 
-	layout()
+	base()
 {
 }
 

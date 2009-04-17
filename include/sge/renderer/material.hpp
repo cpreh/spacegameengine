@@ -30,7 +30,8 @@ namespace sge
 namespace renderer
 {
 	
-struct material {
+class material {
+public:
 	SGE_SYMBOL material(
 		any_color const &diffuse,
 		any_color const &ambient,

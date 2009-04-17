@@ -42,12 +42,13 @@ template<
 	vertex_size NumSubElements,
 	typename Enable = void
 >
-struct unspecified
-: vec_base<
+class unspecified
+: public vec_base<
 	Format,
 	role::unspecified,
 	NumSubElements
 > {
+public:
 	BOOST_STATIC_ASSERT(
 		NumSubElements >= 2 && NumSubElements <= 4);
 };
@@ -55,12 +56,12 @@ struct unspecified
 template<
 	typename Format
 >
-struct unspecified<
+class unspecified<
 	Format,
 	1,
 	void
 >
-: single_base<
+: public single_base<
 	Format,
 	role::unspecified
 > {};
@@ -68,14 +69,14 @@ struct unspecified<
 template<
 	typename Color
 >
-struct unspecified<
+class unspecified<
 	Color,
 	1,
 	typename color_channel<
 		Color
 	>::type
 >
-: color_base<
+: public color_base<
 	Color,
 	role::unspecified
 > {};

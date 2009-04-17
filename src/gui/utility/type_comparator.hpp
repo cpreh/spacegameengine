@@ -1,7 +1,6 @@
 #ifndef SGE_GUI_UTILITY_TYPE_COMPARATOR_HPP_INCLUDED
 #define SGE_GUI_UTILITY_TYPE_COMPARATOR_HPP_INCLUDED
 
-#include <typeinfo>
 #include <boost/mpl/for_each.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/add_reference.hpp>
@@ -9,6 +8,7 @@
 #include <boost/mpl/transform_view.hpp>
 #include <boost/type_traits/add_pointer.hpp>
 #include <boost/mpl/if.hpp>
+#include <typeinfo>
 
 namespace sge
 {
@@ -19,10 +19,10 @@ namespace utility
 template<
 	typename Obj,
 	typename Callback>
-struct type_comparator_impl
+class type_comparator_impl
 {
-	public:
-	type_comparator_impl(
+public:
+type_comparator_impl(
 		Obj &obj,
 		Callback &cb,
 		unsigned &count)
@@ -45,7 +45,7 @@ struct type_comparator_impl
 		cb(dynamic_cast<dest_type &>(obj));
 	}
 
-	private:
+private:
 	Obj &obj;
 	Callback &cb;
 	unsigned &count;

@@ -38,7 +38,8 @@ namespace renderer
 namespace vf
 {
 
-struct make_dynamic_elements {
+class make_dynamic_elements {
+public:
 	explicit make_dynamic_elements(
 		dynamic_element_list &elems)
 	:

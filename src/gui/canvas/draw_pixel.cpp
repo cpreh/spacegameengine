@@ -1,4 +1,4 @@
-#include <sge/gui/canvas.hpp>
+#include <sge/gui/canvas/object.hpp>
 #include <sge/assert.hpp>
 #include <sge/math/rect_util.hpp>
 #include <sge/math/vector/output.hpp>

@@ -33,7 +33,8 @@ namespace detail
 template<
 	typename T
 >
-struct dynamic_storage {
+class dynamic_storage {
+public:
 	typedef container::raw_vector<
 		T
 	> type;

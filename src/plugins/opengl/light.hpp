@@ -28,7 +28,7 @@ namespace sge
 {
 namespace renderer
 {
-struct light;
+class light;
 }
 
 namespace ogl

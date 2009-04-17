@@ -28,7 +28,7 @@ namespace sge
 {
 namespace renderer
 {
-struct display_mode;
+class display_mode;
 }
 namespace ogl
 {

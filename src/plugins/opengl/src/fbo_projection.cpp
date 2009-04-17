@@ -27,10 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-struct multiply_visitor
-: boost::static_visitor<
+class multiply_visitor
+: public boost::static_visitor<
 	sge::renderer::any_matrix
 > {
+public:
 	template<
 		typename T
 	>

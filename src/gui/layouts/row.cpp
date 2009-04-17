@@ -1,6 +1,6 @@
 #include <sge/gui/layouts/row.hpp>
+#include <sge/gui/widgets/base.hpp>
 #include <sge/gui/unit.hpp>
-#include <sge/gui/widget.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/math/dim/output.hpp>
 #include <sge/math/dim/basic_impl.hpp>
@@ -14,19 +14,19 @@ namespace
 sge::gui::logger mylogger(
 	sge::gui::global_log(),
 	SGE_TEXT("layouts: row"),
-	true);
+	false);
 }
 
 sge::gui::layouts::row::row()
 : 
-	layout()
+	base()
 {
 }
 
 void sge::gui::layouts::row::compile()
 {
 	if (!connected_widget().has_parent())
-		layout::set_widget_size(
+		base::set_widget_size(
 			connected_widget(),
 			connected_widget().size_hint());
 		
@@ -65,7 +65,7 @@ void sge::gui::layouts::row::compile()
 sge::gui::dim const sge::gui::layouts::row::size_hint() const
 {
 	dim hint = dim::null();
-	BOOST_FOREACH(widget const &w,connected_widget().children())
+	BOOST_FOREACH(widgets::base const &w,connected_widget().children())
 	{
 		master(hint) += master(w.size_hint());
 		slave(hint) = std::max(slave(hint),slave(w.size_hint()));
@@ -219,14 +219,14 @@ void sge::gui::layouts::row::update_widgets(dim const &usable)
 
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("setting widget (master) position to ")
+			log::_1 << SGE_TEXT("setting widgets::base (master) position to ")
 							<< master(pos)
 							<< SGE_TEXT(" and size to ")
 							<< p.second);
 		
-		layout::set_widget_size(*p.first,p.second);
-		layout::set_widget_pos(*p.first,pos);
-		layout::compile_widget(*p.first);
+		base::set_widget_size(*p.first,p.second);
+		base::set_widget_pos(*p.first,pos);
+		base::compile_widget(*p.first);
 
 		master(pos) += master(p.second)+increment;
 	}
@@ -239,7 +239,7 @@ void sge::gui::layouts::row::reset_cache()
 		mylogger,
 		log::_1 << SGE_TEXT("resetting cache begin"));
 	sizes.clear();
-	BOOST_FOREACH(widget &w,connected_widget().children())
+	BOOST_FOREACH(widgets::base &w,connected_widget().children())
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
@@ -255,7 +255,7 @@ unsigned sge::gui::layouts::row::count_flags(
 	dim::size_type const axis) const
 {
 	unsigned count = static_cast<unsigned>(0);
-	BOOST_FOREACH(widget const &w,connected_widget().children())
+	BOOST_FOREACH(widgets::base const &w,connected_widget().children())
 		//if (utility::bitfield_and(w.size_policy().index(axis),flags))
 		if (w.size_policy().index(axis) & flags)
 			++count;

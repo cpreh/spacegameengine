@@ -34,7 +34,7 @@ namespace renderer
 {
 namespace filter
 {
-struct texture;
+class texture;
 }
 }
 

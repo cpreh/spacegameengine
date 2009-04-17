@@ -30,8 +30,9 @@ namespace sge
 namespace audio
 {
 
-struct angle
+class angle
 {
+public:
 	SGE_SYMBOL angle();
 	SGE_SYMBOL angle(
 		point const &forward,

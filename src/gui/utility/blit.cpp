@@ -19,8 +19,9 @@
 namespace
 {
 template<class DstPixel>
-struct channel_blitter 
+class channel_blitter 
 {
+public:
 	typedef DstPixel pixel_type;
 	typedef typename sge::renderer::color_channel<typename boost::remove_const<DstPixel>::type>::type channel_type;
 

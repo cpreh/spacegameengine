@@ -1,4 +1,4 @@
-#include <sge/gui/canvas.hpp>
+#include <sge/gui/canvas/object.hpp>
 #include <sge/gui/unit.hpp>
 #include <sge/math/signum.hpp>
 #include <sge/math/vector/basic_impl.hpp>

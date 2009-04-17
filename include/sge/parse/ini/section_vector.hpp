@@ -30,7 +30,7 @@ namespace parse
 namespace ini
 {
 
-struct section;
+class section;
 
 typedef std::vector<
 	section

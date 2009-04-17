@@ -37,7 +37,8 @@ template<
 	typename T,
 	size_type N
 >
-struct static_ {
+class static_ {
+public:
 	typedef basic<
 		T,
 		boost::mpl::integral_c<

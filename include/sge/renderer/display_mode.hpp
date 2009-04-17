@@ -33,7 +33,8 @@ namespace sge
 namespace renderer
 {
 
-struct display_mode {
+class display_mode {
+public:
 	SGE_SYMBOL display_mode(
 		screen_size const &sz,
 		renderer::bit_depth::type depth,

@@ -36,10 +36,11 @@ template<
 	typename Format,
 	role::type Role
 >
-struct single_base
-: element_base<
+class single_base
+: public element_base<
 	Role
 > {
+public:
 	typedef Format subelement_type;
 	typedef Format packed_type;
 	static vertex_size const num_subelements = 1;

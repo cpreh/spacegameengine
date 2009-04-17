@@ -1,7 +1,6 @@
-#include "utility/type_comparator.hpp"
-#include "utility/blit.hpp"
-#include <sge/gui/skin.hpp>
-#include <sge/gui/unit.hpp>
+#include "../utility/type_comparator.hpp"
+#include "../utility/blit.hpp"
+#include <sge/gui/skins/base.hpp>
 #include <sge/gui/widgets/fwd.hpp>
 #include <sge/gui/widgets/edit.hpp>
 #include <sge/gui/widgets/label.hpp>
@@ -11,8 +10,9 @@
 #include <sge/gui/widgets/buttons/image.hpp>
 #include <sge/gui/events/fwd.hpp>
 #include <sge/gui/events/invalid_area.hpp>
-#include <sge/gui/canvas.hpp>
+#include <sge/gui/canvas/object.hpp>
 #include <sge/gui/log.hpp>
+#include <sge/gui/unit.hpp>
 #include <sge/math/dim/output.hpp>
 #include <sge/renderer/make_const_image_view.hpp>
 #include <sge/exception.hpp>
@@ -37,7 +37,7 @@ class call_draw
 	typedef void result_type;
 
 	call_draw(
-		sge::gui::skin &s,
+		sge::gui::skins::base &s,
 		sge::gui::events::invalid_area const &e) 
 		: s(s),
 		  e(e) {}
@@ -47,7 +47,7 @@ class call_draw
 
 	void value() const {}
 	private:
-	sge::gui::skin &s;
+	sge::gui::skins::base &s;
 	sge::gui::events::invalid_area const &e;
 };
 
@@ -56,7 +56,8 @@ class call_size_hint
 	public:
 	typedef sge::gui::dim result_type;
 
-	call_size_hint(sge::gui::skin const &s) : s(s) {}
+	call_size_hint(
+		sge::gui::skins::base const &s) : s(s) {}
 
 	template<typename V>
 	void operator()(V const &v) 
@@ -66,15 +67,15 @@ class call_size_hint
 
 	sge::gui::dim const value() const { return sh; }
 	private:
-	sge::gui::skin const &s;
+	sge::gui::skins::base const &s;
 	sge::gui::dim sh;
 };
 }
 
-SGE_GUI_SKIN_DRAW_RETURN(widget) sge::gui::skin::draw(
-	SGE_GUI_SKIN_DRAW_PARAMS_NAMED(widget))
+SGE_GUI_SKIN_DRAW_RETURN(widgets::base) sge::gui::skins::base::draw(
+	SGE_GUI_SKIN_DRAW_PARAMS_NAMED(widgets::base))
 {
-	if (typeid(w) == typeid(widget))
+	if (typeid(w) == typeid(widgets::base))
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
@@ -95,16 +96,16 @@ SGE_GUI_SKIN_DRAW_RETURN(widget) sge::gui::skin::draw(
 			*this,
 			e),
 		boost::bind(
-			&skin::default_handler,
+			&skins::base::default_handler,
 			this,
 			_1,
 			boost::ref(e)));
 }
 
-SGE_GUI_SKIN_SIZE_RETURN(widget) sge::gui::skin::size_hint(
-	SGE_GUI_SKIN_SIZE_PARAMS_NAMED(widget)) const
+SGE_GUI_SKIN_SIZE_RETURN(widgets::base) sge::gui::skins::base::size_hint(
+	SGE_GUI_SKIN_SIZE_PARAMS_NAMED(widgets::base)) const
 {
-	if (typeid(w) == typeid(widget))
+	if (typeid(w) == typeid(widgets::base))
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
@@ -114,53 +115,50 @@ SGE_GUI_SKIN_SIZE_RETURN(widget) sge::gui::skin::size_hint(
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("size_hint called for widget ") 
+		log::_1 << SGE_TEXT("size_hint called for widgets::base ") 
 		        << typeid(w).name());
 
 	return utility::type_comparator<widgets::types>(
 		w,
 		call_size_hint(*this),
-		boost::bind(&skin::default_hint_handler,this,_1));
+		boost::bind(&skins::base::default_hint_handler,this,_1));
 }
 
-SGE_GUI_SKIN_DRAW_RETURN(widget) sge::gui::skin::default_handler(
-	SGE_GUI_SKIN_DRAW_PARAMS(widget))
+SGE_GUI_SKIN_DRAW_RETURN(widgets::base) sge::gui::skins::base::default_handler(
+	SGE_GUI_SKIN_DRAW_PARAMS(widgets::base))
 {
-	throw exception(SGE_TEXT("tried to draw a widget whose type is not drawable"));
+	throw exception(SGE_TEXT("tried to draw a widgets::base whose type is not drawable"));
 }
 
-SGE_GUI_SKIN_SIZE_RETURN(widget) sge::gui::skin::default_hint_handler(
-	SGE_GUI_SKIN_SIZE_PARAMS(widget)) const
+SGE_GUI_SKIN_SIZE_RETURN(widgets::base) sge::gui::skins::base::default_hint_handler(
+	SGE_GUI_SKIN_SIZE_PARAMS(widgets::base)) const
 {
-	throw exception(SGE_TEXT("tried to hint a widget whose type is not drawable"));
+	throw exception(SGE_TEXT("tried to hint a widgets::base whose type is not drawable"));
 }
 	
-sge::gui::skin::~skin()
+sge::gui::skins::base::~base()
 {}
 
-void sge::gui::skin::resize_buffer(widget const &b)
+void sge::gui::skins::base::resize_buffer(
+	widgets::base const &b)
 {
 	// resize internal buffer if neccessary
-	if (b.buffer().width() != static_cast<image::coord_t>(b.size().w()) ||
-	    b.buffer().height() != static_cast<image::coord_t>(b.size().h()))
+	if (b.size() != b.buffer().size())
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
 			log::_1
 				<< SGE_TEXT("resizing from ") 
-				<< dim(
-					static_cast<unit>(b.buffer().width()),
-					static_cast<unit>(b.buffer().height()))
+				<< b.buffer().size()
 				<< SGE_TEXT(" to ")
 				<< b.size());
-		b.buffer() = image(
-			static_cast<image::coord_t>(b.size().w()),
-			static_cast<image::coord_t>(b.size().h()));
+		b.buffer().resize(
+			b.size());
 	}
 }
 
-void sge::gui::skin::blit_invalid(
-	widget const &w,
+void sge::gui::skins::base::blit_invalid(
+	widgets::base const &w,
 	canvas::object &c,
 	events::invalid_area const &e,
 	bool const t)

@@ -12,7 +12,7 @@ sge::gui::widgets::buttons::image::image(
 			_parent,
 			_params
 				.size_policy(
-					size_policy_t(
+					sge::gui::size_policy(
 						axis_policy::none,
 						axis_policy::none))
 				/*
@@ -26,7 +26,7 @@ sge::gui::widgets::buttons::image::image(
 		hover_keyboard_(_hover_keyboard)
 {
 	SGE_ASSERT(
-		normal_->dimensions() == hover_->dimensions() && 
-		hover_->dimensions() == keyboard_->dimensions() && 
-		keyboard_->dimensions() == hover_keyboard_->dimensions());
+		normal_->size() == hover_->size() && 
+		hover_->size() == keyboard_->size() && 
+		keyboard_->size() == hover_keyboard_->size());
 }

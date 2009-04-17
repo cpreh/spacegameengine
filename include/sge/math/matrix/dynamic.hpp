@@ -37,7 +37,8 @@ namespace matrix
 template<
 	typename T
 >
-struct dynamic {
+class dynamic {
+public:
 	typedef basic<
 		T,
 		math::detail::dynamic_size,

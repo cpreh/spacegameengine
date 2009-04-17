@@ -31,7 +31,8 @@ namespace sprite
 namespace detail
 {
 
-struct index_generator {
+class index_generator {
+public:
 	index_generator()
 	:
 		index(0),

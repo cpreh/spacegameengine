@@ -1,8 +1,8 @@
-#include "../../../utility/max_dim.hpp"
+#include "../../../utility/unlimited_text_size.hpp"
 #include <sge/gui/widgets/buttons/text.hpp>
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/gui/skins/standard.hpp>
-#include <sge/gui/canvas.hpp>
+#include <sge/gui/canvas/object.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/gui/unit.hpp>
 #include <sge/gui/internal_color.hpp>
@@ -100,10 +100,6 @@ void sge::gui::skins::standard::draw(
 			canvas::line_type::dashed);
 	}
 
-	SGE_ASSERT_MESSAGE(
-		b.font(),
-		SGE_TEXT("button: font missing while drawing button"));
-
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("drawing text (button \"")
@@ -112,8 +108,7 @@ void sge::gui::skins::standard::draw(
 
 	// draw text centered
 	c.draw_text(
-		b.font(),
-		renderer::colors::black(),
+		standard_font(),
 		b.caption(),
 		point::null(),
 		c.size(),
@@ -143,12 +138,10 @@ sge::gui::dim const sge::gui::skins::standard::size_hint(
 		mylogger,
 		log::_1 << SGE_TEXT("calling size hint for button"));
 
-	font::object fn(b.font());	
-
-	// NOTE: we have to give text_size a huge rectangle because it won't
-	// return a valid rectangle otherwise
-	dim const font_dim = structure_cast<dim>(
-		fn.text_size(b.caption(),utility::max_dim<font::unit>()).size());
+	dim const font_dim = 
+		utility::unlimited_text_size(
+			standard_font().metrics(),
+			b.caption());
 
 	return dim(
 		static_cast<unit>(font_dim.w()+2),

@@ -185,7 +185,8 @@ sge::md3::object::copy_vertices(
 namespace
 {
 
-struct index_visitor : boost::static_visitor<> {
+class index_visitor : public boost::static_visitor<> {
+public:
 	explicit index_visitor(
 		sge::md3::object::surface_vector const &surfaces_)
 	:

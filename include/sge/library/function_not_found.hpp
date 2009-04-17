@@ -31,7 +31,8 @@ namespace sge
 namespace library
 {
 
-struct SGE_CLASS_SYMBOL function_not_found : public exception {
+class SGE_CLASS_SYMBOL function_not_found : public exception {
+public:
 	SGE_SYMBOL function_not_found(
 		string const &lib,
 		function_string const &fun);

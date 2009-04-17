@@ -7,12 +7,14 @@ namespace gui
 {
 namespace detail
 {
+class submanager;
+
 namespace managers
 {
 class mouse;
 class render;
 class keyboard;
-class update;
+class compiler;
 class time;
 }
 }

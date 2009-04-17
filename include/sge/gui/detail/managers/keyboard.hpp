@@ -2,7 +2,7 @@
 #define SGE_GUI_DETAIL_MANAGERS_KEYBOARD_HPP_INCLUDED
 
 #include <sge/gui/detail/submanager.hpp>
-#include <sge/gui/widget_fwd.hpp>
+#include <sge/gui/widgets/fwd.hpp>
 #include <sge/gui/keyboard_focus.hpp>
 #include <sge/input/system_fwd.hpp>
 #include <sge/input/modifier/filter.hpp>
@@ -25,14 +25,17 @@ class keyboard : public submanager
 {
 	public:
 	keyboard(input::system_ptr);
-	void add(widget &);
-	void activation(widget &,activation_state::type);
-	void request_focus(widget &);
-	void remove(widget &);
+	void add(widgets::base &);
+	void activation(widgets::base &,activation_state::type);
+	void request_focus(widgets::base &);
+	void remove(widgets::base &);
 	void cycle_focus();
-	void keyboard_focus(widget &,keyboard_focus::type);
+	void keyboard_focus(widgets::base &,keyboard_focus::type);
 	private:
-	typedef boost::ptr_list<widget,boost::view_clone_allocator> widget_container;
+	typedef boost::ptr_list<
+		widgets::base,
+		boost::view_clone_allocator
+		> widget_container;
 
 	input::modifier::filter input_filter;
 	widget_container widgets;

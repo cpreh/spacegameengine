@@ -31,7 +31,8 @@ namespace x11
 template<
 	typename T
 >
-struct deleter {
+class deleter {
+public:
 	void operator()(T* const t) const
 	{
 		XFree(t);

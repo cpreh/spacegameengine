@@ -123,7 +123,8 @@ private:
 	void set_pointers(pointer src, size_type sz, size_type cap);
 	void deallocate();
 
-	struct impl {
+	class impl {
+	public:
 		explicit impl(A const &);
 		impl(A const &, size_type);
 

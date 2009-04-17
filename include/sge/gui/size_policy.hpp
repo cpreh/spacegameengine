@@ -13,22 +13,28 @@ namespace gui
 {
 namespace axis_policy
 {
-enum internal_type { none,can_grow,can_shrink,should_grow,size };
+enum internal_type 
+{ 
+	none,
+	can_grow,
+	can_shrink,
+	should_grow,
+	size 
+};
+
 typedef bitfield<internal_type,size> type;
 }
 
 class size_policy
 {
 	public:
-	SGE_GUI_SYMBOL size_policy(axis_policy::type const &x,axis_policy::type const &y);
-	axis_policy::type const &x() const { return x_; }
-	axis_policy::type const &y() const { return y_; }
+	SGE_GUI_SYMBOL size_policy(
+		axis_policy::type const &x,
+		axis_policy::type const &y);
+	SGE_GUI_SYMBOL axis_policy::type const &x() const;
+	SGE_GUI_SYMBOL axis_policy::type const &y() const;
 	// this is a hack so we can use it with the layouts::row::master stuff
-	axis_policy::type const &index(std::size_t const i) const
-	{ 
-		return i == static_cast<std::size_t>(0) ? x() : y(); 
-	}
-
+	SGE_GUI_SYMBOL axis_policy::type const &index(std::size_t const i) const;
 	SGE_GUI_SYMBOL static size_policy const default_policy;
 	private:
 	axis_policy::type x_,y_;

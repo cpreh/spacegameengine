@@ -37,7 +37,8 @@ namespace detail
 template<
 	typename Color
 >
-struct view_type {
+class view_type {
+public:
 	typedef boost::gil::image_view<
 		boost::gil::memory_based_2d_locator<
 			boost::gil::memory_based_step_iterator<

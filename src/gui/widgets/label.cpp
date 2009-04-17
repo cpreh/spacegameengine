@@ -18,36 +18,19 @@ sge::gui::widgets::label::label(
 	string const &_text,
 	sge::font::align_h::type _align_h,
 	sge::font::align_v::type _align_v,
-	boost::optional<dim> _static_size,
-	font::metrics_ptr _font,
-	sge::gui::color const &_color)
-	: widget(
-			_parent,
-			_params.size_policy(
-				size_policy_t(
-					axis_policy::none,
-					axis_policy::none))),
-	  text_(_text),
-		align_h_(_align_h),
-		align_v_(_align_v),
-		static_size_(_static_size),
-	  font_(_font),
-		color_(_color)
+	boost::optional<dim> _static_size)
+: 
+	base(
+		_parent,
+		_params.size_policy(
+			sge::gui::size_policy(
+				axis_policy::none,
+				axis_policy::none))),
+	text_(_text),
+	align_h_(_align_h),
+	align_v_(_align_v),
+	static_size_(_static_size)
 {
-	if (!font_)
-		font_ = parent_manager().standard_font();
-	
-	SGE_ASSERT_MESSAGE(font_,SGE_TEXT("label: no standard font could be set by manager"));
-}
-
-sge::font::metrics_ptr const sge::gui::widgets::label::font() const 
-{ 
-	return font_; 
-}
-
-sge::gui::color const sge::gui::widgets::label::color() const 
-{ 
-	return color_; 
 }
 
 sge::string const sge::gui::widgets::label::text() const 

@@ -41,7 +41,8 @@ namespace detail
 {
 
 template<typename T>
-struct iterator_base_type {
+class iterator_base_type {
+public:
 	typedef boost::iterator_facade<
  		iterator<T>,
 		context<T>,

@@ -28,7 +28,7 @@ namespace sge
 namespace devil
 {
 
-struct library {
+class library {
 	SGE_NONCOPYABLE(library)
 public:
 	library();

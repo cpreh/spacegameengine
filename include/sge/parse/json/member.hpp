@@ -31,7 +31,8 @@ namespace parse
 namespace json
 {
 
-struct member {
+class member {
+public:
 	string name;
 	value value_;
 };

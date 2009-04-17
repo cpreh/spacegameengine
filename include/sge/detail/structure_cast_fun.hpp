@@ -29,7 +29,8 @@ namespace detail
 template<
 	typename T
 >
-struct structure_cast_fun {
+class structure_cast_fun {
+public:
 	typedef T result_type;
 
 	template<

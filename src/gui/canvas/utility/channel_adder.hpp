@@ -8,8 +8,9 @@ namespace gui
 namespace utility
 {
 template<class Pixel0,class Pixel1,class PixelResult>
-struct channel_adder 
+class channel_adder 
 {
+public:
 	channel_adder(
 		Pixel0 const &p0,
 		Pixel1 const &p1,

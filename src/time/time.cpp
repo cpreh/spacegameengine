@@ -47,7 +47,8 @@ sge::time::unit query_performance_frequency();
 sge::time::unit query_performance_counter();
 sge::time::unit large_int_to_time(LARGE_INTEGER);
 
-struct initializer {
+class initializer {
+public:
 	initializer();
 
 	bool use_performance_counter() const;

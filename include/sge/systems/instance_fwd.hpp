@@ -26,7 +26,7 @@ namespace sge
 namespace systems
 {
 
-struct instance;
+class instance;
 
 }
 }

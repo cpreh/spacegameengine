@@ -3,8 +3,8 @@
 
 #include <sge/gui/point.hpp>
 #include <sge/gui/export.hpp>
+#include <sge/gui/cursor_fwd.hpp>
 #include <sge/sprite/object.hpp>
-#include <sge/auto_ptr.hpp>
 
 namespace sge
 {
@@ -18,9 +18,6 @@ public:
 	SGE_GUI_SYMBOL virtual sge::sprite::object const sprite() const = 0;
 	SGE_GUI_SYMBOL virtual ~cursor();
 };
-
-typedef shared_ptr<cursor> cursor_ptr;
-typedef shared_ptr<cursor const> const_cursor_ptr;
 }
 }
 

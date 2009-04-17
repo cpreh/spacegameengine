@@ -40,7 +40,8 @@ namespace ogl
 namespace vf
 {
 
-struct convert_format : boost::static_visitor<GLenum> {
+class convert_format : public boost::static_visitor<GLenum> {
+public:
 	GLenum operator()(
 		renderer::vf::dynamic_vector const &) const;
 	GLenum operator()(

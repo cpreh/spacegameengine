@@ -11,8 +11,10 @@ namespace input
 {
 namespace modifier
 {
-struct object
+// TODO: make cpp file for this
+class object
 {
+public:
 	typedef std::vector<sge::input::key_code> code_container;
 
 	code_container codes;

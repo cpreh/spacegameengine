@@ -32,7 +32,8 @@ namespace state
 {
 
 template<typename T>
-struct var {
+class var {
+public:
 	typedef typename traits<T>::available_states state_type;
 	typedef T value_type;
 

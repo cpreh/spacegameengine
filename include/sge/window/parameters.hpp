@@ -32,7 +32,8 @@ namespace sge
 namespace window
 {
 
-struct parameters {
+class parameters {
+public:
 	SGE_SYMBOL static string const default_class;
 
 	SGE_SYMBOL explicit parameters(

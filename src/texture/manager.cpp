@@ -37,7 +37,8 @@ init_texture(
 	sge::texture::fragmented &,
 	sge::renderer::const_image_view const &src);
 
-struct move_visitor : boost::static_visitor<> {
+class move_visitor : public boost::static_visitor<> {
+public:
 	move_visitor(
 		sge::texture::fragmented const &,
 		sge::texture::detail::fragmented_list &,

@@ -33,8 +33,8 @@ namespace parse
 namespace json
 {
 
-struct array;
-struct object;
+class array;
+class object;
 
 typedef boost::variant<
 	boost::recursive_wrapper<

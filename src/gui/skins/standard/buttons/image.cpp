@@ -1,5 +1,5 @@
 #include <sge/gui/skins/standard.hpp>
-#include <sge/gui/canvas.hpp>
+#include <sge/gui/canvas/object.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/gui/unit.hpp>
 #include <sge/math/dim/output.hpp>
@@ -12,7 +12,8 @@ sge::gui::logger mylogger(
 	SGE_TEXT("skins: standard: buttons: image"),
 	false);
 
-sge::gui::image const &choose_image(sge::gui::widgets::buttons::image const &b)
+sge::gui::image const &choose_image(
+	sge::gui::widgets::buttons::image const &b)
 {
 	if (b.mouse_over())
 	{
@@ -49,11 +50,7 @@ sge::gui::dim const sge::gui::skins::standard::size_hint(
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("returning button dimension ")
-		        << dim(
-								static_cast<unit>(b.normal()->width()),
-								static_cast<unit>(b.normal()->height())));
+		        << b.normal()->size());
 
-	return dim(
-		static_cast<unit>(b.normal()->width()),
-		static_cast<unit>(b.normal()->height()));
+	return b.normal()->size();
 }

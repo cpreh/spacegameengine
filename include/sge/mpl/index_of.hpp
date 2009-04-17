@@ -34,9 +34,9 @@ template<
 	typename Elements,
 	typename Element
 >
-struct index_of
+class index_of
 :
-boost::mpl::distance<
+public boost::mpl::distance<
 	typename boost::mpl::begin<
 		Elements
 	>::type,

@@ -36,11 +36,12 @@ namespace vf
 template<
 	typename Format
 >
-struct normal
-: vec3_base<
+class normal
+: public vec3_base<
 	Format,
 	role::normal
 > {
+public:
 	BOOST_STATIC_ASSERT(
 		type_traits::is_float_or_double<Format>::value
 	);

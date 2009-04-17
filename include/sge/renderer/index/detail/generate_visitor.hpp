@@ -36,7 +36,8 @@ namespace detail
 template<
 	typename Gen
 >
-struct generate_visitor : boost::static_visitor<> {
+class generate_visitor : public boost::static_visitor<> {
+public:
 	explicit generate_visitor(
 		Gen const &gen)
 	:

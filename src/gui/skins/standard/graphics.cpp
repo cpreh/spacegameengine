@@ -1,6 +1,6 @@
 #include <sge/gui/skins/standard.hpp>
 #include <sge/gui/widgets/graphics.hpp>
-#include <sge/gui/canvas.hpp>
+#include <sge/gui/canvas/object.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/gui/unit.hpp>
 #include <sge/math/dim/output.hpp>
@@ -29,7 +29,5 @@ void sge::gui::skins::standard::draw(
 sge::gui::dim const sge::gui::skins::standard::size_hint(
 	widgets::graphics const &b) const
 {
-	return dim(
-		static_cast<unit>(b.buffer().width()),
-		static_cast<unit>(b.buffer().height()));
+	return b.buffer().size();
 }

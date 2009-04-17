@@ -13,8 +13,9 @@ namespace gui
 namespace utility
 {
 template<class DstPixel,class FontPixel>
-struct font_channel_blitter 
+class font_channel_blitter 
 {
+public:
 	typedef typename renderer::color_channel<typename boost::remove_const<DstPixel>::type>::type channel_type;
 	typedef typename renderer::color_channel<typename boost::remove_const<FontPixel>::type>::type font_channel_type;
 	

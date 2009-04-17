@@ -31,7 +31,8 @@ class fragmented;
 namespace detail
 {
 
-struct fragmented_sort {
+class fragmented_sort {
+public:
 	typedef bool result_type;
 
 	bool operator()(

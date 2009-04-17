@@ -16,20 +16,19 @@ sge::gui::logger mylogger(
 sge::gui::widgets::buttons::text::text(
 	parent_data const &_parent,
 	parameters _params,
-	string const &_caption,
-	font::metrics_ptr _font)
+	string const &_caption)
 	: base(
 			_parent,
 			_params
 				.size_policy(
-					size_policy_t(
+					sge::gui::size_policy(
 						axis_policy::can_grow,
 						axis_policy::none))),
-	  caption_(_caption),
-	  font_(_font)
+	  caption_(_caption)
 {
-	if (!font_)
-		font_ = parent_manager().standard_font();
-	
-	SGE_ASSERT_MESSAGE(font_,SGE_TEXT("button: no standard font could be set by manager"));
+}
+
+sge::string const sge::gui::widgets::buttons::text::caption() const
+{
+	return caption_;
 }

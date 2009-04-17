@@ -32,15 +32,17 @@ namespace detail
 {
 
 template<typename Ch>
-struct path_traits;
+class path_traits;
 
 template<>
-struct path_traits<char> {
+class path_traits<char> {
+public:
 	typedef boost::filesystem::path_traits type;
 };
 
 template<>
-struct path_traits<wchar_t> {
+class path_traits<wchar_t> {
+public:
 	typedef boost::filesystem::wpath_traits type;
 };
 

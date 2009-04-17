@@ -30,7 +30,7 @@ namespace sge
 namespace audio
 {
 
-struct angle;
+class angle;
 
 class SGE_CLASS_SYMBOL listener
 {

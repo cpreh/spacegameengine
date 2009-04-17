@@ -1,7 +1,7 @@
 #ifndef SGE_GUI_WIDGETS_BUTTONS_BASE_HPP_INCLUDED
 #define SGE_GUI_WIDGETS_BUTTONS_BASE_HPP_INCLUDED
 
-#include <sge/gui/widget.hpp>
+#include <sge/gui/widgets/base.hpp>
 #include <sge/signal/auto_connection.hpp>
 #include <sge/signal/object.hpp>
 
@@ -14,7 +14,7 @@ namespace widgets
 namespace buttons
 {
 
-class SGE_CLASS_SYMBOL base : public widget
+class SGE_CLASS_SYMBOL base : public widgets::base
 {
 public:
 	SGE_GUI_SYMBOL bool mouse_over() const;
@@ -26,7 +26,7 @@ public:
 	SGE_GUI_SYMBOL void process(events::keyboard_enter const &);
 	SGE_GUI_SYMBOL key_handling::type process(events::key const &);
 	SGE_GUI_SYMBOL void process(events::keyboard_leave const &);
-	using widget::process;
+	using widgets::base::process;
 
 	typedef boost::function<void ()> clicked_fn;
 	SGE_GUI_SYMBOL signal::auto_connection register_clicked(

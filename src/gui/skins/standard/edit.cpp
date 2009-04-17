@@ -1,11 +1,11 @@
-#include "../../utility/max_dim.hpp"
+#include "../../utility/unlimited_text_size.hpp"
 #include "../../utility/string_square.hpp"
 #include "../../utility/blit.hpp"
 #include <sge/gui/internal_color.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/text_size.hpp>
 #include <sge/gui/unit.hpp>
-#include <sge/gui/canvas.hpp>
+#include <sge/gui/canvas/object.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/gui/widgets/edit.hpp>
 #include <sge/gui/skins/standard.hpp>
@@ -13,7 +13,6 @@
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/math/dim/arithmetic.hpp>
 #include <sge/structure_cast.hpp>
-#include <boost/gil/image.hpp>
 
 namespace
 {
@@ -25,15 +24,14 @@ sge::gui::logger mylogger(
 sge::gui::dim const sge::gui::skins::standard::size_hint(
 	widgets::edit const &w) const
 {
-	dim const d = structure_cast<dim>(
-		font::object(w.font()).text_size(
-			utility::string_square(w.desired_size()),
-			utility::max_dim<font::unit>())
-		.size());
-	
-	return dim(
-		d.w() + 2,
-		d.h() + 2);
+	dim const d = utility::unlimited_text_size(
+		standard_font().metrics(),
+		utility::string_square(w.desired_size()));
+
+	return 
+		dim(
+			static_cast<unit>(d.w() + 2),
+			static_cast<unit>(d.h() + 2));
 }
 
 void sge::gui::skins::standard::draw(
@@ -62,21 +60,17 @@ void sge::gui::skins::standard::draw(
 	//	internal_color(0x55,0x55,0x55,0xff),
 		internal_color(0xff,0xff,0xff,0xff),
 		canvas::rect_type::solid);
-	
-	dim const buffer_size = dim(
-		static_cast<unit>(w.text_buffer().width()),
-		static_cast<unit>(w.text_buffer().height()));
 
-	point const scroll_origin = w.scroll_pos();
-
-	dim const scroll_size = buffer_size - dim(scroll_origin.x(),scroll_origin.y());
+	dim const scroll_size = 
+		w.text_buffer().size() - 
+		structure_cast<dim>(
+			w.scroll_pos());
 	
 	utility::blit(
 		renderer::const_image_view(
-			boost::gil::const_view(
-				w.text_buffer())),
+			w.text_buffer().const_view()),
 		rect(
-			scroll_origin,
+			w.scroll_pos(),
 			scroll_size),
 		c.view(),
 		rect(

@@ -3,7 +3,7 @@
 
 #include <sge/gui/widgets/buttons/base.hpp>
 #include <sge/gui/export.hpp>
-#include <sge/font/metrics_fwd.hpp>
+#include <sge/gui/font_info.hpp>
 #include <boost/function.hpp>
 
 namespace sge
@@ -20,15 +20,11 @@ class SGE_CLASS_SYMBOL text : public base
 	SGE_GUI_SYMBOL text(
 		parent_data const &,
 		parameters,
-		string const &,
-		font::metrics_ptr = font::metrics_ptr());
+		string const &);
 
-	// TODO: move to cpp file
-	string const caption() const { return caption_; }
-	font::metrics_ptr const font() const { return font_; }
+	string const caption() const;
 	private:
 	string caption_;
-	font::metrics_ptr font_;
 };
 }
 }

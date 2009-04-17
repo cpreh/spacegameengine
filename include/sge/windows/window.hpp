@@ -45,7 +45,7 @@ public:
 	typedef unsigned event_type;
 	typedef boost::optional<LRESULT> callback_return_type;
 
-	//struct signal_combiner;
+	//class signal_combiner;
 
 	typedef callback_return_type
 	callback_signature_type(

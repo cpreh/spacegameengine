@@ -31,7 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-struct compare : boost::static_visitor<bool> {
+class compare : public boost::static_visitor<bool> {
+public:
 	bool operator()(
 		sge::systems::parameterless::type const &,
 		sge::systems::parameterless::type const &) const;

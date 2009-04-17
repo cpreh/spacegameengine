@@ -25,7 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-struct format_fun {
+class format_fun {
+public:
 	typedef sge::renderer::color_format::type result_type;
 
 	template<

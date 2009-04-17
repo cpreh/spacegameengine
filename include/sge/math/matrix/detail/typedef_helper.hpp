@@ -41,7 +41,8 @@ template<
 	typename M,
 	typename S
 >
-struct typedef_helper {
+class typedef_helper {
+public:
 	typedef math::detail::array_adapter<
 		basic<
 			T,

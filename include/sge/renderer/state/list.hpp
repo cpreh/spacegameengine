@@ -34,7 +34,7 @@ namespace state
 {
 
 template<typename T>
-struct trampoline;
+class trampoline;
 
 class list {
 public:

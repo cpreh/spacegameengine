@@ -1,15 +1,15 @@
 #include "../../utility/blit.hpp"
 #include <sge/gui/skins/standard.hpp>
+#include <sge/gui/widgets/base.hpp>
+#include <sge/gui/events/invalid_area.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/gui/internal_color.hpp>
-#include <sge/gui/widget.hpp>
-#include <sge/gui/canvas.hpp>
+#include <sge/gui/canvas/object.hpp>
 #include <sge/gui/media_path.hpp>
-#include <sge/gui/events/invalid_area.hpp>
 #include <sge/renderer/colors.hpp>
+#include <sge/font/system.hpp>
 #include <sge/renderer/make_const_image_view.hpp>
 #include <sge/math/dim/output.hpp>
-#include <sge/media.hpp>
 #include <sge/text.hpp>
 
 namespace
@@ -20,21 +20,22 @@ sge::gui::logger mylogger(
 	false);
 }
 
-sge::gui::skins::standard::standard()
+sge::gui::skins::standard::standard(
+	font::system_ptr const fs)
 :
-	bgcolor(renderer::colors::grey()),
-	bgcolor_focused(renderer::colors::lightgrey())
+	standard_font_(
+		fs->create_font(
+			media_path()/
+			SGE_TEXT("fonts")/
+			SGE_TEXT("default.ttf"),
+			static_cast<font::size_type>(
+				15)),
+		renderer::colors::black())
 {
 }
 
-sge::filesystem::path const
-sge::gui::skins::standard::cursor_path() const
-{
-	return media_path() / SGE_TEXT("gui") / SGE_TEXT("cursor.png");
-}
-
-SGE_GUI_SKIN_DRAW_RETURN(widget) sge::gui::skins::standard::fallback(
-	SGE_GUI_SKIN_DRAW_PARAMS_NAMED(widget))
+SGE_GUI_SKIN_DRAW_RETURN(widgets::base) sge::gui::skins::standard::fallback(
+	SGE_GUI_SKIN_DRAW_PARAMS(widgets::base))
 {
 	/*
 	resize_buffer(w);
@@ -61,4 +62,9 @@ SGE_GUI_SKIN_DRAW_RETURN(widget) sge::gui::skins::standard::fallback(
 		e,
 		true);
 	*/
+}
+
+sge::gui::font_info const sge::gui::skins::standard::standard_font() const
+{
+	return standard_font_;
 }

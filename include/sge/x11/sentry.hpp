@@ -30,7 +30,7 @@ namespace sge
 namespace x11
 {
 
-struct sentry {
+class sentry {
 	SGE_NONCOPYABLE(sentry)
 public:
 	SGE_SYMBOL sentry(

@@ -33,7 +33,7 @@ namespace glsl
 namespace uniform
 {
 
-struct type;
+class type;
 
 renderer::glsl::uniform::value const
 get(

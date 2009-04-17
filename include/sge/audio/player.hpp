@@ -35,7 +35,8 @@ namespace audio
 
 class listener;
 
-struct SGE_CLASS_SYMBOL player {
+class SGE_CLASS_SYMBOL player {
+public:
 	SGE_NONCOPYABLE(player)
 protected:
 	SGE_SYMBOL player();

@@ -28,7 +28,7 @@ namespace sge
 namespace log
 {
 
-struct output_helper
+class output_helper
 {};
 
 

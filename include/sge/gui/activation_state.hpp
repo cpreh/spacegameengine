@@ -7,7 +7,11 @@ namespace gui
 {
 namespace activation_state
 {
-enum type { active,inactive };
+enum type 
+{ 
+	active,
+	inactive 
+};
 }
 }
 }

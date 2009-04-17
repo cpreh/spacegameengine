@@ -51,10 +51,11 @@ sge::signal::auto_connection sge::console::object::register_fallback(
 namespace
 {
 template <typename Iterator>
-struct eval_grammar : boost::spirit::qi::grammar<
+class eval_grammar : public boost::spirit::qi::grammar<
 	Iterator, 
 	sge::console::arg_list()>
 {
+public:
 	typedef boost::spirit::ascii::space_type space_type;
 
 	eval_grammar() : eval_grammar::base_type(start)

@@ -45,8 +45,9 @@ PFNGLVERTEXATTRIB4DVPROC vertex_attrib_4dv;
 
 void initialize_setter();
 
-struct arithmetic_visitor
-: boost::static_visitor<sge::ogl::glsl::attribute::type::type> {
+class arithmetic_visitor
+: public boost::static_visitor<sge::ogl::glsl::attribute::type::type> {
+public:
 	explicit arithmetic_visitor(
 		GLint location);
 		
@@ -60,8 +61,9 @@ private:
 	GLint const location;
 };
 
-struct vector_visitor 
-: boost::static_visitor<sge::ogl::glsl::attribute::type::type> {
+class vector_visitor 
+: public boost::static_visitor<sge::ogl::glsl::attribute::type::type> {
+public:
 	explicit vector_visitor(
 		GLint location);
 	

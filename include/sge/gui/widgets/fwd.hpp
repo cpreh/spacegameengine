@@ -9,6 +9,7 @@ namespace gui
 {
 namespace widgets
 {
+class base;
 class edit;
 class label;
 class graphics;

@@ -29,7 +29,7 @@ namespace sge
 namespace mainloop
 {
 
-struct dispatchable {
+class dispatchable {
 	SGE_NONCOPYABLE(dispatchable)
 public:
 	virtual void dispatch() = 0;

@@ -34,7 +34,7 @@ namespace sge
 namespace texture
 {
 
-class no_fragmented : public fragmented {
+class SGE_CLASS_SYMBOL no_fragmented : public fragmented {
 public:
 	SGE_SYMBOL no_fragmented(
 		renderer::device_ptr rend,

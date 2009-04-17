@@ -49,13 +49,14 @@ namespace json
 template<
 	typename In
 >
-struct grammar
+class grammar
 :
-boost::spirit::qi::grammar<
+public boost::spirit::qi::grammar<
 	In,
 	object(),
 	boost::spirit::ascii::space_type
 >{
+public:
 	typedef boost::spirit::ascii::space_type space_type;
 
 	grammar()

@@ -45,7 +45,7 @@ namespace systems
 
 class list;
 
-struct instance {
+class instance {
 	SGE_NONCOPYABLE(instance)
 public:
 	SGE_SYMBOL explicit instance(
@@ -72,7 +72,7 @@ public:
 
 	SGE_SYMBOL sge::window::instance_ptr const window() const;
 
-	struct impl;
+	class impl;
 private:
 	sge::scoped_ptr<impl> impl_;
 };
