@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/auto_ptr.hpp>
 #include <sge/noncopyable.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
-#include <vector>
+#include <exception>
 #elif SGE_POSIX_PLATFORM
 #include <sge/iconv.hpp>
 #include <sge/funptr_cast.hpp>
@@ -40,6 +40,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #ifdef SGE_WINDOWS_PLATFORM
 namespace {
+
+void free_library(
+	HMODULE const module)
+{
+	FreeLibrary(module);
+}
 
 struct context {
 	SGE_NONCOPYABLE(context);
@@ -52,7 +58,7 @@ public:
 
 	~context()
 	{
-		FreeLibrary(hinst);
+		free_library(hinst);
 	}
 private:
 	HMODULE const hinst;
@@ -117,22 +123,33 @@ sge::library::object::~object()
 		return;
 
 #ifdef SGE_WINDOWS_PLATFORM
+	HMODULE const module(
+		static_cast<HMODULE>(
+			handle
+		)
+	);
+
 	sge::auto_ptr<
 		context
 	> ctx(
 		new context(
-			static_cast<HMODULE>(handle)
+			module
 		)
 	);
 
 	// NOTE: we can't free the library here,
 	// because an exception might be propagating that
 	// has been risen from a dll
-	// if the destroy the dll here, the catch of
+	// if we destroy the dll here, the catch of
 	// exception will crash
-	libraries.push_back(
-		ctx
-	);
+	if(std::uncaught_exception())
+		libraries.push_back(
+			ctx
+		);
+	else
+		free_library(
+			module
+		);
 #elif SGE_POSIX_PLATFORM
 	dlclose(handle);
 #endif
