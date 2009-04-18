@@ -388,7 +388,11 @@ void sge::ogl::device::viewport(
 	if(fbo_active)
 		ogl::viewport(
 			v,
-			target_->dim().h()
+			static_cast<
+				renderer::screen_unit
+			>(
+				target_->dim().h()
+			)
 		);
 	else
 		reset_viewport_default();

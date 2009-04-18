@@ -18,18 +18,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MEDIA_HPP_INCLUDED
-#define SGE_MEDIA_HPP_INCLUDED
-
-#include <sge/export.hpp>
-#include <sge/filesystem/path.hpp>
-
-namespace sge
-{
-
-SGE_SYMBOL filesystem::path const
-media_path();
-
-}
-
+#include <sge/config/getenv.hpp>
+#include <sge/config/no_such_env_var.hpp>
+#ifdef SGE_WINDOWS_PLATFORM
+#include <sge/windows/windows.hpp>
+#include <sge/container/raw_vector_impl.hpp>
+#include <sge/text.hpp>
+#else
+#include <sge/iconv.hpp>
+#include <cstdlib>
 #endif
+
+sge::string const
+sge::config::getenv(
+	string const &s)
+{
+#ifdef SGE_WINDOWS_PLATFORM
+	sge::raw_vector<
+		char_type
+	> home_dir(32767);
+	
+	if(
+		GetEnvironmentVariable(
+			SGE_TEXT("USERPROFILE"),
+			home_dir.data(),
+			home_dir.size()
+		) == 0
+	)
+		throw no_such_env_var(
+			s
+		);
+	
+	return home_dir.data();
+#else
+	char const *const ret(
+		::std::getenv(
+			iconv(
+				s
+			).c_str()
+		)
+	);
+
+	if(!ret)
+		throw no_such_env_var(
+			s
+		);
+	
+	return	iconv(
+		s
+	);
+#endif
+}

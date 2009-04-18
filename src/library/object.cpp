@@ -25,6 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 #ifdef SGE_WINDOWS_PLATFORM
 #include <sge/windows/windows.hpp>
+#include <sge/iconv.hpp>
+#include <sge/auto_ptr.hpp>
+#include <sge/noncopyable.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
+#include <exception>
 #elif SGE_POSIX_PLATFORM
 #include <sge/iconv.hpp>
 #include <sge/funptr_cast.hpp>
@@ -33,13 +38,74 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #error "Implement me!"
 #endif
 
+#ifdef SGE_WINDOWS_PLATFORM
+namespace {
+
+void free_library(
+	HMODULE const module)
+{
+	FreeLibrary(module);
+}
+
+struct context {
+	SGE_NONCOPYABLE(context);
+public:
+	explicit context(
+		HMODULE const hinst)
+	:
+		hinst(hinst)
+	{}
+
+	~context()
+	{
+		free_library(hinst);
+	}
+private:
+	HMODULE const hinst;
+};
+
+typedef boost::ptr_vector<
+	context
+> library_vector;
+
+library_vector libraries;
+
+}
+
+struct sge::library::object::destroyer {
+	SGE_NONCOPYABLE(destroyer)
+public:
+	destroyer()
+	{
+		libraries.clear();
+	}
+};
+
+#endif
+
 sge::library::object::object(
 	filesystem::path const &nname)
 :
 #ifdef SGE_WINDOWS_PLATFORM
-	handle(reinterpret_cast<void*>(LoadLibrary(nname.string().c_str())))
+	destroyer_(
+		new destroyer()
+	),
+	handle(
+		static_cast<void*>(
+			LoadLibrary(
+				nname.string().c_str()
+			)
+		)
+	)
 #elif SGE_POSIX_PLATFORM
-	handle(dlopen(iconv(nname.string()).c_str(), RTLD_NOW | RTLD_GLOBAL))
+	handle(
+		dlopen(
+			iconv(
+				nname.string()
+			).c_str(),
+			RTLD_NOW | RTLD_GLOBAL
+		)
+	)
 #endif
 	, name_(nname)
 {
@@ -47,19 +113,46 @@ sge::library::object::object(
 		throw exception(
 			string(
 				SGE_TEXT("failed to load library::object: "))
-				+ error());
+				+ error()
+			);
 }
 
 sge::library::object::~object()
 {
-	if(handle)
-	{
+	if(!handle)
+		return;
+
 #ifdef SGE_WINDOWS_PLATFORM
-		FreeLibrary(static_cast<HINSTANCE__*>(handle));
+	HMODULE const module(
+		static_cast<HMODULE>(
+			handle
+		)
+	);
+
+	sge::auto_ptr<
+		context
+	> ctx(
+		new context(
+			module
+		)
+	);
+
+	// NOTE: we can't free the library here,
+	// because an exception might be propagating that
+	// has been risen from a dll
+	// if we destroy the dll here, the catch of
+	// exception will crash
+	if(std::uncaught_exception())
+		libraries.push_back(
+			ctx
+		);
+	else
+		free_library(
+			module
+		);
 #elif SGE_POSIX_PLATFORM
-		dlclose(handle);
+	dlclose(handle);
 #endif
-	}
 }
 
 sge::filesystem::path const &
@@ -73,10 +166,30 @@ sge::library::object::load_address_base(
 	std::string const &fun)
 {
 #ifdef SGE_WINDOWS_PLATFORM
+	FARPROC const ret(
+		GetProcAddress(
+			static_cast<HMODULE>(handle),
+			fun.c_str())
+	);
+
+	if(!ret)
+		throw exception(
+			SGE_TEXT("Function ")
+			+ sge::iconv(fun)
+			+ SGE_TEXT(" not found in ")
+			+ name_.string()
+		);
+
 	return reinterpret_cast<base_fun>(
-		GetProcAddress(static_cast<HINSTANCE__*>(handle), fun.c_str()));
+		ret
+	);
 #elif SGE_POSIX_PLATFORM
+	// TODO: error handling!
 	return funptr_cast<base_fun>(
-		dlsym(handle, fun.c_str()));
+		dlsym(
+			handle,
+			fun.c_str()
+		)
+	);
 #endif
 }

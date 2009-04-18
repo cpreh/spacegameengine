@@ -6,7 +6,7 @@
 #include <sge/plugin/plugin.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/context.hpp>
-#include <sge/media.hpp>
+#include <sge/config/media_path.hpp>
 #include <sge/math/constants.hpp>
 #include <sge/exception.hpp>
 #include <sge/cerr.hpp>
@@ -70,7 +70,7 @@ try
 
 	sge::filesystem::path file_name(sge::iconv(file_name_prog_options));
 	if (file_name.empty())
-		file_name = sge::media_path() / SGE_TEXT("ding.wav");
+		file_name = sge::config::media_path() / SGE_TEXT("ding.wav");
 
 	sge::systems::instance sys(
 		sge::systems::list()

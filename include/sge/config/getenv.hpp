@@ -18,11 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/media.hpp>
-#include <sge/iconv.hpp>
+#ifndef SGE_CONFIG_GETENV_HPP_INCLUDED
+#define SGE_CONFIG_GETENV_HPP_INCLUDED
 
-sge::filesystem::path const
-sge::media_path()
+#include <sge/export.hpp>
+#include <sge/string.hpp>
+
+namespace sge
 {
-	return iconv(MEDIA_PATH);
+namespace config
+{
+
+SGE_SYMBOL string const
+getenv(
+	string const &);
+
 }
+}
+
+#endif

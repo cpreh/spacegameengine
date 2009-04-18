@@ -43,8 +43,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/object.hpp>
 #include <sge/signal/scoped_connection.hpp>
 #include <sge/window/parameters.hpp>
+#include <sge/config/media_path.hpp>
 #include <sge/text.hpp>
-#include <sge/media.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <boost/bind.hpp>
@@ -98,7 +98,7 @@ try
 		sge::texture::add_image(
 			tex_man,
 			sys.image_loader()->load(
-				sge::media_path() / SGE_TEXT("tux.png")
+				sge::config::media_path() / SGE_TEXT("tux.png")
 			)
 		)
 	);

@@ -6,6 +6,7 @@ FILE (GLOB sgecorefiles
 	console/detail/*.cpp
 	collision/*.cpp
 	collision/objects/*.cpp
+	config/*.cpp
 	container/*.cpp
 	endianness/*.cpp
 	filesystem/*.cpp

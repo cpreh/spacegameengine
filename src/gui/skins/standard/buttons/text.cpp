@@ -8,10 +8,6 @@
 #include <sge/gui/internal_color.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/text_size.hpp>
-#include <sge/renderer/colors.hpp>
-#include <sge/media.hpp>
-#include <sge/assert.hpp>
-#include <sge/structure_cast.hpp>
 
 namespace
 {

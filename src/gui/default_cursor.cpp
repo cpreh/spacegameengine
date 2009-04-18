@@ -1,4 +1,5 @@
 #include <sge/gui/default_cursor.hpp>
+#include <sge/gui/media_path.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/sprite/parameters.hpp>
 #include <sge/image/loader.hpp>
@@ -10,7 +11,6 @@
 #include <sge/structure_cast.hpp>
 #include <sge/make_shared_ptr.hpp>
 #include <sge/text.hpp>
-#include <sge/media.hpp>
 
 sge::gui::default_cursor::default_cursor(
 	sge::image::loader_ptr const il,

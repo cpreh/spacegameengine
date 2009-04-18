@@ -40,8 +40,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/stdlib.hpp>
 #include <sge/font/system.hpp>
 #include <sge/signal/scoped_connection.hpp>
+#include <sge/config/media_path.hpp>
 #include <sge/text.hpp>
-#include <sge/media.hpp>
 #include <sge/exception.hpp>
 #include <sge/cerr.hpp>
 #include <sge/cout.hpp>
@@ -110,7 +110,7 @@ try
 	sge::image::object_ptr const 
 		image_bg(
 			sys.image_loader()->load(
-				sge::media_path()/SGE_TEXT("grass.png")));
+				sge::config::media_path()/SGE_TEXT("grass.png")));
 
 	sge::texture::default_creator<sge::texture::no_fragmented> const 
 		creator(
@@ -131,7 +131,7 @@ try
 		sys.renderer(),
 		sge::renderer::rgba8_color(255,255,255,255),
 		sys.font_system()->create_font(
-			sge::media_path()/SGE_TEXT("fonts")/SGE_TEXT("default.ttf"),
+			sge::config::media_path()/SGE_TEXT("fonts")/SGE_TEXT("default.ttf"),
 			15),
 		sys.input_system(),
 		sge::sprite::object(

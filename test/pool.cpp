@@ -7,7 +7,7 @@
 #include <sge/time/timer.hpp>
 #include <sge/time/second.hpp>
 #include <sge/time/resolution.hpp>
-#include <sge/media.hpp>
+#include <sge/config/media_path.hpp>
 #include <sge/exception.hpp>
 #include <sge/cerr.hpp>
 #include <sge/log/global.hpp>
@@ -25,7 +25,7 @@ try
 {
 	sge::log::global().activate_hierarchy(sge::log::level::debug);
 
-	sge::filesystem::path const file_name(sge::media_path() / SGE_TEXT("ding.wav"));
+	sge::filesystem::path const file_name(sge::config::media_path() / SGE_TEXT("ding.wav"));
 
 	bool const streaming = false;
 

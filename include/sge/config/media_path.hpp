@@ -18,51 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LIBRARY_OBJECT_HPP_INCLUDED
-#define SGE_LIBRARY_OBJECT_HPP_INCLUDED
+#ifndef SGE_CONFIG_MEDIA_PATH_HPP_INCLUDED
+#define SGE_CONFIG_MEDIA_PATH_HPP_INCLUDED
 
-#include <sge/config.h>
-#include <sge/library/function_string.hpp>
-#include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
 #include <sge/filesystem/path.hpp>
-#ifdef SGE_WINDOWS_PLATFORM
-#include <sge/scoped_ptr.hpp>
-#endif
+#include <sge/export.hpp>
 
 namespace sge
 {
-namespace library
+namespace config
 {
 
-class object {
-	SGE_NONCOPYABLE(object)
-public:
-	SGE_SYMBOL explicit object(
-		filesystem::path const &);
-	SGE_SYMBOL ~object();
-
-	template<typename Fun>
-	Fun load_function(
-		function_string const &fun);
-
-	SGE_SYMBOL filesystem::path const &
-	name() const;
-private:
-	typedef void*(*base_fun)();
-	SGE_SYMBOL base_fun
-	load_address_base(
-		function_string const &fun);
-
-	void *const handle;
-#ifdef SGE_WINDOWS_PLATFORM
-	struct destroyer;
-	scoped_ptr<
-		destroyer
-	> destroyer_;
-#endif
-	filesystem::path const name_;
-};
+SGE_SYMBOL filesystem::path const
+media_path();
 
 }
 }

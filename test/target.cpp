@@ -39,10 +39,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/object.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/mainloop/dispatch.hpp>
+#include <sge/config/media_path.hpp>
 #include <sge/exception.hpp>
 #include <sge/cerr.hpp>
 #include <sge/text.hpp>
-#include <sge/media.hpp>
 #include <sge/make_shared_ptr.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
@@ -73,7 +73,7 @@ try
 		(sge::systems::parameterless::input));
 
 	sge::sprite::system ss(sys.renderer());
-	sge::image::object_ptr const image = sys.image_loader()->load(sge::media_path() / SGE_TEXT("tux.png"));
+	sge::image::object_ptr const image = sys.image_loader()->load(sge::config::media_path() / SGE_TEXT("tux.png"));
 	sge::renderer::texture_ptr const image_texture = 
 		sys.renderer()->create_texture(
 			image->view(),

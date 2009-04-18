@@ -18,53 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LIBRARY_OBJECT_HPP_INCLUDED
-#define SGE_LIBRARY_OBJECT_HPP_INCLUDED
-
+#include <sge/config/homedir.hpp>
+#include <sge/config/getenv.hpp>
 #include <sge/config.h>
-#include <sge/library/function_string.hpp>
-#include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
-#include <sge/filesystem/path.hpp>
-#ifdef SGE_WINDOWS_PLATFORM
-#include <sge/scoped_ptr.hpp>
-#endif
+#include <sge/text.hpp>
 
-namespace sge
+sge::filesystem::path const
+sge::config::homedir()
 {
-namespace library
-{
-
-class object {
-	SGE_NONCOPYABLE(object)
-public:
-	SGE_SYMBOL explicit object(
-		filesystem::path const &);
-	SGE_SYMBOL ~object();
-
-	template<typename Fun>
-	Fun load_function(
-		function_string const &fun);
-
-	SGE_SYMBOL filesystem::path const &
-	name() const;
-private:
-	typedef void*(*base_fun)();
-	SGE_SYMBOL base_fun
-	load_address_base(
-		function_string const &fun);
-
-	void *const handle;
-#ifdef SGE_WINDOWS_PLATFORM
-	struct destroyer;
-	scoped_ptr<
-		destroyer
-	> destroyer_;
+#ifdef SGE_POSIX_PLATFORM
+	return getenv(
+		SGE_TEXT("HOME")
+	);
+#elif SGE_WINDOWS_PLATFORM
+	return getenv(
+		SGE_TEXT("USERPROFILE")
+	);
+#else
+#error "Don't know how to get the homedir"
 #endif
-	filesystem::path const name_;
-};
-
 }
-}
-
-#endif
