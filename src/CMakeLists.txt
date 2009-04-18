@@ -2,11 +2,11 @@ FILE (GLOB sgecorefiles
 	*.cpp
 	archive/*.cpp
 	audio/*.cpp
+	config/*.cpp
 	console/*.cpp
 	console/detail/*.cpp
 	collision/*.cpp
 	collision/objects/*.cpp
-	config/*.cpp
 	config/detail/*.cpp
 	container/*.cpp
 	endianness/*.cpp
@@ -55,11 +55,16 @@ ELSEIF (WIN32)
 	SET (sgecorefiles ${sgecorefiles} ${sgecorewindowsfiles})
 ENDIF ()
 
-IF (HAVE_LESS_THAN_CMAKE_2_6)
-	ADD_DEFINITIONS (-DPLUGIN_PATH="\\\"${pluginpath}\\\"" -DMEDIA_PATH="\\\"${media_dest}\\\"")
-ELSE ()
-	ADD_DEFINITIONS (-DPLUGIN_PATH="${pluginpath}" -DMEDIA_PATH="${media_dest}")
-ENDIF ()
+set_source_files_properties(
+	config/plugin_path.cpp
+	PROPERTIES
+	COMPILE_FLAGS
+	-DPLUGIN_PATH="\\\"${pluginpath}\\\"")
+set_source_files_properties(
+	config/media_path.cpp
+	PROPERTIES
+	COMPILE_FLAGS
+	-DMEDIA_PATH="\\\"${media_dest}\\\"")
 
 ADD_LIBRARY (sgecore SHARED ${sgecorefiles})
 
