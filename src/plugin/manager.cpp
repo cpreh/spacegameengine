@@ -24,20 +24,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/detail/version_fun.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/library/function_not_found.hpp>
-#include <sge/iconv.hpp>
 #include <sge/filesystem/directory_iterator.hpp>
 #include <sge/filesystem/is_directory.hpp>
 #include <sge/filesystem/extension.hpp>
+#include <sge/config/plugin_path.hpp>
+#include <sge/iconv.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-char const *const plugin_path =
-#ifndef _MSC_VER
-PLUGIN_PATH
-#else
-PLUGIN_PATH "/" CMAKE_INTDIR
-#endif
-  ;
 sge::char_type const *const plugin_extension =
 #ifdef SGE_POSIX_PLATFORM
 	SGE_TEXT(".so")
@@ -54,11 +48,15 @@ sge::plugin::manager::manager()
 		log::global(),
 		log::_1
 			<< SGE_TEXT("Scanning for plugins in ")
-			<< plugin_path
+			<< config::plugin_path()
 	);
 
 	filesystem::directory_iterator const end;
-	for(filesystem::directory_iterator it(iconv(plugin_path)); it != end; ++it)
+	for(
+		filesystem::directory_iterator it(config::plugin_path());
+		it != end;
+		++it
+	)
 	{
 		if(filesystem::is_directory(*it) || filesystem::extension(*it) != plugin_extension)
 		{
