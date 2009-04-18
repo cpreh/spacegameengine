@@ -3,6 +3,7 @@
 #include <sge/gui/unit.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/math/dim/output.hpp>
+#include <sge/math/rect_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/assert.hpp>
@@ -68,26 +69,42 @@ void sge::gui::layouts::row::compile(
 		base::set_widget_size(
 			connected_widget(),
 			usable);
+	
+	// Make everything dirty. There's no better place to do it. If a child of
+	// connected_widget() is deleted, this function gets called and we have to
+	// redraw everything, else we get errors
+	connected_widget().parent_manager().dirty(
+		connected_widget(),
+		rect(
+			connected_widget().size()));
 
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("optimal size ") << optimal 
 		        << SGE_TEXT(", usable size: ") << usable);
 
-	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("adapting master axis begin"));
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("adapting master axis begin"));
 	adapt_outer(
 		optimal,
 		usable,
 		master(
 			dim(0,1)));
-	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("adapting master axis end"));
-	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("adapting slave axis begin"));
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("adapting master axis end"));
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("adapting slave axis begin"));
 	adapt_outer(
 		optimal,
 		usable,
 		slave(
 			dim(0,1)));
-	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("adapting slave axis end"));
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("adapting slave axis end"));
 
 	// finally, set positions and sizes
 	update_widgets(usable);
