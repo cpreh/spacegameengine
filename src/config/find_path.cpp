@@ -19,8 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config/find_path.hpp>
-#include <sge/config/files.hpp>
-#include <sge/config/file_not_found.hpp>
+#include <sge/config/path_not_found.hpp>
 #include <sge/filesystem/path.hpp>
 #include <sge/filesystem/exists.hpp>
 #include <sge/parse/ini/parse_file.hpp>
@@ -130,7 +129,7 @@ sge::config::find_path(
 		}
 	}
 
-	throw file_not_found(
+	throw path_not_found(
 		what
 	);
 }

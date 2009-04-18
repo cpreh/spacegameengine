@@ -64,8 +64,8 @@ sge::config::getenv(
 			s
 		);
 	
-	return	iconv(
-		s
+	return iconv(
+		ret
 	);
 #endif
 }

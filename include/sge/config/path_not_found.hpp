@@ -18,15 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config/file_not_found.hpp>
-#include <sge/text.hpp>
+#ifndef SGE_CONFIG_PATH_NOT_FOUND_HPP_INCLUDED
+#define SGE_CONFIG_PATH_NOT_FOUND_HPP_INCLUDED
 
-sge::config::file_not_found::file_not_found(
-	string const &file)
-:
-	exception(
-		SGE_TEXT("config file \"")
-		+ file
-		+ SGE_TEXT("\" not found!")
-	)
-{}
+#include <sge/exception.hpp>
+#include <sge/string.hpp>
+#include <sge/export.hpp>
+
+namespace sge
+{
+namespace config
+{
+
+class SGE_CLASS_SYMBOL path_not_found : public exception {
+public:
+	SGE_SYMBOL explicit path_not_found(
+		string const &);
+};
+
+}
+}
+
+#endif
