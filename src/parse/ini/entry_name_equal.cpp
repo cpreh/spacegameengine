@@ -18,25 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config/plugin_path.hpp>
-#include <sge/config/detail/find_own_path.hpp>
-#include <sge/iconv.hpp>
-#include <sge/text.hpp>
-#include <boost/assign/list_of.hpp>
+#include <sge/parse/ini/entry_name_equal.hpp>
+#include <sge/parse/ini/entry.hpp>
 
-sge::filesystem::path const
-sge::config::plugin_path()
+sge::parse::ini::entry_name_equal::entry_name_equal(
+	string const &name_)
+:
+	name_(name_)
+{}
+	
+sge::parse::ini::entry_name_equal::result_type
+sge::parse::ini::entry_name_equal::operator()(
+	entry const &e) const
 {
-	return detail::find_own_path(
-		SGE_TEXT("plugin_path"),
-		boost::assign::list_of(
-			iconv(
-#ifndef _MSC_VER
-				PLUGIN_PATH
-#else
-				PLUGIN_PATH "/" CMAKE_INTDIR
-#endif
-			)
-		)
-	);
+	return e.name == name_;
 }

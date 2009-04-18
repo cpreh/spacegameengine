@@ -18,25 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config/plugin_path.hpp>
-#include <sge/config/detail/find_own_path.hpp>
-#include <sge/iconv.hpp>
+#include <sge/config/path_not_found.hpp>
 #include <sge/text.hpp>
-#include <boost/assign/list_of.hpp>
 
-sge::filesystem::path const
-sge::config::plugin_path()
-{
-	return detail::find_own_path(
-		SGE_TEXT("plugin_path"),
-		boost::assign::list_of(
-			iconv(
-#ifndef _MSC_VER
-				PLUGIN_PATH
-#else
-				PLUGIN_PATH "/" CMAKE_INTDIR
-#endif
-			)
-		)
-	);
-}
+sge::config::path_not_found::path_not_found(
+	string const &file)
+:
+	exception(
+		SGE_TEXT("path \"")
+		+ file
+		+ SGE_TEXT("\" not found!")
+	)
+{}

@@ -18,25 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config/plugin_path.hpp>
-#include <sge/config/detail/find_own_path.hpp>
-#include <sge/iconv.hpp>
-#include <sge/text.hpp>
-#include <boost/assign/list_of.hpp>
+#ifndef SGE_CONFIG_PATH_VECTOR_HPP_INCLUDED
+#define SGE_CONFIG_PATH_VECTOR_HPP_INCLUDED
 
-sge::filesystem::path const
-sge::config::plugin_path()
+#include <sge/filesystem/path.hpp>
+#include <vector>
+
+namespace sge
 {
-	return detail::find_own_path(
-		SGE_TEXT("plugin_path"),
-		boost::assign::list_of(
-			iconv(
-#ifndef _MSC_VER
-				PLUGIN_PATH
-#else
-				PLUGIN_PATH "/" CMAKE_INTDIR
-#endif
-			)
-		)
-	);
+namespace config
+{
+
+typedef std::vector<
+	filesystem::path
+> path_vector;
+
 }
+}
+
+#endif
