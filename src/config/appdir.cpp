@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifdef SGE_WINDOWS_PLATFORM
 #include <sge/windows/windows.hpp>
 #include <sge/container/raw_vector_impl.hpp>
+#include <sge/filesystem/stem.hpp>
+#include <sge/char.hpp>
 #include <sge/exception.hpp>
 #endif
 
@@ -32,9 +34,8 @@ sge::config::appdir()
 {
 #ifdef SGE_WINDOWS_PLATFORM
 	container::raw_vector<
-		char_type,
-		32768
-	> buf;
+		char_type
+	> buf(32768);
 
 	if(
 		!GetModuleFileName(
@@ -47,7 +48,7 @@ sge::config::appdir()
 			SGE_TEXT("GetModuleFileName() failed!")
 		);
 
-	return filesystem::basename(
+	return filesystem::stem(
 		filesystem::path(
 			string(
 				buf.data()

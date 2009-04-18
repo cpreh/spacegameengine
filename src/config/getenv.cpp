@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifdef SGE_WINDOWS_PLATFORM
 #include <sge/windows/windows.hpp>
 #include <sge/container/raw_vector_impl.hpp>
+#include <sge/char.hpp>
 #include <sge/text.hpp>
 #else
 #include <sge/iconv.hpp>
@@ -34,7 +35,7 @@ sge::config::getenv(
 	string const &s)
 {
 #ifdef SGE_WINDOWS_PLATFORM
-	sge::raw_vector<
+	container::raw_vector<
 		char_type
 	> home_dir(32767);
 	

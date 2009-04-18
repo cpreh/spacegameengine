@@ -33,9 +33,9 @@ sge::config::make_files(
 	string const &config_basename)
 {
 #ifdef SGE_WINDOWS_PLATFORM
-	return boost::assign::list_of(
-		appdir() / (config_basename + SGE_TEXT(".txt")),
-		homedir() / (config_basename + SGE_TEXT(".txt"))
+	return boost::assign::list_of
+		(appdir() / (config_basename + SGE_TEXT(".txt")))
+		(homedir() / (config_basename + SGE_TEXT(".txt"))
 	);
 #elif SGE_POSIX_PLATFORM
 	return boost::assign::list_of
