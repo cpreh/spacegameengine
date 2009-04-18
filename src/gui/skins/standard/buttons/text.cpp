@@ -137,9 +137,7 @@ sge::gui::dim const sge::gui::skins::standard::optimal_size(
 	dim const font_dim = 
 		utility::unlimited_text_size(
 			standard_font().metrics(),
-			b.caption());
+			b.caption()+SGE_TEXT("aa"));
 
-	return dim(
-		static_cast<unit>(font_dim.w()+2),
-		static_cast<unit>(font_dim.h()+2));
+	return font_dim;
 }

@@ -22,7 +22,8 @@ sge::gui::widgets::buttons::text::text(
 			_params
 				.size_policy(
 					sge::gui::size_policy(
-						axis_policy::can_grow,
+						//axis_policy::can_grow,
+						axis_policy::none,
 						axis_policy::none))),
 	  caption_(_caption)
 {
