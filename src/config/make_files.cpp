@@ -18,21 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONFIG_FILES_HPP_INCLUDED
-#define SGE_CONFIG_FILES_HPP_INCLUDED
-
-#include <sge/config/path_vector.hpp>
-#include <sge/export.hpp>
-
-namespace sge
-{
-namespace config
-{
-
-SGE_SYMBOL path_vector const
-files();
-
-}
-}
-
+#include <sge/config/make_files.hpp>
+#include <sge/config/homedir.hpp>
+#include <sge/text.hpp>
+#include <sge/config.h>
+#ifdef SGE_WINDOWS_PLATFORM
+#include <sge/config/appdir.hpp>
 #endif
+#include <boost/assign/list_of.hpp>
+
+
+sge::config::path_vector const
+sge::config::make_files(
+	string const &config_basename)
+{
+#ifdef SGE_WINDOWS_PLATFORM
+	return boost::assign::list_of(
+		appdir() / (config_basename + SGE_TEXT(".txt")),
+		homedir() / (config_basename + SGE_TEXT(".txt"))
+	);
+#elif SGE_POSIX_PLATFORM
+	return boost::assign::list_of
+		(homedir() / (SGE_TEXT(".") + config_basename + SGE_TEXT(".conf")))
+		(filesystem::path(SGE_TEXT("/etc")) / (config_basename + SGE_TEXT(".conf"))
+	);
+#endif
+}

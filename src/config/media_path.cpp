@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config/media_path.hpp>
-#include <sge/config/find_path.hpp>
+#include <sge/config/detail/find_own_path.hpp>
 #include <sge/iconv.hpp>
 #include <sge/text.hpp>
 #include <boost/assign/list_of.hpp>
@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::filesystem::path const
 sge::config::media_path()
 {
-	return find_path(
+	return detail::find_own_path(
 		SGE_TEXT("media_path"),
 		boost::assign::list_of(
 			iconv(

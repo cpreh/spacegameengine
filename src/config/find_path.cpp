@@ -59,18 +59,6 @@ try_path(
 
 sge::filesystem::path const
 sge::config::find_path(
-	string const &what,
-	path_vector const &hard_paths)
-{
-	return find_path(
-		files(),
-		what,
-		hard_paths
-	);
-}
-
-sge::filesystem::path const
-sge::config::find_path(
 	path_vector const &config_files,
 	string const &what,
 	path_vector const &hard_paths)

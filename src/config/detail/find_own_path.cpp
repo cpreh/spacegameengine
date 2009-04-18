@@ -18,29 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config/files.hpp>
-#include <sge/config/homedir.hpp>
+#include <sge/config/detail/find_own_path.hpp>
+#include <sge/config/make_files.hpp>
+#include <sge/config/find_path.hpp>
 #include <sge/text.hpp>
-#include <sge/config.h>
-#ifdef SGE_WINDOWS_PLATFORM
-#include <sge/config/appdir.hpp>
-#endif
-#include <boost/assign/list_of.hpp>
 
-sge::config::path_vector const
-sge::config::files()
+sge::filesystem::path const
+sge::config::detail::find_own_path(
+	string const &what,
+	path_vector const &hard_paths)
 {
-#ifdef SGE_WINDOWS_PLATFORM
-	return boost::assign::list_of(
-		appdir() / SGE_TEXT("config.txt"),
-		homedir() / SGE_TEXT("spacegameengine.txt")
+	return find_path(
+		make_files(
+			SGE_TEXT("spacegameengine")
+		),
+		what,
+		hard_paths
 	);
-#elif SGE_POSIX_PLATFORM
-	return boost::assign::list_of
-		(homedir() / SGE_TEXT(".spacegameengine.conf"))
-		(filesystem::path(
-			SGE_TEXT("/etc")
-		) / SGE_TEXT("spacegameengine.conf")
-	);
-#endif
 }
