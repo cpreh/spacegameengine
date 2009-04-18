@@ -31,13 +31,13 @@ sge::gui::widgets::base::base(
 	manager_(
 		parent_data_.parent_manager()),
 	pos_(
+		point::null()),
+	pos_hint_(
 		params.pos()),
 	size_(
 		dim::null()),
 	size_hint_(
-		params.size() 
-			? *params.size()
-			: boost::optional<dim>(boost::none)),
+		params.size()),
 	size_policy_(
 		params.size_policy()),
 	keyboard_focus_(
@@ -49,7 +49,6 @@ sge::gui::widgets::base::base(
 	activation_(params.activation())
 {
 	layout_->connected_widget(*this);
-
 	if (has_parent())
 		parent_widget().add_child(*this);
 	parent_manager().add(*this);
@@ -189,7 +188,9 @@ void sge::gui::widgets::base::layout(layouts::auto_ptr n)
 {
 	layout_ = n;
 	layout_->connected_widget(*this);
-	invalidate(*this);
+	invalidate(
+		*this,
+		invalidation::all);
 }
 
 sge::gui::layouts::base &sge::gui::widgets::base::layout()
@@ -220,41 +221,40 @@ void sge::gui::widgets::base::size(
 	dim const &_size_hint)
 {
 	size_hint_ = _size_hint;
-	invalidate(*this);
+	invalidate(
+		*this,
+		invalidation::size);
 }
 
-void sge::gui::widgets::base::relative_pos(
+void sge::gui::widgets::base::pos(
 	point const &_pos_hint)
 {
-	// NOTE: this is just a performance enhancement
-	if (!has_parent())
-	{
-		parent_manager().reposition(*this,_pos_hint);
-		pos_ = _pos_hint;
-	}
-	else
-	{
-		pos_hint_ = _pos_hint;
-		invalidate(*this);
-	}
+	pos_hint_ = _pos_hint;
+	invalidate(
+		*this,
+		invalidation::position);
 }
 
-void sge::gui::widgets::base::compile()
+void sge::gui::widgets::base::compile(
+	invalidation::type const &i)
 {
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("in compile"));
-	layout().compile();
+	layout().compile(
+		i);
 }
 
 void sge::gui::widgets::base::invalidate(
-	widgets::base &w)
+	widgets::base &w,
+	invalidation::type const &i)
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("in compile"));
+		log::_1 << SGE_TEXT("in invalidate"));
 	layout().invalidate(
-		w);
+		w,
+		i);
 }
 
 sge::gui::dim const sge::gui::widgets::base::size_hint() const
@@ -295,7 +295,7 @@ void sge::gui::widgets::base::process(
 			SGE_LOG_DEBUG(
 				mylogger,
 				log::_1 << SGE_TEXT("sending widgets::base ")
-				        << typeid(w).name()
+				        << type_info(typeid(w)).name()
 								<< SGE_TEXT(" an invalid area event"));
 			w.process(e);
 		}
@@ -357,5 +357,7 @@ void sge::gui::widgets::base::set_pos_raw(
 	point const &p) 
 { 
 	pos_ = p; 
-	parent_manager().reposition(*this,p);
+	parent_manager().reposition(
+		*this,
+		p);
 }

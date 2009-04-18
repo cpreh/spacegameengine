@@ -11,14 +11,17 @@ sge::gui::layouts::base::base()
 }
 
 void sge::gui::layouts::base::invalidate(
-	widgets::base&)
+	widgets::base&,
+	invalidation::type const &t)
 {
 	if (connected_widget().has_parent())
 		connected_widget().parent_widget().invalidate(
-			connected_widget());
+			connected_widget(),
+			t);
 	else
 		connected_widget().parent_manager().invalidate(
-			connected_widget());
+			connected_widget(),
+			t);
 }
 
 sge::gui::widgets::base&
@@ -50,9 +53,11 @@ void sge::gui::layouts::base::set_widget_pos(
 	w.set_pos_raw(d);
 }
 
-void sge::gui::layouts::base::compile_widget(widgets::base &w)
+void sge::gui::layouts::base::compile_widget(
+	widgets::base &w,
+	invalidation::type const &i)
 {
-	w.compile();
+	w.compile(i);
 }
 
 void sge::gui::layouts::base::connected_widget(widgets::base &_w)

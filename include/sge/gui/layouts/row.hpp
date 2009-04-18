@@ -20,7 +20,7 @@ class SGE_CLASS_SYMBOL row : public base
 {
 	public:
 	SGE_GUI_SYMBOL row();
-	SGE_GUI_SYMBOL void compile();
+	SGE_GUI_SYMBOL void compile(invalidation::type const &);
 	SGE_GUI_SYMBOL void pos(point const &);
 	SGE_GUI_SYMBOL void size(dim const &);
 	SGE_GUI_SYMBOL dim const size_hint() const;

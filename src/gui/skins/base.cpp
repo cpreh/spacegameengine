@@ -116,7 +116,7 @@ SGE_GUI_SKIN_SIZE_RETURN(widgets::base) sge::gui::skins::base::size_hint(
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("size_hint called for widgets::base ") 
-		        << typeid(w).name());
+		        << type_info(typeid(w)).name());
 
 	return utility::type_comparator<widgets::types>(
 		w,

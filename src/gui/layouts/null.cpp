@@ -17,7 +17,8 @@ sge::gui::layouts::null::null()
 {
 }
 
-void sge::gui::layouts::null::compile()
+void sge::gui::layouts::null::compile(
+	invalidation::type const &)
 {
 	SGE_LOG_DEBUG(
 		mylogger,

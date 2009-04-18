@@ -1,19 +1,19 @@
 #include <sge/gui/detail/managers/compiler.hpp>
-#include <sge/gui/widgets/base.hpp>
-#include <sge/gui/log.hpp>
 #include <sge/gui/detail/managers/render.hpp>
 #include <sge/gui/detail/managers/mouse.hpp>
+#include <sge/gui/widgets/base.hpp>
+#include <sge/gui/log.hpp>
 #include <sge/assert.hpp>
+#include <sge/type_info.hpp>
 #include <sge/text.hpp>
 #include <boost/foreach.hpp>
-#include <typeinfo>
 
 namespace
 {
 sge::gui::logger mylogger(
 	sge::gui::global_log(),
 	SGE_TEXT("managers: compiler"),
-	false);
+	true);
 
 bool has_parent(
 	sge::gui::widgets::base const &v,
@@ -42,17 +42,26 @@ sge::gui::detail::managers::compiler::compiler(
 
 void sge::gui::detail::managers::compiler::add(widgets::base &w)
 {
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("adding widget ")
+		        << type_info(typeid(w)).name()
+						<< SGE_TEXT(" to invalidate list"));
+
 	// since we cannot assume that widgets::base is fully constructed (just the base
 	// class: widget), we defer invalidation to a later point of time
-	invalidates.insert(&w);
+	insert_or_combine(
+		invalidates,
+		w,
+		invalidation::all);
 }
 
 void sge::gui::detail::managers::compiler::remove(widgets::base &w)
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("deleting a widgets::base of type ")
-		        << typeid(w).name());
+		log::_1 << SGE_TEXT("deleting a widget of type ")
+		        << type_info(typeid(w)).name());
 
 	// remove now dead references from recompile list
 	for (recompile_container::iterator it = recompiles.begin(),next = it; 
@@ -61,7 +70,7 @@ void sge::gui::detail::managers::compiler::remove(widgets::base &w)
 	{
 		++next;
 
-		if ((*it) == &w || has_parent(**it,w))
+		if (it->first == &w || has_parent(*(it->first),w))
 			recompiles.erase(it);
 	}
 
@@ -78,33 +87,46 @@ void sge::gui::detail::managers::compiler::remove(widgets::base &w)
 		SGE_LOG_DEBUG(
 			mylogger,
 			log::_1 << SGE_TEXT("inserting parent to invalidates list"));
-		invalidates.insert(&(w.parent_widget()));
+		invalidates.insert(
+			std::make_pair(
+				&(w.parent_widget()),
+				invalidation::all));
 	}
 }
 
 void sge::gui::detail::managers::compiler::update()
 {
 	if (recompiles.empty() && invalidates.empty())
+	{
+		/*
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << SGE_TEXT("in update, but nothing to do!"));
+			*/
 		return;
+	}
 	
 	// the parents of invalidates widgets can now be safely invalidated
-	BOOST_FOREACH(widgets::base *w,invalidates)
+	BOOST_FOREACH(recompile_container::const_reference r,invalidates)
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
 			log::_1 << SGE_TEXT("invalidating widget's parent: ")
-			        << typeid(*w).name());
-		w->invalidate(*w);
+			        << type_info(typeid(r.first)).name());
+		r.first->invalidate(
+			*r.first,
+			r.second);
 	}
 	invalidates.clear();
 
-	BOOST_FOREACH(widgets::base *w,recompiles)
+	BOOST_FOREACH(recompile_container::const_reference r,recompiles)
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("compiling widgets::base of type ") 
-			        << typeid(*w).name());
-		w->compile();
+			log::_1 << SGE_TEXT("compiling widget of type ") 
+			        << type_info(typeid(*r.first)).name());
+		r.first->compile(
+			r.second);
 	}
 	recompiles.clear();
 
@@ -112,7 +134,37 @@ void sge::gui::detail::managers::compiler::update()
 }
 
 void sge::gui::detail::managers::compiler::invalidate(
-	widgets::base &w)
+	widgets::base &w,
+	invalidation::type const &i)
 {
-	recompiles.insert(&w);
+	insert_or_combine(
+		recompiles,
+		w,
+		i);
+}
+
+void sge::gui::detail::managers::compiler::insert_or_combine(
+	recompile_container &c,
+	widgets::base &w,
+	invalidation::type const &i)
+{
+	recompile_container::iterator it = 
+		c.find(&w);
+
+	if (it != c.end())
+	{
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << SGE_TEXT("widget already in list, combining"));
+		it->second |= i;
+	}
+	else
+	{
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << SGE_TEXT("inserting widget"));
+		c.insert(
+			std::make_pair(
+				&w,i));
+	}
 }

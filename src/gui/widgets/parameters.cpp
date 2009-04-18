@@ -2,7 +2,7 @@
 
 sge::gui::widgets::parameters::parameters()
 : 
-	pos_(point::null()),
+	pos_(),
 	size_(),
 	size_policy_(sge::gui::size_policy::default_policy),
 	keyboard_focus_(keyboard_focus::ignore),
@@ -58,7 +58,7 @@ sge::gui::widgets::parameters::activation(
 	return *this; 
 }
 
-sge::gui::point const &sge::gui::widgets::parameters::pos() const
+boost::optional<sge::gui::point> const &sge::gui::widgets::parameters::pos() const
 {
 	return pos_;
 }

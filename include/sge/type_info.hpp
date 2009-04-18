@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TYPE_INFO_HPP_INCLUDED
 
 #include <sge/export.hpp>
+#include <sge/string.hpp>
 #include <typeinfo>
 
 namespace sge
@@ -35,7 +36,7 @@ public:
 	SGE_SYMBOL std::type_info const &get() const;
 	SGE_SYMBOL bool before(
 		type_info const &rhs) const;
-	SGE_SYMBOL char const *name() const;
+	SGE_SYMBOL string const name() const;
 private:
 	const std::type_info* info_;
 };

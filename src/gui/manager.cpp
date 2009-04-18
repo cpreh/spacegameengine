@@ -65,11 +65,13 @@ void sge::gui::manager::dirty(
 }
 
 void sge::gui::manager::invalidate(
-	widgets::base &w)
+	widgets::base &w,
+	invalidation::type const &i)
 {
 	BOOST_FOREACH(detail::submanager *m,submanagers)
 		m->invalidate(
-			w);
+			w,
+			i);
 }
 
 sge::gui::timer::object_ptr const sge::gui::manager::register_timer(
@@ -136,7 +138,9 @@ void sge::gui::manager::resize(
 	dim const &d)
 {
 	BOOST_FOREACH(detail::submanager *m,submanagers)
-		m->resize(w,d);
+		m->resize(
+			w,
+			d);
 }
 
 void sge::gui::manager::reposition(
@@ -144,7 +148,9 @@ void sge::gui::manager::reposition(
 	point const &d)
 {
 	BOOST_FOREACH(detail::submanager *m,submanagers)
-		m->reposition(w,d);
+		m->reposition(
+			w,
+			d);
 }
 
 void sge::gui::manager::activation(

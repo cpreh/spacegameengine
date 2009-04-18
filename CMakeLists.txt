@@ -79,6 +79,13 @@ IF (CMAKE_COMPILER_IS_GNUCXX)
 		"#pragma message \"test\"
 		 int main() {}"
 		SGE_HAVE_PRAGMA_MESSAGE)
+
+	CHECK_CXX_SOURCE_COMPILES(
+		"#include <cxxabi.h>
+		 #include <cstdlib>
+		int main() { int status; char *name =
+		abi::__cxa_demangle(typeid(int).name(),0,0,&status); std::free(name); }"
+		SGE_HAS_GNU_DEMANGLE)
 	
 	SET (CMAKE_REQUIRED_FLAGS "")
 ELSEIF (MSVC)

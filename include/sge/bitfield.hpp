@@ -140,7 +140,7 @@ public:
 	//friend bitfield operator| (const Enum a, const Enum b) { return bitfield(a) | b; }
 	
 	bitfield();
-	bitfield(Enum e); // TODO: make this explicit?
+	bitfield(Enum e); // TODO: make this explicit? - No, ffs!
 	
 	bitfield &operator=(Enum e);
 

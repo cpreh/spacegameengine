@@ -7,14 +7,13 @@
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/assert.hpp>
 #include <boost/foreach.hpp>
-#include "../utility/bitfield_and.hpp"
 
 namespace
 {
 sge::gui::logger mylogger(
 	sge::gui::global_log(),
 	SGE_TEXT("layouts: row"),
-	false);
+	true);
 }
 
 sge::gui::layouts::row::row()
@@ -23,21 +22,53 @@ sge::gui::layouts::row::row()
 {
 }
 
-void sge::gui::layouts::row::compile()
+void sge::gui::layouts::row::compile(
+	invalidation::type const &i)
 {
-	if (!connected_widget().has_parent())
-		base::set_widget_size(
-			connected_widget(),
-			connected_widget().size_hint());
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("in compile"));
+
+	if (i & invalidation::position)
+	{
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << SGE_TEXT("position invalid"));
+
+		// Currently, the layout doesn't support any internal size hints (just the
+		// global one which sets the widget's position
+		if (!connected_widget().has_parent())
+		{
+			SGE_LOG_DEBUG(
+				mylogger,
+				log::_1 << SGE_TEXT("setting raw new position"));
+
+			base::set_widget_pos(
+				connected_widget(),
+				connected_widget().pos_hint() 
+					? *connected_widget().pos_hint()
+					: point::null());
+		}
+	}
+
+	if (!(i & invalidation::size))
+		return;
 		
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("updating"));
+		log::_1 << SGE_TEXT("size invalid, so recompiling"));
 
 	reset_cache();
 	dim const 
 		optimal = size_hint(),
-		usable = connected_widget().size();
+		usable = connected_widget().size_hint();
+	
+	// Widget hasn't been resized yet?
+	if (connected_widget().size() != usable)
+		base::set_widget_size(
+			connected_widget(),
+			usable);
+
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("optimal size ") << optimal 
@@ -126,7 +157,7 @@ void sge::gui::layouts::row::adapt(
 						<< SGE_TEXT(" pixels to each widget"));
 
 	BOOST_FOREACH(widget_map::value_type &p,sizes)
-		if (utility::bitfield_and(p.first->size_policy().index(axis),flag))
+		if (p.first->size_policy().index(axis) & flag)
 			p.second[axis] += addition;
 }
 
@@ -155,7 +186,7 @@ void sge::gui::layouts::row::adapt_outer(
 		adapt(optimal,usable,axis_policy::can_shrink,axis);
 		SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("shrinking end"));
 	}
-	else
+	else if (optimal[axis] < usable[axis])
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
@@ -224,9 +255,15 @@ void sge::gui::layouts::row::update_widgets(dim const &usable)
 							<< SGE_TEXT(" and size to ")
 							<< p.second);
 		
-		base::set_widget_size(*p.first,p.second);
-		base::set_widget_pos(*p.first,pos);
-		base::compile_widget(*p.first);
+		base::set_widget_size(
+			*p.first,
+			p.second);
+		base::set_widget_pos(
+			*p.first,
+			pos);
+		base::compile_widget(
+			*p.first,
+			invalidation::size);
 
 		master(pos) += master(p.second)+increment;
 	}
@@ -256,7 +293,6 @@ unsigned sge::gui::layouts::row::count_flags(
 {
 	unsigned count = static_cast<unsigned>(0);
 	BOOST_FOREACH(widgets::base const &w,connected_widget().children())
-		//if (utility::bitfield_and(w.size_policy().index(axis),flags))
 		if (w.size_policy().index(axis) & flags)
 			++count;
 	return count;

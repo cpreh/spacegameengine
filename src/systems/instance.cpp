@@ -370,7 +370,7 @@ sge::systems::instance::impl::load_plugin(
 		log::global(),
 		log::_1
 			<< SGE_TEXT("Tried to login plugin of type ")
-			<< typeid(T).name()
+			<< type_info(typeid(T)).name()
 			<< SGE_TEXT(" with name \"")
 			<< name
 			<< SGE_TEXT("\" but it could not be found!")

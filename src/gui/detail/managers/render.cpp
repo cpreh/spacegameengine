@@ -31,7 +31,7 @@ namespace
 sge::gui::logger mylogger(
 	sge::gui::global_log(),
 	SGE_TEXT("managers: render"),
-	false);
+	true);
 
 void wipe_image_view(
 	sge::renderer::image_view const &v)
@@ -132,6 +132,11 @@ void sge::gui::detail::managers::render::resize(
 	widgets::base &w,
 	dim const &d)
 {
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("widget ") << type_info(typeid(w)).name()
+		        << SGE_TEXT(" was resized to ") << d);
+
 	dirt_.erase(&w);
 
 	dirty(
@@ -148,7 +153,7 @@ void sge::gui::detail::managers::render::resize(
 	
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("resizing widgets::base from ") << w.size() 
+		log::_1 << SGE_TEXT("resizing widget from ") << w.size() 
 		        << SGE_TEXT(" to ") << d);
 
 	widget_data &wd = *wi->second;
@@ -271,14 +276,22 @@ void sge::gui::detail::managers::render::clean()
 			log::_1 << SGE_TEXT("cleaning rect: ")
 			        << d.second 
 							<< SGE_TEXT(" from widget: ")
-							<< typeid(*d.first).name());
+							<< type_info(typeid(*d.first)).name());
 
 		widgets::base &p = d.first->oldest_parent();
 
-		// FIXME: we could remove rectangles which are completely inside this one
+		// NOTE: we could remove rectangles which are completely inside this one
 		// (maybe order by area first)
 
 		SGE_ASSERT(widgets.find(&p) != widgets.end());
+
+		if (!widgets[&p].texture)
+		{
+			SGE_LOG_DEBUG(
+				mylogger,
+				log::_1 << SGE_TEXT("cannot lock because oldest parent hasn't been inited yet"));
+			continue;
+		}
 
 		rect const to_lock(
 			d.first->absolute_pos()+d.second.pos(),
@@ -286,7 +299,7 @@ void sge::gui::detail::managers::render::clean()
 
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("locking area: ")
+			log::_1 << SGE_TEXT("trying to lock area: ")
 			        << to_lock);
 
 		renderer::scoped_texture_lock const lock_(

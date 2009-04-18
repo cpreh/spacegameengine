@@ -4,6 +4,7 @@
 #include <sge/gui/widgets/parameters.hpp>
 #include <sge/gui/widgets/parent_data.hpp>
 #include <sge/gui/point.hpp>
+#include <sge/gui/invalidation.hpp>
 #include <sge/gui/dim.hpp>
 #include <sge/gui/rect.hpp>
 #include <sge/gui/image.hpp>
@@ -38,6 +39,12 @@ class SGE_CLASS_SYMBOL base
 		widgets::base,
 		boost::view_clone_allocator> child_container;
 
+	/**
+	 * This: 
+	 * -Sets the layout's connected widget (can only be set once)
+	 * -Calls base::add_child on the parent widget (if any)
+	 * -Calls manager::add(*this)
+	 */
 	SGE_GUI_SYMBOL base(
 		parent_data const &,
 		parameters const &);
@@ -49,7 +56,7 @@ class SGE_CLASS_SYMBOL base
 	//! position relative to its parent (=screen_pos if the widget has no parent)
 	SGE_GUI_SYMBOL point const relative_pos() const;
 	//! this only sets the position immediately if it's a top level widget
-	SGE_GUI_SYMBOL void relative_pos(point const &);
+	SGE_GUI_SYMBOL void pos(point const &);
 	SGE_GUI_SYMBOL dim const size() const;
 	SGE_GUI_SYMBOL void size(dim const &);
 	SGE_GUI_SYMBOL image &buffer() const;
@@ -88,8 +95,10 @@ class SGE_CLASS_SYMBOL base
 
 	SGE_GUI_SYMBOL bool has_child(widgets::base const &) const;
 
-	SGE_GUI_SYMBOL void compile();
-	SGE_GUI_SYMBOL void invalidate(widgets::base &);
+	SGE_GUI_SYMBOL void compile(invalidation::type const &);
+	SGE_GUI_SYMBOL void invalidate(
+		widgets::base &,
+		invalidation::type const &);
 
 	SGE_GUI_SYMBOL virtual dim const size_hint() const;
 	SGE_GUI_SYMBOL boost::optional<point> const pos_hint() const;
@@ -120,9 +129,9 @@ class SGE_CLASS_SYMBOL base
 	manager &manager_;
 
 	point pos_;
+	boost::optional<point> pos_hint_;
 	dim size_;
 	boost::optional<dim> size_hint_;
-	boost::optional<point> pos_hint_;
 	sge::gui::size_policy size_policy_;
 	keyboard_focus::type keyboard_focus_;
 	mutable image buffer_;

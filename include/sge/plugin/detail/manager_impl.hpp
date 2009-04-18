@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/manager.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
-#include <sge/iconv.hpp>
+#include <sge/type_info.hpp>
 
 template<typename T>
 sge::plugin::iterator<T>
@@ -55,7 +55,7 @@ sge::plugin::manager::plugin(
 	if(index >= size<T>())
 		throw exception(
 			SGE_TEXT("plugin(): No plugins found of type: \"")
-			+ iconv(typeid(T).name())
+			+ type_info(typeid(T)).name()
 			+ SGE_TEXT("\"!"));
 	return *(begin<T>()+index);
 }

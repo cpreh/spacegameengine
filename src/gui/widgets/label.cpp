@@ -56,7 +56,9 @@ void sge::gui::widgets::label::text(
 		log::_1 << SGE_TEXT("setting text to: ")
 		        << _text);
 	text_ = _text; 
-	invalidate(*this);
+	invalidate(
+		*this,
+		invalidation::all);
 }
 
 boost::optional<sge::gui::dim> const

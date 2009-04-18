@@ -9,6 +9,7 @@
 #include <sge/gui/cursor_fwd.hpp>
 #include <sge/gui/export.hpp>
 #include <sge/gui/rect.hpp>
+#include <sge/gui/invalidation.hpp>
 #include <sge/gui/point.hpp>
 #include <sge/gui/activation_state.hpp>
 #include <sge/gui/keyboard_focus.hpp>
@@ -39,7 +40,8 @@ class manager
 		widgets::base &,
 		rect const &);
 	SGE_GUI_SYMBOL void invalidate(
-		widgets::base &);
+		widgets::base &,
+		invalidation::type const &);
 	SGE_GUI_SYMBOL timer::object_ptr const register_timer(
 		time::resolution const &,
 		timer::callback);
@@ -72,8 +74,6 @@ class manager
 	void add(widgets::base &);
 	void remove(widgets::base &);
 
-	// this is called by widget's size/pos/.. function (if it encounters a top
-	// level widget)
 	void resize(
 		widgets::base &,
 		dim const &);
