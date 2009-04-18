@@ -18,27 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_INI_SECTION_HPP_INCLUDED
-#define SGE_PARSE_INI_SECTION_HPP_INCLUDED
+#ifndef SGE_CONFIG_FILE_NOT_FOUND_HPP_INCLUDED
+#define SGE_CONFIG_FILE_NOT_FOUND_HPP_INCLUDED
 
-#include <sge/parse/ini/section_fwd.hpp>
-#include <sge/parse/ini/string.hpp>
-#include <sge/parse/ini/entry_vector.hpp>
+#include <sge/exception.hpp>
+#include <sge/string.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
-namespace parse
-{
-namespace ini
+namespace config
 {
 
-class section {
+class SGE_CLASS_SYMBOL file_not_found : public exception {
 public:
-	string header;
-	entry_vector entries;
+	SGE_SYMBOL explicit file_not_found(
+		string const &);
 };
 
-}
 }
 }
 

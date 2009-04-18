@@ -18,28 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_INI_SECTION_HPP_INCLUDED
-#define SGE_PARSE_INI_SECTION_HPP_INCLUDED
-
-#include <sge/parse/ini/section_fwd.hpp>
-#include <sge/parse/ini/string.hpp>
-#include <sge/parse/ini/entry_vector.hpp>
-
-namespace sge
-{
-namespace parse
-{
-namespace ini
-{
-
-class section {
-public:
-	string header;
-	entry_vector entries;
-};
-
-}
-}
-}
-
+#include <sge/config/files.hpp>
+#include <sge/config/homedir.hpp>
+#include <sge/text.hpp>
+#include <sge/config.h>
+#ifdef SGE_WINDOWS_PLATFORM
+#include <sge/config/appdir.hpp>
 #endif
+#include <boost/assign/list_of.hpp>
+
+sge::config::path_vector const
+sge::config::files()
+{
+#ifdef SGE_WINDOWS_PLATFORM
+	return boost::assign::list_of(
+		appdir() / SGE_TEXT("config.txt"),
+		homedir() / SGE_TEXT("spacegameengine.txt")
+	);
+#elif SGE_POSIX_PLATFORM
+	return boost::assign::list_of
+		(homedir() / SGE_TEXT(".spacegameengine.conf"))
+		(filesystem::path(
+			SGE_TEXT("/etc")
+		) / SGE_TEXT("spacegameengine.conf")
+	);
+#endif
+}

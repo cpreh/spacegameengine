@@ -18,28 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_INI_SECTION_HPP_INCLUDED
-#define SGE_PARSE_INI_SECTION_HPP_INCLUDED
+#include <sge/config/file_not_found.hpp>
+#include <sge/text.hpp>
 
-#include <sge/parse/ini/section_fwd.hpp>
-#include <sge/parse/ini/string.hpp>
-#include <sge/parse/ini/entry_vector.hpp>
-
-namespace sge
-{
-namespace parse
-{
-namespace ini
-{
-
-class section {
-public:
-	string header;
-	entry_vector entries;
-};
-
-}
-}
-}
-
-#endif
+sge::config::file_not_found::file_not_found(
+	string const &file)
+:
+	exception(
+		SGE_TEXT("config file \"")
+		+ file
+		+ SGE_TEXT("\" not found!")
+	)
+{}

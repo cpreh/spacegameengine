@@ -18,27 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_INI_SECTION_HPP_INCLUDED
-#define SGE_PARSE_INI_SECTION_HPP_INCLUDED
+#ifndef SGE_CONFIG_PATH_VECTOR_HPP_INCLUDED
+#define SGE_CONFIG_PATH_VECTOR_HPP_INCLUDED
 
-#include <sge/parse/ini/section_fwd.hpp>
-#include <sge/parse/ini/string.hpp>
-#include <sge/parse/ini/entry_vector.hpp>
+#include <sge/filesystem/path.hpp>
+#include <vector>
 
 namespace sge
 {
-namespace parse
-{
-namespace ini
+namespace config
 {
 
-class section {
-public:
-	string header;
-	entry_vector entries;
-};
+typedef std::vector<
+	filesystem::path
+> path_vector;
 
-}
 }
 }
 
