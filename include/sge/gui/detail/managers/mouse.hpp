@@ -39,6 +39,7 @@ class mouse : public submanager
 	void activation(widgets::base &,activation_state::type);
 	void remove(widgets::base &);
 	void recalculate_focus();
+	void z(widgets::base &,depth_type);
 	private:
 	typedef boost::ptr_vector<
 		widgets::base,

@@ -11,6 +11,7 @@
 #include <sge/gui/rect.hpp>
 #include <sge/gui/invalidation.hpp>
 #include <sge/gui/point.hpp>
+#include <sge/gui/depth_type.hpp>
 #include <sge/gui/activation_state.hpp>
 #include <sge/gui/keyboard_focus.hpp>
 #include <sge/renderer/device_fwd.hpp>
@@ -54,6 +55,9 @@ class manager
 		widgets::base &);
 	SGE_GUI_SYMBOL void request_keyboard_focus(
 		widgets::base &);
+	SGE_GUI_SYMBOL void z(
+		widgets::base &,
+		depth_type);
 	private:
 	friend class widgets::base;
 

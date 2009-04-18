@@ -19,4 +19,7 @@ void sge::gui::detail::submanager::reposition(
 void sge::gui::detail::submanager::invalidate(
 	widgets::base &,
 	invalidation::type const &) {}
+void sge::gui::detail::submanager::z(
+	widgets::base &,
+	depth_type) {}
 sge::gui::detail::submanager::~submanager() {}

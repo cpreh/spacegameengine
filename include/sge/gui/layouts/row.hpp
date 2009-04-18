@@ -7,6 +7,7 @@
 #include <sge/gui/size_policy.hpp>
 #include <sge/math/dim/basic_decl.hpp>
 #include <sge/math/vector/basic_decl.hpp>
+#include <sge/math/vector/basic_impl.hpp>
 #include <vector>
 #include <cstddef>
 
@@ -19,7 +20,13 @@ namespace layouts
 class SGE_CLASS_SYMBOL row : public base
 {
 	public:
-	SGE_GUI_SYMBOL row();
+	typedef math::vector::static_<float,2>::type spacing;
+
+	SGE_GUI_SYMBOL row(
+		spacing const & = 
+			spacing(
+				static_cast<spacing::value_type>(1.1),
+				static_cast<spacing::value_type>(1.1)));
 	SGE_GUI_SYMBOL void compile(invalidation::type const &);
 	SGE_GUI_SYMBOL void compile_static();
 	SGE_GUI_SYMBOL void pos(point const &);
@@ -66,8 +73,9 @@ class SGE_CLASS_SYMBOL row : public base
 			widgets::base*,
 			dim>
 			> widget_map;
-	//typedef std::map<widget*,dim> widget_map;
+
 	widget_map sizes;
+	spacing spacing_;
 };
 }
 }

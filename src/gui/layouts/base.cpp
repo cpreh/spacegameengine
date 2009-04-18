@@ -43,14 +43,14 @@ void sge::gui::layouts::base::set_widget_size(
 	widgets::base &w,
 	dim const &d)
 {
-	w.set_size_raw(d);
+	w.size(d);
 }
 
 void sge::gui::layouts::base::set_widget_pos(
 	widgets::base &w,
 	point const &d)
 {
-	w.set_pos_raw(d);
+	w.pos(d);
 }
 
 void sge::gui::layouts::base::compile_widget(

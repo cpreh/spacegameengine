@@ -119,6 +119,16 @@ void sge::gui::manager::request_keyboard_focus(
 	keyboard_->request_focus(w);
 }
 
+void sge::gui::manager::z(
+	widgets::base &w,
+	depth_type const _z)
+{
+	BOOST_FOREACH(detail::submanager *m,submanagers)
+		m->z(
+			w,
+			_z);
+}
+
 void sge::gui::manager::add(
 	widgets::base &w)
 {

@@ -77,9 +77,50 @@ sge::gui::point const sge::gui::widgets::base::relative_pos() const
 	return pos_;
 }
 
+void sge::gui::widgets::base::pos_hint(
+	point const &_pos_hint)
+{
+	pos_hint_ = _pos_hint;
+	invalidate(
+		*this,
+		invalidation::position);
+}
+
+boost::optional<sge::gui::point> const sge::gui::widgets::base::pos_hint() const
+{
+	return pos_hint_;
+}
+
 sge::gui::dim const sge::gui::widgets::base::size() const
 {
 	return size_;
+}
+
+void sge::gui::widgets::base::size_hint(
+	dim const &_size_hint)
+{
+	size_hint_ = _size_hint;
+	invalidate(
+		*this,
+		invalidation::size);
+}
+
+boost::optional<sge::gui::dim> const sge::gui::widgets::base::size_hint() const
+{
+	return size_hint_;
+}
+
+void sge::gui::widgets::base::z(depth_type const _z)
+{
+	z_ = _z;
+	parent_manager().z(
+		*this,
+		z_);
+}
+
+sge::gui::depth_type sge::gui::widgets::base::z() const
+{
+	return z_;
 }
 
 sge::gui::image &sge::gui::widgets::base::buffer() const
@@ -217,22 +258,18 @@ bool sge::gui::widgets::base::has_child(widgets::base const &w) const
 	return false;
 }
 
-void sge::gui::widgets::base::size(
-	dim const &_size_hint)
+sge::gui::rect const sge::gui::widgets::base::absolute_area() const
 {
-	size_hint_ = _size_hint;
-	invalidate(
-		*this,
-		invalidation::size);
+	return rect(
+		absolute_pos(), 
+		size());
 }
 
-void sge::gui::widgets::base::pos(
-	point const &_pos_hint)
+sge::gui::rect const sge::gui::widgets::base::screen_area() const
 {
-	pos_hint_ = _pos_hint;
-	invalidate(
-		*this,
-		invalidation::position);
+	return rect(
+		screen_pos(), 
+		size());
 }
 
 void sge::gui::widgets::base::compile(
@@ -267,16 +304,6 @@ void sge::gui::widgets::base::invalidate(
 	layout().invalidate(
 		w,
 		i);
-}
-
-boost::optional<sge::gui::dim> const sge::gui::widgets::base::size_hint() const
-{
-	return size_hint_;
-}
-
-boost::optional<sge::gui::point> const sge::gui::widgets::base::pos_hint() const
-{
-	return pos_hint_;
 }
 
 void sge::gui::widgets::base::process(
@@ -344,17 +371,7 @@ sge::gui::widgets::base::~base()
 		*this);
 }
 
-sge::gui::rect const sge::gui::widgets::base::absolute_area() const
-{
-	return rect(absolute_pos(), size());
-}
-
-sge::gui::rect const sge::gui::widgets::base::screen_area() const
-{
-	return rect(screen_pos(), size());
-}
-
-void sge::gui::widgets::base::set_size_raw(
+void sge::gui::widgets::base::size(
 	dim const &_size) 
 { 
 	size_ = _size; 
@@ -363,7 +380,7 @@ void sge::gui::widgets::base::set_size_raw(
 		size_);
 }
 
-void sge::gui::widgets::base::set_pos_raw(
+void sge::gui::widgets::base::pos(
 	point const &p) 
 { 
 	pos_ = p; 

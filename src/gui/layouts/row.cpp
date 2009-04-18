@@ -4,6 +4,7 @@
 #include <sge/gui/log.hpp>
 #include <sge/math/dim/output.hpp>
 #include <sge/math/rect_impl.hpp>
+#include <sge/math/vector/arithmetic.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/assert.hpp>
@@ -17,9 +18,12 @@ sge::gui::logger mylogger(
 	true);
 }
 
-sge::gui::layouts::row::row()
+sge::gui::layouts::row::row(
+	spacing const &_spacing)
 : 
-	base()
+	base(),
+	sizes(),
+	spacing_(_spacing)
 {
 }
 
@@ -137,31 +141,38 @@ sge::gui::dim const sge::gui::layouts::row::optimal_size() const
 		mylogger,
 		log::_1 << SGE_TEXT("returning optimal size ") 
 		        << hint);
-	return hint;
+	return 
+		sge::structure_cast<dim>(
+			sge::structure_cast<spacing>(hint)*
+			spacing_);
 }
 
-sge::gui::dim::reference sge::gui::layouts::row::slave(dim &d) const
+sge::gui::dim::reference sge::gui::layouts::row::slave(
+	dim &d) const
 {
 	if (master(d) == d.w())
 		return d.h();
 	return d.w();
 }
 
-sge::gui::dim::const_reference sge::gui::layouts::row::slave(dim const &d) const
+sge::gui::dim::const_reference sge::gui::layouts::row::slave(
+	dim const &d) const
 {
 	if (master(d) == d.w())
 		return d.h();
 	return d.w();
 }
 
-sge::gui::point::reference sge::gui::layouts::row::slave(point &d) const
+sge::gui::point::reference sge::gui::layouts::row::slave(
+	point &d) const
 {
 	if (master(d) == d.x())
 		return d.y();
 	return d.x();
 }
 
-sge::gui::point::const_reference sge::gui::layouts::row::slave(point const &d) const
+sge::gui::point::const_reference sge::gui::layouts::row::slave(
+	point const &d) const
 {
 	if (master(d) == d.x())
 		return d.y();

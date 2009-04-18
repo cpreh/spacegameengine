@@ -260,6 +260,13 @@ sge::sprite::object &sge::gui::detail::managers::render::connected_sprite(
 	return wi->second->sprite;
 }
 
+void sge::gui::detail::managers::render::z(
+	widgets::base &w,
+	depth_type const _z)
+{
+	
+}
+
 void sge::gui::detail::managers::render::clean()
 {
 	if (dirt_.empty())

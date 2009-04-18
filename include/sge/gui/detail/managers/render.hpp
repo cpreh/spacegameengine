@@ -25,17 +25,29 @@ class render : public submanager
 	render(
 		renderer::device_ptr,
 		cursor &);
-	void add(widgets::base &);
+	void add(
+		widgets::base &);
 	void update();
 	void draw();
-	void activation(widgets::base &,activation_state::type);
-	void remove(widgets::base &);
-	void resize(widgets::base &,dim const &);
-	void reposition(widgets::base &,point const &);
+	void activation(
+		widgets::base &,
+		activation_state::type);
+	void remove(
+		widgets::base &);
+	void resize(
+		widgets::base &,
+		dim const &);
+	void reposition(
+		widgets::base &,
+		point const &);
 	void dirty(
 		widgets::base &,
 		rect const &);
-	sge::sprite::object &connected_sprite(widgets::base &);
+	sge::sprite::object &connected_sprite(
+		widgets::base &);
+	void z(
+		widgets::base &,
+		depth_type);
 	private:
 	class widget_data
 	{

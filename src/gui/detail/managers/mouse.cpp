@@ -177,6 +177,13 @@ void sge::gui::detail::managers::mouse::recalculate_focus()
 	}
 }
 
+void sge::gui::detail::managers::mouse::z(
+	widgets::base &w,
+	depth_type const _z)
+{
+	
+}
+
 void sge::gui::detail::managers::mouse::input_callback(
 	input::key_pair const &k)
 {

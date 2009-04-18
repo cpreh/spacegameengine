@@ -4,6 +4,7 @@
 #include <sge/gui/widgets/parameters.hpp>
 #include <sge/gui/widgets/parent_data.hpp>
 #include <sge/gui/point.hpp>
+#include <sge/gui/depth_type.hpp>
 #include <sge/gui/invalidation.hpp>
 #include <sge/gui/dim.hpp>
 #include <sge/gui/rect.hpp>
@@ -56,12 +57,17 @@ class SGE_CLASS_SYMBOL base
 	//! position relative to its parent (=screen_pos if the widget has no parent)
 	SGE_GUI_SYMBOL point const relative_pos() const;
 	//! this only sets the position immediately if it's a top level widget
-	SGE_GUI_SYMBOL void pos(point const &);
+	SGE_GUI_SYMBOL void pos_hint(point const &);
+	SGE_GUI_SYMBOL boost::optional<point> const pos_hint() const;
 	SGE_GUI_SYMBOL dim const size() const;
-	SGE_GUI_SYMBOL void size(dim const &);
+	SGE_GUI_SYMBOL void size_hint(dim const &);
+	SGE_GUI_SYMBOL boost::optional<dim> const size_hint() const;
+
+	SGE_GUI_SYMBOL void z(depth_type);
+	SGE_GUI_SYMBOL depth_type z() const;
+	
 	SGE_GUI_SYMBOL image &buffer() const;
 
-	// parent stuff
 	SGE_GUI_SYMBOL manager &parent_manager();
 	SGE_GUI_SYMBOL manager const &parent_manager() const;
 	
@@ -95,6 +101,9 @@ class SGE_CLASS_SYMBOL base
 
 	SGE_GUI_SYMBOL bool has_child(widgets::base const &) const;
 
+	SGE_GUI_SYMBOL rect const absolute_area() const;
+	SGE_GUI_SYMBOL rect const screen_area() const;
+
 	SGE_GUI_SYMBOL virtual void compile(invalidation::type const &);
 	SGE_GUI_SYMBOL virtual void compile_static();
 	SGE_GUI_SYMBOL virtual dim const optimal_size() const;
@@ -102,8 +111,6 @@ class SGE_CLASS_SYMBOL base
 		widgets::base &,
 		invalidation::type const &);
 
-	SGE_GUI_SYMBOL boost::optional<dim> const size_hint() const;
-	SGE_GUI_SYMBOL boost::optional<point> const pos_hint() const;
 	SGE_GUI_SYMBOL virtual void process(events::invalid_area const &);
 	SGE_GUI_SYMBOL virtual void process(events::mouse_enter const &);
 	SGE_GUI_SYMBOL virtual void process(events::mouse_leave const &);
@@ -115,18 +122,7 @@ class SGE_CLASS_SYMBOL base
 
 	// virtuals
 	SGE_GUI_SYMBOL virtual ~base();
-
-	SGE_GUI_SYMBOL rect const absolute_area() const;
-	SGE_GUI_SYMBOL rect const screen_area() const;
-
 	private:
-	friend class layouts::base;
-
-	void set_size_raw(
-		dim const &d);
-	void set_pos_raw(
-		point const &p);
-
 	widgets::base *const parent_;
 	manager &manager_;
 
@@ -134,12 +130,20 @@ class SGE_CLASS_SYMBOL base
 	boost::optional<point> pos_hint_;
 	dim size_;
 	boost::optional<dim> size_hint_;
+	depth_type z_;
 	sge::gui::size_policy size_policy_;
 	keyboard_focus::type keyboard_focus_;
 	mutable image buffer_;
 	child_container children_;
 	layouts::auto_ptr layout_;
 	activation_state::type activation_;
+
+	friend class layouts::base;
+	void size(
+		dim const &d);
+	void pos(
+		point const &p);
+
 };
 }
 }

@@ -10,6 +10,6 @@ sge::string const sge::gui::utility::string_square(dim const &s)
 		SGE_TEXT('W'));
 	string result;
 	for (unit i = 0; i < s.h(); ++i)
-		result += line;
+		result += line+SGE_TEXT('\n');
 	return result;
 }
