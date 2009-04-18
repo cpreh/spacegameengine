@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #endif
 #elif SGE_WINDOWS_PLATFORM
 #include <sge/windows/windows.hpp>
+#include <sge/noncopyable.hpp>
 #else
 #error "Implement me!"
 #endif
@@ -48,6 +49,7 @@ sge::time::unit query_performance_counter();
 sge::time::unit large_int_to_time(LARGE_INTEGER);
 
 class initializer {
+	SGE_NONCOPYABLE(initializer)
 public:
 	initializer();
 
@@ -127,13 +129,14 @@ sge::time::unit large_int_to_time(const LARGE_INTEGER i)
 }
 
 initializer::initializer()
-: use_performance_counter_(true)
+:
+	use_performance_counter_(true)
 {
 	try
 	{
 		query_performance_frequency();
 	}
-	catch(const sge::exception&)
+	catch(sge::exception const &)
 	{
 		use_performance_counter_ = false;
 	}
