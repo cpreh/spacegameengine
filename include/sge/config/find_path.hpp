@@ -36,6 +36,12 @@ find_path(
 	string const &what,
 	path_vector const &hard_paths);
 
+SGE_SYMBOL filesystem::path const
+find_path(
+	path_vector const &config_files,
+	string const &what,
+	path_vector const &hard_paths);
+
 }
 }
 

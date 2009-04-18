@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/file_not_found.hpp>
 #include <sge/filesystem/path.hpp>
 #include <sge/filesystem/exists.hpp>
-#include <sge/filesystem/is_regular.hpp>
 #include <sge/parse/ini/parse_file.hpp>
 #include <sge/parse/ini/header_name_equal.hpp>
 #include <sge/parse/ini/entry_name_equal.hpp>
@@ -48,9 +47,6 @@ try_path(
 		sge::filesystem::exists(
 			p
 		)
-		&& sge::filesystem::is_regular(
-			p
-		)
 	)
 		return p;
 
@@ -63,6 +59,19 @@ try_path(
 
 sge::filesystem::path const
 sge::config::find_path(
+	string const &what,
+	path_vector const &hard_paths)
+{
+	return find_path(
+		files(),
+		what,
+		hard_paths
+	);
+}
+
+sge::filesystem::path const
+sge::config::find_path(
+	path_vector const &config_files,
 	string const &what,
 	path_vector const &hard_paths)
 {
@@ -87,7 +96,7 @@ sge::config::find_path(
 
 	BOOST_FOREACH(
 		path_vector::const_reference r,
-		files()
+		config_files
 	)
 	{
 		try
