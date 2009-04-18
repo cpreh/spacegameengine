@@ -22,10 +22,12 @@ class SGE_CLASS_SYMBOL texture_rw : public texture
 	SGE_SYMBOL const_image_view const lock(lock_rect const &) const;
 	SGE_SYMBOL void unlock() const;
 	SGE_SYMBOL resource_flag_t flags() const;
+	SGE_SYMBOL texture_ptr const read() const;
+	SGE_SYMBOL texture_ptr const write() const;
 
 	class lock_data;
 	private:
-	mutable texture_ptr read, write;
+	mutable texture_ptr read_, write_;
 
 	mutable scoped_ptr<lock_data> locked;
 };

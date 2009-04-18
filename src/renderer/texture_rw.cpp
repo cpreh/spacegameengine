@@ -24,14 +24,14 @@ public:
 };
 
 sge::renderer::texture_rw::texture_rw(
-	texture_ptr const read,
-	texture_ptr const write)
+	texture_ptr const _read,
+	texture_ptr const _write)
 :
-	read(read),
-	write(write)
+	read_(_read),
+	write_(_write)
 {
 	SGE_ASSERT_MESSAGE(
-		read->dim() == write->dim(),
+		read_->dim() == write_->dim(),
 		SGE_TEXT("read dimension has to be the same as write dimension"));
 }
 
@@ -40,13 +40,13 @@ sge::renderer::texture_rw::~texture_rw()
 
 sge::renderer::texture_rw::dim_type const sge::renderer::texture_rw::dim() const
 {
-	return read->dim();
+	return read_->dim();
 }
 
 sge::renderer::image_view const sge::renderer::texture_rw::lock(lock_rect const &lr,lock_flag_t const lf)
 {
 	SGE_ASSERT_MESSAGE(!locked,SGE_TEXT("already locked texture_rw"));
-	locked.reset(new lock_data(lr,read->lock(lr,lf)));
+	locked.reset(new lock_data(lr,read_->lock(lr,lf)));
 	return *locked->view;
 }
 
@@ -54,7 +54,7 @@ sge::renderer::const_image_view const sge::renderer::texture_rw::lock(lock_rect 
 {
 	SGE_ASSERT_MESSAGE(!locked,SGE_TEXT("already locked texture_rw"));
 	locked.reset(new lock_data(lr));
-	return read->lock(lr);
+	return read_->lock(lr);
 }
 
 void sge::renderer::texture_rw::unlock() const
@@ -65,7 +65,7 @@ void sge::renderer::texture_rw::unlock() const
 	if (locked->view)
 	{
 		scoped_texture_lock const lock_(
-			write,
+			write_,
 			locked->area,
 			lock_flags::writeonly);
 		
@@ -75,7 +75,7 @@ void sge::renderer::texture_rw::unlock() const
 			lock_.value());
 	}
 
-	read->unlock();
+	read_->unlock();
 	locked.reset();
 }
 
@@ -83,4 +83,14 @@ sge::renderer::resource_flag_t
 sge::renderer::texture_rw::flags() const
 {
 	return resource_flags::dynamic;
+}
+
+sge::renderer::texture_ptr const sge::renderer::texture_rw::read() const
+{
+	return read_;
+}
+
+sge::renderer::texture_ptr const sge::renderer::texture_rw::write() const
+{
+	return write_;
 }
