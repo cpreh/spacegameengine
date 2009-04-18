@@ -33,13 +33,13 @@
 #define SGE_GUI_SKIN_WIDGET_PURE(name)\
 	virtual SGE_GUI_SKIN_DRAW_RETURN(name) draw(\
 		SGE_GUI_SKIN_DRAW_PARAMS(widgets::name)) = 0;\
-	virtual SGE_GUI_SKIN_SIZE_RETURN(name) size_hint(\
+	virtual SGE_GUI_SKIN_SIZE_RETURN(name) optimal_size(\
 		SGE_GUI_SKIN_SIZE_PARAMS(widgets::name)) const = 0;
 
 #define SGE_GUI_SKIN_WIDGET(name)\
 	virtual SGE_GUI_SKIN_DRAW_RETURN(name) draw(\
 		SGE_GUI_SKIN_DRAW_PARAMS(widgets::name));\
-	virtual SGE_GUI_SKIN_SIZE_RETURN(name) size_hint(\
+	virtual SGE_GUI_SKIN_SIZE_RETURN(name) optimal_size(\
 		SGE_GUI_SKIN_SIZE_PARAMS(widgets::name)) const;
 
 #define SGE_GUI_SKIN_WIDGETS_PURE\

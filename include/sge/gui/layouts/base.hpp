@@ -20,7 +20,8 @@ public:
 	SGE_GUI_SYMBOL base();
 
 	virtual void compile(invalidation::type const &) = 0;
-	virtual dim const size_hint() const = 0;
+	virtual void compile_static() = 0;
+	virtual dim const optimal_size() const = 0;
 	SGE_GUI_SYMBOL virtual void invalidate(
 		widgets::base &,
 		invalidation::type const &);

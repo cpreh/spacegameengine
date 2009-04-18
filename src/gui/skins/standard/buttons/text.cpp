@@ -127,7 +127,7 @@ void sge::gui::skins::standard::draw(
 	blit_invalid(b,c,e);
 }
 
-sge::gui::dim const sge::gui::skins::standard::size_hint(
+sge::gui::dim const sge::gui::skins::standard::optimal_size(
 	widgets::buttons::text const &b) const
 {
 	SGE_LOG_DEBUG(

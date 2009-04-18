@@ -95,12 +95,14 @@ class SGE_CLASS_SYMBOL base
 
 	SGE_GUI_SYMBOL bool has_child(widgets::base const &) const;
 
-	SGE_GUI_SYMBOL void compile(invalidation::type const &);
+	SGE_GUI_SYMBOL virtual void compile(invalidation::type const &);
+	SGE_GUI_SYMBOL virtual void compile_static();
+	SGE_GUI_SYMBOL virtual dim const optimal_size() const;
 	SGE_GUI_SYMBOL void invalidate(
 		widgets::base &,
 		invalidation::type const &);
 
-	SGE_GUI_SYMBOL virtual dim const size_hint() const;
+	SGE_GUI_SYMBOL boost::optional<dim> const size_hint() const;
 	SGE_GUI_SYMBOL boost::optional<point> const pos_hint() const;
 	SGE_GUI_SYMBOL virtual void process(events::invalid_area const &);
 	SGE_GUI_SYMBOL virtual void process(events::mouse_enter const &);

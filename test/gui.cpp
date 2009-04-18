@@ -102,9 +102,8 @@ try
 		sge::gui::widgets::parameters()
 			.pos(sge::gui::point(10,10))
 			.layout(
-				sge::make_shared_ptr<sge::gui::layouts::horizontal>()));
-			/*
-			.size(sge::gui::dim(400,300)));*/
+				sge::make_shared_ptr<sge::gui::layouts::horizontal>())
+			.size(sge::gui::dim(400,300)));
 
 	sge::cerr << "added top level widget\n";
 

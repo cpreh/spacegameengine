@@ -21,7 +21,7 @@ sge::gui::logger mylogger(
 	false);
 }
 
-sge::gui::dim const sge::gui::skins::standard::size_hint(
+sge::gui::dim const sge::gui::skins::standard::optimal_size(
 	widgets::edit const &w) const
 {
 	dim const d = utility::unlimited_text_size(

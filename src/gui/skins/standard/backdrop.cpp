@@ -34,11 +34,11 @@ void sge::gui::skins::standard::draw(
 	blit_invalid(w,c,e);
 }
 
-sge::gui::dim const sge::gui::skins::standard::size_hint(
+sge::gui::dim const sge::gui::skins::standard::optimal_size(
 	widgets::backdrop const &) const
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("size_hint called for backdrop, returning null"));
+		log::_1 << SGE_TEXT("optimal_size called for backdrop, returning null"));
 	return dim::null();
 }

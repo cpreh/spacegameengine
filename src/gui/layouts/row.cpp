@@ -28,7 +28,8 @@ void sge::gui::layouts::row::compile(
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("in compile"));
+		log::_1 << SGE_TEXT("in compile of widget: ")
+		        << type_info(typeid(connected_widget())).name());
 
 	if (i & invalidation::position)
 	{
@@ -58,17 +59,27 @@ void sge::gui::layouts::row::compile(
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("size invalid, so recompiling"));
-
-	reset_cache();
-	dim const 
-		optimal = size_hint(),
-		usable = connected_widget().size_hint();
 	
+	dim const s = 
+		connected_widget().optimal_size();
+
 	// Widget hasn't been resized yet?
-	if (connected_widget().size() != usable)
+	if (connected_widget().size() != s)
 		base::set_widget_size(
 			connected_widget(),
-			usable);
+			s);
+
+	compile_static();
+}
+	
+void sge::gui::layouts::row::compile_static()
+{
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("In static compilation for widget ")
+		        << type_info(typeid(connected_widget())).name());
+
+	reset_cache();
 	
 	// Make everything dirty. There's no better place to do it. If a child of
 	// connected_widget() is deleted, this function gets called and we have to
@@ -77,6 +88,10 @@ void sge::gui::layouts::row::compile(
 		connected_widget(),
 		rect(
 			connected_widget().size()));
+	
+	dim const 
+		optimal = optimal_size(),
+		usable = connected_widget().size();
 
 	SGE_LOG_DEBUG(
 		mylogger,
@@ -110,17 +125,17 @@ void sge::gui::layouts::row::compile(
 	update_widgets(usable);
 }
 
-sge::gui::dim const sge::gui::layouts::row::size_hint() const
+sge::gui::dim const sge::gui::layouts::row::optimal_size() const
 {
 	dim hint = dim::null();
 	BOOST_FOREACH(widgets::base const &w,connected_widget().children())
 	{
-		master(hint) += master(w.size_hint());
-		slave(hint) = std::max(slave(hint),slave(w.size_hint()));
+		master(hint) += master(w.optimal_size());
+		slave(hint) = std::max(slave(hint),slave(w.optimal_size()));
 	}
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("returning size hint") 
+		log::_1 << SGE_TEXT("returning optimal size ") 
 		        << hint);
 	return hint;
 }
@@ -203,7 +218,7 @@ void sge::gui::layouts::row::adapt_outer(
 		adapt(optimal,usable,axis_policy::can_shrink,axis);
 		SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("shrinking end"));
 	}
-	else if (optimal[axis] < usable[axis])
+	else if (optimal[axis] <= usable[axis])
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
@@ -211,24 +226,39 @@ void sge::gui::layouts::row::adapt_outer(
 		unsigned count;
 		if ((count = count_flags(axis_policy::should_grow,axis)))
 		{
-			SGE_LOG_DEBUG(mylogger,
-				log::_1 << SGE_TEXT("there are ") << count 
+			SGE_LOG_DEBUG(
+				mylogger,
+				log::_1 << SGE_TEXT("there are ") 
+				        << count 
 				        << SGE_TEXT(" widgets which should grow, growing those"));
-			adapt(optimal,usable,axis_policy::should_grow,axis);
+			adapt(
+				optimal,
+				usable,
+				axis_policy::should_grow,
+				axis);
 		}
 		else if ((count = count_flags(axis_policy::can_grow,axis)))
 		{
-			SGE_LOG_DEBUG(mylogger,
-				log::_1 << SGE_TEXT("there are ") << count 
+			SGE_LOG_DEBUG(
+				mylogger,
+				log::_1 << SGE_TEXT("there are ") 
+				        << count 
 				        << SGE_TEXT(" widgets which can grow, growing those"));
-			adapt(optimal,usable,axis_policy::can_grow,axis);
+			adapt(
+				optimal,
+				usable,
+				axis_policy::can_grow,
+				axis);
 		}
 		else
 		{
-			SGE_LOG_DEBUG(mylogger,
-				log::_1 << SGE_TEXT("there are widgets no widgets which could grow :("));
+			SGE_LOG_DEBUG(
+				mylogger,
+				log::_1 << SGE_TEXT("there are no widgets which could grow :("));
 		}
-		SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("expanding end"));
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << SGE_TEXT("expanding end"));
 	}
 }
 
@@ -295,10 +325,14 @@ void sge::gui::layouts::row::reset_cache()
 	sizes.clear();
 	BOOST_FOREACH(widgets::base &w,connected_widget().children())
 	{
+		dim const _optimal_size = w.optimal_size();
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("size hint for this child is ") << w.size_hint());
-		sizes.push_back(widget_map::value_type(&w,w.size_hint()));
+			log::_1 << SGE_TEXT("optimal size for this child is ") << _optimal_size);
+		sizes.push_back(
+			widget_map::value_type(
+				&w,
+				_optimal_size));
 	}
 	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("resetting cache end"));
 }

@@ -55,9 +55,9 @@ void sge::gui::layouts::base::set_widget_pos(
 
 void sge::gui::layouts::base::compile_widget(
 	widgets::base &w,
-	invalidation::type const &i)
+	invalidation::type const &)
 {
-	w.compile(i);
+	w.compile_static();
 }
 
 void sge::gui::layouts::base::connected_widget(widgets::base &_w)

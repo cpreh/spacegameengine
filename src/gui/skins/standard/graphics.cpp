@@ -26,7 +26,7 @@ void sge::gui::skins::standard::draw(
 		e);
 }
 
-sge::gui::dim const sge::gui::skins::standard::size_hint(
+sge::gui::dim const sge::gui::skins::standard::optimal_size(
 	widgets::graphics const &b) const
 {
 	return b.buffer().size();

@@ -245,6 +245,18 @@ void sge::gui::widgets::base::compile(
 		i);
 }
 
+void sge::gui::widgets::base::compile_static()
+{
+	layout().compile_static();
+}
+
+sge::gui::dim const sge::gui::widgets::base::optimal_size() const
+{
+	if (size_hint())
+		return *size_hint();
+	return layout().optimal_size();
+}
+
 void sge::gui::widgets::base::invalidate(
 	widgets::base &w,
 	invalidation::type const &i)
@@ -257,11 +269,9 @@ void sge::gui::widgets::base::invalidate(
 		i);
 }
 
-sge::gui::dim const sge::gui::widgets::base::size_hint() const
+boost::optional<sge::gui::dim> const sge::gui::widgets::base::size_hint() const
 {
-	if (size_hint_)
-		return *size_hint_;
-	return layout().size_hint();
+	return size_hint_;
 }
 
 boost::optional<sge::gui::point> const sge::gui::widgets::base::pos_hint() const

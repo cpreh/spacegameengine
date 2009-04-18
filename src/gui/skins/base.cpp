@@ -51,18 +51,18 @@ class call_draw
 	sge::gui::events::invalid_area const &e;
 };
 
-class call_size_hint
+class call_optimal_size
 {
 	public:
 	typedef sge::gui::dim result_type;
 
-	call_size_hint(
+	call_optimal_size(
 		sge::gui::skins::base const &s) : s(s) {}
 
 	template<typename V>
 	void operator()(V const &v) 
 	{ 
-		sh = s.size_hint(v); 
+		sh = s.optimal_size(v); 
 	}
 
 	sge::gui::dim const value() const { return sh; }
@@ -102,25 +102,25 @@ SGE_GUI_SKIN_DRAW_RETURN(widgets::base) sge::gui::skins::base::draw(
 			boost::ref(e)));
 }
 
-SGE_GUI_SKIN_SIZE_RETURN(widgets::base) sge::gui::skins::base::size_hint(
+SGE_GUI_SKIN_SIZE_RETURN(widgets::base) sge::gui::skins::base::optimal_size(
 	SGE_GUI_SKIN_SIZE_PARAMS_NAMED(widgets::base)) const
 {
 	if (typeid(w) == typeid(widgets::base))
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("size_hint called for widget, returning null"));
+			log::_1 << SGE_TEXT("optimal_size called for widget, returning null"));
 		return dim::null();
 	}
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("size_hint called for widgets::base ") 
+		log::_1 << SGE_TEXT("optimal_size called for widgets::base ") 
 		        << type_info(typeid(w)).name());
 
 	return utility::type_comparator<widgets::types>(
 		w,
-		call_size_hint(*this),
+		call_optimal_size(*this),
 		boost::bind(&skins::base::default_hint_handler,this,_1));
 }
 
