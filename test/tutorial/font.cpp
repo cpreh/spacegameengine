@@ -12,7 +12,7 @@
 #include <sge/window/parameters.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
-#include <sge/media.hpp>
+#include <sge/config/media_path.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/cerr.hpp>
@@ -45,7 +45,7 @@ try
 
 	sge::font::metrics_ptr const metrics = 
 		sys.font_system()->create_font(
-			sge::media_path() / SGE_TEXT("fonts") / SGE_TEXT("default.ttf"),
+			sge::config::media_path() / SGE_TEXT("fonts") / SGE_TEXT("default.ttf"),
 			static_cast<sge::font::size_type>(15));
 	
 	sge::font::drawer_ptr const drawer(

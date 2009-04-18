@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/cerr.hpp>
-#include <sge/media.hpp>
 #include <sge/exception.hpp>
 #include <sge/signal/scoped_connection.hpp>
+#include <sge/config/media_path.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/scoped_block.hpp>
@@ -133,13 +133,13 @@ try
 	sge::image::object_ptr const 
 		image_bg(
 			sys.image_loader()->load(
-				sge::media_path()/SGE_TEXT("grass.png"))),
+				sge::config::media_path()/SGE_TEXT("grass.png"))),
 		image_pointer(
 			sys.image_loader()->load(
-				sge::media_path()/SGE_TEXT("gui")/SGE_TEXT("cursor.png"))),
+				sge::config::media_path()/SGE_TEXT("gui")/SGE_TEXT("cursor.png"))),
 		image_tux(
 			sys.image_loader()->load(
-				sge::media_path()/SGE_TEXT("tux.png")));
+				sge::config::media_path()/SGE_TEXT("tux.png")));
 
 	sge::texture::default_creator<sge::texture::no_fragmented> const 
 		creator(
@@ -204,7 +204,7 @@ try
 	);
 
 	sge::audio::multi_loader ml(sys.plugin_manager());
-	sge::audio::file_ptr const af_siren = ml.load(sge::media_path()/SGE_TEXT("siren.ogg"));
+	sge::audio::file_ptr const af_siren = ml.load(sge::config::media_path()/SGE_TEXT("siren.ogg"));
 	sge::audio::sound_ptr const sound_siren = sys.audio_player()->create_nonstream_sound(af_siren);
 	sys.audio_player()->listener().pos(
 		sge::audio::point(

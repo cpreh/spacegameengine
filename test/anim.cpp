@@ -20,9 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/cerr.hpp>
-#include <sge/media.hpp>
-#include <sge/exception.hpp>
+#include <sge/config/media_path.hpp>
 #include <sge/signal/scoped_connection.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/system.hpp>
@@ -45,6 +43,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/second.hpp>
 #include <sge/time/resolution.hpp>
 #include <sge/mainloop/dispatch.hpp>
+#include <sge/cerr.hpp>
+#include <sge/exception.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <boost/assign/list_of.hpp>
@@ -78,8 +78,8 @@ try
 	sge::image::loader_ptr const    pl   = sys.image_loader();
 
 	sge::image::object_ptr const
-		img1(pl->load(sge::media_path() / SGE_TEXT("cloudsquare.jpg"))),
-		img2(pl->load(sge::media_path() / SGE_TEXT("grass.png")));
+		img1(pl->load(sge::config::media_path() / SGE_TEXT("cloudsquare.jpg"))),
+		img2(pl->load(sge::config::media_path() / SGE_TEXT("grass.png")));
 
 	sge::texture::default_creator<
 		sge::texture::no_fragmented
