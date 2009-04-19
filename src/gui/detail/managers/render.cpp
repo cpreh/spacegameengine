@@ -34,7 +34,7 @@ namespace
 sge::gui::logger mylogger(
 	sge::gui::global_log(),
 	SGE_TEXT("managers: render"),
-	true);
+	false);
 
 // NOTE: the sprite::object has to get a texture convertible to
 // sge::ogl::texture, so we give it hardware_texture below. the sprite_texture
