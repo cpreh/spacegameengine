@@ -18,36 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_INI_ENTRY_NAME_EQUAL_HPP_INCLUDED
-#define SGE_PARSE_INI_ENTRY_NAME_EQUAL_HPP_INCLUDED
+#include <sge/filesystem/remove_filename.hpp>
 
-#include <sge/parse/ini/entry_fwd.hpp>
-#include <sge/parse/ini/string.hpp>
-#include <sge/export.hpp>
-
-namespace sge
+sge::filesystem::path const
+sge::filesystem::remove_filename(
+	path p)
 {
-namespace parse
-{
-namespace ini
-{
-
-class entry_name_equal {
-public:
-	typedef bool result_type;
-
-	SGE_SYMBOL explicit entry_name_equal(
-		string const &);
-	
-	SGE_SYMBOL bool
-	operator()(
-		entry const &) const;
-private:
-	string name_;
-};
-
+	p.remove_filename();
+	return p;
 }
-}
-}
-
-#endif

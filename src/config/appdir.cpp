@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifdef SGE_WINDOWS_PLATFORM
 #include <sge/windows/windows.hpp>
 #include <sge/container/raw_vector_impl.hpp>
-#include <sge/filesystem/stem.hpp>
+#include <sge/filesystem/remove_filename.hpp>
 #include <sge/char.hpp>
 #include <sge/exception.hpp>
 #endif
@@ -48,11 +48,9 @@ sge::config::appdir()
 			SGE_TEXT("GetModuleFileName() failed!")
 		);
 
-	return filesystem::stem(
-		filesystem::path(
-			string(
-				buf.data()
-			)
+	return filesystem::remove_filename(
+		string(
+			buf.data()
 		)
 	);
 #else
