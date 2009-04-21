@@ -1,5 +1,5 @@
-#ifndef SGE_GUI_CANVAS_HPP_INCLUDED
-#define SGE_GUI_CANVAS_HPP_INCLUDED
+#ifndef SGE_GUI_CANVAS_OBJECT_HPP_INCLUDED
+#define SGE_GUI_CANVAS_OBJECT_HPP_INCLUDED
 
 #include <sge/gui/canvas/rect_type.hpp>
 #include <sge/gui/canvas/line_type.hpp>
