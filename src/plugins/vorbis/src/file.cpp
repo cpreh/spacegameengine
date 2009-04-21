@@ -36,7 +36,7 @@ sge::vorbis::file::file(
 	filesystem::path const &p)
 :
 	file_name(p.string()),
-	stdstream(p)
+	stdstream(p, std::ios_base::binary)
 {
 	if (!stdstream.is_open())
 		throw audio::exception(SGE_TEXT("vorbis: couldn't open file \"")+file_name+SGE_TEXT("\""));
