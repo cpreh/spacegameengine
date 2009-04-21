@@ -64,25 +64,6 @@ sge::config::find_path(
 {
 	BOOST_FOREACH(
 		path_vector::const_reference r,
-		hard_paths
-	)
-		try
-		{
-			return try_path(
-				r
-			);
-		}
-		catch(exception const &e)
-		{
-			SGE_LOG_DEBUG(
-				log::global(),
-				log::_1
-					<< e.what()
-			);
-		}
-
-	BOOST_FOREACH(
-		path_vector::const_reference r,
 		config_files
 	)
 	{
@@ -128,6 +109,25 @@ sge::config::find_path(
 			);
 		}
 	}
+
+	BOOST_FOREACH(
+		path_vector::const_reference r,
+		hard_paths
+	)
+		try
+		{
+			return try_path(
+				r
+			);
+		}
+		catch(exception const &e)
+		{
+			SGE_LOG_DEBUG(
+				log::global(),
+				log::_1
+					<< e.what()
+			);
+		}
 
 	throw path_not_found(
 		what

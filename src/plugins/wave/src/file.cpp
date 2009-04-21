@@ -34,7 +34,7 @@ sge::wave::file::file(
 :
 	filename_(filename.string()),
 	swap_(boost::logic::indeterminate),
-	file_(filename_)
+	file_(filename_, std::ios_base::binary)
 {
 	if (!file_.is_open())
 		throw audio::exception(
