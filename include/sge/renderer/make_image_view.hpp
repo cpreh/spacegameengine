@@ -26,14 +26,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim_type.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/export.hpp>
-#include <boost/optional.hpp>
+#include <sge/optional.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-typedef boost::optional<
+typedef optional<
 	size_type
 > optional_image_pitch;
 

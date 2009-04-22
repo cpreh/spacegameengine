@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/signal/shared_connection.hpp>
 #include <sge/export.hpp>
 #include <sge/noncopyable.hpp>
-#include <boost/optional.hpp>
+#include <sge/optional.hpp>
 
 namespace sge
 {
@@ -59,7 +59,7 @@ private:
 	bool running;
 	systems::instance const sys;
 
-	typedef boost::optional<
+	typedef optional<
 		signal::shared_connection
 	> optional_shared_connection;
 
