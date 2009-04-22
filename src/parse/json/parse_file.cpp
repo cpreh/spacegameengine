@@ -18,31 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_ARRAY_HPP_INCLUDED
-#define SGE_PARSE_JSON_ARRAY_HPP_INCLUDED
+#include <sge/parse/json/parse_file.hpp>
+#include <sge/parse/json/parse_range.hpp>
+#include <sge/parse/detail/parse_file.hpp>
 
-#include <sge/parse/json/array_fwd.hpp>
-#include <sge/parse/json/value.hpp>
-#include <vector>
-
-namespace sge
+bool
+sge::parse::json::parse_file(
+	filesystem::path const &path,
+	object &result)
 {
-namespace parse
-{
-namespace json
-{
-
-class array {
-public:
-	typedef std::vector<
-		value
-	> element_vector;
-
-	element_vector elements;
-};
-
+	return detail::parse_file(
+		path,
+		result
+	);
 }
-}
-}
-
-#endif

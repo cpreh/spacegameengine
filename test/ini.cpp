@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/ini/parse.hpp>
+#include <sge/parse/ini/parse_range.hpp>
 #include <sge/string.hpp>
 #include <sge/cout.hpp>
 #include <sge/cerr.hpp>
@@ -39,7 +39,7 @@ int main()
 
 	sge::parse::ini::section_vector result;
 
-	if(!sge::parse::ini::parse(
+	if(!sge::parse::ini::parse_range(
 		beg,
 		test.end(),
 		result

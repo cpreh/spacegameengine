@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/string.hpp>
 #include <sge/parse/json/null.hpp>
+#include <sge/parse/json/object_fwd.hpp>
+#include <sge/parse/json/array_fwd.hpp>
 #include <boost/variant/variant.hpp>
 #include <boost/variant/recursive_wrapper.hpp>
 
@@ -34,7 +36,6 @@ namespace json
 {
 
 class array;
-class object;
 
 typedef boost::variant<
 	boost::recursive_wrapper<

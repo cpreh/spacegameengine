@@ -19,53 +19,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/parse/ini/parse_file.hpp>
-#include <sge/parse/ini/parse.hpp>
-#include <sge/fstream.hpp>
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
-#include <sge/string.hpp>
+#include <sge/parse/ini/parse_range.hpp>
+#include <sge/parse/detail/parse_file.hpp>
 
 bool
 sge::parse::ini::parse_file(
 	filesystem::path const &path,
 	section_vector &result)
 {
-	// TODO: this should be generalized for all parsers
-	// but currently there is only the ini parser
-	
-	ifstream ifs(
+	return detail::parse_file(
 		path,
-		std::ios_base::binary
-	);
-
-	if(!ifs.is_open())
-		throw exception(
-			SGE_TEXT("Opening ")
-			+ path.string()
-			+ SGE_TEXT(" failed!")
-		);
-	
-	string ret;
-
-	{
-		ifstream::char_type ch;
-		while(ifs.get(ch))
-			ret.push_back(ch);
-	}
-	
-	typedef string::const_iterator iterator;
-
-	iterator beg(
-		ret.begin()
-	);
-
-	return parse(
-		beg,
-		static_cast<
-			string const &
-		>(
-			ret
-		).end(),
 		result
 	);
 }

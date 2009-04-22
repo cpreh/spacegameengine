@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_INI_PARSE_HPP_INCLUDED
-#define SGE_PARSE_INI_PARSE_HPP_INCLUDED
+#ifndef SGE_PARSE_JSON_PARSE_RANGE_HPP_INCLUDED
+#define SGE_PARSE_JSON_PARSE_RANGE_HPP_INCLUDED
 
-#include <sge/parse/ini/section_vector.hpp>
-#include <sge/parse/ini/grammar.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/grammar.hpp>
 
 // TODO: include the necessary spirit qi header!
 
@@ -30,17 +30,17 @@ namespace sge
 {
 namespace parse
 {
-namespace ini
+namespace json
 {
 
 template<
 	typename In
 >
 bool
-parse(
+parse_range(
 	In &beg,
 	In const end,
-	section_vector &result)
+	object &result)
 {
 	grammar<In> parser;
 	
@@ -49,7 +49,7 @@ parse(
 		end,
 		parser,
 		result,
-		boost::spirit::ascii::blank
+		boost::spirit::ascii::space
 	);
 }
 

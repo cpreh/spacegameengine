@@ -18,28 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_ARRAY_HPP_INCLUDED
-#define SGE_PARSE_JSON_ARRAY_HPP_INCLUDED
+#ifndef SGE_PARSE_INI_PARSE_RANGE_HPP_INCLUDED
+#define SGE_PARSE_INI_PARSE_RANGE_HPP_INCLUDED
 
-#include <sge/parse/json/array_fwd.hpp>
-#include <sge/parse/json/value.hpp>
-#include <vector>
+#include <sge/parse/ini/section_vector.hpp>
+#include <sge/parse/ini/grammar.hpp>
+
+// TODO: include the necessary spirit qi header!
 
 namespace sge
 {
 namespace parse
 {
-namespace json
+namespace ini
 {
 
-class array {
-public:
-	typedef std::vector<
-		value
-	> element_vector;
-
-	element_vector elements;
-};
+template<
+	typename In
+>
+bool
+parse_range(
+	In &beg,
+	In const end,
+	section_vector &result)
+{
+	grammar<In> parser;
+	
+	return boost::spirit::qi::phrase_parse(
+		beg,
+		end,
+		parser,
+		result,
+		boost::spirit::ascii::blank
+	);
+}
 
 }
 }

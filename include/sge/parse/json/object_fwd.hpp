@@ -18,13 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_PARSE_HPP_INCLUDED
-#define SGE_PARSE_JSON_PARSE_HPP_INCLUDED
-
-#include <sge/parse/json/object.hpp>
-#include <sge/parse/json/grammar.hpp>
-
-// TODO: include the necessary spirit qi header!
+#ifndef SGE_PARSE_JSON_OBJECT_FWD_HPP_INCLUDED
+#define SGE_PARSE_JSON_OBJECT_FWD_HPP_INCLUDED
 
 namespace sge
 {
@@ -33,25 +28,7 @@ namespace parse
 namespace json
 {
 
-template<
-	typename In
->
-bool
-parse(
-	In &beg,
-	In const end,
-	object &result)
-{
-	grammar<In> parser;
-	
-	return boost::spirit::qi::phrase_parse(
-		beg,
-		end,
-		parser,
-		result,
-		boost::spirit::ascii::space
-	);
-}
+class object;
 
 }
 }

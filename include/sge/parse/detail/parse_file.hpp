@@ -18,28 +18,66 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_ARRAY_HPP_INCLUDED
-#define SGE_PARSE_JSON_ARRAY_HPP_INCLUDED
+#ifndef SGE_PARSE_DETAIL_PARSE_FILE_HPP_INCLUDED
+#define SGE_PARSE_DETAIL_PARSE_FILE_HPP_INCLUDED
 
-#include <sge/parse/json/array_fwd.hpp>
-#include <sge/parse/json/value.hpp>
-#include <vector>
+#include <sge/filesystem/path.hpp>
+#include <sge/fstream.hpp>
+#include <sge/text.hpp>
+#include <sge/string.hpp>
+#include <sge/exception.hpp>
 
 namespace sge
 {
 namespace parse
 {
-namespace json
+namespace detail
 {
 
-class array {
-public:
-	typedef std::vector<
-		value
-	> element_vector;
+template<
+	typename Result
+>
+bool
+parse_file(
+	filesystem::path const &path,
+	Result &result)
+{
+	ifstream ifs(
+		path,
+		std::ios_base::binary
+	);
 
-	element_vector elements;
-};
+	if(!ifs.is_open())
+		throw exception(
+			SGE_TEXT("Opening ")
+			+ path.string()
+			+ SGE_TEXT(" failed!")
+		);
+	
+	string ret;
+
+	{
+		ifstream::char_type ch;
+		while(ifs.get(ch))
+			ret.push_back(ch);
+	}
+	
+	typedef string::const_iterator iterator;
+
+	iterator beg(
+		ret.begin()
+	);
+
+	return parse_range(
+		beg,
+		static_cast<
+			string const &
+		>(
+			ret
+		).end(),
+		result
+	);
+}
 
 }
 }

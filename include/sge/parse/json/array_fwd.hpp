@@ -18,12 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_ARRAY_HPP_INCLUDED
-#define SGE_PARSE_JSON_ARRAY_HPP_INCLUDED
-
-#include <sge/parse/json/array_fwd.hpp>
-#include <sge/parse/json/value.hpp>
-#include <vector>
+#ifndef SGE_PARSE_JSON_ARRAY_FWD_HPP_INCLUDED
+#define SGE_PARSE_JSON_ARRAY_FWD_HPP_INCLUDED
 
 namespace sge
 {
@@ -32,14 +28,7 @@ namespace parse
 namespace json
 {
 
-class array {
-public:
-	typedef std::vector<
-		value
-	> element_vector;
-
-	element_vector elements;
-};
+class array;
 
 }
 }
