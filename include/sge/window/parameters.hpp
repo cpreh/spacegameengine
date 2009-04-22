@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_WINDOW_PARAMETERS_HPP_INCLUDED
 
 #include <sge/window/dim_type.hpp>
+#include <sge/math/dim/basic_impl.hpp>
 #include <sge/string.hpp>
 #include <sge/export.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <boost/optional.hpp>
+#include <sge/optional.hpp>
 
 namespace sge
 {
@@ -50,7 +50,7 @@ public:
 	SGE_SYMBOL string const &
 	class_name() const;
 
-	typedef boost::optional<
+	typedef optional<
 		dim_type
 	> optional_dim;
 

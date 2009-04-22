@@ -7,16 +7,21 @@
 #include <sge/math/rect_impl.hpp>
 #include <sge/assert.hpp>
 #include <sge/text.hpp>
+#include <sge/optional.hpp>
 #include <typeinfo>
 
 class sge::renderer::texture_rw::lock_data {
 public:
+	typedef optional<
+		image_view
+	> optional_image_view;
+
 	lock_rect area;
-	boost::optional<image_view> view;
+	optional_image_view view;
 
 	lock_data(
 		lock_rect const &area,
-		boost::optional<image_view> const view = boost::none)
+		optional_image_view const &view = optional_image_view())
 	:
 		area(area),
 		view(view)

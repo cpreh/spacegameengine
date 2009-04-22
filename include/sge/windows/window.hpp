@@ -31,8 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/signal/auto_connection.hpp>
 #include <sge/signal/object.hpp>
 #include <sge/math/rect_decl.hpp>
+#include <sge/optional_fwd.hpp>
 #include <boost/function.hpp>
-#include <boost/optional.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 
 namespace sge
@@ -43,7 +43,7 @@ namespace windows
 class window : public sge::window::instance {
 public:
 	typedef unsigned event_type;
-	typedef boost::optional<LRESULT> callback_return_type;
+	typedef optional<LRESULT> callback_return_type;
 
 	//class signal_combiner;
 

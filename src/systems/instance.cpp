@@ -45,10 +45,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/string.hpp>
+#include <sge/optional.hpp>
 #include <boost/variant/static_visitor.hpp>
 #include <boost/variant/apply_visitor.hpp>
 #include <boost/foreach.hpp>
-#include <boost/optional.hpp>
 #include <typeinfo>
 
 class sge::systems::instance::impl {
@@ -76,7 +76,7 @@ public:
 	
 	window::instance_ptr                            window_;
 
-	boost::optional<window::parameters>             wparam_;
+	optional<window::parameters>                    wparam_;
 
 	void init_renderer(
 		renderer::parameters const &,
@@ -271,7 +271,7 @@ void sge::systems::instance::impl::init_window(
 	window::parameters const &p,
 	string const &name)
 {
-	wparam_.reset(p);
+	wparam_ = p;
 }
 
 void sge::systems::instance::impl::init_renderer(

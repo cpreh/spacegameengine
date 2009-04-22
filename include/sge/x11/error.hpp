@@ -23,14 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <X11/Xlib.h>
 #include <sge/export.hpp>
-#include <boost/optional.hpp>
+#include <sge/optional_fwd.hpp>
 
 namespace sge
 {
 namespace x11
 {
 
-typedef boost::optional<
+typedef optional<
 	XErrorEvent
 > optional_error;
 
