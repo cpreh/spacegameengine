@@ -86,7 +86,8 @@ void sge::gui::widgets::base::pos_hint(
 		invalidation::position);
 }
 
-boost::optional<sge::gui::point> const sge::gui::widgets::base::pos_hint() const
+sge::gui::widgets::optional_point const
+sge::gui::widgets::base::pos_hint() const
 {
 	return pos_hint_;
 }
@@ -105,7 +106,8 @@ void sge::gui::widgets::base::size_hint(
 		invalidation::size);
 }
 
-boost::optional<sge::gui::dim> const sge::gui::widgets::base::size_hint() const
+sge::gui::widgets::optional_dim const
+sge::gui::widgets::base::size_hint() const
 {
 	return size_hint_;
 }

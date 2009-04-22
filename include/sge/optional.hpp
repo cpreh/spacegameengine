@@ -21,64 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPTIONAL_HPP_INCLUDED
 #define SGE_OPTIONAL_HPP_INCLUDED
 
-#include <sge/optional_fwd.hpp>
-#include <sge/safe_bool.hpp>
-
-namespace sge
-{
-
-template<
-	typename T
->
-class optional
-	: public safe_bool<optional<T> > {
-public:
-	typedef T &reference;
-	typedef T const &const_reference;
-	typedef T *pointer;
-	typedef T const *const_pointer;
-
-	optional();
-
-	explicit optional(
-		const_reference);
-	
-	optional(
-		optional const &);
-	
-	optional &
-	operator=(
-		optional const &);
-	
-	optional &
-	operator=(
-		const_reference);
-	
-	~optional();
-
-	reference operator*();
-	const_reference operator*() const;
-
-	pointer operator->();
-	const_pointer operator->() const;
-
-	void reset();
-
-	bool boolean_test() const;
-private:
-	pointer
-	construct(
-		const_reference);
-	
-	pointer
-	construct(
-		optional const &);
-		
-	void destroy();
-
-	pointer value_;
-};
-
-}
+#include <sge/optional_decl.hpp>
+#include <sge/optional_impl.hpp>
 
 #endif

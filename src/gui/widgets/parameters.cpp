@@ -58,32 +58,38 @@ sge::gui::widgets::parameters::activation(
 	return *this; 
 }
 
-boost::optional<sge::gui::point> const &sge::gui::widgets::parameters::pos() const
+sge::gui::widgets::optional_point const &
+sge::gui::widgets::parameters::pos() const
 {
 	return pos_;
 }
 
-boost::optional<sge::gui::dim> const &sge::gui::widgets::parameters::size() const
+sge::gui::widgets::optional_dim const &
+sge::gui::widgets::parameters::size() const
 {
 	return size_;
 }
 
-sge::gui::size_policy const &sge::gui::widgets::parameters::size_policy() const
+sge::gui::size_policy const &
+sge::gui::widgets::parameters::size_policy() const
 {
 	return size_policy_;
 }
 
-sge::gui::keyboard_focus::type const &sge::gui::widgets::parameters::keyboard_focus() const
+sge::gui::keyboard_focus::type const &
+sge::gui::widgets::parameters::keyboard_focus() const
 {
 	return keyboard_focus_;
 }
 
-sge::gui::layouts::auto_ptr sge::gui::widgets::parameters::layout() const
+sge::gui::layouts::auto_ptr
+sge::gui::widgets::parameters::layout() const
 {
 	return layout_;
 }
 
-sge::gui::activation_state::type sge::gui::widgets::parameters::activation() const
+sge::gui::activation_state::type
+sge::gui::widgets::parameters::activation() const
 {
 	return activation_;
 }

@@ -3,6 +3,8 @@
 
 #include <sge/gui/widgets/parameters.hpp>
 #include <sge/gui/widgets/parent_data.hpp>
+#include <sge/gui/widgets/optional_point.hpp>
+#include <sge/gui/widgets/optional_dim.hpp>
 #include <sge/gui/point.hpp>
 #include <sge/gui/depth_type.hpp>
 #include <sge/gui/invalidation.hpp>
@@ -21,10 +23,10 @@
 #include <sge/renderer/image.hpp>
 #include <sge/noncopyable.hpp>
 #include <sge/gui/export.hpp>
+#include <sge/optional.hpp>
 
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/function.hpp>
-#include <boost/optional.hpp>
 
 namespace sge
 {
@@ -58,10 +60,10 @@ class SGE_CLASS_SYMBOL base
 	SGE_GUI_SYMBOL point const relative_pos() const;
 	//! this only sets the position immediately if it's a top level widget
 	SGE_GUI_SYMBOL void pos_hint(point const &);
-	SGE_GUI_SYMBOL boost::optional<point> const pos_hint() const;
+	SGE_GUI_SYMBOL optional_point const pos_hint() const;
 	SGE_GUI_SYMBOL dim const size() const;
 	SGE_GUI_SYMBOL void size_hint(dim const &);
-	SGE_GUI_SYMBOL boost::optional<dim> const size_hint() const;
+	SGE_GUI_SYMBOL optional_dim const size_hint() const;
 
 	SGE_GUI_SYMBOL void z(depth_type);
 	SGE_GUI_SYMBOL depth_type z() const;
@@ -127,9 +129,9 @@ class SGE_CLASS_SYMBOL base
 	manager &manager_;
 
 	point pos_;
-	boost::optional<point> pos_hint_;
+	optional_point pos_hint_;
 	dim size_;
-	boost::optional<dim> size_hint_;
+	optional_dim size_hint_;
 	depth_type z_;
 	sge::gui::size_policy size_policy_;
 	keyboard_focus::type keyboard_focus_;
