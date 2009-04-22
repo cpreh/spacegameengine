@@ -126,6 +126,25 @@ sge::optional<T>::operator->() const
 template<
 	typename T
 >
+void
+sge::optional<T>::reset()
+{
+	destroy();
+	value_ = 0;
+}
+
+template<
+	typename T
+>
+bool
+sge::optional<T>::boolean_test() const
+{
+	return value_;
+}
+
+template<
+	typename T
+>
 typename sge::optional<T>::pointer
 sge::optional<T>::construct(
 	const_reference r)

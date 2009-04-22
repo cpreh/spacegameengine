@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPTIONAL_HPP_INCLUDED
 
 #include <sge/optional_fwd.hpp>
+#include <sge/safe_bool.hpp>
 
 namespace sge
 {
@@ -29,7 +30,8 @@ namespace sge
 template<
 	typename T
 >
-class optional {
+class optional
+	: public safe_bool<optional<T> > {
 public:
 	typedef T &reference;
 	typedef T const &const_reference;
@@ -59,6 +61,10 @@ public:
 
 	pointer operator->();
 	const_pointer operator->() const;
+
+	void reset();
+
+	bool boolean_test() const;
 private:
 	pointer
 	construct(

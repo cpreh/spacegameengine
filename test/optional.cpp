@@ -52,4 +52,12 @@ int main()
 		<< SGE_TEXT('\n')
 		<< *opt2
 		<< SGE_TEXT('\n');
+	
+	if(opt1)
+		sge::cout << SGE_TEXT("opt1 is set\n");
+	
+	opt1.reset();
+
+	if(!opt1)
+		sge::cout << SGE_TEXT("opt1 is not set\n");
 }
