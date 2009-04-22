@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TEXTURE_DETAIL_OPTIONAL_CONTAINER_POSITION_HPP_INCLUDED
 
 #include <sge/texture/detail/container_position.hpp>
-#include <boost/optional.hpp>
+#include <sge/optional_fwd.hpp>
 
 namespace sge
 {
@@ -31,7 +31,7 @@ namespace texture
 namespace detail
 {
 
-typedef boost::optional<
+typedef optional<
 	container_position
 > optional_container_position;
 
