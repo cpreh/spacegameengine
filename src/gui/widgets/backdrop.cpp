@@ -2,7 +2,7 @@
 
 sge::gui::widgets::backdrop::backdrop(
 	widgets::parent_data const &_parent,
-	parameters _params)
+	parameters const &_params)
 : 
 	base(
 		_parent,

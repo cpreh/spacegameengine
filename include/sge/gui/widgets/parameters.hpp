@@ -1,6 +1,7 @@
 #ifndef SGE_GUI_WIDGETS_PARAMETERS_HPP_INCLUDED
 #define SGE_GUI_WIDGETS_PARAMETERS_HPP_INCLUDED
 
+#include <sge/gui/widgets/parameters_fwd.hpp>
 #include <sge/gui/widgets/optional_point.hpp>
 #include <sge/gui/widgets/optional_dim.hpp>
 #include <sge/gui/export.hpp>

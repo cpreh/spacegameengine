@@ -15,7 +15,7 @@ class SGE_CLASS_SYMBOL backdrop : public base
 	public:
 	SGE_GUI_SYMBOL backdrop(
 		parent_data const &,
-		parameters);
+		parameters const &);
 };
 }
 }

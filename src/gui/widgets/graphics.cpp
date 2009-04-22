@@ -1,4 +1,5 @@
 #include <sge/gui/widgets/graphics.hpp>
+#include <sge/gui/widgets/parameters.hpp>
 #include <sge/image/object.hpp>
 #include <sge/gui/image.hpp>
 #include <sge/structure_cast.hpp>

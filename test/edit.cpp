@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/gui/manager.hpp>
 #include <sge/gui/widgets/edit.hpp>
+#include <sge/gui/widgets/parameters.hpp>
 #include <sge/gui/skins/standard.hpp>
 #include <sge/gui/default_cursor.hpp>
 

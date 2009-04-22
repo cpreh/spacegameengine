@@ -1,4 +1,5 @@
 #include <sge/gui/widgets/buttons/base.hpp>
+#include <sge/gui/widgets/parameters.hpp>
 #include <sge/gui/events/key.hpp>
 #include <sge/gui/events/mouse_click.hpp>
 #include <sge/gui/manager.hpp>

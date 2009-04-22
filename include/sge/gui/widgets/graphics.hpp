@@ -15,8 +15,8 @@ class graphics : public base
 {
 public:
 	SGE_GUI_SYMBOL graphics(
-		widgets::parent_data const &,
-		widgets::parameters,
+		parent_data const &,
+		parameters,
 		const_image_ptr);
 };
 }

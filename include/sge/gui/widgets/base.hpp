@@ -1,7 +1,7 @@
 #ifndef SGE_GUI_WIDGETS_BASE_HPP_INCLUDED
 #define SGE_GUI_WIDGETS_BASE_HPP_INCLUDED
 
-#include <sge/gui/widgets/parameters.hpp>
+#include <sge/gui/widgets/parameters_fwd.hpp>
 #include <sge/gui/widgets/parent_data.hpp>
 #include <sge/gui/widgets/optional_point.hpp>
 #include <sge/gui/widgets/optional_dim.hpp>

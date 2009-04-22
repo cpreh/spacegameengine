@@ -1,4 +1,5 @@
 #include <sge/gui/widgets/label.hpp>
+#include <sge/gui/widgets/parameters.hpp>
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/gui/manager.hpp>
 #include <sge/gui/widgets/log.hpp>

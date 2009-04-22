@@ -1,5 +1,6 @@
 #include <sge/algorithm/ptr_container_erase.hpp>
 #include <sge/gui/widgets/base.hpp>
+#include <sge/gui/widgets/parameters.hpp>
 #include <sge/gui/layouts/null.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/gui/events/mouse_leave.hpp>
