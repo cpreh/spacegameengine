@@ -4,6 +4,7 @@
 #include "world_wrapper.hpp"
 #include "space.hpp"
 #include <sge/collision/world.hpp>
+#include <sge/collision/optional_rect.hpp>
 #include <ode/ode.h>
 
 namespace sge
@@ -13,8 +14,8 @@ namespace ode
 class world : public sge::collision::world
 {
 public:
-	world(
-		boost::optional<collision::rect> const &);
+	explicit world(
+		collision::optional_rect const &);
 
 	void
 	test_callback(

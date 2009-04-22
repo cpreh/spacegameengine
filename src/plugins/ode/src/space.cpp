@@ -1,4 +1,5 @@
 #include "../space.hpp"
+#include <sge/optional.hpp>
 
 sge::ode::space::space(
 	collision::optional_rect const &_rect)

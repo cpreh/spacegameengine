@@ -2,14 +2,14 @@
 #define SGE_COLLISION_OPTIONAL_RECT_HPP_INCLUDED
 
 #include <sge/collision/rect.hpp>
-#include <boost/optional.hpp>
+#include <sge/optional_fwd.hpp>
 
 namespace sge
 {
 namespace collision
 {
 
-typedef boost::optional<
+typedef optional<
 	rect
 > optional_rect;
 

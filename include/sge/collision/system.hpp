@@ -5,7 +5,7 @@
 #include <sge/collision/optional_rect.hpp>
 #include <sge/export.hpp>
 #include <sge/noncopyable.hpp>
-#include <boost/optional.hpp>
+#include <sge/optional.hpp>
 
 namespace sge
 {
@@ -19,7 +19,7 @@ protected:
 public:
 	virtual world_ptr const
 	create_world(
-		optional_rect const & = boost::none) = 0;
+		optional_rect const & = optional_rect()) = 0;
 	
 	SGE_SYMBOL virtual ~system();
 };

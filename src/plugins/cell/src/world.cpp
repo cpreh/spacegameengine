@@ -5,6 +5,7 @@
 #include <sge/make_shared_ptr.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
+#include <sge/optional.hpp>
 #include <boost/bind.hpp>
 #include <boost/ref.hpp>
 #include <boost/foreach.hpp>
