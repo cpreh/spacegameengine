@@ -16,13 +16,14 @@ sge::gui::logger mylogger(sge::gui::canvas::global_log(),SGE_TEXT("font_drawer")
 sge::gui::canvas::font_drawer::font_drawer(
 	image_view &texture_,
 	color c,
-	boost::optional<string::size_type> character_pos,
-	point *p)
-	: texture_(texture_),
-	  c(c),
-		counter(0),
-		character_pos(character_pos),
-		p(p)
+	optional_character_pos const &character_pos,
+	point *const p)
+:
+	texture_(texture_),
+	c(c),
+	counter(0),
+	character_pos(character_pos),
+	p(p)
 {
 	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("instantiated"));
 }

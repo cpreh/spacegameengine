@@ -1,15 +1,14 @@
 #ifndef SGE_GUI_CANVAS_FONT_DRAWER_HPP_INCLUDED
 #define SGE_GUI_CANVAS_FONT_DRAWER_HPP_INCLUDED
 
+#include <sge/gui/canvas/optional_character_pos.hpp>
 #include <sge/gui/image_view.hpp>
 #include <sge/gui/color.hpp>
 #include <sge/gui/point.hpp>
 #include <sge/font/drawer.hpp>
 #include <sge/renderer/image_view.hpp>
 #include <sge/gui/export.hpp>
-#include <sge/string.hpp>
-
-#include <boost/optional.hpp>
+#include <sge/optional.hpp>
 
 namespace sge
 {
@@ -19,11 +18,11 @@ namespace canvas
 {
 class SGE_CLASS_SYMBOL font_drawer : public font::drawer
 {
-	public:
+public:
 	SGE_GUI_SYMBOL font_drawer(
 		image_view &,
 		color,
-		boost::optional<string::size_type> character_pos = boost::none,
+		optional_character_pos const & = optional_character_pos(),
 		point * = 0);
 
 	// NOTE: this is font::drawer::size_type, _not_ font::size_type!
@@ -42,7 +41,7 @@ private:
 	image_view &texture_;
 	color const c;
 	unsigned counter;
-	boost::optional<unsigned> character_pos;
+	optional_character_pos character_pos;
 	point *p;
 };
 }

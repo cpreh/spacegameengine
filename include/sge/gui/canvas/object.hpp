@@ -4,6 +4,7 @@
 #include <sge/gui/canvas/rect_type.hpp>
 #include <sge/gui/canvas/line_type.hpp>
 #include <sge/gui/canvas/strip_type.hpp>
+#include <sge/gui/canvas/optional_character_pos.hpp>
 #include <sge/gui/image.hpp>
 #include <sge/gui/point.hpp>
 #include <sge/gui/dim.hpp>
@@ -17,8 +18,8 @@
 #include <sge/font/flags.hpp>
 #include <sge/renderer/image_view.hpp>
 #include <sge/string.hpp>
-
-#include <boost/optional.hpp>
+#include <sge/noncopyable.hpp>
+#include <sge/optional.hpp>
 
 #include <vector>
 
@@ -28,8 +29,9 @@ namespace gui
 {
 namespace canvas
 {
-class SGE_CLASS_SYMBOL object
+class object
 {
+	SGE_NONCOPYABLE(object)
 	public:
 	SGE_GUI_SYMBOL explicit object(image &);
 	SGE_GUI_SYMBOL ~object();
@@ -52,7 +54,7 @@ class SGE_CLASS_SYMBOL object
 		font::align_h::type,
 		font::align_v::type,
 		font::flag_t = font::flags::default_,
-		boost::optional<string::size_type> character_pos = boost::none,
+		optional_character_pos = optional_character_pos(),
 		point * = 0);
 
 	SGE_GUI_SYMBOL void draw_line(

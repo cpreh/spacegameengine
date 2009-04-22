@@ -40,7 +40,8 @@ public:
 
 	optional();
 
-	explicit optional(
+	// intentionally not explicit
+	optional(
 		const_reference);
 	
 	optional(

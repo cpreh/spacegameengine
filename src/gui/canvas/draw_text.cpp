@@ -15,7 +15,7 @@ void sge::gui::canvas::object::draw_text(
 	font::align_h::type const h,
 	font::align_v::type const v,
 	font::flag_t const f,
-	boost::optional<string::size_type> cp,
+	optional_character_pos cp,
 	point *const p)
 {
 	SGE_ASSERT(!cp || *cp < text.length());

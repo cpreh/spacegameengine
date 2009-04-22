@@ -10,7 +10,7 @@
 #include <sge/input/key_pair_fwd.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/signal/scoped_connection.hpp>
-#include <boost/optional.hpp>
+#include <sge/optional.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
 
 namespace sge
@@ -39,7 +39,7 @@ class keyboard : public submanager
 
 	input::modifier::filter input_filter;
 	widget_container widgets;
-	boost::optional<widget_container::iterator> focus;
+	optional<widget_container::iterator> focus;
 	signal::scoped_connection const
 		ic,
 		irc;

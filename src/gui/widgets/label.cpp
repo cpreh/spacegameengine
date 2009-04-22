@@ -19,7 +19,7 @@ sge::gui::widgets::label::label(
 	string const &_text,
 	sge::font::align_h::type _align_h,
 	sge::font::align_v::type _align_v,
-	boost::optional<dim> _static_size)
+	optional_dim const &_static_size)
 : 
 	base(
 		_parent,
@@ -62,7 +62,7 @@ void sge::gui::widgets::label::text(
 		invalidation::all);
 }
 
-boost::optional<sge::gui::dim> const
+sge::gui::widgets::optional_dim const &
 sge::gui::widgets::label::static_size() const 
 { 
 	return static_size_; 
