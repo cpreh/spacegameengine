@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config.h>
 #if defined(SGE_WINDOWS_PLATFORM)
 #include <sge/windows/create_window.hpp>
+#include <sge/optional.hpp>
 #elif defined(SGE_HAVE_X11)
 #include <sge/x11/create_window.hpp>
 #include <sge/x11/display.hpp>
