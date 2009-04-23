@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/json/parse.hpp>
+#include <sge/parse/json/parse_range.hpp>
 #include <sge/string.hpp>
 #include <sge/text.hpp>
 #include <sge/cerr.hpp>
@@ -121,7 +121,7 @@ int main()
 
 	sge::parse::json::object result;
 
-	if(!sge::parse::json::parse(
+	if(!sge::parse::json::parse_range(
 		beg,
 		test.end(),
 		result
