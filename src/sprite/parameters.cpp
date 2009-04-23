@@ -1,16 +1,16 @@
 #include <sge/sprite/parameters.hpp>
 #include <sge/sprite/object.hpp>
-#include <sge/renderer/colors.hpp>
+#include <sge/sprite/defaults.hpp>
 
 sge::sprite::parameters::parameters()
 :
-	pos_(point::null()),
-	texture_(no_texture),
-	size_(texture_dim),
-	color_(renderer::colors::white()),
-	depth_(0),
-	rotation_(0),
-	visible_(true)
+	pos_(defaults::pos),
+	texture_(defaults::texture),
+	size_(defaults::size),
+	color_(defaults::color),
+	depth_(defaults::depth),
+	rotation_(defaults::rotation),
+	visible_(defaults::visible)
 {}
 
 sge::sprite::parameters &sge::sprite::parameters::pos(

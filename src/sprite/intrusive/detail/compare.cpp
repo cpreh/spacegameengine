@@ -18,17 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_INTRUSIVE_SYSTEM_FWD_HPP_INCLUDED
-#define SGE_SPRITE_INTRUSIVE_SYSTEM_FWD_HPP_INCLUDED
+#include <sge/sprite/intrusive/detail/compare.hpp>
+#include <sge/sprite/intrusive/object.hpp>
+#include <sge/texture/part.hpp>
+#include <sge/renderer/texture.hpp>
 
-namespace sge
+bool sge::sprite::intrusive::detail::compare(
+	object const &l,
+	object const &r)
 {
-namespace sprite
-{
-
-class intrusive_system;
-
+	texture::const_part_ptr const
+		texa(l.texture()),
+		texb(r.texture());
+	
+	return !texa || !texb
+		? texa == texb
+		: (texa->texture() == texb->texture()
+		   && l.visible() == r.visible());
 }
-}
-
-#endif

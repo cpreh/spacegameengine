@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_INTRUSIVE_SYSTEM_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_SYSTEM_HPP_INCLUDED
 
-#include <sge/sprite/intrusive_system_fwd.hpp>
-#include <sge/sprite/intrusive_object.hpp> // TODO: can we get rid of this?
-#include <sge/sprite/intrusive_order.hpp>
+#include <sge/sprite/intrusive/system_fwd.hpp>
+#include <sge/sprite/intrusive/object.hpp> // TODO: can we get rid of this?
+#include <sge/sprite/intrusive/order.hpp>
 #include <sge/sprite/system_base.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <boost/intrusive/list.hpp>
@@ -34,17 +34,20 @@ namespace sge
 {
 namespace sprite
 {
+namespace intrusive
+{
 
-class intrusive_system : public system_base {
+class system : public system_base {
 public:
-	SGE_SYMBOL explicit intrusive_system(
+	SGE_SYMBOL explicit system(
 		renderer::device_ptr);
-	SGE_SYMBOL ~intrusive_system();
+	
+	SGE_SYMBOL ~system();
 	
 	SGE_SYMBOL void render();
 private:
 	typedef boost::intrusive::list<
-		intrusive_object,
+		object,
 		boost::intrusive::constant_time_size<
 			false
 		>
@@ -53,18 +56,19 @@ private:
 	void render(
 		sprite_list const &);
 	void add(
-		intrusive_object &,
-		intrusive_order);
-	friend class intrusive_object;
+		object &,
+		order);
+	friend class object;
 
 	typedef boost::ptr_map<
-		intrusive_order,
+		order,
 		sprite_list
 	> sprite_level_map;
 
 	sprite_level_map sprite_levels;
 };
 
+}
 }
 }
 

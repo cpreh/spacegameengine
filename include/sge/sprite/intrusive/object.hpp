@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_INTRUSIVE_OBJECT_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_OBJECT_HPP_INCLUDED
 
+#include <sge/sprite/intrusive/object_fwd.hpp>
+#include <sge/sprite/intrusive/system_fwd.hpp>
+#include <sge/sprite/intrusive/order.hpp>
 #include <sge/sprite/object.hpp>
-#include <sge/sprite/intrusive_object_fwd.hpp>
-#include <sge/sprite/intrusive_order.hpp>
 #include <sge/export.hpp>
 #include <boost/intrusive/list_hook.hpp>
 
@@ -31,8 +32,8 @@ namespace sge
 {
 namespace sprite
 {
-
-class intrusive_system;
+namespace intrusive
+{
 
 namespace detail
 {
@@ -45,12 +46,12 @@ typedef boost::intrusive::list_base_hook<
 
 }
 
-class intrusive_object : public object, public detail::object_base_hook {
+class object : public sprite::object, public detail::object_base_hook {
 public:
-	typedef intrusive_order order_type;
+	typedef intrusive::order order_type;
 
-	SGE_SYMBOL intrusive_object(
-		intrusive_system &,
+	SGE_SYMBOL object(
+		system &,
 		order_type,
 		point const &,
 		texture::const_part_ptr,
@@ -60,27 +61,27 @@ public:
 		rotation_type,
 		bool visible);
 	
-	SGE_SYMBOL intrusive_object(
-		intrusive_object const &);
+	SGE_SYMBOL object(
+		object const &);
 
-	SGE_SYMBOL intrusive_object &
+	SGE_SYMBOL object &
 	operator=(
-		intrusive_object const &);
+		object const &);
 
 	SGE_SYMBOL void order(
 		order_type);
 	SGE_SYMBOL order_type order() const;
 
 	SGE_SYMBOL void transfer(
-		intrusive_system &);
+		system &);
 private:
 	void add_me();
 
-	intrusive_system *sys;
-	order_type        order_;
+	system *sys;
+	order_type order_;
 };
 
-
+}
 }
 }
 

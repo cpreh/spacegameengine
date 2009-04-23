@@ -19,19 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/sprite/object.hpp>
+#include <sge/sprite/texture_dim.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/math/circle_impl.hpp>
 #include <sge/math/vector/arithmetic.hpp>
 #include <sge/texture/part.hpp>
 #include <sge/structure_cast.hpp>
 #include <cmath>
-#include <limits>
-
-sge::sprite::dim const sge::sprite::texture_dim(
-	std::numeric_limits<unit>::max(),
-	std::numeric_limits<unit>::max());
-
-sge::texture::const_part_ptr const sge::sprite::no_texture;
 
 sge::sprite::object::object(
 	point const &pos_,

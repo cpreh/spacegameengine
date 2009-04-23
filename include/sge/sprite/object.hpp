@@ -36,16 +36,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 
-#include <sge/todo.hpp>
-SGE_TODO("move some of those sprite functions into free function")
-
 namespace sge
 {
 namespace sprite
 {
-
-SGE_SYMBOL extern dim const texture_dim;
-SGE_SYMBOL extern texture::const_part_ptr const no_texture;
 
 class object {
 public:

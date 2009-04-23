@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/sprite/intrusive_object.hpp>
-#include <sge/sprite/intrusive_system.hpp>
+#include <sge/sprite/intrusive/object.hpp>
+#include <sge/sprite/intrusive/system.hpp>
 
-sge::sprite::intrusive_object::intrusive_object(
-	intrusive_system &sys,
+sge::sprite::intrusive::object::object(
+	intrusive::system &sys,
 	order_type const order_,
 	point const &pos_,
 	texture::const_part_ptr const vtex,
@@ -32,7 +32,7 @@ sge::sprite::intrusive_object::intrusive_object(
 	rotation_type const rotation_,
 	bool const visible_)
 :
-	object(
+	sprite::object(
 		pos_,
 		vtex,
 		size_,
@@ -46,10 +46,10 @@ sge::sprite::intrusive_object::intrusive_object(
 	add_me();
 }
 
-sge::sprite::intrusive_object::intrusive_object(
-	intrusive_object const &r)
+sge::sprite::intrusive::object::object(
+	intrusive::object const &r)
 :
-	object(r),
+	sprite::object(r),
 	detail::object_base_hook(r),
 	sys(r.sys),
 	order_(r.order_)
@@ -57,20 +57,20 @@ sge::sprite::intrusive_object::intrusive_object(
 	add_me();
 }
 
-sge::sprite::intrusive_object &
-sge::sprite::intrusive_object::operator=(
-	intrusive_object const &r)
+sge::sprite::intrusive::object &
+sge::sprite::intrusive::object::operator=(
+	intrusive::object const &r)
 {
 	// TODO: what is necessary here?
 	unlink();
 	order_ = r.order_;
 	detail::object_base_hook::operator=(r);	
-	object::operator=(r);
+	sprite::object::operator=(r);
 	add_me();
 	return *this;
 }
 
-void sge::sprite::intrusive_object::order(
+void sge::sprite::intrusive::object::order(
 	order_type const o)
 {
 	unlink();
@@ -78,21 +78,21 @@ void sge::sprite::intrusive_object::order(
 	add_me();
 }
 
-sge::sprite::intrusive_object::order_type
-sge::sprite::intrusive_object::order() const
+sge::sprite::intrusive::object::order_type
+sge::sprite::intrusive::object::order() const
 {
 	return order_;
 }
 
-void sge::sprite::intrusive_object::transfer(
-	intrusive_system &nsys)
+void sge::sprite::intrusive::object::transfer(
+	intrusive::system &nsys)
 {
 	unlink();
 	sys = &nsys;
 	add_me();
 }
 
-void sge::sprite::intrusive_object::add_me()
+void sge::sprite::intrusive::object::add_me()
 {
 	sys->add(
 		*this,

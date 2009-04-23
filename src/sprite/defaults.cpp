@@ -18,17 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_INTRUSIVE_OBJECT_FWD_HPP_INCLUDED
-#define SGE_SPRITE_INTRUSIVE_OBJECT_FWD_HPP_INCLUDED
+#include <sge/sprite/defaults.hpp>
+#include <sge/sprite/texture_dim.hpp>
+#include <sge/renderer/colors.hpp>
+#include <sge/math/vector/basic_impl.hpp>
+#include <sge/math/dim/basic_impl.hpp>
 
-namespace sge
-{
-namespace sprite
-{
+sge::sprite::point const
+sge::sprite::defaults::pos(
+	sge::sprite::point::null()
+);
 
-class intrusive_object;
+sge::texture::const_part_ptr const
+sge::sprite::defaults::texture;
 
-}
-}
 
-#endif
+sge::sprite::dim const
+sge::sprite::defaults::size(
+	sge::sprite::texture_dim
+);
+
+sge::sprite::color const
+sge::sprite::defaults::color(
+	sge::renderer::colors::white()
+);
+
+sge::sprite::depth_type const
+sge::sprite::defaults::depth(
+	static_cast<depth_type>(0)
+);
+
+sge::sprite::rotation_type const
+sge::sprite::defaults::rotation(
+	static_cast<rotation_type>(0)
+);
+
+bool const
+sge::sprite::defaults::visible(
+	true
+);

@@ -178,8 +178,6 @@ try
 		sge::sprite::parameters()
 			.texture(
 				tex_pointer)
-			.size(
-				sge::sprite::texture_dim)
 			.depth(
 				static_cast<sge::sprite::depth_type>(0)));
 

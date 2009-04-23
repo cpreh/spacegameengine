@@ -30,8 +30,6 @@ sge::gui::default_cursor::default_cursor(
 							SGE_TEXT("gui")/
 							SGE_TEXT("cursor.png"))
 						->view()))
-			.size(
-				sprite::texture_dim)
 			.depth(
 				static_cast<sprite::depth_type>(0))),
 	click_(16,16)

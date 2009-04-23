@@ -110,7 +110,6 @@ try
 	sge::sprite::object bg(
 		sge::sprite::parameters()
 			.texture(tex)
-			.size(sge::sprite::texture_dim)
 	);
 
 	device->state(

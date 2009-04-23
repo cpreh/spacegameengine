@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/sprite/intrusive_system.hpp>
-#include <sge/sprite/intrusive_object.hpp>
+#include <sge/sprite/intrusive/system.hpp>
+#include <sge/sprite/intrusive/object.hpp>
+#include <sge/sprite/intrusive/detail/compare.hpp>
 #include <sge/sprite/detail/render_states.hpp>
-#include <sge/sprite/detail/intrusive_compare.hpp>
 #include <sge/sprite/detail/fill_geometry.hpp>
 #include <sge/sprite/detail/render.hpp>
 #include <sge/renderer/state/scoped.hpp>
@@ -31,16 +31,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index_buffer.hpp>
 #include <boost/foreach.hpp>
 
-sge::sprite::intrusive_system::intrusive_system(
+sge::sprite::intrusive::system::system(
 	renderer::device_ptr const rend)
 :
 	system_base(rend)
 {}
 
-sge::sprite::intrusive_system::~intrusive_system()
+sge::sprite::intrusive::system::~system()
 {}
 
-void sge::sprite::intrusive_system::render()
+void sge::sprite::intrusive::system::render()
 {
 	matrices();
 
@@ -49,14 +49,14 @@ void sge::sprite::intrusive_system::render()
 
 	renderer::state::scoped const state_(
 		rend,
-		detail::render_states()
+		sprite::detail::render_states()
 	);
 
 	BOOST_FOREACH(sprite_level_map::value_type const &v, sprite_levels)
 		render(*v.second);
 }
 
-void sge::sprite::intrusive_system::render(
+void sge::sprite::intrusive::system::render(
 	sprite_list const &sprites)
 {
 	allocate_buffers(sprites.size());
@@ -67,7 +67,7 @@ void sge::sprite::intrusive_system::render(
 	renderer::index_buffer_ptr const ib(
 		index_buffer());
 
-	detail::fill_geometry(
+	sprite::detail::fill_geometry(
 		sprites.begin(),
 		sprites.end(),
 		vertex_buffer(),
@@ -76,18 +76,18 @@ void sge::sprite::intrusive_system::render(
 	renderer::device_ptr const rend(
 		renderer());
 
-	detail::render(
+	sprite::detail::render(
 		sprites.begin(),
 		sprites.end(),
-		detail::tex_equal_visible,
+		detail::compare,
 		rend,
 		vb,
 		ib);
 }
 
-void sge::sprite::intrusive_system::add(
-	intrusive_object &obj,
-	intrusive_object::order_type const order)
+void sge::sprite::intrusive::system::add(
+	intrusive::object &obj,
+	intrusive::object::order_type const order)
 {
 	sprite_levels[order].push_back(obj);
 }
