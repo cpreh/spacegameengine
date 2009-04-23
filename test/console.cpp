@@ -31,6 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/add_image.hpp>
 #include <sge/texture/default_creator_impl.hpp>
 #include <sge/texture/no_fragmented.hpp>
+#include <sge/sprite/object.hpp>
+#include <sge/sprite/parameters.hpp>
 #include <sge/image/loader.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/mainloop/dispatch.hpp>
@@ -135,9 +137,15 @@ try
 			15),
 		sys.input_system(),
 		sge::sprite::object(
-			sge::sprite::point(0,0),
-			tex_bg,
-			sge::sprite::dim(400,300)));
+			sge::sprite::parameters()
+			.texture(
+				tex_bg
+			)
+			.size(
+				sge::sprite::dim(400,300)
+			)
+		)
+	);
 
 	sys.renderer()->state(
 		sge::renderer::state::list

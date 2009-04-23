@@ -24,13 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::sprite::intrusive_object::intrusive_object(
 	intrusive_system &sys,
 	order_type const order_,
-	boost::optional<point> const pos_,
-	boost::optional<texture::const_part_ptr> const vtex,
-	boost::optional<dim> const size_,
-	boost::optional<sprite::color> const color_,
-	boost::optional<depth_type> const z_,
-	boost::optional<rotation_type> const rotation_,
-	boost::optional<bool> const visible_)
+	point const &pos_,
+	texture::const_part_ptr const vtex,
+	dim const &size_,
+	sprite::color const &color_,
+	depth_type const z_,
+	rotation_type const rotation_,
+	bool const visible_)
 :
 	object(
 		pos_,

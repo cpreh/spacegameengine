@@ -18,15 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DETAIL_MESSAGE_HPP_INCLUDED
-#define SGE_DETAIL_MESSAGE_HPP_INCLUDED
+#ifndef SGE_SPRITE_OBJECT_FWD_HPP_INCLUDED
+#define SGE_SPRITE_OBJECT_FWD_HPP_INCLUDED
 
-#include <sge/config.h>
+namespace sge
+{
+namespace sprite
+{
 
-#ifdef SGE_HAVE_PRAMGA_MESSAGE
-#define SGE_DETAIL_MESSAGE(x) #pragma message x
-#else
-#define SGE_DETAIL_MESSAGE(x)
-#endif
+class object;
+
+}
+}
 
 #endif

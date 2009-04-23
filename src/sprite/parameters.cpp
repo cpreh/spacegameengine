@@ -1,17 +1,17 @@
 #include <sge/sprite/parameters.hpp>
 #include <sge/sprite/object.hpp>
+#include <sge/renderer/colors.hpp>
 
 sge::sprite::parameters::parameters()
 :
-	pos_(sprite::defaults::pos_),
-	texture_(sprite::defaults::texture_),
-	size_(defaults::dim_),
-	color_(defaults::color_),
-	depth_(defaults::depth_),
-	rotation_(defaults::rotation_),
-	visible_(defaults::visible_)
-{
-}
+	pos_(point::null()),
+	texture_(no_texture),
+	size_(texture_dim),
+	color_(renderer::colors::white()),
+	depth_(0),
+	rotation_(0),
+	visible_(true)
+{}
 
 sge::sprite::parameters &sge::sprite::parameters::pos(
 	point const &_pos)
@@ -21,7 +21,7 @@ sge::sprite::parameters &sge::sprite::parameters::pos(
 }
 
 sge::sprite::parameters &sge::sprite::parameters::texture(
-	texture::const_part_ptr _texture)
+	texture::const_part_ptr const _texture)
 {
 	texture_ = _texture;
 	return *this;
@@ -56,7 +56,7 @@ sge::sprite::parameters &sge::sprite::parameters::rotation(
 }
 
 sge::sprite::parameters &sge::sprite::parameters::visible(
-	bool _visible)
+	bool const _visible)
 {
 	visible_ = _visible;
 	return *this;
@@ -64,12 +64,13 @@ sge::sprite::parameters &sge::sprite::parameters::visible(
 
 sge::sprite::parameters::operator sge::sprite::object() const
 {
-	return sge::sprite::object(
+	return object(
 		pos_,
 		texture_,
 		size_,
 		color_,
 		depth_,
 		rotation_,
-		visible_);
+		visible_
+	);
 }

@@ -21,6 +21,7 @@
 #include <sge/renderer/colors.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/texture/part_raw.hpp>
+#include <sge/sprite/parameters.hpp>
 #include <sge/text.hpp>
 #include <sge/assert.hpp>
 #include <sge/type_name.hpp>
@@ -327,3 +328,11 @@ void sge::gui::detail::managers::render::clean()
 	}
 	dirt_.clear();
 }
+
+sge::gui::detail::managers::render::widget_data::widget_data()
+:
+	texture(),
+	sprite(
+		sge::sprite::parameters()
+	)
+{}

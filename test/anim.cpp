@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/loader.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/system.hpp>
+#include <sge/sprite/parameters.hpp>
 #include <sge/sprite/texture_animation.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/add_image.hpp>
@@ -96,16 +97,16 @@ try
 
 	sge::sprite::system ss(rend);
 	sge::sprite::object spr(
-		sge::sprite::point(0, 0),
-		sge::sprite::defaults::texture_,
-		sge::sprite::dim(
-			rend->screen_size().w(),
-			static_cast<sge::sprite::unit>(
-				rend->screen_size().h())),
-		boost::none,
-		boost::none,
-		boost::none,
-		boost::none);
+		sge::sprite::parameters()
+		.size(
+			sge::sprite::dim(
+				rend->screen_size().w(),
+				static_cast<sge::sprite::unit>(
+					rend->screen_size().h()
+				)
+			)
+		)
+	);
 
 	sge::sprite::animation_series::entity_vector const series = 
 		boost::assign::list_of

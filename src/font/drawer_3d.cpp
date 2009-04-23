@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/image.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/sprite/object.hpp>
+#include <sge/sprite/parameters.hpp>
 #include <boost/gil/algorithm.hpp>
 
 namespace
@@ -83,14 +84,20 @@ void sge::font::drawer_3d::draw_char(
 
 	sprites.push_back(
 		sprite::object(
-			p,
-			d.content()
-				? cached_texture(
-					ch,
-					data)
-				: texture::const_part_ptr(),
-			d,
-			col));
+			sprite::parameters()
+			.pos(p)
+			.texture(
+				d.content()
+					? cached_texture(
+						ch,
+						data
+					)
+					: texture::const_part_ptr()
+			)
+			.size(d)
+			.color(col)
+		)
+	);
 }
 
 void sge::font::drawer_3d::end_rendering()

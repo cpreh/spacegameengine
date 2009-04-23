@@ -14,6 +14,7 @@
 #include <sge/systems/list.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/object.hpp>
+#include <sge/sprite/parameters.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/action.hpp>
 #include <sge/mainloop/dispatch.hpp>
@@ -51,8 +52,9 @@ void collision(sge::collision::satellite &,sge::collision::satellite &)
 class object : public sge::collision::satellite
 {
 	public:
-	object(sge::sprite::object &sprite_)
-			: sprite_(sprite_)
+	explicit object(sge::sprite::object &sprite_)
+	:
+		sprite_(sprite_)
 	{
 	}
 
@@ -109,14 +111,24 @@ try
 	);
 
 	sge::sprite::object s_a(
-		sge::sprite::point(600,0),
-		sge::sprite::defaults::texture_,
-		sge::sprite::dim(10,10));
+		sge::sprite::parameters()
+		.pos(
+			sge::sprite::point(600,0)
+		)
+		.size(
+			sge::sprite::dim(10,10)
+		)
+	);
 
 	sge::sprite::object s_b(
-		sge::sprite::point(10,0),
-		sge::sprite::defaults::texture_,
-		sge::sprite::dim(10,10));
+		sge::sprite::parameters()
+		.pos(
+			sge::sprite::point(10,0)
+		)
+		.size(
+			sge::sprite::dim(10,10)
+		)
+	);
 	
 	sge::collision::objects::circle_ptr const o_a = 
 		world->create_circle(

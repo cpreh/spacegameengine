@@ -2,6 +2,7 @@
 #include <sge/systems/list.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/object.hpp>
+#include <sge/sprite/parameters.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/device.hpp>
@@ -28,27 +29,28 @@ namespace
 {
 class input_functor
 {
-	public:
+public:
 	explicit input_functor(bool &running)
-		: running(running)
-	{
-	}
+	:
+		running(running)
+	{}
 
 	void operator()(sge::input::key_pair const &k) const
 	{
 		if (k.key().code() == sge::input::kc::key_escape)
 			running = false;
 	}
-	private:
+private:
 	bool &running;
 };
 
 class sprite_functor
 {
-	public:
+public:
 	explicit sprite_functor(sge::sprite::object &s)
-			: s(s) 
-		{}
+	:
+		s(s) 
+	{}
 
 	void operator()(sge::input::key_pair const &k) const
 	{
@@ -63,7 +65,7 @@ class sprite_functor
 			default: break;
 		}
 	}
-	private:
+private:
 	sge::sprite::object &s;
 };
 }
@@ -90,21 +92,26 @@ try
 		(sge::systems::parameterless::image));
 
 	sge::sprite::system ss(sys.renderer());
+
 	sge::image::object_ptr const image = 
 		sys.image_loader()->load(SGE_TEXT("tux.png"));
+
 	sge::renderer::texture_ptr const image_texture =
 		sys.renderer()->create_texture(
 			image->view(),
 			sge::renderer::filter::linear,
 			sge::renderer::resource_flags::readable);
+
 	sge::sprite::object my_object(
-		sge::sprite::point(0,0),
-		sge::texture::const_part_ptr(
+		sge::sprite::parameters()
+		.texture(
 			sge::make_shared_ptr<
 				sge::texture::part_raw
 			>(
-				image_texture)),
-			sge::sprite::texture_dim);
+				image_texture
+			)
+		)
+	);
 
 	bool running = true;
 

@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/intrusive_order.hpp>
 #include <sge/export.hpp>
 #include <boost/intrusive/list_hook.hpp>
-#include <boost/optional.hpp>
 
 namespace sge
 {
@@ -53,13 +52,13 @@ public:
 	SGE_SYMBOL intrusive_object(
 		intrusive_system &,
 		order_type,
-		boost::optional<point> = defaults::pos_,
-		boost::optional<texture::const_part_ptr> = defaults::texture_,
-		boost::optional<dim> = defaults::dim_,
-		boost::optional<sprite::color> = defaults::color_,
-		boost::optional<depth_type> = defaults::depth_,
-		boost::optional<rotation_type> = defaults::rotation_,
-		boost::optional<bool> visible = defaults::visible_);
+		point const &,
+		texture::const_part_ptr,
+		dim const &,
+		sprite::color const &,
+		depth_type,
+		rotation_type,
+		bool visible);
 	
 	SGE_SYMBOL intrusive_object(
 		intrusive_object const &);

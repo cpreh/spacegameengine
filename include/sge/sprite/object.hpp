@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_OBJECT_HPP_INCLUDED
 #define SGE_SPRITE_OBJECT_HPP_INCLUDED
 
+#include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/point.hpp>
 #include <sge/sprite/dim.hpp>
 #include <sge/sprite/color.hpp>
@@ -34,7 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part_fwd.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
-#include <boost/optional.hpp>
 
 #include <sge/todo.hpp>
 SGE_TODO("move some of those sprite functions into free function")
@@ -44,33 +44,20 @@ namespace sge
 namespace sprite
 {
 
-SGE_SYMBOL extern const dim texture_dim;
-SGE_SYMBOL extern const texture::const_part_ptr no_texture;
-
-namespace defaults
-{
-
-SGE_SYMBOL extern point const pos_;
-SGE_SYMBOL extern texture::const_part_ptr const texture_;
-SGE_SYMBOL extern const dim dim_;
-SGE_SYMBOL extern const color color_;
-SGE_SYMBOL extern const depth_type depth_;
-SGE_SYMBOL extern const rotation_type rotation_;
-SGE_SYMBOL extern const bool visible_;
-
-}
+SGE_SYMBOL extern dim const texture_dim;
+SGE_SYMBOL extern texture::const_part_ptr const no_texture;
 
 class object {
 public:
 	SGE_SYMBOL object(
-		boost::optional<point> = defaults::pos_,
-		boost::optional<texture::const_part_ptr> = defaults::texture_,
-		boost::optional<dim> = defaults::dim_,
-		boost::optional<sprite::color> = defaults::color_,
-		boost::optional<depth_type> = defaults::depth_,
-		boost::optional<rotation_type> = defaults::rotation_,
-		boost::optional<bool> visible = defaults::visible_);
-
+		point const &,
+		texture::const_part_ptr,
+		dim const &,
+		sprite::color const &,
+		depth_type,
+		rotation_type,
+		bool visible);
+	
 	SGE_SYMBOL unit& x();
 	SGE_SYMBOL unit& y();
 	SGE_SYMBOL point& pos();

@@ -52,6 +52,8 @@ class render : public submanager
 	class widget_data
 	{
 	public:
+		widget_data();
+
 		renderer::texture_ptr texture;
 		sprite::object sprite;
 	};

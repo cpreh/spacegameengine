@@ -2,6 +2,7 @@
 #include <sge/systems/list.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/object.hpp>
+#include <sge/sprite/parameters.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/device.hpp>
@@ -40,20 +41,25 @@ try
 		(sge::systems::parameterless::image));
 
 	sge::sprite::system ss(sys.renderer());
+
 	sge::image::object_ptr const image = sys.image_loader()->load(SGE_TEXT("tux.png"));
+
 	sge::renderer::texture_ptr const image_texture = 
 		sys.renderer()->create_texture(
 			image->view(),
 			sge::renderer::filter::linear,
 			sge::renderer::resource_flags::none);
+
 	sge::sprite::object const my_object(
-		sge::sprite::point(0,0),
-		sge::texture::const_part_ptr(
+		sge::sprite::parameters()
+		.texture(
 			sge::make_shared_ptr<
 				sge::texture::part_raw
 			>(
-				image_texture)),
-		sge::sprite::texture_dim);
+				image_texture
+			)
+		)
+	);
 
 	while (true)
 	{

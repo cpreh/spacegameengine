@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/object.hpp>
+#include <sge/sprite/parameters.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/device.hpp>
@@ -81,21 +82,30 @@ try
 			sge::renderer::resource_flags::readable);
 
 	sge::sprite::object my_object(
-		sge::sprite::point(100,0),
-		sge::texture::const_part_ptr(
+		sge::sprite::parameters()
+		.pos(
+			sge::sprite::point(100,0)
+		)
+		.texture(
 			sge::make_shared_ptr<
 				sge::texture::part_raw
 			>(
-				image_texture)),
-		sge::sprite::texture_dim);
+				image_texture
+			)
+		)
+	);
 
 	sge::sprite::object my_object_2(
-		sge::sprite::point(100,20),
-		sge::texture::const_part_ptr(
+		sge::sprite::parameters()
+		.pos(
+			sge::sprite::point(100,20)
+		)
+		.texture(
 			sge::make_shared_ptr<
 				sge::texture::part_raw
-			>(image_texture)),
-		sge::sprite::texture_dim);
+			>(image_texture)
+		)
+	);
 	
 	sge::renderer::texture_ptr const target = 
 		sys.renderer()->create_texture(
@@ -117,12 +127,13 @@ try
 	}
 
 	sge::sprite::object rendered_stuff(
-		sge::sprite::point(0,0),
-		sge::texture::const_part_ptr(
+		sge::sprite::parameters()
+		.texture(
 			sge::make_shared_ptr<
 				sge::texture::part_raw
-			>(target)),
-		sge::sprite::texture_dim);
+			>(target)
+		)
+	);
 
 	sys.renderer()->state(
 		sge::renderer::state::list
