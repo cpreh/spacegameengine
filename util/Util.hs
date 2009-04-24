@@ -3,18 +3,20 @@ module Util(walkDir,walkDirs,scramble) where
 import System.Directory(getDirectoryContents,doesDirectoryExist,doesFileExist)
 import Control.Monad(filterM)
 import Debug.Trace(traceShow,trace)
-import System.FilePath.Posix(takeFileName)
+import System.FilePath.Posix(takeFileName,(</>))
 
 import qualified Data.ByteString.Char8 as BS
 import Data.ByteString(ByteString)
 
 validDirectory :: FilePath -> IO Bool
-validDirectory x = do exists <- doesDirectoryExist (trace ("analyzing directory " ++ show x) x)
+--validDirectory x = do exists <- doesDirectoryExist (trace ("analyzing directory " ++ show x) x)
+validDirectory x = do exists <- doesDirectoryExist x
                       return $ exists && edited /= "." && edited /= ".."
   where edited = takeFileName x
 
 validFile :: (FilePath -> Bool) -> FilePath -> IO Bool
-validFile f x = do exists <- doesFileExist (trace ("analyzing file " ++ show x) x)
+--validFile f x = do exists <- doesFileExist (trace ("analyzing file " ++ show x) x)
+validFile f x = do exists <- doesFileExist x
                    return $ exists && (f x)
 
 walkDir :: (FilePath -> IO ()) -> (FilePath -> Bool) -> FilePath -> IO ()
