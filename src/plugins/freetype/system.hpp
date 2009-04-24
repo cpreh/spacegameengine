@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 
-#ifndef SGE_FT_SYSTEM_HPP_INCLUDED
-#define SGE_FT_SYSTEM_HPP_INCLUDED
+#ifndef SGE_FREETYPE_SYSTEM_HPP_INCLUDED
+#define SGE_FREETYPE_SYSTEM_HPP_INCLUDED
 
 #include "library.hpp"
 #include <sge/filesystem/path.hpp>

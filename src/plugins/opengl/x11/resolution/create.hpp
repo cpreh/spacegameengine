@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 
-#ifndef SGE_OPENGL_X11_RESOLUTON_CREATE_HPP_INCLUDED
-#define SGE_OPENGL_X11_RESOLUTON_CREATE_HPP_INCLUDED
+#ifndef SGE_OPENGL_X11_RESOLUTION_CREATE_HPP_INCLUDED
+#define SGE_OPENGL_X11_RESOLUTION_CREATE_HPP_INCLUDED
 
 #include "auto_ptr.hpp"
 #include <sge/renderer/adapter.hpp>

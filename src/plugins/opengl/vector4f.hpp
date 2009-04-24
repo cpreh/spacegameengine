@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 
-#ifndef SGE_PLUGINS_OPENGL_VECTOR4F_HPP_INCLUDED
-#define SGE_PLUGINS_OPENGL_VECTOR4F_HPP_INCLUDED
+#ifndef SGE_OPENGL_VECTOR4F_HPP_INCLUDED
+#define SGE_OPENGL_VECTOR4F_HPP_INCLUDED
 
 #include "common.hpp"
 #include <sge/math/vector/static.hpp>
