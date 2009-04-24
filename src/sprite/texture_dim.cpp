@@ -24,7 +24,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <limits>
 
 sge::sprite::dim const
-sge::sprite::texture_dim(
-	std::numeric_limits<unit>::max(),
-	std::numeric_limits<unit>::max()
-);
+sge::sprite::texture_dim()
+{
+	unit const max(
+		std::numeric_limits<unit>::max()
+	);
+
+	return dim(
+		max,
+		max
+	);
+}

@@ -30,7 +30,8 @@ namespace sge
 namespace sprite
 {
 
-SGE_SYMBOL extern dim const texture_dim;
+SGE_SYMBOL dim const
+texture_dim();
 
 }
 }

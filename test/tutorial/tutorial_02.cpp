@@ -22,8 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
 #include <sge/renderer/filter/linear.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/var.hpp>
+#include <sge/renderer/state/states.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/colors.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/input/key_pair.hpp>
@@ -34,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/signal/scoped_connection.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/window/parameters.hpp>
+#include <sge/config/media_path.hpp>
 #include <sge/exception.hpp>
 #include <sge/cerr.hpp>
 #include <sge/text.hpp>
@@ -111,8 +116,11 @@ try
 
 	sge::sprite::system ss(sys.renderer());
 
-	sge::image::object_ptr const image = 
-		sys.image_loader()->load(SGE_TEXT("tux.png"));
+	sge::image::object_ptr const image(
+		sys.image_loader()->load(
+			sge::config::media_path() / SGE_TEXT("tux.png")
+		)
+	);
 
 	sge::renderer::texture_ptr const image_texture =
 		sys.renderer()->create_texture(
@@ -147,6 +155,12 @@ try
 				my_object
 			)
 		)
+	);
+
+	sys.renderer()->state(
+		sge::renderer::state::list
+			(sge::renderer::state::bool_::clear_backbuffer = true)
+			(sge::renderer::state::color_::clear_color = sge::renderer::colors::black())
 	);
 
 	while (running)
