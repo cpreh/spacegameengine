@@ -11,6 +11,7 @@
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/window/parameters.hpp>
+#include <sge/config/media_path.hpp>
 #include <sge/exception.hpp>
 #include <sge/cerr.hpp>
 #include <sge/text.hpp>
@@ -42,13 +43,19 @@ try
 
 	sge::sprite::system ss(sys.renderer());
 
-	sge::image::object_ptr const image = sys.image_loader()->load(SGE_TEXT("tux.png"));
+	sge::image::object_ptr const image(
+		sys.image_loader()->load(
+			sge::config::media_path() / SGE_TEXT("tux.png")
+		)
+	);
 
-	sge::renderer::texture_ptr const image_texture = 
+	sge::renderer::texture_ptr const image_texture(
 		sys.renderer()->create_texture(
 			image->view(),
 			sge::renderer::filter::linear,
-			sge::renderer::resource_flags::none);
+			sge::renderer::resource_flags::none
+		)
+	);
 
 	sge::sprite::object const my_object(
 		sge::sprite::parameters()
