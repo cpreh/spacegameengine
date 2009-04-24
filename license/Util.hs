@@ -2,9 +2,8 @@ module Util(walkDir,walkDirs,scramble) where
 
 import System.Directory(getDirectoryContents,doesDirectoryExist,doesFileExist)
 import Control.Monad(filterM)
-import Data.List(find,elemIndex)
 import Debug.Trace(traceShow,trace)
-import System.FilePath.Posix(takeFileName,(</>))
+import System.FilePath.Posix(takeFileName)
 
 import qualified Data.ByteString.Char8 as BS
 import Data.ByteString(ByteString)
