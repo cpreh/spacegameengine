@@ -23,17 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/file.hpp>
 #include <sge/audio/multi_loader.hpp>
 #include <sge/filesystem/path.hpp>
+#include <sge/config/media_path.hpp>
 #include <sge/text.hpp>
 #include <sge/exception.hpp>
 #include <sge/cerr.hpp>
 #include <exception>
 #include <cstdlib>
-
-namespace 
-{
-// replace!
-sge::filesystem::path const sound_file(SGE_TEXT("your path here"));
-}
 
 int main()
 try
@@ -44,7 +39,9 @@ try
 
 	sge::audio::multi_loader loader(sys.plugin_manager());
 
-	sge::audio::file_ptr const file = loader.load(sound_file);
+	sge::audio::file_ptr const file = loader.load(	
+		sge::config::media_path() / SGE_TEXT("ding.wav")
+	);
 
 	sge::audio::sound_ptr const sound = sys.audio_player()->create_nonstream_sound(file);
 

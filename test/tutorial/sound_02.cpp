@@ -24,18 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/pool.hpp>
 #include <sge/audio/multi_loader.hpp>
 #include <sge/filesystem/path.hpp>
+#include <sge/config/media_path.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/cerr.hpp>
 #include <exception>
 #include <cstdlib>
-
-namespace
-{
-// replace both!
-sge::filesystem::path const sound_file_01(SGE_TEXT("file 01"));
-sge::filesystem::path const sound_file_02(SGE_TEXT("file 02"));
-}
 
 int main()
 try
@@ -49,13 +43,21 @@ try
 	sge::audio::pool pool;
 
 	{
-		sge::audio::sound_ptr const sound_01 = 
+		sge::audio::sound_ptr const sound_01(
 			sys.audio_player()->create_nonstream_sound(
-				loader.load(sound_file_01));
+				loader.load(
+					sge::config::media_path() / SGE_TEXT("ding.wav")
+				)
+			)
+		);
 
-		sge::audio::sound_ptr const sound_02 = 
+		sge::audio::sound_ptr const sound_02( 
 			sys.audio_player()->create_stream_sound(
-				loader.load(sound_file_02));
+				loader.load(
+					sge::config::media_path() / SGE_TEXT("siren.ogg")
+				)
+			)
+		);
 
 		pool.add(sound_01, sge::audio::stop_mode::play_once);
 		pool.add(sound_02, sge::audio::stop_mode::play_once);
