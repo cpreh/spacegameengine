@@ -39,7 +39,7 @@ sge::sprite::object::object(
  :
 	pos_(pos_),
 	size_(
-		size_ == texture_dim
+		size_ == texture_dim()
 			? dim(
 				structure_cast<dim>(
 					vtex->area().dim()

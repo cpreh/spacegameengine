@@ -36,7 +36,7 @@ sge::sprite::defaults::texture;
 
 sge::sprite::dim const
 sge::sprite::defaults::size(
-	sge::sprite::texture_dim
+	sge::sprite::texture_dim()
 );
 
 sge::sprite::color const
