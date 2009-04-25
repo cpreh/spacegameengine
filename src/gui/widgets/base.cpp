@@ -27,9 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/manager.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/vector/arithmetic.hpp>
-#include <sge/assert.hpp>
-#include <sge/cerr.hpp>
 #include <sge/math/rect_util.hpp>
+#include <sge/type_info.hpp>
 #include <boost/foreach.hpp>
 #include <typeinfo>
 
@@ -352,9 +351,10 @@ void sge::gui::widgets::base::process(
 		{
 			SGE_LOG_DEBUG(
 				mylogger,
-				log::_1 << SGE_TEXT("sending widgets::base ")
-				        << type_info(typeid(w)).name()
-								<< SGE_TEXT(" an invalid area event"));
+				log::_1
+					<< SGE_TEXT("sending widgets::base ")
+					<< type_info(typeid(w)).name()
+					<< SGE_TEXT(" an invalid area event"));
 			w.process(e);
 		}
 	}
