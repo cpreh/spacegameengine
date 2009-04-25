@@ -22,6 +22,7 @@ sge::gui::widgets::parameters::parameters()
 : 
 	pos_(),
 	size_(),
+	z_(static_cast<depth_type>(0)),
 	size_policy_(sge::gui::size_policy::default_policy),
 	keyboard_focus_(keyboard_focus::ignore),
 	activation_(activation_state::active)
@@ -86,6 +87,12 @@ sge::gui::widgets::optional_dim const &
 sge::gui::widgets::parameters::size() const
 {
 	return size_;
+}
+
+sge::gui::depth_type 
+sge::gui::widgets::parameters::z() const
+{
+	return z_;
 }
 
 sge::gui::size_policy const &
