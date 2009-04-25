@@ -41,6 +41,7 @@ public:
 	SGE_GUI_SYMBOL void pos(point const &);
 	SGE_GUI_SYMBOL point const pos() const;
 	SGE_GUI_SYMBOL sge::sprite::object const sprite() const;
+	SGE_GUI_SYMBOL void widget_z(depth_type);
 	SGE_GUI_SYMBOL sge::sprite::object &mutable_sprite();
 	SGE_GUI_SYMBOL virtual ~default_cursor();
 private:

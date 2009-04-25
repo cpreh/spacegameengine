@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/structure_cast.hpp>
 #include <sge/make_shared_ptr.hpp>
 #include <sge/text.hpp>
+#include <sge/cerr.hpp>
 
 sge::gui::default_cursor::default_cursor(
 	sge::image::loader_ptr const il,
@@ -49,7 +50,7 @@ sge::gui::default_cursor::default_cursor(
 							SGE_TEXT("cursor.png"))
 						->view()))
 			.depth(
-				static_cast<sprite::depth_type>(0))),
+				static_cast<sprite::depth_type>(-1))),
 	click_(16,16)
 {
 }
@@ -70,6 +71,14 @@ sge::gui::point const sge::gui::default_cursor::pos() const
 sge::sprite::object const sge::gui::default_cursor::sprite() const
 {
 	return sprite_;
+}
+
+void sge::gui::default_cursor::widget_z(depth_type const z)
+{
+	sprite_.z() = 
+		std::max(
+			sprite_.z(),
+			static_cast<sprite::depth_type>(z+1));
 }
 
 sge::sprite::object &sge::gui::default_cursor::mutable_sprite()

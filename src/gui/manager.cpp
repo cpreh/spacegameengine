@@ -141,6 +141,7 @@ void sge::gui::manager::z(
 	widgets::base &w,
 	depth_type const _z)
 {
+	cursor_->widget_z(_z);
 	BOOST_FOREACH(detail::submanager *m,submanagers)
 		m->z(
 			w,

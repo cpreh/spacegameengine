@@ -56,6 +56,8 @@ sge::gui::widgets::base::base(
 		dim::null()),
 	size_hint_(
 		params.size()),
+	z_(
+		params.z()),
 	size_policy_(
 		params.size_policy()),
 	keyboard_focus_(

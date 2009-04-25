@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widgets/optional_dim.hpp>
 #include <sge/gui/export.hpp>
 #include <sge/gui/point.hpp>
+#include <sge/gui/depth_type.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/gui/dim.hpp>
 #include <sge/math/dim/basic_impl.hpp>
@@ -53,6 +54,7 @@ public:
 
 	SGE_GUI_SYMBOL optional_point const &pos() const;
 	SGE_GUI_SYMBOL optional_dim const &size() const;
+	SGE_GUI_SYMBOL depth_type z() const;
 	SGE_GUI_SYMBOL sge::gui::size_policy const &size_policy() const;
 	SGE_GUI_SYMBOL keyboard_focus::type const &keyboard_focus() const;
 	SGE_GUI_SYMBOL layouts::auto_ptr layout() const;
@@ -60,6 +62,7 @@ public:
 private:
 	optional_point pos_;
 	optional_dim size_;
+	depth_type z_;
 	sge::gui::size_policy size_policy_;
 	keyboard_focus::type keyboard_focus_;
 	layouts::auto_ptr layout_;
