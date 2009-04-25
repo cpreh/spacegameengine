@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/parameters.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/defaults.hpp>
+#include <sge/sprite/texture_dim.hpp>
 
 sge::sprite::parameters::parameters()
 :
@@ -85,7 +86,9 @@ sge::sprite::parameters::operator sge::sprite::object() const
 	return object(
 		pos_,
 		texture_,
-		size_,
+		size_ == texture_dim() && !texture_
+		? dim::null()
+		: size_,
 		color_,
 		depth_,
 		rotation_,
