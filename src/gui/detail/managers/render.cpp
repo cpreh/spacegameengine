@@ -32,21 +32,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/texture_software.hpp>
-#include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/texture_rw.hpp>
-#include <sge/renderer/fill_pixels.hpp>
-#include <sge/renderer/colors.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/sprite/parameters.hpp>
 #include <sge/text.hpp>
 #include <sge/assert.hpp>
 #include <sge/type_name.hpp>
-#include <sge/cerr.hpp>
 #include <sge/structure_cast.hpp>
+#include <sge/make_shared_ptr.hpp>
 #include <boost/foreach.hpp>
-#include <algorithm>
+#include <utility>
 
 namespace
 {
@@ -64,7 +61,9 @@ sge::texture::const_part_ptr assign_textures(
 	sge::renderer::texture_ptr &tex)
 {
 	sge::renderer::texture_ptr const software_texture(
-		new sge::renderer::texture_software(
+		sge::make_shared_ptr<
+			sge::renderer::texture_software
+		>(
 			sge::structure_cast<sge::renderer::texture::dim_type>(
 				d),
 			sge::renderer::color_format::rgba8));
@@ -87,7 +86,9 @@ sge::texture::const_part_ptr assign_textures(
 
 	return 
 		sge::texture::const_part_ptr(
-			new sge::texture::part_raw(
+			sge::make_shared_ptr<
+				sge::texture::part_raw
+			>(
 				hardware_texture));
 }
 
@@ -96,9 +97,10 @@ sge::texture::const_part_ptr assign_textures(
 sge::gui::detail::managers::render::render(
 	renderer::device_ptr const _rend,
 	cursor &_cursor)
-	: rend(_rend),
-	  ss(rend),
-		cursor_(_cursor)
+:
+	rend(_rend),
+	ss(rend),
+	cursor_(_cursor)
 {
 }
 
@@ -296,10 +298,11 @@ void sge::gui::detail::managers::render::clean()
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("cleaning rect: ")
-			        << d.second 
-							<< SGE_TEXT(" from widget: ")
-							<< type_info(typeid(*d.first)).name());
+			log::_1
+				<< SGE_TEXT("cleaning rect: ")
+				<< d.second 
+				<< SGE_TEXT(" from widget: ")
+				<< type_info(typeid(*d.first)).name());
 
 		widgets::base &p = d.first->oldest_parent();
 
