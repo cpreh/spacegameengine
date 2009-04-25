@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/intrusive/parameters.hpp>
 #include <sge/sprite/intrusive/object.hpp>
 #include <sge/sprite/defaults.hpp>
+#include <sge/sprite/texture_dim.hpp>
 
 sge::sprite::intrusive::parameters::parameters(
 	system &system_,
@@ -99,7 +100,9 @@ sge::sprite::intrusive::parameters::operator sge::sprite::intrusive::object() co
 		order_,
 		pos_,
 		texture_,
-		size_,
+		size_ == texture_dim() && !texture_
+		? dim::null()
+		: size_,
 		color_,
 		depth_,
 		rotation_,
