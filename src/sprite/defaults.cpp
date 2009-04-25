@@ -26,35 +26,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/dim/basic_impl.hpp>
 
 sge::sprite::point const
-sge::sprite::defaults::pos(
-	sge::sprite::point::null()
-);
+sge::sprite::defaults::pos()
+{
+	return	sge::sprite::point::null();
+}
 
 sge::texture::const_part_ptr const
-sge::sprite::defaults::texture;
+sge::sprite::defaults::texture()
+{
+	return sge::texture::const_part_ptr();
+}
 
 
 sge::sprite::dim const
-sge::sprite::defaults::size(
-	sge::sprite::texture_dim()
-);
+sge::sprite::defaults::size()
+{
+	return sge::sprite::texture_dim();
+}
 
 sge::sprite::color const
-sge::sprite::defaults::color(
-	sge::renderer::colors::white()
-);
+sge::sprite::defaults::color()
+{
+	return sge::renderer::colors::white();
+}
 
-sge::sprite::depth_type const
-sge::sprite::defaults::depth(
-	static_cast<depth_type>(0)
-);
+sge::sprite::depth_type
+sge::sprite::defaults::depth()
+{
+	return static_cast<depth_type>(0);
+}
 
-sge::sprite::rotation_type const
-sge::sprite::defaults::rotation(
-	static_cast<rotation_type>(0)
-);
+sge::sprite::rotation_type
+sge::sprite::defaults::rotation()
+{
+	return static_cast<rotation_type>(0);
+}
 
-bool const
-sge::sprite::defaults::visible(
-	true
-);
+bool sge::sprite::defaults::visible()
+{
+	return true;
+}

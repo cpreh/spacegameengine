@@ -37,13 +37,13 @@ namespace sprite
 namespace defaults
 {
 
-SGE_SYMBOL extern point const pos;
-SGE_SYMBOL extern sge::texture::const_part_ptr const texture;
-SGE_SYMBOL extern dim const size;
-SGE_SYMBOL extern sprite::color const color;
-SGE_SYMBOL extern depth_type const depth;
-SGE_SYMBOL extern rotation_type const rotation;
-SGE_SYMBOL extern bool const visible;
+SGE_SYMBOL point const pos();
+SGE_SYMBOL sge::texture::const_part_ptr const texture();
+SGE_SYMBOL dim const size();
+SGE_SYMBOL sprite::color const color();
+SGE_SYMBOL depth_type depth();
+SGE_SYMBOL rotation_type rotation();
+SGE_SYMBOL bool visible();
 
 }
 }

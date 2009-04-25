@@ -26,13 +26,13 @@ sge::sprite::intrusive::parameters::parameters(
 :
 	system_(system_),
 	order_(order_),
-	pos_(defaults::pos),
-	texture_(defaults::texture),
-	size_(defaults::size),
-	color_(defaults::color),
-	depth_(defaults::depth),
-	rotation_(defaults::rotation),
-	visible_(defaults::visible)
+	pos_(defaults::pos()),
+	texture_(defaults::texture()),
+	size_(defaults::size()),
+	color_(defaults::color()),
+	depth_(defaults::depth()),
+	rotation_(defaults::rotation()),
+	visible_(defaults::visible())
 
 {}
 

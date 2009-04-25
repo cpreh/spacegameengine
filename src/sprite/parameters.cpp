@@ -23,13 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::sprite::parameters::parameters()
 :
-	pos_(defaults::pos),
-	texture_(defaults::texture),
-	size_(defaults::size),
-	color_(defaults::color),
-	depth_(defaults::depth),
-	rotation_(defaults::rotation),
-	visible_(defaults::visible)
+	pos_(defaults::pos()),
+	texture_(defaults::texture()),
+	size_(defaults::size()),
+	color_(defaults::color()),
+	depth_(defaults::depth()),
+	rotation_(defaults::rotation()),
+	visible_(defaults::visible())
 {}
 
 sge::sprite::parameters &sge::sprite::parameters::pos(
