@@ -18,30 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_INI_ENTRY_NAME_EQUAL_HPP_INCLUDED
-#define SGE_PARSE_INI_ENTRY_NAME_EQUAL_HPP_INCLUDED
+#ifndef SGE_PARSE_JSON_MEMBER_NAME_EQUAL_HPP_INCLUDED
+#define SGE_PARSE_JSON_MEMBER_NAME_EQUAL_HPP_INCLUDED
 
-#include <sge/parse/ini/entry_fwd.hpp>
-#include <sge/parse/ini/string.hpp>
+#include <sge/parse/json/member_fwd.hpp>
+#include <sge/parse/json/string.hpp>
 #include <sge/export.hpp>
 
 namespace sge
 {
 namespace parse
 {
-namespace ini
+namespace json
 {
 
-class entry_name_equal {
+class member_name_equal {
 public:
 	typedef bool result_type;
 
-	SGE_SYMBOL explicit entry_name_equal(
+	SGE_SYMBOL explicit member_name_equal(
 		string const &);
 	
 	SGE_SYMBOL bool
 	operator()(
-		entry const &) const;
+		member const &) const;
 private:
 	string name_;
 };
