@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_VARIANT_OBJECT_IMPL_HPP_INCLUDED
 #define SGE_VARIANT_OBJECT_IMPL_HPP_INCLUDED
 
-#include <sge/variant/object.hpp>
+#include <sge/variant/object_decl.hpp>
 #include <sge/variant/apply_unary.hpp>
 #include <sge/variant/invalid_get.hpp>
 #include <sge/variant/detail/copy.hpp>
@@ -72,10 +72,10 @@ sge::variant::object<Types>::object(
 		return;
 	
 	data_ = variant::apply_unary(
-		o,
 		detail::copy(
-			storage()
-		)
+			storage_.data()	
+		),
+		o
 	);
 }
 
@@ -106,14 +106,14 @@ sge::variant::object<Types>::operator=(
 	object const &o)
 {
 	variant::apply_unary(
-		o,
 		detail::construct<
 			object<
 				Types
 			>
 		>(
 			*this
-		)
+		),
+		o
 	);
 		
 	return *this;	
@@ -204,7 +204,7 @@ void
 sge::variant::object<Types>::construct(
 	U const &u)
 {
-	data_ = new (storage()) U(u);
+	data_ = new (storage_.data()) U(u);
 
 	size_type const new_index(
 		mpl::index_of<
@@ -234,15 +234,6 @@ sge::variant::object<Types>::destroy()
 
 	index_ = elements;
 	data_ = 0;
-}
-
-template<
-	typename Types
->
-void *
-sge::variant::object<Types>::storage()
-{
-	return storage_.data();
 }
 
 #endif

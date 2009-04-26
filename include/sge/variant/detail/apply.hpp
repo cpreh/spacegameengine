@@ -92,23 +92,23 @@ struct apply<
 		>::type type;
 
 		return Counter::value == obj.type_index()
-			? op. template operator()<type>(
+			? op(
 				obj. template get<type>()
-		)
-		: detail::apply<
-			typename boost::mpl::next<
-				Counter
-			>::type,
-			boost::is_same<
-				iter,
-				LastIterator
-			>::value
-		>::execute(
-			static_cast<iter *>(0),
-			static_cast<LastIterator *>(0),
-			op,
-			obj
-		);
+			)
+			: detail::apply<
+				typename boost::mpl::next<
+					Counter
+				>::type,
+				boost::is_same<
+					iter,
+					LastIterator
+				>::value
+			>::execute(
+				static_cast<iter *>(0),
+				static_cast<LastIterator *>(0),
+				op,
+				obj
+			);
 	}
 };
 
