@@ -18,58 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/variant/object_impl.hpp>
-#include <sge/variant/apply_binary.hpp>
-#include <sge/mainloop/catch_block.hpp>
-#include <sge/string.hpp>
-#include <sge/text.hpp>
-#include <sge/cerr.hpp>
-#include <boost/mpl/vector.hpp>
+#ifndef SGE_VARIANT_APPLY_BINARY_HPP_INCLUDED
+#define SGE_VARIANT_APPLY_BINARY_HPP_INCLUDED
 
-namespace
+#include <sge/variant/apply_unary.hpp>
+#include <sge/variant/detail/binary_unwrap.hpp>
+
+namespace sge
+{
+namespace variant
 {
 
-struct visitor {
-	typedef void result_type;
-
-	template<
-		typename T1,
-		typename T2
-	>
-	void operator()(
-		T1 const &t1,
-		T2 const &t2) const
-	{
-		sge::cerr << t1 << SGE_TEXT(' ') << t2 << SGE_TEXT('\n');
-	}
-};
-
-}
-
-int main()
-try
+template<
+	typename Operation,
+	typename Variant
+>
+typename Operation::result_type
+apply_binary(
+	Operation const &op,
+	Variant const &obj1,
+	Variant const &obj2)
 {
-	typedef sge::variant::object<
-		boost::mpl::vector<
-			int,
-			sge::string
-		>
-	> variant;
-
-	variant v(
-		sge::string(
-			SGE_TEXT("blabla")
-		)
-	);
-
-	variant u(
-		42
-	);
-
-	sge::variant::apply_binary(
-		visitor(),
-		v,
-		u
+	return apply_unary(
+		detail::binary_unwrap<
+			Operation,
+			Variant
+		>(
+			op,
+			obj1
+		),	
+		obj2
 	);
 }
-SGE_MAINLOOP_CATCH_BLOCK
+
+}
+}
+
+#endif

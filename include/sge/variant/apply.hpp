@@ -21,12 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_VARIANT_APPLY_HPP_INCLUDED
 #define SGE_VARIANT_APPLY_HPP_INCLUDED
 
-#include <sge/variant/size_type.hpp>
-#include <sge/variant/detail/apply.hpp>
-#include <boost/mpl/integral_c.hpp>
-#include <boost/mpl/begin.hpp>
-#include <boost/mpl/end.hpp>
-#include <boost/mpl/empty.hpp>
+#include <sge/variant/apply_unary.hpp>
+#include <sge/variant/apply_binary.hpp>
 
 namespace sge
 {
@@ -42,29 +38,27 @@ apply(
 	Operation const &op,
 	Variant const &obj)
 {
-	typedef typename Variant::types types;
-
-	return detail::apply<
-		boost::mpl::integral_c<
-			size_type,
-			0
-		>,
-		boost::mpl::empty<
-			types
-		>::value
-	>::execute(
-		static_cast<
-			typename boost::mpl::begin<
-				types
-			>::type *
-		>(0),
-		static_cast<
-			typename boost::mpl::end<
-				types
-			>::type *
-		>(0), 
+	return apply_unary(
 		op,
 		obj
+	);
+}
+
+template<
+	typename Operation,
+	typename Variant1,
+	typename Variant2
+>
+typename Operation::result_type
+apply(
+	Operation const &op,
+	Variant1 const &obj1,
+	Variant2 const &obj2)
+{
+	return apply_binary(
+		op,
+		obj1,
+		obj2
 	);
 }
 

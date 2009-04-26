@@ -18,58 +18,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/variant/object_impl.hpp>
-#include <sge/variant/apply_binary.hpp>
-#include <sge/mainloop/catch_block.hpp>
-#include <sge/string.hpp>
-#include <sge/text.hpp>
-#include <sge/cerr.hpp>
-#include <boost/mpl/vector.hpp>
+#ifndef SGE_VARIANT_DETAIL_BINARY_APPLIER_HPP_INCLUDED
+#define SGE_VARIANT_DETAIL_BINARY_APPLIER_HPP_INCLUDED
 
-namespace
+namespace sge
+{
+namespace variant
+{
+namespace detail
 {
 
-struct visitor {
-	typedef void result_type;
+template<
+	typename Operation,
+	typename Type
+>
+struct binary_applier {
+	typedef typename Operation::result_type result_type;
 
+	binary_applier(
+		Operation const &op,
+		Type const &t2)
+	:
+		op(op),
+		t2(t2)
+	{}
+	
 	template<
-		typename T1,
-		typename T2
+		typename T
 	>
-	void operator()(
-		T1 const &t1,
-		T2 const &t2) const
+	result_type
+	operator()(
+		T const &t1) const
 	{
-		sge::cerr << t1 << SGE_TEXT(' ') << t2 << SGE_TEXT('\n');
+		return op(
+			t1,
+			t2
+		);
 	}
+private:
+	Operation const &op;
+	Type const &t2;
 };
 
 }
-
-int main()
-try
-{
-	typedef sge::variant::object<
-		boost::mpl::vector<
-			int,
-			sge::string
-		>
-	> variant;
-
-	variant v(
-		sge::string(
-			SGE_TEXT("blabla")
-		)
-	);
-
-	variant u(
-		42
-	);
-
-	sge::variant::apply_binary(
-		visitor(),
-		v,
-		u
-	);
 }
-SGE_MAINLOOP_CATCH_BLOCK
+}
+
+#endif
