@@ -18,15 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXT_HPP_INCLUDED
-#define SGE_TEXT_HPP_INCLUDED
+#include <sge/variant/object_impl.hpp>
+#include <sge/mainloop/catch_block.hpp>
+#include <sge/string.hpp>
+#include <sge/text.hpp>
+#include <sge/cerr.hpp>
+#include <boost/mpl/vector.hpp>
 
-#include <sge/config.h>
+int main()
+try
+{
+	typedef sge::variant::object<
+		boost::mpl::vector<
+			int,
+			sge::string
+		>
+	> variant;
 
-#ifndef SGE_NARROW_STRING
-#define SGE_TEXT(x) L ## x
-#else
-#define SGE_TEXT(x) x
-#endif
+	variant v(
+		sge::string(
+			SGE_TEXT("blabla")
+		)
+	);
 
-#endif
+	sge::cerr << v.get<sge::string>() << SGE_TEXT('\n');
+}
+SGE_MAINLOOP_CATCH_BLOCK

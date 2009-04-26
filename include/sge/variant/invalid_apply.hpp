@@ -18,15 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXT_HPP_INCLUDED
-#define SGE_TEXT_HPP_INCLUDED
+#ifndef SGE_VARIANT_INVALID_APPLY_HPP_INCLUDED
+#define SGE_VARIANT_INVALID_APPLY_HPP_INCLUDED
 
-#include <sge/config.h>
+#include <sge/exception.hpp>
+#include <sge/export.hpp>
 
-#ifndef SGE_NARROW_STRING
-#define SGE_TEXT(x) L ## x
-#else
-#define SGE_TEXT(x) x
-#endif
+namespace sge
+{
+namespace variant
+{
+
+class invalid_apply : public exception {
+public:
+	SGE_SYMBOL invalid_apply();
+};
+
+}
+}
 
 #endif

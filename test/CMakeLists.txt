@@ -28,6 +28,7 @@ ADD_SGE_TEST(skeleton)
 ADD_SGE_TEST(sound)
 ADD_SGE_TEST(target)
 ADD_SGE_TEST(tree)
+ADD_SGE_TEST(variant)
 ADD_SGE_TEST(vertex)
 ADD_SGE_TEST(modifier)
 

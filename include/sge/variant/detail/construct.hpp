@@ -18,15 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXT_HPP_INCLUDED
-#define SGE_TEXT_HPP_INCLUDED
+#ifndef SGE_VARIANT_DETAIL_CONSTRUCT_HPP_INCLUDED
+#define SGE_VARIANT_DETAIL_CONSTRUCT_HPP_INCLUDED
 
-#include <sge/config.h>
+namespace sge
+{
+namespace variant
+{
+namespace detail
+{
 
-#ifndef SGE_NARROW_STRING
-#define SGE_TEXT(x) L ## x
-#else
-#define SGE_TEXT(x) x
-#endif
+template<
+	typename Variant
+>
+struct construct {
+	typedef void result_type;
+
+	explicit construct(
+		Variant &obj)
+	:
+		obj(obj)
+	{}
+
+	template<
+		typename T
+	>
+	result_type
+	operator()(
+		T const &t) const
+	{
+		obj = t;
+	}
+private:
+	Variant &obj;
+};
+
+}
+}
+}
 
 #endif

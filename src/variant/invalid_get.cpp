@@ -18,15 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXT_HPP_INCLUDED
-#define SGE_TEXT_HPP_INCLUDED
+#include <sge/variant/invalid_get.hpp>
+#include <sge/text.hpp>
 
-#include <sge/config.h>
-
-#ifndef SGE_NARROW_STRING
-#define SGE_TEXT(x) L ## x
-#else
-#define SGE_TEXT(x) x
-#endif
-
-#endif
+sge::variant::invalid_get::invalid_get()
+:
+	exception(
+		SGE_TEXT("Invalid get in variant!")
+	)
+{}

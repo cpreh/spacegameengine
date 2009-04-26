@@ -18,15 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXT_HPP_INCLUDED
-#define SGE_TEXT_HPP_INCLUDED
+#ifndef SGE_VARIANT_DETAIL_COPY_HPP_INCLUDED
+#define SGE_VARIANT_DETAIL_COPY_HPP_INCLUDED
 
-#include <sge/config.h>
+#include <sge/variant/raw_type.hpp>
 
-#ifndef SGE_NARROW_STRING
-#define SGE_TEXT(x) L ## x
-#else
-#define SGE_TEXT(x) x
-#endif
+namespace sge
+{
+namespace variant
+{
+namespace detail
+{
+
+struct copy {
+	typedef void *result_type;
+
+	explicit copy(
+		raw_type *const store)
+	:
+		store(store)
+	{}
+
+	template<
+		typename T
+	>
+	result_type
+	operator()(
+		T const &t) const
+	{
+		return new (store) T(t);	
+	}
+private:
+	raw_type *const store;
+};
+
+}
+}
+}
 
 #endif

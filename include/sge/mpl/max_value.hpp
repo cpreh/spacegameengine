@@ -18,18 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MPL_FIND_NTH_HPP_INCLUDED
-#define SGE_MPL_FIND_NTH_HPP_INCLUDED
+#ifndef SGE_MPL_MAX_VALUE_HPP_INCLUDED
+#define SGE_MPL_MAX_VALUE_HPP_INCLUDED
 
-#include <boost/mpl/advance.hpp>
-#include <boost/mpl/begin.hpp>
-#include <boost/mpl/iter_fold.hpp>
-#include <boost/mpl/push_back.hpp>
 #include <boost/mpl/deref.hpp>
-#include <boost/mpl/vector.hpp>
-#include <boost/mpl/if.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <boost/mpl/max_element.hpp>
 
 namespace sge
 {
@@ -37,36 +30,15 @@ namespace mpl
 {
 
 template<
-	typename Elements,
-	typename Element,
-	typename Number
+	typename Elements
 >
-class find_nth
+struct max_value
 :
-public boost::mpl::deref<
-	typename boost::mpl::advance<
-		typename boost::mpl::begin<
-			typename boost::mpl::iter_fold<
-				Elements,
-				boost::mpl::vector<>,
-				boost::mpl::if_<
-					boost::is_same<
-						Element,
-						boost::mpl::deref<
-							boost::mpl::_2
-						>
-					>,
-					boost::mpl::push_back<
-						boost::mpl::_1,
-						boost::mpl::_2
-					>,
-					boost::mpl::_1
-				>
-			>::type
-		>::type,
-		Number
+boost::mpl::deref<
+	typename boost::mpl::max_element<
+		Elements
 	>::type
->
+>::type
 {};
 
 }

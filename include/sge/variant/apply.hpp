@@ -18,56 +18,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MPL_FIND_NTH_HPP_INCLUDED
-#define SGE_MPL_FIND_NTH_HPP_INCLUDED
+#ifndef SGE_VARIANT_APPLY_HPP_INCLUDED
+#define SGE_VARIANT_APPLY_HPP_INCLUDED
 
-#include <boost/mpl/advance.hpp>
+#include <sge/variant/size_type.hpp>
+#include <sge/variant/detail/apply.hpp>
+#include <boost/mpl/integral_c.hpp>
 #include <boost/mpl/begin.hpp>
-#include <boost/mpl/iter_fold.hpp>
-#include <boost/mpl/push_back.hpp>
-#include <boost/mpl/deref.hpp>
-#include <boost/mpl/vector.hpp>
-#include <boost/mpl/if.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <boost/mpl/end.hpp>
+#include <boost/mpl/empty.hpp>
 
 namespace sge
 {
-namespace mpl
+namespace variant
 {
 
 template<
-	typename Elements,
-	typename Element,
-	typename Number
+	typename Operation,
+	typename Variant
 >
-class find_nth
-:
-public boost::mpl::deref<
-	typename boost::mpl::advance<
-		typename boost::mpl::begin<
-			typename boost::mpl::iter_fold<
-				Elements,
-				boost::mpl::vector<>,
-				boost::mpl::if_<
-					boost::is_same<
-						Element,
-						boost::mpl::deref<
-							boost::mpl::_2
-						>
-					>,
-					boost::mpl::push_back<
-						boost::mpl::_1,
-						boost::mpl::_2
-					>,
-					boost::mpl::_1
-				>
-			>::type
-		>::type,
-		Number
-	>::type
->
-{};
+typename Operation::result_type
+apply(
+	Operation const &op,
+	Variant const &obj)
+{
+	typedef typename Variant::types types;
+
+	return detail::apply<
+		typename Operation::result_type,
+		boost::mpl::integral_c<
+			size_type,
+			0
+		>,
+		boost::mpl::empty<
+			types
+		>::value
+	>::execute(
+		static_cast<
+			typename boost::mpl::begin<
+				types
+			>::type *
+		>(0),
+		static_cast<
+			typename boost::mpl::end<
+				types
+			>::type *
+		>(0), 
+		op,
+		obj
+	);
+}
 
 }
 }
