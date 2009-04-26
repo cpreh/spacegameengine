@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -16,6 +16,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
 
 
 #include <sge/math/atan2.hpp>
@@ -73,7 +74,40 @@ int main()
 
 	normalize(vecf);
 
-	sge::cin >> vec;
+	//sge::cin >> vec;
 
-	sge::cout << vec << SGE_TEXT('\n');
+	sge::cout
+		<< vec << SGE_TEXT('\n')
+		<< sge::math::vector::length<float>(vec) << SGE_TEXT('\n')
+		<< length(vecf) << SGE_TEXT('\n');
+	
+	typedef sge::math::vector::static_<
+		double,
+		3
+	>::type vec3d;
+
+	{
+		vec3d
+			a(
+				1.0,
+				0.0,
+				0.0
+			),
+			b(
+				0.0,
+				1.0,
+				0.0
+			),
+			c(
+				0.0,
+				0.0,
+				-1.0
+			);
+
+		normalize(a);
+		normalize(b);
+		normalize(c);
+
+		sge::cout << cross(a, b) << SGE_TEXT(' ') << c << SGE_TEXT('\n');
+	}
 }

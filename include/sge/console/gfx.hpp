@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
+
 #ifndef SGE_CONSOLE_GFX_HPP_INCLUDED
 #define SGE_CONSOLE_GFX_HPP_INCLUDED
 
@@ -31,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/system_fwd.hpp>
 #include <sge/input/modifier/filter.hpp>
 #include <sge/time/timer.hpp>
-#include <sge/signal/auto_connection.hpp>
+#include <sge/signal/scoped_connection.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/noncopyable.hpp>
@@ -65,7 +67,7 @@ private:
 	font::object fn;
 	input::system_ptr const is;
 	input::modifier::filter mf;
-	sge::signal::auto_connection ic,irc;
+	sge::signal::scoped_connection const ic, irc;
 	sprite::system ss;
 	sprite::object bg;
 	bool active_;

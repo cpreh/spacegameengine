@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #include "../common.hpp"
 #include "../cube_texture.hpp"
 #include "../error.hpp"
@@ -32,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/make_auto_ptr.hpp>
+#include <sge/auto_ptr.hpp>
 #include <boost/tr1/array.hpp>
 
 namespace
@@ -78,7 +80,7 @@ sge::ogl::cube_texture::cube_texture(
 			sge::renderer::cube_side::num_elements);
 		++i)
 	{
-		std::auto_ptr<texture> p(
+		sge::auto_ptr<texture> p(
 			make_auto_ptr<
 				texture
 			>(

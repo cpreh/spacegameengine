@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,10 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #include "../pointer_actor.hpp"
 #include "../convert_format.hpp"
-#include "../../vbo.hpp"
-#include "../../vbo_base.hpp"
 #include <sge/renderer/vf/dynamic_ordered_element.hpp>
 #include <boost/variant/apply_visitor.hpp>
 
@@ -37,12 +36,14 @@ sge::ogl::vf::pointer_actor::pointer_actor(
 		static_cast<GLsizei>(
 			stride_)),
 	pointer_(
-		vb_ib_vbo_impl().buffer_offset(
-			vertex_buffer_type(),
-			static_cast<GLsizei>(
-				e.offset()))),
+		0
+	),
 	index_(
-		e.element().index())
+		e.element().index()
+	),
+	offset_(
+		e.offset()
+	)
 {}
 
 GLenum sge::ogl::vf::pointer_actor::format() const
@@ -64,4 +65,11 @@ sge::renderer::vf::vertex_size
 sge::ogl::vf::pointer_actor::index() const
 {
 	return index_;
+}
+
+void
+sge::ogl::vf::pointer_actor::source(
+	vf::pointer const src)
+{
+	pointer_ = static_cast<unsigned char const *>(src) + offset_;
 }

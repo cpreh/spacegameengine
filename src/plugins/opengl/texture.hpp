@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #ifndef SGE_OPENGL_TEXTURE_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_HPP_INCLUDED
 
@@ -30,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/dim/basic_decl.hpp>
 #include <sge/math/rect_decl.hpp>
 #include <sge/shared_ptr.hpp>
-#include <boost/optional.hpp>
+#include <sge/optional.hpp>
 
 namespace sge
 {
@@ -44,7 +45,7 @@ typedef basic_texture<renderer::texture> texture_base;
 
 class texture : public detail::texture_base {
 public:
-	typedef boost::optional<GLenum> optional_type;
+	typedef optional<GLenum> optional_type;
 
 	texture(
 		dim_type const &,
@@ -74,9 +75,10 @@ private:
 
 	dim_type const lock_dim() const;
 	
-	dim_type const               dim_;
-	mutable boost::optional<
-		renderer::lock_rect> lock_rect_;
+	dim_type const dim_;
+	mutable optional<
+		renderer::lock_rect
+	> lock_rect_;
 };
 
 typedef shared_ptr<texture> texture_ptr;

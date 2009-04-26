@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,54 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #include <sge/sprite/object.hpp>
+#include <sge/sprite/texture_dim.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/math/circle_impl.hpp>
 #include <sge/math/vector/arithmetic.hpp>
-#include <sge/renderer/colors.hpp>
 #include <sge/texture/part.hpp>
 #include <sge/structure_cast.hpp>
 #include <cmath>
-#include <limits>
-
-sge::sprite::dim const sge::sprite::texture_dim(
-	std::numeric_limits<unit>::max(),
-	std::numeric_limits<unit>::max());
-
-sge::texture::const_part_ptr const sge::sprite::no_texture;
-
-sge::sprite::point const sge::sprite::defaults::pos_(0,0);
-sge::texture::const_part_ptr const sge::sprite::defaults::texture_(no_texture);
-sge::sprite::dim const sge::sprite::defaults::dim_(0,0);
-sge::sprite::color const sge::sprite::defaults::color_(sge::renderer::colors::white());
-sge::sprite::depth_type const sge::sprite::defaults::depth_(0);
-sge::sprite::rotation_type const sge::sprite::defaults::rotation_(0);
-bool const sge::sprite::defaults::visible_(true);
 
 sge::sprite::object::object(
-	boost::optional<point> const pos_,
-	boost::optional<texture::const_part_ptr> const vtex,
-	boost::optional<dim> const size_,
-	boost::optional<sprite::color> const color_,
-	boost::optional<depth_type> const z_,
-	boost::optional<rotation_type> const rotation_,
-	boost::optional<bool> const visible_)
+	point const &pos_,
+	texture::const_part_ptr const vtex,
+	dim const &size_,
+	sprite::color const &color_,
+	depth_type const z_,
+	rotation_type const rotation_,
+	bool const visible_)
  :
-	pos_(pos_ ? *pos_ : defaults::pos_),
+	pos_(pos_),
 	size_(
-		size_
-		? *size_ == texture_dim
+		size_ == texture_dim()
 			? dim(
 				structure_cast<dim>(
-					(*vtex)->area().dim()))
-			: *size_
-		: defaults::dim_),
-	z_(z_ ? *z_ : defaults::depth_),
-	rotation_(rotation_ ? *rotation_ : defaults::rotation_),
-	tex(vtex ? *vtex : defaults::texture_),
+					vtex->area().dim()
+				)
+			)
+			: size_),
+	z_(z_),
+	rotation_(rotation_),
+	tex(vtex),
 	repeat_(1),
-	color_(color_ ? *color_ : defaults::color_),
-	visible_(visible_ ? *visible_ : defaults::visible_),
+	color_(color_),
+	visible_(visible_),
 	use_rot_around(false)
 {}
 

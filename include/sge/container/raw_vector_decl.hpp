@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -16,6 +16,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
 
 
 #ifndef SGE_CONTAINER_RAW_VECTOR_DECL_HPP_INCLUDED
@@ -73,6 +74,9 @@ public:
 	pointer data();
 	const_pointer data() const;
 
+	pointer data_end();
+	const_pointer data_end() const;
+
 	explicit raw_vector(A const &a = A());
 	explicit raw_vector(size_type sz, A const &a = A()); // uninitialized vector
 	raw_vector(size_type sz, T const &t, A const &a = A());
@@ -112,13 +116,16 @@ public:
 
 	iterator erase(iterator position);
 	iterator erase(iterator first, iterator last);
+
+	void free_memory();
 private:
 	void range_check(size_type n) const;
 	size_type new_capacity(size_type new_size) const;
 	void set_pointers(pointer src, size_type sz, size_type cap);
 	void deallocate();
 
-	struct impl {
+	class impl {
+	public:
 		explicit impl(A const &);
 		impl(A const &, size_type);
 

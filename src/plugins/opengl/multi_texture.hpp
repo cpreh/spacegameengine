@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #ifndef SGE_OPENGL_MULTI_TEXTURE_HPP_INCLUDED
 #define SGE_OPENGL_MULTI_TEXTURE_HPP_INCLUDED
 
@@ -29,6 +30,9 @@ namespace ogl
 {
 
 void set_texture_level(
+	renderer::stage_type stage);
+
+void client_texture_level(
 	renderer::stage_type stage);
 
 }

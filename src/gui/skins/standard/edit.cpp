@@ -1,14 +1,36 @@
-#include "../../utility/max_dim.hpp"
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+#include "../../utility/unlimited_text_size.hpp"
+#include "../../utility/string_square.hpp"
 #include "../../utility/blit.hpp"
+#include <sge/gui/internal_color.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/text_size.hpp>
-#include <sge/math/dim/arithmetic.hpp>
-#include <sge/gui/canvas.hpp>
+#include <sge/gui/unit.hpp>
+#include <sge/gui/canvas/object.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/gui/widgets/edit.hpp>
 #include <sge/gui/skins/standard.hpp>
+#include <sge/math/rect_impl.hpp>
+#include <sge/math/dim/basic_impl.hpp>
+#include <sge/math/dim/arithmetic.hpp>
 #include <sge/structure_cast.hpp>
-#include <boost/gil/image.hpp>
 
 namespace
 {
@@ -17,32 +39,17 @@ sge::gui::logger mylogger(
 	false);
 }
 
-namespace
-{
-sge::string const string_square(sge::gui::dim const &s)
-{
-	sge::string const line(
-		static_cast<sge::string::size_type>(s.w()),
-		SGE_TEXT('W'));
-	sge::string result;
-	for (sge::gui::unit i = 0; i < s.h(); ++i)
-		result += line;
-	return result;
-}
-}
-
-sge::gui::dim const sge::gui::skins::standard::size_hint(
+sge::gui::dim const sge::gui::skins::standard::optimal_size(
 	widgets::edit const &w) const
 {
-	dim const d = structure_cast<dim>(
-		font::object(w.font()).text_size(
-			string_square(w.desired_size()),
-			utility::max_dim<font::unit>())
-		.size());
-	
-	return dim(
-		d.w() + 2,
-		d.h() + 2);
+	dim const d = utility::unlimited_text_size(
+		standard_font().metrics(),
+		utility::string_square(w.desired_size()));
+
+	return 
+		dim(
+			static_cast<unit>(d.w() + 2),
+			static_cast<unit>(d.h() + 2));
 }
 
 void sge::gui::skins::standard::draw(
@@ -71,21 +78,17 @@ void sge::gui::skins::standard::draw(
 	//	internal_color(0x55,0x55,0x55,0xff),
 		internal_color(0xff,0xff,0xff,0xff),
 		canvas::rect_type::solid);
-	
-	dim const buffer_size = dim(
-		static_cast<unit>(w.text_buffer().width()),
-		static_cast<unit>(w.text_buffer().height()));
 
-	point const scroll_origin = w.scroll_pos();
-
-	dim const scroll_size = buffer_size - dim(scroll_origin.x(),scroll_origin.y());
+	dim const scroll_size = 
+		w.text_buffer().size() - 
+		structure_cast<dim>(
+			w.scroll_pos());
 	
 	utility::blit(
 		renderer::const_image_view(
-			boost::gil::const_view(
-				w.text_buffer())),
+			w.text_buffer().const_view()),
 		rect(
-			scroll_origin,
+			w.scroll_pos(),
 			scroll_size),
 		c.view(),
 		rect(

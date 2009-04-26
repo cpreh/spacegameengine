@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #include "../fbo_target.hpp"
 #include "../version.hpp"
 #include "../texture_base.hpp"
 #include "../error.hpp"
 #include <sge/renderer/texture.hpp>
+#include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
@@ -80,6 +82,12 @@ sge::renderer::target::dim_type const
 sge::ogl::fbo_target::dim() const
 {
 	return texture_target->dim();
+}
+
+sge::renderer::pixel_pos const
+sge::ogl::fbo_target::pos() const
+{
+	return renderer::pixel_pos::null();
 }
 
 sge::ogl::fbo_target::size_type

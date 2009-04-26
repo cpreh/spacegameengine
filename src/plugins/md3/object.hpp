@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -16,6 +16,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
 
 
 #ifndef SGE_MD3_OBJECT_HPP_INCLUDED
@@ -68,7 +69,8 @@ public:
 		3
 	>::type vec3;
 
-	struct frame {
+	class frame {
+	public:
 		frame(std::istream& is);
 		
 		vec3 min_bounds,
@@ -78,7 +80,8 @@ public:
 		string name;
 	};
 
-	struct tag {
+	class tag {
+	public:
 		explicit tag(model::istream& is);
 		
 		string                           name;
@@ -87,23 +90,27 @@ public:
 		axis_array                       axis;
 	};
 
-	struct surface {
+	class surface {
+	public:
 		surface(std::istream& is, s32 num_frames);
 
-		struct shader {
+		class shader {
+		public:
 			explicit shader(model::istream &);
 
 			string name;
 			s32 shader_index;
 		};
 
-		struct triangle {
+		class triangle {
+		public:
 			explicit triangle(model::istream &);
 			typedef std::tr1::array<s32, 3> index_array;
 			index_array indices;
 		};
 
-		struct texcoord {
+		class texcoord {
+		public:
 			explicit texcoord(model::istream &);
 			
 			typedef math::vector::static_<
@@ -114,7 +121,8 @@ public:
 			tex_pos tex;
 		};
 
-		struct vertex {
+		class vertex {
+		public:
 			explicit vertex(model::istream &);
 
 			s16 x,
@@ -123,7 +131,8 @@ public:
 			    normal;
 		};
 
-		struct transformed_vertex {
+		class transformed_vertex {
+		public:
 			explicit transformed_vertex(vertex const &);
 
 			vec3 pos,

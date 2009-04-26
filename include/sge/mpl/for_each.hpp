@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -16,6 +16,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
 
 
 #ifndef SGE_MPL_FOR_EACH_HPP_INCLUDED
@@ -34,7 +35,8 @@ namespace detail
 {
 
 template<bool done = true>
-struct for_each_impl {
+class for_each_impl {
+public:
 	template<
 		typename Iterator,
 		typename LastIterator,
@@ -49,7 +51,8 @@ struct for_each_impl {
 };
 
 template<>
-struct for_each_impl<false> {
+class for_each_impl<false> {
+public:
 	template<
 		typename Iterator,
 		typename LastIterator,

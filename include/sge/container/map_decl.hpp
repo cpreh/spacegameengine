@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -16,6 +16,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
 
 
 #ifndef SGE_CONTAINER_MAP_DECL_HPP_INCLUDED
@@ -54,7 +55,7 @@ class map {
 		>,
 		Alloc<
 			std::pair<
-				Key,
+				Key const,
 				Mapped
 			>
 		>
@@ -62,6 +63,20 @@ class map {
 public:
 	typedef typename internal_type::key_type key_type;
 	typedef typename internal_type::mapped_type mapped_type;
+
+	typedef typename internal_type::value_type value_type;
+	typedef typename internal_type::key_compare key_compare;
+	typedef typename internal_type::allocator_type allocator_type;
+	typedef typename internal_type::reference reference;
+	typedef typename internal_type::const_reference const_reference;
+	typedef typename internal_type::iterator iterator;
+	typedef typename internal_type::const_iterator const_iterator;
+	typedef typename internal_type::size_type size_type;
+	typedef typename internal_type::difference_type difference_type;
+	typedef typename internal_type::pointer pointer;
+	typedef typename internal_type::const_pointer const_pointer;
+	typedef typename internal_type::reverse_iterator reverse_iterator;
+	typedef typename internal_type::const_reverse_iterator const_reverse_iterator;
 
 	map();
 	explicit map(
@@ -78,9 +93,20 @@ public:
 		key_type const &,
 		mapped_type const &);
 	
+	void insert(
+		value_type const &);
+	
 	void erase(
 		key_type const &);
+	
+	iterator
+	find(
+		key_type const &);
 
+	const_iterator
+	find(
+		key_type const &) const;
+	
 	mapped_type const &
 	operator[](
 		key_type const &) const;
@@ -88,6 +114,16 @@ public:
 	mapped_type &
 	operator[](
 		key_type const &);
+
+	bool contains(
+		key_type const &) const;
+
+	iterator begin();
+	iterator end();
+	const_iterator begin() const;
+	const_iterator end() const;
+
+	size_type size() const;
 private:
 	internal_type impl_;
 };

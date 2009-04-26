@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -16,6 +16,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
 
 
 #ifndef SGE_RENDERER_VF_UNSPECIFIED_HPP_INCLUDED
@@ -42,12 +43,13 @@ template<
 	vertex_size NumSubElements,
 	typename Enable = void
 >
-struct unspecified
-: vec_base<
+class unspecified
+: public vec_base<
 	Format,
 	role::unspecified,
 	NumSubElements
 > {
+public:
 	BOOST_STATIC_ASSERT(
 		NumSubElements >= 2 && NumSubElements <= 4);
 };
@@ -55,12 +57,12 @@ struct unspecified
 template<
 	typename Format
 >
-struct unspecified<
+class unspecified<
 	Format,
 	1,
 	void
 >
-: single_base<
+: public single_base<
 	Format,
 	role::unspecified
 > {};
@@ -68,14 +70,14 @@ struct unspecified<
 template<
 	typename Color
 >
-struct unspecified<
+class unspecified<
 	Color,
 	1,
 	typename color_channel<
 		Color
 	>::type
 >
-: color_base<
+: public color_base<
 	Color,
 	role::unspecified
 > {};

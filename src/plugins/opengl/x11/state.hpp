@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -16,6 +16,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
 
 
 #ifndef SGE_OPENGL_X11_STATE_HPP_INCLUDED
@@ -42,7 +43,7 @@ namespace sge
 {
 namespace renderer
 {
-struct parameters;
+class parameters;
 }
 
 namespace ogl
@@ -60,15 +61,11 @@ public:
 		view_port_fun const &);
 	
 	void swap_buffers();
-	void reset_viewport();
 private:
 	void reset_viewport_on_map(
 		XEvent const &);
 	void reset_viewport_on_configure(
 		XEvent const &);
-	void center_viewport(
-		renderer::pixel_unit w,
-		renderer::pixel_unit h);
 
 	view_port_fun              const set_viewport;
 	renderer::screen_size      const screen_size_;

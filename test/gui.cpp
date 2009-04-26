@@ -1,3 +1,21 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/state/list.hpp>
@@ -6,7 +24,10 @@
 #include <sge/renderer/state/scoped.hpp>
 
 #include <sge/gui/manager.hpp>
+#include <sge/gui/default_cursor.hpp>
 #include <sge/gui/widgets/buttons/text.hpp>
+#include <sge/gui/widgets/backdrop.hpp>
+#include <sge/gui/widgets/parameters.hpp>
 #include <sge/gui/layouts/vertical.hpp>
 #include <sge/gui/layouts/horizontal.hpp>
 #include <sge/gui/skins/standard.hpp>
@@ -18,7 +39,7 @@
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/mainloop/dispatch.hpp>
-#include <sge/signal/auto_connection.hpp>
+#include <sge/signal/scoped_connection.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/key_pair.hpp>
@@ -58,13 +79,6 @@ class input_functor
 };
 }
 
-#define TL_SINGLE_BUTTON 0
-#define TL_MULTIPLE_BUTTONS 1
-#define TL_CHILD_CONTAINERS 2
-#define TL_REMOVE_WIDGETS 3
-
-#define TESTING_LEVEL TL_REMOVE_WIDGETS
-
 int main()
 try
 {
@@ -93,69 +107,57 @@ try
 	
 	sge::gui::manager m(
 		sys.renderer(),
-		sys.image_loader(),
 		sys.input_system(),
-		sys.font_system(),
-		sge::gui::skin_ptr(new sge::gui::skins::standard()));
+		sge::gui::skins::ptr(
+			new sge::gui::skins::standard(
+				sys.font_system())),
+		sge::gui::cursor_ptr(
+			new sge::gui::default_cursor(
+				sys.image_loader(),
+				sys.renderer())));
 	
-#if TESTING_LEVEL == TL_SINGLE_BUTTON
-	sge::gui::widgets::buttons::text b((sge::gui::widget::parent_data(m)),SGE_TEXT("Button A"));
-	b.relative_pos(sge::gui::point(10,10));
-	b.size(sge::gui::dim(400,300));
-#elif TESTING_LEVEL == TL_MULTIPLE_BUTTONS
-	sge::gui::widget top((sge::gui::widget::parent_data(m)));
-	top.layout(sge::make_shared_ptr<sge::gui::layouts::horizontal>(boost::ref(top)));
-	top.relative_pos(sge::gui::point(10,10));
-	top.size(sge::gui::dim(400,300));
-
-	sge::gui::widgets::buttons::text left((sge::gui::widget::parent_data(top)),SGE_TEXT("Button A"));
-	sge::gui::widgets::buttons::text right((sge::gui::widget::parent_data(top)),SGE_TEXT("Button B"));
-#elif TESTING_LEVEL == TL_CHILD_CONTAINERS || TESTING_LEVEL == TL_REMOVE_WIDGETS
-	sge::gui::widget top(
-		sge::gui::widget::parent_data(m),
-		sge::gui::widget::parameters()
+	sge::gui::widgets::backdrop top(
+		sge::gui::widgets::parent_data(m),
+		sge::gui::widgets::parameters()
 			.pos(sge::gui::point(10,10))
 			.layout(
-				sge::make_shared_ptr<sge::gui::layouts::horizontal>(boost::ref(top)))
+				sge::make_shared_ptr<sge::gui::layouts::horizontal>())
 			.size(sge::gui::dim(400,300)));
 
 	sge::cerr << "added top level widget\n";
 
-	sge::gui::widget left(
+	sge::gui::widgets::base left(
 		top,
-		sge::gui::widget::parameters()
-			.layout(sge::make_shared_ptr<sge::gui::layouts::vertical>(boost::ref(left))));
+		sge::gui::widgets::parameters()
+			.layout(sge::make_shared_ptr<sge::gui::layouts::vertical>()));
 
-	sge::gui::widget right(
+	sge::gui::widgets::base right(
 		top,
-		sge::gui::widget::parameters()
-			.layout(sge::make_shared_ptr<sge::gui::layouts::vertical>(boost::ref(right))));
+		sge::gui::widgets::parameters()
+			.layout(sge::make_shared_ptr<sge::gui::layouts::vertical>()));
 
 	sge::gui::widgets::buttons::text left_top(
 		left,
-		sge::gui::widget::parameters(),
+		sge::gui::widgets::parameters(),
 		SGE_TEXT("(left top) me!"));
 	
 	sge::gui::widgets::buttons::text left_bottom(
 		left,
-		sge::gui::widget::parameters(),
+		sge::gui::widgets::parameters(),
 		SGE_TEXT("(left bottom) me!"));
 
 	sge::shared_ptr<sge::gui::widgets::buttons::text>
 		right_top(new sge::gui::widgets::buttons::text(
 			right,
-			sge::gui::widget::parameters(),
+			sge::gui::widgets::parameters(),
 			SGE_TEXT("(right top) me!")));
 
 	sge::gui::widgets::buttons::text right_bottom(
 		right,
-		sge::gui::widget::parameters(),
+		sge::gui::widgets::parameters(),
 		SGE_TEXT("(right bottom) me!"));
 
 	sge::cerr << "added buttons and children\n";
-#else
-#error "invalid testing level"
-#endif
 
 	// set sensible render states
 	sys.renderer()->state(
@@ -169,35 +171,33 @@ try
 	
 	bool running = true;
 	end_program p(running);
-	sge::signal::auto_connection conn =
-		sys.input_system()->register_callback(input_functor(running));
+	sge::signal::scoped_connection const conn(
+		sys.input_system()->register_callback(
+			input_functor(
+				running
+			)
+		)
+	);
 	
-#if TESTING_LEVEL == TL_SINGLE_BUTTON
-	b.clicked.connect(p);
-#elif TESTING_LEVEL == TL_MULTIPLE_BUTTONS
-	left.clicked.connect(p);
-#elif TESTING_LEVEL == TL_CHILD_CONTAINERS || TESTING_LEVEL == TL_REMOVE_WIDGETS
-	sge::signal::auto_connection conn2 = left_top.register_clicked(p);
-#endif
+	sge::signal::scoped_connection const conn2(
+		left_top.register_clicked(p)
+	);
 	sge::cerr << SGE_TEXT("---------------------------\nall widgets added!\n");
 	
-#if TESTING_LEVEL == TL_REMOVE_WIDGETS
 	sge::time::timer delete_timer(sge::time::second(static_cast<sge::time::unit>(2)));
-#endif
 	while (running)
 	{
 		sge::mainloop::dispatch();
 		sge::renderer::scoped_block block(sys.renderer());
 
-#if TESTING_LEVEL == TL_REMOVE_WIDGETS
 		if (delete_timer.active() && delete_timer.expired())
 		{
 			sge::cerr << SGE_TEXT("sge: gui test program: removing button\n");
 			delete_timer.deactivate();
 			right_top.reset();
 		}
-#endif
 
+		m.update();
 		m.draw();
 	}
 } 

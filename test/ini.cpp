@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,36 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/ini/parse.hpp>
+
+#include <sge/parse/ini/parse_range.hpp>
+#include <sge/string.hpp>
+#include <sge/cout.hpp>
+#include <sge/cerr.hpp>
+#include <sge/text.hpp>
 #include <boost/foreach.hpp>
-#include <iostream>
-#include <ostream>
-#include <string>
 #include <cstdlib>
 
 int main()
 {
-	sge::parse::ini::grammar<
-		std::string::const_iterator
-	> p;
-
-	std::string const test(
-		"[blabla]\nfoo = 42\nconfuse=5\nbar=3.4\nimagepath=/tmp/test"
+	sge::string const test(
+		SGE_TEXT("[blabla]\nfoo = 42\nconfuse=5\nbar=3.4\nimagepath=/tmp/test\n")
+		SGE_TEXT("[section2]\nblubb=bar\n")
 	);
 
-	std::string::const_iterator beg(
+	sge::string::const_iterator beg(
 		test.begin()
 	);
 
 	sge::parse::ini::section_vector result;
 
-	if(!sge::parse::ini::parse(
+	if(!sge::parse::ini::parse_range(
 		beg,
 		test.end(),
 		result
 	))
 	{
-		std::cerr << "failure\n";
+		sge::cerr << SGE_TEXT("failure\n");
 		return EXIT_FAILURE;
 	}
 
@@ -56,16 +55,18 @@ int main()
 		result
 	)
 	{
-		std::cout << '[' << section.header << "]\n";
+		sge::cout << SGE_TEXT('[') << section.header << SGE_TEXT("]\n");
 
 		BOOST_FOREACH(
 			sge::parse::ini::entry_vector::const_reference entry,
 			section.entries
 		)
-			std::cout
+			sge::cout
 				<< entry.name
-				<< " = "
+				<< SGE_TEXT(" = ")
 				<< entry.value
-				<< '\n';
+				<< SGE_TEXT('\n');
+
+		sge::cout << SGE_TEXT('\n');
 	}
 }

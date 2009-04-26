@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,12 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/cerr.hpp>
-#include <sge/media.hpp>
 #include <sge/exception.hpp>
-#include <sge/signal/auto_connection.hpp>
+#include <sge/signal/scoped_connection.hpp>
+#include <sge/config/media_path.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/scoped_block.hpp>
@@ -64,8 +65,12 @@ namespace
 class sprite_functor
 {
 	public:
-	explicit sprite_functor(sge::sprite::object &s,sge::audio::sound_ptr const sound)
-			: s(s),sound(sound)
+	explicit sprite_functor(
+		sge::sprite::object &s,
+		sge::audio::sound_ptr const sound)
+		:
+			s(s),
+			sound(sound)
 		{}
 
 	void operator()(sge::input::key_pair const &k) const
@@ -129,13 +134,13 @@ try
 	sge::image::object_ptr const 
 		image_bg(
 			sys.image_loader()->load(
-				sge::media_path()/SGE_TEXT("grass.png"))),
+				sge::config::media_path()/SGE_TEXT("grass.png"))),
 		image_pointer(
 			sys.image_loader()->load(
-				sge::media_path()/SGE_TEXT("mainskin")/SGE_TEXT("cursor.png"))),
+				sge::config::media_path()/SGE_TEXT("gui")/SGE_TEXT("cursor.png"))),
 		image_tux(
 			sys.image_loader()->load(
-				sge::media_path()/SGE_TEXT("tux.png")));
+				sge::config::media_path()/SGE_TEXT("tux.png")));
 
 	sge::texture::default_creator<sge::texture::no_fragmented> const 
 		creator(
@@ -166,20 +171,39 @@ try
 			.texture(tex_bg)
 			.size(
 				sge::structure_cast<sge::sprite::dim>(
-					screen_size)));
+					screen_size))
+			.depth(
+				static_cast<sge::sprite::depth_type>(2)));
 
 	sge::sprite::object pointer(
-		sge::sprite::point(0,0),
-		tex_pointer,
-		sge::sprite::texture_dim);
+		sge::sprite::parameters()
+			.texture(
+				tex_pointer)
+			.depth(
+				static_cast<sge::sprite::depth_type>(0)));
 
 	sge::sprite::object tux(
-		sge::sprite::point(screen_size.w()/2-16,screen_size.h()/2-16),
-		tex_tux,
-		sge::sprite::dim(32,32));
+		sge::sprite::parameters()
+			.pos(
+				sge::sprite::point(screen_size.w()/2-16,screen_size.h()/2-16))
+			.texture(
+				tex_tux)
+			.size(
+				sge::sprite::dim(32,32))
+			.depth(
+				static_cast<sge::sprite::depth_type>(1)));
+	
+	tux.color(
+		sge::renderer::rgba8_color(
+			0xff,
+			0xff,
+			0xff,
+			0x40
+		)
+	);
 
 	sge::audio::multi_loader ml(sys.plugin_manager());
-	sge::audio::file_ptr const af_siren = ml.load(sge::media_path()/SGE_TEXT("siren.ogg"));
+	sge::audio::file_ptr const af_siren = ml.load(sge::config::media_path()/SGE_TEXT("siren.ogg"));
 	sge::audio::sound_ptr const sound_siren = sys.audio_player()->create_nonstream_sound(af_siren);
 	sys.audio_player()->listener().pos(
 		sge::audio::point(
@@ -193,7 +217,7 @@ try
 
 	bool running = true;
 
-	sge::signal::auto_connection cb(
+	sge::signal::scoped_connection const cb(
 		sys.input_system()->register_callback(
 			sge::input::action(
 				sge::input::kc::key_escape,
@@ -202,8 +226,11 @@ try
 		)
 	);
 
-	sge::signal::auto_connection pc(
-		sys.input_system()->register_callback(sprite_functor(pointer,sound_siren)));
+	sge::signal::scoped_connection const pc(
+		sys.input_system()->register_callback(
+			sprite_functor(
+				pointer,
+				sound_siren)));
 
 	sys.renderer()->state(
 		sge::renderer::state::list

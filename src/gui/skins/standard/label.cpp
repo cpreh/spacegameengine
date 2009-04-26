@@ -1,13 +1,34 @@
-#include "../../utility/max_dim.hpp"
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+#include "../../utility/unlimited_text_size.hpp"
+#include "../../utility/string_square.hpp"
 #include <sge/gui/skins/standard.hpp>
 #include <sge/gui/widgets/label.hpp>
-#include <sge/gui/canvas.hpp>
+#include <sge/gui/internal_color.hpp>
+#include <sge/gui/canvas/object.hpp>
 #include <sge/gui/log.hpp>
+#include <sge/gui/unit.hpp>
 #include <sge/math/dim/output.hpp>
+#include <sge/math/rect_impl.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/text_size.hpp>
 #include <sge/renderer/colors.hpp>
-#include <sge/media.hpp>
 #include <sge/assert.hpp>
 #include <sge/text.hpp>
 #include <sge/structure_cast.hpp>
@@ -41,12 +62,8 @@ void sge::gui::skins::standard::draw(
 		*/
 	c.draw_rect(
 		rect(c.size()),
-		internal_color(0x0,0x0,0x0,0x0),
+		renderer::colors::transparent(),
 		canvas::rect_type::solid);
-
-	SGE_ASSERT_MESSAGE(
-		b.font(),
-		SGE_TEXT("button: font missing while drawing button"));
 
 	SGE_LOG_DEBUG(
 		mylogger,
@@ -56,13 +73,12 @@ void sge::gui::skins::standard::draw(
 
 	// draw text centered
 	c.draw_text(
-		b.font(),
-		renderer::colors::black(),
+		standard_font(),
 		b.text(),
 		point::null(),
 		c.size(),
-		font::align_h::center,
-		font::align_v::center);
+		b.align_h(),
+		b.align_v());
 
 	SGE_LOG_DEBUG(
 		mylogger,
@@ -70,24 +86,24 @@ void sge::gui::skins::standard::draw(
 		        << b.text()
 		        << SGE_TEXT("\")"));
 
-	blit_invalid(b,c,e);
+	blit_invalid(
+		b,
+		c,
+		e,
+		true);
 }
 
-sge::gui::dim const sge::gui::skins::standard::size_hint(
+sge::gui::dim const sge::gui::skins::standard::optimal_size(
 	widgets::label const &b) const
 {
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("calling size hint for label"));
 
-	font::object fn(b.font());	
-
-	// NOTE: we have to give text_size a huge rectangle because it won't
-	// return a valid rectangle otherwise
-	dim const font_dim = structure_cast<dim>(
-		fn.text_size(
-			b.text(),
-			utility::max_dim<font::unit>()).size());
-
-	return dim(static_cast<unit>(font_dim.w()),static_cast<unit>(font_dim.h()));
+	return 
+		utility::unlimited_text_size(
+			standard_font().metrics(),
+			b.static_size() 
+				? utility::string_square(*b.static_size()) 
+				: b.text());
 }

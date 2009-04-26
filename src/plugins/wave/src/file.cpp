@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../file.hpp"
 #include <sge/audio/exception.hpp>
 #include <sge/log/headers.hpp>
-#include <sge/endianness.hpp>
+#include <sge/endianness/is_little_endian.hpp>
+#include <sge/endianness/copy_swapped.hpp>
+#include <sge/endianness/swap.hpp>
 #include <sge/container/raw_vector_impl.hpp>
-#include <sge/istream_util.hpp>
 #include <sge/sstream.hpp>
 #include <sge/format.hpp>
 #include <sge/assert.hpp>
@@ -34,7 +35,7 @@ sge::wave::file::file(
 :
 	filename_(filename.string()),
 	swap_(boost::logic::indeterminate),
-	file_(filename_)
+	file_(filename_, std::ios_base::binary)
 {
 	if (!file_.is_open())
 		throw audio::exception(
@@ -78,15 +79,26 @@ sge::audio::sample_count sge::wave::file::read(
 
 	_array.resize_uninitialized(
 		static_cast<audio::sample_container::size_type>(
-			_array.size()+bytes_to_read));
+			_array.size() + bytes_to_read));
+
+	audio::sample_container::pointer const old_pos(
+		_array.data() + old_size
+	);
 
 	file_.read(
-		reinterpret_cast<char*>(&_array[old_size]),
+		reinterpret_cast<char*>(old_pos),
 		bytes_to_read);
 
+	// TODO: replace this with copy_to_host
 	if (bytes_per_sample() > static_cast<audio::sample_count>(1) && swap_)
-		for (audio::sample_container::iterator i = _array.begin()+old_size; i != _array.end(); i += bytes_per_sample())
-			swap_endianness(i,bytes_per_sample());
+		endianness::copy_swapped(
+			old_pos,
+			_array.data_end(),
+			old_pos,
+			bytes_per_sample()
+		);
+		//for (audio::sample_container::pointer i = _array.data() + old_size; i != _array.data_end(); i += bytes_per_sample())
+		//	endianness::swap(i,bytes_per_sample());
 
 	samples_read_ += samples_to_read;
 	return samples_to_read;
@@ -113,7 +125,7 @@ void sge::wave::file::read_riff()
 	else
 		throw audio::exception(SGE_TEXT("file \"")+filename_+SGE_TEXT("\" is not a riff file and thus not a wave file"));
 	
-	swap_ = file_bigendian == is_little_endian();
+	swap_ = file_bigendian == endianness::is_little_endian();
 
 	// throw away riff size
 	extract_primitive<boost::uint32_t>(SGE_TEXT("riff chunk size"));
@@ -204,7 +216,11 @@ T sge::wave::file::extract_primitive(string const &_desc)
 {
 	SGE_ASSERT(swap_ != boost::logic::indeterminate);
 
-	T const ret = sge::read<T>(file_);
+	// TODO: replace this with io::read
+	T ret;
+	file_.read(
+		reinterpret_cast<char *>(&ret), sizeof(T)
+	);
 
 	if (file_.bad())
 		throw audio::exception(
@@ -214,5 +230,5 @@ T sge::wave::file::extract_primitive(string const &_desc)
 			+ filename_
 			+ SGE_TEXT("\""));
 
-	return swap_ ? swap_endianness(ret) : ret;
+	return swap_ ? endianness::swap(ret) : ret;
 }

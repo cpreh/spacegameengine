@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,9 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #include "../texpos_actor.hpp"
 #include "../client_state_combiner.hpp"
 #include "../../error.hpp"
+#include "../../multi_texture.hpp"
 #include <sge/renderer/vf/dynamic_ordered_element.hpp>
 #include <sge/exception.hpp>
 #include <sge/format.hpp>
@@ -49,10 +51,13 @@ sge::ogl::vf::texpos_actor::texpos_actor(
 void sge::ogl::vf::texpos_actor::operator()(
 	client_state_combiner &c) const
 {
-	SGE_OPENGL_SENTRY
+	client_texture_level(
+		static_cast<
+			renderer::stage_type
+		>(index())
+	);
 
-	glClientActiveTexture(
-		static_cast<GLenum>(GL_TEXTURE0 + index()));
+	SGE_OPENGL_SENTRY
 
 	glTexCoordPointer(
 		elements,

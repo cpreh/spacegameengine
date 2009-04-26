@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #ifndef SGE_OPENGL_DEVICE_HPP_INCLUDED
 #define SGE_OPENGL_DEVICE_HPP_INCLUDED
 
 #include <sge/config.h>
-#include "target.hpp"
+#include "target_fwd.hpp"
+#include "default_target_fwd.hpp"
 #include "fbo_target_fwd.hpp"
 #include "common.hpp"
 #if defined(SGE_WINDOWS_PLATFORM)
@@ -34,11 +36,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #endif
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/viewport.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/dim_type.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/window/instance_fwd.hpp>
+#include <sge/window/dim_type.hpp>
 #include <stack>
 
 namespace sge
@@ -92,6 +96,9 @@ public:
 
 	void viewport(
 		renderer::viewport const &);
+	
+	void viewport_mode(
+		renderer::viewport_mode::type);
 
 	void enable_light(
 		renderer::light_index index,
@@ -169,6 +176,9 @@ private:
 	fbo_target_ptr const
 	create_target();
 
+	void reset_viewport(
+		window::dim_type const &);
+	void reset_viewport_default();
 	void projection_internal();
 
 	renderer::parameters const param;
@@ -179,14 +189,18 @@ private:
 #elif defined(SGE_HAVE_X11)
 	x11::state state_;
 #endif
-	bool                        fbo_active;
-	renderer::any_matrix        projection_;
-	target_ptr                  target_;
+	bool fbo_active;
+	renderer::any_matrix projection_;
+	renderer::viewport_mode::type viewport_mode_;
+	renderer::viewport viewport_;
+	default_target_ptr default_target_;
+	target_ptr target_;
 
 	typedef std::stack<
 		renderer::state::list
 	> stack_type;
-	stack_type                  state_levels;
+
+	stack_type state_levels;
 };
 
 }

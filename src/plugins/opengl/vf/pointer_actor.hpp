@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -16,6 +16,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
 
 
 #ifndef SGE_OPENGL_VF_POINTER_ACTOR_HPP_INCLUDED
@@ -51,10 +52,14 @@ protected:
 	GLvoid const *pointer() const;
 	renderer::vf::vertex_size index() const;
 private:
+	void source(vf::pointer);
+
 	GLenum const format_;
 	GLsizei const stride_;
-	GLvoid const *const pointer_;
-	renderer::vf::vertex_size const index_;
+	vf::pointer pointer_;
+	renderer::vf::vertex_size const
+		index_,
+		offset_;
 };
 
 }

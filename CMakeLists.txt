@@ -10,9 +10,6 @@ IF(${CMAKE_BINARY_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
 	message(FATAL_ERROR "In-source builds are not permitted. Make a separate folder for building:\nmkdir build; cd build; cmake ..\nBefore that, remove the files that cmake just created:\nrm -rf CMakeCache.txt CMakeFiles")
 ENDIF()
 
-
-
-
 INCLUDE (CheckIncludeFile)
 INCLUDE (CheckCXXCompilerFlag)
 INCLUDE (CheckCXXSourceCompiles)
@@ -36,6 +33,10 @@ IF (CMAKE_COMPILER_IS_GNUCXX)
 	#	"-std=c++0x"
 	#	SGE_HAVE_VARIADIC_TEMPLATES
 	#)
+
+	IF(UNIX)
+		SET (SGE_STRING_IS_UTF8 true)
+	ENDIF()
 
 	CHECK_CXX_COMPILER_FLAG(
 		"-fvisibility=hidden"
@@ -61,7 +62,8 @@ IF (CMAKE_COMPILER_IS_GNUCXX)
 # -fvisibility=hidden causes problems without inlining, so just switch it on
 # in release mode
 	IF (SGE_HAVE_GCC_VISIBILITY)
-		SET (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fvisibility=hidden")
+		ADD_DEFINITIONS(-fvisibility=hidden)
+		#SET (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fvisibility=hidden")
 	ENDIF ()
 
 	#IF (SGE_HAVE_VARIADIC_TEMPLATES)
@@ -77,10 +79,17 @@ IF (CMAKE_COMPILER_IS_GNUCXX)
 		"#pragma message \"test\"
 		 int main() {}"
 		SGE_HAVE_PRAGMA_MESSAGE)
+
+	CHECK_CXX_SOURCE_COMPILES(
+		"#include <cxxabi.h>
+		 #include <cstdlib>
+		int main() { int status; char *name =
+		abi::__cxa_demangle(typeid(int).name(),0,0,&status); std::free(name); }"
+		SGE_HAS_GNU_DEMANGLE)
 	
 	SET (CMAKE_REQUIRED_FLAGS "")
 ELSEIF (MSVC)
-	ADD_DEFINITIONS ("/W4 /wd4512 /wd4355 /wd4800 /wd4996 /wd4714")
+	ADD_DEFINITIONS ("/W3 /wd4512 /wd4355 /wd4800 /wd4996 /wd4714 /EHa")
 	SET (WINLIBS projects/windows/lib32)
 	SET (WININCLUDES ${CMAKE_SOURCE_DIR}/${WINLIBS})
 
@@ -140,14 +149,26 @@ CHECK_CXX_SOURCE_RUNS(
 	 }"
 	 SGE_HAVE_POSIX)
 
-CHECK_CXX_SOURCE_COMPILES(
-	"struct test {
-	   test(test const &) = delete;
-	   test &operator=(test const &) = default;
-	 };
-	 int main()
-	 {}"
-	 SGE_HAVE_DEFAULTED_AND_DELETED_FUNCTIONS)
+CHECK_CXX_SOURCE_RUNS(
+	"#include <unistd.h>
+	 #include <cstdlib>
+	int main()
+	{
+		return _POSIX_TIMERS > 0
+			? EXIT_SUCCESS
+			: EXIT_FAILURE;
+	}"
+	SGE_HAVE_CLOCK_GETTIME)
+
+# NOTE: we can't use this right now because -std=c++0x is broken with proto
+#CHECK_CXX_SOURCE_COMPILES(
+#	"struct test {
+#	   test(test const &) = delete;
+#	   test &operator=(test const &) = default;
+#	 };
+#	 int main()
+#	 {}"
+#	 SGE_HAVE_DEFAULTED_AND_DELETED_FUNCTIONS)
 
 FIND_PACKAGE(Boost 1.35.0 COMPONENTS
 	filesystem
@@ -240,18 +261,24 @@ INSTALL_HEADERS (sge/archive)
 INSTALL_HEADERS (sge/audio)
 INSTALL_HEADERS (sge/audio/loader)
 INSTALL_HEADERS (sge/audio/player)
+INSTALL_HEADERS (sge/assign)
+INSTALL_HEADERS (sge/assign/detail)
 INSTALL_HEADERS (sge/console)
 INSTALL_HEADERS (sge/console/detail)
 INSTALL_HEADERS (sge/collision)
 INSTALL_HEADERS (sge/collision/objects)
+INSTALL_HEADERS (sge/config)
 INSTALL_HEADERS (sge/container)
 INSTALL_HEADERS (sge/detail)
+INSTALL_HEADERS (sge/endianness)
 INSTALL_HEADERS (sge/filesystem)
 INSTALL_HEADERS (sge/filesystem/detail)
 INSTALL_HEADERS (sge/font)
 INSTALL_HEADERS (sge/image)
 INSTALL_HEADERS (sge/input)
 INSTALL_HEADERS (sge/input/modifier)
+INSTALL_HEADERS (sge/io)
+INSTALL_HEADERS (sge/io/detail)
 INSTALL_HEADERS (sge/library)
 INSTALL_HEADERS (sge/log)
 INSTALL_HEADERS (sge/log/format)
@@ -267,6 +294,8 @@ INSTALL_HEADERS (sge/mpl)
 INSTALL_HEADERS (sge/parse)
 INSTALL_HEADERS (sge/parse/ini)
 INSTALL_HEADERS (sge/parse/ini/detail)
+INSTALL_HEADERS (sge/parse/json)
+INSTALL_HEADERS (sge/parse/json/detail)
 INSTALL_HEADERS (sge/plugin)
 INSTALL_HEADERS (sge/random)
 INSTALL_HEADERS (sge/renderer)
@@ -281,11 +310,13 @@ INSTALL_HEADERS (sge/renderer/vf)
 INSTALL_HEADERS (sge/signal)
 INSTALL_HEADERS (sge/signal/detail)
 INSTALL_HEADERS (sge/sprite)
+INSTALL_HEADERS (sge/sprite/intrusive)
 INSTALL_HEADERS (sge/systems)
 INSTALL_HEADERS (sge/texture)
 INSTALL_HEADERS (sge/texture/detail)
 INSTALL_HEADERS (sge/time)
 INSTALL_HEADERS (sge/type_traits)
+INSTALL_HEADERS (sge/utf8)
 INSTALL_HEADERS (sge/window)
 
 IF(ENABLE_GUI)

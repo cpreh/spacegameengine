@@ -1,16 +1,31 @@
-#include "../../../utility/max_dim.hpp"
-#include <sge/gui/skins/standard.hpp>
-#include <sge/gui/canvas.hpp>
-#include <sge/gui/log.hpp>
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+#include "../../../utility/unlimited_text_size.hpp"
 #include <sge/gui/widgets/buttons/text.hpp>
 #include <sge/gui/events/invalid_area.hpp>
-#include <sge/math/dim/output.hpp>
+#include <sge/gui/skins/standard.hpp>
+#include <sge/gui/canvas/object.hpp>
+#include <sge/gui/log.hpp>
+#include <sge/gui/unit.hpp>
+#include <sge/gui/internal_color.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/text_size.hpp>
-#include <sge/renderer/colors.hpp>
-#include <sge/media.hpp>
-#include <sge/assert.hpp>
-#include <sge/structure_cast.hpp>
 
 namespace
 {
@@ -99,10 +114,6 @@ void sge::gui::skins::standard::draw(
 			canvas::line_type::dashed);
 	}
 
-	SGE_ASSERT_MESSAGE(
-		b.font(),
-		SGE_TEXT("button: font missing while drawing button"));
-
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("drawing text (button \"")
@@ -111,8 +122,7 @@ void sge::gui::skins::standard::draw(
 
 	// draw text centered
 	c.draw_text(
-		b.font(),
-		renderer::colors::black(),
+		standard_font(),
 		b.caption(),
 		point::null(),
 		c.size(),
@@ -135,19 +145,17 @@ void sge::gui::skins::standard::draw(
 	blit_invalid(b,c,e);
 }
 
-sge::gui::dim const sge::gui::skins::standard::size_hint(
+sge::gui::dim const sge::gui::skins::standard::optimal_size(
 	widgets::buttons::text const &b) const
 {
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("calling size hint for button"));
 
-	font::object fn(b.font());	
+	dim const font_dim = 
+		utility::unlimited_text_size(
+			standard_font().metrics(),
+			b.caption()+SGE_TEXT("aa"));
 
-	// NOTE: we have to give text_size a huge rectangle because it won't
-	// return a valid rectangle otherwise
-	dim const font_dim = structure_cast<dim>(
-		fn.text_size(b.caption(),utility::max_dim<font::unit>()).size());
-
-	return dim(static_cast<unit>(font_dim.w()+2),static_cast<unit>(font_dim.h()+2));
+	return font_dim;
 }

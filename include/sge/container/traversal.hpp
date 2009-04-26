@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -16,6 +16,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
 
 
 #ifndef SGE_CONTAINER_TRAVERSAL_HPP_INCLUDED
@@ -34,14 +35,15 @@ namespace container
 template<
 	typename Tree
 >
-struct traversal {
+class traversal {
+public:
 	explicit traversal(
 		Tree &tree_)
 	:
 		tree_(tree_)
 	{}
 
-	struct iterator;
+	class iterator;
 private:
 	typedef typename boost::mpl::if_<
 		boost::is_const<
@@ -62,7 +64,8 @@ private:
 		typename tree_iterator::reference
 	> iterator_base;
 public:
-	struct iterator : iterator_base {
+	class iterator : public iterator_base {
+	public:
 		explicit iterator(
 			tree_iterator const &it)
 		:

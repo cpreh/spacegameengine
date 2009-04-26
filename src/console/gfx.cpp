@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -17,6 +17,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+
 #include <sge/console/gfx.hpp>
 #include <sge/console/object.hpp>
 #include <sge/font/drawer_3d.hpp>
@@ -27,9 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/pos.hpp>
 #include <sge/time/second_f.hpp>
 #include <sge/time/resolution.hpp>
+#include <sge/container/map_impl.hpp>
 #include <sge/structure_cast.hpp>
 #include <boost/bind.hpp>
 #include <boost/foreach.hpp>
+#include <locale>
 
 sge::console::gfx::gfx(
 	sge::console::object &_object,

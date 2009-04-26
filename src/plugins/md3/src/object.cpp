@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #include "../object.hpp"
 #include "../vertex_format.hpp"
 #include <sge/math/pi.hpp>
@@ -31,9 +32,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/view.hpp>
 #include <sge/renderer/index/view_size.hpp>
 #include <sge/renderer/index/make_const_view.hpp>
+#include <sge/io/read.hpp>
+#include <sge/endianness/format.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
-#include <sge/istream_util.hpp>
 #include <boost/tr1/array.hpp>
 #include <boost/foreach.hpp>
 #include <boost/variant/static_visitor.hpp>
@@ -53,6 +55,10 @@ xyz_scale(
 	/ static_cast<sge::md3::funit>(64)
 );
 
+sge::endianness::format::type const endian(
+	sge::endianness::format::little
+);
+
 }
 
 sge::md3::object::object(
@@ -66,7 +72,7 @@ sge::md3::object::object(
 	if(!read_and_check_id3p(is))
 		throw exception(SGE_TEXT("Invalid md3 format!"));
 
-	s32 const version = read<s32>(is);
+	s32 const version = io::read<s32>(is, endian);
 	if(version != 15)
 		SGE_LOG_WARNING(
 			log::global(),
@@ -75,20 +81,20 @@ sge::md3::object::object(
 
 	name_ = read_string<max_qpath>(is);
 
-	read<s32>(is); // flags
+	io::read<s32>(is, endian); // flags
 
 	s32 const
-		num_frames = read<s32>(is),
-		num_tags     = read<s32>(is),
-		num_surfaces = read<s32>(is);
+		num_frames = io::read<s32>(is, endian),
+		num_tags     = io::read<s32>(is, endian),
+		num_surfaces = io::read<s32>(is, endian);
 	
-	read<s32>(is); // num_skins
+	io::read<s32>(is, endian); // num_skins
 	
 	s32 const
-		ofs_frames   = read<s32>(is),
-		ofs_tags     = read<s32>(is),
-		ofs_surfaces = read<s32>(is),
-		ofs_eof      = read<s32>(is);
+		ofs_frames   = io::read<s32>(is, endian),
+		ofs_tags     = io::read<s32>(is, endian),
+		ofs_surfaces = io::read<s32>(is, endian),
+		ofs_eof      = io::read<s32>(is, endian);
 
 	is.seekg(start + ofs_frames, std::ios_base::beg);
 	for(s32 i = 0; i < num_frames; ++i)
@@ -180,7 +186,8 @@ sge::md3::object::copy_vertices(
 namespace
 {
 
-struct index_visitor : boost::static_visitor<> {
+class index_visitor : public boost::static_visitor<> {
+public:
 	explicit index_visitor(
 		sge::md3::object::surface_vector const &surfaces_)
 	:
@@ -254,7 +261,7 @@ bool sge::md3::object::read_and_check_id3p(model::istream& is)
 	id3p_array id3p,
 	           to_check = { { 0x49, 0x44, 0x50, 0x33 } };
 	for(id3p_array::iterator i = id3p.begin(); i != id3p.end(); ++i)
-		*i = read<u8>(is);
+		*i = io::read<u8>(is, endian);
 	return std::equal(id3p.begin(), id3p.end(), to_check.begin());
 }
 
@@ -291,9 +298,9 @@ sge::md3::object::read_vec3(
 	model::istream &is)
 {
 	return vec3(
-		read<funit>(is),
-		read<funit>(is),
-		read<funit>(is)
+		io::read<funit>(is, endian),
+		io::read<funit>(is, endian),
+		io::read<funit>(is, endian)
 	);
 }
 
@@ -303,7 +310,7 @@ inline sge::md3::object::frame::frame(
 	min_bounds(read_vec3(is)),
 	max_bounds(read_vec3(is)),
 	local_origin(read_vec3(is)),
-	radius(read<funit>(is)),
+	radius(io::read<funit>(is, endian)),
 	name(read_string<16>(is))
 {}
 
@@ -324,22 +331,22 @@ inline sge::md3::object::surface::surface(model::istream& is, const s32 num_fram
 		throw exception(SGE_TEXT("Invalid md3 surface!"));
 
 	name = read_string<max_qpath>(is);
-	read<s32>(is); // flags
+	io::read<s32>(is, endian); // flags
 
-	const s32 num_frames    = read<s32>(is);
+	const s32 num_frames    = io::read<s32>(is, endian);
 
 	if(num_frames != num_frames_head)
 		throw exception(SGE_TEXT("num_frames mismatch in md3::object::surface!"));
 
 	s32 const
-		num_shaders   = read<s32>(is),
-		num_verts     = read<s32>(is),
-		num_triangles = read<s32>(is),
-		ofs_triangles = read<s32>(is),
-		ofs_shaders   = read<s32>(is),
-		ofs_st        = read<s32>(is),
-		ofs_xyznormal = read<s32>(is),
-		ofs_end       = read<s32>(is);
+		num_shaders   = io::read<s32>(is, endian),
+		num_verts     = io::read<s32>(is, endian),
+		num_triangles = io::read<s32>(is, endian),
+		ofs_triangles = io::read<s32>(is, endian),
+		ofs_shaders   = io::read<s32>(is, endian),
+		ofs_st        = io::read<s32>(is, endian),
+		ofs_xyznormal = io::read<s32>(is, endian),
+		ofs_end       = io::read<s32>(is, endian);
 
 	is.seekg(start + ofs_triangles, std::ios_base::beg);
 	for(s32 i = 0; i < num_triangles; ++i)
@@ -368,29 +375,32 @@ sge::md3::object::surface::shader::shader(
 	model::istream &is)
 :
 	name(read_string<max_qpath>(is)),
-	shader_index(read<s32>(is))
+	shader_index(io::read<s32>(is, endian))
 {}
 
 sge::md3::object::surface::triangle::triangle(
 	model::istream& is)
 {
 	for(index_array::iterator i = indices.begin(); i != indices.end(); ++i)
-		*i = read<s32>(is);
+		*i = io::read<s32>(is, endian);
 }
 
 sge::md3::object::surface::texcoord::texcoord(
 	model::istream& is)
 :
-	tex(read<funit>(is), read<funit>(is))
+	tex(
+		io::read<funit>(is, endian),
+		io::read<funit>(is, endian)
+	)
 {}
 
 sge::md3::object::surface::vertex::vertex(
 	model::istream& is)
 :
-	x(read<s16>(is)),
-	y(read<s16>(is)),
-	z(read<s16>(is)),
-	normal(read<s16>(is))
+	x(io::read<s16>(is, endian)),
+	y(io::read<s16>(is, endian)),
+	z(io::read<s16>(is, endian)),
+	normal(io::read<s16>(is, endian))
 {}
 
 sge::md3::object::surface::transformed_vertex::transformed_vertex(

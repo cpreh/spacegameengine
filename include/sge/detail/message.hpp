@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #ifndef SGE_DETAIL_MESSAGE_HPP_INCLUDED
 #define SGE_DETAIL_MESSAGE_HPP_INCLUDED
 
 #include <sge/config.h>
 
 #ifdef SGE_HAVE_PRAMGA_MESSAGE
-#define SGE_DETAIL_MESSAGE(x)\
-#pragma message x
+#define SGE_DETAIL_MESSAGE(x) #pragma message x
 #else
 #define SGE_DETAIL_MESSAGE(x)
 #endif

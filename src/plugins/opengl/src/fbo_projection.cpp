@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #include "../fbo_projection.hpp"
 #include <sge/math/matrix/scaling.hpp>
 #include <sge/math/matrix/arithmetic.hpp>
@@ -27,10 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-struct multiply_visitor
-: boost::static_visitor<
+class multiply_visitor
+: public boost::static_visitor<
 	sge::renderer::any_matrix
 > {
+public:
 	template<
 		typename T
 	>

@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,22 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
+
 #ifndef SGE_CONSOLE_VAR_IMPL_HPP_INCLUDED
 #define SGE_CONSOLE_VAR_IMPL_HPP_INCLUDED
 
 #include <sge/console/var.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
-#include <boost/lexical_cast.hpp>
+#include <sge/lexical_cast.hpp>
 
 template<typename T>
-void sge::console::var<T>::string(sge::string const &s) 
+void sge::console::var<T>::string(
+	sge::string const &s) 
 { 
 	try
 	{
-		t = boost::lexical_cast<value_type>(s); 
+		t = lexical_cast<value_type>(s); 
 	} 
-	catch (boost::bad_lexical_cast const &)
+	catch (bad_lexical_cast const &)
 	{
 		throw exception(
 			SGE_TEXT("couldn't parse variable \"")
@@ -46,7 +49,7 @@ template<typename T>
 sge::string const
 sge::console::var<T>::string() const
 {
-	return boost::lexical_cast<sge::string>(t);
+	return lexical_cast<sge::string>(t);
 }
 
 template<typename T>

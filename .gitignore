@@ -4,3 +4,8 @@ doc
 include/sge/config.h
 projects/windows/lib32_install.log
 projects/windows/lib32
+util/Include/Main
+util/Include/Main.o
+util/Include/Main.hi
+util/Util.hi
+util/Util.o

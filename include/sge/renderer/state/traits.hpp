@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #ifndef SGE_RENDERER_STATE_TRAITS_HPP_INCLUDED
 #define SGE_RENDERER_STATE_TRAITS_HPP_INCLUDED
 
@@ -31,10 +32,11 @@ namespace state
 {
 
 template<typename T>
-struct traits;
+class traits;
 
 template<>
-struct traits<int_type> {
+class traits<int_type> {
+public:
 	enum available_states {
 		stencil_clear_val,
 		stencil_ref
@@ -42,14 +44,16 @@ struct traits<int_type> {
 };
 
 template<>
-struct traits<uint_type> {
+class traits<uint_type> {
+public:
 	enum available_states {
 		stencil_mask
 	};
 };
 
 template<>
-struct traits<float_type> {
+class traits<float_type> {
+public:
 	enum available_states {
 		zbuffer_clear_val,
 		alpha_test_ref,
@@ -60,7 +64,8 @@ struct traits<float_type> {
 };
 
 template<>
-struct traits<bool_type> {
+class traits<bool_type> {
+public:
 	enum available_states {
 		clear_zbuffer,
 		clear_backbuffer,
@@ -72,7 +77,8 @@ struct traits<bool_type> {
 };
 
 template<>
-struct traits<color_type> {
+class traits<color_type> {
+public:
 	enum available_states {
 		clear_color,
 		ambient_light_color,

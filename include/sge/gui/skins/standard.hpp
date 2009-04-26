@@ -1,9 +1,28 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
 #ifndef SGE_GUI_SKINS_STANDARD_HPP_INCLUDED
 #define SGE_GUI_SKINS_STANDARD_HPP_INCLUDED
 
-#include <sge/gui/skin.hpp>
-#include <sge/gui/types.hpp>
-#include <sge/export.hpp>
+#include <sge/gui/skins/base.hpp>
+#include <sge/font/system_fwd.hpp>
+#include <sge/gui/export.hpp>
 
 namespace sge
 {
@@ -11,27 +30,17 @@ namespace gui
 {
 namespace skins
 {
-class standard : public skin
+class standard : public base
 {
 	public:
-	SGE_SYMBOL standard();
-	SGE_SYMBOL void fallback(widget const &,events::invalid_area const &);
-	SGE_SYMBOL void draw(widget const &,events::invalid_area const &);
-	SGE_SYMBOL void draw(widgets::buttons::text const &,events::invalid_area const &);
-	SGE_SYMBOL void draw(widgets::buttons::image const &,events::invalid_area const &);
-	SGE_SYMBOL void draw(widgets::edit const &,events::invalid_area const &);
-	SGE_SYMBOL void draw(widgets::label const &,events::invalid_area const &);
-	SGE_SYMBOL void draw(widgets::graphics const &,events::invalid_area const &);
-	SGE_SYMBOL void draw(widgets::backdrop const &,events::invalid_area const &);
-	SGE_SYMBOL dim const size_hint(widgets::buttons::text const &) const;
-	SGE_SYMBOL dim const size_hint(widgets::buttons::image const &) const;
-	SGE_SYMBOL dim const size_hint(widgets::edit const &) const;
-	SGE_SYMBOL dim const size_hint(widgets::label const &) const;
-	SGE_SYMBOL dim const size_hint(widgets::graphics const &) const;
-	SGE_SYMBOL dim const size_hint(widgets::backdrop const &) const;
-	SGE_SYMBOL filesystem::path const cursor_path() const;
+	SGE_GUI_SYMBOL standard(
+		font::system_ptr);
+	SGE_GUI_SYMBOL SGE_GUI_SKIN_DRAW_RETURN(widgets::base) fallback(
+		SGE_GUI_SKIN_DRAW_PARAMS(widgets::base));
+	SGE_GUI_SKIN_WIDGETS
+	SGE_GUI_SYMBOL font_info const standard_font() const;
 	private:
-	color bgcolor,bgcolor_focused;
+	font_info const standard_font_;
 };
 }
 }

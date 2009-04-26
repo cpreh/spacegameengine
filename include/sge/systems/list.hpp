@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,13 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #ifndef SGE_SYSTEMS_LIST_HPP_INCLUDED
 #define SGE_SYSTEMS_LIST_HPP_INCLUDED
 
 #include <sge/systems/any.hpp>
-#include <sge/systems/any_compare.hpp>
+#include <sge/systems/named.hpp>
+#include <sge/systems/named_set.hpp>
 #include <sge/export.hpp>
-#include <set>
+#include <sge/string.hpp>
 
 namespace sge
 {
@@ -34,19 +36,25 @@ namespace systems
 class list {
 public:
 	SGE_SYMBOL list();
+	
 	SGE_SYMBOL explicit list(
 		any const &);
-	
-	SGE_SYMBOL list const operator()(
-		any const &) const;
-	typedef std::set<
-		any,
-		any_compare
-	> any_set;
 
-	SGE_SYMBOL any_set const &get() const;
+	SGE_SYMBOL explicit list(
+		named const &);
+
+	SGE_SYMBOL list const
+	operator()(
+		any const &) const;
+
+	SGE_SYMBOL list const
+	operator()(
+		named const &) const;
+	
+	SGE_SYMBOL named_set const &
+	get() const;
 private:
-	any_set states;
+	named_set states;
 };
 
 }

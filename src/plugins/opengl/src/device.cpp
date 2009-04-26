@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,8 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #include <boost/foreach.hpp>
 #include "../device.hpp"
+#include "../pbo.hpp"
 #include "../vertex_buffer.hpp"
 #include "../index_buffer.hpp"
 #include "../vertex_buffer.hpp"
@@ -46,14 +48,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../fbo_projection.hpp"
 #include "../get_string.hpp"
 #include "../get_int.hpp"
+#include "../viewport.hpp"
+#include "../viewport_pos.hpp"
+#include "../background_dim.hpp"
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/primitive.hpp>
-#include <sge/renderer/viewport.hpp>
 #include <sge/renderer/state/default.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
+#include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/structure_cast.hpp>
@@ -76,13 +81,39 @@ sge::ogl::device::device(
 		adapter,
 		wnd,
 		boost::bind(
-			&device::viewport,
+			&device::reset_viewport,
 			this,
-			_1)),
+			_1
+		)
+	),
 	fbo_active(
 		false),
 	projection_(
-		math::matrix::static_<float, 4, 4>::type::identity())
+		math::matrix::static_<float, 4, 4>::type::identity()
+	),
+	viewport_mode_(
+		renderer::viewport_mode::centered_screen_size
+	),
+	viewport_(
+		renderer::pixel_pos::null(),
+		param.mode().size()
+	),
+	default_target_(
+		make_shared_ptr<
+			ogl::default_target
+		>(
+			structure_cast<
+				target::dim_type
+			>(
+				screen_size()
+			),
+			param.mode().bit_depth()
+		)
+	),
+	target_(
+		default_target_
+	),
+	state_levels()
 
 {
 	initialize_glew();
@@ -91,12 +122,14 @@ sge::ogl::device::device(
 	initialize_pbo();
 
 	state(
-		renderer::state::default_());
-	
-	target(
-		default_target);
+		renderer::state::default_()
+	);
 	
 	projection_internal();
+
+	reset_viewport_default();
+	
+	target_->bind_me();
 }
 
 void sge::ogl::device::begin_rendering()
@@ -352,12 +385,24 @@ void sge::ogl::device::material(
 void sge::ogl::device::viewport(
 	renderer::viewport const &v)
 {
-	SGE_OPENGL_SENTRY
-	glViewport(
-		v.pos().x(),
-		v.pos().y(),
-		v.size().w(),
-		v.size().h());
+	viewport_ = v;
+	if(fbo_active)
+		ogl::viewport(
+			v,
+			static_cast<
+				renderer::screen_unit
+			>(
+				target_->dim().h()
+			)
+		);
+	else
+		reset_viewport_default();
+}
+
+void sge::ogl::device::viewport_mode(
+	renderer::viewport_mode::type const mode)
+{
+	viewport_mode_ = mode;	
 }
 
 void sge::ogl::device::transform(
@@ -388,19 +433,11 @@ void sge::ogl::device::target(
 {
 	if(!ntarget)
 	{
-		target_ =
-			make_shared_ptr<
-				ogl::default_target
-			>(
-				structure_cast<
-					target::dim_type
-				>(
-					screen_size()),
-				param.mode().bit_depth());
+		target_ = default_target_;
 		target_->bind_me();
-		state_.reset_viewport();
 		fbo_active = false;
 		projection_internal();
+		reset_viewport_default();
 		return;
 	}
 
@@ -411,6 +448,9 @@ void sge::ogl::device::target(
 	fbo_target_ptr const ftarget = create_target();
 
 	ftarget->bind_texture(p);
+
+	target_ = ftarget;
+	fbo_active = true;
 
 	viewport(
 		renderer::viewport(
@@ -423,8 +463,6 @@ void sge::ogl::device::target(
 		)
 	);
 	
-	target_ = ftarget;
-	fbo_active = true;
 	projection_internal();
 }
 
@@ -537,6 +575,49 @@ sge::ogl::device::create_target()
 	return make_shared_ptr<
 		fbo_target
 	>();
+}
+
+void sge::ogl::device::reset_viewport(
+	sge::window::dim_type const &wnd_sz)
+{
+	ogl::viewport(
+		renderer::viewport(
+			viewport_pos(
+				viewport_.pos(),
+				wnd_sz,
+				screen_size(),
+				viewport_mode_
+			),
+			viewport_.size()
+		),
+		wnd_sz.h()
+	);
+
+	// use viewport_pos to calculate the position of
+	// the backbuffer as well but starting with an offset of null
+	default_target_->pos(
+		viewport_pos(
+			renderer::pixel_pos::null(),
+			wnd_sz,
+			screen_size(),
+			viewport_mode_
+		)
+	);
+
+	default_target_->dim(
+		background_dim(
+			viewport_mode_,
+			wnd_sz,
+			screen_size()
+		)
+	);
+}
+
+void sge::ogl::device::reset_viewport_default()
+{
+	reset_viewport(
+		wnd->size()
+	);
 }
 
 void sge::ogl::device::projection_internal()

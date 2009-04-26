@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/renderer/parameters.hpp>
@@ -31,6 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/add_image.hpp>
 #include <sge/texture/default_creator_impl.hpp>
 #include <sge/texture/no_fragmented.hpp>
+#include <sge/sprite/object.hpp>
+#include <sge/sprite/parameters.hpp>
 #include <sge/image/loader.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/mainloop/dispatch.hpp>
@@ -39,8 +42,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/gfx.hpp>
 #include <sge/console/stdlib.hpp>
 #include <sge/font/system.hpp>
+#include <sge/signal/scoped_connection.hpp>
+#include <sge/config/media_path.hpp>
 #include <sge/text.hpp>
-#include <sge/media.hpp>
 #include <sge/exception.hpp>
 #include <sge/cerr.hpp>
 #include <sge/cout.hpp>
@@ -92,18 +96,24 @@ try
 
 	sge::console::object o(SGE_TEXT('/'));
 	
-	sge::signal::auto_connection c0 = o.insert(
-		SGE_TEXT("quit"),
-		boost::bind(&quit,boost::ref(running),_1),
-		SGE_TEXT("quit test"));
+	sge::signal::scoped_connection const c0(
+		o.insert(
+			SGE_TEXT("quit"),
+			boost::bind(&quit,boost::ref(running),_1),
+			SGE_TEXT("quit test")
+		)
+	);
 
-	sge::signal::auto_connection c1 = o.register_fallback(
-		&fallback);
+	sge::signal::scoped_connection const c1(
+		o.register_fallback(
+			&fallback
+		)
+	);
 
 	sge::image::object_ptr const 
 		image_bg(
 			sys.image_loader()->load(
-				sge::media_path()/SGE_TEXT("grass.png")));
+				sge::config::media_path()/SGE_TEXT("grass.png")));
 
 	sge::texture::default_creator<sge::texture::no_fragmented> const 
 		creator(
@@ -124,13 +134,19 @@ try
 		sys.renderer(),
 		sge::renderer::rgba8_color(255,255,255,255),
 		sys.font_system()->create_font(
-			sge::media_path()/SGE_TEXT("fonts")/SGE_TEXT("default.ttf"),
+			sge::config::media_path()/SGE_TEXT("fonts")/SGE_TEXT("default.ttf"),
 			15),
 		sys.input_system(),
 		sge::sprite::object(
-			sge::sprite::point(0,0),
-			tex_bg,
-			sge::sprite::dim(400,300)));
+			sge::sprite::parameters()
+			.texture(
+				tex_bg
+			)
+			.size(
+				sge::sprite::dim(400,300)
+			)
+		)
+	);
 
 	sys.renderer()->state(
 		sge::renderer::state::list

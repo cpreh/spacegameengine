@@ -1,3 +1,21 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 #include <sge/gui/canvas/font_drawer.hpp>
 #include <sge/math/rect.hpp>
 #include <sge/renderer/transform_pixels.hpp>
@@ -16,13 +34,14 @@ sge::gui::logger mylogger(sge::gui::canvas::global_log(),SGE_TEXT("font_drawer")
 sge::gui::canvas::font_drawer::font_drawer(
 	image_view &texture_,
 	color c,
-	boost::optional<string::size_type> character_pos,
-	point *p)
-	: texture_(texture_),
-	  c(c),
-		counter(0),
-		character_pos(character_pos),
-		p(p)
+	optional_character_pos const &character_pos,
+	point *const p)
+:
+	texture_(texture_),
+	c(c),
+	counter(0),
+	character_pos(character_pos),
+	p(p)
 {
 	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("instantiated"));
 }

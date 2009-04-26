@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #ifndef SGE_RENDERER_MATERIAL_HPP_INCLUDED
 #define SGE_RENDERER_MATERIAL_HPP_INCLUDED
 
@@ -30,7 +31,8 @@ namespace sge
 namespace renderer
 {
 	
-struct material {
+class material {
+public:
 	SGE_SYMBOL material(
 		any_color const &diffuse,
 		any_color const &ambient,

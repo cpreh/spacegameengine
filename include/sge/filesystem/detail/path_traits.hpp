@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #ifndef SGE_FILESYSTEM_DETAIL_PATH_TRAITS_HPP_INCLUDED
 #define SGE_FILESYSTEM_DETAIL_PATH_TRAITS_HPP_INCLUDED
 
@@ -32,15 +33,17 @@ namespace detail
 {
 
 template<typename Ch>
-struct path_traits;
+class path_traits;
 
 template<>
-struct path_traits<char> {
+class path_traits<char> {
+public:
 	typedef boost::filesystem::path_traits type;
 };
 
 template<>
-struct path_traits<wchar_t> {
+class path_traits<wchar_t> {
+public:
 	typedef boost::filesystem::wpath_traits type;
 };
 

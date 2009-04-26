@@ -1,12 +1,30 @@
-#include "../../utility/ptr_delete_first.hpp"
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+#include <sge/algorithm/ptr_container_erase.hpp>
 #include "../../utility/ptr_find.hpp"
 #include <sge/gui/detail/managers/mouse.hpp>
 #include <sge/gui/events/mouse_click.hpp>
 #include <sge/gui/events/mouse_enter.hpp>
 #include <sge/gui/events/mouse_leave.hpp>
 #include <sge/gui/events/mouse_move.hpp>
+#include <sge/gui/widgets/base.hpp>
 #include <sge/gui/log.hpp>
-#include <sge/gui/widget.hpp>
 #include <sge/math/rect_util.hpp>
 #include <sge/math/vector/arithmetic.hpp>
 #include <sge/math/vector/output.hpp>
@@ -14,14 +32,9 @@
 #include <sge/input/system.hpp>
 #include <sge/input/classification.hpp>
 #include <sge/texture/part_raw.hpp>
-#include <sge/image/loader.hpp>
-#include <sge/image/object.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/filter/linear.hpp>
 #include <sge/text.hpp>
 #include <sge/assert.hpp>
 #include <sge/structure_cast.hpp>
-#include <sge/make_shared_ptr.hpp>
 #include <boost/bind.hpp>
 #include <boost/foreach.hpp>
 
@@ -43,14 +56,14 @@ sge::sprite::point const key_to_mouse_coords(sge::input::key_pair const &k)
 		static_cast<sge::sprite::unit>(k.value()));
 }
 
-bool active(sge::gui::widget const &w)
+bool active(sge::gui::widgets::base const &w)
 {
 	switch (w.activation())
 	{
 		case sge::gui::activation_state::active:
-			if (!w.parent_widget())
+			if (!w.has_parent())
 				return true;
-			return active(*w.parent_widget());
+			return active(w.parent_widget());
 		case sge::gui::activation_state::inactive:
 			return false;
 	}
@@ -60,59 +73,43 @@ bool active(sge::gui::widget const &w)
 
 sge::gui::detail::managers::mouse::mouse(
 	input::system_ptr const is,
-	sge::image::loader_ptr const il,
-	renderer::device_ptr const rend,
-	skin &s)
+	cursor &_cursor)
 :
 	ic(
 	  	is->register_callback(
 	  		boost::bind(&mouse::input_callback,this,_1))),
-	cursor_(
-		sprite::defaults::pos_,
-		texture::const_part_ptr(
-			make_shared_ptr<
-				texture::part_raw
-			>(
-				rend->create_texture(
-				il->load(s.cursor_path())->view(),
-				renderer::filter::linear,
-				renderer::resource_flags::readable))),
-		sprite::texture_dim,
-		sprite::defaults::color_,
-		static_cast<sprite::depth_type>(0)),
-	//  cursor_click(point::null()),
-	cursor_click(16,16),
+	cursor_(_cursor),
 	focus(0),
 	dirty_(false)
 {
 }
 
 void sge::gui::detail::managers::mouse::resize(
-	widget &,
+	widgets::base &,
 	dim const &)
 {
 	dirty_ = true;
 }
 
 void sge::gui::detail::managers::mouse::reposition(
-	widget &,
+	widgets::base &,
 	point const &)
 {
 	dirty_ = true;
 }
 
-void sge::gui::detail::managers::mouse::add(widget &w)
+void sge::gui::detail::managers::mouse::add(widgets::base &w)
 {
 	// We only store top level widgets as "starting points" for our focus search
-	if (!w.parent_widget())
+	if (!w.has_parent())
 		widgets.push_back(&w);
 	
-	// It could be the case that the newly added widget is below the cursor and should
+	// It could be the case that the newly added widgets::base is below the cursor and should
 	// thus get the focus, so we recalculate
 	dirty_ = true;
 }
 
-void sge::gui::detail::managers::mouse::draw()
+void sge::gui::detail::managers::mouse::update()
 {
 	if (dirty_)
 	{
@@ -122,40 +119,37 @@ void sge::gui::detail::managers::mouse::draw()
 }
 
 void sge::gui::detail::managers::mouse::activation(
-	widget &,
+	widgets::base &,
 	activation_state::type)
 {
 	dirty_ = true;
 }
 
-sge::sprite::object const sge::gui::detail::managers::mouse::cursor() const
-{
-	return cursor_;
-}
-
-void sge::gui::detail::managers::mouse::remove(widget &w)
+void sge::gui::detail::managers::mouse::remove(widgets::base &w)
 {
 	// We've got a problem if
-	// (a) the currently focused widget should be deleted, or...
+	// (a) the currently focused widgets::base should be deleted, or...
 	// (b) one of its children
 	if (focus == &w || w.has_child(*focus))
 	{
-		// If so, we start at the focused widget and traverse the tree upwards until
+		// If so, we start at the focused widgets::base and traverse the tree upwards until
 		// we reach the widget's parent (it could be 0).
-		widget *const parent = w.parent_widget();
+		widgets::base *const parent = w.has_parent() ? &(w.parent_widget()) : 0;
 		while (focus != parent)
 		{
 			focus->process(events::mouse_leave());
-			focus = focus->parent_widget();
+			focus = focus->has_parent() ? &(focus->parent_widget()) : 0;
 		}
 	}
 
 	// And if it's a top level widget, we have to delete it from our widgets list
-	if (!w.parent_widget())
+	if (!w.has_parent())
 	{
 		SGE_ASSERT(
 			utility::ptr_find(widgets.begin(),widgets.end(),&w) != widgets.end());
-		utility::ptr_delete_first(widgets,&w);
+		algorithm::ptr_container_erase(
+			widgets,
+			&w);
 	}
 }
 
@@ -165,13 +159,13 @@ void sge::gui::detail::managers::mouse::recalculate_focus()
 		mylogger,
 		log::_1 << SGE_TEXT("in top level recalculate_focus"));
 
-	point const click_point = structure_cast<point>(cursor_.pos()+cursor_click);
+	point const click_point = structure_cast<point>(cursor_.pos());
 
 	if (focus)
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("a widget currently has the focus, recalculating"));
+			log::_1 << SGE_TEXT("a widgets::base currently has the focus, recalculating"));
 			
 		focus = recalculate_focus(*focus,click_point);
 	}
@@ -181,9 +175,9 @@ void sge::gui::detail::managers::mouse::recalculate_focus()
 		SGE_LOG_DEBUG(
 			mylogger,
 			log::_1 << 
-				SGE_TEXT("no widget currently has the focus, so letting it recalculate"));
+				SGE_TEXT("no widgets::base currently has the focus, so letting it recalculate"));
 
-		BOOST_FOREACH(widget &w,widgets)
+		BOOST_FOREACH(widgets::base &w,widgets)
 		{
 			SGE_LOG_DEBUG(
 				mylogger,
@@ -201,12 +195,20 @@ void sge::gui::detail::managers::mouse::recalculate_focus()
 	}
 }
 
+void sge::gui::detail::managers::mouse::z(
+	widgets::base &w,
+	depth_type const _z)
+{
+	
+}
+
 void sge::gui::detail::managers::mouse::input_callback(
 	input::key_pair const &k)
 {
 	if (input::is_mouse_axis(k.key().code()))
 	{
-		cursor_.pos() += key_to_mouse_coords(k);
+		cursor_.pos(
+			cursor_.pos()+key_to_mouse_coords(k));
 		recalculate_focus();
 		return;
 	}
@@ -220,15 +222,15 @@ void sge::gui::detail::managers::mouse::input_callback(
 	focus->process(
 		events::mouse_click(
 			structure_cast<point>(
-				cursor_.pos() + cursor_click),
+				cursor_.pos()),
 			k));
 }
 
-sge::gui::widget *sge::gui::detail::managers::mouse::recalculate_focus(
-	widget &w,
+sge::gui::widgets::base *sge::gui::detail::managers::mouse::recalculate_focus(
+	widgets::base &w,
 	point const &mouse_click)
 {
-	// Pointer is no longer inside widget area
+	// Pointer is no longer inside widgets::base area
 	if (!math::contains(w.screen_area(),mouse_click) ||
 	    !active(w))
 	{
@@ -239,14 +241,14 @@ sge::gui::widget *sge::gui::detail::managers::mouse::recalculate_focus(
 		w.process(events::mouse_leave());
 		
 		// Pointer is in "free space" now
-		if (!w.parent_widget())
+		if (!w.has_parent())
 			return 0;
 
 		// Recalculate from the parent on
-		return recalculate_focus(*w.parent_widget(),mouse_click);
+		return recalculate_focus(w.parent_widget(),mouse_click);
 	}
 
-	widget *const new_focus = do_recalculate_focus(w,mouse_click);
+	widgets::base *const new_focus = do_recalculate_focus(w,mouse_click);
 
 	if (new_focus == &w)
 	{
@@ -258,11 +260,11 @@ sge::gui::widget *sge::gui::detail::managers::mouse::recalculate_focus(
 	return new_focus;
 }
 
-sge::gui::widget *sge::gui::detail::managers::mouse::do_recalculate_focus(
-	widget &w,
+sge::gui::widgets::base *sge::gui::detail::managers::mouse::do_recalculate_focus(
+	widgets::base &w,
 	point const &p)
 {
-	BOOST_FOREACH(widget &child,w.children())
+	BOOST_FOREACH(widgets::base &child,w.children())
 	{
 		if (child.activation() == activation_state::active && 
 		    math::contains(child.screen_area(),p))

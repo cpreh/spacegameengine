@@ -1,14 +1,32 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
 #ifndef SGE_GUI_WIDGETS_EDIT_HPP_INCLUDED
 #define SGE_GUI_WIDGETS_EDIT_HPP_INCLUDED
 
 #include <sge/gui/detail/cursor_delegate.hpp>
-#include <sge/gui/widget.hpp>
+#include <sge/gui/widgets/base.hpp>
 #include <sge/gui/timer/fwd.hpp>
 #include <sge/gui/events/fwd.hpp>
 #include <sge/renderer/image.hpp>
-#include <sge/font/metrics_fwd.hpp>
 #include <sge/signal/object.hpp>
-#include <sge/export.hpp>
+#include <sge/gui/export.hpp>
 
 namespace sge
 {
@@ -16,40 +34,37 @@ namespace gui
 {
 namespace widgets
 {
-class SGE_CLASS_SYMBOL edit : public widget
+class SGE_CLASS_SYMBOL edit : public base
 {
 	public:
 	enum line_type { single_line,multi_line };
 
-	SGE_SYMBOL edit(
+	SGE_GUI_SYMBOL edit(
 		parent_data const &,
 		parameters,
 		line_type,
-		dim const &desired_size,
-		font::metrics_ptr = font::metrics_ptr());
+		dim const &desired_size);
 	
-	SGE_SYMBOL string const text() const;
-	SGE_SYMBOL void text(string const &);
-	SGE_SYMBOL font::metrics_ptr const font() const;
-	SGE_SYMBOL point const &scroll_pos() const;
-	SGE_SYMBOL dim const desired_size() const;
-	SGE_SYMBOL image &text_buffer();
-	SGE_SYMBOL image const &text_buffer() const;
+	SGE_GUI_SYMBOL string const text() const;
+	SGE_GUI_SYMBOL void text(string const &);
+	SGE_GUI_SYMBOL point const &scroll_pos() const;
+	SGE_GUI_SYMBOL dim const desired_size() const;
+	SGE_GUI_SYMBOL image &text_buffer();
+	SGE_GUI_SYMBOL image const &text_buffer() const;
 
-	SGE_SYMBOL void process(events::keyboard_enter const &);
-	SGE_SYMBOL key_handling::type process(events::key const &);
-	SGE_SYMBOL void process(events::mouse_click const &);
-	SGE_SYMBOL void process(events::keyboard_leave const &);
+	SGE_GUI_SYMBOL void process(events::keyboard_enter const &);
+	SGE_GUI_SYMBOL key_handling::type process(events::key const &);
+	SGE_GUI_SYMBOL void process(events::mouse_click const &);
+	SGE_GUI_SYMBOL void process(events::keyboard_leave const &);
 
-	SGE_SYMBOL void refresh() const;
+	SGE_GUI_SYMBOL void refresh() const;
 
 	// will only be called for single_line
 	signal::object<void ()> return_pressed;
 	private:
-	using widget::process;
+	using base::process;
 	line_type type;
 	string text_;
-	font::metrics_ptr font_;
 	dim desired_size_;
 	timer::object_ptr timer_;
 	bool cursor_visible_;

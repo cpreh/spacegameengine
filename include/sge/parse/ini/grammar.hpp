@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #ifndef SGE_PARSE_INI_GRAMMAR_HPP_INCLUDED
 #define SGE_PARSE_INI_GRAMMAR_HPP_INCLUDED
 
@@ -28,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/entry_vector.hpp>
 #include <sge/parse/ini/entry.hpp>
 #include <sge/parse/ini/string.hpp>
+#include <sge/text.hpp>
 
 // TODO: include only the headers which are needed!
 #include <boost/spirit/include/qi.hpp>
@@ -46,13 +48,14 @@ namespace ini
 template<
 	typename In
 >
-struct grammar
+class grammar
 :
-boost::spirit::qi::grammar<
+public boost::spirit::qi::grammar<
 	In,
 	section_vector(),
 	boost::spirit::ascii::blank_type
 > {
+public:
 	typedef boost::spirit::ascii::blank_type space_type;
 
 	grammar()
@@ -64,9 +67,9 @@ boost::spirit::qi::grammar<
 		using boost::spirit::char_;
 		using boost::spirit::lexeme;
 
-		char_seq %= +(char_ - char_('\n'));
-		entry_ %= +(char_ - char_('=')) >> char_('=') >> char_seq >> char_('\n');
-		header_ %= lexeme['[' >> +(char_ - ']') >> ']'] >> char_('\n');
+		char_seq %= +(char_ - char_(SGE_TEXT('\n')));
+		entry_ %= !char_(SGE_TEXT('[')) >> +(char_ - char_(SGE_TEXT('='))) >> char_(SGE_TEXT('=')) >> char_seq >> char_(SGE_TEXT('\n'));
+		header_ %= lexeme[SGE_TEXT('[') >> +(char_ - SGE_TEXT(']')) >> SGE_TEXT(']')] >> char_(SGE_TEXT('\n'));
 		section_ %= header_ >> *entry_;
 		ini_ %= *section_;
 	}

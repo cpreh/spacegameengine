@@ -1,9 +1,27 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 #include <sge/console/stdlib.hpp>
 #include <sge/console/object.hpp>
 #include <sge/console/exception.hpp>
 #include <sge/text.hpp>
+#include <sge/lexical_cast.hpp>
 #include <boost/bind.hpp>
-#include <boost/lexical_cast.hpp>
 #include <boost/foreach.hpp>
 
 sge::console::stdlib::stdlib(
@@ -96,7 +114,7 @@ void sge::console::stdlib::fn_help(arg_list const &)
 {
 	function_map const &fns = object_.functions();
 
-	print_(boost::lexical_cast<string>(fns.size())+SGE_TEXT(" available functions:"));
+	print_(lexical_cast<string>(fns.size())+SGE_TEXT(" available functions:"));
 
 	BOOST_FOREACH(function_map::const_reference p,fns)
 		print_function(p);
@@ -106,7 +124,7 @@ void sge::console::stdlib::fn_lsvars(arg_list const &)
 {
 	variable_map const &vars = object_.variables();
 
-	print_(boost::lexical_cast<string>(vars.size())+SGE_TEXT(" available variables:"));
+	print_(lexical_cast<string>(vars.size())+SGE_TEXT(" available variables:"));
 
 	BOOST_FOREACH(variable_map::const_reference p,vars)
 		print_(p.first+SGE_TEXT('=')+p.second->string());

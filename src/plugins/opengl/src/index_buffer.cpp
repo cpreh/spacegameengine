@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #include "../index_buffer.hpp"
 #include "../vbo.hpp"
 #include "../instantiate_basic_buffer.hpp"
@@ -31,12 +32,13 @@ namespace
 template<
 	typename T
 >
-struct traits;
+class traits;
 
 template<>
-struct traits<
+class traits<
 	sge::uint16
 > {
+public:
 	static GLenum const gl_format = GL_UNSIGNED_SHORT;
 	static sge::renderer::index::format::type const format = sge::renderer::index::format::i16;
 	typedef sge::renderer::index::view_16 view;
@@ -44,9 +46,10 @@ struct traits<
 };
 
 template<>
-struct traits<
+class traits<
 	sge::uint32
 > {
+public:
 	static GLenum const gl_format = GL_UNSIGNED_INT;
 	static sge::renderer::index::format::type const format = sge::renderer::index::format::i32;
 	typedef sge::renderer::index::view_32 view;

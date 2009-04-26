@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,15 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #ifndef SGE_ALGORITHM_DETAIL_COPY_N_IMPL_HPP_INCLUDED
 #define SGE_ALGORITHM_DETAIL_COPY_N_IMPL_HPP_INCLUDED
 
 #include <algorithm>
 
-template<typename In, typename Out, typename Size>
-Out sge::copy_n(const In beg, const Size sz, const Out out)
+template<
+	typename In,
+	typename Out,
+	typename Size
+>
+Out
+sge::algorithm::copy_n(
+	In const beg,
+	Size const sz,
+	Out const out)
 {
-	return std::copy(beg, beg + sz, out);
+	return std::copy(
+		beg,
+		beg + sz,
+		out
+	);
 }
 
 #endif

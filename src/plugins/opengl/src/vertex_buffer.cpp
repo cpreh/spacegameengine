@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,12 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #include "../vertex_buffer.hpp"
 #include "../vbo.hpp"
 #include "../convert_vertex_colors.hpp"
 #include "../instantiate_basic_buffer.hpp"
+#include <sge/assert.hpp>
 #include <boost/foreach.hpp>
-#include <cassert>
 
 SGE_OPENGL_INSTANTIATE_BASIC_BUFFER(
 	sge::ogl::vertex_buffer_type,
@@ -45,7 +46,9 @@ sge::ogl::vertex_buffer::vertex_buffer(
 void sge::ogl::vertex_buffer::set_format() const
 {
 	buf.bind_me();
-	format_.use_me();
+	format_.use_me(
+		buf.buffer_offset(0)
+	);
 }
 
 sge::ogl::vertex_buffer::view_type const
@@ -91,7 +94,7 @@ sge::ogl::vertex_buffer::unlock() const
 	renderer::size_type const stride(
 		format().stride());
 
-	assert(buf.lock_size() % stride == 0);
+	SGE_ASSERT(buf.lock_size() % stride == 0);
 
 	BOOST_FOREACH(renderer::vf::dynamic_ordered_element_list::const_reference elem, elems)
 		if(elem.element().role() == renderer::vf::role::color)

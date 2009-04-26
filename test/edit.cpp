@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/colors.hpp>
@@ -28,14 +29,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/gui/manager.hpp>
 #include <sge/gui/widgets/edit.hpp>
+#include <sge/gui/widgets/parameters.hpp>
 #include <sge/gui/skins/standard.hpp>
+#include <sge/gui/default_cursor.hpp>
 
 #include <sge/log/logger.hpp>
 #include <sge/log/global.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/mainloop/dispatch.hpp>
-#include <sge/signal/auto_connection.hpp>
+#include <sge/signal/scoped_connection.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/input/action.hpp>
 #include <sge/input/system.hpp>
@@ -79,16 +82,18 @@ try
 	
 	sge::gui::manager m(
 		sys.renderer(),
-		sys.image_loader(),
 		sys.input_system(),
-		sys.font_system(),
-		sge::make_shared_ptr<
-			sge::gui::skins::standard
-		>());
+		sge::gui::skins::ptr(
+			new sge::gui::skins::standard(
+				sys.font_system())),
+		sge::gui::cursor_ptr(
+			new sge::gui::default_cursor(
+				sys.image_loader(),
+				sys.renderer())));
 	
 	sge::gui::widgets::edit b(
 		m,
-		sge::gui::widget::parameters()
+		sge::gui::widgets::parameters()
 			.pos(sge::gui::point(10,10))
 			.size(sge::gui::dim(400,300)),
 		sge::gui::widgets::edit::single_line,
@@ -107,7 +112,7 @@ try
 	
 	bool running = true;
 
-	sge::signal::auto_connection cb(
+	sge::signal::scoped_connection const cb(
 		sys.input_system()->register_callback(
 			sge::input::action(
 				sge::input::kc::key_escape,
@@ -120,6 +125,7 @@ try
 	{
 		sge::mainloop::dispatch();
 		sge::renderer::scoped_block const block(sys.renderer());
+		m.update();
 		m.draw();
 	}
 } 

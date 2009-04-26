@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,12 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #ifndef SGE_CONTAINER_TREE_DECL_HPP_INCLUDED
 #define SGE_CONTAINER_TREE_DECL_HPP_INCLUDED
 
 #include <sge/container/tree_fwd.hpp>
+#include <sge/auto_ptr.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
-#include <memory>
 
 namespace sge
 {
@@ -43,7 +44,7 @@ public:
 		tree
 	> child_list;
 
-	typedef std::auto_ptr<
+	typedef sge::auto_ptr<
 		tree
 	> auto_ptr;
 

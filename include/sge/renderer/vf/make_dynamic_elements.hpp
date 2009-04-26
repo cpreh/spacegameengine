@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -16,6 +16,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
 
 
 #ifndef SGE_RENDERER_VF_MAKE_DYNAMIC_ELEMENTS_HPP_INCLUDED
@@ -38,7 +39,8 @@ namespace renderer
 namespace vf
 {
 
-struct make_dynamic_elements {
+class make_dynamic_elements {
+public:
 	explicit make_dynamic_elements(
 		dynamic_element_list &elems)
 	:

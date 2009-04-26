@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -16,6 +16,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
 
 
 #ifndef SGE_MATH_POWER_HPP_INCLUDED
@@ -45,14 +46,16 @@ template<typename Base, typename Exp> Base pow_int(const Base base, const Exp e)
 	return ret;
 }
 
-template<bool is_integral> struct next_pow_2_implementation {
+template<bool is_integral> class next_pow_2_implementation {
+public:
 	template<typename T> static T next_pow_2(const T t)
 	{
 		return static_cast<T>(std::pow(static_cast<T>(2),std::ceil(std::log(static_cast<double>(t))/std::log(static_cast<double>(2)))));
 	}
 };
 
-template<> struct next_pow_2_implementation<true> {
+template<> class next_pow_2_implementation<true> {
+public:
 	template<typename T> static T next_pow_2(const T t)
 	{
 		if (t <= 0) std::log(static_cast<double>(-1)); // throw same exception as general template

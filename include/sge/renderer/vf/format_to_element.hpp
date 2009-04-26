@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #ifndef SGE_RENDERER_VF_FORMAT_TO_ELEMENT_HPP_INCLUDED
 #define SGE_RENDERER_VF_FORMAT_TO_ELEMENT_HPP_INCLUDED
 
@@ -31,15 +32,17 @@ namespace vf
 {
 
 template<typename T>
-struct format_to_element;
+class format_to_element;
 
 template<>
-struct format_to_element<float> {
+class format_to_element<float> {
+public:
 	static element_type::type const value = element_type::float_;
 };
 
 template<>
-struct format_to_element<double> {
+class format_to_element<double> {
+public:
 	static element_type::type const value = element_type::double_;
 };
 

@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #ifndef SGE_MODEL_PLUGIN_HPP_INCLUDED
 #define SGE_MODEL_PLUGIN_HPP_INCLUDED
 
@@ -33,7 +34,8 @@ namespace plugin
 namespace detail
 {
 
-template<> struct traits<model::loader> {
+template<> class traits<model::loader> {
+public:
 	SGE_SYMBOL static address_name plugin_loader_name();
 	SGE_SYMBOL static capabilities::type plugin_type();
 	typedef model::loader* (*loader_fun)();

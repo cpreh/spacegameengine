@@ -1,11 +1,29 @@
-#include <sge/gui/canvas.hpp>
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+#include <sge/gui/canvas/object.hpp>
 #include <sge/assert.hpp>
 #include <sge/math/rect_util.hpp>
 #include <sge/math/vector/output.hpp>
 #include <sge/text.hpp>
 #include <sge/renderer/fill_pixels.hpp>
 #include <sge/renderer/subimage_view.hpp>
-#include <boost/lexical_cast.hpp>
+#include <sge/lexical_cast.hpp>
 
 void sge::gui::canvas::object::draw_pixel(
 	point const &p,
@@ -14,9 +32,9 @@ void sge::gui::canvas::object::draw_pixel(
 	SGE_ASSERT_MESSAGE(
 		math::contains(area(),p),
 		SGE_TEXT("tried to draw pixel ")+
-		boost::lexical_cast<string>(p)+
+		lexical_cast<string>(p)+
 		SGE_TEXT(" which is not inside rect ")+
-		boost::lexical_cast<string>(area()));
+		lexical_cast<string>(area()));
 	
 	renderer::fill_pixels(
 		renderer::subimage_view(

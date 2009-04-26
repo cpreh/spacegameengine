@@ -1,6 +1,25 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 #include <sge/gui/skins/standard.hpp>
-#include <sge/gui/canvas.hpp>
+#include <sge/gui/canvas/object.hpp>
 #include <sge/gui/log.hpp>
+#include <sge/gui/unit.hpp>
 #include <sge/math/dim/output.hpp>
 #include <sge/gui/widgets/buttons/image.hpp>
 
@@ -11,7 +30,8 @@ sge::gui::logger mylogger(
 	SGE_TEXT("skins: standard: buttons: image"),
 	false);
 
-sge::gui::image const &choose_image(sge::gui::widgets::buttons::image const &b)
+sge::gui::image const &choose_image(
+	sge::gui::widgets::buttons::image const &b)
 {
 	if (b.mouse_over())
 	{
@@ -42,17 +62,13 @@ void sge::gui::skins::standard::draw(
 	blit_invalid(b,c,e);
 }
 
-sge::gui::dim const sge::gui::skins::standard::size_hint(
+sge::gui::dim const sge::gui::skins::standard::optimal_size(
 	widgets::buttons::image const &b) const
 {
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("returning button dimension ")
-		        << dim(
-								static_cast<unit>(b.normal()->width()),
-								static_cast<unit>(b.normal()->height())));
+		        << b.normal()->size());
 
-	return dim(
-		static_cast<unit>(b.normal()->width()),
-		static_cast<unit>(b.normal()->height()));
+	return b.normal()->size();
 }

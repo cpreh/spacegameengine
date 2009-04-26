@@ -34,11 +34,11 @@
 
 :Config
 @echo -- Creating build directory.
-@if exist build call rd /S /Q build
+@rem if exist build call rd /S /Q build
 @mkdir build
 @cd build
 @echo -- Configuring cmake.
-@call cmake -G %target% -D CMAKE_LIBRARYPATH=./project/win32/lib/ -D ENABLE_DEVIL:=1 -D ENABLE_DINPUT:=1 -D ENABLE_FREETYPE:=1 -D ENABLE_OPENAL:=1 -D ENABLE_OPENGL:=1 -D ENABLE_VORBIS:=1 -D ENABLE_WAVE:=1 -D ENABLE_TEST:=1 ..
+@call cmake -G %target% -D CMAKE_LIBRARYPATH=./project/win32/lib/ -D ENABLE_DEVIL:=1 -D ENABLE_DINPUT:=1 -D ENABLE_FREETYPE:=1 -D ENABLE_GUI:=1 -D ENABLE_OPENAL:=1 -D ENABLE_OPENGL:=1 -D ENABLE_VORBIS:=1 -D ENABLE_WAVE:=1 -D ENABLE_TEST:=1 ..
 @cd ..
 
 :Cleanup

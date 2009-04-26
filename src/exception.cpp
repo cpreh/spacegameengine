@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #include <sge/exception.hpp>
 
 sge::exception::exception(
@@ -25,6 +26,20 @@ sge::exception::exception(
 :
 	s(s)
 {}
+
+sge::exception::exception(
+	exception const &e)
+:
+	s(e.s)
+{}
+
+sge::exception &
+sge::exception::operator=(
+	exception const &e)
+{
+	s = e.s;
+	return *this;
+}
 
 sge::string const &
 sge::exception::what() const

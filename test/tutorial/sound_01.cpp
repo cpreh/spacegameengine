@@ -1,33 +1,47 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/sound.hpp>
 #include <sge/audio/file.hpp>
 #include <sge/audio/multi_loader.hpp>
-#include <sge/exception.hpp>
+#include <sge/filesystem/path.hpp>
+#include <sge/config/media_path.hpp>
 #include <sge/text.hpp>
-#include <sge/path.hpp>
+#include <sge/exception.hpp>
+#include <sge/cerr.hpp>
 #include <exception>
-#include <iostream>
-#include <ostream>
 #include <cstdlib>
-
-namespace 
-{
-// replace!
-sge::path const sound_file(SGE_TEXT("your path here"));
-}
 
 int main()
 try
 {
-	sge::systems::instance const sys(
+	sge::systems::instance sys(
 		sge::systems::list()
 		(sge::systems::parameterless::audio_player));
 
 	sge::audio::multi_loader loader(sys.plugin_manager());
 
-	sge::audio::file_ptr const file = loader.load(sound_file);
+	sge::audio::file_ptr const file = loader.load(	
+		sge::config::media_path() / SGE_TEXT("ding.wav")
+	);
 
 	sge::audio::sound_ptr const sound = sys.audio_player()->create_nonstream_sound(file);
 

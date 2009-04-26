@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -16,6 +16,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
 
 
 #include "../translation.hpp"
@@ -50,7 +51,7 @@ const x11_to_sge_array x11_to_sge = boost::assign::map_list_of
 //	(XK_Begin, sge::input::kc::key_home)
 
 	//#define XK_Select                        0xff60  /* Select, mark */
-	//#define XK_Print                         0xff61
+	(XK_Print, sge::input::kc::key_print)
 	//#define XK_Execute                       0xff62  /* Execute, run, do */
 	(XK_Insert, sge::input::kc::key_insert)
 //#define XK_Undo                          0xff65

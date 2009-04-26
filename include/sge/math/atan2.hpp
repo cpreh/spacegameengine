@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,12 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #ifndef SGE_MATH_ATAN2_HPP_INCLUDED
 #define SGE_MATH_ATAN2_HPP_INCLUDED
 
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/vector/is_null.hpp>
-#include <boost/optional.hpp>
+#include <sge/optional.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
 #include <cmath>
@@ -34,7 +35,7 @@ namespace math
 {
 /**
  * Wraps std::atan2 so it can be used with sge::math::vector. Returns an
- * empty boost::optional if given the null vector
+ * empty optional if given the null vector
  */
 template<
 	typename T,
@@ -43,13 +44,13 @@ template<
 >
 inline typename boost::enable_if<
 	boost::is_floating_point<T>,
-	boost::optional<T>
-	>::type
+	optional<T>
+>::type
 atan2(
 	sge::math::vector::basic<T, N, S> const &v)
 {
 	return is_null(v)
-		? boost::optional<T>()
+		? optional<T>()
 		: std::atan2(v.y(), v.x());
 }
 }

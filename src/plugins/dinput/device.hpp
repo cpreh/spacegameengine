@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -16,6 +16,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
 
 
 #ifndef SGE_DINPUT_DEVICE_HPP_INCLUDED
@@ -62,7 +63,7 @@ protected:
 	> input_buffer;
 
 	bool get_input(
-		input_buffer buf,
+		input_buffer &buf,
 		DWORD &elements,
 		unsigned d = 0);
 	void enum_objects(
@@ -75,8 +76,9 @@ private:
 	string const              name_;
 	dinput_device_ptr         device_;
 
-	/*struct lost_focus_unacquire_handler
+	/*class lost_focus_unacquire_handler
 	{
+	public:
 		input_device &device;
 		lost_focus_unacquire_handler(input_device &dev) : device(dev) {}
 		windows::window::win32_callback_return_type operator()(windows::window&, windows::window::win32_event_type, WPARAM wparam, LPARAM lparam);

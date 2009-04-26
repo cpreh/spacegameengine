@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -16,6 +16,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
 
 
 #ifndef SGE_CONTAINER_MAP_IMPL_HPP_INCLUDED
@@ -140,11 +141,40 @@ void sge::container::map<
 	key_type const &k,
 	mapped_type const &m)
 {
-	if(!impl_.insert(
+	insert(
 		std::make_pair(
 			k,
-			m)).second
-	)
+			m
+		)
+	);
+}
+
+template<
+	template<
+		typename,
+		typename,
+		typename,
+		typename
+	> class MapType,
+	typename Key,
+	typename Mapped,
+	template<
+		typename
+	> class Alloc,
+	template<
+		typename
+	> class Comp
+>
+void sge::container::map<
+	MapType,
+	Key,
+	Mapped,
+	Alloc,
+	Comp
+>::insert(
+	value_type const &v)
+{
+	if(!impl_.insert(v).second)
 		throw insert_failed(
 			SGE_TEXT("insert in map failed!"));
 }
@@ -179,6 +209,76 @@ void sge::container::map<
 	)
 		throw not_found(
 			SGE_TEXT("erase from map failed!"));
+}
+
+template<
+	template<
+		typename,
+		typename,
+		typename,
+		typename
+	> class MapType,
+	typename Key,
+	typename Mapped,
+	template<
+		typename
+	> class Alloc,
+	template<
+		typename
+	> class Comp
+>
+typename sge::container::map<
+	MapType,
+	Key,
+	Mapped,
+	Alloc,
+	Comp
+>::iterator
+sge::container::map<
+	MapType,
+	Key,
+	Mapped,
+	Alloc,
+	Comp
+>::find(
+	key_type const &k)
+{
+	return impl_.find(k);
+}
+
+template<
+	template<
+		typename,
+		typename,
+		typename,
+		typename
+	> class MapType,
+	typename Key,
+	typename Mapped,
+	template<
+		typename
+	> class Alloc,
+	template<
+		typename
+	> class Comp
+>
+typename sge::container::map<
+	MapType,
+	Key,
+	Mapped,
+	Alloc,
+	Comp
+>::const_iterator
+sge::container::map<
+	MapType,
+	Key,
+	Mapped,
+	Alloc,
+	Comp
+>::find(
+	key_type const &k) const
+{
+	return impl_.find(k);
 }
 
 template<
@@ -263,6 +363,205 @@ sge::container::map<
 		>(
 			*this)
 				[k]);
+}
+
+template<
+	template<
+		typename,
+		typename,
+		typename,
+		typename
+	> class MapType,
+	typename Key,
+	typename Mapped,
+	template<
+		typename
+	> class Alloc,
+	template<
+		typename
+	> class Comp
+>
+bool
+sge::container::map<
+	MapType,
+	Key,
+	Mapped,
+	Alloc,
+	Comp
+>::contains(
+	key_type const &key) const
+{
+	return impl_.find(key) != impl_.end();
+}
+
+template<
+	template<
+		typename,
+		typename,
+		typename,
+		typename
+	> class MapType,
+	typename Key,
+	typename Mapped,
+	template<
+		typename
+	> class Alloc,
+	template<
+		typename
+	> class Comp
+>
+typename sge::container::map<
+	MapType,
+	Key,
+	Mapped,
+	Alloc,
+	Comp
+>::iterator
+sge::container::map<
+	MapType,
+	Key,
+	Mapped,
+	Alloc,
+	Comp
+>::begin()
+{
+	return impl_.begin();
+}
+
+template<
+	template<
+		typename,
+		typename,
+		typename,
+		typename
+	> class MapType,
+	typename Key,
+	typename Mapped,
+	template<
+		typename
+	> class Alloc,
+	template<
+		typename
+	> class Comp
+>
+typename sge::container::map<
+	MapType,
+	Key,
+	Mapped,
+	Alloc,
+	Comp
+>::const_iterator
+sge::container::map<
+	MapType,
+	Key,
+	Mapped,
+	Alloc,
+	Comp
+>::begin() const
+{
+	return impl_.begin();
+}
+
+template<
+	template<
+		typename,
+		typename,
+		typename,
+		typename
+	> class MapType,
+	typename Key,
+	typename Mapped,
+	template<
+		typename
+	> class Alloc,
+	template<
+		typename
+	> class Comp
+>
+typename sge::container::map<
+	MapType,
+	Key,
+	Mapped,
+	Alloc,
+	Comp
+>::iterator
+sge::container::map<
+	MapType,
+	Key,
+	Mapped,
+	Alloc,
+	Comp
+>::end()
+{
+	return impl_.end();
+}
+
+template<
+	template<
+		typename,
+		typename,
+		typename,
+		typename
+	> class MapType,
+	typename Key,
+	typename Mapped,
+	template<
+		typename
+	> class Alloc,
+	template<
+		typename
+	> class Comp
+>
+typename sge::container::map<
+	MapType,
+	Key,
+	Mapped,
+	Alloc,
+	Comp
+>::const_iterator
+sge::container::map<
+	MapType,
+	Key,
+	Mapped,
+	Alloc,
+	Comp
+>::end() const
+{
+	return impl_.end();
+}
+
+template<
+	template<
+		typename,
+		typename,
+		typename,
+		typename
+	> class MapType,
+	typename Key,
+	typename Mapped,
+	template<
+		typename
+	> class Alloc,
+	template<
+		typename
+	> class Comp
+>
+typename sge::container::map<
+	MapType,
+	Key,
+	Mapped,
+	Alloc,
+	Comp
+>::size_type
+sge::container::map<
+	MapType,
+	Key,
+	Mapped,
+	Alloc,
+	Comp
+>::size() const
+{
+	return impl_.size();
 }
 
 #endif

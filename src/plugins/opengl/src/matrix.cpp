@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,22 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #include "../matrix.hpp"
 #include "../error.hpp"
+#include "../glew.hpp"
 #include <sge/math/matrix/basic_impl.hpp>
 #include <sge/math/matrix/static.hpp>
+#include <sge/math/matrix/transpose.hpp>
 #include <boost/variant/apply_visitor.hpp>
 #include <boost/variant/static_visitor.hpp>
 
 namespace
 {
 
-struct visitor : boost::static_visitor<> {
+class visitor : public boost::static_visitor<> {
+public:
 	void operator()(
 		sge::math::matrix::static_<float, 4, 4>::type const &m) const;
 	void operator()(
 		sge::math::matrix::static_<double, 4, 4>::type const &m) const;
 };
+
+bool have_transpose()
+{
+	static bool const ret(
+		sge::ogl::glew_is_supported(
+			"GL_VERSION_1_3"
+		)
+	);
+
+	return ret;
+}
 
 }
 
@@ -67,16 +82,35 @@ void visitor::operator()(
 	sge::math::matrix::static_<float, 4, 4>::type const &m) const
 {
 	SGE_OPENGL_SENTRY
-	glLoadTransposeMatrixf(
-		m.data());
+
+	if(have_transpose())
+		glLoadTransposeMatrixf(
+			m.data()
+		);
+	else
+		glLoadMatrixf(
+			sge::math::matrix::transpose(
+				m
+			).data()
+		);
 }
 	
 void visitor::operator()(
 	sge::math::matrix::static_<double, 4, 4>::type const &m) const
 {
 	SGE_OPENGL_SENTRY
-	glLoadTransposeMatrixd(
-		m.data());
+
+	if(have_transpose())
+		glLoadTransposeMatrixd(
+			m.data()
+		);
+	else
+		glLoadMatrixd(
+			sge::math::matrix::transpose(
+				m
+			).data()
+		);
+
 }
 
 }

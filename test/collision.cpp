@@ -1,3 +1,21 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 #include <sge/time/timer.hpp>
 #include <sge/time/sleep.hpp>
 #include <sge/time/second.hpp>
@@ -14,6 +32,7 @@
 #include <sge/systems/list.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/object.hpp>
+#include <sge/sprite/parameters.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/action.hpp>
 #include <sge/mainloop/dispatch.hpp>
@@ -22,7 +41,7 @@
 #include <sge/collision/system.hpp>
 #include <sge/collision/satellite.hpp>
 #include <sge/collision/world.hpp>
-#include <sge/signal/auto_connection.hpp>
+#include <sge/signal/scoped_connection.hpp>
 #include <sge/exception.hpp>
 #include <sge/cerr.hpp>
 #include <sge/text.hpp>
@@ -51,8 +70,9 @@ void collision(sge::collision::satellite &,sge::collision::satellite &)
 class object : public sge::collision::satellite
 {
 	public:
-	object(sge::sprite::object &sprite_)
-			: sprite_(sprite_)
+	explicit object(sge::sprite::object &sprite_)
+	:
+		sprite_(sprite_)
 	{
 	}
 
@@ -104,19 +124,29 @@ try
 	
 	world->test_callback(&dispatch);
 
-	sge::signal::auto_connection c(
+	sge::signal::scoped_connection const c(
 		world->register_callback(&collision)
 	);
 
 	sge::sprite::object s_a(
-		sge::sprite::point(600,0),
-		sge::sprite::defaults::texture_,
-		sge::sprite::dim(10,10));
+		sge::sprite::parameters()
+		.pos(
+			sge::sprite::point(600,0)
+		)
+		.size(
+			sge::sprite::dim(10,10)
+		)
+	);
 
 	sge::sprite::object s_b(
-		sge::sprite::point(10,0),
-		sge::sprite::defaults::texture_,
-		sge::sprite::dim(10,10));
+		sge::sprite::parameters()
+		.pos(
+			sge::sprite::point(10,0)
+		)
+		.size(
+			sge::sprite::dim(10,10)
+		)
+	);
 	
 	sge::collision::objects::circle_ptr const o_a = 
 		world->create_circle(
@@ -156,7 +186,7 @@ try
 
 	bool running = true;
 
-	sge::signal::auto_connection cb(
+	sge::signal::scoped_connection const cb(
 		sys.input_system()->register_callback(
 			sge::input::action(
 				sge::input::kc::key_escape,

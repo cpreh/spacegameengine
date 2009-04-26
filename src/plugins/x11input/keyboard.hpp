@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #ifndef SGE_X11INPUT_KEYBOARD_HPP_INCLUDED
 #define SGE_X11INPUT_KEYBOARD_HPP_INCLUDED
 
@@ -26,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/callback.hpp>
 #include <sge/signal/connection_manager.hpp>
 #include <sge/x11/window_fwd.hpp>
-#include <boost/scoped_ptr.hpp>
+#include <sge/scoped_ptr.hpp>
 
 namespace sge
 {
@@ -55,9 +56,9 @@ private:
 
 	signal::connection_manager connections;
 
-	boost::scoped_ptr<
+	scoped_ptr<
 		keyboard_grab
-	>                            grab_;
+	> grab_;
 };
 
 }

@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -16,6 +16,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
 
 
 #include <sge/codecvt.hpp>
@@ -39,10 +40,11 @@ typedef std::codecvt<
 template<
 	typename OutCh
 >
-struct call_traits;
+class call_traits;
 
 template<>
-struct call_traits<char> {
+class call_traits<char> {
+public:
 	static std::codecvt_base::result
 	conv(
 		codecvt_t const &cvt,
@@ -66,7 +68,8 @@ struct call_traits<char> {
 };
 
 template<>
-struct call_traits<wchar_t> {
+class call_traits<wchar_t> {
+public:
 	static std::codecvt_base::result
 	conv(
 		codecvt_t const &cvt,

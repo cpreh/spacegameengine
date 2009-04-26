@@ -1,9 +1,28 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
 #ifndef SGE_GUI_WIDGETS_BUTTONS_TEXT_HPP_INCLUDED
 #define SGE_GUI_WIDGETS_BUTTONS_TEXT_HPP_INCLUDED
 
 #include <sge/gui/widgets/buttons/base.hpp>
-#include <sge/export.hpp>
-#include <sge/font/metrics_fwd.hpp>
+#include <sge/gui/export.hpp>
+#include <sge/gui/font_info.hpp>
 #include <boost/function.hpp>
 
 namespace sge
@@ -17,18 +36,14 @@ namespace buttons
 class SGE_CLASS_SYMBOL text : public base
 {
 	public:
-	SGE_SYMBOL text(
+	SGE_GUI_SYMBOL text(
 		parent_data const &,
 		parameters,
-		string const &,
-		font::metrics_ptr = font::metrics_ptr());
+		string const &);
 
-	// TODO: move to cpp file
-	string const caption() const { return caption_; }
-	font::metrics_ptr const font() const { return font_; }
+	string const caption() const;
 	private:
 	string caption_;
-	font::metrics_ptr font_;
 };
 }
 }

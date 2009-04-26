@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -16,6 +16,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
 
 
 #ifndef SGE_BITFIELD_IMPL_HPP_INCLUDED
@@ -44,7 +45,7 @@ void sge::bitfield<Enum, Size, InternalType>::set_bit(
 template<typename Enum, Enum Size, typename InternalType>
 template<typename StoredType>
 sge::bitfield<Enum, Size, InternalType>::proxy_impl<StoredType>::proxy_impl(
-	StoredType const array,
+	StoredType array,
 	size_type const pos)
 : array(array),
   pos(pos)
@@ -70,7 +71,8 @@ sge::bitfield<Enum, Size, InternalType>::proxy_impl<StoredType>::array_offset(
 
 template<typename Enum, Enum Size, typename InternalType>
 template<typename StoredType>
-sge::bitfield<Enum, Size, InternalType>::proxy_impl<StoredType>&
+// hack for VC++
+typename sge::bitfield<Enum, Size, InternalType>:: template proxy_impl<StoredType>::ref_type
 sge::bitfield<Enum, Size, InternalType>::proxy_impl<StoredType>::operator=(
 	value_type const b)
 {
@@ -85,7 +87,7 @@ sge::bitfield<Enum, Size, InternalType>::proxy_impl<StoredType>::operator=(
 
 template<typename Enum, Enum Size, typename InternalType>
 template<typename StoredType>
-sge::bitfield<Enum, Size, InternalType>::proxy_impl<StoredType>::operator value_type() const
+sge::bitfield<Enum, Size, InternalType>::proxy_impl<StoredType>::operator bool() const
 {
 	return array[array_offset(pos)] & (1 << (bit_offset(pos)));
 }
@@ -93,7 +95,7 @@ sge::bitfield<Enum, Size, InternalType>::proxy_impl<StoredType>::operator value_
 template<typename Enum, Enum Size, typename InternalType>
 template<typename StoredType, typename Reference>
 sge::bitfield<Enum, Size, InternalType>::iterator_impl<StoredType, Reference>::iterator_impl(
-	StoredType const array,
+	StoredType array,
 	size_type const pos)
 : array(array),
   pos(pos)
@@ -169,8 +171,8 @@ sge::bitfield<Enum, Size, InternalType>::bitfield(
 }
 	
 template<typename Enum, Enum Size, typename InternalType>
-sge::bitfield<Enum, Size, InternalType>&
-sge::bitfield<Enum, Size, InternalType>::bitfield::operator=(
+sge::bitfield<Enum, Size, InternalType> &
+sge::bitfield<Enum, Size, InternalType>::operator=(
 	Enum const e)
 {
 	clear();
@@ -194,7 +196,7 @@ sge::bitfield<Enum, Size, InternalType>::begin() const
 
 template<typename Enum, Enum Size, typename InternalType>
 typename sge::bitfield<Enum, Size, InternalType>::iterator
-sge::bitfield<Enum, Size, InternalType>::bitfield::end()
+sge::bitfield<Enum, Size, InternalType>::end()
 {
 	return iterator(array, size());
 }

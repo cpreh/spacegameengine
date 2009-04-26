@@ -2,11 +2,14 @@ FILE (GLOB sgecorefiles
 	*.cpp
 	archive/*.cpp
 	audio/*.cpp
+	config/*.cpp
 	console/*.cpp
 	console/detail/*.cpp
 	collision/*.cpp
 	collision/objects/*.cpp
+	config/detail/*.cpp
 	container/*.cpp
+	endianness/*.cpp
 	filesystem/*.cpp
 	font/*.cpp
 	image/*.cpp
@@ -17,6 +20,8 @@ FILE (GLOB sgecorefiles
 	log/format/*.cpp
 	mainloop/*.cpp
 	model/*.cpp
+	parse/ini/*.cpp
+	parse/json/*.cpp
 	plugin/*.cpp
 	plugin/detail/*.cpp
 	random/*.cpp
@@ -33,10 +38,13 @@ FILE (GLOB sgecorefiles
 	signal/detail/*.cpp
 	sprite/*.cpp
 	sprite/detail/*.cpp
+	sprite/intrusive/*.cpp
+	sprite/intrusive/detail/*.cpp
 	systems/*.cpp
 	texture/*.cpp
 	texture/detail/*.cpp
 	time/*.cpp
+	utf8/*.cpp
 	window/*.cpp)
 
 IF (X11_FOUND)
@@ -49,15 +57,18 @@ ELSEIF (WIN32)
 	SET (sgecorefiles ${sgecorefiles} ${sgecorewindowsfiles})
 ENDIF ()
 
-IF (HAVE_LESS_THAN_CMAKE_2_6)
-	ADD_DEFINITIONS (-DPLUGIN_PATH="\\\"${pluginpath}\\\"" -DMEDIA_PATH="\\\"${media_dest}\\\"")
-ELSE ()
-	ADD_DEFINITIONS (-DPLUGIN_PATH="${pluginpath}" -DMEDIA_PATH="${media_dest}")
-ENDIF ()
+set_source_files_properties(
+	config/plugin_path.cpp
+	PROPERTIES
+	COMPILE_FLAGS
+	-DPLUGIN_PATH="\\\"${pluginpath}\\\"")
+set_source_files_properties(
+	config/media_path.cpp
+	PROPERTIES
+	COMPILE_FLAGS
+	-DMEDIA_PATH="\\\"${media_dest}\\\"")
 
 ADD_LIBRARY (sgecore SHARED ${sgecorefiles})
-
-SET_TARGET_PROPERTIES (sgecore PROPERTIES DEFINE_SYMBOL SGE_EXPORTS)
 
 IF (NOT MSVC)
 	TARGET_LINK_LIBRARIES (
@@ -67,7 +78,7 @@ IF (NOT MSVC)
 ENDIF ()
 
 IF (UNIX)
-	TARGET_LINK_LIBRARIES (sgecore ${X11_LIBRARIES} dl rt)
+	TARGET_LINK_LIBRARIES (sgecore ${X11_LIBRARIES} dl)
 
 #also link sgecore against Xxf86dga
 #otherwise XCloseDisplay will segfault on shutdown
@@ -81,7 +92,7 @@ ENDIF ()
 
 INSTALL (TARGETS sgecore DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
 
-OPTION (ENABLE_GUI "Build the gui" OFF)
+OPTION (ENABLE_GUI "Build the gui" ON)
 
 IF (ENABLE_GUI)
 	ADD_SUBDIRECTORY (gui)

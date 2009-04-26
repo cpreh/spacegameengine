@@ -1,3 +1,21 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 #ifndef SGE_SPRITE_PARAMETERS_HPP_INCLUDED
 #define SGE_SPRITE_PARAMETERS_HPP_INCLUDED
 
@@ -9,6 +27,7 @@
 #include <sge/sprite/depth_type.hpp>
 #include <sge/sprite/rotation_type.hpp>
 #include <sge/sprite/repetition_type.hpp>
+#include <sge/sprite/object_fwd.hpp>
 #include <sge/texture/part_fwd.hpp>
 #include <sge/export.hpp>
 
@@ -16,8 +35,6 @@ namespace sge
 {
 namespace sprite
 {
-
-class object;
 
 class parameters
 {
@@ -32,7 +49,7 @@ public:
 	SGE_SYMBOL parameters &rotation(rotation_type);
 	SGE_SYMBOL parameters &visible(bool);
 
-	SGE_SYMBOL operator sge::sprite::object() const;
+	SGE_SYMBOL operator object() const;
 private:
 	point pos_;
 	texture::const_part_ptr texture_;
@@ -42,6 +59,7 @@ private:
 	rotation_type rotation_;
 	bool visible_;
 };
+
 }
 }
 

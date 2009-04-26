@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -15,21 +15,27 @@ GNU Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*/ 
+*/
+ 
 
 #include <sge/config.h>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/time/time.hpp>
 
+#if defined(SGE_HAVE_ATLEAST_UINT64) && defined(SGE_HAVE_CLOCK_GETTIME)
+#define SGE_USE_CLOCK_GETTIME
+#endif
+
 #ifdef SGE_POSIX_PLATFORM
-#ifndef SGE_HAVE_ATLEAST_UINT64
-#include <sys/time.h>
-#else
+#ifdef SGE_USE_CLOCK_GETTIME
 #include <time.h>
+#else
+#include <sys/time.h>
 #endif
 #elif SGE_WINDOWS_PLATFORM
 #include <sge/windows/windows.hpp>
+#include <sge/noncopyable.hpp>
 #else
 #error "Implement me!"
 #endif
@@ -43,7 +49,9 @@ sge::time::unit query_performance_frequency();
 sge::time::unit query_performance_counter();
 sge::time::unit large_int_to_time(LARGE_INTEGER);
 
-struct initializer {
+class initializer {
+	SGE_NONCOPYABLE(initializer)
+public:
 	initializer();
 
 	bool use_performance_counter() const;
@@ -58,7 +66,7 @@ private:
 sge::time::unit sge::time::time()
 {
 #ifdef SGE_POSIX_PLATFORM
-#ifndef SGE_HAVE_ATLEAST_UINT64
+#ifndef SGE_USE_CLOCK_GETTIME
 	struct timeval tv;
 	struct timezone tz;
 	if(gettimeofday(&tv,&tz) != 0)
@@ -75,6 +83,8 @@ sge::time::unit sge::time::time()
 	return instance.use_performance_counter()
 		? query_performance_counter()
 		: static_cast<time::unit>(GetTickCount());
+#else
+#error "Implement me!"
 #endif
 }
 
@@ -120,13 +130,14 @@ sge::time::unit large_int_to_time(const LARGE_INTEGER i)
 }
 
 initializer::initializer()
-: use_performance_counter_(true)
+:
+	use_performance_counter_(true)
 {
 	try
 	{
 		query_performance_frequency();
 	}
-	catch(const sge::exception&)
+	catch(sge::exception const &)
 	{
 		use_performance_counter_ = false;
 	}

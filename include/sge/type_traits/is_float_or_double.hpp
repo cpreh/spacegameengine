@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #ifndef SGE_TYPE_TRAITS_IS_FLOAT_OR_DOUBLE_HPP_INCLUDED
 #define SGE_TYPE_TRAITS_IS_FLOAT_OR_DOUBLE_HPP_INCLUDED
 
@@ -26,17 +27,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
+namespace type_traits
+{
 
 template<
 	typename T
 >
-struct is_float_or_double :
-boost::mpl::or_<
+class is_float_or_double :
+public boost::mpl::or_<
 	boost::is_same<T, float>,
 	boost::is_same<T, double>
 >
 {};
 
+}
 }
 
 #endif

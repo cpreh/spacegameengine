@@ -1,3 +1,21 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/audio/player.hpp>
@@ -5,50 +23,51 @@
 #include <sge/audio/file.hpp>
 #include <sge/audio/pool.hpp>
 #include <sge/audio/multi_loader.hpp>
+#include <sge/filesystem/path.hpp>
+#include <sge/config/media_path.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
-#include <sge/path.hpp>
+#include <sge/cerr.hpp>
 #include <exception>
-#include <iostream>
-#include <ostream>
 #include <cstdlib>
-
-namespace
-{
-// replace both!
-sge::path const sound_file_01(SGE_TEXT("file 01"));
-sge::path const sound_file_02(SGE_TEXT("file 02"));
-}
 
 int main()
 try
 {
-	sge::systems::instance const sys(
+	sge::systems::instance sys(
 		sge::systems::list()
 		(sge::systems::parameterless::audio_player));
 
 	sge::audio::multi_loader loader(sys.plugin_manager());
 
-	sge::audio::pool_ptr const pool(sys.audio_player()->create_pool());
+	sge::audio::pool pool;
 
 	{
-		sge::audio::sound_ptr const sound_01 = 
+		sge::audio::sound_ptr const sound_01(
 			sys.audio_player()->create_nonstream_sound(
-				load.load(sound_file_01));
+				loader.load(
+					sge::config::media_path() / SGE_TEXT("ding.wav")
+				)
+			)
+		);
 
-		sge::audio::sound_ptr const sound_02 = 
+		sge::audio::sound_ptr const sound_02( 
 			sys.audio_player()->create_stream_sound(
-				load.load(sound_file_02));
+				loader.load(
+					sge::config::media_path() / SGE_TEXT("siren.ogg")
+				)
+			)
+		);
 
-		pool->add(sound_01,true);
-		pool->add(sound_02,true);
+		pool.add(sound_01, sge::audio::stop_mode::play_once);
+		pool.add(sound_02, sge::audio::stop_mode::play_once);
 
 		sound_01->play(sge::audio::play_mode::once);
 		sound_02->play(sge::audio::play_mode::once);
 	}
 
-	while (!pool->sounds_finished())
-		pool->update();
+	while (!pool.sounds_finished())
+		pool.update();
 }
 catch(sge::exception const &e)
 {

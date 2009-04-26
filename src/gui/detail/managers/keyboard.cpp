@@ -1,9 +1,27 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 #include "../../utility/ptr_find.hpp"
 #include <sge/gui/detail/managers/keyboard.hpp>
 #include <sge/gui/events/key.hpp>
 #include <sge/gui/events/keyboard_enter.hpp>
 #include <sge/gui/events/keyboard_leave.hpp>
-#include <sge/gui/widget.hpp>
+#include <sge/gui/widgets/base.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/assert.hpp>
 #include <sge/exception.hpp>
@@ -22,14 +40,14 @@ sge::gui::logger mylogger(
 	SGE_TEXT("managers: keyboard"),
 	false);
 
-bool active(sge::gui::widget const &w)
+bool active(sge::gui::widgets::base const &w)
 {
 	switch (w.activation())
 	{
 		case sge::gui::activation_state::active:
-			if (!w.parent_widget())
+			if (!w.has_parent())
 				return true;
-			return active(*w.parent_widget());
+			return active(w.parent_widget());
 		case sge::gui::activation_state::inactive:
 			return false;
 	}
@@ -51,11 +69,11 @@ sge::gui::detail::managers::keyboard::keyboard(sge::input::system_ptr const is)
 // Here, we could add a keyboard_enter event to the first added widget, but the function
 // below is called from a base class constructor, so widget::process(keyboard_enter)
 // is called instead of most_derived::process(keyboard_enter), so the policy is: No 
-// widget initially has the focus.
-void sge::gui::detail::managers::keyboard::add(widget &w)
+// widgets::base initially has the focus.
+void sge::gui::detail::managers::keyboard::add(widgets::base &w)
 {
 	/* TODO: think about this
-	BOOST_FOREACH(widget &v,w.children())
+	BOOST_FOREACH(widgets::base &v,w.children())
 		add(v);
 		*/
 
@@ -74,7 +92,7 @@ void sge::gui::detail::managers::keyboard::add(widget &w)
 }
 
 void sge::gui::detail::managers::keyboard::activation(
-	widget &w,
+	widgets::base &w,
 	activation_state::type const a)
 {
 	if (!focus)
@@ -90,7 +108,7 @@ void sge::gui::detail::managers::keyboard::activation(
 	focus.reset();
 }
 
-void sge::gui::detail::managers::keyboard::request_focus(widget &w)
+void sge::gui::detail::managers::keyboard::request_focus(widgets::base &w)
 {
 	widget_container::iterator wi = utility::ptr_find(
 			widgets.begin(),
@@ -98,7 +116,7 @@ void sge::gui::detail::managers::keyboard::request_focus(widget &w)
 	
 	SGE_ASSERT_MESSAGE(
 		wi != widgets.end(),
-		SGE_TEXT("a widget requested the keyboard focus which cannot receive keys"));
+		SGE_TEXT("a widgets::base requested the keyboard focus which cannot receive keys"));
 	
 	// Widget already has the focus?
 	if (focus && *focus == wi)
@@ -107,7 +125,7 @@ void sge::gui::detail::managers::keyboard::request_focus(widget &w)
 	switch_focus(wi);
 }
 
-void sge::gui::detail::managers::keyboard::remove(widget &w)
+void sge::gui::detail::managers::keyboard::remove(widgets::base &w)
 {
 	if (w.keyboard_focus() == keyboard_focus::ignore)
 		return;
@@ -118,7 +136,7 @@ void sge::gui::detail::managers::keyboard::remove(widget &w)
 	
 	SGE_ASSERT(wi != widgets.end());
 	
-	// the widget to delete has the focus? then reset focus
+	// the widgets::base to delete has the focus? then reset focus
 	if (focus && *focus == wi)
 		focus.reset();
 /* old (alternative) behaviour was to take the next possible widget
@@ -136,7 +154,7 @@ void sge::gui::detail::managers::keyboard::cycle_focus()
 	if (widgets.empty())
 		return;
 	
-	// If no widget currently has the focus, take the first (active) one on the
+	// If no widgets::base currently has the focus, take the first (active) one on the
 	// list
 	if (!focus)
 	{
@@ -170,11 +188,11 @@ void sge::gui::detail::managers::keyboard::cycle_focus()
 }
 
 
-// This is called by manager whenever a widget changes its behaviour towards the
-// keyboard focus. If a widget decides not to accept the focus anymore, we have to
+// This is called by manager whenever a widgets::base changes its behaviour towards the
+// keyboard focus. If a widgets::base decides not to accept the focus anymore, we have to
 // delete it and possibly nominate a new focused widget
 void sge::gui::detail::managers::keyboard::keyboard_focus(
-	widget &w,
+	widgets::base &w,
 	keyboard_focus::type const n)
 {
 	switch (n)
@@ -185,12 +203,12 @@ void sge::gui::detail::managers::keyboard::keyboard_focus(
 					widgets.begin(),
 					widgets.end(),&w);
 			
-			// The widget ignores keyboard focus and it never accepted it?
+			// The widgets::base ignores keyboard focus and it never accepted it?
 			// then we can return
 			if (wi == widgets.end())
 				return;
 			
-			// The widget to delete has the focus? then take the next one
+			// The widgets::base to delete has the focus? then take the next one
 			if (focus && *focus == wi)
 			{
 				// ...if there is a next one
@@ -210,12 +228,12 @@ void sge::gui::detail::managers::keyboard::keyboard_focus(
 		{
 			SGE_LOG_DEBUG(
 				mylogger,
-				log::_1 << SGE_TEXT("adding widget after focus change"));
+				log::_1 << SGE_TEXT("adding widgets::base after focus change"));
 			widget_container::iterator wi = utility::ptr_find(
 					widgets.begin(),
 					widgets.end(),&w);
 
-			// The widget has the focus and has had it before? Then 
+			// The widgets::base has the focus and has had it before? Then 
 			// there's nothing to do
 			if (wi != widgets.end())
 				return;
@@ -268,6 +286,6 @@ void sge::gui::detail::managers::keyboard::switch_focus(widget_container::iterat
 	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("switching focus"));
 	if (focus)
 		(*focus)->process(events::keyboard_leave());
-	focus.reset(n);
+	focus = n;
 	(*focus)->process(events::keyboard_enter());
 }

@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,12 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/cerr.hpp>
-#include <sge/media.hpp>
-#include <sge/exception.hpp>
-#include <sge/signal/auto_connection.hpp>
+#include <sge/config/media_path.hpp>
+#include <sge/signal/scoped_connection.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/scoped_block.hpp>
@@ -35,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/loader.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/system.hpp>
+#include <sge/sprite/parameters.hpp>
 #include <sge/sprite/texture_animation.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/add_image.hpp>
@@ -45,6 +45,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/second.hpp>
 #include <sge/time/resolution.hpp>
 #include <sge/mainloop/dispatch.hpp>
+#include <sge/cerr.hpp>
+#include <sge/exception.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <boost/assign/list_of.hpp>
@@ -78,8 +80,8 @@ try
 	sge::image::loader_ptr const    pl   = sys.image_loader();
 
 	sge::image::object_ptr const
-		img1(pl->load(sge::media_path() / SGE_TEXT("cloudsquare.jpg"))),
-		img2(pl->load(sge::media_path() / SGE_TEXT("grass.png")));
+		img1(pl->load(sge::config::media_path() / SGE_TEXT("cloudsquare.jpg"))),
+		img2(pl->load(sge::config::media_path() / SGE_TEXT("grass.png")));
 
 	sge::texture::default_creator<
 		sge::texture::no_fragmented
@@ -96,16 +98,16 @@ try
 
 	sge::sprite::system ss(rend);
 	sge::sprite::object spr(
-		sge::sprite::point(0, 0),
-		sge::sprite::defaults::texture_,
-		sge::sprite::dim(
-			rend->screen_size().w(),
-			static_cast<sge::sprite::unit>(
-				rend->screen_size().h())),
-		boost::none,
-		boost::none,
-		boost::none,
-		boost::none);
+		sge::sprite::parameters()
+		.size(
+			sge::sprite::dim(
+				rend->screen_size().w(),
+				static_cast<sge::sprite::unit>(
+					rend->screen_size().h()
+				)
+			)
+		)
+	);
 
 	sge::sprite::animation_series::entity_vector const series = 
 		boost::assign::list_of
@@ -123,7 +125,7 @@ try
 
 	bool running = true;
 
-	sge::signal::auto_connection cb(
+	sge::signal::scoped_connection const cb(
 		is->register_callback(
 			sge::input::action(
 				sge::input::kc::key_escape,

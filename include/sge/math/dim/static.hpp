@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #ifndef SGE_MATH_DIM_STATIC_HPP_INCLUDED
 #define SGE_MATH_DIM_STATIC_HPP_INCLUDED
 
 #include <sge/math/dim/basic_fwd.hpp>
 #include <sge/math/size_type.hpp>
+#include <sge/restrict_typedef_struct.hpp>
 #include <boost/mpl/integral_c.hpp>
 
 namespace sge
@@ -36,7 +38,8 @@ template<
 	typename T,
 	size_type N
 >
-struct static_ {
+class static_ {
+public:
 	typedef basic<
 		T,
 		boost::mpl::integral_c<
@@ -45,6 +48,8 @@ struct static_ {
 		>,
 		T[N]
 	> type;
+
+	SGE_RESTRICT_TYPEDEF_STRUCT(static_)
 };
 
 }

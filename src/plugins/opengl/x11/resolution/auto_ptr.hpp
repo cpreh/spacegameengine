@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_X11_RESOLUTON_AUTO_PTR_HPP_INCLUDED
-#define SGE_OPENGL_X11_RESOLUTON_AUTO_PTR_HPP_INCLUDED
 
-#include <memory>
+#ifndef SGE_OPENGL_X11_RESOLUTION_AUTO_PTR_HPP_INCLUDED
+#define SGE_OPENGL_X11_RESOLUTION_AUTO_PTR_HPP_INCLUDED
+
+#include <sge/auto_ptr.hpp>
 
 namespace sge
 {
@@ -33,7 +34,7 @@ namespace resolution
 {
 
 class instance;
-typedef std::auto_ptr<instance> auto_ptr;
+typedef sge::auto_ptr<instance> auto_ptr;
 
 }
 }

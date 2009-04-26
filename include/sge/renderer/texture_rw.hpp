@@ -1,3 +1,21 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 #ifndef SGE_RENDERER_TEXTURE_RW_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_RW_HPP_INCLUDED
 
@@ -5,8 +23,8 @@
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/export.hpp>
+#include <sge/scoped_ptr.hpp>
 #include <boost/optional.hpp>
-#include <boost/scoped_ptr.hpp>
 
 namespace sge
 {
@@ -22,12 +40,14 @@ class SGE_CLASS_SYMBOL texture_rw : public texture
 	SGE_SYMBOL const_image_view const lock(lock_rect const &) const;
 	SGE_SYMBOL void unlock() const;
 	SGE_SYMBOL resource_flag_t flags() const;
+	SGE_SYMBOL texture_ptr const read() const;
+	SGE_SYMBOL texture_ptr const write() const;
 
-	struct lock_data;
+	class lock_data;
 	private:
-	mutable texture_ptr read, write;
+	mutable texture_ptr read_, write_;
 
-	mutable boost::scoped_ptr<lock_data> locked;
+	mutable scoped_ptr<lock_data> locked;
 };
 }
 }

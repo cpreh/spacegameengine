@@ -1,8 +1,26 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 #include "../file.hpp"
 #include <sge/audio/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/log/headers.hpp>
-#include <sge/endianness.hpp>
+#include <sge/endianness/is_little_endian.hpp>
 #include <sge/container/raw_vector_impl.hpp>
 #include <sge/assert.hpp>
 #include <algorithm>
@@ -36,7 +54,7 @@ sge::vorbis::file::file(
 	filesystem::path const &p)
 :
 	file_name(p.string()),
-	stdstream(p)
+	stdstream(p, std::ios_base::binary)
 {
 	if (!stdstream.is_open())
 		throw audio::exception(SGE_TEXT("vorbis: couldn't open file \"")+file_name+SGE_TEXT("\""));
@@ -83,7 +101,7 @@ sge::audio::sample_count sge::vorbis::file::read(
 			&ogg_file,
 			reinterpret_cast<char *>(&newdata[bytes_read]),
 			static_cast<int>(bytes_to_read - bytes_read),
-			static_cast<int>(!is_little_endian()),
+			static_cast<int>(!endianness::is_little_endian()),
 			static_cast<int>(2), // 8 or 16 bit samples
 			static_cast<int>(1), // 0 is unsigned data, 1 is signed
 			&bitstream);

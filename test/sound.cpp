@@ -1,3 +1,21 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 #include <sge/audio/multi_loader.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/exception.hpp>
@@ -6,7 +24,7 @@
 #include <sge/plugin/plugin.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/context.hpp>
-#include <sge/media.hpp>
+#include <sge/config/media_path.hpp>
 #include <sge/math/constants.hpp>
 #include <sge/exception.hpp>
 #include <sge/cerr.hpp>
@@ -70,7 +88,7 @@ try
 
 	sge::filesystem::path file_name(sge::iconv(file_name_prog_options));
 	if (file_name.empty())
-		file_name = sge::media_path() / SGE_TEXT("ding.wav");
+		file_name = sge::config::media_path() / SGE_TEXT("ding.wav");
 
 	sge::systems::instance sys(
 		sge::systems::list()

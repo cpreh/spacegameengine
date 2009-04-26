@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #ifndef SGE_SHARED_PTR_HPP_INCLUDED
 #define SGE_SHARED_PTR_HPP_INCLUDED
 
 #include <sge/shared_ptr_fwd.hpp>
 #include <sge/weak_ptr_fwd.hpp>
+#include <sge/auto_ptr.hpp>
 #include <boost/shared_ptr.hpp>
 
 namespace sge
@@ -88,9 +90,11 @@ public:
 	{}
 
 	template<class Y>
-	explicit shared_ptr(std::auto_ptr<Y> & r)
-	: impl(r)
-	{}
+	explicit shared_ptr(auto_ptr<Y> r)
+	//: impl(r)
+	{
+		impl = r;
+	}
 
 	template<class Y>
 	shared_ptr & operator=(shared_ptr<Y> const & r)
@@ -100,7 +104,7 @@ public:
 	}
 
 	template<class Y>
-	shared_ptr & operator=( std::auto_ptr<Y> & r )
+	shared_ptr & operator=( auto_ptr<Y> r )
 	{
  		impl = r;
 		return *this;

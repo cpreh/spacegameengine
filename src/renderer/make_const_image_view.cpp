@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #include <sge/renderer/make_const_image_view.hpp>
 #include <boost/gil/extension/dynamic_image/algorithm.hpp>
 #include <boost/gil/extension/dynamic_image/apply_operation.hpp>
@@ -26,7 +27,8 @@ namespace
 {
 
 template <typename Dst>
-struct variant_const_assign_fn {
+class variant_const_assign_fn {
+public:
 	typedef void result_type;
 	Dst &_dst;
 

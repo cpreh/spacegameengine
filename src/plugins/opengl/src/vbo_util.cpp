@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,11 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #include "../vbo_util.hpp"
 #include "../software_vbo.hpp"
 #include "../hardware_vbo.hpp"
 
-sge::ogl::vbo_base* sge::ogl::create_vbo_impl(const bool hw_supported)
+sge::ogl::vbo_base*
+sge::ogl::create_vbo_impl(
+	bool const hw_supported)
 {
 	return hw_supported
 	? static_cast<vbo_base*>(new hardware_vbo())

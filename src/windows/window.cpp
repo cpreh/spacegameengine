@@ -1,7 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
-Copyright (C) 2007       Simon Stienen    (s.stienen@slashlife.org)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -19,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #include <sge/windows/window.hpp>
 #include <sge/windows/wndclass.hpp>
 #include <sge/windows/wndclass_pool.hpp>
@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
+#include <sge/optional.hpp>
 #include <boost/tr1/array.hpp>
 #include <boost/ref.hpp>
 
@@ -43,7 +44,8 @@ LRESULT CALLBACK wnd_proc(
 }
 
 // TODO: why did HackLife do this?
-/*struct sge::windows::window::signal_combiner {
+/*class sge::windows::window::signal_combiner {
+public:
 	typedef callback_return_type result_type;
 
 	template<typename InputIterator>

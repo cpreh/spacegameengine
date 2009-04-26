@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,55 +18,65 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #include "../common.hpp"
 #include "../target.hpp"
 #include "../framebuffer_functions.hpp"
 #include "../color_convert.hpp"
 #include <sge/renderer/make_image_view.hpp>
+#include <sge/renderer/make_const_image_view.hpp>
+#include <sge/renderer/flipped_image_view.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
+#include <sge/container/raw_vector_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
+
+sge::ogl::target::target()
+{}
+
+sge::ogl::target::~target()
+{}
 
 sge::renderer::const_image_view const
 sge::ogl::target::lock(
 	renderer::lock_rect const &dest) const
 {
-	if(buffer)
+	if(!buffer.empty())
 		throw exception(
 			SGE_TEXT("renderer::target()::lock(): already locked!"));
 
-	buffer.reset(
-		new pixel_pack_buffer(
-			dest.dim().content(),
-			stride(),
-			renderer::resource_flags::none,
-			0));
+	buffer.resize_uninitialized(
+		dest.dim().content() * stride()
+	);
+
 	bind_me();
 
-	buffer->lock(
-		lock_method::readonly);
-
 	read_pixels(
-		dest.left(),
-		dest.top(),
+		pos().x() + dest.left(),
+		pos().y() + dest.top(),
 		dest.dim().w(),
 		dest.dim().h(),
 		format(),
 		format_type(),
-		buffer->data());
+		buffer.data()
+	);
 
-	return renderer::const_image_view(
-		renderer::make_image_view(
-			buffer->data(),
-			dim(),
-			color_convert(
-				format(),
-				format_type())));
+	return renderer::make_const_image_view(
+		renderer::flipped_image_view(
+			renderer::make_image_view(
+				buffer.data(),
+				dim(),
+				color_convert(
+					format(),
+					format_type()
+				)
+			)
+		)
+	);
 }
 
 void sge::ogl::target::unlock() const
 {
-	buffer->unlock();
-	buffer.reset();
+	buffer.free_memory();
 }

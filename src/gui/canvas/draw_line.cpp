@@ -1,13 +1,32 @@
-#include <sge/gui/canvas.hpp>
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+#include <sge/gui/canvas/object.hpp>
+#include <sge/gui/unit.hpp>
 #include <sge/math/signum.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/vector/arithmetic.hpp>
 #include <sge/math/vector/output.hpp>
 #include <sge/math/rect_util.hpp>
 #include <sge/text.hpp>
+#include <sge/lexical_cast.hpp>
 #include <sge/exception.hpp>
 #include <boost/bind.hpp>
-#include <boost/lexical_cast.hpp>
 #include <algorithm>
 #include <cmath>
 
@@ -39,11 +58,11 @@ void sge::gui::canvas::object::draw_line(
 	if (!math::contains(area(),a) || !math::contains(area(),b))
 		throw sge::exception(
 			SGE_TEXT("tried to draw line from ")+
-			boost::lexical_cast<sge::string>(a)+
+			sge::lexical_cast<sge::string>(a)+
 			SGE_TEXT(" to ")+
-			boost::lexical_cast<sge::string>(b)+
+			sge::lexical_cast<sge::string>(b)+
 			SGE_TEXT(" in ")+
-			boost::lexical_cast<sge::string>(area()));
+			sge::lexical_cast<sge::string>(area()));
 	
 	// increment in each direction, is also diagonal step
  	point const dd = apply(b-a,boost::bind(&math::signum<unit>,_1));
@@ -64,8 +83,9 @@ void sge::gui::canvas::object::draw_line(
 	unsigned count = 0;
  
 	// t counts the pixels
-	for(unit t = static_cast<unit>(0),
-		err = static_cast<unit>(el/2-es); t < el; t += 1,err -= es) 
+	for(unit t = static_cast<unit>(0),err = static_cast<unit>(el/2-es); 
+	    t < el; 
+	    t += 1,err -= es) 
 	{
 		if(err < static_cast<unit>(0))
 			// make error term positive again, then do diagonal step

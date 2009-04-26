@@ -1,3 +1,21 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 #include <sge/renderer/texture_rw.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/exception.hpp>
@@ -7,15 +25,21 @@
 #include <sge/math/rect_impl.hpp>
 #include <sge/assert.hpp>
 #include <sge/text.hpp>
+#include <sge/optional.hpp>
 #include <typeinfo>
 
-struct sge::renderer::texture_rw::lock_data {
+class sge::renderer::texture_rw::lock_data {
+public:
+	typedef optional<
+		image_view
+	> optional_image_view;
+
 	lock_rect area;
-	boost::optional<image_view> view;
+	optional_image_view view;
 
 	lock_data(
 		lock_rect const &area,
-		boost::optional<image_view> const view = boost::none)
+		optional_image_view const &view = optional_image_view())
 	:
 		area(area),
 		view(view)
@@ -23,14 +47,14 @@ struct sge::renderer::texture_rw::lock_data {
 };
 
 sge::renderer::texture_rw::texture_rw(
-	texture_ptr const read,
-	texture_ptr const write)
+	texture_ptr const _read,
+	texture_ptr const _write)
 :
-	read(read),
-	write(write)
+	read_(_read),
+	write_(_write)
 {
 	SGE_ASSERT_MESSAGE(
-		read->dim() == write->dim(),
+		read_->dim() == write_->dim(),
 		SGE_TEXT("read dimension has to be the same as write dimension"));
 }
 
@@ -39,13 +63,13 @@ sge::renderer::texture_rw::~texture_rw()
 
 sge::renderer::texture_rw::dim_type const sge::renderer::texture_rw::dim() const
 {
-	return read->dim();
+	return read_->dim();
 }
 
 sge::renderer::image_view const sge::renderer::texture_rw::lock(lock_rect const &lr,lock_flag_t const lf)
 {
 	SGE_ASSERT_MESSAGE(!locked,SGE_TEXT("already locked texture_rw"));
-	locked.reset(new lock_data(lr,read->lock(lr,lf)));
+	locked.reset(new lock_data(lr,read_->lock(lr,lf)));
 	return *locked->view;
 }
 
@@ -53,7 +77,7 @@ sge::renderer::const_image_view const sge::renderer::texture_rw::lock(lock_rect 
 {
 	SGE_ASSERT_MESSAGE(!locked,SGE_TEXT("already locked texture_rw"));
 	locked.reset(new lock_data(lr));
-	return read->lock(lr);
+	return read_->lock(lr);
 }
 
 void sge::renderer::texture_rw::unlock() const
@@ -64,7 +88,7 @@ void sge::renderer::texture_rw::unlock() const
 	if (locked->view)
 	{
 		scoped_texture_lock const lock_(
-			write,
+			write_,
 			locked->area,
 			lock_flags::writeonly);
 		
@@ -74,7 +98,7 @@ void sge::renderer::texture_rw::unlock() const
 			lock_.value());
 	}
 
-	read->unlock();
+	read_->unlock();
 	locked.reset();
 }
 
@@ -82,4 +106,14 @@ sge::renderer::resource_flag_t
 sge::renderer::texture_rw::flags() const
 {
 	return resource_flags::dynamic;
+}
+
+sge::renderer::texture_ptr const sge::renderer::texture_rw::read() const
+{
+	return read_;
+}
+
+sge::renderer::texture_ptr const sge::renderer::texture_rw::write() const
+{
+	return write_;
 }

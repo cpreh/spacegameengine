@@ -1,5 +1,23 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 #include "log.hpp"
-#include <sge/gui/canvas.hpp>
+#include <sge/gui/canvas/object.hpp>
 #include <sge/gui/canvas/font_drawer.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/text_size.hpp>
@@ -8,15 +26,14 @@
 #include <algorithm>
 
 void sge::gui::canvas::object::draw_text(
-	font::metrics_ptr const metrics,
-	color const c,
+	font_info const &font,
 	string const &text,
 	point const &pos,
 	dim const &max_size,
 	font::align_h::type const h,
 	font::align_v::type const v,
 	font::flag_t const f,
-	boost::optional<string::size_type> cp,
+	optional_character_pos cp,
 	point *const p)
 {
 	SGE_ASSERT(!cp || *cp < text.length());
@@ -34,11 +51,11 @@ void sge::gui::canvas::object::draw_text(
 	}
 
 	font::object(
-		metrics,
+		font.metrics(),
 		font::drawer_ptr(
 			new font_drawer(
 				view_,
-				c,
+				font.color(),
 				cp,
 				p))
 	).draw_text(

@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -16,6 +16,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
 
 
 #ifndef SGE_BITFIELD_HPP_INCLUDED
@@ -67,6 +68,9 @@ private:
 		template<typename, typename> friend class iterator_impl;
 		static size_type bit_offset(size_type p);
 		static size_type array_offset(size_type p);
+
+		// hack for VC++
+		typedef proxy_impl &ref_type;
 	public:
 		proxy_impl& operator=(value_type b);
 		operator value_type() const;
@@ -80,7 +84,8 @@ public:
 	typedef value_type const_reference;
 private:
 	template<typename StoredType, typename Reference>
-	struct iterator_type_helper {
+	class iterator_type_helper {
+	public:
 		typedef boost::iterator_facade<
 			iterator_impl<
 				StoredType,
@@ -136,7 +141,7 @@ public:
 	//friend bitfield operator| (const Enum a, const Enum b) { return bitfield(a) | b; }
 	
 	bitfield();
-	bitfield(Enum e); // TODO: make this explicit?
+	bitfield(Enum e); // TODO: make this explicit? - No, ffs!
 	
 	bitfield &operator=(Enum e);
 

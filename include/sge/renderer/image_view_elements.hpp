@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #ifndef SGE_RENDERER_IMAGE_VIEW_ELEMENTS_HPP_INCLUDED
 #define SGE_RENDERER_IMAGE_VIEW_ELEMENTS_HPP_INCLUDED
 
@@ -31,11 +32,14 @@ namespace sge
 {
 namespace renderer
 {
+namespace detail
+{
 
 template<
 	typename Color
 >
-struct view_type {
+class view_type {
+public:
 	typedef boost::gil::image_view<
 		boost::gil::memory_based_2d_locator<
 			boost::gil::memory_based_step_iterator<
@@ -45,9 +49,11 @@ struct view_type {
 	> type;
 };
 
+}
+
 typedef boost::mpl::transform<
 	color_types,
-	view_type<
+	detail::view_type<
 		boost::mpl::placeholders::_1
 	>
 >::type image_view_elements;

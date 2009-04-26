@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #include <sge/font/drawer_3d.hpp>
 #include <sge/font/image.hpp>
 #include <sge/texture/rect_fragmented.hpp>
@@ -27,12 +28,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/image.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/sprite/object.hpp>
+#include <sge/sprite/parameters.hpp>
 #include <boost/gil/algorithm.hpp>
 
 namespace
 {
 
-struct converter {
+class converter {
+public:
 	void operator()(
 		sge::font::color const src,
 		sge::renderer::rgba8_color &dest) const;
@@ -82,14 +85,20 @@ void sge::font::drawer_3d::draw_char(
 
 	sprites.push_back(
 		sprite::object(
-			p,
-			d.content()
-				? cached_texture(
-					ch,
-					data)
-				: texture::const_part_ptr(),
-			d,
-			col));
+			sprite::parameters()
+			.pos(p)
+			.texture(
+				d.content()
+					? cached_texture(
+						ch,
+						data
+					)
+					: texture::const_part_ptr()
+			)
+			.size(d)
+			.color(col)
+		)
+	);
 }
 
 void sge::font::drawer_3d::end_rendering()

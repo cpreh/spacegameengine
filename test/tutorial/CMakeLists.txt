@@ -1,0 +1,11 @@
+MACRO (ADD_SGE_TUTORIAL name)
+	ADD_EXECUTABLE (sge${name} ${name}.cpp)
+	TARGET_LINK_LIBRARIES (sge${name} sgecore)
+ENDMACRO()
+
+ADD_SGE_TUTORIAL(font)
+ADD_SGE_TUTORIAL(sound_01)
+ADD_SGE_TUTORIAL(sound_02)
+ADD_SGE_TUTORIAL(sound_03)
+ADD_SGE_TUTORIAL(tutorial_01)
+ADD_SGE_TUTORIAL(tutorial_02)

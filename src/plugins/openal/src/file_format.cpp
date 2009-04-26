@@ -1,8 +1,26 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 #include "../file_format.hpp"
 #include <sge/audio/file.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/text.hpp>
-#include <boost/lexical_cast.hpp>
+#include <sge/lexical_cast.hpp>
 
 ALenum sge::openal::file_format(audio::file const &file)
 {
@@ -17,9 +35,9 @@ ALenum sge::openal::file_format(audio::file const &file)
 	
 	throw audio::exception(
 		SGE_TEXT("OpenAL error: Format not supported: ")
-		+ boost::lexical_cast<string>(file.bits_per_sample())
+		+ lexical_cast<string>(file.bits_per_sample())
 		+ SGE_TEXT(" bps, ")
-		+ boost::lexical_cast<string>(file.channels())
+		+ lexical_cast<string>(file.channels())
 		+ SGE_TEXT(" channels"));
 
 	return AL_FORMAT_MONO8;

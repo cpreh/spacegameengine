@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -16,6 +16,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
 
 
 #include <sge/systems/instance.hpp>
@@ -41,14 +42,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_block.hpp>
-#include <sge/signal/auto_connection.hpp>
+#include <sge/signal/scoped_connection.hpp>
 #include <sge/image/create_texture.hpp>
 #include <sge/mainloop/catch_block.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/math/matrix/perspective.hpp>
 #include <sge/math/pi.hpp>
+#include <sge/config/media_path.hpp>
 #include <sge/text.hpp>
-#include <sge/media.hpp>
+#include <sge/iconv.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <fstream>
@@ -86,7 +88,7 @@ try
 	);
 
 	std::ifstream ifs(
-		(sge::media_path() / SGE_TEXT("european_fnt_v2.md3")).string().c_str(),
+		sge::iconv((sge::config::media_path() / SGE_TEXT("european_fnt_v2.md3")).string()).c_str(),
 		std::ios_base::binary
 	);
 
@@ -128,7 +130,7 @@ try
 
 	sge::renderer::texture_ptr const tex(
 		sge::image::create_texture(
-			sge::media_path() / SGE_TEXT("european_fnt.tga"),
+			sge::config::media_path() / SGE_TEXT("european_fnt.tga"),
 			sys.renderer(),
 			sys.image_loader(),
 			sge::renderer::filter::linear,
@@ -148,7 +150,7 @@ try
 
 	bool running = true;
 
-	sge::signal::auto_connection cb(
+	sge::signal::scoped_connection const cb(
 		sys.input_system()->register_callback(
 			sge::input::action(
 				sge::input::kc::key_escape,

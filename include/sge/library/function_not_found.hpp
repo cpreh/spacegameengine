@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #ifndef SGE_LIBRARY_FUNCTION_NOT_FOUND_HPP_INCLUDED
 #define SGE_LIBRARY_FUNCTION_NOT_FOUND_HPP_INCLUDED
 
@@ -31,7 +32,8 @@ namespace sge
 namespace library
 {
 
-struct SGE_CLASS_SYMBOL function_not_found : public exception {
+class SGE_CLASS_SYMBOL function_not_found : public exception {
+public:
 	SGE_SYMBOL function_not_found(
 		string const &lib,
 		function_string const &fun);

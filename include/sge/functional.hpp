@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #ifndef SGE_FUNCTIONAL_HPP_INCLUDED
 #define SGE_FUNCTIONAL_HPP_INCLUDED 
 
@@ -27,7 +28,8 @@ namespace sge
 {
 
 template <typename T>
-struct bit_and : public std::binary_function<T, T, T> {
+class bit_and : public std::binary_function<T, T, T> {
+public:
 	T operator()(
 		T const &x,
 		T const &y) const
@@ -37,7 +39,8 @@ struct bit_and : public std::binary_function<T, T, T> {
 };
 
 template <typename T>
-struct bit_or : public std::binary_function<T, T, T> {
+class bit_or : public std::binary_function<T, T, T> {
+public:
 	T operator()(
 		T const &x,
 		T const &y) const
@@ -47,7 +50,8 @@ struct bit_or : public std::binary_function<T, T, T> {
 };
 
 template <typename T>
-struct bit_xor : public std::binary_function<T, T, T> {
+class bit_xor : public std::binary_function<T, T, T> {
+public:
 	T operator()(
 		T const &x,
 		T const &y) const
@@ -57,7 +61,8 @@ struct bit_xor : public std::binary_function<T, T, T> {
 };
 
 template <typename T>
-struct bit_not : public std::unary_function<T, T> {
+class bit_not : public std::unary_function<T, T> {
+public:
 	T operator()(T const &x) const
 	{
 		return ~x;

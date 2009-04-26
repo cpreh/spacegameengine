@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,12 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #ifndef SGE_CONTAINER_RAW_VECTOR_IMPL_HPP_INCLUDED
 #define SGE_CONTAINER_RAW_VECTOR_IMPL_HPP_INCLUDED
 
 #include <sge/container/raw_vector_decl.hpp>
 #include <sge/assert.hpp>
 #include <boost/next_prior.hpp>
+#include <iterator>
 #include <algorithm>
 
 template<typename T, typename A>
@@ -43,13 +45,13 @@ sge::container::raw_vector<T, A>::begin() const
 template<typename T, typename A>
 typename sge::container::raw_vector<T, A>::iterator sge::container::raw_vector<T, A>::end()
 {
-	return i.last;
+	return data_end();
 }
 	
 template<typename T, typename A>
 typename sge::container::raw_vector<T, A>::const_iterator sge::container::raw_vector<T, A>::end() const
 {
-	return i.last;
+	return data_end();
 }
 
 template<typename T, typename A>
@@ -86,6 +88,13 @@ template<typename T, typename A>
 typename sge::container::raw_vector<T, A>::const_reference sge::container::raw_vector<T, A>::operator[] (const size_type n) const
 {
 	return *(begin() + n);
+}
+
+template<typename T, typename A>
+void sge::container::raw_vector<T, A>::free_memory()
+{
+	deallocate();
+	set_pointers(0, 0, 0);
 }
 
 template<typename T, typename A>
@@ -127,20 +136,37 @@ typename sge::container::raw_vector<T, A>::const_reference sge::container::raw_v
 }
 
 template<typename T, typename A>
-typename sge::container::raw_vector<T, A>::pointer sge::container::raw_vector<T, A>::data()
+typename sge::container::raw_vector<T, A>::pointer
+sge::container::raw_vector<T, A>::data()
 {
 	return i.first;
 }
 
 template<typename T, typename A>
-typename sge::container::raw_vector<T, A>::const_pointer sge::container::raw_vector<T, A>::data() const
+typename sge::container::raw_vector<T, A>::const_pointer
+sge::container::raw_vector<T, A>::data() const
 {
 	return i.first;
+}
+
+template<typename T, typename A>
+typename sge::container::raw_vector<T, A>::pointer
+sge::container::raw_vector<T, A>::data_end()
+{
+	return i.last;
+}
+
+template<typename T, typename A>
+typename sge::container::raw_vector<T, A>::const_pointer
+sge::container::raw_vector<T, A>::data_end() const
+{
+	return i.last;
 }
 
 template<typename T, typename A>
 sge::container::raw_vector<T, A>::raw_vector(const A& a)
-: i(a)
+:
+	i(a)
 {}
 
 template<typename T, typename A>
@@ -271,18 +297,24 @@ void sge::container::raw_vector<T, A>::resize(const size_type sz, const T& value
 		erase(begin() + sz, end());
 }
 
-template<typename T, typename A>
-void sge::container::raw_vector<T, A>::reserve(const size_type sz)
+template<
+	typename T,
+	typename A
+>
+void sge::container::raw_vector<T, A>::reserve(
+	size_type const sz)
 {
 	if(sz <= capacity())
 		return;
 
-	const size_type new_cap = new_capacity(sz),
-	                old_size = size();
+	size_type const
+		new_cap = new_capacity(sz),
+		old_size = size();
 
-	const pointer new_memory = i.a.allocate(new_cap);
+	pointer const new_memory = i.a.allocate(new_cap);
 
-	std::uninitialized_copy(begin(), end(), new_memory);
+	if(!empty())
+		std::uninitialized_copy(begin(), end(), new_memory);
 
 	deallocate();
 	set_pointers(new_memory, old_size, new_cap);
@@ -306,16 +338,19 @@ sge::container::raw_vector<T, A>::insert(
 		difference_type const insert_sz = position - begin();
 		size_type const new_cap = new_capacity(new_size);
 		pointer const new_memory = i.a.allocate(new_cap);
-		std::uninitialized_copy(begin(), position, new_memory);
+		if(!empty())
+			std::uninitialized_copy(begin(), position, new_memory);
 		*(new_memory + insert_sz) = x;
-		std::uninitialized_copy(position, end(), new_memory + insert_sz + 1);
+		if(!empty())
+			std::uninitialized_copy(position, end(), new_memory + insert_sz + 1);
 		deallocate();
 		set_pointers(new_memory, new_size, new_cap);
 		return begin() + insert_sz;
 	}
 	else
 	{
-		std::copy_backward(position, end(), position + 1);
+		if(!empty())
+			std::copy_backward(position, end(), position + 1);
 		*position = x;
 		i.last += 1;
 		return position;
@@ -331,15 +366,18 @@ void sge::container::raw_vector<T, A>::insert(const iterator position, const siz
 		const difference_type insert_sz = position - begin();
 		const size_type new_cap = new_capacity(new_size);
 		const pointer new_memory = i.a.allocate(new_cap);
-		std::uninitialized_copy(begin(), position, new_memory);
+		if(!empty())
+			std::uninitialized_copy(begin(), position, new_memory);
 		std::uninitialized_fill(new_memory + insert_sz, new_memory + insert_sz + n, x);
-		std::uninitialized_copy(position, end(), new_memory + insert_sz + n);
+		if(!empty())
+			std::uninitialized_copy(position, end(), new_memory + insert_sz + n);
 		deallocate();
 		set_pointers(new_memory, new_size, new_cap);
 	}
 	else
 	{
-		std::copy_backward(position, end(), position + n);
+		if(!empty())
+			std::copy_backward(position, end(), position + n);
 		std::uninitialized_fill(position, position + n, x);
 		i.last += n;
 	}
@@ -347,31 +385,41 @@ void sge::container::raw_vector<T, A>::insert(const iterator position, const siz
 
 template<typename T, typename A>
 template<typename In>
-void sge::container::raw_vector<T, A>::insert(const iterator position, const In l, const In r)
+void sge::container::raw_vector<T, A>::insert(
+	iterator const position,
+	In const l,
+	In const r)
 {
-	const difference_type distance = r - l;//std::distance(l, r);
-	const size_type new_size = size() + distance;
+	difference_type const distance(
+		std::distance(l, r)
+	);
+
+	size_type const new_size = size() + distance;
 	if(new_size > capacity())
 	{
-		const difference_type insert_sz = position - begin();
-		const size_type new_cap = new_capacity(new_size);
-		const pointer new_memory = i.a.allocate(new_cap);
-		std::uninitialized_copy(begin(), position, new_memory);
+		difference_type const insert_sz = position - begin();
+		size_type const new_cap = new_capacity(new_size);
+		pointer const new_memory = i.a.allocate(new_cap);
+		if(!empty())
+			std::uninitialized_copy(begin(), position, new_memory);
 		std::uninitialized_copy(l, r, new_memory + insert_sz);
-		std::uninitialized_copy(position, end(), new_memory + insert_sz + distance);
+		if(!empty())
+			std::uninitialized_copy(position, end(), new_memory + insert_sz + distance);
 		deallocate();
 		set_pointers(new_memory, new_size, new_cap);
 	}
 	else
 	{
-		std::copy_backward(position, end(), position + distance);
+		if(!empty())
+			std::copy_backward(position, end(), position + distance);
 		std::uninitialized_copy(l, r, position);
 		i.last += distance;
 	}
 }
 
 template<typename T, typename A>
-typename sge::container::raw_vector<T, A>::iterator sge::container::raw_vector<T, A>::erase(const iterator position)
+typename sge::container::raw_vector<T, A>::iterator
+sge::container::raw_vector<T, A>::erase(iterator const position)
 {
 	std::uninitialized_copy(position + 1, end(), position);
 	--i.last;
@@ -379,10 +427,16 @@ typename sge::container::raw_vector<T, A>::iterator sge::container::raw_vector<T
 }
 
 template<typename T, typename A>
-typename sge::container::raw_vector<T, A>::iterator sge::container::raw_vector<T, A>::erase(const iterator l, const iterator r)
+typename sge::container::raw_vector<T, A>::iterator
+sge::container::raw_vector<T, A>::erase(
+	iterator const l,
+	iterator const r)
 {
-	std::uninitialized_copy(r, end(), l);
-	i.last -= r - l;
+	if(l != r)
+	{
+		std::uninitialized_copy(r, end(), l);
+		i.last -= r - l;
+	}
 	return r;
 }
 
@@ -391,6 +445,9 @@ void sge::container::raw_vector<T, A>::range_check(const size_type n) const
 {
 	SGE_ASSERT(n < size());
 }
+
+#undef max
+// TODO: hide windows.h in asio
 
 template<typename T, typename A>
 typename sge::container::raw_vector<T, A>::size_type
@@ -411,7 +468,7 @@ void sge::container::raw_vector<T, A>::set_pointers(const pointer src, const siz
 template<typename T, typename A>
 void sge::container::raw_vector<T, A>::deallocate()
 {
-	if(i.first)
+	if(!empty())
 		i.a.deallocate(i.first, capacity());
 }
 
@@ -434,8 +491,14 @@ sge::container::raw_vector<T,A>::impl::impl(const A& a_, const size_type sz)
 {}
 
 
-template <typename T, typename A>
-bool sge::container::operator==(const raw_vector<T, A>& x, const raw_vector<T,A>& y)
+template<
+	typename T,
+	typename A
+>
+bool
+sge::container::operator==(
+	raw_vector<T, A> const &x,
+	raw_vector<T,A> const &y)
 {
 	return x.size() == y.size() && std::equal(x.begin(), x.end(), y.begin());
 }

@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,14 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+
 #ifndef SGE_OPENGL_TARGET_HPP_INCLUDED
 #define SGE_OPENGL_TARGET_HPP_INCLUDED
 
 #include "common.hpp"
-#include "pixel_pack_buffer.hpp"
-#include <sge/shared_ptr.hpp>
 #include <sge/renderer/target.hpp>
-#include <boost/scoped_ptr.hpp>
+#include <sge/renderer/pixel_pos.hpp>
+#include <sge/container/raw_vector_decl.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
@@ -33,22 +34,28 @@ namespace ogl
 {
 
 class target : public sge::renderer::target {
+	SGE_NONCOPYABLE(target)
+protected:
+	target();
 public:
 	virtual void bind_me() const = 0;
+	virtual ~target();
 private:
 	renderer::const_image_view const lock(
 		renderer::lock_rect const &dest) const;
 	void unlock() const;
 
+	virtual renderer::pixel_pos const pos() const = 0;
 	virtual size_type stride() const = 0;
 	virtual GLenum format() const = 0;
 	virtual GLenum format_type() const = 0;
 
-	mutable boost::scoped_ptr<
-		pixel_pack_buffer> buffer;
-};
+	typedef sge::container::raw_vector<
+		unsigned char
+	> buffer_type;
 
-typedef shared_ptr<target> target_ptr;
+	mutable buffer_type buffer;
+};
 
 }
 }

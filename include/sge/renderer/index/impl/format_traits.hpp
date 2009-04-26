@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -16,6 +16,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
 
 
 #ifndef SGE_RENDERER_INDEX_IMPL_FORMAT_TRAITS_HPP_INCLUDED
@@ -37,46 +38,46 @@ namespace detail
 template<
 	typename
 >
-struct format_traits;
+class format_traits;
 
 template<>
-struct format_traits<
+class format_traits<
 	uint16	
 >
 :
-boost::mpl::integral_c<
+public boost::mpl::integral_c<
 	format::type,
 	format::i16
 >
 {};
 
 template<>
-struct format_traits<
+class format_traits<
 	uint16 const
 >
 :
-format_traits<
+public format_traits<
 	uint16
 >
 {};
 
 template<>
-struct format_traits<
+class format_traits<
 	uint32	
 >
 :
-boost::mpl::integral_c<
+public boost::mpl::integral_c<
 	format::type,
 	format::i32
 >
 {};
 
 template<>
-struct format_traits<
+class format_traits<
 	uint32 const
 >
 :
-format_traits<
+public format_traits<
 	uint32
 >
 {};
