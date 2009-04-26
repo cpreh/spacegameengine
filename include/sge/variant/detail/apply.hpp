@@ -35,7 +35,6 @@ namespace detail
 {
 
 template<
-	typename Result,
 	typename Counter,
 	bool done = true
 >
@@ -46,7 +45,7 @@ struct apply {
 		typename Operation,
 		typename Variant
 	>
-	static Result
+	static typename Operation::result_type
 	execute(
 		Iterator *,
 		LastIterator *,
@@ -59,11 +58,9 @@ struct apply {
 };
 
 template<
-	typename Result,
 	typename Counter
 >
 struct apply<
-	Result,
 	Counter,
 	false
 > {
@@ -73,7 +70,7 @@ struct apply<
 		typename Operation,
 		typename Variant
 	>
-	static Result
+	static typename Operation::result_type
 	execute(
 		Iterator *,
 		LastIterator *,
@@ -97,23 +94,21 @@ struct apply<
 		return Counter::value == obj.type_index()
 			? op. template operator()<type>(
 				obj. template get<type>()
-			)
-			: detail::apply<
-				Result,
-				typename boost::mpl::next<
-					Counter
-				>::type,
-				boost::is_same<
-					iter,
-					LastIterator
-				>::value
-			>::execute(
-				static_cast<iter *>(0),
-				static_cast<LastIterator *>(0),
-				op,
-				obj
-			);
-					
+		)
+		: detail::apply<
+			typename boost::mpl::next<
+				Counter
+			>::type,
+			boost::is_same<
+				iter,
+				LastIterator
+			>::value
+		>::execute(
+			static_cast<iter *>(0),
+			static_cast<LastIterator *>(0),
+			op,
+			obj
+		);
 	}
 };
 

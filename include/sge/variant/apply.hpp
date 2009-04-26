@@ -45,7 +45,6 @@ apply(
 	typedef typename Variant::types types;
 
 	return detail::apply<
-		typename Operation::result_type,
 		boost::mpl::integral_c<
 			size_type,
 			0
