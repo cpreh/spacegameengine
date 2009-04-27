@@ -38,9 +38,9 @@ IF (CMAKE_COMPILER_IS_GNUCXX)
 		SET (SGE_STRING_IS_UTF8 true)
 	ENDIF()
 
-	#CHECK_CXX_COMPILER_FLAG(
-	#	"-fvisibility=hidden"
-	#	SGE_HAVE_GCC_VISIBILITY)
+	CHECK_CXX_COMPILER_FLAG(
+		"-fvisibility=hidden"
+		SGE_HAVE_GCC_VISIBILITY)
 
 	OPTION (ENABLE_DEBUG_WARNINGS "Enable -Wpadded and -Weffc++" OFF)
 
