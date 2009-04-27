@@ -25,11 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/variant/raw_type.hpp>
 #include <sge/variant/size_type.hpp>
 #include <sge/mpl/max_value.hpp>
+#include <sge/alignment/array.hpp>
 #include <boost/mpl/size.hpp>
 #include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/transform.hpp>
+#include <boost/mpl/sizeof.hpp>
 #include <boost/type_traits/alignment_of.hpp>
-#include <boost/tr1/array.hpp>
 
 namespace sge
 {
@@ -103,17 +103,21 @@ private:
 		>::value
 	;
 
-	typedef std::tr1::array<
+	typedef typename alignment::array<
 		raw_type,
 		mpl::max_value<
-			typename boost::mpl::transform<
-				Types,
-				boost::alignment_of<
-					boost::mpl::_1
-				>
-			>::type
-		>::value 
-	> storage_type;
+			Types,
+			boost::mpl::sizeof_<
+				boost::mpl::_1
+			>
+		>::value,
+		mpl::max_value<
+			Types,
+			boost::alignment_of<
+				boost::mpl::_1
+			>
+		>::value
+	>::type storage_type;
 
 	storage_type storage_;
 	size_type index_;

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <boost/mpl/deref.hpp>
 #include <boost/mpl/max_element.hpp>
+#include <boost/mpl/transform.hpp>
 
 namespace sge
 {
@@ -30,13 +31,17 @@ namespace mpl
 {
 
 template<
-	typename Elements
+	typename Elements,
+	typename Pred
 >
 struct max_value
 :
 boost::mpl::deref<
 	typename boost::mpl::max_element<
-		Elements
+		typename boost::mpl::transform<
+			Elements,
+			Pred
+		>::type
 	>::type
 >::type
 {};

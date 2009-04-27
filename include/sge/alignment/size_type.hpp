@@ -18,31 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_ALIGNMENT_SIZE_TYPE_HPP_INCLUDED
+#define SGE_ALIGNMENT_SIZE_TYPE_HPP_INCLUDED
 
-#ifndef SGE_SYSTEMS_ANY_HPP_INCLUDED
-#define SGE_SYSTEMS_ANY_HPP_INCLUDED
-
-#include <sge/systems/parameterless.hpp>
-#include <sge/window/parameters.hpp>
-#include <sge/renderer/parameters.hpp>
-#include <sge/variant/object_fwd.hpp>
-#include <boost/mpl/vector.hpp>
+#include <cstddef>
 
 namespace sge
 {
-namespace systems
+namespace alignment
 {
 
-typedef boost::mpl::vector<
-	window::parameters,
-	renderer::parameters,
-	parameterless::type
-> any_elements;
-// TODO: add image format and audio format, too!
-
-typedef variant::object<
-	any_elements
-> any;
+typedef std::size_t size_type;
 
 }
 }

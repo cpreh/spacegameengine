@@ -23,8 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/named.hpp>
 #include <sge/container/map.hpp>
 #include <sge/type_info.hpp>
-#include <boost/variant/static_visitor.hpp>
-#include <boost/variant/apply_visitor.hpp>
+#include <sge/variant/apply_binary.hpp>
 #include <boost/assign/list_of.hpp>
 #include <typeinfo>
 #include <map>
@@ -32,8 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-class compare : public boost::static_visitor<bool> {
+class compare {
 public:
+	typedef bool result_type;
+
 	bool operator()(
 		sge::systems::parameterless::type const &,
 		sge::systems::parameterless::type const &) const;
@@ -59,7 +60,7 @@ bool sge::systems::named_compare(
 	named const &a,
 	named const &b)
 {
-	return boost::apply_visitor(
+	return variant::apply_binary(
 		compare(),
 		a.value(),
 		b.value()

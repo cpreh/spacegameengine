@@ -18,33 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_ALIGNMENT_MAXIMUM_HPP_INCLUDED
+#define SGE_ALIGNMENT_MAXIMUM_HPP_INCLUDED
 
-#ifndef SGE_SYSTEMS_ANY_HPP_INCLUDED
-#define SGE_SYSTEMS_ANY_HPP_INCLUDED
-
-#include <sge/systems/parameterless.hpp>
-#include <sge/window/parameters.hpp>
-#include <sge/renderer/parameters.hpp>
-#include <sge/variant/object_fwd.hpp>
-#include <boost/mpl/vector.hpp>
-
-namespace sge
-{
-namespace systems
-{
-
-typedef boost::mpl::vector<
-	window::parameters,
-	renderer::parameters,
-	parameterless::type
-> any_elements;
-// TODO: add image format and audio format, too!
-
-typedef variant::object<
-	any_elements
-> any;
-
-}
-}
+#ifdef _MSC_VER
+#define SGE_ALIGNMENT_MAXIMUM 128
+#elif __GNUC__
+#define SGE_ALIGNMENT_MAXIMUM 32 
+#else
+#error "Don't know what the maximum alignment should be!"
+#endif
 
 #endif
