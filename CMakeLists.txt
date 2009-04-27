@@ -256,6 +256,7 @@ INSTALL_MEDIA (gui)
 
 INSTALL_HEADERS (sge)
 INSTALL_HEADERS (sge/algorithm)
+INSTALL_HEADERS (sge/alignment)
 INSTALL_HEADERS (sge/algorithm/detail)
 INSTALL_HEADERS (sge/archive)
 INSTALL_HEADERS (sge/audio)
