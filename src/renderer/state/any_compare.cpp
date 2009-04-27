@@ -21,22 +21,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/state/any_compare.hpp>
 #include <sge/renderer/state/var.hpp>
-#include <boost/variant/static_visitor.hpp>
-#include <boost/variant/apply_visitor.hpp>
+#include <sge/variant/apply_binary.hpp>
+#include <sge/variant/object_impl.hpp>
 #include <typeinfo>
 
 namespace
 {
 
-class compare : public boost::static_visitor<bool> {
+class compare {
 public:
-	template<typename T>
-	bool operator()(
+	typedef bool result_type;
+
+	template<
+		typename T
+	>
+	bool
+	operator()(
 		sge::renderer::state::var<T> const &,
 		sge::renderer::state::var<T> const &) const;
 
-	template<typename T, typename U>
-	bool operator()(
+	template<
+		typename T,
+		typename U
+	>
+	bool
+	operator()(
 		T const &,
 		U const &) const;
 };
@@ -47,17 +56,21 @@ bool sge::renderer::state::any_compare::operator()(
 	any const &a,
 	any const &b) const
 {
-	return boost::apply_visitor(
+	return variant::apply_binary(
 		compare(),
 		a,
-		b);
+		b
+	);
 }
 
 namespace
 {
 
-template<typename T>
-bool compare::operator()(
+template<
+	typename T
+>
+bool
+compare::operator()(
 	sge::renderer::state::var<T> const &a,
 	sge::renderer::state::var<T> const &b) const
 {
@@ -65,8 +78,12 @@ bool compare::operator()(
 	     < b.state();
 }
 
-template<typename T, typename U>
-bool compare::operator()(
+template<
+	typename T,
+	typename U
+>
+bool
+compare::operator()(
 	T const &,
 	U const &) const
 {

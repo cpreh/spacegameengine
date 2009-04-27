@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/variant/detail/copy.hpp>
 #include <sge/variant/detail/destroy.hpp>
 #include <sge/variant/detail/construct.hpp>
+#include <sge/variant/detail/type_info.hpp>
 #include <sge/mpl/index_of.hpp>
 #include <boost/static_assert.hpp>
 
@@ -169,6 +170,18 @@ sge::variant::object<Types>::get()
 		U *
 	>(
 		data_
+	);
+}
+
+template<
+	typename Types
+>
+std::type_info const &
+sge::variant::object<Types>::type() const
+{
+	return apply_unary(
+		detail::type_info(),
+		*this
 	);
 }
 

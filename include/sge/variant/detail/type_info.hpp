@@ -18,59 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_VARIANT_DETAIL_TYPE_INFO_HPP_INCLUDED
+#define SGE_VARIANT_DETAIL_TYPE_INFO_HPP_INCLUDED
 
-#ifndef SGE_RENDERER_STATE_LIST_HPP_INCLUDED
-#define SGE_RENDERER_STATE_LIST_HPP_INCLUDED
-
-#include <sge/renderer/state/any.hpp>
-#include <sge/renderer/state/any_compare.hpp>
-#include <sge/variant/object_impl.hpp>
-#include <sge/export.hpp>
-#include <set>
+#include <typeinfo>
 
 namespace sge
 {
-namespace renderer
+namespace variant
 {
-namespace state
+namespace detail
 {
 
-template<typename T>
-class trampoline;
+struct type_info {
+	typedef std::type_info const &result_type;
 
-class list {
-public:
-	typedef std::set<
-		any,
-		any_compare
-	> set_type;
-
-	SGE_SYMBOL explicit list(
-		any const &);
-	SGE_SYMBOL explicit list(
-		set_type const &);
-	SGE_SYMBOL list const operator()(
-		any const &) const;
-
-	SGE_SYMBOL void overwrite(
-		any const &);
-
-	template<typename T>
-	SGE_SYMBOL T get() const;
-
-	template<typename T>
-	SGE_SYMBOL T get(
-		trampoline<T> const &) const;
-
-	SGE_SYMBOL set_type const &values() const;
-private:
-	set_type set_;
+	template<
+		typename T
+	>
+	result_type
+	operator()(
+		T const &t) const
+	{
+		return typeid(t);
+	}
 };
-
-SGE_SYMBOL list const
-combine(
-	list const &,
-	list const &);
 
 }
 }

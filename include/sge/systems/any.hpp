@@ -33,15 +33,13 @@ namespace sge
 namespace systems
 {
 
-typedef boost::mpl::vector<
-	window::parameters,
-	renderer::parameters,
-	parameterless::type
-> any_elements;
-// TODO: add image format and audio format, too!
-
 typedef variant::object<
-	any_elements
+	boost::mpl::vector<
+		window::parameters,
+		renderer::parameters,
+		parameterless::type
+	>
+// TODO: add image format and audio format, too!
 > any;
 
 }

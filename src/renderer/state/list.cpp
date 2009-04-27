@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/export.hpp>
 #include <boost/foreach.hpp>
-#include <boost/variant/get.hpp>
 
 sge::renderer::state::list::list(
 	any const &a)
@@ -69,7 +68,7 @@ T sge::renderer::state::list::get() const
 	
 	BOOST_FOREACH(set_type::const_reference ref, set_)
 		if(ref.type() == typeid(T))
-			return boost::get<T>(ref);
+			return ref.get<T>();
 	
 	throw exception(
 		SGE_TEXT("renderer::list::get(): state not found!"));
@@ -87,7 +86,9 @@ T sge::renderer::state::list::get(
 		if(ref.type() == typeid(var_type))
 		{
 			var_type const &v(
-				boost::get<var_type>(ref));
+				ref.get<var_type>()
+			);
+
 			if(v.state() == t.state())
 				return v.value();
 		}

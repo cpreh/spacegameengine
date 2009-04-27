@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_STATE_ANY_HPP_INCLUDED
 
 #include <sge/renderer/state/states.hpp>
-#include <boost/variant/variant.hpp>
+#include <sge/variant/object_fwd.hpp>
+#include <boost/mpl/vector.hpp>
 
 namespace sge
 
@@ -33,20 +34,22 @@ namespace renderer
 namespace state
 {
 
-typedef boost::variant<
-	int_::type,
-	uint_::type,
-	float_::type,
-	bool_::type,
-	color_::type,
-	cull_mode::type,
-	depth_func::type,
-	stencil_func::type,
-	alpha_func::type,
-	fog_mode::type,
-	draw_mode::type,
-	source_blend_func::type,
-	dest_blend_func::type
+typedef variant::object<
+	boost::mpl::vector<
+		int_::type,
+		uint_::type,
+		float_::type,
+		bool_::type,
+		color_::type,
+		cull_mode::type,
+		depth_func::type,
+		stencil_func::type,
+		alpha_func::type,
+		fog_mode::type,
+		draw_mode::type,
+		source_blend_func::type,
+		dest_blend_func::type
+	>
 > any;
 
 }

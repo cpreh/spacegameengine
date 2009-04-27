@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/sizeof.hpp>
 #include <boost/type_traits/alignment_of.hpp>
+#include <typeinfo>
 
 namespace sge
 {
@@ -81,6 +82,9 @@ public:
 	>
 	U &
 	get();
+
+	std::type_info const &
+	type() const;
 
 	size_type type_index() const;
 private:
