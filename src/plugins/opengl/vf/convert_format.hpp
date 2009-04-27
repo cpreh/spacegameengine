@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VF_CONVERT_FORMAT_HPP_INCLUDED
 
 #include "../common.hpp"
-#include <boost/variant/static_visitor.hpp>
 
 namespace sge
 {
@@ -41,11 +40,16 @@ namespace ogl
 namespace vf
 {
 
-class convert_format : public boost::static_visitor<GLenum> {
+class convert_format {
 public:
-	GLenum operator()(
+	typedef GLenum result_type;
+
+	result_type
+	operator()(
 		renderer::vf::dynamic_vector const &) const;
-	GLenum operator()(
+	
+	result_type
+	operator()(
 		renderer::vf::dynamic_color const &) const;
 };
 

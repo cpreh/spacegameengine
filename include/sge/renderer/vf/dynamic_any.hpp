@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vf/dynamic_vector.hpp>
 #include <sge/renderer/vf/dynamic_color.hpp>
-#include <boost/variant/variant.hpp>
+#include <sge/variant/object_fwd.hpp>
+#include <boost/mpl/vector.hpp>
 
 namespace sge
 {
@@ -33,9 +34,11 @@ namespace renderer
 namespace vf
 {
 
-typedef boost::variant<
-	dynamic_vector,
-	dynamic_color
+typedef variant::object<
+	boost::mpl::vector<
+		dynamic_vector,
+		dynamic_color
+	>
 > dynamic_any;
 
 }

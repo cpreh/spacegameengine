@@ -22,19 +22,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../pointer_actor.hpp"
 #include "../convert_format.hpp"
 #include <sge/renderer/vf/dynamic_ordered_element.hpp>
-#include <boost/variant/apply_visitor.hpp>
+#include <sge/variant/apply_unary.hpp>
 
 sge::ogl::vf::pointer_actor::pointer_actor(
 	renderer::vf::dynamic_ordered_element const &e,
 	renderer::vf::vertex_size const stride_)
 :
 	format_(
-		boost::apply_visitor(
+		variant::apply_unary(
 			convert_format(),
-			e.element().info())),
+			e.element().info()
+		)
+	),
 	stride_(
 		static_cast<GLsizei>(
-			stride_)),
+			stride_
+		)
+	),
 	pointer_(
 		0
 	),
