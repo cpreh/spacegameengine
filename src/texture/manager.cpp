@@ -25,9 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/image_too_big.hpp>
 #include <sge/renderer/image_view_dim.hpp>
 #include <sge/math/dim/basic_impl.hpp>
+#include <sge/variant/apply_unary.hpp>
 #include <sge/text.hpp>
-#include <boost/variant/static_visitor.hpp>
-#include <boost/variant/apply_visitor.hpp>
 #include <boost/next_prior.hpp>
 
 namespace
@@ -38,16 +37,21 @@ init_texture(
 	sge::texture::fragmented &,
 	sge::renderer::const_image_view const &src);
 
-class move_visitor : public boost::static_visitor<> {
+class move_visitor {
 public:
+	typedef void result_type;
+
 	move_visitor(
 		sge::texture::fragmented const &,
 		sge::texture::detail::fragmented_list &,
 		sge::texture::detail::fragmented_queue &);
 	
-	void operator()(
+	result_type
+	operator()(
 		sge::texture::detail::fragmented_list::iterator) const;
-	void operator()(
+	
+	result_type
+	operator()(
 		sge::texture::detail::fragmented_queue::iterator) const;
 private:
 	sge::texture::fragmented const &tex;
@@ -138,12 +142,13 @@ sge::texture::manager::part_freed(
 	detail::container_position const &pos,
 	fragmented const &frag)
 {	
-	boost::apply_visitor(
+	variant::apply_unary(
 		move_visitor(
 			frag,
 			full_textures,
 			free_textures),
-		pos);
+		pos
+	);
 }
 
 namespace
