@@ -31,7 +31,7 @@ template<
 In
 sge::algorithm::find_exn(
 	In const begin,
-	In const end
+	In const end,
 	T const &t)
 {
 	In const ret(

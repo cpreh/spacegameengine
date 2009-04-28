@@ -33,12 +33,12 @@ template<
 In
 find_exn(
 	In begin,
-	In end
+	In end,
 	T const &);
 
 }
 }
 
-#include <sge/algorithm/detail/find_exn.hpp>
+#include <sge/algorithm/detail/find_exn_impl.hpp>
 
 #endif
