@@ -19,12 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 
-#ifndef SGE_PARSE_JSON_OBJECT_HPP_INCLUDED
-#define SGE_PARSE_JSON_OBJECT_HPP_INCLUDED
+#ifndef SGE_PARSE_JSON_ELEMENT_VECTOR_HPP_INCLUDED
+#define SGE_PARSE_JSON_ELEMENT_VECTOR_HPP_INCLUDED
 
-#include <sge/parse/json/object_fwd.hpp>
-#include <sge/parse/json/member_vector.hpp>
-#include <sge/parse/json/member.hpp>
+#include <sge/parse/json/value.hpp>
+#include <vector>
 
 namespace sge
 {
@@ -33,10 +32,9 @@ namespace parse
 namespace json
 {
 
-class object {
-public:
-	member_vector members;
-};
+typedef std::vector<
+	value
+> element_vector;
 
 }
 }

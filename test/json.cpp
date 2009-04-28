@@ -57,7 +57,7 @@ void print(
 {
 	sge::cout << SGE_TEXT('[');
 	BOOST_FOREACH(
-		sge::parse::json::array::element_vector::const_reference r,
+		sge::parse::json::element_vector::const_reference r,
 		a.elements
 	)
 	{
@@ -92,7 +92,7 @@ void print(
 	sge::parse::json::object const &obj)
 {
 	BOOST_FOREACH(
-		sge::parse::json::object::member_vector::const_reference r,
+		sge::parse::json::member_vector::const_reference r,
 		obj.members
 	)
 	{
