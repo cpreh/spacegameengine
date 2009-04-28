@@ -18,16 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_PARSE_JSON_GET_HPP_INCLUDED
+#define SGE_PARSE_JSON_GET_HPP_INCLUDED
 
-#ifndef SGE_PARSE_JSON_VALUE_HPP_INCLUDED
-#define SGE_PARSE_JSON_VALUE_HPP_INCLUDED
-
-#include <sge/parse/json/string.hpp>
-#include <sge/parse/json/null.hpp>
-#include <sge/parse/json/object_fwd.hpp>
-#include <sge/parse/json/array_fwd.hpp>
-#include <boost/variant/variant.hpp>
-#include <boost/variant/recursive_wrapper.hpp>
+#include <sge/exception.hpp>
+#include <sge/type_name.hpp>
+#include <sge/text.hpp>
+#include <boost/variant/get.hpp>
+#include <typeinfo>
+#include <exception>
 
 namespace sge
 {
@@ -36,21 +35,36 @@ namespace parse
 namespace json
 {
 
-class array;
-
-typedef boost::variant<
-	boost::recursive_wrapper<
-		object
-	>,
-	boost::recursive_wrapper<
-		array
-	>,
-	bool,
-	string,
-	int,
-	double,
-	null
-> value;
+template<
+	typename T
+>
+T const &
+get(
+	value const &val)
+{
+	try
+	{
+		return boost::get<
+			T
+		>(
+			val
+		);
+	}
+	catch(std::exception const &)
+	{
+		throw exception(
+			SGE_TEXT("json::get<")
+			+ sge::type_name(
+				typeid(T)
+			)
+			+ SGE_TEXT("> failed! Type is \"")
+			+ sge::type_name(
+				val.type()
+			)
+			+ SGE_TEXT("\" instead!")
+		);
+	}
+}
 
 }
 }
