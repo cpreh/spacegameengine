@@ -18,35 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
-#ifndef SGE_ALGORITHM_DETAIL_FIND_IF_EXN_IMPL_HPP_INCLUDED
-#define SGE_ALGORITHM_DETAIL_FIND_IF_EXN_IMPL_HPP_INCLUDED
-
 #include <sge/algorithm/element_not_found.hpp>
-#include <algorithm>
+#include <sge/text.hpp>
 
-template<
-	typename In,
-	typename Comp
->
-In
-sge::algorithm::find_if_exn(
-	In begin,
-	In end,
-	Comp const &comp)
-{
-	In const ret(
-		std::find_if(
-			begin,
-			end,
-			comp
-		)
-	);
-
-	if(ret == end)
-		throw element_not_found();
-	
-	return ret;
-}
-
-#endif
+sge::algorithm::element_not_found::element_not_found()
+:
+	exception(
+		SGE_TEXT("element not found")
+	)
+{}

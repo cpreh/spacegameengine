@@ -1,6 +1,6 @@
 FILE (GLOB sgecorefiles 
 	*.cpp
-	archive/*.cpp
+	algorithm/*.cpp
 	audio/*.cpp
 	config/*.cpp
 	console/*.cpp
