@@ -78,5 +78,6 @@ make_##ptr_type()\
 		new Type());\
 }
 // TODO: can't the macro generate this, too?
+// TODO: make the return value const for shared_ptrs
 
 #endif

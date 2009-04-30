@@ -24,12 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/detail/make_ptr_base.hpp>
 #include <sge/shared_ptr.hpp>
-#include <sge/todo.hpp>
 
 namespace sge
 {
-
-SGE_TODO("somehow make the return value of this const")
 
 SGE_DETAIL_MAKE_PTR_BASE(shared_ptr)
 
