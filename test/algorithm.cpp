@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/algorithm/copy_n.hpp>
 #include <sge/algorithm/append.hpp>
+#include <sge/algorithm/find_exn.hpp>
 #include <sge/container/raw_vector_impl.hpp>
 #include <string>
 #include <ostream>
@@ -45,6 +46,12 @@ int main()
 	sge::algorithm::append(
 		a,
 		b
+	);
+
+	sge::algorithm::find_exn(
+		str.begin(),
+		str.end(),
+		't'
 	);
 
 	std::cout << std::string(a.begin(), a.end()) << '\n';

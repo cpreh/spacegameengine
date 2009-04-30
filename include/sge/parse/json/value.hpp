@@ -47,8 +47,8 @@ typedef boost::variant<
 	>,
 	bool,
 	string,
-	double,
 	int,
+	double,
 	null
 > value;
 

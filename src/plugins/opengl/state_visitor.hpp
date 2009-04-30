@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_VISITOR_HPP_INCLUDED
 
 #include <sge/renderer/state/states.hpp>
-#include <boost/variant/static_visitor.hpp>
 
 namespace sge
 {
@@ -32,24 +31,26 @@ namespace ogl
 
 class split_states;
 
-class state_visitor : public boost::static_visitor<> {
+class state_visitor {
 public:
+	typedef void result_type;
+
 	explicit state_visitor(
 		split_states &states);
 
-	void operator()(renderer::state::int_::type) const;
-	void operator()(renderer::state::uint_::type) const;
-	void operator()(renderer::state::float_::type) const;
-	void operator()(renderer::state::bool_::type) const;
-	void operator()(renderer::state::color_::type) const;
-	void operator()(renderer::state::cull_mode::type) const;
-	void operator()(renderer::state::depth_func::type) const;
-	void operator()(renderer::state::stencil_func::type) const;
-	void operator()(renderer::state::alpha_func::type) const;
-	void operator()(renderer::state::fog_mode::type) const;
-	void operator()(renderer::state::draw_mode::type) const;
-	void operator()(renderer::state::source_blend_func::type) const;
-	void operator()(renderer::state::dest_blend_func::type) const;
+	result_type operator()(renderer::state::int_::type) const;
+	result_type operator()(renderer::state::uint_::type) const;
+	result_type operator()(renderer::state::float_::type) const;
+	result_type operator()(renderer::state::bool_::type) const;
+	result_type operator()(renderer::state::color_::type) const;
+	result_type operator()(renderer::state::cull_mode::type) const;
+	result_type operator()(renderer::state::depth_func::type) const;
+	result_type operator()(renderer::state::stencil_func::type) const;
+	result_type operator()(renderer::state::alpha_func::type) const;
+	result_type operator()(renderer::state::fog_mode::type) const;
+	result_type operator()(renderer::state::draw_mode::type) const;
+	result_type operator()(renderer::state::source_blend_func::type) const;
+	result_type operator()(renderer::state::dest_blend_func::type) const;
 private:
 	split_states &states;
 };

@@ -25,18 +25,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/parameterless.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/renderer/parameters.hpp>
-#include <boost/variant/variant.hpp>
+#include <sge/variant/object_fwd.hpp>
+#include <boost/mpl/vector.hpp>
 
 namespace sge
 {
 namespace systems
 {
 
-typedef boost::variant<
-	window::parameters,
-	renderer::parameters,
-	parameterless::type
-	// TODO: add image format and audio format, too!
+typedef variant::object<
+	boost::mpl::vector<
+		window::parameters,
+		renderer::parameters,
+		parameterless::type
+	>
+// TODO: add image format and audio format, too!
 > any;
 
 }

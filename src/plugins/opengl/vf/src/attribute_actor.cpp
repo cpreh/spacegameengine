@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../client_state_combiner.hpp"
 #include "../vertex_attrib.hpp"
 #include <sge/renderer/vf/dynamic_ordered_element.hpp>
-#include <boost/variant/apply_visitor.hpp>
+#include <sge/variant/apply_unary.hpp>
 
 sge::ogl::vf::attribute_actor::attribute_actor(
 	renderer::vf::dynamic_ordered_element const &e,
@@ -32,11 +32,14 @@ sge::ogl::vf::attribute_actor::attribute_actor(
 :
 	pointer_actor(
 		e,
-		stride),
+		stride
+	),
 	elements(
-		boost::apply_visitor(
+		variant::apply_unary(
 			convert_num_elements(),
-			e.element().info()))
+			e.element().info()
+		)
+	)
 {}
 
 void sge::ogl::vf::attribute_actor::operator()(
@@ -48,9 +51,12 @@ void sge::ogl::vf::attribute_actor::operator()(
 		format(),
 		true, // normalized
 		stride(),
-		pointer());
+		pointer()
+	);
 	
 	c.enable_attribute(
 		static_cast<GLuint>(
-			index()));
+			index()
+		)
+	);
 }

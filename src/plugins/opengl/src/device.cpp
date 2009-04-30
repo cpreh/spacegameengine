@@ -61,9 +61,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/window/instance.hpp>
+#include <sge/variant/apply_unary.hpp>
 #include <sge/structure_cast.hpp>
 #include <sge/make_shared_ptr.hpp>
-#include <boost/variant/apply_visitor.hpp>
 #include <boost/bind.hpp>
 #include <sstream>
 
@@ -344,11 +344,16 @@ void sge::ogl::device::state(
 	renderer::state::list const &states)
 {
 	split_states split(current_states);
+
 	state_visitor const visitor(split);
+
 	BOOST_FOREACH(renderer::state::any const &s, states.values())
 	{
 		current_states.overwrite(s);
-		boost::apply_visitor(visitor, s);
+
+		variant::apply_unary(
+			visitor, s
+		);
 	}
 }
 

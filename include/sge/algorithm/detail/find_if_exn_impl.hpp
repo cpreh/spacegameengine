@@ -22,8 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_ALGORITHM_DETAIL_FIND_IF_EXN_IMPL_HPP_INCLUDED
 #define SGE_ALGORITHM_DETAIL_FIND_IF_EXN_IMPL_HPP_INCLUDED
 
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <sge/algorithm/element_not_found.hpp>
 #include <algorithm>
 
 template<
@@ -45,9 +44,7 @@ sge::algorithm::find_if_exn(
 	);
 
 	if(ret == end)
-		throw exception(
-			SGE_TEXT("find_if_exn failed!")
-		);
+		throw element_not_found();
 	
 	return ret;
 }

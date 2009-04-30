@@ -39,7 +39,8 @@ sge::ogl::state_visitor::state_visitor(
 	states(states)
 {}
 
-void sge::ogl::state_visitor::operator()(
+sge::ogl::state_visitor::result_type
+sge::ogl::state_visitor::operator()(
 	renderer::state::int_::type const s) const
 {
 	SGE_OPENGL_SENTRY
@@ -61,7 +62,8 @@ void sge::ogl::state_visitor::operator()(
 	}
 }
 
-void sge::ogl::state_visitor::operator()(
+sge::ogl::state_visitor::result_type
+sge::ogl::state_visitor::operator()(
 	renderer::state::uint_::type const s) const
 {
 	typedef renderer::state::traits<
@@ -78,7 +80,8 @@ void sge::ogl::state_visitor::operator()(
 	}
 }
 
-void sge::ogl::state_visitor::operator()(
+sge::ogl::state_visitor::result_type
+sge::ogl::state_visitor::operator()(
 	renderer::state::float_::type const s) const
 {
 	SGE_OPENGL_SENTRY
@@ -114,7 +117,8 @@ void sge::ogl::state_visitor::operator()(
 	}
 }
 
-void sge::ogl::state_visitor::operator()(
+sge::ogl::state_visitor::result_type
+sge::ogl::state_visitor::operator()(
 	renderer::state::bool_::type const s) const
 {
 	typedef renderer::state::traits<
@@ -136,7 +140,8 @@ void sge::ogl::state_visitor::operator()(
 	}
 }
 
-void sge::ogl::state_visitor::operator()(
+sge::ogl::state_visitor::result_type
+sge::ogl::state_visitor::operator()(
 	renderer::state::color_::type const s) const
 {
 	SGE_OPENGL_SENTRY
@@ -175,7 +180,8 @@ void sge::ogl::state_visitor::operator()(
 	}
 }
 
-void sge::ogl::state_visitor::operator()(
+sge::ogl::state_visitor::result_type
+sge::ogl::state_visitor::operator()(
 	renderer::state::cull_mode::type const m) const
 {
 	if(m == renderer::state::cull_mode::off)
@@ -189,7 +195,8 @@ void sge::ogl::state_visitor::operator()(
 	glCullFace(convert_states(m));
 }
 
-void sge::ogl::state_visitor::operator()(
+sge::ogl::state_visitor::result_type
+sge::ogl::state_visitor::operator()(
 	renderer::state::depth_func::type const f) const
 {
 	if(f == renderer::state::depth_func::off)
@@ -204,19 +211,22 @@ void sge::ogl::state_visitor::operator()(
 	glDepthFunc(convert_states(f));
 }
 
-void sge::ogl::state_visitor::operator()(
+sge::ogl::state_visitor::result_type
+sge::ogl::state_visitor::operator()(
 	renderer::state::stencil_func::type) const
 {
 	states.update_stencil();
 }
 
-void sge::ogl::state_visitor::operator()(
+sge::ogl::state_visitor::result_type
+sge::ogl::state_visitor::operator()(
 	renderer::state::alpha_func::type) const
 {
 	states.update_alpha_test();
 }
 
-void sge::ogl::state_visitor::operator()(
+sge::ogl::state_visitor::result_type
+sge::ogl::state_visitor::operator()(
 	renderer::state::fog_mode::type const m) const
 {
 	if(m == renderer::state::fog_mode::off)
@@ -231,7 +241,8 @@ void sge::ogl::state_visitor::operator()(
 	glFogi(GL_FOG_MODE, convert_states(m));
 }
 
-void sge::ogl::state_visitor::operator()(
+sge::ogl::state_visitor::result_type
+sge::ogl::state_visitor::operator()(
 	renderer::state::draw_mode::type const m) const
 {
 	SGE_OPENGL_SENTRY
@@ -240,13 +251,15 @@ void sge::ogl::state_visitor::operator()(
 		convert_states(m));
 }
 
-void sge::ogl::state_visitor::operator()(
+sge::ogl::state_visitor::result_type
+sge::ogl::state_visitor::operator()(
 	renderer::state::source_blend_func::type) const
 {
 	states.update_blend();
 }
 
-void sge::ogl::state_visitor::operator()(
+sge::ogl::state_visitor::result_type
+sge::ogl::state_visitor::operator()(
 	renderer::state::dest_blend_func::type) const
 {
 	states.update_blend();

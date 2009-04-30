@@ -47,8 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 #include <sge/string.hpp>
 #include <sge/optional.hpp>
-#include <boost/variant/static_visitor.hpp>
-#include <boost/variant/apply_visitor.hpp>
+#include <sge/variant/apply_unary.hpp>
 #include <boost/foreach.hpp>
 #include <typeinfo>
 
@@ -119,17 +118,24 @@ private:
 namespace
 {
 
-class visitor : public boost::static_visitor<> {
+class visitor {
 public:
+	typedef void result_type;
+
 	visitor(
 		sge::systems::instance::impl &,
 		sge::string const &name);
 	
-	void operator()(
+	result_type
+	operator()(
 		sge::renderer::parameters const &) const;
-	void operator()(
+	
+	result_type
+	operator()(
 		sge::window::parameters const &) const;
-	void operator()(
+	
+	result_type
+	operator()(
 		sge::systems::parameterless::type) const;
 private:
 	sge::systems::instance::impl &impl_;
@@ -154,7 +160,7 @@ void sge::systems::instance::reinit(
 	list const &l)
 {
 	BOOST_FOREACH(named const &named_, l.get())
-		boost::apply_visitor(
+		variant::apply_unary(
 			visitor(
 				*impl_,
 				named_.name()

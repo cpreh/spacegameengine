@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic_ordered_element.hpp>
 #include <sge/renderer/convert_pixels_conditional.hpp>
 #include <sge/math/dim/basic_impl.hpp>
-#include <boost/variant/get.hpp>
 #include <boost/assign/list_of.hpp>
 
 void sge::ogl::convert_vertex_colors(
@@ -34,8 +33,10 @@ void sge::ogl::convert_vertex_colors(
 	unsigned char *const data)
 {
 	sge::renderer::vf::dynamic_color const dcolor(
-		boost::get<sge::renderer::vf::dynamic_color>(
-			e.element().info()));
+		e.element().info().get<
+			sge::renderer::vf::dynamic_color
+		>()
+	);
 
 	sge::renderer::convert_pixels_conditional(
 		data + e.offset(),
