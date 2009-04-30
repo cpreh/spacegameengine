@@ -57,6 +57,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/primitive.hpp>
 #include <sge/renderer/state/default.hpp>
 #include <sge/renderer/state/var.hpp>
+#include <sge/renderer/state/combine.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
@@ -366,7 +367,9 @@ void sge::ogl::device::push_state(
 	state(
 		renderer::state::combine(
 			current_states,
-			states));
+			states
+		)
+	);
 }
 
 void sge::ogl::device::pop_state()

@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/any_color.hpp>
 #include <sge/renderer/any_vector3.hpp>
 #include <sge/renderer/any_arithmetic.hpp>
+#include <sge/variant/object_impl.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/export.hpp>
 
@@ -62,16 +63,19 @@ public:
 	SGE_SYMBOL any_arithmetic const &distribution_exponent() const;
 	SGE_SYMBOL any_arithmetic const &cutoff_angle() const;
 private:
-	any_color        ambient_,
-	                 diffuse_,
-	                 specular_;
-	position_type    position_;
-	direction_type   direction_;
-	attenuation_type const_attenuation_,
-	                 linear_attenuation_,
-	                 quadratic_attenuation_;
-	any_arithmetic   distribution_exponent_,
-	                 cutoff_angle_;
+	any_color
+		ambient_,
+		diffuse_,
+		specular_;
+	position_type position_;
+	direction_type  direction_;
+	attenuation_type
+		const_attenuation_,
+		linear_attenuation_,
+		quadratic_attenuation_;
+	any_arithmetic
+		distribution_exponent_,
+		cutoff_angle_;
 };
 
 }

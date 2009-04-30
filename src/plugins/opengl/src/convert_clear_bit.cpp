@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../convert_clear_bit.hpp"
+#include <sge/renderer/state/trampoline.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
@@ -27,9 +28,7 @@ GLenum
 sge::ogl::convert_clear_bit(
 	renderer::state::bool_::trampoline_type const &s)
 {
-	typedef renderer::state::traits<
-		renderer::state::bool_type
-	> rs;
+	namespace rs = sge::renderer::state::bool_::available_states;
 
 	switch(s.state()) {
 	case rs::clear_backbuffer:

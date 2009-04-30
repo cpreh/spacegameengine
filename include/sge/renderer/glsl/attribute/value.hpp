@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/any_arithmetic.hpp>
 #include <sge/renderer/any_dynamic_vector.hpp>
-#include <boost/variant/variant.hpp>
+#include <sge/variant/object_fwd.hpp>
+#include <boost/mpl/vector.hpp>
 
 namespace sge
 {
@@ -35,9 +36,11 @@ namespace glsl
 namespace attribute
 {
 
-typedef boost::variant<
-	any_arithmetic,
-	any_dynamic_vector
+typedef variant::object<
+	boost::mpl::vector<
+		any_arithmetic,
+		any_dynamic_vector
+	>
 > value;
 
 }

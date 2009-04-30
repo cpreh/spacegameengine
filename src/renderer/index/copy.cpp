@@ -20,40 +20,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/index/copy.hpp>
+#include <sge/variant/apply_binary.hpp>
+#include <sge/variant/object_impl.hpp>
 #include <sge/exception.hpp>
-#include <boost/variant/apply_visitor.hpp>
-#include <boost/variant/static_visitor.hpp>
 #include <sge/text.hpp>
 #include <algorithm>
 
 namespace
 {
 
-class copy_visitor : public boost::static_visitor<> {
+class copy_visitor {
 public:
+	typedef void result_type;
+
 	template<
 		typename T
 	>
-	void operator()(
+	result_type
+	operator()(
 		T const &src,
 		T &dest) const
 	{
 		std::copy(
 			src.begin(),
 			src.end(),
-			dest.begin());
+			dest.begin()
+		);
 	}
 
 	template<
 		typename T,
 		typename U
 	>
-	void operator()(
+	result_type
+	operator()(
 		T,
 		U) const
 	{
 		throw sge::exception(
-			SGE_TEXT("Incompatible index::views in index::copy!"));
+			SGE_TEXT("Incompatible index::views in index::copy!")
+		);
 	}
 };
 
@@ -64,8 +70,9 @@ sge::renderer::index::copy(
 	const_view const &src,
 	view const &dest)
 {
-	boost::apply_visitor(
+	variant::apply_binary(
 		copy_visitor(),
 		src,
-		dest);
+		dest
+	);
 }

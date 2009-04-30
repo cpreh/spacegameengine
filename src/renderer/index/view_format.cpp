@@ -20,43 +20,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/index/view_format.hpp>
-#include <boost/variant/static_visitor.hpp>
-#include <boost/variant/apply_visitor.hpp>
+#include <sge/variant/apply_unary.hpp>
+#include <sge/variant/object_impl.hpp>
 
 namespace
 {
 
-class visitor
-: public boost::static_visitor<
-	sge::renderer::index::format::type
-> {
+class visitor {
 public:
+	typedef sge::renderer::index::format::type result_type;
+
 	template<
 		typename T
 	>
-	sge::renderer::index::format::type
+	result_type
 	operator()(
 		T const &) const;
 };
 
 }
 
-
 sge::renderer::index::format::type
 sge::renderer::index::view_format(
 	const_view const &v) 
 {
-	return boost::apply_visitor(
+	return variant::apply_unary(
 		visitor(),
-		v);
+		v
+	);
 }
+
 namespace
 {
 
 template<
 	typename T
 >
-sge::renderer::index::format::type
+visitor::result_type
 visitor::operator()(
 	T const &t) const
 {

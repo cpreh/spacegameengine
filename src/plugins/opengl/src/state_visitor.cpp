@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/arithmetic_convert.hpp>
 #include <sge/renderer/raw_color.hpp>
 #include <sge/renderer/state/var.hpp>
-#include <sge/renderer/state/traits.hpp>
+#include <sge/variant/object_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
@@ -45,9 +45,7 @@ sge::ogl::state_visitor::operator()(
 {
 	SGE_OPENGL_SENTRY
 
-	typedef renderer::state::traits<
-		renderer::state::int_type
-	> rs;
+	namespace rs = renderer::state::int_::available_states;
 
 	switch(s.state()) {
 	case rs::stencil_clear_val:
@@ -64,11 +62,9 @@ sge::ogl::state_visitor::operator()(
 
 sge::ogl::state_visitor::result_type
 sge::ogl::state_visitor::operator()(
-	renderer::state::uint_::type const s) const
+	renderer::state::uint::type const s) const
 {
-	typedef renderer::state::traits<
-		renderer::state::uint_type
-	> rs;
+	namespace rs = renderer::state::uint::available_states;
 
 	switch(s.state()) {
 	case rs::stencil_mask:
@@ -86,9 +82,7 @@ sge::ogl::state_visitor::operator()(
 {
 	SGE_OPENGL_SENTRY
 
-	typedef renderer::state::traits<
-		renderer::state::float_type
-	> rs;
+	namespace rs = renderer::state::float_::available_states;
 
 	switch(s.state()) {
 	case rs::zbuffer_clear_val:
@@ -121,9 +115,7 @@ sge::ogl::state_visitor::result_type
 sge::ogl::state_visitor::operator()(
 	renderer::state::bool_::type const s) const
 {
-	typedef renderer::state::traits<
-		renderer::state::bool_type
-	> rs;
+	namespace rs = renderer::state::bool_::available_states;
 
 	switch(s.state()) {
 	case rs::clear_backbuffer:
@@ -142,17 +134,19 @@ sge::ogl::state_visitor::operator()(
 
 sge::ogl::state_visitor::result_type
 sge::ogl::state_visitor::operator()(
-	renderer::state::color_::type const s) const
+	renderer::state::color::type const s) const
 {
 	SGE_OPENGL_SENTRY
 
-	typedef renderer::state::traits<
-		renderer::state::color_type
-	> rs;
+	namespace rs = renderer::state::color::available_states;
 
 	renderer::rgba32f_color const fcolor(
-		renderer::any_color_convert<renderer::rgba32f_color>(
-			s.value()));
+		renderer::any_color_convert<
+			renderer::rgba32f_color
+		>(
+			s.value()
+		)
+	);
 
 	switch(s.state()) {
 	case rs::clear_color:
@@ -160,19 +154,24 @@ sge::ogl::state_visitor::operator()(
 			fcolor[0],
 			fcolor[1],
 			fcolor[2],
-			fcolor[3]);
+			fcolor[3]
+		);
 		break;
 	case rs::ambient_light_color:
 		glLightModelfv(
 			GL_LIGHT_MODEL_AMBIENT,
 			renderer::raw_color(
-				fcolor).data());
+				fcolor
+			).data()
+		);
 		break;
 	case rs::fog_color:
 		glFogfv(
 			GL_FOG_COLOR,
 			renderer::raw_color(
-				fcolor).data());
+				fcolor
+			).data()
+		);
 		break;
 	default:
 		throw exception(

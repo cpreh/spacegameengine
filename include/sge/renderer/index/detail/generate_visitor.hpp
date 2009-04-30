@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDEX_DETAIL_GENERATE_VISITOR_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_DETAIL_GENERATE_VISITOR_HPP_INCLUDED
 
-#include <boost/variant/static_visitor.hpp>
 //#include <boost/foreach.hpp>
 
 namespace sge
@@ -37,8 +36,10 @@ namespace detail
 template<
 	typename Gen
 >
-class generate_visitor : public boost::static_visitor<> {
+class generate_visitor {
 public:
+	typedef void result_type;
+
 	explicit generate_visitor(
 		Gen const &gen)
 	:
@@ -48,7 +49,8 @@ public:
 	template<
 		typename View
 	>
-	void operator()(
+	result_type
+	operator()(
 		View const &v) const
 	{
 		//BOOST_FOREACH(typename View::reference r, v)

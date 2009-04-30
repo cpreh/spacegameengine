@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/matrix_convert.hpp>
 #include <sge/renderer/basic_any_matrix.hpp>
+#include <sge/variant/apply_unary.hpp>
+#include <sge/variant/object_impl.hpp>
 #include <sge/math/matrix/static.hpp>
 #include <sge/math/matrix/basic_decl.hpp>
 #include <sge/export.hpp>
 #include <sge/structure_cast.hpp>
-#include <boost/variant/static_visitor.hpp>
-#include <boost/variant/apply_visitor.hpp>
 
 namespace
 {
@@ -34,12 +34,15 @@ namespace
 template<
 	typename Dest
 >
-class visitor : public boost::static_visitor<Dest> {
+class visitor {
 public:
+	typedef Dest result_type;
+
 	template<
 		typename T
 	>
-	Dest const operator()(
+	result_type const
+	operator()(
 		T const &) const;
 };
 
@@ -53,9 +56,10 @@ Dest const
 sge::renderer::matrix_convert(
 	Source const &v)
 {
-	return boost::apply_visitor(
+	return variant::apply_unary(
 		visitor<Dest>(),
-		v);
+		v
+	);
 }
 
 namespace
@@ -67,7 +71,7 @@ template<
 template<
 	typename T
 >
-Dest const
+typename visitor<Dest>::result_type const
 visitor<Dest>::operator()(
 	T const &v) const
 {

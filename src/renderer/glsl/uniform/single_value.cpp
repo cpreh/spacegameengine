@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/glsl/uniform/single_value.hpp>
 #include <sge/renderer/glsl/uniform/variable.hpp>
+#include <sge/variant/apply_unary.hpp>
+#include <sge/variant/object_impl.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/vector/dynamic_impl.hpp>
 #include <sge/math/matrix/basic_impl.hpp>
@@ -31,37 +33,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/format.hpp>
 #include <sge/text.hpp>
 #include <sge/exception.hpp>
-#include <boost/variant/apply_visitor.hpp>
-#include <boost/variant/static_visitor.hpp>
 
 namespace
 {
 
-class visitor : public boost::static_visitor<> {
+class visitor {
 public:
+	typedef void result_type;
+
 	explicit visitor(
 		sge::renderer::glsl::uniform::variable_ptr);
 	
-	void
+	result_type	
 	operator()(
 		sge::renderer::glsl::int_type) const;
-	void
+
+	result_type
 	operator()(
 		sge::renderer::glsl::float_type) const;
 
-	void
+	result_type
 	operator()(
 		sge::renderer::glsl::uniform::vector const &) const;
 
-	void
+	result_type
 	operator()(
 		sge::renderer::glsl::uniform::matrix const &) const;
 private:
 	sge::renderer::glsl::uniform::variable_ptr const var;
 };
 
-class vector_visitor : public boost::static_visitor<> {
+class vector_visitor {
 public:
+	typedef void result_type;
+
 	explicit vector_visitor(
 		sge::renderer::glsl::uniform::variable_ptr);
 		
@@ -69,7 +74,7 @@ public:
 		typename N,
 		typename S
 	>
-	void
+	result_type
 	operator()(
 		sge::math::vector::basic<
 			sge::renderer::glsl::int_type,
@@ -81,7 +86,7 @@ public:
 		typename N,
 		typename S
 	>
-	void
+	result_type
 	operator()(
 		sge::math::vector::basic<
 			sge::renderer::glsl::float_type,
@@ -111,10 +116,12 @@ sge::renderer::glsl::uniform::single_value(
 	variable_ptr const var,
 	single_value_type const &val)
 {
-	boost::apply_visitor(
+	variant::apply_unary(
 		visitor(
-			var),
-		val);
+			var
+		),
+		val
+	);
 }
 
 namespace
@@ -126,7 +133,7 @@ visitor::visitor(
 	var(var)
 {}
 	
-void
+visitor::result_type
 visitor::operator()(
 	sge::renderer::glsl::int_type const i) const
 {
@@ -134,10 +141,12 @@ visitor::operator()(
 		sge::renderer::glsl::uniform::int_value(
 			&i,
 			1,
-			sge::renderer::glsl::uniform::int_value_type::int1));
+			sge::renderer::glsl::uniform::int_value_type::int1
+		)
+	);
 }
 
-void
+visitor::result_type
 visitor::operator()(
 	sge::renderer::glsl::float_type const f) const
 {
@@ -145,21 +154,25 @@ visitor::operator()(
 		sge::renderer::glsl::uniform::float_value(
 			&f,
 			1,
-			sge::renderer::glsl::uniform::float_value_type::float1));
+			sge::renderer::glsl::uniform::float_value_type::float1)
+		)
+	;
 
 }
 
-void
+visitor::result_type
 visitor::operator()(
 	sge::renderer::glsl::uniform::vector const &v) const
 {
-	boost::apply_visitor(
+	sge::variant::apply_unary(
 		vector_visitor(
-			var),
-		v);
+			var
+		),
+		v
+	);
 }
 
-void
+visitor::result_type
 visitor::operator()(
 	sge::renderer::glsl::uniform::matrix const &m) const
 {
@@ -168,7 +181,10 @@ visitor::operator()(
 			m.data(),
 			1,
 			convert_matrix_type(
-				m.dim())));
+				m.dim()
+			)
+		)
+	);
 }
 
 
@@ -182,7 +198,7 @@ template<
 	typename N,
 	typename S
 >
-void
+vector_visitor::result_type
 vector_visitor::operator()(
 	sge::math::vector::basic<
 		sge::renderer::glsl::int_type,
@@ -195,14 +211,17 @@ vector_visitor::operator()(
 			v.data(),
 			1,
 			convert_int_vector_type(
-				v.size())));
+				v.size()
+			)
+		)
+	);
 }
 
 template<
 	typename N,
 	typename S
 >
-void
+vector_visitor::result_type
 vector_visitor::operator()(
 	sge::math::vector::basic<
 		sge::renderer::glsl::float_type,
@@ -215,7 +234,10 @@ vector_visitor::operator()(
 			v.data(),
 			1,
 			convert_float_vector_type(
-				v.size())));
+				v.size()
+			)
+		)
+	);
 }
 
 sge::renderer::glsl::uniform::float_value_type::type

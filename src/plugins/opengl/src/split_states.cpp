@@ -57,7 +57,7 @@ void sge::ogl::split_states::update_stencil()
 		static_cast<GLint>(
 			states.get(renderer::state::int_::stencil_ref)),
 		static_cast<GLuint>(
-			states.get(renderer::state::uint_::stencil_mask)));
+			states.get(renderer::state::uint::stencil_mask)));
 }
 
 void sge::ogl::split_states::update_blend()

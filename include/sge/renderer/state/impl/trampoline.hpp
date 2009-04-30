@@ -18,37 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_RENDERER_STATE_IMPL_TRAMPOLINE_HPP_INCLUDED
+#define SGE_RENDERER_STATE_IMPL_TRAMPOLINE_HPP_INCLUDED
 
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/var.hpp>
-#include <sge/renderer/state/types.hpp>
 
-template<typename T>
-sge::renderer::state::trampoline<T>::trampoline(
+template<
+	typename T,
+	typename States
+>
+sge::renderer::state::trampoline<T, States>::trampoline(
 	state_type const state_)
 :
 	state_(state_)
 {}
 
-template<typename T>
-typename sge::renderer::state::trampoline<T>::var_type const
-sge::renderer::state::trampoline<T>::operator=(
+template<
+	typename T,
+	typename States
+>
+typename sge::renderer::state::trampoline<T, States>::var_type const
+sge::renderer::state::trampoline<T, States>::operator=(
 	T const t) const
 {
-	return var<T>(
+	return var_type(
 		state_,
-		t);
+		t
+	);
 }
 
-template<typename T>
-typename sge::renderer::state::trampoline<T>::state_type
-sge::renderer::state::trampoline<T>::state() const
+template<
+	typename T,
+	typename States
+>
+typename sge::renderer::state::trampoline<T, States>::state_type
+sge::renderer::state::trampoline<T, States>::state() const
 {
 	return state_;
 }
 
-template class sge::renderer::state::trampoline<sge::renderer::state::int_type>;
-template class sge::renderer::state::trampoline<sge::renderer::state::uint_type>;
-template class sge::renderer::state::trampoline<sge::renderer::state::float_type>;
-template class sge::renderer::state::trampoline<sge::renderer::state::bool_type>;
-template class sge::renderer::state::trampoline<sge::renderer::state::color_type>;
+#endif

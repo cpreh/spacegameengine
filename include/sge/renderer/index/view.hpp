@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/index/view_16.hpp>
 #include <sge/renderer/index/view_32.hpp>
-#include <boost/variant/variant.hpp>
+#include <sge/variant/object_fwd.hpp>
+#include <boost/mpl/vector.hpp>
 
 namespace sge
 {
@@ -33,14 +34,18 @@ namespace renderer
 namespace index
 {
 
-typedef boost::variant<
-	view_16,
-	view_32
+typedef variant::object<
+	boost::mpl::vector<
+		view_16,
+		view_32
+	>
 > view;
 
-typedef boost::variant<
-	const_view_16,
-	const_view_32
+typedef variant::object<
+	boost::mpl::vector<
+		const_view_16,
+		const_view_32
+	>
 > const_view;
 
 }

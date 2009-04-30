@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/material.hpp>
 #include <sge/renderer/raw_color.hpp>
 #include <sge/renderer/any_color_convert.hpp>
-#include <boost/variant/static_visitor.hpp>
-#include <boost/variant/apply_visitor.hpp>
+#include <sge/variant/apply_unary.hpp>
+#include <sge/variant/object_impl.hpp>
 
 namespace
 {
@@ -46,8 +46,10 @@ void material_color(
 	GLenum type,
 	sge::renderer::any_color const &);
 
-class arithmetic_visitor : public boost::static_visitor<> {
+class arithmetic_visitor {
 public:
+	typedef void result_type;
+
 	arithmetic_visitor(
 		GLenum face,
 		GLenum type);
@@ -55,7 +57,8 @@ public:
 	template<
 		typename T
 	>
-	void operator()(
+	result_type
+	operator()(
 		T) const;
 private:
 	GLenum const
@@ -90,11 +93,13 @@ void sge::ogl::set_material(
 		GL_EMISSION,
 		mat.emissive());
 
-	boost::apply_visitor(
+	variant::apply_unary(
 		arithmetic_visitor(
 			face,
-			GL_SHININESS),
-		mat.power());
+			GL_SHININESS
+		),
+		mat.power()
+	);
 }
 
 namespace
@@ -135,8 +140,13 @@ void material_color(
 		face,
 		type,
 		sge::renderer::raw_color(
-			sge::renderer::any_color_convert<sge::renderer::rgba32f_color>(
-				color)).data());
+			sge::renderer::any_color_convert<
+				sge::renderer::rgba32f_color
+			>(
+				color
+			)
+		).data()
+	);
 }
 
 arithmetic_visitor::arithmetic_visitor(

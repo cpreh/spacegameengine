@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/index/detail/generate_visitor.hpp>
 #include <sge/renderer/index/view.hpp>
-#include <boost/variant/apply_visitor.hpp>
+#include <sge/variant/apply_unary.hpp>
 
 namespace sge
 {
@@ -41,10 +41,12 @@ generate(
 	view const &v,
 	Gen const &gen)
 {
-	boost::apply_visitor(
+	variant::apply_unary(
 		detail::generate_visitor<Gen>(
-			gen),
-		v);
+			gen
+		),
+		v
+	);
 }
 
 }

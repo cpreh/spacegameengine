@@ -18,12 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
-#ifndef SGE_RENDERER_STATE_TYPES_HPP_INCLUDED
-#define SGE_RENDERER_STATE_TYPES_HPP_INCLUDED
-
-#include <sge/renderer/any_color.hpp>
-#include <sge/renderer/any_arithmetic.hpp>
+#ifndef SGE_RENDERER_STATE_SOURCE_BLEND_FUNC_HPP_INCLUDED
+#define SGE_RENDERER_STATE_SOURCE_BLEND_FUNC_HPP_INCLUDED
 
 namespace sge
 {
@@ -32,11 +28,20 @@ namespace renderer
 namespace state
 {
 
-typedef bool bool_type;
-typedef int int_type;
-typedef unsigned uint_type;
-typedef any_arithmetic float_type;
-typedef any_color color_type;
+namespace source_blend_func
+{
+	enum type {
+		zero,
+		one,
+		dest_color,
+		inv_dest_color,
+		src_alpha,
+		inv_src_alpha,
+		dest_alpha,
+		inv_dest_alpha,
+		src_alpha_sat
+	};
+}
 
 }
 }

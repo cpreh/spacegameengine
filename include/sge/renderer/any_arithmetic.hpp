@@ -22,16 +22,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_ANY_ARITHMETIC_HPP_INCLUDED
 #define SGE_RENDERER_ANY_ARITHMETIC_HPP_INCLUDED
 
-#include <boost/variant/variant.hpp>
+#include <sge/variant/object_fwd.hpp>
+#include <boost/mpl/vector.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-typedef boost::variant<
-	float,
-	double
+typedef variant::object<
+	boost::mpl::vector<
+		float,
+		double
+	>
 > any_arithmetic;
 
 }

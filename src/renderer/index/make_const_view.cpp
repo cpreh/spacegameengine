@@ -20,21 +20,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/index/make_const_view.hpp>
-#include <boost/variant/static_visitor.hpp>
-#include <boost/variant/apply_visitor.hpp>
+#include <sge/variant/apply_unary.hpp>
+#include <sge/variant/object_impl.hpp>
 
 namespace
 {
 
-class visitor
-: public boost::static_visitor<
-	sge::renderer::index::const_view const
-> {
+class visitor {
 public:
+	typedef sge::renderer::index::const_view result_type;
+
 	template<
 		typename T
 	>
-	sge::renderer::index::const_view const
+	result_type const
 	operator()(
 		T const &) const;
 };
@@ -46,9 +45,10 @@ sge::renderer::index::const_view const
 sge::renderer::index::make_const_view(
 	view const &v)
 {
-	return boost::apply_visitor(
+	return variant::apply_unary(
 		visitor(),
-		v);
+		v
+	);
 }
 
 namespace
@@ -57,7 +57,7 @@ namespace
 template<
 	typename T
 >
-sge::renderer::index::const_view const
+visitor::result_type const
 visitor::operator()(
 	T const &v) const
 {
