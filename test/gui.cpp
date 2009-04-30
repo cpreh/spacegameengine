@@ -20,8 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
-#include <sge/renderer/state/states.hpp>
-#include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/state/trampoline.hpp>
 
 #include <sge/gui/manager.hpp>
 #include <sge/gui/default_cursor.hpp>
@@ -164,7 +163,7 @@ try
 		sge::renderer::state::list
 			(sge::renderer::state::depth_func::off)
 			(sge::renderer::state::bool_::clear_backbuffer = true)
-			(sge::renderer::state::color_::clear_color = 
+			(sge::renderer::state::color::clear_color = 
 				sge::renderer::rgba8_color(255, 0, 0, 255))
 			(sge::renderer::state::cull_mode::off)
 		);

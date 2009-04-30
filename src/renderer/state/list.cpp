@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/any_compare.hpp>
+#include <sge/renderer/state/trampoline.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/text.hpp>
 #include <sge/exception.hpp>
@@ -116,6 +117,8 @@ sge::renderer::state::list::values() const
 	return set_;
 }
 
+// TODO: move this out of this file! Make the functions free functions instead!
+
 #define SGE_INSTANTIATE_STATE_LIST_GET(x)\
 template SGE_SYMBOL x sge::renderer::state::list::get<x>() const;
 
@@ -130,16 +133,17 @@ SGE_INSTANTIATE_STATE_LIST_GET(sge::renderer::state::dest_blend_func::type)
 
 #undef SGE_INSTANTIATE_STATE_LIST_GET
 
-/*
 #define SGE_INSTANTIATE_STATE_LIST_GET_T(x)\
-template SGE_SYMBOL x sge::renderer::state::list::get(\
-	sge::renderer::state::trampoline<x> const &) const;
+template SGE_SYMBOL x::base_type sge::renderer::state::list::get(\
+	sge::renderer::state::trampoline<\
+		x::base_type,\
+		x::available_states::type\
+	> const &) const;
 
-SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::int_::base_type)
-SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::uint_::base_type)
-SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::bool_::base_type)
-SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::float_::base_type)
-SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::color_::base_type)
+SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::int_)
+SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::uint)
+SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::bool_)
+SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::float_)
+SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::color)
 
 #undef SGE_INSTANTIATE_STATE_LIST_GET_T
-*/

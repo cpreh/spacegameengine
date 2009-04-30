@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/state/int.hpp>
+#include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/impl/instantiate.hpp>
 
-SGE_RENDERER_STATE_IMPL_INSTANTIATE_VAR_AND_TRAMPOLINE(int_)
-SGE_RENDERER_STATE_IMPL_INSTANTIATE_TRAMPOLINE_OBJECT(int_, stencil_clear_val)
-SGE_RENDERER_STATE_IMPL_INSTANTIATE_TRAMPOLINE_OBJECT(int_, stencil_ref)
+SGE_RENDERER_STATE_IMPL_INSTANTIATE_VAR_AND_TRAMPOLINE(color)
+SGE_RENDERER_STATE_IMPL_INSTANTIATE_TRAMPOLINE_OBJECT(color, clear_color)
+SGE_RENDERER_STATE_IMPL_INSTANTIATE_TRAMPOLINE_OBJECT(color, ambient_light_color)
+SGE_RENDERER_STATE_IMPL_INSTANTIATE_TRAMPOLINE_OBJECT(color, fog_color)
