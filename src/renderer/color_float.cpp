@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/color_float.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
-#include <sge/todo.hpp>
 
 void sge::renderer::check_color_float_channel(
 	color_channel_f32 const c)
@@ -36,7 +35,7 @@ void sge::renderer::check_color_float_channel(
 void sge::renderer::check_color_float(
 	rgba32f_color const &c)
 {
-	SGE_TODO("can we do this better?")
+	// TODO: can we do this better?
 	for(unsigned i = 0; i < 4; ++i)
 		check_color_float_channel(c[i]);
 }

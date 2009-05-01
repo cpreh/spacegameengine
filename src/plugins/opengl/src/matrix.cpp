@@ -22,20 +22,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../matrix.hpp"
 #include "../error.hpp"
 #include "../glew.hpp"
+#include <sge/variant/apply_unary.hpp>
+#include <sge/variant/object_impl.hpp>
 #include <sge/math/matrix/basic_impl.hpp>
 #include <sge/math/matrix/static.hpp>
 #include <sge/math/matrix/transpose.hpp>
-#include <boost/variant/apply_visitor.hpp>
-#include <boost/variant/static_visitor.hpp>
 
 namespace
 {
 
-class visitor : public boost::static_visitor<> {
+class visitor {
 public:
-	void operator()(
+	typedef void result_type;
+
+	result_type
+	operator()(
 		sge::math::matrix::static_<float, 4, 4>::type const &m) const;
-	void operator()(
+
+	result_type
+	operator()(
 		sge::math::matrix::static_<double, 4, 4>::type const &m) const;
 };
 
@@ -70,9 +75,10 @@ void sge::ogl::matrix_mode(
 void sge::ogl::set_matrix(
 	renderer::any_matrix const &mat)
 {
-	boost::apply_visitor(
+	variant::apply_unary(
 		visitor(),
-		mat);
+		mat
+	);
 }
 
 namespace

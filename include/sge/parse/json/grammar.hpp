@@ -67,7 +67,7 @@ public:
 		)
 	{
 		using boost::spirit::char_;
-		using boost::spirit::int_;
+		//using boost::spirit::int_;
 		using boost::spirit::double_;
 		using boost::spirit::lit;
 		using boost::spirit::lexeme;
@@ -79,7 +79,7 @@ public:
 		bool_ = lit(SGE_TEXT("true"))[_val = true] | lit(SGE_TEXT("false"))[_val = false];
 		quoted_string_ %= lexeme[char_(SGE_TEXT('"')) >> *(char_ - char_(SGE_TEXT('"'))) >> char_(SGE_TEXT('"'))];
 		array_ %= char_(SGE_TEXT('[')) >> (value_ % char_(SGE_TEXT(','))) >> char_(SGE_TEXT(']')); 
-		value_ %= object_ | array_ | bool_ | quoted_string_ | int_ | double_ | null_;
+		value_ %= object_ | array_ | bool_ | quoted_string_ | double_ | null_;
 		member_ %= quoted_string_ >> char_(SGE_TEXT(':')) >> value_;
 		object_ %= char_(SGE_TEXT('{')) >> (member_ % char_(SGE_TEXT(','))) >> char_(SGE_TEXT('}'));
 	}

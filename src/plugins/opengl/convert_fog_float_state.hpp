@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_CONVERT_FOG_FLOAT_STATE_HPP_INCLUDED
 
 #include "common.hpp"
-#include <sge/renderer/state/states.hpp>
+#include <sge/renderer/state/float.hpp>
 
 namespace sge
 {
@@ -32,7 +32,7 @@ namespace ogl
 
 GLenum 
 convert_fog_float_state(
-	renderer::state::float_::type);
+	renderer::state::float_::type const &);
 
 }
 }

@@ -18,11 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
-#ifndef SGE_RENDERER_STATE_TRAITS_HPP_INCLUDED
-#define SGE_RENDERER_STATE_TRAITS_HPP_INCLUDED
-
-#include <sge/renderer/state/types.hpp>
+#ifndef SGE_RENDERER_STATE_INT_TYPE_HPP_INCLUDED
+#define SGE_RENDERER_STATE_INT_TYPE_HPP_INCLUDED
 
 namespace sge
 {
@@ -31,60 +28,7 @@ namespace renderer
 namespace state
 {
 
-template<typename T>
-class traits;
-
-template<>
-class traits<int_type> {
-public:
-	enum available_states {
-		stencil_clear_val,
-		stencil_ref
-	};
-};
-
-template<>
-class traits<uint_type> {
-public:
-	enum available_states {
-		stencil_mask
-	};
-};
-
-template<>
-class traits<float_type> {
-public:
-	enum available_states {
-		zbuffer_clear_val,
-		alpha_test_ref,
-		fog_start,
-		fog_end,
-		fog_density
-	};
-};
-
-template<>
-class traits<bool_type> {
-public:
-	enum available_states {
-		clear_zbuffer,
-		clear_backbuffer,
-		clear_stencil,
-		enable_alpha_blending,
-		enable_alpha_test,
-		enable_lighting
-	};
-};
-
-template<>
-class traits<color_type> {
-public:
-	enum available_states {
-		clear_color,
-		ambient_light_color,
-		fog_color
-	};
-};
+typedef int int_type;
 
 }
 }

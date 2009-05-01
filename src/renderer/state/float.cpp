@@ -18,28 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/state/float.hpp>
+#include <sge/renderer/state/impl/instantiate.hpp>
+#include <sge/variant/object_impl.hpp>
 
-#ifndef SGE_RENDERER_STATE_TYPES_HPP_INCLUDED
-#define SGE_RENDERER_STATE_TYPES_HPP_INCLUDED
-
-#include <sge/renderer/any_color.hpp>
-#include <sge/renderer/any_arithmetic.hpp>
-
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-
-typedef bool bool_type;
-typedef int int_type;
-typedef unsigned uint_type;
-typedef any_arithmetic float_type;
-typedef any_color color_type;
-
-}
-}
-}
-
-#endif
+SGE_RENDERER_STATE_IMPL_INSTANTIATE_VAR_AND_TRAMPOLINE(float_)
+SGE_RENDERER_STATE_IMPL_INSTANTIATE_TRAMPOLINE_OBJECT(float_, zbuffer_clear_val)
+SGE_RENDERER_STATE_IMPL_INSTANTIATE_TRAMPOLINE_OBJECT(float_, alpha_test_ref)
+SGE_RENDERER_STATE_IMPL_INSTANTIATE_TRAMPOLINE_OBJECT(float_, fog_start)
+SGE_RENDERER_STATE_IMPL_INSTANTIATE_TRAMPOLINE_OBJECT(float_, fog_end)
+SGE_RENDERER_STATE_IMPL_INSTANTIATE_TRAMPOLINE_OBJECT(float_, fog_density)

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_VAR_HPP_INCLUDED
 #define SGE_RENDERER_STATE_VAR_HPP_INCLUDED
 
-#include <sge/renderer/state/traits.hpp>
+#include <sge/renderer/state/var_fwd.hpp>
 #include <sge/export.hpp>
 
 namespace sge
@@ -32,21 +32,25 @@ namespace renderer
 namespace state
 {
 
-template<typename T>
+template<
+	typename T,
+	typename States
+>
 class var {
 public:
-	typedef typename traits<T>::available_states state_type;
 	typedef T value_type;
+	typedef States state_type;
 
-	SGE_SYMBOL var &operator=(
-		value_type);
+	SGE_SYMBOL var &
+	operator=(
+		value_type const &);
 	
 	SGE_SYMBOL state_type state() const;
 	SGE_SYMBOL value_type value() const;
 
 	SGE_SYMBOL explicit var(
 		state_type state,
-		value_type defval);
+		value_type const &defval);
 private:
 	state_type state_;
 	value_type val_;

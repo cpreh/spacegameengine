@@ -33,18 +33,19 @@ public:
 	typedef bool result_type;
 
 	template<
-		typename T
+		typename T,
+		typename States
 	>
-	bool
+	result_type
 	operator()(
-		sge::renderer::state::var<T> const &,
-		sge::renderer::state::var<T> const &) const;
+		sge::renderer::state::var<T, States> const &,
+		sge::renderer::state::var<T, States> const &) const;
 
 	template<
 		typename T,
 		typename U
 	>
-	bool
+	result_type
 	operator()(
 		T const &,
 		U const &) const;
@@ -52,9 +53,10 @@ public:
 
 }
 
-bool sge::renderer::state::any_compare::operator()(
+bool
+sge::renderer::state::any_compare(
 	any const &a,
-	any const &b) const
+	any const &b)
 {
 	return variant::apply_binary(
 		compare(),
@@ -67,12 +69,13 @@ namespace
 {
 
 template<
-	typename T
+	typename T,
+	typename States
 >
 bool
 compare::operator()(
-	sge::renderer::state::var<T> const &a,
-	sge::renderer::state::var<T> const &b) const
+	sge::renderer::state::var<T, States> const &a,
+	sge::renderer::state::var<T, States> const &b) const
 {
 	return a.state()
 	     < b.state();

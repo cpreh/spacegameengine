@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/state/default.hpp>
 #include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/states.hpp>
 #include <sge/renderer/state/var.hpp>
+#include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/colors.hpp>
 
 sge::renderer::state::list const
@@ -32,7 +32,7 @@ sge::renderer::state::default_()
 		list
 			(int_::stencil_clear_val = 0)
 			(int_::stencil_ref = 0)
-			(uint_::stencil_mask = 0)
+			(uint::stencil_mask = 0)
 			(float_::zbuffer_clear_val = 0.f)
 			(float_::fog_start = 0.)
 			(float_::fog_end = 0.)
@@ -43,9 +43,9 @@ sge::renderer::state::default_()
 			(bool_::clear_stencil = false)
 			(bool_::enable_alpha_blending = false)
 			(bool_::enable_lighting = false)
-			(color_::clear_color = colors::white())
-			(color_::ambient_light_color = colors::white())
-			(color_::fog_color = colors::black())
+			(color::clear_color = colors::white())
+			(color::ambient_light_color = colors::white())
+			(color::fog_color = colors::black())
 			(cull_mode::off)
 			(depth_func::off)
 			(stencil_func::off)

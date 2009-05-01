@@ -23,12 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../variable_functions.hpp"
 #include "../setter.hpp"
 #include "../../../error.hpp"
-#include <boost/variant/apply_visitor.hpp>
+#include <sge/variant/apply_unary.hpp>
+#include <sge/variant/object_impl.hpp>
 
 #include <sge/text.hpp>
 #include <sge/exception.hpp>
 
-template<bool Native>
+template<
+	bool Native
+>
 sge::ogl::glsl::attribute::variable<Native>::variable(
 	handle const program,
 	renderer::glsl::string const &name)
@@ -36,12 +39,17 @@ sge::ogl::glsl::attribute::variable<Native>::variable(
 	location(
 		attribute::location<Native>(
 			program,
-			name.c_str())),
+			name.c_str()
+		)
+	),
 	stored_type(
-		type::nothing)
+		type::nothing
+	)
 {}
 
-template<bool Native>
+template<
+	bool Native
+>
 sge::renderer::glsl::attribute::value const
 sge::ogl::glsl::attribute::variable<Native>::get() const
 {
@@ -50,15 +58,19 @@ sge::ogl::glsl::attribute::variable<Native>::get() const
 		SGE_TEXT("unimplemented!"));
 }
 
-template<bool Native>
+template<
+	bool Native
+>
 void sge::ogl::glsl::attribute::variable<Native>::set(
 	renderer::glsl::attribute::value const &v)
 {
 	SGE_OPENGL_SENTRY
-	stored_type = boost::apply_visitor(
+	stored_type = variant::apply_unary(
 		setter(
-			location),
-		v);
+			location
+		),
+		v
+	);
 }
 
 template class sge::ogl::glsl::attribute::variable<true>;

@@ -24,9 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../setter.hpp"
 #include "../get.hpp"
 #include "../../../error.hpp"
-#include <boost/variant/apply_visitor.hpp>
+#include <sge/variant/apply_unary.hpp>
+#include <sge/variant/object_impl.hpp>
 
-template<bool Native>
+template<
+	bool Native
+>
 sge::ogl::glsl::uniform::variable<Native>::variable(
 	handle const program,
 	renderer::glsl::string const &name)
@@ -34,30 +37,40 @@ sge::ogl::glsl::uniform::variable<Native>::variable(
 	location(
 		uniform::location<Native>(
 			program,
-			name.c_str())),
+			name.c_str()
+		)
+	),
 	stored_type(
 		element_type::nothing,
-		0)
+		0
+	)
 {}
 
-template<bool Native>
+template<
+	bool Native
+>
 sge::renderer::glsl::uniform::value const
 sge::ogl::glsl::uniform::variable<Native>::get() const
 {
 	return uniform::get(
 		location,
-		stored_type);
+		stored_type
+	);
 }
 
-template<bool Native>
+template<
+	bool Native
+>
 void sge::ogl::glsl::uniform::variable<Native>::set(
 	renderer::glsl::uniform::value const &v)
 {
 	SGE_OPENGL_SENTRY
-	stored_type = boost::apply_visitor(
+	stored_type = variant::apply_unary(
 		setter(
-			location),
-		v);
+			location
+		),
+		v
+	);
 }
 
 template class sge::ogl::glsl::uniform::variable<true>;

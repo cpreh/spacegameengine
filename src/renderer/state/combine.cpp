@@ -18,13 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/state/combine.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <boost/foreach.hpp>
 
-#ifndef SGE_FIXME_HPP_INCLUDED
-#define SGE_FIXME_HPP_INCLUDED
-
-#include <sge/detail/message.hpp>
-
-#define SGE_FIXME(x)\
-SGE_DETAIL_MESSAGE("FIXME: " x)
-
-#endif
+sge::renderer::state::list const
+sge::renderer::state::combine(
+	list const &l,
+	list const &r)
+{
+	list result(l);
+	BOOST_FOREACH(any const &s, r.values())
+		result.overwrite(s);
+	return result;
+}

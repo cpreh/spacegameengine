@@ -21,23 +21,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
+#include <sge/renderer/state/any_compare.hpp>
+#include <sge/renderer/state/trampoline.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/text.hpp>
 #include <sge/exception.hpp>
 #include <sge/export.hpp>
+#include <boost/bind.hpp>
 #include <boost/foreach.hpp>
 
 sge::renderer::state::list::list(
 	any const &a)
+:
+	set_(
+		boost::bind(
+			any_compare,
+			_1,
+			_2
+		)
+	)
 {
 	set_.insert(a);
 }
-
-sge::renderer::state::list::list(
-	set_type const &set_)
-:
-	set_(set_)
-{}
 
 sge::renderer::state::list const
 sge::renderer::state::list::operator()(
@@ -61,8 +66,11 @@ void sge::renderer::state::list::overwrite(
 	// TODO: is there a better way to do this?
 }
 
-template<typename T>
-T sge::renderer::state::list::get() const
+template<
+	typename T
+>
+T
+sge::renderer::state::list::get() const
 {
 	// TODO: can we optimize this?
 	
@@ -74,11 +82,17 @@ T sge::renderer::state::list::get() const
 		SGE_TEXT("renderer::list::get(): state not found!"));
 }
 
-template<typename T>
-T sge::renderer::state::list::get(
-	trampoline<T> const &t) const
+template<
+	typename T,
+	typename States
+>
+T
+sge::renderer::state::list::get(
+	trampoline<T, States> const &t) const
 {
-	typedef typename trampoline<T>::var_type var_type;
+	typedef typename trampoline<
+		T, States
+	>::var_type var_type;
 
 	// TODO: can we optimize this?
 
@@ -103,16 +117,7 @@ sge::renderer::state::list::values() const
 	return set_;
 }
 
-sge::renderer::state::list const
-sge::renderer::state::combine(
-	list const &l,
-	list const &r)
-{
-	list result(l);
-	BOOST_FOREACH(any const &s, r.values())
-		result.overwrite(s);
-	return result;
-}
+// TODO: move this out of this file! Make the functions free functions instead!
 
 #define SGE_INSTANTIATE_STATE_LIST_GET(x)\
 template SGE_SYMBOL x sge::renderer::state::list::get<x>() const;
@@ -129,13 +134,16 @@ SGE_INSTANTIATE_STATE_LIST_GET(sge::renderer::state::dest_blend_func::type)
 #undef SGE_INSTANTIATE_STATE_LIST_GET
 
 #define SGE_INSTANTIATE_STATE_LIST_GET_T(x)\
-template SGE_SYMBOL x sge::renderer::state::list::get(\
-	sge::renderer::state::trampoline<x> const &) const;
+template SGE_SYMBOL x::base_type sge::renderer::state::list::get(\
+	sge::renderer::state::trampoline<\
+		x::base_type,\
+		x::available_states::type\
+	> const &) const;
 
-SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::int_::base_type)
-SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::uint_::base_type)
-SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::bool_::base_type)
-SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::float_::base_type)
-SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::color_::base_type)
+SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::int_)
+SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::uint)
+SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::bool_)
+SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::float_)
+SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::color)
 
 #undef SGE_INSTANTIATE_STATE_LIST_GET_T

@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_SCOPED_HPP_INCLUDED
 #define SGE_RENDERER_STATE_SCOPED_HPP_INCLUDED
 
+#include <sge/renderer/state/list_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/export.hpp>
 #include <sge/noncopyable.hpp>
@@ -32,8 +33,6 @@ namespace renderer
 {
 namespace state
 {
-
-class list;
 
 class scoped {
 	SGE_NONCOPYABLE(scoped)

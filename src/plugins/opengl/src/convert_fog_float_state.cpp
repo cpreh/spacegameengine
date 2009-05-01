@@ -21,16 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../convert_fog_float_state.hpp"
 #include <sge/renderer/state/var.hpp>
+#include <sge/variant/object_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
 GLenum
 sge::ogl::convert_fog_float_state(
-	renderer::state::float_::type const s)
+	renderer::state::float_::type const &s)
 {
-	typedef renderer::state::traits<
-		renderer::state::float_type
-	> rs;
+	namespace rs = renderer::state::float_::available_states;
 
 	switch(s.state()) {
 	case rs::fog_start:

@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../traits.hpp"
 #include <sge/renderer/any_arithmetic.hpp>
 #include <sge/renderer/any_dynamic_vector.hpp>
-#include <boost/variant/static_visitor.hpp>
 
 namespace sge
 {
@@ -37,16 +36,18 @@ namespace glsl
 namespace attribute
 {
 
-class setter : public boost::static_visitor<type::type> {
+class setter {
 public:
+	typedef type::type result_type;
+
 	explicit setter(
 		GLint location);
 	
-	type::type
+	result_type
 	operator()(
 		renderer::any_arithmetic const &) const;
 
-	type::type
+	result_type
 	operator()(
 		renderer::any_dynamic_vector const &) const;
 private:

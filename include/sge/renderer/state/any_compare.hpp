@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_STATE_ANY_COMPARE_HPP_INCLUDED
 
 #include <sge/renderer/state/any.hpp>
-#include <functional>
+#include <sge/export.hpp>
 
 namespace sge
 {
@@ -32,12 +32,10 @@ namespace renderer
 namespace state
 {
 
-class any_compare : public std::binary_function<any const &, any const &, bool> {
-public:
-	bool operator()(
-		any const &,
-		any const &) const;
-};
+SGE_SYMBOL bool
+any_compare(
+	any const &,
+	any const &);
 
 }
 }

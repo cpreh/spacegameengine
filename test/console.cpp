@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
+#include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/texture/default_creator.hpp>
@@ -151,7 +152,7 @@ try
 	sys.renderer()->state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
-			(sge::renderer::state::color_::clear_color = sge::renderer::rgba8_color(0, 0, 0, 0))
+			(sge::renderer::state::color::clear_color = sge::renderer::rgba8_color(0, 0, 0, 0))
 	);
 
 	sge::console::stdlib lib(

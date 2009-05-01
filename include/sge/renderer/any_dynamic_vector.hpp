@@ -24,20 +24,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/math/vector/dynamic.hpp>
 #include <sge/math/vector/basic_impl.hpp>
-#include <boost/variant/variant.hpp>
+#include <sge/variant/object_fwd.hpp>
+#include <boost/mpl/vector.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-typedef boost::variant<
-	math::vector::dynamic<
-		float
-	>::type,
-	math::vector::dynamic<
-		double
-	>::type
+typedef variant::object<
+	boost::mpl::vector<
+		math::vector::dynamic<
+			float
+		>::type,
+		math::vector::dynamic<
+			double
+		>::type
+	>
 > any_dynamic_vector;
 
 }

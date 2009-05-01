@@ -18,16 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_RENDERER_STATE_COMBINE_HPP_INCLUDED
+#define SGE_RENDERER_STATE_COMBINE_HPP_INCLUDED
 
-#ifndef SGE_DETAIL_MESSAGE_HPP_INCLUDED
-#define SGE_DETAIL_MESSAGE_HPP_INCLUDED
+#include <sge/renderer/state/list_fwd.hpp>
+#include <sge/export.hpp>
 
-#include <sge/config.h>
+namespace sge
+{
+namespace renderer
+{
+namespace state
+{
 
-#ifdef SGE_HAVE_PRAMGA_MESSAGE
-#define SGE_DETAIL_MESSAGE(x) #pragma message x
-#else
-#define SGE_DETAIL_MESSAGE(x)
-#endif
+SGE_SYMBOL list const
+combine(
+	list const &,
+	list const &);
+
+}
+}
+}
 
 #endif

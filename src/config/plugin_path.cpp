@@ -28,16 +28,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::filesystem::path const
 sge::config::plugin_path()
 {
-	return detail::find_own_path(
-		SGE_TEXT("plugin_path"),
-		boost::assign::list_of(
-			iconv(
+	static filesystem::path const ret(
+		detail::find_own_path(
+			SGE_TEXT("plugin_path"),
+			boost::assign::list_of(
+				iconv(
+// TODO: why did we do this?
 #ifndef _MSC_VER
-				PLUGIN_PATH
+					PLUGIN_PATH
 #else
-				PLUGIN_PATH "/" CMAKE_INTDIR
+					PLUGIN_PATH "/" CMAKE_INTDIR
 #endif
+				)
 			)
 		)
 	);
+
+	return ret;
 }

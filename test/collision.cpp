@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/resolution.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
-#include <sge/renderer/state/states.hpp>
+#include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/colors.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/scoped_block.hpp>
@@ -181,7 +181,7 @@ try
 	sys.renderer()->state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
-			(sge::renderer::state::color_::clear_color = sge::renderer::colors::black())
+			(sge::renderer::state::color::clear_color = sge::renderer::colors::black())
 		);
 
 	bool running = true;

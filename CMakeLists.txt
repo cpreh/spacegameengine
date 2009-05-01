@@ -73,13 +73,6 @@ IF (CMAKE_COMPILER_IS_GNUCXX)
 		ADD_DEFINITIONS ("-Wno-long-long -ansi")
 	#ENDIF ()
 
-	SET (CMAKE_REQUIRED_FLAGS "-Wall -Werror")
-
-	CHECK_CXX_SOURCE_COMPILES(
-		"#pragma message \"test\"
-		 int main() {}"
-		SGE_HAVE_PRAGMA_MESSAGE)
-
 	CHECK_CXX_SOURCE_COMPILES(
 		"#include <cxxabi.h>
 		 #include <cstdlib>
@@ -92,8 +85,6 @@ ELSEIF (MSVC)
 	ADD_DEFINITIONS ("/W3 /wd4512 /wd4355 /wd4800 /wd4996 /wd4714 /EHa")
 	SET (WINLIBS projects/windows/lib32)
 	SET (WININCLUDES ${CMAKE_SOURCE_DIR}/${WINLIBS})
-
-	SET (SGE_HAVE_PRAGMA_MESSAGE 1)
 
 	ADD_DEFINITIONS (-DUNICODE=1 -D_UNICODE=1)
 ENDIF ()

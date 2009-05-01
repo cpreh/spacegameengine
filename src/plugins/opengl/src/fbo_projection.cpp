@@ -22,21 +22,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../fbo_projection.hpp"
 #include <sge/math/matrix/scaling.hpp>
 #include <sge/math/matrix/arithmetic.hpp>
-#include <boost/variant/static_visitor.hpp>
-#include <boost/variant/apply_visitor.hpp>
+#include <sge/variant/apply_unary.hpp>
+#include <sge/variant/object_impl.hpp>
 
 namespace
 {
 
-class multiply_visitor
-: public boost::static_visitor<
-	sge::renderer::any_matrix
-> {
+class multiply_visitor {
 public:
+	typedef sge::renderer::any_matrix result_type;
+
 	template<
 		typename T
 	>
-	sge::renderer::any_matrix const
+	result_type const
 	operator()(
 		T const &t) const;
 };
@@ -47,9 +46,10 @@ sge::renderer::any_matrix const
 sge::ogl::fbo_projection(
 	renderer::any_matrix const &m)
 {
-	return boost::apply_visitor(
+	return variant::apply_unary(
 		multiply_visitor(),
-		m);
+		m
+	);
 }
 
 namespace
@@ -68,7 +68,8 @@ multiply_visitor::operator()(
 	>(
 		static_cast<value_type>(1),
 		static_cast<value_type>(-1),
-		static_cast<value_type>(1));
+		static_cast<value_type>(1)
+	);
 }
 
 }

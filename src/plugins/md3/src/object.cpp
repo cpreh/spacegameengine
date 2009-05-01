@@ -32,14 +32,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/view.hpp>
 #include <sge/renderer/index/view_size.hpp>
 #include <sge/renderer/index/make_const_view.hpp>
+#include <sge/variant/apply_unary.hpp>
 #include <sge/io/read.hpp>
 #include <sge/endianness/format.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <boost/tr1/array.hpp>
 #include <boost/foreach.hpp>
-#include <boost/variant/static_visitor.hpp>
-#include <boost/variant/apply_visitor.hpp>
 #include <ios>
 #include <algorithm>
 #include <cmath>
@@ -186,8 +185,10 @@ sge::md3::object::copy_vertices(
 namespace
 {
 
-class index_visitor : public boost::static_visitor<> {
+class index_visitor {
 public:
+	typedef void result_type;
+
 	explicit index_visitor(
 		sge::md3::object::surface_vector const &surfaces_)
 	:
@@ -197,7 +198,8 @@ public:
 	template<
 		typename T
 	>
-	void operator()(
+	result_type
+	operator()(
 		T const &t) const
 	{
 	
@@ -246,7 +248,7 @@ sge::md3::object::copy_indices(
 			SGE_TEXT("md3::object::copy_indices(): view tool small!")
 		);
 
-	boost::apply_visitor(
+	variant::apply_unary(
 		index_visitor(
 			surfaces
 		),

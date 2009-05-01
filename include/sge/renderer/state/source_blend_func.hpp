@@ -18,13 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_RENDERER_STATE_SOURCE_BLEND_FUNC_HPP_INCLUDED
+#define SGE_RENDERER_STATE_SOURCE_BLEND_FUNC_HPP_INCLUDED
 
-#ifndef SGE_TODO_HPP_INCLUDED
-#define SGE_TODO_HPP_INCLUDED
+namespace sge
+{
+namespace renderer
+{
+namespace state
+{
 
-#include <sge/detail/message.hpp>
+namespace source_blend_func
+{
+	enum type {
+		zero,
+		one,
+		dest_color,
+		inv_dest_color,
+		src_alpha,
+		inv_src_alpha,
+		dest_alpha,
+		inv_dest_alpha,
+		src_alpha_sat
+	};
+}
 
-#define SGE_TODO(x)\
-SGE_DETAIL_MESSAGE("TODO: " x)
+}
+}
+}
 
 #endif

@@ -20,9 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/arithmetic_convert.hpp>
+#include <sge/variant/apply_unary.hpp>
+#include <sge/variant/object_impl.hpp>
 #include <sge/export.hpp>
-#include <boost/variant/static_visitor.hpp>
-#include <boost/variant/apply_visitor.hpp>
 
 namespace
 {
@@ -30,12 +30,15 @@ namespace
 template<
 	typename Dest
 >
-class visitor : public boost::static_visitor<Dest> {
+class visitor {
 public:
+	typedef Dest result_type;
+
 	template<
 		typename T
 	>
-	Dest operator()(
+	result_type
+	operator()(
 		T const &) const;
 };
 
@@ -48,9 +51,10 @@ Dest
 sge::renderer::arithmetic_convert(
 	any_arithmetic const &v)
 {
-	return boost::apply_visitor(
+	return variant::apply_unary(
 		visitor<Dest>(),
-		v);
+		v
+	);
 }
 
 namespace

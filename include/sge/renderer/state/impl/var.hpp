@@ -18,43 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_RENDERER_STATE_IMPL_VAR_HPP_INCLUDED
+#define SGE_RENDERER_STATE_IMPL_VAR_HPP_INCLUDED
 
 #include <sge/renderer/state/var.hpp>
-#include <sge/renderer/state/types.hpp>
 
-template<typename T>
-sge::renderer::state::var<T> &
-sge::renderer::state::var<T>::operator=(
-	value_type const newval)
+template<
+	typename T,
+	typename States
+>
+sge::renderer::state::var<T, States> &
+sge::renderer::state::var<T, States>::operator=(
+	value_type const &newval)
 {
 	val_ = newval;
 	return *this;
 }
 
-template<typename T>
-typename sge::renderer::state::var<T>::state_type
-sge::renderer::state::var<T>::state() const
+template<
+	typename T,
+	typename States
+>
+typename sge::renderer::state::var<T, States>::state_type
+sge::renderer::state::var<T, States>::state() const
 {
 	return state_;
 }
 
-template<typename T>
-T sge::renderer::state::var<T>::value() const
+template<
+	typename T,
+	typename States
+>
+T
+sge::renderer::state::var<T, States>::value() const
 {
 	return val_;
 }
 
-template<typename T>
-sge::renderer::state::var<T>::var(
+template<
+	typename T,
+	typename States
+>
+sge::renderer::state::var<T, States>::var(
 	state_type const state_,
-	value_type const val_)
+	value_type const &val_)
 :
 	state_(state_),
 	val_(val_)
 {}
 
-template class sge::renderer::state::var<sge::renderer::state::int_type>;
-template class sge::renderer::state::var<sge::renderer::state::uint_type>;
-template class sge::renderer::state::var<sge::renderer::state::float_type>;
-template class sge::renderer::state::var<sge::renderer::state::bool_type>;
-template class sge::renderer::state::var<sge::renderer::state::color_type>;
+#endif

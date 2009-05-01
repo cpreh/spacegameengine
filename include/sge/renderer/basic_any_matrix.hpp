@@ -23,9 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_BASIC_ANY_MATRIX_HPP_INCLUDED
 
 #include <sge/renderer/size_type.hpp>
+#include <sge/variant/object_fwd.hpp>
 #include <sge/math/matrix/static.hpp>
 #include <sge/math/matrix/basic_impl.hpp>
-#include <boost/variant/variant.hpp>
+#include <boost/mpl/vector.hpp>
 
 namespace sge
 {
@@ -38,17 +39,19 @@ template<
 >
 class basic_any_matrix {
 public:
-	typedef typename boost::variant<
-		typename math::matrix::static_<
-			float,
-			N,
-			M
-		>::type,
-		typename math::matrix::static_<
-			double,
-			N,
-			M
-		>::type
+	typedef typename variant::object<
+		boost::mpl::vector<
+			typename math::matrix::static_<
+				float,
+				N,
+				M
+			>::type,
+			typename math::matrix::static_<
+				double,
+				N,
+				M
+			>::type
+		>
 	> type;
 };
 

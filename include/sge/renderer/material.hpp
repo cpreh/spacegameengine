@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_MATERIAL_HPP_INCLUDED
 #define SGE_RENDERER_MATERIAL_HPP_INCLUDED
 
-#include <sge/export.hpp>
 #include <sge/renderer/any_color.hpp>
 #include <sge/renderer/any_arithmetic.hpp>
+#include <sge/variant/object_impl.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
@@ -46,10 +47,11 @@ public:
 	SGE_SYMBOL any_color const &emissive() const;
 	SGE_SYMBOL any_arithmetic const &power() const;
 private:
-	any_color diffuse_,
-	          ambient_,
-	          specular_,
-	          emissive_;
+	any_color
+		diffuse_,
+		ambient_,
+		specular_,
+		emissive_;
 	any_arithmetic power_;
 };
 

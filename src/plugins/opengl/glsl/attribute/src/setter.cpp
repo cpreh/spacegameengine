@@ -22,13 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../error.hpp"
 #include "../../init.hpp"
 #include "../setter.hpp"
+#include <sge/variant/apply_unary.hpp>
+#include <sge/variant/object_impl.hpp>
 #include <sge/math/vector/dynamic_impl.hpp>
 #include <sge/once.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
-#include <boost/variant/static_visitor.hpp>
-#include <boost/variant/apply_visitor.hpp>
-#include <cstddef>
 
 namespace
 {
@@ -46,35 +45,38 @@ PFNGLVERTEXATTRIB4DVPROC vertex_attrib_4dv;
 
 void initialize_setter();
 
-class arithmetic_visitor
-: public boost::static_visitor<sge::ogl::glsl::attribute::type::type> {
+class arithmetic_visitor {
 public:
+	typedef sge::ogl::glsl::attribute::type::type result_type;
+
 	explicit arithmetic_visitor(
 		GLint location);
 		
-	sge::ogl::glsl::attribute::type::type
+	result_type
 	operator()(
 		float) const;
-	sge::ogl::glsl::attribute::type::type
+
+	result_type
 	operator()(
 		double) const;
 private:
 	GLint const location;
 };
 
-class vector_visitor 
-: public boost::static_visitor<sge::ogl::glsl::attribute::type::type> {
+class vector_visitor {
 public:
+	typedef sge::ogl::glsl::attribute::type::type result_type;
+
 	explicit vector_visitor(
 		GLint location);
 	
-	sge::ogl::glsl::attribute::type::type
+	result_type
 	operator()(
 		sge::math::vector::dynamic<
 			float
 		>::type const &) const;
 	
-	sge::ogl::glsl::attribute::type::type
+	result_type
 	operator()(
 		sge::math::vector::dynamic<
 			double
@@ -94,24 +96,28 @@ sge::ogl::glsl::attribute::setter::setter(
 	initialize_setter();
 }
 	
-sge::ogl::glsl::attribute::type::type
+sge::ogl::glsl::attribute::setter::result_type
 sge::ogl::glsl::attribute::setter::operator()(
 	renderer::any_arithmetic const &f) const
 {
-	return boost::apply_visitor(
+	return variant::apply_unary(
 		arithmetic_visitor(
-			location),
-		f);
+			location
+		),
+		f
+	);
 }
 
-sge::ogl::glsl::attribute::type::type
+sge::ogl::glsl::attribute::setter::result_type
 sge::ogl::glsl::attribute::setter::operator()(
 	renderer::any_dynamic_vector const &v) const
 {
-	return boost::apply_visitor(
+	return variant::apply_unary(
 		vector_visitor(
-			location),
-		v);
+			location
+		),
+		v
+	);
 }
 
 namespace
@@ -150,7 +156,7 @@ arithmetic_visitor::arithmetic_visitor(
 	location(location)
 {}
 
-sge::ogl::glsl::attribute::type::type
+arithmetic_visitor::result_type
 arithmetic_visitor::operator()(
 	float const f) const
 {
@@ -160,7 +166,7 @@ arithmetic_visitor::operator()(
 	return sge::ogl::glsl::attribute::type::float1;
 }
 
-sge::ogl::glsl::attribute::type::type
+arithmetic_visitor::result_type
 arithmetic_visitor::operator()(
 	double const d) const
 {
@@ -177,7 +183,7 @@ vector_visitor::vector_visitor(
 	location(location)
 {}
 	
-sge::ogl::glsl::attribute::type::type
+vector_visitor::result_type
 vector_visitor::operator()(
 	sge::math::vector::dynamic<
 		float
@@ -206,11 +212,11 @@ vector_visitor::operator()(
 			SGE_TEXT("vector size not right in glsl attribute variable!"));
 	}
 
-	return static_cast<sge::ogl::glsl::attribute::type::type>(
+	return static_cast<result_type>(
 		sge::ogl::glsl::attribute::type::int1 + v.size());
 }
 
-sge::ogl::glsl::attribute::type::type
+vector_visitor::result_type
 vector_visitor::operator()(
 	sge::math::vector::dynamic<
 		double
@@ -239,7 +245,7 @@ vector_visitor::operator()(
 			SGE_TEXT("vector size not right in glsl attribute variable!"));
 	}
 
-	return static_cast<sge::ogl::glsl::attribute::type::type>(
+	return static_cast<result_type>(
 		sge::ogl::glsl::attribute::type::float4 + v.size());
 }
 

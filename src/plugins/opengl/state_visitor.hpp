@@ -22,7 +22,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_VISITOR_HPP_INCLUDED
 #define SGE_OPENGL_STATE_VISITOR_HPP_INCLUDED
 
-#include <sge/renderer/state/states.hpp>
+#include <sge/renderer/state/int.hpp>
+#include <sge/renderer/state/uint.hpp>
+#include <sge/renderer/state/float.hpp>
+#include <sge/renderer/state/bool.hpp>
+#include <sge/renderer/state/color.hpp>
+#include <sge/renderer/state/cull_mode.hpp>
+#include <sge/renderer/state/depth_func.hpp>
+#include <sge/renderer/state/stencil_func.hpp>
+#include <sge/renderer/state/alpha_func.hpp>
+#include <sge/renderer/state/fog_mode.hpp>
+#include <sge/renderer/state/draw_mode.hpp>
+#include <sge/renderer/state/source_blend_func.hpp>
+#include <sge/renderer/state/dest_blend_func.hpp>
 
 namespace sge
 {
@@ -39,10 +51,10 @@ public:
 		split_states &states);
 
 	result_type operator()(renderer::state::int_::type) const;
-	result_type operator()(renderer::state::uint_::type) const;
-	result_type operator()(renderer::state::float_::type) const;
+	result_type operator()(renderer::state::uint::type) const;
+	result_type operator()(renderer::state::float_::type const &) const;
 	result_type operator()(renderer::state::bool_::type) const;
-	result_type operator()(renderer::state::color_::type) const;
+	result_type operator()(renderer::state::color::type const &) const;
 	result_type operator()(renderer::state::cull_mode::type) const;
 	result_type operator()(renderer::state::depth_func::type) const;
 	result_type operator()(renderer::state::stencil_func::type) const;

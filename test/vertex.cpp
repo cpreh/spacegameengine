@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
-#include <sge/renderer/state/states.hpp>
+#include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/device.hpp>
@@ -130,7 +130,7 @@ try
 	rend->state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
-			(sge::renderer::state::color_::clear_color = sge::renderer::colors::black()));
+			(sge::renderer::state::color::clear_color = sge::renderer::colors::black()));
 	
 	while(running)
 	{
