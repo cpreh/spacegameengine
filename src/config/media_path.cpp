@@ -28,12 +28,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::filesystem::path const
 sge::config::media_path()
 {
-	return detail::find_own_path(
-		SGE_TEXT("media_path"),
-		boost::assign::list_of(
-			iconv(
-				MEDIA_PATH
+	static filesystem::path const ret(
+		detail::find_own_path(
+			SGE_TEXT("media_path"),
+			boost::assign::list_of(
+				iconv(
+					MEDIA_PATH
+				)
 			)
 		)
 	);
+
+	return ret;
 }
