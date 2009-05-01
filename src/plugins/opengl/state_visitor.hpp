@@ -52,9 +52,9 @@ public:
 
 	result_type operator()(renderer::state::int_::type) const;
 	result_type operator()(renderer::state::uint::type) const;
-	result_type operator()(renderer::state::float_::type) const;
+	result_type operator()(renderer::state::float_::type const &) const;
 	result_type operator()(renderer::state::bool_::type) const;
-	result_type operator()(renderer::state::color::type) const;
+	result_type operator()(renderer::state::color::type const &) const;
 	result_type operator()(renderer::state::cull_mode::type) const;
 	result_type operator()(renderer::state::depth_func::type) const;
 	result_type operator()(renderer::state::stencil_func::type) const;

@@ -40,7 +40,7 @@ template<
 >
 typename sge::renderer::state::trampoline<T, States>::var_type const
 sge::renderer::state::trampoline<T, States>::operator=(
-	T const t) const
+	T const &t) const
 {
 	return var_type(
 		state_,

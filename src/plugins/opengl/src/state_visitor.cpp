@@ -78,7 +78,7 @@ sge::ogl::state_visitor::operator()(
 
 sge::ogl::state_visitor::result_type
 sge::ogl::state_visitor::operator()(
-	renderer::state::float_::type const s) const
+	renderer::state::float_::type const &s) const
 {
 	SGE_OPENGL_SENTRY
 
@@ -134,7 +134,7 @@ sge::ogl::state_visitor::operator()(
 
 sge::ogl::state_visitor::result_type
 sge::ogl::state_visitor::operator()(
-	renderer::state::color::type const s) const
+	renderer::state::color::type const &s) const
 {
 	SGE_OPENGL_SENTRY
 

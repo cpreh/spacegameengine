@@ -46,7 +46,7 @@ public:
 
 	explicit trampoline(
 		state_type);
-	SGE_SYMBOL var_type const operator=(T) const;
+	SGE_SYMBOL var_type const operator=(T const &) const;
 	SGE_SYMBOL state_type state() const;
 private:
 	state_type const state_;

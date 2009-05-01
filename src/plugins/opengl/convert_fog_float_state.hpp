@@ -32,7 +32,7 @@ namespace ogl
 
 GLenum 
 convert_fog_float_state(
-	renderer::state::float_::type);
+	renderer::state::float_::type const &);
 
 }
 }

@@ -41,15 +41,16 @@ public:
 	typedef T value_type;
 	typedef States state_type;
 
-	SGE_SYMBOL var &operator=(
-		value_type);
+	SGE_SYMBOL var &
+	operator=(
+		value_type const &);
 	
 	SGE_SYMBOL state_type state() const;
 	SGE_SYMBOL value_type value() const;
 
 	SGE_SYMBOL explicit var(
 		state_type state,
-		value_type defval);
+		value_type const &defval);
 private:
 	state_type state_;
 	value_type val_;
