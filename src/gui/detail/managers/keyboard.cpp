@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/events/keyboard_leave.hpp>
 #include <sge/gui/widgets/base.hpp>
 #include <sge/gui/log.hpp>
+#include <sge/gui/exception.hpp>
 #include <sge/assert.hpp>
-#include <sge/exception.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/input/classification.hpp>
@@ -51,7 +51,7 @@ bool active(sge::gui::widgets::base const &w)
 		case sge::gui::activation_state::inactive:
 			return false;
 	}
-	throw sge::exception(SGE_TEXT("missed an activation state"));
+	throw sge::gui::exception(SGE_TEXT("missed an activation state"));
 }
 }
 

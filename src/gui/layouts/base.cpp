@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/layouts/base.hpp>
 #include <sge/gui/widgets/base.hpp>
 #include <sge/gui/manager.hpp>
-#include <sge/exception.hpp>
+#include <sge/gui/exception.hpp>
 #include <sge/text.hpp>
 
 sge::gui::layouts::base::base()

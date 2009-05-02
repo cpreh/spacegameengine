@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/events/mouse_leave.hpp>
 #include <sge/gui/events/mouse_move.hpp>
 #include <sge/gui/widgets/base.hpp>
+#include <sge/gui/exception.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/math/rect_util.hpp>
 #include <sge/math/vector/arithmetic.hpp>
@@ -67,7 +68,7 @@ bool active(sge::gui::widgets::base const &w)
 		case sge::gui::activation_state::inactive:
 			return false;
 	}
-	throw sge::exception(SGE_TEXT("missed an activation state"));
+	throw sge::gui::exception(SGE_TEXT("missed an activation state"));
 }
 }
 

@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 #include <sge/gui/canvas/object.hpp>
 #include <sge/gui/unit.hpp>
+#include <sge/gui/exception.hpp>
 #include <sge/math/signum.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/vector/arithmetic.hpp>
@@ -25,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/rect_util.hpp>
 #include <sge/text.hpp>
 #include <sge/lexical_cast.hpp>
-#include <sge/exception.hpp>
 #include <boost/bind.hpp>
 #include <algorithm>
 #include <cmath>
@@ -56,7 +56,7 @@ void sge::gui::canvas::object::draw_line(
 	line_type::type const type)
 {
 	if (!math::contains(area(),a) || !math::contains(area(),b))
-		throw sge::exception(
+		throw exception(
 			SGE_TEXT("tried to draw line from ")+
 			sge::lexical_cast<sge::string>(a)+
 			SGE_TEXT(" to ")+
