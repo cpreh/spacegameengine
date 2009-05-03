@@ -35,14 +35,6 @@ sge::gui::layouts::null::null()
 {
 }
 
-void sge::gui::layouts::null::compile(
-	invalidation::type const &)
-{
-	SGE_LOG_DEBUG(
-		mylogger,
-		log::_1 << SGE_TEXT("in compile, doing nothing"));
-}
-
 void sge::gui::layouts::null::compile_static()
 {
 	SGE_LOG_DEBUG(

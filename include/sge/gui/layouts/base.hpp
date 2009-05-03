@@ -38,7 +38,7 @@ class SGE_CLASS_SYMBOL base
 public:
 	SGE_GUI_SYMBOL base();
 
-	virtual void compile(invalidation::type const &) = 0;
+	SGE_GUI_SYMBOL virtual void compile(invalidation::type const &);
 	virtual void compile_static() = 0;
 	virtual dim const optimal_size() const = 0;
 	SGE_GUI_SYMBOL virtual void invalidate(

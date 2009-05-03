@@ -46,7 +46,6 @@ class SGE_CLASS_SYMBOL row : public base
 			spacing(
 				static_cast<spacing::value_type>(1.1),
 				static_cast<spacing::value_type>(1.1)));
-	SGE_GUI_SYMBOL void compile(invalidation::type const &);
 	SGE_GUI_SYMBOL void compile_static();
 	SGE_GUI_SYMBOL void pos(point const &);
 	SGE_GUI_SYMBOL void size(dim const &);

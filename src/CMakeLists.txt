@@ -15,6 +15,7 @@ FILE (GLOB sgecorefiles
 	image/*.cpp
 	input/*.cpp
 	input/modifier/*.cpp
+	io/*.cpp
 	library/*.cpp
 	log/*.cpp
 	log/format/*.cpp

@@ -28,6 +28,54 @@ sge::gui::layouts::base::base()
 {
 }
 
+void sge::gui::layouts::base::compile(invalidation::type const &i)
+{
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("in compile of widget: ")
+		        << type_name(typeid(connected_widget())));
+
+	if (i & invalidation::position)
+	{
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << SGE_TEXT("position invalid"));
+
+		// Currently, the layout doesn't support any internal size hints (just the
+		// global one which sets the widget's position
+		if (!connected_widget().has_parent())
+		{
+			SGE_LOG_DEBUG(
+				mylogger,
+				log::_1 << SGE_TEXT("setting raw new position"));
+
+			base::set_widget_pos(
+				connected_widget(),
+				connected_widget().pos_hint() 
+					? *connected_widget().pos_hint()
+					: point::null());
+		}
+	}
+
+	if (!(i & invalidation::size))
+		return;
+		
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("size invalid, so recompiling"));
+	
+	dim const s = 
+		connected_widget().optimal_size();
+
+	// Widget hasn't been resized yet?
+	if (connected_widget().size() != s)
+		base::set_widget_size(
+			connected_widget(),
+			s);
+
+	compile_static();
+}
+
 void sge::gui::layouts::base::invalidate(
 	widgets::base&,
 	invalidation::type const &t)

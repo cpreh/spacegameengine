@@ -34,7 +34,6 @@ class null : public base
 	public:
 	SGE_GUI_SYMBOL null();
 
-	SGE_GUI_SYMBOL void compile(invalidation::type const &);
 	SGE_GUI_SYMBOL void compile_static();
 	SGE_GUI_SYMBOL void pos(point const &);
 	SGE_GUI_SYMBOL void size(dim const &);
