@@ -1,11 +1,11 @@
-#ifndef SGE_IO_INDENT_HPP_INCLUDED
-#define SGE_IO_INDENT_HPP_INCLUDED
+#ifndef SGE_LOG_INDENT_HPP_INCLUDED
+#define SGE_LOG_INDENT_HPP_INCLUDED
 
 #include <sge/ostream.hpp>
 
 namespace sge
 {
-namespace io
+namespace log
 {
 class indent_type {};
 

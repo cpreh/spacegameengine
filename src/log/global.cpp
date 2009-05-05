@@ -21,8 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/log/global.hpp> 
 #include <sge/log/logger.hpp>
+#include <sge/io/tabbing_streambuf.hpp>
 #include <sge/text.hpp>
 #include <sge/cout.hpp>
+#include <sge/once.hpp>
 
 sge::log::logger &
 sge::log::global()
@@ -33,5 +35,7 @@ sge::log::global()
 		true,
 		log::level::warning
 	);
+	static io::tabbing_streambuf buf(
+		cout);
 	return global_;
 }

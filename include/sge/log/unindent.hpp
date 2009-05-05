@@ -1,11 +1,11 @@
-#ifndef SGE_IO_UNINDENT_HPP_INCLUDED
-#define SGE_IO_UNINDENT_HPP_INCLUDED
+#ifndef SGE_LOG_UNINDENT_HPP_INCLUDED
+#define SGE_LOG_UNINDENT_HPP_INCLUDED
 
 #include <sge/ostream.hpp>
 
 namespace sge
 {
-namespace io
+namespace log
 {
 class unindent_type {};
 

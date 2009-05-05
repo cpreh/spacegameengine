@@ -27,6 +27,11 @@ void sge::gui::layouts::grid::compile_static()
 	dim const 
 		optimal = optimal_size(),
 		usable = connected_widget().size();
+
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("optimal size ") << optimal 
+		        << SGE_TEXT(", usable size: ") << usable);
 }
 
 sge::gui::dim const sge::gui::layouts::grid::optimal_size() const
