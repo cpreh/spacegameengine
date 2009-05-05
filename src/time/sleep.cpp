@@ -34,10 +34,17 @@ void sge::time::sleep(
 	resolution const &res)
 {
 #ifdef SGE_WINDOWS_PLATFORM
-	Sleep(res.get() * 1000 / hz());
+	Sleep(
+		static_cast<DWORD>(
+			res.get() * 1000 / hz()
+		)
+	);
 #elif SGE_POSIX_PLATFORM
-	usleep(static_cast<useconds_t>(
-		res.get() * 1000 * 1000 / hz()));
+	usleep(
+		static_cast<useconds_t>(
+			res.get() * 1000 * 1000 / hz()
+		)
+	);
 #else
 #error "Implement me!"
 #endif

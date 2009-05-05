@@ -49,15 +49,17 @@ int main()
 		float,
 		2
 	>::type const vecf(
-		static_cast<float>(1),
-		static_cast<float>(2));
+		1.f,
+		2.f
+	);
 	
 	sge::math::atan2(vecf);
 
 	sge::math::point_rotate(
 		vecf,
 		vecf,
-		3.f);
+		3.f
+	);
 	
 	typedef sge::math::matrix::dynamic<
 		float
@@ -66,11 +68,13 @@ int main()
 	dynamic_float_matrix matrix(
 		dynamic_float_matrix::dim_type(
 			2,
-			3),
+			3
+		),
 		boost::assign::list_of
-			(0)(0)
-			(1)(1)
-			(2)(2));
+			(0.f)(0.f)
+			(1.f)(1.f)
+			(2.f)(2.f)
+	);
 
 	normalize(vecf);
 

@@ -26,6 +26,7 @@ FILE (GLOB sgecorefiles
 	plugin/*.cpp
 	plugin/detail/*.cpp
 	random/*.cpp
+	random/actor/*.cpp
 	renderer/*.cpp
 	renderer/detail/*.cpp
 	renderer/filter/*.cpp

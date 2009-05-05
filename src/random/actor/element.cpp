@@ -18,57 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/random/actor/element.hpp>
 
-#ifndef SGE_RANDOM_UNIFORM_DISTRIBUTION_HPP_INCLUDED
-#define SGE_RANDOM_UNIFORM_DISTRIBUTION_HPP_INCLUDED
-
-#include <boost/utility/enable_if.hpp>
-#include <boost/tr1/random.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
-#include <boost/type_traits/is_integral.hpp>
-
-namespace sge
+sge::random::actor::element::element(
+	float_type const prob_,
+	actor::callback const &callback_)
+:
+	prob_(prob_),
+	callback_(callback_)
+{}
+	
+sge::random::actor::float_type
+sge::random::actor::element::prob() const
 {
-namespace random
-{
-
-template<
-	typename T,
-	typename Enable = void
->
-class uniform_distribution;
-
-template<
-	typename T
->
-class uniform_distribution<
-	T,
-	typename boost::enable_if<
-		boost::is_floating_point<
-			T
-		>
-	>::type
-> {
-public:
-	typedef std::tr1::uniform_real<T> type;
-};
-
-template<
-	typename T
->
-class uniform_distribution<
-	T,
-	typename boost::enable_if<
-		boost::is_integral<
-			T
-		>
-	>::type
-> {
-public:
-	typedef std::tr1::uniform_int<T> type;
-};
-
-}
+	return prob_;
 }
 
-#endif
+sge::random::actor::callback const &
+sge::random::actor::element::callback() const
+{
+	return callback_;
+}
