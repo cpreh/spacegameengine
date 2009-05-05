@@ -1,6 +1,14 @@
 #ifndef SGE_GUI_LAYOUTS_GRID_HPP_INCLUDED	
 #define SGE_GUI_LAYOUTS_GRID_HPP_INCLUDED	
 
+#include <sge/gui/layouts/base.hpp>
+#include <sge/gui/widgets/fwd.hpp>
+#include <sge/gui/export.hpp>
+#include <sge/gui/dim.hpp>
+#include <boost/multi_array.hpp>
+#include <utility>
+#include <vector>
+
 namespace sge
 {
 namespace gui
@@ -15,8 +23,8 @@ public:
 	SGE_GUI_SYMBOL dim const optimal_size() const;
 private:
 	typedef boost::multi_array<widgets::base*,2> child_container;
-	typedef boost::multi_array<widget::base const *,2> const_child_container;
-	typedef boost::multi_array<widget::base const *,1> const_child_row;
+	typedef boost::multi_array<widgets::base const *,2> const_child_container;
+	typedef boost::multi_array<widgets::base const *,1> const_child_row;
 	typedef std::vector<
 		std::pair<
 			widgets::base*,

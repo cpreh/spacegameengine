@@ -1,15 +1,16 @@
-#include <sge/io/unindent.hpp>
+#include <sge/log/unindent.hpp>
 #include <sge/io/tabbing_streambuf.hpp>
 #include <sge/text.hpp>
+#include <sge/exception.hpp>
 
-sge::io::unindent_type const sge::io::unindent;
+sge::log::unindent_type const sge::log::unindent = sge::log::unindent_type();
 
-sge::ostream &operator<<(
-	ostream &s,
-	unindent_type const &)
+sge::ostream &sge::log::operator<<(
+	sge::ostream &s,
+	sge::log::unindent_type const &)
 {
-	tabbing_streambuf * const ss = 
-		dynamic_cast<tabbing_streambuf *>(
+	io::tabbing_streambuf * const ss = 
+		dynamic_cast<io::tabbing_streambuf *>(
 			s.rdbuf());
 	if (!ss)
 		throw exception(

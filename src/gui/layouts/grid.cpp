@@ -1,4 +1,11 @@
+#include <sge/gui/log.hpp>
 #include <sge/gui/layouts/grid.hpp>
+#include <sge/gui/widgets/base.hpp>
+#include <sge/math/rect_impl.hpp>
+#include <sge/math/dim/dim.hpp>
+#include <sge/type_name.hpp>
+#include <sge/text.hpp>
+#include <boost/foreach.hpp>
 
 namespace
 {
@@ -7,6 +14,11 @@ bool negative(T const &t)
 {
 	return t < static_cast<T>(0);
 }
+
+sge::gui::logger mylogger(
+	sge::gui::global_log(),
+	SGE_TEXT("layouts: grid"),
+	false);
 }
 
 void sge::gui::layouts::grid::compile_static()
@@ -44,7 +56,7 @@ sge::gui::dim const sge::gui::layouts::grid::optimal_size() const
 		dim thisdims = dim::null();
 		for (const_child_row::const_iterator x = y->begin(); x != y->end(); ++x)
 		{
-			dim const s = x->optimal_size();
+			dim const s = (*x)->optimal_size();
 			thisdims.w() += s.w();
 			thisdims.h() = std::max(thisdims.h(),s.h());
 		}
@@ -61,19 +73,25 @@ sge::gui::dim const sge::gui::layouts::grid::optimal_size() const
 sge::gui::dim const sge::gui::layouts::grid::dimensions() const
 {
 	sge::gui::dim maxd = sge::gui::dim::null();
-	BOOST_FOREACH(widget const &w,connected_widget().children())
+	BOOST_FOREACH(widgets::base const &w,connected_widget().children())
 	{
-		if (negative(w.pos_hint().x()) || negative(w.pos_hint().y()))
+		if (!w.pos_hint())
+			throw exception(
+				SGE_TEXT("a widget in a grid layout doesn't have a position hint, don't know how to position it"));
+
+		point const hint = *w.pos_hint();
+	
+		if (negative(hint.x()) || negative(hint.y()))
 			throw exception(
 				SGE_TEXT("grid layout position hints have to be positive"));
 
 		maxd.w() = 
 			std::max(
-				w.pos_hint().x(),
+				hint.x(),
 				maxd.w());
 		maxd.h() = 
 			std::max(
-				w.pos_hint().y(),
+				hint.y(),
 				maxd.h());
 	}
 	return maxd;
@@ -90,29 +108,26 @@ sge::gui::layouts::grid::children() const
 			[static_cast<const_child_container::size_type>(dims.h())]
 			[static_cast<const_child_container::size_type>(dims.w())]);
 
-	std::fill(
-		a.data(),
-		a.data()+a.num_elements(),
-		0);
-
-	BOOST_FOREACH(widgets::base const *w,children())
+	BOOST_FOREACH(widgets::base const &w,connected_widget().children())
 	{
-		if (!w->pos_hint())
+		if (!w.pos_hint())
 			throw exception(
 				SGE_TEXT("a widget in a grid layout has no position hint, I don't know where to put it"));
 
-		point const p = *w->pos_hint();
+		point const p = *w.pos_hint();
 
-		if (a(p.x(),p.y()))
+		if (a[p.x()][p.y()])
 			throw exception(
 				SGE_TEXT("two widgets in a grid layout have the same position hint, this is invalid"));
 
-		a(p.x(),p.y()) = w;
+		a[p.x()][p.y()] = &w;
 	}
 	return a;
 }
 
+/*
 sge::gui::layouts::grid::child_container const sge::gui::layouts::grid::children()
 {
 	return const_cast<grid const &>(*this).children();
 }
+*/

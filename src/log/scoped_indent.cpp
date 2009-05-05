@@ -1,5 +1,7 @@
 #include <sge/log/scoped_indent.hpp>
 #include <sge/log/logger.hpp>
+#include <sge/log/indent.hpp>
+#include <sge/log/unindent.hpp>
 #include <sge/log/temporary_output.hpp>
 
 sge::log::scoped_indent::scoped_indent(

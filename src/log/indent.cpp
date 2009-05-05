@@ -1,15 +1,16 @@
-#include <sge/io/indent.hpp>
+#include <sge/log/indent.hpp>
 #include <sge/io/tabbing_streambuf.hpp>
+#include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-sge::io::indent_type const sge::io::indent;
+sge::log::indent_type const sge::log::indent = sge::log::indent_type();
 
-sge::ostream &operator<<(
+sge::ostream &sge::log::operator<<(
 	ostream &s,
 	indent_type const &)
 {
-	tabbing_streambuf * const ss = 
-		dynamic_cast<tabbing_streambuf *>(
+	io::tabbing_streambuf * const ss = 
+		dynamic_cast<io::tabbing_streambuf *>(
 			s.rdbuf());
 	if (!ss)
 		throw exception(

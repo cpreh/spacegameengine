@@ -20,7 +20,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widgets/base.hpp>
 #include <sge/gui/manager.hpp>
 #include <sge/gui/exception.hpp>
+#include <sge/gui/log.hpp>
+#include <sge/type_name.hpp>
 #include <sge/text.hpp>
+
+namespace
+{
+sge::gui::logger mylogger(
+	sge::gui::global_log(),
+	SGE_TEXT("layouts: base"),
+	false);
+}
 
 sge::gui::layouts::base::base()
 :

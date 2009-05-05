@@ -1,5 +1,7 @@
 #include <sge/io/tabbing_streambuf.hpp>
 #include <sge/io/tabbing_filter.hpp>
+#include <sge/io/invalid_indentation.hpp>
+#include <sge/text.hpp>
 
 sge::io::tabbing_streambuf::tabbing_streambuf(
 	ostream &s)
@@ -24,7 +26,7 @@ void sge::io::tabbing_streambuf::indent()
 void sge::io::tabbing_streambuf::unindent()
 {
 	if (!tabs)
-		throw exception(
+		throw invalid_indentation(
 			SGE_TEXT("unindented too much"));
 	--tabs;
 }
