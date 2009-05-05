@@ -50,11 +50,18 @@ public:
 		range<T> const &range)
 	:
 		variate(
-			default_generator(
-				sge::time::time()),
+			Generator(
+				static_cast<
+					typename Generator::result_type
+				>(
+					sge::time::time()
+				)
+			),
 			range_type(
 				range.first(),
-				range.last()))
+				range.last()
+			)
+		)
 	{}
 
 	uniform(
@@ -65,7 +72,9 @@ public:
 			gen,
 			range_type(
 				range.first(),
-				range.last()))
+				range.last()
+			)
+		)
 	{}
 	
 	T operator()()
