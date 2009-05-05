@@ -203,7 +203,13 @@ template<
 void
 sge::variant::object<Types>::check_get() const
 {
-	if(index_ != mpl::index_of<Types, U>::value)
+	if(
+		index_ != static_cast<
+			size_type
+		>(
+			mpl::index_of<Types, U>::value
+		)
+	)
 		throw invalid_get();
 }
 
