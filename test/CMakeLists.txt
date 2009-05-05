@@ -8,6 +8,7 @@ ENDMACRO ()
 
 ADD_SGE_TEST(algorithm)
 ADD_SGE_TEST(anim)
+ADD_SGE_TEST(cie)
 ADD_SGE_TEST(collision)
 ADD_SGE_TEST(console)
 ADD_SGE_TEST(container)

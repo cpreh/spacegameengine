@@ -52,8 +52,9 @@ public:
 		return last_;
 	}
 private:
-	T first_,
-	  last_;
+	T
+		first_,
+		last_;
 };
 
 }

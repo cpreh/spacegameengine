@@ -1,7 +1,7 @@
 FILE (GLOB sgex11inputfiles src/*.cpp)
 
 ADD_LIBRARY (sgex11input SHARED ${sgex11inputfiles})
-TARGET_LINK_LIBRARIES (sgex11input sgecore X11)
+TARGET_LINK_LIBRARIES (sgex11input sgecore ${X11_LIBRARIES})
 
 IF (ENABLE_DGA AND HAVE_XF86_DGA)
 	ADD_DEFINITIONS (-DSGE_USE_DGA)
