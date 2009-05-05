@@ -22,6 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/random/uniform.hpp>
 #include <sge/random/inclusive_range.hpp>
 #include <sge/random/last_exclusive_range.hpp>
+#include <sge/random/actor/normalized.hpp>
+#include <sge/random/actor/element.hpp>
+#include <sge/assign/make_container.hpp>
 #include <sge/cerr.hpp>
 #include <sge/cout.hpp>
 #include <sge/exception.hpp>
@@ -45,6 +48,11 @@ void print_values(
 	sge::cout << SGE_TEXT('\n');
 }
 
+void test_function()
+{
+	sge::cout << SGE_TEXT("test\n");
+}
+
 }
 
 int main()
@@ -53,23 +61,42 @@ try
 	sge::random::uniform<int> rng(
 		sge::random::inclusive_range<int>(
 			0,
-			10));
+			10
+		)
+	);
 
 	print_values(rng);
 
 	sge::random::uniform<float> rngf(
 		sge::random::inclusive_range<float>(
 			0.f,
-			10.f));
+			10.f
+		)
+	);
 	
 	print_values(rngf);
 	
 	sge::random::uniform<int> rngex(
 		sge::random::last_exclusive_range<int>(
 			0,
-			10));
+			10
+		)
+	);
+
+	sge::random::actor::normalized actor(
+		sge::assign::make_container<
+			sge::random::actor::container
+		>(
+			sge::random::actor::element(
+				1.,
+				test_function
+			)
+		)
+	);
 
 	print_values(rngex);
+
+	actor();
 }
 catch(sge::exception const &e)
 {

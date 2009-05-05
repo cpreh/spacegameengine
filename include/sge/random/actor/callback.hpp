@@ -18,56 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_RANDOM_ACTOR_CALLBACK_HPP_INCLUDED
+#define SGE_RANDOM_ACTOR_CALLBACK_HPP_INCLUDED
 
-#ifndef SGE_RANDOM_UNIFORM_DISTRIBUTION_HPP_INCLUDED
-#define SGE_RANDOM_UNIFORM_DISTRIBUTION_HPP_INCLUDED
-
-#include <boost/utility/enable_if.hpp>
-#include <boost/tr1/random.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
-#include <boost/type_traits/is_integral.hpp>
+#include <boost/function.hpp>
 
 namespace sge
 {
 namespace random
 {
+namespace actor
+{
 
-template<
-	typename T,
-	typename Enable = void
->
-class uniform_distribution;
+typedef boost::function<
+	void ()
+> callback;
 
-template<
-	typename T
->
-class uniform_distribution<
-	T,
-	typename boost::enable_if<
-		boost::is_floating_point<
-			T
-		>
-	>::type
-> {
-public:
-	typedef std::tr1::uniform_real<T> type;
-};
-
-template<
-	typename T
->
-class uniform_distribution<
-	T,
-	typename boost::enable_if<
-		boost::is_integral<
-			T
-		>
-	>::type
-> {
-public:
-	typedef std::tr1::uniform_int<T> type;
-};
-
+}
 }
 }
 

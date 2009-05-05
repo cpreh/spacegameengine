@@ -18,56 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_RANDOM_ACTOR_ELEMENT_HPP_INCLUDED
+#define SGE_RANDOM_ACTOR_ELEMENT_HPP_INCLUDED
 
-#ifndef SGE_RANDOM_UNIFORM_DISTRIBUTION_HPP_INCLUDED
-#define SGE_RANDOM_UNIFORM_DISTRIBUTION_HPP_INCLUDED
-
-#include <boost/utility/enable_if.hpp>
-#include <boost/tr1/random.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
-#include <boost/type_traits/is_integral.hpp>
+#include <sge/random/actor/element_fwd.hpp>
+#include <sge/random/actor/float_type.hpp>
+#include <sge/random/actor/callback.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
 namespace random
 {
+namespace actor
+{
 
-template<
-	typename T,
-	typename Enable = void
->
-class uniform_distribution;
-
-template<
-	typename T
->
-class uniform_distribution<
-	T,
-	typename boost::enable_if<
-		boost::is_floating_point<
-			T
-		>
-	>::type
-> {
+class element {
 public:
-	typedef std::tr1::uniform_real<T> type;
+	SGE_SYMBOL element(
+		float_type,
+		actor::callback const &);
+	
+	SGE_SYMBOL float_type
+	prob() const;
+
+	SGE_SYMBOL actor::callback const &
+	callback() const;
+private:
+	float_type prob_;
+	actor::callback callback_;
 };
 
-template<
-	typename T
->
-class uniform_distribution<
-	T,
-	typename boost::enable_if<
-		boost::is_integral<
-			T
-		>
-	>::type
-> {
-public:
-	typedef std::tr1::uniform_int<T> type;
-};
-
+}
 }
 }
 
