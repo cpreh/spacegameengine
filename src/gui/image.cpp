@@ -16,11 +16,14 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
+
 #include <sge/gui/image.hpp>
 #include <sge/gui/image_view.hpp>
 #include <boost/gil/image.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/gui/unit.hpp>
+#include <sge/variant/object_impl.hpp>
 
 sge::gui::image::image()
 : 

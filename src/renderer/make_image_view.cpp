@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/make_const_image_view.hpp>
 #include <sge/renderer/color_format_stride.hpp>
 #include <sge/renderer/detail/fold_color_format.hpp>
+#include <sge/variant/object_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <boost/gil/image_view_factory.hpp>
 
@@ -60,6 +61,7 @@ sge::renderer::make_image_view(
 	color_format::type const format,
 	optional_image_pitch const pitch)
 {
+	// TODO: replace this with another mpl algorithm!
 	return fold_color_format(
 		operation(
 			data,

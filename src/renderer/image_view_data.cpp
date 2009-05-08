@@ -20,8 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/image_view_data.hpp>
+#include <sge/variant/apply_unary.hpp>
+#include <sge/variant/object_impl.hpp>
 #include <boost/gil/image_view_factory.hpp>
-#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 
 namespace
 {
@@ -29,36 +30,37 @@ namespace
 template<
 	typename Dst
 >
-class image_view_data_fn {
+class visitor {
 public:
-	typedef void result_type;
-	Dst &_dst;
+	typedef Dst result_type;
 
-	explicit image_view_data_fn(
-		Dst& dst)
-	:
-		_dst(dst)
-	{}
-
-	template<typename Src>
-	void operator()(
+	template<
+		typename Src
+	>
+	result_type
+	operator()(
 		Src const &src) const
 	{
-		_dst = reinterpret_cast<Dst>(
-			boost::gil::interleaved_view_get_raw_data(src));
+		return reinterpret_cast<Dst>(
+			boost::gil::interleaved_view_get_raw_data(
+				src
+			)
+		);
 	}
 };
 
 template<
-	typename T,
-	typename Dst
+	typename Dest,
+	typename View 
 >
-void variant_data_fn(
-	boost::gil::variant<T> const &src,
-	Dst &dst)
+Dest 
+image_view_data_impl(
+	View const &v)
 {
-	image_view_data_fn<Dst> fn(dst);
-	boost::gil::apply_operation(src, fn);
+	return sge::variant::apply_unary(
+		visitor<Dest>(),
+		v
+	);
 }
 
 }
@@ -67,16 +69,20 @@ unsigned char *
 sge::renderer::image_view_data(
 	image_view const &v)
 {
-	unsigned char *ret(0);
-	variant_data_fn(v, ret);
-	return ret;
+	return image_view_data_impl<
+		unsigned char *
+	>(
+		v
+	);
 }
 
 unsigned char const *
 sge::renderer::image_view_data(
 	const_image_view const &v)
 {
-	unsigned char const *ret(0);
-	variant_data_fn(v, ret);
-	return ret;
+	return image_view_data_impl<
+		unsigned char const *
+	>(
+		v
+	);
 }

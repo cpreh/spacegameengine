@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/color_format_stride.hpp>
 #include <sge/renderer/copy_and_convert_pixels.hpp>
+#include <sge/variant/object_impl.hpp>
 #include <sge/text.hpp>
 #include <sge/exception.hpp>
 #include <boost/spirit/home/phoenix/bind/bind_function.hpp>
@@ -68,10 +69,14 @@ void sge::renderer::convert_pixels_conditional(
 				data,
 				dim,
 				fmt,
-				pitch)),
+				pitch
+			)
+		),
 		make_image_view(
 			data,
 			dim,
 			*it,
-			pitch));
+			pitch
+		)
+	);
 }

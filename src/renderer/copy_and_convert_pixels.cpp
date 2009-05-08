@@ -20,88 +20,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/copy_and_convert_pixels.hpp>
-#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
+#include <sge/variant/apply_binary.hpp>
+#include <sge/variant/object_impl.hpp>
 #include <boost/gil/algorithm.hpp>
 
 namespace
 {
 
-template<
-	typename CC
->
-class copy_and_convert_pixels_fn
-: public boost::gil::binary_operation_obj<
-	copy_and_convert_pixels_fn<
-		CC
-	>
-> {
-private:
-	CC const cc;
+class visitor {
 public:
-	typedef typename boost::gil::binary_operation_obj<
-		copy_and_convert_pixels_fn<
-			CC
-		>
-	>::result_type result_type;
-
-	copy_and_convert_pixels_fn()
-	:
-		cc()
-	{}
-
-	explicit copy_and_convert_pixels_fn(
-		CC const cc)
-	:
-		cc(cc)
-	{}
+	typedef void result_type;
 
 	template<
 		typename V1,
 		typename V2
 	>
 	result_type
-	apply_incompatible(
+	operator()(
 		V1 const &src,
-		V2 const &dst) const
-	{
-		return boost::gil::copy_pixels(
-			boost::gil::color_converted_view<
-				typename V2::value_type
-			>(
-				src,
-				cc),
-			dst);
-	}
-
-	template<
-		typename V1,
-		typename V2
-	>
-	result_type
-	apply_compatible(
-		V1 const &src,
-		V2 const &dst) const
-	{
-		// hack this because GIL thinks that two views
-		// don't need any conversion if they have the same set of channels
-		// which are in different order
-		return apply_incompatible(
-			src,
-			dst);
-	}
+		V2 const &dst) const;
 
 	template<
 		typename V
 	>
 	result_type
-	apply_compatible(
+	operator()(
 		V const &src,
-		V const &dst) const
-	{
-		return boost::gil::copy_pixels(
-			src,
-			dst);
-	}
+		V const &dst) const;
+private:
+	boost::gil::default_color_converter const converter;
 };
 
 }
@@ -110,10 +57,52 @@ void sge::renderer::copy_and_convert_pixels(
 	const_image_view const &src,
 	image_view const &dest)
 {
-        boost::gil::apply_operation(
+	variant::apply_binary(
+		visitor(),
 		src,
-		dest,
-		copy_and_convert_pixels_fn<
-			boost::gil::default_color_converter
-		>());
+		dest
+	);
+}
+
+namespace
+{
+
+
+template<
+	typename V1,
+	typename V2
+>
+visitor::result_type
+visitor::operator()(
+	V1 const &src,
+	V2 const &dst) const
+{
+	// hack this because GIL thinks that two views
+	// don't need any conversion if they have the same set of channels
+	// which are in different order
+	return boost::gil::copy_pixels(
+		boost::gil::color_converted_view<
+			typename V2::value_type
+		>(
+			src,
+			converter
+		),
+		dst
+	);
+}
+
+template<
+	typename V
+>
+visitor::result_type
+visitor::operator()(
+	V const &src,
+	V const &dst) const
+{
+	return boost::gil::copy_pixels(
+		src,
+		dst
+	);
+}
+
 }

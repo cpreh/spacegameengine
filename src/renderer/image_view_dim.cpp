@@ -21,13 +21,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/image_view_dim.hpp>
 #include <sge/renderer/size_type.hpp>
+#include <sge/variant/apply_unary.hpp>
+#include <sge/variant/object_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 
 namespace
 {
 
+template<
+	typename GilDim
+>
 sge::renderer::dim_type const
-gil_dim_to_sge(sge::renderer::image_view::point_t const &);
+gil_dim_to_sge(
+	GilDim const &);
+
+class visitor {
+public:
+	typedef sge::renderer::dim_type result_type;
+
+	template<
+		typename View
+	>
+	result_type const
+	operator()(
+		View const &) const;
+};
 
 }
 
@@ -35,20 +53,39 @@ sge::renderer::dim_type const
 sge::renderer::image_view_dim(
 	const_image_view const &v)
 {
-	return gil_dim_to_sge(
-		v.dimensions());
+	return variant::apply_unary(
+		visitor(),
+		v
+	);
 }
 
 namespace
 {
 
+template<
+	typename GilDim
+>
 sge::renderer::dim_type const
 gil_dim_to_sge(
-	sge::renderer::image_view::point_t const &v)
+	GilDim const &v)
 {
 	return sge::renderer::dim_type(
 		static_cast<sge::renderer::size_type>(v.x),
-		static_cast<sge::renderer::size_type>(v.y));
+		static_cast<sge::renderer::size_type>(v.y)
+	);
+}
+
+
+template<
+	typename View
+>
+visitor::result_type const
+visitor::operator()(
+	View const &view) const
+{
+	return gil_dim_to_sge(
+		view.dimensions()
+	);
 }
 
 }

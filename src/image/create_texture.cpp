@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/loader.hpp>
 #include <sge/image/object.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/variant/object_impl.hpp>
 
 sge::renderer::texture_ptr const
 sge::image::create_texture(
@@ -34,7 +35,8 @@ sge::image::create_texture(
 	return r->create_texture(
 		p->view(),
 		filter,
-		flags);
+		flags
+	);
 }
 
 sge::renderer::texture_ptr const
@@ -49,5 +51,6 @@ sge::image::create_texture(
 		r,
 		p->load(file),
 		filter,
-		flags);
+		flags
+	);
 }
