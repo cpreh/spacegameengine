@@ -21,12 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/image_view_format.hpp>
 #include <sge/renderer/color_format_static.hpp>
-#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
+#include <sge/variant/apply_unary.hpp>
+#include <sge/variant/object_impl.hpp>
 
 namespace
 {
 
-class format_fun {
+class visitor {
 public:
 	typedef sge::renderer::color_format::type result_type;
 
@@ -44,9 +45,10 @@ sge::renderer::color_format::type
 sge::renderer::image_view_format(
 	const_image_view const &view)
 {
-	return boost::gil::apply_operation(
-		view,
-		format_fun());
+	return variant::apply_unary(
+		visitor(),
+		view
+	);
 }
 
 namespace
@@ -55,8 +57,8 @@ namespace
 template<
 	typename T
 >
-format_fun::result_type
-format_fun::operator()(
+visitor::result_type
+visitor::operator()(
 	T const &) const
 {
 	return sge::renderer::color_format_static<

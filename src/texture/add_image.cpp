@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/add_image.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/image/object.hpp>
+#include <sge/variant/object_impl.hpp>
 
 sge::texture::part_ptr const
 sge::texture::add_image(
@@ -29,5 +30,6 @@ sge::texture::add_image(
 	image::object_ptr const img)
 {
 	return man.add(
-		img->view());
+		img->view()
+	);
 }

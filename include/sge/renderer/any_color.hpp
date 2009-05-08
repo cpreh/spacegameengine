@@ -23,16 +23,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_ANY_COLOR_HPP_INCLUDED
 
 #include <sge/renderer/color_types.hpp>
-#include <boost/variant/variant.hpp>
+#include <sge/variant/object_fwd.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-typedef boost::make_variant_over<
+typedef variant::object<
 	color_types
->::type any_color;
+> any_color;
 
 }
 }

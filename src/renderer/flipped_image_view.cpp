@@ -20,7 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/flipped_image_view.hpp>
-#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
+#include <sge/variant/apply_unary.hpp>
+#include <sge/variant/object_impl.hpp>
 #include <boost/gil/image_view_factory.hpp>
 
 namespace
@@ -47,9 +48,9 @@ sge::renderer::image_view const
 sge::renderer::flipped_image_view(
 	image_view const &v)
 {
-	return boost::gil::apply_operation(
-		v,
-		visitor<image_view>()
+	return variant::apply_unary(
+		visitor<image_view>(),
+		v
 	);
 }
 
@@ -57,9 +58,9 @@ sge::renderer::const_image_view const
 sge::renderer::flipped_image_view(
 	const_image_view const &v)
 {
-	return boost::gil::apply_operation(
-		v,
-		visitor<const_image_view>()
+	return variant::apply_unary(
+		visitor<const_image_view>(),
+		v
 	);
 }
 

@@ -21,18 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/any_color_print.hpp>
 #include <sge/renderer/color_print.hpp>
-#include <boost/variant/apply_visitor.hpp>
-#include <boost/variant/static_visitor.hpp>
+#include <sge/variant/apply_unary.hpp>
+#include <sge/variant/object_impl.hpp>
 
 namespace
 {
 
-class visitor : public boost::static_visitor<sge::ostream &> {
+class visitor {
 public:
+	typedef sge::ostream &result_type;
+
 	explicit visitor(
 		sge::ostream &s);
-	template<typename T>
-	sge::ostream &
+	
+	template<
+		typename T
+	>
+	result_type
 	operator()(
 		T const &) const;
 private:
@@ -46,9 +51,10 @@ sge::renderer::operator<<(
 	ostream &s,
 	any_color const &c)
 {
-	return boost::apply_visitor(
+	return variant::apply_unary(
 		visitor(s),
-		c);
+		c
+	);
 }
 
 namespace
@@ -60,8 +66,10 @@ visitor::visitor(
 	s(s)
 {}
 
-template<typename T>
-sge::ostream &
+template<
+	typename T
+>
+visitor::result_type
 visitor::operator()(
 	T const &t) const
 {

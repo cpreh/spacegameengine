@@ -39,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/image_view_format.hpp>
 #include <sge/renderer/image_view_dim.hpp>
 #include <sge/math/dim/basic_impl.hpp>
+#include <sge/variant/object_impl.hpp>
 
 sge::devil::object::object(
 	filesystem::path const &file)
@@ -128,9 +129,15 @@ void sge::devil::object::data(
 			src_dim,
 			best_il_format));
 
+	sge::renderer::dim_type const dim(
+		sge::renderer::image_view_dim(
+			src
+		)
+	);
+
 	ilTexImage(
-		static_cast<ILuint>(src.width()),
-		static_cast<ILuint>(src.height()),
+		static_cast<ILuint>(dim.w()),
+		static_cast<ILuint>(dim.h()),
 		1,
 		4, // always 4 channels
 		to_il_format(

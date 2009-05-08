@@ -16,6 +16,8 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
+
 #ifndef SGE_SPRITE_PARAMETERS_HPP_INCLUDED
 #define SGE_SPRITE_PARAMETERS_HPP_INCLUDED
 
@@ -29,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/repetition_type.hpp>
 #include <sge/sprite/object_fwd.hpp>
 #include <sge/texture/part_fwd.hpp>
+#include <sge/variant/object_impl.hpp>
 #include <sge/export.hpp>
 
 namespace sge

@@ -16,6 +16,8 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
+
 #include <sge/gui/make_image.hpp>
 #include <sge/gui/image.hpp>
 #include <sge/gui/dim.hpp>
@@ -23,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/image_view.hpp>
 #include <sge/image/object.hpp>
 #include <sge/math/dim/basic_impl.hpp>
+#include <sge/variant/object_impl.hpp>
 #include <sge/structure_cast.hpp>
 
 sge::gui::image_ptr const sge::gui::make_image(

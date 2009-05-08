@@ -20,26 +20,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/any_color_convert.hpp>
-#include <boost/mpl/for_each.hpp>
+#include <sge/variant/apply_unary.hpp>
+#include <sge/variant/object_impl.hpp>
 #include <boost/gil/color_convert.hpp>
-#include <boost/variant/get.hpp>
 
 namespace
 {
 
-template<typename Dest>
-class conversion_helper {
+template<
+	typename Dest
+>
+class visitor {
 public:
-	conversion_helper(
-		sge::renderer::any_color const &col,
-		Dest &dest);
+	typedef Dest result_type;
 
-	template<typename Source>
-	void operator()(
-		Source &) const;
-private:
-	sge::renderer::any_color const &col;
-	Dest                           &dest;
+	template<
+		typename Source
+	>
+	result_type
+	operator()(
+		Source const &) const;
 };
 
 }
@@ -51,36 +51,35 @@ Dest const
 sge::renderer::any_color_convert(
 	any_color const &col)
 {
-	Dest dest;
-	boost::mpl::for_each<
-		any_color::types>(
-			conversion_helper<Dest>(
-				col,
-				dest));
-	return dest;
+	return variant::apply_unary(
+		visitor<
+			Dest
+		>(),
+		col
+	);
 }
 
 namespace
 {
 
-template<typename Dest>
-conversion_helper<Dest>::conversion_helper(
-	sge::renderer::any_color const &col,
-	Dest &dest)
-:
-	col(col),
-	dest(dest)
-{}
-
-template<typename Dest>
-template<typename Source>
-void conversion_helper<Dest>::operator()(
-	Source &) const
+template<
+	typename Dest
+>
+template<
+	typename Source
+>
+typename visitor<Dest>::result_type
+visitor<Dest>::operator()(
+	Source const &src) const
 {
-	if(typeid(Source) == col.type())
-		boost::gil::color_convert(
-			boost::get<Source>(col),
-			dest);
+	Dest dest;
+
+	boost::gil::color_convert(
+		src,
+		dest
+	);
+
+	return dest;
 }
 
 }

@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <sge/renderer/cube_texture.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/math/power.hpp>
+#include <sge/variant/object_impl.hpp>
 
 sge::renderer::image_view const
 sge::renderer::cube_texture::lock(
@@ -31,7 +31,8 @@ sge::renderer::cube_texture::lock(
 	return lock(
 		side,
 		rect(),
-		flags);
+		flags
+	);
 }
 
 sge::renderer::const_image_view const
@@ -40,21 +41,26 @@ sge::renderer::cube_texture::lock(
 {
 	return lock(
 		side,
-		rect());
+		rect()
+	);
 }
 
 sge::renderer::cube_texture::size_type
 sge::renderer::cube_texture::content() const
 {
-	return math::quad(border_size());
+	return math::quad(
+		border_size()
+	);
 }
 
 sge::renderer::cube_texture::rect_type const
 sge::renderer::cube_texture::rect() const
 {
 	return rect_type(
-		rect_type::point_type(0,0),
+		rect_type::point_type::null(),
 		rect_type::dim_type(
 			border_size(),
-			border_size()));
+			border_size()
+		)
+	);
 }

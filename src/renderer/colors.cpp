@@ -16,7 +16,10 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
+
 #include <sge/renderer/colors.hpp>
+#include <sge/variant/object_impl.hpp>
 
 // FIXME: initialize all colors and do it so that they are not affected by changing the channel order
 

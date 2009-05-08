@@ -32,10 +32,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/unit.hpp>
 #include <sge/sprite/circle.hpp>
 #include <sge/sprite/rect.hpp>
-#include <sge/export.hpp>
 #include <sge/texture/part_fwd.hpp>
+#include <sge/variant/object_impl.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {

@@ -17,31 +17,54 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-#ifndef SGE_GUI_FONT_INFO_HPP_INCLUDED
-#define SGE_GUI_FONT_INFO_HPP_INCLUDED
 
-#include <sge/gui/export.hpp>
-#include <sge/gui/color.hpp>
-#include <sge/font/metrics_fwd.hpp>
-#include <sge/variant/object_impl.hpp>
+#ifndef SGE_RENDERER_DETAIL_TRANSFORM_PIXELS_UNARY_HPP_INCLUDED
+#define SGE_RENDERER_DETAIL_TRANSFORM_PIXELS_UNARY_HPP_INCLUDED
+
+#include <cstddef>
 
 namespace sge
 {
-namespace gui
+namespace renderer
 {
-class SGE_CLASS_SYMBOL font_info
+namespace detail
 {
+
+template<
+	typename Op
+>
+class transform_pixels_unary {
 public:
-	SGE_GUI_SYMBOL font_info(
-		font::metrics_ptr,
-		sge::gui::color const &);
-	
-	SGE_GUI_SYMBOL font::metrics_ptr const metrics() const;
-	SGE_GUI_SYMBOL sge::gui::color const color() const;
+	typedef void result_type;
+
+	explicit transform_pixels_unary(
+		Op const &op)
+	:
+		op(op)
+	{}
+
+	template<
+		typename Src,
+		typename Dest
+	>
+	result_type
+	operator()(
+		Src const &src,
+		Dest const &dst) const
+	{
+		for (std::ptrdiff_t y = 0; y < dst.height(); ++y)
+		{
+			typename Src::x_iterator const src_it = src.row_begin(y);
+			typename Dest::x_iterator const dst_it = dst.row_begin(y);
+			for (std::ptrdiff_t x = 0; x < dst.width(); ++x)
+				op(src_it[x], dst_it[x]);
+		}
+	}
 private:
-	font::metrics_ptr metrics_;
-	sge::gui::color color_;
+	Op const op;
 };
+
+}
 }
 }
 

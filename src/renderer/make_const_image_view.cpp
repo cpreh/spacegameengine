@@ -20,49 +20,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/make_const_image_view.hpp>
-#include <boost/gil/extension/dynamic_image/algorithm.hpp>
-#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
+#include <sge/variant/apply_unary.hpp>
+#include <sge/variant/object_impl.hpp>
 
-namespace 
+namespace
 {
 
-template <typename Dst>
-class variant_const_assign_fn {
+// TODO: make this auto convertible!
+
+class visitor {
 public:
-	typedef void result_type;
-	Dst &_dst;
+	typedef sge::renderer::const_image_view result_type;
 
-	explicit variant_const_assign_fn(
-		Dst& dst)
-	: 
-		_dst(dst)
-	{}
-
-	template<typename Src>
-	void operator()(
-		Src const &src) const 
-	{
-		typename Src::const_t const_src(src);
-		_dst = const_src;
-	}
+	template<
+		typename T
+	>
+	result_type const
+	operator()(
+		T const &) const;
 };
-
-template <typename V1, typename V2>
-void variant_const_assign(
-	boost::gil::variant<V1> const &src, 
-	boost::gil::variant<V2>& dst) 
-{
-	variant_const_assign_fn<boost::gil::variant<V2> > fn(dst);
-	boost::gil::apply_operation(src, fn);
-} 
 
 }
 
 sge::renderer::const_image_view const
 sge::renderer::make_const_image_view(
-	image_view const &ncv)
+	image_view const &view)
 {
-	const_image_view cv;
-	variant_const_assign(ncv,cv);
-	return cv;
+	return variant::apply_unary(
+		visitor(),
+		view
+	);
+}
+
+namespace
+{
+
+template<
+	typename T
+>
+visitor::result_type const
+visitor::operator()(
+	T const &v) const
+{
+	return result_type(
+		typename T::const_t(
+			v
+		)
+	);
+}
+
 }
