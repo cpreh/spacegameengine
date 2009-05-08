@@ -205,7 +205,9 @@ void sge::gui::layouts::grid::shrink(
 		usable,
 		axis_policy::can_shrink,
 		axis);
-	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("shrinking end"));
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("shrinking end"));
 }
 
 void sge::gui::layouts::grid::expand(
