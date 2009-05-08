@@ -24,18 +24,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/image_view_elements.hpp>
 #include <sge/renderer/const_image_view_elements.hpp>
-#include <boost/gil/extension/dynamic_image/any_image_view.hpp>
+#include <sge/variant/object_fwd.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-typedef boost::gil::any_image_view<
+typedef variant::object<
 	image_view_elements
 > image_view;
 
-typedef boost::gil::any_image_view<
+typedef variant::object<
 	const_image_view_elements
 > const_image_view;
 

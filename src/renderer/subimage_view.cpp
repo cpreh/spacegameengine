@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/subimage_view.hpp>
 #include <sge/math/rect_impl.hpp>
-#include <boost/gil/extension/dynamic_image/image_view_factory.hpp>
-#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
+#include <sge/variant/apply_unary.hpp>
+#include <sge/variant/object_impl.hpp>
+#include <boost/gil/image_view_factory.hpp>
 
 namespace
 {
@@ -35,6 +36,26 @@ subimage_view_impl(
 	View const &,
 	sge::renderer::lock_rect const &);
 
+template<
+	typename Result
+>
+class visitor {
+public:
+	typedef Result result_type;
+
+	explicit visitor(
+		sge::renderer::lock_rect const &);
+	
+	template<
+		typename T
+	>
+	result_type const
+	operator()(
+		T const &) const;
+private:
+	sge::renderer::lock_rect const lr;
+};
+
 }
 
 sge::renderer::image_view const
@@ -44,7 +65,8 @@ sge::renderer::subimage_view(
 {
 	return subimage_view_impl(
 		src,
-		lr);
+		lr
+	);
 }
 
 sge::renderer::const_image_view const
@@ -54,7 +76,8 @@ sge::renderer::subimage_view(
 {
 	return subimage_view_impl(
 		src,
-		lr);
+		lr
+	);
 }
 
 namespace
@@ -68,12 +91,40 @@ subimage_view_impl(
 	View const &v,
 	sge::renderer::lock_rect const &r)
 {
+	return sge::variant::apply_unary(
+		visitor<View>(
+			r
+		),
+		v
+	);
+}
+
+template<
+	typename Result
+>
+visitor<Result>::visitor(
+	sge::renderer::lock_rect const &lr)
+:
+	lr(lr)
+{}
+
+template<
+	typename Result
+>
+template<
+	typename T
+>
+typename visitor<Result>::result_type const
+visitor<Result>::operator()(
+	T const &v) const
+{
 	return boost::gil::subimage_view(
 		v,
-		static_cast<int>(r.left()),
-		static_cast<int>(r.top()),
-		static_cast<int>(r.w()),
-		static_cast<int>(r.h()));
+		static_cast<int>(lr.left()),
+		static_cast<int>(lr.top()),
+		static_cast<int>(lr.w()),
+		static_cast<int>(lr.h())
+	);
 }
 
 }

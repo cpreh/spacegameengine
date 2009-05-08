@@ -20,23 +20,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/fill_pixels.hpp>
-#include <boost/gil/extension/dynamic_image/algorithm.hpp>
-#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
-#include <boost/variant/static_visitor.hpp>
-#include <boost/variant/apply_visitor.hpp>
+#include <sge/variant/apply_unary.hpp>
+#include <sge/variant/object_impl.hpp>
+#include <boost/gil/algorithm.hpp>
 
 namespace
 {
 
-class visitor : public boost::static_visitor<> {
+class color_visitor {
 public:
-	explicit visitor(
+	typedef void result_type;
+
+	explicit color_visitor(
 		sge::renderer::image_view const &);
-	template<typename T>
-	void operator()(
+	
+	template<
+		typename T
+	>
+	result_type
+	operator()(
 		T const &t) const;
 private:
 	sge::renderer::image_view const &dest;
+};
+
+template<
+	typename Color
+>
+class fill_visitor {
+public:
+	typedef void result_type;
+
+	explicit fill_visitor(
+		Color const &col);
+	
+	template<
+		typename T
+	>
+	result_type
+	operator()(
+		T const &) const;
+private:
+	Color const col;
 };
 
 }
@@ -45,27 +70,59 @@ void sge::renderer::fill_pixels(
 	image_view const &dest,
 	any_color const &c)
 {
-	boost::apply_visitor(
-		visitor(dest),
-		c);
+	variant::apply_unary(
+		color_visitor(dest),
+		c
+	);
 }
 
 namespace
 {
 
-visitor::visitor(
+color_visitor::color_visitor(
 	sge::renderer::image_view const &dest)
 :
 	dest(dest)
 {}
 
-template<typename T>
-void visitor::operator()(
+template<
+	typename T
+>
+color_visitor::result_type
+color_visitor::operator()(
 	T const &t) const
 {
+	sge::variant::apply_unary(
+		fill_visitor<
+			T
+		>(t),
+		dest
+	);
+}
+
+template<
+	typename Color
+>
+fill_visitor<Color>::fill_visitor(
+	Color const &col)
+:
+	col(col)
+{}
+
+template<
+	typename Color
+>
+template<
+	typename T
+>
+typename fill_visitor<Color>::result_type
+fill_visitor<Color>::operator()(
+	T const &view) const
+{
 	boost::gil::fill_pixels(
-		dest,
-		t);
+		view,
+		col
+	);
 }
 
 }

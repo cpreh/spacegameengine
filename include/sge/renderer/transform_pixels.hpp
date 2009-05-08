@@ -22,8 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TRANSFORM_PIXELS_HPP_INCLUDED
 #define SGE_RENDERER_TRANSFORM_PIXELS_HPP_INCLUDED
 
+#include <sge/renderer/detail/transform_pixels_unary.hpp>
+#include <sge/renderer/detail/transform_pixels_binary.hpp>
 #include <sge/renderer/image_view.hpp>
-#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
+#include <sge/variant/apply_unary.hpp>
+#include <sge/variant/apply_binary.hpp>
+//#include <sge/variant/apply_ternary.hpp>
+#include <sge/variant/object_impl.hpp>
 #include <boost/bind.hpp>
 #include <cstddef>
 
@@ -33,94 +38,6 @@ namespace renderer
 {
 
 template<
-	typename View1,
-	typename View2,
-	typename View3,
-	typename F
->
-void transform_pixels_static( // TODO: rename this when all overloads are there
-	View1 const &src1,
-	View2 const &src2,
-	View3 const &dst,
-	F const &fun)
-{
-	for (std::ptrdiff_t y = 0; y < dst.height(); ++y)
-	{
-		typename View1::x_iterator const src1_it = src1.row_begin(y);
-		typename View2::x_iterator const src2_it = src2.row_begin(y);
-		typename View3::x_iterator const dst_it = dst.row_begin(y);
-		for (std::ptrdiff_t x = 0; x < dst.width(); ++x)
-			fun(src1_it[x], src2_it[x], dst_it[x]);
-	}
-}
-
-template<
-	typename Op
->
-class transform_pixels_fn {
-public:
-	typedef void result_type;
-
-	explicit transform_pixels_fn(
-		Op const &op)
-	:
-		op(op)
-	{}
-
-	template<
-		typename Src,
-		typename Dest
-	>
-	void operator()(
-		Src const &src,
-		Dest const &dst) const
-	{
-		for (std::ptrdiff_t y = 0; y < dst.height(); ++y)
-		{
-			typename Src::x_iterator const src_it = src.row_begin(y);
-			typename Dest::x_iterator const dst_it = dst.row_begin(y);
-			for (std::ptrdiff_t x = 0; x < dst.width(); ++x)
-				op(src_it[x], dst_it[x]);
-		}
-	}
-private:
-	Op const op;
-};
-
-template<
-	typename Op
->
-class transform_pixels_binary_fn {
-public:
-	typedef void result_type;
-
-	explicit transform_pixels_binary_fn(
-		Op const &op)
-	:
-		op(op)
-	{}
-
-	template<
-		typename Src1,
-		typename Src2,
-		typename Dest
-	>
-	void operator()(
-		Src1 const &src1,
-		Src2 const &src2,
-		Dest const &dest) const
-	{
-		transform_pixels_static(
-			src1,
-			src2,
-			dest,
-			op);
-	}
-private:
-	Op const op;
-};
-
-template<
 	typename Op
 >
 void transform_pixels(
@@ -128,11 +45,15 @@ void transform_pixels(
 	image_view const &dst,
 	Op const &op)
 {
-	boost::gil::apply_operation(
+	variant::apply_binary(
+		detail::transform_pixels_unary<
+			Op
+		>(
+			op
+		),
 		src,
-		dst,
-		renderer::transform_pixels_fn<Op>(
-			op));
+		dst
+	);
 }
 
 template<
@@ -144,13 +65,18 @@ void transform_pixels(
 	image_view const &dest,
 	Op const &op)
 {
-	boost::gil::apply_operation(
-		dest,
+	variant::apply_unary(
 		boost::bind(
-			transform_pixels_fn<Op>(
-				op),
+			detail::transform_pixels_unary<
+				Op
+			>(
+				op
+			),
 			src,
-			_1));
+			_1
+		),
+		dest
+	);
 }
 
 template<
@@ -162,13 +88,18 @@ void transform_pixels(
 	Dest const &dest,
 	Op const &op)
 {
-	boost::gil::apply_operation(
-		src,
+	variant::apply_unary(
 		boost::bind(
-			transform_pixels_fn<Op>(
-				op),
+			detail::transform_pixels_unary<
+				Op
+			>(
+				op
+			),
 			_1,
-			dest));
+			dest
+		),
+		src
+	);
 }
 
 template<
@@ -181,15 +112,20 @@ void transform_pixels(
 	image_view const &dest,
 	Op const &op)
 {
-	boost::gil::apply_operation(
-		src2,
-		dest,
+	variant::apply_binary(
 		boost::bind(
-			transform_pixels_binary_fn<Op>(
-				op),
+			detail::transform_pixels_binary<
+				Op
+			>(
+				op
+			),
 			src1,
 			_1,
-			_2));
+			_2
+		),
+		src2,
+		dest
+	);
 }
 
 }

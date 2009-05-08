@@ -20,19 +20,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/any_color_compare.hpp>
-#include <boost/variant/static_visitor.hpp>
-#include <boost/variant/apply_visitor.hpp>
+#include <sge/variant/apply_binary.hpp>
+#include <sge/variant/object_impl.hpp>
 
 namespace
 {
 
-class compare : public boost::static_visitor<bool> {
+class compare {
 public:
+	typedef bool result_type;
+
 	template<
 		typename T,
 		typename U
 	>
-	bool operator()(
+	result_type
+	operator()(
 		T const &,
 		U const &) const;
 };
@@ -44,10 +47,11 @@ sge::renderer::any_color_compare(
 	any_color const &a,
 	any_color const &b)
 {
-	return boost::apply_visitor(
+	return variant::apply_binary(
 		compare(),
 		a,
-		b);
+		b
+	);
 }
 
 namespace
@@ -57,7 +61,7 @@ template<
 	typename T,
 	typename U
 >
-bool
+compare::result_type
 compare::operator()(
 	T const &t,
 	U const &u) const

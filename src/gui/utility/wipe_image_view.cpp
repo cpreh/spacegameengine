@@ -16,14 +16,18 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
+
 #include "wipe_image_view.hpp"
 #include <sge/renderer/colors.hpp>
 #include <sge/renderer/fill_pixels.hpp>
+#include <sge/variant/object_impl.hpp>
 
 void sge::gui::utility::wipe_image_view(
 	renderer::image_view const &v)
 {
 	renderer::fill_pixels(
 		v,
-		renderer::colors::transparent());
+		renderer::colors::transparent()
+	);
 }
