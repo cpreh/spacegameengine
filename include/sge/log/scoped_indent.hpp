@@ -4,20 +4,23 @@
 #include <sge/log/logger_fwd.hpp>
 #include <sge/log/level.hpp>
 #include <sge/string.hpp>
+#include <sge/export.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
 namespace log
 {
-class scoped_indent
+class SGE_CLASS_SYMBOL scoped_indent
 {
+SGE_NONCOPYABLE(scoped_indent)
 public:
-	scoped_indent(
+	SGE_SYMBOL scoped_indent(
 		logger &,
 		string const &,
 		string const &,
 		level::type = level::debug);
-	~scoped_indent();
+	SGE_SYMBOL ~scoped_indent();
 private:
 	logger &logger_;
 	string const end_;

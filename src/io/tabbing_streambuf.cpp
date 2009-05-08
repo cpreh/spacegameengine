@@ -2,12 +2,14 @@
 #include <sge/io/tabbing_filter.hpp>
 #include <sge/io/invalid_indentation.hpp>
 #include <sge/text.hpp>
+#include <sge/cerr.hpp>
 
 sge::io::tabbing_streambuf::tabbing_streambuf(
 	ostream &s)
-	: tabs(0),
-		s(s),
-	  old(s.rdbuf())
+:
+	tabs(0),
+	s(s),
+  old(s.rdbuf())
 {
 	push(
 		tabbing_filter(
