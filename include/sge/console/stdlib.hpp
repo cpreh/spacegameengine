@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/console/object_fwd.hpp>
 #include <sge/console/function_map.hpp>
-#include <sge/signal/scoped_connection.hpp>
+#include <sge/signal/connection_manager.hpp>
 #include <sge/export.hpp>
 #include <boost/function.hpp>
 
@@ -43,14 +43,7 @@ private:
 	object &object_;
 	print_callback print_;
 	error_callback error_;
-	// FIXME: connection_manager
-	sge::signal::scoped_connection const
-		get,
-		set,
-		help,
-		lsfuncs,
-		lsvars,
-		man;
+	sge::signal::connection_manager connections;
 	
 	void fn_get(arg_list const &);
 	void fn_set(arg_list const &);

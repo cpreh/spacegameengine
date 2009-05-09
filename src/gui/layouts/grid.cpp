@@ -1,4 +1,5 @@
 #include <sge/gui/log.hpp>
+#include <sge/gui/axis_type.hpp>
 #include <sge/gui/layouts/grid.hpp>
 #include <sge/gui/widgets/base.hpp>
 #include <sge/math/rect_impl.hpp>
@@ -71,6 +72,8 @@ void sge::gui::layouts::grid::compile_static()
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("adapting x axis end"));
+	
+	update_widgets();
 }
 
 sge::gui::dim const sge::gui::layouts::grid::optimal_size() const
@@ -83,6 +86,10 @@ sge::gui::dim const sge::gui::layouts::grid::optimal_size() const
 		dim thisdims = dim::null();
 		for (size_type x = 0; x != c.w(); ++x)
 		{
+			SGE_ASSERT_MESSAGE(
+				c.pos(x,y),
+				SGE_TEXT("currently, all grid cells have to have widgets in them"));
+
 			dim const s = c.pos(x,y)->optimal_size();
 			thisdims.w() += s.w();
 			thisdims.h() = std::max(thisdims.h(),s.h());
@@ -139,7 +146,7 @@ sge::gui::layouts::grid::children() const
 	std::fill(
 		a.begin(),
 		a.end(),
-		static_cast<widget const *>(0));
+		static_cast<widgets::base const *>(0));
 
 	BOOST_FOREACH(widgets::base const &w,connected_widget().children())
 	{
@@ -220,7 +227,7 @@ void sge::gui::layouts::grid::expand(
 		log::_1 << SGE_TEXT("there is too much space, expanding begin"));
 
 	unsigned count;
-	if (count = count_flags(axis_policy::should_grow,axis))
+	if ((count = count_flags(axis_policy::should_grow,axis)))
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
@@ -234,7 +241,7 @@ void sge::gui::layouts::grid::expand(
 			axis_policy::should_grow,
 			axis);
 	}
-	else if (count = count_flags(axis_policy::can_grow,axis))
+	else if ((count = count_flags(axis_policy::can_grow,axis)))
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
@@ -259,7 +266,7 @@ void sge::gui::layouts::grid::expand(
 		log::_1 << SGE_TEXT("expanding end"));
 }
 
-void sge::gui::layouts::row::adapt(
+void sge::gui::layouts::grid::adapt(
 	dim const &optimal,
 	dim const &usable,
 	axis_policy::type const flag,
@@ -299,6 +306,8 @@ void sge::gui::layouts::row::adapt(
 				addition);
 }
 
+namespace 
+{
 template<
 	typename T,
 	typename U,
@@ -314,15 +323,17 @@ T field_swap_pos(
 			? f.pos(b,a)
 			: f.pos(a,b);
 }
+}
 
-void sge::gui::layouts::row::update_rolumn(
-	unit const axis,
+void sge::gui::layouts::grid::update_rolumn(
+	axis_type const axis,
 	policy_cache_type::size_type const rolumn,
 	axis_policy::type const flag,
 	unit const addition)
 {
+	rolumn_cache_.pos(axis,rolumn) += addition;
 	for (
-		const_child_container::size_type i = 0; 
+		size_type i = 0; 
 		i < children_.dim()[axis];
 		++i
 		)
@@ -330,8 +341,9 @@ void sge::gui::layouts::row::update_rolumn(
 		widgets::base * const w = field_swap_pos(
 			children_,
 			axis,
-			i,
-			rolumn);
+			static_cast<size_type>(i),
+			static_cast<size_type>(
+				rolumn));
 		
 		if (!w || !(w->size_policy().index(axis) & flag))
 			continue;
@@ -342,7 +354,7 @@ void sge::gui::layouts::row::update_rolumn(
 
 // counts the number of widgets on the specified axis (not rolumn, axis) which
 // have the specified axis policy flag (uses the cache!)
-unsigned sge::gui::layouts::row::count_flags(
+unsigned sge::gui::layouts::grid::count_flags(
 	axis_policy::type const flags,
 	axis_type const axis) const
 {
@@ -350,7 +362,7 @@ unsigned sge::gui::layouts::row::count_flags(
 
 	for (
 		size_type i = 0;
-		i < children_.shape()[axis];
+		i < children_.dim()[axis];
 		++i)
 		if (policy_cache_.pos(axis,i) & flags)
 			++count;
@@ -360,9 +372,17 @@ unsigned sge::gui::layouts::row::count_flags(
 
 void sge::gui::layouts::grid::update_cache()
 {
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("updating cache"));
+
 	children_ = children();
 	update_policy_cache();
 	update_size_cache();
+
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("cache updated"));
 }
 
 void sge::gui::layouts::grid::update_policy_cache()
@@ -371,21 +391,20 @@ void sge::gui::layouts::grid::update_policy_cache()
 	// to be a square, but since it's only for counting flags, the rest can be
 	// filled with empty axis policies)
 	policy_cache_.resize(
-		child_container::dim_type(
+		policy_cache_type::dim_type(
 			2,
-			std::max(
-				c.shape()[0],
-				c.shape()[1])));
+			children_.dim()[0],
+			children_.dim()[1]));
 	
 	// TODO: is this really neccessary? Or is the array default-initialized?
 	std::fill(
 		policy_cache_.begin(),
 		policy_cache_.end(),
-		axis_policy());
+		size_policy());
 
-	for (child_container::size_type y = 0; y < c.h(); ++y)
+	for (child_container::size_type y = 0; y < children_.h(); ++y)
 	{
-		for (child_container::size_type x = 0; x < c.w(); ++x)
+		for (child_container::size_type x = 0; x < children_.w(); ++x)
 		{
 			if (!children_.pos(x,y))
 				continue;
@@ -400,4 +419,106 @@ void sge::gui::layouts::grid::update_size_cache()
 {
 	BOOST_FOREACH(widgets::base &w,connected_widget().children())
 		sizes_[&w] = w->optimal_size();
+}
+
+void sge::gui::layouts::grid::update_rolumn_cache()
+{
+	rolumn_cache_.resize(
+		rolumn_cache_type::dim_type(
+			2,
+			std::max(
+				children_.w(),
+				children_.h())));
+	
+	for (size_type x = 0; x < children_.w(); ++x)
+	{
+		unit &max = 
+			rolumn_cache_.pos(
+				x,
+				0);
+
+		max = 0;
+		for (size_type y = 0; y < children_.h(); ++y)
+		{
+			SGE_ASSERT_MESSAGE(
+				children_.pos(x,y),
+				SGE_TEXT("currently, all grid cells have to have widgets in them"));
+
+			max = 
+				std::max(
+					max,
+					sizes_[children_.pos(x,y)].w());
+		}
+	}
+
+	for (size_type y = 0; y < children_.h(); ++y)
+	{
+		unit &max = 
+			rolumn_cache_.pos(
+				1,
+				y);
+
+		max = 0;
+		for (size_type x = 0; x < children_.w(); ++x)
+		{
+			SGE_ASSERT_MESSAGE(
+				children_.pos(x,y),
+				SGE_TEXT("currently, all grid cells have to have widgets in them"));
+
+			max = 
+				std::max(
+					max,
+					sizes_[children_.pos(x,y)].h());
+		}
+	}
+}
+
+// iterates through the whole table, calculating the minimal size for the
+// table. if we have extra space to spare, align widgets to their alignment property
+void sge::gui::layouts::grid::update_widgets()
+{
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("updating widgets begin"));
+
+	point pos = point::null();
+	for (size_type x = 0; x < children_.w(); ++x)
+	{
+		pos.y() = static_cast<unit>(0);
+		for (size_type y = 0; y < children.h(); ++y)
+		{
+			SGE_ASSERT_MESSAGE(
+				children_.pos(x,y),
+				SGE_TEXT("currently, all grid cells have to have widgets in them"));
+
+			update_widget(
+				*children_.pos(x,y),
+				pos,
+				dim(
+					rolumn_cache_.pos(x_axis,x),
+					rolumn_cache_.pos(y_axis,y)));
+
+			pos.y() += rolumn_cache_.pos(y_axis,y);
+		}
+		pos.x() += rolumn_cache_.pos(x_axis,x);
+	}
+	
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("updating widgets end"));
+}
+
+void sge::gui::layouts::grid::update_widget(
+	widget &w,
+	point const &p,
+	dim const &d)
+{
+	/*
+	switch (w.alignment().x())
+	{
+		case alignment_h::left:
+		// TODO
+		break;
+	}
+	*/
 }

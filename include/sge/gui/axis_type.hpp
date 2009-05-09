@@ -1,13 +1,14 @@
 #ifndef SGE_GUI_AXIS_TYPE_HPP_INCLUDED
 #define SGE_GUI_AXIS_TYPE_HPP_INCLUDED
 
-#include <cstddef>
+#include <sge/gui/dim.hpp>
+#include <sge/math/dim/basic_decl.hpp>
 
 namespace sge
 {
 namespace gui
 {
-typedef std::size_t axis_type;
+typedef dim::size_type axis_type;
 }
 }
 
