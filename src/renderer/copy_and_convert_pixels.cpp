@@ -31,6 +31,8 @@ class visitor {
 public:
 	typedef void result_type;
 
+	visitor();
+
 	template<
 		typename V1,
 		typename V2
@@ -90,6 +92,11 @@ visitor::operator()(
 		dst
 	);
 }
+
+visitor::visitor()
+:
+	converter()
+{}
 
 template<
 	typename V
