@@ -46,6 +46,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/second.hpp>
 #include <sge/time/resolution.hpp>
 #include <sge/mainloop/dispatch.hpp>
+#include <sge/log/global.hpp>
+#include <sge/log/logger.hpp>
 #include <sge/cerr.hpp>
 #include <sge/exception.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
@@ -58,6 +60,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int main()
 try
 {
+	sge::log::global().activate_hierarchy(
+		sge::log::level::debug
+	);
+
 	sge::systems::instance const sys(
 		sge::systems::list()
 		(sge::window::parameters(

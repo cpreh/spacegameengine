@@ -40,7 +40,9 @@ sge::x11input::keyboard_grab::keyboard_grab(
 			True,
 			GrabModeAsync,
 			GrabModeAsync,
-			CurrentTime));
+			CurrentTime
+		)
+	);
 }
 
 sge::x11input::keyboard_grab::~keyboard_grab()
