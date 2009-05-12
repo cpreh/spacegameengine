@@ -191,6 +191,10 @@ convert(
 			);
 		}
 	}
+
+	throw sge::exception(
+		SGE_TEXT("codecvt: ok return value unreached!")
+	);
 }
 
 }
