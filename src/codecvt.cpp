@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/codecvt.hpp>
 #include <sge/container/data.hpp>
+#include <sge/container/raw_vector_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <locale>
@@ -111,24 +112,36 @@ convert(
 		Out
 	> return_type;
 
+	typedef sge::container::raw_vector<
+		Out
+	> buffer_type;
+
 	if(s.empty())
 		return return_type();
 	
 	std::locale const &loc(
-		get_locale());
+		get_locale()
+	);
 
 	codecvt_t const &conv(
 		std::use_facet<codecvt_t>(
-			loc));
+			loc
+		)
+	);
 	
-	return_type ret(
+	buffer_type buf(
 		s.size(),
-		0);
+		0
+	);
 
 	state_type state;
 
-	Out *to = sge::container::data(ret);
-	for(In const *from = s.data(), *from_next = 0; from != from_next; from = from_next)
+	Out *to = buf.data();
+	for(
+		In const *from = s.data(), *from_next = 0;
+		from != from_next;
+		from = from_next
+	)
 	{
 		Out *to_next;
 		std::codecvt_base::result const result(
@@ -139,37 +152,45 @@ convert(
 				sge::container::data_end(s),
 				from_next,
 				to,
-				sge::container::data_end(ret),
+				buf.data_end(),
 				to_next
 			)
 		);
 
 		switch(result) {
 		case std::codecvt_base::noconv:
-			throw sge::exception(
-				SGE_TEXT("codecvt: noconv!"));
+			return return_type(
+				s.begin(),
+				s.end()
+			);
 		case std::codecvt_base::error:
 			throw sge::exception(
-				SGE_TEXT("codecvt: error!"));
+				SGE_TEXT("codecvt: error!")
+			);
 		case std::codecvt_base::partial:
 			{
-				typename return_type::difference_type const diff(
+				typename buffer_type::difference_type const diff(
 					std::distance(
-						sge::container::data(ret),
-						to_next));
-				ret.resize(ret.size() * 2);
-				to = sge::container::data(ret) + diff;
+						buf.data(),
+						to_next
+					)
+				);
+
+				buf.resize(buf.size() * 2);
+				to = buf.data() + diff;
 			}
 			break;
 		case std::codecvt_base::ok:
-			to = to_next;
-			break;
+			return return_type(
+				buf.data(),
+				to_next
+			);
 		default:
 			throw sge::exception(
-				SGE_TEXT("Unknown return value in codecvt!"));
+				SGE_TEXT("Unknown return value in codecvt!")
+			);
 		}
 	}
-	return ret;
 }
 
 }
