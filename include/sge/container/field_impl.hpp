@@ -308,7 +308,9 @@ sge::container::field<T, ArrayType, Alloc>::position(
 	const_iterator const it) const
 {
 	difference_type const diff = std::distance(begin(), it);
-	return vector_type(diff % w(), diff / w());
+	return vector_type(
+		diff % dim().w(), 
+		diff / dim().w());
 }
 
 template<
@@ -323,7 +325,7 @@ typename sge::container::field<T, ArrayType, Alloc>::iterator
 sge::container::field<T, ArrayType, Alloc>::position_it(
 	vector_type const &v)
 {
-	return begin() + v.y() * w() + v.x();
+	return begin() + v.y() * dim().w() + v.x();
 }
 
 template<
@@ -338,7 +340,7 @@ typename sge::container::field<T, ArrayType, Alloc>::const_iterator
 sge::container::field<T, ArrayType, Alloc>::position_it(
 	vector_type const &v) const
 {
-	return begin() + v.y() * w() + v.x();
+	return begin() + v.y() * dim().w() + v.x();
 }
 
 template<
@@ -429,7 +431,7 @@ sge::container::field<T, ArrayType, Alloc>::pos(
 	vector_type const &p)
 {
 	range_check(p);
-	return array[static_cast<size_type>(p.y() * dim_.w() + p.x())];
+	return array[static_cast<size_type>(p.y() * dim().w() + p.x())];
 }
 
 template<
@@ -445,7 +447,7 @@ sge::container::field<T, ArrayType, Alloc>::pos(
 	vector_type const &p) const
 {
 	range_check(p);
-	return array[static_cast<size_type>(p.y() * dim_.w() + p.x())];
+	return array[static_cast<size_type>(p.y() * dim().w() + p.x())];
 }
 
 template<
@@ -517,7 +519,7 @@ sge::container::field<T, ArrayType, Alloc>::x(
 	const_iterator const p) const
 {
 	check_w();
-	return std::distance(begin(), p) % w();
+	return std::distance(begin(), p) % dim().w();
 }
 
 template<
@@ -533,7 +535,7 @@ sge::container::field<T, ArrayType, Alloc>::y(
 	const_iterator const p) const
 {
 	check_w();
-	return std::distance(begin(),p) / w();
+	return std::distance(begin(),p) / dim().w();
 }
 
 template<
@@ -549,34 +551,6 @@ sge::container::field<T, ArrayType, Alloc>::pos(
 	const_iterator const p) const
 {
 	return vector_type(x(p), y(p));
-}
-
-template<
-	typename T,
-	template<
-		typename,
-		typename
-	> class ArrayType,
-	typename Alloc
->
-typename sge::container::field<T, ArrayType, Alloc>::size_type
-sge::container::field<T, ArrayType, Alloc>::w() const
-{
-	return dim_.w();
-}
-
-template<
-	typename T,
-	template<
-		typename,
-		typename
-	> class ArrayType,
-	typename Alloc
->
-typename sge::container::field<T, ArrayType, Alloc>::size_type
-sge::container::field<T, ArrayType, Alloc>::h() const
-{
-	return dim_.h();
 }
 
 template<
@@ -619,7 +593,7 @@ void
 sge::container::field<T, ArrayType, Alloc>::range_check(
 	vector_type const &v) const
 { 
-	SGE_ASSERT(v.x() < dim_.w() && v.y() < dim_.h());
+	SGE_ASSERT(v.x() < dim().w() && v.y() < dim().h());
 }
 
 template<
@@ -633,7 +607,7 @@ template<
 void
 sge::container::field<T, ArrayType, Alloc>::check_w() const
 {
-	SGE_ASSERT(w() != 0);
+	SGE_ASSERT(dim().w() != 0);
 }
 
 template<
@@ -688,9 +662,9 @@ sge::container::operator<<(
 	typedef typename field_type::size_type size_type;
 	typedef typename field_type::vector_type vector_type;
 
-	for (size_type y = 0; y < f.h(); ++y)
+	for (size_type y = 0; y < f.dim().h(); ++y)
 	{
-		for (size_type x = 0; x < f.w(); ++x)
+		for (size_type x = 0; x < f.dim().w(); ++x)
 			stream << f.pos(vector_type(x,y)) << stream.widen(' ');
 		stream << stream.widen('\n');
 	}
