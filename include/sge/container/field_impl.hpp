@@ -419,6 +419,22 @@ sge::container::field<T, ArrayType, Alloc>::resize(
 }
 
 template<
+	typename Cit,
+	typename It>
+void copy_overlap_right(
+	Cit const source_begin,
+	Cit const source_end,
+	It const dest_begin)
+{
+	std::copy_backward(
+		source_begin,
+		source_end,
+		boost::next(
+			dest_begin,
+			std::distance(source_begin,source_end)));
+}
+
+template<
 	typename T,
 	template<
 		typename,
@@ -432,11 +448,35 @@ sge::container::field<T, ArrayType, Alloc>::resize(
 	const_reference value)
 {
 	if (dim_ == n)
-		return; dim_ = n;
+		return; 
+	
+	dim_type const old = dim_;
+	size_type const old_fc = field_count();
+	dim_ = n;
 	
 	array.resize(
 		field_count(),
 		value);
+
+	// if one of the two new dimensions is smaller than before, there's no
+	// sensible resizing behaviour, so we do it just using resize
+	if (n.w() < old.w() || n.h() < old.h())
+		return;
+
+	iterator i = 
+		boost::next(
+			begin(),
+			old.w());
+	// if not, we can "blit" the old stuff to the new array
+	for (size_type j = static_cast<size_type>(0); j < old.h(); ++j)
+		copy_overlap_right(
+			i,
+			boost::next(
+				i,
+				old_fc - std::distance(begin(),i)),
+			boost::next(
+				i,
+				dim_.w()-old.w()));
 }
 
 template<
