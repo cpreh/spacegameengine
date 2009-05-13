@@ -27,6 +27,12 @@ public:
 	SGE_GUI_SYMBOL void compile_static();
 	SGE_GUI_SYMBOL dim const optimal_size() const;
 private:
+	class cache;
+	friend class cache;
+	typedef scoped_ptr<cache> cache_ptr;
+	cache_ptr cache_;
+
+
 	typedef container::field<
 		widgets::base*,
 		container::raw_vector
