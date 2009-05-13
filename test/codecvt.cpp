@@ -18,38 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/mainloop/catch_block.hpp>
+#include <sge/codecvt.hpp>
+#include <sge/cerr.hpp>
+#include <sge/text.hpp>
+#include <string>
 
-#include "../keyboard_grab.hpp"
-#include "../handle_grab.hpp"
-#include <X11/Xlib.h>
-#include <sge/x11/window.hpp>
-#include <sge/x11/display.hpp>
-#include <sge/x11/sentry.hpp>
-
-sge::x11input::keyboard_grab::keyboard_grab(
-	x11::window_ptr const wnd)
-:
-	wnd(wnd)
+int main()
+try
 {
-	SGE_X11_SENTRY
+	std::wstring const test(
+		L"localhost"
+	);
 
-	handle_grab(
-		XGrabKeyboard(
-			wnd->display()->get(),
-			wnd->get(),
-			True,
-			GrabModeAsync,
-			GrabModeAsync,
-			CurrentTime
+	std::string const narrow(
+		sge::narrow(
+			test
 		)
 	);
-}
 
-sge::x11input::keyboard_grab::~keyboard_grab()
-{
-	SGE_X11_SENTRY
+	std::wstring const back(
+		sge::widen(
+			narrow
+		)
+	);
 
-	XUngrabKeyboard(
-		wnd->display()->get(),
-		CurrentTime);
+	if(back != test)
+		sge::cerr << SGE_TEXT("Strings are not equal!\n");
+	else
+		sge::cerr << SGE_TEXT("Strings are equal!\n");
 }
+SGE_MAINLOOP_CATCH_BLOCK
