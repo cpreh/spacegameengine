@@ -350,7 +350,12 @@ sge::container::raw_vector<T, A>::insert(
 	else
 	{
 		if(!empty())
-			std::copy_backward(position, end(), position + 1);
+			std::copy_backward(
+				position,
+				end(),
+				data_end() + 1
+			);
+
 		*position = x;
 		i.last += 1;
 		return position;
@@ -377,15 +382,26 @@ void sge::container::raw_vector<T, A>::insert(const iterator position, const siz
 	else
 	{
 		if(!empty())
-			std::copy_backward(position, end(), position + n);
+			std::copy_backward(
+				position,
+				end(),
+				data_end() + n
+			);
+
 		std::uninitialized_fill(position, position + n, x);
 		i.last += n;
 	}
 }
 
-template<typename T, typename A>
-template<typename In>
-void sge::container::raw_vector<T, A>::insert(
+template<
+	typename T,
+	typename A
+>
+template<
+	typename In
+>
+void
+sge::container::raw_vector<T, A>::insert(
 	iterator const position,
 	In const l,
 	In const r)
@@ -411,7 +427,12 @@ void sge::container::raw_vector<T, A>::insert(
 	else
 	{
 		if(!empty())
-			std::copy_backward(position, end(), position + distance);
+			std::copy_backward(
+				position,
+				end(),
+				data_end() + distance
+			);
+
 		std::uninitialized_copy(l, r, position);
 		i.last += distance;
 	}
