@@ -46,7 +46,10 @@ sge::x11input::system::system(
 			boost::bind(
 				&system::on_acquire,
 				this,
-				_1)));
+				_1
+			)
+		)
+	);
 
 	connections.connect(
 		wnd->register_callback(
@@ -54,7 +57,10 @@ sge::x11input::system::system(
 			boost::bind(
 				&system::on_release,
 				this,
-				_1)));
+				_1
+			)
+		)
+	);
 */
 	connections.connect(
 		wnd->register_callback(
@@ -62,7 +68,10 @@ sge::x11input::system::system(
 			boost::bind(
 				&system::on_acquire,
 				this,
-				_1)));
+				_1
+			)
+		)
+	);
 
 	connections.connect(
 		wnd->register_callback(
@@ -70,7 +79,10 @@ sge::x11input::system::system(
 			boost::bind(
 				&system::on_release,
 				this,
-				_1)));
+				_1
+			)
+		)
+	);
 
 	connections.connect(
 		wnd->register_callback(
@@ -78,7 +90,10 @@ sge::x11input::system::system(
 			boost::bind(
 				&system::on_acquire,
 				this,
-				_1)));
+				_1
+			)
+		)
+	);
 
 	connections.connect(
 		wnd->register_callback(
@@ -86,7 +101,10 @@ sge::x11input::system::system(
 			boost::bind(
 				&system::on_release,
 				this,
-				_1)));
+				_1
+			)
+		)
+	);
 
 	typedef auto_ptr<
 		device
@@ -101,7 +119,10 @@ sge::x11input::system::system(
 		device_auto_ptr mouse_(
 			new mouse(
 				wnd,
-				callback));
+				callback
+			)
+		);
+
 		devices.push_back(mouse_);
 	}
 
@@ -113,7 +134,11 @@ sge::x11input::system::system(
 				boost::bind(
 					&system::emit_repeat_callback,
 					this,
-					_1)));
+					_1
+				)
+			)
+		);
+
 		devices.push_back(keyboard_);
 	}
 }

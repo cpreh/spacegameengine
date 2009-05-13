@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../handle_grab.hpp"
 #include <X11/Xlib.h>
 #include <sge/time/sleep.hpp>
-#include <sge/time/millisecond.hpp>
+#include <sge/time/second.hpp>
 #include <sge/time/resolution.hpp>
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
@@ -61,9 +61,10 @@ sge::x11input::mouse_grab::mouse_grab(
 		catch(exception const &)
 		{
 			time::sleep(
-				time::millisecond(
-					static_cast<time::unit>(
-						1)));
+				time::second(
+					1
+				)
+			);
 		}
 	}
 }
@@ -74,5 +75,6 @@ sge::x11input::mouse_grab::~mouse_grab()
 
 	XUngrabPointer(
 		wnd->display()->get(),
-		CurrentTime);
+		CurrentTime
+	);
 }
