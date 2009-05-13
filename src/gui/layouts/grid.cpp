@@ -13,35 +13,89 @@ class sge::gui::layouts::grid::cache
 public:
 	cache(grid &);
 private:
+	class widget_data
+	{
+	public:
+		dim optimal_size;
+		dim final_size;
+	};
+
 	grid &that_;
 
 	typedef container::field<
 		widgets::base*,
 		container::raw_vector
-		> child_container;
+		> child_plane;
 	typedef container::field<
 		widgets::base const *,
 		container::raw_vector
-		> const_child_container;
+		> const_child_plane;
 	typedef child_container::size_type size_type;
 	typedef std::map<
 		widgets::base*,
-		dim
-		> sizes_map;
+		widget_data
+		> data_map;
 	typedef container::field<
 		size_policy,
 		std::vector
-		> policy_cache_type;
+		> policy_container;
 	typedef container::field<
 		dim,
 		std::vector
-		> rolumn_cache_type;
+		> rolumn_container;
+	
+	child_container plane_;
+	data_map data_;
+	policy_container policies_;
+	rolumn_container rolumns_;
 };
 
 sge::gui::layouts::grid::cache::cache(grid &_that)
 :
-	that_(_that)
+	that_(_that),
+	plane_(),
+	data_(),
+	policies_(),
+	rolumns_()
 {
+	// iterate through the widgets and:
+	//  -get their optimal_sizes
+	//  -get the overall dimensions of the grid
+	sge::gui::dim maxd = sge::gui::dim::null();
+	BOOST_FOREACH(widget &w,that_)
+	{
+		if (!w.pos_hint())
+			throw exception(
+				SGE_TEXT("a widget in a grid layout doesn't have a position hint, don't know how to position it"));
+
+		point const hint = *w.pos_hint();
+
+		if (negative(hint.x()) || negative(hint.y()))
+			throw exception(
+				SGE_TEXT("grid layout position hints have to be positive"));
+
+		// is there already a widget present at this spot?
+		if (plane_.pos(structure_cast<child_plane::size_type>(hint)))
+			throw exception(
+				SGE_TEXT("position ")+
+				lexical_cast<string>(hint)+
+				SGE_TEXT(" in grid already taken by a widget of type ")+
+				type_name(
+					typeid(
+						*plane_.pos(
+							structure_cast<child_plane::size_type>(
+								hint)))));
+
+		// set boundaries
+		maxd.w() = 
+			std::max(
+				hint.x(),
+				maxd.w());
+		maxd.h() = 
+			std::max(
+				hint.y(),
+				maxd.h());
+	}
 }
 
 namespace
