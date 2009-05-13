@@ -151,8 +151,6 @@ class field
 	pos(
 		const_iterator p) const;
 
-	size_type w() const;
-	size_type h() const;
 	size_type field_count() const;
 	dim_type const dim() const;
 private:
