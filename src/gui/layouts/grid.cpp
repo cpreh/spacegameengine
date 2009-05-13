@@ -61,6 +61,7 @@ sge::gui::layouts::grid::cache::cache(grid &_that)
 	// iterate through the widgets and:
 	//  -get their optimal_sizes
 	//  -get the overall dimensions of the grid
+	//  -add widgets to the plane
 	sge::gui::dim maxd = sge::gui::dim::null();
 	BOOST_FOREACH(widget &w,that_)
 	{
@@ -86,15 +87,14 @@ sge::gui::layouts::grid::cache::cache(grid &_that)
 							structure_cast<child_plane::size_type>(
 								hint)))));
 
-		// set boundaries
-		maxd.w() = 
-			std::max(
-				hint.x(),
-				maxd.w());
-		maxd.h() = 
-			std::max(
-				hint.y(),
-				maxd.h());
+		plane_.resize(
+			child_plane::dim_type(
+				std::max(
+					static_cast<child_plane::size_type>(hint.x()),
+					plane_.w()),
+				std::max(
+					static_cast<child_plane::size_type>(hint.y()),
+					plane_.h())));
 	}
 }
 
