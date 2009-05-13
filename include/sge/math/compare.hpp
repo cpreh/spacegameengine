@@ -66,14 +66,6 @@ inline bool almost_zero(const T t)
 	return compare(t, static_cast<T>(0));
 }
 
-/**
- * Checks if \c t is in \f$[l,r]\f$
- */
-template<typename T>
-inline bool in_closed_interval(const T &t,const T &l,const T &r)
-{
-	return t >= l && t <= r;
-}
 }
 }
 

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/canvas/object.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/math/rect_util.hpp>
-#include <sge/math/power.hpp>
+#include <sge/math/next_pow_2.hpp>
 #include <sge/math/dim/output.hpp>
 #include <sge/math/vector/output.hpp>
 #include <sge/math/vector/arithmetic.hpp>

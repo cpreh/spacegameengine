@@ -18,49 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/cube_texture.hpp>
-#include <sge/math/rect_impl.hpp>
-#include <sge/math/quad.hpp>
-#include <sge/variant/object_impl.hpp>
+#ifndef SGE_MATH_POW_INT_HPP_INCLUDED
+#define SGE_MATH_POW_INT_HPP_INCLUDED
 
-sge::renderer::image_view const
-sge::renderer::cube_texture::lock(
-	cube_side::type const side,
-	lock_flag_type const flags)
+#include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/is_integral.hpp>
+
+namespace sge
 {
-	return lock(
-		side,
-		rect(),
-		flags
-	);
+namespace math
+{
+
+template<
+	typename Base,
+	typename Exp
+>
+typename boost::enable_if<
+	boost::is_integral<
+		Base
+	>,
+	Base
+>::type
+pow_int(
+	Base const base,
+	Exp const e)
+{
+	if(e == 0)
+		return 1;
+	Base ret = base;
+	for(Exp i = 1; i < e; ++i)
+		ret *= base;
+	return ret;
 }
 
-sge::renderer::const_image_view const
-sge::renderer::cube_texture::lock(
-	cube_side::type const side) const
-{
-	return lock(
-		side,
-		rect()
-	);
+}
 }
 
-sge::renderer::cube_texture::size_type
-sge::renderer::cube_texture::content() const
-{
-	return math::quad(
-		border_size()
-	);
-}
-
-sge::renderer::cube_texture::rect_type const
-sge::renderer::cube_texture::rect() const
-{
-	return rect_type(
-		rect_type::point_type::null(),
-		rect_type::dim_type(
-			border_size(),
-			border_size()
-		)
-	);
-}
+#endif
