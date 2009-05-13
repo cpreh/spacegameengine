@@ -43,7 +43,8 @@ sge::container::raw_vector<T, A>::begin() const
 }
 
 template<typename T, typename A>
-typename sge::container::raw_vector<T, A>::iterator sge::container::raw_vector<T, A>::end()
+typename sge::container::raw_vector<T, A>::iterator
+sge::container::raw_vector<T, A>::end()
 {
 	return data_end();
 }
@@ -447,7 +448,10 @@ sge::container::raw_vector<T, A>::erase(iterator const position)
 	return position;
 }
 
-template<typename T, typename A>
+template<
+	typename T,
+	typename A
+>
 typename sge::container::raw_vector<T, A>::iterator
 sge::container::raw_vector<T, A>::erase(
 	iterator const l,
@@ -461,14 +465,15 @@ sge::container::raw_vector<T, A>::erase(
 	return r;
 }
 
-template<typename T, typename A>
-void sge::container::raw_vector<T, A>::range_check(const size_type n) const
+template<
+	typename T,
+	typename A
+>
+void sge::container::raw_vector<T, A>::range_check(
+	size_type const n) const
 {
 	SGE_ASSERT(n < size());
 }
-
-#undef max
-// TODO: hide windows.h in asio
 
 template<typename T, typename A>
 typename sge::container::raw_vector<T, A>::size_type

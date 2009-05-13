@@ -18,12 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_VARIANT_APPLY_HPP_INCLUDED
-#define SGE_VARIANT_APPLY_HPP_INCLUDED
+#ifndef SGE_VARIANT_APPLY_TERNARY_HPP_INCLUDED
+#define SGE_VARIANT_APPLY_TERNARY_HPP_INCLUDED
 
-#include <sge/variant/apply_unary.hpp>
 #include <sge/variant/apply_binary.hpp>
-#include <sge/variant/apply_ternary.hpp>
+#include <sge/variant/detail/ternary_unwrap.hpp>
 
 namespace sge
 {
@@ -32,53 +31,25 @@ namespace variant
 
 template<
 	typename Operation,
-	typename Variant
->
-typename Operation::result_type
-apply(
-	Operation const &op,
-	Variant const &obj)
-{
-	return apply_unary(
-		op,
-		obj
-	);
-}
-
-template<
-	typename Operation,
-	typename Variant1,
-	typename Variant2
->
-typename Operation::result_type
-apply(
-	Operation const &op,
-	Variant1 const &obj1,
-	Variant2 const &obj2)
-{
-	return apply_binary(
-		op,
-		obj1,
-		obj2
-	);
-}
-
-template<
-	typename Operation,
 	typename Variant1,
 	typename Variant2,
 	typename Variant3
 >
 typename Operation::result_type
-apply(
+apply_ternary(
 	Operation const &op,
 	Variant1 const &obj1,
 	Variant2 const &obj2,
 	Variant3 const &obj3)
 {
 	return apply_binary(
-		op,
-		obj1,
+		detail::ternary_unwrap<
+			Operation,
+			Variant1
+		>(
+			op,
+			obj1
+		),	
 		obj2,
 		obj3
 	);

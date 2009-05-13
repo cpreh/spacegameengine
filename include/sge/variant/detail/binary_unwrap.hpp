@@ -47,19 +47,19 @@ struct binary_unwrap {
 	{}
 
 	template<
-		typename T
+		typename T2
 	>
 	result_type
 	operator()(
-		T const &t) const
+		T2 const &t2) const
 	{
 		return apply_unary(
 			binary_applier<
 				Operation,
-				T
+				T2
 			>(
 				op,
-				t
+				t2
 			),
 			obj
 		);
