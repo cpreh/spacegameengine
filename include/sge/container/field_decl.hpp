@@ -72,21 +72,6 @@ class field
 		value_type const &t = value_type(),
 		allocator_type const &alloc = allocator_type());
 
-	field(
-		size_type x,
-		size_type y,
-		allocator_type const &alloc = allocator_type());
-
-	template<
-		typename Iterator
-	>
-	field(
-		size_type x,
-		size_type y,
-		Iterator b,
-		Iterator e,
-		allocator_type const &alloc = allocator_type());
-
 	template<
 		typename Iterator
 	>
@@ -120,21 +105,14 @@ class field
 		const_iterator it) const;
 
 	iterator position_it(
-		size_type x,
-		size_type y);
+		vector_type const &);
 
 	const_iterator
 	position_it(
-		size_type x,
-		size_type y) const;
+		vector_type const &) const;
 
 	allocator_type
 	get_allocator() const;
-
-	void resize(
-		size_type x,
-		size_type y,
-		const_reference value = value_type());
 
 	void resize(
 		dim_type const &n,
@@ -142,30 +120,11 @@ class field
 
 	value_type &
 	pos_mod(
-		size_type x,
-		size_type y);
-	
-	value_type const &
-	pos_mod(
-		size_type x,
-		size_type y) const;
-	
-	value_type &
-	pos_mod(
 		vector_type const &);
 
 	value_type const &
 	pos_mod(
 		vector_type const &p) const;
-
-	value_type &
-	pos(
-		size_type x,
-		size_type y);
-
-	value_type const &pos(
-		size_type x,
-		size_type y) const;
 
 	value_type &
 	pos(
@@ -192,14 +151,11 @@ class field
 	pos(
 		const_iterator p) const;
 
-	size_type w() const;
-	size_type h() const;
 	size_type field_count() const;
 	dim_type const dim() const;
 private:
 	void range_check(
-		size_type x,
-		size_type y) const;
+		vector_type const &) const;
 	void check_w() const;
 
 	dim_type   dim_;

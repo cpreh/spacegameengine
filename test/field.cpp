@@ -14,10 +14,10 @@ try
 	field_type f(
 		field_type::dim_type(
 			2,2));
-	f.pos(0,0) = 0;
-	f.pos(1,0) = 1;
-	f.pos(0,1) = 2;
-	f.pos(1,1) = 3;
+	f.pos(field_type::vector_type(0,0)) = 0;
+	f.pos(field_type::vector_type(1,0)) = 1;
+	f.pos(field_type::vector_type(0,1)) = 2;
+	f.pos(field_type::vector_type(1,1)) = 3;
 	sge::cout << f << SGE_TEXT("\n");
 	f.resize(
 		field_type::dim_type(
