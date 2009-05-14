@@ -43,8 +43,8 @@ is_rel_angle(
 	T const a)
 {
 	return
-		a > -pi<T>()
-		&& a < pi<T>();
+		a >= -pi<T>()
+		&& a <= pi<T>();
 }
 
 }
