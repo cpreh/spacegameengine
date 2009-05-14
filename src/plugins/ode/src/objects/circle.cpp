@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../space.hpp"
 #include "../../world_wrapper.hpp"
 #include <sge/collision/satellite.hpp>
-#include <sge/structure_cast.hpp>
+#include <sge/math/vector/structure_cast.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/vector/output.hpp>
 
@@ -61,7 +61,7 @@ sge::ode::objects::circle::~circle()
 
 void sge::ode::objects::circle::center(collision::point const &p)
 {
-	body_.pos(structure_cast<point>(p));
+	body_.pos(math::vector::structure_cast<point>(p));
 }
 
 sge::collision::point const sge::ode::objects::circle::center() const
@@ -71,7 +71,7 @@ sge::collision::point const sge::ode::objects::circle::center() const
 
 void sge::ode::objects::circle::speed(collision::point const &p)
 {
-	body_.speed(structure_cast<point>(p));
+	body_.speed(math::vector::structure_cast<point>(p));
 }
 
 sge::collision::point const sge::ode::objects::circle::speed() const

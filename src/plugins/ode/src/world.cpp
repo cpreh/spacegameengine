@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../world.hpp"
 #include "../objects/circle.hpp"
 #include <sge/collision/satellite.hpp>
+#include <sge/math/vector/structure_cast.hpp>
 #include <boost/ref.hpp>
 
 sge::ode::world::world(
@@ -58,9 +59,11 @@ sge::ode::world::create_circle(
 			_satellite,
 			space_,
 			world_,
-			structure_cast<point>(center),
-			structure_cast<point>(speed),
-			static_cast<dReal>(radius)));
+			math::vector::structure_cast<point>(center),
+			math::vector::structure_cast<point>(speed),
+			static_cast<dReal>(radius)
+		)
+	);
 }
 
 void

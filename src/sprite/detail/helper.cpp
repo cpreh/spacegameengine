@@ -31,9 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/matrix/static.hpp>
 #include <sge/math/vector/arithmetic.hpp>
 #include <sge/math/vector/construct.hpp>
-#include <sge/math/rect_impl.hpp>
+#include <sge/math/vector/structure_cast.hpp>
+#include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/rect/structure_cast.hpp>
 #include <sge/variant/object_impl.hpp>
-#include <sge/structure_cast.hpp>
 #include <boost/tr1/array.hpp>
 #include <boost/foreach.hpp>
 #include <cmath>
@@ -41,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-typedef sge::math::rect<
+typedef sge::math::rect::basic<
 	sge::sprite::funit
 > frect;
 
@@ -53,7 +54,7 @@ sge::sprite::detail::fill_position(
 	rect const &rs,
 	depth_type const z)
 {
-	frect const r = math::structure_cast<frect>(rs);
+	frect const r = math::rect::structure_cast<frect>(rs);
 
 	(*it++).set<vertex_pos>(pos3(r.left(), r.top(), z));
 	(*it++).set<vertex_pos>(pos3(r.right(), r.top(), z));
@@ -96,7 +97,7 @@ sge::sprite::detail::fill_position_rotated(
 	depth_type const z)
 {
 	pos2 const centerf(
-		structure_cast<pos2>(center));
+		math::vector::structure_cast<pos2>(center));
 
 	typedef std::tr1::array<pos2, detail::vertices_per_sprite> position_array;
 	position_array const positions = {{

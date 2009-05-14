@@ -20,9 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_DETAIL_HISTORY_HPP_INCLUDED
 #define SGE_CONSOLE_DETAIL_HISTORY_HPP_INCLUDED
 
-#include <sge/math/vector/vector.hpp>
+#include <sge/math/vector/static.hpp>
 #include <sge/math/dim/basic_decl.hpp>
-#include <sge/math/rect.hpp>
+#include <sge/math/dim/static.hpp>
+#include <sge/math/rect/basic_fwd.hpp>
 #include <sge/string.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <utility>
@@ -43,7 +44,7 @@ class history
 	typedef container::const_reverse_iterator const_reverse_iterator;
 	typedef boost::iterator_range<const_iterator> iterator_pair;
 	typedef unsigned unit;
-	typedef math::rect<unit> rect;
+	typedef math::rect::basic<unit> rect;
 	typedef math::dim::static_<unit,2>::type dim;
 	typedef math::vector::static_<unit,2>::type point;
 

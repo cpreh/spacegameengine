@@ -23,7 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/vector/arithmetic.hpp>
 #include <sge/math/vector/output.hpp>
-#include <sge/math/rect_util.hpp>
+#include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/rect/contains_point.hpp>
+#include <sge/math/rect/output.hpp>
 #include <sge/text.hpp>
 #include <sge/lexical_cast.hpp>
 #include <boost/bind.hpp>
@@ -55,7 +57,7 @@ void sge::gui::canvas::object::draw_line(
 	color const color_,
 	line_type::type const type)
 {
-	if (!math::contains(area(),a) || !math::contains(area(),b))
+	if (!contains_point(area(),a) || !contains_point(area(),b))
 		throw exception(
 			SGE_TEXT("tried to draw line from ")+
 			sge::lexical_cast<sge::string>(a)+

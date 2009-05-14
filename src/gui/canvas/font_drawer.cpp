@@ -17,12 +17,13 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 #include <sge/gui/canvas/font_drawer.hpp>
-#include <sge/math/rect.hpp>
 #include <sge/renderer/transform_pixels.hpp>
 #include <sge/renderer/make_const_image_view.hpp>
 #include <sge/renderer/subimage_view.hpp>
+#include <sge/math/vector/structure_cast.hpp>
+#include <sge/math/rect/basic_impl.hpp>
 #include <sge/log/headers.hpp>
-#include <sge/structure_cast.hpp>
+#include <sge/text.hpp>
 #include "log.hpp"
 #include "utility/font_blitter.hpp"
 
@@ -84,7 +85,7 @@ void sge::gui::canvas::font_drawer::draw_char(
 
 	if (character_pos && counter++ == *character_pos)
 	{
-		*p = structure_cast<point>(pos);
+		*p = math::vector::structure_cast<point>(pos);
 		SGE_LOG_DEBUG(
 			mylogger,
 			log::_1 << SGE_TEXT("found character!"));

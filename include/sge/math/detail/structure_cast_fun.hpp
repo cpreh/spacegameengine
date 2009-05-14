@@ -18,49 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/cube_texture.hpp>
-#include <sge/math/rect/basic_impl.hpp>
-#include <sge/math/quad.hpp>
-#include <sge/variant/object_impl.hpp>
 
-sge::renderer::image_view const
-sge::renderer::cube_texture::lock(
-	cube_side::type const side,
-	lock_flag_type const flags)
+#ifndef SGE_MATH_DETAIL_STRUCTURE_CAST_FUN_HPP_INCLUDED
+#define SGE_MATH_DETAIL_STRUCTURE_CAST_FUN_HPP_INCLUDED
+
+namespace sge
 {
-	return lock(
-		side,
-		rect(),
-		flags
-	);
+namespace math
+{
+namespace detail
+{
+
+template<
+	typename T
+>
+class structure_cast_fun {
+public:
+	typedef T result_type;
+
+	template<
+		typename U
+	>
+	T operator()(
+		U const &u) const
+	{
+		return static_cast<T>(u);
+	}
+};
+
+}
+}
 }
 
-sge::renderer::const_image_view const
-sge::renderer::cube_texture::lock(
-	cube_side::type const side) const
-{
-	return lock(
-		side,
-		rect()
-	);
-}
-
-sge::renderer::cube_texture::size_type
-sge::renderer::cube_texture::content() const
-{
-	return math::quad(
-		border_size()
-	);
-}
-
-sge::renderer::cube_texture::rect_type const
-sge::renderer::cube_texture::rect() const
-{
-	return rect_type(
-		rect_type::point_type::null(),
-		rect_type::dim_type(
-			border_size(),
-			border_size()
-		)
-	);
-}
+#endif

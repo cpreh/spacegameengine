@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MATH_RECT_DETAIL_OUTPUT_IMPL_HPP_INCLUDED
 
 #include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/vector/output.hpp>
+#include <sge/math/dim/output.hpp>
 #include <ostream>
 
 template<
@@ -41,7 +43,7 @@ sge::math::rect::operator<<(
 		<< s.widen('(')
 		<< r.pos()
 		<< s.widen(',')
-		<< s.dim()
+		<< r.dim()
 		<< s.widen(')');
 }
 

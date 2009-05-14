@@ -23,14 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_CIRCLE_HPP_INCLUDED
 
 #include <sge/sprite/funit.hpp>
-#include <sge/math/circle_fwd.hpp>
+#include <sge/math/circle/basic_fwd.hpp>
 
 namespace sge
 {
 namespace sprite
 {
 
-typedef math::circle<
+typedef math::circle::basic<
 	funit
 > circle;
 

@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/variant/object_impl.hpp>
 #include <sge/math/matrix/static.hpp>
 #include <sge/math/matrix/basic_decl.hpp>
+#include <sge/math/matrix/structure_cast.hpp>
 #include <sge/export.hpp>
-#include <sge/structure_cast.hpp>
 
 namespace
 {
@@ -75,7 +75,7 @@ typename visitor<Dest>::result_type const
 visitor<Dest>::operator()(
 	T const &v) const
 {
-	return sge::structure_cast<
+	return sge::math::matrix::structure_cast<
 		Dest
 	>(v);
 }

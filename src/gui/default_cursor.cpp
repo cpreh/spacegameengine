@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part_raw.hpp>
 #include <sge/texture/consume_and_set_fragment.hpp>
 #include <sge/renderer/filter/linear.hpp>
-#include <sge/structure_cast.hpp>
+#include <sge/math/vector/structure_cast.hpp>
 #include <sge/make_shared_ptr.hpp>
 #include <sge/text.hpp>
 #include <sge/cerr.hpp>
@@ -58,13 +58,13 @@ sge::gui::default_cursor::default_cursor(
 void sge::gui::default_cursor::pos(
 	point const &p)
 {
-	sprite_.pos() = sge::structure_cast<sge::sprite::point>(
+	sprite_.pos() = math::vector::structure_cast<sge::sprite::point>(
 		p);
 }
 
 sge::gui::point const sge::gui::default_cursor::pos() const
 {
-	return sge::structure_cast<sge::gui::point>(
+	return math::vector::structure_cast<sge::gui::point>(
 		sprite_.pos());
 }
 

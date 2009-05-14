@@ -18,51 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_MATH_RECT_STRUCTURE_CAST_HPP_INCLUDED
+#define SGE_MATH_RECT_STRUCTURE_CAST_HPP_INCLUDED
 
-#ifndef SGE_STRUCTURE_CAST_HPP_INCLUDED
-#define SGE_STRUCTURE_CAST_HPP_INCLUDED
-
-#include <sge/detail/structure_cast_fun.hpp>
-#include <boost/iterator/transform_iterator.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <boost/static_assert.hpp>
+#include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/vector/structure_cast.hpp>
+#include <sge/math/dim/structure_cast.hpp>
 
 namespace sge
 {
+namespace math
+{
+namespace rect
+{
 
 template<
-	typename T,
-	typename U
+	typename Dest,
+	typename Src
 >
-T const
+Dest const
 structure_cast(
-	U const &u)
+	basic<Src> const &src)
 {
-	typedef detail::structure_cast_fun<
-		typename T::value_type
-	> op_type;
-
-	op_type const op = op_type();
-
-	BOOST_STATIC_ASSERT((
-		boost::is_same<
-			typename T::dim_wrapper,
-			typename U::dim_wrapper
-		>::value
-	));
-
-	return T(
-		boost::make_transform_iterator(
-			u.begin(),
-			op
+	return Dest(
+		vector::structure_cast<
+			typename Dest::point_type
+		>(
+			src.pos()
 		),
-		boost::make_transform_iterator(
-			u.end(),
-			op
+		dim::structure_cast<
+			typename Dest::dim_type
+		>(
+			src.dim()
 		)
 	);
 }
 
+}
+}
 }
 
 #endif

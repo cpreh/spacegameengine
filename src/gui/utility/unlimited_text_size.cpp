@@ -23,17 +23,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/dim.hpp>
 #include <sge/font/unit.hpp>
 #include <sge/font/text_size.hpp>
-#include <sge/structure_cast.hpp>
+#include <sge/math/dim/structure_cast.hpp>
 #include <limits>
 
 sge::gui::dim const sge::gui::utility::unlimited_text_size(
 	font::metrics_ptr const f,
 	string const &t)
 {
-	return sge::structure_cast<dim>(
+	return math::dim::structure_cast<dim>(
 		font::object(f).text_size(
 			t,
 			font::dim(
 				std::numeric_limits<font::unit>::max(),
-				std::numeric_limits<font::unit>::max())).size());
+				std::numeric_limits<font::unit>::max()
+			)
+		).size()
+	);
 }

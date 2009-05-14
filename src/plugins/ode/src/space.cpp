@@ -17,7 +17,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 #include "../space.hpp"
-#include <sge/optional.hpp>
+#include <sge/math/rect/basic_impl.hpp>
+#include <sge/optional_impl.hpp>
 
 sge::ode::space::space(
 	collision::optional_rect const &_rect)

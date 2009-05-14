@@ -45,7 +45,10 @@ void sge::gui::skins::standard::draw(
 
 	// Background
 	c.draw_rect(
-		rect(c.size()),
+		rect(
+			rect::point_type::null(),
+			c.size()
+		),
 		internal_color(0xee,0xeb,0xe7,0xff),
 		canvas::rect_type::solid);
 

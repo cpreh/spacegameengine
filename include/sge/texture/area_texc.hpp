@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part.hpp>
 #include <sge/renderer/lock_rect_to_coords.hpp>
 #include <sge/renderer/texture.hpp>
-#include <sge/math/rect_impl.hpp>
+#include <sge/math/rect/basic_impl.hpp>
 #include <sge/math/compare.hpp>
 #include <sge/log/headers.hpp>
 #include <ostream>
@@ -39,7 +39,7 @@ namespace texture
 template<
 	typename T
 >
-math::rect<T> const
+math::rect::basic<T> const
 area_texc(
 	const_part_ptr const part,
 	T const repeat)
@@ -57,7 +57,7 @@ area_texc(
 			part->area(),
 			tex->dim(),
 			repeat)
-		: math::rect<T>();
+		: math::rect::basic<T>::null();
 }
 
 

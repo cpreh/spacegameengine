@@ -18,32 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_MATH_RECT_INVALID_HPP_INCLUDED
+#define SGE_MATH_RECT_INVALID_HPP_INCLUDED
 
-#ifndef SGE_DETAIL_STRUCTURE_CAST_FUN_HPP_INCLUDED
-#define SGE_DETAIL_STRUCTURE_CAST_FUN_HPP_INCLUDED
+#include <sge/math/exception.hpp>
+#include <sge/string.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
-namespace detail
+namespace math
+{
+namespace rect
 {
 
-template<
-	typename T
->
-class structure_cast_fun {
+class SGE_CLASS_SYMBOL invalid : public exception {
 public:
-	typedef T result_type;
-
-	template<
-		typename U
-	>
-	T operator()(
-		U const &u) const
-	{
-		return static_cast<T>(u);
-	}
+	SGE_SYMBOL explicit invalid(
+		string const &);
 };
 
+}
 }
 }
 

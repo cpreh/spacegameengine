@@ -17,12 +17,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 #include <sge/renderer/texture_rw.hpp>
-#include <sge/math/rect_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/renderer/copy_and_convert_pixels.hpp>
 #include <sge/renderer/make_const_image_view.hpp>
-#include <sge/math/rect_impl.hpp>
+#include <sge/math/rect/basic_impl.hpp>
 #include <sge/assert.hpp>
 #include <sge/text.hpp>
 #include <sge/optional.hpp>

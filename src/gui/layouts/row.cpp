@@ -21,11 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/unit.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/math/dim/output.hpp>
-#include <sge/math/rect_impl.hpp>
+#include <sge/math/rect/basic_impl.hpp>
 #include <sge/math/vector/arithmetic.hpp>
-#include <sge/math/dim/basic_impl.hpp>
+#include <sge/math/vector/structure_cast.hpp>
 #include <sge/math/vector/basic_impl.hpp>
+#include <sge/math/dim/basic_impl.hpp>
+#include <sge/math/dim/structure_cast.hpp>
 #include <sge/assert.hpp>
+#include <sge/type_info.hpp>
 #include <boost/foreach.hpp>
 
 namespace
@@ -109,6 +112,7 @@ void sge::gui::layouts::row::compile_static()
 	connected_widget().parent_manager().dirty(
 		connected_widget(),
 		rect(
+			rect::point_type::null(),
 			connected_widget().size()));
 	
 	dim const 
@@ -159,10 +163,12 @@ sge::gui::dim const sge::gui::layouts::row::optimal_size() const
 		mylogger,
 		log::_1 << SGE_TEXT("returning optimal size ") 
 		        << hint);
+	
 	return 
-		sge::structure_cast<dim>(
-			sge::structure_cast<spacing>(hint)*
-			spacing_);
+		math::vector::structure_cast<dim>(
+			math::dim::structure_cast<spacing>(hint) *
+			spacing_
+		);
 }
 
 sge::gui::dim::reference sge::gui::layouts::row::slave(

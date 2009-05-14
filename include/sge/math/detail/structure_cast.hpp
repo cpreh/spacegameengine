@@ -18,49 +18,57 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/cube_texture.hpp>
-#include <sge/math/rect/basic_impl.hpp>
-#include <sge/math/quad.hpp>
-#include <sge/variant/object_impl.hpp>
 
-sge::renderer::image_view const
-sge::renderer::cube_texture::lock(
-	cube_side::type const side,
-	lock_flag_type const flags)
-{
-	return lock(
-		side,
-		rect(),
-		flags
-	);
-}
+#ifndef SGE_MATH_DETAIL_STRUCTURE_CAST_HPP_INCLUDED
+#define SGE_MATH_DETAIL_STRUCTURE_CAST_HPP_INCLUDED
 
-sge::renderer::const_image_view const
-sge::renderer::cube_texture::lock(
-	cube_side::type const side) const
-{
-	return lock(
-		side,
-		rect()
-	);
-}
+#include <sge/math/detail/structure_cast_fun.hpp>
+#include <boost/iterator/transform_iterator.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/static_assert.hpp>
 
-sge::renderer::cube_texture::size_type
-sge::renderer::cube_texture::content() const
+namespace sge
 {
-	return math::quad(
-		border_size()
-	);
-}
+namespace math
+{
+namespace detail
+{
 
-sge::renderer::cube_texture::rect_type const
-sge::renderer::cube_texture::rect() const
+template<
+	typename T,
+	typename U
+>
+T const
+structure_cast(
+	U const &u)
 {
-	return rect_type(
-		rect_type::point_type::null(),
-		rect_type::dim_type(
-			border_size(),
-			border_size()
+	typedef structure_cast_fun<
+		typename T::value_type
+	> op_type;
+
+	op_type const op = op_type();
+
+	BOOST_STATIC_ASSERT((
+		boost::is_same<
+			typename T::dim_wrapper,
+			typename U::dim_wrapper
+		>::value
+	));
+
+	return T(
+		boost::make_transform_iterator(
+			u.begin(),
+			op
+		),
+		boost::make_transform_iterator(
+			u.end(),
+			op
 		)
 	);
 }
+
+}
+}
+}
+
+#endif

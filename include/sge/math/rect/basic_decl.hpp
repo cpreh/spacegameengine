@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/dim/static.hpp>
 #include <sge/math/size_type.hpp>
 #include <boost/tr1/array.hpp>
-#include <iterator>
 
 namespace sge
 {
@@ -42,11 +41,6 @@ class basic {
 public:
 	typedef T value_type;
 	
-	typedef T *iterator;
-	typedef T const *const_iterator;
-	typedef std::reverse_iterator<iterator> reverse_iterator;
-	typedef std::reverse_iterator<const_reverse_iterator> const_reverse_iterator;
-
 	typedef typename math::vector::static_<
 		T,
 		2
@@ -93,14 +87,12 @@ public:
 	void bottom(
 		value_type);
 	
-	iterator begin();
-	const_iterator begin() const;
-	iterator end();
-	const_iterator end() const;
-	reverse_iterator rbegin();
-	const_reverse_iterator rbegin() const;
-	reverse_iterator rend();
-	const_reverse_iterator rend() const;
+	// those are here because it is the same with vector, dim and matrix
+	bool operator==(
+		basic<T> const &) const;
+
+	bool operator!=(
+		basic const &) const;
 private:
 	void check_w() const;
 	void check_h() const;
@@ -114,22 +106,6 @@ private:
 
 	internal_type rep;
 };
-
-// those are here because it is the same with vector, dim and matrix
-
-template<
-	typename T
->
-bool operator==(
-	basic<T> const &,
-	basic<T> const &);
-
-template<
-	typename T
->
-bool operator!=(
-	basic<T> const &,
-	basic<T> const &);
 
 }
 }

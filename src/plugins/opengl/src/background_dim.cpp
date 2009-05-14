@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../background_dim.hpp"
 #include <sge/math/dim/basic_impl.hpp>
-#include <sge/structure_cast.hpp>
+#include <sge/math/dim/structure_cast.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
@@ -33,11 +33,11 @@ sge::ogl::background_dim(
 {
 	switch(m) {
 	case renderer::viewport_mode::centered_screen_size:
-		return structure_cast<
+		return math::dim::structure_cast<
 			renderer::dim_type
 		>(sz);
 	case renderer::viewport_mode::whole_window:
-		return structure_cast<
+		return math::dim::structure_cast<
 			renderer::dim_type
 		>(d);
 	default:

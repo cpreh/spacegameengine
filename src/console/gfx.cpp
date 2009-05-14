@@ -29,7 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/second_f.hpp>
 #include <sge/time/resolution.hpp>
 #include <sge/container/map_impl.hpp>
-#include <sge/structure_cast.hpp>
+#include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/vector/structure_cast.hpp>
 #include <boost/bind.hpp>
 #include <boost/foreach.hpp>
 #include <locale>
@@ -83,14 +84,21 @@ void sge::console::gfx::draw()
 	ss.render(bg);
 
 	font::unit current_y = static_cast<font::unit>(bg.y()+bg.h()-2*fn.height());
-	BOOST_FOREACH(string const s,output_history_.lines_inside(
-				detail::history::rect(
-					structure_cast<detail::history::point>(
-						bg.pos()),
-					detail::history::dim(
-						static_cast<detail::history::unit>(bg.w()),
-						static_cast<detail::history::unit>(bg.h()-fn.height()))),
-				static_cast<detail::history::unit>(fn.height())))
+	BOOST_FOREACH(
+		string const s,
+		output_history_.lines_inside(
+			detail::history::rect(
+				math::vector::structure_cast<detail::history::point>(
+					bg.pos()
+				),
+				detail::history::dim(
+					static_cast<detail::history::unit>(bg.w()),
+					static_cast<detail::history::unit>(bg.h()-fn.height())
+				)
+			),
+			static_cast<detail::history::unit>(fn.height())
+		)	
+	)
 	{
 		// draw history lines
 		fn.draw_text(

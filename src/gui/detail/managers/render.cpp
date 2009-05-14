@@ -24,11 +24,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widgets/base.hpp>
 #include <sge/gui/canvas/object.hpp>
 #include <sge/gui/log.hpp>
-#include <sge/math/rect_util.hpp>
+#include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/rect/structure_cast.hpp>
+#include <sge/math/rect/output.hpp>
 #include <sge/math/next_pow_2.hpp>
 #include <sge/math/dim/output.hpp>
+#include <sge/math/dim/structure_cast.hpp>
 #include <sge/math/vector/output.hpp>
 #include <sge/math/vector/arithmetic.hpp>
+#include <sge/math/vector/structure_cast.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/texture_software.hpp>
@@ -40,7 +44,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 #include <sge/assert.hpp>
 #include <sge/type_name.hpp>
-#include <sge/structure_cast.hpp>
 #include <sge/make_shared_ptr.hpp>
 #include <boost/foreach.hpp>
 #include <utility>
@@ -64,14 +67,22 @@ sge::texture::const_part_ptr assign_textures(
 		sge::make_shared_ptr<
 			sge::renderer::texture_software
 		>(
-			sge::structure_cast<sge::renderer::texture::dim_type>(
-				d),
-			sge::renderer::color_format::rgba8));
+			sge::math::dim::structure_cast<
+				sge::renderer::texture::dim_type
+			>(
+				d)
+			,
+			sge::renderer::color_format::rgba8
+		)
+	);
 
 	sge::renderer::texture_ptr const hardware_texture = 
 		rend->create_texture(
-			sge::structure_cast<sge::renderer::texture::dim_type>(
-				d),
+			sge::math::dim::structure_cast<
+				sge::renderer::texture::dim_type
+			>(
+				d
+			),
 			sge::renderer::color_format::rgba8,
 			sge::renderer::filter::linear,
 			sge::renderer::resource_flags::dynamic);
@@ -182,7 +193,10 @@ void sge::gui::detail::managers::render::resize(
 	dirty(
 		w,
 		rect(
-			d));
+			rect::point_type::null(),
+			d
+		)
+	);
 
 	widget_container::iterator wi = widgets.find(
 		&w);
@@ -203,7 +217,7 @@ void sge::gui::detail::managers::render::resize(
 		math::next_pow_2(d.w()),
 		math::next_pow_2(d.h()));
 
-	if (wd.texture && structure_cast<dim>(wd.texture->dim()) == new_dim)
+	if (wd.texture && math::dim::structure_cast<dim>(wd.texture->dim()) == new_dim)
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
@@ -226,8 +240,12 @@ void sge::gui::detail::managers::render::resize(
 							
 	wd.sprite.size() = 
 		sprite::dim(
-			structure_cast<sprite::dim>(
-				new_dim));
+			math::dim::structure_cast<
+				sprite::dim
+			>(
+				new_dim
+			)
+		);
 
 	reposition(
 		w,
@@ -252,7 +270,7 @@ void sge::gui::detail::managers::render::reposition(
 		return;
 
 	// just reset sprite position
-	wi->second->sprite.pos() = structure_cast<sprite::point>(d);
+	wi->second->sprite.pos() = math::vector::structure_cast<sprite::point>(d);
 }
 
 void sge::gui::detail::managers::render::dirty(
@@ -330,7 +348,7 @@ void sge::gui::detail::managers::render::clean()
 
 		renderer::scoped_texture_lock const lock_(
 			widgets[&p].texture,
-			math::structure_cast<renderer::lock_rect>(
+			math::rect::structure_cast<renderer::lock_rect>(
 				to_lock),
 			renderer::lock_flags::readwrite);
 

@@ -42,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/collision/satellite.hpp>
 #include <sge/collision/world.hpp>
 #include <sge/signal/scoped_connection.hpp>
+#include <sge/math/rect/basic_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/cerr.hpp>
 #include <sge/text.hpp>

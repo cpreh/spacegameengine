@@ -11,7 +11,7 @@ template<
 >
 bool
 sge::math::rect::contains_point(
-	rect<T> const &r, 
+	basic<T> const &r, 
 	vector::basic<T, N, S> const &p)
 {
 	return p.x() >= r.left() && p.x() <= r.right() &&

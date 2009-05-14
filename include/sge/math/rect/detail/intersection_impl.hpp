@@ -18,6 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_MATH_RECT_DETAIL_INTERSECTION_IMPL_HPP_INCLUDED
+#define SGE_MATH_RECT_DETAIL_INTERSECTION_IMPL_HPP_INCLUDED
+
 #include <sge/math/rect/basic_impl.hpp>
 #include <sge/math/rect/intersects.hpp>
 #include <algorithm>
@@ -33,7 +36,7 @@ sge::math::rect::intersection(
 	if (!intersects(r1,r2))
 		return basic<T>::null();
 
-	return rect<T>(
+	return basic<T>(
 		std::max(r1.left(),r2.left()), 
 		std::max(r1.top(),r2.top()), 
 		std::min(r1.right(),r2.right()), 
@@ -42,4 +45,4 @@ sge::math::rect::intersection(
 
 }
 
-
+#endif

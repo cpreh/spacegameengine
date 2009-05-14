@@ -25,16 +25,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/image_view.hpp>
 #include <sge/image/object.hpp>
 #include <sge/math/dim/basic_impl.hpp>
+#include <sge/math/dim/structure_cast.hpp>
 #include <sge/variant/object_impl.hpp>
-#include <sge/structure_cast.hpp>
 
 sge::gui::image_ptr const sge::gui::make_image(
 	sge::image::object_ptr _image)
 {
 	sge::gui::image_ptr i(
 		new gui::image(
-			sge::structure_cast<dim>(
-				_image->dim())));
+			math::dim::structure_cast<dim>(
+				_image->dim()
+			)
+		)
+	);
 
 	renderer::copy_and_convert_pixels(
 		_image->view(),

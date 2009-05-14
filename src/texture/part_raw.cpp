@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part_raw.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/texture_util.hpp>
-#include <sge/math/rect_impl.hpp>
+#include <sge/math/rect/basic_impl.hpp>
 
 sge::texture::part_raw::part_raw(
 	renderer::texture_ptr const tex,

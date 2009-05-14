@@ -26,16 +26,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widgets/base.hpp>
 #include <sge/gui/exception.hpp>
 #include <sge/gui/log.hpp>
-#include <sge/math/rect_util.hpp>
+#include <sge/math/rect/contains_point.hpp>
+#include <sge/math/rect/output.hpp>
 #include <sge/math/vector/arithmetic.hpp>
 #include <sge/math/vector/output.hpp>
+#include <sge/math/vector/structure_cast.hpp>
 #include <sge/input/key_pair.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/classification.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/text.hpp>
 #include <sge/assert.hpp>
-#include <sge/structure_cast.hpp>
 #include <boost/bind.hpp>
 #include <boost/foreach.hpp>
 
@@ -160,7 +161,13 @@ void sge::gui::detail::managers::mouse::recalculate_focus()
 		mylogger,
 		log::_1 << SGE_TEXT("in top level recalculate_focus"));
 
-	point const click_point = structure_cast<point>(cursor_.pos());
+	point const click_point(
+		math::vector::structure_cast<
+			point
+		>(
+			cursor_.pos()
+		)
+	);
 
 	if (focus)
 	{
@@ -186,7 +193,7 @@ void sge::gui::detail::managers::mouse::recalculate_focus()
 				        << SGE_TEXT(" contains ") << click_point);
 
 			if (w.activation() == activation_state::active && 
-			    math::contains(w.screen_area(),click_point))
+			    contains_point(w.screen_area(),click_point))
 			{
 				w.process(events::mouse_enter(click_point));
 				focus = recalculate_focus(w,click_point);
@@ -222,7 +229,7 @@ void sge::gui::detail::managers::mouse::input_callback(
 
 	focus->process(
 		events::mouse_click(
-			structure_cast<point>(
+			math::vector::structure_cast<point>(
 				cursor_.pos()),
 			k));
 }
@@ -232,7 +239,7 @@ sge::gui::widgets::base *sge::gui::detail::managers::mouse::recalculate_focus(
 	point const &mouse_click)
 {
 	// Pointer is no longer inside widgets::base area
-	if (!math::contains(w.screen_area(),mouse_click) ||
+	if (!contains_point(w.screen_area(),mouse_click) ||
 	    !active(w))
 	{
 		SGE_LOG_DEBUG(
@@ -268,7 +275,7 @@ sge::gui::widgets::base *sge::gui::detail::managers::mouse::do_recalculate_focus
 	BOOST_FOREACH(widgets::base &child,w.children())
 	{
 		if (child.activation() == activation_state::active && 
-		    math::contains(child.screen_area(),p))
+		    contains_point(child.screen_area(),p))
 		{
 			SGE_LOG_DEBUG(
 				mylogger,

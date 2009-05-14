@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/container/field_impl.hpp>
 #include <sge/math/vector/arithmetic.hpp>
 #include <sge/math/vector/dim.hpp>
-#include <sge/structure_cast.hpp>
+#include <sge/math/vector/structure_cast.hpp>
 #include <boost/foreach.hpp>
 
 sge::cell::circle::circle(
@@ -168,7 +168,7 @@ sge::cell::circle::reposition()
 			);
 
 			field_type::vector_type const fpos(
-				sge::structure_cast<
+				math::vector::structure_cast<
 					field_type::vector_type
 				>(
 					pos

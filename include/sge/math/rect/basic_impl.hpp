@@ -28,8 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/math/compare.hpp>
 #include <sge/assign/make_array.hpp>
-#include <sge/text.hpp>
-#include <sge/lexical_cast.hpp>
 #include <functional>
 #include <algorithm>
 
@@ -89,7 +87,7 @@ template<
 sge::math::rect::basic<T> const
 sge::math::rect::basic<T>::null()
 {
-	return rect(
+	return basic(
 		point_type::null(),
 		dim_type::null()
 	);
@@ -128,7 +126,7 @@ sge::math::rect::basic<T>::pos() const
 template<
 	typename T
 >
-typename sge::math::rect::basic<T>::size_type
+sge::math::size_type
 sge::math::rect::basic<T>::area() const
 {
 	return dim().content();
@@ -229,6 +227,33 @@ sge::math::rect::basic<T>::bottom(
 template<
 	typename T
 >
+bool
+sge::math::rect::basic<T>::operator==(
+	basic<T> const &r) const
+{
+	return std::equal(
+		rep.begin(),
+		rep.end(),
+		r.rep.begin(),
+		std::ptr_fun(
+			sge::math::compare<T>
+		)
+	);
+}
+
+template<
+	typename T
+>
+bool
+sge::math::rect::basic<T>::operator!=(
+	basic<T> const &r) const
+{
+	return !(*this == r);
+}
+
+template<
+	typename T
+>
 void
 sge::math::rect::basic<T>::check_w() const
 {
@@ -241,7 +266,7 @@ template<
 	typename T
 >
 void
-sge::math::rect::basic<T>::check_w() const
+sge::math::rect::basic<T>::check_h() const
 {
 	if(bottom() < top())
 		throw_invalid();
@@ -263,39 +288,8 @@ void
 sge::math::rect::basic<T>::throw_invalid() const
 {
 	throw invalid(
-		SGE_TEXT("tried to create a rectangle ")
-		+ lexical_cast<string>(*this)
-		+ SGE_TEXT(" which is invalid")
+		SGE_TEXT("Tried to create an invalid rectangle.")
 	);
-}
-
-template<	
-	typename T
->
-bool
-sge::math::rect::operator==(
-	basic<T> const &l,
-	basic<T> const &r)
-{
-	return std::equal(
-		l.begin(),
-		l.end(),
-		r.begin(),
-		std::ptr_fun(
-			sge::math::compare<T>
-		)
-	);
-}
-
-template<
-	typename T
->
-bool
-sge::math::rect::operator!=(
-	basic<T> const &l,
-	basic<T> const &r)
-{
-	return !(l==r);
 }
 
 #endif

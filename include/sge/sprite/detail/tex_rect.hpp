@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_TEX_RECT_HPP_INCLUDED
 
 #include <sge/sprite/funit.hpp>
-#include <sge/math/rect_fwd.hpp>
+#include <sge/math/rect/basic_fwd.hpp>
 
 namespace sge
 {
@@ -32,7 +32,7 @@ namespace sprite
 namespace detail
 {
 
-typedef math::rect<
+typedef math::rect::basic<
 	funit
 > tex_rect;
 
