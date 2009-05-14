@@ -46,7 +46,7 @@ typename boost::enable_if<
 	boost::is_floating_point<Dest>,
 	optional<Dest>
 >::type
-angle_to(
+to_angle(
 	basic<T, N, S> const &to)
 {
 	// FIXME: make this work for dynamic vectors, too!
