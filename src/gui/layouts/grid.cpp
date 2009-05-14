@@ -8,100 +8,11 @@
 #include <sge/text.hpp>
 #include <boost/foreach.hpp>
 
-class sge::gui::layouts::grid::cache
-{
-public:
-	cache(grid &);
-private:
-	class widget_data
-	{
-	public:
-		dim optimal_size;
-		dim final_size;
-	};
-
-	grid &that_;
-
-	typedef container::field<
-		widgets::base*,
-		container::raw_vector
-		> child_plane;
-	typedef container::field<
-		widgets::base const *,
-		container::raw_vector
-		> const_child_plane;
-	typedef child_container::size_type size_type;
-	typedef std::map<
-		widgets::base*,
-		widget_data
-		> data_map;
-	typedef container::field<
-		size_policy,
-		std::vector
-		> policy_container;
-	typedef container::field<
-		dim,
-		std::vector
-		> rolumn_container;
-	
-	child_container plane_;
-	data_map data_;
-	policy_container policies_;
-	rolumn_container rolumns_;
-};
-
-sge::gui::layouts::grid::cache::cache(grid &_that)
-:
-	that_(_that),
-	plane_(),
-	data_(),
-	policies_(),
-	rolumns_()
-{
-	// iterate through the widgets and:
-	//  -get their optimal_sizes
-	//  -get the overall dimensions of the grid
-	//  -add widgets to the plane
-	sge::gui::dim maxd = sge::gui::dim::null();
-	BOOST_FOREACH(widget &w,that_)
-	{
-		if (!w.pos_hint())
-			throw exception(
-				SGE_TEXT("a widget in a grid layout doesn't have a position hint, don't know how to position it"));
-
-		point const hint = *w.pos_hint();
-
-		if (negative(hint.x()) || negative(hint.y()))
-			throw exception(
-				SGE_TEXT("grid layout position hints have to be positive"));
-
-		// is there already a widget present at this spot?
-		if (plane_.pos(structure_cast<child_plane::size_type>(hint)))
-			throw exception(
-				SGE_TEXT("position ")+
-				lexical_cast<string>(hint)+
-				SGE_TEXT(" in grid already taken by a widget of type ")+
-				type_name(
-					typeid(
-						*plane_.pos(
-							structure_cast<child_plane::size_type>(
-								hint)))));
-
-		plane_.resize(
-			child_plane::dim_type(
-				std::max(
-					static_cast<child_plane::size_type>(hint.x()),
-					plane_.w()),
-				std::max(
-					static_cast<child_plane::size_type>(hint.y()),
-					plane_.h())));
-	}
-}
-
 namespace
 {
 template<typename T>
-bool negative(T const &t)
+bool negative(
+	T const &t)
 {
 	return t < static_cast<T>(0);
 }
@@ -123,6 +34,10 @@ void sge::gui::layouts::grid::compile_static()
 		log::_1 << SGE_TEXT("In static compilation for widget ")
 		        << type_name(typeid(connected_widget())));
 	
+	cache_.reset(
+		new cache(
+			*this));
+
 	// Make everything dirty. There's no better place to do it. If a child of
 	// connected_widget() is deleted, this function gets called and we have to
 	// redraw everything, else we get errors
@@ -139,8 +54,6 @@ void sge::gui::layouts::grid::compile_static()
 		mylogger,
 		log::_1 << SGE_TEXT("optimal size ") << optimal 
 		        << SGE_TEXT(", usable size: ") << usable);
-
-	update_cache();
 
 	SGE_LOG_DEBUG(
 		mylogger,
@@ -168,13 +81,19 @@ void sge::gui::layouts::grid::compile_static()
 
 sge::gui::dim const sge::gui::layouts::grid::optimal_size() const
 {
-	const_child_container const c = children();
 	dim maxdims = dim::null();
+	cache::child_plane const &c = cache_->plane();
 
-	for (size_type y = 0; y != c.h(); ++y)
+	for(
+		size_type y = static_cast<size_type>(0); 
+		y != c.dim().h(); 
+		++y)
 	{
 		dim thisdims = dim::null();
-		for (size_type x = 0; x != c.w(); ++x)
+		for(
+			size_type x = static_cast<size_type>(0); 
+			x != c.dim().w(); 
+			++x)
 		{
 			SGE_ASSERT_MESSAGE(
 				c.pos(x,y),

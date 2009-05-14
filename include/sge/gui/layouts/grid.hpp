@@ -32,36 +32,6 @@ private:
 	typedef scoped_ptr<cache> cache_ptr;
 	cache_ptr cache_;
 
-
-	typedef container::field<
-		widgets::base*,
-		container::raw_vector
-		> child_container;
-	typedef container::field<
-		widgets::base const *,
-		container::raw_vector
-		> const_child_container;
-	typedef child_container::size_type size_type;
-	typedef std::map<
-		widgets::base*,
-		dim
-		> sizes_map;
-	typedef container::field<
-		size_policy,
-		std::vector
-		> policy_cache_type;
-	typedef container::field<
-		dim,
-		std::vector
-		> rolumn_cache_type;
-
-	sizes_map sizes_;
-	policy_cache_type policy_cache_;
-	rolumn_cache_type rolumn_cache_;
-	const_child_container children_;
-
-	dim const dimensions() const;
-	const_child_container const children() const;
 	void adapt_outer(
 		dim const &,
 		dim const &,
