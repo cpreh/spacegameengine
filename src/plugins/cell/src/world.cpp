@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../circle.hpp"
 #include "../grid_entry.hpp"
 #include <sge/collision/satellite.hpp>
+#include <sge/math/rect/basic_impl.hpp>
 #include <sge/make_shared_ptr.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
