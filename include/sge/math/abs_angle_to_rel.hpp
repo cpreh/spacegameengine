@@ -18,30 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_MATH_ABS_ANGLE_TO_REL_HPP_INCLUDED
+#define SGE_MATH_ABS_ANGLE_TO_REL_HPP_INCLUDED
 
-#ifndef SGE_MATH_CONSTANTS_HPP_INCLUDED
-#define SGE_MATH_CONSTANTS_HPP_INCLUDED
+#include <sge/math/mod.hpp>
+#include <sge/math/is_rel_angle.hpp>
+#include <sge/math/two_pi.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/is_floating_point.hpp>
 
 namespace sge
 {
 namespace math
 {
 
-const double DEGREE =
-	0.0174532925199432957692369076848861271344287188854172;
-const long double DEGREE_L =
-	0.0174532925199432957692369076848861271344287188854172L;
-
-template<typename T>
-inline T deg_to_rad(const T deg)
+template<
+	typename T
+>
+typename boost::enable_if<
+	boost::is_floating_point<
+		T
+	>,
+	T
+>::type
+abs_angle_to_rel(
+	T a)
 {
-	return deg * PI / static_cast<T>(180);
-}
+	a = mod(a, twopi<T>());
 
-template<typename T>
-inline T rad_to_deg(const T rad)
-{
-	return rad * static_cast<T>(180) / PI;
+	if (is_rel_angle(a))
+		return a;
+	
+	return a > 0 
+		? a - twopi<T>() 
+		: a + twopi<T>();
 }
 
 }

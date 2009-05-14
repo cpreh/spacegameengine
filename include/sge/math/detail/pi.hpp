@@ -18,23 +18,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_MATH_DETAIL_PI_HPP_INCLUDED
+#define SGE_MATH_DETAIL_PI_HPP_INCLUDED
 
-#ifndef SGE_MATH_VECTOR_VECTOR_HPP_INCLUDED
-#define SGE_MATH_VECTOR_VECTOR_HPP_INCLUDED
+namespace sge
+{
+namespace math
+{
+namespace detail
+{
 
-#include <sge/math/vector/basic_decl.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/vector/angle_between.hpp>
-#include <sge/math/vector/arithmetic.hpp>
-#include <sge/math/vector/atan2.hpp>
-#include <sge/math/vector/cross.hpp>
-#include <sge/math/vector/dot.hpp>
-#include <sge/math/vector/input.hpp>
-#include <sge/math/vector/is_null.hpp>
-#include <sge/math/vector/length.hpp>
-#include <sge/math/vector/normalize.hpp>
-#include <sge/math/vector/output.hpp>
-#include <sge/math/vector/place.hpp>
-#include <sge/math/vector/to_angle.hpp>
+template<
+	typename T
+>
+struct pi;
+
+template<>
+struct pi<
+	long double
+>
+{
+	static long double get()
+	{
+		return 3.1415926535897932384626433832795028841971693993751058L;
+	}
+};
+
+template<>
+struct pi<
+	double
+>
+{
+	static double get()
+	{
+		return 3.1415926535897932384626433832795028841971693993751058;
+	}
+};
+
+template<>
+struct pi<
+	float
+>
+{
+	static float get()
+	{
+		// TODO: add another constant for this!
+		return static_cast<float>(
+			pi<double>::get()
+		);
+	}
+};
+
+}
+}
+}
 
 #endif

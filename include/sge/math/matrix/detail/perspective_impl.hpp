@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MATH_MATRIX_DETAIL_PERSPECTIVE_IMPL_HPP_INCLUDED
 
 #include <sge/math/compare.hpp>
+#include <sge/math/almost_zero.hpp>
 #include <sge/text.hpp>
 #include <sge/exception.hpp>
 

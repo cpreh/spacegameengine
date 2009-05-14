@@ -18,23 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_MATH_DEG_TO_RAD_HPP_INCLUDED
+#define SGE_MATH_DEG_TO_RAD_HPP_INCLUDED
 
-#ifndef SGE_MATH_VECTOR_VECTOR_HPP_INCLUDED
-#define SGE_MATH_VECTOR_VECTOR_HPP_INCLUDED
+#include <sge/math/pi.hpp>
 
-#include <sge/math/vector/basic_decl.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/vector/angle_between.hpp>
-#include <sge/math/vector/arithmetic.hpp>
-#include <sge/math/vector/atan2.hpp>
-#include <sge/math/vector/cross.hpp>
-#include <sge/math/vector/dot.hpp>
-#include <sge/math/vector/input.hpp>
-#include <sge/math/vector/is_null.hpp>
-#include <sge/math/vector/length.hpp>
-#include <sge/math/vector/normalize.hpp>
-#include <sge/math/vector/output.hpp>
-#include <sge/math/vector/place.hpp>
-#include <sge/math/vector/to_angle.hpp>
+namespace sge
+{
+namespace math
+{
+
+template<
+	typename T
+>
+inline T
+deg_to_rad(
+	T const deg)
+{
+	return deg * pi<T>() / static_cast<T>(180);
+}
+
+}
+}
 
 #endif

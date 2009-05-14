@@ -18,29 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_MATH_VECTOR_ANGLE_BETWEEN_HPP_INCLUDED
+#define SGE_MATH_VECTOR_ANGLE_BETWEEN_HPP_INCLUDED
 
-#ifndef SGE_MATH_ANGLE_HPP_INCLUDED
-#define SGE_MATH_ANGLE_HPP_INCLUDED
-
-#include <sge/math/atan2.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/vector/arithmetic.hpp>
+#include <sge/math/vector/atan2.hpp>
 #include <sge/math/vector/static.hpp>
-#include <sge/math/mod.hpp>
-#include <sge/math/pi.hpp>
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
-#include <sge/format.hpp>
 #include <sge/structure_cast.hpp>
-#include <sge/optional.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
-#include <cmath>
 
 namespace sge
 {
 namespace math
 {
+namespace vector
+{
 
 template<
 	typename Dest,
@@ -52,90 +46,24 @@ typename boost::enable_if<
 	boost::is_floating_point<Dest>,
 	optional<Dest>
 >::type
-angle_to(
-	vector::basic<T, N, S> const &from,
-	vector::basic<T, N, S> const &to)
+angle_between(
+	basic<T, N, S> const &from,
+	basic<T, N, S> const &to)
 {
-	// FIXME
+	// FIXME: make this work for dynamic vectors, too!
 	return atan2(
 		::sge::structure_cast<
-			typename vector::static_<
+			typename static_<
 				Dest,
 				N::value
 			>::type
 		>(
-			to - from));
+			to - from
+		)
+	);
 }
 
-template<
-	typename Dest,
-	typename T,
-	typename N,
-	typename S
->
-typename boost::enable_if<
-	boost::is_floating_point<Dest>,
-	optional<Dest>
->::type
-angle_to(
-	vector::basic<T, N, S> const &to)
-{
-	// FIXME
-	return atan2(
-		::sge::structure_cast<
-			typename vector::static_<
-				Dest,
-				N::value
-			>::type
-		>(
-			to));
 }
-
-template<
-	typename T
->
-T rel_angle_to_abs(
-	T const a)
-{
-	if(!is_rel_angle(a))
-		throw exception(
-			(format(SGE_TEXT("math::rel_angle_to_abs: relative angle %1% out of range!"))
-			% a).str());
-
-	if (almost_zero(a))
-		return static_cast<T>(0);
-
-	return a > static_cast<T>(0) ? a : twopi<T>()+a;
-}
-
-template<
-	typename T
->
-T abs_angle_to_rel(
-	T a)
-{
-	a = mod(a, twopi<T>());
-
-	if (is_rel_angle(a))
-		return a;
-	
-	return a > 0 
-		? a - twopi<T>() 
-		: a + twopi<T>();
-}
-
-template<
-	typename T
->
-bool is_rel_angle(
-	T const a)
-{
-	return in_closed_interval(
-		a,
-		-pi<T>(),
-		pi<T>());
-}
-
 }
 }
 

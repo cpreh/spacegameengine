@@ -27,14 +27,25 @@ namespace sge
 {
 namespace math
 {
-/**
- * Clamps \c value to the range \f$[\textrm{vmin},\textrm{vmax}]\f$
- */
-template<typename T>
-T clamp(const T& value, const T& vmin, const T& vmax)
+
+template<
+	typename T
+>
+T
+clamp(
+	T const &value,
+	T const &vmin,
+	T const & vmax)
 {
-	return std::max(std::min(value, vmax), vmin);
+	return std::max(
+		std::min(
+			value,
+			vmax
+		),
+		vmin
+	);
 }
+
 }
 }
 
