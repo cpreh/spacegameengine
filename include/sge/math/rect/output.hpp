@@ -18,21 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_MATH_RECT_OUTPUT_HPP_INCLUDED
+#define SGE_MATH_RECT_OUTPUT_HPP_INCLUDED
 
-#ifndef SGE_MATH_RECT_FWD_HPP_INCLUDED
-#define SGE_MATH_RECT_FWD_HPP_INCLUDED
+#include <sge/math/rect/basic_fwd.hpp>
+#include <iosfwd>
 
 namespace sge
 {
 namespace math
 {
+namespace rect
+{
 
 template<
-	typename T
+	typename T,
+	typename Ch,
+	typename Traits
 >
-class rect;
+std::basic_ostream<
+	Ch,
+	Traits
+> &
+operator<<(
+	std::basic_ostream<Ch,Traits> &,
+	basic<T> const &);
 
 }
 }
+}
+
+#include <sge/math/rect/detail/output_impl.hpp>
 
 #endif

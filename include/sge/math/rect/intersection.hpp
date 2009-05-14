@@ -18,11 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_MATH_RECT_INTERSECTION_HPP_INCLUDED
+#define SGE_MATH_RECT_INTERSECTION_HPP_INCLUDED
 
-#ifndef SGE_MATH_RECT_HPP_INCLUDED
-#define SGE_MATH_RECT_HPP_INCLUDED
+#include <sge/math/rect/basic_fwd.hpp>
 
-#include <sge/math/rect_decl.hpp>
-#include <sge/math/rect_impl.hpp>
+namespace sge
+{
+namespace math
+{
+namespace rect
+{
+
+template<
+	typename T
+>
+basic<T> const
+intersection(
+	basic<T> const &,
+	basic<T> const &);
+
+}
+}
+}
+
+#include <sge/math/rect/detail/intersection_impl.hpp>
 
 #endif

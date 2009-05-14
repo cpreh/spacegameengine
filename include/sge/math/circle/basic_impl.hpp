@@ -19,68 +19,57 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 
-#ifndef SGE_MATH_CIRCLE_IMPL_HPP_INCLUDED
-#define SGE_MATH_CIRCLE_IMPL_HPP_INCLUDED
+#ifndef SGE_MATH_CIRCLE_BASIC_IMPL_HPP_INCLUDED
+#define SGE_MATH_CIRCLE_BASIC_IMPL_HPP_INCLUDED
 
-#include <sge/math/circle.hpp>
+#include <sge/math/circle_decl.hpp>
 #include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/vector/arithmetic.hpp>
-#include <sge/math/vector/length.hpp>
 
-template<typename T>
-sge::math::circle<T>::circle(
-	const_reference x,
-	const_reference y,
-	const_reference radius_)
-:
-	origin_(x, y),
-	radius_(radius_)
-{}
-
-template<typename T>
-sge::math::circle<T>::circle(
-	const point_type& origin_,
+template<
+	typename T
+>
+sge::math::circle::basic<T>::basic(
+	point_type const &origin_,
 	const_reference radius_)
 :
 	origin_(origin_),
 	radius_(radius_)
 {}
 
-template<typename T>
-typename sge::math::circle<T>::point_type&
-sge::math::circle<T>::origin()
+template<
+	typename T
+>
+typename sge::math::circle::basic<T>::point_type &
+sge::math::circle::basic<T>::origin()
 {
 	return origin_;
 }
 
-template<typename T>
-const typename sge::math::circle<T>::point_type&
-sge::math::circle<T>::origin() const
+template<
+	typename T
+>
+typename sge::math::circle::basic<T>::point_type const &
+sge::math::circle::basic<T>::origin() const
 {
 	return origin_;
 }
 
-template<typename T>
-typename sge::math::circle<T>::reference
-sge::math::circle<T>::radius()
+template<
+	typename T
+>
+typename sge::math::circle::basic<T>::reference
+sge::math::circle::basic<T>::radius()
 {
 	return radius_;
 }
 
-template<typename T>
-typename sge::math::circle<T>::const_reference
-sge::math::circle<T>::radius() const
+template<
+	typename T
+>
+typename sge::math::circle::basic<T>::const_reference
+sge::math::circle::basic<T>::radius() const
 {
 	return radius_;
-}
-
-template<typename T>
-bool sge::math::intersects(
-	circle<T> const &a,
-	circle<T> const &b)
-{
-	return length(a.origin() - b.origin())
-	< a.radius() + b.radius();
 }
 
 #endif

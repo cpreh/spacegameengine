@@ -18,42 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_MATH_CIRCLE_DETAIL_INTERSECTS_IMPL_HPP_INCLUDED
+#define SGE_MATH_CIRCLE_DETAIL_INTERSECTS_IMPL_HPP_INCLUDED
 
-#ifndef SGE_MATH_RECT_UTIL_HPP_INCLUDED
-#define SGE_MATH_RECT_UTIL_HPP_INCLUDED
-
-#include <sge/math/rect.hpp>
-#include <sge/math/vector/basic_fwd.hpp>
-
-namespace sge
-{
-namespace math
-{
+#include <sge/math/vector/length.hpp>
+#include <sge/math/vector/arithmetic.hpp>
+#include <sge/math/vector/basic_impl.hpp>
 
 template<
-	typename T,
-	typename N,
-	typename S
+	typename T
 >
-bool contains(
-	rect<T> const &,
-	vector::basic<T, N, S> const &);
-
-template<typename T>
-rect<T> const intersection(rect<T> const &,rect<T> const &);
-
-template<typename T,typename U>
-rect<T> const bounding(U begin,U const end);
-
-template<typename T>
-bool contains(const rect<T>& outer, const rect<T>& inner);
-
-template<typename T>
-bool intersects(const rect<T>& l, const rect<T>& r);
-
+bool
+sge::math::circle::intersects(
+	basic<T> const &a,
+	basic<T> const &b)
+{
+	return
+		length(a.origin() - b.origin())
+		< a.radius() + b.radius();
 }
-}
-
-#include <sge/math/detail/rect_util_impl.hpp>
 
 #endif

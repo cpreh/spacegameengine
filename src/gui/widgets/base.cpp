@@ -342,12 +342,14 @@ void sge::gui::widgets::base::process(
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("checking if ")
-			        << w.absolute_area()
-							<< SGE_TEXT(" intersects with ")
-							<< e.area() 
-							<< SGE_TEXT(": ")
-							<< math::intersects(w.absolute_area(),e.area()));
+			log::_1
+				<< SGE_TEXT("checking if ")
+				<< w.absolute_area()
+				<< SGE_TEXT(" intersects with ")
+				<< e.area() 
+				<< SGE_TEXT(": ")
+				<< math::intersects(w.absolute_area(),e.area())
+		);
 
 		if (math::intersects(w.absolute_area(),e.area()))
 		{

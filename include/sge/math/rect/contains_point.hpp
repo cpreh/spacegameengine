@@ -18,21 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_MATH_RECT_CONTAINS_POINT_HPP_INCLUDED
+#define SGE_MATH_RECT_CONTAINS_POINT_HPP_INCLUDED
 
-#ifndef SGE_MATH_CIRCLE_FWD_HPP_INCLUDED
-#define SGE_MATH_CIRCLE_FWD_HPP_INCLUDED
+#include <sge/math/rect/basic_fwd.hpp>
+#include <sge/math/vector/basic_fwd.hpp>
 
 namespace sge
 {
 namespace math
 {
+namespace rect
+{
 
 template<
-	typename T
+	typename T,
+	typename N,
+	typename S
 >
-class circle;
+bool contains_point(
+	basic<T> const &,
+	vector::basic<T, N, S> const &);
 
 }
 }
+}
+
+#include <sge/math/rect/detail/contains_point_impl.hpp>
 
 #endif
