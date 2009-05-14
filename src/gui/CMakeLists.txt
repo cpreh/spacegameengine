@@ -2,6 +2,7 @@ FILE (GLOB sgeguifiles
 		*.cpp 
 		events/*.cpp 
 		layouts/*.cpp 
+		layouts/grid/*.cpp
 		widgets/*.cpp 
 		widgets/buttons/*.cpp 
 		skins/*.cpp 

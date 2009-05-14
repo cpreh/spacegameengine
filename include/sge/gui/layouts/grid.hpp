@@ -9,6 +9,7 @@
 #include <sge/gui/unit.hpp>
 #include <sge/container/field.hpp>
 #include <sge/container/raw_vector.hpp>
+#include <sge/scoped_ptr.hpp>
 #include <boost/multi_array.hpp>
 #include <utility>
 #include <vector>
@@ -30,7 +31,9 @@ private:
 	class cache;
 	friend class cache;
 	typedef scoped_ptr<cache> cache_ptr;
-	cache_ptr cache_;
+	mutable cache_ptr cache_;
+
+  cache &valid_cache() const;
 
 	void adapt_outer(
 		dim const &,
@@ -51,7 +54,7 @@ private:
 		axis_type);
 	void update_rolumn(
 		axis_type,
-		policy_cache_type::size_type,
+		unsigned,
 		axis_policy::type,
 		unit);
 	unsigned count_flags(

@@ -4,19 +4,14 @@
 #include <sge/gui/widgets/base.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/math/dim/dim.hpp>
+#include <sge/math/negative.hpp>
 #include <sge/type_name.hpp>
 #include <sge/text.hpp>
 #include <boost/foreach.hpp>
+#include "grid/cache.hpp"
 
 namespace
 {
-template<typename T>
-bool negative(
-	T const &t)
-{
-	return t < static_cast<T>(0);
-}
-
 sge::gui::logger mylogger(
 	sge::gui::global_log(),
 	SGE_TEXT("layouts: grid"),
@@ -81,99 +76,30 @@ void sge::gui::layouts::grid::compile_static()
 
 sge::gui::dim const sge::gui::layouts::grid::optimal_size() const
 {
+	cache::rolumn_container const &rolumns =
+		valid_cache().rolumns();
+
 	dim maxdims = dim::null();
-	cache::child_plane const &c = cache_->plane();
 
-	for(
-		size_type y = static_cast<size_type>(0); 
-		y != c.dim().h(); 
-		++y)
-	{
-		dim thisdims = dim::null();
-		for(
-			size_type x = static_cast<size_type>(0); 
-			x != c.dim().w(); 
-			++x)
-		{
-			SGE_ASSERT_MESSAGE(
-				c.pos(x,y),
-				SGE_TEXT("currently, all grid cells have to have widgets in them"));
-
-			dim const s = c.pos(x,y)->optimal_size();
-			thisdims.w() += s.w();
-			thisdims.h() = std::max(thisdims.h(),s.h());
-		}
-		maxdims.w() = std::max(maxdims.w(),thisdims.w());
-		maxdims.h() += thisdims.h();
-	}
-
+	for (
+		cache::rolumn_container::size_type i = 0; 
+		i < rolumns.dim().h();
+		++i)
+		for (
+			unit j = static_cast<unit>(0); 
+			j < static_cast<unit>(2); 
+			++j)
+			maxdims[j] += rolumns.pos(cache::rolumn_container::vector_type(j,i)).size;
+	
 	return maxdims;
 }
 
-// Takes all of the widgets' position hints and creates a dimension in the form
-// ([0,max_x],[0,max_y]). This function also checks if the position hints are
-// positive
-sge::gui::dim const sge::gui::layouts::grid::dimensions() const
+sge::gui::layouts::grid::cache &sge::gui::layouts::grid::valid_cache() const
 {
-	sge::gui::dim maxd = sge::gui::dim::null();
-	BOOST_FOREACH(widgets::base const &w,connected_widget().children())
-	{
-		if (!w.pos_hint())
-			throw exception(
-				SGE_TEXT("a widget in a grid layout doesn't have a position hint, don't know how to position it"));
-
-		point const hint = *w.pos_hint();
-	
-		if (negative(hint.x()) || negative(hint.y()))
-			throw exception(
-				SGE_TEXT("grid layout position hints have to be positive"));
-
-		maxd.w() = 
-			std::max(
-				hint.x(),
-				maxd.w());
-		maxd.h() = 
-			std::max(
-				hint.y(),
-				maxd.h());
-	}
-	return maxd;
-}
-
-// Uses dimensions() to create a two-dimensional array of widgets
-sge::gui::layouts::grid::const_child_container const 
-sge::gui::layouts::grid::children() const
-{
-	dim const dims = dimensions();
-
-	const_child_container a(
-		structure_cast<const_child_container::dim_type>(
-			dims));
-	
-	// since we iterate over the widgets, not the array itself, there might be
-	// empty spots, which we initialize with a null pointer here
-	std::fill(
-		a.begin(),
-		a.end(),
-		static_cast<widgets::base const *>(0));
-
-	BOOST_FOREACH(widgets::base const &w,connected_widget().children())
-	{
-		if (!w.pos_hint())
-			throw exception(
-				SGE_TEXT("a widget in a grid layout has no position hint, I don't know where to put it"));
-
-		child_container::vector_type const p = 
-			structure_cast<child_container::vector_type>(
-				*w.pos_hint());
-
-		if (a.pos(p))
-			throw exception(
-				SGE_TEXT("two widgets in a grid layout have the same position hint, this is invalid"));
-
-		a.pos(p) = &w;
-	}
-	return a;
+	if (!cache_)
+		cache_.reset(
+			new cache(*this));
+	return *cache_;
 }
 
 // this decides if an axis should shrink or expand due to the too big or too
@@ -302,17 +228,28 @@ void sge::gui::layouts::grid::adapt(
 		        << count << SGE_TEXT("=") << addition 
 						<< SGE_TEXT(" pixels to the flagged rolumns"));
 
+	cache::rolumn_container const &rolumns =
+		valid_cache().rolumns();
+
 	for (
 		size_type i = 0; 
 		i < children_.dim()[axis]; 
 		++i
 		)
-		if (policy_cache_.pos(axis,i) & flag)
+	{
+		if (rolumns.pos(axis,i).policy & flag)
+		{
+			SGE_LOG_DEBUG(
+				mylogger,
+				log::_1 << SGE_TEXT("rolumn ") << i << SGE_TEXT(" can be modified")); 
+
 			update_rolumn(
 				axis,
 				i,
 				flag,
 				addition);
+		}
+	}
 }
 
 namespace 
@@ -336,28 +273,33 @@ T field_swap_pos(
 
 void sge::gui::layouts::grid::update_rolumn(
 	axis_type const axis,
-	policy_cache_type::size_type const rolumn,
+	unsigned const rolumn,
 	axis_policy::type const flag,
 	unit const addition)
 {
-	rolumn_cache_.pos(axis,rolumn) += addition;
+	// update the cache
+	valid_cache().rolumns().pos(
+		axis,
+		rolumn).size += addition;
+
 	for (
 		size_type i = 0; 
 		i < children_.dim()[axis];
-		++i
-		)
+		++i)
 	{
 		widgets::base * const w = field_swap_pos(
-			children_,
+			valid_cache().plane(),
 			axis,
-			static_cast<size_type>(i),
+			static_cast<size_type>(
+				i),
 			static_cast<size_type>(
 				rolumn));
 		
+		// not a widget we're looking for
 		if (!w || !(w->size_policy().index(axis) & flag))
 			continue;
 
-		sizes_[w][axis] += addition;
+		valid_cache().data()[w].size[axis] += addition;
 	}
 }
 
@@ -369,117 +311,17 @@ unsigned sge::gui::layouts::grid::count_flags(
 {
 	unsigned count = 0;
 
+	cache::rolumn_container const &rolumns = 
+		valid_cache().rolumns();
+
 	for (
-		size_type i = 0;
-		i < children_.dim()[axis];
+		cache::rolumn_container::size_type i = 0;
+		i < rolumns.dim().w();
 		++i)
-		if (policy_cache_.pos(axis,i) & flags)
+		if (rolumns.pos(axis,i).policy & flags)
 			++count;
-	
+
 	return count;
-}
-
-void sge::gui::layouts::grid::update_cache()
-{
-	SGE_LOG_DEBUG(
-		mylogger,
-		log::_1 << SGE_TEXT("updating cache"));
-
-	children_ = children();
-	update_policy_cache();
-	update_size_cache();
-
-	SGE_LOG_DEBUG(
-		mylogger,
-		log::_1 << SGE_TEXT("cache updated"));
-}
-
-void sge::gui::layouts::grid::update_policy_cache()
-{
-	// prepare for two axes and the children's dimensions (the array doesn't have
-	// to be a square, but since it's only for counting flags, the rest can be
-	// filled with empty axis policies)
-	policy_cache_.resize(
-		policy_cache_type::dim_type(
-			2,
-			children_.dim()[0],
-			children_.dim()[1]));
-	
-	// TODO: is this really neccessary? Or is the array default-initialized?
-	std::fill(
-		policy_cache_.begin(),
-		policy_cache_.end(),
-		size_policy());
-
-	for (child_container::size_type y = 0; y < children_.h(); ++y)
-	{
-		for (child_container::size_type x = 0; x < children_.w(); ++x)
-		{
-			if (!children_.pos(x,y))
-				continue;
-			
-			policy_cache_.pos(y_axis,y) |= children_.pos(x,y)->size_policy();
-			policy_cache_.pos(x_axis,x) |= children_.pos(x,y)->size_policy();
-		}
-	}
-}
-
-void sge::gui::layouts::grid::update_size_cache()
-{
-	BOOST_FOREACH(widgets::base &w,connected_widget().children())
-		sizes_[&w] = w->optimal_size();
-}
-
-void sge::gui::layouts::grid::update_rolumn_cache()
-{
-	rolumn_cache_.resize(
-		rolumn_cache_type::dim_type(
-			2,
-			std::max(
-				children_.w(),
-				children_.h())));
-	
-	for (size_type x = 0; x < children_.w(); ++x)
-	{
-		unit &max = 
-			rolumn_cache_.pos(
-				x,
-				0);
-
-		max = 0;
-		for (size_type y = 0; y < children_.h(); ++y)
-		{
-			SGE_ASSERT_MESSAGE(
-				children_.pos(x,y),
-				SGE_TEXT("currently, all grid cells have to have widgets in them"));
-
-			max = 
-				std::max(
-					max,
-					sizes_[children_.pos(x,y)].w());
-		}
-	}
-
-	for (size_type y = 0; y < children_.h(); ++y)
-	{
-		unit &max = 
-			rolumn_cache_.pos(
-				1,
-				y);
-
-		max = 0;
-		for (size_type x = 0; x < children_.w(); ++x)
-		{
-			SGE_ASSERT_MESSAGE(
-				children_.pos(x,y),
-				SGE_TEXT("currently, all grid cells have to have widgets in them"));
-
-			max = 
-				std::max(
-					max,
-					sizes_[children_.pos(x,y)].h());
-		}
-	}
 }
 
 // iterates through the whole table, calculating the minimal size for the
@@ -490,26 +332,37 @@ void sge::gui::layouts::grid::update_widgets()
 		mylogger,
 		log::_1 << SGE_TEXT("updating widgets begin"));
 
+	cache::child_plane &c = 
+		valid_cache().plane();
+	
+	cache::rolumn_container const &rolumns = 
+		valid_cache().rolumns();
+
 	point pos = point::null();
-	for (size_type x = 0; x < children_.w(); ++x)
+	for (size_type x = 0; x < c.w(); ++x)
 	{
 		pos.y() = static_cast<unit>(0);
-		for (size_type y = 0; y < children.h(); ++y)
+		for (size_type y = 0; y < c.h(); ++y)
 		{
-			SGE_ASSERT_MESSAGE(
-				children_.pos(x,y),
-				SGE_TEXT("currently, all grid cells have to have widgets in them"));
+			widget * const w = 
+				c.pos(cache::child_plane::vector_type(x,y));
+			if (w)
+				update_widget(
+					*w,
+					pos,
+					dim(
+						rolumns.pos(
+							cache::rolumn_container::vector_type(
+								x_axis,
+								x)),
+						rolumns.pos(
+							cache::rolumn_container::vector_type(
+								y_axis,
+								y))));
 
-			update_widget(
-				*children_.pos(x,y),
-				pos,
-				dim(
-					rolumn_cache_.pos(x_axis,x),
-					rolumn_cache_.pos(y_axis,y)));
-
-			pos.y() += rolumn_cache_.pos(y_axis,y);
+			pos.y() += rolumns.pos(y_axis,y);
 		}
-		pos.x() += rolumn_cache_.pos(x_axis,x);
+		pos.x() += rolumns.pos(x_axis,x);
 	}
 	
 	SGE_LOG_DEBUG(
@@ -517,17 +370,35 @@ void sge::gui::layouts::grid::update_widgets()
 		log::_1 << SGE_TEXT("updating widgets end"));
 }
 
+namespace
+{
+sge::gui::point const center(
+	sge::gui::point const &pos,
+	sge::gui::dim const &rect,
+	sge::gui::dim const &smaller)
+{
+	return pos + rect/2 - smaller/2;
+}
+}
+
+// the widget has got it's size in data[&w].size, it just has to be aligned in
+// it's cell, denoted by d.
 void sge::gui::layouts::grid::update_widget(
 	widget &w,
 	point const &p,
 	dim const &d)
 {
-	/*
-	switch (w.alignment().x())
-	{
-		case alignment_h::left:
-		// TODO
-		break;
-	}
-	*/
+	dim const smaller = 
+		valid_cache().data()[&w].size;
+
+	base::set_widget_pos(
+		w,
+		center(
+			p,
+			d,
+			smaller));
+	
+	base::set_widget_size(
+		w,
+		smaller);
 }
