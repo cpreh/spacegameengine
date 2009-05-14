@@ -43,7 +43,8 @@ sge::container::raw_vector<T, A>::begin() const
 }
 
 template<typename T, typename A>
-typename sge::container::raw_vector<T, A>::iterator sge::container::raw_vector<T, A>::end()
+typename sge::container::raw_vector<T, A>::iterator
+sge::container::raw_vector<T, A>::end()
 {
 	return data_end();
 }
@@ -350,7 +351,12 @@ sge::container::raw_vector<T, A>::insert(
 	else
 	{
 		if(!empty())
-			std::copy_backward(position, end(), position + 1);
+			std::copy_backward(
+				position,
+				end(),
+				data_end() + 1
+			);
+
 		*position = x;
 		i.last += 1;
 		return position;
@@ -377,15 +383,26 @@ void sge::container::raw_vector<T, A>::insert(const iterator position, const siz
 	else
 	{
 		if(!empty())
-			std::copy_backward(position, end(), position + n);
+			std::copy_backward(
+				position,
+				end(),
+				data_end() + n
+			);
+
 		std::uninitialized_fill(position, position + n, x);
 		i.last += n;
 	}
 }
 
-template<typename T, typename A>
-template<typename In>
-void sge::container::raw_vector<T, A>::insert(
+template<
+	typename T,
+	typename A
+>
+template<
+	typename In
+>
+void
+sge::container::raw_vector<T, A>::insert(
 	iterator const position,
 	In const l,
 	In const r)
@@ -411,7 +428,12 @@ void sge::container::raw_vector<T, A>::insert(
 	else
 	{
 		if(!empty())
-			std::copy_backward(position, end(), position + distance);
+			std::copy_backward(
+				position,
+				end(),
+				data_end() + distance
+			);
+
 		std::uninitialized_copy(l, r, position);
 		i.last += distance;
 	}
@@ -426,7 +448,10 @@ sge::container::raw_vector<T, A>::erase(iterator const position)
 	return position;
 }
 
-template<typename T, typename A>
+template<
+	typename T,
+	typename A
+>
 typename sge::container::raw_vector<T, A>::iterator
 sge::container::raw_vector<T, A>::erase(
 	iterator const l,
@@ -440,14 +465,15 @@ sge::container::raw_vector<T, A>::erase(
 	return r;
 }
 
-template<typename T, typename A>
-void sge::container::raw_vector<T, A>::range_check(const size_type n) const
+template<
+	typename T,
+	typename A
+>
+void sge::container::raw_vector<T, A>::range_check(
+	size_type const n) const
 {
 	SGE_ASSERT(n < size());
 }
-
-#undef max
-// TODO: hide windows.h in asio
 
 template<typename T, typename A>
 typename sge::container::raw_vector<T, A>::size_type

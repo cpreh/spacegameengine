@@ -18,9 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
-#ifndef SGE_MATH_CONSTANTS_HPP_INCLUDED
-#define SGE_MATH_CONSTANTS_HPP_INCLUDED
+#ifndef SGE_MATH_TWOPI_HPP_INCLUDED
+#define SGE_MATH_TWOPI_HPP_INCLUDED
 
 #include <sge/math/pi.hpp>
 
@@ -29,21 +28,12 @@ namespace sge
 namespace math
 {
 
-const double DEGREE =
-	0.0174532925199432957692369076848861271344287188854172;
-const long double DEGREE_L =
-	0.0174532925199432957692369076848861271344287188854172L;
-
-template<typename T>
-inline T deg_to_rad(const T deg)
+template<
+	typename T
+>
+inline T twopi()
 {
-	return deg * PI / static_cast<T>(180);
-}
-
-template<typename T>
-inline T rad_to_deg(const T rad)
-{
-	return rad * static_cast<T>(180) / PI;
+	return static_cast<T>(2) * pi<T>();
 }
 
 }

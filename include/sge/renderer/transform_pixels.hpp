@@ -27,15 +27,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/image_view.hpp>
 #include <sge/variant/apply_unary.hpp>
 #include <sge/variant/apply_binary.hpp>
-//#include <sge/variant/apply_ternary.hpp>
+#include <sge/variant/apply_ternary.hpp>
 #include <sge/variant/object_impl.hpp>
 #include <boost/bind.hpp>
 #include <cstddef>
+
+// TODO: provide all overloads
 
 namespace sge
 {
 namespace renderer
 {
+
+template<
+	typename Src,
+	typename Dest,
+	typename Op
+>
+void transform_pxiels(
+	Src const &src,
+	Dest const &dest,
+	Op const &op)
+{
+	detail::transform_pixels_unary<
+		Op
+	> const fun(
+		op
+	);
+
+	fun(
+		src,
+		dest
+	);
+}
 
 template<
 	typename Op
@@ -123,6 +147,27 @@ void transform_pixels(
 			_1,
 			_2
 		),
+		src2,
+		dest
+	);
+}
+
+template<
+	typename Op
+>
+void transform_pixels(
+	const_image_view const &src1,
+	const_image_view const &src2,
+	image_view const &dest,
+	Op const &op)
+{
+	variant::apply_ternary(
+		detail::transform_pixels_binary<
+			Op
+		>(
+			op
+		),
+		src1,
 		src2,
 		dest
 	);

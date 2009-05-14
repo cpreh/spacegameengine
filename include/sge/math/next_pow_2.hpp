@@ -18,12 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_COMPARE_HPP_INCLUDED
-#define SGE_MATH_COMPARE_HPP_INCLUDED
 
-#include <sge/math/nearly_equals.hpp>
+#ifndef SGE_MATH_NEXT_POW_2_HPP_INCLUDED
+#define SGE_MATH_NEXT_POW_2_HPP_INCLUDED
+
+#include <sge/math/is_power_of_2.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
+#include <boost/type_traits/is_unsigned.hpp>
+#include <cmath>
 
 namespace sge
 {
@@ -33,35 +35,59 @@ namespace math
 template<
 	typename T
 >
-inline
-typename boost::disable_if<
-	boost::is_floating_point<
+typename boost::enable_if<
+	boost::is_unsigned<
 		T
 	>,
-	bool
+	T
 >::type
-compare(
-	T const &a,
-	T const &b)
+next_pow_2(
+	T const t)
 {
-	return a == b;
+	T const two(
+		static_cast<T>(2)
+	);
+
+	if(is_power_of_2(t))
+		return t * two;
+	
+	T counter(t);
+
+	T ret(
+		static_cast<T>(1)
+	);
+
+	while(counter /= two)
+		ret *= two;
+	
+	return ret * two;
 }
 
 template<
 	typename T
 >
-inline
-typename boost::enable_if<
-	boost::is_floating_point<
+typename boost::disable_if<
+	boost::is_unsigned<
 		T
 	>,
-	bool
+	T
 >::type
-compare(
-	T const &a,
-	T const &b)
+next_pow_2(
+	T const t)
 {
-	return nearly_equals(a, b);
+	return static_cast<T>(
+		std::pow(
+			static_cast<T>(2),
+			std::ceil(
+				std::log(
+					static_cast<double>(t)
+				)
+				/ std::log(
+					static_cast<double>(2)
+				)
+			)
+		)
+	);
 }
 
 }

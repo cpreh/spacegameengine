@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/config/media_path.hpp>
-#include <sge/math/constants.hpp>
 #include <sge/exception.hpp>
 #include <sge/cerr.hpp>
 #include <sge/time/timer.hpp>
@@ -35,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/sleep.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/math/vector/basic_impl.hpp>
+#include <sge/math/pi.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/time/sleep.hpp>
@@ -126,7 +126,7 @@ try
 		{
 			sge::audio::unit const angle = 
 				static_cast<sge::audio::unit>(
-					frame_timer.elapsed_frames() * (2 * sge::math::PI * speed));
+					frame_timer.elapsed_frames() * (2 * sge::math::pi<sge::audio::unit>() * speed));
 			sound->pos(
 				sge::audio::point(
 					std::sin(angle),

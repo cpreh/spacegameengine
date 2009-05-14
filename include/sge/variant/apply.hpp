@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/variant/apply_unary.hpp>
 #include <sge/variant/apply_binary.hpp>
+#include <sge/variant/apply_ternary.hpp>
 
 namespace sge
 {
@@ -59,6 +60,27 @@ apply(
 		op,
 		obj1,
 		obj2
+	);
+}
+
+template<
+	typename Operation,
+	typename Variant1,
+	typename Variant2,
+	typename Variant3
+>
+typename Operation::result_type
+apply(
+	Operation const &op,
+	Variant1 const &obj1,
+	Variant2 const &obj2,
+	Variant3 const &obj3)
+{
+	return apply_binary(
+		op,
+		obj1,
+		obj2,
+		obj3
 	);
 }
 

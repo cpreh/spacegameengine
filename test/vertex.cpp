@@ -51,7 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int main()
 try
 {
-	sge::systems::instance sys(
+	sge::systems::instance const sys(
 		sge::systems::list()
 		(sge::window::parameters(
 			SGE_TEXT("sge vertextest")
@@ -65,8 +65,10 @@ try
 				sge::renderer::refresh_rate_dont_care),
 			sge::renderer::depth_buffer::off,
 			sge::renderer::stencil_buffer::off,
-			sge::renderer::window_mode::windowed))
-		(sge::systems::parameterless::input));
+			sge::renderer::window_mode::windowed)
+		)
+		(sge::systems::parameterless::input)
+	);
 
 	typedef sge::renderer::vf::pos<
 		float,
@@ -85,17 +87,22 @@ try
 	> format;
 
 	sge::renderer::device_ptr const rend(
-		sys.renderer());
+		sys.renderer()
+	);
+
 	sge::renderer::vertex_buffer_ptr const vb(
 		rend->create_vertex_buffer(
 			sge::renderer::vf::make_dynamic_format<format>(),
 			3,
-			sge::renderer::resource_flags::none));
+			sge::renderer::resource_flags::none
+		)
+	);
 
 	{
 		sge::renderer::scoped_vertex_lock const vblock(
 			vb,
-			sge::renderer::lock_flags::writeonly);
+			sge::renderer::lock_flags::writeonly
+		);
 
 		typedef sge::renderer::vf::view<
 			format
@@ -130,7 +137,9 @@ try
 	rend->state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
-			(sge::renderer::state::color::clear_color = sge::renderer::colors::black()));
+			(sge::renderer::state::color::clear_color = sge::renderer::colors::black()
+		)
+	);
 	
 	while(running)
 	{

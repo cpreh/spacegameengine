@@ -18,23 +18,63 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_VARIANT_DETAIL_TERNARY_UNWRAP_HPP_INCLUDED
+#define SGE_VARIANT_DETAIL_TERNARY_UNWRAP_HPP_INCLUDED
 
-#ifndef SGE_MATH_VECTOR_VECTOR_HPP_INCLUDED
-#define SGE_MATH_VECTOR_VECTOR_HPP_INCLUDED
+#include <sge/variant/apply_unary.hpp>
+#include <sge/variant/detail/ternary_applier.hpp>
 
-#include <sge/math/vector/basic_decl.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/vector/angle_between.hpp>
-#include <sge/math/vector/arithmetic.hpp>
-#include <sge/math/vector/atan2.hpp>
-#include <sge/math/vector/cross.hpp>
-#include <sge/math/vector/dot.hpp>
-#include <sge/math/vector/input.hpp>
-#include <sge/math/vector/is_null.hpp>
-#include <sge/math/vector/length.hpp>
-#include <sge/math/vector/normalize.hpp>
-#include <sge/math/vector/output.hpp>
-#include <sge/math/vector/place.hpp>
-#include <sge/math/vector/to_angle.hpp>
+namespace sge
+{
+namespace variant
+{
+namespace detail
+{
+
+template<
+	typename Operation,
+	typename Variant
+>
+struct ternary_unwrap {
+	typedef typename Operation::result_type result_type;
+
+	ternary_unwrap(
+		Operation const &op,
+		Variant const &obj)
+	:
+		op(op),
+		obj(obj)
+	{}
+
+	template<
+		typename T2,
+		typename T3
+	>
+	result_type
+	operator()(
+		T2 const &t2,
+		T3 const &t3) const
+	{
+		return apply_unary(
+			ternary_applier<
+				Operation,
+				T2,
+				T3
+			>(
+				op,
+				t2,
+				t3
+			),
+			obj
+		);
+	}
+private:
+	Operation const &op;
+	Variant const &obj;
+};
+
+}
+}
+}
 
 #endif
