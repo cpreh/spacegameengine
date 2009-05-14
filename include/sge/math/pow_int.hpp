@@ -18,41 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_MATH_POW_INT_HPP_INCLUDED
+#define SGE_MATH_POW_INT_HPP_INCLUDED
 
-#ifndef SGE_MATH_ATAN2_HPP_INCLUDED
-#define SGE_MATH_ATAN2_HPP_INCLUDED
-
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/vector/is_null.hpp>
-#include <sge/optional.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
-#include <cmath>
+#include <boost/type_traits/is_integral.hpp>
 
 namespace sge
 {
 namespace math
 {
-/**
- * Wraps std::atan2 so it can be used with sge::math::vector. Returns an
- * empty optional if given the null vector
- */
+
 template<
-	typename T,
-	typename N,
-	typename S
+	typename Base,
+	typename Exp
 >
-inline typename boost::enable_if<
-	boost::is_floating_point<T>,
-	optional<T>
+typename boost::enable_if<
+	boost::is_integral<
+		Base
+	>,
+	Base
 >::type
-atan2(
-	sge::math::vector::basic<T, N, S> const &v)
+pow_int(
+	Base const base,
+	Exp const e)
 {
-	return is_null(v)
-		? optional<T>()
-		: std::atan2(v.y(), v.x());
+	if(e == 0)
+		return 1;
+	Base ret = base;
+	for(Exp i = 1; i < e; ++i)
+		ret *= base;
+	return ret;
 }
+
 }
 }
 

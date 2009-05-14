@@ -18,23 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_VARIANT_APPLY_TERNARY_HPP_INCLUDED
+#define SGE_VARIANT_APPLY_TERNARY_HPP_INCLUDED
 
-#ifndef SGE_MATH_VECTOR_VECTOR_HPP_INCLUDED
-#define SGE_MATH_VECTOR_VECTOR_HPP_INCLUDED
+#include <sge/variant/apply_binary.hpp>
+#include <sge/variant/detail/ternary_unwrap.hpp>
 
-#include <sge/math/vector/basic_decl.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/vector/angle_between.hpp>
-#include <sge/math/vector/arithmetic.hpp>
-#include <sge/math/vector/atan2.hpp>
-#include <sge/math/vector/cross.hpp>
-#include <sge/math/vector/dot.hpp>
-#include <sge/math/vector/input.hpp>
-#include <sge/math/vector/is_null.hpp>
-#include <sge/math/vector/length.hpp>
-#include <sge/math/vector/normalize.hpp>
-#include <sge/math/vector/output.hpp>
-#include <sge/math/vector/place.hpp>
-#include <sge/math/vector/to_angle.hpp>
+namespace sge
+{
+namespace variant
+{
+
+template<
+	typename Operation,
+	typename Variant1,
+	typename Variant2,
+	typename Variant3
+>
+typename Operation::result_type
+apply_ternary(
+	Operation const &op,
+	Variant1 const &obj1,
+	Variant2 const &obj2,
+	Variant3 const &obj3)
+{
+	return apply_binary(
+		detail::ternary_unwrap<
+			Operation,
+			Variant1
+		>(
+			op,
+			obj1
+		),	
+		obj2,
+		obj3
+	);
+}
+
+}
+}
 
 #endif

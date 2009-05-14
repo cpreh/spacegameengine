@@ -33,6 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list.hpp>
 #include <sge/text.hpp>
 
+namespace
+{
+
 struct app : public sge::mainloop::skeleton {
 	app();
 private:
@@ -40,6 +43,8 @@ private:
 	void key_event(
 		sge::input::key_pair const &);
 };
+
+}
 
 int main()
 try
@@ -70,13 +75,18 @@ app::app()
 {
 	system().renderer()->state(
 		sge::renderer::state::list
-			(sge::renderer::state::bool_::clear_backbuffer = true));
+			(sge::renderer::state::bool_::clear_backbuffer = true)
+	);
 }
+
+namespace
+{
 
 void app::loop()
 {
 	sge::renderer::scoped_block const block(
-		system().renderer());
+		system().renderer()
+	);
 }
 
 void app::key_event(
@@ -84,4 +94,6 @@ void app::key_event(
 {
 	if(e.key().code() == sge::input::kc::key_escape)
 		exit();
+}
+
 }

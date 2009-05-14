@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part_fragmented.hpp>
 #include <sge/texture/atlasing.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/math/power.hpp>
 #include <sge/math/dim/output.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/rect_impl.hpp>
@@ -77,10 +76,13 @@ sge::texture::no_fragmented::consume_fragment(
 		>(
 			renderer::lock_rect(
 				renderer::lock_rect::point_type::null(),
-				atlased_size(dim)),
+				atlased_size(dim)
+			),
 			boost::ref(*this),
 			need_atlasing(dim.w()),
-			need_atlasing(dim.h())));
+			need_atlasing(dim.h())
+		)
+	);
 }
 
 void

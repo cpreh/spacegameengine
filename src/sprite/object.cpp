@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/texture_dim.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/math/circle_impl.hpp>
+#include <sge/math/almost_zero.hpp>
 #include <sge/math/vector/arithmetic.hpp>
 #include <sge/texture/part.hpp>
 #include <sge/structure_cast.hpp>

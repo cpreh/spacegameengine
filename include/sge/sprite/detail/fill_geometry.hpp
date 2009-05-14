@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/texture/part.hpp>
 #include <sge/texture/area_texc.hpp>
+#include <sge/math/almost_zero.hpp>
 #include <boost/variant/get.hpp>
 
 namespace sge

@@ -7,6 +7,7 @@ MACRO (ADD_SGE_TEST name)
 ENDMACRO ()
 
 ADD_SGE_TEST(algorithm)
+ADD_SGE_TEST(array)
 ADD_SGE_TEST(anim)
 ADD_SGE_TEST(cie)
 ADD_SGE_TEST(codecvt)

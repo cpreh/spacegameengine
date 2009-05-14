@@ -19,8 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 
-#include <sge/math/atan2.hpp>
-#include <sge/math/angle.hpp>
 #include <sge/math/vector/vector.hpp>
 #include <sge/math/matrix/matrix.hpp>
 #include <sge/math/matrix/dynamic_impl.hpp>
@@ -41,7 +39,7 @@ int main()
 		1,
 		2);
 	
-	sge::math::angle_to<float>(
+	sge::math::vector::angle_between<float>(
 		vec,
 		vec);
 	
@@ -53,7 +51,7 @@ int main()
 		2.f
 	);
 	
-	sge::math::atan2(vecf);
+	sge::math::vector::atan2(vecf);
 
 	sge::math::point_rotate(
 		vecf,

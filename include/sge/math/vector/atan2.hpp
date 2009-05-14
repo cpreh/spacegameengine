@@ -19,22 +19,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 
-#ifndef SGE_MATH_VECTOR_VECTOR_HPP_INCLUDED
-#define SGE_MATH_VECTOR_VECTOR_HPP_INCLUDED
+#ifndef SGE_MATH_VECTOR_ATAN2_HPP_INCLUDED
+#define SGE_MATH_VECTOR_ATAN2_HPP_INCLUDED
 
-#include <sge/math/vector/basic_decl.hpp>
 #include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/vector/angle_between.hpp>
-#include <sge/math/vector/arithmetic.hpp>
-#include <sge/math/vector/atan2.hpp>
-#include <sge/math/vector/cross.hpp>
-#include <sge/math/vector/dot.hpp>
-#include <sge/math/vector/input.hpp>
 #include <sge/math/vector/is_null.hpp>
-#include <sge/math/vector/length.hpp>
-#include <sge/math/vector/normalize.hpp>
-#include <sge/math/vector/output.hpp>
-#include <sge/math/vector/place.hpp>
-#include <sge/math/vector/to_angle.hpp>
+#include <sge/optional_impl.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/is_floating_point.hpp>
+#include <cmath>
+
+namespace sge
+{
+namespace math
+{
+namespace vector
+{
+
+template<
+	typename T,
+	typename N,
+	typename S
+>
+inline typename boost::enable_if<
+	boost::is_floating_point<T>,
+	optional<T>
+>::type
+atan2(
+	basic<T, N, S> const &v)
+{
+	return is_null(v)
+		? optional<T>()
+		: std::atan2(v.y(), v.x());
+}
+
+}
+}
+}
 
 #endif
