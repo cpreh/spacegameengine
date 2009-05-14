@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/math/mod.hpp>
 #include <sge/math/is_rel_angle.hpp>
-#include <sge/math/two_pi.hpp>
+#include <sge/math/twopi.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
 

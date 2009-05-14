@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_IS_REL_ANGLE_HPP_INCLUDED
 #define SGE_MATH_IS_REL_ANGLE_HPP_INCLUDED
 
+#include <sge/math/pi.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
 
