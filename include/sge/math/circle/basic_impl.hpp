@@ -19,32 +19,57 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 
-#ifndef SGE_DETAIL_STRUCTURE_CAST_FUN_HPP_INCLUDED
-#define SGE_DETAIL_STRUCTURE_CAST_FUN_HPP_INCLUDED
+#ifndef SGE_MATH_CIRCLE_BASIC_IMPL_HPP_INCLUDED
+#define SGE_MATH_CIRCLE_BASIC_IMPL_HPP_INCLUDED
 
-namespace sge
-{
-namespace detail
-{
+#include <sge/math/circle/basic_decl.hpp>
+#include <sge/math/vector/basic_impl.hpp>
 
 template<
 	typename T
 >
-class structure_cast_fun {
-public:
-	typedef T result_type;
+sge::math::circle::basic<T>::basic(
+	point_type const &origin_,
+	const_reference radius_)
+:
+	origin_(origin_),
+	radius_(radius_)
+{}
 
-	template<
-		typename U
-	>
-	T operator()(
-		U const &u) const
-	{
-		return static_cast<T>(u);
-	}
-};
-
+template<
+	typename T
+>
+typename sge::math::circle::basic<T>::point_type &
+sge::math::circle::basic<T>::origin()
+{
+	return origin_;
 }
+
+template<
+	typename T
+>
+typename sge::math::circle::basic<T>::point_type const &
+sge::math::circle::basic<T>::origin() const
+{
+	return origin_;
+}
+
+template<
+	typename T
+>
+typename sge::math::circle::basic<T>::reference
+sge::math::circle::basic<T>::radius()
+{
+	return radius_;
+}
+
+template<
+	typename T
+>
+typename sge::math::circle::basic<T>::const_reference
+sge::math::circle::basic<T>::radius() const
+{
+	return radius_;
 }
 
 #endif

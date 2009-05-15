@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/vector/arithmetic.hpp>
 #include <sge/math/vector/atan2.hpp>
 #include <sge/math/vector/static.hpp>
-#include <sge/structure_cast.hpp>
+#include <sge/math/vector/structure_cast.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
 
@@ -51,7 +51,7 @@ to_angle(
 {
 	// FIXME: make this work for dynamic vectors, too!
 	return atan2(
-		::sge::structure_cast<
+		structure_cast<
 			typename static_<
 				Dest,
 				N::value

@@ -27,7 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/manager.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/vector/arithmetic.hpp>
-#include <sge/math/rect_util.hpp>
+#include <sge/math/rect/intersects.hpp>
+#include <sge/math/rect/output.hpp>
 #include <sge/type_info.hpp>
 #include <boost/foreach.hpp>
 #include <typeinfo>
@@ -342,14 +343,16 @@ void sge::gui::widgets::base::process(
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("checking if ")
-			        << w.absolute_area()
-							<< SGE_TEXT(" intersects with ")
-							<< e.area() 
-							<< SGE_TEXT(": ")
-							<< math::intersects(w.absolute_area(),e.area()));
+			log::_1
+				<< SGE_TEXT("checking if ")
+				<< w.absolute_area()
+				<< SGE_TEXT(" intersects with ")
+				<< e.area() 
+				<< SGE_TEXT(": ")
+				<< intersects(w.absolute_area(),e.area())
+		);
 
-		if (math::intersects(w.absolute_area(),e.area()))
+		if (intersects(w.absolute_area(),e.area()))
 		{
 			SGE_LOG_DEBUG(
 				mylogger,

@@ -18,7 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 #include <sge/gui/canvas/object.hpp>
 #include <sge/assert.hpp>
-#include <sge/math/rect_util.hpp>
+#include <sge/math/rect/contains_point.hpp>
+#include <sge/math/rect/structure_cast.hpp>
+#include <sge/math/rect/output.hpp>
 #include <sge/math/vector/output.hpp>
 #include <sge/text.hpp>
 #include <sge/renderer/fill_pixels.hpp>
@@ -30,7 +32,7 @@ void sge::gui::canvas::object::draw_pixel(
 	color const c)
 {
 	SGE_ASSERT_MESSAGE(
-		math::contains(area(),p),
+		contains_point(area(),p),
 		SGE_TEXT("tried to draw pixel ")+
 		lexical_cast<string>(p)+
 		SGE_TEXT(" which is not inside rect ")+
@@ -39,9 +41,15 @@ void sge::gui::canvas::object::draw_pixel(
 	renderer::fill_pixels(
 		renderer::subimage_view(
 			view_,
-			math::structure_cast<renderer::lock_rect>(
+			math::rect::structure_cast<
+				renderer::lock_rect
+			>(
 				rect(
 					p,
-					dim(1,1)))),
-		c);
+					dim(1,1)
+				)
+			)
+		),
+		c
+	);
 }

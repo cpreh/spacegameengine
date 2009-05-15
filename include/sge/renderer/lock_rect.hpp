@@ -23,14 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_LOCK_RECT_HPP_INCLUDED
 
 #include <sge/renderer/size_type.hpp>
-#include <sge/math/rect_fwd.hpp>
+#include <sge/math/rect/basic_fwd.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-typedef math::rect<size_type> lock_rect;
+typedef math::rect::basic<size_type> lock_rect;
 
 }
 }

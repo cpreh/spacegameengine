@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/texture_dim.hpp>
-#include <sge/math/rect_impl.hpp>
-#include <sge/math/circle_impl.hpp>
+#include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/circle/basic_impl.hpp>
 #include <sge/math/almost_zero.hpp>
 #include <sge/math/vector/arithmetic.hpp>
+#include <sge/math/dim/structure_cast.hpp>
 #include <sge/texture/part.hpp>
-#include <sge/structure_cast.hpp>
 #include <cmath>
 
 sge::sprite::object::object(
@@ -42,7 +42,7 @@ sge::sprite::object::object(
 	size_(
 		size_ == texture_dim()
 			? dim(
-				structure_cast<dim>(
+				math::dim::structure_cast<dim>(
 					vtex->area().dim()
 				)
 			)
@@ -252,8 +252,11 @@ sge::sprite::circle const
 sge::sprite::object::bounding_circle() const
 {
 	return circle(
-		static_cast<circle::value_type>(x()),
-		static_cast<circle::value_type>(y()),
+		// TODO: structure_cast!
+		circle::point_type(
+			static_cast<circle::value_type>(x()),
+			static_cast<circle::value_type>(y())
+		),
 		radius());
 }
 

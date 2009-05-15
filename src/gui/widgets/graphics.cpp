@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widgets/parameters.hpp>
 #include <sge/image/object.hpp>
 #include <sge/gui/image.hpp>
-#include <sge/structure_cast.hpp>
 
 sge::gui::widgets::graphics::graphics(
 	widgets::parent_data const &_parent,

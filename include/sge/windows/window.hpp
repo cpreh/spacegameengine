@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/export.hpp>
 #include <sge/signal/auto_connection.hpp>
 #include <sge/signal/object.hpp>
-#include <sge/math/rect_decl.hpp>
+#include <sge/math/rect/basic_decl.hpp>
 #include <sge/optional_fwd.hpp>
 #include <boost/function.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
@@ -89,7 +89,7 @@ public:
 private:
 	wndclass_ptr const wndclass_;
 
-	typedef math::rect<
+	typedef math::rect::basic<
 		unsigned
 	> decoration_rect;
 

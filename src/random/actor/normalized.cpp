@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/random/inclusive_range.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
+#include <sge/format.hpp>
 #include <boost/bind.hpp>
 #include <boost/foreach.hpp>
 #include <numeric>
@@ -52,7 +53,12 @@ sge::random::actor::normalized::normalized(
 			)
 		)
 	)
-{}
+{
+	if(elements.empty())
+		throw exception(
+			SGE_TEXT("actor::normalized: elements may not be empty!")
+		);
+}
 
 sge::random::actor::normalized::~normalized()
 {}
@@ -60,8 +66,12 @@ sge::random::actor::normalized::~normalized()
 void
 sge::random::actor::normalized::operator()()
 {
-	float_type val(
+	float_type const val(
 		rng()
+	);
+
+	float_type cur(
+		val
 	);
 
 	BOOST_FOREACH(
@@ -69,15 +79,17 @@ sge::random::actor::normalized::operator()()
 		elements
 	)
 	{
-		if(val < ref.prob())
+		if(cur <= ref.prob())
 		{
 			ref.callback()();
 			return;
 		}
-		val -= ref.prob();
+		cur -= ref.prob();
 	}
 
 	throw exception(
-		SGE_TEXT("random::actor::normalized: nothing matched!")
+		(sge::format(
+			SGE_TEXT("random::actor::normalized: nothing matched! Return value was %1% and is now %2%!")
+		) % val % cur).str()
 	);
 }

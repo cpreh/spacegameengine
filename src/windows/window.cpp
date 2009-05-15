@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/wndclass.hpp>
 #include <sge/windows/wndclass_pool.hpp>
 #include <sge/windows/module_handle.hpp>
-#include <sge/math/rect_impl.hpp>
+#include <sge/math/rect/basic_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/exception.hpp>
@@ -71,7 +71,12 @@ sge::windows::window::window(
 	wndclass_(
 		wndclass_pool(
 			class_name,
-			wnd_proc))
+			wnd_proc
+		)
+	),
+	decoration_size(
+		decoration_rect::null()
+	)
 {
 
 	DWORD const flags = (WS_VISIBLE | WS_OVERLAPPEDWINDOW);
@@ -80,10 +85,12 @@ sge::windows::window::window(
 		throw exception(
 			SGE_TEXT("AdjustWindowRect() failed!"));
 
-	decoration_size.left() = static_cast<unsigned>(-r.left);
-	decoration_size.right() = static_cast<unsigned>(r.right);
-	decoration_size.top() = static_cast<unsigned>(-r.top);
-	decoration_size.bottom() = static_cast<unsigned>(r.bottom);
+	decoration_size = decoration_rect(
+		static_cast<unsigned>(-r.left),
+		static_cast<unsigned>(r.top),
+		static_cast<unsigned>(-r.right),
+		static_cast<unsigned>(r.bottom)
+	);
 
 	handle = CreateWindow(
 		wndclass_->name().c_str(),

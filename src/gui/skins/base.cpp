@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/dim/output.hpp>
 #include <sge/renderer/make_const_image_view.hpp>
 #include <sge/text.hpp>
+#include <sge/type_info.hpp>
 #include <boost/mpl/vector.hpp>
 #include <boost/bind.hpp>
 #include <typeinfo>

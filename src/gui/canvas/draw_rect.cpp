@@ -18,7 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 #include <sge/gui/canvas/object.hpp>
 #include <sge/assert.hpp>
-#include <sge/math/rect_util.hpp>
+#include <sge/math/rect/contains.hpp>
+#include <sge/math/rect/structure_cast.hpp>
+#include <sge/math/rect/output.hpp>
 #include <sge/renderer/fill_pixels.hpp>
 #include <sge/renderer/subimage_view.hpp>
 #include <sge/lexical_cast.hpp>
@@ -29,7 +31,7 @@ void sge::gui::canvas::object::draw_rect(
 	rect_type::type const t)
 {
 	SGE_ASSERT_MESSAGE(
-		math::contains(area(),r),
+		contains(area(),r),
 		SGE_TEXT("tried to draw rectangle ")+
 			lexical_cast<string>(r)+
 			SGE_TEXT(" which is not completely inside ")+
@@ -41,8 +43,12 @@ void sge::gui::canvas::object::draw_rect(
 			renderer::fill_pixels(
 				renderer::subimage_view(
 					view_,
-					math::structure_cast<renderer::lock_rect>(r)),
-				c);
+					math::rect::structure_cast<
+						renderer::lock_rect
+					>(r)
+				),
+				c
+			);
 		break;
 		case rect_type::outline:
 		{

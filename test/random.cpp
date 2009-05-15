@@ -59,7 +59,7 @@ int main()
 try
 {
 	sge::random::uniform<int> rng(
-		sge::random::inclusive_range<int>(
+		sge::random::make_inclusive_range(
 			0,
 			10
 		)
@@ -68,7 +68,7 @@ try
 	print_values(rng);
 
 	sge::random::uniform<float> rngf(
-		sge::random::inclusive_range<float>(
+		sge::random::make_inclusive_range(
 			0.f,
 			10.f
 		)
@@ -77,7 +77,7 @@ try
 	print_values(rngf);
 	
 	sge::random::uniform<int> rngex(
-		sge::random::last_exclusive_range<int>(
+		sge::random::make_last_exclusive_range(
 			0,
 			10
 		)
@@ -88,7 +88,7 @@ try
 			sge::random::actor::container
 		>(
 			sge::random::actor::element(
-				1.,
+				10.,
 				test_function
 			)
 		)

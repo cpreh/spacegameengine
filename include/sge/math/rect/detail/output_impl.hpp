@@ -18,11 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_MATH_RECT_DETAIL_OUTPUT_IMPL_HPP_INCLUDED
+#define SGE_MATH_RECT_DETAIL_OUTPUT_IMPL_HPP_INCLUDED
 
-#ifndef SGE_MATH_RECT_HPP_INCLUDED
-#define SGE_MATH_RECT_HPP_INCLUDED
+#include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/vector/output.hpp>
+#include <sge/math/dim/output.hpp>
+#include <ostream>
 
-#include <sge/math/rect_decl.hpp>
-#include <sge/math/rect_impl.hpp>
+template<
+	typename T,
+	typename Ch,
+	typename Traits
+>
+std::basic_ostream<
+	Ch,
+	Traits
+> &
+sge::math::rect::operator<<(
+	std::basic_ostream<Ch,Traits> &s,
+	basic<T> const &r)
+{
+	return s
+		<< s.widen('(')
+		<< r.pos()
+		<< s.widen(',')
+		<< r.dim()
+		<< s.widen(')');
+}
 
 #endif

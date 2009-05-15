@@ -24,10 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/dim_type.hpp>
 #include <sge/renderer/lock_rect.hpp>
-#include <sge/math/rect.hpp>
+#include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/rect/structure_cast.hpp>
 #include <sge/math/dim/static.hpp>
 #include <sge/math/dim/basic_impl.hpp>
-#include <sge/structure_cast.hpp>
+#include <sge/math/dim/structure_cast.hpp>
 
 namespace sge
 {
@@ -37,25 +38,30 @@ namespace renderer
 template<
 	typename T
 >
-math::rect<T> const
+math::rect::basic<T> const
 lock_rect_to_coords(
 	lock_rect const &l,
 	dim_type const &dim,
 	T const repeat)
 {
-	typedef math::rect<T> ret_type;
+	typedef math::rect::basic<T> ret_type;
+
 	ret_type const srect(
-		math::structure_cast<ret_type>(l));
+		math::rect::structure_cast<ret_type>(l)
+	);
 	
 	typedef typename math::dim::static_<T, 2>::type sdim_type;
-	sdim_type const sdim(
-		structure_cast<sdim_type>(dim));
 
-	return math::rect<T>(
+	sdim_type const sdim(
+		math::dim::structure_cast<sdim_type>(dim)
+	);
+
+	return math::rect::basic<T>(
 		srect.left() / sdim.w(),
 		srect.top() / sdim.h(),
 		repeat * srect.right() / sdim.w(),
-		repeat * srect.bottom() / sdim.h());
+		repeat * srect.bottom() / sdim.h()
+	);
 }
 
 }

@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../circle.hpp"
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/math/dim/arithmetic.hpp>
+#include <sge/math/dim/structure_cast.hpp>
+#include <sge/math/rect/basic_impl.hpp>
 #include <sge/container/field_impl.hpp>
-#include <sge/structure_cast.hpp>
 
 sge::cell::grid::grid(
 	collision::rect const &rect_)
@@ -55,7 +56,7 @@ sge::cell::grid::dim_type const
 sge::cell::grid::cell_size() const
 {
 	return rect_.dim()
-	/ structure_cast<
+	/ math::dim::structure_cast<
 		dim_type
 	>(
 		field_.dim()

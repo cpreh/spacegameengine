@@ -25,13 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/log.hpp>
 #include <sge/gui/unit.hpp>
 #include <sge/math/dim/output.hpp>
-#include <sge/math/rect_impl.hpp>
+#include <sge/math/rect/basic_impl.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/text_size.hpp>
 #include <sge/renderer/colors.hpp>
 #include <sge/assert.hpp>
 #include <sge/text.hpp>
-#include <sge/structure_cast.hpp>
 
 namespace
 {
@@ -61,7 +60,10 @@ void sge::gui::skins::standard::draw(
 		canvas::rect_type::solid);
 		*/
 	c.draw_rect(
-		rect(c.size()),
+		rect(
+			rect::point_type::null(),
+			c.size()
+		),
 		renderer::colors::transparent(),
 		canvas::rect_type::solid);
 

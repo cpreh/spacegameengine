@@ -19,18 +19,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../collides.hpp"
 #include "../circle.hpp"
 #include <sge/collision/unit.hpp>
-#include <sge/math/circle_impl.hpp>
+#include <sge/math/circle/basic_impl.hpp>
+#include <sge/math/circle/intersects.hpp>
 
 bool
 sge::cell::collides(
 	circle const &a,
 	circle const &b)
 {
-	typedef math::circle<
+	typedef math::circle::basic<
 		collision::unit
 	> circle_type;
 
-	return sge::math::intersects(
+	return math::circle::intersects(
 		circle_type(
 			circle_type::point_type(
 				a.center().x(),

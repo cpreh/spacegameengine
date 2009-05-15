@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/renderer/lock_rect.hpp>
-#include <sge/math/rect_impl.hpp>
+#include <sge/math/rect/basic_impl.hpp>
 
 void sge::gui::utility::wipe_texture(
 	renderer::texture_ptr const t)
@@ -29,7 +29,9 @@ void sge::gui::utility::wipe_texture(
 	renderer::scoped_texture_lock const lock_(
 		t,
 		renderer::lock_rect(
-			t->dim()),
+			renderer::lock_rect::point_type::null(),
+			t->dim()
+		),
 		renderer::lock_flags::readwrite);
 	
 	wipe_image_view(

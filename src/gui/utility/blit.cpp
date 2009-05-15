@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/subimage_view.hpp>
 #include <sge/renderer/make_const_image_view.hpp>
 #include <sge/renderer/transform_pixels.hpp>
-#include <sge/math/rect_util.hpp>
+#include <sge/math/rect/intersection.hpp>
+#include <sge/math/rect/structure_cast.hpp>
 #include <sge/math/vector/arithmetic.hpp>
 #include <sge/assert.hpp>
 #include <sge/renderer/color_convert.hpp>
@@ -136,7 +137,7 @@ void sge::gui::utility::blit_invalid(
 	bool transparency)
 {
 	// Calculate intersection of source and destination
-	rect const is = math::intersection(
+	rect const is = intersection(
 		src_rect,
 		dst_rect);
 	
@@ -158,11 +159,11 @@ void sge::gui::utility::blit_invalid(
 		renderer::transform_pixels(
 			renderer::subimage_view(
 				src,
-				math::structure_cast<renderer::lock_rect>(
+				math::rect::structure_cast<renderer::lock_rect>(
 					is_translated_src)),
 			renderer::subimage_view(
 				dst,
-				math::structure_cast<renderer::lock_rect>(
+				math::rect::structure_cast<renderer::lock_rect>(
 					is_translated_dst)),
 			blitter());
 	}
@@ -171,11 +172,11 @@ void sge::gui::utility::blit_invalid(
 		renderer::copy_and_convert_pixels(
 			renderer::subimage_view(
 				src,
-				math::structure_cast<renderer::lock_rect>(
+				math::rect::structure_cast<renderer::lock_rect>(
 					is_translated_src)),
 			renderer::subimage_view(
 				dst,
-				math::structure_cast<renderer::lock_rect>(
+				math::rect::structure_cast<renderer::lock_rect>(
 					is_translated_dst)));
 	}
 }
@@ -189,7 +190,7 @@ void sge::gui::utility::blit(
 {
 	SGE_ASSERT(src_rect.dim() == dst_rect.dim());
 
-	rect const clipped = math::intersection(
+	rect const clipped = intersection(
 		dst_rect,
 		clip_rect);
 	
@@ -201,13 +202,13 @@ void sge::gui::utility::blit(
 		renderer::subimage_view(
 			renderer::subimage_view(
 				src,
-				math::structure_cast<renderer::lock_rect>(
+				math::rect::structure_cast<renderer::lock_rect>(
 					src_rect)),
-			math::structure_cast<renderer::lock_rect>(
+			math::rect::structure_cast<renderer::lock_rect>(
 				src_trans)),
 		renderer::subimage_view(
 			dst,
-			math::structure_cast<renderer::lock_rect>(
+			math::rect::structure_cast<renderer::lock_rect>(
 				clipped)),
 		blitter());
 }

@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/texture.hpp>
-#include <sge/math/rect_impl.hpp>
+#include <sge/math/rect/basic_impl.hpp>
 #include <sge/variant/object_impl.hpp>
 
 sge::renderer::image_view const
@@ -40,7 +40,9 @@ sge::renderer::texture::rect_type const
 sge::renderer::texture::rect() const
 {
 	return rect_type(
-		dim());
+		pos_type::null(),
+		dim()
+	);
 }
 
 sge::renderer::texture::size_type

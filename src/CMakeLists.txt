@@ -21,6 +21,7 @@ FILE (GLOB sgecorefiles
 	log/format/*.cpp
 	mainloop/*.cpp
 	math/*.cpp
+	math/rect/*.cpp
 	model/*.cpp
 	parse/ini/*.cpp
 	parse/json/*.cpp

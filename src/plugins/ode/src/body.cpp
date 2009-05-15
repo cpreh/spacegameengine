@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 #include "../body.hpp"
 #include "../world_wrapper.hpp"
-#include <sge/structure_cast.hpp>
 #include <sge/collision/satellite.hpp>
 #include <sge/math/vector/basic_impl.hpp>
+#include <sge/math/vector/structure_cast.hpp>
 
 sge::ode::body::body(
 	world_wrapper &world_,
@@ -83,7 +83,22 @@ sge::ode::body::~body()
 void sge::ode::body::moved(dBodyID _id)
 {
 	dReal const * const p = dBodyGetPosition(_id);
-	static_cast<collision::satellite*>(dBodyGetData(_id))->position_change(
-		structure_cast<collision::point>(
-			point(p[0],p[1],p[2])));
+
+	static_cast<
+		collision::satellite*
+	>(
+		dBodyGetData(
+			_id
+		)
+	)->position_change(
+		math::vector::structure_cast<
+			collision::point
+		>(
+			point(
+				p[0],
+				p[1],
+				p[2]
+			)
+		)
+	);
 }

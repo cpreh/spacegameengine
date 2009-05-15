@@ -32,7 +32,7 @@ namespace math
 
 class SGE_CLASS_SYMBOL exception : public sge::exception {
 public:
-	explicit exception(
+	SGE_SYMBOL explicit exception(
 		string const &);
 };
 

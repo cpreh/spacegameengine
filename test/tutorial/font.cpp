@@ -30,12 +30,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
+#include <sge/math/dim/structure_cast.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/cerr.hpp>
 #include <sge/make_shared_ptr.hpp>
-#include <sge/structure_cast.hpp>
 #include <exception>
 #include <iostream>
 #include <ostream>
@@ -82,10 +82,12 @@ try
 		font.draw_text(
 			SGE_TEXT("hello world"),
 			sge::font::pos::null(),
-			sge::structure_cast<sge::font::dim>(
-				sys.renderer()->screen_size()),
+			sge::math::dim::structure_cast<sge::font::dim>(
+				sys.renderer()->screen_size()
+			),
 			sge::font::align_h::center,
-			sge::font::align_v::center);
+			sge::font::align_v::center
+		);
 	}
 }
 catch (sge::exception const &e)

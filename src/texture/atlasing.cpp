@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture_util.hpp>
 #include <sge/renderer/subimage_view.hpp>
 #include <sge/renderer/image_view_dim.hpp>
-#include <sge/math/rect_impl.hpp>
+#include <sge/math/rect/basic_impl.hpp>
 #include <sge/math/is_power_of_2.hpp>
 #include <sge/math/next_pow_2.hpp>
 #include <sge/math/dim/basic_impl.hpp>
@@ -123,13 +123,13 @@ sge::texture::inner_atlased_rect(
 {
 	if(need_atlasing_w)
 	{
-		++outer.left();
-		--outer.right();
+		outer.left(outer.left() + 1);
+		outer.right(outer.right() - 1);
 	}
 	if(need_atlasing_h)
 	{
-		++outer.top();
-		--outer.bottom();
+		outer.top(outer.top() + 1);
+		outer.bottom(outer.bottom() - 1);
 	}
 	return outer;
 }

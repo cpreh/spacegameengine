@@ -18,42 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_MATH_RECT_INVALID_HPP_INCLUDED
+#define SGE_MATH_RECT_INVALID_HPP_INCLUDED
 
-#ifndef SGE_MATH_RECT_UTIL_HPP_INCLUDED
-#define SGE_MATH_RECT_UTIL_HPP_INCLUDED
-
-#include <sge/math/rect.hpp>
-#include <sge/math/vector/basic_fwd.hpp>
+#include <sge/math/exception.hpp>
+#include <sge/string.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
 namespace math
 {
+namespace rect
+{
 
-template<
-	typename T,
-	typename N,
-	typename S
->
-bool contains(
-	rect<T> const &,
-	vector::basic<T, N, S> const &);
-
-template<typename T>
-rect<T> const intersection(rect<T> const &,rect<T> const &);
-
-template<typename T,typename U>
-rect<T> const bounding(U begin,U const end);
-
-template<typename T>
-bool contains(const rect<T>& outer, const rect<T>& inner);
-
-template<typename T>
-bool intersects(const rect<T>& l, const rect<T>& r);
+class SGE_CLASS_SYMBOL invalid : public exception {
+public:
+	SGE_SYMBOL explicit invalid(
+		string const &);
+};
 
 }
 }
-
-#include <sge/math/detail/rect_util_impl.hpp>
+}
 
 #endif

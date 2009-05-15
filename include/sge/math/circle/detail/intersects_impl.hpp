@@ -18,56 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_MATH_CIRCLE_DETAIL_INTERSECTS_IMPL_HPP_INCLUDED
+#define SGE_MATH_CIRCLE_DETAIL_INTERSECTS_IMPL_HPP_INCLUDED
 
-#ifndef SGE_MATH_CIRCLE_HPP_INCLUDED
-#define SGE_MATH_CIRCLE_HPP_INCLUDED
-
-#include <sge/math/circle_fwd.hpp>
-#include <sge/math/vector/static.hpp>
-#include <sge/math/vector/basic_decl.hpp>
-
-namespace sge
-{
-namespace math
-{
+#include <sge/math/vector/length.hpp>
+#include <sge/math/vector/arithmetic.hpp>
+#include <sge/math/vector/basic_impl.hpp>
 
 template<
 	typename T
 >
-class circle {
-public:
-	typedef T value_type;
-	typedef T &reference;
-	typedef T const &const_reference;
-	typedef typename vector::static_<
-		value_type,
-		2
-	>::type point_type;
-
-	circle(
-		const_reference x,
-		const_reference y,
-		const_reference radius);
-
-	circle(
-		point_type const &origin,
-		const_reference radius);
-
-	point_type &origin();
-	point_type const &origin() const;
-	reference radius();
-	const_reference radius() const;
-private:
-	point_type origin_;
-	value_type radius_;
-};
-
-template<typename T>
-bool intersects(
-	circle<T> const &,
-	circle<T> const &);
-
-}
+bool
+sge::math::circle::intersects(
+	basic<T> const &a,
+	basic<T> const &b)
+{
+	return
+		length(a.origin() - b.origin())
+		< a.radius() + b.radius();
 }
 
 #endif

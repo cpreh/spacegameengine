@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/internal_color.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/text_size.hpp>
+#include <sge/math/rect/output.hpp>
 
 namespace
 {
@@ -51,7 +52,10 @@ void sge::gui::skins::standard::draw(
 
 	// Background
 	c.draw_rect(
-		rect(c.size()),
+		rect(
+			rect::point_type::null(),
+			c.size()
+		),
 		b.mouse_over() 
 			? internal_color(0xee,0xeb,0xe7,0xff)
 			: internal_color(0xdc,0xda,0xd5,0xff),
@@ -137,10 +141,11 @@ void sge::gui::skins::standard::draw(
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("source rect is \"")
-		        << rect(b.absolute_pos(),c.size())
-		        << SGE_TEXT(", invalid rect is ")
-						<< e.area());
+		log::_1
+			<< SGE_TEXT("source rect is \"")
+			<< rect(b.absolute_pos(),c.size())
+			<< SGE_TEXT(", invalid rect is ")
+			<< e.area());
 
 	blit_invalid(b,c,e);
 }

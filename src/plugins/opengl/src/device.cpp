@@ -61,9 +61,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/indices_per_primitive.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
+#include <sge/math/dim/structure_cast.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/variant/apply_unary.hpp>
-#include <sge/structure_cast.hpp>
 #include <sge/make_shared_ptr.hpp>
 #include <boost/bind.hpp>
 #include <sstream>
@@ -103,7 +103,7 @@ sge::ogl::device::device(
 		make_shared_ptr<
 			ogl::default_target
 		>(
-			structure_cast<
+			math::dim::structure_cast<
 				target::dim_type
 			>(
 				screen_size()
@@ -463,7 +463,7 @@ void sge::ogl::device::target(
 	viewport(
 		renderer::viewport(
 			renderer::pixel_pos::null(),
-			structure_cast<
+			math::dim::structure_cast<
 				renderer::screen_size
 			>(
 				p->dim()

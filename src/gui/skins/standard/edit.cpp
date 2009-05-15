@@ -27,10 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/log.hpp>
 #include <sge/gui/widgets/edit.hpp>
 #include <sge/gui/skins/standard.hpp>
-#include <sge/math/rect_impl.hpp>
+#include <sge/math/vector/structure_cast.hpp>
+#include <sge/math/rect/basic_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/math/dim/arithmetic.hpp>
-#include <sge/structure_cast.hpp>
 
 namespace
 {
@@ -81,7 +81,7 @@ void sge::gui::skins::standard::draw(
 
 	dim const scroll_size = 
 		w.text_buffer().size() - 
-		structure_cast<dim>(
+		math::vector::structure_cast<dim>(
 			w.scroll_pos());
 	
 	utility::blit(
