@@ -1,7 +1,27 @@
-#include "cache.hpp"
+#include <sge/math/vector/structure_cast.hpp>
+#include <sge/math/vector/vector.hpp>
+#include <sge/gui/detail/grid_cache.hpp>
+#include <sge/gui/unit.hpp>
+#include <sge/gui/exception.hpp>
+#include <sge/gui/log.hpp>
 #include <sge/math/negative.hpp>
+#include <sge/text.hpp>
+#include <sge/string.hpp>
+#include <sge/lexical_cast.hpp>
+#include <sge/type_name.hpp>
+#include <boost/foreach.hpp>
+#include <algorithm>
+#include <cstddef>
 
-sge::gui::layouts::grid::cache::widget_data::widget_data()
+namespace
+{
+sge::gui::logger mylogger(
+	sge::gui::global_log(),
+	SGE_TEXT("detail: grid_cache"),
+	true);
+}
+
+sge::gui::detail::grid_cache::widget_data::widget_data()
 :
 	/*
 	optimal_size(
@@ -13,17 +33,17 @@ sge::gui::layouts::grid::cache::widget_data::widget_data()
 		dim::null())
 {}
 
-sge::gui::layouts::grid::cache::rolumn_data::rolumn_data()
+sge::gui::detail::grid_cache::rolumn_data::rolumn_data()
 :
 	size(
-		static_cast<unit>(0))
+		static_cast<unit>(0)),
 	policy()
 {}
 
-sge::gui::layouts::grid::cache::cache(
-	grid &_that)
+sge::gui::detail::grid_cache::grid_cache(
+	widgets::base::child_container const &_widgets)
 :
-	that_(_that),
+	widgets_(_widgets),
 	plane_(),
 	data_(),
 	rolumns_()
@@ -32,44 +52,56 @@ sge::gui::layouts::grid::cache::cache(
 	second_pass();
 }
 
-sge::gui::layouts::grid::cache::child_plane &
-	sge::gui::layouts::grid::cache::plane()
+sge::gui::detail::grid_cache::child_plane &
+	sge::gui::detail::grid_cache::plane()
 {
 	return plane_;
 }
 
-sge::gui::layouts::grid::cache::data_map &
-	sge::gui::layouts::grid::cache::data()
+sge::gui::detail::grid_cache::data_map &
+	sge::gui::detail::grid_cache::data()
 {
 	return data_;
 }
 
-sge::gui::layouts::grid::cache::rolumn_container &
-	sge::gui::layouts::grid::cache::rolumns()
+sge::gui::detail::grid_cache::rolumn_container &
+	sge::gui::detail::grid_cache::rolumns()
 {
 	return rolumns_;
 }
 
-void sge::gui::layouts::grid::cache::first_pass()
+void sge::gui::detail::grid_cache::first_pass()
 {
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("first pass, begin"));
 	// iterate through the widgets and:
 	//  -get their optimal_sizes
 	//  -get the overall dimensions of the grid
 	//  -add widgets to the plane
-	BOOST_FOREACH(widget &w,that_)
+	//for (widgets::base::child_container::const_iterator i = widgets_.begin(); i != widgets_.end(); ++i)
+	BOOST_FOREACH(widgets::base const &w,widgets_)
 	{
+	//	widgets::base &w = *i;
 		if(!w.pos_hint())
 			throw exception(
 				SGE_TEXT("a widget in a grid layout doesn't have a position hint, don't know how to position it"));
 
 		point const hint = *w.pos_hint();
+		
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << SGE_TEXT("widget of type ")
+			        << type_name(typeid(w))
+							<< SGE_TEXT(" has position hint ")
+							<< hint);
 
 		if(math::negative(hint.x()) || math::negative(hint.y()))
 			throw exception(
 				SGE_TEXT("grid layout position hints have to be positive"));
 
 		child_plane::vector_type const on_plane = 
-			structure_cast<child_plane::size_type>(hint);
+			math::vector::structure_cast<child_plane::vector_type>(hint);
 
 		// is there already a widget present at this spot?
 		if(plane_.pos(on_plane))
@@ -91,12 +123,25 @@ void sge::gui::layouts::grid::cache::first_pass()
 					on_plane.y(),
 					plane_.dim().h())));
 
-		plane_.pos(on_plane) = w;
+		plane_.pos(on_plane) = const_cast<widgets::base *>(&w);
 	}
+
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("first pass, end"));
 }
 
-void sge::gui::layouts::grid::cache::second_pass()
+void sge::gui::detail::grid_cache::second_pass()
 {
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("second pass, end"));
+
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("setting rolumn container dimensions to ")
+		        << std::max(plane_.dim().w(),plane_.dim().h()));
+
 	rolumns_.resize(
 		rolumn_container::dim_type(
 			static_cast<rolumn_container::size_type>(
@@ -162,14 +207,17 @@ void sge::gui::layouts::grid::cache::second_pass()
 					);
 
 				d.policy |= 
-					plane_.pos(p)->size_policy()
-					[
+					plane_.pos(p)->size_policy().index
+					(
 						static_cast<std::size_t>
 						(
 							i
 						)
-					]
+					);
 			}
 		}
 	}
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("second pass, end"));
 }

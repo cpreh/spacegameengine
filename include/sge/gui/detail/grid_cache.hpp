@@ -1,10 +1,22 @@
-#ifndef SGE_GUI_LAYOUTS_GRID_CACHE_HPP_INCLUDED
-#define SGE_GUI_LAYOUTS_GRID_CACHE_HPP_INCLUDED
+#ifndef SGE_GUI_DETAIL_GRID_CACHE_HPP_INCLUDED
+#define SGE_GUI_DETAIL_GRID_CACHE_HPP_INCLUDED
 
+#include <sge/container/field.hpp>
+#include <sge/container/raw_vector.hpp>
+#include <sge/gui/dim.hpp>
+#include <sge/gui/unit.hpp>
+#include <sge/gui/widgets/base.hpp>
+#include <sge/gui/size_policy.hpp>
 
-// TODO: this can live completely without the grid, it doesn't have to be
-// grid's friend and it can be modeled so it contains only const elements
-class sge::gui::layouts::grid::cache
+#include <map>
+
+namespace sge
+{
+namespace gui
+{
+namespace detail
+{
+class grid_cache
 {
 public:
 	class widget_data
@@ -44,13 +56,14 @@ public:
 		rolumn_data
 		> rolumn_container;
 
-	cache(grid &);
+	grid_cache(
+		widgets::base::child_container const &);
 
 	child_plane &plane();
 	data_map &data();
 	rolumn_container &rolumns();
 private:
-	grid &that_;
+	widgets::base::child_container const &widgets_;
 	
 	child_plane      plane_;
 	data_map         data_;
@@ -59,5 +72,8 @@ private:
 	void first_pass();
 	void second_pass();
 };
+}
+}
+}
 
 #endif

@@ -1,12 +1,14 @@
 #ifndef SGE_GUI_LAYOUTS_GRID_HPP_INCLUDED	
 #define SGE_GUI_LAYOUTS_GRID_HPP_INCLUDED	
 
+#include <sge/gui/detail/grid_cache.hpp>
 #include <sge/gui/layouts/base.hpp>
 #include <sge/gui/widgets/fwd.hpp>
 #include <sge/gui/export.hpp>
 #include <sge/gui/dim.hpp>
 #include <sge/gui/size_policy.hpp>
 #include <sge/gui/unit.hpp>
+#include <sge/gui/axis_type.hpp>
 #include <sge/container/field.hpp>
 #include <sge/container/raw_vector.hpp>
 #include <sge/scoped_ptr.hpp>
@@ -28,12 +30,10 @@ public:
 	SGE_GUI_SYMBOL void compile_static();
 	SGE_GUI_SYMBOL dim const optimal_size() const;
 private:
-	class cache;
-	friend class cache;
-	typedef scoped_ptr<cache> cache_ptr;
+	typedef scoped_ptr<detail::grid_cache> cache_ptr;
 	mutable cache_ptr cache_;
 
-  cache &valid_cache() const;
+  detail::grid_cache &valid_cache() const;
 
 	void adapt_outer(
 		dim const &,

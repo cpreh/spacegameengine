@@ -42,9 +42,11 @@ ADD_SGE_TEST(modifier)
 #ENDIF ()
 
 IF (ENABLE_GUI)
-	ADD_SGE_TEST(gui)
 	ADD_SGE_TEST(edit)
+	ADD_SGE_TEST(grid)
+	ADD_SGE_TEST(gui)
 	TARGET_LINK_LIBRARIES (sgeedittest sgegui)
+	TARGET_LINK_LIBRARIES (sgegridtest sgegui)
 	TARGET_LINK_LIBRARIES (sgeguitest sgegui)
 ENDIF ()
 

@@ -1,14 +1,16 @@
+#include <sge/gui/detail/grid_cache.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/gui/axis_type.hpp>
 #include <sge/gui/layouts/grid.hpp>
 #include <sge/gui/widgets/base.hpp>
-#include <sge/math/rect_impl.hpp>
+#include <sge/math/rect/basic_impl.hpp>
 #include <sge/math/dim/dim.hpp>
+#include <sge/math/vector/vector.hpp>
+#include <sge/math/vector/dim.hpp>
 #include <sge/math/negative.hpp>
 #include <sge/type_name.hpp>
 #include <sge/text.hpp>
 #include <boost/foreach.hpp>
-#include "grid/cache.hpp"
 
 namespace
 {
@@ -30,8 +32,8 @@ void sge::gui::layouts::grid::compile_static()
 		        << type_name(typeid(connected_widget())));
 	
 	cache_.reset(
-		new cache(
-			*this));
+		new detail::grid_cache(
+			connected_widget().children()));
 
 	// Make everything dirty. There's no better place to do it. If a child of
 	// connected_widget() is deleted, this function gets called and we have to
@@ -39,6 +41,7 @@ void sge::gui::layouts::grid::compile_static()
 	connected_widget().parent_manager().dirty(
 		connected_widget(),
 		rect(
+			point::null(),
 			connected_widget().size()));
 	
 	dim const 
@@ -76,29 +79,48 @@ void sge::gui::layouts::grid::compile_static()
 
 sge::gui::dim const sge::gui::layouts::grid::optimal_size() const
 {
-	cache::rolumn_container const &rolumns =
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("optimal size, begin"));
+
+	detail::grid_cache::rolumn_container const &rolumns =
 		valid_cache().rolumns();
 
 	dim maxdims = dim::null();
 
 	for (
-		cache::rolumn_container::size_type i = 0; 
+		detail::grid_cache::rolumn_container::size_type i = 0; 
 		i < rolumns.dim().h();
 		++i)
 		for (
 			unit j = static_cast<unit>(0); 
 			j < static_cast<unit>(2); 
 			++j)
-			maxdims[j] += rolumns.pos(cache::rolumn_container::vector_type(j,i)).size;
+		{
+			SGE_LOG_DEBUG(
+				mylogger,
+				log::_1 << SGE_TEXT("axis: ") 
+				        << j 
+								<< SGE_TEXT(", rolumn ")
+								<< i
+								<< SGE_TEXT(", adding size ")
+								<< rolumns.pos(detail::grid_cache::rolumn_container::vector_type(j,i)).size);
+			maxdims[j] += rolumns.pos(detail::grid_cache::rolumn_container::vector_type(j,i)).size;
+		}
+
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("optimal size, end"));
 	
 	return maxdims;
 }
 
-sge::gui::layouts::grid::cache &sge::gui::layouts::grid::valid_cache() const
+sge::gui::detail::grid_cache &sge::gui::layouts::grid::valid_cache() const
 {
 	if (!cache_)
 		cache_.reset(
-			new cache(*this));
+			new detail::grid_cache(
+				connected_widget().children()));
 	return *cache_;
 }
 
@@ -228,16 +250,16 @@ void sge::gui::layouts::grid::adapt(
 		        << count << SGE_TEXT("=") << addition 
 						<< SGE_TEXT(" pixels to the flagged rolumns"));
 
-	cache::rolumn_container const &rolumns =
+	detail::grid_cache::rolumn_container const &rolumns =
 		valid_cache().rolumns();
 
 	for (
-		size_type i = 0; 
-		i < children_.dim()[axis]; 
+		detail::grid_cache::child_plane::size_type i = 0; 
+		i < valid_cache().plane().dim()[axis]; 
 		++i
 		)
 	{
-		if (rolumns.pos(axis,i).policy & flag)
+		if (rolumns.pos(detail::grid_cache::rolumn_container::vector_type(axis,i)).policy & flag)
 		{
 			SGE_LOG_DEBUG(
 				mylogger,
@@ -245,7 +267,7 @@ void sge::gui::layouts::grid::adapt(
 
 			update_rolumn(
 				axis,
-				i,
+				static_cast<unsigned>(i),
 				flag,
 				addition);
 		}
@@ -255,19 +277,19 @@ void sge::gui::layouts::grid::adapt(
 namespace 
 {
 template<
-	typename T,
-	typename U,
+	typename Result,
+	class Container,
 	typename Index>
-T field_swap_pos(
-	sge::container::field<T> &f,
+Result field_swap_pos(
+	Container &f,
 	bool swap,
 	Index const a,
 	Index const b)
 {
 	return 
 		swap
-			? f.pos(b,a)
-			: f.pos(a,b);
+			? f.pos(typename Container::vector_type(b,a))
+			: f.pos(typename Container::vector_type(a,b));
 }
 }
 
@@ -277,22 +299,29 @@ void sge::gui::layouts::grid::update_rolumn(
 	axis_policy::type const flag,
 	unit const addition)
 {
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("updating rolumn ") 
+		        << rolumn 
+						<< SGE_TEXT(" on axis ") 
+						<< axis); 
 	// update the cache
 	valid_cache().rolumns().pos(
-		axis,
-		rolumn).size += addition;
+		detail::grid_cache::rolumn_container::vector_type(
+			axis,
+			rolumn)).size += addition;
 
 	for (
-		size_type i = 0; 
-		i < children_.dim()[axis];
+		detail::grid_cache::child_plane::size_type i = 0; 
+		i < valid_cache().plane().dim()[axis]; 
 		++i)
 	{
-		widgets::base * const w = field_swap_pos(
+		widgets::base * const w = field_swap_pos<widgets::base*,detail::grid_cache::child_plane,unsigned>(
 			valid_cache().plane(),
-			axis,
-			static_cast<size_type>(
+			static_cast<bool>(axis),
+			static_cast<unsigned>(
 				i),
-			static_cast<size_type>(
+			static_cast<unsigned>(
 				rolumn));
 		
 		// not a widget we're looking for
@@ -301,6 +330,9 @@ void sge::gui::layouts::grid::update_rolumn(
 
 		valid_cache().data()[w].size[axis] += addition;
 	}
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("update rolumn, end ")); 
 }
 
 // counts the number of widgets on the specified axis (not rolumn, axis) which
@@ -311,14 +343,14 @@ unsigned sge::gui::layouts::grid::count_flags(
 {
 	unsigned count = 0;
 
-	cache::rolumn_container const &rolumns = 
+	detail::grid_cache::rolumn_container const &rolumns = 
 		valid_cache().rolumns();
 
 	for (
-		cache::rolumn_container::size_type i = 0;
+		detail::grid_cache::rolumn_container::size_type i = 0;
 		i < rolumns.dim().w();
 		++i)
-		if (rolumns.pos(axis,i).policy & flags)
+		if (rolumns.pos(detail::grid_cache::rolumn_container::vector_type(axis,i)).policy & flags)
 			++count;
 
 	return count;
@@ -332,37 +364,37 @@ void sge::gui::layouts::grid::update_widgets()
 		mylogger,
 		log::_1 << SGE_TEXT("updating widgets begin"));
 
-	cache::child_plane &c = 
+	detail::grid_cache::child_plane &c = 
 		valid_cache().plane();
 	
-	cache::rolumn_container const &rolumns = 
+	detail::grid_cache::rolumn_container const &rolumns = 
 		valid_cache().rolumns();
 
 	point pos = point::null();
-	for (size_type x = 0; x < c.w(); ++x)
+	for (detail::grid_cache::rolumn_container::size_type x = 0; x < c.dim().w(); ++x)
 	{
 		pos.y() = static_cast<unit>(0);
-		for (size_type y = 0; y < c.h(); ++y)
+		for (detail::grid_cache::rolumn_container::size_type y = 0; y < c.dim().h(); ++y)
 		{
-			widget * const w = 
-				c.pos(cache::child_plane::vector_type(x,y));
+			widgets::base * const w = 
+				c.pos(detail::grid_cache::child_plane::vector_type(x,y));
 			if (w)
 				update_widget(
 					*w,
 					pos,
 					dim(
 						rolumns.pos(
-							cache::rolumn_container::vector_type(
+							detail::grid_cache::rolumn_container::vector_type(
 								x_axis,
-								x)),
+								x)).size,
 						rolumns.pos(
-							cache::rolumn_container::vector_type(
+							detail::grid_cache::rolumn_container::vector_type(
 								y_axis,
-								y))));
+								y)).size));
 
-			pos.y() += rolumns.pos(y_axis,y);
+			pos.y() += rolumns.pos(detail::grid_cache::rolumn_container::vector_type(y_axis,y)).size;
 		}
-		pos.x() += rolumns.pos(x_axis,x);
+		pos.x() += rolumns.pos(detail::grid_cache::rolumn_container::vector_type(x_axis,x)).size;
 	}
 	
 	SGE_LOG_DEBUG(
@@ -377,19 +409,30 @@ sge::gui::point const center(
 	sge::gui::dim const &rect,
 	sge::gui::dim const &smaller)
 {
-	return pos + rect/2 - smaller/2;
+	return pos + (rect/static_cast<sge::gui::unit>(2)) - (smaller/static_cast<sge::gui::unit>(2));
 }
 }
 
 // the widget has got it's size in data[&w].size, it just has to be aligned in
 // it's cell, denoted by d.
 void sge::gui::layouts::grid::update_widget(
-	widget &w,
+	widgets::base &w,
 	point const &p,
 	dim const &d)
 {
 	dim const smaller = 
 		valid_cache().data()[&w].size;
+
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("setting widget position to ") 
+		        << p 
+						<< SGE_TEXT(", with large size ") 
+						<< d 
+						<< SGE_TEXT(" and small size ") 
+						<< smaller
+						<< SGE_TEXT(" and centered position ")
+						<< center(p,d,smaller));
 
 	base::set_widget_pos(
 		w,

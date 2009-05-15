@@ -1,18 +1,19 @@
-FILE (GLOB sgeguifiles 
-		*.cpp 
-		events/*.cpp 
-		layouts/*.cpp 
-		layouts/grid/*.cpp
-		widgets/*.cpp 
-		widgets/buttons/*.cpp 
-		skins/*.cpp 
-		timer/*.cpp 
-		canvas/*.cpp 
-		skins/standard/*.cpp 
-		skins/standard/buttons/*.cpp 
-		utility/*.cpp
-		detail/*.cpp 
-		detail/managers/*.cpp)
+#FILE (GLOB sgeguifiles 
+#		*.cpp 
+#		events/*.cpp 
+#		layouts/*.cpp 
+#		widgets/*.cpp 
+#		widgets/buttons/*.cpp 
+#		skins/*.cpp 
+#		timer/*.cpp 
+#		canvas/*.cpp 
+#		skins/standard/*.cpp 
+#		skins/standard/buttons/*.cpp 
+#		utility/*.cpp
+#		detail/*.cpp 
+#		detail/managers/*.cpp)
+FILE (GLOB_RECURSE sgeguifiles
+	*.cpp)
 
 ADD_LIBRARY (sgegui SHARED ${sgeguifiles})
 TARGET_LINK_LIBRARIES (sgegui sgecore)
