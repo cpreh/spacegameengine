@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_MATRIX_BASIC_IMPL_HPP_INCLUDED
 #define SGE_MATH_MATRIX_BASIC_IMPL_HPP_INCLUDED
 
+#include <sge/math/matrix/detail/resize.hpp>
 #include <sge/math/matrix/basic_decl.hpp>
 #include <sge/math/compare.hpp>
 #include <sge/math/vector/basic_impl.hpp>
@@ -51,6 +52,18 @@ template<
 	typename M,
 	typename S
 >
+sge::math::matrix::basic<T, N, M, S>::basic(
+	dim_type const &dim)
+{
+	resize(dim);
+}
+
+template<
+	typename T,
+	typename N,
+	typename M,
+	typename S
+>
 template<
 	typename In
 >
@@ -62,11 +75,15 @@ sge::math::matrix::basic<T, N, M, S>::basic(
 		storage,
 		std::distance(
 			beg,
-			end));
+			end
+		)
+	);
+
 	std::copy(
 		beg,
 		end,
-		data());
+		data()
+	);
 }
 template<
 	typename T,
@@ -194,7 +211,9 @@ sge::math::matrix::basic<T, N, M, S>::size() const
 		size_type
 	>(
 		math::detail::storage_dim(
-			storage));
+			storage
+		)
+	);
 }
 template<
 	typename T,
@@ -263,11 +282,13 @@ void
 sge::math::matrix::basic<T, N, M, S>::resize(
 	dim_type const &d)
 {
-	dim_base::columns(d.w());
-	dim_base::rows(d.h());
-
-	storage.resize(
-		d.w() * d.h());
+	detail::resize(
+		d,
+		static_cast<
+			dim_base &
+		>(*this),
+		storage
+	);
 }
 
 #endif

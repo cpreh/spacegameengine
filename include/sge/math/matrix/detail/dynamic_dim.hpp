@@ -18,37 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_MATH_MATRIX_DETAIL_DYNAMIC_DIM_HPP_INCLUDED
+#define SGE_MATH_MATRIX_DETAIL_DYNAMIC_DIM_HPP_INCLUDED
 
-#ifndef SGE_MATH_MATRIX_DETAIL_TRANSPOSE_IMPL_HPP_INCLUDED
-#define SGE_MATH_MATRIX_DETAIL_TRANSPOSE_IMPL_HPP_INCLUDED
+#include <sge/math/matrix/detail/dim_storage.hpp>
+#include <sge/math/detail/dynamic_size.hpp>
 
-#include <sge/math/matrix/basic_impl.hpp>
-
-template<
-	typename T,
-	typename N,
-	typename M,
-	typename S
->
-sge::math::matrix::basic<T, M, N, S> const
-sge::math::matrix::transpose(
-	basic<T, N, M, S> const &t)
+namespace sge
 {
-	typedef basic<T, M, N, S> ret_type;
+namespace math
+{
+namespace matrix
+{
+namespace detail
+{
 
-	ret_type ret(
-		typename ret_type::dim_type(
-			t.rows(),
-			t.columns()
-		)
-	);
+typedef dim_storage<
+	math::detail::dynamic_size,
+	math::detail::dynamic_size
+> dynamic_dim;
 
-	typedef typename ret_type::size_type size_type;
-	for(size_type i = 0; i < t.rows(); ++i)
-		for(size_type j = 0; j < t.columns(); ++j)
-			if(j < t.rows() && i < t.columns())
-				ret[j][i] = t[i][j];
-	return ret;
+}
+}
+}
 }
 
 #endif

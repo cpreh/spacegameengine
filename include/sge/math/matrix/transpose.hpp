@@ -34,11 +34,12 @@ namespace matrix
 template<
 	typename T,
 	typename N,
+	typename M,
 	typename S
 >
-basic<T, N, N, S> const
+basic<T, M, N, S> const
 transpose(
-	basic<T, N, N, S> const &);
+	basic<T, N, M, S> const &);
 
 }
 }

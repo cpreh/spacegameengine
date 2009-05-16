@@ -18,37 +18,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_MATH_MATRIX_DETAIL_RESIZE_HPP_INCLUDED
+#define SGE_MATH_MATRIX_DETAIL_RESIZE_HPP_INCLUDED
 
-#ifndef SGE_MATH_MATRIX_DETAIL_TRANSPOSE_IMPL_HPP_INCLUDED
-#define SGE_MATH_MATRIX_DETAIL_TRANSPOSE_IMPL_HPP_INCLUDED
+#include <sge/math/matrix/detail/dim_storage.hpp>
+#include <sge/math/matrix/detail/dynamic_dim.hpp>
 
-#include <sge/math/matrix/basic_impl.hpp>
+namespace sge
+{
+namespace math
+{
+namespace matrix
+{
+namespace detail
+{
 
 template<
-	typename T,
+	typename Dim,
 	typename N,
 	typename M,
 	typename S
 >
-sge::math::matrix::basic<T, M, N, S> const
-sge::math::matrix::transpose(
-	basic<T, N, M, S> const &t)
+void resize(
+	Dim const &,
+	dim_storage<
+		N,
+		M
+	> &,
+	S const &)
+{}
+
+template<
+	typename Dim,	
+	typename S
+>
+void resize(
+	Dim const &d,
+	dynamic_dim &dim,
+	S &store)
 {
-	typedef basic<T, M, N, S> ret_type;
+	dim.columns(d.w());
+	dim.rows(d.h());
 
-	ret_type ret(
-		typename ret_type::dim_type(
-			t.rows(),
-			t.columns()
-		)
+	store.resize(
+		d.w() * d.h()
 	);
+}
 
-	typedef typename ret_type::size_type size_type;
-	for(size_type i = 0; i < t.rows(); ++i)
-		for(size_type j = 0; j < t.columns(); ++j)
-			if(j < t.rows() && i < t.columns())
-				ret[j][i] = t[i][j];
-	return ret;
+}
+}
+}
 }
 
 #endif
