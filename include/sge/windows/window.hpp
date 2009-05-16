@@ -90,7 +90,7 @@ private:
 	wndclass_ptr const wndclass_;
 
 	typedef math::rect::basic<
-		unsigned
+		LONG
 	> decoration_rect;
 
 	decoration_rect decoration_size;

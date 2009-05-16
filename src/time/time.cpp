@@ -131,7 +131,7 @@ sge::time::unit large_int_to_time(
 #error "We need a 64 bit data type for windows time!"
 #endif
 	return static_cast<
-		unit
+		sge::time::unit
 	>(i.QuadPart);
 }
 

@@ -86,10 +86,10 @@ sge::windows::window::window(
 			SGE_TEXT("AdjustWindowRect() failed!"));
 
 	decoration_size = decoration_rect(
-		static_cast<unsigned>(-r.left),
-		static_cast<unsigned>(r.top),
-		static_cast<unsigned>(-r.right),
-		static_cast<unsigned>(r.bottom)
+		r.left,
+		r.top,
+		r.right,
+		r.bottom
 	);
 
 	handle = CreateWindow(
@@ -98,8 +98,8 @@ sge::windows::window::window(
 		flags,
 		0,
 		0,
-		decoration_size.left() + decoration_size.right() + sz.w(),
-		decoration_size.bottom() + decoration_size.top() + sz.h(),
+		decoration_size.dim().w() + sz.w(),
+		decoration_size.dim().h() + sz.h(),
 		0,
 		0,
 		module_handle(),
@@ -123,8 +123,8 @@ void sge::windows::window::size(
 		HWND_TOP,
 		0,
 		0,
-		decoration_size.left() + decoration_size.right() + nsz.w(),
-		decoration_size.top() + decoration_size.bottom() + nsz.h(),
+		decoration_size.dim().w() + nsz.w(),
+		decoration_size.dim().h() + nsz.h(),
 		SWP_SHOWWINDOW
 	) == 0)
 		throw exception(
@@ -147,8 +147,8 @@ sge::windows::window::size() const
 		throw exception(
 			SGE_TEXT("GetWindowRect() failed!"));
 	return dim_type(
-		rect.right - rect.left - decoration_size.left() - decoration_size.right(),
-		rect.bottom - rect.top - decoration_size.top() + decoration_size.bottom()
+		rect.right - rect.left - decoration_size.dim().w(),
+		rect.bottom - rect.top - decoration_size.dim().h()
 	);
 }
 
