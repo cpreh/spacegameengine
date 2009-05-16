@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_WINDOWS_WINDOW_HPP_INCLUDED
 
 #include <sge/windows/window_fwd.hpp>
+#include <sge/windows/callback_return_type.hpp>
+#include <sge/windows/event_type.hpp>
 #include <sge/windows/windows.hpp>
 #include <sge/windows/wndclass_fwd.hpp>
 #include <sge/string.hpp>
@@ -42,11 +44,6 @@ namespace windows
 
 class window : public sge::window::instance {
 public:
-	typedef unsigned event_type;
-	typedef optional<LRESULT> callback_return_type;
-
-	//class signal_combiner;
-
 	typedef callback_return_type
 	callback_signature_type(
 		window &,
@@ -59,8 +56,7 @@ public:
 	> callback_type;
 
 	typedef signal::object<
-		callback_signature_type//,
-	//	signal_combiner
+		callback_signature_type
 	> signal_type;
 
 	SGE_SYMBOL window(
