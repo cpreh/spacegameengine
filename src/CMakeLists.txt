@@ -51,13 +51,19 @@ FILE (GLOB sgecorefiles
 	variant/*.cpp
 	window/*.cpp)
 
+FILE (GLOB_RECURSE sgecoreheaders
+	../include/*.hpp)
+
+SET (sgecorefiles ${sgecorefiles} ${sgecoreheaders})
+
 IF (X11_FOUND)
 	FILE (GLOB sgecorex11files
 		x11/*.cpp)
 	SET (sgecorefiles ${sgecorefiles} ${sgecorex11files})
 ELSEIF (WIN32)
 	FILE (GLOB sgecorewindowsfiles
-		windows/*.cpp)
+		windows/*.cpp
+		windows/detail/*.cpp)
 	SET (sgecorefiles ${sgecorefiles} ${sgecorewindowsfiles})
 ENDIF ()
 

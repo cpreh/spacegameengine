@@ -69,6 +69,16 @@ public:
 	}
 }; 
 
+template<typename T>
+class left_identity : public std::binary_function<T,T,T>
+{
+public:
+	T operator()(T const &left,T const &right) const
+	{
+		return left;
+	}
+};
+
 }
 
 #endif

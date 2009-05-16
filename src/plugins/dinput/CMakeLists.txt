@@ -1,4 +1,4 @@
-FILE (GLOB sgedinputfiles src/*.cpp)
+FILE (GLOB sgedinputfiles src/*.cpp *.hpp)
 
 ADD_LIBRARY (sgedinput SHARED ${sgedinputfiles})
 TARGET_LINK_LIBRARIES (sgedinput dinput8 dxguid sgecore)
