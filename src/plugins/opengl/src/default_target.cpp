@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
-#include "../common.hpp"
 #include "../default_target.hpp"
+#include "../common.hpp"
+#include "../fbo_functions.hpp"
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/exception.hpp>
@@ -64,9 +64,7 @@ sge::ogl::default_target::dim() const
 
 void sge::ogl::default_target::bind_me() const
 {
-	// TODO: this should be somewhere else!
-	if(glBindFramebufferEXT)
-		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+	unbind_fbo();
 }
 
 sge::ogl::default_target::size_type
@@ -83,12 +81,15 @@ sge::ogl::default_target::stride() const
 	}
 }
 
+// currently 16bit and 32bit framebuffers are supported
+// GL_UNSIGNED_BYTE is enough to read 32bit values so take this
+
 GLenum sge::ogl::default_target::format() const
 {
-	return GL_RGBA; // FIXME
+	return GL_RGBA;
 }
 
 GLenum sge::ogl::default_target::format_type() const
 {
-	return GL_UNSIGNED_BYTE; // FIXME
+	return GL_UNSIGNED_BYTE;
 }
