@@ -18,42 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_PLUGINS_OPENGL_GLSL_ATTACHMENT_HPP_INCLUDED
+#define SGE_PLUGINS_OPENGL_GLSL_ATTACHMENT_HPP_INCLUDED
 
-#include "../impl.hpp"
-#include "../program.hpp"
-#include "../init.hpp"
-#include "../../common.hpp"
-#include <sge/make_shared_ptr.hpp>
+#include "attachment_fwd.hpp"
+#include "traits.hpp"
+#include "shader.hpp"
+#include <sge/noncopyable.hpp>
 
-sge::renderer::glsl::program_ptr const
-sge::ogl::glsl::create_program_impl(
-	renderer::glsl::string const &vs_source,
-	renderer::glsl::string const &ps_source)
+namespace sge
 {
-	return is_native()
-		? renderer::glsl::program_ptr(
-			make_shared_ptr<
-				program<true>
-			>(
-				vs_source,
-				ps_source
-			)
-		)
-		: renderer::glsl::program_ptr(
-			make_shared_ptr<
-				program<false>
-			>(
-				vs_source,
-				ps_source
-			)
-		);
+namespace ogl
+{
+namespace glsl
+{
+
+template<
+	bool Native
+>
+class attachment {
+	SGE_NONCOPYABLE(attachment)
+public:
+	typedef typename shader<Native>::shared_ptr shader_ptr;
+	typedef typename traits<Native>::handle handle;
+
+	attachment(
+		shader_ptr,
+		handle);
+	
+	~attachment();
+private:
+	shader_ptr const shader_;
+	handle const handle_;
+};
+
+}
+}
 }
 
-void sge::ogl::glsl::set_program_impl(
-	renderer::glsl::program_ptr const prog)
-{
-	if(is_native())
-		program<true>::use(prog);
-	else
-		program<false>::use(prog);
-}
+#endif

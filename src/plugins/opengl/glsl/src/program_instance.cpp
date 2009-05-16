@@ -18,42 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../program_instance.hpp"
+#include "../program_functions.hpp"
 
-#include "../impl.hpp"
-#include "../program.hpp"
-#include "../init.hpp"
-#include "../../common.hpp"
-#include <sge/make_shared_ptr.hpp>
+template<
+	bool Native
+>
+sge::ogl::glsl::program_instance<Native>::program_instance()
+:
+	id_(create_program<Native>())
+{}
 
-sge::renderer::glsl::program_ptr const
-sge::ogl::glsl::create_program_impl(
-	renderer::glsl::string const &vs_source,
-	renderer::glsl::string const &ps_source)
+template<
+	bool Native
+>
+sge::ogl::glsl::program_instance<Native>::~program_instance()
 {
-	return is_native()
-		? renderer::glsl::program_ptr(
-			make_shared_ptr<
-				program<true>
-			>(
-				vs_source,
-				ps_source
-			)
-		)
-		: renderer::glsl::program_ptr(
-			make_shared_ptr<
-				program<false>
-			>(
-				vs_source,
-				ps_source
-			)
-		);
+	delete_program<Native>(id());
 }
 
-void sge::ogl::glsl::set_program_impl(
-	renderer::glsl::program_ptr const prog)
+template<
+	bool Native
+>
+typename sge::ogl::glsl::program_instance<Native>::handle
+sge::ogl::glsl::program_instance<Native>::id() const
 {
-	if(is_native())
-		program<true>::use(prog);
-	else
-		program<false>::use(prog);
+	return id_;
 }
+
+template class sge::ogl::glsl::program_instance<true>;
+template class sge::ogl::glsl::program_instance<false>;

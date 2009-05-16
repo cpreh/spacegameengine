@@ -18,42 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../attachment.hpp"
+#include "../program_functions.hpp"
 
-#include "../impl.hpp"
-#include "../program.hpp"
-#include "../init.hpp"
-#include "../../common.hpp"
-#include <sge/make_shared_ptr.hpp>
-
-sge::renderer::glsl::program_ptr const
-sge::ogl::glsl::create_program_impl(
-	renderer::glsl::string const &vs_source,
-	renderer::glsl::string const &ps_source)
+template<
+	bool Native
+>
+sge::ogl::glsl::attachment<Native>::attachment(
+	shader_ptr const shader_,
+	handle const handle_)
+:
+	shader_(shader_),
+	handle_(handle_)
 {
-	return is_native()
-		? renderer::glsl::program_ptr(
-			make_shared_ptr<
-				program<true>
-			>(
-				vs_source,
-				ps_source
-			)
-		)
-		: renderer::glsl::program_ptr(
-			make_shared_ptr<
-				program<false>
-			>(
-				vs_source,
-				ps_source
-			)
-		);
+	attach_shader<Native>(handle_, shader_->id());
 }
 
-void sge::ogl::glsl::set_program_impl(
-	renderer::glsl::program_ptr const prog)
+template<
+	bool Native
+>
+sge::ogl::glsl::attachment<Native>::~attachment()
 {
-	if(is_native())
-		program<true>::use(prog);
-	else
-		program<false>::use(prog);
+	detach_shader<Native>(handle_, shader_->id());
 }
+
+template class sge::ogl::glsl::attachment<true>;
+template class sge::ogl::glsl::attachment<false>;
