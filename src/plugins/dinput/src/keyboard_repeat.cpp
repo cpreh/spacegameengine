@@ -17,31 +17,30 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+#include "../keyboard_repeat.hpp"
+#include <sge/windows/windows.hpp>
+#include <sge/time/millisecond.hpp>
+#include <sge/time/resolution.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-
-#ifndef SGE_TIME_RESOLUTION_HPP_INCLUDED
-#define SGE_TIME_RESOLUTION_HPP_INCLUDED
-
-#include <sge/time/resolution_fwd.hpp>
-#include <sge/time/unit.hpp>
-#include <sge/export.hpp>
-
-namespace sge
+sge::time::resolution const
+sge::dinput::keyboard_repeat()
 {
-namespace time
-{
+	int ret = 0;
+	if(
+		SystemParametersInfo(
+			SPI_GETKEYBOARDDELAY,
+			0,
+			&ret,
+			0
+		) == 0
+	)
+		throw exception(
+			SGE_TEXT("SystemParametersInfo() failed!")
+		);
 
-class resolution {
-public:
-	SGE_SYMBOL explicit resolution(
-		unit);
-	
-	SGE_SYMBOL unit get() const;
-private:
-	unit res_;
-};
-
+	return time::millisecond(
+		ret * 250
+	);
 }
-}
-
-#endif

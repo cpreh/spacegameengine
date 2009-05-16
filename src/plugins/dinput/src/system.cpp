@@ -81,7 +81,7 @@ BOOL sge::dinput::system::di_enum_devices_callback(
 {
 	system &sys = *static_cast<system*>(s);
 
-	const unsigned char dev_type
+	unsigned char const dev_type
 		= static_cast<unsigned char>(
 			ddi->dwDevType & 0xFF);
 
@@ -96,7 +96,10 @@ BOOL sge::dinput::system::di_enum_devices_callback(
 				product_name,
 				ddi->guidInstance,
 				sys.wnd,
-				sys.key_conv));
+				sys.key_conv,
+				sys.repeat_sig
+			)
+		);
 		break;
 	case DI8DEVTYPE_MOUSE:
 		sys.devices.push_back(
@@ -104,7 +107,9 @@ BOOL sge::dinput::system::di_enum_devices_callback(
 				sys.di,
 				product_name,
 				ddi->guidInstance,
-				sys.wnd));
+				sys.wnd
+			)
+		);
 		break;
 	/*
 	case DI8DEVTYPE_JOYSTICK:
@@ -143,5 +148,7 @@ BOOL sge::dinput::system::di_enum_devices_callback(
 sge::window::instance_ptr const
 sge::dinput::system::window() const
 {
-	return sge::static_pointer_cast<sge::window::instance>(wnd);
+	return sge::static_pointer_cast<
+		sge::window::instance
+	>(wnd);
 }
