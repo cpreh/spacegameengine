@@ -18,46 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_PLUGINS_OPENGL_GLSL_ATTACHMENT_HPP_INCLUDED
+#define SGE_PLUGINS_OPENGL_GLSL_ATTACHMENT_HPP_INCLUDED
 
-#ifndef SGE_OPENGL_TARGET_HPP_INCLUDED
-#define SGE_OPENGL_TARGET_HPP_INCLUDED
-
-#include "common.hpp"
-#include <sge/renderer/target.hpp>
-#include <sge/renderer/pixel_pos.hpp>
-#include <sge/renderer/raw_value.hpp>
-#include <sge/container/raw_vector_decl.hpp>
+#include "attachment_fwd.hpp"
+#include "traits.hpp"
+#include "shader.hpp"
 #include <sge/noncopyable.hpp>
 
 namespace sge
 {
 namespace ogl
 {
+namespace glsl
+{
 
-class target : public sge::renderer::target {
-	SGE_NONCOPYABLE(target)
-protected:
-	target();
+template<
+	bool Native
+>
+class attachment {
+	SGE_NONCOPYABLE(attachment)
 public:
-	virtual void bind_me() const = 0;
-	virtual ~target();
+	typedef typename shader<Native>::shared_ptr shader_ptr;
+	typedef typename traits<Native>::handle handle;
+
+	attachment(
+		shader_ptr,
+		handle);
+	
+	~attachment();
 private:
-	renderer::const_image_view const lock(
-		renderer::lock_rect const &dest) const;
-	void unlock() const;
-
-	virtual renderer::pixel_pos const pos() const = 0;
-	virtual size_type stride() const = 0;
-	virtual GLenum format() const = 0;
-	virtual GLenum format_type() const = 0;
-
-	typedef sge::container::raw_vector<
-		renderer::raw_value
-	> buffer_type;
-
-	mutable buffer_type buffer;
+	shader_ptr const shader_;
+	handle const handle_;
 };
 
+}
 }
 }
 

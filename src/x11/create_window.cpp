@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
+#include <sge/make_shared_ptr.hpp>
 
 sge::window::instance_ptr const
 sge::x11::create_window(
@@ -43,22 +44,27 @@ sge::x11::create_window(
 		new x11::colormap(
 			dsp,
 			screen,
-			visual));
+			visual
+		)
+	);
 
 	if(!param.dim())
 		throw exception(
-			SGE_TEXT("x11::create_window: Please specify the window's dimensions!"));
+			SGE_TEXT("x11::create_window: Please specify the window's dimensions!")
+		);
 
-	return sge::window::instance_ptr(
-		new window(
-			window::pos_type::null(),
-			*param.dim(),
-			param.title(),
-			dsp,
-			screen,
-			depth,
-			fullscreen,
-			visual,
-			colormap,
-			param.class_name()));
+	return make_shared_ptr<
+		sge::x11::window
+	>(
+		window::pos_type::null(),
+		*param.dim(),
+		param.title(),
+		dsp,
+		screen,
+		depth,
+		fullscreen,
+		visual,
+		colormap,
+		param.class_name()
+	);
 }

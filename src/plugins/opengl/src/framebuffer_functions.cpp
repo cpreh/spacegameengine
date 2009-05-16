@@ -23,13 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../error.hpp"
 
 void sge::ogl::read_pixels(
-	renderer::target::size_type const x,
-	renderer::target::size_type const y,
-	renderer::target::size_type const width,
-	renderer::target::size_type const height,
+	renderer::size_type const x,
+	renderer::size_type const y,
+	renderer::size_type const width,
+	renderer::size_type const height,
 	GLenum const format,
 	GLenum const type,
-	unsigned char *const dest)
+	renderer::raw_pointer const dest)
 {
 	SGE_OPENGL_SENTRY
 
@@ -40,5 +40,6 @@ void sge::ogl::read_pixels(
 		static_cast<GLsizei>(height),
 		format,
 		type,
-		dest);
+		dest
+	);
 }

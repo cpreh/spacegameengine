@@ -24,9 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/random/range.hpp>
 
-#include <sge/cerr.hpp>
-#include <sge/text.hpp>
-
 namespace sge
 {
 namespace random
@@ -45,9 +42,7 @@ public:
 			first_,
 			last_
 		)
-	{
-		sge::cerr << SGE_TEXT("\n prob:") << last_ << SGE_TEXT('\n');
-	}
+	{}
 };
 
 template<

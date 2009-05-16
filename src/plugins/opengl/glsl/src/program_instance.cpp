@@ -18,48 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
-#ifndef SGE_RENDERER_VF_RAW_DATA_HPP_INCLUDED
-#define SGE_RENDERER_VF_RAW_DATA_HPP_INCLUDED
-
-#include <sge/renderer/raw_pointer.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <boost/gil/pixel.hpp>
-
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-
-template<typename T>
-const_raw_pointer
-raw_data(
-	T const &t);
+#include "../program_instance.hpp"
+#include "../program_functions.hpp"
 
 template<
-	typename T,
-	typename N,
-	typename S
+	bool Native
 >
-const_raw_pointer
-raw_data(
-	math::vector::basic<T, N, S> const &v)
+sge::ogl::glsl::program_instance<Native>::program_instance()
+:
+	id_(create_program<Native>())
+{}
+
+template<
+	bool Native
+>
+sge::ogl::glsl::program_instance<Native>::~program_instance()
 {
-	return reinterpret_cast<const_raw_pointer>(v.data());
+	delete_program<Native>(id());
 }
 
-template<typename Channel, typename Layout>
-const_raw_pointer
-raw_data(
-	boost::gil::pixel<Channel, Layout> const &t)
+template<
+	bool Native
+>
+typename sge::ogl::glsl::program_instance<Native>::handle
+sge::ogl::glsl::program_instance<Native>::id() const
 {
-	return reinterpret_cast<const_raw_pointer>(&t); // FIXME
+	return id_;
 }
 
-}
-}
-}
-
-#endif
+template class sge::ogl::glsl::program_instance<true>;
+template class sge::ogl::glsl::program_instance<false>;

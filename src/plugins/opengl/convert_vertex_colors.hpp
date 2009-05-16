@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_CONVERT_VERTEX_COLORS_HPP_INCLUDED
 
 #include <sge/renderer/size_type.hpp>
+#include <sge/renderer/raw_pointer.hpp>
 
 namespace sge
 {
@@ -41,7 +42,7 @@ void convert_vertex_colors(
 	renderer::vf::dynamic_ordered_element const &e,
 	renderer::size_type vertex_stride,
 	renderer::size_type num_vertices,
-	unsigned char *const data);
+	renderer::raw_pointer data);
 
 }
 }

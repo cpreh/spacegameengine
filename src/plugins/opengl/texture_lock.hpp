@@ -23,8 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_LOCK_HPP_INCLUDED
 
 #include "lock_method.hpp"
+#include <sge/renderer/raw_value.hpp>
+#include <sge/renderer/size_type.hpp>
 #include <sge/noncopyable.hpp>
-#include <cstddef>
 
 namespace sge
 {
@@ -36,9 +37,8 @@ class texture_lock {
 protected:
 	texture_lock();
 public:
-	// FIXME: make these typedefs consistent!
-	typedef std::size_t size_type;
-	typedef unsigned char value_type;
+	typedef renderer::size_type size_type;
+	typedef renderer::raw_value value_type;
 	typedef value_type *pointer;
 	typedef value_type const *const_pointer;
 

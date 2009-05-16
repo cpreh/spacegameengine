@@ -61,11 +61,9 @@ sge::ogl::basic_buffer<Type, Impl, T>::basic_buffer(
 	Impl().buffer_data(
 		Type(),
 		static_cast<GLsizei>(nsz),
-		reinterpret_cast<
-			unsigned char const *
-		>(
-			src),
-		glflags);
+		src,
+		glflags
+	);
 }
 
 template<

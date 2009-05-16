@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../fbo_target.hpp"
+#include "../fbo_functions.hpp"
 #include "../version.hpp"
 #include "../texture_base.hpp"
 #include "../error.hpp"
@@ -51,7 +52,7 @@ sge::ogl::fbo_target::~fbo_target()
 
 void sge::ogl::fbo_target::bind_me() const
 {
-	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fbo);
+	bind_fbo(fbo);
 }
 
 void sge::ogl::fbo_target::bind_texture(
@@ -69,8 +70,12 @@ void sge::ogl::fbo_target::bind_texture(
 		p->id(),
 		0);
 
-	GLenum const status = glCheckFramebufferStatusEXT(
-		GL_FRAMEBUFFER_EXT);
+	GLenum const status(
+		glCheckFramebufferStatusEXT(
+			GL_FRAMEBUFFER_EXT
+		)
+	);
+
 	if(status != GL_FRAMEBUFFER_COMPLETE_EXT)
 		throw exception(
 			SGE_TEXT("glCheckFramebufferStatusEXT: fbo incomplete!"));

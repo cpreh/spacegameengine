@@ -18,23 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../attachment.hpp"
+#include "../program_functions.hpp"
 
-#ifndef SGE_RENDERER_VF_RAW_POINTER_HPP_INCLUDED
-#define SGE_RENDERER_VF_RAW_POINTER_HPP_INCLUDED
-
-namespace sge
+template<
+	bool Native
+>
+sge::ogl::glsl::attachment<Native>::attachment(
+	shader_ptr const shader_,
+	handle const handle_)
+:
+	shader_(shader_),
+	handle_(handle_)
 {
-namespace renderer
-{
-namespace vf
-{
-
-typedef unsigned char raw_value;
-typedef raw_value *raw_pointer;
-typedef raw_value const* const_raw_pointer;
-
-}
-}
+	attach_shader<Native>(handle_, shader_->id());
 }
 
-#endif
+template<
+	bool Native
+>
+sge::ogl::glsl::attachment<Native>::~attachment()
+{
+	detach_shader<Native>(handle_, shader_->id());
+}
+
+template class sge::ogl::glsl::attachment<true>;
+template class sge::ogl::glsl::attachment<false>;

@@ -18,48 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../fbo_functions.hpp"
+#include "../error.hpp"
 
-#ifndef SGE_RENDERER_VF_RAW_DATA_HPP_INCLUDED
-#define SGE_RENDERER_VF_RAW_DATA_HPP_INCLUDED
-
-#include <sge/renderer/raw_pointer.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <boost/gil/pixel.hpp>
-
-namespace sge
+void
+sge::ogl::bind_fbo(
+	GLuint const buf)
 {
-namespace renderer
-{
-namespace vf
-{
+	SGE_OPENGL_SENTRY
 
-template<typename T>
-const_raw_pointer
-raw_data(
-	T const &t);
-
-template<
-	typename T,
-	typename N,
-	typename S
->
-const_raw_pointer
-raw_data(
-	math::vector::basic<T, N, S> const &v)
-{
-	return reinterpret_cast<const_raw_pointer>(v.data());
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, buf);
 }
 
-template<typename Channel, typename Layout>
-const_raw_pointer
-raw_data(
-	boost::gil::pixel<Channel, Layout> const &t)
+void
+sge::ogl::unbind_fbo()
 {
-	return reinterpret_cast<const_raw_pointer>(&t); // FIXME
+	if(glBindFramebufferEXT)
+		bind_fbo(0);
 }
-
-}
-}
-}
-
-#endif

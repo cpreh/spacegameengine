@@ -18,46 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_OPENGL_GLSL_PROGRAM_INSTANCE_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_PROGRAM_INSTANCE_HPP_INCLUDED
 
-#ifndef SGE_OPENGL_TARGET_HPP_INCLUDED
-#define SGE_OPENGL_TARGET_HPP_INCLUDED
-
-#include "common.hpp"
-#include <sge/renderer/target.hpp>
-#include <sge/renderer/pixel_pos.hpp>
-#include <sge/renderer/raw_value.hpp>
-#include <sge/container/raw_vector_decl.hpp>
+#include "traits.hpp"
 #include <sge/noncopyable.hpp>
 
 namespace sge
 {
 namespace ogl
 {
+namespace glsl
+{
 
-class target : public sge::renderer::target {
-	SGE_NONCOPYABLE(target)
-protected:
-	target();
+template<
+	bool Native
+>
+class program_instance {
+	SGE_NONCOPYABLE(program_instance)
 public:
-	virtual void bind_me() const = 0;
-	virtual ~target();
+	typedef typename traits<Native>::handle handle;
+
+	program_instance();
+
+	~program_instance();
+
+	handle id() const;
 private:
-	renderer::const_image_view const lock(
-		renderer::lock_rect const &dest) const;
-	void unlock() const;
-
-	virtual renderer::pixel_pos const pos() const = 0;
-	virtual size_type stride() const = 0;
-	virtual GLenum format() const = 0;
-	virtual GLenum format_type() const = 0;
-
-	typedef sge::container::raw_vector<
-		renderer::raw_value
-	> buffer_type;
-
-	mutable buffer_type buffer;
+	handle const id_;
 };
 
+}
 }
 }
 

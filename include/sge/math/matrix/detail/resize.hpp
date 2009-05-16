@@ -18,46 +18,55 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_MATH_MATRIX_DETAIL_RESIZE_HPP_INCLUDED
+#define SGE_MATH_MATRIX_DETAIL_RESIZE_HPP_INCLUDED
 
-#ifndef SGE_OPENGL_TARGET_HPP_INCLUDED
-#define SGE_OPENGL_TARGET_HPP_INCLUDED
-
-#include "common.hpp"
-#include <sge/renderer/target.hpp>
-#include <sge/renderer/pixel_pos.hpp>
-#include <sge/renderer/raw_value.hpp>
-#include <sge/container/raw_vector_decl.hpp>
-#include <sge/noncopyable.hpp>
+#include <sge/math/matrix/detail/dim_storage.hpp>
+#include <sge/math/matrix/detail/dynamic_dim.hpp>
 
 namespace sge
 {
-namespace ogl
+namespace math
+{
+namespace matrix
+{
+namespace detail
 {
 
-class target : public sge::renderer::target {
-	SGE_NONCOPYABLE(target)
-protected:
-	target();
-public:
-	virtual void bind_me() const = 0;
-	virtual ~target();
-private:
-	renderer::const_image_view const lock(
-		renderer::lock_rect const &dest) const;
-	void unlock() const;
+template<
+	typename Dim,
+	typename N,
+	typename M,
+	typename S
+>
+void resize(
+	Dim const &,
+	dim_storage<
+		N,
+		M
+	> &,
+	S const &)
+{}
 
-	virtual renderer::pixel_pos const pos() const = 0;
-	virtual size_type stride() const = 0;
-	virtual GLenum format() const = 0;
-	virtual GLenum format_type() const = 0;
+template<
+	typename Dim,	
+	typename S
+>
+void resize(
+	Dim const &d,
+	dynamic_dim &dim,
+	S &store)
+{
+	dim.columns(d.w());
+	dim.rows(d.h());
 
-	typedef sge::container::raw_vector<
-		renderer::raw_value
-	> buffer_type;
+	store.resize(
+		d.w() * d.h()
+	);
+}
 
-	mutable buffer_type buffer;
-};
-
+}
+}
 }
 }
 
