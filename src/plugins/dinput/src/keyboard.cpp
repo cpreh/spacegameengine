@@ -103,16 +103,22 @@ void sge::dinput::keyboard::dispatch(signal_type &sig)
 			)
 		);
 
-		if(!old_key || *old_key != key)
+		if(!key_value)
 		{
-			repeat_time.expire();
+			old_key.reset();
+			repeat_time.reset();
+		}
+		else if(!old_key || *old_key != key)
+		{
+			repeat_time.reset();
 			old_key = key;
 		}
-		else if(repeat_time.update_b())
-			repeat_sig(
-				key
-			);
 	}
+
+	if(old_key && repeat_time.update_b())
+		repeat_sig(
+			*old_key
+		);
 }
 
 BOOL sge::dinput::keyboard::enum_keyboard_keys(LPCDIDEVICEOBJECTINSTANCE ddoi,  LPVOID s)
