@@ -91,11 +91,14 @@ sge::texture::manager::add(
 				full_textures.transfer(
 					full_textures.end(),
 					it,
-					free_textures);
+					free_textures
+				);
 
 				tmp->container_position(
 					boost::prior(
-						full_textures.end()));
+						full_textures.end()
+					)
+				);
 			}
 			return p;
 		}
@@ -117,11 +120,15 @@ sge::texture::manager::add(
 		tmp->container_position(
 			full_textures.insert(
 				full_textures.end(),
-				ntex));
+				ntex
+			)
+		);
 	else
 		tmp->container_position(
 			free_textures.insert(
-				ntex));
+				ntex
+			)
+		);
 	return p;
 }
 
@@ -162,7 +169,11 @@ init_texture(
 	sge::texture::part_ptr const p(
 		tex.consume_fragment(
 			sge::renderer::image_view_dim(
-				src)));
+				src
+			)
+		)
+	);
+
 	if(p)
 		p->data(src);
 	return p;
@@ -184,12 +195,11 @@ void move_visitor::operator()(
 {
 	if(tex.empty())
 		full_textures.erase(it);
-	// FIXME: put those back into the free textures otherwise!
-	/*
 	else
 		free_textures.transfer(
 			it,
-			full_textures);*/
+			full_textures
+		);
 }
 
 void move_visitor::operator()(
