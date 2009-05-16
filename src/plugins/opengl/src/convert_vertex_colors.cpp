@@ -30,7 +30,7 @@ void sge::ogl::convert_vertex_colors(
 	renderer::vf::dynamic_ordered_element const &e,
 	renderer::size_type const vertex_stride,
 	renderer::size_type const num_vertices,
-	unsigned char *const data)
+	renderer::raw_pointer const data)
 {
 	sge::renderer::vf::dynamic_color const dcolor(
 		e.element().info().get<

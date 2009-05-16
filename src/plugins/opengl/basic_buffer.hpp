@@ -25,8 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "common.hpp"
 #include "lock_method.hpp"
 #include <sge/renderer/resource_flags.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/raw_value.hpp>
 #include <sge/noncopyable.hpp>
-#include <cstddef>
 
 namespace sge
 {
@@ -38,12 +39,12 @@ class vbo_base;
 template<
 	GLenum (*Type)(),
 	vbo_base& (*Impl)(),
-	typename T = unsigned char
+	typename T = renderer::raw_value
 >
 class basic_buffer {
 	SGE_NONCOPYABLE(basic_buffer)
 public:
-	typedef std::size_t                          size_type;
+	typedef renderer::size_type                  size_type;
 	typedef T                                    value_type;
 	typedef value_type                           *pointer;
 	typedef value_type const                     *const_pointer;

@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_FRAMEBUFFER_FUNCTIONS_HPP_INCLUDED
 
 #include "common.hpp"
-#include <sge/renderer/target.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/raw_pointer.hpp>
 
 namespace sge
 {
@@ -31,13 +32,13 @@ namespace ogl
 {
 
 void read_pixels(
-	renderer::target::size_type x,
-	renderer::target::size_type y,
-	renderer::target::size_type width,
-	renderer::target::size_type height,
+	renderer::size_type x,
+	renderer::size_type y,
+	renderer::size_type width,
+	renderer::size_type height,
 	GLenum format,
 	GLenum type,
-	unsigned char *dest);
+	renderer::raw_pointer dest);
 
 }
 }

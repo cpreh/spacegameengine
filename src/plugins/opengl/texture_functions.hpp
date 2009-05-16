@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "common.hpp"
 #include <sge/renderer/dim_type.hpp>
 #include <sge/renderer/lock_rect.hpp>
+#include <sge/renderer/raw_pointer.hpp>
 
 namespace sge
 {
@@ -42,23 +43,20 @@ namespace ogl
 GLuint gen_texture();
 void delete_texture(GLuint id);
 
-typedef unsigned char *texture_pointer;
-typedef unsigned char const *const_texture_pointer;
-
 void set_texture(
 	GLenum target,
 	GLenum format,
 	GLenum type,
 	renderer::filter::texture const &filter,
 	renderer::dim_type const &dim,
-	const_texture_pointer src);
+	renderer::const_raw_pointer src);
 
 void build_mipmaps(
 	GLenum target,
 	GLenum format,
 	GLenum type,
 	renderer::dim_type const &dim,
-	const_texture_pointer src);
+	renderer::const_raw_pointer src);
 
 void set_texture_rect(
 	GLenum target,
@@ -67,12 +65,12 @@ void set_texture_rect(
 	renderer::filter::texture const &filter,
 	renderer::dim_type const &dim,
 	renderer::lock_rect const &dest,
-	const_texture_pointer src);
+	renderer::const_raw_pointer src);
 
 void get_tex_image(
 	GLenum format,
 	GLenum type,
-	texture_pointer dest);
+	renderer::raw_pointer dest);
 
 void tex_parameter_i(
 	GLenum type,

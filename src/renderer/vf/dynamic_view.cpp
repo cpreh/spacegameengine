@@ -55,7 +55,7 @@ sge::renderer::vf::basic_dynamic_view<Pointer>::format() const
 
 
 #define SGE_VF_INSTANTIATE_DYNAMIC_VIEW(x)\
-template class sge::renderer::vf::basic_dynamic_view<sge::renderer::vf::x>;
+template class sge::renderer::vf::basic_dynamic_view<sge::renderer::x>;
 
 SGE_VF_INSTANTIATE_DYNAMIC_VIEW(raw_pointer)
 SGE_VF_INSTANTIATE_DYNAMIC_VIEW(const_raw_pointer)
