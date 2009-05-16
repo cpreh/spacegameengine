@@ -1,4 +1,4 @@
-FILE (GLOB sgemd3files src/*.cpp)
+FILE (GLOB_RECURSE sgemd3files src/*.cpp)
 
 ADD_LIBRARY (sgemd3 SHARED ${sgemd3files})
 

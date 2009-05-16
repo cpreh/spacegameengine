@@ -1,4 +1,4 @@
-FILE (GLOB sgeaudionullfiles src/*.cpp)
+FILE (GLOB_RECURSE sgeaudionullfiles src/*.cpp)
 
 ADD_LIBRARY (sgeaudionull SHARED ${sgeaudionullfiles})
 

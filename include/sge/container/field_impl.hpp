@@ -373,6 +373,8 @@ void copy_overlap_right(
 			std::distance(source_begin,source_end)));
 }
 
+#include <sge/cerr.hpp>
+
 template<
 	typename T,
 	template<
@@ -393,9 +395,13 @@ sge::container::field<T, ArrayType, Alloc>::resize(
 	size_type const old_fc = field_count();
 	dim_ = n;
 	
+	/*
 	array.resize(
 		field_count(),
 		value);
+		*/
+	array.resize(
+		field_count());
 
 	// if one of the two new dimensions is smaller than before, there's no
 	// sensible resizing behaviour, so we do it just using resize
@@ -408,6 +414,8 @@ sge::container::field<T, ArrayType, Alloc>::resize(
 			old.w());
 	// if not, we can "blit" the old stuff to the new array
 	for (size_type j = static_cast<size_type>(0); j < old.h(); ++j)
+	{
+		sge::cerr << "i position: " << std::distance(begin(),i) << "\n";
 		copy_overlap_right(
 			i,
 			boost::next(
@@ -416,6 +424,16 @@ sge::container::field<T, ArrayType, Alloc>::resize(
 			boost::next(
 				i,
 				dim_.w()-old.w()));
+
+		std::fill(
+			i,
+			boost::next(i,dim_.w()-old.w()),
+			value);
+
+		std::advance(
+			i,
+			dim_.w());
+	}
 }
 
 template<

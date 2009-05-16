@@ -121,19 +121,20 @@ try
 			.pos(sge::gui::point(10,10))
 			.layout(
 				sge::make_shared_ptr<sge::gui::layouts::grid>())
-			.size(sge::gui::dim(400,300)));
+			.size(
+				sge::gui::dim(400,300)));
 
 	sge::cerr << "added top level widget\n";
 
 	sge::gui::widgets::buttons::text left(
-		left,
+		top,
 		sge::gui::widgets::parameters()
 			.pos(
 				sge::gui::point(0,0)),
 		SGE_TEXT("left me!"));
 	
 	sge::gui::widgets::buttons::text right(
-		left,
+		top,
 		sge::gui::widgets::parameters()
 			.pos(
 				sge::gui::point(0,1)),

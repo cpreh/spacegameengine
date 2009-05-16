@@ -26,7 +26,6 @@ namespace layouts
 class SGE_CLASS_SYMBOL grid : public base
 {
 public:
-	SGE_GUI_SYMBOL void compile(invalidation::type const &);
 	SGE_GUI_SYMBOL void compile_static();
 	SGE_GUI_SYMBOL dim const optimal_size() const;
 private:

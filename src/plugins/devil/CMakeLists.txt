@@ -1,4 +1,4 @@
-FILE (GLOB sgedevilfiles src/*.cpp)
+FILE (GLOB_RECURSE sgedevilfiles src/*.cpp)
 
 IF (MSVC)
 	INCLUDE_DIRECTORIES (${WININCLUDES}/devil/include)

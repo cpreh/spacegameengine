@@ -1,4 +1,4 @@
-FILE (GLOB sgefreetypefiles src/*.cpp)
+FILE (GLOB_RECURSE sgefreetypefiles src/*.cpp)
 
 IF (MSVC)
 	INCLUDE_DIRECTORIES (${WININCLUDES}/freetype/include ${WININCLUDES}/freetype/include/freetype2)

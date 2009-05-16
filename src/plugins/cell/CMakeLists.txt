@@ -1,4 +1,4 @@
-FILE (GLOB sgecellfiles src/*.cpp)
+FILE (GLOB_RECURSE sgecellfiles src/*.cpp)
 
 ADD_LIBRARY (sgecell SHARED ${sgecellfiles})
 

@@ -1,4 +1,4 @@
-FILE (GLOB sgeodefiles src/*.cpp src/objects/*.cpp)
+FILE (GLOB_RECURSE sgeodefiles src/*.cpp)
 
 IF (MSVC)
 	INCLUDE_DIRECTORIES (${WININCLUDES}/libode/include)

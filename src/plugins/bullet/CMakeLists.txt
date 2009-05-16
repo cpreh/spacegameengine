@@ -1,4 +1,4 @@
-FILE (GLOB sgebulletfiles src/*.cpp src/objects/*.cpp)
+FILE (GLOB_RECURSE sgebulletfiles src/*.cpp src/objects/*.cpp)
 
 IF (MSVC)
 	INCLUDE_DIRECTORIES (${WININCLUDES}/libbullet/include)

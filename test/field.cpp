@@ -21,12 +21,15 @@ try
 	sge::cout << f << SGE_TEXT("\n");
 	f.resize(
 		field_type::dim_type(
-			5,5));
+			5,5),
+		9);
 	sge::cout << f << SGE_TEXT("\n");
+	/*
 	f.resize(
 		field_type::dim_type(
 			2,2));
 	sge::cout << f << SGE_TEXT("\n");
+	*/
 }
 catch (sge::exception const &e)
 {

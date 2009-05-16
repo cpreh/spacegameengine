@@ -1,4 +1,4 @@
-FILE (GLOB sgevorbisfiles src/*.cpp)
+FILE (GLOB_RECURSE sgevorbisfiles src/*.cpp)
 
 IF (MSVC)
 	INCLUDE_DIRECTORIES (${WININCLUDES}/libvorbis/include)

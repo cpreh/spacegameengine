@@ -1,4 +1,4 @@
-FILE (GLOB sgewavefiles src/*.cpp)
+FILE (GLOB_RECURSE sgewavefiles src/*.cpp)
 
 ADD_LIBRARY (sgewave SHARED ${sgewavefiles})
 TARGET_LINK_LIBRARIES (sgewave sgecore)

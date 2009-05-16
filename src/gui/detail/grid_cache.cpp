@@ -102,6 +102,8 @@ void sge::gui::detail::grid_cache::first_pass()
 
 		child_plane::vector_type const on_plane = 
 			math::vector::structure_cast<child_plane::vector_type>(hint);
+		
+		// FIXME: _FIRST_ resize, _THEN_ check for correct value
 
 		// is there already a widget present at this spot?
 		if(plane_.pos(on_plane))
