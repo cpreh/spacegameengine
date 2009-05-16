@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/signal/detail/operator_limit.hpp>
 #include <sge/signal/detail/define_operator.hpp>
 #include <sge/signal/detail/define_void_operator.hpp>
-#include <sge/functional.hpp>
+#include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/intrusive/list.hpp>
 #include <boost/type_traits/is_void.hpp>
@@ -51,7 +51,7 @@ public:
 	typedef boost::function<result_type (result_type,result_type)> combiner_type;
 
 	explicit object(
-		combiner_type const &_combiner = left_identity<T>())
+		combiner_type const &_combiner = boost::phoenix::arg_names::arg1)
 	:
 		combiner_(_combiner)
 	{}

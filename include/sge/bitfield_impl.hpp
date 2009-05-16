@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_BITFIELD_IMPL_HPP_INCLUDED
 
 #include <sge/bitfield.hpp>
-#include <sge/functional.hpp>
+#include <boost/spirit/home/phoenix/core/argument.hpp>
+#include <boost/spirit/home/phoenix/operator/bitwise.hpp>
 #include <algorithm>
 
 template<typename Enum, Enum Size, typename InternalType>
@@ -47,8 +48,9 @@ template<typename StoredType>
 sge::bitfield<Enum, Size, InternalType>::proxy_impl<StoredType>::proxy_impl(
 	StoredType array,
 	size_type const pos)
-: array(array),
-  pos(pos)
+:
+	array(array),
+	pos(pos)
 {}
 
 template<typename Enum, Enum Size, typename InternalType>
@@ -76,8 +78,13 @@ typename sge::bitfield<Enum, Size, InternalType>:: template proxy_impl<StoredTyp
 sge::bitfield<Enum, Size, InternalType>::proxy_impl<StoredType>::operator=(
 	value_type const b)
 {
-	size_type const index = array_offset(pos),
-	                bit = bit_offset(pos);
+	size_type const
+		index(
+			array_offset(pos)
+		),
+		bit(
+			bit_offset(pos)
+		);
 	if(b)
 		set_bit(array[index],bit);
         else
@@ -144,8 +151,9 @@ template<typename StoredType, typename Reference>
 template<typename OtherStoredType, typename OtherReference>
 sge::bitfield<Enum, Size, InternalType>::iterator_impl<StoredType, Reference>::iterator_impl(
 	iterator_impl<OtherStoredType, OtherReference> const &r)
-: array(r.array),
-  pos(r.pos)
+:
+	array(r.array),
+	pos(r.pos)
 {}
 
 /*template<typename Enum, Enum Size, typename InternalType>
@@ -273,12 +281,15 @@ sge::bitfield<Enum, Size, InternalType>&
 sge::bitfield<Enum, Size, InternalType>::operator|=(
 	bitfield<Enum, Size, InternalType> const &r)
 {
+	namespace args = boost::phoenix::arg_names;
+
 	std::transform(
 		array.begin(),
 		array.end(),
 		r.array.begin(),
 		array.begin(),
-		bit_or<internal_type>());
+		args::arg1 | args::arg2
+	);
 	return *this;
 }
 
@@ -307,12 +318,15 @@ sge::bitfield<Enum, Size, InternalType>&
 sge::bitfield<Enum, Size, InternalType>::operator&=(
 	bitfield<Enum, Size, InternalType> const &r)
 {
+	namespace args = boost::phoenix::arg_names;
+
 	std::transform(
 		array.begin(),
 		array.end(),
 		r.array.begin(),
 		array.begin(),
-		bit_and<internal_type>());
+		args::arg1 & args::arg2
+	);
 	return *this;
 }
 
@@ -339,12 +353,15 @@ sge::bitfield<Enum, Size, InternalType>&
 sge::bitfield<Enum, Size, InternalType>::operator^=(
 	bitfield<Enum, Size, InternalType> const &r)
 {
+	namespace args = boost::phoenix::arg_names;
+	
 	std::transform(
 		array.begin(),
 		array.end(),
 		r.array.begin(),
 		array.begin(),
-		bit_xor<internal_type>());
+		args::arg1 ^ args::arg2
+	);
 	return *this;
 }
 
@@ -362,12 +379,17 @@ template<typename Enum, Enum Size, typename InternalType>
 sge::bitfield<Enum, Size, InternalType>
 sge::bitfield<Enum, Size, InternalType>::operator~() const
 {
+	namespace args = boost::phoenix::arg_names;
+
 	bitfield ret(*this);
+
 	std::transform(
 		ret.array.begin(),
 		ret.array.end(),
 		ret.array.begin(),
-		bit_not<internal_type>());
+		~args::arg1
+	);
+
 	return ret;
 }
 	
