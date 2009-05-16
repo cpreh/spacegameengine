@@ -102,8 +102,8 @@ sge::ogl::vertex_buffer::unlock() const
 				elem,
 				stride,
 				buf.lock_size() / stride,
-				const_cast<unsigned char *>(
-					buf.data())); // FIXME
+				buf.data()
+			);
 	
 	buf.unlock();
 }
