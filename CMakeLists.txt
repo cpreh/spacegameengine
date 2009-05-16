@@ -108,7 +108,7 @@ IF (NOT DONT_INSTALL)
 	SET (pkgfile "${CMAKE_BINARY_DIR}/spacegameengine.pc")
 	FILE(WRITE ${pkgfile}
 		"prefix=${CMAKE_INSTALL_PREFIX}\n"
-		"exec_preifx=\${prefix}\n"
+		"exec_prefix=\${prefix}\n"
 		"libdir=\${prefix}/lib\n"
 		"includedir=\${prefix}/include\n"
 		"\n"
