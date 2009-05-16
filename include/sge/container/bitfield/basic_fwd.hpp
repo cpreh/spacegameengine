@@ -17,30 +17,24 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-#ifndef SGE_GUI_INVALIDATION_HPP_INCLUDED
-#define SGE_GUI_INVALIDATION_HPP_INCLUDED
 
-#include <sge/container/bitfield/basic_fwd.hpp>
+#ifndef SGE_CONTAINER_BITFIELD_BASIC_FWD_HPP_INCLUDED
+#define SGE_CONTAINER_BITFIELD_BASIC_FWD_HPP_INCLUDED
 
 namespace sge
 {
-namespace gui
+namespace container
 {
-namespace invalidation
+namespace bitfield
 {
-enum internal_type
-{
-	position,
-	size,
-	enum_size
-};
 
-typedef sge::container::bitfield::basic<
-	internal_type,
-	enum_size
-> type;
+template<
+	typename Enum,
+	Enum Size,
+	typename InternalType = unsigned
+>
+class basic;
 
-extern type const all;
 }
 }
 }

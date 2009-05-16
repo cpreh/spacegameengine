@@ -17,30 +17,55 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-#ifndef SGE_GUI_INVALIDATION_HPP_INCLUDED
-#define SGE_GUI_INVALIDATION_HPP_INCLUDED
 
-#include <sge/container/bitfield/basic_fwd.hpp>
+#ifndef SGE_CONTAINER_BITFIELD_PROXY_HPP_INCLUDED
+#define SGE_CONTAINER_BITFIELD_PROXY_HPP_INCLUDED
+
+#include <sge/container/bitfield/proxy_fwd.hpp>
+#include <sge/container/bitfield/size_type.hpp>
+#include <sge/container/bitfield/value_type.hpp>
 
 namespace sge
 {
-namespace gui
+namespace container
 {
-namespace invalidation
+namespace bitfield
 {
-enum internal_type
-{
-	position,
-	size,
-	enum_size
+
+template<
+	typename StoredType,
+	size_type ElementBits
+>
+class proxy {
+	proxy(
+		StoredType array,
+		size_type pos
+	);
+
+	StoredType array;
+	size_type const pos;
+
+	template<
+		typename,
+		typename,
+		size_type
+	> friend class iterator;
+
+	static size_type
+	bit_offset(
+		size_type p);
+	
+	static size_type
+	array_offset(
+		size_type p);
+public:
+	proxy &
+	operator=(
+		value_type);
+	
+	operator value_type() const;
 };
 
-typedef sge::container::bitfield::basic<
-	internal_type,
-	enum_size
-> type;
-
-extern type const all;
 }
 }
 }

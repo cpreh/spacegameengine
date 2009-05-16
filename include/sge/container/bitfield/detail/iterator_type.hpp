@@ -17,30 +17,46 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-#ifndef SGE_GUI_INVALIDATION_HPP_INCLUDED
-#define SGE_GUI_INVALIDATION_HPP_INCLUDED
 
-#include <sge/container/bitfield/basic_fwd.hpp>
+#ifndef SGE_CONTAINER_BITFIELD_DETAIL_ITERATOR_TYPE_HPP_INCLUDED
+#define SGE_CONTAINER_BITFIELD_DETAIL_ITERATOR_TYPE_HPP_INCLUDED
+
+#include <sge/container/bitfield/difference_type.hpp>
+#include <sge/container/bitfield/size_type.hpp>
+#include <sge/container/bitfield/value_type.hpp>
+#include <sge/container/bitfield/iterator_fwd.hpp>
+#include <boost/iterator/iterator_facade.hpp>
+#include <iterator>
 
 namespace sge
 {
-namespace gui
+namespace container
 {
-namespace invalidation
+namespace bitfield
 {
-enum internal_type
+namespace detail
 {
-	position,
-	size,
-	enum_size
+
+template<
+	typename StoredType,
+	typename Reference,
+	size_type ElementBits
+>
+struct iterator_type {
+	typedef boost::iterator_facade<
+		iterator<
+			StoredType,
+			Reference,
+			ElementBits
+		>,
+		value_type,
+		std::random_access_iterator_tag,
+		Reference,
+		difference_type
+	> type;
 };
 
-typedef sge::container::bitfield::basic<
-	internal_type,
-	enum_size
-> type;
-
-extern type const all;
+}
 }
 }
 }
