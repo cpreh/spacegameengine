@@ -21,12 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/colors.hpp>
 #include <sge/variant/object_impl.hpp>
 
-// FIXME: initialize all colors and do it so that they are not affected by changing the channel order
-
 #define SGE_DEFINE_COLOR_A(name, r, g, b, a)\
 sge::renderer::any_color const sge::renderer::colors::name()\
 {\
-	return sge::renderer::rgba8_color(r,g,b,a);\
+	return sge::renderer::rgba8_color(r, g, b, a);\
 }
 
 #define SGE_DEFINE_COLOR(name, r, g, b)\
@@ -180,7 +178,7 @@ SGE_DEFINE_COLOR(whitesmoke          ,245, 245, 245)
 SGE_DEFINE_COLOR(yellow              ,255, 255,   0)
 SGE_DEFINE_COLOR(yellowgreen         ,154, 205,  50)
 
-SGE_DEFINE_COLOR_A(transparent         ,  0,   0,   0, 0)
+SGE_DEFINE_COLOR_A(transparent       ,  0,   0,   0, 0)
 
 #undef SGE_DEFINE_COLOR
 #undef SGE_DEFINE_COLOR_A
