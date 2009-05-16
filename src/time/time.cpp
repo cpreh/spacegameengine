@@ -124,9 +124,15 @@ sge::time::unit query_performance_counter()
 	return large_int_to_time(ret);
 }
 
-sge::time::unit large_int_to_time(const LARGE_INTEGER i)
+sge::time::unit large_int_to_time(
+	LARGE_INTEGER const i)
 {
-	return i.QuadPart; // FIXME
+#ifndef SGE_HAVE_ATLEAST_UINT64
+#error "We need a 64 bit data type for windows time!"
+#endif
+	return static_cast<
+		unit
+	>(i.QuadPart);
 }
 
 initializer::initializer()
