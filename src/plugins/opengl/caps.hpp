@@ -18,59 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_OPENGL_CAPS_HPP_INCLUDED 
+#define SGE_OPENGL_CAPS_HPP_INCLUDED 
 
-#include "../init.hpp"
-#include "../../glew.hpp"
-#include "../../version.hpp"
-#include "../../common.hpp"
-#include <sge/once.hpp>
-#include <sge/text.hpp>
-#include <sge/exception.hpp>
+#include <sge/renderer/caps_fwd.hpp>
+#include <sge/auto_ptr.hpp>
 
-namespace
+namespace sge
+{
+namespace ogl
 {
 
-bool native;
+typedef auto_ptr<
+	renderer::caps
+> caps_auto_ptr;
 
-void initialize_glsl();
-
-}
-
-bool sge::ogl::glsl::is_native()
-{
-	initialize_glsl();
-	return native;
-}
-
-bool sge::ogl::glsl::is_supported()
-{
-	try
-	{
-		initialize_glsl();
-	}
-	catch(sge::exception const &)
-	{
-		return false;
-	}
-	return true;
-}
-
-namespace
-{
-
-void initialize_glsl()
-{
-	SGE_FUNCTION_ONCE
-
-	if(sge::ogl::glew_is_supported("GL_VERSION_2_0"))
-		native = true;
-	else if(sge::ogl::glew_is_supported("GL_ARB_vertex_shader GL_ARB_fragment_shader"))
-		native = false;
-	else
-		sge::ogl::on_not_supported(
-			SGE_TEXT("shader"),
-			SGE_TEXT("2.0"),
-			SGE_TEXT("gl_arb_vertex_shader && gl_arb_fragment_shader"));
-}
+caps_auto_ptr 
+create_caps();
 
 }
+}
+
+#endif

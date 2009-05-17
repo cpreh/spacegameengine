@@ -46,11 +46,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../fbo_target.hpp"
 #include "../convert_primitive.hpp"
 #include "../fbo_projection.hpp"
-#include "../get_string.hpp"
-#include "../get_int.hpp"
 #include "../viewport.hpp"
 #include "../viewport_pos.hpp"
 #include "../background_dim.hpp"
+#include "../caps.hpp"
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/renderer/caps.hpp>
@@ -115,6 +114,7 @@ sge::ogl::device::device(
 	target_(
 		default_target_
 	),
+	caps_(),
 	state_levels()
 
 {
@@ -249,24 +249,14 @@ void sge::ogl::device::end_rendering()
 sge::renderer::caps const
 sge::ogl::device::caps() const
 {
-	GLint const max_texture_size(
-		get_int(
-			GL_MAX_TEXTURE_SIZE));
-	
-	return renderer::caps(
-		0,
-		get_string(
-			GL_VENDOR),
-		get_string(
-			GL_RENDERER)
-		+ SGE_TEXT(' ')
-		+ get_string(
-			GL_VERSION),
-		renderer::dim_type(
-			max_texture_size,
-			max_texture_size),
-		GL_TEXTURE_MAX_ANISOTROPY_EXT,
-		glGenFramebuffersEXT);
+	if(!caps_)
+	{
+		caps_.take(
+			create_caps()
+		);
+	}
+
+	return *caps_;
 }
 
 sge::window::instance_ptr const

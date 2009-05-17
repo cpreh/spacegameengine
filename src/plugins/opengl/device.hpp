@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list.hpp>
 #include <sge/window/instance_fwd.hpp>
 #include <sge/window/dim_type.hpp>
+#include <sge/scoped_ptr.hpp>
 #include <stack>
 
 namespace sge
@@ -200,6 +201,10 @@ private:
 	typedef std::stack<
 		renderer::state::list
 	> stack_type;
+
+	mutable scoped_ptr<
+		renderer::caps
+	> caps_;
 
 	stack_type state_levels;
 };

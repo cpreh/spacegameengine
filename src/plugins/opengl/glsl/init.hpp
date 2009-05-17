@@ -31,6 +31,8 @@ namespace glsl
 
 bool is_native();
 
+bool is_supported();
+
 }
 }
 }

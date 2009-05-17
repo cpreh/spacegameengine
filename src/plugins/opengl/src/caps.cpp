@@ -18,59 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
-#include "../init.hpp"
-#include "../../glew.hpp"
-#include "../../version.hpp"
-#include "../../common.hpp"
-#include <sge/once.hpp>
+#include "../caps.hpp"
+#include "../common.hpp"
+#include "../get_string.hpp"
+#include "../get_int.hpp"
+#include "../glsl/init.hpp"
+#include <sge/renderer/caps.hpp>
+#include <sge/math/dim/basic_impl.hpp>
 #include <sge/text.hpp>
-#include <sge/exception.hpp>
 
-namespace
+sge::ogl::caps_auto_ptr
+sge::ogl::create_caps()
 {
+	GLint const max_texture_size(
+		get_int(
+			GL_MAX_TEXTURE_SIZE
+		)
+	);
 
-bool native;
-
-void initialize_glsl();
-
-}
-
-bool sge::ogl::glsl::is_native()
-{
-	initialize_glsl();
-	return native;
-}
-
-bool sge::ogl::glsl::is_supported()
-{
-	try
-	{
-		initialize_glsl();
-	}
-	catch(sge::exception const &)
-	{
-		return false;
-	}
-	return true;
-}
-
-namespace
-{
-
-void initialize_glsl()
-{
-	SGE_FUNCTION_ONCE
-
-	if(sge::ogl::glew_is_supported("GL_VERSION_2_0"))
-		native = true;
-	else if(sge::ogl::glew_is_supported("GL_ARB_vertex_shader GL_ARB_fragment_shader"))
-		native = false;
-	else
-		sge::ogl::on_not_supported(
-			SGE_TEXT("shader"),
-			SGE_TEXT("2.0"),
-			SGE_TEXT("gl_arb_vertex_shader && gl_arb_fragment_shader"));
-}
-
+	return caps_auto_ptr(
+		new renderer::caps(
+			0,
+			get_string(
+				GL_VENDOR
+			),
+			get_string(
+				GL_RENDERER
+			)
+			+ SGE_TEXT(' ')
+			+ get_string(
+				GL_VERSION
+			),
+			renderer::dim_type(
+				max_texture_size,
+				max_texture_size
+			),
+			GL_TEXTURE_MAX_ANISOTROPY_EXT,
+			glGenFramebuffersEXT,
+			glsl::is_supported()
+		)
+	);
 }
