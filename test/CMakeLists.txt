@@ -6,6 +6,10 @@ MACRO (ADD_SGE_TEST name)
 	INSTALL (TARGETS sge${name}test DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 ENDMACRO ()
 
+ADD_EXECUTABLE (sgeshadertest shader/main.cpp)
+TARGET_LINK_LIBRARIES (sgeshadertest sgecore)
+INSTALL (TARGETS sgeshadertest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+
 ADD_SGE_TEST(algorithm)
 ADD_SGE_TEST(array)
 ADD_SGE_TEST(anim)
