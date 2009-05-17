@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_GLSL_OPTIONAL_ISTREAM_HPP_INCLUDED
-#define SGE_RENDERER_GLSL_OPTIONAL_ISTREAM_HPP_INCLUDED
+#ifndef SGE_RENDERER_GLSL_OPTIONAL_ISTREAM_REF_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_OPTIONAL_ISTREAM_REF_HPP_INCLUDED
 
-#include <sge/renderer/glsl/istream_ref.hpp>
-#include <sge/optional_fwd.hpp>
+#include <sge/renderer/glsl/istream.hpp>
+#include <boost/tr1/functional.hpp>
 
 namespace sge
 {
@@ -31,9 +31,9 @@ namespace renderer
 namespace glsl
 {
 
-typedef optional<
-	istream_ref
-> optional_istream;
+typedef std::tr1::reference_wrapper<
+	istream
+> istream_ref;
 
 }
 }

@@ -235,8 +235,8 @@ try
 
 	sge::renderer::glsl::program_ptr const p = 
 		sys.renderer()->create_glsl_program(
-			vertex_stream,
-			fragment_stream);
+			sge::renderer::glsl::istream_ref(vertex_stream),
+			sge::renderer::glsl::istream_ref(fragment_stream));
 	
 	sys.renderer()->glsl_program(
 		p);
