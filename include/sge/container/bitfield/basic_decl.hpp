@@ -55,7 +55,9 @@ template<
 	Enum Size,
 	typename InternalType
 >
-class basic : public safe_bool<> {
+class basic {
+	SGE_SAFE_BOOL(basic)
+private:
 	typedef InternalType internal_type;
 
 	static size_type const element_bits = std::numeric_limits<internal_type>::digits;
