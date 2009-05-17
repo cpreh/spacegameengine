@@ -18,9 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 #include "../motion_state.hpp"
 #include "../conversion.hpp"
-#include <sge/math/vector/vector.hpp>
+#include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/vector/output.hpp>
-//#include <sge/cerr.hpp>
 
 namespace
 {

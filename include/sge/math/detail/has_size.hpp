@@ -18,51 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_MATH_DETAIL_HAS_SIZE_HPP_INCLUDED
+#define SGE_MATH_DETAIL_HAS_SIZE_HPP_INCLUDED
 
-#ifndef SGE_MATH_VECTOR_ATAN2_HPP_INCLUDED
-#define SGE_MATH_VECTOR_ATAN2_HPP_INCLUDED
-
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/vector/static.hpp>
-#include <sge/math/vector/is_null.hpp>
-#include <sge/math/detail/has_size.hpp>
-#include <sge/optional_impl.hpp>
-#include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
-#include <boost/mpl/and.hpp>
-#include <cmath>
+#include <sge/math/size_type.hpp>
+#include <boost/mpl/integral_c.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 namespace sge
 {
 namespace math
 {
-namespace vector
+namespace detail
 {
 
 template<
 	typename T,
-	typename N,
-	typename S
+	size_type N
 >
-inline typename boost::enable_if<
-	boost::mpl::and_<
-		boost::is_floating_point<
-			T
-		>,
-		math::detail::has_size<
-			N,
-			2
-		>
-	>,
-	optional<T>
->::type
-atan2(
-	basic<T, N, S> const &v)
-{
-	return is_null(v)
-		? optional<T>()
-		: std::atan2(v.y(), v.x());
-}
+struct has_size
+:
+boost::is_same<
+	T,
+	boost::mpl::integral_c<
+		size_type,
+		N
+	>
+>
+{};
 
 }
 }
