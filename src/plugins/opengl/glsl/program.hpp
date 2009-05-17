@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "program_instance.hpp"
 #include <sge/renderer/glsl/program_fwd.hpp>
 #include <sge/renderer/glsl/program.hpp>
-#include <sge/renderer/glsl/string.hpp>
+#include <sge/renderer/glsl/optional_string.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
 namespace sge
@@ -48,8 +48,8 @@ public:
 	typedef typename shader_type::shared_ptr shader_ptr;
 
 	program(
-		renderer::glsl::string const &vs_source,
-		renderer::glsl::string const &ps_source);
+		renderer::glsl::optional_string const &vs_source,
+		renderer::glsl::optional_string const &ps_source);
 
 	~program();
 
@@ -85,4 +85,4 @@ private:
 }
 }
 
-	#endif
+#endif

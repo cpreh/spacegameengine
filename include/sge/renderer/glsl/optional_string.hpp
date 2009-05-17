@@ -18,42 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_RENDERER_GLSL_OPTIONAL_STRING_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_OPTIONAL_STRING_HPP_INCLUDED
 
-#include "../impl.hpp"
-#include "../program.hpp"
-#include "../init.hpp"
-#include "../../common.hpp"
-#include <sge/make_shared_ptr.hpp>
+#include <sge/renderer/glsl/string.hpp>
+#include <sge/optional_fwd.hpp>
 
-sge::renderer::glsl::program_ptr const
-sge::ogl::glsl::create_program_impl(
-	renderer::glsl::optional_string const &vs_source,
-	renderer::glsl::optional_string const &ps_source)
+namespace sge
 {
-	return is_native()
-		? renderer::glsl::program_ptr(
-			make_shared_ptr<
-				program<true>
-			>(
-				vs_source,
-				ps_source
-			)
-		)
-		: renderer::glsl::program_ptr(
-			make_shared_ptr<
-				program<false>
-			>(
-				vs_source,
-				ps_source
-			)
-		);
+namespace renderer
+{
+namespace glsl
+{
+
+typedef optional<
+	string
+> optional_string;
+
+}
+}
 }
 
-void sge::ogl::glsl::set_program_impl(
-	renderer::glsl::program_ptr const prog)
-{
-	if(is_native())
-		program<true>::use(prog);
-	else
-		program<false>::use(prog);
-}
+#endif

@@ -24,12 +24,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../program_functions.hpp"
 #include "../uniform/variable.hpp"
 #include "../../error.hpp"
+#include <sge/optional_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/string.hpp>
 #include <sge/text.hpp>
 #include <sge/iconv.hpp>
 #include <sge/make_shared_ptr.hpp>
 #include <sge/auto_ptr.hpp>
+#include <sge/assert.hpp>
 #include <boost/tr1/array.hpp>
 #include <boost/foreach.hpp>
 
@@ -37,29 +39,35 @@ template<
 	bool Native
 >
 sge::ogl::glsl::program<Native>::program(
-	renderer::glsl::string const &vs_source,
-	renderer::glsl::string const &ps_source)
+	renderer::glsl::optional_string const &vs_source,
+	renderer::glsl::optional_string const &ps_source)
 :
 	instance_(),
 	attachments()
 {
-	attach_shader(
-		sge::make_shared_ptr<
-			shader_type
-		>(
-			vertex_shader_type<Native>(),
-			vs_source
-		)
+	SGE_ASSERT(
+		vs_source || ps_source
 	);
 
-	attach_shader(
-		sge::make_shared_ptr<
-			shader_type
-		>(
-			pixel_shader_type<Native>(),
-			ps_source
-		)
-	);
+	if(vs_source)
+		attach_shader(
+			sge::make_shared_ptr<
+				shader_type
+			>(
+				vertex_shader_type<Native>(),
+				*vs_source
+			)
+		);
+
+	if(ps_source)
+		attach_shader(
+			sge::make_shared_ptr<
+				shader_type
+			>(
+				pixel_shader_type<Native>(),
+				*ps_source
+			)
+		);
 	
 	link();
 }
