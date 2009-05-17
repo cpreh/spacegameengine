@@ -139,7 +139,10 @@ visitor::operator()(
 {
 	var->set(
 		sge::renderer::glsl::uniform::int_value(
-			&i,
+			sge::renderer::glsl::uniform::int_value::data_type(
+				&i,
+				&i + 1
+			),
 			1,
 			sge::renderer::glsl::uniform::int_value_type::int1
 		)
@@ -152,11 +155,14 @@ visitor::operator()(
 {
 	var->set(
 		sge::renderer::glsl::uniform::float_value(
-			&f,
+			sge::renderer::glsl::uniform::float_value::data_type(
+				&f,
+				&f + 1
+			),
 			1,
-			sge::renderer::glsl::uniform::float_value_type::float1)
+			sge::renderer::glsl::uniform::float_value_type::float1
 		)
-	;
+	);
 
 }
 
@@ -178,7 +184,10 @@ visitor::operator()(
 {
 	var->set(
 		sge::renderer::glsl::uniform::float_value(
-			m.data(),
+			sge::renderer::glsl::uniform::float_value::data_type(
+				m.begin(),
+				m.end()
+			),
 			1,
 			convert_matrix_type(
 				m.dim()
@@ -208,7 +217,10 @@ vector_visitor::operator()(
 {
 	var->set(
 		sge::renderer::glsl::uniform::int_value(
-			v.data(),
+			sge::renderer::glsl::uniform::int_value::data_type(
+				v.begin(),
+				v.end()
+			),
 			1,
 			convert_int_vector_type(
 				v.size()
@@ -231,7 +243,10 @@ vector_visitor::operator()(
 {
 	var->set(
 		sge::renderer::glsl::uniform::float_value(
-			v.data(),
+			sge::renderer::glsl::uniform::float_value::data_type(
+				v.begin(),
+				v.end()
+			),
 			1,
 			convert_float_vector_type(
 				v.size()

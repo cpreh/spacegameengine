@@ -114,9 +114,12 @@ sge::ogl::glsl::uniform::setter::operator()(
 		location,
 		i.data(),
 		element_size(
-			i.type()),
+			i.type()
+		),
 		static_cast<GLsizei>(
-			i.size()));
+			i.elements()
+		)
+	);
 }
 	
 sge::ogl::glsl::uniform::type const
@@ -128,18 +131,25 @@ sge::ogl::glsl::uniform::setter::operator()(
 			location,
 			f.data(),
 			element_columns(
-				f.type()),
+				f.type()
+			),
 			element_rows(
-				f.type()),
+				f.type()
+			),
 			static_cast<GLsizei>(
-				f.size()))
+				f.elements()
+			)
+		)
 		: set_float(
 			location,
 			f.data(),
 			element_size(
-				f.type()),
+				f.type()
+			),
 			static_cast<GLsizei>(
-				f.size()));
+				f.elements()
+			)
+		);
 }
 
 namespace

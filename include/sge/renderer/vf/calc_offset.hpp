@@ -38,9 +38,8 @@ template<
 	typename Offsets,
 	typename Iter
 >
-class calc_offset
-:
-public boost::mpl::advance<
+struct calc_offset
+: boost::mpl::advance<
 	typename boost::mpl::begin<
 		Offsets
 	>::type,

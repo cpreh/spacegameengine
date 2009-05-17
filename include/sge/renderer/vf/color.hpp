@@ -35,8 +35,8 @@ namespace vf
 template<
 	typename Format
 >
-class color
-: public color_base<
+struct color
+: color_base<
 	Format,
 	role::color
 >{};

@@ -34,6 +34,9 @@ sge::ogl::glsl::uniform::variable<Native>::variable(
 	handle const program,
 	renderer::glsl::string const &name)
 :
+	program(
+		program
+	),
 	location(
 		uniform::location<Native>(
 			program,
@@ -52,7 +55,8 @@ template<
 sge::renderer::glsl::uniform::value const
 sge::ogl::glsl::uniform::variable<Native>::get() const
 {
-	return uniform::get(
+	return uniform::get<Native>(
+		program,
 		location,
 		stored_type
 	);

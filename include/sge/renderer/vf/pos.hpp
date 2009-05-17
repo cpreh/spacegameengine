@@ -39,13 +39,12 @@ template<
 	typename Format,
 	vertex_size NumSubElements
 >
-class pos
-: public vec_base<
+struct pos
+: vec_base<
 	Format,
 	role::pos,
 	NumSubElements
 > {
-public:
 	BOOST_STATIC_ASSERT(
 		type_traits::is_float_or_double<Format>::value);
 	

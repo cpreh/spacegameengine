@@ -51,8 +51,9 @@ public:
 	void set(
 		renderer::glsl::uniform::value const &);
 private:
-	GLuint const location;
-	type         stored_type;
+	handle const program;
+	GLint const location;
+	type stored_type;
 };
 
 }

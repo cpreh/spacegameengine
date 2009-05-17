@@ -39,7 +39,7 @@ class partial_sums
 :
 public boost::mpl::fold<
 	Elements,
-	boost::mpl::vector_c<int, 0>, // FIXME: is this ok?
+	boost::mpl::vector_c<int, 0>, // mpl::plus<> converts its operands, so int is most conservative
 	boost::mpl::push_back<
 		boost::mpl::_1,
 		boost::mpl::plus<

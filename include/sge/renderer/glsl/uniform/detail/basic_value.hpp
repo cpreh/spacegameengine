@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_GLSL_UNIFORM_DETAIL_BASIC_VALUE_HPP_INCLUDED
 
 #include <sge/renderer/size_type.hpp>
+#include <sge/container/raw_vector_decl.hpp>
 #include <sge/export.hpp>
 
 namespace sge
@@ -42,24 +43,35 @@ template<
 >
 class basic_value {
 public:
-	typedef Value const *const_pointer;
+	typedef container::raw_vector<
+		Value
+	> data_type;
+
+	typedef Value value_type;
+	typedef Type element_type;
+
+	typedef typename data_type::pointer pointer;
+	typedef typename data_type::const_pointer const_pointer;
 
 	SGE_SYMBOL basic_value(
-		const_pointer,
-		size_type size,
+		data_type const &,
+		size_type elements,
 		Type);
 	
 	SGE_SYMBOL const_pointer
 	data() const;
 
+	SGE_SYMBOL pointer
+	data();
+
 	SGE_SYMBOL size_type
-	size() const;
+	elements() const;
 
 	SGE_SYMBOL Type
 	type() const;
 private:
-	const_pointer data_;
-	size_type size_;
+	data_type data_;
+	size_type elements_;
 	Type type_;
 };
 

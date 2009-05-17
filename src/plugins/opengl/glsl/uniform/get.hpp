@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLSL_UNIFORM_GET_HPP_INCLUDED
 #define SGE_OPENGL_GLSL_UNIFORM_GET_HPP_INCLUDED
 
+#include "../traits.hpp"
 #include "../../common.hpp"
 #include <sge/renderer/glsl/uniform/value.hpp>
 
@@ -36,8 +37,12 @@ namespace uniform
 
 class type;
 
+template<
+	bool Native
+>
 renderer::glsl::uniform::value const
 get(
+	typename traits<Native>::handle program,
 	GLint location,
 	type const &);
 
