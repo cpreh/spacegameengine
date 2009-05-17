@@ -65,10 +65,6 @@ private:
 	uniform(
 		renderer::glsl::string const&);
 	
-	renderer::glsl::attribute::variable_ptr const
-	attribute(
-		renderer::glsl::string const&);
-	
 	static void use_ffp();
 
 	void use();

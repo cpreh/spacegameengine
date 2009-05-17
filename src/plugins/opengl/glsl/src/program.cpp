@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../program.hpp"
 #include "../attachment.hpp"
 #include "../program_functions.hpp"
-#include "../attribute/variable.hpp"
 #include "../uniform/variable.hpp"
 #include "../../error.hpp"
 #include <sge/exception.hpp>
@@ -151,23 +150,6 @@ sge::ogl::glsl::program<Native>::uniform(
 {
 	return make_shared_ptr<
 		uniform::variable<
-			Native
-		>
-	>(
-		id(),
-		name
-	);
-}
-
-template<
-	bool Native
->
-sge::renderer::glsl::attribute::variable_ptr const
-sge::ogl::glsl::program<Native>::attribute(
-	renderer::glsl::string const &name)
-{
-	return make_shared_ptr<
-		attribute::variable<
 			Native
 		>
 	>(
