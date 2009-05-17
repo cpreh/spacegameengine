@@ -65,6 +65,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/instance.hpp>
 #include <sge/variant/apply_unary.hpp>
 #include <sge/make_shared_ptr.hpp>
+#include <sge/optional_impl.hpp>
 #include <boost/bind.hpp>
 #include <sstream>
 
@@ -534,32 +535,45 @@ void sge::ogl::device::texture_stage_arg(
 
 sge::renderer::glsl::program_ptr const
 sge::ogl::device::create_glsl_program(
-	renderer::glsl::string const &vs_source,
-	renderer::glsl::string const &ps_source)
+	renderer::glsl::optional_string const &vs_source,
+	renderer::glsl::optional_string const &ps_source)
 {
-	return glsl::create_program_impl(
-		vs_source,
-		ps_source);
+	return	
+		vs_source || ps_source
+		? glsl::create_program_impl(
+			vs_source,
+			ps_source
+		)
+		: no_program;
 }
 
 sge::renderer::glsl::program_ptr const
 sge::ogl::device::create_glsl_program(
-	renderer::glsl::istream &vs_source,
-	renderer::glsl::istream &ps_source)
+	renderer::glsl::optional_istream const &vs_source,
+	renderer::glsl::optional_istream const &ps_source)
 {
 	// unfortunately opengl can't read out of files directly
 	typedef std::basic_ostringstream<
 		renderer::glsl::char_type
 	> osstream;
 
-	osstream vs_stream,
-	         ps_stream;
-	vs_stream << vs_source.rdbuf();
-	ps_stream << ps_source.rdbuf();
+	osstream
+		vs_stream,
+		ps_stream;
+	
+	if(vs_source)
+		vs_stream << vs_source->get().rdbuf();
+	if(ps_source)
+		ps_stream << ps_source->get().rdbuf();
 
 	return create_glsl_program(
-		vs_stream.str(),
-		ps_stream.str());
+		vs_source
+			? vs_stream.str()
+			: renderer::glsl::optional_string(),
+		ps_source
+			? ps_stream.str()
+			: renderer::glsl::optional_string()
+		);
 }
 
 void sge::ogl::device::glsl_program(

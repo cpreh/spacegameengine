@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../setter.hpp"
 #include "../../init.hpp"
+#include "../../../error.hpp"
 #include <sge/renderer/glsl/uniform/int_value_type.hpp>
 #include <sge/renderer/glsl/uniform/float_value_type.hpp>
 #include <sge/once.hpp>
@@ -201,6 +202,8 @@ set_float(
 	GLsizei const size,
 	GLsizei const elements)
 {
+	SGE_OPENGL_SENTRY
+
 	namespace et = sge::ogl::glsl::uniform::element_type;
 
 	switch(size) {
@@ -255,6 +258,8 @@ set_int(
 	GLsizei const size,
 	GLsizei const elements)
 {
+	SGE_OPENGL_SENTRY
+
 	namespace et = sge::ogl::glsl::uniform::element_type;
 
 	switch(size) {
@@ -322,6 +327,8 @@ set_matrix(
 			% rows).str());
 
 	namespace et = sge::ogl::glsl::uniform::element_type;
+
+	SGE_OPENGL_SENTRY
 
 	switch(rows) {
 	case 2:

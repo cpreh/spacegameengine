@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GLSL_IMPL_HPP_INCLUDED
 
 #include <sge/renderer/glsl/program_fwd.hpp>
-#include <sge/renderer/glsl/string.hpp>
+#include <sge/renderer/glsl/optional_string.hpp>
 
 namespace sge
 {
@@ -34,8 +34,8 @@ namespace glsl
 
 sge::renderer::glsl::program_ptr const
 create_program_impl(
-	renderer::glsl::string const &vs_source,
-	renderer::glsl::string const &ps_source);
+	renderer::glsl::optional_string const &vs_source,
+	renderer::glsl::optional_string const &ps_source);
 
 void set_program_impl(
 	sge::renderer::glsl::program_ptr);
