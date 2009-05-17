@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/layouts/null.hpp>
 #include <sge/gui/widgets/base.hpp>
 #include <sge/gui/manager.hpp>
+#include <sge/math/rect/basic_impl.hpp>
 #include <sge/gui/log.hpp>
 
 namespace
@@ -48,6 +49,12 @@ void sge::gui::layouts::null::compile_static()
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("in compile_static, doing nothing"));
+	
+	connected_widget().parent_manager().dirty(
+		connected_widget(),
+		rect(
+			rect::point_type::null(),
+			connected_widget().size()));
 }
 
 sge::gui::dim const sge::gui::layouts::null::optimal_size() const
