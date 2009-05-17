@@ -228,9 +228,9 @@ try
 			.depth(
 				static_cast<sge::sprite::depth_type>(1)));
 	
-	sge::ifstream fragment_stream(
+	sge::cifstream fragment_stream(
 		sge::config::media_path()/SGE_TEXT("shaders")/SGE_TEXT("fragment.glsl"));
-	sge::ifstream vertex_stream(
+	sge::cifstream vertex_stream(
 		sge::config::media_path()/SGE_TEXT("shaders")/SGE_TEXT("vertex.glsl"));
 
 	sge::renderer::glsl::program_ptr const p = 
@@ -242,11 +242,12 @@ try
 		p);
 
 	sge::renderer::glsl::uniform::variable_ptr const v = 
-		p->uniform(SGE_TEXT("tex"));
+		p->uniform("tex");
 	
 	sge::renderer::glsl::uniform::single_value(
 		v,
-		int(0));
+		static_cast<int>(0)
+	);
 
 	while(running)
 	{

@@ -24,6 +24,7 @@
 #include <boost/type_traits/is_floating_point.hpp>
 #include <exception>
 #include <limits>
+#include <string>
 #include <algorithm>
 #include <cstddef>
 #include <cmath>
@@ -381,7 +382,7 @@ try
 
 	unsigned blur_radius = 
 		argc == 3
-		? sge::lexical_cast<unsigned>(sge::string(argv[2]))
+		? sge::lexical_cast<unsigned>(std::string(argv[2]))
 		: 16;
 
 	sge::log::global().activate_hierarchy(
