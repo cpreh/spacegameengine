@@ -1,0 +1,61 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+
+
+#ifndef SGE_IMAGE_COLOR_FORMAT_STATIC_HPP_INCLUDED
+#define SGE_IMAGE_COLOR_FORMAT_STATIC_HPP_INCLUDED
+
+#include <sge/image/color/any/elements.hpp>
+#include <sge/image/color/format.hpp>
+#include <sge/mpl/index_of.hpp>
+#include <boost/static_assert.hpp>
+
+namespace sge
+{
+namespace image 
+{
+namespace color
+{
+
+template<
+	typename Color
+>
+class format_static {
+public:
+	static format::type const value
+		= static_cast<
+			format::type
+		>(
+			mpl::index_of<
+				any::elements,
+				Color
+			>::value
+		);
+	
+	BOOST_STATIC_ASSERT(
+		value < format::size
+	);
+};
+
+}
+}
+}
+
+#endif

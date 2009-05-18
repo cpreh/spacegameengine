@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/quad.hpp>
 #include <sge/variant/object_impl.hpp>
 
-sge::renderer::image_view const
+sge::image::view::object const
 sge::renderer::cube_texture::lock(
 	cube_side::type const side,
 	lock_flag_type const flags)
@@ -35,7 +35,7 @@ sge::renderer::cube_texture::lock(
 	);
 }
 
-sge::renderer::const_image_view const
+sge::image::view::const_object const
 sge::renderer::cube_texture::lock(
 	cube_side::type const side) const
 {

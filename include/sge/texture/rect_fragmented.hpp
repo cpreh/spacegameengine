@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/texture_fwd.hpp>
 #include <sge/renderer/dim_type.hpp>
-#include <sge/renderer/color_format.hpp>
 #include <sge/renderer/size_type.hpp>
+#include <sge/image/color/format.hpp>
 
 namespace sge
 {
@@ -48,7 +48,7 @@ class rect_fragmented : public fragmented {
 public:
 	SGE_SYMBOL rect_fragmented(
 		renderer::device_ptr rend,
-		renderer::color_format::type,
+		image::color::format::type,
 		renderer::filter::texture const &filter);
 private:
 	SGE_SYMBOL part_ptr const

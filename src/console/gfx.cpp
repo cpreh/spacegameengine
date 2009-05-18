@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::console::gfx::gfx(
 	sge::console::object &_object,
 	renderer::device_ptr const _rend,
-	renderer::any_color const _font_color,
+	image::color::any::object const &_font_color,
 	font::metrics_ptr const _metrics,
 	input::system_ptr const _is,
 	sprite::object const &_bg)

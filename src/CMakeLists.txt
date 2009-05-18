@@ -13,6 +13,9 @@ FILE (GLOB sgecorefiles
 	filesystem/*.cpp
 	font/*.cpp
 	image/*.cpp
+	image/algorithm/*.cpp
+	image/color/*.cpp
+	image/view/*.cpp
 	input/*.cpp
 	input/modifier/*.cpp
 	library/*.cpp

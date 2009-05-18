@@ -23,14 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/rect/basic_impl.hpp>
 #include <sge/variant/object_impl.hpp>
 
-sge::renderer::image_view const
+sge::image::view::object const
 sge::renderer::texture::lock(
 	lock_flag_t const flags)
 {
 	return lock(rect(), flags);
 }
 
-sge::renderer::const_image_view const
+sge::image::view::const_object const
 sge::renderer::texture::lock() const
 {
 	return lock(rect());

@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/rect_fragmented.hpp>
 #include <sge/texture/default_creator_impl.hpp>
 #include <sge/math/rect/basic_impl.hpp>
-#include <sge/renderer/colors.hpp>
-#include <sge/renderer/image.hpp>
 #include <sge/renderer/filter/linear.hpp>
+#include <sge/image/color/rgba8.hpp>
+#include <sge/image/rgba8.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
 #include <boost/gil/algorithm.hpp>
@@ -38,7 +38,7 @@ class converter {
 public:
 	void operator()(
 		sge::font::color const src,
-		sge::renderer::rgba8_color &dest) const;
+		sge::image::color::rgba8 &dest) const;
 };
 
 sge::font::dim const
@@ -49,16 +49,20 @@ gil_dim_to_sge(
 
 sge::font::drawer_3d::drawer_3d(
 	renderer::device_ptr const rend,
-	renderer::any_color const &col)
+	sge::image::color::any::object const &col)
 :
 	rend(rend),
 	col(col),
 	texman(
 		rend,
-		texture::default_creator<texture::rect_fragmented>(
+		texture::default_creator<
+			texture::rect_fragmented
+		>(
 			rend,
-			renderer::color_format::rgba8, // TODO
-			renderer::filter::linear)),
+			sge::image::color::format::rgba8, // TODO
+			renderer::filter::linear
+		)
+	),
 	sys(rend)
 {}
 
@@ -81,7 +85,9 @@ void sge::font::drawer_3d::draw_char(
 {
 	dim const d(
 		gil_dim_to_sge(
-			data.dimensions()));
+			data.dimensions()
+		)
+	);
 
 	sprites.push_back(
 		sprite::object(
@@ -107,7 +113,7 @@ void sge::font::drawer_3d::end_rendering()
 }
 
 void sge::font::drawer_3d::color(
-	renderer::any_color const &new_color)
+	sge::image::color::any::object const &new_color)
 {
 	col = new_color;
 }
@@ -122,7 +128,7 @@ sge::font::drawer_3d::cached_texture(
 		return it->second;
 	
 	// TODO: somehow use the renderer's preferred color format here and avoid conversions!
-	renderer::rgba8_image img(
+	sge::image::rgba8 img(
 		data.width(),
 		data.height());
 
@@ -138,10 +144,14 @@ sge::font::drawer_3d::cached_texture(
 		std::make_pair(
 			ch,
 			texman.add(
-				renderer::const_image_view(
+				sge::image::view::const_object(
 					boost::gil::const_view(
-						img)
-		)))).first->second;
+						img
+					)
+				)
+			)
+		)
+	).first->second;
 }
 
 namespace
@@ -149,9 +159,9 @@ namespace
 
 void converter::operator()(
 	sge::font::color const src,
-	sge::renderer::rgba8_color &dest) const
+	sge::image::color::rgba8 &dest) const
 {
-	dest = sge::renderer::rgba8_color(
+	dest = sge::image::color::rgba8(
 		255,
 		255,
 		255,
@@ -164,7 +174,8 @@ gil_dim_to_sge(
 {
 	return sge::font::dim(
 		static_cast<sge::font::dim::value_type>(d.x),
-		static_cast<sge::font::dim::value_type>(d.y));
+		static_cast<sge::font::dim::value_type>(d.y)
+	);
 }
 
 }

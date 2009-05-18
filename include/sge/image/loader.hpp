@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_LOADER_HPP_INCLUDED
 #define SGE_IMAGE_LOADER_HPP_INCLUDED
 
-#include <sge/image/object_fwd.hpp>
+#include <sge/image/file_fwd.hpp>
+#include <sge/image/view/const_object.hpp>
 //#include <sge/image/format.hpp>
 #include <sge/filesystem/path.hpp>
-#include <sge/renderer/image_view.hpp>
 #include <sge/export.hpp>
 #include <sge/noncopyable.hpp>
 
@@ -39,19 +39,19 @@ class SGE_CLASS_SYMBOL loader {
 protected:
 	SGE_SYMBOL loader();
 public:
-	virtual const object_ptr
+	virtual const file_ptr
 	load(
 		filesystem::path const &) = 0;
 
-	/*virtual object_ptr const
+	/*virtual file_ptr const
 	load(
 		format::type type,
 		object::const_pointer format_data,
 		object::size_type size) = 0;*/
 
-	virtual object_ptr const
+	virtual file_ptr const
 	create(
-		renderer::const_image_view const &) = 0;
+		view::const_object const &) = 0;
 
 	SGE_SYMBOL virtual ~loader();
 };

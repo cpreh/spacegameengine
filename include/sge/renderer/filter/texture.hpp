@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_FILTER_TEXTURE_HPP_INCLUDED
 #define SGE_RENDERER_FILTER_TEXTURE_HPP_INCLUDED
 
+#include <sge/renderer/filter/texture_fwd.hpp>
 #include <sge/renderer/filter/min.hpp>
 #include <sge/renderer/filter/mag.hpp>
 #include <sge/renderer/filter/anisotropy_type.hpp>

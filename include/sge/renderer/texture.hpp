@@ -22,12 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_HPP_INCLUDED
 
-#include <sge/export.hpp>
 #include <sge/renderer/texture_base.hpp>
-#include <sge/renderer/image_view.hpp>
 #include <sge/renderer/dim_type.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/texture_pos_type.hpp>
+#include <sge/image/view/object.hpp>
+#include <sge/image/view/const_object.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
@@ -42,13 +43,24 @@ public:
 
 	virtual dim_type const dim() const = 0;
 	
-	SGE_SYMBOL image_view const lock(lock_flag_t);
-	SGE_SYMBOL const_image_view const lock() const;
+	SGE_SYMBOL image::view::object const
+	lock(
+		lock_flag_t);
+	
+	SGE_SYMBOL image::view::const_object const
+	lock() const;
 
-	virtual image_view const lock(lock_rect const &, lock_flag_t) = 0;
-	virtual const_image_view const lock(lock_rect const &) const = 0;
+	virtual image::view::object const
+	lock(
+		lock_rect const &,
+		lock_flag_t) = 0;
+	
+	virtual image::view::const_object const
+	lock(
+		lock_rect const &) const = 0;
 
 	virtual void unlock() const = 0;
+
 	SGE_SYMBOL rect_type const rect() const;
 
 	SGE_SYMBOL size_type content() const;
