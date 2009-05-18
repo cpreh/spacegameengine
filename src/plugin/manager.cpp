@@ -34,7 +34,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 
 sge::char_type const *const plugin_extension =
-#ifdef SGE_POSIX_PLATFORM
+#ifdef SGE_DARWIN_PLATFORM
+	SGE_TEXT(".dylib")
+#elif SGE_POSIX_PLATFORM
 	SGE_TEXT(".so")
 #elif SGE_WINDOWS_PLATFORM
 	SGE_TEXT(".dll")
