@@ -17,9 +17,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 #include <sge/gui/canvas/font_drawer.hpp>
-#include <sge/renderer/transform_pixels.hpp>
-#include <sge/renderer/make_const_image_view.hpp>
-#include <sge/renderer/subimage_view.hpp>
+#include <sge/image/algorithm/transform.hpp>
+#include <sge/image/view/make_const.hpp>
+#include <sge/image/view/sub.hpp>
 #include <sge/math/vector/structure_cast.hpp>
 #include <sge/math/rect/basic_impl.hpp>
 #include <sge/log/headers.hpp>
@@ -61,13 +61,14 @@ void sge::gui::canvas::font_drawer::draw_char(
 {
 	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("drawing char"));
 
-	image_view const sub_view = renderer::subimage_view(
-			texture_,
-			renderer::lock_rect(
-				static_cast<renderer::size_type>(pos.x()),
-				static_cast<renderer::size_type>(pos.y()),
-				static_cast<renderer::size_type>(pos.x()+data.width()),
-				static_cast<renderer::size_type>(pos.y()+data.height())));
+	image_view const sub_view = sge::image::view::sub(
+		texture_,
+		sge::image::rect(
+			// TODO: structure_cast!
+			static_cast<sge::image::size_type>(pos.x()),
+			static_cast<sge::image::size_type>(pos.y()),
+			static_cast<sge::image::size_type>(pos.x()+data.width()),
+			static_cast<sge::image::size_type>(pos.y()+data.height())));
 	
 	if (character_pos)
 	{
@@ -91,11 +92,14 @@ void sge::gui::canvas::font_drawer::draw_char(
 			log::_1 << SGE_TEXT("found character!"));
 	}
 	
-	renderer::transform_pixels(
+	sge::image::algorithm::transform(
 		data,
-		renderer::make_const_image_view(sub_view),
+		sge::image::view::make_const(
+			sub_view
+		),
 		sub_view,
-		utility::font_blitter(c));
+		utility::font_blitter(c)
+	);
 }
 
 void sge::gui::canvas::font_drawer::end_rendering()

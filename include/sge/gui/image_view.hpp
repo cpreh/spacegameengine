@@ -20,14 +20,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_IMAGE_VIEW_HPP_INCLUDED
 #define SGE_GUI_IMAGE_VIEW_HPP_INCLUDED
 
-#include <sge/renderer/image_view.hpp>
+#include <sge/image/view/object.hpp>
+#include <sge/image/view/const_object.hpp>
 
 namespace sge
 {
 namespace gui
 {
-typedef renderer::image_view image_view;
-typedef renderer::const_image_view const_image_view;
+typedef sge::image::view::object image_view;
+typedef sge::image::view::const_object const_image_view;
 }
 }
 

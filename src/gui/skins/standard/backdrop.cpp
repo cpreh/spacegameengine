@@ -23,8 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/canvas/object.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/gui/internal_color.hpp>
-#include <sge/renderer/make_const_image_view.hpp>
-#include <sge/renderer/colors.hpp>
 #include <sge/text.hpp>
 
 namespace

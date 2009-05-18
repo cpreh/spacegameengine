@@ -72,7 +72,7 @@ sge::texture::const_part_ptr assign_textures(
 			>(
 				d)
 			,
-			sge::renderer::color_format::rgba8
+			sge::image::color::format::rgba8
 		)
 	);
 
@@ -83,7 +83,7 @@ sge::texture::const_part_ptr assign_textures(
 			>(
 				d
 			),
-			sge::renderer::color_format::rgba8,
+			sge::image::color::format::rgba8,
 			sge::renderer::filter::linear,
 			sge::renderer::resource_flags::dynamic);
 	

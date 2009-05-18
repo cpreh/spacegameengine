@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/sprite/parameters.hpp>
 #include <sge/image/loader.hpp>
-#include <sge/image/object.hpp>
+#include <sge/image/file.hpp>
 #include <sge/texture/no_fragmented.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/texture/consume_and_set_fragment.hpp>
@@ -37,7 +37,7 @@ sge::gui::default_cursor::default_cursor(
 :
 	texture_(
 		rend,
-		renderer::color_format::rgba8,
+		image::color::format::rgba8,
 		renderer::filter::linear),
 	sprite_(
 		sprite::parameters()
@@ -45,12 +45,16 @@ sge::gui::default_cursor::default_cursor(
 				texture::consume_and_set_fragment(
 					texture_,
 					il->load(
-							media_path()/
-							SGE_TEXT("gui")/
-							SGE_TEXT("cursor.png"))
-						->view()))
+						media_path()/
+						SGE_TEXT("gui")/
+						SGE_TEXT("cursor.png")
+					)->view()
+				)
+			)
 			.depth(
-				static_cast<sprite::depth_type>(-1))),
+				static_cast<sprite::depth_type>(-1)
+			)
+	),
 	click_(16,16)
 {
 }

@@ -66,7 +66,7 @@ private:
 
 }
 
-void sge::image::algorithm::fill_pixels(
+void sge::image::algorithm::fill(
 	view::object const &dest,
 	color::any::object const &c)
 {

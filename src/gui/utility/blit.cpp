@@ -18,17 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 #include "blit.hpp"
 #include "normalization.hpp"
-#include <sge/renderer/copy_and_convert_pixels.hpp>
-#include <sge/renderer/subimage_view.hpp>
-#include <sge/renderer/make_const_image_view.hpp>
-#include <sge/renderer/transform_pixels.hpp>
 #include <sge/math/rect/intersection.hpp>
 #include <sge/math/rect/structure_cast.hpp>
 #include <sge/math/vector/arithmetic.hpp>
+#include <sge/image/color/convert.hpp>
+#include <sge/image/color/any/convert.hpp>
+#include <sge/image/color/channel.hpp>
+#include <sge/image/algorithm/copy_and_convert.hpp>
+#include <sge/image/algorithm/transform.hpp>
+#include <sge/image/view/sub.hpp>
+#include <sge/image/view/make_const.hpp>
 #include <sge/assert.hpp>
-#include <sge/renderer/color_convert.hpp>
-#include <sge/renderer/any_color_convert.hpp>
-#include <sge/renderer/color_channel.hpp>
 #include <boost/mpl/for_each.hpp>
 #include <boost/gil/color_base.hpp>
 #include <boost/type_traits/remove_const.hpp>
@@ -42,7 +42,11 @@ class channel_blitter
 {
 public:
 	typedef DstPixel pixel_type;
-	typedef typename sge::renderer::color_channel<typename boost::remove_const<DstPixel>::type>::type channel_type;
+	typedef typename sge::image::color::channel<
+		typename boost::remove_const<
+			DstPixel
+		>::type
+	>::type channel_type;
 
 	channel_blitter(
 		pixel_type const &src,
@@ -66,11 +70,12 @@ channel_blitter<DstPixel>::channel_blitter(
 	channel_type const src_alpha,
 	channel_type const dest_alpha,
 	pixel_type &result)
-: src(src),
-  dest(dest),
+:
+	src(src),
+	dest(dest),
 	src_alpha(src_alpha),
 	dest_alpha(dest_alpha),
-  result(result)
+	result(result)
 {}
 
 template<class DstPixel>
@@ -121,9 +126,9 @@ blitter::operator()(
 {
 	boost::mpl::for_each<typename Dst::layout_t::channel_mapping_t>(
 		channel_blitter<Dst>(
-			sge::renderer::color_convert<Dst>(src_color),
+			sge::image::color::convert<Dst>(src_color),
 			result,
-			sge::renderer::color_convert<Dst>(src_color)[3],
+			sge::image::color::convert<Dst>(src_color)[3],
 			result[3],
 			result));
 }
@@ -156,28 +161,46 @@ void sge::gui::utility::blit_invalid(
 
 	if (transparency)
 	{
-		renderer::transform_pixels(
-			renderer::subimage_view(
+		sge::image::algorithm::transform(
+			sge::image::view::sub(
 				src,
-				math::rect::structure_cast<renderer::lock_rect>(
-					is_translated_src)),
-			renderer::subimage_view(
+				math::rect::structure_cast<
+					sge::image::rect
+				>(
+					is_translated_src
+				)
+			),
+			sge::image::view::sub(
 				dst,
-				math::rect::structure_cast<renderer::lock_rect>(
-					is_translated_dst)),
-			blitter());
+				math::rect::structure_cast<
+					sge::image::rect
+				>(
+					is_translated_dst
+				)
+			),
+			blitter()
+		);
 	}
 	else
 	{
-		renderer::copy_and_convert_pixels(
-			renderer::subimage_view(
+		sge::image::algorithm::copy_and_convert(
+			sge::image::view::sub(
 				src,
-				math::rect::structure_cast<renderer::lock_rect>(
-					is_translated_src)),
-			renderer::subimage_view(
+				math::rect::structure_cast<
+					sge::image::rect
+				>(
+					is_translated_src
+				)
+			),
+			sge::image::view::sub(
 				dst,
-				math::rect::structure_cast<renderer::lock_rect>(
-					is_translated_dst)));
+				math::rect::structure_cast<
+					sge::image::rect
+				>(
+					is_translated_dst
+				)
+			)
+		);
 	}
 }
 
@@ -198,17 +221,30 @@ void sge::gui::utility::blit(
 		clipped.pos() - dst_rect.pos(),
 		clipped.dim());
 
-	renderer::transform_pixels(
-		renderer::subimage_view(
-			renderer::subimage_view(
+	sge::image::algorithm::transform(
+		sge::image::view::sub(
+			sge::image::view::sub(
 				src,
-				math::rect::structure_cast<renderer::lock_rect>(
-					src_rect)),
-			math::rect::structure_cast<renderer::lock_rect>(
-				src_trans)),
-		renderer::subimage_view(
+				math::rect::structure_cast<
+					sge::image::rect
+				>(
+					src_rect
+				)
+			),
+			math::rect::structure_cast<
+				sge::image::rect
+			>(
+				src_trans
+			)
+		),
+		sge::image::view::sub(
 			dst,
-			math::rect::structure_cast<renderer::lock_rect>(
-				clipped)),
-		blitter());
+			math::rect::structure_cast<
+				sge::image::rect
+			>(
+				clipped
+			)
+		),
+		blitter()
+	);
 }

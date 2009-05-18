@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_GUI_UTILITY_FONT_BLITTER_HPP_INCLUDED
 
 #include "font_channel_blitter.hpp"
-#include <sge/renderer/color_convert.hpp>
-#include <sge/renderer/any_color_convert.hpp>
+#include <sge/image/color/convert.hpp>
+#include <sge/image/color/any/convert.hpp>
 #include <boost/mpl/for_each.hpp>
 
 namespace sge
@@ -70,12 +70,16 @@ sge::gui::utility::font_blitter::operator()(
 	Src const &src_color,
 	Dst &result) const
 {
-	boost::mpl::for_each<typename Dst::layout_t::channel_mapping_t>(
+	boost::mpl::for_each<
+		typename Dst::layout_t::channel_mapping_t
+	>(
 		font_channel_blitter<Dst,Font>(
-			renderer::color_convert<Dst>(src_color),
-			renderer::any_color_convert<Dst>(font_color),
+			image::color::convert<Dst>(src_color),
+			image::color::any::convert<Dst>(font_color),
 			font_value,
-			result));
+			result
+		)
+	);
 }
 
 #endif

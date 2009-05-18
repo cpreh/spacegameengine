@@ -34,7 +34,7 @@ namespace algorithm
 {
 
 SGE_SYMBOL void
-fill_pixels(
+fill(
 	view::object const &,
 	color::any::object const &);
 

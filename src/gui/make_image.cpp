@@ -21,15 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/make_image.hpp>
 #include <sge/gui/image.hpp>
 #include <sge/gui/dim.hpp>
-#include <sge/renderer/copy_and_convert_pixels.hpp>
-#include <sge/renderer/image_view.hpp>
-#include <sge/image/object.hpp>
+#include <sge/image/file.hpp>
+#include <sge/image/algorithm/copy_and_convert.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/math/dim/structure_cast.hpp>
 #include <sge/variant/object_impl.hpp>
 
-sge::gui::image_ptr const sge::gui::make_image(
-	sge::image::object_ptr _image)
+sge::gui::image_ptr const
+sge::gui::make_image(
+	sge::image::file_ptr _image)
 {
 	sge::gui::image_ptr i(
 		new gui::image(
@@ -39,10 +39,10 @@ sge::gui::image_ptr const sge::gui::make_image(
 		)
 	);
 
-	renderer::copy_and_convert_pixels(
+	sge::image::algorithm::copy_and_convert(
 		_image->view(),
-		renderer::image_view(
-			i->view()));
+		i->view()
+	);
 	
 	return i;
 }

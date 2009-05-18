@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/rect/basic_impl.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/text_size.hpp>
-#include <sge/renderer/colors.hpp>
+#include <sge/image/color/colors.hpp>
 #include <sge/assert.hpp>
 #include <sge/text.hpp>
 
@@ -64,7 +64,7 @@ void sge::gui::skins::standard::draw(
 			rect::point_type::null(),
 			c.size()
 		),
-		renderer::colors::transparent(),
+		sge::image::color::colors::transparent(),
 		canvas::rect_type::solid);
 
 	SGE_LOG_DEBUG(

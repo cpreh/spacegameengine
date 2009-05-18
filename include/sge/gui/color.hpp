@@ -20,13 +20,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_COLOR_HPP_INCLUDED
 #define SGE_GUI_COLOR_HPP_INCLUDED
 
-#include <sge/renderer/any_color.hpp>
+#include <sge/image/color/any/object.hpp>
 
 namespace sge
 {
 namespace gui
 {
-typedef renderer::any_color color;
+typedef sge::image::color::any::object color;
 }
 }
 
