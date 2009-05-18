@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_GLSL_OPTIONAL_ISTREAM_REF_HPP_INCLUDED
-#define SGE_RENDERER_GLSL_OPTIONAL_ISTREAM_REF_HPP_INCLUDED
+#ifndef SGE_RENDERER_GLSL_ISTREAM_REF_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_ISTREAM_REF_HPP_INCLUDED
 
 #include <sge/renderer/glsl/istream.hpp>
 #include <boost/tr1/functional.hpp>
