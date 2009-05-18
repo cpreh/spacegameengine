@@ -48,6 +48,17 @@ class iterator
 		ElementBits
 	>::type
 {
+	typedef typename detail::iterator_type<
+		StoredType,
+		Reference,
+		ElementBits
+	>::type base;
+public:
+	typedef typename base::value_type value_type;
+	typedef typename base::reference reference;
+	typedef typename base::difference_type difference_type;
+	typedef typename base::iterator_category iterator_category;
+private:
 	template<
 		typename Enum,
 		Enum,
@@ -75,18 +86,7 @@ class iterator
 		size_type OtherElementBits
 	>
 	friend class iterator;
-
-	typedef typename detail::iterator_type<
-		StoredType,
-		Reference,
-		ElementBits
-	>::type base;
-public:
-	typedef typename base::value_type value_type;
-	typedef typename base::reference reference;
-	typedef typename base::difference_type difference_type;
-	typedef typename base::iterator_category iterator_category;
-
+private:
 	template<
 		typename OtherStoredType,
 		typename OtherReference

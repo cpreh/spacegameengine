@@ -52,7 +52,7 @@ sge::container::bitfield::iterator<
 	Reference,
 	ElementBits
 >::advance(
-	bitfield::difference_type const d)
+	difference_type const d)
 {
 	pos += d;
 }
