@@ -16,29 +16,31 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
+
 #include <sge/renderer/texture_rw.hpp>
 #include <sge/exception.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
-#include <sge/renderer/copy_and_convert_pixels.hpp>
-#include <sge/renderer/make_const_image_view.hpp>
+#include <sge/image/algorithm/copy_and_convert.hpp>
+#include <sge/image/view/make_const.hpp>
 #include <sge/math/rect/basic_impl.hpp>
 #include <sge/assert.hpp>
 #include <sge/text.hpp>
-#include <sge/optional.hpp>
+#include <sge/optional_impl.hpp>
 #include <typeinfo>
 
 class sge::renderer::texture_rw::lock_data {
 public:
 	typedef optional<
-		image_view
-	> optional_image_view;
+		image::view::object
+	> optional_image;
 
 	lock_rect area;
-	optional_image_view view;
+	optional_image view;
 
 	lock_data(
 		lock_rect const &area,
-		optional_image_view const &view = optional_image_view())
+		optional_image const &view = optional_image())
 	:
 		area(area),
 		view(view)
@@ -65,14 +67,14 @@ sge::renderer::texture_rw::dim_type const sge::renderer::texture_rw::dim() const
 	return read_->dim();
 }
 
-sge::renderer::image_view const sge::renderer::texture_rw::lock(lock_rect const &lr,lock_flag_t const lf)
+sge::image::view::object const sge::renderer::texture_rw::lock(lock_rect const &lr,lock_flag_t const lf)
 {
 	SGE_ASSERT_MESSAGE(!locked,SGE_TEXT("already locked texture_rw"));
 	locked.reset(new lock_data(lr,read_->lock(lr,lf)));
 	return *locked->view;
 }
 
-sge::renderer::const_image_view const sge::renderer::texture_rw::lock(lock_rect const &lr) const
+sge::image::view::const_object const sge::renderer::texture_rw::lock(lock_rect const &lr) const
 {
 	SGE_ASSERT_MESSAGE(!locked,SGE_TEXT("already locked texture_rw"));
 	locked.reset(new lock_data(lr));
@@ -91,9 +93,10 @@ void sge::renderer::texture_rw::unlock() const
 			locked->area,
 			lock_flags::writeonly);
 		
-		copy_and_convert_pixels(
-			make_const_image_view(
-				*locked->view),
+		image::algorithm::copy_and_convert(
+			image::view::make_const(
+				*locked->view
+			),
 			lock_.value());
 	}
 

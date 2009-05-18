@@ -47,7 +47,7 @@ public:
 	lock(
 		cube_side::type side) const;
 
-	virtual image_view const lock(
+	virtual image::view::object const lock(
 		cube_side::type side,
 		lock_rect const &,
 		lock_flag_type) = 0;

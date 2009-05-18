@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/atlasing.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/texture_util.hpp>
-#include <sge/renderer/subimage_view.hpp>
-#include <sge/renderer/image_view_dim.hpp>
+#include <sge/renderer/sub_data.hpp>
+#include <sge/image/view/sub.hpp>
+#include <sge/image/view/dim.hpp>
 #include <sge/math/rect/basic_impl.hpp>
 #include <sge/math/is_power_of_2.hpp>
 #include <sge/math/next_pow_2.hpp>
@@ -105,7 +105,7 @@ sge::texture::atlased_texture_dim(
 sge::renderer::texture_ptr const
 sge::texture::atlased_texture(
 	renderer::device_ptr const rend,
-	renderer::color_format::type const format,
+	image::color::format::type const format,
 	renderer::filter::texture const &filter)
 {
 	return rend->create_texture(
@@ -136,80 +136,100 @@ sge::texture::inner_atlased_rect(
 
 void sge::texture::atlas_w(
 	renderer::texture_ptr const tex,
-	renderer::const_image_view const &src,
+	image::view::const_object const &src,
 	renderer::lock_rect const &outer_area,
 	renderer::lock_rect const &inner_area)
 {
 	renderer::dim_type const dim(
-		renderer::image_view_dim(
-			src));
+		image::view::dim(
+			src
+		)
+	);
 
 	renderer::sub_data(
 		tex,
-		renderer::subimage_view(
+		image::view::sub(
 			src,
 			renderer::lock_rect(
 				0,
 				0,
 				1,
-				dim.h())),
+				dim.h()
+			)
+		),
 		renderer::texture_pos_type(
 			outer_area.left(),
-			inner_area.top()));
+			inner_area.top()
+		)
+	);
 	
 	if(inner_area.right() + 1 == outer_area.right())
 		return;
 
 	renderer::sub_data(
 		tex,
-		renderer::subimage_view(
+		image::view::sub(
 			src,
 			renderer::lock_rect(
 				dim.w() - 1,
 				0,
 				dim.w(),
-				dim.h())),
+				dim.h()
+			)
+		),
 		renderer::texture_pos_type(
 			outer_area.right() - 1,
-			inner_area.top()));
+			inner_area.top()
+		)
+	);
 }
 	
 void sge::texture::atlas_h(
 	renderer::texture_ptr const tex,
-	renderer::const_image_view const &src,
+	image::view::const_object const &src,
 	renderer::lock_rect const &outer_area,
 	renderer::lock_rect const &inner_area)
 {
 	renderer::dim_type const dim(
-		renderer::image_view_dim(
-			src));
+		image::view::dim(
+			src
+		)
+	);
 
 	renderer::sub_data(
 		tex,
-		renderer::subimage_view(
+		image::view::sub(
 			src,
 			renderer::lock_rect(
 				0,
 				0,
 				dim.w(),
-				1)),
+				1
+			)
+		),
 		renderer::texture_pos_type(
 			inner_area.left(),
-			outer_area.top()));
+			outer_area.top()
+		)
+	);
 
 	if(inner_area.bottom() + 1 == outer_area.bottom())
 		return;
 
 	renderer::sub_data(
 		tex,
-		renderer::subimage_view(
+		image::view::sub(
 			src,
 			renderer::lock_rect(
 				0,
 				dim.h() - 1,
 				dim.w(),
-				dim.h())),
+				dim.h()
+			)
+		),
 		renderer::texture_pos_type(
 			inner_area.left(),
-			outer_area.bottom() - 1));
+			outer_area.bottom() - 1
+		)
+	);
 }

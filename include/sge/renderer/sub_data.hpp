@@ -19,26 +19,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 
-#include <sge/renderer/texture_util.hpp>
-#include <sge/renderer/texture.hpp>
-#include <sge/renderer/scoped_texture_lock.hpp>
-#include <sge/renderer/image_view_dim.hpp>
-#include <sge/renderer/copy_and_convert_pixels.hpp>
-#include <sge/math/rect/basic_impl.hpp>
+#ifndef SGE_RENDERER_SUB_DATA_HPP_INCLUDED
+#define SGE_RENDERER_SUB_DATA_HPP_INCLUDED
 
-void sge::renderer::sub_data(
-	texture_ptr const tex,
-	const_image_view const &view,
-	texture_pos_type const &p)
+#include <sge/renderer/texture_pos_type.hpp>
+#include <sge/renderer/texture_fwd.hpp>
+#include <sge/image/view/const_object.hpp>
+#include <sge/export.hpp>
+
+namespace sge
 {
-	scoped_texture_lock const lock_(
-		tex,
-		lock_rect(
-			p,
-			image_view_dim(view)),
-		lock_flags::writeonly);
+namespace renderer
+{
 
-	copy_and_convert_pixels(
-		view,
-		lock_.value());
+SGE_SYMBOL void
+sub_data(
+	texture_ptr,
+	image::view::const_object const &data,
+	texture_pos_type const &pos);
+
 }
+}
+
+#endif

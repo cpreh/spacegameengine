@@ -20,18 +20,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/texture_software.hpp>
-#include <sge/renderer/color_format_stride.hpp>
-#include <sge/renderer/make_image_view.hpp>
-#include <sge/renderer/subimage_view.hpp>
+#include <sge/image/color/format_stride.hpp>
+#include <sge/image/view/make.hpp>
+#include <sge/image/view/sub.hpp>
 #include <sge/container/raw_vector_impl.hpp>
 #include <sge/math/rect/basic_impl.hpp>
 #include <sge/variant/object_impl.hpp>
+#include <sge/optional_impl.hpp>
 #include <sge/assert.hpp>
 #include <sge/text.hpp>
 
 sge::renderer::texture_software::texture_software(
 	dim_type const &new_dim,
-	color_format::type const cf)
+	image::color::format::type const cf)
 :
 	dim_(),
 	cf(cf),
@@ -49,26 +50,42 @@ sge::renderer::texture_software::dim() const
 	return dim_;
 }
 
-sge::renderer::image_view const
+sge::image::view::object const
 sge::renderer::texture_software::lock(
 	lock_rect const &lr,
 	lock_flag_t const)
 {
-	SGE_ASSERT_MESSAGE(!locked,SGE_TEXT("already locked software texture"));
+	SGE_ASSERT_MESSAGE(
+		!locked,
+		SGE_TEXT("already locked software texture")
+	);
+	
 	locked = true;
-	return subimage_view(
-		make_image_view(
+
+	return image::view::sub(
+		image::view::make(
 			raw_bytes.data(),
 			dim(),
-			cf),
-		lr);
+			cf,
+			image::view::optional_pitch()
+		),
+		lr
+	);
 }
 
-sge::renderer::const_image_view const
+sge::image::view::const_object const
 sge::renderer::texture_software::lock(
 	lock_rect const &lr) const
 {
-	return subimage_view(make_image_view(&raw_bytes[0],dim(),cf),lr);
+	return image::view::sub(
+		image::view::make(
+			raw_bytes.data(),
+			dim(),
+			cf,
+			image::view::optional_pitch()
+		),
+		lr
+	);
 }
 
 void sge::renderer::texture_software::unlock() const
@@ -93,7 +110,7 @@ sge::renderer::texture_software::byte_count() const
 	return static_cast<
 		internal_vector::size_type
 	>(
-		dim().w() * dim().h() * renderer::color_format_stride(cf));
+		dim().w() * dim().h() * image::color::format_stride(cf));
 }
 
 void sge::renderer::texture_software::resize(dim_type const &new_dim)

@@ -27,7 +27,8 @@ sge::renderer::const_scoped_target_lock::const_scoped_target_lock(
 :
 	target(target),
 	view(
-		target->lock())
+		target->lock()
+	)
 {}
 
 sge::renderer::const_scoped_target_lock::const_scoped_target_lock(
@@ -37,10 +38,12 @@ sge::renderer::const_scoped_target_lock::const_scoped_target_lock(
 	target(target),
 	view(
 		target->lock(
-			rect))
+			rect
+		)
+	)
 {}
 
-sge::renderer::const_image_view const
+sge::image::view::const_object const
 sge::renderer::const_scoped_target_lock::value() const
 {
 	return view;

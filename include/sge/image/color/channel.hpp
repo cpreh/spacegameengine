@@ -28,26 +28,28 @@ namespace sge
 {
 namespace image
 {
+namespace color
+{
 
 template<
 	typename Color
 >
-class channel;
+struct channel;
 
 template<
 	typename Channel,
 	typename Layout
 >
-class channel<
+struct channel<
 	boost::gil::pixel<
 		Channel,
 		Layout
 	>
 > {
-public:
 	typedef Channel type;
 };
 
+}
 }
 }
 

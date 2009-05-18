@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/make_shared_ptr.hpp>
+#include <boost/ref.hpp>
 
 sge::texture::rect_fragmented::rect_fragmented(
 	renderer::device_ptr const rend,
@@ -81,7 +82,9 @@ sge::texture::rect_fragmented::consume_fragment(
 				),
 				atlased_dim
 			),
-			*this,
+			boost::ref(
+				*this
+			),
 			true,
 			true
 		)

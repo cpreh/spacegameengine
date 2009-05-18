@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim_type.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/image_view.hpp>
+#include <sge/image/view/const_object.hpp>
 #include <sge/export.hpp>
 #include <sge/noncopyable.hpp>
 
@@ -43,10 +43,10 @@ public:
 	typedef renderer::dim_type           dim_type;
 	typedef lock_rect                    rect_type;
 
-	SGE_SYMBOL const_image_view const
+	SGE_SYMBOL image::view::const_object const
 	lock() const;
 
-	virtual const_image_view const
+	virtual image::view::const_object const
 	lock(
 		lock_rect const &dest) const = 0;
 

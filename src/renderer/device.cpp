@@ -20,11 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/copy_and_convert_pixels.hpp>
-#include <sge/renderer/image_view_format.hpp>
-#include <sge/renderer/image_view_dim.hpp>
-#include <sge/renderer/index/view_format.hpp>
-#include <sge/renderer/index/view_size.hpp>
 #include <sge/renderer/index/copy.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
@@ -33,6 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index_buffer.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vf/dynamic_format.hpp>
+#include <sge/renderer/index/view_format.hpp>
+#include <sge/renderer/index/view_size.hpp>
+#include <sge/image/view/format.hpp>
+#include <sge/image/view/dim.hpp>
+#include <sge/image/algorithm/copy_and_convert.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/algorithm/copy_n.hpp>
 #include <boost/variant/apply_visitor.hpp>
@@ -46,25 +46,28 @@ sge::renderer::device::device()
 
 sge::renderer::texture_ptr const
 sge::renderer::device::create_texture(
-	const_image_view const &v,
+	image::view::const_object const &v,
 	filter::texture const &filter,
 	resource_flag_t const flags)
 {
 	texture_ptr const tex(
 		create_texture(
-			dim_type(
-				image_view_dim(v)),
-			image_view_format(v),
+			image::view::dim(v),
+			image::view::format(v),
 			filter,
-			flags));
+			flags
+		)
+	);
 	
 	scoped_texture_lock const lock(
 		tex,
-		lock_flags::writeonly);
+		lock_flags::writeonly
+	);
 
-	copy_and_convert_pixels(
+	image::algorithm::copy_and_convert(
 		v,
-		lock.value());
+		lock.value()
+	);
 
 	return tex;
 }
@@ -78,16 +81,20 @@ sge::renderer::device::create_vertex_buffer(
 		create_vertex_buffer(
 			view.format(),
 			view.size(),
-			flags));
+			flags
+		)
+	);
 	
 	scoped_vertex_lock const lock(
 		vb,
-		lock_flags::writeonly);
+		lock_flags::writeonly
+	);
 	
 	algorithm::copy_n(
 		view.data(),
 		view.format().stride() * view.size(),
-		lock.value().data());
+		lock.value().data()
+	);
 
 	return vb;
 }
@@ -103,15 +110,19 @@ sge::renderer::device::create_index_buffer(
 				view),
 			index::view_size(
 				view),
-			flags));
+			flags
+		)
+	);
 	
 	scoped_index_lock const lock(
 		ib,
-		lock_flags::writeonly);
+		lock_flags::writeonly
+	);
 	
 	index::copy(
 		view,
-		lock.value());
+		lock.value()
+	);
 	
 	return ib;
 }

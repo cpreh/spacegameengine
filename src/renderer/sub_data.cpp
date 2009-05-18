@@ -19,25 +19,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 
-#ifndef SGE_RENDERER_TEXTURE_UTIL_HPP_INCLUDED
-#define SGE_RENDERER_TEXTURE_UTIL_HPP_INCLUDED
+#include <sge/renderer/sub_data.hpp>
+#include <sge/renderer/texture.hpp>
+#include <sge/renderer/scoped_texture_lock.hpp>
+#include <sge/image/algorithm/copy_and_convert.hpp>
+#include <sge/image/view/const_object.hpp>
+#include <sge/image/view/dim.hpp>
+#include <sge/math/rect/basic_impl.hpp>
 
-#include <sge/renderer/texture_pos_type.hpp>
-#include <sge/renderer/texture_fwd.hpp>
-#include <sge/renderer/image_view.hpp>
-#include <sge/export.hpp>
-
-namespace sge
+void sge::renderer::sub_data(
+	texture_ptr const tex,
+	image::view::const_object const &view,
+	texture_pos_type const &p)
 {
-namespace renderer
-{
+	scoped_texture_lock const lock_(
+		tex,
+		lock_rect(
+			p,
+			image::view::dim(view)
+		),
+		lock_flags::writeonly
+	);
 
-SGE_SYMBOL void sub_data(
-	texture_ptr,
-	const_image_view const &data,
-	texture_pos_type const &pos);
-
+	image::algorithm::copy_and_convert(
+		view,
+		lock_.value()
+	);
 }
-}
-
-#endif

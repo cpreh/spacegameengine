@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_CONST_SCOPED_TARGET_LOCK_HPP_INCLUDED
 
 #include <sge/renderer/target_fwd.hpp>
-#include <sge/renderer/image_view.hpp>
 #include <sge/renderer/lock_rect.hpp>
+#include <sge/image/view/const_object.hpp>
 #include <sge/variant/object_impl.hpp>
 #include <sge/noncopyable.hpp>
 #include <sge/export.hpp>
@@ -44,13 +44,13 @@ public:
 		const_target_ptr,
 		lock_rect const &);
 
-	SGE_SYMBOL const_image_view const
+	SGE_SYMBOL image::view::const_object const
 	value() const;
 
 	SGE_SYMBOL ~const_scoped_target_lock();
 private:
 	const_target_ptr const target;
-	const_image_view const view;
+	image::view::const_object const view;
 };
 
 }
