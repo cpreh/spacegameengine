@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_LIGHT_HPP_INCLUDED
 #define SGE_RENDERER_LIGHT_HPP_INCLUDED
 
-#include <sge/renderer/any_color.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/renderer/any_vector3.hpp>
 #include <sge/renderer/any_arithmetic.hpp>
 #include <sge/variant/object_impl.hpp>
@@ -41,9 +41,9 @@ public:
 	typedef any_arithmetic attenuation_type;
 
 	SGE_SYMBOL light(
-		any_color const &ambient,
-		any_color const &diffuse,
-		any_color const &specular,
+		image::color::any::object const &ambient,
+		image::color::any::object const &diffuse,
+		image::color::any::object const &specular,
 		position_type const &pos,
 		direction_type const &dir,
 		attenuation_type const &const_attenuation,
@@ -52,9 +52,9 @@ public:
 		any_arithmetic const &distribution_exponent,
 		any_arithmetic const &cutoff_angle);
 	
-	SGE_SYMBOL any_color const &ambient() const;
-	SGE_SYMBOL any_color const &diffuse() const;
-	SGE_SYMBOL any_color const &specular() const;
+	SGE_SYMBOL image::color::any::object const &ambient() const;
+	SGE_SYMBOL image::color::any::object const &diffuse() const;
+	SGE_SYMBOL image::color::any::object const &specular() const;
 	SGE_SYMBOL position_type const &position() const;
 	SGE_SYMBOL direction_type const &direction() const;
 	SGE_SYMBOL attenuation_type const &const_attenuation() const;
@@ -63,7 +63,7 @@ public:
 	SGE_SYMBOL any_arithmetic const &distribution_exponent() const;
 	SGE_SYMBOL any_arithmetic const &cutoff_angle() const;
 private:
-	any_color
+	image::color::any::object
 		ambient_,
 		diffuse_,
 		specular_;

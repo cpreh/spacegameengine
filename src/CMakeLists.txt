@@ -15,6 +15,7 @@ FILE (GLOB sgecorefiles
 	image/*.cpp
 	image/algorithm/*.cpp
 	image/color/*.cpp
+	image/color/any/*.cpp
 	image/view/*.cpp
 	input/*.cpp
 	input/modifier/*.cpp

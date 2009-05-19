@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #undef _UNICODE
 
 #include <IL/ilu.h>
-#include "../object.hpp"
+#include "../file.hpp"
 #include "../error.hpp"
 #include "../format.hpp"
 #include "../convert_image_format.hpp"
@@ -32,16 +32,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/string.hpp>
 #include <sge/text.hpp>
 #include <sge/iconv.hpp>
+#include <sge/optional_impl.hpp>
 #include <sge/container/raw_vector_impl.hpp>
-#include <sge/renderer/color_format_stride.hpp>
-#include <sge/renderer/make_image_view.hpp>
-#include <sge/renderer/copy_and_convert_pixels.hpp>
-#include <sge/renderer/image_view_format.hpp>
-#include <sge/renderer/image_view_dim.hpp>
+#include <sge/image/color/format_stride.hpp>
+#include <sge/image/view/make.hpp>
+#include <sge/image/view/format.hpp>
+#include <sge/image/view/dim.hpp>
+#include <sge/image/algorithm/copy_and_convert.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/variant/object_impl.hpp>
 
-sge::devil::object::object(
+sge::devil::file::file(
 	filesystem::path const &file)
 {
 	bind_me();
@@ -59,7 +60,7 @@ sge::devil::object::object(
 }
 
 /*
-sge::devil::object::object(
+sge::devil::file::file(
 	image::format::type const type,
 	const const_pointer format_data,
 	const size_type size)
@@ -78,28 +79,29 @@ sge::devil::object::object(
 }
 */
 
-sge::devil::object::object(
-	renderer::const_image_view const &src)
+sge::devil::file::file(
+	image::view::const_object const &src)
 {
 	data(src);
 }
 
-void sge::devil::object::bind_me() const
+void sge::devil::file::bind_me() const
 {
 	ilBindImage(impl.id());
 	check_errors();
 }
 
-const sge::image::object::dim_type sge::devil::object::dim() const
+sge::image::dim_type const
+sge::devil::file::dim() const
 {
 	bind_me();
-	return dim_type(
+	return image::dim_type(
 		ilGetInteger(IL_IMAGE_WIDTH),
 		ilGetInteger(IL_IMAGE_HEIGHT));
 }
 
-void sge::devil::object::data(
-	renderer::const_image_view const &src)
+void sge::devil::file::data(
+	image::view::const_object const &src)
 {
 	bind_me();
 
@@ -107,30 +109,39 @@ void sge::devil::object::data(
 		unsigned char
 	> raw_vector_t;
 
-	renderer::dim_type const src_dim(
-		renderer::image_view_dim(
-			src));
+	image::dim_type const src_dim(
+		image::view::dim(
+			src
+		)
+	);
 
-	renderer::color_format::type const fmt(
-		renderer::image_view_format(
-			src));
+	image::color::format::type const fmt(
+		image::view::format(
+			src
+		)
+	);
 
 	raw_vector_t v(
-		renderer::color_format_stride(fmt)
-		* src_dim.content());
+		image::color::format_stride(fmt)
+		* src_dim.content()
+	);
 
-	renderer::color_format::type const best_il_format(
-		fmt);
+	image::color::format::type const best_il_format(
+		fmt
+	);
 
-	renderer::copy_and_convert_pixels(
+	image::algorithm::copy_and_convert(
 		src,
-		renderer::make_image_view(
+		image::view::make(
 			v.data(),
 			src_dim,
-			best_il_format));
+			best_il_format,
+			image::view::optional_pitch()
+		)
+	);
 
-	sge::renderer::dim_type const dim(
-		sge::renderer::image_view_dim(
+	image::dim_type const dim(
+		image::view::dim(
 			src
 		)
 	);
@@ -141,27 +152,38 @@ void sge::devil::object::data(
 		1,
 		4, // always 4 channels
 		to_il_format(
-			best_il_format),	
+			best_il_format
+		),
 		to_il_channel(
-			best_il_format),
-		const_cast<raw_vector_t::pointer>(v.data()));
+			best_il_format
+		),
+		const_cast<raw_vector_t::pointer>(v.data())
+	);
+
 	check_errors();
 }
 
-sge::renderer::const_image_view const
-sge::devil::object::view() const
+sge::image::view::const_object const
+sge::devil::file::view() const
 {
 	bind_me();
-	return renderer::make_image_view(
-		const_cast<unsigned char const *>(ilGetData()),
+	return image::view::make(
+		const_cast<
+			image::const_raw_pointer
+		>(
+			ilGetData()
+		),
 		dim(),
 		convert_format(
 			ilGetInteger(IL_IMAGE_BITS_PER_PIXEL),
-			ilGetInteger(IL_IMAGE_FORMAT)));
+			ilGetInteger(IL_IMAGE_FORMAT)
+		),
+		image::view::optional_pitch()
+	);
 }
 
-void sge::devil::object::resample(
-	dim_type const &dim_)
+void sge::devil::file::resample(
+	image::dim_type const &dim_)
 {
 	if(dim() == dim_)
 		return;
@@ -170,7 +192,7 @@ void sge::devil::object::resample(
 	check_errors();
 }
 
-void sge::devil::object::save(
+void sge::devil::file::save(
 	filesystem::path const &file)
 {
 	bind_me();

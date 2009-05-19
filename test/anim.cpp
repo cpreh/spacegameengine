@@ -86,7 +86,7 @@ try
 	sge::renderer::device_ptr const rend = sys.renderer();
 	sge::image::loader_ptr const    pl   = sys.image_loader();
 
-	sge::image::object_ptr const
+	sge::image::file_ptr const
 		img1(pl->load(sge::config::media_path() / SGE_TEXT("cloudsquare.jpg"))),
 		img2(pl->load(sge::config::media_path() / SGE_TEXT("grass.png")));
 
@@ -94,7 +94,7 @@ try
 		sge::texture::no_fragmented
 	> const creator(
 		rend,
-		sge::renderer::color_format::rgba8,
+		sge::image::color::format::rgba8,
 		sge::renderer::filter::linear);
 
 	sge::texture::manager tex_man(rend, creator);

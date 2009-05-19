@@ -27,13 +27,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/colors.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/input/key_pair.hpp>
 #include <sge/input/system.hpp>
-#include <sge/image/object.hpp>
+#include <sge/image/file.hpp>
 #include <sge/image/loader.hpp>
+#include <sge/image/color/colors.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/signal/scoped_connection.hpp>
 #include <sge/mainloop/dispatch.hpp>
@@ -116,7 +116,7 @@ try
 
 	sge::sprite::system ss(sys.renderer());
 
-	sge::image::object_ptr const image(
+	sge::image::file_ptr const image(
 		sys.image_loader()->load(
 			sge::config::media_path() / SGE_TEXT("tux.png")
 		)
@@ -160,7 +160,7 @@ try
 	sys.renderer()->state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
-			(sge::renderer::state::color::clear_color = sge::renderer::colors::black())
+			(sge::renderer::state::color::clear_color = sge::image::color::colors::black())
 	);
 
 	while (running)

@@ -27,8 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "texture_functions.hpp"
 #include "color_convert.hpp"
 #include "texture_lock_factory.hpp"
-#include <sge/renderer/image_view_format.hpp>
-#include <sge/renderer/color_format_stride.hpp>
+#include <sge/image/color/format_stride.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
@@ -182,7 +181,7 @@ sge::ogl::basic_texture<Base>::basic_texture(
 	renderer::filter::texture const &filter_,
 	resource_flag_type const flags_,
 	GLenum const type_,
-	renderer::color_format::type const cformat)
+	image::color::format::type const cformat)
 :
 	texture_base(type_),
 	filter_(filter_),
@@ -193,7 +192,7 @@ sge::ogl::basic_texture<Base>::basic_texture(
 	format_type_(
 		to_format_type(cformat)),
 	stride_(
-		renderer::color_format_stride(cformat))
+		image::color::format_stride(cformat))
 {}
 
 template<typename Base>

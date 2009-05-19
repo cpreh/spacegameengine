@@ -136,7 +136,7 @@ public:
 	renderer::texture_ptr const
 	create_texture(
 		renderer::dim_type const &,
-		renderer::color_format::type,
+		image::color::format::type,
 		renderer::filter::texture const &,
 		renderer::resource_flag_t);
 
@@ -149,7 +149,7 @@ public:
 	renderer::cube_texture_ptr const
 	create_cube_texture(
 		renderer::size_type border_size,
-		renderer::color_format::type,
+		image::color::format::type,
 		renderer::filter::texture const &,
 		renderer::resource_flag_t);
 

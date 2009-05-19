@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text_size.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/colors.hpp>
+#include <sge/image/color/colors.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/math/vector/basic_impl.hpp>
@@ -67,9 +67,13 @@ try
 			static_cast<sge::font::size_type>(15));
 	
 	sge::font::drawer_ptr const drawer(
-		sge::make_shared_ptr<sge::font::drawer_3d>(
+		sge::make_shared_ptr<
+			sge::font::drawer_3d
+		>(
 			sys.renderer(),
-			sge::renderer::colors::white()));
+			sge::image::color::colors::white()
+		)
+	);
 	
 	sge::font::object font(
 		metrics,

@@ -23,27 +23,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DEVIL_FORMAT_HPP_INCLUDED
 
 #include <IL/il.h>
-#include <sge/renderer/color_format.hpp>
+#include <sge/image/color/format.hpp>
 
 namespace sge
 {
 namespace devil
 {
 
-renderer::color_format::type
+image::color::format::type
 convert_format(
 	ILint bits_per_pixel,
 	ILint format);
 
 ILint to_il_format(
-	renderer::color_format::type);
+	image::color::format::type);
 
 ILint to_il_channel(
-	renderer::color_format::type);
+	image::color::format::type);
 
-renderer::color_format::type
+image::color::format::type
 best_il_format(
-	renderer::color_format::type);
+	image::color::format::type);
 
 }
 }

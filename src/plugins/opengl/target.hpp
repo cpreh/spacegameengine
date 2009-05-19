@@ -42,8 +42,10 @@ public:
 	virtual void bind_me() const = 0;
 	virtual ~target();
 private:
-	renderer::const_image_view const lock(
+	image::view::const_object const
+	lock(
 		renderer::lock_rect const &dest) const;
+	
 	void unlock() const;
 
 	virtual renderer::pixel_pos const pos() const = 0;

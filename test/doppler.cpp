@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key_pair.hpp>
 #include <sge/input/key_code.hpp>
 #include <sge/image/loader.hpp>
+#include <sge/image/color/colors.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/parameters.hpp>
@@ -132,7 +133,7 @@ try
 		(sge::systems::parameterless::audio_player)
 		(sge::systems::parameterless::image));
 	
-	sge::image::object_ptr const 
+	sge::image::file_ptr const 
 		image_bg(
 			sys.image_loader()->load(
 				sge::config::media_path()/SGE_TEXT("grass.png"))),
@@ -146,7 +147,7 @@ try
 	sge::texture::default_creator<sge::texture::no_fragmented> const 
 		creator(
 			sys.renderer(),
-			sge::renderer::color_format::rgba8,
+			sge::image::color::format::rgba8,
 			sge::renderer::filter::linear);
 
 	sge::texture::manager tex_man(sys.renderer(),creator);
@@ -195,7 +196,7 @@ try
 				static_cast<sge::sprite::depth_type>(1)));
 	
 	tux.color(
-		sge::renderer::rgba8_color(
+		sge::image::color::rgba8(
 			0xff,
 			0xff,
 			0xff,
@@ -236,7 +237,7 @@ try
 	sys.renderer()->state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
-			(sge::renderer::state::color::clear_color = sge::renderer::rgba8_color(0, 0, 0, 0))
+			(sge::renderer::state::color::clear_color = sge::image::color::colors::black())
 	);
 
 	while(running)

@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/parameters.hpp>
-#include <sge/renderer/colors.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/var.hpp>
@@ -38,7 +37,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/action.hpp>
 #include <sge/signal/scoped_connection.hpp>
 #include <sge/image/loader.hpp>
-#include <sge/image/object.hpp>
+#include <sge/image/file.hpp>
+#include <sge/image/color/colors.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/config/media_path.hpp>
@@ -75,12 +75,20 @@ try
 		(sge::systems::parameterless::input));
 
 	sge::sprite::system ss(sys.renderer());
-	sge::image::object_ptr const image = sys.image_loader()->load(sge::config::media_path() / SGE_TEXT("tux.png"));
-	sge::renderer::texture_ptr const image_texture = 
+
+	sge::image::file_ptr const image(
+		sys.image_loader()->load(
+			sge::config::media_path() / SGE_TEXT("tux.png")
+		)
+	);
+
+	sge::renderer::texture_ptr const image_texture(
 		sys.renderer()->create_texture(
 			image->view(),
 			sge::renderer::filter::linear,
-			sge::renderer::resource_flags::readable);
+			sge::renderer::resource_flags::readable
+		)
+	);
 
 	sge::sprite::object my_object(
 		sge::sprite::parameters()
@@ -111,7 +119,7 @@ try
 	sge::renderer::texture_ptr const target = 
 		sys.renderer()->create_texture(
 			sge::renderer::texture::dim_type(640,480),
-			sge::renderer::color_format::rgba8,
+			sge::image::color::format::rgba8,
 			sge::renderer::filter::linear,
 			sge::renderer::resource_flags::none);
 
@@ -139,7 +147,7 @@ try
 	sys.renderer()->state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
-			(sge::renderer::state::color::clear_color = sge::renderer::colors::red()));
+			(sge::renderer::state::color::clear_color = sge::image::color::colors::red()));
 
 	bool running = true;
 

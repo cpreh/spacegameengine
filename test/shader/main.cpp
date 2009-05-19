@@ -58,6 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/math/dim/structure_cast.hpp>
 #include <sge/fstream.hpp>
+#include <sge/make_shared_ptr.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <boost/assign/list_of.hpp>
@@ -116,7 +117,7 @@ try
 		(sge::systems::parameterless::input)
 		(sge::systems::parameterless::image));
 	
-	sge::image::object_ptr const 
+	sge::image::file_ptr const 
 		image_bg(
 			sys.image_loader()->load(
 				sge::config::media_path()/SGE_TEXT("shadertest.jpg"))),
@@ -130,7 +131,7 @@ try
 	sge::texture::default_creator<sge::texture::no_fragmented> const 
 		creator(
 			sys.renderer(),
-			sge::renderer::color_format::rgba8,
+			sge::image::color::format::rgba8,
 			sge::renderer::filter::linear);
 
 	sge::texture::manager tex_man(sys.renderer(),creator);
@@ -179,7 +180,7 @@ try
 				static_cast<sge::sprite::depth_type>(1)));
 	
 	tux.color(
-		sge::renderer::rgba8_color(
+		sge::image::color::rgba8(
 			0xff,
 			0xff,
 			0xff,
@@ -211,22 +212,32 @@ try
 	);
 	*/
 
-	sge::renderer::texture_ptr const target = 
+	sge::renderer::texture_ptr const target(
 		sys.renderer()->create_texture(
-			sge::math::dim::structure_cast<sge::renderer::texture::dim_type>(
-				screen_size),
-			sge::renderer::color_format::rgba8,
+			sge::math::dim::structure_cast<
+				sge::renderer::texture::dim_type
+			>(
+				screen_size
+			),
+			sge::image::color::format::rgba8,
 			sge::renderer::filter::linear,
-			sge::renderer::resource_flags::none);
+			sge::renderer::resource_flags::none
+		)
+	);
 	
 	sge::sprite::object target_spr(
 		sge::sprite::parameters()
 			.texture(
-				sge::texture::part_ptr(
-					new sge::texture::part_raw(
-						target)))
+				sge::make_shared_ptr<
+					sge::texture::part_raw
+				>(
+					target
+				)
+			)
 			.depth(
-				static_cast<sge::sprite::depth_type>(1)));
+				static_cast<sge::sprite::depth_type>(1)
+			)
+	);
 	
 	sge::cifstream fragment_stream(
 		sge::config::media_path()/SGE_TEXT("shaders")/SGE_TEXT("fragment.glsl"));

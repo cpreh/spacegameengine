@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-class compare {
+class compare_visitor {
 public:
 	typedef bool result_type;
 
@@ -48,7 +48,7 @@ sge::image::color::any::compare(
 	object const &b)
 {
 	return variant::apply_binary(
-		compare(),
+		compare_visitor(),
 		a,
 		b
 	);
@@ -61,8 +61,8 @@ template<
 	typename T,
 	typename U
 >
-compare::result_type
-compare::operator()(
+compare_visitor::result_type
+compare_visitor::operator()(
 	T const &t,
 	U const &u) const
 {

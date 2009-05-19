@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_MATERIAL_HPP_INCLUDED
 #define SGE_RENDERER_MATERIAL_HPP_INCLUDED
 
-#include <sge/renderer/any_color.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/renderer/any_arithmetic.hpp>
 #include <sge/variant/object_impl.hpp>
 #include <sge/export.hpp>
@@ -35,19 +35,19 @@ namespace renderer
 class material {
 public:
 	SGE_SYMBOL material(
-		any_color const &diffuse,
-		any_color const &ambient,
-		any_color const &specular,
-		any_color const &emissive,
+		image::color::any::object const &diffuse,
+		image::color::any::object const &ambient,
+		image::color::any::object const &specular,
+		image::color::any::object const &emissive,
 		any_arithmetic const &power);
 	
-	SGE_SYMBOL any_color const &diffuse() const;
-	SGE_SYMBOL any_color const &ambient() const;
-	SGE_SYMBOL any_color const &specular() const;
-	SGE_SYMBOL any_color const &emissive() const;
+	SGE_SYMBOL image::color::any::object const &diffuse() const;
+	SGE_SYMBOL image::color::any::object const &ambient() const;
+	SGE_SYMBOL image::color::any::object const &specular() const;
+	SGE_SYMBOL image::color::any::object const &emissive() const;
 	SGE_SYMBOL any_arithmetic const &power() const;
 private:
-	any_color
+	image::color::any::object
 		diffuse_,
 		ambient_,
 		specular_,

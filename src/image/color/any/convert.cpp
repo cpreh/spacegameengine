@@ -85,7 +85,7 @@ visitor<Dest>::operator()(
 }
 
 #define SGE_INSTANTIATE_COLOR_CONVERT(x)\
-template SGE_EXPORT_SYMBOL x const \
+template SGE_EXPORT_SYMBOL sge::image::color::x const \
 sge::image::color::any::convert<\
 	sge::image::color::x\
 >(\

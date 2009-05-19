@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/layouts/horizontal.hpp>
 #include <sge/gui/skins/standard.hpp>
 
+#include <sge/image/color/colors.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/time/second.hpp>
@@ -164,7 +165,7 @@ try
 			(sge::renderer::state::depth_func::off)
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(sge::renderer::state::color::clear_color = 
-				sge::renderer::rgba8_color(255, 0, 0, 255))
+				sge::image::color::colors::red())
 			(sge::renderer::state::cull_mode::off)
 		);
 	

@@ -27,8 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "texture_base.hpp"
 #include "lock_method.hpp"
 #include <sge/renderer/filter/texture.hpp>
-#include <sge/renderer/image_view.hpp>
-#include <sge/renderer/color_format.hpp>
+#include <sge/image/color/format.hpp>
 #include <sge/scoped_ptr.hpp>
 
 namespace sge
@@ -80,7 +79,7 @@ protected:
 		renderer::filter::texture const &filter,
 		resource_flag_type flags,
 		GLenum type,
-		renderer::color_format::type);
+		image::color::format::type);
 public:
 	~basic_texture();
 	resource_flag_type flags() const;

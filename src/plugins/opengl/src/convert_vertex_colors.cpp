@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert_vertex_colors.hpp"
 #include <sge/renderer/vf/dynamic_color.hpp>
 #include <sge/renderer/vf/dynamic_ordered_element.hpp>
-#include <sge/renderer/convert_pixels_conditional.hpp>
+#include <sge/image/algorithm/convert_conditional.hpp>
+#include <sge/image/color/format.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <boost/assign/list_of.hpp>
 
@@ -38,14 +39,15 @@ void sge::ogl::convert_vertex_colors(
 		>()
 	);
 
-	sge::renderer::convert_pixels_conditional(
+	sge::image::algorithm::convert_conditional(
 		data + e.offset(),
-		sge::renderer::dim_type(
+		sge::image::dim_type(
 			1,
-			num_vertices),
+			num_vertices
+		),
 		dcolor.color_format(),
 		vertex_stride,
 		boost::assign::list_of
-			(sge::renderer::color_format::rgba8)
-			(sge::renderer::color_format::rgba32f));
+			(sge::image::color::format::rgba8)
+			(sge::image::color::format::rgba32f));
 }

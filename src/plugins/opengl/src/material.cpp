@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 #include "../error.hpp"
 #include <sge/renderer/material.hpp>
-#include <sge/renderer/raw_color.hpp>
-#include <sge/renderer/any_color_convert.hpp>
+#include <sge/image/color/raw.hpp>
+#include <sge/image/color/any/convert.hpp>
 #include <sge/variant/apply_unary.hpp>
 #include <sge/variant/object_impl.hpp>
 
@@ -44,7 +44,7 @@ void glmaterialf(
 void material_color(
 	GLenum face,
 	GLenum type,
-	sge::renderer::any_color const &);
+	sge::image::color::any::object const &);
 
 class arithmetic_visitor {
 public:
@@ -134,14 +134,14 @@ void glmaterialf(
 void material_color(
 	GLenum const face,
 	GLenum const type,
-	sge::renderer::any_color const &color)
+	sge::image::color::any::object const &color)
 {
 	glmaterialfv(
 		face,
 		type,
-		sge::renderer::raw_color(
-			sge::renderer::any_color_convert<
-				sge::renderer::rgba32f_color
+		sge::image::color::raw(
+			sge::image::color::any::convert<
+				sge::image::color::rgba32f
 			>(
 				color
 			)
@@ -166,7 +166,8 @@ void arithmetic_visitor::operator()(
 	glmaterialf(
 		face,
 		type,
-		static_cast<GLfloat>(f));
+		static_cast<GLfloat>(f)
+	);
 		
 }
 

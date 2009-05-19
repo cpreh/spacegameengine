@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
 #include <sge/image/loader.hpp>
+#include <sge/image/color/colors.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/console/object.hpp>
@@ -111,7 +112,7 @@ try
 		)
 	);
 
-	sge::image::object_ptr const 
+	sge::image::file_ptr const 
 		image_bg(
 			sys.image_loader()->load(
 				sge::config::media_path()/SGE_TEXT("grass.png")));
@@ -119,7 +120,7 @@ try
 	sge::texture::default_creator<sge::texture::no_fragmented> const 
 		creator(
 			sys.renderer(),
-			sge::renderer::color_format::rgba8,
+			sge::image::color::format::rgba8,
 			sge::renderer::filter::linear);
 
 	sge::texture::manager tex_man(sys.renderer(),creator);
@@ -133,7 +134,7 @@ try
 	sge::console::gfx gfx_(
 		o,
 		sys.renderer(),
-		sge::renderer::rgba8_color(255,255,255,255),
+		sge::image::color::rgba8(255,255,255,255),
 		sys.font_system()->create_font(
 			sge::config::media_path()/SGE_TEXT("fonts")/SGE_TEXT("default.ttf"),
 			15),
@@ -152,7 +153,7 @@ try
 	sys.renderer()->state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
-			(sge::renderer::state::color::clear_color = sge::renderer::rgba8_color(0, 0, 0, 0))
+			(sge::renderer::state::color::clear_color = sge::image::color::colors::black())
 	);
 
 	sge::console::stdlib lib(

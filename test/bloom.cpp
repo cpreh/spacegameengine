@@ -2,12 +2,12 @@
 #include <sge/container/field.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/image/loader.hpp>
-#include <sge/image/object.hpp>
-#include <sge/renderer/make_image_view.hpp>
-#include <sge/renderer/make_const_image_view.hpp>
-#include <sge/renderer/copy_and_convert_pixels.hpp>
-#include <sge/renderer/color.hpp>
-#include <sge/renderer/color_channel.hpp>
+#include <sge/image/file.hpp>
+#include <sge/image/view/make.hpp>
+#include <sge/image/view/make_const.hpp>
+#include <sge/image/algorithm/copy_and_convert.hpp>
+#include <sge/image/color/rgba8.hpp>
+#include <sge/image/color/channel.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/window/parameters.hpp>
@@ -19,6 +19,7 @@
 #include <sge/lexical_cast.hpp>
 #include <sge/assert.hpp>
 #include <sge/exception.hpp>
+#include <sge/optional_impl.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/foreach.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
@@ -116,7 +117,7 @@ void field_increase_contrast(
 {
 	typedef sge::container::field<T> field_type;
 	typedef T color_type;
-	typedef typename sge::renderer::color_channel<T>::type channel_type;
+	typedef typename sge::image::color::channel<T>::type channel_type;
 
 	BOOST_FOREACH(T &c,f)
 	{
@@ -264,7 +265,7 @@ void field_gaussian_blur(
 	typedef sge::container::field<T> field_type;
 	typedef typename field_type::size_type size_type;
 	typedef typename field_type::iterator iterator;
-	typedef typename sge::renderer::color_channel<T>::type channel_type;
+	typedef typename sge::image::color::channel<T>::type channel_type;
 
 	typedef std::vector<T> color_container;
 	typedef typename color_container::size_type color_size_type;
@@ -391,29 +392,42 @@ try
 		sge::systems::list()
 		(sge::systems::parameterless::image));
 	
-	sge::image::object_ptr const 
+	sge::image::file_ptr const 
 		bg(
 			sys.image_loader()->load(
-				sge::iconv(argv[1])));
+				sge::iconv(argv[1]
+			)
+		)
+	);
 	
-	typedef sge::renderer::rgba8_color color_type;
+	typedef sge::image::color::rgba8 color_type;
 	typedef sge::container::field<color_type> color_field;
 	
 	color_field f(
 		sge::math::dim::structure_cast<color_field::dim_type>(
-			bg->dim()));
+			bg->dim()
+		)
+	);
 	
-	sge::renderer::image_view const view = 
-		sge::renderer::make_image_view(
-			reinterpret_cast<unsigned char*>(
-				&(*f.begin())),
-			sge::math::dim::structure_cast<sge::renderer::dim_type>(
-				f.dim()),
-			sge::renderer::color_format::rgba8);
+	sge::image::view::object const view(
+		sge::image::view::make(
+			reinterpret_cast<unsigned char *>(
+				&(*f.begin())
+			),
+			sge::math::dim::structure_cast<
+				sge::image::dim_type
+			>(
+				f.dim()
+			),
+			sge::image::color::format::rgba8,
+			sge::image::view::optional_pitch()
+		)
+	);
 	
-	sge::renderer::copy_and_convert_pixels(
+	sge::image::algorithm::copy_and_convert(
 		bg->view(),
-		view);
+		view
+	);
 	
 	color_field original = f;
 
@@ -430,9 +444,20 @@ try
 	field_combine(
 		f,
 		original,
-		&clamping_adder<sge::renderer::color_channel<color_field::value_type>::type>);
+		&clamping_adder<
+			sge::image::color::channel<
+				color_field::value_type
+			>::type
+		>
+	);
 	
-	sys.image_loader()->create(sge::renderer::make_const_image_view(view))->save(SGE_TEXT("output.jpg"));
+	sys.image_loader()->create(
+		sge::image::view::make_const(
+			view
+		)
+	)->save(
+		SGE_TEXT("output.jpg")
+	);
 }
 catch(sge::exception const &e)
 {

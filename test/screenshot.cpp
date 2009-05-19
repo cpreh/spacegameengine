@@ -30,11 +30,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/screenshot.hpp>
-#include <sge/renderer/colors.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/input/action.hpp>
 #include <sge/input/system.hpp>
 #include <sge/image/loader.hpp>
+#include <sge/image/color/colors.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/default_creator_impl.hpp>
 #include <sge/texture/no_fragmented.hpp>
@@ -91,7 +91,7 @@ try
 			sge::texture::no_fragmented
 		>(
 			device,
-			sge::renderer::color_format::rgba8,
+			sge::image::color::format::rgba8,
 			sge::renderer::filter::linear
 		)
 	);
@@ -118,7 +118,7 @@ try
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(sge::renderer::state::color::clear_color
-				= sge::renderer::colors::green())
+				= sge::image::color::colors::green())
 	);
 
 	bool running = true;

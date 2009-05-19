@@ -178,7 +178,7 @@ sge::ogl::device::create_index_buffer(
 sge::renderer::texture_ptr const
 sge::ogl::device::create_texture(
 	renderer::texture::dim_type const &dim,
-	renderer::color_format::type const format,
+	image::color::format::type const format,
 	renderer::filter::texture const &filter,
 	renderer::texture::resource_flag_type const flags)
 {
@@ -227,7 +227,7 @@ sge::ogl::device::create_volume_texture(
 sge::renderer::cube_texture_ptr const
 sge::ogl::device::create_cube_texture(
 	renderer::size_type const border_size,
-	renderer::color_format::type const format,
+	image::color::format::type const format,
 	renderer::filter::texture const &filter,
 	renderer::resource_flag_t const flags)
 {
