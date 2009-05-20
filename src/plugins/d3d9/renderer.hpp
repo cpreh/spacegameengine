@@ -38,93 +38,131 @@ namespace sge
 namespace d3d9
 {
 
-class renderer : public sge::renderer {
+class device : public sge::renderer::device {
 public:
-	renderer(
+	device(
 		d3d_device_ptr device,
-		const renderer_parameters& param,
+		renderer::parameters const &param,
 		adapter_type adapter,
 		win32_window_ptr wnd,
 		d3d_ptr sys);
 
-	const texture_ptr create_texture(
-		texture::const_pointer data,
-		const texture::dim_type& dim,
-		const filter_args& filter,
-		resource_flag_t flags);
-
-	const volume_texture_ptr create_volume_texture(
-		volume_texture::const_pointer data,
-		const volume_texture::box_type& box,
-		const filter_args& filter,
-		resource_flag_t flags);
-
-	const cube_texture_ptr create_cube_texture(
-		const cube_texture::cube_side_array* data,
-		cube_texture::size_type size,
-		const filter_args& filter,
-		resource_flag_t flags);
-
-	const vertex_buffer_ptr create_vertex_buffer(
-		const sge::vertex_format& format,
-		vertex_buffer::size_type size,
-		resource_flag_t flags,
-		vertex_buffer::const_pointer data);
-
-	const index_buffer_ptr create_index_buffer(
-		index_buffer::size_type size,
-		resource_flag_t flags,
-		index_buffer::const_pointer data);
-
-	const render_target_ptr  create_render_target(
-		const render_target::dim_type&);
-
-	void set_state(const renderer_state_list&);
-	void push_state(const renderer_state_list&);
-	void pop_level();
-
-	void set_texture(texture_base_ptr tex, stage_type stage);
-	void set_material(const material& m);
-	void set_texture_stage_op(stage_type stage, texture_stage_op::type type, texture_stage_op_value::type value);
-	void set_texture_stage_arg(stage_type stage, texture_stage_arg::type type, texture_stage_arg_value::type value);
-	void set_viewport(const viewport&);
-	void enable_light(light_index index, bool enable);
-	void set_light(light_index index, const light&);
-
-	const glsl::program_ptr create_glsl_program(
-		const std::string& vertex_shader_source,
-		const std::string& pixel_shader_source);
-
-	void set_glsl_shader(glsl::program_ptr);
-
-	const render_target_ptr get_render_target() const;
-
 	void begin_rendering();
 	void end_rendering();
-	void render(vertex_buffer_ptr vb,
-	            index_buffer_ptr ib,
-	            sge::vertex_buffer::size_type first_vertex,
-	            sge::vertex_buffer::size_type num_vertices,
-	            indexed_primitive_type::type ptype,
-	            sge::index_buffer::size_type pcount,
-	            sge::index_buffer::size_type first_index);
-	void render(vertex_buffer_ptr vb,
-	            sge::vertex_buffer::size_type first_vertex,
-	            sge::vertex_buffer::size_type num_vertices,
-	            nonindexed_primitive_type::type ptype);
+	void render(
+		renderer::const_vertex_buffer_ptr vb,
+		renderer::const_index_buffer_ptr ib,
+		renderer::size_type first_vertex,
+		renderer::size_type num_vertices,
+		renderer::indexed_primitive_type::type ptype,
+		renderer::size_type primitive_count,
+		renderer::size_type first_index);
+	void render(
+		renderer::const_vertex_buffer_ptr vb,
+		renderer::size_type first_vertex,
+		renderer::size_type num_vertices,
+		renderer::nonindexed_primitive_type::type ptype);
 
-	void reset(const renderer_parameters* param);
-	void set_render_target(texture_ptr target);
-	void setviewport(const viewport&);
+	void state(
+		renderer::state::list const &);
+	void push_state(
+		renderer::state::list const &);
+	void pop_state();
 
-	void transform(const math::space_matrix&);
-	void projection(const math::space_matrix&);
+	void material(
+		renderer::material const &mat);
+	void enable_light(
+		renderer::light_index index,
+		bool enable);
+	void light(
+		renderer::light_index index,
+		renderer::light const &);
+	void texture_stage_op(
+		renderer::stage_type stage,
+		renderer::texture_stage_op::type,
+		renderer::texture_stage_op_value::type);
+	void texture_stage_arg(
+		renderer::stage_type stage,
+		renderer::texture_stage_arg::type,
+		renderer::texture_stage_arg_value::type);
 
-	const window_ptr get_window() const;
-	const screen_size_t screen_size() const;
-	const renderer_caps& caps() const;
+	void texture(
+		renderer::const_texture_base_ptr tex,
+		renderer::stage_type stage);
+
+	void transform(
+		renderer::any_matrix const &mat);
+	void projection(
+		renderer::any_matrix const &mat);
+	void texture_transform(
+		renderer::any_matrix const &mat);
+
+	void target(
+		renderer::texture_ptr);
+
+	void viewport(
+		renderer::viewport const &);
+
+	void viewport_mode(
+		renderer::viewport_mode::type);
+
+	renderer::glsl::program_ptr const
+	create_glsl_program(
+		renderer::glsl::optional_string const &vertex_shader_source,
+		renderer::glsl::optional_string const &pixel_shader_source);
+
+	renderer::glsl::program_ptr const
+	create_glsl_program(
+		renderer::glsl::optional_istream const &vertex_shader_source,
+		renderer::glsl::optional_istream const &pixel_shader_source);
+
+	void glsl_program(
+		renderer::glsl::program_ptr);
+
+	renderer::const_target_ptr const
+	target() const;
+
+	renderer::texture_ptr const
+	create_texture(
+		renderer::dim_type const &dim,
+		image::color::format::type format,
+		renderer::filter::texture const &filter,
+		renderer::resource_flag_t flags);
+
+	/*const volume_texture_ptr create_volume_texture(
+		volume_texture::image_view_array const &,
+		filter::texture const &filter,
+		resource_flag_t flags);*/
+
+	renderer::cube_texture_ptr const
+	create_cube_texture(
+		renderer::size_type border_size,
+		image::color::format::type format,
+		renderer::filter::texture const &filter,
+		renderer::resource_flag_t flags);
+
+	renderer::vertex_buffer_ptr const
+	create_vertex_buffer(
+		renderer::vf::dynamic_format const &,
+		renderer::size_type size,
+		renderer::resource_flag_t flags);
+
+	renderer::index_buffer_ptr const
+	create_index_buffer(
+		renderer::index::format::type,
+		renderer::size_type size,
+		renderer::resource_flag_t flags);
+
+	renderer::caps const
+	caps() const;
+
+	renderer::screen_size const
+	screen_size() const;
+
+	sge::window::instance_ptr const
+	window() const;
 private:
-	d3d_ptr                     sys;
+	//d3d_ptr                     sys;
 	d3d_device_ptr              device;
 	adapter_type                adapter;
 	renderer_parameters         parameters;

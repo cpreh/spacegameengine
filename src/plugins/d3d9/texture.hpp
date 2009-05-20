@@ -50,11 +50,8 @@ public:
 		const filter_args& filter,
 		resource_flag_t flags);
 	
-	const dim_type dim() const;
-	
-	void set_data(const_pointer data);	
-	void set_data(const_pointer data, const lock_rect& r);
-	
+	dim_type const dim() const;
+
 	void lock(lock_flag_t);
 	void lock(const lock_rect&, lock_flag_t);
 	void unlock();
