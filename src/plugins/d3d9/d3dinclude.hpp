@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_D3DINCLUDE_HPP_INCLUDED
 #define SGE_D3D9_D3DINCLUDE_HPP_INCLUDED
 
-#include <sge/windows.hpp>
+#include <sge/windows/windows.hpp>
 #include <d3d9.h>
 #include <sge/shared_ptr.hpp>
 #include <sge/com_deleter.hpp>

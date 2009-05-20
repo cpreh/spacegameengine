@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/renderer_parameters.hpp>
 #include <ostream>
 
-const sge::renderer_caps 
+sge::renderer::caps const
 sge::d3d9::create_renderer_caps(
 	const adapter_type adapter,
 	const d3d_ptr sys)

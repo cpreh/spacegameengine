@@ -19,27 +19,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 
-#ifndef SGE_D3D9_RENDERER_SYSTEM_HPP_INCLUDED
-#define SGE_D3D9_RENDERER_SYSTEM_HPP_INCLUDED
+#ifndef SGE_D3D9_SYSTEM_HPP_INCLUDED
+#define SGE_D3D9_SYSTEM_HPP_INCLUDED
 
 #include "d3dinclude.hpp"
-#include <sge/renderer/renderer_system.hpp>
+#include <sge/renderer/system.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
 
-class renderer_system : public sge::renderer_system {
+class system : public renderer::system {
 public:
-	renderer_system();
-	const renderer_ptr create_renderer(
-		const renderer_parameters& param,
-		adapter_type adapter,
-		window_ptr);
-	const renderer_caps_array caps() const;
+	system();
+
+	renderer::device_ptr const
+	create_renderer(
+		renderer::parameters const &param,
+		renderer::adapter_type adapter,
+		window::instance_ptr wnd);
+
+	window::instance_ptr const
+	create_window(
+		window::parameters const &,
+		renderer::parameters const &);
 private:
-	d3d_ptr sys;
+	d3d_ptr const sys;
 };
 
 }
