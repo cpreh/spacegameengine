@@ -50,7 +50,7 @@ public:
 	SGE_SYMBOL filesystem::path const &
 	name() const;
 private:
-	typedef void*(*base_fun)();
+	typedef void *(*base_fun)();
 	SGE_SYMBOL base_fun
 	load_address_base(
 		function_string const &fun);

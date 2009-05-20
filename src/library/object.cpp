@@ -33,7 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <exception>
 #elif SGE_POSIX_PLATFORM
 #include <sge/iconv.hpp>
-#include <sge/funptr_cast.hpp>
 #include <dlfcn.h>
 #else
 #error "Implement me!"
@@ -185,12 +184,25 @@ sge::library::object::load_address_base(
 		ret
 	);
 #elif SGE_POSIX_PLATFORM
-	// TODO: error handling!
-	return funptr_cast<base_fun>(
-		dlsym(
-			handle,
-			fun.c_str()
-		)
+	dlerror(); // clear last error
+
+	union {
+		void *dl_ptr;
+		base_fun dl_fun;
+	} ret;
+
+	ret.dl_ptr = dlsym(
+		handle,
+		fun.c_str()
 	);
+
+	if(dlerror())
+		throw exception(
+			sge::iconv(fun)
+			+ SGE_TEXT(" not found in library ")
+			+ name().string()
+		);
+	
+	return ret.dl_fun;
 #endif
 }
