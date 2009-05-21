@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "d3dinclude.hpp"
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/caps.hpp>
 #include <sge/windows/window_fwd.hpp>
 
 namespace sge
@@ -40,7 +41,8 @@ public:
 		d3d_device_ptr device,
 		renderer::parameters const &param,
 		D3D9PRESENTPARAMETERS const &,
-		windows::window_ptr);
+		windows::window_ptr,
+		renderer::caps const &)
 
 	void begin_rendering();
 	void end_rendering();

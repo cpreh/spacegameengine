@@ -18,48 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
-#ifndef SGE_D3D9_ENUMERATION_HPP_INCLUDED
-#define SGE_D3D9_ENUMERATION_HPP_INCLUDED
+#ifndef SGE_D3D9_CREATE_CAPS_HPP_INCLUDED
+#define SGE_D3D9_CREATE_CAPS_HPP_INCLUDED
 
 #include "d3dinclude.hpp"
+#include <sge/renderer/caps_fwd.hpp>
 #include <sge/renderer/adapter.hpp>
-#include <sge/renderer/display_mode.hpp>
-#include <sge/win32_window.hpp>
 
 namespace sge
 {
-
-class renderer_parameters;
-class renderer_caps;
-
 namespace d3d9
 {
 
-const renderer_caps create_renderer_caps(
-	adapter_type adapter,
+renderer::caps const
+create_caps(
+	renderer::adapter_type,
 	d3d_ptr sys);
-
-DWORD get_tnl_caps(
-	adapter_type adapter,
-	d3d_ptr sys);
-
-void add_display_modes(
-	display_mode_array& v,
-	adapter_type adapter,
-	bit_depth::type depth,
-	D3DFORMAT format,
-	d3d_ptr sys);
-
-D3DFORMAT search_format(
-	const display_mode& mode,
-	d3d_ptr sys);
-
-D3DFORMAT search_stencil_format(
-	adapter_type adapter,
-	D3DFORMAT screen_format,
-	d3d_ptr sys);
-
 
 }
 }

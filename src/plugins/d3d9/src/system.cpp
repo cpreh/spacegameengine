@@ -20,10 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../system.hpp"
-#include "../conversion.hpp"
 #include "../device.hpp"
-#include "../constants.hpp"
-#include "../enumeration.hpp"
+#include "../create_caps.hpp"
+#include "../present_parameters.hpp"
+#include "../tnl_caps.hpp"
 #include <sge/exception.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/windows/create_window.hpp>
@@ -49,17 +49,10 @@ sge::d3d9::system::create_renderer(
 	renderer::adapter_type const adapter,
 	window::instance_ptr const wnd)
 {
-	windows::window_ptr const win32_wnd(
+	windows::window_ptr const wnd(
 		dynamic_pointer_cast<
 			windows::window
 		>(wnd_param)
-	);
-
-	DWORD const tnl_flags(
-		get_tnl_caps(
-			adapter,
-			sys
-		)
 	);
 
 	D3DPRESENT_PARAMETERS const pp(
@@ -75,8 +68,22 @@ sge::d3d9::system::create_renderer(
 
 	IDirect3DDevice9 *device;
 
-	if(sys->CreateDevice(adapter, D3DDEVTYPE_HAL, wnd->hwnd(), tnl_flags, &pp, &device) != D3D_OK)
-		throw exception(SGE_TEXT("Failed to initialize the renderer"));
+	if(
+		sys->CreateDevice(
+			adapter,
+			D3DDEVTYPE_HAL,
+			wnd->hwnd(),
+			tnl_caps(
+				adapter,
+				sys
+			),
+			&pp,
+			&device
+		) != D3D_OK
+	)
+		throw exception(
+			SGE_TEXT("Failed to initialize the renderer")
+		);
 
 	d3d_device_ptr const device_p(
 		device
@@ -88,7 +95,11 @@ sge::d3d9::system::create_renderer(
 		device_p,
 		param,
 		pp,
-		wnd
+		wnd,
+		create_caps(
+			adapter,
+			sys
+		)
 	);
 }
 
