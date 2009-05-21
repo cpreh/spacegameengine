@@ -22,13 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::console::var_base::var_base(
 	object &_object,
 	sge::string const &_name)
-	: object_(_object),
-	  name_(_name)
+:
+	object_(_object),
+	name_(_name)
 {
 	object_.insert(*this);
 }
 
-sge::string const sge::console::var_base::name() const
+sge::string const
+sge::console::var_base::name() const
 {
 	return name_;
 }
