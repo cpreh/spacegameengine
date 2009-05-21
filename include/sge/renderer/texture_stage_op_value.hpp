@@ -18,38 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
-#ifndef SGE_OPENGL_CONVERT_TEXTURE_STAGE_HPP_INCLUDED
-#define SGE_OPENGL_CONVERT_TEXTURE_STAGE_HPP_INCLUDED
-
-// TODO: split this!
-
-#include "common.hpp"
-#include <sge/renderer/texture_stage_op.hpp>
-#include <sge/renderer/texture_stage_op_value.hpp>
-#include <sge/renderer/texture_stage_arg.hpp>
-#include <sge/renderer/texture_stage_arg_value.hpp>
+#ifndef SGE_RENDERER_TEXTURE_STAGE_OP_VALUE_HPP_INCLUDED
+#define SGE_RENDERER_TEXTURE_STAGE_OP_VALUE_HPP_INCLUDED
 
 namespace sge
 {
-namespace ogl
+namespace renderer
 {
 
-GLenum
-convert_texture_stage(
-	renderer::texture_stage_op::type);
-
-GLenum
-convert_texture_stage(
-	renderer::texture_stage_op_value::type);
-
-GLenum
-convert_texture_stage(
-	renderer::texture_stage_arg::type);
-
-GLenum
-convert_texture_stage(
-	renderer::texture_stage_arg_value::type);
+namespace texture_stage_op_value
+{
+enum type {
+	arg0,
+	modulate,
+	modulate2x,
+	modulate4x,
+	add,
+	add2x,
+	add4x,
+	substract,
+	add_signed,
+	add_signed2x,
+	interpolate
+};
+}
 
 }
 }

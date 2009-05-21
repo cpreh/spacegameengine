@@ -19,37 +19,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 
-#ifndef SGE_OPENGL_CONVERT_TEXTURE_STAGE_HPP_INCLUDED
-#define SGE_OPENGL_CONVERT_TEXTURE_STAGE_HPP_INCLUDED
-
-// TODO: split this!
-
-#include "common.hpp"
-#include <sge/renderer/texture_stage_op.hpp>
-#include <sge/renderer/texture_stage_op_value.hpp>
-#include <sge/renderer/texture_stage_arg.hpp>
-#include <sge/renderer/texture_stage_arg_value.hpp>
+#ifndef SGE_RENDERER_TEXTURE_STAGE_ARG_HPP_INCLUDED
+#define SGE_RENDERER_TEXTURE_STAGE_ARG_HPP_INCLUDED
 
 namespace sge
 {
-namespace ogl
+namespace renderer
 {
 
-GLenum
-convert_texture_stage(
-	renderer::texture_stage_op::type);
-
-GLenum
-convert_texture_stage(
-	renderer::texture_stage_op_value::type);
-
-GLenum
-convert_texture_stage(
-	renderer::texture_stage_arg::type);
-
-GLenum
-convert_texture_stage(
-	renderer::texture_stage_arg_value::type);
+namespace texture_stage_arg
+{
+enum type {
+	rgb0,
+	rgb1,
+	rgb2,
+	alpha0,
+	alpha1,
+	alpha2
+};
+}
 
 }
 }
