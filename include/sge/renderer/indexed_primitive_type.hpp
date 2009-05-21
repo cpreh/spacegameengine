@@ -18,28 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
-#ifndef SGE_OPENGL_CONVERT_PRIMITIVE_HPP_INCLUDED
-#define SGE_OPENGL_CONVERT_PRIMITIVE_HPP_INCLUDED
-
-#include "common.hpp"
-#include <sge/renderer/indexed_primitive_type.hpp>
-#include <sge/renderer/nonindexed_primitive_type.hpp>
-
-// TODO: split this!
+#ifndef SGE_RENDERER_INDEXED_PRIMITIVE_TYPE_HPP_INCLUDED
+#define SGE_RENDERER_INDEXED_PRIMITIVE_TYPE_HPP_INCLUDED
 
 namespace sge
 {
-namespace ogl
+namespace renderer
 {
 
-GLenum
-convert_primitive(
-	renderer::indexed_primitive_type::type);
-
-GLenum
-convert_primitive(
-	renderer::nonindexed_primitive_type::type);
+namespace indexed_primitive_type
+{
+enum type {
+	line,
+	triangle
+};
+}
 
 }
 }

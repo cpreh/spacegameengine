@@ -35,7 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/program_fwd.hpp>
 #include <sge/renderer/glsl/optional_string.hpp>
 #include <sge/renderer/glsl/optional_istream.hpp>
-#include <sge/renderer/primitive.hpp>
+#include <sge/renderer/indexed_primitive_type.hpp>
+#include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <sge/renderer/texture_stage_op.hpp>
 #include <sge/renderer/texture_stage_op_value.hpp>
 #include <sge/renderer/texture_stage_arg.hpp>

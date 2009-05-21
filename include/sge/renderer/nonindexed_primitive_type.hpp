@@ -19,31 +19,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 
-#ifndef SGE_RENDERER_PRIMITIVE_HPP_INCLUDED
-#define SGE_RENDERER_PRIMITIVE_HPP_INCLUDED
+#ifndef SGE_RENDERER_NONINDEXED_PRIMITIVE_TYPE_HPP_INCLUDED
+#define SGE_RENDERER_NONINDEXED_PRIMITIVE_TYPE_HPP_INCLUDED
 
 namespace sge
 {
 namespace renderer
 {
 
-namespace indexed_primitive_type
-{
-	enum type {
-		line,
-		triangle
-	};
-}
-
 namespace nonindexed_primitive_type
 {
-	enum type {
-		point,
-		line_strip,
-		line_loop,
-		triangle_strip,
-		triangle_fan
-	};
+enum type {
+	point,
+	line_strip,
+	line_loop,
+	triangle_strip,
+	triangle_fan
+};
 }
 
 
