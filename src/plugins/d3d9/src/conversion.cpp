@@ -19,24 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 
-/*
-template<> D3DDECLUSAGE sge::d3d9::convert_cast (const vertex_usage::type& r)
-{
-	switch(r) {
-	case vertex_usage::pos:
-		return D3DDECLUSAGE_POSITION;
-	case vertex_usage::normal:
-		return D3DDECLUSAGE_NORMAL;
-	case vertex_usage::tex:
-		return D3DDECLUSAGE_TEXCOORD;
-	case vertex_usage::diffuse:
-		return D3DDECLUSAGE_COLOR;
-	default:
-		throw exception(SGE_TEXT("Invalid vertex_usage!"));
-	}
-}
-*/
-
 /*template<> D3DSAMPLERSTATETYPE sge::d3d9::convert_cast (const filter_arg& r)
 {
 	switch(r) {

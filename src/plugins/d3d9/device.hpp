@@ -40,7 +40,7 @@ public:
 	device(
 		d3d_device_ptr device,
 		renderer::parameters const &param,
-		D3D9PRESENTPARAMETERS const &,
+		D3DPRESENT_PARAMETERS const &,
 		windows::window_ptr,
 		renderer::caps const &)
 
@@ -159,8 +159,8 @@ public:
 	sge::window::instance_ptr const
 	window() const;
 private:
-	d3d_device_ptr const device;
-	windows::window_ptr const render_window;
+	d3d_device_ptr const device_;
+	windows::window_ptr const wnd;
 	renderer::caps const caps_;
 	d3d_surface_ptr default_render_target;
 	resource_list resources;

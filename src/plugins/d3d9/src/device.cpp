@@ -19,17 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 
-#include "../enumeration.hpp"
-#include "../renderer.hpp"
+#include "../device.hpp"
 #include "../texture.hpp"
-#include "../volume_texture.hpp"
+//#include "../volume_texture.hpp"
 #include "../cube_texture.hpp"
 #include "../vertex_buffer.hpp"
 #include "../index_buffer.hpp"
-#include "../constants.hpp"
-#include "../conversion.hpp"
-#include "../resource.hpp"
-#include "../render_target.hpp"
+#include "../target.hpp"
 #include "../material.hpp"
 #include <sge/stub.hpp>
 #include <sge/bit.hpp>
@@ -557,7 +553,7 @@ sge::d3d9::device::set_vertex_buffer(
 			d3d_buffer.buffer.get(),
 			0,
 			static_cast<UINT>(
-				buffer->stride()
+				->stride()
 			)
 		) != D3D_OK
 	)

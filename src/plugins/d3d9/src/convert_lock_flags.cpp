@@ -26,7 +26,10 @@ sge::d3d9::convert_lock_flags(
 	renderer::resource_flag_t const rf)
 {
 	DWORD l = 0;
-	if((lf & lock_flags::writeonly) && (rf & resource_flags::dynamic))
+	if(
+		(lf & renderer::lock_flags::writeonly)
+		&& (rf & renderer::resource_flags::dynamic)
+	)
 		l |= D3DLOCK_DISCARD;
 	return l;
 }

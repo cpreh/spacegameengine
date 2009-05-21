@@ -37,7 +37,7 @@ struct visitor {
 		typename T
 	>
 	result_type const
-	operator(
+	operator()(
 		T const &) const;
 };
 
@@ -83,7 +83,7 @@ template<
 	typename T
 >
 visitor::result_type const
-visitor::operator(
+visitor::operator()(
 	T const &m) const
 {
 	result_type res;

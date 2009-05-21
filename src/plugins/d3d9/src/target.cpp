@@ -19,17 +19,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 
-#include "../render_target.hpp"
+#include "../target.hpp"
 #include <sge/exception.hpp>
 #include <sge/stub.hpp>
 
-sge::d3d9::render_target::render_target(
+sge::d3d9::target::target(
 	renderer& r,
 	const d3d_device_ptr device,
 	const dim_type& dim_)
-: resource(r, true), // FIXME
-  device(device),
-  dim_(dim_)
+:
+	resource(),
+	device(device),
+	dim_(dim_)
 {
 	init();
 }
@@ -68,9 +69,4 @@ void sge::d3d9::render_target::on_reset()
 const sge::render_target::dim_type sge::d3d9::render_target::dim() const
 {
 	return dim_;
-}
-
-void sge::d3d9::render_target::copy_data(const pointer p)
-{
-	SGE_STUB_FUNCTION
 }

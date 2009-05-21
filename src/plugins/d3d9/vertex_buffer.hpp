@@ -26,61 +26,64 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "resource.hpp"
 #include "d3dinclude.hpp"
 #include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/raw_pointer.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
 
-class renderer;
-
-class vertex_buffer : public sge::vertex_buffer, public resource {
-	friend class renderer;
+class vertex_buffer
+:
+	public sge::renderer::vertex_buffer,
+	public resource
+{
 public:
-	vertex_buffer(renderer& r,
-	              d3d_device_ptr device,
-	              const sge::vertex_format& format,
-	              size_type size,
-	              resource_flag_t flags,
-	              const_pointer src);
-	iterator begin();
-	const_iterator begin() const;
-	iterator end();
-	const_iterator end() const;
-	reverse_iterator rbegin();
-	const_reverse_iterator rbegin() const;
-	reverse_iterator rend();
-	const_reverse_iterator rend() const;
+	vertex_buffer(
+		d3d_device_ptr device,
+		renderer::vf::dynamic_format const &,
+		size_type size,
+		resource_flag_type flags);
+
+	view_type const
+	lock(
+		lock_flag_type flags,
+		size_type offset,
+		size_type range);
+
+	const_view_type const
+	lock(
+		size_type offset,
+		size_type range) const;
+
+	void unlock() const;
+
 	size_type size() const;
-	void resize(size_type newsize, const_pointer new_data = 0);
-	size_type stride() const;
-	iterator create_iterator(pointer data);
-	const_iterator create_iterator(const_pointer data) const;
-	reference operator[](size_type);
-	const_reference operator[](size_type) const;
-	void lock(lock_flag_t flags);
-	void unlock();
-	void set_data(const_pointer data, size_type first, size_type count);
 
-	resource_flag_t flags() const;
-	const sge::vertex_format& get_vertex_format() const;
-	pointer data();
-	const_pointer data() const;
+	resource_flag_type flags() const;
 
-	void lock(lock_flag_t lflags, size_type first, size_type count);
+	renderer::vf::dynamic_format const &
+	format() const;
 private:
+	void init();
 	void on_loss();
 	void on_reset();
 
-	void init(const_pointer src = 0);
+	view_type const
+	do_lock(
+		DWORD flags,
+		size_type offset,
+		size_type range
+	) const;
 
-	d3d_device_ptr        device;
+	size_type stride() const;
+
+	d3d_device_ptr const  device_;
 	d3d_vertex_buffer_ptr buffer;
-	pointer               lock_dest;
-	resource_flag_t       flags_;
-	size_type             sz;
-	sge::vertex_format    format;
-	vertex_format         d3d_format;
+	mutable renderer::raw_pointer lock_dest;
+	resource_flag_type const flags_;
+	size_type const       sz;
+	vertex_format const   d3d_format;
 };
 
 }

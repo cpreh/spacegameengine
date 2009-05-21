@@ -19,42 +19,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 
-#ifndef SGE_D3D9_VERTEX_FORMAT_HPP_INCLUDED
-#define SGE_D3D9_VERTEX_FORMAT_HPP_INCLUDED
-
-#include "d3dinclude.hpp"
-#include <sge/renderer/vf/dynamic_format.hpp>
-#include <sge/renderer/size_type.hpp>
-#include <sge/noncopyable.hpp>
+#ifndef SGE_RENDERER_VF_DYNAMIC_FORMAT_FWD_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_FORMAT_FWD_HPP_INCLUDED
 
 namespace sge
 {
-namespace d3d9
+namespace renderer
+{
+namespace vf
 {
 
-class vertex_format {
-	SGE_NONCOPYABLE(vertex_format)
-public:
-	vertex_format(
-		d3d_device_ptr device,
-		sge::renderer::vf::dynamic_format const &);
+class dynamic_format;
 
-	d3d_vertex_declaration_ptr const
-	vertex_declaration() const;
-
-	sge::renderer::vf::dynamic_format const &
-	format() const;
-
-	DWORD fvf() const;
-
-	renderer::size_type
-	stride() const;
-private:
-	sge::renderer::vf::dynamic_format const format_;
-	d3d_vertex_declaration_ptr vertex_declaration_;
-	DWORD fvf_;
-};
-
+}
 }
 }
 

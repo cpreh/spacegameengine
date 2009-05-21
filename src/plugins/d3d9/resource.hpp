@@ -32,8 +32,10 @@ namespace d3d9
 
 class resource
 : public
-	boost::intrusive::list_hook<
-		boost::intrusive::auto_unlink
+	boost::intrusive::list_base_hook<
+		boost::intrusive::link_mode<
+			boost::intrusive::auto_unlink
+		>
 	>
 {
 	SGE_NONCOPYABLE(resource);

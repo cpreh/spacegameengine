@@ -31,48 +31,51 @@ namespace sge
 namespace d3d9
 {
 
-class renderer;
-
-class index_buffer : public sge::index_buffer, public resource {
-	friend class renderer;
+class index_buffer
+:
+	public sge::renderer::index_buffer,
+	public resource
+{
 public:
-	index_buffer(renderer& r,
-	             d3d_device_ptr device,
-	             size_type size,
-	             resource_flag_t flags,
-	             const_pointer src);
+	index_buffer(
+		d3d_device_ptr,
+		size_type size,
+		renderer::index::format,
+		resource_flag_type flags);
 
-	iterator begin();
-	const_iterator begin() const;
-	iterator end();
-	const_iterator end() const;
-	reverse_iterator rbegin();
-	const_reverse_iterator rbegin() const;
-	reverse_iterator rend();
-	const_reverse_iterator rend() const;
 	size_type size() const;
-	void resize(size_type newsize, const_pointer new_data);
-	void lock(lock_flag_t flags);
-	void unlock();
-	void set_data(const_pointer src, size_type first, size_type count);
-	resource_flag_t flags() const;
-	pointer data();
-	const_pointer data() const;
-	reference operator[](size_type);
-	const_reference operator[](size_type) const;
 
-	void lock(lock_flag_t lflags, size_type first, size_type count);
+	view_type const
+	lock(
+		lock_flag_t flags,
+		size_type first,
+		size_type count);
+
+	const_view_type const
+	lock(
+		size_type first,
+		size_type count) const;
+
+	void unlock() cibst;
+
+	resource_flag_type flags() const;
 private:
+	void init();
+
 	void on_loss();
 	void on_reset();
 
-	void init(const_pointer src = 0);
+	view_type const
+	lock(
+		DWORD flags,
+		size_type first,
+		size_type count) const;
 
-	d3d_device_ptr       device;
+	d3d_device_ptr const device_;
 	d3d_index_buffer_ptr buffer;
-	resource_flag_t      _flags;
-	size_type            sz;
-	pointer              lock_dest;
+	resource_flag_type const flags_;
+	size_type const sz;
+	mutable pointer lock_dest;
 };
 
 }

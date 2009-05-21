@@ -25,9 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
+	/*
 void
 add_display_modes(
-	display_mode_array& v,
+				  display_mode_array& v,
 	sge::renderer::adapter_type const adapter,
 	sge::renderer::bit_depth::type const depth,
 	D3DFORMAT const format,
@@ -57,7 +58,7 @@ add_display_modes(
 			);
 	}
 }
-
+*/
 }
 
 sge::renderer::caps const
@@ -80,12 +81,17 @@ sge::d3d9::create_caps(
 	add_display_modes(display_modes, adapter, bit_depth::depth32, D3DFMT_A8R8G8B8, sys);
 	add_display_modes(display_modes, adapter, bit_depth::depth32, D3DFMT_X8R8G8B8, sys);*/
 
-	return renderer_caps(
+	return renderer::caps(
 		adapter,
 		identifier.Driver,
 		identifier.Description,
-		caps.MaxTextureWidth,
-		0); // FIXME
+		sge::renderer::dim_type(
+			caps.MaxTextureWidth,
+			caps.MaxTextureHeight),
+		caps.MaxAnisotropy,
+		false, // FIXME: find out if render to texture is supported
+		false // no glsl
+	);
 }
 
 
