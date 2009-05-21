@@ -18,24 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_D3D9_TRANSFORM_HPP_INCLUDED
+#define SGE_D3D9_TRANSFORM_HPP_INCLUDED
 
-#ifndef SGE_D3D9_CONSTANTS_HPP_INCLUDED
-#define SGE_D3D9_CONSTANTS_HPP_INCLUDED
-
-#include "d3dinclude.hpp"
+#include "d3dincude.hpp"
+#include <sge/renderer/any_matrix.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
 
-class constants {
-public:
-	static const unsigned back_buffer_count = 1;
-	static const bool enable_auto_depth_stencil = true;
-	static D3DSWAPEFFECT swap_effect() { return D3DSWAPEFFECT_DISCARD; }
-	static const DWORD flags = D3DPRESENTFLAG_DISCARD_DEPTHSTENCIL;
-};
+void
+set_transform(
+	d3d_device_ptr device,
+	D3DTRANSFORMSTATETYPE,
+	renderer::any_matrix const &);
 
 }
 }

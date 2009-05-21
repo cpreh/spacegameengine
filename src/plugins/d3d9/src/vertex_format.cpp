@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../vertex_format.hpp"
 #include "../conversion.hpp"
-#include <sge/raw_vector_impl.hpp>
+#include <sge/container/raw_vector_impl.hpp>
 #include <sge/exception.hpp>
 
 namespace
@@ -31,7 +31,9 @@ BYTE get_vertex_type(sge::vertex_usage::type u);
 
 }
 
-sge::d3d9::vertex_format::vertex_format(const d3d_device_ptr device, const sge::vertex_format& f)
+sge::d3d9::vertex_format::vertex_format(
+	d3d_device_ptr const device,
+	sge::renderer::vf::dynamic_format const &f)
 {
 	raw_vector<D3DVERTEXELEMENT9> vertex_elements;
 
@@ -66,14 +68,10 @@ sge::d3d9::vertex_format::vertex_format(const d3d_device_ptr device, const sge::
 	//	FIXME
 }
 
-const sge::d3d9::d3d_vertex_declaration_ptr sge::d3d9::vertex_format::vertex_declaration() const
+sge::d3d9::d3d_vertex_declaration_ptr const
+sge::d3d9::vertex_format::vertex_declaration() const
 {
-	return _vertex_declaration;
-}
-
-const sge::offset_info& sge::d3d9::vertex_format::get_offset_info() const
-{
-	return oi;
+	return vertex_declaration_;
 }
 
 DWORD sge::d3d9::vertex_format::fvf() const
@@ -83,7 +81,7 @@ DWORD sge::d3d9::vertex_format::fvf() const
 
 sge::vertex_size sge::d3d9::vertex_format::stride() const
 {
-	return _stride;
+	
 }
 
 namespace

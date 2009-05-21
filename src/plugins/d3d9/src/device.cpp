@@ -30,15 +30,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../conversion.hpp"
 #include "../resource.hpp"
 #include "../render_target.hpp"
+#include "../material.hpp"
 #include <sge/stub.hpp>
 #include <sge/bit.hpp>
 #include <sge/exception.hpp>
-#include <sge/util.hpp>
-#include <sge/renderer/transform.hpp>
-#include <sge/math/matrix_impl.hpp>
-#include <iterator>
+#include <sge/make_shared_ptr.hpp>
+#include <boost/bind.hpp>
 #include <algorithm>
-#include <functional>
 
 namespace
 {
@@ -58,13 +56,14 @@ sge::d3d9::device::device(
 	d3d_device_ptr const device,
 	renderer::parameters const &param,
 	D3D9PRESENTPARAMETERS const &present_parameters,
-	windows::window_ptr const window_)
+	windows::window_ptr const window_,
+	renderer::caps const &caps_)
 :
 	device(device),
-	param(param),
+	screen_size_(param.mode().size()),
 	preset_parameters(present_parameters),
 	window_(window_),
-	caps_(create_renderer_caps(adapter, sys))
+	caps_(caps_)
 {
 	init();
 }
@@ -206,9 +205,6 @@ sge::d3d9::device::material(
 		device,
 		mat
 	);
-	/*
-		if(device->SetMaterial(reinterpret_cast<const D3DMATERIAL9*>(&m)) != D3D_OK)
-		throw exception(SGE_TEXT("set_material() failed!"));*/
 }
 
 void
@@ -283,18 +279,33 @@ void
 sge::d3d9::device::transform(
 	renderer::any_matrix const &mat)
 {
+	set_transform(
+		device_,
+		D3DTS_WORLD,
+		math
+	);
 }
 
 void
 sge::d3d9::device::projection(
 	renderer::any_matrix const &mat)
 {
+	set_transform(
+		device_,
+		D3DTS_PROJECTION,
+		math
+	);
 }
 
 void
 sge::d3d9::device::texture_transform(
 	renderer::any_matrix const &mat)
 {
+	set_transform(
+		device_,
+		D3DTS_TEXTURE,
+		math
+	);
 }
 
 void
@@ -356,8 +367,10 @@ sge::d3d9::device::create_texture(
 	renderer::filter::texture const &filter,
 	renderer::resource_flag_t const flags)
 {
-	return texture_ptr(
-		new texture(
+	return add_resource(
+		make_shared_ptr<
+			texture
+		>(
 			device,
 			data,
 			dim,
@@ -373,20 +386,23 @@ sge::d3d9::device::create_texture(
 		resource_flag_t flags);*/
 
 sge::renderer::cube_texture_ptr const
-sge:d3d9::device::create_cube_texture(
+sge::d3d9::device::create_cube_texture(
 	renderer::size_type const border_size,
 	image::color::format::type const format,
 	renderer::filter::texture const &filter,
 	renderer::resource_flag_t const flags)
 {
-		return cube_texture_ptr(
-		new cube_texture(
-			*this,
+	return add_resource(
+		make_shared_ptr<
+			cube_texture
+		>(
 			device,
 			src,
 			size,
 			filter,
-			flags));
+			flags
+		)
+	);
 }
 
 sge::renderer::vertex_buffer_ptr const
@@ -395,14 +411,15 @@ sge::d3d9::device::create_vertex_buffer(
 	renderer::size_type const size,
 	renderer::resource_flag_t const flags)
 {
-	return make_shared_ptr<
-		vertex_buffer
-	>(
-		//*this, intrusive::list!
-		device,
-		format,
-		size,
-		flags
+	return add_resource(
+		make_shared_ptr<
+			vertex_buffer
+		>(
+			device,
+			format,
+			size,
+			flags
+		)
 	);
 }
 
@@ -412,13 +429,14 @@ sge::d3d9::device::create_index_buffer(
 	renderer::size_type const size,
 	renderer::resource_flag_t const flags)
 {
-	return make_shared_ptr<
-		index_buffer
-	>(
-		//*this,
-		device,
-		size,
-		flags,
+	return add_resource(
+		make_shared_ptr<
+			index_buffer
+		>(
+			device,
+			size,
+			flags,
+		)
 	);
 }
 
@@ -442,7 +460,7 @@ sge::d3d9::device::window() const
 
 void sge::d3d9::device::init()
 {
-	IDirect3DSurface9* surface;
+	IDirect3DSurface9 *surface;
 
 	if(device->GetRenderTarget(0,&surface) != D3D_OK)
 		throw exception(SGE_TEXT("d3d: cannot obtain default render target!"));
@@ -502,12 +520,6 @@ const sge::render_target_ptr sge::d3d9::renderer::create_render_target(
 			*this,
 			device,
 			dim));
-}
-
-const sge::window_ptr
-sge::d3d9::renderer::get_window() const
-{
-	return render_window;
 }
 
 void
@@ -590,16 +602,18 @@ void sge::d3d9::device::reset()
 {
 	release_resources();
 
-
-	//D3DPRESENT_PARAMETERS pp = create_present_parameters(parameters, adapter, render_window, sys);
-
 	while(device->TestCooperativeLevel() == D3DERR_DEVICELOST)
-		sge::sleep(1);
+		sge::time::sleep(
+			sge::time::millisecond(
+				1
+			)
+		);
 
 	switch(
 		device->reset(
-			&preset_parameters
+			&present_parameters
 		)
+	)
 	{
 	case D3D_OK:
 		init();
@@ -742,16 +756,6 @@ void sge::d3d9::renderer::set_draw_mode(const draw_mode::type mode)
 }
 */
 
-void sge::d3d9::renderer::transform(const math::space_matrix& m)
-{
-	set_transform(device, D3DTS_WORLD, m);
-}
-
-void sge::d3d9::renderer::projection(const math::space_matrix& m)
-{
-	set_transform(device, D3DTS_PROJECTION, m);
-}
-
 namespace
 {
 
@@ -789,13 +793,8 @@ void set_texture(const sge::d3d9::d3d_device_ptr device, const sge::stage_type s
 {
 	if(device->SetTexture(static_cast<DWORD>(stage),tex) != D3D_OK)
 		throw sge::exception(SGE_TEXT("SetTexture() failed!"));
-}
-
-void set_transform(const sge::d3d9::d3d_device_ptr device, const D3DTRANSFORMSTATETYPE type, const sge::math::space_matrix& m)
-{
-  // FIXME: this is UB!
-	if(device->SetTransform(type, reinterpret_cast<const D3DMATRIX*>(m.data())) != D3D_OK)
-		throw sge::exception(SGE_TEXT("SetTransform() failed!"));
+	
+	//set_sampler_state(device,stage,d3d_type,d3d_value);
 }
 
 void set_render_target(const sge::d3d9::d3d_device_ptr device, const sge::d3d9::d3d_surface_ptr target)

@@ -60,11 +60,6 @@ D3DFORMAT search_stencil_format(
 	D3DFORMAT screen_format,
 	d3d_ptr sys);
 
-D3DPRESENT_PARAMETERS create_present_parameters(
-	const renderer_parameters& param,
-	adapter_type adapter,
-	win32_window_ptr wnd,
-	d3d_ptr sys);
 
 }
 }

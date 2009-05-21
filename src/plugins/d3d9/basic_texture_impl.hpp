@@ -38,27 +38,21 @@ const sge::filter_args& sge::d3d9::basic_texture<Base>::filter() const
 	return filter_;
 }
 
-template<typename Base>
+template<
+	typename Base
+>
 void sge::d3d9::basic_texture<Base>::on_reset()
 {
-	set_base(do_reset());
+	base(do_reset());
 }
 
-template<typename Base>
+template<
+	typename Base
+>
 void sge::d3d9::basic_texture<Base>::on_loss()
 {
 	do_loss();
-	set_base(0);
-}
-
-template<typename Base>
-void sge::d3d9::basic_texture<Base>::filter(const filter_args& nfilter)
-{
-	// be sure to reinitialize the texture (only needed if we change the mip levels)
-	// TODO: maybe copy the texture's contents too?
-	on_loss();
-	filter_ = nfilter;
-	on_reset();
+	base(0);
 }
 
 template<typename Base>

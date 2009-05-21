@@ -22,28 +22,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_RESOURCE_HPP_INCLUDED
 #define SGE_D3D9_RESOURCE_HPP_INCLUDED
 
-#include <sge/renderer/types.hpp>
-#include <list>
+#include <sge/noncopyable.hpp>
+#include <boost/intrusive/list_hook.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
 
-class resource;
-class renderer;
-
-typedef std::list<resource*> resource_list;
-
-class resource {
+class resource
+: public
+	boost::intrusive::list_hook<
+		boost::intrusive::auto_unlink
+	>
+{
+	SGE_NONCOPYABLE(resource);
 public:
-	resource(renderer& r, resource_flag_t flags);
+	resource();
 	virtual void on_loss();
 	virtual void on_reset();
 	virtual ~resource();
-private:
-	resource_list*          my_list;
-	resource_list::iterator my_place;
 };
 
 }

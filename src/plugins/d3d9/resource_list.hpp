@@ -18,20 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_D3D9_RESOURCE_LIST_HPP_INCLUDED
+#define SGE_D3D9_RESOURCE_LIST_HPP_INCLUDED
 
-#include "../texture_base.hpp"
+#include "resource.hpp"
+#include <boost/intrusive/list.hpp>
 
-sge::d3d9::texture_base::texture_base(
-	IDirect3DBaseTexture9* const base_)
-:
-	base_(base_)
-{}
-
-sge::d3d9::texture_base::~texture_base()
-{}
-
-IDirect3DBaseTexture9 *
-sge::d3d9::texture_base::base() const
+namespace sge
 {
-	return base_;
+namespace d3d9
+{
+
+typedef boost::intrusive::list<
+	resource,
+	boost::intrusive::constant_time_size<
+		false
+	>
+> resource_list;
+
 }
+}
+
+#endif

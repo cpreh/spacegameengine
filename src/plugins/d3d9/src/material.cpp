@@ -18,20 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../material.hpp"
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-#include "../texture_base.hpp"
-
-sge::d3d9::texture_base::texture_base(
-	IDirect3DBaseTexture9* const base_)
-:
-	base_(base_)
-{}
-
-sge::d3d9::texture_base::~texture_base()
-{}
-
-IDirect3DBaseTexture9 *
-sge::d3d9::texture_base::base() const
+void
+sge::d3d9::material(
+	sge::renderer::material const &m)
 {
-	return base_;
+	D3DMATERIAL9 const d3d_mat(
+		convert_material(
+			m
+		)
+	);
+
+	if(
+		device->SetMaterial(
+			&d3d_mat
+		) != D3D_OK
+	)
+		throw exception(SGE_TEXT("set_material() failed!"));
 }

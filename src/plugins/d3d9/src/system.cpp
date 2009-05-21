@@ -19,14 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 
-#include "../renderer_system.hpp"
+#include "../system.hpp"
 #include "../conversion.hpp"
-#include "../renderer.hpp"
+#include "../device.hpp"
 #include "../constants.hpp"
 #include "../enumeration.hpp"
 #include <sge/exception.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/windows/create_window.hpp>
+#include <sge/make_shared_ptr.hpp>
 
 sge::d3d9::renderer_system::renderer_system()
 :
@@ -48,7 +49,6 @@ sge::d3d9::system::create_renderer(
 	renderer::adapter_type const adapter,
 	window::instance_ptr const wnd)
 {
-	//const win32_window_ptr wnd(wnd_param ? dynamic_pointer_cast<win32_window>(wnd_param) : win32_window_ptr(new win32_window(param.mode.size)));
 	windows::window_ptr const win32_wnd(
 		dynamic_pointer_cast<
 			windows::window
@@ -73,12 +73,14 @@ sge::d3d9::system::create_renderer(
 
 	ShowCursor(FALSE);
 
-	IDirect3DDevice9* device;
+	IDirect3DDevice9 *device;
 
 	if(sys->CreateDevice(adapter, D3DDEVTYPE_HAL, wnd->hwnd(), tnl_flags, &pp, &device) != D3D_OK)
 		throw exception(SGE_TEXT("Failed to initialize the renderer"));
 
-	d3d_device_ptr const device_p(device); // FIXME this can leak memory!
+	d3d_device_ptr const device_p(
+		device
+	);
 
 	return make_shared_ptr<
 		device

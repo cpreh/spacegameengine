@@ -18,20 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_D3D9_PRESENT_PARAMETERS_HPP_INCLUDED
+#define SGE_D3D9_PRESENT_PARAMETERS_HPP_INCLUDED
 
-#include "../texture_base.hpp"
+#include "d3dinclude.hpp"
+#include <sge/renderer/parameters_fwd.hpp>
+#include <sge/renderer/adapter_type.hpp>
+#include <sge/windows/window_fwd.hpp>
 
-sge::d3d9::texture_base::texture_base(
-	IDirect3DBaseTexture9* const base_)
-:
-	base_(base_)
-{}
-
-sge::d3d9::texture_base::~texture_base()
-{}
-
-IDirect3DBaseTexture9 *
-sge::d3d9::texture_base::base() const
+namespace sge
 {
-	return base_;
+namespace d3d9
+{
+
+D3DPRESENT_PARAMETERS const
+create_present_parameters(
+	renderer::parameters const &,
+	renderer::adapter_type,
+	window::window_ptr,
+	d3d_ptr);
+
 }
+}
+
+#endif

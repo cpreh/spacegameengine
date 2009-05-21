@@ -23,15 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_RENDERER_HPP_INCLUDED
 
 #include "vertex_format.hpp"
-#include "resource.hpp"
+#include "resource_list.hpp"
 #include "d3dinclude.hpp"
-#include <sge/math/matrix.hpp>
-#include <sge/math/vector.hpp>
 #include <sge/renderer/adapter.hpp>
-#include <sge/renderer/renderer.hpp>
-#include <sge/renderer/renderer_parameters.hpp>
-#include <sge/renderer/renderer_system.hpp>
-#include <sge/win32_window.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/windows/window_fwd.hpp>
 
 namespace sge
 {
@@ -43,9 +39,8 @@ public:
 	device(
 		d3d_device_ptr device,
 		renderer::parameters const &param,
-		adapter_type adapter,
-		win32_window_ptr wnd,
-		d3d_ptr sys);
+		D3D9PRESENTPARAMETERS const &,
+		windows::window_ptr);
 
 	void begin_rendering();
 	void end_rendering();
@@ -162,24 +157,21 @@ public:
 	sge::window::instance_ptr const
 	window() const;
 private:
-	//d3d_ptr                     sys;
-	d3d_device_ptr              device;
-	adapter_type                adapter;
-	renderer_parameters         parameters;
-	win32_window_ptr            render_window;
-	renderer_caps               caps_;
-	d3d_surface_ptr             default_render_target;
-	resource_list               resources;
-	d3d_vertex_declaration_ptr  vertex_declaration;
-	vertex_buffer_ptr           vb;
-	index_buffer_ptr            ib;
+	d3d_device_ptr const device;
+	windows::window_ptr const render_window;
+	renderer::caps const caps_;
+	d3d_surface_ptr default_render_target;
+	resource_list resources;
+	d3d_vertex_declaration_ptr vertex_declaration;
+	renderer::const_vertex_buffer_ptr vb;
+	renderer::const_index_buffer_ptr ib;
 private:
 	void init();
 	void release_resources();
-	void set_vertex_buffer(vertex_buffer_ptr buffer);
-	void set_index_buffer(index_buffer_ptr buffer);
-
-	friend class resource;
+	void set_vertex_buffer(
+		renderer::const_vertex_buffer_ptr buffer);
+	void set_index_buffer(
+		renderer::const_index_buffer_ptr buffer);
 };
 
 }

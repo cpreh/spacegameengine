@@ -123,22 +123,27 @@ D3DPRESENT_PARAMETERS sge::d3d9::create_present_parameters(
 	const win32_window_ptr wnd,
 	const d3d_ptr sys)
 {
-	const D3DFORMAT format = search_format(param.mode,sys);
+	D3DFORMAT const format(
+		search_format(
+			param.mode(),
+			sys
+		)
+	);
 
 	D3DPRESENT_PARAMETERS pp;
 	pp.AutoDepthStencilFormat = search_stencil_format(adapter,format,sys);
-	pp.BackBufferCount = constants::back_buffer_count;
+	pp.BackBufferCount = 1;
 	pp.BackBufferFormat = format;
 	pp.BackBufferHeight = param.mode.height();
 	pp.BackBufferWidth = param.mode.width();
-	pp.EnableAutoDepthStencil = constants::enable_auto_depth_stencil;
-	pp.Flags = constants::flags;
+	pp.EnableAutoDepthStencil = TRUE;
+	pp.Flags = D3DPRESENTFLAG_DISCARD_DEPTHSTENCI;
 	pp.FullScreen_RefreshRateInHz = param.windowed ? 0 : param.mode.refresh_rate;
 	pp.hDeviceWindow = wnd->hwnd();
 	pp.MultiSampleQuality = 0;
 	pp.MultiSampleType = convert_cast<D3DMULTISAMPLE_TYPE>(param.samples);
 	pp.PresentationInterval = param.vsync ? D3DPRESENT_INTERVAL_ONE : D3DPRESENT_INTERVAL_IMMEDIATE;
-	pp.SwapEffect = constants::swap_effect();
+	pp.SwapEffect = D3DSWAPEFFECT_DISCARD;
 	pp.Windowed = param.windowed;
 
 	return pp;

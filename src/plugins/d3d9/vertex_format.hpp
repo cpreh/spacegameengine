@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "d3dinclude.hpp"
 #include <sge/renderer/vertex_buffer.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
@@ -31,17 +32,19 @@ namespace d3d9
 {
 
 class vertex_format {
+	SGE_NONCOPYABLE(vertex_format)
 public:
-	vertex_format(d3d_device_ptr device, const sge::vertex_format& format);
-	const d3d_vertex_declaration_ptr vertex_declaration() const;
-	const offset_info& get_offset_info() const;
+	vertex_format(
+		d3d_device_ptr device,
+		sge::renderer::vf::dynamic_format const &);
+
+	d3d_vertex_declaration_ptr const vertex_declaration() const;
+
 	DWORD fvf() const;
 	vertex_size stride() const;
 private:
-	d3d_vertex_declaration_ptr _vertex_declaration;
-	offset_info                oi;
-	DWORD                      _fvf;
-	vertex_size                _stride;
+	d3d_vertex_declaration_ptr vertex_declaration_;
+	DWORD fvf_;
 };
 
 }
