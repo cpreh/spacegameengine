@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../index_buffer.hpp"
 #include "../target.hpp"
 #include "../material.hpp"
+#include <sge/renderer/parameters.hpp>
 #include <sge/stub.hpp>
 #include <sge/bit.hpp>
 #include <sge/exception.hpp>
@@ -51,7 +52,7 @@ void set_render_target(sge::d3d9::d3d_device_ptr device, sge::d3d9::d3d_surface_
 sge::d3d9::device::device(
 	d3d_device_ptr const device,
 	renderer::parameters const &param,
-	D3D9PRESENTPARAMETERS const &present_parameters,
+	D3DPRESENT_PARAMETERS const &present_parameters,
 	windows::window_ptr const window_,
 	renderer::caps const &caps_)
 :
@@ -106,7 +107,9 @@ sge::d3d9::device::end_rendering()
 		reset();
 		break;
 	default:
-		throw exception(SGE_TEXT("Present() failed!"));
+		throw exception(
+			SGE_TEXT("Present() failed!")
+		);
 	}
 }
 
@@ -452,6 +455,19 @@ sge::window::instance_ptr const
 sge::d3d9::device::window() const
 {
 	return window_;
+}
+
+template<
+	typename Ptr
+>
+Ptr const
+sge::d3d9::device::add_resource(
+	Ptr const ptr)
+{
+	resources.push_back(
+		*ptr
+	);
+	return ptr;
 }
 
 void sge::d3d9::device::init()

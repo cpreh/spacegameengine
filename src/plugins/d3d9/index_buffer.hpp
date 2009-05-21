@@ -39,8 +39,8 @@ class index_buffer
 public:
 	index_buffer(
 		d3d_device_ptr,
+		renderer::index::format::type,
 		size_type size,
-		renderer::index::format,
 		resource_flag_type flags);
 
 	size_type size() const;

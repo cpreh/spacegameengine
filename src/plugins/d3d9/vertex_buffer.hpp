@@ -69,7 +69,7 @@ private:
 	void on_loss();
 	void on_reset();
 
-	view_type const
+	void
 	do_lock(
 		DWORD flags,
 		size_type offset,

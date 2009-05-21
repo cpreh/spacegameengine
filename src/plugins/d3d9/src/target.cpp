@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/stub.hpp>
 
 sge::d3d9::target::target(
-	renderer& r,
 	const d3d_device_ptr device,
 	const dim_type& dim_)
 :
@@ -37,6 +36,7 @@ sge::d3d9::target::target(
 
 void sge::d3d9::render_target::init()
 {
+	/*
 	IDirect3DTexture9* t;
 	if(device->CreateTexture(
 		static_cast<UINT>(dim().w()),
@@ -53,6 +53,7 @@ void sge::d3d9::render_target::init()
 	if(tex->GetSurfaceLevel(0,&s) != D3D_OK)
 		throw exception(SGE_TEXT("Getting surface for render target failed!"));
 	surface.reset(s);
+	*/
 }
 
 void sge::d3d9::render_target::on_loss()
@@ -66,7 +67,8 @@ void sge::d3d9::render_target::on_reset()
 	init();
 }
 
-const sge::render_target::dim_type sge::d3d9::render_target::dim() const
+sge::render_target::dim_type const
+sge::d3d9::render_target::dim() const
 {
 	return dim_;
 }

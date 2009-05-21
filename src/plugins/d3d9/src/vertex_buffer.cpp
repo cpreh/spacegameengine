@@ -50,13 +50,19 @@ sge::d3d9::vertex_buffer::lock(
 	size_type const first,
 	size_type const count)
 {
-	return do_lock(
+	do_lock(
 		convert_lock_flags(
 			lflags,
 			flags()
 		),
 		first,
 		count
+	);
+
+	return view_type(
+		lock_dest,
+		count,
+		format()
 	);
 }
 
@@ -65,12 +71,16 @@ sge::d3d9::vertex_buffer::lock(
 	size_type const offset,
 	size_type const range) const
 {
+	do_lock(
+		D3DLOCK_READONLY,
+		offset,
+		range
+	);
+
 	return const_view_type(
-		do_lock(
-			D3DLOCK_READONLY,
-			offset,
-			range
-		)
+		lock_dest,
+		count,
+		format()
 	);
 }
 
@@ -149,7 +159,7 @@ void sge::d3d9::vertex_buffer::on_reset()
 	init();
 }
 
-sge::d3d9::vertex_buffer::view_type const
+void
 sge::d3d9::vertex_buffer::do_lock(
 	DWORD const lflags,
 	size_type const offset,
@@ -180,11 +190,6 @@ sge::d3d9::vertex_buffer::do_lock(
 		for(iterator it = begin(); it != end(); ++it)
 			it->diffuse() = argb_to_rgba(it->diffuse());
 #endif*/
-	return view_type(
-		lock_dest,
-		count,
-		format()
-	);
 }
 
 sge::d3d9::vertex_buffer::size_type

@@ -18,20 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_CONVERT_INDEXED_PRIMITIVE_HPP_INCLUDED
-#define SGE_D3D9_CONVERT_INDEXED_PRIMITIVE_HPP_INCLUDED
 
-#include "d3dinclude.hpp"
-#include <sge/renderer/indexed_primitive.hpp>
+#ifndef SGE_RENDERER_PARAMETERS_FWD_HPP_INCLUDED
+#define SGE_RENDERER_PARAMETERS_FWD_HPP_INCLUDED
 
 namespace sge
 {
-namespace d3d9
+namespace renderer
 {
 
-D3DPRIMITIVETYPE
-convert_indexed_primitive(
-	renderer::indexed_primitive_type::type);
+class parameters;
 
 }
 }

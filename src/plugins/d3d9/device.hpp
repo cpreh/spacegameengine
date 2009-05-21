@@ -159,6 +159,20 @@ public:
 	sge::window::instance_ptr const
 	window() const;
 private:
+	template<
+		typename Ptr
+	>
+	Ptr const
+	add_resource(
+		Ptr);
+
+	void init();
+	void release_resources();
+	void set_vertex_buffer(
+		renderer::const_vertex_buffer_ptr buffer);
+	void set_index_buffer(
+		renderer::const_index_buffer_ptr buffer);
+
 	d3d_device_ptr const device_;
 	windows::window_ptr const wnd;
 	renderer::caps const caps_;
@@ -167,13 +181,6 @@ private:
 	d3d_vertex_declaration_ptr vertex_declaration;
 	renderer::const_vertex_buffer_ptr vb;
 	renderer::const_index_buffer_ptr ib;
-private:
-	void init();
-	void release_resources();
-	void set_vertex_buffer(
-		renderer::const_vertex_buffer_ptr buffer);
-	void set_index_buffer(
-		renderer::const_index_buffer_ptr buffer);
 };
 
 }
