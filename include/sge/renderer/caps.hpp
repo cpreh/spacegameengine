@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_CAPS_HPP_INCLUDED
 
 #include <sge/renderer/caps_fwd.hpp>
-#include <sge/renderer/adapter.hpp>
+#include <sge/renderer/adapter_type.hpp>
 #include <sge/renderer/dim_type.hpp>
 #include <sge/renderer/filter/anisotropy_type.hpp>
 #include <sge/export.hpp>

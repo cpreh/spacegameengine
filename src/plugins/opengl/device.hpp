@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #else
 #error "Implement me!"
 #endif
-#include <sge/renderer/adapter.hpp>
+#include <sge/renderer/adapter_type.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/parameters.hpp>

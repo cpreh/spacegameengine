@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_SYSTEM_HPP_INCLUDED
 #define SGE_RENDERER_SYSTEM_HPP_INCLUDED
 
-#include <sge/renderer/adapter.hpp>
+#include <sge/renderer/adapter_type.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/window/instance_fwd.hpp>
 #include <sge/export.hpp>

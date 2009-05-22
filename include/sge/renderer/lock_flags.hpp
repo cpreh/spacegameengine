@@ -22,8 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_LOCK_FLAGS_HPP_INCLUDED
 #define SGE_RENDERER_LOCK_FLAGS_HPP_INCLUDED
 
-#include <sge/export.hpp>
-
 namespace sge
 {
 namespace renderer
@@ -38,8 +36,6 @@ namespace lock_flags
 }
 
 typedef lock_flags::type lock_flag_t;
-
-SGE_SYMBOL bool lock_flag_read(lock_flag_t mode);
 
 }
 }
