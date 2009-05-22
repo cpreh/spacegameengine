@@ -43,10 +43,12 @@ int main()
 		vec,
 		vec);
 	
-	sge::math::vector::static_<
+	typedef sge::math::vector::static_<
 		float,
 		2
-	>::type const vecf(
+	>::type vec2f;
+	
+	vec2f const vecf(
 		1.f,
 		2.f
 	);
@@ -112,4 +114,16 @@ int main()
 
 		sge::cout << cross(a, b) << SGE_TEXT(' ') << c << SGE_TEXT('\n');
 	}
+
+	vec2f const converted(
+		sge::math::vector::narrow_cast<
+			vec2f
+		>(
+			vec3d(
+				1.0,
+				2.0,
+				3.0
+			)
+		)
+	);
 }

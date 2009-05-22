@@ -18,25 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_MATH_VECTOR_NARROW_CAST_HPP_INCLUDED
+#define SGE_MATH_VECTOR_NARROW_CAST_HPP_INCLUDED
 
-#ifndef SGE_MATH_VECTOR_VECTOR_HPP_INCLUDED
-#define SGE_MATH_VECTOR_VECTOR_HPP_INCLUDED
-
-#include <sge/math/vector/basic_decl.hpp>
 #include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/vector/angle_between.hpp>
-#include <sge/math/vector/arithmetic.hpp>
-#include <sge/math/vector/atan2.hpp>
-#include <sge/math/vector/cross.hpp>
-#include <sge/math/vector/dot.hpp>
-#include <sge/math/vector/input.hpp>
-#include <sge/math/vector/is_null.hpp>
-#include <sge/math/vector/length.hpp>
-#include <sge/math/vector/narrow_cast.hpp>
-#include <sge/math/vector/normalize.hpp>
-#include <sge/math/vector/output.hpp>
-#include <sge/math/vector/place.hpp>
-#include <sge/math/vector/structure_cast.hpp>
-#include <sge/math/vector/to_angle.hpp>
+#include <sge/math/detail/narrow_cast.hpp>
+
+namespace sge
+{
+namespace math
+{
+namespace vector
+{
+
+template<
+	typename Dest,
+	typename T,
+	typename N,
+	typename S
+>
+Dest const
+narrow_cast(
+	basic<T, N, S> const &src)
+{
+	return math::detail::narrow_cast<
+		Dest
+	>(
+		src
+	);
+}
+
+}
+}
+}
 
 #endif

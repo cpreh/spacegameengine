@@ -19,24 +19,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 
-#ifndef SGE_MATH_VECTOR_VECTOR_HPP_INCLUDED
-#define SGE_MATH_VECTOR_VECTOR_HPP_INCLUDED
+#ifndef SGE_MATH_DETAIL_NARROW_CAST_HPP_INCLUDED
+#define SGE_MATH_DETAIL_NARROW_CAST_HPP_INCLUDED
 
-#include <sge/math/vector/basic_decl.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/vector/angle_between.hpp>
-#include <sge/math/vector/arithmetic.hpp>
-#include <sge/math/vector/atan2.hpp>
-#include <sge/math/vector/cross.hpp>
-#include <sge/math/vector/dot.hpp>
-#include <sge/math/vector/input.hpp>
-#include <sge/math/vector/is_null.hpp>
-#include <sge/math/vector/length.hpp>
-#include <sge/math/vector/narrow_cast.hpp>
-#include <sge/math/vector/normalize.hpp>
-#include <sge/math/vector/output.hpp>
-#include <sge/math/vector/place.hpp>
-#include <sge/math/vector/structure_cast.hpp>
-#include <sge/math/vector/to_angle.hpp>
+#include <sge/math/detail/structure_cast_fun.hpp>
+#include <boost/iterator/transform_iterator.hpp>
+#include <boost/mpl/less.hpp>
+#include <boost/static_assert.hpp>
+
+namespace sge
+{
+namespace math
+{
+namespace detail
+{
+
+template<
+	typename T,
+	typename U
+>
+T const
+narrow_cast(
+	U const &u)
+{
+	typedef structure_cast_fun<
+		typename T::value_type
+	> op_type;
+
+	op_type const op = op_type();
+
+	BOOST_STATIC_ASSERT((
+		boost::mpl::less<
+			typename T::dim_wrapper,
+			typename U::dim_wrapper
+		>::value
+	));
+
+	return T(
+		boost::make_transform_iterator(
+			u.begin(),
+			op
+		),
+		boost::make_transform_iterator(
+			u.begin() + T::dim_wrapper::value,
+			op
+		)
+	);
+}
+
+}
+}
+}
 
 #endif
