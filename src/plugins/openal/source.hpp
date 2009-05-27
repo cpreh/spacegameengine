@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENAL_SOURCE_HPP_INCLUDED
 
 #include "openal.hpp"
+#include "source_wrapper.hpp"
 #include <sge/audio/sound.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 
@@ -30,9 +31,9 @@ namespace openal
 class source : public audio::sound
 {
 	public:
-	explicit source();
+	source();
 	explicit source(ALuint);
-	ALuint alsource() const { return source_; }
+	ALuint alsource() const { return source_.value_; }
 	ALuint albuffer() const { return buffer_; }
 	void sync() const;
 	void play(audio::play_mode::type);
@@ -59,10 +60,10 @@ class source : public audio::sound
 	void inner_cone_angle(audio::unit);
 	audio::unit outer_cone_angle() const { return outer_cone_angle_; }
 	void outer_cone_angle(audio::unit);
-	~source();
 
 	private:
-	ALuint source_,buffer_;
+	ALuint buffer_;
+	source_wrapper source_;
 	audio::play_mode::type play_mode_;
 	mutable audio::sound_status::type status_;
 	bool positional_;
