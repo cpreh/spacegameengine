@@ -22,14 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::openal::source_wrapper::source_wrapper()
 :
-	value_(-1)
+	inited_(false)
 {
 	alGenSources(static_cast<ALsizei>(1),&value_); SGE_OPENAL_ERROR_CHECK;
-	sge::cerr << "generated id: " << value_ << "\n";
+	inited = true;
 }
 
 sge::openal::source_wrapper::~source_wrapper()
 {
-	if (value_ != -1)
+	if (inited_)
 		alDeleteSources(static_cast<ALsizei>(1),&value_); SGE_OPENAL_ERROR_CHECK;
 }

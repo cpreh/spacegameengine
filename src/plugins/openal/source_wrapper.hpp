@@ -17,6 +17,7 @@ public:
 	~source_wrapper();
 
 	ALuint value_;
+	bool inited;
 };
 }
 }
