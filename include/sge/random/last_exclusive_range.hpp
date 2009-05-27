@@ -36,7 +36,8 @@ namespace random
 template<
 	typename T,
 	typename Enable = void
-> class last_exclusive_range;
+>
+class last_exclusive_range;
 
 template<
 	typename T
@@ -48,7 +49,12 @@ class last_exclusive_range<
 			T
 		>
 	>::type
-> : public range<T> {
+>
+:
+	public range<
+		T
+	>
+{
 public:
 	last_exclusive_range(
 		T const &first,
