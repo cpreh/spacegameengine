@@ -29,7 +29,7 @@ namespace sge
 namespace d3d9
 {
 
-DWORD
+D3DTEXTURESTAGESTATETYPE
 convert_texture_stage_arg(
 	renderer::texture_stage_arg::type);
 

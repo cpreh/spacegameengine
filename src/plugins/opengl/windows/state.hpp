@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../wgl/current.hpp"
 #include <sge/windows/gdi_device.hpp>
 #include <sge/windows/window_fwd.hpp>
-#include <sge/renderer/adapter.hpp>
+#include <sge/renderer/adapter_type.hpp>
 #include <sge/window/instance_fwd.hpp>
 #include <sge/noncopyable.hpp>
 

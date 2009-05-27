@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_DEVICE_HPP_INCLUDED
 #define SGE_D3D9_DEVICE_HPP_INCLUDED
 
-#include "vertex_format.hpp"
 #include "resource_list.hpp"
 #include "d3dinclude.hpp"
 #include <sge/renderer/adapter.hpp>
