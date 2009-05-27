@@ -27,7 +27,7 @@ sge::d3d9::convert_resource_flags(
 	DWORD l = 0;
 	if(r & renderer::resource_flags::dynamic)
 		l |= D3DUSAGE_DYNAMIC;
-	if(r & renderer::resource_flags::write_only)
+	if(r & renderer::resource_flags::writeonly)
 		l |= D3DUSAGE_WRITEONLY;
 	return l;
 }

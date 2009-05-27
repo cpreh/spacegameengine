@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "resource.hpp"
 #include "d3dinclude.hpp"
 #include <sge/renderer/index_buffer.hpp>
+#include <sge/renderer/raw_pointer.hpp>
 
 namespace sge
 {
@@ -56,7 +57,7 @@ public:
 		size_type first,
 		size_type count) const;
 
-	void unlock() cibst;
+	void unlock() const;
 
 	resource_flag_type flags() const;
 private:
@@ -75,7 +76,7 @@ private:
 	d3d_index_buffer_ptr buffer;
 	resource_flag_type const flags_;
 	size_type const sz;
-	mutable pointer lock_dest;
+	mutable renderer::raw_pointer lock_dest;
 };
 
 }

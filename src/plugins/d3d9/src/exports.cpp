@@ -36,7 +36,7 @@ SGE_EXPORT_SYMBOL void plugin_version_info(
 	p->description = SGE_TEXT("");
 	p->plugin_version = 0x1;
 	p->min_core_version = 0x1;
-	p->type = sge::plugin_type::renderer;
+	p->type = sge::plugin::capabilities::renderer;
 }
 
 SGE_EXPORT_SYMBOL sge::renderer_system *create_renderer_system()
