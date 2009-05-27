@@ -16,29 +16,24 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
-#include "../source_wrapper.hpp"
-#include "../error.hpp"
-#include <sge/audio/bad_sound_alloc.hpp>
-#include <sge/text.hpp>
-#include <sge/cerr.hpp>
+#ifndef SGE_AUDIO_BAD_SOUND_ALLOC_HPP_INCLUDED
+#define SGE_AUDIO_BAD_SOUND_ALLOC_HPP_INCLUDED
 
-sge::openal::source_wrapper::source_wrapper()
-:
-	inited_(false)
+#include <sge/exception.hpp>
+#include <sge/string.hpp>
+#include <sge/export.hpp>
+
+namespace sge
 {
-	alGenSources(static_cast<ALsizei>(1),&value_);
-	ALenum const error = alGetError();
-	if (error == AL_INVALID_VALUE)
-		throw audio::bad_sound_alloc(SGE_TEXT("openal: cannot allocate new sources"));
-	SGE_OPENAL_ERROR_CHECK;
-	inited_ = true;
+namespace audio
+{
+class SGE_CLASS_SYMBOL bad_sound_alloc : public exception {
+public:
+	SGE_SYMBOL explicit bad_sound_alloc(
+		string const &);
+};
+}
 }
 
-sge::openal::source_wrapper::~source_wrapper()
-{
-	if (inited_)
-	{
-		sge::cerr << "deleting source with id: " << value_ << "\n";
-		alDeleteSources(static_cast<ALsizei>(1),&value_); SGE_OPENAL_ERROR_CHECK;
-	}
-}
+
+#endif
