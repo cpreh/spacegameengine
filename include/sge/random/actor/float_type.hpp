@@ -28,7 +28,8 @@ namespace random
 namespace actor
 {
 
-typedef double float_type;
+// note: if we use double here, VC++ will generate only INF values
+typedef float float_type;
 
 }
 }

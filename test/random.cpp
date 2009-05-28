@@ -83,6 +83,8 @@ try
 		)
 	);
 
+	print_values(rngex);
+
 	sge::random::actor::normalized actor(
 		sge::assign::make_container<
 			sge::random::actor::container
@@ -93,8 +95,6 @@ try
 			)
 		)
 	);
-
-	print_values(rngex);
 
 	actor();
 }
