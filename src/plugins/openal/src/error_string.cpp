@@ -16,37 +16,31 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
-#include "../device.hpp"
-#include "../sentry.hpp"
-#include "../openal.hpp"
-#include <sge/audio/exception.hpp>
-#include <sge/assert.hpp>
+
+
+#include "../error_string.hpp"
 #include <sge/text.hpp>
 
-sge::openal::device::device(
-	ALCchar const * const specifier)
-:
-	device_(alcOpenDevice(specifier))
+sge::string const
+sge::openal::error_string(
+	ALenum const error)
 {
-	SGE_OPENAL_SENTRY(
-		SGE_TEXT("alcOpenDevice failed"),
-		audio::exception
-	)
-
-	SGE_ASSERT(device_);
+	switch (error)
+	{
+		case AL_NO_ERROR:
+			return SGE_TEXT("no error in openal (maybe somewhere else)");
+		case AL_INVALID_NAME:
+			return SGE_TEXT("invalid name parameter");
+		case AL_INVALID_ENUM:
+			return SGE_TEXT("invalid parameter");
+		case AL_INVALID_VALUE:
+			return SGE_TEXT("invalid enum parameter value");
+		case AL_INVALID_OPERATION:
+			return SGE_TEXT("illegal call");
+		case AL_OUT_OF_MEMORY:
+			return SGE_TEXT("unable to allocate memory");
+		default:
+			return SGE_TEXT("Unknown");
+	}
 }
 
-ALCdevice *
-sge::openal::device::aldevice()
-{
-	return device_;
-}
-
-sge::openal::device::~device()
-{
-	if (alcCloseDevice(device_) == AL_FALSE)
-		if (!std::uncaught_exception())
-			throw audio::exception(
-				SGE_TEXT("error closing audio device. this means you tried to close the device before unloading all contexts and buffers")
-			);
-}

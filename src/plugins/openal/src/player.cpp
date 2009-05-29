@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../player.hpp"
 #include "../nonstream_sound.hpp"
 #include "../stream_sound.hpp"
-#include "../error.hpp"
+#include "../sentry.hpp"
 #include "../file_format.hpp"
 #include "../log.hpp"
 #include "../buffer.hpp"
@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/exception.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/container/raw_vector_impl.hpp>
+#include <sge/text.hpp>
 #include <boost/foreach.hpp>
 
 sge::openal::player::player()
@@ -105,20 +106,29 @@ ALuint sge::openal::player::register_nonstream_sound(
 
 	SGE_LOG_DEBUG(
 		log(),
-		log::_1 << SGE_TEXT("creating buffer of size ")
-	          << data.size() << SGE_TEXT(" and format ")
-						<< file_format(*_audio_file)
-						<< SGE_TEXT(" and sample rate ") << _audio_file->sample_rate());
+		log::_1
+			<< SGE_TEXT("creating buffer of size ")
+	        	<< data.size()
+			<< SGE_TEXT(" and format ")
+			<< file_format(*_audio_file)
+			<< SGE_TEXT(" and sample rate ")
+			<< _audio_file->sample_rate());
 
 	if (data.empty())
 		throw audio::exception(SGE_TEXT("tried to create empty nonstreaming sound, that's not possible!"));
+
+	// TODO: this function is called more than once!
+	SGE_OPENAL_SENTRY(
+		SGE_TEXT("alBufferData failed"),
+		audio::exception
+	)
 
 	alBufferData(
 		buffer.albuffer(), 
 		file_format(*_audio_file), 
 		data.data(), 
 		static_cast<ALsizei>(data.size()), 
-		static_cast<ALsizei>(_audio_file->sample_rate())); SGE_OPENAL_ERROR_CHECK;
+		static_cast<ALsizei>(_audio_file->sample_rate()));
 
 	return buffer.albuffer();
 }

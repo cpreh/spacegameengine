@@ -16,23 +16,23 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
-#ifndef SGE_OPENAL_ERROR_HPP_INCLUDED
-#define SGE_OPENAL_ERROR_HPP_INCLUDED
 
+
+#ifndef SGE_OPENAL_ALC_SENTRY_HPP_INCLUDED
+#define SGE_OPENAL_ALC_SENTRY_HPP_INCLUDED
+
+#include "alc_error_string.hpp"
 #include "openal.hpp"
-#include <sge/file.hpp>
-#include <sge/string.hpp>
-#include <sge/stringize.hpp>
+#include <sge/error/state_sentry.hpp>
 
-namespace sge
-{
-namespace openal
-{
-#define SGE_OPENAL_ERROR_CHECK error_check(SGE_FILE,SGE_STRINGIZE(__LINE__));
-#define SGE_ALC_ERROR_CHECK(device) alc_error_check((device),SGE_FILE,SGE_STRINGIZE(__LINE__));
-void error_check(string const &,string const &);
-void alc_error_check(ALCdevice *,string const &,string const &);
-}
-}
+#define SGE_OPENAL_ALC_SENTRY(message, exception)\
+SGE_ERROR_STATE_SENTRY(\
+	exception,\
+	message,\
+	ALenum,\
+	alcGetError,\
+	ALC_NO_ERROR,\
+	sge::openal::alc_error_string\
+)
 
 #endif

@@ -23,21 +23,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../stream_sound.hpp"
 #include "../openal.hpp"
 #include "../log.hpp"
-#include "../error.hpp"
+#include "../sentry.hpp"
 #include "../file_format.hpp"
 #include <sge/audio/sound.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/container/raw_vector_impl.hpp>
+#include <sge/text.hpp>
 #include <sge/assert.hpp>
 
-sge::openal::stream_sound::stream_sound(audio::file_ptr const _audio_file, player &_player)
+sge::openal::stream_sound::stream_sound(
+	audio::file_ptr const _audio_file,
+	player &_player)
 :
 	player_(_player),
 	audio_file_(_audio_file),
-	buffer_samples_(static_cast<audio::sample_count>(2*_audio_file->sample_rate())),
+	buffer_samples_(
+		static_cast<audio::sample_count>(
+			2 * _audio_file->sample_rate()
+		)
+	),
 	format_(file_format(*_audio_file))
 {
-	alGenBuffers(static_cast<ALsizei>(2), al_buffers_); SGE_OPENAL_ERROR_CHECK;
+	SGE_OPENAL_SENTRY(
+		SGE_TEXT("alGenBuffers failed"),
+		audio::exception
+	)
+
+	alGenBuffers(static_cast<ALsizei>(2), al_buffers_);
 }
 
 bool sge::openal::stream_sound::fill_buffer(ALuint const buffer)
@@ -63,12 +75,18 @@ bool sge::openal::stream_sound::fill_buffer(ALuint const buffer)
 
 	SGE_ASSERT(data.size());
 
+	SGE_OPENAL_SENTRY(
+		SGE_TEXT("alBufferData failed"),
+		audio::exception
+	)
+
 	alBufferData(
 		buffer, 
 		format_, 
 		data.data(), 
 		static_cast<ALsizei>(data.size()), 
-		static_cast<ALsizei>(audio_file_->sample_rate())); SGE_OPENAL_ERROR_CHECK;
+		static_cast<ALsizei>(audio_file_->sample_rate())
+	);
 
 	return true;
 }
@@ -86,18 +104,30 @@ void sge::openal::stream_sound::do_play()
 
 	SGE_LOG_DEBUG(log(),log::_1 << "queued 2 buffers");
 
+	SGE_OPENAL_SENTRY(
+		SGE_TEXT("alSourceQueueBuffers failed"),
+		audio::exception
+	)
+
 	alSourceQueueBuffers(
 		alsource(),
 		static_cast<ALsizei>(2),
-		al_buffers_); SGE_OPENAL_ERROR_CHECK;
+		al_buffers_
+	);
 }
 
 void sge::openal::stream_sound::update()
 {
 	sync();
 
+	// TODO: split this!
+	SGE_OPENAL_SENTRY(
+		SGE_TEXT("stream_sound::update failed"),
+		audio::exception
+	)
+
 	ALint processed;
-	alGetSourcei(alsource(), AL_BUFFERS_PROCESSED, &processed); SGE_OPENAL_ERROR_CHECK;
+	alGetSourcei(alsource(), AL_BUFFERS_PROCESSED, &processed);
 
 	if (processed)
 		SGE_LOG_DEBUG(log(),log::_1 << processed << " buffers processed");
@@ -106,9 +136,9 @@ void sge::openal::stream_sound::update()
 	{
 		ALuint buffer;
 		// throw away one buffer from the top (the processed one)
-		alSourceUnqueueBuffers(alsource(),static_cast<ALsizei>(1),&buffer); SGE_OPENAL_ERROR_CHECK;
+		alSourceUnqueueBuffers(alsource(),static_cast<ALsizei>(1),&buffer);
 		// ...and put the newly filled back in
 		if (fill_buffer(buffer))
-			alSourceQueueBuffers(alsource(),static_cast<ALsizei>(1),&buffer); SGE_OPENAL_ERROR_CHECK;
+			alSourceQueueBuffers(alsource(),static_cast<ALsizei>(1),&buffer);
 	}
 }

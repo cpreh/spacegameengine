@@ -16,37 +16,24 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
-#include "../device.hpp"
-#include "../sentry.hpp"
-#include "../openal.hpp"
-#include <sge/audio/exception.hpp>
-#include <sge/assert.hpp>
-#include <sge/text.hpp>
 
-sge::openal::device::device(
-	ALCchar const * const specifier)
-:
-	device_(alcOpenDevice(specifier))
+
+#ifndef SGE_OPENAL_ALC_ERROR_STRING_HPP_INCLUDED
+#define SGE_OPENAL_ALC_ERROR_STRING_HPP_INCLUDED
+
+#include "openal.hpp"
+#include <sge/string.hpp>
+
+namespace sge
 {
-	SGE_OPENAL_SENTRY(
-		SGE_TEXT("alcOpenDevice failed"),
-		audio::exception
-	)
+namespace openal
+{
 
-	SGE_ASSERT(device_);
+string const
+alc_error_string(
+	ALenum error);
+
+}
 }
 
-ALCdevice *
-sge::openal::device::aldevice()
-{
-	return device_;
-}
-
-sge::openal::device::~device()
-{
-	if (alcCloseDevice(device_) == AL_FALSE)
-		if (!std::uncaught_exception())
-			throw audio::exception(
-				SGE_TEXT("error closing audio device. this means you tried to close the device before unloading all contexts and buffers")
-			);
-}
+#endif

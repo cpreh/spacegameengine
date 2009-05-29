@@ -29,7 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::openal::context::context(
 	device &device_,
 	attribute_container const &attributes)
-	: device_(device_)
+:
+	device_(device_)
 {
 	std::vector<ALCint> al_attributes;
 	BOOST_FOREACH(attribute_container::value_type const &v,attributes)
@@ -43,13 +44,13 @@ sge::openal::context::context(
 
 	SGE_LOG_DEBUG(log(),log::_1 << SGE_TEXT("creating audio context"))
 
-	context_ = alcCreateContext(device_.aldevice(),&(al_attributes[0]));
+	SGE_OPENAL_ALC_SENTRY(
+		SGE_TEXT("alcCreateContext failed"),
+		audio::exception
+	)
+	// TODO: where do we have to check for AL errors, too?
 
-	if (!context_)
-	{
-		SGE_ALC_ERROR_CHECK(device_.aldevice());
-		SGE_OPENAL_ERROR_CHECK;
-	}
+	context_ = alcCreateContext(device_.aldevice(),&(al_attributes[0]));
 
 	SGE_ASSERT(context_);
 	SGE_LOG_DEBUG(log(),log::_1 << SGE_TEXT("created audio context"))

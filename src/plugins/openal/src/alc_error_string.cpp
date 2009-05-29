@@ -16,37 +16,30 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
-#include "../device.hpp"
-#include "../sentry.hpp"
-#include "../openal.hpp"
-#include <sge/audio/exception.hpp>
-#include <sge/assert.hpp>
+
+
+#include "../alc_error_string.hpp"
 #include <sge/text.hpp>
 
-sge::openal::device::device(
-	ALCchar const * const specifier)
-:
-	device_(alcOpenDevice(specifier))
+sge::string const
+sge::openal::alc_error_string(
+	ALCenum const error)
 {
-	SGE_OPENAL_SENTRY(
-		SGE_TEXT("alcOpenDevice failed"),
-		audio::exception
-	)
-
-	SGE_ASSERT(device_);
-}
-
-ALCdevice *
-sge::openal::device::aldevice()
-{
-	return device_;
-}
-
-sge::openal::device::~device()
-{
-	if (alcCloseDevice(device_) == AL_FALSE)
-		if (!std::uncaught_exception())
-			throw audio::exception(
-				SGE_TEXT("error closing audio device. this means you tried to close the device before unloading all contexts and buffers")
-			);
+	switch (error)
+	{
+		case ALC_NO_ERROR:
+			return SGE_TEXT("no error in openal (maybe somewhere else)");
+		case ALC_INVALID_DEVICE:
+			return SGE_TEXT("the device handle specifies an inaccessible driver/server");
+		case ALC_INVALID_CONTEXT:
+			return SGE_TEXT("the context argument does not name a valid context");
+		case ALC_INVALID_ENUM:
+			return SGE_TEXT("a token used is not valid, or not acceptable");
+		case ALC_INVALID_VALUE:
+			return SGE_TEXT("a value (e.g. attribute) is not valid, or not applicable");
+		case ALC_OUT_OF_MEMORY:
+			return SGE_TEXT("unable to allocate memory");
+		default:
+			return SGE_TEXT("Unkown");
+	}
 }
