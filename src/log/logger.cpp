@@ -20,11 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/log/logger.hpp>
-#include <sge/log/level_field.hpp>
 #include <sge/log/format/default_level.hpp>
 #include <sge/log/format/create_chain.hpp>
 #include <sge/log/format/create_prefix.hpp>
+#include <sge/make_auto_ptr.hpp>
 #include <sge/foreach_enumerator.hpp>
+#include <boost/tr1/functional.hpp>
 #include <boost/bind.hpp>
 
 sge::log::logger::logger(
@@ -80,14 +81,24 @@ sge::log::logger::logger(
 	enabled_(enabled_),
 	level_streams()
 {
-	foreach_enumerator<level_field>(
-		boost::bind(
-			&logger::inherit_levels,
-			this,
-			boost::ref(parent),
-			_1
-		)
-	);
+	SGE_FOREACH_ENUMERATOR(level_, level)
+	{
+		auto_ptr<
+			level_stream
+		> s(
+			make_auto_ptr<
+				level_stream
+			>(
+				parent.level_sink(
+					level_
+				)
+			)
+		);
+
+		level_streams.push_back(
+			s
+		);
+	}
 }
 
 sge::log::logger::~logger()
@@ -135,7 +146,8 @@ void sge::log::logger::activate_hierarchy(
 {
 	set_hierarchy(
 		level_,
-		&logger::activate);
+		&logger::activate
+	);
 }
 
 void sge::log::logger::deactivate_hierarchy(
@@ -143,7 +155,8 @@ void sge::log::logger::deactivate_hierarchy(
 {
 	set_hierarchy(
 		level_,
-		&logger::deactivate);
+		&logger::deactivate
+	);
 }
 
 bool sge::log::logger::activated(
@@ -180,43 +193,39 @@ sge::log::logger::formatter() const
 void sge::log::logger::init_levels(
 	level::type const level_)
 {
-	foreach_enumerator<level_field>(
-		boost::bind(
-			&logger::init_level, this, _1
-		)
-	);
+	SGE_FOREACH_ENUMERATOR(i, level)
+	{
+		auto_ptr<
+			level_stream
+		> s(
+			make_auto_ptr<
+				level_stream
+			>(
+				std::tr1::ref(
+					sink()
+				),
+				format::default_level(
+					i	
+				)
+			)
+		);
+
+		level_streams.push_back(
+			s
+		);
+	}
 
 	activate_hierarchy(
 		level_
 	);
 }
 
-void sge::log::logger::init_level(
-	level::type const level_)
-{
-	level_streams.push_back(
-		new level_stream(
-			sink(),
-			format::default_level(
-				level_)));
-}
-
-void sge::log::logger::inherit_levels(
-	logger &parent,
-	level::type const level_)
-{
-	level_streams.push_back(
-		new level_stream(
-			parent.level_sink(
-				level_)));
-}
-
 void sge::log::logger::set_hierarchy(
 	level::type const level_,
 	void (logger::*fun)(level::type))
 {
-	for(unsigned i = level_; i < level::size; ++i)
+	SGE_FOREACH_ENUMERATOR_2(i, level, level_)
 		(this->*fun)(
-			static_cast<level::type>(
-				i));
+			i
+		);
 }
