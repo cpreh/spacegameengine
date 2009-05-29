@@ -20,15 +20,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../variable_native.hpp"
-#include "../../../error.hpp"
+#include "../../../sentry.hpp"
+#include <sge/renderer/glsl/exception.hpp>
+#include <sge/text.hpp>
 
 template<>
 GLint sge::ogl::glsl::uniform::location<true>(
 	traits<true>::handle const program,
 	char const *const name)
 {
-	SGE_OPENGL_SENTRY
+	SGE_OPENGL_SENTRY(
+		SGE_TEXT("glGetUniformLocation failed"),
+		sge::renderer::glsl::exception
+	)
+
 	return glGetUniformLocation(
 		program,
-		name);
+		name
+	);
 }

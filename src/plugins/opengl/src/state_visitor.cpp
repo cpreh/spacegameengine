@@ -24,11 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert_states.hpp"
 #include "../convert_fog_float_state.hpp"
 #include "../enable.hpp"
-#include "../error.hpp"
+#include "../sentry.hpp"
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/raw.hpp>
 #include <sge/renderer/arithmetic_convert.hpp>
 #include <sge/renderer/state/var.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/variant/object_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
@@ -43,7 +44,10 @@ sge::ogl::state_visitor::result_type
 sge::ogl::state_visitor::operator()(
 	renderer::state::int_::type const s) const
 {
-	SGE_OPENGL_SENTRY
+	SGE_OPENGL_SENTRY(
+		SGE_TEXT("glClearStencil failed"),
+		sge::renderer::exception
+	)
 
 	namespace rs = renderer::state::int_::available_states;
 
@@ -80,24 +84,37 @@ sge::ogl::state_visitor::result_type
 sge::ogl::state_visitor::operator()(
 	renderer::state::float_::type const &s) const
 {
-	SGE_OPENGL_SENTRY
-
 	namespace rs = renderer::state::float_::available_states;
 
 	switch(s.state()) {
 	case rs::zbuffer_clear_val:
+	{
+		SGE_OPENGL_SENTRY(
+			SGE_TEXT("glClearDepth failed"),
+			sge::renderer::exception
+		)
+
 		glClearDepth(
 			renderer::arithmetic_convert<
 				GLdouble
 			>(
-				s.value()));
+				s.value()
+			)
+		);
 		break;
+	}
 	case rs::alpha_test_ref:
 		states.update_alpha_test();
 		break;
 	case rs::fog_start:
 	case rs::fog_end:
 	case rs::fog_density:
+	{
+		SGE_OPENGL_SENTRY(
+			SGE_TEXT("glFogf failed"),
+			sge::renderer::exception
+		)
+
 		glFogf(
 			convert_fog_float_state(s),
 			renderer::arithmetic_convert<
@@ -105,6 +122,7 @@ sge::ogl::state_visitor::operator()(
 			>(
 				s.value()));
 		break;
+	}
 	default:
 		throw exception(
 			SGE_TEXT("Invalid float_state!"));
@@ -136,8 +154,6 @@ sge::ogl::state_visitor::result_type
 sge::ogl::state_visitor::operator()(
 	renderer::state::color::type const &s) const
 {
-	SGE_OPENGL_SENTRY
-
 	namespace rs = renderer::state::color::available_states;
 
 	image::color::rgba32f const fcolor(
@@ -150,6 +166,12 @@ sge::ogl::state_visitor::operator()(
 
 	switch(s.state()) {
 	case rs::clear_color:
+	{
+		SGE_OPENGL_SENTRY(
+			SGE_TEXT("glClearColor failed"),
+			sge::renderer::exception
+		)
+
 		glClearColor(
 			fcolor[0],
 			fcolor[1],
@@ -157,7 +179,14 @@ sge::ogl::state_visitor::operator()(
 			fcolor[3]
 		);
 		break;
+	}
 	case rs::ambient_light_color:
+	{	
+		SGE_OPENGL_SENTRY(
+			SGE_TEXT("glLightMOdelfv failed"),
+			sge::renderer::exception
+		)
+
 		glLightModelfv(
 			GL_LIGHT_MODEL_AMBIENT,
 			image::color::raw(
@@ -165,7 +194,14 @@ sge::ogl::state_visitor::operator()(
 			).data()
 		);
 		break;
+	}
 	case rs::fog_color:
+	{
+		SGE_OPENGL_SENTRY(
+			SGE_TEXT("glFogfv failed"),
+			sge::renderer::exception
+		)
+
 		glFogfv(
 			GL_FOG_COLOR,
 			image::color::raw(
@@ -173,6 +209,7 @@ sge::ogl::state_visitor::operator()(
 			).data()
 		);
 		break;
+	}
 	default:
 		throw exception(
 			SGE_TEXT("Invalid color_state!"));
@@ -190,7 +227,11 @@ sge::ogl::state_visitor::operator()(
 	}
 	enable(GL_CULL_FACE);
 	
-	SGE_OPENGL_SENTRY
+	SGE_OPENGL_SENTRY(
+		SGE_TEXT("glCullFace failed"),
+		sge::renderer::exception
+	)
+
 	glCullFace(convert_states(m));
 }
 
@@ -206,7 +247,11 @@ sge::ogl::state_visitor::operator()(
 
 	enable(GL_DEPTH_TEST);
 
-	SGE_OPENGL_SENTRY
+	SGE_OPENGL_SENTRY(
+		SGE_TEXT("glDepthFunc failed"),
+		sge::renderer::exception
+	)
+
 	glDepthFunc(convert_states(f));
 }
 
@@ -236,7 +281,11 @@ sge::ogl::state_visitor::operator()(
 
 	enable(GL_FOG);
 
-	SGE_OPENGL_SENTRY
+	SGE_OPENGL_SENTRY(
+		SGE_TEXT("glFogi failed"),
+		sge::renderer::exception
+	)
+
 	glFogi(GL_FOG_MODE, convert_states(m));
 }
 
@@ -244,7 +293,11 @@ sge::ogl::state_visitor::result_type
 sge::ogl::state_visitor::operator()(
 	renderer::state::draw_mode::type const m) const
 {
-	SGE_OPENGL_SENTRY
+	SGE_OPENGL_SENTRY(
+		SGE_TEXT("glPolygonMode failed"),
+		sge::renderer::exception
+	)
+
 	glPolygonMode(
 		GL_FRONT_AND_BACK,
 		convert_states(m));

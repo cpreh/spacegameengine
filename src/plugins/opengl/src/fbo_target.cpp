@@ -23,11 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../fbo_functions.hpp"
 #include "../version.hpp"
 #include "../texture_base.hpp"
-#include "../error.hpp"
+#include "../sentry.hpp"
 #include <sge/renderer/texture.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
-#include <sge/exception.hpp>
 #include <sge/text.hpp>
 
 sge::ogl::fbo_target::fbo_target()
@@ -37,9 +37,12 @@ sge::ogl::fbo_target::fbo_target()
 			SGE_TEXT("glGenFrameBuffersEXT"),
 			SGE_TEXT("none"),
 			SGE_TEXT("frame_buffer_ext")
-			);
+		);
 
-	SGE_OPENGL_SENTRY
+	SGE_OPENGL_SENTRY(
+		SGE_TEXT("glGenFramebuffersEXT failed"),
+		sge::renderer::exception
+	)
 
 	glGenFramebuffersEXT(1, &fbo);
 	bind_me();
@@ -77,7 +80,7 @@ void sge::ogl::fbo_target::bind_texture(
 	);
 
 	if(status != GL_FRAMEBUFFER_COMPLETE_EXT)
-		throw exception(
+		throw renderer::exception(
 			SGE_TEXT("glCheckFramebufferStatusEXT: fbo incomplete!"));
 	
 	texture_target = dynamic_pointer_cast<texture>(t);

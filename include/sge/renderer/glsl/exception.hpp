@@ -18,38 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_RENDERER_GLSL_EXCEPTION_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_EXCEPTION_HPP_INCLUDED
 
-#include "../error.hpp"
-#include "../common.hpp"
-#include <sge/format.hpp>
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
-#include <sge/iconv.hpp>
-#include <exception>
+#include <sge/renderer/exception.hpp>
+#include <sge/export.hpp>
+#include <sge/string.hpp>
 
-sge::ogl::sentry::sentry(
-	std::string const &file_name,
-	int const line,
-	string const &description)
-:
-	file_name(file_name),
-	line(line),
-	description(description)
-{}
-
-sge::ogl::sentry::~sentry()
+namespace sge
 {
-	if(std::uncaught_exception())
-		return;
+namespace renderer
+{
+namespace glsl
+{
 
-	GLenum const error = glGetError();
-	if(error != GL_NO_ERROR)
-		throw exception(
-			((format(
-				SGE_TEXT("opengl failed in file \"%1%\", line %2%. The error code was %3%. Description: \"%4%\""))
-				% iconv(file_name)
-				% line
-				% error
-				% description)
-				.str()));
+class SGE_CLASS_SYMBOL exception : public renderer::exception {
+public:
+	SGE_SYMBOL explicit exception(
+		string const &);
+};
+
 }
+}
+}
+
+#endif

@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../multi_texture.hpp"
 #include "../texture_stage.hpp"
 #include "../basic_buffer_impl.hpp"
-#include "../error.hpp"
+#include "../sentry.hpp"
 #include "../state_visitor.hpp"
 #include "../glsl/impl.hpp"
 #include "../common.hpp"
@@ -50,13 +50,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../viewport_pos.hpp"
 #include "../background_dim.hpp"
 #include "../caps.hpp"
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/state/default.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/combine.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/math/dim/structure_cast.hpp>
@@ -64,6 +63,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/variant/apply_unary.hpp>
 #include <sge/make_shared_ptr.hpp>
 #include <sge/optional_impl.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 #include <boost/bind.hpp>
 #include <sstream>
 
@@ -135,7 +136,10 @@ sge::ogl::device::device(
 
 void sge::ogl::device::begin_rendering()
 {
-	SGE_OPENGL_SENTRY
+	SGE_OPENGL_SENTRY(
+		SGE_TEXT("glClear failed"),
+		sge::renderer::exception
+	)
 
 	glClear(
 		clear_bit(renderer::state::bool_::clear_backbuffer)
@@ -290,23 +294,33 @@ void sge::ogl::device::render(
 
 	GLenum const prim_type = convert_primitive(ptype);
 
-	index_buffer_base const &
-		gl_ib = dynamic_cast<
+	index_buffer_base const & gl_ib(
+		dynamic_cast<
 			index_buffer_base const &
 		>(
-			*ib);
+			*ib
+		)
+	);
 
 	gl_ib.bind_me();
 
-	SGE_OPENGL_SENTRY
+	SGE_OPENGL_SENTRY(
+		SGE_TEXT("glDrawElements failed"),
+		sge::renderer::exception
+	)
 
 	glDrawElements(
 		prim_type,
 		static_cast<GLsizei>(
-			renderer::indices_per_primitive(ptype) * pcount),
+			renderer::indices_per_primitive(
+				ptype
+			) * pcount
+		),
 		gl_ib.gl_format(),
 		gl_ib.buffer_offset(
-			first_index));
+			first_index
+		)
+	);
 }
 
 void sge::ogl::device::render(
@@ -323,12 +337,16 @@ void sge::ogl::device::render(
 
 	GLenum const prim_type = convert_primitive(ptype);
 
-	SGE_OPENGL_SENTRY
+	SGE_OPENGL_SENTRY(
+		SGE_TEXT("glDrawArrays failed"),
+		sge::renderer::exception
+	)
 
 	glDrawArrays(
 		prim_type,
 		static_cast<GLsizei>(first_vertex),
-		static_cast<GLint>(num_vertices));
+		static_cast<GLint>(num_vertices)
+	);
 }
 
 void sge::ogl::device::state(

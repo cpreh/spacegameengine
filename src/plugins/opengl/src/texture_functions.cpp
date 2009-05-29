@@ -19,14 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 
-#include "../error.hpp"
 #include "../texture_functions.hpp"
+#include "../sentry.hpp"
 #include "../convert_texture_filter.hpp"
 #include "../glew.hpp"
 #include "../pbo.hpp" // TODO: maybe put this somewhere else
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
-#include <sge/format.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/math/rect/basic_impl.hpp>
 #include <sge/math/rect/output.hpp>
@@ -34,9 +31,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/dim/output.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/renderer/filter/texture.hpp>
+#include <sge/renderer/exception.hpp>
+#include <sge/renderer/texture_creation_failed.hpp>
 #include <sge/log/logger.hpp>
 #include <sge/log/global.hpp>
 #include <sge/log/temporary_output.hpp>
+#include <sge/text.hpp>
+#include <sge/format.hpp>
 #include <ostream>
 
 namespace
@@ -51,7 +52,10 @@ bool have_anisotropic_filter();
 
 GLuint sge::ogl::gen_texture()
 {
-	SGE_OPENGL_SENTRY
+	SGE_OPENGL_SENTRY(
+		SGE_TEXT("glGenTextures failed"),
+		sge::renderer::exception
+	)
 	
 	GLuint id;
 	glGenTextures(1, &id);
@@ -61,7 +65,10 @@ GLuint sge::ogl::gen_texture()
 void sge::ogl::delete_texture(
 	GLuint const id)
 {
-	SGE_OPENGL_SENTRY
+	SGE_OPENGL_SENTRY(
+		SGE_TEXT("glDeleteTextures failed"),
+		sge::renderer::exception
+	)
 
 	glDeleteTextures(1, &id);
 }
@@ -94,10 +101,14 @@ void sge::ogl::set_texture(
 				<< SGE_TEXT('.')
 		);
 		
-	SGE_OPENGL_SENTRY_STR(
-		(sge::format(
-			SGE_TEXT("Creation of texture with size %1% failed!"))
-		% dim).str());
+	SGE_OPENGL_SENTRY(
+		sge::str(
+			sge::format(
+				SGE_TEXT("Creation of texture with size %1% failed!"))
+			% dim
+		),
+		sge::renderer::texture_creation_failed
+	);
 	
 	glTexImage2D(
 		tex_type,
@@ -108,7 +119,8 @@ void sge::ogl::set_texture(
 		0,
 		format,
 		type,
-		src);
+		src
+	);
 
 	if(need_mipmap(filter.min()))
 		build_mipmaps(
@@ -116,7 +128,8 @@ void sge::ogl::set_texture(
 			format,
 			type,
 			dim,
-			src);
+			src
+		);
 }
 
 void sge::ogl::build_mipmaps(
@@ -130,7 +143,10 @@ void sge::ogl::build_mipmaps(
 		throw exception(
 			SGE_TEXT("ogl::build_mipmaps: src is 0!"));
 
-	SGE_OPENGL_SENTRY
+	SGE_OPENGL_SENTRY(
+		SGE_TEXT("gluBuild2DMipmaps failed"),
+		sge::renderer::texture_creation_failed
+	)
 	
 	gluBuild2DMipmaps(
 		tex_type,
@@ -139,7 +155,8 @@ void sge::ogl::build_mipmaps(
 		static_cast<GLsizei>(dim.h()),
 		format,
 		type,
-		src);
+		src
+	);
 }
 
 void sge::ogl::set_texture_rect(
@@ -151,8 +168,6 @@ void sge::ogl::set_texture_rect(
 	renderer::lock_rect const &r,
 	renderer::const_raw_pointer const src)
 {
-	SGE_OPENGL_SENTRY
-	
 	if(!src && !pbo_in_hardware())
 		throw exception(
 			SGE_TEXT("ogl::set_texture_rect(): src is 0!"));
@@ -168,6 +183,16 @@ void sge::ogl::set_texture_rect(
 		throw exception(
 			SGE_TEXT("You can't specify an update rect while using mipmaps."));
 
+	SGE_OPENGL_SENTRY(
+		sge::str(
+			sge::format(
+				SGE_TEXT("glTexSubImage2D with rect %1% failed")
+			)
+			% r
+		),
+		sge::renderer::exception
+	)
+	
 	glTexSubImage2D(
 		tex_type,
 		0,
@@ -177,7 +202,8 @@ void sge::ogl::set_texture_rect(
 		static_cast<GLsizei>(r.h()),
 		format,
 		type,
-		src);
+		src
+	);
 }
 
 void sge::ogl::get_tex_image(
@@ -185,14 +211,18 @@ void sge::ogl::get_tex_image(
 	GLenum const type,
 	renderer::raw_pointer const dest)
 {
-	SGE_OPENGL_SENTRY
+	SGE_OPENGL_SENTRY(
+		SGE_TEXT("glGetTexImage failed"),
+		sge::renderer::exception
+	)
 	
 	glGetTexImage(
 		GL_TEXTURE_2D,
 		0,
 		format,
 		type,
-		dest);
+		dest
+	);
 }
 
 void sge::ogl::tex_parameter_i(
@@ -200,7 +230,10 @@ void sge::ogl::tex_parameter_i(
 	GLenum const name,
 	GLint const value)
 {
-	SGE_OPENGL_SENTRY
+	SGE_OPENGL_SENTRY(
+		SGE_TEXT("glTexParameteri failed"),
+		sge::renderer::exception
+	)
 	
 	glTexParameteri(type, name, value);
 }
@@ -209,7 +242,10 @@ void sge::ogl::bind_texture(
 	GLenum const type,
 	GLuint const value)
 {
-	SGE_OPENGL_SENTRY
+	SGE_OPENGL_SENTRY(
+		SGE_TEXT("glBindTexture failed"),
+		sge::renderer::exception
+	)
 	
 	// TODO: maybe cache this here
 
@@ -223,12 +259,14 @@ void sge::ogl::set_texture_filter(
 	tex_parameter_i(
 		type,
 		GL_TEXTURE_MIN_FILTER,
-		convert_texture_filter(filter.min()));
+		convert_texture_filter(filter.min())
+	);
 	
 	tex_parameter_i(
 		type,
 		GL_TEXTURE_MAG_FILTER,
-		convert_texture_filter(filter.mag()));
+		convert_texture_filter(filter.mag())
+	);
 
 	if(!filter.anisotropy())
 		return;
@@ -238,7 +276,8 @@ void sge::ogl::set_texture_filter(
 		SGE_LOG_WARNING(
 			log::global(),
 			log::_1
-				<< SGE_TEXT("anisotropic filtering is not supported!"));
+				<< SGE_TEXT("anisotropic filtering is not supported!")
+		);
 		return;
 	}
 	
@@ -247,7 +286,8 @@ void sge::ogl::set_texture_filter(
 		tex_parameter_i(
 			type,
 			GL_TEXTURE_MAX_ANISOTROPY_EXT,
-			filter.anisotropy());
+			filter.anisotropy()
+		);
 	}
 	catch(exception const &)
 	{
@@ -256,7 +296,8 @@ void sge::ogl::set_texture_filter(
 			log::_1
 				<< SGE_TEXT("anisotropy level ")
 				<< filter.anisotropy()
-				<< SGE_TEXT(" not supported!"));
+				<< SGE_TEXT(" not supported!")
+		);
 	}
 }
 
@@ -277,9 +318,12 @@ bool need_mipmap(
 
 bool have_anisotropic_filter()
 {
-	static bool const b =
+	static bool const b(
 		sge::ogl::glew_is_supported(
-			"GL_EXT_texture_filter_anisotropic");
+			"GL_EXT_texture_filter_anisotropic"
+		)
+	);
+
 	return b;
 }
 

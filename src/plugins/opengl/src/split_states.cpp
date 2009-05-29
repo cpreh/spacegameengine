@@ -21,11 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../split_states.hpp"
 #include "../common.hpp"
-#include "../error.hpp"
+#include "../sentry.hpp"
 #include "../convert_states.hpp"
 #include "../enable.hpp"
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/arithmetic_convert.hpp>
+#include <sge/renderer/exception.hpp>
+#include <sge/text.hpp>
 
 sge::ogl::split_states::split_states(
 	renderer::state::list &states)
@@ -39,7 +41,8 @@ sge::ogl::split_states::split_states(
 void sge::ogl::split_states::update_stencil()
 {
 	renderer::state::stencil_func::type const method(
-		states.get<renderer::state::stencil_func::type>());
+		states.get<renderer::state::stencil_func::type>()
+	);
 		
 	if(method == renderer::state::stencil_func::off)
 	{
@@ -49,26 +52,43 @@ void sge::ogl::split_states::update_stencil()
 
 	enable(GL_STENCIL_TEST);
 
-	SGE_OPENGL_SENTRY
+	SGE_OPENGL_SENTRY(
+		SGE_TEXT("glStencilFunc failed"),
+		sge::renderer::exception
+	)
 
 	glStencilFunc(
 		convert_states(
-			method),
+			method
+		),
 		static_cast<GLint>(
-			states.get(renderer::state::int_::stencil_ref)),
+			states.get(renderer::state::int_::stencil_ref)
+		),
 		static_cast<GLuint>(
-			states.get(renderer::state::uint::stencil_mask)));
+			states.get(renderer::state::uint::stencil_mask)
+		)
+	);
 }
 
 void sge::ogl::split_states::update_blend()
 {
-	SGE_OPENGL_SENTRY
+	SGE_OPENGL_SENTRY(
+		SGE_TEXT("glBlendFunc failed"),
+		sge::renderer::exception
+	)
 
 	glBlendFunc(
 		convert_states(
-			states.get<renderer::state::source_blend_func::type>()),
+			states.get<
+				renderer::state::source_blend_func::type
+			>()
+		),
 		convert_states(
-			states.get<renderer::state::dest_blend_func::type>()));
+			states.get<
+				renderer::state::dest_blend_func::type
+			>()
+		)
+	);
 }
 
 void sge::ogl::split_states::update_alpha_test()
@@ -84,7 +104,10 @@ void sge::ogl::split_states::update_alpha_test()
 	
 	enable(GL_ALPHA_TEST);
 
-	SGE_OPENGL_SENTRY
+	SGE_OPENGL_SENTRY(
+		SGE_TEXT("glAlphaFunc failed"),
+		sge::renderer::exception
+	)
 
 	glAlphaFunc(
 		convert_states(

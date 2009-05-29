@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../framebuffer_functions.hpp"
-#include "../error.hpp"
+#include "../sentry.hpp"
+#include <sge/renderer/exception.hpp>
+#include <sge/text.hpp>
 
 void sge::ogl::read_pixels(
 	renderer::size_type const x,
@@ -31,7 +33,10 @@ void sge::ogl::read_pixels(
 	GLenum const type,
 	renderer::raw_pointer const dest)
 {
-	SGE_OPENGL_SENTRY
+	SGE_OPENGL_SENTRY(
+		SGE_TEXT("glReadPixels failed"),
+		sge::renderer::exception
+	)
 
 	glReadPixels(
 		static_cast<GLint>(x),

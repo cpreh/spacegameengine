@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../texpos_actor.hpp"
 #include "../client_state_combiner.hpp"
-#include "../../error.hpp"
+#include "../../sentry.hpp"
 #include "../../multi_texture.hpp"
 #include <sge/renderer/vf/dynamic_ordered_element.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/exception.hpp>
 #include <sge/format.hpp>
 #include <sge/text.hpp>
@@ -44,7 +45,7 @@ sge::ogl::vf::texpos_actor::texpos_actor(
 	)
 {
 	if(index() >= GL_MAX_TEXTURE_COORDS)
-		throw exception((
+		throw renderer::exception((
 			::sge::format(SGE_TEXT("opengl texture coordinates exceeded: Allowed are %1%."))
 			% GL_MAX_TEXTURE_COORDS).str());
 }
@@ -58,13 +59,17 @@ void sge::ogl::vf::texpos_actor::operator()(
 		>(index())
 	);
 
-	SGE_OPENGL_SENTRY
+	SGE_OPENGL_SENTRY(
+		SGE_TEXT("glTexCoordPointer failed"),
+		sge::renderer::exception
+	)
 
 	glTexCoordPointer(
 		elements,
 		format(),
 		stride(),
-		pointer());
+		pointer()
+	);
 
 	c.enable(GL_TEXTURE_COORD_ARRAY);
 }

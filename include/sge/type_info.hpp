@@ -39,7 +39,7 @@ public:
 		type_info const &rhs) const;
 	SGE_SYMBOL string const name() const;
 private:
-	const std::type_info* info_;
+	std::type_info const *info_;
 };
 
 SGE_SYMBOL bool operator==(const type_info& lhs, const type_info& rhs);

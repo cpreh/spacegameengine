@@ -20,18 +20,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../viewport.hpp"
-#include "../error.hpp"
+#include "../sentry.hpp"
 #include "../common.hpp"
 #include <sge/renderer/viewport.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
+#include <sge/text.hpp>
 
 void
 sge::ogl::viewport(
 	renderer::viewport const &v,
 	renderer::screen_unit const h)
 {
-	SGE_OPENGL_SENTRY
+	SGE_OPENGL_SENTRY(
+		SGE_TEXT("glViewport failed"),
+		sge::renderer::exception
+	)
 
 	glViewport(
 		v.pos().x(),

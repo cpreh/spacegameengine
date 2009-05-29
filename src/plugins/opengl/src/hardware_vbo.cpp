@@ -20,8 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../hardware_vbo.hpp"
-#include "../error.hpp"
+#include "../sentry.hpp"
 #include "../glew.hpp"
+#include <sge/renderer/exception.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/once.hpp>
@@ -45,7 +46,10 @@ GLuint sge::ogl::hardware_vbo::gen_buffer()
 {
 	initialize_hardware_vbo();
 
-	SGE_OPENGL_SENTRY
+	SGE_OPENGL_SENTRY(
+		SGE_TEXT("glGenBuffers failed"),
+		sge::renderer::exception
+	)
 
 	GLuint id;
 	gl_gen_buffers(1, &id);
@@ -56,7 +60,10 @@ GLuint sge::ogl::hardware_vbo::gen_buffer()
 void sge::ogl::hardware_vbo::delete_buffer(
 	GLuint const id)
 {
-	SGE_OPENGL_SENTRY
+	SGE_OPENGL_SENTRY(
+		SGE_TEXT("glDeleteBuffers failed"),
+		sge::renderer::exception
+	)
 
 	gl_delete_buffers(1, &id);
 }
@@ -65,7 +72,10 @@ void sge::ogl::hardware_vbo::bind_buffer(
 	GLenum const type,
 	GLuint const id)
 {
-	SGE_OPENGL_SENTRY
+	SGE_OPENGL_SENTRY(
+		SGE_TEXT("glBindBuffer failed"),
+		sge::renderer::exception
+	)
 
 	gl_bind_buffer(type, id);
 }
@@ -74,18 +84,26 @@ void *sge::ogl::hardware_vbo::map_buffer(
 	GLenum const type,
 	GLenum const flags)
 {
-	SGE_OPENGL_SENTRY
+	SGE_OPENGL_SENTRY(
+		SGE_TEXT("glMapBuffer failed"),
+		sge::renderer::exception
+	)
 
-	return static_cast<void*>(
+	return static_cast<void *>(
 		gl_map_buffer(
 			type,
-			flags));
+			flags
+		)
+	);
 }
 
 void sge::ogl::hardware_vbo::unmap_buffer(
 	GLenum const type)
 {
-	SGE_OPENGL_SENTRY
+	SGE_OPENGL_SENTRY(
+		SGE_TEXT("glUnmapBuffer failed"),
+		sge::renderer::exception
+	)
 
 	gl_unmap_buffer(type); 
 }
@@ -96,7 +114,10 @@ void sge::ogl::hardware_vbo::buffer_data(
 	void const *const data,
 	GLenum const flags)
 {
-	SGE_OPENGL_SENTRY
+	SGE_OPENGL_SENTRY(
+		SGE_TEXT("glBufferData failed"),
+		sge::renderer::exception
+	)
 
 	gl_buffer_data(
 		type,
@@ -111,7 +132,10 @@ void sge::ogl::hardware_vbo::buffer_sub_data(
 	GLsizei const size,
 	void const *const data)
 {
-	SGE_OPENGL_SENTRY
+	SGE_OPENGL_SENTRY(
+		SGE_TEXT("glBufferSubData failed"),
+		sge::renderer::exception
+	)
 
 	gl_buffer_sub_data(
 		type,

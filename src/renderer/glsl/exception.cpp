@@ -18,36 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/glsl/exception.hpp>
+#include <sge/text.hpp>
 
-#ifndef SGE_OPENGL_ERROR_HPP_INCLUDED
-#define SGE_OPENGL_ERROR_HPP_INCLUDED
-
-#include <sge/string.hpp>
-#include <string>
-
-namespace sge
-{
-namespace ogl
-{
-
-class sentry {
-public:
-	sentry(
-		std::string const &file_name,
-		int line,
-		string const &description_);	
-	       
-	~sentry();
-private:
-	std::string const file_name;
-	int    const line;
-	string const description;
-};
-
-}
-}
-
-#define SGE_OPENGL_SENTRY_STR(x) sge::ogl::sentry const sentry(__FILE__, __LINE__, x);
-#define SGE_OPENGL_SENTRY SGE_OPENGL_SENTRY_STR(sge::string())
-
-#endif
+sge::renderer::glsl::exception::exception(
+	string const &s)
+:
+	renderer::exception(
+		SGE_TEXT("glsl: ")
+		+ s
+	)
+{}
