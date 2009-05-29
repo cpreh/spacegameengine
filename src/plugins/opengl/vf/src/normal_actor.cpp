@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../normal_actor.hpp"
 #include "../client_state_combiner.hpp"
-#include "../../sentry.hpp"
+#include "../../check_state.hpp"
 #include <sge/renderer/vf/dynamic_ordered_element.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/text.hpp>
@@ -44,16 +44,16 @@ sge::ogl::vf::normal_actor::normal_actor(
 void sge::ogl::vf::normal_actor::operator()(
 	client_state_combiner &c) const
 {
-	SGE_OPENGL_SENTRY(
-		SGE_TEXT("glNormalPointer failed"),
-		sge::renderer::exception
-	)
-
 	glNormalPointer(
 		format(),
 		stride(),
 		pointer()
 	);
 	
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glNormalPointer failed"),
+		sge::renderer::exception
+	)
+
 	c.enable(GL_NORMAL_ARRAY);
 }

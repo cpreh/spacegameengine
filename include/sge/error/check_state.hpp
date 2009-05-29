@@ -18,18 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ERROR_STATE_SENTRY_HPP_INCLUDED
-#define SGE_ERROR_STATE_SENTRY_HPP_INCLUDED
+#ifndef SGE_ERROR_CHECK_STATE_HPP_INCLUDED
+#define SGE_ERROR_CHECK_STATE_HPP_INCLUDED
 
 #include <sge/format.hpp>
 #include <sge/text.hpp>
 #include <sge/file.hpp>
 #include <sge/string.hpp>
 #include <sge/stringize.hpp>
-#include <sge/noncopyable.hpp>
-#include <exception>
 
-#define SGE_ERROR_STATE_SENTRY(\
+#define SGE_ERROR_CHECK_STATE(\
 	exception,\
 	message,\
 	error_type,\
@@ -37,44 +35,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	success_code, \
 	error_code_function \
 ) \
-class sge_error_sentry_ { \
-	SGE_NONCOPYABLE(sge_error_sentry_) \
-\
-	sge::string const message_str; \
-\
-public: \
-	explicit sge_error_sentry_( \
-		sge::string const & message_str) \
-	: \
-		message_str(message_str) \
-	{} \
+{ \
+	error_type const sge_return_value_(\
+		function() \
+	); \
 	\
-	~sge_error_sentry_() \
-	{ \
-		if(std::uncaught_exception())\
-			return;\
-		\
-		error_type const ret(\
-			function() \
-		); \
-		\
-		if(ret != success_code)\
-			throw exception(\
-				sge::str( \
-					sge::format(\
-						SGE_TEXT("Function failed in %1%:%2% (errorcode: %3%): %4%")\
-					) \
-					% SGE_FILE \
-					% SGE_STRINGIZE(__LINE__) \
-					% error_code_function(ret) \
-					% message_str \
+	if(sge_return_value_ != success_code)\
+		throw exception(\
+			sge::str( \
+				sge::format(\
+					SGE_TEXT("Function failed in %1%:%2% (errorcode: %3%): %4%")\
 				) \
-			);\
-	}\
-}; \
-\
-sge_error_sentry_ const sentry_instance_(\
-	message \
-);
+				% SGE_FILE \
+				% SGE_STRINGIZE(__LINE__) \
+				% error_code_function(sge_return_value_) \
+				% message \
+			) \
+		);\
+} \
 
 #endif

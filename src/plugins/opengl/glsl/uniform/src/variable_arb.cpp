@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../variable_arb.hpp"
-#include "../../../sentry.hpp"
+#include "../../../check_state.hpp"
 #include <sge/renderer/glsl/exception.hpp>
 #include <sge/text.hpp>
 
@@ -29,12 +29,17 @@ GLint sge::ogl::glsl::uniform::location<false>(
 	traits<false>::handle const program,
 	char const *const name)
 {
-	SGE_OPENGL_SENTRY(
+	traits<false>::handle const ret(
+		glGetUniformLocationARB(
+			program,
+			name
+		)
+	);
+
+	SGE_OPENGL_CHECK_STATE(
 		SGE_TEXT("glGetUniformLocationARB failed"),
 		sge::renderer::glsl::exception
 	)
 
-	return glGetUniformLocationARB(
-		program,
-		name);
+	return ret;
 }

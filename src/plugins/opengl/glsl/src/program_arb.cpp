@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../program_arb.hpp"
-#include "../../sentry.hpp"
+#include "../../check_state.hpp"
 #include <sge/renderer/glsl/exception.hpp>
 #include <sge/text.hpp>
 
@@ -28,12 +28,16 @@ template<>
 sge::ogl::glsl::traits<false>::handle
 sge::ogl::glsl::create_program<false>()
 {
-	SGE_OPENGL_SENTRY(
+	traits<false>::handle const ret(
+		glCreateProgramObjectARB()
+	);
+
+	SGE_OPENGL_CHECK_STATE(
 		SGE_TEXT("glCreateProgramObjectARB"),
 		sge::renderer::glsl::exception
 	)
 
-	return glCreateProgramObjectARB();
+	return ret;
 }
 
 template<>
@@ -55,24 +59,24 @@ void sge::ogl::glsl::detach_shader<false>(
 	traits<false>::handle const program,
 	traits<false>::handle const shader)
 {
-	SGE_OPENGL_SENTRY(
+	glDetachObjectARB(program, shader);
+
+	SGE_OPENGL_CHECK_STATE(
 		SGE_TEXT("glDetachObjectARB failed"),
 		sge::renderer::glsl::exception
 	)
-
-	glDetachObjectARB(program, shader);
 }
 
 template<>
 void sge::ogl::glsl::delete_program<false>(
 	traits<false>::handle const program)
 {
-	SGE_OPENGL_SENTRY(
+	glDeleteObjectARB(program);
+
+	SGE_OPENGL_CHECK_STATE(
 		SGE_TEXT("glDeleteObjectARB failed"),
 		sge::renderer::glsl::exception
 	)
-
-	glDeleteObjectARB(program);
 }
 
 template<>
@@ -80,24 +84,24 @@ void sge::ogl::glsl::attach_shader<false>(
 	traits<false>::handle const program,
 	traits<false>::handle const shader)
 {
-	SGE_OPENGL_SENTRY(
+	glAttachObjectARB(program, shader);
+
+	SGE_OPENGL_CHECK_STATE(
 		SGE_TEXT("glAttachObjectARB"),
 		sge::renderer::glsl::exception
 	)
-
-	glAttachObjectARB(program, shader);
 }
 
 template<>
 void sge::ogl::glsl::link_program<false>(
 	traits<false>::handle const program)
 {
-	SGE_OPENGL_SENTRY(
+	glLinkProgramARB(program);
+
+	SGE_OPENGL_CHECK_STATE(
 		SGE_TEXT("glLinkProgramARB failed"),
 		sge::renderer::glsl::exception
 	)
-
-	glLinkProgramARB(program);
 }
 
 template<>
@@ -105,13 +109,15 @@ GLint sge::ogl::glsl::program_integer<false>(
 	GLenum const what,
 	traits<false>::handle const program)
 {
-	SGE_OPENGL_SENTRY(
+	GLint result;
+	
+	glGetObjectParameterivARB(program, what, &result);
+
+	SGE_OPENGL_CHECK_STATE(
 		SGE_TEXT("glGetObjectParameterivARB failed"),
 		sge::renderer::glsl::exception
 	)
 
-	GLint result;
-	glGetObjectParameterivARB(program, what, &result);
 	return result;
 }
 
@@ -128,12 +134,12 @@ template<>
 void sge::ogl::glsl::use_program<false>(
 	traits<false>::handle const program)
 {
-	SGE_OPENGL_SENTRY(
+	glUseProgramObjectARB(program);
+
+	SGE_OPENGL_CHECK_STATE(
 		SGE_TEXT("glUseProgramObjectARB failed"),
 		sge::renderer::glsl::exception
 	)
-
-	glUseProgramObjectARB(program);
 }
 
 template<>
@@ -143,15 +149,15 @@ void sge::ogl::glsl::program_info_log<false>(
 	GLint *const len,
 	char *const data)
 {
-	SGE_OPENGL_SENTRY(
-		SGE_TEXT("glGetInfoLogARB failed"),
-		sge::renderer::glsl::exception
-	)
-
 	glGetInfoLogARB(
 		program,
 		maxlen,
 		len,
 		data
 	);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glGetInfoLogARB failed"),
+		sge::renderer::glsl::exception
+	)
 }
