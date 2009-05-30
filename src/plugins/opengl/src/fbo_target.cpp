@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../fbo_functions.hpp"
 #include "../version.hpp"
 #include "../texture_base.hpp"
-#include "../sentry.hpp"
+#include "../check_state.hpp"
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/math/vector/basic_impl.hpp>
@@ -39,12 +39,13 @@ sge::ogl::fbo_target::fbo_target()
 			SGE_TEXT("frame_buffer_ext")
 		);
 
-	SGE_OPENGL_SENTRY(
+	glGenFramebuffersEXT(1, &fbo);
+
+	SGE_OPENGL_CHECK_STATE(
 		SGE_TEXT("glGenFramebuffersEXT failed"),
 		sge::renderer::exception
 	)
 
-	glGenFramebuffersEXT(1, &fbo);
 	bind_me();
 }
 

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../texpos_actor.hpp"
 #include "../client_state_combiner.hpp"
-#include "../../sentry.hpp"
+#include "../../check_state.hpp"
 #include "../../multi_texture.hpp"
 #include <sge/renderer/vf/dynamic_ordered_element.hpp>
 #include <sge/renderer/exception.hpp>
@@ -59,17 +59,17 @@ void sge::ogl::vf::texpos_actor::operator()(
 		>(index())
 	);
 
-	SGE_OPENGL_SENTRY(
-		SGE_TEXT("glTexCoordPointer failed"),
-		sge::renderer::exception
-	)
-
 	glTexCoordPointer(
 		elements,
 		format(),
 		stride(),
 		pointer()
 	);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glTexCoordPointer failed"),
+		sge::renderer::exception
+	)
 
 	c.enable(GL_TEXTURE_COORD_ARRAY);
 }

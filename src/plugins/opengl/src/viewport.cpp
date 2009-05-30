@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../viewport.hpp"
-#include "../sentry.hpp"
+#include "../check_state.hpp"
 #include "../common.hpp"
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/exception.hpp>
@@ -33,15 +33,15 @@ sge::ogl::viewport(
 	renderer::viewport const &v,
 	renderer::screen_unit const h)
 {
-	SGE_OPENGL_SENTRY(
-		SGE_TEXT("glViewport failed"),
-		sge::renderer::exception
-	)
-
 	glViewport(
 		v.pos().x(),
 		h - v.size().h() - v.pos().y(),
 		v.size().w(),
 		v.size().h()
 	);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glViewport failed"),
+		sge::renderer::exception
+	)
 }

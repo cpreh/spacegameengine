@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../pos_actor.hpp"
 #include "../client_state_combiner.hpp"
-#include "../../sentry.hpp"
+#include "../../check_state.hpp"
 #include <sge/renderer/vf/dynamic_ordered_element.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/text.hpp>
@@ -50,11 +50,6 @@ sge::ogl::vf::pos_actor::pos_actor(
 void sge::ogl::vf::pos_actor::operator()(
 	client_state_combiner &c) const
 {
-	SGE_OPENGL_SENTRY(
-		SGE_TEXT("glVertexPointer failed"),
-		sge::renderer::exception
-	)
-
 	glVertexPointer(
 		elements,
 		format(),
@@ -62,5 +57,10 @@ void sge::ogl::vf::pos_actor::operator()(
 		pointer()
 	);
 	
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glVertexPointer failed"),
+		sge::renderer::exception
+	)
+
 	c.enable(GL_VERTEX_ARRAY);
 }

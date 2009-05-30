@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 
-#include "../sentry.hpp"
 #include "../texture_stage.hpp"
+#include "../check_state.hpp"
 #include "../convert_texture_stage.hpp"
 #include "../multi_texture.hpp"
 #include <sge/renderer/exception.hpp>
@@ -60,16 +60,16 @@ void tex_env_f(
 	GLenum const arg,
 	GLfloat const value)
 {
-	SGE_OPENGL_SENTRY(
-		SGE_TEXT("glTexEnvf failed"),
-		sge::renderer::exception
-	)
-
 	glTexEnvf(
 		type,
 		arg,
 		value
 	);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glTexEnvf failed"),
+		sge::renderer::exception
+	)
 }
 
 }

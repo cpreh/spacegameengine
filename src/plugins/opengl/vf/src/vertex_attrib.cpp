@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vertex_attrib.hpp"
 #include "../../glew.hpp"
 #include "../../version.hpp"
-#include "../../sentry.hpp"
+#include "../../check_state.hpp"
 #include "../../common.hpp"
 #include <sge/renderer/exception.hpp>
 #include <sge/once.hpp>
@@ -49,11 +49,6 @@ void sge::ogl::vf::vertex_attrib_pointer(
 {
 	initialize();
 
-	SGE_OPENGL_SENTRY(
-		SGE_TEXT("glVertexAttribPointer failed"),
-		sge::renderer::exception
-	)
-
 	gl_vertex_attrib_pointer(
 		index,
 		size,
@@ -62,6 +57,11 @@ void sge::ogl::vf::vertex_attrib_pointer(
 		stride,
 		pointer
 	);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glVertexAttribPointer failed"),
+		sge::renderer::exception
+	)
 }
 
 void sge::ogl::vf::enable_vertex_attrib_array(
@@ -69,14 +69,14 @@ void sge::ogl::vf::enable_vertex_attrib_array(
 {
 	initialize();
 
-	SGE_OPENGL_SENTRY(
-		SGE_TEXT("glEnableVertexAttribArray failed"),
-		sge::renderer::exception
-	)
-
 	gl_enable_vertex_attrib_array(
 		index
 	);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glEnableVertexAttribArray failed"),
+		sge::renderer::exception
+	)
 }
 
 void sge::ogl::vf::disable_vertex_attrib_array(
@@ -84,14 +84,14 @@ void sge::ogl::vf::disable_vertex_attrib_array(
 {
 	initialize();
 
-	SGE_OPENGL_SENTRY(
-		SGE_TEXT("glDsiableVertexAttribArray failed"),
-		sge::renderer::exception
-	)
-
 	gl_disable_vertex_attrib_array(
 		index
 	);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glDsiableVertexAttribArray failed"),
+		sge::renderer::exception
+	)
 }
 
 namespace

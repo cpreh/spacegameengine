@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../enable.hpp"
-#include "../sentry.hpp"
+#include "../check_state.hpp"
 #include <sge/renderer/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/format.hpp>
@@ -38,7 +38,9 @@ void sge::ogl::enable(
 void sge::ogl::enable(
 	GLenum const what)
 {
-	SGE_OPENGL_SENTRY(
+	glEnable(what);
+
+	SGE_OPENGL_CHECK_STATE(
 		sge::str(
 			sge::format(
 				SGE_TEXT("glEnable %1% failed")
@@ -47,14 +49,14 @@ void sge::ogl::enable(
 		),
 		sge::renderer::exception
 	)
-
-	glEnable(what);
 }
 
 void sge::ogl::disable(
 	GLenum const what)
 {
-	SGE_OPENGL_SENTRY(
+	glDisable(what);
+
+	SGE_OPENGL_CHECK_STATE(
 		sge::str(
 			sge::format(
 				SGE_TEXT("glDisable %1% failed")
@@ -63,6 +65,4 @@ void sge::ogl::disable(
 		),
 		sge::renderer::exception
 	)
-	
-	glDisable(what);
 }

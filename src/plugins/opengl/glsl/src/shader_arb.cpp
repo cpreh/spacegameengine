@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../shader_arb.hpp"
-#include "../../sentry.hpp"
+#include "../../check_state.hpp"
 #include <sge/renderer/glsl/exception.hpp>
 #include <sge/text.hpp>
 
@@ -29,12 +29,18 @@ sge::ogl::glsl::traits<false>::handle
 sge::ogl::glsl::create_shader<false>(
 	GLenum const type)
 {
-	SGE_OPENGL_SENTRY(
+	traits<false>::handle const ret(
+		glCreateShaderObjectARB(
+			type
+		)
+	);
+
+	SGE_OPENGL_CHECK_STATE(
 		SGE_TEXT("glCreateShaderObjectARB failed"),
 		sge::renderer::glsl::exception
 	)
 
-	return glCreateShaderObjectARB(type);
+	return ret;
 }
 
 template<>
@@ -44,29 +50,29 @@ void sge::ogl::glsl::shader_source<false>(
 	char const **const strings,
 	GLint const *const len_of_strings)
 {
-	SGE_OPENGL_SENTRY(
-		SGE_TEXT("glShaderSourceARB"),
-		sge::renderer::glsl::exception
-	)
-
 	glShaderSourceARB(
 		shader,
 		num_strings,
 		strings,
 		len_of_strings
 	);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glShaderSourceARB"),
+		sge::renderer::glsl::exception
+	)
 }
 
 template<>
 void sge::ogl::glsl::compile_shader<false>(
 	traits<false>::handle const shader)
 {
-	SGE_OPENGL_SENTRY(
+	glCompileShaderARB(shader);
+
+	SGE_OPENGL_CHECK_STATE(
 		SGE_TEXT("glCompileShaderARB failed"),
 		sge::renderer::glsl::exception
 	)
-
-	glCompileShaderARB(shader);
 }
 
 template<>
@@ -74,13 +80,15 @@ GLint sge::ogl::glsl::shader_integer<false>(
 	GLenum const what,
 	traits<false>::handle const shader)
 {
-	SGE_OPENGL_SENTRY(
+	GLint result;
+
+	glGetObjectParameterivARB(shader, what, &result);
+
+	SGE_OPENGL_CHECK_STATE(
 		SGE_TEXT("glGetObjectParameterivARB"),
 		sge::renderer::glsl::exception
 	)
-		
-	GLint result;
-	glGetObjectParameterivARB(shader, what, &result);
+	
 	return result;
 }
 
@@ -101,27 +109,27 @@ void sge::ogl::glsl::shader_info_log<false>(
 	GLint *const len,
 	char *const data)
 {
-	SGE_OPENGL_SENTRY(
-		SGE_TEXT("glGetInfoLogARB failed"),
-		sge::renderer::glsl::exception
-	)
-
 	glGetInfoLogARB(
 		shader,
 		maxlen,
 		len,
 		data
 	);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glGetInfoLogARB failed"),
+		sge::renderer::glsl::exception
+	)
 }
 
 template<>
 void sge::ogl::glsl::delete_shader<false>(
 	traits<false>::handle const shader)
 {
-	SGE_OPENGL_SENTRY(
+	glDeleteObjectARB(shader);
+
+	SGE_OPENGL_CHECK_STATE(
 		SGE_TEXT("glDeleteObjectARB failed"),
 		sge::renderer::glsl::exception
 	)
-
-	glDeleteObjectARB(shader);
 }

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert_states.hpp"
 #include "../convert_fog_float_state.hpp"
 #include "../enable.hpp"
-#include "../sentry.hpp"
+#include "../check_state.hpp"
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/raw.hpp>
 #include <sge/renderer/arithmetic_convert.hpp>
@@ -44,16 +44,16 @@ sge::ogl::state_visitor::result_type
 sge::ogl::state_visitor::operator()(
 	renderer::state::int_::type const s) const
 {
-	SGE_OPENGL_SENTRY(
-		SGE_TEXT("glClearStencil failed"),
-		sge::renderer::exception
-	)
-
 	namespace rs = renderer::state::int_::available_states;
 
 	switch(s.state()) {
 	case rs::stencil_clear_val:
 		glClearStencil(s.value());
+	
+		SGE_OPENGL_CHECK_STATE(
+			SGE_TEXT("glClearStencil failed"),
+			sge::renderer::exception
+		)
 		break;
 	case rs::stencil_ref:
 		states.update_stencil();
@@ -88,12 +88,6 @@ sge::ogl::state_visitor::operator()(
 
 	switch(s.state()) {
 	case rs::zbuffer_clear_val:
-	{
-		SGE_OPENGL_SENTRY(
-			SGE_TEXT("glClearDepth failed"),
-			sge::renderer::exception
-		)
-
 		glClearDepth(
 			renderer::arithmetic_convert<
 				GLdouble
@@ -101,28 +95,32 @@ sge::ogl::state_visitor::operator()(
 				s.value()
 			)
 		);
+
+		SGE_OPENGL_CHECK_STATE(
+			SGE_TEXT("glClearDepth failed"),
+			sge::renderer::exception
+		)
 		break;
-	}
 	case rs::alpha_test_ref:
 		states.update_alpha_test();
 		break;
 	case rs::fog_start:
 	case rs::fog_end:
 	case rs::fog_density:
-	{
-		SGE_OPENGL_SENTRY(
-			SGE_TEXT("glFogf failed"),
-			sge::renderer::exception
-		)
-
 		glFogf(
 			convert_fog_float_state(s),
 			renderer::arithmetic_convert<
 				GLfloat
 			>(
-				s.value()));
+				s.value()
+			)
+		);
+
+		SGE_OPENGL_CHECK_STATE(
+			SGE_TEXT("glFogf failed"),
+			sge::renderer::exception
+		)
 		break;
-	}
 	default:
 		throw exception(
 			SGE_TEXT("Invalid float_state!"));
@@ -166,50 +164,43 @@ sge::ogl::state_visitor::operator()(
 
 	switch(s.state()) {
 	case rs::clear_color:
-	{
-		SGE_OPENGL_SENTRY(
-			SGE_TEXT("glClearColor failed"),
-			sge::renderer::exception
-		)
-
 		glClearColor(
 			fcolor[0],
 			fcolor[1],
 			fcolor[2],
 			fcolor[3]
 		);
-		break;
-	}
-	case rs::ambient_light_color:
-	{	
-		SGE_OPENGL_SENTRY(
-			SGE_TEXT("glLightMOdelfv failed"),
+
+		SGE_OPENGL_CHECK_STATE(
+			SGE_TEXT("glClearColor failed"),
 			sge::renderer::exception
 		)
-
+		break;
+	case rs::ambient_light_color:
 		glLightModelfv(
 			GL_LIGHT_MODEL_AMBIENT,
 			image::color::raw(
 				fcolor
 			).data()
 		);
-		break;
-	}
-	case rs::fog_color:
-	{
-		SGE_OPENGL_SENTRY(
-			SGE_TEXT("glFogfv failed"),
+		SGE_OPENGL_CHECK_STATE(
+			SGE_TEXT("glLightMOdelfv failed"),
 			sge::renderer::exception
 		)
-
+		break;
+	case rs::fog_color:
 		glFogfv(
 			GL_FOG_COLOR,
 			image::color::raw(
 				fcolor
 			).data()
 		);
+
+		SGE_OPENGL_CHECK_STATE(
+			SGE_TEXT("glFogfv failed"),
+			sge::renderer::exception
+		)
 		break;
-	}
 	default:
 		throw exception(
 			SGE_TEXT("Invalid color_state!"));
@@ -227,12 +218,12 @@ sge::ogl::state_visitor::operator()(
 	}
 	enable(GL_CULL_FACE);
 	
-	SGE_OPENGL_SENTRY(
+	glCullFace(convert_states(m));
+
+	SGE_OPENGL_CHECK_STATE(
 		SGE_TEXT("glCullFace failed"),
 		sge::renderer::exception
 	)
-
-	glCullFace(convert_states(m));
 }
 
 sge::ogl::state_visitor::result_type
@@ -247,12 +238,12 @@ sge::ogl::state_visitor::operator()(
 
 	enable(GL_DEPTH_TEST);
 
-	SGE_OPENGL_SENTRY(
+	glDepthFunc(convert_states(f));
+
+	SGE_OPENGL_CHECK_STATE(
 		SGE_TEXT("glDepthFunc failed"),
 		sge::renderer::exception
 	)
-
-	glDepthFunc(convert_states(f));
 }
 
 sge::ogl::state_visitor::result_type
@@ -281,26 +272,27 @@ sge::ogl::state_visitor::operator()(
 
 	enable(GL_FOG);
 
-	SGE_OPENGL_SENTRY(
+	glFogi(GL_FOG_MODE, convert_states(m));
+
+	SGE_OPENGL_CHECK_STATE(
 		SGE_TEXT("glFogi failed"),
 		sge::renderer::exception
 	)
-
-	glFogi(GL_FOG_MODE, convert_states(m));
 }
 
 sge::ogl::state_visitor::result_type
 sge::ogl::state_visitor::operator()(
 	renderer::state::draw_mode::type const m) const
 {
-	SGE_OPENGL_SENTRY(
+	glPolygonMode(
+		GL_FRONT_AND_BACK,
+		convert_states(m)
+	);
+
+	SGE_OPENGL_CHECK_STATE(
 		SGE_TEXT("glPolygonMode failed"),
 		sge::renderer::exception
 	)
-
-	glPolygonMode(
-		GL_FRONT_AND_BACK,
-		convert_states(m));
 }
 
 sge::ogl::state_visitor::result_type

@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../get_int.hpp"
-#include "../sentry.hpp"
+#include "../check_state.hpp"
 #include <sge/renderer/exception.hpp>
 #include <sge/text.hpp>
 
@@ -28,12 +28,14 @@ GLint
 sge::ogl::get_int(
 	GLenum const what)
 {
-	SGE_OPENGL_SENTRY(
+	GLint ret;
+
+	glGetIntegerv(what, &ret);
+
+	SGE_OPENGL_CHECK_STATE(
 		SGE_TEXT("glGetIntegerv failed"),
 		sge::renderer::exception
 	)
-	
-	GLint ret;
-	glGetIntegerv(what, &ret);
+
 	return ret;
 }

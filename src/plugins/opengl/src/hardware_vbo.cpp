@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../hardware_vbo.hpp"
-#include "../sentry.hpp"
+#include "../check_state.hpp"
 #include "../glew.hpp"
 #include <sge/renderer/exception.hpp>
 #include <sge/exception.hpp>
@@ -46,13 +46,13 @@ GLuint sge::ogl::hardware_vbo::gen_buffer()
 {
 	initialize_hardware_vbo();
 
-	SGE_OPENGL_SENTRY(
+	GLuint id;
+	gl_gen_buffers(1, &id);
+	
+	SGE_OPENGL_CHECK_STATE(
 		SGE_TEXT("glGenBuffers failed"),
 		sge::renderer::exception
 	)
-
-	GLuint id;
-	gl_gen_buffers(1, &id);
 
 	return id;
 }
@@ -60,52 +60,56 @@ GLuint sge::ogl::hardware_vbo::gen_buffer()
 void sge::ogl::hardware_vbo::delete_buffer(
 	GLuint const id)
 {
-	SGE_OPENGL_SENTRY(
+	gl_delete_buffers(1, &id);
+
+	SGE_OPENGL_CHECK_STATE(
 		SGE_TEXT("glDeleteBuffers failed"),
 		sge::renderer::exception
 	)
-
-	gl_delete_buffers(1, &id);
 }
 
 void sge::ogl::hardware_vbo::bind_buffer(
 	GLenum const type,
 	GLuint const id)
 {
-	SGE_OPENGL_SENTRY(
+	gl_bind_buffer(type, id);
+
+	SGE_OPENGL_CHECK_STATE(
 		SGE_TEXT("glBindBuffer failed"),
 		sge::renderer::exception
 	)
-
-	gl_bind_buffer(type, id);
 }
 
 void *sge::ogl::hardware_vbo::map_buffer(
 	GLenum const type,
 	GLenum const flags)
 {
-	SGE_OPENGL_SENTRY(
+	void *const ret(
+		static_cast<void *>(
+			gl_map_buffer(
+				type,
+				flags
+			)
+		)
+	);
+
+	SGE_OPENGL_CHECK_STATE(
 		SGE_TEXT("glMapBuffer failed"),
 		sge::renderer::exception
 	)
 
-	return static_cast<void *>(
-		gl_map_buffer(
-			type,
-			flags
-		)
-	);
+	return ret;
 }
 
 void sge::ogl::hardware_vbo::unmap_buffer(
 	GLenum const type)
 {
-	SGE_OPENGL_SENTRY(
+	gl_unmap_buffer(type); 
+
+	SGE_OPENGL_CHECK_STATE(
 		SGE_TEXT("glUnmapBuffer failed"),
 		sge::renderer::exception
 	)
-
-	gl_unmap_buffer(type); 
 }
 
 void sge::ogl::hardware_vbo::buffer_data(
@@ -114,16 +118,17 @@ void sge::ogl::hardware_vbo::buffer_data(
 	void const *const data,
 	GLenum const flags)
 {
-	SGE_OPENGL_SENTRY(
-		SGE_TEXT("glBufferData failed"),
-		sge::renderer::exception
-	)
-
 	gl_buffer_data(
 		type,
 		size,
 		data,
-		flags);
+		flags
+	);
+	
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glBufferData failed"),
+		sge::renderer::exception
+	)
 }
 
 void sge::ogl::hardware_vbo::buffer_sub_data(
@@ -132,16 +137,17 @@ void sge::ogl::hardware_vbo::buffer_sub_data(
 	GLsizei const size,
 	void const *const data)
 {
-	SGE_OPENGL_SENTRY(
-		SGE_TEXT("glBufferSubData failed"),
-		sge::renderer::exception
-	)
-
 	gl_buffer_sub_data(
 		type,
 		first,
 		size,
-		data);
+		data
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glBufferSubData failed"),
+		sge::renderer::exception
+	)
 }
 
 void *sge::ogl::hardware_vbo::buffer_offset(

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../multi_texture.hpp"
 #include "../common.hpp"
-#include "../sentry.hpp"
+#include "../check_state.hpp"
 #include "../glew.hpp"
 #include <sge/renderer/exception.hpp>
 #include <sge/log/headers.hpp>
@@ -85,7 +85,15 @@ void sge::ogl::set_texture_level(
 		return;
 	}
 	
-	SGE_OPENGL_SENTRY(
+	glActiveTexture(
+		static_cast<
+			GLenum
+		>(
+			GL_TEXTURE0 + stage
+		)
+	);
+
+	SGE_OPENGL_CHECK_STATE(
 		sge::str(
 			sge::format(
 				SGE_TEXT("glActiveTexture failed for stage %1%")
@@ -94,14 +102,6 @@ void sge::ogl::set_texture_level(
 		),
 		sge::renderer::exception
 	)
-
-	glActiveTexture(
-		static_cast<
-			GLenum
-		>(
-			GL_TEXTURE0 + stage
-		)
-	);
 }
 
 void sge::ogl::client_texture_level(
@@ -123,7 +123,15 @@ void sge::ogl::client_texture_level(
 		return;
 	}
 
-	SGE_OPENGL_SENTRY(
+	glClientActiveTexture(
+		static_cast<
+			GLenum
+		>(
+			GL_TEXTURE0 + stage
+		)
+	);
+
+	SGE_OPENGL_CHECK_STATE(
 		sge::str(
 			sge::format(
 				SGE_TEXT("glClientActiveTexture failed for stage %1%")
@@ -132,12 +140,4 @@ void sge::ogl::client_texture_level(
 		),
 		sge::renderer::exception
 	)
-
-	glClientActiveTexture(
-		static_cast<
-			GLenum
-		>(
-			GL_TEXTURE0 + stage
-		)
-	);
 }

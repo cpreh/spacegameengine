@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../split_states.hpp"
 #include "../common.hpp"
-#include "../sentry.hpp"
+#include "../check_state.hpp"
 #include "../convert_states.hpp"
 #include "../enable.hpp"
 #include <sge/renderer/state/list.hpp>
@@ -52,11 +52,6 @@ void sge::ogl::split_states::update_stencil()
 
 	enable(GL_STENCIL_TEST);
 
-	SGE_OPENGL_SENTRY(
-		SGE_TEXT("glStencilFunc failed"),
-		sge::renderer::exception
-	)
-
 	glStencilFunc(
 		convert_states(
 			method
@@ -68,15 +63,15 @@ void sge::ogl::split_states::update_stencil()
 			states.get(renderer::state::uint::stencil_mask)
 		)
 	);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glStencilFunc failed"),
+		sge::renderer::exception
+	)
 }
 
 void sge::ogl::split_states::update_blend()
 {
-	SGE_OPENGL_SENTRY(
-		SGE_TEXT("glBlendFunc failed"),
-		sge::renderer::exception
-	)
-
 	glBlendFunc(
 		convert_states(
 			states.get<
@@ -89,6 +84,11 @@ void sge::ogl::split_states::update_blend()
 			>()
 		)
 	);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glBlendFunc failed"),
+		sge::renderer::exception
+	)
 }
 
 void sge::ogl::split_states::update_alpha_test()
@@ -104,11 +104,6 @@ void sge::ogl::split_states::update_alpha_test()
 	
 	enable(GL_ALPHA_TEST);
 
-	SGE_OPENGL_SENTRY(
-		SGE_TEXT("glAlphaFunc failed"),
-		sge::renderer::exception
-	)
-
 	glAlphaFunc(
 		convert_states(
 			func),
@@ -116,5 +111,13 @@ void sge::ogl::split_states::update_alpha_test()
 			GLfloat
 		>(
 			states.get(
-				renderer::state::float_::alpha_test_ref)));
+				renderer::state::float_::alpha_test_ref
+			)
+		)
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glAlphaFunc failed"),
+		sge::renderer::exception
+	)
 }

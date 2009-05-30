@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../setter.hpp"
 #include "../../init.hpp"
-#include "../../../sentry.hpp"
 #include <sge/renderer/glsl/uniform/int_value_type.hpp>
 #include <sge/renderer/glsl/uniform/float_value_type.hpp>
 #include <sge/renderer/glsl/exception.hpp>
@@ -201,10 +200,13 @@ set_float(
 	GLsizei const size,
 	GLsizei const elements)
 {
+	// FIXME: check errors!
+	/*
 	SGE_OPENGL_SENTRY(
 		SGE_TEXT("uniform float failed"),
 		sge::renderer::glsl::exception
 	)
+	*/
 
 	namespace et = sge::ogl::glsl::uniform::element_type;
 
@@ -260,10 +262,13 @@ set_int(
 	GLsizei const size,
 	GLsizei const elements)
 {
+	// FIXME: check erroers
+	/*
 	SGE_OPENGL_SENTRY(
 		SGE_TEXT("uniform int failed"),
 		sge::renderer::glsl::exception
 	)
+	*/
 
 	namespace et = sge::ogl::glsl::uniform::element_type;
 
@@ -333,10 +338,13 @@ set_matrix(
 
 	namespace et = sge::ogl::glsl::uniform::element_type;
 
+	// FIXME: check errors
+	/*
 	SGE_OPENGL_SENTRY(
 		SGE_TEXT("uniform matrix failed"),
 		sge::renderer::glsl::exception
 	)
+	*/
 
 	switch(rows) {
 	case 2:

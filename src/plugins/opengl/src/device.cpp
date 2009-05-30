@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../multi_texture.hpp"
 #include "../texture_stage.hpp"
 #include "../basic_buffer_impl.hpp"
-#include "../sentry.hpp"
+#include "../check_state.hpp"
 #include "../state_visitor.hpp"
 #include "../glsl/impl.hpp"
 #include "../common.hpp"
@@ -136,15 +136,15 @@ sge::ogl::device::device(
 
 void sge::ogl::device::begin_rendering()
 {
-	SGE_OPENGL_SENTRY(
-		SGE_TEXT("glClear failed"),
-		sge::renderer::exception
-	)
-
 	glClear(
 		clear_bit(renderer::state::bool_::clear_backbuffer)
 		| clear_bit(renderer::state::bool_::clear_zbuffer)
 		| clear_bit(renderer::state::bool_::clear_stencil));
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glClear failed"),
+		sge::renderer::exception
+	)
 }
 
 sge::renderer::index_buffer_ptr const
@@ -192,7 +192,9 @@ sge::ogl::device::create_texture(
 			dim,
 			format,
 			filter,
-			flags));
+			flags
+		)
+	);
 }
 
 sge::renderer::vertex_buffer_ptr const
@@ -207,7 +209,9 @@ sge::ogl::device::create_vertex_buffer(
 		>(
 			format,
 			sz,
-			flags));
+			flags
+		)
+	);
 }
 
 #if 0
@@ -241,7 +245,9 @@ sge::ogl::device::create_cube_texture(
 			border_size,
 			format,
 			filter,
-			flags));
+			flags
+		)
+	);
 }
 
 void sge::ogl::device::end_rendering()
@@ -304,11 +310,6 @@ void sge::ogl::device::render(
 
 	gl_ib.bind_me();
 
-	SGE_OPENGL_SENTRY(
-		SGE_TEXT("glDrawElements failed"),
-		sge::renderer::exception
-	)
-
 	glDrawElements(
 		prim_type,
 		static_cast<GLsizei>(
@@ -321,6 +322,11 @@ void sge::ogl::device::render(
 			first_index
 		)
 	);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glDrawElements failed"),
+		sge::renderer::exception
+	)
 }
 
 void sge::ogl::device::render(
@@ -337,16 +343,16 @@ void sge::ogl::device::render(
 
 	GLenum const prim_type = convert_primitive(ptype);
 
-	SGE_OPENGL_SENTRY(
-		SGE_TEXT("glDrawArrays failed"),
-		sge::renderer::exception
-	)
-
 	glDrawArrays(
 		prim_type,
 		static_cast<GLsizei>(first_vertex),
 		static_cast<GLint>(num_vertices)
 	);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glDrawArrays failed"),
+		sge::renderer::exception
+	)
 }
 
 void sge::ogl::device::state(
