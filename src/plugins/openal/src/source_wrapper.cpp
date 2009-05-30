@@ -17,33 +17,33 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 #include "../source_wrapper.hpp"
-#include "../sentry.hpp"
+#include "../check_state.hpp"
 #include <sge/audio/bad_sound_alloc.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/text.hpp>
 
 sge::openal::source_wrapper::source_wrapper()
 {
-	SGE_OPENAL_SENTRY(
-		SGE_TEXT("alGenSources failed"),
-		audio::bad_sound_alloc
-	)
-
 	alGenSources(
 		static_cast<ALsizei>(1),
 		&value_
 	);
+
+	SGE_OPENAL_CHECK_STATE(
+		SGE_TEXT("alGenSources failed"),
+		audio::bad_sound_alloc
+	)
 }
 
 sge::openal::source_wrapper::~source_wrapper()
 {
-	SGE_OPENAL_SENTRY(
-		SGE_TEXT("alDeleteSources failed"),
-		audio::exception
-	)
-
 	alDeleteSources(
 		static_cast<ALsizei>(1),
 		&value_
 	);
+
+	SGE_OPENAL_CHECK_STATE(
+		SGE_TEXT("alDeleteSources failed"),
+		audio::exception
+	)
 }

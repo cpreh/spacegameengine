@@ -18,19 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENAL_ALC_SENTRY_HPP_INCLUDED
-#define SGE_OPENAL_ALC_SENTRY_HPP_INCLUDED
+#ifndef SGE_OPENAL_CHECK_ALC_STATE_HPP_INCLUDED
+#define SGE_OPENAL_CHECK_ALC_STATE_HPP_INCLUDED
 
 #include "alc_error_string.hpp"
 #include "openal.hpp"
-#include <sge/error/state_sentry.hpp>
+#include <sge/error/check_state.hpp>
 
-#define SGE_OPENAL_ALC_SENTRY(message, exception)\
-SGE_ERROR_STATE_SENTRY(\
+#define SGE_OPENAL_CHECK_ALC_STATE(context, message, exception)\
+SGE_ERROR_CHECK_STATE(\
 	exception,\
 	message,\
 	ALenum,\
-	alcGetError,\
+	alcGetError(context),\
 	ALC_NO_ERROR,\
 	sge::openal::alc_error_string\
 )

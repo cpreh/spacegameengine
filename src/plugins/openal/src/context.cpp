@@ -16,9 +16,12 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
+
 #include "../context.hpp"
 #include "../device.hpp"
-#include "../error.hpp"
+#include "../check_state.hpp"
+#include "../check_alc_state.hpp"
 #include "../openal.hpp"
 #include "../log.hpp"
 #include <sge/audio/exception.hpp>
@@ -44,14 +47,24 @@ sge::openal::context::context(
 
 	SGE_LOG_DEBUG(log(),log::_1 << SGE_TEXT("creating audio context"))
 
-	SGE_OPENAL_ALC_SENTRY(
+	context_ = alcCreateContext(device_.aldevice(),&(al_attributes[0]));
+
+	SGE_OPENAL_CHECK_ALC_STATE(
+		device_.aldevice(),
 		SGE_TEXT("alcCreateContext failed"),
 		audio::exception
 	)
-	// TODO: where do we have to check for AL errors, too?
 
-	context_ = alcCreateContext(device_.aldevice(),&(al_attributes[0]));
+	// TODO: why is this here?
+	/*
+	SGE_OPENAL_CHECK_STATE(
+		SGE_TEXT("alcCreateContext failed"),
+		audio::exception
+	)
+	*/
 
+	// FIXME: can this leak? For example the creation of the context succeeds but there is an alError?
+	
 	SGE_ASSERT(context_);
 	SGE_LOG_DEBUG(log(),log::_1 << SGE_TEXT("created audio context"))
 }
@@ -69,8 +82,17 @@ void sge::openal::context::make_current()
 
 	alcMakeContextCurrent(context_);
 
-	SGE_ALC_ERROR_CHECK(device_.aldevice());
-	SGE_OPENAL_ERROR_CHECK;
+	SGE_OPENAL_CHECK_ALC_STATE(
+		device_.aldevice(),
+		SGE_TEXT("alcMakeContextCurrent failed"),
+		audio::exception
+	)
+
+	SGE_OPENAL_CHECK_STATE(
+		SGE_TEXT("alcMakeContextCurrent failed"),
+		audio::exception
+	)
+
 	SGE_LOG_DEBUG(log(),
 		log::_1 << SGE_TEXT("made audio context the current context"));
 }
@@ -78,18 +100,42 @@ void sge::openal::context::make_current()
 sge::openal::context::~context()
 {
 	ALCcontext const * const current = alcGetCurrentContext();
-	SGE_ALC_ERROR_CHECK(device_.aldevice());
-	SGE_OPENAL_ERROR_CHECK;
+
+	// TODO: this needs to be split and std::uncaugt_exception needs to be checked
+	
+	SGE_OPENAL_CHECK_ALC_STATE(
+		device_.aldevice(),
+		SGE_TEXT("alcGetCurrentContext failed"),
+		audio::exception
+	)
+
+	SGE_OPENAL_CHECK_STATE(
+		SGE_TEXT("alcGetCurrentContext failed"),
+		audio::exception
+	)
+
 	if (current == context_)
 	{
 		SGE_LOG_DEBUG(log(),
 			log::_1 << SGE_TEXT("context is the current context, so resetting current context"));
+
+		// TODO: alcMakeContextCurrent is called more than once, split this!
 		alcMakeContextCurrent(0); 
-		SGE_ALC_ERROR_CHECK(device_.aldevice());
+
+		SGE_OPENAL_CHECK_ALC_STATE(
+			device_.aldevice(),
+			SGE_TEXT("alcMakeContextCurrent failed"),
+			audio::exception
+		);
 		// at this point: DO NOT CHECK FOR OPENAL ERRORS. IT'S ILLEGAL
 		//SGE_OPENAL_ERROR_CHECK;
 	}
 
 	alcDestroyContext(context_); 
-	SGE_ALC_ERROR_CHECK(device_.aldevice());
+
+	SGE_OPENAL_CHECK_ALC_STATE(
+		device_.aldevice(),
+		SGE_TEXT("alcDestroyContext failed"),
+		audio::exception
+	);
 }

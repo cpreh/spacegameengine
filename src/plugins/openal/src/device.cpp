@@ -17,7 +17,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 #include "../device.hpp"
-#include "../sentry.hpp"
+#include "../check_alc_state.hpp"
 #include "../openal.hpp"
 #include <sge/audio/exception.hpp>
 #include <sge/assert.hpp>
@@ -28,7 +28,8 @@ sge::openal::device::device(
 :
 	device_(alcOpenDevice(specifier))
 {
-	SGE_OPENAL_SENTRY(
+	SGE_OPENAL_CHECK_ALC_STATE(
+		device_,
 		SGE_TEXT("alcOpenDevice failed"),
 		audio::exception
 	)
@@ -44,9 +45,11 @@ sge::openal::device::aldevice()
 
 sge::openal::device::~device()
 {
-	if (alcCloseDevice(device_) == AL_FALSE)
-		if (!std::uncaught_exception())
-			throw audio::exception(
-				SGE_TEXT("error closing audio device. this means you tried to close the device before unloading all contexts and buffers")
-			);
+	if (
+		alcCloseDevice(device_) == AL_FALSE
+		&& !std::uncaught_exception()
+	)
+		throw audio::exception(
+			SGE_TEXT("error closing audio device. this means you tried to close the device before unloading all contexts and buffers")
+		);
 }

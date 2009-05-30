@@ -40,7 +40,7 @@ sge::ogl::glsl::create_shader<true>(
 		sge::renderer::glsl::exception
 	)
 
-	return glCreateShader(type);
+	return ret;
 }
 
 template<>

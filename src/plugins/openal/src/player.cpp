@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../player.hpp"
 #include "../nonstream_sound.hpp"
 #include "../stream_sound.hpp"
-#include "../sentry.hpp"
+#include "../check_state.hpp"
 #include "../file_format.hpp"
 #include "../log.hpp"
 #include "../buffer.hpp"
@@ -118,17 +118,17 @@ ALuint sge::openal::player::register_nonstream_sound(
 		throw audio::exception(SGE_TEXT("tried to create empty nonstreaming sound, that's not possible!"));
 
 	// TODO: this function is called more than once!
-	SGE_OPENAL_SENTRY(
-		SGE_TEXT("alBufferData failed"),
-		audio::exception
-	)
-
 	alBufferData(
 		buffer.albuffer(), 
 		file_format(*_audio_file), 
 		data.data(), 
 		static_cast<ALsizei>(data.size()), 
 		static_cast<ALsizei>(_audio_file->sample_rate()));
+
+	SGE_OPENAL_CHECK_STATE(
+		SGE_TEXT("alBufferData failed"),
+		audio::exception
+	)
 
 	return buffer.albuffer();
 }
