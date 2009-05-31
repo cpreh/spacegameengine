@@ -14,8 +14,8 @@ string const join_strings(
 	string const &delim)
 {
 	string s;
-	BOOST_FOREACH(string const &s,r)
-		s += delim;
+	BOOST_FOREACH(string const &n,r)
+		s += n+delim;
 	s.erase(s.length()-delim.length());
 	return s;
 }
