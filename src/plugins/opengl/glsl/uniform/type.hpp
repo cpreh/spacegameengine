@@ -39,10 +39,15 @@ public:
 	typedef GLsizei size_type;
 
 	type(
-		element_type::type,
+		uniform::element_type::type,
 		size_type elements);
+	
+	uniform::element_type::type
+	element_type() const;
+
+	size_type elements() const;
 private:
-	element_type::type type_;
+	uniform::element_type::type type_;
 	size_type elements_;
 };
 

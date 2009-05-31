@@ -50,7 +50,8 @@ template<
 >
 class basic
 :
-	public detail::typedef_helper<T, N, M, S>::type,
+public
+	detail::typedef_helper<T, N, M, S>::type,
 	detail::dim_storage<N, M>
 {
 	typedef typename detail::typedef_helper<T, N, M, S>::type base;
@@ -80,6 +81,9 @@ public:
 
 	basic();
 
+	explicit basic(
+		dim_type const &);
+	
 	template<
 		typename In
 	>

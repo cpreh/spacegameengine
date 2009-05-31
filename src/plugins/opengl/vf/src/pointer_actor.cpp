@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../pointer_actor.hpp"
 #include "../convert_format.hpp"
 #include <sge/renderer/vf/dynamic_ordered_element.hpp>
+#include <sge/renderer/raw_pointer.hpp>
 #include <sge/variant/apply_unary.hpp>
 
 sge::ogl::vf::pointer_actor::pointer_actor(
@@ -75,5 +76,5 @@ void
 sge::ogl::vf::pointer_actor::source(
 	vf::pointer const src)
 {
-	pointer_ = static_cast<unsigned char const *>(src) + offset_;
+	pointer_ = static_cast<renderer::const_raw_pointer>(src) + offset_;
 }

@@ -25,14 +25,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim_type.hpp>
 #include <sge/renderer/texture_pos_type.hpp>
 #include <sge/renderer/lock_rect.hpp>
-#include <sge/renderer/image.hpp>
-#include <sge/renderer/subimage_view.hpp>
-#include <sge/renderer/make_const_image_view.hpp>
-#include <sge/renderer/fill_pixels.hpp>
-#include <sge/renderer/copy_and_convert_pixels.hpp>
-#include <sge/renderer/colors.hpp>
 #include <sge/image/loader.hpp>
-#include <sge/image/object.hpp>
+#include <sge/image/file.hpp>
+#include <sge/image/dim_type.hpp>
+#include <sge/image/rgba8.hpp>
+#include <sge/image/view/sub.hpp>
+#include <sge/image/view/make_const.hpp>
+#include <sge/image/algorithm/fill.hpp>
+#include <sge/image/algorithm/copy_and_convert.hpp>
+#include <sge/image/color/colors.hpp>
 #include <sge/mainloop/catch_block.hpp>
 #include <sge/filesystem/path.hpp>
 #include <sge/filesystem/directory_iterator.hpp>
@@ -164,20 +165,20 @@ try
 		)
 	);
 
-	sge::renderer::rgba8_image dest(
+	sge::image::rgba8 dest(
 		border_sz,
 		border_sz
 	);
 
-	sge::renderer::image_view const dest_view(
+	sge::image::view::object const dest_view(
 		boost::gil::view(
 			dest
 		)
 	);
 
-	sge::renderer::fill_pixels(
+	sge::image::algorithm::fill(
 		dest_view,
-		sge::renderer::colors::transparent()
+		sge::image::color::colors::transparent()
 	);
 
 	sge::renderer::texture_pos_type pos(
@@ -194,7 +195,7 @@ try
 		paths
 	)
 	{
-		sge::image::object_ptr const img(
+		sge::image::file_ptr const img(
 			il->load(
 				path
 			)
@@ -206,11 +207,11 @@ try
 			return EXIT_FAILURE;
 		}
 
-		sge::renderer::copy_and_convert_pixels(
+		sge::image::algorithm::copy_and_convert(
 			img->view(),
-			sge::renderer::subimage_view(
+			sge::image::view::sub(
 				dest_view,
-				sge::renderer::lock_rect(
+				sge::image::rect(
 					pos,
 					dim
 				)
@@ -226,7 +227,7 @@ try
 	}
 
 	il->create(
-		sge::renderer::make_const_image_view(
+		sge::image::view::make_const(
 			dest_view
 		)
 	)->save(

@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part.hpp>
 #include <sge/renderer/texture_fwd.hpp>
 #include <sge/renderer/lock_rect.hpp>
+#include <sge/image/view/const_object.hpp>
 #include <sge/math/rect/basic_impl.hpp>
 #include <sge/export.hpp>
 
@@ -43,7 +44,7 @@ public:
 	SGE_SYMBOL ~part_raw();
 
 	SGE_SYMBOL void data(
-		renderer::const_image_view const &src);
+		image::view::const_object const &src);
 	SGE_SYMBOL renderer::lock_rect const &area() const;
 	SGE_SYMBOL renderer::texture_ptr const texture();
 	SGE_SYMBOL renderer::const_texture_ptr const texture() const;

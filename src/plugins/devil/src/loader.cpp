@@ -20,8 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../loader.hpp"
-#include "../object.hpp"
+#include "../file.hpp"
 #include "../error.hpp"
+#include <sge/make_shared_ptr.hpp>
 
 sge::devil::loader::loader()
 {
@@ -31,12 +32,15 @@ sge::devil::loader::loader()
 	check_errors();
 }
 
-sge::image::object_ptr const
+sge::image::file_ptr const
 sge::devil::loader::load(
 	filesystem::path const &p)
 {
-	return image::object_ptr(
-		new object(p));
+	return make_shared_ptr<
+		file
+	>(
+		p
+	);
 }
 
 /*const sge::image::object_ptr
@@ -48,10 +52,13 @@ sge::devil::loader::load_image(
 	return image::object_ptr(new object(type, format_data, size));
 }*/
 
-sge::image::object_ptr const
+sge::image::file_ptr const
 sge::devil::loader::create(
-	renderer::const_image_view const &src)
+	image::view::const_object const &src)
 {
-	return image::object_ptr(
-		new object(src));
+	return make_shared_ptr<
+		file
+	>(
+		src
+	);
 }

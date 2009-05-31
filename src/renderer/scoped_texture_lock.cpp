@@ -29,7 +29,9 @@ sge::renderer::scoped_texture_lock::scoped_texture_lock(
 	tex(tex),
 	view(
 		tex->lock(
-			flags))
+			flags
+		)
+	)
 {}
 
 sge::renderer::scoped_texture_lock::scoped_texture_lock(
@@ -41,10 +43,12 @@ sge::renderer::scoped_texture_lock::scoped_texture_lock(
 	view(
 		tex->lock(
 			rect,
-			flags))
+			flags
+		)
+	)
 {}
 
-sge::renderer::image_view const
+sge::image::view::object const
 sge::renderer::scoped_texture_lock::value() const
 {
 	return view;

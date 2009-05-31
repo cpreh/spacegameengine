@@ -22,14 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_COLOR_HPP_INCLUDED
 #define SGE_FONT_COLOR_HPP_INCLUDED
 
-#include <sge/renderer/color.hpp>
+#include <sge/image/color/gray8.hpp>
 
 namespace sge
 {
 namespace font
 {
 
-typedef renderer::gray8_color color;
+typedef image::color::gray8 color;
 
 }
 }

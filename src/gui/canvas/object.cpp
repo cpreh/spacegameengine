@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/canvas/object.hpp>
 #include <sge/gui/unit.hpp>
 #include <sge/gui/log.hpp>
-#include <sge/renderer/make_const_image_view.hpp>
+#include <sge/image/view/make_const.hpp>
 #include <sge/math/rect/basic_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/text.hpp>
@@ -57,5 +57,5 @@ sge::gui::image_view &sge::gui::canvas::object::view()
 sge::gui::const_image_view const
 sge::gui::canvas::object::view() const
 {
-	return renderer::make_const_image_view(view_);
+	return sge::image::view::make_const(view_);
 }

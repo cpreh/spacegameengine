@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/fragmented.hpp>
 #include <sge/texture/part.hpp>
 #include <sge/texture/image_too_big.hpp>
-#include <sge/renderer/image_view_dim.hpp>
+#include <sge/image/view/dim.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/variant/apply_unary.hpp>
 #include <sge/text.hpp>
@@ -35,7 +35,7 @@ namespace
 sge::texture::part_ptr const
 init_texture(
 	sge::texture::fragmented &,
-	sge::renderer::const_image_view const &src);
+	sge::image::view::const_object const &src);
 
 class move_visitor {
 public:
@@ -74,7 +74,7 @@ sge::texture::manager::~manager()
 
 sge::texture::part_ptr const
 sge::texture::manager::add(
-	renderer::const_image_view const &src)
+	image::view::const_object const &src)
 {
 	for(
 		detail::fragmented_queue::iterator it = free_textures.begin();
@@ -91,11 +91,14 @@ sge::texture::manager::add(
 				full_textures.transfer(
 					full_textures.end(),
 					it,
-					free_textures);
+					free_textures
+				);
 
 				tmp->container_position(
 					boost::prior(
-						full_textures.end()));
+						full_textures.end()
+					)
+				);
 			}
 			return p;
 		}
@@ -117,11 +120,15 @@ sge::texture::manager::add(
 		tmp->container_position(
 			full_textures.insert(
 				full_textures.end(),
-				ntex));
+				ntex
+			)
+		);
 	else
 		tmp->container_position(
 			free_textures.insert(
-				ntex));
+				ntex
+			)
+		);
 	return p;
 }
 
@@ -157,12 +164,16 @@ namespace
 sge::texture::part_ptr const
 init_texture(
 	sge::texture::fragmented &tex,
-	sge::renderer::const_image_view const &src)
+	sge::image::view::const_object const &src)
 {
 	sge::texture::part_ptr const p(
 		tex.consume_fragment(
-			sge::renderer::image_view_dim(
-				src)));
+			sge::image::view::dim(
+				src
+			)
+		)
+	);
+
 	if(p)
 		p->data(src);
 	return p;
@@ -184,12 +195,11 @@ void move_visitor::operator()(
 {
 	if(tex.empty())
 		full_textures.erase(it);
-	// FIXME: put those back into the free textures otherwise!
-	/*
 	else
 		free_textures.transfer(
 			it,
-			full_textures);*/
+			full_textures
+		);
 }
 
 void move_visitor::operator()(

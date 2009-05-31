@@ -23,13 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../target.hpp"
 #include "../framebuffer_functions.hpp"
 #include "../color_convert.hpp"
-#include <sge/renderer/make_image_view.hpp>
-#include <sge/renderer/make_const_image_view.hpp>
-#include <sge/renderer/flipped_image_view.hpp>
+#include <sge/image/view/make.hpp>
+#include <sge/image/view/make_const.hpp>
+#include <sge/image/view/flipped.hpp>
 #include <sge/math/rect/basic_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/variant/object_impl.hpp>
 #include <sge/container/raw_vector_impl.hpp>
+#include <sge/optional_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
@@ -39,7 +40,7 @@ sge::ogl::target::target()
 sge::ogl::target::~target()
 {}
 
-sge::renderer::const_image_view const
+sge::image::view::const_object const
 sge::ogl::target::lock(
 	renderer::lock_rect const &dest) const
 {
@@ -63,15 +64,16 @@ sge::ogl::target::lock(
 		buffer.data()
 	);
 
-	return renderer::make_const_image_view(
-		renderer::flipped_image_view(
-			renderer::make_image_view(
+	return image::view::make_const(
+		image::view::flipped(
+			image::view::make(
 				buffer.data(),
 				dim(),
 				color_convert(
 					format(),
 					format_type()
-				)
+				),
+				image::view::optional_pitch()
 			)
 		)
 	);

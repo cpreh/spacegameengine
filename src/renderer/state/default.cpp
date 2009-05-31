@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/trampoline.hpp>
-#include <sge/renderer/colors.hpp>
+#include <sge/image/color/colors.hpp>
 
 sge::renderer::state::list const
 sge::renderer::state::default_()
@@ -43,9 +43,9 @@ sge::renderer::state::default_()
 			(bool_::clear_stencil = false)
 			(bool_::enable_alpha_blending = false)
 			(bool_::enable_lighting = false)
-			(color::clear_color = colors::white())
-			(color::ambient_light_color = colors::white())
-			(color::fog_color = colors::black())
+			(color::clear_color = image::color::colors::white())
+			(color::ambient_light_color = image::color::colors::white())
+			(color::fog_color = image::color::colors::black())
 			(cull_mode::off)
 			(depth_func::off)
 			(stencil_func::off)

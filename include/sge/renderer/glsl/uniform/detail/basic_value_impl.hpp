@@ -23,18 +23,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_GLSL_UNIFORM_DETAIL_BASIC_VALUE_IMPL_HPP_INCLUDED
 
 #include <sge/renderer/glsl/uniform/detail/basic_value.hpp>
+#include <sge/container/raw_vector_impl.hpp>
 
 template<
 	typename Value,
 	typename Type
 >
 sge::renderer::glsl::uniform::detail::basic_value<Value, Type>::basic_value(
-	const_pointer const data_,
-	size_type const size_,
+	data_type const &data_,
+	size_type const elements_,
 	Type const type_)
 :
 	data_(data_),
-	size_(size_),
+	elements_(elements_),
 	type_(type_)
 {}
 
@@ -45,7 +46,17 @@ template<
 typename sge::renderer::glsl::uniform::detail::basic_value<Value, Type>::const_pointer
 sge::renderer::glsl::uniform::detail::basic_value<Value, Type>::data() const
 {
-	return data_;
+	return data_.data();
+}
+
+template<
+	typename Value,
+	typename Type
+>
+typename sge::renderer::glsl::uniform::detail::basic_value<Value, Type>::pointer
+sge::renderer::glsl::uniform::detail::basic_value<Value, Type>::data()
+{
+	return data_.data();
 }
 
 template<
@@ -53,9 +64,9 @@ template<
 	typename Type
 >
 sge::renderer::size_type
-sge::renderer::glsl::uniform::detail::basic_value<Value, Type>::size() const
+sge::renderer::glsl::uniform::detail::basic_value<Value, Type>::elements() const
 {
-	return size_;
+	return elements_;
 }
 
 template<

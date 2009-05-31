@@ -27,26 +27,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 
 sge::d3d9::texture::texture(
-	renderer& r,
-	const d3d_device_ptr device,
-	const const_pointer data,
-	const dim_type& dim_,
-	const filter_args& filter,
-	const resource_flag_t nflags)
-: detail::texture_base_type(
+	d3d_device_ptr const device,
+	dim_type const &dim_,
+	renderer::texture::filter const &filter,
+	renderer::resource_flag_t const nflags)
+:
+	detail::texture_base_type(
 		r,
 		filter,
-		nflags),
-  device(device),
-  dim_(dim_),
-  lock_dest(0)
-{
-	on_reset();
-	if(data)
-		set_data(data);
-}
+		nflags
+	),
+	device(device),
+	dim_(dim_),
+	tex(
+		create_texture(
+			device,
+			dim(),
+			filter(),
+			flags(),
+			false
+		)
+	),
+	lock_dest(0)
+{}
 
-IDirect3DBaseTexture9* sge::d3d9::texture::do_reset()
+IDirect3DBaseTexture9 *
+sge::d3d9::texture::do_reset()
 {
 	tex.reset(
 		create_texture(
@@ -54,11 +60,15 @@ IDirect3DBaseTexture9* sge::d3d9::texture::do_reset()
 			dim(),
 			filter(),
 			flags(),
-			false));
+			false
+		)
+	);
+
 	return tex.get();
 }
 
-void sge::d3d9::texture::do_loss()
+void
+sge::d3d9::texture::do_loss()
 {
 	tex.reset();
 }
@@ -111,18 +121,6 @@ sge::texture::pointer sge::d3d9::texture::data()
 sge::texture::const_pointer sge::d3d9::texture::data() const
 {
 	return lock_dest;
-}
-
-void sge::d3d9::texture::set_data(const const_pointer data)
-{
-	const scoped_lock<texture*> l(make_scoped_lock(this, lock_flags::writeonly));
-	copy_n(data, size(), lock_dest);
-}
-
-void sge::d3d9::texture::set_data(const const_pointer data, const lock_rect& r)
-{
-	//const scoped_lock<texture*> l(this, r);
-	//std::copy(data, data + r.w() * r.h(), lock_dest);
 }
 
 const sge::texture::dim_type sge::d3d9::texture::dim() const

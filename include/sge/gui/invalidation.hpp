@@ -20,9 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_INVALIDATION_HPP_INCLUDED
 #define SGE_GUI_INVALIDATION_HPP_INCLUDED
 
-#include <sge/bitfield.hpp>
-// hrhr, no impl crap for me!
-#include <sge/bitfield_impl.hpp>
+#include <sge/container/bitfield/basic_fwd.hpp>
 
 namespace sge
 {
@@ -37,7 +35,10 @@ enum internal_type
 	enum_size
 };
 
-typedef bitfield<internal_type,enum_size> type;
+typedef sge::container::bitfield::basic<
+	internal_type,
+	enum_size
+> type;
 
 extern type const all;
 }

@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_GUI_UTILITY_FONT_CHANNEL_BLITTER_HPP_INCLUDED
 
 #include "../../utility/normalization.hpp"
-#include <sge/renderer/color_channel.hpp>
+#include <sge/image/color/channel.hpp>
 #include <boost/gil/color_base.hpp>
 #include <boost/type_traits/remove_const.hpp>
 
@@ -34,8 +34,17 @@ template<class DstPixel,class FontPixel>
 class font_channel_blitter 
 {
 public:
-	typedef typename renderer::color_channel<typename boost::remove_const<DstPixel>::type>::type channel_type;
-	typedef typename renderer::color_channel<typename boost::remove_const<FontPixel>::type>::type font_channel_type;
+	typedef typename sge::image::color::channel<
+		typename boost::remove_const<
+			DstPixel
+		>::type
+	>::type channel_type;
+
+	typedef typename sge::image::color::channel<
+		typename boost::remove_const<
+			FontPixel
+		>::type
+	>::type font_channel_type;
 	
 	font_channel_blitter(
 		DstPixel const &bgcolor,
@@ -60,10 +69,11 @@ sge::gui::utility::font_channel_blitter<DstPixel,FontPixel>::font_channel_blitte
 	DstPixel const &fontcolor,
 	FontPixel const &font,
 	DstPixel &result)
-: bgcolor(bgcolor),
-  fontcolor(fontcolor),
-  font(font),
-  result(result)
+:
+	bgcolor(bgcolor),
+	fontcolor(fontcolor),
+	font(font),
+	result(result)
 {}
 
 

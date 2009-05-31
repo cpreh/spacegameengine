@@ -26,8 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/vector/atan2.hpp>
 #include <sge/math/vector/static.hpp>
 #include <sge/math/vector/structure_cast.hpp>
+#include <sge/math/detail/has_size.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
+#include <boost/mpl/and.hpp>
 
 namespace sge
 {
@@ -43,13 +45,20 @@ template<
 	typename S
 >
 typename boost::enable_if<
-	boost::is_floating_point<Dest>,
+	boost::mpl::and_<
+		boost::is_floating_point<
+			Dest
+		>,
+		math::detail::has_size<
+			N,
+			2
+		>
+	>,
 	optional<Dest>
 >::type
 to_angle(
 	basic<T, N, S> const &to)
 {
-	// FIXME: make this work for dynamic vectors, too!
 	return atan2(
 		structure_cast<
 			typename static_<

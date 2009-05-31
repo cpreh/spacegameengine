@@ -85,8 +85,7 @@ void sge::gui::skins::standard::draw(
 			w.scroll_pos());
 	
 	utility::blit(
-		renderer::const_image_view(
-			w.text_buffer().const_view()),
+		w.text_buffer().const_view(),
 		rect(
 			w.scroll_pos(),
 			scroll_size),

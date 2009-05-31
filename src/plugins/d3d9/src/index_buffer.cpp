@@ -21,132 +21,114 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../index_buffer.hpp"
 #include "../conversion.hpp"
-#include <sge/algorithm.hpp>
 #include <sge/exception.hpp>
-#include <sge/renderer/scoped_lock.hpp>
+#include <sge/text.hpp>
 
-namespace
+sge::d3d9::index_buffer::index_buffer(
+	d3d_device_ptr const device_,
+	renderer::index::format::type const format_,
+	size_type const sz,
+	resource_flag_type const flags_)
+:
+	resource(),
+	device_(device_),
+	buffer(),
+	flags_(flags_),
+	format_(format_),
+	sz(sz),
+	lock_dest(0)
 {
-const sge::d3d9::index_buffer::size_type stride = sizeof(sge::d3d9::index_buffer::value_type);
+	init();
 }
 
-sge::d3d9::index_buffer::index_buffer(renderer& r, const d3d_device_ptr device, const size_type sz, const resource_flag_t nflags, const const_pointer src)
-: resource(r, nflags & resource_flags::dynamic),
-  device(device),
-  buffer(),
-  _flags(nflags),
-  sz(sz),
-  lock_dest(0)
+sge::d3d9::index_buffer::view_type const
+sge::d3d9::index_buffer::lock(
+	lock_flag_type const lflags,
+	size_type const first,
+	size_type const count)
 {
-	init(src);
+	do_lock(
+		convert_lock_flags(
+			lflags,
+			flags()
+		),
+		first,
+		count
+	);
+
+	return view_type(
+		lock_dest,
+		count,
+		format_
+	);
 }
 
-void sge::d3d9::index_buffer::init(const const_pointer src)
+void
+sge::d3d9::index_buffer::lock(
+	size_type const first,
+	size_type const count) const
 {
-	const D3DFORMAT format = D3DFMT_INDEX32;
-	const DWORD usage = convert_cast<DWORD>(flags());
-	const D3DPOOL pool = convert_cast<D3DPOOL>(flags());
+	do_lock(
+		D3DLOCKMETHOD_READONLY,
+		first,
+		count
+	);
 
-	IDirect3DIndexBuffer9* p;
-	if(device->CreateIndexBuffer(static_cast<UINT>(sz * stride), usage, format, pool, &p,0) != D3D_OK)
-		throw exception(SGE_TEXT("Cannot create index buffer!"));
-	buffer.reset(p);
-
-	if(src)
-	{
-		const scoped_lock<index_buffer*> l(make_scoped_lock(this, lock_flags::writeonly));
-		copy_n(src, size(), lock_dest);
-	}
+	return const_view_type(
+		lock_dest,
+		count,
+		format
+	);
 }
 
-sge::d3d9::index_buffer::iterator sge::d3d9::index_buffer::begin()
-{
-	return iterator(lock_dest);
-}
-
-sge::d3d9::index_buffer::const_iterator sge::d3d9::index_buffer::begin() const
-{
-	return const_iterator(lock_dest);
-}
-
-sge::d3d9::index_buffer::iterator sge::d3d9::index_buffer::end()
-{
-	return iterator(lock_dest + size());
-}
-
-sge::d3d9::index_buffer::const_iterator sge::d3d9::index_buffer::end() const
-{
-	return const_iterator(lock_dest + size());
-}
-
-sge::d3d9::index_buffer::reverse_iterator sge::d3d9::index_buffer::rbegin()
-{
-	return reverse_iterator(end());
-}
-
-sge::d3d9::index_buffer::const_reverse_iterator sge::d3d9::index_buffer::rbegin() const
-{
-	return const_reverse_iterator(end());
-}
-
-sge::d3d9::index_buffer::reverse_iterator sge::d3d9::index_buffer::rend()
-{
-	return reverse_iterator(begin());
-}
-
-sge::d3d9::index_buffer::const_reverse_iterator sge::d3d9::index_buffer::rend() const
-{
-	return const_reverse_iterator(begin());
-}
-
-void sge::d3d9::index_buffer::lock(const lock_flag_t lflags, const size_type first, const size_type count)
-{
-	if(lock_dest)
-		throw exception(SGE_TEXT("d3d::index_buffer::lock() you have to unlock first!"));
-	void* p = 0;
-	const DWORD d3dlflags = convert_lock_flags(lflags, flags());
-	if(buffer->Lock(static_cast<UINT>(first * stride), static_cast<UINT>(count * stride), &p, d3dlflags) != D3D_OK)
-		throw exception(SGE_TEXT("Cannot lock index buffer!"));
-	lock_dest = static_cast<pointer>(p);
-}
-
-void sge::d3d9::index_buffer::lock(const lock_flag_t lflags)
-{
-	lock(lflags,0,size());
-}
-
-void sge::d3d9::index_buffer::unlock()
+void sge::d3d9::index_buffer::unlock() const
 {
 	if(!lock_dest)
 		throw exception(SGE_TEXT("d3d::index_buffer::unlock() you have to lock first!"));
+
 	if(buffer->Unlock() != D3D_OK)
 		throw exception(SGE_TEXT("Cannot unlock index buffer!"));
+
 	lock_dest = 0;
 }
 
-sge::d3d9::index_buffer::size_type sge::d3d9::index_buffer::size() const
+sge::d3d9::index_buffer::size_type
+sge::d3d9::index_buffer::size() const
 {
 	return sz;
 }
 
-sge::resource_flag_t sge::d3d9::index_buffer::flags() const
+sge::d3d9::index_buffer::resource_flag_type
+sge::d3d9::index_buffer::flags() const
 {
-	return _flags;
+	return flags_;
 }
 
-void sge::d3d9::index_buffer::resize(const size_type newsize, const const_pointer new_data)
+void
+sge::d3d9::index_buffer::init()
 {
-	if(lock_dest)
-		throw exception(SGE_TEXT("d3d::index_buffer::resize() you have to unlock before resizing!"));
+	IDirect3DIndexBuffer9 *p;
+	if(
+		device->CreateIndexBuffer(
+			static_cast<UINT>(sz * stride()),
+			convert_resource_flags(
+				flags()
+			),
+			convert_index_format(
+				format()
+			),
+			convert_to_pool(
+				flags()
+			),
+			&p,
+			0
+		) != D3D_OK
+	)
+		throw exception(
+			SGE_TEXT("Cannot create index buffer!")
+		);
 
-	sz = newsize;
-	init(new_data);
-}
-
-void sge::d3d9::index_buffer::set_data(const const_pointer src, const size_type first, const size_type count)
-{
-	const scoped_lock<index_buffer*> lock_(make_scoped_lock(this, first, count, lock_flags::writeonly));
-	copy_n(src + first, count, data());
+	buffer.reset(p);
 }
 
 void sge::d3d9::index_buffer::on_loss()
@@ -159,22 +141,29 @@ void sge::d3d9::index_buffer::on_reset()
 	init();
 }
 
-sge::d3d9::index_buffer::pointer sge::d3d9::index_buffer::data()
+void sge::d3d9::index_buffer::do_lock(
+	size_type const first,
+	size_type const count,
+	DWORD const lflags)
 {
-	return lock_dest;
-}
+	if(lock_dest)
+		throw exception(
+			SGE_TEXT("d3d::index_buffer::lock() you have to unlock first!")
+		);
 
-sge::d3d9::index_buffer::const_pointer sge::d3d9::index_buffer::data() const
-{
-	return lock_dest;
-}
+	void *p = 0;
 
-sge::d3d9::index_buffer::reference sge::d3d9::index_buffer::operator[](const size_type sz)
-{
-	return *(data() + sz);
-}
+	if(
+		buffer->Lock(
+			static_cast<UINT>(first * stride()),
+			static_cast<UINT>(count * stride()),
+			&p,
+			lflags
+		) != D3D_OK
+	)
+		throw exception(
+			SGE_TEXT("Cannot lock index buffer!")
+		);
 
-sge::d3d9::index_buffer::const_reference sge::d3d9::index_buffer::operator[](const size_type sz) const
-{
-	return *(data() + sz);
+	lock_dest = static_cast<pointer>(p);
 }

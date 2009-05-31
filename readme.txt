@@ -83,5 +83,5 @@ Please follow the instructions below.
     to your boost installation. 
 
 5. Contact
-  - If you have any problems please visit #sge-sanguis on QuakeNet or drop me
+  - If you have any problems please visit #sge-sanguis on freenode or drop me
     a mail to sefi <at> s-e-f-i.de.

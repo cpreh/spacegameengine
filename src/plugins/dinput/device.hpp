@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "signal.hpp"
 #include <sge/windows/window_fwd.hpp>
 #include <sge/input/key_type.hpp>
+#include <sge/signal/scoped_connection.hpp>
 #include <sge/noncopyable.hpp>
 #include <boost/tr1/array.hpp>
 #include <cstddef>
@@ -42,14 +43,16 @@ public:
 	virtual ~device();
 
 	static std::size_t const buffer_size = 1024;
+
+	void acquire();
+	void unacquire();
 protected:
 	device(
 		dinput_ptr di,
 		string const &name,
 		GUID Guid,
 		windows::window_ptr window);
-	void acquire();
-	void unacquire();
+
 	void poll();
 	void set_data_format(
 		LPCDIDATAFORMAT lpdf);
@@ -73,16 +76,9 @@ private:
 	void set_cooperative_level(
 		HWND hwnd,
 		DWORD flags);
-	string const              name_;
-	dinput_device_ptr         device_;
-
-	/*class lost_focus_unacquire_handler
-	{
-	public:
-		input_device &device;
-		lost_focus_unacquire_handler(input_device &dev) : device(dev) {}
-		windows::window::win32_callback_return_type operator()(windows::window&, windows::window::win32_event_type, WPARAM wparam, LPARAM lparam);
-	};*/
+	string const name_;
+	signal::scoped_connection const activate_connection;
+	dinput_device_ptr device_;
 };
 
 }

@@ -33,12 +33,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic_view.hpp>
 #include <sge/renderer/light_index.hpp>
 #include <sge/renderer/glsl/program_fwd.hpp>
-#include <sge/renderer/glsl/string.hpp>
-#include <sge/renderer/glsl/istream.hpp>
-#include <sge/renderer/primitive.hpp>
-#include <sge/renderer/image_view.hpp>
-#include <sge/renderer/color_format.hpp>
-#include <sge/renderer/texture_stage.hpp>
+#include <sge/renderer/glsl/optional_string.hpp>
+#include <sge/renderer/glsl/optional_istream.hpp>
+#include <sge/renderer/indexed_primitive_type.hpp>
+#include <sge/renderer/nonindexed_primitive_type.hpp>
+#include <sge/renderer/texture_stage_op.hpp>
+#include <sge/renderer/texture_stage_op_value.hpp>
+#include <sge/renderer/texture_stage_arg.hpp>
+#include <sge/renderer/texture_stage_arg_value.hpp>
 #include <sge/renderer/stage_type.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/dim_type.hpp>
@@ -48,6 +50,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/view.hpp>
 #include <sge/renderer/index/format.hpp>
 #include <sge/renderer/device_fwd.hpp>
+#include <sge/image/view/const_object.hpp>
+#include <sge/image/color/format.hpp>
 #include <sge/window/instance_fwd.hpp>
 #include <sge/export.hpp>
 #include <sge/noncopyable.hpp>
@@ -143,12 +147,13 @@ public:
 
 	virtual glsl::program_ptr const
 	create_glsl_program(
-		glsl::string const &vertex_shader_source,
-		glsl::string const &pixel_shader_source) = 0;
+		glsl::optional_string const &vertex_shader_source,
+		glsl::optional_string const &pixel_shader_source) = 0;
+
 	virtual glsl::program_ptr const
 	create_glsl_program(
-		glsl::istream &vertex_shader_source,
-		glsl::istream &pixel_shader_source) = 0;
+		glsl::optional_istream const &vertex_shader_source,
+		glsl::optional_istream const &pixel_shader_source) = 0;
 
 	SGE_SYMBOL static glsl::program_ptr const no_program;
 	virtual void glsl_program(renderer::glsl::program_ptr) = 0;
@@ -156,13 +161,13 @@ public:
 	virtual const_target_ptr const target() const = 0;
 
 	SGE_SYMBOL texture_ptr const create_texture(
-		const_image_view const &,
+		image::view::const_object const &,
 		filter::texture const &filter,
 		resource_flag_t flags);
 
 	virtual texture_ptr const create_texture(
 		dim_type const &dim,
-		color_format::type format,
+		image::color::format::type format,
 		filter::texture const &filter,
 		resource_flag_t flags) = 0;
 
@@ -174,7 +179,7 @@ public:
 	virtual cube_texture_ptr const
 	create_cube_texture(
 		size_type border_size,
-		color_format::type format,
+		image::color::format::type format,
 		filter::texture const &filter,
 		resource_flag_t flags) = 0;
 

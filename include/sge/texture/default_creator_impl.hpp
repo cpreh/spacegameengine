@@ -25,10 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/default_creator.hpp>
 #include <sge/renderer/device.hpp>
 
-template<typename T>
+template<
+	typename T
+>
 sge::texture::default_creator<T>::default_creator(
 	renderer::device_ptr const rend,
-	renderer::color_format::type const format,
+	image::color::format::type const format,
 	renderer::filter::texture const &filter)
 :
 	rend(rend),
@@ -36,7 +38,9 @@ sge::texture::default_creator<T>::default_creator(
 	filter(filter)
 {}
 
-template<typename T>
+template<
+	typename T
+>
 sge::texture::fragmented_auto_ptr
 sge::texture::default_creator<T>::operator()() const
 {
@@ -44,7 +48,9 @@ sge::texture::default_creator<T>::operator()() const
 		new T(
 			rend,
 			format,
-			filter));
+			filter
+		)
+	);
 }
 
 #endif

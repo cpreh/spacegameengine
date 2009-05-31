@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_LOG_TEMPORARY_OUTPUT_HPP_INCLUDED
 
 #include <sge/log/output_helper.hpp>
-#include <sge/io/tabbing_streambuf.hpp>
 #include <sge/export.hpp>
 #include <sge/shared_ptr.hpp>
 #include <sge/sstream.hpp>
@@ -44,10 +43,6 @@ private:
 	shared_ptr<
 		ostringstream
 	> os;
-	shared_ptr<
-		io::tabbing_streambuf
-	> sb;
-
 
 	template<typename T>
 	friend temporary_output operator<<(temporary_output const &, T const &);

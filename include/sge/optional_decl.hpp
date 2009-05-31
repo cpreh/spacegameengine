@@ -31,8 +31,8 @@ namespace sge
 template<
 	typename T
 >
-class optional
-	: public safe_bool<optional<T> > {
+class optional {
+	SGE_SAFE_BOOL(optional)
 public:
 	typedef T &reference;
 	typedef T const &const_reference;

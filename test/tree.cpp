@@ -21,12 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/container/tree.hpp>
 #include <sge/container/traversal.hpp>
+#include <sge/mainloop/catch_block.hpp>
 #include <sge/make_auto_ptr.hpp>
 #include <string>
 #include <iostream>
 #include <ostream>
 
 int main()
+try
 {
 	typedef sge::container::tree<
 		std::string
@@ -68,3 +70,4 @@ int main()
 	for(traversal_type::iterator it = trav.begin(); it != trav.end(); ++it)
 		std::cout << (*it).value() << std::endl;
 }
+SGE_MAINLOOP_CATCH_BLOCK

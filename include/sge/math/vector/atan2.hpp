@@ -23,10 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MATH_VECTOR_ATAN2_HPP_INCLUDED
 
 #include <sge/math/vector/basic_impl.hpp>
+#include <sge/math/vector/static.hpp>
 #include <sge/math/vector/is_null.hpp>
+#include <sge/math/detail/has_size.hpp>
 #include <sge/optional_impl.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
+#include <boost/mpl/and.hpp>
 #include <cmath>
 
 namespace sge
@@ -42,7 +45,15 @@ template<
 	typename S
 >
 inline typename boost::enable_if<
-	boost::is_floating_point<T>,
+	boost::mpl::and_<
+		boost::is_floating_point<
+			T
+		>,
+		math::detail::has_size<
+			N,
+			2
+		>
+	>,
 	optional<T>
 >::type
 atan2(

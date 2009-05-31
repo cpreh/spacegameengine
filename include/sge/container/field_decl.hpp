@@ -114,6 +114,10 @@ class field
 	allocator_type
 	get_allocator() const;
 
+	void resize_canvas(
+		dim_type const &n,
+		const_reference value = value_type());
+
 	void resize(
 		dim_type const &n,
 		const_reference value = value_type());

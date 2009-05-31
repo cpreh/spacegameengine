@@ -32,16 +32,18 @@ namespace sge
 namespace d3d9
 {
 
-IDirect3DTexture9* create_texture(
+IDirect3DTexture9 *
+create_texture(
 	d3d_device_ptr,
-	const texture::dim_type& dim,
-	const filter_args& filter,
-	resource_flag_t flags,
-	bool system_mem);
+	rendereR::texture_dim const &dim,
+	renderer::texture::filter const &filter,
+	renderer::resource_flag_t flags,
+	bool system_mem,
+	bool render_target);
 
 sge::texture::pointer lock_texture(
 	d3d_texture_ptr,
-	const lock_rect* rect,
+	renderer::lock_rect const *rect,
 	lock_flag_t lflags,
 	resource_flag_t rflags);
 
@@ -50,9 +52,10 @@ void unlock_texture(
 
 void update_texture(
 	d3d_device_ptr,
-	IDirect3DBaseTexture9* src,
-	IDirect3DBaseTexture9* dest);
+	IDirect3DBaseTexture9 *src,
+	IDirect3DBaseTexture9 *dest);
 
+/*
 IDirect3DVolumeTexture9* create_volume_texture(
 	d3d_device_ptr,
 	const volume_texture::box_type& box,
@@ -69,7 +72,7 @@ lock_volume_texture(
 
 void unlock_volume_texture(
 	d3d_volume_texture_ptr);
-
+*/
 }
 }
 

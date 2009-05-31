@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/texture/no_fragmented.hpp>
+#include <sge/texture/guaranteed_free.hpp>
 #include <sge/texture/part_fragmented.hpp>
 #include <sge/texture/atlasing.hpp>
 #include <sge/renderer/device.hpp>
@@ -34,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::texture::no_fragmented::no_fragmented(
 	renderer::device_ptr const rend,
-	renderer::color_format::type const format,
+	image::color::format::type const format,
 	renderer::filter::texture const &filter)
  :
  	rend(rend),
@@ -51,13 +52,16 @@ sge::texture::no_fragmented::consume_fragment(
 
 	renderer::dim_type const real_dim(
 		atlased_bounds(
-			dim));
+			dim
+		)
+	);
 
 	tex = rend->create_texture(
 		real_dim,
 		format,
 		filter,
-		renderer::resource_flags::none);
+		renderer::resource_flags::none
+	);
 
 	if(real_dim != dim)
 		SGE_LOG_WARNING(
@@ -106,7 +110,7 @@ bool sge::texture::no_fragmented::repeatable() const
 sge::texture::free_type
 sge::texture::no_fragmented::free_value() const
 {
-	return empty() ? 0 : 1000000; // FIXME
+	return empty() ? 0 : guaranteed_free();
 }
 
 bool

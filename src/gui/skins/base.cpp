@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/unit.hpp>
 #include <sge/gui/exception.hpp>
 #include <sge/math/dim/output.hpp>
-#include <sge/renderer/make_const_image_view.hpp>
+#include <sge/image/view/make_const.hpp>
 #include <sge/text.hpp>
 #include <sge/type_info.hpp>
 #include <boost/mpl/vector.hpp>
@@ -183,7 +183,7 @@ void sge::gui::skins::base::blit_invalid(
 	bool const t)
 {
 	utility::blit_invalid(
-		renderer::make_const_image_view(c.view()),
+		sge::image::view::make_const(c.view()),
 		rect(w.absolute_pos(),c.size()),
 		e.texture(),
 		e.area(),

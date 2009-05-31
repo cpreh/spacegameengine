@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONTAINER_TRAVERSAL_HPP_INCLUDED
 #define SGE_CONTAINER_TRAVERSAL_HPP_INCLUDED
 
+#include <sge/assert.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_const.hpp>
@@ -57,19 +58,24 @@ private:
 		tree_iterator
 	> stack_type;
 
+	typedef typename Tree::child_list child_list;
+
 	typedef boost::iterator_facade<
 		iterator,
 		typename tree_iterator::value_type,
-		boost::bidirectional_traversal_tag,
+		boost::forward_traversal_tag,
 		typename tree_iterator::reference
 	> iterator_base;
 public:
 	class iterator : public iterator_base {
 	public:
-		explicit iterator(
-			tree_iterator const &it)
+		iterator(
+			tree_iterator const &it,
+			child_list const &children_)
 		:
-			it(it)
+			it(it),
+			children_(&children_),
+			positions()
 		{}
 
 		typedef typename iterator_base::value_type value_type;
@@ -91,6 +97,7 @@ public:
 			if(!it->empty())
 			{
 				positions.push(it);
+				children_ = &it->children();
 				it = it->begin();
 			}
 			else
@@ -98,17 +105,13 @@ public:
 				while(!positions.empty() && positions.top() != positions.top()->parent().end())
 				{
 					it = positions.top();
+					children_ = &it->children();
 					positions.pop();
 				}
 				++it;
 			}
 		}
 
-		void decrement()
-		{
-			// TODO:
-		}
-		
 		reference dereference() const
 		{
 			return *it;
@@ -117,20 +120,29 @@ public:
 		bool equal(
 			iterator const &s) const
 		{
-			return s.it  == it;
+			return
+				children_ == s.children_
+				&& it == s.it;
 		}
 
 		tree_iterator it;
+		child_list const *children_;
 		stack_type positions;
 	};
 
 	iterator const begin() const
 	{
-		return iterator(tree_.begin());
+		return iterator(
+			tree_.begin(),
+			tree_.children()
+		);
 	}
 	iterator const end() const
 	{
-		return iterator(tree_.end());
+		return iterator(
+			tree_.end(),
+			tree_.children()
+		);
 	}
 private:
 	Tree &tree_;

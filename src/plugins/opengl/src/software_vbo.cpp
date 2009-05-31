@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vbo.hpp"
 #include "../pbo.hpp"
 #include <sge/algorithm/copy_n.hpp>
+#include <sge/renderer/raw_pointer.hpp>
+#include <sge/renderer/raw_value.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <utility>
@@ -40,7 +42,7 @@ GLuint
 
 typedef std::map<
 	GLuint,
-	unsigned char*
+	sge::renderer::raw_pointer
 > buffer_map;
 buffer_map buffers;
 
@@ -97,7 +99,7 @@ void sge::ogl::software_vbo::buffer_data(
 {
 	buffer_map::iterator const it = buffer_object(bound_buffer(type));
 	delete[] it->second;
-	it->second = new unsigned char[size];
+	it->second = new renderer::raw_value[size];
 	if(data)
 		buffer_sub_data(type, 0, size, data);
 }
@@ -113,7 +115,7 @@ void sge::ogl::software_vbo::buffer_sub_data(
 			SGE_TEXT("buffer_sub_data(): data may not be 0!"));
 
 	algorithm::copy_n(
-		static_cast<const unsigned char*>(data) + first,
+		static_cast<renderer::const_raw_pointer>(data) + first,
 		size,
 		buffer_object(bound_buffer(type))->second);
 }

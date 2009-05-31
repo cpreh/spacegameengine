@@ -37,9 +37,9 @@ template<
 	typename Format,
 	role::type Role
 >
-class vec3_base
+struct vec3_base
 :
-public vec_base<
+vec_base<
 	Format,
 	Role,
 	3

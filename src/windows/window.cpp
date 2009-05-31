@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/windows/window.hpp>
+#include <sge/windows/detail/combine_result.hpp>
 #include <sge/windows/wndclass.hpp>
 #include <sge/windows/wndclass_pool.hpp>
 #include <sge/windows/module_handle.hpp>
@@ -28,7 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
-#include <sge/optional.hpp>
+#include <sge/optional_impl.hpp>
+#include <sge/auto_ptr.hpp>
 #include <boost/tr1/array.hpp>
 #include <boost/ref.hpp>
 
@@ -42,26 +44,6 @@ LRESULT CALLBACK wnd_proc(
 	LPARAM);
 
 }
-
-// TODO: why did HackLife do this?
-/*class sge::windows::window::signal_combiner {
-public:
-	typedef callback_return_type result_type;
-
-	template<typename InputIterator>
-	result_type operator()(
-		InputIterator first,
-		InputIterator const last) const
-	{
-		while (first != last)
-		{
-			if (*first)
-				return **first;
-			++first;
-		}
-		return result_type();
-	}
-};*/
 
 sge::windows::window::window(
 	dim_type const &sz,
@@ -86,10 +68,10 @@ sge::windows::window::window(
 			SGE_TEXT("AdjustWindowRect() failed!"));
 
 	decoration_size = decoration_rect(
-		static_cast<unsigned>(-r.left),
-		static_cast<unsigned>(r.top),
-		static_cast<unsigned>(-r.right),
-		static_cast<unsigned>(r.bottom)
+		r.left,
+		r.top,
+		r.right,
+		r.bottom
 	);
 
 	handle = CreateWindow(
@@ -98,8 +80,8 @@ sge::windows::window::window(
 		flags,
 		0,
 		0,
-		decoration_size.left() + decoration_size.right() + sz.w(),
-		decoration_size.bottom() + decoration_size.top() + sz.h(),
+		decoration_size.dim().w() + sz.w(),
+		decoration_size.dim().h() + sz.h(),
 		0,
 		0,
 		module_handle(),
@@ -123,8 +105,8 @@ void sge::windows::window::size(
 		HWND_TOP,
 		0,
 		0,
-		decoration_size.left() + decoration_size.right() + nsz.w(),
-		decoration_size.top() + decoration_size.bottom() + nsz.h(),
+		decoration_size.dim().w() + nsz.w(),
+		decoration_size.dim().h() + nsz.h(),
 		SWP_SHOWWINDOW
 	) == 0)
 		throw exception(
@@ -147,8 +129,8 @@ sge::windows::window::size() const
 		throw exception(
 			SGE_TEXT("GetWindowRect() failed!"));
 	return dim_type(
-		rect.right - rect.left - decoration_size.left() - decoration_size.right(),
-		rect.bottom - rect.top - decoration_size.top() + decoration_size.bottom()
+		rect.right - rect.left - decoration_size.dim().w(),
+		rect.bottom - rect.top - decoration_size.dim().h()
 	);
 }
 
@@ -182,16 +164,42 @@ sge::windows::window::register_callback(
 	event_type const msg,
 	callback_type const func)
 {
+	signal_map::iterator const it(
+		signals.find(
+			msg
+		)
+	);
+
+	if(it == signals.end())
+	{
+		auto_ptr<
+			signal_type
+		> sig(
+			new signal_type(
+				detail::combine_result
+			)
+		);
+
+		signals.insert(
+			msg,
+			sig
+		);
+	}
+
+	// TODO: can be optimized
 	return signals[msg].connect(func);
 }
 
-sge::windows::window::callback_return_type
+sge::windows::callback_return_type
 sge::windows::window::execute_callback(
 	event_type const msg,
 	WPARAM const wparam,
 	LPARAM const lparam)
 {
-	sge::windows::window::signal_map::iterator const it = signals.find(msg);
+	signal_map::iterator const it(
+		signals.find(msg)
+	);
+
 	return it != signals.end()
 		? (*(it->second))(
 			boost::ref(
@@ -233,7 +241,7 @@ wnd_proc(
 	sge::windows::window *const wnd = reinterpret_cast<sge::windows::window*>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
 	if (wnd)
 	{
-		sge::windows::window::callback_return_type const ret =
+		sge::windows::callback_return_type const ret =
 			wnd->execute_callback(msg, wparam, lparam);
 		if (ret)
 			return *ret;

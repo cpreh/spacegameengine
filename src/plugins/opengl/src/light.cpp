@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../error.hpp"
 #include "../vector4f.hpp"
 #include "../vector3f.hpp"
-#include <sge/renderer/raw_color.hpp>
-#include <sge/renderer/any_color_convert.hpp>
+#include <sge/image/color/raw.hpp>
+#include <sge/image/color/any/convert.hpp>
 #include <sge/renderer/vector_convert.hpp>
 #include <sge/renderer/arithmetic_convert.hpp>
 #include <sge/renderer/light.hpp>
@@ -60,7 +60,7 @@ void light_dir(
 void light_color(
 	GLenum index,
 	GLenum name,
-	sge::renderer::any_color const &color);
+	sge::image::color::any::object const &color);
 }
 
 void sge::ogl::set_light(
@@ -126,7 +126,9 @@ void light_arithmetic(
 		sge::renderer::arithmetic_convert<
 			GLfloat
 		>(
-			value));
+			value
+		)
+	);
 }
 
 void light_pos(
@@ -138,8 +140,11 @@ void light_pos(
 			sge::renderer::vector_convert<
 				sge::ogl::vector3f
 			>(
-				pos),
-			static_cast<GLfloat>(1)));
+				pos
+			),
+			static_cast<GLfloat>(1)
+		)
+	);
 	
 	light_float_ptr(
 		index,
@@ -157,20 +162,27 @@ void light_dir(
 		sge::renderer::vector_convert<
 			sge::ogl::vector3f
 		>(
-			dir).data());
+			dir
+		).data()
+	);
 }
 
 void light_color(
 	GLenum const index,
 	GLenum const name,
-	sge::renderer::any_color const &color)
+	sge::image::color::any::object const &color)
 {
 	light_float_ptr(
 		index,
 		name,
-		sge::renderer::raw_color(
-			sge::renderer::any_color_convert<sge::renderer::rgba32f_color>(
-				color)).data());
+		sge::image::color::raw(
+			sge::image::color::any::convert<
+				sge::image::color::rgba32f
+			>(
+				color
+			)
+		).data()
+	);
 }
 
 }

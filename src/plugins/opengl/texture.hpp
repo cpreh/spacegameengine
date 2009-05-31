@@ -26,8 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "basic_texture.hpp"
 #include "lock_method.hpp"
 #include <sge/renderer/texture.hpp>
-#include <sge/renderer/image.hpp>
-#include <sge/renderer/color_format.hpp>
+#include <sge/image/color/format.hpp>
 #include <sge/math/dim/basic_decl.hpp>
 #include <sge/math/rect/basic_decl.hpp>
 #include <sge/shared_ptr.hpp>
@@ -49,7 +48,7 @@ public:
 
 	texture(
 		dim_type const &,
-		renderer::color_format::type format,
+		image::color::format::type format,
 		renderer::filter::texture const &filter,
 		resource_flag_type flags,
 		optional_type type
@@ -57,11 +56,13 @@ public:
 	
 	dim_type const dim() const;
 	
-	renderer::image_view const lock(
+	image::view::object const
+	lock(
 		renderer::lock_rect const &,
 		lock_flag_type flags);
 
-	renderer::const_image_view const lock(
+	image::view::const_object const
+	lock(
 		renderer::lock_rect const &) const;
 
 	void unlock() const;
@@ -70,8 +71,8 @@ private:
 		renderer::lock_rect const &,
 		lock_method::type) const;
 
-	renderer::image_view const view();
-	renderer::const_image_view const view() const;
+	image::view::object const view();
+	image::view::const_object const view() const;
 
 	dim_type const lock_dim() const;
 	

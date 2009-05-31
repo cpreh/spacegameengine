@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_STAGE_HPP_INCLUDED
 
 #include "common.hpp"
-#include <sge/renderer/texture_stage.hpp>
+#include <sge/renderer/texture_stage_op_value.hpp>
 #include <sge/renderer/stage_type.hpp>
 
 namespace sge

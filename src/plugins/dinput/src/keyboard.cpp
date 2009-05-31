@@ -20,8 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../keyboard.hpp"
+#include "../keyboard_repeat.hpp"
 #include <sge/input/key_pair.hpp>
+#include <sge/time/resolution.hpp>
 #include <sge/log/headers.hpp>
+#include <sge/optional_impl.hpp>
 #include <sge/text.hpp>
 #include <sge/exception.hpp>
 #include <boost/tr1/array.hpp>
@@ -32,7 +35,8 @@ sge::dinput::keyboard::keyboard(
 	string const &name,
 	GUID const guid,
 	windows::window_ptr const window,
-	key_converter const &conv)
+	key_converter const &conv,
+	repeat_signal_type &repeat_sig)
 :
 	device(
 		di,
@@ -41,7 +45,14 @@ sge::dinput::keyboard::keyboard(
 		window),
 	modifiers(false, false, false),
 	conv(conv),
-	kblayout(GetKeyboardLayout(0))
+	kblayout(GetKeyboardLayout(0)),
+	repeat_sig(repeat_sig),
+	repeat_time(
+		keyboard_repeat(),
+		sge::time::activation_state::active
+	),
+	old_key(),
+	keys()
 {
 	set_data_format(&c_dfDIKeyboard);
 	enum_objects(enum_keyboard_keys);
@@ -59,7 +70,12 @@ void sge::dinput::keyboard::dispatch(signal_type &sig)
 	{
 		input::key_type key = keys[data[i].dwOfs];
 
-		bool const key_value = static_cast<bool>(data[i].dwData & 0x80);
+		bool const key_value(
+			static_cast<bool>(
+				data[i].dwData & 0x80
+			)
+		);
+
 		switch(data[i].dwOfs) {
 		case VK_CONTROL:
 			modifiers.ctrl = key_value;
@@ -72,9 +88,37 @@ void sge::dinput::keyboard::dispatch(signal_type &sig)
 			break;
 		}
 
-		key.char_code(keycode_to_char(key.code()));
-		sig(input::key_pair(key, key_value ? static_cast<input::key_state>(1) : 0));
+		key.char_code(
+			keycode_to_char(
+				key.code()
+			)
+		);
+
+		sig(
+			input::key_pair(
+				key,
+				key_value
+				? 1
+				: 0
+			)
+		);
+
+		if(!key_value)
+		{
+			old_key.reset();
+			repeat_time.reset();
+		}
+		else if(!old_key || *old_key != key)
+		{
+			repeat_time.reset();
+			old_key = key;
+		}
 	}
+
+	if(old_key && repeat_time.update_b())
+		repeat_sig(
+			*old_key
+		);
 }
 
 BOOL sge::dinput::keyboard::enum_keyboard_keys(LPCDIDEVICEOBJECTINSTANCE ddoi,  LPVOID s)

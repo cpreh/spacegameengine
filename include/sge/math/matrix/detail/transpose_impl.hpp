@@ -27,16 +27,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename T,
 	typename N,
+	typename M,
 	typename S
 >
-sge::math::matrix::basic<T, N, N, S> const
+sge::math::matrix::basic<T, M, N, S> const
 sge::math::matrix::transpose(
-	basic<T, N, N, S> const &t)
+	basic<T, N, M, S> const &t)
 {
-	// FIXME!
-	basic<T, N, N, S> ret;
+	typedef basic<T, M, N, S> ret_type;
 
-	typedef typename basic<T, N, N, S>::size_type size_type;
+	ret_type ret(
+		typename ret_type::dim_type(
+			t.rows(),
+			t.columns()
+		)
+	);
+
+	typedef typename ret_type::size_type size_type;
 	for(size_type i = 0; i < t.rows(); ++i)
 		for(size_type j = 0; j < t.columns(); ++j)
 			if(j < t.rows() && i < t.columns())

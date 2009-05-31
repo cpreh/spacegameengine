@@ -25,9 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert_fog_float_state.hpp"
 #include "../enable.hpp"
 #include "../error.hpp"
-#include <sge/renderer/any_color_convert.hpp>
+#include <sge/image/color/any/convert.hpp>
+#include <sge/image/color/raw.hpp>
 #include <sge/renderer/arithmetic_convert.hpp>
-#include <sge/renderer/raw_color.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/variant/object_impl.hpp>
 #include <sge/exception.hpp>
@@ -140,9 +140,9 @@ sge::ogl::state_visitor::operator()(
 
 	namespace rs = renderer::state::color::available_states;
 
-	renderer::rgba32f_color const fcolor(
-		renderer::any_color_convert<
-			renderer::rgba32f_color
+	image::color::rgba32f const fcolor(
+		image::color::any::convert<
+			image::color::rgba32f
 		>(
 			s.value()
 		)
@@ -160,7 +160,7 @@ sge::ogl::state_visitor::operator()(
 	case rs::ambient_light_color:
 		glLightModelfv(
 			GL_LIGHT_MODEL_AMBIENT,
-			renderer::raw_color(
+			image::color::raw(
 				fcolor
 			).data()
 		);
@@ -168,7 +168,7 @@ sge::ogl::state_visitor::operator()(
 	case rs::fog_color:
 		glFogfv(
 			GL_FOG_COLOR,
-			renderer::raw_color(
+			image::color::raw(
 				fcolor
 			).data()
 		);

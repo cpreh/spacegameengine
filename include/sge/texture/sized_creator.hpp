@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/fragmented_auto_ptr.hpp>
 #include <sge/renderer/filter/texture.hpp>
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/color_format.hpp>
+#include <sge/image/color/format.hpp>
 #include <sge/renderer/dim_types.hpp>
 
 namespace sge
@@ -33,20 +33,22 @@ namespace sge
 namespace texture
 {
 
-template<typename T>
+template<
+	typename T
+>
 class sized_creator {
 public:
 	sizede_creator(
 		renderer::device_ptr rend,
-		renderer::color_format::type format,
+		image::color::format::type format,
 	        renderer::filter::texture const &filter,
 	        renderer::texture::dim_type const &dim);
 	fragmented_auto_ptr operator()() const;
 private:
-	renderer::device_ptr            rend;
-	renderer::color_format::type    format;
-	renderer::filter::texture       filter;
-	renderer::dim_type              dim;
+	renderer::device_ptr rend;
+	image::color::format::type format;
+	renderer::filter::texture filter;
+	renderer::dim_type dim;
 };
 
 }

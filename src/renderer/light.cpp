@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/light.hpp>
 
 sge::renderer::light::light(
-	any_color const &ambient_,
-	any_color const &diffuse_,
-	any_color const &specular_,
+	image::color::any::object const &ambient_,
+	image::color::any::object const &diffuse_,
+	image::color::any::object const &specular_,
 	position_type const &position_,
 	direction_type const &direction_,
 	attenuation_type const &const_attenuation_,
@@ -45,19 +45,19 @@ sge::renderer::light::light(
 	cutoff_angle_(cutoff_angle_)
 {}
 
-sge::renderer::any_color const &
+sge::image::color::any::object const &
 sge::renderer::light::ambient() const
 {
 	return ambient_;
 }
 
-sge::renderer::any_color const &
+sge::image::color::any::object const &
 sge::renderer::light::diffuse() const
 {
 	return diffuse_;
 }
 
-sge::renderer::any_color const &
+sge::image::color::any::object const &
 sge::renderer::light::specular() const
 {
 	return specular_;

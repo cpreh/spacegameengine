@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/trampoline.hpp>
-#include <sge/renderer/colors.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/scoped_block.hpp>
+#include <sge/image/color/colors.hpp>
 #include <sge/math/vector/output.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
@@ -44,6 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/signal/scoped_connection.hpp>
 #include <sge/math/rect/basic_impl.hpp>
 #include <sge/exception.hpp>
+#include <sge/optional_impl.hpp>
 #include <sge/cerr.hpp>
 #include <sge/text.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
@@ -182,7 +183,7 @@ try
 	sys.renderer()->state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
-			(sge::renderer::state::color::clear_color = sge::renderer::colors::black())
+			(sge::renderer::state::color::clear_color = sge::image::color::colors::black())
 		);
 
 	bool running = true;

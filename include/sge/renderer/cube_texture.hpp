@@ -22,51 +22,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_CUBE_TEXTURE_HPP_INCLUDED
 #define SGE_RENDERER_CUBE_TEXTURE_HPP_INCLUDED
 
-#include <sge/renderer/image_view.hpp>
+#include <sge/renderer/cube_side.hpp>
 #include <sge/renderer/texture_base.hpp>
 #include <sge/renderer/lock_rect.hpp>
+#include <sge/image/view/const_object.hpp>
+#include <sge/image/view/object.hpp>
 #include <sge/export.hpp>
-#include <boost/tr1/array.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-namespace cube_side
-{
-	enum type {
-		front,
-		back,
-		left,
-		right,
-		top,
-		bottom,
-		num_elements
-	};
-}
-
 class SGE_CLASS_SYMBOL cube_texture : public texture_base {
 public:
-	typedef std::tr1::array<
-		image_view,
-		cube_side::num_elements
-	> image_view_6;
 	typedef lock_rect rect_type;
 
-	SGE_SYMBOL image_view const lock(
+	SGE_SYMBOL image::view::object const
+	lock(
 		cube_side::type side,
 		lock_flag_type);
 
-	SGE_SYMBOL const_image_view const lock(
+	SGE_SYMBOL image::view::const_object const
+	lock(
 		cube_side::type side) const;
 
-	virtual image_view const lock(
+	virtual image::view::object const lock(
 		cube_side::type side,
 		lock_rect const &,
 		lock_flag_type) = 0;
 	
-	virtual const_image_view const lock(
+	virtual image::view::const_object const
+	lock(
 		cube_side::type side,
 		lock_rect const &) const = 0;
 

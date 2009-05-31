@@ -39,11 +39,10 @@ template<
 	role::type Role,
 	vertex_size NumSubElements
 >
-class vec_base
-: public element_base<
+struct vec_base
+: element_base<
 	Role
 > {
-public:
 	typedef Format subelement_type;
 
 	typedef typename math::vector::static_<

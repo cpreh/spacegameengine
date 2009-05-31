@@ -20,56 +20,104 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../program.hpp"
+#include "../attachment.hpp"
 #include "../program_functions.hpp"
-#include "../attribute/variable.hpp"
 #include "../uniform/variable.hpp"
 #include "../../error.hpp"
+#include <sge/optional_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/string.hpp>
 #include <sge/text.hpp>
 #include <sge/iconv.hpp>
 #include <sge/make_shared_ptr.hpp>
+#include <sge/auto_ptr.hpp>
+#include <sge/assert.hpp>
 #include <boost/tr1/array.hpp>
 #include <boost/foreach.hpp>
 
-template<bool Native>
+template<
+	bool Native
+>
 sge::ogl::glsl::program<Native>::program(
-	renderer::glsl::string const &vs_source,
-	renderer::glsl::string const &ps_source)
+	renderer::glsl::optional_string const &vs_source,
+	renderer::glsl::optional_string const &ps_source)
 :
-	id_(create_program<Native>())
+	instance_(),
+	attachments()
 {
-	attach_shader(
-		shader_ptr(
-			new shader<Native>(
+	SGE_ASSERT(
+		vs_source || ps_source
+	);
+
+	if(vs_source)
+		attach_shader(
+			sge::make_shared_ptr<
+				shader_type
+			>(
 				vertex_shader_type<Native>(),
-				vs_source)));
-	attach_shader(
-		shader_ptr(
-			new shader<Native>(
+				*vs_source
+			)
+		);
+
+	if(ps_source)
+		attach_shader(
+			sge::make_shared_ptr<
+				shader_type
+			>(
 				pixel_shader_type<Native>(),
-				ps_source)));
+				*ps_source
+			)
+		);
+	
 	link();
 }
 
-template<bool Native>
+template<
+	bool Native
+>
 sge::ogl::glsl::program<Native>::~program()
+{}
+
+template<
+	bool Native
+>
+void sge::ogl::glsl::program<Native>::use(
+	renderer::glsl::program_ptr const p)
 {
-	// FIXME: this is not RAII safe!
-	BOOST_FOREACH(shader_ptr &s, shaders)
-		detach_shader<Native>(id(), s->id());
-	delete_program<Native>(id());
+	if(!p)
+	{
+		use_ffp();
+		return;
+	}
+
+	dynamic_pointer_cast<
+		program<Native>
+	>(p)->use();
 }
 
-template<bool Native>
+template<
+	bool Native
+>
 void sge::ogl::glsl::program<Native>::attach_shader(
-	const shader_ptr s)
+	shader_ptr const s)
 {
-	glsl::attach_shader<Native>(id(), s->id());
-	shaders.push_back(s);
+	auto_ptr<
+		attachment_type
+	> a(
+		new attachment_type(
+			s,
+			id()
+		)
+	);
+
+	attachments.push_back(
+		a
+	);
 }
 
-template<bool Native>
+template<
+	bool Native
+>
 void sge::ogl::glsl::program<Native>::link()
 {
 	link_program<Native>(id());
@@ -104,19 +152,6 @@ void sge::ogl::glsl::program<Native>::use()
 }
 
 template<bool Native>
-void sge::ogl::glsl::program<Native>::use(
-	const renderer::glsl::program_ptr p)
-{
-	if(!p)
-	{
-		use_ffp();
-		return;
-	}
-
-	dynamic_pointer_cast<program<Native> >(p)->use();
-}
-
-template<bool Native>
 sge::renderer::glsl::uniform::variable_ptr const
 sge::ogl::glsl::program<Native>::uniform(
 	renderer::glsl::string const &name)
@@ -127,29 +162,25 @@ sge::ogl::glsl::program<Native>::uniform(
 		>
 	>(
 		id(),
-		name);
+		name
+	);
 }
 
-template<bool Native>
-sge::renderer::glsl::attribute::variable_ptr const
-sge::ogl::glsl::program<Native>::attribute(
-	renderer::glsl::string const &name)
-{
-	return renderer::glsl::attribute::variable_ptr(
-		new attribute::variable<Native>(id(), name));
-}
-
-template<bool Native>
+template<
+	bool Native
+>
 void sge::ogl::glsl::program<Native>::use_ffp()
 {
 	use_program<Native>(0);
 }
 
-template<bool Native>
+template<
+	bool Native
+>
 typename sge::ogl::glsl::traits<Native>::handle
 sge::ogl::glsl::program<Native>::id() const
 {
-	return id_;
+	return instance_.id();
 }
 
 template class sge::ogl::glsl::program<true>;

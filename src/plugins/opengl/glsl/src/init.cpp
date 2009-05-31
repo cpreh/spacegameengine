@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../common.hpp"
 #include <sge/once.hpp>
 #include <sge/text.hpp>
+#include <sge/exception.hpp>
 
 namespace
 {
@@ -39,6 +40,19 @@ bool sge::ogl::glsl::is_native()
 {
 	initialize_glsl();
 	return native;
+}
+
+bool sge::ogl::glsl::is_supported()
+{
+	try
+	{
+		initialize_glsl();
+	}
+	catch(sge::exception const &)
+	{
+		return false;
+	}
+	return true;
 }
 
 namespace

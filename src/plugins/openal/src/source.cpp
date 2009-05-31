@@ -39,22 +39,22 @@ void sge::openal::source::init()
 }
 
 sge::openal::source::source()
-	: status_(audio::sound_status::stopped),
+	: source_(),
+	  status_(audio::sound_status::stopped),
 	  pos_(),
 	  direction_(),
 	  vel_()
 {
-	alGenSources(static_cast<ALsizei>(1),&source_); SGE_OPENAL_ERROR_CHECK;
 	init();
 }
 
 sge::openal::source::source(ALuint const buffer)
-	: status_(audio::sound_status::stopped),
+	: source_(),
+	  status_(audio::sound_status::stopped),
 	  pos_(),
 	  direction_(),
 	  vel_()
 {
-	alGenSources(static_cast<ALsizei>(1),&source_); SGE_OPENAL_ERROR_CHECK;
 	alSourcei(alsource(),AL_BUFFER,buffer); SGE_OPENAL_ERROR_CHECK;
 	init();
 }
@@ -219,9 +219,4 @@ void sge::openal::source::positional(bool const n)
 void sge::openal::source::play_mode(audio::play_mode::type const pm)
 {
 	play_mode_ = pm;
-}
-
-sge::openal::source::~source()
-{
-	alDeleteSources(static_cast<ALsizei>(1),&source_); SGE_OPENAL_ERROR_CHECK;
 }

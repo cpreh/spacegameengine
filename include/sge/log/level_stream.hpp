@@ -34,11 +34,11 @@ namespace log
 class temporary_output;
 
 class level_stream {
-	friend class logger;
+public:
 	explicit level_stream(
 		ostream &,
 		format::const_formatter_ptr);
-public:
+	
 	SGE_SYMBOL ~level_stream();
 	SGE_SYMBOL void enable();
 	SGE_SYMBOL void disable();

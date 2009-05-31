@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #else
 #error "Implement me!"
 #endif
-#include <sge/renderer/adapter.hpp>
+#include <sge/renderer/adapter_type.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/parameters.hpp>
@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list.hpp>
 #include <sge/window/instance_fwd.hpp>
 #include <sge/window/dim_type.hpp>
+#include <sge/scoped_ptr.hpp>
 #include <stack>
 
 namespace sge
@@ -118,12 +119,13 @@ public:
 
 	renderer::glsl::program_ptr const
 	create_glsl_program(
-		renderer::glsl::string const &vertex_shader_source,
-		renderer::glsl::string const &pixel_shader_source);
+		renderer::glsl::optional_string const &vertex_shader_source,
+		renderer::glsl::optional_string const &pixel_shader_source);
+
 	renderer::glsl::program_ptr const
 	create_glsl_program(
-		renderer::glsl::istream &vertex_shader_source,
-		renderer::glsl::istream &pixel_shader_source);
+		renderer::glsl::optional_istream const &vertex_shader_source,
+		renderer::glsl::optional_istream const &pixel_shader_source);
 	
 	void glsl_program(
 		renderer::glsl::program_ptr);
@@ -134,7 +136,7 @@ public:
 	renderer::texture_ptr const
 	create_texture(
 		renderer::dim_type const &,
-		renderer::color_format::type,
+		image::color::format::type,
 		renderer::filter::texture const &,
 		renderer::resource_flag_t);
 
@@ -147,7 +149,7 @@ public:
 	renderer::cube_texture_ptr const
 	create_cube_texture(
 		renderer::size_type border_size,
-		renderer::color_format::type,
+		image::color::format::type,
 		renderer::filter::texture const &,
 		renderer::resource_flag_t);
 
@@ -199,6 +201,10 @@ private:
 	typedef std::stack<
 		renderer::state::list
 	> stack_type;
+
+	mutable scoped_ptr<
+		renderer::caps
+	> caps_;
 
 	stack_type state_levels;
 };

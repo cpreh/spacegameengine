@@ -35,14 +35,12 @@ template<typename T>
 class format_to_element;
 
 template<>
-class format_to_element<float> {
-public:
+struct format_to_element<float> {
 	static element_type::type const value = element_type::float_;
 };
 
 template<>
-class format_to_element<double> {
-public:
+struct format_to_element<double> {
 	static element_type::type const value = element_type::double_;
 };
 

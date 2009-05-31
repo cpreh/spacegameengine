@@ -22,8 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_CONVERT_TEXTURE_STAGE_HPP_INCLUDED
 #define SGE_OPENGL_CONVERT_TEXTURE_STAGE_HPP_INCLUDED
 
+// TODO: split this!
+
 #include "common.hpp"
-#include <sge/renderer/texture_stage.hpp>
+#include <sge/renderer/texture_stage_op.hpp>
+#include <sge/renderer/texture_stage_op_value.hpp>
+#include <sge/renderer/texture_stage_arg.hpp>
+#include <sge/renderer/texture_stage_arg_value.hpp>
 
 namespace sge
 {

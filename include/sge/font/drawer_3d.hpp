@@ -26,11 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/pos.hpp>
 #include <sge/font/dim.hpp>
 #include <sge/font/image_view.hpp>
-#include <sge/renderer/any_color.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/part_fwd.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/container.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/variant/object_impl.hpp>
 #include <sge/export.hpp>
 #include <map>
@@ -45,20 +45,25 @@ class SGE_CLASS_SYMBOL drawer_3d : public drawer {
 public:
 	SGE_SYMBOL drawer_3d(
 		renderer::device_ptr rend,
-		renderer::any_color const &col);
+		image::color::any::object const &);
+
 	SGE_SYMBOL ~drawer_3d();
 
 	SGE_SYMBOL void begin_rendering(
 		size_type buffer_chars,
 		pos const &start,
 		dim size);
+	
 	SGE_SYMBOL void draw_char(
 		char_type,
 		pos const &,
 		const_image_view const &data);
+	
 	SGE_SYMBOL void end_rendering();
-	SGE_SYMBOL void color(
-		renderer::any_color const &col);
+
+	SGE_SYMBOL void
+	color(
+		image::color::any::object const &col);
 private:
 	texture::const_part_ptr const
 	cached_texture(
@@ -66,7 +71,7 @@ private:
 		const_image_view const &);
 
 	renderer::device_ptr            rend;
-	renderer::any_color             col;
+	image::color::any::object       col;
 	texture::manager                texman;
 	typedef std::map<
 		char_type,

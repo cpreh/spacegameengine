@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_SCOPED_TEXTURE_LOCK_HPP_INCLUDED
 
 #include <sge/renderer/texture_fwd.hpp>
-#include <sge/renderer/image_view.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/lock_flags.hpp>
+#include <sge/image/view/object.hpp>
 #include <sge/variant/object_impl.hpp>
 #include <sge/noncopyable.hpp>
 #include <sge/export.hpp>
@@ -47,13 +47,13 @@ public:
 		lock_rect const &,
 		lock_flag_t);
 	
-	SGE_SYMBOL image_view const
+	SGE_SYMBOL image::view::object const
 	value() const;
 
 	SGE_SYMBOL ~scoped_texture_lock();
 private:
 	texture_ptr const tex;
-	image_view const view;
+	image::view::object const view;
 };
 
 }

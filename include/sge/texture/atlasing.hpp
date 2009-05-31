@@ -24,10 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/texture_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/image_view.hpp>
-#include <sge/renderer/color_format.hpp>
 #include <sge/renderer/dim_type.hpp>
 #include <sge/renderer/lock_rect.hpp>
+#include <sge/image/view/const_object.hpp>
+#include <sge/image/color/format.hpp>
 
 namespace sge
 {
@@ -75,7 +75,7 @@ atlased_texture_dim(
 renderer::texture_ptr const
 atlased_texture(
 	renderer::device_ptr rend,
-	renderer::color_format::type,
+	image::color::format::type,
 	renderer::filter::texture const &filter);
 
 renderer::lock_rect const
@@ -86,13 +86,13 @@ inner_atlased_rect(
 
 void atlas_w(
 	renderer::texture_ptr,
-	renderer::const_image_view const &src,
+	image::view::const_object const &src,
 	renderer::lock_rect const &outer_area,
 	renderer::lock_rect const &inner_area);
 	
 void atlas_h(
 	renderer::texture_ptr,
-	renderer::const_image_view const &src,
+	image::view::const_object const &src,
 	renderer::lock_rect const &outer_area,
 	renderer::lock_rect const &inner_area);
 }

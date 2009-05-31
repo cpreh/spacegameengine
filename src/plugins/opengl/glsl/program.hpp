@@ -22,13 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLSL_PROGRAM_HPP_INCLUDED
 #define SGE_OPENGL_GLSL_PROGRAM_HPP_INCLUDED
 
-#include "../common.hpp"
 #include "shader.hpp"
 #include "traits.hpp"
+#include "attachment_fwd.hpp"
+#include "program_instance.hpp"
 #include <sge/renderer/glsl/program_fwd.hpp>
 #include <sge/renderer/glsl/program.hpp>
-#include <sge/renderer/glsl/string.hpp>
-#include <vector>
+#include <sge/renderer/glsl/optional_string.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
 
 namespace sge
 {
@@ -43,33 +44,41 @@ template<
 class program : public renderer::glsl::program {
 public:
 	typedef typename traits<Native>::handle handle;
-	typedef typename shader<Native>::shared_ptr shader_ptr;
+	typedef shader<Native> shader_type;
+	typedef typename shader_type::shared_ptr shader_ptr;
 
 	program(
-		renderer::glsl::string const &vs_source,
-		renderer::glsl::string const &ps_source);
+		renderer::glsl::optional_string const &vs_source,
+		renderer::glsl::optional_string const &ps_source);
+
 	~program();
+
 	static void use(
 		renderer::glsl::program_ptr);
+
+	void attach_shader(
+		shader_ptr shader);
+
+	void link();
 private:
 	renderer::glsl::uniform::variable_ptr const
 	uniform(
 		renderer::glsl::string const&);
 	
-	renderer::glsl::attribute::variable_ptr const
-	attribute(
-		renderer::glsl::string const&);
-	
 	static void use_ffp();
+
 	void use();
-	void attach_shader(
-		shader_ptr shader);
-	void link();
+
 	handle id() const;
 
-	typedef std::vector<shader_ptr> shader_vector;
-	shader_vector                   shaders;
-	GLuint                          id_;
+	typedef attachment<Native> attachment_type;
+
+	typedef boost::ptr_vector<
+		attachment_type
+	> attachment_vector;
+
+	program_instance<Native> instance_;
+	attachment_vector attachments;
 };
 
 }

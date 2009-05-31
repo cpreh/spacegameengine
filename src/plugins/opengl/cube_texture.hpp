@@ -44,16 +44,18 @@ class cube_texture : public detail::cube_texture_base {
 public:
 	cube_texture(
 		size_type border_size,
-		renderer::color_format::type format,
+		image::color::format::type format,
 		renderer::filter::texture const &,
 		resource_flag_type flags);
 
-	renderer::image_view const lock(
+	image::view::object const
+	lock(
 		renderer::cube_side::type side,
 		renderer::lock_rect const &,
 		lock_flag_type flags);
 	
-	renderer::const_image_view const lock(
+	image::view::const_object const
+	lock(
 		renderer::cube_side::type side,
 		renderer::lock_rect const &) const;
 

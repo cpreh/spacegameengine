@@ -82,7 +82,7 @@ IF (CMAKE_COMPILER_IS_GNUCXX)
 	
 	SET (CMAKE_REQUIRED_FLAGS "")
 ELSEIF (MSVC)
-	ADD_DEFINITIONS ("/W3 /wd4512 /wd4355 /wd4800 /wd4996 /wd4714 /EHa")
+	ADD_DEFINITIONS ("/W3 /wd4512 /wd4355 /wd4800 /wd4996 /wd4714 /EHa /D_BIND_TO_CURRENT_VCLIBS_VERSION=1")
 	SET (WINLIBS projects/windows/lib32)
 	SET (WININCLUDES ${CMAKE_SOURCE_DIR}/${WINLIBS})
 
@@ -108,7 +108,7 @@ IF (NOT DONT_INSTALL)
 	SET (pkgfile "${CMAKE_BINARY_DIR}/spacegameengine.pc")
 	FILE(WRITE ${pkgfile}
 		"prefix=${CMAKE_INSTALL_PREFIX}\n"
-		"exec_preifx=\${prefix}\n"
+		"exec_prefix=\${prefix}\n"
 		"libdir=\${prefix}/lib\n"
 		"includedir=\${prefix}/include\n"
 		"\n"
@@ -244,6 +244,7 @@ ENDMACRO ()
 INSTALL_MEDIA (./)
 INSTALL_MEDIA (fonts)
 INSTALL_MEDIA (gui)
+INSTALL_MEDIA (shaders)
 
 INSTALL_HEADERS (sge)
 INSTALL_HEADERS (sge/algorithm)
@@ -261,12 +262,19 @@ INSTALL_HEADERS (sge/collision)
 INSTALL_HEADERS (sge/collision/objects)
 INSTALL_HEADERS (sge/config)
 INSTALL_HEADERS (sge/container)
+INSTALL_HEADERS (sge/container/bitfield)
+INSTALL_HEADERS (sge/container/bitfield/detail)
 INSTALL_HEADERS (sge/detail)
 INSTALL_HEADERS (sge/endianness)
 INSTALL_HEADERS (sge/filesystem)
 INSTALL_HEADERS (sge/filesystem/detail)
 INSTALL_HEADERS (sge/font)
 INSTALL_HEADERS (sge/image)
+INSTALL_HEADERS (sge/image/algorithm)
+INSTALL_HEADERS (sge/image/algorithm/detail)
+INSTALL_HEADERS (sge/image/color)
+INSTALL_HEADERS (sge/image/color/any)
+INSTALL_HEADERS (sge/image/view)
 INSTALL_HEADERS (sge/input)
 INSTALL_HEADERS (sge/input/modifier)
 INSTALL_HEADERS (sge/io)
@@ -302,6 +310,7 @@ INSTALL_HEADERS (sge/renderer/index/detail)
 INSTALL_HEADERS (sge/renderer/glsl)
 INSTALL_HEADERS (sge/renderer/glsl/attribute)
 INSTALL_HEADERS (sge/renderer/glsl/uniform)
+INSTALL_HEADERS (sge/renderer/glsl/uniform/detail)
 INSTALL_HEADERS (sge/renderer/state)
 INSTALL_HEADERS (sge/renderer/vf)
 INSTALL_HEADERS (sge/signal)

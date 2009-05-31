@@ -24,10 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "device.hpp"
 #include "key_converter.hpp"
+#include "signal.hpp"
 #include "di.hpp"
 #include <sge/input/key_type.hpp>
 #include <sge/input/key_state.hpp>
 #include <sge/input/mod_state.hpp>
+#include <sge/time/timer.hpp>
+#include <sge/optional_decl.hpp>
 #include <sge/string.hpp>
 #include <sge/char.hpp>
 #include <map>
@@ -44,22 +47,35 @@ public:
 		string const &name,
 		GUID guid,
 		windows::window_ptr window,
-		key_converter const &conv);
+		key_converter const &conv,
+		repeat_signal_type &repeat_sig);
+
 	void dispatch(signal_type &);
-	input::key_state query_key(string const &name);
+
+	input::key_state
+	query_key(
+		string const &name);
 private:
-	char_type keycode_to_char(
+	char_type
+		keycode_to_char(
 		input::key_code key) const;
 	
-	static BOOL CALLBACK enum_keyboard_keys(LPCDIDEVICEOBJECTINSTANCE ddoi, LPVOID ref);
+	static BOOL CALLBACK
+	enum_keyboard_keys(
+		LPCDIDEVICEOBJECTINSTANCE ddoi,
+		LPVOID ref);
 
 	input::mod_state modifiers;
 	key_converter const &conv;
 	HKL kblayout;
+	repeat_signal_type &repeat_sig;
+	time::timer repeat_time;
+	optional<input::key_type> old_key;
 	typedef std::map<
 		unsigned,
 		input::key_type
 	> key_map;
+
 	key_map keys;
 };
 

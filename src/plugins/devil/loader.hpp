@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DEVIL_LOADER_HPP_INCLUDED
 #define SGE_DEVIL_LOADER_HPP_INCLUDED
 
-#include "object.hpp"
 #include "library.hpp"
 #include <sge/image/loader.hpp>
 
@@ -35,7 +34,7 @@ class loader : public image::loader {
 public:
 	loader();
 
-	image::object_ptr const
+	image::file_ptr const
 	load(
 		filesystem::path const &);
 	
@@ -45,9 +44,9 @@ public:
 		image::object::const_pointer format_data,
 		image::object::size_type size);*/
 	
-	image::object_ptr const
+	image::file_ptr const
 	create(
-		renderer::const_image_view const &src);
+		image::view::const_object const &src);
 private:
 	library lib_;
 };

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../setter.hpp"
 #include "../../init.hpp"
+#include "../../../error.hpp"
 #include <sge/renderer/glsl/uniform/int_value_type.hpp>
 #include <sge/renderer/glsl/uniform/float_value_type.hpp>
 #include <sge/once.hpp>
@@ -114,9 +115,12 @@ sge::ogl::glsl::uniform::setter::operator()(
 		location,
 		i.data(),
 		element_size(
-			i.type()),
+			i.type()
+		),
 		static_cast<GLsizei>(
-			i.size()));
+			i.elements()
+		)
+	);
 }
 	
 sge::ogl::glsl::uniform::type const
@@ -128,18 +132,25 @@ sge::ogl::glsl::uniform::setter::operator()(
 			location,
 			f.data(),
 			element_columns(
-				f.type()),
+				f.type()
+			),
 			element_rows(
-				f.type()),
+				f.type()
+			),
 			static_cast<GLsizei>(
-				f.size()))
+				f.elements()
+			)
+		)
 		: set_float(
 			location,
 			f.data(),
 			element_size(
-				f.type()),
+				f.type()
+			),
 			static_cast<GLsizei>(
-				f.size()));
+				f.elements()
+			)
+		);
 }
 
 namespace
@@ -191,6 +202,8 @@ set_float(
 	GLsizei const size,
 	GLsizei const elements)
 {
+	SGE_OPENGL_SENTRY
+
 	namespace et = sge::ogl::glsl::uniform::element_type;
 
 	switch(size) {
@@ -245,6 +258,8 @@ set_int(
 	GLsizei const size,
 	GLsizei const elements)
 {
+	SGE_OPENGL_SENTRY
+
 	namespace et = sge::ogl::glsl::uniform::element_type;
 
 	switch(size) {
@@ -312,6 +327,8 @@ set_matrix(
 			% rows).str());
 
 	namespace et = sge::ogl::glsl::uniform::element_type;
+
+	SGE_OPENGL_SENTRY
 
 	switch(rows) {
 	case 2:

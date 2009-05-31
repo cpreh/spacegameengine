@@ -19,17 +19,11 @@ try
 	f.pos(field_type::vector_type(0,1)) = 2;
 	f.pos(field_type::vector_type(1,1)) = 3;
 	sge::cout << f << SGE_TEXT("\n");
-	f.resize(
+	f.resize_canvas(
 		field_type::dim_type(
-			5,5),
+			1,1),
 		9);
 	sge::cout << f << SGE_TEXT("\n");
-	/*
-	f.resize(
-		field_type::dim_type(
-			2,2));
-	sge::cout << f << SGE_TEXT("\n");
-	*/
 }
 catch (sge::exception const &e)
 {

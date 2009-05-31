@@ -27,12 +27,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vbo.hpp"
 #include "../pbo.hpp"
 #include "../color_convert.hpp"
-#include <sge/renderer/make_image_view.hpp>
+#include <sge/image/view/make.hpp>
 #include <sge/math/dim/output.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/math/rect/basic_impl.hpp>
 #include <sge/math/rect/output.hpp>
 #include <sge/variant/object_impl.hpp>
+#include <sge/optional_impl.hpp>
 #include <sge/format.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
@@ -48,7 +49,7 @@ GLenum const texture_type = GL_TEXTURE_2D;
 
 sge::ogl::texture::texture(
 	dim_type const &d,
-	renderer::color_format::type const format_,
+	image::color::format::type const format_,
 	renderer::filter::texture const &filter_,
 	resource_flag_type const flags,
 	optional_type const type_)
@@ -76,7 +77,7 @@ sge::ogl::texture::dim() const
 	return dim_;
 }
 
-sge::renderer::image_view const
+sge::image::view::object const
 sge::ogl::texture::lock(
 	renderer::lock_rect const &r,
 	lock_flag_type const lmode)
@@ -88,7 +89,7 @@ sge::ogl::texture::lock(
 	return view();
 }
 
-sge::renderer::const_image_view const
+sge::image::view::const_object const
 sge::ogl::texture::lock(
 	renderer::lock_rect const &l) const
 {
@@ -110,7 +111,10 @@ void sge::ogl::texture::unlock() const
 				? *lock_rect_
 				: renderer::lock_rect(
 					renderer::lock_rect::point_type::null(),
-					dim()));
+					dim()
+				)
+		);
+
 		set_texture_rect(
 			type(),
 			format(),
@@ -167,27 +171,36 @@ void sge::ogl::texture::lock_me(
 		lock_rect_ = l;
 }
 
-sge::renderer::image_view const
+sge::image::view::object const
 sge::ogl::texture::view()
 {
-	return renderer::make_image_view(
+	return image::view::make(
 		real_write_buffer(),
 		lock_dim(),
 		color_convert(
 			format(),
-			format_type()));
+			format_type()
+		),
+		image::view::optional_pitch()
+	);
 }
 
-sge::renderer::const_image_view const
+sge::image::view::const_object const
 sge::ogl::texture::view() const
 {
-	return renderer::make_image_view(
-		static_cast<const_pointer>(
-			real_read_buffer()),
+	return image::view::make(
+		static_cast<
+			const_pointer
+		>(
+			real_read_buffer()
+		),
 		lock_dim(),
 		color_convert(
 			format(),
-			format_type()));
+			format_type()
+		),
+		image::view::optional_pitch()
+	);
 }
 
 sge::ogl::texture::dim_type const

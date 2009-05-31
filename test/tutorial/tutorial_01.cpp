@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/image/loader.hpp>
-#include <sge/image/object.hpp>
+#include <sge/image/file.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/window/parameters.hpp>
@@ -61,7 +61,7 @@ try
 
 	sge::sprite::system ss(sys.renderer());
 
-	sge::image::object_ptr const image(
+	sge::image::file_ptr const image(
 		sys.image_loader()->load(
 			sge::config::media_path() / SGE_TEXT("tux.png")
 		)

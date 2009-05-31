@@ -20,79 +20,116 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../vertex_format.hpp"
-#include "../conversion.hpp"
-#include <sge/raw_vector_impl.hpp>
+#include <sge/container/raw_vector_impl.hpp>
 #include <sge/exception.hpp>
+#include <boost/foreach.hpp>
 
 namespace
 {
 
-BYTE get_vertex_type(sge::vertex_usage::type u);
+D3DDECLUSAGE
+convert_role (
+	sge::renderer::vf::role::type);
+
+BYTE
+vertex_type(
+	sge::renderer::vf::role::type);
 
 }
 
-sge::d3d9::vertex_format::vertex_format(const d3d_device_ptr device, const sge::vertex_format& f)
+sge::d3d9::vertex_format::vertex_format(
+	d3d_device_ptr const device_,
+	sge::renderer::vf::dynamic_format const &format_)
+:
+	format_(format_)
 {
-	raw_vector<D3DVERTEXELEMENT9> vertex_elements;
+	container::raw_vector<
+		D3DVERTEXELEMENT9
+	> vertex_elements;
 
-	vertex_size offset = 0;
-	const sge::vertex_format::usage_list& l = f.elements();
-	for(sge::vertex_format::usage_list::const_iterator it = l.begin(); it != l.end(); ++it)
+	renderer::size_type offset = 0;
+
+	renderer::vf::dynamic_ordered_element_list const &elems(
+		format_.elements()
+	);
+
+	BOOST_FOREACH(
+		renderer::vf::dynamic_ordered_element const &e,
+		elems
+	)
 	{
-		const vertex_usage::type usage = it->usage();
+		renderer::vf::role::type const usage(
+			e.element().role()
+		);
+
 		D3DVERTEXELEMENT9 elem;
 		elem.Stream = 0;
 		elem.Method = D3DDECLMETHOD_DEFAULT;
 		elem.Offset = static_cast<WORD>(offset);
-		elem.Type = get_vertex_type(usage);
-		elem.Usage = static_cast<BYTE>(convert_cast<D3DDECLUSAGE>(usage));
-		for(elem.UsageIndex = 0; elem.UsageIndex < it->count(); ++elem.UsageIndex)
-			vertex_elements.push_back(elem);
-		oi[usage] = offset;
-		offset += it->stride();
+		//elem.Type = vertex_type(usage);
+		elem.Usage = convert_role(usage);
+
+		//for(elem.UsageIndex = 0; elem.UsageIndex < e.count(); ++elem.UsageIndex)
+		//	vertex_elements.push_back(elem);
+
+		//oi[usage] = offset;
+		offset += 0; // size
 	}
-	_stride = offset;
 	
-	const D3DVERTEXELEMENT9 end_token = D3DDECL_END();
+	D3DVERTEXELEMENT9 const end_token = D3DDECL_END();
 	vertex_elements.push_back(end_token);
 
-	IDirect3DVertexDeclaration9* decl;
-	if(device->CreateVertexDeclaration(&vertex_elements.front(),&decl) != D3D_OK)
-		throw exception(SGE_TEXT("CreateVertexDeclaration() failed!"));
-	_vertex_declaration.reset(decl);
+	IDirect3DVertexDeclaration9 *decl;
+
+	if(
+		device_->CreateVertexDeclaration(
+			vertex_elements.data(),
+			&decl
+		) != D3D_OK
+	)
+		throw exception(
+			SGE_TEXT("CreateVertexDeclaration() failed!")
+		);
+
+	vertex_declaration_.reset(decl);
 
 	//if(D3DXFVFFromDeclarator(&vertex_elements.front(),&fvf) != D3D_OK)
 	//	fvf = 0;
 	//	FIXME
 }
 
-const sge::d3d9::d3d_vertex_declaration_ptr sge::d3d9::vertex_format::vertex_declaration() const
+sge::d3d9::d3d_vertex_declaration_ptr const
+sge::d3d9::vertex_format::vertex_declaration() const
 {
-	return _vertex_declaration;
+	return vertex_declaration_;
 }
 
-const sge::offset_info& sge::d3d9::vertex_format::get_offset_info() const
+sge::renderer::vf::dynamic_format const &
+sge::d3d9::vertex_format::format() const
 {
-	return oi;
+	return format_;
 }
 
 DWORD sge::d3d9::vertex_format::fvf() const
 {
-	return _fvf;
+	return fvf_;
 }
 
-sge::vertex_size sge::d3d9::vertex_format::stride() const
+sge::renderer::size_type
+sge::d3d9::vertex_format::stride() const
 {
-	return _stride;
+	return format().stride();
 }
 
 namespace
 {
-	
-BYTE get_vertex_type(const sge::vertex_usage::type u)
+/*
+BYTE
+vertex_type(
+	sge::renderer::vf::role::type const u)
 {
 	switch(u) {
-	case sge::vertex_usage::pos:
+	case role::pos:
 	case sge::vertex_usage::normal:
 		return D3DDECLTYPE_FLOAT3;
 	case sge::vertex_usage::tex:
@@ -101,6 +138,29 @@ BYTE get_vertex_type(const sge::vertex_usage::type u)
 		return D3DDECLTYPE_D3DCOLOR;
 	default:
 		throw sge::exception(SGE_TEXT("Invalid vertex_usage!"));
+	}
+}
+*/
+
+D3DDECLUSAGE
+convert_role (
+	sge::renderer::vf::role::type const u)
+{
+	namespace role = sge::renderer::vf::role;
+
+	switch(u) {
+	case role::pos:
+		return D3DDECLUSAGE_POSITION;
+	case role::normal:
+		return D3DDECLUSAGE_NORMAL;
+	case role::texpos:
+		return D3DDECLUSAGE_TEXCOORD;
+	case role::color:
+		return D3DDECLUSAGE_COLOR;
+	default:
+		throw sge::exception(
+			SGE_TEXT("Invalid vertex_usage!")
+		);
 	}
 }
 

@@ -1,36 +1,64 @@
-FILE (GLOB_RECURSE sgecorecollections
-	renderer/*.cpp
+FILE (GLOB sgecorefiles 
+	*.cpp
 	algorithm/*.cpp
 	audio/*.cpp
 	config/*.cpp
 	console/*.cpp
+	console/detail/*.cpp
 	collision/*.cpp
+	collision/objects/*.cpp
+	config/detail/*.cpp
 	container/*.cpp
 	endianness/*.cpp
 	filesystem/*.cpp
 	font/*.cpp
 	image/*.cpp
+	image/algorithm/*.cpp
+	image/color/*.cpp
+	image/color/any/*.cpp
+	image/view/*.cpp
 	input/*.cpp
-	io/*.cpp
+	input/modifier/*.cpp
 	library/*.cpp
 	log/*.cpp
+	log/format/*.cpp
 	mainloop/*.cpp
 	math/*.cpp
+	math/rect/*.cpp
 	model/*.cpp
 	parse/ini/*.cpp
 	parse/json/*.cpp
 	plugin/*.cpp
+	plugin/detail/*.cpp
 	random/*.cpp
+	random/actor/*.cpp
+	renderer/*.cpp
+	renderer/detail/*.cpp
+	renderer/filter/*.cpp
+	renderer/index/*.cpp
+	renderer/glsl/*.cpp
+	renderer/glsl/attribute/*.cpp
+	renderer/glsl/uniform/*.cpp
+	renderer/state/*.cpp
+	renderer/vf/*.cpp
 	signal/*.cpp
+	signal/detail/*.cpp
 	sprite/*.cpp
+	sprite/detail/*.cpp
+	sprite/intrusive/*.cpp
+	sprite/intrusive/detail/*.cpp
 	systems/*.cpp
 	texture/*.cpp
+	texture/detail/*.cpp
 	time/*.cpp
 	utf8/*.cpp
 	variant/*.cpp
 	window/*.cpp)
 
-FILE (GLOB sgecorefiles *.cpp)
+FILE (GLOB_RECURSE sgecoreheaders
+	../include/*.hpp)
+
+SET (sgecorefiles ${sgecorefiles} ${sgecoreheaders})
 
 IF (X11_FOUND)
 	FILE (GLOB sgecorex11files
@@ -38,7 +66,8 @@ IF (X11_FOUND)
 	SET (sgecorefiles ${sgecorefiles} ${sgecorex11files})
 ELSEIF (WIN32)
 	FILE (GLOB sgecorewindowsfiles
-		windows/*.cpp)
+		windows/*.cpp
+		windows/detail/*.cpp)
 	SET (sgecorefiles ${sgecorefiles} ${sgecorewindowsfiles})
 ENDIF ()
 
@@ -53,7 +82,7 @@ set_source_files_properties(
 	COMPILE_FLAGS
 	-DMEDIA_PATH="\\\"${media_dest}\\\"")
 
-ADD_LIBRARY (sgecore SHARED ${sgecorecollections} ${sgecorefiles})
+ADD_LIBRARY (sgecore SHARED ${sgecorefiles})
 
 IF (NOT MSVC)
 	TARGET_LINK_LIBRARIES (

@@ -23,18 +23,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TEXTURE_PART_FRAGMENTED_HPP_INCLUDED
 
 #include <sge/texture/part.hpp>
+#include <sge/texture/fragmented_fwd.hpp>
 #include <sge/export.hpp>
 #include <sge/renderer/texture_fwd.hpp>
 #include <sge/renderer/lock_rect.hpp>
-#include <sge/renderer/image_view.hpp>
+#include <sge/image/view/const_object.hpp>
 #include <sge/math/rect/basic_impl.hpp>
 
 namespace sge
 {
 namespace texture
 {
-
-class fragmented;
 
 class part_fragmented : public part {
 public:
@@ -44,18 +43,29 @@ public:
 		bool need_atlasing_w,
 		bool need_atlasing_h);
 
-	SGE_SYMBOL void data(
-		renderer::const_image_view const &src);
-	SGE_SYMBOL renderer::lock_rect const &area() const;
-	SGE_SYMBOL renderer::texture_ptr const texture();
-	SGE_SYMBOL renderer::const_texture_ptr const texture() const;
-	SGE_SYMBOL bool repeatable() const;
+	SGE_SYMBOL void
+	data(
+		image::view::const_object const &src);
+	
+	SGE_SYMBOL renderer::lock_rect const &
+	area() const;
+
+	SGE_SYMBOL renderer::texture_ptr const
+	texture();
+
+	SGE_SYMBOL renderer::const_texture_ptr const
+	texture() const;
+
+	SGE_SYMBOL bool
+	repeatable() const;
+
 	SGE_SYMBOL ~part_fragmented();
 private:
 	renderer::lock_rect outer_area_;
-	fragmented         &fragment;
-	bool                need_atlasing_w,
-	                    need_atlasing_h;
+	fragmented &fragment;
+	bool
+		need_atlasing_w,
+		need_atlasing_h;
 	renderer::lock_rect inner_area_;
 };
 

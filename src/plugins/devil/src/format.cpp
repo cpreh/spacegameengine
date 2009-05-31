@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-sge::renderer::color_format::type
+sge::image::color::format::type
 sge::devil::convert_format(
 	ILint const bits_per_pixel,
 	ILint const format)
@@ -33,9 +33,9 @@ sge::devil::convert_format(
 			SGE_TEXT("bits_per_pixel should be 32 for devil!"));
 	switch(format) {
 	case IL_RGBA:
-		return renderer::color_format::rgba8;
+		return image::color::format::rgba8;
 	case IL_BGRA:
-		return renderer::color_format::bgra8;
+		return image::color::format::bgra8;
 	default:
 		throw exception(
 			SGE_TEXT("Invalid il format in devil::convert_format!"));
@@ -43,12 +43,12 @@ sge::devil::convert_format(
 }
 
 ILint sge::devil::to_il_format(
-	renderer::color_format::type const fmt)
+	image::color::format::type const fmt)
 {
 	switch(fmt) {
-	case renderer::color_format::bgra8:
+	case image::color::format::bgra8:
 		return IL_BGRA;
-	case renderer::color_format::rgba8:
+	case image::color::format::rgba8:
 		return IL_RGBA;
 	default:
 		throw exception(
@@ -57,11 +57,11 @@ ILint sge::devil::to_il_format(
 }
 
 ILint sge::devil::to_il_channel(
-	renderer::color_format::type const fmt)
+	image::color::format::type const fmt)
 {
 	switch(fmt) {
-	case renderer::color_format::bgra8:
-	case renderer::color_format::rgba8:
+	case image::color::format::bgra8:
+	case image::color::format::rgba8:
 		return IL_UNSIGNED_BYTE;
 	default:
 		throw exception(
@@ -69,19 +69,19 @@ ILint sge::devil::to_il_channel(
 	}
 }
 
-sge::renderer::color_format::type
+sge::image::color::format::type
 sge::devil::best_il_format(
-	renderer::color_format::type const fmt)
+	image::color::format::type const fmt)
 {
 	switch(fmt) {
-	case renderer::color_format::bgra8:
-	case renderer::color_format::rgba8:
+	case image::color::format::bgra8:
+	case image::color::format::rgba8:
 		return fmt;
-	case renderer::color_format::argb8:
-	case renderer::color_format::rgba32f:
-	case renderer::color_format::argb32f:
-	case renderer::color_format::bgra32f:
-		return renderer::color_format::rgba8;
+	case image::color::format::argb8:
+	case image::color::format::rgba32f:
+	case image::color::format::argb32f:
+	case image::color::format::bgra32f:
+		return image::color::format::rgba8;
 	default:
 		throw exception(
 			SGE_TEXT("Invalid color_format in best_il_format!"));

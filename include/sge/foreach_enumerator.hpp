@@ -22,15 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FOREACH_ENUMERATOR_HPP_INCLUDED
 #define SGE_FOREACH_ENUMERATOR_HPP_INCLUDED
 
-namespace sge
-{
+#define SGE_FOREACH_ENUMERATOR_2(name, enum_, start)\
+for(\
+	enum_::type name = start;\
+	name < enum_::size;\
+	name = static_cast<enum_::type>(name + 1)\
+)
 
-template<typename EnumField, typename Callback>
-void foreach_enumerator(
-	Callback const &fun);
-
-}
-
-#include <sge/detail/foreach_enumerator_impl.hpp>
+#define SGE_FOREACH_ENUMERATOR(name, enum_)\
+	SGE_FOREACH_ENUMERATOR_2(name, enum_, static_cast<enum_::type>(0))
 
 #endif

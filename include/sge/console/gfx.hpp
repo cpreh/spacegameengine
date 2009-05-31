@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/detail/history.hpp>
 #include <sge/console/detail/cursor.hpp>
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/any_color.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/font/metrics_fwd.hpp>
 #include <sge/font/object.hpp>
 #include <sge/input/system_fwd.hpp>
@@ -50,7 +50,7 @@ public:
 	SGE_SYMBOL gfx(
 		sge::console::object &,
 		renderer::device_ptr,
-		renderer::any_color font_color,
+		image::color::any::object const &font_color,
 		font::metrics_ptr,
 		input::system_ptr,
 		sprite::object const &);

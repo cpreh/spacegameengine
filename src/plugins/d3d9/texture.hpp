@@ -43,18 +43,13 @@ typedef basic_texture<sge::texture> texture_base_type;
 class texture : public detail::texture_base_type {
 public:
 	texture(
-		renderer& r,
 		d3d_device_ptr device,
-		const_pointer data,
-		const dim_type& dim,
-		const filter_args& filter,
-		resource_flag_t flags);
+		dim_type const &dim,
+		renderer::filter::texture const &,
+		renderer::resource_flag_t flags);
 	
-	const dim_type dim() const;
-	
-	void set_data(const_pointer data);	
-	void set_data(const_pointer data, const lock_rect& r);
-	
+	dim_type const dim() const;
+
 	void lock(lock_flag_t);
 	void lock(const lock_rect&, lock_flag_t);
 	void unlock();

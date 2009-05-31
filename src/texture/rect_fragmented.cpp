@@ -25,10 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/math/dim/basic_impl.hpp>
+#include <sge/make_shared_ptr.hpp>
+#include <boost/ref.hpp>
 
 sge::texture::rect_fragmented::rect_fragmented(
 	renderer::device_ptr const rend,
-	renderer::color_format::type const format,
+	image::color::format::type const format,
 	renderer::filter::texture const &filter)
 :
 	rend(rend),
@@ -39,7 +41,9 @@ sge::texture::rect_fragmented::rect_fragmented(
 		atlased_texture(
 			rend,
 			format,
-			filter)),
+			filter
+		)
+	),
 	texture_count(0)
 {}
 
@@ -68,15 +72,23 @@ sge::texture::rect_fragmented::consume_fragment(
 		return part_ptr();
 
 	part_ptr const ret(
-		new part_fragmented(
+		make_shared_ptr<
+			part_fragmented
+		>(
 			renderer::lock_rect(
 				renderer::lock_rect::point_type(
 					cur_x,
-					cur_y),
-				atlased_dim),
-				*this,
-				true,
-				true));
+					cur_y
+				),
+				atlased_dim
+			),
+			boost::ref(
+				*this
+			),
+			true,
+			true
+		)
+	);
 
 	cur_x += dim.w() + 1;
 	cur_height = std::max(cur_height, dim.h());

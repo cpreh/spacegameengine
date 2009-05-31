@@ -46,15 +46,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../fbo_target.hpp"
 #include "../convert_primitive.hpp"
 #include "../fbo_projection.hpp"
-#include "../get_string.hpp"
-#include "../get_int.hpp"
 #include "../viewport.hpp"
 #include "../viewport_pos.hpp"
 #include "../background_dim.hpp"
+#include "../caps.hpp"
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/renderer/caps.hpp>
-#include <sge/renderer/primitive.hpp>
 #include <sge/renderer/state/default.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/combine.hpp>
@@ -65,6 +63,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/instance.hpp>
 #include <sge/variant/apply_unary.hpp>
 #include <sge/make_shared_ptr.hpp>
+#include <sge/optional_impl.hpp>
 #include <boost/bind.hpp>
 #include <sstream>
 
@@ -114,6 +113,7 @@ sge::ogl::device::device(
 	target_(
 		default_target_
 	),
+	caps_(),
 	state_levels()
 
 {
@@ -177,7 +177,7 @@ sge::ogl::device::create_index_buffer(
 sge::renderer::texture_ptr const
 sge::ogl::device::create_texture(
 	renderer::texture::dim_type const &dim,
-	renderer::color_format::type const format,
+	image::color::format::type const format,
 	renderer::filter::texture const &filter,
 	renderer::texture::resource_flag_type const flags)
 {
@@ -226,7 +226,7 @@ sge::ogl::device::create_volume_texture(
 sge::renderer::cube_texture_ptr const
 sge::ogl::device::create_cube_texture(
 	renderer::size_type const border_size,
-	renderer::color_format::type const format,
+	image::color::format::type const format,
 	renderer::filter::texture const &filter,
 	renderer::resource_flag_t const flags)
 {
@@ -248,24 +248,14 @@ void sge::ogl::device::end_rendering()
 sge::renderer::caps const
 sge::ogl::device::caps() const
 {
-	GLint const max_texture_size(
-		get_int(
-			GL_MAX_TEXTURE_SIZE));
-	
-	return renderer::caps(
-		0,
-		get_string(
-			GL_VENDOR),
-		get_string(
-			GL_RENDERER)
-		+ SGE_TEXT(' ')
-		+ get_string(
-			GL_VERSION),
-		renderer::dim_type(
-			max_texture_size,
-			max_texture_size),
-		GL_TEXTURE_MAX_ANISOTROPY_EXT,
-		glGenFramebuffersEXT);
+	if(!caps_)
+	{
+		caps_.take(
+			create_caps()
+		);
+	}
+
+	return *caps_;
 }
 
 sge::window::instance_ptr const
@@ -534,32 +524,45 @@ void sge::ogl::device::texture_stage_arg(
 
 sge::renderer::glsl::program_ptr const
 sge::ogl::device::create_glsl_program(
-	renderer::glsl::string const &vs_source,
-	renderer::glsl::string const &ps_source)
+	renderer::glsl::optional_string const &vs_source,
+	renderer::glsl::optional_string const &ps_source)
 {
-	return glsl::create_program_impl(
-		vs_source,
-		ps_source);
+	return	
+		vs_source || ps_source
+		? glsl::create_program_impl(
+			vs_source,
+			ps_source
+		)
+		: no_program;
 }
 
 sge::renderer::glsl::program_ptr const
 sge::ogl::device::create_glsl_program(
-	renderer::glsl::istream &vs_source,
-	renderer::glsl::istream &ps_source)
+	renderer::glsl::optional_istream const &vs_source,
+	renderer::glsl::optional_istream const &ps_source)
 {
 	// unfortunately opengl can't read out of files directly
 	typedef std::basic_ostringstream<
 		renderer::glsl::char_type
 	> osstream;
 
-	osstream vs_stream,
-	         ps_stream;
-	vs_stream << vs_source.rdbuf();
-	ps_stream << ps_source.rdbuf();
+	osstream
+		vs_stream,
+		ps_stream;
+	
+	if(vs_source)
+		vs_stream << vs_source->get().rdbuf();
+	if(ps_source)
+		ps_stream << ps_source->get().rdbuf();
 
 	return create_glsl_program(
-		vs_stream.str(),
-		ps_stream.str());
+		vs_source
+			? vs_stream.str()
+			: renderer::glsl::optional_string(),
+		ps_source
+			? ps_stream.str()
+			: renderer::glsl::optional_string()
+		);
 }
 
 void sge::ogl::device::glsl_program(

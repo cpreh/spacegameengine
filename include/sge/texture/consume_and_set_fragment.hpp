@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/texture/fragmented_fwd.hpp>
 #include <sge/texture/part_fwd.hpp>
-#include <sge/renderer/image_view.hpp>
+#include <sge/image/view/const_object.hpp>
 #include <sge/export.hpp>
 
 namespace sge
@@ -35,7 +35,7 @@ namespace texture
 SGE_SYMBOL part_ptr const
 consume_and_set_fragment(
 	fragmented &,
-	renderer::const_image_view const &);
+	image::view::const_object const &);
 
 }
 }

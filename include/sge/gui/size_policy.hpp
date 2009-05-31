@@ -20,9 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_SIZE_POLICY_HPP_INCLUDED
 #define SGE_GUI_SIZE_POLICY_HPP_INCLUDED
 
-#include <sge/bitfield.hpp>
-// hrhr, no impl crap for me!
-#include <sge/bitfield_impl.hpp>
+#include <sge/container/bitfield/basic_impl.hpp>
 #include <sge/gui/export.hpp>
 #include <cstddef>
 
@@ -41,7 +39,10 @@ enum internal_type
 	size 
 };
 
-typedef bitfield<internal_type,size> type;
+typedef container::bitfield::basic<
+	internal_type,
+	size
+> type;
 }
 
 class size_policy

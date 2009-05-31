@@ -22,9 +22,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../type.hpp"
 
 sge::ogl::glsl::uniform::type::type(
-	element_type::type const type_,
+	uniform::element_type::type const type_,
 	size_type const elements_)
 :
 	type_(type_),
 	elements_(elements_)
 {}
+
+
+sge::ogl::glsl::uniform::element_type::type
+sge::ogl::glsl::uniform::type::element_type() const
+{
+	return type_;
+}
+
+sge::ogl::glsl::uniform::type::size_type
+sge::ogl::glsl::uniform::type::elements() const
+{
+	return elements_;
+}

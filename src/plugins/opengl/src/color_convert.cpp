@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-sge::renderer::color_format::type
+sge::image::color::format::type
 sge::ogl::color_convert(
 	GLenum const format,
 	GLenum const format_type)
@@ -33,16 +33,16 @@ sge::ogl::color_convert(
 	case GL_RGBA:
 		switch(format_type) {
 		case GL_UNSIGNED_BYTE:
-			return renderer::color_format::rgba8;
+			return image::color::format::rgba8;
 		case GL_FLOAT:
-			return renderer::color_format::rgba32f;
+			return image::color::format::rgba32f;
 		}
 	case GL_BGRA:
 		switch(format_type) {
 		case GL_UNSIGNED_BYTE:
-			return renderer::color_format::bgra8;
+			return image::color::format::bgra8;
 		case GL_FLOAT:
-			return renderer::color_format::bgra32f;
+			return image::color::format::bgra32f;
 		}
 	}
 	throw exception(
@@ -50,16 +50,16 @@ sge::ogl::color_convert(
 }
 
 GLenum sge::ogl::to_format(
-	renderer::color_format::type const fmt)
+	image::color::format::type const fmt)
 {
 	switch(fmt) {
-	case renderer::color_format::rgba8:
-	case renderer::color_format::rgba32f:
+	case image::color::format::rgba8:
+	case image::color::format::rgba32f:
 		return GL_RGBA;
-	case renderer::color_format::argb8:
-	case renderer::color_format::argb32f:
-	case renderer::color_format::bgra8:
-	case renderer::color_format::bgra32f:
+	case image::color::format::argb8:
+	case image::color::format::argb32f:
+	case image::color::format::bgra8:
+	case image::color::format::bgra32f:
 		return GL_BGRA;
 	default:
 		throw exception(
@@ -68,16 +68,16 @@ GLenum sge::ogl::to_format(
 }
 
 GLenum sge::ogl::to_format_type(
-	renderer::color_format::type const fmt)
+	image::color::format::type const fmt)
 {
 	switch(fmt) {
-	case renderer::color_format::rgba8:
-	case renderer::color_format::argb8:
-	case renderer::color_format::bgra8:
+	case image::color::format::rgba8:
+	case image::color::format::argb8:
+	case image::color::format::bgra8:
 		return GL_UNSIGNED_BYTE;
-	case renderer::color_format::rgba32f:
-	case renderer::color_format::argb32f:
-	case renderer::color_format::bgra32f:
+	case image::color::format::rgba32f:
+	case image::color::format::argb32f:
+	case image::color::format::bgra32f:
 		return GL_FLOAT;
 	default:
 		throw exception(

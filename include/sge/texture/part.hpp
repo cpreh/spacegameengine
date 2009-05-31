@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TEXTURE_PART_HPP_INCLUDED
 
 #include <sge/renderer/texture_fwd.hpp>
-#include <sge/renderer/image_view.hpp>
 #include <sge/renderer/lock_rect.hpp>
+#include <sge/image/view/const_object.hpp>
 #include <sge/export.hpp>
 #include <sge/noncopyable.hpp>
 
@@ -43,7 +43,7 @@ public:
 	SGE_SYMBOL virtual ~part();
 
 	virtual void data(
-		renderer::const_image_view const &src) = 0;
+		image::view::const_object const &src) = 0;
 
 	virtual renderer::lock_rect const &area() const = 0;
 

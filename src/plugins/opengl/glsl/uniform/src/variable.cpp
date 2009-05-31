@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../variable_functions.hpp"
 #include "../setter.hpp"
 #include "../get.hpp"
-#include "../../../error.hpp"
 #include <sge/variant/apply_unary.hpp>
 #include <sge/variant/object_impl.hpp>
 
@@ -34,6 +33,9 @@ sge::ogl::glsl::uniform::variable<Native>::variable(
 	handle const program,
 	renderer::glsl::string const &name)
 :
+	program(
+		program
+	),
 	location(
 		uniform::location<Native>(
 			program,
@@ -52,7 +54,8 @@ template<
 sge::renderer::glsl::uniform::value const
 sge::ogl::glsl::uniform::variable<Native>::get() const
 {
-	return uniform::get(
+	return uniform::get<Native>(
+		program,
 		location,
 		stored_type
 	);
@@ -64,7 +67,6 @@ template<
 void sge::ogl::glsl::uniform::variable<Native>::set(
 	renderer::glsl::uniform::value const &v)
 {
-	SGE_OPENGL_SENTRY
 	stored_type = variant::apply_unary(
 		setter(
 			location

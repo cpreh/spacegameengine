@@ -57,7 +57,7 @@ template class sge::ogl::basic_texture<sge::renderer::cube_texture>;
 
 sge::ogl::cube_texture::cube_texture(
 	size_type const sz,
-	renderer::color_format::type const format,
+	image::color::format::type const format,
 	renderer::filter::texture const &filter,
 	resource_flag_type const flags)
 :
@@ -100,7 +100,7 @@ sge::ogl::cube_texture::cube_texture(
 	}
 }
 
-sge::renderer::image_view const
+sge::image::view::object const
 sge::ogl::cube_texture::lock(
 	renderer::cube_side::type const side,
 	renderer::lock_rect const &src,
@@ -114,7 +114,7 @@ sge::ogl::cube_texture::lock(
 		flags);
 }
 
-sge::renderer::const_image_view const
+sge::image::view::const_object const
 sge::ogl::cube_texture::lock(
 	renderer::cube_side::type const side,
 	renderer::lock_rect const &src) const

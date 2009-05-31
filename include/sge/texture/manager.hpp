@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/fragmented_auto_ptr.hpp>
 #include <sge/texture/detail/container_position.hpp>
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/image_view.hpp>
+#include <sge/image/view/const_object.hpp>
 #include <sge/noncopyable.hpp>
 #include <sge/export.hpp>
 #include <boost/function.hpp>
@@ -52,7 +52,7 @@ public:
 
 	SGE_SYMBOL part_ptr const
 	add(
-		sge::renderer::const_image_view const &src);
+		image::view::const_object const &src);
 
 	SGE_SYMBOL sge::renderer::device_ptr const
 	renderer() const;

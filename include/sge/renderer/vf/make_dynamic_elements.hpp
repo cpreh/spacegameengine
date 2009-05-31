@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/color_base.hpp>
 #include <sge/renderer/vf/vec_base.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/renderer/color_format_static.hpp>
+#include <sge/image/color/format_static.hpp>
 #include <map>
 
 namespace sge
@@ -85,11 +85,12 @@ public:
 		elems.push_back(
 			dynamic_element(
 				dynamic_color(
-					color_format_static<Format>::value
+					image::color::format_static<Format>::value
 				),
 				Role,
 				category_count[Role]++
-			));
+			)
+		);
 	}
 private:
 	dynamic_element_list &elems;

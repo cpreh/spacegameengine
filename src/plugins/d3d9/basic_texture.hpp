@@ -40,7 +40,6 @@ class basic_texture : public Base, public texture_base, public resource {
 public:
 	basic_texture(renderer&, const filter_args& filter, resource_flag_t flags);
 protected:
-	const filter_args& filter() const;
 	resource_flag_t flags() const;
 	void on_reset();
 	void on_loss();
@@ -56,7 +55,5 @@ private:
 
 }
 }
-
-#include "basic_texture_impl.hpp"
 
 #endif

@@ -32,9 +32,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/vector/input.hpp>
 #include <sge/math/vector/is_null.hpp>
 #include <sge/math/vector/length.hpp>
+#include <sge/math/vector/narrow_cast.hpp>
 #include <sge/math/vector/normalize.hpp>
 #include <sge/math/vector/output.hpp>
 #include <sge/math/vector/place.hpp>
+#include <sge/math/vector/structure_cast.hpp>
 #include <sge/math/vector/to_angle.hpp>
 
 #endif

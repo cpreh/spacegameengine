@@ -23,7 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_CONVERT_PRIMITIVE_HPP_INCLUDED
 
 #include "common.hpp"
-#include <sge/renderer/primitive.hpp>
+#include <sge/renderer/indexed_primitive_type.hpp>
+#include <sge/renderer/nonindexed_primitive_type.hpp>
+
+// TODO: split this!
 
 namespace sge
 {

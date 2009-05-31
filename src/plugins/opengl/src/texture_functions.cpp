@@ -72,7 +72,7 @@ void sge::ogl::set_texture(
 	GLenum const type,
 	renderer::filter::texture const &filter,
 	renderer::dim_type const &dim,
-	const_texture_pointer const src)
+	renderer::const_raw_pointer const src)
 {
 	if(dim.w() < 64 || dim.h() < 64)
 		SGE_LOG_WARNING(
@@ -124,7 +124,7 @@ void sge::ogl::build_mipmaps(
 	GLenum const format,
 	GLenum const type,
 	renderer::dim_type const &dim,
-	const_texture_pointer const src)
+	renderer::const_raw_pointer const src)
 {
 	if(!src)
 		throw exception(
@@ -149,7 +149,7 @@ void sge::ogl::set_texture_rect(
 	renderer::filter::texture const &filter,
 	renderer::dim_type const &dim,
 	renderer::lock_rect const &r,
-	const_texture_pointer const src)
+	renderer::const_raw_pointer const src)
 {
 	SGE_OPENGL_SENTRY
 	
@@ -183,7 +183,7 @@ void sge::ogl::set_texture_rect(
 void sge::ogl::get_tex_image(
 	GLenum const format,
 	GLenum const type,
-	texture_pointer const dest)
+	renderer::raw_pointer const dest)
 {
 	SGE_OPENGL_SENTRY
 	
