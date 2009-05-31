@@ -18,24 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_OPENAL_SOURCE_FUNCTIONS_HPP_INCLUDED
+#define SGE_OPENAL_SOURCE_FUNCTIONS_HPP_INCLUDED
 
-#include "../get_int.hpp"
-#include "../check_state.hpp"
-#include <sge/renderer/exception.hpp>
-#include <sge/text.hpp>
+#include "openal.hpp"
 
-GLint
-sge::ogl::get_int(
-	GLenum const what)
+namespace sge
 {
-	GLint ret;
+namespace openal
+{
 
-	glGetIntegerv(what, &ret);
+void source_i(
+	ALuint,
+	ALenum,
+	ALint);
 
-	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glGetIntegerv failed"),
-		sge::renderer::exception
-	)
+void source_f(
+	ALuint,
+	ALenum,
+	ALfloat);
 
-	return ret;
+void source_fv(
+	ALuint,
+	ALenum,
+	ALfloat const *);
+
+void source_play(
+	ALuint);
+
 }
+}
+
+#endif

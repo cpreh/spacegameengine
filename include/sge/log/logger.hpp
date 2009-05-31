@@ -108,11 +108,7 @@ public:
 private:
 	void init_levels(
 		level::type);
-	void init_level(
-		level::type);
-	void inherit_levels(
-		logger &parent,
-		level::type);
+
 	void set_hierarchy(
 		level::type,
 		void (logger::*)(level::type));

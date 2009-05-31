@@ -19,10 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 
-#include "../error.hpp"
 #include "../texture_stage.hpp"
+#include "../check_state.hpp"
 #include "../convert_texture_stage.hpp"
 #include "../multi_texture.hpp"
+#include <sge/renderer/exception.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
@@ -49,8 +50,26 @@ GLenum stage_value_scale(
 		return 4;
 	default:
 		throw sge::exception(
-			SGE_TEXT("Invalid texture_stage_op_value!"));
+			SGE_TEXT("Invalid texture_stage_op_value!")
+		);
 	}
+}
+
+void tex_env_f(
+	GLenum const type,
+	GLenum const arg,
+	GLfloat const value)
+{
+	glTexEnvf(
+		type,
+		arg,
+		value
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glTexEnvf failed"),
+		sge::renderer::exception
+	)
 }
 
 }
@@ -59,10 +78,17 @@ void sge::ogl::tex_envf_ext(
 	GLenum const arg,
 	GLenum const value)
 {
-	SGE_OPENGL_SENTRY
-	
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE);
-	glTexEnvf(GL_TEXTURE_ENV, arg, static_cast<GLfloat>(value));
+	tex_env_f(
+		GL_TEXTURE_ENV,
+		GL_TEXTURE_ENV_MODE,
+		GL_COMBINE
+	);
+
+	tex_env_f(
+		GL_TEXTURE_ENV,
+		arg,
+		static_cast<GLfloat>(value)
+	);
 }
 
 void sge::ogl::set_texture_stage_scale(

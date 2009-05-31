@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/optional_fwd.hpp>
 #include <sge/safe_bool.hpp>
+#include <sge/alignment/array.hpp>
+#include <boost/type_traits/alignment_of.hpp>
 
 namespace sge
 {
@@ -65,9 +67,9 @@ public:
 	const_pointer operator->() const;
 
 	void reset();
-
-	bool boolean_test() const;
 private:
+	bool boolean_test() const;
+
 	pointer
 	construct(
 		const_reference);
@@ -78,7 +80,16 @@ private:
 		
 	void destroy();
 
-	pointer value_;
+	typedef typename alignment::array<
+		unsigned char,
+		sizeof(T),
+		boost::alignment_of<
+			T
+		>::value
+	>::type storage_type;
+
+	storage_type storage_;
+	pointer data_;
 };
 
 }

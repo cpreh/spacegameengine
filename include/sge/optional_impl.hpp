@@ -30,7 +30,8 @@ template<
 >
 sge::optional<T>::optional()
 :
-	value_(0)
+	storage_(),
+	data_(0)
 {}
 
 
@@ -40,7 +41,8 @@ template<
 sge::optional<T>::optional(
 	const_reference ref)
 :
-	value_(
+	storage_(),
+	data_(
 		construct(ref)
 	)
 {}
@@ -51,7 +53,8 @@ template<
 sge::optional<T>::optional(
 	optional const &o)
 :
-	value_(
+	storage_(),
+	data_(
 		construct(o)
 	)
 {}
@@ -64,7 +67,7 @@ sge::optional<T>::operator=(
 	optional const &o)
 {
 	destroy();
-	value_ = construct(o);
+	data_ = construct(o);
 	return *this;
 }
 	
@@ -76,7 +79,7 @@ sge::optional<T>::operator=(
 	const_reference r)
 {
 	destroy();
-	value_ = construct(r);	
+	data_ = construct(r);	
 	return *this;
 }
 
@@ -94,7 +97,7 @@ template<
 typename sge::optional<T>::reference
 sge::optional<T>::operator*()
 {
-	return *value_;
+	return *data_;
 }
 
 template<
@@ -103,7 +106,7 @@ template<
 typename sge::optional<T>::const_reference
 sge::optional<T>::operator*() const
 {
-	return *value_;
+	return *data_;
 }
 
 template<
@@ -112,7 +115,7 @@ template<
 typename sge::optional<T>::pointer
 sge::optional<T>::operator->()
 {
-	return value_;
+	return data_; 
 }
 
 template<
@@ -121,7 +124,7 @@ template<
 typename sge::optional<T>::const_pointer
 sge::optional<T>::operator->() const
 {
-	return value_;
+	return data_; 
 }
 
 template<
@@ -131,7 +134,7 @@ void
 sge::optional<T>::reset()
 {
 	destroy();
-	value_ = 0;
+	data_ = 0;
 }
 
 template<
@@ -140,7 +143,7 @@ template<
 bool
 sge::optional<T>::boolean_test() const
 {
-	return value_;
+	return data_;
 }
 
 template<
@@ -150,7 +153,7 @@ typename sge::optional<T>::pointer
 sge::optional<T>::construct(
 	const_reference r)
 {
-	return new T(r);
+	return data_ = new (storage_.data()) T(r);
 }
 	
 template<
@@ -160,8 +163,8 @@ typename sge::optional<T>::pointer
 sge::optional<T>::construct(
 	optional const &o)
 {
-	return o.value_
-		? new T(*o.value_)
+	return o.data_
+		? new (storage_.data()) T(*o)
 		: static_cast<pointer>(0);
 }
 		
@@ -171,7 +174,8 @@ template<
 void
 sge::optional<T>::destroy()
 {
-	delete value_;
+	if(data_)
+		data_->~T();
 }
 
 #endif

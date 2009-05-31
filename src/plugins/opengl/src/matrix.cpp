@@ -20,13 +20,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../matrix.hpp"
-#include "../error.hpp"
+#include "../check_state.hpp"
 #include "../glew.hpp"
 #include <sge/variant/apply_unary.hpp>
 #include <sge/variant/object_impl.hpp>
 #include <sge/math/matrix/basic_impl.hpp>
 #include <sge/math/matrix/static.hpp>
 #include <sge/math/matrix/transpose.hpp>
+#include <sge/renderer/exception.hpp>
+#include <sge/text.hpp>
 
 namespace
 {
@@ -68,8 +70,12 @@ void sge::ogl::set_matrix(
 void sge::ogl::matrix_mode(
 	GLenum const mode)
 {
-	SGE_OPENGL_SENTRY
 	glMatrixMode(mode);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glMatrixMode failed"),
+		sge::renderer::exception
+	)
 }
 
 void sge::ogl::set_matrix(
@@ -87,8 +93,6 @@ namespace
 void visitor::operator()(
 	sge::math::matrix::static_<float, 4, 4>::type const &m) const
 {
-	SGE_OPENGL_SENTRY
-
 	if(have_transpose())
 		glLoadTransposeMatrixf(
 			m.data()
@@ -99,13 +103,16 @@ void visitor::operator()(
 				m
 			).data()
 		);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glLoadMatrixf failed"),
+		sge::renderer::exception
+	)	
 }
 	
 void visitor::operator()(
 	sge::math::matrix::static_<double, 4, 4>::type const &m) const
 {
-	SGE_OPENGL_SENTRY
-
 	if(have_transpose())
 		glLoadTransposeMatrixd(
 			m.data()
@@ -117,6 +124,10 @@ void visitor::operator()(
 			).data()
 		);
 
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glLoadMatrixd failed"),
+		sge::renderer::exception
+	)
 }
 
 }

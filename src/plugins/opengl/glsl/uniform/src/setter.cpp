@@ -21,16 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../setter.hpp"
 #include "../../init.hpp"
-#include "../../../error.hpp"
 #include <sge/renderer/glsl/uniform/int_value_type.hpp>
 #include <sge/renderer/glsl/uniform/float_value_type.hpp>
+#include <sge/renderer/glsl/exception.hpp>
 #include <sge/once.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/format.hpp>
 #include <sge/assert.hpp>
-#include <boost/variant/apply_visitor.hpp>
-#include <boost/variant/static_visitor.hpp>
 
 namespace
 {
@@ -202,7 +200,13 @@ set_float(
 	GLsizei const size,
 	GLsizei const elements)
 {
-	SGE_OPENGL_SENTRY
+	// FIXME: check errors!
+	/*
+	SGE_OPENGL_SENTRY(
+		SGE_TEXT("uniform float failed"),
+		sge::renderer::glsl::exception
+	)
+	*/
 
 	namespace et = sge::ogl::glsl::uniform::element_type;
 
@@ -258,7 +262,13 @@ set_int(
 	GLsizei const size,
 	GLsizei const elements)
 {
-	SGE_OPENGL_SENTRY
+	// FIXME: check erroers
+	/*
+	SGE_OPENGL_SENTRY(
+		SGE_TEXT("uniform int failed"),
+		sge::renderer::glsl::exception
+	)
+	*/
 
 	namespace et = sge::ogl::glsl::uniform::element_type;
 
@@ -328,7 +338,13 @@ set_matrix(
 
 	namespace et = sge::ogl::glsl::uniform::element_type;
 
-	SGE_OPENGL_SENTRY
+	// FIXME: check errors
+	/*
+	SGE_OPENGL_SENTRY(
+		SGE_TEXT("uniform matrix failed"),
+		sge::renderer::glsl::exception
+	)
+	*/
 
 	switch(rows) {
 	case 2:

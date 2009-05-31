@@ -42,10 +42,10 @@ sge::library::error()
 	);
 
 	return err
-		? SGE_TEXT("no error")
-		: sge::iconv(
+		? sge::iconv(
 			err
-		);
+		)
+		: SGE_TEXT("no error");
 #else
 	return sge::windows::format_message(
 		GetLastError()

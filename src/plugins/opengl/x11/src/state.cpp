@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../state.hpp"
 #include "../resolution/create.hpp"
 #include "../../glx/visual.hpp"
-#include "../../error.hpp"
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
 #include <sge/renderer/viewport.hpp>
@@ -39,31 +38,42 @@ sge::ogl::x11::state::state(
 	view_port_fun const &set_viewport)
 :
 	set_viewport(
-		set_viewport),
+		set_viewport
+	),
 	screen_size_(
-		param.mode().size()),	
+		param.mode().size()
+	),
 	wnd(
 		polymorphic_pointer_cast<sge::x11::window>(
-			wnd_)),
+			wnd_
+		)
+	),
 	display(
-		wnd->display()),
+		wnd->display()
+	),
 	visual(
-		wnd->visual()),
+		wnd->visual()
+	),
 	context(
 		make_shared_ptr<glx::context>(
 			display,
 			dynamic_pointer_cast<glx::visual const>(
-				visual)
-					->info())),
+				visual
+			)->info()
+		)
+	),
 	current(
 		display,
 		*wnd,
-		context),
+		context
+	),
 	resolution_(
 		resolution::create(
 			wnd,
 			param,
-			adapter))
+			adapter
+		)
+	)
 {
  	con_manager.connect(
 		wnd->register_callback(
@@ -71,7 +81,10 @@ sge::ogl::x11::state::state(
 			boost::bind(
 				&state::reset_viewport_on_map,
 				this,
-				_1)));
+				_1
+			)
+		)
+	);
 
 	con_manager.connect(
 		wnd->register_callback(
@@ -79,7 +92,10 @@ sge::ogl::x11::state::state(
 			boost::bind(
 				&state::reset_viewport_on_configure,
 				this,
-				_1)));
+				_1
+			)
+		)
+	);
 
 	if(resolution_)
 		wnd->map_raised();
@@ -91,11 +107,12 @@ sge::ogl::x11::state::state(
 
 void sge::ogl::x11::state::swap_buffers()
 {
-	SGE_OPENGL_SENTRY
-
+	// TODO: how to get the error code here?
+		
 	glXSwapBuffers(
 		display->get(),
-		wnd->get());
+		wnd->get()
+	);
 }
 
 void sge::ogl::x11::state::reset_viewport_on_map(

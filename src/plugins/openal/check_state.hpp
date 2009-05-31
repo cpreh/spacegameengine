@@ -18,36 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_OPENAL_CHECK_STATE_HPP_INCLUDED
+#define SGE_OPENAL_CHECK_STATE_HPP_INCLUDED
 
-#ifndef SGE_OPENGL_ERROR_HPP_INCLUDED
-#define SGE_OPENGL_ERROR_HPP_INCLUDED
+#include "error_string.hpp"
+#include "openal.hpp"
+#include <sge/error/check_state.hpp>
 
-#include <sge/string.hpp>
-#include <string>
-
-namespace sge
-{
-namespace ogl
-{
-
-class sentry {
-public:
-	sentry(
-		std::string const &file_name,
-		int line,
-		string const &description_);	
-	       
-	~sentry();
-private:
-	std::string const file_name;
-	int    const line;
-	string const description;
-};
-
-}
-}
-
-#define SGE_OPENGL_SENTRY_STR(x) sge::ogl::sentry const sentry(__FILE__, __LINE__, x);
-#define SGE_OPENGL_SENTRY SGE_OPENGL_SENTRY_STR(sge::string())
+#define SGE_OPENAL_CHECK_STATE(message, exception)\
+SGE_ERROR_CHECK_STATE(\
+	exception,\
+	message,\
+	ALenum,\
+	alGetError(),\
+	AL_NO_ERROR,\
+	sge::openal::error_string\
+)
 
 #endif

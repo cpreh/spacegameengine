@@ -19,23 +19,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 
-#include "../get_int.hpp"
-#include "../check_state.hpp"
-#include <sge/renderer/exception.hpp>
-#include <sge/text.hpp>
+#ifndef SGE_OPENGL_CHECK_STATE_HPP_INCLUDED
+#define SGE_OPENGL_CHECK_STATE_HPP_INCLUDED
 
-GLint
-sge::ogl::get_int(
-	GLenum const what)
-{
-	GLint ret;
+#include "error_string.hpp"
+#include "common.hpp"
+#include <sge/error/check_state.hpp>
 
-	glGetIntegerv(what, &ret);
+#define SGE_OPENGL_CHECK_STATE(message, exception)\
+SGE_ERROR_CHECK_STATE(\
+	exception,\
+	message,\
+	GLenum,\
+	glGetError(),\
+	GL_NO_ERROR,\
+	sge::ogl::error_string\
+)
 
-	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glGetIntegerv failed"),
-		sge::renderer::exception
-	)
-
-	return ret;
-}
+#endif

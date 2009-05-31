@@ -20,79 +20,116 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../shader_native.hpp"
-#include "../../error.hpp"
+#include "../../check_state.hpp"
+#include <sge/renderer/glsl/exception.hpp>
+#include <sge/text.hpp>
 
 template<>
 sge::ogl::glsl::traits<true>::handle
 sge::ogl::glsl::create_shader<true>(
-	const GLenum type)
+	GLenum const type)
 {
-	SGE_OPENGL_SENTRY
-	return glCreateShader(type);
+	traits<true>::handle const ret(
+		glCreateShader(
+			type
+		)
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glCreateShader failed"),
+		sge::renderer::glsl::exception
+	)
+
+	return ret;
 }
 
 template<>
 void sge::ogl::glsl::shader_source<true>(
-	const traits<true>::handle shader,
-	const GLint num_strings,
+	traits<true>::handle const shader,
+	GLint const num_strings,
 	char const **const strings,
 	GLint const *const len_of_strings)
 {
-	SGE_OPENGL_SENTRY
 	glShaderSource(
 		shader,
 		num_strings,
 		strings,
-		len_of_strings);
+		len_of_strings
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glShaderSource failed"),
+		sge::renderer::glsl::exception
+	)
 }
 
 template<>
 void sge::ogl::glsl::compile_shader<true>(
-	const traits<true>::handle shader)
+	traits<true>::handle const shader)
 {
-	SGE_OPENGL_SENTRY
 	glCompileShader(shader);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glCompileShader failed"),
+		sge::renderer::glsl::exception
+	)
 }
 
 template<>
 GLint sge::ogl::glsl::shader_integer<true>(
-	const GLenum what,
-	const traits<true>::handle shader)
+	GLenum const what,
+	traits<true>::handle const shader)
 {
-	SGE_OPENGL_SENTRY
 	GLint result;
+
 	glGetShaderiv(shader, what, &result);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glGetShaderiv failed"),
+		sge::renderer::glsl::exception
+	)
+
 	return result;
 }
 
 template<>
 GLint sge::ogl::glsl::compile_status<true>(
-	const traits<true>::handle shader)
+	traits<true>::handle const shader)
 {
 	return shader_integer<true>(
 		GL_COMPILE_STATUS,
-		shader);
+		shader
+	);
 }
 
 template<>
 void sge::ogl::glsl::shader_info_log<true>(
-	const traits<true>::handle shader,
-	const GLint maxlen,
+	traits<true>::handle const shader,
+	GLint const maxlen,
 	GLint *const len,
 	char *const data)
 {
-	SGE_OPENGL_SENTRY
 	glGetShaderInfoLog(
 		shader,
 		maxlen,
 		len,
-		data);
+		data
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glGetShaderInfoLog failed"),
+		sge::renderer::glsl::exception
+	)
 }
 
 template<>
 void sge::ogl::glsl::delete_shader<true>(
-	const traits<true>::handle shader)
+	traits<true>::handle const shader)
 {
-	SGE_OPENGL_SENTRY
 	glDeleteShader(shader);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glDeleteShader failed"),
+		sge::renderer::glsl::exception
+	)
 }

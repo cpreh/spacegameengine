@@ -18,24 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_RENDERER_GLSL_EXCEPTION_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_EXCEPTION_HPP_INCLUDED
 
-#include "../get_int.hpp"
-#include "../check_state.hpp"
 #include <sge/renderer/exception.hpp>
-#include <sge/text.hpp>
+#include <sge/export.hpp>
+#include <sge/string.hpp>
 
-GLint
-sge::ogl::get_int(
-	GLenum const what)
+namespace sge
 {
-	GLint ret;
+namespace renderer
+{
+namespace glsl
+{
 
-	glGetIntegerv(what, &ret);
+class SGE_CLASS_SYMBOL exception : public renderer::exception {
+public:
+	SGE_SYMBOL explicit exception(
+		string const &);
+};
 
-	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glGetIntegerv failed"),
-		sge::renderer::exception
-	)
-
-	return ret;
 }
+}
+}
+
+#endif

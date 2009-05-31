@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../color_actor.hpp"
 #include "../client_state_combiner.hpp"
-#include "../../error.hpp"
-#include <sge/exception.hpp>
+#include "../../check_state.hpp"
+#include <sge/renderer/exception.hpp>
 #include <sge/text.hpp>
 
 sge::ogl::vf::color_actor::color_actor(
@@ -35,21 +35,26 @@ sge::ogl::vf::color_actor::color_actor(
 	elements(4) // TODO: maybe allow colors without alpha?
 {
 	if(index() > 0)
-		throw exception(
+		throw renderer::exception(
 			SGE_TEXT("opengl does not support more than one color type in the vertex format!")
-			SGE_TEXT(" glSecondaryColor is currently not supported."));
+			SGE_TEXT(" glSecondaryColor is currently not supported.")
+		);
 }
 
 void sge::ogl::vf::color_actor::operator()(
 	client_state_combiner &c) const
 {
-	SGE_OPENGL_SENTRY
-
 	glColorPointer(
 		elements,
 		format(),
 		stride(),
-		pointer());
+		pointer()
+	);
 	
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glColorPointer failed"),
+		sge::renderer::exception
+	)
+
 	c.enable(GL_COLOR_ARRAY);
 }

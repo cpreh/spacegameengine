@@ -20,14 +20,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../program_native.hpp"
-#include "../../error.hpp"
+#include "../../check_state.hpp"
+#include <sge/renderer/glsl/exception.hpp>
+#include <sge/text.hpp>
 
 template<>
 sge::ogl::glsl::traits<true>::handle
 sge::ogl::glsl::create_program<true>()
 {
-	SGE_OPENGL_SENTRY
-	return glCreateProgram();
+	traits<true>::handle const ret(
+		glCreateProgram()
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glCreateProgram failed"),
+		sge::renderer::glsl::exception
+	)
+
+	return ret;
 }
 
 template<>
@@ -46,77 +56,109 @@ sge::ogl::glsl::pixel_shader_type<true>()
 
 template<>
 void sge::ogl::glsl::detach_shader<true>(
-	const traits<true>::handle program,
-	const traits<true>::handle shader)
+	traits<true>::handle const program,
+	traits<true>::handle const shader)
 {
-	SGE_OPENGL_SENTRY
 	glDetachShader(program, shader);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glDetachShader failed"),
+		sge::renderer::glsl::exception
+	)
 }
 
 template<>
 void sge::ogl::glsl::delete_program<true>(
-	const traits<true>::handle program)
+	traits<true>::handle const program)
 {
-	SGE_OPENGL_SENTRY
 	glDeleteProgram(program);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glDeleteProgram failed"),
+		sge::renderer::glsl::exception
+	)
 }
 
 template<>
 void sge::ogl::glsl::attach_shader<true>(
-	const traits<true>::handle program,
-	const traits<true>::handle shader)
+	traits<true>::handle const program,
+	traits<true>::handle const shader)
 {
-	SGE_OPENGL_SENTRY
 	glAttachShader(program, shader);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glAttachShader failed"),
+		sge::renderer::glsl::exception
+	)
 }
 
 template<>
 void sge::ogl::glsl::link_program<true>(
-	const traits<true>::handle program)
+	traits<true>::handle const program)
 {
-	SGE_OPENGL_SENTRY
 	glLinkProgram(program);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glLinKProgram failed"),
+		sge::renderer::glsl::exception
+	)
 }
 
 template<>
 GLint sge::ogl::glsl::program_integer<true>(
-	const GLenum what,
-	const traits<true>::handle program)
+	GLenum const what,
+	traits<true>::handle const program)
 {
-	SGE_OPENGL_SENTRY
 	GLint result;
+
 	glGetProgramiv(program, what, &result);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glGetProgramiv failed"),
+		sge::renderer::glsl::exception
+	)
+
 	return result;
 }
 
 template<>
 GLint sge::ogl::glsl::link_status<true>(
-	const traits<true>::handle program)
+	traits<true>::handle const program)
 {
 	return program_integer<true>(
 		GL_LINK_STATUS,
-		program);
+		program
+	);
 }
 
 template<>
 void sge::ogl::glsl::use_program<true>(
-	const traits<true>::handle program)
+	traits<true>::handle const program)
 {
-	SGE_OPENGL_SENTRY
 	glUseProgram(program);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glUseProgram failed"),
+		sge::renderer::glsl::exception
+	)
 }
 
 template<>
 void sge::ogl::glsl::program_info_log<true>(
-	const traits<true>::handle program,
-	const GLint maxlen,
+	traits<true>::handle const program,
+	GLint const maxlen,
 	GLint *const len,
 	char *const data)
 {
-	SGE_OPENGL_SENTRY
 	glGetProgramInfoLog(
 		program,
 		maxlen,
 		len,
-		data);
+		data
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glGetProgramInfoLog failed"),
+		sge::renderer::glsl::exception
+	)
 }

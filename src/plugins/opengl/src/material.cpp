@@ -21,12 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../material.hpp"
 #include "../common.hpp"
-#include "../error.hpp"
+#include "../check_state.hpp"
 #include <sge/renderer/material.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/image/color/raw.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/variant/apply_unary.hpp>
 #include <sge/variant/object_impl.hpp>
+#include <sge/text.hpp>
 
 namespace
 {
@@ -110,12 +112,16 @@ void glmaterialfv(
 	GLenum const type,
 	GLfloat const *const data)
 {
-	SGE_OPENGL_SENTRY
-	
 	glMaterialfv(
 		face,
 		type,
-		data);
+		data
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glMaterialfv failed"),
+		sge::renderer::exception
+	)
 }
 
 void glmaterialf(
@@ -123,12 +129,16 @@ void glmaterialf(
 	GLenum const type,
 	GLfloat const f)
 {
-	SGE_OPENGL_SENTRY
-
 	glMaterialf(
 		face,
 		type,
-		f);
+		f
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glMaterialf failed"),
+		sge::renderer::exception
+	)
 }
 
 void material_color(

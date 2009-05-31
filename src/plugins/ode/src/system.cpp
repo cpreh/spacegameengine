@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 #include "../system.hpp"
 #include "../world.hpp"
+#include <sge/math/rect/basic_impl.hpp>
 #include <sge/make_shared_ptr.hpp>
 
 sge::ode::system::system()

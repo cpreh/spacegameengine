@@ -18,24 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
-#include "../get_int.hpp"
-#include "../check_state.hpp"
-#include <sge/renderer/exception.hpp>
+#include "../alc_error_string.hpp"
 #include <sge/text.hpp>
 
-GLint
-sge::ogl::get_int(
-	GLenum const what)
+sge::string const
+sge::openal::alc_error_string(
+	ALCenum const error)
 {
-	GLint ret;
-
-	glGetIntegerv(what, &ret);
-
-	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glGetIntegerv failed"),
-		sge::renderer::exception
-	)
-
-	return ret;
+	switch (error)
+	{
+		case ALC_NO_ERROR:
+			return SGE_TEXT("no error in openal (maybe somewhere else)");
+		case ALC_INVALID_DEVICE:
+			return SGE_TEXT("the device handle specifies an inaccessible driver/server");
+		case ALC_INVALID_CONTEXT:
+			return SGE_TEXT("the context argument does not name a valid context");
+		case ALC_INVALID_ENUM:
+			return SGE_TEXT("a token used is not valid, or not acceptable");
+		case ALC_INVALID_VALUE:
+			return SGE_TEXT("a value (e.g. attribute) is not valid, or not applicable");
+		case ALC_OUT_OF_MEMORY:
+			return SGE_TEXT("unable to allocate memory");
+		default:
+			return SGE_TEXT("Unkown");
+	}
 }

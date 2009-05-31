@@ -24,11 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert_states.hpp"
 #include "../convert_fog_float_state.hpp"
 #include "../enable.hpp"
-#include "../error.hpp"
+#include "../check_state.hpp"
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/raw.hpp>
 #include <sge/renderer/arithmetic_convert.hpp>
 #include <sge/renderer/state/var.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/variant/object_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
@@ -43,13 +44,16 @@ sge::ogl::state_visitor::result_type
 sge::ogl::state_visitor::operator()(
 	renderer::state::int_::type const s) const
 {
-	SGE_OPENGL_SENTRY
-
 	namespace rs = renderer::state::int_::available_states;
 
 	switch(s.state()) {
 	case rs::stencil_clear_val:
 		glClearStencil(s.value());
+	
+		SGE_OPENGL_CHECK_STATE(
+			SGE_TEXT("glClearStencil failed"),
+			sge::renderer::exception
+		)
 		break;
 	case rs::stencil_ref:
 		states.update_stencil();
@@ -80,8 +84,6 @@ sge::ogl::state_visitor::result_type
 sge::ogl::state_visitor::operator()(
 	renderer::state::float_::type const &s) const
 {
-	SGE_OPENGL_SENTRY
-
 	namespace rs = renderer::state::float_::available_states;
 
 	switch(s.state()) {
@@ -90,7 +92,14 @@ sge::ogl::state_visitor::operator()(
 			renderer::arithmetic_convert<
 				GLdouble
 			>(
-				s.value()));
+				s.value()
+			)
+		);
+
+		SGE_OPENGL_CHECK_STATE(
+			SGE_TEXT("glClearDepth failed"),
+			sge::renderer::exception
+		)
 		break;
 	case rs::alpha_test_ref:
 		states.update_alpha_test();
@@ -103,7 +112,14 @@ sge::ogl::state_visitor::operator()(
 			renderer::arithmetic_convert<
 				GLfloat
 			>(
-				s.value()));
+				s.value()
+			)
+		);
+
+		SGE_OPENGL_CHECK_STATE(
+			SGE_TEXT("glFogf failed"),
+			sge::renderer::exception
+		)
 		break;
 	default:
 		throw exception(
@@ -136,8 +152,6 @@ sge::ogl::state_visitor::result_type
 sge::ogl::state_visitor::operator()(
 	renderer::state::color::type const &s) const
 {
-	SGE_OPENGL_SENTRY
-
 	namespace rs = renderer::state::color::available_states;
 
 	image::color::rgba32f const fcolor(
@@ -156,6 +170,11 @@ sge::ogl::state_visitor::operator()(
 			fcolor[2],
 			fcolor[3]
 		);
+
+		SGE_OPENGL_CHECK_STATE(
+			SGE_TEXT("glClearColor failed"),
+			sge::renderer::exception
+		)
 		break;
 	case rs::ambient_light_color:
 		glLightModelfv(
@@ -164,6 +183,10 @@ sge::ogl::state_visitor::operator()(
 				fcolor
 			).data()
 		);
+		SGE_OPENGL_CHECK_STATE(
+			SGE_TEXT("glLightMOdelfv failed"),
+			sge::renderer::exception
+		)
 		break;
 	case rs::fog_color:
 		glFogfv(
@@ -172,6 +195,11 @@ sge::ogl::state_visitor::operator()(
 				fcolor
 			).data()
 		);
+
+		SGE_OPENGL_CHECK_STATE(
+			SGE_TEXT("glFogfv failed"),
+			sge::renderer::exception
+		)
 		break;
 	default:
 		throw exception(
@@ -190,8 +218,12 @@ sge::ogl::state_visitor::operator()(
 	}
 	enable(GL_CULL_FACE);
 	
-	SGE_OPENGL_SENTRY
 	glCullFace(convert_states(m));
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glCullFace failed"),
+		sge::renderer::exception
+	)
 }
 
 sge::ogl::state_visitor::result_type
@@ -206,8 +238,12 @@ sge::ogl::state_visitor::operator()(
 
 	enable(GL_DEPTH_TEST);
 
-	SGE_OPENGL_SENTRY
 	glDepthFunc(convert_states(f));
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glDepthFunc failed"),
+		sge::renderer::exception
+	)
 }
 
 sge::ogl::state_visitor::result_type
@@ -236,18 +272,27 @@ sge::ogl::state_visitor::operator()(
 
 	enable(GL_FOG);
 
-	SGE_OPENGL_SENTRY
 	glFogi(GL_FOG_MODE, convert_states(m));
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glFogi failed"),
+		sge::renderer::exception
+	)
 }
 
 sge::ogl::state_visitor::result_type
 sge::ogl::state_visitor::operator()(
 	renderer::state::draw_mode::type const m) const
 {
-	SGE_OPENGL_SENTRY
 	glPolygonMode(
 		GL_FRONT_AND_BACK,
-		convert_states(m));
+		convert_states(m)
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glPolygonMode failed"),
+		sge::renderer::exception
+	)
 }
 
 sge::ogl::state_visitor::result_type

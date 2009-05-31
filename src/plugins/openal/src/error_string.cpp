@@ -18,24 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
-#include "../get_int.hpp"
-#include "../check_state.hpp"
-#include <sge/renderer/exception.hpp>
+#include "../error_string.hpp"
 #include <sge/text.hpp>
 
-GLint
-sge::ogl::get_int(
-	GLenum const what)
+sge::string const
+sge::openal::error_string(
+	ALenum const error)
 {
-	GLint ret;
-
-	glGetIntegerv(what, &ret);
-
-	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glGetIntegerv failed"),
-		sge::renderer::exception
-	)
-
-	return ret;
+	switch (error)
+	{
+		case AL_NO_ERROR:
+			return SGE_TEXT("no error in openal (maybe somewhere else)");
+		case AL_INVALID_NAME:
+			return SGE_TEXT("invalid name parameter");
+		case AL_INVALID_ENUM:
+			return SGE_TEXT("invalid parameter");
+		case AL_INVALID_VALUE:
+			return SGE_TEXT("invalid enum parameter value");
+		case AL_INVALID_OPERATION:
+			return SGE_TEXT("illegal call");
+		case AL_OUT_OF_MEMORY:
+			return SGE_TEXT("unable to allocate memory");
+		default:
+			return SGE_TEXT("Unknown");
+	}
 }
+

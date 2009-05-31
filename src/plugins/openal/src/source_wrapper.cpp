@@ -17,22 +17,33 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 #include "../source_wrapper.hpp"
-#include "../error.hpp"
+#include "../check_state.hpp"
 #include <sge/audio/bad_sound_alloc.hpp>
+#include <sge/audio/exception.hpp>
 #include <sge/text.hpp>
 
 sge::openal::source_wrapper::source_wrapper()
 {
-	alGenSources(static_cast<ALsizei>(1),&value_);
-	ALenum const error = alGetError();
-	if (error == AL_INVALID_VALUE)
-		throw audio::bad_sound_alloc(
-			SGE_TEXT("openal: cannot allocate new sources")
-		);
-	SGE_OPENAL_ERROR_CHECK;
+	alGenSources(
+		static_cast<ALsizei>(1),
+		&value_
+	);
+
+	SGE_OPENAL_CHECK_STATE(
+		SGE_TEXT("alGenSources failed"),
+		audio::bad_sound_alloc
+	)
 }
 
 sge::openal::source_wrapper::~source_wrapper()
 {
-	alDeleteSources(static_cast<ALsizei>(1),&value_); SGE_OPENAL_ERROR_CHECK;
+	alDeleteSources(
+		static_cast<ALsizei>(1),
+		&value_
+	);
+
+	SGE_OPENAL_CHECK_STATE(
+		SGE_TEXT("alDeleteSources failed"),
+		audio::exception
+	)
 }

@@ -19,15 +19,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../fbo_functions.hpp"
-#include "../error.hpp"
+#include "../check_state.hpp"
+#include <sge/renderer/exception.hpp>
 
 void
 sge::ogl::bind_fbo(
 	GLuint const buf)
 {
-	SGE_OPENGL_SENTRY
+	glBindFramebufferEXT(
+		GL_FRAMEBUFFER_EXT,
+		buf
+	);
 
-	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, buf);
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glBindFramebufferEXT failed"),
+		sge::renderer::exception
+	)
 }
 
 void

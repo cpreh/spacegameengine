@@ -18,24 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
-#include "../get_int.hpp"
-#include "../check_state.hpp"
-#include <sge/renderer/exception.hpp>
+#include "../error_string.hpp"
 #include <sge/text.hpp>
 
-GLint
-sge::ogl::get_int(
+sge::string const
+sge::ogl::error_string(
 	GLenum const what)
 {
-	GLint ret;
-
-	glGetIntegerv(what, &ret);
-
-	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glGetIntegerv failed"),
-		sge::renderer::exception
-	)
-
-	return ret;
+	switch(what) {
+	case GL_NO_ERROR:
+		return SGE_TEXT("GL_NO_ERROR");
+	case GL_INVALID_ENUM:
+		return SGE_TEXT("GL_INVALID_ENUM");
+	case GL_INVALID_VALUE:
+		return SGE_TEXT("GL_INVALID_VALUE");
+	case GL_INVALID_OPERATION:
+		return SGE_TEXT("GL_INVALID_OPERATION");
+	case GL_STACK_OVERFLOW:
+		return SGE_TEXT("GL_STACK_OVERFLOW");
+	case GL_STACK_UNDERFLOW:
+		return SGE_TEXT("GL_STACK_UNDERFLOW");
+	case GL_OUT_OF_MEMORY:
+		return SGE_TEXT("GL_OUT_OF_MEMORY");
+	case GL_TABLE_TOO_LARGE:
+		return SGE_TEXT("GL_TABLE_TOO_LARGE");
+	default:
+		return SGE_TEXT("Unknown");
+	}
 }

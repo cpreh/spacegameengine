@@ -16,9 +16,13 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
+
 #include "../buffer.hpp"
-#include "../error.hpp"
+#include "../check_state.hpp"
 #include <sge/audio/file.hpp>
+#include <sge/audio/exception.hpp>
+#include <sge/text.hpp>
 
 sge::openal::buffer::buffer(audio::file &file_)
 :
@@ -26,7 +30,11 @@ sge::openal::buffer::buffer(audio::file &file_)
 	refcount_(static_cast<unsigned>(1))
 {
 	alGenBuffers(static_cast<ALsizei>(1),&buffer_);
-	SGE_OPENAL_ERROR_CHECK
+
+	SGE_OPENAL_CHECK_STATE(
+		SGE_TEXT("alGenBuffers failed"),
+		audio::exception
+	)
 }
 
 ALuint
@@ -56,6 +64,11 @@ bool sge::openal::buffer::remove_instance()
 		return false;
 
 	alDeleteBuffers(static_cast<ALsizei>(1),&buffer_);
-	SGE_OPENAL_ERROR_CHECK
+
+	SGE_OPENAL_CHECK_STATE(
+		SGE_TEXT("alDeleteBuffers failed"),
+		audio::exception
+	)
+
 	return true;
 }

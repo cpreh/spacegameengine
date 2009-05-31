@@ -18,24 +18,75 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
-#include "../get_int.hpp"
+#include "../source_functions.hpp"
 #include "../check_state.hpp"
-#include <sge/renderer/exception.hpp>
+#include <sge/audio/exception.hpp>
 #include <sge/text.hpp>
 
-GLint
-sge::ogl::get_int(
-	GLenum const what)
+void
+sge::openal::source_i(
+	ALuint const source,
+	ALenum const type,
+	ALint const value)
 {
-	GLint ret;
+	alSourcei(
+		source,
+		type,
+		value
+	);
 
-	glGetIntegerv(what, &ret);
-
-	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glGetIntegerv failed"),
-		sge::renderer::exception
+	SGE_OPENAL_CHECK_STATE(
+		SGE_TEXT("alSourcei failed"),
+		audio::exception
 	)
-
-	return ret;
 }
+
+void
+sge::openal::source_f(
+	ALuint const source,
+	ALenum const type,
+	ALfloat const value)
+{
+	alSourcef(
+		source,
+		type,
+		value
+	);
+
+	SGE_OPENAL_CHECK_STATE(
+		SGE_TEXT("alSourcef failed"),
+		audio::exception
+	)
+}
+
+void
+sge::openal::source_fv(
+	ALuint const source,
+	ALenum const type,
+	ALfloat const *const value)
+{
+	alSourcefv(
+		source,
+		type,
+		value
+	);
+
+	SGE_OPENAL_CHECK_STATE(
+		SGE_TEXT("alSourcefv failed"),
+		audio::exception
+	)
+}
+
+void
+sge::openal::source_play(
+	ALuint const source)
+{
+	alSourcePlay(source);
+
+	SGE_OPENAL_CHECK_STATE(
+		SGE_TEXT("alSourcePlay failed"),
+		audio::exception
+	)
+}
+
+

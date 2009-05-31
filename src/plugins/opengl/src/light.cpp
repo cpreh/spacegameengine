@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../light.hpp"
-#include "../error.hpp"
+#include "../check_state.hpp"
 #include "../vector4f.hpp"
 #include "../vector3f.hpp"
 #include <sge/image/color/raw.hpp>
@@ -28,8 +28,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vector_convert.hpp>
 #include <sge/renderer/arithmetic_convert.hpp>
 #include <sge/renderer/light.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/math/vector/construct.hpp>
 #include <sge/math/vector/basic_impl.hpp>
+#include <sge/text.hpp>
 
 namespace
 {
@@ -100,9 +102,14 @@ void light_float_ptr(
 	GLenum const name,
 	GLfloat const *const data)
 {
-	SGE_OPENGL_SENTRY
-	
+
 	glLightfv(index, name, data);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glLightfv failed"),
+		sge::renderer::exception
+	)
+	
 }
 
 void light_float(
@@ -110,9 +117,12 @@ void light_float(
 	GLenum const name,
 	GLfloat const value)
 {
-	SGE_OPENGL_SENTRY
-	
 	glLightf(index, name, value);
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glLightf failed"),
+		sge::renderer::exception
+	)
 }
 
 void light_arithmetic(

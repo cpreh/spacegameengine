@@ -17,11 +17,33 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 #include "../listener.hpp"
-#include "../error.hpp"
+#include "../check_state.hpp"
 #include "../log.hpp"
 #include "../openal.hpp"
 #include <sge/math/vector/output.hpp>
 #include <sge/math/vector/basic_impl.hpp>
+#include <sge/audio/exception.hpp>
+#include <sge/text.hpp>
+
+namespace
+{
+
+void listener_fv(
+	ALenum const type,
+	ALfloat const *const value)
+{
+	alListenerfv(
+		type,
+		value
+	);
+
+	SGE_OPENAL_CHECK_STATE(
+		SGE_TEXT("alListenerfv failed"),
+		sge::audio::exception
+	)
+}
+
+}
 
 sge::openal::listener::listener()
 :
@@ -34,13 +56,18 @@ void sge::openal::listener::vel(audio::point const &n)
 {
 	SGE_LOG_DEBUG(log(),log::_1 << SGE_TEXT("setting listener velocity to ") << n);
 	vel_ = n;
+
+	// TODO: use sge::math::vector!
 	ALfloat const vec[3] = 
 		{ 
 			static_cast<ALfloat>(n.x()),
 			static_cast<ALfloat>(n.y()),
 			static_cast<ALfloat>(n.z()) 
 		};
-	alListenerfv(AL_VELOCITY, vec); SGE_OPENAL_ERROR_CHECK;
+	listener_fv(
+		AL_VELOCITY,
+		vec
+	);
 }
 
 sge::audio::point const sge::openal::listener::vel() const
@@ -58,7 +85,10 @@ void sge::openal::listener::pos(audio::point const &n)
 			static_cast<ALfloat>(n.y()),
 			static_cast<ALfloat>(n.z()) 
 		};
-	alListenerfv(AL_POSITION, vec); SGE_OPENAL_ERROR_CHECK;
+	listener_fv(
+		AL_POSITION,
+		vec
+	);
 }
 
 sge::audio::point const sge::openal::listener::pos() const
@@ -78,7 +108,10 @@ void sge::openal::listener::direction(audio::angle const &n)
 			static_cast<ALfloat>(n.up().z()) 
 		};
 
-	alListenerfv(AL_POSITION, vec); SGE_OPENAL_ERROR_CHECK;
+	listener_fv(
+		AL_POSITION,
+		vec
+	);
 }
 
 
