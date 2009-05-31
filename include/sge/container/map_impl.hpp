@@ -564,4 +564,32 @@ sge::container::map<
 	return impl_.size();
 }
 
+template<
+	template<
+		typename,
+		typename,
+		typename,
+		typename
+	> class MapType,
+	typename Key,
+	typename Mapped,
+	template<
+		typename
+	> class Alloc,
+	template<
+		typename
+	> class Comp
+>
+bool
+sge::container::map<
+	MapType,
+	Key,
+	Mapped,
+	Alloc,
+	Comp
+>::empty() const
+{
+	return begin() == end();
+}
+
 #endif

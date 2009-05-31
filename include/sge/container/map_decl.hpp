@@ -124,6 +124,7 @@ public:
 	const_iterator end() const;
 
 	size_type size() const;
+	bool empty() const;
 private:
 	internal_type impl_;
 };
