@@ -498,4 +498,8 @@ void sge::gui::layouts::grid::update_widget(
 	base::set_widget_size(
 		w,
 		smaller);
+	
+	base::compile_widget(
+		w,
+		invalidation::all);
 }
