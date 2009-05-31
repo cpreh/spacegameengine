@@ -5,6 +5,7 @@
 #include <sge/gui/widgets/base.hpp>
 #include <sge/math/rect/basic_impl.hpp>
 #include <sge/math/dim/dim.hpp>
+#include <sge/math/dim/is_quadratic.hpp>
 #include <sge/math/vector/vector.hpp>
 #include <sge/math/vector/dim.hpp>
 #include <sge/math/negative.hpp>
@@ -87,6 +88,8 @@ sge::gui::dim const sge::gui::layouts::grid::optimal_size() const
 		valid_cache().rolumns();
 
 	dim maxdims = dim::null();
+
+	SGE_ASSERT(math::dim::is_quadratic(rolumns.dim()));
 
 	for (
 		detail::grid_cache::rolumn_container::size_type i = 0; 

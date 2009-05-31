@@ -41,6 +41,7 @@ template<
 sge::container::field<T, ArrayType, Alloc>::field(
 	allocator_type const &alloc)
 :
+	dim_(dim_type::null()),
 	array(alloc)
 {}
 

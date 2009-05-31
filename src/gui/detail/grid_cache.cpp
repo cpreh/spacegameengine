@@ -5,6 +5,7 @@
 #include <sge/gui/exception.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/math/negative.hpp>
+#include <sge/math/dim/output.hpp>
 #include <sge/text.hpp>
 #include <sge/string.hpp>
 #include <sge/lexical_cast.hpp>
@@ -102,8 +103,30 @@ void sge::gui::detail::grid_cache::first_pass()
 
 		child_plane::vector_type const on_plane = 
 			math::vector::structure_cast<child_plane::vector_type>(hint);
+
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << SGE_TEXT("converted position hint is ") 
+			        << on_plane 
+							<< SGE_TEXT(", resizing plane (original dim ") 
+							<< plane_.dim() 
+							<< SGE_TEXT(") to ")
+			        << child_plane::dim_type(
+				std::max(
+					static_cast<child_plane::size_type>(on_plane.x()+1),
+					plane_.dim().w()),
+				std::max(
+					static_cast<child_plane::size_type>(on_plane.y()+1),
+					plane_.dim().h())));
 		
-		// FIXME: _FIRST_ resize, _THEN_ check for correct value
+		plane_.resize(
+			child_plane::dim_type(
+				std::max(
+					static_cast<child_plane::size_type>(on_plane.x()+1),
+					plane_.dim().w()),
+				std::max(
+					static_cast<child_plane::size_type>(on_plane.y()+1),
+					plane_.dim().h())));
 
 		// is there already a widget present at this spot?
 		if(plane_.pos(on_plane))
@@ -116,16 +139,18 @@ void sge::gui::detail::grid_cache::first_pass()
 						*plane_.pos(
 							on_plane))));
 
-		plane_.resize(
-			child_plane::dim_type(
-				std::max(
-					on_plane.x(),
-					plane_.dim().w()),
-				std::max(
-					on_plane.y(),
-					plane_.dim().h())));
+		plane_.pos(
+			on_plane) = const_cast<widgets::base *>(&w);
 
-		plane_.pos(on_plane) = const_cast<widgets::base *>(&w);
+		dim const optsize = 
+			w.optimal_size();
+	
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << SGE_TEXT("this widget has optimal size ")
+			        << optsize);
+
+		data_[const_cast<widgets::base *>(&w)].size = optsize;
 	}
 
 	SGE_LOG_DEBUG(
@@ -137,7 +162,7 @@ void sge::gui::detail::grid_cache::second_pass()
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("second pass, end"));
+		log::_1 << SGE_TEXT("second pass, begin"));
 
 	SGE_LOG_DEBUG(
 		mylogger,
@@ -152,6 +177,10 @@ void sge::gui::detail::grid_cache::second_pass()
 				plane_.dim().w(),
 				plane_.dim().h())));
 
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("iterating through the widget plane "));
+
 	rolumn_container::vector_type p;
 	for(
 		p.x() = static_cast<size_type>(0); 
@@ -164,29 +193,64 @@ void sge::gui::detail::grid_cache::second_pass()
 			++p.y())
 		{
 			if (!plane_.pos(p))
+			{
+				SGE_LOG_DEBUG(
+					mylogger,
+					log::_1 << SGE_TEXT("there is no widget at position ")
+					        << p << SGE_TEXT(", skipping"));
 				continue;
+			}
+
+			SGE_LOG_DEBUG(
+				mylogger,
+				log::_1 << SGE_TEXT("there is a widget at position ")
+								<< p 
+								<< SGE_TEXT(", iterating through the axes"));
 
 			// for each of the two axes
 			for (unsigned i = 0; i < 2; ++i)
 			{
-				rolumn_data &d = 
-					rolumns_.pos
+				rolumn_container::vector_type const &rolumn_pos = 
+					rolumn_container::vector_type
 					(
-						rolumn_container::vector_type
+						static_cast<rolumn_container::size_type>
 						(
+							i
+						),
+						p
+						[
 							static_cast<rolumn_container::size_type>
 							(
 								i
-							),
-							p
+							)
+						]
+					);
+
+				SGE_LOG_DEBUG(
+					mylogger,
+					log::_1 << SGE_TEXT("rolumn position is ")
+									<< rolumn_pos);
+
+				rolumn_data &d = 
+					rolumns_.pos(
+						rolumn_pos);
+
+				SGE_LOG_DEBUG(
+					mylogger,
+					log::_1 << SGE_TEXT("current size at this rolumn is ")
+									<< d.size);
+
+				SGE_LOG_DEBUG(
+					mylogger,
+					log::_1 << SGE_TEXT("stored widget size in data cache is ")
+									<< data_
 							[
-								static_cast<rolumn_container::size_type>
+								plane_.pos
 								(
-									i
+									p
 								)
 							]
-						)
-					);
+						.size[static_cast<dim::size_type>(i)]);
 				
 				d.size = 
 					std::max

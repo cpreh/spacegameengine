@@ -138,7 +138,7 @@ try
 		top,
 		sge::gui::widgets::parameters()
 			.pos(
-				sge::gui::point(0,1)),
+				sge::gui::point(1,0)),
 		SGE_TEXT("right me!"));
 
 	sge::cerr << "added buttons and children\n";
