@@ -132,14 +132,21 @@ try
 		sge::gui::widgets::parameters()
 			.pos(
 				sge::gui::point(0,0)),
-		SGE_TEXT("left me!"));
+		SGE_TEXT("lefttop me!"));
 	
 	sge::gui::widgets::buttons::text right(
 		top,
 		sge::gui::widgets::parameters()
 			.pos(
 				sge::gui::point(1,0)),
-		SGE_TEXT("right me!"));
+		SGE_TEXT("righttop me!"));
+
+	sge::gui::widgets::buttons::text leftbottom(
+		top,
+		sge::gui::widgets::parameters()
+			.pos(
+				sge::gui::point(0,3)),
+		SGE_TEXT("leftbottom me!"));
 
 	sge::cerr << "added buttons and children\n";
 

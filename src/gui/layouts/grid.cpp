@@ -5,7 +5,6 @@
 #include <sge/gui/widgets/base.hpp>
 #include <sge/math/rect/basic_impl.hpp>
 #include <sge/math/dim/dim.hpp>
-#include <sge/math/dim/is_quadratic.hpp>
 #include <sge/math/vector/vector.hpp>
 #include <sge/math/vector/dim.hpp>
 #include <sge/math/negative.hpp>
@@ -75,6 +74,8 @@ void sge::gui::layouts::grid::compile_static()
 		mylogger,
 		log::_1 << SGE_TEXT("adapting x axis end"));
 	
+	distribute_overhead(
+		usable);
 	update_widgets();
 }
 
@@ -89,7 +90,10 @@ sge::gui::dim const sge::gui::layouts::grid::optimal_size() const
 
 	dim maxdims = dim::null();
 
-	SGE_ASSERT(math::dim::is_quadratic(rolumns.dim()));
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("rolumn dimension is ")
+		        << rolumns.dim());
 
 	for (
 		detail::grid_cache::rolumn_container::size_type i = 0; 
@@ -319,13 +323,18 @@ void sge::gui::layouts::grid::update_rolumn(
 		i < valid_cache().plane().dim()[axis]; 
 		++i)
 	{
-		widgets::base * const w = field_swap_pos<widgets::base*,detail::grid_cache::child_plane,unsigned>(
-			valid_cache().plane(),
-			static_cast<bool>(axis),
-			static_cast<unsigned>(
-				i),
-			static_cast<unsigned>(
-				rolumn));
+		widgets::base * const w = 
+			field_swap_pos<
+				widgets::base*,
+				detail::grid_cache::child_plane,
+				unsigned
+			>(
+				valid_cache().plane(),
+				static_cast<bool>(axis),
+				static_cast<unsigned>(
+					i),
+				static_cast<unsigned>(
+					rolumn));
 		
 		// not a widget we're looking for
 		if (!w || !(w->size_policy().index(axis) & flag))
@@ -359,6 +368,43 @@ unsigned sge::gui::layouts::grid::count_flags(
 	return count;
 }
 
+void sge::gui::layouts::grid::distribute_overhead(
+	dim const &usable)
+{
+	detail::grid_cache::rolumn_container &rolumns = 
+		valid_cache().rolumns();
+
+	// we might have overhead space (difference "usable - real"), which we
+	// distribute evenly among rolumns
+	dim real = dim::null();
+	for (detail::grid_cache::rolumn_container::size_type i = 0; i < rolumns.dim().h(); ++i)
+		real += dim(
+			rolumns.pos(
+				detail::grid_cache::rolumn_container::vector_type(
+					x_axis,
+					i)).size,
+			rolumns.pos(
+				detail::grid_cache::rolumn_container::vector_type(
+					y_axis,
+					i)).size);
+	
+	dim const 
+		diff = usable - real,
+		extra(
+			diff.w()/
+			static_cast<unit>(valid_cache().plane().dim().w()),
+			diff.h()/
+			static_cast<unit>(valid_cache().plane().dim().h()));
+
+
+	for (detail::grid_cache::rolumn_container::size_type i = 0; i < rolumns.dim().h(); ++i)
+		for (detail::grid_cache::rolumn_container::size_type j = 0; j < 2; ++j)
+			rolumns.pos(
+				detail::grid_cache::rolumn_container::vector_type(
+					j,
+					i)).size += extra[static_cast<dim::size_type>(j)];
+}
+
 // iterates through the whole table, calculating the minimal size for the
 // table. if we have extra space to spare, align widgets to their alignment property
 void sge::gui::layouts::grid::update_widgets()
@@ -373,6 +419,7 @@ void sge::gui::layouts::grid::update_widgets()
 	detail::grid_cache::rolumn_container const &rolumns = 
 		valid_cache().rolumns();
 
+	// this pos represents the "screen position", not the position in the array
 	point pos = point::null();
 	for (detail::grid_cache::rolumn_container::size_type x = 0; x < c.dim().w(); ++x)
 	{
@@ -395,7 +442,11 @@ void sge::gui::layouts::grid::update_widgets()
 								y_axis,
 								y)).size));
 
-			pos.y() += rolumns.pos(detail::grid_cache::rolumn_container::vector_type(y_axis,y)).size;
+			pos.y() += 
+				rolumns.pos(
+					detail::grid_cache::rolumn_container::vector_type(
+						y_axis,
+						y)).size;
 		}
 		pos.x() += rolumns.pos(detail::grid_cache::rolumn_container::vector_type(x_axis,x)).size;
 	}

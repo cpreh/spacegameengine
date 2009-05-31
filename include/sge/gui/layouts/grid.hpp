@@ -63,6 +63,8 @@ private:
 	void update_policy_cache();
 	void update_size_cache();
 	void update_rolumn_cache();
+	void distribute_overhead(
+		dim const &);
 	void update_widgets();
 	void update_widget(
 		widgets::base &,
