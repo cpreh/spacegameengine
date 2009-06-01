@@ -40,9 +40,6 @@ sge::signal::auto_connection sge::console::object::insert(
 	callback const &c,
 	string const &description)
 {
-	if (funcs_.find(name) != funcs_.end())
-		throw exception(SGE_TEXT("registered function \"")+name+SGE_TEXT("\" twice"));
-
 	auto_ptr<
 		function
 	> sig(
@@ -54,8 +51,6 @@ sge::signal::auto_connection sge::console::object::insert(
 		funcs_.insert(
 			name,
 			sig);
-
-	SGE_ASSERT(ret.second);
 
 	return ret.first->second->signal().connect(c);
 }
@@ -142,13 +137,10 @@ sge::console::function_map const &sge::console::object::functions() const
 
 void sge::console::object::insert(var_base &o)
 {
-	if (vars_.find(o.name()) != vars_.end())
-		throw exception(SGE_TEXT("registered function \"")+o.name()+SGE_TEXT("\" twice"));
 	vars_[o.name()] = &o;
 }
 
 void sge::console::object::erase(var_base &o)
 {
-	SGE_ASSERT(vars_.find(o.name()) != vars_.end());
-	vars_.erase(o.name());
+	SGE_ASSERT(vars_.erase(o.name()) > 0);
 }
