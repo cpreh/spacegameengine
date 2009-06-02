@@ -32,6 +32,8 @@ sge::ogl::convert_primitive(
 		return GL_POINTS;
 	case renderer::nonindexed_primitive_type::line_strip:
 		return GL_LINE_STRIP;
+	case renderer::nonindexed_primitive_type::triangle:
+		return GL_TRIANGLES;
 	case renderer::nonindexed_primitive_type::triangle_strip:
 		return GL_TRIANGLE_STRIP;
 	case renderer::nonindexed_primitive_type::triangle_fan:

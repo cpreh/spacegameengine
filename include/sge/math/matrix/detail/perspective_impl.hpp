@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/almost_zero.hpp>
 #include <sge/text.hpp>
 #include <sge/exception.hpp>
+#include <cmath>
 
 template<
 	typename T
@@ -52,11 +53,15 @@ sge::math::matrix::perspective(
 		w = h / aspect,
 		q = (far + near) / (far - near);
 
+	T const zero(
+		static_cast<T>(0)
+	);
+
 	return typename static_<T, 4, 4>::type
-	       (                w, static_cast<T>(0), static_cast<T>(0), static_cast<T>(0),
-	        static_cast<T>(0),                 h, static_cast<T>(0), static_cast<T>(0),
-	        static_cast<T>(0), static_cast<T>(0),                 q, static_cast<T>(1),
-	        static_cast<T>(0), static_cast<T>(0), static_cast<T>(2) * far * near / (near - far), static_cast<T>(0));
+	       (w, zero, zero, zero,
+	        zero, h, zero, zero,
+	        zero, zero, q, static_cast<T>(-1),
+	        zero, zero, static_cast<T>(2) * far * near / (near - far), zero);
 }
 
 #endif

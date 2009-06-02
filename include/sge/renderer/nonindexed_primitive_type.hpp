@@ -33,6 +33,7 @@ enum type {
 	point,
 	line_strip,
 	line_loop,
+	triangle,
 	triangle_strip,
 	triangle_fan
 };

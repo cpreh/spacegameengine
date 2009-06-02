@@ -35,9 +35,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/colors.hpp>
-#include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/action.hpp>
 #include <sge/mainloop/dispatch.hpp>

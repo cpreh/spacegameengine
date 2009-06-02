@@ -1,0 +1,289 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+
+#include <sge/assert.hpp>
+#include <sge/text.hpp>
+#include <sge/image/color/format.hpp>
+#include <sge/image/color/colors.hpp>
+#include <sge/image/color/rgba8.hpp>
+#include <sge/image/color/any/convert.hpp>
+#include <sge/input/action.hpp>
+#include <sge/input/system.hpp>
+#include <sge/mainloop/catch_block.hpp>
+#include <sge/mainloop/dispatch.hpp>
+#include <sge/math/quad.hpp>
+#include <sge/math/pi.hpp>
+#include <sge/math/twopi.hpp>
+#include <sge/math/matrix/perspective.hpp>
+#include <sge/renderer/aspect.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/lock_flags.hpp>
+#include <sge/renderer/parameters.hpp>
+#include <sge/renderer/resource_flags.hpp>
+#include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/scoped_vertex_lock.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/vf/color.hpp>
+#include <sge/renderer/vf/format.hpp>
+#include <sge/renderer/vf/iterator.hpp>
+#include <sge/renderer/vf/make_dynamic_format.hpp>
+#include <sge/renderer/vf/normal.hpp>
+#include <sge/renderer/vf/pos.hpp>
+#include <sge/renderer/vf/view.hpp>
+#include <sge/renderer/vf/vertex.hpp>
+#include <sge/signal/scoped_connection.hpp>
+#include <sge/systems/instance.hpp>
+#include <sge/systems/list.hpp>
+#include <sge/window/parameters.hpp>
+#include <boost/mpl/vector.hpp>
+#include <boost/spirit/home/phoenix/core/reference.hpp>
+#include <boost/spirit/home/phoenix/operator/self.hpp>
+#include <cmath>
+
+namespace
+{
+
+typedef float float_type;
+
+typedef sge::renderer::vf::pos<
+	float_type,
+	3
+> pos_type;
+
+typedef sge::renderer::vf::normal<
+	float_type
+> normal_type;
+
+typedef sge::image::color::rgba8 color_;
+
+typedef sge::renderer::vf::color<
+	color_
+> color_type;
+
+typedef sge::renderer::vf::format<
+	boost::mpl::vector<
+		pos_type,
+		normal_type,
+		color_type
+	>
+> vertex_format;
+
+typedef sge::renderer::vf::view<
+	vertex_format
+> vertex_view;
+
+typedef vertex_view::iterator vertex_iterator;
+
+typedef vertex_iterator::reference vertex_reference;
+
+void
+make_vertex(
+	vertex_reference vert,
+	float_type const theta,
+	float_type const phi
+)
+{
+	typedef pos_type::packed_type vec3;
+
+	vec3 const pos(
+		std::sin(theta) * std::cos(phi),
+		std::sin(theta) * std::sin(phi),
+		std::cos(theta)
+	);
+
+	vert.set<pos_type>(
+		pos
+	);
+
+	vert.set<normal_type>(
+		pos
+	);
+
+	vert.set<color_type>(
+		sge::image::color::any::convert<
+			color_
+		>(
+			sge::image::color::colors::white()
+		)
+	);
+}
+
+}
+
+int main()
+try
+{
+	sge::systems::instance const sys(
+		sge::systems::list()
+		(sge::window::parameters(
+			SGE_TEXT("sge cg1 ex04")
+		))
+		(sge::renderer::parameters(
+			sge::renderer::display_mode(
+				sge::renderer::screen_size(
+					1024,
+					768),
+				sge::renderer::bit_depth::depth32,
+				sge::renderer::refresh_rate_dont_care),
+			sge::renderer::depth_buffer::off,
+			sge::renderer::stencil_buffer::off,
+			sge::renderer::window_mode::windowed))
+		(sge::systems::parameterless::input)
+	);
+
+	sge::renderer::device_ptr const rend(
+		sys.renderer()
+	);
+
+	float_type const step(
+		0.2f
+	);
+
+	sge::renderer::vertex_buffer_ptr const vb(
+		rend->create_vertex_buffer(
+			sge::renderer::vf::make_dynamic_format<
+				vertex_format
+			>(),
+			6 * static_cast<
+				sge::renderer::size_type
+			>(
+				sge::math::quad(
+					std::ceil(
+						sge::math::twopi<float_type>()
+						/ step
+					)
+				)
+			),
+			sge::renderer::resource_flags::none
+		)
+	);
+
+	{
+		sge::renderer::scoped_vertex_lock const vblock(
+			vb,
+			sge::renderer::lock_flags::writeonly
+		);
+	
+		vertex_view const vertices(
+			vblock.value()
+		);
+
+		float_type shift(0);
+
+		vertex_iterator vb_it = vertices.begin();
+		
+		for(
+			float_type theta = 0;
+			theta < sge::math::twopi<float_type>();
+			theta += step, shift += step / 2
+		)
+			for(
+				float_type phi = 0;
+				phi < sge::math::twopi<float_type>();
+				phi += step
+			)
+			{
+				float_type const phi_shift(
+					phi + shift
+				);
+
+				make_vertex(
+					*vb_it++,
+					theta,
+					phi_shift
+				);
+				
+				make_vertex(
+					*vb_it++,
+					theta + step,
+					phi_shift + step / 2
+				);
+
+				make_vertex(
+					*vb_it++,
+					theta,
+					phi_shift + step
+				);
+
+				make_vertex(
+					*vb_it++,
+					theta,
+					phi_shift + step
+				);
+
+				make_vertex(
+					*vb_it++,
+					theta + step,
+					phi_shift + step / 2.0f
+				);
+
+				make_vertex(
+					*vb_it++,
+					theta + step,
+					phi_shift + step * 3.f / 2.f
+				);
+
+			}
+
+		SGE_ASSERT(vb_it == vertices.end());
+	}
+
+	bool running = true;
+
+	sge::signal::scoped_connection const cb(
+		sys.input_system()->register_callback(
+			sge::input::action(
+				sge::input::kc::key_escape,
+				boost::phoenix::ref(running) = false
+			)
+		)
+	);
+
+	rend->projection(
+		sge::math::matrix::perspective(
+			sge::renderer::aspect<
+				float_type
+			>(
+				rend->screen_size()
+			),
+			sge::math::pi<float_type>() / 2,
+			static_cast<float_type>(1),
+			static_cast<float_type>(256)
+		)
+	);
+
+	while(running)
+	{
+		sge::mainloop::dispatch();	
+
+		sge::renderer::scoped_block const block_(
+			rend
+		);
+
+		rend->render(
+			vb,
+			0,
+			vb->size(),
+			sge::renderer::nonindexed_primitive_type::triangle
+		);
+	}
+}
+SGE_MAINLOOP_CATCH_BLOCK
