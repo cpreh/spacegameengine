@@ -132,6 +132,8 @@ sge::ogl::device::device(
 	reset_viewport_default();
 	
 	target_->bind_me();
+
+	//glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, 1);
 }
 
 void sge::ogl::device::begin_rendering()

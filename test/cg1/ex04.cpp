@@ -36,6 +36,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/matrix/perspective.hpp>
 #include <sge/math/matrix/rotation_y.hpp>
 #include <sge/math/matrix/translation.hpp>
+#include <sge/math/vector/basic_impl.hpp>
+#include <sge/math/vector/static.hpp>
 #include <sge/renderer/aspect.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/light.hpp>
@@ -51,7 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/cull_mode.hpp>
-//#include <sge/renderer/state/depth_func.hpp>
+#include <sge/renderer/state/depth_func.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/var.hpp>
@@ -314,18 +316,23 @@ try
 	{
 		sge::renderer::light_index const light_index(0);
 
+		typedef sge::math::vector::static_<
+			float_type,
+			3
+		>::type vec3f;
+
 		rend->light(
 			light_index,
 			sge::renderer::light(
 				sge::image::color::colors::white(),
 				sge::image::color::colors::white(),
 				sge::image::color::colors::white(),
-				sge::math::vector::static_<float_type, 3>::type(
+				vec3f(
 					0.577350269f,
 					0.577350269f,
 					-2//0.577350269f
 				),
-				sge::math::vector::static_<float_type, 3>::type(
+				vec3f(
 					0,
 					0,
 					-1
@@ -390,7 +397,7 @@ try
 			* sge::math::matrix::translation(
 				0.f,
 				0.f,
-				-2.f
+				-1.5f
 			)
 		);
 					
