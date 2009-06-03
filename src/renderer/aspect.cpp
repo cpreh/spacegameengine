@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/aspect.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/math/instantiate_arithmetic.hpp>
+#include <sge/math/almost_zero.hpp>
+#include <sge/assert.hpp>
 
 template<
 	typename T
@@ -30,9 +32,18 @@ T
 sge::renderer::aspect(
 	screen_size const &sz)
 {
-	return
-		static_cast<T>(sz.h())
-		/ static_cast<T>(sz.w());
+	T const
+		w(static_cast<T>(sz.w())),
+		h(static_cast<T>(sz.h()));
+	
+	SGE_ASSERT(
+		!math::almost_zero(w)
+		&& !math::almost_zero(h)
+	)
+	
+	return w > h
+		? w / h
+		: h / w;
 }
 
 #define SGE_INSTANTIATE_ASPECT(x)\
