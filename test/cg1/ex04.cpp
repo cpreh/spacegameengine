@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/colors.hpp>
 #include <sge/image/color/rgba8.hpp>
+#include <sge/image/color/rgba32f.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/input/action.hpp>
 #include <sge/input/system.hpp>
@@ -31,16 +32,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/quad.hpp>
 #include <sge/math/pi.hpp>
 #include <sge/math/twopi.hpp>
+#include <sge/math/matrix/arithmetic.hpp>
 #include <sge/math/matrix/perspective.hpp>
+#include <sge/math/matrix/rotation_y.hpp>
+#include <sge/math/matrix/translation.hpp>
 #include <sge/renderer/aspect.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/light.hpp>
+#include <sge/renderer/light_index.hpp>
 #include <sge/renderer/lock_flags.hpp>
+#include <sge/renderer/material.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/state/bool.hpp>
+#include <sge/renderer/state/color.hpp>
+#include <sge/renderer/state/cull_mode.hpp>
+//#include <sge/renderer/state/depth_func.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/trampoline.hpp>
+#include <sge/renderer/state/var.hpp>
 #include <sge/renderer/vf/color.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/iterator.hpp>
@@ -49,9 +63,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/pos.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/vertex.hpp>
+#include <sge/time/second_f.hpp>
+#include <sge/time/resolution.hpp>
+#include <sge/time/timer.hpp>
 #include <sge/signal/scoped_connection.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/variant/object_impl.hpp>
 #include <sge/window/parameters.hpp>
 #include <boost/mpl/vector.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
@@ -81,8 +99,8 @@ typedef sge::renderer::vf::color<
 typedef sge::renderer::vf::format<
 	boost::mpl::vector<
 		pos_type,
-		normal_type,
-		color_type
+		normal_type//,
+		//color_type
 	>
 > vertex_format;
 
@@ -117,13 +135,15 @@ make_vertex(
 		pos
 	);
 
+	/*
 	vert.set<color_type>(
 		sge::image::color::any::convert<
 			color_
 		>(
-			sge::image::color::colors::white()
+			sge::image::color::colors::black()
 		)
 	);
+	*/
 }
 
 }
@@ -154,7 +174,8 @@ try
 	);
 
 	float_type const step(
-		0.2f
+		sge::math::twopi<float_type>()
+		/ static_cast<float_type>(40)
 	);
 
 	sge::renderer::vertex_buffer_ptr const vb(
@@ -270,10 +291,109 @@ try
 		)
 	);
 
+	typedef sge::image::color::rgba32f rgba32f_color;
+
+	rend->state(
+		sge::renderer::state::list
+			(sge::renderer::state::bool_::clear_backbuffer = true)
+			(sge::renderer::state::bool_::clear_zbuffer = true)
+			(sge::renderer::state::bool_::enable_lighting = true)
+			(sge::renderer::state::color::ambient_light_color
+				= rgba32f_color(
+					0.577350269f,
+					0.577350269f,
+					0.577350269f,
+					0.f
+				)
+			)
+			(sge::renderer::state::color::clear_color = sge::image::color::colors::black())
+			(sge::renderer::state::cull_mode::back)
+			(sge::renderer::state::depth_func::less)
+	);
+
+	{
+		sge::renderer::light_index const light_index(0);
+
+		rend->light(
+			light_index,
+			sge::renderer::light(
+				sge::image::color::colors::white(),
+				sge::image::color::colors::white(),
+				sge::image::color::colors::white(),
+				sge::math::vector::static_<float_type, 3>::type(
+					0.577350269f,
+					0.577350269f,
+					-2//0.577350269f
+				),
+				sge::math::vector::static_<float_type, 3>::type(
+					0,
+					0,
+					-1
+				),
+				1.f,
+				0.f,
+				0.f,
+				1.f,
+				90.f//sge::math::pi<float>()
+			)
+		);
+
+		rend->enable_light(
+			light_index,
+			true
+		);
+	}
+
+	rend->material(
+		sge::renderer::material(
+			rgba32f_color(
+				0.1f,
+				0.1f,
+				0.1f,
+				1.0f
+			),
+			rgba32f_color(
+				0.75f,
+				0.75f,
+				1.0f,
+				1.0f
+			),
+			rgba32f_color(
+				0.5f,
+				0.5f,
+				0.5f,
+				1.0f
+			),
+			sge::image::color::colors::black(),
+			100.f
+		)
+	);
+
+	sge::time::timer rotation_time(
+		sge::time::second_f(
+			0.1f
+		)
+	);
+
+	float_type angle(0);
+
 	while(running)
 	{
-		sge::mainloop::dispatch();	
+		sge::mainloop::dispatch();
 
+		angle += sge::math::twopi<float_type>() * rotation_time.update();
+
+		rend->transform(
+			sge::math::matrix::rotation_y(
+				angle
+			)
+			* sge::math::matrix::translation(
+				0.f,
+				0.f,
+				-2.f
+			)
+		);
+					
 		sge::renderer::scoped_block const block_(
 			rend
 		);

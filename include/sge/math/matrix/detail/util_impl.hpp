@@ -50,22 +50,6 @@ sge::math::matrix_rotation_z(
 template<
 	typename T
 >
-sge::math::matrix<T, 4, 4> const sge::math::matrix_rotation_y(
-	T const angle)
-{
-	T const
-		sinx = std::sin(angle),
-		cosx = std::cos(angle);
-	return matrix<T, 4, 4>
-	       ( cosx, static_cast<T>(0), -sinx, static_cast<T>(0),
-	        static_cast<T>(0), static_cast<T>(1), static_cast<T>(0), static_cast<T>(0),
-	         sinx, static_cast<T>(0),  cosx, static_cast<T>(0),
-	        static_cast<T>(0), static_cast<T>(0), static_cast<T>(0), static_cast<T>(1));
-}
-
-template<
-	typename T
->
 sge::math::matrix<T, 4, 4> const
 sge::math::matrix_rotation_x(
 	T const angle)
