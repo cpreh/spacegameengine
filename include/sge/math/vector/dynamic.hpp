@@ -38,8 +38,7 @@ namespace vector
 template<
 	typename T
 >
-class dynamic {
-public:
+struct dynamic {
 	typedef basic<
 		T,
 		math::detail::dynamic_size,

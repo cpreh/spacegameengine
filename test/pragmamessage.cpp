@@ -18,41 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/preprocessor/todo.hpp>
 
-#ifndef SGE_MATH_MATRIX_DYNAMIC_HPP_INCLUDED
-#define SGE_MATH_MATRIX_DYNAMIC_HPP_INCLUDED
+SGE_PP_TODO("This is just a test for the TODO macro!")
 
-#include <sge/math/matrix/basic_fwd.hpp>
-#include <sge/math/detail/dynamic_size.hpp>
-#include <sge/math/detail/dynamic_storage.hpp>
-#include <sge/container/raw_vector_decl.hpp>
-#include <sge/restrict_typedef_struct.hpp>
-
-namespace sge
-{
-namespace math
-{
-namespace matrix 
-{
-
-template<
-	typename T
->
-struct dynamic {
-	typedef basic<
-		T,
-		math::detail::dynamic_size,
-		math::detail::dynamic_size,
-		typename math::detail::dynamic_storage<
-			T
-		>::type
-	> type;
-
-	SGE_RESTRICT_TYPEDEF_STRUCT(dynamic)
-};
-
-}
-}
-}
-
-#endif
+int main()
+{}

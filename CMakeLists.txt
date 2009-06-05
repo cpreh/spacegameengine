@@ -80,6 +80,18 @@ IF (CMAKE_COMPILER_IS_GNUCXX)
 		abi::__cxa_demangle(typeid(int).name(),0,0,&status); std::free(name); }"
 		SGE_HAS_GNU_DEMANGLE)
 	
+	SET (CMAKE_REQUIRED_FLAGS "-Wall -Werror -pedantic")
+
+	CHECK_CXX_SOURCE_COMPILES(
+		"
+		#define DO_PRAGMA(x) _Pragma(#x)
+		#define DO_MESSAGE(x) DO_PRAGMA(message (#x))
+		DO_MESSAGE(test)
+		int main() {}
+		"
+		SGE_HAVE_GCC_PRAGMA_MESSAGE
+	)
+
 	SET (CMAKE_REQUIRED_FLAGS "")
 ELSEIF (MSVC)
 	ADD_DEFINITIONS ("/W3 /wd4512 /wd4355 /wd4800 /wd4996 /wd4714 /EHa /D_BIND_TO_CURRENT_VCLIBS_VERSION=1")

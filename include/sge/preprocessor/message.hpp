@@ -18,41 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_PREPROCESSOR_MESSAGE_HPP_INCLUDED
+#define SGE_PREPROCESSOR_MESSAGE_HPP_INCLUDED
 
-#ifndef SGE_MATH_MATRIX_DYNAMIC_HPP_INCLUDED
-#define SGE_MATH_MATRIX_DYNAMIC_HPP_INCLUDED
+#include <sge/config.h>
 
-#include <sge/math/matrix/basic_fwd.hpp>
-#include <sge/math/detail/dynamic_size.hpp>
-#include <sge/math/detail/dynamic_storage.hpp>
-#include <sge/container/raw_vector_decl.hpp>
-#include <sge/restrict_typedef_struct.hpp>
-
-namespace sge
-{
-namespace math
-{
-namespace matrix 
-{
-
-template<
-	typename T
->
-struct dynamic {
-	typedef basic<
-		T,
-		math::detail::dynamic_size,
-		math::detail::dynamic_size,
-		typename math::detail::dynamic_storage<
-			T
-		>::type
-	> type;
-
-	SGE_RESTRICT_TYPEDEF_STRUCT(dynamic)
-};
-
-}
-}
-}
+#ifdef _MSC_VER
+#define SGE_PP_MESSAGE(x) __pragma(message x)
+#elif defined(SGE_HAVE_GCC_PRAGMA_MESSAGE)
+#define SGE_PP_GCC_DO_PRAGMA(x) _Pragma(#x)
+#define SGE_PP_MESSAGE(x) SGE_PP_GCC_DO_PRAGMA(message (x))
+#else
+#define SGE_PP_MESSAGE(x)
+#endif
 
 #endif
