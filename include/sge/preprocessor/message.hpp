@@ -24,9 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/preprocessor/pragma.hpp>
 #include <sge/config.h>
 
-#ifdef _MSC_VER
-#define SGE_PP_MESSAGE(x) SGE_PP_PRAGMA(message (x))
-#elif defined(SGE_HAVE_GCC_PRAGMA_MESSAGE)
+#if defined(_MSC_VER) || defined(SGE_HAVE_GCC_PRAGMA_MESSAGE)
 #define SGE_PP_MESSAGE(x) SGE_PP_PRAGMA(message (x))
 #else
 #define SGE_PP_MESSAGE(x)
