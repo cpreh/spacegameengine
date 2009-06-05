@@ -67,7 +67,7 @@ sge::texture::cell_fragmented::consume_fragment(
 	if(it == cells.end())
 		return part_ptr();
 	*it = true;
-	
+
 	field_type::vector_type const pos = cells.position(it);
 	return part_ptr(
 		new part_fragmented(
