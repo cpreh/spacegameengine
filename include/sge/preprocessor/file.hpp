@@ -18,40 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ERROR_CHECK_STATE_HPP_INCLUDED
-#define SGE_ERROR_CHECK_STATE_HPP_INCLUDED
+#ifndef SGE_PREPROCESSOR_FILE_HPP_INCLUDED
+#define SGE_PREPROCESSOR_FILE_HPP_INCLUDED
 
-#include <sge/preprocessor/stringize.hpp>
-#include <sge/preprocessor/file.hpp>
-#include <sge/format.hpp>
 #include <sge/text.hpp>
-#include <sge/string.hpp>
+#include <sge/config.h>
 
-#define SGE_ERROR_CHECK_STATE(\
-	exception,\
-	message,\
-	error_type,\
-	function,\
-	success_code, \
-	error_code_function \
-) \
-{ \
-	error_type const sge_return_value_(\
-		function \
-	); \
-	\
-	if(sge_return_value_ != success_code)\
-		throw exception(\
-			sge::str( \
-				sge::format(\
-					SGE_TEXT("Function failed in %1%:%2% (errorcode: %3%): %4%")\
-				) \
-				% SGE_PP_FILE \
-				% SGE_PP_STRINGIZE(__LINE__) \
-				% error_code_function(sge_return_value_) \
-				% message \
-			) \
-		);\
-} \
+//#define SGE_DETAIL_WIDEN2(s) L ## s
+#ifdef SGE_NARROW_STRING
+#define SGE_PP_FILE __FILE__
+#else
+#define SGE_PP_DETAIL_WIDEN(s) SGE_TEXT(s)
+#define SGE_PP_FILE SGE_PP_DETAIL_WIDEN(__FILE__)
+#endif
 
 #endif

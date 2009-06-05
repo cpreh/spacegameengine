@@ -22,11 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_ASSERT_HPP_INCLUDED
 #define SGE_ASSERT_HPP_INCLUDED
 
+#include <sge/preprocessor/stringize.hpp>
+#include <sge/preprocessor/file.hpp>
 #include <sge/string.hpp>
-#include <sge/text.hpp>
 #include <sge/export.hpp>
-#include <sge/stringize.hpp>
-#include <sge/file.hpp>
 
 namespace sge
 {
@@ -44,16 +43,16 @@ SGE_SYMBOL void process_assert(
 #define SGE_ASSERT_MESSAGE(cond,message)\
 if (!(cond))\
 	sge::detail::process_assert(\
-		SGE_FILE,\
-		SGE_STRINGIZE(__LINE__),\
-		SGE_STRINGIZE(cond),\
+		SGE_PP_FILE,\
+		SGE_PP_STRINGIZE(__LINE__),\
+		SGE_PP_STRINGIZE(cond),\
 		message);
 
 #define SGE_ASSERT(cond)\
 if (!(cond))\
 	sge::detail::process_assert(\
-		SGE_FILE,\
-		SGE_STRINGIZE(__LINE__),\
-		SGE_STRINGIZE(cond));
+		SGE_PP_FILE,\
+		SGE_PP_STRINGIZE(__LINE__),\
+		SGE_PP_STRINGIZE(cond));
 
 #endif
