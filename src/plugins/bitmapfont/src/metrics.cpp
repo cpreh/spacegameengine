@@ -30,32 +30,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/filesystem/replace_extension.hpp>
 #include <sge/image/view/sub.hpp>
 #include <sge/image/file.hpp>
+#include <sge/image/loader.hpp>
 #include <sge/font/char_not_available.hpp>
+#include <sge/font/exception.hpp>
 #include <sge/math/rect/basic_impl.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
+#include <sge/variant/object_impl.hpp>
 #include <sge/make_shared_ptr.hpp>
 #include <sge/text.hpp>
+#include <sge/exception.hpp>
 #include <boost/foreach.hpp>
 #include <utility>
 
 sge::bitmapfont::metrics::metrics(
-	filesystem::path const &path)
+	filesystem::path const &path,
+	sge::image::loader_ptr const loader)
 :
-	image_(),
+	image_(
+		loader->load(
+			path
+		)
+	),
 	line_height_(),
 	char_map_()
 {
-	sge::parse::json::object result;
-
-	parse::json::parse_file(
+	sge::filesystem::path const json_file(
 		filesystem::replace_extension(
 			path,
 			SGE_TEXT("json")
-		),
-		result
+		)
 	);
+	
+	sge::parse::json::object result;
+
+	if(
+		!parse::json::parse_file(
+			json_file,
+			result
+		)
+	)
+		throw font::exception(
+			json_file.string()
+			+ SGE_TEXT(" contains errors!")
+		);
+			
 
 	sge::parse::json::member_vector const &top_members(
 		result.members
@@ -63,7 +83,7 @@ sge::bitmapfont::metrics::metrics(
 
 	line_height_
 	= parse::json::find_member<
-		double // FIXME
+		int
 	>(
 		top_members,
 		SGE_TEXT("line_height")
@@ -78,6 +98,7 @@ sge::bitmapfont::metrics::metrics(
 			SGE_TEXT("glyphs")
 		).elements
 	)
+	try
 	{
 		sge::parse::json::member_vector const &members(
 			parse::json::get<
@@ -125,7 +146,7 @@ sge::bitmapfont::metrics::metrics(
 						members
 					),
 					parse::json::find_member<
-						double // FIXME
+						int
 					>(
 						members,
 						SGE_TEXT("x_advance")
@@ -134,7 +155,19 @@ sge::bitmapfont::metrics::metrics(
 			)
 		);
 	}
+	catch(exception const &e)
+	{
+		SGE_LOG_WARNING(
+			log::global(),
+			log::_1
+				<< SGE_TEXT("Skipping character int bitmap font because ")
+				<< e.what()
+		);
+	}
 }
+
+sge::bitmapfont::metrics::~metrics()
+{}
 
 sge::font::char_metric_ptr const
 sge::bitmapfont::metrics::load_char(

@@ -69,22 +69,22 @@ sge::bitmapfont::load_rect(
 	
 	return image::rect(
 		parse::json::get<
-			double // FIXME
+			int
 		>(
 			first_elements[0]
 		),
 		parse::json::get<
-			double // FIXME
+			int
 		>(
 			first_elements[1]
 		),
 		parse::json::get<
-			double // FIXME
+			int
 		>(
 			second_elements[0]
 		),
 		parse::json::get<
-			double // FIXME
+			int
 		>(
 			second_elements[1]
 		)

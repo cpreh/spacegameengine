@@ -255,6 +255,7 @@ ENDMACRO ()
 
 INSTALL_MEDIA (./)
 INSTALL_MEDIA (fonts)
+INSTALL_MEDIA (fonts/bitmap)
 INSTALL_MEDIA (gui)
 INSTALL_MEDIA (shaders)
 

@@ -19,45 +19,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 
-#ifndef SGE_FREETYPE_SYSTEM_HPP_INCLUDED
-#define SGE_FREETYPE_SYSTEM_HPP_INCLUDED
+#include "../system.hpp"
+#include <sge/export.hpp>
+#include <sge/plugin/info.hpp>
+#include <sge/text.hpp>
 
-#include "library.hpp"
-#include <sge/filesystem/path.hpp>
-#include <sge/font/system.hpp>
-#include <sge/font/metrics.hpp>
-#include <sge/weak_ptr.hpp>
-#include <map>
-#include <utility>
-
-namespace sge
-{
-namespace ft
+extern "C"
 {
 
-class system : public font::system {
-public:
-	font::metrics_ptr const
-	create_font(
-		filesystem::path const &font_name,
-		font::size_type font_size,
-		sge::image::loader_ptr);
-private:
-	library library_;
-	typedef std::map<
-		std::pair<
-			font::size_type,
-			filesystem::path
-		>,
-		weak_ptr<
-			font::metrics
-		>
-	> loaded_fonts_list;
-	loaded_fonts_list loaded_fonts;
-};
+SGE_EXPORT_SYMBOL void
+plugin_version_info(
+	sge::plugin::info *);
 
-}
+SGE_EXPORT_SYMBOL sge::font::system *
+create_font_system();
+
+SGE_EXPORT_SYMBOL void
+plugin_version_info(
+	sge::plugin::info *const p)
+{
+	if(!p)
+		return;
+	p->name = SGE_TEXT("bitmapfont");
+	p->description = SGE_TEXT("");
+	p->min_core_version = 0x1;
+	p->plugin_version = 0x1;
+	p->type = sge::plugin::capabilities::font;
 }
 
-#endif
+SGE_EXPORT_SYMBOL sge::font::system *
+create_font_system()
+{
+	return new sge::bitmapfont::system();
+}
 
+}

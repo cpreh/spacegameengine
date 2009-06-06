@@ -20,16 +20,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../system.hpp"
 #include "../metrics.hpp"
+#include <sge/font/exception.hpp>
 #include <sge/make_shared_ptr.hpp>
+#include <sge/text.hpp>
 
 sge::font::metrics_ptr const
 sge::bitmapfont::system::create_font(
 	filesystem::path const &path,
-	font::size_type const font_height)
+	font::size_type const font_height,
+	sge::image::loader_ptr const loader)
 {
+	if(!loader)
+		throw font::exception(
+			SGE_TEXT("The bitmap font plugin needs an image loader passed in create_font!")
+		);
+
 	return make_shared_ptr<
 		metrics
 	>(
-		path
+		path,
+		loader
 	);
 }

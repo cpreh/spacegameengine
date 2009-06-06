@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/filesystem/replace_extension.hpp>
-#include <sge/filesystem/stem.hpp>
 #include <sge/text.hpp>
 
 sge::filesystem::path const
@@ -27,9 +26,7 @@ sge::filesystem::replace_extension(
 	path const &p,
 	string const &ext)
 {
-	return path(
-		stem(p)
-		+ SGE_TEXT('.')
-		+ ext
+	return path(p).replace_extension(
+		ext
 	);
 }
