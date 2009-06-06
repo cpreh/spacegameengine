@@ -419,8 +419,6 @@ sge::container::field<T, ArrayType, Alloc>::resize(
 	if (dim_ == n)
 		return; 
 	
-	dim_type const old = dim_;
-	size_type const old_fc = field_count();
 	dim_ = n;
 	
 	array.resize(
