@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/elements.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/mpl/index_of.hpp>
+#include <sge/restrict_typedef_struct.hpp>
 #include <boost/static_assert.hpp>
 
 namespace sge
@@ -37,8 +38,7 @@ namespace color
 template<
 	typename Color
 >
-class format_static {
-public:
+struct format_static {
 	static format::type const value
 		= static_cast<
 			format::type
@@ -52,6 +52,8 @@ public:
 	BOOST_STATIC_ASSERT(
 		value < format::size
 	);
+
+	SGE_RESTRICT_TYPEDEF_STRUCT(format_static)
 };
 
 }

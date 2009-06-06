@@ -22,13 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FREETYPE_CHAR_METRIC_HPP_INCLUDED
 #define SGE_FREETYPE_CHAR_METRIC_HPP_INCLUDED
 
-#include <sge/char.hpp>
 #include <sge/font/pos.hpp>
 #include <sge/font/unit.hpp>
-#include <sge/font/image_view.hpp>
-#include <sge/font/image.hpp>
 #include <sge/font/char_metric.hpp>
+#include <sge/font/image_view.hpp>
+#include <sge/image/rgba8.hpp>
 #include <sge/math/vector/basic_decl.hpp>
+#include <sge/preprocessor/todo.hpp>
+#include <sge/char.hpp>
 
 namespace sge
 {
@@ -49,7 +50,7 @@ public:
 	font::pos const offset() const;
 	font::unit x_advance() const;
 private:
-	font::image buffer;
+	sge::image::rgba8 buffer; SGE_PP_TODO("we have to create an any_image and initialize it with the preferred color!")
 	font::pos   offset_;
 	font::unit  x_advance_;
 };

@@ -47,7 +47,7 @@ template<
 	typename Dest,
 	typename Op
 >
-void transform_pxiels(
+void transform(
 	Src const &src,
 	Dest const &dest,
 	Op const &op)

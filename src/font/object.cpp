@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/rect/basic_impl.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/vector/arithmetic.hpp>
+#include <sge/variant/object_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <boost/next_prior.hpp>
@@ -120,7 +121,8 @@ sge::font::object::draw_text(
 			drawer()->draw_char(
 				*sbeg,
 				pos_ + cm->offset(),
-				cm->pixmap());
+				cm->pixmap()
+			);
 			pos_.x() += char_space(*sbeg);
 		}
 

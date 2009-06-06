@@ -32,6 +32,7 @@ namespace color
 namespace format
 {
 enum type {
+	//gray8,
 	rgba8,
 	argb8,
 	bgra8,

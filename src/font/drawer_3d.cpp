@@ -24,28 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/rect_fragmented.hpp>
 #include <sge/texture/default_creator_impl.hpp>
 #include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/dim/structure_cast.hpp>
 #include <sge/renderer/filter/linear.hpp>
-#include <sge/image/color/rgba8.hpp>
-#include <sge/image/rgba8.hpp>
+#include <sge/image/view/dim.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
 #include <boost/gil/algorithm.hpp>
-
-namespace
-{
-
-class converter {
-public:
-	void operator()(
-		sge::font::color const src,
-		sge::image::color::rgba8 &dest) const;
-};
-
-sge::font::dim const
-gil_dim_to_sge(
-	sge::font::image::point_t const &);
-
-}
 
 sge::font::drawer_3d::drawer_3d(
 	renderer::device_ptr const rend,
@@ -83,9 +67,9 @@ void sge::font::drawer_3d::draw_char(
 	pos const &p,
 	const_image_view const &data)
 {
-	dim const d(
-		gil_dim_to_sge(
-			data.dimensions()
+	sge::image::dim_type const dim(
+		sge::image::view::dim(
+			data
 		)
 	);
 
@@ -94,14 +78,20 @@ void sge::font::drawer_3d::draw_char(
 			sprite::parameters()
 			.pos(p)
 			.texture(
-				d.content()
+				dim.content()
 					? cached_texture(
 						ch,
 						data
 					)
 					: texture::const_part_ptr()
 			)
-			.size(d)
+			.size(
+				sge::math::dim::structure_cast<
+					sge::sprite::dim
+				>(
+					dim
+				)
+			)
 			.color(col)
 		)
 	);
@@ -109,7 +99,10 @@ void sge::font::drawer_3d::draw_char(
 
 void sge::font::drawer_3d::end_rendering()
 {
-	sys.render(sprites.begin(), sprites.end());
+	sys.render(
+		sprites.begin(),
+		sprites.end()
+	);
 }
 
 void sge::font::drawer_3d::color(
@@ -123,59 +116,18 @@ sge::font::drawer_3d::cached_texture(
 	char_type const ch,
 	const_image_view const &data)
 {
-	texture_map::const_iterator const it = textures.find(ch);
-	if(it != textures.end())
-		return it->second;
-	
-	// TODO: somehow use the renderer's preferred color format here and avoid conversions!
-	sge::image::rgba8 img(
-		data.width(),
-		data.height());
+	texture_map::const_iterator const it(
+		textures.find(ch)
+	);
 
-	{
-		converter conv;
-		boost::gil::copy_and_convert_pixels(
-			data,
-			boost::gil::view(img),
-			conv);
-	}
-
-	return textures.insert(
-		std::make_pair(
+	return it != textures.end()
+		? it->second
+		: textures.insert(
+			std::make_pair(
 			ch,
 			texman.add(
-				sge::image::view::const_object(
-					boost::gil::const_view(
-						img
-					)
-				)
+				data
 			)
 		)
 	).first->second;
-}
-
-namespace
-{
-
-void converter::operator()(
-	sge::font::color const src,
-	sge::image::color::rgba8 &dest) const
-{
-	dest = sge::image::color::rgba8(
-		255,
-		255,
-		255,
-		src);
-}
-
-sge::font::dim const
-gil_dim_to_sge(
-	sge::font::image::point_t const &d)
-{
-	return sge::font::dim(
-		static_cast<sge::font::dim::value_type>(d.x),
-		static_cast<sge::font::dim::value_type>(d.y)
-	);
-}
-
 }
