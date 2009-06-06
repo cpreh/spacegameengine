@@ -25,7 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/timer/fwd.hpp>
 #include <sge/gui/skins/base.hpp>
 #include <sge/gui/widgets/fwd.hpp>
-#include <sge/gui/cursor_fwd.hpp>
+#include <sge/gui/cursor/base_ptr.hpp>
+#include <sge/gui/cursor/const_base_ptr.hpp>
 #include <sge/gui/export.hpp>
 #include <sge/gui/rect.hpp>
 #include <sge/gui/invalidation.hpp>
@@ -54,7 +55,7 @@ class manager
 		renderer::device_ptr,
 		input::system_ptr,
 		skins::ptr,
-		cursor_ptr);
+		cursor::base_ptr);
 	SGE_GUI_SYMBOL ~manager();
 	SGE_GUI_SYMBOL void dirty(
 		widgets::base &,
@@ -67,7 +68,7 @@ class manager
 		timer::callback);
 	SGE_GUI_SYMBOL void update();
 	SGE_GUI_SYMBOL void draw();
-	SGE_GUI_SYMBOL sge::gui::cursor const &cursor() const;
+	SGE_GUI_SYMBOL sge::gui::cursor::const_base_ptr const cursor() const;
 	SGE_GUI_SYMBOL skins::base &skin();
 	SGE_GUI_SYMBOL skins::base const &skin() const;
 	SGE_GUI_SYMBOL sprite::object &connected_sprite(
@@ -81,7 +82,7 @@ class manager
 	friend class widgets::base;
 
 	skins::ptr skin_;
-	cursor_ptr cursor_;
+	cursor::base_ptr cursor_;
 
 	// this is just to prevent the detail dependencies
 	scoped_ptr<detail::managers::mouse> mouse_;

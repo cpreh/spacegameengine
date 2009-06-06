@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/gui/widgets/base.hpp>
 #include <sge/gui/canvas/object.hpp>
+#include <sge/gui/cursor/base.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/math/rect/basic_impl.hpp>
 #include <sge/math/rect/structure_cast.hpp>
@@ -107,7 +108,7 @@ sge::texture::const_part_ptr assign_textures(
 
 sge::gui::detail::managers::render::render(
 	renderer::device_ptr const _rend,
-	cursor &_cursor)
+	cursor::base_ptr _cursor)
 :
 	rend(_rend),
 	ss(rend),
@@ -158,7 +159,7 @@ void sge::gui::detail::managers::render::draw()
 	BOOST_FOREACH(widget_container::value_type const &w,widgets)
 		sprites_.push_back(w.second->sprite);
 	sprites_.push_back(
-		cursor_.sprite());
+		cursor_->sprite());
 	ss.render(
 		sprites_.begin(),
 		sprites_.end());

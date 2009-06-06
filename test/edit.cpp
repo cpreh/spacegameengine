@@ -30,7 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widgets/edit.hpp>
 #include <sge/gui/widgets/parameters.hpp>
 #include <sge/gui/skins/standard.hpp>
-#include <sge/gui/default_cursor.hpp>
+#include <sge/gui/cursor/default.hpp>
+#include <sge/gui/cursor/base_ptr.hpp>
 
 #include <sge/log/logger.hpp>
 #include <sge/log/global.hpp>
@@ -85,8 +86,8 @@ try
 		sge::gui::skins::ptr(
 			new sge::gui::skins::standard(
 				sys.font_system())),
-		sge::gui::cursor_ptr(
-			new sge::gui::default_cursor(
+		sge::gui::cursor::base_ptr(
+			new sge::gui::cursor::default_(
 				sys.image_loader(),
 				sys.renderer())));
 	

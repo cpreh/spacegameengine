@@ -16,7 +16,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
-#include <sge/gui/default_cursor.hpp>
+#include <sge/gui/cursor/default.hpp>
 #include <sge/gui/media_path.hpp>
 #include <sge/gui/unit.hpp>
 #include <sge/gui/dim.hpp>
@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 #include <sge/cerr.hpp>
 
-sge::gui::default_cursor::default_cursor(
+sge::gui::cursor::default_::default_(
 	sge::image::loader_ptr const il,
 	sge::renderer::device_ptr const _rend)
 :
@@ -65,7 +65,7 @@ sge::gui::default_cursor::default_cursor(
 {
 }
 
-void sge::gui::default_cursor::pos(
+void sge::gui::cursor::default_::pos(
 	point const &p)
 {
 	sge::gui::dim const ss = 
@@ -88,18 +88,18 @@ void sge::gui::default_cursor::pos(
 						ss.h()+sprite_.h()))));
 }
 
-sge::gui::point const sge::gui::default_cursor::pos() const
+sge::gui::point const sge::gui::cursor::default_::pos() const
 {
 	return math::vector::structure_cast<sge::gui::point>(
 		sprite_.pos());
 }
 
-sge::sprite::object const sge::gui::default_cursor::sprite() const
+sge::sprite::object const sge::gui::cursor::default_::sprite() const
 {
 	return sprite_;
 }
 
-void sge::gui::default_cursor::widget_z(depth_type const z)
+void sge::gui::cursor::default_::widget_z(depth_type const z)
 {
 	sprite_.z() = 
 		std::max(
@@ -107,9 +107,12 @@ void sge::gui::default_cursor::widget_z(depth_type const z)
 			static_cast<sprite::depth_type>(z+1));
 }
 
-sge::sprite::object &sge::gui::default_cursor::mutable_sprite()
+sge::sprite::object &sge::gui::cursor::default_::mutable_sprite()
 {
 	return sprite_;
 }
 
-sge::gui::default_cursor::~default_cursor() {}
+sge::gui::cursor::default_::~default_() 
+{
+	sge::cerr << "destroying cursor\n";
+}

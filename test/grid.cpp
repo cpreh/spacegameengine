@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/trampoline.hpp>
 
 #include <sge/gui/manager.hpp>
-#include <sge/gui/default_cursor.hpp>
+#include <sge/gui/cursor/default.hpp>
+#include <sge/gui/cursor/base_ptr.hpp>
 #include <sge/gui/widgets/buttons/text.hpp>
 #include <sge/gui/widgets/backdrop.hpp>
 #include <sge/gui/widgets/parameters.hpp>
@@ -111,8 +112,8 @@ try
 		sge::gui::skins::ptr(
 			new sge::gui::skins::standard(
 				sys.font_system())),
-		sge::gui::cursor_ptr(
-			new sge::gui::default_cursor(
+		sge::gui::cursor::base_ptr(
+			new sge::gui::cursor::default_(
 				sys.image_loader(),
 				sys.renderer())));
 	

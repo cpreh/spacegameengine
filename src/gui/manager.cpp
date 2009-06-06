@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/detail/managers/time.hpp>
 #include <sge/gui/detail/managers/keyboard.hpp>
 #include <sge/gui/widgets/base.hpp>
+#include <sge/gui/cursor/base.hpp>
 #include <sge/gui/manager.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/math/rect/basic_impl.hpp>
@@ -39,18 +40,18 @@ sge::gui::manager::manager(
 	renderer::device_ptr const rend,
 	input::system_ptr const is,
 	skins::ptr _skin,
-	cursor_ptr _cursor)
+	cursor::base_ptr _cursor)
 :
 	skin_(_skin),
 	cursor_(_cursor),
 	mouse_(
 		new detail::managers::mouse(
 			is,
-			*cursor_)),
+			cursor_)),
 	render_(
 		new detail::managers::render(
 			rend,
-			*cursor_)),
+			cursor_)),
 	keyboard_(
 		new detail::managers::keyboard(
 			is)),
@@ -110,9 +111,9 @@ void sge::gui::manager::draw()
 	render_->draw();
 }
 
-sge::gui::cursor const &sge::gui::manager::cursor() const
+sge::gui::cursor::const_base_ptr const sge::gui::manager::cursor() const
 {
-	return *cursor_;
+	return cursor_;
 }
 
 sge::gui::skins::base &sge::gui::manager::skin() 

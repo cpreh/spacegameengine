@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/events/mouse_leave.hpp>
 #include <sge/gui/events/mouse_move.hpp>
 #include <sge/gui/widgets/base.hpp>
+#include <sge/gui/cursor/base.hpp>
 #include <sge/gui/exception.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/math/rect/contains_point.hpp>
@@ -36,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/classification.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/text.hpp>
+#include <sge/cerr.hpp>
 #include <sge/assert.hpp>
 #include <boost/bind.hpp>
 #include <boost/foreach.hpp>
@@ -75,7 +77,7 @@ bool active(sge::gui::widgets::base const &w)
 
 sge::gui::detail::managers::mouse::mouse(
 	input::system_ptr const is,
-	cursor &_cursor)
+	cursor::base_ptr _cursor)
 :
 	ic(
 	  	is->register_callback(
@@ -161,11 +163,13 @@ void sge::gui::detail::managers::mouse::recalculate_focus()
 		mylogger,
 		log::_1 << SGE_TEXT("in top level recalculate_focus"));
 
+	sge::cerr << "in recalc_focus\n";
+	sge::cerr << "cursor position: " << cursor_->pos() << "\n";
 	point const click_point(
 		math::vector::structure_cast<
 			point
 		>(
-			cursor_.pos()
+			cursor_->pos()
 		)
 	);
 
@@ -213,10 +217,11 @@ void sge::gui::detail::managers::mouse::z(
 void sge::gui::detail::managers::mouse::input_callback(
 	input::key_pair const &k)
 {
+	sge::cerr << "in input_callback\n";
 	if (input::is_mouse_axis(k.key().code()))
 	{
-		cursor_.pos(
-			cursor_.pos()+key_to_mouse_coords(k));
+		cursor_->pos(
+			cursor_->pos()+key_to_mouse_coords(k));
 		recalculate_focus();
 		return;
 	}
@@ -230,7 +235,7 @@ void sge::gui::detail::managers::mouse::input_callback(
 	focus->process(
 		events::mouse_click(
 			math::vector::structure_cast<point>(
-				cursor_.pos()),
+				cursor_->pos()),
 			k));
 }
 

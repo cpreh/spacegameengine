@@ -16,6 +16,32 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
-#include <sge/gui/cursor.hpp>
 
-sge::gui::cursor::~cursor() {}
+#ifndef SGE_GUI_CURSOR_BASE_HPP_INCLUDED
+#define SGE_GUI_CURSOR_BASE_HPP_INCLUDED
+
+#include <sge/gui/point.hpp>
+#include <sge/gui/export.hpp>
+#include <sge/gui/depth_type.hpp>
+#include <sge/sprite/object.hpp>
+
+namespace sge
+{
+namespace gui
+{
+namespace cursor
+{
+class SGE_CLASS_SYMBOL base
+{
+public:
+	virtual void pos(point const &) = 0;
+	virtual point const pos() const = 0;
+	virtual sge::sprite::object const sprite() const = 0;
+	virtual void widget_z(depth_type) = 0;
+	SGE_GUI_SYMBOL virtual ~base();
+};
+}
+}
+}
+
+#endif

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_GUI_DETAIL_MANAGERS_RENDER_HPP_INCLUDED
 
 #include <sge/gui/detail/submanager.hpp>
-#include <sge/gui/cursor.hpp>
+#include <sge/gui/cursor/base_ptr.hpp>
 #include <sge/gui/widgets/fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/texture_fwd.hpp>
@@ -43,7 +43,7 @@ class render : public submanager
 	public:
 	render(
 		renderer::device_ptr,
-		cursor &);
+		cursor::base_ptr);
 	void add(
 		widgets::base &);
 	void update();
@@ -87,7 +87,7 @@ class render : public submanager
 	renderer::device_ptr rend;
 	sprite::system ss;
 	sprite::container sprites_;
-	cursor &cursor_;
+	cursor::base_ptr &cursor_;
 	widget_container widgets;
 	dirt_container dirt_;
 

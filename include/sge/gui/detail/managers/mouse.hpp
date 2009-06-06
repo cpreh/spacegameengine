@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/dim.hpp>
 #include <sge/gui/point.hpp>
 #include <sge/gui/detail/submanager.hpp>
-#include <sge/gui/cursor.hpp>
+#include <sge/gui/cursor/base_ptr.hpp>
 #include <sge/gui/widgets/fwd.hpp>
 #include <sge/input/system_fwd.hpp>
 #include <sge/input/key_pair_fwd.hpp>
@@ -45,7 +45,7 @@ class mouse : public submanager
 	public:
 	mouse(
 		input::system_ptr,
-		cursor &);
+		cursor::base_ptr);
 	
 	void resize(
 		widgets::base &,
@@ -66,7 +66,7 @@ class mouse : public submanager
 
 	widget_container widgets;
 	signal::scoped_connection const ic;
-	cursor &cursor_;
+	cursor::base_ptr &cursor_;
 	widgets::base *focus;
 	bool dirty_;
 

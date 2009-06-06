@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_DEFAULT_CURSOR_HPP_INCLUDED
 #define SGE_GUI_DEFAULT_CURSOR_HPP_INCLUDED
 
-#include <sge/gui/cursor.hpp>
+#include <sge/gui/cursor/base.hpp>
 #include <sge/gui/export.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/point.hpp>
@@ -32,10 +32,12 @@ namespace sge
 {
 namespace gui
 {
-class SGE_CLASS_SYMBOL default_cursor : public cursor
+namespace cursor
+{
+class SGE_CLASS_SYMBOL default_ : public base
 {
 public:
-	SGE_GUI_SYMBOL default_cursor(
+	SGE_GUI_SYMBOL default_(
 		sge::image::loader_ptr,
 		sge::renderer::device_ptr);
 	SGE_GUI_SYMBOL void pos(point const &);
@@ -43,13 +45,14 @@ public:
 	SGE_GUI_SYMBOL sge::sprite::object const sprite() const;
 	SGE_GUI_SYMBOL void widget_z(depth_type);
 	SGE_GUI_SYMBOL sge::sprite::object &mutable_sprite();
-	SGE_GUI_SYMBOL virtual ~default_cursor();
+	SGE_GUI_SYMBOL virtual ~default_();
 private:
 	sge::renderer::device_ptr const rend_;
 	sge::texture::no_fragmented texture_;
 	sge::sprite::object sprite_;
 	sge::sprite::point const click_;
 };
+}
 }
 }
 
