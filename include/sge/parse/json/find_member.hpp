@@ -42,14 +42,14 @@ template<
 >
 T
 find_member(
-	sge::parse::json::member_vector const &members,
+	member_vector const &members,
 	sge::string const &name)
 {
-	sge::parse::json::member_vector::const_iterator const it(
+	member_vector::const_iterator const it(
 		std::find_if(
 			members.begin(),
 			members.end(),
-			sge::parse::json::member_name_equal(
+			member_name_equal(
 				name
 			)
 		)
