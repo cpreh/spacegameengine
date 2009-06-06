@@ -18,31 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/font/char_not_available.hpp>
+#include <sge/string.hpp>
+#include <sge/text.hpp>
 
-#ifndef SGE_PLUGIN_INFO_HPP_INCLUDED
-#define SGE_PLUGIN_INFO_HPP_INCLUDED
+sge::font::char_not_available::char_not_available(
+	char_type const character_)
+:
+	exception(
+		string(
+			SGE_TEXT("Character '")
+		)
+		+ character_
+		+ SGE_TEXT("' not available!")
+	),
+	character_(character_)
+{}
 
-#include <sge/plugin/capabilities.hpp>
-#include <sge/export.hpp>
-#include <sge/char_type.hpp>
-
-namespace sge
+sge::char_type
+sge::font::char_not_available::chararcter() const
 {
-namespace plugin
-{
-
-class info {
-public:
-	SGE_SYMBOL info();
-
-	char_type const      *name;
-	char_type const      *description;
-	unsigned              plugin_version;
-	unsigned              min_core_version;
-	capabilities::type    type;
-};
-
+	return character_;
 }
-}
-
-#endif

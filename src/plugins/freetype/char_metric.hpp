@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/rgba8.hpp>
 #include <sge/math/vector/basic_decl.hpp>
 #include <sge/preprocessor/todo.hpp>
-#include <sge/char.hpp>
+#include <sge/char_type.hpp>
 
 namespace sge
 {

@@ -18,31 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../system.hpp"
+#include "../metrics.hpp"
+#include <sge/make_shared_ptr.hpp>
 
-#ifndef SGE_PLUGIN_INFO_HPP_INCLUDED
-#define SGE_PLUGIN_INFO_HPP_INCLUDED
-
-#include <sge/plugin/capabilities.hpp>
-#include <sge/export.hpp>
-#include <sge/char_type.hpp>
-
-namespace sge
+sge::font::metrics_ptr const
+sge::bitmapfont::system::create_font(
+	filesystem::path const &path,
+	size_type const font_height)
 {
-namespace plugin
-{
-
-class info {
-public:
-	SGE_SYMBOL info();
-
-	char_type const      *name;
-	char_type const      *description;
-	unsigned              plugin_version;
-	unsigned              min_core_version;
-	capabilities::type    type;
-};
-
+	return make_shared_ptr<
+		metrics
+	>(
+		path
+	);
 }
-}
-
-#endif

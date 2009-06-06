@@ -18,31 +18,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../metrics.hpp"
+#include <sge/parse/json/parse_file.hpp>
+#include <sge/filesystem/replace_extension.hpp>
+#include <sge/font/char_not_available.hpp>
+#include <sge/text.hpp>
 
-#ifndef SGE_PLUGIN_INFO_HPP_INCLUDED
-#define SGE_PLUGIN_INFO_HPP_INCLUDED
-
-#include <sge/plugin/capabilities.hpp>
-#include <sge/export.hpp>
-#include <sge/char_type.hpp>
-
-namespace sge
+sge::bitmapfont::metrics::metrics(
+	filesystem::path const &path)
+:
+	line_height_(),
+	char_map_()
 {
-namespace plugin
-{
+	sge::parse::json::object result;
 
-class info {
-public:
-	SGE_SYMBOL info();
-
-	char_type const      *name;
-	char_type const      *description;
-	unsigned              plugin_version;
-	unsigned              min_core_version;
-	capabilities::type    type;
-};
-
-}
+	parse::json::parse_file(
+		filesystem::replace_extension(
+			path,
+			SGE_TEXT("json")
+		),
+		result
+	);
 }
 
-#endif
+sge::font::char_metric_ptr const
+sge::bitmapfont::metrics::load_char(
+	char_type const c)
+{
+	char_map::const_iterator const it(
+		char_map_.find(
+			c
+		)
+	);
+
+	if(it == char_map_.end())
+		throw font::char_not_available(
+			c
+		);
+	
+	return it->second;
+}
+
+sge::font::unit
+sge::bitmapfont::metrics::line_height() const
+{
+	return line_height_;
+}

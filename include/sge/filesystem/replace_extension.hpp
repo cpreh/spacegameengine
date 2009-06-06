@@ -18,29 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_FILESYSTEM_REPLACE_EXTENSION_HPP_INCLUDED
+#define SGE_FILESYSTEM_REPLACE_EXTENSION_HPP_INCLUDED
 
-#ifndef SGE_PLUGIN_INFO_HPP_INCLUDED
-#define SGE_PLUGIN_INFO_HPP_INCLUDED
-
-#include <sge/plugin/capabilities.hpp>
+#include <sge/filesystem/path.hpp>
+#include <sge/string.hpp>
 #include <sge/export.hpp>
-#include <sge/char_type.hpp>
 
 namespace sge
 {
-namespace plugin
+namespace filesystem
 {
 
-class info {
-public:
-	SGE_SYMBOL info();
-
-	char_type const      *name;
-	char_type const      *description;
-	unsigned              plugin_version;
-	unsigned              min_core_version;
-	capabilities::type    type;
-};
+SGE_SYMBOL path const
+replace_extension(
+	path const &,
+	string const &);
 
 }
 }

@@ -18,28 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_FONT_CHAR_NOT_AVAILABLE_HPP_INCLUDED
+#define SGE_FONT_CHAR_NOT_AVAILABLE_HPP_INCLUDED
 
-#ifndef SGE_PLUGIN_INFO_HPP_INCLUDED
-#define SGE_PLUGIN_INFO_HPP_INCLUDED
-
-#include <sge/plugin/capabilities.hpp>
-#include <sge/export.hpp>
+#include <sge/font/exception.hpp>
 #include <sge/char_type.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
-namespace plugin
+namespace font
 {
 
-class info {
+class SGE_CLASS_SYMBOL char_not_available : public exception {
 public:
-	SGE_SYMBOL info();
-
-	char_type const      *name;
-	char_type const      *description;
-	unsigned              plugin_version;
-	unsigned              min_core_version;
-	capabilities::type    type;
+	SGE_SYMBOL explicit char_not_available(
+		char_type);
+	
+	char_type chararcter() const;
+private:
+	char_type character_;
 };
 
 }

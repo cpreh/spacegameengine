@@ -39,7 +39,9 @@ protected:
 	SGE_SYMBOL system();
 public:
 	SGE_SYMBOL virtual ~system();
-	virtual metrics_ptr const create_font(
+
+	virtual metrics_ptr const
+	create_font(
 		filesystem::path const &,
 		size_type font_height) = 0;
 };
