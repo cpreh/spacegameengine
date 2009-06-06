@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_GET_HPP_INCLUDED
 #define SGE_PARSE_JSON_GET_HPP_INCLUDED
 
+#include <sge/parse/json/value.hpp>
 #include <sge/exception.hpp>
 #include <sge/type_name.hpp>
 #include <sge/text.hpp>

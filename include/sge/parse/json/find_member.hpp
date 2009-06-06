@@ -18,29 +18,55 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_PARSE_JSON_FIND_MEMBER_HPP_INCLUDED
+#define SGE_PARSE_JSON_FIND_MEMBER_HPP_INCLUDED
 
-#ifndef SGE_IMAGE_COLOR_FORMAT_HPP_INCLUDED
-#define SGE_IMAGE_COLOR_FORMAT_HPP_INCLUDED
+#include <sge/parse/json/get.hpp>
+#include <sge/parse/json/member_vector.hpp>
+#include <sge/parse/json/member_name_equal.hpp>
+#include <sge/parse/json/member.hpp>
+#include <sge/string.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
+#include <algorithm>
 
 namespace sge
 {
-namespace image
+namespace parse
 {
-namespace color
+namespace json
 {
 
-namespace format
+template<
+	typename T
+>
+T
+find_member(
+	member_vector const &members,
+	sge::string const &name)
 {
-enum type {
-	//gray8,
-	rgba8,
-	argb8,
-	bgra8,
-	rgba32f,
-	argb32f,
-	bgra32f,
-	size
-};
+	member_vector::const_iterator const it(
+		std::find_if(
+			members.begin(),
+			members.end(),
+			member_name_equal(
+				name
+			)
+		)
+	);
+
+	if(it == members.end())
+		throw exception(
+			SGE_TEXT("entry \"")
+			+ name
+			+ SGE_TEXT("\" not found")
+		);
+	
+	return json::get<
+		T
+	>(
+		it->value_
+	);
 }
 
 }

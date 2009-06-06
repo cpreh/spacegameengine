@@ -18,33 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../char_metric.hpp"
+#include <sge/math/vector/basic_impl.hpp>
+#include <sge/variant/object_impl.hpp>
 
-#ifndef SGE_IMAGE_COLOR_FORMAT_HPP_INCLUDED
-#define SGE_IMAGE_COLOR_FORMAT_HPP_INCLUDED
-
-namespace sge
+sge::bitmapfont::char_metric::char_metric(
+	font::const_image_view const &pixmap_,
+	font::pos const &offset_,
+	font::unit const x_advance_)
+:
+	pixmap_(pixmap_),
+	offset_(offset_),
+	x_advance_(x_advance_)
+{}
+	
+sge::bitmapfont::char_metric::~char_metric()
+{}
+	
+sge::font::const_image_view const
+sge::bitmapfont::char_metric::pixmap() const
 {
-namespace image
-{
-namespace color
-{
-
-namespace format
-{
-enum type {
-	//gray8,
-	rgba8,
-	argb8,
-	bgra8,
-	rgba32f,
-	argb32f,
-	bgra32f,
-	size
-};
+	return pixmap_;
 }
 
-}
-}
+sge::font::pos const
+sge::bitmapfont::char_metric::offset() const
+{
+	return offset_;
 }
 
-#endif
+sge::font::unit
+sge::bitmapfont::char_metric::x_advance() const
+{
+	return x_advance_;
+}

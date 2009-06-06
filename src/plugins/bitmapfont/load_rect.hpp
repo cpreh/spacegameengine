@@ -18,22 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_BITMAPFONT_LOAD_RECT_HPP_INCLUDED
+#define SGE_BITMAPFONT_LOAD_RECT_HPP_INCLUDED
 
-#ifndef SGE_FONT_IMAGE_HPP_INCLUDED
-#define SGE_FONT_IMAGE_HPP_INCLUDED
-
-#include <sge/font/color.hpp>
-#include <boost/gil/image.hpp>
+#include <sge/image/rect.hpp>
+#include <sge/parse/json/member_vector.hpp>
 
 namespace sge
 {
-namespace font
+namespace bitmapfont
 {
 
-typedef boost::gil::image<
-	color,
-	false
-> image;
+sge::image::rect const
+load_rect(
+	sge::parse::json::member_vector const &);
 
 }
 }

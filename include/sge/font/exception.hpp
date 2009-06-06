@@ -18,32 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_FONT_EXCEPTION_HPP_INCLUDED
+#define SGE_FONT_EXCEPTION_HPP_INCLUDED
 
-#ifndef SGE_IMAGE_COLOR_FORMAT_HPP_INCLUDED
-#define SGE_IMAGE_COLOR_FORMAT_HPP_INCLUDED
+#include <sge/export.hpp>
+#include <sge/string.hpp>
+#include <sge/exception.hpp>
 
 namespace sge
 {
-namespace image
-{
-namespace color
+namespace font
 {
 
-namespace format
-{
-enum type {
-	//gray8,
-	rgba8,
-	argb8,
-	bgra8,
-	rgba32f,
-	argb32f,
-	bgra32f,
-	size
+class SGE_CLASS_SYMBOL exception : public sge::exception {
+public:
+	SGE_SYMBOL explicit exception(
+		string const &);
 };
-}
 
-}
 }
 }
 

@@ -23,13 +23,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../face.hpp"
 #include "../glyph.hpp"
 #include "../char_metric.hpp"
+#include <sge/image/algorithm/transform.hpp>
 #include <sge/math/vector/basic_impl.hpp>
+#include <sge/log/headers.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
-#include <sge/log/headers.hpp>
 #include <boost/gil/algorithm.hpp>
 #include <boost/gil/typedefs.hpp>
+#include <boost/bind.hpp>
 #include <ostream>
+
+namespace
+{
+
+void converter(
+	boost::gil::gray8_pixel_t const &src,
+	sge::image::color::rgba8 &dest)
+{
+	dest = sge::image::color::rgba8(
+		255,
+		255,
+		255,
+		src
+	);
+}
+
+}
 
 sge::ft::char_metric::char_metric(
 	face &face_,
@@ -74,13 +93,31 @@ sge::ft::char_metric::char_metric(
 		boost::gil::interleaved_view(
 			bitmap.width,
 			bitmap.rows,
-			reinterpret_cast<boost::gil::gray8_pixel_t const *>(
-				bitmap.buffer),
-			bitmap.pitch));
+			reinterpret_cast<
+				boost::gil::gray8_pixel_t const *
+			>(
+				bitmap.buffer
+			),
+			bitmap.pitch
+		)
+	);
 	
-	buffer.recreate(bitmap.width, bitmap.rows);
+	buffer.recreate(
+		bitmap.width,
+		bitmap.rows
+	);
 
-	boost::gil::copy_pixels(src, boost::gil::view(buffer));
+	sge::image::algorithm::transform(
+		src,
+		boost::gil::view(
+			buffer
+		),
+		boost::bind(
+			converter,
+			_1,
+			_2
+		)
+	);
 }
 
 sge::ft::char_metric::~char_metric()
@@ -95,7 +132,9 @@ sge::ft::char_metric::offset() const
 sge::font::const_image_view const
 sge::ft::char_metric::pixmap() const
 {
-	return boost::gil::const_view(buffer);
+	return boost::gil::const_view(
+		buffer
+	);
 }
 
 sge::font::unit sge::ft::char_metric::x_advance() const

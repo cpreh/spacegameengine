@@ -18,33 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../system.hpp"
+#include "../metrics.hpp"
+#include <sge/make_shared_ptr.hpp>
 
-#ifndef SGE_IMAGE_COLOR_FORMAT_HPP_INCLUDED
-#define SGE_IMAGE_COLOR_FORMAT_HPP_INCLUDED
-
-namespace sge
+sge::font::metrics_ptr const
+sge::bitmapfont::system::create_font(
+	filesystem::path const &path,
+	font::size_type const font_height)
 {
-namespace image
-{
-namespace color
-{
-
-namespace format
-{
-enum type {
-	//gray8,
-	rgba8,
-	argb8,
-	bgra8,
-	rgba32f,
-	argb32f,
-	bgra32f,
-	size
-};
+	return make_shared_ptr<
+		metrics
+	>(
+		path
+	);
 }
-
-}
-}
-}
-
-#endif

@@ -18,32 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_BITMAPFONT_LOAD_OFFSET_HPP_INCLUDED
+#define SGE_BITMAPFONT_LOAD_OFFSET_HPP_INCLUDED
 
-#ifndef SGE_IMAGE_COLOR_FORMAT_HPP_INCLUDED
-#define SGE_IMAGE_COLOR_FORMAT_HPP_INCLUDED
+#include <sge/font/pos.hpp>
+#include <sge/parse/json/member_vector.hpp>
 
 namespace sge
 {
-namespace image
-{
-namespace color
+namespace bitmapfont
 {
 
-namespace format
-{
-enum type {
-	//gray8,
-	rgba8,
-	argb8,
-	bgra8,
-	rgba32f,
-	argb32f,
-	bgra32f,
-	size
-};
-}
+sge::font::pos const
+load_offset(
+	sge::parse::json::member_vector const &);
 
-}
 }
 }
 

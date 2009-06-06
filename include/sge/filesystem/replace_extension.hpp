@@ -18,32 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_FILESYSTEM_REPLACE_EXTENSION_HPP_INCLUDED
+#define SGE_FILESYSTEM_REPLACE_EXTENSION_HPP_INCLUDED
 
-#ifndef SGE_IMAGE_COLOR_FORMAT_HPP_INCLUDED
-#define SGE_IMAGE_COLOR_FORMAT_HPP_INCLUDED
+#include <sge/filesystem/path.hpp>
+#include <sge/string.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
-namespace image
-{
-namespace color
+namespace filesystem
 {
 
-namespace format
-{
-enum type {
-	//gray8,
-	rgba8,
-	argb8,
-	bgra8,
-	rgba32f,
-	argb32f,
-	bgra32f,
-	size
-};
-}
+SGE_SYMBOL path const
+replace_extension(
+	path const &,
+	string const &);
 
-}
 }
 }
 

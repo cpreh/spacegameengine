@@ -18,32 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_BITMAPFONT_METRICS_HPP_INCLUDED
+#define SGE_BITMAPFONT_METRICS_HPP_INCLUDED
 
-#ifndef SGE_IMAGE_COLOR_FORMAT_HPP_INCLUDED
-#define SGE_IMAGE_COLOR_FORMAT_HPP_INCLUDED
+#include "char_metric_fwd.hpp"
+#include <sge/font/metrics.hpp>
+#include <sge/filesystem/path.hpp>
+#include <sge/image/file_fwd.hpp>
+#include <sge/char_type.hpp>
+#include <map>
 
 namespace sge
 {
-namespace image
-{
-namespace color
+namespace bitmapfont
 {
 
-namespace format
-{
-enum type {
-	//gray8,
-	rgba8,
-	argb8,
-	bgra8,
-	rgba32f,
-	argb32f,
-	bgra32f,
-	size
+class metrics : public font::metrics {
+public:
+	explicit metrics(
+		filesystem::path const &);
+	~metrics();
+
+	font::char_metric_ptr const
+	load_char(
+		char_type);
+
+	font::unit
+	line_height() const;
+private:
+	sge::image::file_ptr image_;
+
+	font::unit line_height_;
+
+	typedef std::map<
+		char_type,
+		char_metric_ptr
+	> char_map;
+
+	char_map char_map_;
 };
-}
 
-}
 }
 }
 

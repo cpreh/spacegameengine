@@ -18,33 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/font/char_not_available.hpp>
+#include <sge/string.hpp>
+#include <sge/text.hpp>
 
-#ifndef SGE_IMAGE_COLOR_FORMAT_HPP_INCLUDED
-#define SGE_IMAGE_COLOR_FORMAT_HPP_INCLUDED
+sge::font::char_not_available::char_not_available(
+	char_type const character_)
+:
+	exception(
+		string(
+			SGE_TEXT("Character '")
+		)
+		+ character_
+		+ SGE_TEXT("' not available!")
+	),
+	character_(character_)
+{}
 
-namespace sge
+sge::char_type
+sge::font::char_not_available::chararcter() const
 {
-namespace image
-{
-namespace color
-{
-
-namespace format
-{
-enum type {
-	//gray8,
-	rgba8,
-	argb8,
-	bgra8,
-	rgba32f,
-	argb32f,
-	bgra32f,
-	size
-};
+	return character_;
 }
-
-}
-}
-}
-
-#endif

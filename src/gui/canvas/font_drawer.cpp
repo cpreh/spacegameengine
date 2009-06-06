@@ -17,10 +17,14 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 #include <sge/gui/canvas/font_drawer.hpp>
+#include <sge/font/rect.hpp>
 #include <sge/image/algorithm/transform.hpp>
+#include <sge/image/view/dim.hpp>
 #include <sge/image/view/make_const.hpp>
 #include <sge/image/view/sub.hpp>
 #include <sge/math/vector/structure_cast.hpp>
+#include <sge/math/dim/structure_cast.hpp>
+#include <sge/math/rect/structure_cast.hpp>
 #include <sge/math/rect/basic_impl.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/text.hpp>
@@ -63,12 +67,21 @@ void sge::gui::canvas::font_drawer::draw_char(
 
 	image_view const sub_view = sge::image::view::sub(
 		texture_,
-		sge::image::rect(
-			// TODO: structure_cast!
-			static_cast<sge::image::size_type>(pos.x()),
-			static_cast<sge::image::size_type>(pos.y()),
-			static_cast<sge::image::size_type>(pos.x()+data.width()),
-			static_cast<sge::image::size_type>(pos.y()+data.height())));
+		sge::math::rect::structure_cast<
+			sge::image::rect
+		>(
+			sge::font::rect(
+				pos,
+				sge::math::dim::structure_cast<
+					sge::font::dim
+				>(
+					sge::image::view::dim(
+						data
+					)
+				)
+			)
+		)
+	);
 	
 	if (character_pos)
 	{

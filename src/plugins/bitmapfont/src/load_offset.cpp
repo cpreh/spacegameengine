@@ -18,33 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../load_offset.hpp"
+#include <sge/parse/json/get.hpp>
+#include <sge/parse/json/find_member.hpp>
+#include <sge/parse/json/member.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/math/vector/basic_impl.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-#ifndef SGE_IMAGE_COLOR_FORMAT_HPP_INCLUDED
-#define SGE_IMAGE_COLOR_FORMAT_HPP_INCLUDED
-
-namespace sge
+sge::font::pos const
+sge::bitmapfont::load_offset(
+	sge::parse::json::member_vector const &members)
 {
-namespace image
-{
-namespace color
-{
+	parse::json::element_vector const &elements(
+		parse::json::find_member<
+			parse::json::array
+		>(
+			members,
+			SGE_TEXT("offset")
+		).elements
+	);
 
-namespace format
-{
-enum type {
-	//gray8,
-	rgba8,
-	argb8,
-	bgra8,
-	rgba32f,
-	argb32f,
-	bgra32f,
-	size
-};
-}
+	if(elements.size() != 2)
+		throw exception(
+			SGE_TEXT("Bogus offset detected")
+		);
 
+	return font::pos(
+		parse::json::get<
+			double // FIXME
+		>(
+			elements[0]
+		),
+		parse::json::get<
+			double // FIXME
+		>(
+			elements[1]
+		)
+	);
 }
-}
-}
-
-#endif

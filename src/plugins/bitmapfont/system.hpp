@@ -18,18 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_BITMAPFONT_SYSTEM_HPP_INCLUDED
+#define SGE_BITMAPFONT_SYSTEM_HPP_INCLUDED
 
-#ifndef SGE_FONT_COLOR_HPP_INCLUDED
-#define SGE_FONT_COLOR_HPP_INCLUDED
-
-#include <sge/image/color/gray8.hpp>
+#include <sge/font/system.hpp>
 
 namespace sge
 {
-namespace font
+namespace bitmapfont
 {
 
-typedef image::color::gray8 color;
+class system : public font::system {
+public:
+	font::metrics_ptr const
+	create_font(
+		filesystem::path const &,
+		font::size_type font_height);
+};
 
 }
 }
