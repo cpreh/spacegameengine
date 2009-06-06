@@ -19,14 +19,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../metrics.hpp"
+#include "../char_metric.hpp"
+#include "../load_rect.hpp"
+#include "../load_offset.hpp"
 #include <sge/parse/json/parse_file.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/find_member.hpp>
+#include <sge/parse/json/get.hpp>
 #include <sge/filesystem/replace_extension.hpp>
+#include <sge/image/view/sub.hpp>
+#include <sge/image/file.hpp>
 #include <sge/font/char_not_available.hpp>
+#include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/vector/basic_impl.hpp>
+#include <sge/log/headers.hpp>
+#include <sge/log/global.hpp>
+#include <sge/make_shared_ptr.hpp>
 #include <sge/text.hpp>
+#include <boost/foreach.hpp>
+#include <utility>
 
 sge::bitmapfont::metrics::metrics(
 	filesystem::path const &path)
 :
+	image_(),
 	line_height_(),
 	char_map_()
 {
@@ -39,6 +56,84 @@ sge::bitmapfont::metrics::metrics(
 		),
 		result
 	);
+
+	sge::parse::json::member_vector const &top_members(
+		result.members
+	);
+
+	line_height_
+	= parse::json::find_member<
+		double // FIXME
+	>(
+		top_members,
+		SGE_TEXT("line_height")
+	);
+
+	BOOST_FOREACH(
+		parse::json::element_vector::const_reference elem,
+		parse::json::find_member<
+			parse::json::array
+		>(
+			top_members,
+			SGE_TEXT("glyphs")
+		).elements
+	)
+	{
+		sge::parse::json::member_vector const &members(
+			parse::json::get<
+				parse::json::object
+			>(
+				elem
+			).members
+		);
+
+		sge::string const name(
+			parse::json::find_member<
+				string
+			>(
+				members,
+				SGE_TEXT("name")
+			)
+		);
+
+		if(name.size() != 1)
+		{
+			SGE_LOG_WARNING(
+				log::global(),
+				log::_1
+					<< SGE_TEXT("Invalid character in bitmap font: ")
+					<< name
+			);
+
+			continue;
+		}
+
+
+		char_map_.insert(
+			std::make_pair(
+				name[0],
+				make_shared_ptr<
+					char_metric
+				>(
+					sge::image::view::sub(
+						image_->view(),
+						load_rect(
+							members
+						)
+					),
+					load_offset(
+						members
+					),
+					parse::json::find_member<
+						double // FIXME
+					>(
+						members,
+						SGE_TEXT("x_advance")
+					)
+				)
+			)
+		);
+	}
 }
 
 sge::font::char_metric_ptr const

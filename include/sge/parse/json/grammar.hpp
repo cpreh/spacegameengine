@@ -40,6 +40,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/spirit/include/phoenix_operator.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 
+#include <sge/preprocessor/fixme.hpp>
+SGE_PP_FIXME("The json grammar has to be able to parse ints, too!")
+
 namespace sge
 {
 namespace parse

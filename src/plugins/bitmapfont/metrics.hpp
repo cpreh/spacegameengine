@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "char_metric_fwd.hpp"
 #include <sge/font/metrics.hpp>
 #include <sge/filesystem/path.hpp>
+#include <sge/image/file_fwd.hpp>
 #include <sge/char_type.hpp>
 #include <map>
 
@@ -45,6 +46,8 @@ public:
 	font::unit
 	line_height() const;
 private:
+	sge::image::file_ptr image_;
+
 	font::unit line_height_;
 
 	typedef std::map<

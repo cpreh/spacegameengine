@@ -18,24 +18,58 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_BITMAPFONT_SYSTEM_HPP_INCLUDED
-#define SGE_BITMAPFONT_SYSTEM_HPP_INCLUDED
+#ifndef SGE_PARSE_JSON_FIND_MEMBER_HPP_INCLUDED
+#define SGE_PARSE_JSON_FIND_MEMBER_HPP_INCLUDED
 
-#include <sge/font/system.hpp>
+#include <sge/parse/json/get.hpp>
+#include <sge/parse/json/member_vector.hpp>
+#include <sge/parse/json/member_name_equal.hpp>
+#include <sge/parse/json/member.hpp>
+#include <sge/string.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
+#include <algorithm>
 
 namespace sge
 {
-namespace bitmapfont
+namespace parse
+{
+namespace json
 {
 
-class system : public font::system {
-public:
-	font::metrics_ptr const
-	create_font(
-		filesystem::path const &,
-		font::size_type font_height);
-};
+template<
+	typename T
+>
+T
+find_member(
+	sge::parse::json::member_vector const &members,
+	sge::string const &name)
+{
+	sge::parse::json::member_vector::const_iterator const it(
+		std::find_if(
+			members.begin(),
+			members.end(),
+			sge::parse::json::member_name_equal(
+				name
+			)
+		)
+	);
 
+	if(it == members.end())
+		throw exception(
+			SGE_TEXT("entry \"")
+			+ name
+			+ SGE_TEXT("\" not found")
+		);
+	
+	return json::get<
+		T
+	>(
+		it->value_
+	);
+}
+
+}
 }
 }
 

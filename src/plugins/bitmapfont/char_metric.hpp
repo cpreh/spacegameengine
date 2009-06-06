@@ -18,22 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_BITMAPFONT_SYSTEM_HPP_INCLUDED
-#define SGE_BITMAPFONT_SYSTEM_HPP_INCLUDED
+#ifndef SGE_BITMAPFONT_CHAR_METRIC_HPP_INCLUDED
+#define SGE_BITMAPFONT_CHAR_METRIC_HPP_INCLUDED
 
-#include <sge/font/system.hpp>
+#include <sge/font/char_metric.hpp>
+#include <sge/math/vector/basic_decl.hpp>
+#include <sge/variant/object_decl.hpp>
 
 namespace sge
 {
 namespace bitmapfont
 {
 
-class system : public font::system {
+class char_metric : public font::char_metric {
 public:
-	font::metrics_ptr const
-	create_font(
-		filesystem::path const &,
-		font::size_type font_height);
+	char_metric(
+		font::const_image_view const &,
+		font::pos const &offset,
+		font::unit x_advance);
+	
+	~char_metric();
+	
+	font::const_image_view const
+	pixmap() const;
+
+	font::pos const
+	offset() const;
+
+	font::unit
+	x_advance() const;
+private:
+	font::const_image_view const pixmap_;	
+	font::pos const offset_;
+	font::unit const x_advance_;
 };
 
 }

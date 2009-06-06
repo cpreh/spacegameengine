@@ -18,23 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_BITMAPFONT_SYSTEM_HPP_INCLUDED
-#define SGE_BITMAPFONT_SYSTEM_HPP_INCLUDED
+#ifndef SGE_BITMAPFONT_CHAR_METRIC_FWD_HPP_INCLUDED
+#define SGE_BITMAPFONT_CHAR_METRIC_FWD_HPP_INCLUDED
 
-#include <sge/font/system.hpp>
+#include <sge/shared_ptr.hpp>
 
 namespace sge
 {
 namespace bitmapfont
 {
 
-class system : public font::system {
-public:
-	font::metrics_ptr const
-	create_font(
-		filesystem::path const &,
-		font::size_type font_height);
-};
+class char_metric;
+
+typedef shared_ptr<
+	char_metric
+> char_metric_ptr;
 
 }
 }

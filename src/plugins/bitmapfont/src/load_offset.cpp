@@ -18,25 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_BITMAPFONT_SYSTEM_HPP_INCLUDED
-#define SGE_BITMAPFONT_SYSTEM_HPP_INCLUDED
+#include "../load_offset.hpp"
+#include <sge/parse/json/get.hpp>
+#include <sge/parse/json/find_member.hpp>
+#include <sge/parse/json/member.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/math/vector/basic_impl.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-#include <sge/font/system.hpp>
-
-namespace sge
+sge::font::pos const
+sge::bitmapfont::load_offset(
+	sge::parse::json::member_vector const &members)
 {
-namespace bitmapfont
-{
+	parse::json::element_vector const &elements(
+		parse::json::find_member<
+			parse::json::array
+		>(
+			members,
+			SGE_TEXT("offset")
+		).elements
+	);
 
-class system : public font::system {
-public:
-	font::metrics_ptr const
-	create_font(
-		filesystem::path const &,
-		font::size_type font_height);
-};
+	if(elements.size() != 2)
+		throw exception(
+			SGE_TEXT("Bogus offset detected")
+		);
 
+	return font::pos(
+		parse::json::get<
+			double // FIXME
+		>(
+			elements[0]
+		),
+		parse::json::get<
+			double // FIXME
+		>(
+			elements[1]
+		)
+	);
 }
-}
-
-#endif

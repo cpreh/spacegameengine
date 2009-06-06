@@ -31,7 +31,9 @@ namespace font
 
 class char_metric;
 
-typedef shared_ptr<char_metric> char_metric_ptr;
+typedef shared_ptr<
+	char_metric
+> char_metric_ptr;
 
 }
 }
