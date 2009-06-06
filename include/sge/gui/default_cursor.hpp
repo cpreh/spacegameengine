@@ -45,6 +45,7 @@ public:
 	SGE_GUI_SYMBOL sge::sprite::object &mutable_sprite();
 	SGE_GUI_SYMBOL virtual ~default_cursor();
 private:
+	sge::renderer::device_ptr const rend_;
 	sge::texture::no_fragmented texture_;
 	sge::sprite::object sprite_;
 	sge::sprite::point const click_;

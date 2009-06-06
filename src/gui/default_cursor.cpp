@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 #include <sge/gui/default_cursor.hpp>
 #include <sge/gui/media_path.hpp>
+#include <sge/gui/unit.hpp>
+#include <sge/gui/dim.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/sprite/parameters.hpp>
 #include <sge/image/loader.hpp>
@@ -27,16 +29,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/consume_and_set_fragment.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/math/vector/structure_cast.hpp>
+#include <sge/math/clamp.hpp>
+#include <sge/math/dim/structure_cast.hpp>
 #include <sge/make_shared_ptr.hpp>
 #include <sge/text.hpp>
 #include <sge/cerr.hpp>
 
 sge::gui::default_cursor::default_cursor(
 	sge::image::loader_ptr const il,
-	sge::renderer::device_ptr const rend)
+	sge::renderer::device_ptr const _rend)
 :
+	rend_(
+		_rend),
 	texture_(
-		rend,
+		rend_,
 		image::color::format::rgba8,
 		renderer::filter::linear),
 	sprite_(
@@ -62,8 +68,24 @@ sge::gui::default_cursor::default_cursor(
 void sge::gui::default_cursor::pos(
 	point const &p)
 {
-	sprite_.pos() = math::vector::structure_cast<sge::sprite::point>(
-		p);
+	sge::gui::dim const ss = 
+		sge::math::dim::structure_cast<sge::gui::dim>(
+			rend_->screen_size());
+	sprite_.pos() = 
+		math::vector::structure_cast<sge::sprite::point>(
+			sge::gui::point(
+				sge::math::clamp(
+					p.x(),
+					static_cast<sge::gui::unit>(
+						-sprite_.w()),
+					static_cast<sge::gui::unit>(
+						ss.w()+sprite_.w())),
+				sge::math::clamp(
+					p.y(),
+					static_cast<sge::gui::unit>(
+						-sprite_.h()),
+					static_cast<sge::gui::unit>(
+						ss.h()+sprite_.h()))));
 }
 
 sge::gui::point const sge::gui::default_cursor::pos() const
