@@ -68,20 +68,76 @@ public:
 	{
 		using boost::spirit::char_;
 		using boost::spirit::int_;
-		//using boost::spirit::double_;
 		using boost::spirit::lit;
 		using boost::spirit::lexeme;
 		using boost::spirit::arg_names::_val;
 		using boost::phoenix::construct;
 		using boost::phoenix::val;
 
-		null_ = lit(SGE_TEXT("null"))[_val = construct<null>()];
-		bool_ = lit(SGE_TEXT("true"))[_val = true] | lit(SGE_TEXT("false"))[_val = false];
-		quoted_string_ %= lexeme[char_(SGE_TEXT('"')) >> *(char_ - char_(SGE_TEXT('"'))) >> char_(SGE_TEXT('"'))];
-		array_ %= char_(SGE_TEXT('[')) >> (value_ % char_(SGE_TEXT(','))) >> char_(SGE_TEXT(']')); 
-		value_ %= object_ | array_ | bool_ | quoted_string_ | strict_double | int_ | null_;
-		member_ %= quoted_string_ >> char_(SGE_TEXT(':')) >> value_;
-		object_ %= char_(SGE_TEXT('{')) >> (member_ % char_(SGE_TEXT(','))) >> char_(SGE_TEXT('}'));
+		null_ =
+			lit(
+				SGE_TEXT("null")
+			)[
+				_val = construct<null>()
+			];
+
+		bool_ =
+			lit(
+				SGE_TEXT("true")
+			)[
+				_val = true
+			]
+			| lit(
+				SGE_TEXT("false")
+			)[
+				_val = false
+			];
+
+		quoted_string_ %=
+			lexeme[
+				char_(SGE_TEXT('"'))
+				>> *(
+					(
+						char_
+						- char_(SGE_TEXT('\\'))
+						- char_(SGE_TEXT('"'))
+					)
+					| (
+						char_(SGE_TEXT('\\'))
+						>> char_
+					)
+				)
+				>> char_(SGE_TEXT('"'))
+			];
+
+		array_ %=
+			char_(SGE_TEXT('['))
+			>> (
+				value_ % char_(SGE_TEXT(','))
+			)
+			>> char_(SGE_TEXT(']'));
+
+		value_ %=
+			object_
+			| array_ 
+			| bool_
+			| quoted_string_
+			| strict_double
+			| int_
+			| null_;
+
+		member_ %=
+			quoted_string_
+			>> char_(SGE_TEXT(':'))
+			>> value_;
+
+		object_ %=
+			char_(SGE_TEXT('{'))
+			>> (
+				member_
+				% char_(SGE_TEXT(','))
+			)
+			>> char_(SGE_TEXT('}'));
 	}
 private:
 	boost::spirit::qi::real_spec<

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/font/metrics_fwd.hpp>
 #include <sge/font/size_type.hpp>
+#include <sge/image/loader_fwd.hpp>
 #include <sge/filesystem/path.hpp>
 #include <sge/export.hpp>
 #include <sge/noncopyable.hpp>
@@ -43,7 +44,9 @@ public:
 	virtual metrics_ptr const
 	create_font(
 		filesystem::path const &,
-		size_type font_height) = 0;
+		size_type font_height,
+		sge::image::loader_ptr
+			= sge::image::loader_ptr()) = 0;
 };
 
 }

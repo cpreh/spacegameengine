@@ -33,7 +33,8 @@ public:
 	font::metrics_ptr const
 	create_font(
 		filesystem::path const &,
-		font::size_type font_height);
+		font::size_type font_height,
+		sge::image::loader_ptr);
 };
 
 }

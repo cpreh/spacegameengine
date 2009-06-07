@@ -30,7 +30,7 @@ sge::font::char_not_available::char_not_available(
 			SGE_TEXT("Character '")
 		)
 		+ character_
-		+ SGE_TEXT("' not available!")
+		+ SGE_TEXT("' is not available!")
 	),
 	character_(character_)
 {}

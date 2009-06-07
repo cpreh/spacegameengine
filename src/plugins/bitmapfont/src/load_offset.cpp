@@ -48,12 +48,12 @@ sge::bitmapfont::load_offset(
 
 	return font::pos(
 		parse::json::get<
-			double // FIXME
+			int
 		>(
 			elements[0]
 		),
 		parse::json::get<
-			double // FIXME
+			int
 		>(
 			elements[1]
 		)

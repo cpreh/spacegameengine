@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/metrics.hpp>
 #include <sge/filesystem/path.hpp>
 #include <sge/image/file_fwd.hpp>
+#include <sge/image/loader_fwd.hpp>
 #include <sge/char_type.hpp>
 #include <map>
 
@@ -35,8 +36,9 @@ namespace bitmapfont
 
 class metrics : public font::metrics {
 public:
-	explicit metrics(
-		filesystem::path const &);
+	metrics(
+		filesystem::path const &,
+		sge::image::loader_ptr);
 	~metrics();
 
 	font::char_metric_ptr const

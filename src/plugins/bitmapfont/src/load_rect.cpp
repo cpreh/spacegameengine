@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/vector/basic_impl.hpp>
+#include <sge/math/dim/basic_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
@@ -68,25 +70,29 @@ sge::bitmapfont::load_rect(
 		);
 	
 	return image::rect(
-		parse::json::get<
-			double // FIXME
-		>(
-			first_elements[0]
+		image::rect::point_type(
+			parse::json::get<
+				int
+			>(
+				first_elements[0]
+			),
+			parse::json::get<
+				int
+			>(
+				first_elements[1]
+			)
 		),
-		parse::json::get<
-			double // FIXME
-		>(
-			first_elements[1]
-		),
-		parse::json::get<
-			double // FIXME
-		>(
-			second_elements[0]
-		),
-		parse::json::get<
-			double // FIXME
-		>(
-			second_elements[1]
+		image::rect::dim_type(
+			parse::json::get<
+				int
+			>(
+				second_elements[0]
+			),
+			parse::json::get<
+				int
+			>(
+				second_elements[1]
+			)
 		)
 	);
 }
