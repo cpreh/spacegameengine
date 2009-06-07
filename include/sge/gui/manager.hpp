@@ -81,8 +81,8 @@ class manager
 	private:
 	friend class widgets::base;
 
-	skins::ptr skin_;
-	cursor::base_ptr cursor_;
+	skins::ptr const skin_;
+	cursor::base_ptr const cursor_;
 
 	// this is just to prevent the detail dependencies
 	scoped_ptr<detail::managers::mouse> mouse_;

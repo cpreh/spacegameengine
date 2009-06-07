@@ -66,7 +66,7 @@ class mouse : public submanager
 
 	widget_container widgets;
 	signal::scoped_connection const ic;
-	cursor::base_ptr &cursor_;
+	cursor::base_ptr cursor_;
 	widgets::base *focus;
 	bool dirty_;
 

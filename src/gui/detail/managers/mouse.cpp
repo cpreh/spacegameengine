@@ -37,7 +37,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/classification.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/text.hpp>
-#include <sge/cerr.hpp>
 #include <sge/assert.hpp>
 #include <boost/bind.hpp>
 #include <boost/foreach.hpp>
@@ -163,8 +162,6 @@ void sge::gui::detail::managers::mouse::recalculate_focus()
 		mylogger,
 		log::_1 << SGE_TEXT("in top level recalculate_focus"));
 
-	sge::cerr << "in recalc_focus\n";
-	sge::cerr << "cursor position: " << cursor_->pos() << "\n";
 	point const click_point(
 		math::vector::structure_cast<
 			point
@@ -217,7 +214,6 @@ void sge::gui::detail::managers::mouse::z(
 void sge::gui::detail::managers::mouse::input_callback(
 	input::key_pair const &k)
 {
-	sge::cerr << "in input_callback\n";
 	if (input::is_mouse_axis(k.key().code()))
 	{
 		cursor_->pos(

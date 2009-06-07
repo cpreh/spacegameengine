@@ -87,7 +87,7 @@ class render : public submanager
 	renderer::device_ptr rend;
 	sprite::system ss;
 	sprite::container sprites_;
-	cursor::base_ptr &cursor_;
+	cursor::base_ptr cursor_;
 	widget_container widgets;
 	dirt_container dirt_;
 

@@ -40,10 +40,12 @@ sge::gui::manager::manager(
 	renderer::device_ptr const rend,
 	input::system_ptr const is,
 	skins::ptr _skin,
-	cursor::base_ptr _cursor)
+	cursor::base_ptr const _cursor)
 :
-	skin_(_skin),
-	cursor_(_cursor),
+	skin_(
+		_skin),
+	cursor_(
+		_cursor),
 	mouse_(
 		new detail::managers::mouse(
 			is,
