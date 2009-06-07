@@ -96,5 +96,6 @@
 {"name" : "|","rect" : [[3587,0],[37,87]],"offset" : [0,0],"x_advance" : 37},
 {"name" : "}","rect" : [[3624,0],[22,87]],"offset" : [0,0],"x_advance" : 22},
 {"name" : "~","rect" : [[3646,0],[37,87]],"offset" : [0,0],"x_advance" : 37}
+{"name" : " ","rect" : [[3683,0],[18,87]],"offset" : [0,0],"x_advance" : 18}
 ]
 }
