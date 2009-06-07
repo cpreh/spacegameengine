@@ -62,12 +62,14 @@ public:
 	child_plane &plane();
 	data_map &data();
 	rolumn_container &rolumns();
+	rolumn_container &volatile_rolumns();
 private:
 	widgets::base::child_container const &widgets_;
 	
 	child_plane      plane_;
 	data_map         data_;
 	rolumn_container rolumns_;
+	rolumn_container volatile_rolumns_;
 
 	void first_pass();
 	void second_pass();

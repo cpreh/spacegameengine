@@ -47,7 +47,8 @@ sge::gui::detail::grid_cache::grid_cache(
 	widgets_(_widgets),
 	plane_(),
 	data_(),
-	rolumns_()
+	rolumns_(),
+	volatile_rolumns_()
 {
 	first_pass();
 	second_pass();
@@ -69,6 +70,12 @@ sge::gui::detail::grid_cache::rolumn_container &
 	sge::gui::detail::grid_cache::rolumns()
 {
 	return rolumns_;
+}
+
+sge::gui::detail::grid_cache::rolumn_container &
+	sge::gui::detail::grid_cache::volatile_rolumns()
+{
+	return volatile_rolumns_;
 }
 
 void sge::gui::detail::grid_cache::first_pass()

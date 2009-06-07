@@ -372,7 +372,7 @@ void sge::gui::layouts::grid::distribute_overhead(
 	dim const &usable)
 {
 	detail::grid_cache::rolumn_container &rolumns = 
-		valid_cache().rolumns();
+		valid_cache().volatile_rolumns();
 
 	// we might have overhead space (difference "usable - real"), which we
 	// distribute evenly among rolumns
@@ -417,7 +417,7 @@ void sge::gui::layouts::grid::update_widgets()
 		valid_cache().plane();
 	
 	detail::grid_cache::rolumn_container const &rolumns = 
-		valid_cache().rolumns();
+		valid_cache().volatile_rolumns();
 
 	// this pos represents the "screen position", not the position in the array
 	point pos = point::null();
@@ -448,7 +448,11 @@ void sge::gui::layouts::grid::update_widgets()
 						y_axis,
 						y)).size;
 		}
-		pos.x() += rolumns.pos(detail::grid_cache::rolumn_container::vector_type(x_axis,x)).size;
+		pos.x() += 
+			rolumns.pos(
+				detail::grid_cache::rolumn_container::vector_type(
+					x_axis,
+					x)).size;
 	}
 	
 	SGE_LOG_DEBUG(
