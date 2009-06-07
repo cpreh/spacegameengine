@@ -25,7 +25,7 @@ sge::font::exception::exception(
 	string const &str)
 :
 	sge::exception(
-		SGE_TEXT("font : ")
+		SGE_TEXT("font: ")
 		+ str
 	)
 {}

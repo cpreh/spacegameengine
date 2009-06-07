@@ -160,8 +160,9 @@ sge::bitmapfont::metrics::metrics(
 		SGE_LOG_WARNING(
 			log::global(),
 			log::_1
-				<< SGE_TEXT("Skipping character int bitmap font because ")
+				<< SGE_TEXT("Skipping character int bitmap font because \"")
 				<< e.what()
+				<< SGE_TEXT('"')
 		);
 	}
 }
