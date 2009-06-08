@@ -18,21 +18,3 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_NULL_HPP_INCLUDED
-#define SGE_PARSE_JSON_NULL_HPP_INCLUDED
-
-namespace sge
-{
-namespace parse
-{
-namespace json
-{
-
-class null
-{};
-
-}
-}
-}
-
-#endif
