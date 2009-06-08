@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include "../keyboard_grab.hpp"
 #include "../handle_grab.hpp"
 #include <X11/Xlib.h>

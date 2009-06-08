@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <sge/texture/no_fragmented.hpp>
 #include <sge/texture/guaranteed_free.hpp>
 #include <sge/texture/part_fragmented.hpp>

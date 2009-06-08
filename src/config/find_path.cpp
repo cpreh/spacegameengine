@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <sge/config/find_path.hpp>
 #include <sge/config/path_not_found.hpp>
 #include <sge/filesystem/path.hpp>

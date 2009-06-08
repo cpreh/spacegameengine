@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <sge/config/plugin_path.hpp>
 #include <sge/config/detail/find_own_path.hpp>
 #include <sge/iconv.hpp>

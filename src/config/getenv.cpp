@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <sge/config/getenv.hpp>
 #include <sge/config/no_such_env_var.hpp>
 #ifdef SGE_WINDOWS_PLATFORM

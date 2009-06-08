@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include "../texture_lock_factory.hpp"
 #include "../readonly_texture_lock.hpp"
 #include "../writeonly_texture_lock.hpp"

@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <sge/random/exclusive_range_error.hpp>
 
 sge::random::exclusive_range_error::exclusive_range_error(

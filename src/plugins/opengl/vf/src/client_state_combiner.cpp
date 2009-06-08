@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include "../client_state_combiner.hpp"
 #include "../global_client_state.hpp"
 #include "../vertex_attrib.hpp"

@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <sge/sprite/defaults.hpp>
 #include <sge/sprite/texture_dim.hpp>
 #include <sge/image/color/colors.hpp>

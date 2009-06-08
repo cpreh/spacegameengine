@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <sge/input/key_state_tracker.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/key_pair.hpp>

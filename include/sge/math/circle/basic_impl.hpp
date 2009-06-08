@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #ifndef SGE_MATH_CIRCLE_BASIC_IMPL_HPP_INCLUDED
 #define SGE_MATH_CIRCLE_BASIC_IMPL_HPP_INCLUDED
 

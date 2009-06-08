@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include "../attribute_actor.hpp"
 #include "../convert_num_elements.hpp"
 #include "../client_state_combiner.hpp"

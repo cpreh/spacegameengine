@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include "../translation.hpp"
 #include <X11/keysym.h>
 #include <boost/assign/list_of.hpp>

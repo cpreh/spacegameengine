@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include "../color_convert.hpp"
 #include <sge/exception.hpp>
 #include <sge/text.hpp>

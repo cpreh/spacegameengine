@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include "../fbo_projection.hpp"
 #include <sge/math/matrix/scaling.hpp>
 #include <sge/math/matrix/arithmetic.hpp>

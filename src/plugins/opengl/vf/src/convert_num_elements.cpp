@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include "../convert_num_elements.hpp"
 #include <sge/renderer/vf/dynamic_vector.hpp>
 #include <sge/renderer/vf/dynamic_color.hpp>

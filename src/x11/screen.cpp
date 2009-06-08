@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <sge/x11/screen.hpp>
 #include <sge/x11/display.hpp>
 #include <X11/Xlib.h>

@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include "../light.hpp"
 #include "../check_state.hpp"
 #include "../vector4f.hpp"

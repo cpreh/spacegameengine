@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <sge/log/output_helper.hpp>
 
 sge::log::output_helper const sge::log::_1
