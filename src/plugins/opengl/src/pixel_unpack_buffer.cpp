@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include "../pixel_unpack_buffer.hpp"
 #include "../instantiate_basic_buffer.hpp"
 

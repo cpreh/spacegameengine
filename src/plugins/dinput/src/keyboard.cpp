@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include "../keyboard.hpp"
 #include "../keyboard_repeat.hpp"
 #include <sge/input/key_pair.hpp>

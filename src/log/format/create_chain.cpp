@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <sge/log/format/create_chain.hpp>
 #include <sge/log/format/chain.hpp>
 

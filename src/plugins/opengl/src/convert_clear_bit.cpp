@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include "../convert_clear_bit.hpp"
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/exception.hpp>

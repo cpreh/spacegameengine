@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <sge/renderer/matrix_pixel_to_space.hpp>
 #include <sge/math/matrix/basic_impl.hpp>
 #include <sge/math/matrix/translation.hpp>

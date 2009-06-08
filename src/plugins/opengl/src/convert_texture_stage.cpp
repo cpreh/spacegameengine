@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include "../convert_texture_stage.hpp"
 #include <sge/exception.hpp>
 #include <sge/text.hpp>

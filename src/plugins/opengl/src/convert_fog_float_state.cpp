@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include "../convert_fog_float_state.hpp"
 #include <sge/renderer/state/var.hpp>
 #include <sge/variant/object_impl.hpp>

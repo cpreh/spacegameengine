@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include "../background_dim.hpp"
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/math/dim/structure_cast.hpp>

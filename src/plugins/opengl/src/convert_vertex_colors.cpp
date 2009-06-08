@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include "../convert_vertex_colors.hpp"
 #include <sge/renderer/vf/dynamic_color.hpp>
 #include <sge/renderer/vf/dynamic_ordered_element.hpp>

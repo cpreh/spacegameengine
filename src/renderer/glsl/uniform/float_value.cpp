@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <sge/renderer/glsl/uniform/float_value.hpp>
 #include <sge/renderer/glsl/uniform/detail/basic_value_impl.hpp>
 #include <sge/export.hpp>

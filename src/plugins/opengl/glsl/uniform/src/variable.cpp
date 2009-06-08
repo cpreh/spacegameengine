@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include "../variable.hpp"
 #include "../variable_functions.hpp"
 #include "../setter.hpp"

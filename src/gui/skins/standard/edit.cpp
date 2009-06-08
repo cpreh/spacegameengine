@@ -16,6 +16,8 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
+
 #include "../../utility/unlimited_text_size.hpp"
 #include "../../utility/string_square.hpp"
 #include "../../utility/blit.hpp"

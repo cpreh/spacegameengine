@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <sge/renderer/const_scoped_index_lock.hpp>
 #include <sge/renderer/impl/const_scoped_buffer_lock_impl.hpp>
 #include <sge/renderer/index_buffer.hpp>

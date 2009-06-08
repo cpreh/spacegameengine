@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <sge/signal/connection_manager.hpp>
 
 sge::signal::connection_manager::connection_manager()

@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <sge/renderer/screenshot.hpp>
 #include <sge/renderer/const_scoped_target_lock.hpp>
 #include <sge/renderer/device.hpp>

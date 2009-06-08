@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include "../vertex_buffer.hpp"
 #include "../convert_to_pool.hpp"
 #include "../convert_resource_flags.hpp"

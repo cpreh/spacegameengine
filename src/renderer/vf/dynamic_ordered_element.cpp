@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <sge/renderer/vf/dynamic_ordered_element.hpp>
 
 sge::renderer::vf::dynamic_ordered_element::dynamic_ordered_element(

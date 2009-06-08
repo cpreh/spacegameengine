@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <sge/sprite/detail/compare.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/math/compare.hpp>

@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <sge/systems/named_compare.hpp>
 #include <sge/systems/named.hpp>
 #include <sge/container/map.hpp>

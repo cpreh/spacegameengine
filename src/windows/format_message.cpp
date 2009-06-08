@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <sge/windows/format_message.hpp>
 #include <sge/windows/windows.hpp>
 #include <sge/exception.hpp>

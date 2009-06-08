@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #if 0
 #include "../volume_texture.hpp"
 #include "../conversion.hpp"

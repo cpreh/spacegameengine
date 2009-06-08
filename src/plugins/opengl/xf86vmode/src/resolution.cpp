@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include "../resolution.hpp"
 #include <sge/x11/display.hpp>
 #include <sge/exception.hpp>

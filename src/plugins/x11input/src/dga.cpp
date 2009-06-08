@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include "../dga.hpp"
 #include <sge/x11/window.hpp>
 #include <sge/once.hpp>

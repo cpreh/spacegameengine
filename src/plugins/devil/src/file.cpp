@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 // FIXME: sadly, it seems that devil's unicode support is broken
 #undef UNICODE
 #undef _UNICODE

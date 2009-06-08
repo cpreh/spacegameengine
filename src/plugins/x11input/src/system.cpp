@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <boost/foreach.hpp> // some header breaks BOOST_FOREACH
 #include <X11/Xlib.h>
 #include "../system.hpp"

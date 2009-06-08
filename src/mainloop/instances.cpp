@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <sge/mainloop/instances.hpp>
 #include <sge/mainloop/dispatchable.hpp>
 #include <sge/log/headers.hpp>

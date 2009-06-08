@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <sge/type_info.hpp>
 #include <sge/type_name.hpp>
 #include <sge/assert.hpp>

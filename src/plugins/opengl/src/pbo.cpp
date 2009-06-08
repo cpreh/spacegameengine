@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include "../basic_buffer_impl.hpp"
 #include "../pbo.hpp"
 #include "../software_vbo.hpp"
