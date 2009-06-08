@@ -6,6 +6,7 @@ import System.IO(withFile,hSeek,IOMode(ReadWriteMode),SeekMode(AbsoluteSeek))
 import Data.List(isInfixOf,isSuffixOf)
 import Debug.Trace(traceShow,trace)
 import qualified Data.ByteString.Char8 as BS
+import Data.ByteString.Internal(isSpaceChar8)
 import Data.ByteString(ByteString)
 
 keyword = BS.pack "Franklin Street"
@@ -13,6 +14,10 @@ template = "template.hpp"
 
 data CppData = Text ByteString | Comment ByteString
 type CppFile = [CppData]
+
+extractCpp :: CppData -> ByteString
+extractCpp (Text a) = a
+extractCpp (Comment a) = a
 
 makeFile :: ByteString -> CppFile
 makeFile s = makeCpp scrambled
@@ -27,12 +32,16 @@ makeFile s = makeCpp scrambled
           where rest = makeCpp' (a+1) xs
 
 updateDate :: ByteString -> ByteString -> ByteString
-updateDate tempFile s = BS.concat $ map edit scrambled
+updateDate tempFile s = iterate scrambled
   where scrambled = makeFile s 
-        edit :: CppData -> ByteString
-        edit (Text a) = a
-        edit (Comment a) | keyword `BS.isInfixOf` a = tempFile
-                         | otherwise = a
+        iterate :: CppFile -> ByteString
+        iterate [] = BS.pack ""
+        iterate ((Text a):xs) = a `BS.append` (iterate xs)
+        iterate ((Comment a):xs) | keyword `BS.isInfixOf` a = tempFile `BS.append` (iterate' xs)
+                                 | otherwise = a `BS.append` (iterate xs)
+        iterate' [] = BS.pack ""
+        iterate' (x:xs) = (stripWhites (extractCpp x)) `BS.append` (iterate xs)
+        stripWhites x = (BS.pack "\n") `BS.append` (BS.dropWhile isSpaceChar8 x)
 
 editContents :: ByteString -> ByteString -> ByteString
 editContents tempFile xs | keyword `BS.isInfixOf` xs = updateDate tempFile xs
@@ -44,7 +53,7 @@ addHeader tempFile s = tempFile `BS.append` s
 editFile :: FilePath -> IO ()
 editFile name = do contents <- BS.readFile (trace ("editing file " ++ name) name)
                    tempFile <- BS.readFile template
-                   BS.writeFile name (editContents tempFile contents)
+                   BS.writeFile name (editContents (BS.init tempFile) contents)
 {-
 editFile name = do withFile name ReadWriteMode editIt
   where editIt h = do contents <- BS.hGetContents h

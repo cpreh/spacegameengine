@@ -19,11 +19,13 @@ validFile :: (FilePath -> Bool) -> FilePath -> IO Bool
 validFile f x = do exists <- doesFileExist x
                    return $ exists && (f x)
 
+{-
 walkDir f g dir = do
   contents <- getDirectoryContents dir
   forM_ contents $ \x -> do
     let edited = takeFileName x
     if dir == "." 
+    -}
 
 walkDir :: (FilePath -> IO ()) -> (FilePath -> Bool) -> FilePath -> IO ()
 walkDir f g dir = do contents <- getDirectoryContents dir
