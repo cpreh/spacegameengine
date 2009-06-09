@@ -107,7 +107,7 @@ void sge::gui::detail::managers::keyboard::activation(
 	if (a == activation_state::active)
 		return;
 	
-	(*focus)->process(events::keyboard_leave());
+	(*focus)->process_keyboard_leave(events::keyboard_leave());
 	focus.reset();
 }
 
@@ -272,7 +272,7 @@ void sge::gui::detail::managers::keyboard::input_callback(
 	
 	if (focus)
 	{
-		if ((*focus)->process(events::key(k,s,repeated)) == key_handling::ignore)
+		if ((*focus)->process_key(events::key(k,s,repeated)) == key_handling::ignore)
 			return;
 	}
 
@@ -288,7 +288,7 @@ void sge::gui::detail::managers::keyboard::switch_focus(widget_container::iterat
 {
 	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("switching focus"));
 	if (focus)
-		(*focus)->process(events::keyboard_leave());
+		(*focus)->process_keyboard_leave(events::keyboard_leave());
 	focus = n;
-	(*focus)->process(events::keyboard_enter());
+	(*focus)->process_keyboard_enter(events::keyboard_enter());
 }

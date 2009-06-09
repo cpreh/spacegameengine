@@ -250,7 +250,8 @@ sge::gui::activation_state::type sge::gui::widgets::base::activation() const
 	return activation_;
 }
 
-void sge::gui::widgets::base::layout(layouts::auto_ptr n)
+void sge::gui::widgets::base::layout(
+	layouts::auto_ptr n)
 {
 	layout_ = n;
 	layout_->connected_widget(*this);
@@ -331,7 +332,7 @@ void sge::gui::widgets::base::invalidate(
 		i);
 }
 
-void sge::gui::widgets::base::process(
+void sge::gui::widgets::base::process_invalid_area(
 	events::invalid_area const &e)
 {
 	// draw itself, then draw children
@@ -362,29 +363,29 @@ void sge::gui::widgets::base::process(
 					<< SGE_TEXT("sending widgets::base ")
 					<< type_info(typeid(w)).name()
 					<< SGE_TEXT(" an invalid area event"));
-			w.process(e);
+			w.process_invalid_area(e);
 		}
 	}
 }
 
-void sge::gui::widgets::base::process(events::mouse_enter const &) {}
-void sge::gui::widgets::base::process(events::mouse_leave const &) {}
-void sge::gui::widgets::base::process(events::mouse_move const &) {}
-void sge::gui::widgets::base::process(events::mouse_click const &) {}
+void sge::gui::widgets::base::process_mouse_enter(events::mouse_enter const &) {}
+void sge::gui::widgets::base::process_mouse_leave(events::mouse_leave const &) {}
+void sge::gui::widgets::base::process_mouse_move(events::mouse_move const &) {}
+void sge::gui::widgets::base::process_mouse_click(events::mouse_click const &) {}
 
-sge::gui::key_handling::type sge::gui::widgets::base::process(
+sge::gui::key_handling::type sge::gui::widgets::base::process_key(
 	events::key const &) 
 { 
 	return key_handling::process; 
 }
 
-void sge::gui::widgets::base::process(
+void sge::gui::widgets::base::process_keyboard_enter(
 	events::keyboard_enter const &) 
 {
 	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("got keyboard_enter"));
 }
 
-void sge::gui::widgets::base::process(
+void sge::gui::widgets::base::process_keyboard_leave(
 	events::keyboard_leave const &) 
 {
 	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("got keyboard_leave"));

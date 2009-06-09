@@ -40,13 +40,12 @@ public:
 	SGE_GUI_SYMBOL bool mouse_over() const;
 	SGE_GUI_SYMBOL bool key_over() const;
 
-	SGE_GUI_SYMBOL void process(events::mouse_enter const &);
-	SGE_GUI_SYMBOL void process(events::mouse_leave const &);
-	SGE_GUI_SYMBOL void process(events::mouse_click const &);
-	SGE_GUI_SYMBOL void process(events::keyboard_enter const &);
-	SGE_GUI_SYMBOL key_handling::type process(events::key const &);
-	SGE_GUI_SYMBOL void process(events::keyboard_leave const &);
-	using widgets::base::process;
+	SGE_GUI_SYMBOL void process_mouse_enter(events::mouse_enter const &);
+	SGE_GUI_SYMBOL void process_mouse_leave(events::mouse_leave const &);
+	SGE_GUI_SYMBOL void process_mouse_click(events::mouse_click const &);
+	SGE_GUI_SYMBOL void process_keyboard_enter(events::keyboard_enter const &);
+	SGE_GUI_SYMBOL key_handling::type process_key(events::key const &);
+	SGE_GUI_SYMBOL void process_keyboard_leave(events::keyboard_leave const &);
 
 	typedef boost::function<void ()> clicked_fn;
 	SGE_GUI_SYMBOL signal::auto_connection register_clicked(

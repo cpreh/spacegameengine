@@ -109,8 +109,8 @@ class SGE_CLASS_SYMBOL base
 	SGE_GUI_SYMBOL child_container &children();
 	SGE_GUI_SYMBOL child_container const &children() const;
 
-	SGE_GUI_SYMBOL void add_child(widgets::base &);
-	SGE_GUI_SYMBOL void remove_child(widgets::base &);
+	SGE_GUI_SYMBOL virtual void add_child(widgets::base &);
+	SGE_GUI_SYMBOL virtual void remove_child(widgets::base &);
 
 	SGE_GUI_SYMBOL void activation(activation_state::type);
 	SGE_GUI_SYMBOL activation_state::type activation() const;
@@ -132,14 +132,14 @@ class SGE_CLASS_SYMBOL base
 		widgets::base &,
 		invalidation::type const &);
 
-	SGE_GUI_SYMBOL virtual void process(events::invalid_area const &);
-	SGE_GUI_SYMBOL virtual void process(events::mouse_enter const &);
-	SGE_GUI_SYMBOL virtual void process(events::mouse_leave const &);
-	SGE_GUI_SYMBOL virtual void process(events::mouse_move const &);
-	SGE_GUI_SYMBOL virtual void process(events::mouse_click const &);
-	SGE_GUI_SYMBOL virtual key_handling::type process(events::key const &);
-	SGE_GUI_SYMBOL virtual void process(events::keyboard_enter const &);
-	SGE_GUI_SYMBOL virtual void process(events::keyboard_leave const &);
+	SGE_GUI_SYMBOL virtual void process_invalid_area(events::invalid_area const &);
+	SGE_GUI_SYMBOL virtual void process_mouse_enter(events::mouse_enter const &);
+	SGE_GUI_SYMBOL virtual void process_mouse_leave(events::mouse_leave const &);
+	SGE_GUI_SYMBOL virtual void process_mouse_move(events::mouse_move const &);
+	SGE_GUI_SYMBOL virtual void process_mouse_click(events::mouse_click const &);
+	SGE_GUI_SYMBOL virtual key_handling::type process_key(events::key const &);
+	SGE_GUI_SYMBOL virtual void process_keyboard_enter(events::keyboard_enter const &);
+	SGE_GUI_SYMBOL virtual void process_keyboard_leave(events::keyboard_leave const &);
 
 	// virtuals
 	SGE_GUI_SYMBOL virtual ~base();

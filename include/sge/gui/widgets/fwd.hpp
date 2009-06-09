@@ -34,6 +34,7 @@ class edit;
 class label;
 class graphics;
 class backdrop;
+class scroll;
 
 namespace buttons
 {

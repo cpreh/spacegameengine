@@ -142,7 +142,7 @@ void sge::gui::detail::managers::mouse::remove(widgets::base &w)
 		widgets::base *const parent = w.has_parent() ? &(w.parent_widget()) : 0;
 		while (focus != parent)
 		{
-			focus->process(events::mouse_leave());
+			focus->process_mouse_leave(events::mouse_leave());
 			focus = focus->has_parent() ? &(focus->parent_widget()) : 0;
 		}
 	}
@@ -198,7 +198,7 @@ void sge::gui::detail::managers::mouse::recalculate_focus()
 			if (w.activation() == activation_state::active && 
 			    contains_point(w.screen_area(),click_point))
 			{
-				w.process(events::mouse_enter(click_point));
+				w.process_mouse_enter(events::mouse_enter(click_point));
 				focus = recalculate_focus(w,click_point);
 				return;
 			}
@@ -230,7 +230,7 @@ void sge::gui::detail::managers::mouse::input_callback(
 	if (!focus)
 		return;
 
-	focus->process(
+	focus->process_mouse_click(
 		events::mouse_click(
 			math::vector::structure_cast<point>(
 				cursor_->pos()),
@@ -249,7 +249,7 @@ sge::gui::widgets::base *sge::gui::detail::managers::mouse::recalculate_focus(
 			mylogger,
 			log::_1 << SGE_TEXT("mouse no longer inside widget, sending leave"));
 
-		w.process(events::mouse_leave());
+		w.process_mouse_leave(events::mouse_leave());
 		
 		// Pointer is in "free space" now
 		if (!w.has_parent())
@@ -266,7 +266,7 @@ sge::gui::widgets::base *sge::gui::detail::managers::mouse::recalculate_focus(
 		SGE_LOG_DEBUG(
 			mylogger,
 			log::_1 << SGE_TEXT("focus hasn't changed, sending mouse_move"));
-		w.process(events::mouse_move(mouse_click));
+		w.process_mouse_move(events::mouse_move(mouse_click));
 	}
 	return new_focus;
 }
@@ -283,7 +283,7 @@ sge::gui::widgets::base *sge::gui::detail::managers::mouse::do_recalculate_focus
 			SGE_LOG_DEBUG(
 				mylogger,
 				log::_1 << SGE_TEXT("a child has the focus, sending enter and descending"));
-			child.process(events::mouse_enter(p));
+			child.process_mouse_enter(events::mouse_enter(p));
 			return do_recalculate_focus(child,p);
 		}
 	}

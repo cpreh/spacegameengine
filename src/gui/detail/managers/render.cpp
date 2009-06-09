@@ -363,7 +363,7 @@ void sge::gui::detail::managers::render::clean()
 			log::_1 << SGE_TEXT("sending dirty for area: ")
 			        << d.second);
 
-		p.process(
+		p.process_invalid_area(
 			events::invalid_area(
 				lock_.value(),
 				to_lock));

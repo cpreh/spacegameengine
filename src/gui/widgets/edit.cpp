@@ -108,7 +108,7 @@ sge::gui::image const &sge::gui::widgets::edit::text_buffer() const
 	return text_buffer_;
 }
 
-void sge::gui::widgets::edit::process(events::keyboard_enter const &)
+void sge::gui::widgets::edit::process_keyboard_enter(events::keyboard_enter const &)
 {
 	cursor_visible_ = true;
 	timer_ = 
@@ -117,7 +117,7 @@ void sge::gui::widgets::edit::process(events::keyboard_enter const &)
 			boost::bind(&edit::blink_callback,this));
 }
 
-sge::gui::key_handling::type sge::gui::widgets::edit::process(events::key const &k)
+sge::gui::key_handling::type sge::gui::widgets::edit::process_key(events::key const &k)
 {
 	if (math::almost_zero(k.value().value()))
 		return key_handling::process;
@@ -141,12 +141,12 @@ sge::gui::key_handling::type sge::gui::widgets::edit::process(events::key const 
 	return key_handling::process;
 }
 
-void sge::gui::widgets::edit::process(events::mouse_click const &)
+void sge::gui::widgets::edit::process_mouse_click(events::mouse_click const &)
 {
 	parent_manager().request_keyboard_focus(*this);
 }
 
-void sge::gui::widgets::edit::process(events::keyboard_leave const &)
+void sge::gui::widgets::edit::process_keyboard_leave(events::keyboard_leave const &)
 {
 	cursor_visible_ = false;
 	timer_.reset();

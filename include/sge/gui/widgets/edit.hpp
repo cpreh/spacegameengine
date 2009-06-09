@@ -53,17 +53,16 @@ class SGE_CLASS_SYMBOL edit : public base
 	SGE_GUI_SYMBOL image &text_buffer();
 	SGE_GUI_SYMBOL image const &text_buffer() const;
 
-	SGE_GUI_SYMBOL void process(events::keyboard_enter const &);
-	SGE_GUI_SYMBOL key_handling::type process(events::key const &);
-	SGE_GUI_SYMBOL void process(events::mouse_click const &);
-	SGE_GUI_SYMBOL void process(events::keyboard_leave const &);
+	SGE_GUI_SYMBOL void process_keyboard_enter(events::keyboard_enter const &);
+	SGE_GUI_SYMBOL key_handling::type process_key(events::key const &);
+	SGE_GUI_SYMBOL void process_mouse_click(events::mouse_click const &);
+	SGE_GUI_SYMBOL void process_keyboard_leave(events::keyboard_leave const &);
 
 	SGE_GUI_SYMBOL void refresh() const;
 
 	// will only be called for single_line
 	signal::object<void ()> return_pressed;
 	private:
-	using base::process;
 	line_type type;
 	string text_;
 	dim desired_size_;
