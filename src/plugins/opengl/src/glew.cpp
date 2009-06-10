@@ -23,14 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-void sge::ogl::initialize_glew()
+void sge::opengl::initialize_glew()
 {
 	if(glewInit() != GLEW_OK)
 		throw exception(
 			SGE_TEXT("glewInit() failed!"));
 }
 
-bool sge::ogl::glew_is_supported(
+bool sge::opengl::glew_is_supported(
 	glew_string const &str)
 {
 	return glewIsSupported(str.c_str());

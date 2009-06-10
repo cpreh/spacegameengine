@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/container/linear_set_impl.hpp>
 #include <boost/foreach.hpp>
 
-sge::ogl::vf::format::format(
+sge::opengl::vf::format::format(
 	renderer::vf::dynamic_format const &fmt)
 :
 	fmt(fmt)
@@ -40,12 +40,12 @@ sge::ogl::vf::format::format(
 }
 
 sge::renderer::vf::dynamic_format const &
-sge::ogl::vf::format::get() const
+sge::opengl::vf::format::get() const
 {
 	return fmt;
 }
 
-void sge::ogl::vf::format::use_me(
+void sge::opengl::vf::format::use_me(
 	pointer const src) const
 {
 	client_state_combiner states_(

@@ -42,25 +42,25 @@ void apply_difference(
 
 }
 
-sge::ogl::vf::client_state_combiner::client_state_combiner(
+sge::opengl::vf::client_state_combiner::client_state_combiner(
 	client_state const &old_states)
 :
 	old_states(old_states)
 {}
 
-void sge::ogl::vf::client_state_combiner::enable(
+void sge::opengl::vf::client_state_combiner::enable(
 	GLenum const e)
 {
 	new_states.enable(e);
 }
 
-void sge::ogl::vf::client_state_combiner::enable_attribute(
+void sge::opengl::vf::client_state_combiner::enable_attribute(
 	GLuint const i)
 {
 	new_states.enable_attribute(i);
 }
 
-sge::ogl::vf::client_state_combiner::~client_state_combiner()
+sge::opengl::vf::client_state_combiner::~client_state_combiner()
 {
 	apply_difference(
 		old_states.normal_states(),

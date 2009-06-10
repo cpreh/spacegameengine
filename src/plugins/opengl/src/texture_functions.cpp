@@ -49,7 +49,7 @@ bool have_anisotropic_filter();
 
 }
 
-GLuint sge::ogl::gen_texture()
+GLuint sge::opengl::gen_texture()
 {
 	GLuint id;
 	glGenTextures(1, &id);
@@ -62,7 +62,7 @@ GLuint sge::ogl::gen_texture()
 	return id;
 }
 
-void sge::ogl::delete_texture(
+void sge::opengl::delete_texture(
 	GLuint const id)
 {
 	glDeleteTextures(1, &id);
@@ -73,7 +73,7 @@ void sge::ogl::delete_texture(
 	)
 }
 
-void sge::ogl::set_texture(
+void sge::opengl::set_texture(
 	GLenum const tex_type,
 	GLenum const format,
 	GLenum const type,
@@ -132,7 +132,7 @@ void sge::ogl::set_texture(
 		);
 }
 
-void sge::ogl::build_mipmaps(
+void sge::opengl::build_mipmaps(
 	GLenum const tex_type,
 	GLenum const format,
 	GLenum const type,
@@ -159,7 +159,7 @@ void sge::ogl::build_mipmaps(
 	)
 }
 
-void sge::ogl::set_texture_rect(
+void sge::opengl::set_texture_rect(
 	GLenum const tex_type,
 	GLenum const format,
 	GLenum const type,
@@ -206,7 +206,7 @@ void sge::ogl::set_texture_rect(
 	)
 }
 
-void sge::ogl::get_tex_image(
+void sge::opengl::get_tex_image(
 	GLenum const format,
 	GLenum const type,
 	renderer::raw_pointer const dest)
@@ -225,7 +225,7 @@ void sge::ogl::get_tex_image(
 	)
 }
 
-void sge::ogl::tex_parameter_i(
+void sge::opengl::tex_parameter_i(
 	GLenum const type,
 	GLenum const name,
 	GLint const value)
@@ -239,7 +239,7 @@ void sge::ogl::tex_parameter_i(
 	
 }
 
-void sge::ogl::bind_texture(
+void sge::opengl::bind_texture(
 	GLenum const type,
 	GLuint const value)
 {
@@ -251,7 +251,7 @@ void sge::ogl::bind_texture(
 	)
 }
 
-void sge::ogl::set_texture_filter(
+void sge::opengl::set_texture_filter(
 	GLenum const type,
 	renderer::filter::texture const &filter)
 {
@@ -318,7 +318,7 @@ bool need_mipmap(
 bool have_anisotropic_filter()
 {
 	static bool const b(
-		sge::ogl::glew_is_supported(
+		sge::opengl::glew_is_supported(
 			"GL_EXT_texture_filter_anisotropic"
 		)
 	);

@@ -35,7 +35,7 @@ namespace
 bool have_multi_texture()
 {
 	static bool const ret(
-		sge::ogl::glew_is_supported(
+		sge::opengl::glew_is_supported(
 			"GL_VERSION_1_3"
 		)
 	);
@@ -45,7 +45,7 @@ bool have_multi_texture()
 
 }
 
-void sge::ogl::set_texture_level(
+void sge::opengl::set_texture_level(
 	renderer::stage_type const stage)
 {
 	if(!have_multi_texture())
@@ -103,7 +103,7 @@ void sge::ogl::set_texture_level(
 	)
 }
 
-void sge::ogl::client_texture_level(
+void sge::opengl::client_texture_level(
 	renderer::stage_type const stage)
 {
 	if(!have_multi_texture())

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-GLenum sge::ogl::vf::convert_format::operator()(
+GLenum sge::opengl::vf::convert_format::operator()(
 	renderer::vf::dynamic_vector const &v) const
 {
 	switch(v.element_type()) {
@@ -41,7 +41,7 @@ GLenum sge::ogl::vf::convert_format::operator()(
 	}
 }
 
-GLenum sge::ogl::vf::convert_format::operator()(
+GLenum sge::opengl::vf::convert_format::operator()(
 	renderer::vf::dynamic_color const &c) const
 {
 	return to_format_type(

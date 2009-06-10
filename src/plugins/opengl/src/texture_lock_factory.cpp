@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-sge::ogl::texture_lock_auto_ptr
-sge::ogl::create_texture_lock(
+sge::opengl::texture_lock_auto_ptr
+sge::opengl::create_texture_lock(
 	lock_method::type const method,
 	texture_lock::size_type const lock_size,
 	texture_lock::size_type const offset,

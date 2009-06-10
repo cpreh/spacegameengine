@@ -32,8 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 #include <sge/exception.hpp>
 
-sge::ogl::x11::resolution::auto_ptr
-sge::ogl::x11::resolution::create(
+sge::opengl::x11::resolution::auto_ptr
+sge::opengl::x11::resolution::create(
 	sge::x11::window_ptr const wnd,
 	renderer::parameters const &param,
 	renderer::adapter_type const adapter)

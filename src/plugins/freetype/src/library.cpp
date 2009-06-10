@@ -22,18 +22,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-sge::ft::library::library()
+sge::freetype::library::library()
 {
 	if(FT_Init_FreeType(&impl))
 		throw exception(SGE_TEXT("FT_Init_FreeType() failed!"));
 }
 
-sge::ft::library::~library()
+sge::freetype::library::~library()
 {
 	FT_Done_FreeType(impl);
 }
 
-FT_Library sge::ft::library::lib() const
+FT_Library sge::freetype::library::lib() const
 {
 	return impl;
 }

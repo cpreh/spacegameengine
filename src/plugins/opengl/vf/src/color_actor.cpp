@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <sge/text.hpp>
 
-sge::ogl::vf::color_actor::color_actor(
+sge::opengl::vf::color_actor::color_actor(
 	renderer::vf::dynamic_ordered_element const &e,
 	renderer::vf::vertex_size const stride)
 :
@@ -40,7 +40,7 @@ sge::ogl::vf::color_actor::color_actor(
 		);
 }
 
-void sge::ogl::vf::color_actor::operator()(
+void sge::opengl::vf::color_actor::operator()(
 	client_state_combiner &c) const
 {
 	glColorPointer(

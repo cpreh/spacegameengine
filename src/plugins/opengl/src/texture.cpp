@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-template class sge::ogl::basic_texture<sge::renderer::texture>;
+template class sge::opengl::basic_texture<sge::renderer::texture>;
 
 namespace
 {
@@ -45,7 +45,7 @@ GLenum const texture_type = GL_TEXTURE_2D;
 
 }
 
-sge::ogl::texture::texture(
+sge::opengl::texture::texture(
 	dim_type const &d,
 	image::color::format::type const format_,
 	renderer::filter::texture const &filter_,
@@ -69,14 +69,14 @@ sge::ogl::texture::texture(
 		0);
 }
 
-sge::ogl::texture::dim_type const
-sge::ogl::texture::dim() const
+sge::opengl::texture::dim_type const
+sge::opengl::texture::dim() const
 {
 	return dim_;
 }
 
 sge::image::view::object const
-sge::ogl::texture::lock(
+sge::opengl::texture::lock(
 	renderer::lock_rect const &r,
 	lock_flag_type const lmode)
 {
@@ -88,7 +88,7 @@ sge::ogl::texture::lock(
 }
 
 sge::image::view::const_object const
-sge::ogl::texture::lock(
+sge::opengl::texture::lock(
 	renderer::lock_rect const &l) const
 {
 	lock_me(
@@ -97,7 +97,7 @@ sge::ogl::texture::lock(
 	return view();
 }
 
-void sge::ogl::texture::unlock() const
+void sge::opengl::texture::unlock() const
 {
 	pre_unlock();
 	if(lock_flag_write(lock_mode()))
@@ -125,7 +125,7 @@ void sge::ogl::texture::unlock() const
 	do_unlock();
 }
 
-void sge::ogl::texture::lock_me(
+void sge::opengl::texture::lock_me(
 	renderer::lock_rect const &l,
 	lock_method::type const method) const
 {
@@ -170,7 +170,7 @@ void sge::ogl::texture::lock_me(
 }
 
 sge::image::view::object const
-sge::ogl::texture::view()
+sge::opengl::texture::view()
 {
 	return image::view::make(
 		real_write_buffer(),
@@ -184,7 +184,7 @@ sge::ogl::texture::view()
 }
 
 sge::image::view::const_object const
-sge::ogl::texture::view() const
+sge::opengl::texture::view() const
 {
 	return image::view::make(
 		static_cast<
@@ -201,8 +201,8 @@ sge::ogl::texture::view() const
 	);
 }
 
-sge::ogl::texture::dim_type const
-sge::ogl::texture::lock_dim() const
+sge::opengl::texture::dim_type const
+sge::opengl::texture::lock_dim() const
 {
 	return lock_rect_
 		? lock_rect_->dim()

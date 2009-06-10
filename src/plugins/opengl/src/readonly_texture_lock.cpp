@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/algorithm/copy_n.hpp>
 #include <sge/assert.hpp>
 
-sge::ogl::readonly_texture_lock::readonly_texture_lock(
+sge::opengl::readonly_texture_lock::readonly_texture_lock(
 	size_type const lock_size,
 	size_type const offset,
 	size_type const whole_size,
@@ -43,7 +43,7 @@ sge::ogl::readonly_texture_lock::readonly_texture_lock(
 	block_size(block_size * stride)
 {}
 
-void sge::ogl::readonly_texture_lock::post_lock()
+void sge::opengl::readonly_texture_lock::post_lock()
 {
 	do_lock();
 
@@ -61,13 +61,13 @@ void sge::ogl::readonly_texture_lock::post_lock()
 	copy_read_part(cutout_buffer.data());
 }
 
-void sge::ogl::readonly_texture_lock::do_lock()
+void sge::opengl::readonly_texture_lock::do_lock()
 {
 	buffer.lock(
 		lock_method::readonly);
 }
 
-void sge::ogl::readonly_texture_lock::copy_read_part(
+void sge::opengl::readonly_texture_lock::copy_read_part(
 	pointer const dest) const
 {
 	size_type i(offset);
@@ -76,27 +76,27 @@ void sge::ogl::readonly_texture_lock::copy_read_part(
 		algorithm::copy_n(buffer.data() + i, block_size, p);
 }
 
-void sge::ogl::readonly_texture_lock::pre_unlock()
+void sge::opengl::readonly_texture_lock::pre_unlock()
 {
 	buffer.unlock();
 }
 
-sge::ogl::readonly_texture_lock::pointer
-sge::ogl::readonly_texture_lock::read_pointer() const
+sge::opengl::readonly_texture_lock::pointer
+sge::opengl::readonly_texture_lock::read_pointer() const
 {
 	return buffer.buffer_offset(0);
 }
 
-sge::ogl::readonly_texture_lock::const_pointer
-sge::ogl::readonly_texture_lock::real_read_pointer() const
+sge::opengl::readonly_texture_lock::const_pointer
+sge::opengl::readonly_texture_lock::real_read_pointer() const
 {
 	return pitch
 		? cutout_buffer.data()
 		: read_pointer();
 }
 
-sge::ogl::lock_method::type
-sge::ogl::readonly_texture_lock::method() const
+sge::opengl::lock_method::type
+sge::opengl::readonly_texture_lock::method() const
 {
 	return lock_method::readonly;
 }

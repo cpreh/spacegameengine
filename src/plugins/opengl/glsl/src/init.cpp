@@ -35,13 +35,13 @@ void initialize_glsl();
 
 }
 
-bool sge::ogl::glsl::is_native()
+bool sge::opengl::glsl::is_native()
 {
 	initialize_glsl();
 	return native;
 }
 
-bool sge::ogl::glsl::is_supported()
+bool sge::opengl::glsl::is_supported()
 {
 	try
 	{
@@ -61,12 +61,12 @@ void initialize_glsl()
 {
 	SGE_FUNCTION_ONCE
 
-	if(sge::ogl::glew_is_supported("GL_VERSION_2_0"))
+	if(sge::opengl::glew_is_supported("GL_VERSION_2_0"))
 		native = true;
-	else if(sge::ogl::glew_is_supported("GL_ARB_vertex_shader GL_ARB_fragment_shader"))
+	else if(sge::opengl::glew_is_supported("GL_ARB_vertex_shader GL_ARB_fragment_shader"))
 		native = false;
 	else
-		sge::ogl::on_not_supported(
+		sge::opengl::on_not_supported(
 			SGE_TEXT("shader"),
 			SGE_TEXT("2.0"),
 			SGE_TEXT("gl_arb_vertex_shader && gl_arb_fragment_shader"));

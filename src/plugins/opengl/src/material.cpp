@@ -69,7 +69,7 @@ private:
 
 }
 
-void sge::ogl::set_material(
+void sge::opengl::set_material(
 	renderer::material const &mat)
 {
 	GLenum const face = GL_FRONT_AND_BACK;

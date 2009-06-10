@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/make_shared_ptr.hpp>
 
 sge::renderer::glsl::program_ptr const
-sge::ogl::glsl::create_program_impl(
+sge::opengl::glsl::create_program_impl(
 	renderer::glsl::optional_string const &vs_source,
 	renderer::glsl::optional_string const &ps_source)
 {
@@ -48,7 +48,7 @@ sge::ogl::glsl::create_program_impl(
 		);
 }
 
-void sge::ogl::glsl::set_program_impl(
+void sge::opengl::glsl::set_program_impl(
 	renderer::glsl::program_ptr const prog)
 {
 	if(is_native())

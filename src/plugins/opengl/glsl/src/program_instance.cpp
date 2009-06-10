@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	bool Native
 >
-sge::ogl::glsl::program_instance<Native>::program_instance()
+sge::opengl::glsl::program_instance<Native>::program_instance()
 :
 	id_(create_program<Native>())
 {}
@@ -32,7 +32,7 @@ sge::ogl::glsl::program_instance<Native>::program_instance()
 template<
 	bool Native
 >
-sge::ogl::glsl::program_instance<Native>::~program_instance()
+sge::opengl::glsl::program_instance<Native>::~program_instance()
 {
 	delete_program<Native>(id());
 }
@@ -40,11 +40,11 @@ sge::ogl::glsl::program_instance<Native>::~program_instance()
 template<
 	bool Native
 >
-typename sge::ogl::glsl::program_instance<Native>::handle
-sge::ogl::glsl::program_instance<Native>::id() const
+typename sge::opengl::glsl::program_instance<Native>::handle
+sge::opengl::glsl::program_instance<Native>::id() const
 {
 	return id_;
 }
 
-template class sge::ogl::glsl::program_instance<true>;
-template class sge::ogl::glsl::program_instance<false>;
+template class sge::opengl::glsl::program_instance<true>;
+template class sge::opengl::glsl::program_instance<false>;

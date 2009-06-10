@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/window.hpp>
 #include <sge/windows/windows.hpp>
 
-sge::ogl::windows::state::state(
+sge::opengl::windows::state::state(
 	renderer::parameters const &param,
 	renderer::adapter_type const adapter,
 	window::instance_ptr const wnd_,
@@ -50,12 +50,12 @@ sge::ogl::windows::state::state(
 			param.mode());	
 }
 
-void sge::ogl::windows::state::swap_buffers()
+void sge::opengl::windows::state::swap_buffers()
 {
 	if(wglSwapLayerBuffers(hdc.hdc(), WGL_SWAP_MAIN_PLANE) == FALSE)
 		throw exception(
 			SGE_TEXT("wglSwapLayerBuffers() failed!"));
 }
 
-void sge::ogl::windows::state::reset_viewport()
+void sge::opengl::windows::state::reset_viewport()
 {}

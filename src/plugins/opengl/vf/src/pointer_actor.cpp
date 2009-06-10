@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/variant/apply_unary.hpp>
 
-sge::ogl::vf::pointer_actor::pointer_actor(
+sge::opengl::vf::pointer_actor::pointer_actor(
 	renderer::vf::dynamic_ordered_element const &e,
 	renderer::vf::vertex_size const stride_)
 :
@@ -50,29 +50,29 @@ sge::ogl::vf::pointer_actor::pointer_actor(
 	)
 {}
 
-GLenum sge::ogl::vf::pointer_actor::format() const
+GLenum sge::opengl::vf::pointer_actor::format() const
 {
 	return format_;
 }
 
-GLsizei sge::ogl::vf::pointer_actor::stride() const
+GLsizei sge::opengl::vf::pointer_actor::stride() const
 {
 	return stride_;
 }
 
-GLvoid const *sge::ogl::vf::pointer_actor::pointer() const
+GLvoid const *sge::opengl::vf::pointer_actor::pointer() const
 {
 	return pointer_;
 }
 
 sge::renderer::vf::vertex_size
-sge::ogl::vf::pointer_actor::index() const
+sge::opengl::vf::pointer_actor::index() const
 {
 	return index_;
 }
 
 void
-sge::ogl::vf::pointer_actor::source(
+sge::opengl::vf::pointer_actor::source(
 	vf::pointer const src)
 {
 	pointer_ = static_cast<renderer::const_raw_pointer>(src) + offset_;

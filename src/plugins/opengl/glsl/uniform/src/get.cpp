@@ -47,7 +47,7 @@ struct element_count<
 {
 	static sge::renderer::size_type
 	get(
-		sge::ogl::glsl::uniform::element_type::type);
+		sge::opengl::glsl::uniform::element_type::type);
 };
 
 template<>
@@ -57,7 +57,7 @@ struct element_count<
 {
 	static sge::renderer::size_type
 	get(
-		sge::ogl::glsl::uniform::element_type::type);
+		sge::opengl::glsl::uniform::element_type::type);
 };
 
 template<
@@ -72,7 +72,7 @@ struct to_type<
 {
 	static sge::renderer::glsl::uniform::int_value_type::type
 	get(
-		sge::ogl::glsl::uniform::element_type::type);
+		sge::opengl::glsl::uniform::element_type::type);
 };
 
 template<>
@@ -82,7 +82,7 @@ struct to_type<
 {
 	static sge::renderer::glsl::uniform::float_value_type::type
 	get(
-		sge::ogl::glsl::uniform::element_type::type);
+		sge::opengl::glsl::uniform::element_type::type);
 };
 
 template<
@@ -92,9 +92,9 @@ template<
 >
 sge::renderer::glsl::uniform::value const
 get_impl(
-	typename sge::ogl::glsl::traits<Native>::handle const program,
+	typename sge::opengl::glsl::traits<Native>::handle const program,
 	GLint const location,
-	sge::ogl::glsl::uniform::type const &t,
+	sge::opengl::glsl::uniform::type const &t,
 	Function const &function)
 {
 	typedef typename ValueType::element_type element_type;
@@ -112,7 +112,7 @@ get_impl(
 	);
 
 	for(
-		sge::ogl::glsl::uniform::type::size_type i = 0;
+		sge::opengl::glsl::uniform::type::size_type i = 0;
 		i < t.elements();
 		++i
 	)
@@ -141,7 +141,7 @@ template<
 	bool Native
 >
 sge::renderer::glsl::uniform::value const
-sge::ogl::glsl::uniform::get(
+sge::opengl::glsl::uniform::get(
 	typename traits<Native>::handle const program,
 	GLint const location,
 	type const &t)
@@ -198,7 +198,7 @@ namespace
 void initialize_getter()
 {
 	SGE_FUNCTION_ONCE
-	if(sge::ogl::glsl::is_native())
+	if(sge::opengl::glsl::is_native())
 	{
 		get_uniform_iv = glGetUniformiv;
 		get_uniform_fv = glGetUniformfv;
@@ -214,9 +214,9 @@ sge::renderer::size_type
 element_count<
 	sge::renderer::glsl::uniform::int_value_type::type
 >::get(
-	sge::ogl::glsl::uniform::element_type::type const t)
+	sge::opengl::glsl::uniform::element_type::type const t)
 {
-	namespace et = sge::ogl::glsl::uniform::element_type;
+	namespace et = sge::opengl::glsl::uniform::element_type;
 	switch(t)
 	{
 	case et::int1:
@@ -238,9 +238,9 @@ sge::renderer::size_type
 element_count<
 	sge::renderer::glsl::uniform::float_value_type::type
 >::get(
-	sge::ogl::glsl::uniform::element_type::type const t)
+	sge::opengl::glsl::uniform::element_type::type const t)
 {
-	namespace et = sge::ogl::glsl::uniform::element_type;
+	namespace et = sge::opengl::glsl::uniform::element_type;
 
 	switch(t)
 	{
@@ -278,9 +278,9 @@ sge::renderer::glsl::uniform::int_value_type::type
 to_type<
 	sge::renderer::glsl::uniform::int_value_type::type
 >::get(
-	sge::ogl::glsl::uniform::element_type::type const t)
+	sge::opengl::glsl::uniform::element_type::type const t)
 {
-	namespace et = sge::ogl::glsl::uniform::element_type;
+	namespace et = sge::opengl::glsl::uniform::element_type;
 	namespace ivt = sge::renderer::glsl::uniform::int_value_type;
 
 	switch(t)
@@ -304,9 +304,9 @@ sge::renderer::glsl::uniform::float_value_type::type
 to_type<
 	sge::renderer::glsl::uniform::float_value_type::type
 >::get(
-	sge::ogl::glsl::uniform::element_type::type const t)
+	sge::opengl::glsl::uniform::element_type::type const t)
 {
-	namespace et = sge::ogl::glsl::uniform::element_type;
+	namespace et = sge::opengl::glsl::uniform::element_type;
 	namespace fvt = sge::renderer::glsl::uniform::float_value_type;
 
 	switch(t)
@@ -348,10 +348,10 @@ to_type<
 
 #define SGE_OPENGL_INSTANTIATE_GLSL_GET(x)\
 template sge::renderer::glsl::uniform::value const \
-sge::ogl::glsl::uniform::get<x>(\
-	sge::ogl::glsl::traits<x>::handle,\
+sge::opengl::glsl::uniform::get<x>(\
+	sge::opengl::glsl::traits<x>::handle,\
 	GLint,\
-	sge::ogl::glsl::uniform::type const &);
+	sge::opengl::glsl::uniform::type const &);
 
 SGE_OPENGL_INSTANTIATE_GLSL_GET(true)
 SGE_OPENGL_INSTANTIATE_GLSL_GET(false)

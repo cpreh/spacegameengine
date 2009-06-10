@@ -41,7 +41,7 @@ void initialize_hardware_vbo();
 
 }
 
-GLuint sge::ogl::hardware_vbo::gen_buffer()
+GLuint sge::opengl::hardware_vbo::gen_buffer()
 {
 	initialize_hardware_vbo();
 
@@ -56,7 +56,7 @@ GLuint sge::ogl::hardware_vbo::gen_buffer()
 	return id;
 }
 
-void sge::ogl::hardware_vbo::delete_buffer(
+void sge::opengl::hardware_vbo::delete_buffer(
 	GLuint const id)
 {
 	gl_delete_buffers(1, &id);
@@ -67,7 +67,7 @@ void sge::ogl::hardware_vbo::delete_buffer(
 	)
 }
 
-void sge::ogl::hardware_vbo::bind_buffer(
+void sge::opengl::hardware_vbo::bind_buffer(
 	GLenum const type,
 	GLuint const id)
 {
@@ -79,7 +79,7 @@ void sge::ogl::hardware_vbo::bind_buffer(
 	)
 }
 
-void *sge::ogl::hardware_vbo::map_buffer(
+void *sge::opengl::hardware_vbo::map_buffer(
 	GLenum const type,
 	GLenum const flags)
 {
@@ -100,7 +100,7 @@ void *sge::ogl::hardware_vbo::map_buffer(
 	return ret;
 }
 
-void sge::ogl::hardware_vbo::unmap_buffer(
+void sge::opengl::hardware_vbo::unmap_buffer(
 	GLenum const type)
 {
 	gl_unmap_buffer(type); 
@@ -111,7 +111,7 @@ void sge::ogl::hardware_vbo::unmap_buffer(
 	)
 }
 
-void sge::ogl::hardware_vbo::buffer_data(
+void sge::opengl::hardware_vbo::buffer_data(
 	GLenum const type,
 	GLsizei const size,
 	void const *const data,
@@ -130,7 +130,7 @@ void sge::ogl::hardware_vbo::buffer_data(
 	)
 }
 
-void sge::ogl::hardware_vbo::buffer_sub_data(
+void sge::opengl::hardware_vbo::buffer_sub_data(
 	GLenum const type,
 	GLsizei const first,
 	GLsizei const size,
@@ -149,7 +149,7 @@ void sge::ogl::hardware_vbo::buffer_sub_data(
 	)
 }
 
-void *sge::ogl::hardware_vbo::buffer_offset(
+void *sge::opengl::hardware_vbo::buffer_offset(
 	GLenum,
 	GLsizei const offset) const
 {
@@ -163,7 +163,7 @@ void initialize_hardware_vbo()
 {
 	SGE_FUNCTION_ONCE
 
-	if(sge::ogl::glew_is_supported("GL_VERSION_1_5"))
+	if(sge::opengl::glew_is_supported("GL_VERSION_1_5"))
 	{
 		gl_gen_buffers = glGenBuffers;
 		gl_delete_buffers = glDeleteBuffers;
@@ -173,7 +173,7 @@ void initialize_hardware_vbo()
 		gl_buffer_data = glBufferData;
 		gl_buffer_sub_data = glBufferSubData;
 	}
-	else if(sge::ogl::glew_is_supported("GL_ARB_vertex_buffer_object"))
+	else if(sge::opengl::glew_is_supported("GL_ARB_vertex_buffer_object"))
 	{
 		gl_gen_buffers = glGenBuffersARB;
 		gl_delete_buffers = glDeleteBuffersARB;

@@ -67,7 +67,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/bind.hpp>
 #include <sstream>
 
-sge::ogl::device::device(
+sge::opengl::device::device(
 	renderer::parameters const &param,
 	renderer::adapter_type const adapter,
 	window::instance_ptr const wnd)
@@ -100,7 +100,7 @@ sge::ogl::device::device(
 	),
 	default_target_(
 		make_shared_ptr<
-			ogl::default_target
+			opengl::default_target
 		>(
 			math::dim::structure_cast<
 				target::dim_type
@@ -135,7 +135,7 @@ sge::ogl::device::device(
 	//glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, 1);
 }
 
-void sge::ogl::device::begin_rendering()
+void sge::opengl::device::begin_rendering()
 {
 	glClear(
 		clear_bit(renderer::state::bool_::clear_backbuffer)
@@ -149,7 +149,7 @@ void sge::ogl::device::begin_rendering()
 }
 
 sge::renderer::index_buffer_ptr const
-sge::ogl::device::create_index_buffer(
+sge::opengl::device::create_index_buffer(
 	renderer::index::format::type const format,
 	renderer::size_type const sz,
 	renderer::resource_flag_t const flags)
@@ -158,7 +158,7 @@ sge::ogl::device::create_index_buffer(
 	case renderer::index::format::i16:
 		return renderer::index_buffer_ptr(
 			make_shared_ptr<
-				ogl::index_buffer<
+				opengl::index_buffer<
 					uint16
 				>
 			>(
@@ -167,7 +167,7 @@ sge::ogl::device::create_index_buffer(
 	case renderer::index::format::i32:
 		return renderer::index_buffer_ptr(
 			make_shared_ptr<
-				ogl::index_buffer<
+				opengl::index_buffer<
 					uint32
 				>
 			>(
@@ -180,7 +180,7 @@ sge::ogl::device::create_index_buffer(
 }
 
 sge::renderer::texture_ptr const
-sge::ogl::device::create_texture(
+sge::opengl::device::create_texture(
 	renderer::texture::dim_type const &dim,
 	image::color::format::type const format,
 	renderer::filter::texture const &filter,
@@ -188,7 +188,7 @@ sge::ogl::device::create_texture(
 {
 	return renderer::texture_ptr(
 		make_shared_ptr<
-			ogl::texture
+			opengl::texture
 		>(
 			dim,
 			format,
@@ -199,14 +199,14 @@ sge::ogl::device::create_texture(
 }
 
 sge::renderer::vertex_buffer_ptr const
-sge::ogl::device::create_vertex_buffer(
+sge::opengl::device::create_vertex_buffer(
 	renderer::vf::dynamic_format const &format,
 	renderer::size_type const sz,
 	renderer::resource_flag_t const flags)
 {
 	return renderer::vertex_buffer_ptr(
 		make_shared_ptr<
-			ogl::vertex_buffer
+			opengl::vertex_buffer
 		>(
 			format,
 			sz,
@@ -217,7 +217,7 @@ sge::ogl::device::create_vertex_buffer(
 
 #if 0
 const sge::renderer::volume_texture_ptr
-sge::ogl::device::create_volume_texture(
+sge::opengl::device::create_volume_texture(
 	renderer::volume_texture::image_view_array const &src,
 	const renderer::texture_filter& filter,
 	const renderer::volume_texture::resource_flag_type flags)
@@ -233,7 +233,7 @@ sge::ogl::device::create_volume_texture(
 #endif
 
 sge::renderer::cube_texture_ptr const
-sge::ogl::device::create_cube_texture(
+sge::opengl::device::create_cube_texture(
 	renderer::size_type const border_size,
 	image::color::format::type const format,
 	renderer::filter::texture const &filter,
@@ -251,13 +251,13 @@ sge::ogl::device::create_cube_texture(
 	);
 }
 
-void sge::ogl::device::end_rendering()
+void sge::opengl::device::end_rendering()
 {
 	state_.swap_buffers();
 }
 
 sge::renderer::caps const
-sge::ogl::device::caps() const
+sge::opengl::device::caps() const
 {
 	if(!caps_)
 	{
@@ -270,18 +270,18 @@ sge::ogl::device::caps() const
 }
 
 sge::window::instance_ptr const
-sge::ogl::device::window() const
+sge::opengl::device::window() const
 {
 	return wnd;
 }
 
 sge::renderer::screen_size const
-sge::ogl::device::screen_size() const
+sge::opengl::device::screen_size() const
 {
 	return param.mode().size();
 }
 
-void sge::ogl::device::render(
+void sge::opengl::device::render(
 	renderer::const_vertex_buffer_ptr const vb,
 	renderer::const_index_buffer_ptr const ib,
 	renderer::size_type const first_vertex,
@@ -330,7 +330,7 @@ void sge::ogl::device::render(
 	)
 }
 
-void sge::ogl::device::render(
+void sge::opengl::device::render(
 	renderer::const_vertex_buffer_ptr const vb,
 	renderer::size_type const first_vertex,
 	renderer::size_type const num_vertices,
@@ -356,7 +356,7 @@ void sge::ogl::device::render(
 	)
 }
 
-void sge::ogl::device::state(
+void sge::opengl::device::state(
 	renderer::state::list const &states)
 {
 	split_states split(current_states);
@@ -373,7 +373,7 @@ void sge::ogl::device::state(
 	}
 }
 
-void sge::ogl::device::push_state(
+void sge::opengl::device::push_state(
 	renderer::state::list const &states)
 {	
 	state_levels.push(
@@ -387,30 +387,30 @@ void sge::ogl::device::push_state(
 	);
 }
 
-void sge::ogl::device::pop_state()
+void sge::opengl::device::pop_state()
 {
 	state(state_levels.top());
 	state_levels.pop();
 }
 
-GLenum sge::ogl::device::clear_bit(
+GLenum sge::opengl::device::clear_bit(
 	renderer::state::bool_::trampoline_type const &s) const
 {
 	return current_states.get(s) ? convert_clear_bit(s) : 0;
 }
 
-void sge::ogl::device::material(
+void sge::opengl::device::material(
 	renderer::material const &mat)
 {
-	ogl::set_material(mat);
+	opengl::set_material(mat);
 }
 
-void sge::ogl::device::viewport(
+void sge::opengl::device::viewport(
 	renderer::viewport const &v)
 {
 	viewport_ = v;
 	if(fbo_active)
-		ogl::viewport(
+		opengl::viewport(
 			v,
 			static_cast<
 				renderer::screen_unit
@@ -422,13 +422,13 @@ void sge::ogl::device::viewport(
 		reset_viewport_default();
 }
 
-void sge::ogl::device::viewport_mode(
+void sge::opengl::device::viewport_mode(
 	renderer::viewport_mode::type const mode)
 {
 	viewport_mode_ = mode;	
 }
 
-void sge::ogl::device::transform(
+void sge::opengl::device::transform(
 	renderer::any_matrix const &matrix)
 {
 	set_matrix(
@@ -436,14 +436,14 @@ void sge::ogl::device::transform(
 		matrix);
 }
 
-void sge::ogl::device::projection(
+void sge::opengl::device::projection(
 	renderer::any_matrix const &matrix)
 {
 	projection_ = matrix;
 	projection_internal();
 }
 
-void sge::ogl::device::texture_transform(
+void sge::opengl::device::texture_transform(
 	renderer::any_matrix const &matrix)
 {
 	set_matrix(
@@ -451,7 +451,7 @@ void sge::ogl::device::texture_transform(
 		matrix);
 }
 
-void sge::ogl::device::target(
+void sge::opengl::device::target(
 	renderer::texture_ptr const ntarget)
 {
 	if(!ntarget)
@@ -464,8 +464,8 @@ void sge::ogl::device::target(
 		return;
 	}
 
-	shared_ptr<ogl::texture> const p(
-		dynamic_pointer_cast<ogl::texture>(
+	shared_ptr<opengl::texture> const p(
+		dynamic_pointer_cast<opengl::texture>(
 			ntarget));
 	
 	fbo_target_ptr const ftarget = create_target();
@@ -490,12 +490,12 @@ void sge::ogl::device::target(
 }
 
 sge::renderer::const_target_ptr const
-sge::ogl::device::target() const
+sge::opengl::device::target() const
 {
 	return target_;
 }
 
-void sge::ogl::device::texture(
+void sge::opengl::device::texture(
 	renderer::const_texture_base_ptr const tex,
 	renderer::stage_type const stage)
 {
@@ -513,7 +513,7 @@ void sge::ogl::device::texture(
 	b.bind_me();
 }
 
-void sge::ogl::device::enable_light(
+void sge::opengl::device::enable_light(
 	renderer::light_index const index,
 	bool const enable_)
 {
@@ -521,16 +521,16 @@ void sge::ogl::device::enable_light(
 	enable(glindex, enable_);
 }
 
-void sge::ogl::device::light(
+void sge::opengl::device::light(
 	renderer::light_index const index,
 	renderer::light const &l)
 {
-	ogl::set_light(
+	opengl::set_light(
 		index,
 		l);
 }
 
-void sge::ogl::device::texture_stage_op(
+void sge::opengl::device::texture_stage_op(
 	renderer::stage_type const stage,
 	renderer::texture_stage_op::type const op,
 	renderer::texture_stage_op_value::type const value)
@@ -539,7 +539,7 @@ void sge::ogl::device::texture_stage_op(
 	set_texture_stage_scale(value);
 }
 
-void sge::ogl::device::texture_stage_arg(
+void sge::opengl::device::texture_stage_arg(
 	renderer::stage_type const stage,
 	renderer::texture_stage_arg::type const arg,
 	renderer::texture_stage_arg_value::type const value)
@@ -548,7 +548,7 @@ void sge::ogl::device::texture_stage_arg(
 }
 
 sge::renderer::glsl::program_ptr const
-sge::ogl::device::create_glsl_program(
+sge::opengl::device::create_glsl_program(
 	renderer::glsl::optional_string const &vs_source,
 	renderer::glsl::optional_string const &ps_source)
 {
@@ -562,7 +562,7 @@ sge::ogl::device::create_glsl_program(
 }
 
 sge::renderer::glsl::program_ptr const
-sge::ogl::device::create_glsl_program(
+sge::opengl::device::create_glsl_program(
 	renderer::glsl::optional_istream const &vs_source,
 	renderer::glsl::optional_istream const &ps_source)
 {
@@ -590,33 +590,33 @@ sge::ogl::device::create_glsl_program(
 		);
 }
 
-void sge::ogl::device::glsl_program(
+void sge::opengl::device::glsl_program(
 	renderer::glsl::program_ptr const prog)
 {
 	glsl::set_program_impl(prog);
 }
 
-void sge::ogl::device::vertex_buffer(
+void sge::opengl::device::vertex_buffer(
 	renderer::const_vertex_buffer_ptr const vb)
 {
-	ogl::vertex_buffer const &
-		ovb = dynamic_cast<ogl::vertex_buffer const &>(
+	opengl::vertex_buffer const &
+		ovb = dynamic_cast<opengl::vertex_buffer const &>(
 			*vb);
 	ovb.set_format();
 }
 
-sge::ogl::fbo_target_ptr const
-sge::ogl::device::create_target()
+sge::opengl::fbo_target_ptr const
+sge::opengl::device::create_target()
 {
 	return make_shared_ptr<
 		fbo_target
 	>();
 }
 
-void sge::ogl::device::reset_viewport(
+void sge::opengl::device::reset_viewport(
 	sge::window::dim_type const &wnd_sz)
 {
-	ogl::viewport(
+	opengl::viewport(
 		renderer::viewport(
 			viewport_pos(
 				viewport_.pos(),
@@ -649,14 +649,14 @@ void sge::ogl::device::reset_viewport(
 	);
 }
 
-void sge::ogl::device::reset_viewport_default()
+void sge::opengl::device::reset_viewport_default()
 {
 	reset_viewport(
 		wnd->size()
 	);
 }
 
-void sge::ogl::device::projection_internal()
+void sge::opengl::device::projection_internal()
 {
 	set_matrix(
 		GL_PROJECTION,

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/tr1/array.hpp>
 
 template<bool Native>
-sge::ogl::glsl::shader<Native>::shader(
+sge::opengl::glsl::shader<Native>::shader(
 	GLenum const type,
 	renderer::glsl::string const &source)
 :
@@ -62,17 +62,17 @@ sge::ogl::glsl::shader<Native>::shader(
 }
 
 template<bool Native>
-sge::ogl::glsl::shader<Native>::~shader()
+sge::opengl::glsl::shader<Native>::~shader()
 {
 	delete_shader<Native>(id());
 }
 
 template<bool Native>
-typename sge::ogl::glsl::traits<Native>::handle
-sge::ogl::glsl::shader<Native>::id() const
+typename sge::opengl::glsl::traits<Native>::handle
+sge::opengl::glsl::shader<Native>::id() const
 {
 	return id_;
 }
 
-template class sge::ogl::glsl::shader<true>;
-template class sge::ogl::glsl::shader<false>;
+template class sge::opengl::glsl::shader<true>;
+template class sge::opengl::glsl::shader<false>;

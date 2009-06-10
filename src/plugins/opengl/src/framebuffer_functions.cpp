@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <sge/text.hpp>
 
-void sge::ogl::read_pixels(
+void sge::opengl::read_pixels(
 	renderer::size_type const x,
 	renderer::size_type const y,
 	renderer::size_type const width,

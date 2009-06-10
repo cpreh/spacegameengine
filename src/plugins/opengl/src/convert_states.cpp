@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-GLenum sge::ogl::convert_states(
+GLenum sge::opengl::convert_states(
 	renderer::state::bool_::type const s)
 {
 	namespace rs = renderer::state::bool_::available_states;
@@ -39,7 +39,7 @@ GLenum sge::ogl::convert_states(
 	}
 }
 
-GLenum sge::ogl::convert_states(
+GLenum sge::opengl::convert_states(
 	renderer::state::cull_mode::type const m)
 {		
 	switch(m) {
@@ -53,7 +53,7 @@ GLenum sge::ogl::convert_states(
 	}
 }
 
-GLenum sge::ogl::convert_states(
+GLenum sge::opengl::convert_states(
 	renderer::state::depth_func::type const f)
 {
 	switch(f) {
@@ -79,7 +79,7 @@ GLenum sge::ogl::convert_states(
 	}
 }
 
-GLenum sge::ogl::convert_states(
+GLenum sge::opengl::convert_states(
 	renderer::state::stencil_func::type const f)
 {
 	switch(f) {
@@ -105,7 +105,7 @@ GLenum sge::ogl::convert_states(
 	}
 }
 
-GLenum sge::ogl::convert_states(
+GLenum sge::opengl::convert_states(
 	renderer::state::alpha_func::type const f)
 {
 	switch(f) {
@@ -131,7 +131,7 @@ GLenum sge::ogl::convert_states(
 	}
 }
 
-GLenum sge::ogl::convert_states(
+GLenum sge::opengl::convert_states(
 	renderer::state::fog_mode::type const m)
 {
 	switch(m) {
@@ -147,7 +147,7 @@ GLenum sge::ogl::convert_states(
 	}
 }
 
-GLenum sge::ogl::convert_states(
+GLenum sge::opengl::convert_states(
 	renderer::state::source_blend_func::type const f)
 {
 	switch(f) {
@@ -175,7 +175,7 @@ GLenum sge::ogl::convert_states(
 	}
 }
 
-GLenum sge::ogl::convert_states(
+GLenum sge::opengl::convert_states(
 	renderer::state::dest_blend_func::type const f)
 {
 	switch(f) {
@@ -201,7 +201,7 @@ GLenum sge::ogl::convert_states(
 	}
 }
 
-GLenum sge::ogl::convert_states(
+GLenum sge::opengl::convert_states(
 	renderer::state::draw_mode::type const m)
 {
 	switch(m) {

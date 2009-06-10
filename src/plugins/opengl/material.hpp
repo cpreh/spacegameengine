@@ -28,7 +28,7 @@ namespace renderer
 class material;
 }
 
-namespace ogl
+namespace opengl
 {
 
 void set_material(

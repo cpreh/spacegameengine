@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
 
-sge::ogl::glx::current::current(
+sge::opengl::glx::current::current(
 	x11::display_ptr const dsp,
 	x11::window const &wnd,
 	context_ptr const context)
@@ -43,7 +43,7 @@ sge::ogl::glx::current::current(
 			SGE_TEXT("glXMakeCurrent() failed!"));
 }
 
-sge::ogl::glx::current::~current()
+sge::opengl::glx::current::~current()
 {
 	glXMakeCurrent(
 		dsp->get(),

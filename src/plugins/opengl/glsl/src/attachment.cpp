@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	bool Native
 >
-sge::ogl::glsl::attachment<Native>::attachment(
+sge::opengl::glsl::attachment<Native>::attachment(
 	shader_ptr const shader_,
 	handle const handle_)
 :
@@ -37,10 +37,10 @@ sge::ogl::glsl::attachment<Native>::attachment(
 template<
 	bool Native
 >
-sge::ogl::glsl::attachment<Native>::~attachment()
+sge::opengl::glsl::attachment<Native>::~attachment()
 {
 	detach_shader<Native>(handle_, shader_->id());
 }
 
-template class sge::ogl::glsl::attachment<true>;
-template class sge::ogl::glsl::attachment<false>;
+template class sge::opengl::glsl::attachment<true>;
+template class sge::opengl::glsl::attachment<false>;

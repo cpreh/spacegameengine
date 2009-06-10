@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../center_coordinate.hpp"
 
 sge::renderer::pixel_unit
-sge::ogl::center_coordinate(
+sge::opengl::center_coordinate(
 	renderer::pixel_unit const window_sz,
 	renderer::screen_unit const res_sz)
 {

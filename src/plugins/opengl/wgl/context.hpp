@@ -31,7 +31,7 @@ namespace windows
 class gdi_device;
 }
 
-namespace ogl
+namespace opengl
 {
 namespace wgl
 {

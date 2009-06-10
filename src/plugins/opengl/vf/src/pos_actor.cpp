@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <sge/text.hpp>
 
-sge::ogl::vf::pos_actor::pos_actor(
+sge::opengl::vf::pos_actor::pos_actor(
 	renderer::vf::dynamic_ordered_element const &e,
 	renderer::vf::vertex_size const stride)
 :
@@ -46,7 +46,7 @@ sge::ogl::vf::pos_actor::pos_actor(
 		);
 }
 
-void sge::ogl::vf::pos_actor::operator()(
+void sge::opengl::vf::pos_actor::operator()(
 	client_state_combiner &c) const
 {
 	glVertexPointer(

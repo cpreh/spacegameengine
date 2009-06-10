@@ -32,7 +32,7 @@ namespace renderer
 class display_mode;
 }
 
-namespace ogl
+namespace opengl
 {
 namespace x11
 {

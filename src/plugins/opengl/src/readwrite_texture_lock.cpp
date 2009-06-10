@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../readwrite_texture_lock.hpp"
 #include <sge/container/raw_vector_impl.hpp>
 
-sge::ogl::readwrite_texture_lock::readwrite_texture_lock(
+sge::opengl::readwrite_texture_lock::readwrite_texture_lock(
 	size_type const lock_size,
 	size_type const offset,
 	size_type const whole_size,
@@ -44,7 +44,7 @@ sge::ogl::readwrite_texture_lock::readwrite_texture_lock(
 		flags)
 {}
 
-void sge::ogl::readwrite_texture_lock::post_lock()
+void sge::opengl::readwrite_texture_lock::post_lock()
 {
 	// skip copying the read pointer to its internal
 	// buffer because we can copy it directly
@@ -58,37 +58,37 @@ void sge::ogl::readwrite_texture_lock::post_lock()
 	read_lock.pre_unlock();
 }
 
-void sge::ogl::readwrite_texture_lock::pre_unlock()
+void sge::opengl::readwrite_texture_lock::pre_unlock()
 {
 	write_lock.pre_unlock();
 }
 
-sge::ogl::readwrite_texture_lock::pointer
-sge::ogl::readwrite_texture_lock::read_pointer() const
+sge::opengl::readwrite_texture_lock::pointer
+sge::opengl::readwrite_texture_lock::read_pointer() const
 {
 	return read_lock.read_pointer();
 }
 
-sge::ogl::readwrite_texture_lock::pointer
-sge::ogl::readwrite_texture_lock::write_pointer() const
+sge::opengl::readwrite_texture_lock::pointer
+sge::opengl::readwrite_texture_lock::write_pointer() const
 {
 	return write_lock.write_pointer();
 }
 
-sge::ogl::readwrite_texture_lock::const_pointer
-sge::ogl::readwrite_texture_lock::real_read_pointer() const
+sge::opengl::readwrite_texture_lock::const_pointer
+sge::opengl::readwrite_texture_lock::real_read_pointer() const
 {
 	return write_lock.write_pointer();
 }
 
-sge::ogl::readwrite_texture_lock::pointer
-sge::ogl::readwrite_texture_lock::real_write_pointer()
+sge::opengl::readwrite_texture_lock::pointer
+sge::opengl::readwrite_texture_lock::real_write_pointer()
 {
 	return write_lock.real_write_pointer();
 }
 
-sge::ogl::lock_method::type
-sge::ogl::readwrite_texture_lock::method() const
+sge::opengl::lock_method::type
+sge::opengl::readwrite_texture_lock::method() const
 {
 	return lock_method::readwrite;
 }

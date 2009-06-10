@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <sge/text.hpp>
 
-sge::ogl::split_states::split_states(
+sge::opengl::split_states::split_states(
 	renderer::state::list &states)
 :
 	states(states)
@@ -37,7 +37,7 @@ sge::ogl::split_states::split_states(
 // TODO: those functions can be optimized
 // to set all things in one go for a state::list
 
-void sge::ogl::split_states::update_stencil()
+void sge::opengl::split_states::update_stencil()
 {
 	renderer::state::stencil_func::type const method(
 		states.get<renderer::state::stencil_func::type>()
@@ -69,7 +69,7 @@ void sge::ogl::split_states::update_stencil()
 	)
 }
 
-void sge::ogl::split_states::update_blend()
+void sge::opengl::split_states::update_blend()
 {
 	glBlendFunc(
 		convert_states(
@@ -90,7 +90,7 @@ void sge::ogl::split_states::update_blend()
 	)
 }
 
-void sge::ogl::split_states::update_alpha_test()
+void sge::opengl::split_states::update_alpha_test()
 {
 	renderer::state::alpha_func::type const func(
 		states.get<renderer::state::alpha_func::type>());

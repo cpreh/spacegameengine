@@ -64,7 +64,7 @@ void light_color(
 	sge::image::color::any::object const &color);
 }
 
-void sge::ogl::set_light(
+void sge::opengl::set_light(
 	renderer::light_index const index,
 	renderer::light const &l)
 {
@@ -87,7 +87,7 @@ void sge::ogl::set_light(
 
 }
 
-GLenum sge::ogl::convert_light_index(
+GLenum sge::opengl::convert_light_index(
 	renderer::light_index const index)
 {
 	return GL_LIGHT0 + index;
@@ -144,10 +144,10 @@ void light_pos(
 	GLenum const index,
 	sge::renderer::any_vector3 const &pos)
 {
-	sge::ogl::vector4f const pos4(
+	sge::opengl::vector4f const pos4(
 		sge::math::vector::construct(
 			sge::renderer::vector_convert<
-				sge::ogl::vector3f
+				sge::opengl::vector3f
 			>(
 				pos
 			),
@@ -169,7 +169,7 @@ void light_dir(
 		index,
 		GL_SPOT_DIRECTION,
 		sge::renderer::vector_convert<
-			sge::ogl::vector3f
+			sge::opengl::vector3f
 		>(
 			dir
 		).data()

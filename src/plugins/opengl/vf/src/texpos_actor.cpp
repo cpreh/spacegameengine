@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/format.hpp>
 #include <sge/text.hpp>
 
-sge::ogl::vf::texpos_actor::texpos_actor(
+sge::opengl::vf::texpos_actor::texpos_actor(
 	renderer::vf::dynamic_ordered_element const &e,
 	renderer::vf::vertex_size const stride)
 :
@@ -49,7 +49,7 @@ sge::ogl::vf::texpos_actor::texpos_actor(
 			% GL_MAX_TEXTURE_COORDS).str());
 }
 
-void sge::ogl::vf::texpos_actor::operator()(
+void sge::opengl::vf::texpos_actor::operator()(
 	client_state_combiner &c) const
 {
 	client_texture_level(

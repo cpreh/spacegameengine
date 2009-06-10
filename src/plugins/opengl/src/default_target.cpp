@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 #include <sge/typeswitch.hpp>
 
-sge::ogl::default_target::default_target(
+sge::opengl::default_target::default_target(
 	dim_type const & dim_,
 	renderer::bit_depth::type const depth_)
  :
@@ -37,38 +37,38 @@ sge::ogl::default_target::default_target(
 {}
 
 void
-sge::ogl::default_target::pos(
+sge::opengl::default_target::pos(
 	renderer::pixel_pos const &p)
 {
 	pos_ = p;
 }
 
 void
-sge::ogl::default_target::dim(
+sge::opengl::default_target::dim(
 	dim_type const &d)
 {
 	dim_ = d;
 }
 
 sge::renderer::pixel_pos const
-sge::ogl::default_target::pos() const
+sge::opengl::default_target::pos() const
 {
 	return pos_;
 }
 
 sge::renderer::target::dim_type const 
-sge::ogl::default_target::dim() const
+sge::opengl::default_target::dim() const
 {
 	return dim_;
 }
 
-void sge::ogl::default_target::bind_me() const
+void sge::opengl::default_target::bind_me() const
 {
 	unbind_fbo();
 }
 
-sge::ogl::default_target::size_type
-sge::ogl::default_target::stride() const
+sge::opengl::default_target::size_type
+sge::opengl::default_target::stride() const
 {
 	switch(depth_) {
 	case renderer::bit_depth::depth16:
@@ -84,12 +84,12 @@ sge::ogl::default_target::stride() const
 // currently 16bit and 32bit framebuffers are supported
 // GL_UNSIGNED_BYTE is enough to read 32bit values so take this
 
-GLenum sge::ogl::default_target::format() const
+GLenum sge::opengl::default_target::format() const
 {
 	return GL_RGBA;
 }
 
-GLenum sge::ogl::default_target::format_type() const
+GLenum sge::opengl::default_target::format_type() const
 {
 	return GL_UNSIGNED_BYTE;
 }

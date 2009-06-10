@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-sge::ogl::xf86vmode::modes::modes(
+sge::opengl::xf86vmode::modes::modes(
 	x11::display_ptr const dsp,
 	int const screen_)
 :
@@ -51,25 +51,25 @@ sge::ogl::xf86vmode::modes::modes(
 }
 
 XF86VidModeModeInfo const &
-sge::ogl::xf86vmode::modes::operator[](
+sge::opengl::xf86vmode::modes::operator[](
 	size_type const index) const
 {
 	return (*modes_)[index];
 }
 
-sge::ogl::xf86vmode::modes::size_type
-sge::ogl::xf86vmode::modes::size() const
+sge::opengl::xf86vmode::modes::size_type
+sge::opengl::xf86vmode::modes::size() const
 {
 	return sz;
 }
 
 sge::x11::display_ptr const
-sge::ogl::xf86vmode::modes::display() const
+sge::opengl::xf86vmode::modes::display() const
 {
 	return dsp;
 }
 
-int sge::ogl::xf86vmode::modes::screen() const
+int sge::opengl::xf86vmode::modes::screen() const
 {
 	return screen_;
 }

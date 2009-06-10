@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 
 sge::image::color::format::type
-sge::ogl::color_convert(
+sge::opengl::color_convert(
 	GLenum const format,
 	GLenum const format_type)
 {
@@ -48,7 +48,7 @@ sge::ogl::color_convert(
 		SGE_TEXT("ogl::color_convert: No matching color_format!"));
 }
 
-GLenum sge::ogl::to_format(
+GLenum sge::opengl::to_format(
 	image::color::format::type const fmt)
 {
 	switch(fmt) {
@@ -66,7 +66,7 @@ GLenum sge::ogl::to_format(
 	}
 }
 
-GLenum sge::ogl::to_format_type(
+GLenum sge::opengl::to_format_type(
 	image::color::format::type const fmt)
 {
 	switch(fmt) {

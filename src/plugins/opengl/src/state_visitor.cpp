@@ -33,14 +33,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-sge::ogl::state_visitor::state_visitor(
+sge::opengl::state_visitor::state_visitor(
 	split_states &states)
 :
 	states(states)
 {}
 
-sge::ogl::state_visitor::result_type
-sge::ogl::state_visitor::operator()(
+sge::opengl::state_visitor::result_type
+sge::opengl::state_visitor::operator()(
 	renderer::state::int_::type const s) const
 {
 	namespace rs = renderer::state::int_::available_states;
@@ -63,8 +63,8 @@ sge::ogl::state_visitor::operator()(
 	}
 }
 
-sge::ogl::state_visitor::result_type
-sge::ogl::state_visitor::operator()(
+sge::opengl::state_visitor::result_type
+sge::opengl::state_visitor::operator()(
 	renderer::state::uint::type const s) const
 {
 	namespace rs = renderer::state::uint::available_states;
@@ -79,8 +79,8 @@ sge::ogl::state_visitor::operator()(
 	}
 }
 
-sge::ogl::state_visitor::result_type
-sge::ogl::state_visitor::operator()(
+sge::opengl::state_visitor::result_type
+sge::opengl::state_visitor::operator()(
 	renderer::state::float_::type const &s) const
 {
 	namespace rs = renderer::state::float_::available_states;
@@ -126,8 +126,8 @@ sge::ogl::state_visitor::operator()(
 	}
 }
 
-sge::ogl::state_visitor::result_type
-sge::ogl::state_visitor::operator()(
+sge::opengl::state_visitor::result_type
+sge::opengl::state_visitor::operator()(
 	renderer::state::bool_::type const s) const
 {
 	namespace rs = renderer::state::bool_::available_states;
@@ -147,8 +147,8 @@ sge::ogl::state_visitor::operator()(
 	}
 }
 
-sge::ogl::state_visitor::result_type
-sge::ogl::state_visitor::operator()(
+sge::opengl::state_visitor::result_type
+sge::opengl::state_visitor::operator()(
 	renderer::state::color::type const &s) const
 {
 	namespace rs = renderer::state::color::available_states;
@@ -206,8 +206,8 @@ sge::ogl::state_visitor::operator()(
 	}
 }
 
-sge::ogl::state_visitor::result_type
-sge::ogl::state_visitor::operator()(
+sge::opengl::state_visitor::result_type
+sge::opengl::state_visitor::operator()(
 	renderer::state::cull_mode::type const m) const
 {
 	if(m == renderer::state::cull_mode::off)
@@ -225,8 +225,8 @@ sge::ogl::state_visitor::operator()(
 	)
 }
 
-sge::ogl::state_visitor::result_type
-sge::ogl::state_visitor::operator()(
+sge::opengl::state_visitor::result_type
+sge::opengl::state_visitor::operator()(
 	renderer::state::depth_func::type const f) const
 {
 	if(f == renderer::state::depth_func::off)
@@ -245,22 +245,22 @@ sge::ogl::state_visitor::operator()(
 	)
 }
 
-sge::ogl::state_visitor::result_type
-sge::ogl::state_visitor::operator()(
+sge::opengl::state_visitor::result_type
+sge::opengl::state_visitor::operator()(
 	renderer::state::stencil_func::type) const
 {
 	states.update_stencil();
 }
 
-sge::ogl::state_visitor::result_type
-sge::ogl::state_visitor::operator()(
+sge::opengl::state_visitor::result_type
+sge::opengl::state_visitor::operator()(
 	renderer::state::alpha_func::type) const
 {
 	states.update_alpha_test();
 }
 
-sge::ogl::state_visitor::result_type
-sge::ogl::state_visitor::operator()(
+sge::opengl::state_visitor::result_type
+sge::opengl::state_visitor::operator()(
 	renderer::state::fog_mode::type const m) const
 {
 	if(m == renderer::state::fog_mode::off)
@@ -279,8 +279,8 @@ sge::ogl::state_visitor::operator()(
 	)
 }
 
-sge::ogl::state_visitor::result_type
-sge::ogl::state_visitor::operator()(
+sge::opengl::state_visitor::result_type
+sge::opengl::state_visitor::operator()(
 	renderer::state::draw_mode::type const m) const
 {
 	glPolygonMode(
@@ -294,15 +294,15 @@ sge::ogl::state_visitor::operator()(
 	)
 }
 
-sge::ogl::state_visitor::result_type
-sge::ogl::state_visitor::operator()(
+sge::opengl::state_visitor::result_type
+sge::opengl::state_visitor::operator()(
 	renderer::state::source_blend_func::type) const
 {
 	states.update_blend();
 }
 
-sge::ogl::state_visitor::result_type
-sge::ogl::state_visitor::operator()(
+sge::opengl::state_visitor::result_type
+sge::opengl::state_visitor::operator()(
 	renderer::state::dest_blend_func::type) const
 {
 	states.update_blend();

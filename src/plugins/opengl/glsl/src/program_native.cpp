@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 
 template<>
-sge::ogl::glsl::traits<true>::handle
-sge::ogl::glsl::create_program<true>()
+sge::opengl::glsl::traits<true>::handle
+sge::opengl::glsl::create_program<true>()
 {
 	traits<true>::handle const ret(
 		glCreateProgram()
@@ -41,20 +41,20 @@ sge::ogl::glsl::create_program<true>()
 
 template<>
 GLenum 
-sge::ogl::glsl::vertex_shader_type<true>()
+sge::opengl::glsl::vertex_shader_type<true>()
 {
 	return GL_VERTEX_SHADER;
 }
 
 template<>
 GLenum 
-sge::ogl::glsl::pixel_shader_type<true>()
+sge::opengl::glsl::pixel_shader_type<true>()
 {
 	return GL_FRAGMENT_SHADER;
 }
 
 template<>
-void sge::ogl::glsl::detach_shader<true>(
+void sge::opengl::glsl::detach_shader<true>(
 	traits<true>::handle const program,
 	traits<true>::handle const shader)
 {
@@ -67,7 +67,7 @@ void sge::ogl::glsl::detach_shader<true>(
 }
 
 template<>
-void sge::ogl::glsl::delete_program<true>(
+void sge::opengl::glsl::delete_program<true>(
 	traits<true>::handle const program)
 {
 	glDeleteProgram(program);
@@ -79,7 +79,7 @@ void sge::ogl::glsl::delete_program<true>(
 }
 
 template<>
-void sge::ogl::glsl::attach_shader<true>(
+void sge::opengl::glsl::attach_shader<true>(
 	traits<true>::handle const program,
 	traits<true>::handle const shader)
 {
@@ -92,7 +92,7 @@ void sge::ogl::glsl::attach_shader<true>(
 }
 
 template<>
-void sge::ogl::glsl::link_program<true>(
+void sge::opengl::glsl::link_program<true>(
 	traits<true>::handle const program)
 {
 	glLinkProgram(program);
@@ -104,7 +104,7 @@ void sge::ogl::glsl::link_program<true>(
 }
 
 template<>
-GLint sge::ogl::glsl::program_integer<true>(
+GLint sge::opengl::glsl::program_integer<true>(
 	GLenum const what,
 	traits<true>::handle const program)
 {
@@ -121,7 +121,7 @@ GLint sge::ogl::glsl::program_integer<true>(
 }
 
 template<>
-GLint sge::ogl::glsl::link_status<true>(
+GLint sge::opengl::glsl::link_status<true>(
 	traits<true>::handle const program)
 {
 	return program_integer<true>(
@@ -131,7 +131,7 @@ GLint sge::ogl::glsl::link_status<true>(
 }
 
 template<>
-void sge::ogl::glsl::use_program<true>(
+void sge::opengl::glsl::use_program<true>(
 	traits<true>::handle const program)
 {
 	glUseProgram(program);
@@ -143,7 +143,7 @@ void sge::ogl::glsl::use_program<true>(
 }
 
 template<>
-void sge::ogl::glsl::program_info_log<true>(
+void sge::opengl::glsl::program_info_log<true>(
 	traits<true>::handle const program,
 	GLint const maxlen,
 	GLint *const len,

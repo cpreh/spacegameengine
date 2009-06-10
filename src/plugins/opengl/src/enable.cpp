@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 #include <sge/format.hpp>
 
-void sge::ogl::enable(
+void sge::opengl::enable(
 	GLenum const what,
 	bool const enable_)
 {
@@ -34,7 +34,7 @@ void sge::ogl::enable(
 		disable(what);
 }
 
-void sge::ogl::enable(
+void sge::opengl::enable(
 	GLenum const what)
 {
 	glEnable(what);
@@ -50,7 +50,7 @@ void sge::ogl::enable(
 	)
 }
 
-void sge::ogl::disable(
+void sge::opengl::disable(
 	GLenum const what)
 {
 	glDisable(what);

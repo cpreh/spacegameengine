@@ -35,7 +35,7 @@ class dynamic_color;
 }
 }
 
-namespace ogl
+namespace opengl
 {
 namespace vf
 {

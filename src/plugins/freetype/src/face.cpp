@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/string.hpp>
 #include <sge/text.hpp>
 
-sge::ft::face::face(
+sge::freetype::face::face(
 	library &lib,
 	filesystem::path const &name)
 {
@@ -36,17 +36,17 @@ sge::ft::face::face(
 			+= name.string());
 }
 
-sge::ft::face::~face()
+sge::freetype::face::~face()
 {
 	FT_Done_Face(impl);
 }
 
-FT_Face sge::ft::face::get() const
+FT_Face sge::freetype::face::get() const
 {
 	return impl;
 }
 
-FT_Face sge::ft::face::operator->() const
+FT_Face sge::freetype::face::operator->() const
 {
 	return get();
 }

@@ -49,7 +49,7 @@ void converter(
 
 }
 
-sge::ft::char_metric::char_metric(
+sge::freetype::char_metric::char_metric(
 	face &face_,
 	char_type const ch)
 :
@@ -119,24 +119,24 @@ sge::ft::char_metric::char_metric(
 	);
 }
 
-sge::ft::char_metric::~char_metric()
+sge::freetype::char_metric::~char_metric()
 {}
 
 sge::font::pos const
-sge::ft::char_metric::offset() const
+sge::freetype::char_metric::offset() const
 {
 	return offset_;
 }
 
 sge::font::const_image_view const
-sge::ft::char_metric::pixmap() const
+sge::freetype::char_metric::pixmap() const
 {
 	return boost::gil::const_view(
 		buffer
 	);
 }
 
-sge::font::unit sge::ft::char_metric::x_advance() const
+sge::font::unit sge::freetype::char_metric::x_advance() const
 {
 	return x_advance_;
 }

@@ -36,7 +36,7 @@ class texture;
 }
 }
 
-namespace ogl
+namespace opengl
 {
 
 GLuint gen_texture();

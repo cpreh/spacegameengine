@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/text.hpp>
 
-sge::ogl::fbo_target::fbo_target()
+sge::opengl::fbo_target::fbo_target()
 {
 	if(!glGenFramebuffersEXT)
 		on_not_supported(
@@ -48,17 +48,17 @@ sge::ogl::fbo_target::fbo_target()
 	bind_me();
 }
 
-sge::ogl::fbo_target::~fbo_target()
+sge::opengl::fbo_target::~fbo_target()
 {
 	glDeleteFramebuffersEXT(1, &fbo);
 }
 
-void sge::ogl::fbo_target::bind_me() const
+void sge::opengl::fbo_target::bind_me() const
 {
 	bind_fbo(fbo);
 }
 
-void sge::ogl::fbo_target::bind_texture(
+void sge::opengl::fbo_target::bind_texture(
 	renderer::texture_ptr const t)
 {
 	bind_me();
@@ -87,29 +87,29 @@ void sge::ogl::fbo_target::bind_texture(
 }
 
 sge::renderer::target::dim_type const
-sge::ogl::fbo_target::dim() const
+sge::opengl::fbo_target::dim() const
 {
 	return texture_target->dim();
 }
 
 sge::renderer::pixel_pos const
-sge::ogl::fbo_target::pos() const
+sge::opengl::fbo_target::pos() const
 {
 	return renderer::pixel_pos::null();
 }
 
-sge::ogl::fbo_target::size_type
-sge::ogl::fbo_target::stride() const
+sge::opengl::fbo_target::size_type
+sge::opengl::fbo_target::stride() const
 {
 	return texture_target->stride();
 }
 
-GLenum sge::ogl::fbo_target::format() const
+GLenum sge::opengl::fbo_target::format() const
 {
 	return texture_target->format();
 }
 
-GLenum sge::ogl::fbo_target::format_type() const
+GLenum sge::opengl::fbo_target::format_type() const
 {
 	return texture_target->format_type();
 }

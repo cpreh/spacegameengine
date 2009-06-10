@@ -28,15 +28,15 @@ namespace
 {
 
 void add_bit_depth(
-	sge::ogl::glx::visual_attribute_array &,
+	sge::opengl::glx::visual_attribute_array &,
 	int r,
 	int g,
 	int b);
 
 }
 
-sge::ogl::glx::visual_attribute_array const
-sge::ogl::glx::choose_visual(
+sge::opengl::glx::visual_attribute_array const
+sge::opengl::glx::choose_visual(
 	renderer::bit_depth::type const bit_depth,
 	renderer::depth_buffer::type const depth_buffer,
 	renderer::stencil_buffer::type const stencil_buffer)
@@ -76,7 +76,7 @@ namespace
 {
 
 void add_bit_depth(
-	sge::ogl::glx::visual_attribute_array &ret,
+	sge::opengl::glx::visual_attribute_array &ret,
 	int const r,
 	int const g,
 	int const b)

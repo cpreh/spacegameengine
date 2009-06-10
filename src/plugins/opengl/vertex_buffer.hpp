@@ -35,7 +35,7 @@ namespace vf
 class dynamic_format;
 }
 }
-namespace ogl
+namespace opengl
 {
 
 class vertex_buffer : public renderer::vertex_buffer {

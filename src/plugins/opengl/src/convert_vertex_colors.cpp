@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/dim/basic_impl.hpp>
 #include <boost/assign/list_of.hpp>
 
-void sge::ogl::convert_vertex_colors(
+void sge::opengl::convert_vertex_colors(
 	renderer::vf::dynamic_ordered_element const &e,
 	renderer::size_type const vertex_stride,
 	renderer::size_type const num_vertices,

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 
 template<>
-GLint sge::ogl::glsl::uniform::location<false>(
+GLint sge::opengl::glsl::uniform::location<false>(
 	traits<false>::handle const program,
 	char const *const name)
 {

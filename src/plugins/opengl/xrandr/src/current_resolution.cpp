@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/Xlib.h>
 #include <X11/extensions/Xrandr.h>
 
-sge::ogl::xrandr::mode const
-sge::ogl::xrandr::current_resolution(
+sge::opengl::xrandr::mode const
+sge::opengl::xrandr::current_resolution(
 	configuration_ptr const config)
 {
 	SGE_X11_SENTRY

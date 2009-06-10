@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-void sge::ogl::on_not_supported(
+void sge::opengl::on_not_supported(
 	string const &function,
         string const &min_version,
 	string const &possible_extensions)

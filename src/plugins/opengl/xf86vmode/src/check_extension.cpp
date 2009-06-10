@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-void sge::ogl::xf86vmode::check_extension(
+void sge::opengl::xf86vmode::check_extension(
 	x11::display_ptr const dsp)
 {
 	int event_base, error_base;

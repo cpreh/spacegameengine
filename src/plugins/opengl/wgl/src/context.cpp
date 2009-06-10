@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 #include <sge/windows/gdi_device.hpp>
 
-sge::ogl::wgl::context::context(
+sge::opengl::wgl::context::context(
 	windows::gdi_device const &dc)
 :
 	glrc(wglCreateContext(dc.hdc()))
@@ -33,12 +33,12 @@ sge::ogl::wgl::context::context(
 			SGE_TEXT("wglCreateContext() failed!"));
 }
 
-sge::ogl::wgl::context::~context()
+sge::opengl::wgl::context::~context()
 {
 	wglDeleteContext(hglrc());
 }
 
-HGLRC sge::ogl::wgl::context::hglrc() const
+HGLRC sge::opengl::wgl::context::hglrc() const
 {
 	return glrc;
 }
