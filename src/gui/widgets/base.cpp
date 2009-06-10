@@ -352,8 +352,7 @@ void sge::gui::widgets::base::process_invalid_area(
 				<< SGE_TEXT(" intersects with ")
 				<< e.area() 
 				<< SGE_TEXT(": ")
-				<< intersects(w.absolute_area(),e.area())
-		);
+				<< intersects(w.absolute_area(),e.area()));
 
 		if (intersects(w.absolute_area(),e.area()))
 		{
