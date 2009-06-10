@@ -31,8 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-sge::ogl::xrandr::resolution_ptr const
-sge::ogl::xrandr::choose_resolution(
+sge::opengl::xrandr::resolution_ptr const
+sge::opengl::xrandr::choose_resolution(
 	x11::window_ptr const wnd,
 	renderer::display_mode const &mode)
 {

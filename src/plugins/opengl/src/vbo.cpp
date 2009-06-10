@@ -27,11 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-sge::scoped_ptr<sge::ogl::vbo_base> impl;
+sge::scoped_ptr<sge::opengl::vbo_base> impl;
 
 }
 
-void sge::ogl::initialize_vbo()
+void sge::opengl::initialize_vbo()
 {
 	impl.reset(
 		create_vbo_impl(
@@ -39,7 +39,7 @@ void sge::ogl::initialize_vbo()
 			|| glew_is_supported("GL_ARB_vertex_buffer_object")));
 }
 
-GLenum sge::ogl::index_buffer_type()
+GLenum sge::opengl::index_buffer_type()
 {
 	static GLenum const type(
 		glew_is_supported(
@@ -52,7 +52,7 @@ GLenum sge::ogl::index_buffer_type()
 	return type;
 }
 
-GLenum sge::ogl::vertex_buffer_type()
+GLenum sge::opengl::vertex_buffer_type()
 {
 	static GLenum const type(
 		glew_is_supported(
@@ -66,7 +66,7 @@ GLenum sge::ogl::vertex_buffer_type()
 	return type;
 }
 
-sge::ogl::vbo_base& sge::ogl::vb_ib_vbo_impl()
+sge::opengl::vbo_base& sge::opengl::vb_ib_vbo_impl()
 {
 	return *impl;
 }

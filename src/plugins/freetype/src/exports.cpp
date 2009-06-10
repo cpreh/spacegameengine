@@ -49,7 +49,7 @@ plugin_version_info(
 SGE_EXPORT_SYMBOL sge::font::system *
 create_font_system()
 {
-	return new sge::ft::system();
+	return new sge::freetype::system();
 }
 
 }

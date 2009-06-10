@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 #include <utility>
 
-sge::ft::metrics::metrics(
+sge::freetype::metrics::metrics(
 	library &lib,
 	filesystem::path const &font_path,
 	font::size_type const font_height)
@@ -41,7 +41,7 @@ sge::ft::metrics::metrics(
 }
 
 sge::font::char_metric_ptr const
-sge::ft::metrics::load_char(
+sge::freetype::metrics::load_char(
 	char_type const c)
 {
 	{
@@ -59,7 +59,7 @@ sge::ft::metrics::load_char(
 }
 
 sge::font::unit
-sge::ft::metrics::line_height() const
+sge::freetype::metrics::line_height() const
 {
 	return static_cast<
 		font::unit

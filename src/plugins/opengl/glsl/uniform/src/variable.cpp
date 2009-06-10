@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	bool Native
 >
-sge::ogl::glsl::uniform::variable<Native>::variable(
+sge::opengl::glsl::uniform::variable<Native>::variable(
 	handle const program,
 	renderer::glsl::string const &name)
 :
@@ -51,7 +51,7 @@ template<
 	bool Native
 >
 sge::renderer::glsl::uniform::value const
-sge::ogl::glsl::uniform::variable<Native>::get() const
+sge::opengl::glsl::uniform::variable<Native>::get() const
 {
 	return uniform::get<Native>(
 		program,
@@ -63,7 +63,7 @@ sge::ogl::glsl::uniform::variable<Native>::get() const
 template<
 	bool Native
 >
-void sge::ogl::glsl::uniform::variable<Native>::set(
+void sge::opengl::glsl::uniform::variable<Native>::set(
 	renderer::glsl::uniform::value const &v)
 {
 	stored_type = variant::apply_unary(
@@ -74,5 +74,5 @@ void sge::ogl::glsl::uniform::variable<Native>::set(
 	);
 }
 
-template class sge::ogl::glsl::uniform::variable<true>;
-template class sge::ogl::glsl::uniform::variable<false>;
+template class sge::opengl::glsl::uniform::variable<true>;
+template class sge::opengl::glsl::uniform::variable<false>;

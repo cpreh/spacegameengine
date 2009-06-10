@@ -52,21 +52,21 @@ PFNGLUNIFORMMATRIX4X3FVPROC uniform_matrix_4x3fv;
 
 void initialize_setter();
 
-sge::ogl::glsl::uniform::type const
+sge::opengl::glsl::uniform::type const
 set_float(
 	GLint location,
 	GLfloat const *data,
 	GLsizei size,
 	GLsizei elements);
 
-sge::ogl::glsl::uniform::type const
+sge::opengl::glsl::uniform::type const
 set_int(
 	GLint location,
 	GLint const *data,
 	GLsizei size,
 	GLsizei elements);
 
-sge::ogl::glsl::uniform::type const
+sge::opengl::glsl::uniform::type const
 set_matrix(
 	GLint location,
 	GLfloat const *data,
@@ -96,7 +96,7 @@ element_rows(
 
 }
 
-sge::ogl::glsl::uniform::setter::setter(
+sge::opengl::glsl::uniform::setter::setter(
 	GLint const location)
 :
 	location(location)
@@ -104,8 +104,8 @@ sge::ogl::glsl::uniform::setter::setter(
 	initialize_setter();
 }
 	
-sge::ogl::glsl::uniform::type const
-sge::ogl::glsl::uniform::setter::operator()(
+sge::opengl::glsl::uniform::type const
+sge::opengl::glsl::uniform::setter::operator()(
 	renderer::glsl::uniform::int_value const &i) const
 {
 	return set_int(
@@ -120,8 +120,8 @@ sge::ogl::glsl::uniform::setter::operator()(
 	);
 }
 	
-sge::ogl::glsl::uniform::type const
-sge::ogl::glsl::uniform::setter::operator()(
+sge::opengl::glsl::uniform::type const
+sge::opengl::glsl::uniform::setter::operator()(
 	renderer::glsl::uniform::float_value const &f) const
 {
 	return is_matrix(f.type())
@@ -156,7 +156,7 @@ namespace
 void initialize_setter()
 {
 	SGE_FUNCTION_ONCE
-	if(sge::ogl::glsl::is_native())
+	if(sge::opengl::glsl::is_native())
 	{
 		uniform_1iv = glUniform1iv;
 		uniform_2iv = glUniform2iv;
@@ -192,7 +192,7 @@ void initialize_setter()
 	}
 }
 
-sge::ogl::glsl::uniform::type const
+sge::opengl::glsl::uniform::type const
 set_float(
 	GLint const location,
 	GLfloat const *const data,
@@ -207,7 +207,7 @@ set_float(
 	)
 	*/
 
-	namespace et = sge::ogl::glsl::uniform::element_type;
+	namespace et = sge::opengl::glsl::uniform::element_type;
 
 	switch(size) {
 	case 1:
@@ -216,7 +216,7 @@ set_float(
 			elements,
 			data);
 
-		return sge::ogl::glsl::uniform::type(
+		return sge::opengl::glsl::uniform::type(
 			et::float1,
 			elements);
 	case 2:
@@ -225,7 +225,7 @@ set_float(
 			elements,
 			data);
 
-		return sge::ogl::glsl::uniform::type(
+		return sge::opengl::glsl::uniform::type(
 			et::float2,
 			elements);
 	case 3:
@@ -234,7 +234,7 @@ set_float(
 			elements,
 			data);
 
-		return sge::ogl::glsl::uniform::type(
+		return sge::opengl::glsl::uniform::type(
 			et::float3,
 			elements);
 	case 4:
@@ -243,7 +243,7 @@ set_float(
 			elements,
 			data);
 
-		return sge::ogl::glsl::uniform::type(
+		return sge::opengl::glsl::uniform::type(
 			et::float4,
 			elements);
 	default:
@@ -254,7 +254,7 @@ set_float(
 	}
 }
 
-sge::ogl::glsl::uniform::type const
+sge::opengl::glsl::uniform::type const
 set_int(
 	GLint const location,
 	GLint const *const data,
@@ -269,7 +269,7 @@ set_int(
 	)
 	*/
 
-	namespace et = sge::ogl::glsl::uniform::element_type;
+	namespace et = sge::opengl::glsl::uniform::element_type;
 
 	switch(size) {
 	case 1:
@@ -278,7 +278,7 @@ set_int(
 			elements,
 			data);
 
-		return sge::ogl::glsl::uniform::type(
+		return sge::opengl::glsl::uniform::type(
 			et::int1,
 			elements);
 	case 2:
@@ -287,7 +287,7 @@ set_int(
 			elements,
 			data);
 
-		return sge::ogl::glsl::uniform::type(
+		return sge::opengl::glsl::uniform::type(
 			et::int2,
 			elements);
 	case 3:
@@ -296,7 +296,7 @@ set_int(
 			elements,
 			data);
 
-		return sge::ogl::glsl::uniform::type(
+		return sge::opengl::glsl::uniform::type(
 			et::int3,
 			elements);
 	case 4:
@@ -305,7 +305,7 @@ set_int(
 			elements,
 			data);
 
-		return sge::ogl::glsl::uniform::type(
+		return sge::opengl::glsl::uniform::type(
 			et::int4,
 			elements);
 	default:
@@ -316,7 +316,7 @@ set_int(
 	}
 }
 
-sge::ogl::glsl::uniform::type const
+sge::opengl::glsl::uniform::type const
 set_matrix(
 	GLint const location,
 	GLfloat const *const data,
@@ -325,7 +325,7 @@ set_matrix(
 	GLsizei const elements)
 {
 	if(
-		!sge::ogl::glsl::is_native()
+		!sge::opengl::glsl::is_native()
 		&& rows != columns
 	)
 		throw sge::exception(
@@ -335,7 +335,7 @@ set_matrix(
 			% columns
 			% rows).str());
 
-	namespace et = sge::ogl::glsl::uniform::element_type;
+	namespace et = sge::opengl::glsl::uniform::element_type;
 
 	// FIXME: check errors
 	/*
@@ -355,7 +355,7 @@ set_matrix(
 				false,
 				data);
 
-			return sge::ogl::glsl::uniform::type(
+			return sge::opengl::glsl::uniform::type(
 				et::matrix2x2,
 				elements);
 		case 3:
@@ -365,7 +365,7 @@ set_matrix(
 				false,
 				data);
 
-			return sge::ogl::glsl::uniform::type(
+			return sge::opengl::glsl::uniform::type(
 				et::matrix3x2,
 				elements);
 		case 4:
@@ -375,7 +375,7 @@ set_matrix(
 				false,
 				data);
 
-			return sge::ogl::glsl::uniform::type(
+			return sge::opengl::glsl::uniform::type(
 				et::matrix4x2,
 				elements);
 		}
@@ -389,7 +389,7 @@ set_matrix(
 				false,
 				data);
 
-			return sge::ogl::glsl::uniform::type(
+			return sge::opengl::glsl::uniform::type(
 				et::matrix3x2,
 				elements);
 		case 3:
@@ -399,7 +399,7 @@ set_matrix(
 				false,
 				data);
 
-			return sge::ogl::glsl::uniform::type(
+			return sge::opengl::glsl::uniform::type(
 				et::matrix3x3,
 				elements);
 		case 4:
@@ -409,7 +409,7 @@ set_matrix(
 				false,
 				data);
 
-			return sge::ogl::glsl::uniform::type(
+			return sge::opengl::glsl::uniform::type(
 				et::matrix4x3,
 				elements);
 		}
@@ -423,7 +423,7 @@ set_matrix(
 				false,
 				data);
 
-			return sge::ogl::glsl::uniform::type(
+			return sge::opengl::glsl::uniform::type(
 				et::matrix4x2,
 				elements);
 		case 3:
@@ -433,7 +433,7 @@ set_matrix(
 				false,
 				data);
 
-			return sge::ogl::glsl::uniform::type(
+			return sge::opengl::glsl::uniform::type(
 				et::matrix3x4,
 				elements);
 		case 4:
@@ -443,7 +443,7 @@ set_matrix(
 				false,
 				data);
 
-			return sge::ogl::glsl::uniform::type(
+			return sge::opengl::glsl::uniform::type(
 				et::matrix4x4,
 				elements);
 		}

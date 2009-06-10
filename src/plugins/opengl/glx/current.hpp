@@ -34,7 +34,7 @@ class window;
 
 }
 
-namespace ogl
+namespace opengl
 {
 namespace glx
 {

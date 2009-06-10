@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../mode.hpp"
 
-sge::ogl::xrandr::mode::mode(
+sge::opengl::xrandr::mode::mode(
 	int const index_,
 	Rotation const rotation_,
 	renderer::refresh_rate_type const rate_)
@@ -30,19 +30,19 @@ sge::ogl::xrandr::mode::mode(
 	rate_(rate_)
 {}
 	
-int sge::ogl::xrandr::mode::index() const
+int sge::opengl::xrandr::mode::index() const
 {
 	return index_;
 }
 
 Rotation
-sge::ogl::xrandr::mode::rotation() const
+sge::opengl::xrandr::mode::rotation() const
 {
 	return rotation_;
 }
 
 sge::renderer::refresh_rate_type
-sge::ogl::xrandr::mode::rate() const
+sge::opengl::xrandr::mode::rate() const
 {
 	return rate_;
 }

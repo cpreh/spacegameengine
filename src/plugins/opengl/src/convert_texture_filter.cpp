@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-GLenum sge::ogl::convert_texture_filter(
+GLenum sge::opengl::convert_texture_filter(
 	renderer::filter::min::type const arg)
 {
 	switch(arg) {
@@ -40,7 +40,7 @@ GLenum sge::ogl::convert_texture_filter(
 	}
 }
 
-GLenum sge::ogl::convert_texture_filter(
+GLenum sge::opengl::convert_texture_filter(
 	renderer::filter::mag::type const arg)
 {
 	switch(arg) {

@@ -33,7 +33,7 @@ class list;
 }
 }
 
-namespace ogl
+namespace opengl
 {
 
 class split_states {

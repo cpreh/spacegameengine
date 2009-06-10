@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../writeonly_texture_lock.hpp"
 
-sge::ogl::writeonly_texture_lock::writeonly_texture_lock(
+sge::opengl::writeonly_texture_lock::writeonly_texture_lock(
 	size_type const lock_size,
 	size_type const stride,
 	renderer::resource_flag_t const flags)
@@ -31,31 +31,31 @@ sge::ogl::writeonly_texture_lock::writeonly_texture_lock(
 	0)
 {}
 
-void sge::ogl::writeonly_texture_lock::post_lock()
+void sge::opengl::writeonly_texture_lock::post_lock()
 {
 	buffer.lock(
 		lock_method::writeonly);
 }
 
-void sge::ogl::writeonly_texture_lock::pre_unlock()
+void sge::opengl::writeonly_texture_lock::pre_unlock()
 {
 	buffer.unlock();
 }
 
-sge::ogl::writeonly_texture_lock::pointer
-sge::ogl::writeonly_texture_lock::write_pointer() const
+sge::opengl::writeonly_texture_lock::pointer
+sge::opengl::writeonly_texture_lock::write_pointer() const
 {
 	return buffer.buffer_offset(0);
 }
 
-sge::ogl::writeonly_texture_lock::pointer
-sge::ogl::writeonly_texture_lock::real_write_pointer()
+sge::opengl::writeonly_texture_lock::pointer
+sge::opengl::writeonly_texture_lock::real_write_pointer()
 {
 	return buffer.data();
 }
 
-sge::ogl::lock_method::type
-sge::ogl::writeonly_texture_lock::method() const
+sge::opengl::lock_method::type
+sge::opengl::writeonly_texture_lock::method() const
 {
 	return lock_method::writeonly;
 }

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 
 GLenum
-sge::ogl::convert_primitive(
+sge::opengl::convert_primitive(
 	renderer::nonindexed_primitive_type::type const t)
 {
 	switch(t) {
@@ -46,7 +46,7 @@ sge::ogl::convert_primitive(
 }
 
 GLenum
-sge::ogl::convert_primitive(
+sge::opengl::convert_primitive(
 	renderer::indexed_primitive_type::type const t)
 {
 	switch(t) {

@@ -22,5 +22,5 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../instantiate_basic_buffer.hpp"
 
 SGE_OPENGL_INSTANTIATE_BASIC_BUFFER(
-	sge::ogl::pixel_pack_buffer_type,
-	sge::ogl::pbo_impl)
+	sge::opengl::pixel_pack_buffer_type,
+	sge::opengl::pbo_impl)

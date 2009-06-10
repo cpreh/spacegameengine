@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic_ordered_element.hpp>
 #include <sge/variant/apply_unary.hpp>
 
-sge::ogl::vf::attribute_actor::attribute_actor(
+sge::opengl::vf::attribute_actor::attribute_actor(
 	renderer::vf::dynamic_ordered_element const &e,
 	renderer::vf::vertex_size const stride)
 :
@@ -41,7 +41,7 @@ sge::ogl::vf::attribute_actor::attribute_actor(
 	)
 {}
 
-void sge::ogl::vf::attribute_actor::operator()(
+void sge::opengl::vf::attribute_actor::operator()(
 	client_state_combiner &c) const
 {
 	vertex_attrib_pointer(

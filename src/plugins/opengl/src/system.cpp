@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/container/raw_vector_impl.hpp>
 
 sge::renderer::device_ptr const
-sge::ogl::system::create_renderer(
+sge::opengl::system::create_renderer(
 	renderer::parameters const &param,
 	renderer::adapter_type const adapter,
 	window::instance_ptr const wnd)
@@ -61,7 +61,7 @@ sge::ogl::system::create_renderer(
 }
 
 sge::window::instance_ptr const
-sge::ogl::system::create_window(
+sge::opengl::system::create_window(
 	window::parameters const &param,
 	renderer::parameters const &rparam)
 {

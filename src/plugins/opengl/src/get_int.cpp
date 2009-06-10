@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 
 GLint
-sge::ogl::get_int(
+sge::opengl::get_int(
 	GLenum const what)
 {
 	GLint ret;

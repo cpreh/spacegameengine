@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 
 GLenum
-sge::ogl::convert_clear_bit(
+sge::opengl::convert_clear_bit(
 	renderer::state::bool_::trampoline_type const &s)
 {
 	namespace rs = sge::renderer::state::bool_::available_states;

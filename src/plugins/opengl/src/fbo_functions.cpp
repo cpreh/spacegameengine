@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 
 void
-sge::ogl::bind_fbo(
+sge::opengl::bind_fbo(
 	GLuint const buf)
 {
 	glBindFramebufferEXT(
@@ -38,7 +38,7 @@ sge::ogl::bind_fbo(
 }
 
 void
-sge::ogl::unbind_fbo()
+sge::opengl::unbind_fbo()
 {
 	if(glBindFramebufferEXT)
 		bind_fbo(0);

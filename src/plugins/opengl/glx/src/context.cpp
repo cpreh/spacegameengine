@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-sge::ogl::glx::context::context(
+sge::opengl::glx::context::context(
 	x11::display_ptr const dsp,
 	XVisualInfo const &vi)
 :
@@ -40,7 +40,7 @@ sge::ogl::glx::context::context(
 			SGE_TEXT("glXCreateContext() failed!"));
 }
 
-sge::ogl::glx::context::~context()
+sge::opengl::glx::context::~context()
 {
 	glXDestroyContext(
 		dsp->get(),
@@ -48,7 +48,7 @@ sge::ogl::glx::context::~context()
 }
 
 GLXContext &
-sge::ogl::glx::context::get()
+sge::opengl::glx::context::get()
 {
 	return c;
 }

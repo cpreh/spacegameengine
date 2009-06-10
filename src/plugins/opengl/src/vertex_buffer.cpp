@@ -26,10 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/foreach.hpp>
 
 SGE_OPENGL_INSTANTIATE_BASIC_BUFFER(
-	sge::ogl::vertex_buffer_type,
-	sge::ogl::vb_ib_vbo_impl)
+	sge::opengl::vertex_buffer_type,
+	sge::opengl::vb_ib_vbo_impl)
 
-sge::ogl::vertex_buffer::vertex_buffer(
+sge::opengl::vertex_buffer::vertex_buffer(
 	renderer::vf::dynamic_format const &format_,
 	size_type const sz,
 	resource_flag_type const flags)
@@ -42,7 +42,7 @@ sge::ogl::vertex_buffer::vertex_buffer(
 		0)
 {}
 
-void sge::ogl::vertex_buffer::set_format() const
+void sge::opengl::vertex_buffer::set_format() const
 {
 	buf.bind_me();
 	format_.use_me(
@@ -50,8 +50,8 @@ void sge::ogl::vertex_buffer::set_format() const
 	);
 }
 
-sge::ogl::vertex_buffer::view_type const
-sge::ogl::vertex_buffer::lock(
+sge::opengl::vertex_buffer::view_type const
+sge::opengl::vertex_buffer::lock(
 	lock_flag_type const flags,
 	size_type const offset,
 	size_type const range)
@@ -68,8 +68,8 @@ sge::ogl::vertex_buffer::lock(
 		format());
 }
 
-sge::ogl::vertex_buffer::const_view_type const
-sge::ogl::vertex_buffer::lock(
+sge::opengl::vertex_buffer::const_view_type const
+sge::opengl::vertex_buffer::lock(
 	size_type const offset,
 	size_type const range) const
 {
@@ -85,7 +85,7 @@ sge::ogl::vertex_buffer::lock(
 }
 
 void
-sge::ogl::vertex_buffer::unlock() const
+sge::opengl::vertex_buffer::unlock() const
 {
 	renderer::vf::dynamic_ordered_element_list const &elems(
 		format().elements());
@@ -107,20 +107,20 @@ sge::ogl::vertex_buffer::unlock() const
 	buf.unlock();
 }
 
-sge::ogl::vertex_buffer::size_type
-sge::ogl::vertex_buffer::size() const
+sge::opengl::vertex_buffer::size_type
+sge::opengl::vertex_buffer::size() const
 {
 	return buf.size();
 }
 
-sge::ogl::vertex_buffer::resource_flag_type
-sge::ogl::vertex_buffer::flags() const
+sge::opengl::vertex_buffer::resource_flag_type
+sge::opengl::vertex_buffer::flags() const
 {
 	return buf.flags();
 }
 
 sge::renderer::vf::dynamic_format const &
-sge::ogl::vertex_buffer::format() const
+sge::opengl::vertex_buffer::format() const
 {
 	return format_.get();
 }

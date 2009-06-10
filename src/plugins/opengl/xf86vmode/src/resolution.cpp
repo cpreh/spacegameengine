@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-sge::ogl::xf86vmode::resolution::resolution(
+sge::opengl::xf86vmode::resolution::resolution(
 	x11::display_ptr const dsp,
 	int const screen,
 	XF86VidModeModeInfo const &new_mode,
@@ -49,7 +49,7 @@ sge::ogl::xf86vmode::resolution::resolution(
 		0);
 }
 
-sge::ogl::xf86vmode::resolution::~resolution()
+sge::opengl::xf86vmode::resolution::~resolution()
 {
 	XF86VidModeSwitchToMode(
 		dsp->get(),

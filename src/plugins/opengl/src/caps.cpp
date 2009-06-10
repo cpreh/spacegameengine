@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/text.hpp>
 
-sge::ogl::caps_auto_ptr
-sge::ogl::create_caps()
+sge::opengl::caps_auto_ptr
+sge::opengl::create_caps()
 {
 	GLint const max_texture_size(
 		get_int(

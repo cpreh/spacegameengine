@@ -22,14 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic_vector.hpp>
 #include <sge/renderer/vf/dynamic_color.hpp>
 
-GLint sge::ogl::vf::convert_num_elements::operator()(
+GLint sge::opengl::vf::convert_num_elements::operator()(
 	renderer::vf::dynamic_vector const &v) const
 {
 	return static_cast<GLint>(
 		v.elements());
 }
 
-GLint sge::ogl::vf::convert_num_elements::operator()(
+GLint sge::opengl::vf::convert_num_elements::operator()(
 	renderer::vf::dynamic_color const &) const
 {
 	return 4;

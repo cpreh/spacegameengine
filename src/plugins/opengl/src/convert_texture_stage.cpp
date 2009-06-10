@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 
 GLenum
-sge::ogl::convert_texture_stage(
+sge::opengl::convert_texture_stage(
 	renderer::texture_stage_op::type const op)
 {
 	switch(op) {
@@ -38,7 +38,7 @@ sge::ogl::convert_texture_stage(
 }
 
 GLenum
-sge::ogl::convert_texture_stage(
+sge::opengl::convert_texture_stage(
 	renderer::texture_stage_op_value::type const value)
 {
 	switch(value) {
@@ -66,7 +66,7 @@ sge::ogl::convert_texture_stage(
 }
 
 GLenum
-sge::ogl::convert_texture_stage(
+sge::opengl::convert_texture_stage(
 	renderer::texture_stage_arg::type const arg)
 {
 	switch(arg) {
@@ -89,7 +89,7 @@ sge::ogl::convert_texture_stage(
 }
 
 GLenum
-sge::ogl::convert_texture_stage(
+sge::opengl::convert_texture_stage(
 	renderer::texture_stage_arg_value::type const value)
 {
 	switch(value) {

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-namespace ogl
+namespace opengl
 {
 
 typedef auto_ptr<texture_lock> texture_lock_auto_ptr;

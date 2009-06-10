@@ -51,9 +51,9 @@ bool have_cube_texture_;
 
 }
 
-template class sge::ogl::basic_texture<sge::renderer::cube_texture>;
+template class sge::opengl::basic_texture<sge::renderer::cube_texture>;
 
-sge::ogl::cube_texture::cube_texture(
+sge::opengl::cube_texture::cube_texture(
 	size_type const sz,
 	image::color::format::type const format,
 	renderer::filter::texture const &filter,
@@ -68,7 +68,7 @@ sge::ogl::cube_texture::cube_texture(
 	locked_texture(0)
 {
 	if(!have_cube_texture())
-		sge::ogl::on_not_supported(
+		sge::opengl::on_not_supported(
 			SGE_TEXT("cube texture"),
 			SGE_TEXT("1.3"),
 	       		SGE_TEXT("gl_arb_cube_texture"));
@@ -99,7 +99,7 @@ sge::ogl::cube_texture::cube_texture(
 }
 
 sge::image::view::object const
-sge::ogl::cube_texture::lock(
+sge::opengl::cube_texture::lock(
 	renderer::cube_side::type const side,
 	renderer::lock_rect const &src,
 	lock_flag_type const flags)
@@ -113,7 +113,7 @@ sge::ogl::cube_texture::lock(
 }
 
 sge::image::view::const_object const
-sge::ogl::cube_texture::lock(
+sge::opengl::cube_texture::lock(
 	renderer::cube_side::type const side,
 	renderer::lock_rect const &src) const
 {
@@ -124,7 +124,7 @@ sge::ogl::cube_texture::lock(
 		src);
 }
 
-void sge::ogl::cube_texture::unlock() const
+void sge::opengl::cube_texture::unlock() const
 {
 	check_locked();
 
@@ -132,27 +132,27 @@ void sge::ogl::cube_texture::unlock() const
 	locked_texture = 0;
 }
 
-sge::ogl::cube_texture::size_type
-sge::ogl::cube_texture::border_size() const
+sge::opengl::cube_texture::size_type
+sge::opengl::cube_texture::border_size() const
 {
 	return sz;
 }
 
-void sge::ogl::cube_texture::check_locked() const
+void sge::opengl::cube_texture::check_locked() const
 {
 	if(!locked_texture)
 		throw exception(
 			SGE_TEXT("ogl::cube_texture: not locked!"));
 }
 
-void sge::ogl::cube_texture::check_not_locked() const
+void sge::opengl::cube_texture::check_not_locked() const
 {
 	if(locked_texture)
 		throw exception(
 			SGE_TEXT("ogl::cube_texture: already locked!"));
 }
 
-void sge::ogl::disable_cube_texture()
+void sge::opengl::disable_cube_texture()
 {
 	if(have_cube_texture())
 		disable(cube_texture_type());
@@ -165,9 +165,9 @@ void initialize_cube_texture()
 {
 	SGE_FUNCTION_ONCE
 
-	if(sge::ogl::glew_is_supported("GL_VERSION_1_3"))
+	if(sge::opengl::glew_is_supported("GL_VERSION_1_3"))
 		gl_cube_texture_type = GL_TEXTURE_CUBE_MAP;
-	else if(sge::ogl::glew_is_supported("GL_ARB_texture_cube_map"))
+	else if(sge::opengl::glew_is_supported("GL_ARB_texture_cube_map"))
 		gl_cube_texture_type = GL_TEXTURE_CUBE_MAP_ARB;
 	else
 		return;

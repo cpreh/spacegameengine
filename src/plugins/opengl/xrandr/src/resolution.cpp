@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../resolution.hpp"
 #include "../set_resolution.hpp"
 
-sge::ogl::xrandr::resolution::resolution(
+sge::opengl::xrandr::resolution::resolution(
 	sge::x11::window_ptr const wnd,
 	configuration_ptr const config,
 	mode const &new_mode,
@@ -37,7 +37,7 @@ sge::ogl::xrandr::resolution::resolution(
 		new_mode);
 }
 
-sge::ogl::xrandr::resolution::~resolution()
+sge::opengl::xrandr::resolution::~resolution()
 {
 	set_resolution(
 		wnd,

@@ -33,14 +33,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-sge::ogl::target::target()
+sge::opengl::target::target()
 {}
 
-sge::ogl::target::~target()
+sge::opengl::target::~target()
 {}
 
 sge::image::view::const_object const
-sge::ogl::target::lock(
+sge::opengl::target::lock(
 	renderer::lock_rect const &dest) const
 {
 	if(!buffer.empty())
@@ -78,7 +78,7 @@ sge::ogl::target::lock(
 	);
 }
 
-void sge::ogl::target::unlock() const
+void sge::opengl::target::unlock() const
 {
 	buffer.free_memory();
 }

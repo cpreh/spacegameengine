@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/display.hpp>
 #include <sge/renderer/display_mode.hpp>
 
-sge::ogl::x11::resolution::xf86_vmode::xf86_vmode(
+sge::opengl::x11::resolution::xf86_vmode::xf86_vmode(
 	renderer::display_mode const &mode,
 	sge::x11::display_ptr const display,
 	int const screen)

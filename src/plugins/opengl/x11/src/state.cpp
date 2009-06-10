@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/make_shared_ptr.hpp>
 #include <boost/bind.hpp>
 
-sge::ogl::x11::state::state(
+sge::opengl::x11::state::state(
 	renderer::parameters const &param,
 	renderer::adapter_type const adapter,
 	window::instance_ptr const wnd_,
@@ -104,7 +104,7 @@ sge::ogl::x11::state::state(
 	display->sync();
 }
 
-void sge::ogl::x11::state::swap_buffers()
+void sge::opengl::x11::state::swap_buffers()
 {
 	// TODO: how to get the error code here?
 		
@@ -114,7 +114,7 @@ void sge::ogl::x11::state::swap_buffers()
 	);
 }
 
-void sge::ogl::x11::state::reset_viewport_on_map(
+void sge::opengl::x11::state::reset_viewport_on_map(
 	XEvent const &)
 {
 	set_viewport(
@@ -122,7 +122,7 @@ void sge::ogl::x11::state::reset_viewport_on_map(
 	);
 }
 
-void sge::ogl::x11::state::reset_viewport_on_configure(
+void sge::opengl::x11::state::reset_viewport_on_configure(
 	XEvent const &e)
 {
 	XConfigureEvent const &r(

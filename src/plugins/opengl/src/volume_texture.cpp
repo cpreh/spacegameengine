@@ -39,9 +39,9 @@ GLenum gl_volume_texture_type;
 
 }
 
-template class sge::ogl::basic_texture<sge::renderer::volume_texture>;
+template class sge::opengl::basic_texture<sge::renderer::volume_texture>;
 
-sge::ogl::volume_texture::volume_texture(
+sge::opengl::volume_texture::volume_texture(
 	image_view_array const &src,
 	renderer::filter_args const &filter,
 	resource_flag_type const flags)
@@ -54,13 +54,13 @@ sge::ogl::volume_texture::volume_texture(
 	//set_data(src);
 }
 
-sge::ogl::volume_texture::box_type const
-sge::ogl::volume_texture::box() const
+sge::opengl::volume_texture::box_type const
+sge::opengl::volume_texture::box() const
 {
 	return box_;
 }
 
-void sge::ogl::volume_texture::data(
+void sge::opengl::volume_texture::data(
 	image_view_array const &src)
 {
 /*	pre_setdata();
@@ -85,7 +85,7 @@ void sge::ogl::volume_texture::data(
 		// TODO:*/
 }
 
-void sge::ogl::volume_texture::do_sub_data(
+void sge::opengl::volume_texture::do_sub_data(
 	image_view_array const &src,
 	renderer::lock_box const &b)
 {
@@ -112,18 +112,18 @@ void sge::ogl::volume_texture::do_sub_data(
 		src);*/
 }
 
-void sge::ogl::volume_texture::lock(
+void sge::opengl::volume_texture::lock(
 	lock_flag_type const flags)
 {
 }
 
-void sge::ogl::volume_texture::lock(
+void sge::opengl::volume_texture::lock(
 	renderer::lock_box const &b,
 	lock_flag_type const flags)
 {
 }
 
-void sge::ogl::volume_texture::unlock()
+void sge::opengl::volume_texture::unlock()
 {
 }
 
@@ -139,7 +139,7 @@ void initialize_volume_texture()
 	else if(GLEW_EXT_texture3D)
 		gl_volume_texture_type = GL_TEXTURE_3D_EXT;
 	else
-		sge::ogl::on_not_supported(
+		sge::opengl::on_not_supported(
 			SGE_TEXT("volume_texture"),
 			SGE_TEXT("1.2"),
 			SGE_TEXT("gl_ext_texture3d"));

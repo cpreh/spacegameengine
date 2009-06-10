@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 
 GLenum
-sge::ogl::convert_fog_float_state(
+sge::opengl::convert_fog_float_state(
 	renderer::state::float_::type const &s)
 {
 	namespace rs = renderer::state::float_::available_states;

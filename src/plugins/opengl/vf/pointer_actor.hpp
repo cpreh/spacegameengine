@@ -35,7 +35,7 @@ class dynamic_ordered_element;
 }
 }
 
-namespace ogl
+namespace opengl
 {
 namespace vf
 {

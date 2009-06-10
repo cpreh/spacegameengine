@@ -61,7 +61,7 @@ public:
 template<
 	typename T
 >
-sge::ogl::index_buffer<T>::index_buffer(
+sge::opengl::index_buffer<T>::index_buffer(
 	size_type const sz,
 	resource_flag_type const flags)
 :
@@ -76,7 +76,7 @@ template<
 	typename T
 >
 GLenum
-sge::ogl::index_buffer<T>::gl_format() const
+sge::opengl::index_buffer<T>::gl_format() const
 {
 	return traits<
 		T
@@ -87,7 +87,7 @@ template<
 	typename T
 >
 void *
-sge::ogl::index_buffer<T>::buffer_offset(
+sge::opengl::index_buffer<T>::buffer_offset(
 	size_type const sz) const
 {
 	return buf.buffer_offset(
@@ -98,7 +98,7 @@ template<
 	typename T
 >
 void
-sge::ogl::index_buffer<T>::bind_me() const
+sge::opengl::index_buffer<T>::bind_me() const
 {
 	buf.bind_me();
 }
@@ -106,8 +106,8 @@ sge::ogl::index_buffer<T>::bind_me() const
 template<
 	typename T
 >
-typename sge::ogl::index_buffer<T>::view_type const
-sge::ogl::index_buffer<T>::lock(
+typename sge::opengl::index_buffer<T>::view_type const
+sge::opengl::index_buffer<T>::lock(
 	lock_flag_type const flags,
 	size_type const offset,
 	size_type const range)
@@ -126,8 +126,8 @@ sge::ogl::index_buffer<T>::lock(
 template<
 	typename T
 >
-typename sge::ogl::index_buffer<T>::const_view_type const
-sge::ogl::index_buffer<T>::lock(
+typename sge::opengl::index_buffer<T>::const_view_type const
+sge::opengl::index_buffer<T>::lock(
 	size_type const offset,
 	size_type const range) const
 {
@@ -145,7 +145,7 @@ template<
 	typename T
 >
 void
-sge::ogl::index_buffer<T>::unlock() const
+sge::opengl::index_buffer<T>::unlock() const
 {
 	buf.unlock();
 }
@@ -153,8 +153,8 @@ sge::ogl::index_buffer<T>::unlock() const
 template<
 	typename T
 >
-typename sge::ogl::index_buffer<T>::size_type
-sge::ogl::index_buffer<T>::size() const
+typename sge::opengl::index_buffer<T>::size_type
+sge::opengl::index_buffer<T>::size() const
 {
 	return buf.size();
 }
@@ -162,8 +162,8 @@ sge::ogl::index_buffer<T>::size() const
 template<
 	typename T
 >
-typename sge::ogl::index_buffer<T>::resource_flag_type
-sge::ogl::index_buffer<T>::flags() const
+typename sge::opengl::index_buffer<T>::resource_flag_type
+sge::opengl::index_buffer<T>::flags() const
 {
 	return buf.flags();
 }
@@ -172,7 +172,7 @@ template<
 	typename T
 >
 sge::renderer::index::format::type
-sge::ogl::index_buffer<T>::format() const
+sge::opengl::index_buffer<T>::format() const
 {
 	return traits<
 		T
@@ -180,10 +180,10 @@ sge::ogl::index_buffer<T>::format() const
 }
 
 #define SGE_OPENGL_INSTANTIATE_INDEX_BUFFER(t) \
-template class sge::ogl::index_buffer<t>; \
-template class sge::ogl::basic_buffer<\
-	sge::ogl::index_buffer_type,\
-	sge::ogl::vb_ib_vbo_impl,\
+template class sge::opengl::index_buffer<t>; \
+template class sge::opengl::basic_buffer<\
+	sge::opengl::index_buffer_type,\
+	sge::opengl::vb_ib_vbo_impl,\
 	t\
 >;
 

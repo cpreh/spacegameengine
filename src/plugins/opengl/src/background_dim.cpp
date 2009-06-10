@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 
 sge::renderer::dim_type const
-sge::ogl::background_dim(
+sge::opengl::background_dim(
 	sge::renderer::viewport_mode::type const m,
 	sge::window::dim_type const &d,
 	sge::renderer::screen_size const &sz)

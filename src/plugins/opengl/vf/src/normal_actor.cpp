@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <sge/text.hpp>
 
-sge::ogl::vf::normal_actor::normal_actor(
+sge::opengl::vf::normal_actor::normal_actor(
 	renderer::vf::dynamic_ordered_element const &e,
 	renderer::vf::vertex_size const stride)
 :
@@ -40,7 +40,7 @@ sge::ogl::vf::normal_actor::normal_actor(
 		);
 }
 
-void sge::ogl::vf::normal_actor::operator()(
+void sge::opengl::vf::normal_actor::operator()(
 	client_state_combiner &c) const
 {
 	glNormalPointer(

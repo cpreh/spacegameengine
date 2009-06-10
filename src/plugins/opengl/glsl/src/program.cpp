@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	bool Native
 >
-sge::ogl::glsl::program<Native>::program(
+sge::opengl::glsl::program<Native>::program(
 	renderer::glsl::optional_string const &vs_source,
 	renderer::glsl::optional_string const &ps_source)
 :
@@ -73,13 +73,13 @@ sge::ogl::glsl::program<Native>::program(
 template<
 	bool Native
 >
-sge::ogl::glsl::program<Native>::~program()
+sge::opengl::glsl::program<Native>::~program()
 {}
 
 template<
 	bool Native
 >
-void sge::ogl::glsl::program<Native>::use(
+void sge::opengl::glsl::program<Native>::use(
 	renderer::glsl::program_ptr const p)
 {
 	if(!p)
@@ -96,7 +96,7 @@ void sge::ogl::glsl::program<Native>::use(
 template<
 	bool Native
 >
-void sge::ogl::glsl::program<Native>::attach_shader(
+void sge::opengl::glsl::program<Native>::attach_shader(
 	shader_ptr const s)
 {
 	auto_ptr<
@@ -116,7 +116,7 @@ void sge::ogl::glsl::program<Native>::attach_shader(
 template<
 	bool Native
 >
-void sge::ogl::glsl::program<Native>::link()
+void sge::opengl::glsl::program<Native>::link()
 {
 	link_program<Native>(id());
 
@@ -144,14 +144,14 @@ void sge::ogl::glsl::program<Native>::link()
 }
 
 template<bool Native>
-void sge::ogl::glsl::program<Native>::use()
+void sge::opengl::glsl::program<Native>::use()
 {
 	use_program<Native>(id());
 }
 
 template<bool Native>
 sge::renderer::glsl::uniform::variable_ptr const
-sge::ogl::glsl::program<Native>::uniform(
+sge::opengl::glsl::program<Native>::uniform(
 	renderer::glsl::string const &name)
 {
 	return make_shared_ptr<
@@ -167,7 +167,7 @@ sge::ogl::glsl::program<Native>::uniform(
 template<
 	bool Native
 >
-void sge::ogl::glsl::program<Native>::use_ffp()
+void sge::opengl::glsl::program<Native>::use_ffp()
 {
 	use_program<Native>(0);
 }
@@ -175,11 +175,11 @@ void sge::ogl::glsl::program<Native>::use_ffp()
 template<
 	bool Native
 >
-typename sge::ogl::glsl::traits<Native>::handle
-sge::ogl::glsl::program<Native>::id() const
+typename sge::opengl::glsl::traits<Native>::handle
+sge::opengl::glsl::program<Native>::id() const
 {
 	return instance_.id();
 }
 
-template class sge::ogl::glsl::program<true>;
-template class sge::ogl::glsl::program<false>;
+template class sge::opengl::glsl::program<true>;
+template class sge::opengl::glsl::program<false>;

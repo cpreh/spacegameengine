@@ -51,7 +51,7 @@ void check_bound(GLenum type);
 
 }
 
-GLuint sge::ogl::software_vbo::gen_buffer()
+GLuint sge::opengl::software_vbo::gen_buffer()
 {
 	buffers.insert(
 		buffer_map::value_type(
@@ -61,7 +61,7 @@ GLuint sge::ogl::software_vbo::gen_buffer()
 	return nextid++;
 }
 
-void sge::ogl::software_vbo::delete_buffer(
+void sge::opengl::software_vbo::delete_buffer(
 	GLuint const id)
 {
 	buffer_map::iterator const it = buffer_object(id);
@@ -69,14 +69,14 @@ void sge::ogl::software_vbo::delete_buffer(
 	buffers.erase(it);
 }
 
-void sge::ogl::software_vbo::bind_buffer(
+void sge::opengl::software_vbo::bind_buffer(
 	GLenum const type,
 	GLuint const id)
 {
 	bound_buffer(type) = id;
 }
 
-void *sge::ogl::software_vbo::map_buffer(
+void *sge::opengl::software_vbo::map_buffer(
 	GLenum const type,
 	GLenum)
 {
@@ -84,13 +84,13 @@ void *sge::ogl::software_vbo::map_buffer(
 	return buffer_object(bound_buffer(type))->second;
 }
 
-void sge::ogl::software_vbo::unmap_buffer(
+void sge::opengl::software_vbo::unmap_buffer(
 	GLenum const type)
 {
 	check_bound(type);
 }
 
-void sge::ogl::software_vbo::buffer_data(
+void sge::opengl::software_vbo::buffer_data(
 	GLenum const type,
 	GLsizei const size,
 	void const *const data,
@@ -103,7 +103,7 @@ void sge::ogl::software_vbo::buffer_data(
 		buffer_sub_data(type, 0, size, data);
 }
 
-void sge::ogl::software_vbo::buffer_sub_data(
+void sge::opengl::software_vbo::buffer_sub_data(
 	GLenum const type,
 	GLsizei const first,
 	GLsizei const size,
@@ -119,14 +119,14 @@ void sge::ogl::software_vbo::buffer_sub_data(
 		buffer_object(bound_buffer(type))->second);
 }
 
-void *sge::ogl::software_vbo::buffer_offset(
+void *sge::opengl::software_vbo::buffer_offset(
 	GLenum const type,
 	GLsizei const offset) const
 {
 	return buffer_object(bound_buffer(type))->second + offset;
 }
 
-GLenum sge::ogl::software_vbo::unique_id()
+GLenum sge::opengl::software_vbo::unique_id()
 {
 	static GLenum id = 0;
 	return id++;
@@ -138,13 +138,13 @@ namespace
 GLuint &bound_buffer(
 	GLenum const type)
 {
-	if(type == sge::ogl::vertex_buffer_type())
+	if(type == sge::opengl::vertex_buffer_type())
 		return bound_vb;
-	if(type == sge::ogl::index_buffer_type())
+	if(type == sge::opengl::index_buffer_type())
 		return bound_ib;
-	if(type == sge::ogl::pixel_pack_buffer_type())
+	if(type == sge::opengl::pixel_pack_buffer_type())
 		return bound_pack;
-	if(type == sge::ogl::pixel_unpack_buffer_type())
+	if(type == sge::opengl::pixel_unpack_buffer_type())
 		return bound_unpack;
 	throw sge::exception(SGE_TEXT("bound_buffer(): invalid type!"));
 }

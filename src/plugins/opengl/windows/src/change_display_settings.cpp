@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 #include <cstring>
 
-void sge::ogl::windows::change_display_settings(
+void sge::opengl::windows::change_display_settings(
 	renderer::display_mode const &mode)
 {
 	DEVMODE settings;

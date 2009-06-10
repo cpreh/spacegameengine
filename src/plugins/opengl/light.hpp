@@ -31,7 +31,7 @@ namespace renderer
 class light;
 }
 
-namespace ogl
+namespace opengl
 {
 
 void set_light(

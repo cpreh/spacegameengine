@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 
 template<>
-sge::ogl::glsl::traits<false>::handle
-sge::ogl::glsl::create_shader<false>(
+sge::opengl::glsl::traits<false>::handle
+sge::opengl::glsl::create_shader<false>(
 	GLenum const type)
 {
 	traits<false>::handle const ret(
@@ -43,7 +43,7 @@ sge::ogl::glsl::create_shader<false>(
 }
 
 template<>
-void sge::ogl::glsl::shader_source<false>(
+void sge::opengl::glsl::shader_source<false>(
 	traits<false>::handle const shader,
 	GLint const num_strings,
 	char const **const strings,
@@ -63,7 +63,7 @@ void sge::ogl::glsl::shader_source<false>(
 }
 
 template<>
-void sge::ogl::glsl::compile_shader<false>(
+void sge::opengl::glsl::compile_shader<false>(
 	traits<false>::handle const shader)
 {
 	glCompileShaderARB(shader);
@@ -75,7 +75,7 @@ void sge::ogl::glsl::compile_shader<false>(
 }
 
 template<>
-GLint sge::ogl::glsl::shader_integer<false>(
+GLint sge::opengl::glsl::shader_integer<false>(
 	GLenum const what,
 	traits<false>::handle const shader)
 {
@@ -92,7 +92,7 @@ GLint sge::ogl::glsl::shader_integer<false>(
 }
 
 template<>
-GLint sge::ogl::glsl::compile_status<false>(
+GLint sge::opengl::glsl::compile_status<false>(
 	traits<false>::handle const shader)
 {
 	return shader_integer<false>(
@@ -102,7 +102,7 @@ GLint sge::ogl::glsl::compile_status<false>(
 }
 
 template<>
-void sge::ogl::glsl::shader_info_log<false>(
+void sge::opengl::glsl::shader_info_log<false>(
 	traits<false>::handle const shader,
 	GLint const maxlen,
 	GLint *const len,
@@ -122,7 +122,7 @@ void sge::ogl::glsl::shader_info_log<false>(
 }
 
 template<>
-void sge::ogl::glsl::delete_shader<false>(
+void sge::opengl::glsl::delete_shader<false>(
 	traits<false>::handle const shader)
 {
 	glDeleteObjectARB(shader);

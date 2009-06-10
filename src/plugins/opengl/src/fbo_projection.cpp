@@ -42,7 +42,7 @@ public:
 }
 
 sge::renderer::any_matrix const
-sge::ogl::fbo_projection(
+sge::opengl::fbo_projection(
 	renderer::any_matrix const &m)
 {
 	return variant::apply_unary(

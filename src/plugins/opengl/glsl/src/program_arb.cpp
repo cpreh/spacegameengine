@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 
 template<>
-sge::ogl::glsl::traits<false>::handle
-sge::ogl::glsl::create_program<false>()
+sge::opengl::glsl::traits<false>::handle
+sge::opengl::glsl::create_program<false>()
 {
 	traits<false>::handle const ret(
 		glCreateProgramObjectARB()
@@ -41,20 +41,20 @@ sge::ogl::glsl::create_program<false>()
 
 template<>
 GLenum 
-sge::ogl::glsl::vertex_shader_type<false>()
+sge::opengl::glsl::vertex_shader_type<false>()
 {
 	return GL_VERTEX_SHADER_ARB;
 }
 
 template<>
 GLenum 
-sge::ogl::glsl::pixel_shader_type<false>()
+sge::opengl::glsl::pixel_shader_type<false>()
 {
 	return GL_FRAGMENT_SHADER_ARB;
 }
 
 template<>
-void sge::ogl::glsl::detach_shader<false>(
+void sge::opengl::glsl::detach_shader<false>(
 	traits<false>::handle const program,
 	traits<false>::handle const shader)
 {
@@ -67,7 +67,7 @@ void sge::ogl::glsl::detach_shader<false>(
 }
 
 template<>
-void sge::ogl::glsl::delete_program<false>(
+void sge::opengl::glsl::delete_program<false>(
 	traits<false>::handle const program)
 {
 	glDeleteObjectARB(program);
@@ -79,7 +79,7 @@ void sge::ogl::glsl::delete_program<false>(
 }
 
 template<>
-void sge::ogl::glsl::attach_shader<false>(
+void sge::opengl::glsl::attach_shader<false>(
 	traits<false>::handle const program,
 	traits<false>::handle const shader)
 {
@@ -92,7 +92,7 @@ void sge::ogl::glsl::attach_shader<false>(
 }
 
 template<>
-void sge::ogl::glsl::link_program<false>(
+void sge::opengl::glsl::link_program<false>(
 	traits<false>::handle const program)
 {
 	glLinkProgramARB(program);
@@ -104,7 +104,7 @@ void sge::ogl::glsl::link_program<false>(
 }
 
 template<>
-GLint sge::ogl::glsl::program_integer<false>(
+GLint sge::opengl::glsl::program_integer<false>(
 	GLenum const what,
 	traits<false>::handle const program)
 {
@@ -121,7 +121,7 @@ GLint sge::ogl::glsl::program_integer<false>(
 }
 
 template<>
-GLint sge::ogl::glsl::link_status<false>(
+GLint sge::opengl::glsl::link_status<false>(
 	traits<false>::handle const program)
 {
 	return program_integer<false>(
@@ -130,7 +130,7 @@ GLint sge::ogl::glsl::link_status<false>(
 }
 
 template<>
-void sge::ogl::glsl::use_program<false>(
+void sge::opengl::glsl::use_program<false>(
 	traits<false>::handle const program)
 {
 	glUseProgramObjectARB(program);
@@ -142,7 +142,7 @@ void sge::ogl::glsl::use_program<false>(
 }
 
 template<>
-void sge::ogl::glsl::program_info_log<false>(
+void sge::opengl::glsl::program_info_log<false>(
 	traits<false>::handle const program,
 	GLint const maxlen,
 	GLint *const len,

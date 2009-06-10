@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 #include <sge/exception.hpp>
 
-sge::ogl::xf86vmode::resolution_ptr const
-sge::ogl::xf86vmode::choose_mode(
+sge::opengl::xf86vmode::resolution_ptr const
+sge::opengl::xf86vmode::choose_mode(
 	renderer::display_mode const &pmode,
 	modes const &m)
 {

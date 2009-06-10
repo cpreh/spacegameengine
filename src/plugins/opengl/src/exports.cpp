@@ -49,7 +49,7 @@ plugin_version_info(
 SGE_EXPORT_SYMBOL sge::renderer::system *
 create_renderer_system()
 {
-	return new sge::ogl::system();
+	return new sge::opengl::system();
 }
 
 }

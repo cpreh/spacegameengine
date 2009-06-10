@@ -24,6 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "basic_buffer_impl.hpp"
 
 #define SGE_OPENGL_INSTANTIATE_BASIC_BUFFER(f, v)\
-template class sge::ogl::basic_buffer<f, v>;\
+template class sge::opengl::basic_buffer<f, v>;\
 
 #endif

@@ -73,7 +73,7 @@ void tex_env_f(
 
 }
 
-void sge::ogl::tex_envf_ext(
+void sge::opengl::tex_envf_ext(
 	GLenum const arg,
 	GLenum const value)
 {
@@ -90,7 +90,7 @@ void sge::ogl::tex_envf_ext(
 	);
 }
 
-void sge::ogl::set_texture_stage_scale(
+void sge::opengl::set_texture_stage_scale(
 	renderer::texture_stage_op_value::type const value)
 {
 	GLenum const scale = stage_value_scale(value);
@@ -102,7 +102,7 @@ template<
 	typename Arg,
 	typename Value
 >
-void sge::ogl::set_texture_stage(
+void sge::opengl::set_texture_stage(
 	renderer::stage_type const stage,
 	Arg const arg,
 	Value const value)
@@ -116,7 +116,7 @@ void sge::ogl::set_texture_stage(
 }
 
 #define SGE_OPENGL_INSTANTIATE_SET_TEXTURE_STAGE(arg, value)\
-template void sge::ogl::set_texture_stage(\
+template void sge::opengl::set_texture_stage(\
 	sge::renderer::stage_type,\
 	arg,\
 	value);

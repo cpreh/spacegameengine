@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/iconv.hpp>
 
 sge::string const
-sge::ogl::get_string(
+sge::opengl::get_string(
 	GLenum const what)
 {
 	GLubyte const *const ret(

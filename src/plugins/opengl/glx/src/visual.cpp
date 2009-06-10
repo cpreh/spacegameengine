@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../visual.hpp"
 
-sge::ogl::glx::visual::visual(
+sge::opengl::glx::visual::visual(
 	XVisualInfo *const info_)
 :
 	x11::visual(
@@ -28,13 +28,13 @@ sge::ogl::glx::visual::visual(
 	info_(info_)
 {}
 
-sge::ogl::glx::visual::~visual()
+sge::opengl::glx::visual::~visual()
 {
 	XFree(info_);
 }
 
 XVisualInfo const &
-sge::ogl::glx::visual::info() const
+sge::opengl::glx::visual::info() const
 {
 	return *info_;
 }

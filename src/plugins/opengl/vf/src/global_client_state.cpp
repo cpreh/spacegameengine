@@ -25,18 +25,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-sge::ogl::vf::client_state state;
+sge::opengl::vf::client_state state;
 
 }
 
-void sge::ogl::vf::global_client_state(
+void sge::opengl::vf::global_client_state(
 	client_state const &s)
 {
 	state = s;
 }
 
-sge::ogl::vf::client_state const &
-sge::ogl::vf::global_client_state()
+sge::opengl::vf::client_state const &
+sge::opengl::vf::global_client_state()
 {
 	return state;
 }

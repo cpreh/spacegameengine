@@ -28,18 +28,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-sge::scoped_ptr<sge::ogl::vbo_base> impl;
+sge::scoped_ptr<sge::opengl::vbo_base> impl;
 
 }
 
-void sge::ogl::initialize_pbo()
+void sge::opengl::initialize_pbo()
 {
 	impl.reset(
 		create_vbo_impl(
-			sge::ogl::pbo_in_hardware()));
+			sge::opengl::pbo_in_hardware()));
 }
 
-GLenum sge::ogl::pixel_pack_buffer_type()
+GLenum sge::opengl::pixel_pack_buffer_type()
 {
 	static GLenum const type(
 		glew_is_supported(
@@ -53,7 +53,7 @@ GLenum sge::ogl::pixel_pack_buffer_type()
 	return type;
 }
 
-GLenum sge::ogl::pixel_unpack_buffer_type()
+GLenum sge::opengl::pixel_unpack_buffer_type()
 {
 	static GLenum const type(
 		glew_is_supported(
@@ -67,12 +67,12 @@ GLenum sge::ogl::pixel_unpack_buffer_type()
 	return type;
 }
 
-sge::ogl::vbo_base& sge::ogl::pbo_impl()
+sge::opengl::vbo_base& sge::opengl::pbo_impl()
 {
 	return *impl;
 }
 
-bool sge::ogl::pbo_in_hardware()
+bool sge::opengl::pbo_in_hardware()
 {
 	return glew_is_supported("GL_VERSION_2_1")
 		|| glew_is_supported("GL_ARB_pixel_buffer_object");

@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-sge::ogl::lock_method::type
-sge::ogl::convert_lock_method(
+sge::opengl::lock_method::type
+sge::opengl::convert_lock_method(
 	renderer::lock_flag_t const m)
 {
 	switch(m) {
@@ -37,7 +37,7 @@ sge::ogl::convert_lock_method(
 	}
 }
 
-GLuint sge::ogl::ogl_lock_method(
+GLuint sge::opengl::ogl_lock_method(
 	lock_method::type const m)
 {
 	switch(m) {
@@ -53,13 +53,13 @@ GLuint sge::ogl::ogl_lock_method(
 	}
 }
 
-bool sge::ogl::lock_flag_write(
+bool sge::opengl::lock_flag_write(
 	lock_method::type const m)
 {
 	return m != lock_method::readonly;
 }
 
-bool sge::ogl::lock_flag_read(
+bool sge::opengl::lock_flag_read(
 	lock_method::type const m)
 {
 	return m != lock_method::writeonly;

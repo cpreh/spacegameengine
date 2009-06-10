@@ -32,7 +32,7 @@ namespace renderer
 class parameters;
 }
 
-namespace ogl
+namespace opengl
 {
 namespace x11
 {

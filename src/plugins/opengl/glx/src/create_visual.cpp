@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-sge::ogl::glx::visual_ptr const
-sge::ogl::glx::create_visual(
+sge::opengl::glx::visual_ptr const
+sge::opengl::glx::create_visual(
 	x11::display_ptr const dsp,
 	int const screen,
 	int const *const param)

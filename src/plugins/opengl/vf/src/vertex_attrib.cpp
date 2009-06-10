@@ -38,7 +38,7 @@ void initialize();
 
 }
 
-void sge::ogl::vf::vertex_attrib_pointer(
+void sge::opengl::vf::vertex_attrib_pointer(
 	GLuint const index,
 	GLint const size,
 	GLenum const type,
@@ -63,7 +63,7 @@ void sge::ogl::vf::vertex_attrib_pointer(
 	)
 }
 
-void sge::ogl::vf::enable_vertex_attrib_array(
+void sge::opengl::vf::enable_vertex_attrib_array(
 	GLuint const index)
 {
 	initialize();
@@ -78,7 +78,7 @@ void sge::ogl::vf::enable_vertex_attrib_array(
 	)
 }
 
-void sge::ogl::vf::disable_vertex_attrib_array(
+void sge::opengl::vf::disable_vertex_attrib_array(
 	GLuint const index)
 {
 	initialize();
@@ -100,21 +100,21 @@ void initialize()
 {
 	SGE_FUNCTION_ONCE
 
-	if(sge::ogl::glew_is_supported("GL_VERSION_2_0"))
+	if(sge::opengl::glew_is_supported("GL_VERSION_2_0"))
 	{
 		gl_vertex_attrib_pointer = glVertexAttribPointer;
 		gl_enable_vertex_attrib_array = glEnableVertexAttribArray;
 		gl_disable_vertex_attrib_array = glDisableVertexAttribArray;
 	
 	}
-	else if(sge::ogl::glew_is_supported("GL_ARB_vertex_shader"))
+	else if(sge::opengl::glew_is_supported("GL_ARB_vertex_shader"))
 	{
 		gl_vertex_attrib_pointer = glVertexAttribPointerARB;
 		gl_enable_vertex_attrib_array = glEnableVertexAttribArrayARB;
 		gl_disable_vertex_attrib_array = glDisableVertexAttribArrayARB;
 	}
 	else
-		sge::ogl::on_not_supported(
+		sge::opengl::on_not_supported(
 			SGE_TEXT("vertex attributes"),
 			SGE_TEXT("2.0"),
 			SGE_TEXT("gl_arb_vertex_shader")

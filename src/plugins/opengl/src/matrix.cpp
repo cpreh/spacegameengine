@@ -48,7 +48,7 @@ public:
 bool have_transpose()
 {
 	static bool const ret(
-		sge::ogl::glew_is_supported(
+		sge::opengl::glew_is_supported(
 			"GL_VERSION_1_3"
 		)
 	);
@@ -58,7 +58,7 @@ bool have_transpose()
 
 }
 
-void sge::ogl::set_matrix(
+void sge::opengl::set_matrix(
 	GLenum const mode,
 	renderer::any_matrix const &mat)
 {
@@ -66,7 +66,7 @@ void sge::ogl::set_matrix(
 	set_matrix(mat);
 }
 
-void sge::ogl::matrix_mode(
+void sge::opengl::matrix_mode(
 	GLenum const mode)
 {
 	glMatrixMode(mode);
@@ -77,7 +77,7 @@ void sge::ogl::matrix_mode(
 	)
 }
 
-void sge::ogl::set_matrix(
+void sge::opengl::set_matrix(
 	renderer::any_matrix const &mat)
 {
 	variant::apply_unary(

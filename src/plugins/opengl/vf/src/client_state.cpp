@@ -36,7 +36,7 @@ void insert_checked(
 
 }
 
-void sge::ogl::vf::client_state::enable(
+void sge::opengl::vf::client_state::enable(
 	GLenum const e)
 {
 	insert_checked(
@@ -44,7 +44,7 @@ void sge::ogl::vf::client_state::enable(
 		e);
 }
 
-void sge::ogl::vf::client_state::enable_attribute(
+void sge::opengl::vf::client_state::enable_attribute(
 	GLuint const i)
 {
 	insert_checked(
@@ -52,14 +52,14 @@ void sge::ogl::vf::client_state::enable_attribute(
 		i);
 }
 
-sge::ogl::vf::client_state::normal_state_set const &
-sge::ogl::vf::client_state::normal_states() const
+sge::opengl::vf::client_state::normal_state_set const &
+sge::opengl::vf::client_state::normal_states() const
 {
 	return normal_states_;
 }
 
-sge::ogl::vf::client_state::index_state_set const &
-sge::ogl::vf::client_state::attribute_states() const
+sge::opengl::vf::client_state::index_state_set const &
+sge::opengl::vf::client_state::attribute_states() const
 {
 	return attribute_states_;
 }
