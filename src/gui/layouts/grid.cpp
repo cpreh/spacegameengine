@@ -336,12 +336,24 @@ void sge::gui::layouts::grid::update_rolumn(
 		detail::grid_cache::rolumn_container::vector_type(
 			axis,
 			rolumn)).size += addition;
+			
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("added addition, plane dimensions are: ")
+		        << valid_cache().plane().dim());
 
 	for (
 		detail::grid_cache::child_plane::size_type i = 0; 
-		i < valid_cache().plane().dim()[axis]; 
+		i < valid_cache().plane().dim()[1-axis]; 
 		++i)
 	{
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << SGE_TEXT("swapping positions: ")
+							<< bool(axis)
+							<< SGE_TEXT(" and accessing ")
+							<< i << SGE_TEXT("x") << rolumn);
+
 		widgets::base * const w = 
 			field_swap_pos<
 				widgets::base*,
@@ -349,7 +361,7 @@ void sge::gui::layouts::grid::update_rolumn(
 				unsigned
 			>(
 				valid_cache().plane(),
-				static_cast<bool>(axis),
+				!static_cast<bool>(axis),
 				static_cast<unsigned>(
 					i),
 				static_cast<unsigned>(
