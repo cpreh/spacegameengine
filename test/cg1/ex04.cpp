@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/matrix/arithmetic.hpp>
 #include <sge/math/matrix/perspective.hpp>
 #include <sge/math/matrix/rotation_y.hpp>
-#include <sge/math/matrix/translation.hpp>
+#include <sge/math/matrix/look_at.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/vector/static.hpp>
 #include <sge/renderer/aspect.hpp>
@@ -54,6 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/cull_mode.hpp>
 #include <sge/renderer/state/depth_func.hpp>
+#include <sge/renderer/state/float.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/var.hpp>
@@ -162,10 +163,11 @@ try
 			sge::renderer::display_mode(
 				sge::renderer::screen_size(
 					1024,
-					768),
+					768
+				),
 				sge::renderer::bit_depth::depth32,
 				sge::renderer::refresh_rate_dont_care),
-			sge::renderer::depth_buffer::off,
+			sge::renderer::depth_buffer::d24,
 			sge::renderer::stencil_buffer::off,
 			sge::renderer::window_mode::windowed))
 		(sge::systems::parameterless::input)
@@ -308,6 +310,7 @@ try
 					0.f
 				)
 			)
+			(sge::renderer::state::float_::zbuffer_clear_val = 1.f)
 			(sge::renderer::state::color::clear_color = sge::image::color::colors::black())
 			(sge::renderer::state::cull_mode::back)
 			(sge::renderer::state::depth_func::less)
@@ -330,7 +333,7 @@ try
 				vec3f(
 					0.577350269f,
 					0.577350269f,
-					-2//0.577350269f
+					0.577350269f
 				),
 				vec3f(
 					0,
@@ -341,7 +344,7 @@ try
 				0.f,
 				0.f,
 				1.f,
-				90.f//sge::math::pi<float>()
+				180.f
 			)
 		);
 
@@ -390,16 +393,32 @@ try
 
 		angle += sge::math::twopi<float_type>() * rotation_time.update();
 
-		rend->transform(
-			sge::math::matrix::rotation_y(
-				angle
-			)
-			* sge::math::matrix::translation(
-				0.f,
-				0.f,
-				-1.5f
-			)
-		);
+		{
+			typedef sge::math::vector::static_<
+				float_type,
+				3
+			>::type vec3;
+
+			rend->transform(
+				sge::math::matrix::rotation_y(
+					angle
+				)
+				*
+				sge::math::matrix::look_at(
+					vec3(
+						0,
+						0,
+						3
+					),
+					vec3::null(),
+					vec3(
+						0,
+						1,
+						0
+					)
+				)
+			);
+		}
 					
 		sge::renderer::scoped_block const block_(
 			rend
