@@ -426,8 +426,6 @@ try
 
 		rend->render(
 			vb,
-			0,
-			vb->size(),
 			sge::renderer::nonindexed_primitive_type::triangle
 		);
 	}

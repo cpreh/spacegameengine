@@ -85,8 +85,11 @@ protected:
 	SGE_SYMBOL device();
 public:
 	virtual void begin_rendering() = 0;
+
 	virtual void end_rendering() = 0;
-	virtual void render(
+
+	virtual void
+	render(
 		const_vertex_buffer_ptr vb,
 		const_index_buffer_ptr ib,
 		size_type first_vertex,
@@ -94,11 +97,24 @@ public:
 		indexed_primitive_type::type ptype,
 		size_type primitive_count,
 		size_type first_index) = 0;
-	virtual void render(
+
+	SGE_SYMBOL void
+	render(
+		const_vertex_buffer_ptr,
+		const_index_buffer_ptr,
+		indexed_primitive_type::type);
+
+	virtual void
+	render(
 		const_vertex_buffer_ptr vb,
 		size_type first_vertex,
 		size_type num_vertices,
 		nonindexed_primitive_type::type ptype) = 0;
+	
+	SGE_SYMBOL void
+	render(
+		const_vertex_buffer_ptr,
+		nonindexed_primitive_type::type ptype);
 
 	virtual void state(
 		renderer::state::list const &) = 0;

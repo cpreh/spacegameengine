@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/index_buffer.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/indices_per_primitive.hpp>
 #include <sge/renderer/vf/dynamic_format.hpp>
 #include <sge/renderer/index/view_format.hpp>
 #include <sge/renderer/index/view_size.hpp>
@@ -42,6 +43,46 @@ sge::renderer::glsl::program_ptr const sge::renderer::device::no_program;
 
 sge::renderer::device::device()
 {}
+
+void
+sge::renderer::device::render(
+	const_vertex_buffer_ptr const vb,
+	nonindexed_primitive_type::type const ptype)
+{
+	render(
+		vb,
+		0,
+		vb->size(),
+		ptype
+	);
+}
+
+void
+sge::renderer::device::render(
+	const_vertex_buffer_ptr const vb,
+	const_index_buffer_ptr const ib,
+	indexed_primitive_type::type const ptype)
+{
+	size_type const ipp(
+		indices_per_primitive(
+			ptype
+		)
+	);
+
+	SGE_ASSERT(
+		ib->size() % ipp == 0
+	);
+
+	render(
+		vb,
+		ib,
+		0,
+		vb->size(),
+		ptype,
+		ib->size() / ipp,
+		0
+	);
+}
 
 sge::renderer::texture_ptr const
 sge::renderer::device::create_texture(
