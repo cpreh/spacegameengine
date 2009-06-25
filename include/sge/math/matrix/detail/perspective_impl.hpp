@@ -50,17 +50,15 @@ sge::math::matrix::perspective(
 	T const
 		h = static_cast<T>(1) / std::tan(fov / static_cast<T>(2)),
 		w = h / aspect,
-		q = (far + near) / (far - near);
-
-	T const zero(
-		static_cast<T>(0)
-	);
+		q = (far + near) / (near - far),
+		p = static_cast<T>(2) * far * near / (near - far),
+		zero = static_cast<T>(0);
 
 	return typename static_<T, 4, 4>::type
 	       (w, zero, zero, zero,
 	        zero, h, zero, zero,
 	        zero, zero, q, static_cast<T>(-1),
-	        zero, zero, static_cast<T>(2) * far * near / (near - far), zero);
+	        zero, zero, p, zero);
 }
 
 #endif

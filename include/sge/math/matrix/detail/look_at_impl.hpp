@@ -22,9 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MATH_MATRIX_DETAIL_LOOK_AT_IMPL_HPP_INCLUDED
 
 #include <sge/math/matrix/basic_impl.hpp>
+#include <sge/math/matrix/arithmetic.hpp>
+#include <sge/math/matrix/translation.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/vector/arithmetic.hpp>
 #include <sge/math/vector/cross.hpp>
+#include <sge/math/vector/normalize.hpp>
 #include <sge/math/vector/static.hpp>
 
 template<
@@ -38,17 +41,17 @@ sge::math::matrix::look_at(
 		T,
 		N,
 		S
-	> const &e,
+	> const &eye,
 	vector::basic<
 		T,
 		N,
 		S
-	> const &l,
+	> const &lookat,
 	vector::basic<
 		T,
 		N,
 		S
-	> const &u
+	> const &up
 )
 {
 	typedef typename vector::static_<
@@ -58,20 +61,39 @@ sge::math::matrix::look_at(
 
 	vec3 const
 		f(
-			l - e
+			normalize(
+				lookat - eye
+			)
 		),
 		s(
 			cross(
 				f,
-				u
+				normalize(
+					up
+				)
+			)
+		),
+		u(
+			cross(
+				s,
+				f
 			)
 		);
-
-	return typename static_<T, 4, 4>::type(
-		s.x(), u.x(), f.x(), 0,
-		s.y(), u.y(), f.y(), 0,
-		s.z(), u.z(), f.z(), 0,
-		-e.x(), -e.y(), -e.z(), 1
+	
+	return typename static_<
+		T,
+		4,
+		4
+	>::type(
+		s.x(), u.x(), -f.x(), 0,
+		s.y(), u.y(), -f.y(), 0,
+		s.z(), u.z(), -f.z(), 0,
+		0, 0, 0, 1
+	)
+	* translation(
+		-eye.x(),
+		-eye.y(),
+		-eye.z()
 	);
 }
 
