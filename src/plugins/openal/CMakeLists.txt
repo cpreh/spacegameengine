@@ -15,4 +15,4 @@ ELSEIF (${WIN32})
 	TARGET_LINK_LIBRARIES (sgeopenal sgecore OpenAL32)
 ENDIF ()
 
-INSTALL (TARGETS sgeopenal DESTINATION ${pluginpath})
+INSTALL (TARGETS sgeopenal DESTINATION lib/sge)

@@ -11,4 +11,4 @@ ENDIF ()
 ADD_LIBRARY (sgefreetype SHARED ${sgefreetypefiles})
 TARGET_LINK_LIBRARIES (sgefreetype sgecore freetype)
 
-INSTALL (TARGETS sgefreetype DESTINATION ${pluginpath})
+INSTALL (TARGETS sgefreetype DESTINATION lib/sge)

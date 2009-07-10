@@ -76,4 +76,4 @@ ELSEIF (WIN32)
 	TARGET_LINK_LIBRARIES (sgeopengl glew32)
 ENDIF ()
 
-INSTALL (TARGETS sgeopengl DESTINATION ${pluginpath})
+INSTALL (TARGETS sgeopengl DESTINATION lib/sge)

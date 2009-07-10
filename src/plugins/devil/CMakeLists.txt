@@ -13,4 +13,4 @@ ELSEIF (${WIN32})
 	TARGET_LINK_LIBRARIES (sgedevil sgecore DevIL ILU)
 ENDIF ()
 
-INSTALL (TARGETS sgedevil DESTINATION ${pluginpath})
+INSTALL (TARGETS sgedevil DESTINATION lib/sge)

@@ -17,4 +17,4 @@ IF (MSVC)
 	TARGET_LINK_LIBRARIES (sgevorbis ogg vorbis)
 ENDIF()
 
-INSTALL (TARGETS sgevorbis DESTINATION ${pluginpath})
+INSTALL (TARGETS sgevorbis DESTINATION lib/sge)

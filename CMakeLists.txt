@@ -107,39 +107,28 @@ INCLUDE_DIRECTORIES (${CMAKE_SOURCE_DIR}/include)
 SET (LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
 SET (EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
 
-IF (DONT_INSTALL)
-	SET (pluginpath ${CMAKE_BINARY_DIR}/plugins)
-	SET (media_dest ${CMAKE_SOURCE_DIR}/media)
-ELSE ()
-	SET (pluginpath ${CMAKE_INSTALL_PREFIX}/lib/sge)
-	SET (include_dest ${CMAKE_INSTALL_PREFIX}/include/)
-	SET (media_dest ${CMAKE_INSTALL_PREFIX}/share/games/sge/media/)
-ENDIF ()
 
-IF (NOT DONT_INSTALL)
-	SET (pkgfile "${CMAKE_BINARY_DIR}/spacegameengine.pc")
-	FILE(WRITE ${pkgfile}
-		"prefix=${CMAKE_INSTALL_PREFIX}\n"
-		"exec_prefix=\${prefix}\n"
-		"libdir=\${prefix}/lib\n"
-		"includedir=\${prefix}/include\n"
-		"\n"
-		"Name: Spacegameengine\n"
-		"Description: A portable, easy to use engine written in C++\n"
-		"Version: 0.1\n"
-		"Requires:\n"
-		"Libs: -L\${libdir} -lsgecore\n"
-		"Cflags: -I\${includedir}/sge")
-	#IF(SGE_HAVE_VARIADIC_TEMPLATES)
-	#	FILE(APPEND ${pkgfile} " -std=c++0x")
-	#ENDIF()
-	INSTALL (FILES ${pkgfile} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/pkgconfig)
-ENDIF()
 
-#MACRO (INSTALL_HEADERS subpath)
-#	FILE (GLOB sgeheaders include/${subpath}/*.h*)
-#	INSTALL (FILES ${sgeheaders} DESTINATION ${include_dest}${subpath})
-#ENDMACRO ()
+# Create package file for relocateable package
+SET (pkgfile "${CMAKE_BINARY_DIR}/spacegameengine.pc")
+FILE(WRITE ${pkgfile}
+	"prefix=${CMAKE_INSTALL_PREFIX}\n"
+	"exec_prefix=\${prefix}\n"
+	"libdir=\${prefix}/lib\n"
+	"includedir=\${prefix}/include\n"
+	"\n"
+	"Name: Spacegameengine\n"
+	"Description: A portable, easy to use engine written in C++\n"
+	"Version: 0.1\n"
+	"Requires:\n"
+	"Libs: -L\${libdir} -lsgecore\n"
+	"Cflags: -I\${includedir}/sge")
+#IF(SGE_HAVE_VARIADIC_TEMPLATES)
+#	FILE(APPEND ${pkgfile} " -std=c++0x")
+#ENDIF()
+INSTALL (FILES ${pkgfile} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/pkgconfig)
+
+
 
 CHECK_CXX_SOURCE_RUNS(
 	"#include <unistd.h>
@@ -253,16 +242,8 @@ MACRO (INSTALL_MEDIA subpath)
 	INSTALL (FILES ${sgemedia} DESTINATION ${media_dest}${subpath})
 ENDMACRO ()
 
-INSTALL_MEDIA (./)
-INSTALL_MEDIA (fonts)
-INSTALL_MEDIA (fonts/bitmap)
-INSTALL_MEDIA (gui)
-INSTALL_MEDIA (shaders)
 
-
+INSTALL (DIRECTORY media/ DESTINATION media/)
 INSTALL (DIRECTORY include/ DESTINATION include/
 		PATTERN "gui" EXCLUDE)
 
-IF(ENABLE_GUI)
-	INSTALL(DIRECTORY include/sge/gui DESTINATION include/sge/gui)
-ENDIF()

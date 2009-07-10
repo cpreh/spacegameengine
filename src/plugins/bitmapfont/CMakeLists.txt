@@ -4,4 +4,4 @@ ADD_LIBRARY (sgebitmapfont SHARED ${sgebitmapfontfiles})
 
 TARGET_LINK_LIBRARIES (sgebitmapfont sgecore)
 
-INSTALL (TARGETS sgebitmapfont DESTINATION ${pluginpath})
+INSTALL (TARGETS sgebitmapfont DESTINATION lib/sge)

@@ -4,4 +4,4 @@ ADD_LIBRARY (sgecell SHARED ${sgecellfiles})
 
 TARGET_LINK_LIBRARIES (sgecell sgecore)
 
-INSTALL (TARGETS sgecell DESTINATION ${pluginpath})
+INSTALL (TARGETS sgecell DESTINATION lib/sge)
