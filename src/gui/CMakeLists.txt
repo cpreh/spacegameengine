@@ -6,4 +6,4 @@ TARGET_LINK_LIBRARIES (sgegui sgecore)
 
 INSTALL (TARGETS sgegui DESTINATION lib)
 
-INSTALL(DIRECTORY include/sge/gui DESTINATION include/sge/gui)
+INSTALL(DIRECTORY ${CMAKE_SOURCE_DIR}/include/sge/gui DESTINATION include/sge/gui)
