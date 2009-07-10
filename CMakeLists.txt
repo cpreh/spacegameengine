@@ -51,13 +51,13 @@ IF (CMAKE_COMPILER_IS_GNUCXX)
 	"-Wold-style-cast")
 
 	IF(ENABLE_DEBUG_WARNINGS)
-		ADD_DEFINITIONS("-Wpadded -Weffc++")
+		SET (CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG}" -Wpadded -Weffc++")
 	ENDIF()
 
 	ADD_DEFINITIONS(-D BOOST_FILESYSTEM_NO_DEPRECATED)
 
 	SET (CMAKE_CXX_FLAGS_RELEASE "-O3 -fomit-frame-pointer -DNDEBUG")
-	SET (CMAKE_CXX_FLAGS_DEBUG "-g")
+	
 
 # -fvisibility=hidden causes problems without inlining, so just switch it on
 # in release mode
@@ -205,23 +205,6 @@ CHECK_CXX_SOURCE_RUNS(
 IF (SGE_HAVE_POSIX)
 	find_package(X11 REQUIRED)
 
-#TODO: dga should not be searched here
-# but we need it in sgecore as a workaround
-	IF(ENABLE_DGA)
-		CHECK_CXX_SOURCE_COMPILES("
-			#include <X11/Xlib.h>
-			#include <X11/extensions/xf86dga.h>
-			int main() {}"
-			HAVE_XF86_DGA_H
-		)
-	
-		IF (HAVE_XF86_DGA_H)
-			FIND_LIBRARY(
-				HAVE_XF86_DGA
-				"Xxf86dga")
-		ENDIF()
-	ENDIF()
-
 	IF (X11_FOUND)
 		set(SGE_HAVE_X11 true)
 	ENDIF()
@@ -236,11 +219,6 @@ OPTION(ENABLE_TEST "Build the tests" OFF)
 IF (ENABLE_TEST)
 	ADD_SUBDIRECTORY (test)
 ENDIF ()
-
-MACRO (INSTALL_MEDIA subpath)
-	FILE (GLOB sgemedia media/${subpath}/*?.*)
-	INSTALL (FILES ${sgemedia} DESTINATION ${media_dest}${subpath})
-ENDMACRO ()
 
 
 INSTALL (DIRECTORY media/ DESTINATION media/)

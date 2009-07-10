@@ -12,4 +12,4 @@ ADD_LIBRARY (sgebullet SHARED ${sgebulletfiles})
 
 TARGET_LINK_LIBRARIES (sgebullet sgecore ${BULLET_LDFLAGS})
 
-INSTALL (TARGETS sgebullet DESTINATION ${pluginpath})
+INSTALL (TARGETS sgebullet DESTINATION lib/sge)
