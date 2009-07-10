@@ -75,12 +75,12 @@ set_source_files_properties(
 	config/plugin_path.cpp
 	PROPERTIES
 	COMPILE_FLAGS
-	-DPLUGIN_PATH="\\\"${pluginpath}\\\"")
+	-DPLUGIN_PATH="\\\"${CMAKE_INSTALL_PREFIX}/lib/sge\\\"")
 set_source_files_properties(
 	config/media_path.cpp
 	PROPERTIES
 	COMPILE_FLAGS
-	-DMEDIA_PATH="\\\"${media_dest}\\\"")
+	-DMEDIA_PATH="\\\"${CMAKE_INSTALL_PREFIX}/share/games/sge/media\\\"")
 
 ADD_LIBRARY (sgecore SHARED ${sgecorefiles})
 
