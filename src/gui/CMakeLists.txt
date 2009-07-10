@@ -4,6 +4,6 @@ FILE (GLOB_RECURSE sgeguifiles
 ADD_LIBRARY (sgegui SHARED ${sgeguifiles})
 TARGET_LINK_LIBRARIES (sgegui sgecore)
 
-INSTALL (TARGETS sgegui DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
+INSTALL (TARGETS sgegui DESTINATION lib)
 
-INSTALL_HEADERS (${CMAKE_SOURCE_DIR}/sge/gui)
+INSTALL(DIRECTORY include/sge/gui DESTINATION include/sge/gui)

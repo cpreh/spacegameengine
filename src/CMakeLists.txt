@@ -94,6 +94,9 @@ ENDIF ()
 IF (UNIX)
 	TARGET_LINK_LIBRARIES (sgecore ${X11_LIBRARIES} dl)
 
+message(${X11_LIBRARIES} ${X11_Xxf86misc_LIB} )
+
+
 #also link sgecore against Xxf86dga
 #otherwise XCloseDisplay will segfault on shutdown
 #if the plugin using Xxf86dga has been unloaded already
