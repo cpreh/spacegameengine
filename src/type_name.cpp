@@ -35,20 +35,22 @@ sge::string const sge::type_name(
 	scoped_ptr< 
 		char,
 		c_deleter
-		> name( 
+	> name( 
 		abi::__cxa_demangle(
 			ti.get().name(), 
 			0, 
 			0, 
-			&status));
+			&status
+		)
+	);
 	
 	// demangling failed?
-	if (status)
-		return iconv(ti.get().name());
-	
-	return iconv(name.get());
+	return status
+		? iconv(ti.get().name())
+		: iconv(name.get());
 #else
 	return iconv(
-		ti.get().name());
+		ti.get().name()
+	);
 #endif
 }
