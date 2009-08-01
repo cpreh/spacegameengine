@@ -30,8 +30,6 @@ namespace sge
 namespace time
 {
 
-class resolution;
-
 SGE_SYMBOL resolution const
 second(
 	unit);
