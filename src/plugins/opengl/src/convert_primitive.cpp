@@ -37,8 +37,6 @@ sge::opengl::convert_primitive(
 		return GL_TRIANGLE_STRIP;
 	case renderer::nonindexed_primitive_type::triangle_fan:
 		return GL_TRIANGLE_FAN;
-	case renderer::nonindexed_primitive_type::line_loop:
-		return GL_LINE_LOOP;
 	default:
 		throw exception(
 			SGE_TEXT("Invalid indexed_primitive_type!"));
