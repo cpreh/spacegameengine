@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/algorithm/fill.hpp>
 #include <sge/variant/apply_unary.hpp>
 #include <sge/variant/object_impl.hpp>
-#include <boost/gil/algorithm.hpp>
+#include <mizuiro/image/algorithm/fill.hpp>
 
 namespace
 {
@@ -118,7 +118,7 @@ typename fill_visitor<Color>::result_type
 fill_visitor<Color>::operator()(
 	T const &view) const
 {
-	boost::gil::fill_pixels(
+	return mizurio::image::algorithm::fill(
 		view,
 		col
 	);

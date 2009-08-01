@@ -41,14 +41,16 @@ make(
 	raw_pointer,
 	dim_type const &,
 	color::format::type,
-	optional_pitch);
+	optional_pitch
+);
 
 SGE_SYMBOL const_object const
 make(
 	const_raw_pointer data,
 	dim_type const &,
 	color::format::type,
-	optional_pitch);
+	optional_pitch
+);
 
 }
 }

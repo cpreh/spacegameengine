@@ -38,24 +38,39 @@ namespace detail
 {
 
 template<
-	typename Color
+	typename Color,
+	size_type Dimension
 >
-struct view_type {
-	typedef boost::gil::image_view<
-		boost::gil::memory_based_2d_locator<
-			boost::gil::memory_based_step_iterator<
-				Color *
-			>
+struct view_types {
+	typedef mizuiro::image::format<
+		mizuiro::image::dimension<
+			Dimension
+		>
+		mizuiro::image::interleaved<
+			Color
+		>
+	> format;
+
+	typedef boost::mpl::vector<
+		mizuiro::image::view<
+			format
+		>,
+		mizurio::image::raw_view<
+			format,
+			raw_pointer
 		>
 	> type;
 };
 
 }
 
-typedef boost::mpl::transform<
+typedef boost::mpl::fold<
 	color::any::elements,
-	detail::view_type<
-		boost::mpl::placeholders::_1
+	boost::mpl::push_back<
+		boost::mpl::_1,
+		detail::view_types<
+			boost::mpl::_2
+		>
 	>
 >::type elements;
 

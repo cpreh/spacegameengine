@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_SIZE_TYPE_HPP_INCLUDED
 #define SGE_IMAGE_SIZE_TYPE_HPP_INCLUDED
 
-#include <cstddef>
+#include <mizuiro/size_type.hpp>
 
 namespace sge
 {
 namespace image
 {
 
-typedef std::size_t size_type;
+typedef mizuiro::size_type size_type;
 
 }
 }

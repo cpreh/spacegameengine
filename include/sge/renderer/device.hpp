@@ -175,21 +175,31 @@ public:
 
 	virtual const_target_ptr const target() const = 0;
 
-	SGE_SYMBOL texture_ptr const create_texture(
+	SGE_SYMBOL texture_ptr const
+	create_texture(
 		image::view::const_object const &,
 		filter::texture const &filter,
 		resource_flag_t flags);
 
-	virtual texture_ptr const create_texture(
+	virtual texture_ptr const
+	create_texture(
 		dim_type const &dim,
 		image::color::format::type format,
 		filter::texture const &filter,
 		resource_flag_t flags) = 0;
 
-	/*virtual const volume_texture_ptr create_volume_texture(
-		volume_texture::image_view_array const &,
+	SGE_SYMBOL volume_texture_ptr const
+	create_volume_texture(
+		image::view::const_object3 const &,
 		filter::texture const &filter,
-		resource_flag_t flags) = 0;*/
+		resource_flag_t flags);
+	
+	virtual volume_texture_ptr const
+	create_volume_texture(
+		dim3_type const &dim,
+		image::color::format::type format,
+		filter::texture const &filter,
+		resource_flag_t flags) = 0;
 
 	virtual cube_texture_ptr const
 	create_cube_texture(

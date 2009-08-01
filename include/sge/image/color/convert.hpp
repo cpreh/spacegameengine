@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_COLOR_CONVERT_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_CONVERT_HPP_INCLUDED
 
-#include <boost/gil/color_convert.hpp>
+#include <mizuiro/color/convert.hpp>
 
 namespace sge
 {
@@ -38,12 +38,19 @@ Dest const
 convert(
 	Src const &src)
 {
+	return mizuiro::color::convert<
+		Dest
+	>(
+		src
+	);
+/*
 	Dest dest;
 	boost::gil::color_convert(
 		src,
 		dest
 	);
 	return dest;
+	*/
 }
 
 }

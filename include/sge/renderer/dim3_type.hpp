@@ -18,24 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TYPESWITCH_HPP_INCLUDED
-#define SGE_TYPESWITCH_HPP_INCLUDED
+#ifndef SGE_RENDERER_DIM3_TYPE_HPP_INCLUDED
+#define SGE_RENDERER_DIM3_TYPE_HPP_INCLUDED
 
-#include <boost/cstdint.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/math/dim/static.hpp>
 
 namespace sge
 {
+namespace renderer
+{
 
-typedef boost::int8_t  int8;
-typedef boost::int16_t int16;
-typedef boost::int32_t int32;
-typedef boost::int64_t int64;
+typedef math::dim::static_<
+	size_type,
+	3	
+>::type dim3_type;
 
-typedef boost::uint8_t  uint8;
-typedef boost::uint16_t uint16;
-typedef boost::uint32_t uint32;
-typedef boost::uint64_t uint64;
-
+}
 }
 
 #endif

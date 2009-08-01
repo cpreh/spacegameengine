@@ -112,6 +112,36 @@ sge::renderer::device::create_texture(
 	return tex;
 }
 
+sge::renderer::volume_texture_ptr const
+sge::renderer::device::create_volume_texture(
+	image::view::const_object3 const &,
+	filter::texture const &filter,
+	resource_flag_t const flags
+)
+{
+	volume_texture_ptr const tex(
+		create_volume_texture(
+			image::view::dim(v),
+			image::view::format::(v),
+			filter,
+			flags
+		)
+	);
+
+	scopde_volume_texture_lock const lock(
+		tex,
+		lock_flags::writeonly
+	);
+
+	image::algorithm::copy_and_convert(
+		v,
+		lock.value()
+	);
+
+	return tex;
+}
+
+
 sge::renderer::vertex_buffer_ptr const
 sge::renderer::device::create_vertex_buffer(
 	vf::const_dynamic_view const &view,

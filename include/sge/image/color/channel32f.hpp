@@ -21,8 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_COLOR_CHANNEL32F_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_CHANNEL32F_HPP_INCLUDED
 
-#include <boost/gil/channel.hpp>
-
 namespace sge
 {
 namespace image
@@ -30,7 +28,7 @@ namespace image
 namespace color
 {
 
-typedef boost::gil::bits32f channel32f;
+typedef float channel32f;
 
 }
 }

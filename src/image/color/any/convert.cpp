@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/color/any/convert.hpp>
+#include <sge/image/color/convert.hpp>
 #include <sge/variant/apply_unary.hpp>
 #include <sge/variant/object_impl.hpp>
-#include <boost/gil/color_convert.hpp>
 
 namespace
 {
@@ -71,14 +71,11 @@ typename visitor<Dest>::result_type
 visitor<Dest>::operator()(
 	Source const &src) const
 {
-	Dest dest;
-
-	boost::gil::color_convert(
-		src,
-		dest
+	return color::convert<
+		Dest
+	>(
+		src
 	);
-
-	return dest;
 }
 
 }
@@ -91,6 +88,7 @@ sge::image::color::any::convert<\
 	sge::image::color::any::object const &\
 );
 
+SGE_INSTANTIATE_COLOR_CONVERT(gray8)
 SGE_INSTANTIATE_COLOR_CONVERT(rgba8)
 SGE_INSTANTIATE_COLOR_CONVERT(argb8)
 SGE_INSTANTIATE_COLOR_CONVERT(bgra8)
