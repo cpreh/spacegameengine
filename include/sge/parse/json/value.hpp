@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/null.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/array_fwd.hpp>
+#include <sge/parse/json/float_type.hpp>
+#include <sge/parse/json/int_type.hpp>
 #include <boost/variant/variant.hpp>
 #include <boost/variant/recursive_wrapper.hpp>
 
@@ -46,8 +48,8 @@ typedef boost::variant<
 	>,
 	bool,
 	string,
-	double,
-	int,
+	float_type,
+	int_type,
 	null
 > value;
 

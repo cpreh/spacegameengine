@@ -30,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/member.hpp>
 #include <sge/parse/json/object.hpp>
+#include <sge/parse/json/float_type.hpp>
+#include <sge/parse/json/int_type.hpp>
 #include <sge/text.hpp>
 
 // TODO: include only the headers which are needed!
@@ -66,7 +68,6 @@ public:
 		)
 	{
 		using boost::spirit::char_;
-		using boost::spirit::int_;
 		using boost::spirit::lit;
 		using boost::spirit::lexeme;
 		using boost::spirit::arg_names::_val;
@@ -121,7 +122,7 @@ public:
 			| array_ 
 			| bool_
 			| quoted_string_
-			| strict_double
+			| strict_float
 			| int_
 			| null_;
 
@@ -139,12 +140,16 @@ public:
 			>> char_(SGE_TEXT('}'));
 	}
 private:
+	boost::spirit::qi::int_spec<
+		int_type
+	> int_;
+
 	boost::spirit::qi::real_spec<
-		double,
+		float_type,
 		boost::spirit::qi::strict_real_policies<
-			double
+			float_type	
 		>
-	> strict_double;
+	> strict_float;
 
 	boost::spirit::qi::rule<
 		In,

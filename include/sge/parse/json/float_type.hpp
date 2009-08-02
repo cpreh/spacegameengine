@@ -18,22 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TIME_NANOSECOND_HPP_INCLUDED
-#define SGE_TIME_NANOSECOND_HPP_INCLUDED
-
-#include <sge/time/unit.hpp>
-#include <sge/time/resolution.hpp>
-#include <sge/export.hpp>
+#ifndef SGE_PARSE_JSON_FLOAT_TYPE_HPP_INCLUDED
+#define SGE_PARSE_JSON_FLOAT_TYPE_HPP_INCLUDED
 
 namespace sge
 {
-namespace time
+namespace parse
+{
+namespace json
 {
 
-SGE_SYMBOL resolution const
-nanosecond(
-	unit);
+typedef double float_type;
 
+}
 }
 }
 
