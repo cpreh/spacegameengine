@@ -112,6 +112,7 @@ sge::renderer::device::create_texture(
 	return tex;
 }
 
+/*
 sge::renderer::volume_texture_ptr const
 sge::renderer::device::create_volume_texture(
 	image::view::const_object3 const &,
@@ -140,6 +141,7 @@ sge::renderer::device::create_volume_texture(
 
 	return tex;
 }
+*/
 
 
 sge::renderer::vertex_buffer_ptr const

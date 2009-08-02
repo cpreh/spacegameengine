@@ -43,14 +43,6 @@ convert(
 	>(
 		src
 	);
-/*
-	Dest dest;
-	boost::gil::color_convert(
-		src,
-		dest
-	);
-	return dest;
-	*/
 }
 
 }

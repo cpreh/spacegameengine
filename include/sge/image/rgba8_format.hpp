@@ -18,24 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_COLOR_BGRA32F_HPP_INCLUDED
-#define SGE_IMAGE_COLOR_BGRA32F_HPP_INCLUDED
+#ifndef SGE_IMAGE_RGBA8_FORMAT_HPP_INCLUDED
+#define SGE_IMAGE_RGBA8_FORMAT_HPP_INCLUDED
 
-#include <sge/image/color/bgra32f_format.hpp>
-#include <mizuiro/color/object_impl.hpp>
+#include <sge/image/color/rgba8_format.hpp>
+#include <mizuiro/image/format.hpp>
+#include <mizuiro/image/dimension.hpp>
+#include <mizuiro/image/interleaved.hpp>
 
 namespace sge
 {
 namespace image
 {
-namespace color
-{
 
-typedef mizuiro::color::object<
-	bgra32f_format
-> bgra32f;
+typedef mizuiro::image::format<
+	mizuiro::image::dimension<
+		2
+	>,
+	mizuiro::image::interlaved<
+		color::rgba8_format
+	>
+> rgba_format;
 
-}
 }
 }
 

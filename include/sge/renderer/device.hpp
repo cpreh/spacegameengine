@@ -188,6 +188,7 @@ public:
 		filter::texture const &filter,
 		resource_flag_t flags) = 0;
 
+	/*
 	SGE_SYMBOL volume_texture_ptr const
 	create_volume_texture(
 		image::view::const_object3 const &,
@@ -200,6 +201,7 @@ public:
 		image::color::format::type format,
 		filter::texture const &filter,
 		resource_flag_t flags) = 0;
+	*/
 
 	virtual cube_texture_ptr const
 	create_cube_texture(

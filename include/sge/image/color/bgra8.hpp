@@ -21,9 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_COLOR_BGRA8_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_BGRA8_HPP_INCLUDED
 
-#include <sge/image/color/channel8.hpp>
-#include <boost/gil/rgba.hpp>
-#include <boost/gil/pixel.hpp>
+#include <sge/image/color/bgra8_format.hpp>
+#include <mizuiro/color/object_impl.hpp>
 
 namespace sge
 {
@@ -32,9 +31,8 @@ namespace image
 namespace color
 {
 
-typedef boost::gil::pixel<
-	channel8,
-	boost::gil::bgra_layout_t
+typedef mizuiro::color::object
+	bgra8_format
 > bgra8;
 
 }

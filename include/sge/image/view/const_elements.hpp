@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_VIEW_CONST_ELEMENTS_HPP_INCLUDED
 
 #include <sge/image/view/elements.hpp>
-#include <boost/gil/extension/dynamic_image/any_image_view.hpp>
+#include <mizuiro/image/const_view.hpp>
+#include <boost/mpl/transform.hpp>
+#include <boost/mpl/placeholders.hpp>
 
 namespace sge
 {
@@ -31,8 +33,11 @@ namespace image
 namespace view
 {
 
-typedef boost::gil::detail::views_get_const_t<
-	elements	
+typedef boost::mpl::transform<
+	elements,
+	mizuiro::image::const_view<
+		boost::mpl::_1
+	>
 >::type const_elements;
 
 }

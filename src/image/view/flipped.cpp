@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/flipped.hpp>
 #include <sge/variant/apply_unary.hpp>
 #include <sge/variant/object_impl.hpp>
-#include <boost/gil/image_view_factory.hpp>
+#include <mizuiro/image/flipped_view.hpp>
 
 namespace
 {
@@ -77,7 +77,7 @@ visitor<View>::operator()(
 	T const &v) const
 {
 	return typename visitor<View>::result_type(
-		boost::gil::flipped_up_down_view(
+		mizuiro::image::flipped_view(
 			v
 		)
 	);

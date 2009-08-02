@@ -21,17 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format_stride.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
-#include <boost/cstdint.hpp>
+#include <sge/typeswitch.hpp>
 
 sge::image::size_type
 sge::image::color::format_stride(
 	format::type const fmt)
 {
 	switch(fmt) {
+	case format::gray8:
+		return sizeof(uint8);
 	case format::rgba8:
 	case format::argb8:
 	case format::bgra8:
-		return sizeof(boost::uint8_t) * 4;
+		return sizeof(uint8) * 4;
 	case format::rgba32f:
 	case format::argb32f:
 	case format::bgra32f:

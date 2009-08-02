@@ -61,7 +61,7 @@ visitor::operator()(
 	T const &) const
 {
 	return sge::image::color::format_static<
-		typename T::locator::value_type
+		typename T::format
 	>::value;
 }
 

@@ -62,15 +62,16 @@ namespace
 {
 
 template<
-	typename GilDim
+	typename Dim 
 >
 sge::image::dim_type const
 gil_dim_to_sge(
-	GilDim const &v)
+	Dim const &v)
 {
+	// TODO: make this more generic!
 	return sge::image::dim_type(
-		static_cast<sge::image::size_type>(v.x),
-		static_cast<sge::image::size_type>(v.y)
+		v[0],
+		v[1]
 	);
 }
 
@@ -83,7 +84,7 @@ visitor::operator()(
 	View const &view) const
 {
 	return gil_dim_to_sge(
-		view.dimensions()
+		view.dim()
 	);
 }
 

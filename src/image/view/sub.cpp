@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/rect/basic_impl.hpp>
 #include <sge/variant/apply_unary.hpp>
 #include <sge/variant/object_impl.hpp>
-#include <boost/gil/image_view_factory.hpp>
+#include <mizuiro/image/sub_view.hpp>
 
 namespace
 {
@@ -117,12 +117,20 @@ typename visitor<Result>::result_type const
 visitor<Result>::operator()(
 	T const &v) const
 {
-	return boost::gil::subimage_view(
+	// TODO: make this more generic!
+	
+	return mizuiro::image::sub_view(
 		v,
-		static_cast<int>(lr.left()),
-		static_cast<int>(lr.top()),
-		static_cast<int>(lr.w()),
-		static_cast<int>(lr.h())
+		typename T::bound_type(
+			typename T::dim_type(
+				lr.left(),
+				lr.top()
+			),
+			typename T::dim_type(
+				lr.w(),
+				lr.h()
+			)
+		)
 	);
 }
 

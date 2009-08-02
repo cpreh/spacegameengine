@@ -18,17 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_VIEW_ELEMENTS_HPP_INCLUDED
-#define SGE_IMAGE_VIEW_ELEMENTS_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_DETAIL_VIEW_TYPES_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_DETAIL_VIEW_TYPES_HPP_INCLUDED
 
-#include <sge/image/view/detail/view_types.hpp>
-#include <sge/image/color/elements.hpp>
+#include <sge/image/size_type.hpp>
 #include <sge/image/raw_pointer.hpp>
+#include <mizuiro/image/view_impl.hpp>
+#include <mizuiro/image/raw_view.hpp>
+#include <mizuiro/image/interleaved.hpp>
+#include <mizuiro/image/dimension_impl.hpp>
+#include <mizuiro/image/format.hpp>
+#include <mizuiro/detail/nonconst_tag.hpp> // TODO
 #include <boost/mpl/vector.hpp>
-#include <boost/mpl/back_inserter.hpp>
-#include <boost/mpl/fold.hpp>
-#include <boost/mpl/copy.hpp>
-#include <boost/mpl/placeholders.hpp>
 
 namespace sge
 {
@@ -36,20 +37,36 @@ namespace image
 {
 namespace view
 {
+namespace detail
+{
 
-typedef boost::mpl::fold<
-	color::elements,
-	boost::mpl::vector<>,
-	boost::mpl::copy<
-		detail::view_types<
-			boost::mpl::_2
+template<
+	typename Color//,
+//	size_type Dimension
+>
+struct view_types {
+	typedef mizuiro::image::format<
+		mizuiro::image::dimension<
+			2//Dimension
 		>,
-		boost::mpl::back_inserter<
-			boost::mpl::_1
+		mizuiro::image::interleaved<
+			Color
 		>
-	>
->::type elements;
+	> format;
 
+	typedef boost::mpl::vector<
+		mizuiro::image::view<
+			format,
+			mizuiro::detail::nonconst_tag
+		>,
+		typename mizuiro::image::raw_view<
+			format,
+			raw_pointer
+		>::type
+	> type;
+};
+
+}
 }
 }
 }

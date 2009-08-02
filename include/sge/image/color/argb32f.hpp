@@ -21,9 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_COLOR_ARGB32F_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_ARGB32F_HPP_INCLUDED
 
-#include <sge/image/color/channel32f.hpp>
-#include <boost/gil/pixel.hpp>
-#include <boost/gil/rgba.hpp>
+#include <sge/image/color/argb32f_format.hpp>
+#include <mizuiro/color/object_impl.hpp>
 
 namespace sge
 {
@@ -32,9 +31,8 @@ namespace image
 namespace color
 {
 
-typedef boost::gil::pixel<
-	channel32f,
-	boost::gil::argb_layout_t
+typedef mizuiro::color::object<
+	argb32f_format
 > argb32f;
 
 }

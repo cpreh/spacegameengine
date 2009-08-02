@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/make.hpp>
 #include <sge/image/view/make_const.hpp>
 #include <sge/image/view/impl/fold_format.hpp>
-#include <sge/image/color/format_stride.hpp>
 #include <sge/variant/object_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/optional_impl.hpp>
@@ -37,7 +36,6 @@ public:
 	operation(
 		sge::image::raw_pointer data,
 		sge::image::dim_type const &,
-		sge::image::size_type stride,
 		sge::image::view::optional_pitch const &pitch);
 	
 	template<
@@ -48,7 +46,6 @@ public:
 private:
 	sge::image::raw_pointer const data;
 	sge::image::dim_type const d;
-	sge::image::size_type const stride;
 	sge::image::view::optional_pitch const pitch;
 };
 
@@ -66,9 +63,6 @@ sge::image::view::make(
 		operation(
 			data,
 			d,
-			color::format_stride(
-				format
-			),
 			pitch
 		),
 		format
@@ -102,12 +96,10 @@ namespace
 operation::operation(
 	sge::image::raw_pointer const data,
 	sge::image::dim_type const &d,
-	sge::image::size_type const stride,
 	sge::image::view::optional_pitch const &pitch)
 :
 	data(data),
 	d(d),
-	stride(stride),
 	pitch(pitch)
 {}
 
@@ -117,18 +109,15 @@ template<
 sge::image::view::object const
 operation::operator()() const
 {
-	return sge::image::view::object(
-		boost::gil::interleaved_view(
-			d.w(),
-			d.h(),
-			reinterpret_cast<
-				typename T::value_type::value_type *
-			>(
-				data
-			),
+	return sge::image::view::object<
+		T
+	>(
+		mizuiro::image::make_raw_view(
+			data,
+			d,
 			pitch
 			? *pitch
-			: d.w() * stride
+			: 0
 		)
 	);
 }

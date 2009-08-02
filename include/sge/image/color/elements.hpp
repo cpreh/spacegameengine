@@ -18,11 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_COLOR_BGRA32F_HPP_INCLUDED
-#define SGE_IMAGE_COLOR_BGRA32F_HPP_INCLUDED
+#ifndef SGE_IMAGE_COLOR_ELEMENTS_HPP_INCLUDED
+#define SGE_IMAGE_COLOR_ELEMENTS_HPP_INCLUDED
 
+#include <sge/image/color/gray8_format.hpp>
+#include <sge/image/color/rgba8_format.hpp>
+#include <sge/image/color/argb8_format.hpp>
+#include <sge/image/color/bgra8_format.hpp>
+#include <sge/image/color/rgba32f_format.hpp>
+#include <sge/image/color/argb32f_format.hpp>
 #include <sge/image/color/bgra32f_format.hpp>
-#include <mizuiro/color/object_impl.hpp>
+#include <boost/mpl/vector.hpp>
 
 namespace sge
 {
@@ -31,9 +37,15 @@ namespace image
 namespace color
 {
 
-typedef mizuiro::color::object<
+typedef boost::mpl::vector<
+	gray8_format,
+	rgba8_format,
+	argb8_format,
+	bgra8_format,
+	rgba32f_format,
+	argb32f_format,
 	bgra32f_format
-> bgra32f;
+> elements;
 
 }
 }

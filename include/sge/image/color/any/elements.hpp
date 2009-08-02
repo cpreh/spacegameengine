@@ -21,14 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_COLOR_ANY_ELEMENTS_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_ANY_ELEMENTS_HPP_INCLUDED
 
-#include <sge/image/color/gray8.hpp>
-#include <sge/image/color/rgba8.hpp>
-#include <sge/image/color/argb8.hpp>
-#include <sge/image/color/bgra8.hpp>
-#include <sge/image/color/rgba32f.hpp>
-#include <sge/image/color/argb32f.hpp>
-#include <sge/image/color/bgra32f.hpp>
-#include <boost/mpl/vector.hpp>
+#include <sge/image/color/any/detail/make_object.hpp>
+#include <sge/image/color/elements.hpp>
+#include <boost/mpl/transform.hpp>
+#include <boost/mpl/placeholders.hpp>
 
 namespace sge
 {
@@ -39,15 +35,12 @@ namespace color
 namespace any
 {
 
-typedef boost::mpl::vector<
-	gray8,
-	rgba8,
-	argb8,
-	bgra8,
-	rgba32f,
-	argb32f,
-	bgra32f
-> elements;
+typedef boost::mpl::transform<
+	color::elements,
+	detail::make_object<
+		boost::mpl::_1
+	>
+>::type elements;
 
 }
 }

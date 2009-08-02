@@ -21,10 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_COLOR_ARGB8_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_ARGB8_HPP_INCLUDED
 
-#include <sge/image/color/channel8.hpp>
-#include <mizuiro/color/homogenous.hpp>
-#include <mizuiro/color/layout/argb.hpp>
-#include <mizuiro/color/object_fwd.hpp>
+#include <sge/image/color/argb8_format.hpp>
+#include <mizuiro/color/object_impl.hpp>
 
 namespace sge
 {
@@ -32,11 +30,6 @@ namespace image
 {
 namespace color
 {
-
-typedef mizuiro::color::homogenous<
-	channel8,
-	mizuiro::color::layout::argb
-> argb8_format;
 
 typedef mizuiro::color::object
 	argb8_format

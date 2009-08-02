@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/data.hpp>
 #include <sge/variant/apply_unary.hpp>
 #include <sge/variant/object_impl.hpp>
-#include <boost/gil/image_view_factory.hpp>
 
 namespace
 {
@@ -40,11 +39,7 @@ public:
 	operator()(
 		Src const &src) const
 	{
-		return reinterpret_cast<Dst>(
-			boost::gil::interleaved_view_get_raw_data(
-				src
-			)
-		);
+		return src.data();
 	}
 };
 

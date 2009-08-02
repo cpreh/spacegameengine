@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_COLOR_FORMAT_STATIC_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_FORMAT_STATIC_HPP_INCLUDED
 
-#include <sge/image/color/any/elements.hpp>
+#include <sge/image/color/elements.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/mpl/index_of.hpp>
 #include <sge/restrict_typedef_struct.hpp>
@@ -35,7 +35,7 @@ namespace color
 {
 
 template<
-	typename Color
+	typename Format 
 >
 struct format_static {
 	static format::type const value
@@ -43,7 +43,7 @@ struct format_static {
 			format::type
 		>(
 			mpl::index_of<
-				any::elements,
+				elements,
 				Color
 			>::value
 		);
