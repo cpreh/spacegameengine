@@ -18,17 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_VALUE_HPP_INCLUDED
-#define SGE_PARSE_JSON_VALUE_HPP_INCLUDED
-
-#include <sge/parse/json/string.hpp>
-#include <sge/parse/json/null.hpp>
-#include <sge/parse/json/object_fwd.hpp>
-#include <sge/parse/json/array_fwd.hpp>
-#include <sge/parse/json/float_type.hpp>
-#include <sge/parse/json/int_type.hpp>
-#include <boost/variant/variant.hpp>
-#include <boost/variant/recursive_wrapper.hpp>
+#ifndef SGE_PARSE_JSON_INT_TYPE_HPP_INCLUDED
+#define SGE_PARSE_JSON_INT_TYPE_HPP_INCLUDED
 
 namespace sge
 {
@@ -37,21 +28,7 @@ namespace parse
 namespace json
 {
 
-class array;
-
-typedef boost::variant<
-	boost::recursive_wrapper<
-		object
-	>,
-	boost::recursive_wrapper<
-		array
-	>,
-	bool,
-	string,
-	float_type,
-	int_type,
-	null
-> value;
+typedef int int_type;
 
 }
 }
