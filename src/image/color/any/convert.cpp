@@ -38,7 +38,8 @@ public:
 	>
 	result_type
 	operator()(
-		Source const &) const;
+		Source const &
+	) const;
 };
 
 }
@@ -71,7 +72,7 @@ typename visitor<Dest>::result_type
 visitor<Dest>::operator()(
 	Source const &src) const
 {
-	return color::convert<
+	return sge::image::color::convert<
 		Dest
 	>(
 		src
@@ -80,6 +81,7 @@ visitor<Dest>::operator()(
 
 }
 
+#if 0
 #define SGE_INSTANTIATE_COLOR_CONVERT(x)\
 template SGE_EXPORT_SYMBOL sge::image::color::x const \
 sge::image::color::any::convert<\
@@ -97,3 +99,4 @@ SGE_INSTANTIATE_COLOR_CONVERT(argb32f)
 SGE_INSTANTIATE_COLOR_CONVERT(bgra32f)
 
 #undef SGE_INSTANTIATE_COLOR_CONVERT
+#endif

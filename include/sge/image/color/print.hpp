@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_COLOR_PRINT_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_PRINT_HPP_INCLUDED
 
-#include <sge/ostream.hpp>
-#include <sge/export.hpp>
-#include <boost/gil/pixel.hpp>
+#include <mizuiro/color/output.hpp>
+//#include <sge/ostream.hpp>
+//#include <sge/export.hpp>
 
+/*
 namespace sge
 {
 namespace image 
@@ -33,12 +34,16 @@ namespace color
 {
 
 template<
-	typename Channel,
-	typename Layout
+	typename Color
 >
 SGE_SYMBOL ostream &
 operator<<(
 	ostream &,
+	Color const &c
+)
+{
+	return mizuiro
+}
 	boost::gil::pixel<
 		Channel,
 		Layout
@@ -46,5 +51,6 @@ operator<<(
 }
 }
 }
+*/
 
 #endif

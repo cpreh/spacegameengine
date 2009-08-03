@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_VIEW_DETAIL_VIEW_TYPES_HPP_INCLUDED
 
 #include <sge/image/size_type.hpp>
-#include <sge/image/raw_pointer.hpp>
 #include <mizuiro/image/view_impl.hpp>
 #include <mizuiro/image/raw_view.hpp>
 #include <mizuiro/image/interleaved.hpp>
@@ -60,8 +59,7 @@ struct view_types {
 			mizuiro::detail::nonconst_tag
 		>,
 		typename mizuiro::image::raw_view<
-			format,
-			raw_pointer
+			format
 		>::type
 	> type;
 };

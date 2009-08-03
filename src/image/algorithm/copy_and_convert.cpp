@@ -31,13 +31,13 @@ public:
 	typedef void result_type;
 
 	template<
-		typename Dest,
-		typename Src
+		typename Src,
+		typename Dest
 	>
 	result_type
 	operator()(
-		Dest const &dst,
-		Src const &src
+		Src const &src,
+		Dest const &dst
 	) const;
 };
 
@@ -49,8 +49,8 @@ void sge::image::algorithm::copy_and_convert(
 {
 	variant::apply_binary(
 		visitor(),
-		dest,
-		src
+		src,
+		dest
 	);
 }
 
@@ -59,18 +59,18 @@ namespace
 
 
 template<
-	typename Dest,
-	typename Src
+	typename Src,
+	typename Dest
 >
 visitor::result_type
 visitor::operator()(
-	Dest const &dest,
-	Src const &src
+	Src const &src,
+	Dest const &dest
 ) const
 {
 	return mizuiro::image::algorithm::copy_and_convert(
-		dest,
-		src
+		src,
+		dest
 	);
 }
 

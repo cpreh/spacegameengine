@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/gil/rgba.hpp>
 #include <ostream>
 
+#if 0
 namespace
 {
 
@@ -128,3 +129,5 @@ SGE_INSTANTIATE_COLOR_PRINT(channel32f, bgra_layout_t)
 SGE_INSTANTIATE_COLOR_PRINT(channel32f, argb_layout_t)
 
 #undef SGE_INSTANTIATE_COLOR_PRINT
+
+#endif

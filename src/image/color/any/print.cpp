@@ -72,7 +72,8 @@ visitor::result_type
 visitor::operator()(
 	T const &t) const
 {
-	return sge::image::color::operator<<(s, t);
+	return s << t;
+	//return sge::image::color::operator<<(s, t);
 }
 
 }

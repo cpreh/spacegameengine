@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/data.hpp>
 #include <sge/variant/apply_unary.hpp>
 #include <sge/variant/object_impl.hpp>
+#include <mizuiro/image/is_raw_view.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace
 {
@@ -35,11 +37,38 @@ public:
 	template<
 		typename Src
 	>
-	result_type
+	typename boost::disable_if<
+		mizuiro::image::is_raw_view<
+			Src
+		>,
+		result_type
+	>::type
 	operator()(
-		Src const &src) const
+		Src const &src
+	) const
 	{
-		return src.data();
+		// casting to a byte buffer is ok
+		return reinterpret_cast<
+			Dst
+		>(
+			src.data()
+		);
+	}
+
+	template<
+		typename Src
+	>
+	typename boost::enable_if<
+		mizuiro::image::is_raw_view<
+			Src
+		>,
+		result_type
+	>::type
+	operator()(
+		Src const &src
+	) const
+	{
+		return src.data().get();
 	}
 };
 

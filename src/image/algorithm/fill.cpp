@@ -120,10 +120,10 @@ typename fill_visitor<Color>::result_type
 fill_visitor<Color>::operator()(
 	T const &view) const
 {
-	return mizurio::image::algorithm::fill(
+	/*return mizuiro::image::algorithm::fill(
 		view,
 		col
-	);
+	);*/
 }
 
 }

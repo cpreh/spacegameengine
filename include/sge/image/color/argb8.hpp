@@ -31,7 +31,7 @@ namespace image
 namespace color
 {
 
-typedef mizuiro::color::object
+typedef mizuiro::color::object<
 	argb8_format
 > argb8;
 

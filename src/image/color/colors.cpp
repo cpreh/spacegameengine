@@ -19,13 +19,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/color/colors.hpp>
+#include <sge/image/color/rgba8.hpp>
 #include <sge/variant/object_impl.hpp>
+#include <mizuiro/color/init.hpp>
 
 #define SGE_DEFINE_COLOR_A(name, r, g, b, a)\
 sge::image::color::any::object const \
 sge::image::color::colors::name()\
 {\
-	return sge::image::color::rgba8(r, g, b, a);\
+	typedef sge::image::color::rgba8 color_type;\
+	typedef color_type::layout::channel_type value_type;\
+\
+	return sge::image::color::rgba8(\
+		mizuiro::color::init::red = static_cast<value_type>(r),\
+		mizuiro::color::init::green = static_cast<value_type>(g),\
+		mizuiro::color::init::blue = static_cast<value_type>(b),\
+		mizuiro::color::init::alpha = static_cast<value_type>(a)\
+	);\
 }
 
 #define SGE_DEFINE_COLOR(name, r, g, b)\
