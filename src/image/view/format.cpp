@@ -61,7 +61,10 @@ visitor::operator()(
 	T const &) const
 {
 	return sge::image::color::format_static<
-		typename T::format
+		mizuiro::color::homogenous<
+			typename T::color_format::channel_type,
+			typename T::color_format::layout
+		>
 	>::value;
 }
 

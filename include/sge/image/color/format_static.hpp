@@ -44,7 +44,7 @@ struct format_static {
 		>(
 			mpl::index_of<
 				elements,
-				Color
+				Format	
 			>::value
 		);
 	

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/make_const.hpp>
 #include <sge/variant/apply_unary.hpp>
 #include <sge/variant/object_impl.hpp>
+#include <mizuiro/image/make_const_view.hpp>
 
 namespace
 {
@@ -62,7 +63,7 @@ visitor::operator()(
 	T const &v) const
 {
 	return result_type(
-		typename T::const_t(
+		mizuiro::image::make_const_view(
 			v
 		)
 	);

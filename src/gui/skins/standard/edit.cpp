@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/internal_color.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/text_size.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/gui/unit.hpp>
 #include <sge/gui/canvas/object.hpp>
 #include <sge/gui/log.hpp>
@@ -74,11 +75,21 @@ void sge::gui::skins::standard::draw(
 
 	canvas::object c(w.buffer());
 
+	typedef internal_color::layout::channel_type channel_type;
+
 	// fill completely with background color
 	c.draw_rect(
 		c.area(),
 	//	internal_color(0x55,0x55,0x55,0xff),
-		internal_color(0xff,0xff,0xff,0xff),
+		sge::image::colors::white(),
+		/*
+		internal_color(
+			color::init::red = static_cast<channel_type>(0xff),
+			color::init::blue = static_cast<channel_type>(0xff),
+			color::init::green = static_cast<channel_type>(0xff),
+			color::init::alpha = static_cast<channel_type>(0xff)
+		),
+		*/
 		canvas::rect_type::solid);
 
 	dim const scroll_size = 

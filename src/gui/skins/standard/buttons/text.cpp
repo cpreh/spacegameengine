@@ -26,6 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/log.hpp>
 #include <sge/gui/unit.hpp>
 #include <sge/gui/internal_color.hpp>
+#include <sge/image/color/init.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/text_size.hpp>
 #include <sge/math/rect/output.hpp>
@@ -52,6 +54,8 @@ void sge::gui::skins::standard::draw(
 		log::_1 << SGE_TEXT("creating canvas from buffer"));
 	canvas::object c(b.buffer());
 
+	typedef internal_color::layout::channel_type channel;
+
 	// Background
 	c.draw_rect(
 		rect(
@@ -59,64 +63,89 @@ void sge::gui::skins::standard::draw(
 			c.size()
 		),
 		b.mouse_over() 
-			? internal_color(0xee,0xeb,0xe7,0xff)
-			: internal_color(0xdc,0xda,0xd5,0xff),
+			? internal_color(
+				sge::image::color::init::red = static_cast<channel>(0xee),
+				sge::image::color::init::green = static_cast<channel>(0xeb),
+				sge::image::color::init::blue = static_cast<channel>(0xe7),
+				sge::image::color::init::alpha = static_cast<channel>(0xff))
+			: internal_color(
+				sge::image::color::init::red = static_cast<channel>(0xdc),
+				sge::image::color::init::green = static_cast<channel>(0xda),
+				sge::image::color::init::blue = static_cast<channel>(0xd5),
+				sge::image::color::init::alpha = static_cast<channel>(0xff)
+			),
 		canvas::rect_type::solid);
 	
 	c.draw_line(
 		point(0,0),
 		point(c.size().w()-1,0),
-		internal_color(0xff,0xff,0xff,0xff));
+		sge::image::colors::white()
+	);
 
 	c.draw_line(
 		point(0,0),
 		point(0,c.size().h()-1),
-		internal_color(0xff,0xff,0xff,0xff));
+		sge::image::colors::white()
+	);
 
 	c.draw_line(
 		point(c.size().w()-2,1),
 		point(c.size().w()-2,c.size().h()-2),
-		internal_color(0x9e,0x9a,0x91,0xff));
+		internal_color(
+			sge::image::color::init::red = static_cast<channel>(0x9e),
+			sge::image::color::init::green = static_cast<channel>(0x9a),
+			sge::image::color::init::blue = static_cast<channel>(0x91),
+			sge::image::color::init::alpha = static_cast<channel>(0xff)
+		)
+	);
 
 	c.draw_line(
 		point(1,c.size().h()-2),
 		point(c.size().w()-2,c.size().h()-2),
-		internal_color(0x9e,0x9a,0x91,0xff));
+		internal_color(
+			sge::image::color::init::red = static_cast<channel>(0x9e),
+			sge::image::color::init::green = static_cast<channel>(0x9a),
+			sge::image::color::init::blue = static_cast<channel>(0x91),
+			sge::image::color::init::alpha = static_cast<channel>(0xff)
+		)
+	);
 
 	c.draw_line(
 		point(c.size().w()-1,0),
 		point(c.size().w()-1,c.size().h()-1),
-		internal_color(0x00,0x00,0x00,0xff));
+		sge::image::colors::black()
+	);
 
 	c.draw_line(
 		point(0,c.size().h()-1),
 		point(c.size().w()-1,c.size().h()-1),
-		internal_color(0x00,0x00,0x00,0xff));
+		sge::image::colors::black()
+	);
 	
 	if (b.key_over())
 	{
 		c.draw_line(
 			point(2,2),
 			point(c.size().w()-3,2),
-			internal_color(0x00,0x00,0x00,0xff),
+			sge::image::colors::black(),
 			canvas::line_type::dashed);
 
 		c.draw_line(
 			point(c.size().w()-3,2),
 			point(c.size().w()-3,c.size().h()-3),
-			internal_color(0x00,0x00,0x00,0xff),
+			sge::image::colors::black(),
 			canvas::line_type::dashed);
 
 		c.draw_line(
 			point(c.size().w()-3,c.size().h()-3),
 			point(2,c.size().h()-3),
-			internal_color(0x00,0x00,0x00,0xff),
+			sge::image::colors::black(),
 			canvas::line_type::dashed);
 
 		c.draw_line(
 			point(2,c.size().h()-3),
 			point(2,2),
-			internal_color(0x00,0x00,0x00,0xff),
+			sge::image::colors::black(),
 			canvas::line_type::dashed);
 	}
 

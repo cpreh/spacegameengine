@@ -18,59 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_VIEW_IMPL_FOLD_FORMAT_OPERATION_HPP_INCLUDED
-#define SGE_IMAGE_VIEW_IMPL_FOLD_FORMAT_OPERATION_HPP_INCLUDED
+#ifndef SGE_MPL_INVALID_INVOKE_HPP_INCLUDED
+#define SGE_MPL_INVALID_INVOKE_HPP_INCLUDED
 
-#include <sge/image/color/format.hpp>
+#include <sge/exception.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
-namespace image
-{
-namespace view
-{
-namespace impl
+namespace mpl 
 {
 
-template<
-	typename Operation
->
-class fold_format_operation {
+class SGE_CLASS_SYMBOL invalid_invoke
+:
+	public sge::exception
+{
 public:
-	typedef typename Operation::result_type result_type;
-
-	typedef unsigned long counter_type;
-
-	explicit fold_format_operation(
-		Operation const &op,
-		color::format::type const fmt,
-		counter_type &count)
-	:
-		op(op),
-		fmt(fmt),
-		count(count)
-	{}
-
-	template<
-		typename T
-	>
-	result_type const
-	operator()(
-		T const &,
-		result_type const &v) const
-	{
-		return count++ == static_cast<counter_type>(fmt)
-		? op.operator()<T>()
-		: v;
-	}
-private:
-	Operation const op;
-	color::format::type const fmt;
-	mutable counter_type &count;
+	SGE_SYMBOL explicit invalid_invoke();
 };
 
-}
-}
 }
 }
 

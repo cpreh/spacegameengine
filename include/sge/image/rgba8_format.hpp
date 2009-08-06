@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/rgba8_format.hpp>
 #include <mizuiro/image/format.hpp>
-#include <mizuiro/image/dimension.hpp>
+#include <mizuiro/image/dimension_impl.hpp>
 #include <mizuiro/image/interleaved.hpp>
 
 namespace sge
@@ -35,10 +35,10 @@ typedef mizuiro::image::format<
 	mizuiro::image::dimension<
 		2
 	>,
-	mizuiro::image::interlaved<
+	mizuiro::image::interleaved<
 		color::rgba8_format
 	>
-> rgba_format;
+> rgba8_format;
 
 }
 }

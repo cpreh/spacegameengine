@@ -28,11 +28,9 @@ namespace sge
 {
 namespace image
 {
-namespace color
-{
 
 #define SGE_DECLARE_COLOR(name)\
-SGE_SYMBOL any::object const name();
+SGE_SYMBOL color::any::object const name();
 
 namespace colors {
 	SGE_DECLARE_COLOR(aliceblue            )
@@ -185,7 +183,6 @@ namespace colors {
 	SGE_DECLARE_COLOR(transparent          )
 }
 
-}
 }
 }
 

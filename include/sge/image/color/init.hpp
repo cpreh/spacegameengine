@@ -18,55 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "convert_dim.hpp"
-#include <sge/image/view/dim.hpp>
-#include <sge/image/size_type.hpp>
-#include <sge/variant/apply_unary.hpp>
-#include <sge/variant/object_impl.hpp>
-#include <sge/math/dim/basic_impl.hpp>
+#ifndef SGE_IMAGE_COLOR_INIT_HPP_INCLUDED
+#define SGE_IMAGE_COLOR_INIT_HPP_INCLUDED
 
-namespace
+#include <mizuiro/color/init.hpp>
+
+namespace sge
+{
+namespace image
+{
+namespace color
 {
 
-class visitor {
-public:
-	typedef sge::image::dim_type result_type;
-
-	template<
-		typename View
-	>
-	result_type const
-	operator()(
-		View const &) const;
-};
+namespace init = mizuiro::color::init;
 
 }
-
-sge::image::dim_type const
-sge::image::view::dim(
-	const_object const &v)
-{
-	return variant::apply_unary(
-		visitor(),
-		v
-	);
+}
 }
 
-namespace
-{
-
-template<
-	typename View
->
-visitor::result_type const
-visitor::operator()(
-	View const &view) const
-{
-	return sge::image::view::convert_dim<
-		visitor::result_type
-	>(
-		view.dim()
-	);
-}
-
-}
+#endif

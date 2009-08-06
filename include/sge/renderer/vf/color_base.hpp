@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/element_base.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/role.hpp>
-#include <sge/image/color/channel.hpp>
 
 namespace sge
 {
@@ -43,9 +42,7 @@ element_base<
 	Role
 >
 {
-	typedef typename image::color::channel<
-		Format
-	>::type subelement_type;
+	typedef typename Format::channel_type subelement_type;
 
 	typedef Format packed_type;
 

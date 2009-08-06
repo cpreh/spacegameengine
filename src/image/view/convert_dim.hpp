@@ -18,55 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "convert_dim.hpp"
-#include <sge/image/view/dim.hpp>
-#include <sge/image/size_type.hpp>
-#include <sge/variant/apply_unary.hpp>
-#include <sge/variant/object_impl.hpp>
-#include <sge/math/dim/basic_impl.hpp>
+#ifndef SGE_IMAGE_VIEW_CONVERT_DIM_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_CONVERT_DIM_HPP_INCLUDED
 
-namespace
+#include <algorithm>
+
+namespace sge
 {
-
-class visitor {
-public:
-	typedef sge::image::dim_type result_type;
-
-	template<
-		typename View
-	>
-	result_type const
-	operator()(
-		View const &) const;
-};
-
-}
-
-sge::image::dim_type const
-sge::image::view::dim(
-	const_object const &v)
+namespace image
 {
-	return variant::apply_unary(
-		visitor(),
-		v
-	);
-}
-
-namespace
+namespace view
 {
 
 template<
-	typename View
+	typename Dest,
+	typename Src
 >
-visitor::result_type const
-visitor::operator()(
-	View const &view) const
+Dest const
+convert_dim(
+	Src const &src
+)
 {
-	return sge::image::view::convert_dim<
-		visitor::result_type
-	>(
-		view.dim()
+	Dest dest;
+
+	std::copy(
+		src.begin(),
+		src.end(),
+		dest.begin()
 	);
-}
+
+	return dest;
+}	
 
 }
+}
+}
+
+#endif

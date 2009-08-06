@@ -18,55 +18,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "convert_dim.hpp"
-#include <sge/image/view/dim.hpp>
-#include <sge/image/size_type.hpp>
-#include <sge/variant/apply_unary.hpp>
-#include <sge/variant/object_impl.hpp>
-#include <sge/math/dim/basic_impl.hpp>
+#ifndef SGE_MPL_INVOKE_ON_HPP_INCLUDED
+#define SGE_MPL_INVOKE_ON_HPP_INCLUDED
 
-namespace
+#include <sge/mpl/detail/invoke_on.hpp>
+#include <boost/mpl/integral_c.hpp>
+#include <boost/mpl/begin.hpp>
+#include <boost/mpl/end.hpp>
+#include <boost/mpl/empty.hpp>
+
+namespace sge
 {
-
-class visitor {
-public:
-	typedef sge::image::dim_type result_type;
-
-	template<
-		typename View
-	>
-	result_type const
-	operator()(
-		View const &) const;
-};
-
-}
-
-sge::image::dim_type const
-sge::image::view::dim(
-	const_object const &v)
-{
-	return variant::apply_unary(
-		visitor(),
-		v
-	);
-}
-
-namespace
+namespace mpl
 {
 
 template<
-	typename View
+	typename Sequence,
+	typename Function,
+	typename Index
 >
-visitor::result_type const
-visitor::operator()(
-	View const &view) const
+typename Function::result_type
+invoke_on(
+	Index const &index,
+	Function const &fun	
+)
 {
-	return sge::image::view::convert_dim<
-		visitor::result_type
-	>(
-		view.dim()
+	return detail::invoke_on<
+		boost::mpl::integral_c<
+			Index,
+			0
+		>,
+		boost::mpl::empty<
+			Sequence
+		>::value
+	>::execute(
+		static_cast<
+			typename boost::mpl::begin<
+				Sequence	
+			>::type *
+		>(0),
+		static_cast<
+			typename boost::mpl::end<
+				Sequence	
+			>::type *
+		>(0),
+		index,
+		fun
 	);
 }
 
 }
+}
+
+#endif

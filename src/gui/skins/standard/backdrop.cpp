@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/canvas/object.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/gui/internal_color.hpp>
+#include <sge/image/color/init.hpp>
 #include <sge/text.hpp>
 
 namespace
@@ -43,14 +44,22 @@ void sge::gui::skins::standard::draw(
 
 	canvas::object c(w.buffer());
 
+	typedef internal_color::layout::channel_type channel;
+
 	// Background
 	c.draw_rect(
 		rect(
 			rect::point_type::null(),
 			c.size()
 		),
-		internal_color(0xee,0xeb,0xe7,0xff),
-		canvas::rect_type::solid);
+		internal_color(
+			sge::image::color::init::red = static_cast<channel>(0xee),
+			sge::image::color::init::green = static_cast<channel>(0xeb),
+			sge::image::color::init::blue = static_cast<channel>(0xe7),
+			sge::image::color::init::alpha = static_cast<channel>(0xff)
+		),
+		canvas::rect_type::solid
+	);
 
 	blit_invalid(w,c,e);
 }

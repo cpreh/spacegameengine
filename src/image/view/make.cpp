@@ -18,13 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "convert_dim.hpp"
 #include <sge/image/view/make.hpp>
 #include <sge/image/view/make_const.hpp>
-#include <sge/image/view/impl/fold_format.hpp>
 #include <sge/variant/object_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
+#include <sge/mpl/invoke_on.hpp>
 #include <sge/optional_impl.hpp>
-#include <boost/gil/image_view_factory.hpp>
+#include <mizuiro/image/is_raw_view.hpp>
+#include <boost/mpl/filter_view.hpp>
+#include <boost/mpl/placeholders.hpp>
 
 namespace
 {
@@ -39,13 +42,13 @@ public:
 		sge::image::view::optional_pitch const &pitch);
 	
 	template<
-		typename T
+		typename View
 	>
 	sge::image::view::object const
 	operator()() const;
 private:
 	sge::image::raw_pointer const data;
-	sge::image::dim_type const d;
+	sge::image::dim_type const dim;
 	sge::image::view::optional_pitch const pitch;
 };
 
@@ -58,14 +61,24 @@ sge::image::view::make(
 	color::format::type const format,
 	optional_pitch const pitch)
 {
-	// TODO: replace this with another mpl algorithm!
-	return impl::fold_format(
+	return sge::mpl::invoke_on<
+		boost::mpl::filter_view<
+			elements,
+			mizuiro::image::is_raw_view<
+				boost::mpl::_1
+			>
+		>
+	>(
+		static_cast<
+			size_type
+		>(
+			format
+		),
 		operation(
 			data,
 			d,
 			pitch
-		),
-		format
+		)
 	);
 }
 
@@ -95,29 +108,34 @@ namespace
 
 operation::operation(
 	sge::image::raw_pointer const data,
-	sge::image::dim_type const &d,
+	sge::image::dim_type const &dim,
 	sge::image::view::optional_pitch const &pitch)
 :
 	data(data),
-	d(d),
+	dim(dim),
 	pitch(pitch)
 {}
 
 template<
-	typename T
+	typename View
 >
 sge::image::view::object const
 operation::operator()() const
 {
-	return sge::image::view::object<
-		T
-	>(
-		mizuiro::image::make_raw_view(
+	return sge::image::view::object(
+		View(
+			sge::image::view::convert_dim<
+				typename View::dim_type
+			>(
+				dim
+			),
 			data,
-			d,
-			pitch
-			? *pitch
-			: 0
+			data,
+			typename View::pitch_type(
+				pitch
+				? *pitch
+				: 0
+			)
 		)
 	);
 }
