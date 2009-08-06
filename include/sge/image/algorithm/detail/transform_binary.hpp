@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_ALGORITHM_DETAIL_TRANSFORM_BINARY_HPP_INCLUDED
 #define SGE_IMAGE_ALGORITHM_DETAIL_TRANSFORM_BINARY_HPP_INCLUDED
 
-#include <cstddef>
+#include <mizuiro/image/algorithm/transform_ternary.hpp>
 
 namespace sge
 {
@@ -56,15 +56,11 @@ public:
 		Src2 const &src2,
 		Dest const &dest) const
 	{
-
-		for (std::ptrdiff_t y = 0; y < dest.height(); ++y)
-		{
-			typename Src1::x_iterator const src1_it = src1.row_begin(y);
-			typename Src2::x_iterator const src2_it = src2.row_begin(y);
-			typename Dest::x_iterator const dest_it = dest.row_begin(y);
-			for (std::ptrdiff_t x = 0; x < dest.width(); ++x)
-				op(src1_it[x], src2_it[x], dest_it[x]);
-		}
+		mizuiro::image::algorithm::transform_ternary(
+			src1,
+			src2,
+			dest
+		);
 	}
 private:
 	Op const op;
