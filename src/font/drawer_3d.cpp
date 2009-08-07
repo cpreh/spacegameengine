@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/dim.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
-#include <boost/gil/algorithm.hpp>
 
 sge::font::drawer_3d::drawer_3d(
 	renderer::device_ptr const rend,

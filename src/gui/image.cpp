@@ -18,9 +18,61 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_COLOR_PRINT_HPP_INCLUDED
-#define SGE_IMAGE_COLOR_PRINT_HPP_INCLUDED
+#include <sge/gui/image.hpp>
+#include <sge/math/dim/structure_cast.hpp>
+#include <sge/math/dim/basic_impl.hpp>
 
-#include <mizuiro/color/output.hpp>
+sge::gui::image::image()
+:
+	impl_()
+{}
 
-#endif
+sge::gui::image::image(
+	dim const &dim_
+)
+:
+	impl_(
+		sge::math::dim::structure_cast<
+			sge::image::dim_type
+		>(
+			dim_
+		)
+	)
+{}
+
+sge::gui::dim const
+sge::gui::image::size() const
+{
+	return sge::math::dim::structure_cast<
+		sge::gui::dim
+	>(
+		impl_.dim()
+	);
+}
+
+sge::gui::image_view const
+sge::gui::image::view()
+{
+	return impl_.view();
+}
+
+sge::gui::const_image_view const
+sge::gui::image::const_view() const
+{
+	return impl_.view();
+}
+
+void
+sge::gui::image::resize(
+	dim const &ndim
+)
+{
+	impl_ =
+		impl_type(
+			sge::math::dim::structure_cast<
+				impl_type::dim_type
+			>(
+				ndim
+			)
+		);
+}
