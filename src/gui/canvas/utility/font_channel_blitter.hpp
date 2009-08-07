@@ -22,16 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_GUI_UTILITY_FONT_CHANNEL_BLITTER_HPP_INCLUDED
 
 #include "../../utility/normalization.hpp"
-#include <sge/image/color/channel.hpp>
 #include <boost/gil/color_base.hpp>
 #include <boost/type_traits/remove_const.hpp>
 
+#if 0
 namespace sge
 {
 namespace gui
 {
 namespace utility
 {
+
 template<class DstPixel,class FontPixel>
 class font_channel_blitter 
 {
@@ -61,6 +62,7 @@ private:
 	FontPixel const &font;
 	DstPixel &result;
 };
+
 }
 }
 }
@@ -100,5 +102,7 @@ void sge::gui::utility::font_channel_blitter<DstPixel,FontPixel>::operator()(T &
 		static_cast<float>(fontcolor[t])*font_value+
 		static_cast<float>(bgcolor[t])*(1.0f-font_value));
 }
+
+#endif
 
 #endif

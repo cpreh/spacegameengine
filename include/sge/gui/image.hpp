@@ -25,15 +25,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/image_fwd.hpp>
 #include <sge/gui/image_view.hpp>
 #include <sge/image/rgba8.hpp>
+#include <sge/image/store.hpp>
 
 namespace sge
 {
 namespace gui
 {
-// this wraps the gil stuff in renderer::rgba8_image (such as the dimension
-// type being coord_t)
-class image
-{
+
+class image {
 public:
 	image();
 	explicit image(dim const &);
@@ -45,6 +44,7 @@ private:
 	typedef sge::image::rgba8 impl_type;
 	impl_type impl_;
 };
+
 }
 }
 

@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "convert_dim.hpp"
+#include "../convert_dim.hpp"
 #include <sge/image/view/dim.hpp>
 #include <sge/image/size_type.hpp>
 #include <sge/variant/apply_unary.hpp>
@@ -62,7 +62,7 @@ visitor::result_type const
 visitor::operator()(
 	View const &view) const
 {
-	return sge::image::view::convert_dim<
+	return sge::image::convert_dim<
 		visitor::result_type
 	>(
 		view.dim()

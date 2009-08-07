@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/defaults.hpp>
 #include <sge/sprite/texture_dim.hpp>
-#include <sge/image/color/colors.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/variant/object_impl.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
@@ -46,7 +46,7 @@ sge::sprite::defaults::size()
 sge::sprite::color const
 sge::sprite::defaults::color()
 {
-	return sge::image::color::colors::white();
+	return sge::image::colors::white();
 }
 
 sge::sprite::depth_type

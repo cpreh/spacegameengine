@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/view_16.hpp>
 #include <sge/renderer/index/view_32.hpp>
 #include <sge/variant/object_impl.hpp>
-#include <sge/typeswitch.hpp>
+#include <boost/cstdint.hpp>
 
 namespace
 {
@@ -36,7 +36,7 @@ class traits;
 
 template<>
 class traits<
-	sge::uint16
+	boost::uint16_t
 > {
 public:
 	static GLenum const gl_format = GL_UNSIGNED_SHORT;
@@ -47,7 +47,7 @@ public:
 
 template<>
 class traits<
-	sge::uint32
+	boost::uint32_t
 > {
 public:
 	static GLenum const gl_format = GL_UNSIGNED_INT;
@@ -187,7 +187,7 @@ template class sge::opengl::basic_buffer<\
 	t\
 >;
 
-SGE_OPENGL_INSTANTIATE_INDEX_BUFFER(sge::uint16)
-SGE_OPENGL_INSTANTIATE_INDEX_BUFFER(sge::uint32)
+SGE_OPENGL_INSTANTIATE_INDEX_BUFFER(boost::uint16_t)
+SGE_OPENGL_INSTANTIATE_INDEX_BUFFER(boost::uint32_t)
 
 #undef SGE_OPENGL_INSTANTIATE_INDEX_BUFFER

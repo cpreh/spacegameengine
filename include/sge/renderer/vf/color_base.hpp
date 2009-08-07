@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/element_base.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/role.hpp>
+#include <mizuiro/color/object_impl.hpp>
 
 namespace sge
 {
@@ -44,7 +45,7 @@ element_base<
 {
 	typedef typename Format::channel_type subelement_type;
 
-	typedef Format packed_type;
+	typedef mizuiro::color::object<Format> packed_type;
 
 	static vertex_size const num_subelements = 4;
 };

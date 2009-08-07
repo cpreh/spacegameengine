@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "convert_dim.hpp"
+#include "../convert_dim.hpp"
 #include <sge/image/view/make.hpp>
 #include <sge/image/view/make_const.hpp>
 #include <sge/variant/object_impl.hpp>
@@ -124,7 +124,7 @@ operation::operator()() const
 {
 	return sge::image::view::object(
 		View(
-			sge::image::view::convert_dim<
+			sge::image::convert_dim<
 				typename View::dim_type
 			>(
 				dim

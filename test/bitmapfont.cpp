@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/trampoline.hpp>
-#include <sge/image/color/colors.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/font/system.hpp>
 #include <sge/font/drawer_3d.hpp>
 #include <sge/font/object.hpp>
@@ -81,7 +81,7 @@ try
 			sge::font::drawer_3d
 		>(
 			sys.renderer(),
-			sge::image::color::colors::white()
+			sge::image::colors::white()
 		)
 	);
 
@@ -89,7 +89,7 @@ try
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(sge::renderer::state::color::clear_color
-				= sge::image::color::colors::black()
+				= sge::image::colors::black()
 			)
 	);
 

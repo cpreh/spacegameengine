@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_INDEX_VIEW_16_HPP_INCLUDED
 
 #include <sge/renderer/index/detail/basic_view.hpp>
-#include <sge/typeswitch.hpp>
+#include <boost/cstdint.hpp>
 
 namespace sge
 {
@@ -31,8 +31,13 @@ namespace renderer
 namespace index
 {
 
-typedef detail::basic_view<uint16> view_16;
-typedef detail::basic_view<uint16 const> const_view_16;
+typedef detail::basic_view<
+	boost::uint16_t
+> view_16;
+
+typedef detail::basic_view<
+	boost::uint16_t const
+> const_view_16;
 
 }
 }

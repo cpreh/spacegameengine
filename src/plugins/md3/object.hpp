@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/istream.hpp>
 #include <sge/math/vector/static.hpp>
 #include <sge/math/vector/basic_decl.hpp>
-#include <sge/typeswitch.hpp>
 #include <boost/tr1/array.hpp>
+#include <boost/cstdint.hpp>
 #include <vector>
 #include <string>
 
@@ -59,9 +59,9 @@ public:
 		renderer::index::view const &);
 	
 	// TODO: split this!
-	typedef int16 s16;
-	typedef int32 s32;
-	typedef uint8 u8;
+	typedef boost::int16_t s16;
+	typedef boost::int32_t s32;
+	typedef boost::uint8_t u8;
 	typedef std::basic_string<u8> string;
 	typedef math::vector::static_<
 		funit,

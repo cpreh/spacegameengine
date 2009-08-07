@@ -22,8 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_RAW_DATA_HPP_INCLUDED
 
 #include <sge/renderer/raw_pointer.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <boost/gil/pixel.hpp>
 
 namespace sge
 {
@@ -32,29 +30,19 @@ namespace renderer
 namespace vf
 {
 
-template<typename T>
-const_raw_pointer
-raw_data(
-	T const &t);
-
 template<
-	typename T,
-	typename N,
-	typename S
+	typename T
 >
 const_raw_pointer
 raw_data(
-	math::vector::basic<T, N, S> const &v)
+	T const &t
+)
 {
-	return reinterpret_cast<const_raw_pointer>(v.data());
-}
-
-template<typename Channel, typename Layout>
-const_raw_pointer
-raw_data(
-	boost::gil::pixel<Channel, Layout> const &t)
-{
-	return reinterpret_cast<const_raw_pointer>(&t); // FIXME
+	return reinterpret_cast<
+		const_raw_pointer
+	>(
+		t.data()
+	);
 }
 
 }

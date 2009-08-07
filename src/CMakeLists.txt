@@ -26,6 +26,7 @@ FILE (GLOB sgecorefiles
 	math/*.cpp
 	math/rect/*.cpp
 	model/*.cpp
+	mpl/*.cpp
 	parse/ini/*.cpp
 	parse/json/*.cpp
 	plugin/*.cpp

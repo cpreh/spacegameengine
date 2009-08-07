@@ -7,7 +7,6 @@
 #include <sge/image/view/make_const.hpp>
 #include <sge/image/algorithm/copy_and_convert.hpp>
 #include <sge/image/color/rgba8.hpp>
-#include <sge/image/color/channel.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/window/parameters.hpp>
@@ -117,7 +116,7 @@ void field_increase_contrast(
 {
 	typedef sge::container::field<T> field_type;
 	typedef T color_type;
-	typedef typename sge::image::color::channel<T>::type channel_type;
+	typedef typename T::layout::channel_type channel_type;
 
 	BOOST_FOREACH(T &c,f)
 	{
@@ -265,7 +264,7 @@ void field_gaussian_blur(
 	typedef sge::container::field<T> field_type;
 	typedef typename field_type::size_type size_type;
 	typedef typename field_type::iterator iterator;
-	typedef typename sge::image::color::channel<T>::type channel_type;
+	typedef typename T::layout::channel_type channel_type;
 
 	typedef std::vector<T> color_container;
 	typedef typename color_container::size_type color_size_type;
@@ -445,9 +444,7 @@ try
 		f,
 		original,
 		&clamping_adder<
-			sge::image::color::channel<
-				color_field::value_type
-			>::type
+			color_field::value_type::layout::channel_type
 		>
 	);
 	

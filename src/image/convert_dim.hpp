@@ -18,20 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_RGBA8_HPP_INCLUDED
-#define SGE_IMAGE_RGBA8_HPP_INCLUDED
+#ifndef SGE_IMAGE_CONVERT_DIM_HPP_INCLUDED
+#define SGE_IMAGE_CONVERT_DIM_HPP_INCLUDED
 
-#include <sge/image/rgba8_format.hpp>
-#include <sge/image/store_fwd.hpp>
+#include <algorithm>
 
 namespace sge
 {
 namespace image
 {
 
-typedef store<
-	rgba8_format
-> rgba8;
+template<
+	typename Dest,
+	typename Src
+>
+Dest const
+convert_dim(
+	Src const &src
+)
+{
+	Dest dest;
+
+	std::copy(
+		src.begin(),
+		src.end(),
+		dest.begin()
+	);
+
+	return dest;
+}	
 
 }
 }

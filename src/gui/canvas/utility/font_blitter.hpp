@@ -26,6 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/convert.hpp>
 #include <boost/mpl/for_each.hpp>
 
+#if 0
+
 namespace sge
 {
 namespace gui
@@ -83,5 +85,7 @@ sge::gui::utility::font_blitter::operator()(
 		)
 	);
 }
+
+#endif
 
 #endif

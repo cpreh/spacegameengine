@@ -65,6 +65,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <boost/bind.hpp>
+#include <boost/cstdint.hpp>
 #include <sstream>
 
 sge::opengl::device::device(
@@ -159,7 +160,7 @@ sge::opengl::device::create_index_buffer(
 		return renderer::index_buffer_ptr(
 			make_shared_ptr<
 				opengl::index_buffer<
-					uint16
+					boost::uint16_t
 				>
 			>(
 				sz,
@@ -168,7 +169,7 @@ sge::opengl::device::create_index_buffer(
 		return renderer::index_buffer_ptr(
 			make_shared_ptr<
 				opengl::index_buffer<
-					uint32
+					boost::uint32_t
 				>
 			>(
 				sz,

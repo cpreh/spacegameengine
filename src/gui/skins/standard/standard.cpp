@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/internal_color.hpp>
 #include <sge/gui/canvas/object.hpp>
 #include <sge/gui/media_path.hpp>
-#include <sge/image/color/colors.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/font/system.hpp>
 #include <sge/math/dim/output.hpp>
 #include <sge/text.hpp>
@@ -49,7 +49,7 @@ sge::gui::skins::standard::standard(
 			SGE_TEXT("default.ttf"),
 			static_cast<font::size_type>(
 				15)),
-		sge::image::color::colors::black())
+		sge::image::colors::black())
 {
 }
 

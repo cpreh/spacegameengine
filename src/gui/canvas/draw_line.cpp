@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/bind.hpp>
 #include <algorithm>
 #include <cmath>
+#include <cstdlib>
 
 namespace
 {
@@ -71,7 +72,7 @@ void sge::gui::canvas::object::draw_line(
 	// increment in each direction, is also diagonal step
  	point const dd = apply(b-a,boost::bind(&math::signum<unit>,_1));
 	// absolute distance between the points
-	point const d = apply(b-a,boost::bind(&std::abs<unit>,_1));
+	point const d = apply(b-a,boost::bind(static_cast<unit (*)(unit)>(std::abs),_1));
 	// parallel step
 	point const pd = d.x() > d.y() 
 		? point(dd.x(),static_cast<unit>(0)) : point(static_cast<unit>(0),dd.y());

@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/vector/arithmetic.hpp>
 #include <sge/image/color/convert.hpp>
 #include <sge/image/color/any/convert.hpp>
-#include <sge/image/color/channel.hpp>
 #include <sge/image/algorithm/copy_and_convert.hpp>
 #include <sge/image/algorithm/transform.hpp>
 #include <sge/image/view/sub.hpp>
@@ -37,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <limits>
 #include <algorithm>
 
+#if 0
 namespace
 {
 template<class DstPixel>
@@ -250,3 +250,5 @@ void sge::gui::utility::blit(
 		blitter()
 	);
 }
+
+#endif

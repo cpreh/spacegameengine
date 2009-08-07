@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/char_metric.hpp>
 #include <sge/font/image_view.hpp>
 #include <sge/image/rgba8.hpp>
+#include <sge/image/store.hpp>
 #include <sge/math/vector/basic_decl.hpp>
 #include <sge/preprocessor/todo.hpp>
 #include <sge/char_type.hpp>
@@ -49,7 +50,8 @@ public:
 	font::pos const offset() const;
 	font::unit x_advance() const;
 private:
-	sge::image::rgba8 buffer; SGE_PP_TODO("we have to create an any_image and initialize it with the preferred color!")
+	typedef sge::image::rgba8 buffer_type; SGE_PP_TODO("we have to create an any_image and initialize it with the preferred color!")
+	buffer_type buffer;
 	font::pos   offset_;
 	font::unit  x_advance_;
 };

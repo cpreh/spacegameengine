@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
-#include <sge/typeswitch.hpp>
+#include <boost/cstdint.hpp>
 
 sge::opengl::default_target::default_target(
 	dim_type const & dim_,
@@ -72,9 +72,9 @@ sge::opengl::default_target::stride() const
 {
 	switch(depth_) {
 	case renderer::bit_depth::depth16:
-		return sizeof(uint16);
+		return sizeof(boost::uint16_t);
 	case renderer::bit_depth::depth32:
-		return sizeof(uint32);
+		return sizeof(boost::uint32_t);
 	default:
 		throw exception(
 			SGE_TEXT("Invalid bit_depth in ogl::default_target!"));

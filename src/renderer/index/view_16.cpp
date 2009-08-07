@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/index/view_16.hpp>
 #include <sge/renderer/index/impl/basic_view_impl.hpp>
-#include <sge/typeswitch.hpp>
+#include <boost/cstdint.hpp>
 
-template class sge::renderer::index::detail::basic_view<sge::uint16>;
-template class sge::renderer::index::detail::basic_view<sge::uint16 const>;
+template class sge::renderer::index::detail::basic_view<boost::uint16_t>;
+template class sge::renderer::index::detail::basic_view<boost::uint16_t const>;

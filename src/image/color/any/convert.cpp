@@ -20,6 +20,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/convert.hpp>
+#include <sge/image/color/gray8.hpp>
+#include <sge/image/color/rgba8.hpp>
+#include <sge/image/color/bgra8.hpp>
+#include <sge/image/color/argb8.hpp>
+#include <sge/image/color/rgba32f.hpp>
+#include <sge/image/color/bgra32f.hpp>
+#include <sge/image/color/argb32f.hpp>
 #include <sge/variant/apply_unary.hpp>
 #include <sge/variant/object_impl.hpp>
 
@@ -81,7 +88,6 @@ visitor<Dest>::operator()(
 
 }
 
-#if 0
 #define SGE_INSTANTIATE_COLOR_CONVERT(x)\
 template SGE_EXPORT_SYMBOL sge::image::color::x const \
 sge::image::color::any::convert<\
@@ -99,4 +105,3 @@ SGE_INSTANTIATE_COLOR_CONVERT(argb32f)
 SGE_INSTANTIATE_COLOR_CONVERT(bgra32f)
 
 #undef SGE_INSTANTIATE_COLOR_CONVERT
-#endif

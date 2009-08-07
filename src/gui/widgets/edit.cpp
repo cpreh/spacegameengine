@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/timer/object.hpp>
 #include <sge/gui/canvas/object.hpp>
 #include <sge/gui/manager.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/time/second_f.hpp>
 #include <sge/math/almost_zero.hpp>
 #include <sge/math/vector/output.hpp>
@@ -65,7 +66,10 @@ sge::gui::widgets::edit::edit(
 			.size_policy(
 				sge::gui::size_policy(
 					axis_policy::can_grow,
-					axis_policy::none))),
+					axis_policy::none
+				)
+			)
+	),
 	type(_type),
 	desired_size_(_desired_size),
 	cursor_visible_(false),
@@ -214,7 +218,7 @@ void sge::gui::widgets::edit::refresh() const
 
 	c.draw_rect(
 		c.area(),
-		internal_color(0xff,0xff,0xff,0xff),
+		sge::image::colors::white(),
 		canvas::rect_type::solid);
 	
 	if (ntext.empty())
@@ -278,7 +282,8 @@ void sge::gui::widgets::edit::refresh() const
 		c.draw_line(
 			point(p.x(),cursor_start),
 			point(p.x(),cursor_end),
-			internal_color(0x00,0x00,0x00,0xff));
+			sge::image::colors::black()
+		);
 	}
 
 	if (p.x() > size().w())

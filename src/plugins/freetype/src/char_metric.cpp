@@ -23,29 +23,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glyph.hpp"
 #include "../char_metric.hpp"
 #include <sge/image/algorithm/transform.hpp>
+#include <sge/image/color/init.hpp>
+#include <sge/image/color/rgba8.hpp>
+#include <sge/image/view/make.hpp>
+#include <sge/image/view/make_const.hpp>
 #include <sge/math/vector/basic_impl.hpp>
+#include <sge/math/dim/basic_impl.hpp>
 #include <sge/log/headers.hpp>
+#include <sge/variant/object_impl.hpp>
+#include <sge/optional_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
-#include <boost/gil/algorithm.hpp>
-#include <boost/gil/typedefs.hpp>
 #include <boost/bind.hpp>
 #include <ostream>
 
 namespace
 {
 
-void converter(
-	boost::gil::gray8_pixel_t const &src,
-	sge::image::color::rgba8 &dest)
-{
-	dest = sge::image::color::rgba8(
-		255,
-		255,
-		255,
-		src
-	);
-}
+struct converter {
+	typedef void result_type;
+	
+	template<
+		typename Src,
+		typename Dest
+	>
+	result_type
+	operator()(
+		Src const &,//src,
+		Dest const &dest
+	) const
+	{
+		dest = sge::image::color::rgba8(
+			sge::image::color::init::red %= 1.0,
+			sge::image::color::init::blue %= 1.0,
+			sge::image::color::init::green %= 1.0,
+			sge::image::color::init::alpha %= 1.0);
+//				static_cast<typename Dest::layout::channel_type>(src. template get<mizuiro::color::channel::gray>())
+//		);
+	}
+};
 
 }
 
@@ -88,31 +104,29 @@ sge::freetype::char_metric::char_metric(
 				<< offset_.y()
 				<< SGE_TEXT('!'));
 
-	boost::gil::gray8c_view_t src(
-		boost::gil::interleaved_view(
-			bitmap.width,
-			bitmap.rows,
-			reinterpret_cast<
-				boost::gil::gray8_pixel_t const *
-			>(
-				bitmap.buffer
-			),
-			bitmap.pitch
-		)
-	);
-	
-	buffer.recreate(
+	buffer_type::dim_type const dim(
 		bitmap.width,
 		bitmap.rows
 	);
 
+	buffer = buffer_type(
+		dim
+	);
+
 	sge::image::algorithm::transform(
-		src,
-		boost::gil::view(
-			buffer
+		sge::image::view::make(
+			static_cast<
+				unsigned char const *
+			>(
+				bitmap.buffer
+			),
+			dim,
+			sge::image::color::format::gray8,
+			bitmap.pitch
 		),
+		buffer.view(),
 		boost::bind(
-			converter,
+			converter(),
 			_1,
 			_2
 		)
@@ -131,12 +145,13 @@ sge::freetype::char_metric::offset() const
 sge::font::const_image_view const
 sge::freetype::char_metric::pixmap() const
 {
-	return boost::gil::const_view(
-		buffer
+	return image::view::const_object(
+		buffer.view()
 	);
 }
 
-sge::font::unit sge::freetype::char_metric::x_advance() const
+sge::font::unit
+sge::freetype::char_metric::x_advance() const
 {
 	return x_advance_;
 }

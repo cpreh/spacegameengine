@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "log.hpp"
 #include "utility/font_blitter.hpp"
 
+#if 0
 namespace
 {
 sge::gui::logger mylogger(sge::gui::canvas::global_log(),SGE_TEXT("font_drawer"),false);
@@ -120,3 +121,5 @@ void sge::gui::canvas::font_drawer::draw_char(
 void sge::gui::canvas::font_drawer::end_rendering()
 {
 }
+
+#endif

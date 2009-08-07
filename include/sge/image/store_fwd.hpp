@@ -18,20 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_RGBA8_HPP_INCLUDED
-#define SGE_IMAGE_RGBA8_HPP_INCLUDED
-
-#include <sge/image/rgba8_format.hpp>
-#include <sge/image/store_fwd.hpp>
+#ifndef SGE_IMAGE_STORE_FWD_HPP_INCLUDED
+#define SGE_IMAGE_STORE_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace image
 {
 
-typedef store<
-	rgba8_format
-> rgba8;
+template<
+	typename Format
+>
+class store;
 
 }
 }

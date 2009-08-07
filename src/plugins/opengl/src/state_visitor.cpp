@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../enable.hpp"
 #include "../check_state.hpp"
 #include <sge/image/color/any/convert.hpp>
-#include <sge/image/color/raw.hpp>
+#include <sge/image/color/rgba32f.hpp>
 #include <sge/renderer/arithmetic_convert.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/exception.hpp>
@@ -164,10 +164,10 @@ sge::opengl::state_visitor::operator()(
 	switch(s.state()) {
 	case rs::clear_color:
 		glClearColor(
-			fcolor[0],
-			fcolor[1],
-			fcolor[2],
-			fcolor[3]
+			fcolor.get<mizuiro::color::channel::red>(),
+			fcolor.get<mizuiro::color::channel::green>(),
+			fcolor.get<mizuiro::color::channel::blue>(),
+			fcolor.get<mizuiro::color::channel::alpha>()
 		);
 
 		SGE_OPENGL_CHECK_STATE(
@@ -178,9 +178,7 @@ sge::opengl::state_visitor::operator()(
 	case rs::ambient_light_color:
 		glLightModelfv(
 			GL_LIGHT_MODEL_AMBIENT,
-			image::color::raw(
-				fcolor
-			).data()
+			fcolor.data()
 		);
 		SGE_OPENGL_CHECK_STATE(
 			SGE_TEXT("glLightMOdelfv failed"),
@@ -190,9 +188,7 @@ sge::opengl::state_visitor::operator()(
 	case rs::fog_color:
 		glFogfv(
 			GL_FOG_COLOR,
-			image::color::raw(
-				fcolor
-			).data()
+			fcolor.data()
 		);
 
 		SGE_OPENGL_CHECK_STATE(

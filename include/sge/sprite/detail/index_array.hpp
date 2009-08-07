@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_INDEX_ARRAY_HPP_INCLUDED
 
 #include <sge/sprite/detail/constants.hpp>
-#include <sge/typeswitch.hpp>
 #include <boost/tr1/array.hpp>
+#include <boost/cstdint.hpp>
 
 namespace sge
 {
@@ -33,7 +33,7 @@ namespace detail
 {
 
 typedef std::tr1::array<
-	uint32,
+	boost::uint32_t,
 	indices_per_sprite
 > index_array_type;
 

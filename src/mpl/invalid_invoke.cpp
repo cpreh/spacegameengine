@@ -18,22 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_RGBA8_HPP_INCLUDED
-#define SGE_IMAGE_RGBA8_HPP_INCLUDED
+#include <sge/mpl/invalid_invoke.hpp>
+#include <sge/text.hpp>
 
-#include <sge/image/rgba8_format.hpp>
-#include <sge/image/store_fwd.hpp>
-
-namespace sge
-{
-namespace image
-{
-
-typedef store<
-	rgba8_format
-> rgba8;
-
-}
-}
-
-#endif
+sge::mpl::invalid_invoke::invalid_invoke()
+:
+	sge::exception(
+		SGE_TEXT("Invalid invoke!")
+	)
+{}

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_COLOR_CHANNEL8_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_CHANNEL8_HPP_INCLUDED
 
-#include <sge/typeswitch.hpp>
+#include <boost/cstdint.hpp>
 
 namespace sge
 {
@@ -30,7 +30,7 @@ namespace image
 namespace color
 {
 
-typedef uint8 channel8;
+typedef boost::uint8_t channel8;
 
 }
 }

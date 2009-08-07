@@ -130,7 +130,9 @@ sge::sprite::detail::fill_position_rotated(
 		(*it++).set<vertex_pos>(
 			construct(
 				(mat_rot * p) + centerf,
-				z));
+				z
+			)
+		);
 	return it;
 }
 

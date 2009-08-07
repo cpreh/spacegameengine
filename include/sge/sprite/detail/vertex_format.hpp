@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/pos.hpp>
 #include <sge/renderer/vf/color.hpp>
 #include <sge/renderer/vf/texpos.hpp>
-#include <sge/image/color/rgba8_format.hpp>
+#include <sge/image/color/rgba8.hpp>
 #include <boost/mpl/vector.hpp>
 
 namespace sge
@@ -36,10 +36,10 @@ namespace sprite
 namespace detail
 {
 
-typedef image::color::rgba8_format base_color;
+typedef image::color::rgba8 base_color;
 
 typedef renderer::vf::pos<funit, 3> vertex_pos;
-typedef renderer::vf::color<base_color> vertex_color;
+typedef renderer::vf::color<base_color::layout> vertex_color;
 typedef renderer::vf::texpos<funit, 2> vertex_texpos;
 
 typedef renderer::vf::format<

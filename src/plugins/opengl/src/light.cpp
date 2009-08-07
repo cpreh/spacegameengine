@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../check_state.hpp"
 #include "../vector4f.hpp"
 #include "../vector3f.hpp"
-#include <sge/image/color/raw.hpp>
 #include <sge/image/color/any/convert.hpp>
+#include <sge/image/color/rgba32f.hpp>
 #include <sge/renderer/vector_convert.hpp>
 #include <sge/renderer/arithmetic_convert.hpp>
 #include <sge/renderer/light.hpp>
@@ -184,12 +184,10 @@ void light_color(
 	light_float_ptr(
 		index,
 		name,
-		sge::image::color::raw(
-			sge::image::color::any::convert<
-				sge::image::color::rgba32f
-			>(
-				color
-			)
+		sge::image::color::any::convert<
+			sge::image::color::rgba32f
+		>(
+			color
 		).data()
 	);
 }
