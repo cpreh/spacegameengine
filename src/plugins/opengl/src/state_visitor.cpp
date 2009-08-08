@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../enable.hpp"
 #include "../check_state.hpp"
 #include <sge/image/color/any/convert.hpp>
+#include <sge/image/color/rgba32f_format.hpp>
 #include <sge/image/color/rgba32f.hpp>
 #include <sge/renderer/arithmetic_convert.hpp>
 #include <sge/renderer/state/var.hpp>
@@ -155,7 +156,7 @@ sge::opengl::state_visitor::operator()(
 
 	image::color::rgba32f const fcolor(
 		image::color::any::convert<
-			image::color::rgba32f
+			image::color::rgba32f_format
 		>(
 			s.value()
 		)

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/material.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/image/color/any/convert.hpp>
-#include <sge/image/color/rgba32f.hpp>
+#include <sge/image/color/rgba32f_format.hpp>
 #include <sge/variant/apply_unary.hpp>
 #include <sge/variant/object_impl.hpp>
 #include <sge/text.hpp>
@@ -149,7 +149,7 @@ void material_color(
 		face,
 		type,
 		sge::image::color::any::convert<
-			sge::image::color::rgba32f
+			sge::image::color::rgba32f_format
 		>(
 			color
 		).data()
