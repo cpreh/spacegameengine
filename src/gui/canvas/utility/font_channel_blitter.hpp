@@ -46,7 +46,6 @@ public:
 	typedef typename FontPixel::layout::channel_type font_channel_type;
 
 	font_channel_blitter(
-		Source1 const &bgcolor,
 		Source1 const &fontcolor,
 		FontPixel const &font,
 		DstPixel &result
@@ -65,9 +64,7 @@ public:
 		mizuiro::color::channel::alpha &
 	) const;
 private:
-	Source1 const
-		bgcolor,
-		fontcolor;
+	Source1 const fontcolor;
 	
 	FontPixel const font;
 
@@ -88,13 +85,11 @@ sge::gui::utility::font_channel_blitter<
 	DstPixel,
 	FontPixel
 >::font_channel_blitter(
-	Source1 const &bgcolor,
 	Source1 const &fontcolor,
 	FontPixel const &font,
 	DstPixel &result
 )
 :
-	bgcolor(bgcolor),
 	fontcolor(fontcolor),
 	font(font),
 	result(result)

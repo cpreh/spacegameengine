@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_GUI_UTILITY_FONT_BLITTER_HPP_INCLUDED
 
 #include "font_channel_blitter.hpp"
-#include <sge/image/color/convert.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <mizuiro/color/for_each_channel.hpp>
 
@@ -32,23 +31,24 @@ namespace gui
 {
 namespace utility
 {
-class font_blitter
-{
-	public:
+class font_blitter {
+public:
+	typedef void result_type;
+
 	explicit font_blitter(
 		color const &font_color);
 
 	template<
 		typename Font,
-		typename Src,
 		typename Dst
 	>
-	void operator()(
+	result_type
+	operator()(
 		Font const &font_value,
-		Src const &src_color,
-		Dst &dst_color) const;
+		Dst &dst_color
+	) const;
 	
-	private:
+private:
 	color const font_color;
 };
 }
@@ -64,13 +64,12 @@ sge::gui::utility::font_blitter::font_blitter(
 
 template<
 	typename Font,
-	typename Src,
 	typename Dst
 >
 void
 sge::gui::utility::font_blitter::operator()(
 	Font const &font_value,
-	Src const &src_color,
+	//Src const &src_color,
 	Dst &result) const
 {
 	mizuiro::color::for_each_channel<
@@ -84,11 +83,6 @@ sge::gui::utility::font_blitter::operator()(
 			Dst,
 			Font
 		>(
-			image::color::convert<
-				typename Dst::layout
-			>(
-				src_color
-			),
 			image::color::any::convert<
 				typename Dst::layout
 			>(

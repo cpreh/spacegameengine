@@ -109,9 +109,6 @@ void sge::gui::canvas::font_drawer::draw_char(
 	
 	sge::image::algorithm::transform(
 		data,
-		sge::image::view::make_const(
-			sub_view
-		),
 		sub_view,
 		utility::font_blitter(c)
 	);
