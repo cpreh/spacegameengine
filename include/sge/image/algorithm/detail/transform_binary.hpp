@@ -59,7 +59,8 @@ public:
 		mizuiro::image::algorithm::transform_ternary(
 			src1,
 			src2,
-			dest
+			dest,
+			op
 		);
 	}
 private:

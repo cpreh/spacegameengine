@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_COLOR_CONVERT_HPP_INCLUDED
 
 #include <mizuiro/color/convert.hpp>
+#include <mizuiro/color/object_impl.hpp>
 
 namespace sge
 {
@@ -34,7 +35,7 @@ template<
 	typename Dest,
 	typename Src
 >
-Dest const
+mizuiro::color::object<Dest> const
 convert(
 	Src const &src)
 {

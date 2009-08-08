@@ -20,15 +20,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/convert.hpp>
-#include <sge/image/color/gray8.hpp>
-#include <sge/image/color/rgba8.hpp>
-#include <sge/image/color/bgra8.hpp>
-#include <sge/image/color/argb8.hpp>
-#include <sge/image/color/rgba32f.hpp>
-#include <sge/image/color/bgra32f.hpp>
-#include <sge/image/color/argb32f.hpp>
+#include <sge/image/color/gray8_format.hpp>
+#include <sge/image/color/rgba8_format.hpp>
+#include <sge/image/color/bgra8_format.hpp>
+#include <sge/image/color/argb8_format.hpp>
+#include <sge/image/color/rgba32f_format.hpp>
+#include <sge/image/color/bgra32f_format.hpp>
+#include <sge/image/color/argb32f_format.hpp>
 #include <sge/variant/apply_unary.hpp>
 #include <sge/variant/object_impl.hpp>
+#include <mizuiro/color/object_impl.hpp>
 
 namespace
 {
@@ -38,7 +39,9 @@ template<
 >
 class visitor {
 public:
-	typedef Dest result_type;
+	typedef mizuiro::color::object<
+		Dest
+	> result_type;
 
 	template<
 		typename Source
@@ -54,7 +57,7 @@ public:
 template<
 	typename Dest
 >
-Dest const
+mizuiro::color::object<Dest> const
 sge::image::color::any::convert(
 	object const &col)
 {
@@ -89,19 +92,20 @@ visitor<Dest>::operator()(
 }
 
 #define SGE_INSTANTIATE_COLOR_CONVERT(x)\
-template SGE_EXPORT_SYMBOL sge::image::color::x const \
+template SGE_EXPORT_SYMBOL \
+mizuiro::color::object<sge::image::color::x> const \
 sge::image::color::any::convert<\
 	sge::image::color::x\
 >(\
 	sge::image::color::any::object const &\
 );
 
-SGE_INSTANTIATE_COLOR_CONVERT(gray8)
-SGE_INSTANTIATE_COLOR_CONVERT(rgba8)
-SGE_INSTANTIATE_COLOR_CONVERT(argb8)
-SGE_INSTANTIATE_COLOR_CONVERT(bgra8)
-SGE_INSTANTIATE_COLOR_CONVERT(rgba32f)
-SGE_INSTANTIATE_COLOR_CONVERT(argb32f)
-SGE_INSTANTIATE_COLOR_CONVERT(bgra32f)
+SGE_INSTANTIATE_COLOR_CONVERT(gray8_format)
+SGE_INSTANTIATE_COLOR_CONVERT(rgba8_format)
+SGE_INSTANTIATE_COLOR_CONVERT(argb8_format)
+SGE_INSTANTIATE_COLOR_CONVERT(bgra8_format)
+SGE_INSTANTIATE_COLOR_CONVERT(rgba32f_format)
+SGE_INSTANTIATE_COLOR_CONVERT(argb32f_format)
+SGE_INSTANTIATE_COLOR_CONVERT(bgra32f_format)
 
 #undef SGE_INSTANTIATE_COLOR_CONVERT

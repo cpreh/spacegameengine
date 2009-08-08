@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vector4f.hpp"
 #include "../vector3f.hpp"
 #include <sge/image/color/any/convert.hpp>
-#include <sge/image/color/rgba32f.hpp>
+#include <sge/image/color/rgba32f_format.hpp>
 #include <sge/renderer/vector_convert.hpp>
 #include <sge/renderer/arithmetic_convert.hpp>
 #include <sge/renderer/light.hpp>
@@ -185,7 +185,7 @@ void light_color(
 		index,
 		name,
 		sge::image::color::any::convert<
-			sge::image::color::rgba32f
+			sge::image::color::rgba32f_format
 		>(
 			color
 		).data()
