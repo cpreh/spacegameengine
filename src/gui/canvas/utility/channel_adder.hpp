@@ -27,7 +27,12 @@ namespace gui
 {
 namespace utility
 {
-template<class Pixel0,class Pixel1,class PixelResult>
+
+template<
+	class Pixel0,
+	class Pixel1,
+	class PixelResult
+>
 class channel_adder 
 {
 public:
@@ -52,8 +57,9 @@ sge::gui::utility::channel_adder<Pixel>::channel_adder(
 	Pixel0 const &p0,
 	Pixel1 const &p1,
 	PixelResult &result)
-: p0(p0),
-  p1(p1),
+:
+	p0(p0),
+	p1(p1),
 	result(result)
 {}
 
@@ -61,7 +67,10 @@ template<class Pixel>
 template<class T>
 void sge::gui::utility::channel_adder<Pixel>::operator()(T &t) const
 {
-	result[t] = p0[t]+p1[t];
+	result. template set<T>(
+		p0. template get<T>()
+		+ p1. template get<T>[]
+	);
 }
 
 #endif

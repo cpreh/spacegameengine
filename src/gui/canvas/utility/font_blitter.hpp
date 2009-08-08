@@ -24,9 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "font_channel_blitter.hpp"
 #include <sge/image/color/convert.hpp>
 #include <sge/image/color/any/convert.hpp>
-#include <boost/mpl/for_each.hpp>
-
-#if 0
+#include <mizuiro/color/for_each_channel.hpp>
 
 namespace sge
 {
@@ -59,7 +57,8 @@ class font_blitter
 
 sge::gui::utility::font_blitter::font_blitter(
 	color const &font_color)
-	: font_color(font_color)
+:
+	font_color(font_color)
 {
 }
 
@@ -74,8 +73,8 @@ sge::gui::utility::font_blitter::operator()(
 	Src const &src_color,
 	Dst &result) const
 {
-	boost::mpl::for_each<
-		typename Dst::layout_t::channel_mapping_t
+	mizuiro::color::for_each_channel<
+		Dst
 	>(
 		font_channel_blitter<Dst,Font>(
 			image::color::convert<Dst>(src_color),
@@ -85,7 +84,5 @@ sge::gui::utility::font_blitter::operator()(
 		)
 	);
 }
-
-#endif
 
 #endif

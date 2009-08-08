@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/container/map_impl.hpp>
 #include <sge/math/rect/basic_impl.hpp>
 #include <sge/math/vector/structure_cast.hpp>
+#include <sge/make_shared_ptr.hpp>
 #include <boost/bind.hpp>
 #include <boost/foreach.hpp>
 #include <locale>
@@ -46,9 +47,13 @@ sge::console::gfx::gfx(
 	object_(_object),
 	fn(
 		_metrics,
-		font::drawer_ptr(new font::drawer_3d(
+		make_shared_ptr<
+			font::drawer_3d
+		>(
 			_rend,
-			_font_color))),
+			_font_color
+		)
+	),
 	is(_is),
 	mf(_is),
 	ic(
@@ -57,19 +62,29 @@ sge::console::gfx::gfx(
 				&gfx::key_callback,
 				this,
 				_1,
-				_2))),
+				_2
+			)
+		)
+	),
 	irc(
 		mf.register_repeat_callback(
 			boost::bind(
 				&gfx::key_action,
 				this,
 				_1,
-				_2))),
+				_2
+			)
+		)
+	),
 	ss(_rend),
 	bg(_bg),
 	active_(false),
 	input_line_(),
-	cursor_blink_(time::second_f(static_cast<time::funit>(0.5))),
+	cursor_blink_(
+		time::second_f(
+			static_cast<time::funit>(0.5)
+		)
+	),
 	cursor_active_(false),
 	input_history_(),
 	output_history_()
