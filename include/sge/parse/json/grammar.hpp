@@ -112,7 +112,7 @@ public:
 
 		array_ %=
 			char_(SGE_TEXT('['))
-			>> (
+			>> -(
 				value_ % char_(SGE_TEXT(','))
 			)
 			>> char_(SGE_TEXT(']'));
@@ -133,7 +133,7 @@ public:
 
 		object_ %=
 			char_(SGE_TEXT('{'))
-			>> (
+			>> -(
 				member_
 				% char_(SGE_TEXT(','))
 			)
