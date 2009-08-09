@@ -30,6 +30,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename Format
 >
+sge::image::store<Format>::store()
+:
+	internal_()
+{}
+
+template<
+	typename Format
+>
 sge::image::store<Format>::store(
 	dim_type const &dim
 )
@@ -42,6 +50,30 @@ sge::image::store<Format>::store(
 		)
 	)
 {}
+
+template<
+	typename Format
+>
+sge::image::store<Format>::store(
+	store const &other
+)
+:
+	internal_(
+		other.internal_
+	)
+{}
+
+template<
+	typename Format
+>
+sge::image::store<Format> &
+sge::image::store<Format>::operator=(
+	store const &other
+)
+{
+	internal_ = other.internal_;
+	return *this;
+}
 
 template<
 	typename Format

@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/scoped_block.hpp>
-#include <sge/image/color/rgba8.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/trampoline.hpp>
@@ -156,8 +156,8 @@ try
 		sge::renderer::state::list
 			(sge::renderer::state::depth_func::off)
 			(sge::renderer::state::bool_::clear_backbuffer = true)
-			(sge::renderer::state::color::clear_color = 
-				sge::image::color::rgba8(255, 0, 0, 255))
+			(sge::renderer::state::color::clear_color =
+				sge::image::colors::red())
 			(sge::renderer::state::cull_mode::off)
 		);
 	

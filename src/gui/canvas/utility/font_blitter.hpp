@@ -78,13 +78,13 @@ sge::gui::utility::font_blitter::operator()(
 		font_channel_blitter<
 			// TODO: create a function for this like std::make_pair!
 			mizuiro::color::object<
-				typename Dst::layout
+				typename Dst::layout::normal
 			>,
 			Dst,
 			Font
 		>(
 			image::color::any::convert<
-				typename Dst::layout
+				typename Dst::layout::normal
 			>(
 				font_color
 			),

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/scoped_block.hpp>
-#include <sge/image/color/colors.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/time/second.hpp>
@@ -66,7 +66,7 @@ try
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(sge::renderer::state::color::clear_color
-				= sge::image::color::colors::yellow()
+				= sge::image::colors::yellow()
 			)
 	);
 

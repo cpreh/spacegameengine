@@ -29,11 +29,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/file.hpp>
 #include <sge/image/dim_type.hpp>
 #include <sge/image/rgba8.hpp>
+#include <sge/image/store.hpp>
 #include <sge/image/view/sub.hpp>
 #include <sge/image/view/make_const.hpp>
 #include <sge/image/algorithm/fill.hpp>
 #include <sge/image/algorithm/copy_and_convert.hpp>
-#include <sge/image/color/colors.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/mainloop/catch_block.hpp>
 #include <sge/filesystem/path.hpp>
 #include <sge/filesystem/directory_iterator.hpp>
@@ -165,20 +166,22 @@ try
 		)
 	);
 
-	sge::image::rgba8 dest(
-		border_sz,
-		border_sz
+	typedef sge::image::rgba8 image_type;
+
+	image_type dest(
+		image_type::dim_type(
+			border_sz,
+			border_sz
+		)
 	);
 
 	sge::image::view::object const dest_view(
-		boost::gil::view(
-			dest
-		)
+		dest.view()
 	);
 
 	sge::image::algorithm::fill(
 		dest_view,
-		sge::image::color::colors::transparent()
+		sge::image::colors::transparent()
 	);
 
 	sge::renderer::texture_pos_type pos(

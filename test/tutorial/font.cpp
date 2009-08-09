@@ -16,6 +16,8 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
+
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/font/metrics.hpp>
@@ -25,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text_size.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/image/color/colors.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/math/vector/basic_impl.hpp>
@@ -71,7 +73,7 @@ try
 			sge::font::drawer_3d
 		>(
 			sys.renderer(),
-			sge::image::color::colors::white()
+			sge::image::colors::white()
 		)
 	);
 	

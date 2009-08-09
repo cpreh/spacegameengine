@@ -16,6 +16,8 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
+
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/sprite/system.hpp>
@@ -33,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/system.hpp>
 #include <sge/image/file.hpp>
 #include <sge/image/loader.hpp>
-#include <sge/image/color/colors.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/signal/scoped_connection.hpp>
 #include <sge/mainloop/dispatch.hpp>
@@ -160,7 +162,8 @@ try
 	sys.renderer()->state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
-			(sge::renderer::state::color::clear_color = sge::image::color::colors::black())
+			(sge::renderer::state::color::clear_color
+				= sge::image::colors::black())
 	);
 
 	while (running)

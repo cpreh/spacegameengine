@@ -30,109 +30,182 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/sub.hpp>
 #include <sge/image/view/make_const.hpp>
 #include <sge/assert.hpp>
-#include <boost/mpl/for_each.hpp>
-#include <boost/gil/color_base.hpp>
-#include <boost/type_traits/remove_const.hpp>
-#include <limits>
+#include <mizuiro/color/for_each_channel.hpp>
 #include <algorithm>
 
-#if 0
 namespace
 {
-template<class DstPixel>
-class channel_blitter 
-{
+
+template<
+	typename Source,
+	typename DstPixel
+>
+class channel_blitter {
 public:
-	typedef DstPixel pixel_type;
-	typedef typename sge::image::color::channel<
-		typename boost::remove_const<
-			DstPixel
-		>::type
-	>::type channel_type;
+	typedef typename DstPixel::layout::channel_type channel_type;
 
 	channel_blitter(
-		pixel_type const &src,
-		pixel_type const &dest,
+		Source const &src,
 		channel_type const src_alpha,
 		channel_type const dest_alpha,
-		pixel_type &result);
+		DstPixel const &result
+	);
 
-	template<class T>
-	void operator()(T &) const;
+	typedef void result_type;
+
+	template<
+		typename Channel
+	>
+	result_type
+	operator()(
+		Channel &
+	) const;
+
+	result_type
+	operator()(
+		mizuiro::color::channel::alpha &
+	) const;
 private:
-	pixel_type const &src,dest;
+	Source const src;
 	channel_type const src_alpha,dest_alpha;
-	pixel_type &result;
+	DstPixel const &result;
 };
 
-template<class DstPixel>
-channel_blitter<DstPixel>::channel_blitter(
-	pixel_type const &src,
-	pixel_type const &dest,
+template<
+	typename Source,
+	typename DstPixel
+>
+channel_blitter<
+	Source,
+	DstPixel
+>::channel_blitter(
+	Source const &src,
 	channel_type const src_alpha,
 	channel_type const dest_alpha,
-	pixel_type &result)
+	DstPixel const &result)
 :
 	src(src),
-	dest(dest),
 	src_alpha(src_alpha),
 	dest_alpha(dest_alpha),
 	result(result)
 {}
 
-template<class DstPixel>
-template<class T>
-void channel_blitter<DstPixel>::operator()(T &t) const
+template<
+	typename Source,
+	typename DstPixel
+>
+template<
+	typename Channel
+>
+typename channel_blitter<
+	Source,
+	DstPixel
+>::result_type
+channel_blitter<
+	Source,
+	DstPixel
+>::operator()(
+	Channel &
+) const
 {
-	if (t == 3)
-	{
-		if (src[t]+dest[t] > std::numeric_limits<channel_type>::max())
-			result[t] = std::numeric_limits<channel_type>::max();
-		else
-			result[t] = static_cast<channel_type>(src[t]+dest[t]);
-			
-		return;
-	}
-
 	float const src_floating = sge::gui::utility::normalize<float>(src_alpha);
 	float const dest_floating = sge::gui::utility::normalize<float>(dest_alpha);
 
-	result[t] = static_cast<channel_type>(
-		static_cast<float>(src[t])*src_floating+
-		static_cast<float>(dest[t])*
-			std::max(
-				dest_floating-src_floating,
-				0.0f));
+	result. template set<Channel>(
+		static_cast<channel_type>(
+			static_cast<float>(src. template get<Channel>())
+			* src_floating
+			+ static_cast<float>(result. template get<Channel>())
+			* std::max(
+				dest_floating - src_floating,
+				0.0f
+			)
+		)
+	);
 }
 
-class blitter
+template<
+	typename Source,
+	typename DstPixel
+>
+typename channel_blitter<
+	Source,
+	DstPixel
+>::result_type
+channel_blitter<
+	Source,
+	DstPixel
+>::operator()(
+	mizuiro::color::channel::alpha &	
+) const
 {
-	public:
+	typedef mizuiro::color::channel::alpha alpha;
+
+	result. template set<alpha>(
+		src. template get<alpha>()
+		+ result. template get<alpha>()
+		> DstPixel::layout:: template channel_max<alpha>()
+		?
+			DstPixel::layout:: template channel_max<alpha>()
+		:
+			static_cast<
+				channel_type
+			>(
+				src. template get<alpha>()
+				+ result. template get<alpha>()
+			)
+	);
+}
+
+class blitter {
+public:
+	typedef void result_type;
+
 	template<
 		typename Src,
 		typename Dst
 	>
-	void operator()(
+	result_type
+	operator()(
 		Src const &src_color,
-		Dst &dst_color) const;
+		Dst const &dst_color
+	) const;
 };
 
 template<
 	typename Src,
 	typename Dst
 >
-void
+blitter::result_type
 blitter::operator()(
 	Src const &src_color,
-	Dst &result) const
+	Dst const &result
+) const
 {
-	boost::mpl::for_each<typename Dst::layout_t::channel_mapping_t>(
-		channel_blitter<Dst>(
-			sge::image::color::convert<Dst>(src_color),
-			result,
-			sge::image::color::convert<Dst>(src_color)[3],
-			result[3],
-			result));
+	mizuiro::color::for_each_channel<
+		typename Dst::layout
+	>(
+		// TODO: replace this with something like std::make_pair!
+		channel_blitter<
+			mizuiro::color::object<
+				typename Dst::layout
+			>,
+			Dst
+		>(
+			sge::image::color::convert<
+				typename Dst::layout
+			>(
+				src_color
+			),
+			sge::image::color::convert<
+				typename Dst::layout
+			>(
+				src_color
+			). template get<mizuiro::color::channel::alpha>(),
+			result. template get<mizuiro::color::channel::alpha>(),
+			result
+		)
+	);
 }
 }
 
@@ -250,5 +323,3 @@ void sge::gui::utility::blit(
 		blitter()
 	);
 }
-
-#endif

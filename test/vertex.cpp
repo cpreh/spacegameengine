@@ -36,8 +36,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
-#include <sge/image/color/rgba8.hpp>
-#include <sge/image/color/colors.hpp>
+#include <sge/image/color/rgba8_format.hpp>
+#include <sge/image/colors.hpp>
+#include <sge/image/color/any/convert.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/action.hpp>
 #include <sge/mainloop/dispatch.hpp>
@@ -75,10 +76,10 @@ try
 		3
 	> pos3_type;
 
-	typedef sge::image::color::rgba8 rgba8_color;
+	typedef sge::image::color::rgba8_format rgba8_format;
 
 	typedef sge::renderer::vf::color<
-		rgba8_color	
+		rgba8_format
 	> color_type;
 
 	typedef sge::renderer::vf::format<
@@ -117,12 +118,41 @@ try
 		
 		typedef pos3_type::packed_type vec3;
 
-		(*vb_it).set<pos3_type>(vec3(-1.f, 1.f, 0.f));
-		(*vb_it++).set<color_type>(rgba8_color(255, 255, 255, 255));
-		(*vb_it).set<pos3_type>(vec3(-1.f, -1.f, 0.f));
-		(*vb_it++).set<color_type>(rgba8_color(255, 255, 0, 255));
-		(*vb_it).set<pos3_type>(vec3(1.f, 1.f, 0.f));
-		(*vb_it++).set<color_type>(rgba8_color(255, 255, 255, 255));
+		(*vb_it).set<pos3_type>(
+			vec3(-1.f, 1.f, 0.f)
+		);
+
+		(*vb_it++).set<color_type>(
+			sge::image::color::any::convert<
+				rgba8_format
+			>(
+				sge::image::colors::cyan()
+			)
+		);
+
+		(*vb_it).set<pos3_type>(
+			vec3(-1.f, -1.f, 0.f)
+		);
+
+		(*vb_it++).set<color_type>(
+			sge::image::color::any::convert<
+				rgba8_format
+			>(
+				sge::image::colors::yellow()
+			)
+		);
+
+		(*vb_it).set<pos3_type>(
+			vec3(1.f, 1.f, 0.f)
+		);
+
+		(*vb_it++).set<color_type>(
+			sge::image::color::any::convert<
+				rgba8_format
+			>(
+				sge::image::colors::magenta()
+			)
+		);
 	}
 
 	bool running = true;
@@ -139,7 +169,8 @@ try
 	rend->state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
-			(sge::renderer::state::color::clear_color = sge::image::color::colors::black()
+			(sge::renderer::state::color::clear_color
+				= sge::image::colors::black()
 		)
 	);
 	

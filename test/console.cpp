@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
 #include <sge/image/loader.hpp>
-#include <sge/image/color/colors.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/console/object.hpp>
@@ -134,7 +134,7 @@ try
 	sge::console::gfx gfx_(
 		o,
 		sys.renderer(),
-		sge::image::color::rgba8(255,255,255,255),
+		sge::image::colors::white(),
 		sys.font_system()->create_font(
 			sge::config::media_path()/SGE_TEXT("fonts")/SGE_TEXT("default.ttf"),
 			15),
@@ -153,7 +153,7 @@ try
 	sys.renderer()->state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
-			(sge::renderer::state::color::clear_color = sge::image::color::colors::black())
+			(sge::renderer::state::color::clear_color = sge::image::colors::black())
 	);
 
 	sge::console::stdlib lib(

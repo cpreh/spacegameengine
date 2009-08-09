@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/assert.hpp>
 #include <sge/text.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/image/color/colors.hpp>
-#include <sge/image/color/rgba8.hpp>
+#include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/rgba32f.hpp>
-#include <sge/image/color/any/convert.hpp>
+#include <sge/image/color/init.hpp>
+//#include <sge/image/color/any/convert.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/input/action.hpp>
 #include <sge/input/system.hpp>
 #include <sge/mainloop/catch_block.hpp>
@@ -93,7 +94,7 @@ typedef sge::renderer::vf::normal<
 	float_type
 > normal_type;
 
-typedef sge::image::color::rgba8 color_;
+typedef sge::image::color::rgba8_format color_;
 
 typedef sge::renderer::vf::color<
 	color_
@@ -304,14 +305,14 @@ try
 			(sge::renderer::state::bool_::enable_lighting = true)
 			(sge::renderer::state::color::ambient_light_color
 				= rgba32f_color(
-					0.577350269f,
-					0.577350269f,
-					0.577350269f,
-					0.f
+					sge::image::color::init::red %= 0.577350269,
+					sge::image::color::init::green %= 0.577350269f,
+					sge::image::color::init::blue %= 0.577350269f,
+					sge::image::color::init::alpha %= 0.
 				)
 			)
 			(sge::renderer::state::float_::zbuffer_clear_val = 1.f)
-			(sge::renderer::state::color::clear_color = sge::image::color::colors::black())
+			(sge::renderer::state::color::clear_color = sge::image::colors::black())
 			(sge::renderer::state::cull_mode::back)
 			(sge::renderer::state::depth_func::less)
 	);
@@ -327,9 +328,9 @@ try
 		rend->light(
 			light_index,
 			sge::renderer::light(
-				sge::image::color::colors::white(),
-				sge::image::color::colors::white(),
-				sge::image::color::colors::white(),
+				sge::image::colors::white(),
+				sge::image::colors::white(),
+				sge::image::colors::white(),
 				vec3f(
 					0.577350269f,
 					0.577350269f,
@@ -357,24 +358,24 @@ try
 	rend->material(
 		sge::renderer::material(
 			rgba32f_color(
-				0.1f,
-				0.1f,
-				0.1f,
-				1.0f
+				sge::image::color::init::red %= 0.1,
+				sge::image::color::init::green %= 0.1,
+				sge::image::color::init::blue %= 0.1,
+				sge::image::color::init::alpha %= 1.
 			),
 			rgba32f_color(
-				0.75f,
-				0.75f,
-				1.0f,
-				1.0f
+				sge::image::color::init::red %= 0.75,
+				sge::image::color::init::green %= 0.75,
+				sge::image::color::init::blue %= 1.,
+				sge::image::color::init::alpha %= 1.
 			),
 			rgba32f_color(
-				0.5f,
-				0.5f,
-				0.5f,
-				1.0f
+				sge::image::color::init::red %= 0.5,
+				sge::image::color::init::green %= 0.5,
+				sge::image::color::init::blue %= 0.5,
+				sge::image::color::init::alpha %= 1.
 			),
-			sge::image::color::colors::black(),
+			sge::image::colors::black(),
 			100.f
 		)
 	);

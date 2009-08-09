@@ -29,21 +29,12 @@
 #include <cstddef>
 #include <cmath>
 
-#include <boost/typeof/typeof.hpp>
+#include <mizuiro/color/for_each_channel.hpp>
 
 #define FOREACH_BEGIN(channel, object)\
 {\
-	BOOST_TYPEOF(object) &temp_obj = object;\
 	class applier {\
-		BOOST_TYPEOF(object) &object;\
 	public:\
-		explicit applier(\
-			BOOST_TYPEOF(object) &object\
-		)\
-		:\
-			object(object)\
-		{}\
-		\
 		typedef void result_type;\
 		\
 		template<\
@@ -59,9 +50,9 @@
 	};\
 	\
 	mizuiro::color::for_each_channel<\
-		obj::layout\
+		BOOST_TYPEOF(object)::layout\
 	>(\
-		temp_obj\
+		applier()\
 	);\
 }
 
@@ -146,6 +137,50 @@ denormalize(Float const &x)
 		factor);
 }
 
+template<
+	typename Color
+>
+struct field_increase_contrast_channel {
+	
+	field_increase_contrast_channel(
+		Color &c,
+		double const coefficient
+	)
+	:
+		c(c),
+		coefficient(coefficient)
+	{}
+
+	typedef void result_type;
+	
+	template<
+		typename T
+	>
+	result_type
+	operator()(
+		T &
+	) const
+	{
+		c. template set<T>( 
+			denormalize<typename Color::layout::channel_type>(
+				sge::math::clamp(
+					logistic<double>(
+						normalize<double>(
+							c. template get<T>()
+						),
+						coefficient
+					),
+					0.0,
+					1.0
+				)
+			)
+		);
+	}
+private:
+	Color &c;
+	double const coefficient;
+};
+
 template<typename T>
 void field_increase_contrast(
 	sge::container::field<T> &f,
@@ -157,23 +192,16 @@ void field_increase_contrast(
 
 	BOOST_FOREACH(T &c,f)
 	{
-		// iterate through all channels except the alpha channel
-		FOREACH_BEGIN(T, c)
-			c.set<T>( 
-				denormalize<channel_type>(
-					sge::math::clamp(
-						logistic<double>(
-							normalize<double>(
-								c.get<T>()
-							),
-							coefficient
-						),
-						0.0,
-						1.0
-					)
-				)
-			);
-		FOREACH_END()
+		mizuiro::color::for_each_channel<
+			typename T::layout
+		>(
+			field_increase_contrast_channel<
+				color_type
+			>(
+				c,
+				coefficient
+			)
+		);
 	}
 }
 
@@ -416,6 +444,7 @@ T clamping_adder(T const &left,T const &right)
 int main(int argc,char *argv[])
 try
 {
+#if 0
 	if (argc < 2)
 	{
 		sge::cerr << SGE_TEXT("please specify an input file\n");
@@ -497,6 +526,7 @@ try
 	)->save(
 		SGE_TEXT("output.jpg")
 	);
+#endif
 }
 catch(sge::exception const &e)
 {

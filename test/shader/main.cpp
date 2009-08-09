@@ -45,6 +45,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key_pair.hpp>
 #include <sge/input/key_code.hpp>
 #include <sge/image/loader.hpp>
+#include <sge/image/color/rgba8.hpp>
+#include <sge/image/color/init.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/parameters.hpp>
@@ -181,10 +183,10 @@ try
 	
 	tux.color(
 		sge::image::color::rgba8(
-			0xff,
-			0xff,
-			0xff,
-			0x40
+			sge::image::color::init::red %= 1.0,
+			sge::image::color::init::green %= 1.0,
+			sge::image::color::init::blue %= 1.0,
+			sge::image::color::init::alpha %= 0.25
 		)
 	);
 

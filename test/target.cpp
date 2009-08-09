@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/signal/scoped_connection.hpp>
 #include <sge/image/loader.hpp>
 #include <sge/image/file.hpp>
-#include <sge/image/color/colors.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/config/media_path.hpp>
@@ -147,7 +147,9 @@ try
 	sys.renderer()->state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
-			(sge::renderer::state::color::clear_color = sge::image::color::colors::red()));
+			(sge::renderer::state::color::clear_color
+				= sge::image::colors::red())
+	);
 
 	bool running = true;
 
