@@ -29,6 +29,42 @@
 #include <cstddef>
 #include <cmath>
 
+#include <boost/typeof/typeof.hpp>
+
+#define FOREACH_BEGIN(channel, object)\
+{\
+	BOOST_TYPEOF(object) &temp_obj = object;\
+	class applier {\
+		BOOST_TYPEOF(object) &object;\
+	public:\
+		explicit applier(\
+			BOOST_TYPEOF(object) &object\
+		)\
+		:\
+			object(object)\
+		{}\
+		\
+		typedef void result_type;\
+		\
+		template<\
+			typename channel\
+		>\
+		result_type \
+		operator()(\
+			channel &\
+		) const {\
+
+#define FOREACH_END()\
+		}\
+	};\
+	\
+	mizuiro::color::for_each_channel<\
+		obj::layout\
+	>(\
+		temp_obj\
+	);\
+}
+
 template<typename T>
 T square(T const &t)
 {
@@ -73,6 +109,7 @@ logistic(
 		(static_cast<T>(1)+std::exp(exponent));
 }
 
+// TODO: replace these with mizuiro::color::(de)normalize!
 template<typename Float,typename Input>
 typename 
 boost::enable_if<
@@ -121,17 +158,22 @@ void field_increase_contrast(
 	BOOST_FOREACH(T &c,f)
 	{
 		// iterate through all channels except the alpha channel
-		for (unsigned i = 0; i <= 3; ++i)
-		{
-			c[i] = 
+		FOREACH_BEGIN(T, c)
+			c.set<T>( 
 				denormalize<channel_type>(
 					sge::math::clamp(
 						logistic<double>(
-							normalize<double>(c[i]),
-							coefficient),
+							normalize<double>(
+								c.get<T>()
+							),
+							coefficient
+						),
 						0.0,
-						1.0));
-		}
+						1.0
+					)
+				)
+			);
+		FOREACH_END()
 	}
 }
 
