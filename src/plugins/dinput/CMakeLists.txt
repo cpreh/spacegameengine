@@ -7,4 +7,4 @@ IF (NOT MSVC)
 	TARGET_LINK_LIBRARIES (sgedinput boost_signals)
 ENDIF ()
 
-INSTALL (TARGETS sgedinput DESTINATION ${pluginpath})
+INSTALL (TARGETS sgedinput DESTINATION lib/sge)
