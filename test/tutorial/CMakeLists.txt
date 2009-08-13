@@ -1,6 +1,7 @@
 MACRO (ADD_SGE_TUTORIAL name)
-	ADD_EXECUTABLE (sge${name} ${name}.cpp)
-	TARGET_LINK_LIBRARIES (sge${name} sgecore)
+	ADD_EXECUTABLE (sge${name}tutorial ${name}.cpp)
+	TARGET_LINK_LIBRARIES (sge${name}tutorial sgecore)
+	INSTALL (TARGETS sge${name}tutorial DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 ENDMACRO()
 
 ADD_SGE_TUTORIAL(font)

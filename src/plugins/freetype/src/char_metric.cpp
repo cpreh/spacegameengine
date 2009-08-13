@@ -49,7 +49,7 @@ struct converter {
 	>
 	result_type
 	operator()(
-		Src const &,//src,
+		Src const &src,
 		Dest const &dest
 	) const
 	{
@@ -57,9 +57,15 @@ struct converter {
 			sge::image::color::init::red %= 1.0,
 			sge::image::color::init::blue %= 1.0,
 			sge::image::color::init::green %= 1.0,
-			sge::image::color::init::alpha %= 1.0);
-//				static_cast<typename Dest::layout::channel_type>(src. template get<mizuiro::color::channel::gray>())
-//		);
+			sge::image::color::init::alpha =
+				static_cast<
+					typename Dest::layout::channel_type
+				>(
+					src. template get<
+						mizuiro::color::channel::gray
+					>
+				())
+		);
 	}
 };
 
