@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 #include <sge/iconv.hpp>
 #include <sge/make_shared_ptr.hpp>
+#include <sge/make_auto_ptr.hpp>
 #include <sge/auto_ptr.hpp>
 #include <sge/assert.hpp>
 #include <boost/tr1/array.hpp>
@@ -102,7 +103,9 @@ void sge::opengl::glsl::program<Native>::attach_shader(
 	auto_ptr<
 		attachment_type
 	> a(
-		new attachment_type(
+		sge::make_auto_ptr<
+			attachment_type
+		>(
 			s,
 			id()
 		)
