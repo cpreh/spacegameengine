@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text_size.hpp>
 #include <sge/assert.hpp>
 #include <sge/text.hpp>
+#include <sge/make_shared_ptr.hpp>
+#include <boost/tr1/functional.hpp>
 #include <algorithm>
 
 void sge::gui::canvas::object::draw_text(
@@ -54,12 +56,16 @@ void sge::gui::canvas::object::draw_text(
 
 	font::object(
 		font.metrics(),
-		font::drawer_ptr(
-			new font_drawer(
-				view_,
-				font.color(),
-				cp,
-				p))
+		sge::make_shared_ptr<
+			canvas::font_drawer
+		>(
+			std::tr1::ref(
+				view_
+			),
+			font.color(),
+			cp,
+			p
+		)
 	).draw_text(
 		text,
 		pos,
