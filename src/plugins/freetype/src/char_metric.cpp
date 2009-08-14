@@ -119,6 +119,14 @@ sge::freetype::char_metric::char_metric(
 		dim
 	);
 
+	// FIXME
+	if(
+		bitmap.pitch < 0
+	)
+		throw sge::exception(
+			SGE_TEXT("FIXME: bitmap pitch < 0, case not handled!")
+		);
+
 	sge::image::algorithm::transform(
 		sge::image::view::make(
 			static_cast<
