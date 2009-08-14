@@ -26,13 +26,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/math/dim/structure_cast.hpp>
 #include <sge/variant/object_impl.hpp>
+#include <sge/make_shared_ptr.hpp>
 
 sge::gui::image_ptr const
 sge::gui::make_image(
 	sge::image::file_ptr _image)
 {
 	sge::gui::image_ptr i(
-		new gui::image(
+		sge::make_shared_ptr<
+			gui::image
+		>(
 			math::dim::structure_cast<dim>(
 				_image->dim()
 			)

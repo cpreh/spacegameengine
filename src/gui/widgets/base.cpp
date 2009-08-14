@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/rect/intersects.hpp>
 #include <sge/math/rect/output.hpp>
 #include <sge/type_info.hpp>
+#include <sge/make_auto_ptr.hpp>
 #include <boost/foreach.hpp>
 #include <typeinfo>
 
@@ -68,7 +69,12 @@ sge::gui::widgets::base::base(
 	layout_(
 		params.layout() 
 		? params.layout() 
-		: layouts::auto_ptr(new layouts::null())),
+		: layouts::auto_ptr(
+			sge::make_auto_ptr<
+				layouts::null
+			>()
+		)
+	),
 	activation_(params.activation())
 {
 	layout_->connected_widget(*this);

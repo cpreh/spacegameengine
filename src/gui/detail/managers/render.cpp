@@ -48,6 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/assert.hpp>
 #include <sge/type_name.hpp>
 #include <sge/make_shared_ptr.hpp>
+#include <sge/make_auto_ptr.hpp>
 #include <boost/foreach.hpp>
 #include <utility>
 
@@ -90,10 +91,13 @@ sge::texture::const_part_ptr assign_textures(
 			sge::renderer::filter::linear,
 			sge::renderer::resource_flags::dynamic);
 	
-	tex.reset(
-		new sge::renderer::texture_rw(
+	tex =
+		sge::make_shared_ptr<
+			sge::renderer::texture_rw
+		>(
 			software_texture,
-			hardware_texture));
+			hardware_texture
+		);
 
 	sge::gui::utility::wipe_texture(
 		tex);
@@ -124,10 +128,23 @@ void sge::gui::detail::managers::render::add(widgets::base &w)
 		mylogger,
 		log::_1 << SGE_TEXT("adding new widget"));
 	widgets::base *w_ptr = &w;
+
 	if (!w.has_parent())
+	{
+		sge::auto_ptr<
+			widget_data
+		> to_insert(
+			sge::make_auto_ptr<
+				widget_data
+			>()
+		);
+
+
 		widgets.insert(
 			w_ptr,
-			new widget_data());
+			to_insert
+		);
+	}
 }
 
 void sge::gui::detail::managers::render::activation(

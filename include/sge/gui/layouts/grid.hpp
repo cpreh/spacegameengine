@@ -52,7 +52,7 @@ private:
 	typedef scoped_ptr<detail::grid_cache> cache_ptr;
 	mutable cache_ptr cache_;
 
-  detail::grid_cache &valid_cache() const;
+	detail::grid_cache &valid_cache() const;
 
 	void adapt_outer(
 		dim const &,
