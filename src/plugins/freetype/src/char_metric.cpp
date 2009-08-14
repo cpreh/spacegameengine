@@ -128,7 +128,7 @@ sge::freetype::char_metric::char_metric(
 			),
 			dim,
 			sge::image::color::format::gray8,
-			bitmap.pitch
+			bitmap.pitch - bitmap.width
 		),
 		buffer.view(),
 		boost::bind(
