@@ -130,7 +130,6 @@ operation::operator()() const
 				dim
 			),
 			data,
-			data,
 			typename View::pitch_type(
 				pitch
 				? *pitch
