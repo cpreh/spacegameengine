@@ -45,7 +45,7 @@ sge::gui::image const &choose_image(
 	if (b.key_over())
 		return *b.keyboard();
 
-	return b.buffer() = *b.normal();
+	return *b.normal();
 }
 }
 
