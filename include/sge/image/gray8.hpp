@@ -18,43 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FREETYPE_CHAR_METRIC_HPP_INCLUDED
-#define SGE_FREETYPE_CHAR_METRIC_HPP_INCLUDED
+#ifndef SGE_IMAGE_GRAY8_HPP_INCLUDED
+#define SGE_IMAGE_GRAY8_HPP_INCLUDED
 
-#include <sge/font/pos.hpp>
-#include <sge/font/unit.hpp>
-#include <sge/font/char_metric.hpp>
-#include <sge/font/image_view.hpp>
-#include <sge/math/vector/basic_decl.hpp>
-#include <sge/image/gray8.hpp>
-#include <sge/image/store.hpp>
-#include <sge/char_type.hpp>
+#include <sge/image/gray8_format.hpp>
+#include <sge/image/store_fwd.hpp>
 
 namespace sge
 {
-namespace freetype
+namespace image
 {
 
-class face;
-
-class char_metric : public font::char_metric {
-public:
-	char_metric(
-		face &,
-		char_type
-	);
-
-	~char_metric();
-
-	font::const_image_view const pixmap() const;
-	font::pos const offset() const;
-	font::unit x_advance() const;
-private:
-	typedef sge::image::gray8 buffer_type;
-	buffer_type buffer_;
-	font::pos   offset_;
-	font::unit  x_advance_;
-};
+typedef store<
+	gray8_format
+> gray8;
 
 }
 }

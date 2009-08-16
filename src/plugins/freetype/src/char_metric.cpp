@@ -20,13 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../freetype.hpp"
 #include "../face.hpp"
-#include "../glyph.hpp"
 #include "../char_metric.hpp"
-#include <sge/image/algorithm/transform.hpp>
-#include <sge/image/color/init.hpp>
-#include <sge/image/color/rgba8.hpp>
+#include "../glyph.hpp"
 #include <sge/image/view/make.hpp>
-#include <sge/image/view/make_const.hpp>
+#include <sge/image/algorithm/copy_and_convert.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/log/headers.hpp>
@@ -34,58 +31,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/optional_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
-#include <boost/bind.hpp>
 #include <ostream>
-
-namespace
-{
-
-struct converter {
-	typedef void result_type;
-	
-	template<
-		typename Src,
-		typename Dest
-	>
-	result_type
-	operator()(
-		Src const &src,
-		Dest const &dest
-	) const
-	{
-		dest = sge::image::color::rgba8(
-			sge::image::color::init::red %= 1.0,
-			sge::image::color::init::blue %= 1.0,
-			sge::image::color::init::green %= 1.0,
-			sge::image::color::init::alpha =
-				static_cast<
-					typename Dest::layout::channel_type
-				>(
-					src. template get<
-						mizuiro::color::channel::gray
-					>
-				())
-		);
-	}
-};
-
-}
 
 sge::freetype::char_metric::char_metric(
 	face &face_,
 	char_type const ch)
 :
-	buffer(),
-	offset_()
+	buffer_(),
+	offset_(),
+	x_advance_()
 {
-	if(FT_Load_Char(face_.get(), ch, FT_LOAD_DEFAULT))
-		throw exception(SGE_TEXT("FT_Load_Glyph() failed!"));
+	if(
+		FT_Load_Char(
+			face_.get(),
+			ch,
+			FT_LOAD_DEFAULT
+		)
+	)
+		throw exception(
+			SGE_TEXT("FT_Load_Glyph() failed!")
+		);
 
-	glyph glyph_(face_);
-	FT_BitmapGlyph bmp_glyph = glyph_.bitmap_glyph();
+	glyph glyph_(
+		face_
+	);
 
-	FT_Bitmap& bitmap = bmp_glyph->bitmap;
-	
+	FT_BitmapGlyph const bmp_glyph = glyph_.bitmap_glyph();
+
+	FT_Bitmap &bitmap = bmp_glyph->bitmap;
+
 	offset_.x() = bmp_glyph->left;
 	offset_.y() = static_cast<font::unit>(face_->size->metrics.ascender / 64 - bmp_glyph->top);
 	x_advance_ = static_cast<font::unit>(face_->glyph->advance.x / 64);
@@ -99,7 +73,9 @@ sge::freetype::char_metric::char_metric(
 				<< ch
 				<< SGE_TEXT("' is ")
 				<< offset_.x()
-				<< SGE_TEXT('!'));
+				<< SGE_TEXT('!')
+		);
+	
 	if(offset_.y() < 0)
 		SGE_LOG_WARNING(
 			log::global(),
@@ -108,17 +84,9 @@ sge::freetype::char_metric::char_metric(
 				<< ch
 				<< SGE_TEXT("' is ")
 				<< offset_.y()
-				<< SGE_TEXT('!'));
-
-	buffer_type::dim_type const dim(
-		bitmap.width,
-		bitmap.rows
-	);
-
-	buffer = buffer_type(
-		dim
-	);
-
+				<< SGE_TEXT('!')
+		);
+	
 	// FIXME
 	if(
 		bitmap.pitch < 0
@@ -127,23 +95,27 @@ sge::freetype::char_metric::char_metric(
 			SGE_TEXT("FIXME: bitmap pitch < 0, case not handled!")
 		);
 
-	sge::image::algorithm::transform(
+	image::dim_type const dim_(
+		bitmap.width,
+		bitmap.rows
+	);
+
+	buffer_ = buffer_type(
+		dim_
+	);
+		
+	image::algorithm::copy_and_convert(
 		sge::image::view::make(
 			static_cast<
 				unsigned char const *
 			>(
 				bitmap.buffer
 			),
-			dim,
+			dim_,
 			sge::image::color::format::gray8,
 			bitmap.pitch - bitmap.width
 		),
-		buffer.view(),
-		boost::bind(
-			converter(),
-			_1,
-			_2
-		)
+		buffer_.view()
 	);
 }
 
@@ -159,9 +131,7 @@ sge::freetype::char_metric::offset() const
 sge::font::const_image_view const
 sge::freetype::char_metric::pixmap() const
 {
-	return image::view::const_object(
-		buffer.view()
-	);
+	return buffer_.view();
 }
 
 sge::font::unit
