@@ -75,7 +75,7 @@ void sge::gui::skins::standard::draw(
 
 	canvas::object c(w.buffer());
 
-	typedef internal_color::layout::channel_type channel_type;
+	typedef internal_color::format::channel_type channel_type;
 
 	// fill completely with background color
 	c.draw_rect(

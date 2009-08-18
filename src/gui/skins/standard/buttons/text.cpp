@@ -54,7 +54,7 @@ void sge::gui::skins::standard::draw(
 		log::_1 << SGE_TEXT("creating canvas from buffer"));
 	canvas::object c(b.buffer());
 
-	typedef internal_color::layout::channel_type channel;
+	typedef internal_color::format::channel_type channel;
 
 	// Background
 	c.draw_rect(

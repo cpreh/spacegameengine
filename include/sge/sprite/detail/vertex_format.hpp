@@ -39,7 +39,7 @@ namespace detail
 typedef image::color::rgba8 base_color;
 
 typedef renderer::vf::pos<funit, 3> vertex_pos;
-typedef renderer::vf::color<base_color::layout> vertex_color;
+typedef renderer::vf::color<base_color::format> vertex_color;
 typedef renderer::vf::texpos<funit, 2> vertex_texpos;
 
 typedef renderer::vf::format<

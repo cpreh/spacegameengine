@@ -28,7 +28,7 @@ sge::image::color::any::object const \
 sge::image::colors::name()\
 {\
 	typedef sge::image::color::rgba8 color_type;\
-	typedef color_type::layout::channel_type value_type;\
+	typedef color_type::format::channel_type value_type;\
 \
 	return sge::image::color::rgba8(\
 		mizuiro::color::init::red = static_cast<value_type>(r),\

@@ -143,7 +143,7 @@ sge::sprite::detail::fill_color(
 {
 	base_color const col(
 		image::color::any::convert<
-			base_color::layout
+			base_color::format
 		>(
 			acol
 		)

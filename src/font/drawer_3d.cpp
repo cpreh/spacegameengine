@@ -121,10 +121,10 @@ sge::font::drawer_3d::cached_texture(
 		? it->second
 		: textures.insert(
 			std::make_pair(
-			ch,
-			texman.add(
-				data
+				ch,
+				texman.add(
+					data
+				)
 			)
-		)
-	).first->second;
+		).first->second;
 }

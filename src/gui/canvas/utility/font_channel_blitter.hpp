@@ -41,9 +41,9 @@ class font_channel_blitter
 public:
 	typedef void result_type;
 
-	typedef typename DstPixel::layout::channel_type channel_type;
+	typedef typename DstPixel::format::channel_type channel_type;
 
-	typedef typename FontPixel::layout::channel_type font_channel_type;
+	typedef typename FontPixel::format::channel_type font_channel_type;
 
 	font_channel_blitter(
 		Source1 const &fontcolor,

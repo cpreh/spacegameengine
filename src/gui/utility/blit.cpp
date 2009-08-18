@@ -42,7 +42,7 @@ template<
 >
 class channel_blitter {
 public:
-	typedef typename DstPixel::layout::channel_type channel_type;
+	typedef typename DstPixel::format::channel_type channel_type;
 
 	channel_blitter(
 		Source const &src,
@@ -144,9 +144,9 @@ channel_blitter<
 	result. template set<alpha>(
 		src. template get<alpha>()
 		+ result. template get<alpha>()
-		> DstPixel::layout:: template channel_max<alpha>()
+		> DstPixel::format:: template channel_max<alpha>()
 		?
-			DstPixel::layout:: template channel_max<alpha>()
+			DstPixel::format:: template channel_max<alpha>()
 		:
 			static_cast<
 				channel_type
@@ -183,22 +183,22 @@ blitter::operator()(
 ) const
 {
 	mizuiro::color::for_each_channel<
-		typename Dst::layout
+		typename Dst::format
 	>(
 		// TODO: replace this with something like std::make_pair!
 		channel_blitter<
 			mizuiro::color::object<
-				typename Dst::layout
+				typename Dst::format
 			>,
 			Dst
 		>(
 			sge::image::color::convert<
-				typename Dst::layout
+				typename Dst::format
 			>(
 				src_color
 			),
 			sge::image::color::convert<
-				typename Dst::layout
+				typename Dst::format
 			>(
 				src_color
 			). template get<mizuiro::color::channel::alpha>(),
