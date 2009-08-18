@@ -112,7 +112,7 @@ sge::freetype::char_metric::char_metric(
 				bitmap.buffer
 			),
 			dim_,
-			sge::image::color::format::gray8,
+			sge::image::color::format::alpha8,
 			bitmap.pitch - bitmap.width
 		),
 		buffer_.view()
