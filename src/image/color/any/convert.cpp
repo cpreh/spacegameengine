@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/convert.hpp>
+#include <sge/image/color/alpha8_format.hpp>
 #include <sge/image/color/gray8_format.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/bgra8_format.hpp>
@@ -100,6 +101,7 @@ sge::image::color::any::convert<\
 	sge::image::color::any::object const &\
 );
 
+SGE_INSTANTIATE_COLOR_CONVERT(alpha8_format)
 SGE_INSTANTIATE_COLOR_CONVERT(gray8_format)
 SGE_INSTANTIATE_COLOR_CONVERT(rgba8_format)
 SGE_INSTANTIATE_COLOR_CONVERT(argb8_format)

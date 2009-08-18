@@ -18,8 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_COLOR_FORMAT_HPP_INCLUDED
-#define SGE_IMAGE_COLOR_FORMAT_HPP_INCLUDED
+#ifndef SGE_IMAGE_COLOR_ALPHA8_HPP_INCLUDED
+#define SGE_IMAGE_COLOR_ALPHA8_HPP_INCLUDED
+
+#include <sge/image/color/alpha8_format.hpp>
+#include <mizuiro/color/object_impl.hpp>
 
 namespace sge
 {
@@ -28,20 +31,9 @@ namespace image
 namespace color
 {
 
-namespace format
-{
-enum type {
-	alpha8,
-	gray8,
-	rgba8,
-	argb8,
-	bgra8,
-	rgba32f,
-	argb32f,
-	bgra32f,
-	size
-};
-}
+typedef mizuiro::color::object<
+	alpha8_format
+> alpha8;
 
 }
 }
