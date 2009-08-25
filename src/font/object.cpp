@@ -198,7 +198,7 @@ sge::font::object::line_width(
 			last_width = w;
 		}
 
-		const unit nw = w + char_space(*sbeg);
+		unit const nw = w + char_space(*sbeg);
 		if(nw > width)
 			return last_width && !(flags & flags::no_line_wrap)
 				? font::text_size(

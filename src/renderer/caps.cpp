@@ -27,7 +27,9 @@ sge::renderer::caps::caps(
 	dim_type const &max_texture_size_,
 	filter::anisotropy_type const max_anisotropy_,
 	bool const render_target_supported_,
-	bool const glsl_supported_)
+	bool const glsl_supported_,
+	image::color::format::type const preferred_texture_format_
+)
 :
 	adapter_(adapter_),
 	driver_name_(driver_name_),
@@ -35,7 +37,8 @@ sge::renderer::caps::caps(
 	max_texture_size_(max_texture_size_),
 	max_anisotropy_(max_anisotropy_),
 	render_target_supported_(render_target_supported_),
-	glsl_supported_(glsl_supported_)
+	glsl_supported_(glsl_supported_),
+	preferred_texture_format_(preferred_texture_format_)
 {}
 
 sge::renderer::adapter_type
@@ -78,4 +81,11 @@ bool
 sge::renderer::caps::glsl_supported() const
 {
 	return glsl_supported_;
+}
+
+
+sge::image::color::format::type
+sge::renderer::caps::preferred_texture_format() const
+{
+	return preferred_texture_format_;
 }

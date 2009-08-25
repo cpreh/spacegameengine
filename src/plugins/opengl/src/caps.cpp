@@ -55,7 +55,8 @@ sge::opengl::create_caps()
 			),
 			GL_TEXTURE_MAX_ANISOTROPY_EXT,
 			glGenFramebuffersEXT,
-			glsl::is_supported()
+			glsl::is_supported(),
+			sge::image::color::format::rgba8 // TODO: use bgra8 for nvidia instead!
 		)
 	);
 }

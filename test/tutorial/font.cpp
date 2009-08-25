@@ -73,7 +73,7 @@ try
 			sge::font::drawer_3d
 		>(
 			sys.renderer(),
-			sge::image::colors::white()
+			sge::image::colors::green()
 		)
 	);
 	

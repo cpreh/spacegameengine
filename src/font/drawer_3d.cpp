@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/rect/basic_impl.hpp>
 #include <sge/math/dim/structure_cast.hpp>
 #include <sge/renderer/filter/linear.hpp>
+#include <sge/renderer/caps.hpp>
 #include <sge/image/view/dim.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
@@ -40,7 +41,7 @@ sge::font::drawer_3d::drawer_3d(
 			texture::rect_fragmented
 		>(
 			rend,
-			sge::image::color::format::rgba8, // TODO
+			rend->caps().preferred_texture_format(),
 			renderer::filter::linear
 		)
 	),

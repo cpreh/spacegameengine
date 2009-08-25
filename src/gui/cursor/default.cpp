@@ -35,7 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/dim/structure_cast.hpp>
 #include <sge/make_shared_ptr.hpp>
 #include <sge/text.hpp>
-#include <sge/cerr.hpp>
 
 sge::gui::cursor::default_::default_(
 	sge::image::loader_ptr const il,
@@ -116,5 +115,4 @@ sge::sprite::object &sge::gui::cursor::default_::mutable_sprite()
 
 sge::gui::cursor::default_::~default_() 
 {
-	sge::cerr << "destroying cursor\n";
 }
