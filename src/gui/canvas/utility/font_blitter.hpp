@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "font_channel_blitter.hpp"
 #include <sge/image/color/any/convert.hpp>
 #include <mizuiro/color/for_each_channel.hpp>
+#include <mizuiro/color/is_alpha.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace sge
 {
@@ -42,7 +44,27 @@ public:
 		typename Font,
 		typename Dst
 	>
-	result_type
+	typename
+	boost::enable_if
+	<
+		mizuiro::color::is_alpha<typename Font::format>,
+		result_type
+	>::type
+	operator()(
+		Font const &font_value,
+		Dst &dst_color
+	) const;
+
+	template<
+		typename Font,
+		typename Dst
+	>
+	typename
+	boost::disable_if
+	<
+		mizuiro::color::is_alpha<typename Font::format>,
+		result_type
+	>::type
 	operator()(
 		Font const &font_value,
 		Dst &dst_color
@@ -66,7 +88,12 @@ template<
 	typename Font,
 	typename Dst
 >
-void
+typename
+boost::enable_if
+<
+	mizuiro::color::is_alpha<typename Font::format>,
+	sge::gui::utility::font_blitter::result_type
+>::type
 sge::gui::utility::font_blitter::operator()(
 	Font const &font_value,
 	//Src const &src_color,
@@ -92,6 +119,22 @@ sge::gui::utility::font_blitter::operator()(
 			result
 		)
 	);
+}
+
+template<
+	typename Font,
+	typename Dst
+>
+typename
+boost::disable_if
+<
+	mizuiro::color::is_alpha<typename Font::format>,
+	sge::gui::utility::font_blitter::result_type
+>::type
+sge::gui::utility::font_blitter::operator()(
+	Font const &,
+	Dst &) const
+{
 }
 
 #endif
