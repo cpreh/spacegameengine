@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MPL_DETAIL_INVOKE_ON_HPP_INCLUDED
 
 #include <sge/mpl/invalid_invoke.hpp>
+#include <sge/workarounds.hpp>
 #include <boost/mpl/deref.hpp>
 #include <boost/mpl/next.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -86,9 +87,17 @@ struct invoke_on<
 		>::type iter;
 
 		return Counter::value == index 
-			? op. template operator()<
+			?
+#ifdef SGE_MSVC_DEPENDANT_TEMPLATE_BUG
+			op.operator()<
 				item
 			>()
+#else
+
+			op. template operator()<
+				item
+			>()
+#endif
 			: detail::invoke_on<
 				typename boost::mpl::next<
 					Counter
