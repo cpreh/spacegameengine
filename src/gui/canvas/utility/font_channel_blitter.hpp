@@ -187,7 +187,7 @@ sge::gui::utility::font_channel_blitter<
 			float
 		>(
 			font. template get<
-				mizuiro::color::channel::gray
+				mizuiro::color::channel::alpha
 			>()
 		);
 }
