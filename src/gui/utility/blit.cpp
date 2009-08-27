@@ -30,7 +30,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/sub.hpp>
 #include <sge/image/view/make_const.hpp>
 #include <sge/assert.hpp>
+#include <boost/mpl/and.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <mizuiro/color/has_channel.hpp>
 #include <mizuiro/color/for_each_channel.hpp>
+#include <mizuiro/color/channel/alpha.hpp>
 #include <algorithm>
 
 namespace
@@ -165,18 +169,52 @@ public:
 		typename Src,
 		typename Dst
 	>
-	result_type
+	typename boost::enable_if
+	<
+		boost::mpl::and_
+		<
+			mizuiro::color::has_channel<typename Src::format,mizuiro::color::channel::alpha>,
+			mizuiro::color::has_channel<typename Dst::format,mizuiro::color::channel::alpha>
+		>,
+		result_type
+	>::type
 	operator()(
 		Src const &src_color,
 		Dst const &dst_color
 	) const;
+
+	template<
+		typename Src,
+		typename Dst
+	>
+	typename boost::disable_if
+	<
+		boost::mpl::and_
+		<
+			mizuiro::color::has_channel<typename Src::format,mizuiro::color::channel::alpha>,
+			mizuiro::color::has_channel<typename Dst::format,mizuiro::color::channel::alpha>
+		>,
+		result_type
+	>::type
+	operator()(
+		Src const &,
+		Dst const &
+	) const {}
 };
 
 template<
 	typename Src,
 	typename Dst
 >
-blitter::result_type
+typename boost::enable_if
+<
+	boost::mpl::and_
+	<
+		mizuiro::color::has_channel<typename Src::format,mizuiro::color::channel::alpha>,
+		mizuiro::color::has_channel<typename Dst::format,mizuiro::color::channel::alpha>
+	>,
+	typename blitter::result_type
+>::type
 blitter::operator()(
 	Src const &src_color,
 	Dst const &result
