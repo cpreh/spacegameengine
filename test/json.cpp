@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cout.hpp>
 #include <boost/variant/static_visitor.hpp>
 #include <boost/variant/apply_visitor.hpp>
-#include <boost/foreach.hpp>
+#include <boost/next_prior.hpp>
 #include <cstdlib>
 
 namespace
@@ -56,13 +56,26 @@ void print(
 	sge::parse::json::array const &a)
 {
 	sge::cout << SGE_TEXT('[');
-	BOOST_FOREACH(
-		sge::parse::json::element_vector::const_reference r,
-		a.elements
+
+	for(
+		sge::parse::json::element_vector::const_iterator it(
+			a.elements.begin()
+		);
+		it != a.elements.end();
+		++it
 	)
 	{
-		print(r);
-		sge::cout << SGE_TEXT(',');
+		print(
+			*it
+		);
+
+		if(
+			boost::next(
+				it
+			)
+			!= a.elements.end()
+		)
+			sge::cout << SGE_TEXT(',');
 	}
 
 	sge::cout << SGE_TEXT(']');
@@ -91,21 +104,34 @@ void print(
 void print(
 	sge::parse::json::object const &obj)
 {
-	BOOST_FOREACH(
-		sge::parse::json::member_vector::const_reference r,
-		obj.members
+	sge::cout << SGE_TEXT('{');
+
+	for(
+		sge::parse::json::member_vector::const_iterator it(
+			obj.members.begin()
+		);
+		it != obj.members.end();
+		++it
 	)
 	{
 		sge::cout
-			<< SGE_TEXT('{')
-			<< r.name
+			<< it->name
 			<< SGE_TEXT(": ");
 		
-		print(r.value_);
+		print(
+			it->value_
+		);
 
-		sge::cout
-			<< SGE_TEXT('}');
+		if(
+			boost::next(
+				it
+			)
+			!= obj.members.end()
+		)
+			sge::cout << SGE_TEXT(", ");
 	}
+
+	sge::cout << SGE_TEXT('}');
 }
 
 }
