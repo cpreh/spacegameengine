@@ -97,6 +97,7 @@ sge::window::create(
 					<< SGE_TEXT(" Trying another bit depth. Reason: ")
 					<< e.what()
 			);
+			throw;
 		}
 #else
 #error "Implement me!"
