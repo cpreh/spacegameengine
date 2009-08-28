@@ -18,36 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_MEMBER_HPP_INCLUDED
-#define SGE_PARSE_JSON_MEMBER_HPP_INCLUDED
+#include <sge/parse/json/member.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/object.hpp>
 
-#include <sge/parse/json/member_fwd.hpp>
-#include <sge/parse/json/string.hpp>
-#include <sge/parse/json/value.hpp>
-#include <sge/export.hpp>
+sge::parse::json::member::member()
+:
+	name(),
+	value_()
+{}
 
-namespace sge
-{
-namespace parse
-{
-namespace json
-{
-
-class member {
-public:
-	SGE_SYMBOL member();
-
-	SGE_SYMBOL member(
-		string const &name_,
-		value const &value_
-	);
-
-	string name;
-	value value_;
-};
-
-}
-}
-}
-
-#endif
+sge::parse::json::member::member(
+	string const &name,
+	value const &value_
+)
+:
+	name(name),
+	value_(value_)
+{}
