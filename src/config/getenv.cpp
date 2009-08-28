@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifdef SGE_WINDOWS_PLATFORM
 #include <sge/windows/windows.hpp>
 #include <sge/container/raw_vector_impl.hpp>
-#include <sge/char.hpp>
+#include <sge/char_type.hpp>
 #include <sge/text.hpp>
 #else
 #include <sge/iconv.hpp>

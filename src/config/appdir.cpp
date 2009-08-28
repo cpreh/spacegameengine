@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/windows.hpp>
 #include <sge/container/raw_vector_impl.hpp>
 #include <sge/filesystem/remove_filename.hpp>
-#include <sge/char.hpp>
+#include <sge/char_type.hpp>
 #include <sge/exception.hpp>
 #endif
 
