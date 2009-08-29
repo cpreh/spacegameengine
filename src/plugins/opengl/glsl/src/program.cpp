@@ -22,17 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../attachment.hpp"
 #include "../program_functions.hpp"
 #include "../uniform/variable.hpp"
+#include "../format_and_throw_error.hpp"
 #include <sge/optional_impl.hpp>
-#include <sge/exception.hpp>
 #include <sge/string.hpp>
-#include <sge/text.hpp>
-#include <sge/iconv.hpp>
 #include <sge/make_shared_ptr.hpp>
 #include <sge/make_auto_ptr.hpp>
 #include <sge/auto_ptr.hpp>
 #include <sge/assert.hpp>
-#include <boost/tr1/array.hpp>
-#include <boost/foreach.hpp>
 
 template<
 	bool Native
@@ -123,27 +119,15 @@ void sge::opengl::glsl::program<Native>::link()
 {
 	link_program<Native>(id());
 
-	if(link_status<Native>(id()) == GL_FALSE)
-	{
-		typedef std::tr1::array<
-			char,
-			1024
-		> errorlog_array;
-		errorlog_array errorlog;
-
-		GLint len;
-		program_info_log<Native>(
-			id(),
-			static_cast<GLint>(errorlog.size() - 1u),
-			&len,
-			errorlog.data());
-		if(static_cast<errorlog_array::size_type>(len) >= errorlog.size())
-			throw exception(SGE_TEXT("GLSL link info too big!"));
-		errorlog[len] = '\0';
-		throw exception(
-			string(SGE_TEXT("Linking a program failed!\n"))
-			+ iconv(errorlog.data()));
-	}
+	if(
+		link_status<Native>(id()) == GL_FALSE
+	)
+		format_and_throw_error(
+			&program_info_log<
+				Native
+			>,
+			id()
+		);
 }
 
 template<bool Native>

@@ -20,10 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../shader.hpp"
 #include "../shader_functions.hpp"
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
-#include <sge/iconv.hpp>
-#include <boost/tr1/array.hpp>
+#include "../format_and_throw_error.hpp"
 
 template<bool Native>
 sge::opengl::glsl::shader<Native>::shader(
@@ -33,32 +30,27 @@ sge::opengl::glsl::shader<Native>::shader(
 	id_(create_shader<Native>(type))
 {
 	const char* const ptr = source.c_str();
+
 	const GLint len = static_cast<GLint>(source.size());
-	shader_source<Native>(id(), 1, const_cast<const char**>(&ptr), &len);
+
+	shader_source<Native>(
+		id(),
+		1,
+		const_cast<const char**>(&ptr),
+		&len
+	);
 
 	compile_shader<Native>(id());
 	
-	if(compile_status<Native>(id()) == GL_FALSE)
-	{
-		typedef std::tr1::array<
-			char,
-			1024
-		> errorlog_array;
-		errorlog_array errorlog;
-
-		GLint len;
-		shader_info_log<Native>(
-			id(),
-			static_cast<GLint>(errorlog.size() - 1u),
-			&len,
-			errorlog.data());
-		if(static_cast<errorlog_array::size_type>(len) >= errorlog.size())
-			throw exception(SGE_TEXT("GLSL compile info too big!"));
-		errorlog[len] = '\0';
-		throw exception(
-			string(SGE_TEXT("Compiling a shader failed!\n"))
-			+ iconv(errorlog.data()));
-	}
+	if(
+		compile_status<Native>(id()) == GL_FALSE
+	)
+		format_and_throw_error(
+			&shader_info_log<
+				Native
+			>,
+			id()
+		);
 }
 
 template<bool Native>
