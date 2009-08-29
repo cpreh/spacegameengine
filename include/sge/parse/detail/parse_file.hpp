@@ -54,29 +54,10 @@ parse_file(
 			+ SGE_TEXT(" failed!")
 		);
 	
-	string ret;
-
-	{
-		ifstream::char_type ch;
-		while(ifs.get(ch))
-			ret.push_back(ch);
-	}
-	
-	typedef string::const_iterator iterator;
-
-	iterator beg(
-		ret.begin()
-	);
-
-	return parse_range(
-		beg,
-		static_cast<
-			string const &
-		>(
-			ret
-		).end(),
-		result
-	);
+	return 
+		parse_stream(
+			ifs,
+			result);
 }
 
 }

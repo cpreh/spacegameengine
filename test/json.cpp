@@ -19,15 +19,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 
-#include <sge/parse/json/parse_range.hpp>
+#include <sge/parse/json/parse_stream.hpp>
 #include <sge/string.hpp>
 #include <sge/text.hpp>
 #include <sge/cerr.hpp>
 #include <sge/cout.hpp>
+#include <sge/sstream.hpp>
 #include <boost/variant/static_visitor.hpp>
 #include <boost/variant/apply_visitor.hpp>
 #include <boost/next_prior.hpp>
 #include <cstdlib>
+
+#include <sge/parse/json/null.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/value.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/parse_stream.hpp>
+
 
 namespace
 {
@@ -142,15 +150,18 @@ int main()
 		SGE_TEXT("{ \"foo\": 42, \"bar\" : { \"inner\" : 5.5 } }")
 	);
 
+	sge::istringstream 
+		ss(
+			test);
+
 	sge::string::const_iterator beg(
 		test.begin()
 	);
 
 	sge::parse::json::object result;
 
-	if(!sge::parse::json::parse_range(
-		beg,
-		test.end(),
+	if(!sge::parse::json::parse_stream(
+		ss,
 		result
 	))
 	{

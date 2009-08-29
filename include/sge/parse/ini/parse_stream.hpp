@@ -18,17 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/ini/parse_file.hpp>
-#include <sge/parse/ini/parse_stream.hpp>
-#include <sge/parse/detail/parse_file.hpp>
+#ifndef SGE_PARSE_INI_PARSE_STREAM_HPP_INCLUDED
+#define SGE_PARSE_INI_PARSE_STREAM_HPP_INCLUDED
 
-bool
-sge::parse::ini::parse_file(
-	filesystem::path const &path,
-	section_vector &result)
+#include <sge/parse/ini/section_vector.hpp>
+#include <sge/istream.hpp>
+#include <sge/export.hpp>
+
+namespace sge
 {
-	return detail::parse_file(
-		path,
-		result
-	);
+namespace parse
+{
+namespace ini 
+{
+
+SGE_SYMBOL bool
+parse_stream(
+	istream &,
+	section_vector &ret);
+
 }
+}
+}
+
+#endif

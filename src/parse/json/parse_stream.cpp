@@ -18,17 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/ini/parse_file.hpp>
-#include <sge/parse/ini/parse_stream.hpp>
-#include <sge/parse/detail/parse_file.hpp>
+#include <sge/parse/json/parse_stream.hpp>
+#include <sge/parse/json/parse_range.hpp>
+#include <sge/parse/detail/parse_stream.hpp>
 
 bool
-sge::parse::ini::parse_file(
-	filesystem::path const &path,
-	section_vector &result)
+sge::parse::json::parse_stream(
+	istream &stream,
+	object &result)
 {
-	return detail::parse_file(
-		path,
+	return detail::parse_stream(
+		stream,
 		result
 	);
 }
