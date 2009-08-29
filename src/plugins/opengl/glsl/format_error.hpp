@@ -18,13 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_FORMAT_AND_THROW_ERROR_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_FORMAT_AND_THROW_ERROR_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLSL_FORMAT_ERROR_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_FORMAT_ERROR_HPP_INCLUDED
 
 #include <sge/container/raw_vector_impl.hpp>
-#include <sge/renderer/glsl/exception.hpp>
 #include <sge/string.hpp>
-#include <sge/text.hpp>
 #include <sge/iconv.hpp>
 
 namespace sge
@@ -38,8 +36,8 @@ template<
 	typename Function,
 	typename Id
 >
-void
-format_and_throw_error(
+sge::string const
+format_error(
 	Function const &function,
 	Id const &id
 )
@@ -95,13 +93,8 @@ format_and_throw_error(
 
 		errorlog.push_back(0);
 
-		throw renderer::glsl::exception(
-			string(
-				SGE_TEXT("Compiling a shader failed!\n")
-			)
-			+ iconv(
-				errorlog.data()
-			)
+		return sge::iconv(
+			errorlog.data()
 		);
 	}
 }

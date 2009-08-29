@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 
 sge::renderer::glsl::exception::exception(
-	string const &s)
+	sge::string const &s
+)
 :
 	renderer::exception(
 		SGE_TEXT("glsl: ")

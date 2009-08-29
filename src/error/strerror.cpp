@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/error/strerror.hpp>
+#include <sge/iconv.hpp>
 #include <cstring>
 
 sge::string const
@@ -26,7 +27,9 @@ sge::error::strerror(
 	int const errnum
 )
 {
-	return std::strerror(
-		errnum
+	return iconv(
+		std::strerror(
+			errnum
+		)
 	);
 }

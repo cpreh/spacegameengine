@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../attachment.hpp"
 #include "../program_functions.hpp"
 #include "../uniform/variable.hpp"
-#include "../format_and_throw_error.hpp"
+#include "../format_error.hpp"
+#include <sge/renderer/glsl/exception.hpp>
+#include <sge/text.hpp>
 #include <sge/optional_impl.hpp>
 #include <sge/string.hpp>
 #include <sge/make_shared_ptr.hpp>
@@ -122,11 +124,15 @@ void sge::opengl::glsl::program<Native>::link()
 	if(
 		link_status<Native>(id()) == GL_FALSE
 	)
-		format_and_throw_error(
-			&program_info_log<
-				Native
-			>,
-			id()
+		throw sge::renderer::glsl::exception(
+			SGE_TEXT("Compiling a program failed:\n")
+			+
+			format_error(
+				&program_info_log<
+					Native
+				>,
+				id()
+			)
 		);
 }
 

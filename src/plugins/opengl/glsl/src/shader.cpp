@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../shader.hpp"
 #include "../shader_functions.hpp"
-#include "../format_and_throw_error.hpp"
+#include "../format_error.hpp"
+#include <sge/renderer/glsl/exception.hpp>
+#include <sge/text.hpp>
 
 template<bool Native>
 sge::opengl::glsl::shader<Native>::shader(
@@ -45,11 +47,15 @@ sge::opengl::glsl::shader<Native>::shader(
 	if(
 		compile_status<Native>(id()) == GL_FALSE
 	)
-		format_and_throw_error(
-			&shader_info_log<
-				Native
-			>,
-			id()
+		throw sge::renderer::glsl::exception(
+			SGE_TEXT("Compiling a shader failed:\n")
+			+
+			format_error(
+				&shader_info_log<
+					Native
+				>,
+				id()
+			)
 		);
 }
 
