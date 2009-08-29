@@ -18,67 +18,70 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config/appdir.hpp>
-#include <sge/text.hpp>
-#include <sge/exception.hpp>
-#include <sge/config.h>
-#if defined(SGE_WINDOWS_PLATFORM)
-#include <sge/windows/windows.hpp>
-#include <sge/container/raw_vector_impl.hpp>
-#include <sge/filesystem/remove_filename.hpp>
-#include <sge/char_type.hpp>
-#elif defined(SGE_POSIX_PLATFORM)
-#include <sge/filesystem/remove_filename.hpp>
 #include <sge/filesystem/readlink.hpp>
-#include <sge/filesystem/exists.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
+#include <sge/config.h>
+#ifdef SGE_POSIX_PLATFORM
+#include <sge/container/raw_vector_impl.hpp>
+#include <sge/error/strerrno.hpp>
+#include <unistd.h>
+#include <cerrno>
 #endif
 
 sge::filesystem::path const
-sge::config::appdir()
+sge::filesystem::readlink(
+	sge::filesystem::path const &link
+)
 {
-#if defined(SGE_WINDOWS_PLATFORM)
+#ifdef SGE_POSIX_PLATFORM
 	container::raw_vector<
-		char_type
-	> buf(32768);
+		char
+	> buf;
 
-	if(
-		!GetModuleFileName(
-			NULL,
-			buf.data(),
-			static_cast<DWORD>(buf.size())
-		)
-	)
-		throw exception(
-			SGE_TEXT("GetModuleFileName() failed!")
+	buf.reserve(
+		512
+	);
+
+	for (;;)
+	{
+		ssize_t const ret(
+			::readlink(
+				link.string().c_str(),
+				buf.data(),
+				buf.capacity()
+			)
 		);
 
-	return filesystem::remove_filename(
-		string(
+		if(ret == -1)
+		{
+			if(errno == ENAMETOOLONG)
+			{
+				buf.reserve(
+					buf.capacity() * 2
+				);
+				continue;
+			}
+
+			throw exception(
+				SGE_TEXT("readlink failed: ")
+				+ error::strerrno()
+			);
+		}
+
+		buf.resize_uninitialized(
+			ret
+		);
+
+		buf.push_back(0);
+
+		return path(
 			buf.data()
-		)
-	);
-#elif defined(SGE_POSIX_PLATFORM)
-	sge::filesystem::path const self(
-		"/proc/self/exe"
-	);
-
-	if(
-		!filesystem::exists(
-			self
-		)
-	)
-		throw exception(
-			SGE_TEXT("/prof/self/exe does not exist")
 		);
-	
-	return filesystem::remove_filename(
-		filesystem::readlink(
-			self
-		)
-	);
+	}
 #else
 	throw exception(
-		SGE_TEXT("Can't find the application's path!")
+		SGE_TEXT("readlink not supported!")
 	);
 #endif
 }

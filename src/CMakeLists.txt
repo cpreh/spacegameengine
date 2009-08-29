@@ -10,6 +10,7 @@ FILE (GLOB sgecorefiles
 	config/detail/*.cpp
 	container/*.cpp
 	endianness/*.cpp
+	error/*.cpp
 	filesystem/*.cpp
 	font/*.cpp
 	image/*.cpp
