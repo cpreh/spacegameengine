@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifdef SGE_POSIX_PLATFORM
 #include <sge/container/raw_vector_impl.hpp>
 #include <sge/error/strerrno.hpp>
+#include <sge/iconv.hpp>
 #include <unistd.h>
 #include <cerrno>
 #endif
@@ -76,7 +77,9 @@ sge::filesystem::readlink(
 		buf.push_back(0);
 
 		return path(
-			buf.data()
+			iconv(
+				buf.data()
+			)
 		);
 	}
 #else
