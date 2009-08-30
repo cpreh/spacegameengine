@@ -18,24 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SSTREAM_HPP_INCLUDED
-#define SGE_SSTREAM_HPP_INCLUDED
+#ifndef SGE_STRINGSTREAM_HPP_INCLUDED
+#define SGE_STRINGSTREAM_HPP_INCLUDED
 
-#include <sge/config.h>
+#include <sge/char_type.hpp>
 #include <sstream>
 
 namespace sge
 {
 
-#ifndef SGE_NARROW_STRING
-typedef std::wistringstream istringstream;
-typedef std::wostringstream ostringstream;
-typedef std::wstringstream  stringstream;
-#else
-typedef std::istringstream istringstream;
-typedef std::ostringstream ostringstream;
-typedef std::stringstream  stringstream;
-#endif
+typedef std::basic_stringstream<
+	char_type
+> stringstream;
 
 }
 

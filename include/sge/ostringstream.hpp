@@ -18,18 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ISTREAM_HPP_INCLUDED
-#define SGE_ISTREAM_HPP_INCLUDED
+#ifndef SGE_OSTRINGSTREAM_HPP_INCLUDED
+#define SGE_OSTRINGSTREAM_HPP_INCLUDED
 
 #include <sge/char_type.hpp>
-#include <iosfwd>
+#include <sstream>
 
 namespace sge
 {
 
-typedef std::basic_istream<
+typedef std::basic_ostringstream<
 	char_type
-> istream;
+> ostringstream;
 
 }
 

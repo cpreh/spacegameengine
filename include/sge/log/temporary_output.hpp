@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/output_helper.hpp>
 #include <sge/export.hpp>
 #include <sge/shared_ptr.hpp>
-#include <sge/sstream.hpp>
+#include <sge/ostringstream.hpp>
 #include <sge/string.hpp>
 #include <ostream>
 

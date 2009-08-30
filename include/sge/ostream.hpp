@@ -21,17 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OSTREAM_HPP_INCLUDED
 #define SGE_OSTREAM_HPP_INCLUDED
 
-#include <sge/config.h>
+#include <sge/char_type.hpp>
 #include <iosfwd>
 
 namespace sge
 {
 
-#ifndef SGE_NARROW_STRING
-typedef std::basic_ostream<wchar_t> ostream;
-#else
-typedef std::basic_ostream<char> ostream;
-#endif
+typedef std::basic_ostream<
+	char_type
+> ostream;
 
 }
 

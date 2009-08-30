@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/assert.hpp>
 #include <sge/exception.hpp>
-#include <sge/sstream.hpp>
+#include <sge/ostringstream.hpp>
 #include <ostream>
 
 void sge::detail::process_assert(
