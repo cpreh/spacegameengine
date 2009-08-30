@@ -18,42 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_PARSE_RANGE_HPP_INCLUDED
-#define SGE_PARSE_JSON_PARSE_RANGE_HPP_INCLUDED
+#ifndef SGE_PARSE_CHAR_HPP_INCLUDED
+#define SGE_PARSE_CHAR_HPP_INCLUDED
 
-#include <sge/parse/json/object.hpp>
-#include <sge/parse/json/grammar.hpp>
-#include <boost/spirit/include/qi_parse.hpp>
-#include <boost/spirit/include/support_ascii.hpp>
+#include <boost/spirit/include/qi_char.hpp>
+#include <boost/spirit/include/support_placeholders.hpp>
+#include <sge/const_auto.hpp>
+#include <sge/config.h>
 
 namespace sge
 {
 namespace parse
 {
-namespace json
-{
 
-template<
-	typename In
->
-bool
-parse_range(
-	In &beg,
-	In const end,
-	object &result)
-{
-	grammar<In> parser;
-	
-	return boost::spirit::qi::phrase_parse(
-		beg,
-		end,
-		parser,
-		result,
-		boost::spirit::ascii::space
-	);
-}
+#ifdef SGE_NARROW_STRING
+SGE_CONST_AUTO(char_, boost::spirit::char_);
+#else
+SGE_CONST_AUTO(char_, boost::spirit::wchar_);
+#endif
 
-}
 }
 }
 

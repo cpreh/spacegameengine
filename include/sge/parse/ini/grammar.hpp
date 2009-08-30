@@ -28,14 +28,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/entry_vector.hpp>
 #include <sge/parse/ini/entry.hpp>
 #include <sge/parse/ini/string.hpp>
+#include <sge/parse/char.hpp>
 #include <sge/text.hpp>
 
-// TODO: include only the headers which are needed!
-#include <boost/spirit/include/qi.hpp>
-#include <boost/spirit/include/phoenix_fusion.hpp>
-#include <boost/spirit/include/phoenix_core.hpp>
-#include <boost/spirit/include/phoenix_object.hpp>
-#include <boost/spirit/include/phoenix_stl.hpp>
+#include <boost/spirit/home/qi/string.hpp>
+#include <boost/spirit/home/qi/operator.hpp>
+#include <boost/spirit/home/qi/action.hpp>
+#include <boost/spirit/home/qi/nonterminal.hpp>
+#include <boost/spirit/home/qi/directive.hpp>
+#include <boost/spirit/include/support_ascii.hpp>
+#include <boost/spirit/include/support_placeholders.hpp>
 
 namespace sge
 {
@@ -63,14 +65,35 @@ public:
 			ini_
 		)
 	{
-		using boost::spirit::char_;
 		using boost::spirit::lexeme;
 
 		char_seq %= +(char_ - char_(SGE_TEXT('\n')));
-		entry_ %= !char_(SGE_TEXT('[')) >> +(char_ - char_(SGE_TEXT('='))) >> char_(SGE_TEXT('=')) >> char_seq >> char_(SGE_TEXT('\n'));
-		header_ %= lexeme[SGE_TEXT('[') >> +(char_ - SGE_TEXT(']')) >> SGE_TEXT(']')] >> char_(SGE_TEXT('\n'));
-		section_ %= header_ >> *entry_;
-		ini_ %= *section_;
+		entry_ %=
+			!char_(SGE_TEXT('['))
+			>> +(
+				char_
+				- char_(SGE_TEXT('='))
+			)
+			>> char_(SGE_TEXT('='))
+			>> char_seq
+			>> char_(SGE_TEXT('\n'));
+
+		header_ %=
+			lexeme[
+				SGE_TEXT('[')
+				>> +(
+					char_ - SGE_TEXT(']')
+				)
+				>> SGE_TEXT(']')
+			]
+			>> char_(SGE_TEXT('\n'));
+
+		section_ %=
+			header_
+			>> *entry_;
+
+		ini_ %=
+			*section_;
 	}
 private:
 	boost::spirit::qi::rule<

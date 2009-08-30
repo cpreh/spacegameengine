@@ -32,14 +32,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/float_type.hpp>
 #include <sge/parse/json/int_type.hpp>
+#include <sge/parse/char.hpp>
 #include <sge/text.hpp>
 
-// TODO: include only the headers which are needed!
-#include <boost/spirit/include/qi.hpp>
-#include <boost/spirit/include/phoenix_core.hpp>
-#include <boost/spirit/include/phoenix_fusion.hpp>
-#include <boost/spirit/include/phoenix_operator.hpp>
+#include <boost/spirit/home/qi/string.hpp>
+#include <boost/spirit/home/qi/numeric.hpp>
+#include <boost/spirit/home/qi/operator.hpp>
+#include <boost/spirit/home/qi/action.hpp>
+#include <boost/spirit/home/qi/nonterminal.hpp>
+#include <boost/spirit/home/qi/directive.hpp>
+#include <boost/spirit/include/support_ascii.hpp>
+#include <boost/spirit/include/support_placeholders.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
+#include <boost/spirit/home/phoenix/operator/self.hpp>
 
 namespace sge
 {
@@ -67,18 +72,15 @@ public:
 			object_
 		)
 	{
-		using boost::spirit::char_;
 		using boost::spirit::lit;
 		using boost::spirit::lexeme;
 		using boost::spirit::arg_names::_val;
-		using boost::phoenix::construct;
-		using boost::phoenix::val;
 
 		null_ =
 			lit(
 				SGE_TEXT("null")
 			)[
-				_val = construct<null>()
+				_val = boost::phoenix::construct<null>()
 			];
 
 		bool_ =
