@@ -37,7 +37,7 @@ public:
 	template<
 		typename U
 	>
-	strong_typedef(
+	explicit strong_typedef(
 		U const &t
 	);
 

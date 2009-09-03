@@ -24,5 +24,5 @@ SGE_MAKE_STRONG_TYPEDEF(int, strong_int)
 
 int main()
 {
-	strong_int i = 42;
+	strong_int i(42);
 }
