@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FILESYSTEM_CREATE_DIRECTORY_HPP_INCLUDED
-#define SGE_FILESYSTEM_CREATE_DIRECTORY_HPP_INCLUDED
+#ifndef SGE_FILESYSTEM_CREATE_DIRECTORIES_RECURSIVE_HPP_INCLUDED
+#define SGE_FILESYSTEM_CREATE_DIRECTORIES_RECURSIVE_HPP_INCLUDED
 
 #include <sge/export.hpp>
 #include <sge/filesystem/path.hpp>
@@ -30,7 +30,7 @@ namespace filesystem
 {
 
 SGE_SYMBOL void
-create_directory(
+create_directories_recursive(
 	path const &
 );
 

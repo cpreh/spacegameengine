@@ -18,23 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FILESYSTEM_CREATE_DIRECTORY_HPP_INCLUDED
-#define SGE_FILESYSTEM_CREATE_DIRECTORY_HPP_INCLUDED
+#include <sge/config/find_config_path.hpp>
+#include <sge/mainloop/catch_block.hpp>
+#include <sge/cout.hpp>
+#include <sge/text.hpp>
 
-#include <sge/export.hpp>
-#include <sge/filesystem/path.hpp>
-
-namespace sge
+int main()
+try
 {
-namespace filesystem
-{
-
-SGE_SYMBOL void
-create_directory(
-	path const &
-);
-
+	sge::cout
+		<< sge::config::find_config_path(
+			SGE_TEXT("sgeconfigtest")
+		)
+		<< SGE_TEXT('\n');
 }
-}
-
-#endif
+SGE_MAINLOOP_CATCH_BLOCK

@@ -18,21 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FILESYSTEM_CREATE_DIRECTORY_HPP_INCLUDED
-#define SGE_FILESYSTEM_CREATE_DIRECTORY_HPP_INCLUDED
+#ifndef SGE_FILESYSTEM_EXCEPTION_HPP_INCLUDED
+#define SGE_FILESYSTEM_EXCEPTION_HPP_INCLUDED
 
+#include <sge/exception.hpp>
+#include <sge/string.hpp>
 #include <sge/export.hpp>
-#include <sge/filesystem/path.hpp>
 
 namespace sge
 {
 namespace filesystem
 {
 
-SGE_SYMBOL void
-create_directory(
-	path const &
-);
+class SGE_CLASS_SYMBOL exception
+:
+	public sge::exception
+{
+public:
+	SGE_SYMBOL explicit exception(
+		string const &
+	);
+};
 
 }
 }

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/exception.hpp>
 #include <sge/filesystem/exists.hpp>
 #include <sge/filesystem/is_directory.hpp>
-#include <sge/filesystem/create_directory.hpp>
+#include <sge/filesystem/create_directories_recursive.hpp>
 #include <sge/text.hpp>
 #include <sge/config.h>
 #ifdef SGE_POSIX_PLATFORM
@@ -44,7 +44,7 @@ try_create_path(
 			p
 		)
 	)
-		sge::filesystem::create_directory(
+		sge::filesystem::create_directories_recursive(
 			p
 		);
 	

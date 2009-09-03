@@ -17,12 +17,22 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+
 #include <sge/filesystem/create_directory.hpp>
+#include <sge/filesystem/create_directory_failed.hpp>
 #include <boost/filesystem/operations.hpp>
 
-bool sge::filesystem::create_directory(
-	path const &p)
+void
+sge::filesystem::create_directory(
+	path const &p
+)
 {
-	return boost::filesystem::create_directory(
-		p);
+	if(
+		!boost::filesystem::create_directory(
+			p
+		)
+	)
+		throw create_directory_failed(
+			p
+		);
 }
