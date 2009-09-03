@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONFIG_NO_SUCH_ENV_VAR_HPP_INCLUDED
-#define SGE_CONFIG_NO_SUCH_ENV_VAR_HPP_INCLUDED
+#ifndef SGE_CONFIG_FIND_CONFIG_PATH_HPP_INCLUDED
+#define SGE_CONFIG_FIND_CONFIG_PATH_HPP_INCLUDED
 
-#include <sge/config/exception.hpp>
+#include <sge/filesystem/path.hpp>
 #include <sge/string.hpp>
 #include <sge/export.hpp>
 
@@ -30,15 +30,10 @@ namespace sge
 namespace config
 {
 
-class SGE_CLASS_SYMBOL no_such_env_var
-:
-	public exception
-{
-public:
-	SGE_SYMBOL explicit no_such_env_var(
-		string const &env_var
-	);
-};
+SGE_SYMBOL filesystem::path const
+find_config_path(
+	string const &appname
+);
 
 }
 }
