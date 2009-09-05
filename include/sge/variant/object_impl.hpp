@@ -106,6 +106,12 @@ sge::variant::object<Types> &
 sge::variant::object<Types>::operator=(
 	object const &o)
 {
+	if(o.empty())
+	{
+		destroy();
+		return *this;
+	}
+
 	variant::apply_unary(
 		detail::construct<
 			object<
