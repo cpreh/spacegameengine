@@ -23,14 +23,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/export.hpp>
 #include <sge/string.hpp>
+#include <exception>
 
 namespace sge
 {
 
-class SGE_CLASS_SYMBOL exception {
+class SGE_CLASS_SYMBOL exception 
+{
 public:
 	SGE_SYMBOL explicit exception(
-		string const &s);
+		sge::string const &s);
 
 	SGE_SYMBOL exception(
 		exception const &);
@@ -39,12 +41,14 @@ public:
 	operator=(
 		exception const &);
 
-	SGE_SYMBOL string const &
-	what() const;
+	SGE_SYMBOL sge::string const &
+	string() const;
+
+	SGE_SYMBOL char const *what() const throw();
 
 	SGE_SYMBOL virtual ~exception();
 private:
-	string s;
+	sge::string s;
 };
 
 }

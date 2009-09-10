@@ -32,7 +32,7 @@ namespace audio
 class SGE_CLASS_SYMBOL bad_sound_alloc : public exception {
 public:
 	SGE_SYMBOL explicit bad_sound_alloc(
-		string const &);
+		sge::string const &);
 };
 }
 }

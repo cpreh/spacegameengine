@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/filesystem/exception.hpp>
 
 sge::filesystem::exception::exception(
-	string const &what
+	sge::string const &what
 )
 :
 	sge::exception(

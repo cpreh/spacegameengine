@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/container/not_found.hpp>
 
 sge::container::not_found::not_found(
-	string const &e)
+	sge::string const &e)
 :
 	exception(e)
 {}

@@ -124,7 +124,7 @@ void sge::console::stdlib::fn_set(arg_list const &v)
 	}
 	catch (exception const &e)
 	{
-		error_(SGE_TEXT("error: ")+e.what());
+		error_(SGE_TEXT("error: ")+e.string());
 		return;
 	}
 	print_(arg+SGE_TEXT('=')+(i->second->string()));

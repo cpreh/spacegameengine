@@ -31,7 +31,8 @@ namespace gui
 class exception : public sge::exception
 {
 public:
-	exception(string const &);
+	exception(
+		sge::string const &);
 };
 }
 }

@@ -26,7 +26,7 @@ sge::font::char_not_available::char_not_available(
 	char_type const character_)
 :
 	exception(
-		string(
+		sge::string(
 			SGE_TEXT("Character '")
 		)
 		+ character_
@@ -36,7 +36,7 @@ sge::font::char_not_available::char_not_available(
 {}
 
 sge::char_type
-sge::font::char_not_available::chararcter() const
+sge::font::char_not_available::character() const
 {
 	return character_;
 }

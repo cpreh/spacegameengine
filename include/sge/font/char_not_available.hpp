@@ -35,7 +35,7 @@ public:
 	SGE_SYMBOL explicit char_not_available(
 		char_type);
 	
-	char_type chararcter() const;
+	char_type character() const;
 private:
 	char_type character_;
 };

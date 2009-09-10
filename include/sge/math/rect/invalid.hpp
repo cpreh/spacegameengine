@@ -35,7 +35,7 @@ namespace rect
 class SGE_CLASS_SYMBOL invalid : public exception {
 public:
 	SGE_SYMBOL explicit invalid(
-		string const &);
+		sge::string const &);
 };
 
 }

@@ -13,6 +13,7 @@ class SGE_CLASS_SYMBOL promise_already_satisfied
 :
 	public exception
 {
+public:
 	SGE_SYMBOL promise_already_satisfied();
 };
 }

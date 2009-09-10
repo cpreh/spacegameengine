@@ -36,7 +36,7 @@ class SGE_CLASS_SYMBOL no_such_env_var
 {
 public:
 	SGE_SYMBOL explicit no_such_env_var(
-		string const &env_var
+		sge::string const &env_var
 	);
 };
 

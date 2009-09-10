@@ -33,7 +33,7 @@ namespace renderer
 class SGE_CLASS_SYMBOL texture_creation_failed : public exception {
 public:
 	SGE_SYMBOL explicit texture_creation_failed(
-		string const &);
+		sge::string const &);
 };
 
 }

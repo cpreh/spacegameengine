@@ -13,6 +13,7 @@ class SGE_CLASS_SYMBOL broken_promise
 :
 	public exception
 {
+public:
 	SGE_SYMBOL broken_promise();
 };
 }

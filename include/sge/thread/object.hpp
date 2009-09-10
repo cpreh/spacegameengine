@@ -16,7 +16,7 @@ public:
 	
 	SGE_SYMBOL object(
 		task const &);
-	void join();
+	SGE_SYMBOL void join();
 	SGE_SYMBOL ~object();
 private:
 	boost::thread thread_;
