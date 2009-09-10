@@ -54,6 +54,7 @@ FILE (GLOB sgecorefiles
 	texture/detail/*.cpp
 	thread/*.cpp
 	thread/future/*.cpp
+	thread/future/detail/*.cpp
 	time/*.cpp
 	utf8/*.cpp
 	variant/*.cpp

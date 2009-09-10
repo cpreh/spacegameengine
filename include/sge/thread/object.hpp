@@ -1,24 +1,27 @@
 #ifndef SGE_THREAD_OBJECT_HPP_INCLUDED
 #define SGE_THREAD_OBJECT_HPP_INCLUDED
 
-#include <boost/thread.hpp>
+#include <sge/export.hpp>
 #include <boost/function.hpp>
+#include <boost/thread.hpp>
 
 namespace sge
 {
 namespace thread
 {
-class object
+class SGE_CLASS_SYMBOL object
 {
 public:
 	typedef boost::function<void ()> task;
 	
-	object(
+	SGE_SYMBOL object(
 		task const &);
+	void join();
+	SGE_SYMBOL ~object();
 private:
 	boost::thread thread_;
 };
 }
 }
 
-#endif
+#endif // SGE_THREAD_OBJECT_HPP_INCLUDED

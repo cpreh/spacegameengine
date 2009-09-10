@@ -1,0 +1,33 @@
+#ifndef SGE_THREAD_FUTURE_UNIQUE_OBJECT_HPP_INCLUDED
+#define SGE_THREAD_FUTURE_UNIQUE_OBJECT_HPP_INCLUDED
+
+#include <sge/noncopyable.hpp>
+#include <sge/shared_ptr.hpp>
+#include <sge/thread/future/detail/object.hpp>
+
+namespace sge
+{
+namespace thread
+{
+namespace future
+{
+template<typename T>
+class unique_object
+{
+SGE_NONCOPYABLE(unique_object)
+private:
+	typedef 
+	sge::shared_ptr
+	<
+		detail::object<T> 
+	> object_ptr;
+	
+	object_ptr object_;
+	
+	friend class shared_future<T>;
+};
+}
+}
+}
+
+#endif // SGE_THREAD_FUTURE_UNIQUE_OBJECT_HPP_INCLUDED
