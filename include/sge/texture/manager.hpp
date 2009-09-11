@@ -47,6 +47,7 @@ public:
 	SGE_SYMBOL manager(
 		sge::renderer::device_ptr rend,
 		onalloc_function const &);
+
 	SGE_SYMBOL ~manager();
 
 	SGE_SYMBOL part_ptr const
@@ -59,6 +60,9 @@ public:
 	SGE_SYMBOL void
 	onalloc(
 		onalloc_function const &);
+	
+	SGE_SYMBOL void
+	free_empty_textures();
 private:
 	friend class fragmented;
 
