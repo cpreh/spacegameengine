@@ -144,6 +144,32 @@ void sge::texture::manager::onalloc(
 }
 
 void
+sge::texture::manager::free_empty_textures()
+{
+	for(
+		detail::fragmented_queue::iterator it(
+			free_textures.begin()
+		),
+		next(
+			it
+		);
+		it != free_textures.end();
+		it = next
+	)
+	{
+		++next;
+
+		if(
+			it->empty()
+		)
+
+			free_textures.erase(
+				it
+			);
+	}
+}
+
+void
 sge::texture::manager::part_freed(
 	detail::container_position const &pos,
 	fragmented const &frag)
