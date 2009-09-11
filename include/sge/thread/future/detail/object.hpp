@@ -60,8 +60,8 @@ public:
 	bool result_;
 
 	object();
-	void mark_finished_with_result__internal();
-	void mark_finished_with_result_();
+	void mark_finished_with_result_internal();
+	void mark_finished_with_result();
 	void move();
 	void get();
 	future::state::type state();
@@ -191,6 +191,9 @@ typename sge::thread::future::detail::object<T>::reference sge::thread::future::
 	if (exception_)
 		boost::rethrow_exception(
 			exception_);
+	if (!result_)
+		throw moved();
+	return *result_;
 }
 
 template<typename T>
@@ -248,17 +251,17 @@ sge::thread::future::detail::object<void>::object()
 		false)
 {}
 
-void sge::thread::future::detail::object<void>::mark_finished_with_result__internal()
+void sge::thread::future::detail::object<void>::mark_finished_with_result_internal()
 {
 	result_ = true;
 	mark_finished_internal();
 }
 
-void sge::thread::future::detail::object<void>::mark_finished_with_result_()
+void sge::thread::future::detail::object<void>::mark_finished_with_result()
 {
 	boost::lock_guard<boost::mutex> lock(
 		mutex_);
-	mark_finished_with_result__internal();
+	mark_finished_with_result_internal();
 }
 
 void sge::thread::future::detail::object<void>::move()

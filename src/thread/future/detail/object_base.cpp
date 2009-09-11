@@ -20,7 +20,6 @@ void sge::thread::future::detail::object_base::mark_finished_internal()
 void sge::thread::future::detail::object_base::wait_internal(
 	boost::unique_lock<boost::mutex> &_lock)
 {
-	sge::cerr << "in wait_internal, warte\n";
 	while (!done_)
 		waiters_.wait(
 			_lock);
@@ -28,10 +27,8 @@ void sge::thread::future::detail::object_base::wait_internal(
 
 void sge::thread::future::detail::object_base::wait()
 {
-	sge::cerr << "in object_base::wait\n";
 	boost::unique_lock<boost::mutex> lock(
 		mutex_);
-	sge::cerr << "gelockt, wait_internal -> \n";
 	wait_internal(
 		lock);
 }
