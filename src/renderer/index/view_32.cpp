@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "basic_view_impl.hpp"
 #include <sge/renderer/index/view_32.hpp>
-#include <sge/renderer/index/impl/basic_view_impl.hpp>
 #include <boost/cstdint.hpp>
 
 template class sge::renderer::index::detail::basic_view<boost::uint32_t>;
