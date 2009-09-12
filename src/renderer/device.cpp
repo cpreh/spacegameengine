@@ -88,7 +88,8 @@ sge::renderer::texture_ptr const
 sge::renderer::device::create_texture(
 	image::view::const_object const &v,
 	filter::texture const &filter,
-	resource_flag_t const flags)
+	resource_flags_field const &flags
+)
 {
 	texture_ptr const tex(
 		create_texture(
@@ -101,7 +102,7 @@ sge::renderer::device::create_texture(
 	
 	scoped_texture_lock const lock(
 		tex,
-		lock_flags::writeonly
+		lock_mode::writeonly
 	);
 
 	image::algorithm::copy_and_convert(
@@ -117,7 +118,7 @@ sge::renderer::volume_texture_ptr const
 sge::renderer::device::create_volume_texture(
 	image::view::const_object3 const &,
 	filter::texture const &filter,
-	resource_flag_t const flags
+	resource_flags_field const & const flags
 )
 {
 	volume_texture_ptr const tex(
@@ -131,7 +132,7 @@ sge::renderer::device::create_volume_texture(
 
 	scopde_volume_texture_lock const lock(
 		tex,
-		lock_flags::writeonly
+		lock_mode::writeonly
 	);
 
 	image::algorithm::copy_and_convert(
@@ -147,7 +148,8 @@ sge::renderer::device::create_volume_texture(
 sge::renderer::vertex_buffer_ptr const
 sge::renderer::device::create_vertex_buffer(
 	vf::const_dynamic_view const &view,
-	resource_flag_t const flags)
+	resource_flags_field const &flags
+)
 {
 	vertex_buffer_ptr const vb(
 		create_vertex_buffer(
@@ -159,7 +161,7 @@ sge::renderer::device::create_vertex_buffer(
 	
 	scoped_vertex_lock const lock(
 		vb,
-		lock_flags::writeonly
+		lock_mode::writeonly
 	);
 	
 	algorithm::copy_n(
@@ -174,7 +176,8 @@ sge::renderer::device::create_vertex_buffer(
 sge::renderer::index_buffer_ptr const
 sge::renderer::device::create_index_buffer(
 	index::const_view const &view,
-	resource_flag_t const flags)
+	resource_flags_field const &flags
+)
 {
 	index_buffer_ptr const ib(
 		create_index_buffer(
@@ -188,7 +191,7 @@ sge::renderer::device::create_index_buffer(
 	
 	scoped_index_lock const lock(
 		ib,
-		lock_flags::writeonly
+		lock_mode::writeonly
 	);
 	
 	index::copy(

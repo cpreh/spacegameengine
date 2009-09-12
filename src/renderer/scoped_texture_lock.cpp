@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::scoped_texture_lock::scoped_texture_lock(
 	texture_ptr const tex,
-	lock_flag_t const flags)
+	lock_mode::type const flags
+)
 :
 	tex(tex),
 	view(
@@ -36,7 +37,8 @@ sge::renderer::scoped_texture_lock::scoped_texture_lock(
 sge::renderer::scoped_texture_lock::scoped_texture_lock(
 	texture_ptr const tex,
 	lock_rect const &rect,
-	lock_flag_t const flags)
+	lock_mode::type const flags
+)
 :
 	tex(tex),
 	view(

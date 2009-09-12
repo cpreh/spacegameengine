@@ -49,8 +49,9 @@ sge::opengl::texture::texture(
 	dim_type const &d,
 	image::color::format::type const format_,
 	renderer::filter::texture const &filter_,
-	resource_flag_type const flags,
-	optional_type const type_)
+	renderer::resource_flags_field const &flags,
+	optional_type const type_
+)
 :
 	detail::texture_base(
 		filter_,
@@ -78,7 +79,8 @@ sge::opengl::texture::dim() const
 sge::image::view::object const
 sge::opengl::texture::lock(
 	renderer::lock_rect const &r,
-	lock_flag_type const lmode)
+	renderer::lock_mode::type const lmode
+)
 {
 	lock_me(
 		r,

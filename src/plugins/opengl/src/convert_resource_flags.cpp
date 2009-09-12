@@ -19,12 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../convert_resource_flags.hpp"
+#include <sge/container/bitfield/basic_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
 GLuint
 sge::opengl::convert_resource_flags(
-	renderer::resource_flag_t const f
+	renderer::resource_flags_field const &f
 )
 {
 	return (f & renderer::resource_flags::dynamic)

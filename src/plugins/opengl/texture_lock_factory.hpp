@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "texture_lock.hpp"
 #include "lock_method.hpp"
-#include <sge/renderer/resource_flags.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/auto_ptr.hpp>
 
 namespace sge
@@ -41,7 +41,8 @@ texture_lock_auto_ptr create_texture_lock(
 	texture_lock::size_type stride,
 	texture_lock::size_type pitch,
 	texture_lock::size_type block_width,
-	renderer::resource_flag_t flags);
+	renderer::resource_flags_field const &
+);
 
 }
 }

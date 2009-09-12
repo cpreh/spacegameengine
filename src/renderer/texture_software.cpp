@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/make.hpp>
 #include <sge/image/view/sub.hpp>
 #include <sge/container/raw_vector_impl.hpp>
+#include <sge/container/bitfield/basic_impl.hpp>
 #include <sge/math/rect/basic_impl.hpp>
 #include <sge/variant/object_impl.hpp>
 #include <sge/optional_impl.hpp>
@@ -31,7 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::texture_software::texture_software(
 	dim_type const &new_dim,
-	image::color::format::type const cf)
+	image::color::format::type const cf
+)
 :
 	dim_(),
 	cf(cf),
@@ -52,7 +54,8 @@ sge::renderer::texture_software::dim() const
 sge::image::view::object const
 sge::renderer::texture_software::lock(
 	lock_rect const &lr,
-	lock_flag_t const)
+	lock_mode::type const
+)
 {
 	SGE_ASSERT_MESSAGE(
 		!locked,
@@ -74,7 +77,8 @@ sge::renderer::texture_software::lock(
 
 sge::image::view::const_object const
 sge::renderer::texture_software::lock(
-	lock_rect const &lr) const
+	lock_rect const &lr
+) const
 {
 	return image::view::sub(
 		image::view::make(
@@ -87,16 +91,18 @@ sge::renderer::texture_software::lock(
 	);
 }
 
-void sge::renderer::texture_software::unlock() const
+void
+sge::renderer::texture_software::unlock() const
 {
 	SGE_ASSERT_MESSAGE(
 		locked,
-		SGE_TEXT("software texture was not locked, though you tried to unlock"));
+		SGE_TEXT("software texture was not locked, though you tried to unlock")
+	);
 
 	locked = false;
 }
 
-sge::renderer::resource_flag_t
+sge::renderer::resource_flags_field const
 sge::renderer::texture_software::flags() const
 {
 	return resource_flags::dynamic;
@@ -109,13 +115,17 @@ sge::renderer::texture_software::byte_count() const
 	return static_cast<
 		internal_vector::size_type
 	>(
-		dim().w() * dim().h() * image::color::format_stride(cf));
+		dim().w()
+		* dim().h()
+		* image::color::format_stride(cf)
+	);
 }
 
-void sge::renderer::texture_software::resize(dim_type const &new_dim)
+void
+sge::renderer::texture_software::resize(
+	dim_type const &new_dim
+)
 {
 	dim_ = new_dim;
 	raw_bytes.resize(byte_count());
 }
-
-

@@ -34,7 +34,8 @@ sge::opengl::create_texture_lock(
 	texture_lock::size_type const stride,
 	texture_lock::size_type const pitch,
 	texture_lock::size_type const block_size,
-	renderer::resource_flag_t const flags)
+	renderer::resource_flags_field const &flags
+)
 {
 	switch(method) {
 	case lock_method::readonly:
@@ -46,13 +47,17 @@ sge::opengl::create_texture_lock(
 				stride,
 				pitch,
 				block_size,
-				flags));
+				flags
+			)
+		);
 	case lock_method::writeonly:
 		return texture_lock_auto_ptr(
 			new writeonly_texture_lock(
 				lock_size,
 				stride,
-				flags));
+				flags
+			)
+		);
 	case lock_method::readwrite:
 		return texture_lock_auto_ptr(
 			new readwrite_texture_lock(
@@ -62,10 +67,13 @@ sge::opengl::create_texture_lock(
 				stride,
 				pitch,
 				block_size,
-				flags));
+				flags
+			)
+		);
 	default:
 		throw exception(
-			SGE_TEXT("Invalid lock_method in opengl!"));
+			SGE_TEXT("Invalid lock_method in opengl!")
+		);
 	}
 }
 

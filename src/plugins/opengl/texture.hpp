@@ -47,9 +47,9 @@ public:
 
 	texture(
 		dim_type const &,
-		image::color::format::type format,
-		renderer::filter::texture const &filter,
-		resource_flag_type flags,
+		image::color::format::type,
+		renderer::filter::texture const &,
+		renderer::resource_flags_field const &,
 		optional_type type
 			= optional_type());
 	
@@ -58,11 +58,13 @@ public:
 	image::view::object const
 	lock(
 		renderer::lock_rect const &,
-		lock_flag_type flags);
+		renderer::lock_mode::type
+	);
 
 	image::view::const_object const
 	lock(
-		renderer::lock_rect const &) const;
+		renderer::lock_rect const &
+	) const;
 
 	void unlock() const;
 private:

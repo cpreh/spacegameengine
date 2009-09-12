@@ -29,7 +29,8 @@ sge::image::create_texture(
 	renderer::device_ptr const r,
 	file_ptr const p,
 	renderer::filter::texture const &filter,
-	renderer::resource_flag_t const flags)
+	renderer::resource_flags_field const &flags
+)
 {
 	return r->create_texture(
 		p->view(),
@@ -44,7 +45,8 @@ sge::image::create_texture(
 	renderer::device_ptr const r,
 	loader_ptr const p,
 	renderer::filter::texture const &filter,
-	renderer::resource_flag_t const flags)
+	renderer::resource_flags_field const &flags
+)
 {
 	return create_texture(
 		r,

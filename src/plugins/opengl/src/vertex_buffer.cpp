@@ -22,24 +22,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vbo.hpp"
 #include "../convert_vertex_colors.hpp"
 #include "../instantiate_basic_buffer.hpp"
+#include <sge/container/bitfield/basic_impl.hpp>
 #include <sge/assert.hpp>
 #include <boost/foreach.hpp>
 
 SGE_OPENGL_INSTANTIATE_BASIC_BUFFER(
 	sge::opengl::vertex_buffer_type,
-	sge::opengl::vb_ib_vbo_impl)
+	sge::opengl::vb_ib_vbo_impl
+)
 
 sge::opengl::vertex_buffer::vertex_buffer(
 	renderer::vf::dynamic_format const &format_,
 	size_type const sz,
-	resource_flag_type const flags)
+	renderer::resource_flags_field const &flags
+)
 :
 	format_(format_),
 	buf(
 		sz,
 		format_.stride(),
 		flags,
-		0)
+		0
+	)
 {}
 
 void sge::opengl::vertex_buffer::set_format() const
@@ -52,20 +56,24 @@ void sge::opengl::vertex_buffer::set_format() const
 
 sge::opengl::vertex_buffer::view_type const
 sge::opengl::vertex_buffer::lock(
-	lock_flag_type const flags,
+	renderer::lock_mode::type const flags,
 	size_type const offset,
-	size_type const range)
+	size_type const range
+)
 {
 	buf.lock(
 		convert_lock_method(
-			flags),
+			flags
+		),
 		offset,
-		range);
+		range
+	);
 	
 	return view_type(
 		buf.data(),
 		buf.lock_size(),
-		format());
+		format()
+	);
 }
 
 sge::opengl::vertex_buffer::const_view_type const
@@ -95,7 +103,10 @@ sge::opengl::vertex_buffer::unlock() const
 
 	SGE_ASSERT(buf.lock_size() % stride == 0);
 
-	BOOST_FOREACH(renderer::vf::dynamic_ordered_element_list::const_reference elem, elems)
+	BOOST_FOREACH(
+		renderer::vf::dynamic_ordered_element_list::const_reference elem,
+		elems
+	)
 		if(elem.element().role() == renderer::vf::role::color)
 			convert_vertex_colors(
 				elem,
@@ -113,7 +124,7 @@ sge::opengl::vertex_buffer::size() const
 	return buf.size();
 }
 
-sge::opengl::vertex_buffer::resource_flag_type
+sge::renderer::resource_flags_field const
 sge::opengl::vertex_buffer::flags() const
 {
 	return buf.flags();

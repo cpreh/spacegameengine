@@ -26,7 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::image::view::object const
 sge::renderer::cube_texture::lock(
 	cube_side::type const side,
-	lock_flag_type const flags)
+	lock_mode::type const flags
+)
 {
 	return lock(
 		side,

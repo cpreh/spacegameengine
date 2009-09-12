@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/file_fwd.hpp>
 #include <sge/filesystem/path.hpp>
 #include <sge/renderer/filter/texture_fwd.hpp>
-#include <sge/renderer/resource_flags.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/texture_fwd.hpp>
 #include <sge/export.hpp>
@@ -37,18 +37,20 @@ namespace image
 
 SGE_SYMBOL renderer::texture_ptr const
 create_texture(
-	renderer::device_ptr r,
+	renderer::device_ptr,
 	file_ptr,
-	renderer::filter::texture const &filter,
-	renderer::resource_flag_t flags);
+	renderer::filter::texture const &,
+	renderer::resource_flags_field const &
+);
 
 SGE_SYMBOL renderer::texture_ptr const
 create_texture(
 	filesystem::path const &,
 	renderer::device_ptr r,
 	loader_ptr p,
-	renderer::filter::texture const &filter,
-	renderer::resource_flag_t flags);
+	renderer::filter::texture const &,
+	renderer::resource_flags_field const &
+);
 
 }
 }

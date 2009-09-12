@@ -24,17 +24,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::lock_method::type
 sge::opengl::convert_lock_method(
-	renderer::lock_flag_t const m)
+	renderer::lock_mode::type const m
+)
 {
 	switch(m) {
-	case renderer::lock_flags::writeonly:
+	case renderer::lock_mode::writeonly:
 		return lock_method::writeonly;
-	case renderer::lock_flags::readwrite:
+	case renderer::lock_mode::readwrite:
 		return lock_method::readwrite;
-	default:
-		throw exception(
-			SGE_TEXT("Invalid lock_flags in opengl!"));
 	}
+	
+	throw exception(
+		SGE_TEXT("Invalid lock_flags in opengl!")
+	);
 }
 
 GLuint sge::opengl::ogl_lock_method(

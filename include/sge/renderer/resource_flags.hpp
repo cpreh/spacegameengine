@@ -28,14 +28,12 @@ namespace renderer
 
 namespace resource_flags
 {
-	enum type {
-		none,
-		dynamic   = 1,
-		readable  = 1 << 1
-	};
+enum type {
+	dynamic,
+	readable,
+	size
+};
 }
-
-typedef unsigned resource_flag_t;
 
 }
 }

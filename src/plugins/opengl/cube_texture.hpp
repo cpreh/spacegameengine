@@ -35,7 +35,9 @@ namespace opengl
 namespace detail
 {
 
-typedef basic_texture<renderer::cube_texture> cube_texture_base;
+typedef basic_texture<
+	renderer::cube_texture
+> cube_texture_base;
 
 }
 
@@ -45,18 +47,21 @@ public:
 		size_type border_size,
 		image::color::format::type format,
 		renderer::filter::texture const &,
-		resource_flag_type flags);
+		renderer::resource_flags_field const &
+	);
 
 	image::view::object const
 	lock(
 		renderer::cube_side::type side,
 		renderer::lock_rect const &,
-		lock_flag_type flags);
+		renderer::lock_mode::type
+	);
 	
 	image::view::const_object const
 	lock(
 		renderer::cube_side::type side,
-		renderer::lock_rect const &) const;
+		renderer::lock_rect const &
+	) const;
 
 	void unlock() const;
 	
