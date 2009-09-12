@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "version_fun.hpp"
 #include <sge/config.h>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/context_base.hpp>
-#include <sge/plugin/detail/version_fun.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/library/function_not_found.hpp>
 #include <sge/filesystem/directory_iterator.hpp>

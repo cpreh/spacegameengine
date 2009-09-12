@@ -31,10 +31,11 @@ sge::opengl::convert_texture_stage(
 		return GL_COMBINE_RGB;
 	case renderer::texture_stage_op::alpha:
 		return GL_COMBINE_ALPHA;
-	default:
-		throw exception(
-			SGE_TEXT("Invalid texture_stage_op!"));
 	}
+
+	throw exception(
+		SGE_TEXT("Invalid texture_stage_op!")
+	);
 }
 
 GLenum
@@ -59,10 +60,11 @@ sge::opengl::convert_texture_stage(
 		return GL_ADD_SIGNED;
 	case renderer::texture_stage_op_value::interpolate:
 		return GL_INTERPOLATE;
-	default:
-		throw exception(
-			SGE_TEXT("Invalid texture_stage_op_value!"));
 	}
+
+	throw exception(
+		SGE_TEXT("Invalid texture_stage_op_value!")
+	);
 }
 
 GLenum
@@ -82,10 +84,11 @@ sge::opengl::convert_texture_stage(
 		return GL_SOURCE1_ALPHA;
 	case renderer::texture_stage_arg::alpha2:
 		return GL_SOURCE2_ALPHA;
-	default:
-		throw exception(
-			SGE_TEXT("Invalid texture_stage_arg!"));
 	}
+
+	throw exception(
+		SGE_TEXT("Invalid texture_stage_arg!")
+	);
 }
 
 GLenum
@@ -99,8 +102,9 @@ sge::opengl::convert_texture_stage(
 		return GL_TEXTURE;
 	case renderer::texture_stage_arg_value::constant:
 		return GL_CONSTANT;
-	default:
-		throw exception(
-			SGE_TEXT("Invalid texture_stage_arg_value!"));
 	}
+
+	throw exception(
+		SGE_TEXT("Invalid texture_stage_arg_value!")
+	);
 }

@@ -18,23 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONVERT_RESOURCE_FLAGS_HPP_INCLUDED
-#define SGE_OPENGL_CONVERT_RESOURCE_FLAGS_HPP_INCLUDED
+#include <sge/renderer/resource_flags_none.hpp>
+#include <sge/container/bitfield/basic_impl.hpp>
 
-#include "common.hpp"
-#include <sge/renderer/resource_flags_field.hpp>
-
-namespace sge
-{
-namespace opengl
-{
-
-GLuint
-convert_resource_flags(
-	renderer::resource_flags_field const &
-);
-
-}
-}
-
-#endif
+sge::renderer::resource_flags_field const
+sge::renderer::resource_flags::none
+	= sge::renderer::resource_flags_field();

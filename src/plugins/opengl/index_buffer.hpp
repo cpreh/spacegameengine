@@ -39,7 +39,8 @@ class index_buffer : public index_buffer_base {
 public:
 	index_buffer(
 		size_type sz,
-		resource_flag_type flags);
+		renderer::resource_flags_field const &
+	);
 	
 	GLenum gl_format() const;
 
@@ -51,7 +52,7 @@ public:
 private:
 	view_type const
 	lock(
-		lock_flag_type flags,
+		renderer::lock_mode::type,
 		size_type offset,
 		size_type range);
 
@@ -63,7 +64,9 @@ private:
 	void unlock() const;
 
 	size_type size() const;
-	resource_flag_type flags() const;
+
+	renderer::resource_flags_field const
+	flags() const;
 
 	renderer::index::format::type
 	format() const;

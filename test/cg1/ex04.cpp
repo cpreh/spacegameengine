@@ -43,10 +43,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/light.hpp>
 #include <sge/renderer/light_index.hpp>
-#include <sge/renderer/lock_flags.hpp>
+#include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/material.hpp>
 #include <sge/renderer/parameters.hpp>
-#include <sge/renderer/resource_flags.hpp>
+#include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/size_type.hpp>
@@ -205,7 +205,7 @@ try
 	{
 		sge::renderer::scoped_vertex_lock const vblock(
 			vb,
-			sge::renderer::lock_flags::writeonly
+			sge::renderer::lock_mode::writeonly
 		);
 	
 		vertex_view const vertices(

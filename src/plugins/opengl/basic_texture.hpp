@@ -26,6 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "texture_base.hpp"
 #include "lock_method.hpp"
 #include <sge/renderer/filter/texture.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
+#include <sge/container/bitfield/basic_decl.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/scoped_ptr.hpp>
 
@@ -34,14 +36,14 @@ namespace sge
 namespace opengl
 {
 
-template<typename Base>
+template<
+	typename Base
+>
 class basic_texture : public Base, public texture_base {
 public:
 	typedef typename Base::size_type size_type;
 	typedef texture_lock::pointer pointer;
 	typedef texture_lock::const_pointer const_pointer;
-	typedef typename Base::resource_flag_type resource_flag_type;
-	typedef typename Base::lock_flag_type lock_flag_type;
 protected:
 	void bind_me() const;
 	void set_my_filter() const;
@@ -75,28 +77,34 @@ public:
 	GLenum format_type() const;
 protected:
 	basic_texture(
-		renderer::filter::texture const &filter,
-		resource_flag_type flags,
+		renderer::filter::texture const &,
+		renderer::resource_flags_field const &,
 		GLenum type,
 		image::color::format::type);
 public:
 	~basic_texture();
-	resource_flag_type flags() const;
+
+	renderer::resource_flags_field const
+	flags() const;
 private:
 	void check_locked() const;
 	void check_not_locked() const;
 
-	renderer::filter::texture const        filter_;
-	resource_flag_type const               flags_;
-	GLuint const                           id_;
+	renderer::filter::texture const filter_;
+	renderer::resource_flags_field const flags_;
+	GLuint const id_;
 
-	GLenum const                           format_,
-	                                       format_type_;
-	size_type const                        stride_;
+	GLenum const
+		format_,
+		format_type_;
+	
+	size_type const stride_;
 
 	typedef scoped_ptr<
-		texture_lock>                  scoped_lock_ptr;
-	mutable scoped_lock_ptr                lock_;
+		texture_lock
+	> scoped_lock_ptr;
+
+	mutable scoped_lock_ptr lock_;
 };
 
 }

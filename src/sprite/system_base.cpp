@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/matrix_pixel_to_space.hpp>
 #include <sge/renderer/vf/make_dynamic_format.hpp>
+#include <sge/container/bitfield/basic_impl.hpp>
 
 namespace
 {
@@ -61,7 +62,8 @@ sge::sprite::system_base::system_base(
 {}
 
 void sge::sprite::system_base::allocate_buffers(
-	std::size_t const num_sprites)
+	std::size_t const num_sprites
+)
 {
 	if(vb && vb->size() >= num_sprites * detail::vertices_per_sprite)
 		return;
@@ -69,12 +71,14 @@ void sge::sprite::system_base::allocate_buffers(
 	vb = rend->create_vertex_buffer(
 		dyn_vertex_fmt,
 		num_sprites * detail::vertices_per_sprite,
-		renderer::resource_flags::dynamic);
+		renderer::resource_flags::dynamic
+	);
 
 	ib = rend->create_index_buffer(
 		renderer::index::format::i16,
 		num_sprites * detail::indices_per_sprite,
-		renderer::resource_flags::dynamic);
+		renderer::resource_flags::dynamic
+	);
 }
 
 void sge::sprite::system_base::matrices()

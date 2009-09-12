@@ -23,9 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "common.hpp"
 #include "lock_method.hpp"
-#include <sge/renderer/resource_flags.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/raw_value.hpp>
+#include <sge/container/bitfield/basic_decl.hpp>
 #include <sge/noncopyable.hpp>
 
 namespace sge
@@ -47,7 +48,7 @@ public:
 	typedef T                                    value_type;
 	typedef value_type                           *pointer;
 	typedef value_type const                     *const_pointer;
-	typedef renderer::resource_flag_t            resource_flag_type;
+	typedef renderer::resource_flags_field       resource_flag_type;
 	typedef lock_method::type                    lock_flag_type;
 			
 	basic_buffer(

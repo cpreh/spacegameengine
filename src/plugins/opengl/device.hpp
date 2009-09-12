@@ -137,32 +137,36 @@ public:
 		renderer::dim_type const &,
 		image::color::format::type,
 		renderer::filter::texture const &,
-		renderer::resource_flag_t);
+		renderer::resource_flags_field const &);
 
 	/*const renderer::volume_texture_ptr
 	create_volume_texture(
 		renderer::volume_texture::image_view_array const &,
 		renderer::filter::texture const &filter,
-		renderer::volume_texture::resource_flag_type flags);*/
+		renderer::volume_texture::resource_flags_field const &
+	);*/
 
 	renderer::cube_texture_ptr const
 	create_cube_texture(
 		renderer::size_type border_size,
 		image::color::format::type,
 		renderer::filter::texture const &,
-		renderer::resource_flag_t);
+		renderer::resource_flags_field const &
+	);
 
 	renderer::vertex_buffer_ptr const
 	create_vertex_buffer(
 		renderer::vf::dynamic_format const &,
-		renderer::size_type size,
-		renderer::resource_flag_t flags);
+		renderer::size_type,
+		renderer::resource_flags_field const &
+	);
 
 	renderer::index_buffer_ptr const
 	create_index_buffer(
 		renderer::index::format::type,
-		renderer::size_type sz,
-		renderer::resource_flag_t flags);
+		renderer::size_type,
+		renderer::resource_flags_field const &
+	);
 
 	renderer::caps const caps() const;
 	renderer::screen_size const screen_size() const;

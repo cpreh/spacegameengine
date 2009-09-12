@@ -35,7 +35,8 @@ GLenum sge::opengl::convert_states(
 		return GL_LIGHTING;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid bool_state!"));
+			SGE_TEXT("Invalid bool_state!")
+		);
 	}
 }
 
@@ -47,10 +48,13 @@ GLenum sge::opengl::convert_states(
 		return GL_BACK;
 	case renderer::state::cull_mode::front:
 		return GL_FRONT;
-	default:
-		throw exception(
-			SGE_TEXT("Invalid cull_mode!"));
+	case renderer::state::cull_mode::off:
+		break;
 	}
+
+	throw exception(
+		SGE_TEXT("Invalid cull_mode!")
+	);
 }
 
 GLenum sge::opengl::convert_states(
@@ -73,10 +77,13 @@ GLenum sge::opengl::convert_states(
 		return GL_GEQUAL;
 	case renderer::state::depth_func::always:
 		return GL_ALWAYS;
-	default:
-		throw exception(
-			SGE_TEXT("Invalid depth_func!"));
+	case renderer::state::depth_func::off:
+		break;
 	}
+
+	throw exception(
+		SGE_TEXT("Invalid depth_func!")
+	);
 }
 
 GLenum sge::opengl::convert_states(
@@ -99,10 +106,13 @@ GLenum sge::opengl::convert_states(
 		return GL_GEQUAL;
 	case renderer::state::stencil_func::always:
 		return GL_ALWAYS;
-	default:
-		throw exception(
-			SGE_TEXT("Invalid stencil_func!"));
+	case renderer::state::stencil_func::off:
+		break;
 	}
+
+	throw exception(
+		SGE_TEXT("Invalid stencil_func!")
+	);
 }
 
 GLenum sge::opengl::convert_states(
@@ -125,10 +135,13 @@ GLenum sge::opengl::convert_states(
 		return GL_GEQUAL;
 	case renderer::state::alpha_func::always:
 		return GL_ALWAYS;
-	default:
-		throw exception(
-			SGE_TEXT("Invalid alpha_func!"));
+	case renderer::state::alpha_func::off:
+		break;
 	}
+
+	throw exception(
+		SGE_TEXT("Invalid alpha_func!")
+	);
 }
 
 GLenum sge::opengl::convert_states(
@@ -141,10 +154,13 @@ GLenum sge::opengl::convert_states(
 		return GL_EXP;
 	case renderer::state::fog_mode::exp2:
 		return GL_EXP2;
-	default:
-		throw exception(
-			SGE_TEXT("Invalid fog_mode!"));
+	case renderer::state::fog_mode::off:
+		break;
 	}
+
+	throw exception(
+		SGE_TEXT("Invalid fog_mode!")
+	);
 }
 
 GLenum sge::opengl::convert_states(
@@ -169,10 +185,11 @@ GLenum sge::opengl::convert_states(
 		return GL_ONE_MINUS_DST_ALPHA;
 	case renderer::state::source_blend_func::src_alpha_sat:
 		return GL_SRC_ALPHA_SATURATE;
-	default:
-		throw exception(
-			SGE_TEXT("Invalid source_blend_func!"));
 	}
+
+	throw exception(
+		SGE_TEXT("Invalid source_blend_func!")
+	);
 }
 
 GLenum sge::opengl::convert_states(
@@ -195,10 +212,11 @@ GLenum sge::opengl::convert_states(
 		return GL_DST_ALPHA;
 	case renderer::state::dest_blend_func::inv_dest_alpha:
 		return GL_ONE_MINUS_DST_ALPHA;
-	default:
-		throw exception(
-			SGE_TEXT("Invalid dest_blend_func!"));
 	}
+
+	throw exception(
+		SGE_TEXT("Invalid dest_blend_func!")
+	);
 }
 
 GLenum sge::opengl::convert_states(
@@ -211,8 +229,9 @@ GLenum sge::opengl::convert_states(
 		return GL_LINE;
 	case renderer::state::draw_mode::fill:
 		return GL_FILL;
-	default:
-		throw exception(
-			SGE_TEXT("Invalid draw_mode!"));
 	}
+
+	throw exception(
+		SGE_TEXT("Invalid draw_mode!")
+	);
 }

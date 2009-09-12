@@ -24,17 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "vbo.hpp"
 #include "basic_buffer.hpp"
 #include "vf/format.hpp"
+#include <sge/renderer/vf/dynamic_format_fwd.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 
 namespace sge
 {
-namespace renderer
-{
-namespace vf
-{
-class dynamic_format;
-}
-}
 namespace opengl
 {
 
@@ -43,25 +37,31 @@ public:
 	vertex_buffer(
 		renderer::vf::dynamic_format const &,
 		size_type sz,
-		resource_flag_type flags);
+		renderer::resource_flags_field const &
+	);
 
-	void set_format() const;
+	void
+	set_format() const;
 private:
 	view_type const
 	lock(
-		lock_flag_type flags,
+		renderer::lock_mode::type,
 		size_type offset,
-		size_type range);
+		size_type range
+	);
 
 	const_view_type const
 	lock(
 		size_type offset,
-		size_type range) const;
+		size_type range
+	) const;
 
 	void unlock() const;
 
 	size_type size() const;
-	resource_flag_type flags() const;
+
+	renderer::resource_flags_field const
+	flags() const;
 
 	renderer::vf::dynamic_format const &
 	format() const;

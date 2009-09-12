@@ -18,23 +18,74 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONVERT_RESOURCE_FLAGS_HPP_INCLUDED
-#define SGE_OPENGL_CONVERT_RESOURCE_FLAGS_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_FORMAT_TRAITS_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_FORMAT_TRAITS_HPP_INCLUDED
 
-#include "common.hpp"
-#include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/index/format.hpp>
+#include <boost/mpl/integral_c.hpp>
+#include <boost/cstdint.hpp>
 
 namespace sge
 {
-namespace opengl
+namespace renderer
+{
+namespace index
+{
+namespace detail
 {
 
-GLuint
-convert_resource_flags(
-	renderer::resource_flags_field const &
-);
+template<
+	typename
+>
+class format_traits;
 
+template<>
+class format_traits<
+	boost::uint16_t	
+>
+:
+public boost::mpl::integral_c<
+	format::type,
+	format::i16
+>
+{};
+
+template<>
+class format_traits<
+	boost::uint16_t const
+>
+:
+public format_traits<
+	boost::uint16_t
+>
+{};
+
+template<>
+class format_traits<
+	boost::uint32_t	
+>
+:
+public boost::mpl::integral_c<
+	format::type,
+	format::i32
+>
+{};
+
+template<>
+class format_traits<
+	boost::uint32_t const
+>
+:
+public format_traits<
+	boost::uint32_t
+>
+{};
+
+}
+}
 }
 }
 
 #endif
+
+

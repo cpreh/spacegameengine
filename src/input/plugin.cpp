@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/plugin.hpp>
-#include <sge/plugin/detail/instantiate_types.hpp>
+#include "../plugin/instantiate_types.hpp"
 
 sge::plugin::detail::address_name
 sge::plugin::detail::traits<sge::input::system>::plugin_loader_name()

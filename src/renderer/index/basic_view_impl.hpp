@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_IMPL_BASIC_VIEW_IMPL_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_IMPL_BASIC_VIEW_IMPL_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_BASIC_VIEW_IMPL_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_BASIC_VIEW_IMPL_HPP_INCLUDED
 
+#include "format_traits.hpp"
 #include <sge/renderer/index/detail/basic_view.hpp>
-#include <sge/renderer/index/impl/format_traits.hpp>
 #include <sge/assert.hpp>
 
 template<

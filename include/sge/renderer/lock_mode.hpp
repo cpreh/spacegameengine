@@ -18,23 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_LOCK_FLAGS_HPP_INCLUDED
-#define SGE_RENDERER_LOCK_FLAGS_HPP_INCLUDED
+#ifndef SGE_RENDERER_LOCK_MODE_HPP_INCLUDED
+#define SGE_RENDERER_LOCK_MODE_HPP_INCLUDED
 
 namespace sge
 {
 namespace renderer
 {
 
-namespace lock_flags
+namespace lock_mode
 {
-	enum type {
-		writeonly,
-		readwrite
-	};
+enum type {
+	writeonly,
+	readwrite
+};
 }
-
-typedef lock_flags::type lock_flag_t;
 
 }
 }

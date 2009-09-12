@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_INDEX_BUFFER_HPP_INCLUDED
 
 #include <sge/renderer/index/view.hpp>
-#include <sge/renderer/lock_flags.hpp>
-#include <sge/renderer/resource_flags.hpp>
+#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/export.hpp>
 #include <sge/noncopyable.hpp>
@@ -38,32 +38,36 @@ class SGE_CLASS_SYMBOL index_buffer {
 protected:
 	SGE_SYMBOL index_buffer();
 public:
-	typedef renderer::size_type            size_type;
-	typedef resource_flag_t                resource_flag_type;
-	typedef lock_flag_t                    lock_flag_type;
-
-	typedef index::view                    view_type;
-	typedef index::const_view              const_view_type;
+	typedef renderer::size_type           size_type;
+	typedef index::view                   view_type;
+	typedef index::const_view             const_view_type;
 
 	SGE_SYMBOL static size_type const npos;
 
 	virtual view_type const
 	lock(
-		lock_flag_type flags,
+		lock_mode::type,
 		size_type offset = 0,
-		size_type range = npos) = 0;
+		size_type range = npos
+	) = 0;
 
 	virtual const_view_type const
 	lock(
 		size_type offset = 0,
-		size_type range = npos) const = 0;
+		size_type range = npos
+	) const = 0;
 
-	virtual void unlock() const = 0;
+	virtual void
+	unlock() const = 0;
 
-	virtual size_type size() const = 0;
-	virtual resource_flag_type flags() const = 0;
+	virtual size_type
+	size() const = 0;
 
-	virtual index::format::type format() const = 0;
+	virtual resource_flags_field const
+	flags() const = 0;
+
+	virtual index::format::type
+	format() const = 0;
 
 	SGE_SYMBOL virtual ~index_buffer();
 };

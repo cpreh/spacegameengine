@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "version_fun.hpp"
 #include <sge/plugin/context_base.hpp>
 #include <sge/plugin/info.hpp>
-#include <sge/plugin/detail/version_fun.hpp>
 #include <sge/library/object_impl.hpp>
 
 sge::plugin::context_base::context_base(

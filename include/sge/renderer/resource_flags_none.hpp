@@ -18,46 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_IMPL_SCOPED_BUFFER_LOCK_IMPL_HPP_INCLUDED
-#define SGE_RENDERER_IMPL_SCOPED_BUFFER_LOCK_IMPL_HPP_INCLUDED
+#ifndef SGE_RENDERER_RESOURCE_FLAGS_NONE_HPP_INCLUDED
+#define SGE_RENDERER_RESOURCE_FLAGS_NONE_HPP_INCLUDED
 
-#include <sge/renderer/detail/scoped_buffer_lock.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
+#include <sge/export.hpp>
 
-template<
-	typename Ptr,
-	typename View
->
-sge::renderer::detail::scoped_buffer_lock<Ptr, View>::scoped_buffer_lock(
-	Ptr const ptr,
-	lock_flag_t const flags,
-	size_type const first,
-	size_type const count)
-:
-	ptr(ptr),
-	view(
-		ptr->lock(
-			flags,
-			first,
-			count))
-{}
-
-template<
-	typename Ptr,
-	typename View
->
-View const
-sge::renderer::detail::scoped_buffer_lock<Ptr, View>::value() const
+namespace sge
 {
-	return view;
+namespace renderer
+{
+
+namespace resource_flags
+{
+
+SGE_SYMBOL extern resource_flags_field const none;
+
 }
 
-template<
-	typename Ptr,
-	typename View
->
-sge::renderer::detail::scoped_buffer_lock<Ptr, View>::~scoped_buffer_lock()
-{
-	ptr->unlock();
+}
 }
 
 #endif

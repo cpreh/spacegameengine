@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "texture_lock.hpp"
 #include "pixel_pack_buffer.hpp"
-#include <sge/renderer/resource_flags.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/container/raw_vector_decl.hpp>
 
 namespace sge
@@ -40,7 +40,8 @@ public:
 		size_type stride,
 		size_type pitch,
 		size_type block_size,
-		renderer::resource_flag_t flags);
+		renderer::resource_flags_field const &
+	);
 
 	void post_lock();
 	void do_lock();
@@ -51,15 +52,18 @@ public:
 private:
 	lock_method::type method() const;
 
-	pixel_pack_buffer      buffer;
-	size_type              lock_size,
-	                       offset,
-	                       pitch,
-			       block_size;
+	pixel_pack_buffer buffer;
+	size_type
+		lock_size,
+		offset,
+		pitch,
+		block_size;
 
 	typedef container::raw_vector<
-		value_type>    cutout_buffer_type;
-	cutout_buffer_type     cutout_buffer;
+		value_type
+	> cutout_buffer_type;
+
+	cutout_buffer_type cutout_buffer;
 };
 
 }

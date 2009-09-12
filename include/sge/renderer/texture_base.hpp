@@ -21,8 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_BASE_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_BASE_HPP_INCLUDED
 
-#include <sge/renderer/resource_flags.hpp>
-#include <sge/renderer/lock_flags.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/export.hpp>
 #include <sge/noncopyable.hpp>
@@ -37,13 +36,14 @@ class SGE_CLASS_SYMBOL texture_base {
 protected:
 	SGE_SYMBOL texture_base();
 public:
-	typedef renderer::size_type                   size_type;
-	typedef resource_flag_t                       resource_flag_type;
-	typedef lock_flag_t                           lock_flag_type;
+	typedef renderer::size_type size_type;
 
 	SGE_SYMBOL virtual ~texture_base();
+
 	virtual size_type content() const = 0;
-	virtual resource_flag_type flags() const = 0;
+
+	virtual resource_flags_field const
+	flags() const = 0;
 };
 
 }

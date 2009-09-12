@@ -63,13 +63,14 @@ template<
 >
 sge::opengl::index_buffer<T>::index_buffer(
 	size_type const sz,
-	resource_flag_type const flags)
+	renderer::resource_flags_field const &flags)
 :
 	buf(
 		sz,
 		1,
 		flags,
-		0)
+		0
+	)
 {}
 
 template<
@@ -108,9 +109,10 @@ template<
 >
 typename sge::opengl::index_buffer<T>::view_type const
 sge::opengl::index_buffer<T>::lock(
-	lock_flag_type const flags,
+	renderer::lock_mode::type const flags,
 	size_type const offset,
-	size_type const range)
+	size_type const range
+)
 {
 	buf.lock(
 		convert_lock_method(
@@ -162,7 +164,7 @@ sge::opengl::index_buffer<T>::size() const
 template<
 	typename T
 >
-typename sge::opengl::index_buffer<T>::resource_flag_type
+sge::renderer::resource_flags_field const
 sge::opengl::index_buffer<T>::flags() const
 {
 	return buf.flags();

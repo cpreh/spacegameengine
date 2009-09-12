@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "texture_functions.hpp"
 #include "color_convert.hpp"
 #include "texture_lock_factory.hpp"
+#include <sge/container/bitfield/basic_impl.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
@@ -73,7 +74,9 @@ void sge::opengl::basic_texture<Base>::do_lock(
 			stride(),
 			pitch,
 			block_size,
-			flags()));
+			flags()
+		)
+	);
 
 	lock_.swap(
 		new_lock);
@@ -177,7 +180,7 @@ GLenum sge::opengl::basic_texture<Base>::format_type() const
 template<typename Base>
 sge::opengl::basic_texture<Base>::basic_texture(
 	renderer::filter::texture const &filter_,
-	resource_flag_type const flags_,
+	renderer::resource_flags_field const &flags_,
 	GLenum const type_,
 	image::color::format::type const cformat)
 :
@@ -200,7 +203,7 @@ sge::opengl::basic_texture<Base>::~basic_texture()
 }
 
 template<typename Base>
-typename sge::opengl::basic_texture<Base>::resource_flag_type
+sge::renderer::resource_flags_field const
 sge::opengl::basic_texture<Base>::flags() const
 {
 	return flags_;

@@ -34,7 +34,7 @@ void sge::gui::utility::wipe_texture(
 			renderer::lock_rect::point_type::null(),
 			t->dim()
 		),
-		renderer::lock_flags::readwrite);
+		renderer::lock_mode::readwrite);
 	
 	wipe_image_view(
 		lock_.value());

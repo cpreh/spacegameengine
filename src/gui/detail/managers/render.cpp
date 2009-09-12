@@ -370,7 +370,8 @@ void sge::gui::detail::managers::render::clean()
 			widgets[&p].texture,
 			math::rect::structure_cast<renderer::lock_rect>(
 				to_lock),
-			renderer::lock_flags::readwrite);
+			renderer::lock_mode::readwrite
+		);
 
 		utility::wipe_image_view(
 			lock_.value());

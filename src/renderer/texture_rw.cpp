@@ -19,11 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/texture_rw.hpp>
-#include <sge/exception.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/image/algorithm/copy_and_convert.hpp>
 #include <sge/image/view/make_const.hpp>
 #include <sge/math/rect/basic_impl.hpp>
+#include <sge/container/bitfield/basic_impl.hpp>
+#include <sge/exception.hpp>
 #include <sge/assert.hpp>
 #include <sge/text.hpp>
 #include <sge/optional_impl.hpp>
@@ -40,7 +41,8 @@ public:
 
 	lock_data(
 		lock_rect const &area,
-		optional_image const &view = optional_image())
+		optional_image const &view = optional_image()
+	)
 	:
 		area(area),
 		view(view)
@@ -62,28 +64,64 @@ sge::renderer::texture_rw::texture_rw(
 sge::renderer::texture_rw::~texture_rw()
 {}
 
-sge::renderer::texture_rw::dim_type const sge::renderer::texture_rw::dim() const
+sge::renderer::texture_rw::dim_type const
+sge::renderer::texture_rw::dim() const
 {
 	return read_->dim();
 }
 
-sge::image::view::object const sge::renderer::texture_rw::lock(lock_rect const &lr,lock_flag_t const lf)
+sge::image::view::object const
+sge::renderer::texture_rw::lock(
+	lock_rect const &lr,
+	lock_mode::type const lf
+)
 {
-	SGE_ASSERT_MESSAGE(!locked,SGE_TEXT("already locked texture_rw"));
-	locked.reset(new lock_data(lr,read_->lock(lr,lf)));
+	SGE_ASSERT_MESSAGE(
+		!locked,
+		SGE_TEXT("already locked texture_rw")
+	);
+
+	locked.reset(
+		new lock_data(
+			lr,
+			read_->lock(
+				lr,
+				lf
+			)
+		)
+	);
+
 	return *locked->view;
 }
 
-sge::image::view::const_object const sge::renderer::texture_rw::lock(lock_rect const &lr) const
+sge::image::view::const_object const
+sge::renderer::texture_rw::lock(
+	lock_rect const &lr
+) const
 {
-	SGE_ASSERT_MESSAGE(!locked,SGE_TEXT("already locked texture_rw"));
-	locked.reset(new lock_data(lr));
-	return read_->lock(lr);
+	SGE_ASSERT_MESSAGE(
+		!locked,
+		SGE_TEXT("already locked texture_rw")
+	);
+
+	locked.reset(
+		new lock_data(
+			lr
+		)
+	);
+
+	return read_->lock(
+		lr
+	);
 }
 
-void sge::renderer::texture_rw::unlock() const
+void
+sge::renderer::texture_rw::unlock() const
 {
-	SGE_ASSERT_MESSAGE(locked,SGE_TEXT("unlocking texture_rw without (proper) locking"));
+	SGE_ASSERT_MESSAGE(
+		locked,
+		SGE_TEXT("unlocking texture_rw without (proper) locking")
+	);
 	
 	// we didn't just lock to read?
 	if (locked->view)
@@ -91,7 +129,8 @@ void sge::renderer::texture_rw::unlock() const
 		scoped_texture_lock const lock_(
 			write_,
 			locked->area,
-			lock_flags::writeonly);
+			lock_mode::writeonly
+		);
 		
 		image::algorithm::copy_and_convert(
 			image::view::make_const(
@@ -104,18 +143,20 @@ void sge::renderer::texture_rw::unlock() const
 	locked.reset();
 }
 
-sge::renderer::resource_flag_t
+sge::renderer::resource_flags_field const
 sge::renderer::texture_rw::flags() const
 {
 	return resource_flags::dynamic;
 }
 
-sge::renderer::texture_ptr const sge::renderer::texture_rw::read() const
+sge::renderer::texture_ptr const
+sge::renderer::texture_rw::read() const
 {
 	return read_;
 }
 
-sge::renderer::texture_ptr const sge::renderer::texture_rw::write() const
+sge::renderer::texture_ptr const
+sge::renderer::texture_rw::write() const
 {
 	return write_;
 }
