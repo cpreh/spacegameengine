@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_DETAIL_INSTANTIATE_TYPES_HPP_INCLUDED
 #define SGE_PLUGIN_DETAIL_INSTANTIATE_TYPES_HPP_INCLUDED
 
-#include <sge/plugin/detail/manager_impl.hpp>
-#include <sge/plugin/detail/iterator_impl.hpp>
-#include <sge/plugin/detail/plugin_impl.hpp>
-#include <sge/plugin/detail/context_impl.hpp>
+#include "manager_impl.hpp"
+#include "iterator_impl.hpp"
+#include "plugin_impl.hpp"
+#include "context_impl.hpp"
 #include <sge/export.hpp>
 
 #define SGE_PLUGIN_INSTANTIATE_TYPES(x)\

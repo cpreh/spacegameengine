@@ -18,8 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/plugin/detail/version_fun.hpp>
+#ifndef SGE_PLUGIN_DETAIL_ITERATOR_BASE_TYPE_HPP_INCLUDED
+#define SGE_PLUGIN_DETAIL_ITERATOR_BASE_TYPE_HPP_INCLUDED
 
-sge::library::function_string const
-sge::plugin::version_fun(
-	"plugin_version_info");
+#include <boost/iterator/iterator_facade.hpp>
+#include <iterator>
+
+namespace sge
+{
+namespace plugin
+{
+
+template<typename T>
+class context;
+
+template<typename T>
+class iterator;
+
+namespace detail
+{
+
+template<typename T>
+class iterator_base_type {
+public:
+	typedef boost::iterator_facade<
+ 		iterator<T>,
+		context<T>,
+		std::random_access_iterator_tag,
+		context<T>
+	> type;
+};
+
+}
+}
+}
+
+#endif
