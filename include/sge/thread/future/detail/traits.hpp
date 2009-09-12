@@ -58,21 +58,23 @@ public:
 		storage &);
 };
 
+/*
 template<>
 class traits<void>
 {
 public:
 	typedef bool storage;
 
-	static void init(
+	inline static void init(
 		storage &);
 
-	static void move(
+	inline static void move(
 		storage &);
 	
-	static void cleanup(
+	inline static void cleanup(
 		storage &);
 };
+*/
 }
 }
 }
@@ -150,6 +152,7 @@ void sge::thread::future::detail::traits<T&>::cleanup(
 	_storage = 0;
 }
 
+/*
 void sge::thread::future::detail::traits<void>::init(
 	storage &_storage)
 {
@@ -161,5 +164,6 @@ void sge::thread::future::detail::traits<void>::cleanup(
 {
 	_storage = false;
 }
+*/
 
 #endif // SGE_THREAD_FUTURE_DETAIL_TRAITS_HPP_INCLUDED

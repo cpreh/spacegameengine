@@ -28,6 +28,7 @@ public:
 	void do_run();
 };
 
+#if 0
 template<typename F>
 class task_object<void,F>
 :
@@ -42,6 +43,7 @@ public:
 		boost::detail::thread_move_t<F>);
 	void do_run();
 };
+#endif
 }
 }
 }
@@ -89,6 +91,7 @@ void sge::thread::future::detail::task_object<T,F>::do_run()
 	}
 }
 
+#if 0
 template
 <
 	typename F
@@ -127,5 +130,6 @@ void sge::thread::future::detail::task_object<void,F>::do_run()
 		this->mark_exceptional_finish();
 	}
 }
+#endif
 
 #endif // SGE_THREAD_FUTURE_DETAIL_TASK_OBJECT_HPP_INCLUDED

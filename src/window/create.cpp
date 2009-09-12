@@ -95,7 +95,7 @@ sge::window::create(
 				log::_1
 					<< SGE_TEXT("window::create failed!")
 					<< SGE_TEXT(" Trying another bit depth. Reason: ")
-					<< e.what()
+					<< e.string()
 			);
 			throw;
 		}

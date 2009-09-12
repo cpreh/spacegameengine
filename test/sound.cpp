@@ -138,10 +138,10 @@ try
 		sge::time::sleep(sge::time::millisecond(250));
 	}
 } catch (const sge::audio::exception &e) {
-	sge::cerr << SGE_TEXT("audio exception caught: ") << e.what() << SGE_TEXT('\n');
+	sge::cerr << SGE_TEXT("audio exception caught: ") << e.string() << SGE_TEXT('\n');
 	return EXIT_FAILURE;
 } catch (const sge::exception &e) {
-	sge::cerr << SGE_TEXT("Exception caught: ") << e.what() << SGE_TEXT('\n');
+	sge::cerr << SGE_TEXT("Exception caught: ") << e.string() << SGE_TEXT('\n');
 	return EXIT_FAILURE;
 } catch (const std::exception &e) {
 	std::cerr << "Exception caught: " << e.what() << '\n';

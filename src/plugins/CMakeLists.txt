@@ -10,6 +10,7 @@ FIND_PACKAGE(ODE)
 FIND_PACKAGE(OpenGL)
 FIND_PACKAGE(OpenAL)
 FIND_PACKAGE(Vorbis)
+FIND_PACKAGE(PNG)
 
 OPTION (ENABLE_AUDIO_NULL "Build the null audio player plugin" OFF)
 OPTION (ENABLE_BITMAP_FONT "Build the bitmap font plugin" ON)
@@ -23,6 +24,12 @@ IF(ODE_FOUND)
 	OPTION (ENABLE_ODE "Build the ode collision plugin" ON)
 ELSE()
 	OPTION (ENABLE_ODE "Build the ode collision plugin" OFF)
+ENDIF()
+
+IF(PNG_FOUND)
+	OPTION (ENABLE_PNG "Build the libpng plugin" ON)
+ELSE()
+	OPTION (ENABLE_PNG "Build the libpng plugin" OFF)
 ENDIF()
 
 IF(DevIL_FOUND)
@@ -120,6 +127,10 @@ ENDIF ()
 
 IF (ENABLE_WAVE)
 	ADD_SUBDIRECTORY (wave)
+ENDIF ()
+
+IF (ENABLE_PNG)
+	ADD_SUBDIRECTORY (libpng)
 ENDIF ()
 
 IF (ENABLE_X11INPUT)

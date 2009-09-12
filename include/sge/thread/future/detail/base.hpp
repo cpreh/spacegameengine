@@ -39,32 +39,17 @@ public:
 	void swap(
 		base &);
 	reference get();
-	typename 
-	boost::disable_if
-	<
-		boost::is_void<T>,
-		bool
-	>::type 
+	bool
 	try_get(
 		reference);
 
 	template<typename Duration>
-	typename 
-	boost::disable_if
-	<
-		boost::is_void<T>,
-		bool
-	>::type 
+	bool
 	timed_get(
 		reference,
 		Duration const&);
 
-	typename 
-	boost::disable_if
-	<
-		boost::is_void<T>,
-		bool
-	>::type
+	bool
 	timed_get_until(
 		reference,
 		boost::system_time const&);
@@ -116,12 +101,7 @@ typename sge::thread::future::detail::base<T>::reference sge::thread::future::de
 }
 
 template<typename T>
-typename 
-boost::disable_if
-<
-	boost::is_void<T>,
-	bool
->::type 
+bool
 sge::thread::future::detail::base<T>::try_get(
 	reference _dest)
 {
@@ -134,11 +114,7 @@ sge::thread::future::detail::base<T>::try_get(
 
 template<typename T>
 template<typename Duration>
-typename boost::disable_if
-<
-	boost::is_void<T>,
-	bool
->::type
+bool
 sge::thread::future::detail::base<T>::timed_get(
 	reference _dest,
 	Duration const &_time)
@@ -150,11 +126,7 @@ sge::thread::future::detail::base<T>::timed_get(
 }
 
 template<typename T>
-typename boost::disable_if
-<
-	boost::is_void<T>,
-	bool
->::type
+bool
 sge::thread::future::detail::base<T>::timed_get_until(
 	reference _dest,
 	boost::system_time const &_time)

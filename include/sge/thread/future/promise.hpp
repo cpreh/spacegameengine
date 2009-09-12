@@ -43,6 +43,7 @@ private:
 	bool future_obtained_;
 };
 
+#if 0
 template<>
 class promise<void>
 {
@@ -69,6 +70,7 @@ private:
 	object_ptr object_;
 	bool future_obtained_;
 };
+#endif
 }
 }
 }
@@ -194,6 +196,7 @@ void sge::thread::future::promise<T>::set_exception(
 }
 
 
+#if 0
 sge::thread::future::promise<void>::promise()
 :
 	object_(
@@ -289,6 +292,6 @@ void sge::thread::future::promise<void>::set_exception(
 	object_->mark_exceptional_finish_internal(
 		p);
 }
-
+#endif
 
 #endif // SGE_THREAD_FUTURE_PROMISE_HPP_INCLUDED

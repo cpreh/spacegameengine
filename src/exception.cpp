@@ -46,10 +46,10 @@ sge::exception::string() const
 	return s;
 }
 
-char const *sge::exception::what() const throw()
+/*char const *sge::exception::what() const throw()
 {
 	return "do not catch sge::exception as std::exception, no what() can be supplied";
-}
+}*/
 
 sge::exception::~exception()
 {}

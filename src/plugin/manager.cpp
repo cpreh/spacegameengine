@@ -96,7 +96,7 @@ sge::plugin::manager::manager()
 				log::_1
 					<< it->path().string()
 					<< SGE_TEXT(" failed to load: \"")
-					<< e.what()
+					<< e.string()
 					<< SGE_TEXT("\"!")
 			);
 		}

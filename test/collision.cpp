@@ -227,7 +227,7 @@ try
 }
 catch(sge::exception const &e)
 {
-	sge::cerr << e.what() << SGE_TEXT('\n');
+	sge::cerr << e.string() << SGE_TEXT('\n');
 	return EXIT_FAILURE;
 }
 catch(std::exception const &e)

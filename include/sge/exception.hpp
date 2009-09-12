@@ -44,7 +44,7 @@ public:
 	SGE_SYMBOL sge::string const &
 	string() const;
 
-	SGE_SYMBOL char const *what() const throw();
+	//SGE_SYMBOL char const *what() const throw();
 
 	SGE_SYMBOL virtual ~exception();
 private:

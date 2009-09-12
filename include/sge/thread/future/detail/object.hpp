@@ -51,6 +51,7 @@ public:
 	future::state::type state();
 };
 
+#if 0
 template<>
 class object<void>
 :
@@ -66,6 +67,7 @@ public:
 	void get();
 	future::state::type state();
 };
+#endif
 }
 }
 }
@@ -245,6 +247,7 @@ sge::thread::future::state::type sge::thread::future::detail::object<T>::state()
 		: state::ready;
 }
 
+#if 0
 sge::thread::future::detail::object<void>::object()
 :
 	result_(
@@ -302,5 +305,6 @@ sge::thread::future::state::type sge::thread::future::detail::object<void>::stat
 		? state::moved
 		: state::ready;
 }
+#endif
 
 #endif // SGE_THREAD_FUTURE_DETAIL_OBJECT_HPP_INCLUDED
