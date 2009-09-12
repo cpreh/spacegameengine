@@ -204,6 +204,10 @@ void sge::libpng::load_context::handle_read_impl(
 			data),
 		static_cast<std::streamsize>(
 			length));
+	if (file_.gcount() < static_cast<std::streamsize>(length))
+		throw general_error(SGE_TEXT("png: didn't read as many bytes as supposed to"));
+	if (!file_)
+		throw general_error(SGE_TEXT("png: reading failed"));
 }
 
 void sge::libpng::load_context::handle_warning(
