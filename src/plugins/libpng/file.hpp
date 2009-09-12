@@ -17,12 +17,12 @@ class file
 public:
 	file(
 		sge::filesystem::path const &);
+	file(
+		image::view::const_object const &);
 	void data(
 		image::view::const_object const &);
 	image::view::const_object const view() const;
 	image::dim_type const dim() const;
-	void resample(
-		image::dim_type const &);
 	void save(
 		filesystem::path const &);
 private:

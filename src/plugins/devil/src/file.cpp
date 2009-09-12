@@ -181,16 +181,6 @@ sge::devil::file::view() const
 	);
 }
 
-void sge::devil::file::resample(
-	image::dim_type const &dim_)
-{
-	if(dim() == dim_)
-		return;
-	bind_me();
-	iluScale(static_cast<ILuint>(dim_.w()), static_cast<ILuint>(dim_.h()), 32);
-	check_errors();
-}
-
 void sge::devil::file::save(
 	filesystem::path const &file)
 {

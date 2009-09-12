@@ -45,7 +45,6 @@ public:
 	void data(
 		image::view::const_object const &);
 	image::dim_type const dim() const;
-	void resample(image::dim_type const &);
 	void save(filesystem::path const &);
 private:
 	void bind_me() const;

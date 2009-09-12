@@ -1,7 +1,7 @@
 #ifndef SGE_LIBPNG_UNSUPPORTED_FORMAT_HPP_INCLUDED
 #define SGE_LIBPNG_UNSUPPORTED_FORMAT_HPP_INCLUDED
 
-#include <sge/exception.hpp>
+#include "file_exception.hpp"
 
 namespace sge
 {
@@ -9,10 +9,11 @@ namespace libpng
 {
 class unsupported_format
 :
-	public sge::exception
+	public file_exception
 {
 public:
 	unsupported_format(
+		filesystem::path const &,
 		sge::string const &);
 };
 }

@@ -1,9 +1,9 @@
-#include "../read_ptr.hpp"
+#include "../write_ptr.hpp"
 #include "../exception.hpp"
 #include <sge/text.hpp>
 #include <sge/cerr.hpp>
 
-sge::libpng::read_ptr::read_ptr(
+sge::libpng::write_ptr::write_ptr(
 	png_structp const _ptr)
 :
 	ptr_(
@@ -12,7 +12,7 @@ sge::libpng::read_ptr::read_ptr(
 		0)
 {
 	if (!ptr_)
-		throw exception(SGE_TEXT("couldn't allocate png read structure"));
+		throw exception(SGE_TEXT("couldn't allocate png write structure"));
 
 	info_ = 
 		png_create_info_struct(
@@ -22,21 +22,20 @@ sge::libpng::read_ptr::read_ptr(
 		throw exception(SGE_TEXT("couldn't generate png info structure"));
 }
 
-sge::libpng::read_ptr::~read_ptr()
+sge::libpng::write_ptr::~write_ptr()
 {
 	if (ptr_)
-		png_destroy_read_struct(
+		png_destroy_write_struct(
 			&ptr_,
-			&info_,
-			0);
+			&info_);
 }
 
-png_structp sge::libpng::read_ptr::ptr() const
+png_structp sge::libpng::write_ptr::ptr() const
 {
 	return ptr_;
 }
 
-png_infop sge::libpng::read_ptr::info() const
+png_infop sge::libpng::write_ptr::info() const
 {
 	return info_;
 }

@@ -12,8 +12,10 @@ sge::image::file_ptr const sge::libpng::loader::load(
 }
 
 sge::image::file_ptr const sge::libpng::loader::create(
-	image::view::const_object const&)
+	image::view::const_object const&p)
 {
 	return 
-		image::file_ptr();
+		image::file_ptr(
+			new file(
+				p));
 }

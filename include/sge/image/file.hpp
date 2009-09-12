@@ -49,10 +49,6 @@ public:
 	dim() const = 0;
 
 	virtual void
-	resample(
-		dim_type const &) = 0;
-
-	virtual void
 	save(
 		filesystem::path const &) = 0;
 

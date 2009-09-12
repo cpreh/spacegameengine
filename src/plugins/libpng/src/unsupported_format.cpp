@@ -2,9 +2,11 @@
 #include <sge/text.hpp>
 
 sge::libpng::unsupported_format::unsupported_format(
+	filesystem::path const &_path,
 	sge::string const &_string)
 :
-	sge::exception(
-		SGE_TEXT("png file has unsupported format: ")+_string)
+	file_exception(
+		_path,
+		SGE_TEXT("file has unsupported format: ")+_string)
 {
 }

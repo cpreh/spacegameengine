@@ -1,6 +1,7 @@
 #ifndef SGE_LIBPNG_LOAD_CONTEXT_HPP_INCLUDED
 #define SGE_LIBPNG_LOAD_CONTEXT_HPP_INCLUDED
 
+#include "context_base.hpp"
 #include "read_ptr.hpp"
 #include "byte_vector.hpp"
 #include <sge/filesystem/path.hpp>
@@ -17,6 +18,8 @@ namespace sge
 namespace libpng
 {
 class load_context
+:
+	public context_base
 {
 public:
 	load_context(
@@ -25,7 +28,6 @@ public:
 	byte_vector &bytes();
 	byte_vector const &bytes() const;
 	image::color::format::type format() const;
-	~load_context();
 private:
 	static std::size_t const header_bytes_;
 
@@ -43,16 +45,6 @@ private:
 	void handle_read_impl(
 		png_bytep data,
 		png_size_t length);
-	static void handle_warning(
-		png_structp,
-		png_const_charp);
-	void handle_warning_impl(
-		png_const_charp);
-	static void handle_error(
-		png_structp,
-		png_const_charp);
-	void handle_error_impl(
-		png_const_charp);
 	sge::image::color::format::type convert_format() const;
 	sge::image::color::format::type convert_gray_format() const;
 	sge::image::color::format::type convert_rgb_format() const;

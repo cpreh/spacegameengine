@@ -1,5 +1,5 @@
-#ifndef SGE_LIBPNG_READ_PTR_HPP_INCLUDED
-#define SGE_LIBPNG_READ_PTR_HPP_INCLUDED
+#ifndef SGE_LIBPNG_WRITE_PTR_HPP_INCLUDED
+#define SGE_LIBPNG_WRITE_PTR_HPP_INCLUDED
 
 #include <png.h>
 
@@ -7,12 +7,12 @@ namespace sge
 {
 namespace libpng
 {
-class read_ptr
+class write_ptr
 {
 public:
-	read_ptr(
+	write_ptr(
 		png_structp);
-	~read_ptr();
+	~write_ptr();
 	png_structp ptr() const;
 	png_infop info() const;
 private:
