@@ -48,5 +48,6 @@ void sge::opengl::convert_vertex_colors(
 		vertex_stride,
 		boost::assign::list_of
 			(sge::image::color::format::rgba8)
-			(sge::image::color::format::rgba32f));
+			(sge::image::color::format::rgba32f)
+	);
 }

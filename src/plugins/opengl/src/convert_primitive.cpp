@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 GLenum
 sge::opengl::convert_primitive(
-	renderer::nonindexed_primitive_type::type const t)
+	renderer::nonindexed_primitive_type::type const t
+)
 {
 	switch(t) {
 	case renderer::nonindexed_primitive_type::point:
@@ -37,23 +38,26 @@ sge::opengl::convert_primitive(
 		return GL_TRIANGLE_STRIP;
 	case renderer::nonindexed_primitive_type::triangle_fan:
 		return GL_TRIANGLE_FAN;
-	default:
-		throw exception(
-			SGE_TEXT("Invalid indexed_primitive_type!"));
 	}
+
+	throw exception(
+		SGE_TEXT("Invalid indexed_primitive_type!")
+	);
 }
 
 GLenum
 sge::opengl::convert_primitive(
-	renderer::indexed_primitive_type::type const t)
+	renderer::indexed_primitive_type::type const t
+)
 {
 	switch(t) {
 	case renderer::indexed_primitive_type::line:
 		return GL_LINES;
 	case renderer::indexed_primitive_type::triangle:
 		return GL_TRIANGLES;
-	default:
-		throw exception(
-			SGE_TEXT("Invalid nonindexed_primitive_type!"));
 	}
+
+	throw exception(
+		SGE_TEXT("Invalid nonindexed_primitive_type!")
+	);
 }

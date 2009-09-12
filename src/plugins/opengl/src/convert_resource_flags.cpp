@@ -22,8 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-GLuint sge::opengl::convert_resource_flags(
-	renderer::resource_flag_t const f)
+GLuint
+sge::opengl::convert_resource_flags(
+	renderer::resource_flag_t const f
+)
 {
 	return (f & renderer::resource_flags::dynamic)
 		? GL_DYNAMIC_DRAW
