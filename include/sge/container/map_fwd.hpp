@@ -21,29 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONTAINER_MAP_FWD_HPP_INCLUDED
 #define SGE_CONTAINER_MAP_FWD_HPP_INCLUDED
 
-#include <functional>
-#include <memory>
-
 namespace sge
 {
 namespace container
 {
 
 template<
-	template<
-		typename,
-		typename,
-		typename,
-		typename
-	> class MapType,
-	typename Key,
-	typename Mapped,
-	template<
-		typename
-	> class Alloc = std::allocator,
-	template<
-		typename
-	> class Comp = std::less
+	typename MapType
 >
 class map;
 

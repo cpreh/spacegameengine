@@ -18,42 +18,75 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ASSIGN_DETAIL_MAKE_CONTAINER_IMPL_HPP_INCLUDED
-#define SGE_ASSIGN_DETAIL_MAKE_CONTAINER_IMPL_HPP_INCLUDED
+#ifndef SGE_CONTAINER_IS_ASSOCIATIVE_HPP_INCLUDED
+#define SGE_CONTAINER_IS_ASSOCIATIVE_HPP_INCLUDED
 
-#include <sge/assign/detail/insert.hpp>
+// TODO: somehow forward declare this!
+#include <sge/container/map_fwd.hpp>
+#include <boost/type_traits/integral_constant.hpp>
+#include <set>
+#include <map>
+
+namespace sge
+{
+namespace container
+{
 
 template<
-	typename Container
+	typename T
 >
-sge::assign::make_container<Container>::make_container(
-	typename container_type::const_reference r)
-{
-	(*this)(r);
+struct is_associative
+:
+boost::false_type
+{};
+
+template<
+	typename Key,
+	typename Mapped,
+	typename Compare,
+	typename Alloc
+>
+struct is_associative<
+	std::map<
+		Key,
+		Mapped,
+		Compare,
+		Alloc
+	>
+>
+:
+boost::true_type
+{};
+
+template<
+	typename Value,
+	typename Compare,
+	typename Alloc
+>
+struct is_associative<
+	std::set<
+		Value,
+		Compare,
+		Alloc
+	>
+>
+:
+boost::true_type
+{};
+
+template<
+	typename MapType
+>
+struct is_associative<
+	container::map<
+		MapType
+	>
+>
+:
+boost::true_type
+{};
+
 }
-
-template<
-	typename Container
->
-sge::assign::make_container<Container> &
-sge::assign::make_container<Container>::operator()(
-	typename container_type::const_reference r
-)
-{
-	detail::insert(
-		c_,
-		r
-	);
-
-	return *this;
-}
-
-template<
-	typename Container
->
-sge::assign::make_container<Container>::operator Container() const
-{
-	return c_;
 }
 
 #endif

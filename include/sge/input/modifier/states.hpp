@@ -33,9 +33,10 @@ namespace input
 namespace modifier
 {
 typedef sge::container::map<
-	std::map,
-	sge::input::key_code,
-	sge::input::key_state
+	std::map<
+		sge::input::key_code,
+		sge::input::key_state
+	>
 > states;
 }
 }

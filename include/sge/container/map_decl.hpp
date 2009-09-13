@@ -30,56 +30,31 @@ namespace container
 {
 
 template<
-	template<
-		typename,
-		typename,
-		typename,
-		typename
-	> class MapType,
-	typename Key,
-	typename Mapped,
-	template<
-		typename
-	> class Alloc,
-	template<
-		typename
-	> class Comp 
+	typename MapType
 >
 class map {
-	typedef MapType<
-		Key,
-		Mapped,
-		Comp<
-			Key
-		>,
-		Alloc<
-			std::pair<
-				Key const,
-				Mapped
-			>
-		>
-	> internal_type;
 public:
-	typedef typename internal_type::key_type key_type;
-	typedef typename internal_type::mapped_type mapped_type;
+	typedef MapType map_type;
+	typedef typename map_type::key_type key_type;
+	typedef typename map_type::mapped_type mapped_type;
 
-	typedef typename internal_type::value_type value_type;
-	typedef typename internal_type::key_compare key_compare;
-	typedef typename internal_type::allocator_type allocator_type;
-	typedef typename internal_type::reference reference;
-	typedef typename internal_type::const_reference const_reference;
-	typedef typename internal_type::iterator iterator;
-	typedef typename internal_type::const_iterator const_iterator;
-	typedef typename internal_type::size_type size_type;
-	typedef typename internal_type::difference_type difference_type;
-	typedef typename internal_type::pointer pointer;
-	typedef typename internal_type::const_pointer const_pointer;
-	typedef typename internal_type::reverse_iterator reverse_iterator;
-	typedef typename internal_type::const_reverse_iterator const_reverse_iterator;
+	typedef typename map_type::value_type value_type;
+	typedef typename map_type::key_compare key_compare;
+	typedef typename map_type::allocator_type allocator_type;
+	typedef typename map_type::reference reference;
+	typedef typename map_type::const_reference const_reference;
+	typedef typename map_type::iterator iterator;
+	typedef typename map_type::const_iterator const_iterator;
+	typedef typename map_type::size_type size_type;
+	typedef typename map_type::difference_type difference_type;
+	typedef typename map_type::pointer pointer;
+	typedef typename map_type::const_pointer const_pointer;
+	typedef typename map_type::reverse_iterator reverse_iterator;
+	typedef typename map_type::const_reverse_iterator const_reverse_iterator;
 
 	map();
 	explicit map(
-		internal_type const &);
+		map_type const &);
 
 	template<
 		typename In
@@ -125,7 +100,7 @@ public:
 	size_type size() const;
 	bool empty() const;
 private:
-	internal_type impl_;
+	map_type impl_;
 };
 
 }

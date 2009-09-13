@@ -18,42 +18,61 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ASSIGN_DETAIL_MAKE_CONTAINER_IMPL_HPP_INCLUDED
-#define SGE_ASSIGN_DETAIL_MAKE_CONTAINER_IMPL_HPP_INCLUDED
+#ifndef SGE_ASSIGN_DETAIL_INSERT_HPP_INCLUDED
+#define SGE_ASSIGN_DETAIL_INSERT_HPP_INCLUDED
 
-#include <sge/assign/detail/insert.hpp>
+#include <sge/container/is_associative.hpp>
+#include <boost/utility/enable_if.hpp>
 
-template<
-	typename Container
->
-sge::assign::make_container<Container>::make_container(
-	typename container_type::const_reference r)
+namespace sge
 {
-	(*this)(r);
-}
+namespace assign
+{
+namespace detail
+{
 
 template<
 	typename Container
 >
-sge::assign::make_container<Container> &
-sge::assign::make_container<Container>::operator()(
-	typename container_type::const_reference r
+typename boost::enable_if<
+	container::is_associative<
+		Container
+	>,
+	void
+>::type
+insert(
+	Container &container_,
+	typename Container::value_type const &x
 )
 {
-	detail::insert(
-		c_,
-		r
+	container_.insert(
+		x
 	);
-
-	return *this;
 }
 
 template<
 	typename Container
 >
-sge::assign::make_container<Container>::operator Container() const
+typename boost::disable_if<
+	container::is_associative<
+		Container
+	>,
+	void
+>::type
+insert(
+	Container &container_,
+	typename Container::value_type const &x
+)
 {
-	return c_;
+	container_.push_back(
+		x
+	);
+}
+
+
+
+}
+}
 }
 
 #endif
