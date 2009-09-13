@@ -19,3 +19,11 @@ sge::image::file_ptr const sge::libpng::loader::create(
 			new file(
 				p));
 }
+
+sge::extension_set const
+sge::libpng::loader::extensions() const
+{
+	extension_set s;
+	s.insert(SGE_TEXT("png"));
+	return s;
+}

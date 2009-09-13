@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/loader_fwd.hpp>
 #include <sge/filesystem/path.hpp>
 #include <sge/export.hpp>
+#include <sge/extension_set.hpp>
 #include <sge/noncopyable.hpp>
 
 namespace sge
@@ -52,6 +53,8 @@ public:
 	virtual file_ptr const
 	create(
 		view::const_object const &) = 0;
+	
+	virtual extension_set const extensions() const = 0;
 
 	SGE_SYMBOL virtual ~loader();
 };

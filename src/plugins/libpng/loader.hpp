@@ -39,6 +39,8 @@ public:
 	image::file_ptr const
 	create(
 		image::view::const_object const &);
+
+	extension_set const extensions() const;
 };
 
 }

@@ -46,6 +46,8 @@ public:
 	image::file_ptr const
 	create(
 		image::view::const_object const &src);
+	
+	extension_set const extensions() const;
 private:
 	library lib_;
 };

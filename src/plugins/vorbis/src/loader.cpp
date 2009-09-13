@@ -31,14 +31,9 @@ sge::vorbis::loader::load(
 	return audio::file_ptr(new file(filename));
 }
 
-bool sge::vorbis::loader::is_valid_file(
-	filesystem::path const &filename) const
+sge::extension_set const sge::vorbis::loader::extensions() const
 {
-	try { 
-		file const file_(filename);
-	} catch (audio::exception const &) {
-		return false;
-	}
-	SGE_LOG_DEBUG(log::global(),log::_1 << SGE_TEXT("successfully loaded vorbis file"));
-	return true;
+	extension_set s;
+	s.insert(SGE_TEXT("ogg"));
+	return s;
 }

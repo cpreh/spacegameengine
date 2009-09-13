@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../loader.hpp"
 #include <sge/audio/exception.hpp>
 #include <sge/log/headers.hpp>
+#include <sge/text.hpp>
 #include <ostream>
 
 sge::audio::file_ptr const
@@ -31,18 +32,9 @@ sge::wave::loader::load(
 	return audio::file_ptr(new file(filename));
 }
 
-bool sge::wave::loader::is_valid_file(
-	filesystem::path const &filename) const
+sge::extension_set const sge::wave::loader::extensions() const
 {
-	try 
-	{
-		file const file_(filename);
-		SGE_LOG_DEBUG(log::global(),log::_1 << "wave file info: " << file_.to_string());
-	} 
-	catch (audio::exception const &e) 
-	{
-		SGE_LOG_DEBUG(log::global(),log::_1 << "couldn't load " << filename << ": " << e.string());
-		return false;
-	}
-	return true;
+	extension_set s;
+	s.insert(SGE_TEXT("wav"));
+	return s;
 }
