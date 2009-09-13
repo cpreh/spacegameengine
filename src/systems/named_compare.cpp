@@ -90,9 +90,10 @@ priority(
 	sge::type_info const &t)
 {
 	static sge::container::map<
-		std::map,
-		sge::type_info,
-		priority_type
+		std::map<
+			sge::type_info,
+			priority_type
+		>
 	> const priorities =
 		boost::assign::map_list_of
 			(sge::type_info(typeid(sge::window::parameters)), 0)

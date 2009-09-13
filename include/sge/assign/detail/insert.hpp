@@ -18,42 +18,60 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_FILE_HPP_INCLUDED
-#define SGE_IMAGE_FILE_HPP_INCLUDED
+#ifndef SGE_ASSIGN_DETAIL_INSERT_HPP_INCLUDED
+#define SGE_ASSIGN_DETAIL_INSERT_HPP_INCLUDED
 
-#include <sge/image/dim_type.hpp>
-#include <sge/image/view/const_object.hpp>
-#include <sge/filesystem/path.hpp>
-#include <sge/noncopyable.hpp>
-#include <sge/export.hpp>
+#include <sge/container/is_associative.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace sge
 {
-namespace image
+namespace assign
+{
+namespace detail
 {
 
-class SGE_CLASS_SYMBOL file {
-	SGE_NONCOPYABLE(file)
-protected:
-	SGE_SYMBOL file();
-public:
-	virtual void
-	data(
-		view::const_object const &) = 0;
+template<
+	typename Container
+>
+typename boost::enable_if<
+	container::is_associative<
+		Container
+	>,
+	void
+>::type
+insert(
+	Container &container_,
+	typename Container::value_type const &x
+)
+{
+	container_.insert(
+		x
+	);
+}
 
-	virtual view::const_object const
-	view() const = 0;
+template<
+	typename Container
+>
+typename boost::disable_if<
+	container::is_associative<
+		Container
+	>,
+	void
+>::type
+insert(
+	Container &container_,
+	typename Container::value_type const &x
+)
+{
+	container_.push_back(
+		x
+	);
+}
 
-	virtual dim_type const
-	dim() const = 0;
 
-	virtual void
-	save(
-		filesystem::path const &) = 0;
 
-	SGE_SYMBOL virtual ~file();
-};
-
+}
 }
 }
 

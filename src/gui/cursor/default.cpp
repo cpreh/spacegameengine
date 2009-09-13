@@ -26,14 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/parameters.hpp>
 #include <sge/image/loader.hpp>
 #include <sge/image/file.hpp>
-#include <sge/texture/no_fragmented.hpp>
-#include <sge/texture/part_raw.hpp>
 #include <sge/texture/consume_and_set_fragment.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/math/vector/structure_cast.hpp>
 #include <sge/math/clamp.hpp>
 #include <sge/math/dim/structure_cast.hpp>
-#include <sge/make_shared_ptr.hpp>
 #include <sge/text.hpp>
 
 sge::gui::cursor::default_::default_(
