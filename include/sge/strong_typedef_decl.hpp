@@ -52,6 +52,11 @@ public:
 	operator T &();
 
 	operator T const &() const;
+
+	bool
+	operator< (
+		strong_typedef const &
+	) const;
 private:
 	T t;
 };

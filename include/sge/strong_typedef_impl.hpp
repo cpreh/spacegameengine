@@ -111,4 +111,23 @@ sge::strong_typedef<
 	return t;
 }
 
+
+template<
+	typename T,
+	typename Tag
+>
+bool
+sge::strong_typedef<
+	T,
+	Tag
+>::operator < (
+	strong_typedef<
+		T,
+		Tag
+	> const &other
+) const
+{
+	return t < other.t;
+}
+
 #endif
