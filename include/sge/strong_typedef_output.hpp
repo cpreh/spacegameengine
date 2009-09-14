@@ -18,11 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_STRONG_TYPEDEF_HPP_INCLUDED
-#define SGE_STRONG_TYPEDEF_HPP_INCLUDED
+#ifndef SGE_STRONG_TYPEDEF_OUTPUT_HPP_INCLUDED
+#define SGE_STRONG_TYPEDEF_OUTPUT_HPP_INCLUDED
 
-#include <sge/make_strong_typedef.hpp>
-#include <sge/strong_typedef_impl.hpp>
-#include <sge/strong_typedef_output.hpp>
+#include <sge/strong_typedef_fwd.hpp>
+#include <iosfwd>
+
+namespace sge
+{
+
+template<
+	typename Ch,
+	typename Traits,
+	typename T,
+	typename Tag
+>
+std::basic_ostream<
+	Ch,
+	Traits
+> &
+operator<<(
+	std::basic_ostream<
+		Ch,
+		Traits
+	> &s,
+	strong_typedef<
+		T,
+		Tag
+	> const &t
+)
+{
+	return s << t;
+}
+
+}
 
 #endif
