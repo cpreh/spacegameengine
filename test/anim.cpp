@@ -86,9 +86,6 @@ try
 	sge::renderer::device_ptr const rend = sys.renderer();
 	sge::image::loader_ptr const    pl   = sys.image_loader();
 
-	sge::image::file_ptr const
-		img1(pl->load(sge::config::media_path() / SGE_TEXT("cloudsquare.jpg"))),
-		img2(pl->load(sge::config::media_path() / SGE_TEXT("grass.png")));
 
 	sge::texture::default_creator<
 		sge::texture::no_fragmented
@@ -100,8 +97,22 @@ try
 	sge::texture::manager tex_man(rend, creator);
 
 	sge::texture::const_part_ptr const
-		tex1(sge::texture::add_image(tex_man, img1)),
-		tex2(sge::texture::add_image(tex_man, img2));
+		tex1(
+			sge::texture::add_image(
+				tex_man,
+				pl->load(
+					sge::config::media_path() / SGE_TEXT("cloudsquare.jpg")
+				)
+			)
+		),
+		tex2(
+			sge::texture::add_image(
+				tex_man,
+				pl->load(
+					sge::config::media_path() / SGE_TEXT("grass.png")
+				)
+			)
+		);
 
 	sge::sprite::system ss(rend);
 	sge::sprite::object spr(
