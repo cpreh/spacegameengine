@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../file.hpp"
 #include "../error.hpp"
 #include <sge/make_shared_ptr.hpp>
+#include <sge/text.hpp>
 
 sge::devil::loader::loader()
 {
@@ -63,7 +64,7 @@ sge::devil::loader::create(
 }
 
 sge::extension_set const
-sge::devil::loader::extensions()
+sge::devil::loader::extensions() const
 {
 	// FIXME: add more extensions, see: http://openil.sourceforge.net/features.php
 	extension_set s;
