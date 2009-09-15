@@ -43,6 +43,13 @@ sge::sprite::animation_entity::tex() const
 	return tex_;
 }
 
+void
+sge::sprite::animation_entity::tex(
+	texture::const_part_ptr _tex)
+{
+	tex_ = _tex;
+}
+
 sge::renderer::dim_type const
 sge::sprite::animation_entity::dim() const
 {
