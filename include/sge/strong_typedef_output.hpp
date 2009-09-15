@@ -18,31 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../overlap_callback.hpp"
-#include "../types.hpp"
-#include <bullet/BulletCollision/BroadphaseCollision/btBroadphaseProxy.h>
+#ifndef SGE_STRONG_TYPEDEF_OUTPUT_HPP_INCLUDED
+#define SGE_STRONG_TYPEDEF_OUTPUT_HPP_INCLUDED
 
-sge::bullet::overlap_callback::overlap_callback(
-	collision::test_callback const &dispatch)
-:
-	dispatch(dispatch)
+#include <sge/strong_typedef_fwd.hpp>
+#include <iosfwd>
+
+namespace sge
 {
+
+template<
+	typename Ch,
+	typename Traits,
+	typename T,
+	typename Tag
+>
+std::basic_ostream<
+	Ch,
+	Traits
+> &
+operator<<(
+	std::basic_ostream<
+		Ch,
+		Traits
+	> &s,
+	strong_typedef<
+		T,
+		Tag
+	> const &t
+)
+{
+	return s << t;
 }
 
-void sge::bullet::overlap_callback::reset(
-	collision::test_callback const &_dispatch)
-{
-	dispatch = _dispatch;
 }
 
-bool sge::bullet::overlap_callback::needBroadphaseCollision(
-	btBroadphaseProxy * const a,
-	btBroadphaseProxy * const b) const
-{
-	return dispatch(
-		*static_cast<collision::satellite const *>(
-			static_cast<body_type *>(a->m_clientObject)->getUserPointer()),
-		*static_cast<collision::satellite const *>(
-			static_cast<body_type *>(b->m_clientObject)->getUserPointer())
-		);
-}
+#endif

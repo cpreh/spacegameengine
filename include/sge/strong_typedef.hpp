@@ -23,5 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/make_strong_typedef.hpp>
 #include <sge/strong_typedef_impl.hpp>
+#include <sge/strong_typedef_output.hpp>
 
 #endif
