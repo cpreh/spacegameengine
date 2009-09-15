@@ -34,7 +34,7 @@ namespace parse
 #ifdef SGE_NARROW_STRING
 SGE_CONST_AUTO(char_, boost::spirit::char_);
 #else
-SGE_CONST_AUTO(char_, boost::spirit::wchar_);
+SGE_CONST_AUTO(char_, boost::spirit::wchar);
 #endif
 
 }
