@@ -21,23 +21,140 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CHRONO_TIME_POINT_COMPARISON_HPP_INCLUDED
 #define SGE_CHRONO_TIME_POINT_COMPARISON_HPP_INCLUDED
 
+#include <sge/chrono/time_point_impl.hpp>
+
 namespace sge
 {
 namespace chrono
 {
 
-template <class Clock, class Duration1, class Duration2>
-   bool operator==(const time_point<Clock, Duration1>& lhs, const time_point<Clock, Duration2>& rhs);
-template <class Clock, class Duration1, class Duration2>
-   bool operator!=(const time_point<Clock, Duration1>& lhs, const time_point<Clock, Duration2>& rhs);
-template <class Clock, class Duration1, class Duration2>
-   bool operator< (const time_point<Clock, Duration1>& lhs, const time_point<Clock, Duration2>& rhs);
-template <class Clock, class Duration1, class Duration2>
-   bool operator<=(const time_point<Clock, Duration1>& lhs, const time_point<Clock, Duration2>& rhs);
-template <class Clock, class Duration1, class Duration2>
-   bool operator> (const time_point<Clock, Duration1>& lhs, const time_point<Clock, Duration2>& rhs);
-template <class Clock, class Duration1, class Duration2>
-   bool operator>=(const time_point<Clock, Duration1>& lhs, const time_point<Clock, Duration2>& rhs);
+template<
+	typename Clock,
+	typename Duration1,
+	typename Duration2
+>
+bool
+operator ==(
+	time_point<
+		Clock,
+		Duration1
+	> const &lhs,
+	time_point<
+		Clock,
+		Duration2
+	> const &rhs
+)
+{
+	return
+		lhs.time_since_epoch()
+		== rhs.time_since_epoch();
+}
+
+template<
+	typename Clock,
+	typename Duration1,
+	typename Duration2
+>
+bool
+operator !=(
+	time_point<
+		Clock,
+		Duration1
+	> const &lhs,
+	time_point<
+		Clock,
+		Duration2
+	> const &rhs
+)
+{
+	return
+		!(lhs == rhs);
+}
+
+template<
+	typename Clock,
+	typename Duration1,
+	typename Duration2
+>
+bool
+operator <(
+	time_point<
+		Clock,
+		Duration1
+	> const &lhs,
+	time_point<
+		Clock,
+		Duration2
+	> const &rhs
+)
+{
+	return 	
+		lhs.since_time_epoch()
+		< rhs.since_time_epoch();
+}
+
+template<
+	typename Clock,
+	typename Duration1,
+	typename Duration2
+>
+bool
+operator <=(
+	time_point<
+		Clock,
+		Duration1
+	> const &lhs,
+	time_point<
+		Clock,
+		Duration2
+	> const &rhs
+)
+{
+	return
+		!(rhs < lhs);
+}
+
+template<
+	typename Clock,
+	typename Duration1,
+	typename Duration2
+>
+bool
+operator >(
+	time_point<
+		Clock,
+		Duration1
+	> const &lhs,
+	time_point<
+		Clock,
+		Duration2
+	> const &rhs
+)
+{
+	return
+		rhs < lhs;
+}
+
+template<
+	typename Clock,
+	typename Duration1,
+	typename Duration2
+>
+bool
+operator >=(
+	time_point<
+		Clock,
+		Duration1
+	> const &lhs,
+	time_point<
+		Clock,
+		Duration2
+	> const &rhs
+)
+{
+	return
+		!(lhs < rhs);
+}
 
 }
 }

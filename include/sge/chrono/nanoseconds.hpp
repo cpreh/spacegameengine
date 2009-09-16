@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CHRONO_NANOSECONDS_HPP_INCLUDED
 
 #include <sge/chrono/duration_fwd.hpp>
-#include <sge/chrono/nano.hpp>
+#include <sge/ratio.hpp>
 #include <boost/cstdint.hpp>
 
 namespace sge
@@ -31,7 +31,7 @@ namespace chrono
 {
 
 typedef duration<
-	boost::uint64_least_t,
+	boost::uint64_t,
 	nano
 > nanoseconds;
 

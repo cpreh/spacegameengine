@@ -18,8 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CHRONO_DURATON_ARITHMETIC_HPP_INCLUDED
-#define SGE_CHRONO_DURATON_ARITHMETIC_HPP_INCLUDED
+#ifndef SGE_CHRONO_DURATION_ARITHMETIC_HPP_INCLUDED
+#define SGE_CHRONO_DURATION_ARITHMETIC_HPP_INCLUDED
+
+#include <sge/chrono/duration_impl.hpp>
+#include <sge/chrono/common_type.hpp>
 
 namespace sge
 {
@@ -70,21 +73,176 @@ operator +(
 
 template<
 	typename Rep1,
-	typename Period1, typename Rep2, typename Period2>
-  typename common_type<duration<Rep1, Period1>, duration<Rep2, Period2>>::type
-  operator-(const duration<Rep1, Period1>& lhs, const duration<Rep2, Period2>& rhs);
-template <typename Rep1, typename Period, typename Rep2>
-  duration<typename common_type<Rep1, Rep2>::type, Period>
-  operator*(const duration<Rep1, Period>& d, const Rep2& s);
-template <typename Rep1, typename Period, typename Rep2>
-  duration<typename common_type<Rep1, Rep2>::type, Period>
-  operator*(const Rep1& s, const duration<Rep2, Period>& d);
-template <typename Rep1, typename Period, typename Rep2>
-  duration<typename common_type<Rep1, Rep2>::type, Period>
-  operator/(const duration<Rep1, Period>& d, const Rep2& s);
-template <typename Rep1, typename Period1, typename Rep2, typename Period2>
-  typename common_type<Rep1, Rep2>::type
-  operator/(const duration<Rep1, Period1>& lhs, const duration<Rep2, Period2>& rhs);
+	typename Period1,
+	typename Rep2,
+	typename Period2
+>
+typename common_type<
+	duration<
+		Rep1,
+		Period1
+	>,
+	duration<
+		Rep2,
+		Period2
+	>
+>::type
+operator -(
+	duration<
+		Rep1,
+		Period1
+	> const &lhs,
+	duration<
+		Rep2,
+		Period2
+	> const &rhs
+)
+{
+	return typename common_type<
+		duration<
+			Rep1,
+			Period1
+		>,
+		duration<
+			Rep2,
+			Period2
+		>
+	>::type(
+		lhs
+	)
+	-= rhs;
+}
+
+template<
+	typename Rep1,
+	typename Period,
+	typename Rep2
+>
+duration<
+	typename common_type<
+		Rep1,
+		Rep2
+	>::type,
+	Period
+>
+operator *(
+	duration<
+		Rep1,
+		Period
+	> const &d,
+	Rep2 const &s
+)
+{
+	return 
+		duration<
+			typename common_type<
+				Rep1,
+				Rep2
+			>::type,
+			Period
+		>(
+			d
+		)
+		*= s;
+}
+
+template<
+	typename Rep1,
+	typename Period,
+	typename Rep2
+>
+duration<
+	typename common_type<
+		Rep1,
+		Rep2
+	>::type,
+	Period
+>
+operator *(
+	Rep1 const &s,
+	duration<
+		Rep2,
+		Period
+	> const &d
+)
+{
+	return d * s;
+}
+
+template<
+	typename Rep1,
+	typename Period,
+	typename Rep2
+>
+duration<
+	typename common_type<
+		Rep1,
+		Rep2
+	>::type,
+	Period
+>
+operator /(
+	duration<
+		Rep1,
+		Period
+	> const &d,
+	Rep2 const &s
+)
+{
+	return
+		duration<
+			typename common_type<
+				Rep1,
+				Rep2
+			>::type,
+			Period
+		>(
+			d
+		)
+		/= s;
+}
+
+template<
+	typename Rep1,
+	typename Period1,
+	typename Rep2,
+	typename Period2
+>
+typename common_type<
+	Rep1,
+	Rep2
+>::type
+operator /(
+	duration<
+		Rep1,
+		Period1
+	> const &lhs,
+	duration<
+		Rep2,
+		Period2
+	> const &rhs
+)
+{
+	typedef typename common_type<
+		duration<
+			Rep1,
+			Period1
+		>,
+		duration<
+			Rep2,
+			Period2
+		>
+	>::type ct;
+
+	return
+		ct(
+			lhs
+		).count()
+		/
+		ct(
+			rhs
+		).count();
+}
 
 }
 }

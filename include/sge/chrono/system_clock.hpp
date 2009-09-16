@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CHRONO_SYSTEM_CLOCK_HPP_INCLUDED
 
 #include <sge/chrono/system_clock_fwd.hpp>
-#include <sge/chrono/ratio_fwd.hpp>
 #include <sge/chrono/duration_fwd.hpp>
 #include <sge/chrono/time_point_fwd.hpp>
+#include <sge/ratio.hpp>
 #include <sge/export.hpp>
 #include <ctime>
 
@@ -35,12 +35,9 @@ namespace chrono
 
 class system_clock {
 public:
-	typedef TODO rep;
-	
-	typedef ratio<
-		TODO,
-		TODO
-	> period;
+	typedef unsigned long rep;
+
+	typedef sge::micro period;
 
 	typedef chrono::duration<
 		rep,
@@ -51,7 +48,7 @@ public:
 		system_clock
 	> time_point;
 
-	static bool const is_monotonic = TODO;
+	static bool const is_monotonic = false;
 
 	SGE_SYMBOL static
 	time_point

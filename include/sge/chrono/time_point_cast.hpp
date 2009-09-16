@@ -21,13 +21,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CHRONO_TIME_POINT_CAST_HPP_INCLUDED
 #define SGE_CHRONO_TIME_POINT_CAST_HPP_INCLUDED
 
+#include <sge/chrono/time_point_impl.hpp>
+#include <sge/chrono/duration_cast.hpp>
+
 namespace sge
 {
 namespace chrono
 {
 
-template <class ToDuration, class Clock, class Duration>
-  time_point<Clock, ToDuration> time_point_cast(const time_point<Clock, Duration>& t);
+template<
+	typename ToDuration,
+	typename Clock,
+	typename Duration
+>
+time_point<
+	Clock,
+	ToDuration
+>
+time_point_cast(
+	time_point<
+		Clock,
+		Duration
+	> const &t
+)
+{
+	return time_point<
+		Clock,
+		ToDuration
+	>(
+		duration_cast<
+			ToDuration
+		>(
+			t.time_since_epoch()
+		)
+	);
+}
 
 }
 }

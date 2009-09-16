@@ -38,5 +38,7 @@ boost::is_floating_point<
 >
 {};
 
+}
+}
 
 #endif

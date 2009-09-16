@@ -21,16 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CHRONO_COMMON_TYPE_HPP_INCLUDED
 #define SGE_CHRONO_COMMON_TYPE_HPP_INCLUDED
 
+#include <sge/chrono/time_point_fwd.hpp>
+#include <sge/chrono/duration_fwd.hpp>
+#include <sge/type_traits/common_type.hpp>
+#include <sge/ratio.hpp>
+
 namespace sge
 {
 namespace chrono
 {
 
 template<
-	typename Rep1,
-	typename Period1,
-	typename Rep2,
-	typename Period2
+	typename T1,
+	typename T2
 >
 struct common_type;
 
@@ -49,14 +52,19 @@ struct common_type<
 		Rep2,
 		Period2
 	>
->;
-
-template<
-	typename Clock,
-	typename Duration1,
-	typename Duration2
 >
-struct common_type;
+{
+	typedef chrono::duration<
+		typename type_traits::common_type<
+			Rep1,
+			Rep2
+		>::type,
+		typename detail::ratio_gcd<
+			Period1,
+			Period2
+		>::type
+	> type;
+};
 
 template<
 	typename Clock,
@@ -72,7 +80,16 @@ struct common_type<
 		Clock,
 		Duration2
 	>
->;
+>
+{
+	typedef chrono::time_point<
+		Clock,
+		typename type_traits::common_type<
+			Duration1,
+			Duration2
+		>::type
+	> type;
+};
 
 }
 }

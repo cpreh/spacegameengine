@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CHRONO_DURATION_DECL_HPP_INCLUDED
 #define SGE_CHRONO_DURATION_DECL_HPP_INCLUDED
 
-#include <sge/chrono/is_ratio.hpp>
+#include <sge/chrono/duration_fwd.hpp>
 #include <sge/chrono/is_duration.hpp>
-#include <sge/chrono/ratio_fwd.hpp>
+#include <sge/ratio.hpp>
 #include <boost/static_assert.hpp>
 
 namespace sge
@@ -99,13 +99,13 @@ public:
 	duration &
 	operator ++();
 
-	duration &
+	duration
 	operator ++(int);
 
 	duration &
 	operator --();
 
-	duration &
+	duration
 	operator --(int);
 
 	duration &

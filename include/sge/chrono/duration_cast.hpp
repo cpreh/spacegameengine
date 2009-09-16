@@ -21,6 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CHRONO_DURATION_CAST_HPP_INCLUDED
 #define SGE_CHRONO_DURATION_CAST_HPP_INCLUDED
 
+#include <sge/chrono/common_type.hpp>
+#include <sge/chrono/duration_impl.hpp>
+#include <sge/ratio.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/utility/enable_if.hpp>
+
 namespace sge
 {
 namespace chrono
@@ -28,17 +34,165 @@ namespace chrono
 
 template<
 	typename ToDuration,
-	typename Rep,
-	typename Period
+	typename FromDuration
 >
-ToDuration
+typename boost::enable_if<
+	boost::is_same<
+		typename ToDuration::period,
+		typename FromDuration::period
+	>,
+	ToDuration
+>::type
 duration_cast(
-	duration<
-		Rep,
-		Period
-	> const &d
+	FromDuration const &d
 )
 {
+	return ToDuration(
+		static_cast<
+			typename ToDuration::rep
+		>(
+			d.count()
+		)
+	);
+}
+
+template<
+	typename ToDuration,
+	typename FromDuration
+>
+typename boost::enable_if_c<
+	ratio_divide<
+		typename FromDuration::period,
+		typename ToDuration::period
+	>::type::num == 1,
+	ToDuration
+>::type
+duration_cast(
+	FromDuration const &d
+)
+{
+	typedef typename common_type<
+		ToDuration,
+		FromDuration
+	>::type middle;
+
+	return ToDuration(
+		static_cast<
+			typename ToDuration::rep
+		>(
+			static_cast<
+				middle
+			>(
+				d.count()
+			)
+			/
+			static_cast<
+				middle
+			>(
+				ratio_divide<
+					typename FromDuration::period,
+					typename ToDuration::period
+				>::type::den
+			)
+		)
+	);
+}
+
+template<
+	typename ToDuration,
+	typename FromDuration
+>
+typename boost::enable_if_c<
+	ratio_divide<
+		typename FromDuration::period,
+		typename ToDuration::period
+	>::type::den == 1,
+	ToDuration
+>::type
+duration_cast(
+	FromDuration const &d
+)
+{
+	typedef typename common_type<
+		ToDuration,
+		FromDuration
+	>::type middle;
+
+	return ToDuration(
+		static_cast<
+			typename ToDuration::rep
+		>(
+			static_cast<
+				middle
+			>(
+				d.count()
+			)
+			*	
+			static_cast<
+				middle
+			>(
+				ratio_divide<
+					typename FromDuration::period,
+					typename ToDuration::period
+				>::type::num
+			)
+		)
+	);
+}
+
+template<
+	typename ToDuration,
+	typename FromDuration
+>
+typename boost::enable_if_c<
+	ratio_divide<
+		typename FromDuration::period,
+		typename ToDuration::period
+	>::type::num != 1
+	&&
+	ratio_divide<
+		typename FromDuration::period,
+		typename ToDuration::period
+	>::type::den != 1,
+	ToDuration
+>::type
+duration_cast(
+	FromDuration const &d
+)
+{
+	typedef typename common_type<
+		ToDuration,
+		FromDuration
+	>::type middle;
+
+	typedef typename ratio_divide<
+		typename FromDuration::period,
+		typename ToDuration::period
+	>::type div;
+
+	return ToDuration(
+		static_cast<
+			typename ToDuration::rep
+		>(
+			static_cast<
+				middle
+			>(
+				d.count()
+			)
+			*
+			static_cast<
+				middle
+			>(
+				div::num
+			)
+			/
+			static_cast<
+				middle
+			>(
+				div::den
+			)
+		)
+	);
 }
 
 }

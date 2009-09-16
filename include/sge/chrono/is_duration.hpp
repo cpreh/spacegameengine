@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CHRONO_DURATION_VALUES_HPP_INCLUDED
-#define SGE_CHRONO_DURATION_VALUES_HPP_INCLUDED
+#ifndef SGE_CHRONO_IS_DURATION_HPP_INCLUDED
+#define SGE_CHRONO_IS_DURATION_HPP_INCLUDED
 
-#include <limits>
+#include <sge/chrono/duration_fwd.hpp>
+#include <boost/type_traits/integral_constant.hpp>
 
 namespace sge
 {
@@ -29,31 +30,26 @@ namespace chrono
 {
 
 template<
-	typename Rep
+	typename T
 >
-struct duration_values {
-	static Rep
-	zero()
-	{
-		return Rep(0);
-	}
+struct is_duration
+:
+boost::false_type
+{};
 
-	static Rep
-	min()
-	{
-		return std::numeric_limits<
-			Rep
-		>::lowest();
-	}
-
-	static Rep
-	max()
-	{
-		return std::numeric_limits<
-			Rep
-		>::max();
-	}
-};
+template<
+	typename Rep,
+	typename Period
+>
+struct is_duration<
+	duration<
+		Rep,
+		Period
+	>
+>
+:
+boost::true_type
+{};
 
 }
 }

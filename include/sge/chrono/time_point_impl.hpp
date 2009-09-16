@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CHRONO_TIME_POINT_IMPL_HPP_INCLUDED
 
 #include <sge/chrono/time_point_decl.hpp>
+#include <sge/chrono/duration_impl.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 #include <boost/static_assert.hpp>
 
@@ -72,7 +73,7 @@ sge::chrono::time_point<
 	> const &other
 )
 :
-	rep_(
+	d_(
 		other.time_since_epoch()
 	)
 {

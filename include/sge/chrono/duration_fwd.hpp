@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CHRONO_DURATION_FWD_HPP_INCLUDED
 #define SGE_CHRONO_DURATION_FWD_HPP_INCLUDED
 
-#include <sge/chrono/ratio_fwd.hpp>
+#include <sge/ratio.hpp>
 
 namespace sge
 {

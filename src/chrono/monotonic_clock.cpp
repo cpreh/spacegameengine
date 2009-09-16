@@ -18,44 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CHRONO_DURATION_VALUES_HPP_INCLUDED
-#define SGE_CHRONO_DURATION_VALUES_HPP_INCLUDED
-
-#include <limits>
-
-namespace sge
-{
-namespace chrono
-{
-
-template<
-	typename Rep
->
-struct duration_values {
-	static Rep
-	zero()
-	{
-		return Rep(0);
-	}
-
-	static Rep
-	min()
-	{
-		return std::numeric_limits<
-			Rep
-		>::lowest();
-	}
-
-	static Rep
-	max()
-	{
-		return std::numeric_limits<
-			Rep
-		>::max();
-	}
-};
-
-}
-}
-
+#include <sge/chrono/monotonic_clock.hpp>
+#include <sge/config.h>
+#ifdef SGE_WINDOWS_PLATFORM
+#include "performance_counter_time.hpp"
+#elif SGE_POSIX_PLATFORM
+#include "clock_gettime_impl.hpp"
+#include <time.h>
 #endif
+
+sge::chrono::monotonic_clock::time_point
+sge::chrono::monotonic_clock::now()
+{
+#ifdef SGE_WINDOWS_PLATFORM
+	return performance_conter_time<
+		duration
+	>();
+#elif SGE_POSIX_PLATFORM
+	return clock_gettime_impl<
+		time_point	
+	>(
+		CLOCK_MONOTONIC
+	);
+#endif
+}

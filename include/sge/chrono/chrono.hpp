@@ -18,44 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CHRONO_DURATION_VALUES_HPP_INCLUDED
-#define SGE_CHRONO_DURATION_VALUES_HPP_INCLUDED
+#ifndef SGE_CHRONO_CHRONO_HPP_INCLUDED
+#define SGE_CHRONO_CHRONO_HPP_INCLUDED
 
-#include <limits>
-
-namespace sge
-{
-namespace chrono
-{
-
-template<
-	typename Rep
->
-struct duration_values {
-	static Rep
-	zero()
-	{
-		return Rep(0);
-	}
-
-	static Rep
-	min()
-	{
-		return std::numeric_limits<
-			Rep
-		>::lowest();
-	}
-
-	static Rep
-	max()
-	{
-		return std::numeric_limits<
-			Rep
-		>::max();
-	}
-};
-
-}
-}
+#include <sge/chrono/time_point.hpp>
+#include <sge/chrono/time_point_cast.hpp>
+#include <sge/chrono/duration.hpp>
+#include <sge/chrono/duration_cast.hpp>
+#include <sge/chrono/system_clock.hpp>
+#include <sge/chrono/monotonic_clock.hpp>
+#include <sge/chrono/high_resolution_clock.hpp>
 
 #endif

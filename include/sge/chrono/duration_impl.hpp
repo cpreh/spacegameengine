@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/chrono/duration_decl.hpp>
 #include <sge/chrono/duration_cast.hpp>
+#include <sge/chrono/duration_values.hpp>
 #include <sge/chrono/treat_as_floating_point.hpp>
-#include <sge/chrono/ratio_divide.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 #include <boost/static_assert.hpp>
 
@@ -53,6 +53,7 @@ sge::chrono::duration<
 >::duration(
 	Rep2 const &rep2_
 )
+:
 	rep_(
 		rep2_
 	)
@@ -247,7 +248,6 @@ template<
 	typename Rep,
 	typename Period
 >
-	duration &
 sge::chrono::duration<
 	Rep,
 	Period
@@ -384,7 +384,7 @@ template<
 	typename Rep,
 	typename Period
 >
-sge::chorono::duration<
+sge::chrono::duration<
 	Rep,
 	Period
 >
@@ -415,7 +415,7 @@ sge::chrono::duration<
 {
 	return duration(
 		duration_values<
-			Rep,
+			Rep
 		>::max()
 	);
 }

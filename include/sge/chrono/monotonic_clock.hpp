@@ -22,6 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CHRONO_MONOTONIC_CLOCK_HPP_INCLUDED
 
 #include <sge/chrono/monotonic_clock_fwd.hpp>
+#include <sge/chrono/duration_fwd.hpp>
+#include <sge/chrono/time_point_fwd.hpp>
+#include <sge/ratio.hpp>
+#include <sge/export.hpp>
+#include <boost/cstdint.hpp>
 
 namespace sge
 {
@@ -30,20 +35,17 @@ namespace chrono
 
 class monotonic_clock {
 public:
-	typedef TODO rep;
-	typedef ratio<
-		TODO,
-		TODO
-	> period;
+	typedef boost::uint64_t rep;
 
-	typedef chrono::duration<
+	typedef nano period;
+
+	typedef sge::chrono::duration<
 		rep,
 		period
 	> duration;
 
 	typedef chrono::time_point<
-		TODO,
-		duration
+		monotonic_clock
 	> time_point;
 
 	static bool const is_monotonic = true;

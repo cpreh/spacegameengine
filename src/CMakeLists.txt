@@ -2,6 +2,7 @@ FILE (GLOB sgecorefiles
 	*.cpp
 	algorithm/*.cpp
 	audio/*.cpp
+	chrono/*.cpp
 	config/*.cpp
 	console/*.cpp
 	console/detail/*.cpp

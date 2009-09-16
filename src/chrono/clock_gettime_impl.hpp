@@ -18,10 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CHRONO_DURATION_VALUES_HPP_INCLUDED
-#define SGE_CHRONO_DURATION_VALUES_HPP_INCLUDED
+#ifndef SGE_CHRONO_CLOCK_GETTIME_IMPL_HPP_INCLUDED
+#define SGE_CHRONO_CLOCK_GETTIME_IMPL_HPP_INCLUDED
 
-#include <limits>
+#include <sge/chrono/clock_failure.hpp>
+#include <sge/chrono/time_point_impl.hpp>
+#include <sge/chrono/duration_impl.hpp>
+#include <sge/text.hpp>
+#include <time.h>
 
 namespace sge
 {
@@ -29,31 +33,34 @@ namespace chrono
 {
 
 template<
-	typename Rep
+	typename TimePoint
 >
-struct duration_values {
-	static Rep
-	zero()
-	{
-		return Rep(0);
-	}
+TimePoint const
+clock_gettime_impl(
+	clockid_t const clock_
+)
+{
+	struct timespec tp;
 
-	static Rep
-	min()
-	{
-		return std::numeric_limits<
-			Rep
-		>::lowest();
-	}
+	if(
+		clock_gettime(
+			clock_,
+			&tp
+		) != 0
+	)
+		throw clock_failure(
+			SGE_TEXT("clock_gettime failed")
+		);
 
-	static Rep
-	max()
-	{
-		return std::numeric_limits<
-			Rep
-		>::max();
-	}
-};
+	typedef typename TimePoint::duration duration_;
+
+	return TimePoint(
+		duration_(
+			// FIXME!
+			tp.tv_sec * 1000 * 1000 * 1000 + tp.tv_nsec
+		)
+	);
+}
 
 }
 }

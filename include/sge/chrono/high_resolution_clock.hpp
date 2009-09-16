@@ -22,6 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CHRONO_HIGH_RESOLUTION_CLOCK_HPP_INCLUDED
 
 #include <sge/chrono/high_resolution_clock_fwd.hpp>
+#include <sge/chrono/duration_fwd.hpp>
+#include <sge/chrono/time_point_fwd.hpp>
+#include <sge/ratio.hpp>
+#include <sge/export.hpp>
+#include <boost/cstdint.hpp>
 
 namespace sge
 {
@@ -30,11 +35,9 @@ namespace chrono
 
 class high_resolution_clock {
 public:
-	typedef TODO rep;
-	typedef ratio<
-		TODO,
-		TODO
-	> period;
+	typedef boost::uint64_t rep;
+
+	typedef sge::nano period;
 
 	typedef chrono::duration<
 		rep,
@@ -42,11 +45,11 @@ public:
 	> duration;
 
 	typedef chrono::time_point<
-		TODO,
-		duration
+		high_resolution_clock
 	> time_point;
 
-	static bool const is_monotonic = TODO;
+	// may be true for windows but can only be detected at runtime
+	static bool const is_monotonic = false;
 
 	SGE_SYMBOL
 	static time_point
