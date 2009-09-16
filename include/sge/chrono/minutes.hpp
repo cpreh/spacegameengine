@@ -18,21 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CHRONO_CHRONO_HPP_INCLUDED
-#define SGE_CHRONO_CHRONO_HPP_INCLUDED
+#ifndef SGE_CHRONO_MINUTES_HPP_INCLUDED
+#define SGE_CHRONO_MINUTES_HPP_INCLUDED
 
-#include <sge/chrono/time_point.hpp>
-#include <sge/chrono/time_point_cast.hpp>
-#include <sge/chrono/duration.hpp>
-#include <sge/chrono/duration_cast.hpp>
-#include <sge/chrono/system_clock.hpp>
-#include <sge/chrono/monotonic_clock.hpp>
-#include <sge/chrono/high_resolution_clock.hpp>
-#include <sge/chrono/nanoseconds.hpp>
-#include <sge/chrono/microseconds.hpp>
-#include <sge/chrono/milliseconds.hpp>
-#include <sge/chrono/seconds.hpp>
-#include <sge/chrono/minutes.hpp>
-#include <sge/chrono/hours.hpp>
+#include <sge/chrono/duration_fwd.hpp>
+#include <sge/ratio.hpp>
+
+namespace sge
+{
+namespace chrono
+{
+
+typedef duration<
+	unsigned long,
+	ratio<
+		60
+	>
+> minutes;
+
+}
+}
 
 #endif
