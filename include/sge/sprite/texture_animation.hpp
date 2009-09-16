@@ -54,6 +54,7 @@ public:
 	
 	SGE_SYMBOL bool process();
 	SGE_SYMBOL void reset();
+	SGE_SYMBOL renderer::dim_type const dim() const;
 private:
 	animation_series                 series;
 	loop_method::type                action;

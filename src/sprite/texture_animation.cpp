@@ -85,3 +85,9 @@ void sge::sprite::texture_animation::reset()
 		time::resolution(
 			series.begin()->delay()));
 }
+
+sge::renderer::dim_type const sge::sprite::texture_animation::dim() const
+{
+	return 
+		series.entities().at(0).dim();
+}
