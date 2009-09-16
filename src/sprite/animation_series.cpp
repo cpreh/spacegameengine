@@ -25,36 +25,41 @@ sge::sprite::animation_series::animation_series()
 {}
 
 sge::sprite::animation_series::animation_series(
-	entity_vector const &entities)
+	entity_vector const &_entities)
 :
-	entities(entities)
+	entities_(
+		_entities)
 {}
 
 void sge::sprite::animation_series::push_back(
 	animation_entity const &entity)
 {
-	entities.push_back(entity);
+	entities_.push_back(entity);
+}
+
+sge::sprite::animation_series::entity_vector &sge::sprite::animation_series::entities()
+{
+	return entities_;
+}
+
+sge::sprite::animation_series::entity_vector const &sge::sprite::animation_series::entities() const
+{
+	return entities_;
 }
 
 sge::sprite::animation_series::const_iterator
 sge::sprite::animation_series::begin() const
 {
-	return entities.begin();
+	return entities_.begin();
 }
 
 sge::sprite::animation_series::const_iterator
 sge::sprite::animation_series::end() const
 {
-	return entities.end();
+	return entities_.end();
 }
 
 bool sge::sprite::animation_series::empty() const
 {
-	return entities.empty();
-}
-	
-sge::renderer::dim_type const
-sge::sprite::animation_series::dim() const
-{
-	return entities.at(0).dim();
+	return entities_.empty();
 }

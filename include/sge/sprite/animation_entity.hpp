@@ -42,6 +42,8 @@ public:
 		texture::const_part_ptr tex);
 	SGE_SYMBOL time::unit delay() const;
 	SGE_SYMBOL texture::const_part_ptr const tex() const;
+	SGE_SYMBOL void tex(
+		texture::const_part_ptr);
 	SGE_SYMBOL renderer::dim_type const dim() const;
 private:
 	time::unit              delay_;

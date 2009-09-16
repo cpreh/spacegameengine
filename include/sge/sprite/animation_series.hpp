@@ -44,13 +44,13 @@ public:
 		entity_vector const&);
 	SGE_SYMBOL void push_back(
 		animation_entity const&);
+	SGE_SYMBOL entity_vector &entities();
+	SGE_SYMBOL entity_vector const &entities() const;
 	SGE_SYMBOL const_iterator begin() const;
 	SGE_SYMBOL const_iterator end() const;
 	SGE_SYMBOL bool empty() const;
-
-	SGE_SYMBOL const renderer::dim_type dim() const;
 private:
-	entity_vector entities;
+	entity_vector entities_;
 };
 
 }
