@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/chrono/high_resolution_clock.hpp>
 #include <sge/config.h>
 #ifdef SGE_WINDOWS_PLATFORM
-#include "resolution_counter_time.hpp"
+#include "performance_counter_time.hpp"
+#include "performance_counter_usable.hpp"
 #elif SGE_POSIX_PLATFORM
 #include "clock_gettime_impl.hpp"
 #include <time.h>
@@ -32,10 +33,10 @@ sge::chrono::high_resolution_clock::now()
 {
 #ifdef SGE_WINDOWS_PLATFORM
 	if(
-		performance_counter_usable
+		performance_counter_usable()
 	)
 		return performance_counter_time<
-			duration
+			time_point
 		>();
 	else
 	{

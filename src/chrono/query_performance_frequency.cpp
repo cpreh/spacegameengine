@@ -18,27 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/chrono/monotonic_clock.hpp>
 #include <sge/config.h>
 #ifdef SGE_WINDOWS_PLATFORM
-#include "performance_counter_time.hpp"
-#elif SGE_POSIX_PLATFORM
-#include "clock_gettime_impl.hpp"
-#include <time.h>
-#endif
+#include "query_performance_frequency.hpp"
+#include <sge/windows/windows.hpp>
+#include <sge/chrono/exception.hpp>
+#include <sge/text.hpp>
 
-sge::chrono::monotonic_clock::time_point
-sge::chrono::monotonic_clock::now()
+LARGE_INTEGER
+sge::chrono::query_performance_frequency()
 {
-#ifdef SGE_WINDOWS_PLATFORM
-	return performance_counter_time<
-		time_point
-	>();
-#elif SGE_POSIX_PLATFORM
-	return clock_gettime_impl<
-		time_point	
-	>(
-		CLOCK_MONOTONIC
-	);
-#endif
+	LARGE_INTEGER ret;
+
+	if(
+		QueryPerformanceFrequency(
+			&ret
+		)
+		 == 0
+	)
+		throw exception(
+			SGE_TEXT("QueryPerformanceFrequency() failed!")
+		);
+
+	return ret;
 }
+
+#endif

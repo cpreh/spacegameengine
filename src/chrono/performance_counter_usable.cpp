@@ -18,27 +18,60 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/chrono/monotonic_clock.hpp>
 #include <sge/config.h>
 #ifdef SGE_WINDOWS_PLATFORM
-#include "performance_counter_time.hpp"
-#elif SGE_POSIX_PLATFORM
-#include "clock_gettime_impl.hpp"
-#include <time.h>
-#endif
+#include "performance_counter_usable.hpp"
+#include "query_performance_frequency.hpp"
+#include <sge/chrono/exception.hpp>
+#include <sge/noncopyable.hpp>
 
-sge::chrono::monotonic_clock::time_point
-sge::chrono::monotonic_clock::now()
+namespace
 {
-#ifdef SGE_WINDOWS_PLATFORM
-	return performance_counter_time<
-		time_point
-	>();
-#elif SGE_POSIX_PLATFORM
-	return clock_gettime_impl<
-		time_point	
-	>(
-		CLOCK_MONOTONIC
-	);
-#endif
+
+class initializer {
+	SGE_NONCOPYABLE(initializer)
+public:
+	initializer();
+
+	bool
+	use_performance_counter() const;
+private:
+	bool use_performance_counter_;
+} instance;
+
 }
+
+bool
+sge::chrono::performance_counter_usable()
+{
+	return instance.use_performance_counter();
+}
+
+namespace
+{
+
+initializer::initializer()
+:
+	use_performance_counter_(true)
+{
+	try
+	{
+		sge::chrono::query_performance_frequency();
+	}
+	catch(
+		sge::chrono::exception const &
+	)
+	{
+		use_performance_counter_ = false;
+	}
+}
+
+bool
+initializer::use_performance_counter() const
+{
+	return use_performance_counter_;
+}
+
+}
+
+#endif

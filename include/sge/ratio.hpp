@@ -382,7 +382,7 @@ namespace detail
   template <class R1, class R2, bool = (R1::num < R1::den == R2::num < R2::den) >
   struct ratio_less2  // N1 < D1 == N2 < D2
   {
-      static const intmax_t max = -((1LL << (sizeof(intmax_t) * CHAR_BIT - 1)) + 1);
+	  static const boost::intmax_t max = -((1LL << (sizeof(intmax_t) * CHAR_BIT - 1)) + 1);
       static const bool ok1 = R1::num <= max / R2::den;
       static const bool ok2 = R2::num <= max / R1::den;
       static const bool value = ratio_less3<R1, R2, ok1, ok2>::value;
@@ -407,8 +407,8 @@ namespace detail
       static const bool value = R1::num < R1::den;
   };
 
-  template <class R1, class R2, intmax_t S1 = static_sign<R1::num>::value,
-                                intmax_t S2 = static_sign<R2::num>::value>
+  template <class R1, class R2, boost::intmax_t S1 = static_sign<R1::num>::value,
+                                boost::intmax_t S2 = static_sign<R2::num>::value>
   struct ratio_less
   {
       static const bool value = S1 < S2;
