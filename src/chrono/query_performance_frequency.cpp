@@ -22,25 +22,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifdef SGE_WINDOWS_PLATFORM
 #include "query_performance_frequency.hpp"
 #include <sge/windows/windows.hpp>
-#include <sge/chrono/exception.hpp>
+#include <sge/chrono/clock_failure.hpp>
+#include <sge/once.hpp>
 #include <sge/text.hpp>
+
+namespace
+{
+
+LARGE_INTEGER frequency;
+
+void
+init()
+{
+	SGE_FUNCTION_ONCE;
+
+	if(
+		QueryPerformanceFrequency(
+			&frequency
+		)
+		 == 0
+	)
+		throw sge::chrono::clock_failure(
+			SGE_TEXT("QueryPerformanceFrequency() failed!")
+		);
+
+}
+
+}
 
 LARGE_INTEGER
 sge::chrono::query_performance_frequency()
 {
-	LARGE_INTEGER ret;
+	init();
 
-	if(
-		QueryPerformanceFrequency(
-			&ret
-		)
-		 == 0
-	)
-		throw exception(
-			SGE_TEXT("QueryPerformanceFrequency() failed!")
-		);
-
-	return ret;
+	return frequency;
 }
 
 #endif
