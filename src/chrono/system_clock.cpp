@@ -27,6 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/chrono/clock_failure.hpp>
 #include <sge/text.hpp>
 #include <sys/time.h>
+#else
+#error "system_clock implementation missing"
 #endif
 
 sge::chrono::system_clock::time_point

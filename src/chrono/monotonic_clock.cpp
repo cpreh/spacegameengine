@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #elif SGE_POSIX_PLATFORM
 #include "clock_gettime_impl.hpp"
 #include <time.h>
+#else
+#error "monotonic_clock implementation missing"
 #endif
 
 sge::chrono::monotonic_clock::time_point
