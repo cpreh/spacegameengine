@@ -34,17 +34,21 @@ namespace chrono
 
 template<
 	typename ToDuration,
-	typename FromDuration
+	typename Rep,
+	typename Period
 >
 typename boost::enable_if<
 	boost::is_same<
 		typename ToDuration::period,
-		typename FromDuration::period
+		Period
 	>,
 	ToDuration
 >::type
 duration_cast(
-	FromDuration const &d
+	duration<
+		Rep,
+		Period
+	> const &d
 )
 {
 	return ToDuration(
@@ -58,22 +62,26 @@ duration_cast(
 
 template<
 	typename ToDuration,
-	typename FromDuration
+	typename Rep,
+	typename Period
 >
 typename boost::enable_if_c<
 	ratio_divide<
-		typename FromDuration::period,
+		Period,
 		typename ToDuration::period
 	>::type::num == 1,
 	ToDuration
 >::type
 duration_cast(
-	FromDuration const &d
+	duration<
+		Rep,
+		Period
+	> const &d
 )
 {
 	typedef typename common_type<
-		ToDuration,
-		FromDuration
+		typename ToDuration::rep,
+		Rep
 	>::type middle;
 
 	return ToDuration(
@@ -90,7 +98,7 @@ duration_cast(
 				middle
 			>(
 				ratio_divide<
-					typename FromDuration::period,
+					Period,
 					typename ToDuration::period
 				>::type::den
 			)
@@ -100,22 +108,26 @@ duration_cast(
 
 template<
 	typename ToDuration,
-	typename FromDuration
+	typename Rep,
+	typename Period
 >
 typename boost::enable_if_c<
 	ratio_divide<
-		typename FromDuration::period,
+		Period,
 		typename ToDuration::period
 	>::type::den == 1,
 	ToDuration
 >::type
 duration_cast(
-	FromDuration const &d
+	duration<
+		Rep,
+		Period
+	> const &d
 )
 {
 	typedef typename common_type<
-		ToDuration,
-		FromDuration
+		typename ToDuration::rep,
+		Rep
 	>::type middle;
 
 	return ToDuration(
@@ -132,7 +144,7 @@ duration_cast(
 				middle
 			>(
 				ratio_divide<
-					typename FromDuration::period,
+					Period,
 					typename ToDuration::period
 				>::type::num
 			)
@@ -142,31 +154,35 @@ duration_cast(
 
 template<
 	typename ToDuration,
-	typename FromDuration
+	typename Rep,
+	typename Period
 >
 typename boost::enable_if_c<
 	ratio_divide<
-		typename FromDuration::period,
+		Period,
 		typename ToDuration::period
 	>::type::num != 1
 	&&
 	ratio_divide<
-		typename FromDuration::period,
+		Period,
 		typename ToDuration::period
 	>::type::den != 1,
 	ToDuration
 >::type
 duration_cast(
-	FromDuration const &d
+	duration<
+		Rep,
+		Period
+	> const &d
 )
 {
 	typedef typename common_type<
-		ToDuration,
-		FromDuration
+		typename ToDuration::rep,
+		Rep
 	>::type middle;
 
 	typedef typename ratio_divide<
-		typename FromDuration::period,
+		Period,
 		typename ToDuration::period
 	>::type div;
 

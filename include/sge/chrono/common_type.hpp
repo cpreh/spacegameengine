@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/chrono/time_point_fwd.hpp>
 #include <sge/chrono/duration_fwd.hpp>
-#include <sge/type_traits/common_type.hpp>
 #include <sge/ratio.hpp>
+#include <boost/typeof/typeof.hpp>
 
 namespace sge
 {
@@ -32,10 +32,27 @@ namespace chrono
 {
 
 template<
-	typename T1,
-	typename T2
+	typename T,
+	typename U
 >
-struct common_type;
+struct common_type {
+//private: silence gcc warning about everything being private
+	static T m_t();
+	static U m_u();
+public:
+	typedef BOOST_TYPEOF_TPL(true ? m_t() : m_u()) type;
+};
+
+template<
+	typename T
+>
+struct common_type<
+	T,
+	void
+>
+{
+	typedef T type;
+};
 
 template<
 	typename Rep1,
@@ -55,7 +72,7 @@ struct common_type<
 >
 {
 	typedef chrono::duration<
-		typename type_traits::common_type<
+		typename common_type<
 			Rep1,
 			Rep2
 		>::type,
@@ -84,7 +101,7 @@ struct common_type<
 {
 	typedef chrono::time_point<
 		Clock,
-		typename type_traits::common_type<
+		typename common_type<
 			Duration1,
 			Duration2
 		>::type

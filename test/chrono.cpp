@@ -21,4 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/chrono/chrono.hpp>
 
 int main()
-{}
+{
+	sge::chrono::system_clock::time_point const tp(
+		sge::chrono::system_clock::now()
+	);
+
+	typedef 
+	sge::chrono::time_point<
+		sge::chrono::system_clock,
+		sge::chrono::seconds
+	> other_time;
+	
+	other_time const ot(
+		sge::chrono::time_point_cast<
+			other_time::duration
+		>(
+			tp
+		)
+	);
+}
