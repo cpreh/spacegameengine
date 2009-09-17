@@ -1,7 +1,6 @@
 #include "../write_ptr.hpp"
-#include "../exception.hpp"
+#include <sge/image/exception.hpp>
 #include <sge/text.hpp>
-#include <sge/cerr.hpp>
 
 sge::libpng::write_ptr::write_ptr(
 	png_structp const _ptr)
@@ -12,14 +11,14 @@ sge::libpng::write_ptr::write_ptr(
 		0)
 {
 	if (!ptr_)
-		throw exception(SGE_TEXT("couldn't allocate png write structure"));
+		throw image::exception(SGE_TEXT("couldn't allocate png write structure"));
 
 	info_ = 
 		png_create_info_struct(
 			ptr_);
 
 	if (!info_)
-		throw exception(SGE_TEXT("couldn't generate png info structure"));
+		throw image::exception(SGE_TEXT("couldn't generate png info structure"));
 }
 
 sge::libpng::write_ptr::~write_ptr()

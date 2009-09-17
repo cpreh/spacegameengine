@@ -1,5 +1,5 @@
 #include "../context_base.hpp"
-#include "../file_exception.hpp"
+#include <sge/image/file_exception.hpp>
 #include <sge/iconv.hpp>
 #include <sge/text.hpp>
 #include <sge/log/headers.hpp>
@@ -44,7 +44,7 @@ void sge::libpng::context_base::handle_error_impl(
 	png_const_charp const message)
 {
 	throw 
-		file_exception(
+		image::file_exception(
 			path_,
 			iconv(
 				message));
