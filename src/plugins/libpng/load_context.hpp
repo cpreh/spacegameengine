@@ -11,7 +11,7 @@
 #include <sge/scoped_ptr.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <png.h>
-#include <cstdlib>
+#include <cstddef>
 
 namespace sge
 {
@@ -22,7 +22,7 @@ class load_context
 	public context_base
 {
 public:
-	load_context(
+	explicit load_context(
 		sge::filesystem::path const &);
 	image::dim_type const &dim() const;
 	byte_vector &bytes();

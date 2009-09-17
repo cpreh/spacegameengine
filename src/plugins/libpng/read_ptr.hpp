@@ -10,7 +10,7 @@ namespace libpng
 class read_ptr
 {
 public:
-	read_ptr(
+	explicit read_ptr(
 		png_structp);
 	~read_ptr();
 	png_structp ptr() const;
