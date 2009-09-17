@@ -8,7 +8,7 @@
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/text.hpp>
 #include <climits>
-#include <cstring>
+#include <iosfwd>
 
 namespace
 {

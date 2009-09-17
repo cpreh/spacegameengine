@@ -1,11 +1,11 @@
 #include "../load_context.hpp"
 #include <sge/image/file_exception.hpp>
 #include <sge/image/unsupported_format.hpp>
-#include <sge/text.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/math/dim/basic_impl.hpp>
-#include <sge/lexical_cast.hpp>
 #include <sge/math/dim/output.hpp>
+#include <sge/lexical_cast.hpp>
+#include <sge/text.hpp>
 #include <climits>
 #include <cstddef>
 

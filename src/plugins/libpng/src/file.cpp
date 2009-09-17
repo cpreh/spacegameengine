@@ -1,15 +1,13 @@
 #include "../file.hpp"
 #include "../load_context.hpp"
 #include "../write_context.hpp"
-#include <sge/image/view/make.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/optional_impl.hpp>
 #include <sge/image/view/dim.hpp>
 #include <sge/image/view/format.hpp>
-#include <sge/image/algorithm/copy_and_convert.hpp>
 #include <sge/image/view/make.hpp>
+#include <sge/image/algorithm/copy_and_convert.hpp>
 #include <sge/image/color/format_stride.hpp>
-#include <sge/cerr.hpp>
 
 sge::libpng::file::file(
 	sge::filesystem::path const &_path)
