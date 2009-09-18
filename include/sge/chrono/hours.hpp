@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/chrono/duration_fwd.hpp>
 #include <sge/ratio.hpp>
-#include <boost/cstdint.hpp>
 
 namespace sge
 {

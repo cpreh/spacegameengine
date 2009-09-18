@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/chrono/chrono.hpp>
+#include <iostream>
+#include <ostream>
 
 int main()
 {
@@ -26,12 +28,12 @@ int main()
 		sge::chrono::system_clock::now()
 	);
 
-	typedef 
+	typedef
 	sge::chrono::time_point<
 		sge::chrono::system_clock,
 		sge::chrono::seconds
 	> other_time;
-	
+
 	other_time const ot(
 		sge::chrono::time_point_cast<
 			other_time::duration
@@ -39,4 +41,14 @@ int main()
 			tp
 		)
 	);
+
+	std::cout << ot.time_since_epoch().count() << '\n';
+
+	std::cout
+		<< sge::chrono::time_point_cast<
+			sge::chrono::days
+		>(
+			ot
+		).time_since_epoch().count()
+		<< '\n';
 }
