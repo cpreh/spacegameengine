@@ -83,7 +83,7 @@ class object : public sge::collision::satellite
 
 	void position_change(sge::collision::point const &p)
 	{
-	//	sge::cerr << "position_change to " << p << '\n';
+		//sge::cerr << "position_change to " << p << '\n';
 		sprite_.x() = static_cast<sge::sprite::unit>(p.x());
 		sprite_.y() = static_cast<sge::sprite::unit>(p.y());
 	}

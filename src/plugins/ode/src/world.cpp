@@ -105,11 +105,6 @@ sge::ode::world::update(
 			delta/
 			time_step);
 			
-	dSpaceCollide(
-		space_,
-		this,
-		&static_collide);
-	
 	for (unsigned i = 0; i < iterations; ++i)
 		step(
 			time_step);
@@ -131,6 +126,11 @@ sge::ode::world::~world()
 void sge::ode::world::step(
 	dReal const _time_step)
 {
+	dSpaceCollide(
+		space_,
+		this,
+		&static_collide);
+	
 	//dWorldQuickStep(
 	dWorldStep(
 		world_,
@@ -184,13 +184,13 @@ void sge::ode::world::collide(
 	dGeomID const g0,
 	dGeomID const g1)
 {
-	sge::cerr << "there was a collision!\n";
+	//sge::cerr << "there was a collision!\n";
 	// manual states that the contact array has to contain at least 1 element,
 	// so to be sure, allocate one dContactGeom here
 	dContactGeom g;
 	if (!dCollide(g0,g1,1,&g,sizeof(dContactGeom)))
 	{
-		sge::cerr << "but dcollide returned false :(\n";
+		//sge::cerr << "but dcollide returned false :(\n";
 		return;
 	}
 	
@@ -214,7 +214,7 @@ void sge::ode::world::collide(
 	// insertion was successful, so this collision is new. we then send a collision_begin
 	if (result.second)
 	{
-		sge::cerr << "inserting was successful\n";
+		//sge::cerr << "inserting was successful\n";
 		call_signal(
 			begin_signal_,
 			b0,
@@ -223,7 +223,7 @@ void sge::ode::world::collide(
 	// if it wasn't successful, then we shall update the timestamp for the later end-check
 	else
 	{
-		sge::cerr << "inserting was not sucessful\n";
+		//sge::cerr << "inserting was not sucessful\n";
 		result.first->second = true;
 	}
 }
