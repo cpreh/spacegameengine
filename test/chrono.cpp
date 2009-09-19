@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/chrono/chrono.hpp>
 #include <iostream>
 #include <ostream>
+#include <cmath>
 
 int main()
 {
@@ -50,5 +51,53 @@ int main()
 		>(
 			ot
 		).time_since_epoch().count()
+		<< '\n';
+	
+	// measure some time:
+	
+	typedef sge::chrono::high_resolution_clock::time_point hrc_tp;
+
+	hrc_tp const begin(
+		sge::chrono::high_resolution_clock::now()
+	);
+
+	for(
+		unsigned i = 0;
+		i < 100;
+		++i
+	)
+		std::cout
+			<< std::sqrt(
+				static_cast<
+					float
+				>(
+					i
+				)
+			)
+			<< ' ';
+	
+	hrc_tp const end(
+		sge::chrono::high_resolution_clock::now()
+	);
+
+	hrc_tp::duration const time_taken(
+		end - begin
+	);
+
+	std::cout
+		<< "\ntime taken: "
+		<< time_taken.count()
+		<< " (in units of "
+		<< hrc_tp::period::num
+		<< '/'
+		<< hrc_tp::period::den
+		<< "), in seconds: "
+		<< sge::chrono::duration_cast<
+			sge::chrono::duration<
+				double
+			>
+		>(
+			time_taken
+		).count()
 		<< '\n';
 }

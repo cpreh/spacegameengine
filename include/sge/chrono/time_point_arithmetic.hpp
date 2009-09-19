@@ -154,7 +154,7 @@ operator -(
 {
 	return
 		lhs.time_since_epoch()
-		- rhs.time_sine_epoch();
+		- rhs.time_since_epoch();
 }
 
 }

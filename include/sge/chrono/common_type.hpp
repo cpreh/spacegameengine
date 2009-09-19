@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/chrono/time_point_fwd.hpp>
 #include <sge/chrono/duration_fwd.hpp>
 #include <sge/ratio.hpp>
+#define BOOST_TYPEOF_SILENT
 #include <boost/typeof/typeof.hpp>
 
 namespace sge
