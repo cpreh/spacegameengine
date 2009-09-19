@@ -11,6 +11,7 @@ namespace shapes
 {
 class base;
 typedef shared_ptr<base> base_ptr;
+typedef shared_ptr<base const> const_base_ptr;
 }
 }
 }

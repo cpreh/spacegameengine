@@ -9,6 +9,7 @@ namespace collision
 {
 class body;
 typedef shared_ptr<body> body_ptr;
+typedef shared_ptr<body const> const_body_ptr;
 }
 }
 
