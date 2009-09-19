@@ -35,6 +35,7 @@ template<
 class optional {
 	SGE_SAFE_BOOL(optional)
 public:
+	typedef T value_type;
 	typedef T &reference;
 	typedef T const &const_reference;
 	typedef T *pointer;

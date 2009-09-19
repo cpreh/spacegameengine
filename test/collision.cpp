@@ -26,6 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/scoped_block.hpp>
+#include <sge/collision/body.hpp>
+#include <sge/collision/shapes/circle.hpp>
+#include <sge/collision/shapes/circle.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/math/vector/output.hpp>
 #include <sge/systems/instance.hpp>
@@ -37,7 +40,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/action.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/window/parameters.hpp>
-#include <sge/collision/objects/circle.hpp>
 #include <sge/collision/system.hpp>
 #include <sge/collision/satellite.hpp>
 #include <sge/collision/world.hpp>
@@ -56,17 +58,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
-bool dispatch(
-	sge::collision::satellite const &,
-	sge::collision::satellite const &)
+void collision_begin(
+	sge::collision::satellite &,
+	sge::collision::satellite &)
 {
-	std::cerr << "dispatch called\n";
-	return true;
+	std::cerr << "collision begin!\n";
 }
 
-void collision(sge::collision::satellite &,sge::collision::satellite &)
+void collision_end(
+	sge::collision::satellite &,
+	sge::collision::satellite &)
 {
-	std::cerr << "a collision!\n";
+	std::cerr << "collision end!\n";
 }
 
 class object : public sge::collision::satellite
@@ -80,7 +83,7 @@ class object : public sge::collision::satellite
 
 	void position_change(sge::collision::point const &p)
 	{
-		sge::cerr << "position_change to " << p << '\n';
+	//	sge::cerr << "position_change to " << p << '\n';
 		sprite_.x() = static_cast<sge::sprite::unit>(p.x());
 		sprite_.y() = static_cast<sge::sprite::unit>(p.y());
 	}
@@ -114,21 +117,19 @@ try
 		sys.collision_system()->create_world(
 			sge::collision::rect(
 				sge::collision::rect::point_type(
-					-500,
-					-500
+					0,
+					0
 				),
 				sge::collision::rect::dim_type(
-					1000,
-					1000
+					640,
+					480
 				)
 			)
 		);
 	
-	world->test_callback(&dispatch);
-
-	sge::signal::scoped_connection const c(
-		world->register_callback(&collision)
-	);
+	sge::signal::auto_connection 
+		bc = world->register_begin_callback(&collision_begin),
+		be = world->register_end_callback(&collision_end);
 
 	sge::sprite::object s_a(
 		sge::sprite::parameters()
@@ -149,9 +150,9 @@ try
 			sge::sprite::dim(10,10)
 		)
 	);
-	
-	sge::collision::objects::circle_ptr const o_a = 
-		world->create_circle(
+
+	sge::collision::body_ptr const body_a = 
+		world->create_body(
 			sge::collision::satellite_ptr(
 				new object(s_a)),
 			sge::collision::point(
@@ -159,13 +160,17 @@ try
 				static_cast<sge::collision::unit>(0),
 				static_cast<sge::collision::unit>(0)),
 			sge::collision::point(
-				static_cast<sge::collision::unit>(-100),
+				static_cast<sge::collision::unit>(-10),
 				static_cast<sge::collision::unit>(0),
-				static_cast<sge::collision::unit>(0)),
+				static_cast<sge::collision::unit>(0)));
+
+	
+	sge::collision::shapes::circle_ptr const shape_a = 
+		world->create_circle(
 			static_cast<sge::collision::unit>(5));
 
-	sge::collision::objects::circle_ptr const o_b = 
-		world->create_circle(
+	sge::collision::body_ptr const body_b = 
+		world->create_body(
 			sge::collision::satellite_ptr(
 				new object(s_b)),
 			sge::collision::point(
@@ -175,8 +180,16 @@ try
 			sge::collision::point(
 				static_cast<sge::collision::unit>(0),
 				static_cast<sge::collision::unit>(0),
-				static_cast<sge::collision::unit>(0)),
+				static_cast<sge::collision::unit>(0)));
+	
+	sge::collision::shapes::circle_ptr const shape_b = 
+		world->create_circle(
 			static_cast<sge::collision::unit>(5));
+	
+	body_a->add(
+		shape_a);
+	body_b->add(
+		shape_b);
 
 	sge::sprite::system ss(sys.renderer());
 	
@@ -198,18 +211,19 @@ try
 	);
 
 	sge::time::timer frame_timer(sge::time::second(1));
-	sge::time::timer vel_timer(sge::time::second(2));
+	sge::time::timer vel_timer(sge::time::second(5));
 
 	while (running)
 	{
-		world->update(frame_timer.elapsed_frames());
+		world->update(
+			frame_timer.elapsed_frames());
 		frame_timer.reset();
 
 		sge::time::sleep(sge::time::second_f(1.0f/60.0f));
 
 		if (vel_timer.expired())
 		{
-			o_b->speed(
+			body_b->linear_velocity(
 				sge::collision::point(
 					static_cast<sge::collision::unit>(100),
 					static_cast<sge::collision::unit>(0),

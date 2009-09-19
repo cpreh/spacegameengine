@@ -22,13 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_COLLISION_WORLD_HPP_INCLUDED
 
 #include <sge/collision/world_fwd.hpp>
+#include <sge/collision/body_fwd.hpp>
+#include <sge/collision/group_fwd.hpp>
 #include <sge/collision/unit.hpp>
 #include <sge/collision/point.hpp>
-#include <sge/collision/callback.hpp>
-#include <sge/collision/test_callback.hpp>
 #include <sge/collision/satellite_fwd.hpp>
 #include <sge/collision/time_unit.hpp>
-#include <sge/collision/objects/circle_fwd.hpp>
+#include <sge/collision/shapes/circle_fwd.hpp>
+#include <sge/collision/callback.hpp>
 #include <sge/signal/auto_connection.hpp>
 #include <sge/export.hpp>
 #include <sge/noncopyable.hpp>
@@ -43,20 +44,26 @@ class SGE_CLASS_SYMBOL world
 protected:
 	SGE_SYMBOL world();
 public:
-	virtual void
-	test_callback(
-		collision::test_callback const &) = 0;
-
 	virtual signal::auto_connection
-	register_callback(
+	register_begin_callback(
 		callback const &) = 0;
-	
-	virtual objects::circle_ptr const
-	create_circle(
+		
+	virtual signal::auto_connection
+	register_end_callback(
+		callback const &) = 0;
+		
+	virtual body_ptr const 
+	create_body(
 		satellite_ptr,
-		point const &center,
-		point const &speed,
+		point const &,
+		point const &) = 0;
+	
+	virtual shapes::circle_ptr const
+	create_circle(
 		unit radius) = 0;
+	
+	virtual group_ptr const 
+	create_group() = 0;
 
 	virtual void
 	update(

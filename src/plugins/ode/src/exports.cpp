@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../system.hpp"
 #include <sge/export.hpp>
-#include <sge/text.hpp>
 #include <sge/plugin/info.hpp>
+#include <sge/text.hpp>
 
 extern "C"
 {
@@ -35,15 +35,15 @@ create_collision_system();
 
 SGE_EXPORT_SYMBOL void
 plugin_version_info(
-	sge::plugin::info *const i)
+	sge::plugin::info *const p)
 {
-	if(!i)
+	if(!p)
 		return;
-	i->name = SGE_TEXT("ode");
-	i->description = SGE_TEXT("");
-	i->type = sge::plugin::capabilities::collision_system;
-	i->plugin_version = 0x1;
-	i->min_core_version = 0x1;
+	p->name = SGE_TEXT("ode");
+	p->description = SGE_TEXT("");
+	p->plugin_version = 0x1;
+	p->min_core_version = 0x1;
+	p->type = sge::plugin::capabilities::collision_system;
 }
 
 SGE_EXPORT_SYMBOL sge::collision::system *

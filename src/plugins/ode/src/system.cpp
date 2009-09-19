@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../world.hpp"
 #include <sge/math/rect/basic_impl.hpp>
 #include <sge/make_shared_ptr.hpp>
+#include <ode/ode.h>
 
 sge::ode::system::system()
 {
@@ -32,11 +33,9 @@ sge::collision::world_ptr const
 sge::ode::system::create_world(
 	collision::optional_rect const &r)
 {
-	return make_shared_ptr<
-		world
-	>(
-		r
-	);
+	return 
+		make_shared_ptr<world>(
+			r);
 }
 
 sge::ode::system::~system()
