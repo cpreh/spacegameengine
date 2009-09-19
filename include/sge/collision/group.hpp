@@ -12,7 +12,9 @@ namespace collision
 {
 class SGE_CLASS_SYMBOL group
 {
-//SGE_NONCOPYABLE(group) FIXME: def-ctor, then add noncopyable
+	SGE_NONCOPYABLE(group)
+protected:
+	SGE_SYMBOL group();
 public:
 	virtual void add(
 		shapes::base_ptr) = 0;

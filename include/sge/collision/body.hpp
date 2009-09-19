@@ -13,7 +13,9 @@ namespace collision
 {
 class SGE_CLASS_SYMBOL body
 {
-//SGE_NONCOPYABLE(body) FIXME: add custom (empty) constructor, then re-enable noncopyable
+	SGE_NONCOPYABLE(body)
+protected:
+	SGE_SYMBOL body();
 public:
 	virtual point const position() const = 0;
 	virtual void position(
