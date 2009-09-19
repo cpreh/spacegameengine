@@ -74,6 +74,7 @@ private:
 	dReal time_remainder_;
 	object_map collisions_;
 	transformer transformer_;
+	unsigned long body_count_;
 	
 	void step(
 		dReal);
@@ -92,7 +93,6 @@ private:
 		dBodyID);
 	void destroy_body(
 		dBodyID);
-	// FIXME: add body count
 };
 }
 }

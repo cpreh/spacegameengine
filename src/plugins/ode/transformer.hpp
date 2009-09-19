@@ -18,18 +18,23 @@ public:
 	transformer(
 		sge::collision::optional_rect const &);
 	collision::point const
-	from_ode(
+	position_from_ode(
+		point const &) const;
+	collision::point const
+	velocity_from_ode(
 		point const &) const;
 	collision::dim const
-	from_ode(
+	dim_from_ode(
 		dim const &) const;
-	point const to_ode(
+	point const position_to_ode(
 		collision::point const &) const;
-	dim const to_ode(
+	point const velocity_to_ode(
+		collision::point const &) const;
+	dim const dim_to_ode(
 		collision::dim const &) const;
-	collision::unit from_ode(
+	collision::unit unit_from_ode(
 		dReal) const;
-	dReal to_ode(
+	dReal unit_to_ode(
 		collision::unit) const;
 private:
 	sge::collision::unit

@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/collision/body.hpp>
 #include <sge/collision/shapes/circle.hpp>
 #include <sge/collision/shapes/circle.hpp>
+#include <sge/collision/group.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/math/vector/output.hpp>
 #include <sge/systems/instance.hpp>
@@ -83,7 +84,7 @@ class object : public sge::collision::satellite
 
 	void position_change(sge::collision::point const &p)
 	{
-	//	sge::cerr << "position_change to " << p << '\n';
+		//sge::cerr << "position_change to " << p << '\n';
 		sprite_.x() = static_cast<sge::sprite::unit>(p.x());
 		sprite_.y() = static_cast<sge::sprite::unit>(p.y());
 	}
@@ -117,12 +118,12 @@ try
 		sys.collision_system()->create_world(
 			sge::collision::rect(
 				sge::collision::rect::point_type(
-					0,
-					0
+					-10,
+					-10
 				),
 				sge::collision::rect::dim_type(
-					640,
-					480
+					660,
+					500
 				)
 			)
 		);
@@ -163,6 +164,7 @@ try
 				static_cast<sge::collision::unit>(-10),
 				static_cast<sge::collision::unit>(0),
 				static_cast<sge::collision::unit>(0)));
+	
 
 	
 	sge::collision::shapes::circle_ptr const shape_a = 
@@ -185,10 +187,26 @@ try
 	sge::collision::shapes::circle_ptr const shape_b = 
 		world->create_circle(
 			static_cast<sge::collision::unit>(5));
+
+	sge::cerr << "velocity is " << body_a->linear_velocity() << "\n";
 	
 	body_a->add(
 		shape_a);
 	body_b->add(
+		shape_b);
+	
+	sge::collision::group_ptr const 
+		g_a = world->create_group(),
+		g_b = world->create_group();
+	
+	g_a->collides_with(
+		g_a);
+	g_b->collides_with(
+		g_a);
+	
+	g_a->add(
+		shape_a);
+	g_a->add(
 		shape_b);
 
 	sge::sprite::system ss(sys.renderer());
