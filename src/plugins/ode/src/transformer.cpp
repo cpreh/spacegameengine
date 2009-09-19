@@ -52,7 +52,7 @@ sge::ode::transformer::transformer(
 		:
 			collision::point::null())
 {
-	sge::cerr << "scaling is " << scaling_ << ", inverse scaling is " << inverse_scaling_ << ", translation is " << translation_ << "\n";
+	//sge::cerr << "scaling is " << scaling_ << ", inverse scaling is " << inverse_scaling_ << ", translation is " << translation_ << "\n";
 }
 
 sge::collision::point const
