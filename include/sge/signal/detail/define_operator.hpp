@@ -24,12 +24,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/preprocessor/arithmetic/inc.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
+#include <boost/next_prior.hpp>
 
 #define SGE_SIGNAL_DETAIL_DEFINE_EMPTY_OPERATOR\
 	result_type operator()()\
 	{\
-		result_type t = result_type();\
-		for (typename connection_list::iterator i = base::connections().begin();\
+		if (base::connections().empty()) \
+			return result_type(); \
+		result_type t = base::connections().begin()->function()();\
+		for (typename connection_list::iterator i = boost::next(base::connections().begin());\
 		     i != base::connections().end();\
 				 ++i)\
 			t = combiner_(i->function()(),t);\
@@ -43,7 +46,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	result_type operator()(\
 		BOOST_PP_ENUM_BINARY_PARAMS(BOOST_PP_INC(n),T, const &param))\
 	{\
-		result_type t = result_type();\
+		if (base::connections().empty()) \
+			return result_type(); \
+		result_type t = base::connections().begin()->function()(\
+			BOOST_PP_ENUM_PARAMS_Z(z,BOOST_PP_INC(n),param));\
 		for (typename connection_list::iterator i = base::connections().begin();\
 		     i != base::connections().end();\
 				 ++i)\

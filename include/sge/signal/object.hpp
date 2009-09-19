@@ -54,6 +54,12 @@ public:
 	:
 		combiner_(_combiner)
 	{}
+
+	void combiner(
+		combiner_type const &_combiner)
+	{
+		combiner_ = _combiner;
+	}
 	
 	SGE_SIGNAL_DETAIL_DEFINE_EMPTY_OPERATOR
 	BOOST_PP_REPEAT(SGE_SIGNAL_DETAIL_OPERATOR_LIMIT,SGE_SIGNAL_DETAIL_DEFINE_OPERATOR,nil)

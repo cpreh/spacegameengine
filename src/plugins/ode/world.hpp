@@ -25,6 +25,14 @@ public:
 		collision::optional_rect const &);
 	
 	signal::auto_connection
+	register_test_callback(
+		collision::test_callback const &);
+
+	void 
+	test_callback_combiner(
+		collision::test_callback_combiner const &);
+	
+	signal::auto_connection
 	register_begin_callback(
 		collision::callback const &);
 		
@@ -70,6 +78,8 @@ private:
 	collision::callback_signal 
 		begin_signal_,
 		end_signal_;
+	sge::signal::object<collision::test_callback_fn> 
+		test_signal_;
 	group_id group_id_;
 	dReal time_remainder_;
 	object_map collisions_;

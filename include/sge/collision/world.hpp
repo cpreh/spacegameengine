@@ -30,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/collision/time_unit.hpp>
 #include <sge/collision/shapes/circle_fwd.hpp>
 #include <sge/collision/callback.hpp>
+#include <sge/collision/test_callback.hpp>
+#include <sge/collision/test_callback_combiner.hpp>
 #include <sge/signal/auto_connection.hpp>
 #include <sge/export.hpp>
 #include <sge/noncopyable.hpp>
@@ -44,6 +46,14 @@ class SGE_CLASS_SYMBOL world
 protected:
 	SGE_SYMBOL world();
 public:
+	virtual signal::auto_connection
+	register_test_callback(
+		test_callback const &) = 0;
+	
+	virtual void 
+	test_callback_combiner(
+		collision::test_callback_combiner const &) = 0;
+
 	virtual signal::auto_connection
 	register_begin_callback(
 		callback const &) = 0;

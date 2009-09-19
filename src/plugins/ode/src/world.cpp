@@ -7,6 +7,7 @@
 #include <sge/assert.hpp>
 #include <sge/text.hpp>
 #include <boost/ref.hpp>
+#include <functional>
 #include <cmath>
 
 // DEBUG
@@ -22,6 +23,8 @@ sge::ode::world::world(
 			0)), // <<- 0 for "no parent space"
 	begin_signal_(),
 	end_signal_(),
+	test_signal_(
+		std::logical_and<bool>()),
 	group_id_(
 		static_cast<group_id>(
 			1)),
@@ -36,6 +39,23 @@ sge::ode::world::world(
 	dWorldSetAutoDisableFlag(
 		world_,
 		1);
+}
+
+sge::signal::auto_connection
+sge::ode::world::register_test_callback(
+	collision::test_callback const &_c)
+{
+	return 
+		test_signal_.connect(
+			_c);
+}
+
+void
+sge::ode::world::test_callback_combiner(
+	collision::test_callback_combiner const &_c)
+{
+	test_signal_.combiner(
+		_c);
 }
 
 sge::signal::auto_connection
@@ -191,6 +211,30 @@ void sge::ode::world::collide(
 	dGeomID const g0,
 	dGeomID const g1)
 {
+	dBodyID const
+		b0 = 
+			dGeomGetBody(
+				g0),
+		b1 = 
+			dGeomGetBody(
+				g1);
+
+	collision::satellite 
+		&s0 = 
+			*static_cast<body*>(
+				dBodyGetData(
+					b0))->satellite_,
+		&s1 = 
+			*static_cast<body*>(
+				dBodyGetData(
+					b1))->satellite_;
+					
+	if (!test_signal_(s0,s1))
+	{
+		sge::cerr << "test signal returned false\n";
+		return;
+	}
+	
 	//sge::cerr << "there was a collision!\n";
 	// manual states that the contact array has to contain at least 1 element,
 	// so to be sure, allocate one dContactGeom here
@@ -200,14 +244,6 @@ void sge::ode::world::collide(
 		//sge::cerr << "but dcollide returned false :(\n";
 		return;
 	}
-	
-	dBodyID const
-		b0 = 
-			dGeomGetBody(
-				g0),
-		b1 = 
-			dGeomGetBody(
-				g1);
 	
 	std::pair<object_map::iterator,bool> 
 		result = 

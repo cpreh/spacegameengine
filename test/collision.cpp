@@ -56,6 +56,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 #include <iostream>
 #include <cstdlib>
+#include <functional>
 
 namespace
 {
@@ -71,6 +72,22 @@ void collision_end(
 	sge::collision::satellite &)
 {
 	std::cerr << "collision end!\n";
+}
+
+bool test_callback0(
+	sge::collision::satellite const &,
+	sge::collision::satellite const &)
+{
+	//sge::cerr << "test callback called\n";
+	return true;
+}
+
+bool test_callback1(
+	sge::collision::satellite const &,
+	sge::collision::satellite const &)
+{
+	//sge::cerr << "test callback called\n";
+	return false;
 }
 
 class object : public sge::collision::satellite
@@ -128,9 +145,13 @@ try
 			)
 		);
 	
+	world->test_callback_combiner(std::logical_or<bool>());
+	
 	sge::signal::auto_connection 
 		bc = world->register_begin_callback(&collision_begin),
-		be = world->register_end_callback(&collision_end);
+		be = world->register_end_callback(&collision_end),
+		foobar0 = world->register_test_callback(&test_callback0),
+		foobar1 = world->register_test_callback(&test_callback1);
 
 	sge::sprite::object s_a(
 		sge::sprite::parameters()
