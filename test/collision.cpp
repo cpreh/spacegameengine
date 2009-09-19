@@ -124,6 +124,7 @@ try
 			)
 		);
 	
+	#if 0
 	world->test_callback(&dispatch);
 
 	sge::signal::scoped_connection const c(
@@ -224,6 +225,7 @@ try
 		sprites.push_back(s_b);
 		ss.render(sprites.begin(),sprites.end());
 	}
+	#endif
 }
 catch(sge::exception const &e)
 {
