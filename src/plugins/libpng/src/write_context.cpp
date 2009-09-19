@@ -1,13 +1,14 @@
 #include "../write_context.hpp"
-#include "../file_exception.hpp"
-#include "../unsupported_format.hpp"
+#include <sge/image/file_exception.hpp>
+#include <sge/image/unsupported_format.hpp>
+#include <sge/image/exception.hpp>
 #include <sge/image/dim_type.hpp>
 #include <sge/image/view/dim.hpp>
 #include <sge/math/dim/basic_decl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/text.hpp>
 #include <climits>
-#include <cstring>
+#include <iosfwd>
 
 namespace
 {
@@ -33,7 +34,7 @@ unsigned channels_from_format(
 		case sge::image::color::format::size: break;
 	}
 
-	throw sge::libpng::exception(SGE_TEXT("unknown color format, please maintain this crap"));
+	throw sge::image::exception(SGE_TEXT("unknown color format, please maintain this crap"));
 }
 
 int transforms_from_format(
@@ -44,7 +45,7 @@ int transforms_from_format(
 	{
 		case sge::image::color::format::alpha8:
 			throw 
-				sge::libpng::unsupported_format(
+				sge::image::unsupported_format(
 					_path,
 					SGE_TEXT("alpha8"));
 		case sge::image::color::format::gray8:
@@ -58,13 +59,13 @@ int transforms_from_format(
 		case sge::image::color::format::argb32f:
 		case sge::image::color::format::bgra32f:
 			throw 
-				sge::libpng::unsupported_format(
+				sge::image::unsupported_format(
 					_path,
 					SGE_TEXT("alpha8"));
 		case sge::image::color::format::size: break;
 	}
 
-	throw sge::libpng::exception(SGE_TEXT("unknown color format, please maintain this crap"));
+	throw sge::image::exception(SGE_TEXT("unknown color format, please maintain this crap"));
 }
 
 int bit_depth_from_format(
@@ -83,13 +84,13 @@ int bit_depth_from_format(
 		case sge::image::color::format::argb32f:
 		case sge::image::color::format::bgra32f:
 			throw 
-				sge::libpng::unsupported_format(
+				sge::image::unsupported_format(
 					_path,
 					SGE_TEXT("alpha8"));
 		case sge::image::color::format::size: break;
 	}
 	throw 
-		sge::libpng::file_exception(
+		sge::image::file_exception(
 			_path,
 			SGE_TEXT("unknown color format, please maintain this crap"));
 }
@@ -102,7 +103,7 @@ int color_type_from_format(
 	{
 		case sge::image::color::format::alpha8:
 			throw 
-				sge::libpng::unsupported_format(
+				sge::image::unsupported_format(
 					_path,
 					SGE_TEXT("alpha8"));
 		case sge::image::color::format::gray8:
@@ -115,13 +116,13 @@ int color_type_from_format(
 		case sge::image::color::format::argb32f:
 		case sge::image::color::format::bgra32f:
 			throw 
-				sge::libpng::unsupported_format(
+				sge::image::unsupported_format(
 					_path,
 					SGE_TEXT("alpha8"));
 		case sge::image::color::format::size: break;
 	}
 
-	throw sge::libpng::exception(SGE_TEXT("unknown color format, please maintain this crap"));
+	throw sge::image::exception(SGE_TEXT("unknown color format, please maintain this crap"));
 }
 }
 
@@ -149,7 +150,7 @@ sge::libpng::write_context::write_context(
 {
 	if (!file_.is_open())
 		throw 
-			file_exception(
+			image::file_exception(
 				_path,
 				SGE_TEXT("couldn't open file"));
 		
@@ -222,7 +223,7 @@ void sge::libpng::write_context::handle_write_impl(
 		static_cast<std::streamsize>(
 			_length));
 	if (!file_)
-		throw file_exception(
+		throw image::file_exception(
 			path_,
 			SGE_TEXT("error writing"));
 }

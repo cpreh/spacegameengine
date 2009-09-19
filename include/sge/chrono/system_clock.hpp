@@ -18,38 +18,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_EXCEPTION_HPP_INCLUDED
-#define SGE_EXCEPTION_HPP_INCLUDED
+#ifndef SGE_CHRONO_SYSTEM_CLOCK_HPP_INCLUDED
+#define SGE_CHRONO_SYSTEM_CLOCK_HPP_INCLUDED
 
+#include <sge/chrono/system_clock_fwd.hpp>
+#include <sge/chrono/duration_fwd.hpp>
+#include <sge/chrono/time_point_fwd.hpp>
+#include <sge/ratio.hpp>
 #include <sge/export.hpp>
-#include <sge/string.hpp>
+#include <ctime>
 
 namespace sge
 {
-
-class SGE_CLASS_SYMBOL exception 
+namespace chrono
 {
+
+class system_clock {
 public:
-	SGE_SYMBOL explicit exception(
-		sge::string const &s);
+	typedef unsigned long rep;
 
-	SGE_SYMBOL exception(
-		exception const &);
+	typedef sge::micro period;
 
-	SGE_SYMBOL exception &
-	operator=(
-		exception const &);
+	typedef chrono::duration<
+		rep,
+		period
+	> duration;
 
-	SGE_SYMBOL sge::string const &
-	string() const;
+	typedef chrono::time_point<
+		system_clock
+	> time_point;
 
-	//SGE_SYMBOL char const *what() const throw();
+	static bool const is_monotonic = false;
 
-	SGE_SYMBOL virtual ~exception();
-private:
-	sge::string s;
+	SGE_SYMBOL static
+	time_point
+	now();
+
+	SGE_SYMBOL static
+	std::time_t
+	to_time_t(
+		time_point const &
+	);
+
+	SGE_SYMBOL
+	static time_point
+	from_time_t(
+		std::time_t
+	);
 };
 
+}
 }
 
 #endif

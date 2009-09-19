@@ -18,38 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_EXCEPTION_HPP_INCLUDED
-#define SGE_EXCEPTION_HPP_INCLUDED
+#ifndef SGE_CHRONO_HIGH_RESOLUTION_CLOCK_HPP_INCLUDED
+#define SGE_CHRONO_HIGH_RESOLUTION_CLOCK_HPP_INCLUDED
 
+#include <sge/chrono/high_resolution_clock_fwd.hpp>
+#include <sge/chrono/duration_fwd.hpp>
+#include <sge/chrono/time_point_fwd.hpp>
+#include <sge/ratio.hpp>
 #include <sge/export.hpp>
-#include <sge/string.hpp>
+#include <boost/cstdint.hpp>
 
 namespace sge
 {
-
-class SGE_CLASS_SYMBOL exception 
+namespace chrono
 {
+
+class high_resolution_clock {
 public:
-	SGE_SYMBOL explicit exception(
-		sge::string const &s);
+	typedef boost::uint64_t rep;
 
-	SGE_SYMBOL exception(
-		exception const &);
+	typedef sge::nano period;
 
-	SGE_SYMBOL exception &
-	operator=(
-		exception const &);
+	typedef chrono::duration<
+		rep,
+		period
+	> duration;
 
-	SGE_SYMBOL sge::string const &
-	string() const;
+	typedef chrono::time_point<
+		high_resolution_clock
+	> time_point;
 
-	//SGE_SYMBOL char const *what() const throw();
+	// may be true for windows but can only be detected at runtime
+	static bool const is_monotonic = false;
 
-	SGE_SYMBOL virtual ~exception();
-private:
-	sge::string s;
+	SGE_SYMBOL
+	static time_point
+	now();
 };
 
+}
 }
 
 #endif

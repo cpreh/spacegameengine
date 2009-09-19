@@ -18,38 +18,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_EXCEPTION_HPP_INCLUDED
-#define SGE_EXCEPTION_HPP_INCLUDED
+#ifndef SGE_CHRONO_CLOCK_GETTIME_IMPL_HPP_INCLUDED
+#define SGE_CHRONO_CLOCK_GETTIME_IMPL_HPP_INCLUDED
 
-#include <sge/export.hpp>
-#include <sge/string.hpp>
+#include <sge/chrono/clock_failure.hpp>
+#include <sge/chrono/time_point_impl.hpp>
+#include <sge/chrono/duration_impl.hpp>
+#include <sge/text.hpp>
+#include <time.h>
 
 namespace sge
 {
-
-class SGE_CLASS_SYMBOL exception 
+namespace chrono
 {
-public:
-	SGE_SYMBOL explicit exception(
-		sge::string const &s);
 
-	SGE_SYMBOL exception(
-		exception const &);
+template<
+	typename TimePoint
+>
+TimePoint const
+clock_gettime_impl(
+	clockid_t const clock_
+)
+{
+	struct timespec tp;
 
-	SGE_SYMBOL exception &
-	operator=(
-		exception const &);
+	if(
+		clock_gettime(
+			clock_,
+			&tp
+		) != 0
+	)
+		throw clock_failure(
+			SGE_TEXT("clock_gettime failed")
+		);
 
-	SGE_SYMBOL sge::string const &
-	string() const;
+	typedef typename TimePoint::duration duration_;
 
-	//SGE_SYMBOL char const *what() const throw();
+	return TimePoint(
+		duration_(
+			// FIXME!
+			tp.tv_sec * 1000 * 1000 * 1000 + tp.tv_nsec
+		)
+	);
+}
 
-	SGE_SYMBOL virtual ~exception();
-private:
-	sge::string s;
-};
-
+}
 }
 
 #endif

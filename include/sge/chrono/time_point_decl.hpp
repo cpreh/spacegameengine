@@ -18,38 +18,67 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_EXCEPTION_HPP_INCLUDED
-#define SGE_EXCEPTION_HPP_INCLUDED
+#ifndef SGE_CHRONO_TIME_POINT_DECL_HPP_INCLUDED
+#define SGE_CHRONO_TIME_POINT_DECL_HPP_INCLUDED
 
-#include <sge/export.hpp>
-#include <sge/string.hpp>
+#include <sge/chrono/time_point_fwd.hpp>
+#include <sge/chrono/duration_decl.hpp>
 
 namespace sge
 {
-
-class SGE_CLASS_SYMBOL exception 
+namespace chrono
 {
+
+template<
+	typename Clock,
+	typename Duration
+>
+class time_point {
 public:
-	SGE_SYMBOL explicit exception(
-		sge::string const &s);
+	typedef Clock clock;
+	typedef Duration duration;
+	typedef typename duration::rep rep;
+	typedef typename duration::period period;
 
-	SGE_SYMBOL exception(
-		exception const &);
+	time_point();
 
-	SGE_SYMBOL exception &
-	operator=(
-		exception const &);
+	explicit time_point(
+		duration const &
+	);
 
-	SGE_SYMBOL sge::string const &
-	string() const;
+	template<
+		typename Duration2
+	>
+	time_point(
+		time_point<
+			clock,
+			Duration2
+		> const &
+	);
 
-	//SGE_SYMBOL char const *what() const throw();
+	duration
+	time_since_epoch() const;
 
-	SGE_SYMBOL virtual ~exception();
+	time_point &
+	operator +=(
+		duration const &
+	);
+
+	time_point &
+	operator -=(
+		duration const &
+	);
+
+	static time_point
+	min();
+
+	static time_point
+	max();
 private:
-	sge::string s;
+	duration d_;
 };
 
+}
 }
 
 #endif

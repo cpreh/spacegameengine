@@ -18,38 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_EXCEPTION_HPP_INCLUDED
-#define SGE_EXCEPTION_HPP_INCLUDED
+#include <sge/config.h>
+#ifdef SGE_WINDOWS_PLATFORM
+#include "query_performance_frequency.hpp"
+#include <sge/windows/windows.hpp>
+#include <sge/chrono/clock_failure.hpp>
+#include <sge/once.hpp>
+#include <sge/text.hpp>
 
-#include <sge/export.hpp>
-#include <sge/string.hpp>
-
-namespace sge
+namespace
 {
 
-class SGE_CLASS_SYMBOL exception 
+LARGE_INTEGER frequency;
+
+void
+init()
 {
-public:
-	SGE_SYMBOL explicit exception(
-		sge::string const &s);
+	SGE_FUNCTION_ONCE;
 
-	SGE_SYMBOL exception(
-		exception const &);
+	if(
+		QueryPerformanceFrequency(
+			&frequency
+		)
+		 == 0
+	)
+		throw sge::chrono::clock_failure(
+			SGE_TEXT("QueryPerformanceFrequency() failed!")
+		);
 
-	SGE_SYMBOL exception &
-	operator=(
-		exception const &);
+}
 
-	SGE_SYMBOL sge::string const &
-	string() const;
+}
 
-	//SGE_SYMBOL char const *what() const throw();
+LARGE_INTEGER
+sge::chrono::query_performance_frequency()
+{
+	init();
 
-	SGE_SYMBOL virtual ~exception();
-private:
-	sge::string s;
-};
-
+	return frequency;
 }
 
 #endif

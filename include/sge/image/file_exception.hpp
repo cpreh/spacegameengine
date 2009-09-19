@@ -18,38 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_EXCEPTION_HPP_INCLUDED
-#define SGE_EXCEPTION_HPP_INCLUDED
+#ifndef SGE_IMAGE_FILE_EXCEPTION_HPP_INCLUDED
+#define SGE_IMAGE_FILE_EXCEPTION_HPP_INCLUDED
 
-#include <sge/export.hpp>
+#include <sge/image/exception.hpp>
+#include <sge/filesystem/path.hpp>
 #include <sge/string.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
+namespace image
+{
 
-class SGE_CLASS_SYMBOL exception 
+class SGE_CLASS_SYMBOL file_exception
+:
+	public exception
 {
 public:
-	SGE_SYMBOL explicit exception(
-		sge::string const &s);
-
-	SGE_SYMBOL exception(
-		exception const &);
-
-	SGE_SYMBOL exception &
-	operator=(
-		exception const &);
-
-	SGE_SYMBOL sge::string const &
-	string() const;
-
-	//SGE_SYMBOL char const *what() const throw();
-
-	SGE_SYMBOL virtual ~exception();
-private:
-	sge::string s;
+	SGE_SYMBOL file_exception(
+		filesystem::path const &,
+		sge::string const &
+	);
 };
 
+}
 }
 
 #endif

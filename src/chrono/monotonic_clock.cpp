@@ -18,38 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_EXCEPTION_HPP_INCLUDED
-#define SGE_EXCEPTION_HPP_INCLUDED
-
-#include <sge/export.hpp>
-#include <sge/string.hpp>
-
-namespace sge
-{
-
-class SGE_CLASS_SYMBOL exception 
-{
-public:
-	SGE_SYMBOL explicit exception(
-		sge::string const &s);
-
-	SGE_SYMBOL exception(
-		exception const &);
-
-	SGE_SYMBOL exception &
-	operator=(
-		exception const &);
-
-	SGE_SYMBOL sge::string const &
-	string() const;
-
-	//SGE_SYMBOL char const *what() const throw();
-
-	SGE_SYMBOL virtual ~exception();
-private:
-	sge::string s;
-};
-
-}
-
+#include <sge/chrono/monotonic_clock.hpp>
+#include <sge/config.h>
+#ifdef SGE_WINDOWS_PLATFORM
+#include "performance_counter_time.hpp"
+#elif SGE_POSIX_PLATFORM
+#include "clock_gettime_impl.hpp"
+#include <time.h>
+#else
+#error "monotonic_clock implementation missing"
 #endif
+
+sge::chrono::monotonic_clock::time_point
+sge::chrono::monotonic_clock::now()
+{
+#ifdef SGE_WINDOWS_PLATFORM
+	return performance_counter_time<
+		time_point
+	>();
+#elif SGE_POSIX_PLATFORM
+	return clock_gettime_impl<
+		time_point	
+	>(
+		CLOCK_MONOTONIC
+	);
+#endif
+}

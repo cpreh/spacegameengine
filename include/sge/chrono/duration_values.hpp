@@ -18,38 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_EXCEPTION_HPP_INCLUDED
-#define SGE_EXCEPTION_HPP_INCLUDED
+#ifndef SGE_CHRONO_DURATION_VALUES_HPP_INCLUDED
+#define SGE_CHRONO_DURATION_VALUES_HPP_INCLUDED
 
-#include <sge/export.hpp>
-#include <sge/string.hpp>
+#include <limits>
 
 namespace sge
 {
-
-class SGE_CLASS_SYMBOL exception 
+namespace chrono
 {
-public:
-	SGE_SYMBOL explicit exception(
-		sge::string const &s);
 
-	SGE_SYMBOL exception(
-		exception const &);
+template<
+	typename Rep
+>
+struct duration_values {
+	static Rep
+	zero()
+	{
+		return Rep(0);
+	}
 
-	SGE_SYMBOL exception &
-	operator=(
-		exception const &);
+	static Rep
+	min()
+	{
+		return std::numeric_limits<
+			Rep
+		>::lowest();
+	}
 
-	SGE_SYMBOL sge::string const &
-	string() const;
-
-	//SGE_SYMBOL char const *what() const throw();
-
-	SGE_SYMBOL virtual ~exception();
-private:
-	sge::string s;
+	static Rep
+	max()
+	{
+		return std::numeric_limits<
+			Rep
+		>::max();
+	}
 };
 
+}
 }
 
 #endif
