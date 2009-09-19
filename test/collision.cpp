@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/collision/body.hpp>
 #include <sge/collision/shapes/circle.hpp>
 #include <sge/collision/shapes/circle.hpp>
+#include <sge/collision/group.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/math/vector/output.hpp>
 #include <sge/systems/instance.hpp>
@@ -189,6 +190,20 @@ try
 	body_a->add(
 		shape_a);
 	body_b->add(
+		shape_b);
+	
+	sge::collision::group_ptr const 
+		g_a = world->create_group(),
+		g_b = world->create_group();
+	
+	g_a->collides_with(
+		g_b);
+	g_b->collides_with(
+		g_a);
+	
+	g_a->add(
+		shape_a);
+	g_b->add(
 		shape_b);
 
 	sge::sprite::system ss(sys.renderer());

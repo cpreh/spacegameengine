@@ -27,7 +27,7 @@ private:
 	group_id
 		category_,
 		collides_;
-		// FIXME: add constraint violation if someone changes the group after something has been inserted
+	bool dirty_;
 };
 }
 }

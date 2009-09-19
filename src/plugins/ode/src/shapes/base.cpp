@@ -8,6 +8,14 @@ sge::ode::shapes::base::base(
 	shape_(
 		_shape)
 {
+	dGeomSetCategoryBits(
+		shape_,
+		static_cast<group_id>(
+			0));
+	dGeomSetCollideBits(
+		shape_,
+		static_cast<group_id>(
+			0));
 }
 
 void sge::ode::shapes::base::assign_body(

@@ -23,6 +23,7 @@ sge::ode::body::body(
 	satellite_(
 		_satellite)
 {
+	world_.body_count_++;
 	dBodySetData(
 		body_,
 		this);
@@ -115,6 +116,7 @@ void sge::ode::body::is_active(
 
 sge::ode::body::~body()
 {
+	world_.body_count_--;
 	world_.destroy_body(
 		body_);
 	dBodyDestroy(

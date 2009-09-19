@@ -4,6 +4,8 @@
 #include "../shapes/circle.hpp"
 #include <sge/collision/group_overflow.hpp>
 #include <sge/math/null.hpp>
+#include <sge/assert.hpp>
+#include <sge/text.hpp>
 #include <boost/ref.hpp>
 #include <cmath>
 
@@ -27,9 +29,13 @@ sge::ode::world::world(
 		sge::math::null<dReal>()),
 	collisions_(),
 	transformer_(
-		_r)
+		_r),
+	body_count_(
+		0)
 {
-	// FIXME: add body disabling here
+	dWorldSetAutoDisableFlag(
+		world_,
+		1);
 }
 
 sge::signal::auto_connection
@@ -117,6 +123,7 @@ sge::ode::world::update(
 
 sge::ode::world::~world()
 {
+	SGE_ASSERT_MESSAGE(!body_count_,SGE_TEXT("You've tried to delete a world before all of its bodys are dead"));
 	dSpaceDestroy(
 		space_);
 	dWorldDestroy(
