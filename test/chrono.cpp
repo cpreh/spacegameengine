@@ -43,14 +43,14 @@ int main()
 		)
 	);
 
-	std::cout << ot.time_since_epoch().count() << '\n';
+	std::cout << ot << '\n';
 
 	std::cout
 		<< sge::chrono::time_point_cast<
 			sge::chrono::days
 		>(
 			ot
-		).time_since_epoch().count()
+		)
 		<< '\n';
 	
 	// measure some time:
@@ -86,7 +86,7 @@ int main()
 
 	std::cout
 		<< "\ntime taken: "
-		<< time_taken.count()
+		<< time_taken
 		<< " (in units of "
 		<< hrc_tp::period::num
 		<< '/'
@@ -98,6 +98,6 @@ int main()
 			>
 		>(
 			time_taken
-		).count()
+		)
 		<< '\n';
 }
