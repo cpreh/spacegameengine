@@ -138,8 +138,8 @@ void sge::ode::world::step(
 		this,
 		&static_collide);
 	
-	//dWorldQuickStep(
-	dWorldStep(
+	dWorldQuickStep(
+	//dWorldStep(
 		world_,
 		_time_step);
 	check_end_signals();
