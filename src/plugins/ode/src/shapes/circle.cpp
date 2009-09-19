@@ -10,7 +10,7 @@ sge::ode::shapes::circle::circle(
 	ode::shapes::base(
 		dCreateSphere(
 			_space,
-			_transformer.to_ode(
+			_transformer.unit_to_ode(
 				_radius))),
 	transformer_(
 		_transformer)
@@ -20,7 +20,7 @@ sge::ode::shapes::circle::circle(
 sge::collision::unit sge::ode::shapes::circle::radius() const
 {
 	return 
-		transformer_.from_ode(
+		transformer_.unit_from_ode(
 			dGeomSphereGetRadius(
 				shape_));
 }
@@ -30,6 +30,6 @@ void sge::ode::shapes::circle::radius(
 {
 	dGeomSphereSetRadius(
 		shape_,
-		transformer_.to_ode(
+		transformer_.unit_to_ode(
 			_radius));
 }

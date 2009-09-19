@@ -118,12 +118,12 @@ try
 		sys.collision_system()->create_world(
 			sge::collision::rect(
 				sge::collision::rect::point_type(
-					0,
-					0
+					-10,
+					-10
 				),
 				sge::collision::rect::dim_type(
-					640,
-					480
+					660,
+					500
 				)
 			)
 		);
@@ -164,6 +164,7 @@ try
 				static_cast<sge::collision::unit>(-10),
 				static_cast<sge::collision::unit>(0),
 				static_cast<sge::collision::unit>(0)));
+	
 
 	
 	sge::collision::shapes::circle_ptr const shape_a = 
@@ -186,6 +187,8 @@ try
 	sge::collision::shapes::circle_ptr const shape_b = 
 		world->create_circle(
 			static_cast<sge::collision::unit>(5));
+
+	sge::cerr << "velocity is " << body_a->linear_velocity() << "\n";
 	
 	body_a->add(
 		shape_a);
@@ -197,13 +200,13 @@ try
 		g_b = world->create_group();
 	
 	g_a->collides_with(
-		g_b);
+		g_a);
 	g_b->collides_with(
 		g_a);
 	
 	g_a->add(
 		shape_a);
-	g_b->add(
+	g_a->add(
 		shape_b);
 
 	sge::sprite::system ss(sys.renderer());

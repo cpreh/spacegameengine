@@ -52,11 +52,10 @@ sge::ode::transformer::transformer(
 		:
 			collision::point::null())
 {
-	//sge::cerr << "scaling is " << scaling_ << ", inverse scaling is " << inverse_scaling_ << ", translation is " << translation_ << "\n";
 }
 
 sge::collision::point const
-sge::ode::transformer::from_ode(
+sge::ode::transformer::position_from_ode(
 	point const &_p) const
 {
 	return 
@@ -68,8 +67,19 @@ sge::ode::transformer::from_ode(
 				translation_));
 }
 
+sge::collision::point const
+sge::ode::transformer::velocity_from_ode(
+	point const &_p) const
+{
+	return 
+		math::vector::structure_cast<collision::point>(
+			_p*
+			static_cast<dReal>(
+				inverse_scaling_));
+}
+
 sge::collision::dim const
-sge::ode::transformer::from_ode(
+sge::ode::transformer::dim_from_ode(
 	dim const &_d) const
 {
 	return 
@@ -78,7 +88,7 @@ sge::ode::transformer::from_ode(
 				inverse_scaling_)*_d);
 }
 
-sge::ode::point const sge::ode::transformer::to_ode(
+sge::ode::point const sge::ode::transformer::position_to_ode(
 	collision::point const &_p) const
 {
 	return
@@ -86,7 +96,15 @@ sge::ode::point const sge::ode::transformer::to_ode(
 			(_p + translation_)*scaling_);
 }
 
-sge::ode::dim const sge::ode::transformer::to_ode(
+sge::ode::point const sge::ode::transformer::velocity_to_ode(
+	collision::point const &_p) const
+{
+	return
+		math::vector::structure_cast<point>(
+			_p*scaling_);
+}
+
+sge::ode::dim const sge::ode::transformer::dim_to_ode(
 	collision::dim const &_d) const
 {
 	return 
@@ -94,7 +112,7 @@ sge::ode::dim const sge::ode::transformer::to_ode(
 			_d*scaling_);
 }
 
-sge::collision::unit sge::ode::transformer::from_ode(
+sge::collision::unit sge::ode::transformer::unit_from_ode(
 	dReal const _d) const
 {
 	return 
@@ -102,7 +120,7 @@ sge::collision::unit sge::ode::transformer::from_ode(
 			_d)*inverse_scaling_;
 }
 
-dReal sge::ode::transformer::to_ode(
+dReal sge::ode::transformer::unit_to_ode(
 	collision::unit const _d) const
 {
 	return 

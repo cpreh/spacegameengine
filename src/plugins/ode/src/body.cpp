@@ -5,6 +5,10 @@
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/collision/satellite.hpp>
 
+// DEBUG
+#include <sge/cerr.hpp>
+#include <sge/math/vector/output.hpp>
+
 sge::ode::body::body(
 	world &_world,
 	transformer const &_transformer,
@@ -42,7 +46,7 @@ sge::collision::point const sge::ode::body::position() const
 		dBodyGetPosition(
 			body_);
 	return 
-		transformer_.from_ode(
+		transformer_.position_from_ode(
 			point(
 				p[0],
 				p[1],
@@ -54,7 +58,7 @@ void sge::ode::body::position(
 	collision::point const &_p)
 {
 	point const p = 
-		transformer_.to_ode(
+		transformer_.position_to_ode(
 			_p);
 	dBodySetPosition(
 		body_,
@@ -69,7 +73,7 @@ sge::collision::point const sge::ode::body::linear_velocity() const
 		dBodyGetLinearVel(
 			body_);
 	return 
-		transformer_.from_ode(
+		transformer_.velocity_from_ode(
 			point(
 				p[0],
 				p[1],
@@ -80,7 +84,7 @@ void sge::ode::body::linear_velocity(
 	collision::point const &_p)
 {
 	point const p = 
-		transformer_.to_ode(
+		transformer_.velocity_to_ode(
 			_p);
 	dBodySetLinearVel(
 		body_,
@@ -134,7 +138,7 @@ void sge::ode::body::moved(
 			dBodyGetData(
 				_body));
 	b.satellite_->position_change(
-		b.transformer_.from_ode(
+		b.transformer_.position_from_ode(
 			point(
 				p[0],
 				p[1],
