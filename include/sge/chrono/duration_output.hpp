@@ -18,12 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CHRONO_TIME_POINT_HPP_INCLUDED
-#define SGE_CHRONO_TIME_POINT_HPP_INCLUDED
+#ifndef SGE_CHRONO_DURATION_OUTPUT_HPP_INCLUDED
+#define SGE_CHRONO_DURATION_OUTPUT_HPP_INCLUDED
 
-#include <sge/chrono/time_point_impl.hpp>
-#include <sge/chrono/time_point_arithmetic.hpp>
-#include <sge/chrono/time_point_comparison.hpp>
-#include <sge/chrono/time_point_output.hpp>
+#include <sge/chrono/duration_impl.hpp>
+#include <ostream>
+
+namespace sge
+{
+namespace chrono
+{
+
+template<
+	typename Ch,
+	typename Traits,
+	typename Rep,
+	typename Period
+>
+std::basic_ostream<
+	Ch,
+	Traits
+> &
+operator <<(
+	std::basic_ostream<
+		Ch,
+		Traits
+	> &stream,
+	duration<
+		Rep,
+		Period
+	> const &d
+)
+{
+	return
+		stream << d.count();
+}
+
+}
+}
 
 #endif

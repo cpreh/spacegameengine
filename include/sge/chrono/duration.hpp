@@ -24,5 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/chrono/duration_impl.hpp>
 #include <sge/chrono/duration_arithmetic.hpp>
 #include <sge/chrono/duration_comparison.hpp>
+#include <sge/chrono/duration_output.hpp> // non standard
 
 #endif
