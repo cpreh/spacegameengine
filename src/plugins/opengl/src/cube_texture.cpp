@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 #include <sge/make_auto_ptr.hpp>
 #include <sge/auto_ptr.hpp>
-#include <boost/tr1/array.hpp>
+#include <tr1/array>
 
 namespace
 {

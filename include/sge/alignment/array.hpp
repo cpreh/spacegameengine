@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/alignment/size_type.hpp>
 #include <sge/alignment/maximum.hpp>
 #include <sge/alignment/align.hpp>
-#include <boost/tr1/array.hpp>
+#include <tr1/array>
 #include <boost/preprocessor/arithmetic/mul.hpp>
 #include <boost/preprocessor/comparison/less_equal.hpp>
 #include <boost/preprocessor/repetition/for.hpp>
