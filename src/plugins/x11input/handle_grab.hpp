@@ -26,8 +26,10 @@ namespace sge
 namespace x11input
 {
 
-void handle_grab(
-	int result);	
+bool
+handle_grab(
+	int result
+);
 
 }
 }
