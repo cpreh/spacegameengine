@@ -24,14 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::log::logger &sge::gui::widgets::global_log()
 {
-  static logger global(
+	static logger global(
 		sge::gui::global_log(),
 		SGE_TEXT("widgets"),
-		false);
-  global.activate(log::level::debug);
-  global.activate(log::level::info);
-  global.activate(log::level::warning);
-  global.activate(log::level::error);
-  global.activate(log::level::fatal);
-  return global;
+		false
+	);
+
+	return global;
 }

@@ -24,11 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::log::logger &sge::gui::canvas::global_log()
 {
-  static logger global(sge::gui::global_log(),SGE_TEXT("canvas"),false);
-  global.activate(log::level::debug);
-  global.activate(log::level::info);
-  global.activate(log::level::warning);
-  global.activate(log::level::error);
-  global.activate(log::level::fatal);
-  return global;
+	static logger global(
+		sge::gui::global_log(),
+		SGE_TEXT("canvas"),
+		false
+	);
+
+	return global;
 }
