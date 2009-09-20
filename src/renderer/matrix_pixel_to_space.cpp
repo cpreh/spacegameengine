@@ -44,7 +44,7 @@ sge::renderer::matrix_pixel_to_space(
 }
 
 #define SGE_INSTANTIATE_MATRIX_PIXEL_TO_SPACE(x)\
-template sge::math::matrix::static_<x, 4, 4>::type const \
+template SGE_EXPORT_SYMBOL sge::math::matrix::static_<x, 4, 4>::type const \
 sge::renderer::matrix_pixel_to_space<x>(\
 	sge::renderer::screen_size const &);
 
