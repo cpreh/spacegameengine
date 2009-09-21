@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/auto_ptr.hpp>
 #include <sge/make_auto_ptr.hpp>
 #include <sge/assert.hpp>
-#include <sge/cerr.hpp>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/spirit/include/phoenix_object.hpp>
@@ -43,11 +42,9 @@ sge::signal::auto_connection sge::console::object::insert(
 	callback const &c,
 	string const &description)
 {
-	sge::cerr << "in insert, inserting function with name " << name << "\n";
 	function_map::iterator i = funcs_.find(name);
 	if (i == funcs_.end())
 	{
-		sge::cerr << "function not registered, registering";
 		auto_ptr<
 			function
 		> sig(
@@ -63,8 +60,6 @@ sge::signal::auto_connection sge::console::object::insert(
 		i = ret.first;
 		SGE_ASSERT(ret.second);
 	}
-	else
-		sge::cerr << "function already registered, just connecting";
 	return i->second->signal().connect(c);
 }
 

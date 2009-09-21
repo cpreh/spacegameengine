@@ -23,24 +23,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-void sge::x11input::handle_grab(
-	int const result)
+bool
+sge::x11input::handle_grab(
+	int const result
+)
 {
 	switch(result) {
 	case GrabSuccess:
-		return;
+		return true;
 	case GrabFrozen:
-		throw exception(
-			SGE_TEXT("x11: Grab frozen!"));
 	case GrabNotViewable:
-		throw exception(
-			SGE_TEXT("x11: Grab not viewable!"));
 	case AlreadyGrabbed:
-		throw exception(
-			SGE_TEXT("x11: already grabbed!"));
 	case GrabInvalidTime:
-		throw exception(
-			SGE_TEXT("x11: GrabInvalidTime!"));
+		return false;
 	default:
 		throw exception(
 			SGE_TEXT("x11: Unknown grab result!"));
