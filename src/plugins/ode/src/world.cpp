@@ -6,7 +6,7 @@
 #include <sge/math/null.hpp>
 #include <sge/assert.hpp>
 #include <sge/text.hpp>
-#include <boost/ref.hpp>
+#include <tr1/functional>
 #include <functional>
 #include <cmath>
 
@@ -287,9 +287,9 @@ void sge::ode::world::call_signal(
 					b1))->satellite_;
 					
 	s(
-		boost::ref(
+		std::tr1::ref(
 			s0),
-		boost::ref(
+		std::tr1::ref(
 			s1));
 }
 

@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/type_info.hpp>
 #include <boost/mpl/vector.hpp>
 #include <boost/bind.hpp>
+#include <tr1/functional>
 #include <typeinfo>
 
 namespace
@@ -120,7 +121,8 @@ SGE_GUI_SKIN_DRAW_RETURN(widgets::base) sge::gui::skins::base::draw(
 			&skins::base::default_handler,
 			this,
 			_1,
-			boost::ref(e)));
+			std::tr1::ref(
+				e)));
 }
 
 SGE_GUI_SKIN_SIZE_RETURN(widgets::base) sge::gui::skins::base::optimal_size(
