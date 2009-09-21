@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/istream.hpp>
 #include <sge/math/vector/static.hpp>
 #include <sge/math/vector/basic_decl.hpp>
-#include <boost/tr1/array.hpp>
+#include <tr1/array>
 #include <boost/cstdint.hpp>
 #include <vector>
 #include <string>

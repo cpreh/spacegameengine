@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/rect/basic_impl.hpp>
 #include <sge/math/rect/structure_cast.hpp>
 #include <sge/variant/object_impl.hpp>
-#include <boost/tr1/array.hpp>
+#include <tr1/array>
 #include <boost/foreach.hpp>
 #include <cmath>
 

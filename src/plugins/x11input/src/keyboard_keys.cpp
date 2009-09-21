@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 #include <sge/string.hpp>
 #include <sge/iconv.hpp>
-#include <boost/tr1/array.hpp>
+#include <tr1/array>
 #include <map>
 #include <ostream>
 #include <utility>
@@ -55,7 +55,7 @@ sge::x11input::keyboard_key(
 
 	int const num_chars = XLookupString(
 		const_cast<XKeyEvent *>(&xev),
-		keybuf.c_array(),
+		keybuf.data(),
 		static_cast<int>(keybuf.size()),
 		&ks,
 		&state);

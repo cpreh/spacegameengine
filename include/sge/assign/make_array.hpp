@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_ASSIGN_MAKE_ARRAY_HPP_INCLUDED
 #define SGE_ASSIGN_MAKE_ARRAY_HPP_INCLUDED
 
-#include <boost/tr1/array.hpp>
+#include <tr1/array>
 #include <cstddef>
 
 namespace sge
