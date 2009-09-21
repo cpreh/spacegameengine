@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/container/bitfield/size_type.hpp>
 #include <sge/container/bitfield/value_type.hpp>
 #include <sge/safe_bool.hpp>
-#include <boost/tr1/array.hpp>
+#include <tr1/array>
 #include <iterator>
 #include <limits>
 
