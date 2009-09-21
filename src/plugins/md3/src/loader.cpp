@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../loader.hpp"
 #include "../object.hpp"
 #include <sge/make_shared_ptr.hpp>
-#include <boost/ref.hpp>
+#include <tr1/functional>
 
 sge::model::object_ptr const
 sge::md3::loader::load(
@@ -30,7 +30,7 @@ sge::md3::loader::load(
 	return make_shared_ptr<
 		object
 	>(
-		boost::ref(
+		std::tr1::ref(
 			is
 		)
 	);

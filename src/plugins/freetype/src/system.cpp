@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../system.hpp"
 #include "../metrics.hpp"
 #include <sge/make_shared_ptr.hpp>
-#include <boost/ref.hpp>
+#include <tr1/functional>
 
 sge::font::metrics_ptr const
 sge::freetype::system::create_font(
@@ -43,7 +43,7 @@ sge::freetype::system::create_font(
 		fptr = make_shared_ptr<
 			metrics
 		>(
-			boost::ref(
+			std::tr1::ref(
 				library_),
 			font_name,
 			font_size);

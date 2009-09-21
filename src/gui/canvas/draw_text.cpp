@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/assert.hpp>
 #include <sge/text.hpp>
 #include <sge/make_shared_ptr.hpp>
-#include <boost/tr1/functional.hpp>
+#include <tr1/functional>
 #include <algorithm>
 
 void sge::gui::canvas::object::draw_text(

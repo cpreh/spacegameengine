@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/headers.hpp>
 #include <sge/text.hpp>
 #include <sge/make_shared_ptr.hpp>
-#include <boost/ref.hpp>
+#include <tr1/functional>
 #include <ostream>
 
 sge::texture::no_fragmented::no_fragmented(
@@ -82,7 +82,7 @@ sge::texture::no_fragmented::consume_fragment(
 				renderer::lock_rect::point_type::null(),
 				atlased_size(dim)
 			),
-			boost::ref(*this),
+			std::tr1::ref(*this),
 			need_atlasing(dim.w()),
 			need_atlasing(dim.h())
 		)
