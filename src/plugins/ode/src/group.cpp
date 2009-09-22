@@ -4,6 +4,7 @@
 #include <sge/math/null.hpp>
 #include <sge/assert.hpp>
 #include <sge/text.hpp>
+#include <sge/cerr.hpp>
 
 sge::ode::group::group(
 	group_id const _category)
@@ -14,6 +15,7 @@ sge::ode::group::group(
 		sge::math::null<group_id>()),
 	dirty_(false)
 {
+	//sge::cerr << "created new group with category " << category_ << " and collides: " << collides_ << "\n";
 }
 
 void sge::ode::group::add(
@@ -27,12 +29,11 @@ void sge::ode::group::add(
 }
 
 void sge::ode::group::collides_with(
-	collision::group_ptr const _group)
+	group const &other)
 {
-	group &other = 
-		dynamic_cast<group &>(*_group);
 	SGE_ASSERT_MESSAGE(!dirty_ && !other.dirty_,SGE_TEXT("Constraint violation: Tried to change a group which already has shapes in it"));
 	collides_ |= other.category();
+	//sge::cerr << "group with category: " << category() << ": collides with group with category " << other.category() << ", collides is now: " << collides_ << "\n";
 }
 
 sge::ode::group_id sge::ode::group::category() const

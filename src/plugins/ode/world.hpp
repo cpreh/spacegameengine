@@ -57,6 +57,11 @@ public:
 	update(
 		collision::time_unit delta);
 	
+	void
+	collides_with(
+		collision::group_ptr,
+		collision::group_ptr);
+	
 	~world();
 private:
 	// body needs the worldid

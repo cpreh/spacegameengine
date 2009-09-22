@@ -27,6 +27,7 @@ sge::ode::body::body(
 	satellite_(
 		_satellite)
 {
+	//sge::cerr << "ode: created a body " << this << " at position " << _position << " with velocity " << _linear_velocity;
 	world_.body_count_++;
 	dBodySetData(
 		body_,
@@ -57,6 +58,7 @@ sge::collision::point const sge::ode::body::position() const
 void sge::ode::body::position(
 	collision::point const &_p)
 {
+	//sge::cerr << "ode: body " << this << " position was set to " << _p << "\n";
 	point const p = 
 		transformer_.position_to_ode(
 			_p);
@@ -83,6 +85,7 @@ sge::collision::point const sge::ode::body::linear_velocity() const
 void sge::ode::body::linear_velocity(
 	collision::point const &_p)
 {
+	//sge::cerr << "ode: body " << this << " velocity was set to " << _p << "\n";
 	point const p = 
 		transformer_.velocity_to_ode(
 			_p);
@@ -96,6 +99,7 @@ void sge::ode::body::linear_velocity(
 void sge::ode::body::add(
 	collision::shapes::base_ptr const _s)
 {
+	//sge::cerr << "ode: adding shape to body " << this << "\n";
 	dynamic_cast<ode::shapes::base &>(
 		*_s).assign_body(body_);
 }
@@ -120,6 +124,7 @@ void sge::ode::body::is_active(
 
 sge::ode::body::~body()
 {
+	//sge::cerr << "destroyed a body " << this << " \n";
 	world_.body_count_--;
 	world_.destroy_body(
 		body_);

@@ -18,8 +18,6 @@ protected:
 public:
 	virtual void add(
 		shapes::base_ptr) = 0;
-	virtual void collides_with(
-		group_ptr) = 0;
 	SGE_SYMBOL virtual ~group();
 };
 }

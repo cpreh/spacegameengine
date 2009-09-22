@@ -79,6 +79,11 @@ public:
 	update(
 		time_unit delta) = 0;
 	
+	virtual void
+	collides_with(
+		group_ptr,
+		group_ptr) = 0;
+	
 	SGE_SYMBOL virtual ~world();
 };
 }
