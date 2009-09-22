@@ -141,6 +141,17 @@ sge::ode::world::update(
 			time_step);
 }
 
+void
+sge::ode::world::collides_with(
+	collision::group_ptr const a,
+	collision::group_ptr const b)
+{
+	dynamic_cast<group &>(*a).collides_with(
+		dynamic_cast<group &>(*b));
+	dynamic_cast<group &>(*b).collides_with(
+		dynamic_cast<group &>(*a));
+}
+
 sge::ode::world::~world()
 {
 	SGE_ASSERT_MESSAGE(!body_count_,SGE_TEXT("You've tried to delete a world before all of its bodys are dead"));
@@ -193,6 +204,7 @@ sge::ode::group_id sge::ode::world::next_group_id()
 	group_id const old = 
 		group_id_;
 	group_id_ <<= 1;
+	//sge::cerr << "returning group id " << old << "\n";
 	return
 		old;
 }
@@ -211,6 +223,7 @@ void sge::ode::world::collide(
 	dGeomID const g0,
 	dGeomID const g1)
 {
+	//sge::cerr << "there was a collision!\n";
 	dBodyID const
 		b0 = 
 			dGeomGetBody(
@@ -231,7 +244,7 @@ void sge::ode::world::collide(
 					
 	if (!test_signal_(s0,s1))
 	{
-		sge::cerr << "test signal returned false\n";
+	//	sge::cerr << "test signal returned false\n";
 		return;
 	}
 	

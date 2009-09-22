@@ -178,11 +178,11 @@ try
 			sge::collision::satellite_ptr(
 				new object(s_a)),
 			sge::collision::point(
-				static_cast<sge::collision::unit>(600),
-				static_cast<sge::collision::unit>(0),
+				static_cast<sge::collision::unit>(320),
+				static_cast<sge::collision::unit>(240),
 				static_cast<sge::collision::unit>(0)),
 			sge::collision::point(
-				static_cast<sge::collision::unit>(-10),
+				static_cast<sge::collision::unit>(0),
 				static_cast<sge::collision::unit>(0),
 				static_cast<sge::collision::unit>(0)));
 	
@@ -190,15 +190,15 @@ try
 	
 	sge::collision::shapes::circle_ptr const shape_a = 
 		world->create_circle(
-			static_cast<sge::collision::unit>(5));
+			static_cast<sge::collision::unit>(100));
 
 	sge::collision::body_ptr const body_b = 
 		world->create_body(
 			sge::collision::satellite_ptr(
 				new object(s_b)),
 			sge::collision::point(
-				static_cast<sge::collision::unit>(10),
-				static_cast<sge::collision::unit>(0),
+				static_cast<sge::collision::unit>(320),
+				static_cast<sge::collision::unit>(240),
 				static_cast<sge::collision::unit>(0)),
 			sge::collision::point(
 				static_cast<sge::collision::unit>(0),
@@ -220,10 +220,12 @@ try
 		g_a = world->create_group(),
 		g_b = world->create_group();
 	
-	g_a->collides_with(
+	world->collides_with(
+		g_a,
 		g_a);
-	g_b->collides_with(
-		g_a);
+	world->collides_with(
+		g_a,
+		g_b);
 	
 	g_a->add(
 		shape_a);

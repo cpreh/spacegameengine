@@ -19,7 +19,7 @@ public:
 	void add(
 		collision::shapes::base_ptr);
 	void collides_with(
-		collision::group_ptr);
+		group const &);
 	
 	group_id category() const;
 	group_id collides() const;
