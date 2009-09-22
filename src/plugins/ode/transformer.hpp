@@ -15,26 +15,31 @@ namespace ode
 class transformer
 {
 public:
-	transformer(
+	inline transformer(
 		sge::collision::optional_rect const &);
 	collision::point const
-	position_from_ode(
+	inline position_from_ode(
 		point const &) const;
-	collision::point const
+	inline collision::point const
 	velocity_from_ode(
 		point const &) const;
-	collision::dim const
+	inline collision::dim const
 	dim_from_ode(
 		dim const &) const;
-	point const position_to_ode(
+	inline point const 
+	position_to_ode(
 		collision::point const &) const;
-	point const velocity_to_ode(
+	inline point const 
+	velocity_to_ode(
 		collision::point const &) const;
-	dim const dim_to_ode(
+	inline dim const 
+	dim_to_ode(
 		collision::dim const &) const;
-	collision::unit unit_from_ode(
+	inline collision::unit 
+	unit_from_ode(
 		dReal) const;
-	dReal unit_to_ode(
+	inline dReal 
+	unit_to_ode(
 		collision::unit) const;
 private:
 	sge::collision::unit
