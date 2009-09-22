@@ -23,8 +23,6 @@ public:
 	virtual point const linear_velocity() const = 0;
 	virtual void linear_velocity(
 		point const &) = 0;
-	virtual void add(
-		shapes::base_ptr) = 0;
 	virtual bool is_active() = 0;
 	virtual void is_active(
 		bool) = 0;

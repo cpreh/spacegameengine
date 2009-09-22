@@ -2,6 +2,7 @@
 #include "../body.hpp"
 #include "../group.hpp"
 #include "../shapes/circle.hpp"
+#include "../shapes/container.hpp"
 #include "../transformer_impl.hpp"
 #include <sge/collision/group_overflow.hpp>
 #include <sge/math/null.hpp>
@@ -93,6 +94,7 @@ sge::ode::world::register_end_callback(
 sge::collision::body_ptr const 
 sge::ode::world::create_body(
 	collision::satellite_ptr _satellite,
+	collision::shapes::container const &_shapes,
 	collision::point const &_position,
 	collision::point const &_linear_velocity)
 {
@@ -103,6 +105,7 @@ sge::ode::world::create_body(
 				transformer_,
 				world_,
 				_satellite,
+				_shapes,
 				_position,
 				_linear_velocity));
 }
@@ -328,7 +331,13 @@ void sge::ode::world::destroy_body(
 		++next;
 		
 		if (it->first.first == _body || it->first.second == _body)
+		{
+			call_signal(
+				end_signal_,
+				it->first.first,
+				it->first.second);
 			collisions_.erase(
 				it);
+		}
 	}
 }

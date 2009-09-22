@@ -43,6 +43,7 @@ public:
 	collision::body_ptr const 
 	create_body(
 		collision::satellite_ptr,
+		collision::shapes::container const &,
 		collision::point const &,
 		collision::point const &);
 	

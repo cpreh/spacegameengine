@@ -1,6 +1,5 @@
 #include "../group.hpp"
 #include "../body.hpp"
-#include "../shapes/base.hpp"
 #include <sge/math/null.hpp>
 #include <sge/assert.hpp>
 #include <sge/text.hpp>
@@ -19,12 +18,12 @@ sge::ode::group::group(
 }
 
 void sge::ode::group::add(
-	collision::shapes::base_ptr const _shape)
+	collision::body_ptr const _body)
 {
 	dirty_ = 
 		true;
-	dynamic_cast<shapes::base &>(
-		*_shape).add_to_group(
+	dynamic_cast<body &>(
+		*_body).add_to_group(
 		*this);
 }
 

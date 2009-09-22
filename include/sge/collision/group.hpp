@@ -2,7 +2,7 @@
 #define SGE_COLLISION_GROUP_HPP_INCLUDED
 
 #include <sge/collision/group_fwd.hpp>
-#include <sge/collision/shapes/base_fwd.hpp>
+#include <sge/collision/body_fwd.hpp>
 #include <sge/noncopyable.hpp>
 #include <sge/export.hpp>
 
@@ -17,7 +17,7 @@ protected:
 	SGE_SYMBOL group();
 public:
 	virtual void add(
-		shapes::base_ptr) = 0;
+		body_ptr) = 0;
 	SGE_SYMBOL virtual ~group();
 };
 }

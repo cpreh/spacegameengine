@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/collision/satellite_fwd.hpp>
 #include <sge/collision/time_unit.hpp>
 #include <sge/collision/shapes/circle_fwd.hpp>
+#include <sge/collision/shapes/container.hpp>
 #include <sge/collision/callback.hpp>
 #include <sge/collision/test_callback.hpp>
 #include <sge/collision/test_callback_combiner.hpp>
@@ -65,6 +66,7 @@ public:
 	virtual body_ptr const 
 	create_body(
 		satellite_ptr,
+		shapes::container const &,
 		point const &,
 		point const &) = 0;
 	

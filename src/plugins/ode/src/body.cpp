@@ -5,6 +5,7 @@
 #include <sge/math/vector/basic_decl.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/collision/satellite.hpp>
+#include <boost/foreach.hpp>
 
 // DEBUG
 #include <sge/cerr.hpp>
@@ -15,6 +16,7 @@ sge::ode::body::body(
 	transformer const &_transformer,
 	dWorldID const _worldid,
 	collision::satellite_ptr _satellite,
+	collision::shapes::container const &_shapes,
 	collision::point const &_position,
 	collision::point const &_linear_velocity)
 :
@@ -28,6 +30,8 @@ sge::ode::body::body(
 	satellite_(
 		_satellite)
 {
+	BOOST_FOREACH(collision::shapes::container::const_reference r,_shapes)
+		add(r);
 	//sge::cerr << "ode: created a body " << this << " at position " << _position << " with velocity " << _linear_velocity;
 	world_.body_count_++;
 	dBodySetData(
@@ -97,14 +101,6 @@ void sge::ode::body::linear_velocity(
 		p.z());
 }
 
-void sge::ode::body::add(
-	collision::shapes::base_ptr const _s)
-{
-	//sge::cerr << "ode: adding shape to body " << this << "\n";
-	dynamic_cast<ode::shapes::base &>(
-		*_s).assign_body(body_);
-}
-
 bool sge::ode::body::is_active()
 {
 	return 
@@ -123,6 +119,14 @@ void sge::ode::body::is_active(
 			body_);
 }
 
+void sge::ode::body::add_to_group(
+	group &_group)
+{
+	BOOST_FOREACH(shapes::container::const_reference r,shapes_)
+		r->add_to_group(
+			_group);
+}
+
 sge::ode::body::~body()
 {
 	//sge::cerr << "destroyed a body " << this << " \n";
@@ -132,6 +136,18 @@ sge::ode::body::~body()
 	dBodyDestroy(
 		body_);
 }
+
+void sge::ode::body::add(
+	collision::shapes::base_ptr const _s)
+{
+	shapes_.push_back(
+		sge::dynamic_pointer_cast<shapes::base,collision::shapes::base>(
+			_s));
+	//sge::cerr << "ode: adding shape to body " << this << "\n";
+	dynamic_cast<ode::shapes::base &>(
+		*_s).assign_body(body_);
+}
+
 
 void sge::ode::body::moved(
 	dBodyID const _body)

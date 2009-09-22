@@ -57,6 +57,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <iostream>
 #include <cstdlib>
 #include <functional>
+#include <sge/assign/make_container.hpp>
 
 namespace
 {
@@ -177,6 +178,9 @@ try
 		world->create_body(
 			sge::collision::satellite_ptr(
 				new object(s_a)),
+			sge::assign::make_container<sge::collision::shapes::container>(
+				world->create_circle(
+					static_cast<sge::collision::unit>(100))),
 			sge::collision::point(
 				static_cast<sge::collision::unit>(320),
 				static_cast<sge::collision::unit>(240),
@@ -186,16 +190,14 @@ try
 				static_cast<sge::collision::unit>(0),
 				static_cast<sge::collision::unit>(0)));
 	
-
-	
-	sge::collision::shapes::circle_ptr const shape_a = 
-		world->create_circle(
-			static_cast<sge::collision::unit>(100));
 
 	sge::collision::body_ptr const body_b = 
 		world->create_body(
 			sge::collision::satellite_ptr(
 				new object(s_b)),
+			sge::assign::make_container<sge::collision::shapes::container>(
+				world->create_circle(
+					static_cast<sge::collision::unit>(5))),
 			sge::collision::point(
 				static_cast<sge::collision::unit>(320),
 				static_cast<sge::collision::unit>(240),
@@ -204,17 +206,8 @@ try
 				static_cast<sge::collision::unit>(0),
 				static_cast<sge::collision::unit>(0),
 				static_cast<sge::collision::unit>(0)));
-	
-	sge::collision::shapes::circle_ptr const shape_b = 
-		world->create_circle(
-			static_cast<sge::collision::unit>(5));
 
 	sge::cerr << "velocity is " << body_a->linear_velocity() << "\n";
-	
-	body_a->add(
-		shape_a);
-	body_b->add(
-		shape_b);
 	
 	sge::collision::group_ptr const 
 		g_a = world->create_group(),
@@ -228,9 +221,9 @@ try
 		g_b);
 	
 	g_a->add(
-		shape_a);
+		body_a);
 	g_a->add(
-		shape_b);
+		body_b);
 
 	sge::sprite::system ss(sys.renderer());
 	
