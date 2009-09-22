@@ -8,6 +8,7 @@
 #include <sge/assert.hpp>
 #include <sge/text.hpp>
 #include <sge/cout.hpp>
+#include <sge/exception.hpp>
 #include <tr1/functional>
 #include <functional>
 #include <cmath>
@@ -20,15 +21,6 @@ sge::ode::world::world(
 :
 	world_(
 		dWorldCreate()),
-		/*
-	space_(
-		dQuadTreeSpaceCreate(
-			0,
-			{},
-		  dVector3 Extents, 
-			int Depth))*/
-	//	dHashSpaceCreate(
-	//		0)), // <<- 0 for "no parent space"
 	begin_signal_(),
 	end_signal_(),
 	test_signal_(
@@ -44,14 +36,18 @@ sge::ode::world::world(
 	body_count_(
 		0)
 {
+	if (!_r)
+		throw sge::exception(SGE_TEXT("ode needs the optional rect in the world"));
+
 	dVector3 fs = { 0.0f,0.0f,0.0f };
-	dVector3 fs2 = { 2000.0f,2000.0f,2000.0f };
+	dVector3 fs2 = { static_cast<dReal>(_r->w()),static_cast<dReal>(_r->h()),1.0f };
+
 	space_ = 
 		dQuadTreeSpaceCreate(
 			0,
 			fs,
 			fs2,
-			6);
+			10);
 	/*
 	dWorldSetAutoDisableFlag(
 		world_,
