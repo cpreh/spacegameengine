@@ -79,7 +79,7 @@ private:
 	> object_map;
 	
 	dWorldID const world_; 
-	dSpaceID const space_;
+	dSpaceID space_;
 	collision::callback_signal 
 		begin_signal_,
 		end_signal_;

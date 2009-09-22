@@ -2,10 +2,12 @@
 #include "../body.hpp"
 #include "../group.hpp"
 #include "../shapes/circle.hpp"
+#include "../transformer_impl.hpp"
 #include <sge/collision/group_overflow.hpp>
 #include <sge/math/null.hpp>
 #include <sge/assert.hpp>
 #include <sge/text.hpp>
+#include <sge/cout.hpp>
 #include <tr1/functional>
 #include <functional>
 #include <cmath>
@@ -18,9 +20,15 @@ sge::ode::world::world(
 :
 	world_(
 		dWorldCreate()),
+		/*
 	space_(
-		dHashSpaceCreate(
-			0)), // <<- 0 for "no parent space"
+		dQuadTreeSpaceCreate(
+			0,
+			{},
+		  dVector3 Extents, 
+			int Depth))*/
+	//	dHashSpaceCreate(
+	//		0)), // <<- 0 for "no parent space"
 	begin_signal_(),
 	end_signal_(),
 	test_signal_(
@@ -36,9 +44,19 @@ sge::ode::world::world(
 	body_count_(
 		0)
 {
+	dVector3 fs = { 0.0f,0.0f,0.0f };
+	dVector3 fs2 = { 2000.0f,2000.0f,2000.0f };
+	space_ = 
+		dQuadTreeSpaceCreate(
+			0,
+			fs,
+			fs2,
+			6);
+	/*
 	dWorldSetAutoDisableFlag(
 		world_,
 		1);
+		*/
 }
 
 sge::signal::auto_connection

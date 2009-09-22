@@ -1,4 +1,3 @@
-#include "../transformer.hpp"
 #include <sge/math/inverse.hpp>
 #include <sge/math/rect/basic_impl.hpp>
 #include <sge/math/vector/structure_cast.hpp>

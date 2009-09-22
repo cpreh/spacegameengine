@@ -1,5 +1,6 @@
 #include "../../shapes/circle.hpp"
 #include "../../transformer.hpp"
+#include "../../transformer_impl.hpp"
 
 // DEBUG
 #include <sge/cerr.hpp>

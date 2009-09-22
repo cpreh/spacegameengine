@@ -1,6 +1,7 @@
 #include "../body.hpp"
 #include "../shapes/base.hpp"
 #include "../world.hpp"
+#include "../transformer_impl.hpp"
 #include <sge/math/vector/basic_decl.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/collision/satellite.hpp>
