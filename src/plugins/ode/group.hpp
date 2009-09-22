@@ -17,7 +17,7 @@ public:
 		group_id);
 	
 	void add(
-		collision::shapes::base_ptr);
+		collision::body_ptr);
 	void collides_with(
 		group const &);
 	

@@ -1,6 +1,7 @@
 #ifndef SGE_ODE_SHAPES_BASE_HPP_INCLUDED
 #define SGE_ODE_SHAPES_BASE_HPP_INCLUDED
 
+#include "base_fwd.hpp"
 #include "../group_fwd.hpp"
 #include <sge/collision/shapes/base.hpp>
 #include <ode/ode.h>
