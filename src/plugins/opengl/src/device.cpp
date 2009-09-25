@@ -76,7 +76,8 @@ sge::opengl::device::device(
 	param(param),
 	wnd(wnd),
 	current_states(
-		renderer::state::default_()),
+		renderer::state::default_()
+	),
 	state_(
 		param,
 		adapter,
@@ -88,7 +89,8 @@ sge::opengl::device::device(
 		)
 	),
 	fbo_active(
-		false),
+		false
+	),
 	projection_(
 		math::matrix::static_<float, 4, 4>::type::identity()
 	),
@@ -116,7 +118,6 @@ sge::opengl::device::device(
 	),
 	caps_(),
 	state_levels()
-
 {
 	initialize_glew();
 

@@ -49,13 +49,20 @@ public:
 	> set_type;
 
 	SGE_SYMBOL explicit list(
-		any const &);
-	
-	SGE_SYMBOL list const operator()(
-		any const &) const;
+		any const &
+	);
 
-	SGE_SYMBOL void overwrite(
-		any const &);
+	SGE_SYMBOL ~list();
+	
+	SGE_SYMBOL list const
+	operator()(
+		any const &
+	) const;
+
+	SGE_SYMBOL void
+	overwrite(
+		any const &
+	);
 
 	template<
 		typename T
@@ -69,7 +76,8 @@ public:
 	>
 	SGE_SYMBOL T
 	get(
-		trampoline<T, States> const &) const;
+		trampoline<T, States> const &
+	) const;
 
 	SGE_SYMBOL set_type const &
 	values() const;

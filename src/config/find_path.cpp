@@ -100,7 +100,9 @@ sge::config::find_path(
 				)->value
 			);
 		}
-		catch(exception const &e)
+		catch(
+			sge::exception const &e
+		)
 		{
 			SGE_LOG_DEBUG(
 				log::global(),

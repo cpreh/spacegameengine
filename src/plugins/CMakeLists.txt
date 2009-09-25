@@ -30,9 +30,8 @@ ELSE()
 	OPTION (ENABLE_PNG "Build the libpng plugin" OFF)
 ENDIF()
 
-# devil is off by default for now
 IF(DevIL_FOUND)
-	OPTION (ENABLE_DEVIL "Build the devil image loader plugin" OFF)
+	OPTION (ENABLE_DEVIL "Build the devil image loader plugin" ON)
 ELSE ()
 	OPTION (ENABLE_DEVIL "Build the devil image loader plugin" OFF)
 ENDIF()

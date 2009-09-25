@@ -44,7 +44,8 @@ struct copy {
 	>
 	result_type
 	operator()(
-		T const &t) const
+		T const &t
+	) const
 	{
 		return new (store) T(t);	
 	}

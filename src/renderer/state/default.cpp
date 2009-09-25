@@ -33,10 +33,10 @@ sge::renderer::state::default_()
 			(int_::stencil_ref = 0)
 			(uint::stencil_mask = 0)
 			(float_::zbuffer_clear_val = 0.f)
-			(float_::fog_start = 0.)
-			(float_::fog_end = 0.)
-			(float_::fog_density = 0.)
-			(float_::alpha_test_ref = 0.)
+			(float_::fog_start = 0.f)
+			(float_::fog_end = 0.f)
+			(float_::fog_density = 0.f)
+			(float_::alpha_test_ref = 0.f)
 			(bool_::clear_zbuffer = false)
 			(bool_::clear_backbuffer = false)
 			(bool_::clear_stencil = false)
@@ -54,5 +54,6 @@ sge::renderer::state::default_()
 			(source_blend_func::src_alpha)
 			(dest_blend_func::inv_src_alpha)
 	);
+
 	return l;
 }

@@ -63,11 +63,12 @@ template<
 	typename Types
 >
 sge::variant::object<Types>::object(
-	object const &o)
+	object const &o
+)
 :
 	storage_(),
 	index_(o.index_),
-	data_()
+	data_(0)
 {
 	if(o.empty())
 		return;
@@ -106,6 +107,12 @@ sge::variant::object<Types> &
 sge::variant::object<Types>::operator=(
 	object const &o)
 {
+	if(o.empty())
+	{
+		destroy();
+		return *this;
+	}
+
 	variant::apply_unary(
 		detail::construct<
 			object<

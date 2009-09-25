@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/iconv.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
+#include <boost/foreach.hpp>
 
 sge::char_type const *const plugin_extension =
 #ifdef SGE_DARWIN_PLATFORM
@@ -54,13 +55,19 @@ sge::plugin::manager::manager()
 	);
 
 	filesystem::directory_iterator const end;
+
 	for(
-		filesystem::directory_iterator it(config::plugin_path());
+		filesystem::directory_iterator it(
+			config::plugin_path()
+		);
 		it != end;
 		++it
 	)
 	{
-		if(filesystem::is_directory(*it) || filesystem::extension(*it) != plugin_extension)
+		if(
+			filesystem::is_directory(*it)
+			|| filesystem::extension(*it) != plugin_extension
+		)
 		{
 			SGE_LOG_WARNING(
 				log::global(),
@@ -75,9 +82,15 @@ sge::plugin::manager::manager()
 
 		try
 		{
-			plugins.push_back(context_base(*it));
+			plugins.push_back(
+				context_base(
+					*it
+				)
+			);
 		}
-		catch(library::function_not_found const &e)
+		catch(
+			library::function_not_found const &e
+		)
 		{
 			SGE_LOG_WARNING(
 				log::global(),
@@ -89,7 +102,9 @@ sge::plugin::manager::manager()
 					<< SGE_TEXT("\" is missing!")
 			);
 		}
-		catch(exception const &e)
+		catch(
+			exception const &e
+		)
 		{
 			SGE_LOG_WARNING(
 				log::global(),
@@ -102,12 +117,19 @@ sge::plugin::manager::manager()
 		}
 	}
 
-	for(plugin_array::iterator it = plugins.begin(); it != plugins.end(); ++it)
-		for(unsigned i = 1; i < capabilities::last_guard_; i <<= 1)
+	BOOST_FOREACH(
+		plugin_array::reference ref,
+		plugins
+	)
+		for(
+			unsigned i = 1;
+			i < capabilities::last_guard_;
+			i <<= 1
+		)
 		{
-			unsigned const type = it->type();
+			unsigned const type = ref.type();
 			if(type & i)
-				categories[static_cast<capabilities::type>(i)].push_back(&*it);
+				categories[static_cast<capabilities::type>(i)].push_back(&ref);
 		}
 }
 

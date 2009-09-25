@@ -40,7 +40,8 @@ template<
 typename Operation::result_type
 apply_unary(
 	Operation const &op,
-	Variant const &obj)
+	Variant const &obj
+)
 {
 	typedef typename Variant::types types;
 

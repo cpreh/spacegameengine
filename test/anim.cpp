@@ -46,13 +46,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/second.hpp>
 #include <sge/time/resolution.hpp>
 #include <sge/mainloop/dispatch.hpp>
+#include <sge/assign/make_container.hpp>
 #include <sge/log/global.hpp>
 #include <sge/log/logger.hpp>
 #include <sge/cerr.hpp>
 #include <sge/exception.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
-#include <boost/assign/list_of.hpp>
 #include <cstdlib>
 #include <exception>
 #include <ostream>
@@ -66,22 +66,34 @@ try
 
 	sge::systems::instance const sys(
 		sge::systems::list()
-		(sge::window::parameters(
-			SGE_TEXT("sge animtest")
-		))
-		(sge::renderer::parameters(
-			sge::renderer::display_mode(
-				sge::renderer::screen_size(
-					1024,
-					768),
-				sge::renderer::bit_depth::depth32,
-				sge::renderer::refresh_rate_dont_care),
-			sge::renderer::depth_buffer::off,
-			sge::renderer::stencil_buffer::off,
-			sge::renderer::window_mode::windowed))
-		(sge::systems::parameterless::input)
-		(sge::systems::parameterless::image));
-	
+		(
+			sge::window::parameters(
+				SGE_TEXT("sge animtest")
+			)
+		)
+		(
+			sge::renderer::parameters(
+				sge::renderer::display_mode(
+					sge::renderer::screen_size(
+						1024,
+						768
+					),
+					sge::renderer::bit_depth::depth32,
+					sge::renderer::refresh_rate_dont_care
+				),
+				sge::renderer::depth_buffer::off,
+				sge::renderer::stencil_buffer::off,
+				sge::renderer::window_mode::windowed
+			)
+		)
+		(
+			sge::systems::parameterless::input
+		)
+		(
+			sge::systems::parameterless::image
+		)
+	);
+
 	sge::input::system_ptr const    is   = sys.input_system();
 	sge::renderer::device_ptr const rend = sys.renderer();
 	sge::image::loader_ptr const    pl   = sys.image_loader();
@@ -92,7 +104,8 @@ try
 	> const creator(
 		rend,
 		sge::image::color::format::rgba8,
-		sge::renderer::filter::linear);
+		sge::renderer::filter::linear
+	);
 
 	sge::texture::manager tex_man(rend, creator);
 
@@ -127,19 +140,30 @@ try
 		)
 	);
 
-	sge::sprite::animation_series::entity_vector const series = 
-		boost::assign::list_of
-			(sge::sprite::animation_entity(
+	sge::sprite::animation_series::entity_vector const series(
+		sge::assign::make_container<
+			sge::sprite::animation_series::entity_vector
+		>(
+			sge::sprite::animation_entity(
 				sge::time::millisecond(500),
-				tex1))
-			(sge::sprite::animation_entity(
+				tex1
+			)
+		)
+		(
+			sge::sprite::animation_entity(
 				sge::time::second(
-					1),
-					tex2));
+					1
+				),
+				tex2		
+			)
+		)
+	);
+
 	sge::sprite::texture_animation anim(
 		series,
 		sge::sprite::texture_animation::loop_method::repeat,
-		spr);
+		spr
+	);
 
 	bool running = true;
 
