@@ -18,21 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "find_own_path.hpp"
-#include <sge/config/make_files.hpp>
-#include <sge/config/find_path.hpp>
-#include <sge/text.hpp>
+#ifndef SGE_CONFIG_FIND_OWN_PATH_HPP_INCLUDED
+#define SGE_CONFIG_FIND_OWN_PATH_HPP_INCLUDED
 
-sge::filesystem::path const
-sge::config::detail::find_own_path(
-	string const &what,
-	path_vector const &hard_paths)
+#include <sge/filesystem/path.hpp>
+#include <sge/config/path_vector.hpp>
+#include <sge/string.hpp>
+#include <sge/export.hpp>
+
+namespace sge
 {
-	return find_path(
-		make_files(
-			SGE_TEXT("spacegameengine")
-		),
-		what,
-		hard_paths
-	);
+namespace config
+{
+
+filesystem::path const
+find_own_path(
+	string const &what,
+	path_vector const &hard_paths
+);
+
 }
+}
+
+#endif
