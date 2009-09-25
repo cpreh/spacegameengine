@@ -36,7 +36,8 @@ namespace detail
 filesystem::path const
 find_own_path(
 	string const &what,
-	path_vector const &hard_paths);
+	path_vector const &hard_paths
+);
 
 }
 }

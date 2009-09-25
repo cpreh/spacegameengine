@@ -63,11 +63,12 @@ template<
 	typename Types
 >
 sge::variant::object<Types>::object(
-	object const &o)
+	object const &o
+)
 :
 	storage_(),
 	index_(o.index_),
-	data_()
+	data_(0)
 {
 	if(o.empty())
 		return;

@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/container/raw_vector_impl.hpp>
+#include <sge/make_shared_ptr.hpp>
 
 sge::renderer::device_ptr const
 sge::opengl::system::create_renderer(
@@ -49,14 +50,21 @@ sge::opengl::system::create_renderer(
 {
 	if(ref.lock())
 		throw exception(
-			SGE_TEXT("The opengl plugin may only have one renderer!"));
+			SGE_TEXT("The opengl plugin may only have one renderer!")
+		);
 
 	renderer::device_ptr const r(
-		new device(
+		make_shared_ptr<
+			device
+		>(
 			param,
 			adapter,
-			wnd));
+			wnd
+		)
+	);
+
 	ref = r;
+
 	return r;
 }
 
@@ -67,7 +75,10 @@ sge::opengl::system::create_window(
 {
 #if defined(SGE_HAVE_X11)
 	sge::x11::display_ptr const dsp(
-		new sge::x11::display());
+		make_shared_ptr<
+			sge::x11::display
+		>()
+	);
 
 	glx::visual_ptr const visual(
 		glx::create_visual(
@@ -76,7 +87,10 @@ sge::opengl::system::create_window(
 			glx::choose_visual(
 				rparam.mode().bit_depth(),
 				rparam.dbuffer(),
-				rparam.sbuffer()).data()));
+				rparam.sbuffer()
+			).data()
+		)
+	);
 	
 	return sge::x11::create_window(
 		param,
@@ -84,11 +98,13 @@ sge::opengl::system::create_window(
 		visual->info().screen,
 		visual->info().depth,
 		visual,
-		rparam.wmode() == renderer::window_mode::fullscreen);
+		rparam.wmode() == renderer::window_mode::fullscreen
+	);
 #elif defined(SGE_WINDOWS_PLATFORM)
 	return sge::windows::create_window(
 		param,
-		rparam);
+		rparam
+	);
 #else
 #error "Implement me!"
 #endif

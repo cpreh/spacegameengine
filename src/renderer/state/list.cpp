@@ -45,7 +45,8 @@ sge::renderer::state::list::list(
 
 sge::renderer::state::list const
 sge::renderer::state::list::operator()(
-	any const &a) const
+	any const &a
+) const
 {
 	state::list temp(*this);
 	if(!temp.set_.insert(a).second)
@@ -87,7 +88,8 @@ template<
 >
 T
 sge::renderer::state::list::get(
-	trampoline<T, States> const &t) const
+	trampoline<T, States> const &t
+) const
 {
 	typedef typename trampoline<
 		T, States
@@ -95,7 +97,10 @@ sge::renderer::state::list::get(
 
 	// TODO: can we optimize this?
 
-	BOOST_FOREACH(set_type::const_reference ref, set_)
+	BOOST_FOREACH(
+		set_type::const_reference ref,
+		set_
+	)
 		if(ref.type() == typeid(var_type))
 		{
 			var_type const &v(
@@ -105,7 +110,7 @@ sge::renderer::state::list::get(
 			if(v.state() == t.state())
 				return v.value();
 		}
-	
+
 	throw exception(
 		SGE_TEXT("renderer::list::get(): state not found!"));
 }

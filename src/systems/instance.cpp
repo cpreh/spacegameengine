@@ -148,7 +148,8 @@ sge::systems::instance::instance(
 	list const &l)
 :
 	impl_(
-		new impl())
+		new impl()
+	)
 {
 	reinit(l);
 }
@@ -296,17 +297,21 @@ void sge::systems::instance::impl::init_renderer(
 
 		if(!wparam_->dim())
 			wparam_->dim(
-				p.mode().size());
+				p.mode().size()
+			);
 
-		window_ = renderer_system->create_window(
-			*wparam_,
-			p);
+		window_ =
+			renderer_system->create_window(
+				*wparam_,
+				p
+			);
 	}
 	
 	renderer = renderer_system->create_renderer(
 		p,
 		static_cast<renderer::adapter_type>(0),
-		window_);
+		window_
+	);
 }
 
 void sge::systems::instance::impl::init_input(
