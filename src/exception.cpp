@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 
 sge::exception::exception(
-	string const &s)
+	sge::string const &s)
 :
 	s(s)
 {}
@@ -41,10 +41,17 @@ sge::exception::operator=(
 }
 
 sge::string const &
-sge::exception::what() const
+sge::exception::string() const
 {
 	return s;
 }
+
+/*
+char const *
+sge::exception::what() const throw()
+{
+	return "do not catch sge::exception as std::exception, no what() can be supplied";
+}*/
 
 sge::exception::~exception()
 {}

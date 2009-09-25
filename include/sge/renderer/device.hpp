@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/dim_type.hpp>
 #include <sge/renderer/screen_size.hpp>
-#include <sge/renderer/resource_flags.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/viewport_mode.hpp>
 #include <sge/renderer/index/view.hpp>
 #include <sge/renderer/index/format.hpp>
@@ -178,29 +178,31 @@ public:
 	SGE_SYMBOL texture_ptr const
 	create_texture(
 		image::view::const_object const &,
-		filter::texture const &filter,
-		resource_flag_t flags);
+		filter::texture const &,
+		resource_flags_field const &
+	);
 
 	virtual texture_ptr const
 	create_texture(
-		dim_type const &dim,
-		image::color::format::type format,
-		filter::texture const &filter,
-		resource_flag_t flags) = 0;
+		dim_type const &,
+		image::color::format::type,
+		filter::texture const &,
+		resource_flags_field const &
+	) = 0;
 
 	/*
 	SGE_SYMBOL volume_texture_ptr const
 	create_volume_texture(
 		image::view::const_object3 const &,
 		filter::texture const &filter,
-		resource_flag_t flags);
+		resource_flags_field const & flags);
 	
 	virtual volume_texture_ptr const
 	create_volume_texture(
 		dim3_type const &dim,
 		image::color::format::type format,
 		filter::texture const &filter,
-		resource_flag_t flags) = 0;
+		resource_flags_field const & flags) = 0;
 	*/
 
 	virtual cube_texture_ptr const
@@ -208,29 +210,34 @@ public:
 		size_type border_size,
 		image::color::format::type format,
 		filter::texture const &filter,
-		resource_flag_t flags) = 0;
+		resource_flags_field const &
+	) = 0;
 
 	SGE_SYMBOL vertex_buffer_ptr const
 	create_vertex_buffer(
 		vf::const_dynamic_view const &,
-		resource_flag_t flags);
+		resource_flags_field const &
+	);
 	
 	virtual vertex_buffer_ptr const
 	create_vertex_buffer(
 		vf::dynamic_format const &,
 		size_type size,
-		resource_flag_t flags) = 0;
+		resource_flags_field const &
+	) = 0;
 
 	SGE_SYMBOL index_buffer_ptr const
 	create_index_buffer(
 		index::const_view const &,
-		resource_flag_t flags);
+		resource_flags_field const &
+	);
 
 	virtual index_buffer_ptr const
 	create_index_buffer(
 		index::format::type,
 		size_type size,
-		resource_flag_t flags) = 0;
+		resource_flags_field const &
+	) = 0;
 
 	virtual renderer::caps const caps() const = 0;
 	virtual renderer::screen_size const screen_size() const = 0;

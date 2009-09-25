@@ -26,6 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/plugin.hpp>
 #include <sge/filesystem/exists.hpp>
+#include <sge/filesystem/is_regular.hpp>
+#include <sge/filesystem/extension.hpp>
+#include <sge/loaders_exhausted.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/text.hpp>
 #include <sge/type_name.hpp>
@@ -61,8 +64,27 @@ sge::multi_loader<A,B,C>::load(
 			+ file.string()
 			+ SGE_TEXT("\" does not exist"));
 
+	if (!filesystem::is_regular(file))
+		throw exception(
+			SGE_TEXT("file \"")
+			+ file.string()
+			+ SGE_TEXT("\" is not a regular file"));
+
+	string const extension = 
+		sge::filesystem::extension(
+			file);
+	
+	if (extension.empty())
+		return 
+			brute_load(
+				file);
+
 	for (typename loader_container::iterator i = loaders.begin(); i != loaders.end(); ++i)
 	{
+		// FIXME: replace by container::contains
+		if ((*i)->extensions().find(extension) == (*i)->extensions().end())
+			continue;
+
 		SGE_LOG_DEBUG(
 			log::global(),
 			log::_1 
@@ -70,16 +92,56 @@ sge::multi_loader<A,B,C>::load(
 				<< type_name(typeid(loader))
 				<< SGE_TEXT(": trying to load audio file"));
 
-		if (!(*i)->is_valid_file(file))
-			continue;
-
 		return (*i)->load(file);
 	}
 
-	throw exception(
-		SGE_TEXT("couldn't find any audio loaders for file \"")
-		+ file.string()
-		+ SGE_TEXT('"'));
+	return 
+		brute_load(
+			file);
+	
+}
+
+template<
+	typename A,
+	typename B,
+	typename C>
+typename sge::multi_loader<A,B,C>::file_ptr const
+sge::multi_loader<A,B,C>::brute_load(
+	sge::filesystem::path const &file)
+{
+	SGE_LOG_INFO(
+		log::global(),
+		log::_1 
+			<< SGE_TEXT("brute loading file ")
+			<< file.string()
+			<< SGE_TEXT(", add an extension to speed up the search"));
+	
+	for (typename loader_container::iterator i = loaders.begin(); i != loaders.end(); ++i)
+	{
+		try
+		{
+			SGE_LOG_DEBUG(
+				log::global(),
+				log::_1 
+					<< SGE_TEXT("loader ")
+					<< type_name(typeid(loader))
+					<< SGE_TEXT(": trying to load audio file"));
+		}
+		catch (sge::exception const &e)
+		{
+			SGE_LOG_INFO(
+				log::global(),
+				log::_1 
+					<< SGE_TEXT("loader ")
+					<< type_name(typeid(loader))
+					<< SGE_TEXT("couldn't load the file: ")
+					<< e.string());
+		}
+	}
+
+	throw 
+		loaders_exhausted(
+			file);
 }
 
 #endif

@@ -31,9 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int main()
 {
 	typedef sge::container::map<
-		std::map,
-		int,
-		sge::string
+		std::map<
+			int,
+			sge::string
+		>
 	> map_type;
 
 	map_type m;

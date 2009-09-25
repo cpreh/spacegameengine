@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/sub_data.hpp>
+#include <sge/renderer/resource_flags_none.hpp>
 #include <sge/image/view/sub.hpp>
 #include <sge/image/view/dim.hpp>
 #include <sge/math/rect/basic_impl.hpp>
@@ -111,7 +112,8 @@ sge::texture::atlased_texture(
 		atlased_texture_dim(rend),
 		format,
 		filter,
-		renderer::resource_flags::none);
+		renderer::resource_flags::none
+	);
 }
 
 sge::renderer::lock_rect const

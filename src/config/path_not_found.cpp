@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 
 sge::config::path_not_found::path_not_found(
-	string const &file)
+	sge::string const &file)
 :
 	exception(
 		SGE_TEXT("path \"")

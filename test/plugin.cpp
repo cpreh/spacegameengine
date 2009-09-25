@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global.hpp>
 #include <sge/log/logger.hpp>
 #include <sge/mainloop/catch_block.hpp>
+#include <sge/type_name.hpp>
 #include <sge/text.hpp>
 #include <sge/cout.hpp>
 #include <boost/mpl/vector.hpp>
@@ -104,7 +105,9 @@ void
 print_plugins::operator()() const
 {
 	sge::cout
-		<< typeid(T).name()
+		<< sge::type_name(
+			typeid(T)
+		)
 		<< SGE_TEXT('\n');
 
 	for(

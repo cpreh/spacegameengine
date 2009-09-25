@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/animation.hpp>
 #include <sge/sprite/animation_series.hpp>
-#include <sge/renderer/dim_type.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/time/fun.hpp>
 #include <sge/export.hpp>
@@ -54,8 +53,6 @@ public:
 	
 	SGE_SYMBOL bool process();
 	SGE_SYMBOL void reset();
-
-	SGE_SYMBOL renderer::dim_type const dim() const;
 private:
 	animation_series                 series;
 	loop_method::type                action;

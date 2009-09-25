@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 #include <sge/make_auto_ptr.hpp>
 #include <sge/auto_ptr.hpp>
-#include <boost/tr1/array.hpp>
+#include <tr1/array>
 
 namespace
 {
@@ -57,7 +57,8 @@ sge::opengl::cube_texture::cube_texture(
 	size_type const sz,
 	image::color::format::type const format,
 	renderer::filter::texture const &filter,
-	resource_flag_type const flags)
+	renderer::resource_flags_field const &flags
+)
 :
 	detail::cube_texture_base(
 		filter,
@@ -102,7 +103,8 @@ sge::image::view::object const
 sge::opengl::cube_texture::lock(
 	renderer::cube_side::type const side,
 	renderer::lock_rect const &src,
-	lock_flag_type const flags)
+	renderer::lock_mode::type const flags
+)
 {
 	check_not_locked();
 

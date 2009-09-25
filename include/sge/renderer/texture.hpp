@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim_type.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/texture_pos_type.hpp>
+#include <sge/renderer/lock_mode.hpp>
 #include <sge/image/view/object.hpp>
 #include <sge/image/view/const_object.hpp>
 #include <sge/export.hpp>
@@ -44,7 +45,8 @@ public:
 	
 	SGE_SYMBOL image::view::object const
 	lock(
-		lock_flag_t);
+		lock_mode::type
+	);
 	
 	SGE_SYMBOL image::view::const_object const
 	lock() const;
@@ -52,7 +54,8 @@ public:
 	virtual image::view::object const
 	lock(
 		lock_rect const &,
-		lock_flag_t) = 0;
+		lock_mode::type
+	) = 0;
 	
 	virtual image::view::const_object const
 	lock(

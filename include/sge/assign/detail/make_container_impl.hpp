@@ -21,23 +21,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_ASSIGN_DETAIL_MAKE_CONTAINER_IMPL_HPP_INCLUDED
 #define SGE_ASSIGN_DETAIL_MAKE_CONTAINER_IMPL_HPP_INCLUDED
 
-template<typename Container>
+#include <sge/assign/detail/insert.hpp>
+
+template<
+	typename Container
+>
 sge::assign::make_container<Container>::make_container(
 	typename container_type::const_reference r)
 {
-	c_.push_back(r);
+	(*this)(r);
 }
 
-template<typename Container>
+template<
+	typename Container
+>
 sge::assign::make_container<Container> &
-	sge::assign::make_container<Container>::operator()(
-		typename container_type::const_reference r)
+sge::assign::make_container<Container>::operator()(
+	typename container_type::const_reference r
+)
 {
-	c_.push_back(r);
+	detail::insert(
+		c_,
+		r
+	);
+
 	return *this;
 }
 
-template<typename Container>
+template<
+	typename Container
+>
 sge::assign::make_container<Container>::operator Container() const
 {
 	return c_;

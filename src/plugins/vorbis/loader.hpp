@@ -37,8 +37,7 @@ public:
 	load(
 		filesystem::path const &);
 	
-	bool is_valid_file(
-		filesystem::path const &) const;
+	extension_set const extensions() const;
 };
 
 }

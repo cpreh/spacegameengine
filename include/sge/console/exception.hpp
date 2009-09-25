@@ -32,7 +32,7 @@ namespace console
 class SGE_CLASS_SYMBOL exception : public sge::exception {
 	public:
 	SGE_SYMBOL explicit exception(
-		string const &); 
+		sge::string const &); 
 };
 }
 }

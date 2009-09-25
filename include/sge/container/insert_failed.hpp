@@ -33,7 +33,7 @@ namespace container
 class SGE_CLASS_SYMBOL insert_failed : public exception {
 public:
 	SGE_SYMBOL explicit insert_failed(
-		string const &);
+		sge::string const &);
 };
 
 }

@@ -32,7 +32,7 @@ namespace random
 class exclusive_range_error : public exception {
 public:
 	SGE_SYMBOL explicit exclusive_range_error(
-		string const &);
+		sge::string const &);
 };
 
 }

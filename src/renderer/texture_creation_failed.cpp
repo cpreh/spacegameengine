@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 
 sge::renderer::texture_creation_failed::texture_creation_failed(
-	string const &s)
+	sge::string const &s)
 :
 	exception(
 		SGE_TEXT("texture creation failed: ")

@@ -52,7 +52,7 @@ sge::opengl::x11::resolution::create(
 	{
 		SGE_LOG_WARNING(
 			log::global(),
-			log::_1 << e.what());
+			log::_1 << e.string());
 	}
 #endif
 #if defined(SGE_HAVE_XF86_VMODE)
@@ -68,7 +68,7 @@ sge::opengl::x11::resolution::create(
 	{
 		SGE_LOG_WARNING(
 			log::global(),
-			log::_1 << e.what());
+			log::_1 << e.string());
 	}
 #endif
 	SGE_LOG_WARNING(

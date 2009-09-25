@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TEXTURE_SOFTWARE_HPP_INCLUDED
 
 #include <sge/renderer/texture.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/lock_mode.hpp>
 #include <sge/container/raw_vector_decl.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/view/object.hpp>
@@ -34,21 +36,42 @@ namespace sge
 {
 namespace renderer
 {
-class SGE_CLASS_SYMBOL texture_software : public texture
+
+class SGE_CLASS_SYMBOL texture_software
+:
+	public texture
 {
 public:
 	SGE_SYMBOL texture_software(
 		dim_type const &,
-		image::color::format::type);
+		image::color::format::type
+	);
 	
 	SGE_SYMBOL ~texture_software();
-	SGE_SYMBOL dim_type const dim() const;
-	SGE_SYMBOL image::view::object const lock(lock_rect const &,lock_flag_t);
-	SGE_SYMBOL image::view::const_object const lock(lock_rect const &) const;
-	SGE_SYMBOL void unlock() const;
-	SGE_SYMBOL resource_flag_t flags() const;
+
+	SGE_SYMBOL dim_type const
+	dim() const;
+
+	SGE_SYMBOL image::view::object const
+	lock(
+		lock_rect const &,
+		lock_mode::type
+	);
+
+	SGE_SYMBOL image::view::const_object const
+	lock(
+		lock_rect const &
+	) const;
+
+	SGE_SYMBOL void
+	unlock() const;
+
+	SGE_SYMBOL resource_flags_field const
+	flags() const;
 private:
-	typedef container::raw_vector<unsigned char> internal_vector;
+	typedef container::raw_vector<
+		unsigned char
+	> internal_vector;
 
 	dim_type dim_;
 	image::color::format::type const cf;
@@ -56,8 +79,13 @@ private:
 	// has to be mutable for unlock
 	mutable bool locked;
 	
-	internal_vector::size_type byte_count() const;
-	void resize(dim_type const &);
+	internal_vector::size_type
+	byte_count() const;
+
+	void
+	resize(
+		dim_type const &
+	);
 };
 }
 }

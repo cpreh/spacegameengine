@@ -42,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/resource_flags_none.hpp>
 #include <sge/signal/scoped_connection.hpp>
 #include <sge/image/create_texture.hpp>
 #include <sge/mainloop/catch_block.hpp>
@@ -117,14 +118,14 @@ try
 	object->copy_vertices(
 		sge::renderer::scoped_vertex_lock(
 			vb,
-			sge::renderer::lock_flags::writeonly
+			sge::renderer::lock_mode::writeonly
 		).value()
 	);
 
 	object->copy_indices(
 		sge::renderer::scoped_index_lock(
 			ib,
-			sge::renderer::lock_flags::writeonly
+			sge::renderer::lock_mode::writeonly
 		).value()
 	);
 

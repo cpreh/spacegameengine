@@ -29,15 +29,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void sge::renderer::sub_data(
 	texture_ptr const tex,
 	image::view::const_object const &view,
-	texture_pos_type const &p)
+	texture_pos_type const &p
+)
 {
 	scoped_texture_lock const lock_(
 		tex,
 		lock_rect(
 			p,
-			image::view::dim(view)
+			image::view::dim(
+				view
+			)
 		),
-		lock_flags::writeonly
+		lock_mode::writeonly
 	);
 
 	image::algorithm::copy_and_convert(

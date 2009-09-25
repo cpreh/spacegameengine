@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_EXCEPTION_HPP_INCLUDED
 #define SGE_GUI_EXCEPTION_HPP_INCLUDED
 
+#include <sge/gui/export.hpp>
 #include <sge/exception.hpp>
 #include <sge/string.hpp>
 
@@ -28,11 +29,17 @@ namespace sge
 {
 namespace gui
 {
-class exception : public sge::exception
+
+class SGE_CLASS_SYMBOL exception
+:
+	public sge::exception
 {
 public:
-	exception(string const &);
+	SGE_GUI_SYMBOL exception(
+		sge::string const &
+	);
 };
+
 }
 }
 

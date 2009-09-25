@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/screen_size.hpp>
 #include <sge/math/matrix/static.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
@@ -32,6 +33,7 @@ namespace renderer
 template<
 	typename T
 >
+SGE_SYMBOL
 typename math::matrix::static_<T, 4, 4>::type const
 matrix_pixel_to_space(
 	screen_size const &sz);

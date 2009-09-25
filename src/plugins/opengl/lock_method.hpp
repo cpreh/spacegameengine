@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_LOCK_METHOD_HPP_INCLUDED
 
 #include "common.hpp"
-#include <sge/renderer/lock_flags.hpp>
+#include <sge/renderer/lock_mode.hpp>
 
 namespace sge
 {
@@ -39,8 +39,10 @@ enum type {
 
 }
 
-lock_method::type convert_lock_method(
-	renderer::lock_flag_t);
+lock_method::type
+convert_lock_method(
+	renderer::lock_mode::type
+);
 
 GLuint ogl_lock_method(
 	lock_method::type);

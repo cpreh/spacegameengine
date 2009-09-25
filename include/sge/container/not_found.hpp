@@ -33,7 +33,7 @@ namespace container
 class SGE_CLASS_SYMBOL not_found : public exception {
 public:
 	SGE_SYMBOL explicit not_found(
-		string const &);
+		sge::string const &);
 };
 
 }

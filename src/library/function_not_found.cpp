@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 
 sge::library::function_not_found::function_not_found(
-	string const &lib_,
+	sge::string const &lib_,
 	std::string const &func_)
 :
 	exception(

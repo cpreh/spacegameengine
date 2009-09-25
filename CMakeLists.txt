@@ -165,7 +165,8 @@ CHECK_CXX_SOURCE_RUNS(
 FIND_PACKAGE(Boost 1.35.0 COMPONENTS
 	filesystem
 	program_options
-	system)
+	system
+	thread)
 
 IF(NOT Boost_FOUND)
 	MESSAGE(STATUS "Boost not found!")

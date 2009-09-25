@@ -63,6 +63,9 @@ private:
 
 	plugin_container plugins;
 	loader_container loaders;
+
+	file_ptr const brute_load(
+		filesystem::path const &);
 };
 }
 

@@ -56,7 +56,8 @@ void fill_geometry(
 {
 	renderer::scoped_vertex_lock const vblock(
 		vb,
-		renderer::lock_flags::writeonly);
+		renderer::lock_mode::writeonly
+	);
 
 	typedef renderer::vf::view<
 		vertex_format
@@ -91,7 +92,7 @@ void fill_geometry(
 	renderer::index::generate(
 		renderer::scoped_index_lock(
 			ib,
-			renderer::lock_flags::writeonly,
+			renderer::lock_mode::writeonly,
 			0,
 			count * detail::indices_per_sprite
 		).value(),

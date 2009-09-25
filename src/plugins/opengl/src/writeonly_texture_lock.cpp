@@ -23,12 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::writeonly_texture_lock::writeonly_texture_lock(
 	size_type const lock_size,
 	size_type const stride,
-	renderer::resource_flag_t const flags)
-: buffer(
-	lock_size,
-	stride,
-	flags,
-	0)
+	renderer::resource_flags_field const &flags
+)
+:
+	buffer(
+		lock_size,
+		stride,
+		flags,
+		0
+	)
 {}
 
 void sge::opengl::writeonly_texture_lock::post_lock()

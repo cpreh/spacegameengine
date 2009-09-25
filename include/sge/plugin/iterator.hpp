@@ -21,40 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_ITERATOR_HPP_INCLUDED
 #define SGE_PLUGIN_ITERATOR_HPP_INCLUDED
 
+#include <sge/plugin/detail/iterator_base_type.hpp>
 #include <sge/plugin/category_array.hpp>
 #include <sge/export.hpp>
-#include <boost/iterator/iterator_facade.hpp>
-#include <iterator>
 
 namespace sge
 {
 namespace plugin
 {
 
-template<typename T>
-class context;
-
-template<typename T>
-class iterator;
-
-namespace detail
+template<
+	typename T
+>
+class iterator
+:
+	public detail::iterator_base_type<T>::type
 {
-
-template<typename T>
-class iterator_base_type {
-public:
-	typedef boost::iterator_facade<
- 		iterator<T>,
-		context<T>,
-		std::random_access_iterator_tag,
-		context<T>
-	> type;
-};
-
-}
-
-template<typename T>
-class iterator : public detail::iterator_base_type<T>::type  {
 public:
 	typedef typename detail::iterator_base_type<T>::type base_type;
 

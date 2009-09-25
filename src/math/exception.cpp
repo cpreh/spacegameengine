@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/exception.hpp>
 
 sge::math::exception::exception(
-	string const &s)
+	sge::string const &s)
 :
 	sge::exception(s)
 {}

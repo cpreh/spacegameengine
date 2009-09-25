@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/level_string.hpp>
 #include <sge/text.hpp>
 #include <sge/exception.hpp>
-#include <boost/tr1/array.hpp>
+#include <tr1/array>
 #include <algorithm>
 
 namespace

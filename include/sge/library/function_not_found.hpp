@@ -34,13 +34,13 @@ namespace library
 class SGE_CLASS_SYMBOL function_not_found : public exception {
 public:
 	SGE_SYMBOL function_not_found(
-		string const &lib,
+		sge::string const &lib,
 		function_string const &fun);
 	
-	SGE_SYMBOL string const &lib() const;
+	SGE_SYMBOL sge::string const &lib() const;
 	SGE_SYMBOL function_string const &func() const;
 private:
-	string lib_;
+	sge::string lib_;
 	function_string func_;
 };
 

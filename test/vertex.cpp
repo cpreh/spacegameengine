@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
+#include <sge/renderer/resource_flags_none.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/any/convert.hpp>
@@ -104,7 +105,7 @@ try
 	{
 		sge::renderer::scoped_vertex_lock const vblock(
 			vb,
-			sge::renderer::lock_flags::writeonly
+			sge::renderer::lock_mode::writeonly
 		);
 
 		typedef sge::renderer::vf::view<
@@ -189,7 +190,7 @@ try
 }
 catch(sge::exception const &e)
 {
-	sge::cerr << e.what() << SGE_TEXT('\n');
+	sge::cerr << e.string() << SGE_TEXT('\n');
 	return EXIT_FAILURE;
 }
 catch(std::exception const &e)

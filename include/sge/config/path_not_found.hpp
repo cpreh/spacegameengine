@@ -33,7 +33,7 @@ namespace config
 class SGE_CLASS_SYMBOL path_not_found : public exception {
 public:
 	SGE_SYMBOL explicit path_not_found(
-		string const &);
+		sge::string const &);
 };
 
 }

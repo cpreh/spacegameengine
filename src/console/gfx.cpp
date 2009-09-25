@@ -250,7 +250,7 @@ void sge::console::gfx::key_action(
 			}
 			catch (exception const &e)
 			{
-				print(SGE_TEXT("console error: ")+e.what());
+				print(SGE_TEXT("console error: ")+e.string());
 			}
 
 			// add executed command to each history (at the front)...

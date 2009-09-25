@@ -34,10 +34,11 @@ GLenum sge::opengl::convert_texture_filter(
 		return GL_LINEAR_MIPMAP_NEAREST;
 	case renderer::filter::min::trilinear:
 		return GL_LINEAR_MIPMAP_LINEAR;
-	default:
-		throw exception(
-			SGE_TEXT("Invalid min_filter!"));
 	}
+
+	throw exception(
+		SGE_TEXT("Invalid min_filter!")
+	);
 }
 
 GLenum sge::opengl::convert_texture_filter(
@@ -48,10 +49,9 @@ GLenum sge::opengl::convert_texture_filter(
 		return GL_NEAREST;
 	case renderer::filter::mag::linear:
 		return GL_LINEAR;
-	default:
-		throw exception(
-			SGE_TEXT("Invalid mag_filter!"));
 	}
+
+	throw exception(
+		SGE_TEXT("Invalid mag_filter!")
+	);
 }
-
-

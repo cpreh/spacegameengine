@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/cube_side.hpp>
 #include <sge/renderer/texture_base.hpp>
 #include <sge/renderer/lock_rect.hpp>
+#include <sge/renderer/lock_mode.hpp>
 #include <sge/image/view/const_object.hpp>
 #include <sge/image/view/object.hpp>
 #include <sge/export.hpp>
@@ -33,34 +34,47 @@ namespace sge
 namespace renderer
 {
 
-class SGE_CLASS_SYMBOL cube_texture : public texture_base {
+class SGE_CLASS_SYMBOL cube_texture
+:
+	public texture_base
+{
 public:
 	typedef lock_rect rect_type;
 
 	SGE_SYMBOL image::view::object const
 	lock(
 		cube_side::type side,
-		lock_flag_type);
+		lock_mode::type	
+	);
 
 	SGE_SYMBOL image::view::const_object const
 	lock(
-		cube_side::type side) const;
+		cube_side::type side
+	) const;
 
 	virtual image::view::object const lock(
 		cube_side::type side,
 		lock_rect const &,
-		lock_flag_type) = 0;
+		lock_mode::type
+	) = 0;
 	
 	virtual image::view::const_object const
 	lock(
 		cube_side::type side,
-		lock_rect const &) const = 0;
+		lock_rect const &
+	) const = 0;
 
-	virtual void unlock() const = 0;
+	virtual void
+	unlock() const = 0;
 
-	SGE_SYMBOL size_type content() const;
-	SGE_SYMBOL rect_type const rect() const;
-	virtual size_type border_size() const = 0;
+	SGE_SYMBOL size_type
+	content() const;
+
+	SGE_SYMBOL rect_type const
+	rect() const;
+
+	virtual size_type
+	border_size() const = 0;
 };
 
 }

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_DETAIL_SCOPED_BUFFER_LOCK_HPP_INCLUDED
 
 #include <sge/renderer/detail/npos.hpp>
-#include <sge/renderer/lock_flags.hpp>
+#include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/noncopyable.hpp>
 #include <sge/export.hpp>
@@ -43,9 +43,10 @@ class scoped_buffer_lock {
 public:
 	SGE_SYMBOL scoped_buffer_lock(
 		Ptr,
-		lock_flag_t,
+		lock_mode::type,
 		size_type first = 0,
-		size_type count = npos);
+		size_type count = npos
+	);
 	
 	SGE_SYMBOL View const
 	value() const;

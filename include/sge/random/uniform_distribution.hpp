@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RANDOM_UNIFORM_DISTRIBUTION_HPP_INCLUDED
 
 #include <boost/utility/enable_if.hpp>
-#include <boost/tr1/random.hpp>
+#include <tr1/random>
 #include <boost/type_traits/is_floating_point.hpp>
 #include <boost/type_traits/is_integral.hpp>
 

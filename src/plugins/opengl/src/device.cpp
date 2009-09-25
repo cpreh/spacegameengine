@@ -154,7 +154,8 @@ sge::renderer::index_buffer_ptr const
 sge::opengl::device::create_index_buffer(
 	renderer::index::format::type const format,
 	renderer::size_type const sz,
-	renderer::resource_flag_t const flags)
+	renderer::resource_flags_field const &flags
+)
 {
 	switch(format) {
 	case renderer::index::format::i16:
@@ -165,7 +166,9 @@ sge::opengl::device::create_index_buffer(
 				>
 			>(
 				sz,
-				flags));
+				flags
+			)
+		);
 	case renderer::index::format::i32:
 		return renderer::index_buffer_ptr(
 			make_shared_ptr<
@@ -174,7 +177,9 @@ sge::opengl::device::create_index_buffer(
 				>
 			>(
 				sz,
-				flags));
+				flags
+			)
+		);
 	default:
 		throw exception(
 			SGE_TEXT("Invalid index::format!"));
@@ -186,7 +191,8 @@ sge::opengl::device::create_texture(
 	renderer::texture::dim_type const &dim,
 	image::color::format::type const format,
 	renderer::filter::texture const &filter,
-	renderer::texture::resource_flag_type const flags)
+	renderer::resource_flags_field const &flags
+)
 {
 	return renderer::texture_ptr(
 		make_shared_ptr<
@@ -204,7 +210,8 @@ sge::renderer::vertex_buffer_ptr const
 sge::opengl::device::create_vertex_buffer(
 	renderer::vf::dynamic_format const &format,
 	renderer::size_type const sz,
-	renderer::resource_flag_t const flags)
+	renderer::resource_flags_field const &flags
+)
 {
 	return renderer::vertex_buffer_ptr(
 		make_shared_ptr<
@@ -239,7 +246,8 @@ sge::opengl::device::create_cube_texture(
 	renderer::size_type const border_size,
 	image::color::format::type const format,
 	renderer::filter::texture const &filter,
-	renderer::resource_flag_t const flags)
+	renderer::resource_flags_field const &flags
+)
 {
 	return renderer::cube_texture_ptr(
 		make_shared_ptr<
@@ -468,7 +476,9 @@ void sge::opengl::device::target(
 
 	shared_ptr<opengl::texture> const p(
 		dynamic_pointer_cast<opengl::texture>(
-			ntarget));
+			ntarget
+		)
+	);
 	
 	fbo_target_ptr const ftarget = create_target();
 
