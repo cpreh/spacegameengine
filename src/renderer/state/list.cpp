@@ -30,7 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/foreach.hpp>
 
 sge::renderer::state::list::list(
-	any const &a)
+	any const &a
+)
 :
 	set_(
 		boost::bind(
@@ -42,6 +43,9 @@ sge::renderer::state::list::list(
 {
 	set_.insert(a);
 }
+
+sge::renderer::state::list::~list()
+{}
 
 sge::renderer::state::list const
 sge::renderer::state::list::operator()(
