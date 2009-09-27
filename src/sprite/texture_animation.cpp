@@ -26,12 +26,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/next_prior.hpp>
 
 sge::sprite::texture_animation::texture_animation(
-	animation_series const &series_,
+	animation_series const &nseries_,
 	loop_method::type const action,
 	object &spr,
 	time::fun const &time_function)
 :
-	series(series_),
+	series_(nseries_),
 	action(action),
 	cur_timer(
 		time::resolution(
@@ -41,9 +41,9 @@ sge::sprite::texture_animation::texture_animation(
 		time_function
 	),
 	spr(spr),
-	pos(series.begin())
+	pos(series_.begin())
 {
-	if(series.empty())
+	if(series_.empty())
 		throw exception(
 			SGE_TEXT("texture_animation series is empty!"));
 	reset();
@@ -54,7 +54,7 @@ bool sge::sprite::texture_animation::process()
 	if(!cur_timer.expired())
 		return false;
 
-	if(boost::next(pos) == series.end())
+	if(boost::next(pos) == series_.end())
 	{
 		switch(action) {
 		case loop_method::repeat:
@@ -79,9 +79,17 @@ bool sge::sprite::texture_animation::process()
 
 void sge::sprite::texture_animation::reset()
 {
-	spr.texture(series.begin()->tex());
-	pos = series.begin();
+	spr.texture(series_.begin()->tex());
+	pos = series_.begin();
 	cur_timer.interval(
 		time::resolution(
-			series.begin()->delay()));
+			series_.begin()->delay()
+		)
+	);
+}
+
+sge::sprite::animation_series const &
+sge::sprite::texture_animation::series() const
+{
+	return series_;
 }
