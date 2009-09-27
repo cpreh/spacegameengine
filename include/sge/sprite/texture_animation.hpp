@@ -53,11 +53,15 @@ public:
 	
 	SGE_SYMBOL bool process();
 	SGE_SYMBOL void reset();
+
+	SGE_SYMBOL
+	animation_series const &
+	series() const;
 private:
-	animation_series                 series;
-	loop_method::type                action;
-	time::timer                      cur_timer;
-	object                          &spr;
+	animation_series series_;
+	loop_method::type action;
+	time::timer cur_timer;
+	object &spr;
 	animation_series::const_iterator pos;
 };
 
