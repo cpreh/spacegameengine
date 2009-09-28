@@ -126,4 +126,6 @@ int main()
 			)
 		)
 	);
+
+	sge::cout << cross(converted, converted) << SGE_TEXT('\n');
 }

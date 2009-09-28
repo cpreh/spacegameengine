@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MATH_VECTOR_CROSS_HPP_INCLUDED
 
 #include <sge/math/vector/basic_impl.hpp>
+#include <sge/math/detail/has_size.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace sge
 {
@@ -35,15 +37,43 @@ template<
 	typename N,
 	typename S
 >
-basic<T, N, S> const
+typename boost::enable_if<
+	math::detail::has_size<
+		N,
+		3
+	>,
+	basic<T, N, S> const
+>::type
 cross(
 	basic<T, N, S> const &l,
-	basic<T, N, S> const &r)
+	basic<T, N, S> const &r
+)
 {
 	return basic<T, N, S>(
 		l.y() * r.z() - l.z() * r.y(),
 		l.z() * r.x() - l.x() * r.z(),
-		l.x() * r.y() - l.y() * r.x());
+		l.x() * r.y() - l.y() * r.x()
+	);
+}
+
+template<
+	typename T,
+	typename N,
+	typename S
+>
+typename boost::enable_if<
+	math::detail::has_size<
+		N,
+		2
+	>,
+	T
+>::type
+cross(
+	basic<T, N, S> const &l,
+	basic<T, N, S> const &r
+)
+{
+	return l.x() * r.y() - l.y() * r.x();
 }
 
 }
