@@ -31,8 +31,34 @@ namespace function
 namespace detail
 {
 
-template< typename F, typename >
+template< typename F, typename Signature >
 struct functor_wrapper;
+
+/**
+ * variadic template version ...
+ *
+ 
+template< typename F, typename... Args >
+struct functor_wrapper< F, R( Args... ) >
+{
+	functor_wrapper( F &f )
+		: f_( f )
+	{}
+
+	R operator( Args... args )
+	{
+		return static_cast<R>( f_( args... ) );
+	}
+	
+	R operator( Args... args ) const
+	{
+		return static_cast<R>( f_( args...)  );
+	}
+
+	private:
+		F &f_;
+};
+*/
 
 } // end namespace detail
 

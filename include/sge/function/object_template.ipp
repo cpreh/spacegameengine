@@ -53,20 +53,25 @@ struct object< SGE_FUNCTION_OBJECT_PP_TEMPLATE_ARGS >
 {
 	private:
 		/// This class is used to implement the safe_bool idiom.
-		struct hidden_type_
+		struct hidden_type
 		{
-			hidden_type_* m_bool_;
+			hidden_type* bool_;
 		};
 
 		/// This typedef is used to implement the safe_bool idiom.
-		typedef hidden_type_* hidden_type_::* safe_bool_;
+		typedef hidden_type* hidden_type::* safe_bool;
+
+		struct useless {};
 
 	public:
 
 		typedef typename std::tr1::function< SGE_FUNCTION_OBJECT_PP_TEMPLATE_ARGS > function_type;
 		typedef R return_type;
 
-		explicit object()
+		object()
+		{}
+
+		object( detail::clear_type* )
 		{}
 
 		object( const object& other )
@@ -83,8 +88,9 @@ struct object< SGE_FUNCTION_OBJECT_PP_TEMPLATE_ARGS >
 						boost::mpl::not_
 							<
 								detail::has_addressof_overload< F >
-							>
-					>::type* = 0
+							>,
+						useless
+					>::type = useless()
 			)
 			: function_( f )
 		{}
@@ -100,11 +106,79 @@ struct object< SGE_FUNCTION_OBJECT_PP_TEMPLATE_ARGS >
 							<
 								boost::is_class< F >,
 								detail::has_addressof_overload< F >
-							>
-					>::type* = 0
+							>,
+						useless
+					>::type = useless()
 			)
 			: function_( detail::functor_wrapper< F, SGE_FUNCTION_OBJECT_PP_TEMPLATE_ARGS >( f ) )
 		{}
+
+		object& operator= ( const object& other )
+		{
+			object( other ).swap( *this );
+			return *this;
+		}
+
+		object& operator= ( detail::clear_type* c )
+		{
+			function_ = c;
+
+			return *this;
+		}
+		
+		// assignment operator for functors without operator& overload, and regular functions
+		template< typename F >
+		typename boost::enable_if
+			<
+				boost::mpl::not_
+					<
+						detail::has_addressof_overload< F >
+					>,
+				object&
+			>::type operator= ( F f	)
+		{
+			object( f ).swap( *this );
+			return *this;
+		}
+
+		// assignment operator for functors with operator& overload
+		template< typename F >
+		typename boost::enable_if
+			<
+				boost::mpl::and_
+					<
+						boost::is_class< F >,
+						detail::has_addressof_overload< F >
+					>,
+				object&
+			>::type operator= ( F f )
+		{
+			object
+				(
+					detail::functor_wrapper
+						<
+							F,
+							SGE_FUNCTION_OBJECT_PP_TEMPLATE_ARGS
+						>( f )
+				).swap( *this );
+
+			return *this;
+		}
+
+		void swap( object& other )
+		{
+			function_type tmp = function_;
+			function_ = other.function_;
+			other.function_ = tmp;
+		}
+
+		operator safe_bool() const
+		{
+			if( function_ )
+				return &hidden_type::bool_;
+			else
+				return 0;
+		}
 
 		SGE_FUNCTION_OBJECT_PP_FUNCTION_OPERATOR
 		{
@@ -116,15 +190,30 @@ struct object< SGE_FUNCTION_OBJECT_PP_TEMPLATE_ARGS >
 			return function_( SGE_FUNCTION_OBJECT_PP_FUNCTION_ARGS );
 		}
 
-		operator safe_bool_() const
+		const std::type_info& target_type() const
 		{
-			if( function_ )
-				return &hidden_type_::m_bool_;
-			else
-				return 0;
+			return function_.target_type();
+		}
+
+		template< typename F >
+		F* target()
+		{
+			return function_.target<F>();
+		}
+		
+		template< typename F >
+		const F* target() const
+		{
+			return function_.target<F>();
 		}
 
 	private:
+
+		template< typename F >
+		void operator==( const object<F>& ) const;
+		
+		template< typename F >
+		void operator!=( const object<F>& ) const;
 
 		function_type function_;
 };

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/function/detail/has_adressof_overload.hpp>
 #include <sge/function/detail/functor_wrapper.hpp>
+#include <sge/function/detail/clear_type.hpp>
 
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_class.hpp>
@@ -40,8 +41,220 @@ namespace sge
 namespace function
 {
 
-template< typename Function >
+/**
+ * @brief a fully std tr1 compliant function object class
+ *
+ * This class was introduced beause the gcc implementation had problems
+ * with boost::phoenix.
+ * To encounter this, sge::function::object is a wrapper around std::tr1::function
+ *
+ */
+template< typename Singature >
 struct object;
+
+/**
+ * variadic template version ...
+ *
+template< typename R, typename... Args  >
+struct object< R( Args... ) >
+{
+	private:
+		/// This class is used to implement the safe_bool idiom.
+		struct hidden_type
+		{
+			hidden_type* bool_;
+		};
+
+		/// This typedef is used to implement the safe_bool idiom.
+		typedef hidden_type* hidden_type::* safe_bool;
+
+		struct useless {};
+
+	public:
+
+		typedef typename std::tr1::function< R( Args... ) > function_type;
+		typedef R return_type;
+
+		object()
+		{}
+
+		object( detail::clear_type* )
+		{}
+
+		object( const object& other )
+			: function_( other.function_ )
+		{}
+		
+		// constructor for functors without operator& overload, and regular functions
+		template< typename F >
+		object
+			(
+				F f,
+				typename boost::enable_if
+					<
+						boost::mpl::not_
+							<
+								detail::has_addressof_overload< F >
+							>,
+						useless
+					>::type = useless()
+			)
+			: function_( f )
+		{}
+
+		// constructor for functors with operator& overload
+		template< typename F >
+		object
+			(
+				F f,
+				typename boost::enable_if
+					<
+						boost::mpl::and_
+							<
+								boost::is_class< F >,
+								detail::has_addressof_overload< F >
+							>,
+						useless
+					>::type = useless()
+			)
+			: function_( detail::functor_wrapper< F, R( Args... ) >( f ) )
+		{}
+
+		object& operator=( const object& other )
+		{
+			object( other ).swap( *this );
+			return *this;
+		}
+
+		object& operator= ( clear_type* c )
+		{
+			function_ = c;
+
+			return *this;
+		}
+		
+		// assignment operator for functors without operator& overload, and regular functions
+		template< typename F >
+		typename boost::enable_if
+			<
+				boost::mpl::not_
+					<
+						detail::has_addressof_overload< F >
+					>,
+				object&
+			>::type operator= ( F f	)
+		{
+			object( f ).swap( *this );
+			return *this;
+		}
+
+		// assignment operator for functors with operator& overload
+		template< typename F >
+		typename boost::enable_if
+			<
+				boost::mpl::and_
+					<
+						boost::is_class< F >,
+						detail::has_addressof_overload< F >
+					>,
+				object&
+			>::type operator= ( F f )
+		{
+			object
+				(
+					detail::functor_wrapper
+						<
+							F,
+							R( Args... )
+						>( f )
+				).swap( *this );
+
+			return *this;
+		}
+
+		void swap( object& other )
+		{
+			function_type tmp = function_;
+			function_ = other.function_;
+			other.function_ = tmp;
+		}
+
+		operator safe_bool_() const
+		{
+			if( function_ )
+				return &hidden_type_::m_bool_;
+			else
+				return 0;
+		}
+
+		R operator() ( Args... args )
+		{
+			return function_( args... );
+		}
+		
+		R operator() ( Args... args ) const
+		{
+			return function_( args... );
+		}
+
+		const std::type_info& target_type() const
+		{
+			return function_.target_type();
+		}
+
+		template< typename F >
+		F* target()
+		{
+			return function_.target<F>();
+		}
+		
+		template< typename F >
+		const F* target() const
+		{
+			return function_.target<F>();
+		}
+
+	private:
+
+		template< typename F >
+		void operator==( const object<F>& ) const;
+		
+		template< typename F >
+		void operator!=( const object<F>& ) const;
+
+		function_type function_;
+};
+*/
+
+template< typename Signature >
+bool operator== ( const object<Signature>& f, detail::clear_type* )
+{
+	return !f;
+}
+
+template< typename Signature >
+bool operator== ( detail::clear_type*, const object<Signature>& f )
+{
+	return !f;
+}
+
+template< typename Signature >
+bool operator!= ( const object<Signature>& f, detail::clear_type* )
+{
+	return f;
+}
+
+template< typename Signature >
+bool operator!= ( detail::clear_type*, const object<Signature>& f )
+{
+	return f;
+}
+
+template< typename Signature >
+void swap( object<Signature>& x, object<Signature>& y )
+{
+	x.swap( y );
+}
 
 } // end namespace function
 

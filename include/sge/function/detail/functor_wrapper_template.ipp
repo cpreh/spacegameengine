@@ -58,12 +58,12 @@ struct functor_wrapper< F, SGE_FUNCTION_OBJECT_PP_TEMPLATE_ARGS >
 
 	SGE_FUNCTION_OBJECT_PP_FUNCTION_OPERATOR
 	{
-		return static_cast<R>( f_() );
+		return static_cast<R>( f_( SGE_FUNCTION_OBJECT_PP_FUNCTION_ARGS ) );
 	}
 	
 	SGE_FUNCTION_OBJECT_PP_FUNCTION_OPERATOR const
 	{
-		return static_cast<R>( f_() );
+		return static_cast<R>( f_( SGE_FUNCTION_OBJECT_PP_FUNCTION_ARGS ) );
 	}
 
 	private:
