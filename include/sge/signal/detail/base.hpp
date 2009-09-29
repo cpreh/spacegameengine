@@ -24,8 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/signal/detail/concrete_connection.hpp>
 #include <sge/signal/auto_connection.hpp>
 #include <sge/noncopyable.hpp>
+#include <sge/function/object.hpp>
 #include <boost/intrusive/list.hpp>
-#include <boost/function.hpp>
+//#include <boost/function.hpp>
 
 namespace sge
 {
@@ -39,7 +40,7 @@ class base
 	SGE_NONCOPYABLE(base)
 public:
 	typedef T function_signature;
-	typedef boost::function<T> function_type;
+	typedef sge::function::object<T> function_type;
 	typedef detail::concrete_connection<
 			function_signature
 		> concrete_connection;

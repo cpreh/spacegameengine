@@ -28,7 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/const_object.hpp>
 #include <sge/noncopyable.hpp>
 #include <sge/export.hpp>
-#include <boost/function.hpp>
+#include <sge/function/object.hpp>
+//#include <boost/function.hpp>
 
 namespace sge
 {
@@ -40,7 +41,7 @@ class fragmented;
 class manager {
 	SGE_NONCOPYABLE(manager)
 public:
-	typedef boost::function<
+	typedef sge::function::object<
 		fragmented_auto_ptr ()
 	> onalloc_function;
 

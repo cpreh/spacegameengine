@@ -33,7 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/signal/object.hpp>
 #include <sge/math/rect/basic_decl.hpp>
 #include <sge/optional_fwd.hpp>
-#include <boost/function.hpp>
+#include <sge/function/object.hpp>
+//#include <boost/function.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 
 namespace sge
@@ -50,7 +51,7 @@ public:
 		WPARAM,
 		LPARAM);
 
-	typedef boost::function<
+	typedef sge::function::object<
 		callback_signature_type
 	> callback_type;
 

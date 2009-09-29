@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_COLLISION_TEST_CALLBACK_HPP_INCLUDED
 #define SGE_COLLISION_TEST_CALLBACK_HPP_INCLUDED
 
-#include <boost/function.hpp>
+//#include <boost/function.hpp>
+#include <sge/function/object.hpp>
 
 namespace sge
 {
@@ -34,7 +35,7 @@ typedef bool test_callback_fn(
 	satellite const &,
 	satellite const &);
 
-typedef boost::function<
+typedef sge::function::object<
 	test_callback_fn
 > test_callback;
 

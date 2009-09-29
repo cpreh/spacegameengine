@@ -23,14 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/time/unit.hpp>
 #include <sge/export.hpp>
-#include <boost/function.hpp>
+#include <sge/function/object.hpp>
+//#include <boost/function.hpp>
 
 namespace sge
 {
 namespace time
 {
 
-typedef boost::function<unit()> fun;
+typedef sge::function::object<unit()> fun;
 
 SGE_SYMBOL fun const default_time_fun();
 SGE_SYMBOL void default_time_fun(fun const &);

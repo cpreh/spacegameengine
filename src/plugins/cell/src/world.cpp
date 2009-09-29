@@ -137,7 +137,7 @@ sge::cell::world::call_test(
 		? test_callback_(
 			a,
 			b
-		)
+		) 
 		: false;
 }
 

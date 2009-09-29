@@ -25,7 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/function_map.hpp>
 #include <sge/signal/connection_manager.hpp>
 #include <sge/export.hpp>
-#include <boost/function.hpp>
+//#include <boost/function.hpp>
+#include <sge/function/object.hpp>
 
 namespace sge
 {
@@ -34,8 +35,8 @@ namespace console
 class stdlib
 {
 public:
-	typedef boost::function<void (string const &)> print_callback;
-	typedef boost::function<void (string const &)> error_callback;
+	typedef sge::function::object<void (string const &)> print_callback;
+	typedef sge::function::object<void (string const &)> error_callback;
 	SGE_SYMBOL stdlib(
 		object &,
 		print_callback const &,

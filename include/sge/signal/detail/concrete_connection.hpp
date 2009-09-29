@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SIGNAL_DETAIL_CONCRETE_CONNECTION_HPP_INCLUDED
 
 #include <sge/signal/detail/connection.hpp>
-#include <boost/function.hpp>
+#include <sge/function/object.hpp>
+//#include <boost/function.hpp>
 
 namespace sge
 {
@@ -35,7 +36,7 @@ class concrete_connection : public connection
 {
 public:
 	typedef T function_signature;
-	typedef boost::function<T> function_type;
+	typedef sge::function::object<T> function_type;
 
 	concrete_connection(
 		function_type const &);

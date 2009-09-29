@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_COLLISION_CALLBACK_HPP_INCLUDED
 
 #include <sge/signal/object.hpp>
-#include <boost/function.hpp>
+#include <sge/function/object.hpp>
+//#include <boost/function.hpp>
 
 namespace sge
 {
@@ -32,7 +33,7 @@ namespace collision
 class satellite;
 
 typedef void callback_fn(satellite &,satellite &);
-typedef boost::function<callback_fn> callback;
+typedef sge::function::object<callback_fn> callback;
 typedef sge::signal::object<callback_fn> callback_signal;
 
 }
