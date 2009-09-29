@@ -34,126 +34,126 @@ namespace detail
 template< typename F, typename >
 struct functor_wrapper;
 
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 0
-#include <sge/function/detail/functor_wrapper_template.hpp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 1
-#include <sge/function/detail/functor_wrapper_template.hpp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 2
-#include <sge/function/detail/functor_wrapper_template.hpp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 3
-#include <sge/function/detail/functor_wrapper_template.hpp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 4
-#include <sge/function/detail/functor_wrapper_template.hpp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 5
-#include <sge/function/detail/functor_wrapper_template.hpp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 6
-#include <sge/function/detail/functor_wrapper_template.hpp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 7
-#include <sge/function/detail/functor_wrapper_template.hpp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 8
-#include <sge/function/detail/functor_wrapper_template.hpp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 9
-#include <sge/function/detail/functor_wrapper_template.hpp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 10
-#include <sge/function/detail/functor_wrapper_template.hpp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 11
-#include <sge/function/detail/functor_wrapper_template.hpp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 12
-#include <sge/function/detail/functor_wrapper_template.hpp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 13
-#include <sge/function/detail/functor_wrapper_template.hpp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 14
-#include <sge/function/detail/functor_wrapper_template.hpp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 15
-#include <sge/function/detail/functor_wrapper_template.hpp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 16
-#include <sge/function/detail/functor_wrapper_template.hpp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 17
-#include <sge/function/detail/functor_wrapper_template.hpp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 18
-#include <sge/function/detail/functor_wrapper_template.hpp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 19
-#include <sge/function/detail/functor_wrapper_template.hpp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 20
-#include <sge/function/detail/functor_wrapper_template.hpp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 21
-#include <sge/function/detail/functor_wrapper_template.hpp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 22
-#include <sge/function/detail/functor_wrapper_template.hpp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 23
-#include <sge/function/detail/functor_wrapper_template.hpp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 24
-#include <sge/function/detail/functor_wrapper_template.hpp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 25
-#include <sge/function/detail/functor_wrapper_template.hpp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 26
-#include <sge/function/detail/functor_wrapper_template.hpp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 27
-#include <sge/function/detail/functor_wrapper_template.hpp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 28
-#include <sge/function/detail/functor_wrapper_template.hpp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
 } // end namespace detail
 
 } // end namespace function
 
 } // end namespace sge
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 0
+#include <sge/function/detail/functor_wrapper_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 1
+#include <sge/function/detail/functor_wrapper_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 2
+#include <sge/function/detail/functor_wrapper_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 3
+#include <sge/function/detail/functor_wrapper_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 4
+#include <sge/function/detail/functor_wrapper_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 5
+#include <sge/function/detail/functor_wrapper_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 6
+#include <sge/function/detail/functor_wrapper_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 7
+#include <sge/function/detail/functor_wrapper_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 8
+#include <sge/function/detail/functor_wrapper_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 9
+#include <sge/function/detail/functor_wrapper_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 10
+#include <sge/function/detail/functor_wrapper_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 11
+#include <sge/function/detail/functor_wrapper_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 12
+#include <sge/function/detail/functor_wrapper_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 13
+#include <sge/function/detail/functor_wrapper_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 14
+#include <sge/function/detail/functor_wrapper_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 15
+#include <sge/function/detail/functor_wrapper_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 16
+#include <sge/function/detail/functor_wrapper_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 17
+#include <sge/function/detail/functor_wrapper_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 18
+#include <sge/function/detail/functor_wrapper_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 19
+#include <sge/function/detail/functor_wrapper_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 20
+#include <sge/function/detail/functor_wrapper_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 21
+#include <sge/function/detail/functor_wrapper_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 22
+#include <sge/function/detail/functor_wrapper_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 23
+#include <sge/function/detail/functor_wrapper_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 24
+#include <sge/function/detail/functor_wrapper_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 25
+#include <sge/function/detail/functor_wrapper_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 26
+#include <sge/function/detail/functor_wrapper_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 27
+#include <sge/function/detail/functor_wrapper_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 28
+#include <sge/function/detail/functor_wrapper_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
 
 #endif

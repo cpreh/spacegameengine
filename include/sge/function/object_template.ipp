@@ -22,6 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 
+#ifndef SGE_FUNCTION_OBJECT_HPP
+#error "This file is not a standalone header"
+#endif
+
 #define SGE_FUNCTION_OBJECT_PP_TEMPLATE_PARAMS \
    typename R BOOST_PP_COMMA_IF( SGE_FUNCTION_OBJECT_PP_NUM_PARAMS ) \
    BOOST_PP_ENUM_PARAMS( SGE_FUNCTION_OBJECT_PP_NUM_PARAMS, typename T )
@@ -38,7 +42,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FUNCTION_OBJECT_PP_FUNCTION_ARGS \
    BOOST_PP_ENUM_PARAMS( SGE_FUNCTION_OBJECT_PP_NUM_PARAMS, t )
 
+namespace sge
+{
 
+namespace function
+{
 
 template< SGE_FUNCTION_OBJECT_PP_TEMPLATE_PARAMS  >
 struct object< SGE_FUNCTION_OBJECT_PP_TEMPLATE_ARGS >
@@ -120,6 +128,10 @@ struct object< SGE_FUNCTION_OBJECT_PP_TEMPLATE_ARGS >
 
       function_type function_;
 };
+
+} // end namespace function
+
+} // end namespace sge
 
 #undef SGE_FUNCTION_OBJECT_PP_TEMPLATE_PARAMS
 #undef SGE_FUNCTION_OBJECT_PP_TEMPLATE_ARGS
