@@ -18,12 +18,29 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA	02110-1301, USA.
 */
 
+#ifndef SGE_FUNCTION_OBJECT_HPP
+#error "This file is not a standalone header. #include <sge/function/object.hpp> instead."
+#endif
+
+#ifndef SGE_FUNCTION_OBJECT_TEMPLATE_HPP
+#define SGE_FUNCTION_OBJECT_TEMPLATE_HPP
+
+#include <sge/function/detail/has_adressof_overload.hpp>
+#include <sge/function/detail/functor_wrapper.hpp>
+#include <sge/function/detail/clear_type.hpp>
+
+#include <boost/mpl/and.hpp>
+#include <boost/mpl/not.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/is_class.hpp>
+#include <boost/type_traits/is_function.hpp>
+#include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/punctuation/comma_if.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 
-#ifndef SGE_FUNCTION_OBJECT_HPP
-#error "This file is not a standalone header"
+#include <tr1/functional>
+
 #endif
 
 #define SGE_FUNCTION_OBJECT_PP_TEMPLATE_PARAMS \

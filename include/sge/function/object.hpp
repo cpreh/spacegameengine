@@ -21,19 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FUNCTION_OBJECT_HPP
 #define SGE_FUNCTION_OBJECT_HPP
 
-#include <sge/function/detail/has_adressof_overload.hpp>
-#include <sge/function/detail/functor_wrapper.hpp>
+#include <sge/function/object_fwd.hpp>
 #include <sge/function/detail/clear_type.hpp>
-
-#include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_class.hpp>
-#include <boost/type_traits/is_function.hpp>
-#include <boost/mpl/and.hpp>
-#include <boost/mpl/not.hpp>
-#include <boost/mpl/if.hpp>
-#include <boost/preprocessor/repetition/repeat.hpp>
-
-#include <tr1/functional>
 
 namespace sge
 {
@@ -41,16 +30,155 @@ namespace sge
 namespace function
 {
 
-/**
- * @brief a fully std tr1 compliant function object class
- *
- * This class was introduced beause the gcc implementation had problems
- * with boost::phoenix.
- * To encounter this, sge::function::object is a wrapper around std::tr1::function
- *
- */
-template< typename Singature >
-struct object;
+template< typename Signature >
+bool operator== ( const object<Signature>& f, detail::clear_type* )
+{
+	return !f;
+}
+
+template< typename Signature >
+bool operator== ( detail::clear_type*, const object<Signature>& f )
+{
+	return !f;
+}
+
+template< typename Signature >
+bool operator!= ( const object<Signature>& f, detail::clear_type* )
+{
+	return f;
+}
+
+template< typename Signature >
+bool operator!= ( detail::clear_type*, const object<Signature>& f )
+{
+	return f;
+}
+
+template< typename Signature >
+void swap( object<Signature>& x, object<Signature>& y )
+{
+	x.swap( y );
+}
+
+} // end namespace function
+
+} // end namespace sge
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 0
+#include <sge/function/object_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 1
+#include <sge/function/object_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 2
+#include <sge/function/object_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 3
+#include <sge/function/object_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 4
+#include <sge/function/object_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 5
+#include <sge/function/object_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 6
+#include <sge/function/object_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 7
+#include <sge/function/object_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 8
+#include <sge/function/object_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 9
+#include <sge/function/object_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 10
+#include <sge/function/object_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 11
+#include <sge/function/object_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 12
+#include <sge/function/object_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 13
+#include <sge/function/object_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 14
+#include <sge/function/object_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 15
+#include <sge/function/object_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 16
+#include <sge/function/object_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 17
+#include <sge/function/object_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 18
+#include <sge/function/object_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 19
+#include <sge/function/object_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 20
+#include <sge/function/object_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 21
+#include <sge/function/object_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 22
+#include <sge/function/object_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 23
+#include <sge/function/object_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 24
+#include <sge/function/object_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 25
+#include <sge/function/object_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 26
+#include <sge/function/object_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 27
+#include <sge/function/object_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
+
+#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 28
+#include <sge/function/object_template.ipp>
+#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
 
 /**
  * variadic template version ...
@@ -225,155 +353,5 @@ struct object< R( Args... ) >
 		function_type function_;
 };
 */
-
-template< typename Signature >
-bool operator== ( const object<Signature>& f, detail::clear_type* )
-{
-	return !f;
-}
-
-template< typename Signature >
-bool operator== ( detail::clear_type*, const object<Signature>& f )
-{
-	return !f;
-}
-
-template< typename Signature >
-bool operator!= ( const object<Signature>& f, detail::clear_type* )
-{
-	return f;
-}
-
-template< typename Signature >
-bool operator!= ( detail::clear_type*, const object<Signature>& f )
-{
-	return f;
-}
-
-template< typename Signature >
-void swap( object<Signature>& x, object<Signature>& y )
-{
-	x.swap( y );
-}
-
-} // end namespace function
-
-} // end namespace sge
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 0
-#include <sge/function/object_template.ipp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 1
-#include <sge/function/object_template.ipp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 2
-#include <sge/function/object_template.ipp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 3
-#include <sge/function/object_template.ipp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 4
-#include <sge/function/object_template.ipp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 5
-#include <sge/function/object_template.ipp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 6
-#include <sge/function/object_template.ipp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 7
-#include <sge/function/object_template.ipp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 8
-#include <sge/function/object_template.ipp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 9
-#include <sge/function/object_template.ipp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 10
-#include <sge/function/object_template.ipp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 11
-#include <sge/function/object_template.ipp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 12
-#include <sge/function/object_template.ipp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 13
-#include <sge/function/object_template.ipp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 14
-#include <sge/function/object_template.ipp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 15
-#include <sge/function/object_template.ipp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 16
-#include <sge/function/object_template.ipp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 17
-#include <sge/function/object_template.ipp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 18
-#include <sge/function/object_template.ipp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 19
-#include <sge/function/object_template.ipp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 20
-#include <sge/function/object_template.ipp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 21
-#include <sge/function/object_template.ipp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 22
-#include <sge/function/object_template.ipp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 23
-#include <sge/function/object_template.ipp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 24
-#include <sge/function/object_template.ipp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 25
-#include <sge/function/object_template.ipp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 26
-#include <sge/function/object_template.ipp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 27
-#include <sge/function/object_template.ipp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
-
-#define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 28
-#include <sge/function/object_template.ipp>
-#undef SGE_FUNCTION_OBJECT_PP_NUM_PARAMS
 
 #endif
