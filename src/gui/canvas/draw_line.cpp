@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/rect/output.hpp>
 #include <sge/text.hpp>
 #include <sge/lexical_cast.hpp>
-#include <boost/bind.hpp>
+#include <tr1/functional>
 #include <algorithm>
 #include <cmath>
 #include <cstdlib>
@@ -70,9 +70,9 @@ void sge::gui::canvas::object::draw_line(
 			sge::lexical_cast<sge::string>(area()));
 	
 	// increment in each direction, is also diagonal step
- 	point const dd = apply(b-a,boost::bind(&math::signum<unit>,_1));
+ 	point const dd = apply(b-a,std::tr1::bind(&math::signum<unit>,std::tr1::placeholders::_1));
 	// absolute distance between the points
-	point const d = apply(b-a,boost::bind(static_cast<unit (*)(unit)>(std::abs),_1));
+	point const d = apply(b-a,std::tr1::bind(static_cast<unit (*)(unit)>(std::abs),std::tr1::placeholders::_1));
 	// parallel step
 	point const pd = d.x() > d.y() 
 		? point(dd.x(),static_cast<unit>(0)) : point(static_cast<unit>(0),dd.y());

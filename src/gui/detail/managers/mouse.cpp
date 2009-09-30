@@ -40,8 +40,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part_raw.hpp>
 #include <sge/text.hpp>
 #include <sge/assert.hpp>
-#include <boost/bind.hpp>
 #include <boost/foreach.hpp>
+#include <tr1/functional>
 
 namespace
 {
@@ -82,7 +82,13 @@ sge::gui::detail::managers::mouse::mouse(
 :
 	ic(
 	  	is->register_callback(
-	  		boost::bind(&mouse::input_callback,this,_1))),
+	  		std::tr1::bind(
+				&mouse::input_callback,
+				this,
+				std::tr1::placeholders::_1
+			)
+		)
+	),
 	cursor_(_cursor),
 	focus(0),
 	dirty_(false)

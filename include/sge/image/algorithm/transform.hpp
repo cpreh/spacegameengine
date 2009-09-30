@@ -29,8 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/variant/apply_binary.hpp>
 #include <sge/variant/apply_ternary.hpp>
 #include <sge/variant/object_impl.hpp>
-#include <boost/bind.hpp>
-#include <cstddef>
+#include <tr1/functional>
 
 // TODO: provide all overloads
 
@@ -46,10 +45,12 @@ template<
 	typename Dest,
 	typename Op
 >
-void transform(
+void
+transform(
 	Src const &src,
 	Dest const &dest,
-	Op const &op)
+	Op const &op
+)
 {
 	detail::transform_unary<
 		Op
@@ -92,14 +93,14 @@ void transform(
 	Op const &op)
 {
 	variant::apply_unary(
-		boost::bind(
+		std::tr1::bind(
 			detail::transform_unary<
 				Op
 			>(
 				op
 			),
 			src,
-			_1
+			std::tr1::placeholders::_1
 		),
 		dest
 	);
@@ -115,13 +116,13 @@ void transform(
 	Op const &op)
 {
 	variant::apply_unary(
-		boost::bind(
+		std::tr1::bind(
 			detail::transform_unary<
 				Op
 			>(
 				op
 			),
-			_1,
+			std::tr1::placeholders::_1,
 			dest
 		),
 		src
@@ -139,15 +140,15 @@ void transform(
 	Op const &op)
 {
 	variant::apply_binary(
-		boost::bind(
+		std::tr1::bind(
 			detail::transform_binary<
 				Op
 			>(
 				op
 			),
 			src1,
-			_1,
-			_2
+			std::tr1::placeholders::_1,
+			std::tr1::placeholders::_2
 		),
 		src2,
 		dest

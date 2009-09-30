@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key_pair.hpp>
 #include <sge/math/almost_zero.hpp>
 #include <boost/next_prior.hpp>
-#include <boost/bind.hpp>
+#include <tr1/functional>
 #include <algorithm>
 
 namespace
@@ -59,13 +59,29 @@ bool active(sge::gui::widgets::base const &w)
 }
 
 sge::gui::detail::managers::keyboard::keyboard(sge::input::system_ptr const is)
-	: input_filter(is),
-	  ic(
-	     input_filter.register_callback(
-			   boost::bind(&keyboard::input_callback,this,_1,_2,false))),
-	  irc(
-	     input_filter.register_repeat_callback(
-			   boost::bind(&keyboard::repeat_callback,this,_1,_2)))
+:
+	input_filter(is),
+	ic(
+		input_filter.register_callback(
+			std::tr1::bind(
+				&keyboard::input_callback,
+				this,
+				std::tr1::placeholders::_1,
+				std::tr1::placeholders::_2,
+				false
+			)
+		)
+	),
+	irc(
+		input_filter.register_repeat_callback(
+			std::tr1::bind(
+				&keyboard::repeat_callback,
+				this,
+				std::tr1::placeholders::_1,
+				std::tr1::placeholders::_2
+			)
+		)
+	)
 {
 }
 
