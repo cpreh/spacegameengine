@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA	02110-1301, USA.
 */
 
 #ifndef SGE_FUNCTION_DETAIL_FUNCTOR_WRAPPER_HPP
-#error "This file is not a standalone header. #include <sge/function/detail/functor_wrapper.hpp instead."
+#error "This file is not a standalone header. #include <sge/function/detail/functor_wrapper.hpp> instead."
 #endif
 
 #ifndef SGE_FUNCTION_DETAIL_FUNCTOR_WRAPPER_TEMPLATE_HPP

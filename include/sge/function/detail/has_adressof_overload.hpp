@@ -18,8 +18,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-#ifndef SGE_FUNCTION_DETAIL_HAS_ADRESSOF_OVERLOAD_HPP
-#define SGE_FUNCTION_DETAIL_ADRESSOF_OVERLOAD_HPP
+#ifndef SGE_FUNCTION_DETAIL_HAS_ADDRESSOF_OVERLOAD_HPP
+#define SGE_FUNCTION_DETAIL_HAS_ADDRESSOF_OVERLOAD_HPP
 
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_class.hpp>

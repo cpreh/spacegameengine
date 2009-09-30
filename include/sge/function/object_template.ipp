@@ -26,25 +26,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA	02110-1301, USA.
 #define SGE_FUNCTION_OBJECT_TEMPLATE_HPP
 
 #include <sge/function/detail/has_adressof_overload.hpp>
-#include <sge/function/detail/functor_wrapper.hpp>
 #include <sge/function/detail/clear_type.hpp>
+// this include leads to a cpp fail ...
+//#include <sge/function/detail/functor_wrapper.hpp>
 
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/not.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_class.hpp>
 #include <boost/type_traits/is_function.hpp>
-#include <boost/preprocessor/repetition/repeat.hpp>
+
 #include <boost/preprocessor/punctuation/comma_if.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 
 #include <tr1/functional>
-
 #endif
 
 #define SGE_FUNCTION_OBJECT_PP_TEMPLATE_PARAMS \
-	typename R BOOST_PP_COMMA_IF( SGE_FUNCTION_OBJECT_PP_NUM_PARAMS ) \
+   typename R BOOST_PP_COMMA_IF( SGE_FUNCTION_OBJECT_PP_NUM_PARAMS ) \
 	BOOST_PP_ENUM_PARAMS( SGE_FUNCTION_OBJECT_PP_NUM_PARAMS, typename T )
 
 #define SGE_FUNCTION_OBJECT_PP_TEMPLATE_ARGS \

@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/function/object_fwd.hpp>
 #include <sge/function/detail/clear_type.hpp>
+// this include needs to be here to stop the cpp from bitching around
+#include <sge/function/detail/functor_wrapper.hpp>
 
 namespace sge
 {
