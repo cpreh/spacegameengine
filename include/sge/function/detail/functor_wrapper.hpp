@@ -18,10 +18,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-#include <sge/function/detail/functor_wrapper_fwd.hpp>
 
-#ifndef SGE_FUNCTION_DETAIL_FUNCTOR_WRAPPER_HPP
-#define SGE_FUNCTION_DETAIL_FUNCTOR_WRAPPER_HPP
+#ifndef SGE_FUNCTION_DETAIL_FUNCTOR_WRAPPER_HPP_INCLUDED
+#define SGE_FUNCTION_DETAIL_FUNCTOR_WRAPPER_HPP_INCLUDED
+
+#include <sge/function/detail/functor_wrapper_fwd.hpp>
 
 #define SGE_FUNCTION_OBJECT_PP_NUM_PARAMS 0
 #include <sge/function/detail/functor_wrapper_template.ipp>

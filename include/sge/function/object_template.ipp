@@ -1,4 +1,3 @@
-
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2009 Thomas Heller (thom.heller@gmail.com)
@@ -10,20 +9,21 @@ of the License, or (at your option) any later version.
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA	02110-1301, USA.
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-#ifndef SGE_FUNCTION_OBJECT_HPP
+
+#ifndef SGE_FUNCTION_OBJECT_HPP_INCLUDED
 #error "This file is not a standalone header. #include <sge/function/object.hpp> instead."
 #endif
 
-#ifndef SGE_FUNCTION_OBJECT_TEMPLATE_HPP
-#define SGE_FUNCTION_OBJECT_TEMPLATE_HPP
+#ifndef SGE_FUNCTION_OBJECT_TEMPLATE_HPP_INCLUDED
+#define SGE_FUNCTION_OBJECT_TEMPLATE_HPP_INCLUDED
 
 #include <sge/function/detail/has_adressof_overload.hpp>
 #include <sge/function/detail/clear_type.hpp>
@@ -34,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA	02110-1301, USA.
 #include <boost/mpl/not.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_class.hpp>
-#include <boost/type_traits/is_function.hpp>
 
 #include <boost/preprocessor/punctuation/comma_if.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
