@@ -21,17 +21,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key_state_tracker.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/key_pair.hpp>
-#include <boost/bind.hpp>
+#include <tr1/functional>
 
 sge::input::key_state_tracker::key_state_tracker(
-	system_ptr const is)
+	system_ptr const is
+)
 :
 	con(
 		is->register_callback(
-			boost::bind(
+			std::tr1::bind(
 				&key_state_tracker::event_handler,
 				this,
-				_1)))
+				std::tr1::placeholders::_1
+			)
+		)
+	)
 {}
 
 sge::input::key_state
@@ -62,8 +66,10 @@ sge::input::key_state_tracker::operator[](
 	return state(k);
 }
 
-void sge::input::key_state_tracker::event_handler(
-	key_pair const &pair)
+void
+sge::input::key_state_tracker::event_handler(
+	key_pair const &pair
+)
 {
 	key_type const key = pair.key();
 	key_codes[key.code()] = key_types[key] = pair.value();

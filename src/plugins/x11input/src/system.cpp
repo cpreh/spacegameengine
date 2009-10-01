@@ -29,12 +29,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/headers.hpp>
 #include <sge/text.hpp>
 #include <sge/auto_ptr.hpp>
-#include <boost/bind.hpp>
+#include <tr1/functional>
 #include <ostream>
 
 sge::x11input::system::system(
-	x11::window_ptr const wnd)
- :
+	x11::window_ptr const wnd
+)
+:
 	wnd(wnd),
 	acquired(false)
 {
@@ -42,10 +43,10 @@ sge::x11input::system::system(
 	connections.connect(
 		wnd->register_callback(
 			EnterNotify,
-			boost::bind(
+			std::tr1::bind(
 				&system::on_acquire,
 				this,
-				_1
+				std::tr1::placeholders::_1
 			)
 		)
 	);
@@ -53,10 +54,10 @@ sge::x11input::system::system(
 	connections.connect(
 		wnd->register_callback(
 			LeaveNotify,
-			boost::bind(
+			std::tr1::bind(
 				&system::on_release,
 				this,
-				_1
+				std::tr1::placeholders::_1
 			)
 		)
 	);
@@ -64,10 +65,10 @@ sge::x11input::system::system(
 	connections.connect(
 		wnd->register_callback(
 			FocusIn,
-			boost::bind(
+			std::tr1::bind(
 				&system::on_acquire,
 				this,
-				_1
+				std::tr1::placeholders::_1
 			)
 		)
 	);
@@ -75,10 +76,10 @@ sge::x11input::system::system(
 	connections.connect(
 		wnd->register_callback(
 			FocusOut,
-			boost::bind(
+			std::tr1::bind(
 				&system::on_release,
 				this,
-				_1
+				std::tr1::placeholders::_1
 			)
 		)
 	);
@@ -86,10 +87,10 @@ sge::x11input::system::system(
 	connections.connect(
 		wnd->register_callback(
 			MapNotify,
-			boost::bind(
+			std::tr1::bind(
 				&system::on_acquire,
 				this,
-				_1
+				std::tr1::placeholders::_1
 			)
 		)
 	);
@@ -97,10 +98,10 @@ sge::x11input::system::system(
 	connections.connect(
 		wnd->register_callback(
 			UnmapNotify,
-			boost::bind(
+			std::tr1::bind(
 				&system::on_release,
 				this,
-				_1
+				std::tr1::placeholders::_1
 			)
 		)
 	);
@@ -110,10 +111,13 @@ sge::x11input::system::system(
 	> device_auto_ptr;
 
 	input::callback const callback(
-		boost::bind(
+		std::tr1::bind(
 			&system::emit_callback,
 			this,
-			_1));
+			std::tr1::placeholders::_1
+		)
+	);
+
 	{
 		device_auto_ptr mouse_(
 			new mouse(
@@ -130,10 +134,10 @@ sge::x11input::system::system(
 			new keyboard(
 				wnd,
 				callback,
-				boost::bind(
+				std::tr1::bind(
 					&system::emit_repeat_callback,
 					this,
-					_1
+					std::tr1::placeholders::_1
 				)
 			)
 		);
