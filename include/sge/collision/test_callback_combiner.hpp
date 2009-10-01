@@ -1,13 +1,20 @@
 #ifndef SGE_COLLISION_TEST_CALLBACK_COMBINER_HPP_INCLUDED
 #define SGE_COLLISION_TEST_CALLBACK_COMBINER_HPP_INCLUDED
 
-#include <boost/function.hpp>
+#include <sge/function/object_fwd.hpp>
 
 namespace sge
 {
 namespace collision
 {
-typedef boost::function<bool (bool,bool)> test_callback_combiner;
+
+typedef sge::function::object<
+	bool (
+		bool,
+		bool
+	)
+> test_callback_combiner;
+
 }
 }
 
