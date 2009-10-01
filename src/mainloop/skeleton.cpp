@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/input/system.hpp>
-#include <boost/bind.hpp>
 
 void sge::mainloop::skeleton::run()
 {
