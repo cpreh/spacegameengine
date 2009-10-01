@@ -2,13 +2,17 @@
 #define SGE_COLLISION_CALLBACK_HPP_INCLUDED
 
 #include <sge/collision/callback_fn.hpp>
-#include <boost/function.hpp>
+#include <sge/function/object_fwd.hpp>
 
 namespace sge
 {
 namespace collision
 {
-typedef boost::function<callback_fn> callback;
+
+typedef sge::function::object<
+	callback_fn
+> callback;
+
 }
 }
 

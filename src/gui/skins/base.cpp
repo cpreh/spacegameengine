@@ -39,7 +39,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 #include <sge/type_info.hpp>
 #include <boost/mpl/vector.hpp>
-#include <boost/bind.hpp>
 #include <tr1/functional>
 #include <typeinfo>
 
@@ -117,12 +116,13 @@ SGE_GUI_SKIN_DRAW_RETURN(widgets::base) sge::gui::skins::base::draw(
 		call_draw(
 			*this,
 			e),
-		boost::bind(
+		std::tr1::bind(
 			&skins::base::default_handler,
 			this,
-			_1,
-			std::tr1::ref(
-				e)));
+			std::tr1::placeholders::_1,
+			std::tr1::ref(e)
+		)
+	);
 }
 
 SGE_GUI_SKIN_SIZE_RETURN(widgets::base) sge::gui::skins::base::optimal_size(
@@ -144,7 +144,12 @@ SGE_GUI_SKIN_SIZE_RETURN(widgets::base) sge::gui::skins::base::optimal_size(
 	return utility::type_comparator<widgets::types>(
 		w,
 		call_optimal_size(*this),
-		boost::bind(&skins::base::default_hint_handler,this,_1));
+		std::tr1::bind(
+			&skins::base::default_hint_handler,
+			this,
+			std::tr1::placeholders::_1
+		)
+	);
 }
 
 SGE_GUI_SKIN_DRAW_RETURN(widgets::base) sge::gui::skins::base::default_handler(

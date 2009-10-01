@@ -47,7 +47,7 @@ public:
 	SGE_GUI_SYMBOL key_handling::type process_key(events::key const &);
 	SGE_GUI_SYMBOL void process_keyboard_leave(events::keyboard_leave const &);
 
-	typedef boost::function<void ()> clicked_fn;
+	typedef sge::function::object<void ()> clicked_fn;
 	SGE_GUI_SYMBOL signal::auto_connection register_clicked(
 		clicked_fn const &);
 	

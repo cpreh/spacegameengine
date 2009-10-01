@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/bit.hpp>
 #include <sge/exception.hpp>
 #include <sge/make_shared_ptr.hpp>
-#include <boost/bind.hpp>
+#include <tr1/functional>
 #include <algorithm>
 
 namespace
@@ -481,9 +481,9 @@ void sge::d3d9::device::init()
 	std::for_each(
 		resources.begin(),
 		resources.end(),
-		boost::bind(
+		std::tr1::bind(
 			&resource::on_reset,
-			_1
+			std::tr1::placeholders::_1
 		)
 	);
 }
@@ -493,9 +493,9 @@ void sge::d3d9::renderer::release_resources()
 	std::for_each(
 		resources.begin(),
 		resources.end(),
-		boost::bind(
+		std::tr1::bind(
 			&resource::on_loss,
-			_1
+			std::tr1::placeholders::_1
 		)
 	);
 

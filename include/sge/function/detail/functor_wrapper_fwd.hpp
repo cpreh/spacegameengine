@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2009 Thomas Heller (thom.heller@gmail.com)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -17,24 +17,25 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-
-#ifndef SGE_OPENGL_VIEWPORT_FUN_HPP_INCLUDED
-#define SGE_OPENGL_VIEWPORT_FUN_HPP_INCLUDED
-
-#include <sge/window/dim_type.hpp>
-#include <sge/function/object.hpp>
-//#include <boost/function.hpp>
+#ifndef SGE_FUNCTION_DETAIL_FUNCTOR_WRAPPER_FWD_HPP_INCLUDED
+#define SGE_FUNCTION_DETAIL_FUNCTOR_WRAPPER_FWD_HPP_INCLUDED
 
 namespace sge
 {
-namespace opengl
+
+namespace function
 {
 
-typedef sge::function::object<
-	void (window::dim_type const &)
-> view_port_fun;
+namespace detail
+{
 
-}
-}
+template< typename F, typename Signature >
+struct functor_wrapper;
+
+} // end namespace detail
+
+} // end namespace function
+
+} // end namespace sge
 
 #endif

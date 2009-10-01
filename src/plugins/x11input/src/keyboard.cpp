@@ -31,7 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::x11input::keyboard::keyboard(
 	x11::window_ptr const wnd,
 	input::callback const &callback,
-	input::repeat_callback const &repeat_callback)
+	input::repeat_callback const &repeat_callback
+)
 :
 	wnd(wnd),
 	callback(callback),
@@ -41,18 +42,24 @@ sge::x11input::keyboard::keyboard(
 	connections.connect(
 		wnd->register_callback(
 			KeyPress,
-			boost::bind(
+			std::tr1::bind(
 				&keyboard::on_key_event,
 				this,
-				_1)));
+				std::tr1::placeholders::_1
+			)
+		)
+	);
 	
 	connections.connect(
 		wnd->register_callback(
 			KeyRelease,
-			boost::bind(
+			std::tr1::bind(
 				&keyboard::on_key_event,
 				this,
-				_1)));
+				std::tr1::placeholders::_1
+			)
+		)
+	);
 }
 
 void sge::x11input::keyboard::grab()
@@ -60,7 +67,9 @@ void sge::x11input::keyboard::grab()
 	if(need_grab)
 		grab_.reset(
 			new keyboard_grab(
-				wnd));
+				wnd
+			)
+		);
 }
 
 void sge::x11input::keyboard::ungrab()
@@ -75,16 +84,20 @@ void sge::x11input::keyboard::on_key_event(
 	
 	input::key_type const key(
 		keyboard_key(
-			key_event));
+			key_event
+		)
+	);
 
 	// check for repeated key (thanks to SDL)
 	if(xev.type == KeyRelease && XPending(wnd->display()->get()))
 	{
 		XEvent peek;
 		XPeekEvent(wnd->display()->get(), &peek);
-		if(peek.type == KeyPress &&
-		   peek.xkey.keycode == xev.xkey.keycode &&
-		   (peek.xkey.time - xev.xkey.time) < 2)
+		if(
+			peek.type == KeyPress &&
+			peek.xkey.keycode == xev.xkey.keycode &&
+			(peek.xkey.time - xev.xkey.time) < 2
+		)
 		{
 			XNextEvent(wnd->display()->get(), &peek);
 			repeat_callback(key);
@@ -95,5 +108,7 @@ void sge::x11input::keyboard::on_key_event(
 	callback(
 		input::key_pair(
 			key,
-			xev.type == KeyRelease ? 0 : 1));
+			xev.type == KeyRelease ? 0 : 1
+		)
+	);
 }

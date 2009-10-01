@@ -82,7 +82,9 @@ sge::texture::no_fragmented::consume_fragment(
 				renderer::lock_rect::point_type::null(),
 				atlased_size(dim)
 			),
-			std::tr1::ref(*this),
+			std::tr1::ref(
+				*this
+			),
 			need_atlasing(dim.w()),
 			need_atlasing(dim.h())
 		)

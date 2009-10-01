@@ -25,7 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/system_base.hpp>
 #include <sge/sprite/container.hpp>
 #include <sge/export.hpp>
-#include <boost/function.hpp>
+#include <sge/function/object.hpp>
+//#include <boost/function.hpp>
 
 namespace sge
 {
@@ -37,13 +38,13 @@ public:
 	SGE_SYMBOL explicit system(
 		renderer::device_ptr rend);
 	
-	typedef boost::function<
+	typedef sge::function::object<
 		void (
 			object *,
 			object *)
 	> sort_method;
 
-	typedef boost::function<
+	typedef sge::function::object<
 		bool (
 			object const &,
 			object const &)

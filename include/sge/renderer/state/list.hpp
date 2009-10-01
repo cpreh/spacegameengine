@@ -26,7 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/any.hpp>
 #include <sge/variant/object_impl.hpp>
 #include <sge/export.hpp>
-#include <boost/function.hpp>
+#include <sge/function/object.hpp>
+//#include <boost/function.hpp>
 #include <set>
 
 namespace sge
@@ -40,7 +41,7 @@ class list {
 public:
 	typedef std::set<
 		any,
-		boost::function<
+		sge::function::object<
 			bool(
 				any const &,
 				any const &

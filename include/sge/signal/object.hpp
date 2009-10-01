@@ -47,7 +47,8 @@ public:
 	typedef detail::base<T> base;
 	typedef typename base::connection_list connection_list;
 	typedef typename boost::function_traits<T>::result_type result_type;
-	typedef boost::function<result_type (result_type,result_type)> combiner_type;
+	//typedef typename sge::function::object<T>::result_type result_type;
+	typedef sge::function::object<result_type (result_type,result_type)> combiner_type;
 
 	explicit object(
 		combiner_type const &_combiner = boost::phoenix::arg_names::arg1)

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/index_buffer.hpp>
-#include <boost/bind.hpp>
+#include <tr1/functional>
 #include <iterator>
 
 sge::sprite::system::system(
@@ -103,13 +103,13 @@ void sge::sprite::system::render(
 
 sge::sprite::system::sort_method const
 sge::sprite::system::default_sort(
-	boost::bind(
+	std::tr1::bind(
 		std::stable_sort<
 			sge::sprite::object *,
 			bool (*)(sge::sprite::object const &, sge::sprite::object const &)
 		>,
-		_1,
-		_2,
+		std::tr1::placeholders::_1,
+		std::tr1::placeholders::_2,
 		sge::sprite::detail::less
 	)
 );

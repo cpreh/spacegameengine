@@ -26,59 +26,97 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/signal/shared_connection.hpp>
 #include <sge/text.hpp>
 #include <sge/lexical_cast.hpp>
-#include <boost/bind.hpp>
 #include <boost/foreach.hpp>
+#include <tr1/functional>
 
 sge::console::stdlib::stdlib(
 	object &_object,
 	print_callback const &_print,
-	error_callback const &_error)
-	: object_(_object),
-	  print_(_print),
-	  error_(_error),
+	error_callback const &_error
+)
+:
+	object_(_object),
+	print_(_print),
+	error_(_error),
 		connections(
 			assign::make_container<sge::signal::connection_manager::container>
 			(
 				sge::signal::shared_connection(
 					object_.insert(
 						SGE_TEXT("get"),
-						boost::bind(&stdlib::fn_get,this,_1),
-						SGE_TEXT("get <name> - display value of <name>")))
+						std::tr1::bind(
+							&stdlib::fn_get,
+							this,
+							std::tr1::placeholders::_1
+						),
+						SGE_TEXT("get <name> - display value of <name>")
+					)
+				)
 			)
 			(
 				sge::signal::shared_connection(
 					object_.insert(
 						SGE_TEXT("set"),
-						boost::bind(&stdlib::fn_set,this,_1),
-						SGE_TEXT("set <name> <value> - set <name> to <value>")))
+						std::tr1::bind(
+							&stdlib::fn_set,
+							this,
+							std::tr1::placeholders::_1
+						),
+						SGE_TEXT("set <name> <value> - set <name> to <value>")
+					)
+				)
 			)
 			(
 				sge::signal::shared_connection(
 					object_.insert(
 						SGE_TEXT("help"),
-						boost::bind(&stdlib::fn_help,this,_1),
-						SGE_TEXT("list available functions")))
+						std::tr1::bind(
+							&stdlib::fn_help,
+							this,
+							std::tr1::placeholders::_1
+						),
+						SGE_TEXT("list available functions")
+					)
+				)
 			)
 			(
 				sge::signal::shared_connection(
 					object_.insert(
 						SGE_TEXT("lsfuncs"),
-						boost::bind(&stdlib::fn_help,this,_1),
-						SGE_TEXT("list available functions")))
+						std::tr1::bind(
+							&stdlib::fn_help,
+							this,
+							std::tr1::placeholders::_1
+						),
+						SGE_TEXT("list available functions")
+					)
+				)
 			)
 			(
 				sge::signal::shared_connection(
 					object_.insert(
 						SGE_TEXT("lsvars"),
-						boost::bind(&stdlib::fn_lsvars,this,_1),
-						SGE_TEXT("list available variables with values")))
+						std::tr1::bind(
+							&stdlib::fn_lsvars,
+							this,
+							std::tr1::placeholders::_1
+						),
+						SGE_TEXT("list available variables with values")
+					)
+				)
 			)
 			(
 				sge::signal::shared_connection(
 					object_.insert(
 						SGE_TEXT("man"),
-						boost::bind(&stdlib::fn_man,this,_1),
-						SGE_TEXT("usage: man <function> - display help to <function>")))
+						std::tr1::bind(
+							&stdlib::fn_man,
+							this,
+							std::tr1::placeholders::_1
+						),
+						SGE_TEXT("usage: man <function> - display help to <function>")
+					)
+				)
 			)
 		)
 {

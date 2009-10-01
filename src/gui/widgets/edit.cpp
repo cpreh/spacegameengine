@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/metrics.hpp>
 #include <sge/assert.hpp>
 #include <sge/text.hpp>
-#include <boost/bind.hpp>
+#include <tr1/functional>
 #include <locale>
 
 namespace
@@ -118,7 +118,11 @@ void sge::gui::widgets::edit::process_keyboard_enter(events::keyboard_enter cons
 	timer_ = 
 		parent_manager().register_timer(
 			sge::time::second_f(static_cast<time::funit>(0.5)),
-			boost::bind(&edit::blink_callback,this));
+			std::tr1::bind(
+				&edit::blink_callback,
+				this
+			)
+		);
 }
 
 sge::gui::key_handling::type sge::gui::widgets::edit::process_key(events::key const &k)

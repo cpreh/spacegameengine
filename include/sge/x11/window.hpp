@@ -31,9 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/signal/auto_connection.hpp>
 #include <sge/signal/object.hpp>
 #include <sge/export.hpp>
+#include <sge/function/object.hpp>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
-#include <boost/function.hpp>
+//#include <boost/function.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 
 namespace sge
@@ -47,7 +48,7 @@ public:
 	typedef long event_mask_type;
 
 	typedef void function_type(XEvent const &);
-	typedef boost::function<function_type> callback_type;
+	typedef sge::function::object<function_type> callback_type;
 
 	SGE_SYMBOL window(
 		pos_type const &,

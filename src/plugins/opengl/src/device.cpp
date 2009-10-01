@@ -64,8 +64,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/optional_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
-#include <boost/bind.hpp>
 #include <boost/cstdint.hpp>
+#include <tr1/functional>
 #include <sstream>
 
 sge::opengl::device::device(
@@ -82,10 +82,10 @@ sge::opengl::device::device(
 		param,
 		adapter,
 		wnd,
-		boost::bind(
+		std::tr1::bind(
 			&device::reset_viewport,
 			this,
-			_1
+			std::tr1::placeholders::_1
 		)
 	),
 	fbo_active(

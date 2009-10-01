@@ -31,7 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/signal/object.hpp>
 #include <sge/noncopyable.hpp>
 #include <sge/export.hpp>
-#include <boost/function.hpp>
+#include <sge/function/object.hpp>
+//#include <boost/function.hpp>
 
 namespace sge
 {
@@ -44,9 +45,9 @@ class SGE_CLASS_SYMBOL filter
 	SGE_NONCOPYABLE(filter)
 	public:
 	typedef void fn_callback_type (key_pair const &,states const &);
-	typedef boost::function<fn_callback_type> callback_type;
+	typedef sge::function::object<fn_callback_type> callback_type;
 	typedef void fn_repeat_callback_type (key_type const &,states const &);
-	typedef boost::function<fn_repeat_callback_type> repeat_callback_type;
+	typedef sge::function::object<fn_repeat_callback_type> repeat_callback_type;
 
 	SGE_SYMBOL explicit filter(system_ptr);
 

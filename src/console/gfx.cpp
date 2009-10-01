@@ -32,8 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/rect/basic_impl.hpp>
 #include <sge/math/vector/structure_cast.hpp>
 #include <sge/make_shared_ptr.hpp>
-#include <boost/bind.hpp>
 #include <boost/foreach.hpp>
+#include <tr1/functional>
 #include <locale>
 
 sge::console::gfx::gfx(
@@ -58,21 +58,21 @@ sge::console::gfx::gfx(
 	mf(_is),
 	ic(
 		mf.register_callback(
-			boost::bind(
+			std::tr1::bind(
 				&gfx::key_callback,
 				this,
-				_1,
-				_2
+				std::tr1::placeholders::_1,
+				std::tr1::placeholders::_2
 			)
 		)
 	),
 	irc(
 		mf.register_repeat_callback(
-			boost::bind(
+			std::tr1::bind(
 				&gfx::key_action,
 				this,
-				_1,
-				_2
+				std::tr1::placeholders::_1,
+				std::tr1::placeholders::_2
 			)
 		)
 	),

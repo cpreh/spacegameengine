@@ -37,16 +37,25 @@ sge::freetype::system::create_font(
 	];
 
 	font::metrics_ptr fptr(
-		wfptr.lock());
+		wfptr.lock()
+	);
+
 	if (!fptr)
 	{
 		fptr = make_shared_ptr<
 			metrics
 		>(
 			std::tr1::ref(
+<<<<<<< HEAD
 				library_),
+=======
+				library_
+			),
+>>>>>>> master
 			font_name,
-			font_size);
+			font_size
+		);
+
 		wfptr = fptr;
 	}
 	return fptr;

@@ -26,18 +26,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 #include <sge/exception.hpp>
 #include <sge/export.hpp>
-#include <boost/bind.hpp>
 #include <boost/foreach.hpp>
+#include <tr1/functional>
 
 sge::renderer::state::list::list(
 	any const &a
 )
 :
 	set_(
-		boost::bind(
+		std::tr1::bind(
 			any_compare,
-			_1,
-			_2
+			std::tr1::placeholders::_1,
+			std::tr1::placeholders::_2
 		)
 	)
 {

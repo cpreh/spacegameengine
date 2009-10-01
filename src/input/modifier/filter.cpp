@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/container/map_impl.hpp>
 #include <sge/assert.hpp>
 #include <boost/foreach.hpp>
-#include <boost/bind.hpp>
+#include <tr1/functional>
 
 sge::input::modifier::filter::filter(sge::input::system_ptr const is)
 :
@@ -34,10 +34,22 @@ sge::input::modifier::filter::filter(sge::input::system_ptr const is)
 	repeat_signal(),
 	ic(
 		is->register_callback(
-			boost::bind(&filter::input_callback,this,_1))),
+			std::tr1::bind(
+				&filter::input_callback,
+				this,
+				std::tr1::placeholders::_1
+			)
+		)
+	),
 	irc(
 		is->register_repeat_callback(
-			boost::bind(&filter::input_repeat_callback,this,_1))),
+			std::tr1::bind(
+				&filter::input_repeat_callback,
+				this,
+				std::tr1::placeholders::_1
+			)
+		)
+	),
 	modifiers()
 {
 	BOOST_FOREACH(object const &o,list())
@@ -45,14 +57,18 @@ sge::input::modifier::filter::filter(sge::input::system_ptr const is)
 			modifiers.insert(c,static_cast<key_state>(0));
 }
 
-sge::signal::auto_connection sge::input::modifier::filter::register_callback(
-	callback_type const &f)
+sge::signal::auto_connection
+sge::input::modifier::filter::register_callback(
+	callback_type const &f
+)
 {
 	return signal.connect(f);
 }
 
-sge::signal::auto_connection sge::input::modifier::filter::register_repeat_callback(
-	repeat_callback_type const &f)
+sge::signal::auto_connection
+sge::input::modifier::filter::register_repeat_callback(
+	repeat_callback_type const &f
+)
 {
 	return repeat_signal.connect(f);
 }

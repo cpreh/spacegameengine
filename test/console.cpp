@@ -51,8 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cerr.hpp>
 #include <sge/cout.hpp>
 #include <boost/foreach.hpp>
-#include <boost/bind.hpp>
-#include <boost/ref.hpp>
+#include <tr1/functional>
 #include <ostream>
 #include <cstdlib>
 
@@ -101,7 +100,13 @@ try
 	sge::signal::scoped_connection const c0(
 		o.insert(
 			SGE_TEXT("quit"),
-			boost::bind(&quit,boost::ref(running),_1),
+			std::tr1::bind(
+				&quit,
+				std::tr1::ref(
+					running
+				),
+				std::tr1::placeholders::_1
+			),
 			SGE_TEXT("quit test")
 		)
 	);
@@ -158,8 +163,17 @@ try
 
 	sge::console::stdlib lib(
 		o,
-		boost::bind(&sge::console::gfx::print,&gfx_,_1),
-		boost::bind(&sge::console::gfx::print,&gfx_,_1));
+		std::tr1::bind(
+			&sge::console::gfx::print,
+			&gfx_,
+			std::tr1::placeholders::_1
+		),
+		std::tr1::bind(
+			&sge::console::gfx::print,
+			&gfx_,
+			std::tr1::placeholders::_1
+		)
+	);
 
 	gfx_.active(true);
 	

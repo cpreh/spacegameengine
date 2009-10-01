@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/format.hpp>
-#include <boost/bind.hpp>
 #include <boost/foreach.hpp>
+#include <tr1/functional>
 #include <numeric>
 #include <functional>
 
@@ -40,14 +40,14 @@ sge::random::actor::normalized::normalized(
 				elements.begin(),
 				elements.end(),
 				static_cast<float_type>(0),
-				boost::bind(
+				std::tr1::bind(
 					std::plus<
 						float_type
 					>(),
-					_1,
-					boost::bind(
+					std::tr1::placeholders::_1,
+					std::tr1::bind(
 						&element::prob,
-						_2
+						std::tr1::placeholders::_2
 					)
 				)
 			)

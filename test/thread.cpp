@@ -33,7 +33,7 @@ int main()
 		task_.object());
 	sge::cerr << "created future\n";
 	sge::thread::object thread_(
-		boost::ref(
+		std::tr1::ref(
 			task_));
 	sge::cerr << "created thread, waiting now\n";
 	bool result;
@@ -50,7 +50,7 @@ int main()
 	sge::thread::future::shared_object<void> void_future_(
 		void_task_.object());
 	sge::thread::object void_thread_(
-		boost::ref(
+        std::tr1::ref(
 			void_task_));
 	sge::cerr << "thread erstellt\n";
 	sge::cerr << "state is: " << static_cast<int>(void_future_.state()) << "\n";
