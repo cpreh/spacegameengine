@@ -46,12 +46,8 @@ sge::freetype::system::create_font(
 			metrics
 		>(
 			std::tr1::ref(
-<<<<<<< HEAD
-				library_),
-=======
 				library_
 			),
->>>>>>> master
 			font_name,
 			font_size
 		);
