@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/make_auto_ptr.hpp>
 #include <sge/foreach_enumerator.hpp>
 #include <tr1/functional>
-#include <boost/bind.hpp>
 
 sge::log::logger::logger(
 	ostream &sink_,
