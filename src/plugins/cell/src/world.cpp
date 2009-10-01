@@ -27,9 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/optional.hpp>
-#include <boost/bind.hpp>
-#include <boost/ref.hpp>
 #include <boost/foreach.hpp>
+#include <tr1/functional>
 
 sge::cell::world::world(
 	collision::optional_rect const &rect)
@@ -82,26 +81,26 @@ sge::cell::world::create_circle(
 		 make_shared_ptr<
 			circle
 		>(
-			boost::ref(
+			std::tr1::ref(
 				sat
 			),
 			center,
 			speed,
 			radius,
-			boost::ref(
+			std::tr1::ref(
 				grid_
 			),
-			boost::bind(
+			std::tr1::bind(
 				&world::call_test,
 				this,
-				_1,
-				_2
+				std::tr1::placeholders::_1,
+				std::tr1::placeholders::_2
 			),
-			boost::bind(
+			std::tr1::bind(
 				&world::on_collide,
 				this,
-				_1,
-				_2
+				std::tr1::placeholders::_1,
+				std::tr1::placeholders::_2
 			)
 		)
 	);
@@ -147,7 +146,11 @@ sge::cell::world::on_collide(
 	circle &b)
 {
 	sig(
-		boost::ref(a.satellite()),
-		boost::ref(b.satellite())
+		std::tr1::ref(
+			a.satellite()
+		),
+		std::tr1::ref(
+			b.satellite()
+		)
 	);
 }

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/parameters.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/make_shared_ptr.hpp>
-#include <boost/bind.hpp>
+#include <tr1/functional>
 
 sge::opengl::x11::state::state(
 	renderer::parameters const &param,
@@ -77,10 +77,10 @@ sge::opengl::x11::state::state(
  	con_manager.connect(
 		wnd->register_callback(
 			MapNotify,
-			boost::bind(
+			std::tr1::bind(
 				&state::reset_viewport_on_map,
 				this,
-				_1
+				std::tr1::placeholders::_1
 			)
 		)
 	);
@@ -88,10 +88,10 @@ sge::opengl::x11::state::state(
 	con_manager.connect(
 		wnd->register_callback(
 			ConfigureNotify,
-			boost::bind(
+			std::tr1::bind(
 				&state::reset_viewport_on_configure,
 				this,
-				_1
+				std::tr1::placeholders::_1
 			)
 		)
 	);

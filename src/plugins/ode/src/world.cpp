@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../objects/circle.hpp"
 #include <sge/collision/satellite.hpp>
 #include <sge/math/vector/structure_cast.hpp>
-#include <boost/ref.hpp>
+#include <tr1/functional>
 
 sge::ode::world::world(
 	collision::optional_rect const &p)
@@ -113,10 +113,10 @@ void sge::ode::world::internal_collide(dGeomID g1,dGeomID g2)
 		dContactGeom g;
 		if (dCollide(g1,g2,1,&g,sizeof(dContactGeom)))
 			callback_(
-				boost::ref(
+				std::tr1::ref(
 					s1
 				),
-				boost::ref(
+				std::tr1::ref(
 					s2
 				)
 			);

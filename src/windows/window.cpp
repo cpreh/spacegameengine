@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/optional_impl.hpp>
 #include <sge/auto_ptr.hpp>
 #include <tr1/array>
-#include <boost/ref.hpp>
+#include <tr1/functional>
 
 namespace
 {
@@ -201,7 +201,7 @@ sge::windows::window::execute_callback(
 
 	return it != signals.end()
 		? (*(it->second))(
-			boost::ref(
+			std::tr1::ref(
 				*this
 			),
 			msg,

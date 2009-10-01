@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/text.hpp>
-#include <boost/bind.hpp>
+#include <tr1/functional>
 
 namespace
 {
@@ -52,14 +52,17 @@ sge::x11input::mouse::mouse(
 		XDefaultColormap(
 			wnd->display()->get(),
 			wnd->screen()), // TODO: do we have to release this?
-		SGE_TEXT("black")),
+		SGE_TEXT("black")
+	),
 	no_bmp_(
 		wnd->display(),
-		wnd->get()),
+		wnd->get()
+	),
 	cur(
 		wnd->display(),
 		no_bmp_.get(),
-		black_.get()),
+		black_.get()
+	),
 	callback(callback),
 	mouse_last(),
 	dga_(wnd)
@@ -67,24 +70,36 @@ sge::x11input::mouse::mouse(
 	connections.connect(
 		wnd->register_callback(
 			MotionNotify,
-			boost::bind(
+			std::tr1::bind(
 				&mouse::on_motion,
 				this,
-				_1)));
+				std::tr1::placeholders::_1
+			)
+		)
+	);
+
 	connections.connect(
 		wnd->register_callback(
 			ButtonPress,
-			boost::bind(
+			std::tr1::bind(
 				&mouse::on_button_down,
 				this,
-				_1)));
+				std::tr1::placeholders::_1
+			)
+		)
+	);
+
 	connections.connect(
 		wnd->register_callback(
 			ButtonRelease,
-			boost::bind(
+			std::tr1::bind(
 				&mouse::on_button_up,
 				this,
-				_1)));
+				std::tr1::placeholders::_1
+			)
+		)
+	);
+
 	if(!dga_.useable())
 		mouse_last = get_pointer(wnd);
 }
@@ -228,12 +243,17 @@ void sge::x11input::mouse::private_mouse_motion(
 		callback(
 			input::key_pair(
 				mouse_x,
-				deltax));
+				deltax
+			)
+		);
+	
 	if(deltay)
 		callback(
 			input::key_pair(
 				mouse_y,
-				deltay));
+				deltay
+			)
+		);
 }
 
 namespace
