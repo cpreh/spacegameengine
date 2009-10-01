@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FUNCTION_OBJECT_TEMPLATE_HPP_INCLUDED
 #define SGE_FUNCTION_OBJECT_TEMPLATE_HPP_INCLUDED
 
-#include <sge/function/detail/has_adressof_overload.hpp>
+#include <sge/function/detail/has_addressof_overload.hpp>
 #include <sge/function/detail/clear_type.hpp>
 // this include leads to a cpp fail ...
 //#include <sge/function/detail/functor_wrapper.hpp>
