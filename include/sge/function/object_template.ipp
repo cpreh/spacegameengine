@@ -65,7 +65,7 @@ namespace function
 {
 
 template< SGE_FUNCTION_OBJECT_PP_TEMPLATE_PARAMS  >
-struct object< SGE_FUNCTION_OBJECT_PP_TEMPLATE_ARGS >
+class object< SGE_FUNCTION_OBJECT_PP_TEMPLATE_ARGS >
 {
 	private:
 		/// This class is used to implement the safe_bool idiom.
@@ -82,7 +82,7 @@ struct object< SGE_FUNCTION_OBJECT_PP_TEMPLATE_ARGS >
 	public:
 
 		typedef typename std::tr1::function< SGE_FUNCTION_OBJECT_PP_TEMPLATE_ARGS > function_type;
-		typedef R return_type;
+		typedef R result_type;
 
 		object()
 		{}

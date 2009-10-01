@@ -36,7 +36,7 @@ namespace function
  *
  */
 template< typename Singature >
-struct object;
+class object;
 
 } // end namespace function
 
