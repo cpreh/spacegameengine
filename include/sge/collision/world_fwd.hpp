@@ -31,6 +31,7 @@ namespace collision
 class world;
 
 typedef shared_ptr<world> world_ptr;
+typedef shared_ptr<world const> const_world_ptr;
 
 }
 }

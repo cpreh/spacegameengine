@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/intrusive/list.hpp>
 #include <boost/type_traits/is_void.hpp>
 #include <boost/type_traits/function_traits.hpp>
-#include <boost/noncopyable.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace sge
 {
@@ -40,8 +40,11 @@ namespace signal
 
 template<
 	typename T,
-	typename Enable = void>
-class object : public detail::base<T>
+	typename Enable = void
+>
+class object
+:
+	public detail::base<T>
 {
 public:
 	typedef detail::base<T> base;
@@ -55,6 +58,12 @@ public:
 	:
 		combiner_(_combiner)
 	{}
+
+	void combiner(
+		combiner_type const &_combiner)
+	{
+		combiner_ = _combiner;
+	}
 	
 	SGE_SIGNAL_DETAIL_DEFINE_EMPTY_OPERATOR
 	BOOST_PP_REPEAT(SGE_SIGNAL_DETAIL_OPERATOR_LIMIT,SGE_SIGNAL_DETAIL_DEFINE_OPERATOR,nil)
@@ -71,7 +80,9 @@ class object<
 			typename boost::function_traits<T>::result_type
 		>
 	>::type
-> : public detail::base<T>
+>
+:
+	public detail::base<T>
 {
 public:
 	typedef detail::base<T> base;

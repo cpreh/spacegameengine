@@ -14,7 +14,6 @@ FIND_PACKAGE(PNG)
 
 OPTION (ENABLE_AUDIO_NULL "Build the null audio player plugin" OFF)
 OPTION (ENABLE_BITMAP_FONT "Build the bitmap font plugin" ON)
-OPTION (ENABLE_CELL "Build the cell collision plugin" ON)
 OPTION (ENABLE_DINPUT "Build the Direct Input plugin" OFF)
 OPTION (ENABLE_MD3 "Build the md3 model loader plugin" ON)
 OPTION (ENABLE_WAVE "Build the wave loader plugin" ON)
@@ -79,10 +78,6 @@ ENDIF ()
 IF(ENABLE_BITMAP_FONT)
 	ADD_SUBDIRECTORY (bitmapfont)
 ENDIF()
-
-IF(ENABLE_CELL)
-	ADD_SUBDIRECTORY (cell)
-ENDIF ()
 
 IF(ENABLE_D3D9)
 	ADD_SUBDIRECTORY (d3d9)

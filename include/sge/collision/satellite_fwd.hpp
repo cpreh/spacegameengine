@@ -29,6 +29,7 @@ namespace collision
 {
 class satellite;
 typedef sge::auto_ptr<satellite> satellite_ptr;
+typedef sge::auto_ptr<satellite const> const_satellite_ptr;
 }
 }
 

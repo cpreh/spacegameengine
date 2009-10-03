@@ -29,9 +29,8 @@ namespace collision
 {
 
 class system;
-typedef shared_ptr<
-	system
-> system_ptr;
+typedef shared_ptr<system> system_ptr;
+typedef shared_ptr<system const> const_system_ptr;
 
 }
 }

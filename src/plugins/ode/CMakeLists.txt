@@ -1,14 +1,6 @@
-FILE (GLOB_RECURSE sgeodefiles src/*.cpp)
-
-IF (MSVC)
-	INCLUDE_DIRECTORIES (${WININCLUDES}/libode/include)
-	LINK_DIRECTORIES (${CMAKE_SOURCE_DIR}/${WINLIBS}/libode/lib)
-ELSE ()
-	INCLUDE_DIRECTORIES(${ODE_INCLUDE_DIR})
-ENDIF ()
+FILE (GLOB sgeodefiles src/*.cpp src/shapes/*.cpp)
 
 ADD_LIBRARY (sgeode SHARED ${sgeodefiles})
-
-TARGET_LINK_LIBRARIES (sgeode sgecore ${ODE_LIBRARY})
+TARGET_LINK_LIBRARIES (sgeode sgecore ode)
 
 INSTALL (TARGETS sgeode DESTINATION lib/sge)

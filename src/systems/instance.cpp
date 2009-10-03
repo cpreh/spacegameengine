@@ -381,7 +381,7 @@ sge::systems::instance::impl::load_plugin(
 	SGE_LOG_WARNING(
 		log::global(),
 		log::_1
-			<< SGE_TEXT("Tried to login plugin of type ")
+			<< SGE_TEXT("Tried to load plugin of type ")
 			<< type_info(typeid(T)).name()
 			<< SGE_TEXT(" with name \"")
 			<< name

@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
 #include <sge/x11/sentry.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
 sge::x11input::keyboard_grab::keyboard_grab(
 	x11::window_ptr const wnd)
@@ -32,16 +34,21 @@ sge::x11input::keyboard_grab::keyboard_grab(
 {
 	SGE_X11_SENTRY
 
-	handle_grab(
-		XGrabKeyboard(
-			wnd->display()->get(),
-			wnd->get(),
-			True,
-			GrabModeAsync,
-			GrabModeAsync,
-			CurrentTime
+	if(
+		handle_grab(
+			XGrabKeyboard(
+				wnd->display()->get(),
+				wnd->get(),
+				True,
+				GrabModeAsync,
+				GrabModeAsync,
+				CurrentTime
+			)
 		)
-	);
+	)
+		throw exception(
+			SGE_TEXT("Keyboard grab failed!")
+		);
 }
 
 sge::x11input::keyboard_grab::~keyboard_grab()

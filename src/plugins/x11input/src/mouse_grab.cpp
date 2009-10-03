@@ -28,44 +28,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/display.hpp>
 #include <sge/x11/cursor.hpp>
 #include <sge/x11/sentry.hpp>
-#include <sge/exception.hpp>
 
 sge::x11input::mouse_grab::mouse_grab(
 	x11::window_ptr const wnd,
-	x11::cursor const &cur)
+	x11::cursor const &cur
+)
 :
 	wnd(wnd)
 {
 	SGE_X11_SENTRY
 
-	for(;;)
-	{
-		try
-		{
-			handle_grab(
-				XGrabPointer(
-					wnd->display()->get(),
-					wnd->get(),
-					True,
-					PointerMotionMask
-					| ButtonPressMask
-					| ButtonReleaseMask,
-					GrabModeAsync,
-					GrabModeAsync,
-					wnd->get(),
-					cur.get(),
-					CurrentTime));
-			return;
-		}
-		catch(exception const &)
-		{
-			time::sleep(
-				time::second(
-					1
-				)
-			);
-		}
-	}
+	while(
+		!handle_grab(
+			XGrabPointer(
+				wnd->display()->get(),
+				wnd->get(),
+				True,
+				PointerMotionMask
+				| ButtonPressMask
+				| ButtonReleaseMask,
+				GrabModeAsync,
+				GrabModeAsync,
+				wnd->get(),
+				cur.get(),
+				CurrentTime
+			)
+		)
+	)
+		time::sleep(
+			time::second(
+				1
+			)
+		);
 }
 
 sge::x11input::mouse_grab::~mouse_grab()
