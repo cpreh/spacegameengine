@@ -32,6 +32,10 @@ template<
 >
 class strong_typedef {
 public:
+	typedef T value_type;
+
+	typedef Tag tag_type;
+
 	strong_typedef();
 
 	template<
