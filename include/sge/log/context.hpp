@@ -18,68 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOG_TEMPORARY_OUTPUT_HPP_INCLUDED
-#define SGE_LOG_TEMPORARY_OUTPUT_HPP_INCLUDED
+#ifndef SGE_LOG_CONTEXT_HPP_INCLUDED
+#define SGE_LOG_CONTEXT_HPP_INCLUDED
 
-#include <sge/log/temporary_output_fwd.hpp>
-#include <sge/log/output_helper.hpp>
-#include <sge/export.hpp>
-#include <sge/shared_ptr.hpp>
-#include <sge/ostringstream.hpp>
-#include <sge/string.hpp>
-#include <ostream>
+#include <sge/log/context_fwd.hpp>
+#include <sge/log/object_fwd.hpp>
+#include <sge/log/location_fwd.hpp>
+#include <sge/log/detail/context_tree.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
 namespace log
 {
 
-class temporary_output {
+class context {
+	SGE_NONCOPYABLE(context)
 public:
-	SGE_SYMBOL temporary_output();
+	context();
 
-	SGE_SYMBOL string const
-	result() const;
-private:
-	shared_ptr<
-		ostringstream
-	> os;
+	~context();
 
-	template<
-		typename T
-	>
-	friend temporary_output const
-	operator<<(
-		temporary_output const &,
-		T const &
+	void
+	add(
+		location const &,
+		object &
 	);
+
+	void
+	remove(
+		location const &,
+		object &
+	);
+
+	object &
+	find(
+		location const &
+	) const;
+private:
+	detail::context_tree tree_;
 };
-
-template<
-	typename T
->
-temporary_output const
-operator<<(
-	output_helper const &,
-	T const &t
-)
-{
-	return temporary_output() << t;
-}
-
-template<
-	typename T
->
-temporary_output const
-operator<<(
-	temporary_output const &s,
-	T const &t
-)
-{
-	temporary_output n(s);
-	*n.os << t;
-	return n;
-}
 
 }
 }

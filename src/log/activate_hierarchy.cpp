@@ -18,25 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOG_FORMAT_FORMATTER_FWD_HPP_INCLUDED
-#define SGE_LOG_FORMAT_FORMATTER_FWD_HPP_INCLUDED
+#include <sge/log/activate_hierarchy.hpp>
+#include "set_hierarchy.hpp"
 
-#include <sge/shared_ptr.hpp>
-
-namespace sge
+void
+sge::log::object::activate_hierarchy(
+	level::type const level_
+)
 {
-namespace log
-{
-namespace format
-{
-
-class formatter;
-
-typedef shared_ptr<formatter> formatter_ptr;
-typedef shared_ptr<formatter const> const_formatter_ptr;
-
+	set_hierarchy(
+		level_,
+		&object::activate
+	);
 }
-}
-}
-
-#endif

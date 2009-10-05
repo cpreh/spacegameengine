@@ -18,17 +18,66 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOG_LOGGER_FWD_HPP_INCLUDED
-#define SGE_LOG_LOGGER_FWD_HPP_INCLUDED
+#include <sge/log/context.hpp>
 
-namespace sge
+sge::log::context::context()
+:
+	tree_(
+	)
+{}
+
+sge::log::context::~context()
 {
-namespace log
+}
+
+
+void
+sge::log::context::add(
+	location const &location_,
+	object &object_
+)
 {
+	for(
+		detail::location_vector::iterator item(
+			location_.begin()
+		);
+		item != location_.end()
+		++item
+	)
+	{
+		detail::context_tree::iterator const item_it(
+			std::find(
+				cur.begin(),
+				cur.end()
+				*item
+			)
+		);
 
-class logger;
+		if(
+			item_it == cur.end()
+		)
+			cur.push_back(
+				detail::inner_context_node(
+					*item
+				)
+			);
 
+		for(
+			detail::context_tree::iterator it(
+				tree_.begin()
+			);
+		)
+	}
 }
-}
 
-#endif
+void
+remove(
+	location const &,
+	object &
+);
+
+object &
+find(
+	location const &
+) const;
+

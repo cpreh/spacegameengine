@@ -18,46 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOG_LEVEL_STREAM_HPP_INCLUDED
-#define SGE_LOG_LEVEL_STREAM_HPP_INCLUDED
-
-#include <sge/log/temporary_output_fwd.hpp>
-#include <sge/log/format/formatter_fwd.hpp>
-#include <sge/ostream.hpp>
-#include <sge/export.hpp>
-
-namespace sge
+void
+sge::log::object::set_hierarchy(
+	level::type const level_,
+	void (object::*fun)(level::type)
+)
 {
-namespace log
-{
-
-class level_stream {
-public:
-	level_stream(
-		ostream &,
-		format::const_formatter_ptr
-	);
-	
-	SGE_SYMBOL ~level_stream();
-
-	SGE_SYMBOL void log(
-		temporary_output const &,
-		format::const_formatter_ptr addtional_formatter
-	);
-
-	SGE_SYMBOL void
-	formatter(
-		format::const_formatter_ptr
-	);
-
-	SGE_SYMBOL format::const_formatter_ptr const
-	formatter() const;
-private:
-	ostream &dest_;
-	format::const_formatter_ptr formatter_;
-};
-
+	SGE_FOREACH_ENUMERATOR_2(i, level, level_)
+		(this->*fun)(
+			i
+		);
 }
-}
-
-#endif

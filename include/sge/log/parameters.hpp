@@ -18,68 +18,71 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOG_TEMPORARY_OUTPUT_HPP_INCLUDED
-#define SGE_LOG_TEMPORARY_OUTPUT_HPP_INCLUDED
+#ifndef SGE_LOG_PARAMETERS_HPP_INCLUDED
+#define SGE_LOG_PARAMETERS_HPP_INCLUDED
 
-#include <sge/log/temporary_output_fwd.hpp>
-#include <sge/log/output_helper.hpp>
-#include <sge/export.hpp>
-#include <sge/shared_ptr.hpp>
-#include <sge/ostringstream.hpp>
-#include <sge/string.hpp>
-#include <ostream>
+#include <sge/log/parameters_fwd.hpp>
+#include <sge/log/object_fwd.hpp>
+#include <sge/log/format/object_fwd.hpp>
+#include <sge/ostream.hpp>
 
 namespace sge
 {
 namespace log
 {
 
-class temporary_output {
+class parameters {
 public:
-	SGE_SYMBOL temporary_output();
+	parameters const
+	sink(
+		ostream &
+	) const;
 
-	SGE_SYMBOL string const
-	result() const;
-private:
-	shared_ptr<
-		ostringstream
-	> os;
-
-	template<
-		typename T
-	>
-	friend temporary_output const
-	operator<<(
-		temporary_output const &,
-		T const &
+	parameters const
+	parent(
+		object const &
 	);
+
+	parameters const
+	context(
+		log::context &
+	);
+
+	parameters const
+	prefix(
+		string const &
+	);
+
+	parameters const
+	enabled(
+		bool
+	) const;
+
+	parameters const
+	formatter(
+		format::const_object_ptr
+	);
+
+	object const *
+	parent() const;
+
+	ostream *
+	sink() const;
+
+	bool
+	enabled() const;
+
+	format::const_object_ptr const
+	formatter() const;
+private:
+	object const *parent_;
+	
+	ostream *sink_;
+
+	bool enabled_;
+
+	format::const_object_ptr formatter_;
 };
-
-template<
-	typename T
->
-temporary_output const
-operator<<(
-	output_helper const &,
-	T const &t
-)
-{
-	return temporary_output() << t;
-}
-
-template<
-	typename T
->
-temporary_output const
-operator<<(
-	temporary_output const &s,
-	T const &t
-)
-{
-	temporary_output n(s);
-	*n.os << t;
-	return n;
-}
 
 }
 }
