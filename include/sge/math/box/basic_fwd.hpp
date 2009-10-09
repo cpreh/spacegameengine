@@ -18,22 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_RECT_DETAIL_INTERSECTS_IMPL_HPP_INCLUDED
-#define SGE_MATH_RECT_DETAIL_INTERSECTS_IMPL_HPP_INCLUDED
+#ifndef SGE_MATH_BOX_BASIC_FWD_HPP_INCLUDED
+#define SGE_MATH_BOX_BASIC_FWD_HPP_INCLUDED
 
-#include <sge/math/rect/basic_impl.hpp>
-template<
-	typename T
->
-bool
-sge::math::rect::intersects(
-	basic<T> const &l,
-	basic<T> const &r)
+#include <sge/math/size_type.hpp>
+
+namespace sge
 {
-	return !(l.bottom()   < r.top()
-		|| l.top()   > r.bottom()
-		|| l.right() < r.left()
-		|| l.left()  > r.right());
+namespace math
+{
+namespace box
+{
+
+template<
+	typename T,
+	size_type N
+>
+class basic;
+
+}
+}
 }
 
 #endif

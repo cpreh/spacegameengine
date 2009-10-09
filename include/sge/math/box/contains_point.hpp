@@ -18,12 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_RECT_STRUCTURE_CAST_HPP_INCLUDED
-#define SGE_MATH_RECT_STRUCTURE_CAST_HPP_INCLUDED
+#ifndef SGE_MATH_BOX_CONTAINS_POINT_HPP_INCLUDED
+#define SGE_MATH_BOX_CONTAINS_POINT_HPP_INCLUDED
 
-#include <sge/math/rect/basic_impl.hpp>
-#include <sge/math/vector/structure_cast.hpp>
-#include <sge/math/dim/structure_cast.hpp>
+#include <sge/math/box/basic_impl.hpp>
+#include <sge/math/vector/basic_impl.hpp>
+#include <sge/math/vector/static.hpp>
+#include <sge/math/size_type.hpp>
 
 namespace sge
 {
@@ -33,25 +34,28 @@ namespace rect
 {
 
 template<
-	typename Dest,
-	typename Src
+	typename T,
+	size_type N,
+	typename S
 >
-Dest const
-structure_cast(
-	basic<Src> const &src)
+bool
+contains_point(
+	basic<T, N> const &box_,
+	typename vector::static_<T, N>::type const &point_
+)
 {
-	return Dest(
-		vector::structure_cast<
-			typename Dest::point_type
-		>(
-			src.pos()
-		),
-		dim::structure_cast<
-			typename Dest::dim_type
-		>(
-			src.dim()
-		)
-	);
+	bool ret = true;
+
+	for(
+		size_type i = 0;
+		i < N;
+		++i
+	)
+		ret &&=
+			point_[i] >= box_.pos(i)
+			&& point_[i] < box_.max(i);
+	
+	return ret;
 }
 
 }

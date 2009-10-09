@@ -18,31 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_RECT_DETAIL_INTERSECTION_IMPL_HPP_INCLUDED
-#define SGE_MATH_RECT_DETAIL_INTERSECTION_IMPL_HPP_INCLUDED
+#ifndef SGE_MATH_BOX_STRUCTURE_CAST_HPP_INCLUDED
+#define SGE_MATH_BOX_STRUCTURE_CAST_HPP_INCLUDED
 
-#include <sge/math/rect/basic_impl.hpp>
-#include <sge/math/rect/intersects.hpp>
-#include <algorithm>
+#include <sge/math/box/basic_impl.hpp>
+#include <sge/math/vector/structure_cast.hpp>
+#include <sge/math/dim/structure_cast.hpp>
+
+namespace sge
+{
+namespace math
+{
+namespace box
+{
 
 template<
-	typename T
+	typename Dest,
+	typename T,
+	typename N
 >
-sge::math::rect::basic<T> const
-sge::math::rect::intersection(
-	basic<T> const &r1,
-	basic<T> const &r2)
+Dest const
+structure_cast(
+	basic<T, N> const &src
+)
 {
-	if (!intersects(r1,r2))
-		return basic<T>::null();
+	return
+		Dest(
+			sge::math::vector::structure_cast<
+				typename Dest::pos_type
+			>(
+				src.pos()
+			),
+			sge::math::dim::structure_cast<
+				typename Dest::dim_type
+			>(
+				src.dim()
+			)
+		);
+}
 
-	return basic<T>(
-		std::max(r1.left(),r2.left()), 
-		std::max(r1.top(),r2.top()), 
-		std::min(r1.right(),r2.right()), 
-		std::min(r1.bottom(),r2.bottom())
-	);
-
+}
+}
 }
 
 #endif

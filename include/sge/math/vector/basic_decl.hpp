@@ -67,7 +67,9 @@ template<
 	typename S
 >
 class basic
-: public detail::typedef_helper<T, N, S>::type {
+:
+	public detail::typedef_helper<T, N, S>::type
+{
 	typedef typename detail::typedef_helper<T, N, S>::type base;
 public:
 	typedef N dim_wrapper;

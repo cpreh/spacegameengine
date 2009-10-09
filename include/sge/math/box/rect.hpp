@@ -18,24 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_RECT_DETAIL_CONTAINS_POINT_IMPL_HPP_INCLUDED
-#define SGE_MATH_RECT_DETAIL_CONTAINS_POINT_IMPL_HPP_INCLUDED
+#ifndef SGE_MATH_BOX_BASIC_RECT_HPP_INCLUDED
+#define SGE_MATH_BOX_BASIC_RECT_HPP_INCLUDED
 
-#include <sge/math/rect/basic_impl.hpp>
-#include <sge/math/vector/basic_impl.hpp>
+#include <sge/math/box/basic_fwd.hpp>
+#include <sge/restrict_typedef_struct.hpp>
+
+namespace sge
+{
+namespace math
+{
+namespace box
+{
 
 template<
-	typename T,
-	typename N,
-	typename S
+	typename T
 >
-bool
-sge::math::rect::contains_point(
-	basic<T> const &r, 
-	vector::basic<T, N, S> const &p)
-{
-	return p.x() >= r.left() && p.x() <= r.right() &&
-	       p.y() >= r.top()  && p.y() <= r.bottom();
+struct rect {
+	typedef box<
+		T,
+		2
+	> type;
+
+	SGE_RESTRICT_TYPEDEF_STRUCT(rect)
+};
+
+}
+}
 }
 
 #endif
