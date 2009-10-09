@@ -1,7 +1,8 @@
 #include "../world.hpp"
 #include "../body.hpp"
 #include "../group.hpp"
-#include "../shapes/circle.hpp"
+#include "../shapes/sphere.hpp"
+#include "../shapes/box.hpp"
 #include "../shapes/container.hpp"
 #include "../transformer_impl.hpp"
 #include <sge/collision/group_overflow.hpp>
@@ -18,7 +19,8 @@
 #include <sge/cerr.hpp>
 
 sge::ode::world::world(
-	collision::optional_rect const &_r)
+	collision::optional_box const &_r,
+	collision::constraint::type const &_c)
 :
 	world_(
 		dWorldCreate()),
@@ -33,22 +35,39 @@ sge::ode::world::world(
 		sge::math::null<dReal>()),
 	collisions_(),
 	transformer_(
-		_r),
+		collision::optional_box())
+		//_r), disable transformer for now
 	body_count_(
-		0)
+		0),
+	plane_joint_(
+		_c == constraint::constrain_2d
+		? 
+			new joint(
+				dJointCreatePlane2D(
+					world_, 
+					0);)
+		: 
+			0)
 {
 	if (!_r)
-		throw sge::exception(SGE_TEXT("ode needs the optional rect in the world"));
+		throw sge::exception(SGE_TEXT("ode needs the optional box in the world"));
 
-	dVector3 fs = { 0.0f,0.0f,0.0f };
-	dVector3 fs2 = { static_cast<dReal>(_r->w()),static_cast<dReal>(_r->h()),1.0f };
+	point const center = 
+		sge::math::structure_cast<point>(
+			_r.pos() + 
+			sge::math::dim::structure_cast<collision::point>(
+				static_cast<collision::unit>(0.5)*_r.dim()));
+	dim const extents =
+		sge::math::structure_cast<dim>(
+			_r.dim());
 
 	space_ = 
 		dQuadTreeSpaceCreate(
 			0,
-			fs,
-			fs2,
+			center.data(),
+			extents.data(),
 			10);
+
 	/*
 	dWorldSetAutoDisableFlag(
 		world_,
@@ -110,16 +129,28 @@ sge::ode::world::create_body(
 				_linear_velocity));
 }
 
-sge::collision::shapes::circle_ptr const
-sge::ode::world::create_circle(
+sge::collision::shapes::sphere_ptr const
+sge::ode::world::create_sphere(
 	collision::unit const _radius)
 {
 	return 
-		collision::shapes::circle_ptr(
-			new shapes::circle(
+		collision::shapes::sphere_ptr(
+			new shapes::sphere(
 				transformer_,
 				space_,
 				_radius));
+}
+
+sge::collision::shapes::box_ptr const
+sge::ode::world::create_box(
+	collision::dim const &_dim)
+{
+	return 
+		collision::shapes::box_ptr(
+			new shapes::box(
+				transformer_,
+				space_,
+				_dim));
 }
 
 sge::collision::group_ptr const 
@@ -171,7 +202,9 @@ sge::ode::world::collides_with(
 
 sge::ode::world::~world()
 {
-	SGE_ASSERT_MESSAGE(!body_count_,SGE_TEXT("You've tried to delete a world before all of its bodys are dead"));
+	SGE_ASSERT_MESSAGE(
+		!body_count_,
+		SGE_TEXT("You've tried to delete a world before all of its bodys are dead"));
 	dSpaceDestroy(
 		space_);
 	dWorldDestroy(

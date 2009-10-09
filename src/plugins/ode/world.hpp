@@ -4,10 +4,12 @@
 #include "transformer.hpp"
 #include "point.hpp"
 #include "group_id.hpp"
+#include "joint.hpp"
 #include <sge/collision/world.hpp>
-#include <sge/collision/optional_rect.hpp>
+#include <sge/collision/optional_box.hpp>
 #include <sge/collision/callback_signal.hpp>
 #include <sge/collision/dim.hpp>
+#include <sge/scoped_ptr.hpp>
 #include <ode/ode.h>
 #include <map>
 #include <utility>
@@ -22,7 +24,8 @@ class world
 {
 public:
 	world(
-		collision::optional_rect const &);
+		collision::optional_box const &,
+		collision::constraint::type);
 	
 	signal::auto_connection
 	register_test_callback(
@@ -47,9 +50,13 @@ public:
 		collision::point const &,
 		collision::point const &);
 	
-	collision::shapes::circle_ptr const
-	create_circle(
+	collision::shapes::sphere_ptr const
+	create_sphere(
 		collision::unit radius);
+
+	collision::shapes::box_ptr const
+	create_box(
+		collision::dim const &);
 	
 	collision::group_ptr const 
 	create_group();
@@ -65,7 +72,7 @@ public:
 	
 	~world();
 private:
-	// body needs the worldid
+	// body needs the worldid and the plane joint
 	friend class body;
 	
 	typedef 
@@ -91,6 +98,7 @@ private:
 	object_map collisions_;
 	transformer transformer_;
 	unsigned long body_count_;
+	scoped_ptr<joint> plane_joint_;
 	
 	void step(
 		dReal);

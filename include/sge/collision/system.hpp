@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_COLLISION_SYSTEM_HPP_INCLUDED
 
 #include <sge/collision/world_fwd.hpp>
-#include <sge/collision/optional_rect.hpp>
+#include <sge/collision/optional_box.hpp>
+#include <sge/collision/constraint.hpp>
 #include <sge/export.hpp>
 #include <sge/noncopyable.hpp>
 #include <sge/optional.hpp>
@@ -39,7 +40,8 @@ protected:
 public:
 	virtual world_ptr const
 	create_world(
-		optional_rect const &) = 0;
+		optional_box const &,
+		constraint::type) = 0;
 	
 	SGE_SYMBOL virtual ~system();
 };

@@ -25,10 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/collision/body_fwd.hpp>
 #include <sge/collision/group_fwd.hpp>
 #include <sge/collision/unit.hpp>
+#include <sge/collision/dim.hpp>
 #include <sge/collision/point.hpp>
 #include <sge/collision/satellite_fwd.hpp>
 #include <sge/collision/time_unit.hpp>
-#include <sge/collision/shapes/circle_fwd.hpp>
+#include <sge/collision/shapes/sphere_fwd.hpp>
+#include <sge/collision/shapes/box_fwd.hpp>
 #include <sge/collision/shapes/container.hpp>
 #include <sge/collision/callback.hpp>
 #include <sge/collision/test_callback.hpp>
@@ -70,9 +72,13 @@ public:
 		point const &,
 		point const &) = 0;
 	
-	virtual shapes::circle_ptr const
-	create_circle(
+	virtual shapes::sphere_ptr const
+	create_sphere(
 		unit radius) = 0;
+
+	virtual shapes::box_ptr const
+	create_box(
+		collision::dim const &) = 0;
 	
 	virtual group_ptr const 
 	create_group() = 0;

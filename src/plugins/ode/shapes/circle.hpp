@@ -1,9 +1,9 @@
-#ifndef SGE_ODE_SHAPES_CIRCLE_HPP_INCLUDED
-#define SGE_ODE_SHAPES_CIRCLE_HPP_INCLUDED
+#ifndef SGE_ODE_SHAPES_SPHERE_HPP_INCLUDED
+#define SGE_ODE_SHAPES_SPHERE_HPP_INCLUDED
 
 #include "base.hpp"
 #include "../transformer_fwd.hpp"
-#include <sge/collision/shapes/circle.hpp>
+#include <sge/collision/shapes/sphere.hpp>
 
 namespace sge
 {
@@ -11,13 +11,13 @@ namespace ode
 {
 namespace shapes
 {
-class circle
+class sphere
 :
-	public sge::collision::shapes::circle,
+	public sge::collision::shapes::sphere,
 	public ode::shapes::base
 {
 public:
-	circle(
+	sphere(
 		transformer const &,
 		dSpaceID,
 		collision::unit);

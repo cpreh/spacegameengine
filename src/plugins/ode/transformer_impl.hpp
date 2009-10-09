@@ -15,7 +15,7 @@
 namespace
 {
 sge::collision::unit calculate_scaling(
-	sge::collision::optional_rect const &_r)
+	sge::collision::optional_box const &_r)
 {
 	if (!_r)
 		return 
@@ -33,7 +33,7 @@ sge::collision::unit calculate_scaling(
 
 
 sge::ode::transformer::transformer(
-	collision::optional_rect const &_r)
+	collision::optional_box const &_r)
 :
 	scaling_(
 		calculate_scaling(
@@ -104,7 +104,7 @@ sge::ode::point const sge::ode::transformer::velocity_to_ode(
 }
 
 sge::ode::dim const sge::ode::transformer::dim_to_ode(
-	collision::dim const &_d) const
+	sge::collision::dim const &_d) const
 {
 	return 
 		sge::math::dim::structure_cast<dim>(

@@ -44,6 +44,11 @@ sge::ode::body::body(
 		_position);
 	linear_velocity(
 		_linear_velocity);
+	if (world_.plane_joint_)
+		dJointAttach(
+			world_.plane_joint_.value(), 
+			body_, 
+			0);
 }
 
 sge::collision::point const sge::ode::body::position() const

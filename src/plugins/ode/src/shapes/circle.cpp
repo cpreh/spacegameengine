@@ -1,16 +1,16 @@
-#include "../../shapes/circle.hpp"
+#include "../../shapes/sphere.hpp"
 #include "../../transformer.hpp"
 #include "../../transformer_impl.hpp"
 
 // DEBUG
 #include <sge/cerr.hpp>
 
-sge::ode::shapes::circle::circle(
+sge::ode::shapes::sphere::sphere(
 	transformer const &_transformer,
 	dSpaceID const _space,
 	collision::unit const _radius)
 :
-	collision::shapes::circle(),
+	collision::shapes::sphere(),
 	ode::shapes::base(
 		dCreateSphere(
 			_space,
@@ -19,10 +19,10 @@ sge::ode::shapes::circle::circle(
 	transformer_(
 		_transformer)
 {
-	//sge::cerr << "created a circle " << this << " with radius " << _radius << "\n";
+	//sge::cerr << "created a sphere " << this << " with radius " << _radius << "\n";
 }
 
-sge::collision::unit sge::ode::shapes::circle::radius() const
+sge::collision::unit sge::ode::shapes::sphere::radius() const
 {
 	return 
 		transformer_.unit_from_ode(
@@ -30,7 +30,7 @@ sge::collision::unit sge::ode::shapes::circle::radius() const
 				shape_));
 }
 
-void sge::ode::shapes::circle::radius(
+void sge::ode::shapes::sphere::radius(
 	collision::unit const _radius)
 {
 	//sge::cerr << "set radius to " << this << " with radius " << _radius << "\n";

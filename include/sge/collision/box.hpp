@@ -18,21 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_COLLISION_OPTIONAL_RECT_HPP_INCLUDED
-#define SGE_COLLISION_OPTIONAL_RECT_HPP_INCLUDED
+#ifndef SGE_COLLISION_BOX_HPP_INCLUDED
+#define SGE_COLLISION_BOX_HPP_INCLUDED
 
-#include <sge/collision/rect.hpp>
-#include <sge/optional_fwd.hpp>
+#include <sge/collision/unit.hpp>
+#include <sge/math/box/basic_fwd.hpp>
 
 namespace sge
 {
 namespace collision
 {
-
-typedef optional<
-	rect
-> optional_rect;
-
+typedef math::box::basic
+<
+	unit,
+	3
+>
+box;
 }
 }
 

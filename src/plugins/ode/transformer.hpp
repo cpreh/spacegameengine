@@ -3,7 +3,7 @@
 
 #include "point.hpp"
 #include "dim.hpp"
-#include <sge/collision/optional_rect.hpp>
+#include <sge/collision/optional_box.hpp>
 #include <sge/collision/point.hpp>
 #include <sge/math/vector/basic_decl.hpp>
 #include <sge/collision/dim.hpp>
@@ -16,7 +16,7 @@ class transformer
 {
 public:
 	inline transformer(
-		sge::collision::optional_rect const &);
+		sge::collision::optional_box const &);
 	collision::point const
 	inline position_from_ode(
 		point const &) const;
@@ -29,12 +29,12 @@ public:
 	inline point const 
 	position_to_ode(
 		collision::point const &) const;
+	inline sge::ode::dim const 
+	dim_to_ode(
+		sge::collision::dim const &) const;
 	inline point const 
 	velocity_to_ode(
 		collision::point const &) const;
-	inline dim const 
-	dim_to_ode(
-		collision::dim const &) const;
 	inline collision::unit 
 	unit_from_ode(
 		dReal) const;

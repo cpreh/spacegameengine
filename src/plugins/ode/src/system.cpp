@@ -31,11 +31,13 @@ sge::ode::system::system()
 
 sge::collision::world_ptr const
 sge::ode::system::create_world(
-	collision::optional_rect const &r)
+	collision::optional_box const &r,
+	collision::constraint::type const &c)
 {
 	return 
 		make_shared_ptr<world>(
-			r);
+			r,
+			c);
 }
 
 sge::ode::system::~system()
