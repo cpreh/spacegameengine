@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_BOX_BASIC_RECT_HPP_INCLUDED
-#define SGE_MATH_BOX_BASIC_RECT_HPP_INCLUDED
+#ifndef SGE_MATH_BOX_RECT_HPP_INCLUDED
+#define SGE_MATH_BOX_RECT_HPP_INCLUDED
 
 #include <sge/math/box/basic_fwd.hpp>
 #include <sge/restrict_typedef_struct.hpp>
@@ -35,7 +35,7 @@ template<
 	typename T
 >
 struct rect {
-	typedef box<
+	typedef basic<
 		T,
 		2
 	> type;

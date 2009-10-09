@@ -20,9 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/gui/canvas/object.hpp>
 #include <sge/assert.hpp>
-#include <sge/math/rect/contains_point.hpp>
-#include <sge/math/rect/structure_cast.hpp>
-#include <sge/math/rect/output.hpp>
+#include <sge/math/box/contains_point.hpp>
+#include <sge/math/box/structure_cast.hpp>
+#include <sge/math/box/output.hpp>
 #include <sge/math/vector/output.hpp>
 #include <sge/image/algorithm/fill.hpp>
 #include <sge/image/view/sub.hpp>
@@ -43,7 +43,7 @@ void sge::gui::canvas::object::draw_pixel(
 	sge::image::algorithm::fill(
 		sge::image::view::sub(
 			view_,
-			math::rect::structure_cast<
+			math::box::structure_cast<
 				sge::image::rect
 			>(
 				rect(

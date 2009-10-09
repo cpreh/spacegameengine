@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/cube_texture.hpp>
-#include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/box/basic_impl.hpp>
 #include <sge/math/quad.hpp>
 #include <sge/variant/object_impl.hpp>
 
@@ -58,7 +58,7 @@ sge::renderer::cube_texture::rect_type const
 sge::renderer::cube_texture::rect() const
 {
 	return rect_type(
-		rect_type::point_type::null(),
+		rect_type::pos_type::null(),
 		rect_type::dim_type(
 			border_size(),
 			border_size()

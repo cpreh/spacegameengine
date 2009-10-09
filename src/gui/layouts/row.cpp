@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/unit.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/math/dim/output.hpp>
-#include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/box/basic_impl.hpp>
 #include <sge/math/vector/arithmetic.hpp>
 #include <sge/math/vector/structure_cast.hpp>
 #include <sge/math/vector/basic_impl.hpp>
@@ -65,8 +65,10 @@ void sge::gui::layouts::row::compile_static()
 	connected_widget().parent_manager().dirty(
 		connected_widget(),
 		rect(
-			rect::point_type::null(),
-			connected_widget().size()));
+			rect::pos_type::null(),
+			connected_widget().size()
+		)
+	);
 	
 	dim const 
 		optimal = optimal_size(),

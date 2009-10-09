@@ -30,10 +30,24 @@ template<
 	typename T,
 	sge::math::size_type N
 >
+sge::math::box::basic<T, N>::basic()
+:
+	pos_(),
+	dim_()
+{}
+
+template<
+	typename T,
+	sge::math::size_type N
+>
 sge::math::box::basic<T, N>::basic(
-	pos_type const &,
-	dim_type const &
-);
+	pos_type const &pos_,
+	dim_type const &dim_
+)
+:
+	pos_(pos_),
+	dim_(dim_)
+{}
 
 template<
 	typename T,
@@ -47,6 +61,16 @@ sge::math::box::basic<T, N>::null()
 			pos_type::null(),
 			dim_type::null()
 		);
+}
+
+template<
+	typename T,
+	sge::math::size_type N
+>
+typename sge::math::box::basic<T, N>::value_type
+sge::math::box::basic<T, N>::area() const
+{
+	return dim_.content();	
 }
 
 template<
@@ -210,6 +234,42 @@ template<
 	sge::math::size_type N
 >
 void
+sge::math::box::basic<T, N>::w(
+	value_type const w_
+)
+{
+	dim_.w() = w_;
+}
+
+template<
+	typename T,
+	sge::math::size_type N
+>
+void
+sge::math::box::basic<T, N>::h(
+	value_type const h_
+)
+{
+	dim_.h() = h_;
+}
+
+template<
+	typename T,
+	sge::math::size_type N
+>
+void
+sge::math::box::basic<T, N>::d(
+	value_type const d_
+)
+{
+	dim_.d() = d_;
+}
+
+template<
+	typename T,
+	sge::math::size_type N
+>
+void
 sge::math::box::basic<T, N>::pos(
 	pos_type const &npos_
 )
@@ -316,3 +376,5 @@ sge::math::box::basic<T, N>::operator !=(
 {
 	return !(*this == other_);
 }
+
+#endif

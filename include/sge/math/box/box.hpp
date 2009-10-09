@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/box/basic_impl.hpp>
 #include <sge/math/box/contains.hpp>
 #include <sge/math/box/contains_point.hpp>
+#include <sge/math/box/intersection.hpp>
+#include <sge/math/box/intersects.hpp>
 #include <sge/math/box/output.hpp>
 #include <sge/math/box/structure_cast.hpp>
 

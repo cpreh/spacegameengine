@@ -30,13 +30,12 @@ namespace sge
 {
 namespace math
 {
-namespace rect
+namespace box
 {
 
 template<
 	typename T,
-	size_type N,
-	typename S
+	size_type N
 >
 bool
 contains_point(
@@ -51,7 +50,7 @@ contains_point(
 		i < N;
 		++i
 	)
-		ret &&=
+		ret &=
 			point_[i] >= box_.pos(i)
 			&& point_[i] < box_.max(i);
 	

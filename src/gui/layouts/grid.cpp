@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/axis_type.hpp>
 #include <sge/gui/layouts/grid.hpp>
 #include <sge/gui/widgets/base.hpp>
-#include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/box/basic_impl.hpp>
 #include <sge/math/dim/dim.hpp>
 #include <sge/math/vector/vector.hpp>
 #include <sge/math/vector/dim.hpp>
@@ -61,7 +61,9 @@ void sge::gui::layouts::grid::compile_static()
 		connected_widget(),
 		rect(
 			point::null(),
-			connected_widget().size()));
+			connected_widget().size()
+		)
+	);
 	
 	dim const 
 		optimal = optimal_size(),

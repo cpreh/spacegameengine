@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/vector/static.hpp>
 #include <sge/math/dim/basic_decl.hpp>
 #include <sge/math/dim/static.hpp>
-#include <sge/math/rect/basic_fwd.hpp>
+#include <sge/math/box/rect.hpp>
 #include <sge/string.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <utility>
@@ -38,28 +38,31 @@ namespace detail
 {
 class history
 {
-	public:
+public:
 	typedef std::deque<string> container;
 	typedef container::iterator iterator;
 	typedef container::const_iterator const_iterator;
 	typedef container::const_reverse_iterator const_reverse_iterator;
 	typedef boost::iterator_range<const_iterator> iterator_pair;
 	typedef unsigned unit;
-	typedef math::rect::basic<unit> rect;
+	typedef math::box::rect<unit>::type rect;
 	typedef math::dim::static_<unit,2>::type dim;
 	typedef math::vector::static_<unit,2>::type point;
 
 	history();
 
-	iterator_pair const lines_inside(
+	iterator_pair const
+	lines_inside(
 		rect const &,
-		unit height) const;
+		unit height
+	) const;
+
 	void up();
 	void down();
 	void push_front(string const &);
 	void push_back(string const &);
 	string const current() const;
-	private:
+private:
 	container items_;
 	iterator pos_;
 };

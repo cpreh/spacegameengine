@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/sub.hpp>
 #include <sge/math/vector/structure_cast.hpp>
 #include <sge/math/dim/structure_cast.hpp>
-#include <sge/math/rect/structure_cast.hpp>
-#include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/box/structure_cast.hpp>
+#include <sge/math/box/basic_impl.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/text.hpp>
 #include "log.hpp"
@@ -69,7 +69,7 @@ void sge::gui::canvas::font_drawer::draw_char(
 
 	image_view const sub_view = sge::image::view::sub(
 		texture_,
-		sge::math::rect::structure_cast<
+		sge::math::box::structure_cast<
 			sge::image::rect
 		>(
 			sge::font::rect(

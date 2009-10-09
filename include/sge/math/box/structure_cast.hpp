@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/box/basic_impl.hpp>
 #include <sge/math/vector/structure_cast.hpp>
 #include <sge/math/dim/structure_cast.hpp>
+#include <sge/math/size_type.hpp>
 
 namespace sge
 {
@@ -35,7 +36,7 @@ namespace box
 template<
 	typename Dest,
 	typename T,
-	typename N
+	size_type N
 >
 Dest const
 structure_cast(

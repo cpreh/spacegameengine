@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "blit.hpp"
 #include "normalization.hpp"
-#include <sge/math/rect/intersection.hpp>
-#include <sge/math/rect/structure_cast.hpp>
+#include <sge/math/box/intersection.hpp>
+#include <sge/math/box/structure_cast.hpp>
 #include <sge/math/vector/arithmetic.hpp>
 #include <sge/image/color/convert.hpp>
 #include <sge/image/color/any/convert.hpp>
@@ -257,7 +257,8 @@ void sge::gui::utility::blit_invalid(
 	// Calculate intersection of source and destination
 	rect const is = intersection(
 		src_rect,
-		dst_rect);
+		dst_rect
+	);
 	
 	// No intersection? then leave now.
 	if (is == rect::null())
@@ -277,7 +278,7 @@ void sge::gui::utility::blit_invalid(
 		sge::image::algorithm::transform(
 			sge::image::view::sub(
 				src,
-				math::rect::structure_cast<
+				math::box::structure_cast<
 					sge::image::rect
 				>(
 					is_translated_src
@@ -285,7 +286,7 @@ void sge::gui::utility::blit_invalid(
 			),
 			sge::image::view::sub(
 				dst,
-				math::rect::structure_cast<
+				math::box::structure_cast<
 					sge::image::rect
 				>(
 					is_translated_dst
@@ -299,7 +300,7 @@ void sge::gui::utility::blit_invalid(
 		sge::image::algorithm::copy_and_convert(
 			sge::image::view::sub(
 				src,
-				math::rect::structure_cast<
+				math::box::structure_cast<
 					sge::image::rect
 				>(
 					is_translated_src
@@ -307,7 +308,7 @@ void sge::gui::utility::blit_invalid(
 			),
 			sge::image::view::sub(
 				dst,
-				math::rect::structure_cast<
+				math::box::structure_cast<
 					sge::image::rect
 				>(
 					is_translated_dst
@@ -338,13 +339,13 @@ void sge::gui::utility::blit(
 		sge::image::view::sub(
 			sge::image::view::sub(
 				src,
-				math::rect::structure_cast<
+				math::box::structure_cast<
 					sge::image::rect
 				>(
 					src_rect
 				)
 			),
-			math::rect::structure_cast<
+			math::box::structure_cast<
 				sge::image::rect
 			>(
 				src_trans
@@ -352,7 +353,7 @@ void sge::gui::utility::blit(
 		),
 		sge::image::view::sub(
 			dst,
-			math::rect::structure_cast<
+			math::box::structure_cast<
 				sge::image::rect
 			>(
 				clipped

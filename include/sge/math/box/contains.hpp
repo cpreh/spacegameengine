@@ -27,7 +27,7 @@ namespace sge
 {
 namespace math
 {
-namespace rect
+namespace box
 {
 
 template<
@@ -47,7 +47,7 @@ contains(
 		i < N;
 		++i
 	)
-		ret &&=
+		ret &=
 			inner.pos(i) >= outer.pos(i)
 			&& inner.max(i) <= outer.max(i);
 

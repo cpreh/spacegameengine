@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/algorithm/copy_and_convert.hpp>
 #include <sge/image/view/const_object.hpp>
 #include <sge/image/view/dim.hpp>
-#include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/box/basic_impl.hpp>
 
 void sge::renderer::sub_data(
 	texture_ptr const tex,

@@ -25,7 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part.hpp>
 #include <sge/renderer/lock_rect_to_coords.hpp>
 #include <sge/renderer/texture.hpp>
-#include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/box/basic_impl.hpp>
+#include <sge/math/box/rect.hpp>
 #include <sge/math/compare.hpp>
 #include <sge/log/headers.hpp>
 #include <ostream>
@@ -38,28 +39,40 @@ namespace texture
 template<
 	typename T
 >
-math::rect::basic<T> const
+typename math::box::rect<T>::type const
 area_texc(
 	const_part_ptr const part,
-	T const repeat)
+	T const repeat
+)
 {
-	if(!math::compare(repeat, static_cast<T>(1)) && !part->repeatable())
+	if(
+		!math::compare(
+			repeat,
+			static_cast<T>(1)
+		)
+		&& !part->repeatable()
+	)
 		SGE_LOG_WARNING(
 			log::global(),
 			log::_1 << SGE_TEXT("texture not repeatable but repetition is ")
 			        << repeat
-			        << SGE_TEXT('!'));
+			        << SGE_TEXT('!')
+		);
 
-	renderer::const_texture_ptr const tex = part->texture();
+	renderer::const_texture_ptr const tex(
+		part->texture()
+	);
+
 	return tex
-		? renderer::lock_rect_to_coords(
-			part->area(),
-			tex->dim(),
-			repeat)
-		: math::rect::basic<T>::null();
+		?
+			renderer::lock_rect_to_coords(
+				part->area(),
+				tex->dim(),
+				repeat
+			)
+		:
+			math::box::rect<T>::type::null();
 }
-
-
 
 }
 }

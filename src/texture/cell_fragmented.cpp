@@ -24,12 +24,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/vector/dim.hpp>
 #include <sge/math/dim/arithmetic.hpp>
 #include <sge/math/dim/basic_impl.hpp>
-#include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/box/basic_impl.hpp>
 #include <sge/container/raw_vector_impl.hpp>
 #include <sge/container/field_impl.hpp>
+#include <sge/make_shared_ptr.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/assert.hpp>
+#include <tr1/functional>
 
 sge::texture::cell_fragmented::cell_fragmented(
 	renderer::device_ptr const rend,
@@ -56,25 +58,40 @@ sge::texture::cell_fragmented::~cell_fragmented()
 
 sge::texture::part_ptr const
 sge::texture::cell_fragmented::consume_fragment(
-	renderer::dim_type const &dim)
+	renderer::dim_type const &dim
+)
 {
 	if(dim != cell_size)
 		throw exception(
-			SGE_TEXT("Invalid request for consume_fragments in texture::cell_fragmented!"));
+			SGE_TEXT("Invalid request for consume_fragments in texture::cell_fragmented!")
+		);
+
 	// TODO maybe optimize this with a stack?
 	field_type::iterator const it = std::find(cells.begin(), cells.end(), false);
+
 	if(it == cells.end())
 		return part_ptr();
+	
 	*it = true;
 
-	field_type::vector_type const pos = cells.position(it);
-	return part_ptr(
-		new part_fragmented(
+	field_type::vector_type const pos(
+		cells.position(it)
+	);
+
+	return
+		make_shared_ptr<
+			part_fragmented
+		>(
 			renderer::lock_rect(
-				pos + cell_size, cell_size),
-			*this,
+				pos + cell_size,
+				cell_size
+			),
+			std::tr1::ref(
+				*this
+			),
 			true,
-			true));
+			true
+		);
 }
 
 void

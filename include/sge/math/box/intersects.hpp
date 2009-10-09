@@ -18,17 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_RECT_INTERSECTS_HPP_INCLUDED
-#define SGE_MATH_RECT_INTERSECTS_HPP_INCLUDED
+#ifndef SGE_MATH_BOX_INTERSECTS_HPP_INCLUDED
+#define SGE_MATH_BOX_INTERSECTS_HPP_INCLUDED
 
-#include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/box/basic_impl.hpp>
 #include <sge/math/size_type.hpp>
 
 namespace sge
 {
 namespace math
 {
-namespace rect
+namespace box
 {
 
 template<
@@ -49,7 +49,7 @@ intersects(
 		++i
 	)
 		ret
-			||= a.pos(i) > b.max(i)
+			|= a.pos(i) > b.max(i)
 			|| a.max(i) < b.pos(i);
 	
 	return !ret;

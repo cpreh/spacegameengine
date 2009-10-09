@@ -55,6 +55,8 @@ public:
 		N
 	>::type dim_type;
 
+	basic();
+
 	basic(
 		pos_type const &,
 		dim_type const &
@@ -62,6 +64,9 @@ public:
 
 	static basic const
 	null();
+
+	value_type
+	area() const;
 
 	value_type
 	w() const;
@@ -113,6 +118,21 @@ public:
 
 	value_type
 	back() const;
+
+	void
+	w(
+		value_type
+	);
+
+	void
+	h(
+		value_type
+	);
+
+	void
+	d(
+		value_type
+	);
 
 	void
 	pos(

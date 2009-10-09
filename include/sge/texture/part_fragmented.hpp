@@ -27,24 +27,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture_fwd.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/image/view/const_object.hpp>
-#include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/box/basic_impl.hpp>
 
 namespace sge
 {
 namespace texture
 {
 
-class part_fragmented : public part {
+class part_fragmented
+:
+	public part
+{
 public:
 	SGE_SYMBOL part_fragmented(
 		renderer::lock_rect const &outer_rect,
 		fragmented &,
 		bool need_atlasing_w,
-		bool need_atlasing_h);
+		bool need_atlasing_h
+	);
 
 	SGE_SYMBOL void
 	data(
-		image::view::const_object const &src);
+		image::view::const_object const &src
+	);
 	
 	SGE_SYMBOL renderer::lock_rect const &
 	area() const;

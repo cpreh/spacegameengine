@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_BOX_OUTPUT_HPP_INCLUDED
 #define SGE_MATH_BOX_OUTPUT_HPP_INCLUDED
 
-#include <sge/math/rect/basic_fwd.hpp>
+#include <sge/math/box/basic_impl.hpp>
+#include <sge/math/vector/output.hpp>
+#include <sge/math/dim/output.hpp>
 #include <sge/math/size_type.hpp>
 #include <ostream>
 
@@ -29,7 +31,7 @@ namespace sge
 {
 namespace math
 {
-namespace rect
+namespace box
 {
 
 template<
@@ -43,16 +45,16 @@ std::basic_ostream<
 	Traits
 > &
 operator<<(
-	std::basic_ostream<Ch, Traits> &,
+	std::basic_ostream<Ch, Traits> &stream_,
 	basic<T, N> const &box_
 )
 {
-	return s
-		<< s.widen('(')
+	return stream_
+		<< stream_.widen('(')
 		<< box_.pos()
-		<< s.widen(',')
+		<< stream_.widen(',')
 		<< box_.dim()
-		<< s.widen(')');
+		<< stream_.widen(')');
 }
 
 }
