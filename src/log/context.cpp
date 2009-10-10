@@ -133,12 +133,18 @@ sge::log::context::remove(
 
 	while(
 		node_->has_parent()
-		&& node_->size() <= 1
+		&& node_->empty()
 	)
 	{
-		node_ = &node_->parent();
+		detail::context_tree *const parent_(
+			&node_->parent()
+		);
 
-		node_->clear();
+		parent_->erase(
+			node_->child_position()
+		);
+
+		node_ = parent_;
 	}
 }
 

@@ -52,6 +52,25 @@ try
 		)
 	);
 
+	sge::log::object child_logger(
+		sge::log::parameters()
+		.parent(
+			logger
+		)
+		.enabled(
+			true
+		)
+		.context(
+			context_
+		)
+		.prefix(
+			SGE_TEXT("child")
+		)
+		.level(
+			sge::log::level::debug
+		)
+	);
+
 	sge::log::object *const ref(
 		context_.find(
 			*logger.location()
@@ -64,6 +83,23 @@ try
 		*ref,
 		sge::log::_
 			<< SGE_TEXT("test output!")
+	);
+
+	sge::log::object *const child_ref(
+		context_.find(
+			sge::log::location(
+				SGE_TEXT("sge")
+			)
+			+ SGE_TEXT("child")
+		)
+	);
+
+	SGE_ASSERT(child_ref);
+
+	SGE_LOG_INFO(
+		*child_ref,
+		sge::log::_
+			<< SGE_TEXT("child output!")
 	);
 }
 SGE_MAINLOOP_CATCH_BLOCK
