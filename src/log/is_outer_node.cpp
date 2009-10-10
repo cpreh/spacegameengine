@@ -18,41 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/detail/auto_context.hpp>
-#include <sge/log/context.hpp>
-#include <sge/optional_impl.hpp>
-#include <sge/assert.hpp>
+#include "is_outer_node.hpp"
+#include <sge/container/tree_impl.hpp>
+#include <sge/variant/object_impl.hpp>
+#include <typeinfo>
 
-sge::log::detail::auto_context::auto_context(
-	context *const context_,
-	object &object_,
-	optional_location const &location_
+bool
+sge::log::is_outer_node(
+	detail::context_tree const &node_
 )
-:
-	context_(context_),
-	location_(location_)
 {
-	if(context_)
-	{
-		SGE_ASSERT(location_);
-
-		context_->add(
-			*location_,
-			object_
-		);
-	}
-}
-
-sge::log::detail::auto_context::~auto_context()
-{
-	if(context_)
-		context_->remove(
-			*location_
-		);
-}
-
-sge::log::optional_location const
-sge::log::detail::auto_context::location() const
-{
-	return location_;
+	return node_.value().type() == typeid(detail::outer_context_node);
 }

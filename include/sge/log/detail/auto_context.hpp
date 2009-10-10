@@ -51,8 +51,6 @@ public:
 private:
 	context *const context_;
 
-	object &object_;
-
 	optional_location const location_;
 };
 

@@ -18,41 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/detail/auto_context.hpp>
-#include <sge/log/context.hpp>
-#include <sge/optional_impl.hpp>
-#include <sge/assert.hpp>
+#include "find_logger_node.hpp"
+#include "is_outer_node.hpp"
+#include <sge/container/tree_impl.hpp>
+#include <sge/variant/object_impl.hpp>
+#include <tr1/functional>
+#include <algorithm>
 
-sge::log::detail::auto_context::auto_context(
-	context *const context_,
-	object &object_,
-	optional_location const &location_
+sge::log::detail::context_tree::iterator
+sge::log::find_logger_node(
+	detail::context_tree &tree_
 )
-:
-	context_(context_),
-	location_(location_)
 {
-	if(context_)
-	{
-		SGE_ASSERT(location_);
-
-		context_->add(
-			*location_,
-			object_
+	return
+		std::find_if(
+			tree_.begin(),
+			tree_.end(),
+			std::tr1::bind(
+				is_outer_node,
+				std::tr1::placeholders::_1
+			)
 		);
-	}
-}
-
-sge::log::detail::auto_context::~auto_context()
-{
-	if(context_)
-		context_->remove(
-			*location_
-		);
-}
-
-sge::log::optional_location const
-sge::log::detail::auto_context::location() const
-{
-	return location_;
 }

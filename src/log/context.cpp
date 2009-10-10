@@ -18,13 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "inner_node_name.hpp"
+#include "find_logger_node.hpp"
+#include "find_location.hpp"
+#include "find_inner_node.hpp"
 #include <sge/log/context.hpp>
 #include <sge/log/location.hpp>
 #include <sge/container/tree_impl.hpp>
 #include <sge/variant/object_impl.hpp>
 #include <sge/text.hpp>
-#include <algorithm>
+#include <sge/assert.hpp>
 
 sge::log::context::context()
 :
@@ -37,6 +39,9 @@ sge::log::context::context()
 
 sge::log::context::~context()
 {
+	SGE_ASSERT(
+		tree_.empty()
+	);
 }
 
 void
@@ -58,12 +63,9 @@ sge::log::context::add(
 	)
 	{
 		detail::context_tree::iterator const item_it(
-			std::find_if(
-				cur->begin(),
-				cur->end(),
-				inner_node_name(
-					*item
-				)
+			find_inner_node(
+				*cur,
+				*item
 			)
 		);
 
@@ -83,6 +85,13 @@ sge::log::context::add(
 			cur = &*item_it;
 	}
 
+	SGE_ASSERT(
+		find_logger_node(
+			*cur
+		)
+		!= cur->end()
+	);
+
 	cur->push_back(
 		detail::outer_context_node(
 			object_
@@ -92,15 +101,79 @@ sge::log::context::add(
 
 void
 sge::log::context::remove(
-	location const &location_,
-	object &object_
+	location const &location_
 )
 {
+	detail::context_tree *node_(
+		find_location(
+			tree_,
+			location_
+		)
+	);
+
+	SGE_ASSERT(
+		node_
+	);
+
+	detail::context_tree::iterator const logger_node_(
+		find_logger_node(
+			*node_
+		)
+	);
+
+	SGE_ASSERT(
+		logger_node_ != node_->end()
+	);
+
+	node_->erase(
+		logger_node_->child_position()
+	);
+
+	while(
+		node_->has_parent()
+		&& node_->size() == 1
+	)
+	{
+		node_ = &node_->parent();
+
+		node_->clear();
+	}
 }
 
-sge::log::object &
+sge::log::object *
 sge::log::context::find(
 	location const &location_
 ) const
 {
+	detail::context_tree const *const tree_location_(
+		find_location(
+			const_cast<
+				detail::context_tree &
+			>(
+				tree_
+			),
+			location_
+		)
+	);
+
+	if(!tree_location_)
+		return 0;
+
+	detail::context_tree::const_iterator const logger_node_(
+		find_logger_node(
+			const_cast<
+				detail::context_tree &
+			>(
+				*tree_location_
+			)
+		)
+	);
+
+	return logger_node_ != tree_location_->end()
+		?
+			&logger_node_->value().get<
+				detail::outer_context_node
+			>().object()
+		:
+			0;
 }

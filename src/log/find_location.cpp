@@ -18,41 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/detail/auto_context.hpp>
-#include <sge/log/context.hpp>
-#include <sge/optional_impl.hpp>
-#include <sge/assert.hpp>
+#include "find_location.hpp"
+#include "find_inner_node.hpp"
+#include <sge/log/location.hpp>
+#include <sge/container/tree_impl.hpp>
+#include <sge/variant/object_impl.hpp>
 
-sge::log::detail::auto_context::auto_context(
-	context *const context_,
-	object &object_,
-	optional_location const &location_
+sge::log::detail::context_tree *
+sge::log::find_location(
+	detail::context_tree &tree_,
+	location const &location_
 )
-:
-	context_(context_),
-	location_(location_)
 {
-	if(context_)
+	detail::context_tree *cur(
+		&tree_
+	);
+
+	for(
+		location::const_iterator item(
+			location_.begin()
+		);
+		item != location_.end();
+		++item
+	)
 	{
-		SGE_ASSERT(location_);
-
-		context_->add(
-			*location_,
-			object_
+		detail::context_tree::iterator const item_it(
+			find_inner_node(
+				*cur,
+				*item
+			)
 		);
+
+		if(
+			item_it == cur->end()
+		)
+			return 0;
 	}
-}
 
-sge::log::detail::auto_context::~auto_context()
-{
-	if(context_)
-		context_->remove(
-			*location_
-		);
-}
-
-sge::log::optional_location const
-sge::log::detail::auto_context::location() const
-{
-	return location_;
+	return cur;
 }

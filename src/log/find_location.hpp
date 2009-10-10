@@ -18,41 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/detail/auto_context.hpp>
-#include <sge/log/context.hpp>
-#include <sge/optional_impl.hpp>
-#include <sge/assert.hpp>
+#ifndef SGE_LOG_FIND_LOCATION_HPP_INCLUDED
+#define SGE_LOG_FIND_LOCATION_HPP_INCLUDED
 
-sge::log::detail::auto_context::auto_context(
-	context *const context_,
-	object &object_,
-	optional_location const &location_
-)
-:
-	context_(context_),
-	location_(location_)
+#include <sge/log/detail/context_tree.hpp>
+#include <sge/log/location_fwd.hpp>
+
+namespace sge
 {
-	if(context_)
-	{
-		SGE_ASSERT(location_);
+namespace log
+{
 
-		context_->add(
-			*location_,
-			object_
-		);
-	}
+detail::context_tree *
+find_location(
+	detail::context_tree &,
+	location const &
+);
+
+}
 }
 
-sge::log::detail::auto_context::~auto_context()
-{
-	if(context_)
-		context_->remove(
-			*location_
-		);
-}
-
-sge::log::optional_location const
-sge::log::detail::auto_context::location() const
-{
-	return location_;
-}
+#endif

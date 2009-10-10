@@ -75,7 +75,8 @@ public:
 	child_list const &
 	children() const;
 
-	tree &parent();
+	tree &
+	parent();
 	
 	tree const &
 	parent() const;

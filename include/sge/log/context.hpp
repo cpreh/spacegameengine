@@ -49,11 +49,10 @@ public:
 
 	void
 	remove(
-		location const &,
-		object &
+		location const &
 	);
 
-	object &
+	object *
 	find(
 		location const &
 	) const;
