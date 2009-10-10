@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vertex_format.hpp"
 #include <sge/math/twopi.hpp>
 #include <sge/log/headers.hpp>
+#include <sge/log/global.hpp>
 #include <sge/renderer/vf/dynamic_view.hpp>
 #include <sge/renderer/vf/dynamic_format.hpp>
 #include <sge/renderer/vf/make_dynamic_format.hpp>

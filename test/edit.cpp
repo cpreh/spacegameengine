@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/cursor/default.hpp>
 #include <sge/gui/cursor/base_ptr.hpp>
 
-#include <sge/log/logger.hpp>
+#include <sge/log/activate_levels.hpp>
 #include <sge/log/global.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
@@ -58,8 +58,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int main()
 try
 {
-	sge::log::global().activate_hierarchy(
-		sge::log::level::debug);
+	sge::log::activate_levels(
+		sge::log::global(),
+		sge::log::level::debug
+	);
 
 	sge::renderer::screen_size const screen_size(640,480);
 

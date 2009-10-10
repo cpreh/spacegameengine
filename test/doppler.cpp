@@ -31,7 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/audio/player.hpp>
-#include <sge/log/headers.hpp>
+#include <sge/log/global.hpp>
+#include <sge/log/activate_levels.hpp>
 #include <sge/audio/listener.hpp>
 #include <sge/audio/file.hpp>
 #include <sge/audio/sound.hpp>
@@ -116,8 +117,11 @@ class sprite_functor
 int main()
 try
 {
-	sge::log::global().activate_hierarchy(
-		sge::log::level::debug);
+	sge::log::activate_levels(
+		sge::log::global(),
+		sge::log::level::debug
+	);
+
 	sge::renderer::screen_size const screen_size(1024,768);
 	sge::systems::instance sys(
 		sge::systems::list()

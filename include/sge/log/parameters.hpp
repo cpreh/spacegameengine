@@ -25,9 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/level.hpp>
 #include <sge/log/object_fwd.hpp>
 #include <sge/log/context_fwd.hpp>
-#include <sge/log/format/object_fwd.hpp>
+#include <sge/log/format/object_ptr.hpp>
 #include <sge/ostream.hpp>
 #include <sge/string.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
@@ -36,62 +37,62 @@ namespace log
 
 class parameters {
 public:
-	parameters();
+	SGE_SYMBOL parameters();
 
-	parameters 
+	SGE_SYMBOL parameters 
 	sink(
 		ostream &
-	) const;
+	);
 
-	parameters 
+	SGE_SYMBOL parameters 
 	parent(
 		object const &
 	);
 
-	parameters 
+	SGE_SYMBOL parameters 
 	context(
 		log::context &
 	);
 
-	parameters 
+	SGE_SYMBOL parameters 
 	prefix(
 		string const &
 	);
 
-	parameters 
+	SGE_SYMBOL parameters 
 	enabled(
 		bool
-	) const;
+	);
 
-	parameters 
+	SGE_SYMBOL parameters 
 	level(
 		log::level::type
 	);
 
-	parameters 
+	SGE_SYMBOL parameters 
 	formatter(
 		format::const_object_ptr
 	);
 
-	ostream *
+	SGE_SYMBOL ostream *
 	sink() const;
 
-	object const *
+	SGE_SYMBOL object const *
 	parent() const;
 
-	log::context *
+	SGE_SYMBOL log::context *
 	context() const;
 
-	string const
+	SGE_SYMBOL string const
 	prefix() const;
 
-	bool
+	SGE_SYMBOL bool
 	enabled() const;
 
-	log::level::type
+	SGE_SYMBOL log::level::type
 	level() const;
 
-	format::const_object_ptr const
+	SGE_SYMBOL format::const_object_ptr const
 	formatter() const;
 private:
 	ostream *sink_;

@@ -16,6 +16,8 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
+
 #include <sge/audio/player.hpp>
 #include <sge/audio/pool.hpp>
 #include <sge/audio/exception.hpp>
@@ -29,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/cerr.hpp>
 #include <sge/log/global.hpp>
-#include <sge/log/logger.hpp>
+#include <sge/log/activate_levels.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <ostream>
@@ -41,7 +43,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int main()
 try
 {
-	sge::log::global().activate_hierarchy(sge::log::level::debug);
+	sge::log::activate_levels(
+		sge::log::global(),
+		sge::log::level::debug
+	);
 
 	sge::filesystem::path const file_name(sge::config::media_path() / SGE_TEXT("ding.wav"));
 

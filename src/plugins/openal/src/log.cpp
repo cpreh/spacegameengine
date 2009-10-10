@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../log.hpp"
 #include <sge/log/parameters.hpp>
+#include <sge/log/global.hpp>
 #include <sge/text.hpp>
 
 sge::log::object &sge::openal::log()

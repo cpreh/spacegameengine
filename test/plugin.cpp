@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/system.hpp>
 #include <sge/mpl/for_each.hpp>
 #include <sge/log/global.hpp>
-#include <sge/log/logger.hpp>
+#include <sge/log/activate_levels.hpp>
 #include <sge/mainloop/catch_block.hpp>
 #include <sge/type_name.hpp>
 #include <sge/text.hpp>
@@ -62,7 +62,8 @@ private:
 int main()
 try
 {
-	sge::log::global().activate_hierarchy(
+	sge::log::activate_levels(
+		sge::log::global(),
 		sge::log::level::debug
 	);
 

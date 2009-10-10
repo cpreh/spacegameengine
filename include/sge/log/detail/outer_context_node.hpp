@@ -33,10 +33,13 @@ namespace detail
 class outer_context_node {
 public:
 	explicit outer_context_node(
-		object &
+		log::object &
 	);
+
+	log::object &
+	object() const;
 private:
-	object &object_;
+	log::object &object_;
 };
 
 }

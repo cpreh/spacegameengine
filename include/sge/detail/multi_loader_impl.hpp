@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/filesystem/extension.hpp>
 #include <sge/loaders_exhausted.hpp>
 #include <sge/log/headers.hpp>
+#include <sge/log/global.hpp>
 #include <sge/text.hpp>
 #include <sge/type_name.hpp>
 
@@ -87,7 +88,7 @@ sge::multi_loader<A,B,C>::load(
 
 		SGE_LOG_DEBUG(
 			log::global(),
-			log::_1 
+			log::_ 
 				<< SGE_TEXT("loader ")
 				<< type_name(typeid(loader))
 				<< SGE_TEXT(": trying to load audio file"));
@@ -111,7 +112,7 @@ sge::multi_loader<A,B,C>::brute_load(
 {
 	SGE_LOG_INFO(
 		log::global(),
-		log::_1 
+		log::_ 
 			<< SGE_TEXT("brute loading file ")
 			<< file.string()
 			<< SGE_TEXT(", add an extension to speed up the search"));
@@ -122,7 +123,7 @@ sge::multi_loader<A,B,C>::brute_load(
 		{
 			SGE_LOG_DEBUG(
 				log::global(),
-				log::_1 
+				log::_ 
 					<< SGE_TEXT("loader ")
 					<< type_name(typeid(loader))
 					<< SGE_TEXT(": trying to load audio file"));
@@ -131,7 +132,7 @@ sge::multi_loader<A,B,C>::brute_load(
 		{
 			SGE_LOG_INFO(
 				log::global(),
-				log::_1 
+				log::_ 
 					<< SGE_TEXT("loader ")
 					<< type_name(typeid(loader))
 					<< SGE_TEXT("couldn't load the file: ")

@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/box/rect.hpp>
 #include <sge/math/compare.hpp>
 #include <sge/log/headers.hpp>
+#include <sge/log/global.hpp>
 #include <ostream>
 
 namespace sge

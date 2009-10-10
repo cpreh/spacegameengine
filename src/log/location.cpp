@@ -18,46 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOG_DETAIL_AUTO_CONTEXT_HPP_INCLUDED
-#define SGE_LOG_DETAIL_AUTO_CONTEXT_HPP_INCLUDED
-
-#include <sge/log/optional_location.hpp>
 #include <sge/log/location.hpp>
-#include <sge/log/context_fwd.hpp>
-#include <sge/log/object_fwd.hpp>
-#include <sge/optional_decl.hpp>
-#include <sge/noncopyable.hpp>
 
-namespace sge
-{
-namespace log
-{
-namespace detail
-{
+sge::log::location::location(
+	string const &initial_
+)
+:
+	entries_(
+		1,
+		initial_
+	)
+{}
 
-class auto_context {
-	SGE_NONCOPYABLE(auto_context)
-public:
-	auto_context(
-		context *,
-		object &,
-		optional_location const &
+sge::log::location &
+sge::log::location::operator +=(
+	string const &nstring_
+)
+{
+	entries_.push_back(
+		nstring_
 	);
 
-	~auto_context();
-
-	optional_location const
-	location() const;
-private:
-	context *const context_;
-
-	object &object_;
-
-	optional_location const location_;
-};
-
-}
-}
+	return *this;
 }
 
-#endif
+sge::log::location::const_iterator
+sge::log::location::begin() const
+{
+	return entries_.begin();
+}
+	
+sge::log::location::const_iterator
+sge::log::location::end() const
+{
+	return entries_.end();
+}
+
+sge::log::location const
+sge::log::operator +(
+	location location_,
+	string const &nstring_
+)
+{
+	return location_ += nstring_;
+}

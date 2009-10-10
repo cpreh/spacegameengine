@@ -18,46 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOG_DETAIL_AUTO_CONTEXT_HPP_INCLUDED
-#define SGE_LOG_DETAIL_AUTO_CONTEXT_HPP_INCLUDED
+#include <sge/log/detail/outer_context_node.hpp>
 
-#include <sge/log/optional_location.hpp>
-#include <sge/log/location.hpp>
-#include <sge/log/context_fwd.hpp>
-#include <sge/log/object_fwd.hpp>
-#include <sge/optional_decl.hpp>
-#include <sge/noncopyable.hpp>
+sge::log::detail::outer_context_node::outer_context_node(
+	log::object &object_
+)
+:
+	object_(object_)
+{}
 
-namespace sge
+sge::log::object &
+sge::log::detail::outer_context_node::object() const
 {
-namespace log
-{
-namespace detail
-{
-
-class auto_context {
-	SGE_NONCOPYABLE(auto_context)
-public:
-	auto_context(
-		context *,
-		object &,
-		optional_location const &
-	);
-
-	~auto_context();
-
-	optional_location const
-	location() const;
-private:
-	context *const context_;
-
-	object &object_;
-
-	optional_location const location_;
-};
-
+	return object_;
 }
-}
-}
-
-#endif

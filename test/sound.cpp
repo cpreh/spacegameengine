@@ -32,7 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/millisecond.hpp>
 #include <sge/time/resolution.hpp>
 #include <sge/time/sleep.hpp>
-#include <sge/log/headers.hpp>
+#include <sge/log/global.hpp>
+#include <sge/log/activate_levels.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/pi.hpp>
 #include <sge/systems/instance.hpp>
@@ -50,7 +51,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int main(int argc, char *argv[])
 try
 {
-	sge::log::global().activate_hierarchy(sge::log::level::debug);
+	sge::log::activate_levels(
+		sge::log::global(),
+		sge::log::level::debug
+	);
 
 	namespace po = boost::program_options;
 	po::options_description desc("allowed options");

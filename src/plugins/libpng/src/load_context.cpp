@@ -2,6 +2,7 @@
 #include <sge/image/file_exception.hpp>
 #include <sge/image/unsupported_format.hpp>
 #include <sge/log/headers.hpp>
+#include <sge/log/global.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/math/dim/output.hpp>
 #include <sge/lexical_cast.hpp>

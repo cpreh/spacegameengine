@@ -18,46 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOG_DETAIL_AUTO_CONTEXT_HPP_INCLUDED
-#define SGE_LOG_DETAIL_AUTO_CONTEXT_HPP_INCLUDED
+#include <sge/log/detail/auto_context.hpp>
+#include <sge/log/context.hpp>
+#include <sge/optional_impl.hpp>
+#include <sge/assert.hpp>
 
-#include <sge/log/optional_location.hpp>
-#include <sge/log/location.hpp>
-#include <sge/log/context_fwd.hpp>
-#include <sge/log/object_fwd.hpp>
-#include <sge/optional_decl.hpp>
-#include <sge/noncopyable.hpp>
-
-namespace sge
+sge::log::detail::auto_context::auto_context(
+	context *const context_,
+	object &object_,
+	optional_location const &location_
+)
+:
+	context_(context_),
+	object_(object_),
+	location_(location_)
 {
-namespace log
-{
-namespace detail
-{
+	if(context_)
+	{
+		SGE_ASSERT(location_);
 
-class auto_context {
-	SGE_NONCOPYABLE(auto_context)
-public:
-	auto_context(
-		context *,
-		object &,
-		optional_location const &
-	);
-
-	~auto_context();
-
-	optional_location const
-	location() const;
-private:
-	context *const context_;
-
-	object &object_;
-
-	optional_location const location_;
-};
-
-}
-}
+		context_->add(
+			*location_,
+			object_
+		);
+	}
 }
 
-#endif
+sge::log::detail::auto_context::~auto_context()
+{
+	if(context_)
+		context_->remove(
+			*location_,
+			object_
+		);
+}
+
+sge::log::optional_location const
+sge::log::detail::auto_context::location() const
+{
+	return location_;
+}

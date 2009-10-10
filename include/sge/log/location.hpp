@@ -55,7 +55,7 @@ private:
 
 SGE_SYMBOL location const
 operator +(
-	location const &,
+	location,
 	string const &
 );
 
