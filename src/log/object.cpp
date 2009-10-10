@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/optional_impl.hpp>
 #include <sge/make_auto_ptr.hpp>
 #include <sge/foreach_enumerator.hpp>
+#include <sge/assert.hpp>
 #include <tr1/functional>
 
 sge::log::object::object(
@@ -40,20 +41,28 @@ sge::log::object::object(
 		?
 			param_.sink()
 		:
-			param_.parent()->sink()
+			param_.parent()
+			?
+				param_.parent()->sink()
+			:
+				0
 	),
 	auto_context_(
 		param_.context(),
 		*this,
-		param_.parent()
-		&& param_.parent()->location()
+		param_.context()
 		?
-			*param_.parent()->location()
-			+ param_.prefix()
+			param_.parent()
+			&& param_.parent()->location()
+			?
+				*param_.parent()->location()
+				+ param_.prefix()
+			:
+				log::location(
+					param_.prefix()
+				)
 		:
-			log::location(
-				param_.prefix()
-			)
+			optional_location()	
 	),
 	formatter_(
 		param_.formatter()
@@ -64,6 +73,10 @@ sge::log::object::object(
 	level_streams_(),
 	enabled_levels_()
 {
+	SGE_ASSERT(
+		sink_
+	);
+
 	SGE_FOREACH_ENUMERATOR(
 		i,
 		level
