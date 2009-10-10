@@ -16,6 +16,8 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
+
 #include <sge/time/timer.hpp>
 #include <sge/time/sleep.hpp>
 #include <sge/time/second.hpp>
@@ -45,7 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/collision/satellite.hpp>
 #include <sge/collision/world.hpp>
 #include <sge/signal/scoped_connection.hpp>
-#include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/box/basic_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/optional_impl.hpp>
 #include <sge/cerr.hpp>
@@ -135,7 +137,7 @@ try
 	sge::collision::world_ptr const world = 
 		sys.collision_system()->create_world(
 			sge::collision::rect(
-				sge::collision::rect::point_type(
+				sge::collision::rect::pos_type(
 					-10,
 					-10
 				),

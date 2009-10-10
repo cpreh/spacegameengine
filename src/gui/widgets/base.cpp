@@ -29,8 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/manager.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/vector/arithmetic.hpp>
-#include <sge/math/rect/intersects.hpp>
-#include <sge/math/rect/output.hpp>
+#include <sge/math/box/intersects.hpp>
+#include <sge/math/box/output.hpp>
 #include <sge/type_info.hpp>
 #include <sge/make_auto_ptr.hpp>
 #include <boost/foreach.hpp>

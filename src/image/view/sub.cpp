@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/view/sub.hpp>
-#include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/box/basic_impl.hpp>
 #include <sge/variant/apply_unary.hpp>
 #include <sge/variant/object_impl.hpp>
 #include <mizuiro/image/sub_view.hpp>
@@ -33,7 +33,8 @@ template<
 View const
 sub_impl(
 	View const &,
-	sge::image::rect const &);
+	sge::image::rect const &
+);
 
 template<
 	typename Result
@@ -50,7 +51,8 @@ public:
 	>
 	result_type const
 	operator()(
-		T const &) const;
+		T const &
+	) const;
 private:
 	sge::image::rect const lr;
 };
@@ -60,7 +62,8 @@ private:
 sge::image::view::object const
 sge::image::view::sub(
 	object const &src,
-	rect const &lr)
+	rect const &lr
+)
 {
 	return sub_impl(
 		src,
@@ -71,7 +74,8 @@ sge::image::view::sub(
 sge::image::view::const_object const
 sge::image::view::sub(
 	const_object const &src,
-	rect const &lr)
+	rect const &lr
+)
 {
 	return sub_impl(
 		src,
@@ -88,7 +92,8 @@ template<
 View const
 sub_impl(
 	View const &v,
-	sge::image::rect const &r)
+	sge::image::rect const &r
+)
 {
 	return sge::variant::apply_unary(
 		visitor<View>(
@@ -102,7 +107,8 @@ template<
 	typename Result
 >
 visitor<Result>::visitor(
-	sge::image::rect const &lr)
+	sge::image::rect const &lr
+)
 :
 	lr(lr)
 {}
@@ -115,7 +121,8 @@ template<
 >
 typename visitor<Result>::result_type const
 visitor<Result>::operator()(
-	T const &v) const
+	T const &v
+) const
 {
 	// TODO: make this more generic!
 	

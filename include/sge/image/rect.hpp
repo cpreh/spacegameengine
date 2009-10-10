@@ -22,16 +22,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_RECT_HPP_INCLUDED
 
 #include <sge/image/size_type.hpp>
-#include <sge/math/rect/basic_fwd.hpp>
+#include <sge/math/box/rect.hpp>
 
 namespace sge
 {
 namespace image
 {
 
-typedef math::rect::basic<
+typedef math::box::rect<
 	size_type
-> rect;
+>::type rect;
 
 }
 }

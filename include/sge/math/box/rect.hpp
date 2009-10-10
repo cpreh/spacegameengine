@@ -18,41 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_RECT_STRUCTURE_CAST_HPP_INCLUDED
-#define SGE_MATH_RECT_STRUCTURE_CAST_HPP_INCLUDED
+#ifndef SGE_MATH_BOX_RECT_HPP_INCLUDED
+#define SGE_MATH_BOX_RECT_HPP_INCLUDED
 
-#include <sge/math/rect/basic_impl.hpp>
-#include <sge/math/vector/structure_cast.hpp>
-#include <sge/math/dim/structure_cast.hpp>
+#include <sge/math/box/basic_fwd.hpp>
+#include <sge/restrict_typedef_struct.hpp>
 
 namespace sge
 {
 namespace math
 {
-namespace rect
+namespace box
 {
 
 template<
-	typename Dest,
-	typename Src
+	typename T
 >
-Dest const
-structure_cast(
-	basic<Src> const &src)
-{
-	return Dest(
-		vector::structure_cast<
-			typename Dest::point_type
-		>(
-			src.pos()
-		),
-		dim::structure_cast<
-			typename Dest::dim_type
-		>(
-			src.dim()
-		)
-	);
-}
+struct rect {
+	typedef basic<
+		T,
+		2
+	> type;
+
+	SGE_RESTRICT_TYPEDEF_STRUCT(rect)
+};
 
 }
 }

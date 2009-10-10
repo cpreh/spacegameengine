@@ -67,7 +67,9 @@ template<
 	typename S
 >
 class basic
-: public detail::typedef_helper<T, N, S>::type {
+:
+	public detail::typedef_helper<T, N, S>::type
+{
 	typedef typename detail::typedef_helper<T, N, S>::type base;
 public:
 	typedef N dim_wrapper;
@@ -87,7 +89,8 @@ public:
 	basic();
 
 	explicit basic(
-		storage_type const &);
+		storage_type const &
+	);
 
 	template<
 		typename In
@@ -99,7 +102,8 @@ public:
 				In
 			>,
 			In
-		>::type end);
+		>::type end
+	);
 
 #define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_MAX_SIZE SGE_MATH_VECTOR_MAX_CTOR_PARAMS
 	SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_DECL(basic)

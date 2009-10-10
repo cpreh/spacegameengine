@@ -75,7 +75,7 @@ sge::texture::rect_fragmented::consume_fragment(
 			part_fragmented
 		>(
 			renderer::lock_rect(
-				renderer::lock_rect::point_type(
+				renderer::lock_rect::pos_type(
 					cur_x,
 					cur_y
 				),

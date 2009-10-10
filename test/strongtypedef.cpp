@@ -19,10 +19,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/strong_typedef.hpp>
+#include <sge/cout.hpp>
+#include <sge/text.hpp>
 
 SGE_MAKE_STRONG_TYPEDEF(int, strong_int)
 
 int main()
 {
 	strong_int i(42);
+
+	sge::cout
+		<< i
+		<< SGE_TEXT('\n');
 }

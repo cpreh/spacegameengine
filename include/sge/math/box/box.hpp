@@ -18,28 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_RECT_INVALID_HPP_INCLUDED
-#define SGE_MATH_RECT_INVALID_HPP_INCLUDED
+#ifndef SGE_MATH_BOX_BOX_HPP_INCLUDED
+#define SGE_MATH_BOX_BOX_HPP_INCLUDED
 
-#include <sge/math/exception.hpp>
-#include <sge/string.hpp>
-#include <sge/export.hpp>
-
-namespace sge
-{
-namespace math
-{
-namespace rect
-{
-
-class SGE_CLASS_SYMBOL invalid : public exception {
-public:
-	SGE_SYMBOL explicit invalid(
-		sge::string const &);
-};
-
-}
-}
-}
+#include <sge/math/box/basic_decl.hpp>
+#include <sge/math/box/basic_impl.hpp>
+#include <sge/math/box/contains.hpp>
+#include <sge/math/box/contains_point.hpp>
+#include <sge/math/box/intersection.hpp>
+#include <sge/math/box/intersects.hpp>
+#include <sge/math/box/output.hpp>
+#include <sge/math/box/structure_cast.hpp>
 
 #endif

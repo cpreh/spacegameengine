@@ -48,7 +48,7 @@ operator<<(
 	> const &t
 )
 {
-	return s << t;
+	return s << t .operator T const &();
 }
 
 }

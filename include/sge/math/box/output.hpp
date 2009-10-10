@@ -18,16 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_RECT_DETAIL_OUTPUT_IMPL_HPP_INCLUDED
-#define SGE_MATH_RECT_DETAIL_OUTPUT_IMPL_HPP_INCLUDED
+#ifndef SGE_MATH_BOX_OUTPUT_HPP_INCLUDED
+#define SGE_MATH_BOX_OUTPUT_HPP_INCLUDED
 
-#include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/box/basic_impl.hpp>
 #include <sge/math/vector/output.hpp>
 #include <sge/math/dim/output.hpp>
+#include <sge/math/size_type.hpp>
 #include <ostream>
+
+namespace sge
+{
+namespace math
+{
+namespace box
+{
 
 template<
 	typename T,
+	size_type N,
 	typename Ch,
 	typename Traits
 >
@@ -35,16 +44,21 @@ std::basic_ostream<
 	Ch,
 	Traits
 > &
-sge::math::rect::operator<<(
-	std::basic_ostream<Ch,Traits> &s,
-	basic<T> const &r)
+operator<<(
+	std::basic_ostream<Ch, Traits> &stream_,
+	basic<T, N> const &box_
+)
 {
-	return s
-		<< s.widen('(')
-		<< r.pos()
-		<< s.widen(',')
-		<< r.dim()
-		<< s.widen(')');
+	return stream_
+		<< stream_.widen('(')
+		<< box_.pos()
+		<< stream_.widen(',')
+		<< box_.dim()
+		<< stream_.widen(')');
+}
+
+}
+}
 }
 
 #endif

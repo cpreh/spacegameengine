@@ -18,30 +18,70 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_RECT_INTERSECTION_HPP_INCLUDED
-#define SGE_MATH_RECT_INTERSECTION_HPP_INCLUDED
+#ifndef SGE_MATH_BOX_INTERSECTION_HPP_INCLUDED
+#define SGE_MATH_BOX_INTERSECTION_HPP_INCLUDED
 
-#include <sge/math/rect/basic_fwd.hpp>
+#include <sge/math/box/basic_impl.hpp>
+#include <sge/math/box/intersects.hpp>
+#include <sge/math/size_type.hpp>
+#include <algorithm>
 
 namespace sge
 {
 namespace math
 {
-namespace rect
+namespace box
 {
 
 template<
-	typename T
+	typename T,
+	size_type N
 >
-basic<T> const
+basic<T, N> const
 intersection(
-	basic<T> const &,
-	basic<T> const &);
+	basic<T, N> const &a,
+	basic<T, N> const &b
+)
+{
+	if(
+		!intersects(
+			a,
+			b
+		)
+	)
+		return basic<T, N>::null();
+	
+	basic<T, N> ret;
+
+	for(
+		size_type i = 0;
+		i < N;
+		++i
+	)
+	{
+		ret.pos(
+			i,
+			std::max(
+				a.pos(i),
+				b.pos(i)
+			)
+		);
+
+		ret.dim(
+			i,
+			std::min(
+				a.max(i),
+				b.max(i)
+			)
+			- ret.pos(i)
+		);
+	}
+
+	return ret;
+}
 
 }
 }
 }
-
-#include <sge/math/rect/detail/intersection_impl.hpp>
 
 #endif

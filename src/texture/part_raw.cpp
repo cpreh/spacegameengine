@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part_raw.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/sub_data.hpp>
-#include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/box/basic_impl.hpp>
 
 sge::texture::part_raw::part_raw(
 	renderer::texture_ptr const tex,
@@ -32,13 +32,12 @@ sge::texture::part_raw::part_raw(
 {}
 
 sge::texture::part_raw::part_raw(
-	renderer::texture_ptr const tex)
+	renderer::texture_ptr const tex
+)
 :
 	area_(
-		static_cast<renderer::lock_rect::value_type>(0),
-		static_cast<renderer::lock_rect::value_type>(0),
-		static_cast<renderer::lock_rect::value_type>(tex->dim().w()),
-		static_cast<renderer::lock_rect::value_type>(tex->dim().h())
+		renderer::lock_rect::pos_type::null(),
+		tex->dim()
 	),
 	tex(tex)
 {}

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/colors.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/text_size.hpp>
-#include <sge/math/rect/output.hpp>
+#include <sge/math/box/output.hpp>
 
 namespace
 {
@@ -59,7 +59,7 @@ void sge::gui::skins::standard::draw(
 	// Background
 	c.draw_rect(
 		rect(
-			rect::point_type::null(),
+			rect::pos_type::null(),
 			c.size()
 		),
 		b.mouse_over() 

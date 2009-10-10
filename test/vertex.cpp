@@ -16,6 +16,8 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
+
 #include <sge/cerr.hpp>
 #include <sge/text.hpp>
 #include <sge/exception.hpp>
@@ -113,9 +115,12 @@ try
 		> vertex_view;
 		
 		vertex_view const vertices(
-			vblock.value());
+			vblock.value()
+		);
 
-		vertex_view::iterator vb_it = vertices.begin();
+		vertex_view::iterator vb_it(
+			vertices.begin()
+		);
 		
 		typedef pos3_type::packed_type vec3;
 
@@ -185,7 +190,8 @@ try
 			vb,
 			0,
 			3,
-			sge::renderer::nonindexed_primitive_type::triangle_strip);
+			sge::renderer::nonindexed_primitive_type::triangle_strip
+		);
 	}
 }
 catch(sge::exception const &e)

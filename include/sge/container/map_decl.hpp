@@ -53,51 +53,79 @@ public:
 	typedef typename map_type::const_reverse_iterator const_reverse_iterator;
 
 	map();
+
 	explicit map(
-		map_type const &);
+		map_type const &
+	);
 
 	template<
 		typename In
 	>
 	map(
 		In beg,
-		In end);
+		In end
+	);
 
-	void insert(
+	void
+	insert(
 		key_type const &,
-		mapped_type const &);
+		mapped_type const &
+	);
 	
-	void insert(
-		value_type const &);
+	void
+	insert(
+		value_type const &
+	);
 	
-	void erase(
-		key_type const &);
+	void
+	erase(
+		key_type const &
+	);
+
+	void
+	erase(
+		iterator
+	);
 	
 	iterator
 	find(
-		key_type const &);
+		key_type const &
+	);
 
 	const_iterator
 	find(
-		key_type const &) const;
+		key_type const &
+	) const;
 	
 	mapped_type const &
 	operator[](
-		key_type const &) const;
+		key_type const &
+	) const;
 	
 	mapped_type &
 	operator[](
-		key_type const &);
+		key_type const &
+	);
 
-	bool contains(
-		key_type const &) const;
+	bool
+	contains(
+		key_type const &
+	) const;
 
-	iterator begin();
-	iterator end();
-	const_iterator begin() const;
-	const_iterator end() const;
+	iterator
+	begin();
+
+	iterator
+	end();
+
+	const_iterator
+	begin() const;
+
+	const_iterator
+	end() const;
 
 	size_type size() const;
+
 	bool empty() const;
 private:
 	map_type impl_;

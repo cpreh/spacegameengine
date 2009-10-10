@@ -18,36 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_RECT_OUTPUT_HPP_INCLUDED
-#define SGE_MATH_RECT_OUTPUT_HPP_INCLUDED
+#ifndef SGE_MATH_BOX_INTERSECTS_HPP_INCLUDED
+#define SGE_MATH_BOX_INTERSECTS_HPP_INCLUDED
 
-#include <sge/math/rect/basic_fwd.hpp>
-#include <iosfwd>
+#include <sge/math/box/basic_impl.hpp>
+#include <sge/math/size_type.hpp>
 
 namespace sge
 {
 namespace math
 {
-namespace rect
+namespace box
 {
 
 template<
 	typename T,
-	typename Ch,
-	typename Traits
+	size_type N
 >
-std::basic_ostream<
-	Ch,
-	Traits
-> &
-operator<<(
-	std::basic_ostream<Ch,Traits> &,
-	basic<T> const &);
+bool
+intersects(
+	basic<T, N> const &a,
+	basic<T, N> const &b
+)
+{
+	bool ret = false;
+
+	for(
+		size_type i = 0;
+		i < N;
+		++i
+	)
+		ret
+			|= a.pos(i) > b.max(i)
+			|| a.max(i) < b.pos(i);
+	
+	return !ret;
+}
 
 }
 }
 }
-
-#include <sge/math/rect/detail/output_impl.hpp>
 
 #endif

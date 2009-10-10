@@ -83,7 +83,6 @@ public:
 	SGE_SYMBOL funit radius() const;
 	SGE_SYMBOL repetition_type repeat() const;
 	SGE_SYMBOL sprite::color const color() const;
-	SGE_SYMBOL sprite::rect const bounding_quad() const;
 	SGE_SYMBOL circle const bounding_circle() const;
 	SGE_SYMBOL point const rotation_center() const;
 	SGE_SYMBOL texture::const_part_ptr const texture() const;

@@ -39,7 +39,8 @@ template<
 >
 Dest const
 structure_cast(
-	basic<T, N, S> const &src)
+	basic<T, N, S> const &src
+)
 {
 	return math::detail::structure_cast<
 		Dest

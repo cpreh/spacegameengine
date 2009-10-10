@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/make.hpp>
 #include <sge/math/dim/output.hpp>
 #include <sge/math/dim/basic_impl.hpp>
-#include <sge/math/rect/basic_impl.hpp>
-#include <sge/math/rect/output.hpp>
+#include <sge/math/box/basic_impl.hpp>
+#include <sge/math/box/output.hpp>
 #include <sge/variant/object_impl.hpp>
 #include <sge/optional_impl.hpp>
 #include <sge/format.hpp>
@@ -110,7 +110,7 @@ void sge::opengl::texture::unlock() const
 			lock_rect_
 				? *lock_rect_
 				: renderer::lock_rect(
-					renderer::lock_rect::point_type::null(),
+					renderer::lock_rect::pos_type::null(),
 					dim()
 				)
 		);
