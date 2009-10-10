@@ -51,7 +51,9 @@ sge::log::object::object(
 			*param_.parent()->location()
 			+ param_.prefix()
 		:
-			optional_location()
+			log::location(
+				param_.prefix()
+			)
 	),
 	formatter_(
 		param_.formatter()

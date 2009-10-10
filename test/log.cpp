@@ -18,29 +18,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOG_LEVEL_STRING_HPP_INCLUDED
-#define SGE_LOG_LEVEL_STRING_HPP_INCLUDED
+#include <sge/log/context.hpp>
+#include <sge/log/object.hpp>
+#include <sge/log/parameters.hpp>
+#include <sge/log/headers.hpp>
+#include <sge/mainloop/catch_block.hpp>
+#include <sge/optional_impl.hpp>
+#include <sge/text.hpp>
+#include <sge/cout.hpp>
+#include <sge/assert.hpp>
 
-#include <sge/log/level.hpp>
-#include <sge/string.hpp>
-#include <sge/export.hpp>
-
-namespace sge
+int main()
+try
 {
-namespace log
-{
+	sge::log::context context_;
 
-SGE_SYMBOL level::type
-level_from_string(
-	string const &
-);
+	sge::log::object logger(
+		sge::log::parameters()
+		.sink(
+			sge::cout
+		)
+		.enabled(
+			true
+		)
+		.context(
+			context_
+		)
+		.prefix(
+			SGE_TEXT("sge")
+		)
+		.level(
+			sge::log::level::debug
+		)
+	);
 
-SGE_SYMBOL string const
-level_to_string(
-	level::type
-);
+	sge::log::object *const ref(
+		context_.find(
+			*logger.location()
+		)
+	);
 
+	SGE_ASSERT(ref);
+
+	SGE_LOG_INFO(
+		*ref,
+		sge::log::_
+			<< SGE_TEXT("test output!")
+	);
 }
-}
-
-#endif
+SGE_MAINLOOP_CATCH_BLOCK

@@ -53,6 +53,8 @@ sge::log::find_location(
 			item_it == cur->end()
 		)
 			return 0;
+
+		cur = &*item_it;
 	}
 
 	return cur;

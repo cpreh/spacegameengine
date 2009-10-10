@@ -34,7 +34,7 @@ namespace log
 
 class level_stream {
 public:
-	level_stream(
+	SGE_SYMBOL level_stream(
 		ostream &,
 		format::const_object_ptr
 	);

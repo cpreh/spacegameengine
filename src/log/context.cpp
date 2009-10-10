@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/variant/object_impl.hpp>
 #include <sge/text.hpp>
 #include <sge/assert.hpp>
+#include <exception>
 
 sge::log::context::context()
 :
@@ -39,9 +40,10 @@ sge::log::context::context()
 
 sge::log::context::~context()
 {
-	SGE_ASSERT(
-		tree_.empty()
-	);
+	if(!std::uncaught_exception())
+		SGE_ASSERT(
+			tree_.empty()
+		);
 }
 
 void
@@ -89,7 +91,7 @@ sge::log::context::add(
 		find_logger_node(
 			*cur
 		)
-		!= cur->end()
+		== cur->end()
 	);
 
 	cur->push_back(
@@ -131,7 +133,7 @@ sge::log::context::remove(
 
 	while(
 		node_->has_parent()
-		&& node_->size() == 1
+		&& node_->size() <= 1
 	)
 	{
 		node_ = &node_->parent();
