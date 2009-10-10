@@ -29,7 +29,7 @@ namespace gui
 {
 namespace widgets
 {
-sge::log::logger &global_log();
+sge::log::object &global_log();
 }
 }
 }

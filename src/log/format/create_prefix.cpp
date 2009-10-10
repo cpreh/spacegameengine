@@ -20,13 +20,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/log/format/create_prefix.hpp>
 #include <sge/log/format/inserter.hpp>
+#include <sge/make_shared_ptr.hpp>
 #include <sge/text.hpp>
 
-sge::log::format::const_formatter_ptr const
+sge::log::format::const_object_ptr const
 sge::log::format::create_prefix(
 	string const &prefix)
 {
-	return const_formatter_ptr(
-		new inserter(
-			prefix + SGE_TEXT("%1%")));
+	return
+		make_shared_ptr<
+			inserter
+		>(
+			prefix + SGE_TEXT("%1%")
+		);
 }

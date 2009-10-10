@@ -68,7 +68,7 @@ sge::freetype::char_metric::char_metric(
 	if(offset_.x() < 0)
 		SGE_LOG_WARNING(
 			log::global(),
-			log::_1
+			log::_
 				<< SGE_TEXT("x offset of character '")
 				<< ch
 				<< SGE_TEXT("' is ")
@@ -79,7 +79,7 @@ sge::freetype::char_metric::char_metric(
 	if(offset_.y() < 0)
 		SGE_LOG_WARNING(
 			log::global(),
-			log::_1
+			log::_
 				<< SGE_TEXT("y offset of character '")
 				<< ch
 				<< SGE_TEXT("' is ")

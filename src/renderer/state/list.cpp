@@ -56,7 +56,7 @@ sge::renderer::state::list::operator()(
 	if(!temp.set_.insert(a).second)
 		SGE_LOG_WARNING(
 			log::global(),
-			log::_1 << SGE_TEXT("duplicate renderer state given!"));
+			log::_ << SGE_TEXT("duplicate renderer state given!"));
 	return temp;
 }
 

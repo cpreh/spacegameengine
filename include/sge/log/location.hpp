@@ -18,16 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/activate_hierarchy.hpp>
-#include "set_hierarchy.hpp"
+#ifndef SGE_LOG_LOCATION_HPP_INCLUDED
+#define SGE_LOG_LOCATION_HPP_INCLUDED
 
-void
-sge::log::object::activate_hierarchy(
-	level::type const level_
-)
+#include <sge/log/location_fwd.hpp>
+#include <sge/log/detail/location_vector.hpp>
+#include <sge/string.hpp>
+#include <sge/export.hpp>
+
+namespace sge
 {
-	set_hierarchy(
-		level_,
-		&object::activate
+namespace log
+{
+
+class location {
+public:
+	SGE_SYMBOL explicit location(
+		string const &
 	);
+
+	typedef detail::location_vector::const_iterator const_iterator;
+
+	SGE_SYMBOL location &
+	operator +=(
+		string const &
+	);
+
+	SGE_SYMBOL const_iterator
+	begin() const;
+	
+	SGE_SYMBOL const_iterator
+	end() const;
+private:
+	detail::location_vector entries_;
+};
+
+SGE_SYMBOL location const
+operator +(
+	location const &,
+	string const &
+);
+
 }
+}
+
+#endif

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LOG_GLOBAL_HPP_INCLUDED
 #define SGE_LOG_GLOBAL_HPP_INCLUDED
 
-#include <sge/log/logger_fwd.hpp>
+#include <sge/log/object_fwd.hpp>
 #include <sge/export.hpp>
 
 namespace sge
@@ -29,7 +29,8 @@ namespace sge
 namespace log
 {
 
-SGE_SYMBOL logger &global();
+SGE_SYMBOL object &
+global();
 
 }
 }

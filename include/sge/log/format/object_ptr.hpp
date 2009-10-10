@@ -18,10 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/format/formatter.hpp>
+#ifndef SGE_LOG_FORMAT_OBJECT_PTR_HPP_INCLUDED
+#define SGE_LOG_FORMAT_OBJECT_PTR_HPP_INCLUDED
 
-sge::log::format::formatter::formatter()
-{}
+#include <sge/log/format/object_fwd.hpp>
+#include <sge/shared_ptr.hpp>
 
-sge::log::format::formatter::~formatter()
-{}
+namespace sge
+{
+namespace log
+{
+namespace format
+{
+
+typedef shared_ptr<
+	object	
+> object_ptr;
+
+typedef shared_ptr<
+	object const
+> const_object_ptr;
+
+}
+}
+}
+
+#endif

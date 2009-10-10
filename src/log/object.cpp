@@ -19,13 +19,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/log/object.hpp>
+#include <sge/log/parameters.hpp>
+#include <sge/log/context.hpp>
+#include <sge/log/level_stream.hpp>
 #include <sge/log/format/default_level.hpp>
+#include <sge/optional_impl.hpp>
 #include <sge/make_auto_ptr.hpp>
 #include <sge/foreach_enumerator.hpp>
 #include <tr1/functional>
 
 sge::log::object::object(
-	paremeters const &param_
+	parameters const &param_
 )
 :
 	parent_(
@@ -36,21 +40,31 @@ sge::log::object::object(
 		?
 			param_.sink()
 		:
-			param_.parent().sink()
+			param_.parent()->sink()
 	),
 	auto_context_(
-		param.context()
+		param_.context(),
+		*this,
+		param_.parent()
+		&& param_.parent()->location()
+		?
+			*param_.parent()->location()
+			+ param_.prefix()
+		:
+			optional_location()
 	),
 	formatter_(
-		param.formatter()
+		param_.formatter()
 	),
 	enabled_(
-		param.enabled()
+		param_.enabled()
 	),
-	level_streams_()
+	level_streams_(),
+	enabled_levels_()
 {
 	SGE_FOREACH_ENUMERATOR(
-		i, level
+		i,
+		level
 	)
 	{
 		auto_ptr<
@@ -60,7 +74,7 @@ sge::log::object::object(
 				level_stream
 			>(
 				std::tr1::ref(
-					sink()
+					*sink()
 				),
 				format::default_level(
 					i	
@@ -68,9 +82,14 @@ sge::log::object::object(
 			)
 		);
 
-		level_streams.push_back(
+		level_streams_.replace(
+			i,
 			s
 		);
+
+		enabled_levels_[
+			i
+		] = false;
 	}
 }
 
@@ -100,7 +119,7 @@ sge::log::object::level_sink(
 	level::type const level_
 )
 {
-	return level_streams.at(
+	return level_streams_.at(
 		level_
 	);
 }
@@ -110,7 +129,7 @@ sge::log::object::level_sink(
 	level::type const level_
 ) const
 {
-	return level_strams.at(
+	return level_streams_.at(
 		level_
 	);
 }
@@ -120,7 +139,9 @@ sge::log::object::activate(
 	level::type const level_
 )
 {
-	level_sink(level_).enable();
+	enabled_levels_[
+		level_
+	] = true;
 }
 
 void
@@ -128,7 +149,9 @@ sge::log::object::deactivate(
 	level::type const level_
 )
 {
-	level_sink(level_).disable();
+	enabled_levels_[
+		level_
+	] = false;
 }
 
 bool
@@ -136,7 +159,10 @@ sge::log::object::activated(
 	level::type const level_
 ) const
 {
-	return level_sink(level_).enabled();
+	return
+		enabled_levels_[
+			level_
+		];
 }
 
 void
@@ -153,14 +179,20 @@ sge::log::object::enabled() const
 	return enabled_;
 }
 
-sge::ostream &
+sge::ostream *
 sge::log::object::sink() const
 {
 	return sink_;
 }
 
-sge::log::format::const_formatter_ptr const
+sge::log::format::const_object_ptr const
 sge::log::object::formatter() const
 {
 	return formatter_;
+}
+
+sge::log::optional_location const
+sge::log::object::location() const
+{
+	return auto_context_.location();
 }

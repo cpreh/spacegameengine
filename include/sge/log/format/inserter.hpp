@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LOG_FORMAT_INSERTER_HPP_INCLUDED
 #define SGE_LOG_FORMAT_INSERTER_HPP_INCLUDED
 
-#include <sge/log/format/formatter.hpp>
+#include <sge/log/format/object.hpp>
 #include <sge/string.hpp>
 #include <sge/export.hpp>
 
@@ -32,14 +32,19 @@ namespace log
 namespace format
 {
 
-class SGE_CLASS_SYMBOL inserter : public formatter {
+class SGE_CLASS_SYMBOL inserter
+:
+	public object
+{
 public:
 	SGE_SYMBOL explicit inserter(
-		string const &format_string);
+		string const &format_string
+	);
 	
 	SGE_SYMBOL string const
 	format(
-		string const &) const;
+		string const &
+	) const;
 private:
 	string const format_string;
 };

@@ -191,7 +191,7 @@ void sge::x11input::system::on_acquire(
 
 	SGE_LOG_DEBUG(
 		log::global(),
-		log::_1
+		log::_
 			<< SGE_TEXT("x11: acquire window"));
 
 	BOOST_FOREACH(device_vector::reference dev, devices)
@@ -209,7 +209,7 @@ void sge::x11input::system::on_release(
 	
 	SGE_LOG_DEBUG(
 		log::global(),
-		log::_1
+		log::_
 			<< SGE_TEXT("x11: release window"));
 	
 	BOOST_FOREACH(device_vector::reference dev, devices)

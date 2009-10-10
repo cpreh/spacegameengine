@@ -64,12 +64,12 @@ void sge::gui::skins::standard::draw(
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("refreshing edit buffer"));
+		log::_ << SGE_TEXT("refreshing edit buffer"));
 	// re-render text buffer
 	w.refresh();
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("refreshed edit buffer"));
+		log::_ << SGE_TEXT("refreshed edit buffer"));
 	
 	resize_buffer(w);
 

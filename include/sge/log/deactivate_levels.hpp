@@ -18,13 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-void sge::log::object::deactivate_hierarchy(
-	level::type const level_)
+#ifndef SGE_LOG_DEACTIVATE_LEVELS_HPP_INCLUDED
+#define SGE_LOG_DEACTIVATE_LEVELS_HPP_INCLUDED
+
+#include <sge/log/object_fwd.hpp>
+#include <sge/log/level.hpp>
+#include <sge/export.hpp>
+
+namespace sge
 {
-	set_hierarchy(
-		level_,
-		&object::deactivate
-	);
+namespace log
+{
+
+SGE_SYMBOL void
+deactivate_levels(
+	object &,
+	level::type
+);
+
+}
 }
 
-
+#endif

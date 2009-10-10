@@ -106,7 +106,7 @@ sge::config::find_path(
 		{
 			SGE_LOG_DEBUG(
 				log::global(),
-				log::_1
+				log::_
 					<< e.string()
 			);
 		}
@@ -126,7 +126,7 @@ sge::config::find_path(
 		{
 			SGE_LOG_DEBUG(
 				log::global(),
-				log::_1
+				log::_
 					<< e.string()
 			);
 		}

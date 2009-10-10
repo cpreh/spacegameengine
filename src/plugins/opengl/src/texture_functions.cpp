@@ -32,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/filter/texture.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/texture_creation_failed.hpp>
-#include <sge/log/logger.hpp>
 #include <sge/log/global.hpp>
 #include <sge/log/temporary_output.hpp>
 #include <sge/text.hpp>
@@ -84,7 +83,7 @@ void sge::opengl::set_texture(
 	if(dim.w() < 64 || dim.h() < 64)
 		SGE_LOG_WARNING(
 			log::global(),
-			log::_1
+			log::_
 				<< SGE_TEXT("opengl implementations are not required to support textures smaller than 64x64.")\
 				SGE_TEXT(" Specified texture size was ")
 				<< dim
@@ -94,7 +93,7 @@ void sge::opengl::set_texture(
 	if(!math::is_power_of_2(dim.w()) || !math::is_power_of_2(dim.h()))
 		SGE_LOG_WARNING(
 			log::global(),
-			log::_1
+			log::_
 				<< SGE_TEXT("opengl implementations are not required to support textures with dimensions that are not a power of 2.")\
 				SGE_TEXT(" Specified texture size was ")
 				<< dim
@@ -274,7 +273,7 @@ void sge::opengl::set_texture_filter(
 	{
 		SGE_LOG_WARNING(
 			log::global(),
-			log::_1
+			log::_
 				<< SGE_TEXT("anisotropic filtering is not supported!")
 		);
 		return;
@@ -292,7 +291,7 @@ void sge::opengl::set_texture_filter(
 	{
 		SGE_LOG_WARNING(
 			log::global(),
-			log::_1
+			log::_
 				<< SGE_TEXT("anisotropy level ")
 				<< filter.anisotropy()
 				<< SGE_TEXT(" not supported!")

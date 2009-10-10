@@ -77,7 +77,7 @@ void insert_checked(
 	if(!s.insert(v).second)
 		SGE_LOG_WARNING(
 			sge::log::global(),
-			sge::log::_1
+			sge::log::_
 				<< SGE_TEXT("Duplicate state inserted in opengl::vf!"));
 }
 

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global.hpp>
 #include <sge/text.hpp>
 
-sge::log::logger &sge::gui::widgets::global_log()
+sge::log::object &sge::gui::widgets::global_log()
 {
 	static logger global(
 		sge::gui::global_log(),

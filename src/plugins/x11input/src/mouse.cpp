@@ -230,7 +230,7 @@ void sge::x11input::mouse::warped_motion(
 	
 	SGE_LOG_WARNING(
 		log::global(),
-		log::_1
+		log::_
 			<< SGE_TEXT("Didn't detect mouse warp motion! ")
 			   SGE_TEXT("Try to enable dga mouse instead."));
 }

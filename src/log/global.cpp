@@ -19,18 +19,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/log/global.hpp> 
-#include <sge/log/logger.hpp>
+#include <sge/log/object.hpp>
+#include <sge/log/parameters.hpp>
 #include <sge/text.hpp>
 #include <sge/cout.hpp>
 
-sge::log::logger &
+sge::log::object &
 sge::log::global()
 {
-	static logger global_(
-		cout,
-		SGE_TEXT("sge: "),
-		true,
-		log::level::warning
+	static object global_(
+		parameters()
+		.sink(
+			cout
+		)
+		.prefix(
+			SGE_TEXT("sge: ")
+		)
+		.enabled(
+			true
+		)
+		.level(
+			log::level::warning
+		)
 	);
+
 	return global_;
 }

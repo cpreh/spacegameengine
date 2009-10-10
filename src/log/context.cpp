@@ -19,10 +19,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/log/context.hpp>
+#include <sge/log/location.hpp>
+#include <sge/container/tree_impl.hpp>
+#include <sge/variant/object_impl.hpp>
+#include <sge/text.hpp>
+#include <algorithm>
 
 sge::log::context::context()
 :
 	tree_(
+		detail::inner_context_node(
+			SGE_TEXT("sge")
+		)
 	)
 {}
 
@@ -30,54 +38,68 @@ sge::log::context::~context()
 {
 }
 
-
 void
 sge::log::context::add(
 	location const &location_,
 	object &object_
 )
 {
+	detail::context_tree *cur(
+		&tree_
+	);
+
 	for(
-		detail::location_vector::iterator item(
+		location::const_iterator item(
 			location_.begin()
 		);
-		item != location_.end()
+		item != location_.end();
 		++item
 	)
 	{
+	/*
 		detail::context_tree::iterator const item_it(
 			std::find(
-				cur.begin(),
-				cur.end()
+				cur->begin(),
+				cur->end(),
 				*item
 			)
 		);
 
 		if(
-			item_it == cur.end()
+			item_it == cur->end()
 		)
-			cur.push_back(
+		{
+			cur->push_back(
 				detail::inner_context_node(
 					*item
 				)
 			);
 
-		for(
-			detail::context_tree::iterator it(
-				tree_.begin()
-			);
-		)
+			cur = &cur->back();
+		}
+		else
+			cur = &*item_it;
+	*/
 	}
+
+	cur->push_back(
+		detail::outer_context_node(
+			object_
+		)
+	);
 }
 
 void
-remove(
-	location const &,
-	object &
-);
+sge::log::context::remove(
+	location const &location_,
+	object &object_
+)
+{
+}
 
-object &
-find(
-	location const &
-) const;
-
+sge::log::object &
+sge::log::context::find(
+	location const &location_
+) const
+{
+}

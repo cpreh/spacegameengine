@@ -105,7 +105,7 @@ ALuint sge::openal::player::register_nonstream_sound(
 
 	SGE_LOG_DEBUG(
 		log(),
-		log::_1
+		log::_
 			<< SGE_TEXT("creating buffer of size ")
 	        	<< data.size()
 			<< SGE_TEXT(" and format ")

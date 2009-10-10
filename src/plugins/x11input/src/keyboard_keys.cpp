@@ -70,7 +70,7 @@ sge::x11input::keyboard_key(
 	{
 		SGE_LOG_WARNING(
 			log::global(),
-			log::_1
+			log::_
 				<< SGE_TEXT("stub: character '")
 				<< code
 				<< SGE_TEXT("' in XLookupString has ")

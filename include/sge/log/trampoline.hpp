@@ -18,8 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-void set_hierarchy(
-		level::type,
-		void (logger::*)(level::type));
+#ifndef SGE_LOG_TRAMPOLINE_HPP_INCLUDED
+#define SGE_LOG_TRAMPOLINE_HPP_INCLUDED
 
+#include <sge/log/output_helper.hpp>
+#include <sge/export.hpp>
 
+namespace sge
+{
+namespace log
+{
+
+SGE_SYMBOL extern output_helper const _;
+
+}
+}
+
+#endif

@@ -19,14 +19,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../log.hpp"
+#include <sge/log/parameters.hpp>
 #include <sge/text.hpp>
 
-sge::log::logger &sge::openal::log()
+sge::log::object &sge::openal::log()
 {
-	static log::logger l(
-		log::global(),
-		SGE_TEXT("openal: "),
-		true
+	static log::object l(
+		log::parameters()
+		.parent(
+			log::global()
+		)
+		.prefix(
+			SGE_TEXT("openal: ")
+		)
+		.enabled(
+			true
+		)
 	);
 	return l;
 }

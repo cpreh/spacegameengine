@@ -54,9 +54,10 @@ area_texc(
 	)
 		SGE_LOG_WARNING(
 			log::global(),
-			log::_1 << SGE_TEXT("texture not repeatable but repetition is ")
-			        << repeat
-			        << SGE_TEXT('!')
+			log::_
+				<< SGE_TEXT("texture not repeatable but repetition is ")
+				<< repeat
+				<< SGE_TEXT('!')
 		);
 
 	renderer::const_texture_ptr const tex(

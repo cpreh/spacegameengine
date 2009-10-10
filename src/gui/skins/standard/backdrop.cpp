@@ -69,6 +69,6 @@ sge::gui::dim const sge::gui::skins::standard::optimal_size(
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("optimal_size called for backdrop, returning null"));
+		log::_ << SGE_TEXT("optimal_size called for backdrop, returning null"));
 	return dim::null();
 }

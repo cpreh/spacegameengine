@@ -52,7 +52,7 @@ sge::opengl::x11::resolution::create(
 	{
 		SGE_LOG_WARNING(
 			log::global(),
-			log::_1 << e.string());
+			log::_ << e.string());
 	}
 #endif
 #if defined(SGE_HAVE_XF86_VMODE)
@@ -68,12 +68,12 @@ sge::opengl::x11::resolution::create(
 	{
 		SGE_LOG_WARNING(
 			log::global(),
-			log::_1 << e.string());
+			log::_ << e.string());
 	}
 #endif
 	SGE_LOG_WARNING(
 		log::global(),
-		log::_1
+		log::_
 			<< SGE_TEXT("sge cannot switch resolutions because ")
 			<< SGE_TEXT("no known method worked!"));
 	return auto_ptr();

@@ -74,7 +74,7 @@ void sge::audio::pool::update()
 					{
 						SGE_LOG_WARNING(
 							log::global(),
-							log::_1
+							log::_
 								<< SGE_TEXT("got a looping sound, setting to play only once"));
 						s->first->play(play_mode::once);
 					}

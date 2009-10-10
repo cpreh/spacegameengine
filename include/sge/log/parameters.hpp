@@ -22,9 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_LOG_PARAMETERS_HPP_INCLUDED
 
 #include <sge/log/parameters_fwd.hpp>
+#include <sge/log/level.hpp>
 #include <sge/log/object_fwd.hpp>
+#include <sge/log/context_fwd.hpp>
 #include <sge/log/format/object_fwd.hpp>
 #include <sge/ostream.hpp>
+#include <sge/string.hpp>
 
 namespace sge
 {
@@ -33,53 +36,75 @@ namespace log
 
 class parameters {
 public:
-	parameters const
+	parameters();
+
+	parameters 
 	sink(
 		ostream &
 	) const;
 
-	parameters const
+	parameters 
 	parent(
 		object const &
 	);
 
-	parameters const
+	parameters 
 	context(
 		log::context &
 	);
 
-	parameters const
+	parameters 
 	prefix(
 		string const &
 	);
 
-	parameters const
+	parameters 
 	enabled(
 		bool
 	) const;
 
-	parameters const
+	parameters 
+	level(
+		log::level::type
+	);
+
+	parameters 
 	formatter(
 		format::const_object_ptr
 	);
 
+	ostream *
+	sink() const;
+
 	object const *
 	parent() const;
 
-	ostream *
-	sink() const;
+	log::context *
+	context() const;
+
+	string const
+	prefix() const;
 
 	bool
 	enabled() const;
 
+	log::level::type
+	level() const;
+
 	format::const_object_ptr const
 	formatter() const;
 private:
-	object const *parent_;
-	
 	ostream *sink_;
 
+	object const *parent_;
+
+	log::context *context_;
+
+	string prefix_;
+	
 	bool enabled_;
+
+	log::level::type level_;
 
 	format::const_object_ptr formatter_;
 };

@@ -18,7 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/output_helper.hpp>
+#ifndef SGE_LOG_DETAIL_ENABLED_LEVEL_ARRAY_HPP_INCLUDED
+#define SGE_LOG_DETAIL_ENABLED_LEVEL_ARRAY_HPP_INCLUDED
 
-sge::log::output_helper const sge::log::_1
-	= sge::log::output_helper();
+#include <sge/log/level.hpp>
+#include <tr1/array>
+
+namespace sge
+{
+namespace log
+{
+namespace detail
+{
+
+typedef std::tr1::array<
+	bool,
+	level::size
+> enabled_level_array;
+
+}
+}
+}
+
+#endif

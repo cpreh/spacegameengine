@@ -101,7 +101,7 @@ sge::systems::list::operator()(
 	{
 		SGE_LOG_WARNING(
 			log::global(),
-			log::_1
+			log::_
 				<< SGE_TEXT("Duplicate system state given!")
 		);
 	}

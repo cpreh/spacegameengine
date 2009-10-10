@@ -50,7 +50,7 @@ void sge::gui::skins::standard::draw(
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("creating canvas from buffer"));
+		log::_ << SGE_TEXT("creating canvas from buffer"));
 
 	canvas::object c(b.buffer());
 
@@ -71,7 +71,7 @@ void sge::gui::skins::standard::draw(
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("drawing text (label \"")
+		log::_ << SGE_TEXT("drawing text (label \"")
 		        << b.text()
 		        << SGE_TEXT("\")"));
 
@@ -86,7 +86,7 @@ void sge::gui::skins::standard::draw(
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("blitting (label \"")
+		log::_ << SGE_TEXT("blitting (label \"")
 		        << b.text()
 		        << SGE_TEXT("\")"));
 
@@ -102,7 +102,7 @@ sge::gui::dim const sge::gui::skins::standard::optimal_size(
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("calling size hint for label"));
+		log::_ << SGE_TEXT("calling size hint for label"));
 
 	return 
 		utility::unlimited_text_size(

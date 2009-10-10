@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LOG_FORMAT_CREATE_PREFIX_HPP_INCLUDED
 #define SGE_LOG_FORMAT_CREATE_PREFIX_HPP_INCLUDED
 
-#include <sge/log/format/formatter_fwd.hpp>
+#include <sge/log/format/object_ptr.hpp>
 #include <sge/string.hpp>
 #include <sge/export.hpp>
 
@@ -32,9 +32,10 @@ namespace log
 namespace format
 {
 
-SGE_SYMBOL const_formatter_ptr const
+SGE_SYMBOL const_object_ptr const
 create_prefix(
-	string const &prefix);
+	string const &prefix
+);
 
 }
 }

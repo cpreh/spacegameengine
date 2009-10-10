@@ -84,13 +84,13 @@ sge::libpng::load_context::load_context(
 			read_ptr_->info());
 	SGE_LOG_DEBUG(
 		log::global(),
-		log::_1 << SGE_TEXT("png: dimensions: ") << dim_);
+		log::_ << SGE_TEXT("png: dimensions: ") << dim_);
 	SGE_LOG_DEBUG(
 		log::global(),
-		log::_1 << SGE_TEXT("png: bit depth: ") << static_cast<int>(bpp));
+		log::_ << SGE_TEXT("png: bit depth: ") << static_cast<int>(bpp));
 	SGE_LOG_DEBUG(
 		log::global(),
-		log::_1 << SGE_TEXT("png: channels: ") << static_cast<int>(cs));
+		log::_ << SGE_TEXT("png: channels: ") << static_cast<int>(cs));
 
 	if (color_type == PNG_COLOR_TYPE_PALETTE)
 	{

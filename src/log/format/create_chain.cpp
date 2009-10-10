@@ -20,18 +20,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/log/format/create_chain.hpp>
 #include <sge/log/format/chain.hpp>
+#include <sge/make_shared_ptr.hpp>
 
-sge::log::format::const_formatter_ptr const
+sge::log::format::const_object_ptr const
 sge::log::format::create_chain(
-	const_formatter_ptr const parent,
-	const_formatter_ptr const child)
+	const_object_ptr const parent,
+	const_object_ptr const child
+)
 {
 	if(!parent)
 		return child;
+	
 	if(!child)
 		return parent;
-	return const_formatter_ptr(
-		new chain(
+	
+	return
+		make_shared_ptr<
+			chain
+		>(
 			parent,
-			child));
+			child
+		);
 }

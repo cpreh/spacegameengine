@@ -21,8 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LOG_OUTPUT_HELPER_HPP_INCLUDED
 #define SGE_LOG_OUTPUT_HELPER_HPP_INCLUDED
 
-#include <sge/export.hpp>
-
 namespace sge
 {
 namespace log
@@ -30,9 +28,6 @@ namespace log
 
 class output_helper
 {};
-
-
-SGE_SYMBOL extern output_helper const _1;
 
 }
 }

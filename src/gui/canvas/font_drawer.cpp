@@ -50,7 +50,7 @@ sge::gui::canvas::font_drawer::font_drawer(
 	character_pos(character_pos),
 	p(p)
 {
-	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("instantiated"));
+	SGE_LOG_DEBUG(mylogger,log::_ << SGE_TEXT("instantiated"));
 }
 
 void sge::gui::canvas::font_drawer::begin_rendering(
@@ -65,7 +65,7 @@ void sge::gui::canvas::font_drawer::draw_char(
 	font::pos const &pos, 
 	font::const_image_view const &data)
 {
-	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("drawing char"));
+	SGE_LOG_DEBUG(mylogger,log::_ << SGE_TEXT("drawing char"));
 
 	image_view const sub_view = sge::image::view::sub(
 		texture_,
@@ -89,14 +89,14 @@ void sge::gui::canvas::font_drawer::draw_char(
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("counter: ") << counter << SGE_TEXT(" | ")
+			log::_ << SGE_TEXT("counter: ") << counter << SGE_TEXT(" | ")
 			        << SGE_TEXT("character pos: ") << *character_pos);
 	}
 	else
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("character position invalid"));
+			log::_ << SGE_TEXT("character position invalid"));
 	}
 
 	if (character_pos && counter++ == *character_pos)
@@ -104,7 +104,7 @@ void sge::gui::canvas::font_drawer::draw_char(
 		*p = math::vector::structure_cast<point>(pos);
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("found character!"));
+			log::_ << SGE_TEXT("found character!"));
 	}
 	
 	sge::image::algorithm::transform(

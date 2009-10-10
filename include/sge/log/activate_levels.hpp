@@ -18,14 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-void
-sge::log::object::set_hierarchy(
-	level::type const level_,
-	void (object::*fun)(level::type)
-)
+#ifndef SGE_LOG_ACTIVATE_LEVELS_HPP_INCLUDED
+#define SGE_LOG_ACTIVATE_LEVELS_HPP_INCLUDED
+
+#include <sge/log/object_fwd.hpp>
+#include <sge/log/level.hpp>
+#include <sge/export.hpp>
+
+namespace sge
 {
-	SGE_FOREACH_ENUMERATOR_2(i, level, level_)
-		(this->*fun)(
-			i
-		);
+namespace log
+{
+
+SGE_SYMBOL void
+activate_levels(
+	object &,
+	level::type
+);
+
 }
+}
+
+#endif

@@ -24,13 +24,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/make_shared_ptr.hpp>
 #include <sge/text.hpp>
 
-sge::log::format::const_formatter_ptr const
+sge::log::format::const_object_ptr const
 sge::log::format::default_level(
-	level::type const level_)
+	level::type const level_
+)
 {
 	return make_shared_ptr<
 		inserter
 	>(
 		level_to_string(level_)
-		+ SGE_TEXT(": %1%\n"));
+		+ SGE_TEXT(": %1%\n")
+	);
 }

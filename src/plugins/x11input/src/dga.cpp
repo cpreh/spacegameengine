@@ -107,7 +107,7 @@ void init_dga(
 
 	SGE_LOG_WARNING(
 		sge::log::global(),
-		sge::log::_1
+		sge::log::_
 			<< SGE_TEXT(
 				"You compiled spacegameengine with DGA support but DGA Mouse is not supported by your system!"
 				"Maybe you are missing libXxf86dga or a proper video driver? Disabling dga."));

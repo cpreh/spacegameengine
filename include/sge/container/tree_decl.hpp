@@ -58,74 +58,157 @@ public:
 	typedef typename child_list::const_reverse_iterator const_reverse_iterator;
 
 	tree();
+
 	explicit tree(
-		init_tree<T> const &);
+		init_tree<T> const &
+	);
+
 	explicit tree(
-		T const &);
+		T const &
+	);
 		
 	~tree();
 
-	child_list &children();
-	child_list const &children() const;
+	child_list &
+	children();
+
+	child_list const &
+	children() const;
 
 	tree &parent();
-	tree const &parent() const;
-	bool has_parent() const;
-	void parent(
-		tree &);
-	void orphan();
-
-	auto_ptr release(
-		iterator);
-	iterator child_position();
-	const_iterator child_position() const;
 	
-	void value(
-		T const &);
-	T &value();
-	T const &value() const;
-
-	void push_back(
-		auto_ptr);
-	void push_back(
-		T const &);
-	void pop_back();
-	void push_front(
-		auto_ptr);
-	void push_front(
-		T const &);
-	void pop_front();
-	void clear();
-
-	reference back();
-	const_reference back() const;
-	reference front();
-	const_reference front() const;
-
-	iterator begin();
-	iterator end();
-	const_iterator begin() const;
-	const_iterator end() const;
-	reverse_iterator rbegin();
-	reverse_iterator rend();
-	const_reverse_iterator rbegin() const;
-	const_reverse_iterator rend() const;
-
-	void insert(
-		iterator,
-		auto_ptr);
-	void insert(
-		iterator,
-		T const &);
-	void erase(
-		iterator);
-	void erase(
-		iterator,
-		iterator);
+	tree const &
+	parent() const;
 	
-	size_type size() const;
-	size_type max_size() const;
-	bool empty() const;
+	bool
+	has_parent() const;
+	
+	void
+	parent(
+		tree &
+	);
+	
+	void
+	orphan();
+
+	auto_ptr
+	release(
+		iterator
+	);
+
+	iterator
+	child_position();
+
+	const_iterator
+	child_position() const;
+	
+	void
+	value(
+		T const &
+	);
+
+	T &
+	value();
+
+	T const &
+	value() const;
+
+	void
+	push_back(
+		auto_ptr
+	);
+
+	void
+	push_back(
+		T const &
+	);
+
+	void
+	pop_back();
+
+	void
+	push_front(
+		auto_ptr
+	);
+
+	void
+	push_front(
+		T const &
+	);
+
+	void
+	pop_front();
+
+	void
+	clear();
+
+	reference
+	back();
+
+	const_reference
+	back() const;
+
+	reference
+	front();
+
+	const_reference
+	front() const;
+
+	iterator
+	begin();
+
+	iterator
+	end();
+
+	const_iterator
+	begin() const;
+
+	const_iterator
+	end() const;
+
+	reverse_iterator
+	rbegin();
+
+	reverse_iterator
+	rend();
+
+	const_reverse_iterator
+	rbegin() const;
+
+	const_reverse_iterator
+	rend() const;
+
+	void
+	insert(
+		iterator,
+		auto_ptr
+	);
+
+	void
+	insert(
+		iterator,
+		T const &
+	);
+
+	void
+	erase(
+		iterator
+	);
+
+	void
+	erase(
+		iterator,
+		iterator
+	);
+	
+	size_type
+	size() const;
+
+	size_type
+	max_size() const;
+
+	bool
+	empty() const;
 private:
 	T value_;
 	tree *parent_;
@@ -135,16 +218,20 @@ private:
 template<
 	typename T
 >
-bool operator==(
+bool
+operator==(
 	tree<T> const &,
-	tree<T> const &);
+	tree<T> const &
+);
 
 template<
 	typename T
 >
-bool operator!=(
+bool
+operator!=(
 	tree<T> const &,
-	tree<T> const &);
+	tree<T> const &
+);
 
 }
 }

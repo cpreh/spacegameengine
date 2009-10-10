@@ -75,7 +75,7 @@ sge::md3::object::object(
 	if(version != 15)
 		SGE_LOG_WARNING(
 			log::global(),
-			log::_1 << SGE_TEXT("md3 version is not 15 but continuing anyway.")
+			log::_ << SGE_TEXT("md3 version is not 15 but continuing anyway.")
 		);
 
 	name_ = read_string<max_qpath>(is);
