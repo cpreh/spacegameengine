@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "inner_node_name.hpp"
 #include <sge/log/context.hpp>
 #include <sge/log/location.hpp>
 #include <sge/container/tree_impl.hpp>
@@ -29,7 +30,7 @@ sge::log::context::context()
 :
 	tree_(
 		detail::inner_context_node(
-			SGE_TEXT("sge")
+			SGE_TEXT("")
 		)
 	)
 {}
@@ -56,12 +57,13 @@ sge::log::context::add(
 		++item
 	)
 	{
-	/*
 		detail::context_tree::iterator const item_it(
-			std::find(
+			std::find_if(
 				cur->begin(),
 				cur->end(),
-				*item
+				inner_node_name(
+					*item
+				)
 			)
 		);
 
@@ -79,7 +81,6 @@ sge::log::context::add(
 		}
 		else
 			cur = &*item_it;
-	*/
 	}
 
 	cur->push_back(

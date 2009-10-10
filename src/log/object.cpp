@@ -89,7 +89,7 @@ sge::log::object::object(
 
 		enabled_levels_[
 			i
-		] = false;
+		] = (param_.level() <= i);
 	}
 }
 
