@@ -102,6 +102,24 @@ sge::container::tree<T>::parent() const
 template<
 	typename T
 >
+sge::container::tree<T> *
+sge::container::tree<T>::parent_ptr()
+{
+	return parent_;
+}
+
+template<
+	typename T
+>
+sge::container::tree<T> const *
+sge::container::tree<T>::parent_ptr() const
+{
+	return parent_;
+}
+
+template<
+	typename T
+>
 bool
 sge::container::tree<T>::has_parent() const
 {
@@ -126,8 +144,11 @@ sge::container::tree<T>::orphan()
 {
 	if(!has_parent())
 		return;
+	
 	parent->release(
-		*this);
+		*this
+	);
+
 	parent_ = 0;
 }
 

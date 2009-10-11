@@ -80,6 +80,12 @@ public:
 	
 	tree const &
 	parent() const;
+
+	tree *
+	parent_ptr();
+
+	tree const *
+	parent_ptr() const;
 	
 	bool
 	has_parent() const;

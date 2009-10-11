@@ -24,10 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/parameters/inherited.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/mainloop/catch_block.hpp>
+#include <sge/function/object.hpp>
 #include <sge/optional_impl.hpp>
 #include <sge/text.hpp>
 #include <sge/cout.hpp>
 #include <sge/assert.hpp>
+#include <tr1/functional>
 
 int main()
 try
@@ -89,6 +91,21 @@ try
 		*child_ref,
 		sge::log::_
 			<< SGE_TEXT("child output!")
+	);
+
+	context_.apply(
+		logger.context_location().location(),
+		std::tr1::bind(
+			&sge::log::object::enable,
+			std::tr1::placeholders::_1,
+			false
+		)
+	);
+
+	SGE_LOG_INFO(
+		*child_ref,
+		sge::log::_
+			<< SGE_TEXT("shouldn't be shown!")
 	);
 }
 SGE_MAINLOOP_CATCH_BLOCK

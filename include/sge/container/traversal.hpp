@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_const.hpp>
+#include <boost/next_prior.hpp>
 #include <stack>
 
 namespace sge
@@ -38,7 +39,8 @@ template<
 class traversal {
 public:
 	explicit traversal(
-		Tree &tree_)
+		Tree &tree_
+	)
 	:
 		tree_(tree_)
 	{}
@@ -66,14 +68,18 @@ private:
 		typename tree_iterator::reference
 	> iterator_base;
 public:
-	class iterator : public iterator_base {
+	class iterator
+	:
+		public iterator_base
+	{
 	public:
 		iterator(
 			tree_iterator const &it,
-			child_list const &children_)
+			Tree *const current 
+		)
 		:
 			it(it),
-			children_(&children_),
+			current(current),
 			positions()
 		{}
 
@@ -91,56 +97,68 @@ public:
 
 		friend class boost::iterator_core_access;
 	private:
-		void increment()
+		void
+		increment()
 		{
 			if(!it->empty())
 			{
 				positions.push(it);
-				children_ = &it->children();
+				current = &*it;
 				it = it->begin();
 			}
 			else
 			{
-				while(!positions.empty() && positions.top() != positions.top()->parent().end())
+				while(
+					!positions.empty()
+					&& boost::next(
+						positions.top()
+					)
+					== positions.top()->parent().end()
+				)
 				{
 					it = positions.top();
-					children_ = &it->children();
+					current = it->parent_ptr();
 					positions.pop();
 				}
 				++it;
 			}
 		}
 
-		reference dereference() const
+		reference
+		dereference() const
 		{
 			return *it;
 		}
 
-		bool equal(
-			iterator const &s) const
+		bool
+		equal(
+			iterator const &s
+		) const
 		{
 			return
-				children_ == s.children_
+				current == s.current
 				&& it == s.it;
 		}
 
 		tree_iterator it;
-		child_list const *children_;
+		Tree *current;
 		stack_type positions;
 	};
 
-	iterator const begin() const
+	iterator const
+	begin() const
 	{
 		return iterator(
 			tree_.begin(),
-			tree_.children()
+			&tree_
 		);
 	}
-	iterator const end() const
+	iterator const
+	end() const
 	{
 		return iterator(
 			tree_.end(),
-			tree_.children()
+			&tree_
 		);
 	}
 private:
