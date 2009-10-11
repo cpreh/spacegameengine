@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/log.hpp>
 #include <sge/gui/unit.hpp>
 #include <sge/math/dim/output.hpp>
-#include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/box/basic_impl.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/text_size.hpp>
 #include <sge/image/colors.hpp>
@@ -63,7 +63,7 @@ void sge::gui::skins::standard::draw(
 		*/
 	c.draw_rect(
 		rect(
-			rect::point_type::null(),
+			rect::pos_type::null(),
 			c.size()
 		),
 		sge::image::colors::transparent(),

@@ -1,5 +1,5 @@
 #include <sge/math/inverse.hpp>
-#include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/box/basic_impl.hpp>
 #include <sge/math/vector/structure_cast.hpp>
 #include <sge/math/vector/arithmetic.hpp>
 #include <sge/math/dim/structure_cast.hpp>

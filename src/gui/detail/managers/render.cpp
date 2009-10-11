@@ -27,9 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/canvas/object.hpp>
 #include <sge/gui/cursor/base.hpp>
 #include <sge/gui/log.hpp>
-#include <sge/math/rect/basic_impl.hpp>
-#include <sge/math/rect/structure_cast.hpp>
-#include <sge/math/rect/output.hpp>
+#include <sge/math/box/basic_impl.hpp>
+#include <sge/math/box/structure_cast.hpp>
+#include <sge/math/box/output.hpp>
 #include <sge/math/next_pow_2.hpp>
 #include <sge/math/dim/output.hpp>
 #include <sge/math/dim/structure_cast.hpp>
@@ -213,7 +213,7 @@ void sge::gui::detail::managers::render::resize(
 	dirty(
 		w,
 		rect(
-			rect::point_type::null(),
+			rect::pos_type::null(),
 			d
 		)
 	);
@@ -241,16 +241,19 @@ void sge::gui::detail::managers::render::resize(
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("texture resolution ")
-			        << wd.texture->dim() 
-							<< SGE_TEXT(" suffices, doing nothing"));
+			log::_1
+				<< SGE_TEXT("texture resolution ")
+				<< wd.texture->dim() 
+				<< SGE_TEXT(" suffices, doing nothing"));
 		return;
 	}
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("new resolution is ")
-						<< new_dim);
+		log::_1
+			<< SGE_TEXT("new resolution is ")
+			<< new_dim
+	);
 
 	wd.sprite.texture(
 		assign_textures(
@@ -368,7 +371,7 @@ void sge::gui::detail::managers::render::clean()
 
 		renderer::scoped_texture_lock const lock_(
 			widgets[&p].texture,
-			math::rect::structure_cast<renderer::lock_rect>(
+			math::box::structure_cast<renderer::lock_rect>(
 				to_lock),
 			renderer::lock_mode::readwrite
 		);

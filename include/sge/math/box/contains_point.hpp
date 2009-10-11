@@ -18,32 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_RECT_CONTAINS_POINT_HPP_INCLUDED
-#define SGE_MATH_RECT_CONTAINS_POINT_HPP_INCLUDED
+#ifndef SGE_MATH_BOX_CONTAINS_POINT_HPP_INCLUDED
+#define SGE_MATH_BOX_CONTAINS_POINT_HPP_INCLUDED
 
-#include <sge/math/rect/basic_fwd.hpp>
-#include <sge/math/vector/basic_fwd.hpp>
+#include <sge/math/box/basic_impl.hpp>
+#include <sge/math/vector/basic_impl.hpp>
+#include <sge/math/vector/static.hpp>
+#include <sge/math/size_type.hpp>
 
 namespace sge
 {
 namespace math
 {
-namespace rect
+namespace box
 {
 
 template<
 	typename T,
-	typename N,
-	typename S
+	size_type N
 >
-bool contains_point(
-	basic<T> const &,
-	vector::basic<T, N, S> const &);
+bool
+contains_point(
+	basic<T, N> const &box_,
+	typename vector::static_<T, N>::type const &point_
+)
+{
+	bool ret = true;
+
+	for(
+		size_type i = 0;
+		i < N;
+		++i
+	)
+		ret &=
+			point_[i] >= box_.pos(i)
+			&& point_[i] < box_.max(i);
+	
+	return ret;
+}
 
 }
 }
 }
-
-#include <sge/math/rect/detail/contains_point_impl.hpp>
 
 #endif

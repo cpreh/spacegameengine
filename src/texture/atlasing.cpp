@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/image/view/sub.hpp>
 #include <sge/image/view/dim.hpp>
-#include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/box/basic_impl.hpp>
 #include <sge/math/is_power_of_2.hpp>
 #include <sge/math/next_pow_2.hpp>
 #include <sge/math/dim/basic_impl.hpp>
@@ -120,17 +120,18 @@ sge::renderer::lock_rect const
 sge::texture::inner_atlased_rect(
 	renderer::lock_rect outer,
 	bool const need_atlasing_w,
-	bool const need_atlasing_h)
+	bool const need_atlasing_h
+)
 {
 	if(need_atlasing_w)
 	{
 		outer.left(outer.left() + 1);
-		outer.right(outer.right() - 1);
+		outer.w(outer.w() - 2);
 	}
 	if(need_atlasing_h)
 	{
 		outer.top(outer.top() + 1);
-		outer.bottom(outer.bottom() - 1);
+		outer.h(outer.h() - 2);
 	}
 	return outer;
 }
@@ -152,10 +153,11 @@ void sge::texture::atlas_w(
 		image::view::sub(
 			src,
 			renderer::lock_rect(
-				0,
-				0,
-				1,
-				dim.h()
+				renderer::lock_rect::pos_type::null(),
+				renderer::lock_rect::dim_type(
+					1,
+					dim.h()
+				)
 			)
 		),
 		renderer::texture_pos_type(
@@ -172,10 +174,14 @@ void sge::texture::atlas_w(
 		image::view::sub(
 			src,
 			renderer::lock_rect(
-				dim.w() - 1,
-				0,
-				dim.w(),
-				dim.h()
+				renderer::lock_rect::pos_type(
+					dim.w() - 1,
+					0
+				),
+				renderer::lock_rect::dim_type(
+					1,
+					dim.h()
+				)
 			)
 		),
 		renderer::texture_pos_type(
@@ -202,10 +208,11 @@ void sge::texture::atlas_h(
 		image::view::sub(
 			src,
 			renderer::lock_rect(
-				0,
-				0,
-				dim.w(),
-				1
+				renderer::lock_rect::pos_type::null(),
+				renderer::lock_rect::dim_type(
+					dim.w(),
+					1
+				)
 			)
 		),
 		renderer::texture_pos_type(
@@ -222,10 +229,14 @@ void sge::texture::atlas_h(
 		image::view::sub(
 			src,
 			renderer::lock_rect(
-				0,
-				dim.h() - 1,
-				dim.w(),
-				dim.h()
+				renderer::lock_rect::pos_type(
+					0,
+					dim.h() - 1
+				),
+				renderer::lock_rect::dim_type(
+					dim.w(),
+					1
+				)
 			)
 		),
 		renderer::texture_pos_type(

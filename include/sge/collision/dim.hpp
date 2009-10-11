@@ -8,7 +8,13 @@ namespace sge
 {
 namespace collision
 {
-typedef math::dim::static_<unit,3>::type dim;
+typedef 
+math::dim::static_
+<
+	unit,
+	3
+>::type 
+dim;
 }
 }
 

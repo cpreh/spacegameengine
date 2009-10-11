@@ -31,8 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/vector/arithmetic.hpp>
 #include <sge/math/vector/construct.hpp>
 #include <sge/math/vector/structure_cast.hpp>
-#include <sge/math/rect/basic_impl.hpp>
-#include <sge/math/rect/structure_cast.hpp>
+#include <sge/math/box/basic_impl.hpp>
+#include <sge/math/box/structure_cast.hpp>
 #include <sge/variant/object_impl.hpp>
 #include <tr1/array>
 #include <boost/foreach.hpp>
@@ -41,9 +41,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-typedef sge::math::rect::basic<
+typedef sge::math::box::rect<
 	sge::sprite::funit
-> frect;
+>::type frect;
 
 }
 
@@ -53,7 +53,7 @@ sge::sprite::detail::fill_position(
 	rect const &rs,
 	depth_type const z)
 {
-	frect const r = math::rect::structure_cast<frect>(rs);
+	frect const r = math::box::structure_cast<frect>(rs);
 
 	(*it++).set<vertex_pos>(pos3(r.left(), r.top(), z));
 	(*it++).set<vertex_pos>(pos3(r.right(), r.top(), z));

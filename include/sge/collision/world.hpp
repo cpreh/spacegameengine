@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/collision/shape_callback.hpp>
 #include <sge/collision/test_callback.hpp>
 #include <sge/collision/test_callback_combiner.hpp>
+#include <sge/math/vector/basic_impl.hpp>
 #include <sge/signal/auto_connection.hpp>
 #include <sge/export.hpp>
 #include <sge/noncopyable.hpp>
@@ -78,11 +79,15 @@ public:
 	
 	virtual shapes::sphere_ptr const
 	create_sphere(
-		unit radius) = 0;
+		unit radius,
+		bool is_solid,
+		point const & = point::null()) = 0;
 
 	virtual shapes::box_ptr const
 	create_box(
-		collision::dim const &) = 0;
+		collision::dim const &,
+		bool is_solid,
+		point const & = point::null()) = 0;
 	
 	virtual group_ptr const 
 	create_group() = 0;

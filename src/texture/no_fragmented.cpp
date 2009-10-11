@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/math/dim/output.hpp>
 #include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/box/basic_impl.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/text.hpp>
 #include <sge/make_shared_ptr.hpp>
@@ -79,7 +79,7 @@ sge::texture::no_fragmented::consume_fragment(
 			part_fragmented
 		>(
 			renderer::lock_rect(
-				renderer::lock_rect::point_type::null(),
+				renderer::lock_rect::pos_type::null(),
 				atlased_size(dim)
 			),
 			std::tr1::ref(

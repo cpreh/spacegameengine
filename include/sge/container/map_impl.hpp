@@ -122,6 +122,20 @@ void sge::container::map<
 template<
 	typename MapType
 >
+void sge::container::map<
+	MapType
+>::erase(
+	iterator const it
+)
+{
+	impl_.erase(
+		it
+	);
+}
+
+template<
+	typename MapType
+>
 typename sge::container::map<
 	MapType
 >::iterator

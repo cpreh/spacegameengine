@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/texture_dim.hpp>
-#include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/box/basic_impl.hpp>
 #include <sge/math/circle/basic_impl.hpp>
 #include <sge/math/almost_zero.hpp>
 #include <sge/math/vector/arithmetic.hpp>
@@ -223,28 +223,8 @@ sge::sprite::object::rect() const
 {
 	return sprite::rect(
 		pos(),
-		size());
-}
-
-sge::sprite::rect const
-sge::sprite::object::bounding_quad() const
-{
-	if(math::almost_zero(rotation()))
-		return rect();
-	funit const rad = radius();
-	return sprite::rect(
-		static_cast<sprite::unit>(
-			static_cast<funit>(
-				center().x()) - rad),
-		static_cast<unit>(
-			static_cast<funit>(
-				center().y()) - rad),
-		static_cast<unit>(
-			static_cast<funit>(
-				center().x()) + rad),
-		static_cast<unit>(
-			static_cast<funit>(
-				center().y()) + rad));
+		size()
+	);
 }
 
 sge::sprite::circle const

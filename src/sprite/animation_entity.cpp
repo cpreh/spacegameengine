@@ -19,13 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/sprite/animation_entity.hpp>
-#include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/box/basic_impl.hpp>
 #include <sge/time/resolution.hpp>
 #include <sge/texture/part.hpp>
 
 sge::sprite::animation_entity::animation_entity(
 	time::resolution const &res,
-	texture::const_part_ptr const tex_)
+	texture::const_part_ptr const tex_
+)
 :
 	delay_(res.get()),
 	tex_(tex_)

@@ -49,7 +49,7 @@ void sge::gui::skins::standard::draw(
 	// Background
 	c.draw_rect(
 		rect(
-			rect::point_type::null(),
+			rect::pos_type::null(),
 			c.size()
 		),
 		internal_color(
