@@ -31,6 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/vector/arithmetic.hpp>
 #include <sge/math/box/intersects.hpp>
 #include <sge/math/box/output.hpp>
+#include <sge/log/parameters/inherited.hpp>
+#include <sge/log/object.hpp>
+#include <sge/log/headers.hpp>
 #include <sge/type_info.hpp>
 #include <sge/make_auto_ptr.hpp>
 #include <boost/foreach.hpp>
@@ -38,10 +41,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
-sge::gui::logger mylogger(
-	sge::gui::global_log(),
-	SGE_TEXT("widget"),
-	false);
+
+sge::log::object mylogger(
+	sge::log::parameters::inherited(
+		sge::gui::global_log(),
+		SGE_TEXT("widget")
+	)
+);
+
 }
 
 sge::gui::widgets::base::base(

@@ -23,14 +23,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/gui/manager.hpp>
 #include <sge/gui/widgets/log.hpp>
+#include <sge/log/parameters/inherited.hpp>
+#include <sge/log/object.hpp>
+#include <sge/log/headers.hpp>
 #include <sge/assert.hpp>
 
 namespace
 {
-sge::gui::logger mylogger(
-	sge::gui::widgets::global_log(),
-	SGE_TEXT("label"),
-	true);
+
+sge::log::object mylogger(
+	sge::log::parameters::inherited(
+		sge::gui::widgets::global_log(),
+		SGE_TEXT("label")
+	)
+);
+
 }
 
 sge::gui::widgets::label::label(

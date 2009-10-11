@@ -28,6 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/dim/structure_cast.hpp>
 #include <sge/math/box/structure_cast.hpp>
 #include <sge/math/box/basic_impl.hpp>
+#include <sge/log/parameters/inherited.hpp>
+#include <sge/log/object.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/text.hpp>
 #include "log.hpp"
@@ -35,7 +37,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::canvas::global_log(),SGE_TEXT("font_drawer"),false);
+
+sge::log::object mylogger(
+	sge::log::parameters::inherited(
+		sge::gui::canvas::global_log(),
+		SGE_TEXT("font_drawer")
+	)
+);
+
 }
 
 sge::gui::canvas::font_drawer::font_drawer(

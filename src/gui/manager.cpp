@@ -26,17 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widgets/base.hpp>
 #include <sge/gui/cursor/base.hpp>
 #include <sge/gui/manager.hpp>
-#include <sge/gui/log.hpp>
 #include <sge/math/box/basic_impl.hpp>
 #include <boost/foreach.hpp>
-
-namespace
-{
-sge::gui::logger mylogger(
-	sge::gui::global_log(),
-	SGE_TEXT("manager"),
-	false);
-}
 
 sge::gui::manager::manager(
 	renderer::device_ptr const rend,

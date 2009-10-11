@@ -27,13 +27,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key_type.hpp>
 #include <sge/input/key_code.hpp>
 #include <sge/math/box/basic_impl.hpp>
+#include <sge/log/parameters/inherited.hpp>
+#include <sge/log/object.hpp>
+#include <sge/log/headers.hpp>
 
 namespace
 {
-sge::gui::logger mylogger(
-	sge::gui::widgets::global_log(),
-	SGE_TEXT("buttons::base"),
-	false);
+
+sge::log::object mylogger(
+	sge::log::parameters::inherited(
+		sge::gui::widgets::global_log(),
+		SGE_TEXT("buttons::base")
+	)
+);
+
 }
 
 

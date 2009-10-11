@@ -35,6 +35,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/vector/output.hpp>
 #include <sge/math/dim/output.hpp>
 #include <sge/font/metrics.hpp>
+#include <sge/log/parameters/inherited.hpp>
+#include <sge/log/object.hpp>
+#include <sge/log/headers.hpp>
 #include <sge/assert.hpp>
 #include <sge/text.hpp>
 #include <tr1/functional>
@@ -42,15 +45,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
-sge::gui::logger mylogger(
-	sge::gui::widgets::global_log(),
-	SGE_TEXT("edit"),
-	false);
 
-sge::gui::logger mygraphlogger(
-	sge::gui::widgets::global_log(),
-	SGE_TEXT("edit"),
-	false);
+sge::log::object mylogger(
+	sge::log::parameters::inherited(
+		sge::gui::widgets::global_log(),
+		SGE_TEXT("edit")
+	)
+);
+
+sge::log::object mygraphlogger(
+	sge::log::parameters::inherited(
+		sge::gui::widgets::global_log(),
+		SGE_TEXT("edit")
+	)
+);
+
 }
 
 sge::gui::widgets::edit::edit(

@@ -25,7 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/log.hpp>
 #include <sge/math/negative.hpp>
 #include <sge/math/dim/output.hpp>
+#include <sge/log/parameters/inherited.hpp>
 #include <sge/log/headers.hpp>
+#include <sge/log/object.hpp>
 #include <sge/text.hpp>
 #include <sge/string.hpp>
 #include <sge/lexical_cast.hpp>
@@ -36,10 +38,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
-sge::gui::logger mylogger(
-	sge::gui::global_log(),
-	SGE_TEXT("detail: grid_cache"),
-	true);
+
+sge::log::object mylogger(
+	sge::log::parameters::inherited(
+		sge::gui::global_log(),
+		SGE_TEXT("detail: grid_cache")
+	)
+);
+
 }
 
 sge::gui::detail::grid_cache::widget_data::widget_data()
