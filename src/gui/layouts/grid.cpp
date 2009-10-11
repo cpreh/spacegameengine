@@ -47,7 +47,7 @@ void sge::gui::layouts::grid::compile_static()
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("In static compilation for widget ")
+		log::_ << SGE_TEXT("In static compilation for widget ")
 		        << type_name(typeid(connected_widget())));
 	
 	cache_.reset(
@@ -71,29 +71,29 @@ void sge::gui::layouts::grid::compile_static()
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("optimal size ") << optimal 
+		log::_ << SGE_TEXT("optimal size ") << optimal 
 		        << SGE_TEXT(", usable size: ") << usable);
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("adapting y axis begin"));
+		log::_ << SGE_TEXT("adapting y axis begin"));
 	adapt_outer(
 		optimal,
 		usable,
 		y_axis);
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("adapting y axis end"));
+		log::_ << SGE_TEXT("adapting y axis end"));
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("adapting x axis begin"));
+		log::_ << SGE_TEXT("adapting x axis begin"));
 	adapt_outer(
 		optimal,
 		usable,
 		x_axis);
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("adapting x axis end"));
+		log::_ << SGE_TEXT("adapting x axis end"));
 	
 	distribute_overhead(
 		usable);
@@ -104,7 +104,7 @@ sge::gui::dim const sge::gui::layouts::grid::optimal_size() const
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("optimal size, begin"));
+		log::_ << SGE_TEXT("optimal size, begin"));
 
 	detail::grid_cache::rolumn_container const &rolumns =
 		valid_cache().rolumns();
@@ -113,7 +113,7 @@ sge::gui::dim const sge::gui::layouts::grid::optimal_size() const
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("rolumn dimension is ")
+		log::_ << SGE_TEXT("rolumn dimension is ")
 		        << rolumns.dim());
 
 	for (
@@ -127,7 +127,7 @@ sge::gui::dim const sge::gui::layouts::grid::optimal_size() const
 		{
 			SGE_LOG_DEBUG(
 				mylogger,
-				log::_1 << SGE_TEXT("axis: ") 
+				log::_ << SGE_TEXT("axis: ") 
 				        << j 
 								<< SGE_TEXT(", rolumn ")
 								<< i
@@ -138,7 +138,7 @@ sge::gui::dim const sge::gui::layouts::grid::optimal_size() const
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("optimal size, end"));
+		log::_ << SGE_TEXT("optimal size, end"));
 	
 	return maxdims;
 }
@@ -191,7 +191,7 @@ void sge::gui::layouts::grid::shrink(
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("there is too less space, shrinking begin"));
+		log::_ << SGE_TEXT("there is too less space, shrinking begin"));
 	adapt(
 		optimal,
 		usable,
@@ -199,7 +199,7 @@ void sge::gui::layouts::grid::shrink(
 		axis);
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("shrinking end"));
+		log::_ << SGE_TEXT("shrinking end"));
 }
 
 void sge::gui::layouts::grid::expand(
@@ -209,14 +209,14 @@ void sge::gui::layouts::grid::expand(
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("there is too much space, expanding begin"));
+		log::_ << SGE_TEXT("there is too much space, expanding begin"));
 
 	unsigned count;
 	if ((count = count_flags(axis_policy::should_grow,axis)))
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("there are ") 
+			log::_ << SGE_TEXT("there are ") 
 							<< count 
 							<< SGE_TEXT(" widgets which should grow, growing those"));
 
@@ -230,7 +230,7 @@ void sge::gui::layouts::grid::expand(
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("there are ") 
+			log::_ << SGE_TEXT("there are ") 
 							<< count 
 							<< SGE_TEXT(" widgets which can grow, growing those"));
 
@@ -244,11 +244,11 @@ void sge::gui::layouts::grid::expand(
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("there are no widgets which could grow :("));
+			log::_ << SGE_TEXT("there are no widgets which could grow :("));
 	}
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("expanding end"));
+		log::_ << SGE_TEXT("expanding end"));
 }
 
 void sge::gui::layouts::grid::adapt(
@@ -274,7 +274,7 @@ void sge::gui::layouts::grid::adapt(
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("adding ") << diff << SGE_TEXT("/") 
+		log::_ << SGE_TEXT("adding ") << diff << SGE_TEXT("/") 
 		        << count << SGE_TEXT("=") << addition 
 						<< SGE_TEXT(" pixels to the flagged rolumns"));
 
@@ -291,7 +291,7 @@ void sge::gui::layouts::grid::adapt(
 		{
 			SGE_LOG_DEBUG(
 				mylogger,
-				log::_1 << SGE_TEXT("rolumn ") << i << SGE_TEXT(" can be modified")); 
+				log::_ << SGE_TEXT("rolumn ") << i << SGE_TEXT(" can be modified")); 
 
 			update_rolumn(
 				axis,
@@ -329,7 +329,7 @@ void sge::gui::layouts::grid::update_rolumn(
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("updating rolumn ") 
+		log::_ << SGE_TEXT("updating rolumn ") 
 		        << rolumn 
 						<< SGE_TEXT(" on axis ") 
 						<< axis); 
@@ -341,7 +341,7 @@ void sge::gui::layouts::grid::update_rolumn(
 			
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("added addition, plane dimensions are: ")
+		log::_ << SGE_TEXT("added addition, plane dimensions are: ")
 		        << valid_cache().plane().dim());
 
 	for (
@@ -351,7 +351,7 @@ void sge::gui::layouts::grid::update_rolumn(
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("swapping positions: ")
+			log::_ << SGE_TEXT("swapping positions: ")
 							<< bool(axis)
 							<< SGE_TEXT(" and accessing ")
 							<< i << SGE_TEXT("x") << rolumn);
@@ -377,7 +377,7 @@ void sge::gui::layouts::grid::update_rolumn(
 	}
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("update rolumn, end ")); 
+		log::_ << SGE_TEXT("update rolumn, end ")); 
 }
 
 // counts the number of widgets on the specified axis (not rolumn, axis) which
@@ -446,7 +446,7 @@ void sge::gui::layouts::grid::update_widgets()
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("updating widgets begin"));
+		log::_ << SGE_TEXT("updating widgets begin"));
 
 	detail::grid_cache::child_plane &c = 
 		valid_cache().plane();
@@ -456,7 +456,7 @@ void sge::gui::layouts::grid::update_widgets()
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("volatile rolumns dim: ")
+		log::_ << SGE_TEXT("volatile rolumns dim: ")
 		        << rolumns.size());
 
 	// this pos represents the "screen position", not the position in the array
@@ -497,7 +497,7 @@ void sge::gui::layouts::grid::update_widgets()
 	
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("updating widgets end"));
+		log::_ << SGE_TEXT("updating widgets end"));
 }
 
 namespace
@@ -523,7 +523,7 @@ void sge::gui::layouts::grid::update_widget(
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("setting widget position to ") 
+		log::_ << SGE_TEXT("setting widget position to ") 
 		        << p 
 						<< SGE_TEXT(", with large size ") 
 						<< d 

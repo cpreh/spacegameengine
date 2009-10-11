@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../file.hpp"
 #include <sge/audio/exception.hpp>
 #include <sge/log/headers.hpp>
+#include <sge/log/global.hpp>
 #include <sge/endianness/is_little_endian.hpp>
 #include <sge/endianness/copy_swapped.hpp>
 #include <sge/endianness/swap.hpp>
@@ -57,7 +58,7 @@ sge::string const sge::wave::file::to_string() const
 
 void sge::wave::file::reset()
 {
-	SGE_LOG_DEBUG(log::global(),log::_1 << "wave: resetting file");
+	SGE_LOG_DEBUG(log::global(),log::_ << "wave: resetting file");
 	file_.seekg(data_segment);
 	samples_read_ = static_cast<audio::sample_count>(0);
 }
@@ -181,7 +182,7 @@ void sge::wave::file::ignore_chunks_until(std::string const &desc)
 	{
 		SGE_LOG_INFO(
 			log::global(),
-			log::_1 << SGE_TEXT("detected unknown subchunk in wave file \"")
+			log::_ << SGE_TEXT("detected unknown subchunk in wave file \"")
 			        << filename_
 			        << SGE_TEXT("\""));
 

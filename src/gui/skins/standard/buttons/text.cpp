@@ -51,7 +51,7 @@ void sge::gui::skins::standard::draw(
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("creating canvas from buffer"));
+		log::_ << SGE_TEXT("creating canvas from buffer"));
 	canvas::object c(b.buffer());
 
 	typedef internal_color::format::channel_type channel;
@@ -151,7 +151,7 @@ void sge::gui::skins::standard::draw(
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("drawing text (button \"")
+		log::_ << SGE_TEXT("drawing text (button \"")
 		        << b.caption()
 		        << SGE_TEXT("\")"));
 
@@ -166,13 +166,13 @@ void sge::gui::skins::standard::draw(
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("blitting (button \"")
+		log::_ << SGE_TEXT("blitting (button \"")
 		        << b.caption()
 		        << SGE_TEXT("\")"));
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1
+		log::_
 			<< SGE_TEXT("source rect is \"")
 			<< rect(b.absolute_pos(),c.size())
 			<< SGE_TEXT(", invalid rect is ")
@@ -186,7 +186,7 @@ sge::gui::dim const sge::gui::skins::standard::optimal_size(
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("calling size hint for button"));
+		log::_ << SGE_TEXT("calling size hint for button"));
 
 	dim const font_dim = 
 		utility::unlimited_text_size(

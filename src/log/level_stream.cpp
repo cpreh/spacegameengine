@@ -21,55 +21,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/level_stream.hpp>
 #include <sge/log/temporary_output.hpp>
 #include <sge/log/format/create_chain.hpp>
-#include <sge/log/format/formatter.hpp>
+#include <sge/log/format/object.hpp>
 
 sge::log::level_stream::level_stream(
 	ostream &dest_,
-	format::const_formatter_ptr const formatter_)
+	format::const_object_ptr const formatter_
+)
 :
 	dest_(dest_),
-	formatter_(formatter_),
-	enabled_(false)
+	formatter_(formatter_)
 {}
 
 sge::log::level_stream::~level_stream()
 {}
 
-void sge::log::level_stream::enable()
-{
-	enabled_ = true;
-}
-
-void sge::log::level_stream::disable()
-{
-	enabled_ = false;
-}
-
-bool sge::log::level_stream::enabled() const
-{
-	return enabled_;
-}
-
-void sge::log::level_stream::log(
+void
+sge::log::level_stream::log(
 	temporary_output const &output,
-	format::const_formatter_ptr const additional_formatter)
+	format::const_object_ptr const additional_formatter
+)
 {
-	if(!enabled())
-		return;
+	dest_
+		<< format::create_chain(
+			additional_formatter,
+			formatter()
+		)->format(
+			output.result()
+		);
 	
-	dest_ << format::create_chain(
-		additional_formatter,
-		formatter())->format(output.result());
 	dest_.flush();
 }
 
-void sge::log::level_stream::formatter(
-	format::const_formatter_ptr const new_formatter)
+void
+sge::log::level_stream::formatter(
+	format::const_object_ptr const new_formatter
+)
 {
 	formatter_ = new_formatter;
 }
 
-sge::log::format::const_formatter_ptr const
+sge::log::format::const_object_ptr const
 sge::log::level_stream::formatter() const
 {
 	return formatter_;

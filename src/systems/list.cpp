@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/named_compare.hpp>
 #include <sge/systems/name_dont_care.hpp>
 #include <sge/log/headers.hpp>
+#include <sge/log/global.hpp>
 #include <sge/text.hpp>
 #include <functional>
 #include <ostream>
@@ -101,7 +102,7 @@ sge::systems::list::operator()(
 	{
 		SGE_LOG_WARNING(
 			log::global(),
-			log::_1
+			log::_
 				<< SGE_TEXT("Duplicate system state given!")
 		);
 	}

@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vertex_format.hpp"
 #include <sge/math/twopi.hpp>
 #include <sge/log/headers.hpp>
+#include <sge/log/global.hpp>
 #include <sge/renderer/vf/dynamic_view.hpp>
 #include <sge/renderer/vf/dynamic_format.hpp>
 #include <sge/renderer/vf/make_dynamic_format.hpp>
@@ -75,7 +76,7 @@ sge::md3::object::object(
 	if(version != 15)
 		SGE_LOG_WARNING(
 			log::global(),
-			log::_1 << SGE_TEXT("md3 version is not 15 but continuing anyway.")
+			log::_ << SGE_TEXT("md3 version is not 15 but continuing anyway.")
 		);
 
 	name_ = read_string<max_qpath>(is);

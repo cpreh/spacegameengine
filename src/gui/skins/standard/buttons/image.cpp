@@ -55,7 +55,7 @@ void sge::gui::skins::standard::draw(
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("creating canvas from buffer"));
+		log::_ << SGE_TEXT("creating canvas from buffer"));
 	
 	b.buffer() = choose_image(b);
 
@@ -69,7 +69,7 @@ sge::gui::dim const sge::gui::skins::standard::optimal_size(
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("returning button dimension ")
+		log::_ << SGE_TEXT("returning button dimension ")
 		        << b.normal()->size());
 
 	return b.normal()->size();

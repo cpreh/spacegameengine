@@ -27,7 +27,7 @@ namespace sge
 {
 namespace openal
 {
-log::logger &log();
+log::object &log();
 }
 }
 

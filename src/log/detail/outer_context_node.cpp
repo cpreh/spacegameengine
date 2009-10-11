@@ -18,7 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/output_helper.hpp>
+#include <sge/log/detail/outer_context_node.hpp>
 
-sge::log::output_helper const sge::log::_1
-	= sge::log::output_helper();
+sge::log::detail::outer_context_node::outer_context_node(
+	log::object &object_
+)
+:
+	object_(object_)
+{}
+
+sge::log::object &
+sge::log::detail::outer_context_node::object() const
+{
+	return object_;
+}

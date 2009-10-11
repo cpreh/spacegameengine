@@ -32,11 +32,13 @@ namespace log
 
 SGE_SYMBOL level::type
 level_from_string(
-	string const &);
+	string const &
+);
 
 SGE_SYMBOL string const
 level_to_string(
-	level::type);
+	level::type
+);
 
 }
 }

@@ -18,83 +18,72 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOG_LOGGER_HPP_INCLUDED
-#define SGE_LOG_LOGGER_HPP_INCLUDED
+#ifndef SGE_LOG_OBJECT_HPP_INCLUDED
+#define SGE_LOG_OBJECT_HPP_INCLUDED
 
+#include <sge/log/object_fwd.hpp>
+#include <sge/log/detail/auto_context.hpp>
+#include <sge/log/parameters/all_fwd.hpp>
+#include <sge/log/level_stream_array.hpp>
+#include <sge/log/enabled_level_array.hpp>
+#include <sge/log/temporary_output_fwd.hpp>
 #include <sge/log/level.hpp>
-#include <sge/log/level_stream.hpp>
-#include <sge/log/format/formatter_fwd.hpp>
+#include <sge/log/level_stream_fwd.hpp>
+#include <sge/log/context_location_fwd.hpp>
+#include <sge/log/format/object_ptr.hpp>
 #include <sge/ostream.hpp>
-#include <sge/string.hpp>
 #include <sge/export.hpp>
 #include <sge/noncopyable.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
 
 namespace sge
 {
 namespace log
 {
 
-class temporary_output;
-
-class logger {
-	SGE_NONCOPYABLE(logger)
+class object {
+	SGE_NONCOPYABLE(object)
 public:
-	SGE_SYMBOL logger(
-		ostream &sink,
-		format::const_formatter_ptr formatter,
-		bool enabled ,
-		level::type);
+	SGE_SYMBOL explicit object(
+		parameters::all const &
+	);
 
-	SGE_SYMBOL logger(
-		ostream &sink,
-		string const &prefix,
-		bool enabled,
-		level::type);
-
-	SGE_SYMBOL logger(
-		logger &parent,
-		string const &prefix,
-		bool enabled);
-
-	SGE_SYMBOL ~logger();
+	SGE_SYMBOL ~object();
 
 	SGE_SYMBOL void
 	log(
 		level::type,
-		temporary_output const &);
+		temporary_output const &
+	);
 	
 	SGE_SYMBOL level_stream &
 	level_sink(
-		level::type);
+		level::type
+	);
 	
 	SGE_SYMBOL level_stream const &
 	level_sink(
-		level::type) const;
+		level::type
+	) const;
 	
 	SGE_SYMBOL void
 	activate(
-		level::type);
+		level::type
+	);
 	
 	SGE_SYMBOL void
 	deactivate(
-		level::type);
-
-	SGE_SYMBOL void
-	activate_hierarchy(
-		level::type);
-
-	SGE_SYMBOL void
-	deactivate_hierarchy(
-		level::type);
+		level::type
+	);
 
 	SGE_SYMBOL bool
 	activated(
-		level::type) const;
+		level::type
+	) const;
 	
 	SGE_SYMBOL void
 	enable(
-		bool);
+		bool
+	);
 
 	SGE_SYMBOL bool
 	enabled() const;
@@ -102,25 +91,34 @@ public:
 	SGE_SYMBOL ostream &
 	sink() const;
 
-	SGE_SYMBOL format::const_formatter_ptr const
+	SGE_SYMBOL format::const_object_ptr const
 	formatter() const;
+
+	SGE_SYMBOL
+	log::context_location const
+	context_location() const;
+
+	SGE_SYMBOL
+	level_stream_array const &
+	level_streams() const;
+
+	SGE_SYMBOL
+	enabled_level_array const &
+	enabled_levels() const;
 private:
-	void init_levels(
-		level::type);
+	object const *const parent_;
 
-	void set_hierarchy(
-		level::type,
-		void (logger::*)(level::type));
+	ostream &sink_;
 
-	ostream                     &sink_;
-	format::const_formatter_ptr formatter_;
+	detail::auto_context auto_context_;
 
-	typedef boost::ptr_vector<
-		level_stream
-	> level_vector;
+	format::const_object_ptr const formatter_;
 
-	bool                        enabled_;
-	level_vector                level_streams;
+	bool enabled_;
+
+	level_stream_array level_streams_;
+
+	enabled_level_array enabled_levels_;
 };
 
 }

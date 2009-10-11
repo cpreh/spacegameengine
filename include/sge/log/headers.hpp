@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LOG_HEADERS_HPP_INCLUDED
 #define SGE_LOG_HEADERS_HPP_INCLUDED
 
-#include <sge/log/logger.hpp>
-#include <sge/log/global.hpp>
+#include <sge/log/object.hpp>
 #include <sge/log/output_helper.hpp>
 #include <sge/log/temporary_output.hpp>
+#include <sge/log/trampoline.hpp>
 #include <sge/log/macros.hpp>
 
 #endif

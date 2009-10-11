@@ -18,10 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/format/formatter.hpp>
+#ifndef SGE_LOG_FIND_LOGGER_NODE_HPP_INCLUDED
+#define SGE_LOG_FIND_LOGGER_NODE_HPP_INCLUDED
 
-sge::log::format::formatter::formatter()
-{}
+#include <sge/log/detail/context_tree.hpp>
+#include <sge/container/tree_decl.hpp>
+#include <sge/variant/object_decl.hpp>
 
-sge::log::format::formatter::~formatter()
-{}
+namespace sge
+{
+namespace log
+{
+
+detail::context_tree::iterator
+find_logger_node(
+	detail::context_tree &
+);
+
+}
+}
+
+#endif

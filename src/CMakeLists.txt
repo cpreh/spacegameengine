@@ -23,7 +23,9 @@ FILE (GLOB sgecorefiles
 	input/modifier/*.cpp
 	library/*.cpp
 	log/*.cpp
+	log/detail/*.cpp
 	log/format/*.cpp
+	log/parameters/*.cpp
 	mainloop/*.cpp
 	math/*.cpp
 	model/*.cpp

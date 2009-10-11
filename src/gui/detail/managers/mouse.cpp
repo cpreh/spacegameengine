@@ -168,7 +168,7 @@ void sge::gui::detail::managers::mouse::recalculate_focus()
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("in top level recalculate_focus"));
+		log::_ << SGE_TEXT("in top level recalculate_focus"));
 
 	point const click_point(
 		math::vector::structure_cast<
@@ -182,7 +182,7 @@ void sge::gui::detail::managers::mouse::recalculate_focus()
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("a widgets::base currently has the focus, recalculating"));
+			log::_ << SGE_TEXT("a widgets::base currently has the focus, recalculating"));
 			
 		focus = recalculate_focus(*focus,click_point);
 	}
@@ -191,14 +191,14 @@ void sge::gui::detail::managers::mouse::recalculate_focus()
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << 
+			log::_ << 
 				SGE_TEXT("no widgets::base currently has the focus, so letting it recalculate"));
 
 		BOOST_FOREACH(widgets::base &w,widgets)
 		{
 			SGE_LOG_DEBUG(
 				mylogger,
-				log::_1 << SGE_TEXT("checking if ") << w.screen_area() 
+				log::_ << SGE_TEXT("checking if ") << w.screen_area() 
 				        << SGE_TEXT(" contains ") << click_point);
 
 			if (w.activation() == activation_state::active && 
@@ -253,7 +253,7 @@ sge::gui::widgets::base *sge::gui::detail::managers::mouse::recalculate_focus(
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("mouse no longer inside widget, sending leave"));
+			log::_ << SGE_TEXT("mouse no longer inside widget, sending leave"));
 
 		w.process_mouse_leave(events::mouse_leave());
 		
@@ -271,7 +271,7 @@ sge::gui::widgets::base *sge::gui::detail::managers::mouse::recalculate_focus(
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("focus hasn't changed, sending mouse_move"));
+			log::_ << SGE_TEXT("focus hasn't changed, sending mouse_move"));
 		w.process_mouse_move(events::mouse_move(mouse_click));
 	}
 	return new_focus;
@@ -288,7 +288,7 @@ sge::gui::widgets::base *sge::gui::detail::managers::mouse::do_recalculate_focus
 		{
 			SGE_LOG_DEBUG(
 				mylogger,
-				log::_1 << SGE_TEXT("a child has the focus, sending enter and descending"));
+				log::_ << SGE_TEXT("a child has the focus, sending enter and descending"));
 			child.process_mouse_enter(events::mouse_enter(p));
 			return do_recalculate_focus(child,p);
 		}
@@ -296,6 +296,6 @@ sge::gui::widgets::base *sge::gui::detail::managers::mouse::do_recalculate_focus
 	
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("no child has the focus, doing nothing"));
+		log::_ << SGE_TEXT("no child has the focus, doing nothing"));
 	return &w;
 }

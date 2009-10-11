@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/context_base.hpp>
 #include <sge/log/headers.hpp>
+#include <sge/log/global.hpp>
 #include <sge/library/function_not_found.hpp>
 #include <sge/filesystem/directory_iterator.hpp>
 #include <sge/filesystem/is_directory.hpp>
@@ -49,7 +50,7 @@ sge::plugin::manager::manager()
 {
 	SGE_LOG_DEBUG(
 		log::global(),
-		log::_1
+		log::_
 			<< SGE_TEXT("Scanning for plugins in ")
 			<< config::plugin_path()
 	);
@@ -71,7 +72,7 @@ sge::plugin::manager::manager()
 		{
 			SGE_LOG_WARNING(
 				log::global(),
-				log::_1
+				log::_
 					<< it->path().string()
 					<< SGE_TEXT(" does not have the extension ")
 					<< plugin_extension
@@ -94,7 +95,7 @@ sge::plugin::manager::manager()
 		{
 			SGE_LOG_WARNING(
 				log::global(),
-				log::_1
+				log::_
 					<< it->path().string()
 					<< SGE_TEXT(" doesn't seem to be a valid sge plugin")
 					<< SGE_TEXT(" because the function \"")
@@ -108,7 +109,7 @@ sge::plugin::manager::manager()
 		{
 			SGE_LOG_WARNING(
 				log::global(),
-				log::_1
+				log::_
 					<< it->path().string()
 					<< SGE_TEXT(" failed to load: \"")
 					<< e.string()

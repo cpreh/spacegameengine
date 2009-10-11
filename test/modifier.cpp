@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/signal/scoped_connection.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/log/global.hpp>
-#include <sge/log/logger.hpp>
+#include <sge/log/activate_levels.hpp>
 #include <sge/container/map_impl.hpp>
 #include <sge/cerr.hpp>
 #include <sge/text.hpp>
@@ -67,8 +67,10 @@ void mod_callback(
 int main()
 try
 {
-	sge::log::global().activate_hierarchy(
-		sge::log::level::debug);
+	sge::log::activate_levels(
+		sge::log::global(),
+		sge::log::level::debug
+	);
 
 	sge::renderer::screen_size const screen_size(1024,768);
 

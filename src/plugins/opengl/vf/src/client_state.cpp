@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../client_state.hpp"
 #include <sge/log/headers.hpp>
+#include <sge/log/global.hpp>
 #include <sge/text.hpp>
 #include <sge/container/linear_set_impl.hpp>
 #include <ostream>
@@ -77,7 +78,7 @@ void insert_checked(
 	if(!s.insert(v).second)
 		SGE_LOG_WARNING(
 			sge::log::global(),
-			sge::log::_1
+			sge::log::_
 				<< SGE_TEXT("Duplicate state inserted in opengl::vf!"));
 }
 

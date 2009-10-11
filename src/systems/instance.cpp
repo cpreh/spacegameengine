@@ -42,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/instance.hpp>
 #include <sge/window/create.hpp>
 #include <sge/log/headers.hpp>
+#include <sge/log/global.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/type_info.hpp>
@@ -380,7 +381,7 @@ sge::systems::instance::impl::load_plugin(
 	
 	SGE_LOG_WARNING(
 		log::global(),
-		log::_1
+		log::_
 			<< SGE_TEXT("Tried to load plugin of type ")
 			<< type_info(typeid(T)).name()
 			<< SGE_TEXT(" with name \"")

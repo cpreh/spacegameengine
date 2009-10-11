@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/box/basic_impl.hpp>
 #include <sge/log/headers.hpp>
+#include <sge/log/global.hpp>
 #include <sge/text.hpp>
 #include <sge/make_shared_ptr.hpp>
 #include <tr1/functional>
@@ -66,7 +67,7 @@ sge::texture::no_fragmented::consume_fragment(
 	if(real_dim != dim)
 		SGE_LOG_WARNING(
 			log::global(),
-			log::_1
+			log::_
 				<< SGE_TEXT("You used a texture::no_fragmented whose dimensions are not a power of 2.")\
 				SGE_TEXT(" This is slower to load and requires more texture memory because it needs atlasing and thus is not intuitive.")\
 				SGE_TEXT(" The texture's size was ")

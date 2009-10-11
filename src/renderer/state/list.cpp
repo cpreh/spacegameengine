@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/any_compare.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/log/headers.hpp>
+#include <sge/log/global.hpp>
 #include <sge/text.hpp>
 #include <sge/exception.hpp>
 #include <sge/export.hpp>
@@ -56,7 +57,7 @@ sge::renderer::state::list::operator()(
 	if(!temp.set_.insert(a).second)
 		SGE_LOG_WARNING(
 			log::global(),
-			log::_1 << SGE_TEXT("duplicate renderer state given!"));
+			log::_ << SGE_TEXT("duplicate renderer state given!"));
 	return temp;
 }
 

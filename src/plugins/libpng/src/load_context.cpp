@@ -2,6 +2,7 @@
 #include <sge/image/file_exception.hpp>
 #include <sge/image/unsupported_format.hpp>
 #include <sge/log/headers.hpp>
+#include <sge/log/global.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/math/dim/output.hpp>
 #include <sge/lexical_cast.hpp>
@@ -84,13 +85,13 @@ sge::libpng::load_context::load_context(
 			read_ptr_->info());
 	SGE_LOG_DEBUG(
 		log::global(),
-		log::_1 << SGE_TEXT("png: dimensions: ") << dim_);
+		log::_ << SGE_TEXT("png: dimensions: ") << dim_);
 	SGE_LOG_DEBUG(
 		log::global(),
-		log::_1 << SGE_TEXT("png: bit depth: ") << static_cast<int>(bpp));
+		log::_ << SGE_TEXT("png: bit depth: ") << static_cast<int>(bpp));
 	SGE_LOG_DEBUG(
 		log::global(),
-		log::_1 << SGE_TEXT("png: channels: ") << static_cast<int>(cs));
+		log::_ << SGE_TEXT("png: channels: ") << static_cast<int>(cs));
 
 	if (color_type == PNG_COLOR_TYPE_PALETTE)
 	{

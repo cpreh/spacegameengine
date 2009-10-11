@@ -33,7 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //#include <sge/gui/layouts/horizontal.hpp>
 #include <sge/gui/skins/standard.hpp>
 
-#include <sge/log/headers.hpp>
+#include <sge/log/global.hpp>
+#include <sge/log/activate_levels.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/time/second.hpp>
 #include <sge/font/system.hpp>
@@ -83,8 +84,10 @@ class input_functor
 int main()
 try
 {
-	sge::log::global().activate_hierarchy(
-		sge::log::level::debug);
+	sge::log::activate_levels(
+		sge::log::global(),
+		sge::log::level::debug
+	);
 
 	sge::renderer::screen_size const screen_size(640,480);
 

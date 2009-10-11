@@ -40,7 +40,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/program.hpp>
 #include <sge/container/raw_vector_impl.hpp>
 #include <sge/texture/part_raw.hpp>
-#include <sge/log/headers.hpp>
+#include <sge/log/global.hpp>
+#include <sge/log/activate_levels.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/action.hpp>
 #include <sge/input/key_pair.hpp>
@@ -101,8 +102,11 @@ class sprite_functor
 int main()
 try
 {
-	sge::log::global().activate_hierarchy(
-		sge::log::level::debug);
+	sge::log::activate_levels(
+		sge::log::global(),
+		sge::log::level::debug
+	);
+
 	sge::renderer::screen_size const screen_size(1024,768);
 	sge::systems::instance sys(
 		sge::systems::list()

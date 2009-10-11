@@ -23,15 +23,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 
 sge::log::format::chain::chain(
-	const_formatter_ptr const parent,
-	const_formatter_ptr const child)
+	const_object_ptr const parent,
+	const_object_ptr const child
+)
 :
 	parent(parent),
 	child(child)
 {
 	if(!parent || !child)
 		throw exception(
-			SGE_TEXT("format::chain(): one of the formatters is zero!"));
+			SGE_TEXT("format::chain(): one of the objects is zero!")
+		);
 }
 
 sge::log::format::chain::~chain()
@@ -39,9 +41,12 @@ sge::log::format::chain::~chain()
 
 sge::string const
 sge::log::format::chain::format(
-	string const &str) const
+	string const &str
+) const
 {
 	return parent->format(
 		child->format(
-			str));
+			str
+		)
+	);
 }

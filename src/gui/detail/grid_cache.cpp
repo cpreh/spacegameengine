@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/log.hpp>
 #include <sge/math/negative.hpp>
 #include <sge/math/dim/output.hpp>
+#include <sge/log/headers.hpp>
 #include <sge/text.hpp>
 #include <sge/string.hpp>
 #include <sge/lexical_cast.hpp>
@@ -101,7 +102,7 @@ void sge::gui::detail::grid_cache::first_pass()
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("first pass, begin"));
+		log::_ << SGE_TEXT("first pass, begin"));
 	// iterate through the widgets and:
 	//  -get their optimal_sizes
 	//  -get the overall dimensions of the grid
@@ -118,7 +119,7 @@ void sge::gui::detail::grid_cache::first_pass()
 		
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("widget of type ")
+			log::_ << SGE_TEXT("widget of type ")
 			        << type_name(typeid(w))
 							<< SGE_TEXT(" has position hint ")
 							<< hint);
@@ -132,7 +133,7 @@ void sge::gui::detail::grid_cache::first_pass()
 
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("converted position hint is ") 
+			log::_ << SGE_TEXT("converted position hint is ") 
 			        << on_plane 
 							<< SGE_TEXT(", resizing plane (original dim ") 
 							<< plane_.dim() 
@@ -173,7 +174,7 @@ void sge::gui::detail::grid_cache::first_pass()
 	
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("this widget has optimal size ")
+			log::_ << SGE_TEXT("this widget has optimal size ")
 			        << optsize);
 
 		data_[const_cast<widgets::base *>(&w)].size = optsize;
@@ -181,18 +182,18 @@ void sge::gui::detail::grid_cache::first_pass()
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("first pass, end"));
+		log::_ << SGE_TEXT("first pass, end"));
 }
 
 void sge::gui::detail::grid_cache::second_pass()
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("second pass, begin"));
+		log::_ << SGE_TEXT("second pass, begin"));
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("setting rolumn container dimensions to ")
+		log::_ << SGE_TEXT("setting rolumn container dimensions to ")
 		        << std::max(plane_.dim().w(),plane_.dim().h()));
 
 	rolumns_.resize(
@@ -205,7 +206,7 @@ void sge::gui::detail::grid_cache::second_pass()
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("iterating through the widget plane "));
+		log::_ << SGE_TEXT("iterating through the widget plane "));
 
 	rolumn_container::vector_type p;
 	for(
@@ -222,14 +223,14 @@ void sge::gui::detail::grid_cache::second_pass()
 			{
 				SGE_LOG_DEBUG(
 					mylogger,
-					log::_1 << SGE_TEXT("there is no widget at position ")
+					log::_ << SGE_TEXT("there is no widget at position ")
 					        << p << SGE_TEXT(", skipping"));
 				continue;
 			}
 
 			SGE_LOG_DEBUG(
 				mylogger,
-				log::_1 << SGE_TEXT("there is a widget at position ")
+				log::_ << SGE_TEXT("there is a widget at position ")
 								<< p 
 								<< SGE_TEXT(", iterating through the axes"));
 
@@ -254,7 +255,7 @@ void sge::gui::detail::grid_cache::second_pass()
 
 				SGE_LOG_DEBUG(
 					mylogger,
-					log::_1 << SGE_TEXT("rolumn position is ")
+					log::_ << SGE_TEXT("rolumn position is ")
 									<< rolumn_pos);
 
 				rolumn_data &d = 
@@ -263,12 +264,12 @@ void sge::gui::detail::grid_cache::second_pass()
 
 				SGE_LOG_DEBUG(
 					mylogger,
-					log::_1 << SGE_TEXT("current size at this rolumn is ")
+					log::_ << SGE_TEXT("current size at this rolumn is ")
 									<< d.size);
 
 				SGE_LOG_DEBUG(
 					mylogger,
-					log::_1 << SGE_TEXT("stored widget size in data cache is ")
+					log::_ << SGE_TEXT("stored widget size in data cache is ")
 									<< data_
 							[
 								plane_.pos
@@ -311,5 +312,5 @@ void sge::gui::detail::grid_cache::second_pass()
 	}
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("second pass, end"));
+		log::_ << SGE_TEXT("second pass, end"));
 }

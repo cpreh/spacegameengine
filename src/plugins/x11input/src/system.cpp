@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/display.hpp>
 #include <sge/x11/window.hpp>
 #include <sge/log/headers.hpp>
+#include <sge/log/global.hpp>
 #include <sge/text.hpp>
 #include <sge/auto_ptr.hpp>
 #include <tr1/functional>
@@ -191,7 +192,7 @@ void sge::x11input::system::on_acquire(
 
 	SGE_LOG_DEBUG(
 		log::global(),
-		log::_1
+		log::_
 			<< SGE_TEXT("x11: acquire window"));
 
 	BOOST_FOREACH(device_vector::reference dev, devices)
@@ -209,7 +210,7 @@ void sge::x11input::system::on_release(
 	
 	SGE_LOG_DEBUG(
 		log::global(),
-		log::_1
+		log::_
 			<< SGE_TEXT("x11: release window"));
 	
 	BOOST_FOREACH(device_vector::reference dev, devices)

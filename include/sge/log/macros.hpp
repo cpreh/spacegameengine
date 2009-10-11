@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/level.hpp>
 
 #define SGE_LOG_LEVEL_IF_ENABLED(stream, l, x)\
-	if(stream.activated(l))\
-		stream.log(l, x);
+	if((stream).activated(l))\
+		(stream).log(l, x);
 
 #define SGE_LOG_DEBUG(stream, x)\
 	SGE_LOG_LEVEL_IF_ENABLED(stream, sge::log::level::debug, x)

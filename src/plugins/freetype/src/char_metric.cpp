@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/log/headers.hpp>
+#include <sge/log/global.hpp>
 #include <sge/variant/object_impl.hpp>
 #include <sge/optional_impl.hpp>
 #include <sge/exception.hpp>
@@ -68,7 +69,7 @@ sge::freetype::char_metric::char_metric(
 	if(offset_.x() < 0)
 		SGE_LOG_WARNING(
 			log::global(),
-			log::_1
+			log::_
 				<< SGE_TEXT("x offset of character '")
 				<< ch
 				<< SGE_TEXT("' is ")
@@ -79,7 +80,7 @@ sge::freetype::char_metric::char_metric(
 	if(offset_.y() < 0)
 		SGE_LOG_WARNING(
 			log::global(),
-			log::_1
+			log::_
 				<< SGE_TEXT("y offset of character '")
 				<< ch
 				<< SGE_TEXT("' is ")

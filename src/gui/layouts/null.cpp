@@ -42,7 +42,7 @@ void sge::gui::layouts::null::compile_static()
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("in compile_static, doing nothing"));
+		log::_ << SGE_TEXT("in compile_static, doing nothing"));
 	
 	connected_widget().parent_manager().dirty(
 		connected_widget(),
@@ -57,7 +57,7 @@ sge::gui::dim const sge::gui::layouts::null::optimal_size() const
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("getting size hint from skin"));
+		log::_ << SGE_TEXT("getting size hint from skin"));
 	return connected_widget().parent_manager().skin().optimal_size(
 		connected_widget());
 }

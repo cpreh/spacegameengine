@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/pool.hpp>
 #include <sge/audio/sound.hpp>
 #include <sge/log/headers.hpp>
+#include <sge/log/global.hpp>
 #include <sge/assert.hpp>
 #include <sge/text.hpp>
 #include <boost/foreach.hpp>
@@ -74,7 +75,7 @@ void sge::audio::pool::update()
 					{
 						SGE_LOG_WARNING(
 							log::global(),
-							log::_1
+							log::_
 								<< SGE_TEXT("got a looping sound, setting to play only once"));
 						s->first->play(play_mode::once);
 					}

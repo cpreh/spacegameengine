@@ -18,25 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOG_FORMAT_FORMATTER_FWD_HPP_INCLUDED
-#define SGE_LOG_FORMAT_FORMATTER_FWD_HPP_INCLUDED
+#include <sge/log/detail/inner_context_node.hpp>
 
-#include <sge/shared_ptr.hpp>
+sge::log::detail::inner_context_node::inner_context_node(
+	string const &name_
+)
+:
+	name_(name_)
+{}
 
-namespace sge
+sge::string const &
+sge::log::detail::inner_context_node::name() const
 {
-namespace log
-{
-namespace format
-{
-
-class formatter;
-
-typedef shared_ptr<formatter> formatter_ptr;
-typedef shared_ptr<formatter const> const_formatter_ptr;
-
+	return name_;
 }
-}
-}
-
-#endif

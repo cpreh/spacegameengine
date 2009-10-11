@@ -100,7 +100,7 @@ SGE_GUI_SKIN_DRAW_RETURN(widgets::base) sge::gui::skins::base::draw(
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("draw called for widget, falling back"));
+			log::_ << SGE_TEXT("draw called for widget, falling back"));
 		fallback(
 			w,
 			e);
@@ -109,7 +109,7 @@ SGE_GUI_SKIN_DRAW_RETURN(widgets::base) sge::gui::skins::base::draw(
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("draw called for some other widget"));
+		log::_ << SGE_TEXT("draw called for some other widget"));
 
 	utility::type_comparator<widgets::types>(
 		w,
@@ -132,13 +132,13 @@ SGE_GUI_SKIN_SIZE_RETURN(widgets::base) sge::gui::skins::base::optimal_size(
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("optimal_size called for widget, returning null"));
+			log::_ << SGE_TEXT("optimal_size called for widget, returning null"));
 		return dim::null();
 	}
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("optimal_size called for widgets::base ") 
+		log::_ << SGE_TEXT("optimal_size called for widgets::base ") 
 		        << type_info(typeid(w)).name());
 
 	return utility::type_comparator<widgets::types>(
@@ -175,7 +175,7 @@ void sge::gui::skins::base::resize_buffer(
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1
+			log::_
 				<< SGE_TEXT("resizing from ") 
 				<< b.buffer().size()
 				<< SGE_TEXT(" to ")

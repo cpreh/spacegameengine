@@ -74,7 +74,7 @@ void sge::gui::widgets::label::text(
 { 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("setting text to: ")
+		log::_ << SGE_TEXT("setting text to: ")
 		        << _text);
 	text_ = _text; 
 	invalidate(

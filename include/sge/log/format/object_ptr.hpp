@@ -18,12 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOG_FORMAT_FORMATTER_HPP_INCLUDED
-#define SGE_LOG_FORMAT_FORMATTER_HPP_INCLUDED
+#ifndef SGE_LOG_FORMAT_OBJECT_PTR_HPP_INCLUDED
+#define SGE_LOG_FORMAT_OBJECT_PTR_HPP_INCLUDED
 
-#include <sge/string.hpp>
-#include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <sge/log/format/object_fwd.hpp>
+#include <sge/shared_ptr.hpp>
 
 namespace sge
 {
@@ -32,16 +31,13 @@ namespace log
 namespace format
 {
 
-class SGE_CLASS_SYMBOL formatter {
-	SGE_NONCOPYABLE(formatter)
-protected:
-	SGE_SYMBOL formatter();
-public:
-	virtual string const
-	format(
-		string const &) const = 0;
-	SGE_SYMBOL virtual ~formatter();
-};
+typedef shared_ptr<
+	object	
+> object_ptr;
+
+typedef shared_ptr<
+	object const
+> const_object_ptr;
 
 }
 }

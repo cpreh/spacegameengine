@@ -126,7 +126,7 @@ void sge::gui::detail::managers::render::add(widgets::base &w)
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("adding new widget"));
+		log::_ << SGE_TEXT("adding new widget"));
 	widgets::base *w_ptr = &w;
 
 	if (!w.has_parent())
@@ -205,8 +205,9 @@ void sge::gui::detail::managers::render::resize(
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("widget ") << type_name(typeid(w))
-		        << SGE_TEXT(" was resized to ") << d);
+		log::_
+			<< SGE_TEXT("widget ") << type_name(typeid(w))
+			<< SGE_TEXT(" was resized to ") << d);
 
 	dirt_.erase(&w);
 
@@ -227,8 +228,9 @@ void sge::gui::detail::managers::render::resize(
 	
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("resizing widget from ") << w.size() 
-		        << SGE_TEXT(" to ") << d);
+		log::_
+			<< SGE_TEXT("resizing widget from ") << w.size() 
+			<< SGE_TEXT(" to ") << d);
 
 	widget_data &wd = *wi->second;
 	
@@ -241,7 +243,7 @@ void sge::gui::detail::managers::render::resize(
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1
+			log::_
 				<< SGE_TEXT("texture resolution ")
 				<< wd.texture->dim() 
 				<< SGE_TEXT(" suffices, doing nothing"));
@@ -250,7 +252,7 @@ void sge::gui::detail::managers::render::resize(
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1
+		log::_
 			<< SGE_TEXT("new resolution is ")
 			<< new_dim
 	);
@@ -333,13 +335,13 @@ void sge::gui::detail::managers::render::clean()
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("cleaning dirty regions"));
+		log::_ << SGE_TEXT("cleaning dirty regions"));
 
 	BOOST_FOREACH(dirt_container::reference d,dirt_)
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1
+			log::_
 				<< SGE_TEXT("cleaning rect: ")
 				<< d.second 
 				<< SGE_TEXT(" from widget: ")
@@ -356,7 +358,7 @@ void sge::gui::detail::managers::render::clean()
 		{
 			SGE_LOG_DEBUG(
 				mylogger,
-				log::_1 << SGE_TEXT("cannot lock because oldest parent hasn't been inited yet"));
+				log::_ << SGE_TEXT("cannot lock because oldest parent hasn't been inited yet"));
 			continue;
 		}
 
@@ -366,8 +368,9 @@ void sge::gui::detail::managers::render::clean()
 
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("trying to lock area: ")
-			        << to_lock);
+			log::_
+				<< SGE_TEXT("trying to lock area: ")
+				<< to_lock);
 
 		renderer::scoped_texture_lock const lock_(
 			widgets[&p].texture,
@@ -381,8 +384,9 @@ void sge::gui::detail::managers::render::clean()
 
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("sending dirty for area: ")
-			        << d.second);
+			log::_
+				<< SGE_TEXT("sending dirty for area: ")
+				<< d.second);
 
 		p.process_invalid_area(
 			events::invalid_area(

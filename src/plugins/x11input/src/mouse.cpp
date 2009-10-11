@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../mouse_keys.hpp"
 #include <X11/Xlib.h>
 #include <sge/log/headers.hpp>
+#include <sge/log/global.hpp>
 #include <sge/input/key_pair.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/x11/window.hpp>
@@ -230,7 +231,7 @@ void sge::x11input::mouse::warped_motion(
 	
 	SGE_LOG_WARNING(
 		log::global(),
-		log::_1
+		log::_
 			<< SGE_TEXT("Didn't detect mouse warp motion! ")
 			   SGE_TEXT("Try to enable dga mouse instead."));
 }

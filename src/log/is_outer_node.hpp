@@ -18,15 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOG_LOGGER_FWD_HPP_INCLUDED
-#define SGE_LOG_LOGGER_FWD_HPP_INCLUDED
+#ifndef SGE_LOG_IS_OUTER_NODE_HPP_INCLUDED
+#define SGE_LOG_IS_OUTER_NODE_HPP_INCLUDED
+
+#include <sge/log/detail/context_tree.hpp>
 
 namespace sge
 {
 namespace log
 {
 
-class logger;
+bool
+is_outer_node(
+	detail::context_tree const &
+);
 
 }
 }

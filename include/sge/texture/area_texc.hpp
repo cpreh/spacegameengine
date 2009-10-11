@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/box/rect.hpp>
 #include <sge/math/compare.hpp>
 #include <sge/log/headers.hpp>
+#include <sge/log/global.hpp>
 #include <ostream>
 
 namespace sge
@@ -54,9 +55,10 @@ area_texc(
 	)
 		SGE_LOG_WARNING(
 			log::global(),
-			log::_1 << SGE_TEXT("texture not repeatable but repetition is ")
-			        << repeat
-			        << SGE_TEXT('!')
+			log::_
+				<< SGE_TEXT("texture not repeatable but repetition is ")
+				<< repeat
+				<< SGE_TEXT('!')
 		);
 
 	renderer::const_texture_ptr const tex(

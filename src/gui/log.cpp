@@ -20,9 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/gui/log.hpp>
 #include <sge/log/global.hpp>
+#include <sge/log/parameters/inherited.hpp>
 #include <sge/text.hpp>
 
-sge::log::logger &sge::gui::global_log()
+sge::log::object &
+sge::gui::global_log()
 {
 	static logger global(
 		sge::log::global(),
@@ -34,14 +36,16 @@ sge::log::logger &sge::gui::global_log()
 }
 
 sge::gui::logger::logger(
-	log::logger &parent,
+	sge::log::object &parent,
 	string const &prefix,
-	bool const active)
+	bool const active
+)
 :
-	sge::log::logger(
-		parent,
-		prefix + SGE_TEXT(": "),
-		active
+	sge::log::object(
+		sge::log::parameters::inherited(
+			parent,
+			prefix
+		)
 	)
 {
 }

@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/screen.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/log/headers.hpp>
+#include <sge/log/global.hpp>
 #include <sge/text.hpp>
 #include <sge/exception.hpp>
 #include <tr1/array>
@@ -92,13 +93,17 @@ sge::window::create(
 		{
 			SGE_LOG_ERROR(
 				log::global(),
-				log::_1
+				log::_
 					<< SGE_TEXT("window::create failed!")
 					<< SGE_TEXT(" Trying another bit depth. Reason: ")
 					<< e.string()
 			);
 			throw;
 		}
+
+	throw exception(
+		SGE_TEXT("window::create failed! No matching visual!")
+	);
 #else
 #error "Implement me!"
 #endif

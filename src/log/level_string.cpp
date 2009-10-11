@@ -45,27 +45,51 @@ name_array const names = {
 
 sge::log::level::type
 sge::log::level_from_string(
-	string const &str)
+	string const &str
+)
 {
-	name_array::const_iterator const it =
-		std::find(names.begin(), names.end(), str);
-	if(it == names.end())
+	name_array::const_iterator const it(
+		std::find(
+			names.begin(),
+			names.end(),
+			str
+		)
+	);
+
+	if(
+		it == names.end()
+	)
 		throw exception(
 			SGE_TEXT("level_from_string(): \"")
 			+ str
-			+ SGE_TEXT("\" not found!"));
-	return static_cast<level::type>(
-		std::distance(
-			static_cast<name_array const &>(
-				names).begin(),
-			it));
+			+ SGE_TEXT("\" not found!")
+		);
+	
+	return
+		static_cast<
+			level::type
+		>(
+			std::distance(
+				static_cast<
+					name_array const &
+				>(
+					names
+				).begin(),
+				it
+			)
+		);
 }
 
 sge::string const
 sge::log::level_to_string(
 	level::type const level_)
 {
-	return names.at(
-		static_cast<name_array::size_type>(
-			level_));
+	return
+		names.at(
+			static_cast<
+				name_array::size_type
+			>(
+				level_
+			)
+		);
 }

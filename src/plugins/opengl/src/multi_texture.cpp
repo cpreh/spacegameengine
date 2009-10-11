@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glew.hpp"
 #include <sge/renderer/exception.hpp>
 #include <sge/log/headers.hpp>
+#include <sge/log/global.hpp>
 #include <sge/text.hpp>
 #include <sge/format.hpp>
 #include <ostream>
@@ -55,7 +56,7 @@ void sge::opengl::set_texture_level(
 
 		SGE_LOG_ERROR(
 			log::global(),
-			log::_1
+			log::_
 				<< SGE_TEXT("Tried to set texture stage ")
 				<< stage
 				<< SGE_TEXT(" but opengl does not support it.")
@@ -75,7 +76,7 @@ void sge::opengl::set_texture_level(
 	{
 		SGE_LOG_WARNING(
 			log::global(),
-			log::_1
+			log::_
 				<< SGE_TEXT("GL_MAX_COMBINED_TEXTURE_UNITS is ")
 				<< GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS
 				<< SGE_TEXT(". Setting texture stage ")
@@ -113,7 +114,7 @@ void sge::opengl::client_texture_level(
 
 		SGE_LOG_ERROR(
 			log::global(),
-			log::_1
+			log::_
 				<< SGE_TEXT("Tried to set texture coordinates for stage ")
 				<< stage
 				<< SGE_TEXT(" but opengl does not support it.")

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LOG_FORMAT_CHAIN_HPP_INCLUDED
 #define SGE_LOG_FORMAT_CHAIN_HPP_INCLUDED
 
-#include <sge/log/format/formatter_fwd.hpp>
-#include <sge/log/format/formatter.hpp>
+#include <sge/log/format/object.hpp>
+#include <sge/log/format/object_ptr.hpp>
 #include <sge/string.hpp>
 #include <sge/export.hpp>
 
@@ -33,18 +33,24 @@ namespace log
 namespace format
 {
 
-class SGE_CLASS_SYMBOL chain : public formatter {
+class SGE_CLASS_SYMBOL chain
+:
+	public object
+{
 public:
 	SGE_SYMBOL chain(
-		const_formatter_ptr parent,
-		const_formatter_ptr child);
+		const_object_ptr parent,
+		const_object_ptr child
+	);
+
 	SGE_SYMBOL ~chain();
 	
 	SGE_SYMBOL string const
 	format(
-		string const &) const;
+		string const &
+	) const;
 private:
-	const_formatter_ptr const
+	const_object_ptr const
 		parent,
 		child;
 };

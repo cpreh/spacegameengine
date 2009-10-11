@@ -101,7 +101,7 @@ void sge::gui::detail::managers::keyboard::add(widgets::base &w)
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("adding widget"));
+		log::_ << SGE_TEXT("adding widget"));
 	
 	SGE_ASSERT(
 		utility::ptr_find(widgets.begin(),widgets.end(),&w) 
@@ -247,7 +247,7 @@ void sge::gui::detail::managers::keyboard::keyboard_focus(
 		{
 			SGE_LOG_DEBUG(
 				mylogger,
-				log::_1 << SGE_TEXT("adding widgets::base after focus change"));
+				log::_ << SGE_TEXT("adding widgets::base after focus change"));
 			widget_container::iterator wi = utility::ptr_find(
 					widgets.begin(),
 					widgets.end(),&w);
@@ -302,7 +302,7 @@ void sge::gui::detail::managers::keyboard::input_callback(
 
 void sge::gui::detail::managers::keyboard::switch_focus(widget_container::iterator n)
 {
-	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("switching focus"));
+	SGE_LOG_DEBUG(mylogger,log::_ << SGE_TEXT("switching focus"));
 	if (focus)
 		(*focus)->process_keyboard_leave(events::keyboard_leave());
 	focus = n;

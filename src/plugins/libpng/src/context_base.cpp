@@ -3,6 +3,7 @@
 #include <sge/iconv.hpp>
 #include <sge/text.hpp>
 #include <sge/log/headers.hpp>
+#include <sge/log/global.hpp>
 
 sge::libpng::context_base::context_base(
 	filesystem::path const &_path)
@@ -25,7 +26,7 @@ void sge::libpng::context_base::handle_warning_impl(
 {
 	SGE_LOG_WARNING(
 		log::global(),
-		log::_1 
+		log::_ 
 			<< SGE_TEXT("libpng: file: ") 
 			<< path_.string() 
 			<< SGE_TEXT(": ") 

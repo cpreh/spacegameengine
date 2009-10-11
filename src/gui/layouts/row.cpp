@@ -54,7 +54,7 @@ void sge::gui::layouts::row::compile_static()
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("In static compilation for widget ")
+		log::_ << SGE_TEXT("In static compilation for widget ")
 		        << type_info(typeid(connected_widget())).name());
 
 	reset_cache();
@@ -76,12 +76,12 @@ void sge::gui::layouts::row::compile_static()
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("optimal size ") << optimal 
+		log::_ << SGE_TEXT("optimal size ") << optimal 
 		        << SGE_TEXT(", usable size: ") << usable);
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("adapting master axis begin"));
+		log::_ << SGE_TEXT("adapting master axis begin"));
 	adapt_outer(
 		optimal,
 		usable,
@@ -89,10 +89,10 @@ void sge::gui::layouts::row::compile_static()
 			dim(0,1)));
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("adapting master axis end"));
+		log::_ << SGE_TEXT("adapting master axis end"));
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("adapting slave axis begin"));
+		log::_ << SGE_TEXT("adapting slave axis begin"));
 	adapt_outer(
 		optimal,
 		usable,
@@ -100,7 +100,7 @@ void sge::gui::layouts::row::compile_static()
 			dim(0,1)));
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("adapting slave axis end"));
+		log::_ << SGE_TEXT("adapting slave axis end"));
 
 	// finally, set positions and sizes
 	update_widgets(usable);
@@ -116,7 +116,7 @@ sge::gui::dim const sge::gui::layouts::row::optimal_size() const
 	}
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("returning optimal size ") 
+		log::_ << SGE_TEXT("returning optimal size ") 
 		        << hint);
 	
 	return 
@@ -174,7 +174,7 @@ void sge::gui::layouts::row::adapt(
 	unit const addition = static_cast<unit>(diff/count);
 
 	SGE_LOG_DEBUG(mylogger,
-		log::_1 << SGE_TEXT("adding ") << diff << SGE_TEXT("/") 
+		log::_ << SGE_TEXT("adding ") << diff << SGE_TEXT("/") 
 		        << count << SGE_TEXT("=") << addition 
 						<< SGE_TEXT(" pixels to each widget"));
 
@@ -204,21 +204,21 @@ void sge::gui::layouts::row::adapt_outer(
 
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("there is too less space, shrinking begin"));
+			log::_ << SGE_TEXT("there is too less space, shrinking begin"));
 		adapt(optimal,usable,axis_policy::can_shrink,axis);
-		SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("shrinking end"));
+		SGE_LOG_DEBUG(mylogger,log::_ << SGE_TEXT("shrinking end"));
 	}
 	else if (optimal[axis] <= usable[axis])
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("there is too much space, expanding begin"));
+			log::_ << SGE_TEXT("there is too much space, expanding begin"));
 		unsigned count;
 		if ((count = count_flags(axis_policy::should_grow,axis)))
 		{
 			SGE_LOG_DEBUG(
 				mylogger,
-				log::_1 << SGE_TEXT("there are ") 
+				log::_ << SGE_TEXT("there are ") 
 				        << count 
 				        << SGE_TEXT(" widgets which should grow, growing those"));
 			adapt(
@@ -231,7 +231,7 @@ void sge::gui::layouts::row::adapt_outer(
 		{
 			SGE_LOG_DEBUG(
 				mylogger,
-				log::_1 << SGE_TEXT("there are ") 
+				log::_ << SGE_TEXT("there are ") 
 				        << count 
 				        << SGE_TEXT(" widgets which can grow, growing those"));
 			adapt(
@@ -244,11 +244,11 @@ void sge::gui::layouts::row::adapt_outer(
 		{
 			SGE_LOG_DEBUG(
 				mylogger,
-				log::_1 << SGE_TEXT("there are no widgets which could grow :("));
+				log::_ << SGE_TEXT("there are no widgets which could grow :("));
 		}
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("expanding end"));
+			log::_ << SGE_TEXT("expanding end"));
 	}
 }
 
@@ -256,7 +256,7 @@ void sge::gui::layouts::row::update_widgets(dim const &usable)
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("update widgets begin"));
+		log::_ << SGE_TEXT("update widgets begin"));
 
 	// calculate "bounding line" of all widgets on the master axis
 	unit bounding = static_cast<unit>(0);
@@ -265,14 +265,14 @@ void sge::gui::layouts::row::update_widgets(dim const &usable)
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("bounding size in master direction is ")
+		log::_ << SGE_TEXT("bounding size in master direction is ")
 		        << bounding);
 	
 	unit const extra_space = static_cast<unit>(master(usable)-bounding);
 	unit const increment = static_cast<unit>(extra_space/(sizes.size()+1));
 	
 	SGE_LOG_DEBUG(mylogger,
-		log::_1 << SGE_TEXT("there are ") << extra_space 
+		log::_ << SGE_TEXT("there are ") << extra_space 
 		        << SGE_TEXT(" pixels extra space and ") 
 		        << increment << SGE_TEXT(" is the increment"));
 
@@ -287,7 +287,7 @@ void sge::gui::layouts::row::update_widgets(dim const &usable)
 
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("setting widgets::base (master) position to ")
+			log::_ << SGE_TEXT("setting widgets::base (master) position to ")
 							<< master(pos)
 							<< SGE_TEXT(" and size to ")
 							<< p.second);
@@ -304,27 +304,27 @@ void sge::gui::layouts::row::update_widgets(dim const &usable)
 
 		master(pos) += master(p.second)+increment;
 	}
-	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("update widgets end"));
+	SGE_LOG_DEBUG(mylogger,log::_ << SGE_TEXT("update widgets end"));
 }
 
 void sge::gui::layouts::row::reset_cache()
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("resetting cache begin"));
+		log::_ << SGE_TEXT("resetting cache begin"));
 	sizes.clear();
 	BOOST_FOREACH(widgets::base &w,connected_widget().children())
 	{
 		dim const _optimal_size = w.optimal_size();
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("optimal size for this child is ") << _optimal_size);
+			log::_ << SGE_TEXT("optimal size for this child is ") << _optimal_size);
 		sizes.push_back(
 			widget_map::value_type(
 				&w,
 				_optimal_size));
 	}
-	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("resetting cache end"));
+	SGE_LOG_DEBUG(mylogger,log::_ << SGE_TEXT("resetting cache end"));
 }
 
 
