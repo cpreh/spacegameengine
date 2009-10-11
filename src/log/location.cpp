@@ -19,9 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/log/location.hpp>
+#include <sge/text.hpp>
+#include <boost/spirit/home/phoenix/core/argument.hpp>
+#include <boost/spirit/home/phoenix/operator/arithmetic.hpp>
+#include <numeric>
 
 sge::log::location::location(
-	string const &initial_
+	sge::string const &initial_
 )
 :
 	entries_(
@@ -32,7 +36,7 @@ sge::log::location::location(
 
 sge::log::location &
 sge::log::location::operator +=(
-	string const &nstring_
+	sge::string const &nstring_
 )
 {
 	entries_.push_back(
@@ -52,6 +56,20 @@ sge::log::location::const_iterator
 sge::log::location::end() const
 {
 	return entries_.end();
+}
+
+sge::string const
+sge::log::location::string() const
+{
+	return
+		std::accumulate(
+			begin(),
+			end(),
+			string(),
+			boost::phoenix::arg_names::arg1
+			+ SGE_TEXT("::")
+			+ boost::phoenix::arg_names::arg2
+		);
 }
 
 sge::log::location const

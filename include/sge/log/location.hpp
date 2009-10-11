@@ -34,14 +34,14 @@ namespace log
 class location {
 public:
 	SGE_SYMBOL explicit location(
-		string const &
+		sge::string const &
 	);
 
 	typedef detail::location_vector::const_iterator const_iterator;
 
 	SGE_SYMBOL location &
 	operator +=(
-		string const &
+		sge::string const &
 	);
 
 	SGE_SYMBOL const_iterator
@@ -49,6 +49,9 @@ public:
 	
 	SGE_SYMBOL const_iterator
 	end() const;
+
+	SGE_SYMBOL sge::string const
+	string() const;
 private:
 	detail::location_vector entries_;
 };

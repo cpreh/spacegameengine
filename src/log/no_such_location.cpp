@@ -18,57 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOG_CONTEXT_HPP_INCLUDED
-#define SGE_LOG_CONTEXT_HPP_INCLUDED
+#include <sge/log/no_such_location.hpp>
+#include <sge/text.hpp>
 
-#include <sge/log/context_fwd.hpp>
-#include <sge/log/object_fwd.hpp>
-#include <sge/log/location_fwd.hpp>
-#include <sge/log/tree_function.hpp>
-#include <sge/log/detail/context_tree.hpp>
-#include <sge/container/tree_decl.hpp>
-#include <sge/variant/object_decl.hpp>
-#include <sge/noncopyable.hpp>
-#include <sge/export.hpp>
+sge::log::no_such_location::no_such_location(
+	log::location const &nlocation_
+)
+:
+	exception(
+		SGE_TEXT("no such location \"")
+		+ nlocation_.string()
+		+ SGE_TEXT('"')
+	),
+	location_(
+		nlocation_
+	)
+{}
 
-namespace sge
+sge::log::location const &
+sge::log::no_such_location::location() const
 {
-namespace log
-{
-
-class context {
-	SGE_NONCOPYABLE(context)
-public:
-	SGE_SYMBOL context();
-
-	SGE_SYMBOL ~context();
-
-	SGE_SYMBOL void
-	add(
-		location const &,
-		object &
-	);
-
-	SGE_SYMBOL void
-	remove(
-		location const &
-	);
-
-	SGE_SYMBOL object *
-	find(
-		location const &
-	) const;
-
-	SGE_SYMBOL void
-	apply(
-		location const &,
-		tree_function const &
-	);
-private:
-	detail::context_tree tree_;
-};
-
+	return location_;
 }
-}
-
-#endif

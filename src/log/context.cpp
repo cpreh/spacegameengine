@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "find_inner_node.hpp"
 #include <sge/log/context.hpp>
 #include <sge/log/location.hpp>
+#include <sge/log/no_such_location.hpp>
 #include <sge/container/tree_impl.hpp>
 #include <sge/variant/object_impl.hpp>
 #include <sge/text.hpp>
@@ -184,4 +185,27 @@ sge::log::context::find(
 			>().object()
 		:
 			0;
+}
+
+void
+sge::log::context::apply(
+	location const &location_,
+	tree_function const &function_
+)
+{
+	detail::context_tree *const tree_location_(
+		find_location(
+			tree_,
+			location_
+		)
+	);
+
+	if(
+		!tree_location_
+	)
+		throw no_such_location(
+			location_
+		);
+	
+	
 }

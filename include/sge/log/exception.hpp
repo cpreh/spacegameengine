@@ -18,17 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOG_CONTEXT_HPP_INCLUDED
-#define SGE_LOG_CONTEXT_HPP_INCLUDED
+#ifndef SGE_LOG_EXCEPTION_HPP_INCLUDED
+#define SGE_LOG_EXCEPTION_HPP_INCLUDED
 
-#include <sge/log/context_fwd.hpp>
-#include <sge/log/object_fwd.hpp>
-#include <sge/log/location_fwd.hpp>
-#include <sge/log/tree_function.hpp>
-#include <sge/log/detail/context_tree.hpp>
-#include <sge/container/tree_decl.hpp>
-#include <sge/variant/object_decl.hpp>
-#include <sge/noncopyable.hpp>
+#include <sge/exception.hpp>
+#include <sge/string.hpp>
 #include <sge/export.hpp>
 
 namespace sge
@@ -36,36 +30,14 @@ namespace sge
 namespace log
 {
 
-class context {
-	SGE_NONCOPYABLE(context)
+class SGE_CLASS_SYMBOL exception
+:
+	public sge::exception
+{
 public:
-	SGE_SYMBOL context();
-
-	SGE_SYMBOL ~context();
-
-	SGE_SYMBOL void
-	add(
-		location const &,
-		object &
+	SGE_SYMBOL explicit exception(
+		sge::string const &
 	);
-
-	SGE_SYMBOL void
-	remove(
-		location const &
-	);
-
-	SGE_SYMBOL object *
-	find(
-		location const &
-	) const;
-
-	SGE_SYMBOL void
-	apply(
-		location const &,
-		tree_function const &
-	);
-private:
-	detail::context_tree tree_;
 };
 
 }
