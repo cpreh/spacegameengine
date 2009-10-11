@@ -16,8 +16,11 @@ class sphere
 	public base
 {
 public:
-	virtual unit radius() const = 0;
-	virtual void radius(
+	unit 
+	radius() const = 0;
+	
+	void 
+	radius(
 		unit) = 0;
 };
 }

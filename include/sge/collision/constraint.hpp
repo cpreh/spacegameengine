@@ -11,7 +11,7 @@ enum type
 {
 	no_constraint,
 	constrain_2d
-}
+};
 }
 }
 }

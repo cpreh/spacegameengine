@@ -40,13 +40,12 @@ one_dimensional_output(
 	std::basic_ostream<Ch, Traits> &s,
 	T const &v)
 {
-	s << s.widen('(');
 	if(v.size() > 1)
 		for(typename T::size_type i = 0; i < v.size() - 1; ++i)
 			s << v[i] << s.widen(',');
 	if(!v.empty())
 		s << v.back();
-	return s << s.widen(')');
+	return s;
 }
 
 }

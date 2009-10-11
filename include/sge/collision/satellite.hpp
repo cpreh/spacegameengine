@@ -36,7 +36,9 @@ class SGE_CLASS_SYMBOL satellite
 protected:
 	SGE_SYMBOL satellite();
 public:
-	virtual void position_change(point const &) = 0;
+	virtual void 
+	position_change(
+		point const &) = 0;
 	SGE_SYMBOL virtual ~satellite();
 };
 }

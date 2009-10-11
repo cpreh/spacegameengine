@@ -16,8 +16,11 @@ class box
 	public base
 {
 public:
-	virtual collision::dim const dim() const = 0;
-	virtual void dim(
+	virtual collision::dim const 
+	dim() const = 0;
+	
+	virtual void 
+	dim(
 		collision::dim const &) = 0;
 };
 }

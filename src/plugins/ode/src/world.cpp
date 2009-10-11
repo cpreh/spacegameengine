@@ -302,7 +302,7 @@ void sge::ode::world::collide(
 	// manual states that the contact array has to contain at least 1 element,
 	// so to be sure, allocate one dContactGeom here
 	dContactGeom g;
-	if (!dCollide(g0,g1,1,&g,sizeof(dContactGeom)))
+	if (dCollide(g0,g1,1,&g,sizeof(dContactGeom)) == 0)
 	{
 		//sge::cerr << "but dcollide returned false :(\n";
 		return;

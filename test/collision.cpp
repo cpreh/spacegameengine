@@ -27,9 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/collision/body.hpp>
-#include <sge/collision/shapes/circle.hpp>
-#include <sge/collision/shapes/circle.hpp>
+#include <sge/collision/dim.hpp>
+#include <sge/collision/shapes/sphere.hpp>
+#include <sge/collision/shapes/box.hpp>
 #include <sge/collision/group.hpp>
+#include <sge/math/dim/structure_cast.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/math/vector/output.hpp>
 #include <sge/systems/instance.hpp>
@@ -134,14 +136,16 @@ try
 	
 	sge::collision::world_ptr const world = 
 		sys.collision_system()->create_world(
-			sge::collision::rect(
-				sge::collision::rect::point_type(
+			sge::collision::box(
+				sge::collision::box::point_type(
 					-10,
-					-10
+					-10,
+					0
 				),
 				sge::collision::rect::dim_type(
 					660,
-					500
+					500,
+					1
 				)
 			)
 		);
@@ -179,8 +183,12 @@ try
 			sge::collision::satellite_ptr(
 				new object(s_a)),
 			sge::assign::make_container<sge::collision::shapes::container>(
-				world->create_circle(
-					static_cast<sge::collision::unit>(100))),
+				world->create_box(
+					sge::collision::dim(
+						s_a.size().w(),
+						s_a.size().h(),
+						static_cast<sge::collision::unit>(
+							1)))),
 			sge::collision::point(
 				static_cast<sge::collision::unit>(320),
 				static_cast<sge::collision::unit>(240),
@@ -196,8 +204,12 @@ try
 			sge::collision::satellite_ptr(
 				new object(s_b)),
 			sge::assign::make_container<sge::collision::shapes::container>(
-				world->create_circle(
-					static_cast<sge::collision::unit>(5))),
+				world->create_box(
+					sge::collision::dim(
+						s_b.size().w(),
+						s_b.size().h(),
+						static_cast<sge::collision::unit>(
+							1)))),
 			sge::collision::point(
 				static_cast<sge::collision::unit>(320),
 				static_cast<sge::collision::unit>(240),

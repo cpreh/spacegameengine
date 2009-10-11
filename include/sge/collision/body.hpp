@@ -17,15 +17,27 @@ class SGE_CLASS_SYMBOL body
 protected:
 	SGE_SYMBOL body();
 public:
-	virtual point const position() const = 0;
-	virtual void position(
+	virtual point const 
+	position() const = 0;
+	
+	virtual void 
+	position(
 		point const &) = 0;
-	virtual point const linear_velocity() const = 0;
-	virtual void linear_velocity(
+		
+	virtual point const 
+	linear_velocity() const = 0;
+	
+	virtual void 
+	linear_velocity(
 		point const &) = 0;
-	virtual bool is_active() = 0;
-	virtual void is_active(
+		
+	virtual bool 
+	is_active() = 0;
+	
+	virtual void 
+	is_active(
 		bool) = 0;
+		
 	SGE_SYMBOL virtual ~body();
 };
 }
