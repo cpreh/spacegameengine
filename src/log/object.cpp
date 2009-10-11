@@ -43,8 +43,12 @@ sge::log::object::object(
 	enabled_(
 		param_.enabled()
 	),
-	level_streams_(),
-	enabled_levels_()
+	level_streams_(
+		param_.level_streams()
+	),
+	enabled_levels_(
+		param_.enabled_levels()
+	)
 {
 }
 
