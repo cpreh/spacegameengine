@@ -33,7 +33,7 @@ sge::log::global()
 			cout
 		)
 		.prefix(
-			SGE_TEXT("sge: ")
+			SGE_TEXT("sge")
 		)
 		.enabled(
 			true
