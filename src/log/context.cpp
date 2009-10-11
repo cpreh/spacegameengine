@@ -21,11 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "find_logger_node.hpp"
 #include "find_location.hpp"
 #include "find_inner_node.hpp"
+#include "is_outer_node.hpp"
 #include <sge/log/context.hpp>
 #include <sge/log/location.hpp>
 #include <sge/log/no_such_location.hpp>
 #include <sge/container/tree_impl.hpp>
+#include <sge/container/traversal.hpp>
 #include <sge/variant/object_impl.hpp>
+#include <sge/function/object.hpp>
 #include <sge/text.hpp>
 #include <sge/assert.hpp>
 #include <exception>
@@ -207,5 +210,32 @@ sge::log::context::apply(
 			location_
 		);
 	
-	
+	typedef 
+	sge::container::traversal<
+		detail::context_tree
+	> traversal_type;
+
+	traversal_type traversal_(
+		*tree_location_
+	);
+
+	for(
+		traversal_type::iterator it(
+			traversal_.begin()
+		);
+		it != traversal_.end();
+		++it
+	)
+	{
+		if(
+			is_outer_node(
+				*it
+			)
+		)
+			function_(
+				it->value().get<
+					detail::outer_context_node
+				>().object()
+			);
+	}
 }
