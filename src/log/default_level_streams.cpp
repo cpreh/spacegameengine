@@ -18,17 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOG_PARAMETERS_FWD_HPP_INCLUDED
-#define SGE_LOG_PARAMETERS_FWD_HPP_INCLUDED
+#include <sge/log/default_level_streams.hpp>
+#include <sge/log/format/default_level.hpp>
+#include <sge/log/level_stream.hpp>
+#include <sge/foreach_enumerator.hpp>
+#include <sge/make_shared_ptr.hpp>
+#include <tr1/functional>
 
-namespace sge
+sge::log::level_stream_array const
+sge::log::default_level_streams(
+	ostream &sink_
+)
 {
-namespace log
-{
+	level_stream_array ret;
 
-class parameters;
+	SGE_FOREACH_ENUMERATOR(
+		i,
+		level
+	)
+	{
+		ret[i] =
+			make_shared_ptr<
+				level_stream
+			>(
+				std::tr1::ref(
+					sink_
+				),
+				format::default_level(
+					i	
+				)
+			);
+	}
 
+	return ret;
 }
-}
-
-#endif

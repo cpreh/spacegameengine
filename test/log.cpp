@@ -20,7 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/log/context.hpp>
 #include <sge/log/object.hpp>
-#include <sge/log/parameters.hpp>
+#include <sge/log/parameters/root.hpp>
+#include <sge/log/parameters/inherited.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/mainloop/catch_block.hpp>
 #include <sge/optional_impl.hpp>
@@ -34,8 +35,7 @@ try
 	sge::log::context context_;
 
 	sge::log::object logger(
-		sge::log::parameters()
-		.sink(
+		sge::log::parameters::root(
 			sge::cout
 		)
 		.enabled(
@@ -50,30 +50,19 @@ try
 		.level(
 			sge::log::level::debug
 		)
+		.create()
 	);
 
 	sge::log::object child_logger(
-		sge::log::parameters()
-		.parent(
-			logger
-		)
-		.enabled(
-			true
-		)
-		.context(
-			context_
-		)
-		.prefix(
+		sge::log::parameters::inherited(
+			logger,
 			SGE_TEXT("child")
-		)
-		.level(
-			sge::log::level::debug
 		)
 	);
 
 	sge::log::object *const ref(
 		context_.find(
-			*logger.location()
+			logger.context_location().location()
 		)
 	);
 

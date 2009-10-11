@@ -18,20 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOG_OPTIONAL_LOCATION_HPP_INCLUDED
-#define SGE_LOG_OPTIONAL_LOCATION_HPP_INCLUDED
+#ifndef SGE_LOG_DEFAULT_LEVEL_STREAMS_HPP_INCLUDED
+#define SGE_LOG_DEFAULT_LEVEL_STREAMS_HPP_INCLUDED
 
-#include <sge/log/location_fwd.hpp>
-#include <sge/optional_fwd.hpp>
+#include <sge/log/level_stream_array.hpp>
+#include <sge/ostream.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
 namespace log
 {
 
-typedef optional<
-	location
-> optional_location;
+SGE_SYMBOL level_stream_array const
+default_level_streams(
+	ostream &
+);
 
 }
 }

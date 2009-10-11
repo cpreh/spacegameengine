@@ -22,14 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_LOG_OBJECT_HPP_INCLUDED
 
 #include <sge/log/object_fwd.hpp>
-#include <sge/log/detail/level_array.hpp>
-#include <sge/log/detail/enabled_level_array.hpp>
 #include <sge/log/detail/auto_context.hpp>
+#include <sge/log/parameters/all_fwd.hpp>
+#include <sge/log/level_stream_array.hpp>
+#include <sge/log/enabled_level_array.hpp>
 #include <sge/log/temporary_output_fwd.hpp>
-#include <sge/log/parameters_fwd.hpp>
 #include <sge/log/level.hpp>
 #include <sge/log/level_stream_fwd.hpp>
-#include <sge/log/optional_location.hpp>
+#include <sge/log/context_location_fwd.hpp>
 #include <sge/log/format/object_ptr.hpp>
 #include <sge/ostream.hpp>
 #include <sge/export.hpp>
@@ -44,7 +44,7 @@ class object {
 	SGE_NONCOPYABLE(object)
 public:
 	SGE_SYMBOL explicit object(
-		parameters const &
+		parameters::all const &
 	);
 
 	SGE_SYMBOL ~object();
@@ -88,29 +88,37 @@ public:
 	SGE_SYMBOL bool
 	enabled() const;
 
-	SGE_SYMBOL ostream *
+	SGE_SYMBOL ostream &
 	sink() const;
 
 	SGE_SYMBOL format::const_object_ptr const
 	formatter() const;
 
 	SGE_SYMBOL
-	optional_location const
-	location() const;
+	log::context_location const
+	context_location() const;
+
+	SGE_SYMBOL
+	level_stream_array const &
+	level_streams() const;
+
+	SGE_SYMBOL
+	enabled_level_array const &
+	enabled_levels() const;
 private:
 	object const *const parent_;
 
-	ostream *sink_;
+	ostream &sink_;
 
 	detail::auto_context auto_context_;
 
-	format::const_object_ptr formatter_;
+	format::const_object_ptr const formatter_;
 
 	bool enabled_;
 
-	detail::level_array level_streams_;
+	level_stream_array level_streams_;
 
-	detail::enabled_level_array enabled_levels_;
+	enabled_level_array enabled_levels_;
 };
 
 }

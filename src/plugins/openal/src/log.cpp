@@ -19,22 +19,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../log.hpp"
-#include <sge/log/parameters.hpp>
+#include <sge/log/parameters/inherited.hpp>
 #include <sge/log/global.hpp>
 #include <sge/text.hpp>
 
-sge::log::object &sge::openal::log()
+sge::log::object &
+sge::openal::log()
 {
 	static log::object l(
-		log::parameters()
-		.parent(
-			log::global()
-		)
-		.prefix(
+		log::parameters::inherited(
+			log::global(),
 			SGE_TEXT("openal: ")
-		)
-		.enabled(
-			true
 		)
 	);
 	return l;

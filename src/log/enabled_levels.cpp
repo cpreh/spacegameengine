@@ -18,42 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ASSERT_HPP_INCLUDED
-#define SGE_ASSERT_HPP_INCLUDED
+#include <sge/log/enabled_levels.hpp>
+#include <sge/foreach_enumerator.hpp>
 
-#include <sge/preprocessor/stringize.hpp>
-#include <sge/preprocessor/file.hpp>
-#include <sge/string.hpp>
-#include <sge/export.hpp>
-
-// TODO: split this!
-
-namespace sge
+sge::log::enabled_level_array const
+sge::log::enabled_levels(
+	level::type const level_
+)
 {
-namespace detail
-{
-SGE_SYMBOL void process_assert(
-	string const &file,
-	string const &line,
-	string const &condition,
-	string const &message = string(),
-	string const &function = string());
+	enabled_level_array ret;
+
+	SGE_FOREACH_ENUMERATOR(
+		i,
+		level
+	)
+		ret[
+			i
+		] = level_ <= i;
+	
+	return ret;
 }
-}
-
-#define SGE_ASSERT_MESSAGE(cond,message)\
-if (!(cond))\
-	sge::detail::process_assert(\
-		SGE_PP_FILE,\
-		SGE_PP_STRINGIZE(__LINE__),\
-		SGE_PP_STRINGIZE(cond),\
-		message);
-
-#define SGE_ASSERT(cond)\
-if (!(cond))\
-	sge::detail::process_assert(\
-		SGE_PP_FILE,\
-		SGE_PP_STRINGIZE(__LINE__),\
-		SGE_PP_STRINGIZE(cond));
-
-#endif

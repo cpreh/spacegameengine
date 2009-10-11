@@ -18,42 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ASSERT_HPP_INCLUDED
-#define SGE_ASSERT_HPP_INCLUDED
+#ifndef SGE_LOG_CONTEXT_LOCATION_HPP_INCLUDED
+#define SGE_LOG_CONTEXT_LOCATION_HPP_INCLUDED
 
-#include <sge/preprocessor/stringize.hpp>
-#include <sge/preprocessor/file.hpp>
-#include <sge/string.hpp>
+#include <sge/log/context_location_fwd.hpp>
+#include <sge/log/location.hpp>
+#include <sge/log/context_fwd.hpp>
+#include <sge/optional_impl.hpp>
 #include <sge/export.hpp>
-
-// TODO: split this!
 
 namespace sge
 {
-namespace detail
+namespace log
 {
-SGE_SYMBOL void process_assert(
-	string const &file,
-	string const &line,
-	string const &condition,
-	string const &message = string(),
-	string const &function = string());
+
+class context_location {
+public:
+	SGE_SYMBOL context_location();
+
+	SGE_SYMBOL context_location(
+		log::context *,
+		log::location const &
+	);
+
+	SGE_SYMBOL log::context *
+	context() const;
+
+	SGE_SYMBOL log::location const &	
+	location() const;
+private:
+	typedef optional<
+		log::location
+	> optional_location;
+
+	log::context *context_;
+
+	optional_location location_;
+};
+
 }
 }
-
-#define SGE_ASSERT_MESSAGE(cond,message)\
-if (!(cond))\
-	sge::detail::process_assert(\
-		SGE_PP_FILE,\
-		SGE_PP_STRINGIZE(__LINE__),\
-		SGE_PP_STRINGIZE(cond),\
-		message);
-
-#define SGE_ASSERT(cond)\
-if (!(cond))\
-	sge::detail::process_assert(\
-		SGE_PP_FILE,\
-		SGE_PP_STRINGIZE(__LINE__),\
-		SGE_PP_STRINGIZE(cond));
 
 #endif

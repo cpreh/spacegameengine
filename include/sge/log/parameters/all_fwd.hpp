@@ -18,24 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOG_DETAIL_LEVEL_ARRAY_HPP_INCLUDED
-#define SGE_LOG_DETAIL_LEVEL_ARRAY_HPP_INCLUDED
-
-#include <sge/log/level_stream_fwd.hpp>
-#include <sge/log/level.hpp>
-#include <boost/ptr_container/ptr_array.hpp>
+#ifndef SGE_LOG_PARAMETERS_ALL_FWD_HPP_INCLUDED
+#define SGE_LOG_PARAMETERS_ALL_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace log
 {
-namespace detail
+namespace parameters
 {
 
-typedef boost::ptr_array<
-	level_stream,
-	level::size
-> level_array;
+class all;
 
 }
 }

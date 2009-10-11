@@ -20,7 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/log/global.hpp> 
 #include <sge/log/object.hpp>
-#include <sge/log/parameters.hpp>
+#include <sge/log/parameters/root.hpp>
+#include <sge/log/parameters/all.hpp>
 #include <sge/text.hpp>
 #include <sge/cout.hpp>
 
@@ -28,8 +29,7 @@ sge::log::object &
 sge::log::global()
 {
 	static object global_(
-		parameters()
-		.sink(
+		parameters::root(
 			cout
 		)
 		.prefix(
@@ -41,6 +41,7 @@ sge::log::global()
 		.level(
 			log::level::warning
 		)
+		.create()
 	);
 
 	return global_;

@@ -21,11 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LOG_DETAIL_AUTO_CONTEXT_HPP_INCLUDED
 #define SGE_LOG_DETAIL_AUTO_CONTEXT_HPP_INCLUDED
 
-#include <sge/log/optional_location.hpp>
-#include <sge/log/location.hpp>
+#include <sge/log/context_location.hpp>
 #include <sge/log/context_fwd.hpp>
 #include <sge/log/object_fwd.hpp>
-#include <sge/optional_decl.hpp>
 #include <sge/noncopyable.hpp>
 
 namespace sge
@@ -39,19 +37,16 @@ class auto_context {
 	SGE_NONCOPYABLE(auto_context)
 public:
 	auto_context(
-		context *,
-		object &,
-		optional_location const &
+		context_location const &,
+		object &
 	);
 
 	~auto_context();
 
-	optional_location const
+	context_location const
 	location() const;
 private:
-	context *const context_;
-
-	optional_location const location_;
+	context_location const location_;
 };
 
 }

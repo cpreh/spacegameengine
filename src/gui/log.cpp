@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/gui/log.hpp>
 #include <sge/log/global.hpp>
-#include <sge/log/parameters.hpp>
+#include <sge/log/parameters/inherited.hpp>
 #include <sge/text.hpp>
 
 sge::log::object &
@@ -42,15 +42,9 @@ sge::gui::logger::logger(
 )
 :
 	sge::log::object(
-		sge::log::parameters()
-		.parent(
-			parent
-		)
-		.prefix(
-			prefix + SGE_TEXT(": ")
-		)
-		.enabled(
-			active
+		sge::log::parameters::inherited(
+			parent,
+			prefix
 		)
 	)
 {

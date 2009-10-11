@@ -18,79 +18,81 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOG_PARAMETERS_HPP_INCLUDED
-#define SGE_LOG_PARAMETERS_HPP_INCLUDED
+#ifndef SGE_LOG_PARAMETERS_ALL_HPP_INCLUDED
+#define SGE_LOG_PARAMETERS_ALL_HPP_INCLUDED
 
-#include <sge/log/parameters_fwd.hpp>
-#include <sge/log/level.hpp>
+#include <sge/log/parameters/all_fwd.hpp>
 #include <sge/log/object_fwd.hpp>
 #include <sge/log/context_fwd.hpp>
+#include <sge/log/level_stream_array.hpp>
+#include <sge/log/enabled_level_array.hpp>
+#include <sge/log/context_location.hpp>
+#include <sge/log/location_fwd.hpp>
 #include <sge/log/format/object_ptr.hpp>
 #include <sge/ostream.hpp>
-#include <sge/string.hpp>
 #include <sge/export.hpp>
 
 namespace sge
 {
 namespace log
 {
+namespace parameters
+{
 
-class parameters {
+class all {
 public:
-	SGE_SYMBOL parameters();
-
-	SGE_SYMBOL parameters 
-	sink(
+	SGE_SYMBOL explicit all(
 		ostream &
 	);
 
-	SGE_SYMBOL parameters 
+	SGE_SYMBOL all 
 	parent(
 		object const &
 	);
 
-	SGE_SYMBOL parameters 
-	context(
-		log::context &
+	SGE_SYMBOL all 
+	context_location(
+		log::context *,
+		log::location const &
 	);
 
-	SGE_SYMBOL parameters 
-	prefix(
-		string const &
-	);
-
-	SGE_SYMBOL parameters 
+	SGE_SYMBOL all 
 	enabled(
 		bool
 	);
 
-	SGE_SYMBOL parameters 
-	level(
-		log::level::type
+	SGE_SYMBOL all 
+	level_streams(
+		level_stream_array const &
 	);
 
-	SGE_SYMBOL parameters 
+	SGE_SYMBOL all
+	enabled_levels(
+		enabled_level_array const &
+	);
+
+	SGE_SYMBOL all 
 	formatter(
 		format::const_object_ptr
 	);
 
-	SGE_SYMBOL ostream *
+	SGE_SYMBOL ostream &
 	sink() const;
 
 	SGE_SYMBOL object const *
 	parent() const;
 
-	SGE_SYMBOL log::context *
-	context() const;
-
-	SGE_SYMBOL string const
-	prefix() const;
+	SGE_SYMBOL log::context_location const &
+	context_location() const;
 
 	SGE_SYMBOL bool
 	enabled() const;
 
-	SGE_SYMBOL log::level::type
-	level() const;
+	SGE_SYMBOL level_stream_array const & 
+	level_streams() const;
+
+	SGE_SYMBOL enabled_level_array const &
+	enabled_levels() const;
 
 	SGE_SYMBOL format::const_object_ptr const
 	formatter() const;
@@ -99,17 +101,18 @@ private:
 
 	object const *parent_;
 
-	log::context *context_;
-
-	string prefix_;
-	
 	bool enabled_;
 
-	log::level::type level_;
+	level_stream_array level_streams_;
+
+	enabled_level_array enabled_levels_;
 
 	format::const_object_ptr formatter_;
+
+	log::context_location context_location_;
 };
 
+}
 }
 }
 

@@ -18,42 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ASSERT_HPP_INCLUDED
-#define SGE_ASSERT_HPP_INCLUDED
+#include <sge/log/parameters/inherited.hpp>
+#include <sge/log/parameters/all.hpp>
+#include <sge/log/format/create_prefix.hpp>
+#include <sge/log/format/create_chain.hpp>
+#include <sge/log/location.hpp>
+#include <sge/log/object.hpp>
 
-#include <sge/preprocessor/stringize.hpp>
-#include <sge/preprocessor/file.hpp>
-#include <sge/string.hpp>
-#include <sge/export.hpp>
-
-// TODO: split this!
-
-namespace sge
+sge::log::parameters::all const
+sge::log::parameters::inherited(
+	object &parent,
+	string const &sub_location
+)
 {
-namespace detail
-{
-SGE_SYMBOL void process_assert(
-	string const &file,
-	string const &line,
-	string const &condition,
-	string const &message = string(),
-	string const &function = string());
+	return
+		all(
+			parent.sink()
+		)
+		.parent(
+			parent
+		)
+		.context_location(
+			parent.context_location().context(),
+			parent.context_location().location()
+			+ sub_location
+		)
+		.enabled(
+			parent.enabled()	
+		)
+		.level_streams(
+			parent.level_streams()
+		)
+		.enabled_levels(
+			parent.enabled_levels()
+		)
+		.formatter(
+			format::create_chain(
+				parent.formatter(),
+				format::create_prefix(
+					sub_location
+				)
+			)
+		);
 }
-}
-
-#define SGE_ASSERT_MESSAGE(cond,message)\
-if (!(cond))\
-	sge::detail::process_assert(\
-		SGE_PP_FILE,\
-		SGE_PP_STRINGIZE(__LINE__),\
-		SGE_PP_STRINGIZE(cond),\
-		message);
-
-#define SGE_ASSERT(cond)\
-if (!(cond))\
-	sge::detail::process_assert(\
-		SGE_PP_FILE,\
-		SGE_PP_STRINGIZE(__LINE__),\
-		SGE_PP_STRINGIZE(cond));
-
-#endif
