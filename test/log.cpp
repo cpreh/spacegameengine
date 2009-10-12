@@ -20,6 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/log/context.hpp>
 #include <sge/log/object.hpp>
+#include <sge/log/global_context.hpp>
+#include <sge/log/global.hpp>
 #include <sge/log/parameters/root.hpp>
 #include <sge/log/parameters/inherited.hpp>
 #include <sge/log/headers.hpp>
@@ -106,6 +108,24 @@ try
 		*child_ref,
 		sge::log::_
 			<< SGE_TEXT("shouldn't be shown!")
+	);
+
+	sge::log::global();
+
+	sge::log::object *const global_ref(
+		sge::log::global_context().find(
+			sge::log::location(
+				SGE_TEXT("sge")
+			)
+		)
+	);
+
+	SGE_ASSERT(global_ref);
+
+	SGE_LOG_WARNING(
+		*global_ref,
+		sge::log::_
+			<< SGE_TEXT("Test global warning log!")
 	);
 }
 SGE_MAINLOOP_CATCH_BLOCK

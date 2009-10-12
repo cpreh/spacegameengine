@@ -18,35 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/global.hpp> 
-#include <sge/log/object.hpp>
 #include <sge/log/global_context.hpp>
-#include <sge/log/parameters/root.hpp>
-#include <sge/log/parameters/all.hpp>
-#include <sge/text.hpp>
-#include <sge/cout.hpp>
+#include <sge/log/context.hpp>
 
-sge::log::object &
-sge::log::global()
+sge::log::context &
+sge::log::global_context()
 {
-	static object global_(
-		parameters::root(
-			cout
-		)
-		.prefix(
-			SGE_TEXT("sge")
-		)
-		.enabled(
-			true
-		)
-		.level(
-			log::level::warning
-		)
-		.context(
-			global_context()
-		)
-		.create()
-	);
+	static context global_;
 
 	return global_;
 }
