@@ -42,9 +42,9 @@ sge::log::global()
 		.level(
 			log::level::warning
 		)
-		.context(
-			global_context()
-		)
+		//.context(
+		//	global_context()
+		//)
 		.create()
 	);
 
