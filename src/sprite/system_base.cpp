@@ -48,6 +48,14 @@ sge::sprite::system_base::renderer() const
 	return rend;
 }
 
+void
+sge::sprite::system_base::transform(
+	matrix const &ntransform_matrix
+)
+{
+	transform_matrix = ntransform_matrix;
+}
+
 sge::sprite::system_base::system_base(
 	renderer::device_ptr const rend)
 :

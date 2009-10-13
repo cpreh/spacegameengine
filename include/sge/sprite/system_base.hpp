@@ -40,12 +40,20 @@ class system_base {
 public:
 	SGE_SYMBOL sge::renderer::device_ptr const
 	renderer() const;
+
+	SGE_SYMBOL void
+	transform(
+		matrix const &
+	);
 protected:
 	explicit system_base(
-		sge::renderer::device_ptr rend);
+		sge::renderer::device_ptr rend
+	);
 	
-	SGE_SYMBOL void allocate_buffers(
-		std::size_t needed_sprites);
+	SGE_SYMBOL void
+	allocate_buffers(
+		std::size_t needed_sprites
+	);
 
 	void matrices();
 
@@ -56,9 +64,8 @@ protected:
 	index_buffer() const;
 private:
 	sge::renderer::device_ptr const  rend;
-	matrix const
-		transform_matrix,
-		projection_matrix;
+	matrix transform_matrix;
+	matrix const projection_matrix;
 	sge::renderer::vertex_buffer_ptr vb;
 	sge::renderer::index_buffer_ptr  ib;
 };
