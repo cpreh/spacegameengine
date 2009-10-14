@@ -51,25 +51,30 @@ public:
 		typename U
 	>
 	object(
-		U const &);
+		U const &
+	);
 	
 	object(
-		object const &);
+		object const &
+	);
 	
 	template<
 		typename U
 	>
 	object &
 	operator=(
-		U const &);
+		U const &
+	);
 	
 	object &
 	operator=(
-		object const &);
+		object const &
+	);
 	
 	~object();
 
-	bool empty() const;
+	bool
+	empty() const;
 
 	template<
 		typename U
@@ -86,20 +91,25 @@ public:
 	std::type_info const &
 	type() const;
 
-	size_type type_index() const;
+	size_type
+	type_index() const;
 private:
 	template<
 		typename U
 	>
-	void check_get() const;
+	void
+	check_get() const;
 
 	template<
 		typename U
 	>
-	void construct(
-		U const &);
+	void
+	construct(
+		U const &
+	);
 	
-	void destroy();
+	void
+	destroy();
 
 	static size_type const elements = 
 		boost::mpl::size<
