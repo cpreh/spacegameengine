@@ -64,9 +64,15 @@ protected:
 	index_buffer() const;
 private:
 	sge::renderer::device_ptr const  rend;
-	matrix transform_matrix;
-	matrix const projection_matrix;
+
+	matrix const
+		transform_matrix,
+		projection_matrix;
+	
+	matrix additional_transform_;
+
 	sge::renderer::vertex_buffer_ptr vb;
+
 	sge::renderer::index_buffer_ptr  ib;
 };
 

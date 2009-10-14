@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/constants.hpp>
 #include <sge/math/matrix/basic_impl.hpp>
 #include <sge/math/matrix/orthogonal_xy.hpp>
+#include <sge/math/matrix/arithmetic.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/index_buffer.hpp>
@@ -53,20 +54,29 @@ sge::sprite::system_base::transform(
 	matrix const &ntransform_matrix
 )
 {
-	transform_matrix = ntransform_matrix;
+	additional_transform_ = ntransform_matrix;
 }
 
 sge::sprite::system_base::system_base(
-	renderer::device_ptr const rend)
+	renderer::device_ptr const rend
+)
 :
 	rend(rend),
 	transform_matrix(
 		renderer::matrix_pixel_to_space<
 			funit
 		>(
-			rend->screen_size())),
+			rend->screen_size()
+		)
+	),
 	projection_matrix(
-		math::matrix::orthogonal_xy<funit>())
+		math::matrix::orthogonal_xy<funit>()
+	),
+	additional_transform_(
+		matrix::identity()
+	),
+	vb(),
+	ib()
 {}
 
 void sge::sprite::system_base::allocate_buffers(
@@ -89,10 +99,17 @@ void sge::sprite::system_base::allocate_buffers(
 	);
 }
 
-void sge::sprite::system_base::matrices()
+void
+sge::sprite::system_base::matrices()
 {
-	rend->transform(transform_matrix);
-	rend->projection(projection_matrix);
+	rend->transform(
+		additional_transform_
+		* transform_matrix
+	);
+
+	rend->projection(
+		projection_matrix
+	);
 }
 
 sge::renderer::vertex_buffer_ptr const
