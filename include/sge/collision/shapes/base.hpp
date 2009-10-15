@@ -2,6 +2,7 @@
 #define SGE_COLLISION_SHAPES_BASE_HPP_INCLUDED
 
 #include <sge/collision/point.hpp>
+#include <sge/collision/solidity.hpp>
 #include <sge/noncopyable.hpp>
 #include <sge/export.hpp>
 
@@ -17,15 +18,12 @@ SGE_NONCOPYABLE(base)
 protected:
 	base();
 public:
-	virtual void 
-	position(
-		point const &) = 0;
-
-	virtual void
-	is_solid(
-			bool) = 0;
-
 	SGE_SYMBOL virtual ~base();
+	
+	// FIXME: technically you should have getters and setters for:
+	// solidity
+	// position
+	// but I was way too lazy for that
 };
 }
 }

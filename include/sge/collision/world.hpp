@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/collision/body_fwd.hpp>
 #include <sge/collision/group_fwd.hpp>
 #include <sge/collision/unit.hpp>
+#include <sge/collision/solidity.hpp>
 #include <sge/collision/dim.hpp>
 #include <sge/collision/point.hpp>
 #include <sge/collision/satellite_fwd.hpp>
@@ -70,6 +71,7 @@ public:
 	register_solid_callback(
 		shape_callback const &) = 0;
 		
+	// NOTE: the body gets the (shared) ownership to the shapes!
 	virtual body_ptr const 
 	create_body(
 		satellite_ptr,
@@ -80,13 +82,13 @@ public:
 	virtual shapes::sphere_ptr const
 	create_sphere(
 		unit radius,
-		bool is_solid,
+		solidity::type,
 		point const & = point::null()) = 0;
 
 	virtual shapes::box_ptr const
 	create_box(
 		collision::dim const &,
-		bool is_solid,
+		solidity::type,
 		point const & = point::null()) = 0;
 	
 	virtual group_ptr const 

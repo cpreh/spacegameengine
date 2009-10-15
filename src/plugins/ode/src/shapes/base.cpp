@@ -60,6 +60,7 @@ void sge::ode::shapes::base::add_to_group(
 
 sge::ode::shapes::base::~base()
 {
+	// TODO: delete shape from body-shape-container here
 	dGeomDestroy(
 		shape_);
 }

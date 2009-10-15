@@ -31,13 +31,6 @@ public:
 	linear_velocity(
 		point const &) = 0;
 		
-	virtual bool 
-	is_active() = 0;
-	
-	virtual void 
-	is_active(
-		bool) = 0;
-		
 	SGE_SYMBOL virtual ~body();
 };
 }
