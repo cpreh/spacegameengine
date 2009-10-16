@@ -52,7 +52,8 @@ void fill_geometry(
 	It begin,
 	It const end,
 	renderer::vertex_buffer_ptr const vb,
-	renderer::index_buffer_ptr const ib)
+	renderer::index_buffer_ptr const ib
+)
 {
 	renderer::scoped_vertex_lock const vblock(
 		vb,
@@ -73,8 +74,10 @@ void fill_geometry(
 	{
 		object const &spr(*it);
 
-		if(!spr.visible())
+		if(!visible(spr))
 			continue;
+//		if(!spr.visible())
+//			continue;
 
 		if(math::almost_zero(spr.rotation()))
 			fill_position(vb_it, spr.rect(), spr.z());
