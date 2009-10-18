@@ -23,6 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/detail/managers/mouse.hpp>
 #include <sge/gui/widgets/base.hpp>
 #include <sge/gui/log.hpp>
+#include <sge/log/parameters/inherited.hpp>
+#include <sge/log/object.hpp>
+#include <sge/log/headers.hpp>
 #include <sge/assert.hpp>
 #include <sge/type_info.hpp>
 #include <sge/text.hpp>
@@ -30,10 +33,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
-sge::gui::logger mylogger(
-	sge::gui::global_log(),
-	SGE_TEXT("managers: compiler"),
-	false);
+
+sge::log::object mylogger(
+	sge::log::parameters::inherited(
+		sge::gui::global_log(),
+		SGE_TEXT("managers: compiler")
+	)
+);
 
 bool has_parent(
 	sge::gui::widgets::base const &v,

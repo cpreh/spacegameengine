@@ -18,21 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/gui/widgets/log.hpp>
-#include <sge/log/parameters/inherited.hpp>
-#include <sge/log/object.hpp>
-#include <sge/log/global.hpp>
-#include <sge/text.hpp>
+#ifndef SGE_LOG_GLOBAL_CONTEXT_HPP_INCLUDED
+#define SGE_LOG_GLOBAL_CONTEXT_HPP_INCLUDED
 
-sge::log::object &
-sge::gui::widgets::global_log()
+#include <sge/log/context_fwd.hpp>
+#include <sge/export.hpp>
+
+namespace sge
 {
-	static sge::log::object global(
-		sge::log::parameters::inherited(
-			sge::gui::global_log(),
-			SGE_TEXT("widgets")
-		)
-	);
+namespace log
+{
 
-	return global;
+SGE_SYMBOL context &
+global_context();
+
 }
+}
+
+#endif

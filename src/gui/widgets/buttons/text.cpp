@@ -22,17 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widgets/parameters.hpp>
 #include <sge/gui/events/key.hpp>
 #include <sge/gui/manager.hpp>
-#include <sge/gui/widgets/log.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/assert.hpp>
-
-namespace
-{
-sge::gui::logger mylogger(
-	sge::gui::widgets::global_log(),
-	SGE_TEXT("buttons::text"),
-	false);
-}
 
 sge::gui::widgets::buttons::text::text(
 	parent_data const &_parent,

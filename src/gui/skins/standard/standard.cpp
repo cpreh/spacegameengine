@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/skins/standard.hpp>
 #include <sge/gui/widgets/base.hpp>
 #include <sge/gui/events/invalid_area.hpp>
-#include <sge/gui/log.hpp>
 #include <sge/gui/internal_color.hpp>
 #include <sge/gui/canvas/object.hpp>
 #include <sge/gui/media_path.hpp>
@@ -30,14 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/system.hpp>
 #include <sge/math/dim/output.hpp>
 #include <sge/text.hpp>
-
-namespace
-{
-sge::gui::logger mylogger(
-	sge::gui::global_log(),
-	SGE_TEXT("skins: standard"),
-	false);
-}
 
 sge::gui::skins::standard::standard(
 	font::system_ptr const fs)

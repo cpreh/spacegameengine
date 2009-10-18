@@ -31,13 +31,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/object.hpp>
 #include <sge/font/text_size.hpp>
 #include <sge/math/box/output.hpp>
+#include <sge/log/parameters/inherited.hpp>
+#include <sge/log/object.hpp>
+#include <sge/log/headers.hpp>
 
 namespace
 {
-sge::gui::logger mylogger(
-	sge::gui::global_log(),
-	SGE_TEXT("skins: standard: buttons: text"),
-	false);
+
+sge::log::object mylogger(
+	sge::log::parameters::inherited(
+		sge::gui::global_log(),
+		SGE_TEXT("skins: standard: buttons: text")
+	)
+);
+
 }
 
 void sge::gui::skins::standard::draw(

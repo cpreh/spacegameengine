@@ -36,6 +36,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/exception.hpp>
 #include <sge/math/dim/output.hpp>
 #include <sge/image/view/make_const.hpp>
+#include <sge/log/parameters/inherited.hpp>
+#include <sge/log/object.hpp>
+#include <sge/log/headers.hpp>
 #include <sge/text.hpp>
 #include <sge/type_info.hpp>
 #include <boost/mpl/vector.hpp>
@@ -44,10 +47,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
-sge::gui::logger mylogger(
-	sge::gui::global_log(),
-	SGE_TEXT("skin"),
-	false);
+
+sge::log::object mylogger(
+	sge::log::parameters::inherited(
+		sge::gui::global_log(),
+		SGE_TEXT("skin")
+	)
+);
+
 }
 
 namespace

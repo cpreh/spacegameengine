@@ -21,26 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_LOG_HPP_INCLUDED
 #define SGE_GUI_LOG_HPP_INCLUDED
 
-#include <sge/log/object.hpp>
-#include <sge/log/level.hpp>
-#include <sge/log/macros.hpp>
-#include <sge/log/trampoline.hpp>
-#include <sge/log/temporary_output.hpp>
+#include <sge/log/object_fwd.hpp>
 
 namespace sge
 {
 namespace gui
 {
-
-class logger : public sge::log::object
-{
-public:
-	logger(
-		sge::log::object &parent,
-		string const &prefix,
-		bool active = true
-	);
-};
 
 sge::log::object &
 global_log();

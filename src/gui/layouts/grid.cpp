@@ -27,16 +27,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/vector/vector.hpp>
 #include <sge/math/vector/dim.hpp>
 #include <sge/math/negative.hpp>
+#include <sge/log/parameters/inherited.hpp>
+#include <sge/log/object.hpp>
+#include <sge/log/headers.hpp>
 #include <sge/type_name.hpp>
 #include <sge/text.hpp>
 #include <boost/foreach.hpp>
 
 namespace
 {
-sge::gui::logger mylogger(
-	sge::gui::global_log(),
-	SGE_TEXT("layouts: grid"),
-	true);
+
+sge::log::object mylogger(
+	sge::log::parameters::inherited(
+		sge::gui::global_log(),
+		SGE_TEXT("layouts: grid")
+	)
+);
 
 sge::gui::axis_type
 	x_axis = 0,

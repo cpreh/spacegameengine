@@ -26,22 +26,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widgets/base.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/gui/exception.hpp>
-#include <sge/assert.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/input/classification.hpp>
 #include <sge/input/key_pair.hpp>
 #include <sge/math/almost_zero.hpp>
+#include <sge/log/parameters/inherited.hpp>
+#include <sge/log/object.hpp>
+#include <sge/log/headers.hpp>
+#include <sge/assert.hpp>
 #include <boost/next_prior.hpp>
 #include <tr1/functional>
 #include <algorithm>
 
 namespace
 {
-sge::gui::logger mylogger(
-	sge::gui::global_log(),
-	SGE_TEXT("managers: keyboard"),
-	false);
+
+sge::log::object mylogger(
+	sge::log::parameters::inherited(
+		sge::gui::global_log(),
+		SGE_TEXT("managers: keyboard")
+	)
+);
 
 bool active(sge::gui::widgets::base const &w)
 {
