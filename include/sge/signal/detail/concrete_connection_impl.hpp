@@ -35,4 +35,11 @@ typename sge::signal::detail::concrete_connection<T>::function_type &
 	return function_;
 }
 
+template<typename T>
+typename sge::signal::detail::concrete_connection<T>::function_type const &
+	sge::signal::detail::concrete_connection<T>::function() const
+{
+	return function_;
+}
+
 #endif

@@ -56,6 +56,7 @@ protected:
 
 	base();
 	connection_list &connections();
+	connection_list const &connections() const;
 private:
 	connection_list connections_;
 };

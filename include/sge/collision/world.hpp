@@ -57,7 +57,7 @@ public:
 	
 	virtual void 
 	test_callback_combiner(
-		collision::test_callback_combiner const &) = 0;
+		test_callback_combiner const &) = 0;
 
 	virtual signal::auto_connection
 	register_begin_callback(
@@ -74,20 +74,21 @@ public:
 	// NOTE: the body gets the (shared) ownership to the shapes!
 	virtual body_ptr const 
 	create_body(
-		satellite_ptr,
 		shapes::container const &,
 		point const &,
 		point const &) = 0;
 	
 	virtual shapes::sphere_ptr const
 	create_sphere(
+		satellite_ptr,
 		unit radius,
 		solidity::type,
 		point const & = point::null()) = 0;
 
 	virtual shapes::box_ptr const
 	create_box(
-		collision::dim const &,
+		satellite_ptr,
+		dim const &,
 		solidity::type,
 		point const & = point::null()) = 0;
 	

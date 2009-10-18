@@ -13,13 +13,13 @@ namespace shapes
 {
 class sphere
 :
-	public base
+	public virtual base
 {
 public:
-	unit 
+	virtual unit 
 	radius() const = 0;
 	
-	void 
+	virtual void 
 	radius(
 		unit) = 0;
 };

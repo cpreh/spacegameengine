@@ -39,6 +39,9 @@ public:
 	virtual void 
 	position_change(
 		point const &) = 0;
+	virtual void 
+	velocity_change(
+		point const &) = 0;
 	SGE_SYMBOL virtual ~satellite();
 };
 }

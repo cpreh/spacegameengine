@@ -13,7 +13,7 @@ namespace shapes
 {
 class box
 :
-	public base
+	public virtual base
 {
 public:
 	virtual collision::dim const 

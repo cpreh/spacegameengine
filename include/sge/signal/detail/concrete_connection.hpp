@@ -42,6 +42,7 @@ public:
 		function_type const &);
 
 	function_type &function();
+	function_type const &function() const;
 private:
 	function_type function_;
 };

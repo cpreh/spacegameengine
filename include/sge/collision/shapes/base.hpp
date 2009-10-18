@@ -3,6 +3,7 @@
 
 #include <sge/collision/point.hpp>
 #include <sge/collision/solidity.hpp>
+#include <sge/collision/body_fwd.hpp>
 #include <sge/noncopyable.hpp>
 #include <sge/export.hpp>
 
@@ -20,9 +21,13 @@ protected:
 public:
 	SGE_SYMBOL virtual ~base();
 	
+	virtual body *
+	parent_body() = 0;
+	
 	// FIXME: technically you should have getters and setters for:
 	// solidity
 	// position
+	// satellite
 	// but I was way too lazy for that
 };
 }

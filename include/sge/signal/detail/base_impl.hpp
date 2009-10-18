@@ -45,4 +45,11 @@ sge::signal::detail::base<T>::connections()
 	return connections_;
 }
 
+template<typename T>
+typename sge::signal::detail::base<T>::connection_list const &
+sge::signal::detail::base<T>::connections() const
+{
+	return connections_;
+}
+
 #endif
