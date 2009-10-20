@@ -18,15 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_DIM_DIM_HPP_INCLUDED
-#define SGE_MATH_DIM_DIM_HPP_INCLUDED
+#ifndef SGE_MATH_DIM_MAKE_HPP_INCLUDED
+#define SGE_MATH_DIM_MAKE_HPP_INCLUDED
 
-#include <sge/math/dim/basic_decl.hpp>
+#include <sge/math/dim/max_ctor_params.hpp>
 #include <sge/math/dim/basic_impl.hpp>
-#include <sge/math/dim/arithmetic.hpp>
-#include <sge/math/dim/input.hpp>
-#include <sge/math/dim/make.hpp>
-#include <sge/math/dim/output.hpp>
-#include <sge/math/dim/structure_cast.hpp>
+#include <sge/math/dim/static.hpp>
+#include <sge/math/detail/make_impl.hpp>
+
+namespace sge
+{
+namespace math
+{
+namespace dim
+{
+
+SGE_MATH_DETAIL_MAKE_IMPL(
+	SGE_MATH_DIM_MAX_CTOR_PARAMS
+)
+
+}
+}
+}
 
 #endif

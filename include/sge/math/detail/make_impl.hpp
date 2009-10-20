@@ -18,15 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_DIM_DIM_HPP_INCLUDED
-#define SGE_MATH_DIM_DIM_HPP_INCLUDED
+#ifndef SGE_MATH_DETAIL_MAKE_IMPL_HPP_INCLUDED
+#define SGE_MATH_DETAIL_MAKE_IMPL_HPP_INCLUDED
 
-#include <sge/math/dim/basic_decl.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/math/dim/arithmetic.hpp>
-#include <sge/math/dim/input.hpp>
-#include <sge/math/dim/make.hpp>
-#include <sge/math/dim/output.hpp>
-#include <sge/math/dim/structure_cast.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/repeat.hpp>
+#include <boost/preprocessor/arithmetic/inc.hpp>
+
+#define SGE_MATH_DETAIL_MAKE_IMPL_COUNT(\
+	z,\
+	count,\
+	text\
+)\
+template<\
+	typename T\
+>\
+typename static_<\
+	T,\
+	BOOST_PP_INC(count)\
+>::type \
+make(\
+	BOOST_PP_ENUM_PARAMS_Z(\
+		z,\
+		BOOST_PP_INC(count),\
+		T const &param\
+	)\
+)\
+{\
+	return\
+		typename static_<\
+			T,\
+			BOOST_PP_INC(count)\
+		>::type(\
+			BOOST_PP_ENUM_PARAMS_Z(\
+				z,\
+				BOOST_PP_INC(count),\
+				param\
+			)\
+		);\
+}
+
+#define SGE_MATH_DETAIL_MAKE_IMPL(\
+	count\
+)\
+BOOST_PP_REPEAT(\
+	count,\
+	SGE_MATH_DETAIL_MAKE_IMPL_COUNT,\
+	void\
+)
 
 #endif

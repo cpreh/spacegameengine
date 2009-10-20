@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MATH_DIM_BASIC_IMPL_HPP_INCLUDED
 
 #include <sge/math/dim/basic_decl.hpp>
+#include <sge/math/dim/max_ctor_params.hpp>
 #include <sge/math/detail/array_adapter_impl.hpp>
 #include <sge/math/detail/make_op_def.hpp>
 #include <sge/math/detail/storage_data.hpp>

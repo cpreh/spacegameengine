@@ -18,15 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_DIM_DIM_HPP_INCLUDED
-#define SGE_MATH_DIM_DIM_HPP_INCLUDED
+#ifndef SGE_MATH_VECTOR_MAX_CTOR_PARAMS_HPP_INCLUDED
+#define SGE_MATH_VECTOR_MAX_CTOR_PARAMS_HPP_INCLUDED
 
-#include <sge/math/dim/basic_decl.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/math/dim/arithmetic.hpp>
-#include <sge/math/dim/input.hpp>
-#include <sge/math/dim/make.hpp>
-#include <sge/math/dim/output.hpp>
-#include <sge/math/dim/structure_cast.hpp>
+#ifndef SGE_MATH_VECTOR_MAX_CTOR_PARAMS
+#define SGE_MATH_VECTOR_MAX_CTOR_PARAMS 4
+#endif
 
 #endif

@@ -77,7 +77,8 @@ SGE_MATH_DETAIL_DEF_PRE :: text(BOOST_PP_ENUM_PARAMS(BOOST_PP_INC(n), T const& p
 {\
 	::sge::math::detail::initial_size(\
 		storage,\
-		n); \
+		n\
+	); \
 	BOOST_PP_REPEAT(BOOST_PP_INC(n), SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_ASSIGN, param)\
 }
 
