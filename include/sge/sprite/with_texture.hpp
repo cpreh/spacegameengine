@@ -21,10 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_WITH_TEXTURE_HPP_INCLUDED
 #define SGE_SPRITE_WITH_TEXTURE_HPP_INCLUDED
 
+#include <sge/texture/part_fwd.hpp>
+
 namespace sge
 {
 namespace sprite
 {
+
+template<
+	unsigned Num = 1
+>
+class with_texture;
 
 template<
 	unsigned Num
@@ -37,7 +44,8 @@ public:
 template<>
 class with_texture<
 	1u
-> {
+>
+{
 public:
 	explicit with_texture(
 		sge::texture::const_part_ptr const texture_

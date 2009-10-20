@@ -18,69 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_WITH_ROTATION_HPP_INCLUDED
-#define SGE_SPRITE_WITH_ROTATION_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_BASE_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_BASE_HPP_INCLUDED
+
+#include <sge/sprite/detail/pos_base.hpp>
+#include <boost/mpl/inherit_linearly.hpp>
+#include <boost/mpl/inherit.hpp>
+#include <boost/mpl/placeholders.hpp>
+#include <boost/mpl/copy.hpp>
+#include <boost/mpl/back_inserter.hpp>
+#include <boost/mpl/vector.hpp>
 
 namespace sge
 {
 namespace sprite
 {
+namespace detail
+{
 
 template<
-	typename Point,
-	typename Rotation
+	typename CoordType,
+	typename Policies
 >
-class with_rotation {
-public:
-	typedef optional<
-		point_type
-	> optional_rotation;
+struct base
+:
+	boost::mpl::inherit_linearly<
+		boost::mpl::copy<
+			boost::mpl::vector<
+				pos_base
+			>,
+			boost::mpl::back_inserter<
+				Policies
+			>
+		>,
+		boost::mpl::inherit<
+			boost::mpl::_1,
+			boost::mpl::_2
+		>
+	>
+{};
 
-	with_rotation(
-		rotation_type const rotation_,
-		optional_rotation const &rotate_around_
-	)
-	:
-		rotate_around_(rotate_around_),
-		rotation_(rotation_)
-	{}
-
-	void
-	rotation(
-		rotation_type const nrotation_
-	)
-	{
-		rotation_ = nortation_;
-	}
-
-	void
-	rotate_around(
-		optional_rotation const &nrotate_around_
-	)
-	{
-		rotate_around_ = nrotate_around_;
-	}
-
-	optional_rotation const
-	rotate_around() const
-	{
-		return rotate_around_;
-	}
-
-	rotation_type
-	rotation() const
-	{
-		return rotation_;
-	}
-protected:
-	~with_rotation()
-	{}
-private:
-	rotation_type rotation_;
-
-	optional_rotation rotate_around_;
-};
-
+}
 }
 }
 

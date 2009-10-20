@@ -21,6 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_BASIC_DECL_HPP_INCLUDED
 #define SGE_SPRITE_BASIC_DECL_HPP_INCLUDED
 
+#include <sge/sprite/basic_fwd.hpp>
+#include <sge/sprite/parameters_fwd.hpp>
+#include <sge/sprite/detail/base.hpp>
+#include <sge/math/vector/basic_decl.hpp>
+#include <sge/math/dim/static.hpp>
+#include <sge/math/dim/basic_decl.hpp>
+
 namespace sge
 {
 namespace sprite
@@ -32,18 +39,22 @@ template<
 >
 class basic
 :
-	detail::base<
+	public detail::base<
 		Policies
 	>
 {
-	typedef detail::base<
-		Policies
-	> base;
 public:
 	typedef CoordType unit;
 
+	typedef unit depth_type; // TODO
+
+	typedef sge::math::dim::static_<
+		CoordType,
+		2
+	>::type dim_type;
+
 	typedef sprite::parameters<
-		base
+		Policies
 	> parameters;
 
 	explicit basic(
@@ -59,6 +70,53 @@ public:
 	y(
 		unit
 	);
+
+	void
+	z(
+		depth_type
+	);
+
+	void
+	pos(
+		point const &
+	);
+
+	void
+	center(
+		point const &
+	);
+
+	void
+	dim(
+		dim_type const &
+	);
+
+	unit
+	x() const;
+
+	unit
+	y() const;
+
+	depth_type
+	z() const;
+
+	point const
+	pos() const;
+
+	point const
+	center() const;
+
+	dim_type const
+	dim() const;
+
+	rect_type const
+	rect() const;
+private:
+	point pos_;
+
+	dim size_;
+
+	depth_type z_;
 };
 
 }

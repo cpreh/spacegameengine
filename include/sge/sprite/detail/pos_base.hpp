@@ -18,69 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_WITH_ROTATION_HPP_INCLUDED
-#define SGE_SPRITE_WITH_ROTATION_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_POS_BASE_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_POS_BASE_HPP_INCLUDED
+
+#include <sge/math/vector/static.hpp>
 
 namespace sge
 {
 namespace sprite
 {
+namespace detail
+{
 
 template<
-	typename Point,
-	typename Rotation
+	typename CoordType
 >
-class with_rotation {
+class pos_base {
 public:
-	typedef optional<
-		point_type
-	> optional_rotation;
-
-	with_rotation(
-		rotation_type const rotation_,
-		optional_rotation const &rotate_around_
-	)
-	:
-		rotate_around_(rotate_around_),
-		rotation_(rotation_)
-	{}
-
-	void
-	rotation(
-		rotation_type const nrotation_
-	)
-	{
-		rotation_ = nortation_;
-	}
-
-	void
-	rotate_around(
-		optional_rotation const &nrotate_around_
-	)
-	{
-		rotate_around_ = nrotate_around_;
-	}
-
-	optional_rotation const
-	rotate_around() const
-	{
-		return rotate_around_;
-	}
-
-	rotation_type
-	rotation() const
-	{
-		return rotation_;
-	}
-protected:
-	~with_rotation()
-	{}
-private:
-	rotation_type rotation_;
-
-	optional_rotation rotate_around_;
+	typedef sge::math::vector::static_<
+		CoordType,
+		2
+	>::type pos_type;
 };
 
+}
 }
 }
 

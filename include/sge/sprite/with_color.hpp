@@ -31,17 +31,33 @@ template<
 >
 class with_color {
 public:
+	typedef Color color_type;
+
 	explicit with_color(	
-		Color const &color_
+		color_type const &color_
 	)
 	:
 		color_(color_)
 	{}
+
+	void
+	color(
+		color_type const &ncolor_
+	)
+	{
+		color_ = ncolor_;
+	}
+
+	color_type const
+	color() const
+	{
+		return color_;
+	}
 protected:
 	~with_color()
 	{}
 private:
-	Color color_;
+	color_type color_;
 };
 
 }

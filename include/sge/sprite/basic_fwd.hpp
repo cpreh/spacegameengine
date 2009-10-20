@@ -18,8 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_WITH_ROTATION_HPP_INCLUDED
-#define SGE_SPRITE_WITH_ROTATION_HPP_INCLUDED
+#ifndef SGE_SPRITE_BASIC_FWD_HPP_INCLUDED
+#define SGE_SPRITE_BASIC_FWD_HPP_INCLUDED
+
+#include <boost/mpl/vector.hpp>
 
 namespace sge
 {
@@ -27,59 +29,10 @@ namespace sprite
 {
 
 template<
-	typename Point,
-	typename Rotation
+	typename CoordType,
+	typename Policies = boost::mpl::vector<>
 >
-class with_rotation {
-public:
-	typedef optional<
-		point_type
-	> optional_rotation;
-
-	with_rotation(
-		rotation_type const rotation_,
-		optional_rotation const &rotate_around_
-	)
-	:
-		rotate_around_(rotate_around_),
-		rotation_(rotation_)
-	{}
-
-	void
-	rotation(
-		rotation_type const nrotation_
-	)
-	{
-		rotation_ = nortation_;
-	}
-
-	void
-	rotate_around(
-		optional_rotation const &nrotate_around_
-	)
-	{
-		rotate_around_ = nrotate_around_;
-	}
-
-	optional_rotation const
-	rotate_around() const
-	{
-		return rotate_around_;
-	}
-
-	rotation_type
-	rotation() const
-	{
-		return rotation_;
-	}
-protected:
-	~with_rotation()
-	{}
-private:
-	rotation_type rotation_;
-
-	optional_rotation rotate_around_;
-};
+class basic;
 
 }
 }
