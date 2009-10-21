@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 		if (base::connections().empty()) \
 			return result_type(); \
 		result_type t = base::connections().begin()->function()();\
-		for (typename connection_list::iterator i = boost::next(base::connections().begin());\
+		for (typename connection_list::const_iterator i = boost::next(base::connections().begin());\
 		     i != base::connections().end();\
 				 ++i)\
 			t = combiner_(i->function()(),t);\
@@ -50,7 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 			return result_type(); \
 		result_type t = base::connections().begin()->function()(\
 			BOOST_PP_ENUM_PARAMS_Z(z,BOOST_PP_INC(n),param));\
-		for (typename connection_list::iterator i = base::connections().begin();\
+		for (typename connection_list::const_iterator i = base::connections().begin();\
 		     i != base::connections().end();\
 				 ++i)\
 			t = combiner_(\
