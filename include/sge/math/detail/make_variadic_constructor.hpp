@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_HPP_INCLUDED
 
 #include <sge/math/detail/initial_size.hpp>
+#include <sge/math/detail/dim_matches.hpp>
+#include <boost/static_assert.hpp>
 #include <sge/config.h>
 #ifndef SGE_HAVE_VARIADIC_TEMPLATES
 #include <boost/preprocessor/arithmetic/inc.hpp>
@@ -73,16 +75,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_IMPL(z, n, text)\
 SGE_MATH_DETAIL_TEMPLATE_PRE \
-SGE_MATH_DETAIL_DEF_PRE :: text(BOOST_PP_ENUM_PARAMS(BOOST_PP_INC(n), T const& param))\
+SGE_MATH_DETAIL_DEF_PRE :: text(\
+	BOOST_PP_ENUM_PARAMS(\
+		BOOST_PP_INC(n),\
+		T const& param\
+	)\
+)\
 {\
+	BOOST_STATIC_ASSERT((\
+		math::detail::dim_matches<\
+			BOOST_PP_INC(n),\
+			dim_wrapper::value\
+		>::value\
+	));\
+	\
 	::sge::math::detail::initial_size(\
 		storage,\
-		n); \
-	BOOST_PP_REPEAT(BOOST_PP_INC(n), SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_ASSIGN, param)\
+		n\
+	); \
+	\
+	BOOST_PP_REPEAT(\
+		BOOST_PP_INC(n),\
+		SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_ASSIGN,\
+		param\
+	)\
 }
 
-#define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR(name)\
-BOOST_PP_REPEAT(SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_MAX_SIZE, SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_IMPL, name)
+#define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR(\
+	name\
+)\
+BOOST_PP_REPEAT(\
+	SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_MAX_SIZE,\
+	SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_IMPL,\
+	name\
+)
 
 #endif
 

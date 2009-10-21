@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MATH_VECTOR_BASIC_IMPL_HPP_INCLUDED
 
 #include <sge/math/vector/basic_decl.hpp>
+#include <sge/math/vector/max_ctor_params.hpp>
 #include <sge/math/detail/array_adapter_impl.hpp>
 #include <sge/math/detail/make_op_def.hpp>
 #include <sge/math/detail/storage_data.hpp>
@@ -90,7 +91,8 @@ sge::math::vector::basic<T, N, S>::basic(
 	sge::math::vector::basic<T, N, S>
 
 SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR(
-	basic)
+	basic
+)
 
 #undef SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_MAX_SIZE
 

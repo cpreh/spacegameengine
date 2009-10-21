@@ -18,36 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_VECTOR_NARROW_CAST_HPP_INCLUDED
-#define SGE_MATH_VECTOR_NARROW_CAST_HPP_INCLUDED
+#ifndef SGE_MATH_DIM_MAKE_HPP_INCLUDED
+#define SGE_MATH_DIM_MAKE_HPP_INCLUDED
 
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/detail/narrow_cast.hpp>
+#include <sge/math/dim/max_ctor_params.hpp>
+#include <sge/math/dim/basic_impl.hpp>
+#include <sge/math/dim/static.hpp>
+#include <sge/math/detail/make_impl.hpp>
 
 namespace sge
 {
 namespace math
 {
-namespace vector
+namespace dim
 {
 
-template<
-	typename Dest,
-	typename T,
-	typename N,
-	typename S
->
-Dest const
-narrow_cast(
-	basic<T, N, S> const &src
+SGE_MATH_DETAIL_MAKE_IMPL(
+	SGE_MATH_DIM_MAX_CTOR_PARAMS
 )
-{
-	return math::detail::narrow_cast<
-		Dest
-	>(
-		src
-	);
-}
 
 }
 }

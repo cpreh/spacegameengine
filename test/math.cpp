@@ -128,4 +128,12 @@ int main()
 	);
 
 	sge::cout << cross(converted, converted) << SGE_TEXT('\n');
+
+	sge::cout
+		<< sge::math::vector::make(
+			42,
+			43,
+			44
+		)
+		<< SGE_TEXT('\n');
 }
