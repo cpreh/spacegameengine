@@ -39,7 +39,8 @@ template<
 >
 T const
 narrow_cast(
-	U const &u)
+	U const &u
+)
 {
 	typedef structure_cast_fun<
 		typename T::value_type
