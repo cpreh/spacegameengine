@@ -27,13 +27,15 @@ namespace sprite
 {
 
 template<
-	typename Point,
-	typename Rotation
+	typename Context
 >
 class with_rotation {
 public:
+	typedef typename Context::float_type rotation_type;
+	typedef typename Context::pos_type pos_type;
+
 	typedef optional<
-		point_type
+		pos_type
 	> optional_rotation;
 
 	with_rotation(

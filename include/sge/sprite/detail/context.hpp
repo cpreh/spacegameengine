@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_POS_BASE_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_POS_BASE_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_CONTEXT_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_CONTEXT_HPP_INCLUDED
 
 #include <sge/math/vector/static.hpp>
 
@@ -33,7 +33,7 @@ namespace detail
 template<
 	typename CoordType
 >
-class pos_base {
+class context {
 public:
 	typedef sge::math::vector::static_<
 		CoordType,

@@ -21,13 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_BASE_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_BASE_HPP_INCLUDED
 
-#include <sge/sprite/detail/pos_base.hpp>
+#include <sge/sprite/detail/context.hpp>
 #include <boost/mpl/inherit_linearly.hpp>
 #include <boost/mpl/inherit.hpp>
 #include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/copy.hpp>
-#include <boost/mpl/back_inserter.hpp>
-#include <boost/mpl/vector.hpp>
+#include <boost/mpl/bind.hpp>
 
 namespace sge
 {
@@ -43,17 +41,15 @@ template<
 struct base
 :
 	boost::mpl::inherit_linearly<
-		boost::mpl::copy<
-			boost::mpl::vector<
-				pos_base
-			>,
-			boost::mpl::back_inserter<
-				Policies
-			>
-		>,
+		Policies,
 		boost::mpl::inherit<
 			boost::mpl::_1,
-			boost::mpl::_2
+			boost::mpl::bind<
+				boost::mpl::_2,
+				context<
+					CoordType
+				>
+			>
 		>
 	>
 {};
