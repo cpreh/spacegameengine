@@ -89,6 +89,11 @@ try
 
 	SGE_ASSERT(child_ref);
 
+	sge::cout
+		<< SGE_TEXT("location of child: ")
+		<< child_ref->context_location().location().string()
+		<< SGE_TEXT('\n');
+
 	SGE_LOG_INFO(
 		*child_ref,
 		sge::log::_

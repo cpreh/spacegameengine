@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/detail/make_op_decl.hpp>
 #include <sge/math/detail/make_variadic_constructor_decl.hpp>
 #include <sge/math/dim/static.hpp>
+#include <boost/mpl/times.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/static_assert.hpp>
 
@@ -62,7 +63,11 @@ public:
 			typename M::value_type
 		>::value));
 
-	typedef N dim_wrapper;
+	typedef typename boost::mpl::times<
+		N,
+		M
+	>::type dim_wrapper;
+
 	typedef S storage_type;
 
 	typedef typename base::size_type size_type;

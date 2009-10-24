@@ -18,36 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_VECTOR_NARROW_CAST_HPP_INCLUDED
-#define SGE_MATH_VECTOR_NARROW_CAST_HPP_INCLUDED
+#ifndef SGE_MATH_DETAIL_DIM_MATCHES_HPP_INCLUDED
+#define SGE_MATH_DETAIL_DIM_MATCHES_HPP_INCLUDED
 
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/detail/narrow_cast.hpp>
+#include <sge/math/size_type.hpp>
+#include <boost/mpl/bool.hpp>
 
 namespace sge
 {
 namespace math
 {
-namespace vector
+namespace detail
 {
 
 template<
-	typename Dest,
-	typename T,
-	typename N,
-	typename S
+	size_type Desired,
+	size_type Current
 >
-Dest const
-narrow_cast(
-	basic<T, N, S> const &src
-)
-{
-	return math::detail::narrow_cast<
-		Dest
-	>(
-		src
-	);
-}
+struct dim_matches
+:
+	boost::mpl::bool_<
+		Desired == Current
+		|| Current == 0
+	>
+{};
 
 }
 }

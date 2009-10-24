@@ -18,39 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_VECTOR_NARROW_CAST_HPP_INCLUDED
-#define SGE_MATH_VECTOR_NARROW_CAST_HPP_INCLUDED
+#ifndef SGE_MATH_DETAIL_MAKE_IMPL_HPP_INCLUDED
+#define SGE_MATH_DETAIL_MAKE_IMPL_HPP_INCLUDED
 
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/detail/narrow_cast.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/repeat.hpp>
+#include <boost/preprocessor/arithmetic/inc.hpp>
 
-namespace sge
-{
-namespace math
-{
-namespace vector
-{
+#define SGE_MATH_DETAIL_MAKE_IMPL_COUNT(\
+	z,\
+	count,\
+	text\
+)\
+template<\
+	typename T\
+>\
+typename static_<\
+	T,\
+	BOOST_PP_INC(count)\
+>::type \
+make(\
+	BOOST_PP_ENUM_PARAMS_Z(\
+		z,\
+		BOOST_PP_INC(count),\
+		T const &param\
+	)\
+)\
+{\
+	return\
+		typename static_<\
+			T,\
+			BOOST_PP_INC(count)\
+		>::type(\
+			BOOST_PP_ENUM_PARAMS_Z(\
+				z,\
+				BOOST_PP_INC(count),\
+				param\
+			)\
+		);\
+}
 
-template<
-	typename Dest,
-	typename T,
-	typename N,
-	typename S
->
-Dest const
-narrow_cast(
-	basic<T, N, S> const &src
+#define SGE_MATH_DETAIL_MAKE_IMPL(\
+	count\
+)\
+BOOST_PP_REPEAT(\
+	count,\
+	SGE_MATH_DETAIL_MAKE_IMPL_COUNT,\
+	void\
 )
-{
-	return math::detail::narrow_cast<
-		Dest
-	>(
-		src
-	);
-}
-
-}
-}
-}
 
 #endif
