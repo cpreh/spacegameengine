@@ -56,7 +56,7 @@ sge::log::object mylogger(
 sge::log::object mygraphlogger(
 	sge::log::parameters::inherited(
 		sge::gui::widgets::global_log(),
-		SGE_TEXT("edit")
+		SGE_TEXT("editgraph")
 	)
 );
 

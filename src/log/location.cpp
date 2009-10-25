@@ -65,7 +65,7 @@ sge::log::location::string() const
 		std::accumulate(
 			begin(),
 			end(),
-			string(),
+			sge::string(),
 			boost::phoenix::arg_names::arg1
 			+ SGE_TEXT("::")
 			+ boost::phoenix::arg_names::arg2
