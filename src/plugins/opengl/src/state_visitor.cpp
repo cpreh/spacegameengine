@@ -35,14 +35,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 
 sge::opengl::state_visitor::state_visitor(
-	split_states &states)
+	split_states &states
+)
 :
 	states(states)
 {}
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
-	renderer::state::int_::type const s) const
+	renderer::state::int_::type const s
+) const
 {
 	namespace rs = renderer::state::int_::available_states;
 
@@ -140,6 +142,7 @@ sge::opengl::state_visitor::operator()(
 		break;
 	case rs::enable_alpha_blending:
 	case rs::enable_lighting:
+	case rs::enable_multi_sampling:
 		enable(convert_states(s), s.value());
 		break;
 	default:

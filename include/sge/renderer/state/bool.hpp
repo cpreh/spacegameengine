@@ -42,7 +42,8 @@ namespace bool_ {
 			clear_backbuffer,
 			clear_stencil,
 			enable_alpha_blending,
-			enable_lighting
+			enable_lighting,
+			enable_multi_sampling
 		};
 	}
 
@@ -61,7 +62,8 @@ namespace bool_ {
 		clear_backbuffer,
 		clear_stencil,
 		enable_alpha_blending,
-		enable_lighting;
+		enable_lighting,
+		enable_multi_sampling;
 }
 
 }
