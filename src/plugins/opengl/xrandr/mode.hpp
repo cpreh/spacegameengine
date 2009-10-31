@@ -37,15 +37,21 @@ public:
 	mode(
 		int index,
 		Rotation,
-		renderer::refresh_rate_type);
+		renderer::refresh_rate
+	);
 	
-	int index() const;
-	Rotation rotation() const;
-	renderer::refresh_rate_type rate() const;
+	int
+	index() const;
+
+	Rotation
+	rotation() const;
+
+	renderer::refresh_rate
+	rate() const;
 private:
 	int const index_;
 	Rotation const rotation_;
-	renderer::refresh_rate_type const rate_;
+	renderer::refresh_rate const rate_;
 };
 
 }

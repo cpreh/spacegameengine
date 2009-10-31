@@ -18,7 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/refresh_rate.hpp>
+#ifndef SGE_RENDERER_NO_MULTI_SAMPLING_HPP_INCLUDED
+#define SGE_RENDERER_NO_MULTI_SAMPLING_HPP_INCLUDED
 
-sge::renderer::refresh_rate_type const
-sge::renderer::refresh_rate_dont_care(0);
+#include <sge/renderer/multi_sample_type.hpp>
+#include <sge/export.hpp>
+
+namespace sge
+{
+namespace renderer
+{
+
+SGE_SYMBOL extern multi_sample_type const no_multi_sampling;
+
+}
+}
+
+#endif

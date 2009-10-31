@@ -27,11 +27,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-void add_bit_depth(
+void
+add_bit_depth(
 	sge::opengl::glx::visual_attribute_array &,
 	int r,
 	int g,
-	int b);
+	int b
+);
 
 }
 
@@ -39,7 +41,9 @@ sge::opengl::glx::visual_attribute_array const
 sge::opengl::glx::choose_visual(
 	renderer::bit_depth::type const bit_depth,
 	renderer::depth_buffer::type const depth_buffer,
-	renderer::stencil_buffer::type const stencil_buffer)
+	renderer::stencil_buffer::type const stencil_buffer,
+	renderer::multi_sample_type const multi_samples
+)
 {
 	visual_attribute_array ret;
 	ret.push_back(GLX_RGBA);
@@ -68,6 +72,13 @@ sge::opengl::glx::choose_visual(
 		ret.push_back(GLX_STENCIL_SIZE);
 		ret.push_back(static_cast<int>(stencil_buffer)); // TODO
 	}
+
+	if(multi_samples != 0)
+	{
+		ret.push_back(GLX_SAMPLES);
+		ret.push_back(static_cast<int>(multi_samples));
+	}
+
 	ret.push_back(None);
 	return ret;
 }
@@ -75,11 +86,13 @@ sge::opengl::glx::choose_visual(
 namespace
 {
 
-void add_bit_depth(
+void
+add_bit_depth(
 	sge::opengl::glx::visual_attribute_array &ret,
 	int const r,
 	int const g,
-	int const b)
+	int const b
+)
 {
 	ret.push_back(GLX_RED_SIZE);
 	ret.push_back(r);

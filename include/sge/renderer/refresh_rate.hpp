@@ -21,16 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_REFRESH_RATE_HPP_INCLUDED
 #define SGE_RENDERER_REFRESH_RATE_HPP_INCLUDED
 
-#include <sge/export.hpp>
+#include <sge/strong_typedef.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-typedef unsigned refresh_rate_type;
-
-SGE_SYMBOL extern refresh_rate_type const refresh_rate_dont_care;
+SGE_MAKE_STRONG_TYPEDEF(
+	unsigned,
+	refresh_rate
+)
 
 }
 }

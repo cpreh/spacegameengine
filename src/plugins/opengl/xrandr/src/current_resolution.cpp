@@ -27,22 +27,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::xrandr::mode const
 sge::opengl::xrandr::current_resolution(
-	configuration_ptr const config)
+	configuration_ptr const config
+)
 {
 	SGE_X11_SENTRY
 
-	int cur_size;
 	Rotation cur_rotation;
-	cur_size = XRRConfigCurrentConfiguration(
-		config->get(),
-		&cur_rotation);
+
+	int const cur_size(
+		XRRConfigCurrentConfiguration(
+			config->get(),
+			&cur_rotation
+		)
+	);
 	
-	short const rate = XRRConfigCurrentRate(
-		config->get());
+	short const rate(
+		XRRConfigCurrentRate(
+			config->get()
+		)
+	);
 	
 	// TODO: error checking!
 	return mode(
 		cur_size,
 		cur_rotation,
-		rate);
+		sge::renderer::refresh_rate(
+			rate
+		)
+	);
 }

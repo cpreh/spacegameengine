@@ -79,6 +79,7 @@ try
 		(sge::window::parameters(
 			SGE_TEXT("sge modifier test")
 		))
+		/*
 		(sge::renderer::parameters(
 			sge::renderer::display_mode(
 				screen_size,
@@ -86,7 +87,7 @@ try
 				sge::renderer::refresh_rate_dont_care),
 			sge::renderer::depth_buffer::off,
 			sge::renderer::stencil_buffer::off,
-			sge::renderer::window_mode::windowed))
+			sge::renderer::window_mode::windowed))*/
 		(sge::systems::parameterless::input));
 	
 	bool running = true;

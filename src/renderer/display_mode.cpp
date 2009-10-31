@@ -25,8 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::renderer::display_mode::display_mode(
 	screen_size const &size_,
 	renderer::bit_depth::type const bit_depth_,
-	refresh_rate_type const refresh_rate_)
- :
+	renderer::refresh_rate const refresh_rate_
+)
+:
 	size_(size_),
 	bit_depth_(bit_depth_),
 	refresh_rate_(refresh_rate_)
@@ -44,7 +45,7 @@ sge::renderer::display_mode::bit_depth() const
 	return bit_depth_;
 }
 
-sge::renderer::refresh_rate_type
+sge::renderer::refresh_rate
 sge::renderer::display_mode::refresh_rate() const
 {
 	return refresh_rate_;
@@ -69,7 +70,8 @@ bool sge::renderer::operator!= (
 sge::ostream &
 sge::renderer::operator<<(
 	ostream &s,
-	display_mode const &mode)
+	display_mode const &mode
+)
 {
 	return s
 		<< SGE_TEXT('(')

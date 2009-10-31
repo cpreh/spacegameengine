@@ -35,6 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/scoped_target.hpp>
+#include <sge/renderer/refresh_rate_dont_care.hpp>
+#include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/glsl/uniform/variable.hpp>
 #include <sge/renderer/glsl/uniform/single_value.hpp>
 #include <sge/renderer/glsl/program.hpp>
@@ -120,7 +122,10 @@ try
 				sge::renderer::refresh_rate_dont_care),
 			sge::renderer::depth_buffer::off,
 			sge::renderer::stencil_buffer::off,
-			sge::renderer::window_mode::windowed))
+			sge::renderer::window_mode::windowed,
+			sge::renderer::vsync::on,
+			sge::renderer::no_multi_sampling
+		))
 		(sge::systems::parameterless::input)
 		(sge::systems::parameterless::image));
 	

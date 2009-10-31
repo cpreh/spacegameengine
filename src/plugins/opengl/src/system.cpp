@@ -87,7 +87,8 @@ sge::opengl::system::create_window(
 			glx::choose_visual(
 				rparam.mode().bit_depth(),
 				rparam.dbuffer(),
-				rparam.sbuffer()
+				rparam.sbuffer(),
+				rparam.samples()
 			).data()
 		)
 	);
