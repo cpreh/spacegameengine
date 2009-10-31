@@ -16,6 +16,8 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
+
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/window/parameters.hpp>
@@ -25,6 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/refresh_rate_dont_care.hpp>
+#include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/time/timer.hpp>
@@ -42,19 +46,29 @@ try
 {
 	sge::systems::instance sys(
 		sge::systems::list()
-		(sge::window::parameters(
-			SGE_TEXT("sge fullscreen test")
-		))
-		(sge::renderer::parameters(
-			sge::renderer::display_mode(
-				sge::renderer::screen_size(
-					800,
-					600),
-				sge::renderer::bit_depth::depth32,
-				sge::renderer::refresh_rate_dont_care),
-			sge::renderer::depth_buffer::off,
-			sge::renderer::stencil_buffer::off,
-			sge::renderer::window_mode::fullscreen)));
+		(
+			sge::window::parameters(
+				SGE_TEXT("sge fullscreen test")
+			)
+		)
+		(
+			sge::renderer::parameters(
+				sge::renderer::display_mode(
+					sge::renderer::screen_size(
+						800,
+						600
+					),
+					sge::renderer::bit_depth::depth32,
+					sge::renderer::refresh_rate_dont_care
+				),
+				sge::renderer::depth_buffer::off,
+				sge::renderer::stencil_buffer::off,
+				sge::renderer::window_mode::fullscreen,
+				sge::renderer::vsync::on,
+				sge::renderer::no_multi_sampling
+			)
+		)
+	);
 	
 	sge::time::timer tm(
 		sge::time::second(10));

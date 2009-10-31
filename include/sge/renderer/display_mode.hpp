@@ -38,29 +38,40 @@ public:
 	SGE_SYMBOL display_mode(
 		screen_size const &sz,
 		renderer::bit_depth::type depth,
-		refresh_rate_type refresh_rate);
+		refresh_rate refresh_rate
+	);
 	
-	SGE_SYMBOL screen_size const &size() const;
-	SGE_SYMBOL renderer::bit_depth::type bit_depth() const;
-	SGE_SYMBOL refresh_rate_type refresh_rate() const;
+	SGE_SYMBOL screen_size const &
+	size() const;
+
+	SGE_SYMBOL renderer::bit_depth::type
+	bit_depth() const;
+
+	SGE_SYMBOL renderer::refresh_rate
+	refresh_rate() const;
 private:
 	screen_size               size_;
 	renderer::bit_depth::type bit_depth_;
-	refresh_rate_type         refresh_rate_;
+	renderer::refresh_rate    refresh_rate_;
 };
 
 SGE_SYMBOL ostream &
 operator<<(
 	ostream &,
-	display_mode const &mode);
+	display_mode const &
+);
 
-SGE_SYMBOL bool operator== (
-	display_mode const &l,
-	display_mode const &r);
+SGE_SYMBOL bool
+operator== (
+	display_mode const &,
+	display_mode const &
+);
 
-SGE_SYMBOL bool operator!= (
-	display_mode const &l,
-	display_mode const &r);
+SGE_SYMBOL bool
+operator!= (
+	display_mode const &,
+	display_mode const &
+);
 
 }
 }

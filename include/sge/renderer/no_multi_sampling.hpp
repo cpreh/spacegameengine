@@ -18,55 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_BOOL_HPP_INCLUDED
-#define SGE_RENDERER_STATE_BOOL_HPP_INCLUDED
+#ifndef SGE_RENDERER_NO_MULTI_SAMPLING_HPP_INCLUDED
+#define SGE_RENDERER_NO_MULTI_SAMPLING_HPP_INCLUDED
 
-#include <sge/renderer/state/bool_type.hpp>
-#include <sge/renderer/state/trampoline_fwd.hpp>
-#include <sge/renderer/state/var_fwd.hpp>
+#include <sge/renderer/multi_sample_type.hpp>
 #include <sge/export.hpp>
 
 namespace sge
 {
 namespace renderer
 {
-namespace state
-{
 
-namespace bool_ {
-	typedef bool_type base_type;
+SGE_SYMBOL extern multi_sample_type const no_multi_sampling;
 
-	namespace available_states {
-		enum type {
-			clear_zbuffer,
-			clear_backbuffer,
-			clear_stencil,
-			enable_alpha_blending,
-			enable_lighting,
-			enable_multi_sampling
-		};
-	}
-
-	typedef trampoline<
-		bool_type,
-		available_states::type
-	> trampoline_type;
-
-	typedef var<
-		base_type,
-		available_states::type
-	> type;
-
-	SGE_SYMBOL extern trampoline_type const
-		clear_zbuffer,
-		clear_backbuffer,
-		clear_stencil,
-		enable_alpha_blending,
-		enable_lighting,
-		enable_multi_sampling;
-}
-
-}
 }
 }
 

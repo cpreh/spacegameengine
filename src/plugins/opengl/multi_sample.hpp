@@ -18,7 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/refresh_rate.hpp>
+#ifndef SGE_OPENGL_MULTI_SAMPLE_HPP_INCLUDED
+#define SGE_OPENGL_MULTI_SAMPLE_HPP_INCLUDED
 
-sge::renderer::refresh_rate_type const
-sge::renderer::refresh_rate_dont_care(0);
+#include "common.hpp"
+
+namespace sge
+{
+namespace opengl
+{
+
+bool
+have_multi_sample();
+
+GLenum
+multi_sample_flag();
+
+}
+}
+
+#endif

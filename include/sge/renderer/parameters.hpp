@@ -42,8 +42,9 @@ public:
 		depth_buffer::type,
 		stencil_buffer::type,
 		window_mode::type,
-		vsync::type = vsync::on,
-		multi_sample_type samples = 1);
+		vsync::type,
+		multi_sample_type
+	);
 
 	SGE_SYMBOL display_mode const &mode() const;
 	SGE_SYMBOL depth_buffer::type dbuffer() const;
