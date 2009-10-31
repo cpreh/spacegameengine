@@ -34,7 +34,6 @@ GLenum sge::opengl::convert_states(
 	case rs::enable_lighting:
 		return GL_LIGHTING;
 	case rs::enable_multi_sampling:
-		return GL_MULTISAMPLE;
 	default:
 		throw exception(
 			SGE_TEXT("Invalid bool_state!")

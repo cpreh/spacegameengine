@@ -73,6 +73,8 @@ sge::opengl::glx::choose_visual(
 		ret.push_back(static_cast<int>(stencil_buffer)); // TODO
 	}
 
+	// note: create_window is called before glew can be initialized, so we can't ask it here
+	// if we have multi sample support
 	if(multi_samples != 0)
 	{
 		ret.push_back(GLX_SAMPLES);

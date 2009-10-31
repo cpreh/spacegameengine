@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert_fog_float_state.hpp"
 #include "../enable.hpp"
 #include "../check_state.hpp"
+#include "../multi_sample.hpp"
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/rgba32f_format.hpp>
 #include <sge/image/color/rgba32f.hpp>
@@ -142,8 +143,21 @@ sge::opengl::state_visitor::operator()(
 		break;
 	case rs::enable_alpha_blending:
 	case rs::enable_lighting:
+		enable(
+			convert_states(s),
+			s.value()
+		);
+		break;
 	case rs::enable_multi_sampling:
-		enable(convert_states(s), s.value());
+		// don't complain here in case we don't have multi sampling
+		// because the default renderer settings will at least try to disable it
+		if(!have_multi_sample() && !s.value())
+			return;
+
+		enable(
+			multi_sample_flag(),
+			s.value()
+		);
 		break;
 	default:
 		throw exception(

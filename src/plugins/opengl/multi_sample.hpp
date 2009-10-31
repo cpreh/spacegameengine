@@ -18,25 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLEW_HPP_INCLUDED
-#define SGE_OPENGL_GLEW_HPP_INCLUDED
+#ifndef SGE_OPENGL_MULTI_SAMPLE_HPP_INCLUDED
+#define SGE_OPENGL_MULTI_SAMPLE_HPP_INCLUDED
 
-#include <string>
+#include "common.hpp"
 
 namespace sge
 {
 namespace opengl
 {
 
-typedef std::string glew_string;
-
-void
-initialize_glew();
-
 bool
-glew_is_supported(
-	glew_string const &
-);
+have_multi_sample();
+
+GLenum
+multi_sample_flag();
 
 }
 }

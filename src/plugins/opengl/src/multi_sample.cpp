@@ -18,27 +18,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLEW_HPP_INCLUDED
-#define SGE_OPENGL_GLEW_HPP_INCLUDED
+#include "../multi_sample.hpp"
+#include "../glew.hpp"
+#include <sge/once.hpp>
 
-#include <string>
-
-namespace sge
-{
-namespace opengl
+namespace
 {
 
-typedef std::string glew_string;
+bool have_multi_sample_;
+
+GLenum multi_sample_flag_;
 
 void
-initialize_glew();
+init_multi_sample()
+{
+	SGE_FUNCTION_ONCE
+
+	if(
+		GL_VERSION_1_3
+	)
+		multi_sample_flag_ = GL_MULTISAMPLE;
+	else if(
+		sge::opengl::glew_is_supported("GL_ARB_multisample")
+	)
+		multi_sample_flag_ = GL_MULTISAMPLE_ARB;
+	else
+		return;
+	
+	have_multi_sample_ = true;
+}
+
+}
 
 bool
-glew_is_supported(
-	glew_string const &
-);
+sge::opengl::have_multi_sample()
+{
+	init_multi_sample();	
 
-}
+	return have_multi_sample_;
 }
 
-#endif
+GLenum
+sge::opengl::multi_sample_flag()
+{
+	init_multi_sample();	
+	
+	return multi_sample_flag_;
+}
