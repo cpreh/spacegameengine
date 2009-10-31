@@ -27,7 +27,6 @@ sge::renderer::state::list const &
 sge::sprite::detail::render_states()
 {
 	static renderer::state::list const states_ = renderer::state::list
-		(renderer::state::bool_::enable_lighting = false)
 		(renderer::state::bool_::enable_alpha_blending = true)
 		(renderer::state::source_blend_func::src_alpha)
 		(renderer::state::dest_blend_func::inv_src_alpha)
