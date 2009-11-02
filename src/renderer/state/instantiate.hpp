@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_IMPL_INSTANTIATE_HPP_INCLUDED
 #define SGE_RENDERER_STATE_IMPL_INSTANTIATE_HPP_INCLUDED
 
-#include <sge/renderer/state/impl/var.hpp>
-#include <sge/renderer/state/impl/trampoline.hpp>
+#include "var.hpp"
+#include "trampoline.hpp"
 #include <sge/export.hpp>
 
 #define SGE_RENDERER_STATE_IMPL_INSTANTIATE_CLASS(class_, type_)\

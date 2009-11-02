@@ -24,24 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 
 GLenum sge::opengl::convert_states(
-	renderer::state::bool_::type const s)
-{
-	namespace rs = renderer::state::bool_::available_states;
-
-	switch(s.state()) {
-	case rs::enable_alpha_blending:
-		return GL_BLEND;
-	case rs::enable_lighting:
-		return GL_LIGHTING;
-	case rs::enable_multi_sampling:
-	default:
-		throw exception(
-			SGE_TEXT("Invalid bool_state!")
-		);
-	}
-}
-
-GLenum sge::opengl::convert_states(
 	renderer::state::cull_mode::type const m)
 {		
 	switch(m) {

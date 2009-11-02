@@ -18,9 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "instantiate.hpp"
-#include <sge/renderer/state/int.hpp>
+#include "../bool.hpp"
+#include <sge/renderer/state/var.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-SGE_RENDERER_STATE_IMPL_INSTANTIATE_VAR_AND_TRAMPOLINE(int_)
-SGE_RENDERER_STATE_IMPL_INSTANTIATE_TRAMPOLINE_OBJECT(int_, stencil_clear_val)
-SGE_RENDERER_STATE_IMPL_INSTANTIATE_TRAMPOLINE_OBJECT(int_, stencil_ref)
+GLenum sge::opengl::convert::bool_(
+	renderer::state::bool_::type const s
+)
+{
+	namespace rs = renderer::state::bool_::available_states;
+
+	switch(s.state()) {
+	case rs::enable_alpha_blending:
+		return GL_BLEND;
+	case rs::enable_lighting:
+		return GL_LIGHTING;
+	case rs::enable_multi_sampling:
+		break;
+	}
+
+	throw exception(
+		SGE_TEXT("Invalid bool_state!")
+	);
+}

@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../enable.hpp"
 #include "../check_state.hpp"
 #include "../multi_sample.hpp"
+#include "../convert/bool.hpp"
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/rgba32f_format.hpp>
 #include <sge/image/color/rgba32f.hpp>
@@ -144,7 +145,7 @@ sge::opengl::state_visitor::operator()(
 	case rs::enable_alpha_blending:
 	case rs::enable_lighting:
 		enable(
-			convert_states(s),
+			convert::bool_(s),
 			s.value()
 		);
 		break;
