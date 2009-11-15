@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/detail/inner_context_node.hpp>
 #include <sge/log/detail/outer_context_node.hpp>
 #include <sge/variant/object_fwd.hpp>
-#include <boost/mpl/vector.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace sge
 {
@@ -34,7 +34,7 @@ namespace detail
 {
 
 typedef variant::object<
-	boost::mpl::vector<
+	boost::mpl::vector2<
 		inner_context_node,
 		outer_context_node
 	>

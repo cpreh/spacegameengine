@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/pos.hpp>
 #include <sge/renderer/vf/normal.hpp>
 #include <sge/renderer/vf/texpos.hpp>
-#include <boost/mpl/vector.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace sge
 {
@@ -38,7 +38,7 @@ typedef renderer::vf::normal<funit> vertex_normal;
 typedef renderer::vf::texpos<funit, 2> vertex_texpos;
 
 typedef renderer::vf::format<
-	boost::mpl::vector<
+	boost::mpl::vector3<
 		vertex_pos,
 		vertex_normal,
 		vertex_texpos

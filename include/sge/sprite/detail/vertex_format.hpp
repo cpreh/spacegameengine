@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/color.hpp>
 #include <sge/renderer/vf/texpos.hpp>
 #include <sge/image/color/rgba8.hpp>
-#include <boost/mpl/vector.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace sge
 {
@@ -43,7 +43,7 @@ typedef renderer::vf::color<base_color::format> vertex_color;
 typedef renderer::vf::texpos<funit, 2> vertex_texpos;
 
 typedef renderer::vf::format<
-	boost::mpl::vector<
+	boost::mpl::vector3<
 		vertex_pos,
 		vertex_color,
 		vertex_texpos

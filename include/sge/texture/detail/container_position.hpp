@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/detail/fragmented_queue.hpp>
 #include <sge/texture/detail/fragmented_list.hpp>
 #include <sge/variant/object_fwd.hpp>
-#include <boost/mpl/vector.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace sge
 {
@@ -34,7 +34,7 @@ namespace detail
 {
 
 typedef variant::object<
-	boost::mpl::vector<
+	boost::mpl::vector2<
 		fragmented_queue::iterator,
 		fragmented_list::iterator
 	>

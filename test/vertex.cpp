@@ -47,7 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/system.hpp>
 #include <sge/input/action.hpp>
 #include <sge/mainloop/dispatch.hpp>
-#include <boost/mpl/vector.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <ostream>
@@ -96,7 +96,7 @@ try
 	> color_type;
 
 	typedef sge::renderer::vf::format<
-		boost::mpl::vector<
+		boost::mpl::vector2<
 			pos3_type,
 			color_type
 		>

@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/type_name.hpp>
 #include <sge/text.hpp>
 #include <sge/cout.hpp>
-#include <boost/mpl/vector.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <typeinfo>
 
 namespace
@@ -69,7 +69,7 @@ try
 
 	sge::plugin::manager man;
 
-	typedef boost::mpl::vector<
+	typedef boost::mpl::vector8<
 		sge::audio::loader,
 		sge::audio::player,
 		sge::collision::system,

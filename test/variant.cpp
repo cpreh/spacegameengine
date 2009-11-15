@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/string.hpp>
 #include <sge/text.hpp>
 #include <sge/cerr.hpp>
-#include <boost/mpl/vector.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace
 {
@@ -50,7 +50,7 @@ int main()
 try
 {
 	typedef sge::variant::object<
-		boost::mpl::vector<
+		boost::mpl::vector2<
 			int,
 			sge::string
 		>

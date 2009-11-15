@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/detail/view_types.hpp>
 #include <sge/image/color/elements.hpp>
 #include <sge/image/raw_pointer.hpp>
-#include <boost/mpl/vector.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <boost/mpl/back_inserter.hpp>
 #include <boost/mpl/fold.hpp>
 #include <boost/mpl/copy.hpp>
@@ -39,7 +39,7 @@ namespace view
 
 typedef boost::mpl::fold<
 	color::elements,
-	boost::mpl::vector<>,
+	boost::mpl::vector0<>,
 	boost::mpl::copy<
 		detail::view_types<
 			boost::mpl::_2
