@@ -29,6 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/fold.hpp>
 #include <boost/mpl/copy.hpp>
 #include <boost/mpl/placeholders.hpp>
+#include <boost/mpl/quote.hpp>
+#include <boost/mpl/bind.hpp>
 
 namespace sge
 {
@@ -40,11 +42,20 @@ namespace view
 typedef boost::mpl::fold<
 	color::elements,
 	boost::mpl::vector0<>,
-	boost::mpl::copy<
-		detail::view_types<
+	boost::mpl::bind<
+		boost::mpl::quote2<
+			boost::mpl::copy
+		>,
+		boost::mpl::bind<
+			boost::mpl::quote1<
+				detail::view_types
+			>,
 			boost::mpl::_2
 		>,
-		boost::mpl::back_inserter<
+		boost::mpl::bind<
+			boost::mpl::quote1<
+				boost::mpl::back_inserter
+			>,
 			boost::mpl::_1
 		>
 	>
