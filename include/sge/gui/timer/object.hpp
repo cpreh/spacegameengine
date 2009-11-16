@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/timer/callback.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/time/resolution.hpp>
-#include <boost/function.hpp>
 
 namespace sge
 {

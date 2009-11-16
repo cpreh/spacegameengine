@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CONSOLE_CALLBACKS_HPP_INCLUDED
 
 #include <sge/console/callback_types.hpp>
-//#include <boost/function.hpp>
 #include <sge/function/object.hpp>
 
 namespace sge
