@@ -13,7 +13,7 @@ FIND_PACKAGE(Vorbis)
 FIND_PACKAGE(PNG)
 
 OPTION (ENABLE_AUDIO_NULL "Build the null audio player plugin" OFF)
-OPTION (ENABLE_BITMAP_FONT "Build the bitmap font plugin" ON)
+OPTION (ENABLE_BITMAP_FONT "Build the bitmap font plugin" OFF)
 OPTION (ENABLE_DINPUT "Build the Direct Input plugin" OFF)
 OPTION (ENABLE_MD3 "Build the md3 model loader plugin" ON)
 OPTION (ENABLE_WAVE "Build the wave loader plugin" ON)

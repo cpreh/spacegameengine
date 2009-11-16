@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/loader.hpp>
 #include <sge/font/char_not_available.hpp>
 #include <sge/font/exception.hpp>
-#include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/box/basic_impl.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
@@ -121,7 +121,7 @@ sge::bitmapfont::metrics::metrics(
 		{
 			SGE_LOG_WARNING(
 				log::global(),
-				log::_1
+				log::_
 					<< SGE_TEXT("Invalid character in bitmap font: ")
 					<< name
 			);
@@ -159,7 +159,7 @@ sge::bitmapfont::metrics::metrics(
 	{
 		SGE_LOG_WARNING(
 			log::global(),
-			log::_1
+			log::_
 				<< SGE_TEXT("Skipping character in bitmap font because \"")
 				<< e.string()
 				<< SGE_TEXT('"')
