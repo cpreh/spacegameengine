@@ -18,17 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../convert_resource_flags.hpp"
-#include <sge/container/bitfield/basic_impl.hpp>
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include "../light_index.hpp"
 
-GLuint
-sge::opengl::convert_resource_flags(
-	renderer::resource_flags_field const &f
+GLenum
+sge::opengl::convert::light_index(
+	renderer::light_index const index
 )
 {
-	return (f & renderer::resource_flags::dynamic)
-		? GL_DYNAMIC_DRAW
-		: GL_STATIC_DRAW;
+	return GL_LIGHT0 + index;
 }

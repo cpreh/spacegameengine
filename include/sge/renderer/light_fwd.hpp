@@ -18,25 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONVERT_TEXTURE_FILTER_HPP_INCLUDED
-#define SGE_OPENGL_CONVERT_TEXTURE_FILTER_HPP_INCLUDED
-
-#include "common.hpp"
-#include <sge/renderer/filter/min.hpp>
-#include <sge/renderer/filter/mag.hpp>
+#ifndef SGE_RENDERER_LIGHT_FWD_HPP_INCLUDED
+#define SGE_RENDERER_LIGHT_FWD_HPP_INCLUDED
 
 namespace sge
 {
-namespace opengl
+namespace renderer
 {
 
-GLenum
-convert_texture_filter(
-	renderer::filter::min::type);
-
-GLenum
-convert_texture_filter(
-	renderer::filter::mag::type);
+class light;
 
 }
 }

@@ -18,31 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../bool.hpp"
-#include <sge/renderer/state/var.hpp>
+#include "../indexed_primitive.hpp"
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
 GLenum
-sge::opengl::convert::bool_(
-	renderer::state::bool_::type const s
+sge::opengl::convert::indexed_primitive(
+	renderer::indexed_primitive_type::type const t
 )
 {
-	namespace rs = renderer::state::bool_::available_states;
-
-	switch(s.state()) {
-	case rs::enable_alpha_blending:
-		return GL_BLEND;
-	case rs::enable_lighting:
-		return GL_LIGHTING;
-	case rs::clear_backbuffer:
-	case rs::clear_zbuffer:
-	case rs::clear_stencil:
-	case rs::enable_multi_sampling:
-		break;
+	switch(t) {
+	case renderer::indexed_primitive_type::line:
+		return GL_LINES;
+	case renderer::indexed_primitive_type::triangle:
+		return GL_TRIANGLES;
 	}
 
 	throw exception(
-		SGE_TEXT("Invalid bool_state!")
+		SGE_TEXT("Invalid nonindexed_primitive_type!")
 	);
 }

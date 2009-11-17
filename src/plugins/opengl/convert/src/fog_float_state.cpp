@@ -18,40 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../convert_texture_filter.hpp"
+#include "../fog_float_state.hpp"
+#include <sge/renderer/state/var.hpp>
+#include <sge/variant/object_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-GLenum sge::opengl::convert_texture_filter(
-	renderer::filter::min::type const arg)
+GLenum
+sge::opengl::convert::fog_float_state(
+	renderer::state::float_::type const &s
+)
 {
-	switch(arg) {
-	case renderer::filter::min::point:
-		return GL_NEAREST;
-	case renderer::filter::min::linear:
-		return GL_LINEAR;
-	case renderer::filter::min::mipmap:
-		return GL_LINEAR_MIPMAP_NEAREST;
-	case renderer::filter::min::trilinear:
-		return GL_LINEAR_MIPMAP_LINEAR;
+	namespace rs = renderer::state::float_::available_states;
+
+	switch(s.state()) {
+	case rs::fog_start:
+		return GL_FOG_START;
+	case rs::fog_end:
+		return GL_FOG_END;
+	case rs::fog_density:
+		return GL_FOG_DENSITY;
+	case rs::zbuffer_clear_val:
+	case rs::alpha_test_ref:
+		break;
 	}
 
 	throw exception(
-		SGE_TEXT("Invalid min_filter!")
-	);
-}
-
-GLenum sge::opengl::convert_texture_filter(
-	renderer::filter::mag::type const arg)
-{
-	switch(arg) {
-	case renderer::filter::mag::point:
-		return GL_NEAREST;
-	case renderer::filter::mag::linear:
-		return GL_LINEAR;
-	}
-
-	throw exception(
-		SGE_TEXT("Invalid mag_filter!")
+		SGE_TEXT("Invalid fog float_state!")
 	);
 }

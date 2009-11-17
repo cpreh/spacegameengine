@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture.hpp"
 #include "../cube_texture.hpp"
 #include "../volume_texture.hpp"
-#include "../convert_clear_bit.hpp"
 #include "../default_target.hpp"
 #include "../light.hpp"
 #include "../enable.hpp"
@@ -43,12 +42,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../material.hpp"
 #include "../glew.hpp"
 #include "../fbo_target.hpp"
-#include "../convert_primitive.hpp"
 #include "../fbo_projection.hpp"
 #include "../viewport.hpp"
 #include "../viewport_pos.hpp"
 #include "../background_dim.hpp"
 #include "../caps.hpp"
+#include "../convert/clear_bit.hpp"
+#include "../convert/indexed_primitive.hpp"
+#include "../convert/nonindexed_primitive.hpp"
+#include "../convert/light_index.hpp"
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/state/default.hpp>
 #include <sge/renderer/state/var.hpp>
@@ -291,14 +293,16 @@ sge::opengl::device::screen_size() const
 	return param.mode().size();
 }
 
-void sge::opengl::device::render(
+void
+sge::opengl::device::render(
 	renderer::const_vertex_buffer_ptr const vb,
 	renderer::const_index_buffer_ptr const ib,
 	renderer::size_type const first_vertex,
 	renderer::size_type const num_vertices,
 	renderer::indexed_primitive_type::type const ptype,
 	renderer::size_type const pcount,
-	renderer::size_type const first_index)
+	renderer::size_type const first_index
+)
 {
 	if(!vb)
 		throw exception(
@@ -308,8 +312,6 @@ void sge::opengl::device::render(
 			SGE_TEXT("ib may not be 0 for renderer::render for indexed primitives!"));
 
 	vertex_buffer(vb);
-
-	GLenum const prim_type = convert_primitive(ptype);
 
 	index_buffer_base const & gl_ib(
 		dynamic_cast<
@@ -322,7 +324,9 @@ void sge::opengl::device::render(
 	gl_ib.bind_me();
 
 	glDrawElements(
-		prim_type,
+		convert::indexed_primitive(
+			ptype
+		),
 		static_cast<GLsizei>(
 			renderer::indices_per_primitive(
 				ptype
@@ -340,11 +344,13 @@ void sge::opengl::device::render(
 	)
 }
 
-void sge::opengl::device::render(
+void
+sge::opengl::device::render(
 	renderer::const_vertex_buffer_ptr const vb,
 	renderer::size_type const first_vertex,
 	renderer::size_type const num_vertices,
-	renderer::nonindexed_primitive_type::type const ptype)
+	renderer::nonindexed_primitive_type::type const ptype
+)
 {
 	if(!vb)
 		throw exception(
@@ -352,10 +358,10 @@ void sge::opengl::device::render(
 
 	vertex_buffer(vb);
 
-	GLenum const prim_type = convert_primitive(ptype);
-
 	glDrawArrays(
-		prim_type,
+		convert::nonindexed_primitive(
+			ptype
+		),
 		static_cast<GLsizei>(first_vertex),
 		static_cast<GLint>(num_vertices)
 	);
@@ -403,10 +409,17 @@ void sge::opengl::device::pop_state()
 	state_levels.pop();
 }
 
-GLenum sge::opengl::device::clear_bit(
-	renderer::state::bool_::trampoline_type const &s) const
+GLenum
+sge::opengl::device::clear_bit(
+	renderer::state::bool_::trampoline_type const &s
+) const
 {
-	return current_states.get(s) ? convert_clear_bit(s) : 0;
+	return
+		current_states.get(s)
+		?
+			convert::clear_bit(s)
+		:
+			0;
 }
 
 void sge::opengl::device::material(
@@ -525,12 +538,18 @@ void sge::opengl::device::texture(
 	b.bind_me();
 }
 
-void sge::opengl::device::enable_light(
+void
+sge::opengl::device::enable_light(
 	renderer::light_index const index,
-	bool const enable_)
+	bool const enable_
+)
 {
-	GLenum const glindex = convert_light_index(index);
-	enable(glindex, enable_);
+	enable(
+		convert::light_index(
+			index
+		),
+		enable_
+	);
 }
 
 void sge::opengl::device::light(

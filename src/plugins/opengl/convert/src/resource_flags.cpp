@@ -18,31 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../bool.hpp"
-#include <sge/renderer/state/var.hpp>
+#include "../resource_flags.hpp"
+#include <sge/container/bitfield/basic_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-GLenum
-sge::opengl::convert::bool_(
-	renderer::state::bool_::type const s
+GLuint
+sge::opengl::convert::resource_flags(
+	renderer::resource_flags_field const &f
 )
 {
-	namespace rs = renderer::state::bool_::available_states;
-
-	switch(s.state()) {
-	case rs::enable_alpha_blending:
-		return GL_BLEND;
-	case rs::enable_lighting:
-		return GL_LIGHTING;
-	case rs::clear_backbuffer:
-	case rs::clear_zbuffer:
-	case rs::clear_stencil:
-	case rs::enable_multi_sampling:
-		break;
-	}
-
-	throw exception(
-		SGE_TEXT("Invalid bool_state!")
-	);
+	return (f & renderer::resource_flags::dynamic)
+		? GL_DYNAMIC_DRAW
+		: GL_STATIC_DRAW;
 }

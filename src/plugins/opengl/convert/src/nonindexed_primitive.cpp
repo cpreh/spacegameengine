@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../convert_primitive.hpp"
+#include "../nonindexed_primitive.hpp"
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
 GLenum
-sge::opengl::convert_primitive(
+sge::opengl::convert::nonindexed_primitive(
 	renderer::nonindexed_primitive_type::type const t
 )
 {
@@ -42,22 +42,5 @@ sge::opengl::convert_primitive(
 
 	throw exception(
 		SGE_TEXT("Invalid indexed_primitive_type!")
-	);
-}
-
-GLenum
-sge::opengl::convert_primitive(
-	renderer::indexed_primitive_type::type const t
-)
-{
-	switch(t) {
-	case renderer::indexed_primitive_type::line:
-		return GL_LINES;
-	case renderer::indexed_primitive_type::triangle:
-		return GL_TRIANGLES;
-	}
-
-	throw exception(
-		SGE_TEXT("Invalid nonindexed_primitive_type!")
 	);
 }

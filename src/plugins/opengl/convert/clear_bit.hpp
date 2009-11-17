@@ -18,31 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../bool.hpp"
-#include <sge/renderer/state/var.hpp>
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
+#ifndef SGE_OPENGL_CONVERT_CLEAR_BIT_HPP_INCLUDED
+#define SGE_OPENGL_CONVERT_CLEAR_BIT_HPP_INCLUDED
+
+#include "../common.hpp"
+#include <sge/renderer/state/bool.hpp>
+
+namespace sge
+{
+namespace opengl
+{
+namespace convert
+{
 
 GLenum
-sge::opengl::convert::bool_(
-	renderer::state::bool_::type const s
-)
-{
-	namespace rs = renderer::state::bool_::available_states;
+clear_bit(
+	renderer::state::bool_::trampoline_type const &
+);
 
-	switch(s.state()) {
-	case rs::enable_alpha_blending:
-		return GL_BLEND;
-	case rs::enable_lighting:
-		return GL_LIGHTING;
-	case rs::clear_backbuffer:
-	case rs::clear_zbuffer:
-	case rs::clear_stencil:
-	case rs::enable_multi_sampling:
-		break;
-	}
-
-	throw exception(
-		SGE_TEXT("Invalid bool_state!")
-	);
 }
+}
+}
+
+#endif

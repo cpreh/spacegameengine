@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../check_state.hpp"
 #include "../vector4f.hpp"
 #include "../vector3f.hpp"
+#include "../convert/light_index.hpp"
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/rgba32f_format.hpp>
 #include <sge/renderer/vector_convert.hpp>
@@ -64,11 +65,13 @@ void light_color(
 	sge::image::color::any::object const &color);
 }
 
-void sge::opengl::set_light(
+void
+sge::opengl::set_light(
 	renderer::light_index const index,
-	renderer::light const &l)
+	renderer::light const &l
+)
 {
-	GLenum const glindex = convert_light_index(index);
+	GLenum const glindex = convert::light_index(index);
 
 	light_color(glindex, GL_AMBIENT, l.ambient());
 	light_color(glindex, GL_DIFFUSE, l.diffuse());
@@ -85,12 +88,6 @@ void sge::opengl::set_light(
 	light_arithmetic(glindex, GL_SPOT_EXPONENT, l.distribution_exponent());
 	light_arithmetic(glindex, GL_SPOT_CUTOFF, l.cutoff_angle());
 
-}
-
-GLenum sge::opengl::convert_light_index(
-	renderer::light_index const index)
-{
-	return GL_LIGHT0 + index;
 }
 
 namespace

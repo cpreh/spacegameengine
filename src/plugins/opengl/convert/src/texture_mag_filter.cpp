@@ -18,23 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONVERT_RESOURCE_FLAGS_HPP_INCLUDED
-#define SGE_OPENGL_CONVERT_RESOURCE_FLAGS_HPP_INCLUDED
+#include "../texture_mag_filter.hpp"
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-#include "common.hpp"
-#include <sge/renderer/resource_flags_field.hpp>
-
-namespace sge
+GLenum
+sge::opengl::convert::texture_mag_filter(
+	renderer::filter::mag::type const arg
+)
 {
-namespace opengl
-{
+	switch(arg) {
+	case renderer::filter::mag::point:
+		return GL_NEAREST;
+	case renderer::filter::mag::linear:
+		return GL_LINEAR;
+	}
 
-GLuint
-convert_resource_flags(
-	renderer::resource_flags_field const &
-);
-
+	throw exception(
+		SGE_TEXT("Invalid mag_filter!")
+	);
 }
-}
-
-#endif

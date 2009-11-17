@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../state_visitor.hpp"
 #include "../split_states.hpp"
-#include "../convert_fog_float_state.hpp"
 #include "../enable.hpp"
 #include "../check_state.hpp"
 #include "../multi_sample.hpp"
@@ -29,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/fog_mode.hpp"
 #include "../convert/draw_mode.hpp"
 #include "../convert/depth_func.hpp"
+#include "../convert/fog_float_state.hpp"
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/rgba32f_format.hpp>
 #include <sge/image/color/rgba32f.hpp>
@@ -115,7 +115,7 @@ sge::opengl::state_visitor::operator()(
 	case rs::fog_end:
 	case rs::fog_density:
 		glFogf(
-			convert_fog_float_state(s),
+			convert::fog_float_state(s),
 			renderer::arithmetic_convert<
 				GLfloat
 			>(

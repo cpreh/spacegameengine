@@ -18,27 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../convert_fog_float_state.hpp"
-#include <sge/renderer/state/var.hpp>
-#include <sge/variant/object_impl.hpp>
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
+#ifndef SGE_OPENGL_CONVERT_NONINDEXED_PRIMITIVE_HPP_INCLUDED
+#define SGE_OPENGL_CONVERT_NONINDEXED_PRIMITIVE_HPP_INCLUDED
+
+#include "../common.hpp"
+#include <sge/renderer/nonindexed_primitive_type.hpp>
+
+namespace sge
+{
+namespace opengl
+{
+namespace convert
+{
 
 GLenum
-sge::opengl::convert_fog_float_state(
-	renderer::state::float_::type const &s)
-{
-	namespace rs = renderer::state::float_::available_states;
+nonindexed_primitive(
+	renderer::nonindexed_primitive_type::type
+);
 
-	switch(s.state()) {
-	case rs::fog_start:
-		return GL_FOG_START;
-	case rs::fog_end:
-		return GL_FOG_END;
-	case rs::fog_density:
-		return GL_FOG_DENSITY;
-	default:
-		throw exception(
-			SGE_TEXT("Invalid fog float_state!"));
-	}
 }
+}
+}
+
+#endif

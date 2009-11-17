@@ -18,21 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONVERT_FOG_FLOAT_STATE_HPP_INCLUDED
-#define SGE_OPENGL_CONVERT_FOG_FLOAT_STATE_HPP_INCLUDED
+#ifndef SGE_OPENGL_CONVERT_LIGHT_INDEX_HPP_INCLUDED
+#define SGE_OPENGL_CONVERT_LIGHT_INDEX_HPP_INCLUDED
 
-#include "common.hpp"
-#include <sge/renderer/state/float.hpp>
+#include "../common.hpp"
+#include <sge/renderer/light_index.hpp>
 
 namespace sge
 {
 namespace opengl
 {
+namespace convert
+{
 
-GLenum 
-convert_fog_float_state(
-	renderer::state::float_::type const &);
+GLenum
+light_index(
+	renderer::light_index
+);
 
+}
 }
 }
 

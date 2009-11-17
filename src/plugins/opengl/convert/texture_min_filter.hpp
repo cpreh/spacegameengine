@@ -18,28 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONVERT_PRIMITIVE_HPP_INCLUDED
-#define SGE_OPENGL_CONVERT_PRIMITIVE_HPP_INCLUDED
+#ifndef SGE_OPENGL_CONVERT_TEXTURE_MIN_FILTER_HPP_INCLUDED
+#define SGE_OPENGL_CONVERT_TEXTURE_MIN_FILTER_HPP_INCLUDED
 
-#include "common.hpp"
-#include <sge/renderer/indexed_primitive_type.hpp>
-#include <sge/renderer/nonindexed_primitive_type.hpp>
-
-// TODO: split this!
+#include "../common.hpp"
+#include <sge/renderer/filter/min.hpp>
 
 namespace sge
 {
 namespace opengl
 {
+namespace convert
+{
 
 GLenum
-convert_primitive(
-	renderer::indexed_primitive_type::type);
+texture_min_filter(
+	renderer::filter::min::type
+);
 
-GLenum
-convert_primitive(
-	renderer::nonindexed_primitive_type::type);
-
+}
 }
 }
 

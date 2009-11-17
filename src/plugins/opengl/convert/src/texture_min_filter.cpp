@@ -18,22 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONVERT_CLEAR_BIT_HPP_INCLUDED
-#define SGE_OPENGL_CONVERT_CLEAR_BIT_HPP_INCLUDED
-
-#include "common.hpp"
-#include <sge/renderer/state/bool.hpp>
-
-namespace sge
-{
-namespace opengl
-{
+#include "../texture_min_filter.hpp"
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
 GLenum
-convert_clear_bit(
-	renderer::state::bool_::trampoline_type const &);
+sge::opengl::convert::texture_min_filter(
+	renderer::filter::min::type const arg
+)
+{
+	switch(arg) {
+	case renderer::filter::min::point:
+		return GL_NEAREST;
+	case renderer::filter::min::linear:
+		return GL_LINEAR;
+	case renderer::filter::min::mipmap:
+		return GL_LINEAR_MIPMAP_NEAREST;
+	case renderer::filter::min::trilinear:
+		return GL_LINEAR_MIPMAP_LINEAR;
+	}
 
+	throw exception(
+		SGE_TEXT("Invalid min_filter!")
+	);
 }
-}
-
-#endif

@@ -18,26 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../convert_clear_bit.hpp"
-#include <sge/renderer/state/trampoline.hpp>
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
+#ifndef SGE_OPENGL_CONVERT_INDEXED_PRIMITIVE_HPP_INCLUDED
+#define SGE_OPENGL_CONVERT_INDEXED_PRIMITIVE_HPP_INCLUDED
+
+#include "../common.hpp"
+#include <sge/renderer/indexed_primitive_type.hpp>
+
+namespace sge
+{
+namespace opengl
+{
+namespace convert
+{
 
 GLenum
-sge::opengl::convert_clear_bit(
-	renderer::state::bool_::trampoline_type const &s)
-{
-	namespace rs = sge::renderer::state::bool_::available_states;
+indexed_primitive(
+	renderer::indexed_primitive_type::type
+);
 
-	switch(s.state()) {
-	case rs::clear_backbuffer:
-		return GL_COLOR_BUFFER_BIT;
-	case rs::clear_zbuffer:
-		return GL_DEPTH_BUFFER_BIT;
-	case rs::clear_stencil:
-		return GL_STENCIL_BUFFER_BIT;
-	default:
-		throw exception(
-			SGE_TEXT("Invalid bool_state in convert_clear_bit()!"));
-	}
 }
+}
+}
+
+#endif
