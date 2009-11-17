@@ -18,29 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../convert_texture_stage.hpp"
+#include "../texture_stage_op_value.hpp"
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
 GLenum
-sge::opengl::convert_texture_stage(
-	renderer::texture_stage_op::type const op)
-{
-	switch(op) {
-	case renderer::texture_stage_op::color:
-		return GL_COMBINE_RGB;
-	case renderer::texture_stage_op::alpha:
-		return GL_COMBINE_ALPHA;
-	}
-
-	throw exception(
-		SGE_TEXT("Invalid texture_stage_op!")
-	);
-}
-
-GLenum
-sge::opengl::convert_texture_stage(
-	renderer::texture_stage_op_value::type const value)
+sge::opengl::convert::texture_stage_value(
+	renderer::texture_stage_op_value::type const value
+)
 {
 	switch(value) {
 	case renderer::texture_stage_op_value::arg0:
@@ -64,47 +49,5 @@ sge::opengl::convert_texture_stage(
 
 	throw exception(
 		SGE_TEXT("Invalid texture_stage_op_value!")
-	);
-}
-
-GLenum
-sge::opengl::convert_texture_stage(
-	renderer::texture_stage_arg::type const arg)
-{
-	switch(arg) {
-	case renderer::texture_stage_arg::rgb0:
-		return GL_SOURCE0_RGB;
-	case renderer::texture_stage_arg::rgb1:
-		return GL_SOURCE1_RGB;
-	case renderer::texture_stage_arg::rgb2:
-		return GL_SOURCE2_RGB;
-	case renderer::texture_stage_arg::alpha0:
-		return GL_SOURCE0_ALPHA;
-	case renderer::texture_stage_arg::alpha1:
-		return GL_SOURCE1_ALPHA;
-	case renderer::texture_stage_arg::alpha2:
-		return GL_SOURCE2_ALPHA;
-	}
-
-	throw exception(
-		SGE_TEXT("Invalid texture_stage_arg!")
-	);
-}
-
-GLenum
-sge::opengl::convert_texture_stage(
-	renderer::texture_stage_arg_value::type const value)
-{
-	switch(value) {
-	case renderer::texture_stage_arg_value::current:
-		return GL_PRIMARY_COLOR;
-	case renderer::texture_stage_arg_value::texture:
-		return GL_TEXTURE;
-	case renderer::texture_stage_arg_value::constant:
-		return GL_CONSTANT;
-	}
-
-	throw exception(
-		SGE_TEXT("Invalid texture_stage_arg_value!")
 	);
 }

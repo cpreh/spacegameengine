@@ -18,41 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_STAGE_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_STAGE_HPP_INCLUDED
+#include "../texture_stage_arg.hpp"
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-#include "common.hpp"
-#include <sge/renderer/texture_stage_op_value.hpp>
-#include <sge/renderer/stage_type.hpp>
-
-namespace sge
+GLenum
+sge::opengl::convert::texture_stage(
+	renderer::texture_stage_arg::type const arg
+)
 {
-namespace opengl
-{
+	switch(arg) {
+	case renderer::texture_stage_arg::rgb0:
+		return GL_SOURCE0_RGB;
+	case renderer::texture_stage_arg::rgb1:
+		return GL_SOURCE1_RGB;
+	case renderer::texture_stage_arg::rgb2:
+		return GL_SOURCE2_RGB;
+	case renderer::texture_stage_arg::alpha0:
+		return GL_SOURCE0_ALPHA;
+	case renderer::texture_stage_arg::alpha1:
+		return GL_SOURCE1_ALPHA;
+	case renderer::texture_stage_arg::alpha2:
+		return GL_SOURCE2_ALPHA;
+	}
 
-void
-tex_envf_ext(
-	GLenum arg,
-	GLenum value
-);
-
-void
-set_texture_stage_scale(
-	renderer::texture_stage_op_value::type value
-);
-
-template<
-	typename Arg,
-	typename Value
->
-void
-set_texture_stage(
-	renderer::stage_type stage,
-	Arg arg,
-	Value value
-);
-
+	throw exception(
+		SGE_TEXT("Invalid texture_stage_arg!")
+	);
 }
-}
-
-#endif

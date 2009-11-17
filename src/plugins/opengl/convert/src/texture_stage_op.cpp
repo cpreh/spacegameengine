@@ -18,41 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_STAGE_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_STAGE_HPP_INCLUDED
+#include "../texture_stage_op.hpp"
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-#include "common.hpp"
-#include <sge/renderer/texture_stage_op_value.hpp>
-#include <sge/renderer/stage_type.hpp>
-
-namespace sge
+GLenum
+sge::opengl::convert::texture_stage(
+	renderer::texture_stage_op::type const op
+)
 {
-namespace opengl
-{
+	switch(op) {
+	case renderer::texture_stage_op::color:
+		return GL_COMBINE_RGB;
+	case renderer::texture_stage_op::alpha:
+		return GL_COMBINE_ALPHA;
+	}
 
-void
-tex_envf_ext(
-	GLenum arg,
-	GLenum value
-);
-
-void
-set_texture_stage_scale(
-	renderer::texture_stage_op_value::type value
-);
-
-template<
-	typename Arg,
-	typename Value
->
-void
-set_texture_stage(
-	renderer::stage_type stage,
-	Arg arg,
-	Value value
-);
-
+	throw exception(
+		SGE_TEXT("Invalid texture_stage_op!")
+	);
 }
-}
-
-#endif
