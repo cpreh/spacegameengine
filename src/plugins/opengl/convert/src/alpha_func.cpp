@@ -18,28 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../bool.hpp"
-#include <sge/renderer/state/var.hpp>
+#include "../alpha_func.hpp"
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
 GLenum
-sge::opengl::convert::bool_(
-	renderer::state::bool_::type const s
+sge::opengl::convert::alpha_func(
+	renderer::state::alpha_func::type const f
 )
 {
-	namespace rs = renderer::state::bool_::available_states;
-
-	switch(s.state()) {
-	case rs::enable_alpha_blending:
-		return GL_BLEND;
-	case rs::enable_lighting:
-		return GL_LIGHTING;
-	case rs::enable_multi_sampling:
+	switch(f) {
+	case renderer::state::alpha_func::never:
+		return GL_NEVER;
+	case renderer::state::alpha_func::less:
+		return GL_LESS;
+	case renderer::state::alpha_func::equal:
+		return GL_EQUAL;
+	case renderer::state::alpha_func::less_equal:
+		return GL_LEQUAL;
+	case renderer::state::alpha_func::greater:
+		return GL_GREATER;
+	case renderer::state::alpha_func::not_equal:
+		return GL_NOTEQUAL;
+	case renderer::state::alpha_func::greater_equal:
+		return GL_GEQUAL;
+	case renderer::state::alpha_func::always:
+		return GL_ALWAYS;
+	case renderer::state::alpha_func::off:
 		break;
 	}
 
 	throw exception(
-		SGE_TEXT("Invalid bool_state!")
+		SGE_TEXT("Invalid alpha_func!")
 	);
 }
+
+

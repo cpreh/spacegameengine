@@ -18,28 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../bool.hpp"
-#include <sge/renderer/state/var.hpp>
+#include "../source_blend_func.hpp"
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
 GLenum
-sge::opengl::convert::bool_(
-	renderer::state::bool_::type const s
+sge::opengl::convert::source_blend_func(
+	renderer::state::source_blend_func::type const f
 )
 {
-	namespace rs = renderer::state::bool_::available_states;
-
-	switch(s.state()) {
-	case rs::enable_alpha_blending:
-		return GL_BLEND;
-	case rs::enable_lighting:
-		return GL_LIGHTING;
-	case rs::enable_multi_sampling:
-		break;
+	switch(f) {
+	case renderer::state::source_blend_func::zero:
+		return GL_ZERO;
+	case renderer::state::source_blend_func::one:
+		return GL_ONE;
+	case renderer::state::source_blend_func::dest_color:
+		return GL_DST_COLOR;
+	case renderer::state::source_blend_func::inv_dest_color:
+		return GL_ONE_MINUS_DST_COLOR;
+	case renderer::state::source_blend_func::src_alpha:
+		return GL_SRC_ALPHA;
+	case renderer::state::source_blend_func::inv_src_alpha:
+		return GL_ONE_MINUS_SRC_ALPHA;
+	case renderer::state::source_blend_func::dest_alpha:
+		return GL_DST_ALPHA;
+	case renderer::state::source_blend_func::inv_dest_alpha:
+		return GL_ONE_MINUS_DST_ALPHA;
+	case renderer::state::source_blend_func::src_alpha_sat:
+		return GL_SRC_ALPHA_SATURATE;
 	}
 
 	throw exception(
-		SGE_TEXT("Invalid bool_state!")
+		SGE_TEXT("Invalid source_blend_func!")
 	);
 }

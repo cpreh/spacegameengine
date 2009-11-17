@@ -18,28 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../bool.hpp"
-#include <sge/renderer/state/var.hpp>
+#include "../draw_mode.hpp"
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
 GLenum
-sge::opengl::convert::bool_(
-	renderer::state::bool_::type const s
+sge::opengl::convert::draw_mode(
+	renderer::state::draw_mode::type const m
 )
 {
-	namespace rs = renderer::state::bool_::available_states;
-
-	switch(s.state()) {
-	case rs::enable_alpha_blending:
-		return GL_BLEND;
-	case rs::enable_lighting:
-		return GL_LIGHTING;
-	case rs::enable_multi_sampling:
-		break;
+	switch(m) {
+	case renderer::state::draw_mode::point:
+		return GL_POINT;
+	case renderer::state::draw_mode::line:
+		return GL_LINE;
+	case renderer::state::draw_mode::fill:
+		return GL_FILL;
 	}
 
 	throw exception(
-		SGE_TEXT("Invalid bool_state!")
+		SGE_TEXT("Invalid draw_mode!")
 	);
 }

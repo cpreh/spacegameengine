@@ -18,59 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONVERT_STATES_HPP_INCLUDED
-#define SGE_OPENGL_CONVERT_STATES_HPP_INCLUDED
+#ifndef SGE_OPENGL_CONVERT_SOURCE_BLEND_FUNC_HPP_INCLUDED
+#define SGE_OPENGL_CONVERT_SOURCE_BLEND_FUNC_HPP_INCLUDED
 
-#include "common.hpp"
-#include <sge/renderer/state/cull_mode.hpp>
-#include <sge/renderer/state/depth_func.hpp>
-#include <sge/renderer/state/stencil_func.hpp>
-#include <sge/renderer/state/alpha_func.hpp>
-#include <sge/renderer/state/fog_mode.hpp>
+#include "../common.hpp"
 #include <sge/renderer/state/source_blend_func.hpp>
-#include <sge/renderer/state/dest_blend_func.hpp>
-#include <sge/renderer/state/draw_mode.hpp>
-
-// TODO: split this!
 
 namespace sge
 {
 namespace opengl
 {
+namespace convert
+{
 
 GLenum
-convert_states(
-	renderer::state::cull_mode::type);
+source_blend_func(
+	renderer::state::source_blend_func::type
+);
 
-GLenum
-convert_states(
-	renderer::state::depth_func::type);
-
-GLenum 
-convert_states(
-	renderer::state::stencil_func::type);
-
-GLenum
-convert_states(
-	renderer::state::alpha_func::type);
-
-GLenum
-convert_states(
-	renderer::state::fog_mode::type);
-
-GLenum
-convert_states(
-	renderer::state::source_blend_func::type);
-
-GLenum
-convert_states(
-	renderer::state::dest_blend_func::type);
-
-GLenum
-convert_states(
-	renderer::state::draw_mode::type);
-
-
+}
 }
 }
 
