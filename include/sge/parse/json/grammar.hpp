@@ -76,6 +76,7 @@ public:
 		using boost::spirit::lit;
 		using boost::spirit::lexeme;
 		using boost::spirit::labels::_val;
+		using boost::spirit::labels::_1;
 
 		null_ =
 			lit(
@@ -113,13 +114,18 @@ public:
 				>> lit(SGE_TEXT('"'))
 			];
 
-		array_ %=
-			lit(SGE_TEXT('['))
-			>> -(
-				value_
-				% lit(SGE_TEXT(','))
+		array_ = 
+			(
+				lit(SGE_TEXT('['))
+				>> -(
+					value_
+					% lit(SGE_TEXT(','))
+				)
+				>> lit(SGE_TEXT(']'))
 			)
-			>> lit(SGE_TEXT(']'));
+			[
+				_val = boost::phoenix::construct<array>(_1)
+			];
 
 		value_ %=
 			object_
@@ -135,13 +141,18 @@ public:
 			>> lit(SGE_TEXT(':'))
 			>> value_;
 
-		object_ %=
-			lit(SGE_TEXT('{'))
-			>> -(
-				member_
-				% lit(SGE_TEXT(','))
+		object_ =
+			(
+				lit(SGE_TEXT('{'))
+				>> -(
+					member_
+					% lit(SGE_TEXT(','))
+				)
+				>> lit(SGE_TEXT('}'))
 			)
-			>> lit(SGE_TEXT('}'));
+			[
+				_val = boost::phoenix::construct<object>(_1)
+			];
 	}
 private:
 	boost::spirit::qi::int_parser<
