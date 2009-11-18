@@ -33,9 +33,11 @@ namespace detail
 template<
 	typename Result
 >
-bool parse_stream(
+bool
+parse_stream(
 	istream &ifs,
-	Result &result)
+	Result &result
+)
 {
 	string ret;
 

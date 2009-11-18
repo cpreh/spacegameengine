@@ -20,12 +20,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/parse_file.hpp>
 #include <sge/parse/json/parse_stream.hpp>
-#include <sge/parse/detail/parse_file.hpp>
+#include "../parse_file.hpp"
 
 bool
 sge::parse::json::parse_file(
 	filesystem::path const &path,
-	object &result)
+	object &result
+)
 {
 	return detail::parse_file(
 		path,

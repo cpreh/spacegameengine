@@ -35,7 +35,8 @@ namespace json
 SGE_SYMBOL bool
 parse_stream(
 	istream &,
-	object &ret);
+	object &ret
+);
 
 }
 }

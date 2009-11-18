@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/float_type.hpp>
 #include <sge/parse/json/int_type.hpp>
-#include <sge/parse/char.hpp>
+#include <sge/parse/encoding.hpp>
 #include <sge/text.hpp>
 
 #include <boost/spirit/home/qi/string.hpp>
@@ -42,7 +42,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/spirit/home/qi/nonterminal.hpp>
 #include <boost/spirit/home/qi/directive.hpp>
 #include <boost/spirit/include/support_ascii.hpp>
-#include <boost/spirit/include/support_placeholders.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 
@@ -58,13 +57,14 @@ template<
 >
 class grammar
 :
-public boost::spirit::qi::grammar<
-	In,
-	object(),
-	boost::spirit::ascii::space_type
->{
+	public boost::spirit::qi::grammar<
+		In,
+		object(),
+		encoding::space_type
+	>
+{
 public:
-	typedef boost::spirit::ascii::space_type space_type;
+	typedef encoding::space_type space_type;
 
 	grammar()
 	:
@@ -72,9 +72,10 @@ public:
 			object_
 		)
 	{
+		using encoding::char_;
 		using boost::spirit::lit;
 		using boost::spirit::lexeme;
-		using boost::spirit::arg_names::_val;
+		using boost::spirit::labels::_val;
 
 		null_ =
 			lit(
@@ -97,27 +98,28 @@ public:
 
 		quoted_string_ %=
 			lexeme[
-				char_(SGE_TEXT('"'))
+				lit(SGE_TEXT('"'))
 				>> *(
 					(
 						char_
-						- char_(SGE_TEXT('\\'))
-						- char_(SGE_TEXT('"'))
+						- lit(SGE_TEXT('\\'))
+						- lit(SGE_TEXT('"'))
 					)
 					| (
-						char_(SGE_TEXT('\\'))
+						lit(SGE_TEXT('\\'))
 						>> char_
 					)
 				)
-				>> char_(SGE_TEXT('"'))
+				>> lit(SGE_TEXT('"'))
 			];
 
 		array_ %=
-			char_(SGE_TEXT('['))
+			lit(SGE_TEXT('['))
 			>> -(
-				value_ % char_(SGE_TEXT(','))
+				value_
+				% lit(SGE_TEXT(','))
 			)
-			>> char_(SGE_TEXT(']'));
+			>> lit(SGE_TEXT(']'));
 
 		value_ %=
 			object_
@@ -130,23 +132,23 @@ public:
 
 		member_ %=
 			quoted_string_
-			>> char_(SGE_TEXT(':'))
+			>> lit(SGE_TEXT(':'))
 			>> value_;
 
 		object_ %=
-			char_(SGE_TEXT('{'))
+			lit(SGE_TEXT('{'))
 			>> -(
 				member_
-				% char_(SGE_TEXT(','))
+				% lit(SGE_TEXT(','))
 			)
-			>> char_(SGE_TEXT('}'));
+			>> lit(SGE_TEXT('}'));
 	}
 private:
-	boost::spirit::qi::int_spec<
+	boost::spirit::qi::int_parser<
 		int_type
 	> int_;
 
-	boost::spirit::qi::real_spec<
+	boost::spirit::qi::real_parser<
 		float_type,
 		boost::spirit::qi::strict_real_policies<
 			float_type	
