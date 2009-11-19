@@ -41,7 +41,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/spirit/home/qi/action.hpp>
 #include <boost/spirit/home/qi/nonterminal.hpp>
 #include <boost/spirit/home/qi/directive.hpp>
-#include <boost/spirit/include/support_ascii.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 

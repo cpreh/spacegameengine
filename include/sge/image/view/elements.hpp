@@ -39,6 +39,8 @@ namespace image
 namespace view
 {
 
+// TODO: gcc-4.5: Check if this is a gcc bug
+
 typedef boost::mpl::fold<
 	color::elements,
 	boost::mpl::vector0<>,
