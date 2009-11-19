@@ -162,26 +162,14 @@ CHECK_CXX_SOURCE_RUNS(
 #	 {}"
 #	 SGE_HAVE_DEFAULTED_AND_DELETED_FUNCTIONS)
 
-FIND_PACKAGE(Boost 1.35.0 COMPONENTS
+FIND_PACKAGE(Boost 1.41.0 COMPONENTS
 	filesystem
 	program_options
 	system
 	thread)
 
 IF(NOT Boost_FOUND)
-	MESSAGE(STATUS "Boost not found!")
-ENDIF()
-
-IF(Boost_INCLUDE_DIR)
-	INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR})
-ELSE()
-	MESSAGE(STATUS "Boost headers not found. You will have to specify them in your build environment or you can use -DBOOST_ROOT= or -DBoost_INCLUDE_DIR to tell cmake where your boost installation is.")
-ENDIF()
-
-IF(Boost_LIBRARY_DIRS)
-	LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
-ELSE()
-	MESSAGE(STATUS "Boost libraries not found. Please set -DBoost_LIBRARY_DIR manually.")
+	MESSAGE(ERROR "Boost not found!")
 ENDIF()
 
 CHECK_CXX_SOURCE_COMPILES(
