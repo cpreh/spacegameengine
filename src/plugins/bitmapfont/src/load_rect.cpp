@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/member.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/math/rect/basic_impl.hpp>
+#include <sge/math/box/basic_impl.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/exception.hpp>
@@ -70,7 +70,7 @@ sge::bitmapfont::load_rect(
 		);
 	
 	return image::rect(
-		image::rect::point_type(
+		image::rect::pos_type(
 			parse::json::get<
 				int
 			>(

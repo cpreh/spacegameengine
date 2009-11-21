@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/grammar.hpp>
+#include <sge/parse/encoding.hpp>
 #include <boost/spirit/include/qi_parse.hpp>
-#include <boost/spirit/include/support_ascii.hpp>
 
 namespace sge
 {
@@ -40,7 +40,8 @@ bool
 parse_range(
 	In &beg,
 	In const end,
-	object &result)
+	object &result
+)
 {
 	grammar<In> parser;
 	
@@ -48,8 +49,8 @@ parse_range(
 		beg,
 		end,
 		parser,
-		result,
-		boost::spirit::ascii::space
+		encoding::space,
+		result
 	);
 }
 

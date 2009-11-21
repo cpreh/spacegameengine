@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "common.hpp"
 #include "vbo_base.hpp"
 #include "lock_method.hpp"
-#include "convert_resource_flags.hpp"
+#include "convert/resource_flags.hpp"
 #include <sge/container/bitfield/basic_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
@@ -49,12 +49,12 @@ sge::opengl::basic_buffer<Type, Impl, T>::basic_buffer(
 	lock_offset(0),
 	lock_size_(0)
 {
-	GLuint const glflags = convert_resource_flags(flags());
 	size_type const nsz = size() * byte_stride();
 
 	if(nsz == 0)
 		throw exception(
-			SGE_TEXT("ogl_buffer: cannot create an empty buffer!"));
+			SGE_TEXT("ogl_buffer: cannot create an empty buffer!")
+		);
 
 	bind_me();
 
@@ -62,7 +62,9 @@ sge::opengl::basic_buffer<Type, Impl, T>::basic_buffer(
 		Type(),
 		static_cast<GLsizei>(nsz),
 		src,
-		glflags
+		convert::resource_flags(
+			flags()
+		)
 	);
 }
 

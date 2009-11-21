@@ -30,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/texture.hpp>
+#include <sge/renderer/refresh_rate_dont_care.hpp>
+#include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/input/key_pair.hpp>
 #include <sge/input/system.hpp>
@@ -101,21 +103,31 @@ try
 {
 	sge::systems::instance const sys(
 		sge::systems::list()
-		(sge::window::parameters(
-			SGE_TEXT("sge tutorial02")
-		))
-		(sge::renderer::parameters(
-			sge::renderer::display_mode(
-				sge::renderer::screen_size(
-					640,
-					480),
-				sge::renderer::bit_depth::depth32,
-				sge::renderer::refresh_rate_dont_care),
-			sge::renderer::depth_buffer::off,
-			sge::renderer::stencil_buffer::off,
-			sge::renderer::window_mode::windowed))
+		(
+			sge::window::parameters(
+				SGE_TEXT("sge tutorial02")
+			)
+		)
+		(
+			sge::renderer::parameters(
+				sge::renderer::display_mode(
+					sge::renderer::screen_size(
+						640,
+						480
+					),
+					sge::renderer::bit_depth::depth32,
+					sge::renderer::refresh_rate_dont_care
+				),
+				sge::renderer::depth_buffer::off,
+				sge::renderer::stencil_buffer::off,
+				sge::renderer::window_mode::windowed,
+				sge::renderer::vsync::on,
+				sge::renderer::no_multi_sampling
+			)
+		)
 		(sge::systems::parameterless::input)
-		(sge::systems::parameterless::image));
+		(sge::systems::parameterless::image)
+	);
 
 	sge::sprite::system ss(sys.renderer());
 
@@ -125,12 +137,13 @@ try
 		)
 	);
 
-	sge::renderer::texture_ptr const image_texture =
+	sge::renderer::texture_ptr const image_texture(
 		sys.renderer()->create_texture(
 			image->view(),
 			sge::renderer::filter::linear,
 			sge::renderer::resource_flags::readable
-		);
+		)
+	);
 
 	sge::sprite::object my_object(
 		sge::sprite::parameters()

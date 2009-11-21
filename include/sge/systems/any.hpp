@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/variant/object_fwd.hpp>
-#include <boost/mpl/vector.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace sge
 {
@@ -33,7 +33,7 @@ namespace systems
 {
 
 typedef variant::object<
-	boost::mpl::vector<
+	boost::mpl::vector3<
 		window::parameters,
 		renderer::parameters,
 		parameterless::type

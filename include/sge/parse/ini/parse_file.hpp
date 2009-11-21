@@ -35,7 +35,8 @@ namespace ini
 SGE_SYMBOL bool
 parse_file(
 	filesystem::path const &,
-	section_vector &ret);
+	section_vector &ret
+);
 
 }
 }

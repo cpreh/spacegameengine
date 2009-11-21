@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/variant/object_fwd.hpp>
 #include <sge/math/matrix/static.hpp>
 #include <sge/math/matrix/basic_impl.hpp>
-#include <boost/mpl/vector.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace sge
 {
@@ -39,7 +39,7 @@ template<
 class basic_any_matrix {
 public:
 	typedef typename variant::object<
-		boost::mpl::vector<
+		boost::mpl::vector2<
 			typename math::matrix::static_<
 				float,
 				N,

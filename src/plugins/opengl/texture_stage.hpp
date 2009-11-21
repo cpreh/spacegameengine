@@ -30,21 +30,27 @@ namespace sge
 namespace opengl
 {
 
-void tex_envf_ext(
+void
+tex_envf_ext(
 	GLenum arg,
-	GLenum value);
+	GLenum value
+);
 
-void set_texture_stage_scale(
-	renderer::texture_stage_op_value::type value);
+void
+set_texture_stage_scale(
+	renderer::texture_stage_op_value::type value
+);
 
 template<
 	typename Arg,
 	typename Value
 >
-void set_texture_stage(
+void
+set_texture_stage(
 	renderer::stage_type stage,
 	Arg arg,
-	Value value);
+	Value value
+);
 
 }
 }

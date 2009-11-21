@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/mainloop/catch_block.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/refresh_rate_dont_care.hpp>
+#include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/list.hpp>
@@ -61,7 +63,9 @@ try
 				sge::renderer::refresh_rate_dont_care),
 			sge::renderer::depth_buffer::off,
 			sge::renderer::stencil_buffer::off,
-			sge::renderer::window_mode::windowed
+			sge::renderer::window_mode::windowed,
+			sge::renderer::vsync::on,
+			sge::renderer::no_multi_sampling
 		))
 		(sge::systems::parameterless::input)
 		(sge::systems::parameterless::image)

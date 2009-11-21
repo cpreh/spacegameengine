@@ -30,10 +30,13 @@ namespace opengl
 
 typedef std::string glew_string;
 
-void initialize_glew();
+void
+initialize_glew();
 
-bool glew_is_supported(
-	glew_string const &);	
+bool
+glew_is_supported(
+	glew_string const &
+);
 
 }
 }

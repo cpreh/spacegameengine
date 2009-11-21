@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "instantiate.hpp"
 #include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/impl/instantiate.hpp>
 
 SGE_RENDERER_STATE_IMPL_INSTANTIATE_VAR_AND_TRAMPOLINE(bool_)
 SGE_RENDERER_STATE_IMPL_INSTANTIATE_TRAMPOLINE_OBJECT(bool_, clear_zbuffer)
@@ -27,3 +27,4 @@ SGE_RENDERER_STATE_IMPL_INSTANTIATE_TRAMPOLINE_OBJECT(bool_, clear_backbuffer)
 SGE_RENDERER_STATE_IMPL_INSTANTIATE_TRAMPOLINE_OBJECT(bool_, clear_stencil)
 SGE_RENDERER_STATE_IMPL_INSTANTIATE_TRAMPOLINE_OBJECT(bool_, enable_alpha_blending)
 SGE_RENDERER_STATE_IMPL_INSTANTIATE_TRAMPOLINE_OBJECT(bool_, enable_lighting)
+SGE_RENDERER_STATE_IMPL_INSTANTIATE_TRAMPOLINE_OBJECT(bool_, enable_multi_sampling)

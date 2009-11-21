@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/dest_blend_func.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/variant/object_fwd.hpp>
-#include <boost/mpl/vector.hpp>
+#include <boost/mpl/vector/vector20.hpp>
 
 namespace sge
 {
@@ -46,7 +46,7 @@ namespace state
 {
 
 typedef variant::object<
-	boost::mpl::vector<
+	boost::mpl::vector13<
 		int_::type,
 		uint::type,
 		float_::type,

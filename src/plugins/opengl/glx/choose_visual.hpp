@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/depth_buffer.hpp>
 #include <sge/renderer/stencil_buffer.hpp>
+#include <sge/renderer/multi_sample_type.hpp>
 #include <sge/container/raw_vector_fwd.hpp>
 
 namespace sge
@@ -41,7 +42,9 @@ visual_attribute_array const
 choose_visual(
 	renderer::bit_depth::type,
 	renderer::depth_buffer::type,
-	renderer::stencil_buffer::type);
+	renderer::stencil_buffer::type,
+	renderer::multi_sample_type
+);
 
 }
 }

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_ANY_ARITHMETIC_HPP_INCLUDED
 
 #include <sge/variant/object_fwd.hpp>
-#include <boost/mpl/vector.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace sge
 {
@@ -30,7 +30,7 @@ namespace renderer
 {
 
 typedef variant::object<
-	boost::mpl::vector<
+	boost::mpl::vector2<
 		float,
 		double
 	>

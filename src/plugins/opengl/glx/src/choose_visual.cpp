@@ -21,17 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../choose_visual.hpp"
 #include <GL/glx.h>
 #include <sge/container/raw_vector_impl.hpp>
+#include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
 namespace
 {
 
-void add_bit_depth(
+void
+add_bit_depth(
 	sge::opengl::glx::visual_attribute_array &,
 	int r,
 	int g,
-	int b);
+	int b
+);
 
 }
 
@@ -39,7 +42,9 @@ sge::opengl::glx::visual_attribute_array const
 sge::opengl::glx::choose_visual(
 	renderer::bit_depth::type const bit_depth,
 	renderer::depth_buffer::type const depth_buffer,
-	renderer::stencil_buffer::type const stencil_buffer)
+	renderer::stencil_buffer::type const stencil_buffer,
+	renderer::multi_sample_type const multi_samples
+)
 {
 	visual_attribute_array ret;
 	ret.push_back(GLX_RGBA);
@@ -68,6 +73,15 @@ sge::opengl::glx::choose_visual(
 		ret.push_back(GLX_STENCIL_SIZE);
 		ret.push_back(static_cast<int>(stencil_buffer)); // TODO
 	}
+
+	// note: create_window is called before glew can be initialized, so we can't ask it here
+	// if we have multi sample support
+	if(multi_samples != renderer::no_multi_sampling)
+	{
+		ret.push_back(GLX_SAMPLES);
+		ret.push_back(static_cast<int>(multi_samples));
+	}
+
 	ret.push_back(None);
 	return ret;
 }
@@ -75,11 +89,13 @@ sge::opengl::glx::choose_visual(
 namespace
 {
 
-void add_bit_depth(
+void
+add_bit_depth(
 	sge::opengl::glx::visual_attribute_array &ret,
 	int const r,
 	int const g,
-	int const b)
+	int const b
+)
 {
 	ret.push_back(GLX_RED_SIZE);
 	ret.push_back(r);

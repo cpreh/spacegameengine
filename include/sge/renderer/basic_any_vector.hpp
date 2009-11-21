@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/variant/object_fwd.hpp>
 #include <sge/math/vector/static.hpp>
 #include <sge/math/vector/basic_impl.hpp>
-#include <boost/mpl/vector.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace sge
 {
@@ -38,7 +38,7 @@ template<
 class basic_any_vector {
 public:
 	typedef typename variant::object<
-		boost::mpl::vector<
+		boost::mpl::vector2<
 			typename math::vector::static_<
 				float,
 				sz

@@ -30,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/refresh_rate_dont_care.hpp>
+#include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/list.hpp>
@@ -60,21 +62,31 @@ try
 {
 	sge::systems::instance const sys(
 		sge::systems::list()
-		(sge::window::parameters(
-			SGE_TEXT("sge targettest")
-		))
-		(sge::renderer::parameters(
-			sge::renderer::display_mode(
-				sge::renderer::screen_size(
-					1024,
-					768),
-				sge::renderer::bit_depth::depth32,
-				sge::renderer::refresh_rate_dont_care),
-			sge::renderer::depth_buffer::off,
-			sge::renderer::stencil_buffer::off,
-			sge::renderer::window_mode::windowed))
+		(
+			sge::window::parameters(
+				SGE_TEXT("sge targettest")
+			)
+		)
+		(
+			sge::renderer::parameters(
+				sge::renderer::display_mode(
+					sge::renderer::screen_size(
+						1024,
+						768
+					),
+					sge::renderer::bit_depth::depth32,
+					sge::renderer::refresh_rate_dont_care
+				),
+				sge::renderer::depth_buffer::off,
+				sge::renderer::stencil_buffer::off,
+				sge::renderer::window_mode::windowed,
+				sge::renderer::vsync::on,
+				sge::renderer::no_multi_sampling
+			)
+		)
 		(sge::systems::parameterless::image)
-		(sge::systems::parameterless::input));
+		(sge::systems::parameterless::input)
+	);
 
 	sge::sprite::system ss(sys.renderer());
 
@@ -118,12 +130,14 @@ try
 		)
 	);
 	
-	sge::renderer::texture_ptr const target = 
+	sge::renderer::texture_ptr const target(
 		sys.renderer()->create_texture(
 			sge::renderer::texture::dim_type(640,480),
 			sge::image::color::format::rgba8,
 			sge::renderer::filter::linear,
-			sge::renderer::resource_flags::none);
+			sge::renderer::resource_flags::none
+		)
+	);
 
 	{
 		sge::renderer::scoped_block const block_(

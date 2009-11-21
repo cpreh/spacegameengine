@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/callbacks.hpp>
 #include <sge/console/function.hpp>
 #include <sge/console/var_base.hpp>
+#include <sge/parse/encoding.hpp>
 #include <sge/auto_ptr.hpp>
 #include <sge/make_auto_ptr.hpp>
 #include <sge/assert.hpp>
@@ -77,15 +78,13 @@ class eval_grammar : public boost::spirit::qi::grammar<
 	sge::console::arg_list()>
 {
 public:
-	typedef boost::spirit::ascii::space_type space_type;
-
 	eval_grammar() : eval_grammar::base_type(start)
 	{
-		using boost::spirit::char_;
-		using boost::spirit::ascii::space;
+		using sge::parse::encoding::char_;
+		using sge::parse::encoding::space;
 
 		word  %=           +(char_ - space);
-		quoted_string %=    '"' >> +(char_ - '"') >> '"';
+		quoted_string %=   SGE_TEXT('"') >> +(char_ - SGE_TEXT('"')) >> SGE_TEXT('"');
 		argument %=        quoted_string | word;
 		start %=           argument % (+space);
 	}

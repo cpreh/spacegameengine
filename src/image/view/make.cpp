@@ -28,6 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <mizuiro/image/is_raw_view.hpp>
 #include <boost/mpl/filter_view.hpp>
 #include <boost/mpl/placeholders.hpp>
+#include <boost/mpl/bind.hpp>
+#include <boost/mpl/quote.hpp>
 
 namespace
 {
@@ -61,10 +63,16 @@ sge::image::view::make(
 	color::format::type const format,
 	optional_pitch const pitch)
 {
+
+	// TODO: gcc-4.5: Check if this is a gcc bug
+	
 	return sge::mpl::invoke_on<
 		boost::mpl::filter_view<
 			elements,
-			mizuiro::image::is_raw_view<
+			boost::mpl::bind<
+				boost::mpl::quote1<
+					mizuiro::image::is_raw_view
+				>,
 				boost::mpl::_1
 			>
 		>

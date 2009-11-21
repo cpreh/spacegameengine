@@ -16,12 +16,16 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
+
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/trampoline.hpp>
+#include <sge/renderer/refresh_rate_dont_care.hpp>
+#include <sge/renderer/no_multi_sampling.hpp>
 
 #include <sge/gui/manager.hpp>
 #include <sge/gui/cursor/default.hpp>
@@ -103,7 +107,10 @@ try
 				sge::renderer::refresh_rate_dont_care),
 			sge::renderer::depth_buffer::off,
 			sge::renderer::stencil_buffer::off,
-			sge::renderer::window_mode::windowed))
+			sge::renderer::window_mode::windowed,
+			sge::renderer::vsync::on,
+			sge::renderer::no_multi_sampling
+		))
 		(sge::systems::parameterless::input)
 		(sge::systems::parameterless::font)
 		(sge::systems::parameterless::image));

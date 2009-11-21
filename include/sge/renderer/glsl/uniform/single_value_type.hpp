@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/int_type.hpp>
 #include <sge/renderer/glsl/float_type.hpp>
 #include <sge/variant/object_fwd.hpp>
-#include <boost/mpl/vector.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace sge
 {
@@ -38,7 +38,7 @@ namespace uniform
 {
 
 typedef variant::object<
-	boost::mpl::vector<
+	boost::mpl::vector4<
 		int_type,
 		float_type,
 		vector,

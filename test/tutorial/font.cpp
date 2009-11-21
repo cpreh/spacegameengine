@@ -27,6 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text_size.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/refresh_rate_dont_care.hpp>
+#include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/window/parameters.hpp>
@@ -48,25 +50,36 @@ try
 {
 	sge::systems::instance const sys(
 		sge::systems::list()
-		(sge::window::parameters(
-			SGE_TEXT("sge fonttest")
-			))
-		(sge::renderer::parameters(
-			sge::renderer::display_mode(
-				sge::renderer::screen_size(
-					640,
-					480),
-				sge::renderer::bit_depth::depth32,
-				sge::renderer::refresh_rate_dont_care),
-			sge::renderer::depth_buffer::off,
-			sge::renderer::stencil_buffer::off,
-			sge::renderer::window_mode::windowed))
+		(
+			sge::window::parameters(
+				SGE_TEXT("sge fonttest")
+			)
+		)
+		(
+			sge::renderer::parameters(
+				sge::renderer::display_mode(
+					sge::renderer::screen_size(
+						640,
+						480
+					),
+					sge::renderer::bit_depth::depth32,
+					sge::renderer::refresh_rate_dont_care
+				),
+				sge::renderer::depth_buffer::off,
+				sge::renderer::stencil_buffer::off,
+				sge::renderer::window_mode::windowed,
+				sge::renderer::vsync::on,
+				sge::renderer::no_multi_sampling
+			)
+		)
 		(sge::systems::parameterless::font));
 
-	sge::font::metrics_ptr const metrics = 
+	sge::font::metrics_ptr const metrics(
 		sys.font_system()->create_font(
 			sge::config::media_path() / SGE_TEXT("fonts") / SGE_TEXT("default.ttf"),
-			static_cast<sge::font::size_type>(15));
+			static_cast<sge::font::size_type>(15)
+		)
+	);
 	
 	sge::font::drawer_ptr const drawer(
 		sge::make_shared_ptr<
@@ -79,7 +92,8 @@ try
 	
 	sge::font::object font(
 		metrics,
-		drawer);
+		drawer
+	);
 
 	while (true)
 	{

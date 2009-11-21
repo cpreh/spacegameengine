@@ -20,7 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../texture_functions.hpp"
 #include "../check_state.hpp"
-#include "../convert_texture_filter.hpp"
+#include "../convert/texture_min_filter.hpp"
+#include "../convert/texture_mag_filter.hpp"
 #include "../glew.hpp"
 #include "../pbo.hpp" // TODO: maybe put this somewhere else
 #include <sge/log/headers.hpp>
@@ -257,13 +258,17 @@ void sge::opengl::set_texture_filter(
 	tex_parameter_i(
 		type,
 		GL_TEXTURE_MIN_FILTER,
-		convert_texture_filter(filter.min())
+		convert::texture_min_filter(
+			filter.min()
+		)
 	);
 	
 	tex_parameter_i(
 		type,
 		GL_TEXTURE_MAG_FILTER,
-		convert_texture_filter(filter.mag())
+		convert::texture_mag_filter(
+			filter.mag()
+		)
 	);
 
 	if(!filter.anisotropy())

@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widgets/buttons/base.hpp>
 #include <sge/gui/export.hpp>
 #include <sge/gui/font_info.hpp>
-#include <boost/function.hpp>
 
 namespace sge
 {

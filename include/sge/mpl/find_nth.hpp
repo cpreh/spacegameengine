@@ -26,9 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/iter_fold.hpp>
 #include <boost/mpl/push_back.hpp>
 #include <boost/mpl/deref.hpp>
-#include <boost/mpl/vector.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/placeholders.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <boost/type_traits/is_same.hpp>
 
 namespace sge
@@ -48,7 +48,7 @@ public boost::mpl::deref<
 		typename boost::mpl::begin<
 			typename boost::mpl::iter_fold<
 				Elements,
-				boost::mpl::vector<>,
+				boost::mpl::vector0<>,
 				boost::mpl::if_<
 					boost::is_same<
 						Element,

@@ -32,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/noncopyable.hpp>
 #include <sge/export.hpp>
 #include <sge/function/object.hpp>
-//#include <boost/function.hpp>
 
 namespace sge
 {

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/entry_vector.hpp>
 #include <sge/parse/ini/entry.hpp>
 #include <sge/parse/ini/string.hpp>
-#include <sge/parse/char.hpp>
+#include <sge/parse/encoding.hpp>
 #include <sge/text.hpp>
 
 #include <boost/spirit/home/qi/string.hpp>
@@ -36,8 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/spirit/home/qi/action.hpp>
 #include <boost/spirit/home/qi/nonterminal.hpp>
 #include <boost/spirit/home/qi/directive.hpp>
-#include <boost/spirit/include/support_ascii.hpp>
-#include <boost/spirit/include/support_placeholders.hpp>
 
 namespace sge
 {
@@ -51,32 +49,34 @@ template<
 >
 class grammar
 :
-public boost::spirit::qi::grammar<
-	In,
-	section_vector(),
-	boost::spirit::ascii::blank_type
-> {
+	public boost::spirit::qi::grammar<
+		In,
+		section_vector(),
+		encoding::blank_type
+	>
+{
 public:
-	typedef boost::spirit::ascii::blank_type space_type;
-
 	grammar()
 	:
 		grammar::base_type(
 			ini_
 		)
 	{
+		using encoding::char_;
+		using boost::spirit::lit;
 		using boost::spirit::lexeme;
 
-		char_seq %= +(char_ - char_(SGE_TEXT('\n')));
+		char_seq %= +(char_ - lit(SGE_TEXT('\n')));
+
 		entry_ %=
 			!char_(SGE_TEXT('['))
 			>> +(
 				char_
-				- char_(SGE_TEXT('='))
+				- lit(SGE_TEXT('='))
 			)
-			>> char_(SGE_TEXT('='))
+			>> lit(SGE_TEXT('='))
 			>> char_seq
-			>> char_(SGE_TEXT('\n'));
+			>> lit(SGE_TEXT('\n'));
 
 		header_ %=
 			lexeme[
@@ -86,7 +86,7 @@ public:
 				)
 				>> SGE_TEXT(']')
 			]
-			>> char_(SGE_TEXT('\n'));
+			>> lit(SGE_TEXT('\n'));
 
 		section_ %=
 			header_
@@ -99,31 +99,31 @@ private:
 	boost::spirit::qi::rule<
 		In,
 		string(),
-		space_type
+		encoding::blank_type
 	> char_seq;
 
 	boost::spirit::qi::rule<
 		In,
 		entry(),
-		space_type
+		encoding::blank_type
 	> entry_;
 
 	boost::spirit::qi::rule<
 		In,
 		string(),
-		space_type
+		encoding::blank_type
 	> header_;
 
 	boost::spirit::qi::rule	<
 		In,
 		section(),
-		space_type
+		encoding::blank_type
 	> section_;
 
 	boost::spirit::qi::rule<
 		In,
 		section_vector(),
-		space_type
+		encoding::blank_type
 	> ini_;
 };
 

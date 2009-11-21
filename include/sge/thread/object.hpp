@@ -3,7 +3,6 @@
 
 #include <sge/export.hpp>
 #include <sge/function/object.hpp>
-//#include <boost/function.hpp>
 #include <boost/thread.hpp>
 
 namespace sge
