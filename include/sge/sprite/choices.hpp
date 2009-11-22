@@ -18,14 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_WITH_TEXTURE_HPP_INCLUDED
-#define SGE_SPRITE_WITH_TEXTURE_HPP_INCLUDED
-
-#include <sge/sprite/primitives/texture.hpp>
-#include <sge/sprite/roles/texture.hpp>
-#include <majutsu/composite.hpp>
-#include <majutsu/role.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#ifndef SGE_SPRITE_CHOICES_HPP_INCLUDED
+#define SGE_SPRITE_CHOICES_HPP_INCLUDED
 
 namespace sge
 {
@@ -33,37 +27,14 @@ namespace sprite
 {
 
 template<
-	unsigned Num = 1
+	typename Unit,
+	typename ColorType,
+	typename RotationType
 >
-class with_texture;
-
-template<
-	unsigned Num
->
-class with_texture {
-public:
-	// TODO!
-};
-
-template<>
-struct with_texture<
-	1u
->
-{
-	template<
-		typename Choices
-	>
-	struct apply
-	{
-		typedef majutsu::composite<
-			boost::mpl::vector1<
-				majutsu::role<
-					primitives::texture,
-					roles::texture
-				>
-			>
-		> type;
-	};
+struct choices {
+	typedef Unit unit_type;
+	typedef ColorType color_type;
+	typedef RotationType rotation_type;
 };
 
 }

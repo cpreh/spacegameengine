@@ -21,43 +21,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_WITH_COLOR_HPP_INCLUDED
 #define SGE_SPRITE_WITH_COLOR_HPP_INCLUDED
 
+#include <sge/sprite/primitives/color.hpp>
+#include <sge/sprite/roles/color.hpp>
+#include <majutsu/role.hpp>
+#include <majutsu/composite.hpp>
+#include <boost/mpl/vector/vector10.hpp>
+
 namespace sge
 {
 namespace sprite
 {
 
-template<
-	typename Color
->
-class with_color {
-public:
-	typedef Color color_type;
-
-	explicit with_color(	
-		color_type const &color_
-	)
-	:
-		color_(color_)
-	{}
-
-	void
-	color(
-		color_type const &ncolor_
-	)
+struct with_color
+{
+	template<
+		typename Choices
+	>
+	struct apply
 	{
-		color_ = ncolor_;
-	}
-
-	color_type const
-	color() const
-	{
-		return color_;
-	}
-protected:
-	~with_color()
-	{}
-private:
-	color_type color_;
+		typedef majutsu::composite<
+			boost::mpl::vector1<
+				majutsu::role<
+					typename primitives::color<
+						typename Choices::color_type
+					>::type,
+					roles::color
+				>
+			>
+		> type;
+	};
 };
 
 }

@@ -32,44 +32,55 @@ namespace sge
 namespace sprite
 {
 
-class system : public system_base {
+template<
+	typename Elements
+>
+class system
+:
+	public system_base
+{
 public:
+	typedef typename  make_object_type<
+		Elements
+	>::type object_type;
+
 	SGE_SYMBOL explicit system(
 		renderer::device_ptr rend);
 	
 	typedef sge::function::object<
 		void (
 			object *,
-			object *)
+			object *
+		)
 	> sort_method;
 
 	typedef sge::function::object<
 		bool (
 			object const &,
-			object const &)
+			object const &
+		)
 	> equal_method;
 
 	SGE_SYMBOL static sort_method const default_sort;
 	SGE_SYMBOL static equal_method const default_equal;
 
-	SGE_SYMBOL void render(
-		container::iterator begin,
-		container::iterator end,
+	template<
+		typename Iterator
+	>
+	void
+	render(
+		Iterator begin,
+		Iterator end,
 		sort_method const &
 			= default_sort,
 		equal_method const &
-			= default_equal);
-
-	SGE_SYMBOL void render(
-		object *begin,
-		object *end,
-		sort_method const &
-			= default_sort,
-		equal_method const &
-			= default_equal);
+			= default_equal
+	);
 	
-	SGE_SYMBOL void render(
-		object);
+	void
+	render(
+		object_type const &
+	);
 };
 
 }

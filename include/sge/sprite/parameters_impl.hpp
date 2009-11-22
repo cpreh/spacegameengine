@@ -18,55 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_WITH_TEXTURE_HPP_INCLUDED
-#define SGE_SPRITE_WITH_TEXTURE_HPP_INCLUDED
+#ifndef SGE_SPRITE_PARAMETERS_IMPL_HPP_INCLUDED
+#define SGE_SPRITE_PARAMETERS_IMPL_HPP_INCLUDED
 
-#include <sge/sprite/primitives/texture.hpp>
-#include <sge/sprite/roles/texture.hpp>
-#include <majutsu/composite.hpp>
-#include <majutsu/role.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-
-namespace sge
-{
-namespace sprite
-{
+#include <sge/sprite/parameters_decl.hpp>
 
 template<
-	unsigned Num = 1
+	typename Choices,
+	typename Elements
 >
-class with_texture;
+sge::sprite::parmameters<Choices, Elements>::parameters()
+:
+	elements_()
+{}
 
 template<
-	unsigned Num
+	typename Choices,
+	typename Elements
 >
-class with_texture {
-public:
-	// TODO!
-};
-
-template<>
-struct with_texture<
-	1u
+template<
+	typename Role
 >
+sge::sprite::parameters<Choices, Elements> const
+sge::sprite::parameters<Choices, Elements>::add(
+	typename majutsu::find_role<
+		typename elements_type::memory_type::types,
+		Role
+	>::type const &value_
+) const
 {
-	template<
-		typename Choices
-	>
-	struct apply
-	{
-		typedef majutsu::composite<
-			boost::mpl::vector1<
-				majutsu::role<
-					primitives::texture,
-					roles::texture
-				>
-			>
-		> type;
-	};
-};
+	parameters ret(
+		*this
+	);
 
+	ret.elements_. template set<
+		Role
+	>(
+		value_
+	);
+
+	return ret;
 }
+
+	
+typename sge::sprite::parameters<Choices, Elements>::element_type const &
+sge::sprite::parameters<Choices, Elements>::elements() const
+{
+	return elements_;
 }
 
 #endif

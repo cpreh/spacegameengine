@@ -18,14 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_INTRUSIVE_OBJECT_HPP_INCLUDED
-#define SGE_SPRITE_INTRUSIVE_OBJECT_HPP_INCLUDED
+#ifndef SGE_SPRITE_INTRUSIVE_DETAIL_OBJECT_BASE_HOOK_HPP_INCLUDED
+#define SGE_SPRITE_INTRUSIVE_DETAIL_OBJECT_BASE_HOOK_HPP_INCLUDED
 
-#include <sge/sprite/intrusive/object_fwd.hpp>
-#include <sge/sprite/intrusive/system_fwd.hpp>
-#include <sge/sprite/intrusive/order.hpp>
-#include <sge/sprite/object.hpp>
-#include <sge/export.hpp>
 #include <boost/intrusive/list_hook.hpp>
 
 namespace sge
@@ -43,43 +38,6 @@ typedef boost::intrusive::list_base_hook<
 		boost::intrusive::auto_unlink
 	>
 > object_base_hook;
-
-}
-
-class object : public sprite::object, public detail::object_base_hook {
-public:
-	typedef intrusive::order order_type;
-
-	SGE_SYMBOL object(
-		system &,
-		order_type,
-		point const &,
-		texture::const_part_ptr,
-		dim const &,
-		sprite::color const &,
-		depth_type,
-		rotation_type,
-		bool visible);
-	
-	SGE_SYMBOL object(
-		object const &);
-
-	SGE_SYMBOL object &
-	operator=(
-		object const &);
-
-	SGE_SYMBOL void order(
-		order_type);
-	SGE_SYMBOL order_type order() const;
-
-	SGE_SYMBOL void transfer(
-		system &);
-private:
-	void add_me();
-
-	system *sys;
-	order_type order_;
-};
 
 }
 }

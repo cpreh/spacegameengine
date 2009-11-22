@@ -18,54 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_WITH_TEXTURE_HPP_INCLUDED
-#define SGE_SPRITE_WITH_TEXTURE_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_MAKE_CLASS_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_MAKE_CLASS_HPP_INCLUDED
 
-#include <sge/sprite/primitives/texture.hpp>
-#include <sge/sprite/roles/texture.hpp>
-#include <majutsu/composite.hpp>
-#include <majutsu/role.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <majutsu/memory/fusion.hpp>
+#include <majutsu/class.hpp>
+#include <boost/mpl/apply.hpp>
+#include <boost/mpl/transform_view.hpp>
 
 namespace sge
 {
 namespace sprite
 {
-
-template<
-	unsigned Num = 1
->
-class with_texture;
-
-template<
-	unsigned Num
->
-class with_texture {
-public:
-	// TODO!
-};
-
-template<>
-struct with_texture<
-	1u
->
+namespace detail
 {
-	template<
-		typename Choices
-	>
-	struct apply
-	{
-		typedef majutsu::composite<
-			boost::mpl::vector1<
-				majutsu::role<
-					primitives::texture,
-					roles::texture
-				>
+
+template<
+	typename Choices,
+	typename Elements
+>
+struct make_class
+{
+	typedef majutsu::class_<
+		typename boost::mpl::transform_view<
+			Elements,
+			boost::mpl::apply<
+				boost::mpl::_1,
+				Choices
 			>
-		> type;
-	};
+		>::type,
+		majutsu::memory::fusion
+	> element_type;
 };
 
+}
 }
 }
 

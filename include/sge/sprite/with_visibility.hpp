@@ -21,38 +21,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_WITH_VISIBILITY_HPP_INCLUDED
 #define SGE_SPRITE_WITH_VISIBILITY_HPP_INCLUDED
 
+#include <sge/sprite/roles/visible.hpp>
+#include <sge/sprite/primitives/bool.hpp>
+#include <majutsu/role.hpp>
+#include <majutsu/composite.hpp>
+#include <boost/mpl/vector/vector10.hpp>
+
 namespace sge
 {
 namespace sprite
 {
 
-class with_visibility {
-public:
-	explicit with_visibility(
-		bool const visible_
-	)
-	:
-		visible_(visible_)
-	{}
-
-	void
-	visible(
-		bool const nvisible_
-	)
+struct with_visiblity {
+	
+	template<
+		typename T
+	>
+	struct apply
 	{
-		visible_ = nvisible_;
-	}
-
-	bool
-	visible() const
-	{
-		return visibile_;
-	}
-protected:
-	~with_visibility()
-	{}
-private:
-	bool visible_;
+		typedef majutsu::composite<
+			boost::mpl::vector1<
+				majutsu::role<
+					primitives::bool_,
+					roles::visible
+				>
+			>
+		> type;
+	};
 };
 
 }

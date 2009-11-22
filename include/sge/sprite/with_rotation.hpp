@@ -21,66 +21,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_WITH_ROTATION_HPP_INCLUDED
 #define SGE_SPRITE_WITH_ROTATION_HPP_INCLUDED
 
+#include <sge/sprite/primitives/pos.hpp>
+#include <sge/sprite/primitives/float.hpp>
+#include <sge/sprite/roles/rotate_around.hpp>
+#include <sge/sprite/roles/rotation.hpp>
+#include <majutsu/role.hpp>
+#include <majutsu/composite.hpp>
+#include <boost/mpl/vector/vector10.hpp>
+
 namespace sge
 {
 namespace sprite
 {
 
-template<
-	typename Context
->
-class with_rotation {
-public:
-	typedef typename Context::float_type rotation_type;
-	typedef typename Context::pos_type pos_type;
-
-	typedef optional<
-		pos_type
-	> optional_rotation;
-
-	with_rotation(
-		rotation_type const rotation_,
-		optional_rotation const &rotate_around_
-	)
-	:
-		rotate_around_(rotate_around_),
-		rotation_(rotation_)
-	{}
-
-	void
-	rotation(
-		rotation_type const nrotation_
-	)
+struct with_rotation
+{
+	template<
+		typename Choices
+	>
+	struct apply
 	{
-		rotation_ = nortation_;
-	}
-
-	void
-	rotate_around(
-		optional_rotation const &nrotate_around_
-	)
-	{
-		rotate_around_ = nrotate_around_;
-	}
-
-	optional_rotation const
-	rotate_around() const
-	{
-		return rotate_around_;
-	}
-
-	rotation_type
-	rotation() const
-	{
-		return rotation_;
-	}
-protected:
-	~with_rotation()
-	{}
-private:
-	rotation_type rotation_;
-
-	optional_rotation rotate_around_;
+		typedef majutsu::composite<
+			boost::mpl::vector2<
+				majutsu::role<
+					typename primitives::pos<
+						typename Choices::float_type
+					>::type,
+					roles::rotate_around
+				>,
+				majutsu::role<
+					typename primitives::float_<
+						typename Choices::float_type
+					>::type,
+					roles::rotation
+				>
+			>
+		> type;
+	};
 };
 
 }

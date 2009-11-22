@@ -92,9 +92,4 @@ void sge::sprite::intrusive::object::transfer(
 	add_me();
 }
 
-void sge::sprite::intrusive::object::add_me()
-{
-	sys->add(
-		*this,
-		order_);
-}
+
