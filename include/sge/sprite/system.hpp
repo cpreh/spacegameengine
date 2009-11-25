@@ -74,20 +74,13 @@ public:
 		sort_method const &
 			= default_sort,
 		equal_method const &
-<<<<<<< HEAD
 			= default_equal
 	);
-	
+
 	void
 	render(
 		object_type const &
 	);
-=======
-			= default_equal);
-
-	SGE_SYMBOL void render(
-		object);
->>>>>>> master
 };
 
 }
