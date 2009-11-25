@@ -37,14 +37,14 @@ public:
 	SGE_SYMBOL angle(
 		point const &forward,
 		point const &up);
-	
+
 	SGE_SYMBOL point const &
 	forward() const;
 
 	SGE_SYMBOL void
 	forward(
 		point const &);
-	
+
 	SGE_SYMBOL point const
 	up() const;
 

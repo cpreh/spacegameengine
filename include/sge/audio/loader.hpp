@@ -40,7 +40,7 @@ public:
 	virtual file_ptr const
 	load(
 		filesystem::path const &file) = 0;
-	virtual extension_set const 
+	virtual extension_set const
 		extensions() const = 0;
 	SGE_SYMBOL virtual ~loader();
 };

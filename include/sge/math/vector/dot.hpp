@@ -47,10 +47,10 @@ dot(
 			SGE_TEXT("Dimensions of vectors do not match in dot()!"));
 
 	T result(static_cast<T>(0));
-	
+
 	for(typename basic<T, N, S>::size_type i = 0; i < l.size(); ++i)
 		result += l[i] * r[i];
-	
+
 	return result;
 }
 

@@ -28,12 +28,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 template<typename T>
 void sge::console::var<T>::string(
-	sge::string const &s) 
-{ 
+	sge::string const &s)
+{
 	try
 	{
-		t = lexical_cast<value_type>(s); 
-	} 
+		t = lexical_cast<value_type>(s);
+	}
 	catch (bad_lexical_cast const &)
 	{
 		throw exception(
@@ -66,7 +66,7 @@ template<typename T>
 sge::console::var<T>::var(
 	object &object_,
 	sge::string const &name,
-	value_type const &t) 
+	value_type const &t)
 :
 	var_base(
 		object_,

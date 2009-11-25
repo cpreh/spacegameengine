@@ -34,7 +34,7 @@ ALenum sge::openal::file_format(audio::file const &file)
 		return AL_FORMAT_MONO16;
 	if (file.bits_per_sample() == static_cast<audio::sample_count>(16) && file.channels() == static_cast<audio::channel_type>(2))
 		return AL_FORMAT_STEREO16;
-	
+
 	throw audio::exception(
 		SGE_TEXT("OpenAL error: Format not supported: ")
 		+ lexical_cast<string>(file.bits_per_sample())

@@ -72,10 +72,10 @@ sge::variant::object<Types>::object(
 {
 	if(o.empty())
 		return;
-	
+
 	data_ = variant::apply_unary(
 		detail::copy(
-			storage_.data()	
+			storage_.data()
 		),
 		o
 	);
@@ -123,8 +123,8 @@ sge::variant::object<Types>::operator=(
 		),
 		o
 	);
-		
-	return *this;	
+
+	return *this;
 }
 
 template<
@@ -252,7 +252,7 @@ sge::variant::object<Types>::destroy()
 {
 	if(empty())
 		return;
-	
+
 	variant::apply_unary(
 		detail::destroy(),
 		*this

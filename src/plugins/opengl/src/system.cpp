@@ -92,7 +92,7 @@ sge::opengl::system::create_window(
 			).data()
 		)
 	);
-	
+
 	return sge::x11::create_window(
 		param,
 		dsp,

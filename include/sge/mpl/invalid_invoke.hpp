@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-namespace mpl 
+namespace mpl
 {
 
 class SGE_CLASS_SYMBOL invalid_invoke

@@ -47,7 +47,7 @@ sge::opengl::split_states::update_stencil()
 	renderer::state::stencil_func::type const method(
 		states.get<renderer::state::stencil_func::type>()
 	);
-		
+
 	if(method == renderer::state::stencil_func::off)
 	{
 		disable(GL_STENCIL_TEST);
@@ -112,7 +112,7 @@ sge::opengl::split_states::update_alpha_test()
 		disable(GL_ALPHA_TEST);
 		return;
 	}
-	
+
 	enable(GL_ALPHA_TEST);
 
 	glAlphaFunc(

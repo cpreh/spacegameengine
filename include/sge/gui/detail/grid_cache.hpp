@@ -54,7 +54,7 @@ public:
 	{
 	public:
 		unit size;
-		axis_policy::type policy; 
+		axis_policy::type policy;
 
 		rolumn_data();
 	};
@@ -85,7 +85,7 @@ public:
 	rolumn_container &volatile_rolumns();
 private:
 	widgets::base::child_container const &widgets_;
-	
+
 	child_plane      plane_;
 	data_map         data_;
 	rolumn_container rolumns_;

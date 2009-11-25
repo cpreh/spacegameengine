@@ -94,13 +94,13 @@ sge::container::field<T, ArrayType, Alloc>::field(
 	dim_type const &dim_,
 	Iterator const b,
 	Iterator const e,
-	allocator_type const &alloc) 
+	allocator_type const &alloc)
 :
 	dim_(dim_),
-	array(alloc) 
-{ 
+	array(alloc)
+{
 	array.resize(field_count());
-	std::copy(b, e, begin()); 
+	std::copy(b, e, begin());
 }
 template<
 	typename T,
@@ -309,7 +309,7 @@ sge::container::field<T, ArrayType, Alloc>::position(
 {
 	difference_type const diff = std::distance(begin(), it);
 	return vector_type(
-		diff % dim().w(), 
+		diff % dim().w(),
 		diff / dim().w());
 }
 
@@ -388,16 +388,16 @@ sge::container::field<T, ArrayType, Alloc>::resize_canvas(
 {
 	// dimension hasn't changed?
 	if (dim() == n)
-		return; 
-	
+		return;
+
 	field new_(
 		n,
 		value);
-	
+
 	for (vector_type p = vector_type::null(); p.y() < std::min(n.h(),dim().h()); ++p.y())
 		for (p.x() = 0; p.x() < std::min(n.w(),dim().h()); ++p.x())
 			new_.pos(p) = pos(p);
-	
+
 	swap(
 		new_);
 }
@@ -416,10 +416,10 @@ sge::container::field<T, ArrayType, Alloc>::resize(
 	const_reference value)
 {
 	if (dim_ == n)
-		return; 
-	
+		return;
+
 	dim_ = n;
-	
+
 	array.resize(
 		field_count(),
 		value);
@@ -595,11 +595,11 @@ template<
 		typename
 	> class ArrayType,
 	typename Alloc
->	
+>
 void
 sge::container::field<T, ArrayType, Alloc>::range_check(
 	vector_type const &v) const
-{ 
+{
 	SGE_ASSERT(v.x() < dim().w() && v.y() < dim().h());
 }
 

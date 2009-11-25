@@ -34,12 +34,12 @@ sge::renderer::aspect(
 	T const
 		w(static_cast<T>(sz.w())),
 		h(static_cast<T>(sz.h()));
-	
+
 	SGE_ASSERT(
 		!math::almost_zero(w)
 		&& !math::almost_zero(h)
 	)
-	
+
 	return w > h
 		? w / h
 		: h / w;

@@ -48,7 +48,7 @@ namespace sge
 {
 namespace gui
 {
-class manager 
+class manager
 {
 	SGE_NONCOPYABLE(manager)
 	public:

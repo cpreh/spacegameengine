@@ -34,7 +34,7 @@ class resolution {
 public:
 	SGE_SYMBOL explicit resolution(
 		unit);
-	
+
 	SGE_SYMBOL unit get() const;
 private:
 	unit res_;

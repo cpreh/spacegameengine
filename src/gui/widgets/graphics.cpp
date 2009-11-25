@@ -26,7 +26,7 @@ sge::gui::widgets::graphics::graphics(
 	widgets::parent_data const &_parent,
 	widgets::parameters _params,
 	const_image_ptr const _image)
-: 
+:
 	base(
 		_parent,
 		_params

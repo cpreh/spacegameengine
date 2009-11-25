@@ -26,7 +26,7 @@ GLenum
 sge::opengl::convert::cull_mode(
 	renderer::state::cull_mode::type const m
 )
-{		
+{
 	switch(m) {
 	case renderer::state::cull_mode::back:
 		return GL_BACK;

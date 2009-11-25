@@ -53,7 +53,7 @@ public:
 	virtual file_ptr const
 	create(
 		view::const_object const &) = 0;
-	
+
 	virtual extension_set const extensions() const = 0;
 
 	SGE_SYMBOL virtual ~loader();

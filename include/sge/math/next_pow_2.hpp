@@ -49,7 +49,7 @@ next_pow_2(
 
 	if(is_power_of_2(t))
 		return t * two;
-	
+
 	T counter(t);
 
 	T ret(
@@ -58,7 +58,7 @@ next_pow_2(
 
 	while(counter /= two)
 		ret *= two;
-	
+
 	return ret * two;
 }
 

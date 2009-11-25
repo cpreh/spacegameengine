@@ -73,7 +73,7 @@ public:
 
 	SGE_SYMBOL font::text_size const
 	text_size(
-		string const &s, 
+		string const &s,
 		dim const &max_size,
 		flag_t flags = flags::default_) const;
 

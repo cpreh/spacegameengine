@@ -64,7 +64,7 @@ private:
 		Enum,
 		typename
 	> friend class basic;
-	
+
 	iterator(
 		StoredType array,
 		size_type pos);

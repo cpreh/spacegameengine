@@ -37,7 +37,7 @@ public:
 	default_target(
 		dim_type const &,
 		renderer::bit_depth::type);
-	
+
 	void pos(
 		renderer::pixel_pos const &);
 	void dim(

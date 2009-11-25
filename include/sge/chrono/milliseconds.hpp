@@ -32,7 +32,7 @@ namespace chrono
 
 typedef duration<
 	boost::uint64_t,
-	milli	
+	milli
 > milliseconds;
 
 }

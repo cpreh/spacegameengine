@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifdef _MSC_VER
 #define SGE_ALIGNMENT_MAXIMUM 128
 #elif __GNUC__
-#define SGE_ALIGNMENT_MAXIMUM 32 
+#define SGE_ALIGNMENT_MAXIMUM 32
 #else
 #error "Don't know what the maximum alignment should be!"
 #endif

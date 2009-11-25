@@ -47,7 +47,7 @@ class mouse : public submanager
 	mouse(
 		input::system_ptr,
 		cursor::base_ptr);
-	
+
 	void resize(
 		widgets::base &,
 		dim const &);

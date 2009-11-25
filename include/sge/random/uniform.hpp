@@ -75,7 +75,7 @@ public:
 			)
 		)
 	{}
-	
+
 	T operator()()
 	{
 		return variate();
@@ -85,7 +85,7 @@ private:
 		Generator,
 		range_type
 	> variate_type;
-	
+
 	variate_type variate;
 };
 

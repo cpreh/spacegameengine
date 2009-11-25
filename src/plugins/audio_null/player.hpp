@@ -48,7 +48,7 @@ public:
 	create_stream_sound(
 		audio::file_ptr);
 private:
-	audio_null::listener listener_;	
+	audio_null::listener listener_;
 	audio::unit          speed_of_sound_;
 };
 

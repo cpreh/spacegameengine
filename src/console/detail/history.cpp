@@ -33,20 +33,20 @@ sge::console::detail::history::history()
 {
 }
 
-sge::console::detail::history::iterator_pair const 
+sge::console::detail::history::iterator_pair const
 	sge::console::detail::history::lines_inside(
 	rect const &r,
 	unit const height) const
 {
 	SGE_ASSERT(!math::almost_zero(height));
-	
+
 	// draw history
 	unit const total_lines = static_cast<unit>(r.h()/height);
 
 	// go from pos_ to min(pos_+total_lines,end)
 	const_iterator it = pos_;
-	for (unit i = static_cast<unit>(0); 
-	     i < total_lines && it != items_.end(); 
+	for (unit i = static_cast<unit>(0);
+	     i < total_lines && it != items_.end();
 			 ++i)
 		++it;
 
@@ -76,7 +76,7 @@ sge::string const sge::console::detail::history::current() const
 
 void sge::console::detail::history::push_front(string const &s)
 {
-	iterator::difference_type const d = 
+	iterator::difference_type const d =
 		std::distance(
 			items_.begin(),
 			pos_);
@@ -86,7 +86,7 @@ void sge::console::detail::history::push_front(string const &s)
 
 void sge::console::detail::history::push_back(string const &s)
 {
-	iterator::difference_type const d = 
+	iterator::difference_type const d =
 		std::distance(
 			items_.begin(),
 			pos_);

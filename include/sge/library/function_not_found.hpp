@@ -36,7 +36,7 @@ public:
 	SGE_SYMBOL function_not_found(
 		sge::string const &lib,
 		function_string const &fun);
-	
+
 	SGE_SYMBOL sge::string const &lib() const;
 	SGE_SYMBOL function_string const &func() const;
 private:

@@ -47,7 +47,7 @@ sge::gui::widgets::label::label(
 	sge::font::align_h::type _align_h,
 	sge::font::align_v::type _align_v,
 	optional_dim const &_static_size)
-: 
+:
 	base(
 		_parent,
 		_params.size_policy(
@@ -61,36 +61,36 @@ sge::gui::widgets::label::label(
 {
 }
 
-sge::string const sge::gui::widgets::label::text() const 
-{ 
-	return text_; 
+sge::string const sge::gui::widgets::label::text() const
+{
+	return text_;
 }
 
-sge::font::align_h::type sge::gui::widgets::label::align_h() const 
-{ 
-	return align_h_; 
+sge::font::align_h::type sge::gui::widgets::label::align_h() const
+{
+	return align_h_;
 }
 
-sge::font::align_v::type sge::gui::widgets::label::align_v() const 
-{ 
-	return align_v_; 
+sge::font::align_v::type sge::gui::widgets::label::align_v() const
+{
+	return align_v_;
 }
 
 void sge::gui::widgets::label::text(
-	string const &_text) 
-{ 
+	string const &_text)
+{
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_ << SGE_TEXT("setting text to: ")
 		        << _text);
-	text_ = _text; 
+	text_ = _text;
 	invalidate(
 		*this,
 		invalidation::all);
 }
 
 sge::gui::widgets::optional_dim const &
-sge::gui::widgets::label::static_size() const 
-{ 
-	return static_size_; 
+sge::gui::widgets::label::static_size() const
+{
+	return static_size_;
 }

@@ -63,7 +63,7 @@ void sge::sprite::intrusive::system::render(
 
 	renderer::vertex_buffer_ptr const vb(
 		vertex_buffer());
-	
+
 	renderer::index_buffer_ptr const ib(
 		index_buffer());
 

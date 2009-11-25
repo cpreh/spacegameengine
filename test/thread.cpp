@@ -11,7 +11,7 @@ bool task()
 {
 	sge::cerr << "sleeping...\n";
 	boost::this_thread::sleep(
-		boost::posix_time::seconds(3)); 
+		boost::posix_time::seconds(3));
 	sge::cerr << "woke up!\n";
 	return true;
 }
@@ -20,7 +20,7 @@ void void_task()
 {
 	sge::cerr << "sleeping in void\n";
 	boost::this_thread::sleep(
-		boost::posix_time::seconds(4)); 
+		boost::posix_time::seconds(4));
 	sge::cerr << "void woke up\n";
 }
 }

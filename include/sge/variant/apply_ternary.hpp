@@ -49,7 +49,7 @@ apply_ternary(
 		>(
 			op,
 			obj1
-		),	
+		),
 		obj2,
 		obj3
 	);

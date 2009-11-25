@@ -71,7 +71,7 @@ sge::vorbis::file::file(
 
 	if (int error = ov_open_callbacks(this,&ogg_file,0,static_cast<long>(0),callbacks))
 		throw audio::exception(SGE_TEXT("vorbis: error opening ogg vorbis file \"")+file_name+SGE_TEXT("\": ")+ogg_error(error));
-	
+
 	vorbis_info * const info = ov_info(&ogg_file,static_cast<int>(-1));
 	if (!info)
 		throw audio::exception(SGE_TEXT("vorbis: couldn't read file info from ogg vorbis file \"")+file_name+SGE_TEXT("\""));
@@ -91,7 +91,7 @@ sge::audio::sample_count sge::vorbis::file::read(
 		return static_cast<sample_count>(0);
 	}
 	*/
-	
+
 	sample_count const bytes_to_read = samples*channels()*bytes_per_sample();
 	sample_container newdata(static_cast<sample_container::size_type>(bytes_to_read));
 
@@ -108,7 +108,7 @@ sge::audio::sample_count sge::vorbis::file::read(
 			static_cast<int>(2), // 8 or 16 bit samples
 			static_cast<int>(1), // 0 is unsigned data, 1 is signed
 			&bitstream);
-		
+
 		switch (result)
 		{
 			case OV_HOLE:
@@ -171,17 +171,17 @@ sge::vorbis::file::~file()
 }
 
 std::size_t sge::vorbis::file::ogg_read_static(
-	void * const ptr, 
-	std::size_t const size, 
-	std::size_t const nmemb, 
+	void * const ptr,
+	std::size_t const size,
+	std::size_t const nmemb,
 	void * const datasource)
 {
 	return static_cast<sge::vorbis::file*>(datasource)->ogg_read(ptr,size,nmemb);
 }
 
 int sge::vorbis::file::ogg_seek_static(
-	void * const datasource, 
-	ogg_int64_t const offset, 
+	void * const datasource,
+	ogg_int64_t const offset,
 	int const whence)
 {
 	return static_cast<sge::vorbis::file*>(datasource)->ogg_seek(offset,whence);
@@ -198,7 +198,7 @@ long sge::vorbis::file::ogg_tell_static(void *datasource)
 }
 
 std::size_t sge::vorbis::file::ogg_read(
-	void * const ptr, 
+	void * const ptr,
 	std::size_t const size,  // size of a "package"
 	std::size_t const nmemb) // how many packages to read
 {
@@ -211,7 +211,7 @@ std::size_t sge::vorbis::file::ogg_read(
 }
 
 int sge::vorbis::file::ogg_seek(
-	ogg_int64_t const offset, 
+	ogg_int64_t const offset,
 	int whence)
 {
 	if (stdstream.eof())

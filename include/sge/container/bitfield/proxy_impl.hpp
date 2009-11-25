@@ -72,7 +72,7 @@ sge::container::bitfield::proxy<StoredType, ElementBits>::operator=(
 		bit(
 			bit_offset(pos)
 		);
-	
+
 	if(b)
 		array[index] |= (1 << bit);
         else

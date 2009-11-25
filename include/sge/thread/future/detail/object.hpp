@@ -129,17 +129,17 @@ T sge::thread::future::detail::object<T>::move()
 {
 	boost::unique_lock<boost::mutex> lock(
 		mutex_);
-	
+
 	wait_internal(
 		lock);
-	
+
 	if (exception_)
 		boost::rethrow_exception(
 			exception_);
 	if (!result_)
 		throw moved();
-	
-	return 
+
+	return
 		traits<T>::move(
 			result_);
 }
@@ -236,12 +236,12 @@ bool sge::thread::future::detail::object<T>::timed_get_until(
 template<typename T>
 sge::thread::future::state::type sge::thread::future::detail::object<T>::state()
 {
-	boost::lock_guard<boost::mutex> 
+	boost::lock_guard<boost::mutex>
 		guard(
 			mutex_);
 	if(!done_)
 		return state::waiting;
-	return 
+	return
 		!result_ && !exception_
 		? state::moved
 		: state::ready;
@@ -300,7 +300,7 @@ sge::thread::future::state::type sge::thread::future::detail::object<void>::stat
 		mutex_);
 	if(!done_)
 		return state::waiting;
-	return 
+	return
 		!result_ && !exception_
 		? state::moved
 		: state::ready;

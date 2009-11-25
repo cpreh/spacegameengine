@@ -31,7 +31,7 @@ namespace opengl
 namespace convert
 {
 
-GLenum 
+GLenum
 fog_float_state(
 	renderer::state::float_::type const &
 );

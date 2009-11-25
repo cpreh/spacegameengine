@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 // that's a hack because we have two constructors
 void sge::openal::source::init()
 {
-	// we just impose our default values 
+	// we just impose our default values
 	positional(false);
 	pos(audio::point::null());
 	vel(audio::point::null());
@@ -131,7 +131,7 @@ void sge::openal::source::toggle_pause()
 		break;
 		case audio::sound_status::playing:
 			alSourcePause(alsource());
-			
+
 			SGE_OPENAL_CHECK_STATE(
 				SGE_TEXT("alSourcePause failed"),
 				audio::exception
@@ -154,7 +154,7 @@ void sge::openal::source::stop()
 		return;
 
 	alSourceStop(alsource());
-	
+
 	SGE_OPENAL_CHECK_STATE(
 		SGE_TEXT("alSourceStop failed"),
 		audio::exception
@@ -211,11 +211,11 @@ void sge::openal::source::pos(audio::point const &n)
 {
 	pos_ = n;
 
-	ALfloat const vec[3] = 
-		{ 
+	ALfloat const vec[3] =
+		{
 			static_cast<ALfloat>(n.x()),
 			static_cast<ALfloat>(n.y()),
-			static_cast<ALfloat>(n.z()) 
+			static_cast<ALfloat>(n.z())
 		};
 
 	source_fv(
@@ -229,11 +229,11 @@ void sge::openal::source::direction(audio::point const &n)
 {
 	direction_ = n;
 
-	ALfloat const vec[3] = 
-		{ 
+	ALfloat const vec[3] =
+		{
 			static_cast<ALfloat>(n.x()),
 			static_cast<ALfloat>(n.y()),
-			static_cast<ALfloat>(n.z()) 
+			static_cast<ALfloat>(n.z())
 		};
 
 	source_fv(
@@ -247,11 +247,11 @@ void sge::openal::source::vel(audio::point const &n)
 {
 	vel_ = n;
 
-	ALfloat const vec[3] = 
-		{ 
+	ALfloat const vec[3] =
+		{
 			static_cast<ALfloat>(n.x()),
 			static_cast<ALfloat>(n.y()),
-			static_cast<ALfloat>(n.z()) 
+			static_cast<ALfloat>(n.z())
 		};
 
 	source_fv(

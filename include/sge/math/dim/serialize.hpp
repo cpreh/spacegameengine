@@ -35,7 +35,7 @@ template<
 	typename N,
 	typename S,
 	typename Archive
-> 
+>
 void serialize(
 	Archive &ar,
 	basic<T, N, S> &v,

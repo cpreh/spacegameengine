@@ -217,7 +217,7 @@ try
 			vb,
 			sge::renderer::lock_mode::writeonly
 		);
-	
+
 		vertex_view const vertices(
 			vblock.value()
 		);
@@ -225,7 +225,7 @@ try
 		float_type shift(0);
 
 		vertex_iterator vb_it = vertices.begin();
-		
+
 		for(
 			float_type theta = 0;
 			theta < sge::math::twopi<float_type>();
@@ -246,7 +246,7 @@ try
 					theta,
 					phi_shift
 				);
-				
+
 				make_vertex(
 					*vb_it++,
 					theta + step,
@@ -430,7 +430,7 @@ try
 				)
 			);
 		}
-					
+
 		sge::renderer::scoped_block const block_(
 			rend
 		);

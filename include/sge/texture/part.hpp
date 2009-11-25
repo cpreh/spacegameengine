@@ -48,7 +48,7 @@ public:
 	virtual renderer::lock_rect const &area() const = 0;
 
 	virtual renderer::texture_ptr const texture() = 0;
-	
+
 	virtual renderer::const_texture_ptr const texture() const = 0;
 
 	virtual bool repeatable() const = 0;

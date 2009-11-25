@@ -40,7 +40,7 @@ public:
 		renderer::bit_depth::type depth,
 		refresh_rate refresh_rate
 	);
-	
+
 	SGE_SYMBOL screen_size const &
 	size() const;
 

@@ -30,7 +30,7 @@ namespace opengl
 namespace vf
 {
 
-typedef sge::auto_ptr<actor> actor_ptr; 
+typedef sge::auto_ptr<actor> actor_ptr;
 
 }
 }

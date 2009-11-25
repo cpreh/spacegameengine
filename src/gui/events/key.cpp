@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::gui::events::key::key(
 	input::key_pair const &kp,
 	input::modifier::states const &s,
-	bool const repeated_) 
+	bool const repeated_)
 :
 	kp(kp),
 	s(s),

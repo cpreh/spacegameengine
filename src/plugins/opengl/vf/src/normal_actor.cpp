@@ -48,7 +48,7 @@ void sge::opengl::vf::normal_actor::operator()(
 		stride(),
 		pointer()
 	);
-	
+
 	SGE_OPENGL_CHECK_STATE(
 		SGE_TEXT("glNormalPointer failed"),
 		sge::renderer::exception

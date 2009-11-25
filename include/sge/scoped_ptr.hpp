@@ -45,7 +45,7 @@ public:
 	:
 		ptr(p)
 	{}
-	
+
 	explicit scoped_ptr(
 		auto_ptr<T> p)
 	:
@@ -63,7 +63,7 @@ public:
 		scoped_ptr(p).swap(*this);
 	}
 
-	T &operator*() const 
+	T &operator*() const
 	{
 		return *ptr;
 	}
@@ -86,7 +86,7 @@ public:
 			? 0
 			: &scoped_ptr::ptr;
 	}
- 	
+
 	bool operator! () const
 	{
 		return !ptr;

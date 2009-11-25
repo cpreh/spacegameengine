@@ -44,7 +44,7 @@ public:
 	SGE_SYMBOL image::view::object const
 	lock(
 		cube_side::type side,
-		lock_mode::type	
+		lock_mode::type
 	);
 
 	SGE_SYMBOL image::view::const_object const
@@ -57,7 +57,7 @@ public:
 		lock_rect const &,
 		lock_mode::type
 	) = 0;
-	
+
 	virtual image::view::const_object const
 	lock(
 		cube_side::type side,

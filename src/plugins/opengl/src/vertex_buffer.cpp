@@ -68,7 +68,7 @@ sge::opengl::vertex_buffer::lock(
 		offset,
 		range
 	);
-	
+
 	return view_type(
 		buf.data(),
 		buf.lock_size(),
@@ -97,7 +97,7 @@ sge::opengl::vertex_buffer::unlock() const
 {
 	renderer::vf::dynamic_ordered_element_list const &elems(
 		format().elements());
-	
+
 	renderer::size_type const stride(
 		format().stride());
 
@@ -114,7 +114,7 @@ sge::opengl::vertex_buffer::unlock() const
 				buf.lock_size() / stride,
 				buf.data()
 			);
-	
+
 	buf.unlock();
 }
 

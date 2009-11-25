@@ -54,7 +54,7 @@ public:
 	arithmetic_visitor(
 		GLenum face,
 		GLenum type);
-	
+
 	template<
 		typename T
 	>
@@ -78,17 +78,17 @@ void sge::opengl::set_material(
 		face,
 		GL_AMBIENT,
 		mat.ambient());
-	
+
 	material_color(
 		face,
 		GL_DIFFUSE,
 		mat.diffuse());
-	
+
 	material_color(
 		face,
 		GL_SPECULAR,
 		mat.specular());
-	
+
 	material_color(
 		face,
 		GL_EMISSION,
@@ -175,7 +175,7 @@ void arithmetic_visitor::operator()(
 		type,
 		static_cast<GLfloat>(f)
 	);
-		
+
 }
 
 }

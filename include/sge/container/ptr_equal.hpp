@@ -40,7 +40,7 @@ public:
 	{}
 
 	template<
-		typename Val 
+		typename Val
 	>
 	bool operator()(
 		Val const &val) const

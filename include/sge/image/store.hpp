@@ -41,7 +41,7 @@ class store {
 public:
 	typedef typename internal_type::pointer pointer;
 	typedef typename internal_type::const_pointer const_pointer;
-	
+
 	typedef image::dim_type dim_type; // TODO: has to work with 3d images as well!
 
 	typedef typename internal_type::view_type view_type;

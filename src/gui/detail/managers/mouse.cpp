@@ -120,7 +120,7 @@ void sge::gui::detail::managers::mouse::add(widgets::base &w)
 	// We only store top level widgets as "starting points" for our focus search
 	if (!w.has_parent())
 		widgets.push_back(&w);
-	
+
 	// It could be the case that the newly added widgets::base is below the cursor and should
 	// thus get the focus, so we recalculate
 	dirty_ = true;
@@ -189,25 +189,25 @@ void sge::gui::detail::managers::mouse::recalculate_focus()
 		SGE_LOG_DEBUG(
 			mylogger,
 			log::_ << SGE_TEXT("a widgets::base currently has the focus, recalculating"));
-			
+
 		focus = recalculate_focus(*focus,click_point);
 	}
-	
+
 	if (!focus)
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_ << 
+			log::_ <<
 				SGE_TEXT("no widgets::base currently has the focus, so letting it recalculate"));
 
 		BOOST_FOREACH(widgets::base &w,widgets)
 		{
 			SGE_LOG_DEBUG(
 				mylogger,
-				log::_ << SGE_TEXT("checking if ") << w.screen_area() 
+				log::_ << SGE_TEXT("checking if ") << w.screen_area()
 				        << SGE_TEXT(" contains ") << click_point);
 
-			if (w.activation() == activation_state::active && 
+			if (w.activation() == activation_state::active &&
 			    contains_point(w.screen_area(),click_point))
 			{
 				w.process_mouse_enter(events::mouse_enter(click_point));
@@ -222,7 +222,7 @@ void sge::gui::detail::managers::mouse::z(
 	widgets::base &w,
 	depth_type const _z)
 {
-	
+
 }
 
 void sge::gui::detail::managers::mouse::input_callback(
@@ -262,7 +262,7 @@ sge::gui::widgets::base *sge::gui::detail::managers::mouse::recalculate_focus(
 			log::_ << SGE_TEXT("mouse no longer inside widget, sending leave"));
 
 		w.process_mouse_leave(events::mouse_leave());
-		
+
 		// Pointer is in "free space" now
 		if (!w.has_parent())
 			return 0;
@@ -289,7 +289,7 @@ sge::gui::widgets::base *sge::gui::detail::managers::mouse::do_recalculate_focus
 {
 	BOOST_FOREACH(widgets::base &child,w.children())
 	{
-		if (child.activation() == activation_state::active && 
+		if (child.activation() == activation_state::active &&
 		    contains_point(child.screen_area(),p))
 		{
 			SGE_LOG_DEBUG(
@@ -299,7 +299,7 @@ sge::gui::widgets::base *sge::gui::detail::managers::mouse::do_recalculate_focus
 			return do_recalculate_focus(child,p);
 		}
 	}
-	
+
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_ << SGE_TEXT("no child has the focus, doing nothing"));

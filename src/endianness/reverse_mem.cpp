@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <algorithm>
 
 void sge::endianness::reverse_mem(
-	unsigned char* const t, 
+	unsigned char* const t,
 	std::size_t const len)
 {
 	for(std::size_t i = 0; i < len / 2; ++i)

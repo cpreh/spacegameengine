@@ -45,7 +45,7 @@ public:
 		GLenum);
 	void enable_attribute(
 		GLuint);
-	
+
 	normal_state_set const &normal_states() const;
 	index_state_set const &attribute_states() const;
 private:

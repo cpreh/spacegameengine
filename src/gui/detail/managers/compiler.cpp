@@ -47,10 +47,10 @@ bool has_parent(
 {
 	if (!v.has_parent())
 		return false;
-	
+
 	if (&(v.parent_widget()) == &w)
 		return true;
-	
+
 	return has_parent(
 		v.parent_widget(),
 		w);
@@ -92,8 +92,8 @@ void sge::gui::detail::managers::compiler::remove(widgets::base &w)
 			<< type_info(typeid(w)).name());
 
 	// remove now dead references from recompile list
-	for (recompile_container::iterator it = recompiles.begin(),next = it; 
-		   it != recompiles.end(); 
+	for (recompile_container::iterator it = recompiles.begin(),next = it;
+		   it != recompiles.end();
 		   it = next)
 	{
 		++next;
@@ -105,7 +105,7 @@ void sge::gui::detail::managers::compiler::remove(widgets::base &w)
 	// we don't want to do anything with the widgets::base or it's parent right now
 	// because any action could fall back to 'w' at some point, so we just make
 	// an entry in the invalidated list which is iterated later
-	
+
 	// this could happen if a child of 'w' was deleted.
 	if (invalidates.find(&w) != invalidates.end())
 		invalidates.erase(&w);
@@ -133,7 +133,7 @@ void sge::gui::detail::managers::compiler::update()
 			*/
 		return;
 	}
-	
+
 	// the parents of invalidates widgets can now be safely invalidated
 	BOOST_FOREACH(recompile_container::const_reference r,invalidates)
 	{
@@ -153,7 +153,7 @@ void sge::gui::detail::managers::compiler::update()
 		SGE_LOG_DEBUG(
 			mylogger,
 			log::_
-				<< SGE_TEXT("compiling widget of type ") 
+				<< SGE_TEXT("compiling widget of type ")
 				<< type_info(typeid(*r.first)).name());
 		r.first->compile(
 			r.second);
@@ -178,7 +178,7 @@ void sge::gui::detail::managers::compiler::insert_or_combine(
 	widgets::base &w,
 	invalidation::type const &i)
 {
-	recompile_container::iterator it = 
+	recompile_container::iterator it =
 		c.find(&w);
 
 	if (it != c.end())

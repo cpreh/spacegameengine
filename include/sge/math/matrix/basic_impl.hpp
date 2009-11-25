@@ -96,11 +96,11 @@ template<
 sge::math::matrix::basic<T, N, M, S>::basic(
 	dim_type const &d,
 	Container const &c)
-{	
+{
 	resize(d);
 
 	SGE_ASSERT(c.size() == size());
-	
+
 	std::copy(
 		c.begin(),
 		c.end(),

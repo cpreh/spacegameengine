@@ -88,7 +88,7 @@ operator <(
 	> const &rhs
 )
 {
-	return 	
+	return
 		lhs.since_time_epoch()
 		< rhs.since_time_epoch();
 }

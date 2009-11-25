@@ -13,7 +13,7 @@ class SGE_CLASS_SYMBOL object
 {
 public:
 	typedef sge::function::object<void ()> task;
-	
+
 	SGE_SYMBOL object(
 		task const &);
 	SGE_SYMBOL void join();

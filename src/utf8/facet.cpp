@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 // utf8_codecvt_facet.cpp
 
 // Copyright (c) 2001 Ronald Garcia, Indiana University (garcia@osl.iu.edu)
-// Andrew Lumsdaine, Indiana University (lums@osl.iu.edu). 
+// Andrew Lumsdaine, Indiana University (lums@osl.iu.edu).
 // Use, modification and distribution is subject to the Boost Software
 // License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/limits.hpp>
 #include <boost/config.hpp>
 
-// If we don't have wstring, then Unicode support 
+// If we don't have wstring, then Unicode support
 // is not available anyway, so we don't need to even
 // compiler this file. This also fixes the problem
 // with mingw, which can compile this file, but will
@@ -53,12 +53,12 @@ BOOST_UTF8_BEGIN_NAMESPACE
 
 // Translate incoming UTF-8 into UCS-4
 std::codecvt_base::result utf8_codecvt_facet::do_in(
-    std::mbstate_t& /*state*/, 
+    std::mbstate_t& /*state*/,
     const char * from,
-    const char * from_end, 
+    const char * from_end,
     const char * & from_next,
-    wchar_t * to, 
-    wchar_t * to_end, 
+    wchar_t * to,
+    wchar_t * to_end,
     wchar_t * & to_next
 ) const {
     // Basic algorithm:  The first octet determines how many
@@ -78,7 +78,7 @@ std::codecvt_base::result utf8_codecvt_facet::do_in(
             return std::codecvt_base::error;
         }
 
-        // The first octet is   adjusted by a value dependent upon 
+        // The first octet is   adjusted by a value dependent upon
         // the number   of "continuing octets" encoding the character
         const   int cont_octet_count = get_cont_octet_count(*from);
         const   wchar_t octet1_modifier_table[] =   {
@@ -87,12 +87,12 @@ std::codecvt_base::result utf8_codecvt_facet::do_in(
 
         // The unsigned char conversion is necessary in case char is
         // signed   (I learned this the hard way)
-        wchar_t ucs_result = 
+        wchar_t ucs_result =
             static_cast<unsigned char>(*from++) - octet1_modifier_table[cont_octet_count];
 
-        // Invariants   : 
+        // Invariants   :
         //   1) At the start of the loop,   'i' continuing characters have been
-        //    processed 
+        //    processed
         //   2) *from   points to the next continuing character to be processed.
         int i   = 0;
         while(i != cont_octet_count && from != from_end) {
@@ -104,9 +104,9 @@ std::codecvt_base::result utf8_codecvt_facet::do_in(
                 return std::codecvt_base::error;
             }
 
-            ucs_result *= (1 << 6); 
+            ucs_result *= (1 << 6);
 
-            // each continuing character has an extra (10xxxxxx)b attached to 
+            // each continuing character has an extra (10xxxxxx)b attached to
             // it that must be removed.
             ucs_result += static_cast<unsigned char>(*from++) - 0x80;
             ++i;
@@ -115,7 +115,7 @@ std::codecvt_base::result utf8_codecvt_facet::do_in(
         // If   the buffer ends with an incomplete unicode character...
         if (from == from_end && i   != cont_octet_count) {
             // rewind "from" to before the current character translation
-            from_next = from - (i+1); 
+            from_next = from - (i+1);
             to_next = to;
             return std::codecvt_base::partial;
         }
@@ -130,12 +130,12 @@ std::codecvt_base::result utf8_codecvt_facet::do_in(
 }
 
 std::codecvt_base::result utf8_codecvt_facet::do_out(
-    std::mbstate_t& /*state*/, 
+    std::mbstate_t& /*state*/,
     const wchar_t *   from,
-    const wchar_t * from_end, 
+    const wchar_t * from_end,
     const wchar_t * & from_next,
-    char * to, 
-    char * to_end, 
+    char * to,
+    char * to_end,
     char * & to_next
 ) const
 {
@@ -163,7 +163,7 @@ std::codecvt_base::result utf8_codecvt_facet::do_out(
         *to++ = static_cast<char>(octet1_modifier_table[cont_octet_count] +
             static_cast<unsigned char>(*from / (1 << shift_exponent)));
 
-        // Process the continuation characters 
+        // Process the continuation characters
         // Invariants: At   the start of the loop:
         //   1) 'i' continuing octets   have been generated
         //   2) '*to'   points to the next location to place an octet
@@ -194,14 +194,14 @@ std::codecvt_base::result utf8_codecvt_facet::do_out(
 int utf8_codecvt_facet::do_length(
     BOOST_CODECVT_DO_LENGTH_CONST std::mbstate_t &,
     const char * from,
-    const char * from_end, 
+    const char * from_end,
     std::size_t max_limit
 #if BOOST_WORKAROUND(__IBMCPP__, BOOST_TESTED_AT(600))
 ) const throw()
 #else
 ) const
 #endif
-{ 
+{
     // RG - this code is confusing!  I need a better way to express it.
     // and test cases.
 
@@ -210,7 +210,7 @@ int utf8_codecvt_facet::do_length(
     // 2) char_count holds the number of characters shown to fit
     // within the bounds so far (no greater than max_limit)
     // 3) from_next points to the octet 'last_octet_count' before the
-    // last measured character.  
+    // last measured character.
     int last_octet_count=0;
     std::size_t char_count = 0;
     const char* from_next = from;

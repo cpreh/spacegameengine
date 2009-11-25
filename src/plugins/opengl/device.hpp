@@ -96,7 +96,7 @@ public:
 
 	void viewport(
 		renderer::viewport const &);
-	
+
 	void viewport_mode(
 		renderer::viewport_mode::type);
 
@@ -125,7 +125,7 @@ public:
 	create_glsl_program(
 		renderer::glsl::optional_istream const &vertex_shader_source,
 		renderer::glsl::optional_istream const &pixel_shader_source);
-	
+
 	void glsl_program(
 		renderer::glsl::program_ptr);
 
@@ -177,7 +177,7 @@ private:
 
 	void vertex_buffer(
 		renderer::const_vertex_buffer_ptr);
-	
+
 	fbo_target_ptr const
 	create_target();
 

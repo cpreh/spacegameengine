@@ -26,7 +26,7 @@ template<
 	typename SourceContainer
 >
 void
-sge::algorithm::append(	
+sge::algorithm::append(
 	DestContainer &dest,
 	SourceContainer const &src)
 {

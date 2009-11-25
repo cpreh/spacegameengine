@@ -57,7 +57,7 @@ sge::strong_typedef<
 			u
 		)
 	)
-{}	
+{}
 
 template<
 	typename T,
@@ -83,7 +83,7 @@ sge::strong_typedef<
 		>(
 			u
 		);
-	
+
 	return *this;
 }
 

@@ -87,9 +87,9 @@ sge::md3::object::object(
 		num_frames = io::read<s32>(is, endian),
 		num_tags     = io::read<s32>(is, endian),
 		num_surfaces = io::read<s32>(is, endian);
-	
+
 	io::read<s32>(is, endian); // num_skins
-	
+
 	s32 const
 		ofs_frames   = io::read<s32>(is, endian),
 		ofs_tags     = io::read<s32>(is, endian),
@@ -151,11 +151,11 @@ sge::md3::object::copy_vertices(
 		);
 
 	typedef renderer::vf::view<
-		vertex_format	
+		vertex_format
 	> vertex_view;
-		
+
 	vertex_view const vertices(
-		view	
+		view
 	);
 
 	vertex_view::iterator vbit = vertices.begin();
@@ -195,7 +195,7 @@ public:
 	:
 		surfaces_(surfaces_)
 	{}
-	
+
 	template<
 		typename T
 	>
@@ -203,7 +203,7 @@ public:
 	operator()(
 		T const &t) const
 	{
-	
+
 		sge::renderer::size_type ib_offset(0);
 		typedef typename T::value_type value_type;
 		typename T::iterator it = t.begin();
@@ -229,7 +229,7 @@ public:
 		}
 	}
 private:
-	sge::md3::object::surface_vector const &surfaces_;	
+	sge::md3::object::surface_vector const &surfaces_;
 };
 
 }
@@ -358,7 +358,7 @@ inline sge::md3::object::surface::surface(model::istream& is, const s32 num_fram
 	is.seekg(start + ofs_shaders, std::ios_base::beg);
 	for(s32 i = 0; i < num_shaders; ++i)
 		shaders.push_back(shader(is));
-	
+
 	is.seekg(start + ofs_st, std::ios_base::beg);
 	for(s32 i = 0; i < num_verts; ++i)
 		st.push_back(texcoord(is));

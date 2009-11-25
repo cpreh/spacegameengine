@@ -44,7 +44,7 @@ sge::opengl::xf86vmode::choose_mode(
 		   (best == -1 || rate >= calc_refresh_rate(m[best])))
 			best = static_cast<int>(i);
 	}
-	
+
 	if(best == -1)
 		throw exception(
 			SGE_TEXT("No matching resolution found in xf86vmode!"));

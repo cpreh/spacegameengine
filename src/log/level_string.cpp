@@ -64,7 +64,7 @@ sge::log::level_from_string(
 			+ str
 			+ SGE_TEXT("\" not found!")
 		);
-	
+
 	return
 		static_cast<
 			level::type

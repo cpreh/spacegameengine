@@ -71,7 +71,7 @@ sge::texture::cell_fragmented::consume_fragment(
 
 	if(it == cells.end())
 		return part_ptr();
-	
+
 	*it = true;
 
 	field_type::vector_type const pos(
@@ -117,7 +117,7 @@ bool sge::texture::cell_fragmented::repeatable() const
 sge::texture::free_type
 sge::texture::cell_fragmented::free_value() const
 {
-	return empty() ? 0 : cell_size.content(); 
+	return empty() ? 0 : cell_size.content();
 }
 
 bool

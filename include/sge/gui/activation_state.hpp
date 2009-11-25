@@ -27,10 +27,10 @@ namespace gui
 {
 namespace activation_state
 {
-enum type 
-{ 
+enum type
+{
 	active,
-	inactive 
+	inactive
 };
 }
 }

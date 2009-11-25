@@ -33,7 +33,7 @@ namespace console
 typedef boost::ptr_map<
 	string,
 	function
-> function_map; 
+> function_map;
 }
 }
 

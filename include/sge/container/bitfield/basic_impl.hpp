@@ -50,7 +50,7 @@ sge::container::bitfield::basic<Enum, Size, InternalType>::basic(
 {
 	set(e, true);
 }
-	
+
 template<
 	typename Enum,
 	Enum Size,
@@ -64,7 +64,7 @@ sge::container::bitfield::basic<Enum, Size, InternalType>::operator=(
 	set(e, true);
 	return *this;
 }
-	
+
 template<typename Enum, Enum Size, typename InternalType>
 typename sge::container::bitfield::basic<Enum, Size, InternalType>::iterator
 sge::container::bitfield::basic<Enum, Size, InternalType>::begin()
@@ -126,7 +126,7 @@ sge::container::bitfield::basic<Enum, Size, InternalType>::rend() const
 {
 	return const_reverse_iterator(begin());
 }
-	
+
 template<
 	typename Enum,
 	Enum Size,
@@ -249,7 +249,7 @@ sge::container::bitfield::basic<Enum, Size, InternalType>::operator^=(
 	basic<Enum, Size, InternalType> const &r)
 {
 	namespace args = boost::phoenix::arg_names;
-	
+
 	std::transform(
 		array.begin(),
 		array.end(),
@@ -287,7 +287,7 @@ sge::container::bitfield::basic<Enum, Size, InternalType>::operator~() const
 
 	return ret;
 }
-	
+
 template<typename Enum, Enum Size, typename InternalType>
 void sge::container::bitfield::basic<Enum, Size, InternalType>::set(
 	Enum const where,
@@ -324,7 +324,7 @@ template<
 >
 bool
 sge::container::bitfield::basic<Enum, Size, InternalType>::operator!=(
-	basic<Enum, Size, InternalType> const &r) const 
+	basic<Enum, Size, InternalType> const &r) const
 {
 	return !((*this)==r);
 }

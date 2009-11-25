@@ -49,7 +49,7 @@ void resize(
 {}
 
 template<
-	typename Dim,	
+	typename Dim,
 	typename S
 >
 void resize(

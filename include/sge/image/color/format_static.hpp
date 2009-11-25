@@ -29,13 +29,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-namespace image 
+namespace image
 {
 namespace color
 {
 
 template<
-	typename Format 
+	typename Format
 >
 struct format_static {
 	static format::type const value
@@ -44,10 +44,10 @@ struct format_static {
 		>(
 			mpl::index_of<
 				elements,
-				Format	
+				Format
 			>::value
 		);
-	
+
 	BOOST_STATIC_ASSERT(
 		value < format::size
 	);

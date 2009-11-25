@@ -42,7 +42,7 @@ sge::opengl::xrandr::choose_resolution(
 	configuration_ptr const config(
 		make_shared_ptr<configuration>(
 			wnd));
-	
+
 	SGE_X11_SENTRY
 
 	int nsizes;
@@ -50,7 +50,7 @@ sge::opengl::xrandr::choose_resolution(
 		= XRRConfigSizes(
 			config->get(),
 			&nsizes);
-	
+
 	for(int i = 0; i < nsizes; ++i)
 		if(static_cast<renderer::screen_unit>(sizes[i].width) == mode.size().w()
 		&& static_cast<renderer::screen_unit>(sizes[i].height) == mode.size().h())

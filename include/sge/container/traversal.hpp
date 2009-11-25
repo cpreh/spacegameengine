@@ -75,7 +75,7 @@ public:
 	public:
 		iterator(
 			tree_iterator const &it,
-			Tree *const current 
+			Tree *const current
 		)
 		:
 			it(it),

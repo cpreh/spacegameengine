@@ -23,52 +23,52 @@ class world
 public:
 	world(
 		collision::optional_rect const &);
-	
+
 	signal::auto_connection
 	register_test_callback(
 		collision::test_callback const &);
 
-	void 
+	void
 	test_callback_combiner(
 		collision::test_callback_combiner const &);
-	
+
 	signal::auto_connection
 	register_begin_callback(
 		collision::callback const &);
-		
+
 	signal::auto_connection
 	register_end_callback(
 		collision::callback const &);
-		
-	collision::body_ptr const 
+
+	collision::body_ptr const
 	create_body(
 		collision::satellite_ptr,
 		collision::shapes::container const &,
 		collision::point const &,
 		collision::point const &);
-	
+
 	collision::shapes::circle_ptr const
 	create_circle(
 		collision::unit radius);
-	
-	collision::group_ptr const 
+
+	collision::group_ptr const
 	create_group();
 
 	void
 	update(
 		collision::time_unit delta);
-	
+
 	void
 	collides_with(
 		collision::group_ptr,
 		collision::group_ptr);
-	
+
 	~world();
 private:
 	// body needs the worldid
 	friend class body;
-	
-	typedef 
+
+	typedef
 	std::map
 	<
 		std::pair
@@ -78,20 +78,20 @@ private:
 		>,
 		bool
 	> object_map;
-	
-	dWorldID const world_; 
+
+	dWorldID const world_;
 	dSpaceID space_;
-	collision::callback_signal 
+	collision::callback_signal
 		begin_signal_,
 		end_signal_;
-	sge::signal::object<collision::test_callback_fn> 
+	sge::signal::object<collision::test_callback_fn>
 		test_signal_;
 	group_id group_id_;
 	dReal time_remainder_;
 	object_map collisions_;
 	transformer transformer_;
 	unsigned long body_count_;
-	
+
 	void step(
 		dReal);
 	void check_end_signals();

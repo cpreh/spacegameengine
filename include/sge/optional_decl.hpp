@@ -46,18 +46,18 @@ public:
 	// intentionally not explicit
 	optional(
 		const_reference);
-	
+
 	optional(
 		optional const &);
-	
+
 	optional &
 	operator=(
 		optional const &);
-	
+
 	optional &
 	operator=(
 		const_reference);
-	
+
 	~optional();
 
 	reference operator*();
@@ -73,11 +73,11 @@ private:
 	pointer
 	construct(
 		const_reference);
-	
+
 	pointer
 	construct(
 		optional const &);
-		
+
 	void destroy();
 
 	typedef typename alignment::array<

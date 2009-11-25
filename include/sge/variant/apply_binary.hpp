@@ -47,7 +47,7 @@ apply_binary(
 		>(
 			op,
 			obj1
-		),	
+		),
 		obj2
 	);
 }

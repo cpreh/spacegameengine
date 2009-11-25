@@ -62,7 +62,7 @@ sge::chrono::system_clock::now()
 		throw clock_failure(
 			SGE_TEXT("gettimeofday() failed")
 		);
-	
+
 	return time_point(
 		duration(
 			tv.tv_sec * period::den + tv.tv_usec

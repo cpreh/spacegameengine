@@ -69,7 +69,7 @@ sge::optional<T>::operator=(
 	data_ = construct(o);
 	return *this;
 }
-	
+
 template<
 	typename T
 >
@@ -78,7 +78,7 @@ sge::optional<T>::operator=(
 	const_reference r)
 {
 	destroy();
-	data_ = construct(r);	
+	data_ = construct(r);
 	return *this;
 }
 
@@ -114,7 +114,7 @@ template<
 typename sge::optional<T>::pointer
 sge::optional<T>::operator->()
 {
-	return data_; 
+	return data_;
 }
 
 template<
@@ -123,7 +123,7 @@ template<
 typename sge::optional<T>::const_pointer
 sge::optional<T>::operator->() const
 {
-	return data_; 
+	return data_;
 }
 
 template<
@@ -154,7 +154,7 @@ sge::optional<T>::construct(
 {
 	return data_ = new (storage_.data()) T(r);
 }
-	
+
 template<
 	typename T
 >
@@ -166,7 +166,7 @@ sge::optional<T>::construct(
 		? new (storage_.data()) T(*o)
 		: static_cast<pointer>(0);
 }
-		
+
 template<
 	typename T
 >

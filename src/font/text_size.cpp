@@ -29,7 +29,7 @@ sge::font::text_size::text_size(
 	end_(end_),
 	next_begin_(next_begin_)
 {}
-	
+
 sge::font::dim const &
 sge::font::text_size::size() const
 {

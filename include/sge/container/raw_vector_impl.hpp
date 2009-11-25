@@ -47,7 +47,7 @@ sge::container::raw_vector<T, A>::end()
 {
 	return data_end();
 }
-	
+
 template<typename T, typename A>
 typename sge::container::raw_vector<T, A>::const_iterator sge::container::raw_vector<T, A>::end() const
 {
@@ -188,7 +188,7 @@ sge::container::raw_vector<T, A>::raw_vector(const In beg, const In end, const A
 {
 	assign(beg, end);
 }
-	
+
 template<typename T, typename A>
 sge::container::raw_vector<T, A>::raw_vector(const raw_vector& x)
 : i(x.i.a, x.size())
@@ -361,7 +361,7 @@ sge::container::raw_vector<T, A>::insert(
 		return position;
 	}
 }
-	
+
 template<typename T, typename A>
 void sge::container::raw_vector<T, A>::insert(const iterator position, const size_type n, const T& x)
 {

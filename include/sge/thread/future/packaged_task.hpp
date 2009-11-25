@@ -26,28 +26,28 @@ public:
 	template<class F>
 	explicit packaged_task(
 		F const &);
-	
+
 	template<class F>
 	explicit packaged_task(
 		boost::detail::thread_move_t<F>);
-	
+
 	packaged_task(
 		boost::detail::thread_move_t<packaged_task>);
-	
+
 	packaged_task &operator=(
 		boost::detail::thread_move_t<packaged_task>);
-	
+
 	void swap(
 		packaged_task &);
 
 	unique_object<T> object();
-	
+
 	void operator()();
 private:
 	typedef sge::shared_ptr<detail::task_base<T> > task_ptr;
 	task_ptr task_;
 	bool future_obtained_;
-}; 
+};
 }
 }
 }
@@ -119,7 +119,7 @@ sge::thread::future::unique_object<T> sge::thread::future::packaged_task<T>::obj
 	if (!future_obtained_)
 	{
 		future_obtained_ = true;
-		return 
+		return
 			unique_object<T>(
 				task_);
 	}

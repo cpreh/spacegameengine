@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::gui::widgets::backdrop::backdrop(
 	widgets::parent_data const &_parent,
 	parameters const &_params)
-: 
+:
 	base(
 		_parent,
 		_params)

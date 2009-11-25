@@ -41,7 +41,7 @@ public:
 
 	SGE_SYMBOL string const &name() const;
 private:
-	string const class_name;	
+	string const class_name;
 };
 
 }

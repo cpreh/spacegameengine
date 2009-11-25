@@ -49,7 +49,7 @@ sge::math::detail::view_storage<T, N>::operator[](
 {
 	return rep[i * stride + index];
 }
-	
+
 template<
 	typename T,
 	typename N

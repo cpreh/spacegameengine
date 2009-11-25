@@ -34,7 +34,7 @@ template<
 	typename Ch,
 	typename Traits,
 	typename Clock,
-	typename Duration 
+	typename Duration
 >
 std::basic_ostream<
 	Ch,

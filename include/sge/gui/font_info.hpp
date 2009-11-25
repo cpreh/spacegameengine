@@ -36,7 +36,7 @@ public:
 	SGE_GUI_SYMBOL font_info(
 		font::metrics_ptr,
 		sge::gui::color const &);
-	
+
 	SGE_GUI_SYMBOL font::metrics_ptr const metrics() const;
 	SGE_GUI_SYMBOL sge::gui::color const color() const;
 private:

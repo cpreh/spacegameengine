@@ -30,7 +30,7 @@ namespace endianness
 {
 
 SGE_SYMBOL void reverse_mem(
-	unsigned char*, 
+	unsigned char*,
 	std::size_t len);
 
 }

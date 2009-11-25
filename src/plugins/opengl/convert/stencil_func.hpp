@@ -31,7 +31,7 @@ namespace opengl
 namespace convert
 {
 
-GLenum 
+GLenum
 stencil_func(
 	renderer::state::stencil_func::type
 );

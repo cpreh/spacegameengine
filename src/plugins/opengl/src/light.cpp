@@ -105,7 +105,7 @@ void light_float_ptr(
 		SGE_TEXT("glLightfv failed"),
 		sge::renderer::exception
 	)
-	
+
 }
 
 void light_float(
@@ -151,7 +151,7 @@ void light_pos(
 			static_cast<GLfloat>(1)
 		)
 	);
-	
+
 	light_float_ptr(
 		index,
 		GL_POSITION,

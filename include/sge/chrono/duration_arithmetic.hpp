@@ -133,7 +133,7 @@ operator *(
 	Rep2 const &s
 )
 {
-	return 
+	return
 		duration<
 			typename common_type<
 				Rep1,

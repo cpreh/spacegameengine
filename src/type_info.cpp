@@ -26,8 +26,8 @@ sge::type_info::type_info(
 	std::type_info const &ti)
 :
 	info_(&ti)
-{ 
-	SGE_ASSERT(info_); 
+{
+	SGE_ASSERT(info_);
 }
 
 bool sge::type_info::before(

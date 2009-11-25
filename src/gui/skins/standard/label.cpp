@@ -111,10 +111,10 @@ sge::gui::dim const sge::gui::skins::standard::optimal_size(
 		mylogger,
 		log::_ << SGE_TEXT("calling size hint for label"));
 
-	return 
+	return
 		utility::unlimited_text_size(
 			standard_font().metrics(),
-			b.static_size() 
-				? utility::string_square(*b.static_size()) 
+			b.static_size()
+				? utility::string_square(*b.static_size())
 				: b.text());
 }

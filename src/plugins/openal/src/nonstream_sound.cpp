@@ -36,14 +36,14 @@ sge::openal::nonstream_sound::nonstream_sound(
 void sge::openal::nonstream_sound::play_mode(sge::audio::play_mode::type pm)
 {
 	source::play_mode(pm);
-	
+
 	alSourcei(
 		alsource(),
 		AL_LOOPING,
-		source::play_mode() == audio::play_mode::loop 
-			? AL_TRUE 
+		source::play_mode() == audio::play_mode::loop
+			? AL_TRUE
 			: AL_FALSE
-	); 
+	);
 
 	SGE_OPENAL_CHECK_STATE(
 		SGE_TEXT("alSourcei failed"),

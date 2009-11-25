@@ -52,7 +52,7 @@ public:
 		any_arithmetic const &distribution_exponent,
 		any_arithmetic const &cutoff_angle
 	);
-	
+
 	SGE_SYMBOL image::color::any::object const &
 	ambient() const;
 

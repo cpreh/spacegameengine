@@ -56,7 +56,7 @@ public:
 		data_type const &,
 		size_type elements,
 		Type);
-	
+
 	SGE_SYMBOL const_pointer
 	data() const;
 

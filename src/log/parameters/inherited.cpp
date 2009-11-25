@@ -44,7 +44,7 @@ sge::log::parameters::inherited(
 			+ sub_location
 		)
 		.enabled(
-			parent.enabled()	
+			parent.enabled()
 		)
 		.level_streams(
 			parent.level_streams()

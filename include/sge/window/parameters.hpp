@@ -43,7 +43,7 @@ public:
 		string const &title,
 		dim_type const &dim,
 		string const &class_name = default_class);
-	
+
 	SGE_SYMBOL string const &
 	title() const;
 

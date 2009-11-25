@@ -98,7 +98,7 @@ sge::chrono::time_point<
 	Duration
 >::time_since_epoch() const
 {
-	return d_;	
+	return d_;
 }
 
 template<

@@ -80,7 +80,7 @@ try
 			static_cast<sge::font::size_type>(15)
 		)
 	);
-	
+
 	sge::font::drawer_ptr const drawer(
 		sge::make_shared_ptr<
 			sge::font::drawer_3d
@@ -89,7 +89,7 @@ try
 			sge::image::colors::green()
 		)
 	);
-	
+
 	sge::font::object font(
 		metrics,
 		drawer

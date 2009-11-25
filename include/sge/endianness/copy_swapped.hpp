@@ -50,7 +50,7 @@ copy_swapped(
 				reinterpret_cast<
 					unsigned char *
 				>(
-					dest - stride 
+					dest - stride
 				),
 				stride * sizeof(T)
 			);

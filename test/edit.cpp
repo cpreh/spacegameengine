@@ -86,7 +86,7 @@ try
 		(sge::systems::parameterless::font)
 		(sge::systems::parameterless::image));
 
-	
+
 	sge::gui::manager m(
 		sys.renderer(),
 		sys.input_system(),
@@ -97,7 +97,7 @@ try
 			new sge::gui::cursor::default_(
 				sys.image_loader(),
 				sys.renderer())));
-	
+
 	sge::gui::widgets::edit b(
 		m,
 		sge::gui::widgets::parameters()
@@ -116,7 +116,7 @@ try
 				sge::image::colors::black())
 			(sge::renderer::state::cull_mode::off)
 		);
-	
+
 	bool running = true;
 
 	sge::signal::scoped_connection const cb(
@@ -135,7 +135,7 @@ try
 		m.update();
 		m.draw();
 	}
-} 
+}
 catch (sge::exception const &e)
 {
 	sge::cerr << SGE_TEXT("caught sge exception: ") << e.string() << SGE_TEXT('\n');

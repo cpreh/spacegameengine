@@ -62,7 +62,7 @@ void sge::gui::skins::standard::draw(
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_ << SGE_TEXT("creating canvas from buffer"));
-	
+
 	b.buffer() = choose_image(b);
 
 	canvas::object c(b.buffer());

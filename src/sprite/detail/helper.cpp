@@ -72,7 +72,7 @@ sge::sprite::detail::fill_tex_coordinates(
 	(*it++).set<vertex_texpos>(tex_pos(rt.right(), rt.top()));
 	(*it++).set<vertex_texpos>(tex_pos(rt.right(), rt.bottom()));
 	(*it++).set<vertex_texpos>(tex_pos(rt.left(), rt.bottom()));
-	
+
 	return it;
 }
 
@@ -124,7 +124,7 @@ sge::sprite::detail::fill_position_rotated(
 		2
 	>::type const mat_rot(
 		cosx, -sinx,
-		sinx,  cosx); 
+		sinx,  cosx);
 
 	BOOST_FOREACH(position_array::const_reference p, positions)
 		(*it++).set<vertex_pos>(
@@ -148,7 +148,7 @@ sge::sprite::detail::fill_color(
 			acol
 		)
 	);
-	
+
 	for(unsigned i = 0; i < detail::vertices_per_sprite; ++i)
 		(*it++).set<vertex_color>(col);
 	return it;

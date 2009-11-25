@@ -41,13 +41,13 @@ public:
 		GLsizei size,
 		GLvoid const *data,
 		GLenum flags) = 0;
-	
+
 	virtual void buffer_sub_data(
 		GLenum type,
 		GLsizei first,
 		GLsizei size,
 		GLvoid const *data) = 0;
-	
+
 	virtual GLvoid *buffer_offset(
 		GLenum type,
 		GLsizei offset) const = 0;

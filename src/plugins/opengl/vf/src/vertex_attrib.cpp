@@ -105,7 +105,7 @@ void initialize()
 		gl_vertex_attrib_pointer = glVertexAttribPointer;
 		gl_enable_vertex_attrib_array = glEnableVertexAttribArray;
 		gl_disable_vertex_attrib_array = glDisableVertexAttribArray;
-	
+
 	}
 	else if(sge::opengl::glew_is_supported("GL_ARB_vertex_shader"))
 	{

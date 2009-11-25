@@ -124,7 +124,7 @@ sge::gui::image const &sge::gui::widgets::edit::text_buffer() const
 void sge::gui::widgets::edit::process_keyboard_enter(events::keyboard_enter const &)
 {
 	cursor_visible_ = true;
-	timer_ = 
+	timer_ =
 		parent_manager().register_timer(
 			sge::time::second_f(static_cast<time::funit>(0.5)),
 			std::tr1::bind(
@@ -138,13 +138,13 @@ sge::gui::key_handling::type sge::gui::widgets::edit::process_key(events::key co
 {
 	if (math::almost_zero(k.value().value()))
 		return key_handling::process;
-	
+
 	if (type == single_line && k.value().key().code() == input::kc::key_return)
 	{
 		return_pressed();
 		return key_handling::process;
 	}
-	
+
 	// hand over to delegate
 	cursor.key_callback(k.value());
 
@@ -191,7 +191,7 @@ void sge::gui::widgets::edit::resize(dim const &d) const
 		SGE_LOG_DEBUG(mygraphlogger,log::_ << SGE_TEXT("no resize needed"));
 		return;
 	}
-	
+
 	text_buffer_.resize(
 		dim(
 			text_size.w() >= d.w() ? text_size.w() : d.w(),
@@ -210,16 +210,16 @@ void sge::gui::widgets::edit::refresh() const
 		mygraphlogger,
 		log::_ << SGE_TEXT("getting font size"));
 
-	font_info const font = 
+	font_info const font =
 		parent_manager().skin().standard_font();
-	
-	dim const d = 
+
+	dim const d =
 		utility::unlimited_text_size(
 			font.metrics(),
 			ntext);
 
 	SGE_LOG_DEBUG(mygraphlogger,log::_ << SGE_TEXT("resizing buffer"));
-	
+
 	// text larger than buffer? resize!
 	resize(d);
 
@@ -233,10 +233,10 @@ void sge::gui::widgets::edit::refresh() const
 		c.area(),
 		sge::image::colors::white(),
 		canvas::rect_type::solid);
-	
+
 	if (ntext.empty())
 		return;
-	
+
 	SGE_LOG_DEBUG(
 		mygraphlogger,
 		log::_ << SGE_TEXT("drawing text: ") << ntext);
@@ -277,19 +277,19 @@ void sge::gui::widgets::edit::refresh() const
 		SGE_LOG_DEBUG(
 			mygraphlogger,
 			log::_ << SGE_TEXT("the cursor is on line ") << cursor_line
-							<< SGE_TEXT("and stands on the character: '") << ntext[cursor.pos()] 
-							<< SGE_TEXT("'")); 
+							<< SGE_TEXT("and stands on the character: '") << ntext[cursor.pos()]
+							<< SGE_TEXT("'"));
 
-		unit const 
-			cursor_start = 
+		unit const
+			cursor_start =
 				static_cast<unit>(cursor_line*font.metrics()->line_height()),
-			cursor_end = 
+			cursor_end =
 				std::min(c.area().h()-1,cursor_start + font.metrics()->line_height());
 			//	static_cast<unit>(cursor_start+2);
 
 		SGE_LOG_DEBUG(
 			mygraphlogger,
-			log::_ << SGE_TEXT("drawing cursor at ") << cursor_start); 
+			log::_ << SGE_TEXT("drawing cursor at ") << cursor_start);
 
 		// draw cursor
 		c.draw_line(

@@ -207,12 +207,12 @@ void sge::x11input::system::on_release(
 	if(!acquired)
 		return;
 	acquired = false;
-	
+
 	SGE_LOG_DEBUG(
 		log::global(),
 		log::_
 			<< SGE_TEXT("x11: release window"));
-	
+
 	BOOST_FOREACH(device_vector::reference dev, devices)
 		dev.ungrab();
 }

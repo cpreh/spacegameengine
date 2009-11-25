@@ -50,7 +50,7 @@ sge::assign::detail::array<T,N>::array(
 template<
 	class T,
 	std::size_t N>
-sge::assign::detail::array<T,N+1> 
+sge::assign::detail::array<T,N+1>
 sge::assign::detail::array<T,N>::operator()(
 	T const &t)
 {

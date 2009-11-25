@@ -47,7 +47,7 @@ structure_cast(
 	>(
 		src
 	);
-		
+
 }
 
 }

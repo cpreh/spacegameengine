@@ -63,7 +63,7 @@ apply_unary(
 			typename boost::mpl::end<
 				types
 			>::type *
-		>(0), 
+		>(0),
 		op,
 		obj
 	);

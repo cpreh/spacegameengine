@@ -33,7 +33,7 @@ bool sge::x11input::check_dga_mouse(
 	const wnd
 #endif
 )
-	
+
 {
 #ifdef SGE_USE_DGA
 	int flags;

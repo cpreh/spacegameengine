@@ -37,7 +37,7 @@ public:
 	~fbo_target();
 
 	void bind_texture(
-		renderer::texture_ptr);	
+		renderer::texture_ptr);
 	void bind_me() const;
 private:
 	dim_type const dim() const;

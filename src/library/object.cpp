@@ -201,7 +201,7 @@ sge::library::object::load_address_base(
 			+ SGE_TEXT(" not found in library ")
 			+ name().string()
 		);
-	
+
 	return ret.dl_fun;
 #endif
 }

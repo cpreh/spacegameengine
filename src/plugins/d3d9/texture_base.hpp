@@ -34,7 +34,7 @@ class texture_base {
 protected:
 	explicit texture_base(
 		IDirect3DBaseTexture9 *);
-	
+
 	virtual ~texture_base();
 public:
 	IDirect3DBaseTexture9 *base() const;

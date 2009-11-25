@@ -35,7 +35,7 @@ public:
 	explicit fill_visitor(
 		sge::image::color::any::object const &col
 	);
-	
+
 	template<
 		typename T
 	>

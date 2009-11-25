@@ -29,7 +29,7 @@ void sge::opengl::xrandr::check_extension(
 	x11::display_ptr const dsp)
 {
 	int event_base_return, error_base_return;
-		
+
 	if(XRRQueryExtension(
 		dsp->get(),
 		&event_base_return,

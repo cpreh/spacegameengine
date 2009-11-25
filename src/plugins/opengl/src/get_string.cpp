@@ -33,7 +33,7 @@ sge::opengl::get_string(
 	if(!ret)
 		throw exception(
 			SGE_TEXT("glGetString() failed!"));
-	
+
 	return iconv(
 		reinterpret_cast<char const *>(
 			ret));

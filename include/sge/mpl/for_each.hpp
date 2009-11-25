@@ -41,7 +41,7 @@ public:
 		typename LastIterator,
 		typename Fun
 	>
-	static void 
+	static void
 	execute(
 		Iterator *,
 		LastIterator *,
@@ -57,7 +57,7 @@ public:
 		typename LastIterator,
 		typename Fun
 	>
-	static void 
+	static void
 	execute(
 		Iterator *,
 		LastIterator *,

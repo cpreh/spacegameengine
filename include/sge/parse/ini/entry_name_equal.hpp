@@ -38,7 +38,7 @@ public:
 
 	SGE_SYMBOL explicit entry_name_equal(
 		string const &);
-	
+
 	SGE_SYMBOL bool
 	operator()(
 		entry const &) const;

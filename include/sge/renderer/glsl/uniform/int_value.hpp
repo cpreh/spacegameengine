@@ -38,7 +38,7 @@ typedef detail::basic_value<
 	int_type,
 	int_value_type::type
 > int_value;
-	
+
 }
 }
 }

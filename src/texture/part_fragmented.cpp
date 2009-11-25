@@ -64,7 +64,7 @@ void sge::texture::part_fragmented::data(
 			outer_area_,
 			inner_area_
 		);
-	
+
 	if(need_atlasing_w)
 		atlas_w(
 			texture(),

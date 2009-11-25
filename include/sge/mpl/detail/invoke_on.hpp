@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-namespace mpl 
+namespace mpl
 {
 namespace detail
 {
@@ -86,7 +86,7 @@ struct invoke_on<
 			Iterator
 		>::type iter;
 
-		return Counter::value == index 
+		return Counter::value == index
 			?
 #ifdef SGE_MSVC_DEPENDANT_TEMPLATE_BUG
 			op.operator()<

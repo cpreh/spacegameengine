@@ -39,7 +39,7 @@ void sge::gui::canvas::object::draw_pixel(
 		lexical_cast<string>(p)+
 		SGE_TEXT(" which is not inside rect ")+
 		lexical_cast<string>(area()));
-	
+
 	sge::image::algorithm::fill(
 		sge::image::view::sub(
 			view_,

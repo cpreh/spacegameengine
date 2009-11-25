@@ -30,7 +30,7 @@ namespace sge
 {
 namespace collision
 {
-class SGE_CLASS_SYMBOL satellite 
+class SGE_CLASS_SYMBOL satellite
 {
 	SGE_NONCOPYABLE(satellite)
 protected:

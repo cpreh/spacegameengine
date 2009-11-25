@@ -93,7 +93,7 @@ sge::gui::detail::managers::keyboard::keyboard(sge::input::system_ptr const is)
 
 // Here, we could add a keyboard_enter event to the first added widget, but the function
 // below is called from a base class constructor, so widget::process(keyboard_enter)
-// is called instead of most_derived::process(keyboard_enter), so the policy is: No 
+// is called instead of most_derived::process(keyboard_enter), so the policy is: No
 // widgets::base initially has the focus.
 void sge::gui::detail::managers::keyboard::add(widgets::base &w)
 {
@@ -103,14 +103,14 @@ void sge::gui::detail::managers::keyboard::add(widgets::base &w)
 		*/
 
 	if (w.keyboard_focus() == keyboard_focus::ignore)
-		return; 
+		return;
 
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_ << SGE_TEXT("adding widget"));
-	
+
 	SGE_ASSERT(
-		utility::ptr_find(widgets.begin(),widgets.end(),&w) 
+		utility::ptr_find(widgets.begin(),widgets.end(),&w)
 			== widgets.end());
 
 	widgets.push_back(&w);
@@ -128,7 +128,7 @@ void sge::gui::detail::managers::keyboard::activation(
 
 	if (a == activation_state::active)
 		return;
-	
+
 	(*focus)->process_keyboard_leave(events::keyboard_leave());
 	focus.reset();
 }
@@ -138,15 +138,15 @@ void sge::gui::detail::managers::keyboard::request_focus(widgets::base &w)
 	widget_container::iterator wi = utility::ptr_find(
 			widgets.begin(),
 			widgets.end(),&w);
-	
+
 	SGE_ASSERT_MESSAGE(
 		wi != widgets.end(),
 		SGE_TEXT("a widgets::base requested the keyboard focus which cannot receive keys"));
-	
+
 	// Widget already has the focus?
 	if (focus && *focus == wi)
 		return;
-	
+
 	switch_focus(wi);
 }
 
@@ -154,23 +154,23 @@ void sge::gui::detail::managers::keyboard::remove(widgets::base &w)
 {
 	if (w.keyboard_focus() == keyboard_focus::ignore)
 		return;
-	
+
 	widget_container::iterator wi = utility::ptr_find(
 			widgets.begin(),
 			widgets.end(),&w);
-	
+
 	SGE_ASSERT(wi != widgets.end());
-	
+
 	// the widgets::base to delete has the focus? then reset focus
 	if (focus && *focus == wi)
 		focus.reset();
 /* old (alternative) behaviour was to take the next possible widget
 		switch_focus(
-			boost::next(*focus) == widgets.end() 
+			boost::next(*focus) == widgets.end()
 				? widgets.begin()
 				: boost::next(*focus));
 				*/
-	
+
 	widgets.erase(wi);
 }
 
@@ -178,14 +178,14 @@ void sge::gui::detail::managers::keyboard::cycle_focus()
 {
 	if (widgets.empty())
 		return;
-	
+
 	// If no widgets::base currently has the focus, take the first (active) one on the
 	// list
 	if (!focus)
 	{
-		for (widget_container::iterator i = widgets.begin(); 
-		     i != widgets.end(); 
-				 ++i) 
+		for (widget_container::iterator i = widgets.begin();
+		     i != widgets.end();
+				 ++i)
 		{
 			if (active(*i))
 			{
@@ -227,12 +227,12 @@ void sge::gui::detail::managers::keyboard::keyboard_focus(
 			widget_container::iterator wi = utility::ptr_find(
 					widgets.begin(),
 					widgets.end(),&w);
-			
+
 			// The widgets::base ignores keyboard focus and it never accepted it?
 			// then we can return
 			if (wi == widgets.end())
 				return;
-			
+
 			// The widgets::base to delete has the focus? then take the next one
 			if (focus && *focus == wi)
 			{
@@ -240,12 +240,12 @@ void sge::gui::detail::managers::keyboard::keyboard_focus(
 				if (widgets.size() != 1)
 				{
 					switch_focus(
-						boost::next(*focus) == widgets.end() 
+						boost::next(*focus) == widgets.end()
 							? widgets.begin()
 							: boost::next(*focus));
 				}
 			}
-			
+
 			widgets.erase(wi);
 		}
 		break;
@@ -258,7 +258,7 @@ void sge::gui::detail::managers::keyboard::keyboard_focus(
 					widgets.begin(),
 					widgets.end(),&w);
 
-			// The widgets::base has the focus and has had it before? Then 
+			// The widgets::base has the focus and has had it before? Then
 			// there's nothing to do
 			if (wi != widgets.end())
 				return;
@@ -288,10 +288,10 @@ void sge::gui::detail::managers::keyboard::input_callback(
 {
 	if (widgets.empty())
 		return;
-	
+
 	if (input::is_mouse_axis(k.key().code()) || input::is_mouse_button(k.key().code()))
 		return;
-	
+
 	if (focus)
 	{
 		if ((*focus)->process_key(events::key(k,s,repeated)) == key_handling::ignore)

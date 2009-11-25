@@ -38,21 +38,21 @@ int main()
 	>::type vec(
 		1,
 		2);
-	
+
 	sge::math::vector::angle_between<float>(
 		vec,
 		vec);
-	
+
 	typedef sge::math::vector::static_<
 		float,
 		2
 	>::type vec2f;
-	
+
 	vec2f const vecf(
 		1.f,
 		2.f
 	);
-	
+
 	sge::math::vector::atan2(vecf);
 
 	sge::math::point_rotate(
@@ -60,7 +60,7 @@ int main()
 		vecf,
 		3.f
 	);
-	
+
 	typedef sge::math::matrix::dynamic<
 		float
 	>::type dynamic_float_matrix;
@@ -84,7 +84,7 @@ int main()
 		<< vec << SGE_TEXT('\n')
 		<< sge::math::vector::length<float>(vec) << SGE_TEXT('\n')
 		<< length(vecf) << SGE_TEXT('\n');
-	
+
 	typedef sge::math::vector::static_<
 		double,
 		3

@@ -67,7 +67,7 @@ sge::opengl::vf::client_state_combiner::~client_state_combiner()
 		new_states.normal_states(),
 		glEnableClientState,
 		glDisableClientState);
-	
+
 	apply_difference(
 		old_states.attribute_states(),
 		new_states.attribute_states(),
@@ -101,10 +101,10 @@ void apply_difference(
 		std::inserter(
 			diff,
 			diff.begin()));
-	
+
 	BOOST_FOREACH(typename Set::const_reference r, diff)
 		disable(r);
-	
+
 	diff.clear();
 
 	std::set_difference(
@@ -115,7 +115,7 @@ void apply_difference(
 		std::inserter(
 			diff,
 			diff.begin()));
-	
+
 	BOOST_FOREACH(typename Set::const_reference r, diff)
 		enable(r);
 }

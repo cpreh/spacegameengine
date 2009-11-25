@@ -54,7 +54,7 @@ class proxy {
 	static size_type
 	bit_offset(
 		size_type p);
-	
+
 	static size_type
 	array_offset(
 		size_type p);
@@ -62,7 +62,7 @@ public:
 	proxy &
 	operator=(
 		value_type);
-	
+
 	operator value_type() const;
 };
 

@@ -64,7 +64,7 @@ sge::openal::context::context(
 	*/
 
 	// FIXME: can this leak? For example the creation of the context succeeds but there is an alError?
-	
+
 	SGE_ASSERT(context_);
 	SGE_LOG_DEBUG(log(),log::_ << SGE_TEXT("created audio context"))
 }
@@ -102,7 +102,7 @@ sge::openal::context::~context()
 	ALCcontext const * const current = alcGetCurrentContext();
 
 	// TODO: this needs to be split and std::uncaugt_exception needs to be checked
-	
+
 	SGE_OPENAL_CHECK_ALC_STATE(
 		device_.aldevice(),
 		SGE_TEXT("alcGetCurrentContext failed"),
@@ -120,7 +120,7 @@ sge::openal::context::~context()
 			log::_ << SGE_TEXT("context is the current context, so resetting current context"));
 
 		// TODO: alcMakeContextCurrent is called more than once, split this!
-		alcMakeContextCurrent(0); 
+		alcMakeContextCurrent(0);
 
 		SGE_OPENAL_CHECK_ALC_STATE(
 			device_.aldevice(),
@@ -131,7 +131,7 @@ sge::openal::context::~context()
 		//SGE_OPENAL_ERROR_CHECK;
 	}
 
-	alcDestroyContext(context_); 
+	alcDestroyContext(context_);
 
 	SGE_OPENAL_CHECK_ALC_STATE(
 		device_.aldevice(),

@@ -107,7 +107,7 @@ try
 		sge::renderer::scoped_block const block_(sys.renderer());
 		ss.render(my_object);
 	}
-} 
+}
 catch (sge::exception const &e)
 {
 	sge::cerr << SGE_TEXT("caught sge exception: ") << e.string() << SGE_TEXT('\n');

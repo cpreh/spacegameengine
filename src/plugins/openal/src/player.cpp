@@ -118,10 +118,10 @@ ALuint sge::openal::player::register_nonstream_sound(
 
 	// TODO: this function is called more than once!
 	alBufferData(
-		buffer.albuffer(), 
-		file_format(*_audio_file), 
-		data.data(), 
-		static_cast<ALsizei>(data.size()), 
+		buffer.albuffer(),
+		file_format(*_audio_file),
+		data.data(),
+		static_cast<ALsizei>(data.size()),
 		static_cast<ALsizei>(_audio_file->sample_rate()));
 
 	SGE_OPENAL_CHECK_STATE(

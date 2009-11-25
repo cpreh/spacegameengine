@@ -34,7 +34,7 @@ sge::math::matrix::rotation_y(
 	T const
 		sinx = std::sin(angle),
 		cosx = std::cos(angle);
-	
+
 	return typename static_<T, 4, 4>::type(
 		cosx, static_cast<T>(0), -sinx, static_cast<T>(0),
 		static_cast<T>(0), static_cast<T>(1), static_cast<T>(0), static_cast<T>(0),

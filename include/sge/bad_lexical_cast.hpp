@@ -32,7 +32,7 @@ public:
 	SGE_SYMBOL bad_lexical_cast(
 		type_info const &source,
 		type_info const &dest);
-	
+
 	type_info const &source() const;
 	type_info const &destination() const;
 private:

@@ -53,7 +53,7 @@ int main()
 			<< SGE_TEXT(": ")
 			<< r.second
 			<< '\n';
-	
+
 	typedef sge::container::raw_vector<
 		char
 	> vector_type;

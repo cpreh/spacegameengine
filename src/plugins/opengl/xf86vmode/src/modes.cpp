@@ -35,7 +35,7 @@ sge::opengl::xf86vmode::modes::modes(
 {
 	check_extension(
 		dsp);
-	
+
 	int mode_count;
 	XF86VidModeModeInfo **ret;
 	if(XF86VidModeGetAllModeLines(

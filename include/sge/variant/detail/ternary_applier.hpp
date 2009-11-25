@@ -45,7 +45,7 @@ struct ternary_applier {
 		t2(t2),
 		t3(t3)
 	{}
-	
+
 	template<
 		typename T1
 	>

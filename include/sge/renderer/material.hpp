@@ -30,7 +30,7 @@ namespace sge
 {
 namespace renderer
 {
-	
+
 class material {
 public:
 	SGE_SYMBOL material(
@@ -39,7 +39,7 @@ public:
 		image::color::any::object const &specular,
 		image::color::any::object const &emissive,
 		any_arithmetic const &power);
-	
+
 	SGE_SYMBOL image::color::any::object const &diffuse() const;
 	SGE_SYMBOL image::color::any::object const &ambient() const;
 	SGE_SYMBOL image::color::any::object const &specular() const;

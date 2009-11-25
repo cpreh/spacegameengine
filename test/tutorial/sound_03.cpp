@@ -63,7 +63,7 @@ try
 		static_cast<sge::audio::unit>(2) * sge::math::pi<sge::audio::unit>() * rpm);
 	while (true)
 	{
-		sge::audio::unit const angle = 
+		sge::audio::unit const angle =
 			static_cast<sge::audio::unit>(frame_timer.elapsed_frames() * speed);
 		sound->pos(
 			sge::audio::point(

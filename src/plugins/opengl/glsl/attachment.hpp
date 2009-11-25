@@ -45,7 +45,7 @@ public:
 	attachment(
 		shader_ptr,
 		handle);
-	
+
 	~attachment();
 private:
 	shader_ptr const shader_;

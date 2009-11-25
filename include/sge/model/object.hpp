@@ -46,7 +46,7 @@ protected:
 public:
 	// very basic interface
 	// will need a lot more abstraction
-	
+
 	virtual renderer::vf::dynamic_format const
 	format() const = 0;
 
@@ -59,11 +59,11 @@ public:
 	virtual void
 	copy_vertices(
 		renderer::vf::dynamic_view const &) = 0;
-	
+
 	virtual void
 	copy_indices(
 		renderer::index::view const &) = 0;
-	
+
 	SGE_SYMBOL virtual ~object();
 };
 

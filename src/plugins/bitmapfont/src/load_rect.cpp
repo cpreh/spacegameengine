@@ -47,7 +47,7 @@ sge::bitmapfont::load_rect(
 		throw exception(
 			SGE_TEXT("Bogus rect detected")
 		);
-	
+
 	parse::json::element_vector const
 		&first_elements(
 			parse::json::get<
@@ -68,7 +68,7 @@ sge::bitmapfont::load_rect(
 		throw exception(
 			SGE_TEXT("Bogus rect subelements detected")
 		);
-	
+
 	return image::rect(
 		image::rect::pos_type(
 			parse::json::get<

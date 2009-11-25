@@ -62,7 +62,7 @@ class field
 
 	explicit field(
 		allocator_type const &alloc = allocator_type());
-	
+
 	field(
 		field const &r);
 
@@ -82,7 +82,7 @@ class field
 
 	void swap(
 		field &r);
-	
+
 	field &
 	operator=(
 		field const &r);
@@ -145,7 +145,7 @@ class field
 	value_type
 	x(
 		const_iterator) const;
-	
+
 	value_type
 	y(
 		const_iterator) const;

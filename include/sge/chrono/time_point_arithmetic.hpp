@@ -56,7 +56,7 @@ operator +(
 	> const &rhs
 )
 {
-	return 
+	return
 		time_point<
 			Clock,
 			typename common_type<

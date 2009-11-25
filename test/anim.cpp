@@ -158,7 +158,7 @@ try
 				sge::time::second(
 					1
 				),
-				tex2		
+				tex2
 			)
 		)
 	);

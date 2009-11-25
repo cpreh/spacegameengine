@@ -42,7 +42,7 @@ struct binary_applier {
 		op(op),
 		t2(t2)
 	{}
-	
+
 	template<
 		typename T
 	>

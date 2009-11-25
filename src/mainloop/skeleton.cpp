@@ -31,7 +31,7 @@ void sge::mainloop::skeleton::run()
 		loop();
 	}
 }
-	
+
 sge::mainloop::skeleton::skeleton(
 	systems::list const &s)
 :
@@ -42,7 +42,7 @@ sge::mainloop::skeleton::skeleton(
 		return;
 
 	// this is to avoid hassle with shared_ptr(auto_ptr &)
-	signal::auto_connection a = 
+	signal::auto_connection a =
 		sys.input_system()->register_callback(
 			std::tr1::bind(
 				&skeleton::key_event,
@@ -50,7 +50,7 @@ sge::mainloop::skeleton::skeleton(
 				std::tr1::placeholders::_1
 			)
 		);
-	
+
 	input_con = signal::shared_connection(a);
 }
 

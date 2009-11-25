@@ -27,14 +27,14 @@ public:
 	static void init(
 		storage &,
 		move_source);
-	
+
 	static T move(
 		storage &);
-	
+
 	static void move(
 		storage &,
 		T &);
-	
+
 	static void cleanup(
 		storage &);
 };
@@ -53,7 +53,7 @@ public:
 
 	static T &move(
 		storage &);
-	
+
 	static void cleanup(
 		storage &);
 };
@@ -70,7 +70,7 @@ public:
 
 	inline static void move(
 		storage &);
-	
+
 	inline static void cleanup(
 		storage &);
 };

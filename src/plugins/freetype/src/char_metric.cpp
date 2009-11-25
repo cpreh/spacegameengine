@@ -76,7 +76,7 @@ sge::freetype::char_metric::char_metric(
 				<< offset_.x()
 				<< SGE_TEXT('!')
 		);
-	
+
 	if(offset_.y() < 0)
 		SGE_LOG_WARNING(
 			log::global(),
@@ -87,7 +87,7 @@ sge::freetype::char_metric::char_metric(
 				<< offset_.y()
 				<< SGE_TEXT('!')
 		);
-	
+
 	// FIXME
 	if(
 		bitmap.pitch < 0
@@ -104,7 +104,7 @@ sge::freetype::char_metric::char_metric(
 	buffer_ = buffer_type(
 		dim_
 	);
-		
+
 	image::algorithm::copy_and_convert(
 		sge::image::view::make(
 			static_cast<

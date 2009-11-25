@@ -40,7 +40,7 @@ sge::log::object mylogger(
 }
 
 sge::gui::layouts::null::null()
-: 
+:
 	base()
 {
 }
@@ -50,7 +50,7 @@ void sge::gui::layouts::null::compile_static()
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_ << SGE_TEXT("in compile_static, doing nothing"));
-	
+
 	connected_widget().parent_manager().dirty(
 		connected_widget(),
 		rect(

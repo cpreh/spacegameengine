@@ -27,7 +27,7 @@ sge::systems::named::named(
 	value_(value_),
 	name_(name_)
 {}
-	
+
 sge::systems::any const &
 sge::systems::named::value() const
 {

@@ -61,7 +61,7 @@ sge::time::timer::elapsed_frames() const
 
 	if(expired_ == expiration_state::expired)
 		return static_cast<frames_type>(1);
-	
+
 	return static_cast<frames_type>(fun_() - last_time())
 		/ static_cast<frames_type>(interval());
 }

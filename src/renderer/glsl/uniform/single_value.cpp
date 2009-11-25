@@ -42,8 +42,8 @@ public:
 
 	explicit visitor(
 		sge::renderer::glsl::uniform::variable_ptr);
-	
-	result_type	
+
+	result_type
 	operator()(
 		sge::renderer::glsl::int_type) const;
 
@@ -68,7 +68,7 @@ public:
 
 	explicit vector_visitor(
 		sge::renderer::glsl::uniform::variable_ptr);
-		
+
 	template<
 		typename N,
 		typename S
@@ -131,7 +131,7 @@ visitor::visitor(
 :
 	var(var)
 {}
-	
+
 visitor::result_type
 visitor::operator()(
 	sge::renderer::glsl::int_type const i) const
@@ -201,7 +201,7 @@ vector_visitor::vector_visitor(
 :
 	var(var)
 {}
-		
+
 template<
 	typename N,
 	typename S

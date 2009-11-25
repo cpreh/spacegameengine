@@ -35,7 +35,7 @@ sge::sprite::animation_entity::animation_entity(
 sge::time::unit
 sge::sprite::animation_entity::delay() const
 {
-	return delay_;	
+	return delay_;
 }
 
 sge::texture::const_part_ptr const

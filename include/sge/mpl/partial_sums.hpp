@@ -34,7 +34,7 @@ namespace mpl
 {
 
 template<typename Elements>
-class partial_sums 
+class partial_sums
 :
 public boost::mpl::fold<
 	Elements,

@@ -41,7 +41,7 @@ public:
 		const_image_ptr hover,
 		const_image_ptr keyboard,
 		const_image_ptr hover_keyboard);
-	
+
 	// TODO: move to cpp file
 	const_image_ptr normal() const { return normal_; }
 	const_image_ptr hover() const { return hover_; }

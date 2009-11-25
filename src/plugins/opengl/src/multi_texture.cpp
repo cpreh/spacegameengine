@@ -84,7 +84,7 @@ void sge::opengl::set_texture_level(
 				<< SGE_TEXT(" ignored!"));
 		return;
 	}
-	
+
 	glActiveTexture(
 		static_cast<
 			GLenum

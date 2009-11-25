@@ -122,7 +122,7 @@ sge::renderer::texture_rw::unlock() const
 		locked,
 		SGE_TEXT("unlocking texture_rw without (proper) locking")
 	);
-	
+
 	// we didn't just lock to read?
 	if (locked->view)
 	{
@@ -131,7 +131,7 @@ sge::renderer::texture_rw::unlock() const
 			locked->area,
 			lock_mode::writeonly
 		);
-		
+
 		image::algorithm::copy_and_convert(
 			image::view::make_const(
 				*locked->view

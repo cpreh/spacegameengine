@@ -97,56 +97,56 @@ void sge::container::linear_map<Key,T,Compare,Allocator>::insert(InputIterator i
 }
 
 template<class Key,class T,class Compare,class Allocator>
-typename sge::container::linear_map<Key,T,Compare,Allocator>::reverse_iterator 
+typename sge::container::linear_map<Key,T,Compare,Allocator>::reverse_iterator
 	sge::container::linear_map<Key,T,Compare,Allocator>::rbegin()
 {
 	return container_.rbegin();
 }
 
 template<class Key,class T,class Compare,class Allocator>
-typename sge::container::linear_map<Key,T,Compare,Allocator>::const_reverse_iterator 
+typename sge::container::linear_map<Key,T,Compare,Allocator>::const_reverse_iterator
 	sge::container::linear_map<Key,T,Compare,Allocator>::rbegin() const
 {
 	return container_.rbegin();
 }
 
 template<class Key,class T,class Compare,class Allocator>
-typename sge::container::linear_map<Key,T,Compare,Allocator>::reverse_iterator 
+typename sge::container::linear_map<Key,T,Compare,Allocator>::reverse_iterator
 	sge::container::linear_map<Key,T,Compare,Allocator>::rend()
 {
 	return container_.rend();
 }
 
 template<class Key,class T,class Compare,class Allocator>
-typename sge::container::linear_map<Key,T,Compare,Allocator>::const_reverse_iterator 
+typename sge::container::linear_map<Key,T,Compare,Allocator>::const_reverse_iterator
 	sge::container::linear_map<Key,T,Compare,Allocator>::rend() const
 {
 	return container_.rend();
 }
 
 template<class Key,class T,class Compare,class Allocator>
-typename sge::container::linear_map<Key,T,Compare,Allocator>::iterator 
+typename sge::container::linear_map<Key,T,Compare,Allocator>::iterator
 	sge::container::linear_map<Key,T,Compare,Allocator>::begin()
 {
 	return container_.begin();
 }
 
 template<class Key,class T,class Compare,class Allocator>
-typename sge::container::linear_map<Key,T,Compare,Allocator>::const_iterator 
+typename sge::container::linear_map<Key,T,Compare,Allocator>::const_iterator
 	sge::container::linear_map<Key,T,Compare,Allocator>::begin() const
 {
 	return container_.begin();
 }
 
 template<class Key,class T,class Compare,class Allocator>
-typename sge::container::linear_map<Key,T,Compare,Allocator>::iterator 
+typename sge::container::linear_map<Key,T,Compare,Allocator>::iterator
 	sge::container::linear_map<Key,T,Compare,Allocator>::end()
 {
 	return container_.end();
 }
 
 template<class Key,class T,class Compare,class Allocator>
-typename sge::container::linear_map<Key,T,Compare,Allocator>::const_iterator 
+typename sge::container::linear_map<Key,T,Compare,Allocator>::const_iterator
 	sge::container::linear_map<Key,T,Compare,Allocator>::end() const
 {
 	return container_.end();
@@ -159,14 +159,14 @@ bool sge::container::linear_map<Key,T,Compare,Allocator>::empty() const
 }
 
 template<class Key,class T,class Compare,class Allocator>
-typename sge::container::linear_map<Key,T,Compare,Allocator>::size_type 
+typename sge::container::linear_map<Key,T,Compare,Allocator>::size_type
 	sge::container::linear_map<Key,T,Compare,Allocator>::size() const
 {
 	return container_.size();
 }
 
 template<class Key,class T,class Compare,class Allocator>
-typename sge::container::linear_map<Key,T,Compare,Allocator>::size_type 
+typename sge::container::linear_map<Key,T,Compare,Allocator>::size_type
 	sge::container::linear_map<Key,T,Compare,Allocator>::max_size() const
 {
 	return container_.max_size();
@@ -179,7 +179,7 @@ T &sge::container::linear_map<Key,T,Compare,Allocator>::operator[](key_type cons
 }
 
 template<class Key,class T,class Compare,class Allocator>
-std::pair<typename sge::container::linear_map<Key,T,Compare,Allocator>::iterator,bool> 
+std::pair<typename sge::container::linear_map<Key,T,Compare,Allocator>::iterator,bool>
 	sge::container::linear_map<Key,T,Compare,Allocator>::insert(value_type const &v)
 {
 	iterator const f = lower_bound(v.first);
@@ -206,7 +206,7 @@ void sge::container::linear_map<Key,T,Compare,Allocator>::erase(iterator const p
 }
 
 template<class Key,class T,class Compare,class Allocator>
-typename sge::container::linear_map<Key,T,Compare,Allocator>::size_type 
+typename sge::container::linear_map<Key,T,Compare,Allocator>::size_type
 	sge::container::linear_map<Key,T,Compare,Allocator>::erase(key_type const &k)
 {
 	iterator const f = find(k);
@@ -238,21 +238,21 @@ void sge::container::linear_map<Key,T,Compare,Allocator>::clear()
 }
 
 template<class Key,class T,class Compare,class Allocator>
-typename sge::container::linear_map<Key,T,Compare,Allocator>::key_compare 
+typename sge::container::linear_map<Key,T,Compare,Allocator>::key_compare
 	sge::container::linear_map<Key,T,Compare,Allocator>::key_comp() const
 {
 	return comp_.comp;
 }
 
 template<class Key,class T,class Compare,class Allocator>
-typename sge::container::linear_map<Key,T,Compare,Allocator>::value_compare 
+typename sge::container::linear_map<Key,T,Compare,Allocator>::value_compare
 	sge::container::linear_map<Key,T,Compare,Allocator>::value_comp() const
 {
 	return comp_;
 }
 
 template<class Key,class T,class Compare,class Allocator>
-typename sge::container::linear_map<Key,T,Compare,Allocator>::iterator 
+typename sge::container::linear_map<Key,T,Compare,Allocator>::iterator
 	sge::container::linear_map<Key,T,Compare,Allocator>::find(key_type const &k)
 {
 	iterator const it = lower_bound(k);
@@ -262,21 +262,21 @@ typename sge::container::linear_map<Key,T,Compare,Allocator>::iterator
 }
 
 template<class Key,class T,class Compare,class Allocator>
-typename sge::container::linear_map<Key,T,Compare,Allocator>::const_iterator 
+typename sge::container::linear_map<Key,T,Compare,Allocator>::const_iterator
 	sge::container::linear_map<Key,T,Compare,Allocator>::find(key_type const &k) const
 {
 	return const_cast<linear_map &>(*this).find(k);
 }
 
 template<class Key,class T,class Compare,class Allocator>
-typename sge::container::linear_map<Key,T,Compare,Allocator>::size_type 
+typename sge::container::linear_map<Key,T,Compare,Allocator>::size_type
 	sge::container::linear_map<Key,T,Compare,Allocator>::count(key_type const &k) const
 {
 	return find(k) == end() ? static_cast<size_type>(0) : static_cast<size_type>(1);
 }
 
 template<class Key,class T,class Compare,class Allocator>
-typename sge::container::linear_map<Key,T,Compare,Allocator>::iterator 
+typename sge::container::linear_map<Key,T,Compare,Allocator>::iterator
 	sge::container::linear_map<Key,T,Compare,Allocator>::lower_bound(key_type const &k)
 {
 	for (iterator it = begin(); it != end(); ++it)
@@ -289,14 +289,14 @@ typename sge::container::linear_map<Key,T,Compare,Allocator>::iterator
 }
 
 template<class Key,class T,class Compare,class Allocator>
-typename sge::container::linear_map<Key,T,Compare,Allocator>::const_iterator 
+typename sge::container::linear_map<Key,T,Compare,Allocator>::const_iterator
 	sge::container::linear_map<Key,T,Compare,Allocator>::lower_bound(key_type const &k) const
 {
 	return const_cast<linear_map &>(*this).lower_bound(k);
 }
 
 template<class Key,class T,class Compare,class Allocator>
-typename sge::container::linear_map<Key,T,Compare,Allocator>::iterator 
+typename sge::container::linear_map<Key,T,Compare,Allocator>::iterator
 	sge::container::linear_map<Key,T,Compare,Allocator>::upper_bound(key_type const &k)
 {
 	iterator const i = lower_bound(k);
@@ -306,7 +306,7 @@ typename sge::container::linear_map<Key,T,Compare,Allocator>::iterator
 }
 
 template<class Key,class T,class Compare,class Allocator>
-typename sge::container::linear_map<Key,T,Compare,Allocator>::const_iterator 
+typename sge::container::linear_map<Key,T,Compare,Allocator>::const_iterator
 	sge::container::linear_map<Key,T,Compare,Allocator>::upper_bound(key_type const &k) const
 {
 	return const_cast<linear_map &>(*this).upper_bound(k);

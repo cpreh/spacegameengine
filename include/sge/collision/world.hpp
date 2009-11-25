@@ -50,42 +50,42 @@ public:
 	virtual signal::auto_connection
 	register_test_callback(
 		test_callback const &) = 0;
-	
-	virtual void 
+
+	virtual void
 	test_callback_combiner(
 		collision::test_callback_combiner const &) = 0;
 
 	virtual signal::auto_connection
 	register_begin_callback(
 		callback const &) = 0;
-		
+
 	virtual signal::auto_connection
 	register_end_callback(
 		callback const &) = 0;
-		
-	virtual body_ptr const 
+
+	virtual body_ptr const
 	create_body(
 		satellite_ptr,
 		shapes::container const &,
 		point const &,
 		point const &) = 0;
-	
+
 	virtual shapes::circle_ptr const
 	create_circle(
 		unit radius) = 0;
-	
-	virtual group_ptr const 
+
+	virtual group_ptr const
 	create_group() = 0;
 
 	virtual void
 	update(
 		time_unit delta) = 0;
-	
+
 	virtual void
 	collides_with(
 		group_ptr,
 		group_ptr) = 0;
-	
+
 	SGE_SYMBOL virtual ~world();
 };
 }

@@ -62,7 +62,7 @@ sge::bitmapfont::metrics::metrics(
 			SGE_TEXT("json")
 		)
 	);
-	
+
 	sge::parse::json::object result;
 
 	if(
@@ -75,7 +75,7 @@ sge::bitmapfont::metrics::metrics(
 			json_file.string()
 			+ SGE_TEXT(" contains errors!")
 		);
-			
+
 
 	sge::parse::json::member_vector const &top_members(
 		result.members
@@ -184,7 +184,7 @@ sge::bitmapfont::metrics::load_char(
 		throw font::char_not_available(
 			c
 		);
-	
+
 	return it->second;
 }
 

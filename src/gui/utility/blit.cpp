@@ -140,7 +140,7 @@ channel_blitter<
 	Source,
 	DstPixel
 >::operator()(
-	mizuiro::color::channel::alpha &	
+	mizuiro::color::channel::alpha &
 ) const
 {
 	typedef mizuiro::color::channel::alpha alpha;
@@ -259,7 +259,7 @@ void sge::gui::utility::blit_invalid(
 		src_rect,
 		dst_rect
 	);
-	
+
 	// No intersection? then leave now.
 	if (is == rect::null())
 		return;
@@ -330,7 +330,7 @@ void sge::gui::utility::blit(
 	rect const clipped = intersection(
 		dst_rect,
 		clip_rect);
-	
+
 	rect const src_trans = rect(
 		clipped.pos() - dst_rect.pos(),
 		clipped.dim());

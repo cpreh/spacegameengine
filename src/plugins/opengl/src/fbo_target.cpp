@@ -82,7 +82,7 @@ void sge::opengl::fbo_target::bind_texture(
 	if(status != GL_FRAMEBUFFER_COMPLETE_EXT)
 		throw renderer::exception(
 			SGE_TEXT("glCheckFramebufferStatusEXT: fbo incomplete!"));
-	
+
 	texture_target = dynamic_pointer_cast<texture>(t);
 }
 

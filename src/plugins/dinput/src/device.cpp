@@ -153,7 +153,7 @@ bool sge::dinput::device::get_input(
 		data.data(),
 		&elements,
 		0);
-	
+
 	switch(res) {
 	case DI_OK:
 	case DI_BUFFEROVERFLOW:

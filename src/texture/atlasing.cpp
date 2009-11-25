@@ -40,7 +40,7 @@ bool sge::texture::need_atlasing(
 bool sge::texture::need_atlasing(
 	renderer::dim_type const &dim)
 {
-	return 
+	return
 		need_atlasing(
 			dim.w())
 		|| need_atlasing(
@@ -165,7 +165,7 @@ void sge::texture::atlas_w(
 			inner_area.top()
 		)
 	);
-	
+
 	if(inner_area.right() + 1 == outer_area.right())
 		return;
 
@@ -190,7 +190,7 @@ void sge::texture::atlas_w(
 		)
 	);
 }
-	
+
 void sge::texture::atlas_h(
 	renderer::texture_ptr const tex,
 	image::view::const_object const &src,

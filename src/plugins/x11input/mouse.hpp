@@ -55,7 +55,7 @@ public:
 private:
 	void grab();
 	void ungrab();
-	
+
 	void on_motion(
 		XEvent const &);
 	void on_button_down(

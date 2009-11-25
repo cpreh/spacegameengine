@@ -88,7 +88,7 @@ sge::thread::future::unique_object<T> &sge::thread::future::unique_object<T>::op
 template<typename T>
 sge::thread::future::unique_object<T>::operator boost::detail::thread_move_t< sge::thread::future::unique_object<T> >()
 {
-	return 
+	return
 		boost::detail::thread_move_t<unique_object>(
 			*this);
 }
@@ -107,7 +107,7 @@ bool sge::thread::future::unique_object<T>::try_move(
 {
 	if (!this->object_)
 		throw uninitialized();
-	return 
+	return
 		this->object_->try_move(
 			_dest);
 }
@@ -118,7 +118,7 @@ bool sge::thread::future::unique_object<T>::timed_move(
 	reference _dest,
 	Duration const &_time)
 {
-	return 
+	return
 		timed_move_until(
 			_dest,
 			boost::get_system_time()+_time);
@@ -131,7 +131,7 @@ bool sge::thread::future::unique_object<T>::timed_move_until(
 {
 	if (!this->object_)
 		throw uninitialized();
-	return 
+	return
 		this->object_->timed_move_until(
 			_dest,
 			_time);

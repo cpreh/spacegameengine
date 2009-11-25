@@ -125,7 +125,7 @@ void print(
 		sge::cout
 			<< it->name
 			<< SGE_TEXT(": ");
-		
+
 		print(
 			it->value_
 		);
@@ -150,7 +150,7 @@ int main()
 		SGE_TEXT("{ \"foo\": 42, \"bar\" : { \"inner\" : 5.5 } }")
 	);
 
-	sge::istringstream 
+	sge::istringstream
 		ss(
 			test);
 

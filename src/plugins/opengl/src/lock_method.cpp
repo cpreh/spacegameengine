@@ -33,7 +33,7 @@ sge::opengl::convert_lock_method(
 	case renderer::lock_mode::readwrite:
 		return lock_method::readwrite;
 	}
-	
+
 	throw exception(
 		SGE_TEXT("Invalid lock_flags in opengl!")
 	);

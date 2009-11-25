@@ -50,7 +50,7 @@ public:
 		object &init_sprite,
 		time::fun const &time_fun
 			= time::default_time_fun());
-	
+
 	SGE_SYMBOL bool process();
 	SGE_SYMBOL void reset();
 

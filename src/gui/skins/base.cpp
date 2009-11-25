@@ -66,7 +66,7 @@ class call_draw
 
 	call_draw(
 		sge::gui::skins::base &s,
-		sge::gui::events::invalid_area const &e) 
+		sge::gui::events::invalid_area const &e)
 		: s(s),
 		  e(e) {}
 
@@ -88,9 +88,9 @@ class call_optimal_size
 		sge::gui::skins::base const &s) : s(s) {}
 
 	template<typename V>
-	void operator()(V const &v) 
-	{ 
-		sh = s.optimal_size(v); 
+	void operator()(V const &v)
+	{
+		sh = s.optimal_size(v);
 	}
 
 	sge::gui::dim const value() const { return sh; }
@@ -145,7 +145,7 @@ SGE_GUI_SKIN_SIZE_RETURN(widgets::base) sge::gui::skins::base::optimal_size(
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("optimal_size called for widgets::base ") 
+		log::_ << SGE_TEXT("optimal_size called for widgets::base ")
 		        << type_info(typeid(w)).name());
 
 	return utility::type_comparator<widgets::types>(
@@ -170,7 +170,7 @@ SGE_GUI_SKIN_SIZE_RETURN(widgets::base) sge::gui::skins::base::default_hint_hand
 {
 	throw exception(SGE_TEXT("tried to hint a widgets::base whose type is not drawable"));
 }
-	
+
 sge::gui::skins::base::~base()
 {}
 
@@ -183,7 +183,7 @@ void sge::gui::skins::base::resize_buffer(
 		SGE_LOG_DEBUG(
 			mylogger,
 			log::_
-				<< SGE_TEXT("resizing from ") 
+				<< SGE_TEXT("resizing from ")
 				<< b.buffer().size()
 				<< SGE_TEXT(" to ")
 				<< b.size());

@@ -26,7 +26,7 @@ sge::d3d9::tnl_caps(
 	d3d_ptr const sys)
 {
 	DWORD r = 0;
-	
+
 	D3DCAPS9 caps;
 
 	sys->GetDeviceCaps(

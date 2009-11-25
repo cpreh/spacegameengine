@@ -52,7 +52,7 @@ try
 			)
 		);
 
-		sge::audio::sound_ptr const sound_02( 
+		sge::audio::sound_ptr const sound_02(
 			sys.audio_player()->create_stream_sound(
 				loader.load(
 					sge::config::media_path() / SGE_TEXT("siren.ogg")

@@ -88,7 +88,7 @@ void atlas_w(
 	image::view::const_object const &src,
 	renderer::lock_rect const &outer_area,
 	renderer::lock_rect const &inner_area);
-	
+
 void atlas_h(
 	renderer::texture_ptr,
 	image::view::const_object const &src,

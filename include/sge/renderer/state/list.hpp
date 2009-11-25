@@ -53,7 +53,7 @@ public:
 	);
 
 	SGE_SYMBOL ~list();
-	
+
 	SGE_SYMBOL list const
 	operator()(
 		any const &

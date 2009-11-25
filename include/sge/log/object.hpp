@@ -54,22 +54,22 @@ public:
 		level::type,
 		temporary_output const &
 	);
-	
+
 	SGE_SYMBOL level_stream &
 	level_sink(
 		level::type
 	);
-	
+
 	SGE_SYMBOL level_stream const &
 	level_sink(
 		level::type
 	) const;
-	
+
 	SGE_SYMBOL void
 	activate(
 		level::type
 	);
-	
+
 	SGE_SYMBOL void
 	deactivate(
 		level::type
@@ -79,7 +79,7 @@ public:
 	activated(
 		level::type
 	) const;
-	
+
 	SGE_SYMBOL void
 	enable(
 		bool

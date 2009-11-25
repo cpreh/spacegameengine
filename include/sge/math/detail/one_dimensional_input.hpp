@@ -58,14 +58,14 @@ one_dimensional_input(
 			return s;
 		}
 	}
-	
+
 	s >> v.back();
 
 	s >> c;
 	if(c != s.widen(')'))
 		s.setstate(std::ios_base::failbit);
 
-	return s; 
+	return s;
 }
 
 }

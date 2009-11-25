@@ -123,7 +123,7 @@ try
 		typedef sge::renderer::vf::view<
 			format
 		> vertex_view;
-		
+
 		vertex_view const vertices(
 			vblock.value()
 		);
@@ -131,7 +131,7 @@ try
 		vertex_view::iterator vb_it(
 			vertices.begin()
 		);
-		
+
 		typedef pos3_type::packed_type vec3;
 
 		(*vb_it).set<pos3_type>(
@@ -189,7 +189,7 @@ try
 				= sge::image::colors::black()
 		)
 	);
-	
+
 	while(running)
 	{
 		sge::mainloop::dispatch();

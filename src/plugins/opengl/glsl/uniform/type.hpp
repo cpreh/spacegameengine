@@ -40,7 +40,7 @@ public:
 	type(
 		uniform::element_type::type,
 		size_type elements);
-	
+
 	uniform::element_type::type
 	element_type() const;
 

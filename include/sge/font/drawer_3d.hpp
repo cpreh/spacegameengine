@@ -52,12 +52,12 @@ public:
 		size_type buffer_chars,
 		pos const &start,
 		dim size);
-	
+
 	SGE_SYMBOL void draw_char(
 		char_type,
 		pos const &,
 		const_image_view const &data);
-	
+
 	SGE_SYMBOL void end_rendering();
 
 	SGE_SYMBOL void

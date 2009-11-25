@@ -195,7 +195,7 @@ void sge::console::stdlib::fn_man(arg_list const &v)
 		error_(SGE_TEXT("no function given"));
 		return;
 	}
-	
+
 	function_map const &fns = object_.functions();
 
 	function_map::const_iterator i = fns.find(v[1]);

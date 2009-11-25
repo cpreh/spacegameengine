@@ -36,7 +36,7 @@ class dynamic_color {
 public:
 	SGE_SYMBOL explicit dynamic_color(
 		image::color::format::type);
-	
+
 	SGE_SYMBOL image::color::format::type
 	color_format() const;
 private:

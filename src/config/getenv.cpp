@@ -38,7 +38,7 @@ sge::config::getenv(
 	container::raw_vector<
 		char_type
 	> home_dir(32767);
-	
+
 	if(
 		GetEnvironmentVariable(
 			SGE_TEXT("USERPROFILE"),
@@ -49,7 +49,7 @@ sge::config::getenv(
 		throw no_such_env_var(
 			s
 		);
-	
+
 	return home_dir.data();
 #else
 	char const *const ret(
@@ -64,7 +64,7 @@ sge::config::getenv(
 		throw no_such_env_var(
 			s
 		);
-	
+
 	return iconv(
 		ret
 	);

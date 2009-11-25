@@ -45,7 +45,7 @@ public:
 
 	explicit visitor(
 		sge::image::rect const &);
-	
+
 	template<
 		typename T
 	>
@@ -125,7 +125,7 @@ visitor<Result>::operator()(
 ) const
 {
 	// TODO: make this more generic!
-	
+
 	return mizuiro::image::sub_view(
 		v,
 		typename T::bound_type(

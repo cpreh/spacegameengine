@@ -48,23 +48,23 @@ sge::ode::body::body(
 
 sge::collision::point const sge::ode::body::position() const
 {
-	dReal const * const p = 
+	dReal const * const p =
 		dBodyGetPosition(
 			body_);
-	return 
+	return
 		transformer_.position_from_ode(
 			point(
 				p[0],
 				p[1],
 				p[2]));
-	
+
 }
 
 void sge::ode::body::position(
 	collision::point const &_p)
 {
 	//sge::cerr << "ode: body " << this << " position was set to " << _p << "\n";
-	point const p = 
+	point const p =
 		transformer_.position_to_ode(
 			_p);
 	dBodySetPosition(
@@ -76,10 +76,10 @@ void sge::ode::body::position(
 
 sge::collision::point const sge::ode::body::linear_velocity() const
 {
-	dReal const * const p = 
+	dReal const * const p =
 		dBodyGetLinearVel(
 			body_);
-	return 
+	return
 		transformer_.velocity_from_ode(
 			point(
 				p[0],
@@ -91,7 +91,7 @@ void sge::ode::body::linear_velocity(
 	collision::point const &_p)
 {
 	//sge::cerr << "ode: body " << this << " velocity was set to " << _p << "\n";
-	point const p = 
+	point const p =
 		transformer_.velocity_to_ode(
 			_p);
 	dBodySetLinearVel(
@@ -103,7 +103,7 @@ void sge::ode::body::linear_velocity(
 
 bool sge::ode::body::is_active()
 {
-	return 
+	return
 		dBodyIsEnabled(
 			body_);
 }
@@ -152,7 +152,7 @@ void sge::ode::body::add(
 void sge::ode::body::moved(
 	dBodyID const _body)
 {
-	dReal const *const p = 
+	dReal const *const p =
 		dBodyGetPosition(
 			_body);
 	body &b =

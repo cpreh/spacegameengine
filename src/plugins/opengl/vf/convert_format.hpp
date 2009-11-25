@@ -46,7 +46,7 @@ public:
 	result_type
 	operator()(
 		renderer::vf::dynamic_vector const &) const;
-	
+
 	result_type
 	operator()(
 		renderer::vf::dynamic_color const &) const;

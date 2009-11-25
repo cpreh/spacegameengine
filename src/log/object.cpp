@@ -66,7 +66,7 @@ sge::log::object::log(
 		|| !activated(level_)
 	)
 		return;
-	
+
 	level_sink(level_).log(
 		helper,
 		formatter()

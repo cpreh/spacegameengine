@@ -92,7 +92,7 @@ void sge::opengl::volume_texture::do_sub_data(
 /*	if(volume_texture_type() == GL_EXT_texture3D)
 		throw exception(
 			SGE_TEXT("GL_EXT_texture3d can't set sub images!"));
-	
+
 	pre_setdata();
 	const GLenum format = GL_RGBA, type = GL_UNSIGNED_BYTE;
 

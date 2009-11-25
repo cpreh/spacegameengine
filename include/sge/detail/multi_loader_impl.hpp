@@ -49,7 +49,7 @@ sge::multi_loader<A,B,C>::multi_loader(
 			loader_ptr(
 				plugins.back()->get()()));
 	}
-}	
+}
 
 template<
 	typename A,
@@ -71,12 +71,12 @@ sge::multi_loader<A,B,C>::load(
 			+ file.string()
 			+ SGE_TEXT("\" is not a regular file"));
 
-	string const extension = 
+	string const extension =
 		sge::filesystem::extension(
 			file);
-	
+
 	if (extension.empty())
-		return 
+		return
 			brute_load(
 				file);
 
@@ -88,7 +88,7 @@ sge::multi_loader<A,B,C>::load(
 
 		SGE_LOG_DEBUG(
 			log::global(),
-			log::_ 
+			log::_
 				<< SGE_TEXT("loader ")
 				<< type_name(typeid(loader))
 				<< SGE_TEXT(": trying to load audio file"));
@@ -96,10 +96,10 @@ sge::multi_loader<A,B,C>::load(
 		return (*i)->load(file);
 	}
 
-	return 
+	return
 		brute_load(
 			file);
-	
+
 }
 
 template<
@@ -112,18 +112,18 @@ sge::multi_loader<A,B,C>::brute_load(
 {
 	SGE_LOG_INFO(
 		log::global(),
-		log::_ 
+		log::_
 			<< SGE_TEXT("brute loading file ")
 			<< file.string()
 			<< SGE_TEXT(", add an extension to speed up the search"));
-	
+
 	for (typename loader_container::iterator i = loaders.begin(); i != loaders.end(); ++i)
 	{
 		try
 		{
 			SGE_LOG_DEBUG(
 				log::global(),
-				log::_ 
+				log::_
 					<< SGE_TEXT("loader ")
 					<< type_name(typeid(loader))
 					<< SGE_TEXT(": trying to load audio file"));
@@ -132,7 +132,7 @@ sge::multi_loader<A,B,C>::brute_load(
 		{
 			SGE_LOG_INFO(
 				log::global(),
-				log::_ 
+				log::_
 					<< SGE_TEXT("loader ")
 					<< type_name(typeid(loader))
 					<< SGE_TEXT("couldn't load the file: ")
@@ -140,7 +140,7 @@ sge::multi_loader<A,B,C>::brute_load(
 		}
 	}
 
-	throw 
+	throw
 		loaders_exhausted(
 			file);
 }

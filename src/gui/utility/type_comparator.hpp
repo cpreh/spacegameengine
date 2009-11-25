@@ -49,10 +49,10 @@ type_comparator_impl(
 		: obj(obj),
 			cb(cb),
 			count(count)
-	{ 
-		count = 0; 
+	{
+		count = 0;
 	}
-	
+
 	template<typename U>
 	void operator()(U *)
 	{
@@ -84,9 +84,9 @@ typename Callback::result_type type_comparator(
 	unsigned count;
 
 	// add pointers so widgets::* don't get default-constructed
-	typedef typename 
-		boost::mpl::transform_view< 
-			Types, 
+	typedef typename
+		boost::mpl::transform_view<
+			Types,
 			boost::add_pointer<boost::mpl::_> >::type ptr_types;
 
 	boost::mpl::for_each<ptr_types>(

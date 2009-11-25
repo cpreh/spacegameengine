@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widgets/parameters.hpp>
 
 sge::gui::widgets::parameters::parameters()
-: 
+:
 	pos_(),
 	size_(),
 	z_(static_cast<depth_type>(0)),
@@ -33,50 +33,50 @@ sge::gui::widgets::parameters::parameters()
 
 sge::gui::widgets::parameters &
 sge::gui::widgets::parameters::pos(
-	point const &_pos) 
-{ 
-	pos_ = _pos; 
-	return *this; 
+	point const &_pos)
+{
+	pos_ = _pos;
+	return *this;
 }
 
 sge::gui::widgets::parameters &
 sge::gui::widgets::parameters::size(
-	dim const &_size) 
-{ 
-	size_ = _size; 
-	return *this; 
+	dim const &_size)
+{
+	size_ = _size;
+	return *this;
 }
 
 sge::gui::widgets::parameters &
 sge::gui::widgets::parameters::size_policy(
-	sge::gui::size_policy const &_size_policy) 
-{ 
-	size_policy_ = _size_policy; 
-	return *this; 
+	sge::gui::size_policy const &_size_policy)
+{
+	size_policy_ = _size_policy;
+	return *this;
 }
 
 sge::gui::widgets::parameters &
 sge::gui::widgets::parameters::keyboard_focus(
-	keyboard_focus::type const &_keyboard_focus) 
-{ 
-	keyboard_focus_ = _keyboard_focus; 
-	return *this; 
+	keyboard_focus::type const &_keyboard_focus)
+{
+	keyboard_focus_ = _keyboard_focus;
+	return *this;
 }
 
 sge::gui::widgets::parameters &
 sge::gui::widgets::parameters::layout(
-	layouts::auto_ptr _layout) 
-{ 
-	layout_ = _layout; 
-	return *this; 
+	layouts::auto_ptr _layout)
+{
+	layout_ = _layout;
+	return *this;
 }
 
 sge::gui::widgets::parameters &
 sge::gui::widgets::parameters::activation(
-	activation_state::type const _activation) 
-{ 
-	activation_ = _activation; 
-	return *this; 
+	activation_state::type const _activation)
+{
+	activation_ = _activation;
+	return *this;
 }
 
 sge::gui::widgets::optional_point const &
@@ -91,7 +91,7 @@ sge::gui::widgets::parameters::size() const
 	return size_;
 }
 
-sge::gui::depth_type 
+sge::gui::depth_type
 sge::gui::widgets::parameters::z() const
 {
 	return z_;

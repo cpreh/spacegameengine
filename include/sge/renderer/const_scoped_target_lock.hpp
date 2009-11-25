@@ -35,7 +35,7 @@ namespace renderer
 
 class const_scoped_target_lock {
 	SGE_NONCOPYABLE(const_scoped_target_lock)
-public:	
+public:
 	SGE_SYMBOL explicit const_scoped_target_lock(
 		const_target_ptr);
 

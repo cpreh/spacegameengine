@@ -121,7 +121,7 @@ get_impl(
 			location,
 			data.data() + i * elements
 		);
-	
+
 	return sge::renderer::glsl::uniform::value(
 		ValueType(
 			data,

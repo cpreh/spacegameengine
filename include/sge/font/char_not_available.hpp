@@ -34,7 +34,7 @@ class SGE_CLASS_SYMBOL char_not_available : public exception {
 public:
 	SGE_SYMBOL explicit char_not_available(
 		char_type);
-	
+
 	char_type character() const;
 private:
 	char_type character_;

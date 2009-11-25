@@ -39,7 +39,7 @@ public:
 		sge::string const &name,
 		value_type const & = value_type());
 
-	void string(sge::string const &); 
+	void string(sge::string const &);
 	sge::string const string() const;
 
 	value_type const &value() const;

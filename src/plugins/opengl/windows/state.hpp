@@ -49,7 +49,7 @@ public:
 		renderer::adapter_type,
 		window::instance_ptr,
 		view_port_fun const &);
-	
+
 	void swap_buffers();
 	void reset_viewport();
 private:

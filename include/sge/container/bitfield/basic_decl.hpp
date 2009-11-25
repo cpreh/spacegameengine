@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //   To achieve consistency you should define the enum's size within the enum itsself.
 //   example: enum my_enum { value1, value2, value3, _my_enum_size };
 //            typedef basic<my_enum,_my_enum_size> mybasic;
-// - operator|(Enum,Enum) shall not be declared! 
+// - operator|(Enum,Enum) shall not be declared!
 // - std::numeric_limits<InternalType>::digits shall be the number of bits usable in InternalType
 
 namespace sge
@@ -60,7 +60,7 @@ private:
 	typedef InternalType internal_type;
 
 	static size_type const element_bits = std::numeric_limits<internal_type>::digits;
-	
+
 	typedef std::tr1::array<
 		internal_type,
 		Size / element_bits + (Size % element_bits ? 1 : 0)
@@ -96,12 +96,12 @@ public:
 	typedef std::reverse_iterator<
 		const_iterator
 	> const_reverse_iterator;
-	
+
 	basic();
 
 	// intentionally not explicit
 	basic(Enum e);
-	
+
 	basic &operator=(Enum e);
 
 	iterator begin();
@@ -112,12 +112,12 @@ public:
 	const_reverse_iterator rbegin() const;
 	reverse_iterator rend();
 	const_reverse_iterator rend() const;
-	
+
 	size_type size() const;
 
 	const_reference operator[](Enum index) const;
 	reference operator[](Enum index);
-	
+
 	basic &operator|=(Enum e);
 	basic &operator|=(basic const &);
 	basic operator|(Enum r) const;
@@ -131,7 +131,7 @@ public:
 	basic operator^(basic const &) const;
 
 	basic operator~() const;
-	
+
 	void set(
 		Enum where,
 		value_type value);

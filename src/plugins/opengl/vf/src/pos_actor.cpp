@@ -55,7 +55,7 @@ void sge::opengl::vf::pos_actor::operator()(
 		stride(),
 		pointer()
 	);
-	
+
 	SGE_OPENGL_CHECK_STATE(
 		SGE_TEXT("glVertexPointer failed"),
 		sge::renderer::exception

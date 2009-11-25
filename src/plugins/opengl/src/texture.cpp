@@ -156,7 +156,7 @@ void sge::opengl::texture::lock_me(
 			0,
 			0,
 			0);
-	
+
 	if(must_read)
 		get_tex_image(
 			format(),

@@ -55,9 +55,9 @@ sge::openal::stream_sound::stream_sound(
 bool sge::openal::stream_sound::fill_buffer(ALuint const buffer)
 {
 	audio::sample_container data;
-	audio::sample_count samples_read = 
+	audio::sample_count samples_read =
 		audio_file_->read(buffer_samples_, data);
-	
+
 	SGE_LOG_DEBUG(log(),log::_ << "read " << samples_read << " samples");
 
 	if (samples_read == static_cast<audio::sample_count>(0))
@@ -76,10 +76,10 @@ bool sge::openal::stream_sound::fill_buffer(ALuint const buffer)
 	SGE_ASSERT(data.size());
 
 	alBufferData(
-		buffer, 
-		format_, 
-		data.data(), 
-		static_cast<ALsizei>(data.size()), 
+		buffer,
+		format_,
+		data.data(),
+		static_cast<ALsizei>(data.size()),
 		static_cast<ALsizei>(audio_file_->sample_rate())
 	);
 

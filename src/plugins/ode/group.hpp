@@ -15,12 +15,12 @@ class group
 public:
 	group(
 		group_id);
-	
+
 	void add(
 		collision::body_ptr);
 	void collides_with(
 		group const &);
-	
+
 	group_id category() const;
 	group_id collides() const;
 private:

@@ -26,10 +26,10 @@ void sge::libpng::context_base::handle_warning_impl(
 {
 	SGE_LOG_WARNING(
 		log::global(),
-		log::_ 
-			<< SGE_TEXT("libpng: file: ") 
-			<< path_.string() 
-			<< SGE_TEXT(": ") 
+		log::_
+			<< SGE_TEXT("libpng: file: ")
+			<< path_.string()
+			<< SGE_TEXT(": ")
 			<< iconv(message));
 }
 
@@ -44,7 +44,7 @@ void sge::libpng::context_base::handle_error(
 void sge::libpng::context_base::handle_error_impl(
 	png_const_charp const message)
 {
-	throw 
+	throw
 		image::file_exception(
 			path_,
 			iconv(

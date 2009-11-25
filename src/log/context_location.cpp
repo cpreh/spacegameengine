@@ -42,7 +42,7 @@ sge::log::context_location::context() const
 	return context_;
 }
 
-sge::log::location const &	
+sge::log::location const &
 sge::log::context_location::location() const
 {
 	SGE_ASSERT(

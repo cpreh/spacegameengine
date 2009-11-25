@@ -112,7 +112,7 @@ void sge::console::gfx::draw()
 				)
 			),
 			static_cast<detail::history::unit>(fn.height())
-		)	
+		)
 	)
 	{
 		// draw history lines
@@ -124,7 +124,7 @@ void sge::console::gfx::draw()
 			font::align_v::top);
 		current_y -= fn.height();
 	}
-	
+
 	string const il = input_line_.edited(cursor_active_);
 
 	fn.draw_text(
@@ -135,7 +135,7 @@ void sge::console::gfx::draw()
 		font::dim(
 			static_cast<font::unit>(bg.w()),
 			static_cast<font::unit>(fn.height())));
-	
+
 	if (cursor_blink_.update_b())
 		cursor_active_ = !cursor_active_;
 }
@@ -191,7 +191,7 @@ void sge::console::gfx::key_action(
 		input_line_.erase_word();
 		return;
 	}
-	
+
 	// is a printable character? then append to input
 	if(std::isprint(k.char_code(),std::locale()))
 	{
@@ -243,7 +243,7 @@ void sge::console::gfx::key_action(
 		case input::kc::key_return:
 			if (input_line_.empty())
 				return;
-				
+
 			try
 			{
 				object_.eval(input_line_.string());

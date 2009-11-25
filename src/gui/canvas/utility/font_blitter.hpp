@@ -69,7 +69,7 @@ public:
 		Font const &font_value,
 		Dst &dst_color
 	) const;
-	
+
 private:
 	color const font_color;
 };

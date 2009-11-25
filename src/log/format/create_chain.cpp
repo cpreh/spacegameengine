@@ -30,10 +30,10 @@ sge::log::format::create_chain(
 {
 	if(!parent)
 		return child;
-	
+
 	if(!child)
 		return parent;
-	
+
 	return
 		make_shared_ptr<
 			chain

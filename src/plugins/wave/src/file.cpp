@@ -64,18 +64,18 @@ void sge::wave::file::reset()
 }
 
 sge::audio::sample_count sge::wave::file::read(
-	audio::sample_count const _sample_count, 
-	audio::sample_container &_array) 
+	audio::sample_count const _sample_count,
+	audio::sample_container &_array)
 {
-	audio::sample_count const samples_to_read = 
+	audio::sample_count const samples_to_read =
 		std::min(_sample_count,samples_ - samples_read_);
-		
+
 	if (samples_to_read == static_cast<audio::sample_count>(0))
 		return static_cast<audio::sample_count>(0);
 
-	audio::sample_count const bytes_to_read = 
+	audio::sample_count const bytes_to_read =
 		samples_to_read * channels() * bytes_per_sample();
-	
+
 	audio::sample_container::size_type old_size = _array.size();
 
 	_array.resize_uninitialized(
@@ -106,14 +106,14 @@ sge::audio::sample_count sge::wave::file::read(
 }
 
 
-sge::audio::sample_count sge::wave::file::read_all(audio::sample_container &_array) 
-{ 
+sge::audio::sample_count sge::wave::file::read_all(audio::sample_container &_array)
+{
 	return read(samples_ - samples_read_,_array);
 }
 
 void sge::wave::file::read_riff()
 {
-	std::string const rifftype = 
+	std::string const rifftype =
 		extract_header(SGE_TEXT("riff"));
 
 	// Endiankrams
@@ -125,7 +125,7 @@ void sge::wave::file::read_riff()
 		file_bigendian = true;
 	else
 		throw audio::exception(SGE_TEXT("file \"")+filename_+SGE_TEXT("\" is not a riff file and thus not a wave file"));
-	
+
 	swap_ = file_bigendian == endianness::is_little_endian();
 
 	// throw away riff size
@@ -141,13 +141,13 @@ void sge::wave::file::read_wave()
 
 	// ignore format chunk size
 	extract_primitive<boost::uint32_t>(SGE_TEXT("format chunk size"));
-		
-	boost::uint16_t const audio_format = 
+
+	boost::uint16_t const audio_format =
 		extract_primitive<boost::uint16_t>(SGE_TEXT("audio format"));
 
 	if (audio_format != static_cast<boost::uint16_t>(1))
 		throw audio::exception(
-			str(format(SGE_TEXT("wave file \"%1%\" is not pcm encoded (format code is %2%)")) 
+			str(format(SGE_TEXT("wave file \"%1%\" is not pcm encoded (format code is %2%)"))
 				% filename_ % audio_format));
 
 	channels_ = static_cast<audio::channel_type>(
@@ -162,15 +162,15 @@ void sge::wave::file::read_wave()
 
 	bits_per_sample_ = static_cast<audio::sample_count>(
 		extract_primitive<boost::uint16_t>(SGE_TEXT("bits per sample")));
-	
+
 	ignore_chunks_until("data");
 
-	boost::uint32_t const data_size = 
+	boost::uint32_t const data_size =
 		extract_primitive<boost::uint32_t>(SGE_TEXT("data size"));
-	
+
 	samples_ = static_cast<audio::sample_count>(
 		data_size / channels() / bytes_per_sample());
-	
+
 	samples_read_ = static_cast<audio::sample_count>(0);
 
 	data_segment = file_.tellg();
@@ -198,7 +198,7 @@ std::string const sge::wave::file::extract_header(string const &_desc)
 {
 	typedef container::raw_vector<char> char_vector;
 
-	char_vector::size_type const byte_count = 
+	char_vector::size_type const byte_count =
 		static_cast<char_vector::size_type>(4);
 	char_vector bytes(byte_count);
 	file_.read(&bytes[0],byte_count);

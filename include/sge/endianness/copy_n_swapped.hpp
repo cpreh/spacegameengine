@@ -46,7 +46,7 @@ copy_n_swapped(
 		stride
 	);
 }
-	
+
 }
 }
 

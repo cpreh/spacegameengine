@@ -47,7 +47,7 @@ public:
 	reference
 	operator[](
 		size_type) const;
-	
+
 	size_type size() const;
 private:
 	pointer rep;

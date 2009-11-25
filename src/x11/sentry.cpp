@@ -39,7 +39,7 @@ sge::x11::sentry::~sentry()
 {
 	optional_error const err(
 		last_error());
-	
+
 	if(std::uncaught_exception() || !err)
 		return;
 

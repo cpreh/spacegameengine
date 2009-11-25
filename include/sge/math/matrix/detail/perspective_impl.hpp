@@ -41,7 +41,7 @@ sge::math::matrix::perspective(
 		throw exception(
 			SGE_TEXT("matrix::perspective(): far may not be near!")
 		);
-	
+
 	if(almost_zero(near))
 		throw exception(
 			SGE_TEXT("matrix::perspective(): near must not be 0!")

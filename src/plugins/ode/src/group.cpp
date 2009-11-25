@@ -20,7 +20,7 @@ sge::ode::group::group(
 void sge::ode::group::add(
 	collision::body_ptr const _body)
 {
-	dirty_ = 
+	dirty_ =
 		true;
 	dynamic_cast<body &>(
 		*_body).add_to_group(

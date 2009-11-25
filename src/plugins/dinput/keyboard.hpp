@@ -58,7 +58,7 @@ private:
 	char_type
 		keycode_to_char(
 		input::key_code key) const;
-	
+
 	static BOOL CALLBACK
 	enum_keyboard_keys(
 		LPCDIDEVICEOBJECTINSTANCE ddoi,

@@ -68,7 +68,7 @@ void sge::audio::pool::update()
 				SGE_ASSERT_MESSAGE(
 					s->first->status() != audio::sound_status::paused,
 					SGE_TEXT("a paused sound was destroyed but kept alive by the sound pool"));
-				
+
 				if (s->first->status() != audio::sound_status::stopped)
 				{
 					if (s->first->play_mode() != play_mode::once)

@@ -46,7 +46,7 @@ public:
 
 	SGE_SYMBOL explicit system(
 		renderer::device_ptr rend);
-	
+
 	typedef sge::function::object<
 		void (
 			object *,
@@ -74,6 +74,7 @@ public:
 		sort_method const &
 			= default_sort,
 		equal_method const &
+<<<<<<< HEAD
 			= default_equal
 	);
 	
@@ -81,6 +82,12 @@ public:
 	render(
 		object_type const &
 	);
+=======
+			= default_equal);
+
+	SGE_SYMBOL void render(
+		object);
+>>>>>>> master
 };
 
 }

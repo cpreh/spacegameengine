@@ -43,7 +43,7 @@ public:
 	SGE_SYMBOL var &
 	operator=(
 		value_type const &);
-	
+
 	SGE_SYMBOL state_type state() const;
 	SGE_SYMBOL value_type value() const;
 

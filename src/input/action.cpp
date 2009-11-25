@@ -71,12 +71,12 @@ sge::input::action(
 				phoenix::arg_names::arg1
 			)
 		)
-		== code 
+		== code
 	)
 	[
 		action
 	];*/
-	
+
 	return functor(
 		code,
 		action);

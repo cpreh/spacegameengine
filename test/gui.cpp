@@ -115,7 +115,7 @@ try
 		(sge::systems::parameterless::font)
 		(sge::systems::parameterless::image));
 
-	
+
 	sge::gui::manager m(
 		sys.renderer(),
 		sys.input_system(),
@@ -126,7 +126,7 @@ try
 			new sge::gui::cursor::default_(
 				sys.image_loader(),
 				sys.renderer())));
-	
+
 	sge::gui::widgets::backdrop top(
 		sge::gui::widgets::parent_data(m),
 		sge::gui::widgets::parameters()
@@ -151,7 +151,7 @@ try
 		left,
 		sge::gui::widgets::parameters(),
 		SGE_TEXT("(left top) me!"));
-	
+
 	sge::gui::widgets::buttons::text left_bottom(
 		left,
 		sge::gui::widgets::parameters(),
@@ -175,11 +175,11 @@ try
 		sge::renderer::state::list
 			(sge::renderer::state::depth_func::off)
 			(sge::renderer::state::bool_::clear_backbuffer = true)
-			(sge::renderer::state::color::clear_color = 
+			(sge::renderer::state::color::clear_color =
 				sge::image::colors::red())
 			(sge::renderer::state::cull_mode::off)
 		);
-	
+
 	bool running = true;
 	end_program p(running);
 	sge::signal::scoped_connection const conn(
@@ -189,12 +189,12 @@ try
 			)
 		)
 	);
-	
+
 	sge::signal::scoped_connection const conn2(
 		left_top.register_clicked(p)
 	);
 	sge::cerr << SGE_TEXT("---------------------------\nall widgets added!\n");
-	
+
 	sge::time::timer delete_timer(sge::time::second(static_cast<sge::time::unit>(2)));
 	while (running)
 	{
@@ -211,7 +211,7 @@ try
 		m.update();
 		m.draw();
 	}
-} 
+}
 catch (sge::exception const &e)
 {
 	sge::cerr << SGE_TEXT("caught sge exception: ") << e.string() << SGE_TEXT("\n");

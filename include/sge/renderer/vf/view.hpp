@@ -49,7 +49,7 @@ public:
 		data(v.data()),
 		size(v.size())
 	{}
-	
+
 	template<typename OtherView>
 	explicit view(
 		basic_dynamic_view<OtherView> const &v)

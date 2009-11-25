@@ -70,7 +70,7 @@ sge::config::appdir()
 		throw exception(
 			SGE_TEXT("/prof/self/exe does not exist")
 		);
-	
+
 	return filesystem::remove_filename(
 		filesystem::readlink(
 			self

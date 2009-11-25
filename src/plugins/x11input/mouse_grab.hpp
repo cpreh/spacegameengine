@@ -40,7 +40,7 @@ public:
 	mouse_grab(
 		x11::window_ptr,
 		x11::cursor const &);
-	~mouse_grab();	
+	~mouse_grab();
 private:
 	x11::window_ptr const wnd;
 };

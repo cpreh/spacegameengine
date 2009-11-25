@@ -70,8 +70,8 @@ void sge::gui::canvas::font_drawer::begin_rendering(
 }
 
 void sge::gui::canvas::font_drawer::draw_char(
-	char_type const, 
-	font::pos const &pos, 
+	char_type const,
+	font::pos const &pos,
 	font::const_image_view const &data)
 {
 	SGE_LOG_DEBUG(mylogger,log::_ << SGE_TEXT("drawing char"));
@@ -93,7 +93,7 @@ void sge::gui::canvas::font_drawer::draw_char(
 			)
 		)
 	);
-	
+
 	if (character_pos)
 	{
 		SGE_LOG_DEBUG(
@@ -115,7 +115,7 @@ void sge::gui::canvas::font_drawer::draw_char(
 			mylogger,
 			log::_ << SGE_TEXT("found character!"));
 	}
-	
+
 	sge::image::algorithm::transform(
 		data,
 		sub_view,

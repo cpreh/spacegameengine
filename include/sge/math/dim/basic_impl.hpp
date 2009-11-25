@@ -173,7 +173,7 @@ sge::math::dim::basic<T, N, S>::data() const
 	return math::detail::storage_data(
 		storage);
 }
-	
+
 template<
 	typename T,
 	typename N,
@@ -188,7 +188,7 @@ sge::math::dim::basic<T, N, S>::size() const
 		math::detail::storage_dim(
 			storage));
 }
-	
+
 template<
 	typename T,
 	typename N,

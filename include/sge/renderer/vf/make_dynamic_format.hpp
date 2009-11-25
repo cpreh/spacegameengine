@@ -47,13 +47,13 @@ make_dynamic_format()
 		elements>(
 			make_dynamic_elements(
 				elems));
-	
+
 	dynamic_offset_list offs;
 	boost::mpl::for_each<
 		offsets>(
 			make_dynamic_offsets(
 				offs));
-	
+
 	return dynamic_format(
 		elems,
 		offs);

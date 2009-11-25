@@ -41,7 +41,7 @@ public:
 
 sge::renderer::index::format::type
 sge::renderer::index::view_format(
-	const_view const &v) 
+	const_view const &v)
 {
 	return variant::apply_unary(
 		visitor(),

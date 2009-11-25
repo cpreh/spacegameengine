@@ -22,7 +22,7 @@ class base
 {
 protected:
 	typedef shared_ptr< detail::object<T> > object_ptr;
-	typedef typename 
+	typedef typename
 	boost::mpl::if_<
 		boost::is_void<T>,
 		void,
@@ -71,7 +71,7 @@ public:
 }
 
 template<typename T>
-sge::thread::future::detail::base<T>::base() 
+sge::thread::future::detail::base<T>::base()
 :
 	object_()
 {}
@@ -107,7 +107,7 @@ sge::thread::future::detail::base<T>::try_get(
 {
 	if (!object_)
 		throw uninitialized();
-	return 
+	return
 		object_->try_get(
 			_dest);
 }
@@ -119,7 +119,7 @@ sge::thread::future::detail::base<T>::timed_get(
 	reference _dest,
 	Duration const &_time)
 {
-	return 
+	return
 		timed_get_until(
 			_dest,
 			boost::get_system_time()+_time);
@@ -133,7 +133,7 @@ sge::thread::future::detail::base<T>::timed_get_until(
 {
 	if (!object_)
 		throw uninitialized();
-	return 
+	return
 		object_->timed_get_until(
 			_dest,
 			_time);
@@ -160,7 +160,7 @@ bool sge::thread::future::detail::base<T>::has_exception() const
 		return false;
 	boost::lock_guard<boost::mutex> guard(
 		object_->mutex_);
-	return 
+	return
 		object_->done_ && object_->exception_;
 }
 
@@ -171,7 +171,7 @@ bool sge::thread::future::detail::base<T>::has_value() const
 		return false;
 	boost::lock_guard<boost::mutex> guard(
 		object_->mutex_);
-	return 
+	return
 		object_->done_ && object_->result_;
 }
 
@@ -205,7 +205,7 @@ bool sge::thread::future::detail::base<T>::timed_wait_until(
 {
 	if (object_)
 		throw uninitialized();
-	return 
+	return
 		object_->timed_wait_until(
 			_time);
 }

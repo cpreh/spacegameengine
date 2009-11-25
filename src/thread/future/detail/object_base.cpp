@@ -39,7 +39,7 @@ bool sge::thread::future::detail::object_base::timed_wait_until_internal(
 {
 	while (!done_)
 	{
-		bool const success = 
+		bool const success =
 			waiters_.timed_wait(
 				_lock,
 				_time);
@@ -55,7 +55,7 @@ bool sge::thread::future::detail::object_base::timed_wait_until(
 {
 	boost::unique_lock<boost::mutex> lock(
 		mutex_);
-	return 
+	return
 		timed_wait_until_internal(
 			lock,
 			_time);

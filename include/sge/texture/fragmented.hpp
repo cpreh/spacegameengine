@@ -53,7 +53,7 @@ public:
 	SGE_SYMBOL void
 	return_fragment(
 		part const &);
-	
+
 	virtual renderer::texture_ptr const
 	texture() const = 0;
 

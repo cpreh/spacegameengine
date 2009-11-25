@@ -93,7 +93,7 @@ public:
 	}
 private:
 	dynamic_element_list &elems;
-	
+
 	typedef std::map<
 		role::type,
 		vertex_size

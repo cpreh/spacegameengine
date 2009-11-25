@@ -28,7 +28,7 @@ sge::opengl::center_coordinate(
 	renderer::pixel_unit const res_p(
 		static_cast<renderer::pixel_unit>(
 			res_sz));
-	
+
 	return window_sz > res_p
 		? (window_sz - res_p) / 2
 		: 0;

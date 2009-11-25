@@ -45,7 +45,7 @@ class SGE_CLASS_SYMBOL edit : public base
 		parameters,
 		line_type,
 		dim const &desired_size);
-	
+
 	SGE_GUI_SYMBOL string const text() const;
 	SGE_GUI_SYMBOL void text(string const &);
 	SGE_GUI_SYMBOL point const &scroll_pos() const;

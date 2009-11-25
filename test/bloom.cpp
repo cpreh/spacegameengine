@@ -74,59 +74,59 @@ T cube(T const &t)
 // f'(0)=0
 // f'(1)=0
 template<typename T>
-typename 
+typename
 boost::enable_if<
 	boost::is_floating_point<T>,
-	T>::type 
+	T>::type
 sigmoid(T const &x)
 {
 	return static_cast<T>(3)*square(x)-static_cast<T>(2)*cube(x);
 }
 
 template<typename T>
-typename 
+typename
 boost::enable_if<
 	boost::is_floating_point<T>,
-	T>::type 
+	T>::type
 logistic(
 	T const &x,
 	T const &h)
 {
-	T const exponent = 
+	T const exponent =
 		-((x*static_cast<T>(16))-static_cast<T>(8))/h;
 
-	return 
+	return
 		static_cast<T>(1)/
 		(static_cast<T>(1)+std::exp(exponent));
 }
 
 // TODO: replace these with mizuiro::color::(de)normalize!
 template<typename Float,typename Input>
-typename 
+typename
 boost::enable_if<
 	boost::is_floating_point<Float>,
-	Float>::type 
+	Float>::type
 normalize(Input const &x)
 {
-	Float const denominator = 
+	Float const denominator =
 		static_cast<Float>(
 				std::numeric_limits<Input>::max())-
 			static_cast<Float>(
 				std::numeric_limits<Input>::min());
 
-	return 
+	return
 		static_cast<Float>(x)/
 		denominator;
 }
 
 template<typename Output,typename Float>
-typename 
+typename
 boost::enable_if<
 	boost::is_floating_point<Float>,
-	Output>::type 
+	Output>::type
 denormalize(Float const &x)
 {
-	Float const factor = 
+	Float const factor =
 		static_cast<Float>(
 				std::numeric_limits<Output>::max())-
 			static_cast<Float>(
@@ -141,7 +141,7 @@ template<
 	typename Color
 >
 struct field_increase_contrast_channel {
-	
+
 	field_increase_contrast_channel(
 		Color &c,
 		double const coefficient
@@ -152,7 +152,7 @@ struct field_increase_contrast_channel {
 	{}
 
 	typedef void result_type;
-	
+
 	template<
 		typename T
 	>
@@ -161,7 +161,7 @@ struct field_increase_contrast_channel {
 		T &
 	) const
 	{
-		c. template set<T>( 
+		c. template set<T>(
 			denormalize<typename Color::layout::channel_type>(
 				sge::math::clamp(
 					logistic<double>(
@@ -209,48 +209,48 @@ template<typename T>
 typename
 boost::enable_if<
 	boost::is_floating_point<T>,
-	T>::type 
+	T>::type
 gauss_stddev(
 	T const radius,
 	T const range)
 {
 	// 2*log(1/range)
-	T denom = 
+	T denom =
 		static_cast<T>(2)*std::log(range);
 
 	// little hack, just add 1
 	//r = r + static_cast<U>(1);
 	// sqrt(-r^2/(2*log(1/255)))
-	return 
+	return
 		std::sqrt(
 			-square(radius)/
 			denom);
 }
 
 template<typename T>
-typename 
+typename
 boost::enable_if<
 	boost::is_floating_point<T>,
-	T>::type 
+	T>::type
 bell_curve(
 	T const stddev,
 	T const center,
 	T const x)
 {
 	// 1/(stddev*sqrt(2*pi))
-	T const prefix = 
+	T const prefix =
 		static_cast<T>(1)/
 		(stddev*std::sqrt(static_cast<T>(2)*sge::math::pi<T>()));
 
 	// 1/(2*stddev^2)
-	T const eprefix = 
+	T const eprefix =
 		-static_cast<T>(1)/
 		(static_cast<T>(2)*square(stddev));
 
 	T const pos = x - center;
 
-	return 
-		prefix * 
+	return
+		prefix *
 		std::exp(
 			square(pos)*
 			eprefix);
@@ -262,7 +262,7 @@ typename
 boost::enable_if<
 	boost::is_floating_point<
 		typename std::iterator_traits<It>::value_type>,
-	void>::type 
+	void>::type
 fill_with_gauss(
 	It i,
 	It const e)
@@ -270,29 +270,29 @@ fill_with_gauss(
 	typedef typename std::iterator_traits<It>::difference_type difference_type;
 	typedef typename std::iterator_traits<It>::value_type value_type;
 
-	difference_type const span = 
+	difference_type const span =
 		std::distance(
 			i,
 			e);
 
 	SGE_ASSERT((span - 1) % 2 == 0);
 
-	value_type const r = 
+	value_type const r =
 		static_cast<value_type>(
 			span/2);
 
-	value_type const stddev = 
+	value_type const stddev =
 		gauss_stddev(
 			r+
 			static_cast<value_type>(1),
 			static_cast<value_type>(1.0/255.0));
-	
-	difference_type x = 
+
+	difference_type x =
 		0;
 
 	for (;i != e; ++i)
 	{
-		*i = 
+		*i =
 			bell_curve(
 				stddev,
 				r,
@@ -319,7 +319,7 @@ void field_combine(
 	{
 		for (unsigned i = 0; i <= 3; ++i)
 			(*li)[i] = c((*li)[i],(*ri)[i]);
-		
+
 		++li;
 		++ri;
 	}
@@ -342,10 +342,10 @@ void field_gaussian_blur(
 	typedef std::vector<double> value_container;
 	typedef typename value_container::size_type value_size_type;
 
-	value_size_type const 
+	value_size_type const
 		xd = static_cast<value_size_type>(2*radii.w()+1),
 	  yd = static_cast<value_size_type>(2*radii.h()+1);
-	value_container 
+	value_container
 		gx(xd),
 		gy(yd);
 	fill_with_gauss(
@@ -355,7 +355,7 @@ void field_gaussian_blur(
 		gy.begin(),
 		gy.end());
 
-	color_container 
+	color_container
 		row(f.dim().w()),
 		col(f.dim().h());
 
@@ -368,7 +368,7 @@ void field_gaussian_blur(
 			b,
 			b+f.dim().w(),
 			row.begin());
-			
+
 		for (size_type x = 0; x < f.dim().w(); ++x)
 		{
 			size_type const hw = xd/2;
@@ -376,7 +376,7 @@ void field_gaussian_blur(
 			size_type const cxb = (x < hw) ? (hw-x) : 0,
 			                cxe = (x >= f.dim().w()-hw) ? xd-(x-(f.dim().w()-hw)+1) : xd;
 
-			T &cur_pixel = 
+			T &cur_pixel =
 				f.pos(typename field_type::vector_type(x,y));
 			for (unsigned i = 0; i <= 3; ++i)
 			{
@@ -409,7 +409,7 @@ void field_gaussian_blur(
 			const size_type cyb = (y < hh) ? (hh-y) : 0,
 			                cye = (y >= f.dim().h()-hh) ? yd-(y-(f.dim().w()-hh)+1) : yd;
 
-			T &cur_pixel = 
+			T &cur_pixel =
 				f.pos(typename field_type::vector_type(x,y));
 
 			for (unsigned i = 0; i <= 3; ++i)
@@ -451,7 +451,7 @@ try
 		return EXIT_FAILURE;
 	}
 
-	unsigned blur_radius = 
+	unsigned blur_radius =
 		argc == 3
 		? sge::lexical_cast<unsigned>(std::string(argv[2]))
 		: 16;
@@ -461,24 +461,24 @@ try
 	sge::systems::instance sys(
 		sge::systems::list()
 		(sge::systems::parameterless::image));
-	
-	sge::image::file_ptr const 
+
+	sge::image::file_ptr const
 		bg(
 			sys.image_loader()->load(
 				sge::iconv(argv[1]
 			)
 		)
 	);
-	
+
 	typedef sge::image::color::rgba8 color_type;
 	typedef sge::container::field<color_type> color_field;
-	
+
 	color_field f(
 		sge::math::dim::structure_cast<color_field::dim_type>(
 			bg->dim()
 		)
 	);
-	
+
 	sge::image::view::object const view(
 		sge::image::view::make(
 			reinterpret_cast<unsigned char *>(
@@ -493,18 +493,18 @@ try
 			sge::image::view::optional_pitch()
 		)
 	);
-	
+
 	sge::image::algorithm::copy_and_convert(
 		bg->view(),
 		view
 	);
-	
+
 	color_field original = f;
 
 	field_increase_contrast(
 		f,
 		0.8);
-	
+
 	field_gaussian_blur(
 		f,
 		color_field::dim_type(
@@ -518,7 +518,7 @@ try
 			color_field::value_type::layout::channel_type
 		>
 	);
-	
+
 	sys.image_loader()->create(
 		sge::image::view::make_const(
 			view

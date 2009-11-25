@@ -161,13 +161,13 @@ void sge::opengl::basic_texture<Base>::pre_setdata() const
 template<typename Base>
 typename sge::opengl::basic_texture<Base>::size_type
 sge::opengl::basic_texture<Base>::stride() const
-{	
+{
 	return stride_;
 }
 
 template<typename Base>
 GLenum sge::opengl::basic_texture<Base>::format() const
-{	
+{
 	return format_;
 }
 

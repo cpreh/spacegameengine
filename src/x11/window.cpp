@@ -132,7 +132,7 @@ sge::x11::window::size() const
 		&root_return,
 		&x_return,
 		&y_return,
-		&width_return, 
+		&width_return,
 		&height_return,
 		&border_width_return,
 		&depth_return);
@@ -260,7 +260,7 @@ void sge::x11::window::hints()
 	XSetWMHints(
 		dsp_(),
 		get(),
-		hints_.get());	
+		hints_.get());
 }
 
 void sge::x11::window::set_size_hints()

@@ -74,9 +74,9 @@ public:
 
 template<
 	typename Dest,
-	typename View 
+	typename View
 >
-Dest 
+Dest
 data_impl(
 	View const &v)
 {

@@ -227,7 +227,7 @@ namespace detail
   };
 
 }  // namespace detail
-  
+
   template <class T>
     struct is_ratio : public boost::false_type {};
   template <boost::intmax_t N, boost::intmax_t D>

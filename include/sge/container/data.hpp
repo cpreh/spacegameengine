@@ -32,7 +32,7 @@ namespace container
 // (DR of 2005)
 
 template<
-	typename Container 
+	typename Container
 >
 typename Container::pointer
 data(
@@ -52,7 +52,7 @@ data(
 }
 
 template<
-	typename Container 
+	typename Container
 >
 typename Container::pointer
 data_end(

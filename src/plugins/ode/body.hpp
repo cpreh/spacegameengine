@@ -43,13 +43,13 @@ public:
 private:
 	// world needs to access the satellite in its collision function
 	friend class world;
-	
+
 	world &world_;
 	transformer const &transformer_;
 	dBodyID body_;
 	collision::satellite_ptr satellite_;
 	shapes::container shapes_;
-	
+
 	void add(
 		collision::shapes::base_ptr);
 	static void moved(

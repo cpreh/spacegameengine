@@ -41,7 +41,7 @@ class format_traits;
 
 template<>
 class format_traits<
-	boost::uint16_t	
+	boost::uint16_t
 >
 :
 public boost::mpl::integral_c<
@@ -62,7 +62,7 @@ public format_traits<
 
 template<>
 class format_traits<
-	boost::uint32_t	
+	boost::uint32_t
 >
 :
 public boost::mpl::integral_c<

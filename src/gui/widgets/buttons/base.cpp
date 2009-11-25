@@ -49,7 +49,7 @@ sge::gui::widgets::buttons::base::mouse_over() const
 {
 	return mouse_over_;
 }
-	
+
 bool
 sge::gui::widgets::buttons::base::key_over() const
 {

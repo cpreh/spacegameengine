@@ -51,7 +51,7 @@ sge::log::location::begin() const
 {
 	return entries_.begin();
 }
-	
+
 sge::log::location::const_iterator
 sge::log::location::end() const
 {

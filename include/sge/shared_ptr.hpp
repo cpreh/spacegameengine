@@ -134,7 +134,7 @@ public:
 	{
 		return impl.operator->();
 	}
-    
+
 	pointer get() const // never throws
 	{
         	return impl.get();
@@ -167,7 +167,7 @@ public:
 		std::swap(impl, other.impl);
  	}
 
-	impl_type const 
+	impl_type const
 	boost_ptr() const
 	{
 		return impl;
@@ -179,7 +179,7 @@ private:
 	{
 		return Deleter<T>();
 	}
-	
+
 	// this is used to create a shared_ptr
 	// from a weak_ptr
 	template<

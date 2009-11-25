@@ -32,7 +32,7 @@ public:
 
 	template<
 		typename T
-	> 
+	>
 	result_type
 	operator()(
 		T const &) const;

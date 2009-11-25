@@ -42,7 +42,7 @@ public:
 	uniform(
 		string const &) = 0;
 
-	SGE_SYMBOL virtual ~program(); 
+	SGE_SYMBOL virtual ~program();
 };
 
 }

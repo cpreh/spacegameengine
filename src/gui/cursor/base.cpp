@@ -20,6 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/gui/cursor/base.hpp>
 
-sge::gui::cursor::base::~base() 
+sge::gui::cursor::base::~base()
 {
 }

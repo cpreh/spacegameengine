@@ -47,13 +47,13 @@ public:
 
 	// NOTE: this is font::drawer::size_type, _not_ font::size_type!
 	SGE_GUI_SYMBOL void begin_rendering(
-		size_type, 
-		font::pos const &, 
+		size_type,
+		font::pos const &,
 		font::dim);
 
 	SGE_GUI_SYMBOL void draw_char(
-		char_type, 
-		font::pos const &c, 
+		char_type,
+		font::pos const &c,
 		font::const_image_view const &);
 
 	SGE_GUI_SYMBOL void end_rendering();

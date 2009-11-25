@@ -47,7 +47,7 @@ try_create_path(
 		sge::filesystem::create_directories_recursive(
 			p
 		);
-	
+
 	if(
 		!sge::filesystem::is_directory(
 			p
@@ -57,7 +57,7 @@ try_create_path(
 			p.string()
 			+ SGE_TEXT(" is not a directory!")
 		);
-	
+
 	return p;
 }
 

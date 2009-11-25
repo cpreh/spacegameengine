@@ -74,7 +74,7 @@ sge::d3d9::vertex_format::vertex_format(
 		//oi[usage] = offset;
 		offset += 0; // size
 	}
-	
+
 	D3DVERTEXELEMENT9 const end_token = D3DDECL_END();
 	vertex_elements.push_back(end_token);
 

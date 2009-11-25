@@ -143,7 +143,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 /**
  * variadic template version ...
  *
- 
+
 template< typename F, typename... Args >
 struct functor_wrapper< F, R( Args... ) >
 {
@@ -155,7 +155,7 @@ struct functor_wrapper< F, R( Args... ) >
 	{
 		return static_cast<R>( f_( args... ) );
 	}
-	
+
 	R operator( Args... args ) const
 	{
 		return static_cast<R>( f_( args...)  );

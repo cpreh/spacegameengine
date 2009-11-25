@@ -61,12 +61,12 @@ void sge::sprite::system::render(
 	equal_method const &equal_fun)
 {
 	sort_fun(beg, end);
-	
+
 	allocate_buffers(std::distance(beg, end));
 
 	renderer::vertex_buffer_ptr const vb(
 		vertex_buffer());
-	
+
 	renderer::index_buffer_ptr const ib(
 		index_buffer());
 

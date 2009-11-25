@@ -103,7 +103,7 @@ sge::opengl::glsl::uniform::setter::setter(
 {
 	initialize_setter();
 }
-	
+
 sge::opengl::glsl::uniform::type const
 sge::opengl::glsl::uniform::setter::operator()(
 	renderer::glsl::uniform::int_value const &i) const
@@ -119,7 +119,7 @@ sge::opengl::glsl::uniform::setter::operator()(
 		)
 	);
 }
-	
+
 sge::opengl::glsl::uniform::type const
 sge::opengl::glsl::uniform::setter::operator()(
 	renderer::glsl::uniform::float_value const &f) const
@@ -463,7 +463,7 @@ bool
 is_matrix(
 	sge::renderer::glsl::uniform::float_value_type::type const type)
 {
-	return type >= sge::renderer::glsl::uniform::float_value_type::matrix2x2;	
+	return type >= sge::renderer::glsl::uniform::float_value_type::matrix2x2;
 }
 
 GLsizei

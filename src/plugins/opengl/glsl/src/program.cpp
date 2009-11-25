@@ -65,7 +65,7 @@ sge::opengl::glsl::program<Native>::program(
 				*ps_source
 			)
 		);
-	
+
 	link();
 }
 

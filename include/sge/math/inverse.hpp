@@ -9,7 +9,7 @@ namespace sge
 namespace math
 {
 template<typename T>
-typename 
+typename
 boost::disable_if
 <
 	boost::is_integral<T>,
@@ -18,7 +18,7 @@ boost::disable_if
 inverse(
 	T const t)
 {
-	return 
+	return
 		static_cast<T>(1)/t;
 }
 }

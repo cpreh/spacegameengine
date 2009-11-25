@@ -209,8 +209,8 @@ sge::log::context::apply(
 		throw no_such_location(
 			location_
 		);
-	
-	typedef 
+
+	typedef
 	sge::container::traversal<
 		detail::context_tree
 	> traversal_type;

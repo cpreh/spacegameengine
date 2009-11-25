@@ -5,7 +5,7 @@
 sge::image::file_ptr const sge::libpng::loader::load(
 	filesystem::path const &_path)
 {
-	return 
+	return
 		image::file_ptr(
 			new file(
 				_path));
@@ -14,7 +14,7 @@ sge::image::file_ptr const sge::libpng::loader::load(
 sge::image::file_ptr const sge::libpng::loader::create(
 	image::view::const_object const&p)
 {
-	return 
+	return
 		image::file_ptr(
 			new file(
 				p));

@@ -55,7 +55,7 @@ void sge::gui::layouts::grid::compile_static()
 		mylogger,
 		log::_ << SGE_TEXT("In static compilation for widget ")
 		        << type_name(typeid(connected_widget())));
-	
+
 	cache_.reset(
 		new detail::grid_cache(
 			connected_widget().children()));
@@ -70,14 +70,14 @@ void sge::gui::layouts::grid::compile_static()
 			connected_widget().size()
 		)
 	);
-	
-	dim const 
+
+	dim const
 		optimal = optimal_size(),
 		usable = connected_widget().size();
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("optimal size ") << optimal 
+		log::_ << SGE_TEXT("optimal size ") << optimal
 		        << SGE_TEXT(", usable size: ") << usable);
 
 	SGE_LOG_DEBUG(
@@ -100,7 +100,7 @@ void sge::gui::layouts::grid::compile_static()
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_ << SGE_TEXT("adapting x axis end"));
-	
+
 	distribute_overhead(
 		usable);
 	update_widgets();
@@ -123,18 +123,18 @@ sge::gui::dim const sge::gui::layouts::grid::optimal_size() const
 		        << rolumns.dim());
 
 	for (
-		detail::grid_cache::rolumn_container::size_type i = 0; 
+		detail::grid_cache::rolumn_container::size_type i = 0;
 		i < rolumns.dim().h();
 		++i)
 		for (
-			unit j = static_cast<unit>(0); 
-			j < static_cast<unit>(2); 
+			unit j = static_cast<unit>(0);
+			j < static_cast<unit>(2);
 			++j)
 		{
 			SGE_LOG_DEBUG(
 				mylogger,
-				log::_ << SGE_TEXT("axis: ") 
-				        << j 
+				log::_ << SGE_TEXT("axis: ")
+				        << j
 								<< SGE_TEXT(", rolumn ")
 								<< i
 								<< SGE_TEXT(", adding size ")
@@ -145,7 +145,7 @@ sge::gui::dim const sge::gui::layouts::grid::optimal_size() const
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_ << SGE_TEXT("optimal size, end"));
-	
+
 	return maxdims;
 }
 
@@ -168,7 +168,7 @@ void sge::gui::layouts::grid::adapt_outer(
 	// optimal > size
 	// count widgets with shrink flag and distribute (optimal - size) among
 	// them. if there are no shrinkable widgets, issue an error
-	// optimal < size 
+	// optimal < size
 	// count widgets with expand flag and distribute (size - optimal) among
 	// them. if there are no widgets with the expand flag, distribute space among
 	// widgets with grow flag.
@@ -222,8 +222,8 @@ void sge::gui::layouts::grid::expand(
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_ << SGE_TEXT("there are ") 
-							<< count 
+			log::_ << SGE_TEXT("there are ")
+							<< count
 							<< SGE_TEXT(" widgets which should grow, growing those"));
 
 		adapt(
@@ -236,8 +236,8 @@ void sge::gui::layouts::grid::expand(
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_ << SGE_TEXT("there are ") 
-							<< count 
+			log::_ << SGE_TEXT("there are ")
+							<< count
 							<< SGE_TEXT(" widgets which can grow, growing those"));
 
 		adapt(
@@ -263,7 +263,7 @@ void sge::gui::layouts::grid::adapt(
 	axis_policy::type const flag,
 	axis_type const axis)
 {
-	unsigned const count = 
+	unsigned const count =
 		count_flags(
 			flag,
 			axis);
@@ -280,16 +280,16 @@ void sge::gui::layouts::grid::adapt(
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("adding ") << diff << SGE_TEXT("/") 
-		        << count << SGE_TEXT("=") << addition 
+		log::_ << SGE_TEXT("adding ") << diff << SGE_TEXT("/")
+		        << count << SGE_TEXT("=") << addition
 						<< SGE_TEXT(" pixels to the flagged rolumns"));
 
 	detail::grid_cache::rolumn_container const &rolumns =
 		valid_cache().rolumns();
 
 	for (
-		detail::grid_cache::child_plane::size_type i = 0; 
-		i < valid_cache().plane().dim()[axis]; 
+		detail::grid_cache::child_plane::size_type i = 0;
+		i < valid_cache().plane().dim()[axis];
 		++i
 		)
 	{
@@ -297,7 +297,7 @@ void sge::gui::layouts::grid::adapt(
 		{
 			SGE_LOG_DEBUG(
 				mylogger,
-				log::_ << SGE_TEXT("rolumn ") << i << SGE_TEXT(" can be modified")); 
+				log::_ << SGE_TEXT("rolumn ") << i << SGE_TEXT(" can be modified"));
 
 			update_rolumn(
 				axis,
@@ -308,7 +308,7 @@ void sge::gui::layouts::grid::adapt(
 	}
 }
 
-namespace 
+namespace
 {
 template<
 	typename Result,
@@ -320,7 +320,7 @@ Result field_swap_pos(
 	Index const a,
 	Index const b)
 {
-	return 
+	return
 		swap
 			? f.pos(typename Container::vector_type(b,a))
 			: f.pos(typename Container::vector_type(a,b));
@@ -335,24 +335,24 @@ void sge::gui::layouts::grid::update_rolumn(
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("updating rolumn ") 
-		        << rolumn 
-						<< SGE_TEXT(" on axis ") 
-						<< axis); 
+		log::_ << SGE_TEXT("updating rolumn ")
+		        << rolumn
+						<< SGE_TEXT(" on axis ")
+						<< axis);
 	// update the cache
 	valid_cache().rolumns().pos(
 		detail::grid_cache::rolumn_container::vector_type(
 			axis,
 			rolumn)).size += addition;
-			
+
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_ << SGE_TEXT("added addition, plane dimensions are: ")
 		        << valid_cache().plane().dim());
 
 	for (
-		detail::grid_cache::child_plane::size_type i = 0; 
-		i < valid_cache().plane().dim()[1-axis]; 
+		detail::grid_cache::child_plane::size_type i = 0;
+		i < valid_cache().plane().dim()[1-axis];
 		++i)
 	{
 		SGE_LOG_DEBUG(
@@ -362,7 +362,7 @@ void sge::gui::layouts::grid::update_rolumn(
 							<< SGE_TEXT(" and accessing ")
 							<< i << SGE_TEXT("x") << rolumn);
 
-		widgets::base * const w = 
+		widgets::base * const w =
 			field_swap_pos<
 				widgets::base*,
 				detail::grid_cache::child_plane,
@@ -374,7 +374,7 @@ void sge::gui::layouts::grid::update_rolumn(
 					i),
 				static_cast<unsigned>(
 					rolumn));
-		
+
 		// not a widget we're looking for
 		if (!w || !(w->size_policy().index(axis) & flag))
 			continue;
@@ -383,7 +383,7 @@ void sge::gui::layouts::grid::update_rolumn(
 	}
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("update rolumn, end ")); 
+		log::_ << SGE_TEXT("update rolumn, end "));
 }
 
 // counts the number of widgets on the specified axis (not rolumn, axis) which
@@ -394,7 +394,7 @@ unsigned sge::gui::layouts::grid::count_flags(
 {
 	unsigned count = 0;
 
-	detail::grid_cache::rolumn_container const &rolumns = 
+	detail::grid_cache::rolumn_container const &rolumns =
 		valid_cache().rolumns();
 
 	for (
@@ -410,9 +410,9 @@ unsigned sge::gui::layouts::grid::count_flags(
 void sge::gui::layouts::grid::distribute_overhead(
 	dim const &usable)
 {
-	detail::grid_cache::rolumn_container &rolumns = 
+	detail::grid_cache::rolumn_container &rolumns =
 		valid_cache().volatile_rolumns();
-	
+
 	rolumns = valid_cache().rolumns();
 
 	// we might have overhead space (difference "usable - real"), which we
@@ -428,8 +428,8 @@ void sge::gui::layouts::grid::distribute_overhead(
 				detail::grid_cache::rolumn_container::vector_type(
 					y_axis,
 					i)).size);
-	
-	dim const 
+
+	dim const
 		diff = usable - real,
 		extra(
 			diff.w()/
@@ -454,10 +454,10 @@ void sge::gui::layouts::grid::update_widgets()
 		mylogger,
 		log::_ << SGE_TEXT("updating widgets begin"));
 
-	detail::grid_cache::child_plane &c = 
+	detail::grid_cache::child_plane &c =
 		valid_cache().plane();
-	
-	detail::grid_cache::rolumn_container const &rolumns = 
+
+	detail::grid_cache::rolumn_container const &rolumns =
 		valid_cache().volatile_rolumns();
 
 	SGE_LOG_DEBUG(
@@ -472,7 +472,7 @@ void sge::gui::layouts::grid::update_widgets()
 		pos.y() = static_cast<unit>(0);
 		for (detail::grid_cache::rolumn_container::size_type y = 0; y < c.dim().h(); ++y)
 		{
-			widgets::base * const w = 
+			widgets::base * const w =
 				c.pos(detail::grid_cache::child_plane::vector_type(x,y));
 			if (w)
 				update_widget(
@@ -488,19 +488,19 @@ void sge::gui::layouts::grid::update_widgets()
 								y_axis,
 								y)).size));
 
-			pos.y() += 
+			pos.y() +=
 				rolumns.pos(
 					detail::grid_cache::rolumn_container::vector_type(
 						y_axis,
 						y)).size;
 		}
-		pos.x() += 
+		pos.x() +=
 			rolumns.pos(
 				detail::grid_cache::rolumn_container::vector_type(
 					x_axis,
 					x)).size;
 	}
-	
+
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_ << SGE_TEXT("updating widgets end"));
@@ -524,16 +524,16 @@ void sge::gui::layouts::grid::update_widget(
 	point const &p,
 	dim const &d)
 {
-	dim const smaller = 
+	dim const smaller =
 		valid_cache().data()[&w].size;
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("setting widget position to ") 
-		        << p 
-						<< SGE_TEXT(", with large size ") 
-						<< d 
-						<< SGE_TEXT(" and small size ") 
+		log::_ << SGE_TEXT("setting widget position to ")
+		        << p
+						<< SGE_TEXT(", with large size ")
+						<< d
+						<< SGE_TEXT(" and small size ")
 						<< smaller
 						<< SGE_TEXT(" and centered position ")
 						<< center(p,d,smaller));
@@ -544,11 +544,11 @@ void sge::gui::layouts::grid::update_widget(
 			p,
 			d,
 			smaller));
-	
+
 	base::set_widget_size(
 		w,
 		smaller);
-	
+
 	base::compile_widget(
 		w,
 		invalidation::all);

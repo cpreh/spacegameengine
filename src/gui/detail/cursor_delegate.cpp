@@ -46,7 +46,7 @@ void sge::gui::detail::cursor_delegate::key_callback(
 		case input::kc::key_left:
 			if (pos_ == 0)
 				return;
-			
+
 			pos_--;
 
 			if (text[pos_] == SGE_TEXT('\n'))

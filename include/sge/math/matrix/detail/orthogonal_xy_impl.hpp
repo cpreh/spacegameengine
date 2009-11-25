@@ -30,9 +30,9 @@ typename sge::math::matrix::static_<T, 4, 4>::type const
 sge::math::matrix::orthogonal_xy()
 {
 	return typename static_<T, 4, 4>::type(
-		static_cast<T>(1), static_cast<T>(0), static_cast<T>(0), static_cast<T>(0),	
-		static_cast<T>(0), static_cast<T>(1), static_cast<T>(0), static_cast<T>(0),	
-		static_cast<T>(0), static_cast<T>(0), static_cast<T>(0), static_cast<T>(0),	
+		static_cast<T>(1), static_cast<T>(0), static_cast<T>(0), static_cast<T>(0),
+		static_cast<T>(0), static_cast<T>(1), static_cast<T>(0), static_cast<T>(0),
+		static_cast<T>(0), static_cast<T>(0), static_cast<T>(0), static_cast<T>(0),
 		static_cast<T>(0), static_cast<T>(0), static_cast<T>(0), static_cast<T>(1));
 }
 

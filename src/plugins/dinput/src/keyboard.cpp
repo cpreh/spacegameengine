@@ -64,7 +64,7 @@ void sge::dinput::keyboard::dispatch(signal_type &sig)
 	DWORD elements;
 	if(!get_input(data,elements))
 		return;
-	
+
 	for(unsigned i = 0; i < elements; ++i)
 	{
 		input::key_type key = keys[data[i].dwOfs];

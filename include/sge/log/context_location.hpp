@@ -44,7 +44,7 @@ public:
 	SGE_SYMBOL log::context *
 	context() const;
 
-	SGE_SYMBOL log::location const &	
+	SGE_SYMBOL log::location const &
 	location() const;
 private:
 	typedef optional<

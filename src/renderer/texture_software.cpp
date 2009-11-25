@@ -61,7 +61,7 @@ sge::renderer::texture_software::lock(
 		!locked,
 		SGE_TEXT("already locked software texture")
 	);
-	
+
 	locked = true;
 
 	return image::view::sub(

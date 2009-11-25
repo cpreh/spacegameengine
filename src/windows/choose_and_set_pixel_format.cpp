@@ -53,11 +53,11 @@ void sge::windows::choose_and_set_pixel_format(
 	int const format = ChoosePixelFormat(
 		dc.hdc(),
 		&pfd);
-	
+
 	if(format == 0)
 		throw exception(
 			SGE_TEXT("ChoosePixelFormat() failed"));
-	
+
 	if(SetPixelFormat(dc.hdc(), format, &pfd) == FALSE)
 		throw exception(
 			SGE_TEXT("SetPixelFormat() failed"));

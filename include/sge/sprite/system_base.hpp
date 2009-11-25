@@ -49,7 +49,7 @@ protected:
 	explicit system_base(
 		sge::renderer::device_ptr rend
 	);
-	
+
 	SGE_SYMBOL void
 	allocate_buffers(
 		std::size_t needed_sprites
@@ -68,7 +68,7 @@ private:
 	matrix const
 		transform_matrix,
 		projection_matrix;
-	
+
 	matrix additional_transform_;
 
 	sge::renderer::vertex_buffer_ptr vb;

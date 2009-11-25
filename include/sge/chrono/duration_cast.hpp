@@ -139,7 +139,7 @@ duration_cast(
 			>(
 				d.count()
 			)
-			*	
+			*
 			static_cast<
 				middle
 			>(

@@ -78,11 +78,11 @@ T
 sge::renderer::state::list::get() const
 {
 	// TODO: can we optimize this?
-	
+
 	BOOST_FOREACH(set_type::const_reference ref, set_)
 		if(ref.type() == typeid(T))
 			return ref.get<T>();
-	
+
 	throw exception(
 		SGE_TEXT("renderer::list::get(): state not found!"));
 }

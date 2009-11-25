@@ -28,7 +28,7 @@ namespace sge
 {
 namespace math
 {
-namespace dim 
+namespace dim
 {
 
 template<
@@ -46,7 +46,7 @@ structure_cast(
 	>(
 		src
 	);
-		
+
 }
 
 }

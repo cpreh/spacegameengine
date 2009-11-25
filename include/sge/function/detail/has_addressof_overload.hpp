@@ -75,7 +75,7 @@ struct has_addressof_overload
 >
 {
    enum { value = false };
-      
+
    typedef boost::mpl::bool_<false> type;
 };
 

@@ -77,7 +77,7 @@ class sprite_functor
 public:
 	explicit sprite_functor(sge::sprite::object &s)
 	:
-		s(s) 
+		s(s)
 	{}
 
 	void operator()(sge::input::key_pair const &k) const

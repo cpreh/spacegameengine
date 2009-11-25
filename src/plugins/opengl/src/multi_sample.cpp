@@ -44,7 +44,7 @@ init_multi_sample()
 		multi_sample_flag_ = GL_MULTISAMPLE_ARB;
 	else
 		return;
-	
+
 	have_multi_sample_ = true;
 }
 
@@ -53,7 +53,7 @@ init_multi_sample()
 bool
 sge::opengl::have_multi_sample()
 {
-	init_multi_sample();	
+	init_multi_sample();
 
 	return have_multi_sample_;
 }
@@ -61,7 +61,7 @@ sge::opengl::have_multi_sample()
 GLenum
 sge::opengl::multi_sample_flag()
 {
-	init_multi_sample();	
-	
+	init_multi_sample();
+
 	return multi_sample_flag_;
 }

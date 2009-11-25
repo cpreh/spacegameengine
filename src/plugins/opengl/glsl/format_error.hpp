@@ -82,7 +82,7 @@ format_error(
 
 			continue;
 		}
-	
+
 		errorlog.resize(
 			static_cast<
 				errorlog_array::size_type

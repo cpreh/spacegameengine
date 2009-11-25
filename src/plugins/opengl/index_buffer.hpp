@@ -41,7 +41,7 @@ public:
 		size_type sz,
 		renderer::resource_flags_field const &
 	);
-	
+
 	GLenum gl_format() const;
 
 	void *

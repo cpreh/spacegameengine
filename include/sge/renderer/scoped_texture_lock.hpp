@@ -41,13 +41,13 @@ public:
 		texture_ptr,
 		lock_mode::type
 	);
-	
+
 	SGE_SYMBOL scoped_texture_lock(
 		texture_ptr,
 		lock_rect const &,
 		lock_mode::type
 	);
-	
+
 	SGE_SYMBOL image::view::object const
 	value() const;
 
