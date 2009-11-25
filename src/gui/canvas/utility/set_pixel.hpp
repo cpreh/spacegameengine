@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_GUI_UTILITY_SET_PIXEL_HPP_INCLUDED
-#define SGE_GUI_UTILITY_SET_PIXEL_HPP_INCLUDED
+#ifndef SGE_GUI_CANVAS_UTILITY_SET_PIXEL_HPP_INCLUDED
+#define SGE_GUI_CANVAS_UTILITY_SET_PIXEL_HPP_INCLUDED
 
 #include <sge/gui/types.hpp>
 #include <sge/renderer/any_color_convert.hpp>

@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_DETAIL_PARSE_STREAM_HPP_INCLUDED
-#define SGE_PARSE_DETAIL_PARSE_STREAM_HPP_INCLUDED
+#ifndef SGE_PARSE_PARSE_STREAM_HPP_INCLUDED
+#define SGE_PARSE_PARSE_STREAM_HPP_INCLUDED
 
 #include <sge/istream.hpp>
 #include <sge/string.hpp>
@@ -28,8 +28,7 @@ namespace sge
 {
 namespace parse
 {
-namespace detail
-{
+
 template<
 	typename Result
 >
@@ -63,7 +62,7 @@ parse_stream(
 		result
 	);
 }
-}
+
 }
 }
 
