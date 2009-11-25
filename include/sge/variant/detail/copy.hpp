@@ -47,7 +47,7 @@ struct copy {
 		T const &t
 	) const
 	{
-		return new (store) T(t);	
+		return new (store) T(t);
 	}
 private:
 	raw_type *const store;

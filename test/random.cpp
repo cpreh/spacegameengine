@@ -73,9 +73,9 @@ try
 			10.f
 		)
 	);
-	
+
 	print_values(rngf);
-	
+
 	sge::random::uniform<int> rngex(
 		sge::random::make_last_exclusive_range(
 			0,

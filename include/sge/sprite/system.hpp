@@ -36,7 +36,7 @@ class system : public system_base {
 public:
 	SGE_SYMBOL explicit system(
 		renderer::device_ptr rend);
-	
+
 	typedef sge::function::object<
 		void (
 			object *,
@@ -67,7 +67,7 @@ public:
 			= default_sort,
 		equal_method const &
 			= default_equal);
-	
+
 	SGE_SYMBOL void render(
 		object);
 };

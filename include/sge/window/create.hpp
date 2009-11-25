@@ -37,7 +37,7 @@ class parameters;
 
 SGE_SYMBOL instance_ptr const
 create(
-	parameters const &);	
+	parameters const &);
 
 }
 }

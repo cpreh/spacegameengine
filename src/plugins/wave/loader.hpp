@@ -35,7 +35,7 @@ public:
 	audio::file_ptr
 	const load(
 		filesystem::path const &);
-	
+
 	extension_set const extensions() const;
 };
 

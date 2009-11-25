@@ -27,7 +27,7 @@ namespace
 {
 
 template<
-	typename View 
+	typename View
 >
 class visitor {
 public:

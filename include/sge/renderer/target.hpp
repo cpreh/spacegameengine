@@ -54,7 +54,7 @@ public:
 	virtual dim_type const dim() const = 0;
 	SGE_SYMBOL rect_type const rect() const;
 	SGE_SYMBOL size_type size() const;
-	
+
 	SGE_SYMBOL virtual ~target();
 };
 

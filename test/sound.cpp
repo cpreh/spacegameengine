@@ -99,11 +99,11 @@ try
 		(sge::systems::parameterless::audio_player));
 
 	sge::multi_loader<sge::audio::loader,sge::audio::file,sge::audio::exception> loader(sys.plugin_manager());
-	
+
 	sge::audio::file_ptr const soundfile = loader.load(file_name);
 
-	sge::audio::sound_ptr const sound = 
-		streaming 
+	sge::audio::sound_ptr const sound =
+		streaming
 		? sys.audio_player()->create_stream_sound(soundfile)
 		: sys.audio_player()->create_nonstream_sound(soundfile);
 
@@ -128,7 +128,7 @@ try
 	{
 		if (revolving)
 		{
-			sge::audio::unit const angle = 
+			sge::audio::unit const angle =
 				static_cast<sge::audio::unit>(
 					frame_timer.elapsed_frames() * (2 * sge::math::pi<sge::audio::unit>() * speed));
 			sound->pos(

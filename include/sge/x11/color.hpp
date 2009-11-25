@@ -31,7 +31,7 @@ namespace sge
 {
 namespace x11
 {
-	
+
 class color {
 	SGE_NONCOPYABLE(color)
 public:

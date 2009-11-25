@@ -47,7 +47,7 @@ private:
 
 	void on_key_event(
 		XEvent const &);
-	
+
 	x11::window_ptr const        wnd;
 	input::callback const        callback;
 	input::repeat_callback const repeat_callback;

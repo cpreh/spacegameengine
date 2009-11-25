@@ -31,7 +31,7 @@ template<
 	typename SourceContainer
 >
 void
-append(	
+append(
 	DestContainer &,
 	SourceContainer const &);
 

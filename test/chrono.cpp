@@ -52,9 +52,9 @@ int main()
 			ot
 		)
 		<< '\n';
-	
+
 	// measure some time:
-	
+
 	typedef sge::chrono::high_resolution_clock::time_point hrc_tp;
 
 	hrc_tp const begin(
@@ -75,7 +75,7 @@ int main()
 				)
 			)
 			<< ' ';
-	
+
 	hrc_tp const end(
 		sge::chrono::high_resolution_clock::now()
 	);

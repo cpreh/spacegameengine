@@ -173,12 +173,12 @@ void sge::x11input::mouse::warped_motion(
 {
 	if(!grab_)
 		return;
-	
+
 	mouse_coordinate_t const
 		MOUSE_FUDGE_FACTOR = 8,
 		w = wnd->size().w(),
 		h = wnd->size().h();
-	
+
 	mouse_coordinate_t
 		deltax = xevent.xmotion.x - mouse_last.x(),
 		deltay = xevent.xmotion.y - mouse_last.y();
@@ -228,7 +228,7 @@ void sge::x11input::mouse::warped_motion(
 			return;
 
 	}
-	
+
 	SGE_LOG_WARNING(
 		log::global(),
 		log::_
@@ -247,7 +247,7 @@ void sge::x11input::mouse::private_mouse_motion(
 				deltax
 			)
 		);
-	
+
 	if(deltay)
 		callback(
 			input::key_pair(

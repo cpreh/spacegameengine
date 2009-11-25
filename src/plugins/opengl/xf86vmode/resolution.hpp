@@ -41,7 +41,7 @@ public:
 		int screen,
 		XF86VidModeModeInfo const &new_mode,
 		XF86VidModeModeInfo const &old_mode);
-	~resolution(); 
+	~resolution();
 private:
 	sge::x11::display_ptr const dsp;
 	int const screen;

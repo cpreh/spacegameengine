@@ -113,7 +113,7 @@ public:
 				>> lit(SGE_TEXT('"'))
 			];
 
-		array_ = 
+		array_ =
 			(
 				lit(SGE_TEXT('['))
 				>> -(
@@ -128,7 +128,7 @@ public:
 
 		value_ %=
 			object_
-			| array_ 
+			| array_
 			| bool_
 			| quoted_string_
 			| strict_float
@@ -161,7 +161,7 @@ private:
 	boost::spirit::qi::real_parser<
 		float_type,
 		boost::spirit::qi::strict_real_policies<
-			float_type	
+			float_type
 		>
 	> strict_float;
 

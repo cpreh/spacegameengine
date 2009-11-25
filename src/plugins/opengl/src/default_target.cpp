@@ -56,7 +56,7 @@ sge::opengl::default_target::pos() const
 	return pos_;
 }
 
-sge::renderer::target::dim_type const 
+sge::renderer::target::dim_type const
 sge::opengl::default_target::dim() const
 {
 	return dim_;

@@ -40,7 +40,7 @@ public:
 		dynamic_any const &,
 		vf::role::type,
 		vertex_size index);
-	
+
 	SGE_SYMBOL dynamic_any const &info() const;
 	SGE_SYMBOL vf::role::type role() const;
 	SGE_SYMBOL vertex_size index() const;

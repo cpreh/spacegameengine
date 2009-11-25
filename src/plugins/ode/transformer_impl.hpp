@@ -18,11 +18,11 @@ sge::collision::unit calculate_scaling(
 	sge::collision::optional_rect const &_r)
 {
 	if (!_r)
-		return 
+		return
 			static_cast<sge::collision::unit>(
 				1);
-				
-	return 
+
+	return
 		static_cast<sge::collision::unit>(
 			sge::math::inverse<sge::collision::unit>(
 				std::max(
@@ -42,8 +42,8 @@ sge::ode::transformer::transformer(
 		math::inverse(
 			scaling_)),
 	translation_(
-		_r 
-		? 
+		_r
+		?
 			collision::point(
 				-_r->pos().x(),
 				-_r->pos().y(),
@@ -57,7 +57,7 @@ sge::collision::point const
 sge::ode::transformer::position_from_ode(
 	point const &_p) const
 {
-	return 
+	return
 		math::vector::structure_cast<collision::point>(
 			_p*
 			static_cast<dReal>(
@@ -70,7 +70,7 @@ sge::collision::point const
 sge::ode::transformer::velocity_from_ode(
 	point const &_p) const
 {
-	return 
+	return
 		math::vector::structure_cast<collision::point>(
 			_p*
 			static_cast<dReal>(
@@ -81,7 +81,7 @@ sge::collision::dim const
 sge::ode::transformer::dim_from_ode(
 	dim const &_d) const
 {
-	return 
+	return
 		sge::math::dim::structure_cast<collision::dim>(
 			static_cast<dReal>(
 				inverse_scaling_)*_d);
@@ -106,7 +106,7 @@ sge::ode::point const sge::ode::transformer::velocity_to_ode(
 sge::ode::dim const sge::ode::transformer::dim_to_ode(
 	collision::dim const &_d) const
 {
-	return 
+	return
 		sge::math::dim::structure_cast<dim>(
 			_d*scaling_);
 }
@@ -114,7 +114,7 @@ sge::ode::dim const sge::ode::transformer::dim_to_ode(
 sge::collision::unit sge::ode::transformer::unit_from_ode(
 	dReal const _d) const
 {
-	return 
+	return
 		static_cast<collision::unit>(
 			_d)*inverse_scaling_;
 }
@@ -122,7 +122,7 @@ sge::collision::unit sge::ode::transformer::unit_from_ode(
 dReal sge::ode::transformer::unit_to_ode(
 	collision::unit const _d) const
 {
-	return 
+	return
 		static_cast<dReal>(
 			_d)*scaling_;
 }

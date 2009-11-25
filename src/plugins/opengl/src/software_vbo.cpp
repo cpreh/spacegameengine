@@ -134,7 +134,7 @@ GLenum sge::opengl::software_vbo::unique_id()
 
 namespace
 {
-	
+
 GLuint &bound_buffer(
 	GLenum const type)
 {

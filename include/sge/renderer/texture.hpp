@@ -42,12 +42,12 @@ public:
 	typedef texture_pos_type   pos_type;
 
 	virtual dim_type const dim() const = 0;
-	
+
 	SGE_SYMBOL image::view::object const
 	lock(
 		lock_mode::type
 	);
-	
+
 	SGE_SYMBOL image::view::const_object const
 	lock() const;
 
@@ -56,7 +56,7 @@ public:
 		lock_rect const &,
 		lock_mode::type
 	) = 0;
-	
+
 	virtual image::view::const_object const
 	lock(
 		lock_rect const &) const = 0;

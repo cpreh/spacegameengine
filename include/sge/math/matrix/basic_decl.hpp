@@ -87,7 +87,7 @@ public:
 
 	explicit basic(
 		dim_type const &);
-	
+
 	template<
 		typename In
 	>
@@ -115,11 +115,11 @@ public:
 	reference
 	operator[](
 		size_type);
-	
+
 	const_reference const
 	operator[](
 		size_type) const;
-	
+
 	pointer data();
 	const_pointer data() const;
 

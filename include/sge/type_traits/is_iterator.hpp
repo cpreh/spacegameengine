@@ -58,7 +58,7 @@ template<
 	typename X
 >
 class is_iterator<
-	std::iterator<T,U,V,W,X> 
+	std::iterator<T,U,V,W,X>
 >
 :
 public boost::true_type

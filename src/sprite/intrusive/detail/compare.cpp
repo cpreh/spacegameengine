@@ -30,7 +30,7 @@ bool sge::sprite::intrusive::detail::compare(
 	texture::const_part_ptr const
 		texa(l.texture()),
 		texb(r.texture());
-	
+
 	return !texa || !texb
 		? texa == texb
 		: (texa->texture() == texb->texture()

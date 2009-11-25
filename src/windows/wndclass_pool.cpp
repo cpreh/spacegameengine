@@ -49,7 +49,7 @@ sge::windows::wndclass_pool(
 {
 	wndclass_weak_ptr &ptr(
 		wndclasses[name]);
-	
+
 	{
 		wndclass_ptr const ref(
 			ptr.lock());

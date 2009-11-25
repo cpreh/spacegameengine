@@ -45,7 +45,7 @@ sge::log::default_level_streams(
 					sink_
 				),
 				format::default_level(
-					i	
+					i
 				)
 			);
 	}

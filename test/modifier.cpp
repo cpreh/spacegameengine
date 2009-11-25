@@ -58,7 +58,7 @@ void mod_callback(
 
 	if (mods[sge::input::kc::key_alt])
 		sge::cerr << SGE_TEXT("A-");
-	
+
 	sge::cerr << kp.key().char_code() << SGE_TEXT('\n');
 }
 
@@ -89,7 +89,7 @@ try
 			sge::renderer::stencil_buffer::off,
 			sge::renderer::window_mode::windowed))*/
 		(sge::systems::parameterless::input));
-	
+
 	bool running = true;
 
 	sge::signal::scoped_connection const cb(

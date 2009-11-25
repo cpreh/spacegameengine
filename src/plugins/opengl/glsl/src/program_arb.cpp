@@ -40,14 +40,14 @@ sge::opengl::glsl::create_program<false>()
 }
 
 template<>
-GLenum 
+GLenum
 sge::opengl::glsl::vertex_shader_type<false>()
 {
 	return GL_VERTEX_SHADER_ARB;
 }
 
 template<>
-GLenum 
+GLenum
 sge::opengl::glsl::pixel_shader_type<false>()
 {
 	return GL_FRAGMENT_SHADER_ARB;
@@ -109,7 +109,7 @@ GLint sge::opengl::glsl::program_integer<false>(
 	traits<false>::handle const program)
 {
 	GLint result;
-	
+
 	glGetObjectParameterivARB(program, what, &result);
 
 	SGE_OPENGL_CHECK_STATE(

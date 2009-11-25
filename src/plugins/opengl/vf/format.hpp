@@ -33,7 +33,7 @@ namespace opengl
 namespace vf
 {
 
-class format {	
+class format {
 	SGE_NONCOPYABLE(format)
 public:
 	explicit format(

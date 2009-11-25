@@ -63,7 +63,7 @@ private:
 	renderer::glsl::uniform::variable_ptr const
 	uniform(
 		renderer::glsl::string const&);
-	
+
 	static void use_ffp();
 
 	void use();

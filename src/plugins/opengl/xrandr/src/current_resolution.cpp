@@ -40,13 +40,13 @@ sge::opengl::xrandr::current_resolution(
 			&cur_rotation
 		)
 	);
-	
+
 	short const rate(
 		XRRConfigCurrentRate(
 			config->get()
 		)
 	);
-	
+
 	// TODO: error checking!
 	return mode(
 		cur_size,

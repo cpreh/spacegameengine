@@ -69,7 +69,7 @@ try
 			)
 		)
 	);
-	
+
 	sge::time::timer tm(
 		sge::time::second(10));
 

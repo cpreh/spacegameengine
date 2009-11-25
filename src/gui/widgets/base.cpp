@@ -54,8 +54,8 @@ sge::log::object mylogger(
 sge::gui::widgets::base::base(
 	parent_data const &parent_data_,
 	parameters const &params)
-:	
-	parent_(	
+:
+	parent_(
 		parent_data_.parent_widget()),
 	manager_(
 		parent_data_.parent_manager()),
@@ -74,8 +74,8 @@ sge::gui::widgets::base::base(
 	keyboard_focus_(
 		params.keyboard_focus()),
 	layout_(
-		params.layout() 
-		? params.layout() 
+		params.layout()
+		? params.layout()
 		: layouts::auto_ptr(
 			sge::make_auto_ptr<
 				layouts::null
@@ -166,24 +166,24 @@ sge::gui::image &sge::gui::widgets::base::buffer() const
 	return buffer_;
 }
 
-sge::gui::manager &sge::gui::widgets::base::parent_manager() 
-{ 
-	return manager_; 
+sge::gui::manager &sge::gui::widgets::base::parent_manager()
+{
+	return manager_;
 }
 
-sge::gui::manager const &sge::gui::widgets::base::parent_manager() const 
-{ 
-	return manager_; 
+sge::gui::manager const &sge::gui::widgets::base::parent_manager() const
+{
+	return manager_;
 }
 
-sge::gui::widgets::base &sge::gui::widgets::base::parent_widget() 
-{ 
-	return *parent_; 
+sge::gui::widgets::base &sge::gui::widgets::base::parent_widget()
+{
+	return *parent_;
 }
 
-sge::gui::widgets::base const &sge::gui::widgets::base::parent_widget() const 
-{ 
-	return *parent_; 
+sge::gui::widgets::base const &sge::gui::widgets::base::parent_widget() const
+{
+	return *parent_;
 }
 
 bool sge::gui::widgets::base::has_parent() const
@@ -192,27 +192,27 @@ bool sge::gui::widgets::base::has_parent() const
 }
 
 sge::gui::widgets::base &sge::gui::widgets::base::oldest_parent()
-{ 
-	if (!has_parent())
-		return *this;
-	return parent_widget().oldest_parent();
-}
-
-sge::gui::widgets::base const &sge::gui::widgets::base::oldest_parent() const 
-{ 
-	if (!has_parent())
-		return *this;
-	return parent_widget().oldest_parent();
-}
-
-sge::gui::size_policy const &sge::gui::widgets::base::size_policy() const 
 {
-	return size_policy_; 
+	if (!has_parent())
+		return *this;
+	return parent_widget().oldest_parent();
 }
 
-void sge::gui::widgets::base::size_policy(sge::gui::size_policy const &s) 
-{ 
-	size_policy_ = s; 
+sge::gui::widgets::base const &sge::gui::widgets::base::oldest_parent() const
+{
+	if (!has_parent())
+		return *this;
+	return parent_widget().oldest_parent();
+}
+
+sge::gui::size_policy const &sge::gui::widgets::base::size_policy() const
+{
+	return size_policy_;
+}
+
+void sge::gui::widgets::base::size_policy(sge::gui::size_policy const &s)
+{
+	size_policy_ = s;
 }
 
 sge::gui::keyboard_focus::type sge::gui::widgets::base::keyboard_focus() const
@@ -274,13 +274,13 @@ void sge::gui::widgets::base::layout(
 }
 
 sge::gui::layouts::base &sge::gui::widgets::base::layout()
-{ 
-	return *layout_; 
+{
+	return *layout_;
 }
 
-sge::gui::layouts::base const &sge::gui::widgets::base::layout() const 
-{ 
-	return *layout_; 
+sge::gui::layouts::base const &sge::gui::widgets::base::layout() const
+{
+	return *layout_;
 }
 
 bool sge::gui::widgets::base::has_child(widgets::base const &w) const
@@ -300,14 +300,14 @@ bool sge::gui::widgets::base::has_child(widgets::base const &w) const
 sge::gui::rect const sge::gui::widgets::base::absolute_area() const
 {
 	return rect(
-		absolute_pos(), 
+		absolute_pos(),
 		size());
 }
 
 sge::gui::rect const sge::gui::widgets::base::screen_area() const
 {
 	return rect(
-		screen_pos(), 
+		screen_pos(),
 		size());
 }
 
@@ -363,7 +363,7 @@ void sge::gui::widgets::base::process_invalid_area(
 				<< SGE_TEXT("checking if ")
 				<< w.absolute_area()
 				<< SGE_TEXT(" intersects with ")
-				<< e.area() 
+				<< e.area()
 				<< SGE_TEXT(": ")
 				<< intersects(w.absolute_area(),e.area()));
 
@@ -386,19 +386,19 @@ void sge::gui::widgets::base::process_mouse_move(events::mouse_move const &) {}
 void sge::gui::widgets::base::process_mouse_click(events::mouse_click const &) {}
 
 sge::gui::key_handling::type sge::gui::widgets::base::process_key(
-	events::key const &) 
-{ 
-	return key_handling::process; 
+	events::key const &)
+{
+	return key_handling::process;
 }
 
 void sge::gui::widgets::base::process_keyboard_enter(
-	events::keyboard_enter const &) 
+	events::keyboard_enter const &)
 {
 	SGE_LOG_DEBUG(mylogger,log::_ << SGE_TEXT("got keyboard_enter"));
 }
 
 void sge::gui::widgets::base::process_keyboard_leave(
-	events::keyboard_leave const &) 
+	events::keyboard_leave const &)
 {
 	SGE_LOG_DEBUG(mylogger,log::_ << SGE_TEXT("got keyboard_leave"));
 }
@@ -413,18 +413,18 @@ sge::gui::widgets::base::~base()
 }
 
 void sge::gui::widgets::base::size(
-	dim const &_size) 
-{ 
-	size_ = _size; 
+	dim const &_size)
+{
+	size_ = _size;
 	parent_manager().resize(
 		*this,
 		size_);
 }
 
 void sge::gui::widgets::base::pos(
-	point const &p) 
-{ 
-	pos_ = p; 
+	point const &p)
+{
+	pos_ = p;
 	parent_manager().reposition(
 		*this,
 		p);

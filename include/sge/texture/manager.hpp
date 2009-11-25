@@ -60,7 +60,7 @@ public:
 	SGE_SYMBOL void
 	onalloc(
 		onalloc_function const &);
-	
+
 	SGE_SYMBOL void
 	free_empty_textures();
 private:
@@ -70,7 +70,7 @@ private:
 	part_freed(
 		detail::container_position const &,
 		fragmented const &);
-	
+
 	sge::renderer::device_ptr const     rend;
 	onalloc_function                    onalloc_;
 

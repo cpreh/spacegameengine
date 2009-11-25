@@ -64,7 +64,7 @@ calc_size(
 		sge::renderer::size_type const sz(
 			1 << i
 		);
-		
+
 		if((sz / (dim.w() + 1)) * (sz / (dim.h() + 1)) >= image_count)
 			return sz;
 	}
@@ -81,7 +81,7 @@ first_dim(
 	sge::filesystem::directory_iterator const it(
 		p
 	);
-	
+
 	return il->load(*it)->dim();
 }
 
@@ -102,7 +102,7 @@ sort_paths(
 			ret
 		)
 	);
-	
+
 	std::sort(
 		ret.begin(),
 		ret.end()
@@ -121,7 +121,7 @@ try
 		sge::cerr << SGE_TEXT("please specify a path!\n");
 		return EXIT_FAILURE;
 	}
-	
+
 	sge::systems::instance const sys(
 		(sge::systems::list
 		(sge::systems::parameterless::image))
@@ -158,7 +158,7 @@ try
 			il
 		)
 	);
-	
+
 	sge::renderer::size_type const border_sz(
 		calc_size(
 			image_count,

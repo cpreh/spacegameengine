@@ -140,8 +140,8 @@ try
 		(sge::systems::parameterless::collision_system)
 		(sge::systems::parameterless::input)
 	);
-	
-	sge::collision::world_ptr const world = 
+
+	sge::collision::world_ptr const world =
 		sys.collision_system()->create_world(
 			sge::collision::rect(
 				sge::collision::rect::pos_type(
@@ -154,10 +154,10 @@ try
 				)
 			)
 		);
-	
+
 	world->test_callback_combiner(std::logical_or<bool>());
-	
-	sge::signal::auto_connection 
+
+	sge::signal::auto_connection
 		bc = world->register_begin_callback(&collision_begin),
 		be = world->register_end_callback(&collision_end),
 		foobar0 = world->register_test_callback(&test_callback0),
@@ -183,7 +183,7 @@ try
 		)
 	);
 
-	sge::collision::body_ptr const body_a = 
+	sge::collision::body_ptr const body_a =
 		world->create_body(
 			sge::collision::satellite_ptr(
 				new object(s_a)),
@@ -198,9 +198,9 @@ try
 				static_cast<sge::collision::unit>(0),
 				static_cast<sge::collision::unit>(0),
 				static_cast<sge::collision::unit>(0)));
-	
 
-	sge::collision::body_ptr const body_b = 
+
+	sge::collision::body_ptr const body_b =
 		world->create_body(
 			sge::collision::satellite_ptr(
 				new object(s_b)),
@@ -217,25 +217,25 @@ try
 				static_cast<sge::collision::unit>(0)));
 
 	sge::cerr << "velocity is " << body_a->linear_velocity() << "\n";
-	
-	sge::collision::group_ptr const 
+
+	sge::collision::group_ptr const
 		g_a = world->create_group(),
 		g_b = world->create_group();
-	
+
 	world->collides_with(
 		g_a,
 		g_a);
 	world->collides_with(
 		g_a,
 		g_b);
-	
+
 	g_a->add(
 		body_a);
 	g_a->add(
 		body_b);
 
 	sge::sprite::system ss(sys.renderer());
-	
+
 	sys.renderer()->state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)

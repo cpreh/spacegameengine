@@ -120,7 +120,7 @@ SGE_MATH_DETAIL_MAKE_OP_DECL(basic, op)
 	basic &
 	operator*=(
 		value_type const &);
-	
+
 	basic &
 	operator/=(
 		value_type const &);
@@ -135,7 +135,7 @@ SGE_MATH_DETAIL_MAKE_OP_DECL(basic, op)
 
 	pointer data();
 	const_pointer data() const;
-	
+
 	size_type size() const;
 
 	static basic const

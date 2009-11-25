@@ -60,7 +60,7 @@ public:
 		depth_type,
 		rotation_type,
 		bool visible);
-	
+
 	SGE_SYMBOL object(
 		object const &);
 

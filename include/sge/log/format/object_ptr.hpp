@@ -32,7 +32,7 @@ namespace format
 {
 
 typedef shared_ptr<
-	object	
+	object
 > object_ptr;
 
 typedef shared_ptr<

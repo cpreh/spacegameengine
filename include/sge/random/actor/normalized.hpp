@@ -39,7 +39,7 @@ class normalized {
 public:
 	SGE_SYMBOL explicit normalized(
 		container const &);
-	
+
 	SGE_SYMBOL ~normalized();
 
 	SGE_SYMBOL void operator()();

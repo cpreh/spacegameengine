@@ -74,7 +74,7 @@ public:
 
 	plugin::plugin<font::system>::ptr_type          font_plugin;
 	font::system_ptr                                font_system;
-	
+
 	window::instance_ptr                            window_;
 
 	optional<window::parameters>                    wparam_;
@@ -126,15 +126,15 @@ public:
 	visitor(
 		sge::systems::instance::impl &,
 		sge::string const &name);
-	
+
 	result_type
 	operator()(
 		sge::renderer::parameters const &) const;
-	
+
 	result_type
 	operator()(
 		sge::window::parameters const &) const;
-	
+
 	result_type
 	operator()(
 		sge::systems::parameterless::type) const;
@@ -174,7 +174,7 @@ void sge::systems::instance::reinit(
 sge::plugin::manager &
 sge::systems::instance::plugin_manager()
 {
-	return impl_->plugin_manager;	
+	return impl_->plugin_manager;
 }
 
 sge::renderer::system_ptr const
@@ -307,7 +307,7 @@ void sge::systems::instance::impl::init_renderer(
 				p
 			);
 	}
-	
+
 	renderer = renderer_system->create_renderer(
 		p,
 		static_cast<renderer::adapter_type>(0),
@@ -326,7 +326,7 @@ void sge::systems::instance::impl::init_input(
 		window_ = sge::window::create(
 			*wparam_);
 	}
-			
+
 
 	input_plugin = load_plugin<sge::input::system>(name);
 	input_system.reset(input_plugin->get()(window_));
@@ -378,7 +378,7 @@ sge::systems::instance::impl::load_plugin(
 	)
 		if(it->info().name() == name)
 			return it->load();
-	
+
 	SGE_LOG_WARNING(
 		log::global(),
 		log::_
@@ -390,7 +390,7 @@ sge::systems::instance::impl::load_plugin(
 			<< SGE_TEXT(" Trying to load a default plugin instead.")
 	);
 
-	return default_plugin<T>(); 
+	return default_plugin<T>();
 }
 
 template<

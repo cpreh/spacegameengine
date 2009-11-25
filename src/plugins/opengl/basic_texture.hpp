@@ -49,7 +49,7 @@ protected:
 	void set_my_filter() const;
 	GLuint id() const;
 	renderer::filter::texture const &filter() const;
-	
+
 	void do_lock(
 		lock_method::type mode,
 		size_type size,
@@ -65,9 +65,9 @@ protected:
 	pointer write_buffer() const;
 	const_pointer real_read_buffer() const;
 	pointer real_write_buffer() const;
-	
+
 	void pre_setdata() const;
-	
+
 	using Base::content;
 
 public:
@@ -97,7 +97,7 @@ private:
 	GLenum const
 		format_,
 		format_type_;
-	
+
 	size_type const stride_;
 
 	typedef scoped_ptr<

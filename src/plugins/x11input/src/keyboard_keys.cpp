@@ -60,9 +60,9 @@ sge::x11input::keyboard_key(
 		static_cast<int>(keybuf.size()),
 		&ks,
 		&state);
-	
+
 	// xev does it this way
-	char const code = 
+	char const code =
 		ks > static_cast<KeySym>(std::numeric_limits<char>::max())
 		? static_cast<char>(0)
 		: static_cast<char>(ks);

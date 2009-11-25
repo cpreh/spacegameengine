@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_GUI_LAYOUTS_GRID_HPP_INCLUDED	
-#define SGE_GUI_LAYOUTS_GRID_HPP_INCLUDED	
+#ifndef SGE_GUI_LAYOUTS_GRID_HPP_INCLUDED
+#define SGE_GUI_LAYOUTS_GRID_HPP_INCLUDED
 
 #include <sge/gui/detail/grid_cache.hpp>
 #include <sge/gui/layouts/base.hpp>

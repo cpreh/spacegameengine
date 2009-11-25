@@ -53,11 +53,11 @@ public:
 	object(
 		U const &
 	);
-	
+
 	object(
 		object const &
 	);
-	
+
 	template<
 		typename U
 	>
@@ -65,12 +65,12 @@ public:
 	operator=(
 		U const &
 	);
-	
+
 	object &
 	operator=(
 		object const &
 	);
-	
+
 	~object();
 
 	bool
@@ -107,11 +107,11 @@ private:
 	construct(
 		U const &
 	);
-	
+
 	void
 	destroy();
 
-	static size_type const elements = 
+	static size_type const elements =
 		boost::mpl::size<
 			Types
 		>::value

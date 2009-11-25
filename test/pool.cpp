@@ -60,12 +60,12 @@ try
 		sge::audio::loader,
 		sge::audio::file,
 		sge::audio::exception> loader(sys.plugin_manager());
-	
+
 	sge::audio::file_ptr const soundfile = loader.load(file_name);
 	sge::audio::pool pool;
 
-	sge::audio::sound_ptr sound = 
-		streaming 
+	sge::audio::sound_ptr sound =
+		streaming
 		? sys.audio_player()->create_stream_sound(soundfile)
 		: sys.audio_player()->create_nonstream_sound(soundfile);
 

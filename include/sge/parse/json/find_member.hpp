@@ -61,7 +61,7 @@ find_member(
 			+ name
 			+ SGE_TEXT("\" not found")
 		);
-	
+
 	return json::get<
 		T
 	>(

@@ -50,7 +50,7 @@ intersection(
 		)
 	)
 		return basic<T, N>::null();
-	
+
 	basic<T, N> ret;
 
 	for(

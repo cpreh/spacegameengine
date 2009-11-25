@@ -24,7 +24,7 @@ sge::ode::shapes::circle::circle(
 
 sge::collision::unit sge::ode::shapes::circle::radius() const
 {
-	return 
+	return
 		transformer_.unit_from_ode(
 			dGeomSphereGetRadius(
 				shape_));

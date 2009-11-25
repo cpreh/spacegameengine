@@ -47,7 +47,7 @@ GLuint sge::opengl::hardware_vbo::gen_buffer()
 
 	GLuint id;
 	gl_gen_buffers(1, &id);
-	
+
 	SGE_OPENGL_CHECK_STATE(
 		SGE_TEXT("glGenBuffers failed"),
 		sge::renderer::exception
@@ -103,7 +103,7 @@ void *sge::opengl::hardware_vbo::map_buffer(
 void sge::opengl::hardware_vbo::unmap_buffer(
 	GLenum const type)
 {
-	gl_unmap_buffer(type); 
+	gl_unmap_buffer(type);
 
 	SGE_OPENGL_CHECK_STATE(
 		SGE_TEXT("glUnmapBuffer failed"),
@@ -123,7 +123,7 @@ void sge::opengl::hardware_vbo::buffer_data(
 		data,
 		flags
 	);
-	
+
 	SGE_OPENGL_CHECK_STATE(
 		SGE_TEXT("glBufferData failed"),
 		sge::renderer::exception

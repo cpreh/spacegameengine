@@ -46,7 +46,7 @@ public:
 
 	SGE_SYMBOL const_iterator
 	begin() const;
-	
+
 	SGE_SYMBOL const_iterator
 	end() const;
 

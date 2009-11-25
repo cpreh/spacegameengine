@@ -31,7 +31,7 @@ namespace sge
 {
 namespace math
 {
-namespace matrix 
+namespace matrix
 {
 
 template<

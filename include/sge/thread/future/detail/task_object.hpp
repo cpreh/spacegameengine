@@ -72,7 +72,7 @@ sge::thread::future::detail::task_object<T,F>::task_object(
 	f_(
 		_f)
 {}
-            
+
 template
 <
 	typename T,
@@ -113,7 +113,7 @@ sge::thread::future::detail::task_object<void,F>::task_object(
 	f_(
 		_f)
 {}
-            
+
 template
 <
 	typename F

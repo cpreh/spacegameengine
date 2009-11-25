@@ -35,6 +35,6 @@ sge::log::enabled_levels(
 		ret[
 			i
 		] = level_ <= i;
-	
+
 	return ret;
 }

@@ -56,7 +56,7 @@ public:
 		renderer::lock_rect const &,
 		renderer::lock_mode::type
 	);
-	
+
 	image::view::const_object const
 	lock(
 		renderer::cube_side::type side,
@@ -64,7 +64,7 @@ public:
 	) const;
 
 	void unlock() const;
-	
+
 	size_type border_size() const;
 private:
 	void check_locked() const;

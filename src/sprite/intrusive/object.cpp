@@ -64,7 +64,7 @@ sge::sprite::intrusive::object::operator=(
 	// TODO: what is necessary here?
 	unlink();
 	order_ = r.order_;
-	detail::object_base_hook::operator=(r);	
+	detail::object_base_hook::operator=(r);
 	sprite::object::operator=(r);
 	add_me();
 	return *this;

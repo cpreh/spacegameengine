@@ -42,7 +42,7 @@ public:
 	virtual signal::auto_connection
 	register_repeat_callback(
 		repeat_callback const &c) = 0;
-	
+
 	virtual sge::window::instance_ptr const
 	window() const = 0;
 

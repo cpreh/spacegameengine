@@ -50,7 +50,7 @@ public:
 	void unregister_nonstream_sound(ALuint);
 
 	audio::listener &listener();
-		
+
 	audio::sound_ptr const create_nonstream_sound(audio::file_ptr);
 	audio::sound_ptr const create_stream_sound(audio::file_ptr);
 
@@ -76,4 +76,4 @@ private:
 }
 }
 
-#endif 
+#endif

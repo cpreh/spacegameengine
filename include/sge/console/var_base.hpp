@@ -37,12 +37,12 @@ class SGE_CLASS_SYMBOL var_base
 	SGE_SYMBOL var_base(
 		object &,
 		sge::string const &);
-	
+
 	virtual void string(sge::string const &) = 0;
 	virtual sge::string const string() const = 0;
 
 	SGE_SYMBOL sge::string const name() const;
-	
+
 	virtual ~var_base();
 	private:
 	object &object_;

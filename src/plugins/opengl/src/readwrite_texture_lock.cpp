@@ -55,7 +55,7 @@ void sge::opengl::readwrite_texture_lock::post_lock()
 
 	read_lock.copy_read_part(
 		real_write_pointer());
-	
+
 	read_lock.pre_unlock();
 }
 

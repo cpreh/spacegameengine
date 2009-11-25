@@ -44,7 +44,7 @@ private:
 	image::view::const_object const
 	lock(
 		renderer::lock_rect const &dest) const;
-	
+
 	void unlock() const;
 
 	virtual renderer::pixel_pos const pos() const = 0;

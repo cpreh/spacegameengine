@@ -110,7 +110,7 @@ public:
 		size_type first_vertex,
 		size_type num_vertices,
 		nonindexed_primitive_type::type ptype) = 0;
-	
+
 	SGE_SYMBOL void
 	render(
 		const_vertex_buffer_ptr,
@@ -196,7 +196,7 @@ public:
 		image::view::const_object3 const &,
 		filter::texture const &filter,
 		resource_flags_field const & flags);
-	
+
 	virtual volume_texture_ptr const
 	create_volume_texture(
 		dim3_type const &dim,
@@ -218,7 +218,7 @@ public:
 		vf::const_dynamic_view const &,
 		resource_flags_field const &
 	);
-	
+
 	virtual vertex_buffer_ptr const
 	create_vertex_buffer(
 		vf::dynamic_format const &,

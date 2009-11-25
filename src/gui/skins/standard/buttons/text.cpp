@@ -69,7 +69,7 @@ void sge::gui::skins::standard::draw(
 			rect::pos_type::null(),
 			c.size()
 		),
-		b.mouse_over() 
+		b.mouse_over()
 			? internal_color(
 				sge::image::color::init::red = static_cast<channel>(0xee),
 				sge::image::color::init::green = static_cast<channel>(0xeb),
@@ -82,7 +82,7 @@ void sge::gui::skins::standard::draw(
 				sge::image::color::init::alpha = static_cast<channel>(0xff)
 			),
 		canvas::rect_type::solid);
-	
+
 	c.draw_line(
 		point(0,0),
 		point(c.size().w()-1,0),
@@ -128,7 +128,7 @@ void sge::gui::skins::standard::draw(
 		point(c.size().w()-1,c.size().h()-1),
 		sge::image::colors::black()
 	);
-	
+
 	if (b.key_over())
 	{
 		c.draw_line(
@@ -195,7 +195,7 @@ sge::gui::dim const sge::gui::skins::standard::optimal_size(
 		mylogger,
 		log::_ << SGE_TEXT("calling size hint for button"));
 
-	dim const font_dim = 
+	dim const font_dim =
 		utility::unlimited_text_size(
 			standard_font().metrics(),
 			b.caption()+SGE_TEXT("aa"));

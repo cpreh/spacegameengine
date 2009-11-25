@@ -69,7 +69,7 @@ int main()
 
    std::cout << f_4() << std::endl;
    std::cout << f_5( 7 ) << std::endl;
-   
+
 
    //bool b = true; function<void ()>(phoenix::ref(b) = false)(); assert(b == false);
 

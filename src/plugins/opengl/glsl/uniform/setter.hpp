@@ -39,11 +39,11 @@ class setter : public boost::static_visitor<type> {
 public:
 	explicit setter(
 		GLint location);
-	
+
 	type const
 	operator()(
 		renderer::glsl::uniform::int_value const &) const;
-	
+
 	type const
 	operator()(
 		renderer::glsl::uniform::float_value const &) const;

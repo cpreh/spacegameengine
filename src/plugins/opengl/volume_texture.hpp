@@ -44,7 +44,7 @@ public:
 	volume_texture(
 		image_view_array const &,
 		const renderer::filter_args& filter,
-		resource_flag_type flags); 
+		resource_flag_type flags);
 	box_type const box() const;
 
 	void data(

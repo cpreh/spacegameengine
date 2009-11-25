@@ -33,7 +33,7 @@ namespace sge
 namespace wave
 {
 
-class file : public audio::file 
+class file : public audio::file
 {
 public:
 	explicit file(
@@ -66,7 +66,7 @@ private:
 	void ignore_chunks_until(std::string const &);
 
 	std::string const extract_header(string const &_desc);
-	
+
 	template<typename T>
 	T extract_primitive(string const &_desc);
 };

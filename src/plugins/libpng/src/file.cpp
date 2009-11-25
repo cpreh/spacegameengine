@@ -30,16 +30,16 @@ sge::libpng::file::file(
 void sge::libpng::file::data(
 	image::view::const_object const &_view)
 {
-	dim_ = 
+	dim_ =
 		image::view::dim(
 			_view);
 
-	format_ = 
+	format_ =
 		image::view::format(
 			_view);
-	
+
 	bytes_.resize(
-		dim_.content() * 
+		dim_.content() *
 		image::color::format_stride(
 			format_));
 
@@ -54,7 +54,7 @@ void sge::libpng::file::data(
 
 sge::image::view::const_object const sge::libpng::file::view() const
 {
-	return 
+	return
 		image::view::make(
 			reinterpret_cast<image::const_raw_pointer>(
 				bytes_.data()),

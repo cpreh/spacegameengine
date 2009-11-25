@@ -32,7 +32,7 @@ public:
 
 	explicit visitor(
 		sge::ostream &s);
-	
+
 	template<
 		typename T
 	>

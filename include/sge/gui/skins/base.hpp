@@ -93,7 +93,7 @@ class base
 		SGE_GUI_SKIN_SIZE_PARAMS(widgets::base)) const;
 
 	SGE_GUI_SKIN_WIDGETS_PURE
-	
+
 	virtual font_info const standard_font() const = 0;
 
 	SGE_GUI_SYMBOL virtual ~base();

@@ -68,13 +68,13 @@ void sge::gui::canvas::object::draw_line(
 			sge::lexical_cast<sge::string>(b)+
 			SGE_TEXT(" in ")+
 			sge::lexical_cast<sge::string>(area()));
-	
+
 	// increment in each direction, is also diagonal step
  	point const dd = apply(b-a,std::tr1::bind(&math::signum<unit>,std::tr1::placeholders::_1));
 	// absolute distance between the points
 	point const d = apply(b-a,std::tr1::bind(static_cast<unit (*)(unit)>(std::abs),std::tr1::placeholders::_1));
 	// parallel step
-	point const pd = d.x() > d.y() 
+	point const pd = d.x() > d.y()
 		? point(dd.x(),static_cast<unit>(0)) : point(static_cast<unit>(0),dd.y());
 	// error values
 	unit const es = std::min(d.x(),d.y()),el = std::max(d.x(),d.y());
@@ -86,11 +86,11 @@ void sge::gui::canvas::object::draw_line(
 	draw_pixel(pos,color_);
 
 	unsigned count = 0;
- 
+
 	// t counts the pixels
-	for(unit t = static_cast<unit>(0),err = static_cast<unit>(el/2-es); 
-	    t < el; 
-	    t += 1,err -= es) 
+	for(unit t = static_cast<unit>(0),err = static_cast<unit>(el/2-es);
+	    t < el;
+	    t += 1,err -= es)
 	{
 		if(err < static_cast<unit>(0))
 			// make error term positive again, then do diagonal step

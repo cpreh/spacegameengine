@@ -38,12 +38,12 @@ public:
 
 	SGE_SYMBOL explicit header_name_equal(
 		string const &);
-	
+
 	SGE_SYMBOL result_type
 	operator()(
 		section const &) const;
 private:
-	string name_;	
+	string name_;
 };
 
 }

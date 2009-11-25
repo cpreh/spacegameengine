@@ -37,7 +37,7 @@ public:
 	SGE_SYMBOL named(
 		any const &,
 		string const &);
-	
+
 	SGE_SYMBOL any const &
 	value() const;
 

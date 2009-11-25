@@ -27,7 +27,7 @@ sge::random::actor::element::element(
 	prob_(prob_),
 	callback_(callback_)
 {}
-	
+
 sge::random::actor::float_type
 sge::random::actor::element::prob() const
 {

@@ -64,7 +64,7 @@ public:
 			elements,
 			Field
 		>::type element;
-	
+
 		set_internal<element>(t);
 	}
 
@@ -117,7 +117,7 @@ public:
 				Index
 			>
 		>::type element;
-		
+
 		return get_internal<element>();
 	}
 private:
@@ -152,7 +152,7 @@ private:
 			data + boost::mpl::deref<offset>::type::value);
 	}
 
-	
+
 	template<
 		typename Iter
 	>
@@ -164,7 +164,7 @@ private:
 			offsets,
 			Iter
 		>::type offset;
-	
+
 		typedef typename boost::mpl::deref<Iter>::type element;
 
 		typedef typename element::packed_type packed_type;
@@ -180,7 +180,7 @@ private:
 
 		return ret;
 	}
-	
+
 	pointer const data;
 };
 

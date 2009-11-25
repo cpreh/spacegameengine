@@ -62,7 +62,7 @@ void sge::console::detail::cursor::erase_word()
 	string::size_type s = line_.rfind(SGE_TEXT(' '),pos_-1);
 	if (s == string::npos)
 		s = 0;
-	
+
 	line_.erase(s,pos_-s);
 	pos_ = s;
 }
@@ -71,7 +71,7 @@ void sge::console::detail::cursor::erase_char()
 {
 	if (pos_ == line_.length()-1)
 		return;
-	
+
 	line_.erase(pos_,1);
 }
 
@@ -146,12 +146,12 @@ void sge::console::gfx::tab_complete(string &input_line)
 
 	if (left == right)
 		return;
-	
+
 	string const to_complete = input_line.substr(left,right-left);
-	
+
 	typedef std::set<string> string_set;
 	string_set completions;
-	
+
 	// first word
 	if (is_command)
 	{

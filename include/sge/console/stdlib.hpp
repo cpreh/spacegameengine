@@ -45,7 +45,7 @@ private:
 	print_callback print_;
 	error_callback error_;
 	sge::signal::connection_manager connections;
-	
+
 	void fn_get(arg_list const &);
 	void fn_set(arg_list const &);
 	void fn_help(arg_list const &);

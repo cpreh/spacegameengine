@@ -34,14 +34,14 @@ void sge::ode::shapes::base::assign_body(
 void sge::ode::shapes::base::add_to_group(
 	group const &_group)
 {
-	/*sge::cerr 
-		<< "shape: i should be added to the group with category " 
-		<< _group.category() 
-		<< " and collides " 
-		<< _group.collides() 
-		<< ", my own category is " 
-		<< dGeomGetCategoryBits(shape_) 
-		<< " and my own collides is " 
+	/*sge::cerr
+		<< "shape: i should be added to the group with category "
+		<< _group.category()
+		<< " and collides "
+		<< _group.collides()
+		<< ", my own category is "
+		<< dGeomGetCategoryBits(shape_)
+		<< " and my own collides is "
 		<< dGeomGetCollideBits(shape_) << "\n";*/
 	dGeomSetCategoryBits(
 		shape_,
@@ -50,11 +50,11 @@ void sge::ode::shapes::base::add_to_group(
 		shape_,
 		dGeomGetCollideBits(shape_) | _group.collides());
 		/*
-	sge::cerr 
-		<< "shape: aftermath " 
-		<< ", my own category is " 
-		<< dGeomGetCategoryBits(shape_) 
-		<< " and my own collides is " 
+	sge::cerr
+		<< "shape: aftermath "
+		<< ", my own category is "
+		<< dGeomGetCategoryBits(shape_)
+		<< " and my own collides is "
 		<< dGeomGetCollideBits(shape_) << "\n";*/
 }
 

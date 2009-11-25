@@ -33,7 +33,7 @@ T swap(T t)
 {
 	reverse_mem(
 		reinterpret_cast<unsigned char*>(
-			&t), 
+			&t),
 		sizeof(
 			T));
 	return t;

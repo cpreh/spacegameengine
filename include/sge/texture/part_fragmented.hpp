@@ -50,7 +50,7 @@ public:
 	data(
 		image::view::const_object const &src
 	);
-	
+
 	SGE_SYMBOL renderer::lock_rect const &
 	area() const;
 

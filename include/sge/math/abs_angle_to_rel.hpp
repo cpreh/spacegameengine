@@ -48,9 +48,9 @@ abs_angle_to_rel(
 
 	if (is_rel_angle(a))
 		return a;
-	
-	return a > 0 
-		? a - twopi<T>() 
+
+	return a > 0
+		? a - twopi<T>()
 		: a + twopi<T>();
 }
 

@@ -26,7 +26,7 @@ sge::parse::ini::header_name_equal::header_name_equal(
 :
 	name_(name_)
 {}
-	
+
 sge::parse::ini::header_name_equal::result_type
 sge::parse::ini::header_name_equal::operator()(
 	section const &sec) const

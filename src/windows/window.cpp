@@ -85,7 +85,7 @@ sge::windows::window::window(
 		0,
 		module_handle(),
 		this);
-	
+
 	if(!handle)
 		throw exception(
 			SGE_TEXT("CreateWindow() failed!"));

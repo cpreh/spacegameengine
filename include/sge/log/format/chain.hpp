@@ -44,7 +44,7 @@ public:
 	);
 
 	SGE_SYMBOL ~chain();
-	
+
 	SGE_SYMBOL string const
 	format(
 		string const &

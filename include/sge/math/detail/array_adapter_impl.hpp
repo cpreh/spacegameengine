@@ -486,7 +486,7 @@ sge::math::detail::array_adapter<
 			r.begin(),
 			std::ptr_fun(
 				compare<
-					ValueType	
+					ValueType
 				>));
 }
 

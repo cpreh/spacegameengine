@@ -81,7 +81,7 @@ try
 		(sge::systems::parameterless::input)
 		(sge::systems::parameterless::image)
 	);
-	
+
 	sge::plugin::plugin<
 		sge::model::loader
 	>::ptr_type const  model_plugin(
@@ -151,7 +151,7 @@ try
 	sys.renderer()->state(
 		sge::renderer::state::list
 			(sge::renderer::state::cull_mode::off)
-		
+
 	);
 
 	bool running = true;

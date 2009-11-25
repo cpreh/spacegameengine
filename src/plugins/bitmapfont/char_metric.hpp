@@ -36,9 +36,9 @@ public:
 		font::const_image_view const &,
 		font::pos const &offset,
 		font::unit x_advance);
-	
+
 	~char_metric();
-	
+
 	font::const_image_view const
 	pixmap() const;
 
@@ -48,7 +48,7 @@ public:
 	font::unit
 	x_advance() const;
 private:
-	font::const_image_view const pixmap_;	
+	font::const_image_view const pixmap_;
 	font::pos const offset_;
 	font::unit const x_advance_;
 };

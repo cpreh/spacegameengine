@@ -53,11 +53,11 @@ public:
 	void
 	copy_vertices(
 		renderer::vf::dynamic_view const &);
-	
+
 	void
 	copy_indices(
 		renderer::index::view const &);
-	
+
 	// TODO: split this!
 	typedef boost::int16_t s16;
 	typedef boost::int32_t s32;
@@ -71,7 +71,7 @@ public:
 	class frame {
 	public:
 		frame(std::istream& is);
-		
+
 		vec3 min_bounds,
 		     max_bounds,
 		     local_origin;
@@ -82,7 +82,7 @@ public:
 	class tag {
 	public:
 		explicit tag(model::istream& is);
-		
+
 		string                           name;
 		vec3                             origin;
 		typedef std::tr1::array<vec3, 3> axis_array;
@@ -111,7 +111,7 @@ public:
 		class texcoord {
 		public:
 			explicit texcoord(model::istream &);
-			
+
 			typedef math::vector::static_<
 				funit,
 				2
@@ -142,7 +142,7 @@ public:
 
 		typedef std::vector<shader>   shader_vector;
 		shader_vector                 shaders;
-		
+
 		typedef std::vector<triangle> triangle_vector;
 		triangle_vector               triangles;
 

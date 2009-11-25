@@ -27,7 +27,7 @@ namespace sge
 {
 namespace math
 {
-namespace matrix 
+namespace matrix
 {
 
 #define SGE_MATH_MAKE_FREE_MATRIX_FUNCTION(op)\

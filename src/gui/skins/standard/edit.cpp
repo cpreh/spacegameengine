@@ -57,7 +57,7 @@ sge::gui::dim const sge::gui::skins::standard::optimal_size(
 		standard_font().metrics(),
 		utility::string_square(w.desired_size()));
 
-	return 
+	return
 		dim(
 			static_cast<unit>(d.w() + 2),
 			static_cast<unit>(d.h() + 2));
@@ -78,7 +78,7 @@ void sge::gui::skins::standard::draw(
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_ << SGE_TEXT("refreshed edit buffer"));
-	
+
 	resize_buffer(w);
 
 	canvas::object c(w.buffer());
@@ -100,11 +100,11 @@ void sge::gui::skins::standard::draw(
 		*/
 		canvas::rect_type::solid);
 
-	dim const scroll_size = 
-		w.text_buffer().size() - 
+	dim const scroll_size =
+		w.text_buffer().size() -
 		math::vector::structure_cast<dim>(
 			w.scroll_pos());
-	
+
 	utility::blit(
 		w.text_buffer().const_view(),
 		rect(

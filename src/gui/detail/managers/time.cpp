@@ -32,7 +32,7 @@ sge::gui::timer::object_ptr const sge::gui::detail::managers::time::add(
 		>(
 			r,
 			cb));
-	
+
 	timers.push_back(p);
 
 	return p;

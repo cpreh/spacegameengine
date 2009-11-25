@@ -46,7 +46,7 @@ sge::opengl::glx::create_visual(
 		throw exception(
 			SGE_TEXT("glXChooseVisual() failed!")
 		);
-	
+
 	return sge::make_shared_ptr<
 		visual
 	>(

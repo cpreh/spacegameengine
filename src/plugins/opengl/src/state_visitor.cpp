@@ -56,7 +56,7 @@ sge::opengl::state_visitor::operator()(
 	switch(s.state()) {
 	case rs::stencil_clear_val:
 		glClearStencil(s.value());
-	
+
 		SGE_OPENGL_CHECK_STATE(
 			SGE_TEXT("glClearStencil failed"),
 			sge::renderer::exception
@@ -236,7 +236,7 @@ sge::opengl::state_visitor::operator()(
 	}
 
 	enable(GL_CULL_FACE);
-	
+
 	glCullFace(
 		convert::cull_mode(
 			m

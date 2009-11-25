@@ -46,7 +46,7 @@ public:
 		dim_type const &,
 		image::color::format::type
 	);
-	
+
 	SGE_SYMBOL ~texture_software();
 
 	SGE_SYMBOL dim_type const
@@ -78,7 +78,7 @@ private:
 	internal_vector raw_bytes;
 	// has to be mutable for unlock
 	mutable bool locked;
-	
+
 	internal_vector::size_type
 	byte_count() const;
 

@@ -32,18 +32,18 @@ sge::string const sge::type_name(
 #ifdef SGE_HAS_GNU_DEMANGLE
 	int status;
 
-	scoped_ptr< 
+	scoped_ptr<
 		char,
 		c_deleter
-	> name( 
+	> name(
 		abi::__cxa_demangle(
-			ti.get().name(), 
-			0, 
-			0, 
+			ti.get().name(),
+			0,
+			0,
 			&status
 		)
 	);
-	
+
 	// demangling failed?
 	return status
 		? iconv(ti.get().name())

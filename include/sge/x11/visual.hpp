@@ -37,10 +37,10 @@ public:
 	SGE_SYMBOL visual(
 		display_ptr,
 		int screen);
-	
-	SGE_SYMBOL explicit visual(	
+
+	SGE_SYMBOL explicit visual(
 		Visual *);
-	
+
 	SGE_SYMBOL virtual ~visual();
 
 	SGE_SYMBOL Visual *get() const;

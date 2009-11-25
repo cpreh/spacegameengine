@@ -197,7 +197,7 @@ sge::math::vector::basic<T, N, S>::data() const
 	return math::detail::storage_data(
 		storage);
 }
-	
+
 template<
 	typename T,
 	typename N,

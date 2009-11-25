@@ -51,7 +51,7 @@ intersects(
 		ret
 			|= a.pos(i) > b.max(i)
 			|| a.max(i) < b.pos(i);
-	
+
 	return !ret;
 }
 

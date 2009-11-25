@@ -56,7 +56,7 @@ create_input_system(
 	if(!w)
 		throw sge::exception(
 			SGE_TEXT("xinput plugin's window parameter may not be 0!"));
-	
+
 	return new sge::x11input::system(
 		sge::dynamic_pointer_cast<sge::x11::window>(
 			w));

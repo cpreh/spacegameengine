@@ -40,14 +40,14 @@ sge::opengl::glsl::create_program<true>()
 }
 
 template<>
-GLenum 
+GLenum
 sge::opengl::glsl::vertex_shader_type<true>()
 {
 	return GL_VERTEX_SHADER;
 }
 
 template<>
-GLenum 
+GLenum
 sge::opengl::glsl::pixel_shader_type<true>()
 {
 	return GL_FRAGMENT_SHADER;

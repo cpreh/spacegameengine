@@ -47,7 +47,7 @@ sge::opengl::windows::state::state(
 
 	if(param.wmode() == renderer::window_mode::fullscreen)
 		change_display_settings(
-			param.mode());	
+			param.mode());
 }
 
 void sge::opengl::windows::state::swap_buffers()

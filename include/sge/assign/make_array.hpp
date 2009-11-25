@@ -44,7 +44,7 @@ public:
 	array(
 		array<T,N-1> const &,
 		T const &);
-	
+
 	array<T,N+1> operator()(T const &);
 
 	operator container_type() const;

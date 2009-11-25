@@ -48,7 +48,7 @@ sge::log::level_stream::log(
 		)->format(
 			output.result()
 		);
-	
+
 	dest_.flush();
 }
 

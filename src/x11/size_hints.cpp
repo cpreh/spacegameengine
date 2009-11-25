@@ -34,7 +34,7 @@ sge::x11::size_hints::size_hints(
 	if(!hints)
 		throw exception(
 			SGE_TEXT("XAllocSizeHints() failed!"));
-	
+
 	hints->flags = PSize | PMinSize;
 	hints->min_width = min_w;
 	hints->min_height = min_h;

@@ -38,7 +38,7 @@ namespace xrandr
 resolution_ptr const
 choose_resolution(
 	sge::x11::window_ptr,
-	renderer::display_mode const &);	
+	renderer::display_mode const &);
 
 }
 }

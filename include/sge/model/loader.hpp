@@ -39,7 +39,7 @@ public:
 	virtual object_ptr const
 	load(
 		istream &) = 0;
-	
+
 	SGE_SYMBOL virtual ~loader();
 };
 

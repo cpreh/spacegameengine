@@ -129,11 +129,11 @@ sge::opengl::device::device(
 	state(
 		renderer::state::default_()
 	);
-	
+
 	projection_internal();
 
 	reset_viewport_default();
-	
+
 	target_->bind_me();
 
 	//glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, 1);
@@ -391,7 +391,7 @@ void sge::opengl::device::state(
 
 void sge::opengl::device::push_state(
 	renderer::state::list const &states)
-{	
+{
 	state_levels.push(
 		current_states);
 
@@ -448,7 +448,7 @@ void sge::opengl::device::viewport(
 void sge::opengl::device::viewport_mode(
 	renderer::viewport_mode::type const mode)
 {
-	viewport_mode_ = mode;	
+	viewport_mode_ = mode;
 }
 
 void sge::opengl::device::transform(
@@ -492,7 +492,7 @@ void sge::opengl::device::target(
 			ntarget
 		)
 	);
-	
+
 	fbo_target_ptr const ftarget = create_target();
 
 	ftarget->bind_texture(p);
@@ -510,7 +510,7 @@ void sge::opengl::device::target(
 			)
 		)
 	);
-	
+
 	projection_internal();
 }
 
@@ -583,7 +583,7 @@ sge::opengl::device::create_glsl_program(
 	renderer::glsl::optional_string const &vs_source,
 	renderer::glsl::optional_string const &ps_source)
 {
-	return	
+	return
 		vs_source || ps_source
 		? glsl::create_program_impl(
 			vs_source,
@@ -605,7 +605,7 @@ sge::opengl::device::create_glsl_program(
 	osstream
 		vs_stream,
 		ps_stream;
-	
+
 	if(vs_source)
 		vs_stream << vs_source->get().rdbuf();
 	if(ps_source)
@@ -695,5 +695,5 @@ void sge::opengl::device::projection_internal()
 		? fbo_projection(
 			projection_)
 		: projection_);
-		
+
 }

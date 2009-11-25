@@ -28,6 +28,6 @@ sge::filesystem::next_file(
 {
 	if(it != directory_iterator() && filesystem::is_regular(*it))
 		++it;
-	
+
 	return skip_directories(it);
 }

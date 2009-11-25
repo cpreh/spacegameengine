@@ -42,9 +42,9 @@ public:
 	typedef value_type const *const_pointer;
 
 	virtual ~texture_lock();
-		
+
 	virtual void post_lock() = 0;
-	
+
 	virtual void pre_unlock() = 0;
 
 	virtual pointer write_pointer() const;

@@ -36,7 +36,7 @@ template<
 	typename DstPixel,
 	typename FontPixel
 >
-class font_channel_blitter 
+class font_channel_blitter
 {
 public:
 	typedef void result_type;
@@ -67,7 +67,7 @@ private:
 	float font_value() const;
 
 	Source1 const fontcolor;
-	
+
 	FontPixel const font;
 
 	DstPixel &result;
@@ -153,7 +153,7 @@ sge::gui::utility::font_channel_blitter<
 {
 	result. template set<
 		mizuiro::color::channel::alpha
-	>( 
+	>(
 		denormalize<channel_type>(
 			std::min(
 				normalize<
@@ -182,7 +182,7 @@ sge::gui::utility::font_channel_blitter<
 	FontPixel
 >::font_value() const
 {
-	return 
+	return
 		normalize<
 			float
 		>(

@@ -38,7 +38,7 @@ sge::gui::utility::wipe_texture(
 		),
 		renderer::lock_mode::readwrite
 	);
-	
+
 	wipe_image_view(
 		lock_.value()
 	);

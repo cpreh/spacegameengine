@@ -56,7 +56,7 @@ public:
 	void outer_cone_angle(audio::unit);
 	audio::unit outer_cone_angle() const;
 private:
-	audio::play_mode::type play_mode_;		
+	audio::play_mode::type play_mode_;
 	audio::sound_status::type const status_;
 	audio::point
 		pos_,

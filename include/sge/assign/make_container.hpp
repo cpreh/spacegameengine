@@ -33,10 +33,10 @@ public:
 
 	make_container(
 		typename container_type::const_reference);
-	
+
 	make_container &operator()(
 		typename container_type::const_reference);
-	
+
 	operator Container() const;
 private:
 	container_type c_;

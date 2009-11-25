@@ -111,14 +111,14 @@ sge::gui::cursor::const_base_ptr const sge::gui::manager::cursor() const
 	return cursor_;
 }
 
-sge::gui::skins::base &sge::gui::manager::skin() 
-{ 
-	return *skin_; 
+sge::gui::skins::base &sge::gui::manager::skin()
+{
+	return *skin_;
 }
 
 sge::gui::skins::base const &sge::gui::manager::skin() const
-{ 
-	return *skin_; 
+{
+	return *skin_;
 }
 
 sge::sprite::object &sge::gui::manager::connected_sprite(

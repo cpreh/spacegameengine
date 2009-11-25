@@ -45,23 +45,23 @@ public:
 		ostream &
 	);
 
-	SGE_SYMBOL all 
+	SGE_SYMBOL all
 	parent(
 		object const &
 	);
 
-	SGE_SYMBOL all 
+	SGE_SYMBOL all
 	context_location(
 		log::context *,
 		log::location const &
 	);
 
-	SGE_SYMBOL all 
+	SGE_SYMBOL all
 	enabled(
 		bool
 	);
 
-	SGE_SYMBOL all 
+	SGE_SYMBOL all
 	level_streams(
 		level_stream_array const &
 	);
@@ -71,7 +71,7 @@ public:
 		enabled_level_array const &
 	);
 
-	SGE_SYMBOL all 
+	SGE_SYMBOL all
 	formatter(
 		format::const_object_ptr
 	);
@@ -88,7 +88,7 @@ public:
 	SGE_SYMBOL bool
 	enabled() const;
 
-	SGE_SYMBOL level_stream_array const & 
+	SGE_SYMBOL level_stream_array const &
 	level_streams() const;
 
 	SGE_SYMBOL enabled_level_array const &

@@ -44,7 +44,7 @@ parse_range(
 )
 {
 	grammar<In> parser;
-	
+
 	return boost::spirit::qi::phrase_parse(
 		beg,
 		end,

@@ -66,7 +66,7 @@ public:
 	explicit tree(
 		T const &
 	);
-		
+
 	~tree();
 
 	child_list &
@@ -77,7 +77,7 @@ public:
 
 	tree &
 	parent();
-	
+
 	tree const &
 	parent() const;
 
@@ -86,15 +86,15 @@ public:
 
 	tree const *
 	parent_ptr() const;
-	
+
 	bool
 	has_parent() const;
-	
+
 	void
 	parent(
 		tree &
 	);
-	
+
 	void
 	orphan();
 
@@ -108,7 +108,7 @@ public:
 
 	const_iterator
 	child_position() const;
-	
+
 	void
 	value(
 		T const &
@@ -207,7 +207,7 @@ public:
 		iterator,
 		iterator
 	);
-	
+
 	size_type
 	size() const;
 

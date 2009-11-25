@@ -129,7 +129,7 @@ try
 			>(image_texture)
 		)
 	);
-	
+
 	sge::renderer::texture_ptr const target(
 		sys.renderer()->create_texture(
 			sge::renderer::texture::dim_type(640,480),
@@ -184,7 +184,7 @@ try
 		sge::renderer::scoped_block const block_(sys.renderer());
 		ss.render(rendered_stuff);
 	}
-} 
+}
 catch (sge::exception const &e)
 {
 	sge::cerr << SGE_TEXT("caught sge exception: ") << e.string() << SGE_TEXT('\n');

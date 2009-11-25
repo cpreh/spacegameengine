@@ -41,9 +41,9 @@ class system : public system_base {
 public:
 	SGE_SYMBOL explicit system(
 		renderer::device_ptr);
-	
+
 	SGE_SYMBOL ~system();
-	
+
 	SGE_SYMBOL void render();
 private:
 	typedef boost::intrusive::list<

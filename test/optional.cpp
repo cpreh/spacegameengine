@@ -44,7 +44,7 @@ int main()
 		<< SGE_TEXT('\n')
 		<< *opt2
 		<< SGE_TEXT('\n');
-	
+
 	opt2 = SGE_TEXT("test2");
 	opt1 = opt2;
 
@@ -53,10 +53,10 @@ int main()
 		<< SGE_TEXT('\n')
 		<< *opt2
 		<< SGE_TEXT('\n');
-	
+
 	if(opt1)
 		sge::cout << SGE_TEXT("opt1 is set\n");
-	
+
 	opt1.reset();
 
 	if(!opt1)

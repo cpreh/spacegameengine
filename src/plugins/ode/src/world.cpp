@@ -43,7 +43,7 @@ sge::ode::world::world(
 	dVector3 fs = { 0.0f,0.0f,0.0f };
 	dVector3 fs2 = { static_cast<dReal>(_r->w()),static_cast<dReal>(_r->h()),1.0f };
 
-	space_ = 
+	space_ =
 		dQuadTreeSpaceCreate(
 			0,
 			fs,
@@ -60,7 +60,7 @@ sge::signal::auto_connection
 sge::ode::world::register_test_callback(
 	collision::test_callback const &_c)
 {
-	return 
+	return
 		test_signal_.connect(
 			_c);
 }
@@ -77,11 +77,11 @@ sge::signal::auto_connection
 sge::ode::world::register_begin_callback(
 	collision::callback const &_c)
 {
-	return 
+	return
 		begin_signal_.connect(
 			_c);
 }
-	
+
 sge::signal::auto_connection
 sge::ode::world::register_end_callback(
 	collision::callback const &_c)
@@ -90,15 +90,15 @@ sge::ode::world::register_end_callback(
 		end_signal_.connect(
 			_c);
 }
-	
-sge::collision::body_ptr const 
+
+sge::collision::body_ptr const
 sge::ode::world::create_body(
 	collision::satellite_ptr _satellite,
 	collision::shapes::container const &_shapes,
 	collision::point const &_position,
 	collision::point const &_linear_velocity)
 {
-	return 
+	return
 		collision::body_ptr(
 			new body(
 				*this,
@@ -114,7 +114,7 @@ sge::collision::shapes::circle_ptr const
 sge::ode::world::create_circle(
 	collision::unit const _radius)
 {
-	return 
+	return
 		collision::shapes::circle_ptr(
 			new shapes::circle(
 				transformer_,
@@ -122,7 +122,7 @@ sge::ode::world::create_circle(
 				_radius));
 }
 
-sge::collision::group_ptr const 
+sge::collision::group_ptr const
 sge::ode::world::create_group()
 {
 	return
@@ -135,24 +135,24 @@ void
 sge::ode::world::update(
 	collision::time_unit const deltan)
 {
-	dReal const delta = 
+	dReal const delta =
 		static_cast<dReal>(deltan)+
 		time_remainder_;
-		
-	dReal const time_step = 
+
+	dReal const time_step =
 		static_cast<dReal>(
 			0.001);
-	
-	unsigned const iterations = 
+
+	unsigned const iterations =
 		static_cast<unsigned>(
 			delta/
 			time_step);
-			
+
 	for (unsigned i = 0; i < iterations; ++i)
 		step(
 			time_step);
-	
-	time_remainder_ = 
+
+	time_remainder_ =
 		std::fmod(
 			delta,
 			time_step);
@@ -185,7 +185,7 @@ void sge::ode::world::step(
 		space_,
 		this,
 		&static_collide);
-	
+
 	dWorldQuickStep(
 	//dWorldStep(
 		world_,
@@ -203,12 +203,12 @@ void sge::ode::world::check_end_signals()
 			it->second = false;
 			continue;
 		}
-		
+
 		call_signal(
 			end_signal_,
 			it->first.first,
 			it->first.second);
-				
+
 		collisions_.erase(
 			it);
 	}
@@ -218,7 +218,7 @@ sge::ode::group_id sge::ode::world::next_group_id()
 {
 	if (group_id_ == static_cast<group_id>(1 << 31))
 		throw collision::group_overflow();
-	group_id const old = 
+	group_id const old =
 		group_id_;
 	group_id_ <<= 1;
 	//sge::cerr << "returning group id " << old << "\n";
@@ -242,29 +242,29 @@ void sge::ode::world::collide(
 {
 	//sge::cerr << "there was a collision!\n";
 	dBodyID const
-		b0 = 
+		b0 =
 			dGeomGetBody(
 				g0),
-		b1 = 
+		b1 =
 			dGeomGetBody(
 				g1);
 
-	collision::satellite 
-		&s0 = 
+	collision::satellite
+		&s0 =
 			*static_cast<body*>(
 				dBodyGetData(
 					b0))->satellite_,
-		&s1 = 
+		&s1 =
 			*static_cast<body*>(
 				dBodyGetData(
 					b1))->satellite_;
-					
+
 	if (!test_signal_(s0,s1))
 	{
 	//	sge::cerr << "test signal returned false\n";
 		return;
 	}
-	
+
 	//sge::cerr << "there was a collision!\n";
 	// manual states that the contact array has to contain at least 1 element,
 	// so to be sure, allocate one dContactGeom here
@@ -274,16 +274,16 @@ void sge::ode::world::collide(
 		//sge::cerr << "but dcollide returned false :(\n";
 		return;
 	}
-	
-	std::pair<object_map::iterator,bool> 
-		result = 
+
+	std::pair<object_map::iterator,bool>
+		result =
 			collisions_.insert(
 				std::make_pair(
 					std::make_pair(
 						b1 > b0 ? b0 : b1,
 						b1 > b0 ? b1 : b0),
 					true));
-		
+
 	// insertion was successful, so this collision is new. we then send a collision_begin
 	if (result.second)
 	{
@@ -306,16 +306,16 @@ void sge::ode::world::call_signal(
 	dBodyID const b0,
 	dBodyID const b1)
 {
-	collision::satellite 
-		&s0 = 
+	collision::satellite
+		&s0 =
 			*static_cast<body*>(
 				dBodyGetData(
 					b0))->satellite_,
-		&s1 = 
+		&s1 =
 			*static_cast<body*>(
 				dBodyGetData(
 					b1))->satellite_;
-					
+
 	s(
 		std::tr1::ref(
 			s0),
@@ -329,7 +329,7 @@ void sge::ode::world::destroy_body(
 	for (object_map::iterator it(collisions_.begin()),next(it); it != collisions_.end(); it = next)
 	{
 		++next;
-		
+
 		if (it->first.first == _body || it->first.second == _body)
 		{
 			call_signal(

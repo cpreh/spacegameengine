@@ -50,7 +50,7 @@ public:
 	typedef value_type const                     *const_pointer;
 	typedef renderer::resource_flags_field       resource_flag_type;
 	typedef lock_method::type                    lock_flag_type;
-			
+
 	basic_buffer(
 		size_type sz,
 		size_type stride,
@@ -81,7 +81,7 @@ public:
 
 	static void unbind();
 	void bind_me() const;
-	
+
 	pointer
 	buffer_offset(
 		size_type offset) const;

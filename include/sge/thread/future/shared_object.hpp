@@ -1,4 +1,4 @@
-#ifndef SGE_THREAD_FUTURE_SHARED_OBJECT_HPP_INCLUDED 
+#ifndef SGE_THREAD_FUTURE_SHARED_OBJECT_HPP_INCLUDED
 #define SGE_THREAD_FUTURE_SHARED_OBJECT_HPP_INCLUDED
 
 #include <sge/thread/future/detail/base.hpp>
@@ -120,7 +120,7 @@ sge::thread::future::shared_object<T> &sge::thread::future::shared_object<T>::op
 template<typename T>
 sge::thread::future::shared_object<T>::operator boost::detail::thread_move_t< sge::thread::future::shared_object<T> >()
 {
-	return 
+	return
 		boost::detail::thread_move_t<shared_object>(
 			*this);
 }

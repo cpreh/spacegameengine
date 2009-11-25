@@ -40,7 +40,7 @@ public:
 	virtual world_ptr const
 	create_world(
 		optional_rect const &) = 0;
-	
+
 	SGE_SYMBOL virtual ~system();
 };
 }

@@ -59,7 +59,7 @@ void
 sge::audio_null::sound::play(
 	sge::audio::play_mode::type const nplay_mode)
 {
-	play_mode_ = nplay_mode;	
+	play_mode_ = nplay_mode;
 }
 
 sge::audio::play_mode::type

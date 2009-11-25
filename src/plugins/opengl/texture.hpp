@@ -52,9 +52,9 @@ public:
 		renderer::resource_flags_field const &,
 		optional_type type
 			= optional_type());
-	
+
 	dim_type const dim() const;
-	
+
 	image::view::object const
 	lock(
 		renderer::lock_rect const &,
@@ -76,7 +76,7 @@ private:
 	image::view::const_object const view() const;
 
 	dim_type const lock_dim() const;
-	
+
 	dim_type const dim_;
 	mutable optional<
 		renderer::lock_rect

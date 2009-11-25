@@ -46,6 +46,6 @@ sge::gui::make_image(
 		_image->view(),
 		i->view()
 	);
-	
+
 	return i;
 }

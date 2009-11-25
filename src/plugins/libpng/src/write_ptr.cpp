@@ -13,7 +13,7 @@ sge::libpng::write_ptr::write_ptr(
 	if (!ptr_)
 		throw image::exception(SGE_TEXT("couldn't allocate png write structure"));
 
-	info_ = 
+	info_ =
 		png_create_info_struct(
 			ptr_);
 

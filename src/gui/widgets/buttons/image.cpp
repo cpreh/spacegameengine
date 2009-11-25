@@ -48,7 +48,7 @@ sge::gui::widgets::buttons::image::image(
 	hover_keyboard_(_hover_keyboard)
 {
 	SGE_ASSERT(
-		normal_->size() == hover_->size() && 
-		hover_->size() == keyboard_->size() && 
+		normal_->size() == hover_->size() &&
+		hover_->size() == keyboard_->size() &&
 		keyboard_->size() == hover_keyboard_->size());
 }

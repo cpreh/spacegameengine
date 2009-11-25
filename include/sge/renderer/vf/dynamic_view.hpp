@@ -44,7 +44,7 @@ public:
 		pointer data,
 		size_type elements,
 		dynamic_format const &);
-	
+
 	SGE_SYMBOL pointer data() const;
 	SGE_SYMBOL size_type size() const;
 	SGE_SYMBOL dynamic_format const &format() const;

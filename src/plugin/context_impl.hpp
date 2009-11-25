@@ -49,7 +49,7 @@ sge::plugin::context<T>::load()
 			plugin<T>
 		>(
 			ptr_base);
-	
+
 	shared_ptr<plugin<T> > const new_ptr(
 		make_shared_ptr<
 			plugin<T>

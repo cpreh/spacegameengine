@@ -68,7 +68,7 @@ checked_access(
 	typedef typename T::dim_wrapper dim_wrapper;
 	BOOST_STATIC_ASSERT(
 		N < dim_wrapper::value);
-	
+
 	return t[N];
 }
 
@@ -106,7 +106,7 @@ checked_access(
 	typedef typename T::dim_wrapper dim_wrapper;
 	BOOST_STATIC_ASSERT(
 		N < dim_wrapper::value);
-	
+
 	return t[N];
 }
 

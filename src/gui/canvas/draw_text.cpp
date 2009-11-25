@@ -45,12 +45,12 @@ void sge::gui::canvas::object::draw_text(
 	// determine which invisible characters have to be filtered
 	if (cp)
 	{
-		string::size_type const filter = 
+		string::size_type const filter =
 			std::count(
 				text.begin(),
 				text.begin()+(*cp)+1,
 				SGE_TEXT('\n'));
-		
+
 		cp = (*cp) - filter;
 	}
 

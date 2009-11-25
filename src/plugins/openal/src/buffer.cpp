@@ -56,7 +56,7 @@ sge::audio::file const &sge::openal::buffer::file() const
 void sge::openal::buffer::add_instance()
 {
 	refcount_++;
-}	
+}
 
 bool sge::openal::buffer::remove_instance()
 {

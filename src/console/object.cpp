@@ -53,11 +53,11 @@ sge::signal::auto_connection sge::console::object::insert(
 				function
 			>(description));
 
-		std::pair<function_map::iterator,bool> const ret = 
+		std::pair<function_map::iterator,bool> const ret =
 			funcs_.insert(
 				name,
 				sig);
-	
+
 		i = ret.first;
 		SGE_ASSERT(ret.second);
 	}
@@ -74,7 +74,7 @@ namespace
 {
 template <typename Iterator>
 class eval_grammar : public boost::spirit::qi::grammar<
-	Iterator, 
+	Iterator,
 	sge::console::arg_list()>
 {
 public:

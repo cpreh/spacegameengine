@@ -158,7 +158,7 @@ try
 			)
 		)
 	);
-	
+
 	while(running)
 	{
 		sge::mainloop::dispatch();

@@ -40,7 +40,7 @@ public:
 	SGE_SYMBOL explicit inserter(
 		string const &format_string
 	);
-	
+
 	SGE_SYMBOL string const
 	format(
 		string const &

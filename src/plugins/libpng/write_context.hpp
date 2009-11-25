@@ -33,10 +33,10 @@ private:
 
 	static void handle_write(
 		png_structp,
-		png_bytep, 
+		png_bytep,
 		png_size_t);
 	void handle_write_impl(
-		png_bytep, 
+		png_bytep,
 		png_size_t);
 	static void handle_flush(
 		png_structp);

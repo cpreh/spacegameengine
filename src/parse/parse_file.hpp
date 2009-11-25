@@ -53,8 +53,8 @@ parse_file(
 			+ path.string()
 			+ SGE_TEXT(" failed!")
 		);
-	
-	return 
+
+	return
 		parse_stream(
 			ifs,
 			result);

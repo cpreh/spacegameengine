@@ -36,7 +36,7 @@ public:
 		x11::window_ptr);
 	~keyboard_grab();
 private:
-	x11::window_ptr const wnd;	
+	x11::window_ptr const wnd;
 };
 
 }

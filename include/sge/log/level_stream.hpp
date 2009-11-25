@@ -38,7 +38,7 @@ public:
 		ostream &,
 		format::const_object_ptr
 	);
-	
+
 	SGE_SYMBOL ~level_stream();
 
 	SGE_SYMBOL void

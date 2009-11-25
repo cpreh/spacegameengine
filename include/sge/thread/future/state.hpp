@@ -9,12 +9,12 @@ namespace future
 {
 namespace state
 {
-enum type 
-{ 
-	uninitialized, 
-	waiting, 
-	ready, 
-	moved 
+enum type
+{
+	uninitialized,
+	waiting,
+	ready,
+	moved
 };
 }
 }

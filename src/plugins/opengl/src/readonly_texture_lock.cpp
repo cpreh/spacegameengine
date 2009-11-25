@@ -51,7 +51,7 @@ void sge::opengl::readonly_texture_lock::post_lock()
 
 	if(!pitch)
 		return;
-	
+
 	// if the pitch is set we copy the part to read
 	// in our own buffer so that the user sees a contiguous array
 

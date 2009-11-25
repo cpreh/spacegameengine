@@ -37,7 +37,7 @@ namespace container
 
 template<
 	class Key,
-	class Compare = std::less<Key>, 
+	class Compare = std::less<Key>,
 	class Allocator = std::allocator<Key> >
 class linear_set
 {

@@ -37,7 +37,7 @@ public:
 
 	explicit set_pixel(
 		color const &src);
-	
+
 	template<
 		typename Dest
 	>
@@ -68,7 +68,7 @@ void sge::gui::utility::set_pixel::operator()(
 			typename Dest::locator::value_type
 		>(
 			src);
-		
+
 }
 
 #endif

@@ -40,7 +40,7 @@ try
 
 	sge::multi_loader<sge::audio::loader,sge::audio::file,sge::audio::exception> loader(sys.plugin_manager());
 
-	sge::audio::file_ptr const file = loader.load(	
+	sge::audio::file_ptr const file = loader.load(
 		sge::config::media_path() / SGE_TEXT("ding.wav")
 	);
 

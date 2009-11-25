@@ -33,7 +33,7 @@ sge::collision::world_ptr const
 sge::ode::system::create_world(
 	collision::optional_rect const &r)
 {
-	return 
+	return
 		make_shared_ptr<world>(
 			r);
 }

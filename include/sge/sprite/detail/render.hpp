@@ -67,7 +67,7 @@ void render(
 			? vtex->texture()
 			: renderer::const_texture_ptr(
 				renderer::device::no_texture));
-		
+
 		rend->render(
 			vb,
 			ib,

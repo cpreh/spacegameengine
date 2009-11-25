@@ -214,7 +214,7 @@ struct object< R( Args... ) >
 		object( const object& other )
 			: function_( other.function_ )
 		{}
-		
+
 		// constructor for functors without operator& overload, and regular functions
 		template< typename F >
 		object
@@ -262,7 +262,7 @@ struct object< R( Args... ) >
 
 			return *this;
 		}
-		
+
 		// assignment operator for functors without operator& overload, and regular functions
 		template< typename F >
 		typename boost::enable_if
@@ -321,7 +321,7 @@ struct object< R( Args... ) >
 		{
 			return function_( args... );
 		}
-		
+
 		R operator() ( Args... args ) const
 		{
 			return function_( args... );
@@ -337,7 +337,7 @@ struct object< R( Args... ) >
 		{
 			return function_.target<F>();
 		}
-		
+
 		template< typename F >
 		const F* target() const
 		{
@@ -348,7 +348,7 @@ struct object< R( Args... ) >
 
 		template< typename F >
 		void operator==( const object<F>& ) const;
-		
+
 		template< typename F >
 		void operator!=( const object<F>& ) const;
 

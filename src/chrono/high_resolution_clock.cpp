@@ -38,7 +38,7 @@ sge::chrono::high_resolution_clock::now()
 	>();
 #elif SGE_POSIX_PLATFORM
 	return clock_gettime_impl<
-		time_point	
+		time_point
 	>(
 		CLOCK_REALTIME
 	);

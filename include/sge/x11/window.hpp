@@ -79,7 +79,7 @@ public:
 	register_callback(
 		event_type,
 		callback_type const &);
-	
+
 	SGE_SYMBOL void dispatch();
 private:
 	Display *dsp_() const;

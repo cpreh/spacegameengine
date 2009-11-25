@@ -39,7 +39,7 @@ public:
 	SGE_SYMBOL const_scoped_texture_lock(
 		const_texture_ptr,
 		lock_rect const &);
-	
+
 	SGE_SYMBOL explicit const_scoped_texture_lock(
 		const_texture_ptr);
 

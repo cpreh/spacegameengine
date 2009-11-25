@@ -47,14 +47,14 @@ public:
 	SGE_SYMBOL void run();
 protected:
 	SGE_SYMBOL explicit skeleton(
-		systems::list const &);	
+		systems::list const &);
 	SGE_SYMBOL void exit();
 	SGE_SYMBOL systems::instance const &system() const;
 	SGE_SYMBOL virtual ~skeleton();
 private:
 	virtual void loop() = 0;
 	virtual void key_event(
-		input::key_pair const &);	
+		input::key_pair const &);
 
 	bool running;
 	systems::instance const sys;

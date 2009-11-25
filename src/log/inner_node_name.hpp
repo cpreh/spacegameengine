@@ -37,7 +37,7 @@ public:
 		string const &
 	);
 
-	result_type	
+	result_type
 	operator()(
 		detail::context_tree const &
 	) const;

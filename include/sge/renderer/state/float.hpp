@@ -45,7 +45,7 @@ namespace float_ {
 			fog_density
 		};
 	}
-		
+
 	typedef trampoline<
 		base_type,
 		available_states::type

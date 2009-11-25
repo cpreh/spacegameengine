@@ -53,7 +53,7 @@ contains_point(
 		ret &=
 			point_[i] >= box_.pos(i)
 			&& point_[i] < box_.max(i);
-	
+
 	return ret;
 }
 

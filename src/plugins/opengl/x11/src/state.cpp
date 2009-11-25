@@ -107,7 +107,7 @@ sge::opengl::x11::state::state(
 void sge::opengl::x11::state::swap_buffers()
 {
 	// TODO: how to get the error code here?
-		
+
 	glXSwapBuffers(
 		display->get(),
 		wnd->get()

@@ -43,7 +43,7 @@ sge::opengl::glsl::shader<Native>::shader(
 	);
 
 	compile_shader<Native>(id());
-	
+
 	if(
 		compile_status<Native>(id()) == GL_FALSE
 	)

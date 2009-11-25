@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CAPS_HPP_INCLUDED 
-#define SGE_OPENGL_CAPS_HPP_INCLUDED 
+#ifndef SGE_OPENGL_CAPS_HPP_INCLUDED
+#define SGE_OPENGL_CAPS_HPP_INCLUDED
 
 #include <sge/renderer/caps_fwd.hpp>
 #include <sge/auto_ptr.hpp>
@@ -33,7 +33,7 @@ typedef auto_ptr<
 	renderer::caps
 > caps_auto_ptr;
 
-caps_auto_ptr 
+caps_auto_ptr
 create_caps();
 
 }

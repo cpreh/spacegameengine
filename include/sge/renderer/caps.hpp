@@ -47,12 +47,12 @@ public:
 		bool glsl_supported,
 		image::color::format::type preferred_texture_format
 	);
-		
+
 	SGE_SYMBOL adapter_type adapter() const;
 	SGE_SYMBOL string const &driver_name() const;
 	SGE_SYMBOL string const &description() const;
 	SGE_SYMBOL dim_type const &max_texture_size() const;
-	SGE_SYMBOL filter::anisotropy_type max_anisotropy() const; 
+	SGE_SYMBOL filter::anisotropy_type max_anisotropy() const;
 	SGE_SYMBOL bool render_target_supported() const;
 	SGE_SYMBOL bool glsl_supported() const;
 	SGE_SYMBOL image::color::format::type preferred_texture_format() const;

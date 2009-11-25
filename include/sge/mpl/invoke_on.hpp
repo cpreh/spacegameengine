@@ -40,7 +40,7 @@ template<
 typename Function::result_type
 invoke_on(
 	Index const &index,
-	Function const &fun	
+	Function const &fun
 )
 {
 	return detail::invoke_on<
@@ -54,12 +54,12 @@ invoke_on(
 	>::execute(
 		static_cast<
 			typename boost::mpl::begin<
-				Sequence	
+				Sequence
 			>::type *
 		>(0),
 		static_cast<
 			typename boost::mpl::end<
-				Sequence	
+				Sequence
 			>::type *
 		>(0),
 		index,

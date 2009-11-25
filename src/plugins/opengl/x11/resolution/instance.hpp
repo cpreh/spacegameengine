@@ -37,7 +37,7 @@ class instance {
 protected:
 	instance();
 public:
-	virtual ~instance();	
+	virtual ~instance();
 };
 
 }

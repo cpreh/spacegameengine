@@ -144,7 +144,7 @@ sge::container::tree<T>::orphan()
 {
 	if(!has_parent())
 		return;
-	
+
 	parent->release(
 		*this
 	);
@@ -418,7 +418,7 @@ sge::container::tree<T>::insert(
 	children().insert(
 		it,
 		r);
-	
+
 	ref.parent(
 		*this);
 }

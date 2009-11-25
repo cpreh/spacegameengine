@@ -60,11 +60,11 @@ void sge::openal::listener::vel(audio::point const &n)
 	vel_ = n;
 
 	// TODO: use sge::math::vector!
-	ALfloat const vec[3] = 
-		{ 
+	ALfloat const vec[3] =
+		{
 			static_cast<ALfloat>(n.x()),
 			static_cast<ALfloat>(n.y()),
-			static_cast<ALfloat>(n.z()) 
+			static_cast<ALfloat>(n.z())
 		};
 	listener_fv(
 		AL_VELOCITY,
@@ -81,11 +81,11 @@ void sge::openal::listener::pos(audio::point const &n)
 {
 	SGE_LOG_DEBUG(log(),log::_ << SGE_TEXT("setting listener position to ") << n);
 	pos_ = n;
-	ALfloat const vec[3] = 
-		{ 
+	ALfloat const vec[3] =
+		{
 			static_cast<ALfloat>(n.x()),
 			static_cast<ALfloat>(n.y()),
-			static_cast<ALfloat>(n.z()) 
+			static_cast<ALfloat>(n.z())
 		};
 	listener_fv(
 		AL_POSITION,
@@ -100,14 +100,14 @@ sge::audio::point const sge::openal::listener::pos() const
 
 void sge::openal::listener::direction(audio::angle const &n)
 {
-	ALfloat const vec[6] = 
-		{ 
+	ALfloat const vec[6] =
+		{
 			static_cast<ALfloat>(n.forward().x()),
 			static_cast<ALfloat>(n.forward().y()),
 			static_cast<ALfloat>(n.forward().z()),
 			static_cast<ALfloat>(n.up().x()),
 			static_cast<ALfloat>(n.up().y()),
-			static_cast<ALfloat>(n.up().z()) 
+			static_cast<ALfloat>(n.up().z())
 		};
 
 	listener_fv(

@@ -70,7 +70,7 @@ void sge::gui::layouts::base::compile(invalidation::type const &i)
 
 			base::set_widget_pos(
 				connected_widget(),
-				connected_widget().pos_hint() 
+				connected_widget().pos_hint()
 					? *connected_widget().pos_hint()
 					: point::null());
 		}
@@ -78,12 +78,12 @@ void sge::gui::layouts::base::compile(invalidation::type const &i)
 
 	if (!(i & invalidation::size))
 		return;
-		
+
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_ << SGE_TEXT("size invalid, so recompiling"));
-	
-	dim const s = 
+
+	dim const s =
 		connected_widget().optimal_size();
 
 	// Widget hasn't been resized yet?
@@ -149,6 +149,6 @@ void sge::gui::layouts::base::connected_widget(widgets::base &_w)
 {
 	if (w)
 		throw exception(SGE_TEXT("registered connected widgets::base twice"));
-	
+
 	w = &_w;
 }

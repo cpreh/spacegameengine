@@ -26,7 +26,7 @@ sge::parse::ini::entry_name_equal::entry_name_equal(
 :
 	name_(name_)
 {}
-	
+
 sge::parse::ini::entry_name_equal::result_type
 sge::parse::ini::entry_name_equal::operator()(
 	entry const &e) const

@@ -44,7 +44,7 @@ public:
 		Ptr,
 		size_type first = 0,
 		size_type count = npos);
-	
+
 	SGE_SYMBOL View const
 	value() const;
 

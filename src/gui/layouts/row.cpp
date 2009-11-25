@@ -50,13 +50,13 @@ sge::log::object mylogger(
 
 sge::gui::layouts::row::row(
 	spacing const &_spacing)
-: 
+:
 	base(),
 	sizes(),
 	spacing_(_spacing)
 {
 }
-	
+
 void sge::gui::layouts::row::compile_static()
 {
 	SGE_LOG_DEBUG(
@@ -65,7 +65,7 @@ void sge::gui::layouts::row::compile_static()
 		        << type_info(typeid(connected_widget())).name());
 
 	reset_cache();
-	
+
 	// Make everything dirty. There's no better place to do it. If a child of
 	// connected_widget() is deleted, this function gets called and we have to
 	// redraw everything, else we get errors
@@ -76,14 +76,14 @@ void sge::gui::layouts::row::compile_static()
 			connected_widget().size()
 		)
 	);
-	
-	dim const 
+
+	dim const
 		optimal = optimal_size(),
 		usable = connected_widget().size();
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("optimal size ") << optimal 
+		log::_ << SGE_TEXT("optimal size ") << optimal
 		        << SGE_TEXT(", usable size: ") << usable);
 
 	SGE_LOG_DEBUG(
@@ -123,10 +123,10 @@ sge::gui::dim const sge::gui::layouts::row::optimal_size() const
 	}
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("returning optimal size ") 
+		log::_ << SGE_TEXT("returning optimal size ")
 		        << hint);
-	
-	return 
+
+	return
 		math::vector::structure_cast<dim>(
 			math::dim::structure_cast<spacing>(hint) *
 			spacing_
@@ -181,8 +181,8 @@ void sge::gui::layouts::row::adapt(
 	unit const addition = static_cast<unit>(diff/count);
 
 	SGE_LOG_DEBUG(mylogger,
-		log::_ << SGE_TEXT("adding ") << diff << SGE_TEXT("/") 
-		        << count << SGE_TEXT("=") << addition 
+		log::_ << SGE_TEXT("adding ") << diff << SGE_TEXT("/")
+		        << count << SGE_TEXT("=") << addition
 						<< SGE_TEXT(" pixels to each widget"));
 
 	BOOST_FOREACH(widget_map::value_type &p,sizes)
@@ -198,11 +198,11 @@ void sge::gui::layouts::row::adapt_outer(
 	// optimal > size
 	// count widgets with shrink flag and distribute (optimal - size) among
 	// them. if there are no shrinkable widgets, issue an error
-	// optimal < size 
+	// optimal < size
 	// count widgets with expand flag and distribute (size - optimal) among
 	// them. if there are no widgets with the expand flag, distribute space among
 	// widgets with grow flag.
-	
+
 	if (optimal[axis] > usable[axis])
 	{
 		SGE_ASSERT_MESSAGE(
@@ -225,8 +225,8 @@ void sge::gui::layouts::row::adapt_outer(
 		{
 			SGE_LOG_DEBUG(
 				mylogger,
-				log::_ << SGE_TEXT("there are ") 
-				        << count 
+				log::_ << SGE_TEXT("there are ")
+				        << count
 				        << SGE_TEXT(" widgets which should grow, growing those"));
 			adapt(
 				optimal,
@@ -238,8 +238,8 @@ void sge::gui::layouts::row::adapt_outer(
 		{
 			SGE_LOG_DEBUG(
 				mylogger,
-				log::_ << SGE_TEXT("there are ") 
-				        << count 
+				log::_ << SGE_TEXT("there are ")
+				        << count
 				        << SGE_TEXT(" widgets which can grow, growing those"));
 			adapt(
 				optimal,
@@ -274,13 +274,13 @@ void sge::gui::layouts::row::update_widgets(dim const &usable)
 		mylogger,
 		log::_ << SGE_TEXT("bounding size in master direction is ")
 		        << bounding);
-	
+
 	unit const extra_space = static_cast<unit>(master(usable)-bounding);
 	unit const increment = static_cast<unit>(extra_space/(sizes.size()+1));
-	
+
 	SGE_LOG_DEBUG(mylogger,
-		log::_ << SGE_TEXT("there are ") << extra_space 
-		        << SGE_TEXT(" pixels extra space and ") 
+		log::_ << SGE_TEXT("there are ") << extra_space
+		        << SGE_TEXT(" pixels extra space and ")
 		        << increment << SGE_TEXT(" is the increment"));
 
 	point pos;
@@ -298,7 +298,7 @@ void sge::gui::layouts::row::update_widgets(dim const &usable)
 							<< master(pos)
 							<< SGE_TEXT(" and size to ")
 							<< p.second);
-		
+
 		base::set_widget_size(
 			*p.first,
 			p.second);

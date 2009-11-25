@@ -63,7 +63,7 @@ sge::lexical_cast(
 
 	if (!(ss << s && ss >> result))
 		throw bad_lexical_cast(typeid(Src),typeid(Dest));
-	
+
 	return result;
 }
 

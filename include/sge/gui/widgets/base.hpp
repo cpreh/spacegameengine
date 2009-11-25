@@ -61,7 +61,7 @@ class SGE_CLASS_SYMBOL base
 		boost::view_clone_allocator> child_container;
 
 	/**
-	 * This: 
+	 * This:
 	 * -Sets the layout's connected widget (can only be set once)
 	 * -Calls base::add_child on the parent widget (if any)
 	 * -Calls manager::add(*this)
@@ -85,12 +85,12 @@ class SGE_CLASS_SYMBOL base
 
 	SGE_GUI_SYMBOL void z(depth_type);
 	SGE_GUI_SYMBOL depth_type z() const;
-	
+
 	SGE_GUI_SYMBOL image &buffer() const;
 
 	SGE_GUI_SYMBOL manager &parent_manager();
 	SGE_GUI_SYMBOL manager const &parent_manager() const;
-	
+
 	SGE_GUI_SYMBOL widgets::base &parent_widget();
 	SGE_GUI_SYMBOL widgets::base const &parent_widget() const;
 

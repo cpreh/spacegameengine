@@ -804,7 +804,7 @@ void set_texture(const sge::d3d9::d3d_device_ptr device, const sge::stage_type s
 {
 	if(device->SetTexture(static_cast<DWORD>(stage),tex) != D3D_OK)
 		throw sge::exception(SGE_TEXT("SetTexture() failed!"));
-	
+
 	//set_sampler_state(device,stage,d3d_type,d3d_value);
 }
 

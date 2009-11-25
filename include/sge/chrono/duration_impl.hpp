@@ -171,7 +171,7 @@ sge::chrono::duration<
 	Period
 >::count() const
 {
-	return rep_;	
+	return rep_;
 }
 
 template<
@@ -357,7 +357,7 @@ sge::chrono::duration<
 {
 	rep_ /= other;
 
-	return *this;	
+	return *this;
 }
 
 template<

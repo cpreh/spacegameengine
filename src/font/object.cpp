@@ -100,7 +100,7 @@ sge::font::object::draw_text(
 		font::text_size const line_size = line_width(sbeg, text.end(), max_sz.w(), flags);
 
 		pos_.x() = start_pos.x();
-		
+
 		switch(align_h) {
 		case align_h::center:
 			pos_.x() += (max_sz.w() - line_size.size().w()) / 2;

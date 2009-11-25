@@ -31,10 +31,10 @@ sge::bitmapfont::char_metric::char_metric(
 	offset_(offset_),
 	x_advance_(x_advance_)
 {}
-	
+
 sge::bitmapfont::char_metric::~char_metric()
 {}
-	
+
 sge::font::const_image_view const
 sge::bitmapfont::char_metric::pixmap() const
 {

@@ -87,7 +87,7 @@ public:
 	~raw_vector();
 
 	raw_vector &operator= (raw_vector const &x);
-	
+
 	template <typename In>
 	void assign (In beg, In end);
 	void assign (size_type n, T const &value);
@@ -95,7 +95,7 @@ public:
 	void push_back (T const &x);
 	void pop_back();
 	void clear();
-		
+
 	size_type size() const;
 	bool empty() const;
 	size_type max_size() const;

@@ -52,7 +52,7 @@ void sge::opengl::vf::attribute_actor::operator()(
 		stride(),
 		pointer()
 	);
-	
+
 	c.enable_attribute(
 		static_cast<GLuint>(
 			index()

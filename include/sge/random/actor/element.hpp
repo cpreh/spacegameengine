@@ -38,7 +38,7 @@ public:
 	SGE_SYMBOL element(
 		float_type,
 		actor::callback const &);
-	
+
 	SGE_SYMBOL float_type
 	prob() const;
 

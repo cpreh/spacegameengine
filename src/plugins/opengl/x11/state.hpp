@@ -58,7 +58,7 @@ public:
 		renderer::adapter_type,
 		window::instance_ptr,
 		view_port_fun const &);
-	
+
 	void swap_buffers();
 private:
 	void reset_viewport_on_map(

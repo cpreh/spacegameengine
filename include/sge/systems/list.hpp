@@ -35,7 +35,7 @@ namespace systems
 class list {
 public:
 	SGE_SYMBOL list();
-	
+
 	SGE_SYMBOL explicit list(
 		any const &);
 
@@ -49,7 +49,7 @@ public:
 	SGE_SYMBOL list const
 	operator()(
 		named const &) const;
-	
+
 	SGE_SYMBOL named_set const &
 	get() const;
 private:

@@ -21,7 +21,7 @@ private:
 	promise(promise &);
 	promise &operator=(promise &);
 public:
-	promise();	
+	promise();
 	promise(
 		boost::detail::thread_move_t<promise>);
 	~promise();
@@ -38,7 +38,7 @@ public:
 		boost::exception_ptr);
 private:
 	typedef shared_ptr< ::sge::thread::future::detail::object<T> > object_ptr;
-	
+
 	object_ptr object_;
 	bool future_obtained_;
 };
@@ -66,7 +66,7 @@ public:
 		boost::exception_ptr);
 private:
 	typedef shared_ptr< ::sge::thread::future::detail::object<void> > object_ptr;
-	
+
 	object_ptr object_;
 	bool future_obtained_;
 };
@@ -84,7 +84,7 @@ sge::thread::future::promise<T>::promise()
 		false)
 {
 }
-	
+
 template<typename T>
 sge::thread::future::promise<T>::promise(
 	boost::detail::thread_move_t<promise> rhs)
@@ -148,7 +148,7 @@ sge::thread::future::unique_future<T> sge::thread::future::promise<T>::future()
 	if (future_obtained_)
 		throw already_retrieved();
 	future_obtained_ = true;
-	return 
+	return
 		unique_future<T>(
 			object_);
 }
@@ -264,7 +264,7 @@ sge::thread::future::unique_future<void> sge::thread::future::promise<void>::get
 	if(future_obtained_)
 		throw future_already_retrieved();
 	future_obtained_ = true;
-	return 
+	return
 		unique_future<void>(
 			object_);
 }

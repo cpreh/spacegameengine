@@ -128,8 +128,8 @@ try
 		))
 		(sge::systems::parameterless::input)
 		(sge::systems::parameterless::image));
-	
-	sge::image::file_ptr const 
+
+	sge::image::file_ptr const
 		image_bg(
 			sys.image_loader()->load(
 				sge::config::media_path()/SGE_TEXT("shadertest.jpg"))),
@@ -140,7 +140,7 @@ try
 			sys.image_loader()->load(
 				sge::config::media_path()/SGE_TEXT("tux.png")));
 
-	sge::texture::default_creator<sge::texture::no_fragmented> const 
+	sge::texture::default_creator<sge::texture::no_fragmented> const
 		creator(
 			sys.renderer(),
 			sge::image::color::format::rgba8,
@@ -148,20 +148,20 @@ try
 
 	sge::texture::manager tex_man(sys.renderer(),creator);
 
-	sge::texture::const_part_ptr const 
+	sge::texture::const_part_ptr const
 		tex_bg(
 			sge::texture::add_image(
-				tex_man, 
+				tex_man,
 				image_bg)),
 		tex_pointer(
 			sge::texture::add_image(
-				tex_man, 
+				tex_man,
 				image_pointer)),
 		tex_tux(
 			sge::texture::add_image(
-				tex_man, 
+				tex_man,
 				image_tux));
-	
+
 	sge::sprite::system ss(sys.renderer());
 
 	sge::sprite::object bg(
@@ -190,7 +190,7 @@ try
 				sge::sprite::dim(32,32))
 			.depth(
 				static_cast<sge::sprite::depth_type>(1)));
-	
+
 	tux.color(
 		sge::image::color::rgba8(
 			sge::image::color::init::red %= 1.0,
@@ -236,7 +236,7 @@ try
 			sge::renderer::resource_flags::none
 		)
 	);
-	
+
 	sge::sprite::object target_spr(
 		sge::sprite::parameters()
 			.texture(
@@ -250,23 +250,23 @@ try
 				static_cast<sge::sprite::depth_type>(1)
 			)
 	);
-	
+
 	sge::cifstream fragment_stream(
 		sge::config::media_path()/SGE_TEXT("shaders")/SGE_TEXT("fragment.glsl"));
 	sge::cifstream vertex_stream(
 		sge::config::media_path()/SGE_TEXT("shaders")/SGE_TEXT("vertex.glsl"));
 
-	sge::renderer::glsl::program_ptr const p = 
+	sge::renderer::glsl::program_ptr const p =
 		sys.renderer()->create_glsl_program(
 			sge::renderer::glsl::istream_ref(vertex_stream),
 			sge::renderer::glsl::istream_ref(fragment_stream));
-	
+
 	sys.renderer()->glsl_program(
 		p);
 
-	sge::renderer::glsl::uniform::variable_ptr const v = 
+	sge::renderer::glsl::uniform::variable_ptr const v =
 		p->uniform("tex");
-	
+
 	sge::renderer::glsl::uniform::single_value(
 		v,
 		static_cast<int>(0)

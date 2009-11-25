@@ -40,7 +40,7 @@ basic<T, N, S> const
 normalize(
 	basic<T, N, S> const &v)
 {
-	return v / length(v);	
+	return v / length(v);
 }
 
 }

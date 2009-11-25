@@ -38,7 +38,7 @@ namespace container
 template<
 	class Key,
 	class T,
-	class Compare = std::less<Key>, 
+	class Compare = std::less<Key>,
 	class Allocator = std::allocator<std::pair<const Key,T> > >
 class linear_map
 {
@@ -78,7 +78,7 @@ class linear_map
 	linear_map(linear_map const &);
 
 	linear_map &operator=(linear_map const &);
-	
+
 	allocator_type get_allocator() const;
 
 	iterator begin();

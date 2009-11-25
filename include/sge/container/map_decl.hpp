@@ -71,12 +71,12 @@ public:
 		key_type const &,
 		mapped_type const &
 	);
-	
+
 	void
 	insert(
 		value_type const &
 	);
-	
+
 	void
 	erase(
 		key_type const &
@@ -86,7 +86,7 @@ public:
 	erase(
 		iterator
 	);
-	
+
 	iterator
 	find(
 		key_type const &
@@ -96,12 +96,12 @@ public:
 	find(
 		key_type const &
 	) const;
-	
+
 	mapped_type const &
 	operator[](
 		key_type const &
 	) const;
-	
+
 	mapped_type &
 	operator[](
 		key_type const &

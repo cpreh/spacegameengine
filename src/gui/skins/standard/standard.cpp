@@ -61,7 +61,7 @@ SGE_GUI_SKIN_DRAW_RETURN(widgets::base) sge::gui::skins::standard::fallback(
 		rect(c.size()),
 		internal_color(0x0,0x0,0x0,0x0),
 		canvas::rect_type::solid);
-	
+
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("blitting to texture"));

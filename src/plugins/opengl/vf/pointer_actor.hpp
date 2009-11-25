@@ -45,7 +45,7 @@ protected:
 	pointer_actor(
 		renderer::vf::dynamic_ordered_element const &,
 		renderer::vf::vertex_size stride);
-	
+
 	GLenum format() const;
 	GLsizei stride() const;
 	GLvoid const *pointer() const;

@@ -54,7 +54,7 @@ public:
 
 	SGE_SYMBOL void reinit(
 		list const &);
-	
+
 	SGE_SYMBOL plugin::manager &plugin_manager();
 
 	SGE_SYMBOL sge::renderer::system_ptr const renderer_system() const;
@@ -65,7 +65,7 @@ public:
 	SGE_SYMBOL image::loader_ptr const image_loader() const; // TODO: replace this with an image prober
 
 	SGE_SYMBOL audio::player_ptr const audio_player() const;
-	
+
 	SGE_SYMBOL collision::system_ptr const collision_system() const;
 
 	SGE_SYMBOL font::system_ptr const font_system() const;

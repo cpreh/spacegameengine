@@ -49,7 +49,7 @@ int main()
 		value_type,
 		3
 	>::type vector_type;
-	
+
 	vector_type in;
 
 	while(!(sge::cin >> in))
@@ -61,7 +61,7 @@ int main()
 			SGE_TEXT('\n')
 		);
 	}
-	
+
 	vector_type const cie_vec = cie * in;
 
 	sge::cout

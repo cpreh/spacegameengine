@@ -42,11 +42,11 @@ public:
 		library &lib,
 		filesystem::path const &font_path,
 		font::size_type font_height);
-	
+
 	font::char_metric_ptr const
 	load_char(
 		char_type c);
-	
+
 	font::unit line_height() const;
 private:
 	face face_;

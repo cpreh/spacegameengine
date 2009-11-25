@@ -37,10 +37,10 @@ public:
 	SGE_SYMBOL dynamic_ordered_element(
 		dynamic_element const &,
 		vertex_size offset);
-	
+
 	SGE_SYMBOL dynamic_element const &element() const;
 	SGE_SYMBOL vertex_size offset() const;
-private:	
+private:
 	dynamic_element element_;
 	vertex_size     offset_;
 };

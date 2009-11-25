@@ -42,7 +42,7 @@ public:
 		sge::image::raw_pointer data,
 		sge::image::dim_type const &,
 		sge::image::view::optional_pitch const &pitch);
-	
+
 	template<
 		typename View
 	>
@@ -65,7 +65,7 @@ sge::image::view::make(
 {
 
 	// TODO: gcc-4.5: Check if this is a gcc bug
-	
+
 	return sge::mpl::invoke_on<
 		boost::mpl::filter_view<
 			elements,

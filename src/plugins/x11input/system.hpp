@@ -62,14 +62,14 @@ private:
 		input::key_pair const &);
 	void emit_repeat_callback(
 		input::key_type const &);
-	
+
 	void on_key_event(XEvent const &);
 	void on_acquire(XEvent const &);
 	void on_release(XEvent const &);
 
 	x11::window_ptr const wnd;
 	bool                  acquired;
-	
+
 	typedef boost::ptr_vector<
 		device
 	> device_vector;

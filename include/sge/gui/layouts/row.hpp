@@ -43,7 +43,7 @@ class SGE_CLASS_SYMBOL row : public base
 	typedef math::vector::static_<float,2>::type spacing;
 
 	SGE_GUI_SYMBOL row(
-		spacing const & = 
+		spacing const & =
 			spacing(
 				static_cast<spacing::value_type>(1.1),
 				static_cast<spacing::value_type>(1.1)));

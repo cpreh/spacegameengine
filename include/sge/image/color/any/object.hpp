@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-namespace image 
+namespace image
 {
 namespace color
 {
@@ -34,7 +34,7 @@ namespace any
 {
 
 typedef variant::object<
-	elements	
+	elements
 > object;
 
 }

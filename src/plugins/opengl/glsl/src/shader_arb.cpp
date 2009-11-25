@@ -87,7 +87,7 @@ GLint sge::opengl::glsl::shader_integer<false>(
 		SGE_TEXT("glGetObjectParameterivARB"),
 		sge::renderer::glsl::exception
 	)
-	
+
 	return result;
 }
 

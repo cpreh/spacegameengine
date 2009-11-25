@@ -31,13 +31,13 @@ namespace gui
 {
 namespace axis_policy
 {
-enum internal_type 
-{ 
+enum internal_type
+{
 	none,
 	can_grow,
 	can_shrink,
 	should_grow,
-	size 
+	size
 };
 
 typedef container::bitfield::basic<

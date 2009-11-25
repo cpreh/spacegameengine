@@ -43,13 +43,13 @@ sge::image::algorithm::convert_conditional(
 {
 	if(std::find(formats.begin(), formats.end(), fmt) != formats.end())
 		return;
-	
+
 	size_type const stride(
 		color::format_stride(
 			fmt
 		)
 	);
-	
+
 	accepted_format_array::const_iterator const it(
 		std::find_if(
 			formats.begin(),
@@ -61,11 +61,11 @@ sge::image::algorithm::convert_conditional(
 			== stride
 		)
 	);
-	
+
 	if(it == formats.end())
 		throw exception(
 			SGE_TEXT("No suitable color format in convert_conditional!"));
-	
+
 	copy_and_convert(
 		view::make_const(
 			view::make(

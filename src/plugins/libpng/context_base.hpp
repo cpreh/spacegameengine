@@ -26,7 +26,7 @@ protected:
 		png_const_charp);
 	void handle_error_impl(
 		png_const_charp);
-	
+
 	virtual ~context_base();
 };
 }

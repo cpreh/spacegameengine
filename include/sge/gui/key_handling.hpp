@@ -35,10 +35,10 @@ namespace gui
 {
 namespace key_handling
 {
-enum type 
-{ 
+enum type
+{
 	process,
-	ignore 
+	ignore
 };
 }
 }

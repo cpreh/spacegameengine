@@ -99,7 +99,7 @@ sge::renderer::device::create_texture(
 			flags
 		)
 	);
-	
+
 	scoped_texture_lock const lock(
 		tex,
 		lock_mode::writeonly
@@ -158,12 +158,12 @@ sge::renderer::device::create_vertex_buffer(
 			flags
 		)
 	);
-	
+
 	scoped_vertex_lock const lock(
 		vb,
 		lock_mode::writeonly
 	);
-	
+
 	algorithm::copy_n(
 		view.data(),
 		view.format().stride() * view.size(),
@@ -188,17 +188,17 @@ sge::renderer::device::create_index_buffer(
 			flags
 		)
 	);
-	
+
 	scoped_index_lock const lock(
 		ib,
 		lock_mode::writeonly
 	);
-	
+
 	index::copy(
 		view,
 		lock.value()
 	);
-	
+
 	return ib;
 }
 

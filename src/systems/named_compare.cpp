@@ -37,7 +37,7 @@ public:
 	bool operator()(
 		sge::systems::parameterless::type const &,
 		sge::systems::parameterless::type const &) const;
-	
+
 	template<
 		typename T,
 		typename U
@@ -99,7 +99,7 @@ priority(
 			(sge::type_info(typeid(sge::window::parameters)), 0)
 			(sge::type_info(typeid(sge::renderer::parameters)), 1)
 			(sge::type_info(typeid(sge::systems::parameterless::type)), 2);
-	
+
 	return priorities[t];
 }
 

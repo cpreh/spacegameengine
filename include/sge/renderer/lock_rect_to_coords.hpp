@@ -56,7 +56,7 @@ lock_rect_to_coords(
 			l
 		)
 	);
-	
+
 	typedef typename math::dim::static_<
 		T,
 		2

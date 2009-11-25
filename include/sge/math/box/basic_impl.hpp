@@ -70,7 +70,7 @@ template<
 typename sge::math::box::basic<T, N>::value_type
 sge::math::box::basic<T, N>::area() const
 {
-	return dim_.content();	
+	return dim_.content();
 }
 
 template<

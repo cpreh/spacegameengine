@@ -45,7 +45,7 @@ public:
 		sge::font::align_h::type = sge::font::align_h::left,
 		sge::font::align_v::type = sge::font::align_v::top,
 		optional_dim const &static_size = optional_dim());
-	
+
 	SGE_GUI_SYMBOL sge::gui::color const color() const;
 	SGE_GUI_SYMBOL string const text() const;
 	SGE_GUI_SYMBOL sge::font::align_h::type align_h() const;

@@ -119,7 +119,7 @@ sge::opengl::index_buffer<T>::lock(
 			flags),
 		offset,
 		range);
-	
+
 	return typename traits<T>::view(
 		buf.data(),
 		buf.lock_size());

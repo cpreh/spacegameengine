@@ -178,14 +178,14 @@ sge::container::map<
 	typename map_type::const_iterator const it(
 		impl_.find(k)
 	);
-	
+
 	if(
 		it == impl_.end()
 	)
 		throw not_found(
 			SGE_TEXT("operator[] of map failed!")
 		);
-	
+
 	return it->second;
 }
 

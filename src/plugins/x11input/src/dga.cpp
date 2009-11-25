@@ -69,7 +69,7 @@ void sge::x11input::dga::enable(
 
 	if(!have_dga)
 		return;
-	
+
 	SGE_X11_SENTRY
 
 	XF86DGADirectVideo(
@@ -102,7 +102,7 @@ void init_dga(
 
 	have_dga = sge::x11input::check_dga_mouse(
 		wnd);
-	
+
 	if(have_dga)
 		return;
 

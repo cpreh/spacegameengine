@@ -46,7 +46,7 @@ parse_stream(
 		while(ifs.get(ch))
 			ret.push_back(ch);
 	}
-	
+
 	typedef string::const_iterator iterator;
 
 	iterator beg(

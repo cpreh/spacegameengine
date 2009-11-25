@@ -29,7 +29,7 @@ sge::renderer::vf::dynamic_element::dynamic_element(
 	role_(role_),
 	index_(index_)
 {}
-	
+
 sge::renderer::vf::dynamic_any const &
 sge::renderer::vf::dynamic_element::info() const
 {

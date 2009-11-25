@@ -40,7 +40,7 @@ private:
 	bool is_png();
 	static void handle_read(
 		png_structp,
-		png_bytep data, 
+		png_bytep data,
 		png_size_t length);
 	void handle_read_impl(
 		png_bytep data,

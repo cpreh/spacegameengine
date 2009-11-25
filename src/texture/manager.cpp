@@ -44,11 +44,11 @@ public:
 		sge::texture::fragmented const &,
 		sge::texture::detail::fragmented_list &,
 		sge::texture::detail::fragmented_queue &);
-	
+
 	result_type
 	operator()(
 		sge::texture::detail::fragmented_list::iterator) const;
-	
+
 	result_type
 	operator()(
 		sge::texture::detail::fragmented_queue::iterator) const;
@@ -108,13 +108,13 @@ sge::texture::manager::add(
 	part_ptr const p = init_texture(
 		*ntex,
 		src);
-	
+
 	if(!p)
 		throw image_too_big();
-	
+
 	fragmented *const tmp(
 		ntex.get());
-	
+
 	if(ntex->full())
 		tmp->container_position(
 			full_textures.insert(
@@ -173,7 +173,7 @@ void
 sge::texture::manager::part_freed(
 	detail::container_position const &pos,
 	fragmented const &frag)
-{	
+{
 	variant::apply_unary(
 		move_visitor(
 			frag,

@@ -46,7 +46,7 @@ public:
 		dim_type const &dim,
 		renderer::filter::texture const &,
 		renderer::resource_flag_t flags);
-	
+
 	dim_type const dim() const;
 
 	void lock(lock_flag_t);

@@ -56,7 +56,7 @@ sge::math::matrix::look_at(
 {
 	typedef typename vector::static_<
 		T,
-		3	
+		3
 	>::type vec3;
 
 	vec3 const
@@ -79,7 +79,7 @@ sge::math::matrix::look_at(
 				f
 			)
 		);
-	
+
 	return typename static_<
 		T,
 		4,

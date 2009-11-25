@@ -26,26 +26,26 @@ public:
 	inline collision::dim const
 	dim_from_ode(
 		dim const &) const;
-	inline point const 
+	inline point const
 	position_to_ode(
 		collision::point const &) const;
-	inline point const 
+	inline point const
 	velocity_to_ode(
 		collision::point const &) const;
-	inline dim const 
+	inline dim const
 	dim_to_ode(
 		collision::dim const &) const;
-	inline collision::unit 
+	inline collision::unit
 	unit_from_ode(
 		dReal) const;
-	inline dReal 
+	inline dReal
 	unit_to_ode(
 		collision::unit) const;
 private:
 	sge::collision::unit
 		scaling_,
 		inverse_scaling_;
-	sge::collision::point 
+	sge::collision::point
 		translation_;
 };
 }

@@ -106,9 +106,9 @@ void visitor::operator()(
 	SGE_OPENGL_CHECK_STATE(
 		SGE_TEXT("glLoadMatrixf failed"),
 		sge::renderer::exception
-	)	
+	)
 }
-	
+
 void visitor::operator()(
 	sge::math::matrix::static_<double, 4, 4>::type const &m) const
 {

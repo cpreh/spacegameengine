@@ -33,7 +33,7 @@ template<
 	class Pixel1,
 	class PixelResult
 >
-class channel_adder 
+class channel_adder
 {
 public:
 	channel_adder(

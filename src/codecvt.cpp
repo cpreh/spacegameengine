@@ -117,7 +117,7 @@ convert(
 
 	if(s.empty())
 		return return_type();
-	
+
 	std::locale const &loc(
 		get_locale()
 	);
@@ -127,7 +127,7 @@ convert(
 			loc
 		)
 	);
-	
+
 	buffer_type buf(
 		s.size(),
 		0

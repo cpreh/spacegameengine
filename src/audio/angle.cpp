@@ -49,7 +49,7 @@ sge::audio::angle::forward(
 {
 	forward_ = nforward;
 }
-	
+
 sge::audio::point const
 sge::audio::angle::up() const
 {

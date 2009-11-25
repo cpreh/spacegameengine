@@ -33,7 +33,7 @@ sge::log::parameters::all::all(
 	context_location_()
 {}
 
-sge::log::parameters::all 
+sge::log::parameters::all
 sge::log::parameters::all::parent(
 	object const &nparent_
 )
@@ -43,7 +43,7 @@ sge::log::parameters::all::parent(
 	return *this;
 }
 
-sge::log::parameters::all 
+sge::log::parameters::all
 sge::log::parameters::all::context_location(
 	log::context *const ncontext_,
 	log::location const &nlocation_
@@ -58,7 +58,7 @@ sge::log::parameters::all::context_location(
 	return *this;
 }
 
-sge::log::parameters::all 
+sge::log::parameters::all
 sge::log::parameters::all::enabled(
 	bool nenabled_
 )
@@ -68,7 +68,7 @@ sge::log::parameters::all::enabled(
 	return *this;
 }
 
-sge::log::parameters::all 
+sge::log::parameters::all
 sge::log::parameters::all::level_streams(
 	level_stream_array const &nlevel_streams_
 )
@@ -88,7 +88,7 @@ sge::log::parameters::all::enabled_levels(
 	return *this;
 }
 
-sge::log::parameters::all 
+sge::log::parameters::all
 sge::log::parameters::all::formatter(
 	format::const_object_ptr const nformatter_
 )

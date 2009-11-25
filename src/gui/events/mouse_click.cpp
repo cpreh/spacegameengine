@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::gui::events::mouse_click::mouse_click(
 	point const &pos_,
-	input::key_pair const &kp) 
+	input::key_pair const &kp)
 	: pos_(pos_),
 	  kp(kp)
 {

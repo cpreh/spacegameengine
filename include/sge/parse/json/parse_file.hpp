@@ -29,7 +29,7 @@ namespace sge
 {
 namespace parse
 {
-namespace json 
+namespace json
 {
 
 SGE_SYMBOL bool

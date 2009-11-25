@@ -52,7 +52,7 @@ public:
 		depth_type,
 		rotation_type,
 		bool visible);
-	
+
 	SGE_SYMBOL unit& x();
 	SGE_SYMBOL unit& y();
 	SGE_SYMBOL point& pos();
@@ -68,7 +68,7 @@ public:
 	SGE_SYMBOL void repeat(repetition_type);
 	SGE_SYMBOL void color(sprite::color const &);
 	SGE_SYMBOL void center(point const &);
-	
+
 	SGE_SYMBOL unit const &x() const;
 	SGE_SYMBOL unit const &y() const;
 	SGE_SYMBOL depth_type const &z() const;

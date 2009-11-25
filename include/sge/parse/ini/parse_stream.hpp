@@ -29,7 +29,7 @@ namespace sge
 {
 namespace parse
 {
-namespace ini 
+namespace ini
 {
 
 SGE_SYMBOL bool

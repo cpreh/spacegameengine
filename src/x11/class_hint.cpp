@@ -51,7 +51,7 @@ sge::x11::class_hint::class_hint(
 {
 	XClassHint *const hint(
 		get());
-	
+
 	hint->res_name = const_cast<char *>(app_name.c_str());
 	hint->res_class = const_cast<char *>(res_name.c_str());
 }

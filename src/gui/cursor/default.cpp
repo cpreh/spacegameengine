@@ -66,10 +66,10 @@ sge::gui::cursor::default_::default_(
 void sge::gui::cursor::default_::pos(
 	point const &p)
 {
-	sge::gui::dim const ss = 
+	sge::gui::dim const ss =
 		sge::math::dim::structure_cast<sge::gui::dim>(
 			rend_->screen_size());
-	sprite_.pos() = 
+	sprite_.pos() =
 		math::vector::structure_cast<sge::sprite::point>(
 			sge::gui::point(
 				sge::math::clamp(
@@ -99,7 +99,7 @@ sge::sprite::object const sge::gui::cursor::default_::sprite() const
 
 void sge::gui::cursor::default_::widget_z(depth_type const z)
 {
-	sprite_.z() = 
+	sprite_.z() =
 		std::max(
 			sprite_.z(),
 			static_cast<sprite::depth_type>(z+1));
@@ -110,6 +110,6 @@ sge::sprite::object &sge::gui::cursor::default_::mutable_sprite()
 	return sprite_;
 }
 
-sge::gui::cursor::default_::~default_() 
+sge::gui::cursor::default_::~default_()
 {
 }

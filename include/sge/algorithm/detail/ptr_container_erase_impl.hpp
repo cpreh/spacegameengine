@@ -30,7 +30,7 @@ void sge::algorithm::ptr_container_erase(
 {
 	for (
 		typename Container::iterator b = c.begin();
-		b != c.end(); 
+		b != c.end();
 		++b)
 	{
 		if (&(*b) != s)

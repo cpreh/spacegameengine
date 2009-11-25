@@ -123,7 +123,7 @@ void sge::gui::detail::grid_cache::first_pass()
 				SGE_TEXT("a widget in a grid layout doesn't have a position hint, don't know how to position it"));
 
 		point const hint = *w.pos_hint();
-		
+
 		SGE_LOG_DEBUG(
 			mylogger,
 			log::_ << SGE_TEXT("widget of type ")
@@ -135,15 +135,15 @@ void sge::gui::detail::grid_cache::first_pass()
 			throw exception(
 				SGE_TEXT("grid layout position hints have to be positive"));
 
-		child_plane::vector_type const on_plane = 
+		child_plane::vector_type const on_plane =
 			math::vector::structure_cast<child_plane::vector_type>(hint);
 
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_ << SGE_TEXT("converted position hint is ") 
-			        << on_plane 
-							<< SGE_TEXT(", resizing plane (original dim ") 
-							<< plane_.dim() 
+			log::_ << SGE_TEXT("converted position hint is ")
+			        << on_plane
+							<< SGE_TEXT(", resizing plane (original dim ")
+							<< plane_.dim()
 							<< SGE_TEXT(") to ")
 			        << child_plane::dim_type(
 				std::max(
@@ -152,7 +152,7 @@ void sge::gui::detail::grid_cache::first_pass()
 				std::max(
 					static_cast<child_plane::size_type>(on_plane.y()+1),
 					plane_.dim().h())));
-		
+
 		plane_.resize(
 			child_plane::dim_type(
 				std::max(
@@ -176,9 +176,9 @@ void sge::gui::detail::grid_cache::first_pass()
 		plane_.pos(
 			on_plane) = const_cast<widgets::base *>(&w);
 
-		dim const optsize = 
+		dim const optsize =
 			w.optimal_size();
-	
+
 		SGE_LOG_DEBUG(
 			mylogger,
 			log::_ << SGE_TEXT("this widget has optimal size ")
@@ -217,13 +217,13 @@ void sge::gui::detail::grid_cache::second_pass()
 
 	rolumn_container::vector_type p;
 	for(
-		p.x() = static_cast<size_type>(0); 
-		p.x() < plane_.dim().w(); 
+		p.x() = static_cast<size_type>(0);
+		p.x() < plane_.dim().w();
 		++p.x())
 	{
 		for(
-			p.y() = static_cast<size_type>(0); 
-			p.y() < plane_.dim().h(); 
+			p.y() = static_cast<size_type>(0);
+			p.y() < plane_.dim().h();
 			++p.y())
 		{
 			if (!plane_.pos(p))
@@ -238,13 +238,13 @@ void sge::gui::detail::grid_cache::second_pass()
 			SGE_LOG_DEBUG(
 				mylogger,
 				log::_ << SGE_TEXT("there is a widget at position ")
-								<< p 
+								<< p
 								<< SGE_TEXT(", iterating through the axes"));
 
 			// for each of the two axes
 			for (unsigned i = 0; i < 2; ++i)
 			{
-				rolumn_container::vector_type const &rolumn_pos = 
+				rolumn_container::vector_type const &rolumn_pos =
 					rolumn_container::vector_type
 					(
 						static_cast<rolumn_container::size_type>
@@ -265,7 +265,7 @@ void sge::gui::detail::grid_cache::second_pass()
 					log::_ << SGE_TEXT("rolumn position is ")
 									<< rolumn_pos);
 
-				rolumn_data &d = 
+				rolumn_data &d =
 					rolumns_.pos(
 						rolumn_pos);
 
@@ -285,8 +285,8 @@ void sge::gui::detail::grid_cache::second_pass()
 								)
 							]
 						.size[static_cast<dim::size_type>(i)]);
-				
-				d.size = 
+
+				d.size =
 					std::max
 					(
 						d.size,
@@ -306,7 +306,7 @@ void sge::gui::detail::grid_cache::second_pass()
 							]
 					);
 
-				d.policy |= 
+				d.policy |=
 					plane_.pos(p)->size_policy().index
 					(
 						static_cast<std::size_t>

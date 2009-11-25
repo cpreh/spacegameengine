@@ -86,7 +86,7 @@ sge::texture::const_part_ptr assign_textures(
 		)
 	);
 
-	sge::renderer::texture_ptr const hardware_texture = 
+	sge::renderer::texture_ptr const hardware_texture =
 		rend->create_texture(
 			sge::math::dim::structure_cast<
 				sge::renderer::texture::dim_type
@@ -96,7 +96,7 @@ sge::texture::const_part_ptr assign_textures(
 			sge::image::color::format::rgba8,
 			sge::renderer::filter::linear,
 			sge::renderer::resource_flags::dynamic);
-	
+
 	tex =
 		sge::make_shared_ptr<
 			sge::renderer::texture_rw
@@ -108,7 +108,7 @@ sge::texture::const_part_ptr assign_textures(
 	sge::gui::utility::wipe_texture(
 		tex);
 
-	return 
+	return
 		sge::texture::const_part_ptr(
 			sge::make_shared_ptr<
 				sge::texture::part_raw
@@ -159,7 +159,7 @@ void sge::gui::detail::managers::render::activation(
 {
 	if (w.has_parent())
 		return;
-	
+
 	SGE_ASSERT(widgets.find(&w) != widgets.end());
 
 	switch (t)
@@ -199,7 +199,7 @@ void sge::gui::detail::managers::render::remove(
 	// exit here
 	if (w.has_parent())
 		return;
-	
+
 	widget_container::iterator wi = widgets.find(&w);
 	SGE_ASSERT(wi != widgets.end());
 	widgets.erase(wi);
@@ -227,19 +227,19 @@ void sge::gui::detail::managers::render::resize(
 
 	widget_container::iterator wi = widgets.find(
 		&w);
-	
+
 	// widgets::base is not a top level widget, so we don't care anymore
 	if (wi == widgets.end())
 		return;
-	
+
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_
-			<< SGE_TEXT("resizing widget from ") << w.size() 
+			<< SGE_TEXT("resizing widget from ") << w.size()
 			<< SGE_TEXT(" to ") << d);
 
 	widget_data &wd = *wi->second;
-	
+
 	// check if the current texture is large enough to hold the new widget
 	dim const new_dim(
 		math::next_pow_2(d.w()),
@@ -251,7 +251,7 @@ void sge::gui::detail::managers::render::resize(
 			mylogger,
 			log::_
 				<< SGE_TEXT("texture resolution ")
-				<< wd.texture->dim() 
+				<< wd.texture->dim()
 				<< SGE_TEXT(" suffices, doing nothing"));
 		return;
 	}
@@ -268,8 +268,8 @@ void sge::gui::detail::managers::render::resize(
 			new_dim,
 			rend,
 			wd.texture));
-							
-	wd.sprite.size() = 
+
+	wd.sprite.size() =
 		sprite::dim(
 			math::dim::structure_cast<
 				sprite::dim
@@ -328,8 +328,8 @@ void sge::gui::detail::managers::render::z(
 {
 	if (!w.has_parent())
 		return;
-	
-	widgets[&w].sprite.z() = 
+
+	widgets[&w].sprite.z() =
 		static_cast<sprite::depth_type>(
 			_z);
 }
@@ -349,7 +349,7 @@ void sge::gui::detail::managers::render::clean()
 			mylogger,
 			log::_
 				<< SGE_TEXT("cleaning rect: ")
-				<< d.second 
+				<< d.second
 				<< SGE_TEXT(" from widget: ")
 				<< type_info(typeid(*d.first)).name());
 

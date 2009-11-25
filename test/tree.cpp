@@ -41,7 +41,7 @@ try
 			sge::make_auto_ptr<
 				string_tree
 			>("blubb"));
-		
+
 		tree.push_back(
 			child1);
 	}
@@ -51,7 +51,7 @@ try
 			sge::make_auto_ptr<
 				string_tree
 			>("blah"));
-	
+
 		tree.push_back(
 			child2);
 	}
@@ -59,14 +59,14 @@ try
 	tree.push_back(
 		"foobar");
 
-	typedef 
+	typedef
 	sge::container::traversal<
 		string_tree const
 	> traversal_type;
 
 	traversal_type const trav(
 		tree);
-	
+
 	for(traversal_type::iterator it = trav.begin(); it != trav.end(); ++it)
 		std::cout << (*it).value() << std::endl;
 }

@@ -58,7 +58,7 @@ GLuint sge::opengl::gen_texture()
 		SGE_TEXT("glGenTextures failed"),
 		sge::renderer::exception
 	)
-	
+
 	return id;
 }
 
@@ -100,7 +100,7 @@ void sge::opengl::set_texture(
 				<< dim
 				<< SGE_TEXT('.')
 		);
-		
+
 	glTexImage2D(
 		tex_type,
 		0,
@@ -236,7 +236,7 @@ void sge::opengl::tex_parameter_i(
 		SGE_TEXT("glTexParameteri failed"),
 		sge::renderer::exception
 	)
-	
+
 }
 
 void sge::opengl::bind_texture(
@@ -262,7 +262,7 @@ void sge::opengl::set_texture_filter(
 			filter.min()
 		)
 	);
-	
+
 	tex_parameter_i(
 		type,
 		GL_TEXTURE_MAG_FILTER,
@@ -273,7 +273,7 @@ void sge::opengl::set_texture_filter(
 
 	if(!filter.anisotropy())
 		return;
-	
+
 	if(!have_anisotropic_filter())
 	{
 		SGE_LOG_WARNING(
@@ -283,7 +283,7 @@ void sge::opengl::set_texture_filter(
 		);
 		return;
 	}
-	
+
 	try
 	{
 		tex_parameter_i(
