@@ -73,9 +73,16 @@ void sge::opengl::readonly_texture_lock::copy_read_part(
 	pointer const dest) const
 {
 	size_type i(offset);
-	for(pointer p(dest); p != dest + lock_size;
-	    i += pitch + block_size, p += block_size)
-		algorithm::copy_n(buffer.data() + i, block_size, p);
+	for(
+		pointer p(dest);
+		p != dest + lock_size;
+		i += pitch + block_size, p += block_size
+	)
+		algorithm::copy_n(
+			buffer.data() + i,
+			block_size,
+			p
+		);
 }
 
 void sge::opengl::readonly_texture_lock::pre_unlock()

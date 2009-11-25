@@ -27,14 +27,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::x11input::mouse_pos const
 sge::x11input::get_pointer(
-        x11::window_ptr const wnd)
+	x11::window_ptr const wnd
+)
 {
-	Window root_return,
-	       child_return;
-	int root_x_return,
-	    root_y_return,
-	    win_x_return,
-	    win_y_return;
+	Window
+		root_return,
+		child_return;
+	int
+		root_x_return,
+		root_y_return,
+		win_x_return,
+		win_y_return;
 	unsigned mask_return;
 
 	SGE_X11_SENTRY

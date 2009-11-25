@@ -190,10 +190,12 @@ void sge::x11input::mouse::warped_motion(
 		deltax,
 		deltay);
 
-	if ( !((xevent.xmotion.x < MOUSE_FUDGE_FACTOR) ||
-	     (xevent.xmotion.x > (w-MOUSE_FUDGE_FACTOR)) ||
-	     (xevent.xmotion.y < MOUSE_FUDGE_FACTOR) ||
-	     (xevent.xmotion.y > (h-MOUSE_FUDGE_FACTOR)) ))
+	if (
+		!((xevent.xmotion.x < MOUSE_FUDGE_FACTOR) ||
+		(xevent.xmotion.x > (w-MOUSE_FUDGE_FACTOR)) ||
+		(xevent.xmotion.y < MOUSE_FUDGE_FACTOR) ||
+		(xevent.xmotion.y > (h-MOUSE_FUDGE_FACTOR)) )
+	)
 		return;
 
 	while (XCheckTypedEvent(wnd->display()->get(), MotionNotify, &xevent) )
@@ -221,10 +223,12 @@ void sge::x11input::mouse::warped_motion(
 			PointerMotionMask,
 			&xevent);
 
-		if ( (xevent.xmotion.x > mouse_last.x() - MOUSE_FUDGE_FACTOR) &&
-		     (xevent.xmotion.x < mouse_last.x() + MOUSE_FUDGE_FACTOR) &&
-		     (xevent.xmotion.y > mouse_last.y() - MOUSE_FUDGE_FACTOR) &&
-		     (xevent.xmotion.y < mouse_last.y() + MOUSE_FUDGE_FACTOR) )
+		if (
+			(xevent.xmotion.x > mouse_last.x() - MOUSE_FUDGE_FACTOR) &&
+			(xevent.xmotion.x < mouse_last.x() + MOUSE_FUDGE_FACTOR) &&
+			(xevent.xmotion.y > mouse_last.y() - MOUSE_FUDGE_FACTOR) &&
+			(xevent.xmotion.y < mouse_last.y() + MOUSE_FUDGE_FACTOR)
+		)
 			return;
 
 	}
@@ -233,7 +237,7 @@ void sge::x11input::mouse::warped_motion(
 		log::global(),
 		log::_
 			<< SGE_TEXT("Didn't detect mouse warp motion! ")
-			   SGE_TEXT("Try to enable dga mouse instead."));
+			SGE_TEXT("Try to enable dga mouse instead."));
 }
 
 void sge::x11input::mouse::private_mouse_motion(
