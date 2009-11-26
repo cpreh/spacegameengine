@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/noncopyable.hpp>
 #include <sge/shared_ptr.hpp>
+#include <sge/export.hpp>
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/filesystem/path.hpp>
@@ -46,11 +47,13 @@ public:
 	typedef shared_ptr<file> file_ptr;
 	typedef Exception exception;
 
-	explicit multi_loader(
+	SGE_SYMBOL explicit multi_loader(
 		plugin::manager &
 	);
 
-	file_ptr const
+	SGE_SYMBOL ~multi_loader();
+
+	SGE_SYMBOL file_ptr const
 	load(
 		filesystem::path const &
 	);

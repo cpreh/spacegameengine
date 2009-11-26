@@ -16,9 +16,11 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
-#include <sge/multi_loader.hpp>
+
+
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/audio/multi_loader.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/sound.hpp>
 #include <sge/audio/exception.hpp>
@@ -39,7 +41,7 @@ try
 		sge::systems::list()
 		(sge::systems::parameterless::audio_player));
 
-	sge::multi_loader<sge::audio::loader,sge::audio::file,sge::audio::exception> loader(sys.plugin_manager());
+	sge::audio::multi_loader loader(sys.plugin_manager());
 
 	sge::audio::pool pool;
 

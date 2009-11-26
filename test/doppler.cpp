@@ -39,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/file.hpp>
 #include <sge/audio/sound.hpp>
 #include <sge/audio/exception.hpp>
+#include <sge/audio/multi_loader.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/action.hpp>
 #include <sge/input/key_pair.hpp>
@@ -60,7 +61,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/dim/structure_cast.hpp>
 #include <sge/cerr.hpp>
 #include <sge/exception.hpp>
-#include <sge/multi_loader.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <boost/assign/list_of.hpp>
@@ -216,10 +216,7 @@ try
 		)
 	);
 
-	sge::multi_loader<
-		sge::audio::loader,
-		sge::audio::file,
-		sge::audio::exception> ml(sys.plugin_manager());
+	sge::audio::multi_loader ml(sys.plugin_manager());
 	sge::audio::file_ptr const af_siren = ml.load(sge::config::media_path()/SGE_TEXT("siren.ogg"));
 	sge::audio::sound_ptr const sound_siren = sys.audio_player()->create_nonstream_sound(af_siren);
 	sys.audio_player()->listener().pos(
