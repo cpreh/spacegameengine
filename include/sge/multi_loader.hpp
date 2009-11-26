@@ -30,13 +30,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
+
 template<
 	typename Loader,
 	typename File,
-	typename Exception>
+	typename Exception
+>
 class multi_loader
 {
-SGE_NONCOPYABLE(multi_loader)
+	SGE_NONCOPYABLE(multi_loader)
 public:
 	typedef Loader loader;
 	typedef File file;
@@ -45,11 +47,13 @@ public:
 	typedef Exception exception;
 
 	explicit multi_loader(
-		plugin::manager &);
+		plugin::manager &
+	);
 
 	file_ptr const
 	load(
-		filesystem::path const &);
+		filesystem::path const &
+	);
 private:
 	typedef std::vector<
 		typename plugin::context<
@@ -64,11 +68,12 @@ private:
 	plugin_container plugins;
 	loader_container loaders;
 
-	file_ptr const brute_load(
-		filesystem::path const &);
+	file_ptr const
+	brute_load(
+		filesystem::path const &
+	);
 };
-}
 
-#include "detail/multi_loader_impl.hpp"
+}
 
 #endif

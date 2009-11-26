@@ -18,27 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_INSTANTIATE_HPP_INCLUDED
-#define SGE_RENDERER_STATE_INSTANTIATE_HPP_INCLUDED
+#include <sge/audio/multi_loader.hpp>
+#include <sge/audio/loader_plugin.hpp>
+#include "../instantiate_multi_loader.hpp"
 
-#include "var.hpp"
-#include "trampoline.hpp"
-#include <sge/export.hpp>
-
-#define SGE_RENDERER_STATE_INSTANTIATE_CLASS(class_, type_)\
-template SGE_EXPORT_SYMBOL class class_<\
-	sge::renderer::state::type_::base_type,\
-	sge::renderer::state::type_::available_states::type\
->;
-
-#define SGE_RENDERER_STATE_INSTANTIATE_VAR_AND_TRAMPOLINE(x)\
-SGE_RENDERER_STATE_INSTANTIATE_CLASS(sge::renderer::state::var, x)\
-SGE_RENDERER_STATE_INSTANTIATE_CLASS(sge::renderer::state::trampoline, x)\
-
-#define SGE_RENDERER_STATE_INSTANTIATE_TRAMPOLINE_OBJECT(type_, name)\
-sge::renderer::state::type_::trampoline_type const \
-sge::renderer::state::type_::name(\
-	sge::renderer::state::type_::available_states::name\
-);
-
-#endif
+SGE_INSTANTIATE_MULTI_LOADER(
+	sge::audio::loader,
+	sge::audio::file,
+	sge::audio::exception
+)
