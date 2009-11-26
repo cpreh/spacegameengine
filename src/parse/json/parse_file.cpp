@@ -28,7 +28,7 @@ sge::parse::json::parse_file(
 	object &result
 )
 {
-	return detail::parse_file(
+	return parse::parse_file(
 		path,
 		result
 	);
