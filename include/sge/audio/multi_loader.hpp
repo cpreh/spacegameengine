@@ -10,10 +10,13 @@ namespace sge
 {
 namespace audio
 {
+
 typedef multi_loader<
 	loader,
 	file,
-	exception> multi_loader;
+	exception
+> multi_loader;
+
 }
 }
 
