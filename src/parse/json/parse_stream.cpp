@@ -28,7 +28,7 @@ sge::parse::json::parse_stream(
 	object &result
 )
 {
-	return detail::parse_stream(
+	return parse::parse_stream(
 		stream,
 		result
 	);
