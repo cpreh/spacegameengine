@@ -26,18 +26,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-class bad_lexical_cast : public exception
+
+class bad_lexical_cast
+:
+	public exception
 {
 public:
 	SGE_SYMBOL bad_lexical_cast(
 		type_info const &source,
-		type_info const &dest);
+		type_info const &dest
+	);
 
-	type_info const &source() const;
-	type_info const &destination() const;
+	type_info const &
+	source() const;
+
+	type_info const &
+	destination() const;
 private:
-	type_info source_,destination_;
+	type_info
+		source_,
+		destination_;
 };
+
 }
 
 #endif
