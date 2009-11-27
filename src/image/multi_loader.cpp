@@ -18,19 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../log.hpp"
-#include <sge/log/parameters/inherited.hpp>
-#include <sge/log/global.hpp>
-#include <sge/text.hpp>
+#include <sge/image/multi_loader.hpp>
+#include <sge/image/plugin.hpp>
+#include "../instantiate_multi_loader.hpp"
 
-sge::log::object &
-sge::openal::log()
-{
-	static log::object l(
-		log::parameters::inherited(
-			log::global(),
-			SGE_TEXT("openal")
-		)
-	);
-	return l;
-}
+SGE_INSTANTIATE_MULTI_LOADER(
+	sge::image::loader,
+	sge::image::file,
+	sge::image::exception
+)
