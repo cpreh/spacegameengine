@@ -18,22 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_CONTAINER_HPP_INCLUDED
-#define SGE_SPRITE_CONTAINER_HPP_INCLUDED
+#ifndef SGE_SPRITE_PRIMITIVES_FLOAT_HPP_INCLUDED
+#define SGE_SPRITE_PRIMITIVES_FLOAT_HPP_INCLUDED
 
-#include <vector>
+#include <majutsu/simple.hpp>
 
 namespace sge
 {
 namespace sprite
 {
+namespace primitives
+{
 
-class object;
+template<
+	typename FloatType
+>
+struct float_
+{
+	typedef majutsu::simple<
+		FloatType
+	> type;	
+};
 
-typedef std::vector<
-	object
-> container;
-
+}
 }
 }
 

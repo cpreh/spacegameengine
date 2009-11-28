@@ -18,5 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_MAKE_OBJECT_TYPE_HPP_INCLUDED
-#define SGE_SPRITE_MAKE_OBJECT_TYPE_HPP_INCLUDED
+#ifndef SGE_SPRITE_ANIMATION_BASE_HPP_INCLUDED
+#define SGE_SPRITE_ANIMATION_BASE_HPP_INCLUDED
+
+#include <sge/export.hpp>
+#include <sge/noncopyable.hpp>
+
+namespace sge
+{
+namespace sprite
+{
+namespace animation
+{
+
+class SGE_CLASS_SYMBOL base
+{
+	SGE_NONCOPYABLE(base)
+protected:
+	SGE_SYMBOL base();
+public:
+	virtual bool
+	process() = 0;
+
+	virtual void
+	reset() = 0;
+
+	SGE_SYMBOL virtual ~base();
+};
+
+}
+}
+}
+
+#endif

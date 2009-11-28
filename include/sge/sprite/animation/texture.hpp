@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_TEXTURE_ANIMATION_HPP_INCLUDED
-#define SGE_SPRITE_TEXTURE_ANIMATION_HPP_INCLUDED
+#ifndef SGE_SPRITE_ANIMATION_TEXTURE_HPP_INCLUDED
+#define SGE_SPRITE_ANIMATION_TEXTURE_HPP_INCLUDED
 
 #include <sge/sprite/animation.hpp>
 #include <sge/sprite/animation_series.hpp>
@@ -31,11 +31,23 @@ namespace sge
 {
 namespace sprite
 {
+namespace animation
+{
 
-class object;
-
-class SGE_CLASS_SYMBOL texture_animation : public animation {
+template<
+	typename Choices,
+	typename Elements
+>
+class SGE_CLASS_SYMBOL texture_animation
+:
+	public animation
+{
 public:
+	typedef sprite::object<
+		Choices,
+		Elements
+	> object;
+
 	class loop_method {
 	public:
 		enum type {
@@ -44,15 +56,19 @@ public:
 		};
 	};
 
-	SGE_SYMBOL texture_animation(
+	SGE_SYMBOL texture(
 		animation_series const &,
 		loop_method::type,
 		object &init_sprite,
 		time::fun const &time_fun
-			= time::default_time_fun());
+			= time::default_time_fun()
+	);
 
-	SGE_SYMBOL bool process();
-	SGE_SYMBOL void reset();
+	SGE_SYMBOL bool
+	process();
+
+	SGE_SYMBOL void
+	reset();
 
 	SGE_SYMBOL
 	animation_series const &
@@ -65,6 +81,7 @@ private:
 	animation_series::const_iterator pos;
 };
 
+}
 }
 }
 

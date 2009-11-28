@@ -18,29 +18,61 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_PRIMITIVES_REPETITION_HPP_INCLUDED
-#define SGE_SPRITE_PRIMITIVES_REPETITION_HPP_INCLUDED
+#ifndef SGE_SPRITE_SYSTEM_DECL_HPP_INCLUDED
+#define SGE_SPRITE_SYSTEM_DECL_HPP_INCLUDED
 
-#include <majutsu/simple.hpp>
+#include <sge/sprite/system_fwd.hpp>
+#include <sge/sprite/system_base.hpp>
+#include <sge/export.hpp>
+#include <sge/function/object.hpp>
 
 namespace sge
 {
 namespace sprite
 {
-namespace primitives
-{
 
 template<
-	typename FloatType
+	typename Choices,
+	typename Elements
 >
-struct repetition
+class system
+:
+	public system_base
 {
-	typedef majutsu::simple<
-		FloatType
-	> type;	
+public:
+	typedef sprite::object<
+		Choices,
+		Elements
+	> object;
+
+	explicit system(
+		renderer::device_ptr rend
+	);
+
+	typedef sge::function::object<
+		bool (
+			object const &,
+			object const &
+		)
+	> equal_method;
+
+	template<
+		typename Iterator
+	>
+	void
+	render(
+		Iterator begin,
+		Iterator end,
+		sort_method const &
+		equal_method const &
+	);
+
+	void
+	render(
+		object_type const &
+	);
 };
 
-}
 }
 }
 

@@ -21,10 +21,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_MAKE_CLASS_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_MAKE_CLASS_HPP_INCLUDED
 
+#include <sge/sprite/primitives/pos.hpp>
+#include <sge/sprite/primitives/dim.hpp>
+#include <sge/sprite/primitives/float.hpp>
+#include <sge/sprite/roles/pos.hpp>
+#include <sge/sprite/roles/size.hpp>
+#include <sge/sprite/roles/depth.hpp>
 #include <majutsu/memory/fusion.hpp>
 #include <majutsu/class.hpp>
+#include <majutsu/role.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/transform_view.hpp>
+#include <boost/mpl/front_inserter.hpp>
+#include <boost/mpl/placeholders.hpp>
+#include <boost/mpl/copy.hpp>
 
 namespace sge
 {
@@ -45,7 +56,7 @@ struct make_class
 				boost::mpl::front_inserter<
 					Elements
 				>,
-				boost::mpl::vector<
+				boost::mpl::vector3<
 					majutsu::role<
 						typename primitives::pos<
 							typename Choices::unit_type
@@ -59,7 +70,11 @@ struct make_class
 						roles::size
 					>,
 					majutsu::role<
-						
+						typename primitves::float_<
+							typename Choices::float_type
+						>,
+						roles::depth
+					>
 				>
 			>::type,
 			boost::mpl::apply<
@@ -68,7 +83,7 @@ struct make_class
 			>
 		>::type,
 		majutsu::memory::fusion
-	> element_type;
+	> type;
 };
 
 }

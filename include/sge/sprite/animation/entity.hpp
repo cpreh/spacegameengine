@@ -18,29 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_ANIMATION_HPP_INCLUDED
-#define SGE_SPRITE_ANIMATION_HPP_INCLUDED
+#ifndef SGE_SPRITE_ANIMATION_ENTITY_HPP_INCLUDED
+#define SGE_SPRITE_ANIMATION_ENTITY_HPP_INCLUDED
 
+#include <sge/time/unit.hpp>
 #include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <sge/texture/part_fwd.hpp>
+#include <sge/renderer/dim_type.hpp>
 
 namespace sge
 {
 namespace sprite
 {
+namespace animation
+{
 
-class object;
-
-class SGE_CLASS_SYMBOL animation {
-	SGE_NONCOPYABLE(animation)
-protected:
-	SGE_SYMBOL animation();
+class entity
+{
 public:
-	virtual bool process() = 0;
-	virtual void reset() = 0;
-	SGE_SYMBOL virtual ~animation();
+	SGE_SYMBOL entity(
+		time::resolution const &delay,
+		texture::const_part_ptr tex
+	);
+
+	SGE_SYMBOL time::unit
+	delay() const;
+
+	SGE_SYMBOL texture::const_part_ptr const
+	tex() const;
+
+	SGE_SYMBOL void
+	tex(
+		texture::const_part_ptr
+	);
+
+	SGE_SYMBOL renderer::dim_type const
+	dim() const;
+private:
+	time::unit              delay_;
+	texture::const_part_ptr tex_;
 };
 
+}
 }
 }
 

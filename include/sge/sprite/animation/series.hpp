@@ -18,26 +18,58 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_PRIMITIVES_ROTATION_HPP_INCLUDED
-#define SGE_SPRITE_PRIMITIVES_ROTATION_HPP_INCLUDED
+#ifndef SGE_SPRITE_ANIMATION_SERIES_HPP_INCLUDED
+#define SGE_SPRITE_ANIMATION_SERIES_HPP_INCLUDED
 
-#include <majutsu/simple.hpp>
+#include <sge/sprite/animation/series_fwd.hpp>
+#include <sge/sprite/animation/entity.hpp>
+#include <sge/renderer/dim_type.hpp>
+#include <sge/export.hpp>
+#include <vector>
 
 namespace sge
 {
 namespace sprite
 {
-namespace primitives
+namespace animation
 {
 
-template<
-	typename FloatType
->
-struct rotation
+class series
 {
-	typedef majutsu::simple<
-		FloatType
-	> type;	
+public:
+	typedef std::vector<
+		entity
+	> entity_vector;
+
+	typedef entity_vector::const_iterator const_iterator;
+
+	SGE_SYMBOL series();
+
+	SGE_SYMBOL explicit series(
+		entity_vector const &
+	);
+
+	SGE_SYMBOL void
+	push_back(
+		entity const &
+	);
+
+	SGE_SYMBOL entity_vector &
+	entities();
+
+	SGE_SYMBOL entity_vector const &
+	entities() const;
+
+	SGE_SYMBOL const_iterator
+	begin() const;
+
+	SGE_SYMBOL const_iterator
+	end() const;
+
+	SGE_SYMBOL bool
+	empty() const;
+private:
+	entity_vector entities_;
 };
 
 }

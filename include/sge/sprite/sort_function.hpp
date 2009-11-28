@@ -18,18 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_FWD_HPP_INCLUDED
-#define SGE_SPRITE_FWD_HPP_INCLUDED
+#ifndef SGE_SPRITE_SORT_FUNCTION_HPP_INCLUDED
+#define SGE_SPRITE_SORT_FUNCTION_HPP_INCLUDED
+
+#include <sge/function/object_fwd.hpp>
+#include <sge/sprite/object_fwd.hpp>
 
 namespace sge
 {
 namespace sprite
 {
 
-class object;
-class system;
-class intrusive_object;
-class intrusive_system;
+template<
+	typename Choices,
+	typename Elements,
+	typename Iterator
+>
+struct sort_method
+{
+private:
+	typedef sprite::object<
+		Choices,
+		Elements
+	> object;
+public:
+	typedef sge::function::object<
+		void (
+			object &,
+			object & 
+		)
+	> type;
+};
 
 }
 }

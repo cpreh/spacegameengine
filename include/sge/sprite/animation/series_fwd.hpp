@@ -25,9 +25,12 @@ namespace sge
 {
 namespace sprite
 {
+namespace animation
+{
 
-class animation_series;
+class series;
 
+}
 }
 }
 

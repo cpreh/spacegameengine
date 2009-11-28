@@ -18,36 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_ANIMATION_ENTITY_HPP_INCLUDED
-#define SGE_SPRITE_ANIMATION_ENTITY_HPP_INCLUDED
-
-#include <sge/time/unit.hpp>
-#include <sge/export.hpp>
-#include <sge/texture/part_fwd.hpp>
-#include <sge/renderer/dim_type.hpp>
+#ifndef SGE_SPRITE_REPETITION_TYPE_HPP_INCLUDED
+#define SGE_SPRITE_REPETITION_TYPE_HPP_INCLUDED
 
 namespace sge
 {
-namespace time
-{
-class resolution;
-}
 namespace sprite
 {
 
-class animation_entity {
-public:
-	SGE_SYMBOL animation_entity(
-		time::resolution const &delay,
-		texture::const_part_ptr tex);
-	SGE_SYMBOL time::unit delay() const;
-	SGE_SYMBOL texture::const_part_ptr const tex() const;
-	SGE_SYMBOL void tex(
-		texture::const_part_ptr);
-	SGE_SYMBOL renderer::dim_type const dim() const;
-private:
-	time::unit              delay_;
-	texture::const_part_ptr tex_;
+template<
+	typename Choices
+>
+struct repetition_type
+{
+	typedef typename Choices::float_type type;	
 };
 
 }

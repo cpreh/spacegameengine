@@ -18,6 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_SPRITE_SYSTEM_IMPL_HPP_INCLUDED
+#define SGE_SPRITE_SYSTEM_IMPL_HPP_INCLUDED
+
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/detail/compare.hpp>
@@ -32,54 +35,69 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <tr1/functional>
 #include <iterator>
 
-sge::sprite::system::system(
-	renderer::device_ptr const rend)
+template<
+	typename Choices,
+	typename Elements
+>
+sge::sprite::system<Choices, Elements>::system(
+	renderer::device_ptr const rend
+)
 :
- 	system_base(rend)
+ 	system_base(
+		rend
+	)
 {}
 
-void sge::sprite::system::render(
-	container::iterator const begin,
-	container::iterator const end,
+template<
+	typename Choices,
+	typename Elements
+>
+template<
+	typename Iterator
+>
+void
+sge::sprite::system<Choices, Elements>::render(
+	Iterator const begin,
+	Iterator const end,
 	sort_method const &sort_fun,
-	equal_method const &equal_fun)
+	equal_method const &equal_fun
+)
 {
 	if(begin == end)
 		return;
-	object *const beg(&*begin);
-	render(
+	
+	sort_fun(
 		beg,
-		beg + std::distance(begin, end),
-		sort_fun,
-		equal_fun);
-}
+		end
+	);
 
-void sge::sprite::system::render(
-	object *const beg,
-	object *const end,
-	sort_method const &sort_fun,
-	equal_method const &equal_fun)
-{
-	sort_fun(beg, end);
-
-	allocate_buffers(std::distance(beg, end));
+	allocate_buffers(
+		std::distance(
+			beg,
+			end
+		)
+	);
 
 	renderer::vertex_buffer_ptr const vb(
-		vertex_buffer());
+		vertex_buffer()
+	);
 
 	renderer::index_buffer_ptr const ib(
-		index_buffer());
+		index_buffer()
+	);
 
 	detail::fill_geometry(
 		beg,
 		end,
 		vb,
-		ib);
+		ib
+	);
 
 	matrices();
 
 	renderer::device_ptr const rend(
-		renderer());
+		renderer()
+	);
 
 	renderer::state::scoped const state_(
 		rend,
@@ -92,13 +110,23 @@ void sge::sprite::system::render(
 		equal_fun,
 		rend,
 		vb,
-		ib);
+		ib
+	);
 }
 
-void sge::sprite::system::render(
-	object o)
+template<
+	typename Choices,
+	typename Elements
+>
+void
+sge::sprite::system<Choices, Elements>::render(
+	object const &object_
+)
 {
-	render(&o, &o+1);
+	render(
+		&object_,
+		&object_ + 1
+	);
 }
 
 sge::sprite::system::sort_method const
@@ -117,3 +145,5 @@ sge::sprite::system::default_sort(
 sge::sprite::system::equal_method const
 sge::sprite::system::default_equal(
 	sge::sprite::detail::equal);
+
+#endif
