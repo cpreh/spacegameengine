@@ -41,7 +41,27 @@ struct make_class
 {
 	typedef majutsu::class_<
 		typename boost::mpl::transform_view<
-			Elements,
+			typename boost::mpl::copy<
+				boost::mpl::front_inserter<
+					Elements
+				>,
+				boost::mpl::vector<
+					majutsu::role<
+						typename primitives::pos<
+							typename Choices::unit_type
+						>::type,
+						roles::pos
+					>,
+					majutsu::role<
+						typename primitives::dim<
+							typename Choices::unit_type
+						>::type,
+						roles::size
+					>,
+					majutsu::role<
+						
+				>
+			>::type,
 			boost::mpl::apply<
 				boost::mpl::_1,
 				Choices
