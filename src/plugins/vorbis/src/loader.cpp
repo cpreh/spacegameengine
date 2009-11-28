@@ -20,18 +20,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../file.hpp"
 #include "../loader.hpp"
-#include <sge/audio/exception.hpp>
 #include <sge/log/headers.hpp>
+#include <sge/make_shared_ptr.hpp>
 #include <sge/text.hpp>
 
 sge::audio::file_ptr const
 sge::vorbis::loader::load(
-	filesystem::path const &filename)
+	filesystem::path const &filename
+)
 {
-	return audio::file_ptr(new file(filename));
+	return
+		sge::make_shared_ptr<
+			file
+		>(
+			filename
+		);
 }
 
-sge::extension_set const sge::vorbis::loader::extensions() const
+sge::extension_set const
+sge::vorbis::loader::extensions() const
 {
 	extension_set s;
 	s.insert(SGE_TEXT("ogg"));

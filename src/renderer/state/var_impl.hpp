@@ -18,11 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONST_AUTO_HPP_INCLUDED
-#define SGE_CONST_AUTO_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_VAR_IMPL_HPP_INCLUDED
+#define SGE_RENDERER_STATE_VAR_IMPL_HPP_INCLUDED
 
-#include <boost/typeof/typeof.hpp>
+#include <sge/renderer/state/var.hpp>
 
-#define SGE_CONST_AUTO(v, t) BOOST_TYPEOF(t) const v((t))
+template<
+	typename T,
+	typename States
+>
+sge::renderer::state::var<T, States> &
+sge::renderer::state::var<T, States>::operator=(
+	value_type const &newval)
+{
+	val_ = newval;
+	return *this;
+}
+
+template<
+	typename T,
+	typename States
+>
+typename sge::renderer::state::var<T, States>::state_type
+sge::renderer::state::var<T, States>::state() const
+{
+	return state_;
+}
+
+template<
+	typename T,
+	typename States
+>
+T
+sge::renderer::state::var<T, States>::value() const
+{
+	return val_;
+}
+
+template<
+	typename T,
+	typename States
+>
+sge::renderer::state::var<T, States>::var(
+	state_type const state_,
+	value_type const &val_)
+:
+	state_(state_),
+	val_(val_)
+{}
 
 #endif

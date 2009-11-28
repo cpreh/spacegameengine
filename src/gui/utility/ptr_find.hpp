@@ -34,10 +34,12 @@ template<typename Beg,typename End,typename Ptr>
 Beg ptr_find(Beg b,End const e,Ptr const s)
 {
 	return std::find_if(
- 		b,
+		b,
 		e,
 		container::make_ptr_equal(
-			s));
+			s
+		)
+	);
 }
 }
 }

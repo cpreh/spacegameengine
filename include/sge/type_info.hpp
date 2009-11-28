@@ -31,12 +31,19 @@ namespace sge
 class type_info {
 public:
 	SGE_SYMBOL type_info(
-		std::type_info const &);
+		std::type_info const &
+	);
 
-	SGE_SYMBOL std::type_info const &get() const;
-	SGE_SYMBOL bool before(
-		type_info const &rhs) const;
-	SGE_SYMBOL string const name() const;
+	SGE_SYMBOL std::type_info const &
+	get() const;
+
+	SGE_SYMBOL bool
+	before(
+		type_info const &rhs
+	) const;
+
+	SGE_SYMBOL string const
+	name() const;
 private:
 	std::type_info const *info_;
 };

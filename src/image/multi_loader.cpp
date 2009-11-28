@@ -18,53 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_IMPL_VAR_HPP_INCLUDED
-#define SGE_RENDERER_STATE_IMPL_VAR_HPP_INCLUDED
+#include <sge/image/multi_loader.hpp>
+#include <sge/image/plugin.hpp>
+#include "../instantiate_multi_loader.hpp"
 
-#include <sge/renderer/state/var.hpp>
-
-template<
-	typename T,
-	typename States
->
-sge::renderer::state::var<T, States> &
-sge::renderer::state::var<T, States>::operator=(
-	value_type const &newval)
-{
-	val_ = newval;
-	return *this;
-}
-
-template<
-	typename T,
-	typename States
->
-typename sge::renderer::state::var<T, States>::state_type
-sge::renderer::state::var<T, States>::state() const
-{
-	return state_;
-}
-
-template<
-	typename T,
-	typename States
->
-T
-sge::renderer::state::var<T, States>::value() const
-{
-	return val_;
-}
-
-template<
-	typename T,
-	typename States
->
-sge::renderer::state::var<T, States>::var(
-	state_type const state_,
-	value_type const &val_)
-:
-	state_(state_),
-	val_(val_)
-{}
-
-#endif
+SGE_INSTANTIATE_MULTI_LOADER(
+	sge::image::loader,
+	sge::image::file,
+	sge::image::exception
+)

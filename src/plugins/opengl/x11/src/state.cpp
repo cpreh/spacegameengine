@@ -74,7 +74,7 @@ sge::opengl::x11::state::state(
 		)
 	)
 {
- 	con_manager.connect(
+	con_manager.connect(
 		wnd->register_callback(
 			MapNotify,
 			std::tr1::bind(

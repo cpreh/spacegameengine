@@ -18,22 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_INSTANTIATE_TYPES_HPP_INCLUDED
-#define SGE_PLUGIN_INSTANTIATE_TYPES_HPP_INCLUDED
+#include <sge/audio/multi_loader.hpp>
+#include <sge/audio/loader_plugin.hpp>
+#include "../instantiate_multi_loader.hpp"
 
-#include "manager_impl.hpp"
-#include "iterator_impl.hpp"
-#include "plugin_impl.hpp"
-#include "context_impl.hpp"
-#include <sge/export.hpp>
-
-#define SGE_PLUGIN_INSTANTIATE_TYPES(x)\
-template SGE_SYMBOL sge::plugin::iterator<x> sge::plugin::manager::begin<x>();\
-template SGE_SYMBOL sge::plugin::iterator<x> sge::plugin::manager::end<x>();\
-template SGE_SYMBOL sge::plugin::context<x> sge::plugin::manager::plugin<x>(sge::plugin::manager::size_type);\
-template SGE_SYMBOL sge::plugin::manager::size_type sge::plugin::manager::size<x>() const;\
-template class sge::plugin::iterator<x>;\
-template class sge::plugin::plugin<x>;\
-template class sge::plugin::context<x>;
-
-#endif
+SGE_INSTANTIATE_MULTI_LOADER(
+	sge::audio::loader,
+	sge::audio::file,
+	sge::audio::exception
+)

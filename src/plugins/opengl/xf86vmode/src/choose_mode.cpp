@@ -38,22 +38,27 @@ sge::opengl::xf86vmode::choose_mode(
 		XF86VidModeModeInfo const &mode = m[i];
 		unsigned const rate = calc_refresh_rate(mode);
 
-		if(mode.hdisplay == pmode.size().w() &&
-		   mode.vdisplay == pmode.size().h() &&
-		   rate  >= pmode.refresh_rate() &&
-		   (best == -1 || rate >= calc_refresh_rate(m[best])))
+		if(
+			mode.hdisplay == pmode.size().w() &&
+			mode.vdisplay == pmode.size().h() &&
+			rate  >= pmode.refresh_rate() &&
+			(best == -1 || rate >= calc_refresh_rate(m[best]))
+		)
 			best = static_cast<int>(i);
 	}
 
 	if(best == -1)
 		throw exception(
 			SGE_TEXT("No matching resolution found in xf86vmode!"));
-	return resolution_ptr(
-		make_shared_ptr<resolution>(
-			m.display(),
-			m.screen(),
-			m[best],
-			m[0]));
+	return
+		resolution_ptr(
+			make_shared_ptr<
+				resolution
+			>(
+				m.display(),
+				m.screen(),
+				m[best],
+				m[0]
+			)
+		);
 }
-
-

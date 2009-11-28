@@ -18,10 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DETAIL_MULTI_LOADER_IMPL_HPP_INCLUDED
-#define SGE_DETAIL_MULTI_LOADER_IMPL_HPP_INCLUDED
+#ifndef SGE_MULTI_LOADER_IMPL_HPP_INCLUDED
+#define SGE_MULTI_LOADER_IMPL_HPP_INCLUDED
 
-#include <sge/audio/loader_plugin.hpp>
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/plugin.hpp>
@@ -37,9 +36,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename A,
 	typename B,
-	typename C>
+	typename C
+>
 sge::multi_loader<A,B,C>::multi_loader(
-	plugin::manager &pm)
+	plugin::manager &pm
+)
 {
 	for (plugin::iterator<loader> i = pm.begin<loader>(); i != pm.end<loader>(); ++i)
 	{
@@ -50,6 +51,14 @@ sge::multi_loader<A,B,C>::multi_loader(
 				plugins.back()->get()()));
 	}
 }
+
+template<
+	typename A,
+	typename B,
+	typename C
+>
+sge::multi_loader<A,B,C>::~multi_loader()
+{}
 
 template<
 	typename A,

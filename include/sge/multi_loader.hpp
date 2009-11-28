@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/noncopyable.hpp>
 #include <sge/shared_ptr.hpp>
+#include <sge/export.hpp>
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/filesystem/path.hpp>
@@ -30,13 +31,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
+
 template<
 	typename Loader,
 	typename File,
-	typename Exception>
+	typename Exception
+>
 class multi_loader
 {
-SGE_NONCOPYABLE(multi_loader)
+	SGE_NONCOPYABLE(multi_loader)
 public:
 	typedef Loader loader;
 	typedef File file;
@@ -44,12 +47,16 @@ public:
 	typedef shared_ptr<file> file_ptr;
 	typedef Exception exception;
 
-	explicit multi_loader(
-		plugin::manager &);
+	SGE_SYMBOL explicit multi_loader(
+		plugin::manager &
+	);
 
-	file_ptr const
+	SGE_SYMBOL ~multi_loader();
+
+	SGE_SYMBOL file_ptr const
 	load(
-		filesystem::path const &);
+		filesystem::path const &
+	);
 private:
 	typedef std::vector<
 		typename plugin::context<
@@ -64,11 +71,12 @@ private:
 	plugin_container plugins;
 	loader_container loaders;
 
-	file_ptr const brute_load(
-		filesystem::path const &);
+	file_ptr const
+	brute_load(
+		filesystem::path const &
+	);
 };
-}
 
-#include "detail/multi_loader_impl.hpp"
+}
 
 #endif

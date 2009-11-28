@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/action.hpp>
-#include <sge/image/loader.hpp>
+#include <sge/image/multi_loader.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/parameters.hpp>
@@ -66,7 +66,7 @@ try
 		sge::log::level::debug
 	);
 
-	sge::systems::instance const sys(
+	sge::systems::instance sys(
 		sge::systems::list()
 		(
 			sge::window::parameters(
@@ -98,10 +98,17 @@ try
 		)
 	);
 
-	sge::input::system_ptr const    is   = sys.input_system();
-	sge::renderer::device_ptr const rend = sys.renderer();
-	sge::image::loader_ptr const    pl   = sys.image_loader();
+	sge::input::system_ptr const is(
+		sys.input_system()
+	);
 
+	sge::renderer::device_ptr const rend(
+		sys.renderer()
+	);
+
+	sge::image::multi_loader image_loader(
+		sys.plugin_manager()
+	);
 
 	sge::texture::default_creator<
 		sge::texture::no_fragmented
@@ -117,7 +124,7 @@ try
 		tex1(
 			sge::texture::add_image(
 				tex_man,
-				pl->load(
+				image_loader.load(
 					sge::config::media_path() / SGE_TEXT("cloudsquare.jpg")
 				)
 			)
@@ -125,7 +132,7 @@ try
 		tex2(
 			sge::texture::add_image(
 				tex_man,
-				pl->load(
+				image_loader.load(
 					sge::config::media_path() / SGE_TEXT("grass.png")
 				)
 			)

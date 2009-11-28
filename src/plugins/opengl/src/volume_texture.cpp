@@ -45,11 +45,11 @@ sge::opengl::volume_texture::volume_texture(
 	image_view_array const &src,
 	renderer::filter_args const &filter,
 	resource_flag_type const flags)
- : detail::volume_texture_base(
- 	filter,
+: detail::volume_texture_base(
+	filter,
 	flags,
 	volume_texture_type()),
-   box_(box_)
+	box_(box_)
 {
 	//set_data(src);
 }

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/exception.hpp>
 #include <sge/audio/sound.hpp>
 #include <sge/audio/listener.hpp>
-#include <sge/multi_loader.hpp>
+#include <sge/audio/multi_loader.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/time/second.hpp>
 #include <sge/time/resolution.hpp>
@@ -56,10 +56,7 @@ try
 		sge::systems::list()
 		(sge::systems::parameterless::audio_player));
 
-	sge::multi_loader<
-		sge::audio::loader,
-		sge::audio::file,
-		sge::audio::exception> loader(sys.plugin_manager());
+	sge::audio::multi_loader loader(sys.plugin_manager());
 
 	sge::audio::file_ptr const soundfile = loader.load(file_name);
 	sge::audio::pool pool;

@@ -29,7 +29,7 @@ sge::openal::log()
 	static log::object l(
 		log::parameters::inherited(
 			log::global(),
-			SGE_TEXT("openal: ")
+			SGE_TEXT("openal")
 		)
 	);
 	return l;

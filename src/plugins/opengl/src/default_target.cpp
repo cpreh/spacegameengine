@@ -29,10 +29,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::default_target::default_target(
 	dim_type const & dim_,
-	renderer::bit_depth::type const depth_)
- :
- 	pos_(renderer::pixel_pos::null()),
- 	dim_(dim_),
+	renderer::bit_depth::type const depth_
+)
+:
+	pos_(renderer::pixel_pos::null()),
+	dim_(dim_),
 	depth_(depth_)
 {}
 

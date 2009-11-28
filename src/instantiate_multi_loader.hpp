@@ -18,22 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_INSTANTIATE_TYPES_HPP_INCLUDED
-#define SGE_PLUGIN_INSTANTIATE_TYPES_HPP_INCLUDED
+#ifndef SGE_INSTANTIATE_MULTI_LOADER_HPP_INCLUDED
+#define SGE_INSTANTIATE_MULTI_LOADER_HPP_INCLUDED
 
-#include "manager_impl.hpp"
-#include "iterator_impl.hpp"
-#include "plugin_impl.hpp"
-#include "context_impl.hpp"
+#include "multi_loader_impl.hpp"
 #include <sge/export.hpp>
 
-#define SGE_PLUGIN_INSTANTIATE_TYPES(x)\
-template SGE_SYMBOL sge::plugin::iterator<x> sge::plugin::manager::begin<x>();\
-template SGE_SYMBOL sge::plugin::iterator<x> sge::plugin::manager::end<x>();\
-template SGE_SYMBOL sge::plugin::context<x> sge::plugin::manager::plugin<x>(sge::plugin::manager::size_type);\
-template SGE_SYMBOL sge::plugin::manager::size_type sge::plugin::manager::size<x>() const;\
-template class sge::plugin::iterator<x>;\
-template class sge::plugin::plugin<x>;\
-template class sge::plugin::context<x>;
+#define SGE_INSTANTIATE_MULTI_LOADER(\
+	loader,\
+	file,\
+	exception\
+)\
+template SGE_EXPORT_SYMBOL class sge::multi_loader<\
+	loader,\
+	file,\
+	exception\
+>;
 
 #endif
