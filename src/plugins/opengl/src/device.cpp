@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/foreach.hpp>
 #include "../device.hpp"
 #include "../pbo.hpp"
-#include "../vertex_buffer.hpp"
 #include "../index_buffer.hpp"
 #include "../vertex_buffer.hpp"
 #include "../texture.hpp"
@@ -533,6 +532,7 @@ void sge::opengl::device::texture(
 
 	if(!tex)
 		return;
+	
 	texture_base const &b = dynamic_cast<texture_base const &>(*tex);
 	enable(b.type());
 	b.bind_me();
@@ -632,7 +632,9 @@ void sge::opengl::device::vertex_buffer(
 {
 	opengl::vertex_buffer const &
 		ovb = dynamic_cast<opengl::vertex_buffer const &>(
-			*vb);
+			*vb
+		);
+	
 	ovb.set_format();
 }
 
