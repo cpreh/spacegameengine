@@ -28,13 +28,13 @@ namespace sprite
 
 template<
 	typename Unit,
-	typename ColorType,
-	typename RotationType
+	typename Float,
+	typename Color
 >
 struct choices {
 	typedef Unit unit_type;
-	typedef ColorType color_type;
-	typedef RotationType rotation_type;
+	typedef Float float_type;
+	typedef Color color_type;
 };
 
 }

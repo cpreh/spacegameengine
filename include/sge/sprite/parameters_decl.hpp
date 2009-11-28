@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_PARAMETERS_DECL_HPP_INCLUDED
 #define SGE_SPRITE_PARAMETERS_DECL_HPP_INCLUDED
 
+#include <sge/sprite/parameters_fwd.hpp>
 #include <sge/sprite/detail/make_class.hpp>
 #include <majutsu/find_role.hpp>
 

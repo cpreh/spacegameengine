@@ -18,22 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_INTRUSIVE_ORDER_HPP_INCLUDED
-#define SGE_SPRITE_INTRUSIVE_ORDER_HPP_INCLUDED
+#ifndef SGE_SPRITE_PRIMITIVES_SYSTEM_HPP_INCLUDED
+#define SGE_SPRITE_PRIMITIVES_SYSTEM_HPP_INCLUDED
+
+#include <sge/sprite/intrusive/system_fwd.hpp>
+#include <majutsu/simple.hpp>
 
 namespace sge
 {
 namespace sprite
 {
-namespace intrusive
+namespace primitives
 {
 
-template<
-	typename Choices
->
-struct order
+struct system
 {
-	typedef unsigned type;
+	typedef majutsu::simple<
+		intrusive::system *
+	> type;
 };
 
 }

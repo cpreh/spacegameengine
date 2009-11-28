@@ -21,13 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_OBJECT_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_OBJECT_IMPL_HPP_INCLUDED
 
-#include <sge/sprite/object.hpp>
-#include <sge/sprite/texture_dim.hpp>
-#include <sge/math/box/basic_impl.hpp>
-#include <sge/math/circle/basic_impl.hpp>
-#include <sge/math/almost_zero.hpp>
-#include <sge/math/vector/arithmetic.hpp>
-#include <sge/texture/part.hpp>
+#include <sge/sprite/object_decl.hpp>
+#include <sge/sprite/roles/pos.hpp>
+#include <sge/sprite/roles/size.hpp>
+#include <sge/sprite/roles/depth.hpp>
+#include <sge/sprite/roles/visible.hpp>
+#include <sge/sprite/roles/rotation.hpp>
+#include <sge/sprite/roles/rotate_around.hpp>
+#include <sge/sprite/roles/use_rotation.hpp>
+#include <sge/sprite/roles/color.hpp>
+#include <sge/sprite/roles/texture.hpp>
+#include <sge/sprite/roles/order.hpp>
+#include <sge/sprite/roles/system.hpp>
 
 template<
 	typename Choices,
@@ -187,7 +192,7 @@ sge::sprite::object::rotation_center() const
 		?
 			pos()
 			+ elements. template get<
-				roles::rotation_center
+				roles::rotate_around
 			>()
 		:
 			center(

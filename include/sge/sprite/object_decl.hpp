@@ -22,14 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_OBJECT_DECL_HPP_INCLUDED
 
 #include <sge/sprite/detail/make_class.hpp>
+#include <sge/sprite/intrusive/order.hpp>
 #include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/point.hpp>
 #include <sge/sprite/dim.hpp>
-#include <sge/sprite/color.hpp>
 #include <sge/sprite/depth_type.hpp>
 #include <sge/sprite/rotation_type.hpp>
 #include <sge/sprite/repetition_type.hpp>
-#include <sge/sprite/unit.hpp>
+#include <sge/sprite/color.hpp>
 #include <sge/texture/part_fwd.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/contains.hpp>
@@ -57,6 +57,36 @@ class object
 		>::type
 {
 public:
+	typedef typename Choices::unit_type unit;
+
+	typedef typename sprite::depth_type<
+		Choices
+	>::type depth_type;
+
+	typedef typename sprite::rotation_type<
+		Choices
+	>::type rotation_type;
+
+	typedef typename sprite::repetition_type<
+		Choices
+	>::type repetition_type;
+
+	typedef typename sprite::point<
+		Choices
+	>::type point;
+
+	typedef typename sprite::dim<
+		Choices
+	>::type dim;
+
+	typedef typename sprite::color<
+		Choices
+	>::type color_type;
+
+	typedef typename intrusive::order<
+		Choices
+	>::type order_type;
+
 	template<
 		typename Parameters
 	>
@@ -106,7 +136,7 @@ public:
 	repetition_type
 	repeat() const;
 
-	sprite::color const
+	color_type const
 	color() const;
 
 	texture::const_part_ptr const
@@ -180,7 +210,7 @@ public:
 
 	void
 	color(
-		sprite::color const &
+		color_type const &
 	);
 
 	void

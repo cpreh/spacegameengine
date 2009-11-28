@@ -18,22 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_BASIC_FWD_HPP_INCLUDED
-#define SGE_SPRITE_BASIC_FWD_HPP_INCLUDED
+#ifndef SGE_SPRITE_PRIMITIVES_TEXTURES_HPP_INCLUDED
+#define SGE_SPRITE_PRIMITIVES_TEXTURES_HPP_INCLUDED
 
-#include <boost/mpl/vector.hpp>
+#include <sge/texture/part_fwd.hpp>
+#include <majutsu/simple.hpp>
 
 namespace sge
 {
 namespace sprite
 {
+namespace primitives
+{
 
-template<
-	typename CoordType,
-	typename Policies = boost::mpl::vector<>
->
-class basic;
+struct texture
+{
+	typedef majutsu::simple<
+		textures::const_part_ptr
+	> type;
+};
 
+}
 }
 }
 

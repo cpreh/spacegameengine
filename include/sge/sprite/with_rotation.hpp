@@ -23,8 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/primitives/pos.hpp>
 #include <sge/sprite/primitives/float.hpp>
+#include <sge/sprite/primitives/bool.hpp>
 #include <sge/sprite/roles/rotate_around.hpp>
 #include <sge/sprite/roles/rotation.hpp>
+#include <sge/sprite/roles/use_rotation.hpp>
 #include <majutsu/role.hpp>
 #include <majutsu/composite.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -42,7 +44,7 @@ struct with_rotation
 	struct apply
 	{
 		typedef majutsu::composite<
-			boost::mpl::vector2<
+			boost::mpl::vector3<
 				majutsu::role<
 					typename primitives::pos<
 						typename Choices::float_type
@@ -54,6 +56,10 @@ struct with_rotation
 						typename Choices::float_type
 					>::type,
 					roles::rotation
+				>,
+				majutsu::role<
+					primitives::bool_,
+					roles::use_rotation
 				>
 			>
 		> type;

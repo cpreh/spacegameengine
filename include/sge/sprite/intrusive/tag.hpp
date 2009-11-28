@@ -17,7 +17,7 @@ struct tag {
 		typedef majutsu::composite<
 			boost::mpl::vector2<
 				majutsu::role<
-					primitives::order_type,
+					primitives::order,
 					roles::order
 				>,
 				majutsu::role<

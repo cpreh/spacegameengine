@@ -18,18 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DEPTH_TYPE_HPP_INCLUDED
-#define SGE_SPRITE_DEPTH_TYPE_HPP_INCLUDED
+#ifndef SGE_SPRITE_PRIMITIVES_BOOL_HPP_INCLUDED
+#define SGE_SPRITE_PRIMITIVES_BOOL_HPP_INCLUDED
 
-#include <sge/sprite/funit.hpp>
+#include <majutsu/simple.hpp>
 
 namespace sge
 {
 namespace sprite
 {
+namespace primitives
+{
 
-typedef funit depth_type;
+typedef majutsu::simple<
+	bool
+> bool_;
 
+}
 }
 }
 

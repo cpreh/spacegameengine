@@ -35,13 +35,12 @@ namespace sprite
 template<
 	unsigned Num = 1
 >
-class with_texture;
+struct with_texture;
 
 template<
 	unsigned Num
 >
-class with_texture {
-public:
+struct with_texture {
 	// TODO!
 };
 

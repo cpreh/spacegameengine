@@ -18,19 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_REPETITION_TYPE_HPP_INCLUDED
-#define SGE_SPRITE_REPETITION_TYPE_HPP_INCLUDED
-
-#include <sge/sprite/funit.hpp>
+#ifndef SGE_SPRITE_ROLES_COLOR_HPP_INCLUDED
+#define SGE_SPRITE_ROLES_COLOR_HPP_INCLUDED
 
 namespace sge
 {
 namespace sprite
 {
+namespace roles
+{
 
-typedef funit repetition_type;
+struct color
+{};
 
-
+}
 }
 }
 

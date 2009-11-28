@@ -21,14 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_COLOR_HPP_INCLUDED
 #define SGE_SPRITE_COLOR_HPP_INCLUDED
 
-#include <sge/image/color/any/object.hpp>
+#include <sge/sprite/primitives/color.hpp>
 
 namespace sge
 {
 namespace sprite
 {
 
-typedef image::color::any::object color;
+template<
+	typename Choices
+>
+struct color
+{
+	typedef typename primitives::color<
+		typename Choices::color_type
+	>::type::type type;
+};
 
 }
 }

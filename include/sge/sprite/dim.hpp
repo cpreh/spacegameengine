@@ -21,18 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DIM_HPP_INCLUDED
 #define SGE_SPRITE_DIM_HPP_INCLUDED
 
-#include <sge/sprite/unit.hpp>
-#include <sge/math/dim/static.hpp>
+#include <sge/sprite/primitives/dim.hpp>
 
 namespace sge
 {
 namespace sprite
 {
 
-typedef math::dim::static_<
-	unit,
-	2
->::type dim;
+template<
+	typename Choices
+>
+struct dim
+{
+	typedef typename primitives::dim<
+		typename Choices::unit_type
+	>::type::type type;
+};
 
 }
 }
