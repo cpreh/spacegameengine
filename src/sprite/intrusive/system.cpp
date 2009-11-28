@@ -57,8 +57,12 @@ void sge::sprite::intrusive::system::render()
 }
 
 void sge::sprite::intrusive::system::render(
-	sprite_list const &sprites)
+	sprite_list const &sprites
+)
 {
+	if(sprites.empty())
+		return;
+	
 	allocate_buffers(sprites.size());
 
 	renderer::vertex_buffer_ptr const vb(
