@@ -18,27 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_RECT_HPP_INCLUDED
-#define SGE_SPRITE_RECT_HPP_INCLUDED
-
-#include <sge/math/box/rect.hpp>
+#ifndef SGE_SPRITE_DETAIL_VERTICES_PER_SPRITE_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_VERTICES_PER_SPRITE_HPP_INCLUDED
 
 namespace sge
 {
 namespace sprite
 {
-
-template<
-	typename Choices
->
-struct rect
-:
-math::box::rect<
-	typename Choices::unit
->
+namespace detail
 {
-};
 
+unsigned const vertices_per_sprite = 4;
+
+}
 }
 }
 

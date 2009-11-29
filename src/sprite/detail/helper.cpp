@@ -48,22 +48,6 @@ typedef sge::math::box::rect<
 }
 
 sge::sprite::detail::vertex_iterator const
-sge::sprite::detail::fill_position(
-	vertex_iterator it,
-	rect const &rs,
-	depth_type const z)
-{
-	frect const r = math::box::structure_cast<frect>(rs);
-
-	(*it++).set<vertex_pos>(pos3(r.left(), r.top(), z));
-	(*it++).set<vertex_pos>(pos3(r.right(), r.top(), z));
-	(*it++).set<vertex_pos>(pos3(r.right(), r.bottom(), z));
-	(*it++).set<vertex_pos>(pos3(r.left(), r.bottom(), z));
-
-	return it;
-}
-
-sge::sprite::detail::vertex_iterator const
 sge::sprite::detail::fill_tex_coordinates(
 	vertex_iterator it,
 	tex_rect const &rt)
@@ -85,55 +69,6 @@ sge::sprite::detail::fill_vertices(
 {
 	fill_position(it, rs, z);
 	return fill_tex_coordinates(it, rt);
-}
-
-sge::sprite::detail::vertex_iterator const
-sge::sprite::detail::fill_position_rotated(
-	vertex_iterator it,
-	rect const &rbs,
-	rotation_type const rot,
-	point const &center,
-	depth_type const z)
-{
-	pos2 const centerf(
-		math::vector::structure_cast<pos2>(center));
-
-	typedef std::tr1::array<pos2, detail::vertices_per_sprite> position_array;
-	position_array const positions = {{
-		pos2(
-			static_cast<funit>(rbs.left()),
-			static_cast<funit>(rbs.top())) - centerf,
-		pos2(
-			static_cast<funit>(rbs.right()),
-			static_cast<funit>(rbs.top())) - centerf,
-		pos2(
-			static_cast<funit>(rbs.right()),
-			static_cast<funit>(rbs.bottom())) - centerf,
-		pos2(
-			static_cast<funit>(rbs.left()),
-			static_cast<funit>(rbs.bottom())) - centerf
-	}};
-
-	funit const
-		sinx = std::sin(rot),
-		cosx = std::cos(rot);
-
-	math::matrix::static_<
-		funit,
-		2,
-		2
-	>::type const mat_rot(
-		cosx, -sinx,
-		sinx,  cosx);
-
-	BOOST_FOREACH(position_array::const_reference p, positions)
-		(*it++).set<vertex_pos>(
-			construct(
-				(mat_rot * p) + centerf,
-				z
-			)
-		);
-	return it;
 }
 
 sge::sprite::detail::vertex_iterator const

@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_SYSTEM_DECL_HPP_INCLUDED
 
 #include <sge/sprite/system_fwd.hpp>
+#include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/system_base.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/export.hpp>
-#include <sge/function/object.hpp>
 
 namespace sge
 {
@@ -49,22 +50,17 @@ public:
 		renderer::device_ptr rend
 	);
 
-	typedef sge::function::object<
-		bool (
-			object const &,
-			object const &
-		)
-	> equal_method;
-
 	template<
-		typename Iterator
+		typename Iterator,
+		typename SortFunction,
+		typename EqualFunction
 	>
 	void
 	render(
 		Iterator begin,
 		Iterator end,
-		sort_method const &
-		equal_method const &
+		SortFunction const &
+		EqualFunction const &
 	);
 
 	void

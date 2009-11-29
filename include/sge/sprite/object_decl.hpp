@@ -57,6 +57,10 @@ class object
 		>::type
 {
 public:
+	typedef Choices choices;
+	
+	typedef Elements elements;
+
 	typedef typename Choices::unit_type unit;
 
 	typedef typename sprite::depth_type<

@@ -18,27 +18,93 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_RECT_HPP_INCLUDED
-#define SGE_SPRITE_RECT_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_FILL_POSITON_UNROTATED_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_FILL_POSITON_UNROTATED_HPP_INCLUDED
 
-#include <sge/math/box/rect.hpp>
+#include <sge/sprite/detail/vertex_pos.hpp>
 
 namespace sge
 {
 namespace sprite
 {
+namespace detail
+{
 
 template<
-	typename Choices
+	typename Iterator,
+	typename Choices,
+	typename Elements
 >
-struct rect
-:
-math::box::rect<
-	typename Choices::unit
->
+void
+fill_position_rotated(
+	Iterator iterator,
+	object<
+		Choices,
+		Elements
+	> const &spr
+)
 {
-};
+	typedef typename detail::vertex_pos<
+		Choices,
+		Elements
+	>::type vertex_pos;
 
+	typedef typename float_rect<
+		Choices
+	>::type frect;
+
+	frect const r(
+		math::box::structure_cast<
+			frect
+		>(
+			sprite::rect(
+				spr
+			)
+		)
+	);
+
+	(*it++).set<
+		vertex_pos
+	>(
+		pos3(
+			r.left(),
+			r.top(),
+			z
+		)
+	);
+
+	(*it++).set<
+		vertex_pos
+	>(
+		pos3(
+			r.right(),
+			r.top(),
+			z
+		)
+	);
+
+	(*it++).set<
+		vertex_pos
+	>(
+		pos3(
+			r.right(),
+			r.bottom(),
+			z
+		)
+	);
+
+	(*it++).set<
+		vertex_pos
+	>(
+		pos3(
+			r.left(),
+			r.bottom(),
+			z
+		)
+	);
+}
+
+}
 }
 }
 

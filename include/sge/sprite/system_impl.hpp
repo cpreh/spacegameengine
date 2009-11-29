@@ -53,14 +53,16 @@ template<
 	typename Elements
 >
 template<
-	typename Iterator
+	typename Iterator,
+	typename SortFunction,
+	typename EqualFunction
 >
 void
 sge::sprite::system<Choices, Elements>::render(
 	Iterator const begin,
 	Iterator const end,
-	sort_method const &sort_fun,
-	equal_method const &equal_fun
+	SortFunction const &sort_fun,
+	EqualFunction const &equal_fun
 )
 {
 	if(begin == end)

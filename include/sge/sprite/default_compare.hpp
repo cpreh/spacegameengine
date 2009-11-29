@@ -18,23 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/sprite/detail/compare.hpp>
-#include <sge/sprite/object.hpp>
-#include <sge/math/compare.hpp>
+#ifndef SGE_SPRITE_DEFAULT_COMPARE_HPP_INCLUDED
+#define SGE_SPRITE_DEFAULT_COMPARE_HPP_INCLUDED
 
-bool sge::sprite::detail::equal(
-	object const &l,
-	object const &r)
+namespace sge
 {
-	return l.visible() == r.visible() &&
-	       math::compare(l.z(), r.z()) &&
-	       l.texture() == r.texture();
-}
+namespace sprite
+{
 
-bool sge::sprite::detail::less(
-	object const &l,
-	object const &r)
+struct default_compare
 {
+	typedef bool result_type;
+
+	template<
+		typename Object
+	>
+	result_type
+	operator(
+		Object const &a,
+		Object const &b
+	) const
+	{
 	bool const
 		lvis = l.visible(),
 		rvis = r.visible();
@@ -54,4 +58,10 @@ bool sge::sprite::detail::less(
 		                : ltex < rtex
 		       : lz > rz
 		: lvis > rvis;
+	}
+};
+
 }
+}
+
+#endif

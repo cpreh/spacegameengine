@@ -37,7 +37,8 @@ public:
 	:
 		index(0),
 		ptr(
-			index_array.begin())
+			index_array.begin()
+		)
 	{
 	}
 
@@ -57,10 +58,13 @@ public:
 		if(ptr == index_array.end())
 		{
 			ptr = index_array.begin();
-			index += static_cast<
-				index_array_type::value_type
-			>(
-				vertices_per_sprite);
+
+			index +=
+				static_cast<
+					index_array_type::value_type
+				>(
+					vertices_per_sprite
+				);
 		}
 		return ret;
 	}

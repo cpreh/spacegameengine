@@ -18,23 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_COMPARE_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_COMPARE_HPP_INCLUDED
+#ifndef SGE_MPL_PUSH_BACK_IF_HPP_INCLUDED
+#define SGE_MPL_PUSH_BACK_IF_HPP_INCLUDED
+
+#include <boost/mpl/if.hpp>
+#include <boost/mpl/push_back.hpp>
 
 namespace sge
 {
-namespace sprite
+namespace mpl
 {
 
-class object;
+template<
+	typename Condition,
+	typename Sequence,
+	typename Element
+>
+struct push_back_if
+:
+	boost::mpl::if_<
+		Condition,
+		boost::mpl::push_back<
+			Sequence,
+			Element
+		>,
+		Sequence
+	>
+{};
 
-namespace detail
-{
-
-bool equal(object const &, object const &);
-bool less(object const &, object const &);
-
-}
 }
 }
 

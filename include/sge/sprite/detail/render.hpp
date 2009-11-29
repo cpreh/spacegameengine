@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_RENDER_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_HPP_INCLUDED
 
-#include <sge/sprite/detail/constants.hpp>
+#include <sge/sprite/detail/vertices_per_sprite.hpp>
+#include <sge/sprite/detail/indices_per_sprite.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/texture.hpp>
@@ -38,16 +39,22 @@ template<
 	typename In,
 	typename Comp
 >
-void render(
+void
+render(
 	In const beg,
 	In const end,
 	Comp const comp,
 	renderer::device_ptr const rend,
 	renderer::vertex_buffer_ptr const vb,
-	renderer::index_buffer_ptr const ib)
+	renderer::index_buffer_ptr const ib
+)
 {
 	renderer::size_type offset(0);
-	for(In cur(beg), next(cur); cur != end; cur = next )
+
+	for(
+		In cur(beg), next(cur);
+		cur != end; cur = next
+	)
 	{
 		renderer::size_type num_objects(0);
 
@@ -60,13 +67,17 @@ void render(
 		if(!cur->visible())
 			continue;
 
-		texture::const_part_ptr const vtex = cur->texture();
+		texture::const_part_ptr const vtex(
+			cur->texture()
+		);
 
 		rend->texture(
 			vtex
 			? vtex->texture()
 			: renderer::const_texture_ptr(
-				renderer::device::no_texture));
+				renderer::device::no_texture
+			)
+		);
 
 		rend->render(
 			vb,
@@ -75,12 +86,15 @@ void render(
 			num_objects * detail::vertices_per_sprite,
 			renderer::indexed_primitive_type::triangle,
 			num_objects * 2,
-			offset * detail::indices_per_sprite);
+			offset * detail::indices_per_sprite
+		);
 
 		offset += num_objects;
 	}
 
-	rend->texture(renderer::device::no_texture);
+	rend->texture(
+		renderer::device::no_texture
+	);
 }
 
 }

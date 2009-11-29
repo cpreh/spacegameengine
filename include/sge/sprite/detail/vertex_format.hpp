@@ -21,13 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_VERTEX_FORMAT_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_VERTEX_FORMAT_HPP_INCLUDED
 
-#include <sge/sprite/funit.hpp>
+#include <sge/sprite/detail/vertex_pos.hpp>
+#include <sge/sprite/detail/vertex_texpos.hpp>
+#include <sge/sprite/detail/vertex_color.hpp>
+#include <sge/sprite/with_color.hpp>
+#include <sge/sprite/with_texture.hpp>
 #include <sge/renderer/vf/format.hpp>
-#include <sge/renderer/vf/pos.hpp>
-#include <sge/renderer/vf/color.hpp>
-#include <sge/renderer/vf/texpos.hpp>
-#include <sge/image/color/rgba8.hpp>
+#include <sge/mpl/push_back_if.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <boost/mpl/contains.hpp>
 
 namespace sge
 {
@@ -36,19 +38,44 @@ namespace sprite
 namespace detail
 {
 
-typedef image::color::rgba8 base_color;
-
-typedef renderer::vf::pos<funit, 3> vertex_pos;
-typedef renderer::vf::color<base_color::format> vertex_color;
-typedef renderer::vf::texpos<funit, 2> vertex_texpos;
-
-typedef renderer::vf::format<
-	boost::mpl::vector3<
-		vertex_pos,
-		vertex_color,
-		vertex_texpos
-	>
-> vertex_format;
+template<
+	typename Choices,
+	typename Elements
+>
+struct vertex_format
+{
+private:
+	typedef boost::mpl::vector1<
+		typename vertex_pos<
+			Choices,
+			Elements
+		>::type
+	> basic;
+public:
+	typedef renderer::vf::format<
+		sge::mpl::push_back_if<
+			boost::mpl::contains<
+				Elements,
+				with_color
+			>,
+			sge::mpl::push_back_if<
+				boost::mpl::contains<
+					Elements,
+					with_texture
+				>,
+				basic,
+				typename vertex_texpos<
+					Choices,
+					Elements
+				>::type
+			>,
+			typename vertex_color<
+				Choices,
+				Elements
+			>::type
+		>
+	> vertex_format;
+};
 
 }
 }
