@@ -18,25 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_POS3_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_POS3_HPP_INCLUDED
-
-#include <sge/sprite/funit.hpp>
-#include <sge/math/vector/static.hpp>
+#ifndef SGE_SPRITE_DEPTH_TYPE_HPP_INCLUDED
+#define SGE_SPRITE_DEPTH_TYPE_HPP_INCLUDED
 
 namespace sge
 {
 namespace sprite
 {
-namespace detail
+
+template<
+	typename Choices
+>
+struct depth_type
 {
+	typedef typename Choices::float_type type;
+};
 
-typedef math::vector::static_<
-	funit,
-	3
->::type pos3;
-
-}
 }
 }
 

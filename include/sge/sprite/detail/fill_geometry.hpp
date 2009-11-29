@@ -113,11 +113,6 @@ fill_geometry(
 
 		++count;
 #if 0
-		if(math::almost_zero(spr.rotation()))
-			fill_position(vb_it, spr.rect(), spr.z());
-		else
-			fill_position_rotated(vb_it, spr.rect(), spr.rotation(), spr.rotation_center(), spr.z());
-
 		if(
 			texture::const_part_ptr const tex = spr.texture()
 		)
@@ -128,9 +123,6 @@ fill_geometry(
 					spr.repeat()
 				)
 			);
-
-		vb_it = fill_color(vb_it, spr.color());
-
 #endif
 	}
 

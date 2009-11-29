@@ -18,10 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_CONTEXT_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_CONTEXT_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_FILL_COLOR_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_FILL_COLOR_HPP_INCLUDED
 
-#include <sge/math/vector/static.hpp>
+#include <sge/sprite/detail/vertices_per_sprite.hpp>
+#include <sge/sprite/detail/vertex_color.hpp>
+#include <sge/sprite/object_impl.hpp>
 
 namespace sge
 {
@@ -31,15 +33,33 @@ namespace detail
 {
 
 template<
-	typename CoordType
+	typename Iterator,
+	typename Choices,
+	typename Elements
 >
-class context {
-public:
-	typedef sge::math::vector::static_<
-		CoordType,
-		2
-	>::type pos_type;
-};
+void
+fill_color(
+	Iterator iterator,
+	object<
+		Choices,
+		Elements
+	> const &sprite_
+)
+{
+	for(
+		unsigned i = 0;
+		i < detail::vertices_per_sprite;
+		++i
+	)
+		(*iterator++).set<
+			typename vertex_color<
+				Choices,
+				Elements
+			>::type
+		>(
+			sprite_.color()
+		);
+}
 
 }
 }

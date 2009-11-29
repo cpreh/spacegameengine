@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_FILL_POSITON_UNROTATED_HPP_INCLUDED
 
 #include <sge/sprite/detail/vertex_pos.hpp>
+#include <sge/sprite/float_rect.hpp>
 
 namespace sge
 {
@@ -49,15 +50,15 @@ fill_position_rotated(
 		Elements
 	>::type vertex_pos;
 
-	typedef typename float_rect<
+	typedef typename sprite::float_rect<
 		Choices
-	>::type frect;
+	>::type float_rect;
 
-	frect const r(
+	float_rect const r(
 		math::box::structure_cast<
 			frect
 		>(
-			sprite::rect(
+			sprite::bounding_rect(
 				spr
 			)
 		)

@@ -18,43 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_BASE_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_BASE_HPP_INCLUDED
+#ifndef SGE_SPRITE_BOUNDING_RECT_HPP_INCLUDED
+#define SGE_SPRITE_BOUNDING_RECT_HPP_INCLUDED
 
-#include <sge/sprite/detail/context.hpp>
-#include <boost/mpl/inherit_linearly.hpp>
-#include <boost/mpl/inherit.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/bind.hpp>
+#include <sge/sprite/rect.hpp>
+#include <sge/sprite/object_impl.hpp>
 
 namespace sge
 {
 namespace sprite
 {
-namespace detail
-{
 
-template<
-	typename CoordType,
-	typename Policies
+template,
+	typename Choices,
+	typename Elements
 >
-struct base
-:
-	boost::mpl::inherit_linearly<
-		Policies,
-		boost::mpl::inherit<
-			boost::mpl::_1,
-			boost::mpl::bind<
-				boost::mpl::_2,
-				context<
-					CoordType
-				>
-			>
-		>
-	>
-{};
-
+typename rect<
+	Choices
+>::type const
+bound_rect(
+	object<
+		Choices,
+		Elements
+	> const &sprite_
+)
+{
+	return
+		typename rect<
+			Choices
+		>::type(
+			sprite_.pos(),
+			sprite_.size()
+		);
 }
+
 }
 }
 

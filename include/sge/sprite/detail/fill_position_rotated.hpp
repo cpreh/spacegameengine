@@ -22,6 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_FILL_POSITON_ROTATED_HPP_INCLUDED
 
 #include <sge/sprite/float_point.hpp>
+#include <sge/sprite/object_impl.hpp>
+#include <sge/math/matrix/static.hpp>
+#include <sge/math/matrix/basic_impl.hpp>
+#include <sge/math/vector/structure_cast.hpp>
+#include <sge/math/vector/construct.hpp>
+#include <boost/foreach.hpp>
+#include <tr1/array>
+#include <cmath>
 
 namespace sge
 {
@@ -44,6 +52,8 @@ fill_position_rotated(
 	> const &spr
 )
 {
+	typedef typename Choices::float_type funit;
+
 	typedef typename float_point<
 		Choices
 	>::type pos;
@@ -56,6 +66,20 @@ fill_position_rotated(
 		)
 	);
 
+	typedef typename sprite::float_rect<
+		Choices
+	>::type float_rect;
+
+	float_rect const rbs(
+		math::box::structure_cast<
+			frect
+		>(
+			sprite::bounding_rect(
+				spr
+			)
+		)
+	);
+
 	typedef std::tr1::array<
 		pos2,
 		detail::vertices_per_sprite
@@ -63,22 +87,30 @@ fill_position_rotated(
 
 	position_array const positions = {{
 		pos2(
-			static_cast<funit>(rbs.left()),
-			static_cast<funit>(rbs.top())
+			rbs.left(),
+			rbs.top()
 		) - centerf,
 		pos2(
-			static_cast<funit>(rbs.right()),
-			static_cast<funit>(rbs.top())
+			rbs.right(),
+			rbs.top()
 		) - centerf,
 		pos2(
-			static_cast<funit>(rbs.right()),
-			static_cast<funit>(rbs.bottom())
+			rbs.right(),
+			rbs.bottom()
 		) - centerf,
 		pos2(
-			static_cast<funit>(rbs.left()),
-			static_cast<funit>(rbs.bottom())
+			rbs.left(),
+			rbs.bottom()
 		) - centerf
 	}};
+
+	typedef typename sprite::rotation_type<
+		Choices
+	>::type rotation_type;
+	
+	rotation_type const rot(
+		spr.rotation()
+	);
 
 	funit const
 		sinx = std::sin(rot),
@@ -97,6 +129,10 @@ fill_position_rotated(
 		Choices,
 		Elements
 	>::type vertex_pos;
+
+	typedef typename depth_type<
+		Choices
+	>::type depth_type;
 
 	BOOST_FOREACH(
 		position_array::const_reference p,

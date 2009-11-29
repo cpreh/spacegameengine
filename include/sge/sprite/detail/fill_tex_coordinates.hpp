@@ -18,11 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_POS2_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_POS2_HPP_INCLUDED
-
-#include <sge/sprite/funit.hpp>
-#include <sge/math/vector/static.hpp>
+#ifndef SGE_SPRITE_DETAIL_FILL_TEX_COORDINATES_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_FILL_TEX_COORDINATES_HPP_INCLUDED
 
 namespace sge
 {
@@ -31,10 +28,33 @@ namespace sprite
 namespace detail
 {
 
-typedef math::vector::static_<
-	funit,
-	2
->::type pos2;
+template<
+	typename Iterator,
+	typename Choices,
+	typename Elements
+>
+void
+fill_tex_coordinates(
+	Iterator iterator,
+	object<
+		Choices,
+		Elements
+	> const &sprite_
+)
+{
+	(*it++).set<
+		vertex_texpos
+	>(
+		tex_pos(
+			rt.left(),
+			rt.top()
+		)
+	);
+
+	(*it++).set<vertex_texpos>(tex_pos(rt.right(), rt.top()));
+	(*it++).set<vertex_texpos>(tex_pos(rt.right(), rt.bottom()));
+	(*it++).set<vertex_texpos>(tex_pos(rt.left(), rt.bottom()));
+}
 
 }
 }
