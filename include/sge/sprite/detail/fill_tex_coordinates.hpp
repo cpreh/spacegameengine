@@ -21,6 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_FILL_TEX_COORDINATES_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_FILL_TEX_COORDINATES_HPP_INCLUDED
 
+#include <sge/sprite/detail/fill_tex_coordinate_rect.hpp>
+#include <sge/sprite/object_impl.hpp>
+#include <sge/texture/area_texc.hpp>
+#include <sge/texture/part.hpp>
+#include <boost/mpl/contains.hpp>
+#include <boost/utilty/enable_if.hpp>
+
 namespace sge
 {
 namespace sprite
@@ -33,27 +40,64 @@ template<
 	typename Choices,
 	typename Elements
 >
-void
+typename boost::enable_if<
+	boost::mpl::contains<
+		Elements,
+		with_repetition
+	>,
+	void
+>::type
 fill_tex_coordinates(
-	Iterator iterator,
+	Iterator const &iterator,
 	object<
 		Choices,
 		Elements
 	> const &sprite_
 )
 {
-	(*it++).set<
-		vertex_texpos
-	>(
-		tex_pos(
-			rt.left(),
-			rt.top()
+	if(
+		!sprite_.texture()
+	)
+		return;
+	
+	fill_tex_coorinates_rect(
+		iterator,
+		texture::area_texc(
+			sprite_.texture(),
+			spr.repeat()
 		)
 	);
+}
 
-	(*it++).set<vertex_texpos>(tex_pos(rt.right(), rt.top()));
-	(*it++).set<vertex_texpos>(tex_pos(rt.right(), rt.bottom()));
-	(*it++).set<vertex_texpos>(tex_pos(rt.left(), rt.bottom()));
+template<
+	typename Iterator,
+	typename Choices,
+	typename Elements
+>
+typename boost::disable_if<
+	boost::mpl::contains<
+		Elements,
+		with_repetition
+	>,
+	void
+>::type
+fill_tex_coordinates(
+	Iterator const &iterator,
+	object<
+		Choices,
+		Elements
+	> const &sprite_
+)
+{
+	if(
+		!sprite_.texture()
+	)
+		return;
+
+	fill_tex_coordinates_rect(
+		iterator,
+		sprite_.texture().area()
+	);	
 }
 
 }
