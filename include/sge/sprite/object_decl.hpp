@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/repetition_type.hpp>
 #include <sge/sprite/color.hpp>
 #include <sge/texture/part_fwd.hpp>
+#include <majutsu/role_return_type.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/mpl/empty_base.hpp>
@@ -226,10 +227,25 @@ public:
 	transfer(
 		system &
 	);
-private:
-	void
-	add_me();
 
+	template<
+		typename Role
+	>
+	typename majutsu::role_return_type<
+		Role
+	>::type
+	get() const;
+
+	template<
+		typename Role
+	>
+	void
+	set(
+		typename majutsu::role_return_Type<
+			Role
+		>::type const &
+	);
+private:
 	typedef detail::make_class<
 		Choices,
 		Elements
