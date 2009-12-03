@@ -36,7 +36,10 @@ namespace sprite
 namespace intrusive
 {
 
-class system : public system_base {
+class system
+:
+	public system_base
+{
 public:
 	SGE_SYMBOL explicit system(
 		renderer::device_ptr);

@@ -18,33 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DEFAULTS_HPP_INCLUDED
-#define SGE_SPRITE_DEFAULTS_HPP_INCLUDED
+#ifndef SGE_SPRITE_SYSTEM_HPP_INCLUDED
+#define SGE_SPRITE_SYSTEM_HPP_INCLUDED
 
-#include <sge/sprite/point.hpp>
-#include <sge/sprite/dim.hpp>
-#include <sge/sprite/color.hpp>
-#include <sge/sprite/depth_type.hpp>
-#include <sge/sprite/rotation_type.hpp>
-#include <sge/texture/part_fwd.hpp>
-#include <sge/export.hpp>
+#include <sge/sprite/intrusive/tag.hpp>
+#include <sge/sprite/intrusive/system.hpp>
+#include <sge/sprite/external_system.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/mpl/contains.hpp>
 
 namespace sge
 {
 namespace sprite
 {
-namespace defaults
-{
 
-SGE_SYMBOL point const pos();
-SGE_SYMBOL sge::texture::const_part_ptr const texture();
-SGE_SYMBOL dim const size();
-SGE_SYMBOL sprite::color const color();
-SGE_SYMBOL depth_type depth();
-SGE_SYMBOL rotation_type rotation();
-SGE_SYMBOL bool visible();
+template<
+	typename Choices,
+	typename Elements
+>
+struct system
+:
+boost::mpl::if_<
+	boost::mpl::contains<
+		Choices,
+		intrusive::tag
+	>,
+	intrusive::system<
+		Choices,
+		Elements
+	>,
+	external_system<
+		Choices,
+		Elements
+	>
+>
+{};
 
-}
 }
 }
 
