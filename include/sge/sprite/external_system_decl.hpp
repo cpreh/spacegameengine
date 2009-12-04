@@ -36,7 +36,7 @@ template<
 	typename Choices,
 	typename Elements
 >
-class system
+class external_system
 :
 	public system_base
 {
@@ -46,7 +46,7 @@ public:
 		Elements
 	> object;
 
-	explicit system(
+	explicit external_system(
 		renderer::device_ptr rend
 	);
 
