@@ -18,11 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MPL_PUSH_BACK_IF_HPP_INCLUDED
-#define SGE_MPL_PUSH_BACK_IF_HPP_INCLUDED
-
-#include <boost/mpl/if.hpp>
-#include <boost/mpl/push_back.hpp>
+#ifndef SGE_MPL_INNER_IF_HPP_INCLUDED
+#define SGE_MPL_INNER_IF_HPP_INCLUDED
 
 namespace sge
 {
@@ -30,21 +27,12 @@ namespace mpl
 {
 
 template<
-	typename Condition,
-	typename Sequence,
-	typename Element
+	typename Type
 >
-struct push_back_if
-:
-boost::mpl::if_<
-	Condition,
-	boost::mpl::push_back<
-		Sequence,
-		Element
-	>,
-	Sequence
->
-{};
+struct inner
+{
+	typedef typename Type::type type;
+};
 
 }
 }

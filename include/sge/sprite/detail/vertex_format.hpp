@@ -27,9 +27,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/with_color.hpp>
 #include <sge/sprite/with_texture.hpp>
 #include <sge/renderer/vf/format.hpp>
-#include <sge/mpl/push_back_if.hpp>
+//#include <sge/mpl/push_back_if.hpp>
+#include <sge/mpl/inner.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <boost/mpl/pair.hpp>
 #include <boost/mpl/contains.hpp>
+#include <boost/mpl/fold.hpp>
+#include <boost/mpl/placeholders.hpp>
+#include <boost/mpl/push_back.hpp>
+#include <boost/mpl/eval_if.hpp>
 
 namespace sge
 {
@@ -51,28 +57,45 @@ private:
 			Elements
 		>::type
 	> basic;
-public:
-	typedef renderer::vf::format<
-		typename sge::mpl::push_back_if<
-			boost::mpl::contains<
-				Elements,
-				with_color
-			>,
-			typename sge::mpl::push_back_if<
-				boost::mpl::contains<
-					Elements,
-					with_texture
-				>,
-				basic,
-				typename vertex_texpos<
-					Choices,
-					Elements
-				>::type
-			>::type,
-			typename vertex_color<
+
+	typedef boost::mpl::vector2<
+		boost::mpl::pair<
+			with_color,
+			vertex_color<
 				Choices,
 				Elements
-			>::type
+			>
+		>,
+		boost::mpl::pair<
+			with_texture,
+			vertex_texpos<
+				Choices,
+				Elements
+			>
+		>
+	> optional_elements;
+public:
+	typedef renderer::vf::format<
+		typename boost::mpl::fold<
+			optional_elements,
+			basic,
+			boost::mpl::eval_if<
+				boost::mpl::contains<
+					Elements,
+					boost::mpl::first<
+						boost::mpl::_2
+					>
+				>,
+				boost::mpl::push_back<
+					boost::mpl::_1,
+					sge::mpl::inner<
+						boost::mpl::second<
+							boost::mpl::_2
+						>
+					>
+				>,
+				boost::mpl::_1
+			>
 		>::type
 	> type;
 };

@@ -69,8 +69,7 @@ area_texc(
 		?
 			renderer::lock_rect_to_coords(
 				part->area(),
-				tex->dim(),
-				repeat
+				tex->dim()
 			)
 		:
 			math::box::rect<T>::type::null();

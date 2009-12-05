@@ -36,17 +36,18 @@ namespace renderer
 {
 
 template<
-	typename T
+	typename Ret
 >
-typename math::box::rect<T>::type const
+typename math::box::rect<
+	Ret
+>::type const
 lock_rect_to_coords(
 	lock_rect const &l,
-	dim_type const &dim,
-	T const repeat
+	dim_type const &dim
 )
 {
 	typedef typename math::box::rect<
-		T
+		Ret
 	>::type ret_type;
 
 	ret_type const srect(
@@ -76,8 +77,8 @@ lock_rect_to_coords(
 			srect.top() / sdim.h()
 		),
 		typename ret_type::dim_type(
-			repeat * srect.w() / sdim.w(),
-			repeat * srect.h() / sdim.h()
+			srect.w() / sdim.w(),
+			srect.h() / sdim.h()
 		)
 	);
 }
