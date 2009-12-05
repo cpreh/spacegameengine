@@ -50,7 +50,8 @@ struct with_texture<
 >
 {
 	template<
-		typename Choices
+		typename Choices,
+		typename Elements
 	>
 	struct apply
 	{

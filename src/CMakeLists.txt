@@ -49,8 +49,6 @@ FILE (GLOB sgecorefiles
 	signal/detail/*.cpp
 	sprite/*.cpp
 	sprite/detail/*.cpp
-	sprite/intrusive/*.cpp
-	sprite/intrusive/detail/*.cpp
 	systems/*.cpp
 	texture/*.cpp
 	texture/detail/*.cpp

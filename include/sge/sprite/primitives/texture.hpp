@@ -34,7 +34,7 @@ namespace primitives
 struct texture
 {
 	typedef majutsu::simple<
-		textures::const_part_ptr
+		sge::texture::const_part_ptr
 	> type;
 };
 

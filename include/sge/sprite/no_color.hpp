@@ -18,38 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_WITH_VISIBILITY_HPP_INCLUDED
-#define SGE_SPRITE_WITH_VISIBILITY_HPP_INCLUDED
-
-#include <sge/sprite/roles/visible.hpp>
-#include <sge/sprite/primitives/bool.hpp>
-#include <majutsu/role.hpp>
-#include <majutsu/composite.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#ifndef SGE_SPRITE_NO_COLOR_HPP_INCLUDED
+#define SGE_SPRITE_NO_COLOR_HPP_INCLUDED
 
 namespace sge
 {
 namespace sprite
 {
 
-struct with_visiblity
-{
-	template<
-		typename Choices,
-		typename Elements
-	>
-	struct apply
-	{
-		typedef majutsu::composite<
-			boost::mpl::vector1<
-				majutsu::role<
-					primitives::bool_,
-					roles::visible
-				>
-			>
-		> type;
-	};
-};
+struct no_color
+{};
 
 }
 }

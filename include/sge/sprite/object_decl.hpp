@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_OBJECT_DECL_HPP_INCLUDED
 
 #include <sge/sprite/detail/make_class.hpp>
+#include <sge/sprite/intrusive/detail/object_base_hook.hpp>
 #include <sge/sprite/intrusive/order.hpp>
+#include <sge/sprite/intrusive/system_fwd.hpp>
 #include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/point.hpp>
 #include <sge/sprite/dim.hpp>
@@ -48,7 +50,7 @@ template<
 class object
 :
 	public
-		typename boost::mpl::if_<
+		boost::mpl::if_<
 			boost::mpl::contains<
 				Elements,
 				intrusive::tag	
@@ -57,6 +59,12 @@ class object
 			boost::mpl::empty_base
 		>::type
 {
+	typedef typename detail::make_class<
+		Choices,
+		Elements
+	>::type element_type;
+
+	typedef typename element_type::memory_type::types flattened_types;
 public:
 	typedef Choices choices;
 	
@@ -91,6 +99,11 @@ public:
 	typedef typename intrusive::order<
 		Choices
 	>::type order_type;
+
+	typedef typename intrusive::system<
+		Choices,
+		Elements
+	>::type system;
 
 	template<
 		typename Parameters
@@ -232,6 +245,7 @@ public:
 		typename Role
 	>
 	typename majutsu::role_return_type<
+		flattened_types,
 		Role
 	>::type
 	get() const;
@@ -241,17 +255,13 @@ public:
 	>
 	void
 	set(
-		typename majutsu::role_return_Type<
+		typename majutsu::role_return_type<
+			flattened_types,
 			Role
 		>::type const &
 	);
 private:
-	typedef detail::make_class<
-		Choices,
-		Elements
-	>::type element_type;
-
-	element_type elements;
+	element_type elements_;
 };
 
 }

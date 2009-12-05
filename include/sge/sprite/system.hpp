@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_SYSTEM_HPP_INCLUDED
 
 #include <sge/sprite/intrusive/tag.hpp>
-#include <sge/sprite/intrusive/system.hpp>
-#include <sge/sprite/external_system.hpp>
+#include <sge/sprite/intrusive/system_fwd.hpp>
+#include <sge/sprite/external_system_fwd.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/contains.hpp>
 
@@ -40,7 +40,7 @@ struct system
 :
 boost::mpl::if_<
 	boost::mpl::contains<
-		Choices,
+		Elements,
 		intrusive::tag
 	>,
 	intrusive::system<

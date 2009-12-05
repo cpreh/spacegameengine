@@ -40,6 +40,8 @@ typedef boost::intrusive::list_base_hook<
 > object_base_hook;
 
 }
+
+}
 }
 }
 

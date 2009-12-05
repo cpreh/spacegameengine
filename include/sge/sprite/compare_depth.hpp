@@ -28,8 +28,6 @@ namespace sge
 {
 namespace sprite
 {
-namespace detail
-{
 
 template<
 	typename Object
@@ -47,7 +45,6 @@ compare_depth(
 		);
 }
 
-}
 }
 }
 

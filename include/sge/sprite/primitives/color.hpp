@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_PRIMITIVES_COLOR_HPP_INCLUDED
 
 #include <majutsu/simple.hpp>
+#include <mizuiro/color/object_impl.hpp>
 
 namespace sge
 {
@@ -36,7 +37,9 @@ template<
 struct color
 {
 	typedef majutsu::simple<
-		Type
+		mizuiro::color::object<
+			Type
+		>
 	> type;
 };
 

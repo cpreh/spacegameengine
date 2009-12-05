@@ -32,26 +32,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/modifier/filter.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/signal/scoped_connection.hpp>
-#include <sge/sprite/object.hpp>
 #include <sge/sprite/system.hpp>
+#include <sge/sprite/external_system_decl.hpp>
+#include <sge/sprite/object_decl.hpp>
+#include <sge/sprite/no_color.hpp>
+#include <sge/sprite/choices.hpp>
+#include <sge/sprite/with_texture.hpp>
 #include <sge/noncopyable.hpp>
-#include <deque>
 
 namespace sge
 {
 namespace console
 {
+
 class gfx
 {
 	SGE_NONCOPYABLE(gfx)
 public:
+	typedef sge::sprite::choices<
+		int,
+		float,
+		sprite::no_color
+	> sprite_choices;
+
+	typedef boost::mpl::vector1<
+		sprite::with_texture<
+			1u
+		>
+	> sprite_elements;
+
+	typedef sprite::system<
+		sprite_choices,
+		sprite_elements
+	> sprite_system;
+
+	typedef sprite::object<
+		sprite_choices,
+		sprite_elements
+	> sprite_object;
+
 	SGE_SYMBOL gfx(
 		sge::console::object &,
 		renderer::device_ptr,
 		image::color::any::object const &font_color,
 		font::metrics_ptr,
 		input::system_ptr,
-		sprite::object const &);
+		sprite_object const &
+	);
+
 	SGE_SYMBOL ~gfx();
 
 	SGE_SYMBOL void draw();
@@ -66,8 +94,9 @@ private:
 	input::system_ptr const is;
 	input::modifier::filter mf;
 	sge::signal::scoped_connection const ic, irc;
-	sprite::system ss;
-	sprite::object bg;
+
+	sprite_system ss;
+	sprite_object bg;
 	bool active_;
 
 	detail::cursor input_line_;
@@ -76,13 +105,17 @@ private:
 	detail::history input_history_;
 	detail::history output_history_;
 
-	SGE_SYMBOL void key_callback(
+	void
+	key_callback(
 		input::key_pair const &,
-		input::modifier::states const &);
+		input::modifier::states const &
+	);
 
-	SGE_SYMBOL void key_action(
+	void
+	key_action(
 		input::key_type const &,
-		input::modifier::states const &);
+		input::modifier::states const &
+	);
 
 	void tab_complete(string &);
 };

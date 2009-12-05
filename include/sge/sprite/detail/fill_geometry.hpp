@@ -112,18 +112,6 @@ fill_geometry(
 		vb_it += detail::vertices_per_sprite;
 
 		++count;
-#if 0
-		if(
-			texture::const_part_ptr const tex = spr.texture()
-		)
-			fill_tex_coordinates(
-				vb_it,
-				texture::area_texc(
-					tex,
-					spr.repeat()
-				)
-			);
-#endif
 	}
 
 	renderer::index::generate(

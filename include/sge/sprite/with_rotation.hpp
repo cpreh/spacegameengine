@@ -39,7 +39,8 @@ namespace sprite
 struct with_rotation
 {
 	template<
-		typename Choices
+		typename Choices,
+		typename Elements
 	>
 	struct apply
 	{

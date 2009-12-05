@@ -35,7 +35,8 @@ namespace sprite
 struct with_repetition
 {
 	template<
-		typename Choices
+		typename Choices,
+		typename Elements
 	>
 	struct apply
 	{

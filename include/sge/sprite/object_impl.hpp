@@ -47,8 +47,8 @@ sge::sprite::object<Choices, Elements>::object(
 	Parameters const &parameters_
 )
 :
-	elements(
-		parameters_.elements()
+	elements_(
+		parameters_.elements_()
 	)
 {}
 
@@ -60,8 +60,8 @@ sge::sprite::object<Choices, Elements>::object(
 	object const &other_
 )
 :
-	elements(
-		other.elements
+	elements_(
+		other.elements_
 	)
 {
 	detail::assign_post(
@@ -83,7 +83,7 @@ sge::sprite::object<Choices, Elements>::operator=(
 		other_
 	);
 
-	elements = other_.elements;
+	elements_ = other_.elements_;
 
 	detail::assign_post(
 		*this
@@ -120,7 +120,7 @@ typename sge::sprite::object<Choices, Elements>::point const
 sge::sprite::object<Choices, Elements>::pos() const
 {
 	return
-		elements. template get<
+		elements_. template get<
 			roles::pos
 		>();
 }
@@ -153,7 +153,7 @@ typename sge::sprite::object<Choices, Elements>::dim
 sge::sprite::object<Choices, Elements>::size() const
 {
 	return
-		elements. template get<
+		elements_. template get<
 			roles::size
 		>();
 }
@@ -166,7 +166,7 @@ typename sge::sprite::object<Choices, Elements>::depth_type
 sge::sprite::object<Choices, Elements>::z() const
 {
 	return
-		elements. template get<
+		elements_. template get<
 			roles::depth
 		>();
 }
@@ -179,7 +179,7 @@ bool
 sge::sprite::object<Choices, Elements>::visible() const
 {
 	return
-		elements. template get<
+		elements_. template get<
 			roles::visible
 		>();
 }
@@ -192,7 +192,7 @@ typename sge::sprite::object<Choices, Elements>::rotation_type
 sge::sprite::object<Choices, Elements>::rotation() const
 {
 	return
-		elements. template get<
+		elements_. template get<
 			roles::rotation
 		>();
 }
@@ -205,12 +205,12 @@ typename sge::sprite::object<Choices, Elements>::point const
 sge::sprite::object<Choices, Elements>::rotation_center() const
 {
 	return
-		elements. template get<
+		elements_. template get<
 			roles::use_rotation
 		>()
 		?
 			pos()
-			+ elements. template get<
+			+ elements_. template get<
 				roles::rotate_around
 			>()
 		:
@@ -227,7 +227,7 @@ typename sge::sprite::object<Choices, Elements>::repetition_type
 sge::sprite::object<Choices, Elements>::repeat() const
 {
 	return
-		elements. template get<
+		elements_. template get<
 			roles::repetition
 		>();
 }
@@ -240,7 +240,7 @@ typename sge::sprite::object<Choices, Elements>::color_type  const
 sge::sprite::object<Choices, Elements>::color() const
 {
 	return
-		elements. template get<
+		elements_. template get<
 			roles::color
 		>();
 }
@@ -253,7 +253,7 @@ sge::texture::const_part_ptr const
 sge::sprite::object<Choices, Elements>::texture() const
 {
 	return
-		elements. template get<
+		elements_. template get<
 			roles::texture
 		>();
 }
@@ -266,7 +266,7 @@ typename sge;:sprite::object<Choices, Elements>::order_type
 sge::sprite::object<Choices, Elements>::order() const
 {
 	return
-		elements. template get<
+		elements_. template get<
 			roles::order
 		>();
 }
@@ -310,7 +310,7 @@ sge::sprite::object<Choices, Elements>::z(
 	depth_type const depth_
 ) 
 {
-	elements. template set<
+	elements_. template set<
 		roles::depth
 	>(
 		depth_
@@ -326,7 +326,7 @@ sge::sprite::object<Choices, Elements>::pos(
 	point const &pos_
 )
 {
-	elements. template set<
+	elements_. template set<
 		roles::pos
 	>(
 		pos_
@@ -369,7 +369,7 @@ sge::sprite::object<Choices, Elements>::size(
 	dim const &dim_
 ) 
 {
-	elements. template set<
+	elements_. template set<
 		roles::dim
 	>(
 		dim_
@@ -385,7 +385,7 @@ sge::sprite::object<Choices, Elements>::visible(
 	bool const visible_
 )
 {
-	elements. template set<
+	elements_. template set<
 		roles::visible
 	>(
 		visible_
@@ -401,7 +401,7 @@ sge::sprite::object<Choices, Elements>::texture(
 	::sge::texture::const_part_ptr const texture_
 )
 {
-	elements. template set<
+	elements_. template set<
 		roles::texture
 	>(
 		texture_
@@ -417,7 +417,7 @@ sge::sprite::object<Choices, Elements>::rotation(
 	rotation_type const rotation_
 )
 {
-	elements. template set<
+	elements_. template set<
 		roles::rotation
 	>(
 		rotation_
@@ -433,7 +433,7 @@ sge::sprite::object<Choices, Elements>::rotate_around(
 	point const &rotate_around_
 )
 {
-	elements. template set<
+	elements_. template set<
 		roles::rotate_around
 	>(
 		rotate_around_
@@ -447,7 +447,7 @@ template<
 void
 sge::sprite::object<Choices, Elements>::reset_rotation()
 {
-	elements. template set<
+	elements_. template set<
 		roles::rotate_arond
 	>(
 		point()
@@ -463,7 +463,7 @@ sge::sprite::object<Choices, Elements>::repeat(
 	repetition_type const repeat_
 )
 {
-	elements. template set<
+	elements_. template set<
 		roles::repetition
 	>(
 		repeat_
@@ -479,7 +479,7 @@ sge::sprite::object<Choices, Elements>::color(
 	sprite::color const &color_
 )
 {
-	elements. template set<
+	elements_. template set<
 		roles::color
 	>(
 		color_
@@ -497,7 +497,7 @@ sge::sprite::object<Choices, Elements>::order(
 {
 	unlink();
 
-	elements. template set<
+	elements_. template set<
 		roles::order
 	>(
 		order_
@@ -519,7 +519,7 @@ sge::sprite::object<Choices, Elements>::transfer(
 {
 	unlink();
 
-	elements. template set<
+	elements_. template set<
 		roles::system
 	>(
 		&system_
@@ -538,12 +538,16 @@ template<
 	typename Role
 >
 typename majutsu::role_return_type<
+	typename sge::sprite::object<
+		Choices,
+		Elements
+	>::flattened_types,
 	Role
 >::type
 sge::sprite::object<Choices, Elements>::get() const
 {
 	return
-		elements. template get<
+		elements_. template get<
 			Role
 		>();
 }
@@ -558,11 +562,12 @@ template<
 void
 sge::sprite::object<Choices, Elements>::set(
 	typename majutsu::role_return_Type<
+		flattened_types,
 		Role
 	>::type const &value_
 )
 {
-	elements. template set<
+	elements_. template set<
 		Role
 	>(
 		value_

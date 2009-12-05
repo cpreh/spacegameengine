@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/external_system_fwd.hpp>
 #include <sge/sprite/object_fwd.hpp>
-#include <sge/sprite/system_base.hpp>
+#include <sge/sprite/system_base_decl.hpp>
 #include <sge/renderer/device_fwd.hpp>
 
 namespace sge
@@ -37,7 +37,10 @@ template<
 >
 class external_system
 :
-	public system_base
+	public system_base<
+		Choices,
+		Elements
+	>
 {
 public:
 	typedef sprite::object<
@@ -58,13 +61,13 @@ public:
 	render(
 		Iterator begin,
 		Iterator end,
-		SortFunction const &
+		SortFunction const &,
 		EqualFunction const &
 	);
 
 	void
 	render(
-		object_type const &
+		object const &
 	);
 };
 

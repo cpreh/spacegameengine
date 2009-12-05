@@ -70,16 +70,17 @@ struct make_class
 						roles::size
 					>,
 					majutsu::role<
-						typename primitves::float_<
+						typename primitives::float_<
 							typename Choices::float_type
-						>,
+						>::type,
 						roles::depth
 					>
 				>
 			>::type,
 			boost::mpl::apply<
 				boost::mpl::_1,
-				Choices
+				Choices,
+				Elements
 			>
 		>::type,
 		majutsu::memory::fusion

@@ -31,10 +31,17 @@ namespace sprite
 namespace primitives
 {
 
+template<
+	typename Choices,
+	typename Elements
+>
 struct system
 {
 	typedef majutsu::simple<
-		intrusive::system *
+		intrusive::system<
+			Choices,
+			Elements
+		> *
 	> type;
 };
 

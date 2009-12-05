@@ -9,7 +9,7 @@ of the License, or (at your option) any later version.
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURDIME.  See the
 GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
@@ -18,39 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_WITH_VISIBILITY_HPP_INCLUDED
-#define SGE_SPRITE_WITH_VISIBILITY_HPP_INCLUDED
+#ifndef SGE_SPRITE_PRIMITIVES_DIM_HPP_INCLUDED
+#define SGE_SPRITE_PRIMITIVES_DIM_HPP_INCLUDED
 
-#include <sge/sprite/roles/visible.hpp>
-#include <sge/sprite/primitives/bool.hpp>
-#include <majutsu/role.hpp>
-#include <majutsu/composite.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <sge/math/dim/static.hpp>
+#include <majutsu/simple.hpp>
 
 namespace sge
 {
 namespace sprite
 {
-
-struct with_visiblity
+namespace primitives
 {
-	template<
-		typename Choices,
-		typename Elements
-	>
-	struct apply
-	{
-		typedef majutsu::composite<
-			boost::mpl::vector1<
-				majutsu::role<
-					primitives::bool_,
-					roles::visible
-				>
-			>
-		> type;
-	};
+
+template<
+	typename Type
+>
+struct dim
+{
+	typedef majutsu::simple<
+		typename math::dim::static_<
+			Type,
+			2
+		>::type
+	> type;
 };
 
+}
 }
 }
 

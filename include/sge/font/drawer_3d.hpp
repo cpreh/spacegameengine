@@ -28,57 +28,103 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/manager.hpp>
 #include <sge/texture/part_fwd.hpp>
 #include <sge/sprite/system.hpp>
-#include <sge/sprite/container.hpp>
+#include <sge/sprite/external_system_decl.hpp>
+#include <sge/sprite/object_decl.hpp>
+#include <sge/sprite/with_color.hpp>
+#include <sge/sprite/with_texture.hpp>
 #include <sge/image/color/any/object.hpp>
+#include <sge/image/color/rgba8_format.hpp>
 #include <sge/variant/object_impl.hpp>
 #include <sge/export.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <map>
+#include <vector>
 
 namespace sge
 {
-
 namespace font
 {
 
-class SGE_CLASS_SYMBOL drawer_3d : public drawer {
+class SGE_CLASS_SYMBOL drawer_3d
+:
+	public drawer
+{
 public:
 	SGE_SYMBOL drawer_3d(
 		renderer::device_ptr rend,
-		image::color::any::object const &);
+		image::color::any::object const &
+	);
 
 	SGE_SYMBOL ~drawer_3d();
 
-	SGE_SYMBOL void begin_rendering(
+	SGE_SYMBOL void
+	begin_rendering(
 		size_type buffer_chars,
 		pos const &start,
-		dim size);
+		dim size
+	);
 
-	SGE_SYMBOL void draw_char(
+	SGE_SYMBOL void
+	draw_char(
 		char_type,
 		pos const &,
-		const_image_view const &data);
+		const_image_view const &data
+	);
 
-	SGE_SYMBOL void end_rendering();
+	SGE_SYMBOL void
+	end_rendering();
 
 	SGE_SYMBOL void
 	color(
-		image::color::any::object const &col);
+		image::color::any::object const &col
+	);
 private:
 	texture::const_part_ptr const
 	cached_texture(
 		char_type,
-		const_image_view const &);
+		const_image_view const &
+	);
 
-	renderer::device_ptr            rend;
-	image::color::any::object       col;
-	texture::manager                texman;
+	renderer::device_ptr rend;
+
+	image::color::any::object col;
+	texture::manager texman;
+
 	typedef std::map<
 		char_type,
 		texture::const_part_ptr
-	>                               texture_map;
-	texture_map                     textures;
-	sprite::system                  sys;
-	sprite::container               sprites;
+	> texture_map;
+
+	texture_map textures;
+
+	typedef sge::sprite::choices<
+		int,
+		float,
+		image::color::rgba8_format
+	> sprite_choices;
+
+	typedef boost::mpl::vector2<
+		sprite::with_color,
+		sprite::with_texture
+	> sprite_elements;
+
+	typedef sprite::system<
+		sprite_choices,
+		sprite_elements
+	>::type sprite_system;
+
+	typedef sprite::object<
+		sprite_choices,
+		sprite_elements
+	> sprite_object;
+
+	typedef std::vector<
+		sprite_object
+	> sprite_container;
+
+	sprite_system sys;
+
+	sprite_container sprites;
 };
 
 }

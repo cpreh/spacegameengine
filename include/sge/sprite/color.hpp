@@ -41,5 +41,4 @@ struct color
 }
 }
 
-
 #endif
