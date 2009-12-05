@@ -18,17 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_SYSTEM_FWD_HPP_INCLUDED
-#define SGE_SPRITE_SYSTEM_FWD_HPP_INCLUDED
-
-#include <sge/shared_ptr.hpp>
+#ifndef SGE_SPRITE_EXTERNAL_SYSTEM_FWD_HPP_INCLUDED
+#define SGE_SPRITE_EXTERNAL_SYSTEM_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace sprite
 {
 
-class system;
+template<
+	typename Choices,
+	typename Elements
+>
+class external_system;
 
 }
 }

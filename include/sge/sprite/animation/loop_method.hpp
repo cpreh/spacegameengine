@@ -18,29 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_POINT_FLOAT_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_POINT_FLOAT_HPP_INCLUDED
-
-#include <sge/sprite/primitives/pos.hpp>
+#ifndef SGE_SPRITE_ANIMATION_LOOP_METHOD_HPP_INCLUDED
+#define SGE_SPRITE_ANIMATION_LOOP_METHOD_HPP_INCLUDED
 
 namespace sge
 {
 namespace sprite
 {
-namespace detail
+namespace animation
 {
 
-template<
-	typename Choices
->
-struct point_float
+namespace loop_method
 {
-	typedef typename primitives::pos<
-		typename Choices::float_type
-	>::type::type type;
+enum type {
+	repeat,
+	stop_at_end
 };
-
 }
+
 }
 }
 

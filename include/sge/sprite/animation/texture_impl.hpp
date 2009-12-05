@@ -18,19 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/sprite/texture_animation.hpp>
+#ifndef SGE_SPRITE_ANIMATION_TEXTURE_IMPL_HPP_INCLUDED
+#define SGE_SPRITE_ANIMATION_TEXTURE_IMPL_HPP_INCLUDED
+
+#include <sge/sprite/animation::texture.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/time/resolution.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <boost/next_prior.hpp>
 
-sge::sprite::texture_animation::texture_animation(
-	animation_series const &nseries_,
+template<
+	typename Choices,
+	typename Elements
+>
+sge::sprite::animation::texture<Choices, Elements>::animation::texture(
+	animation::series const &nseries_,
 	loop_method::type const action,
 	object &spr,
-	time::fun const &time_function)
+	time::fun const &time_function
+)
 :
+	base(),
 	series_(nseries_),
 	action(action),
 	cur_timer(
@@ -45,11 +54,18 @@ sge::sprite::texture_animation::texture_animation(
 {
 	if(series_.empty())
 		throw exception(
-			SGE_TEXT("texture_animation series is empty!"));
+			SGE_TEXT("animation::texture series is empty!")
+		);
+	
 	reset();
 }
 
-bool sge::sprite::texture_animation::process()
+template<
+	typename Choices,
+	typename Elements
+>
+bool
+sge::sprite::animation::texture<Choices, Elements>::process()
 {
 	if(!cur_timer.expired())
 		return false;
@@ -63,7 +79,8 @@ bool sge::sprite::texture_animation::process()
 			return true;
 		default:
 			throw exception(
-				SGE_TEXT("Invalid loop_method!"));
+				SGE_TEXT("Invalid loop_method!")
+			);
 		}
 	}
 
@@ -71,16 +88,30 @@ bool sge::sprite::texture_animation::process()
 
 	cur_timer.interval(
 		time::resolution(
-			pos->delay()));
-	spr.texture(pos->tex());
+			pos->delay()
+		)
+	);
+
+	spr.texture(
+		pos->tex()
+	);
 
 	return false;
 }
 
-void sge::sprite::texture_animation::reset()
+template<
+	typename Choices,
+	typename Elements
+>
+void
+sge::sprite::animation::texture<Choices, Elements>::reset()
 {
-	spr.texture(series_.begin()->tex());
+	spr.texture(
+		series_.begin()->tex()
+	);
+	
 	pos = series_.begin();
+
 	cur_timer.interval(
 		time::resolution(
 			series_.begin()->delay()
@@ -88,8 +119,12 @@ void sge::sprite::texture_animation::reset()
 	);
 }
 
-sge::sprite::animation_series const &
-sge::sprite::texture_animation::series() const
+template<
+	typename Choices,
+	typename Elements
+>
+sge::sprite::animation::series const &
+sge::sprite::animation::texture<Choices, Elements>::series() const
 {
 	return series_;
 }

@@ -18,7 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/sprite/system_base.hpp>
+#ifndef SGE_SPRITE_SYSTEM_BASE_IMPL_HPP_INCLUDED
+#define SGE_SPRITE_SYSTEM_BASE_IMPL_HPP_INCLUDED
+
+#include <sge/sprite/system_base_decl.hpp>
 #include <sge/sprite/detail/vertex_format.hpp>
 #include <sge/sprite/detail/vertices_per_sprite.hpp>
 #include <sge/sprite/detail/indices_per_sprite.hpp>
@@ -158,3 +161,5 @@ sge::sprite::system_base<Choices, Elements>::dyn_vertex_fmt(
 		>::type
 	>()
 );
+
+#endif

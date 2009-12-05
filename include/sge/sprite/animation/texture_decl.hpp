@@ -18,14 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_ANIMATION_TEXTURE_HPP_INCLUDED
-#define SGE_SPRITE_ANIMATION_TEXTURE_HPP_INCLUDED
+#ifndef SGE_SPRITE_ANIMATION_TEXTURE_DECL_HPP_INCLUDED
+#define SGE_SPRITE_ANIMATION_TEXTURE_DECL_HPP_INCLUDED
 
-#include <sge/sprite/animation.hpp>
-#include <sge/sprite/animation_series.hpp>
+#include <sge/sprite/animation/texture_fwd.hpp>
+#include <sge/sprite/animation/base.hpp>
+#include <sge/sprite/animation/series.hpp>
+#include <sge/sprite/animation/loop_method.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/time/fun.hpp>
-#include <sge/export.hpp>
 
 namespace sge
 {
@@ -38,9 +39,9 @@ template<
 	typename Choices,
 	typename Elements
 >
-class SGE_CLASS_SYMBOL texture_animation
+class texture_animation
 :
-	public animation
+	public base
 {
 public:
 	typedef sprite::object<
@@ -48,37 +49,27 @@ public:
 		Elements
 	> object;
 
-	class loop_method {
-	public:
-		enum type {
-			repeat,
-			stop_at_end
-		};
-	};
-
-	SGE_SYMBOL texture(
-		animation_series const &,
+	texture(
+		animation::series const &,
 		loop_method::type,
 		object &init_sprite,
 		time::fun const &time_fun
-			= time::default_time_fun()
 	);
 
-	SGE_SYMBOL bool
+	bool
 	process();
 
-	SGE_SYMBOL void
+	void
 	reset();
 
-	SGE_SYMBOL
-	animation_series const &
+	animation::series const &
 	series() const;
 private:
-	animation_series series_;
+	animation::series series_;
 	loop_method::type action;
 	time::timer cur_timer;
 	object &spr;
-	animation_series::const_iterator pos;
+	animation::series::const_iterator pos;
 };
 
 }
