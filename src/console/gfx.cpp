@@ -31,6 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/container/map_impl.hpp>
 #include <sge/math/box/basic_impl.hpp>
 #include <sge/math/vector/structure_cast.hpp>
+#include <sge/sprite/external_system_impl.hpp>
+#include <sge/sprite/render_one.hpp>
 #include <sge/make_shared_ptr.hpp>
 #include <boost/foreach.hpp>
 #include <tr1/functional>
@@ -42,7 +44,8 @@ sge::console::gfx::gfx(
 	image::color::any::object const &_font_color,
 	font::metrics_ptr const _metrics,
 	input::system_ptr const _is,
-	sprite::object const &_bg)
+	sprite_object const &_bg
+)
 :
 	object_(_object),
 	fn(
@@ -94,9 +97,13 @@ sge::console::gfx::gfx(
 sge::console::gfx::~gfx()
 {}
 
-void sge::console::gfx::draw()
+void
+sge::console::gfx::draw()
 {
-	ss.render(bg);
+	sprite::render_one(
+		ss,
+		bg
+	);
 
 	font::unit current_y = static_cast<font::unit>(bg.y()+bg.h()-2*fn.height());
 	BOOST_FOREACH(

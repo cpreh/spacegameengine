@@ -21,10 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_FILL_POSITION_ROTATED_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_FILL_POSITION_ROTATED_HPP_INCLUDED
 
-#include <sge/sprite/float_point.hpp>
+#include <sge/sprite/detail/point_float.hpp>
+#include <sge/sprite/detail/rect_float.hpp>
+#include <sge/sprite/detail/vertices_per_sprite.hpp>
 #include <sge/sprite/object_impl.hpp>
+#include <sge/sprite/bounding_rect.hpp>
+#include <sge/sprite/depth_type.hpp>
 #include <sge/math/matrix/static.hpp>
 #include <sge/math/matrix/basic_impl.hpp>
+#include <sge/math/box/structure_cast.hpp>
 #include <sge/math/vector/structure_cast.hpp>
 #include <sge/math/vector/construct.hpp>
 #include <boost/foreach.hpp>
@@ -54,9 +59,9 @@ fill_position_rotated(
 {
 	typedef typename Choices::float_type funit;
 
-	typedef typename float_point<
+	typedef typename point_float<
 		Choices
-	>::type pos;
+	>::type pos2;
 
 	pos2 const centerf(
 		math::vector::structure_cast<
@@ -66,13 +71,13 @@ fill_position_rotated(
 		)
 	);
 
-	typedef typename sprite::float_rect<
+	typedef typename detail::rect_float<
 		Choices
 	>::type float_rect;
 
 	float_rect const rbs(
 		math::box::structure_cast<
-			frect
+			float_rect
 		>(
 			sprite::bounding_rect(
 				spr
@@ -116,11 +121,13 @@ fill_position_rotated(
 		sinx = std::sin(rot),
 		cosx = std::cos(rot);
 
-	math::matrix::static_<
+	typedef typename math::matrix::static_<
 		funit,
 		2,
 		2
-	>::type const mat_rot(
+	>::type matrix2x2;
+	
+	matrix2x2 const mat_rot(
 		cosx, -sinx,
 		sinx,  cosx
 	);
@@ -130,20 +137,31 @@ fill_position_rotated(
 		Elements
 	>::type vertex_pos;
 
-	typedef typename depth_type<
+	typedef typename sprite::depth_type<
 		Choices
 	>::type depth_type;
 
-	BOOST_FOREACH(
-		position_array::const_reference p,
+	depth_type const depth_(
+		spr.z()
+	);
+
+	/*BOOST_FOREACH(
+		position_array::const_reference pos_,
 		positions
+	)*/
+	for(
+		typename position_array::const_iterator it(
+			positions.begin()
+		);
+		it != positions.end();
+		++it
 	)
-		(*iterator++).set<
+		(*iterator++). template set<
 			vertex_pos
 		>(
 			construct(
-				(mat_rot * p) + centerf,
-				z
+				(mat_rot * *it) + centerf,
+				depth_
 			)
 		);
 }

@@ -18,74 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_FILL_TEX_COORDINATES_RECT_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_FILL_TEX_COORDINATES_RECT_HPP_INCLUDED
+#ifndef SGE_SPRITE_RENDER_ONE_HPP_INCLUDED
+#define SGE_SPRITE_RENDER_ONE_HPP_INCLUDED
 
-#include <sge/sprite/detail/point_float.hpp>
-#include <sge/sprite/detail/rect_float.hpp>
+#include <sge/sprite/external_system_impl.hpp>
+#include <sge/sprite/object_fwd.hpp>
+#include <sge/sprite/dont_sort.hpp>
+#include <sge/sprite/default_equal.hpp>
 
 namespace sge
 {
 namespace sprite
 {
-namespace detail
-{
 
 template<
-	typename Iterator,
 	typename Choices,
 	typename Elements
 >
 void
-fill_tex_coordinates_rect(
-	Iterator iterator,
-	typename rect_float<
-		Choices
-	>::type const &rt
+render_one(
+	external_system<
+		Choices,
+		Elements
+	> &system_,
+	object<
+		Choices,
+		Elements
+	> const &sprite_
 )
 {
-	typedef typename point_float<
-		Choices
-	>::type tex_pos;
-
-	(*iterator++). template set<
-		vertex_texpos
-	>(
-		tex_pos(
-			rt.left(),
-			rt.top()
-		)
-	);
-
-	(*iterator++). template set<
-		vertex_texpos
-	>(
-		tex_pos(
-			rt.right(),
-			rt.top()
-		)
-	);
-
-	(*iterator++). template set<
-		vertex_texpos
-	>(
-		tex_pos(
-			rt.right(),
-			rt.bottom()
-		)
-	);
-
-	(*iterator++). template set<
-		vertex_texpos
-	>(
-		tex_pos(
-			rt.left(),
-			rt.bottom()
-		)
+	system_.render(
+		&sprite_,
+		&sprite_ + 1u,
+		dont_sort(),
+		default_equal()
 	);
 }
 
-}
 }
 }
 

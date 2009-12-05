@@ -33,7 +33,7 @@ namespace detail
 template<
 	typename Choices
 >
-struct rect
+struct rect_float
 :
 math::box::rect<
 	typename Choices::float_unit

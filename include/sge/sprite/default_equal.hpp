@@ -36,38 +36,44 @@ struct default_equal
 {
 	typedef bool result_type;
 
+	template<
+		typename Object
+	>
 	typename boost::enable_if<
 		boost::mpl::contains<
-			typename Object::elements
+			typename Object::elements,
 			with_texture
 		>,
 		result_type
 	>::type
-	operator(
+	operator()(
 		Object const &a,
 		Object const &b
 	) const
 	{
 		return
-			compare_depth(l, r)
-			&& l.texture() == r.texture();
+			compare_depth(a, b)
+			&& a.texture() == b.texture();
 
 	}
 
+	template<
+		typename Object
+	>
 	typename boost::disable_if<
 		boost::mpl::contains<
-			typename Object::elements
+			typename Object::elements,
 			with_texture
 		>,
 		result_type
 	>::type
-	operator(
+	operator()(
 		Object const &a,
 		Object const &b
 	) const
 	{
 		return
-			compare_depth(l, r);
+			compare_depth(a, b);
 	}
 };
 

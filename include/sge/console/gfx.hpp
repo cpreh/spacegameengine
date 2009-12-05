@@ -56,15 +56,13 @@ public:
 	> sprite_choices;
 
 	typedef boost::mpl::vector1<
-		sprite::with_texture<
-			1u
-		>
+		sprite::with_texture
 	> sprite_elements;
 
 	typedef sprite::system<
 		sprite_choices,
 		sprite_elements
-	> sprite_system;
+	>::type sprite_system;
 
 	typedef sprite::object<
 		sprite_choices,

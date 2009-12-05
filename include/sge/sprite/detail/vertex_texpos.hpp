@@ -38,8 +38,7 @@ struct vertex_texpos
 {
 	typedef renderer::vf::texpos<
 		typename Choices::float_type,
-			2
-		>
+		2
 	> type;
 };
 

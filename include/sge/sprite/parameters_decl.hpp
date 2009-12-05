@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/parameters_fwd.hpp>
 #include <sge/sprite/detail/make_class.hpp>
-#include <majutsu/find_role.hpp>
+#include <majutsu/role_return_type.hpp>
 
 namespace sge
 {
@@ -47,17 +47,17 @@ public:
 		typename Role
 	>
 	parameters const
-	add(
-		typename majutsu::find_role<
+	set(
+		typename majutsu::role_return_type<
 			typename elements_type::memory_type::types,
 			Role
 		>::type const &
 	) const;
 
-	element_type const &
+	elements_type const &
 	elements() const;
 private:
-	element_type elements_;
+	elements_type elements_;
 };
 
 }

@@ -40,7 +40,7 @@ sge::sprite::external_system<Choices, Elements>::external_system(
 	renderer::device_ptr const rend
 )
 :
- 	system_base(
+ 	base(
 		rend
 	)
 {}
@@ -66,36 +66,36 @@ sge::sprite::external_system<Choices, Elements>::render(
 		return;
 	
 	sort_fun(
-		beg,
+		begin,
 		end
 	);
 
-	allocate_buffers(
+	base::allocate_buffers(
 		std::distance(
-			beg,
+			begin,
 			end
 		)
 	);
 
 	renderer::vertex_buffer_ptr const vb(
-		vertex_buffer()
+		base::vertex_buffer()
 	);
 
 	renderer::index_buffer_ptr const ib(
-		index_buffer()
+		base::index_buffer()
 	);
 
 	detail::fill_geometry(
-		beg,
+		begin,
 		end,
 		vb,
 		ib
 	);
 
-	matrices();
+	base::matrices();
 
 	renderer::device_ptr const rend(
-		renderer()
+		base::renderer()
 	);
 
 	renderer::state::scoped const state_(
@@ -104,27 +104,12 @@ sge::sprite::external_system<Choices, Elements>::render(
 	);
 
 	detail::render(
-		beg,
+		begin,
 		end,
 		equal_fun,
 		rend,
 		vb,
 		ib
-	);
-}
-
-template<
-	typename Choices,
-	typename Elements
->
-void
-sge::sprite::external_system<Choices, Elements>::render(
-	object const &object_
-)
-{
-	render(
-		&object_,
-		&object_ + 1
 	);
 }
 

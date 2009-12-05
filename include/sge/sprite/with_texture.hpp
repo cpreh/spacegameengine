@@ -32,24 +32,7 @@ namespace sge
 namespace sprite
 {
 
-template<
-	unsigned Num
->
-struct with_texture;
-
-#if 0
-template<
-	unsigned Num
->
-struct with_texture {
-	// TODO!
-};
-#endif
-
-template<>
-struct with_texture<
-	1u
->
+struct with_texture
 {
 	template<
 		typename Choices,

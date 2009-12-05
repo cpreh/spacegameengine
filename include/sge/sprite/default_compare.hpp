@@ -40,19 +40,19 @@ struct default_compare
 	>
 	typename boost::enable_if<
 		boost::mpl::contains<
-			typename Object::elements
+			typename Object::elements,
 			with_texture
 		>,
 		result_type
 	>::type
-	operator(
+	operator()(
 		Object const &a,
 		Object const &b
 	) const
 	{
 		return
 			a.z() < b.z()
-			|| l.texture() < r.texture();
+			|| a.texture() < b.texture();
 	}
 
 	template<
@@ -60,12 +60,12 @@ struct default_compare
 	>
 	typename boost::disable_if<
 		boost::mpl::contains<
-			typename Object::elements
+			typename Object::elements,
 			with_texture
 		>,
 		result_type
 	>::type
-	operator(
+	operator()(
 		Object const &a,
 		Object const &b
 	) const

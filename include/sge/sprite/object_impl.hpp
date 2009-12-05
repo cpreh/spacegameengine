@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/visible.hpp>
 #include <sge/sprite/roles/rotation.hpp>
 #include <sge/sprite/roles/rotate_around.hpp>
+#include <sge/sprite/roles/repetition.hpp>
 #include <sge/sprite/roles/use_rotation.hpp>
 #include <sge/sprite/roles/color.hpp>
 #include <sge/sprite/roles/texture.hpp>
@@ -48,7 +49,7 @@ sge::sprite::object<Choices, Elements>::object(
 )
 :
 	elements_(
-		parameters_.elements_()
+		parameters_.elements()
 	)
 {}
 
@@ -61,7 +62,7 @@ sge::sprite::object<Choices, Elements>::object(
 )
 :
 	elements_(
-		other.elements_
+		other_.elements_
 	)
 {
 	detail::assign_post(
@@ -149,7 +150,7 @@ template<
 	typename Choices,
 	typename Elements
 >
-typename sge::sprite::object<Choices, Elements>::dim
+typename sge::sprite::object<Choices, Elements>::dim const
 sge::sprite::object<Choices, Elements>::size() const
 {
 	return
@@ -262,7 +263,7 @@ template<
 	typename Choices,
 	typename Elements
 >
-typename sge;:sprite::object<Choices, Elements>::order_type
+typename sge::sprite::object<Choices, Elements>::order_type
 sge::sprite::object<Choices, Elements>::order() const
 {
 	return
@@ -370,7 +371,7 @@ sge::sprite::object<Choices, Elements>::size(
 ) 
 {
 	elements_. template set<
-		roles::dim
+		roles::size
 	>(
 		dim_
 	);
@@ -448,9 +449,9 @@ void
 sge::sprite::object<Choices, Elements>::reset_rotation()
 {
 	elements_. template set<
-		roles::rotate_arond
+		roles::use_rotation
 	>(
-		point()
+		false
 	);
 }
 
@@ -476,7 +477,7 @@ template<
 >
 void
 sge::sprite::object<Choices, Elements>::color(
-	sprite::color const &color_
+	color_type const &color_
 )
 {
 	elements_. template set<
@@ -495,7 +496,7 @@ sge::sprite::object<Choices, Elements>::order(
 	order_type const order_
 )
 {
-	unlink();
+	intrusive::detail::object_base_hook::unlink();
 
 	elements_. template set<
 		roles::order
@@ -517,7 +518,7 @@ sge::sprite::object<Choices, Elements>::transfer(
 	system &system_
 )
 {
-	unlink();
+	intrusive::detail::object_base_hook::unlink();
 
 	elements_. template set<
 		roles::system
@@ -561,7 +562,7 @@ template<
 >
 void
 sge::sprite::object<Choices, Elements>::set(
-	typename majutsu::role_return_Type<
+	typename majutsu::role_return_type<
 		flattened_types,
 		Role
 	>::type const &value_

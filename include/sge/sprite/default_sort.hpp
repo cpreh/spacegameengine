@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DEFAULT_SORT_HPP_INCLUDED
 #define SGE_SPRITE_DEFAULT_SORT_HPP_INCLUDED
 
+#include <sge/sprite/default_compare.hpp>
 #include <algorithm>
 
 namespace sge
@@ -35,8 +36,8 @@ struct default_sort
 	>
 	void
 	operator()(
-		In beg,
-		In end
+		In const beg,
+		In const end
 	)  const
 	{
 		std::stable_sort(

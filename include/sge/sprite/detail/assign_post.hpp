@@ -52,7 +52,7 @@ assign_post(
 	this_.template get<
 		roles::system
 	>()->add(
-		*this,
+		this_,
 		this_.order()
 	);
 }

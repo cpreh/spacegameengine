@@ -32,7 +32,7 @@ namespace sge
 namespace sprite
 {
 
-struct with_visiblity
+struct with_visibility
 {
 	template<
 		typename Choices,

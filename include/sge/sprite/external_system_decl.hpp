@@ -43,6 +43,11 @@ class external_system
 	>
 {
 public:
+	typedef system_base<
+		Choices,
+		Elements
+	> base;
+
 	typedef sprite::object<
 		Choices,
 		Elements
@@ -63,11 +68,6 @@ public:
 		Iterator end,
 		SortFunction const &,
 		EqualFunction const &
-	);
-
-	void
-	render(
-		object const &
 	);
 };
 

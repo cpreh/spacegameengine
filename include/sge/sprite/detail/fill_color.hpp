@@ -51,7 +51,7 @@ fill_color(
 		i < detail::vertices_per_sprite;
 		++i
 	)
-		(*iterator++).set<
+		(*iterator++). template set<
 			typename vertex_color<
 				Choices,
 				Elements

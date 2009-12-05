@@ -22,7 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_FILL_POSITION_UNROTATED_HPP_INCLUDED
 
 #include <sge/sprite/detail/vertex_pos.hpp>
-#include <sge/sprite/float_rect.hpp>
+#include <sge/sprite/detail/rect_float.hpp>
+#include <sge/sprite/detail/point_float3.hpp>
+#include <sge/sprite/depth_type.hpp>
+#include <sge/sprite/bounding_rect.hpp>
+#include <sge/math/box/structure_cast.hpp>
 
 namespace sge
 {
@@ -37,7 +41,7 @@ template<
 	typename Elements
 >
 void
-fill_position_rotated(
+fill_position_unrotated(
 	Iterator iterator,
 	object<
 		Choices,
@@ -50,13 +54,13 @@ fill_position_rotated(
 		Elements
 	>::type vertex_pos;
 
-	typedef typename sprite::float_rect<
+	typedef typename detail::rect_float<
 		Choices
 	>::type float_rect;
 
-	float_rect const r(
+	float_rect const rect_(
 		math::box::structure_cast<
-			frect
+			float_rect
 		>(
 			sprite::bounding_rect(
 				spr
@@ -64,43 +68,55 @@ fill_position_rotated(
 		)
 	);
 
-	(*it++).set<
+	typedef typename point_float3<
+		Choices
+	>::type pos3;
+
+	typedef typename sprite::depth_type<
+		Choices
+	>::type depth_type;
+
+	depth_type const depth_(
+		spr.z()
+	);
+
+	(*iterator++). template set<
 		vertex_pos
 	>(
 		pos3(
-			r.left(),
-			r.top(),
-			z
+			rect_.left(),
+			rect_.top(),
+			depth_
 		)
 	);
 
-	(*it++).set<
+	(*iterator++). template set<
 		vertex_pos
 	>(
 		pos3(
-			r.right(),
-			r.top(),
-			z
+			rect_.right(),
+			rect_.top(),
+			depth_
 		)
 	);
 
-	(*it++).set<
+	(*iterator++). template set<
 		vertex_pos
 	>(
 		pos3(
-			r.right(),
-			r.bottom(),
-			z
+			rect_.right(),
+			rect_.bottom(),
+			depth_
 		)
 	);
 
-	(*it++).set<
+	(*iterator++). template set<
 		vertex_pos
 	>(
 		pos3(
-			r.left(),
-			r.bottom(),
-			z
+			rect_.left(),
+			rect_.bottom(),
+			depth_
 		)
 	);
 }

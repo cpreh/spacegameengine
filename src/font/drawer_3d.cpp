@@ -26,12 +26,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/image/view/dim.hpp>
-#include <sge/sprite/object.hpp>
-#include <sge/sprite/parameters.hpp>
+#include <sge/sprite/object_impl.hpp>
+#include <sge/sprite/parameters_impl.hpp>
+#include <sge/sprite/default_sort.hpp>
+#include <sge/sprite/default_equal.hpp>
+#include <sge/sprite/external_system_impl.hpp>
 
 sge::font::drawer_3d::drawer_3d(
 	renderer::device_ptr const rend,
-	sge::image::color::any::object const &col)
+	sge::image::color::any::object const &col
+)
 :
 	rend(rend),
 	col(col),
@@ -45,25 +49,33 @@ sge::font::drawer_3d::drawer_3d(
 			renderer::filter::linear
 		)
 	),
-	sys(rend)
+	sys(rend),
+	sprites()
 {}
 
 sge::font::drawer_3d::~drawer_3d()
 {}
 
-void sge::font::drawer_3d::begin_rendering(
+void
+sge::font::drawer_3d::begin_rendering(
 	size_type const buffer_chars,
 	pos const &,
-	dim const)
+	dim const
+)
 {
 	sprites.clear();
-	sprites.reserve(buffer_chars);
+
+	sprites.reserve(
+		buffer_chars
+	);
 }
 
-void sge::font::drawer_3d::draw_char(
+void
+sge::font::drawer_3d::draw_char(
 	char_type const ch,
 	pos const &p,
-	const_image_view const &data)
+	const_image_view const &data
+)
 {
 	sge::image::dim_type const dim(
 		sge::image::view::dim(
@@ -71,9 +83,15 @@ void sge::font::drawer_3d::draw_char(
 		)
 	);
 
+	typedef sge::sprite::parameters<
+		sprite_choices,
+		sprite_elements
+	> sprite_parameters;
+
 	sprites.push_back(
-		sprite::object(
-			sprite::parameters()
+		sprite_object(
+			sprite_parameters()
+			/*
 			.pos(p)
 			.texture(
 				dim.content()
@@ -91,15 +109,19 @@ void sge::font::drawer_3d::draw_char(
 				)
 			)
 			.color(col)
+			*/
 		)
 	);
 }
 
-void sge::font::drawer_3d::end_rendering()
+void
+sge::font::drawer_3d::end_rendering()
 {
 	sys.render(
 		sprites.begin(),
-		sprites.end()
+		sprites.end(),
+		sprite::default_sort(),
+		sprite::default_equal()
 	);
 }
 

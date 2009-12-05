@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/with_color.hpp>
 #include <sge/sprite/with_texture.hpp>
+#include <sge/sprite/choices.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/variant/object_impl.hpp>
@@ -105,9 +106,7 @@ private:
 
 	typedef boost::mpl::vector2<
 		sprite::with_color,
-		sprite::with_texture<
-			1u
-		>
+		sprite::with_texture
 	> sprite_elements;
 
 	typedef sprite::system<

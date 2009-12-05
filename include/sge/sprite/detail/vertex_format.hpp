@@ -53,12 +53,12 @@ private:
 	> basic;
 public:
 	typedef renderer::vf::format<
-		sge::mpl::push_back_if<
+		typename sge::mpl::push_back_if<
 			boost::mpl::contains<
 				Elements,
 				with_color
 			>,
-			sge::mpl::push_back_if<
+			typename sge::mpl::push_back_if<
 				boost::mpl::contains<
 					Elements,
 					with_texture
@@ -68,13 +68,13 @@ public:
 					Choices,
 					Elements
 				>::type
-			>,
+			>::type,
 			typename vertex_color<
 				Choices,
 				Elements
 			>::type
-		>
-	> vertex_format;
+		>::type
+	> type;
 };
 
 }

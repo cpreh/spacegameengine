@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_INDEX_GENERATOR_HPP_INCLUDED
 
 #include <sge/sprite/detail/index_array.hpp>
-#include <sge/sprite/detail/constants.hpp>
+#include <sge/sprite/detail/vertices_per_sprite.hpp>
 
 namespace sge
 {

@@ -36,14 +36,14 @@ template<
 >
 struct push_back_if
 :
-	boost::mpl::if_<
-		Condition,
-		boost::mpl::push_back<
-			Sequence,
-			Element
-		>,
-		Sequence
-	>
+boost::mpl::if_<
+	Condition,
+	boost::mpl::push_back<
+		Sequence,
+		Element
+	>,
+	Sequence
+>
 {};
 
 }

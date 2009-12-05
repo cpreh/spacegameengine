@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_VERTEX_FORMAT_FROM_OBJECT_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_VERTEX_FORMAT_FROM_OBJECT_HPP_INCLUDED
 
+#include <sge/sprite/detail/vertex_format.hpp>
+
 namespace sge
 {
 namespace sprite
@@ -31,6 +33,7 @@ namespace detail
 template<
 	typename Object
 >
+struct vertex_format_from_object
 :
 vertex_format<
 	typename Object::choices,

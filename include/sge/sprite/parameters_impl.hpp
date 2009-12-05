@@ -27,7 +27,7 @@ template<
 	typename Choices,
 	typename Elements
 >
-sge::sprite::parmameters<Choices, Elements>::parameters()
+sge::sprite::parameters<Choices, Elements>::parameters()
 :
 	elements_()
 {}
@@ -40,8 +40,8 @@ template<
 	typename Role
 >
 sge::sprite::parameters<Choices, Elements> const
-sge::sprite::parameters<Choices, Elements>::add(
-	typename majutsu::find_role<
+sge::sprite::parameters<Choices, Elements>::set(
+	typename majutsu::role_return_type<
 		typename elements_type::memory_type::types,
 		Role
 	>::type const &value_
@@ -61,7 +61,11 @@ sge::sprite::parameters<Choices, Elements>::add(
 }
 
 	
-typename sge::sprite::parameters<Choices, Elements>::element_type const &
+template<
+	typename Choices,
+	typename Elements
+>
+typename sge::sprite::parameters<Choices, Elements>::elements_type const &
 sge::sprite::parameters<Choices, Elements>::elements() const
 {
 	return elements_;

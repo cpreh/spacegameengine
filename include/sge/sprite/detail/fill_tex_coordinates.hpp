@@ -21,12 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_FILL_TEX_COORDINATES_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_FILL_TEX_COORDINATES_HPP_INCLUDED
 
-#include <sge/sprite/detail/fill_tex_coordinate_rect.hpp>
+#include <sge/sprite/detail/fill_tex_coordinates_rect.hpp>
 #include <sge/sprite/object_impl.hpp>
+#include <sge/sprite/with_repetition.hpp>
 #include <sge/texture/area_texc.hpp>
 #include <sge/texture/part.hpp>
 #include <boost/mpl/contains.hpp>
-#include <boost/utilty/enable_if.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace sge
 {
@@ -64,7 +65,7 @@ fill_tex_coordinates(
 		iterator,
 		texture::area_texc(
 			sprite_.texture(),
-			spr.repeat()
+			sprite_.repeat()
 		)
 	);
 }
@@ -96,7 +97,7 @@ fill_tex_coordinates(
 
 	fill_tex_coordinates_rect(
 		iterator,
-		sprite_.texture().area()
+		sprite_.texture()->area()
 	);	
 }
 

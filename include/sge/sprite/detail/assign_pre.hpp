@@ -59,9 +59,7 @@ assign_pre(
 		intrusive::detail::object_base_hook
 	>(
 		&this_
-	)::operator=(
-		other_
-	);
+	) = other_;
 }
 
 template<

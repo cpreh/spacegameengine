@@ -18,11 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_FILL_TEX_COORDINATES_RECT_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_FILL_TEX_COORDINATES_RECT_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_POINT_FLOAT3_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_POINT_FLOAT3_HPP_INCLUDED
 
-#include <sge/sprite/detail/point_float.hpp>
-#include <sge/sprite/detail/rect_float.hpp>
+#include <sge/math/vector/static.hpp>
 
 namespace sge
 {
@@ -32,58 +31,15 @@ namespace detail
 {
 
 template<
-	typename Iterator,
-	typename Choices,
-	typename Elements
+	typename Choices
 >
-void
-fill_tex_coordinates_rect(
-	Iterator iterator,
-	typename rect_float<
-		Choices
-	>::type const &rt
-)
-{
-	typedef typename point_float<
-		Choices
-	>::type tex_pos;
-
-	(*iterator++). template set<
-		vertex_texpos
-	>(
-		tex_pos(
-			rt.left(),
-			rt.top()
-		)
-	);
-
-	(*iterator++). template set<
-		vertex_texpos
-	>(
-		tex_pos(
-			rt.right(),
-			rt.top()
-		)
-	);
-
-	(*iterator++). template set<
-		vertex_texpos
-	>(
-		tex_pos(
-			rt.right(),
-			rt.bottom()
-		)
-	);
-
-	(*iterator++). template set<
-		vertex_texpos
-	>(
-		tex_pos(
-			rt.left(),
-			rt.bottom()
-		)
-	);
-}
+struct point_float3
+:
+math::vector::static_<
+	typename Choices::float_type,
+	3
+>
+{};
 
 }
 }

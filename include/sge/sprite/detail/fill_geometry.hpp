@@ -75,7 +75,7 @@ fill_geometry(
 		vblock.value()
 	);
 
-	vertex_view::iterator vb_it(
+	typename vertex_view::iterator vb_it(
 		vertices.begin()
 	);
 
