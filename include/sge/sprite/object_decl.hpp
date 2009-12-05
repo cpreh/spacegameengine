@@ -100,10 +100,10 @@ public:
 		Choices
 	>::type order_type;
 
-	typedef typename intrusive::system<
+	typedef intrusive::system<
 		Choices,
 		Elements
-	>::type system;
+	> system;
 
 	template<
 		typename Parameters

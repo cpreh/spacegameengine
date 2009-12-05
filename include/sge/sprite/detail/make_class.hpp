@@ -31,9 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/class.hpp>
 #include <majutsu/role.hpp>
 #include <boost/mpl/vector/vector10.hpp>
-#include <boost/mpl/bind.hpp>
+#include <boost/mpl/apply.hpp>
 #include <boost/mpl/transform.hpp>
-#include <boost/mpl/front_inserter.hpp>
+#include <boost/mpl/back_inserter.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/copy.hpp>
 
@@ -50,9 +50,32 @@ template<
 >
 struct make_class
 {
+	// TODO: why do we need this?
+	template<
+		typename F,
+		typename T1,
+		typename T2
+	>
+	struct application
+	:
+	boost::mpl::apply<
+		F,
+		T1,
+		T2
+	>
+	{};
+
 	typedef majutsu::class_<
-		typename boost::mpl::transform<
-			typename boost::mpl::copy<
+		typename boost::mpl::copy<
+			typename boost::mpl::transform<
+				Elements,
+				application<
+					boost::mpl::_1,
+					Choices,
+					Elements
+				>
+			>::type,
+			boost::mpl::back_inserter<
 				boost::mpl::vector3<
 					majutsu::role<
 						typename primitives::pos<
@@ -72,15 +95,7 @@ struct make_class
 						>::type,
 						roles::depth
 					>
-				>,
-				boost::mpl::front_inserter<
-					Elements
 				>
-			>::type,
-			boost::mpl::bind2<
-				boost::mpl::_1,
-				Choices,
-				Elements
 			>
 		>::type,
 		majutsu::memory::fusion
