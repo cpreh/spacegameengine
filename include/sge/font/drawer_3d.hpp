@@ -105,7 +105,9 @@ private:
 
 	typedef boost::mpl::vector2<
 		sprite::with_color,
-		sprite::with_texture
+		sprite::with_texture<
+			1u
+		>
 	> sprite_elements;
 
 	typedef sprite::system<

@@ -33,16 +33,18 @@ namespace sprite
 {
 
 template<
-	unsigned Num = 1
+	unsigned Num
 >
 struct with_texture;
 
+#if 0
 template<
 	unsigned Num
 >
 struct with_texture {
 	// TODO!
 };
+#endif
 
 template<>
 struct with_texture<

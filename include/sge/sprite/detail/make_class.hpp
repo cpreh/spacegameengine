@@ -31,8 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/class.hpp>
 #include <majutsu/role.hpp>
 #include <boost/mpl/vector/vector10.hpp>
-#include <boost/mpl/apply.hpp>
-#include <boost/mpl/transform_view.hpp>
+#include <boost/mpl/bind.hpp>
+#include <boost/mpl/transform.hpp>
 #include <boost/mpl/front_inserter.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/copy.hpp>
@@ -51,11 +51,8 @@ template<
 struct make_class
 {
 	typedef majutsu::class_<
-		typename boost::mpl::transform_view<
+		typename boost::mpl::transform<
 			typename boost::mpl::copy<
-				boost::mpl::front_inserter<
-					Elements
-				>,
 				boost::mpl::vector3<
 					majutsu::role<
 						typename primitives::pos<
@@ -75,9 +72,12 @@ struct make_class
 						>::type,
 						roles::depth
 					>
+				>,
+				boost::mpl::front_inserter<
+					Elements
 				>
 			>::type,
-			boost::mpl::apply<
+			boost::mpl::bind2<
 				boost::mpl::_1,
 				Choices,
 				Elements
