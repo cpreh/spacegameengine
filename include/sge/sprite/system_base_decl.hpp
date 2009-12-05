@@ -18,30 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_SYSTEM_BASE_HPP_INCLUDED
-#define SGE_SPRITE_SYSTEM_BASE_HPP_INCLUDED
+#ifndef SGE_SPRITE_SYSTEM_BASE_DECL_HPP_INCLUDED
+#define SGE_SPRITE_SYSTEM_BASE_DECL_HPP_INCLUDED
 
+#include <sge/sprite/system_base_fwd.hpp>
 #include <sge/sprite/matrix.hpp>
+#include <sge/renderer/vf/dynamic_format.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/index_buffer_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/size_type.hpp>
 #include <sge/math/matrix/basic_decl.hpp>
-#include <sge/export.hpp>
 #include <sge/noncopyable.hpp>
-#include <cstddef>
 
 namespace sge
 {
 namespace sprite
 {
 
-class system_base {
+template<
+	typename Choices,
+	typename Elements
+>
+class system_base
+{
 	SGE_NONCOPYABLE(system_base)
 public:
-	SGE_SYMBOL sge::renderer::device_ptr const
+	typedef typename sprite::matrix<
+		Choices
+	>::type matrix;
+
+	sge::renderer::device_ptr const
 	renderer() const;
 
-	SGE_SYMBOL void
+	void
 	transform(
 		matrix const &
 	);
@@ -50,20 +60,21 @@ protected:
 		sge::renderer::device_ptr rend
 	);
 
-	SGE_SYMBOL void
+	void
 	allocate_buffers(
-		std::size_t needed_sprites
+		sge::renderer::size_type needed_sprites
 	);
 
-	void matrices();
+	void
+	matrices();
 
-	SGE_SYMBOL sge::renderer::vertex_buffer_ptr const
+	sge::renderer::vertex_buffer_ptr const
 	vertex_buffer() const;
 
-	SGE_SYMBOL sge::renderer::index_buffer_ptr const
+	sge::renderer::index_buffer_ptr const
 	index_buffer() const;
 private:
-	sge::renderer::device_ptr const  rend;
+	sge::renderer::device_ptr const rend;
 
 	matrix const
 		transform_matrix,
@@ -74,6 +85,8 @@ private:
 	sge::renderer::vertex_buffer_ptr vb;
 
 	sge::renderer::index_buffer_ptr  ib;
+
+	static sge::renderer::vf::dynamic_format const dyn_vertex_fmt;
 };
 
 }

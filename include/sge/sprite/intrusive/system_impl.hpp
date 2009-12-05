@@ -18,12 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/sprite/intrusive/system.hpp>
+#ifndef SGE_SPRITE_INTRUSIVE_SYSTEM_IMPL_HPP_INCLUDED
+#define SGE_SPRITE_INTRUSIVE_SYSTEM_IMPL_HPP_INCLUDED
+
+#include <sge/sprite/intrusive/system_dec.hpp>
 #include <sge/sprite/intrusive/object.hpp>
-#include <sge/sprite/intrusive/detail/compare.hpp>
 #include <sge/sprite/detail/render_states.hpp>
 #include <sge/sprite/detail/fill_geometry.hpp>
 #include <sge/sprite/detail/render.hpp>
+#include <sge/sprite/default_compare.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/device.hpp>
@@ -31,67 +34,111 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index_buffer.hpp>
 #include <boost/foreach.hpp>
 
-sge::sprite::intrusive::system::system(
-	renderer::device_ptr const rend)
+template<
+	typename Choices,
+	typename Elements
+>
+sge::sprite::intrusive::system<Choices, Elements>::system(
+	renderer::device_ptr const rend
+)
 :
 	system_base(rend)
 {}
 
-sge::sprite::intrusive::system::~system()
+template<
+	typename Choices,
+	typename Elements
+>
+sge::sprite::intrusive::system<Choices, Elements>::~system()
 {}
 
-void sge::sprite::intrusive::system::render()
+template<
+	typename Choices,
+	typename Elements
+>
+void
+sge::sprite::intrusive::system<Choices, Elements>::render()
 {
 	matrices();
 
 	renderer::device_ptr const rend(
-		renderer());
+		renderer()
+	);
 
 	renderer::state::scoped const state_(
 		rend,
 		sprite::detail::render_states()
 	);
 
-	BOOST_FOREACH(sprite_level_map::value_type const &v, sprite_levels)
-		render(*v.second);
+	BOOST_FOREACH(
+		sprite_level_map::value_type const &v,
+		sprite_levels
+	)
+		render(
+			*v.second
+		);
 }
 
-void sge::sprite::intrusive::system::render(
+template<
+	typename Choices,
+	typename Elements
+>
+void
+sge::sprite::intrusive::system<Choices, Elements>::render(
 	sprite_list const &sprites
 )
 {
 	if(sprites.empty())
 		return;
 	
-	allocate_buffers(sprites.size());
+	allocate_buffers(
+		sprites.size()
+	);
 
 	renderer::vertex_buffer_ptr const vb(
-		vertex_buffer());
+		vertex_buffer()
+	);
 
 	renderer::index_buffer_ptr const ib(
-		index_buffer());
+		index_buffer()
+	);
 
 	sprite::detail::fill_geometry(
 		sprites.begin(),
 		sprites.end(),
 		vertex_buffer(),
-		index_buffer());
+		index_buffer()
+	);
 
 	renderer::device_ptr const rend(
-		renderer());
+		renderer()
+	);
 
 	sprite::detail::render(
 		sprites.begin(),
 		sprites.end(),
-		detail::compare,
+		default_compare(),
 		rend,
 		vb,
-		ib);
+		ib
+	);
 }
 
-void sge::sprite::intrusive::system::add(
+template<
+	typename Choices,
+	typename Elements
+>
+void
+sge::sprite::intrusive::system<Choices, Elements>::add(
 	intrusive::object &obj,
-	intrusive::object::order_type const order)
+	intrusive::object::order_type const order
+)
 {
-	sprite_levels[order].push_back(obj);
+	sprite_levels[
+		order
+	].push_back(
+		obj
+	);
 }
+
+#endif

@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DEFAULT_SORT_HPP_INCLUDED
 #define SGE_SPRITE_DEFAULT_SORT_HPP_INCLUDED
 
+#include <algorithm>
+
 namespace sge
 {
 namespace sprite
@@ -37,6 +39,11 @@ struct default_sort
 		In end
 	)  const
 	{
+		std::stable_sort(
+			beg,
+			end,
+			default_compare()
+		);
 	}
 };
 

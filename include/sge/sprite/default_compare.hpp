@@ -21,6 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DEFAULT_COMPARE_HPP_INCLUDED
 #define SGE_SPRITE_DEFAULT_COMPARE_HPP_INCLUDED
 
+#include <sge/sprite/with_texture.hpp>
+#include <sge/sprite/object_impl.hpp>
+#include <boost/mpl/contains.hpp>
+#include <boost/utility/enable_if.hpp>
+
 namespace sge
 {
 namespace sprite
@@ -33,31 +38,39 @@ struct default_compare
 	template<
 		typename Object
 	>
-	result_type
+	typename boost::enable_if<
+		boost::mpl::contains<
+			typename Object::elements
+			with_texture
+		>,
+		result_type
+	>::type
 	operator(
 		Object const &a,
 		Object const &b
 	) const
 	{
-	bool const
-		lvis = l.visible(),
-		rvis = r.visible();
+		return
+			a.z() < b.z()
+			|| l.texture() < r.texture();
+	}
 
-	depth_type const
-		lz = l.z(),
-		rz = r.z();
-
-	texture::const_part_ptr const
-		ltex = l.texture(),
-		rtex = r.texture();
-
-	return lvis == rvis ?
-			math::compare(lz, rz) ?
-	                	ltex == rtex ?
-	                        	     false
-		                : ltex < rtex
-		       : lz > rz
-		: lvis > rvis;
+	template<
+		typename Object
+	>
+	typename boost::disable_if<
+		boost::mpl::contains<
+			typename Object::elements
+			with_texture
+		>,
+		result_type
+	>::type
+	operator(
+		Object const &a,
+		Object const &b
+	) const
+	{
+		return a.z() < b.z();
 	}
 };
 

@@ -20,7 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/system_base.hpp>
 #include <sge/sprite/detail/vertex_format.hpp>
-#include <sge/sprite/detail/constants.hpp>
+#include <sge/sprite/detail/vertices_per_sprite.hpp>
+#include <sge/sprite/detail/indices_per_sprite.hpp>
 #include <sge/math/matrix/basic_impl.hpp>
 #include <sge/math/matrix/orthogonal_xy.hpp>
 #include <sge/math/matrix/arithmetic.hpp>
@@ -32,45 +33,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/make_dynamic_format.hpp>
 #include <sge/container/bitfield/basic_impl.hpp>
 
-namespace
-{
-
-sge::renderer::vf::dynamic_format const dyn_vertex_fmt(
-	sge::renderer::vf::make_dynamic_format<
-		sge::sprite::detail::vertex_format
-	>()
-);
-
-}
-
+template<
+	typename Choices,
+	typename Elements
+>
 sge::renderer::device_ptr const
-sge::sprite::system_base::renderer() const
+sge::sprite::system_base<Choices, Elements>::renderer() const
 {
 	return rend;
 }
 
+template<
+	typename Choices,
+	typename Elements
+>
 void
-sge::sprite::system_base::transform(
+sge::sprite::system_base<Choices, Elements>::transform(
 	matrix const &ntransform_matrix
 )
 {
 	additional_transform_ = ntransform_matrix;
 }
 
-sge::sprite::system_base::system_base(
+template<
+	typename Choices,
+	typename Elements
+>
+sge::sprite::system_base<Choices, Elements>::system_base(
 	renderer::device_ptr const rend
 )
 :
 	rend(rend),
 	transform_matrix(
 		renderer::matrix_pixel_to_space<
-			funit
+			typename Choices::float_type
 		>(
 			rend->screen_size()
 		)
 	),
 	projection_matrix(
-		math::matrix::orthogonal_xy<funit>()
+		math::matrix::orthogonal_xy<
+			typename Choices::float_type
+		>()
 	),
 	additional_transform_(
 		matrix::identity()
@@ -79,8 +83,13 @@ sge::sprite::system_base::system_base(
 	ib()
 {}
 
-void sge::sprite::system_base::allocate_buffers(
-	std::size_t const num_sprites
+template<
+	typename Choices,
+	typename Elements
+>
+void
+sge::sprite::system_base<Choices, Elements>::allocate_buffers(
+	sge::renderer::size_type const num_sprites
 )
 {
 	if(vb && vb->size() >= num_sprites * detail::vertices_per_sprite)
@@ -99,8 +108,12 @@ void sge::sprite::system_base::allocate_buffers(
 	);
 }
 
+template<
+	typename Choices,
+	typename Elements
+>
 void
-sge::sprite::system_base::matrices()
+sge::sprite::system_base<Choices, Elements>::matrices()
 {
 	rend->transform(
 		additional_transform_
@@ -112,14 +125,36 @@ sge::sprite::system_base::matrices()
 	);
 }
 
+template<
+	typename Choices,
+	typename Elements
+>
 sge::renderer::vertex_buffer_ptr const
-sge::sprite::system_base::vertex_buffer() const
+sge::sprite::system_base<Choices, Elements>::vertex_buffer() const
 {
 	return vb;
 }
 
+template<
+	typename Choices,
+	typename Elements
+>
 sge::renderer::index_buffer_ptr const
-sge::sprite::system_base::index_buffer() const
+sge::sprite::system_base<Choices, Elements>::index_buffer() const
 {
 	return ib;
 }
+
+template<
+	typename Choices,
+	typename Elements
+>
+sge::renderer::vf::dynamic_format const
+sge::sprite::system_base<Choices, Elements>::dyn_vertex_fmt(
+	sge::renderer::vf::make_dynamic_format<
+		typename sge::sprite::detail::vertex_format<
+			Choices,
+			Elements
+		>::type
+	>()
+);

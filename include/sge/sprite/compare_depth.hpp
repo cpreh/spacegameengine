@@ -18,19 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/sprite/texture_dim.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <limits>
+#ifndef SGE_SPRITE_COMPARE_DEPTH_HPP_INCLUDED
+#define SGE_SPRITE_COMPARE_DEPTH_HPP_INCLUDED
 
-sge::sprite::dim const
-sge::sprite::texture_dim()
+#include <sge/sprite/object_impl.hpp>
+#include <sge/math/compare.hpp>
+
+namespace sge
 {
-	unit const max(
-		std::numeric_limits<unit>::max()
-	);
+namespace sprite
+{
+namespace detail
+{
 
-	return dim(
-		max,
-		max
-	);
+template<
+	typename Object
+>
+bool
+compare_depth(
+	Object const &a,
+	Object const &b
+)
+{
+	return
+		math::compare(
+			a.z(),
+			b.z()
+		);
 }
+
+}
+}
+}
+
+#endif

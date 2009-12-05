@@ -21,9 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_SYSTEM_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_SYSTEM_IMPL_HPP_INCLUDED
 
-#include <sge/sprite/system.hpp>
-#include <sge/sprite/object.hpp>
-#include <sge/sprite/detail/compare.hpp>
+#include <sge/sprite/external_system.hpp>
 #include <sge/sprite/detail/render_states.hpp>
 #include <sge/sprite/detail/fill_geometry.hpp>
 #include <sge/sprite/detail/render.hpp>
@@ -32,14 +30,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/index_buffer.hpp>
-#include <tr1/functional>
 #include <iterator>
 
 template<
 	typename Choices,
 	typename Elements
 >
-sge::sprite::system<Choices, Elements>::system(
+sge::sprite::external_system<Choices, Elements>::external_system(
 	renderer::device_ptr const rend
 )
 :
@@ -58,7 +55,7 @@ template<
 	typename EqualFunction
 >
 void
-sge::sprite::system<Choices, Elements>::render(
+sge::sprite::external_system<Choices, Elements>::render(
 	Iterator const begin,
 	Iterator const end,
 	SortFunction const &sort_fun,
@@ -121,7 +118,7 @@ template<
 	typename Elements
 >
 void
-sge::sprite::system<Choices, Elements>::render(
+sge::sprite::external_system<Choices, Elements>::render(
 	object const &object_
 )
 {
@@ -130,22 +127,5 @@ sge::sprite::system<Choices, Elements>::render(
 		&object_ + 1
 	);
 }
-
-sge::sprite::system::sort_method const
-sge::sprite::system::default_sort(
-	std::tr1::bind(
-		std::stable_sort<
-			sge::sprite::object *,
-			bool (*)(sge::sprite::object const &, sge::sprite::object const &)
-		>,
-		std::tr1::placeholders::_1,
-		std::tr1::placeholders::_2,
-		sge::sprite::detail::less
-	)
-);
-
-sge::sprite::system::equal_method const
-sge::sprite::system::default_equal(
-	sge::sprite::detail::equal);
 
 #endif

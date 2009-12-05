@@ -18,11 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_INTRUSIVE_SYSTEM_HPP_INCLUDED
-#define SGE_SPRITE_INTRUSIVE_SYSTEM_HPP_INCLUDED
+#ifndef SGE_SPRITE_INTRUSIVE_SYSTEM_DECL_HPP_INCLUDED
+#define SGE_SPRITE_INTRUSIVE_SYSTEM_DECL_HPP_INCLUDED
 
 #include <sge/sprite/intrusive/system_fwd.hpp>
-#include <sge/sprite/intrusive/object.hpp> // TODO: can we get rid of this?
 #include <sge/sprite/intrusive/order.hpp>
 #include <sge/sprite/system_base.hpp>
 #include <sge/renderer/device_fwd.hpp>
@@ -36,17 +35,35 @@ namespace sprite
 namespace intrusive
 {
 
+template<
+	typename Choices,
+	typename Elements
+>
 class system
 :
-	public system_base
+	public system_base<
+		Choices,
+		Elements
+	>
 {
 public:
-	SGE_SYMBOL explicit system(
-		renderer::device_ptr);
+	typedef sprite::object<
+		Choices,
+		Elements
+	> object;
 
-	SGE_SYMBOL ~system();
+	typedef typename intrusive::order<
+		Choices
+	>::type order;
 
-	SGE_SYMBOL void render();
+	explicit system(
+		renderer::device_ptr
+	);
+
+	~system();
+
+	void
+	render();
 private:
 	typedef boost::intrusive::list<
 		object,
@@ -55,12 +72,21 @@ private:
 		>
 	> sprite_list;
 
-	void render(
-		sprite_list const &);
-	void add(
+	void
+	render(
+		sprite_list const &
+	);
+
+	void
+	add(
 		object &,
-		order);
-	friend class object;
+		order
+	);
+
+	template<
+		typename Choices,
+		typename Elements
+	> friend class object;
 
 	typedef boost::ptr_map<
 		order,

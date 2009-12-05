@@ -58,14 +58,17 @@ render(
 	{
 		renderer::size_type num_objects(0);
 
-		while(next != end && comp(*cur, *next))
+		while(
+			next != end && comp(*cur, *next)
+		)
 		{
 			++next;
-			++num_objects;
-		}
 
-		if(!cur->visible())
-			continue;
+			if(
+				visible(*cur)
+			)
+				++num_objects;
+		}
 
 		texture::const_part_ptr const vtex(
 			cur->texture()
