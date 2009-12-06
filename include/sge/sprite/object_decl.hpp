@@ -105,11 +105,8 @@ public:
 		Elements
 	> system;
 
-	template<
-		typename Parameters
-	>
 	explicit object(
-		Parameters const &
+		element_type const &
 	);
 	
 	object(

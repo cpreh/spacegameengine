@@ -41,15 +41,12 @@ template<
 	typename Choices,
 	typename Elements
 >
-template<
-	typename Parameters
->
 sge::sprite::object<Choices, Elements>::object(
-	Parameters const &parameters_
+	element_type const &elements_
 )
 :
 	elements_(
-		parameters_.elements()
+		elements_
 	)
 {}
 

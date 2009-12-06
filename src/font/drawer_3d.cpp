@@ -91,6 +91,13 @@ sge::font::drawer_3d::draw_char(
 	sprites.push_back(
 		sprite_object(
 			sprite_parameters()
+			.set<
+				sprite::roles::pos
+			>(
+				p	
+			)
+			.elements()
+			//sprite_parameters().elements()
 			/*
 			.pos(p)
 			.texture(
