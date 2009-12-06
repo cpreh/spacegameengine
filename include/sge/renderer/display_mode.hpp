@@ -36,9 +36,9 @@ namespace renderer
 class display_mode {
 public:
 	SGE_SYMBOL display_mode(
-		screen_size const &sz,
-		renderer::bit_depth::type depth,
-		refresh_rate refresh_rate
+		screen_size const &,
+		renderer::bit_depth::type,
+		renderer::refresh_rate
 	);
 
 	SGE_SYMBOL screen_size const &
