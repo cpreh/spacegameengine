@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MPL_INNER_IF_HPP_INCLUDED
-#define SGE_MPL_INNER_IF_HPP_INCLUDED
+#ifndef SGE_MPL_INNER_HPP_INCLUDED
+#define SGE_MPL_INNER_HPP_INCLUDED
 
 namespace sge
 {

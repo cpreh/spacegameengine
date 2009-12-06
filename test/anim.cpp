@@ -185,6 +185,9 @@ try
 
 	sprite_object spr(
 		sprite_parameters()
+		.pos(
+			sprite_object::point::null()
+		)
 		.size(
 			sprite_object::dim(
 				rend->screen_size().w(),

@@ -371,8 +371,10 @@ sge::opengl::device::render(
 	)
 }
 
-void sge::opengl::device::state(
-	renderer::state::list const &states)
+void
+sge::opengl::device::state(
+	renderer::state::list const &states
+)
 {
 	split_states split(current_states);
 
@@ -388,8 +390,10 @@ void sge::opengl::device::state(
 	}
 }
 
-void sge::opengl::device::push_state(
-	renderer::state::list const &states)
+void
+sge::opengl::device::push_state(
+	renderer::state::list const &states
+)
 {
 	state_levels.push(
 		current_states);
@@ -402,7 +406,8 @@ void sge::opengl::device::push_state(
 	);
 }
 
-void sge::opengl::device::pop_state()
+void
+sge::opengl::device::pop_state()
 {
 	state(state_levels.top());
 	state_levels.pop();
@@ -519,9 +524,11 @@ sge::opengl::device::target() const
 	return target_;
 }
 
-void sge::opengl::device::texture(
+void
+sge::opengl::device::texture(
 	renderer::const_texture_base_ptr const tex,
-	renderer::stage_type const stage)
+	renderer::stage_type const stage
+)
 {
 	set_texture_level(stage);
 
