@@ -34,10 +34,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/system.hpp>
 #include <sge/input/action.hpp>
 #include <sge/image/multi_loader.hpp>
-#include <sge/sprite/object.hpp>
+#include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/system.hpp>
-#include <sge/sprite/parameters.hpp>
-#include <sge/sprite/texture_animation.hpp>
+#include <sge/sprite/external_system_impl.hpp>
+#include <sge/sprite/parameters_impl.hpp>
+#include <sge/sprite/no_color.hpp>
+#include <sge/sprite/choices.hpp>
+#include <sge/sprite/with_texture.hpp>
+#include <sge/sprite/render_one.hpp>
+#include <sge/sprite/animation/texture_impl.hpp>
+#include <sge/sprite/animation/series.hpp>
+#include <sge/sprite/animation/entity_vector.hpp>
+#include <sge/sprite/animation/entity.hpp>
+#include <sge/sprite/animation/loop_method.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/add_image.hpp>
 #include <sge/texture/no_fragmented.hpp>
@@ -45,6 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/default_creator_impl.hpp>
 #include <sge/time/millisecond.hpp>
 #include <sge/time/second.hpp>
+#include <sge/time/time.hpp>
 #include <sge/time/resolution.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/assign/make_container.hpp>
@@ -52,6 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/activate_levels.hpp>
 #include <sge/cerr.hpp>
 #include <sge/exception.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <cstdlib>
@@ -110,15 +121,20 @@ try
 		sys.plugin_manager()
 	);
 
-	sge::texture::default_creator<
+	typedef sge::texture::default_creator<
 		sge::texture::no_fragmented
-	> const creator(
+	> texture_creator;
+	
+	texture_creator const creator(
 		rend,
 		sge::image::color::format::rgba8,
 		sge::renderer::filter::linear
 	);
 
-	sge::texture::manager tex_man(rend, creator);
+	sge::texture::manager tex_man(
+		rend,
+		creator
+	);
 
 	sge::texture::const_part_ptr const
 		tex1(
@@ -138,30 +154,61 @@ try
 			)
 		);
 
-	sge::sprite::system ss(rend);
-	sge::sprite::object spr(
-		sge::sprite::parameters()
+	typedef sge::sprite::choices<
+		int,
+		float,
+		sge::sprite::no_color
+	> sprite_choices;
+
+	typedef boost::mpl::vector1<
+		sge::sprite::with_texture
+	> sprite_elements;
+
+	typedef sge::sprite::system<
+		sprite_choices,
+		sprite_elements
+	>::type sprite_system;
+
+	typedef sge::sprite::object<
+		sprite_choices,
+		sprite_elements
+	> sprite_object;
+
+	typedef sge::sprite::parameters<
+		sprite_choices,
+		sprite_elements
+	> sprite_parameters;
+
+	sprite_system ss(
+		rend
+	);
+
+	sprite_object spr(
+		sprite_parameters()
 		.size(
-			sge::sprite::dim(
+			sprite_object::dim(
 				rend->screen_size().w(),
-				static_cast<sge::sprite::unit>(
+				static_cast<
+					sprite_object::unit
+				>(
 					rend->screen_size().h()
 				)
 			)
 		)
+		.elements()
 	);
 
-	sge::sprite::animation_series::entity_vector const series(
+	sge::sprite::animation::series const series(
 		sge::assign::make_container<
-			sge::sprite::animation_series::entity_vector
+			sge::sprite::animation::entity_vector
 		>(
-			sge::sprite::animation_entity(
+			sge::sprite::animation::entity(
 				sge::time::millisecond(500),
 				tex1
 			)
 		)
 		(
-			sge::sprite::animation_entity(
+			sge::sprite::animation::entity(
 				sge::time::second(
 					1
 				),
@@ -169,11 +216,17 @@ try
 			)
 		)
 	);
+	
+	typedef sge::sprite::animation::texture<
+		sprite_choices,
+		sprite_elements
+	> texture_animation;
 
-	sge::sprite::texture_animation anim(
+	texture_animation anim(
 		series,
-		sge::sprite::texture_animation::loop_method::repeat,
-		spr
+		sge::sprite::animation::loop_method::repeat,
+		spr,
+		sge::time::default_time_fun()
 	);
 
 	bool running = true;
@@ -195,9 +248,17 @@ try
 	while(running)
 	{
 		sge::mainloop::dispatch();
-		sge::renderer::scoped_block const block_(rend);
+
+		sge::renderer::scoped_block const block_(
+			rend
+		);
+
 		anim.process();
-		ss.render(spr);
+
+		sge::sprite::render_one(
+			ss,
+			spr
+		);
 	}
 }
 catch(sge::exception const &e)

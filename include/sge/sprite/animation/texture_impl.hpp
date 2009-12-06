@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_ANIMATION_TEXTURE_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_ANIMATION_TEXTURE_IMPL_HPP_INCLUDED
 
-#include <sge/sprite/animation::texture.hpp>
+#include <sge/sprite/animation/texture_decl.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/time/resolution.hpp>
 #include <sge/exception.hpp>
@@ -32,7 +32,7 @@ template<
 	typename Choices,
 	typename Elements
 >
-sge::sprite::animation::texture<Choices, Elements>::animation::texture(
+sge::sprite::animation::texture<Choices, Elements>::texture(
 	animation::series const &nseries_,
 	loop_method::type const action,
 	object &spr,
@@ -128,3 +128,5 @@ sge::sprite::animation::texture<Choices, Elements>::series() const
 {
 	return series_;
 }
+
+#endif

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/animation/series_fwd.hpp>
 #include <sge/sprite/animation/entity.hpp>
+#include <sge/sprite/animation/entity_vector.hpp>
 #include <sge/renderer/dim_type.hpp>
 #include <sge/export.hpp>
 #include <vector>
@@ -37,10 +38,6 @@ namespace animation
 class series
 {
 public:
-	typedef std::vector<
-		entity
-	> entity_vector;
-
 	typedef entity_vector::const_iterator const_iterator;
 
 	SGE_SYMBOL series();

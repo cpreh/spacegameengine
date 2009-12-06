@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/animation/base.hpp>
 #include <sge/sprite/animation/series.hpp>
 #include <sge/sprite/animation/loop_method.hpp>
+#include <sge/sprite/object_fwd.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/time/fun.hpp>
 
@@ -39,7 +40,7 @@ template<
 	typename Choices,
 	typename Elements
 >
-class texture_animation
+class texture
 :
 	public base
 {

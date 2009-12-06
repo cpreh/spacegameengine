@@ -18,26 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_ANIMATION_LOOP_METHOD_HPP_INCLUDED
-#define SGE_SPRITE_ANIMATION_LOOP_METHOD_HPP_INCLUDED
+#ifndef SGE_SPRITE_OBJECT_HPP_INCLUDED
+#define SGE_SPRITE_OBJECT_HPP_INCLUDED
 
-namespace sge
-{
-namespace sprite
-{
-namespace animation
-{
-
-namespace loop_method
-{
-enum type {
-	repeat,
-	stop_at_end
-};
-}
-
-}
-}
-}
+#include <sge/sprite/object_impl.hpp>
+#include <sge/sprite/bounding_rect.hpp>
 
 #endif
