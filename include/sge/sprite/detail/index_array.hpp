@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_INDEX_ARRAY_HPP_INCLUDED
 
 #include <sge/sprite/detail/index_array_type.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
@@ -30,7 +31,7 @@ namespace sprite
 namespace detail
 {
 
-extern index_array_type const index_array;
+SGE_SYMBOL extern index_array_type const index_array;
 
 }
 }

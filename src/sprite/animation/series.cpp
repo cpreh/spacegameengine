@@ -18,48 +18,57 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/sprite/animation_series.hpp>
+#include <sge/sprite/animation/series.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 
-sge::sprite::animation_series::animation_series()
+sge::sprite::animation::series::series()
 {}
 
-sge::sprite::animation_series::animation_series(
-	entity_vector const &_entities)
+sge::sprite::animation::series::series(
+	entity_vector const &_entities
+)
 :
 	entities_(
-		_entities)
+		_entities
+	)
 {}
 
-void sge::sprite::animation_series::push_back(
-	animation_entity const &entity)
+void
+sge::sprite::animation::series::push_back(
+	entity const &entity_
+)
 {
-	entities_.push_back(entity);
+	entities_.push_back(
+		entity_
+	);
 }
 
-sge::sprite::animation_series::entity_vector &sge::sprite::animation_series::entities()
+sge::sprite::animation::entity_vector &
+sge::sprite::animation::series::entities()
 {
 	return entities_;
 }
 
-sge::sprite::animation_series::entity_vector const &sge::sprite::animation_series::entities() const
+sge::sprite::animation::entity_vector const &
+sge::sprite::animation::series::entities() const
 {
 	return entities_;
 }
 
-sge::sprite::animation_series::const_iterator
-sge::sprite::animation_series::begin() const
+sge::sprite::animation::series::const_iterator
+sge::sprite::animation::series::begin() const
 {
 	return entities_.begin();
 }
 
-sge::sprite::animation_series::const_iterator
-sge::sprite::animation_series::end() const
+sge::sprite::animation::series::const_iterator
+sge::sprite::animation::series::end() const
 {
 	return entities_.end();
 }
 
-bool sge::sprite::animation_series::empty() const
+bool
+sge::sprite::animation::series::empty() const
 {
 	return entities_.empty();
 }

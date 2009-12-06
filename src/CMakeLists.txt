@@ -48,6 +48,7 @@ FILE (GLOB sgecorefiles
 	signal/*.cpp
 	signal/detail/*.cpp
 	sprite/*.cpp
+	sprite/animation/*.cpp
 	sprite/detail/*.cpp
 	systems/*.cpp
 	texture/*.cpp

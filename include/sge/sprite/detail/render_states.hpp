@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_RENDER_STATES_HPP_INCLUDED
 
 #include <sge/renderer/state/list_fwd.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
@@ -30,7 +31,7 @@ namespace sprite
 namespace detail
 {
 
-renderer::state::list const &
+SGE_SYMBOL renderer::state::list const &
 render_states();
 
 }

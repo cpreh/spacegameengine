@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/sprite/animation.hpp>
+#include <sge/sprite/animation/base.hpp>
 
-sge::sprite::animation::animation()
+sge::sprite::animation::base::base()
 {}
 
-sge::sprite::animation::~animation()
+sge::sprite::animation::base::~base()
 {}
