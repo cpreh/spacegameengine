@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part.hpp>
 #include <sge/renderer/lock_rect_to_coords.hpp>
 #include <sge/renderer/texture.hpp>
+#include <sge/math/dim/arithmetic.hpp>
+#include <sge/math/dim/basic_impl.hpp>
 #include <sge/math/box/basic_impl.hpp>
 #include <sge/math/box/rect.hpp>
 #include <sge/math/compare.hpp>
@@ -61,18 +63,24 @@ area_texc(
 				<< SGE_TEXT('!')
 		);
 
-	renderer::const_texture_ptr const tex(
-		part->texture()
+	typedef typename math::box::rect<
+		T
+	>::type ret_type;
+	
+	ret_type ret_(
+		renderer::lock_rect_to_coords<
+			T
+		>(
+			part->area(),
+			part->texture()->dim()
+		)
 	);
 
-	return tex
-		?
-			renderer::lock_rect_to_coords(
-				part->area(),
-				tex->dim()
-			)
-		:
-			math::box::rect<T>::type::null();
+	ret_.dim(
+		ret_.dim() * repeat
+	);
+
+	return ret_;
 }
 
 }

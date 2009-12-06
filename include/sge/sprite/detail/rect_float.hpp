@@ -36,7 +36,7 @@ template<
 struct rect_float
 :
 math::box::rect<
-	typename Choices::float_unit
+	typename Choices::float_type
 >
 {
 };

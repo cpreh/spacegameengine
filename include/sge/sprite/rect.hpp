@@ -34,7 +34,7 @@ template<
 struct rect
 :
 math::box::rect<
-	typename Choices::unit
+	typename Choices::unit_type
 >
 {
 };

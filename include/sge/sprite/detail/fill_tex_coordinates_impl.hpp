@@ -18,12 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_FILL_COLOR_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_FILL_COLOR_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_FILL_TEX_COORDINATES_IMPL_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_FILL_TEX_COORDINATES_IMPL_HPP_INCLUDED
 
-#include <sge/sprite/detail/vertices_per_sprite.hpp>
-#include <sge/sprite/detail/vertex_color.hpp>
+#include <sge/sprite/detail/fill_tex_coordinates_rect.hpp>
+#include <sge/sprite/with_repetition.hpp>
 #include <sge/sprite/object_impl.hpp>
+#include <sge/texture/area_texc.hpp>
+#include <sge/texture/part.hpp>
+#include <sge/renderer/texture.hpp>
+#include <sge/renderer/lock_rect_to_coords.hpp>
+#include <boost/mpl/contains.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace sge
 {
@@ -40,31 +46,28 @@ template<
 typename boost::enable_if<
 	boost::mpl::contains<
 		Elements,
-		with_color
+		with_repetition
 	>,
 	void
 >::type
-fill_color(
-	Iterator iterator,
+fill_tex_coordinates_impl(
+	Iterator const &iterator,
 	object<
 		Choices,
 		Elements
 	> const &sprite_
 )
 {
-	for(
-		unsigned i = 0;
-		i < detail::vertices_per_sprite;
-		++i
-	)
-		(*iterator++). template set<
-			typename vertex_color<
-				Choices,
-				Elements
-			>::type
-		>(
-			sprite_.color()
-		);
+	fill_tex_coordinates_rect<
+		Choices,
+		Elements
+	>(
+		iterator,
+		texture::area_texc(
+			sprite_.texture(),
+			sprite_.repetition()
+		)
+	);
 }
 
 template<
@@ -75,18 +78,30 @@ template<
 typename boost::disable_if<
 	boost::mpl::contains<
 		Elements,
-		with_color
+		with_repetition
 	>,
 	void
 >::type
-fill_color(
-	Iterator,
+fill_tex_coordinates_impl(
+	Iterator const &iterator,
 	object<
 		Choices,
 		Elements
-	> const &
+	> const &sprite_
 )
 {
+	fill_tex_coordinates_rect<
+		Choices,
+		Elements
+	>(
+		iterator,
+		renderer::lock_rect_to_coords<
+			typename Choices::float_type
+		>(
+			sprite_.texture()->area(),
+			sprite_.texture()->texture()->dim()
+		)
+	);
 }
 
 }

@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/dim/static.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/math/dim/structure_cast.hpp>
+#include <sge/math/dim/arithmetic.hpp>
 
 namespace sge
 {
@@ -59,7 +60,7 @@ lock_rect_to_coords(
 	);
 
 	typedef typename math::dim::static_<
-		T,
+		Ret,
 		2
 	>::type sdim_type;
 
@@ -76,10 +77,7 @@ lock_rect_to_coords(
 			srect.left() / sdim.w(),
 			srect.top() / sdim.h()
 		),
-		typename ret_type::dim_type(
-			srect.w() / sdim.w(),
-			srect.h() / sdim.h()
-		)
+		srect.dim() / sdim
 	);
 }
 

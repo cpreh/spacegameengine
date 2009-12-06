@@ -43,7 +43,7 @@ struct with_texture
 		typedef majutsu::composite<
 			boost::mpl::vector1<
 				majutsu::role<
-					primitives::texture,
+					primitives::texture::type,
 					roles::texture
 				>
 			>

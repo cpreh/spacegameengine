@@ -21,10 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_FILL_TEX_COORDINATES_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_FILL_TEX_COORDINATES_HPP_INCLUDED
 
-#include <sge/sprite/detail/fill_tex_coordinates_rect.hpp>
+#include <sge/sprite/detail/fill_tex_coordinates_impl.hpp>
 #include <sge/sprite/object_impl.hpp>
-#include <sge/sprite/with_repetition.hpp>
-#include <sge/texture/area_texc.hpp>
+#include <sge/sprite/with_texture.hpp>
 #include <sge/texture/part.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -44,7 +43,7 @@ template<
 typename boost::enable_if<
 	boost::mpl::contains<
 		Elements,
-		with_repetition
+		with_texture
 	>,
 	void
 >::type
@@ -58,15 +57,13 @@ fill_tex_coordinates(
 {
 	if(
 		!sprite_.texture()
+		|| !sprite_.texture()->texture()
 	)
 		return;
 	
-	fill_tex_coorinates_rect(
+	fill_tex_coordinates_impl(
 		iterator,
-		texture::area_texc(
-			sprite_.texture(),
-			sprite_.repeat()
-		)
+		sprite_
 	);
 }
 
@@ -78,27 +75,18 @@ template<
 typename boost::disable_if<
 	boost::mpl::contains<
 		Elements,
-		with_repetition
+		with_texture
 	>,
 	void
 >::type
 fill_tex_coordinates(
-	Iterator const &iterator,
+	Iterator const &,
 	object<
 		Choices,
 		Elements
-	> const &sprite_
+	> const &
 )
 {
-	if(
-		!sprite_.texture()
-	)
-		return;
-
-	fill_tex_coordinates_rect(
-		iterator,
-		sprite_.texture()->area()
-	);	
 }
 
 }

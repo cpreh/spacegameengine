@@ -23,6 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/detail/point_float.hpp>
 #include <sge/sprite/detail/rect_float.hpp>
+#include <sge/sprite/detail/vertex_texpos.hpp>
+#include <sge/math/box/basic_impl.hpp>
+#include <sge/math/vector/basic_impl.hpp>
 
 namespace sge
 {
@@ -32,9 +35,9 @@ namespace detail
 {
 
 template<
-	typename Iterator,
 	typename Choices,
-	typename Elements
+	typename Elements,
+	typename Iterator
 >
 void
 fill_tex_coordinates_rect(
@@ -47,6 +50,11 @@ fill_tex_coordinates_rect(
 	typedef typename point_float<
 		Choices
 	>::type tex_pos;
+
+	typedef typename detail::vertex_texpos<
+		Choices,
+		Elements
+	>::type vertex_texpos;
 
 	(*iterator++). template set<
 		vertex_texpos
