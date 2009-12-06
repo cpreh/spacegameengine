@@ -23,6 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/parameters_fwd.hpp>
 #include <sge/sprite/detail/make_class.hpp>
+#include <sge/sprite/roles/pos.hpp>
+#include <sge/sprite/roles/size.hpp>
+#include <sge/sprite/roles/texture.hpp>
+#include <sge/sprite/roles/color.hpp>
 #include <majutsu/role_return_type.hpp>
 
 namespace sge
@@ -40,8 +44,45 @@ class parameters
 		Choices,
 		Elements
 	>::type elements_type;
+
+	typedef typename elements_type::memory_type::types flattened_types;
 public:
 	parameters();
+
+	parameters const
+	pos(
+		typename majutsu::role_return_type<
+			flattened_types,
+			roles::pos
+		>::type const &
+	) const;
+
+	parameters const
+	texture(
+		typename majutsu::role_return_type<
+			flattened_types,
+			roles::texture
+		>::type const &
+	) const;
+
+	parameters const
+	size(
+		typename majutsu::role_return_type<
+			flattened_types,
+			roles::size
+		>::type const &
+	) const;
+
+	parameters const
+	texture_size() const;
+
+	parameters const
+	color(
+		typename majutsu::role_return_type<
+			flattened_types,
+			roles::color
+		>::type const &
+	) const;
 
 	template<
 		typename Role
@@ -49,7 +90,7 @@ public:
 	parameters const
 	set(
 		typename majutsu::role_return_type<
-			typename elements_type::memory_type::types,
+			flattened_types,
 			Role
 		>::type const &
 	) const;

@@ -32,9 +32,9 @@ namespace sprite
 template<
 	typename Choices
 >
-dim<
-	typename Choices::unit_type
-> const
+typename dim<
+	Choices
+>::type const
 texture_dim()
 {
 	typedef typename Choices::unit_type unit;
@@ -46,9 +46,9 @@ texture_dim()
 	);
 
 	return
-		dim<
-			unit
-		>(
+		typename dim<
+			Choices
+		>::type(
 			max,
 			max
 		);

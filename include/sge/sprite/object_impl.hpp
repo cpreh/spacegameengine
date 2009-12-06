@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_OBJECT_IMPL_HPP_INCLUDED
 
 #include <sge/sprite/object_decl.hpp>
+#include <sge/sprite/detail/transform_init_arguments.hpp>
 #include <sge/sprite/detail/assign_pre.hpp>
 #include <sge/sprite/detail/assign_post.hpp>
 #include <sge/sprite/roles/pos.hpp>
@@ -42,11 +43,16 @@ template<
 	typename Elements
 >
 sge::sprite::object<Choices, Elements>::object(
-	element_type const &elements_
+	element_type const &nelements_
 )
 :
 	elements_(
-		elements_
+		detail::transform_init_arguments<
+			Choices,
+			Elements
+		>(
+			nelements_
+		)
 	)
 {}
 

@@ -36,13 +36,108 @@ template<
 	typename Choices,
 	typename Elements
 >
+sge::sprite::parameters<Choices, Elements> const
+sge::sprite::parameters<Choices, Elements>::pos(
+	typename majutsu::role_return_type<
+		flattened_types,
+		roles::pos
+	>::type const &pos_
+) const
+{
+	return
+		this->set<
+			roles::pos
+		>(
+			pos_
+		);
+}
+
+template<
+	typename Choices,
+	typename Elements
+>
+sge::sprite::parameters<Choices, Elements> const
+sge::sprite::parameters<Choices, Elements>::texture(
+	typename majutsu::role_return_type<
+		flattened_types,
+		roles::texture
+	>::type const &texture_
+) const
+{
+	return
+		this->set<
+			roles::texture
+		>(
+			texture_
+		);
+}
+
+template<
+	typename Choices,
+	typename Elements
+>
+sge::sprite::parameters<Choices, Elements> const
+sge::sprite::parameters<Choices, Elements>::size(
+	typename majutsu::role_return_type<
+		flattened_types,
+		roles::size
+	>::type const &size_
+) const
+{
+	return
+		this->set<
+			roles::size
+		>(
+			size_
+		);
+}
+
+template<
+	typename Choices,
+	typename Elements
+>
+sge::sprite::parameters<Choices, Elements> const
+sge::sprite::parameters<Choices, Elements>::texture_size() const
+{
+	return
+		this->texture(
+			texture_dim<
+				Choices
+			>()
+		);
+}
+
+template<
+	typename Choices,
+	typename Elements
+>
+sge::sprite::parameters<Choices, Elements> const
+sge::sprite::parameters<Choices, Elements>::color(
+	typename majutsu::role_return_type<
+		flattened_types,
+		roles::color
+	>::type const &color_
+) const
+{
+	return
+		this->set<
+			roles::color
+		>(
+			color_
+		);
+}
+
+template<
+	typename Choices,
+	typename Elements
+>
 template<
 	typename Role
 >
 sge::sprite::parameters<Choices, Elements> const
 sge::sprite::parameters<Choices, Elements>::set(
 	typename majutsu::role_return_type<
-		typename elements_type::memory_type::types,
+		flattened_types,
 		Role
 	>::type const &value_
 ) const
@@ -60,7 +155,6 @@ sge::sprite::parameters<Choices, Elements>::set(
 	return ret;
 }
 
-	
 template<
 	typename Choices,
 	typename Elements

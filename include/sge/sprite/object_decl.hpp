@@ -92,6 +92,8 @@ public:
 		Choices
 	>::type dim;
 
+	typedef typename choices::color_type color_format;
+
 	typedef typename sprite::color<
 		Choices
 	>::type color_type;

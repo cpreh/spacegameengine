@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/image/view/dim.hpp>
+#include <sge/image/color/any/convert.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/default_sort.hpp>
@@ -72,14 +73,14 @@ sge::font::drawer_3d::begin_rendering(
 
 void
 sge::font::drawer_3d::draw_char(
-	char_type const ch,
-	pos const &p,
-	const_image_view const &data
+	char_type const char_,
+	pos const &pos_,
+	const_image_view const &data_
 )
 {
 	sge::image::dim_type const dim(
 		sge::image::view::dim(
-			data
+			data_
 		)
 	);
 
@@ -91,32 +92,33 @@ sge::font::drawer_3d::draw_char(
 	sprites.push_back(
 		sprite_object(
 			sprite_parameters()
-			.set<
-				sprite::roles::pos
-			>(
-				p	
+			.pos(
+				pos_
 			)
-			.elements()
-			//sprite_parameters().elements()
-			/*
-			.pos(p)
 			.texture(
 				dim.content()
 					? cached_texture(
-						ch,
-						data
+						char_,
+						data_
 					)
 					: texture::const_part_ptr()
 			)
 			.size(
 				sge::math::dim::structure_cast<
-					sge::sprite::dim
+					sprite_object::dim
 				>(
 					dim
 				)
 			)
-			.color(col)
-			*/
+			.color(
+				// TODO:
+				image::color::any::convert<
+					sprite_object::color_format
+				>(
+					col
+				)
+			)
+			.elements()
 		)
 	);
 }
