@@ -153,6 +153,9 @@ try
 		sys.input_system(),
 		sge::console::sprite_object(
 			sge::console::sprite_parameters()
+			.pos(
+				sge::console::sprite_object::point::null()
+			)
 			.texture(
 				tex_bg
 			)

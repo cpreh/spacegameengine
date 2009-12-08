@@ -58,6 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/signal/scoped_connection.hpp>
 #include <sge/math/box/basic_impl.hpp>
 #include <sge/math/vector/basic_impl.hpp>
+#include <sge/assign/make_container.hpp>
 #include <sge/exception.hpp>
 #include <sge/optional_impl.hpp>
 #include <sge/cerr.hpp>
@@ -69,7 +70,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <iostream>
 #include <cstdlib>
 #include <functional>
-#include <sge/assign/make_container.hpp>
 
 namespace
 {

@@ -101,7 +101,7 @@ sge::sprite::parameters<Choices, Elements> const
 sge::sprite::parameters<Choices, Elements>::texture_size() const
 {
 	return
-		this->texture(
+		this->size(
 			texture_dim<
 				Choices
 			>()
@@ -125,6 +125,26 @@ sge::sprite::parameters<Choices, Elements>::color(
 			roles::color
 		>(
 			color_
+		);
+}
+
+template<
+	typename Choices,
+	typename Elements
+>
+sge::sprite::parameters<Choices, Elements> const
+sge::sprite::parameters<Choices, Elements>::depth(
+	typename majutsu::role_return_type<
+		flattened_types,
+		roles::depth
+	>::type const &depth_
+) const
+{
+	return
+		this->set<
+			roles::depth
+		>(
+			depth_
 		);
 }
 
