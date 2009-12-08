@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/object_fwd.hpp>
 #include <sge/console/detail/history.hpp>
 #include <sge/console/detail/cursor.hpp>
+#include <sge/console/sprite_system.hpp>
+#include <sge/console/sprite_object.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/font/metrics_fwd.hpp>
@@ -32,12 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/modifier/filter.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/signal/scoped_connection.hpp>
-#include <sge/sprite/system.hpp>
-#include <sge/sprite/external_system_decl.hpp>
 #include <sge/sprite/object_decl.hpp>
-#include <sge/sprite/no_color.hpp>
-#include <sge/sprite/choices.hpp>
-#include <sge/sprite/with_texture.hpp>
+#include <sge/sprite/external_system_decl.hpp>
 #include <sge/noncopyable.hpp>
 
 namespace sge
@@ -49,26 +47,6 @@ class gfx
 {
 	SGE_NONCOPYABLE(gfx)
 public:
-	typedef sge::sprite::choices<
-		int,
-		float,
-		sprite::no_color
-	> sprite_choices;
-
-	typedef boost::mpl::vector1<
-		sprite::with_texture
-	> sprite_elements;
-
-	typedef sprite::system<
-		sprite_choices,
-		sprite_elements
-	>::type sprite_system;
-
-	typedef sprite::object<
-		sprite_choices,
-		sprite_elements
-	> sprite_object;
-
 	SGE_SYMBOL gfx(
 		sge::console::object &,
 		renderer::device_ptr,

@@ -23,10 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/detail/vertices_per_sprite.hpp>
 #include <sge/sprite/detail/indices_per_sprite.hpp>
+#include <sge/sprite/detail/set_texture_pre.hpp>
+#include <sge/sprite/detail/set_texture.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/texture/part.hpp>
+#include <iterator>
 
 namespace sge
 {
@@ -49,7 +52,17 @@ render(
 	renderer::index_buffer_ptr const ib
 )
 {
+	typedef typename std::iterator_traits<
+		In
+	>::value_type object_type;
+
 	renderer::size_type offset(0);
+
+	set_texture_pre<
+		typename object_type::elements
+	>(
+		rend
+	);
 
 	for(
 		In cur(beg), next(cur);
@@ -70,16 +83,9 @@ render(
 				++num_objects;
 		}
 
-		texture::const_part_ptr const vtex(
-			cur->texture()
-		);
-
-		rend->texture(
-			vtex
-			? vtex->texture()
-			: renderer::const_texture_ptr(
-				renderer::device::no_texture
-			)
+		set_texture(
+			*cur,
+			rend
 		);
 
 		rend->render(
@@ -94,10 +100,6 @@ render(
 
 		offset += num_objects;
 	}
-
-	rend->texture(
-		renderer::device::no_texture
-	);
 }
 
 }

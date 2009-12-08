@@ -35,8 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/add_image.hpp>
 #include <sge/texture/default_creator_impl.hpp>
 #include <sge/texture/no_fragmented.hpp>
-#include <sge/sprite/object.hpp>
-#include <sge/sprite/parameters.hpp>
 #include <sge/image/loader.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/window/parameters.hpp>
@@ -44,7 +42,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/object.hpp>
 #include <sge/console/arg_list.hpp>
 #include <sge/console/gfx.hpp>
+#include <sge/console/sprite_parameters.hpp>
+#include <sge/console/sprite_object.hpp>
 #include <sge/console/stdlib.hpp>
+#include <sge/sprite/parameters_impl.hpp>
+#include <sge/sprite/object_impl.hpp>
 #include <sge/font/system.hpp>
 #include <sge/signal/scoped_connection.hpp>
 #include <sge/config/media_path.hpp>
@@ -149,14 +151,15 @@ try
 			sge::config::media_path()/SGE_TEXT("fonts")/SGE_TEXT("default.ttf"),
 			15),
 		sys.input_system(),
-		sge::sprite::object(
-			sge::sprite::parameters()
+		sge::console::sprite_object(
+			sge::console::sprite_parameters()
 			.texture(
 				tex_bg
 			)
 			.size(
-				sge::sprite::dim(400,300)
+				sge::console::sprite_object::dim(400,300)
 			)
+			.elements()
 		)
 	);
 

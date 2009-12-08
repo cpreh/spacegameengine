@@ -285,8 +285,10 @@ sge::sprite::object<Choices, Elements>::x(
 )
 {
 	pos(
-		x_,
-		y()
+		point(
+			x_,
+			y()
+		)
 	);
 }
 
@@ -300,8 +302,10 @@ sge::sprite::object<Choices, Elements>::y(
 )
 {
 	pos(
-		x(),
-		y_
+		point(
+			x(),
+			y_
+		)
 	);
 }
 
@@ -347,8 +351,10 @@ sge::sprite::object<Choices, Elements>::w(
 )
 {
 	size(
-		w_,
-		h()
+		dim(
+			w_,
+			h()
+		)
 	);
 }
 
@@ -361,7 +367,12 @@ sge::sprite::object<Choices, Elements>::h(
 	unit const h_
 ) 
 {
-	return size().h();
+	size(
+		dim(
+			w(),
+			h_
+		)
+	);
 }
 
 template<
