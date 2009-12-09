@@ -18,42 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_WITH_DEPTH_HPP_INCLUDED
-#define SGE_SPRITE_WITH_DEPTH_HPP_INCLUDED
+#ifndef SGE_IMAGE_COLOR_OBJECT_IMPL_HPP_INCLUDED
+#define SGE_IMAGE_COLOR_OBJECT_IMPL_HPP_INCLUDED
 
-#include <sge/sprite/primitives/float.hpp>
-#include <sge/sprite/roles/depth.hpp>
-#include <majutsu/role.hpp>
-#include <majutsu/composite.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-
-namespace sge
-{
-namespace sprite
-{
-
-struct with_depth
-{
-	template<
-		typename Choices,
-		typename Elements
-	>
-	struct apply
-	{
-		typedef majutsu::composite<
-			boost::mpl::vector1<
-				majutsu::role<
-					typename primitives::float_<
-						typename Choices::float_type
-					>::type,
-					roles::depth
-				>
-			>
-		> type;
-	};
-};
-
-}
-}
+#include <sge/image/color/object.hpp>
+#include <mizuiro/color/object_impl.hpp>
 
 #endif

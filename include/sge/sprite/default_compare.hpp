@@ -71,12 +71,12 @@ struct default_compare
 		boost::mpl::and_<
 			boost::mpl::contains<
 				typename Object::elements,
-				with_texture
+				with_depth
 			>,
 			boost::mpl::not_<
 				boost::mpl::contains<
 					typename Object::elements,
-					with_depth
+					with_texture
 				>
 			>
 		>,
@@ -97,12 +97,12 @@ struct default_compare
 		boost::mpl::and_<
 			boost::mpl::contains<
 				typename Object::elements,
-				with_depth
+				with_texture
 			>,
 			boost::mpl::not_<
 				boost::mpl::contains<
 					typename Object::elements,
-					with_texture
+					with_depth
 				>
 			>
 		>,

@@ -86,6 +86,9 @@ public:
 	) const;
 
 	parameters const
+	default_color() const;
+
+	parameters const
 	depth(
 		typename majutsu::role_return_type<
 			flattened_types,

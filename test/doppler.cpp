@@ -49,7 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/init.hpp>
-#include <sge/image/color/any/convert.hpp>
+#include <sge/image/color/object_impl.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/external_system_impl.hpp>
@@ -57,6 +57,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/choices.hpp>
 #include <sge/sprite/with_texture.hpp>
 #include <sge/sprite/with_color.hpp>
+#include <sge/sprite/with_depth.hpp>
 #include <sge/sprite/default_sort.hpp>
 #include <sge/sprite/default_equal.hpp>
 #include <sge/texture/manager.hpp>
@@ -87,9 +88,10 @@ typedef sge::sprite::choices<
 	sprite_color
 > sprite_choices;
 
-typedef boost::mpl::vector2<
+typedef boost::mpl::vector3<
 	sge::sprite::with_color,
-	sge::sprite::with_texture
+	sge::sprite::with_texture,
+	sge::sprite::with_depth
 > sprite_elements;
 
 typedef sge::sprite::object<
@@ -271,14 +273,6 @@ try
 		sys.renderer()
 	);
 
-	sge::image::color::rgba8 const white(
-		sge::image::color::any::convert<
-			sprite_color
-		>(
-			sge::image::colors::white()
-		)
-	);
-
 	sprite_object bg(
 		sprite_parameters()
 		.texture(
@@ -299,9 +293,7 @@ try
 				sprite_object::depth_type
 			>(2)
 		)
-		.color(
-			white
-		)
+		.default_color()
 		.elements()
 	);
 
@@ -318,9 +310,7 @@ try
 		.pos(
 			sprite_object::point::null()
 		)
-		.color(
-			white
-		)
+		.default_color()
 		.texture_size()
 		.elements()
 	);

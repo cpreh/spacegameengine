@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/primitives/float.hpp>
 #include <sge/sprite/roles/pos.hpp>
 #include <sge/sprite/roles/size.hpp>
-#include <sge/sprite/roles/depth.hpp>
 #include <majutsu/memory/fusion.hpp>
 #include <majutsu/class.hpp>
 #include <majutsu/role.hpp>
@@ -76,7 +75,7 @@ struct make_class
 				>
 			>::type,
 			boost::mpl::back_inserter<
-				boost::mpl::vector3<
+				boost::mpl::vector2<
 					majutsu::role<
 						typename primitives::pos<
 							typename Choices::unit_type
@@ -88,12 +87,6 @@ struct make_class
 							typename Choices::unit_type
 						>::type,
 						roles::size
-					>,
-					majutsu::role<
-						typename primitives::float_<
-							typename Choices::float_type
-						>::type,
-						roles::depth
 					>
 				>
 			>

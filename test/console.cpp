@@ -127,29 +127,43 @@ try
 	sge::image::file_ptr const
 		image_bg(
 			sys.image_loader()->load(
-				sge::config::media_path()/SGE_TEXT("grass.png")));
+				sge::config::media_path()
+				/ SGE_TEXT("grass.png")
+			)
+		);
 
-	sge::texture::default_creator<sge::texture::no_fragmented> const
+	sge::texture::default_creator<
+		sge::texture::no_fragmented
+	> const
 		creator(
 			sys.renderer(),
 			sge::image::color::format::rgba8,
-			sge::renderer::filter::linear);
+			sge::renderer::filter::linear
+		);
 
-	sge::texture::manager tex_man(sys.renderer(),creator);
+	sge::texture::manager tex_man(
+		sys.renderer(),
+		creator
+	);
 
 	sge::texture::const_part_ptr const
 		tex_bg(
 			sge::texture::add_image(
 				tex_man,
-				image_bg));
+				image_bg
+			)
+		);
 
 	sge::console::gfx gfx_(
 		o,
 		sys.renderer(),
 		sge::image::colors::white(),
 		sys.font_system()->create_font(
-			sge::config::media_path()/SGE_TEXT("fonts")/SGE_TEXT("default.ttf"),
-			15),
+			sge::config::media_path()
+			/ SGE_TEXT("fonts")
+			/ SGE_TEXT("default.ttf"),
+			15
+		),
 		sys.input_system(),
 		sge::console::sprite_object(
 			sge::console::sprite_parameters()
