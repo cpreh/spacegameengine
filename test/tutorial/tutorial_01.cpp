@@ -74,11 +74,14 @@ try
 		(sge::systems::parameterless::image)
 	);
 
-	sge::sprite::system ss(sys.renderer());
+	sge::sprite::system ss(
+		sys.renderer()
+	);
 
 	sge::image::file_ptr const image(
 		sys.image_loader()->load(
-			sge::config::media_path() / SGE_TEXT("tux.png")
+			sge::config::media_path()
+			/ SGE_TEXT("tux.png")
 		)
 	);
 
@@ -90,8 +93,11 @@ try
 		)
 	);
 
-	sge::sprite::object const my_object(
-		sge::sprite::parameters()
+	sprite_object const my_object(
+		sprite_parameters()
+		.pos(
+			sprite_object::point::null()
+		)
 		.texture(
 			sge::make_shared_ptr<
 				sge::texture::part_raw
@@ -99,13 +105,22 @@ try
 				image_texture
 			)
 		)
+		.texture_size()
+		.elements()
 	);
 
 	while (true)
 	{
 		sge::mainloop::dispatch();
-		sge::renderer::scoped_block const block_(sys.renderer());
-		ss.render(my_object);
+
+		sge::renderer::scoped_block const block_(
+			sys.renderer()
+		);
+
+		sge::sprite::render_one(
+			ss,
+			my_object
+		);
 	}
 }
 catch (sge::exception const &e)
