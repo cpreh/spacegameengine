@@ -21,9 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/system.hpp>
-#include <sge/sprite/object.hpp>
-#include <sge/sprite/parameters.hpp>
+#include <sge/sprite/external_system_impl.hpp>
+#include <sge/sprite/parameters_impl.hpp>
+#include <sge/sprite/no_color.hpp>
+#include <sge/sprite/choices.hpp>
+#include <sge/sprite/with_texture.hpp>
+#include <sge/sprite/render_one.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/device.hpp>
@@ -88,11 +93,10 @@ try
 		(sge::systems::parameterless::input)
 	);
 
-	sge::sprite::system ss(sys.renderer());
-
 	sge::image::file_ptr const image(
 		sys.image_loader()->load(
-			sge::config::media_path() / SGE_TEXT("tux.png")
+			sge::config::media_path()
+			/ SGE_TEXT("tux.png")
 		)
 	);
 
@@ -104,10 +108,42 @@ try
 		)
 	);
 
-	sge::sprite::object my_object(
-		sge::sprite::parameters()
+	typedef sge::sprite::choices<
+		int,
+		float,
+		sge::sprite::no_color
+	> sprite_choices;
+
+	typedef boost::mpl::vector1<
+		sge::sprite::with_texture
+	> sprite_elements;
+
+	typedef sge::sprite::system<
+		sprite_choices,
+		sprite_elements
+	>::type sprite_system;
+
+	typedef sge::sprite::object<
+		sprite_choices,
+		sprite_elements
+	> sprite_object;
+
+	typedef sge::sprite::parameters<
+		sprite_choices,
+		sprite_elements
+	> sprite_parameters;
+
+	sprite_system ss(
+		sys.renderer()
+	);
+
+	sprite_object my_object(
+		sprite_parameters()
 		.pos(
-			sge::sprite::point(100,0)
+			sprite_object::point(
+				100,
+				0
+			)
 		)
 		.texture(
 			sge::make_shared_ptr<
@@ -116,23 +152,35 @@ try
 				image_texture
 			)
 		)
+		.texture_size()
+		.elements()
 	);
 
-	sge::sprite::object my_object_2(
-		sge::sprite::parameters()
+	sprite_object my_object_2(
+		sprite_parameters()
 		.pos(
-			sge::sprite::point(100,20)
+			sprite_object::point(
+				100,
+				20
+			)
 		)
 		.texture(
 			sge::make_shared_ptr<
 				sge::texture::part_raw
-			>(image_texture)
+			>(
+				image_texture
+			)
 		)
+		.texture_size()
+		.elements()
 	);
 
 	sge::renderer::texture_ptr const target(
 		sys.renderer()->create_texture(
-			sge::renderer::texture::dim_type(640,480),
+			sge::renderer::texture::dim_type(
+				640,
+				480
+			),
 			sge::image::color::format::rgba8,
 			sge::renderer::filter::linear,
 			sge::renderer::resource_flags::none
@@ -141,30 +189,50 @@ try
 
 	{
 		sge::renderer::scoped_block const block_(
-			sys.renderer());
+			sys.renderer()
+		);
 
 		sge::renderer::scoped_target const target_(
 			sys.renderer(),
-			target);
+			target
+		);
 
-		ss.render(my_object);
-		ss.render(my_object_2);
+		sge::sprite::render_one(
+			ss,
+			my_object
+		);
+
+		sge::sprite::render_one(
+			ss,
+			my_object_2
+		);
 	}
 
-	sge::sprite::object rendered_stuff(
-		sge::sprite::parameters()
+	sprite_object rendered_stuff(
+		sprite_parameters()
+		.pos(
+			sprite_object::point::null()
+		)
 		.texture(
 			sge::make_shared_ptr<
 				sge::texture::part_raw
-			>(target)
+			>(
+				target
+			)
 		)
+		.texture_size()
+		.elements()
 	);
 
 	sys.renderer()->state(
 		sge::renderer::state::list
-			(sge::renderer::state::bool_::clear_backbuffer = true)
-			(sge::renderer::state::color::clear_color
-				= sge::image::colors::red())
+		(
+			sge::renderer::state::bool_::clear_backbuffer = true
+		)
+		(
+			sge::renderer::state::color::clear_color
+				= sge::image::colors::red()
+		)
 	);
 
 	bool running = true;
@@ -181,17 +249,32 @@ try
 	while (running)
 	{
 		sge::mainloop::dispatch();
-		sge::renderer::scoped_block const block_(sys.renderer());
-		ss.render(rendered_stuff);
+
+		sge::renderer::scoped_block const block_(
+			sys.renderer()
+		);
+
+		sge::sprite::render_one(
+			ss,
+			rendered_stuff
+		);
 	}
 }
 catch (sge::exception const &e)
 {
-	sge::cerr << SGE_TEXT("caught sge exception: ") << e.string() << SGE_TEXT('\n');
+	sge::cerr
+		<< SGE_TEXT("caught sge exception: ")
+		<< e.string()
+		<< SGE_TEXT('\n');
+	
 	return EXIT_FAILURE;
 }
 catch (std::exception const &e)
 {
-	std::cerr << "caught std exception: " << e.what() << '\n';
+	std::cerr
+		<< "caught std exception: "
+		<< e.what()
+		<< '\n';
+	
 	return EXIT_FAILURE;
 }
