@@ -50,11 +50,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key_code.hpp>
 #include <sge/image/loader.hpp>
 #include <sge/image/color/rgba8.hpp>
+#include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/init.hpp>
-#include <sge/sprite/object.hpp>
+#include <sge/image/color/object_impl.hpp>
+#include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/system.hpp>
-#include <sge/sprite/parameters.hpp>
-#include <sge/sprite/texture_animation.hpp>
+#include <sge/sprite/external_system_impl.hpp>
+#include <sge/sprite/parameters_impl.hpp>
+#include <sge/sprite/choices.hpp>
+#include <sge/sprite/with_texture.hpp>
+#include <sge/sprite/with_color.hpp>
+#include <sge/sprite/with_depth.hpp>
+#include <sge/sprite/default_sort.hpp>
+#include <sge/sprite/default_equal.hpp>
+#include <sge/sprite/render_one.hpp>
 #include <sge/math/dim/structure_cast.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/add_image.hpp>
@@ -74,30 +83,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
+
+typedef sge::image::color::rgba8_format sprite_color;
+
+typedef sge::sprite::choices<
+	int,
+	float,
+	sprite_color
+> sprite_choices;
+
+typedef boost::mpl::vector3<
+	sge::sprite::with_color,
+	sge::sprite::with_texture,
+	sge::sprite::with_depth
+> sprite_elements;
+
+typedef sge::sprite::object<
+	sprite_choices,
+	sprite_elements
+> sprite_object;
+
 class sprite_functor
 {
-	public:
+public:
 	explicit sprite_functor(
-		sge::sprite::object &s)
-		:
-			s(s)
-		{}
+		sprite_object &s
+	)
+	:
+		s(s)
+	{}
 
-	void operator()(sge::input::key_pair const &k) const
+	void
+	operator()(
+		sge::input::key_pair const &k
+	) const
 	{
 		switch (k.key().code())
 		{
-			case sge::input::kc::mouse_x_axis:
-			s.pos().x() += k.value();
+		case sge::input::kc::mouse_x_axis:
+			s.x(
+				s.x() + k.value()
+			);
 			break;
-			case sge::input::kc::mouse_y_axis:
-			s.pos().y() += k.value();
+		case sge::input::kc::mouse_y_axis:
+			s.y(
+				s.y() + k.value()
+			);
 			break;
-			default: break;
+		default:
+			break;
 		}
 	}
-	private:
-	sge::sprite::object &s;
+private:
+	sprite_object &s;
 };
 }
 
@@ -109,87 +147,168 @@ try
 		sge::log::level::debug
 	);
 
-	sge::renderer::screen_size const screen_size(1024,768);
+	sge::renderer::screen_size const screen_size(
+		1024,
+		768
+	);
+
 	sge::systems::instance sys(
 		sge::systems::list()
-		(sge::window::parameters(
-			SGE_TEXT("sge dopplertest")
-		))
-		(sge::renderer::parameters(
-			sge::renderer::display_mode(
-				screen_size,
-				sge::renderer::bit_depth::depth32,
-				sge::renderer::refresh_rate_dont_care),
-			sge::renderer::depth_buffer::off,
-			sge::renderer::stencil_buffer::off,
-			sge::renderer::window_mode::windowed,
-			sge::renderer::vsync::on,
-			sge::renderer::no_multi_sampling
-		))
+		(
+			sge::window::parameters(
+				SGE_TEXT("sge dopplertest")
+			)
+		)
+		(
+			sge::renderer::parameters(
+				sge::renderer::display_mode(
+					screen_size,
+					sge::renderer::bit_depth::depth32,
+					sge::renderer::refresh_rate_dont_care
+				),
+				sge::renderer::depth_buffer::off,
+				sge::renderer::stencil_buffer::off,
+				sge::renderer::window_mode::windowed,
+				sge::renderer::vsync::on,
+				sge::renderer::no_multi_sampling
+			)
+		)
 		(sge::systems::parameterless::input)
-		(sge::systems::parameterless::image));
+		(sge::systems::parameterless::image)
+	);
 
 	sge::image::file_ptr const
 		image_bg(
 			sys.image_loader()->load(
-				sge::config::media_path()/SGE_TEXT("shadertest.jpg"))),
+				sge::config::media_path()
+				/ SGE_TEXT("shadertest.jpg")
+			)
+		),
 		image_pointer(
 			sys.image_loader()->load(
-				sge::config::media_path()/SGE_TEXT("gui")/SGE_TEXT("cursor.png"))),
+				sge::config::media_path()
+				/ SGE_TEXT("gui")
+				/ SGE_TEXT("cursor.png")
+			)
+		),
 		image_tux(
 			sys.image_loader()->load(
-				sge::config::media_path()/SGE_TEXT("tux.png")));
+				sge::config::media_path()
+				/ SGE_TEXT("tux.png")
+			)
+		);
 
-	sge::texture::default_creator<sge::texture::no_fragmented> const
+	sge::texture::default_creator<
+		sge::texture::no_fragmented
+	> const
 		creator(
 			sys.renderer(),
 			sge::image::color::format::rgba8,
-			sge::renderer::filter::linear);
+			sge::renderer::filter::linear
+		);
 
-	sge::texture::manager tex_man(sys.renderer(),creator);
+	sge::texture::manager tex_man(
+		sys.renderer(),
+		creator
+	);
 
 	sge::texture::const_part_ptr const
 		tex_bg(
 			sge::texture::add_image(
 				tex_man,
-				image_bg)),
+				image_bg
+			)
+		),
 		tex_pointer(
 			sge::texture::add_image(
 				tex_man,
-				image_pointer)),
+				image_pointer
+			)
+		),
 		tex_tux(
 			sge::texture::add_image(
 				tex_man,
-				image_tux));
+				image_tux
+			)
+		);
 
-	sge::sprite::system ss(sys.renderer());
+	typedef sge::sprite::system<
+		sprite_choices,
+		sprite_elements
+	>::type sprite_system;
 
-	sge::sprite::object bg(
-		sge::sprite::parameters()
-			.texture(tex_bg)
-			.size(
-				sge::math::dim::structure_cast<sge::sprite::dim>(
-					screen_size))
-			.depth(
-				static_cast<sge::sprite::depth_type>(2)));
+	typedef sge::sprite::parameters<
+		sprite_choices,
+		sprite_elements
+	> sprite_parameters;
 
-	sge::sprite::object pointer(
-		sge::sprite::parameters()
-			.texture(
-				tex_pointer)
-			.depth(
-				static_cast<sge::sprite::depth_type>(0)));
+	sprite_system ss(
+		sys.renderer()
+	);
 
-	sge::sprite::object tux(
-		sge::sprite::parameters()
+	sprite_object bg(
+		sprite_parameters()
 			.pos(
-				sge::sprite::point(screen_size.w()/2-16,screen_size.h()/2-16))
+				sprite_object::point::null()
+			)
 			.texture(
-				tex_tux)
+				tex_bg
+			)
 			.size(
-				sge::sprite::dim(32,32))
+				sge::math::dim::structure_cast<
+					sprite_object::dim
+				>(
+					screen_size
+				)
+			)
 			.depth(
-				static_cast<sge::sprite::depth_type>(1)));
+				static_cast<
+					sprite_object::depth_type
+				>(2)
+			)
+			.elements()
+		);
+
+	sprite_object pointer(
+		sprite_parameters()
+		.pos(
+			sprite_object::point::null()
+		)
+		.texture(
+			tex_pointer
+		)
+		.texture_size()
+		.default_color()
+		.depth(
+			static_cast<
+				sprite_object::depth_type
+			>(0)
+		)
+		.elements()
+	);
+
+	sprite_object tux(
+		sprite_parameters()
+		.pos(
+			sprite_object::point(
+				screen_size.w()/2-16,
+				screen_size.h()/2-16
+			)
+		)
+		.texture(
+			tex_tux
+		)
+		.size(
+			sprite_object::dim(32,32)
+		)
+		.default_color()
+		.depth(
+			static_cast<
+				sprite_object::depth_type
+			>(1)
+		)
+		.elements()
+	);
 
 	tux.color(
 		sge::image::color::rgba8(
@@ -214,7 +333,10 @@ try
 	sge::signal::scoped_connection const pc(
 		sys.input_system()->register_callback(
 			sprite_functor(
-				pointer)));
+				pointer
+			)
+		)
+	);
 
 	/*
 	sys.renderer()->state(
@@ -237,35 +359,58 @@ try
 		)
 	);
 
-	sge::sprite::object target_spr(
-		sge::sprite::parameters()
-			.texture(
-				sge::make_shared_ptr<
-					sge::texture::part_raw
-				>(
-					target
-				)
+	sprite_object target_spr(
+		sprite_parameters()
+		.pos(
+			sprite_object::point::null()
+		)
+		.texture(
+			sge::make_shared_ptr<
+				sge::texture::part_raw
+			>(
+				target
 			)
-			.depth(
-				static_cast<sge::sprite::depth_type>(1)
-			)
+		)
+		.texture_size()
+		.default_color()
+		.depth(
+			static_cast<
+				sprite_object::depth_type
+			>(1)
+		)
+		.elements()
 	);
 
 	sge::cifstream fragment_stream(
-		sge::config::media_path()/SGE_TEXT("shaders")/SGE_TEXT("fragment.glsl"));
-	sge::cifstream vertex_stream(
-		sge::config::media_path()/SGE_TEXT("shaders")/SGE_TEXT("vertex.glsl"));
+		sge::config::media_path()
+		/ SGE_TEXT("shaders")
+		/ SGE_TEXT("fragment.glsl")
+	);
 
-	sge::renderer::glsl::program_ptr const p =
+	sge::cifstream vertex_stream(
+		sge::config::media_path()
+		/ SGE_TEXT("shaders")
+		/ SGE_TEXT("vertex.glsl")
+	);
+
+	sge::renderer::glsl::program_ptr const p(
 		sys.renderer()->create_glsl_program(
-			sge::renderer::glsl::istream_ref(vertex_stream),
-			sge::renderer::glsl::istream_ref(fragment_stream));
+			sge::renderer::glsl::istream_ref(
+				vertex_stream
+			),
+			sge::renderer::glsl::istream_ref(
+				fragment_stream
+			)
+		)
+	);
 
 	sys.renderer()->glsl_program(
-		p);
+		p
+	);
 
-	sge::renderer::glsl::uniform::variable_ptr const v =
-		p->uniform("tex");
+	sge::renderer::glsl::uniform::variable_ptr const v(
+		p->uniform("tex")
+	);
 
 	sge::renderer::glsl::uniform::single_value(
 		v,
@@ -277,29 +422,48 @@ try
 		sge::mainloop::dispatch();
 		{
 			sys.renderer()->glsl_program(
-				sge::renderer::device::no_program);
+				sge::renderer::device::no_program
+			);
 
 			sge::renderer::scoped_block const block_(
-				sys.renderer());
+				sys.renderer()
+			);
 
 			sge::renderer::scoped_target const target_(
 				sys.renderer(),
-				target);
+				target
+			);
 
-			sge::sprite::container sprites;
+			typedef std::vector<
+				sprite_object
+			> sprite_container;
+			
+			sprite_container sprites;
+
 			sprites.push_back(bg);
 			sprites.push_back(pointer);
 			sprites.push_back(tux);
-			ss.render(sprites.begin(),sprites.end());
+
+			ss.render(
+				sprites.begin(),
+				sprites.end(),
+				sge::sprite::default_sort(),
+				sge::sprite::default_equal()
+			);
 		}
 
 		sys.renderer()->glsl_program(
-			p);
+			p
+		);
 
-		sge::renderer::scoped_block const block_(sys.renderer());
+		sge::renderer::scoped_block const block_(
+			sys.renderer()
+		);
 
-		ss.render(
-			target_spr);
+		sge::sprite::render_one(
+			ss,
+			target_spr
+		);
 	}
 }
 catch(sge::exception const &e)
