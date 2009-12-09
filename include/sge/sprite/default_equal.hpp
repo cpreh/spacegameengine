@@ -23,8 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/compare_depth.hpp>
 #include <sge/sprite/with_texture.hpp>
+#include <sge/sprite/with_depth.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <boost/mpl/contains.hpp>
+#include <boost/mpl/and.hpp>
+#include <boost/mpl/or.hpp>
+#include <boost/mpl/not.hpp>
 #include <boost/utility/enable_if.hpp>
 
 namespace sge
@@ -40,9 +44,15 @@ struct default_equal
 		typename Object
 	>
 	typename boost::enable_if<
-		boost::mpl::contains<
-			typename Object::elements,
-			with_texture
+		boost::mpl::and_<
+			boost::mpl::contains<
+				typename Object::elements,
+				with_texture
+			>,
+			boost::mpl::contains<
+				typename Object::elements,
+				with_depth
+			>
 		>,
 		result_type
 	>::type
@@ -60,10 +70,18 @@ struct default_equal
 	template<
 		typename Object
 	>
-	typename boost::disable_if<
-		boost::mpl::contains<
-			typename Object::elements,
-			with_texture
+	typename boost::enable_if<
+		boost::mpl::and_<
+			boost::mpl::contains<
+				typename Object::elements,
+				with_depth
+			>,
+			boost::mpl::not_<
+				boost::mpl::contains<
+					typename Object::elements,
+					with_texture
+				>
+			>
 		>,
 		result_type
 	>::type
@@ -74,6 +92,59 @@ struct default_equal
 	{
 		return
 			compare_depth(a, b);
+	}
+
+	template<
+		typename Object
+	>
+	typename boost::enable_if<
+		boost::mpl::and_<
+			boost::mpl::contains<
+				typename Object::elements,
+				with_texture
+			>,
+			boost::mpl::not_<
+				boost::mpl::contains<
+					typename Object::elements,
+					with_depth
+				>
+			>
+		>,
+		result_type
+	>::type
+	operator()(
+		Object const &a,
+		Object const &b
+	) const
+	{
+		return
+			a.texture() == b.texture();
+	}
+
+	template<
+		typename Object
+	>
+	typename boost::enable_if<
+		boost::mpl::not_<
+			boost::mpl::or_<
+				boost::mpl::contains<
+					typename Object::elements,
+					with_texture
+				>,
+				boost::mpl::contains<
+					typename Object::elements,
+					with_depth
+				>
+			>
+		>,
+		result_type
+	>::type
+	operator()(
+		Object const &,
+		Object const &
+	) const
+	{
+		return true;
 	}
 };
 

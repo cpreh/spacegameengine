@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/point_float.hpp>
 #include <sge/sprite/detail/rect_float.hpp>
 #include <sge/sprite/detail/vertices_per_sprite.hpp>
+#include <sge/sprite/detail/depth.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/bounding_rect.hpp>
 #include <sge/sprite/depth_type.hpp>
@@ -32,7 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/box/structure_cast.hpp>
 #include <sge/math/vector/structure_cast.hpp>
 #include <sge/math/vector/construct.hpp>
-#include <boost/foreach.hpp>
 #include <tr1/array>
 #include <cmath>
 
@@ -142,13 +142,11 @@ fill_position_rotated(
 	>::type depth_type;
 
 	depth_type const depth_(
-		spr.z()
+		depth(
+			spr
+		)
 	);
 
-	/*BOOST_FOREACH(
-		position_array::const_reference pos_,
-		positions
-	)*/
 	for(
 		typename position_array::const_iterator it(
 			positions.begin()

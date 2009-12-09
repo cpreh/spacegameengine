@@ -18,56 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DEFAULT_SORT_HPP_INCLUDED
-#define SGE_SPRITE_DEFAULT_SORT_HPP_INCLUDED
+#ifndef SGE_SPRITE_WITH_DEPTH_HPP_INCLUDED
+#define SGE_SPRITE_WITH_DEPTH_HPP_INCLUDED
 
-#include <sge/sprite/default_compare.hpp>
-#include <sge/sprite/with_depth.hpp>
-#include <sge/sprite/with_texture.hpp>
-#include <boost/mpl/contains.hpp>
-#include <boost/mpl/or.hpp>
-#include <boost/utility/enable_if.hpp>
-#include <algorithm>
-#include <iterator>
+#include <sge/sprite/primitives/float.hpp>
+#include <sge/sprite/roles/depth.hpp>
+#include <majutsu/role.hpp>
+#include <majutsu/composite.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace sge
 {
 namespace sprite
 {
 
-struct default_sort
+struct with_depth
 {
 	template<
-		typename In
+		typename Choices,
+		typename Elements
 	>
-	typename boost::enable_if<
-		boost::mpl::or_<
-			boost::mpl::contains<
-				typename std::iterator_traits<
-					In
-				>::value_type::elements,
-				with_texture
-			>,
-			boost::mpl::contains<
-				typename std::iterator_traits<
-					In
-				>::value_type::elements,
-				with_depth
-			>
-		>,
-		void
-	>::type
-	operator()(
-		In const beg,
-		In const end
-	)  const
+	struct apply
 	{
-		std::stable_sort(
-			beg,
-			end,
-			default_compare()
-		);
-	}
+		typedef majutsu::composite<
+			boost::mpl::vector1<
+				majutsu::role<
+					typename primitives::float_<
+						typename Choices::float_type
+					>,
+					roles::depth
+				>
+			>
+		> type;
+	};
 };
 
 }

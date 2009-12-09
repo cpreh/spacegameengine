@@ -18,58 +18,74 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DEFAULT_SORT_HPP_INCLUDED
-#define SGE_SPRITE_DEFAULT_SORT_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_DEPTH_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_DEPTH_HPP_INCLUDED
 
-#include <sge/sprite/default_compare.hpp>
 #include <sge/sprite/with_depth.hpp>
-#include <sge/sprite/with_texture.hpp>
+#include <sge/sprite/object_impl.hpp>
+#include <sge/sprite/depth_type.hpp>
 #include <boost/mpl/contains.hpp>
-#include <boost/mpl/or.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <algorithm>
-#include <iterator>
 
 namespace sge
 {
 namespace sprite
 {
-
-struct default_sort
+namespace detail
 {
-	template<
-		typename In
-	>
-	typename boost::enable_if<
-		boost::mpl::or_<
-			boost::mpl::contains<
-				typename std::iterator_traits<
-					In
-				>::value_type::elements,
-				with_texture
-			>,
-			boost::mpl::contains<
-				typename std::iterator_traits<
-					In
-				>::value_type::elements,
-				with_depth
-			>
-		>,
-		void
-	>::type
-	operator()(
-		In const beg,
-		In const end
-	)  const
-	{
-		std::stable_sort(
-			beg,
-			end,
-			default_compare()
-		);
-	}
-};
 
+template<
+	typename Choices,
+	typename Elements
+>
+typename boost::enable_if<
+	boost::mpl::contains<
+		Elements,
+		with_depth
+	>,
+	typename depth_type<
+		Choices
+	>::type
+>::type
+depth(
+	object<
+		Choices,
+		Elements
+	> const &sprite_
+)
+{
+	return sprite_.z();
+}
+
+template<
+	typename Choices,
+	typename Elements
+>
+typename boost::disable_if<
+	boost::mpl::contains<
+		Elements,
+		with_depth
+	>,
+	typename depth_type<
+		Choices
+	>::type
+>::type
+depth(
+	object<
+		Choices,
+		Elements
+	> const &
+)
+{
+	return
+		static_cast<
+			typename depth_type<
+				Choices
+			>::type
+		>(0);
+}
+
+}
 }
 }
 

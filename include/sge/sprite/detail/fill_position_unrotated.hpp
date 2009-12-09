@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/vertex_pos.hpp>
 #include <sge/sprite/detail/rect_float.hpp>
 #include <sge/sprite/detail/point_float3.hpp>
+#include <sge/sprite/detail/depth.hpp>
 #include <sge/sprite/depth_type.hpp>
 #include <sge/sprite/bounding_rect.hpp>
 #include <sge/math/box/structure_cast.hpp>
@@ -77,7 +78,9 @@ fill_position_unrotated(
 	>::type depth_type;
 
 	depth_type const depth_(
-		spr.z()
+		depth(
+			spr
+		)
 	);
 
 	(*iterator++). template set<
