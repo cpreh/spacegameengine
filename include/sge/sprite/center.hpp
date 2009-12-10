@@ -24,7 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/point.hpp>
 #include <sge/math/vector/dim.hpp>
+#include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/vector/arithmetic.hpp>
+#include <sge/math/dim/basic_impl.hpp>
 
 namespace sge
 {
@@ -35,7 +37,7 @@ template<
 	typename Choices
 >
 typename point<
-	Choices
+	typename Choices::type_choices
 >::type
 center(
 	object<

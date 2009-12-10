@@ -29,12 +29,12 @@ namespace sprite
 {
 
 template<
-	typename Choices
+	typename TypeChoices
 >
 struct color
 {
 	typedef typename primitives::color<
-		typename Choices::color_type
+		typename TypeChoices::color_type
 	>::type::type type;
 };
 

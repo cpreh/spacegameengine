@@ -27,11 +27,11 @@ namespace sprite
 {
 
 template<
-	typename Choices
+	typename TypeChoices
 >
 struct rotation_type
 {
-	typedef typename Choices::float_type type;
+	typedef typename TypeChoices::float_type type;
 };
 
 }
