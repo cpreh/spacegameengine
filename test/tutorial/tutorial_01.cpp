@@ -20,9 +20,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/system.hpp>
-#include <sge/sprite/object.hpp>
-#include <sge/sprite/parameters.hpp>
+#include <sge/sprite/external_system_impl.hpp>
+#include <sge/sprite/parameters_impl.hpp>
+#include <sge/sprite/no_color.hpp>
+#include <sge/sprite/choices.hpp>
+#include <sge/sprite/type_choices.hpp>
+#include <sge/sprite/with_texture.hpp>
+#include <sge/sprite/render_one.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/device.hpp>
@@ -39,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cerr.hpp>
 #include <sge/text.hpp>
 #include <sge/make_shared_ptr.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <exception>
 #include <iostream>
 #include <ostream>
@@ -74,7 +81,30 @@ try
 		(sge::systems::parameterless::image)
 	);
 
-	sge::sprite::system ss(
+	typedef sge::sprite::choices<
+		sge::sprite::type_choices<
+			int,
+			float,
+			sge::sprite::no_color
+		>,
+		boost::mpl::vector1<
+			sge::sprite::with_texture
+		>
+	> sprite_choices;
+
+	typedef sge::sprite::system<
+		sprite_choices
+	>::type sprite_system;
+
+	typedef sge::sprite::object<
+		sprite_choices
+	> sprite_object;
+
+	typedef sge::sprite::parameters<
+		sprite_choices
+	> sprite_parameters;
+
+	sprite_system ss(
 		sys.renderer()
 	);
 
@@ -109,7 +139,7 @@ try
 		.elements()
 	);
 
-	while (true)
+	for (;;)
 	{
 		sge::mainloop::dispatch();
 
@@ -123,13 +153,24 @@ try
 		);
 	}
 }
-catch (sge::exception const &e)
+catch(
+	sge::exception const &e
+)
 {
-	sge::cerr << SGE_TEXT("caught sge exception: ") << e.string() << SGE_TEXT('\n');
+	sge::cerr
+		<< SGE_TEXT("caught sge exception: ")
+		<< e.string()
+		<< SGE_TEXT('\n');
+	
 	return EXIT_FAILURE;
 }
-catch (std::exception const &e)
+catch(
+	std::exception const &e
+)
 {
-	std::cerr << "caught std exception: " << e.what() << '\n';
+	std::cerr
+		<< "caught std exception: "
+		<< e.what()
+		<< '\n';
 	return EXIT_FAILURE;
 }

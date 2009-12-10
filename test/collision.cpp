@@ -45,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/choices.hpp>
+#include <sge/sprite/type_choices.hpp>
 #include <sge/sprite/with_color.hpp>
 #include <sge/sprite/dont_sort.hpp>
 #include <sge/sprite/default_equal.hpp>
@@ -77,18 +78,18 @@ namespace
 typedef sge::image::color::rgba8_format sprite_color;
 
 typedef sge::sprite::choices<
-	int,
-	float,
-	sprite_color
+	sge::sprite::type_choices<
+		int,
+		float,
+		sprite_color
+	>,
+	boost::mpl::vector1<
+		sge::sprite::with_color
+	>
 > sprite_choices;
 
-typedef boost::mpl::vector1<
-	sge::sprite::with_color
-> sprite_elements;
-
 typedef sge::sprite::object<
-	sprite_choices,
-	sprite_elements
+	sprite_choices
 > sprite_object;
 
 void collision_begin(
@@ -134,7 +135,7 @@ public:
 
 	void position_change(sge::collision::point const &p)
 	{
-		typedef sprite_choices::unit_type unit;
+		typedef sprite_object::unit unit;
 
 		sprite_.x(
 			static_cast<
@@ -212,13 +213,11 @@ try
 		foobar1 = world->register_test_callback(&test_callback1);
 
 	typedef sge::sprite::system<
-		sprite_choices,
-		sprite_elements
+		sprite_choices
 	>::type sprite_system;
 
 	typedef sge::sprite::parameters<
-		sprite_choices,
-		sprite_elements
+		sprite_choices
 	> sprite_parameters;
 
 	sprite_object s_a(

@@ -20,9 +20,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/system.hpp>
-#include <sge/sprite/object.hpp>
-#include <sge/sprite/parameters.hpp>
+#include <sge/sprite/external_system_impl.hpp>
+#include <sge/sprite/parameters_impl.hpp>
+#include <sge/sprite/no_color.hpp>
+#include <sge/sprite/choices.hpp>
+#include <sge/sprite/type_choices.hpp>
+#include <sge/sprite/with_texture.hpp>
+#include <sge/sprite/render_one.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
@@ -48,6 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cerr.hpp>
 #include <sge/text.hpp>
 #include <sge/make_shared_ptr.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <exception>
 #include <iostream>
 #include <ostream>
@@ -55,17 +62,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
+
+typedef sge::sprite::choices<
+	sge::sprite::type_choices<
+		int,
+		float,
+		sge::sprite::no_color
+	>,
+	boost::mpl::vector1<
+		sge::sprite::with_texture
+	>
+> sprite_choices;
+
+typedef sge::sprite::object<
+	sprite_choices
+> sprite_object;
+
 class input_functor
 {
 public:
-	explicit input_functor(bool &running)
+	explicit input_functor(
+		bool &running
+	)
 	:
 		running(running)
 	{}
 
-	void operator()(sge::input::key_pair const &k) const
+	void
+	operator()(
+		sge::input::key_pair const &k
+	) const
 	{
-		if (k.key().code() == sge::input::kc::key_escape)
+		if(
+			k.key().code() == sge::input::kc::key_escape
+		)
 			running = false;
 	}
 private:
@@ -75,26 +105,38 @@ private:
 class sprite_functor
 {
 public:
-	explicit sprite_functor(sge::sprite::object &s)
+	explicit sprite_functor(
+		sprite_object &s
+	)
 	:
 		s(s)
 	{}
 
-	void operator()(sge::input::key_pair const &k) const
+	void
+	operator()(
+		sge::input::key_pair const &k
+	) const
 	{
-		switch (k.key().code())
+		switch(
+			k.key().code()
+		)
 		{
-			case sge::input::kc::mouse_x_axis:
-			s.pos().x() += k.value();
+		case sge::input::kc::mouse_x_axis:
+			s.x(
+				s.x() + k.value()
+			);
 			break;
-			case sge::input::kc::mouse_y_axis:
-			s.pos().y() += k.value();
+		case sge::input::kc::mouse_y_axis:
+			s.y(
+				s.y() + k.value()
+			);
 			break;
-			default: break;
+		default:
+			break;
 		}
 	}
 private:
-	sge::sprite::object &s;
+	sprite_object &s;
 };
 }
 
@@ -129,11 +171,18 @@ try
 		(sge::systems::parameterless::image)
 	);
 
-	sge::sprite::system ss(sys.renderer());
+	typedef sge::sprite::system<
+		sprite_choices
+	>::type sprite_system;
+
+	sprite_system ss(
+		sys.renderer()
+	);
 
 	sge::image::file_ptr const image(
 		sys.image_loader()->load(
-			sge::config::media_path() / SGE_TEXT("tux.png")
+			sge::config::media_path()
+			/ SGE_TEXT("tux.png")
 		)
 	);
 
@@ -145,8 +194,15 @@ try
 		)
 	);
 
-	sge::sprite::object my_object(
-		sge::sprite::parameters()
+	typedef sge::sprite::parameters<
+		sprite_choices
+	> sprite_parameters;
+
+	sprite_object my_object(
+		sprite_parameters()
+		.pos(
+			sprite_object::point::null()
+		)
 		.texture(
 			sge::make_shared_ptr<
 				sge::texture::part_raw
@@ -154,6 +210,8 @@ try
 				image_texture
 			)
 		)
+		.texture_size()
+		.elements()
 	);
 
 	bool running = true;
@@ -176,16 +234,27 @@ try
 
 	sys.renderer()->state(
 		sge::renderer::state::list
-			(sge::renderer::state::bool_::clear_backbuffer = true)
-			(sge::renderer::state::color::clear_color
-				= sge::image::colors::black())
+		(
+			sge::renderer::state::bool_::clear_backbuffer = true
+		)
+		(
+			sge::renderer::state::color::clear_color
+				= sge::image::colors::black()
+		)
 	);
 
 	while (running)
 	{
 		sge::mainloop::dispatch();
-		sge::renderer::scoped_block const block_(sys.renderer());
-		ss.render(my_object);
+
+		sge::renderer::scoped_block const block_(
+			sys.renderer()
+		);
+
+		sge::sprite::render_one(
+			ss,
+			my_object
+		);
 	}
 }
 catch (sge::exception const &e)

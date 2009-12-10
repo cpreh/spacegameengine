@@ -58,6 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/external_system_impl.hpp>
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/choices.hpp>
+#include <sge/sprite/type_choices.hpp>
 #include <sge/sprite/with_texture.hpp>
 #include <sge/sprite/with_color.hpp>
 #include <sge/sprite/with_depth.hpp>
@@ -77,6 +78,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <boost/assign/list_of.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <exception>
 #include <ostream>
 #include <cstdlib>
@@ -87,20 +89,20 @@ namespace
 typedef sge::image::color::rgba8_format sprite_color;
 
 typedef sge::sprite::choices<
-	int,
-	float,
-	sprite_color
+	sge::sprite::type_choices<
+		int,
+		float,
+		sprite_color
+	>,
+	boost::mpl::vector3<
+		sge::sprite::with_color,
+		sge::sprite::with_texture,
+		sge::sprite::with_depth
+	>
 > sprite_choices;
 
-typedef boost::mpl::vector3<
-	sge::sprite::with_color,
-	sge::sprite::with_texture,
-	sge::sprite::with_depth
-> sprite_elements;
-
 typedef sge::sprite::object<
-	sprite_choices,
-	sprite_elements
+	sprite_choices
 > sprite_object;
 
 class sprite_functor
@@ -233,13 +235,11 @@ try
 		);
 
 	typedef sge::sprite::system<
-		sprite_choices,
-		sprite_elements
+		sprite_choices
 	>::type sprite_system;
 
 	typedef sge::sprite::parameters<
-		sprite_choices,
-		sprite_elements
+		sprite_choices
 	> sprite_parameters;
 
 	sprite_system ss(

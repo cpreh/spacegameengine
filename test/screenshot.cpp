@@ -47,6 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/choices.hpp>
+#include <sge/sprite/type_choices.hpp>
 #include <sge/sprite/no_color.hpp>
 #include <sge/sprite/with_texture.hpp>
 #include <sge/sprite/render_one.hpp>
@@ -123,28 +124,26 @@ try
 	);
 
 	typedef sge::sprite::choices<
-		int,
-		float,
-		sge::sprite::no_color
+		sge::sprite::type_choices<
+			int,
+			float,
+			sge::sprite::no_color
+		>,
+		boost::mpl::vector1<
+			sge::sprite::with_texture
+		>
 	> sprite_choices;
 
-	typedef boost::mpl::vector1<
-		sge::sprite::with_texture
-	> sprite_elements;
-
 	typedef sge::sprite::system<
-		sprite_choices,
-		sprite_elements
+		sprite_choices
 	>::type sprite_system;
 
 	typedef sge::sprite::object<
-		sprite_choices,
-		sprite_elements
+		sprite_choices
 	> sprite_object;
 
 	typedef sge::sprite::parameters<
-		sprite_choices,
-		sprite_elements
+		sprite_choices
 	> sprite_parameters;
 
 	sprite_system ss(
