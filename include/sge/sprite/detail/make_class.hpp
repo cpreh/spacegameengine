@@ -21,11 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_MAKE_CLASS_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_MAKE_CLASS_HPP_INCLUDED
 
+#include <sge/sprite/with_rotation.hpp>
+#include <sge/sprite/with_rotation_center.hpp>
 #include <sge/sprite/primitives/pos.hpp>
 #include <sge/sprite/primitives/dim.hpp>
 #include <sge/sprite/primitives/float.hpp>
 #include <sge/sprite/roles/pos.hpp>
 #include <sge/sprite/roles/size.hpp>
+#include <sge/mpl/implication.hpp>
 #include <majutsu/memory/fusion.hpp>
 #include <majutsu/class.hpp>
 #include <majutsu/role.hpp>
@@ -35,6 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/back_inserter.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/copy.hpp>
+#include <boost/mpl/contains.hpp>
+#include <boost/static_assert.hpp>
 
 namespace sge
 {
@@ -49,6 +54,19 @@ template<
 >
 struct make_class
 {
+	BOOST_STATIC_ASSERT((
+		sge::mpl::implication<
+			boost::mpl::contains<
+				Elements,
+				with_rotation_center
+			>,
+			boost::mpl::contains<
+				Elements,
+				with_rotation
+			>
+		>::value
+	));
+
 	// TODO: why do we need this?
 	template<
 		typename F,
