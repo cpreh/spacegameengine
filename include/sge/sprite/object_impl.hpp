@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/detail/transform_init_arguments.hpp>
+#include <sge/sprite/detail/rotation_center.hpp>
 #include <sge/sprite/detail/assign_pre.hpp>
 #include <sge/sprite/detail/assign_post.hpp>
 #include <sge/sprite/roles/pos.hpp>
@@ -31,8 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/visible.hpp>
 #include <sge/sprite/roles/rotation.hpp>
 #include <sge/sprite/roles/rotate_around.hpp>
-#include <sge/sprite/roles/repetition.hpp>
 #include <sge/sprite/roles/use_rotation.hpp>
+#include <sge/sprite/roles/repetition.hpp>
 #include <sge/sprite/roles/color.hpp>
 #include <sge/sprite/roles/texture.hpp>
 #include <sge/sprite/roles/order.hpp>
@@ -209,18 +210,10 @@ typename sge::sprite::object<Choices, Elements>::point const
 sge::sprite::object<Choices, Elements>::rotation_center() const
 {
 	return
-		elements_. template get<
-			roles::use_rotation
-		>()
-		?
-			pos()
-			+ elements_. template get<
-				roles::rotate_around
-			>()
-		:
-			center(
-				*this
-			);
+		detail::rotation_center(
+			*this
+		);
+
 }
 
 template<

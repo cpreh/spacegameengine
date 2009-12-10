@@ -18,37 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_CENTER_HPP_INCLUDED
-#define SGE_SPRITE_CENTER_HPP_INCLUDED
+#ifndef SGE_SPRITE_WITH_ROTATION_CENTER_HPP_INCLUDED
+#define SGE_SPRITE_WITH_ROTATION_CENTER_HPP_INCLUDED
 
-#include <sge/sprite/object_fwd.hpp>
-#include <sge/sprite/point.hpp>
-#include <sge/math/vector/dim.hpp>
-#include <sge/math/vector/arithmetic.hpp>
+#include <sge/sprite/primitives/pos.hpp>
+#include <sge/sprite/primitives/bool.hpp>
+#include <sge/sprite/roles/rotate_around.hpp>
+#include <sge/sprite/roles/use_rotation.hpp>
+#include <majutsu/role.hpp>
+#include <majutsu/composite.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace sge
 {
 namespace sprite
 {
 
-template<
-	typename Choices,
-	typename Elements
->
-typename point<
-	Choices
->::type
-center(
-	object<
-		Choices,
-		Elements
-	> const &spr
-)
+struct with_rotation_center
 {
-	return
-		spr.pos()
-		- spr.dim() / 2;
-}
+	template<
+		typename Choices,
+		typename Elements
+	>
+	struct apply
+	{
+		typedef majutsu::composite<
+			boost::mpl::vector2<
+				majutsu::role<
+					typename primitives::pos<
+						typename Choices::float_type
+					>::type,
+					roles::rotate_around
+				>,
+				majutsu::role<
+					primitives::bool_,
+					roles::use_rotation
+				>
+			>
+		> type;
+	};
+};
 
 }
 }

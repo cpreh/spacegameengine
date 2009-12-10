@@ -18,38 +18,86 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_CENTER_HPP_INCLUDED
-#define SGE_SPRITE_CENTER_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_ROTATION_CENTER_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_ROTATION_CENTER_HPP_INCLUDED
 
-#include <sge/sprite/object_fwd.hpp>
+#include <sge/sprite/roles/rotate_around.hpp>
+#include <sge/sprite/roles/use_rotation.hpp>
+#include <sge/sprite/center.hpp>
 #include <sge/sprite/point.hpp>
-#include <sge/math/vector/dim.hpp>
-#include <sge/math/vector/arithmetic.hpp>
+#include <sge/sprite/with_rotation_center.hpp>
+#include <sge/sprite/object_fwd.hpp>
+#include <boost/mpl/contains.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace sge
 {
 namespace sprite
+{
+namespace detail
 {
 
 template<
 	typename Choices,
 	typename Elements
 >
-typename point<
-	Choices
+typename boost::enable_if<
+	boost::mpl::contains<
+		Elements,
+		with_rotation_center
+	>,
+	typename point<
+		Choices
+	>::type
 >::type
-center(
+rotation_center(
 	object<
 		Choices,
 		Elements
-	> const &spr
+	> const &sprite_
 )
 {
 	return
-		spr.pos()
-		- spr.dim() / 2;
+		sprite_. template get<
+			roles::use_rotation
+		>()
+		?
+			sprite_. template get<
+				roles::rotate_around
+			>()
+		:
+			center(
+				sprite_
+			);
 }
 
+template<
+	typename Choices,
+	typename Elements
+>
+typename boost::disable_if<
+	boost::mpl::contains<
+		Elements,
+		with_rotation_center
+	>,
+	typename point<
+		Choices
+	>::type
+>::type
+rotation_center(
+	object<
+		Choices,
+		Elements
+	> const &sprite_
+)
+{
+	return
+		center(
+			sprite_
+		);
+}
+
+}
 }
 }
 
