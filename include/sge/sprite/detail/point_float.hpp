@@ -31,12 +31,12 @@ namespace detail
 {
 
 template<
-	typename Choices
+	typename TypeChoices
 >
 struct point_float
 {
 	typedef typename primitives::pos<
-		typename Choices::float_type
+		typename TypeChoices::float_type
 	>::type::type type;
 };
 

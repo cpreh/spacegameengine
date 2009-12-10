@@ -56,11 +56,11 @@ fill_position_unrotated(
 
 	typedef typename detail::rect_float<
 		type_choices
-	>::type float_rect;
+	>::type rect_float;
 
-	float_rect const rect_(
+	rect_float const rect_(
 		math::box::structure_cast<
-			float_rect
+			rect_float
 		>(
 			sprite::bounding_rect(
 				spr

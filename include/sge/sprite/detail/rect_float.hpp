@@ -31,12 +31,12 @@ namespace detail
 {
 
 template<
-	typename Choices
+	typename TypeChoices
 >
 struct rect_float
 :
 math::box::rect<
-	typename Choices::float_type
+	typename TypeChoices::float_type
 >
 {
 };

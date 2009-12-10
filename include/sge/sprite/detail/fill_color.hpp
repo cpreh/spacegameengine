@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/vertices_per_sprite.hpp>
 #include <sge/sprite/detail/vertex_color.hpp>
 #include <sge/sprite/object_impl.hpp>
+#include <boost/mpl/contains.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace sge
 {

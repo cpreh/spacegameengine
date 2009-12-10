@@ -31,7 +31,8 @@ namespace sprite
 namespace detail
 {
 
-class index_generator {
+class index_generator
+{
 public:
 	index_generator()
 	:
@@ -55,7 +56,9 @@ public:
 			)
 		);
 
-		if(ptr == index_array.end())
+		if(
+			ptr == index_array.end()
+		)
 		{
 			ptr = index_array.begin();
 

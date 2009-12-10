@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/with_rotation_center.hpp>
 #include <sge/sprite/primitives/pos.hpp>
 #include <sge/sprite/primitives/dim.hpp>
-#include <sge/sprite/primitives/float.hpp>
 #include <sge/sprite/roles/pos.hpp>
 #include <sge/sprite/roles/size.hpp>
 #include <sge/mpl/implication.hpp>
