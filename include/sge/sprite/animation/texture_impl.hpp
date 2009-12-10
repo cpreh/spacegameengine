@@ -29,10 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/next_prior.hpp>
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
-sge::sprite::animation::texture<Choices, Elements>::texture(
+sge::sprite::animation::texture<Choices>::texture(
 	animation::series const &nseries_,
 	loop_method::type const action,
 	object &spr,
@@ -61,11 +60,10 @@ sge::sprite::animation::texture<Choices, Elements>::texture(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 bool
-sge::sprite::animation::texture<Choices, Elements>::process()
+sge::sprite::animation::texture<Choices>::process()
 {
 	if(!cur_timer.expired())
 		return false;
@@ -100,11 +98,10 @@ sge::sprite::animation::texture<Choices, Elements>::process()
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 void
-sge::sprite::animation::texture<Choices, Elements>::reset()
+sge::sprite::animation::texture<Choices>::reset()
 {
 	spr.texture(
 		series_.begin()->tex()
@@ -120,11 +117,10 @@ sge::sprite::animation::texture<Choices, Elements>::reset()
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 sge::sprite::animation::series const &
-sge::sprite::animation::texture<Choices, Elements>::series() const
+sge::sprite::animation::texture<Choices>::series() const
 {
 	return series_;
 }

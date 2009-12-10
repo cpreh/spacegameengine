@@ -34,20 +34,18 @@ namespace detail
 {
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 typename boost::enable_if<
 	boost::mpl::contains<
-		Elements,
+		typename Choices::elements,
 		with_visibility
 	>,
 	bool
 >::type
 visible(
 	object<
-		Choices,
-		Elements
+		Choices
 	> const &object_
 )
 {
@@ -55,20 +53,18 @@ visible(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 typename boost::disable_if<
 	boost::mpl::contains<
-		Elements,
+		typename Choices::elements,
 		with_visibility
 	>,
 	bool
 >::type
 visible(
 	object<
-		Choices,
-		Elements
+		Choices
 	> const &
 )
 {

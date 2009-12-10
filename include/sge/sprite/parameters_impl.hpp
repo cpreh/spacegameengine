@@ -27,20 +27,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/object.hpp>
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
-sge::sprite::parameters<Choices, Elements>::parameters()
+sge::sprite::parameters<Choices>::parameters()
 :
 	elements_()
 {}
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
-sge::sprite::parameters<Choices, Elements> const
-sge::sprite::parameters<Choices, Elements>::pos(
+sge::sprite::parameters<Choices> const
+sge::sprite::parameters<Choices>::pos(
 	typename majutsu::role_return_type<
 		flattened_types,
 		roles::pos
@@ -56,11 +54,10 @@ sge::sprite::parameters<Choices, Elements>::pos(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
-sge::sprite::parameters<Choices, Elements> const
-sge::sprite::parameters<Choices, Elements>::texture(
+sge::sprite::parameters<Choices> const
+sge::sprite::parameters<Choices>::texture(
 	typename majutsu::role_return_type<
 		flattened_types,
 		roles::texture
@@ -76,11 +73,10 @@ sge::sprite::parameters<Choices, Elements>::texture(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
-sge::sprite::parameters<Choices, Elements> const
-sge::sprite::parameters<Choices, Elements>::size(
+sge::sprite::parameters<Choices> const
+sge::sprite::parameters<Choices>::size(
 	typename majutsu::role_return_type<
 		flattened_types,
 		roles::size
@@ -96,26 +92,24 @@ sge::sprite::parameters<Choices, Elements>::size(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
-sge::sprite::parameters<Choices, Elements> const
-sge::sprite::parameters<Choices, Elements>::texture_size() const
+sge::sprite::parameters<Choices> const
+sge::sprite::parameters<Choices>::texture_size() const
 {
 	return
 		this->size(
 			texture_dim<
-				Choices
+				typename Choices::type_choices
 			>()
 		);
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
-sge::sprite::parameters<Choices, Elements> const
-sge::sprite::parameters<Choices, Elements>::color(
+sge::sprite::parameters<Choices> const
+sge::sprite::parameters<Choices>::color(
 	typename majutsu::role_return_type<
 		flattened_types,
 		roles::color
@@ -131,11 +125,10 @@ sge::sprite::parameters<Choices, Elements>::color(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
-sge::sprite::parameters<Choices, Elements> const
-sge::sprite::parameters<Choices, Elements>::default_color() const
+sge::sprite::parameters<Choices> const
+sge::sprite::parameters<Choices>::default_color() const
 {
 	return
 		this->color(
@@ -151,11 +144,10 @@ sge::sprite::parameters<Choices, Elements>::default_color() const
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
-sge::sprite::parameters<Choices, Elements> const
-sge::sprite::parameters<Choices, Elements>::depth(
+sge::sprite::parameters<Choices> const
+sge::sprite::parameters<Choices>::depth(
 	typename majutsu::role_return_type<
 		flattened_types,
 		roles::depth
@@ -171,14 +163,13 @@ sge::sprite::parameters<Choices, Elements>::depth(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 template<
 	typename Role
 >
-sge::sprite::parameters<Choices, Elements> const
-sge::sprite::parameters<Choices, Elements>::set(
+sge::sprite::parameters<Choices> const
+sge::sprite::parameters<Choices>::set(
 	typename majutsu::role_return_type<
 		flattened_types,
 		Role
@@ -199,11 +190,10 @@ sge::sprite::parameters<Choices, Elements>::set(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
-typename sge::sprite::parameters<Choices, Elements>::elements_type const &
-sge::sprite::parameters<Choices, Elements>::elements() const
+typename sge::sprite::parameters<Choices>::elements_type const &
+sge::sprite::parameters<Choices>::elements() const
 {
 	return elements_;
 }

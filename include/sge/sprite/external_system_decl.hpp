@@ -32,25 +32,21 @@ namespace sprite
 {
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 class external_system
 :
 	public system_base<
-		Choices,
-		Elements
+		Choices
 	>
 {
 public:
 	typedef system_base<
-		Choices,
-		Elements
+		Choices
 	> base;
 
 	typedef sprite::object<
-		Choices,
-		Elements
+		Choices
 	> object;
 
 	explicit external_system(

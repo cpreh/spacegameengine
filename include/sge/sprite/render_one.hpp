@@ -32,18 +32,15 @@ namespace sprite
 {
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 void
 render_one(
 	external_system<
-		Choices,
-		Elements
+		Choices
 	> &system_,
 	object<
-		Choices,
-		Elements
+		Choices
 	> const &sprite_
 )
 {

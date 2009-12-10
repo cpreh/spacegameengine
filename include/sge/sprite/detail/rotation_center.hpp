@@ -38,12 +38,11 @@ namespace detail
 {
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 typename boost::enable_if<
 	boost::mpl::contains<
-		Elements,
+		typename Choices::elements,
 		with_rotation_center
 	>,
 	typename point<
@@ -52,8 +51,7 @@ typename boost::enable_if<
 >::type
 rotation_center(
 	object<
-		Choices,
-		Elements
+		Choices
 	> const &sprite_
 )
 {
@@ -72,12 +70,11 @@ rotation_center(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 typename boost::disable_if<
 	boost::mpl::contains<
-		Elements,
+		typename Choices::elements,
 		with_rotation_center
 	>,
 	typename point<
@@ -86,8 +83,7 @@ typename boost::disable_if<
 >::type
 rotation_center(
 	object<
-		Choices,
-		Elements
+		Choices
 	> const &sprite_
 )
 {

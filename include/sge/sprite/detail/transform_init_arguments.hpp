@@ -41,12 +41,11 @@ namespace detail
 
 template<
 	typename Choices,
-	typename Elements,
 	typename Class
 >
 typename boost::enable_if<
 	boost::mpl::contains<
-		Elements,
+		typename Choices::elements,
 		with_texture
 	>,
 	Class const
@@ -60,7 +59,7 @@ transform_init_arguments(
 			roles::size
 		>()
 		== texture_dim<
-			Choices
+			typename Choices::type_choices
 		>()
 		&&
 		object_. template get<
@@ -72,7 +71,7 @@ transform_init_arguments(
 		>(
 			math::dim::structure_cast<
 				typename dim<
-					Choices
+					typename Choices::type_choices
 				>::type
 			>(
 				object_. template get<
@@ -86,12 +85,11 @@ transform_init_arguments(
 
 template<
 	typename Choices,
-	typename Elements,
 	typename Class
 >
 typename boost::disable_if<
 	boost::mpl::contains<
-		Elements,
+		typename Choices::elements,
 		with_texture
 	>,
 	Class const

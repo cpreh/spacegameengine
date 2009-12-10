@@ -40,17 +40,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/system.hpp>
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
-sge::sprite::object<Choices, Elements>::object(
+sge::sprite::object<Choices>::object(
 	element_type const &nelements_
 )
 :
 	elements_(
 		detail::transform_init_arguments<
-			Choices,
-			Elements
+			Choices
 		>(
 			nelements_
 		)
@@ -58,10 +56,9 @@ sge::sprite::object<Choices, Elements>::object(
 {}
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
-sge::sprite::object<Choices, Elements>::object(
+sge::sprite::object<Choices>::object(
 	object const &other_
 )
 :
@@ -75,11 +72,10 @@ sge::sprite::object<Choices, Elements>::object(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
-sge::sprite::object<Choices, Elements> &
-sge::sprite::object<Choices, Elements>::operator=(
+sge::sprite::object<Choices> &
+sge::sprite::object<Choices>::operator=(
 	object const &other_
 )
 {
@@ -98,31 +94,28 @@ sge::sprite::object<Choices, Elements>::operator=(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
-typename sge::sprite::object<Choices, Elements>::unit
-sge::sprite::object<Choices, Elements>::x() const
+typename sge::sprite::object<Choices>::unit
+sge::sprite::object<Choices>::x() const
 {
 	return pos().x();
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
-typename sge::sprite::object<Choices, Elements>::unit
-sge::sprite::object<Choices, Elements>::y() const
+typename sge::sprite::object<Choices>::unit
+sge::sprite::object<Choices>::y() const
 {
 	return pos().y();
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
-typename sge::sprite::object<Choices, Elements>::point const
-sge::sprite::object<Choices, Elements>::pos() const
+typename sge::sprite::object<Choices>::point const
+sge::sprite::object<Choices>::pos() const
 {
 	return
 		elements_. template get<
@@ -131,31 +124,28 @@ sge::sprite::object<Choices, Elements>::pos() const
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
-typename sge::sprite::object<Choices, Elements>::unit
-sge::sprite::object<Choices, Elements>::w() const
+typename sge::sprite::object<Choices>::unit
+sge::sprite::object<Choices>::w() const
 {
 	return size().w();
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
-typename sge::sprite::object<Choices, Elements>::unit
-sge::sprite::object<Choices, Elements>::h() const
+typename sge::sprite::object<Choices>::unit
+sge::sprite::object<Choices>::h() const
 {
 	return size().h();
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
-typename sge::sprite::object<Choices, Elements>::dim const
-sge::sprite::object<Choices, Elements>::size() const
+typename sge::sprite::object<Choices>::dim const
+sge::sprite::object<Choices>::size() const
 {
 	return
 		elements_. template get<
@@ -164,11 +154,10 @@ sge::sprite::object<Choices, Elements>::size() const
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
-typename sge::sprite::object<Choices, Elements>::depth_type
-sge::sprite::object<Choices, Elements>::z() const
+typename sge::sprite::object<Choices>::depth_type
+sge::sprite::object<Choices>::z() const
 {
 	return
 		elements_. template get<
@@ -177,11 +166,10 @@ sge::sprite::object<Choices, Elements>::z() const
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 bool
-sge::sprite::object<Choices, Elements>::visible() const
+sge::sprite::object<Choices>::visible() const
 {
 	return
 		elements_. template get<
@@ -190,11 +178,10 @@ sge::sprite::object<Choices, Elements>::visible() const
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
-typename sge::sprite::object<Choices, Elements>::rotation_type
-sge::sprite::object<Choices, Elements>::rotation() const
+typename sge::sprite::object<Choices>::rotation_type
+sge::sprite::object<Choices>::rotation() const
 {
 	return
 		elements_. template get<
@@ -203,11 +190,10 @@ sge::sprite::object<Choices, Elements>::rotation() const
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
-typename sge::sprite::object<Choices, Elements>::point const
-sge::sprite::object<Choices, Elements>::rotation_center() const
+typename sge::sprite::object<Choices>::point const
+sge::sprite::object<Choices>::rotation_center() const
 {
 	return
 		detail::rotation_center(
@@ -217,11 +203,10 @@ sge::sprite::object<Choices, Elements>::rotation_center() const
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
-typename sge::sprite::object<Choices, Elements>::repetition_type
-sge::sprite::object<Choices, Elements>::repeat() const
+typename sge::sprite::object<Choices>::repetition_type
+sge::sprite::object<Choices>::repeat() const
 {
 	return
 		elements_. template get<
@@ -230,11 +215,10 @@ sge::sprite::object<Choices, Elements>::repeat() const
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
-typename sge::sprite::object<Choices, Elements>::color_type  const
-sge::sprite::object<Choices, Elements>::color() const
+typename sge::sprite::object<Choices>::color_type  const
+sge::sprite::object<Choices>::color() const
 {
 	return
 		elements_. template get<
@@ -243,11 +227,10 @@ sge::sprite::object<Choices, Elements>::color() const
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 sge::texture::const_part_ptr const
-sge::sprite::object<Choices, Elements>::texture() const
+sge::sprite::object<Choices>::texture() const
 {
 	return
 		elements_. template get<
@@ -256,11 +239,10 @@ sge::sprite::object<Choices, Elements>::texture() const
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
-typename sge::sprite::object<Choices, Elements>::order_type
-sge::sprite::object<Choices, Elements>::order() const
+typename sge::sprite::object<Choices>::order_type
+sge::sprite::object<Choices>::order() const
 {
 	return
 		elements_. template get<
@@ -269,11 +251,10 @@ sge::sprite::object<Choices, Elements>::order() const
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 void
-sge::sprite::object<Choices, Elements>::x(
+sge::sprite::object<Choices>::x(
 	unit const x_
 )
 {
@@ -286,11 +267,10 @@ sge::sprite::object<Choices, Elements>::x(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 void
-sge::sprite::object<Choices, Elements>::y(
+sge::sprite::object<Choices>::y(
 	unit const y_
 )
 {
@@ -303,11 +283,10 @@ sge::sprite::object<Choices, Elements>::y(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 void
-sge::sprite::object<Choices, Elements>::z(
+sge::sprite::object<Choices>::z(
 	depth_type const depth_
 ) 
 {
@@ -319,11 +298,10 @@ sge::sprite::object<Choices, Elements>::z(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 void
-sge::sprite::object<Choices, Elements>::pos(
+sge::sprite::object<Choices>::pos(
 	point const &pos_
 )
 {
@@ -335,11 +313,10 @@ sge::sprite::object<Choices, Elements>::pos(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 void
-sge::sprite::object<Choices, Elements>::w(
+sge::sprite::object<Choices>::w(
 	unit const w_
 )
 {
@@ -352,11 +329,10 @@ sge::sprite::object<Choices, Elements>::w(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 void
-sge::sprite::object<Choices, Elements>::h(
+sge::sprite::object<Choices>::h(
 	unit const h_
 ) 
 {
@@ -369,11 +345,10 @@ sge::sprite::object<Choices, Elements>::h(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 void
-sge::sprite::object<Choices, Elements>::size(
+sge::sprite::object<Choices>::size(
 	dim const &dim_
 ) 
 {
@@ -385,11 +360,10 @@ sge::sprite::object<Choices, Elements>::size(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 void
-sge::sprite::object<Choices, Elements>::visible(
+sge::sprite::object<Choices>::visible(
 	bool const visible_
 )
 {
@@ -401,11 +375,10 @@ sge::sprite::object<Choices, Elements>::visible(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 void
-sge::sprite::object<Choices, Elements>::texture(
+sge::sprite::object<Choices>::texture(
 	::sge::texture::const_part_ptr const texture_
 )
 {
@@ -417,11 +390,10 @@ sge::sprite::object<Choices, Elements>::texture(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 void
-sge::sprite::object<Choices, Elements>::rotation(
+sge::sprite::object<Choices>::rotation(
 	rotation_type const rotation_
 )
 {
@@ -433,11 +405,10 @@ sge::sprite::object<Choices, Elements>::rotation(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 void
-sge::sprite::object<Choices, Elements>::rotate_around(
+sge::sprite::object<Choices>::rotate_around(
 	point const &rotate_around_
 )
 {
@@ -449,11 +420,10 @@ sge::sprite::object<Choices, Elements>::rotate_around(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 void
-sge::sprite::object<Choices, Elements>::reset_rotation()
+sge::sprite::object<Choices>::reset_rotation()
 {
 	elements_. template set<
 		roles::use_rotation
@@ -463,11 +433,10 @@ sge::sprite::object<Choices, Elements>::reset_rotation()
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 void
-sge::sprite::object<Choices, Elements>::repeat(
+sge::sprite::object<Choices>::repeat(
 	repetition_type const repeat_
 )
 {
@@ -479,11 +448,10 @@ sge::sprite::object<Choices, Elements>::repeat(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 void
-sge::sprite::object<Choices, Elements>::color(
+sge::sprite::object<Choices>::color(
 	color_type const &color_
 )
 {
@@ -495,11 +463,10 @@ sge::sprite::object<Choices, Elements>::color(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 void
-sge::sprite::object<Choices, Elements>::order(
+sge::sprite::object<Choices>::order(
 	order_type const order_
 )
 {
@@ -517,11 +484,10 @@ sge::sprite::object<Choices, Elements>::order(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 void
-sge::sprite::object<Choices, Elements>::transfer(
+sge::sprite::object<Choices>::transfer(
 	system &system_
 )
 {
@@ -539,20 +505,18 @@ sge::sprite::object<Choices, Elements>::transfer(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 template<
 	typename Role
 >
 typename majutsu::role_return_type<
 	typename sge::sprite::object<
-		Choices,
-		Elements
+		Choices
 	>::flattened_types,
 	Role
 >::type
-sge::sprite::object<Choices, Elements>::get() const
+sge::sprite::object<Choices>::get() const
 {
 	return
 		elements_. template get<
@@ -561,14 +525,13 @@ sge::sprite::object<Choices, Elements>::get() const
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 template<
 	typename Role
 >
 void
-sge::sprite::object<Choices, Elements>::set(
+sge::sprite::object<Choices>::set(
 	typename majutsu::role_return_type<
 		flattened_types,
 		Role

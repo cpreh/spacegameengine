@@ -38,25 +38,24 @@ namespace detail
 
 template<
 	typename Iterator,
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 void
 fill_position_unrotated(
 	Iterator iterator,
 	object<
-		Choices,
-		Elements
+		Choices
 	> const &spr
 )
 {
+	typedef typename Choices::type_choices type_choices;
+
 	typedef typename detail::vertex_pos<
-		Choices,
-		Elements
+		type_choices
 	>::type vertex_pos;
 
 	typedef typename detail::rect_float<
-		Choices
+		type_choices
 	>::type float_rect;
 
 	float_rect const rect_(
@@ -70,11 +69,11 @@ fill_position_unrotated(
 	);
 
 	typedef typename point_float3<
-		Choices
+		type_choices
 	>::type pos3;
 
 	typedef typename sprite::depth_type<
-		Choices
+		type_choices
 	>::type depth_type;
 
 	depth_type const depth_(

@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/system.hpp>
 #include <sge/console/sprite_choices.hpp>
-#include <sge/console/sprite_elements.hpp>
 
 namespace sge
 {
@@ -31,8 +30,7 @@ namespace console
 {
 
 typedef sprite::system<
-	sprite_choices,
-	sprite_elements
+	sprite_choices
 >::type sprite_system;
 
 }

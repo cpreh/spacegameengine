@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/with_color.hpp>
 #include <sge/sprite/with_texture.hpp>
 #include <sge/renderer/vf/format.hpp>
-//#include <sge/mpl/push_back_if.hpp>
 #include <sge/mpl/inner.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/mpl/pair.hpp>
@@ -45,16 +44,16 @@ namespace detail
 {
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 struct vertex_format
 {
 private:
+	typedef typename Choices::type_choices type_choices;
+
 	typedef boost::mpl::vector1<
 		typename vertex_pos<
-			Choices,
-			Elements
+			type_choices
 		>::type
 	> basic;
 
@@ -62,15 +61,13 @@ private:
 		boost::mpl::pair<
 			with_color,
 			vertex_color<
-				Choices,
-				Elements
+				type_choices
 			>
 		>,
 		boost::mpl::pair<
 			with_texture,
 			vertex_texpos<
-				Choices,
-				Elements
+				type_choices
 			>
 		>
 	> optional_elements;
@@ -81,7 +78,7 @@ public:
 			basic,
 			boost::mpl::eval_if<
 				boost::mpl::contains<
-					Elements,
+					typename Choices::elements,
 					boost::mpl::first<
 						boost::mpl::_2
 					>

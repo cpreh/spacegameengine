@@ -37,12 +37,11 @@ namespace detail
 
 template<
 	typename Iterator,
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 typename boost::enable_if<
 	boost::mpl::contains<
-		Elements,
+		typename Choices::elements,
 		with_texture
 	>,
 	void
@@ -50,8 +49,7 @@ typename boost::enable_if<
 fill_tex_coordinates(
 	Iterator const &iterator,
 	object<
-		Choices,
-		Elements
+		Choices
 	> const &sprite_
 )
 {
@@ -69,12 +67,11 @@ fill_tex_coordinates(
 
 template<
 	typename Iterator,
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 typename boost::disable_if<
 	boost::mpl::contains<
-		Elements,
+		typename Choices::elements,
 		with_texture
 	>,
 	void
@@ -82,8 +79,7 @@ typename boost::disable_if<
 fill_tex_coordinates(
 	Iterator const &,
 	object<
-		Choices,
-		Elements
+		Choices
 	> const &
 )
 {

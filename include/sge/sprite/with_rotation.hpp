@@ -35,8 +35,7 @@ namespace sprite
 struct with_rotation
 {
 	template<
-		typename Choices,
-		typename Elements
+		typename Choices
 	>
 	struct apply
 	{
@@ -44,7 +43,7 @@ struct with_rotation
 			boost::mpl::vector1<
 				majutsu::role<
 					typename primitives::float_<
-						typename Choices::float_type
+						typename Choices::type_choices::float_type
 					>::type,
 					roles::rotation
 				>

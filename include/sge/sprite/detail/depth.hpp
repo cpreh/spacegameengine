@@ -35,22 +35,20 @@ namespace detail
 {
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 typename boost::enable_if<
 	boost::mpl::contains<
-		Elements,
+		typename Choices::elements,
 		with_depth
 	>,
 	typename depth_type<
-		Choices
+		typename Choices::type_choices
 	>::type
 >::type
 depth(
 	object<
-		Choices,
-		Elements
+		Choices
 	> const &sprite_
 )
 {
@@ -58,29 +56,27 @@ depth(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 typename boost::disable_if<
 	boost::mpl::contains<
-		Elements,
+		typename Choices::elements,
 		with_depth
 	>,
 	typename depth_type<
-		Choices
+		typename Choices::type_choices
 	>::type
 >::type
 depth(
 	object<
-		Choices,
-		Elements
+		Choices
 	> const &
 )
 {
 	return
 		static_cast<
 			typename depth_type<
-				Choices
+				typename Choices::type_choices
 			>::type
 		>(0);
 }

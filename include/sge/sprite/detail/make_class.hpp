@@ -49,19 +49,20 @@ namespace detail
 {
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 struct make_class
 {
+	typedef typename Choices::elements elements;
+
 	BOOST_STATIC_ASSERT((
 		sge::mpl::implication<
 			boost::mpl::contains<
-				Elements,
+				elements,
 				with_rotation_center
 			>,
 			boost::mpl::contains<
-				Elements,
+				elements,
 				with_rotation
 			>
 		>::value
@@ -70,39 +71,36 @@ struct make_class
 	// TODO: why do we need this?
 	template<
 		typename F,
-		typename T1,
-		typename T2
+		typename T1
 	>
 	struct application
 	:
 	boost::mpl::apply<
 		F,
-		T1,
-		T2
+		T1
 	>
 	{};
 
 	typedef majutsu::class_<
 		typename boost::mpl::copy<
 			typename boost::mpl::transform<
-				Elements,
+				elements,
 				application<
 					boost::mpl::_1,
-					Choices,
-					Elements
+					Choices
 				>
 			>::type,
 			boost::mpl::back_inserter<
 				boost::mpl::vector2<
 					majutsu::role<
 						typename primitives::pos<
-							typename Choices::unit_type
+							typename Choices::type_choices::unit_type
 						>::type,
 						roles::pos
 					>,
 					majutsu::role<
 						typename primitives::dim<
-							typename Choices::unit_type
+							typename Choices::type_choices::unit_type
 						>::type,
 						roles::size
 					>

@@ -39,8 +39,7 @@ namespace intrusive
 struct tag
 {
 	template<
-		typename Choices,
-		typename Elements
+		typename Choices
 	>
 	struct apply
 	{
@@ -52,8 +51,7 @@ struct tag
 				>,
 				majutsu::role<
 					typename primitives::system<
-						Choices,
-						Elements
+						Choices
 					>::type,
 					roles::system
 				>

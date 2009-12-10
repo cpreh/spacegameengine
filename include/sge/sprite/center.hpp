@@ -32,16 +32,14 @@ namespace sprite
 {
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 typename point<
 	Choices
 >::type
 center(
 	object<
-		Choices,
-		Elements
+		Choices
 	> const &spr
 )
 {

@@ -36,20 +36,18 @@ namespace detail
 {
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 typename boost::enable_if<
 	boost::mpl::contains<
-		Elements,
+		typename Choices::elements,
 		with_texture
 	>,
 	void
 >::type
 set_texture(
 	object<
-		Choices,
-		Elements
+		Choices
 	> const &obj_,
 	sge::renderer::device_ptr const rend_
 )
@@ -68,20 +66,18 @@ set_texture(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 typename boost::disable_if<
 	boost::mpl::contains<
-		Elements,
+		typename Choices::elements,
 		with_texture
 	>,
 	void
 >::type
 set_texture(
 	object<
-		Choices,
-		Elements
+		Choices
 	> const &,
 	sge::renderer::device_ptr const
 )

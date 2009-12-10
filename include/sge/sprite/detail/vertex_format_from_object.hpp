@@ -36,8 +36,7 @@ template<
 struct vertex_format_from_object
 :
 vertex_format<
-	typename Object::choices,
-	typename Object::elements
+	typename Object::choices
 >
 {};
 

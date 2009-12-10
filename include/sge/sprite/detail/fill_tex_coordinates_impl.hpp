@@ -40,12 +40,11 @@ namespace detail
 
 template<
 	typename Iterator,
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 typename boost::enable_if<
 	boost::mpl::contains<
-		Elements,
+		typename Choices::elements,
 		with_repetition
 	>,
 	void
@@ -53,14 +52,12 @@ typename boost::enable_if<
 fill_tex_coordinates_impl(
 	Iterator const &iterator,
 	object<
-		Choices,
-		Elements
+		Choices
 	> const &sprite_
 )
 {
 	fill_tex_coordinates_rect<
-		Choices,
-		Elements
+		Choices
 	>(
 		iterator,
 		texture::area_texc(
@@ -72,12 +69,11 @@ fill_tex_coordinates_impl(
 
 template<
 	typename Iterator,
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 typename boost::disable_if<
 	boost::mpl::contains<
-		Elements,
+		typename Choices::elements,
 		with_repetition
 	>,
 	void
@@ -85,18 +81,16 @@ typename boost::disable_if<
 fill_tex_coordinates_impl(
 	Iterator const &iterator,
 	object<
-		Choices,
-		Elements
+		Choices
 	> const &sprite_
 )
 {
 	fill_tex_coordinates_rect<
-		Choices,
-		Elements
+		Choices
 	>(
 		iterator,
 		renderer::lock_rect_to_coords<
-			typename Choices::float_type
+			typename Choices::type_choices::float_type
 		>(
 			sprite_.texture()->area(),
 			sprite_.texture()->texture()->dim()

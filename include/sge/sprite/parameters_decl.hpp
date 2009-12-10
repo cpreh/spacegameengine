@@ -36,14 +36,12 @@ namespace sprite
 {
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 class parameters
 {
 	typedef typename detail::make_class<
-		Choices,
-		Elements
+		Choices
 	>::type elements_type;
 
 	typedef typename elements_type::memory_type::types flattened_types;

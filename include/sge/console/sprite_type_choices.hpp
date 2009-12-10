@@ -18,30 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_VERTEX_POS_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_VERTEX_POS_HPP_INCLUDED
+#ifndef SGE_CONSOLE_SPRITE_TYPE_CHOICES_HPP_INCLUDED
+#define SGE_CONSOLE_SPRITE_TYPE_CHOICES_HPP_INCLUDED
 
-#include <sge/renderer/vf/pos.hpp>
+#include <sge/sprite/no_color.hpp>
+#include <sge/sprite/type_choices.hpp>
 
 namespace sge
 {
-namespace sprite
-{
-namespace detail
+namespace console
 {
 
-template<
-	typename TypeChoices
->
-struct vertex_pos
-{
-	typedef renderer::vf::pos<
-		typename TypeChoices::float_type,
-		3
-	> type;
-};
+typedef sge::sprite::type_choices<
+	int,
+	float,
+	sprite::no_color
+> sprite_type_choices;
 
-}
 }
 }
 

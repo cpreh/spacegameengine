@@ -33,26 +33,40 @@ namespace sge
 {
 namespace console
 {
+
 class SGE_CLASS_SYMBOL object
 {
 	SGE_NONCOPYABLE(object)
-	public:
-	SGE_SYMBOL explicit object(string::value_type prefix);
+public:
+	SGE_SYMBOL explicit object(
+		string::value_type prefix
+	);
 
 	SGE_SYMBOL sge::signal::auto_connection insert(
 		string const &name,
 		callback const &,
-		string const &description = string());
+		string const &description = string()
+	);
 
-	SGE_SYMBOL sge::signal::auto_connection register_fallback(
+	SGE_SYMBOL sge::signal::auto_connection
+	register_fallback(
 		fallback const &
 	);
 
-	SGE_SYMBOL void eval(string const &);
-	SGE_SYMBOL variable_map const &variables() const;
-	SGE_SYMBOL variable_map &variables();
-	SGE_SYMBOL function_map const &functions() const;
-	private:
+	SGE_SYMBOL void
+	eval(
+		string const &
+	);
+
+	SGE_SYMBOL variable_map const &
+	variables() const;
+
+	SGE_SYMBOL variable_map &
+	variables();
+
+	SGE_SYMBOL function_map const &
+	functions() const;
+private:
 	friend class var_base;
 
 	variable_map vars_;

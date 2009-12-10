@@ -37,21 +37,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/container/bitfield/basic_impl.hpp>
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 sge::renderer::device_ptr const
-sge::sprite::system_base<Choices, Elements>::renderer() const
+sge::sprite::system_base<Choices>::renderer() const
 {
 	return rend;
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 void
-sge::sprite::system_base<Choices, Elements>::transform(
+sge::sprite::system_base<Choices>::transform(
 	matrix const &ntransform_matrix
 )
 {
@@ -59,24 +57,23 @@ sge::sprite::system_base<Choices, Elements>::transform(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
-sge::sprite::system_base<Choices, Elements>::system_base(
+sge::sprite::system_base<Choices>::system_base(
 	renderer::device_ptr const rend
 )
 :
 	rend(rend),
 	transform_matrix(
 		renderer::matrix_pixel_to_space<
-			typename Choices::float_type
+			typename Choices::type_choices::float_type
 		>(
 			rend->screen_size()
 		)
 	),
 	projection_matrix(
 		math::matrix::orthogonal_xy<
-			typename Choices::float_type
+			typename Choices::type_choices::float_type
 		>()
 	),
 	additional_transform_(
@@ -87,11 +84,10 @@ sge::sprite::system_base<Choices, Elements>::system_base(
 {}
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 void
-sge::sprite::system_base<Choices, Elements>::allocate_buffers(
+sge::sprite::system_base<Choices>::allocate_buffers(
 	sge::renderer::size_type const num_sprites
 )
 {
@@ -112,11 +108,10 @@ sge::sprite::system_base<Choices, Elements>::allocate_buffers(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 void
-sge::sprite::system_base<Choices, Elements>::matrices()
+sge::sprite::system_base<Choices>::matrices()
 {
 	rend->transform(
 		additional_transform_
@@ -129,35 +124,31 @@ sge::sprite::system_base<Choices, Elements>::matrices()
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 sge::renderer::vertex_buffer_ptr const
-sge::sprite::system_base<Choices, Elements>::vertex_buffer() const
+sge::sprite::system_base<Choices>::vertex_buffer() const
 {
 	return vb;
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 sge::renderer::index_buffer_ptr const
-sge::sprite::system_base<Choices, Elements>::index_buffer() const
+sge::sprite::system_base<Choices>::index_buffer() const
 {
 	return ib;
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 sge::renderer::vf::dynamic_format const
-sge::sprite::system_base<Choices, Elements>::dyn_vertex_fmt(
+sge::sprite::system_base<Choices>::dyn_vertex_fmt(
 	sge::renderer::vf::make_dynamic_format<
 		typename sge::sprite::detail::vertex_format<
-			Choices,
-			Elements
+			Choices
 		>::type
 	>()
 );

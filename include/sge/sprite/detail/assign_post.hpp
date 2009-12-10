@@ -32,20 +32,18 @@ namespace detail
 {
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 typename boost::enable_if<
 	boost::mpl::contains<
-		Elements,
+		typename Choices::elements,
 		intrusive::tag
 	>,
 	void
 >::type
 assign_post(
 	object<
-		Choices,
-		Elements
+		Choices
 	> &this_
 )
 {
@@ -58,20 +56,18 @@ assign_post(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 typename boost::disable_if<
 	boost::mpl::contains<
-		Elements,
+		typename Choices::elements,
 		intrusive::tag
 	>,
 	void
 >::type
 assign_post(
 	object<
-		Choices,
-		Elements
+		Choices
 	> &
 )
 {}

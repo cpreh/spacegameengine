@@ -36,24 +36,24 @@ namespace detail
 
 template<
 	typename Choices,
-	typename Elements,
 	typename Iterator
 >
 void
 fill_tex_coordinates_rect(
 	Iterator iterator,
 	typename rect_float<
-		Choices
+		typename Choices::type_choices
 	>::type const &rt
 )
 {
+	typedef typename Choices::type_choices type_choices;
+
 	typedef typename point_float<
-		Choices
+		type_choices
 	>::type tex_pos;
 
 	typedef typename detail::vertex_texpos<
-		Choices,
-		Elements
+		type_choices
 	>::type vertex_texpos;
 
 	(*iterator++). template set<

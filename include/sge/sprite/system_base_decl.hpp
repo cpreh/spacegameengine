@@ -37,15 +37,14 @@ namespace sprite
 {
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 class system_base
 {
 	SGE_NONCOPYABLE(system_base)
 public:
 	typedef typename sprite::matrix<
-		Choices
+		typename Choices::type_choices
 	>::type matrix;
 
 	sge::renderer::device_ptr const

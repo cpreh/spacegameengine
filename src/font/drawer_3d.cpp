@@ -85,8 +85,7 @@ sge::font::drawer_3d::draw_char(
 	);
 
 	typedef sge::sprite::parameters<
-		sprite_choices,
-		sprite_elements
+		sprite_choices
 	> sprite_parameters;
 
 	sprites.push_back(

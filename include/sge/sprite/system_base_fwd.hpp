@@ -27,8 +27,7 @@ namespace sprite
 {
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 class system_base;
 

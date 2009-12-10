@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/with_color.hpp>
 #include <sge/sprite/with_texture.hpp>
+#include <sge/sprite/type_choices.hpp>
 #include <sge/sprite/choices.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/image/color/rgba8_format.hpp>
@@ -99,24 +100,23 @@ private:
 	texture_map textures;
 
 	typedef sge::sprite::choices<
-		int,
-		float,
-		image::color::rgba8_format
+		sge::sprite::type_choices<
+			int,
+			float,
+			image::color::rgba8_format
+		>,
+		boost::mpl::vector2<
+			sprite::with_color,
+			sprite::with_texture
+		>
 	> sprite_choices;
 
-	typedef boost::mpl::vector2<
-		sprite::with_color,
-		sprite::with_texture
-	> sprite_elements;
-
 	typedef sprite::system<
-		sprite_choices,
-		sprite_elements
+		sprite_choices
 	>::type sprite_system;
 
 	typedef sprite::object<
-		sprite_choices,
-		sprite_elements
+		sprite_choices
 	> sprite_object;
 
 	typedef std::vector<

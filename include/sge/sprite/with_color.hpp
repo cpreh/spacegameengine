@@ -35,8 +35,7 @@ namespace sprite
 struct with_color
 {
 	template<
-		typename Choices,
-		typename Elements
+		typename Choices
 	>
 	struct apply
 	{
@@ -44,7 +43,7 @@ struct with_color
 			boost::mpl::vector1<
 				majutsu::role<
 					typename primitives::color<
-						typename Choices::color_type
+						typename Choices::type_choices::color_type
 					>::type,
 					roles::color
 				>

@@ -34,23 +34,20 @@ namespace sprite
 {
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 struct system
 :
 boost::mpl::if_<
 	boost::mpl::contains<
-		Elements,
+		typename Choices::elements,
 		intrusive::tag
 	>,
 	intrusive::system<
-		Choices,
-		Elements
+		Choices
 	>,
 	external_system<
-		Choices,
-		Elements
+		Choices
 	>
 >
 {

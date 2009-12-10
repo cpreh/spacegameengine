@@ -18,73 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_FILL_COLOR_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_FILL_COLOR_HPP_INCLUDED
-
-#include <sge/sprite/detail/vertices_per_sprite.hpp>
-#include <sge/sprite/detail/vertex_color.hpp>
-#include <sge/sprite/object_impl.hpp>
+#ifndef SGE_SPRITE_TYPE_CHOICES_HPP_INCLUDED
+#define SGE_SPRITE_TYPE_CHOICES_HPP_INCLUDED
 
 namespace sge
 {
 namespace sprite
 {
-namespace detail
-{
 
 template<
-	typename Iterator,
-	typename Choices
+	typename Unit,
+	typename Float,
+	typename Color
 >
-typename boost::enable_if<
-	boost::mpl::contains<
-		typename Choices::elements,
-		with_color
-	>,
-	void
->::type
-fill_color(
-	Iterator iterator,
-	object<
-		Choices
-	> const &sprite_
-)
+struct type_choices
 {
-	for(
-		unsigned i = 0;
-		i < detail::vertices_per_sprite;
-		++i
-	)
-		(*iterator++). template set<
-			typename vertex_color<
-				typename Choices::type_choices
-			>::type
-		>(
-			sprite_.color()
-		);
-}
+	typedef Unit unit_type;
+	typedef Float float_type;
+	typedef Color color_type;
+};
 
-template<
-	typename Iterator,
-	typename Choices
->
-typename boost::disable_if<
-	boost::mpl::contains<
-		typename Choices::elements,
-		with_color
-	>,
-	void
->::type
-fill_color(
-	Iterator,
-	object<
-		Choices
-	> const &
-)
-{
-}
-
-}
 }
 }
 

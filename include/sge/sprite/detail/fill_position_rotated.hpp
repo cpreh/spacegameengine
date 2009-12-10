@@ -45,22 +45,22 @@ namespace detail
 
 template<
 	typename Iterator,
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 void
 fill_position_rotated(
 	Iterator iterator,
 	object<
-		Choices,
-		Elements
+		Choices
 	> const &spr
 )
 {
-	typedef typename Choices::float_type funit;
+	typedef typename Choices::type_choices type_choices;
+
+	typedef typename type_choices::float_type funit;
 
 	typedef typename point_float<
-		Choices
+		type_choices
 	>::type pos2;
 
 	pos2 const centerf(
@@ -72,7 +72,7 @@ fill_position_rotated(
 	);
 
 	typedef typename detail::rect_float<
-		Choices
+		type_choices
 	>::type float_rect;
 
 	float_rect const rbs(
@@ -110,7 +110,7 @@ fill_position_rotated(
 	}};
 
 	typedef typename sprite::rotation_type<
-		Choices
+		type_choices
 	>::type rotation_type;
 	
 	rotation_type const rot(
@@ -133,12 +133,11 @@ fill_position_rotated(
 	);
 
 	typedef typename detail::vertex_pos<
-		Choices,
-		Elements
+		type_choices
 	>::type vertex_pos;
 
 	typedef typename sprite::depth_type<
-		Choices
+		type_choices
 	>::type depth_type;
 
 	depth_type const depth_(

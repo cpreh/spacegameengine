@@ -31,22 +31,20 @@ namespace sprite
 {
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 typename rect<
-	Choices
+	typename Choices::type_choices
 >::type const
 bounding_rect(
 	object<
-		Choices,
-		Elements
+		Choices
 	> const &sprite_
 )
 {
 	return
 		typename rect<
-			Choices
+			typename Choices::type_choices
 		>::type(
 			sprite_.pos(),
 			sprite_.size()

@@ -32,15 +32,13 @@ namespace primitives
 {
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 struct system
 {
 	typedef majutsu::simple<
 		intrusive::system<
-			Choices,
-			Elements
+			Choices
 		> *
 	> type;
 };

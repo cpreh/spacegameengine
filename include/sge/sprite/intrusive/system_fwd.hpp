@@ -29,8 +29,7 @@ namespace intrusive
 {
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 class system;
 

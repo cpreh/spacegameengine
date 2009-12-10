@@ -29,8 +29,7 @@ namespace animation
 {
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 class texture;
 

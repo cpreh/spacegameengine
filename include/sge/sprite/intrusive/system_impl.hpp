@@ -36,10 +36,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/foreach.hpp>
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
-sge::sprite::intrusive::system<Choices, Elements>::system(
+sge::sprite::intrusive::system<Choices>::system(
 	renderer::device_ptr const rend
 )
 :
@@ -47,18 +46,16 @@ sge::sprite::intrusive::system<Choices, Elements>::system(
 {}
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
-sge::sprite::intrusive::system<Choices, Elements>::~system()
+sge::sprite::intrusive::system<Choices>::~system()
 {}
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 void
-sge::sprite::intrusive::system<Choices, Elements>::render()
+sge::sprite::intrusive::system<Choices>::render()
 {
 	matrices();
 
@@ -81,11 +78,10 @@ sge::sprite::intrusive::system<Choices, Elements>::render()
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 void
-sge::sprite::intrusive::system<Choices, Elements>::render(
+sge::sprite::intrusive::system<Choices>::render(
 	sprite_list const &sprites
 )
 {
@@ -126,11 +122,10 @@ sge::sprite::intrusive::system<Choices, Elements>::render(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 void
-sge::sprite::intrusive::system<Choices, Elements>::add(
+sge::sprite::intrusive::system<Choices>::add(
 	intrusive::object &obj,
 	intrusive::object::order_type const order
 )

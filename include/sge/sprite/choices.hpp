@@ -27,14 +27,13 @@ namespace sprite
 {
 
 template<
-	typename Unit,
-	typename Float,
-	typename Color
+	typename TypeChoices,
+	typename Elements
 >
-struct choices {
-	typedef Unit unit_type;
-	typedef Float float_type;
-	typedef Color color_type;
+struct choices
+{
+	typedef TypeChoices type_choices;
+	typedef Elements elements;
 };
 
 }

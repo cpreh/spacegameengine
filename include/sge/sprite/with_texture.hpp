@@ -35,8 +35,7 @@ namespace sprite
 struct with_texture
 {
 	template<
-		typename Choices,
-		typename Elements
+		typename Choices
 	>
 	struct apply
 	{

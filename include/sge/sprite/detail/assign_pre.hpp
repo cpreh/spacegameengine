@@ -32,24 +32,21 @@ namespace detail
 {
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 typename boost::enable_if<
 	boost::mpl::contains<
-		Elements,
+		typename Choices::elements,
 		intrusive::tag
 	>,
 	void
 >::type
 assign_pre(
 	object<
-		Choices,
-		Elements
+		Choices
 	> &this_,
 	object<
-		Choices,
-		Elements
+		Choices
 	> const &other_
 )
 {
@@ -63,24 +60,21 @@ assign_pre(
 }
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 typename boost::disable_if<
 	boost::mpl::contains<
-		Elements,
+		typename Choices::elements,
 		intrusive::tag
 	>,
 	void
 >::type
 assign_pre(
 	object<
-		Choices,
-		Elements
+		Choices
 	> &,
 	object<
-		Choices,
-		Elements
+		Choices
 	> const &
 )
 {}

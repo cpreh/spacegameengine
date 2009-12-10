@@ -34,10 +34,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <iterator>
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
-sge::sprite::external_system<Choices, Elements>::external_system(
+sge::sprite::external_system<Choices>::external_system(
 	renderer::device_ptr const rend
 )
 :
@@ -47,8 +46,7 @@ sge::sprite::external_system<Choices, Elements>::external_system(
 {}
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 template<
 	typename Iterator,
@@ -56,7 +54,7 @@ template<
 	typename EqualFunction
 >
 void
-sge::sprite::external_system<Choices, Elements>::render(
+sge::sprite::external_system<Choices>::render(
 	Iterator const begin,
 	Iterator const end,
 	SortFunction const &sort_fun,

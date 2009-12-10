@@ -38,12 +38,11 @@ namespace detail
 
 template<
 	typename Iterator,
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 typename boost::enable_if<
 	boost::mpl::contains<
-		Elements,
+		typename Choices::elements,
 		with_rotation
 	>,
 	void
@@ -51,8 +50,7 @@ typename boost::enable_if<
 fill_position(
 	Iterator const iterator,
 	object<
-		Choices,
-		Elements
+		Choices
 	> const &spr
 )
 {
@@ -74,12 +72,11 @@ fill_position(
 
 template<
 	typename Iterator,
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 typename boost::disable_if<
 	boost::mpl::contains<
-		Elements,
+		typename Choices::elements,
 		with_rotation
 	>,
 	void
@@ -87,8 +84,7 @@ typename boost::disable_if<
 fill_position(
 	Iterator const iterator,
 	object<
-		Choices,
-		Elements
+		Choices
 	> const &spr
 )
 {

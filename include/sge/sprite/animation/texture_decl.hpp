@@ -37,8 +37,7 @@ namespace animation
 {
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 class texture
 :
@@ -46,8 +45,7 @@ class texture
 {
 public:
 	typedef sprite::object<
-		Choices,
-		Elements
+		Choices
 	> object;
 
 	texture(

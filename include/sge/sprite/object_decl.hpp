@@ -45,15 +45,14 @@ namespace sprite
 {
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 class object
 :
 	public
 		boost::mpl::if_<
 			boost::mpl::contains<
-				Elements,
+				typename Choices::elements,
 				intrusive::tag	
 			>,
 			intrusive::detail::object_base_hook,
@@ -61,51 +60,49 @@ class object
 		>::type
 {
 	typedef typename detail::make_class<
-		Choices,
-		Elements
+		Choices
 	>::type element_type;
 
 	typedef typename element_type::memory_type::types flattened_types;
 public:
 	typedef Choices choices;
-	
-	typedef Elements elements;
 
-	typedef typename Choices::unit_type unit;
+	typedef typename Choices::elements elements;
+
+	typedef typename Choices::type_choices::unit_type unit;
 
 	typedef typename sprite::depth_type<
-		Choices
+		typename Choices::type_choices
 	>::type depth_type;
 
 	typedef typename sprite::rotation_type<
-		Choices
+		typename Choices::type_choices
 	>::type rotation_type;
 
 	typedef typename sprite::repetition_type<
-		Choices
+		typename Choices::type_choices
 	>::type repetition_type;
 
 	typedef typename sprite::point<
-		Choices
+		typename Choices::type_choices
 	>::type point;
 
 	typedef typename sprite::dim<
-		Choices
+		typename Choices::type_choices
 	>::type dim;
 
-	typedef typename choices::color_type color_format;
+	typedef typename choices::type_choices::color_type color_format;
 
 	typedef typename sprite::color<
-		Choices
+		typename Choices::type_choices
 	>::type color_type;
 
 	typedef typename intrusive::order<
-		Choices
+		typename Choices::type_choices
 	>::type order_type;
 
 	typedef intrusive::system<
-		Choices,
-		Elements
+		Choices
 	> system;
 
 	explicit object(

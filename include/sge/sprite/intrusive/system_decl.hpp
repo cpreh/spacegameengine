@@ -36,20 +36,17 @@ namespace intrusive
 {
 
 template<
-	typename Choices,
-	typename Elements
+	typename Choices
 >
 class system
 :
 	public system_base<
-		Choices,
-		Elements
+		Choices
 	>
 {
 public:
 	typedef sprite::object<
-		Choices,
-		Elements
+		Choices
 	> object;
 
 	typedef typename intrusive::order<
@@ -84,8 +81,7 @@ private:
 	);
 
 	template<
-		typename Choices,
-		typename Elements
+		typename Choices
 	> friend class object;
 
 	typedef boost::ptr_map<
