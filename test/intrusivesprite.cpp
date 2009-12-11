@@ -21,13 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/media_path.hpp>
 #include <sge/image/multi_loader.hpp>
 #include <sge/image/color/format.hpp>
+#include <sge/input/system.hpp>
+#include <sge/input/action.hpp>
+#include <sge/mainloop/dispatch.hpp>
 #include <sge/renderer/display_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
+#include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/filter/linear.hpp>
+#include <sge/signal/scoped_connection.hpp>
 #include <sge/sprite/choices.hpp>
+#include <sge/sprite/default_equal.hpp>
 #include <sge/sprite/no_color.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/parameters_impl.hpp>
@@ -45,9 +51,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/manager.hpp>
 #include <sge/texture/part_fwd.hpp>
 #include <sge/window/parameters.hpp>
+#include <sge/exception.hpp>
+#include <sge/cerr.hpp>
 #include <sge/text.hpp>
+#include <boost/mpl/vector/vector10.hpp>
+#include <boost/spirit/home/phoenix/core/reference.hpp>
+#include <boost/spirit/home/phoenix/operator/self.hpp>
+#include <exception>
+#include <ostream>
+#include <cstdlib>
 
 int main()
+try
 {
 	sge::systems::instance sys(
 		sge::systems::list()
@@ -145,7 +160,7 @@ int main()
 		sprite_choices
 	> sprite_parameters;
 
-	sprite_system ss(
+	sprite_system system(
 		sys.renderer()
 	);
 
@@ -161,6 +176,54 @@ int main()
 		.order(
 			1u
 		)
+		.system(
+			&system
+		)
 		.elements()
 	);
+	
+	bool running = true;
+
+	sge::signal::scoped_connection const cb(
+		sys.input_system()->register_callback(
+			sge::input::action(
+				sge::input::kc::key_escape,
+				boost::phoenix::ref(running) = false
+			)
+		)
+	);
+
+	while(running)
+	{
+		sge::mainloop::dispatch();
+
+		sge::renderer::scoped_block const block_(
+			sys.renderer()
+		);
+
+		system.render(
+			sge::sprite::default_equal()
+		);
+	}
+
+}
+catch(
+	sge::exception const &e
+)
+{
+	sge::cerr
+		<< e.string()
+		<< SGE_TEXT('\n');
+	
+	return EXIT_FAILURE;
+}
+catch(
+	std::exception const &e
+)
+{
+	sge::cerr
+		<< e.what()
+		<< SGE_TEXT('\n');
+	
+	return EXIT_FAILURE;
 }

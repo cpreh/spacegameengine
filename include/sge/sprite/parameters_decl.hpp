@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/order.hpp>
 #include <sge/sprite/roles/pos.hpp>
 #include <sge/sprite/roles/size.hpp>
+#include <sge/sprite/roles/system.hpp>
 #include <sge/sprite/roles/texture.hpp>
 #include <majutsu/role_return_type.hpp>
 
@@ -102,6 +103,15 @@ public:
 			roles::order
 		>::type const &
 	) const;
+
+	parameters const
+	system(
+		typename majutsu::role_return_type<
+			flattened_types,
+			roles::system
+		>::type const &
+	) const;
+
 
 	template<
 		typename Role

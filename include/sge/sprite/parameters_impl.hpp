@@ -184,6 +184,25 @@ sge::sprite::parameters<Choices>::order(
 template<
 	typename Choices
 >
+sge::sprite::parameters<Choices> const
+sge::sprite::parameters<Choices>::system(
+	typename majutsu::role_return_type<
+		flattened_types,
+		roles::system
+	>::type const &system_
+) const
+{
+	return
+		this->set<
+			roles::system
+		>(
+			system_
+		);
+}
+
+template<
+	typename Choices
+>
 template<
 	typename Role
 >
