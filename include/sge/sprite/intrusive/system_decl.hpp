@@ -94,11 +94,6 @@ private:
 		order
 	);
 
-	template<
-		typename OtherChoices
-	>
-	friend class sge::sprite::object;
-
 	typedef boost::ptr_map<
 		order,
 		sprite_list

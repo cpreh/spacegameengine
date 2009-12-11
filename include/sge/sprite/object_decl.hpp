@@ -65,6 +65,11 @@ class object
 
 	typedef typename element_type::memory_type::types flattened_types;
 public:
+	template<
+		typename OtherChoices
+	>
+	friend class sge::sprite::intrusive::system;
+
 	typedef Choices choices;
 
 	typedef typename Choices::elements elements;

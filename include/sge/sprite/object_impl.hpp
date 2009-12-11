@@ -53,7 +53,11 @@ sge::sprite::object<Choices>::object(
 			nelements_
 		)
 	)
-{}
+{
+	detail::assign_post(
+		*this
+	);
+}
 
 template<
 	typename Choices
