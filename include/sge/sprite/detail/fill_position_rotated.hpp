@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/box/structure_cast.hpp>
 #include <sge/math/vector/structure_cast.hpp>
 #include <sge/math/vector/construct.hpp>
+#include <boost/foreach.hpp>
 #include <tr1/array>
 #include <cmath>
 
@@ -146,18 +147,15 @@ fill_position_rotated(
 		)
 	);
 
-	for(
-		typename position_array::const_iterator it(
-			positions.begin()
-		);
-		it != positions.end();
-		++it
+	BOOST_FOREACH(
+		typename position_array::const_reference ref,
+		positions
 	)
 		(*iterator++). template set<
 			vertex_pos
 		>(
 			construct(
-				(mat_rot * *it) + centerf,
+				(mat_rot * ref) + centerf,
 				depth_
 			)
 		);

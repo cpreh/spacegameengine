@@ -118,6 +118,8 @@ public:
 		object const &
 	);
 
+	~object();
+
 	unit
 	x() const;
 

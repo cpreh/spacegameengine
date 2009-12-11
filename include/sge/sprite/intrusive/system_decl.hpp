@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/intrusive/system_fwd.hpp>
 #include <sge/sprite/intrusive/order.hpp>
-#include <sge/sprite/system_base.hpp>
+#include <sge/sprite/system_base_decl.hpp>
+#include <sge/sprite/object_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <boost/intrusive/list.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
@@ -45,6 +46,10 @@ class system
 	>
 {
 public:
+	typedef system_base<
+		Choices
+	> base;
+
 	typedef sprite::object<
 		Choices
 	> object;
@@ -59,8 +64,13 @@ public:
 
 	~system();
 
+	template<
+		typename EqualFunction
+	>
 	void
-	render();
+	render(
+		EqualFunction const &
+	);
 private:
 	typedef boost::intrusive::list<
 		object,
@@ -69,9 +79,13 @@ private:
 		>
 	> sprite_list;
 
+	template<
+		typename EqualFunction
+	>
 	void
 	render(
-		sprite_list const &
+		sprite_list const &,
+		EqualFunction const &
 	);
 
 	void
@@ -81,8 +95,9 @@ private:
 	);
 
 	template<
-		typename Choices
-	> friend class object;
+		typename OtherChoices
+	>
+	friend class sge::sprite::object;
 
 	typedef boost::ptr_map<
 		order,

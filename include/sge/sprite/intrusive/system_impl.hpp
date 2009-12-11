@@ -22,11 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_INTRUSIVE_SYSTEM_IMPL_HPP_INCLUDED
 
 #include <sge/sprite/intrusive/system_decl.hpp>
-#include <sge/sprite/intrusive/object.hpp>
 #include <sge/sprite/detail/render_states.hpp>
 #include <sge/sprite/detail/fill_geometry.hpp>
 #include <sge/sprite/detail/render.hpp>
-#include <sge/sprite/default_compare.hpp>
 #include <sge/sprite/system_base_impl.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/state/var.hpp>
@@ -42,7 +40,9 @@ sge::sprite::intrusive::system<Choices>::system(
 	renderer::device_ptr const rend
 )
 :
-	system_base(rend)
+	base(
+		rend
+	)
 {}
 
 template<
@@ -54,13 +54,18 @@ sge::sprite::intrusive::system<Choices>::~system()
 template<
 	typename Choices
 >
+template<
+	typename EqualFunction
+>
 void
-sge::sprite::intrusive::system<Choices>::render()
+sge::sprite::intrusive::system<Choices>::render(
+	EqualFunction const &equal
+)
 {
-	matrices();
+	base::matrices();
 
 	renderer::device_ptr const rend(
-		renderer()
+		base::renderer()
 	);
 
 	renderer::state::scoped const state_(
@@ -69,20 +74,25 @@ sge::sprite::intrusive::system<Choices>::render()
 	);
 
 	BOOST_FOREACH(
-		sprite_level_map::value_type const &v,
+		typename sprite_level_map::value_type const &v,
 		sprite_levels
 	)
 		render(
-			*v.second
+			*v.second,
+			equal
 		);
 }
 
 template<
 	typename Choices
 >
+template<
+	typename EqualFunction
+>
 void
 sge::sprite::intrusive::system<Choices>::render(
-	sprite_list const &sprites
+	sprite_list const &sprites,
+	EqualFunction const &equal
 )
 {
 	if(sprites.empty())
@@ -93,28 +103,28 @@ sge::sprite::intrusive::system<Choices>::render(
 	);
 
 	renderer::vertex_buffer_ptr const vb(
-		vertex_buffer()
+		base::vertex_buffer()
 	);
 
 	renderer::index_buffer_ptr const ib(
-		index_buffer()
+		base::index_buffer()
 	);
 
 	sprite::detail::fill_geometry(
 		sprites.begin(),
 		sprites.end(),
-		vertex_buffer(),
-		index_buffer()
+		base::vertex_buffer(),
+		base::index_buffer()
 	);
 
 	renderer::device_ptr const rend(
-		renderer()
+		base::renderer()
 	);
 
 	sprite::detail::render(
 		sprites.begin(),
 		sprites.end(),
-		default_compare(),
+		equal,
 		rend,
 		vb,
 		ib
@@ -126,12 +136,12 @@ template<
 >
 void
 sge::sprite::intrusive::system<Choices>::add(
-	intrusive::object &obj,
-	intrusive::object::order_type const order
+	object &obj,
+	order const order_
 )
 {
 	sprite_levels[
-		order
+		order_
 	].push_back(
 		obj
 	);

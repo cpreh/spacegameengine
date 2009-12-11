@@ -96,6 +96,12 @@ sge::sprite::object<Choices>::operator=(
 template<
 	typename Choices
 >
+sge::sprite::object<Choices>::~object()
+{}
+
+template<
+	typename Choices
+>
 typename sge::sprite::object<Choices>::unit
 sge::sprite::object<Choices>::x() const
 {

@@ -59,6 +59,8 @@ protected:
 		sge::renderer::device_ptr rend
 	);
 
+	~system_base();
+
 	void
 	allocate_buffers(
 		sge::renderer::size_type needed_sprites

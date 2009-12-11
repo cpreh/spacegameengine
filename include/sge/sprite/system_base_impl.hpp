@@ -86,6 +86,12 @@ sge::sprite::system_base<Choices>::system_base(
 template<
 	typename Choices
 >
+sge::sprite::system_base<Choices>::~system_base()
+{}
+
+template<
+	typename Choices
+>
 void
 sge::sprite::system_base<Choices>::allocate_buffers(
 	sge::renderer::size_type const num_sprites
