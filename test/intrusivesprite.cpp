@@ -18,11 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/config/media_path.hpp>
+#include <sge/image/multi_loader.hpp>
+#include <sge/image/color/format.hpp>
 #include <sge/renderer/display_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/screen_size.hpp>
+#include <sge/renderer/filter/linear.hpp>
 #include <sge/sprite/choices.hpp>
 #include <sge/sprite/no_color.hpp>
 #include <sge/sprite/object_impl.hpp>
@@ -35,6 +39,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/parameterless.hpp>
+#include <sge/texture/add_image.hpp>
+#include <sge/texture/default_creator_impl.hpp>
+#include <sge/texture/no_fragmented.hpp>
+#include <sge/texture/manager.hpp>
+#include <sge/texture/part_fwd.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/text.hpp>
 
@@ -72,6 +81,45 @@ int main()
 		)
 	);
 
+	sge::image::multi_loader image_loader(
+		sys.plugin_manager()
+	);
+
+	typedef sge::texture::default_creator<
+		sge::texture::no_fragmented
+	> texture_creator;
+	
+	texture_creator const creator(
+		sys.renderer(),
+		sge::image::color::format::rgba8,
+		sge::renderer::filter::linear
+	);
+
+	sge::texture::manager tex_man(
+		sys.renderer(),
+		creator
+	);
+
+	sge::texture::const_part_ptr const
+		tex1(
+			sge::texture::add_image(
+				tex_man,
+				image_loader.load(
+					sge::config::media_path()
+					/ SGE_TEXT("cloudsquare.jpg")
+				)
+			)
+		),
+		tex2(
+			sge::texture::add_image(
+				tex_man,
+				image_loader.load(
+					sge::config::media_path()
+					/ SGE_TEXT("grass.png")
+				)
+			)
+		);
+
 
 	typedef sge::sprite::choices<
 		sge::sprite::type_choices<
@@ -99,5 +147,20 @@ int main()
 
 	sprite_system ss(
 		sys.renderer()
+	);
+
+	sprite_object test(
+		sprite_parameters()
+		.pos(
+			sprite_object::point::null()
+		)
+		.texture(
+			tex1
+		)
+		.texture_size()
+		.order(
+			1u
+		)
+		.elements()
 	);
 }

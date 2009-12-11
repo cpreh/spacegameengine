@@ -46,7 +46,7 @@ struct tag
 		typedef majutsu::composite<
 			boost::mpl::vector2<
 				majutsu::role<
-					primitives::order,
+					primitives::order::type,
 					roles::order
 				>,
 				majutsu::role<

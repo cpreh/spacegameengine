@@ -142,7 +142,8 @@ try
 			sge::texture::add_image(
 				tex_man,
 				image_loader.load(
-					sge::config::media_path() / SGE_TEXT("cloudsquare.jpg")
+					sge::config::media_path()
+					/ SGE_TEXT("cloudsquare.jpg")
 				)
 			)
 		),
@@ -150,7 +151,8 @@ try
 			sge::texture::add_image(
 				tex_man,
 				image_loader.load(
-					sge::config::media_path() / SGE_TEXT("grass.png")
+					sge::config::media_path()
+					/ SGE_TEXT("grass.png")
 				)
 			)
 		);

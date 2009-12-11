@@ -23,11 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/parameters_fwd.hpp>
 #include <sge/sprite/detail/make_class.hpp>
+#include <sge/sprite/roles/color.hpp>
+#include <sge/sprite/roles/depth.hpp>
+#include <sge/sprite/roles/order.hpp>
 #include <sge/sprite/roles/pos.hpp>
 #include <sge/sprite/roles/size.hpp>
 #include <sge/sprite/roles/texture.hpp>
-#include <sge/sprite/roles/color.hpp>
-#include <sge/sprite/roles/depth.hpp>
 #include <majutsu/role_return_type.hpp>
 
 namespace sge
@@ -91,6 +92,14 @@ public:
 		typename majutsu::role_return_type<
 			flattened_types,
 			roles::depth
+		>::type const &
+	) const;
+
+	parameters const
+	order(
+		typename majutsu::role_return_type<
+			flattened_types,
+			roles::order
 		>::type const &
 	) const;
 
