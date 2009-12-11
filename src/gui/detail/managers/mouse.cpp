@@ -27,6 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/events/mouse_move.hpp>
 #include <sge/gui/widgets/base.hpp>
 #include <sge/gui/cursor/base.hpp>
+#include <sge/gui/sprite/unit.hpp>
+#include <sge/gui/sprite/point.hpp>
 #include <sge/gui/exception.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/math/box/contains_point.hpp>
@@ -56,15 +58,21 @@ sge::log::object mylogger(
 	)
 );
 
-sge::sprite::point const key_to_mouse_coords(sge::input::key_pair const &k)
+sge::gui::sprite::point const
+key_to_mouse_coords(
+	sge::input::key_pair const &k
+)
 {
 	if (k.key().code() == sge::input::kc::mouse_x_axis)
-		return sge::sprite::point(
-			static_cast<sge::sprite::unit>(k.value()),
-			static_cast<sge::sprite::unit>(0));
-	return sge::sprite::point(
-		static_cast<sge::sprite::unit>(0),
-		static_cast<sge::sprite::unit>(k.value()));
+		return sge::gui::sprite::point(
+			static_cast<sge::gui::sprite::unit>(k.value()),
+			static_cast<sge::gui::sprite::unit>(0)
+		);
+	
+	return sge::gui::sprite::point(
+		static_cast<sge::gui::sprite::unit>(0),
+		static_cast<sge::gui::sprite::unit>(k.value())
+	);
 }
 
 bool active(sge::gui::widgets::base const &w)

@@ -121,7 +121,7 @@ sge::gui::skins::base const &sge::gui::manager::skin() const
 	return *skin_;
 }
 
-sge::sprite::object &sge::gui::manager::connected_sprite(
+sge::gui::sprite::object &sge::gui::manager::connected_sprite(
 	widgets::base &w)
 {
 	return render_->connected_sprite(w);

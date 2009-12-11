@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_CURSOR_BASE_HPP_INCLUDED
 #define SGE_GUI_CURSOR_BASE_HPP_INCLUDED
 
+#include <sge/gui/sprite/object.hpp>
 #include <sge/gui/point.hpp>
 #include <sge/gui/export.hpp>
 #include <sge/gui/depth_type.hpp>
-#include <sge/sprite/object.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
@@ -34,10 +35,13 @@ namespace cursor
 {
 class SGE_CLASS_SYMBOL base
 {
+	SGE_NONCOPYABLE(base)
+protected:
+	SGE_GUI_SYMBOL base();
 public:
 	virtual void pos(point const &) = 0;
 	virtual point const pos() const = 0;
-	virtual sge::sprite::object const sprite() const = 0;
+	virtual gui::sprite::object const sprite() const = 0;
 	virtual void widget_z(depth_type) = 0;
 	SGE_GUI_SYMBOL virtual ~base();
 };

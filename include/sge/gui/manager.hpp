@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widgets/fwd.hpp>
 #include <sge/gui/cursor/base_ptr.hpp>
 #include <sge/gui/cursor/const_base_ptr.hpp>
+#include <sge/gui/sprite/object.hpp>
 #include <sge/gui/export.hpp>
 #include <sge/gui/rect.hpp>
 #include <sge/gui/invalidation.hpp>
@@ -38,7 +39,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/texture_fwd.hpp>
 #include <sge/input/system_fwd.hpp>
-#include <sge/sprite/fwd.hpp>
 #include <sge/time/resolution.hpp>
 #include <sge/noncopyable.hpp>
 #include <sge/scoped_ptr.hpp>
@@ -72,8 +72,12 @@ class manager
 	SGE_GUI_SYMBOL sge::gui::cursor::const_base_ptr const cursor() const;
 	SGE_GUI_SYMBOL skins::base &skin();
 	SGE_GUI_SYMBOL skins::base const &skin() const;
-	SGE_GUI_SYMBOL sprite::object &connected_sprite(
-		widgets::base &);
+
+	SGE_GUI_SYMBOL sge::gui::sprite::object &
+	connected_sprite(
+		widgets::base &
+	);
+
 	SGE_GUI_SYMBOL void request_keyboard_focus(
 		widgets::base &);
 	SGE_GUI_SYMBOL void z(

@@ -19,15 +19,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/gui/cursor/default.hpp>
+#include <sge/gui/sprite/parameters.hpp>
+#include <sge/gui/sprite/depth_type.hpp>
+#include <sge/gui/sprite/point.hpp>
 #include <sge/gui/media_path.hpp>
 #include <sge/gui/unit.hpp>
 #include <sge/gui/dim.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/sprite/parameters.hpp>
 #include <sge/image/loader.hpp>
 #include <sge/image/file.hpp>
 #include <sge/texture/consume_and_set_fragment.hpp>
 #include <sge/renderer/filter/linear.hpp>
+#include <sge/sprite/parameters_impl.hpp>
+#include <sge/sprite/object_impl.hpp>
 #include <sge/math/vector/structure_cast.hpp>
 #include <sge/math/clamp.hpp>
 #include <sge/math/dim/structure_cast.hpp>
@@ -44,7 +48,7 @@ sge::gui::cursor::default_::default_(
 		image::color::format::rgba8,
 		renderer::filter::linear),
 	sprite_(
-		sprite::parameters()
+		sge::gui::sprite::parameters()
 			.texture(
 				texture::consume_and_set_fragment(
 					texture_,
@@ -55,9 +59,11 @@ sge::gui::cursor::default_::default_(
 					)->view()
 				)
 			)
+			.texture_size()
 			.depth(
-				static_cast<sprite::depth_type>(-1)
+				static_cast<sge::gui::sprite::depth_type>(-1)
 			)
+			.elements()
 	),
 	click_(16,16)
 {
@@ -66,24 +72,40 @@ sge::gui::cursor::default_::default_(
 void sge::gui::cursor::default_::pos(
 	point const &p)
 {
-	sge::gui::dim const ss =
-		sge::math::dim::structure_cast<sge::gui::dim>(
-			rend_->screen_size());
-	sprite_.pos() =
-		math::vector::structure_cast<sge::sprite::point>(
+	sge::gui::dim const ss(
+		sge::math::dim::structure_cast<
+			sge::gui::dim
+		>(
+			rend_->screen_size()
+		)
+	);
+
+	sprite_.pos(
+		math::vector::structure_cast<
+			sge::gui::sprite::point
+		>(
 			sge::gui::point(
 				sge::math::clamp(
 					p.x(),
 					static_cast<sge::gui::unit>(
-						-sprite_.w()),
+						-sprite_.w()
+					),
 					static_cast<sge::gui::unit>(
-						ss.w()+sprite_.w())),
+						ss.w()+sprite_.w()
+					)
+				),
 				sge::math::clamp(
 					p.y(),
 					static_cast<sge::gui::unit>(
-						-sprite_.h()),
+						-sprite_.h()
+					),
 					static_cast<sge::gui::unit>(
-						ss.h()+sprite_.h()))));
+						ss.h()+sprite_.h()
+					)
+				)
+			)
+		)
+	);
 }
 
 sge::gui::point const sge::gui::cursor::default_::pos() const
@@ -92,20 +114,22 @@ sge::gui::point const sge::gui::cursor::default_::pos() const
 		sprite_.pos());
 }
 
-sge::sprite::object const sge::gui::cursor::default_::sprite() const
+sge::gui::sprite::object const sge::gui::cursor::default_::sprite() const
 {
 	return sprite_;
 }
 
 void sge::gui::cursor::default_::widget_z(depth_type const z)
 {
-	sprite_.z() =
+	sprite_.z(
 		std::max(
 			sprite_.z(),
-			static_cast<sprite::depth_type>(z+1));
+			static_cast<sge::gui::sprite::depth_type>(z+1)
+		)
+	);
 }
 
-sge::sprite::object &sge::gui::cursor::default_::mutable_sprite()
+sge::gui::sprite::object &sge::gui::cursor::default_::mutable_sprite()
 {
 	return sprite_;
 }

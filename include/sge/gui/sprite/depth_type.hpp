@@ -18,22 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_REPETITION_TYPE_HPP_INCLUDED
-#define SGE_SPRITE_REPETITION_TYPE_HPP_INCLUDED
+#ifndef SGE_GUI_SPRITE_DEPTH_TYPE_HPP_INCLUDED
+#define SGE_GUI_SPRITE_DEPTH_TYPE_HPP_INCLUDED
+
+#include <sge/gui/sprite/type_choices.hpp>
+#include <sge/sprite/depth_type.hpp>
 
 namespace sge
+{
+namespace gui
 {
 namespace sprite
 {
 
-template<
-	typename FloatType
->
-struct repetition_type
-{
-	typedef FloatType type;	
-};
+typedef sge::sprite::depth_type<
+	type_choices
+>::type depth_type;
 
+}
 }
 }
 

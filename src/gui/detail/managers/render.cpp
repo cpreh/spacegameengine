@@ -26,6 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widgets/base.hpp>
 #include <sge/gui/canvas/object.hpp>
 #include <sge/gui/cursor/base.hpp>
+#include <sge/gui/sprite/point.hpp>
+#include <sge/gui/sprite/dim.hpp>
+#include <sge/gui/sprite/depth_type.hpp>
+#include <sge/gui/sprite/parameters.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/math/box/basic_impl.hpp>
 #include <sge/math/box/structure_cast.hpp>
@@ -43,7 +47,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture_rw.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/texture/part_raw.hpp>
-#include <sge/sprite/parameters.hpp>
+#include <sge/sprite/default_sort.hpp>
+#include <sge/sprite/default_equal.hpp>
+#include <sge/sprite/parameters_impl.hpp>
+#include <sge/sprite/external_system_impl.hpp>
 #include <sge/log/parameters/inherited.hpp>
 #include <sge/log/object.hpp>
 #include <sge/log/headers.hpp>
@@ -128,6 +135,9 @@ sge::gui::detail::managers::render::render(
 {
 }
 
+sge::gui::detail::managers::render::~render()
+{}
+
 void sge::gui::detail::managers::render::add(widgets::base &w)
 {
 	SGE_LOG_DEBUG(
@@ -181,13 +191,25 @@ void sge::gui::detail::managers::render::update()
 void sge::gui::detail::managers::render::draw()
 {
 	sprites_.clear();
-	BOOST_FOREACH(widget_container::value_type const &w,widgets)
-		sprites_.push_back(w.second->sprite);
+
+	BOOST_FOREACH(
+		widget_container::value_type const &w,
+		widgets
+	)
+		sprites_.push_back(
+			w.second->sprite
+		);
+
 	sprites_.push_back(
-		cursor_->sprite());
+		cursor_->sprite()
+	);
+
 	ss.render(
 		sprites_.begin(),
-		sprites_.end());
+		sprites_.end(),
+		sge::sprite::default_sort(),
+		sge::sprite::default_equal()
+	);
 }
 
 void sge::gui::detail::managers::render::remove(
@@ -267,28 +289,34 @@ void sge::gui::detail::managers::render::resize(
 		assign_textures(
 			new_dim,
 			rend,
-			wd.texture));
+			wd.texture
+		)
+	);
 
-	wd.sprite.size() =
-		sprite::dim(
+	wd.sprite.size(
+		sge::gui::sprite::dim(
 			math::dim::structure_cast<
-				sprite::dim
+				sge::gui::sprite::dim
 			>(
 				new_dim
 			)
-		);
+		)
+	);
 
 	reposition(
 		w,
-		w.screen_pos());
+		w.screen_pos()
+	);
 
 	z(
 		w,
-		w.z());
+		w.z()
+	);
 
 	activation(
 		w,
-		w.activation());
+		w.activation()
+	);
 }
 
 void sge::gui::detail::managers::render::reposition(
@@ -301,7 +329,11 @@ void sge::gui::detail::managers::render::reposition(
 		return;
 
 	// just reset sprite position
-	wi->second->sprite.pos() = math::vector::structure_cast<sprite::point>(d);
+	wi->second->sprite.pos(
+		math::vector::structure_cast<
+			sge::gui::sprite::point
+		>(d)
+	);
 }
 
 void sge::gui::detail::managers::render::dirty(
@@ -314,8 +346,10 @@ void sge::gui::detail::managers::render::dirty(
 			r));
 }
 
-sge::sprite::object &sge::gui::detail::managers::render::connected_sprite(
-	widgets::base &w)
+sge::gui::sprite::object &
+sge::gui::detail::managers::render::connected_sprite(
+	widgets::base &w
+)
 {
 	widget_container::iterator wi = widgets.find(&w);
 	SGE_ASSERT(wi != widgets.end());
@@ -329,9 +363,13 @@ void sge::gui::detail::managers::render::z(
 	if (!w.has_parent())
 		return;
 
-	widgets[&w].sprite.z() =
-		static_cast<sprite::depth_type>(
-			_z);
+	widgets[&w].sprite.z(
+		static_cast<
+			sge::gui::sprite::depth_type
+		>(
+			_z
+		)
+	);
 }
 
 void sge::gui::detail::managers::render::clean()
@@ -406,6 +444,8 @@ sge::gui::detail::managers::render::widget_data::widget_data()
 :
 	texture(),
 	sprite(
-		sge::sprite::parameters()
+		sge::gui::sprite::parameters()
+		// TODO: what to specify here?
+		.elements()
 	)
 {}
