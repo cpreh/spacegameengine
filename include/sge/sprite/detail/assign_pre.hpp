@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_ASSIGN_PRE_HPP_INCLUDED
 
 #include <sge/sprite/intrusive/detail/object_base_hook.hpp>
-#include <sge/sprite/object_fwd.hpp>
+#include <sge/sprite/object_decl.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/utility/enable_if.hpp>
 
@@ -55,9 +55,9 @@ assign_pre(
 	this_.unlink();
 
 	static_cast<
-		intrusive::detail::object_base_hook
+		intrusive::detail::object_base_hook &
 	>(
-		&this_
+		this_
 	) = other_;
 }
 
