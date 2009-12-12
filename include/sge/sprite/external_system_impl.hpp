@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/external_system_decl.hpp>
 #include <sge/sprite/system_base_impl.hpp>
-#include <sge/sprite/detail/render_states.hpp>
+#include <sge/sprite/render_states.hpp>
 #include <sge/sprite/detail/fill_geometry.hpp>
 #include <sge/sprite/detail/render.hpp>
 #include <sge/renderer/state/scoped.hpp>
@@ -99,7 +99,7 @@ sge::sprite::external_system<Choices>::render(
 
 	renderer::state::scoped const state_(
 		rend,
-		detail::render_states()
+		render_states()
 	);
 
 	detail::render(

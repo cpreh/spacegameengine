@@ -54,6 +54,9 @@ public:
 	transform(
 		matrix const &
 	);
+
+	void
+	matrices();
 protected:
 	explicit system_base(
 		sge::renderer::device_ptr rend
@@ -65,9 +68,6 @@ protected:
 	allocate_buffers(
 		sge::renderer::size_type needed_sprites
 	);
-
-	void
-	matrices();
 
 	sge::renderer::vertex_buffer_ptr const
 	vertex_buffer() const;

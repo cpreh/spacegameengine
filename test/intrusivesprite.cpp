@@ -220,7 +220,7 @@ try
 			sys.renderer()
 		);
 
-		system.render(
+		system.render_all(
 			sge::sprite::default_equal()
 		);
 	}

@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_INTRUSIVE_SYSTEM_IMPL_HPP_INCLUDED
 
 #include <sge/sprite/intrusive/system_decl.hpp>
-#include <sge/sprite/detail/render_states.hpp>
 #include <sge/sprite/detail/fill_geometry.hpp>
 #include <sge/sprite/detail/render.hpp>
+#include <sge/sprite/render_states.hpp>
 #include <sge/sprite/system_base_impl.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/state/var.hpp>
@@ -58,7 +58,7 @@ template<
 	typename EqualFunction
 >
 void
-sge::sprite::intrusive::system<Choices>::render(
+sge::sprite::intrusive::system<Choices>::render_all(
 	EqualFunction const &equal
 )
 {
@@ -70,7 +70,7 @@ sge::sprite::intrusive::system<Choices>::render(
 
 	renderer::state::scoped const state_(
 		rend,
-		sprite::detail::render_states()
+		sprite::render_states()
 	);
 
 	BOOST_FOREACH(

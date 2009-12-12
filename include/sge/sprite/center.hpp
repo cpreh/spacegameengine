@@ -47,6 +47,25 @@ center(
 		- spr.dim() / 2;
 }
 
+template<
+	typename Choices
+>
+void
+center(
+	object<
+		Choices
+	> &spr,
+	typename object<
+		Choices
+	>::point const &center_
+)
+{
+	spr.pos(
+		center_
+		- spr.dim() / 2
+	);
+}
+
 }
 }
 

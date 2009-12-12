@@ -59,6 +59,22 @@ sge::sprite::system_base<Choices>::transform(
 template<
 	typename Choices
 >
+void
+sge::sprite::system_base<Choices>::matrices()
+{
+	rend->transform(
+		additional_transform_
+		* transform_matrix
+	);
+
+	rend->projection(
+		projection_matrix
+	);
+}
+
+template<
+	typename Choices
+>
 sge::sprite::system_base<Choices>::system_base(
 	renderer::device_ptr const rend
 )
@@ -110,22 +126,6 @@ sge::sprite::system_base<Choices>::allocate_buffers(
 		renderer::index::format::i16,
 		num_sprites * detail::indices_per_sprite,
 		renderer::resource_flags::dynamic
-	);
-}
-
-template<
-	typename Choices
->
-void
-sge::sprite::system_base<Choices>::matrices()
-{
-	rend->transform(
-		additional_transform_
-		* transform_matrix
-	);
-
-	rend->projection(
-		projection_matrix
 	);
 }
 

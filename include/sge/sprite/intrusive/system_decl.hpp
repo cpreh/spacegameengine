@@ -64,7 +64,7 @@ public:
 		typename EqualFunction
 	>
 	void
-	render(
+	render_all(
 		EqualFunction const &
 	);
 
