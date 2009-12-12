@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/depth_type.hpp>
 #include <sge/math/matrix/static.hpp>
 #include <sge/math/matrix/basic_impl.hpp>
+#include <sge/math/matrix/vector.hpp>
 #include <sge/math/box/structure_cast.hpp>
 #include <sge/math/vector/structure_cast.hpp>
 #include <sge/math/vector/construct.hpp>

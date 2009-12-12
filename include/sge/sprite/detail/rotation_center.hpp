@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/rotate_around.hpp>
 #include <sge/sprite/roles/use_rotation.hpp>
 #include <sge/sprite/center.hpp>
-#include <sge/sprite/point.hpp>
 #include <sge/sprite/with_rotation_center.hpp>
 #include <sge/sprite/object_fwd.hpp>
 #include <boost/mpl/contains.hpp>
@@ -45,9 +44,9 @@ typename boost::enable_if<
 		typename Choices::elements,
 		with_rotation_center
 	>,
-	typename point<
+	typename object<
 		Choices
-	>::type
+	>::point
 >::type
 rotation_center(
 	object<
@@ -77,9 +76,9 @@ typename boost::disable_if<
 		typename Choices::elements,
 		with_rotation_center
 	>,
-	typename point<
+	typename object<
 		Choices
-	>::type
+	>::point
 >::type
 rotation_center(
 	object<

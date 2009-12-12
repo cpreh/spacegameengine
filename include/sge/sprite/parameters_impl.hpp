@@ -185,6 +185,25 @@ template<
 	typename Choices
 >
 sge::sprite::parameters<Choices> const
+sge::sprite::parameters<Choices>::rotation(
+	typename majutsu::role_return_type<
+		flattened_types,
+		roles::rotation
+	>::type const &rotation_
+) const
+{
+	return
+		this->set<
+			roles::rotation
+		>(
+			rotation_
+		);
+}
+
+template<
+	typename Choices
+>
+sge::sprite::parameters<Choices> const
 sge::sprite::parameters<Choices>::order(
 	typename majutsu::role_return_type<
 		flattened_types,
