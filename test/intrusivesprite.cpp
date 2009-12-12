@@ -187,9 +187,9 @@ try
 		.elements()
 	);
 
-	sprite_object test2(
-		test
-	);
+	sprite_object test2;
+
+	test2 = test;
 
 	test2.pos(
 		sprite_object::point(

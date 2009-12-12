@@ -109,6 +109,8 @@ public:
 		Choices
 	> system;
 
+	object();
+
 	explicit object(
 		element_type const &
 	);

@@ -44,6 +44,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename Choices
 >
+sge::sprite::object<Choices>::object()
+:
+	elements_()
+{}
+
+template<
+	typename Choices
+>
 sge::sprite::object<Choices>::object(
 	element_type const &nelements_
 )
