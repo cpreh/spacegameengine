@@ -59,7 +59,7 @@ transform_init_arguments(
 			roles::size
 		>()
 		== texture_dim<
-			typename Choices::type_choices
+			typename Choices::type_choices::unit_type
 		>()
 		&&
 		object_. template get<
@@ -71,7 +71,7 @@ transform_init_arguments(
 		>(
 			math::dim::structure_cast<
 				typename dim<
-					typename Choices::type_choices
+					typename Choices::type_choices::unit_type
 				>::type
 			>(
 				object_. template get<

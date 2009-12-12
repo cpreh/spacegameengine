@@ -44,7 +44,7 @@ class system_base
 	SGE_NONCOPYABLE(system_base)
 public:
 	typedef typename sprite::matrix<
-		typename Choices::type_choices
+		typename Choices::type_choices::float_type
 	>::type matrix;
 
 	sge::renderer::device_ptr const

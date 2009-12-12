@@ -27,11 +27,11 @@ namespace sprite
 {
 
 template<
-	typename TypeChoices
+	typename FloatType
 >
 struct depth_type
 {
-	typedef typename TypeChoices::float_type type;
+	typedef FloatType type;
 };
 
 }

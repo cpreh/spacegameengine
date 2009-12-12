@@ -36,7 +36,7 @@ template<
 	typename Choices
 >
 typename rect<
-	typename Choices::type_choices
+	typename Choices::type_choices::unit_type
 >::type const
 bounding_rect(
 	object<
@@ -46,7 +46,7 @@ bounding_rect(
 {
 	return
 		typename rect<
-			typename Choices::type_choices
+			typename Choices::type_choices::unit_type
 		>::type(
 			sprite_.pos(),
 			sprite_.size()

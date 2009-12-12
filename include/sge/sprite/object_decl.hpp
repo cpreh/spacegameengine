@@ -69,37 +69,39 @@ public:
 
 	typedef typename Choices::elements elements;
 
-	typedef typename Choices::type_choices::unit_type unit;
+	typedef typename Choices::type_choices type_choices;
+
+	typedef typename type_choices::unit_type unit;
+
+	typedef typename type_choices::float_type float_type;
 
 	typedef typename sprite::depth_type<
-		typename Choices::type_choices
+		float_type
 	>::type depth_type;
 
 	typedef typename sprite::rotation_type<
-		typename Choices::type_choices
+		float_type
 	>::type rotation_type;
 
 	typedef typename sprite::repetition_type<
-		typename Choices::type_choices
+		float_type
 	>::type repetition_type;
 
 	typedef typename sprite::point<
-		typename Choices::type_choices
+		unit
 	>::type point;
 
 	typedef typename sprite::dim<
-		typename Choices::type_choices
+		unit
 	>::type dim;
 
-	typedef typename choices::type_choices::color_type color_format;
+	typedef typename type_choices::color_type color_format;
 
 	typedef typename sprite::color<
-		typename Choices::type_choices
+		color_format
 	>::type color_type;
 
-	typedef typename intrusive::order<
-		typename Choices::type_choices
-	>::type order_type;
+	typedef intrusive::order order_type;
 
 	typedef intrusive::system<
 		Choices

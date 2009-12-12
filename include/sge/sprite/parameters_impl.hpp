@@ -100,7 +100,7 @@ sge::sprite::parameters<Choices>::texture_size() const
 	return
 		this->size(
 			texture_dim<
-				typename Choices::type_choices
+				typename Choices::type_choices::unit_type
 			>()
 		);
 }

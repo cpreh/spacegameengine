@@ -29,12 +29,12 @@ namespace sprite
 {
 
 template<
-	typename TypeChoices
+	typename UnitType
 >
 struct point
 {
 	typedef typename primitives::pos<
-		typename TypeChoices::unit_type
+		UnitType	
 	>::type::type type;
 };
 

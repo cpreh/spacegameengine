@@ -29,12 +29,12 @@ namespace sprite
 {
 
 template<
-	typename TypeChoices
+	typename FloatType
 >
 struct matrix
 :
 math::matrix::static_<
-	typename TypeChoices::float_type,
+	FloatType,
 	4,
 	4
 >

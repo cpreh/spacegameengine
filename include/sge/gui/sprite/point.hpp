@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_SPRITE_POINT_HPP_INCLUDED
 #define SGE_GUI_SPRITE_POINT_HPP_INCLUDED
 
-#include <sge/gui/sprite/type_choices.hpp>
+#include <sge/gui/sprite/unit.hpp>
 #include <sge/sprite/point.hpp>
 
 namespace sge
@@ -32,7 +32,7 @@ namespace sprite
 {
 
 typedef sge::sprite::point<
-	type_choices
+	unit
 >::type point;
 
 }

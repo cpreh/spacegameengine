@@ -54,10 +54,6 @@ public:
 		Choices
 	> object;
 
-	typedef typename intrusive::order<
-		Choices
-	>::type order;
-
 	explicit system(
 		renderer::device_ptr
 	);
@@ -69,6 +65,15 @@ public:
 	>
 	void
 	render(
+		EqualFunction const &
+	);
+
+	template<
+		typename EqualFunction
+	>
+	void
+	render(
+		order,
 		EqualFunction const &
 	);
 

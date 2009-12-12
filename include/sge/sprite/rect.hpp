@@ -29,12 +29,12 @@ namespace sprite
 {
 
 template<
-	typename TypeChoices
+	typename UnitType
 >
 struct rect
 :
 math::box::rect<
-	typename TypeChoices::unit_type
+	UnitType
 >
 {
 };

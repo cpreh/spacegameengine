@@ -91,6 +91,26 @@ template<
 >
 void
 sge::sprite::intrusive::system<Choices>::render(
+	order const order_,
+	EqualFunction const &equal
+)
+{
+	render(
+		sprite_levels[
+			order_
+		],
+		equal
+	);
+}
+
+template<
+	typename Choices
+>
+template<
+	typename EqualFunction
+>
+void
+sge::sprite::intrusive::system<Choices>::render(
 	sprite_list const &sprites,
 	EqualFunction const &equal
 )

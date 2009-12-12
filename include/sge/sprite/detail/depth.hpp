@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/with_depth.hpp>
 #include <sge/sprite/object_impl.hpp>
-#include <sge/sprite/depth_type.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/utility/enable_if.hpp>
 
@@ -42,9 +41,7 @@ typename boost::enable_if<
 		typename Choices::elements,
 		with_depth
 	>,
-	typename depth_type<
-		typename Choices::type_choices
-	>::type
+	typename object<Choices>::depth_type
 >::type
 depth(
 	object<
@@ -63,9 +60,7 @@ typename boost::disable_if<
 		typename Choices::elements,
 		with_depth
 	>,
-	typename depth_type<
-		typename Choices::type_choices
-	>::type
+	typename object<Choices>::depth_type
 >::type
 depth(
 	object<
@@ -75,9 +70,7 @@ depth(
 {
 	return
 		static_cast<
-			typename depth_type<
-				typename Choices::type_choices
-			>::type
+			typename object<Choices>::depth_type
 		>(0);
 }
 

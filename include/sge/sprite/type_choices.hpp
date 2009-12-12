@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_TYPE_CHOICES_HPP_INCLUDED
 #define SGE_SPRITE_TYPE_CHOICES_HPP_INCLUDED
 
+#include <sge/restrict_typedef_struct.hpp>
+
 namespace sge
 {
 namespace sprite
@@ -36,6 +38,8 @@ struct type_choices
 	typedef Unit unit_type;
 	typedef Float float_type;
 	typedef Color color_type;
+
+	SGE_RESTRICT_TYPEDEF_STRUCT(type_choices)
 };
 
 }

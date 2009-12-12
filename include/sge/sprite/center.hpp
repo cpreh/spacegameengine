@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_CENTER_HPP_INCLUDED
 
 #include <sge/sprite/object_fwd.hpp>
-#include <sge/sprite/point.hpp>
 #include <sge/math/vector/dim.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/vector/arithmetic.hpp>
@@ -36,9 +35,7 @@ namespace sprite
 template<
 	typename Choices
 >
-typename point<
-	typename Choices::type_choices
->::type
+typename object<Choices>::point
 center(
 	object<
 		Choices

@@ -73,7 +73,7 @@ fill_position_unrotated(
 	>::type pos3;
 
 	typedef typename sprite::depth_type<
-		type_choices
+		typename type_choices::float_type
 	>::type depth_type;
 
 	depth_type const depth_(

@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_GUI_SPRITE_TYPE_CHOICES_HPP_INCLUDED
 
 #include <sge/gui/sprite/unit.hpp>
+#include <sge/gui/sprite/float_type.hpp>
 #include <sge/sprite/type_choices.hpp>
 #include <sge/sprite/no_color.hpp>
 
@@ -34,7 +35,7 @@ namespace sprite
 
 typedef sge::sprite::type_choices<
 	sprite::unit,
-	float,
+	sprite::float_type,
 	sge::sprite::no_color
 > type_choices;
 

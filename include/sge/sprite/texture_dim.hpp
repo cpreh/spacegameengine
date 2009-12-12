@@ -31,24 +31,22 @@ namespace sprite
 {
 
 template<
-	typename TypeChoices
+	typename UnitType
 >
 typename dim<
-	TypeChoices
+	UnitType
 >::type const
 texture_dim()
 {
-	typedef typename TypeChoices::unit_type unit;
-
-	unit const max(
+	UnitType const max(
 		std::numeric_limits<
-			unit
+			UnitType
 		>::max()
 	);
 
 	return
 		typename dim<
-			TypeChoices
+			UnitType
 		>::type(
 			max,
 			max

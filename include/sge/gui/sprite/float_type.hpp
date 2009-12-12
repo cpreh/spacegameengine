@@ -18,19 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_INTRUSIVE_ORDER_HPP_INCLUDED
-#define SGE_SPRITE_INTRUSIVE_ORDER_HPP_INCLUDED
-
-#include <sge/sprite/primitives/order.hpp>
+#ifndef SGE_GUI_SPRITE_FLOAT_TYPE_HPP_INCLUDED
+#define SGE_GUI_SPRITE_FLOAT_TYPE_HPP_INCLUDED
 
 namespace sge
 {
+namespace gui
+{
 namespace sprite
 {
-namespace intrusive
-{
 
-typedef primitives::order::type::type order;
+typedef float float_type;
 
 }
 }

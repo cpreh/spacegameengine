@@ -29,12 +29,12 @@ namespace sprite
 {
 
 template<
-	typename TypeChoices
+	typename UnitType
 >
 struct dim
 {
 	typedef typename primitives::dim<
-		typename TypeChoices::unit_type
+		UnitType
 	>::type::type type;
 };
 
