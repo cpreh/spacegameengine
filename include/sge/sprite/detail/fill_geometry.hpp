@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/detail/vertex_format_from_object.hpp>
 #include <sge/sprite/detail/indices_per_sprite.hpp>
+#include <sge/sprite/detail/vertices_per_sprite.hpp>
 #include <sge/sprite/detail/index_generator.hpp>
 #include <sge/sprite/detail/fill_position.hpp>
 #include <sge/sprite/detail/fill_color.hpp>
@@ -60,7 +61,13 @@ fill_geometry(
 {
 	renderer::scoped_vertex_lock const vblock(
 		vb,
-		renderer::lock_mode::writeonly
+		renderer::lock_mode::writeonly,
+		0,
+		std::distance(
+			begin,
+			end
+		)
+		* detail::vertices_per_sprite
 	);
 
 	typedef typename std::iterator_traits<

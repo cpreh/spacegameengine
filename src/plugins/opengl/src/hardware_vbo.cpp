@@ -79,12 +79,14 @@ void sge::opengl::hardware_vbo::bind_buffer(
 	)
 }
 
-void *sge::opengl::hardware_vbo::map_buffer(
+GLvoid *
+sge::opengl::hardware_vbo::map_buffer(
 	GLenum const type,
-	GLenum const flags)
+	GLenum const flags
+)
 {
-	void *const ret(
-		static_cast<void *>(
+	GLvoid *const ret(
+		static_cast<GLvoid *>(
 			gl_map_buffer(
 				type,
 				flags
@@ -98,6 +100,27 @@ void *sge::opengl::hardware_vbo::map_buffer(
 	)
 
 	return ret;
+}
+
+GLvoid *
+sge::opengl::hardware_vbo::map_buffer_range(
+	GLenum const type,
+	GLenum const flags,
+	GLsizei const first,
+	GLsizei const size
+)
+{
+#if 0
+	GLvoid *const ret(
+		glMapBufferRange(
+			type,
+			first,
+			size,
+			flags
+		)
+	);
+#endif
+	return 0;
 }
 
 void sge::opengl::hardware_vbo::unmap_buffer(
@@ -114,7 +137,7 @@ void sge::opengl::hardware_vbo::unmap_buffer(
 void sge::opengl::hardware_vbo::buffer_data(
 	GLenum const type,
 	GLsizei const size,
-	void const *const data,
+	GLvoid const *const data,
 	GLenum const flags)
 {
 	gl_buffer_data(
@@ -134,7 +157,7 @@ void sge::opengl::hardware_vbo::buffer_sub_data(
 	GLenum const type,
 	GLsizei const first,
 	GLsizei const size,
-	void const *const data)
+	GLvoid const *const data)
 {
 	gl_buffer_sub_data(
 		type,
@@ -149,11 +172,11 @@ void sge::opengl::hardware_vbo::buffer_sub_data(
 	)
 }
 
-void *sge::opengl::hardware_vbo::buffer_offset(
+GLvoid *sge::opengl::hardware_vbo::buffer_offset(
 	GLenum,
 	GLsizei const offset) const
 {
-	return reinterpret_cast<void*>(offset);
+	return reinterpret_cast<GLvoid *>(offset);
 }
 
 namespace

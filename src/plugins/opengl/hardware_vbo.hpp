@@ -32,29 +32,58 @@ namespace opengl
 class hardware_vbo : public vbo_base {
 public:
 	GLuint gen_buffer();
-	void delete_buffer(
-		GLuint);
-	void bind_buffer(
+
+	void
+	delete_buffer(
+		GLuint
+	);
+
+	void
+	bind_buffer(
 		GLenum type,
-		GLuint);
-	void *map_buffer(
+		GLuint
+	);
+
+	GLvoid *
+	map_buffer(
 		GLenum type,
-		GLenum flags);
-	void unmap_buffer(
-		GLenum type);
-	void buffer_data(
+		GLenum flags
+	);
+
+	GLvoid *
+	map_buffer_range(
+		GLenum type,
+		GLenum flags,
+		GLsizei first,
+		GLsizei size
+	);
+
+	void
+	unmap_buffer(
+		GLenum type
+	);
+
+	void
+	buffer_data(
 		GLenum type,
 		GLsizei size,
-		void const *data,
-		GLenum flags);
-	void buffer_sub_data(
+		GLvoid const *data,
+		GLenum flags
+	);
+
+	void
+	buffer_sub_data(
 		GLenum type,
 		GLsizei first,
 		GLsizei size,
-		void const *data);
-	void *buffer_offset(
+		GLvoid const *data
+	);
+
+	void *
+	buffer_offset(
 		GLenum type,
-		GLsizei offset) const;
+		GLsizei offset
+	) const;
 };
 
 }
