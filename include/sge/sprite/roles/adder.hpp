@@ -18,20 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_RENDER_STATES_HPP_INCLUDED
-#define SGE_SPRITE_RENDER_STATES_HPP_INCLUDED
-
-#include <sge/renderer/state/list_fwd.hpp>
-#include <sge/export.hpp>
+#ifndef SGE_SPRITE_ROLES_ADDER_HPP_INCLUDED
+#define SGE_SPRITE_ROLES_ADDER_HPP_INCLUDED
 
 namespace sge
 {
 namespace sprite
 {
+namespace roles
+{
 
-SGE_SYMBOL renderer::state::list const &
-render_states();
+struct adder
+{};
 
+}
 }
 }
 

@@ -23,11 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/intrusive/system_fwd.hpp>
 #include <sge/sprite/intrusive/order.hpp>
+#include <sge/sprite/intrusive/adder_decl.hpp>
+#include <sge/sprite/intrusive/detail/level_map.hpp>
+#include <sge/sprite/intrusive/detail/list.hpp>
 #include <sge/sprite/system_base_decl.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/renderer/device_fwd.hpp>
-#include <boost/intrusive/list.hpp>
-#include <boost/ptr_container/ptr_map.hpp>
 
 namespace sge
 {
@@ -54,6 +55,10 @@ public:
 		Choices
 	> object;
 
+	typedef intrusive::adder_base<
+		Choices
+	> adder_base;
+
 	explicit system(
 		renderer::device_ptr
 	);
@@ -77,34 +82,33 @@ public:
 		EqualFunction const &
 	);
 
-	void
-	add(
-		object &,
-		order
-	);
+	adder_base *
+	adder();
 private:
-	typedef boost::intrusive::list<
-		object,
-		boost::intrusive::constant_time_size<
-			false
-		>
-	> sprite_list;
+	typedef typename detail::list<
+		Choices
+	>::type list;
 
 	template<
 		typename EqualFunction
 	>
 	void
 	render(
-		sprite_list const &,
+		list const &,
 		EqualFunction const &
 	);
 
-	typedef boost::ptr_map<
-		order,
-		sprite_list
-	> sprite_level_map;
+	typedef typename detail::level_map<
+		Choices
+	>::type level_map;
 
-	sprite_level_map sprite_levels;
+	level_map sprite_levels;
+
+	typedef intrusive::adder<
+		Choices
+	> adder_type;
+
+	adder_type adder_;
 };
 
 }

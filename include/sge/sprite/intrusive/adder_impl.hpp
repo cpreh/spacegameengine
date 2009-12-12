@@ -18,21 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_RENDER_STATES_HPP_INCLUDED
-#define SGE_SPRITE_RENDER_STATES_HPP_INCLUDED
+#ifndef SGE_SPRITE_INTRUSIVE_ADDER_IMPL_HPP_INCLUDED
+#define SGE_SPRITE_INTRUSIVE_ADDER_IMPL_HPP_INCLUDED
 
-#include <sge/renderer/state/list_fwd.hpp>
-#include <sge/export.hpp>
+#include <sge/sprite/intrusive/adder_decl.hpp>
 
-namespace sge
+template<
+	typename Choices
+>
+sge::sprite::intrusive::adder<Choices>::adder(
+	level_map &levels_
+)
+:
+	levels_(levels_)
+{}
+
+template<
+	typename Choices
+>
+void
+sge::sprite::intrusive::adder<Choices>::add(
+	object &sprite_,
+	order const order_
+)
 {
-namespace sprite
-{
-
-SGE_SYMBOL renderer::state::list const &
-render_states();
-
+	levels_[
+		order_
+	].push_back(
+		sprite_
+	);
 }
-}
+
+template<
+	typename Choices
+>
+sge::sprite::intrusive::adder<Choices>::~adder()
+{}
 
 #endif

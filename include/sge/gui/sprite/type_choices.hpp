@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/sprite/unit.hpp>
 #include <sge/gui/sprite/float_type.hpp>
 #include <sge/sprite/type_choices.hpp>
-#include <sge/sprite/no_color.hpp>
+#include <sge/image/color/rgba8_format.hpp>
 
 namespace sge
 {
@@ -36,7 +36,7 @@ namespace sprite
 typedef sge::sprite::type_choices<
 	sprite::unit,
 	sprite::float_type,
-	sge::sprite::no_color
+	sge::image::color::rgba8_format
 > type_choices;
 
 }

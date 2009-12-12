@@ -18,20 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_RENDER_STATES_HPP_INCLUDED
-#define SGE_SPRITE_RENDER_STATES_HPP_INCLUDED
+#ifndef SGE_SPRITE_INTRUSIVE_ADDER_BASE_HPP_INCLUDED
+#define SGE_SPRITE_INTRUSIVE_ADDER_BASE_HPP_INCLUDED
 
-#include <sge/renderer/state/list_fwd.hpp>
-#include <sge/export.hpp>
+#include <sge/sprite/intrusive/order.hpp>
+#include <sge/sprite/object_fwd.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
 namespace sprite
 {
+namespace intrusive
+{
 
-SGE_SYMBOL renderer::state::list const &
-render_states();
+template<
+	typename Choices
+>
+class adder_base
+{
+	SGE_NONCOPYABLE(adder_base)
+protected:
+	adder_base()
+	{}
+public:
+	typedef sprite::object<
+		Choices
+	> object;
 
+	virtual void
+	add(
+		object &,
+		order
+	) = 0;
+
+	virtual ~adder_base()
+	{}
+};
+
+}
 }
 }
 

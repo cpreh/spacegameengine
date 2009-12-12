@@ -63,6 +63,7 @@ sge::gui::cursor::default_::default_(
 			.depth(
 				static_cast<sge::gui::sprite::depth_type>(-1)
 			)
+			.default_color()
 			.elements()
 	),
 	click_(16,16)

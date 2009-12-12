@@ -446,6 +446,7 @@ sge::gui::detail::managers::render::widget_data::widget_data()
 	sprite(
 		sge::gui::sprite::parameters()
 		// TODO: what to specify here?
+		.default_color()
 		.elements()
 	)
 {}

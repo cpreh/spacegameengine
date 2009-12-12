@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_INTRUSIVE_SYSTEM_IMPL_HPP_INCLUDED
 
 #include <sge/sprite/intrusive/system_decl.hpp>
+#include <sge/sprite/intrusive/adder_impl.hpp>
 #include <sge/sprite/detail/fill_geometry.hpp>
 #include <sge/sprite/detail/render.hpp>
 #include <sge/sprite/render_states.hpp>
@@ -43,6 +44,10 @@ sge::sprite::intrusive::system<Choices>::system(
 :
 	base(
 		rend
+	),
+	sprite_levels(),
+	adder_(
+		sprite_levels
 	)
 {}
 
@@ -75,7 +80,7 @@ sge::sprite::intrusive::system<Choices>::render_all(
 	);
 
 	BOOST_FOREACH(
-		typename sprite_level_map::value_type const &v,
+		typename level_map::value_type const &v,
 		sprite_levels
 	)
 		render(
@@ -112,7 +117,7 @@ template<
 >
 void
 sge::sprite::intrusive::system<Choices>::render(
-	sprite_list const &sprites,
+	list const &sprites,
 	EqualFunction const &equal
 )
 {
@@ -155,17 +160,10 @@ sge::sprite::intrusive::system<Choices>::render(
 template<
 	typename Choices
 >
-void
-sge::sprite::intrusive::system<Choices>::add(
-	object &obj,
-	order const order_
-)
+typename sge::sprite::intrusive::system<Choices>::adder_base *
+sge::sprite::intrusive::system<Choices>::adder()
 {
-	sprite_levels[
-		order_
-	].push_back(
-		obj
-	);
+	return &adder_;
 }
 
 #endif

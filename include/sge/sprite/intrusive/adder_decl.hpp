@@ -18,18 +18,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_ROLES_SYSTEM_HPP_INCLUDED
-#define SGE_SPRITE_ROLES_SYSTEM_HPP_INCLUDED
+#ifndef SGE_SPRITE_INTRUSIVE_ADDER_DECL_HPP_INCLUDED
+#define SGE_SPRITE_INTRUSIVE_ADDER_DECL_HPP_INCLUDED
+
+#include <sge/sprite/intrusive/detail/level_map.hpp>
+#include <sge/sprite/intrusive/adder_base.hpp>
+#include <sge/sprite/object_fwd.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
 namespace sprite
 {
-namespace roles
+namespace intrusive
 {
 
-struct system
-{};
+template<
+	typename Choices
+>
+class adder
+:
+	public adder_base<
+		Choices
+	>
+{
+	SGE_NONCOPYABLE(adder)
+public:
+	typedef typename detail::level_map<
+		Choices
+	>::type level_map;
+
+	explicit adder(
+		level_map &
+	);
+
+	typedef adder_base<
+		Choices
+	> base;
+
+	typedef typename base::object object;
+
+	void
+	add(
+		object &,
+		order
+	);
+
+	~adder();
+private:
+	level_map &levels_;
+};
 
 }
 }

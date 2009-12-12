@@ -223,18 +223,36 @@ template<
 	typename Choices
 >
 sge::sprite::parameters<Choices> const
-sge::sprite::parameters<Choices>::system(
+sge::sprite::parameters<Choices>::adder(
 	typename majutsu::role_return_type<
 		flattened_types,
-		roles::system
-	>::type const &system_
+		roles::adder
+	>::type const &adder_
 ) const
 {
 	return
 		this->set<
-			roles::system
+			roles::adder
 		>(
-			system_
+			adder_
+		);
+}
+
+template<
+	typename Choices
+>
+sge::sprite::parameters<Choices> const
+sge::sprite::parameters<Choices>::system(
+	typename sprite::system<
+		Choices
+	>::type *const system_
+) const
+{
+	return
+		this->set<
+			roles::adder
+		>(
+			system_->adder()
 		);
 }
 

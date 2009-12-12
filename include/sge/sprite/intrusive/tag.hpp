@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_INTRUSIVE_TAG_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_TAG_HPP_INCLUDED
 
-#include <sge/sprite/primitives/system.hpp>
+#include <sge/sprite/primitives/adder.hpp>
 #include <sge/sprite/primitives/order.hpp>
-#include <sge/sprite/roles/system.hpp>
+#include <sge/sprite/roles/adder.hpp>
 #include <sge/sprite/roles/order.hpp>
 #include <majutsu/composite.hpp>
 #include <majutsu/role.hpp>
@@ -50,10 +50,10 @@ struct tag
 					roles::order
 				>,
 				majutsu::role<
-					typename primitives::system<
+					typename primitives::adder<
 						Choices
 					>::type,
-					roles::system
+					roles::adder
 				>
 			>
 		> type;

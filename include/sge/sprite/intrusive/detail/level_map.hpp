@@ -18,20 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_RENDER_STATES_HPP_INCLUDED
-#define SGE_SPRITE_RENDER_STATES_HPP_INCLUDED
+#ifndef SGE_SPRITE_INTRUSIVE_DETAIL_LEVEL_MAP_HPP_INCLUDED
+#define SGE_SPRITE_INTRUSIVE_DETAIL_LEVEL_MAP_HPP_INCLUDED
 
-#include <sge/renderer/state/list_fwd.hpp>
-#include <sge/export.hpp>
+#include <sge/sprite/intrusive/detail/list.hpp>
+#include <sge/sprite/intrusive/order.hpp>
+#include <boost/ptr_container/ptr_map.hpp>
 
 namespace sge
 {
 namespace sprite
 {
+namespace intrusive
+{
+namespace detail
+{
 
-SGE_SYMBOL renderer::state::list const &
-render_states();
+template<
+	typename Choices
+>
+struct level_map
+{
+	typedef boost::ptr_map<
+		order,
+		typename list<
+			Choices
+		>::type
+	> type;
+};
 
+}
+}
 }
 }
 

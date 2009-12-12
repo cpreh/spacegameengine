@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_PARAMETERS_DECL_HPP_INCLUDED
 
 #include <sge/sprite/parameters_fwd.hpp>
+#include <sge/sprite/system.hpp>
 #include <sge/sprite/detail/make_class.hpp>
 #include <sge/sprite/roles/color.hpp>
 #include <sge/sprite/roles/depth.hpp>
@@ -123,13 +124,19 @@ public:
 	) const;
 
 	parameters const
-	system(
+	adder(
 		typename majutsu::role_return_type<
 			flattened_types,
-			roles::system
+			roles::adder
 		>::type const &
 	) const;
 
+	parameters const
+	system(
+		typename sprite::system<
+			Choices
+		>::type *
+	) const;
 
 	template<
 		typename Role

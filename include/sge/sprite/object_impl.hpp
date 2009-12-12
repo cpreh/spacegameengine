@@ -506,9 +506,9 @@ sge::sprite::object<Choices>::transfer(
 	intrusive::detail::object_base_hook::unlink();
 
 	elements_. template set<
-		roles::system
+		roles::adder
 	>(
-		&system_
+		system_.adder()
 	);
 
 	detail::assign_post(
