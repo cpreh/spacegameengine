@@ -44,7 +44,7 @@ center(
 {
 	return
 		spr.pos()
-		- spr.dim() / 2;
+		- spr.size() / 2;
 }
 
 template<
@@ -62,7 +62,7 @@ center(
 {
 	spr.pos(
 		center_
-		- spr.dim() / 2
+		- spr.size() / 2
 	);
 }
 
