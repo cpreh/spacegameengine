@@ -35,7 +35,7 @@ template<
 >
 struct order
 {
-	typedef primitives::order::type type;
+	typedef primitives::order::type::type type;
 };
 
 }

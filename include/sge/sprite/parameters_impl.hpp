@@ -166,6 +166,25 @@ template<
 	typename Choices
 >
 sge::sprite::parameters<Choices> const
+sge::sprite::parameters<Choices>::visible(
+	typename majutsu::role_return_type<
+		flattened_types,
+		roles::visible
+	>::type const &visible_
+) const
+{
+	return
+		this->set<
+			roles::visible
+		>(
+			visible_
+		);
+}
+
+template<
+	typename Choices
+>
+sge::sprite::parameters<Choices> const
 sge::sprite::parameters<Choices>::order(
 	typename majutsu::role_return_type<
 		flattened_types,

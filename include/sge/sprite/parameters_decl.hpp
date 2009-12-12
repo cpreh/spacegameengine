@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/size.hpp>
 #include <sge/sprite/roles/system.hpp>
 #include <sge/sprite/roles/texture.hpp>
+#include <sge/sprite/roles/visible.hpp>
 #include <majutsu/role_return_type.hpp>
 
 namespace sge
@@ -93,6 +94,14 @@ public:
 		typename majutsu::role_return_type<
 			flattened_types,
 			roles::depth
+		>::type const &
+	) const;
+
+	parameters const
+	visible(
+		typename majutsu::role_return_type<
+			flattened_types,
+			roles::visible
 		>::type const &
 	) const;
 

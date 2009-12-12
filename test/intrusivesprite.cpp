@@ -174,12 +174,31 @@ try
 		)
 		.texture_size()
 		.order(
-			1u
+			3u
 		)
 		.system(
 			&system
 		)
 		.elements()
+	);
+
+	sprite_object test2(
+		test
+	);
+
+	test2.pos(
+		sprite_object::point(
+			400,
+			50
+		)
+	);
+
+	test2.order(
+		2u
+	);
+
+	test2.texture(
+		tex2
 	);
 	
 	bool running = true;

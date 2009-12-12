@@ -71,6 +71,12 @@ public:
 	render(
 		EqualFunction const &
 	);
+
+	void
+	add(
+		object &,
+		order
+	);
 private:
 	typedef boost::intrusive::list<
 		object,
@@ -86,12 +92,6 @@ private:
 	render(
 		sprite_list const &,
 		EqualFunction const &
-	);
-
-	void
-	add(
-		object &,
-		order
 	);
 
 	typedef boost::ptr_map<
