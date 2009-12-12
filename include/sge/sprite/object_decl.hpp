@@ -155,7 +155,7 @@ public:
 	rotation_center() const;
 
 	repetition_type
-	repeat() const;
+	repetition() const;
 
 	color_type const
 	color() const;

@@ -218,7 +218,7 @@ template<
 	typename Choices
 >
 typename sge::sprite::object<Choices>::repetition_type
-sge::sprite::object<Choices>::repeat() const
+sge::sprite::object<Choices>::repetition() const
 {
 	return
 		elements_. template get<
