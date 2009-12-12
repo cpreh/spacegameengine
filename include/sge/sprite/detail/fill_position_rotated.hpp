@@ -60,7 +60,7 @@ fill_position_rotated(
 
 	typedef typename type_choices::float_type funit;
 
-	typedef typename point_float<
+	typedef typename detail::point_float<
 		type_choices
 	>::type pos2;
 
@@ -111,7 +111,7 @@ fill_position_rotated(
 	}};
 
 	typedef typename sprite::rotation_type<
-		type_choices
+		funit
 	>::type rotation_type;
 	
 	rotation_type const rot(
@@ -138,7 +138,7 @@ fill_position_rotated(
 	>::type vertex_pos;
 
 	typedef typename sprite::depth_type<
-		type_choices
+		funit
 	>::type depth_type;
 
 	depth_type const depth_(
