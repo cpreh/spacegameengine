@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/system.hpp>
+#include <sge/sprite/with_repetition.hpp>
 #include <sge/sprite/with_rotation.hpp>
 #include <sge/sprite/with_texture.hpp>
 #include <sge/sprite/type_choices.hpp>
@@ -143,9 +144,10 @@ try
 			float,
 			sge::sprite::no_color
 		>,
-		boost::mpl::vector3<
+		boost::mpl::vector4<
 			sge::sprite::with_texture,
 			sge::sprite::with_rotation,
+			sge::sprite::with_repetition,
 			sge::sprite::intrusive::tag
 		>
 	> sprite_choices;
@@ -183,6 +185,9 @@ try
 		)
 		.system(
 			&system
+		)
+		.repetition(
+			2.f
 		)
 		.elements()
 	);

@@ -204,6 +204,25 @@ template<
 	typename Choices
 >
 sge::sprite::parameters<Choices> const
+sge::sprite::parameters<Choices>::repetition(
+	typename majutsu::role_return_type<
+		flattened_types,
+		roles::repetition
+	>::type const &repetition_
+) const
+{
+	return
+		this->set<
+			roles::repetition
+		>(
+			repetition_
+		);
+}
+
+template<
+	typename Choices
+>
+sge::sprite::parameters<Choices> const
 sge::sprite::parameters<Choices>::order(
 	typename majutsu::role_return_type<
 		flattened_types,
