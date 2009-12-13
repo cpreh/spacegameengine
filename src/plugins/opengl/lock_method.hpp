@@ -44,8 +44,15 @@ convert_lock_method(
 	renderer::lock_mode::type
 );
 
-GLuint ogl_lock_method(
-	lock_method::type);
+GLenum
+normal_lock_method(
+	lock_method::type
+);
+
+GLenum
+range_lock_method(
+	lock_method::type
+);
 
 bool lock_flag_write(
 	lock_method::type);

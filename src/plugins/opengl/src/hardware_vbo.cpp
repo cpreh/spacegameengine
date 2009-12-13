@@ -36,6 +36,7 @@ PFNGLMAPBUFFERPROC gl_map_buffer;
 PFNGLUNMAPBUFFERPROC gl_unmap_buffer;
 PFNGLBUFFERDATAPROC gl_buffer_data;
 PFNGLBUFFERSUBDATAPROC gl_buffer_sub_data;
+PFNGLMAPBUFFERRANGEPROC gl_map_buffer_range;
 
 void initialize_hardware_vbo();
 
@@ -110,17 +111,27 @@ sge::opengl::hardware_vbo::map_buffer_range(
 	GLsizei const size
 )
 {
-#if 0
 	GLvoid *const ret(
-		glMapBufferRange(
+		gl_map_buffer_range(
 			type,
 			first,
 			size,
 			flags
 		)
 	);
-#endif
-	return 0;
+
+	SGE_OPENGL_CHECK_STATE(
+		SGE_TEXT("glMapBufferRange failed"),
+		sge::renderer::exception
+	)
+
+	return ret;
+}
+
+bool
+sge::opengl::hardware_vbo::map_buffer_range_supported() const
+{
+	return gl_map_buffer_range;
 }
 
 void sge::opengl::hardware_vbo::unmap_buffer(
@@ -134,11 +145,13 @@ void sge::opengl::hardware_vbo::unmap_buffer(
 	)
 }
 
-void sge::opengl::hardware_vbo::buffer_data(
+void
+sge::opengl::hardware_vbo::buffer_data(
 	GLenum const type,
 	GLsizei const size,
 	GLvoid const *const data,
-	GLenum const flags)
+	GLenum const flags
+)
 {
 	gl_buffer_data(
 		type,
@@ -153,11 +166,13 @@ void sge::opengl::hardware_vbo::buffer_data(
 	)
 }
 
-void sge::opengl::hardware_vbo::buffer_sub_data(
+void
+sge::opengl::hardware_vbo::buffer_sub_data(
 	GLenum const type,
 	GLsizei const first,
 	GLsizei const size,
-	GLvoid const *const data)
+	GLvoid const *const data
+)
 {
 	gl_buffer_sub_data(
 		type,
@@ -172,11 +187,13 @@ void sge::opengl::hardware_vbo::buffer_sub_data(
 	)
 }
 
-GLvoid *sge::opengl::hardware_vbo::buffer_offset(
+void *
+sge::opengl::hardware_vbo::buffer_offset(
 	GLenum,
-	GLsizei const offset) const
+	GLsizei const offset
+) const
 {
-	return reinterpret_cast<GLvoid *>(offset);
+	return reinterpret_cast<void *>(offset);
 }
 
 namespace
@@ -208,7 +225,10 @@ void initialize_hardware_vbo()
 	}
 	else
 		throw sge::exception(
-			SGE_TEXT("Invalid initialization of hardware_vbo!"));
+			SGE_TEXT("Invalid initialization of hardware_vbo!")
+		);
+	
+	gl_map_buffer_range = glMapBufferRange;
 }
 
 }

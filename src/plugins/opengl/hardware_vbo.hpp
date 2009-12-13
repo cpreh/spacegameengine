@@ -58,6 +58,9 @@ public:
 		GLsizei size
 	);
 
+	bool
+	map_buffer_range_supported() const;
+
 	void
 	unmap_buffer(
 		GLenum type

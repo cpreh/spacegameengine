@@ -39,8 +39,10 @@ sge::opengl::convert_lock_method(
 	);
 }
 
-GLuint sge::opengl::ogl_lock_method(
-	lock_method::type const m)
+GLenum
+sge::opengl::normal_lock_method(
+	lock_method::type const m
+)
 {
 	switch(m) {
 	case lock_method::readonly:
@@ -49,11 +51,32 @@ GLuint sge::opengl::ogl_lock_method(
 		return GL_WRITE_ONLY;
 	case lock_method::readwrite:
 		return GL_READ_WRITE;
-	default:
-		throw exception(
-			SGE_TEXT("Invalid lock_method!"));
 	}
+
+	throw exception(
+		SGE_TEXT("Invalid lock_method!")
+	);
 }
+
+GLenum
+sge::opengl::range_lock_method(
+	lock_method::type const m
+)
+{
+	switch(m) {
+	case lock_method::readonly:
+		return GL_MAP_READ_BIT | GL_MAP_INVALIDATE_RANGE_BIT;
+	case lock_method::writeonly:
+		return GL_MAP_WRITE_BIT;
+	case lock_method::readwrite:
+		return GL_MAP_READ_BIT | GL_MAP_WRITE_BIT;
+	}
+
+	throw exception(
+		SGE_TEXT("Invalid lock_method!")
+	);
+}
+
 
 bool sge::opengl::lock_flag_write(
 	lock_method::type const m)

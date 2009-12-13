@@ -22,35 +22,76 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VBO_BASE_HPP_INCLUDED
 
 #include "common.hpp"
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
 namespace opengl
 {
 
-class vbo_base {
+class vbo_base
+{
+	SGE_NONCOPYABLE(vbo_base)
+protected:
+	vbo_base();
 public:
-	virtual GLuint gen_buffer() = 0;
-	virtual void delete_buffer(GLuint) = 0;
-	virtual void bind_buffer(GLenum type, GLuint) = 0;
-	virtual GLvoid *map_buffer(GLenum type, GLenum flags) = 0;
-	virtual void unmap_buffer(GLenum type) = 0;
+	virtual GLuint
+	gen_buffer() = 0;
 
-	virtual void buffer_data(
+	virtual void
+	delete_buffer(
+		GLuint
+	) = 0;
+
+	virtual void
+	bind_buffer(
+		GLenum type,
+		GLuint
+	) = 0;
+
+	virtual GLvoid *
+	map_buffer(
+		GLenum type,
+		GLenum flags
+	) = 0;
+
+	virtual GLvoid *
+	map_buffer_range(
+		GLenum type,
+		GLenum flags,
+		GLsizei first,
+		GLsizei size
+	) = 0;
+
+	virtual bool
+	map_buffer_range_supported() const = 0;
+
+	virtual void
+	unmap_buffer(
+		GLenum type
+	) = 0;
+
+	virtual void
+	buffer_data(
 		GLenum type,
 		GLsizei size,
 		GLvoid const *data,
-		GLenum flags) = 0;
+		GLenum flags
+	) = 0;
 
-	virtual void buffer_sub_data(
+	virtual void
+	buffer_sub_data(
 		GLenum type,
 		GLsizei first,
 		GLsizei size,
-		GLvoid const *data) = 0;
+		GLvoid const *data
+	) = 0;
 
-	virtual GLvoid *buffer_offset(
+	virtual GLvoid *
+	buffer_offset(
 		GLenum type,
-		GLsizei offset) const = 0;
+		GLsizei offset
+	) const = 0;
 
 	virtual ~vbo_base();
 };

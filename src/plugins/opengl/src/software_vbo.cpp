@@ -76,12 +76,38 @@ void sge::opengl::software_vbo::bind_buffer(
 	bound_buffer(type) = id;
 }
 
-void *sge::opengl::software_vbo::map_buffer(
+GLvoid *
+sge::opengl::software_vbo::map_buffer(
 	GLenum const type,
-	GLenum)
+	GLenum
+)
 {
 	check_bound(type);
 	return buffer_object(bound_buffer(type))->second;
+}
+
+GLvoid *
+sge::opengl::software_vbo::map_buffer_range(
+	GLenum const type,
+	GLenum const,
+	GLsizei const first,
+	GLsizei const
+)
+{
+	check_bound(type);
+
+	return
+		buffer_object(
+			bound_buffer(
+				type
+			)
+		)->second + first;
+}
+
+bool
+sge::opengl::software_vbo::map_buffer_range_supported() const
+{
+	return true;
 }
 
 void sge::opengl::software_vbo::unmap_buffer(
