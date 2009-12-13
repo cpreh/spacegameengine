@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/fill_position.hpp>
 #include <sge/sprite/detail/fill_color.hpp>
 #include <sge/sprite/detail/fill_tex_coordinates.hpp>
+#include <sge/sprite/detail/optional_size.hpp>
 #include <sge/sprite/detail/visible.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/index_buffer.hpp>
@@ -39,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/texture/part.hpp>
+#include <sge/optional_impl.hpp>
 #include <iterator>
 
 namespace sge
@@ -56,17 +58,23 @@ fill_geometry(
 	It begin,
 	It const end,
 	renderer::vertex_buffer_ptr const vb,
-	renderer::index_buffer_ptr const ib
+	renderer::index_buffer_ptr const ib,
+	optional_size const &num_sprites
 )
 {
+	renderer::size_type const sprites_to_lock(
+		num_sprites
+		?
+			*num_sprites
+		:
+			renderer::vertex_buffer::npos
+	);
+
 	renderer::scoped_vertex_lock const vblock(
 		vb,
 		renderer::lock_mode::writeonly,
 		0,
-		std::distance(
-			begin,
-			end
-		)
+		sprites_to_lock
 		* detail::vertices_per_sprite
 	);
 

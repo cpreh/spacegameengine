@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/intrusive/system_decl.hpp>
 #include <sge/sprite/intrusive/adder_impl.hpp>
 #include <sge/sprite/detail/fill_geometry.hpp>
+#include <sge/sprite/detail/optional_size.hpp>
 #include <sge/sprite/detail/render.hpp>
 #include <sge/sprite/render_states.hpp>
 #include <sge/sprite/system_base_impl.hpp>
@@ -33,6 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/index_buffer.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/optional_impl.hpp>
 #include <boost/foreach.hpp>
 
 template<
@@ -124,8 +127,13 @@ sge::sprite::intrusive::system<Choices>::render(
 	if(sprites.empty())
 		return;
 	
-	allocate_buffers(
+	// TODO: better track the sprites size
+	renderer::size_type const sprite_count(
 		sprites.size()
+	);
+
+	base::allocate_buffers(
+		sprite_count
 	);
 
 	renderer::vertex_buffer_ptr const vb(
@@ -140,7 +148,10 @@ sge::sprite::intrusive::system<Choices>::render(
 		sprites.begin(),
 		sprites.end(),
 		base::vertex_buffer(),
-		base::index_buffer()
+		base::index_buffer(),
+		sprite::detail::optional_size(
+			sprite_count
+		)
 	);
 
 	renderer::device_ptr const rend(

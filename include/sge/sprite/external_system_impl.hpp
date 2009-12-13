@@ -25,12 +25,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/system_base_impl.hpp>
 #include <sge/sprite/render_states.hpp>
 #include <sge/sprite/detail/fill_geometry.hpp>
+#include <sge/sprite/detail/optional_size.hpp>
 #include <sge/sprite/detail/render.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/index_buffer.hpp>
+#include <sge/optional_impl.hpp>
 #include <iterator>
 
 template<
@@ -69,11 +72,15 @@ sge::sprite::external_system<Choices>::render(
 		end
 	);
 
-	base::allocate_buffers(
+	renderer::size_type const sprite_count(
 		std::distance(
 			begin,
 			end
 		)
+	);
+
+	base::allocate_buffers(
+		sprite_count
 	);
 
 	renderer::vertex_buffer_ptr const vb(
@@ -88,7 +95,10 @@ sge::sprite::external_system<Choices>::render(
 		begin,
 		end,
 		vb,
-		ib
+		ib,
+		detail::optional_size(
+			sprite_count
+		)
 	);
 
 	base::matrices();
