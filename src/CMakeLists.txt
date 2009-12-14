@@ -111,7 +111,7 @@ IF (UNIX)
 
 	CHECK_CXX_SOURCE_COMPILES("
 			#include <X11/Xlib.h>
-			#include <X11/extensions/xf86dga.h>
+			#include <X11/extensions/Xxf86dga.h>
 			int main() {}"
 			HAVE_XF86_DGA_H
 		)

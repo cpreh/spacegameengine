@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/once.hpp>
 #ifdef SGE_USE_DGA
 #include "../check_dga_mouse.hpp"
-#include <X11/extensions/xf86dga.h>
+#include <X11/extensions/Xxf86dga.h>
 #include <sge/x11/display.hpp>
 #include <sge/x11/sentry.hpp>
 #include <sge/log/headers.hpp>
