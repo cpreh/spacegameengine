@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define FCPPT_TEXTURE_DETAIL_OPTIONAL_CONTAINER_POSITION_HPP_INCLUDED
 
 #include <fcppt/texture/detail/container_position.hpp>
-#include <sge/optional_fwd.hpp>
+#include <fcppt/optional_fwd.hpp>
 
 namespace sge
 {

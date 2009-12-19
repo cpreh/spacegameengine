@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/format.hpp>
 #include <sge/iconv.hpp>
-#include <sge/optional.hpp>
+#include <fcppt/optional.hpp>
 #include <exception>
 
 sge::x11::sentry::sentry(

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
-#include <sge/optional.hpp>
+#include <fcppt/optional.hpp>
 #include <fcppt/math/null.hpp>
 #include <algorithm>
 

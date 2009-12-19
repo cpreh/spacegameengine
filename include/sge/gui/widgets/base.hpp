@@ -43,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <sge/noncopyable.hpp>
 #include <sge/gui/export.hpp>
-#include <sge/optional.hpp>
+#include <fcppt/optional.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
 namespace sge

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/signal/shared_connection.hpp>
 #include <sge/export.hpp>
 #include <sge/noncopyable.hpp>
-#include <sge/optional.hpp>
+#include <fcppt/optional.hpp>
 
 namespace sge
 {

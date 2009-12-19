@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <sge/optional_impl.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <sge/assert.hpp>
 #include <fcppt/text.hpp>
 

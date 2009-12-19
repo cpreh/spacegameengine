@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/layouts/fwd.hpp>
 #include <sge/gui/keyboard_focus.hpp>
 #include <sge/gui/activation_state.hpp>
-#include <sge/optional.hpp>
+#include <fcppt/optional.hpp>
 
 namespace sge
 {
