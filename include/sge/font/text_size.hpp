@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FONT_TEXT_SIZE_HPP_INCLUDED
 
 #include <sge/font/dim.hpp>
-#include <sge/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <sge/export.hpp>
 #include <sge/string.hpp>
 

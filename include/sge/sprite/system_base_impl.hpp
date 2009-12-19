@@ -25,9 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/vertex_format.hpp>
 #include <sge/sprite/detail/vertices_per_sprite.hpp>
 #include <sge/sprite/detail/indices_per_sprite.hpp>
-#include <sge/math/matrix/basic_impl.hpp>
-#include <sge/math/matrix/orthogonal_xy.hpp>
-#include <sge/math/matrix/arithmetic.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/math/matrix/orthogonal_xy.hpp>
+#include <fcppt/math/matrix/arithmetic.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/index_buffer.hpp>

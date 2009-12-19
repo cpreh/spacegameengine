@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_MATRIX_PIXEL_TO_SPACE_HPP_INCLUDED
 
 #include <sge/renderer/screen_size.hpp>
-#include <sge/math/matrix/static.hpp>
+#include <fcppt/math/matrix/static.hpp>
 #include <sge/export.hpp>
 
 namespace sge

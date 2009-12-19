@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_DETAIL_HISTORY_HPP_INCLUDED
 #define SGE_CONSOLE_DETAIL_HISTORY_HPP_INCLUDED
 
-#include <sge/math/vector/static.hpp>
-#include <sge/math/dim/basic_decl.hpp>
-#include <sge/math/dim/static.hpp>
-#include <sge/math/box/rect.hpp>
+#include <fcppt/math/vector/static.hpp>
+#include <fcppt/math/dim/basic_decl.hpp>
+#include <fcppt/math/dim/static.hpp>
+#include <fcppt/math/box/rect.hpp>
 #include <sge/string.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <utility>

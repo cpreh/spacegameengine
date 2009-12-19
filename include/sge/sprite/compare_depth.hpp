@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_COMPARE_DEPTH_HPP_INCLUDED
 
 #include <sge/sprite/object_impl.hpp>
-#include <sge/math/compare.hpp>
+#include <fcppt/math/compare.hpp>
 
 namespace sge
 {

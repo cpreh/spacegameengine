@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_COLLISION_RECT_HPP_INCLUDED
 
 #include <sge/collision/unit.hpp>
-#include <sge/math/box/rect.hpp>
+#include <fcppt/math/box/rect.hpp>
 
 namespace sge
 {

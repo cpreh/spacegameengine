@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_SCREEN_SIZE_HPP_INCLUDED
 
 #include <sge/renderer/screen_unit.hpp>
-#include <sge/math/dim/static.hpp>
+#include <fcppt/math/dim/static.hpp>
 
 namespace sge
 {

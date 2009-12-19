@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TEXTURE_POS_TYPE_HPP_INCLUDED
 
 #include <sge/renderer/size_type.hpp>
-#include <sge/math/vector/static.hpp>
+#include <fcppt/math/vector/static.hpp>
 
 namespace sge
 {

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_RECT_HPP_INCLUDED
 
 #include <sge/image/size_type.hpp>
-#include <sge/math/box/rect.hpp>
+#include <fcppt/math/box/rect.hpp>
 
 namespace sge
 {

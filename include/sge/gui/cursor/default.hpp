@@ -30,8 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/no_fragmented.hpp>
 #include <sge/image/loader_fwd.hpp>
 #include <sge/sprite/object_decl.hpp>
-#include <sge/math/vector/basic_decl.hpp>
-#include <sge/math/dim/basic_decl.hpp>
+#include <fcppt/math/vector/basic_decl.hpp>
+#include <fcppt/math/dim/basic_decl.hpp>
 
 namespace sge
 {

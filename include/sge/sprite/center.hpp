@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_CENTER_HPP_INCLUDED
 
 #include <sge/sprite/object_fwd.hpp>
-#include <sge/math/vector/dim.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/dim/arithmetic.hpp>
-#include <sge/math/dim/basic_impl.hpp>
+#include <fcppt/math/vector/dim.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/dim/arithmetic.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 
 namespace sge
 {
