@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/texture/part_fragmented.hpp>
-#include <sge/texture/fragmented.hpp>
-#include <sge/texture/atlasing.hpp>
+#include <fcppt/texture/part_fragmented.hpp>
+#include <fcppt/texture/fragmented.hpp>
+#include <fcppt/texture/atlasing.hpp>
 #include <sge/renderer/sub_data.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 

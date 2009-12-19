@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../change_display_settings.hpp"
 #include <sge/renderer/parameters.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <sge/windows/window.hpp>
 #include <sge/windows/windows.hpp>
 

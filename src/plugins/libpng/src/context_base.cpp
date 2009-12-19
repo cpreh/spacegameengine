@@ -1,7 +1,7 @@
 #include "../context_base.hpp"
 #include <sge/image/file_exception.hpp>
 #include <sge/iconv.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
 

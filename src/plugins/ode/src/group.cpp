@@ -2,7 +2,7 @@
 #include "../body.hpp"
 #include <fcppt/math/null.hpp>
 #include <sge/assert.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <sge/cerr.hpp>
 
 sge::ode::group::group(

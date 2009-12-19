@@ -7,7 +7,7 @@
 #include <sge/collision/group_overflow.hpp>
 #include <fcppt/math/null.hpp>
 #include <sge/assert.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <sge/cout.hpp>
 #include <sge/exception.hpp>
 #include <tr1/functional>

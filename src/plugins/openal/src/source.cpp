@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../check_state.hpp"
 #include "../log.hpp"
 #include <sge/audio/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 // that's a hack because we have two constructors
 void sge::openal::source::init()

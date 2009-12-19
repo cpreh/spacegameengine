@@ -6,7 +6,7 @@
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <sge/lexical_cast.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <climits>
 #include <cstddef>
 

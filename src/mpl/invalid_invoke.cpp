@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/mpl/invalid_invoke.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::mpl::invalid_invoke::invalid_invoke()
 :

@@ -1,5 +1,5 @@
 #include <sge/thread/future/promise_already_satisfied.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::thread::future::promise_already_satisfied::promise_already_satisfied()
 :

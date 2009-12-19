@@ -1,6 +1,6 @@
 #include <sge/loaders_exhausted.hpp>
 #include <sge/string.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::loaders_exhausted::loaders_exhausted(
 	filesystem::path const &p)

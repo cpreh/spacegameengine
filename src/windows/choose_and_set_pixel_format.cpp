@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/choose_and_set_pixel_format.hpp>
 #include <sge/windows/gdi_device.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 void sge::windows::choose_and_set_pixel_format(
 	gdi_device const &dc,

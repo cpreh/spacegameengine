@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/texture_creation_failed.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::renderer::texture_creation_failed::texture_creation_failed(
 	sge::string const &s)

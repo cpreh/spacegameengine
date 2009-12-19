@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../file_format.hpp"
 #include <sge/audio/file.hpp>
 #include <sge/audio/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <sge/lexical_cast.hpp>
 
 ALenum sge::openal::file_format(audio::file const &file)

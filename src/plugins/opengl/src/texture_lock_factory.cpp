@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../writeonly_texture_lock.hpp"
 #include "../readwrite_texture_lock.hpp"
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::opengl::texture_lock_auto_ptr
 sge::opengl::create_texture_lock(

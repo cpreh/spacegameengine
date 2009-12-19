@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/file_exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::image::file_exception::file_exception(
 	filesystem::path const &_path,

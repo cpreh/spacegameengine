@@ -6,7 +6,7 @@
 #include <sge/image/view/dim.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <climits>
 #include <iosfwd>
 

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/homedir.hpp>
 #include <sge/config/getenv.hpp>
 #include <sge/config.h>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::filesystem::path const
 sge::config::homedir()

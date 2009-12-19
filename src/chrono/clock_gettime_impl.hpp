@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/chrono/clock_failure.hpp>
 #include <sge/chrono/time_point_impl.hpp>
 #include <sge/chrono/duration_impl.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <time.h>
 
 namespace sge

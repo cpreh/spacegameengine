@@ -1,5 +1,5 @@
 #include <sge/collision/shape_ambiguity.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::collision::shape_ambiguity::shape_ambiguity()
 :

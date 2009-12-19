@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/rotation_type.hpp>
 #include <sge/sprite/repetition_type.hpp>
 #include <sge/sprite/color.hpp>
-#include <sge/texture/part_fwd.hpp>
+#include <fcppt/texture/part_fwd.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
 #include <majutsu/role_return_type.hpp>

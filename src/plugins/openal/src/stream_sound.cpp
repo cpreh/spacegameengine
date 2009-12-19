@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/container/raw_vector_impl.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <sge/assert.hpp>
 
 sge::openal::stream_sound::stream_sound(

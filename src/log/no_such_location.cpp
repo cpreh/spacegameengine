@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/log/no_such_location.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::log::no_such_location::no_such_location(
 	log::location const &nlocation_

@@ -1,5 +1,5 @@
 #include <sge/thread/future/uninitialized.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::thread::future::uninitialized::uninitialized()
 :

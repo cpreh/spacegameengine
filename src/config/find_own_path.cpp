@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "find_own_path.hpp"
 #include <sge/config/make_files.hpp>
 #include <sge/config/find_path.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::filesystem::path const
 sge::config::find_own_path(

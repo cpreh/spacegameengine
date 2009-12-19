@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/unit.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <sge/assert.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 void sge::gui::skins::standard::draw(
 	widgets::graphics const &w,

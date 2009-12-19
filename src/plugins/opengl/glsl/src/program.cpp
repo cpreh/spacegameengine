@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../uniform/variable.hpp"
 #include "../format_error.hpp"
 #include <sge/renderer/glsl/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <sge/optional_impl.hpp>
 #include <sge/string.hpp>
 #include <sge/make_shared_ptr.hpp>

@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/texture/no_fragmented.hpp>
-#include <sge/texture/guaranteed_free.hpp>
-#include <sge/texture/part_fragmented.hpp>
-#include <sge/texture/atlasing.hpp>
+#include <fcppt/texture/no_fragmented.hpp>
+#include <fcppt/texture/guaranteed_free.hpp>
+#include <fcppt/texture/part_fragmented.hpp>
+#include <fcppt/texture/atlasing.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <fcppt/math/dim/output.hpp>
@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/basic_impl.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <sge/make_shared_ptr.hpp>
 #include <tr1/functional>
 #include <ostream>

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef FCPPT_TEXTURE_DETAIL_CONTAINER_POSITION_HPP_INCLUDED
 #define FCPPT_TEXTURE_DETAIL_CONTAINER_POSITION_HPP_INCLUDED
 
-#include <sge/texture/detail/fragmented_queue.hpp>
-#include <sge/texture/detail/fragmented_list.hpp>
+#include <fcppt/texture/detail/fragmented_queue.hpp>
+#include <fcppt/texture/detail/fragmented_list.hpp>
 #include <sge/variant/object_fwd.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 

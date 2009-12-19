@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/algorithm/element_not_found.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::algorithm::element_not_found::element_not_found()
 :

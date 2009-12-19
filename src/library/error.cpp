@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/format_message.hpp>
 #elif SGE_POSIX_PLATFORM
 #include <sge/iconv.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <dlfcn.h>
 #else
 #error "Implement me!"

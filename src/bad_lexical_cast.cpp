@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/bad_lexical_cast.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::bad_lexical_cast::bad_lexical_cast(
 	sge::type_info const &_source,

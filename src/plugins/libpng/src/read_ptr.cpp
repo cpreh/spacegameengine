@@ -1,6 +1,6 @@
 #include "../read_ptr.hpp"
 #include <sge/image/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::libpng::read_ptr::read_ptr(
 	png_structp const _ptr)

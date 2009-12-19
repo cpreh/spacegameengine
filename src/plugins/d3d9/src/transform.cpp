@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/variant/apply_unary.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <boost/spirit/home/phoenix/object/static_cast.hpp>
 #include <algorithm>
 

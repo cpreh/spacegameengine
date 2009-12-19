@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_TRANSFORM_INIT_ARGUMENTS_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_TRANSFORM_INIT_ARGUMENTS_HPP_INCLUDED
 
-#include <sge/texture/part.hpp>
+#include <fcppt/texture/part.hpp>
 #include <sge/sprite/roles/size.hpp>
 #include <sge/sprite/roles/texture.hpp>
 #include <sge/sprite/texture_dim.hpp>

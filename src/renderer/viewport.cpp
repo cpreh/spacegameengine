@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/viewport.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/dim/output.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <ostream>
 
 sge::renderer::viewport::viewport(

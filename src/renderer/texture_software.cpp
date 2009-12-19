@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/variant/object_impl.hpp>
 #include <sge/optional_impl.hpp>
 #include <sge/assert.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::renderer::texture_software::texture_software(
 	dim_type const &new_dim,

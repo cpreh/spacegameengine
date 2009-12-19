@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/filesystem/exists.hpp>
 #include <sge/filesystem/is_directory.hpp>
 #include <sge/filesystem/create_directories_recursive.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <sge/config.h>
 #ifdef SGE_POSIX_PLATFORM
 #include <sge/config/homedir.hpp>

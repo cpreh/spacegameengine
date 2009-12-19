@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/output.hpp>
 #include <sge/image/algorithm/fill.hpp>
 #include <sge/image/view/sub.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <sge/lexical_cast.hpp>
 
 void sge::gui::canvas::object::draw_pixel(

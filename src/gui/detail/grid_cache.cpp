@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/parameters/inherited.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/log/object.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <sge/string.hpp>
 #include <sge/lexical_cast.hpp>
 #include <sge/type_name.hpp>

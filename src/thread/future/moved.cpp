@@ -1,5 +1,5 @@
 #include <sge/thread/future/moved.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::thread::future::moved::moved()
 :

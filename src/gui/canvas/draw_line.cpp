@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/box/contains_point.hpp>
 #include <fcppt/math/box/output.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <sge/lexical_cast.hpp>
 #include <tr1/functional>
 #include <algorithm>

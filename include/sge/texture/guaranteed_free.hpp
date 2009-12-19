@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef FCPPT_TEXTURE_GUARANTEED_FREE_HPP_INCLUDED
 #define FCPPT_TEXTURE_GUARANTEED_FREE_HPP_INCLUDED
 
-#include <sge/texture/free_type.hpp>
+#include <fcppt/texture/free_type.hpp>
 #include <sge/export.hpp>
 
 namespace sge

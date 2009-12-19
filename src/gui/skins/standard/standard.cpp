@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/colors.hpp>
 #include <sge/font/system.hpp>
 #include <fcppt/math/dim/output.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::gui::skins::standard::standard(
 	font::system_ptr const fs)

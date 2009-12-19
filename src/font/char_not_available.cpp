@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/font/char_not_available.hpp>
 #include <sge/string.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::font::char_not_available::char_not_available(
 	char_type const character_)

@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/filesystem/create_directory_failed.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::filesystem::create_directory_failed::create_directory_failed(
 	path const &what

@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/gui/detail/cursor_delegate.hpp>
 #include <sge/input/key_pair.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <algorithm>
 
 sge::gui::detail::cursor_delegate::cursor_delegate(string &text)

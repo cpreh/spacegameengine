@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/texture/manager.hpp>
-#include <sge/texture/fragmented.hpp>
-#include <sge/texture/part.hpp>
-#include <sge/texture/image_too_big.hpp>
+#include <fcppt/texture/manager.hpp>
+#include <fcppt/texture/fragmented.hpp>
+#include <fcppt/texture/part.hpp>
+#include <fcppt/texture/image_too_big.hpp>
 #include <sge/image/view/dim.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <sge/variant/apply_unary.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <boost/next_prior.hpp>
 
 namespace

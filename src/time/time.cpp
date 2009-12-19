@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config.h>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <sge/time/time.hpp>
 
 #if defined(SGE_HAVE_ATLEAST_UINT64) && defined(SGE_HAVE_CLOCK_GETTIME)

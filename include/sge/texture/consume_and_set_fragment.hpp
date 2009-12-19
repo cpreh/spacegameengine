@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef FCPPT_TEXTURE_CONSUME_AND_SET_FRAGMENT_HPP_INCLUDED
 #define FCPPT_TEXTURE_CONSUME_AND_SET_FRAGMENT_HPP_INCLUDED
 
-#include <sge/texture/fragmented_fwd.hpp>
-#include <sge/texture/part_fwd.hpp>
+#include <fcppt/texture/fragmented_fwd.hpp>
+#include <fcppt/texture/part_fwd.hpp>
 #include <sge/image/view/const_object.hpp>
 #include <sge/export.hpp>
 

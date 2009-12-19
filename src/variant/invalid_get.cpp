@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/variant/invalid_get.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::variant::invalid_get::invalid_get()
 :

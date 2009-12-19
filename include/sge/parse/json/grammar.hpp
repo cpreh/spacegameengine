@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/float_type.hpp>
 #include <sge/parse/json/int_type.hpp>
 #include <sge/parse/encoding.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 #include <boost/spirit/home/qi/string.hpp>
 #include <boost/spirit/home/qi/numeric.hpp>

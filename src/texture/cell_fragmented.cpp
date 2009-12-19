@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/texture/atlasing.hpp>
-#include <sge/texture/cell_fragmented.hpp>
-#include <sge/texture/part_fragmented.hpp>
+#include <fcppt/texture/atlasing.hpp>
+#include <fcppt/texture/cell_fragmented.hpp>
+#include <fcppt/texture/part_fragmented.hpp>
 #include <fcppt/math/vector/dim.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/container/field_impl.hpp>
 #include <sge/make_shared_ptr.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <sge/assert.hpp>
 #include <tr1/functional>
 

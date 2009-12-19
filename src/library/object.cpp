@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/library/object.hpp>
 #include <sge/library/error.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #ifdef SGE_WINDOWS_PLATFORM
 #include <sge/windows/windows.hpp>
 #include <sge/iconv.hpp>
