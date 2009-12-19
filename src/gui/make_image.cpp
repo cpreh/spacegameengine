@@ -36,7 +36,7 @@ sge::gui::make_image(
 		sge::make_shared_ptr<
 			gui::image
 		>(
-			math::dim::structure_cast<dim>(
+			fcppt::math::dim::structure_cast<dim>(
 				_image->dim()
 			)
 		)

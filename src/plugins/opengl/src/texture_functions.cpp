@@ -91,7 +91,7 @@ void sge::opengl::set_texture(
 				<< SGE_TEXT('.')
 		);
 
-	if(!math::is_power_of_2(dim.w()) || !math::is_power_of_2(dim.h()))
+	if(!fcppt::math::is_power_of_2(dim.w()) || !math::is_power_of_2(dim.h()))
 		SGE_LOG_WARNING(
 			log::global(),
 			log::_

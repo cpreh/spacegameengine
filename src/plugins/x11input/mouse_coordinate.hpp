@@ -30,7 +30,7 @@ namespace x11input
 
 typedef int mouse_coordinate_t;
 
-typedef math::vector::static_<
+typedef fcppt::math::vector::static_<
 	mouse_coordinate_t,
 	2
 >::type mouse_pos;

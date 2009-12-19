@@ -74,7 +74,7 @@ typename visitor<Dest>::result_type const
 visitor<Dest>::operator()(
 	T const &v) const
 {
-	return sge::math::matrix::structure_cast<
+	return sge::fcppt::math::matrix::structure_cast<
 		Dest
 	>(v);
 }
@@ -83,7 +83,7 @@ visitor<Dest>::operator()(
 
 #define SGE_INSTANTIATE_MATRIX_CONVERT(t, n, m)\
 template SGE_SYMBOL \
-sge::math::matrix::static_<t, n, m>::type const \
+sge::fcppt::math::matrix::static_<t, n, m>::type const \
 sge::renderer::matrix_convert(\
 	sge::renderer::basic_any_matrix<n, m>::type const &);
 

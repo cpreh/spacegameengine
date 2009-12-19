@@ -43,12 +43,12 @@ template<
 	typename S,
 	typename F
 >
-sge::math::vector::basic<T, N, S> const
+sge::fcppt::math::vector::basic<T, N, S> const
 apply(
-	sge::math::vector::basic<T, N, S> const &v,
+	sge::fcppt::math::vector::basic<T, N, S> const &v,
 	F f)
 {
-	sge::math::vector::basic<T, N, S> newone = v;
+	sge::fcppt::math::vector::basic<T, N, S> newone = v;
 	std::transform(newone.begin(),newone.end(),newone.begin(),f);
 	return newone;
 }
@@ -70,7 +70,7 @@ void sge::gui::canvas::object::draw_line(
 			sge::lexical_cast<sge::string>(area()));
 
 	// increment in each direction, is also diagonal step
-	point const dd = apply(b-a,std::tr1::bind(&math::signum<unit>,std::tr1::placeholders::_1));
+	point const dd = apply(b-a,std::tr1::bind(&fcppt::math::signum<unit>,std::tr1::placeholders::_1));
 	// absolute distance between the points
 	point const d = apply(b-a,std::tr1::bind(static_cast<unit (*)(unit)>(std::abs),std::tr1::placeholders::_1));
 	// parallel step

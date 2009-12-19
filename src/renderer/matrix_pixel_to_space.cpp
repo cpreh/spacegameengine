@@ -29,22 +29,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename T
 >
-typename sge::math::matrix::static_<T, 4, 4>::type const
+typename sge::fcppt::math::matrix::static_<T, 4, 4>::type const
 sge::renderer::matrix_pixel_to_space(
 	screen_size const &sz)
 {
-	return math::matrix::translation(
+	return fcppt::math::matrix::translation(
 		static_cast<T>(-static_cast<int>(sz.w()) / 2),
 		static_cast<T>(-static_cast<int>(sz.h()) / 2),
 		static_cast<T>(0))
-		* math::matrix::scaling(
+		* fcppt::math::matrix::scaling(
 			static_cast<T>(2) / static_cast<T>(sz.w()),
 	        	static_cast<T>(-2) / static_cast<T>(sz.h()),
 	        	static_cast<T>(1));
 }
 
 #define SGE_INSTANTIATE_MATRIX_PIXEL_TO_SPACE(x)\
-template SGE_EXPORT_SYMBOL sge::math::matrix::static_<x, 4, 4>::type const \
+template SGE_EXPORT_SYMBOL sge::fcppt::math::matrix::static_<x, 4, 4>::type const \
 sge::renderer::matrix_pixel_to_space<x>(\
 	sge::renderer::screen_size const &);
 

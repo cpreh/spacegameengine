@@ -7,7 +7,7 @@ namespace sge
 {
 namespace ode
 {
-typedef sge::math::dim::static_<dReal,3>::type dim;
+typedef sge::fcppt::math::dim::static_<dReal,3>::type dim;
 }
 }
 

@@ -93,7 +93,7 @@ sge::opengl::device::device(
 		false
 	),
 	projection_(
-		math::matrix::static_<float, 4, 4>::type::identity()
+		fcppt::math::matrix::static_<float, 4, 4>::type::identity()
 	),
 	viewport_mode_(
 		renderer::viewport_mode::centered_screen_size
@@ -106,7 +106,7 @@ sge::opengl::device::device(
 		make_shared_ptr<
 			opengl::default_target
 		>(
-			math::dim::structure_cast<
+			fcppt::math::dim::structure_cast<
 				target::dim_type
 			>(
 				screen_size()
@@ -507,7 +507,7 @@ void sge::opengl::device::target(
 	viewport(
 		renderer::viewport(
 			renderer::pixel_pos::null(),
-			math::dim::structure_cast<
+			fcppt::math::dim::structure_cast<
 				renderer::screen_size
 			>(
 				p->dim()

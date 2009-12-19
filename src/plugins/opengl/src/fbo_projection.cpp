@@ -62,7 +62,7 @@ multiply_visitor::operator()(
 	T const &t) const
 {
 	typedef typename T::value_type value_type;
-	return t * sge::math::matrix::scaling<
+	return t * sge::fcppt::math::matrix::scaling<
 		value_type
 	>(
 		static_cast<value_type>(1),

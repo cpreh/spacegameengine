@@ -30,7 +30,7 @@ sge::ode::world::world(
 		static_cast<group_id>(
 			1)),
 	time_remainder_(
-		sge::math::null<dReal>()),
+		sge::fcppt::math::null<dReal>()),
 	collisions_(),
 	transformer_(
 		_r),

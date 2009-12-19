@@ -131,12 +131,12 @@ void sge::gui::detail::grid_cache::first_pass()
 							<< SGE_TEXT(" has position hint ")
 							<< hint);
 
-		if(math::negative(hint.x()) || math::negative(hint.y()))
+		if(fcppt::math::negative(hint.x()) || math::negative(hint.y()))
 			throw exception(
 				SGE_TEXT("grid layout position hints have to be positive"));
 
 		child_plane::vector_type const on_plane =
-			math::vector::structure_cast<child_plane::vector_type>(hint);
+			fcppt::math::vector::structure_cast<child_plane::vector_type>(hint);
 
 		SGE_LOG_DEBUG(
 			mylogger,

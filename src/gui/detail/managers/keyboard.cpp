@@ -300,7 +300,7 @@ void sge::gui::detail::managers::keyboard::input_callback(
 
 	if (k.key().code() == sge::input::kc::key_tab)
 	{
-		if (!sge::math::almost_zero(k.value()))
+		if (!sge::fcppt::math::almost_zero(k.value()))
 			cycle_focus();
 		return;
 	}

@@ -11,7 +11,7 @@ sge::ode::group::group(
 	category_(
 		_category),
 	collides_(
-		sge::math::null<group_id>()),
+		sge::fcppt::math::null<group_id>()),
 	dirty_(false)
 {
 	//sge::cerr << "created new group with category " << category_ << " and collides: " << collides_ << "\n";

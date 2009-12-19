@@ -38,11 +38,11 @@ public:
 
 	result_type
 	operator()(
-		sge::math::matrix::static_<float, 4, 4>::type const &m) const;
+		sge::fcppt::math::matrix::static_<float, 4, 4>::type const &m) const;
 
 	result_type
 	operator()(
-		sge::math::matrix::static_<double, 4, 4>::type const &m) const;
+		sge::fcppt::math::matrix::static_<double, 4, 4>::type const &m) const;
 };
 
 bool have_transpose()
@@ -90,7 +90,7 @@ namespace
 {
 
 void visitor::operator()(
-	sge::math::matrix::static_<float, 4, 4>::type const &m) const
+	sge::fcppt::math::matrix::static_<float, 4, 4>::type const &m) const
 {
 	if(have_transpose())
 		glLoadTransposeMatrixf(
@@ -98,7 +98,7 @@ void visitor::operator()(
 		);
 	else
 		glLoadMatrixf(
-			sge::math::matrix::transpose(
+			sge::fcppt::math::matrix::transpose(
 				m
 			).data()
 		);
@@ -110,7 +110,7 @@ void visitor::operator()(
 }
 
 void visitor::operator()(
-	sge::math::matrix::static_<double, 4, 4>::type const &m) const
+	sge::fcppt::math::matrix::static_<double, 4, 4>::type const &m) const
 {
 	if(have_transpose())
 		glLoadTransposeMatrixd(
@@ -118,7 +118,7 @@ void visitor::operator()(
 		);
 	else
 		glLoadMatrixd(
-			sge::math::matrix::transpose(
+			sge::fcppt::math::matrix::transpose(
 				m
 			).data()
 		);

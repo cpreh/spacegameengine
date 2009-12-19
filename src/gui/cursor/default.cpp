@@ -74,7 +74,7 @@ void sge::gui::cursor::default_::pos(
 	point const &p)
 {
 	sge::gui::dim const ss(
-		sge::math::dim::structure_cast<
+		sge::fcppt::math::dim::structure_cast<
 			sge::gui::dim
 		>(
 			rend_->screen_size()
@@ -82,11 +82,11 @@ void sge::gui::cursor::default_::pos(
 	);
 
 	sprite_.pos(
-		math::vector::structure_cast<
+		fcppt::math::vector::structure_cast<
 			sge::gui::sprite::point
 		>(
 			sge::gui::point(
-				sge::math::clamp(
+				sge::fcppt::math::clamp(
 					p.x(),
 					static_cast<sge::gui::unit>(
 						-sprite_.w()
@@ -95,7 +95,7 @@ void sge::gui::cursor::default_::pos(
 						ss.w()+sprite_.w()
 					)
 				),
-				sge::math::clamp(
+				sge::fcppt::math::clamp(
 					p.y(),
 					static_cast<sge::gui::unit>(
 						-sprite_.h()
@@ -111,7 +111,7 @@ void sge::gui::cursor::default_::pos(
 
 sge::gui::point const sge::gui::cursor::default_::pos() const
 {
-	return math::vector::structure_cast<sge::gui::point>(
+	return fcppt::math::vector::structure_cast<sge::gui::point>(
 		sprite_.pos());
 }
 

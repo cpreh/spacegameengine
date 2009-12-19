@@ -32,7 +32,7 @@ sge::gui::dim const sge::gui::utility::unlimited_text_size(
 	font::metrics_ptr const f,
 	string const &t)
 {
-	return math::dim::structure_cast<dim>(
+	return fcppt::math::dim::structure_cast<dim>(
 		font::object(f).text_size(
 			t,
 			font::dim(

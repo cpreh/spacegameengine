@@ -49,7 +49,7 @@ sge::renderer::cube_texture::lock(
 sge::renderer::cube_texture::size_type
 sge::renderer::cube_texture::content() const
 {
-	return math::quad(
+	return fcppt::math::quad(
 		border_size()
 	);
 }

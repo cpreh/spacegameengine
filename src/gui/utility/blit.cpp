@@ -278,7 +278,7 @@ void sge::gui::utility::blit_invalid(
 		sge::image::algorithm::transform(
 			sge::image::view::sub(
 				src,
-				math::box::structure_cast<
+				fcppt::math::box::structure_cast<
 					sge::image::rect
 				>(
 					is_translated_src
@@ -286,7 +286,7 @@ void sge::gui::utility::blit_invalid(
 			),
 			sge::image::view::sub(
 				dst,
-				math::box::structure_cast<
+				fcppt::math::box::structure_cast<
 					sge::image::rect
 				>(
 					is_translated_dst
@@ -300,7 +300,7 @@ void sge::gui::utility::blit_invalid(
 		sge::image::algorithm::copy_and_convert(
 			sge::image::view::sub(
 				src,
-				math::box::structure_cast<
+				fcppt::math::box::structure_cast<
 					sge::image::rect
 				>(
 					is_translated_src
@@ -308,7 +308,7 @@ void sge::gui::utility::blit_invalid(
 			),
 			sge::image::view::sub(
 				dst,
-				math::box::structure_cast<
+				fcppt::math::box::structure_cast<
 					sge::image::rect
 				>(
 					is_translated_dst
@@ -339,13 +339,13 @@ void sge::gui::utility::blit(
 		sge::image::view::sub(
 			sge::image::view::sub(
 				src,
-				math::box::structure_cast<
+				fcppt::math::box::structure_cast<
 					sge::image::rect
 				>(
 					src_rect
 				)
 			),
-			math::box::structure_cast<
+			fcppt::math::box::structure_cast<
 				sge::image::rect
 			>(
 				src_trans
@@ -353,7 +353,7 @@ void sge::gui::utility::blit(
 		),
 		sge::image::view::sub(
 			dst,
-			math::box::structure_cast<
+			fcppt::math::box::structure_cast<
 				sge::image::rect
 			>(
 				clipped

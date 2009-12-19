@@ -43,7 +43,7 @@ void sge::gui::canvas::object::draw_pixel(
 	sge::image::algorithm::fill(
 		sge::image::view::sub(
 			view_,
-			math::box::structure_cast<
+			fcppt::math::box::structure_cast<
 				sge::image::rect
 			>(
 				rect(

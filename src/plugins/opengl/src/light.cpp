@@ -142,7 +142,7 @@ void light_pos(
 	sge::renderer::any_vector3 const &pos)
 {
 	sge::opengl::vector4f const pos4(
-		sge::math::vector::construct(
+		sge::fcppt::math::vector::construct(
 			sge::renderer::vector_convert<
 				sge::opengl::vector3f
 			>(

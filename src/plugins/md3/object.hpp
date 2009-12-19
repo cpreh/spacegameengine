@@ -63,7 +63,7 @@ public:
 	typedef boost::int32_t s32;
 	typedef boost::uint8_t u8;
 	typedef std::basic_string<u8> string;
-	typedef math::vector::static_<
+	typedef fcppt::math::vector::static_<
 		funit,
 		3
 	>::type vec3;
@@ -112,7 +112,7 @@ public:
 		public:
 			explicit texcoord(model::istream &);
 
-			typedef math::vector::static_<
+			typedef fcppt::math::vector::static_<
 				funit,
 				2
 			>::type tex_pos;

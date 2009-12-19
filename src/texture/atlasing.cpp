@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 bool sge::texture::need_atlasing(
 	renderer::size_type const s)
 {
-	return !math::is_power_of_2(s);
+	return !fcppt::math::is_power_of_2(s);
 }
 
 bool sge::texture::need_atlasing(
@@ -51,9 +51,9 @@ sge::renderer::size_type
 sge::texture::atlased_bound(
 	renderer::size_type const s)
 {
-	return math::is_power_of_2(s)
+	return fcppt::math::is_power_of_2(s)
 		? s
-		: math::next_pow_2(s);
+		: fcppt::math::next_pow_2(s);
 }
 
 sge::renderer::dim_type const

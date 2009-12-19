@@ -75,7 +75,7 @@ public:
 	>
 	result_type
 	operator()(
-		sge::math::vector::basic<
+		sge::fcppt::math::vector::basic<
 			sge::renderer::glsl::int_type,
 			N,
 			S
@@ -87,7 +87,7 @@ public:
 	>
 	result_type
 	operator()(
-		sge::math::vector::basic<
+		sge::fcppt::math::vector::basic<
 			sge::renderer::glsl::float_type,
 			N,
 			S
@@ -102,11 +102,11 @@ convert_matrix_type(
 
 sge::renderer::glsl::uniform::int_value_type::type
 convert_int_vector_type(
-	sge::math::size_type);
+	sge::fcppt::math::size_type);
 
 sge::renderer::glsl::uniform::float_value_type::type
 convert_float_vector_type(
-	sge::math::size_type);
+	sge::fcppt::math::size_type);
 
 }
 
@@ -208,7 +208,7 @@ template<
 >
 vector_visitor::result_type
 vector_visitor::operator()(
-	sge::math::vector::basic<
+	sge::fcppt::math::vector::basic<
 		sge::renderer::glsl::int_type,
 		N,
 		S
@@ -234,7 +234,7 @@ template<
 >
 vector_visitor::result_type
 vector_visitor::operator()(
-	sge::math::vector::basic<
+	sge::fcppt::math::vector::basic<
 		sge::renderer::glsl::float_type,
 		N,
 		S
@@ -301,7 +301,7 @@ convert_matrix_type(
 
 sge::renderer::glsl::uniform::int_value_type::type
 convert_int_vector_type(
-	sge::math::size_type const sz)
+	sge::fcppt::math::size_type const sz)
 {
 	namespace iv = sge::renderer::glsl::uniform::int_value_type;
 
@@ -324,7 +324,7 @@ convert_int_vector_type(
 
 sge::renderer::glsl::uniform::float_value_type::type
 convert_float_vector_type(
-	sge::math::size_type const sz)
+	sge::fcppt::math::size_type const sz)
 {
 	namespace fv = sge::renderer::glsl::uniform::float_value_type;
 

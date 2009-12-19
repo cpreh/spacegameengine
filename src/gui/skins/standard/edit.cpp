@@ -102,7 +102,7 @@ void sge::gui::skins::standard::draw(
 
 	dim const scroll_size =
 		w.text_buffer().size() -
-		math::vector::structure_cast<dim>(
+		fcppt::math::vector::structure_cast<dim>(
 			w.scroll_pos());
 
 	utility::blit(

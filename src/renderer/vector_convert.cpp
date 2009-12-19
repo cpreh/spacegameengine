@@ -74,7 +74,7 @@ typename visitor<Dest>::result_type const
 visitor<Dest>::operator()(
 	T const &v) const
 {
-	return sge::math::vector::structure_cast<
+	return sge::fcppt::math::vector::structure_cast<
 		Dest
 	>(v);
 }
@@ -83,7 +83,7 @@ visitor<Dest>::operator()(
 
 #define SGE_INSTANTIATE_VECTOR_CONVERT(t, n)\
 template SGE_SYMBOL \
-sge::math::vector::static_<t, n>::type const \
+sge::fcppt::math::vector::static_<t, n>::type const \
 sge::renderer::vector_convert(\
 	sge::renderer::basic_any_vector<n>::type const &);
 

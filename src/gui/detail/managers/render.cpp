@@ -84,7 +84,7 @@ sge::texture::const_part_ptr assign_textures(
 		sge::make_shared_ptr<
 			sge::renderer::texture_software
 		>(
-			sge::math::dim::structure_cast<
+			sge::fcppt::math::dim::structure_cast<
 				sge::renderer::texture::dim_type
 			>(
 				d)
@@ -95,7 +95,7 @@ sge::texture::const_part_ptr assign_textures(
 
 	sge::renderer::texture_ptr const hardware_texture =
 		rend->create_texture(
-			sge::math::dim::structure_cast<
+			sge::fcppt::math::dim::structure_cast<
 				sge::renderer::texture::dim_type
 			>(
 				d
@@ -264,10 +264,10 @@ void sge::gui::detail::managers::render::resize(
 
 	// check if the current texture is large enough to hold the new widget
 	dim const new_dim(
-		math::next_pow_2(d.w()),
-		math::next_pow_2(d.h()));
+		fcppt::math::next_pow_2(d.w()),
+		fcppt::math::next_pow_2(d.h()));
 
-	if (wd.texture && math::dim::structure_cast<dim>(wd.texture->dim()) == new_dim)
+	if (wd.texture && fcppt::math::dim::structure_cast<dim>(wd.texture->dim()) == new_dim)
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
@@ -295,7 +295,7 @@ void sge::gui::detail::managers::render::resize(
 
 	wd.sprite.size(
 		sge::gui::sprite::dim(
-			math::dim::structure_cast<
+			fcppt::math::dim::structure_cast<
 				sge::gui::sprite::dim
 			>(
 				new_dim
@@ -330,7 +330,7 @@ void sge::gui::detail::managers::render::reposition(
 
 	// just reset sprite position
 	wi->second->sprite.pos(
-		math::vector::structure_cast<
+		fcppt::math::vector::structure_cast<
 			sge::gui::sprite::point
 		>(d)
 	);
@@ -418,7 +418,7 @@ void sge::gui::detail::managers::render::clean()
 
 		renderer::scoped_texture_lock const lock_(
 			widgets[&p].texture,
-			math::box::structure_cast<renderer::lock_rect>(
+			fcppt::math::box::structure_cast<renderer::lock_rect>(
 				to_lock),
 			renderer::lock_mode::readwrite
 		);

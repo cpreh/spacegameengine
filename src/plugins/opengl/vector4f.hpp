@@ -30,7 +30,7 @@ namespace sge
 namespace opengl
 {
 
-typedef math::vector::static_<
+typedef fcppt::math::vector::static_<
 	GLfloat,
 	4
 >::type vector4f;

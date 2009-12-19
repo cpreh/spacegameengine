@@ -36,8 +36,8 @@ sge::renderer::aspect(
 		h(static_cast<T>(sz.h()));
 
 	SGE_ASSERT(
-		!math::almost_zero(w)
-		&& !math::almost_zero(h)
+		!fcppt::math::almost_zero(w)
+		&& !fcppt::math::almost_zero(h)
 	)
 
 	return w > h

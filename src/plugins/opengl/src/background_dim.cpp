@@ -32,11 +32,11 @@ sge::opengl::background_dim(
 {
 	switch(m) {
 	case renderer::viewport_mode::centered_screen_size:
-		return math::dim::structure_cast<
+		return fcppt::math::dim::structure_cast<
 			renderer::dim_type
 		>(sz);
 	case renderer::viewport_mode::whole_window:
-		return math::dim::structure_cast<
+		return fcppt::math::dim::structure_cast<
 			renderer::dim_type
 		>(d);
 	default:

@@ -78,12 +78,12 @@ void sge::gui::canvas::font_drawer::draw_char(
 
 	image_view const sub_view = sge::image::view::sub(
 		texture_,
-		sge::math::box::structure_cast<
+		sge::fcppt::math::box::structure_cast<
 			sge::image::rect
 		>(
 			sge::font::rect(
 				pos,
-				sge::math::dim::structure_cast<
+				sge::fcppt::math::dim::structure_cast<
 					sge::font::dim
 				>(
 					sge::image::view::dim(
@@ -110,7 +110,7 @@ void sge::gui::canvas::font_drawer::draw_char(
 
 	if (character_pos && counter++ == *character_pos)
 	{
-		*p = math::vector::structure_cast<point>(pos);
+		*p = fcppt::math::vector::structure_cast<point>(pos);
 		SGE_LOG_DEBUG(
 			mylogger,
 			log::_ << SGE_TEXT("found character!"));

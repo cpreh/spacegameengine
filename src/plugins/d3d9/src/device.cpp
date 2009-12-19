@@ -43,7 +43,7 @@ void set_render_state(sge::d3d9::d3d_device_ptr device, D3DRENDERSTATETYPE state
 void set_sampler_state(sge::d3d9::d3d_device_ptr device, sge::stage_type stage, D3DSAMPLERSTATETYPE state, sge::renderer::int_type value);
 void set_texture(sge::d3d9::d3d_device_ptr device, sge::stage_type stage, IDirect3DBaseTexture9* tex);
 void set_texture_stage_state(sge::d3d9::d3d_device_ptr device, sge::stage_type stage, D3DTEXTURESTAGESTATETYPE state, sge::renderer::int_type value);
-void set_transform(sge::d3d9::d3d_device_ptr device, D3DTRANSFORMSTATETYPE, const sge::math::space_matrix&);
+void set_transform(sge::d3d9::d3d_device_ptr device, D3DTRANSFORMSTATETYPE, const sge::fcppt::math::space_matrix&);
 void set_render_target(sge::d3d9::d3d_device_ptr device, sge::d3d9::d3d_surface_ptr target);
 
 }

@@ -286,8 +286,8 @@ sge::md3::object::read_string(model::istream& is)
 inline sge::md3::object::vec3 sge::md3::object::convert_normal(const s16 normal)
 {
 	funit const
-		lat = static_cast<funit>((normal >> 8) & 255) * (math::twopi<funit>()) / 255,
-		lng = static_cast<funit>(normal & 255) * (math::twopi<funit>()) / 255;
+		lat = static_cast<funit>((normal >> 8) & 255) * (fcppt::math::twopi<funit>()) / 255,
+		lng = static_cast<funit>(normal & 255) * (fcppt::math::twopi<funit>()) / 255;
 
 	return vec3(
 		std::cos(lat) * std::sin(lng),

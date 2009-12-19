@@ -127,8 +127,8 @@ sge::gui::dim const sge::gui::layouts::row::optimal_size() const
 		        << hint);
 
 	return
-		math::vector::structure_cast<dim>(
-			math::dim::structure_cast<spacing>(hint) *
+		fcppt::math::vector::structure_cast<dim>(
+			fcppt::math::dim::structure_cast<spacing>(hint) *
 			spacing_
 		);
 }

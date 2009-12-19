@@ -185,7 +185,7 @@ void sge::gui::detail::managers::mouse::recalculate_focus()
 		log::_ << SGE_TEXT("in top level recalculate_focus"));
 
 	point const click_point(
-		math::vector::structure_cast<
+		fcppt::math::vector::structure_cast<
 			point
 		>(
 			cursor_->pos()
@@ -252,7 +252,7 @@ void sge::gui::detail::managers::mouse::input_callback(
 
 	focus->process_mouse_click(
 		events::mouse_click(
-			math::vector::structure_cast<point>(
+			fcppt::math::vector::structure_cast<point>(
 				cursor_->pos()),
 			k));
 }

@@ -110,7 +110,7 @@ sge::console::gfx::draw()
 		string const s,
 		output_history_.lines_inside(
 			detail::history::rect(
-				math::vector::structure_cast<detail::history::point>(
+				fcppt::math::vector::structure_cast<detail::history::point>(
 					bg.pos()
 				),
 				detail::history::dim(

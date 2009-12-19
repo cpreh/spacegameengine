@@ -38,7 +38,7 @@ sge::console::detail::history::iterator_pair const
 	rect const &r,
 	unit const height) const
 {
-	SGE_ASSERT(!math::almost_zero(height));
+	SGE_ASSERT(!fcppt::math::almost_zero(height));
 
 	// draw history
 	unit const total_lines = static_cast<unit>(r.h()/height);

@@ -59,7 +59,7 @@ void sge::openal::listener::vel(audio::point const &n)
 	SGE_LOG_DEBUG(log(),log::_ << SGE_TEXT("setting listener velocity to ") << n);
 	vel_ = n;
 
-	// TODO: use sge::math::vector!
+	// TODO: use sge::fcppt::math::vector!
 	ALfloat const vec[3] =
 		{
 			static_cast<ALfloat>(n.x()),

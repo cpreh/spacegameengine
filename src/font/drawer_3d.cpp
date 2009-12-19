@@ -103,7 +103,7 @@ sge::font::drawer_3d::draw_char(
 					: texture::const_part_ptr()
 			)
 			.size(
-				sge::math::dim::structure_cast<
+				sge::fcppt::math::dim::structure_cast<
 					sprite_object::dim
 				>(
 					dim
