@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/display.hpp>
 #include <sge/x11/window.hpp>
 #include <sge/x11/sentry.hpp>
-#include <sge/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include "../pointer.hpp"
 
 sge::x11input::mouse_pos const

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/image/algorithm/copy_and_convert.hpp>
 #include <sge/image/view/make_const.hpp>
-#include <sge/math/box/basic_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <sge/container/bitfield/basic_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/assert.hpp>

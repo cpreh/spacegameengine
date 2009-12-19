@@ -19,12 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/matrix_pixel_to_space.hpp>
-#include <sge/math/matrix/basic_impl.hpp>
-#include <sge/math/matrix/translation.hpp>
-#include <sge/math/matrix/scaling.hpp>
-#include <sge/math/matrix/arithmetic.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/math/instantiate_arithmetic.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/math/matrix/translation.hpp>
+#include <fcppt/math/matrix/scaling.hpp>
+#include <fcppt/math/matrix/arithmetic.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/instantiate_arithmetic.hpp>
 
 template<
 	typename T

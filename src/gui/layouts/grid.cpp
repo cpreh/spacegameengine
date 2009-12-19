@@ -22,11 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/axis_type.hpp>
 #include <sge/gui/layouts/grid.hpp>
 #include <sge/gui/widgets/base.hpp>
-#include <sge/math/box/basic_impl.hpp>
-#include <sge/math/dim/dim.hpp>
-#include <sge/math/vector/output.hpp>
-#include <sge/math/vector/dim.hpp>
-#include <sge/math/negative.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/dim/dim.hpp>
+#include <fcppt/math/vector/output.hpp>
+#include <fcppt/math/vector/dim.hpp>
+#include <fcppt/math/negative.hpp>
 #include <sge/log/parameters/inherited.hpp>
 #include <sge/log/object.hpp>
 #include <sge/log/headers.hpp>

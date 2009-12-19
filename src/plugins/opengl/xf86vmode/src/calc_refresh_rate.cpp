@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../calc_refresh_rate.hpp"
-#include <sge/math/round_div_int.hpp>
+#include <fcppt/math/round_div_int.hpp>
 
 unsigned sge::opengl::xf86vmode::calc_refresh_rate(
 	XF86VidModeModeInfo const &mode)

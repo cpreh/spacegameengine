@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/aspect.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/math/instantiate_arithmetic.hpp>
-#include <sge/math/almost_zero.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/instantiate_arithmetic.hpp>
+#include <fcppt/math/almost_zero.hpp>
 #include <sge/assert.hpp>
 
 template<

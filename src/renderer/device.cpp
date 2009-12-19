@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/format.hpp>
 #include <sge/image/view/dim.hpp>
 #include <sge/image/algorithm/copy_and_convert.hpp>
-#include <sge/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <sge/algorithm/copy_n.hpp>
 #include <boost/variant/apply_visitor.hpp>
 

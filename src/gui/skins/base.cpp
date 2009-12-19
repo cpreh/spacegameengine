@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/log.hpp>
 #include <sge/gui/unit.hpp>
 #include <sge/gui/exception.hpp>
-#include <sge/math/dim/output.hpp>
+#include <fcppt/math/dim/output.hpp>
 #include <sge/image/view/make_const.hpp>
 #include <sge/log/parameters/inherited.hpp>
 #include <sge/log/object.hpp>

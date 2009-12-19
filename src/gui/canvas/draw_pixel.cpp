@@ -20,10 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/gui/canvas/object.hpp>
 #include <sge/assert.hpp>
-#include <sge/math/box/contains_point.hpp>
-#include <sge/math/box/structure_cast.hpp>
-#include <sge/math/box/output.hpp>
-#include <sge/math/vector/output.hpp>
+#include <fcppt/math/box/contains_point.hpp>
+#include <fcppt/math/box/structure_cast.hpp>
+#include <fcppt/math/box/output.hpp>
+#include <fcppt/math/vector/output.hpp>
 #include <sge/image/algorithm/fill.hpp>
 #include <sge/image/view/sub.hpp>
 #include <sge/text.hpp>

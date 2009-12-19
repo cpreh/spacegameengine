@@ -3,7 +3,7 @@
 
 #include "byte_vector.hpp"
 #include <sge/image/color/format.hpp>
-#include <sge/math/dim/basic_decl.hpp>
+#include <fcppt/math/dim/basic_decl.hpp>
 #include <sge/image/file.hpp>
 
 namespace sge

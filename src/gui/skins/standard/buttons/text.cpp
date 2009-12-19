@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/colors.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/text_size.hpp>
-#include <sge/math/box/output.hpp>
+#include <fcppt/math/box/output.hpp>
 #include <sge/log/parameters/inherited.hpp>
 #include <sge/log/object.hpp>
 #include <sge/log/headers.hpp>

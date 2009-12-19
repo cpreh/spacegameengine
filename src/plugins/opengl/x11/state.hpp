@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/adapter_type.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/pixel_unit.hpp>
-#include <sge/math/dim/basic_decl.hpp>
+#include <fcppt/math/dim/basic_decl.hpp>
 #include <sge/window/instance_fwd.hpp>
 #include <sge/signal/connection_manager.hpp>
 #include <sge/x11/window_fwd.hpp>

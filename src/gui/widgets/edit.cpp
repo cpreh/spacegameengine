@@ -31,9 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/manager.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/time/second_f.hpp>
-#include <sge/math/almost_zero.hpp>
-#include <sge/math/vector/output.hpp>
-#include <sge/math/dim/output.hpp>
+#include <fcppt/math/almost_zero.hpp>
+#include <fcppt/math/vector/output.hpp>
+#include <fcppt/math/dim/output.hpp>
 #include <sge/font/metrics.hpp>
 #include <sge/log/parameters/inherited.hpp>
 #include <sge/log/object.hpp>

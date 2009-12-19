@@ -5,7 +5,7 @@
 #include "../shapes/container.hpp"
 #include "../transformer_impl.hpp"
 #include <sge/collision/group_overflow.hpp>
-#include <sge/math/null.hpp>
+#include <fcppt/math/null.hpp>
 #include <sge/assert.hpp>
 #include <sge/text.hpp>
 #include <sge/cout.hpp>

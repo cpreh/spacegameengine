@@ -6,7 +6,7 @@
 #include "byte_vector.hpp"
 #include <sge/filesystem/path.hpp>
 #include <sge/image/dim_type.hpp>
-#include <sge/math/dim/basic_decl.hpp>
+#include <fcppt/math/dim/basic_decl.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/scoped_ptr.hpp>
 #include <boost/filesystem/fstream.hpp>

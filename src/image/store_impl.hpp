@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_STORE_IMPL_HPP_INCLUDED
 
 #include <sge/image/store.hpp>
-#include <sge/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <mizuiro/image/dimension_impl.hpp>
 #include <mizuiro/image/store_impl.hpp>
 #include "convert_dim.hpp"

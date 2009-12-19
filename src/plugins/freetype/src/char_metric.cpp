@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glyph.hpp"
 #include <sge/image/view/make.hpp>
 #include <sge/image/algorithm/copy_and_convert.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/dim/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
 #include <sge/variant/object_impl.hpp>

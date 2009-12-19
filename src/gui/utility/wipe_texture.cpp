@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/renderer/lock_rect.hpp>
-#include <sge/math/box/basic_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 
 void
 sge::gui::utility::wipe_texture(

@@ -1,6 +1,6 @@
 #include "../group.hpp"
 #include "../body.hpp"
-#include <sge/math/null.hpp>
+#include <fcppt/math/null.hpp>
 #include <sge/assert.hpp>
 #include <sge/text.hpp>
 #include <sge/cerr.hpp>

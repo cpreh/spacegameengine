@@ -2,14 +2,14 @@
 #include "../shapes/base.hpp"
 #include "../world.hpp"
 #include "../transformer_impl.hpp"
-#include <sge/math/vector/basic_decl.hpp>
-#include <sge/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/basic_decl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <sge/collision/satellite.hpp>
 #include <boost/foreach.hpp>
 
 // DEBUG
 #include <sge/cerr.hpp>
-#include <sge/math/vector/output.hpp>
+#include <fcppt/math/vector/output.hpp>
 
 sge::ode::body::body(
 	world &_world,

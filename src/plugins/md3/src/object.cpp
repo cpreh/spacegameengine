@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../object.hpp"
 #include "../vertex_format.hpp"
-#include <sge/math/twopi.hpp>
+#include <fcppt/math/twopi.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
 #include <sge/renderer/vf/dynamic_view.hpp>
@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/view.hpp>
 #include <sge/renderer/index/view_size.hpp>
 #include <sge/renderer/index/make_const_view.hpp>
-#include <sge/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <sge/variant/apply_unary.hpp>
 #include <sge/io/read.hpp>
 #include <sge/endianness/format.hpp>

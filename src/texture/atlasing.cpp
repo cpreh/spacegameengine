@@ -25,10 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/image/view/sub.hpp>
 #include <sge/image/view/dim.hpp>
-#include <sge/math/box/basic_impl.hpp>
-#include <sge/math/is_power_of_2.hpp>
-#include <sge/math/next_pow_2.hpp>
-#include <sge/math/dim/basic_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/is_power_of_2.hpp>
+#include <fcppt/math/next_pow_2.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <sge/variant/object_impl.hpp>
 
 bool sge::texture::need_atlasing(

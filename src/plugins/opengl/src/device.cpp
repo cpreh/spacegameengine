@@ -56,9 +56,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/combine.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/math/dim/structure_cast.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/variant/apply_unary.hpp>
 #include <sge/make_shared_ptr.hpp>

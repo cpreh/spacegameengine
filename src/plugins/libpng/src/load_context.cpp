@@ -3,8 +3,8 @@
 #include <sge/image/unsupported_format.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/math/dim/output.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/output.hpp>
 #include <sge/lexical_cast.hpp>
 #include <sge/text.hpp>
 #include <climits>

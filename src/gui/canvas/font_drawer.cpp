@@ -24,10 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/dim.hpp>
 #include <sge/image/view/make_const.hpp>
 #include <sge/image/view/sub.hpp>
-#include <sge/math/vector/structure_cast.hpp>
-#include <sge/math/dim/structure_cast.hpp>
-#include <sge/math/box/structure_cast.hpp>
-#include <sge/math/box/basic_impl.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/box/structure_cast.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <sge/log/parameters/inherited.hpp>
 #include <sge/log/object.hpp>
 #include <sge/log/headers.hpp>

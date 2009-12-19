@@ -25,11 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glew.hpp"
 #include "../pbo.hpp" // TODO: maybe put this somewhere else
 #include <sge/log/headers.hpp>
-#include <sge/math/box/basic_impl.hpp>
-#include <sge/math/box/output.hpp>
-#include <sge/math/is_power_of_2.hpp>
-#include <sge/math/dim/output.hpp>
-#include <sge/math/dim/basic_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/box/output.hpp>
+#include <fcppt/math/is_power_of_2.hpp>
+#include <fcppt/math/dim/output.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <sge/renderer/filter/texture.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/texture_creation_failed.hpp>

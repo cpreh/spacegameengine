@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VECTOR3F_HPP_INCLUDED
 
 #include "common.hpp"
-#include <sge/math/vector/static.hpp>
-#include <sge/math/vector/basic_decl.hpp>
+#include <fcppt/math/vector/static.hpp>
+#include <fcppt/math/vector/basic_decl.hpp>
 
 namespace sge
 {

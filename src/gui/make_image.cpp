@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/dim.hpp>
 #include <sge/image/file.hpp>
 #include <sge/image/algorithm/copy_and_convert.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <sge/variant/object_impl.hpp>
 #include <sge/make_shared_ptr.hpp>
 

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key_type.hpp>
 #include <sge/input/classification.hpp>
 #include <sge/input/key_pair.hpp>
-#include <sge/math/almost_zero.hpp>
+#include <fcppt/math/almost_zero.hpp>
 #include <sge/log/parameters/inherited.hpp>
 #include <sge/log/object.hpp>
 #include <sge/log/headers.hpp>

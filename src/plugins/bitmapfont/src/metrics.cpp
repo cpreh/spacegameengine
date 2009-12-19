@@ -33,8 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/loader.hpp>
 #include <sge/font/char_not_available.hpp>
 #include <sge/font/exception.hpp>
-#include <sge/math/box/basic_impl.hpp>
-#include <sge/math/vector/basic_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
 #include <sge/variant/object_impl.hpp>

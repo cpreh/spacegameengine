@@ -32,9 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/object_impl.hpp>
-#include <sge/math/vector/structure_cast.hpp>
-#include <sge/math/clamp.hpp>
-#include <sge/math/dim/structure_cast.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/math/clamp.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <sge/text.hpp>
 
 sge::gui::cursor::default_::default_(

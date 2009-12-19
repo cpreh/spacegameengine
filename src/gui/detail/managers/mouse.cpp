@@ -31,11 +31,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/sprite/point.hpp>
 #include <sge/gui/exception.hpp>
 #include <sge/gui/log.hpp>
-#include <sge/math/box/contains_point.hpp>
-#include <sge/math/box/output.hpp>
-#include <sge/math/vector/arithmetic.hpp>
-#include <sge/math/vector/output.hpp>
-#include <sge/math/vector/structure_cast.hpp>
+#include <fcppt/math/box/contains_point.hpp>
+#include <fcppt/math/box/output.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/math/vector/output.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
 #include <sge/input/key_pair.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/classification.hpp>

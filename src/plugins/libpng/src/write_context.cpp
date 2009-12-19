@@ -4,8 +4,8 @@
 #include <sge/image/exception.hpp>
 #include <sge/image/dim_type.hpp>
 #include <sge/image/view/dim.hpp>
-#include <sge/math/dim/basic_decl.hpp>
-#include <sge/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/basic_decl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <sge/text.hpp>
 #include <climits>
 #include <iosfwd>

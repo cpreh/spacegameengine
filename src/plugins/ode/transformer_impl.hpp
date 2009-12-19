@@ -21,19 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_ODE_TRANSFORMER_IMPL_HPP_INCLUDED
 #define SGE_ODE_TRANSFORMER_IMPL_HPP_INCLUDED
 
-#include <sge/math/inverse.hpp>
-#include <sge/math/box/basic_impl.hpp>
-#include <sge/math/vector/structure_cast.hpp>
-#include <sge/math/vector/arithmetic.hpp>
-#include <sge/math/dim/structure_cast.hpp>
-#include <sge/math/dim/arithmetic.hpp>
+#include <fcppt/math/inverse.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/arithmetic.hpp>
 #include <sge/optional.hpp>
-#include <sge/math/null.hpp>
+#include <fcppt/math/null.hpp>
 #include <algorithm>
 
 //DEBUG
 #include <sge/cerr.hpp>
-#include <sge/math/vector/output.hpp>
+#include <fcppt/math/vector/output.hpp>
 
 namespace
 {

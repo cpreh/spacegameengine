@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "funit.hpp"
 #include <sge/model/object.hpp>
 #include <sge/model/istream.hpp>
-#include <sge/math/vector/static.hpp>
-#include <sge/math/vector/basic_decl.hpp>
+#include <fcppt/math/vector/static.hpp>
+#include <fcppt/math/vector/basic_decl.hpp>
 #include <tr1/array>
 #include <boost/cstdint.hpp>
 #include <vector>

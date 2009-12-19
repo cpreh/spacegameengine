@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "string_square.hpp"
 #include <sge/gui/unit.hpp>
-#include <sge/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <sge/text.hpp>
 
 sge::string const sge::gui::utility::string_square(dim const &s)

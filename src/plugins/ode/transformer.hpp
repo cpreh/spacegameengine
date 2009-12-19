@@ -5,7 +5,7 @@
 #include "dim.hpp"
 #include <sge/collision/optional_rect.hpp>
 #include <sge/collision/point.hpp>
-#include <sge/math/vector/basic_decl.hpp>
+#include <fcppt/math/vector/basic_decl.hpp>
 #include <sge/collision/dim.hpp>
 
 namespace sge

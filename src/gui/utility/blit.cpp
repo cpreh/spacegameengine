@@ -20,9 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "blit.hpp"
 #include "normalization.hpp"
-#include <sge/math/box/intersection.hpp>
-#include <sge/math/box/structure_cast.hpp>
-#include <sge/math/vector/arithmetic.hpp>
+#include <fcppt/math/box/intersection.hpp>
+#include <fcppt/math/box/structure_cast.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
 #include <sge/image/color/convert.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/algorithm/copy_and_convert.hpp>

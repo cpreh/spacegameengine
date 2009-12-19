@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "lock_method.hpp"
 #include <sge/renderer/texture.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/math/dim/basic_decl.hpp>
-#include <sge/math/box/basic_decl.hpp>
+#include <fcppt/math/dim/basic_decl.hpp>
+#include <fcppt/math/box/basic_decl.hpp>
 #include <sge/shared_ptr.hpp>
 #include <sge/optional.hpp>
 

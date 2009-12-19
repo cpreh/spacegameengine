@@ -26,10 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../pbo.hpp"
 #include "../color_convert.hpp"
 #include <sge/image/view/make.hpp>
-#include <sge/math/dim/output.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/math/box/basic_impl.hpp>
-#include <sge/math/box/output.hpp>
+#include <fcppt/math/dim/output.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/box/output.hpp>
 #include <sge/variant/object_impl.hpp>
 #include <sge/optional_impl.hpp>
 #include <sge/format.hpp>

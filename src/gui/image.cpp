@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/gui/image.hpp>
-#include <sge/math/dim/structure_cast.hpp>
-#include <sge/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 
 sge::gui::image::image()
 :

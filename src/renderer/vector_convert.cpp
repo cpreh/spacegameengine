@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/basic_any_vector.hpp>
 #include <sge/variant/apply_unary.hpp>
 #include <sge/variant/object_impl.hpp>
-#include <sge/math/vector/static.hpp>
-#include <sge/math/vector/basic_decl.hpp>
-#include <sge/math/vector/structure_cast.hpp>
+#include <fcppt/math/vector/static.hpp>
+#include <fcppt/math/vector/basic_decl.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
 #include <sge/export.hpp>
 
 namespace

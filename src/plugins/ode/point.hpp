@@ -1,7 +1,7 @@
 #ifndef SGE_ODE_POINT_HPP_INCLUDED
 #define SGE_ODE_POINT_HPP_INCLUDED
 
-#include <sge/math/vector/static.hpp>
+#include <fcppt/math/vector/static.hpp>
 #include <ode/ode.h>
 
 namespace sge

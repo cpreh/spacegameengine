@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "common.hpp"
 #include "target.hpp"
 #include <sge/renderer/bit_depth.hpp>
-#include <sge/math/vector/basic_decl.hpp>
-#include <sge/math/dim/basic_decl.hpp>
+#include <fcppt/math/vector/basic_decl.hpp>
+#include <fcppt/math/dim/basic_decl.hpp>
 
 namespace sge
 {
