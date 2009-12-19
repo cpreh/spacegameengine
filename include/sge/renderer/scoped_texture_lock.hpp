@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/image/view/object.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <sge/export.hpp>
 
 namespace sge
@@ -35,7 +35,7 @@ namespace renderer
 {
 
 class scoped_texture_lock {
-	SGE_NONCOPYABLE(scoped_texture_lock)
+	FCPPT_NONCOPYABLE(scoped_texture_lock)
 public:
 	SGE_SYMBOL scoped_texture_lock(
 		texture_ptr,

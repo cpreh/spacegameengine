@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/trampoline_fwd.hpp>
 #include <sge/renderer/state/var_fwd.hpp>
 #include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -38,7 +38,7 @@ template<
 	typename States
 >
 class trampoline {
-	SGE_NONCOPYABLE(trampoline)
+	FCPPT_NONCOPYABLE(trampoline)
 public:
 	typedef States state_type;
 	typedef var<T, state_type> var_type;

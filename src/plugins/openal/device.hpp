@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENAL_DEVICE_HPP_INCLUDED
 
 #include "openal.hpp"
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -30,7 +30,7 @@ namespace openal
 {
 class device
 {
-	SGE_NONCOPYABLE(device)
+	FCPPT_NONCOPYABLE(device)
 	public:
 	explicit device(ALCchar const * = 0);
 	ALCdevice *aldevice();

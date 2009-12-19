@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound_fwd.hpp>
 #include <sge/audio/pool_fwd.hpp>
 #include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -37,7 +37,7 @@ class listener;
 
 class SGE_CLASS_SYMBOL player {
 public:
-	SGE_NONCOPYABLE(player)
+	FCPPT_NONCOPYABLE(player)
 protected:
 	SGE_SYMBOL player();
 public:

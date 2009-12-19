@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/Xlib.h>
 #include <sge/x11/display_fwd.hpp>
 #include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -32,7 +32,7 @@ namespace x11
 {
 
 class pixmap {
-	SGE_NONCOPYABLE(pixmap)
+	FCPPT_NONCOPYABLE(pixmap)
 public:
 	SGE_SYMBOL pixmap(
 		display_ptr,

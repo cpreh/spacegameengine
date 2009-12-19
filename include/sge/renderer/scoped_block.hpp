@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -31,7 +31,7 @@ namespace renderer
 {
 
 class scoped_block {
-	SGE_NONCOPYABLE(scoped_block)
+	FCPPT_NONCOPYABLE(scoped_block)
 public:
 	SGE_SYMBOL explicit scoped_block(
 		device_ptr);

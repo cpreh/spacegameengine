@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #endif
 #elif SGE_WINDOWS_PLATFORM
 #include <sge/windows/windows.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 #else
 #error "Implement me!"
 #endif
@@ -50,7 +50,7 @@ sge::time::unit query_performance_counter();
 sge::time::unit large_int_to_time(LARGE_INTEGER);
 
 class initializer {
-	SGE_NONCOPYABLE(initializer)
+	FCPPT_NONCOPYABLE(initializer)
 public:
 	initializer();
 

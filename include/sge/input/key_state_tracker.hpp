@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key_pair_fwd.hpp>
 #include <sge/signal/scoped_connection.hpp>
 #include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <map>
 
 namespace sge
@@ -40,7 +40,7 @@ namespace input
 class key_pair;
 
 class key_state_tracker {
-	SGE_NONCOPYABLE(key_state_tracker)
+	FCPPT_NONCOPYABLE(key_state_tracker)
 public:
 	SGE_SYMBOL explicit key_state_tracker(
 		system_ptr);

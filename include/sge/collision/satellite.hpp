@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/collision/satellite_fwd.hpp>
 #include <sge/collision/point.hpp>
 #include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -32,7 +32,7 @@ namespace collision
 {
 class SGE_CLASS_SYMBOL satellite
 {
-	SGE_NONCOPYABLE(satellite)
+	FCPPT_NONCOPYABLE(satellite)
 protected:
 	SGE_SYMBOL satellite();
 public:

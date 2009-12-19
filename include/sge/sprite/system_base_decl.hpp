@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <fcppt/math/matrix/basic_decl.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -41,7 +41,7 @@ template<
 >
 class system_base
 {
-	SGE_NONCOPYABLE(system_base)
+	FCPPT_NONCOPYABLE(system_base)
 public:
 	typedef typename sprite::matrix<
 		typename Choices::type_choices::float_type

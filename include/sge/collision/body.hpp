@@ -4,7 +4,7 @@
 #include <sge/collision/shapes/base_fwd.hpp>
 #include <sge/collision/body_fwd.hpp>
 #include <sge/collision/point.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <sge/export.hpp>
 
 namespace sge
@@ -13,7 +13,7 @@ namespace collision
 {
 class SGE_CLASS_SYMBOL body
 {
-	SGE_NONCOPYABLE(body)
+	FCPPT_NONCOPYABLE(body)
 protected:
 	SGE_SYMBOL body();
 public:

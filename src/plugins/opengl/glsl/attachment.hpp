@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "attachment_fwd.hpp"
 #include "traits.hpp"
 #include "shader.hpp"
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -37,7 +37,7 @@ template<
 	bool Native
 >
 class attachment {
-	SGE_NONCOPYABLE(attachment)
+	FCPPT_NONCOPYABLE(attachment)
 public:
 	typedef typename shader<Native>::shared_ptr shader_ptr;
 	typedef typename traits<Native>::handle handle;

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/activation_state.hpp>
 #include <sge/time/expiration_state.hpp>
 #include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -37,7 +37,7 @@ namespace time
 class resolution;
 
 class timer {
-	SGE_NONCOPYABLE(timer)
+	FCPPT_NONCOPYABLE(timer)
 public:
 	typedef funit      frames_type;
 	typedef unit       interval_type;

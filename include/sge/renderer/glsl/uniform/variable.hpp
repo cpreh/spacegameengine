@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/uniform/variable_fwd.hpp>
 #include <sge/renderer/glsl/uniform/value.hpp>
 #include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -36,7 +36,7 @@ namespace uniform
 {
 
 class SGE_CLASS_SYMBOL variable {
-	SGE_NONCOPYABLE(variable)
+	FCPPT_NONCOPYABLE(variable)
 protected:
 	SGE_SYMBOL variable();
 public:

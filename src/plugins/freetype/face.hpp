@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "freetype.hpp"
 #include <sge/filesystem/path.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -33,7 +33,7 @@ namespace freetype
 class library;
 
 class face {
-	SGE_NONCOPYABLE(face)
+	FCPPT_NONCOPYABLE(face)
 public:
 	face(
 		library &,

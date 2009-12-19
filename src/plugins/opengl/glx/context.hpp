@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GLX_CONTEXT_HPP_INCLUDED
 
 #include <sge/x11/display_fwd.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <GL/glx.h>
 
 namespace sge
@@ -33,7 +33,7 @@ namespace glx
 {
 
 class context {
-	SGE_NONCOPYABLE(context)
+	FCPPT_NONCOPYABLE(context)
 public:
 	context(
 		sge::x11::display_ptr,

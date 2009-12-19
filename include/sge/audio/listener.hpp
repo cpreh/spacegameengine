@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/point.hpp>
 #include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -34,7 +34,7 @@ class angle;
 
 class SGE_CLASS_SYMBOL listener
 {
-	SGE_NONCOPYABLE(listener)
+	FCPPT_NONCOPYABLE(listener)
 protected:
 	SGE_SYMBOL listener();
 public:

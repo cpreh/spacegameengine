@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENAL_SOURCE_WRAPPER_HPP_INCLUDED
 
 #include "openal.hpp"
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -29,7 +29,7 @@ namespace openal
 {
 class source_wrapper
 {
-SGE_NONCOPYABLE(source_wrapper)
+FCPPT_NONCOPYABLE(source_wrapper)
 
 public:
 	source_wrapper();

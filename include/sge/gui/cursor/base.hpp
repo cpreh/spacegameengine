@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/point.hpp>
 #include <sge/gui/export.hpp>
 #include <sge/gui/depth_type.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -35,7 +35,7 @@ namespace cursor
 {
 class SGE_CLASS_SYMBOL base
 {
-	SGE_NONCOPYABLE(base)
+	FCPPT_NONCOPYABLE(base)
 protected:
 	SGE_GUI_SYMBOL base();
 public:

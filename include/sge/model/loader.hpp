@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/object_fwd.hpp>
 #include <sge/model/istream.hpp>
 #include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -32,7 +32,7 @@ namespace model
 {
 
 class SGE_CLASS_SYMBOL loader {
-	SGE_NONCOPYABLE(loader)
+	FCPPT_NONCOPYABLE(loader)
 protected:
 	SGE_SYMBOL loader();
 public:

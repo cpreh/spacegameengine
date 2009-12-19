@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -32,7 +32,7 @@ namespace x11
 {
 
 class wm_hints {
-	SGE_NONCOPYABLE(wm_hints)
+	FCPPT_NONCOPYABLE(wm_hints)
 public:
 	SGE_SYMBOL wm_hints();
 	SGE_SYMBOL ~wm_hints();

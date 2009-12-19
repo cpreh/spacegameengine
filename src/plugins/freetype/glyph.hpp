@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "freetype.hpp"
 #include FT_GLYPH_H
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -33,7 +33,7 @@ namespace freetype
 class face;
 
 class glyph {
-	SGE_NONCOPYABLE(glyph)
+	FCPPT_NONCOPYABLE(glyph)
 public:
 	explicit glyph(
 		face const &);

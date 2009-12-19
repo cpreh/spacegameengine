@@ -3,7 +3,7 @@
 
 #include <sge/collision/group_fwd.hpp>
 #include <sge/collision/body_fwd.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <sge/export.hpp>
 
 namespace sge
@@ -12,7 +12,7 @@ namespace collision
 {
 class SGE_CLASS_SYMBOL group
 {
-	SGE_NONCOPYABLE(group)
+	FCPPT_NONCOPYABLE(group)
 protected:
 	SGE_SYMBOL group();
 public:

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config.h>
 #include <sge/library/function_string.hpp>
 #include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <sge/filesystem/path.hpp>
 #ifdef SGE_WINDOWS_PLATFORM
 #include <sge/scoped_ptr.hpp>
@@ -36,7 +36,7 @@ namespace library
 {
 
 class object {
-	SGE_NONCOPYABLE(object)
+	FCPPT_NONCOPYABLE(object)
 public:
 	SGE_SYMBOL explicit object(
 		filesystem::path const &);

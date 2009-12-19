@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/collision/world_fwd.hpp>
 #include <sge/collision/optional_rect.hpp>
 #include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/optional.hpp>
 
 namespace sge
@@ -33,7 +33,7 @@ namespace collision
 {
 class SGE_CLASS_SYMBOL system
 {
-	SGE_NONCOPYABLE(system)
+	FCPPT_NONCOPYABLE(system)
 protected:
 	SGE_SYMBOL system();
 public:

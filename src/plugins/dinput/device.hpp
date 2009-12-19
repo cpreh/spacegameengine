@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/window_fwd.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/signal/scoped_connection.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <tr1/array>
 #include <cstddef>
 
@@ -36,7 +36,7 @@ namespace dinput
 {
 
 class device {
-	SGE_NONCOPYABLE(device)
+	FCPPT_NONCOPYABLE(device)
 public:
 	virtual void dispatch(signal_type &) = 0;
 	virtual ~device();

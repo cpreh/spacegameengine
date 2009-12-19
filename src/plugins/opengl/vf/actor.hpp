@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VF_ACTOR_HPP_INCLUDED
 
 #include "pointer.hpp"
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -35,7 +35,7 @@ class client_state_combiner;
 
 class actor {
 public:
-	SGE_NONCOPYABLE(actor)
+	FCPPT_NONCOPYABLE(actor)
 protected:
 	actor();
 public:

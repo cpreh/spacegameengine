@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "d3dinclude.hpp"
 #include <sge/renderer/vf/dynamic_format.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -32,7 +32,7 @@ namespace d3d9
 {
 
 class vertex_format {
-	SGE_NONCOPYABLE(vertex_format)
+	FCPPT_NONCOPYABLE(vertex_format)
 public:
 	vertex_format(
 		d3d_device_ptr device,

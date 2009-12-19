@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture_fwd.hpp>
 #include <sge/input/system_fwd.hpp>
 #include <sge/time/resolution.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <sge/scoped_ptr.hpp>
 #include <vector>
 
@@ -50,7 +50,7 @@ namespace gui
 {
 class manager
 {
-	SGE_NONCOPYABLE(manager)
+	FCPPT_NONCOPYABLE(manager)
 	public:
 	SGE_GUI_SYMBOL manager(
 		renderer::device_ptr,

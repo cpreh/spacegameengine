@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/image/view/const_object.hpp>
 #include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/texture/part_fwd.hpp>
 
 namespace sge
@@ -36,7 +36,7 @@ namespace texture
 class fragmented;
 
 class SGE_CLASS_SYMBOL part {
-	SGE_NONCOPYABLE(part)
+	FCPPT_NONCOPYABLE(part)
 protected:
 	SGE_SYMBOL part();
 public:

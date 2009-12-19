@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PLUGIN_BASE_HPP_INCLUDED
 
 #include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -31,7 +31,7 @@ namespace plugin
 
 class base {
 public:
-	SGE_NONCOPYABLE(base)
+	FCPPT_NONCOPYABLE(base)
 protected:
 	SGE_SYMBOL base();
 public:

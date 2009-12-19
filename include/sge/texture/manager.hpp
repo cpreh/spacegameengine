@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/texture/detail/container_position.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/image/view/const_object.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <sge/export.hpp>
 #include <sge/function/object.hpp>
 
@@ -38,7 +38,7 @@ namespace texture
 class fragmented;
 
 class manager {
-	SGE_NONCOPYABLE(manager)
+	FCPPT_NONCOPYABLE(manager)
 public:
 	typedef sge::function::object<
 		fragmented_auto_ptr ()

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VBO_BASE_HPP_INCLUDED
 
 #include "common.hpp"
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -31,7 +31,7 @@ namespace opengl
 
 class vbo_base
 {
-	SGE_NONCOPYABLE(vbo_base)
+	FCPPT_NONCOPYABLE(vbo_base)
 protected:
 	vbo_base();
 public:

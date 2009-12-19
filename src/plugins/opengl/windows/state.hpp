@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/window_fwd.hpp>
 #include <sge/renderer/adapter_type.hpp>
 #include <sge/window/instance_fwd.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -42,7 +42,7 @@ namespace windows
 {
 
 class state {
-	SGE_NONCOPYABLE(state)
+	FCPPT_NONCOPYABLE(state)
 public:
 	state(
 		renderer::parameters const &,

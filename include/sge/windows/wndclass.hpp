@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_WINDOWS_WNDCLASS_HPP_INCLUDED
 
 #include <sge/windows/windows.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <sge/string.hpp>
 #include <sge/export.hpp>
 
@@ -32,7 +32,7 @@ namespace windows
 {
 
 class wndclass {
-	SGE_NONCOPYABLE(wndclass)
+	FCPPT_NONCOPYABLE(wndclass)
 public:
 	SGE_SYMBOL wndclass(
 		string const &class_name,

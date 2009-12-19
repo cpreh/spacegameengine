@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/windows.hpp>
 #include <sge/iconv.hpp>
 #include <sge/auto_ptr.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <exception>
 #elif SGE_POSIX_PLATFORM
@@ -47,7 +47,7 @@ void free_library(
 }
 
 struct context {
-	SGE_NONCOPYABLE(context);
+	FCPPT_NONCOPYABLE(context);
 public:
 	explicit context(
 		HMODULE const hinst)
@@ -72,7 +72,7 @@ library_vector libraries;
 }
 
 struct sge::library::object::destroyer {
-	SGE_NONCOPYABLE(destroyer)
+	FCPPT_NONCOPYABLE(destroyer)
 public:
 	destroyer()
 	{

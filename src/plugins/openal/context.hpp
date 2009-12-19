@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENAL_CONTEXT_HPP_INCLUDED
 
 #include "openal.hpp"
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <vector>
 #include <utility>
 
@@ -34,7 +34,7 @@ class device;
 
 class context
 {
-	SGE_NONCOPYABLE(context)
+	FCPPT_NONCOPYABLE(context)
 	public:
 	typedef std::vector< std::pair<ALCint,ALCint> > attribute_container;
 	context(device &,attribute_container const & = attribute_container());

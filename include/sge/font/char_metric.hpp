@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/pos.hpp>
 #include <sge/font/unit.hpp>
 #include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -33,7 +33,7 @@ namespace font
 {
 
 class SGE_CLASS_SYMBOL char_metric {
-	SGE_NONCOPYABLE(char_metric)
+	FCPPT_NONCOPYABLE(char_metric)
 protected:
 	SGE_SYMBOL char_metric();
 public:

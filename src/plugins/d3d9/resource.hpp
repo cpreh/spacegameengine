@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_RESOURCE_HPP_INCLUDED
 #define SGE_D3D9_RESOURCE_HPP_INCLUDED
 
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <boost/intrusive/list_hook.hpp>
 
 namespace sge
@@ -37,7 +37,7 @@ class resource
 		>
 	>
 {
-	SGE_NONCOPYABLE(resource);
+	FCPPT_NONCOPYABLE(resource);
 public:
 	resource();
 	virtual void on_loss();

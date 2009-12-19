@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -32,7 +32,7 @@ namespace renderer
 {
 
 class SGE_CLASS_SYMBOL texture_base {
-	SGE_NONCOPYABLE(texture_base)
+	FCPPT_NONCOPYABLE(texture_base)
 protected:
 	SGE_SYMBOL texture_base();
 public:

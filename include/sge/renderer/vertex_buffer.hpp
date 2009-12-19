@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -39,7 +39,7 @@ class dynamic_format;
 }
 
 class SGE_CLASS_SYMBOL vertex_buffer {
-	SGE_NONCOPYABLE(vertex_buffer)
+	FCPPT_NONCOPYABLE(vertex_buffer)
 protected:
 	SGE_SYMBOL vertex_buffer();
 public:

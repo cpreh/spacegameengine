@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/category_array.hpp>
 #include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <vector>
 #include <map>
 #include <cstddef>
@@ -46,7 +46,7 @@ class manager {
 	typedef std::vector<context_base> plugin_array;
 	typedef std::map<capabilities::type, category_array> plugin_map;
 
-	SGE_NONCOPYABLE(manager)
+	FCPPT_NONCOPYABLE(manager)
 public:
 	typedef std::size_t size_type;
 

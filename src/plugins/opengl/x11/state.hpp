@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/visual_fwd.hpp>
 #include <sge/x11/display_fwd.hpp>
 #include <sge/scoped_ptr.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -51,7 +51,7 @@ namespace x11
 {
 
 class state {
-	SGE_NONCOPYABLE(state)
+	FCPPT_NONCOPYABLE(state)
 public:
 	state(
 		renderer::parameters const &,

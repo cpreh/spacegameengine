@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DEVIL_IMAGE_IMPL_HPP_INCLUDED
 
 #include <IL/il.h>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -30,7 +30,7 @@ namespace devil
 {
 
 class image_impl {
-	SGE_NONCOPYABLE(image_impl)
+	FCPPT_NONCOPYABLE(image_impl)
 public:
 	image_impl();
 	~image_impl();

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/file_fwd.hpp>
 #include <sge/filesystem/path.hpp>
 #include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <sge/extension_set.hpp>
 
 namespace sge
@@ -33,7 +33,7 @@ namespace audio
 {
 
 class SGE_CLASS_SYMBOL loader {
-	SGE_NONCOPYABLE(loader)
+	FCPPT_NONCOPYABLE(loader)
 protected:
 	SGE_SYMBOL loader();
 public:

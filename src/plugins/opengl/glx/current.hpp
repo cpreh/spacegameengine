@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "context_fwd.hpp"
 #include <sge/x11/display_fwd.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -40,7 +40,7 @@ namespace glx
 {
 
 class current {
-	SGE_NONCOPYABLE(current)
+	FCPPT_NONCOPYABLE(current)
 public:
 	current(
 		sge::x11::display_ptr,

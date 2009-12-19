@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/Xlib.h>
 #include <X11/extensions/xf86vmode.h>
 #include <sge/x11/display_fwd.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -34,7 +34,7 @@ namespace xf86vmode
 {
 
 class resolution {
-	SGE_NONCOPYABLE(resolution)
+	FCPPT_NONCOPYABLE(resolution)
 public:
 	resolution(
 		sge::x11::display_ptr,

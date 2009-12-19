@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_pos.hpp>
 #include <sge/renderer/raw_value.hpp>
 #include <sge/container/raw_vector_decl.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -34,7 +34,7 @@ namespace opengl
 {
 
 class target : public sge::renderer::target {
-	SGE_NONCOPYABLE(target)
+	FCPPT_NONCOPYABLE(target)
 protected:
 	target();
 public:

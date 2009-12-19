@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <X11/Xlib.h>
 #include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -31,7 +31,7 @@ namespace x11
 {
 
 class SGE_CLASS_SYMBOL display {
-	SGE_NONCOPYABLE(display)
+	FCPPT_NONCOPYABLE(display)
 public:
 	SGE_SYMBOL display();
 	SGE_SYMBOL ~display();

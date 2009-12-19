@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11_SENTRY_HPP_INCLUDED
 #define SGE_X11_SENTRY_HPP_INCLUDED
 
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <sge/export.hpp>
 #include <string>
 
@@ -31,7 +31,7 @@ namespace x11
 {
 
 class sentry {
-	SGE_NONCOPYABLE(sentry)
+	FCPPT_NONCOPYABLE(sentry)
 public:
 	SGE_SYMBOL sentry(
 		std::string const &file_name,

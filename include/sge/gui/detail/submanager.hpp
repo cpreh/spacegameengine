@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/depth_type.hpp>
 #include <sge/gui/point.hpp>
 #include <sge/gui/rect.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -38,7 +38,7 @@ namespace detail
 {
 class submanager
 {
-	SGE_NONCOPYABLE(submanager)
+	FCPPT_NONCOPYABLE(submanager)
 	protected:
 	submanager();
 	public:

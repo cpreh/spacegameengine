@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MULTI_LOADER_HPP_INCLUDED
 #define SGE_MULTI_LOADER_HPP_INCLUDED
 
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <sge/shared_ptr.hpp>
 #include <sge/export.hpp>
 #include <sge/plugin/manager_fwd.hpp>
@@ -39,7 +39,7 @@ template<
 >
 class multi_loader
 {
-	SGE_NONCOPYABLE(multi_loader)
+	FCPPT_NONCOPYABLE(multi_loader)
 public:
 	typedef Loader loader;
 	typedef File file;

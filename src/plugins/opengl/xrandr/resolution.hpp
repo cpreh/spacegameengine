@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "mode.hpp"
 #include "configuration_fwd.hpp"
 #include <sge/x11/window_fwd.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -34,7 +34,7 @@ namespace xrandr
 {
 
 class resolution {
-	SGE_NONCOPYABLE(resolution)
+	FCPPT_NONCOPYABLE(resolution)
 public:
 	resolution(
 		sge::x11::window_ptr,

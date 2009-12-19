@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/const_object.hpp>
 #include <sge/export.hpp>
 #include <sge/scoped_ptr.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -40,7 +40,7 @@ class SGE_CLASS_SYMBOL texture_rw
 :
 	public texture
 {
-	SGE_NONCOPYABLE(texture_rw)
+	FCPPT_NONCOPYABLE(texture_rw)
 public:
 	SGE_SYMBOL texture_rw(
 		texture_ptr read,

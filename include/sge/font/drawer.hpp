@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/image_view.hpp>
 #include <sge/export.hpp>
 #include <sge/char_type.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <cstddef>
 
 namespace sge
@@ -35,7 +35,7 @@ namespace font
 {
 
 class SGE_CLASS_SYMBOL drawer {
-	SGE_NONCOPYABLE(drawer)
+	FCPPT_NONCOPYABLE(drawer)
 public:
 	typedef std::size_t size_type;
 

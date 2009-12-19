@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/base.hpp>
 #include <sge/library/object.hpp>
 #include <sge/filesystem/path.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <sge/shared_ptr.hpp>
 #include <sge/export.hpp>
 
@@ -36,7 +36,7 @@ namespace plugin
 
 template<typename T>
 class plugin : public base {
-	SGE_NONCOPYABLE(plugin)
+	FCPPT_NONCOPYABLE(plugin)
 public:
 	typedef typename detail::traits<T>::loader_fun loader_fun;
 	typedef shared_ptr<plugin<T> > ptr_type;

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GLSL_PROGRAM_INSTANCE_HPP_INCLUDED
 
 #include "traits.hpp"
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -35,7 +35,7 @@ template<
 	bool Native
 >
 class program_instance {
-	SGE_NONCOPYABLE(program_instance)
+	FCPPT_NONCOPYABLE(program_instance)
 public:
 	typedef typename traits<Native>::handle handle;
 

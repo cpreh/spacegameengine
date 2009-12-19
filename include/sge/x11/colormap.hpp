@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/display_fwd.hpp>
 #include <sge/x11/visual_fwd.hpp>
 #include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -33,7 +33,7 @@ namespace x11
 {
 
 class colormap {
-	SGE_NONCOPYABLE(colormap)
+	FCPPT_NONCOPYABLE(colormap)
 public:
 	SGE_SYMBOL colormap(
 		display_ptr,

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/detail/npos.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <sge/export.hpp>
 
 namespace sge
@@ -39,7 +39,7 @@ template<
 	typename View
 >
 class scoped_buffer_lock {
-	SGE_NONCOPYABLE(scoped_buffer_lock)
+	FCPPT_NONCOPYABLE(scoped_buffer_lock)
 public:
 	SGE_SYMBOL scoped_buffer_lock(
 		Ptr,

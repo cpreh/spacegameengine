@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "lock_method.hpp"
 #include <sge/renderer/raw_value.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -32,7 +32,7 @@ namespace opengl
 {
 
 class texture_lock {
-	SGE_NONCOPYABLE(texture_lock)
+	FCPPT_NONCOPYABLE(texture_lock)
 protected:
 	texture_lock();
 public:

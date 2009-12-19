@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/var_base_fwd.hpp>
 #include <sge/signal/auto_connection.hpp>
 #include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -36,7 +36,7 @@ namespace console
 
 class SGE_CLASS_SYMBOL object
 {
-	SGE_NONCOPYABLE(object)
+	FCPPT_NONCOPYABLE(object)
 public:
 	SGE_SYMBOL explicit object(
 		string::value_type prefix

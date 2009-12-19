@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/windows/windows.hpp>
 #include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -31,7 +31,7 @@ namespace windows
 {
 
 class gdi_device {
-	SGE_NONCOPYABLE(gdi_device)
+	FCPPT_NONCOPYABLE(gdi_device)
 public:
 	class get_tag{};
 	SGE_SYMBOL gdi_device(

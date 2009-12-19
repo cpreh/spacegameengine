@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/dim_type.hpp>
 #include <sge/image/view/const_object.hpp>
 #include <sge/filesystem/path.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <sge/export.hpp>
 
 namespace sge
@@ -33,7 +33,7 @@ namespace image
 {
 
 class SGE_CLASS_SYMBOL file {
-	SGE_NONCOPYABLE(file)
+	FCPPT_NONCOPYABLE(file)
 protected:
 	SGE_SYMBOL file();
 public:

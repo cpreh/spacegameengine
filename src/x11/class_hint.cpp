@@ -19,14 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/x11/class_hint.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/text.hpp>
 #include <sge/iconv.hpp>
 
 class sge::x11::class_hint::impl {
 public:
-	SGE_NONCOPYABLE(impl)
+	FCPPT_NONCOPYABLE(impl)
 public:
 	impl();
 	~impl();

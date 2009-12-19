@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/intrusive/detail/level_map.hpp>
 #include <sge/sprite/intrusive/adder_base.hpp>
 #include <sge/sprite/object_fwd.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -42,7 +42,7 @@ class adder
 		Choices
 	>
 {
-	SGE_NONCOPYABLE(adder)
+	FCPPT_NONCOPYABLE(adder)
 public:
 	typedef typename detail::level_map<
 		Choices

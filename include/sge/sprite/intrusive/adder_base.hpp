@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/intrusive/order.hpp>
 #include <sge/sprite/object_fwd.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -37,7 +37,7 @@ template<
 >
 class adder_base
 {
-	SGE_NONCOPYABLE(adder_base)
+	FCPPT_NONCOPYABLE(adder_base)
 protected:
 	adder_base()
 	{}

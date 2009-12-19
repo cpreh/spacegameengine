@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/signal/scoped_connection.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/external_system_decl.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -45,7 +45,7 @@ namespace console
 
 class gfx
 {
-	SGE_NONCOPYABLE(gfx)
+	FCPPT_NONCOPYABLE(gfx)
 public:
 	SGE_SYMBOL gfx(
 		sge::console::object &,
