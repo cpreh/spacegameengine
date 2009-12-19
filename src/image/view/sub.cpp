@@ -95,7 +95,7 @@ sub_impl(
 	sge::image::rect const &r
 )
 {
-	return sge::variant::apply_unary(
+	return fcppt::variant::apply_unary(
 		visitor<View>(
 			r
 		),

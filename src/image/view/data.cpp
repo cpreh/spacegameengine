@@ -80,7 +80,7 @@ Dest
 data_impl(
 	View const &v)
 {
-	return sge::variant::apply_unary(
+	return fcppt::variant::apply_unary(
 		visitor<Dest>(),
 		v
 	);

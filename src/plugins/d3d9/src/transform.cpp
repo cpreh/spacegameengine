@@ -45,7 +45,7 @@ D3DMATRIX const
 convert_matrix(
 	sge::renderer::any_matrix const &m)
 {
-	return sge::variant::apply_unary(
+	return fcppt::variant::apply_unary(
 		visitor(),
 		m
 	);

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/variant/invalid_apply.hpp>
 #include <fcppt/text.hpp>
 
-sge::variant::invalid_apply::invalid_apply()
+fcppt::variant::invalid_apply::invalid_apply()
 :
 	exception(
 		FCPPT_TEXT("apply has been called on a variant that is empty!")

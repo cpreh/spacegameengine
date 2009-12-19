@@ -169,7 +169,7 @@ visitor::result_type
 visitor::operator()(
 	sge::renderer::glsl::uniform::vector const &v) const
 {
-	sge::variant::apply_unary(
+	fcppt::variant::apply_unary(
 		vector_visitor(
 			var
 		),
