@@ -36,7 +36,7 @@ sge::opengl::vf::normal_actor::normal_actor(
 {
 	if(index() > 0)
 		throw renderer::exception(
-			SGE_TEXT("opengl does not support more than one normal type in the vertex format!")
+			FCPPT_TEXT("opengl does not support more than one normal type in the vertex format!")
 		);
 }
 
@@ -50,7 +50,7 @@ void sge::opengl::vf::normal_actor::operator()(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glNormalPointer failed"),
+		FCPPT_TEXT("glNormalPointer failed"),
 		sge::renderer::exception
 	)
 

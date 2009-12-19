@@ -32,26 +32,26 @@ sge::opengl::texture_lock::pointer
 sge::opengl::texture_lock::write_pointer() const
 {
 	throw exception(
-		SGE_TEXT("Can't get a write pointer to a lock!"));
+		FCPPT_TEXT("Can't get a write pointer to a lock!"));
 }
 
 sge::opengl::texture_lock::pointer
 sge::opengl::texture_lock::read_pointer() const
 {
 	throw exception(
-		SGE_TEXT("Can't get a read pointer to a lock!"));
+		FCPPT_TEXT("Can't get a read pointer to a lock!"));
 }
 
 sge::opengl::texture_lock::pointer
 sge::opengl::texture_lock::real_write_pointer()
 {
 	throw exception(
-		SGE_TEXT("Can't get a real write pointer to a lock!"));
+		FCPPT_TEXT("Can't get a real write pointer to a lock!"));
 }
 
 sge::opengl::texture_lock::const_pointer
 sge::opengl::texture_lock::real_read_pointer() const
 {
 	throw exception(
-		SGE_TEXT("Can't get a real read pointer to a lock!"));
+		FCPPT_TEXT("Can't get a real read pointer to a lock!"));
 }

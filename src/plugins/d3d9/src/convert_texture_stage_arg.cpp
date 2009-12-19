@@ -42,7 +42,7 @@ sge::d3d9::convert_texture_stage_arg(
 		return D3DTSS_ALPHAARG2;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid texture_stage_arg!")
+			FCPPT_TEXT("Invalid texture_stage_arg!")
 		);
 	}
 }

@@ -28,10 +28,10 @@ sge::renderer::vf::dynamic_format::dynamic_format(
 {
 	if(elem.size() + 1 != offs.size())
 		throw exception(
-			SGE_TEXT("dynamic_format: Invalid sizes of vectors!"));
+			FCPPT_TEXT("dynamic_format: Invalid sizes of vectors!"));
 	if(elem.empty() || offs.empty())
 		throw exception(
-			SGE_TEXT("dynamic_format: Format cannot be empty!"));
+			FCPPT_TEXT("dynamic_format: Format cannot be empty!"));
 	for(dynamic_element_list::size_type i(0); i < elem.size(); ++i)
 		elements_.push_back(
 			dynamic_ordered_element(

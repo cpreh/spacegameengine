@@ -118,7 +118,7 @@ void glmaterialfv(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glMaterialfv failed"),
+		FCPPT_TEXT("glMaterialfv failed"),
 		sge::renderer::exception
 	)
 }
@@ -135,7 +135,7 @@ void glmaterialf(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glMaterialf failed"),
+		FCPPT_TEXT("glMaterialf failed"),
 		sge::renderer::exception
 	)
 }

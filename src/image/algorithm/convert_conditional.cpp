@@ -64,7 +64,7 @@ sge::image::algorithm::convert_conditional(
 
 	if(it == formats.end())
 		throw exception(
-			SGE_TEXT("No suitable color format in convert_conditional!"));
+			FCPPT_TEXT("No suitable color format in convert_conditional!"));
 
 	copy_and_convert(
 		view::make_const(

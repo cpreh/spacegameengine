@@ -27,7 +27,7 @@ void sge::opengl::initialize_glew()
 {
 	if(glewInit() != GLEW_OK)
 		throw exception(
-			SGE_TEXT("glewInit() failed!"));
+			FCPPT_TEXT("glewInit() failed!"));
 }
 
 bool sge::opengl::glew_is_supported(

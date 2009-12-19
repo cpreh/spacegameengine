@@ -27,22 +27,22 @@ sge::opengl::error_string(
 {
 	switch(what) {
 	case GL_NO_ERROR:
-		return SGE_TEXT("GL_NO_ERROR");
+		return FCPPT_TEXT("GL_NO_ERROR");
 	case GL_INVALID_ENUM:
-		return SGE_TEXT("GL_INVALID_ENUM");
+		return FCPPT_TEXT("GL_INVALID_ENUM");
 	case GL_INVALID_VALUE:
-		return SGE_TEXT("GL_INVALID_VALUE");
+		return FCPPT_TEXT("GL_INVALID_VALUE");
 	case GL_INVALID_OPERATION:
-		return SGE_TEXT("GL_INVALID_OPERATION");
+		return FCPPT_TEXT("GL_INVALID_OPERATION");
 	case GL_STACK_OVERFLOW:
-		return SGE_TEXT("GL_STACK_OVERFLOW");
+		return FCPPT_TEXT("GL_STACK_OVERFLOW");
 	case GL_STACK_UNDERFLOW:
-		return SGE_TEXT("GL_STACK_UNDERFLOW");
+		return FCPPT_TEXT("GL_STACK_UNDERFLOW");
 	case GL_OUT_OF_MEMORY:
-		return SGE_TEXT("GL_OUT_OF_MEMORY");
+		return FCPPT_TEXT("GL_OUT_OF_MEMORY");
 	case GL_TABLE_TOO_LARGE:
-		return SGE_TEXT("GL_TABLE_TOO_LARGE");
+		return FCPPT_TEXT("GL_TABLE_TOO_LARGE");
 	default:
-		return SGE_TEXT("Unknown");
+		return FCPPT_TEXT("Unknown");
 	}
 }

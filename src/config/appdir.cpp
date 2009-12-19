@@ -49,7 +49,7 @@ sge::config::appdir()
 		)
 	)
 		throw exception(
-			SGE_TEXT("GetModuleFileName() failed!")
+			FCPPT_TEXT("GetModuleFileName() failed!")
 		);
 
 	return filesystem::remove_filename(
@@ -68,7 +68,7 @@ sge::config::appdir()
 		)
 	)
 		throw exception(
-			SGE_TEXT("/prof/self/exe does not exist")
+			FCPPT_TEXT("/prof/self/exe does not exist")
 		);
 
 	return filesystem::remove_filename(
@@ -78,7 +78,7 @@ sge::config::appdir()
 	);
 #else
 	throw exception(
-		SGE_TEXT("Can't find the application's path!")
+		FCPPT_TEXT("Can't find the application's path!")
 	);
 #endif
 }

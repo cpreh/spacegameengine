@@ -29,13 +29,13 @@ sge::libpng::load_context::load_context(
 		throw
 			image::file_exception(
 				_path,
-				SGE_TEXT("couldn't open file"));
+				FCPPT_TEXT("couldn't open file"));
 
 	if (!is_png())
 		throw
 			image::unsupported_format(
 				_path,
-				SGE_TEXT("not a png file")
+				FCPPT_TEXT("not a png file")
 			);
 
 	read_ptr_.reset(
@@ -85,13 +85,13 @@ sge::libpng::load_context::load_context(
 			read_ptr_->info());
 	SGE_LOG_DEBUG(
 		log::global(),
-		log::_ << SGE_TEXT("png: dimensions: ") << dim_);
+		log::_ << FCPPT_TEXT("png: dimensions: ") << dim_);
 	SGE_LOG_DEBUG(
 		log::global(),
-		log::_ << SGE_TEXT("png: bit depth: ") << static_cast<int>(bpp));
+		log::_ << FCPPT_TEXT("png: bit depth: ") << static_cast<int>(bpp));
 	SGE_LOG_DEBUG(
 		log::global(),
-		log::_ << SGE_TEXT("png: channels: ") << static_cast<int>(cs));
+		log::_ << FCPPT_TEXT("png: channels: ") << static_cast<int>(cs));
 
 	if (color_type == PNG_COLOR_TYPE_PALETTE)
 	{
@@ -201,12 +201,12 @@ void sge::libpng::load_context::handle_read_impl(
 		throw
 			image::file_exception(
 				path_,
-				SGE_TEXT("didn't read as many bytes as supposed to"));
+				FCPPT_TEXT("didn't read as many bytes as supposed to"));
 	if (!file_)
 		throw
 			image::file_exception(
 				path_,
-				SGE_TEXT("reading failed"));
+				FCPPT_TEXT("reading failed"));
 }
 
 sge::image::color::format::type sge::libpng::load_context::convert_format() const
@@ -219,16 +219,16 @@ sge::image::color::format::type sge::libpng::load_context::convert_format() cons
 		case PNG_COLOR_TYPE_GRAY:
 			return convert_gray_format();
 		case PNG_COLOR_TYPE_GRAY_ALPHA:
-			throw image::unsupported_format(path_,SGE_TEXT("gray alpha"));
+			throw image::unsupported_format(path_,FCPPT_TEXT("gray alpha"));
 		break;
 		case PNG_COLOR_TYPE_PALETTE:
-			throw image::unsupported_format(path_,SGE_TEXT("palette"));
+			throw image::unsupported_format(path_,FCPPT_TEXT("palette"));
 		case PNG_COLOR_TYPE_RGB:
 			return convert_rgb_format();
 		case PNG_COLOR_TYPE_RGB_ALPHA:
 			return convert_rgba_format();
 	}
-	throw image::unsupported_format(path_,SGE_TEXT("unknown format"));
+	throw image::unsupported_format(path_,FCPPT_TEXT("unknown format"));
 }
 
 sge::image::color::format::type sge::libpng::load_context::convert_gray_format() const
@@ -238,7 +238,7 @@ sge::image::color::format::type sge::libpng::load_context::convert_gray_format()
 			read_ptr_->ptr(),
 			read_ptr_->info());
 	if (depth != 8)
-		throw image::unsupported_format(path_,SGE_TEXT("gray, ")+lexical_cast<string>(depth)+SGE_TEXT(" bits per pixel"));
+		throw image::unsupported_format(path_,FCPPT_TEXT("gray, ")+lexical_cast<string>(depth)+FCPPT_TEXT(" bits per pixel"));
 	return sge::image::color::format::gray8;
 }
 
@@ -248,7 +248,7 @@ sge::image::color::format::type sge::libpng::load_context::convert_rgb_format() 
 		png_get_bit_depth(
 			read_ptr_->ptr(),
 			read_ptr_->info());
-	throw image::unsupported_format(path_,SGE_TEXT("rgb, ")+lexical_cast<string>(depth)+SGE_TEXT(" bits"));
+	throw image::unsupported_format(path_,FCPPT_TEXT("rgb, ")+lexical_cast<string>(depth)+FCPPT_TEXT(" bits"));
 }
 
 sge::image::color::format::type sge::libpng::load_context::convert_rgba_format() const
@@ -258,6 +258,6 @@ sge::image::color::format::type sge::libpng::load_context::convert_rgba_format()
 			read_ptr_->ptr(),
 			read_ptr_->info());
 	if (depth != 8)
-		throw image::unsupported_format(path_,SGE_TEXT("rgb, ")+lexical_cast<string>(depth)+SGE_TEXT(" bits"));
+		throw image::unsupported_format(path_,FCPPT_TEXT("rgb, ")+lexical_cast<string>(depth)+FCPPT_TEXT(" bits"));
 	return sge::image::color::format::rgba8;
 }

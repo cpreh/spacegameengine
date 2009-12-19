@@ -57,7 +57,7 @@ public:
 		U) const
 	{
 		throw sge::exception(
-			SGE_TEXT("Incompatible index::views in index::copy!")
+			FCPPT_TEXT("Incompatible index::views in index::copy!")
 		);
 	}
 };

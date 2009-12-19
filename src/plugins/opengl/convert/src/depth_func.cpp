@@ -49,6 +49,6 @@ sge::opengl::convert::depth_func(
 	}
 
 	throw exception(
-		SGE_TEXT("Invalid depth_func!")
+		FCPPT_TEXT("Invalid depth_func!")
 	);
 }

@@ -49,7 +49,7 @@ sge::opengl::convert::alpha_func(
 	}
 
 	throw exception(
-		SGE_TEXT("Invalid alpha_func!")
+		FCPPT_TEXT("Invalid alpha_func!")
 	);
 }
 

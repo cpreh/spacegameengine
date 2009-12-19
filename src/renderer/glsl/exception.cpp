@@ -26,7 +26,7 @@ sge::renderer::glsl::exception::exception(
 )
 :
 	renderer::exception(
-		SGE_TEXT("glsl: ")
+		FCPPT_TEXT("glsl: ")
 		+ s
 	)
 {}

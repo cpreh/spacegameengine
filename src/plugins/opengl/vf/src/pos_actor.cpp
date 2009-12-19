@@ -42,7 +42,7 @@ sge::opengl::vf::pos_actor::pos_actor(
 {
 	if(index() > 0)
 		throw renderer::exception(
-			SGE_TEXT("opengl does not support more than one pos type in the vertex format!")
+			FCPPT_TEXT("opengl does not support more than one pos type in the vertex format!")
 		);
 }
 
@@ -57,7 +57,7 @@ void sge::opengl::vf::pos_actor::operator()(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glVertexPointer failed"),
+		FCPPT_TEXT("glVertexPointer failed"),
 		sge::renderer::exception
 	)
 

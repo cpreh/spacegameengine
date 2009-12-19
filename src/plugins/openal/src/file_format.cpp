@@ -36,11 +36,11 @@ ALenum sge::openal::file_format(audio::file const &file)
 		return AL_FORMAT_STEREO16;
 
 	throw audio::exception(
-		SGE_TEXT("OpenAL error: Format not supported: ")
+		FCPPT_TEXT("OpenAL error: Format not supported: ")
 		+ lexical_cast<string>(file.bits_per_sample())
-		+ SGE_TEXT(" bps, ")
+		+ FCPPT_TEXT(" bps, ")
 		+ lexical_cast<string>(file.channels())
-		+ SGE_TEXT(" channels"));
+		+ FCPPT_TEXT(" channels"));
 
 	return AL_FORMAT_MONO8;
 }

@@ -56,7 +56,7 @@ void sge::audio::pool::update()
 			case stop_mode::continue_playing:
 				SGE_ASSERT_MESSAGE(
 					s->first->status() != audio::sound_status::paused,
-					SGE_TEXT("a paused sound was destroyed but kept alive by the sound pool"));
+					FCPPT_TEXT("a paused sound was destroyed but kept alive by the sound pool"));
 
 				if (s->first->status() != audio::sound_status::stopped)
 				{
@@ -67,7 +67,7 @@ void sge::audio::pool::update()
 			case stop_mode::play_once:
 				SGE_ASSERT_MESSAGE(
 					s->first->status() != audio::sound_status::paused,
-					SGE_TEXT("a paused sound was destroyed but kept alive by the sound pool"));
+					FCPPT_TEXT("a paused sound was destroyed but kept alive by the sound pool"));
 
 				if (s->first->status() != audio::sound_status::stopped)
 				{
@@ -76,7 +76,7 @@ void sge::audio::pool::update()
 						SGE_LOG_WARNING(
 							log::global(),
 							log::_
-								<< SGE_TEXT("got a looping sound, setting to play only once"));
+								<< FCPPT_TEXT("got a looping sound, setting to play only once"));
 						s->first->play(play_mode::once);
 					}
 					s++;

@@ -46,7 +46,7 @@ sge::x11::pixmap::pixmap(
 {
 	if(get() == None)
 		throw exception(
-			SGE_TEXT("XCreateBitmapFromData() failed!"));
+			FCPPT_TEXT("XCreateBitmapFromData() failed!"));
 }
 
 sge::x11::pixmap::~pixmap()

@@ -26,7 +26,7 @@ sge::chrono::exception::exception(
 )
 :
 	sge::exception(
-		SGE_TEXT("chrono: ")
+		FCPPT_TEXT("chrono: ")
 		+ s
 	)
 {}

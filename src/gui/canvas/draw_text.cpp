@@ -49,7 +49,7 @@ void sge::gui::canvas::object::draw_text(
 			std::count(
 				text.begin(),
 				text.begin()+(*cp)+1,
-				SGE_TEXT('\n'));
+				FCPPT_TEXT('\n'));
 
 		cp = (*cp) - filter;
 	}

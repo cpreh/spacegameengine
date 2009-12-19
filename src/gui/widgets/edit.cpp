@@ -49,14 +49,14 @@ namespace
 sge::log::object mylogger(
 	sge::log::parameters::inherited(
 		sge::gui::widgets::global_log(),
-		SGE_TEXT("edit")
+		FCPPT_TEXT("edit")
 	)
 );
 
 sge::log::object mygraphlogger(
 	sge::log::parameters::inherited(
 		sge::gui::widgets::global_log(),
-		SGE_TEXT("editgraph")
+		FCPPT_TEXT("editgraph")
 	)
 );
 
@@ -174,7 +174,7 @@ void sge::gui::widgets::edit::blink_callback()
 	cursor_visible_ = !cursor_visible_;
 	SGE_LOG_DEBUG(
 		mygraphlogger,
-		log::_ << SGE_TEXT("blinking cursor, visibility: ") << cursor_visible_);
+		log::_ << FCPPT_TEXT("blinking cursor, visibility: ") << cursor_visible_);
 	parent_manager().dirty(
 		*this,
 		rect(
@@ -188,7 +188,7 @@ void sge::gui::widgets::edit::resize(dim const &d) const
 
 	if (text_size.w() > d.w() && text_size.h() > d.h())
 	{
-		SGE_LOG_DEBUG(mygraphlogger,log::_ << SGE_TEXT("no resize needed"));
+		SGE_LOG_DEBUG(mygraphlogger,log::_ << FCPPT_TEXT("no resize needed"));
 		return;
 	}
 
@@ -202,13 +202,13 @@ void sge::gui::widgets::edit::refresh() const
 {
 	SGE_LOG_DEBUG(
 		mygraphlogger,
-		log::_ << SGE_TEXT("redrawing text buffer"));
+		log::_ << FCPPT_TEXT("redrawing text buffer"));
 
-	string const ntext = text_+SGE_TEXT(' ');
+	string const ntext = text_+FCPPT_TEXT(' ');
 
 	SGE_LOG_DEBUG(
 		mygraphlogger,
-		log::_ << SGE_TEXT("getting font size"));
+		log::_ << FCPPT_TEXT("getting font size"));
 
 	font_info const font =
 		parent_manager().skin().standard_font();
@@ -218,7 +218,7 @@ void sge::gui::widgets::edit::refresh() const
 			font.metrics(),
 			ntext);
 
-	SGE_LOG_DEBUG(mygraphlogger,log::_ << SGE_TEXT("resizing buffer"));
+	SGE_LOG_DEBUG(mygraphlogger,log::_ << FCPPT_TEXT("resizing buffer"));
 
 	// text larger than buffer? resize!
 	resize(d);
@@ -227,7 +227,7 @@ void sge::gui::widgets::edit::refresh() const
 
 	// TODO: use a transparent background here and blit it with alpha blending
 	// enabled OR introduce widgets::edit::background_color
-	SGE_LOG_DEBUG(mygraphlogger,log::_ << SGE_TEXT("filling background"));
+	SGE_LOG_DEBUG(mygraphlogger,log::_ << FCPPT_TEXT("filling background"));
 
 	c.draw_rect(
 		c.area(),
@@ -239,15 +239,15 @@ void sge::gui::widgets::edit::refresh() const
 
 	SGE_LOG_DEBUG(
 		mygraphlogger,
-		log::_ << SGE_TEXT("drawing text: ") << ntext);
+		log::_ << FCPPT_TEXT("drawing text: ") << ntext);
 
 	SGE_LOG_DEBUG(
 		mygraphlogger,
-		log::_ << SGE_TEXT("cursor position is: ") << cursor.pos());
+		log::_ << FCPPT_TEXT("cursor position is: ") << cursor.pos());
 
 	SGE_LOG_DEBUG(
 		mygraphlogger,
-		log::_ << SGE_TEXT("text buffer size is: ")
+		log::_ << FCPPT_TEXT("text buffer size is: ")
 						<< text_buffer_.size());
 
 	point p;
@@ -264,7 +264,7 @@ void sge::gui::widgets::edit::refresh() const
 
 	SGE_LOG_DEBUG(
 		mygraphlogger,
-		log::_ << SGE_TEXT("text drawn"));
+		log::_ << FCPPT_TEXT("text drawn"));
 
 	if (cursor_visible_)
 	{
@@ -272,13 +272,13 @@ void sge::gui::widgets::edit::refresh() const
 			std::count(
 				ntext.begin(),
 				ntext.begin()+cursor.pos()+1,
-				SGE_TEXT('\n')));
+				FCPPT_TEXT('\n')));
 
 		SGE_LOG_DEBUG(
 			mygraphlogger,
-			log::_ << SGE_TEXT("the cursor is on line ") << cursor_line
-							<< SGE_TEXT("and stands on the character: '") << ntext[cursor.pos()]
-							<< SGE_TEXT("'"));
+			log::_ << FCPPT_TEXT("the cursor is on line ") << cursor_line
+							<< FCPPT_TEXT("and stands on the character: '") << ntext[cursor.pos()]
+							<< FCPPT_TEXT("'"));
 
 		unit const
 			cursor_start =
@@ -289,7 +289,7 @@ void sge::gui::widgets::edit::refresh() const
 
 		SGE_LOG_DEBUG(
 			mygraphlogger,
-			log::_ << SGE_TEXT("drawing cursor at ") << cursor_start);
+			log::_ << FCPPT_TEXT("drawing cursor at ") << cursor_start);
 
 		// draw cursor
 		c.draw_line(

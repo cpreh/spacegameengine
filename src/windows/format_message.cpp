@@ -43,7 +43,7 @@ sge::windows::format_message(
 		0
 	) == 0)
 		throw exception(
-			SGE_TEXT("FormatMessage() failed!"));
+			FCPPT_TEXT("FormatMessage() failed!"));
 	return string(
 		errmsg.data());
 }

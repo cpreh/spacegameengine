@@ -24,6 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::variant::invalid_get::invalid_get()
 :
 	exception(
-		SGE_TEXT("Invalid get in variant!")
+		FCPPT_TEXT("Invalid get in variant!")
 	)
 {}

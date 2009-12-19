@@ -72,7 +72,7 @@ sge::opengl::create_texture_lock(
 		);
 	default:
 		throw exception(
-			SGE_TEXT("Invalid lock_method in opengl!")
+			FCPPT_TEXT("Invalid lock_method in opengl!")
 		);
 	}
 }

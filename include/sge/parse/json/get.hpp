@@ -54,15 +54,15 @@ get(
 	catch(std::exception const &)
 	{
 		throw exception(
-			SGE_TEXT("json::get<")
+			FCPPT_TEXT("json::get<")
 			+ sge::type_name(
 				typeid(T)
 			)
-			+ SGE_TEXT("> failed! Type is \"")
+			+ FCPPT_TEXT("> failed! Type is \"")
 			+ sge::type_name(
 				val.type()
 			)
-			+ SGE_TEXT("\" instead!")
+			+ FCPPT_TEXT("\" instead!")
 		);
 	}
 }

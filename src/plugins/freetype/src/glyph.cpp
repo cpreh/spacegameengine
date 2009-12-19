@@ -28,11 +28,11 @@ sge::freetype::glyph::glyph(
 {
 	if(FT_Get_Glyph(f->glyph, &glyph_))
 		throw exception(
-			SGE_TEXT("FT_Get_Glyph() failed!"));
+			FCPPT_TEXT("FT_Get_Glyph() failed!"));
 
 	if(FT_Glyph_To_Bitmap(&glyph_, FT_RENDER_MODE_NORMAL, 0, true))
 		throw exception(
-			SGE_TEXT("FT_Glyph_To_Bitmap() failed!"));
+			FCPPT_TEXT("FT_Glyph_To_Bitmap() failed!"));
 }
 
 sge::freetype::glyph::~glyph()

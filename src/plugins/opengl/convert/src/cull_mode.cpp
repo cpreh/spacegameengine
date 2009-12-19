@@ -37,6 +37,6 @@ sge::opengl::convert::cull_mode(
 	}
 
 	throw exception(
-		SGE_TEXT("Invalid cull_mode!")
+		FCPPT_TEXT("Invalid cull_mode!")
 	);
 }

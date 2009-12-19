@@ -66,27 +66,27 @@ public:
 		using boost::spirit::lit;
 		using boost::spirit::lexeme;
 
-		char_seq %= +(char_ - lit(SGE_TEXT('\n')));
+		char_seq %= +(char_ - lit(FCPPT_TEXT('\n')));
 
 		entry_ %=
-			!char_(SGE_TEXT('['))
+			!char_(FCPPT_TEXT('['))
 			>> +(
 				char_
-				- lit(SGE_TEXT('='))
+				- lit(FCPPT_TEXT('='))
 			)
-			>> lit(SGE_TEXT('='))
+			>> lit(FCPPT_TEXT('='))
 			>> char_seq
-			>> lit(SGE_TEXT('\n'));
+			>> lit(FCPPT_TEXT('\n'));
 
 		header_ %=
 			lexeme[
-				SGE_TEXT('[')
+				FCPPT_TEXT('[')
 				>> +(
-					char_ - SGE_TEXT(']')
+					char_ - FCPPT_TEXT(']')
 				)
-				>> SGE_TEXT(']')
+				>> FCPPT_TEXT(']')
 			]
-			>> lit(SGE_TEXT('\n'));
+			>> lit(FCPPT_TEXT('\n'));
 
 		section_ %=
 			header_

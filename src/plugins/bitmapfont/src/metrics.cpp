@@ -59,7 +59,7 @@ sge::bitmapfont::metrics::metrics(
 	sge::filesystem::path const json_file(
 		filesystem::replace_extension(
 			path,
-			SGE_TEXT("json")
+			FCPPT_TEXT("json")
 		)
 	);
 
@@ -73,7 +73,7 @@ sge::bitmapfont::metrics::metrics(
 	)
 		throw font::exception(
 			json_file.string()
-			+ SGE_TEXT(" contains errors!")
+			+ FCPPT_TEXT(" contains errors!")
 		);
 
 
@@ -86,7 +86,7 @@ sge::bitmapfont::metrics::metrics(
 		int
 	>(
 		top_members,
-		SGE_TEXT("line_height")
+		FCPPT_TEXT("line_height")
 	);
 
 	BOOST_FOREACH(
@@ -95,7 +95,7 @@ sge::bitmapfont::metrics::metrics(
 			parse::json::array
 		>(
 			top_members,
-			SGE_TEXT("glyphs")
+			FCPPT_TEXT("glyphs")
 		).elements
 	)
 	try
@@ -113,7 +113,7 @@ sge::bitmapfont::metrics::metrics(
 				string
 			>(
 				members,
-				SGE_TEXT("name")
+				FCPPT_TEXT("name")
 			)
 		);
 
@@ -122,7 +122,7 @@ sge::bitmapfont::metrics::metrics(
 			SGE_LOG_WARNING(
 				log::global(),
 				log::_
-					<< SGE_TEXT("Invalid character in bitmap font: ")
+					<< FCPPT_TEXT("Invalid character in bitmap font: ")
 					<< name
 			);
 
@@ -149,7 +149,7 @@ sge::bitmapfont::metrics::metrics(
 						int
 					>(
 						members,
-						SGE_TEXT("x_advance")
+						FCPPT_TEXT("x_advance")
 					)
 				)
 			)
@@ -160,9 +160,9 @@ sge::bitmapfont::metrics::metrics(
 		SGE_LOG_WARNING(
 			log::global(),
 			log::_
-				<< SGE_TEXT("Skipping character in bitmap font because \"")
+				<< FCPPT_TEXT("Skipping character in bitmap font because \"")
 				<< e.string()
-				<< SGE_TEXT('"')
+				<< FCPPT_TEXT('"')
 		);
 	}
 }

@@ -39,6 +39,6 @@ sge::opengl::convert::texture_min_filter(
 	}
 
 	throw exception(
-		SGE_TEXT("Invalid min_filter!")
+		FCPPT_TEXT("Invalid min_filter!")
 	);
 }

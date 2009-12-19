@@ -59,7 +59,7 @@ sge::renderer::texture_software::lock(
 {
 	SGE_ASSERT_MESSAGE(
 		!locked,
-		SGE_TEXT("already locked software texture")
+		FCPPT_TEXT("already locked software texture")
 	);
 
 	locked = true;
@@ -96,7 +96,7 @@ sge::renderer::texture_software::unlock() const
 {
 	SGE_ASSERT_MESSAGE(
 		locked,
-		SGE_TEXT("software texture was not locked, though you tried to unlock")
+		FCPPT_TEXT("software texture was not locked, though you tried to unlock")
 	);
 
 	locked = false;

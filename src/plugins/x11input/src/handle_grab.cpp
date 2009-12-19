@@ -38,6 +38,6 @@ sge::x11input::handle_grab(
 		return false;
 	default:
 		throw exception(
-			SGE_TEXT("x11: Unknown grab result!"));
+			FCPPT_TEXT("x11: Unknown grab result!"));
 	}
 }

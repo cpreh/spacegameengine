@@ -30,11 +30,11 @@ sge::opengl::on_not_supported(
 )
 {
 	throw exception(
-		SGE_TEXT("You tried to use the following functionality: \"")
+		FCPPT_TEXT("You tried to use the following functionality: \"")
 		+ function
-		+ SGE_TEXT("\" which is not supported by your implementation. opengl-")
+		+ FCPPT_TEXT("\" which is not supported by your implementation. opengl-")
 		+ min_version
-		+ SGE_TEXT(" is at least required. The possible extensions sge can use are: \"")
+		+ FCPPT_TEXT(" is at least required. The possible extensions sge can use are: \"")
 		+ possible_extensions
-		+ SGE_TEXT("\"."));
+		+ FCPPT_TEXT("\"."));
 }

@@ -41,7 +41,7 @@ sge::x11::colormap::colormap(
 {
 	if(get() == 0)
 		throw exception(
-			SGE_TEXT("XCreateColormap() failed!"));
+			FCPPT_TEXT("XCreateColormap() failed!"));
 }
 
 sge::x11::colormap::~colormap()

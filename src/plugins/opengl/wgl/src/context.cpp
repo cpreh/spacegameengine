@@ -30,7 +30,7 @@ sge::opengl::wgl::context::context(
 {
 	if(!hglrc())
 		throw exception(
-			SGE_TEXT("wglCreateContext() failed!"));
+			FCPPT_TEXT("wglCreateContext() failed!"));
 }
 
 sge::opengl::wgl::context::~context()

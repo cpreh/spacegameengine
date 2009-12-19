@@ -48,7 +48,7 @@ sge::opengl::glsl::shader<Native>::shader(
 		compile_status<Native>(id()) == GL_FALSE
 	)
 		throw sge::renderer::glsl::exception(
-			SGE_TEXT("Compiling a shader failed:\n")
+			FCPPT_TEXT("Compiling a shader failed:\n")
 			+
 			format_error(
 				&shader_info_log<

@@ -4,6 +4,6 @@
 sge::thread::future::task_moved::task_moved()
 :
 	exception(
-		SGE_TEXT("task moved"))
+		FCPPT_TEXT("task moved"))
 {
 }

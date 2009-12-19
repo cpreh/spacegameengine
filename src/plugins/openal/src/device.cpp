@@ -32,7 +32,7 @@ sge::openal::device::device(
 {
 	SGE_OPENAL_CHECK_ALC_STATE(
 		device_,
-		SGE_TEXT("alcOpenDevice failed"),
+		FCPPT_TEXT("alcOpenDevice failed"),
 		audio::exception
 	)
 
@@ -52,6 +52,6 @@ sge::openal::device::~device()
 		&& !std::uncaught_exception()
 	)
 		throw audio::exception(
-			SGE_TEXT("error closing audio device. this means you tried to close the device before unloading all contexts and buffers")
+			FCPPT_TEXT("error closing audio device. this means you tried to close the device before unloading all contexts and buffers")
 		);
 }

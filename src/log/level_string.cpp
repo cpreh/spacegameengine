@@ -34,11 +34,11 @@ typedef std::tr1::array<
 
 name_array const names = {
 {
-	SGE_TEXT("debug"),
-	SGE_TEXT("info"),
-	SGE_TEXT("warning"),
-	SGE_TEXT("error"),
-	SGE_TEXT("fatal")
+	FCPPT_TEXT("debug"),
+	FCPPT_TEXT("info"),
+	FCPPT_TEXT("warning"),
+	FCPPT_TEXT("error"),
+	FCPPT_TEXT("fatal")
 } };
 
 }
@@ -60,9 +60,9 @@ sge::log::level_from_string(
 		it == names.end()
 	)
 		throw exception(
-			SGE_TEXT("level_from_string(): \"")
+			FCPPT_TEXT("level_from_string(): \"")
 			+ str
-			+ SGE_TEXT("\" not found!")
+			+ FCPPT_TEXT("\" not found!")
 		);
 
 	return

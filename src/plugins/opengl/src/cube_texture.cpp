@@ -70,9 +70,9 @@ sge::opengl::cube_texture::cube_texture(
 {
 	if(!have_cube_texture())
 		sge::opengl::on_not_supported(
-			SGE_TEXT("cube texture"),
-			SGE_TEXT("1.3"),
-	       		SGE_TEXT("gl_arb_cube_texture"));
+			FCPPT_TEXT("cube texture"),
+			FCPPT_TEXT("1.3"),
+	       		FCPPT_TEXT("gl_arb_cube_texture"));
 
 	for(
 		unsigned i = 0;
@@ -144,14 +144,14 @@ void sge::opengl::cube_texture::check_locked() const
 {
 	if(!locked_texture)
 		throw exception(
-			SGE_TEXT("ogl::cube_texture: not locked!"));
+			FCPPT_TEXT("ogl::cube_texture: not locked!"));
 }
 
 void sge::opengl::cube_texture::check_not_locked() const
 {
 	if(locked_texture)
 		throw exception(
-			SGE_TEXT("ogl::cube_texture: already locked!"));
+			FCPPT_TEXT("ogl::cube_texture: already locked!"));
 }
 
 void sge::opengl::disable_cube_texture()
@@ -227,7 +227,7 @@ convert_cube_side(
 
 	if(pos >= cube_sides.size())
 		throw sge::exception(
-			SGE_TEXT("Invalid cube_side!"));
+			FCPPT_TEXT("Invalid cube_side!"));
 
 	return cube_sides[pos];
 }

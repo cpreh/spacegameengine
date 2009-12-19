@@ -32,7 +32,7 @@ sge::openal::source_wrapper::source_wrapper()
 	);
 
 	SGE_OPENAL_CHECK_STATE(
-		SGE_TEXT("alGenSources failed"),
+		FCPPT_TEXT("alGenSources failed"),
 		audio::bad_sound_alloc
 	)
 }
@@ -45,7 +45,7 @@ sge::openal::source_wrapper::~source_wrapper()
 	);
 
 	SGE_OPENAL_CHECK_STATE(
-		SGE_TEXT("alDeleteSources failed"),
+		FCPPT_TEXT("alDeleteSources failed"),
 		audio::exception
 	)
 }

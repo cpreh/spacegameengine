@@ -38,7 +38,7 @@ sge::ode::world::world(
 		0)
 {
 	if (!_r)
-		throw sge::exception(SGE_TEXT("ode needs the optional rect in the world"));
+		throw sge::exception(FCPPT_TEXT("ode needs the optional rect in the world"));
 
 	dVector3 fs = { 0.0f,0.0f,0.0f };
 	dVector3 fs2 = { static_cast<dReal>(_r->w()),static_cast<dReal>(_r->h()),1.0f };
@@ -171,7 +171,7 @@ sge::ode::world::collides_with(
 
 sge::ode::world::~world()
 {
-	SGE_ASSERT_MESSAGE(!body_count_,SGE_TEXT("You've tried to delete a world before all of its bodys are dead"));
+	SGE_ASSERT_MESSAGE(!body_count_,FCPPT_TEXT("You've tried to delete a world before all of its bodys are dead"));
 	dSpaceDestroy(
 		space_);
 	dWorldDestroy(

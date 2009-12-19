@@ -44,6 +44,6 @@ sge::opengl::convert::fog_float_state(
 	}
 
 	throw exception(
-		SGE_TEXT("Invalid fog float_state!")
+		FCPPT_TEXT("Invalid fog float_state!")
 	);
 }

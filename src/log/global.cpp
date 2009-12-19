@@ -34,7 +34,7 @@ sge::log::global()
 			cout
 		)
 		.prefix(
-			SGE_TEXT("sge")
+			FCPPT_TEXT("sge")
 		)
 		.enabled(
 			true

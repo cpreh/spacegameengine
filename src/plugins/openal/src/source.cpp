@@ -76,7 +76,7 @@ void sge::openal::source::sync() const
 	alGetSourcei(alsource(), AL_SOURCE_STATE, &play);
 
 	SGE_OPENAL_CHECK_STATE(
-		SGE_TEXT("alGetSourcei failed"),
+		FCPPT_TEXT("alGetSourcei failed"),
 		audio::exception
 	)
 
@@ -93,7 +93,7 @@ void sge::openal::source::sync() const
 			status_ = audio::sound_status::playing;
 		break;
 		default:
-			throw audio::exception(SGE_TEXT("OpenAL error: invalid playing status"));
+			throw audio::exception(FCPPT_TEXT("OpenAL error: invalid playing status"));
 		break;
 	}
 }
@@ -133,7 +133,7 @@ void sge::openal::source::toggle_pause()
 			alSourcePause(alsource());
 
 			SGE_OPENAL_CHECK_STATE(
-				SGE_TEXT("alSourcePause failed"),
+				FCPPT_TEXT("alSourcePause failed"),
 				audio::exception
 			)
 		break;
@@ -156,7 +156,7 @@ void sge::openal::source::stop()
 	alSourceStop(alsource());
 
 	SGE_OPENAL_CHECK_STATE(
-		SGE_TEXT("alSourceStop failed"),
+		FCPPT_TEXT("alSourceStop failed"),
 		audio::exception
 	)
 

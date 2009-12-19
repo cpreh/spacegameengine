@@ -54,7 +54,7 @@ stage_value_scale(
 		return 4;
 	default:
 		throw sge::exception(
-			SGE_TEXT("Invalid texture_stage_op_value!")
+			FCPPT_TEXT("Invalid texture_stage_op_value!")
 		);
 	}
 }
@@ -71,7 +71,7 @@ void tex_env_f(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glTexEnvf failed"),
+		FCPPT_TEXT("glTexEnvf failed"),
 		sge::renderer::exception
 	)
 }

@@ -43,7 +43,7 @@ bool sge::x11input::check_dga_mouse(
 		&flags)
 	== false)
 		throw exception(
-			SGE_TEXT("XF86DGAQueryDirectVideo() failed!"));
+			FCPPT_TEXT("XF86DGAQueryDirectVideo() failed!"));
 	return !(flags & XF86DGADirectMouse);
 #else
 	return false;

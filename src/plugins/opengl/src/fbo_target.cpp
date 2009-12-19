@@ -33,15 +33,15 @@ sge::opengl::fbo_target::fbo_target()
 {
 	if(!glGenFramebuffersEXT)
 		on_not_supported(
-			SGE_TEXT("glGenFrameBuffersEXT"),
-			SGE_TEXT("none"),
-			SGE_TEXT("frame_buffer_ext")
+			FCPPT_TEXT("glGenFrameBuffersEXT"),
+			FCPPT_TEXT("none"),
+			FCPPT_TEXT("frame_buffer_ext")
 		);
 
 	glGenFramebuffersEXT(1, &fbo);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glGenFramebuffersEXT failed"),
+		FCPPT_TEXT("glGenFramebuffersEXT failed"),
 		sge::renderer::exception
 	)
 
@@ -81,7 +81,7 @@ void sge::opengl::fbo_target::bind_texture(
 
 	if(status != GL_FRAMEBUFFER_COMPLETE_EXT)
 		throw renderer::exception(
-			SGE_TEXT("glCheckFramebufferStatusEXT: fbo incomplete!"));
+			FCPPT_TEXT("glCheckFramebufferStatusEXT: fbo incomplete!"));
 
 	texture_target = dynamic_pointer_cast<texture>(t);
 }

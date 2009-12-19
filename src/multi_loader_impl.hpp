@@ -70,15 +70,15 @@ sge::multi_loader<A,B,C>::load(
 {
 	if (!filesystem::exists(file))
 		throw exception(
-			SGE_TEXT("file \"")
+			FCPPT_TEXT("file \"")
 			+ file.string()
-			+ SGE_TEXT("\" does not exist"));
+			+ FCPPT_TEXT("\" does not exist"));
 
 	if (!filesystem::is_regular(file))
 		throw exception(
-			SGE_TEXT("file \"")
+			FCPPT_TEXT("file \"")
 			+ file.string()
-			+ SGE_TEXT("\" is not a regular file"));
+			+ FCPPT_TEXT("\" is not a regular file"));
 
 	string const extension =
 		sge::filesystem::extension(
@@ -98,9 +98,9 @@ sge::multi_loader<A,B,C>::load(
 		SGE_LOG_DEBUG(
 			log::global(),
 			log::_
-				<< SGE_TEXT("loader ")
+				<< FCPPT_TEXT("loader ")
 				<< type_name(typeid(loader))
-				<< SGE_TEXT(": trying to load audio file"));
+				<< FCPPT_TEXT(": trying to load audio file"));
 
 		return (*i)->load(file);
 	}
@@ -122,9 +122,9 @@ sge::multi_loader<A,B,C>::brute_load(
 	SGE_LOG_INFO(
 		log::global(),
 		log::_
-			<< SGE_TEXT("brute loading file ")
+			<< FCPPT_TEXT("brute loading file ")
 			<< file.string()
-			<< SGE_TEXT(", add an extension to speed up the search"));
+			<< FCPPT_TEXT(", add an extension to speed up the search"));
 
 	for (typename loader_container::iterator i = loaders.begin(); i != loaders.end(); ++i)
 	{
@@ -133,18 +133,18 @@ sge::multi_loader<A,B,C>::brute_load(
 			SGE_LOG_DEBUG(
 				log::global(),
 				log::_
-					<< SGE_TEXT("loader ")
+					<< FCPPT_TEXT("loader ")
 					<< type_name(typeid(loader))
-					<< SGE_TEXT(": trying to load audio file"));
+					<< FCPPT_TEXT(": trying to load audio file"));
 		}
 		catch (sge::exception const &e)
 		{
 			SGE_LOG_INFO(
 				log::global(),
 				log::_
-					<< SGE_TEXT("loader ")
+					<< FCPPT_TEXT("loader ")
 					<< type_name(typeid(loader))
-					<< SGE_TEXT("couldn't load the file: ")
+					<< FCPPT_TEXT("couldn't load the file: ")
 					<< e.string());
 		}
 	}

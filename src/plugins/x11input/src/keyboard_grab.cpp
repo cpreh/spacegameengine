@@ -47,7 +47,7 @@ sge::x11input::keyboard_grab::keyboard_grab(
 		)
 	)
 		throw exception(
-			SGE_TEXT("Keyboard grab failed!")
+			FCPPT_TEXT("Keyboard grab failed!")
 		);
 }
 

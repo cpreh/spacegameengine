@@ -37,7 +37,7 @@ sge::opengl::glx::context::context(
 {
 	if(c == 0)
 		throw exception(
-			SGE_TEXT("glXCreateContext() failed!"));
+			FCPPT_TEXT("glXCreateContext() failed!"));
 }
 
 sge::opengl::glx::context::~context()

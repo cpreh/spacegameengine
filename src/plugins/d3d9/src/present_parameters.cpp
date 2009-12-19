@@ -40,7 +40,7 @@ search_format(
 		return D3DFMT_X8R8G8B8;
 	default:
 		throw sge::exception(
-			SGE_TEXT("You may only pass valid bit_depths!")
+			FCPPT_TEXT("You may only pass valid bit_depths!")
 		);
 	}
 }

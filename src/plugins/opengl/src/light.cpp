@@ -102,7 +102,7 @@ void light_float_ptr(
 	glLightfv(index, name, data);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glLightfv failed"),
+		FCPPT_TEXT("glLightfv failed"),
 		sge::renderer::exception
 	)
 
@@ -116,7 +116,7 @@ void light_float(
 	glLightf(index, name, value);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glLightf failed"),
+		FCPPT_TEXT("glLightf failed"),
 		sge::renderer::exception
 	)
 }

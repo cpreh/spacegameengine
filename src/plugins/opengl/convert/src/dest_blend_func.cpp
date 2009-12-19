@@ -47,6 +47,6 @@ sge::opengl::convert::dest_blend_func(
 	}
 
 	throw exception(
-		SGE_TEXT("Invalid dest_blend_func!")
+		FCPPT_TEXT("Invalid dest_blend_func!")
 	);
 }

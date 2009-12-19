@@ -241,7 +241,7 @@ void sge::x11::window::add_event_mask(
 	mask_map::const_iterator const it = masks.find(event);
 	if(it == masks.end())
 		throw exception(
-			SGE_TEXT("X11 event mask mapping is missing!"));
+			FCPPT_TEXT("X11 event mask mapping is missing!"));
 
 	event_mask_type const mask = it->second;
 	if(!(event_mask & mask))

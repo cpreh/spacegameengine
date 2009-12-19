@@ -34,9 +34,9 @@ void sge::gui::canvas::object::draw_rect(
 {
 	SGE_ASSERT_MESSAGE(
 		contains(area(),r),
-		SGE_TEXT("tried to draw rectangle ")+
+		FCPPT_TEXT("tried to draw rectangle ")+
 			lexical_cast<string>(r)+
-			SGE_TEXT(" which is not completely inside ")+
+			FCPPT_TEXT(" which is not completely inside ")+
 			lexical_cast<string>(area()));
 
 	switch (t)

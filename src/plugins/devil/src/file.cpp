@@ -53,9 +53,9 @@ sge::devil::file::file(
 //#endif
 		) == IL_FALSE)
 		throw exception(
-			SGE_TEXT("ilLoadImage() failed! Could not load '")
+			FCPPT_TEXT("ilLoadImage() failed! Could not load '")
 			+ file.string()
-			+ SGE_TEXT("'!"));
+			+ FCPPT_TEXT("'!"));
 }
 
 /*
@@ -66,7 +66,7 @@ sge::devil::file::file(
 {
 	if(!format_data || size == 0)
 		throw exception(
-			SGE_TEXT("load_image(): format_data or size is 0!"));
+			FCPPT_TEXT("load_image(): format_data or size is 0!"));
 	bind_me();
 	if(ilLoadL(
 		convert_image_format(type),
@@ -74,7 +74,7 @@ sge::devil::file::file(
 		static_cast<ILuint>(size))
 	== IL_FALSE)
 		throw exception(
-			SGE_TEXT("ilLoadL() failed!"));
+			FCPPT_TEXT("ilLoadL() failed!"));
 }
 */
 

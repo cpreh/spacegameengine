@@ -30,7 +30,7 @@ sge::config::find_own_path(
 {
 	return find_path(
 		make_files(
-			SGE_TEXT("spacegameengine")
+			FCPPT_TEXT("spacegameengine")
 		),
 		what,
 		hard_paths

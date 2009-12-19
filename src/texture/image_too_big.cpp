@@ -24,5 +24,5 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::texture::image_too_big::image_too_big()
 :
 	exception(
-		SGE_TEXT("texture::manager::add_texture() image too big!"))
+		FCPPT_TEXT("texture::manager::add_texture() image too big!"))
 {}

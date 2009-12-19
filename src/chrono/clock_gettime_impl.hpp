@@ -49,7 +49,7 @@ clock_gettime_impl(
 		) != 0
 	)
 		throw clock_failure(
-			SGE_TEXT("clock_gettime failed")
+			FCPPT_TEXT("clock_gettime failed")
 		);
 
 	typedef typename TimePoint::duration duration_;

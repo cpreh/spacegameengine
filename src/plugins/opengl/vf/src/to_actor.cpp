@@ -51,6 +51,6 @@ sge::opengl::vf::to_actor(
 			new attribute_actor(e, stride));
 	default:
 		throw exception(
-			SGE_TEXT("Invalid role in ogl vertex format!"));
+			FCPPT_TEXT("Invalid role in ogl vertex format!"));
 	}
 }

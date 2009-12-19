@@ -24,6 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::variant::invalid_apply::invalid_apply()
 :
 	exception(
-		SGE_TEXT("apply has been called on a variant that is empty!")
+		FCPPT_TEXT("apply has been called on a variant that is empty!")
 	)
 {}

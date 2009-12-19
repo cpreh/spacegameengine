@@ -54,7 +54,7 @@ void sge::opengl::windows::state::swap_buffers()
 {
 	if(wglSwapLayerBuffers(hdc.hdc(), WGL_SWAP_MAIN_PLANE) == FALSE)
 		throw exception(
-			SGE_TEXT("wglSwapLayerBuffers() failed!"));
+			FCPPT_TEXT("wglSwapLayerBuffers() failed!"));
 }
 
 void sge::opengl::windows::state::reset_viewport()

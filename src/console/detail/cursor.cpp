@@ -22,14 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 
 sge::console::detail::cursor::cursor()
-	: line_(SGE_TEXT(" ")),
+	: line_(FCPPT_TEXT(" ")),
 		pos_(0)
 {
 }
 
 void sge::console::detail::cursor::reset()
 {
-	line_ = SGE_TEXT(" ");
+	line_ = FCPPT_TEXT(" ");
 	pos_ = 0;
 }
 
@@ -37,7 +37,7 @@ sge::string const sge::console::detail::cursor::edited(bool _active) const
 {
 	sge::string l = line_;
 	if (_active)
-		l[pos_] = SGE_TEXT('_');
+		l[pos_] = FCPPT_TEXT('_');
 	return l;
 }
 
@@ -50,7 +50,7 @@ sge::string const sge::console::detail::cursor::string() const
 void sge::console::detail::cursor::string(sge::string const &_line)
 {
 	line_ = _line;
-	line_.push_back(SGE_TEXT(' '));
+	line_.push_back(FCPPT_TEXT(' '));
 	pos_ = line_.length()-1;
 }
 
@@ -59,7 +59,7 @@ void sge::console::detail::cursor::erase_word()
 	if (line_.length() == 1)
 		return;
 
-	string::size_type s = line_.rfind(SGE_TEXT(' '),pos_-1);
+	string::size_type s = line_.rfind(FCPPT_TEXT(' '),pos_-1);
 	if (s == string::npos)
 		s = 0;
 
@@ -134,7 +134,7 @@ void sge::console::gfx::tab_complete(string &input_line)
 	// if it's any other, complete a variable
 	string::size_type
 		right = cursor_pos,
-		left = input_line.rfind(SGE_TEXT(' '),right-1);
+		left = input_line.rfind(FCPPT_TEXT(' '),right-1);
 
 	const bool is_command = left == std::string::npos;
 
@@ -175,7 +175,7 @@ void sge::console::gfx::tab_complete(string &input_line)
 
 	if (completions.size() != 1)
 	{
-		print(SGE_TEXT("possible replacements:"));
+		print(FCPPT_TEXT("possible replacements:"));
 		for (string::size_type i = 0;;++i)
 		{
 			bool found = false;
@@ -205,7 +205,7 @@ void sge::console::gfx::tab_complete(string &input_line)
 		replacement = *completions.begin();
 	}
 
-	//il.replace(left,right-left,replacement+SGE_TEXT(" "));
+	//il.replace(left,right-left,replacement+FCPPT_TEXT(" "));
 	input_line.replace(left,right-left,replacement);
 	cursor_pos = left + replacement.length();
 }

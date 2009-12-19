@@ -4,6 +4,6 @@
 sge::thread::future::broken_promise::broken_promise()
 :
 	exception(
-		SGE_TEXT("broken promise"))
+		FCPPT_TEXT("broken promise"))
 {
 }

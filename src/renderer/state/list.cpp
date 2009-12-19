@@ -57,7 +57,7 @@ sge::renderer::state::list::operator()(
 	if(!temp.set_.insert(a).second)
 		SGE_LOG_WARNING(
 			log::global(),
-			log::_ << SGE_TEXT("duplicate renderer state given!"));
+			log::_ << FCPPT_TEXT("duplicate renderer state given!"));
 	return temp;
 }
 
@@ -84,7 +84,7 @@ sge::renderer::state::list::get() const
 			return ref.get<T>();
 
 	throw exception(
-		SGE_TEXT("renderer::list::get(): state not found!"));
+		FCPPT_TEXT("renderer::list::get(): state not found!"));
 }
 
 template<
@@ -117,7 +117,7 @@ sge::renderer::state::list::get(
 		}
 
 	throw exception(
-		SGE_TEXT("renderer::list::get(): state not found!"));
+		FCPPT_TEXT("renderer::list::get(): state not found!"));
 }
 
 sge::renderer::state::list::set_type const &

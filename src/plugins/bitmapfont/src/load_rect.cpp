@@ -39,13 +39,13 @@ sge::bitmapfont::load_rect(
 			parse::json::array
 		>(
 			members,
-			SGE_TEXT("rect")
+			FCPPT_TEXT("rect")
 		).elements
 	);
 
 	if(elements.size() != 2)
 		throw exception(
-			SGE_TEXT("Bogus rect detected")
+			FCPPT_TEXT("Bogus rect detected")
 		);
 
 	parse::json::element_vector const
@@ -66,7 +66,7 @@ sge::bitmapfont::load_rect(
 
 	if(first_elements.size() != 2 || second_elements.size() != 2)
 		throw exception(
-			SGE_TEXT("Bogus rect subelements detected")
+			FCPPT_TEXT("Bogus rect subelements detected")
 		);
 
 	return image::rect(

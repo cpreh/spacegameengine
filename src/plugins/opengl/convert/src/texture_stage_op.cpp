@@ -35,6 +35,6 @@ sge::opengl::convert::texture_stage(
 	}
 
 	throw exception(
-		SGE_TEXT("Invalid texture_stage_op!")
+		FCPPT_TEXT("Invalid texture_stage_op!")
 	);
 }

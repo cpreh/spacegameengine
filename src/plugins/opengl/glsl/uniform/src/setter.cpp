@@ -202,7 +202,7 @@ set_float(
 	// FIXME: check errors!
 	/*
 	SGE_OPENGL_SENTRY(
-		SGE_TEXT("uniform float failed"),
+		FCPPT_TEXT("uniform float failed"),
 		sge::renderer::glsl::exception
 	)
 	*/
@@ -249,7 +249,7 @@ set_float(
 	default:
 		throw sge::exception(
 			(sge::format(
-				SGE_TEXT("Invalid float dimension in glsl uniform: %1%"))
+				FCPPT_TEXT("Invalid float dimension in glsl uniform: %1%"))
 			% size).str());
 	}
 }
@@ -264,7 +264,7 @@ set_int(
 	// FIXME: check erroers
 	/*
 	SGE_OPENGL_SENTRY(
-		SGE_TEXT("uniform int failed"),
+		FCPPT_TEXT("uniform int failed"),
 		sge::renderer::glsl::exception
 	)
 	*/
@@ -311,7 +311,7 @@ set_int(
 	default:
 		throw sge::exception(
 			(sge::format(
-				SGE_TEXT("Invalid vector dimension in glsl: %1%"))
+				FCPPT_TEXT("Invalid vector dimension in glsl: %1%"))
 			% size).str());
 	}
 }
@@ -330,8 +330,8 @@ set_matrix(
 	)
 		throw sge::exception(
 			(sge::format(
-				SGE_TEXT("You specified a glsl matrix whose dimensions are not equal which is not supported by the ARB extension!")
-				SGE_TEXT(" Specified size was: %1%x%2%"))
+				FCPPT_TEXT("You specified a glsl matrix whose dimensions are not equal which is not supported by the ARB extension!")
+				FCPPT_TEXT(" Specified size was: %1%x%2%"))
 			% columns
 			% rows).str());
 
@@ -340,7 +340,7 @@ set_matrix(
 	// FIXME: check errors
 	/*
 	SGE_OPENGL_SENTRY(
-		SGE_TEXT("uniform matrix failed"),
+		FCPPT_TEXT("uniform matrix failed"),
 		sge::renderer::glsl::exception
 	)
 	*/
@@ -452,7 +452,7 @@ set_matrix(
 
 	throw sge::exception(
 		(sge::format(
-			SGE_TEXT("Invalid matrix dimensions in glsl: %1%x%2%"))
+			FCPPT_TEXT("Invalid matrix dimensions in glsl: %1%x%2%"))
 			% columns
 			% rows).str());
 }
@@ -501,7 +501,7 @@ element_columns(
 		return 4;
 	default:
 		throw sge::exception(
-			SGE_TEXT("Invalid matrix type in glsl element_columns!"));
+			FCPPT_TEXT("Invalid matrix type in glsl element_columns!"));
 	}
 }
 
@@ -526,7 +526,7 @@ element_rows(
 		return 4;
 	default:
 		throw sge::exception(
-			SGE_TEXT("Invalid matrix type in glsl element_rows!"));
+			FCPPT_TEXT("Invalid matrix type in glsl element_rows!"));
 	}
 }
 

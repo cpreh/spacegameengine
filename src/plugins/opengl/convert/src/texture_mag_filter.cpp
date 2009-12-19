@@ -35,6 +35,6 @@ sge::opengl::convert::texture_mag_filter(
 	}
 
 	throw exception(
-		SGE_TEXT("Invalid mag_filter!")
+		FCPPT_TEXT("Invalid mag_filter!")
 	);
 }

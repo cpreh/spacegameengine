@@ -68,7 +68,7 @@ sge::log::location::string() const
 			sge::string(),
 			boost::phoenix::arg_names::arg1
 			+ sge::string(
-				SGE_TEXT("::")
+				FCPPT_TEXT("::")
 			)
 			+ boost::phoenix::arg_names::arg2
 		);

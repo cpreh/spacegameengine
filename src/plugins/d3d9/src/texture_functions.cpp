@@ -44,7 +44,7 @@ IDirect3DTexture9* sge::d3d9::create_texture(
 		&ptex,
 		0
 	) != D3D_OK)
-		throw exception(SGE_TEXT("CreateTexture() failed!"));
+		throw exception(FCPPT_TEXT("CreateTexture() failed!"));
 	return ptex;
 }
 
@@ -58,14 +58,14 @@ sge::texture::pointer sge::d3d9::lock_texture(
 
 	D3DLOCKED_RECT lr;
 	if(tex->LockRect(0, &lr, reinterpret_cast<const RECT*>(rect), flags) != D3D_OK) // FIXME: reinterpret_cast is wrong here and may not work
-		throw exception(SGE_TEXT("LockRect() failed!"));
+		throw exception(FCPPT_TEXT("LockRect() failed!"));
 	return static_cast<sge::texture::pointer>(lr.pBits);
 }
 
 void sge::d3d9::unlock_texture(const d3d_texture_ptr tex)
 {
 	if(tex->UnlockRect(0) != D3D_OK)
-		throw exception(SGE_TEXT("UnlockRect() failed!"));
+		throw exception(FCPPT_TEXT("UnlockRect() failed!"));
 }
 
 IDirect3DVolumeTexture9* sge::d3d9::create_volume_texture(
@@ -91,7 +91,7 @@ IDirect3DVolumeTexture9* sge::d3d9::create_volume_texture(
 		&ptex,
 		0
 	) != D3D_OK)
-		throw exception(SGE_TEXT("CreateVolumeTexture() failed!"));
+		throw exception(FCPPT_TEXT("CreateVolumeTexture() failed!"));
 	return ptex;
 }
 
@@ -106,14 +106,14 @@ sge::d3d9::lock_volume_texture(
 
 	D3DLOCKED_BOX lb;
 	if(tex->LockBox(0, &lb, reinterpret_cast<const D3DBOX*>(box), flags) != D3D_OK) // FIXME: reinterpret_cast is wrong here and may not work
-		throw exception(SGE_TEXT("LockBox() failed!"));
+		throw exception(FCPPT_TEXT("LockBox() failed!"));
 	return static_cast<sge::volume_texture::pointer>(lb.pBits);
 }
 
 void sge::d3d9::unlock_volume_texture(const d3d_volume_texture_ptr tex)
 {
 	if(tex->UnlockBox(0) != D3D_OK)
-		throw exception(SGE_TEXT("UnlockBox() failed!"));
+		throw exception(FCPPT_TEXT("UnlockBox() failed!"));
 }
 
 void sge::d3d9::update_texture(
@@ -122,5 +122,5 @@ void sge::d3d9::update_texture(
 	IDirect3DBaseTexture9* const dest)
 {
 	if(device->UpdateTexture(src, dest) != D3D_OK)
-		throw exception(SGE_TEXT("UpdateTexture() failed!"));
+		throw exception(FCPPT_TEXT("UpdateTexture() failed!"));
 }

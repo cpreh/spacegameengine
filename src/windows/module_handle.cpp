@@ -28,7 +28,7 @@ sge::windows::module_handle()
 	HINSTANCE const instance = GetModuleHandle(0);
 	if(!instance)
 		throw exception(
-			SGE_TEXT("GetModuleHandle() failed!"));
+			FCPPT_TEXT("GetModuleHandle() failed!"));
 	return instance;
 }
 

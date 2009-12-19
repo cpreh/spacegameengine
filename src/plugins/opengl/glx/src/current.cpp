@@ -40,7 +40,7 @@ sge::opengl::glx::current::current(
 		context->get())
 	== false)
 		throw exception(
-			SGE_TEXT("glXMakeCurrent() failed!"));
+			FCPPT_TEXT("glXMakeCurrent() failed!"));
 }
 
 sge::opengl::glx::current::~current()

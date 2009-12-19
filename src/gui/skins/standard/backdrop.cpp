@@ -37,7 +37,7 @@ namespace
 sge::log::object mylogger(
 	sge::log::parameters::inherited(
 		sge::gui::global_log(),
-		SGE_TEXT("skins::standard::backdrop")
+		FCPPT_TEXT("skins::standard::backdrop")
 	)
 );
 
@@ -76,6 +76,6 @@ sge::gui::dim const sge::gui::skins::standard::optimal_size(
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("optimal_size called for backdrop, returning null"));
+		log::_ << FCPPT_TEXT("optimal_size called for backdrop, returning null"));
 	return dim::null();
 }

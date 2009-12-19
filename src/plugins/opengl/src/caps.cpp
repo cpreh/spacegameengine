@@ -45,7 +45,7 @@ sge::opengl::create_caps()
 			get_string(
 				GL_RENDERER
 			)
-			+ SGE_TEXT(' ')
+			+ FCPPT_TEXT(' ')
 			+ get_string(
 				GL_VERSION
 			),

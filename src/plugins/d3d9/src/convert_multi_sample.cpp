@@ -62,7 +62,7 @@ sge::d3d9::convert_multi_sample(
 		return D3DMULTISAMPLE_16_SAMPLES;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid multi_sample_type value (must be <= 16)!")
+			FCPPT_TEXT("Invalid multi_sample_type value (must be <= 16)!")
 		);
 	}
 }

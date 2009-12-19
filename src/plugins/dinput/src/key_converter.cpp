@@ -176,7 +176,7 @@ sge::dinput::key_converter::create_dik(
 
 	if(it == vr.end())
 		throw exception(
-			SGE_TEXT("Input key not found in reverse map!")
+			FCPPT_TEXT("Input key not found in reverse map!")
 		);
 
 	return it->second;

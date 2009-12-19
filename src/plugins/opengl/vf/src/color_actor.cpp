@@ -35,8 +35,8 @@ sge::opengl::vf::color_actor::color_actor(
 {
 	if(index() > 0)
 		throw renderer::exception(
-			SGE_TEXT("opengl does not support more than one color type in the vertex format!")
-			SGE_TEXT(" glSecondaryColor is currently not supported.")
+			FCPPT_TEXT("opengl does not support more than one color type in the vertex format!")
+			FCPPT_TEXT(" glSecondaryColor is currently not supported.")
 		);
 }
 
@@ -51,7 +51,7 @@ void sge::opengl::vf::color_actor::operator()(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glColorPointer failed"),
+		FCPPT_TEXT("glColorPointer failed"),
 		sge::renderer::exception
 	)
 

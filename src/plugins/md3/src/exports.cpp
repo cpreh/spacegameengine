@@ -39,8 +39,8 @@ plugin_version_info(
 {
 	if(!i)
 		return;
-	i->name = SGE_TEXT("md3");
-	i->description = SGE_TEXT("Provides loading of md3 model files.");
+	i->name = FCPPT_TEXT("md3");
+	i->description = FCPPT_TEXT("Provides loading of md3 model files.");
 	i->type = sge::plugin::capabilities::model_loader;
 	i->plugin_version = 0x1;
 	i->min_core_version = 0x1;

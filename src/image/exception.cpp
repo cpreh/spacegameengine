@@ -26,7 +26,7 @@ sge::image::exception::exception(
 )
 :
 	sge::exception(
-		SGE_TEXT("image: ")
+		FCPPT_TEXT("image: ")
 		+ s
 	)
 {}

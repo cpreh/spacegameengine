@@ -38,7 +38,7 @@ sge::d3d9::convert_texture_stage_arg_value(
 		return D3DTA_TEXTURE;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid texture_stage_arg_value!")
+			FCPPT_TEXT("Invalid texture_stage_arg_value!")
 		);
 	}
 }

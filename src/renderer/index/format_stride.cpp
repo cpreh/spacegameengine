@@ -34,6 +34,6 @@ sge::renderer::index::format_stride(
 		return sizeof(view_32::value_type);
 	default:
 		throw exception(
-			SGE_TEXT("Invalid index::format in index::format_stride()!"));
+			FCPPT_TEXT("Invalid index::format in index::format_stride()!"));
 	}
 }

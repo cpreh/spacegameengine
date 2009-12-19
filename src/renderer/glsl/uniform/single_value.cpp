@@ -295,7 +295,7 @@ convert_matrix_type(
 
 	throw sge::exception(
 		(sge::format(
-			SGE_TEXT("Invalid matrix dim in glsl::uniform::single_value: %1%"))
+			FCPPT_TEXT("Invalid matrix dim in glsl::uniform::single_value: %1%"))
 		% d).str());
 }
 
@@ -317,7 +317,7 @@ convert_int_vector_type(
 	default:
 		throw sge::exception(
 			(sge::format(
-				SGE_TEXT("Invalid vector dim in glsl::uniform::single_value: %1%"))
+				FCPPT_TEXT("Invalid vector dim in glsl::uniform::single_value: %1%"))
 			% sz).str());
 	}
 }
@@ -340,7 +340,7 @@ convert_float_vector_type(
 	default:
 		throw sge::exception(
 			(sge::format(
-				SGE_TEXT("Invalid vector dim in glsl::uniform::single_value: %1%"))
+				FCPPT_TEXT("Invalid vector dim in glsl::uniform::single_value: %1%"))
 			% sz).str());
 	}
 }

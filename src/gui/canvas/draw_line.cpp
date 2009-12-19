@@ -62,11 +62,11 @@ void sge::gui::canvas::object::draw_line(
 {
 	if (!contains_point(area(),a) || !contains_point(area(),b))
 		throw exception(
-			SGE_TEXT("tried to draw line from ")+
+			FCPPT_TEXT("tried to draw line from ")+
 			sge::lexical_cast<sge::string>(a)+
-			SGE_TEXT(" to ")+
+			FCPPT_TEXT(" to ")+
 			sge::lexical_cast<sge::string>(b)+
-			SGE_TEXT(" in ")+
+			FCPPT_TEXT(" in ")+
 			sge::lexical_cast<sge::string>(area()));
 
 	// increment in each direction, is also diagonal step

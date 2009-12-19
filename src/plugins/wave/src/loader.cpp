@@ -35,6 +35,6 @@ sge::wave::loader::load(
 sge::extension_set const sge::wave::loader::extensions() const
 {
 	extension_set s;
-	s.insert(SGE_TEXT("wav"));
+	s.insert(FCPPT_TEXT("wav"));
 	return s;
 }

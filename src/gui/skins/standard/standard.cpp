@@ -36,8 +36,8 @@ sge::gui::skins::standard::standard(
 	standard_font_(
 		fs->create_font(
 			media_path()/
-			SGE_TEXT("fonts")/
-			SGE_TEXT("default.ttf"),
+			FCPPT_TEXT("fonts")/
+			FCPPT_TEXT("default.ttf"),
 			static_cast<font::size_type>(
 				15)),
 		sge::image::colors::black())
@@ -52,8 +52,8 @@ SGE_GUI_SKIN_DRAW_RETURN(widgets::base) sge::gui::skins::standard::fallback(
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("buffer size is ")
-		        << w.buffer().width() << SGE_TEXT(",") << w.buffer().height());
+		log::_1 << FCPPT_TEXT("buffer size is ")
+		        << w.buffer().width() << FCPPT_TEXT(",") << w.buffer().height());
 
 	canvas::object c(w.buffer());
 
@@ -64,7 +64,7 @@ SGE_GUI_SKIN_DRAW_RETURN(widgets::base) sge::gui::skins::standard::fallback(
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("blitting to texture"));
+		log::_1 << FCPPT_TEXT("blitting to texture"));
 
 	blit_invalid(
 		w,

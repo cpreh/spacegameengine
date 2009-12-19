@@ -35,9 +35,9 @@ void sge::gui::canvas::object::draw_pixel(
 {
 	SGE_ASSERT_MESSAGE(
 		contains_point(area(),p),
-		SGE_TEXT("tried to draw pixel ")+
+		FCPPT_TEXT("tried to draw pixel ")+
 		lexical_cast<string>(p)+
-		SGE_TEXT(" which is not inside rect ")+
+		FCPPT_TEXT(" which is not inside rect ")+
 		lexical_cast<string>(area()));
 
 	sge::image::algorithm::fill(

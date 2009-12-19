@@ -37,7 +37,7 @@ sge::log::context::context()
 :
 	tree_(
 		detail::inner_context_node(
-			SGE_TEXT("")
+			FCPPT_TEXT("")
 		)
 	)
 {}

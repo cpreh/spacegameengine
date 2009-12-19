@@ -27,10 +27,10 @@ sge::font::char_not_available::char_not_available(
 :
 	exception(
 		sge::string(
-			SGE_TEXT("Character '")
+			FCPPT_TEXT("Character '")
 		)
 		+ character_
-		+ SGE_TEXT("' is not available!")
+		+ FCPPT_TEXT("' is not available!")
 	),
 	character_(character_)
 {}

@@ -43,7 +43,7 @@ sge::library::error()
 		? sge::iconv(
 			err
 		)
-		: SGE_TEXT("no error");
+		: FCPPT_TEXT("no error");
 #else
 	return sge::windows::format_message(
 		GetLastError()

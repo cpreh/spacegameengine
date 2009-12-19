@@ -79,7 +79,7 @@ void insert_checked(
 		SGE_LOG_WARNING(
 			sge::log::global(),
 			sge::log::_
-				<< SGE_TEXT("Duplicate state inserted in opengl::vf!"));
+				<< FCPPT_TEXT("Duplicate state inserted in opengl::vf!"));
 }
 
 }

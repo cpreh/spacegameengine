@@ -25,7 +25,7 @@ sge::renderer::texture_creation_failed::texture_creation_failed(
 	sge::string const &s)
 :
 	exception(
-		SGE_TEXT("texture creation failed: ")
+		FCPPT_TEXT("texture creation failed: ")
 		+ s
 	)
 {}

@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 		throw exception(\
 			sge::str( \
 				sge::format(\
-					SGE_TEXT("Function failed in %1%:%2% (errorcode: %3%): %4%")\
+					FCPPT_TEXT("Function failed in %1%:%2% (errorcode: %3%): %4%")\
 				) \
 				% SGE_PP_FILE \
 				% SGE_PP_STRINGIZE(__LINE__) \

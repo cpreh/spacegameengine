@@ -40,7 +40,7 @@ void listener_fv(
 	);
 
 	SGE_OPENAL_CHECK_STATE(
-		SGE_TEXT("alListenerfv failed"),
+		FCPPT_TEXT("alListenerfv failed"),
 		sge::audio::exception
 	)
 }
@@ -56,7 +56,7 @@ sge::openal::listener::listener()
 
 void sge::openal::listener::vel(audio::point const &n)
 {
-	SGE_LOG_DEBUG(log(),log::_ << SGE_TEXT("setting listener velocity to ") << n);
+	SGE_LOG_DEBUG(log(),log::_ << FCPPT_TEXT("setting listener velocity to ") << n);
 	vel_ = n;
 
 	// TODO: use sge::fcppt::math::vector!
@@ -79,7 +79,7 @@ sge::audio::point const sge::openal::listener::vel() const
 
 void sge::openal::listener::pos(audio::point const &n)
 {
-	SGE_LOG_DEBUG(log(),log::_ << SGE_TEXT("setting listener position to ") << n);
+	SGE_LOG_DEBUG(log(),log::_ << FCPPT_TEXT("setting listener position to ") << n);
 	pos_ = n;
 	ALfloat const vec[3] =
 		{

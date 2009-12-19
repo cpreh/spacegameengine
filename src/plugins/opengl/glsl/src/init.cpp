@@ -67,9 +67,9 @@ void initialize_glsl()
 		native = false;
 	else
 		sge::opengl::on_not_supported(
-			SGE_TEXT("shader"),
-			SGE_TEXT("2.0"),
-			SGE_TEXT("gl_arb_vertex_shader && gl_arb_fragment_shader"));
+			FCPPT_TEXT("shader"),
+			FCPPT_TEXT("2.0"),
+			FCPPT_TEXT("gl_arb_vertex_shader && gl_arb_fragment_shader"));
 }
 
 }

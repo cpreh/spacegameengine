@@ -44,7 +44,7 @@ namespace
 sge::log::object mylogger(
 	sge::log::parameters::inherited(
 		sge::gui::global_log(),
-		SGE_TEXT("skins: standard: edit")
+		FCPPT_TEXT("skins: standard: edit")
 	)
 );
 
@@ -72,12 +72,12 @@ void sge::gui::skins::standard::draw(
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("refreshing edit buffer"));
+		log::_ << FCPPT_TEXT("refreshing edit buffer"));
 	// re-render text buffer
 	w.refresh();
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("refreshed edit buffer"));
+		log::_ << FCPPT_TEXT("refreshed edit buffer"));
 
 	resize_buffer(w);
 

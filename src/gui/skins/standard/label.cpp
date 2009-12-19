@@ -43,7 +43,7 @@ namespace
 sge::log::object mylogger(
 	sge::log::parameters::inherited(
 		sge::gui::global_log(),
-		SGE_TEXT("skins::standard::label")
+		FCPPT_TEXT("skins::standard::label")
 	)
 );
 
@@ -57,7 +57,7 @@ void sge::gui::skins::standard::draw(
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("creating canvas from buffer"));
+		log::_ << FCPPT_TEXT("creating canvas from buffer"));
 
 	canvas::object c(b.buffer());
 
@@ -78,9 +78,9 @@ void sge::gui::skins::standard::draw(
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("drawing text (label \"")
+		log::_ << FCPPT_TEXT("drawing text (label \"")
 		        << b.text()
-		        << SGE_TEXT("\")"));
+		        << FCPPT_TEXT("\")"));
 
 	// draw text centered
 	c.draw_text(
@@ -93,9 +93,9 @@ void sge::gui::skins::standard::draw(
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("blitting (label \"")
+		log::_ << FCPPT_TEXT("blitting (label \"")
 		        << b.text()
-		        << SGE_TEXT("\")"));
+		        << FCPPT_TEXT("\")"));
 
 	blit_invalid(
 		b,
@@ -109,7 +109,7 @@ sge::gui::dim const sge::gui::skins::standard::optimal_size(
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("calling size hint for label"));
+		log::_ << FCPPT_TEXT("calling size hint for label"));
 
 	return
 		utility::unlimited_text_size(

@@ -60,7 +60,7 @@ sge::font::object::draw_text(
 {
 	if(!drawer())
 		throw exception(
-			SGE_TEXT("font::drawer not set in font::draw_text!"));
+			FCPPT_TEXT("font::drawer not set in font::draw_text!"));
 
 	if(text.empty() || height() > max_sz.h())
 		return font::text_size(
@@ -88,7 +88,7 @@ sge::font::object::draw_text(
 	case align_v::top:
 		break;
 	default:
-		throw exception(SGE_TEXT("Invalid font::align_v!"));
+		throw exception(FCPPT_TEXT("Invalid font::align_v!"));
 	}
 
 	string::const_iterator sbeg(text.begin());
@@ -111,7 +111,7 @@ sge::font::object::draw_text(
 		case align_h::left:
 			break;
 		default:
-			throw exception(SGE_TEXT("Invalid font::align_h!"));
+			throw exception(FCPPT_TEXT("Invalid font::align_h!"));
 		}
 
 		for(;sbeg != line_size.end(); ++sbeg)
@@ -189,7 +189,7 @@ sge::font::object::line_width(
 
 	for(; sbeg != send; ++sbeg)
 	{
-		if(*sbeg == SGE_TEXT('\n'))
+		if(*sbeg == FCPPT_TEXT('\n'))
 			return font::text_size(dim(w, height()), sbeg, boost::next(sbeg));
 
 		if(std::isspace(*sbeg, std::locale()))

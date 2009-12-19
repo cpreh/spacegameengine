@@ -40,7 +40,7 @@ sge::wave::file::file(
 {
 	if (!file_.is_open())
 		throw audio::exception(
-			SGE_TEXT("couldn't open wave file \"")+filename_+SGE_TEXT("\""));
+			FCPPT_TEXT("couldn't open wave file \"")+filename_+FCPPT_TEXT("\""));
 
 	read_riff();
 	read_wave();
@@ -114,7 +114,7 @@ sge::audio::sample_count sge::wave::file::read_all(audio::sample_container &_arr
 void sge::wave::file::read_riff()
 {
 	std::string const rifftype =
-		extract_header(SGE_TEXT("riff"));
+		extract_header(FCPPT_TEXT("riff"));
 
 	// Endiankrams
 	bool file_bigendian;
@@ -124,49 +124,49 @@ void sge::wave::file::read_riff()
 	else if (rifftype == "RIFX")
 		file_bigendian = true;
 	else
-		throw audio::exception(SGE_TEXT("file \"")+filename_+SGE_TEXT("\" is not a riff file and thus not a wave file"));
+		throw audio::exception(FCPPT_TEXT("file \"")+filename_+FCPPT_TEXT("\" is not a riff file and thus not a wave file"));
 
 	swap_ = file_bigendian == endianness::is_little_endian();
 
 	// throw away riff size
-	extract_primitive<boost::uint32_t>(SGE_TEXT("riff chunk size"));
+	extract_primitive<boost::uint32_t>(FCPPT_TEXT("riff chunk size"));
 }
 
 void sge::wave::file::read_wave()
 {
-	if (extract_header(SGE_TEXT("wave")) != "WAVE")
-		throw audio::exception(SGE_TEXT("the riff file \"")+filename_+SGE_TEXT("\" is not a wave file (wave header not present)"));
+	if (extract_header(FCPPT_TEXT("wave")) != "WAVE")
+		throw audio::exception(FCPPT_TEXT("the riff file \"")+filename_+FCPPT_TEXT("\" is not a wave file (wave header not present)"));
 
 	ignore_chunks_until("fmt ");
 
 	// ignore format chunk size
-	extract_primitive<boost::uint32_t>(SGE_TEXT("format chunk size"));
+	extract_primitive<boost::uint32_t>(FCPPT_TEXT("format chunk size"));
 
 	boost::uint16_t const audio_format =
-		extract_primitive<boost::uint16_t>(SGE_TEXT("audio format"));
+		extract_primitive<boost::uint16_t>(FCPPT_TEXT("audio format"));
 
 	if (audio_format != static_cast<boost::uint16_t>(1))
 		throw audio::exception(
-			str(format(SGE_TEXT("wave file \"%1%\" is not pcm encoded (format code is %2%)"))
+			str(format(FCPPT_TEXT("wave file \"%1%\" is not pcm encoded (format code is %2%)"))
 				% filename_ % audio_format));
 
 	channels_ = static_cast<audio::channel_type>(
-			extract_primitive<boost::uint16_t>(SGE_TEXT("channel count")));
+			extract_primitive<boost::uint16_t>(FCPPT_TEXT("channel count")));
 
 	sample_rate_ = static_cast<audio::sample_count>(
-		extract_primitive<boost::uint32_t>(SGE_TEXT("sample rate")));
+		extract_primitive<boost::uint32_t>(FCPPT_TEXT("sample rate")));
 
 	// this is not needed with pcm encoding
-	extract_primitive<boost::uint32_t>(SGE_TEXT("byte rate"));
-	extract_primitive<boost::uint16_t>(SGE_TEXT("block alignment"));
+	extract_primitive<boost::uint32_t>(FCPPT_TEXT("byte rate"));
+	extract_primitive<boost::uint16_t>(FCPPT_TEXT("block alignment"));
 
 	bits_per_sample_ = static_cast<audio::sample_count>(
-		extract_primitive<boost::uint16_t>(SGE_TEXT("bits per sample")));
+		extract_primitive<boost::uint16_t>(FCPPT_TEXT("bits per sample")));
 
 	ignore_chunks_until("data");
 
 	boost::uint32_t const data_size =
-		extract_primitive<boost::uint32_t>(SGE_TEXT("data size"));
+		extract_primitive<boost::uint32_t>(FCPPT_TEXT("data size"));
 
 	samples_ = static_cast<audio::sample_count>(
 		data_size / channels() / bytes_per_sample());
@@ -178,18 +178,18 @@ void sge::wave::file::read_wave()
 
 void sge::wave::file::ignore_chunks_until(std::string const &desc)
 {
-	while (extract_header(SGE_TEXT("subchunk header")) != desc)
+	while (extract_header(FCPPT_TEXT("subchunk header")) != desc)
 	{
 		SGE_LOG_INFO(
 			log::global(),
-			log::_ << SGE_TEXT("detected unknown subchunk in wave file \"")
+			log::_ << FCPPT_TEXT("detected unknown subchunk in wave file \"")
 			        << filename_
-			        << SGE_TEXT("\""));
+			        << FCPPT_TEXT("\""));
 
 		file_.seekg(
 			static_cast<std::streamoff>(
 				extract_primitive<boost::uint32_t>(
-					SGE_TEXT("subchunk size"))),
+					FCPPT_TEXT("subchunk size"))),
 			std::ios_base::cur);
 	}
 }
@@ -204,11 +204,11 @@ std::string const sge::wave::file::extract_header(string const &_desc)
 	file_.read(&bytes[0],byte_count);
 	if (file_.bad())
 		throw audio::exception(
-			SGE_TEXT("error while reading header \"")
+			FCPPT_TEXT("error while reading header \"")
 			+ _desc
-			+ SGE_TEXT("\" from file \"")
+			+ FCPPT_TEXT("\" from file \"")
 			+ filename_
-			+ SGE_TEXT("\""));
+			+ FCPPT_TEXT("\""));
 	return std::string(bytes.begin(),bytes.end());
 }
 
@@ -225,11 +225,11 @@ T sge::wave::file::extract_primitive(string const &_desc)
 
 	if (file_.bad())
 		throw audio::exception(
-			SGE_TEXT("error while reading ")
+			FCPPT_TEXT("error while reading ")
 			+ _desc
-			+ SGE_TEXT(" from file \"")
+			+ FCPPT_TEXT(" from file \"")
 			+ filename_
-			+ SGE_TEXT("\""));
+			+ FCPPT_TEXT("\""));
 
 	return swap_ ? endianness::swap(ret) : ret;
 }

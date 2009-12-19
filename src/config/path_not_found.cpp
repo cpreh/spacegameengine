@@ -25,8 +25,8 @@ sge::config::path_not_found::path_not_found(
 	sge::string const &file)
 :
 	exception(
-		SGE_TEXT("path \"")
+		FCPPT_TEXT("path \"")
 		+ file
-		+ SGE_TEXT("\" not found!")
+		+ FCPPT_TEXT("\" not found!")
 	)
 {}

@@ -40,7 +40,7 @@ sge::dinput::system::system(
 		0)
 	!= DI_OK)
 		throw exception(
-			SGE_TEXT("Cannot create direct input!"));
+			FCPPT_TEXT("Cannot create direct input!"));
 	di.reset(d);
 
 	if(di->EnumDevices(
@@ -50,7 +50,7 @@ sge::dinput::system::system(
 		 DIEDFL_ATTACHEDONLY)
 	!= DI_OK)
 		throw exception(
-			SGE_TEXT("DirectInput Enumeration failed!"));
+			FCPPT_TEXT("DirectInput Enumeration failed!"));
 }
 
 sge::signal::auto_connection

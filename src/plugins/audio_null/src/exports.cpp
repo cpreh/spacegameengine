@@ -39,8 +39,8 @@ plugin_version_info(
 {
 	if(!p)
 		return;
-	p->name = SGE_TEXT("audionull");
-	p->description = SGE_TEXT("audio plugin that does not do anything");
+	p->name = FCPPT_TEXT("audionull");
+	p->description = FCPPT_TEXT("audio plugin that does not do anything");
 	p->plugin_version = 0x1;
 	p->min_core_version = 0x1;
 	p->type = sge::plugin::capabilities::audio_player;

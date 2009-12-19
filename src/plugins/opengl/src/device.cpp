@@ -146,7 +146,7 @@ void sge::opengl::device::begin_rendering()
 		| clear_bit(renderer::state::bool_::clear_stencil));
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glClear failed"),
+		FCPPT_TEXT("glClear failed"),
 		sge::renderer::exception
 	)
 }
@@ -183,7 +183,7 @@ sge::opengl::device::create_index_buffer(
 		);
 	default:
 		throw exception(
-			SGE_TEXT("Invalid index::format!"));
+			FCPPT_TEXT("Invalid index::format!"));
 	}
 }
 
@@ -305,10 +305,10 @@ sge::opengl::device::render(
 {
 	if(!vb)
 		throw exception(
-			SGE_TEXT("vb may not be 0 for renderer::render!"));
+			FCPPT_TEXT("vb may not be 0 for renderer::render!"));
 	if(!ib)
 		throw exception(
-			SGE_TEXT("ib may not be 0 for renderer::render for indexed primitives!"));
+			FCPPT_TEXT("ib may not be 0 for renderer::render for indexed primitives!"));
 
 	vertex_buffer(vb);
 
@@ -338,7 +338,7 @@ sge::opengl::device::render(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glDrawElements failed"),
+		FCPPT_TEXT("glDrawElements failed"),
 		sge::renderer::exception
 	)
 }
@@ -353,7 +353,7 @@ sge::opengl::device::render(
 {
 	if(!vb)
 		throw exception(
-			SGE_TEXT("vb may not be 0 for renderer::render!"));
+			FCPPT_TEXT("vb may not be 0 for renderer::render!"));
 
 	vertex_buffer(vb);
 
@@ -366,7 +366,7 @@ sge::opengl::device::render(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glDrawArrays failed"),
+		FCPPT_TEXT("glDrawArrays failed"),
 		sge::renderer::exception
 	)
 }

@@ -70,13 +70,13 @@ sge::time::unit sge::time::time()
 	struct timeval tv;
 	struct timezone tz;
 	if(gettimeofday(&tv,&tz) != 0)
-		throw sge::exception(SGE_TEXT("gettimeofday() failed!"));
+		throw sge::exception(FCPPT_TEXT("gettimeofday() failed!"));
 	return static_cast<time::unit>(tv.tv_sec * hz() + tv.tv_usec);
 #else
 	timespec tp;
 	if(clock_gettime(CLOCK_REALTIME, &tp) != 0)
 		throw sge::exception(
-			SGE_TEXT("clock_gettime() failed!"));
+			FCPPT_TEXT("clock_gettime() failed!"));
 	return tp.tv_sec * hz() + tp.tv_nsec;
 #endif
 #elif SGE_WINDOWS_PLATFORM
@@ -112,7 +112,7 @@ sge::time::unit query_performance_frequency()
 {
 	LARGE_INTEGER ret;
 	if(QueryPerformanceFrequency(&ret) == 0)
-		throw sge::exception(SGE_TEXT("QueryPerformanceFrequency() failed!"));
+		throw sge::exception(FCPPT_TEXT("QueryPerformanceFrequency() failed!"));
 	return large_int_to_time(ret);
 }
 
@@ -120,7 +120,7 @@ sge::time::unit query_performance_counter()
 {
 	LARGE_INTEGER ret;
 	if(QueryPerformanceCounter(&ret) == 0)
-		throw sge::exception(SGE_TEXT("QueryPerformanceCounter() failed!"));
+		throw sge::exception(FCPPT_TEXT("QueryPerformanceCounter() failed!"));
 	return large_int_to_time(ret);
 }
 

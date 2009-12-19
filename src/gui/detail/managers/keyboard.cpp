@@ -45,7 +45,7 @@ namespace
 sge::log::object mylogger(
 	sge::log::parameters::inherited(
 		sge::gui::global_log(),
-		SGE_TEXT("managers: keyboard")
+		FCPPT_TEXT("managers: keyboard")
 	)
 );
 
@@ -60,7 +60,7 @@ bool active(sge::gui::widgets::base const &w)
 		case sge::gui::activation_state::inactive:
 			return false;
 	}
-	throw sge::gui::exception(SGE_TEXT("missed an activation state"));
+	throw sge::gui::exception(FCPPT_TEXT("missed an activation state"));
 }
 }
 
@@ -107,7 +107,7 @@ void sge::gui::detail::managers::keyboard::add(widgets::base &w)
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("adding widget"));
+		log::_ << FCPPT_TEXT("adding widget"));
 
 	SGE_ASSERT(
 		utility::ptr_find(widgets.begin(),widgets.end(),&w)
@@ -141,7 +141,7 @@ void sge::gui::detail::managers::keyboard::request_focus(widgets::base &w)
 
 	SGE_ASSERT_MESSAGE(
 		wi != widgets.end(),
-		SGE_TEXT("a widgets::base requested the keyboard focus which cannot receive keys"));
+		FCPPT_TEXT("a widgets::base requested the keyboard focus which cannot receive keys"));
 
 	// Widget already has the focus?
 	if (focus && *focus == wi)
@@ -253,7 +253,7 @@ void sge::gui::detail::managers::keyboard::keyboard_focus(
 		{
 			SGE_LOG_DEBUG(
 				mylogger,
-				log::_ << SGE_TEXT("adding widgets::base after focus change"));
+				log::_ << FCPPT_TEXT("adding widgets::base after focus change"));
 			widget_container::iterator wi = utility::ptr_find(
 					widgets.begin(),
 					widgets.end(),&w);
@@ -308,7 +308,7 @@ void sge::gui::detail::managers::keyboard::input_callback(
 
 void sge::gui::detail::managers::keyboard::switch_focus(widget_container::iterator n)
 {
-	SGE_LOG_DEBUG(mylogger,log::_ << SGE_TEXT("switching focus"));
+	SGE_LOG_DEBUG(mylogger,log::_ << FCPPT_TEXT("switching focus"));
 	if (focus)
 		(*focus)->process_keyboard_leave(events::keyboard_leave());
 	focus = n;

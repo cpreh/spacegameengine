@@ -47,9 +47,9 @@ parse_file(
 
 	if(!ifs.is_open())
 		throw exception(
-			SGE_TEXT("Opening ")
+			FCPPT_TEXT("Opening ")
 			+ path.string()
-			+ SGE_TEXT(" failed!")
+			+ FCPPT_TEXT(" failed!")
 		);
 
 	return

@@ -41,7 +41,7 @@ sge::x11::color::color(
 		&dummy)
 	== 0)
 		throw exception(
-			SGE_TEXT("XAllocNamedColor() failed!"));
+			FCPPT_TEXT("XAllocNamedColor() failed!"));
 }
 
 sge::x11::color::~color()

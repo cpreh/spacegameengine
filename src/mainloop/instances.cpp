@@ -45,7 +45,7 @@ void sge::mainloop::add_instance(
 		SGE_LOG_WARNING(
 			log::global(),
 			log::_
-				<< SGE_TEXT("mainloop instance inserted twice!"));
+				<< FCPPT_TEXT("mainloop instance inserted twice!"));
 }
 
 void sge::mainloop::remove_instance(
@@ -55,7 +55,7 @@ void sge::mainloop::remove_instance(
 		SGE_LOG_WARNING(
 			log::global(),
 			log::_
-				<< SGE_TEXT("mainloop instance not found!"));
+				<< FCPPT_TEXT("mainloop instance not found!"));
 }
 
 void sge::mainloop::dispatch_instances()

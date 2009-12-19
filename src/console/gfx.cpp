@@ -192,7 +192,7 @@ void sge::console::gfx::key_action(
 	if (!active_)
 		return;
 
-	if ((k.char_code() == SGE_TEXT('w') || k.char_code() == SGE_TEXT('W'))
+	if ((k.char_code() == FCPPT_TEXT('w') || k.char_code() == FCPPT_TEXT('W'))
 	    && (s[input::kc::key_lctrl] || s[input::kc::key_rctrl]))
 	{
 		input_line_.erase_word();
@@ -257,7 +257,7 @@ void sge::console::gfx::key_action(
 			}
 			catch (exception const &e)
 			{
-				print(SGE_TEXT("console error: ")+e.string());
+				print(FCPPT_TEXT("console error: ")+e.string());
 			}
 
 			// add executed command to each history (at the front)...

@@ -64,7 +64,7 @@ sge::windows::window::window(
 	RECT r = { 0, 0, 0, 0 };
 	if (!AdjustWindowRect(&r, flags, false))
 		throw exception(
-			SGE_TEXT("AdjustWindowRect() failed!"));
+			FCPPT_TEXT("AdjustWindowRect() failed!"));
 
 	decoration_size = decoration_rect(
 		r.left,
@@ -88,7 +88,7 @@ sge::windows::window::window(
 
 	if(!handle)
 		throw exception(
-			SGE_TEXT("CreateWindow() failed!"));
+			FCPPT_TEXT("CreateWindow() failed!"));
 }
 
 sge::windows::window::~window()
@@ -109,7 +109,7 @@ void sge::windows::window::size(
 		SWP_SHOWWINDOW
 	) == 0)
 		throw exception(
-			SGE_TEXT("SetWindowPos() failed!"));
+			FCPPT_TEXT("SetWindowPos() failed!"));
 }
 
 void sge::windows::window::title(
@@ -117,7 +117,7 @@ void sge::windows::window::title(
 {
 	if(SetWindowText(hwnd(), title.c_str()) == 0)
 		throw exception(
-			SGE_TEXT("SetWindowText() failed!"));
+			FCPPT_TEXT("SetWindowText() failed!"));
 }
 
 sge::windows::window::dim_type const
@@ -126,7 +126,7 @@ sge::windows::window::size() const
 	RECT rect;
 	if(GetWindowRect(handle, &rect) == FALSE)
 		throw exception(
-			SGE_TEXT("GetWindowRect() failed!"));
+			FCPPT_TEXT("GetWindowRect() failed!"));
 	return dim_type(
 		rect.right - rect.left - decoration_size.dim().w(),
 		rect.bottom - rect.top - decoration_size.dim().h()
@@ -149,7 +149,7 @@ sge::windows::window::title() const
 	std::tr1::array<TCHAR, 1024> buffer;
 	if(GetWindowText(hwnd(), buffer.data(), buffer.size()) == 0)
 		throw exception(
-			SGE_TEXT("GetWindowText() failed!"));
+			FCPPT_TEXT("GetWindowText() failed!"));
 	return string(buffer.data());
 }
 

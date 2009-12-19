@@ -53,7 +53,7 @@ sge::opengl::basic_buffer<Type, Impl, T>::basic_buffer(
 
 	if(nsz == 0)
 		throw exception(
-			SGE_TEXT("ogl_buffer: cannot create an empty buffer!")
+			FCPPT_TEXT("ogl_buffer: cannot create an empty buffer!")
 		);
 
 	bind_me();
@@ -95,7 +95,7 @@ sge::opengl::basic_buffer<Type, Impl, T>::lock(
 {
 	if(dest)
 		throw exception(
-			SGE_TEXT("ogl_buffer::lock(): you have to unlock before locking!")
+			FCPPT_TEXT("ogl_buffer::lock(): you have to unlock before locking!")
 		);
 
 	if(
@@ -103,12 +103,12 @@ sge::opengl::basic_buffer<Type, Impl, T>::lock(
 		&& !(flags() & renderer::resource_flags::readable)
 	)
 		throw exception(
-			SGE_TEXT("ogl_buffer: Cannot lock a writeonly buffer for reading!")
+			FCPPT_TEXT("ogl_buffer: Cannot lock a writeonly buffer for reading!")
 		);
 
 	if(first > size())
 		throw exception(
-			SGE_TEXT("ogl_buffer::lock(): first out of range!")
+			FCPPT_TEXT("ogl_buffer::lock(): first out of range!")
 		);
 
 	if(count == npos)
@@ -116,7 +116,7 @@ sge::opengl::basic_buffer<Type, Impl, T>::lock(
 
 	if(first + count > size())
 		throw exception(
-			SGE_TEXT("ogl_buffer::lock(): first + count > size()")
+			FCPPT_TEXT("ogl_buffer::lock(): first + count > size()")
 		);
 
 	bind_me();
@@ -179,7 +179,7 @@ void sge::opengl::basic_buffer<Type, Impl, T>::unlock()
 {
 	if(!dest)
 		throw exception(
-			SGE_TEXT("ogl_buffer::unlock(), buffer is not locked! cannot unlock!"));
+			FCPPT_TEXT("ogl_buffer::unlock(), buffer is not locked! cannot unlock!"));
 	bind_me();
 	Impl().unmap_buffer(Type());
 	dest = 0;
@@ -198,9 +198,9 @@ void sge::opengl::basic_buffer<Type, Impl, T>::sub_data(
 	size_type const count)
 {
 	if(first + count > size())
-		throw exception(SGE_TEXT("ogl_buffer::sub_data(), first + count out of range!"));
+		throw exception(FCPPT_TEXT("ogl_buffer::sub_data(), first + count out of range!"));
 	if(dest)
-		throw exception(SGE_TEXT("ogl_buffer::sub_data(), buffer must not be locked!"));
+		throw exception(FCPPT_TEXT("ogl_buffer::sub_data(), buffer must not be locked!"));
 	bind_me();
 	Impl().buffer_sub_data(
 		Type(),
@@ -346,7 +346,7 @@ void sge::opengl::basic_buffer<Type, Impl, T>::check_lock() const
 {
 	if(!dest)
 		throw exception(
-			SGE_TEXT("ogl_buffer used but the buffer has not been locked!"));
+			FCPPT_TEXT("ogl_buffer used but the buffer has not been locked!"));
 }
 
 #endif

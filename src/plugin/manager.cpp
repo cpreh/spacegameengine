@@ -36,11 +36,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::char_type const *const plugin_extension =
 #ifdef SGE_DARWIN_PLATFORM
-	SGE_TEXT(".dylib")
+	FCPPT_TEXT(".dylib")
 #elif SGE_POSIX_PLATFORM
-	SGE_TEXT(".so")
+	FCPPT_TEXT(".so")
 #elif SGE_WINDOWS_PLATFORM
-	SGE_TEXT(".dll")
+	FCPPT_TEXT(".dll")
 #else
 #error "Don't know which plugin extension to use!"
 #endif
@@ -51,7 +51,7 @@ sge::plugin::manager::manager()
 	SGE_LOG_DEBUG(
 		log::global(),
 		log::_
-			<< SGE_TEXT("Scanning for plugins in ")
+			<< FCPPT_TEXT("Scanning for plugins in ")
 			<< config::plugin_path()
 	);
 
@@ -74,9 +74,9 @@ sge::plugin::manager::manager()
 				log::global(),
 				log::_
 					<< it->path().string()
-					<< SGE_TEXT(" does not have the extension ")
+					<< FCPPT_TEXT(" does not have the extension ")
 					<< plugin_extension
-					<< SGE_TEXT(" and thus is ignored!")
+					<< FCPPT_TEXT(" and thus is ignored!")
 			);
 			continue;
 		}
@@ -97,10 +97,10 @@ sge::plugin::manager::manager()
 				log::global(),
 				log::_
 					<< it->path().string()
-					<< SGE_TEXT(" doesn't seem to be a valid sge plugin")
-					<< SGE_TEXT(" because the function \"")
+					<< FCPPT_TEXT(" doesn't seem to be a valid sge plugin")
+					<< FCPPT_TEXT(" because the function \"")
 					<< iconv(e.func())
-					<< SGE_TEXT("\" is missing!")
+					<< FCPPT_TEXT("\" is missing!")
 			);
 		}
 		catch(
@@ -111,9 +111,9 @@ sge::plugin::manager::manager()
 				log::global(),
 				log::_
 					<< it->path().string()
-					<< SGE_TEXT(" failed to load: \"")
+					<< FCPPT_TEXT(" failed to load: \"")
 					<< e.string()
-					<< SGE_TEXT("\"!")
+					<< FCPPT_TEXT("\"!")
 			);
 		}
 	}

@@ -32,7 +32,7 @@ sge::freetype::face::face(
 	if(FT_New_Face(lib.lib(), iconv(name.string()).c_str(), 0, &impl))
 		throw exception(
 			string(
-				SGE_TEXT("FT_New_Face() failed for font: "))
+				FCPPT_TEXT("FT_New_Face() failed for font: "))
 			+= name.string());
 }
 

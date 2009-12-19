@@ -37,7 +37,7 @@ GLenum sge::opengl::vf::convert_format::operator()(
 		return GL_UNSIGNED_BYTE;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid format in ogl::vf::convert_format!"));
+			FCPPT_TEXT("Invalid format in ogl::vf::convert_format!"));
 	}
 }
 

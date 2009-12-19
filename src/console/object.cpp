@@ -84,7 +84,7 @@ public:
 		using sge::parse::encoding::space;
 
 		word  %=           +(char_ - space);
-		quoted_string %=   SGE_TEXT('"') >> +(char_ - SGE_TEXT('"')) >> SGE_TEXT('"');
+		quoted_string %=   FCPPT_TEXT('"') >> +(char_ - FCPPT_TEXT('"')) >> SGE_TEXT('"');
 		argument %=        quoted_string | word;
 		start %=           argument % (+space);
 	}
@@ -122,7 +122,7 @@ void sge::console::object::eval(string const &sp)
 	function_map::iterator i = funcs_.find(args[0]);
 
 	if (i == funcs_.end())
-		throw exception(SGE_TEXT("couldn't find command \"")+args[0]+SGE_TEXT("\""));
+		throw exception(FCPPT_TEXT("couldn't find command \"")+args[0]+FCPPT_TEXT("\""));
 
 	i->second->signal()(args);
 }

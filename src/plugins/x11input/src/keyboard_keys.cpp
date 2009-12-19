@@ -72,11 +72,11 @@ sge::x11input::keyboard_key(
 		SGE_LOG_WARNING(
 			log::global(),
 			log::_
-				<< SGE_TEXT("stub: character '")
+				<< FCPPT_TEXT("stub: character '")
 				<< code
-				<< SGE_TEXT("' in XLookupString has ")
+				<< FCPPT_TEXT("' in XLookupString has ")
 				<< num_chars
-				<< SGE_TEXT(" bytes!"));
+				<< FCPPT_TEXT(" bytes!"));
 		return input::key_type();
 	}
 
@@ -114,7 +114,7 @@ get_key_name(
 			ks,
 			name
 			? sge::iconv(name)
-			: SGE_TEXT("unknown"))).first->second;
+			: FCPPT_TEXT("unknown"))).first->second;
 }
 
 }

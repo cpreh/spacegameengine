@@ -29,7 +29,7 @@ sge::devil::convert_format(
 {
 	if(bits_per_pixel != 32)
 		throw exception(
-			SGE_TEXT("bits_per_pixel should be 32 for devil!"));
+			FCPPT_TEXT("bits_per_pixel should be 32 for devil!"));
 	switch(format) {
 	case IL_RGBA:
 		return image::color::format::rgba8;
@@ -37,7 +37,7 @@ sge::devil::convert_format(
 		return image::color::format::bgra8;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid il format in devil::convert_format!"));
+			FCPPT_TEXT("Invalid il format in devil::convert_format!"));
 	}
 }
 
@@ -51,7 +51,7 @@ ILint sge::devil::to_il_format(
 		return IL_RGBA;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid color_format in to_il_format!"));
+			FCPPT_TEXT("Invalid color_format in to_il_format!"));
 	}
 }
 
@@ -64,7 +64,7 @@ ILint sge::devil::to_il_channel(
 		return IL_UNSIGNED_BYTE;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid color_format in to_il_channel!"));
+			FCPPT_TEXT("Invalid color_format in to_il_channel!"));
 	}
 }
 
@@ -83,6 +83,6 @@ sge::devil::best_il_format(
 		return image::color::format::rgba8;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid color_format in best_il_format!"));
+			FCPPT_TEXT("Invalid color_format in best_il_format!"));
 	}
 }

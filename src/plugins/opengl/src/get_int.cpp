@@ -32,7 +32,7 @@ sge::opengl::get_int(
 	glGetIntegerv(what, &ret);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glGetIntegerv failed"),
+		FCPPT_TEXT("glGetIntegerv failed"),
 		sge::renderer::exception
 	)
 

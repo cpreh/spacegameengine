@@ -33,7 +33,7 @@ namespace
 sge::log::object mylogger(
 	sge::log::parameters::inherited(
 		sge::gui::global_log(),
-		SGE_TEXT("layouts::null")
+		FCPPT_TEXT("layouts::null")
 	)
 );
 
@@ -49,7 +49,7 @@ void sge::gui::layouts::null::compile_static()
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("in compile_static, doing nothing"));
+		log::_ << FCPPT_TEXT("in compile_static, doing nothing"));
 
 	connected_widget().parent_manager().dirty(
 		connected_widget(),
@@ -64,7 +64,7 @@ sge::gui::dim const sge::gui::layouts::null::optimal_size() const
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("getting size hint from skin"));
+		log::_ << FCPPT_TEXT("getting size hint from skin"));
 	return connected_widget().parent_manager().skin().optimal_size(
 		connected_widget());
 }

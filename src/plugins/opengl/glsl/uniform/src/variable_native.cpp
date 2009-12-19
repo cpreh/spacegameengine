@@ -36,7 +36,7 @@ GLint sge::opengl::glsl::uniform::location<true>(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glGetUniformLocation failed"),
+		FCPPT_TEXT("glGetUniformLocation failed"),
 		sge::renderer::glsl::exception
 	)
 

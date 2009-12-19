@@ -41,7 +41,7 @@ sge::config::getenv(
 
 	if(
 		GetEnvironmentVariable(
-			SGE_TEXT("USERPROFILE"),
+			FCPPT_TEXT("USERPROFILE"),
 			home_dir.data(),
 			home_dir.size()
 		) == 0

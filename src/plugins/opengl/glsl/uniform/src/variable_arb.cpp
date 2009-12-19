@@ -36,7 +36,7 @@ GLint sge::opengl::glsl::uniform::location<false>(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glGetUniformLocationARB failed"),
+		FCPPT_TEXT("glGetUniformLocationARB failed"),
 		sge::renderer::glsl::exception
 	)
 

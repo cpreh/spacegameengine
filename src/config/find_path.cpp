@@ -50,7 +50,7 @@ try_path(
 		return p;
 
 	throw sge::exception(
-		p.string() + SGE_TEXT(" does not exist")
+		p.string() + FCPPT_TEXT(" does not exist")
 	);
 }
 
@@ -81,7 +81,7 @@ sge::config::find_path(
 					result.begin(),
 					result.end(),
 					parse::ini::header_name_equal(
-						SGE_TEXT("paths")
+						FCPPT_TEXT("paths")
 					)
 				)
 			);

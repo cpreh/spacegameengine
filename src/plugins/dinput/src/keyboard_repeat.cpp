@@ -38,7 +38,7 @@ sge::dinput::keyboard_repeat()
 		) == 0
 	)
 		throw exception(
-			SGE_TEXT("SystemParametersInfo() failed!")
+			FCPPT_TEXT("SystemParametersInfo() failed!")
 		);
 
 	return time::millisecond(

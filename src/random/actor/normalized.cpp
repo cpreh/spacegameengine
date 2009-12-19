@@ -56,7 +56,7 @@ sge::random::actor::normalized::normalized(
 {
 	if(elements.empty())
 		throw exception(
-			SGE_TEXT("actor::normalized: elements may not be empty!")
+			FCPPT_TEXT("actor::normalized: elements may not be empty!")
 		);
 }
 
@@ -89,7 +89,7 @@ sge::random::actor::normalized::operator()()
 
 	throw exception(
 		(sge::format(
-			SGE_TEXT("random::actor::normalized: nothing matched! Return value was %1% and is now %2%!")
+			FCPPT_TEXT("random::actor::normalized: nothing matched! Return value was %1% and is now %2%!")
 		) % val % cur).str()
 	);
 }

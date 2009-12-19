@@ -34,10 +34,10 @@ sge::freetype::metrics::metrics(
 	pixel_size(font_height)
 {
 	if(FT_Select_Charmap(face_.get(), FT_ENCODING_UNICODE) != 0)
-		throw exception(SGE_TEXT("No Unicode code map found!"));
+		throw exception(FCPPT_TEXT("No Unicode code map found!"));
 
 	if(FT_Set_Pixel_Sizes(face_.get(), 0, font_height))
-		throw exception(SGE_TEXT("FT_Set_Pixel_Sizes() failed!"));
+		throw exception(FCPPT_TEXT("FT_Set_Pixel_Sizes() failed!"));
 }
 
 sge::font::char_metric_ptr const

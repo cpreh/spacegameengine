@@ -24,6 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::mpl::invalid_invoke::invalid_invoke()
 :
 	sge::exception(
-		SGE_TEXT("Invalid invoke!")
+		FCPPT_TEXT("Invalid invoke!")
 	)
 {}

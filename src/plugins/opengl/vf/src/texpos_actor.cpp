@@ -45,7 +45,7 @@ sge::opengl::vf::texpos_actor::texpos_actor(
 {
 	if(index() >= GL_MAX_TEXTURE_COORDS)
 		throw renderer::exception((
-			::sge::format(SGE_TEXT("opengl texture coordinates exceeded: Allowed are %1%."))
+			::sge::format(FCPPT_TEXT("opengl texture coordinates exceeded: Allowed are %1%."))
 			% GL_MAX_TEXTURE_COORDS).str());
 }
 
@@ -66,7 +66,7 @@ void sge::opengl::vf::texpos_actor::operator()(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glTexCoordPointer failed"),
+		FCPPT_TEXT("glTexCoordPointer failed"),
 		sge::renderer::exception
 	)
 

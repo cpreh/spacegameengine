@@ -51,9 +51,9 @@ sge::plugin::manager::plugin(
 {
 	if(index >= size<T>())
 		throw exception(
-			SGE_TEXT("plugin(): No plugins found of type: \"")
+			FCPPT_TEXT("plugin(): No plugins found of type: \"")
 			+ type_info(typeid(T)).name()
-			+ SGE_TEXT("\"!"));
+			+ FCPPT_TEXT("\"!"));
 	return *(begin<T>()+index);
 }
 

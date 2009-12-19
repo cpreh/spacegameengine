@@ -68,9 +68,9 @@ sge::devil::loader::extensions() const
 {
 	// FIXME: add more extensions, see: http://openil.sourceforge.net/features.php
 	extension_set s;
-	s.insert(SGE_TEXT("bmp"));
-	s.insert(SGE_TEXT("png"));
-	s.insert(SGE_TEXT("jpg"));
-	s.insert(SGE_TEXT("jpeg"));
+	s.insert(FCPPT_TEXT("bmp"));
+	s.insert(FCPPT_TEXT("png"));
+	s.insert(FCPPT_TEXT("jpg"));
+	s.insert(FCPPT_TEXT("jpeg"));
 	return s;
 }

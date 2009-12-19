@@ -78,18 +78,18 @@ sge::d3d9::device::begin_rendering()
 		) != D3D_OK
 	)
 		throw exception(
-			SGE_TEXT("Clear() failed!")
+			FCPPT_TEXT("Clear() failed!")
 		);
 
 	if(device->BeginScene() != D3D_OK)
-		throw exception(SGE_TEXT("BeginScene() failed!"));
+		throw exception(FCPPT_TEXT("BeginScene() failed!"));
 }
 
 void
 sge::d3d9::device::end_rendering()
 {
 	if(device->EndScene() != D3D_OK)
-		throw exception(SGE_TEXT("EndScene() failed!"));
+		throw exception(FCPPT_TEXT("EndScene() failed!"));
 
 	switch(
 		device->Present(
@@ -107,7 +107,7 @@ sge::d3d9::device::end_rendering()
 		break;
 	default:
 		throw exception(
-			SGE_TEXT("Present() failed!")
+			FCPPT_TEXT("Present() failed!")
 		);
 	}
 }
@@ -144,7 +144,7 @@ sge::d3d9::device::render(
 			static_cast<UINT>(primitive_count)
 		) != D3D_OK
 	)
-		throw exception(SGE_TEXT("DrawIndexedPrimitive() failed!"));
+		throw exception(FCPPT_TEXT("DrawIndexedPrimitive() failed!"));
 }
 
 void
@@ -175,7 +175,7 @@ sge::d3d9::device::render(
 			)
 		) != D3D_OK
 	)
-		throw exception(SGE_TEXT("DrawPrimitive() failed!"));
+		throw exception(FCPPT_TEXT("DrawPrimitive() failed!"));
 }
 
 void
@@ -330,7 +330,7 @@ sge::d3d9::device::create_glsl_program(
 	renderer::glsl::optional_string const &)
 {
 	throw exception(
-		SGE_TEXT("glsl not supported for d3d9!")
+		FCPPT_TEXT("glsl not supported for d3d9!")
 	);
 }
 
@@ -474,7 +474,7 @@ void sge::d3d9::device::init()
 	IDirect3DSurface9 *surface;
 
 	if(device->GetRenderTarget(0,&surface) != D3D_OK)
-		throw exception(SGE_TEXT("d3d: cannot obtain default render target!"));
+		throw exception(FCPPT_TEXT("d3d: cannot obtain default render target!"));
 
 	default_render_target.reset(surface);
 
@@ -557,7 +557,7 @@ sge::d3d9::device::set_vertex_buffer(
 				decl.get()
 			) != D3D_OK
 		)
-			throw exception(SGE_TEXT("set_vertex_declaration() failed"));
+			throw exception(FCPPT_TEXT("set_vertex_declaration() failed"));
 
 		vertex_declaration = decl;
 	}
@@ -572,7 +572,7 @@ sge::d3d9::device::set_vertex_buffer(
 			)
 		) != D3D_OK
 	)
-		throw exception(SGE_TEXT("set_vertex_buffer() failed"));
+		throw exception(FCPPT_TEXT("set_vertex_buffer() failed"));
 }
 
 void
@@ -593,7 +593,7 @@ sge::d3d9::device::set_index_buffer(
 			d3d_buffer.buffer.get()
 		) != D3D_OK
 	)
-		throw exception(SGE_TEXT("set_index_buffer() failed"));
+		throw exception(FCPPT_TEXT("set_index_buffer() failed"));
 }
 
 void sge::d3d9::renderer::set_render_target(const texture_ptr target)
@@ -630,13 +630,13 @@ void sge::d3d9::device::reset()
 		init();
 		break;
 	case D3DERR_DEVICELOST:
-		throw exception(SGE_TEXT("d3d device still lost!"));
+		throw exception(FCPPT_TEXT("d3d device still lost!"));
 	case D3DERR_DRIVERINTERNALERROR:
-		throw exception(SGE_TEXT("d3d driver internal error!"));
+		throw exception(FCPPT_TEXT("d3d driver internal error!"));
 	case D3DERR_INVALIDCALL:
-		throw exception(SGE_TEXT("d3d invalid call to reset!"));
+		throw exception(FCPPT_TEXT("d3d invalid call to reset!"));
 	default:
-		throw exception(SGE_TEXT("d3d reset failed!"));
+		throw exception(FCPPT_TEXT("d3d reset failed!"));
 	}
 }
 
@@ -773,37 +773,37 @@ namespace
 void set_render_state(const sge::d3d9::d3d_device_ptr device, const D3DRENDERSTATETYPE state, const sge::renderer::bool_type value)
 {
 	if(device->SetRenderState(state,value) != D3D_OK)
-		throw sge::exception(SGE_TEXT("SetRenderState() failed!"));
+		throw sge::exception(FCPPT_TEXT("SetRenderState() failed!"));
 }
 
 void set_render_state(const sge::d3d9::d3d_device_ptr device, const D3DRENDERSTATETYPE state, const sge::renderer::int_type value)
 {
 	if(device->SetRenderState(state,value) != D3D_OK)
-		throw sge::exception(SGE_TEXT("SetRenderState() failed!"));
+		throw sge::exception(FCPPT_TEXT("SetRenderState() failed!"));
 }
 
 void set_render_state(const sge::d3d9::d3d_device_ptr device, const D3DRENDERSTATETYPE state, const sge::renderer::float_type value)
 {
 	if(device->SetRenderState(state,reinterpret_cast<const DWORD&>(value)) != D3D_OK)
-		throw sge::exception(SGE_TEXT("SetRenderState() failed!"));
+		throw sge::exception(FCPPT_TEXT("SetRenderState() failed!"));
 }
 
 void set_texture_stage_state(const sge::d3d9::d3d_device_ptr device, const sge::stage_type stage, const D3DTEXTURESTAGESTATETYPE state, const sge::renderer::int_type value)
 {
 	if(device->SetTextureStageState(static_cast<DWORD>(stage),state,value) != D3D_OK)
-		throw sge::exception(SGE_TEXT("SetTextureStageState() failed!"));
+		throw sge::exception(FCPPT_TEXT("SetTextureStageState() failed!"));
 }
 
 void set_sampler_state(const sge::d3d9::d3d_device_ptr device, const sge::stage_type stage, const D3DSAMPLERSTATETYPE state, const sge::renderer::int_type value)
 {
 	if(device->SetSamplerState(static_cast<DWORD>(stage),state,value) != D3D_OK)
-		throw sge::exception(SGE_TEXT("SetSamplerState() failed!"));
+		throw sge::exception(FCPPT_TEXT("SetSamplerState() failed!"));
 }
 
 void set_texture(const sge::d3d9::d3d_device_ptr device, const sge::stage_type stage, IDirect3DBaseTexture9* const tex)
 {
 	if(device->SetTexture(static_cast<DWORD>(stage),tex) != D3D_OK)
-		throw sge::exception(SGE_TEXT("SetTexture() failed!"));
+		throw sge::exception(FCPPT_TEXT("SetTexture() failed!"));
 
 	//set_sampler_state(device,stage,d3d_type,d3d_value);
 }
@@ -811,7 +811,7 @@ void set_texture(const sge::d3d9::d3d_device_ptr device, const sge::stage_type s
 void set_render_target(const sge::d3d9::d3d_device_ptr device, const sge::d3d9::d3d_surface_ptr target)
 {
 		if(device->SetRenderTarget(0, target.get()) != D3D_OK)
-			throw sge::exception(SGE_TEXT("SetRenderTarget() failed!"));
+			throw sge::exception(FCPPT_TEXT("SetRenderTarget() failed!"));
 }
 
 }

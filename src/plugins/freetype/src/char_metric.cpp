@@ -50,7 +50,7 @@ sge::freetype::char_metric::char_metric(
 		)
 	)
 		throw exception(
-			SGE_TEXT("FT_Load_Glyph() failed!")
+			FCPPT_TEXT("FT_Load_Glyph() failed!")
 		);
 
 	glyph glyph_(
@@ -70,22 +70,22 @@ sge::freetype::char_metric::char_metric(
 		SGE_LOG_WARNING(
 			log::global(),
 			log::_
-				<< SGE_TEXT("x offset of character '")
+				<< FCPPT_TEXT("x offset of character '")
 				<< ch
-				<< SGE_TEXT("' is ")
+				<< FCPPT_TEXT("' is ")
 				<< offset_.x()
-				<< SGE_TEXT('!')
+				<< FCPPT_TEXT('!')
 		);
 
 	if(offset_.y() < 0)
 		SGE_LOG_WARNING(
 			log::global(),
 			log::_
-				<< SGE_TEXT("y offset of character '")
+				<< FCPPT_TEXT("y offset of character '")
 				<< ch
-				<< SGE_TEXT("' is ")
+				<< FCPPT_TEXT("' is ")
 				<< offset_.y()
-				<< SGE_TEXT('!')
+				<< FCPPT_TEXT('!')
 		);
 
 	// FIXME
@@ -93,7 +93,7 @@ sge::freetype::char_metric::char_metric(
 		bitmap.pitch < 0
 	)
 		throw sge::exception(
-			SGE_TEXT("FIXME: bitmap pitch < 0, case not handled!")
+			FCPPT_TEXT("FIXME: bitmap pitch < 0, case not handled!")
 		);
 
 	image::dim_type const dim_(

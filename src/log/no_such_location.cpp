@@ -26,9 +26,9 @@ sge::log::no_such_location::no_such_location(
 )
 :
 	exception(
-		SGE_TEXT("no such location \"")
+		FCPPT_TEXT("no such location \"")
 		+ nlocation_.string()
-		+ SGE_TEXT('"')
+		+ FCPPT_TEXT('"')
 	),
 	location_(
 		nlocation_

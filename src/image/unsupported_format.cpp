@@ -28,7 +28,7 @@ sge::image::unsupported_format::unsupported_format(
 :
 	file_exception(
 		_path,
-		SGE_TEXT("file has unsupported format: ")
+		FCPPT_TEXT("file has unsupported format: ")
 		+ _string
 	)
 {}

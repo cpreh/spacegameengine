@@ -37,6 +37,6 @@ sge::opengl::convert::draw_mode(
 	}
 
 	throw exception(
-		SGE_TEXT("Invalid draw_mode!")
+		FCPPT_TEXT("Invalid draw_mode!")
 	);
 }

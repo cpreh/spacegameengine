@@ -31,6 +31,6 @@ sge::log::format::create_prefix(
 		make_shared_ptr<
 			inserter
 		>(
-			prefix + SGE_TEXT(": %1%")
+			prefix + FCPPT_TEXT(": %1%")
 		);
 }

@@ -55,7 +55,7 @@ try_create_path(
 	)
 		throw sge::config::exception(
 			p.string()
-			+ SGE_TEXT(" is not a directory!")
+			+ FCPPT_TEXT(" is not a directory!")
 		);
 
 	return p;
@@ -72,7 +72,7 @@ sge::config::find_config_path(
 	return try_create_path(
 		filesystem::path(
 			getenv(
-				SGE_TEXT("APPDIR")
+				FCPPT_TEXT("APPDIR")
 			)
 		)
 		/ appname
@@ -83,7 +83,7 @@ sge::config::find_config_path(
 		return try_create_path(
 			filesystem::path(
 				getenv(
-					SGE_TEXT("XDG_CONFIG_PATH")
+					FCPPT_TEXT("XDG_CONFIG_PATH")
 				)
 			)
 			/ appname
@@ -96,7 +96,7 @@ sge::config::find_config_path(
 		return try_create_path(
 			filesystem::path(
 				homedir()
-				/ SGE_TEXT(".config")
+				/ FCPPT_TEXT(".config")
 				/ appname
 			)
 		);

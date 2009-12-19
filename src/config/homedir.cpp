@@ -28,11 +28,11 @@ sge::config::homedir()
 {
 #ifdef SGE_POSIX_PLATFORM
 	return getenv(
-		SGE_TEXT("HOME")
+		FCPPT_TEXT("HOME")
 	);
 #elif SGE_WINDOWS_PLATFORM
 	return getenv(
-		SGE_TEXT("USERPROFILE")
+		FCPPT_TEXT("USERPROFILE")
 	);
 #else
 #error "Don't know how to get the homedir"

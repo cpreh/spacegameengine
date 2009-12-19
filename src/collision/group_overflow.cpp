@@ -4,6 +4,6 @@
 sge::collision::group_overflow::group_overflow()
 :
 	exception(
-		SGE_TEXT("There are no more groups identifiers available"))
+		FCPPT_TEXT("There are no more groups identifiers available"))
 {
 }

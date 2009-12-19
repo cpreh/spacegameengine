@@ -32,14 +32,14 @@ void sge::detail::process_assert(
 {
 	ostringstream ss;
 
-	ss << file << SGE_TEXT(':') << line;
+	ss << file << FCPPT_TEXT(':') << line;
 
 	if (!function.empty())
-		ss << SGE_TEXT(" function '") << function << SGE_TEXT('\'');
-	ss << SGE_TEXT(": assertion failed: ") << condition;
+		ss << FCPPT_TEXT(" function '") << function << FCPPT_TEXT('\'');
+	ss << FCPPT_TEXT(": assertion failed: ") << condition;
 
 	if (!message.empty())
-		ss << SGE_TEXT(", ") << message;
+		ss << FCPPT_TEXT(", ") << message;
 
 	throw exception(ss.str());
 }

@@ -49,7 +49,7 @@ sge::opengl::xf86vmode::choose_mode(
 
 	if(best == -1)
 		throw exception(
-			SGE_TEXT("No matching resolution found in xf86vmode!"));
+			FCPPT_TEXT("No matching resolution found in xf86vmode!"));
 	return
 		resolution_ptr(
 			make_shared_ptr<

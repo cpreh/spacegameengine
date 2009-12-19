@@ -94,15 +94,15 @@ sge::window::create(
 			SGE_LOG_ERROR(
 				log::global(),
 				log::_
-					<< SGE_TEXT("window::create failed!")
-					<< SGE_TEXT(" Trying another bit depth. Reason: ")
+					<< FCPPT_TEXT("window::create failed!")
+					<< FCPPT_TEXT(" Trying another bit depth. Reason: ")
 					<< e.string()
 			);
 			throw;
 		}
 
 	throw exception(
-		SGE_TEXT("window::create failed! No matching visual!")
+		FCPPT_TEXT("window::create failed! No matching visual!")
 	);
 #else
 #error "Implement me!"

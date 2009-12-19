@@ -42,7 +42,7 @@ void sge::opengl::enable(
 	SGE_OPENGL_CHECK_STATE(
 		sge::str(
 			sge::format(
-				SGE_TEXT("glEnable %1% failed")
+				FCPPT_TEXT("glEnable %1% failed")
 			)
 			% what
 		),
@@ -58,7 +58,7 @@ void sge::opengl::disable(
 	SGE_OPENGL_CHECK_STATE(
 		sge::str(
 			sge::format(
-				SGE_TEXT("glDisable %1% failed")
+				FCPPT_TEXT("glDisable %1% failed")
 			)
 			% what
 		),

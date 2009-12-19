@@ -51,6 +51,6 @@ sge::renderer::operator<<(
 {
 	return s
 		<< v.pos()
-		<< SGE_TEXT(' ')
+		<< FCPPT_TEXT(' ')
 		<< v.size();
 }

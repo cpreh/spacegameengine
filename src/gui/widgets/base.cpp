@@ -45,7 +45,7 @@ namespace
 sge::log::object mylogger(
 	sge::log::parameters::inherited(
 		sge::gui::global_log(),
-		SGE_TEXT("widget")
+		FCPPT_TEXT("widget")
 	)
 );
 
@@ -316,7 +316,7 @@ void sge::gui::widgets::base::compile(
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("in compile"));
+		log::_ << FCPPT_TEXT("in compile"));
 	layout().compile(
 		i);
 }
@@ -339,7 +339,7 @@ void sge::gui::widgets::base::invalidate(
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("in invalidate"));
+		log::_ << FCPPT_TEXT("in invalidate"));
 	layout().invalidate(
 		w,
 		i);
@@ -351,7 +351,7 @@ void sge::gui::widgets::base::process_invalid_area(
 	// draw itself, then draw children
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("redrawing myself, region ")
+		log::_ << FCPPT_TEXT("redrawing myself, region ")
 		        << e.area());
 	parent_manager().skin().draw(*this,e);
 
@@ -360,11 +360,11 @@ void sge::gui::widgets::base::process_invalid_area(
 		SGE_LOG_DEBUG(
 			mylogger,
 			log::_
-				<< SGE_TEXT("checking if ")
+				<< FCPPT_TEXT("checking if ")
 				<< w.absolute_area()
-				<< SGE_TEXT(" intersects with ")
+				<< FCPPT_TEXT(" intersects with ")
 				<< e.area()
-				<< SGE_TEXT(": ")
+				<< FCPPT_TEXT(": ")
 				<< intersects(w.absolute_area(),e.area()));
 
 		if (intersects(w.absolute_area(),e.area()))
@@ -372,9 +372,9 @@ void sge::gui::widgets::base::process_invalid_area(
 			SGE_LOG_DEBUG(
 				mylogger,
 				log::_
-					<< SGE_TEXT("sending widgets::base ")
+					<< FCPPT_TEXT("sending widgets::base ")
 					<< type_info(typeid(w)).name()
-					<< SGE_TEXT(" an invalid area event"));
+					<< FCPPT_TEXT(" an invalid area event"));
 			w.process_invalid_area(e);
 		}
 	}
@@ -394,13 +394,13 @@ sge::gui::key_handling::type sge::gui::widgets::base::process_key(
 void sge::gui::widgets::base::process_keyboard_enter(
 	events::keyboard_enter const &)
 {
-	SGE_LOG_DEBUG(mylogger,log::_ << SGE_TEXT("got keyboard_enter"));
+	SGE_LOG_DEBUG(mylogger,log::_ << FCPPT_TEXT("got keyboard_enter"));
 }
 
 void sge::gui::widgets::base::process_keyboard_leave(
 	events::keyboard_leave const &)
 {
-	SGE_LOG_DEBUG(mylogger,log::_ << SGE_TEXT("got keyboard_leave"));
+	SGE_LOG_DEBUG(mylogger,log::_ << FCPPT_TEXT("got keyboard_leave"));
 }
 
 sge::gui::widgets::base::~base()

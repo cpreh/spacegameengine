@@ -41,7 +41,7 @@ void sge::gui::detail::cursor_delegate::key_callback(
 	switch (c.key().code())
 	{
 		case input::kc::key_return:
-			text += SGE_TEXT('\n');
+			text += FCPPT_TEXT('\n');
 		break;
 		case input::kc::key_left:
 			if (pos_ == 0)
@@ -49,12 +49,12 @@ void sge::gui::detail::cursor_delegate::key_callback(
 
 			pos_--;
 
-			if (text[pos_] == SGE_TEXT('\n'))
+			if (text[pos_] == FCPPT_TEXT('\n'))
 				pos_--;
 		break;
 		case input::kc::key_right:
 			pos_ = std::min(pos_+1,text.length());
-			if (text[pos_] == SGE_TEXT('\n'))
+			if (text[pos_] == FCPPT_TEXT('\n'))
 				pos_++;
 		break;
 		case input::kc::key_backspace:

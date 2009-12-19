@@ -29,7 +29,7 @@ sge::x11::wm_hints::wm_hints()
 {
 	if(!hints)
 		throw exception(
-			SGE_TEXT("XAllocWMHints() failed!"));
+			FCPPT_TEXT("XAllocWMHints() failed!"));
 
 	hints->input = False;
 	hints->initial_state = NormalState;

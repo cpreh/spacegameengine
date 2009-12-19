@@ -65,7 +65,7 @@ sge::filesystem::readlink(
 			}
 
 			throw exception(
-				SGE_TEXT("readlink failed: ")
+				FCPPT_TEXT("readlink failed: ")
 				+ error::strerrno()
 			);
 		}
@@ -84,7 +84,7 @@ sge::filesystem::readlink(
 	}
 #else
 	throw exception(
-		SGE_TEXT("readlink not supported!")
+		FCPPT_TEXT("readlink not supported!")
 	);
 #endif
 }

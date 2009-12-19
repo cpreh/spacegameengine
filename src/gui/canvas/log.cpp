@@ -30,7 +30,7 @@ sge::gui::canvas::global_log()
 	static sge::log::object global(
 		sge::log::parameters::inherited(
 			sge::gui::global_log(),
-			SGE_TEXT("canvas")
+			FCPPT_TEXT("canvas")
 		)
 	);
 

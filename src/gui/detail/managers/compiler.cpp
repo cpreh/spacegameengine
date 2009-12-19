@@ -37,7 +37,7 @@ namespace
 sge::log::object mylogger(
 	sge::log::parameters::inherited(
 		sge::gui::global_log(),
-		SGE_TEXT("managers: compiler")
+		FCPPT_TEXT("managers: compiler")
 	)
 );
 
@@ -71,9 +71,9 @@ void sge::gui::detail::managers::compiler::add(widgets::base &w)
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_
-			<< SGE_TEXT("adding widget ")
+			<< FCPPT_TEXT("adding widget ")
 			<< type_info(typeid(w)).name()
-			<< SGE_TEXT(" to invalidate list"));
+			<< FCPPT_TEXT(" to invalidate list"));
 
 	// since we cannot assume that widgets::base is fully constructed (just the base
 	// class: widget), we defer invalidation to a later point of time
@@ -88,7 +88,7 @@ void sge::gui::detail::managers::compiler::remove(widgets::base &w)
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_
-			<< SGE_TEXT("deleting a widget of type ")
+			<< FCPPT_TEXT("deleting a widget of type ")
 			<< type_info(typeid(w)).name());
 
 	// remove now dead references from recompile list
@@ -114,7 +114,7 @@ void sge::gui::detail::managers::compiler::remove(widgets::base &w)
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_ << SGE_TEXT("inserting parent to invalidates list"));
+			log::_ << FCPPT_TEXT("inserting parent to invalidates list"));
 		invalidates.insert(
 			std::make_pair(
 				&(w.parent_widget()),
@@ -129,7 +129,7 @@ void sge::gui::detail::managers::compiler::update()
 		/*
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_ << SGE_TEXT("in update, but nothing to do!"));
+			log::_ << FCPPT_TEXT("in update, but nothing to do!"));
 			*/
 		return;
 	}
@@ -140,7 +140,7 @@ void sge::gui::detail::managers::compiler::update()
 		SGE_LOG_DEBUG(
 			mylogger,
 			log::_
-				<< SGE_TEXT("invalidating widget's parent: ")
+				<< FCPPT_TEXT("invalidating widget's parent: ")
 				<< type_info(typeid(r.first)).name());
 		r.first->invalidate(
 			*r.first,
@@ -153,7 +153,7 @@ void sge::gui::detail::managers::compiler::update()
 		SGE_LOG_DEBUG(
 			mylogger,
 			log::_
-				<< SGE_TEXT("compiling widget of type ")
+				<< FCPPT_TEXT("compiling widget of type ")
 				<< type_info(typeid(*r.first)).name());
 		r.first->compile(
 			r.second);
@@ -185,14 +185,14 @@ void sge::gui::detail::managers::compiler::insert_or_combine(
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_ << SGE_TEXT("widget already in list, combining"));
+			log::_ << FCPPT_TEXT("widget already in list, combining"));
 		it->second |= i;
 	}
 	else
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_ << SGE_TEXT("inserting widget"));
+			log::_ << FCPPT_TEXT("inserting widget"));
 		c.insert(
 			std::make_pair(
 				&w,i));

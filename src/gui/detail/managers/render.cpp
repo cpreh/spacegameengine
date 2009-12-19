@@ -68,7 +68,7 @@ namespace
 sge::log::object mylogger(
 	sge::log::parameters::inherited(
 		sge::gui::global_log(),
-		SGE_TEXT("managers: render")
+		FCPPT_TEXT("managers: render")
 	)
 );
 
@@ -142,7 +142,7 @@ void sge::gui::detail::managers::render::add(widgets::base &w)
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("adding new widget"));
+		log::_ << FCPPT_TEXT("adding new widget"));
 	widgets::base *w_ptr = &w;
 
 	if (!w.has_parent())
@@ -234,8 +234,8 @@ void sge::gui::detail::managers::render::resize(
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_
-			<< SGE_TEXT("widget ") << type_name(typeid(w))
-			<< SGE_TEXT(" was resized to ") << d);
+			<< FCPPT_TEXT("widget ") << type_name(typeid(w))
+			<< FCPPT_TEXT(" was resized to ") << d);
 
 	dirt_.erase(&w);
 
@@ -257,8 +257,8 @@ void sge::gui::detail::managers::render::resize(
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_
-			<< SGE_TEXT("resizing widget from ") << w.size()
-			<< SGE_TEXT(" to ") << d);
+			<< FCPPT_TEXT("resizing widget from ") << w.size()
+			<< FCPPT_TEXT(" to ") << d);
 
 	widget_data &wd = *wi->second;
 
@@ -272,16 +272,16 @@ void sge::gui::detail::managers::render::resize(
 		SGE_LOG_DEBUG(
 			mylogger,
 			log::_
-				<< SGE_TEXT("texture resolution ")
+				<< FCPPT_TEXT("texture resolution ")
 				<< wd.texture->dim()
-				<< SGE_TEXT(" suffices, doing nothing"));
+				<< FCPPT_TEXT(" suffices, doing nothing"));
 		return;
 	}
 
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_
-			<< SGE_TEXT("new resolution is ")
+			<< FCPPT_TEXT("new resolution is ")
 			<< new_dim
 	);
 
@@ -379,16 +379,16 @@ void sge::gui::detail::managers::render::clean()
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("cleaning dirty regions"));
+		log::_ << FCPPT_TEXT("cleaning dirty regions"));
 
 	BOOST_FOREACH(dirt_container::reference d,dirt_)
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
 			log::_
-				<< SGE_TEXT("cleaning rect: ")
+				<< FCPPT_TEXT("cleaning rect: ")
 				<< d.second
-				<< SGE_TEXT(" from widget: ")
+				<< FCPPT_TEXT(" from widget: ")
 				<< type_info(typeid(*d.first)).name());
 
 		widgets::base &p = d.first->oldest_parent();
@@ -402,7 +402,7 @@ void sge::gui::detail::managers::render::clean()
 		{
 			SGE_LOG_DEBUG(
 				mylogger,
-				log::_ << SGE_TEXT("cannot lock because oldest parent hasn't been inited yet"));
+				log::_ << FCPPT_TEXT("cannot lock because oldest parent hasn't been inited yet"));
 			continue;
 		}
 
@@ -413,7 +413,7 @@ void sge::gui::detail::managers::render::clean()
 		SGE_LOG_DEBUG(
 			mylogger,
 			log::_
-				<< SGE_TEXT("trying to lock area: ")
+				<< FCPPT_TEXT("trying to lock area: ")
 				<< to_lock);
 
 		renderer::scoped_texture_lock const lock_(
@@ -429,7 +429,7 @@ void sge::gui::detail::managers::render::clean()
 		SGE_LOG_DEBUG(
 			mylogger,
 			log::_
-				<< SGE_TEXT("sending dirty for area: ")
+				<< FCPPT_TEXT("sending dirty for area: ")
 				<< d.second);
 
 		p.process_invalid_area(

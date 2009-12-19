@@ -91,7 +91,7 @@ void sge::opengl::volume_texture::do_sub_data(
 {
 /*	if(volume_texture_type() == GL_EXT_texture3D)
 		throw exception(
-			SGE_TEXT("GL_EXT_texture3d can't set sub images!"));
+			FCPPT_TEXT("GL_EXT_texture3d can't set sub images!"));
 
 	pre_setdata();
 	const GLenum format = GL_RGBA, type = GL_UNSIGNED_BYTE;
@@ -140,9 +140,9 @@ void initialize_volume_texture()
 		gl_volume_texture_type = GL_TEXTURE_3D_EXT;
 	else
 		sge::opengl::on_not_supported(
-			SGE_TEXT("volume_texture"),
-			SGE_TEXT("1.2"),
-			SGE_TEXT("gl_ext_texture3d"));
+			FCPPT_TEXT("volume_texture"),
+			FCPPT_TEXT("1.2"),
+			FCPPT_TEXT("gl_ext_texture3d"));
 }
 
 GLenum volume_texture_type()

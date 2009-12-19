@@ -35,7 +35,7 @@ namespace
 sge::log::object mylogger(
 	sge::log::parameters::inherited(
 		sge::gui::global_log(),
-		SGE_TEXT("layouts: base")
+		FCPPT_TEXT("layouts: base")
 	)
 );
 
@@ -51,14 +51,14 @@ void sge::gui::layouts::base::compile(invalidation::type const &i)
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("in compile of widget: ")
+		log::_ << FCPPT_TEXT("in compile of widget: ")
 		        << type_name(typeid(connected_widget())));
 
 	if (i & invalidation::position)
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_ << SGE_TEXT("position invalid"));
+			log::_ << FCPPT_TEXT("position invalid"));
 
 		// Currently, the layout doesn't support any internal size hints (just the
 		// global one which sets the widget's position
@@ -66,7 +66,7 @@ void sge::gui::layouts::base::compile(invalidation::type const &i)
 		{
 			SGE_LOG_DEBUG(
 				mylogger,
-				log::_ << SGE_TEXT("setting raw new position"));
+				log::_ << FCPPT_TEXT("setting raw new position"));
 
 			base::set_widget_pos(
 				connected_widget(),
@@ -81,7 +81,7 @@ void sge::gui::layouts::base::compile(invalidation::type const &i)
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("size invalid, so recompiling"));
+		log::_ << FCPPT_TEXT("size invalid, so recompiling"));
 
 	dim const s =
 		connected_widget().optimal_size();
@@ -148,7 +148,7 @@ void sge::gui::layouts::base::compile_widget(
 void sge::gui::layouts::base::connected_widget(widgets::base &_w)
 {
 	if (w)
-		throw exception(SGE_TEXT("registered connected widgets::base twice"));
+		throw exception(FCPPT_TEXT("registered connected widgets::base twice"));
 
 	w = &_w;
 }

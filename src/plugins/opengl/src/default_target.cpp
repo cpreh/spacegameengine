@@ -78,7 +78,7 @@ sge::opengl::default_target::stride() const
 		return sizeof(boost::uint32_t);
 	default:
 		throw exception(
-			SGE_TEXT("Invalid bit_depth in ogl::default_target!"));
+			FCPPT_TEXT("Invalid bit_depth in ogl::default_target!"));
 	}
 }
 

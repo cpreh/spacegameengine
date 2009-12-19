@@ -40,7 +40,7 @@ sge::opengl::xf86vmode::resolution::resolution(
 			&new_mode))
 	== False)
 		throw exception(
-			SGE_TEXT("XF86VidModeSwitchToMode() failed!"));
+			FCPPT_TEXT("XF86VidModeSwitchToMode() failed!"));
 
 	XF86VidModeSetViewPort(
 		dsp->get(),

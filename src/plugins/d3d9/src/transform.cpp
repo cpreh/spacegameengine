@@ -72,7 +72,7 @@ sge::d3d9::set_transform(
 		) != D3D_OK
 	)
 		throw exception(
-			SGE_TEXT("SetTransform() failed!")
+			FCPPT_TEXT("SetTransform() failed!")
 		);
 }
 

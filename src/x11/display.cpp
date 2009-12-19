@@ -28,7 +28,7 @@ sge::x11::display::display()
 {
 	if(!d)
 		throw exception(
-			SGE_TEXT("XOpenDisplay failed or dsp is 0!"));
+			FCPPT_TEXT("XOpenDisplay failed or dsp is 0!"));
 }
 
 sge::x11::display::~display()

@@ -37,5 +37,5 @@ sge::d3d9::material(
 			&d3d_mat
 		) != D3D_OK
 	)
-		throw exception(SGE_TEXT("set_material() failed!"));
+		throw exception(FCPPT_TEXT("set_material() failed!"));
 }

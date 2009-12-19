@@ -32,7 +32,7 @@ sge::opengl::get_string(
 			what));
 	if(!ret)
 		throw exception(
-			SGE_TEXT("glGetString() failed!"));
+			FCPPT_TEXT("glGetString() failed!"));
 
 	return iconv(
 		reinterpret_cast<char const *>(

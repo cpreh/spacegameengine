@@ -25,7 +25,7 @@ sge::renderer::exception::exception(
 	sge::string const &s)
 :
 	sge::exception(
-		SGE_TEXT("renderer: ")
+		FCPPT_TEXT("renderer: ")
 		+ s
 	)
 {}

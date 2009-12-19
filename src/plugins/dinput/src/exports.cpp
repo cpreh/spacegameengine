@@ -31,8 +31,8 @@ SGE_EXPORT_SYMBOL void plugin_version_info(sge::plugin::info* const p)
 {
 	if(!p)
 		return;
-	p->name = SGE_TEXT("direct input plugin");
-	p->description = SGE_TEXT("");
+	p->name = FCPPT_TEXT("direct input plugin");
+	p->description = FCPPT_TEXT("");
 	p->min_core_version = 0x1;
 	p->plugin_version = 0x1;
 	p->type = sge::plugin::capabilities::input;

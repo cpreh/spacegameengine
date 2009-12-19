@@ -111,7 +111,7 @@ sge::library::object::object(
 	if(!handle)
 		throw exception(
 			string(
-				SGE_TEXT("failed to load library::object: "))
+				FCPPT_TEXT("failed to load library::object: "))
 				+ error()
 			);
 }
@@ -173,9 +173,9 @@ sge::library::object::load_address_base(
 
 	if(!ret)
 		throw exception(
-			SGE_TEXT("Function ")
+			FCPPT_TEXT("Function ")
 			+ sge::iconv(fun)
-			+ SGE_TEXT(" not found in ")
+			+ FCPPT_TEXT(" not found in ")
 			+ name_.string()
 		);
 
@@ -198,7 +198,7 @@ sge::library::object::load_address_base(
 	if(dlerror())
 		throw exception(
 			sge::iconv(fun)
-			+ SGE_TEXT(" not found in library ")
+			+ FCPPT_TEXT(" not found in library ")
 			+ name().string()
 		);
 

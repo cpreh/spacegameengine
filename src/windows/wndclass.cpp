@@ -47,7 +47,7 @@ sge::windows::wndclass::wndclass(
 
 	if(!RegisterClassEx(&wndclass))
 		throw exception(
-			SGE_TEXT("RegisterClassEx() failed!"));
+			FCPPT_TEXT("RegisterClassEx() failed!"));
 }
 
 sge::windows::wndclass::~wndclass()

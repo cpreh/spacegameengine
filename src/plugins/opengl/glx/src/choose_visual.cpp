@@ -59,7 +59,7 @@ sge::opengl::glx::choose_visual(
 		break;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid bit_depth!"));
+			FCPPT_TEXT("Invalid bit_depth!"));
 	}
 
 	if(depth_buffer != renderer::depth_buffer::off)

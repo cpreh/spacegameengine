@@ -46,7 +46,7 @@ performance_counter_time()
 		)
 	)
 		throw clock_failure(
-			SGE_TEXT("QueryPerformanceCounter() failed!")
+			FCPPT_TEXT("QueryPerformanceCounter() failed!")
 		);
 
 	typedef double float_type;

@@ -72,7 +72,7 @@ sge::x11::class_hint::impl::impl()
 {
 	if(!hint)
 		throw exception(
-			SGE_TEXT("XAllocClassHint() failed!"));
+			FCPPT_TEXT("XAllocClassHint() failed!"));
 }
 
 sge::x11::class_hint::impl::~impl()

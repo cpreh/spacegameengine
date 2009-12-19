@@ -34,7 +34,7 @@ namespace
 sge::log::object mylogger(
 	sge::log::parameters::inherited(
 		sge::gui::widgets::global_log(),
-		SGE_TEXT("label")
+		FCPPT_TEXT("label")
 	)
 );
 
@@ -81,7 +81,7 @@ void sge::gui::widgets::label::text(
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("setting text to: ")
+		log::_ << FCPPT_TEXT("setting text to: ")
 		        << _text);
 	text_ = _text;
 	invalidate(

@@ -42,8 +42,8 @@ plugin_version_info(
 {
 	if(!i)
 		return;
-	i->name = SGE_TEXT("x11input");
-	i->description = SGE_TEXT("Handles keyboard and mouse.");
+	i->name = FCPPT_TEXT("x11input");
+	i->description = FCPPT_TEXT("Handles keyboard and mouse.");
 	i->type = sge::plugin::capabilities::input;
 	i->plugin_version = 0x1;
 	i->min_core_version = 0x1;
@@ -55,7 +55,7 @@ create_input_system(
 {
 	if(!w)
 		throw sge::exception(
-			SGE_TEXT("xinput plugin's window parameter may not be 0!"));
+			FCPPT_TEXT("xinput plugin's window parameter may not be 0!"));
 
 	return new sge::x11input::system(
 		sge::dynamic_pointer_cast<sge::x11::window>(

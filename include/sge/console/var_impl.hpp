@@ -37,9 +37,9 @@ void sge::console::var<T>::string(
 	catch (bad_lexical_cast const &)
 	{
 		throw exception(
-			SGE_TEXT("couldn't parse variable \"")
+			FCPPT_TEXT("couldn't parse variable \"")
 			+ name()
-			+ SGE_TEXT("\""));
+			+ FCPPT_TEXT("\""));
 	}
 }
 

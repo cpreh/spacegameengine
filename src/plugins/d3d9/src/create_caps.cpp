@@ -69,11 +69,11 @@ sge::d3d9::create_caps(
 {
 	D3DCAPS9 caps;
 	if(sys->GetDeviceCaps(adapter,D3DDEVTYPE_HAL,&caps) != D3D_OK)
-		throw exception(SGE_TEXT("GetDeviceCaps failed"));
+		throw exception(FCPPT_TEXT("GetDeviceCaps failed"));
 
 	D3DADAPTER_IDENTIFIER9 identifier;
 	if(sys->GetAdapterIdentifier(adapter,0,&identifier) != D3D_OK)
-		throw exception(SGE_TEXT("GetAdapterIdentifier failed"));
+		throw exception(FCPPT_TEXT("GetAdapterIdentifier failed"));
 
 	/*display_mode_array display_modes;
 	add_display_modes(display_modes, adapter, bit_depth::depth16, D3DFMT_A1R5G5B5, sys);

@@ -38,7 +38,7 @@ sge::d3d9::renderer_system::renderer_system()
 {
 	if(!sys)
 		throw exception(
-			SGE_TEXT("Initialization of d3d failed!")
+			FCPPT_TEXT("Initialization of d3d failed!")
 		);
 }
 
@@ -81,7 +81,7 @@ sge::d3d9::system::create_renderer(
 		) != D3D_OK
 	)
 		throw exception(
-			SGE_TEXT("Failed to initialize the renderer")
+			FCPPT_TEXT("Failed to initialize the renderer")
 		);
 
 	d3d_device_ptr const device_p(

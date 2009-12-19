@@ -50,7 +50,7 @@ GLuint sge::opengl::hardware_vbo::gen_buffer()
 	gl_gen_buffers(1, &id);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glGenBuffers failed"),
+		FCPPT_TEXT("glGenBuffers failed"),
 		sge::renderer::exception
 	)
 
@@ -63,7 +63,7 @@ void sge::opengl::hardware_vbo::delete_buffer(
 	gl_delete_buffers(1, &id);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glDeleteBuffers failed"),
+		FCPPT_TEXT("glDeleteBuffers failed"),
 		sge::renderer::exception
 	)
 }
@@ -75,7 +75,7 @@ void sge::opengl::hardware_vbo::bind_buffer(
 	gl_bind_buffer(type, id);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glBindBuffer failed"),
+		FCPPT_TEXT("glBindBuffer failed"),
 		sge::renderer::exception
 	)
 }
@@ -96,7 +96,7 @@ sge::opengl::hardware_vbo::map_buffer(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glMapBuffer failed"),
+		FCPPT_TEXT("glMapBuffer failed"),
 		sge::renderer::exception
 	)
 
@@ -121,7 +121,7 @@ sge::opengl::hardware_vbo::map_buffer_range(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glMapBufferRange failed"),
+		FCPPT_TEXT("glMapBufferRange failed"),
 		sge::renderer::exception
 	)
 
@@ -140,7 +140,7 @@ void sge::opengl::hardware_vbo::unmap_buffer(
 	gl_unmap_buffer(type);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glUnmapBuffer failed"),
+		FCPPT_TEXT("glUnmapBuffer failed"),
 		sge::renderer::exception
 	)
 }
@@ -161,7 +161,7 @@ sge::opengl::hardware_vbo::buffer_data(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glBufferData failed"),
+		FCPPT_TEXT("glBufferData failed"),
 		sge::renderer::exception
 	)
 }
@@ -182,7 +182,7 @@ sge::opengl::hardware_vbo::buffer_sub_data(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glBufferSubData failed"),
+		FCPPT_TEXT("glBufferSubData failed"),
 		sge::renderer::exception
 	)
 }
@@ -225,7 +225,7 @@ void initialize_hardware_vbo()
 	}
 	else
 		throw sge::exception(
-			SGE_TEXT("Invalid initialization of hardware_vbo!")
+			FCPPT_TEXT("Invalid initialization of hardware_vbo!")
 		);
 	
 	gl_map_buffer_range = glMapBufferRange;

@@ -49,6 +49,6 @@ sge::opengl::convert::stencil_func(
 	}
 
 	throw exception(
-		SGE_TEXT("Invalid stencil_func!")
+		FCPPT_TEXT("Invalid stencil_func!")
 	);
 }

@@ -46,7 +46,7 @@ sge::x11::sentry::~sentry()
 	// TODO: print something about the error!
 	throw exception(
 		(format(
-			SGE_TEXT("x11 error in file %1%, line %2%!"))
+			FCPPT_TEXT("x11 error in file %1%, line %2%!"))
 		% iconv(file_name)
 		% line).str());
 }

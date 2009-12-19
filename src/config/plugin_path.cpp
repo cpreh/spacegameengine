@@ -29,7 +29,7 @@ sge::config::plugin_path()
 {
 	static filesystem::path const ret(
 		find_own_path(
-			SGE_TEXT("plugin_path"),
+			FCPPT_TEXT("plugin_path"),
 			boost::assign::list_of(
 				iconv(
 // TODO: why did we do this?

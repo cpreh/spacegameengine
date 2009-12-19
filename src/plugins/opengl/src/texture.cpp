@@ -135,7 +135,7 @@ void sge::opengl::texture::lock_me(
 	|| l.bottom() > dim().h())
 		throw exception(
 			(sge::format(
-				SGE_TEXT("ogl: lock_rect (%1%) out of range! dim is %2%!"))
+				FCPPT_TEXT("ogl: lock_rect (%1%) out of range! dim is %2%!"))
 				% l % dim()).str());
 
 	bool const must_read = lock_flag_read(method);

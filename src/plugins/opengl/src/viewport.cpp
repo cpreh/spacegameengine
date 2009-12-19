@@ -40,7 +40,7 @@ sge::opengl::viewport(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glViewport failed"),
+		FCPPT_TEXT("glViewport failed"),
 		sge::renderer::exception
 	)
 }

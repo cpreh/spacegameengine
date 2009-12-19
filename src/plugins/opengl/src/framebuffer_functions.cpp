@@ -43,7 +43,7 @@ void sge::opengl::read_pixels(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glReadPixels failed"),
+		FCPPT_TEXT("glReadPixels failed"),
 		sge::renderer::exception
 	)
 }

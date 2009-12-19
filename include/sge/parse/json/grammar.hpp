@@ -79,48 +79,48 @@ public:
 
 		null_ =
 			lit(
-				SGE_TEXT("null")
+				FCPPT_TEXT("null")
 			)[
 				_val = boost::phoenix::construct<null>()
 			];
 
 		bool_ =
 			lit(
-				SGE_TEXT("true")
+				FCPPT_TEXT("true")
 			)[
 				_val = true
 			]
 			| lit(
-				SGE_TEXT("false")
+				FCPPT_TEXT("false")
 			)[
 				_val = false
 			];
 
 		quoted_string_ %=
 			lexeme[
-				lit(SGE_TEXT('"'))
+				lit(FCPPT_TEXT('"'))
 				>> *(
 					(
 						char_
-						- lit(SGE_TEXT('\\'))
-						- lit(SGE_TEXT('"'))
+						- lit(FCPPT_TEXT('\\'))
+						- lit(FCPPT_TEXT('"'))
 					)
 					| (
-						lit(SGE_TEXT('\\'))
+						lit(FCPPT_TEXT('\\'))
 						>> char_
 					)
 				)
-				>> lit(SGE_TEXT('"'))
+				>> lit(FCPPT_TEXT('"'))
 			];
 
 		array_ =
 			(
-				lit(SGE_TEXT('['))
+				lit(FCPPT_TEXT('['))
 				>> -(
 					value_
-					% lit(SGE_TEXT(','))
+					% lit(FCPPT_TEXT(','))
 				)
-				>> lit(SGE_TEXT(']'))
+				>> lit(FCPPT_TEXT(']'))
 			)
 			[
 				_val = boost::phoenix::construct<array>(_1)
@@ -137,17 +137,17 @@ public:
 
 		member_ %=
 			quoted_string_
-			>> lit(SGE_TEXT(':'))
+			>> lit(FCPPT_TEXT(':'))
 			>> value_;
 
 		object_ =
 			(
-				lit(SGE_TEXT('{'))
+				lit(FCPPT_TEXT('{'))
 				>> -(
 					member_
-					% lit(SGE_TEXT(','))
+					% lit(FCPPT_TEXT(','))
 				)
-				>> lit(SGE_TEXT('}'))
+				>> lit(FCPPT_TEXT('}'))
 			)
 			[
 				_val = boost::phoenix::construct<object>(_1)

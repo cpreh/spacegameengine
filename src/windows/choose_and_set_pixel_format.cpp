@@ -56,9 +56,9 @@ void sge::windows::choose_and_set_pixel_format(
 
 	if(format == 0)
 		throw exception(
-			SGE_TEXT("ChoosePixelFormat() failed"));
+			FCPPT_TEXT("ChoosePixelFormat() failed"));
 
 	if(SetPixelFormat(dc.hdc(), format, &pfd) == FALSE)
 		throw exception(
-			SGE_TEXT("SetPixelFormat() failed"));
+			FCPPT_TEXT("SetPixelFormat() failed"));
 }

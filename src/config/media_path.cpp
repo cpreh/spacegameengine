@@ -29,7 +29,7 @@ sge::config::media_path()
 {
 	static filesystem::path const ret(
 		find_own_path(
-			SGE_TEXT("media_path"),
+			FCPPT_TEXT("media_path"),
 			boost::assign::list_of(
 				iconv(
 					MEDIA_PATH

@@ -60,7 +60,7 @@ sge::chrono::system_clock::now()
 		) != 0
 	)
 		throw clock_failure(
-			SGE_TEXT("gettimeofday() failed")
+			FCPPT_TEXT("gettimeofday() failed")
 		);
 
 	return time_point(

@@ -44,6 +44,6 @@ sge::opengl::convert::clear_bit(
 	}
 
 	throw exception(
-		SGE_TEXT("Invalid bool_state in convert_clear_bit()!")
+		FCPPT_TEXT("Invalid bool_state in convert_clear_bit()!")
 	);
 }

@@ -43,7 +43,7 @@ init()
 		 == 0
 	)
 		throw sge::chrono::clock_failure(
-			SGE_TEXT("QueryPerformanceFrequency() failed!")
+			FCPPT_TEXT("QueryPerformanceFrequency() failed!")
 		);
 
 }

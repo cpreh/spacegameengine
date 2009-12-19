@@ -65,5 +65,5 @@ sge::opengl::xrandr::choose_resolution(
 					current_resolution(
 						config)));
 	throw exception(
-		SGE_TEXT("No matching resolution found!"));
+		FCPPT_TEXT("No matching resolution found!"));
 }

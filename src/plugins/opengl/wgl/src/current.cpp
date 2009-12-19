@@ -30,7 +30,7 @@ sge::opengl::wgl::current::current(
 {
 	if(wglMakeCurrent(dev.hdc(), ctx.hglrc()) == FALSE)
 		throw exception(
-			SGE_TEXT("wglMakeCurrent() failed!"));
+			FCPPT_TEXT("wglMakeCurrent() failed!"));
 }
 
 sge::opengl::wgl::current::~current()

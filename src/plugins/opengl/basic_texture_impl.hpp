@@ -214,7 +214,7 @@ void sge::opengl::basic_texture<Base>::check_locked() const
 {
 	if(!lock_)
 		throw exception(
-			SGE_TEXT("ogl::basic_texture not locked!"));
+			FCPPT_TEXT("ogl::basic_texture not locked!"));
 }
 
 template<typename Base>
@@ -222,7 +222,7 @@ void sge::opengl::basic_texture<Base>::check_not_locked() const
 {
 	if(lock_)
 		throw exception(
-			SGE_TEXT("ogl::basic_texture already locked!"));
+			FCPPT_TEXT("ogl::basic_texture already locked!"));
 }
 
 #endif

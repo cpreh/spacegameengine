@@ -27,9 +27,9 @@ void sge::libpng::context_base::handle_warning_impl(
 	SGE_LOG_WARNING(
 		log::global(),
 		log::_
-			<< SGE_TEXT("libpng: file: ")
+			<< FCPPT_TEXT("libpng: file: ")
 			<< path_.string()
-			<< SGE_TEXT(": ")
+			<< FCPPT_TEXT(": ")
 			<< iconv(message));
 }
 

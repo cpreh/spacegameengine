@@ -58,7 +58,7 @@ sge::renderer::texture_rw::texture_rw(
 {
 	SGE_ASSERT_MESSAGE(
 		read_->dim() == write_->dim(),
-		SGE_TEXT("read dimension has to be the same as write dimension"));
+		FCPPT_TEXT("read dimension has to be the same as write dimension"));
 }
 
 sge::renderer::texture_rw::~texture_rw()
@@ -78,7 +78,7 @@ sge::renderer::texture_rw::lock(
 {
 	SGE_ASSERT_MESSAGE(
 		!locked,
-		SGE_TEXT("already locked texture_rw")
+		FCPPT_TEXT("already locked texture_rw")
 	);
 
 	locked.reset(
@@ -101,7 +101,7 @@ sge::renderer::texture_rw::lock(
 {
 	SGE_ASSERT_MESSAGE(
 		!locked,
-		SGE_TEXT("already locked texture_rw")
+		FCPPT_TEXT("already locked texture_rw")
 	);
 
 	locked.reset(
@@ -120,7 +120,7 @@ sge::renderer::texture_rw::unlock() const
 {
 	SGE_ASSERT_MESSAGE(
 		locked,
-		SGE_TEXT("unlocking texture_rw without (proper) locking")
+		FCPPT_TEXT("unlocking texture_rw without (proper) locking")
 	);
 
 	// we didn't just lock to read?

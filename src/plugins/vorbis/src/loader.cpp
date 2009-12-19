@@ -41,6 +41,6 @@ sge::extension_set const
 sge::vorbis::loader::extensions() const
 {
 	extension_set s;
-	s.insert(SGE_TEXT("ogg"));
+	s.insert(FCPPT_TEXT("ogg"));
 	return s;
 }

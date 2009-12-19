@@ -32,7 +32,7 @@ sge::bitmapfont::system::create_font(
 {
 	if(!loader)
 		throw font::exception(
-			SGE_TEXT("The bitmap font plugin needs an image loader passed in create_font!")
+			FCPPT_TEXT("The bitmap font plugin needs an image loader passed in create_font!")
 		);
 
 	return make_shared_ptr<

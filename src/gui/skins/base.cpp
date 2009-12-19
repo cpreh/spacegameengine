@@ -51,7 +51,7 @@ namespace
 sge::log::object mylogger(
 	sge::log::parameters::inherited(
 		sge::gui::global_log(),
-		SGE_TEXT("skin")
+		FCPPT_TEXT("skin")
 	)
 );
 
@@ -107,7 +107,7 @@ SGE_GUI_SKIN_DRAW_RETURN(widgets::base) sge::gui::skins::base::draw(
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_ << SGE_TEXT("draw called for widget, falling back"));
+			log::_ << FCPPT_TEXT("draw called for widget, falling back"));
 		fallback(
 			w,
 			e);
@@ -116,7 +116,7 @@ SGE_GUI_SKIN_DRAW_RETURN(widgets::base) sge::gui::skins::base::draw(
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("draw called for some other widget"));
+		log::_ << FCPPT_TEXT("draw called for some other widget"));
 
 	utility::type_comparator<widgets::types>(
 		w,
@@ -139,13 +139,13 @@ SGE_GUI_SKIN_SIZE_RETURN(widgets::base) sge::gui::skins::base::optimal_size(
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_ << SGE_TEXT("optimal_size called for widget, returning null"));
+			log::_ << FCPPT_TEXT("optimal_size called for widget, returning null"));
 		return dim::null();
 	}
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("optimal_size called for widgets::base ")
+		log::_ << FCPPT_TEXT("optimal_size called for widgets::base ")
 		        << type_info(typeid(w)).name());
 
 	return utility::type_comparator<widgets::types>(
@@ -162,13 +162,13 @@ SGE_GUI_SKIN_SIZE_RETURN(widgets::base) sge::gui::skins::base::optimal_size(
 SGE_GUI_SKIN_DRAW_RETURN(widgets::base) sge::gui::skins::base::default_handler(
 	SGE_GUI_SKIN_DRAW_PARAMS(widgets::base))
 {
-	throw exception(SGE_TEXT("tried to draw a widgets::base whose type is not drawable"));
+	throw exception(FCPPT_TEXT("tried to draw a widgets::base whose type is not drawable"));
 }
 
 SGE_GUI_SKIN_SIZE_RETURN(widgets::base) sge::gui::skins::base::default_hint_handler(
 	SGE_GUI_SKIN_SIZE_PARAMS(widgets::base)) const
 {
-	throw exception(SGE_TEXT("tried to hint a widgets::base whose type is not drawable"));
+	throw exception(FCPPT_TEXT("tried to hint a widgets::base whose type is not drawable"));
 }
 
 sge::gui::skins::base::~base()
@@ -183,9 +183,9 @@ void sge::gui::skins::base::resize_buffer(
 		SGE_LOG_DEBUG(
 			mylogger,
 			log::_
-				<< SGE_TEXT("resizing from ")
+				<< FCPPT_TEXT("resizing from ")
 				<< b.buffer().size()
-				<< SGE_TEXT(" to ")
+				<< FCPPT_TEXT(" to ")
 				<< b.size());
 		b.buffer().resize(
 			b.size());

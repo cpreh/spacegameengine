@@ -70,13 +70,13 @@ sge::md3::object::object(
 	model::istream::off_type const start = is.tellg();
 
 	if(!read_and_check_id3p(is))
-		throw exception(SGE_TEXT("Invalid md3 format!"));
+		throw exception(FCPPT_TEXT("Invalid md3 format!"));
 
 	s32 const version = io::read<s32>(is, endian);
 	if(version != 15)
 		SGE_LOG_WARNING(
 			log::global(),
-			log::_ << SGE_TEXT("md3 version is not 15 but continuing anyway.")
+			log::_ << FCPPT_TEXT("md3 version is not 15 but continuing anyway.")
 		);
 
 	name_ = read_string<max_qpath>(is);
@@ -147,7 +147,7 @@ sge::md3::object::copy_vertices(
 {
 	if(vertices() > view.size())
 		throw exception(
-			SGE_TEXT("md3::object::copy_vertices(): view too small!")
+			FCPPT_TEXT("md3::object::copy_vertices(): view too small!")
 		);
 
 	typedef renderer::vf::view<
@@ -246,7 +246,7 @@ sge::md3::object::copy_indices(
 		)
 	)
 		throw exception(
-			SGE_TEXT("md3::object::copy_indices(): view tool small!")
+			FCPPT_TEXT("md3::object::copy_indices(): view tool small!")
 		);
 
 	variant::apply_unary(
@@ -278,7 +278,7 @@ sge::md3::object::read_string(model::istream& is)
 	is.read(reinterpret_cast<char*>(tmp_name.data()), tmp_name.size());
 
 	if(!std::count(tmp_name.begin(), tmp_name.end(), 0))
-		throw exception(SGE_TEXT("String in md3 file not ended with a 0!"));
+		throw exception(FCPPT_TEXT("String in md3 file not ended with a 0!"));
 
 	return tmp_name.data();
 }
@@ -331,7 +331,7 @@ inline sge::md3::object::surface::surface(model::istream& is, const s32 num_fram
 	const model::istream::off_type start = is.tellg();
 
 	if(!read_and_check_id3p(is))
-		throw exception(SGE_TEXT("Invalid md3 surface!"));
+		throw exception(FCPPT_TEXT("Invalid md3 surface!"));
 
 	name = read_string<max_qpath>(is);
 	io::read<s32>(is, endian); // flags
@@ -339,7 +339,7 @@ inline sge::md3::object::surface::surface(model::istream& is, const s32 num_fram
 	const s32 num_frames    = io::read<s32>(is, endian);
 
 	if(num_frames != num_frames_head)
-		throw exception(SGE_TEXT("num_frames mismatch in md3::object::surface!"));
+		throw exception(FCPPT_TEXT("num_frames mismatch in md3::object::surface!"));
 
 	s32 const
 		num_shaders   = io::read<s32>(is, endian),

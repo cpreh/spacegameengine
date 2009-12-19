@@ -11,14 +11,14 @@ sge::libpng::write_ptr::write_ptr(
 		0)
 {
 	if (!ptr_)
-		throw image::exception(SGE_TEXT("couldn't allocate png write structure"));
+		throw image::exception(FCPPT_TEXT("couldn't allocate png write structure"));
 
 	info_ =
 		png_create_info_struct(
 			ptr_);
 
 	if (!info_)
-		throw image::exception(SGE_TEXT("couldn't generate png info structure"));
+		throw image::exception(FCPPT_TEXT("couldn't generate png info structure"));
 }
 
 sge::libpng::write_ptr::~write_ptr()

@@ -63,7 +63,7 @@ sge::texture::cell_fragmented::consume_fragment(
 {
 	if(dim != cell_size)
 		throw exception(
-			SGE_TEXT("Invalid request for consume_fragments in texture::cell_fragmented!")
+			FCPPT_TEXT("Invalid request for consume_fragments in texture::cell_fragmented!")
 		);
 
 	// TODO maybe optimize this with a stack?

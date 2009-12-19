@@ -36,19 +36,19 @@ sge::string ogg_error(int const code)
 	switch(code)
 	{
 		case OV_EREAD:
-			return SGE_TEXT("a read from a media has returned an error");
+			return FCPPT_TEXT("a read from a media has returned an error");
 		case OV_ENOTVORBIS:
-			return SGE_TEXT("bitstream does not contain any vorbis data");
+			return FCPPT_TEXT("bitstream does not contain any vorbis data");
 		case OV_EVERSION:
-			return SGE_TEXT("vorbis version mismatch");
+			return FCPPT_TEXT("vorbis version mismatch");
 		case OV_EBADHEADER:
-			return SGE_TEXT("invalid vorbis bitstream header");
+			return FCPPT_TEXT("invalid vorbis bitstream header");
 		case OV_EFAULT:
-			return SGE_TEXT("Internal logic fault (bug or heap/stack corruption)");
+			return FCPPT_TEXT("Internal logic fault (bug or heap/stack corruption)");
 		case OV_ENOSEEK:
-			return SGE_TEXT("bitstream is not seekable.");
+			return FCPPT_TEXT("bitstream is not seekable.");
 		default:
-			return SGE_TEXT("unknown ogg error");
+			return FCPPT_TEXT("unknown ogg error");
 	}
 }
 }
@@ -60,7 +60,7 @@ sge::vorbis::file::file(
 	stdstream(p, std::ios_base::binary)
 {
 	if (!stdstream.is_open())
-		throw audio::exception(SGE_TEXT("vorbis: couldn't open file \"")+file_name+SGE_TEXT("\""));
+		throw audio::exception(FCPPT_TEXT("vorbis: couldn't open file \"")+file_name+FCPPT_TEXT("\""));
 
 	ov_callbacks callbacks;
 
@@ -70,11 +70,11 @@ sge::vorbis::file::file(
 	callbacks.tell_func = &file::ogg_tell_static;
 
 	if (int error = ov_open_callbacks(this,&ogg_file,0,static_cast<long>(0),callbacks))
-		throw audio::exception(SGE_TEXT("vorbis: error opening ogg vorbis file \"")+file_name+SGE_TEXT("\": ")+ogg_error(error));
+		throw audio::exception(FCPPT_TEXT("vorbis: error opening ogg vorbis file \"")+file_name+FCPPT_TEXT("\": ")+ogg_error(error));
 
 	vorbis_info * const info = ov_info(&ogg_file,static_cast<int>(-1));
 	if (!info)
-		throw audio::exception(SGE_TEXT("vorbis: couldn't read file info from ogg vorbis file \"")+file_name+SGE_TEXT("\""));
+		throw audio::exception(FCPPT_TEXT("vorbis: couldn't read file info from ogg vorbis file \"")+file_name+FCPPT_TEXT("\""));
 
 	channels_ = static_cast<channel_type>(info->channels);
 	sample_rate_ = static_cast<sample_count>(info->rate);
@@ -87,7 +87,7 @@ sge::audio::sample_count sge::vorbis::file::read(
 	/*
 	if (stdstream.eof())
 	{
-		SGE_LOG_DEBUG(log::global(),log::_ << SGE_TEXT("vorbis: we're at the end, returning"));
+		SGE_LOG_DEBUG(log::global(),log::_ << FCPPT_TEXT("vorbis: we're at the end, returning"));
 		return static_cast<sample_count>(0);
 	}
 	*/
@@ -114,14 +114,14 @@ sge::audio::sample_count sge::vorbis::file::read(
 			case OV_HOLE:
 				continue;
 			case OV_EBADLINK:
-				throw audio::exception(SGE_TEXT("vorbis: an invalid stream section was supplied to libvorbisfile, or the requested link is corrupt in file \"")+file_name+SGE_TEXT("\""));
+				throw audio::exception(FCPPT_TEXT("vorbis: an invalid stream section was supplied to libvorbisfile, or the requested link is corrupt in file \"")+file_name+FCPPT_TEXT("\""));
 			case OV_EINVAL:
-				throw audio::exception(SGE_TEXT("vorbis: the initial file headers couldn't be read or are corrupt, or the initial open call for vf failed in file \"")+file_name+SGE_TEXT("\""));
+				throw audio::exception(FCPPT_TEXT("vorbis: the initial file headers couldn't be read or are corrupt, or the initial open call for vf failed in file \"")+file_name+FCPPT_TEXT("\""));
 		}
 
 		if (result == static_cast<long>(0))
 		{
-			SGE_LOG_DEBUG(log::global(),log::_ << SGE_TEXT("vorbis: read until the end"));
+			SGE_LOG_DEBUG(log::global(),log::_ << FCPPT_TEXT("vorbis: read until the end"));
 			break;
 		}
 
@@ -161,7 +161,7 @@ sge::vorbis::file::bits_per_sample() const
 void sge::vorbis::file::reset()
 {
 	if (int error = ov_pcm_seek(&ogg_file,static_cast<ogg_int64_t>(0)))
-		throw audio::exception(SGE_TEXT("vorbis: couldn't reset file \"")+file_name+SGE_TEXT("\": ")+ogg_error(error));
+		throw audio::exception(FCPPT_TEXT("vorbis: couldn't reset file \"")+file_name+FCPPT_TEXT("\": ")+ogg_error(error));
 }
 
 sge::vorbis::file::~file()
@@ -206,7 +206,7 @@ std::size_t sge::vorbis::file::ogg_read(
 		return static_cast<std::size_t>(0);
 	stdstream.read(static_cast<char *>(ptr),static_cast<std::streamsize>(size*nmemb));
 	if (stdstream.bad())
-		throw audio::exception(SGE_TEXT("vorbis: stream error while reading from file \"")+file_name+SGE_TEXT("\""));
+		throw audio::exception(FCPPT_TEXT("vorbis: stream error while reading from file \"")+file_name+FCPPT_TEXT("\""));
 	return static_cast<std::size_t>(stdstream.gcount()/size);
 }
 
@@ -222,20 +222,20 @@ int sge::vorbis::file::ogg_seek(
 		case SEEK_SET:
 			stdstream.seekg(static_cast<std::streamoff>(offset),std::ios_base::beg);
 			if (stdstream.bad())
-				throw audio::exception(SGE_TEXT("vorbis: stream error while reading from file \"")+file_name+SGE_TEXT("\""));
+				throw audio::exception(FCPPT_TEXT("vorbis: stream error while reading from file \"")+file_name+FCPPT_TEXT("\""));
 			break;
 		case SEEK_CUR:
 			stdstream.seekg(static_cast<std::streamoff>(offset),std::ios_base::cur);
 			if (stdstream.bad())
-				throw audio::exception(SGE_TEXT("vorbis: stream error while reading from file \"")+file_name+SGE_TEXT("\""));
+				throw audio::exception(FCPPT_TEXT("vorbis: stream error while reading from file \"")+file_name+FCPPT_TEXT("\""));
 			break;
 		case SEEK_END:
 			stdstream.seekg(static_cast<std::streamoff>(offset),std::ios_base::end);
 			if (stdstream.bad())
-				throw audio::exception(SGE_TEXT("vorbis: stream error while reading from file \"")+file_name+SGE_TEXT("\""));
+				throw audio::exception(FCPPT_TEXT("vorbis: stream error while reading from file \"")+file_name+FCPPT_TEXT("\""));
 			break;
 		default:
-			throw audio::exception(SGE_TEXT("vorbis: invalid seek parameter in file \"")+file_name+SGE_TEXT("\""));
+			throw audio::exception(FCPPT_TEXT("vorbis: invalid seek parameter in file \"")+file_name+FCPPT_TEXT("\""));
 	}
 	return static_cast<int>(0);
 }

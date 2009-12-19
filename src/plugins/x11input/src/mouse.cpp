@@ -53,7 +53,7 @@ sge::x11input::mouse::mouse(
 		XDefaultColormap(
 			wnd->display()->get(),
 			wnd->screen()), // TODO: do we have to release this?
-		SGE_TEXT("black")
+		FCPPT_TEXT("black")
 	),
 	no_bmp_(
 		wnd->display(),
@@ -236,8 +236,8 @@ void sge::x11input::mouse::warped_motion(
 	SGE_LOG_WARNING(
 		log::global(),
 		log::_
-			<< SGE_TEXT("Didn't detect mouse warp motion! ")
-			SGE_TEXT("Try to enable dga mouse instead."));
+			<< FCPPT_TEXT("Didn't detect mouse warp motion! ")
+			FCPPT_TEXT("Try to enable dga mouse instead."));
 }
 
 void sge::x11input::mouse::private_mouse_motion(

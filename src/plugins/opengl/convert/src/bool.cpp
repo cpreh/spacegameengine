@@ -43,6 +43,6 @@ sge::opengl::convert::bool_(
 	}
 
 	throw exception(
-		SGE_TEXT("Invalid bool_state!")
+		FCPPT_TEXT("Invalid bool_state!")
 	);
 }

@@ -74,14 +74,14 @@ sge::renderer::operator<<(
 )
 {
 	return s
-		<< SGE_TEXT('(')
+		<< FCPPT_TEXT('(')
 		<< mode.size().w()
-		<< SGE_TEXT('x')
+		<< FCPPT_TEXT('x')
 		<< mode.size().h()
-		<< SGE_TEXT('x')
+		<< FCPPT_TEXT('x')
 		<< static_cast<unsigned>(
 			mode.bit_depth())
-		<< SGE_TEXT('@')
+		<< FCPPT_TEXT('@')
 		<< mode.refresh_rate()
-		<< SGE_TEXT(')');
+		<< FCPPT_TEXT(')');
 }

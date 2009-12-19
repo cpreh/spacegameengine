@@ -49,6 +49,6 @@ sge::opengl::convert::source_blend_func(
 	}
 
 	throw exception(
-		SGE_TEXT("Invalid source_blend_func!")
+		FCPPT_TEXT("Invalid source_blend_func!")
 	);
 }

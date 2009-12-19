@@ -5,7 +5,7 @@
 sge::loaders_exhausted::loaders_exhausted(
 	filesystem::path const &p)
 :
-	exception(SGE_TEXT("exhausted all loaders for file \"")+p.string()+SGE_TEXT("\""))
+	exception(FCPPT_TEXT("exhausted all loaders for file \"")+p.string()+FCPPT_TEXT("\""))
 {
 
 }

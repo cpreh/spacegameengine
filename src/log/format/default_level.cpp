@@ -33,6 +33,6 @@ sge::log::format::default_level(
 		inserter
 	>(
 		level_to_string(level_)
-		+ SGE_TEXT(": %1%\n")
+		+ FCPPT_TEXT(": %1%\n")
 	);
 }

@@ -35,7 +35,7 @@ sge::opengl::convert_lock_method(
 	}
 
 	throw exception(
-		SGE_TEXT("Invalid lock_flags in opengl!")
+		FCPPT_TEXT("Invalid lock_flags in opengl!")
 	);
 }
 
@@ -54,7 +54,7 @@ sge::opengl::normal_lock_method(
 	}
 
 	throw exception(
-		SGE_TEXT("Invalid lock_method!")
+		FCPPT_TEXT("Invalid lock_method!")
 	);
 }
 
@@ -73,7 +73,7 @@ sge::opengl::range_lock_method(
 	}
 
 	throw exception(
-		SGE_TEXT("Invalid lock_method!")
+		FCPPT_TEXT("Invalid lock_method!")
 	);
 }
 

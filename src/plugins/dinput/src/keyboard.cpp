@@ -164,7 +164,7 @@ sge::dinput::keyboard::keycode_to_char(
 		SGE_LOG_WARNING(
 			log::global(),
 			log::_1
-				<< SGE_TEXT("No translation found for dik: ")
+				<< FCPPT_TEXT("No translation found for dik: ")
 				<< dik);
 		return 0;
 	case 1:
@@ -173,10 +173,10 @@ sge::dinput::keyboard::keycode_to_char(
 		SGE_LOG_WARNING(
 			log::global(),
 			log::_1
-				<< SGE_TEXT("stub: Key names with more than one char are not supported."));
+				<< FCPPT_TEXT("stub: Key names with more than one char are not supported."));
 		return 0;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid return value of ToAsciiEx!"));
+			FCPPT_TEXT("Invalid return value of ToAsciiEx!"));
 	}
 }

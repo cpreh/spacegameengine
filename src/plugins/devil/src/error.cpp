@@ -32,7 +32,7 @@ void sge::devil::check_errors()
 	if(e == IL_NO_ERROR)
 		return;
 
-	string error_message(SGE_TEXT("The following devil errors were detected:\n"));
+	string error_message(FCPPT_TEXT("The following devil errors were detected:\n"));
 	do
 	{
 		error_message +=
@@ -41,7 +41,7 @@ void sge::devil::check_errors()
 #else
 			iconv(iluErrorString(e));
 #endif
-		error_message += SGE_TEXT('\n');
+		error_message += FCPPT_TEXT('\n');
 	}
 	while((e = ilGetError()) != IL_NO_ERROR);
 	throw exception(error_message);

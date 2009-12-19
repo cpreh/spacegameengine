@@ -49,7 +49,7 @@ sge::x11::create_window(
 
 	if(!param.dim())
 		throw exception(
-			SGE_TEXT("x11::create_window: Please specify the window's dimensions!")
+			FCPPT_TEXT("x11::create_window: Please specify the window's dimensions!")
 		);
 
 	return make_shared_ptr<

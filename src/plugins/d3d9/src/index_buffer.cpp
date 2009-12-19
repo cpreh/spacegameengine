@@ -83,10 +83,10 @@ sge::d3d9::index_buffer::lock(
 void sge::d3d9::index_buffer::unlock() const
 {
 	if(!lock_dest)
-		throw exception(SGE_TEXT("d3d::index_buffer::unlock() you have to lock first!"));
+		throw exception(FCPPT_TEXT("d3d::index_buffer::unlock() you have to lock first!"));
 
 	if(buffer->Unlock() != D3D_OK)
-		throw exception(SGE_TEXT("Cannot unlock index buffer!"));
+		throw exception(FCPPT_TEXT("Cannot unlock index buffer!"));
 
 	lock_dest = 0;
 }
@@ -124,7 +124,7 @@ sge::d3d9::index_buffer::init()
 		) != D3D_OK
 	)
 		throw exception(
-			SGE_TEXT("Cannot create index buffer!")
+			FCPPT_TEXT("Cannot create index buffer!")
 		);
 
 	buffer.reset(p);
@@ -147,7 +147,7 @@ void sge::d3d9::index_buffer::do_lock(
 {
 	if(lock_dest)
 		throw exception(
-			SGE_TEXT("d3d::index_buffer::lock() you have to unlock first!")
+			FCPPT_TEXT("d3d::index_buffer::lock() you have to unlock first!")
 		);
 
 	void *p = 0;
@@ -161,7 +161,7 @@ void sge::d3d9::index_buffer::do_lock(
 		) != D3D_OK
 	)
 		throw exception(
-			SGE_TEXT("Cannot lock index buffer!")
+			FCPPT_TEXT("Cannot lock index buffer!")
 		);
 
 	lock_dest = static_cast<pointer>(p);

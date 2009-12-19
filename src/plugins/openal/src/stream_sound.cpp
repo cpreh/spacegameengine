@@ -47,7 +47,7 @@ sge::openal::stream_sound::stream_sound(
 	alGenBuffers(static_cast<ALsizei>(2), al_buffers_);
 
 	SGE_OPENAL_CHECK_STATE(
-		SGE_TEXT("alGenBuffers failed"),
+		FCPPT_TEXT("alGenBuffers failed"),
 		audio::exception
 	)
 }
@@ -84,7 +84,7 @@ bool sge::openal::stream_sound::fill_buffer(ALuint const buffer)
 	);
 
 	SGE_OPENAL_CHECK_STATE(
-		SGE_TEXT("alBufferData failed"),
+		FCPPT_TEXT("alBufferData failed"),
 		audio::exception
 	)
 
@@ -111,7 +111,7 @@ void sge::openal::stream_sound::do_play()
 	);
 
 	SGE_OPENAL_CHECK_STATE(
-		SGE_TEXT("alSourceQueueBuffers failed"),
+		FCPPT_TEXT("alSourceQueueBuffers failed"),
 		audio::exception
 	)
 }
@@ -125,7 +125,7 @@ void sge::openal::stream_sound::update()
 	alGetSourcei(alsource(), AL_BUFFERS_PROCESSED, &processed);
 
 	SGE_OPENAL_CHECK_STATE(
-		SGE_TEXT("stream_sound::update failed"),
+		FCPPT_TEXT("stream_sound::update failed"),
 		audio::exception
 	)
 

@@ -4,6 +4,6 @@
 sge::thread::future::moved::moved()
 :
 	exception(
-		SGE_TEXT("moved"))
+		FCPPT_TEXT("moved"))
 {
 }

@@ -40,6 +40,6 @@ ILuint sge::devil::convert_image_format(
 		return IL_TGA;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid image_format!"));
+			FCPPT_TEXT("Invalid image_format!"));
 	}
 }

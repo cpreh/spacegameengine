@@ -4,6 +4,6 @@
 sge::thread::future::uninitialized::uninitialized()
 :
 	exception(
-		SGE_TEXT("uninitialized"))
+		FCPPT_TEXT("uninitialized"))
 {
 }

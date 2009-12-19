@@ -24,6 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::algorithm::element_not_found::element_not_found()
 :
 	exception(
-		SGE_TEXT("element not found")
+		FCPPT_TEXT("element not found")
 	)
 {}

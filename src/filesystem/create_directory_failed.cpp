@@ -26,8 +26,8 @@ sge::filesystem::create_directory_failed::create_directory_failed(
 )
 :
 	exception(
-		SGE_TEXT("Failed to create directory \"")
+		FCPPT_TEXT("Failed to create directory \"")
 		+ what.string()
-		+ SGE_TEXT('"')
+		+ FCPPT_TEXT('"')
 	)
 {}

@@ -26,7 +26,7 @@ sge::log::exception::exception(
 )
 :
 	sge::exception(
-		SGE_TEXT("log: ")
+		FCPPT_TEXT("log: ")
 		+ what_
 	)
 {}

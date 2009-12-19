@@ -4,6 +4,6 @@
 sge::thread::future::promise_already_satisfied::promise_already_satisfied()
 :
 	exception(
-		SGE_TEXT("promise already satisfied"))
+		FCPPT_TEXT("promise already satisfied"))
 {
 }

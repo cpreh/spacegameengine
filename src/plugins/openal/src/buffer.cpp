@@ -32,7 +32,7 @@ sge::openal::buffer::buffer(audio::file &file_)
 	alGenBuffers(static_cast<ALsizei>(1),&buffer_);
 
 	SGE_OPENAL_CHECK_STATE(
-		SGE_TEXT("alGenBuffers failed"),
+		FCPPT_TEXT("alGenBuffers failed"),
 		audio::exception
 	)
 }
@@ -66,7 +66,7 @@ bool sge::openal::buffer::remove_instance()
 	alDeleteBuffers(static_cast<ALsizei>(1),&buffer_);
 
 	SGE_OPENAL_CHECK_STATE(
-		SGE_TEXT("alDeleteBuffers failed"),
+		FCPPT_TEXT("alDeleteBuffers failed"),
 		audio::exception
 	)
 

@@ -28,11 +28,11 @@ sge::library::function_not_found::function_not_found(
 	std::string const &func_)
 :
 	exception(
-		SGE_TEXT("Failed to load function ")
+		FCPPT_TEXT("Failed to load function ")
 		+ iconv(func_)
-		+ SGE_TEXT(" from object::library ")
+		+ FCPPT_TEXT(" from object::library ")
 		+ lib_
-		+ SGE_TEXT(" : ")
+		+ FCPPT_TEXT(" : ")
 		+ error()),
 	lib_(lib_),
 	func_(func_)

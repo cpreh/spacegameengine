@@ -45,7 +45,7 @@ sge::opengl::target::lock(
 {
 	if(!buffer.empty())
 		throw exception(
-			SGE_TEXT("renderer::target()::lock(): already locked!"));
+			FCPPT_TEXT("renderer::target()::lock(): already locked!"));
 
 	buffer.resize_uninitialized(
 		dest.dim().content() * stride()

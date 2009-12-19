@@ -164,7 +164,7 @@ convert(
 			);
 		case std::codecvt_base::error:
 			throw sge::exception(
-				SGE_TEXT("codecvt: error!")
+				FCPPT_TEXT("codecvt: error!")
 			);
 		case std::codecvt_base::partial:
 			{
@@ -186,13 +186,13 @@ convert(
 			);
 		default:
 			throw sge::exception(
-				SGE_TEXT("Unknown return value in codecvt!")
+				FCPPT_TEXT("Unknown return value in codecvt!")
 			);
 		}
 	}
 
 	throw sge::exception(
-		SGE_TEXT("codecvt: ok return value unreached!")
+		FCPPT_TEXT("codecvt: ok return value unreached!")
 	);
 }
 

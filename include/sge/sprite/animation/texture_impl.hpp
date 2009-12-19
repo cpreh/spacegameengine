@@ -53,7 +53,7 @@ sge::sprite::animation::texture<Choices>::texture(
 {
 	if(series_.empty())
 		throw exception(
-			SGE_TEXT("animation::texture series is empty!")
+			FCPPT_TEXT("animation::texture series is empty!")
 		);
 	
 	reset();
@@ -77,7 +77,7 @@ sge::sprite::animation::texture<Choices>::process()
 			return true;
 		default:
 			throw exception(
-				SGE_TEXT("Invalid loop_method!")
+				FCPPT_TEXT("Invalid loop_method!")
 			);
 		}
 	}

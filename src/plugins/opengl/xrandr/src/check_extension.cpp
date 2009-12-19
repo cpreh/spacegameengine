@@ -36,5 +36,5 @@ void sge::opengl::xrandr::check_extension(
 		&error_base_return)
 	== False)
 		throw exception(
-			SGE_TEXT("xrandr extension not present!"));
+			FCPPT_TEXT("xrandr extension not present!"));
 }

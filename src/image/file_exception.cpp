@@ -27,9 +27,9 @@ sge::image::file_exception::file_exception(
 )
 :
 	exception(
-		SGE_TEXT("\"")
+		FCPPT_TEXT("\"")
 		+ _path.string()
-		+ SGE_TEXT("\": ")
+		+ FCPPT_TEXT("\": ")
 		+ _message
 	)
 {}

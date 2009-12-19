@@ -42,7 +42,7 @@ sge::x11::cursor::cursor(
 {
 	if(get() == None)
 		throw exception(
-			SGE_TEXT("XCreatePixmapCursor() failed!"));
+			FCPPT_TEXT("XCreatePixmapCursor() failed!"));
 }
 
 sge::x11::cursor::~cursor()

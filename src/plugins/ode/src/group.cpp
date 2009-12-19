@@ -30,7 +30,7 @@ void sge::ode::group::add(
 void sge::ode::group::collides_with(
 	group const &other)
 {
-	SGE_ASSERT_MESSAGE(!dirty_ && !other.dirty_,SGE_TEXT("Constraint violation: Tried to change a group which already has shapes in it"));
+	SGE_ASSERT_MESSAGE(!dirty_ && !other.dirty_,FCPPT_TEXT("Constraint violation: Tried to change a group which already has shapes in it"));
 	collides_ |= other.category();
 	//sge::cerr << "group with category: " << category() << ": collides with group with category " << other.category() << ", collides is now: " << collides_ << "\n";
 }

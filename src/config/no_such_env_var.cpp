@@ -25,8 +25,8 @@ sge::config::no_such_env_var::no_such_env_var(
 	sge::string const &env_var)
 :
 	exception(
-		SGE_TEXT("no such environment variable: \"")
+		FCPPT_TEXT("no such environment variable: \"")
 		+ env_var
-		+ SGE_TEXT("\"!")
+		+ FCPPT_TEXT("\"!")
 	)
 {}

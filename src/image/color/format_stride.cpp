@@ -40,7 +40,7 @@ sge::image::color::format_stride(
 		return sizeof(float) * 4;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid format in format_stride()!")
+			FCPPT_TEXT("Invalid format in format_stride()!")
 		);
 	}
 }

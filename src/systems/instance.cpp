@@ -270,7 +270,7 @@ void visitor::operator()(
 		break;
 	default:
 		throw sge::exception(
-			SGE_TEXT("Invalid systems::parameterless!"));
+			FCPPT_TEXT("Invalid systems::parameterless!"));
 	}
 }
 
@@ -294,7 +294,7 @@ void sge::systems::instance::impl::init_renderer(
 	{
 		if(!wparam_)
 			throw exception(
-				SGE_TEXT("systems: renderer device requested, but no window parameter given!"));
+				FCPPT_TEXT("systems: renderer device requested, but no window parameter given!"));
 
 		if(!wparam_->dim())
 			wparam_->dim(
@@ -322,7 +322,7 @@ void sge::systems::instance::impl::init_input(
 	{
 		if(!wparam_)
 			throw exception(
-				SGE_TEXT("systems: input system requested, but no window parameter given!"));
+				FCPPT_TEXT("systems: input system requested, but no window parameter given!"));
 		window_ = sge::window::create(
 			*wparam_);
 	}
@@ -382,12 +382,12 @@ sge::systems::instance::impl::load_plugin(
 	SGE_LOG_WARNING(
 		log::global(),
 		log::_
-			<< SGE_TEXT("Tried to load plugin of type ")
+			<< FCPPT_TEXT("Tried to load plugin of type ")
 			<< type_info(typeid(T)).name()
-			<< SGE_TEXT(" with name \"")
+			<< FCPPT_TEXT(" with name \"")
 			<< name
-			<< SGE_TEXT("\" but it could not be found!")
-			<< SGE_TEXT(" Trying to load a default plugin instead.")
+			<< FCPPT_TEXT("\" but it could not be found!")
+			<< FCPPT_TEXT(" Trying to load a default plugin instead.")
 	);
 
 	return default_plugin<T>();

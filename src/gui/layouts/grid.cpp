@@ -40,7 +40,7 @@ namespace
 sge::log::object mylogger(
 	sge::log::parameters::inherited(
 		sge::gui::global_log(),
-		SGE_TEXT("layouts: grid")
+		FCPPT_TEXT("layouts: grid")
 	)
 );
 
@@ -53,7 +53,7 @@ void sge::gui::layouts::grid::compile_static()
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("In static compilation for widget ")
+		log::_ << FCPPT_TEXT("In static compilation for widget ")
 		        << type_name(typeid(connected_widget())));
 
 	cache_.reset(
@@ -77,29 +77,29 @@ void sge::gui::layouts::grid::compile_static()
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("optimal size ") << optimal
-		        << SGE_TEXT(", usable size: ") << usable);
+		log::_ << FCPPT_TEXT("optimal size ") << optimal
+		        << FCPPT_TEXT(", usable size: ") << usable);
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("adapting y axis begin"));
+		log::_ << FCPPT_TEXT("adapting y axis begin"));
 	adapt_outer(
 		optimal,
 		usable,
 		y_axis);
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("adapting y axis end"));
+		log::_ << FCPPT_TEXT("adapting y axis end"));
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("adapting x axis begin"));
+		log::_ << FCPPT_TEXT("adapting x axis begin"));
 	adapt_outer(
 		optimal,
 		usable,
 		x_axis);
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("adapting x axis end"));
+		log::_ << FCPPT_TEXT("adapting x axis end"));
 
 	distribute_overhead(
 		usable);
@@ -110,7 +110,7 @@ sge::gui::dim const sge::gui::layouts::grid::optimal_size() const
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("optimal size, begin"));
+		log::_ << FCPPT_TEXT("optimal size, begin"));
 
 	detail::grid_cache::rolumn_container const &rolumns =
 		valid_cache().rolumns();
@@ -119,7 +119,7 @@ sge::gui::dim const sge::gui::layouts::grid::optimal_size() const
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("rolumn dimension is ")
+		log::_ << FCPPT_TEXT("rolumn dimension is ")
 		        << rolumns.dim());
 
 	for (
@@ -133,18 +133,18 @@ sge::gui::dim const sge::gui::layouts::grid::optimal_size() const
 		{
 			SGE_LOG_DEBUG(
 				mylogger,
-				log::_ << SGE_TEXT("axis: ")
+				log::_ << FCPPT_TEXT("axis: ")
 				        << j
-								<< SGE_TEXT(", rolumn ")
+								<< FCPPT_TEXT(", rolumn ")
 								<< i
-								<< SGE_TEXT(", adding size ")
+								<< FCPPT_TEXT(", adding size ")
 								<< rolumns.pos(detail::grid_cache::rolumn_container::vector_type(j,i)).size);
 			maxdims[j] += rolumns.pos(detail::grid_cache::rolumn_container::vector_type(j,i)).size;
 		}
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("optimal size, end"));
+		log::_ << FCPPT_TEXT("optimal size, end"));
 
 	return maxdims;
 }
@@ -193,11 +193,11 @@ void sge::gui::layouts::grid::shrink(
 		count_flags(
 			axis_policy::can_shrink,
 			axis),
-		SGE_TEXT("not enough space to hold all widgets and no shrinkable widgets found"));
+		FCPPT_TEXT("not enough space to hold all widgets and no shrinkable widgets found"));
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("there is too less space, shrinking begin"));
+		log::_ << FCPPT_TEXT("there is too less space, shrinking begin"));
 	adapt(
 		optimal,
 		usable,
@@ -205,7 +205,7 @@ void sge::gui::layouts::grid::shrink(
 		axis);
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("shrinking end"));
+		log::_ << FCPPT_TEXT("shrinking end"));
 }
 
 void sge::gui::layouts::grid::expand(
@@ -215,16 +215,16 @@ void sge::gui::layouts::grid::expand(
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("there is too much space, expanding begin"));
+		log::_ << FCPPT_TEXT("there is too much space, expanding begin"));
 
 	unsigned count;
 	if ((count = count_flags(axis_policy::should_grow,axis)))
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_ << SGE_TEXT("there are ")
+			log::_ << FCPPT_TEXT("there are ")
 							<< count
-							<< SGE_TEXT(" widgets which should grow, growing those"));
+							<< FCPPT_TEXT(" widgets which should grow, growing those"));
 
 		adapt(
 			optimal,
@@ -236,9 +236,9 @@ void sge::gui::layouts::grid::expand(
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_ << SGE_TEXT("there are ")
+			log::_ << FCPPT_TEXT("there are ")
 							<< count
-							<< SGE_TEXT(" widgets which can grow, growing those"));
+							<< FCPPT_TEXT(" widgets which can grow, growing those"));
 
 		adapt(
 			optimal,
@@ -250,11 +250,11 @@ void sge::gui::layouts::grid::expand(
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_ << SGE_TEXT("there are no widgets which could grow :("));
+			log::_ << FCPPT_TEXT("there are no widgets which could grow :("));
 	}
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("expanding end"));
+		log::_ << FCPPT_TEXT("expanding end"));
 }
 
 void sge::gui::layouts::grid::adapt(
@@ -270,7 +270,7 @@ void sge::gui::layouts::grid::adapt(
 
 	SGE_ASSERT_MESSAGE(
 		count,
-		SGE_TEXT("adapt called when there are no widgets to adapt"));
+		FCPPT_TEXT("adapt called when there are no widgets to adapt"));
 
 	// how much extra space do we have on this axis?
 	unit const diff = usable[axis] - optimal[axis];
@@ -280,9 +280,9 @@ void sge::gui::layouts::grid::adapt(
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("adding ") << diff << SGE_TEXT("/")
-		        << count << SGE_TEXT("=") << addition
-						<< SGE_TEXT(" pixels to the flagged rolumns"));
+		log::_ << FCPPT_TEXT("adding ") << diff << FCPPT_TEXT("/")
+		        << count << FCPPT_TEXT("=") << addition
+						<< FCPPT_TEXT(" pixels to the flagged rolumns"));
 
 	detail::grid_cache::rolumn_container const &rolumns =
 		valid_cache().rolumns();
@@ -297,7 +297,7 @@ void sge::gui::layouts::grid::adapt(
 		{
 			SGE_LOG_DEBUG(
 				mylogger,
-				log::_ << SGE_TEXT("rolumn ") << i << SGE_TEXT(" can be modified"));
+				log::_ << FCPPT_TEXT("rolumn ") << i << FCPPT_TEXT(" can be modified"));
 
 			update_rolumn(
 				axis,
@@ -335,9 +335,9 @@ void sge::gui::layouts::grid::update_rolumn(
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("updating rolumn ")
+		log::_ << FCPPT_TEXT("updating rolumn ")
 		        << rolumn
-						<< SGE_TEXT(" on axis ")
+						<< FCPPT_TEXT(" on axis ")
 						<< axis);
 	// update the cache
 	valid_cache().rolumns().pos(
@@ -347,7 +347,7 @@ void sge::gui::layouts::grid::update_rolumn(
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("added addition, plane dimensions are: ")
+		log::_ << FCPPT_TEXT("added addition, plane dimensions are: ")
 		        << valid_cache().plane().dim());
 
 	for (
@@ -357,10 +357,10 @@ void sge::gui::layouts::grid::update_rolumn(
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_ << SGE_TEXT("swapping positions: ")
+			log::_ << FCPPT_TEXT("swapping positions: ")
 							<< bool(axis)
-							<< SGE_TEXT(" and accessing ")
-							<< i << SGE_TEXT("x") << rolumn);
+							<< FCPPT_TEXT(" and accessing ")
+							<< i << FCPPT_TEXT("x") << rolumn);
 
 		widgets::base * const w =
 			field_swap_pos<
@@ -383,7 +383,7 @@ void sge::gui::layouts::grid::update_rolumn(
 	}
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("update rolumn, end "));
+		log::_ << FCPPT_TEXT("update rolumn, end "));
 }
 
 // counts the number of widgets on the specified axis (not rolumn, axis) which
@@ -452,7 +452,7 @@ void sge::gui::layouts::grid::update_widgets()
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("updating widgets begin"));
+		log::_ << FCPPT_TEXT("updating widgets begin"));
 
 	detail::grid_cache::child_plane &c =
 		valid_cache().plane();
@@ -462,7 +462,7 @@ void sge::gui::layouts::grid::update_widgets()
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("volatile rolumns dim: ")
+		log::_ << FCPPT_TEXT("volatile rolumns dim: ")
 		        << rolumns.size());
 
 	// this pos represents the "screen position", not the position in the array
@@ -503,7 +503,7 @@ void sge::gui::layouts::grid::update_widgets()
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("updating widgets end"));
+		log::_ << FCPPT_TEXT("updating widgets end"));
 }
 
 namespace
@@ -529,13 +529,13 @@ void sge::gui::layouts::grid::update_widget(
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("setting widget position to ")
+		log::_ << FCPPT_TEXT("setting widget position to ")
 		        << p
-						<< SGE_TEXT(", with large size ")
+						<< FCPPT_TEXT(", with large size ")
 						<< d
-						<< SGE_TEXT(" and small size ")
+						<< FCPPT_TEXT(" and small size ")
 						<< smaller
-						<< SGE_TEXT(" and centered position ")
+						<< FCPPT_TEXT(" and centered position ")
 						<< center(p,d,smaller));
 
 	base::set_widget_pos(

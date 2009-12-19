@@ -32,7 +32,7 @@ sge::opengl::glsl::create_program<false>()
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glCreateProgramObjectARB"),
+		FCPPT_TEXT("glCreateProgramObjectARB"),
 		sge::renderer::glsl::exception
 	)
 
@@ -61,7 +61,7 @@ void sge::opengl::glsl::detach_shader<false>(
 	glDetachObjectARB(program, shader);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glDetachObjectARB failed"),
+		FCPPT_TEXT("glDetachObjectARB failed"),
 		sge::renderer::glsl::exception
 	)
 }
@@ -73,7 +73,7 @@ void sge::opengl::glsl::delete_program<false>(
 	glDeleteObjectARB(program);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glDeleteObjectARB failed"),
+		FCPPT_TEXT("glDeleteObjectARB failed"),
 		sge::renderer::glsl::exception
 	)
 }
@@ -86,7 +86,7 @@ void sge::opengl::glsl::attach_shader<false>(
 	glAttachObjectARB(program, shader);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glAttachObjectARB"),
+		FCPPT_TEXT("glAttachObjectARB"),
 		sge::renderer::glsl::exception
 	)
 }
@@ -98,7 +98,7 @@ void sge::opengl::glsl::link_program<false>(
 	glLinkProgramARB(program);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glLinkProgramARB failed"),
+		FCPPT_TEXT("glLinkProgramARB failed"),
 		sge::renderer::glsl::exception
 	)
 }
@@ -113,7 +113,7 @@ GLint sge::opengl::glsl::program_integer<false>(
 	glGetObjectParameterivARB(program, what, &result);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glGetObjectParameterivARB failed"),
+		FCPPT_TEXT("glGetObjectParameterivARB failed"),
 		sge::renderer::glsl::exception
 	)
 
@@ -136,7 +136,7 @@ void sge::opengl::glsl::use_program<false>(
 	glUseProgramObjectARB(program);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glUseProgramObjectARB failed"),
+		FCPPT_TEXT("glUseProgramObjectARB failed"),
 		sge::renderer::glsl::exception
 	)
 }
@@ -156,7 +156,7 @@ void sge::opengl::glsl::program_info_log<false>(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glGetInfoLogARB failed"),
+		FCPPT_TEXT("glGetInfoLogARB failed"),
 		sge::renderer::glsl::exception
 	)
 }

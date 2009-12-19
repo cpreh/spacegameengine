@@ -23,6 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::gui::exception::exception(
 	sge::string const &what)
 :
-	sge::exception(SGE_TEXT("gui: ")+what)
+	sge::exception(FCPPT_TEXT("gui: ")+what)
 {
 }

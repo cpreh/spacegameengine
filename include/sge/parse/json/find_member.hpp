@@ -57,9 +57,9 @@ find_member(
 
 	if(it == members.end())
 		throw exception(
-			SGE_TEXT("entry \"")
+			FCPPT_TEXT("entry \"")
 			+ name
-			+ SGE_TEXT("\" not found")
+			+ FCPPT_TEXT("\" not found")
 		);
 
 	return json::get<

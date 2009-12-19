@@ -30,7 +30,7 @@ sge::gui::widgets::global_log()
 	static sge::log::object global(
 		sge::log::parameters::inherited(
 			sge::gui::global_log(),
-			SGE_TEXT("widgets")
+			FCPPT_TEXT("widgets")
 		)
 	);
 

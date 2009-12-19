@@ -125,7 +125,7 @@ void sge::opengl::glsl::program<Native>::link()
 		link_status<Native>(id()) == GL_FALSE
 	)
 		throw sge::renderer::glsl::exception(
-			SGE_TEXT("Compiling a program failed:\n")
+			FCPPT_TEXT("Compiling a program failed:\n")
 			+
 			format_error(
 				&program_info_log<

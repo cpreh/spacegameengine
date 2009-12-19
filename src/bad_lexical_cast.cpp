@@ -26,11 +26,11 @@ sge::bad_lexical_cast::bad_lexical_cast(
 	sge::type_info const &_destination)
 :
 	exception(
-		SGE_TEXT("Invalid lexical cast from type \"")+
+		FCPPT_TEXT("Invalid lexical cast from type \"")+
 		_source.name()+
-		SGE_TEXT("\" to type \"")+
+		FCPPT_TEXT("\" to type \"")+
 		_destination.name()+
-		SGE_TEXT("\"")),
+		FCPPT_TEXT("\"")),
 	source_(_source),
 	destination_(_destination)
 {

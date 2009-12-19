@@ -41,6 +41,6 @@ sge::opengl::convert::nonindexed_primitive(
 	}
 
 	throw exception(
-		SGE_TEXT("Invalid indexed_primitive_type!")
+		FCPPT_TEXT("Invalid indexed_primitive_type!")
 	);
 }

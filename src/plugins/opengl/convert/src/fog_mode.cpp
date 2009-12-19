@@ -39,6 +39,6 @@ sge::opengl::convert::fog_mode(
 	}
 
 	throw exception(
-		SGE_TEXT("Invalid fog_mode!")
+		FCPPT_TEXT("Invalid fog_mode!")
 	);
 }

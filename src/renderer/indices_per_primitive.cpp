@@ -33,6 +33,6 @@ sge::renderer::indices_per_primitive(
 		return 2;
 	default:
 		throw exception(
-			SGE_TEXT("indices_per_primitive: Invalid indexed_primitive_format!"));
+			FCPPT_TEXT("indices_per_primitive: Invalid indexed_primitive_format!"));
 	}
 }

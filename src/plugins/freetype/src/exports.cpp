@@ -39,8 +39,8 @@ plugin_version_info(
 {
 	if(!p)
 		return;
-	p->name = SGE_TEXT("freetype");
-	p->description = SGE_TEXT("");
+	p->name = FCPPT_TEXT("freetype");
+	p->description = FCPPT_TEXT("");
 	p->min_core_version = 0x1;
 	p->plugin_version = 0x1;
 	p->type = sge::plugin::capabilities::font;

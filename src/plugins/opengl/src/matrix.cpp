@@ -72,7 +72,7 @@ void sge::opengl::matrix_mode(
 	glMatrixMode(mode);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glMatrixMode failed"),
+		FCPPT_TEXT("glMatrixMode failed"),
 		sge::renderer::exception
 	)
 }
@@ -104,7 +104,7 @@ void visitor::operator()(
 		);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glLoadMatrixf failed"),
+		FCPPT_TEXT("glLoadMatrixf failed"),
 		sge::renderer::exception
 	)
 }
@@ -124,7 +124,7 @@ void visitor::operator()(
 		);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glLoadMatrixd failed"),
+		FCPPT_TEXT("glLoadMatrixd failed"),
 		sge::renderer::exception
 	)
 }

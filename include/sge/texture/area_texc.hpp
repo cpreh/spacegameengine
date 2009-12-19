@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_AREA_TEXC_HPP_INCLUDED
-#define SGE_TEXTURE_AREA_TEXC_HPP_INCLUDED
+#ifndef FCPPT_TEXTURE_AREA_TEXC_HPP_INCLUDED
+#define FCPPT_TEXTURE_AREA_TEXC_HPP_INCLUDED
 
 #include <sge/texture/part_fwd.hpp>
 #include <sge/texture/part.hpp>
@@ -58,9 +58,9 @@ area_texc(
 		SGE_LOG_WARNING(
 			log::global(),
 			log::_
-				<< SGE_TEXT("texture not repeatable but repetition is ")
+				<< FCPPT_TEXT("texture not repeatable but repetition is ")
 				<< repeat
-				<< SGE_TEXT('!')
+				<< FCPPT_TEXT('!')
 		);
 
 	typedef typename fcppt::math::box::rect<

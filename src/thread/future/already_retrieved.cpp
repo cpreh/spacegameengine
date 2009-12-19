@@ -4,6 +4,6 @@
 sge::thread::future::already_retrieved::already_retrieved()
 :
 	exception(
-		SGE_TEXT("already retrieved"))
+		FCPPT_TEXT("already retrieved"))
 {
 }

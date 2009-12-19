@@ -42,7 +42,7 @@ void sge::opengl::windows::change_display_settings(
 		SGE_LOG_WARNING(
 			log::global(),
 			log::_1
-				<< SGE_TEXT("Cannot change resolution to ")
+				<< FCPPT_TEXT("Cannot change resolution to ")
 				<< mode
-				<< SGE_TEXT("! Reverting to window mode!"));
+				<< FCPPT_TEXT("! Reverting to window mode!"));
 }

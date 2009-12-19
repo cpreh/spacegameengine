@@ -50,7 +50,7 @@ sge::opengl::system::create_renderer(
 {
 	if(ref.lock())
 		throw exception(
-			SGE_TEXT("The opengl plugin may only have one renderer!")
+			FCPPT_TEXT("The opengl plugin may only have one renderer!")
 		);
 
 	renderer::device_ptr const r(

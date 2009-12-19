@@ -37,7 +37,7 @@ sge::d3d9::convert_nonindexed_primitive(
 		return D3DPT_TRIANGLEFAN;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid non indexed primitive type!")
+			FCPPT_TEXT("Invalid non indexed primitive type!")
 		);
 	}
 }

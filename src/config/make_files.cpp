@@ -34,13 +34,13 @@ sge::config::make_files(
 {
 #ifdef SGE_WINDOWS_PLATFORM
 	return boost::assign::list_of
-		(appdir() / (config_basename + SGE_TEXT(".txt")))
-		(homedir() / (config_basename + SGE_TEXT(".txt"))
+		(appdir() / (config_basename + FCPPT_TEXT(".txt")))
+		(homedir() / (config_basename + FCPPT_TEXT(".txt"))
 	);
 #elif SGE_POSIX_PLATFORM
 	return boost::assign::list_of
-		(homedir() / (SGE_TEXT(".") + config_basename + SGE_TEXT(".conf")))
-		(filesystem::path(SGE_TEXT("/etc")) / (config_basename + SGE_TEXT(".conf"))
+		(homedir() / (FCPPT_TEXT(".") + config_basename + FCPPT_TEXT(".conf")))
+		(filesystem::path(FCPPT_TEXT("/etc")) / (config_basename + FCPPT_TEXT(".conf"))
 	);
 #endif
 }

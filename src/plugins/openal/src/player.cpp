@@ -106,15 +106,15 @@ ALuint sge::openal::player::register_nonstream_sound(
 	SGE_LOG_DEBUG(
 		log(),
 		log::_
-			<< SGE_TEXT("creating buffer of size ")
+			<< FCPPT_TEXT("creating buffer of size ")
 	        	<< data.size()
-			<< SGE_TEXT(" and format ")
+			<< FCPPT_TEXT(" and format ")
 			<< file_format(*_audio_file)
-			<< SGE_TEXT(" and sample rate ")
+			<< FCPPT_TEXT(" and sample rate ")
 			<< _audio_file->sample_rate());
 
 	if (data.empty())
-		throw audio::exception(SGE_TEXT("tried to create empty nonstreaming sound, that's not possible!"));
+		throw audio::exception(FCPPT_TEXT("tried to create empty nonstreaming sound, that's not possible!"));
 
 	// TODO: this function is called more than once!
 	alBufferData(
@@ -125,7 +125,7 @@ ALuint sge::openal::player::register_nonstream_sound(
 		static_cast<ALsizei>(_audio_file->sample_rate()));
 
 	SGE_OPENAL_CHECK_STATE(
-		SGE_TEXT("alBufferData failed"),
+		FCPPT_TEXT("alBufferData failed"),
 		audio::exception
 	)
 

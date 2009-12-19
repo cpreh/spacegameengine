@@ -73,7 +73,7 @@ sge::opengl::split_states::update_stencil()
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glStencilFunc failed"),
+		FCPPT_TEXT("glStencilFunc failed"),
 		sge::renderer::exception
 	)
 }
@@ -95,7 +95,7 @@ sge::opengl::split_states::update_blend()
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glBlendFunc failed"),
+		FCPPT_TEXT("glBlendFunc failed"),
 		sge::renderer::exception
 	)
 }
@@ -129,7 +129,7 @@ sge::opengl::split_states::update_alpha_test()
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glAlphaFunc failed"),
+		FCPPT_TEXT("glAlphaFunc failed"),
 		sge::renderer::exception
 	)
 }

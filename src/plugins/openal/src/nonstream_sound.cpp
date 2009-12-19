@@ -46,7 +46,7 @@ void sge::openal::nonstream_sound::play_mode(sge::audio::play_mode::type pm)
 	);
 
 	SGE_OPENAL_CHECK_STATE(
-		SGE_TEXT("alSourcei failed"),
+		FCPPT_TEXT("alSourcei failed"),
 		audio::exception
 	)
 }

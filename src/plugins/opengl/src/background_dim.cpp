@@ -41,7 +41,7 @@ sge::opengl::background_dim(
 		>(d);
 	default:
 		throw exception(
-			SGE_TEXT("Invalid viewport_mode!")
+			FCPPT_TEXT("Invalid viewport_mode!")
 		);
 	}
 }

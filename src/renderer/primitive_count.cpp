@@ -33,16 +33,16 @@ sge::renderer::primitive_count(
 	case nonindexed_primitive_type::line_strip:
 		if(vertex_count <= 1)
 			throw exception(
-				SGE_TEXT("primitive_count(): line_strip needs at least two vertices!"));
+				FCPPT_TEXT("primitive_count(): line_strip needs at least two vertices!"));
 		return vertex_count - 1;
 	case nonindexed_primitive_type::triangle_strip:
 	case nonindexed_primitive_type::triangle_fan:
 		if(vertex_count <= 2)
 			throw exception(
-				SGE_TEXT("primitive_count(): triangles need at least three vertices!"));
+				FCPPT_TEXT("primitive_count(): triangles need at least three vertices!"));
 		return vertex_count - 2;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid nonindexed_primitive_type!"));
+			FCPPT_TEXT("Invalid nonindexed_primitive_type!"));
 	}
 }

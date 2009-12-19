@@ -54,8 +54,8 @@ sge::gui::cursor::default_::default_(
 					texture_,
 					il->load(
 						media_path()/
-						SGE_TEXT("gui")/
-						SGE_TEXT("cursor.png")
+						FCPPT_TEXT("gui")/
+						FCPPT_TEXT("cursor.png")
 					)->view()
 				)
 			)

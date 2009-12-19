@@ -64,7 +64,7 @@ sge::d3d9::convert_texture_stage_op_value(
 //		return D3DTOP_LERP;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid texture_stage_op_value!")
+			FCPPT_TEXT("Invalid texture_stage_op_value!")
 		);
 	}
 }

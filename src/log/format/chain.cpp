@@ -32,7 +32,7 @@ sge::log::format::chain::chain(
 {
 	if(!parent || !child)
 		throw exception(
-			SGE_TEXT("format::chain(): one of the objects is zero!")
+			FCPPT_TEXT("format::chain(): one of the objects is zero!")
 		);
 }
 

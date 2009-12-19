@@ -37,13 +37,13 @@ sge::bitmapfont::load_offset(
 			parse::json::array
 		>(
 			members,
-			SGE_TEXT("offset")
+			FCPPT_TEXT("offset")
 		).elements
 	);
 
 	if(elements.size() != 2)
 		throw exception(
-			SGE_TEXT("Bogus offset detected")
+			FCPPT_TEXT("Bogus offset detected")
 		);
 
 	return font::pos(

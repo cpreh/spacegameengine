@@ -35,5 +35,5 @@ void sge::opengl::xf86vmode::check_extension(
 		&error_base)
 	== False)
 		throw exception(
-			SGE_TEXT("xf86vmode video modes queried but extension is not present!"));
+			FCPPT_TEXT("xf86vmode video modes queried but extension is not present!"));
 }

@@ -33,7 +33,7 @@ sge::d3d9::convert_texture_stage_op(
 		return D3DTSS_ALPHAOP;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid texture_stage_op!")
+			FCPPT_TEXT("Invalid texture_stage_op!")
 		);
 	}
 }

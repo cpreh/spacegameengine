@@ -34,7 +34,7 @@ unsigned channels_from_format(
 		case sge::image::color::format::size: break;
 	}
 
-	throw sge::image::exception(SGE_TEXT("unknown color format, please maintain this crap"));
+	throw sge::image::exception(FCPPT_TEXT("unknown color format, please maintain this crap"));
 }
 
 int transforms_from_format(
@@ -47,7 +47,7 @@ int transforms_from_format(
 			throw
 				sge::image::unsupported_format(
 					_path,
-					SGE_TEXT("alpha8"));
+					FCPPT_TEXT("alpha8"));
 		case sge::image::color::format::gray8:
 		case sge::image::color::format::rgba8:
 			return PNG_TRANSFORM_IDENTITY;
@@ -61,11 +61,11 @@ int transforms_from_format(
 			throw
 				sge::image::unsupported_format(
 					_path,
-					SGE_TEXT("alpha8"));
+					FCPPT_TEXT("alpha8"));
 		case sge::image::color::format::size: break;
 	}
 
-	throw sge::image::exception(SGE_TEXT("unknown color format, please maintain this crap"));
+	throw sge::image::exception(FCPPT_TEXT("unknown color format, please maintain this crap"));
 }
 
 int bit_depth_from_format(
@@ -86,13 +86,13 @@ int bit_depth_from_format(
 			throw
 				sge::image::unsupported_format(
 					_path,
-					SGE_TEXT("alpha8"));
+					FCPPT_TEXT("alpha8"));
 		case sge::image::color::format::size: break;
 	}
 	throw
 		sge::image::file_exception(
 			_path,
-			SGE_TEXT("unknown color format, please maintain this crap"));
+			FCPPT_TEXT("unknown color format, please maintain this crap"));
 }
 
 int color_type_from_format(
@@ -105,7 +105,7 @@ int color_type_from_format(
 			throw
 				sge::image::unsupported_format(
 					_path,
-					SGE_TEXT("alpha8"));
+					FCPPT_TEXT("alpha8"));
 		case sge::image::color::format::gray8:
 			return PNG_COLOR_TYPE_GRAY;
 		case sge::image::color::format::rgba8:
@@ -118,11 +118,11 @@ int color_type_from_format(
 			throw
 				sge::image::unsupported_format(
 					_path,
-					SGE_TEXT("alpha8"));
+					FCPPT_TEXT("alpha8"));
 		case sge::image::color::format::size: break;
 	}
 
-	throw sge::image::exception(SGE_TEXT("unknown color format, please maintain this crap"));
+	throw sge::image::exception(FCPPT_TEXT("unknown color format, please maintain this crap"));
 }
 }
 
@@ -152,7 +152,7 @@ sge::libpng::write_context::write_context(
 		throw
 			image::file_exception(
 				_path,
-				SGE_TEXT("couldn't open file"));
+				FCPPT_TEXT("couldn't open file"));
 
 	png_set_write_fn(
 		write_ptr_.ptr(),
@@ -225,7 +225,7 @@ void sge::libpng::write_context::handle_write_impl(
 	if (!file_)
 		throw image::file_exception(
 			path_,
-			SGE_TEXT("error writing"));
+			FCPPT_TEXT("error writing"));
 }
 
 void sge::libpng::write_context::handle_flush(

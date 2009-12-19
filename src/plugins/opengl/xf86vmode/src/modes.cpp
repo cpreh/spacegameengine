@@ -45,7 +45,7 @@ sge::opengl::xf86vmode::modes::modes(
 		&ret)
 	== False)
 		throw exception(
-			SGE_TEXT("XF86VidModeGetAllModeLines() failed"));
+			FCPPT_TEXT("XF86VidModeGetAllModeLines() failed"));
 	modes_.reset(ret);
 	sz = mode_count >= 0 ? mode_count : 0;
 }

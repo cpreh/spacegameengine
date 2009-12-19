@@ -31,7 +31,7 @@ sge::windows::gdi_device::gdi_device(
 {
 	if(!dc)
 		throw exception(
-			SGE_TEXT("GetDC() failed!"));
+			FCPPT_TEXT("GetDC() failed!"));
 }
 
 sge::windows::gdi_device::~gdi_device()
