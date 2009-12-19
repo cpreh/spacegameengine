@@ -22,10 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_POOL_HPP_INCLUDED
 
 #include <sge/audio/stop_mode.hpp>
-#include <sge/audio/sound_fwd.hpp>
-#include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <sge/audio/sound_ptr.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <vector>
+#include <utility>
 
 namespace sge
 {
@@ -33,7 +35,7 @@ namespace audio
 {
 class SGE_CLASS_SYMBOL pool
 {
-	SGE_NONCOPYABLE(pool)
+	FCPPT_NONCOPYABLE(pool)
 public:
 	SGE_SYMBOL pool();
 	SGE_SYMBOL void add(sound_ptr,stop_mode::type);

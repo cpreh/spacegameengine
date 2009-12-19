@@ -20,23 +20,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/pool.hpp>
 #include <sge/audio/sound.hpp>
-#include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
-#include <sge/assert.hpp>
+#include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert_message.hpp>
 #include <boost/foreach.hpp>
 
 sge::audio::pool::pool()
 {}
 
-void sge::audio::pool::add(
+void
+sge::audio::pool::add(
 	audio::sound_ptr const s,
-	stop_mode::type const pm)
+	stop_mode::type const pm
+)
 {
 	sounds.push_back(value_type(s,pm));
 }
 
-void sge::audio::pool::update()
+void
+sge::audio::pool::update()
 {
 	for (container_type::iterator s = sounds.begin();
 	     s != sounds.end();)
@@ -54,9 +57,10 @@ void sge::audio::pool::update()
 			case stop_mode::stop_playing:
 			break;
 			case stop_mode::continue_playing:
-				SGE_ASSERT_MESSAGE(
+				FCPPT_ASSERT_MESSAGE(
 					s->first->status() != audio::sound_status::paused,
-					FCPPT_TEXT("a paused sound was destroyed but kept alive by the sound pool"));
+					FCPPT_TEXT("a paused sound was destroyed but kept alive by the sound pool")
+				);
 
 				if (s->first->status() != audio::sound_status::stopped)
 				{
@@ -65,18 +69,21 @@ void sge::audio::pool::update()
 				}
 			break;
 			case stop_mode::play_once:
-				SGE_ASSERT_MESSAGE(
+				FCPPT_ASSERT_MESSAGE(
 					s->first->status() != audio::sound_status::paused,
-					FCPPT_TEXT("a paused sound was destroyed but kept alive by the sound pool"));
+					FCPPT_TEXT("a paused sound was destroyed but kept alive by the sound pool")
+				);
 
 				if (s->first->status() != audio::sound_status::stopped)
 				{
 					if (s->first->play_mode() != play_mode::once)
 					{
-						SGE_LOG_WARNING(
+						FCPPT_LOG_WARNING(
 							log::global(),
-							log::_
-								<< FCPPT_TEXT("got a looping sound, setting to play only once"));
+							fcppt::log::_
+								<< FCPPT_TEXT("got a looping sound, setting to play only once")
+						);
+
 						s->first->play(play_mode::once);
 					}
 					s++;
@@ -89,9 +96,13 @@ void sge::audio::pool::update()
 	}
 }
 
-bool sge::audio::pool::sounds_finished() const
+bool
+sge::audio::pool::sounds_finished() const
 {
-	BOOST_FOREACH(value_type const &s,sounds)
+	BOOST_FOREACH(
+		value_type const &s,
+		sounds
+	)
 		if (s.first->status() != audio::sound_status::stopped)
 			return false;
 	return true;

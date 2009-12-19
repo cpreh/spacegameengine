@@ -18,18 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/loaders_exhausted.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_LOG_GLOBAL_CONTEXT_HPP_INCLUDED
+#define SGE_LOG_GLOBAL_CONTEXT_HPP_INCLUDED
 
-sge::loaders_exhausted::loaders_exhausted(
-	fcppt::filesystem::path const &p
-)
-:
-	exception(
-		FCPPT_TEXT("exhausted all loaders for file \"")
-		+ p.string()
-		+ FCPPT_TEXT("\"")
-	)
+#include <sge/symbol.hpp>
+#include <fcppt/log/context_fwd.hpp>
+
+namespace sge
 {
+namespace log
+{
+
+SGE_SYMBOL fcppt::log::context &
+global_context();
+
 }
+}
+
+#endif

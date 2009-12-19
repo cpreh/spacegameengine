@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_LOADERS_EXHAUSTED_HPP_INCLUDED
 
 #include <sge/exception.hpp>
-#include <sge/export.hpp>
-#include <sge/filesystem/path.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/filesystem/path.hpp>
 
 namespace sge
 {
@@ -34,7 +35,7 @@ class SGE_CLASS_SYMBOL loaders_exhausted
 {
 public:
 	SGE_SYMBOL explicit loaders_exhausted(
-		filesystem::path const &
+		fcppt::filesystem::path const &
 	);
 };
 
