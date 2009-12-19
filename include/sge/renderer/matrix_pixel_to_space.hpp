@@ -34,7 +34,7 @@ template<
 	typename T
 >
 SGE_SYMBOL
-typename math::matrix::static_<T, 4, 4>::type const
+typename fcppt::math::matrix::static_<T, 4, 4>::type const
 matrix_pixel_to_space(
 	screen_size const &sz);
 

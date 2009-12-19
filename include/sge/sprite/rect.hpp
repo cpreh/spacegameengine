@@ -33,7 +33,7 @@ template<
 >
 struct rect
 :
-math::box::rect<
+fcppt::math::box::rect<
 	UnitType
 >
 {

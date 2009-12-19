@@ -39,7 +39,7 @@ compare_depth(
 )
 {
 	return
-		math::compare(
+		fcppt::math::compare(
 			a.z(),
 			b.z()
 		);

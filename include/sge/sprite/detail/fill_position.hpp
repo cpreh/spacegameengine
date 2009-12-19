@@ -55,7 +55,7 @@ fill_position(
 )
 {
 	if(
-		math::almost_zero(
+		fcppt::math::almost_zero(
 			spr.rotation()
 		)
 	)

@@ -39,7 +39,7 @@ namespace renderer
 template<
 	typename Ret
 >
-typename math::box::rect<
+typename fcppt::math::box::rect<
 	Ret
 >::type const
 lock_rect_to_coords(
@@ -47,25 +47,25 @@ lock_rect_to_coords(
 	dim_type const &dim
 )
 {
-	typedef typename math::box::rect<
+	typedef typename fcppt::math::box::rect<
 		Ret
 	>::type ret_type;
 
 	ret_type const srect(
-		math::box::structure_cast<
+		fcppt::math::box::structure_cast<
 			ret_type
 		>(
 			l
 		)
 	);
 
-	typedef typename math::dim::static_<
+	typedef typename fcppt::math::dim::static_<
 		Ret,
 		2
 	>::type sdim_type;
 
 	sdim_type const sdim(
-		math::dim::structure_cast<
+		fcppt::math::dim::structure_cast<
 			sdim_type
 		>(
 			dim

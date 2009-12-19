@@ -45,9 +45,9 @@ public:
 	typedef container::const_reverse_iterator const_reverse_iterator;
 	typedef boost::iterator_range<const_iterator> iterator_pair;
 	typedef unsigned unit;
-	typedef math::box::rect<unit>::type rect;
-	typedef math::dim::static_<unit,2>::type dim;
-	typedef math::vector::static_<unit,2>::type point;
+	typedef fcppt::math::box::rect<unit>::type rect;
+	typedef fcppt::math::dim::static_<unit,2>::type dim;
+	typedef fcppt::math::vector::static_<unit,2>::type point;
 
 	history();
 

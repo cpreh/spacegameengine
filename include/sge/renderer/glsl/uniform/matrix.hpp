@@ -33,7 +33,7 @@ namespace glsl
 namespace uniform
 {
 
-typedef math::matrix::dynamic<
+typedef fcppt::math::matrix::dynamic<
 	float_type
 >::type matrix;
 

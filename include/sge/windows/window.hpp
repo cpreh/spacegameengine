@@ -84,7 +84,7 @@ public:
 private:
 	wndclass_ptr const wndclass_;
 
-	typedef math::rect::basic<
+	typedef fcppt::math::rect::basic<
 		LONG
 	> decoration_rect;
 

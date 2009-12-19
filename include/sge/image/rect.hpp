@@ -29,7 +29,7 @@ namespace sge
 namespace image
 {
 
-typedef math::box::rect<
+typedef fcppt::math::box::rect<
 	size_type
 >::type rect;
 

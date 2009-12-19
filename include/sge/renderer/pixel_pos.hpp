@@ -29,7 +29,7 @@ namespace sge
 namespace renderer
 {
 
-typedef math::vector::static_<
+typedef fcppt::math::vector::static_<
 	pixel_unit,
 	2
 >::type pixel_pos;

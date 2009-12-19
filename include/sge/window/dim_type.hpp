@@ -28,7 +28,7 @@ namespace sge
 namespace window
 {
 
-typedef math::dim::static_<
+typedef fcppt::math::dim::static_<
 	unsigned,
 	2
 >::type dim_type;

@@ -40,12 +40,12 @@ class basic_any_matrix {
 public:
 	typedef typename variant::object<
 		boost::mpl::vector2<
-			typename math::matrix::static_<
+			typename fcppt::math::matrix::static_<
 				float,
 				N,
 				M
 			>::type,
-			typename math::matrix::static_<
+			typename fcppt::math::matrix::static_<
 				double,
 				N,
 				M

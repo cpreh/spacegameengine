@@ -42,14 +42,14 @@ namespace texture
 template<
 	typename T
 >
-typename math::box::rect<T>::type const
+typename fcppt::math::box::rect<T>::type const
 area_texc(
 	const_part_ptr const part,
 	T const repeat
 )
 {
 	if(
-		!math::compare(
+		!fcppt::math::compare(
 			repeat,
 			static_cast<T>(1)
 		)
@@ -63,7 +63,7 @@ area_texc(
 				<< SGE_TEXT('!')
 		);
 
-	typedef typename math::box::rect<
+	typedef typename fcppt::math::box::rect<
 		T
 	>::type ret_type;
 	

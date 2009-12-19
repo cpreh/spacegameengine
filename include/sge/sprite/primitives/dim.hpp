@@ -37,7 +37,7 @@ template<
 struct dim
 {
 	typedef majutsu::simple<
-		typename math::dim::static_<
+		typename fcppt::math::dim::static_<
 			Type,
 			2
 		>::type

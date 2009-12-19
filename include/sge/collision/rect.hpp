@@ -29,7 +29,7 @@ namespace sge
 namespace collision
 {
 
-typedef math::box::rect<
+typedef fcppt::math::box::rect<
 	unit
 >::type rect;
 

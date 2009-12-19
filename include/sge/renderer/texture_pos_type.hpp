@@ -29,7 +29,7 @@ namespace sge
 namespace renderer
 {
 
-typedef math::vector::static_<
+typedef fcppt::math::vector::static_<
 	size_type,
 	2
 >::type texture_pos_type;

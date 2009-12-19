@@ -8,7 +8,7 @@ namespace sge
 {
 namespace collision
 {
-typedef math::dim::static_<unit,3>::type dim;
+typedef fcppt::math::dim::static_<unit,3>::type dim;
 }
 }
 

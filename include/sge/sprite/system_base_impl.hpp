@@ -88,7 +88,7 @@ sge::sprite::system_base<Choices>::system_base(
 		)
 	),
 	projection_matrix(
-		math::matrix::orthogonal_xy<
+		fcppt::math::matrix::orthogonal_xy<
 			typename Choices::type_choices::float_type
 		>()
 	),

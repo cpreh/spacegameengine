@@ -35,7 +35,7 @@ template<
 >
 struct rect_float
 :
-math::box::rect<
+fcppt::math::box::rect<
 	typename TypeChoices::float_type
 >
 {

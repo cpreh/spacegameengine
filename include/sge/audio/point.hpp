@@ -29,7 +29,7 @@ namespace sge
 namespace audio
 {
 
-typedef math::vector::static_<
+typedef fcppt::math::vector::static_<
 	unit,
 	3
 >::type point;

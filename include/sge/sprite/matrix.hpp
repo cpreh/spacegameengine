@@ -33,7 +33,7 @@ template<
 >
 struct matrix
 :
-math::matrix::static_<
+fcppt::math::matrix::static_<
 	FloatType,
 	4,
 	4

@@ -29,7 +29,7 @@ namespace sge
 namespace gui
 {
 
-typedef sge::math::dim::static_<
+typedef sge::fcppt::math::dim::static_<
 	unit,
 	2
 >::type dim;

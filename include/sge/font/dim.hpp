@@ -29,7 +29,7 @@ namespace sge
 namespace font
 {
 
-typedef math::dim::static_<
+typedef fcppt::math::dim::static_<
 	unit,
 	2
 >::type dim;

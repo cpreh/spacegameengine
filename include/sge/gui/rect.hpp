@@ -29,7 +29,7 @@ namespace sge
 namespace gui
 {
 
-typedef sge::math::box::rect<
+typedef sge::fcppt::math::box::rect<
 	unit
 >::type rect;
 

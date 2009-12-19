@@ -33,10 +33,10 @@ namespace renderer
 
 typedef variant::object<
 	boost::mpl::vector2<
-		math::vector::dynamic<
+		fcppt::math::vector::dynamic<
 			float
 		>::type,
-		math::vector::dynamic<
+		fcppt::math::vector::dynamic<
 			double
 		>::type
 	>

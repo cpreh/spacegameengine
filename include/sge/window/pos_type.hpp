@@ -28,7 +28,7 @@ namespace sge
 namespace window
 {
 
-typedef math::vector::static_<
+typedef fcppt::math::vector::static_<
 	int,
 	2
 >::type pos_type;

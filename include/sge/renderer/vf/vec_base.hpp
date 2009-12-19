@@ -44,7 +44,7 @@ struct vec_base
 > {
 	typedef Format subelement_type;
 
-	typedef typename math::vector::static_<
+	typedef typename fcppt::math::vector::static_<
 		Format,
 		NumSubElements
 	>::type packed_type;

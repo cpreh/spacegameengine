@@ -35,7 +35,7 @@ template<
 >
 struct point_float3
 :
-math::vector::static_<
+fcppt::math::vector::static_<
 	typename Choices::float_type,
 	3
 >

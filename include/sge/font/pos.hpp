@@ -29,7 +29,7 @@ namespace sge
 namespace font
 {
 
-typedef math::vector::static_<
+typedef fcppt::math::vector::static_<
 	unit,
 	2
 >::type pos;

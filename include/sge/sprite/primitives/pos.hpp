@@ -37,7 +37,7 @@ template<
 struct pos
 {
 	typedef majutsu::simple<
-		typename math::vector::static_<
+		typename fcppt::math::vector::static_<
 			Type,
 			2
 		>::type

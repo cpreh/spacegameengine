@@ -39,11 +39,11 @@ class basic_any_vector {
 public:
 	typedef typename variant::object<
 		boost::mpl::vector2<
-			typename math::vector::static_<
+			typename fcppt::math::vector::static_<
 				float,
 				sz
 			>::type,
-			typename math::vector::static_<
+			typename fcppt::math::vector::static_<
 				double,
 				sz
 			>::type

@@ -69,7 +69,7 @@ transform_init_arguments(
 		object_. template set<
 			roles::size
 		>(
-			math::dim::structure_cast<
+			fcppt::math::dim::structure_cast<
 				typename dim<
 					typename Choices::type_choices::unit_type
 				>::type

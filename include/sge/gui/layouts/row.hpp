@@ -40,7 +40,7 @@ namespace layouts
 class SGE_CLASS_SYMBOL row : public base
 {
 	public:
-	typedef math::vector::static_<float,2>::type spacing;
+	typedef fcppt::math::vector::static_<float,2>::type spacing;
 
 	SGE_GUI_SYMBOL row(
 		spacing const & =

@@ -29,7 +29,7 @@ namespace sge
 namespace renderer
 {
 
-typedef math::box::rect<
+typedef fcppt::math::box::rect<
 	size_type
 >::type lock_rect;
 

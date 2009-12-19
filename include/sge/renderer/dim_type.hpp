@@ -29,7 +29,7 @@ namespace sge
 namespace renderer
 {
 
-typedef math::dim::static_<
+typedef fcppt::math::dim::static_<
 	size_type,
 	2
 >::type dim_type;

@@ -67,7 +67,7 @@ fill_position_rotated(
 	>::type pos2;
 
 	pos2 const centerf(
-		math::vector::structure_cast<
+		fcppt::math::vector::structure_cast<
 			pos2
 		>(
 			spr.rotation_center()
@@ -79,7 +79,7 @@ fill_position_rotated(
 	>::type float_rect;
 
 	float_rect const rbs(
-		math::box::structure_cast<
+		fcppt::math::box::structure_cast<
 			float_rect
 		>(
 			sprite::bounding_rect(
@@ -124,7 +124,7 @@ fill_position_rotated(
 		sinx = std::sin(rot),
 		cosx = std::cos(rot);
 
-	typedef typename math::matrix::static_<
+	typedef typename fcppt::math::matrix::static_<
 		funit,
 		2,
 		2

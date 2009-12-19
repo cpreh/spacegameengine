@@ -59,7 +59,7 @@ fill_position_unrotated(
 	>::type rect_float;
 
 	rect_float const rect_(
-		math::box::structure_cast<
+		fcppt::math::box::structure_cast<
 			rect_float
 		>(
 			sprite::bounding_rect(

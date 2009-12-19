@@ -39,10 +39,10 @@ namespace uniform
 
 typedef variant::object<
 	boost::mpl::vector2<
-		math::vector::dynamic<
+		fcppt::math::vector::dynamic<
 			float_type
 		>::type,
-		math::vector::dynamic<
+		fcppt::math::vector::dynamic<
 			int_type
 		>::type
 	>
