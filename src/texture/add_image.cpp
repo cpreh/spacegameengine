@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/texture/add_image.hpp>
 #include <fcppt/texture/manager.hpp>
 #include <sge/image/file.hpp>
-#include <sge/variant/object_impl.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 sge::texture::part_ptr const
 sge::texture::add_image(

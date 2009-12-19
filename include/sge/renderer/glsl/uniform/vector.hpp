@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/int_type.hpp>
 #include <fcppt/math/vector/dynamic.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <sge/variant/object_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 
 namespace sge

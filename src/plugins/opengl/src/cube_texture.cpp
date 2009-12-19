@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture.hpp"
 #include "../glew.hpp"
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <sge/variant/object_impl.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <sge/once.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/text.hpp>

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/named.hpp>
 #include <sge/container/map.hpp>
 #include <sge/type_info.hpp>
-#include <sge/variant/apply_binary.hpp>
+#include <fcppt/variant/apply_binary.hpp>
 #include <boost/assign/list_of.hpp>
 #include <typeinfo>
 #include <map>

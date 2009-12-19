@@ -25,10 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/algorithm/detail/transform_binary.hpp>
 #include <sge/image/view/object.hpp>
 #include <sge/image/view/const_object.hpp>
-#include <sge/variant/apply_unary.hpp>
-#include <sge/variant/apply_binary.hpp>
-#include <sge/variant/apply_ternary.hpp>
-#include <sge/variant/object_impl.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/apply_binary.hpp>
+#include <fcppt/variant/apply_ternary.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <tr1/functional>
 
 // TODO: provide all overloads

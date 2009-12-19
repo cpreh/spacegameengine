@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/matrix_convert.hpp>
 #include <sge/renderer/basic_any_matrix.hpp>
-#include <sge/variant/apply_unary.hpp>
-#include <sge/variant/object_impl.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/math/matrix/static.hpp>
 #include <fcppt/math/matrix/basic_decl.hpp>
 #include <fcppt/math/matrix/structure_cast.hpp>

@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/algorithm/copy_and_convert.hpp>
-#include <sge/variant/apply_binary.hpp>
-#include <sge/variant/object_impl.hpp>
+#include <fcppt/variant/apply_binary.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <mizuiro/image/algorithm/copy_and_convert.hpp>
 
 namespace

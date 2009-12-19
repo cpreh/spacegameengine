@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/colors.hpp>
 #include <sge/image/color/rgba8.hpp>
-#include <sge/variant/object_impl.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <mizuiro/color/init.hpp>
 
 #define SGE_DEFINE_COLOR_A(name, r, g, b, a)\

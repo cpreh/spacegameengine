@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../matrix.hpp"
 #include "../check_state.hpp"
 #include "../glew.hpp"
-#include <sge/variant/apply_unary.hpp>
-#include <sge/variant/object_impl.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/matrix/static.hpp>
 #include <fcppt/math/matrix/transpose.hpp>

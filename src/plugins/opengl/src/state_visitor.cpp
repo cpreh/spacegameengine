@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/arithmetic_convert.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/variant/object_impl.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/text.hpp>
 

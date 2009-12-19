@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "find_logger_node.hpp"
 #include "is_outer_node.hpp"
 #include <sge/container/tree_impl.hpp>
-#include <sge/variant/object_impl.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <tr1/functional>
 #include <algorithm>
 

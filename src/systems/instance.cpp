@@ -48,7 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/type_info.hpp>
 #include <sge/string.hpp>
 #include <sge/optional.hpp>
-#include <sge/variant/apply_unary.hpp>
+#include <fcppt/variant/apply_unary.hpp>
 #include <boost/foreach.hpp>
 #include <typeinfo>
 

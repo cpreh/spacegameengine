@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/algorithm/fill.hpp>
 #include <sge/image/color/any/convert.hpp>
-#include <sge/variant/apply_unary.hpp>
-#include <sge/variant/object_impl.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <mizuiro/image/algorithm/fill_c.hpp>
 #include <mizuiro/image/view_impl.hpp>
 #include <mizuiro/color/object_impl.hpp>

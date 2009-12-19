@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "find_inner_node.hpp"
 #include <sge/log/location.hpp>
 #include <sge/container/tree_impl.hpp>
-#include <sge/variant/object_impl.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 sge::log::detail::context_tree *
 sge::log::find_location(
