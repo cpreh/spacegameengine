@@ -18,49 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_DRAWER_HPP_INCLUDED
-#define SGE_FONT_DRAWER_HPP_INCLUDED
+#ifndef SGE_INPUT_SYSTEM_PTR_HPP_INCLUDED
+#define SGE_INPUT_SYSTEM_PTR_HPP_INCLUDED
 
-#include <sge/font/pos.hpp>
-#include <sge/font/dim.hpp>
-#include <sge/font/image_view.hpp>
-#include <sge/symbol.hpp>
-#include <fcppt/char_type.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <cstddef>
+#include <sge/input/system_fwd.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
-namespace font
+namespace input
 {
 
-class SGE_CLASS_SYMBOL drawer
-{
-	FCPPT_NONCOPYABLE(drawer)
-public:
-	typedef std::size_t size_type;
-
-	virtual void
-	begin_rendering(
-		size_type buffer_chars,
-		pos const &start,
-		dim size
-	) = 0;
-
-	virtual void
-	draw_char(
-		char_type,
-		pos const &,
-		const_image_view const &data
-	) = 0;
-
-	virtual void
-	end_rendering() = 0;
-
-	SGE_SYMBOL virtual ~drawer();
-protected:
-	SGE_SYMBOL drawer();
-};
+typedef fcppt::shared_ptr<
+	system
+> system_ptr;
 
 }
 }

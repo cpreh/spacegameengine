@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/pos.hpp>
 #include <sge/font/dim.hpp>
 #include <sge/font/image_view.hpp>
-#include <fcppt/texture/manager.hpp>
-#include <fcppt/texture/part_fwd.hpp>
+#include <sge/texture/manager.hpp>
+#include <sge/texture/part_ptr.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/external_system_decl.hpp>
 #include <sge/sprite/object_decl.hpp>
@@ -36,8 +36,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/choices.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/image/color/rgba8_format.hpp>
-#include <fcppt/variant/object_impl.hpp>
 #include <sge/symbol.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <map>
 #include <vector>
@@ -51,6 +52,7 @@ class SGE_CLASS_SYMBOL drawer_3d
 :
 	public drawer
 {
+	FCPPT_NONCOPYABLE(drawer_3d)
 public:
 	SGE_SYMBOL drawer_3d(
 		renderer::device_ptr rend,
@@ -90,6 +92,7 @@ private:
 	renderer::device_ptr rend;
 
 	image::color::any::object col;
+
 	texture::manager texman;
 
 	typedef std::map<

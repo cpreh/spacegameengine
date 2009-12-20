@@ -22,16 +22,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_MODIFIER_FILTER_HPP_INCLUDED
 
 #include <sge/input/modifier/states.hpp>
-#include <sge/container/map_decl.hpp>
 #include <sge/input/key_pair_fwd.hpp>
 #include <sge/input/key_type.hpp>
-#include <sge/input/system_fwd.hpp>
-#include <sge/signal/auto_connection.hpp>
-#include <sge/signal/scoped_connection.hpp>
-#include <sge/signal/object.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/input/system_ptr.hpp>
 #include <sge/symbol.hpp>
-#include <sge/function/object.hpp>
+#include <fcppt/container/map_decl.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/object.hpp>
+#include <fcppt/function/object.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -39,27 +39,59 @@ namespace input
 {
 namespace modifier
 {
+
 class SGE_CLASS_SYMBOL filter
 {
 	FCPPT_NONCOPYABLE(filter)
-	public:
-	typedef void fn_callback_type (key_pair const &,states const &);
-	typedef sge::function::object<fn_callback_type> callback_type;
-	typedef void fn_repeat_callback_type (key_type const &,states const &);
-	typedef sge::function::object<fn_repeat_callback_type> repeat_callback_type;
+public:
+	typedef void
+	fn_callback_type (
+		key_pair const &,
+		states const &
+	);
 
-	SGE_SYMBOL explicit filter(system_ptr);
+	typedef fcppt::function::object<
+		fn_callback_type
+	> callback_type;
 
-	SGE_SYMBOL signal::auto_connection register_callback(
-		callback_type const &);
-	SGE_SYMBOL signal::auto_connection register_repeat_callback(
-		repeat_callback_type const &);
+	typedef void
+	fn_repeat_callback_type (
+		key_type const &,
+		states const &
+	);
+
+	typedef fcppt::function::object<
+		fn_repeat_callback_type
+	> repeat_callback_type;
+
+	SGE_SYMBOL explicit filter(
+		system_ptr
+	);
+
+	SGE_SYMBOL fcppt::signal::auto_connection
+	register_callback(
+		callback_type const &
+	);
+
+	SGE_SYMBOL fcppt::signal::auto_connection
+	register_repeat_callback(
+		repeat_callback_type const &
+	);
 
 	SGE_SYMBOL ~filter();
-	private:
-	signal::object<fn_callback_type> signal;
-	signal::object<fn_repeat_callback_type> repeat_signal;
-	signal::scoped_connection const ic, irc;
+private:
+	fcppt::signal::object<
+		fn_callback_type
+	> signal;
+
+	fcppt::signal::object<
+		fn_repeat_callback_type
+	> repeat_signal;
+
+	fcppt::signal::scoped_connection const
+		ic,
+		irc;
+
 	states modifiers;
 
 	void input_callback(key_pair const &);

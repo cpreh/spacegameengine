@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/primitives/dim.hpp>
 #include <sge/sprite/roles/pos.hpp>
 #include <sge/sprite/roles/size.hpp>
-#include <sge/mpl/implication.hpp>
+#include <fcppt/mpl/implication.hpp>
 #include <majutsu/memory/fusion.hpp>
 #include <majutsu/class.hpp>
 #include <majutsu/role.hpp>
@@ -55,7 +55,7 @@ struct make_class
 	typedef typename Choices::elements elements;
 
 	BOOST_STATIC_ASSERT((
-		sge::mpl::implication<
+		fcppt::mpl::implication<
 			boost::mpl::contains<
 				elements,
 				with_rotation_center

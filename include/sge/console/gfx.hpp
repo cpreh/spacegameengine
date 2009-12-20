@@ -33,9 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/system_fwd.hpp>
 #include <sge/input/modifier/filter.hpp>
 #include <sge/time/timer.hpp>
-#include <sge/signal/scoped_connection.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/external_system_decl.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -58,18 +58,39 @@ public:
 
 	SGE_SYMBOL ~gfx();
 
-	SGE_SYMBOL void draw();
-	SGE_SYMBOL bool active() const;
-	SGE_SYMBOL void active(bool);
-	SGE_SYMBOL void print(string const &);
-	SGE_SYMBOL sge::console::object &object();
-	SGE_SYMBOL sge::console::object const &object() const;
+	SGE_SYMBOL void
+	draw();
+
+	SGE_SYMBOL bool
+	active() const;
+	
+	SGE_SYMBOL void
+	active(
+		bool
+	);
+
+	SGE_SYMBOL void
+	print(
+		string const &
+	);
+
+	SGE_SYMBOL sge::console::object &
+	object();
+
+	SGE_SYMBOL sge::console::object const &
+	object() const;
 private:
 	sge::console::object &object_;
+
 	font::object fn;
+
 	input::system_ptr const is;
+
 	input::modifier::filter mf;
-	sge::signal::scoped_connection const ic, irc;
+
+	fcppt::signal::scoped_connection const
+		ic,
+		irc;
 
 	sprite_system ss;
 	sprite_object bg;

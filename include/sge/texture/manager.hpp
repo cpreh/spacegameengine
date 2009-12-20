@@ -21,23 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef FCPPT_TEXTURE_MANAGER_HPP_INCLUDED
 #define FCPPT_TEXTURE_MANAGER_HPP_INCLUDED
 
-#include <fcppt/texture/part_fwd.hpp>
-#include <fcppt/texture/fragmented_auto_ptr.hpp>
-#include <fcppt/texture/detail/container_position.hpp>
+#include <sge/texture/part_ptr.hpp>
+#include <sge/texture/fragmented_fwd.hpp>
+#include <sge/texture/fragmented_auto_ptr.hpp>
+#include <sge/texture/detail/container_position.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/image/view/const_object.hpp>
-#include <fcppt/noncopyable.hpp>
 #include <sge/symbol.hpp>
-#include <sge/function/object.hpp>
+#include <fcppt/function/object.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace texture
 {
 
-class fragmented;
-
-class manager {
+class manager
+{
 	FCPPT_NONCOPYABLE(manager)
 public:
 	typedef sge::function::object<
@@ -46,20 +46,23 @@ public:
 
 	SGE_SYMBOL manager(
 		sge::renderer::device_ptr rend,
-		onalloc_function const &);
+		onalloc_function const &
+	);
 
 	SGE_SYMBOL ~manager();
 
 	SGE_SYMBOL part_ptr const
 	add(
-		image::view::const_object const &src);
+		image::view::const_object const &
+	);
 
 	SGE_SYMBOL sge::renderer::device_ptr const
 	renderer() const;
 
 	SGE_SYMBOL void
 	onalloc(
-		onalloc_function const &);
+		onalloc_function const &
+	);
 
 	SGE_SYMBOL void
 	free_empty_textures();
@@ -69,7 +72,8 @@ private:
 	void
 	part_freed(
 		detail::container_position const &,
-		fragmented const &);
+		fragmented const &
+	);
 
 	sge::renderer::device_ptr const     rend;
 	onalloc_function                    onalloc_;

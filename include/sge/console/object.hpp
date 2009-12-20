@@ -21,12 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_OBJECT_HPP_INCLUDED
 #define SGE_CONSOLE_OBJECT_HPP_INCLUDED
 
-#include <sge/console/callbacks.hpp>
+#include <sge/console/callback.hpp>
+#include <sge/console/fallback_signal.hpp>
 #include <sge/console/variable_map.hpp>
 #include <sge/console/function_map.hpp>
 #include <sge/console/var_base_fwd.hpp>
-#include <sge/signal/auto_connection.hpp>
 #include <sge/symbol.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/char_type.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -39,13 +42,13 @@ class SGE_CLASS_SYMBOL object
 	FCPPT_NONCOPYABLE(object)
 public:
 	SGE_SYMBOL explicit object(
-		string::value_type prefix
+		fcppt::string::value_type prefix
 	);
 
 	SGE_SYMBOL sge::signal::auto_connection insert(
-		string const &name,
+		fcppt::string const &name,
 		callback const &,
-		string const &description = string()
+		fcppt::string const &description = fcppt::string()
 	);
 
 	SGE_SYMBOL sge::signal::auto_connection
@@ -55,7 +58,7 @@ public:
 
 	SGE_SYMBOL void
 	eval(
-		string const &
+		fcppt::string const &
 	);
 
 	SGE_SYMBOL variable_map const &
@@ -72,7 +75,7 @@ private:
 	variable_map vars_;
 	function_map funcs_;
 	fallback_signal fallback_;
-	string::value_type prefix_;
+	fcppt::char_type prefix_;
 
 	void insert(var_base &);
 	void erase(var_base &);
