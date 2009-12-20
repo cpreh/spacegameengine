@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_WINDOWS_GDI_DEVICE_HPP_INCLUDED
 
 #include <sge/windows/windows.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge

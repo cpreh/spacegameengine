@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11_SENTRY_HPP_INCLUDED
 
 #include <fcppt/noncopyable.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
 #include <string>
 
 namespace sge

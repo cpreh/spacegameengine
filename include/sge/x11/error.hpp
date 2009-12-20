@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11_ERROR_HPP_INCLUDED
 
 #include <X11/Xlib.h>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
 #include <fcppt/optional_fwd.hpp>
 
 namespace sge

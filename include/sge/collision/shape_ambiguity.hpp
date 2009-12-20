@@ -2,7 +2,7 @@
 #define SGE_COLLISION_SHAPE_AMBIGUITY_HPP_INCLUDED
 
 #include <sge/exception.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/animation/entity.hpp>
 #include <sge/sprite/animation/entity_vector.hpp>
 #include <sge/renderer/dim_type.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
 #include <vector>
 
 namespace sge

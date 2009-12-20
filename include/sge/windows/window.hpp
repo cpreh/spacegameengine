@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/wndclass_fwd.hpp>
 #include <sge/string.hpp>
 #include <sge/window/instance.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
 #include <sge/signal/auto_connection.hpp>
 #include <sge/signal/object.hpp>
 #include <fcppt/math/rect/basic_decl.hpp>

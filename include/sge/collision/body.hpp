@@ -5,7 +5,7 @@
 #include <sge/collision/body_fwd.hpp>
 #include <sge/collision/point.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {

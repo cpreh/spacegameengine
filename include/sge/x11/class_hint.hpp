@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
 #include <sge/string.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <sge/scoped_ptr.hpp>

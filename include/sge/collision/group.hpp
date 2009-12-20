@@ -4,7 +4,7 @@
 #include <sge/collision/group_fwd.hpp>
 #include <sge/collision/body_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {

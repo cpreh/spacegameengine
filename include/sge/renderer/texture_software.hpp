@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/object.hpp>
 #include <sge/image/view/const_object.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
 #include <boost/scoped_ptr.hpp>
 
 namespace sge

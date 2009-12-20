@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/instance.hpp>
 #include <sge/signal/auto_connection.hpp>
 #include <sge/signal/object.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
 #include <sge/function/object.hpp>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>

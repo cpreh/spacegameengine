@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/fun.hpp>
 #include <sge/time/activation_state.hpp>
 #include <sge/time/expiration_state.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge

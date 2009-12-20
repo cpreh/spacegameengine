@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <fcppt/texture/fragmented.hpp>
 #include <fcppt/texture/part_fwd.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/texture_fwd.hpp>
 #include <sge/renderer/dim_type.hpp>

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TIME_SLEEP_HPP_INCLUDED
 #define SGE_TIME_SLEEP_HPP_INCLUDED
 
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {

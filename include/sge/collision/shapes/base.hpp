@@ -2,7 +2,7 @@
 #define SGE_COLLISION_SHAPES_BASE_HPP_INCLUDED
 
 #include <fcppt/noncopyable.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
