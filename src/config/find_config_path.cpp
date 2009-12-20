@@ -22,34 +22,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/getenv.hpp>
 #include <sge/config/no_such_env_var.hpp>
 #include <sge/config/exception.hpp>
-#include <sge/filesystem/exists.hpp>
-#include <sge/filesystem/is_directory.hpp>
-#include <sge/filesystem/create_directories_recursive.hpp>
+#include <fcppt/filesystem/exists.hpp>
+#include <fcppt/filesystem/is_directory.hpp>
+#include <fcppt/filesystem/create_directories_recursive.hpp>
 #include <fcppt/text.hpp>
-#include <sge/config.h>
-#ifdef SGE_POSIX_PLATFORM
+#include <fcppt/config.h>
+#ifdef FCPPT_POSIX_PLATFORM
 #include <sge/config/homedir.hpp>
 #endif
 
 namespace
 {
 
-sge::filesystem::path const
+fcppt::filesystem::path const
 try_create_path(
-	sge::filesystem::path const &p
+	fcppt::filesystem::path const &p
 )
 {
 	if(
-		!sge::filesystem::exists(
+		!fcppt::filesystem::exists(
 			p
 		)
 	)
-		sge::filesystem::create_directories_recursive(
+		fcppt::filesystem::create_directories_recursive(
 			p
 		);
 
 	if(
-		!sge::filesystem::is_directory(
+		!fcppt::filesystem::is_directory(
 			p
 		)
 	)
@@ -63,14 +63,14 @@ try_create_path(
 
 }
 
-sge::filesystem::path const
+fcppt::filesystem::path const
 sge::config::find_config_path(
-	string const &appname
+	fcppt::string const &appname
 )
 {
 #if defined(SGE_WINDOWS_PLATFORM)
 	return try_create_path(
-		filesystem::path(
+		fcppt::filesystem::path(
 			getenv(
 				FCPPT_TEXT("APPDIR")
 			)
@@ -81,7 +81,7 @@ sge::config::find_config_path(
 	try
 	{
 		return try_create_path(
-			filesystem::path(
+			fcppt::filesystem::path(
 				getenv(
 					FCPPT_TEXT("XDG_CONFIG_PATH")
 				)
@@ -94,7 +94,7 @@ sge::config::find_config_path(
 	)
 	{
 		return try_create_path(
-			filesystem::path(
+			fcppt::filesystem::path(
 				homedir()
 				/ FCPPT_TEXT(".config")
 				/ appname

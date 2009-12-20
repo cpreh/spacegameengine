@@ -21,15 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONFIG_MEDIA_PATH_HPP_INCLUDED
 #define SGE_CONFIG_MEDIA_PATH_HPP_INCLUDED
 
-#include <sge/filesystem/path.hpp>
-#include <sge/export.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
 namespace config
 {
 
-SGE_SYMBOL filesystem::path const
+SGE_SYMBOL fcppt::filesystem::path const
 media_path();
 
 }
