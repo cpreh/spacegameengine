@@ -83,13 +83,13 @@ sge::libpng::load_context::load_context(
 		png_get_color_type(
 			read_ptr_->ptr(),
 			read_ptr_->info());
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		log::global(),
 		log::_ << FCPPT_TEXT("png: dimensions: ") << dim_);
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		log::global(),
 		log::_ << FCPPT_TEXT("png: bit depth: ") << static_cast<int>(bpp));
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		log::global(),
 		log::_ << FCPPT_TEXT("png: channels: ") << static_cast<int>(cs));
 

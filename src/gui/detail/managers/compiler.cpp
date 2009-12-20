@@ -68,7 +68,7 @@ sge::gui::detail::managers::compiler::compiler(
 
 void sge::gui::detail::managers::compiler::add(widgets::base &w)
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_
 			<< FCPPT_TEXT("adding widget ")
@@ -85,7 +85,7 @@ void sge::gui::detail::managers::compiler::add(widgets::base &w)
 
 void sge::gui::detail::managers::compiler::remove(widgets::base &w)
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_
 			<< FCPPT_TEXT("deleting a widget of type ")
@@ -112,7 +112,7 @@ void sge::gui::detail::managers::compiler::remove(widgets::base &w)
 
 	if (w.has_parent())
 	{
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
 			log::_ << FCPPT_TEXT("inserting parent to invalidates list"));
 		invalidates.insert(
@@ -127,7 +127,7 @@ void sge::gui::detail::managers::compiler::update()
 	if (recompiles.empty() && invalidates.empty())
 	{
 		/*
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
 			log::_ << FCPPT_TEXT("in update, but nothing to do!"));
 			*/
@@ -137,7 +137,7 @@ void sge::gui::detail::managers::compiler::update()
 	// the parents of invalidates widgets can now be safely invalidated
 	BOOST_FOREACH(recompile_container::const_reference r,invalidates)
 	{
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
 			log::_
 				<< FCPPT_TEXT("invalidating widget's parent: ")
@@ -150,7 +150,7 @@ void sge::gui::detail::managers::compiler::update()
 
 	BOOST_FOREACH(recompile_container::const_reference r,recompiles)
 	{
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
 			log::_
 				<< FCPPT_TEXT("compiling widget of type ")
@@ -183,14 +183,14 @@ void sge::gui::detail::managers::compiler::insert_or_combine(
 
 	if (it != c.end())
 	{
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
 			log::_ << FCPPT_TEXT("widget already in list, combining"));
 		it->second |= i;
 	}
 	else
 	{
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
 			log::_ << FCPPT_TEXT("inserting widget"));
 		c.insert(

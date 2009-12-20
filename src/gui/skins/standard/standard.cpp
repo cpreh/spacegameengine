@@ -50,7 +50,7 @@ SGE_GUI_SKIN_DRAW_RETURN(widgets::base) sge::gui::skins::standard::fallback(
 	/*
 	resize_buffer(w);
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_1 << FCPPT_TEXT("buffer size is ")
 		        << w.buffer().width() << FCPPT_TEXT(",") << w.buffer().height());
@@ -62,7 +62,7 @@ SGE_GUI_SKIN_DRAW_RETURN(widgets::base) sge::gui::skins::standard::fallback(
 		internal_color(0x0,0x0,0x0,0x0),
 		canvas::rect_type::solid);
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_1 << FCPPT_TEXT("blitting to texture"));
 

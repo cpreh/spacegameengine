@@ -45,7 +45,7 @@ sge::openal::context::context(
 	al_attributes.push_back(static_cast<ALCint>(0));
 	al_attributes.push_back(static_cast<ALCint>(0));
 
-	SGE_LOG_DEBUG(log(),log::_ << FCPPT_TEXT("creating audio context"))
+	FCPPT_LOG_DEBUG(log(),log::_ << FCPPT_TEXT("creating audio context"))
 
 	context_ = alcCreateContext(device_.aldevice(),&(al_attributes[0]));
 
@@ -66,7 +66,7 @@ sge::openal::context::context(
 	// FIXME: can this leak? For example the creation of the context succeeds but there is an alError?
 
 	SGE_ASSERT(context_);
-	SGE_LOG_DEBUG(log(),log::_ << FCPPT_TEXT("created audio context"))
+	FCPPT_LOG_DEBUG(log(),log::_ << FCPPT_TEXT("created audio context"))
 }
 
 ALCcontext *
@@ -77,7 +77,7 @@ sge::openal::context::alcontext()
 
 void sge::openal::context::make_current()
 {
-	SGE_LOG_DEBUG(log(),
+	FCPPT_LOG_DEBUG(log(),
 		log::_ << FCPPT_TEXT("making audio context the current context"));
 
 	alcMakeContextCurrent(context_);
@@ -93,7 +93,7 @@ void sge::openal::context::make_current()
 		audio::exception
 	)
 
-	SGE_LOG_DEBUG(log(),
+	FCPPT_LOG_DEBUG(log(),
 		log::_ << FCPPT_TEXT("made audio context the current context"));
 }
 
@@ -116,7 +116,7 @@ sge::openal::context::~context()
 
 	if (current == context_)
 	{
-		SGE_LOG_DEBUG(log(),
+		FCPPT_LOG_DEBUG(log(),
 			log::_ << FCPPT_TEXT("context is the current context, so resetting current context"));
 
 		// TODO: alcMakeContextCurrent is called more than once, split this!

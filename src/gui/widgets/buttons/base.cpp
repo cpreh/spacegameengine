@@ -87,14 +87,14 @@ sge::gui::key_handling::type sge::gui::widgets::buttons::base::process_key(
 
 void sge::gui::widgets::buttons::base::process_keyboard_enter(events::keyboard_enter const &)
 {
-	SGE_LOG_DEBUG(mylogger,log::_ << FCPPT_TEXT("got keyboard_enter"));
+	FCPPT_LOG_DEBUG(mylogger,log::_ << FCPPT_TEXT("got keyboard_enter"));
 	key_over_ = true;
 	parent_manager().dirty(*this,rect(point::null(),size()));
 }
 
 void sge::gui::widgets::buttons::base::process_keyboard_leave(events::keyboard_leave const &)
 {
-	SGE_LOG_DEBUG(mylogger,log::_ << FCPPT_TEXT("got keyboard_leave"));
+	FCPPT_LOG_DEBUG(mylogger,log::_ << FCPPT_TEXT("got keyboard_leave"));
 	key_over_ = false;
 	parent_manager().dirty(*this,rect(point::null(),size()));
 }

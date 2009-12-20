@@ -54,7 +54,7 @@ void sge::opengl::set_texture_level(
 		if(stage == 0)
 			return;
 
-		SGE_LOG_ERROR(
+		FCPPT_LOG_ERROR(
 			log::global(),
 			log::_
 				<< FCPPT_TEXT("Tried to set texture stage ")
@@ -74,7 +74,7 @@ void sge::opengl::set_texture_level(
 		)
 	)
 	{
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
 			log::_
 				<< FCPPT_TEXT("GL_MAX_COMBINED_TEXTURE_UNITS is ")
@@ -112,7 +112,7 @@ void sge::opengl::client_texture_level(
 		if(stage == 0)
 			return;
 
-		SGE_LOG_ERROR(
+		FCPPT_LOG_ERROR(
 			log::global(),
 			log::_
 				<< FCPPT_TEXT("Tried to set texture coordinates for stage ")

@@ -103,7 +103,7 @@ ALuint sge::openal::player::register_nonstream_sound(
 	audio::sample_container data;
 	_audio_file->read_all(data);
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		log(),
 		log::_
 			<< FCPPT_TEXT("creating buffer of size ")

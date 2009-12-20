@@ -56,7 +56,7 @@ void sge::gui::skins::standard::draw(
 
 	resize_buffer(b);
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("creating canvas from buffer"));
 	canvas::object c(b.buffer());
@@ -156,7 +156,7 @@ void sge::gui::skins::standard::draw(
 			canvas::line_type::dashed);
 	}
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("drawing text (button \"")
 		        << b.caption()
@@ -171,13 +171,13 @@ void sge::gui::skins::standard::draw(
 		font::align_h::center,
 		font::align_v::center);
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("blitting (button \"")
 		        << b.caption()
 		        << FCPPT_TEXT("\")"));
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_
 			<< FCPPT_TEXT("source rect is \"")
@@ -191,7 +191,7 @@ void sge::gui::skins::standard::draw(
 sge::gui::dim const sge::gui::skins::standard::optimal_size(
 	widgets::buttons::text const &b) const
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("calling size hint for button"));
 

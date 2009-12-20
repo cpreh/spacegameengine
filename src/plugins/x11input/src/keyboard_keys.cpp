@@ -69,7 +69,7 @@ sge::x11input::keyboard_key(
 
 	if(num_chars > 1)
 	{
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
 			log::_
 				<< FCPPT_TEXT("stub: character '")

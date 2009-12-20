@@ -70,12 +70,12 @@ void sge::gui::skins::standard::draw(
 	if (w.size() == dim::null())
 		return;
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("refreshing edit buffer"));
 	// re-render text buffer
 	w.refresh();
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("refreshed edit buffer"));
 

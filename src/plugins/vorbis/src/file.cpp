@@ -87,7 +87,7 @@ sge::audio::sample_count sge::vorbis::file::read(
 	/*
 	if (stdstream.eof())
 	{
-		SGE_LOG_DEBUG(log::global(),log::_ << FCPPT_TEXT("vorbis: we're at the end, returning"));
+		FCPPT_LOG_DEBUG(log::global(),log::_ << FCPPT_TEXT("vorbis: we're at the end, returning"));
 		return static_cast<sample_count>(0);
 	}
 	*/
@@ -121,7 +121,7 @@ sge::audio::sample_count sge::vorbis::file::read(
 
 		if (result == static_cast<long>(0))
 		{
-			SGE_LOG_DEBUG(log::global(),log::_ << FCPPT_TEXT("vorbis: read until the end"));
+			FCPPT_LOG_DEBUG(log::global(),log::_ << FCPPT_TEXT("vorbis: read until the end"));
 			break;
 		}
 

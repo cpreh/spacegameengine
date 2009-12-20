@@ -161,7 +161,7 @@ sge::dinput::keyboard::keycode_to_char(
 			kblayout))
 	{
 	case 0:
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
 			log::_1
 				<< FCPPT_TEXT("No translation found for dik: ")
@@ -170,7 +170,7 @@ sge::dinput::keyboard::keycode_to_char(
 	case 1:
 		return static_cast<char_type>(result & 0xFF);
 	case 2:
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
 			log::_1
 				<< FCPPT_TEXT("stub: Key names with more than one char are not supported."));

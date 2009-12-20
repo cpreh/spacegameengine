@@ -105,7 +105,7 @@ SGE_GUI_SKIN_DRAW_RETURN(widgets::base) sge::gui::skins::base::draw(
 {
 	if (typeid(w) == typeid(widgets::base))
 	{
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
 			log::_ << FCPPT_TEXT("draw called for widget, falling back"));
 		fallback(
@@ -114,7 +114,7 @@ SGE_GUI_SKIN_DRAW_RETURN(widgets::base) sge::gui::skins::base::draw(
 		return;
 	}
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("draw called for some other widget"));
 
@@ -137,13 +137,13 @@ SGE_GUI_SKIN_SIZE_RETURN(widgets::base) sge::gui::skins::base::optimal_size(
 {
 	if (typeid(w) == typeid(widgets::base))
 	{
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
 			log::_ << FCPPT_TEXT("optimal_size called for widget, returning null"));
 		return dim::null();
 	}
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("optimal_size called for widgets::base ")
 		        << type_info(typeid(w)).name());
@@ -180,7 +180,7 @@ void sge::gui::skins::base::resize_buffer(
 	// resize internal buffer if neccessary
 	if (b.size() != b.buffer().size())
 	{
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
 			log::_
 				<< FCPPT_TEXT("resizing from ")

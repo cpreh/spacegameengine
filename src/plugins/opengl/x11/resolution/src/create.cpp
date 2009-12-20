@@ -51,7 +51,7 @@ sge::opengl::x11::resolution::create(
 	}
 	catch(exception const &e)
 	{
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
 			log::_ << e.string());
 	}
@@ -67,12 +67,12 @@ sge::opengl::x11::resolution::create(
 	}
 	catch(exception const &e)
 	{
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
 			log::_ << e.string());
 	}
 #endif
-	SGE_LOG_WARNING(
+	FCPPT_LOG_WARNING(
 		log::global(),
 		log::_
 			<< FCPPT_TEXT("sge cannot switch resolutions because ")

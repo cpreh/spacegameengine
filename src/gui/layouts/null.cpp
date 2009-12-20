@@ -47,7 +47,7 @@ sge::gui::layouts::null::null()
 
 void sge::gui::layouts::null::compile_static()
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("in compile_static, doing nothing"));
 
@@ -62,7 +62,7 @@ void sge::gui::layouts::null::compile_static()
 
 sge::gui::dim const sge::gui::layouts::null::optimal_size() const
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("getting size hint from skin"));
 	return connected_widget().parent_manager().skin().optimal_size(

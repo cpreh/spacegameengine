@@ -59,7 +59,7 @@ void sge::gui::skins::standard::draw(
 	widgets::buttons::image const &b,
 	events::invalid_area const &e)
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("creating canvas from buffer"));
 
@@ -73,7 +73,7 @@ void sge::gui::skins::standard::draw(
 sge::gui::dim const sge::gui::skins::standard::optimal_size(
 	widgets::buttons::image const &b) const
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("returning button dimension ")
 		        << b.normal()->size());

@@ -91,7 +91,7 @@ sge::window::create(
 		}
 		catch(exception const &e)
 		{
-			SGE_LOG_ERROR(
+			FCPPT_LOG_ERROR(
 				log::global(),
 				log::_
 					<< FCPPT_TEXT("window::create failed!")

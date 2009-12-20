@@ -55,7 +55,7 @@ area_texc(
 		)
 		&& !part->repeatable()
 	)
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
 			log::_
 				<< FCPPT_TEXT("texture not repeatable but repetition is ")

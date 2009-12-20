@@ -104,7 +104,7 @@ sge::config::find_path(
 			sge::exception const &e
 		)
 		{
-			SGE_LOG_DEBUG(
+			FCPPT_LOG_DEBUG(
 				log::global(),
 				log::_
 					<< e.string()
@@ -124,7 +124,7 @@ sge::config::find_path(
 		}
 		catch(exception const &e)
 		{
-			SGE_LOG_DEBUG(
+			FCPPT_LOG_DEBUG(
 				log::global(),
 				log::_
 					<< e.string()

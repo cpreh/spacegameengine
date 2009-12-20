@@ -79,7 +79,7 @@ sge::font::align_v::type sge::gui::widgets::label::align_v() const
 void sge::gui::widgets::label::text(
 	string const &_text)
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("setting text to: ")
 		        << _text);

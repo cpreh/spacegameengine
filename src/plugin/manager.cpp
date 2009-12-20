@@ -48,7 +48,7 @@ sge::char_type const *const plugin_extension =
 
 sge::plugin::manager::manager()
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		log::global(),
 		log::_
 			<< FCPPT_TEXT("Scanning for plugins in ")
@@ -70,7 +70,7 @@ sge::plugin::manager::manager()
 			|| filesystem::extension(*it) != plugin_extension
 		)
 		{
-			SGE_LOG_WARNING(
+			FCPPT_LOG_WARNING(
 				log::global(),
 				log::_
 					<< it->path().string()
@@ -93,7 +93,7 @@ sge::plugin::manager::manager()
 			library::function_not_found const &e
 		)
 		{
-			SGE_LOG_WARNING(
+			FCPPT_LOG_WARNING(
 				log::global(),
 				log::_
 					<< it->path().string()
@@ -107,7 +107,7 @@ sge::plugin::manager::manager()
 			exception const &e
 		)
 		{
-			SGE_LOG_WARNING(
+			FCPPT_LOG_WARNING(
 				log::global(),
 				log::_
 					<< it->path().string()

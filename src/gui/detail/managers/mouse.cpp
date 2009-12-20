@@ -180,7 +180,7 @@ void sge::gui::detail::managers::mouse::remove(widgets::base &w)
 
 void sge::gui::detail::managers::mouse::recalculate_focus()
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("in top level recalculate_focus"));
 
@@ -194,7 +194,7 @@ void sge::gui::detail::managers::mouse::recalculate_focus()
 
 	if (focus)
 	{
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
 			log::_ << FCPPT_TEXT("a widgets::base currently has the focus, recalculating"));
 
@@ -203,14 +203,14 @@ void sge::gui::detail::managers::mouse::recalculate_focus()
 
 	if (!focus)
 	{
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
 			log::_ <<
 				FCPPT_TEXT("no widgets::base currently has the focus, so letting it recalculate"));
 
 		BOOST_FOREACH(widgets::base &w,widgets)
 		{
-			SGE_LOG_DEBUG(
+			FCPPT_LOG_DEBUG(
 				mylogger,
 				log::_ << FCPPT_TEXT("checking if ") << w.screen_area()
 				        << FCPPT_TEXT(" contains ") << click_point);
@@ -265,7 +265,7 @@ sge::gui::widgets::base *sge::gui::detail::managers::mouse::recalculate_focus(
 	if (!contains_point(w.screen_area(),mouse_click) ||
 	    !active(w))
 	{
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
 			log::_ << FCPPT_TEXT("mouse no longer inside widget, sending leave"));
 
@@ -283,7 +283,7 @@ sge::gui::widgets::base *sge::gui::detail::managers::mouse::recalculate_focus(
 
 	if (new_focus == &w)
 	{
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
 			log::_ << FCPPT_TEXT("focus hasn't changed, sending mouse_move"));
 		w.process_mouse_move(events::mouse_move(mouse_click));
@@ -300,7 +300,7 @@ sge::gui::widgets::base *sge::gui::detail::managers::mouse::do_recalculate_focus
 		if (child.activation() == activation_state::active &&
 		    contains_point(child.screen_area(),p))
 		{
-			SGE_LOG_DEBUG(
+			FCPPT_LOG_DEBUG(
 				mylogger,
 				log::_ << FCPPT_TEXT("a child has the focus, sending enter and descending"));
 			child.process_mouse_enter(events::mouse_enter(p));
@@ -308,7 +308,7 @@ sge::gui::widgets::base *sge::gui::detail::managers::mouse::do_recalculate_focus
 		}
 	}
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("no child has the focus, doing nothing"));
 	return &w;

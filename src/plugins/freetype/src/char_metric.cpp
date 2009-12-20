@@ -67,7 +67,7 @@ sge::freetype::char_metric::char_metric(
 
 	// FIXME: fix offsets and maybe those warnings
 	if(offset_.x() < 0)
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
 			log::_
 				<< FCPPT_TEXT("x offset of character '")
@@ -78,7 +78,7 @@ sge::freetype::char_metric::char_metric(
 		);
 
 	if(offset_.y() < 0)
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
 			log::_
 				<< FCPPT_TEXT("y offset of character '")

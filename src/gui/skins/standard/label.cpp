@@ -55,7 +55,7 @@ void sge::gui::skins::standard::draw(
 {
 	resize_buffer(b);
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("creating canvas from buffer"));
 
@@ -76,7 +76,7 @@ void sge::gui::skins::standard::draw(
 		sge::image::colors::transparent(),
 		canvas::rect_type::solid);
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("drawing text (label \"")
 		        << b.text()
@@ -91,7 +91,7 @@ void sge::gui::skins::standard::draw(
 		b.align_h(),
 		b.align_v());
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("blitting (label \"")
 		        << b.text()
@@ -107,7 +107,7 @@ void sge::gui::skins::standard::draw(
 sge::gui::dim const sge::gui::skins::standard::optimal_size(
 	widgets::label const &b) const
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("calling size hint for label"));
 

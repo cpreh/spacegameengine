@@ -379,7 +379,7 @@ sge::systems::instance::impl::load_plugin(
 		if(it->info().name() == name)
 			return it->load();
 
-	SGE_LOG_WARNING(
+	FCPPT_LOG_WARNING(
 		log::global(),
 		log::_
 			<< FCPPT_TEXT("Tried to load plugin of type ")

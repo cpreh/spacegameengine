@@ -105,7 +105,7 @@ void sge::gui::detail::managers::keyboard::add(widgets::base &w)
 	if (w.keyboard_focus() == keyboard_focus::ignore)
 		return;
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("adding widget"));
 
@@ -251,7 +251,7 @@ void sge::gui::detail::managers::keyboard::keyboard_focus(
 		break;
 		case keyboard_focus::receive:
 		{
-			SGE_LOG_DEBUG(
+			FCPPT_LOG_DEBUG(
 				mylogger,
 				log::_ << FCPPT_TEXT("adding widgets::base after focus change"));
 			widget_container::iterator wi = utility::ptr_find(
@@ -308,7 +308,7 @@ void sge::gui::detail::managers::keyboard::input_callback(
 
 void sge::gui::detail::managers::keyboard::switch_focus(widget_container::iterator n)
 {
-	SGE_LOG_DEBUG(mylogger,log::_ << FCPPT_TEXT("switching focus"));
+	FCPPT_LOG_DEBUG(mylogger,log::_ << FCPPT_TEXT("switching focus"));
 	if (focus)
 		(*focus)->process_keyboard_leave(events::keyboard_leave());
 	focus = n;

@@ -100,7 +100,7 @@ sge::systems::list::operator()(
 		).second
 	)
 	{
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
 			log::_
 				<< FCPPT_TEXT("Duplicate system state given!")

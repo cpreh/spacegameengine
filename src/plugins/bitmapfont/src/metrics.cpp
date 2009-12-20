@@ -119,7 +119,7 @@ sge::bitmapfont::metrics::metrics(
 
 		if(name.size() != 1)
 		{
-			SGE_LOG_WARNING(
+			FCPPT_LOG_WARNING(
 				log::global(),
 				log::_
 					<< FCPPT_TEXT("Invalid character in bitmap font: ")
@@ -157,7 +157,7 @@ sge::bitmapfont::metrics::metrics(
 	}
 	catch(exception const &e)
 	{
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
 			log::_
 				<< FCPPT_TEXT("Skipping character in bitmap font because \"")

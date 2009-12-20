@@ -59,7 +59,7 @@ sge::gui::layouts::row::row(
 
 void sge::gui::layouts::row::compile_static()
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("In static compilation for widget ")
 		        << type_info(typeid(connected_widget())).name());
@@ -81,12 +81,12 @@ void sge::gui::layouts::row::compile_static()
 		optimal = optimal_size(),
 		usable = connected_widget().size();
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("optimal size ") << optimal
 		        << FCPPT_TEXT(", usable size: ") << usable);
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("adapting master axis begin"));
 	adapt_outer(
@@ -94,10 +94,10 @@ void sge::gui::layouts::row::compile_static()
 		usable,
 		master(
 			dim(0,1)));
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("adapting master axis end"));
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("adapting slave axis begin"));
 	adapt_outer(
@@ -105,7 +105,7 @@ void sge::gui::layouts::row::compile_static()
 		usable,
 		slave(
 			dim(0,1)));
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("adapting slave axis end"));
 
@@ -121,7 +121,7 @@ sge::gui::dim const sge::gui::layouts::row::optimal_size() const
 		master(hint) += master(w.optimal_size());
 		slave(hint) = std::max(slave(hint),slave(w.optimal_size()));
 	}
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("returning optimal size ")
 		        << hint);
@@ -180,7 +180,7 @@ void sge::gui::layouts::row::adapt(
 	unit const diff = usable[axis] - optimal[axis];
 	unit const addition = static_cast<unit>(diff/count);
 
-	SGE_LOG_DEBUG(mylogger,
+	FCPPT_LOG_DEBUG(mylogger,
 		log::_ << FCPPT_TEXT("adding ") << diff << FCPPT_TEXT("/")
 		        << count << FCPPT_TEXT("=") << addition
 						<< FCPPT_TEXT(" pixels to each widget"));
@@ -209,21 +209,21 @@ void sge::gui::layouts::row::adapt_outer(
 			count_flags(axis_policy::can_shrink,axis),
 			FCPPT_TEXT("not enough space to hold all widgets and no shrinkable widgets found"));
 
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
 			log::_ << FCPPT_TEXT("there is too less space, shrinking begin"));
 		adapt(optimal,usable,axis_policy::can_shrink,axis);
-		SGE_LOG_DEBUG(mylogger,log::_ << FCPPT_TEXT("shrinking end"));
+		FCPPT_LOG_DEBUG(mylogger,log::_ << FCPPT_TEXT("shrinking end"));
 	}
 	else if (optimal[axis] <= usable[axis])
 	{
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
 			log::_ << FCPPT_TEXT("there is too much space, expanding begin"));
 		unsigned count;
 		if ((count = count_flags(axis_policy::should_grow,axis)))
 		{
-			SGE_LOG_DEBUG(
+			FCPPT_LOG_DEBUG(
 				mylogger,
 				log::_ << FCPPT_TEXT("there are ")
 				        << count
@@ -236,7 +236,7 @@ void sge::gui::layouts::row::adapt_outer(
 		}
 		else if ((count = count_flags(axis_policy::can_grow,axis)))
 		{
-			SGE_LOG_DEBUG(
+			FCPPT_LOG_DEBUG(
 				mylogger,
 				log::_ << FCPPT_TEXT("there are ")
 				        << count
@@ -249,11 +249,11 @@ void sge::gui::layouts::row::adapt_outer(
 		}
 		else
 		{
-			SGE_LOG_DEBUG(
+			FCPPT_LOG_DEBUG(
 				mylogger,
 				log::_ << FCPPT_TEXT("there are no widgets which could grow :("));
 		}
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
 			log::_ << FCPPT_TEXT("expanding end"));
 	}
@@ -261,7 +261,7 @@ void sge::gui::layouts::row::adapt_outer(
 
 void sge::gui::layouts::row::update_widgets(dim const &usable)
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("update widgets begin"));
 
@@ -270,7 +270,7 @@ void sge::gui::layouts::row::update_widgets(dim const &usable)
 	BOOST_FOREACH(widget_map::value_type &p,sizes)
 		bounding += master(p.second);
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("bounding size in master direction is ")
 		        << bounding);
@@ -278,7 +278,7 @@ void sge::gui::layouts::row::update_widgets(dim const &usable)
 	unit const extra_space = static_cast<unit>(master(usable)-bounding);
 	unit const increment = static_cast<unit>(extra_space/(sizes.size()+1));
 
-	SGE_LOG_DEBUG(mylogger,
+	FCPPT_LOG_DEBUG(mylogger,
 		log::_ << FCPPT_TEXT("there are ") << extra_space
 		        << FCPPT_TEXT(" pixels extra space and ")
 		        << increment << FCPPT_TEXT(" is the increment"));
@@ -292,7 +292,7 @@ void sge::gui::layouts::row::update_widgets(dim const &usable)
 			static_cast<unit>(
 				slave(usable)/2-slave(p.second)/2);
 
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
 			log::_ << FCPPT_TEXT("setting widgets::base (master) position to ")
 							<< master(pos)
@@ -311,19 +311,19 @@ void sge::gui::layouts::row::update_widgets(dim const &usable)
 
 		master(pos) += master(p.second)+increment;
 	}
-	SGE_LOG_DEBUG(mylogger,log::_ << FCPPT_TEXT("update widgets end"));
+	FCPPT_LOG_DEBUG(mylogger,log::_ << FCPPT_TEXT("update widgets end"));
 }
 
 void sge::gui::layouts::row::reset_cache()
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("resetting cache begin"));
 	sizes.clear();
 	BOOST_FOREACH(widgets::base &w,connected_widget().children())
 	{
 		dim const _optimal_size = w.optimal_size();
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
 			log::_ << FCPPT_TEXT("optimal size for this child is ") << _optimal_size);
 		sizes.push_back(
@@ -331,7 +331,7 @@ void sge::gui::layouts::row::reset_cache()
 				&w,
 				_optimal_size));
 	}
-	SGE_LOG_DEBUG(mylogger,log::_ << FCPPT_TEXT("resetting cache end"));
+	FCPPT_LOG_DEBUG(mylogger,log::_ << FCPPT_TEXT("resetting cache end"));
 }
 
 

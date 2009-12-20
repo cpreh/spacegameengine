@@ -58,7 +58,7 @@ sge::string const sge::wave::file::to_string() const
 
 void sge::wave::file::reset()
 {
-	SGE_LOG_DEBUG(log::global(),log::_ << "wave: resetting file");
+	FCPPT_LOG_DEBUG(log::global(),log::_ << "wave: resetting file");
 	file_.seekg(data_segment);
 	samples_read_ = static_cast<audio::sample_count>(0);
 }
@@ -180,7 +180,7 @@ void sge::wave::file::ignore_chunks_until(std::string const &desc)
 {
 	while (extract_header(FCPPT_TEXT("subchunk header")) != desc)
 	{
-		SGE_LOG_INFO(
+		FCPPT_LOG_INFO(
 			log::global(),
 			log::_ << FCPPT_TEXT("detected unknown subchunk in wave file \"")
 			        << filename_

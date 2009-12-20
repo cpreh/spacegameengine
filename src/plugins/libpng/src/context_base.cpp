@@ -24,7 +24,7 @@ void sge::libpng::context_base::handle_warning(
 void sge::libpng::context_base::handle_warning_impl(
 	png_const_charp const message)
 {
-	SGE_LOG_WARNING(
+	FCPPT_LOG_WARNING(
 		log::global(),
 		log::_
 			<< FCPPT_TEXT("libpng: file: ")

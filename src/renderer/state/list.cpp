@@ -55,7 +55,7 @@ sge::renderer::state::list::operator()(
 {
 	state::list temp(*this);
 	if(!temp.set_.insert(a).second)
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
 			log::_ << FCPPT_TEXT("duplicate renderer state given!"));
 	return temp;

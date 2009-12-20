@@ -51,7 +51,7 @@ sge::gui::axis_type
 
 void sge::gui::layouts::grid::compile_static()
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("In static compilation for widget ")
 		        << type_name(typeid(connected_widget())));
@@ -75,29 +75,29 @@ void sge::gui::layouts::grid::compile_static()
 		optimal = optimal_size(),
 		usable = connected_widget().size();
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("optimal size ") << optimal
 		        << FCPPT_TEXT(", usable size: ") << usable);
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("adapting y axis begin"));
 	adapt_outer(
 		optimal,
 		usable,
 		y_axis);
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("adapting y axis end"));
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("adapting x axis begin"));
 	adapt_outer(
 		optimal,
 		usable,
 		x_axis);
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("adapting x axis end"));
 
@@ -108,7 +108,7 @@ void sge::gui::layouts::grid::compile_static()
 
 sge::gui::dim const sge::gui::layouts::grid::optimal_size() const
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("optimal size, begin"));
 
@@ -117,7 +117,7 @@ sge::gui::dim const sge::gui::layouts::grid::optimal_size() const
 
 	dim maxdims = dim::null();
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("rolumn dimension is ")
 		        << rolumns.dim());
@@ -131,7 +131,7 @@ sge::gui::dim const sge::gui::layouts::grid::optimal_size() const
 			j < static_cast<unit>(2);
 			++j)
 		{
-			SGE_LOG_DEBUG(
+			FCPPT_LOG_DEBUG(
 				mylogger,
 				log::_ << FCPPT_TEXT("axis: ")
 				        << j
@@ -142,7 +142,7 @@ sge::gui::dim const sge::gui::layouts::grid::optimal_size() const
 			maxdims[j] += rolumns.pos(detail::grid_cache::rolumn_container::vector_type(j,i)).size;
 		}
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("optimal size, end"));
 
@@ -195,7 +195,7 @@ void sge::gui::layouts::grid::shrink(
 			axis),
 		FCPPT_TEXT("not enough space to hold all widgets and no shrinkable widgets found"));
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("there is too less space, shrinking begin"));
 	adapt(
@@ -203,7 +203,7 @@ void sge::gui::layouts::grid::shrink(
 		usable,
 		axis_policy::can_shrink,
 		axis);
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("shrinking end"));
 }
@@ -213,14 +213,14 @@ void sge::gui::layouts::grid::expand(
 	dim const &usable,
 	axis_type const axis)
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("there is too much space, expanding begin"));
 
 	unsigned count;
 	if ((count = count_flags(axis_policy::should_grow,axis)))
 	{
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
 			log::_ << FCPPT_TEXT("there are ")
 							<< count
@@ -234,7 +234,7 @@ void sge::gui::layouts::grid::expand(
 	}
 	else if ((count = count_flags(axis_policy::can_grow,axis)))
 	{
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
 			log::_ << FCPPT_TEXT("there are ")
 							<< count
@@ -248,11 +248,11 @@ void sge::gui::layouts::grid::expand(
 	}
 	else
 	{
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
 			log::_ << FCPPT_TEXT("there are no widgets which could grow :("));
 	}
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("expanding end"));
 }
@@ -278,7 +278,7 @@ void sge::gui::layouts::grid::adapt(
 	// ensures that we don't divide by zero)
 	unit const addition = static_cast<unit>(diff/count);
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("adding ") << diff << FCPPT_TEXT("/")
 		        << count << FCPPT_TEXT("=") << addition
@@ -295,7 +295,7 @@ void sge::gui::layouts::grid::adapt(
 	{
 		if (rolumns.pos(detail::grid_cache::rolumn_container::vector_type(axis,i)).policy & flag)
 		{
-			SGE_LOG_DEBUG(
+			FCPPT_LOG_DEBUG(
 				mylogger,
 				log::_ << FCPPT_TEXT("rolumn ") << i << FCPPT_TEXT(" can be modified"));
 
@@ -333,7 +333,7 @@ void sge::gui::layouts::grid::update_rolumn(
 	axis_policy::type const flag,
 	unit const addition)
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("updating rolumn ")
 		        << rolumn
@@ -345,7 +345,7 @@ void sge::gui::layouts::grid::update_rolumn(
 			axis,
 			rolumn)).size += addition;
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("added addition, plane dimensions are: ")
 		        << valid_cache().plane().dim());
@@ -355,7 +355,7 @@ void sge::gui::layouts::grid::update_rolumn(
 		i < valid_cache().plane().dim()[1-axis];
 		++i)
 	{
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
 			log::_ << FCPPT_TEXT("swapping positions: ")
 							<< bool(axis)
@@ -381,7 +381,7 @@ void sge::gui::layouts::grid::update_rolumn(
 
 		valid_cache().data()[w].size[axis] += addition;
 	}
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("update rolumn, end "));
 }
@@ -450,7 +450,7 @@ void sge::gui::layouts::grid::distribute_overhead(
 // table. if we have extra space to spare, align widgets to their alignment property
 void sge::gui::layouts::grid::update_widgets()
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("updating widgets begin"));
 
@@ -460,7 +460,7 @@ void sge::gui::layouts::grid::update_widgets()
 	detail::grid_cache::rolumn_container const &rolumns =
 		valid_cache().volatile_rolumns();
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("volatile rolumns dim: ")
 		        << rolumns.size());
@@ -501,7 +501,7 @@ void sge::gui::layouts::grid::update_widgets()
 					x)).size;
 	}
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("updating widgets end"));
 }
@@ -527,7 +527,7 @@ void sge::gui::layouts::grid::update_widget(
 	dim const smaller =
 		valid_cache().data()[&w].size;
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("setting widget position to ")
 		        << p

@@ -65,7 +65,7 @@ sge::texture::no_fragmented::consume_fragment(
 	);
 
 	if(real_dim != dim)
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
 			log::_
 				<< FCPPT_TEXT("You used a texture::no_fragmented whose dimensions are not a power of 2.")\

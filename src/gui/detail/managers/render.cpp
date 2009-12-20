@@ -140,7 +140,7 @@ sge::gui::detail::managers::render::~render()
 
 void sge::gui::detail::managers::render::add(widgets::base &w)
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("adding new widget"));
 	widgets::base *w_ptr = &w;
@@ -231,7 +231,7 @@ void sge::gui::detail::managers::render::resize(
 	widgets::base &w,
 	dim const &d)
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_
 			<< FCPPT_TEXT("widget ") << type_name(typeid(w))
@@ -254,7 +254,7 @@ void sge::gui::detail::managers::render::resize(
 	if (wi == widgets.end())
 		return;
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_
 			<< FCPPT_TEXT("resizing widget from ") << w.size()
@@ -269,7 +269,7 @@ void sge::gui::detail::managers::render::resize(
 
 	if (wd.texture && fcppt::math::dim::structure_cast<dim>(wd.texture->dim()) == new_dim)
 	{
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
 			log::_
 				<< FCPPT_TEXT("texture resolution ")
@@ -278,7 +278,7 @@ void sge::gui::detail::managers::render::resize(
 		return;
 	}
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_
 			<< FCPPT_TEXT("new resolution is ")
@@ -377,13 +377,13 @@ void sge::gui::detail::managers::render::clean()
 	if (dirt_.empty())
 		return;
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("cleaning dirty regions"));
 
 	BOOST_FOREACH(dirt_container::reference d,dirt_)
 	{
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
 			log::_
 				<< FCPPT_TEXT("cleaning rect: ")
@@ -400,7 +400,7 @@ void sge::gui::detail::managers::render::clean()
 
 		if (!widgets[&p].texture)
 		{
-			SGE_LOG_DEBUG(
+			FCPPT_LOG_DEBUG(
 				mylogger,
 				log::_ << FCPPT_TEXT("cannot lock because oldest parent hasn't been inited yet"));
 			continue;
@@ -410,7 +410,7 @@ void sge::gui::detail::managers::render::clean()
 			d.first->absolute_pos()+d.second.pos(),
 			d.second.dim());
 
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
 			log::_
 				<< FCPPT_TEXT("trying to lock area: ")
@@ -426,7 +426,7 @@ void sge::gui::detail::managers::render::clean()
 		utility::wipe_image_view(
 			lock_.value());
 
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
 			log::_
 				<< FCPPT_TEXT("sending dirty for area: ")

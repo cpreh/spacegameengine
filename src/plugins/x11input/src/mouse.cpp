@@ -233,7 +233,7 @@ void sge::x11input::mouse::warped_motion(
 
 	}
 
-	SGE_LOG_WARNING(
+	FCPPT_LOG_WARNING(
 		log::global(),
 		log::_
 			<< FCPPT_TEXT("Didn't detect mouse warp motion! ")

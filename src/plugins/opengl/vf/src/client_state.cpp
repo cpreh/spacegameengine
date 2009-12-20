@@ -76,7 +76,7 @@ void insert_checked(
 	typename Set::value_type const v)
 {
 	if(!s.insert(v).second)
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			sge::log::global(),
 			sge::log::_
 				<< FCPPT_TEXT("Duplicate state inserted in opengl::vf!"));

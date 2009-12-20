@@ -314,7 +314,7 @@ sge::gui::rect const sge::gui::widgets::base::screen_area() const
 void sge::gui::widgets::base::compile(
 	invalidation::type const &i)
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("in compile"));
 	layout().compile(
@@ -337,7 +337,7 @@ void sge::gui::widgets::base::invalidate(
 	widgets::base &w,
 	invalidation::type const &i)
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("in invalidate"));
 	layout().invalidate(
@@ -349,7 +349,7 @@ void sge::gui::widgets::base::process_invalid_area(
 	events::invalid_area const &e)
 {
 	// draw itself, then draw children
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("redrawing myself, region ")
 		        << e.area());
@@ -357,7 +357,7 @@ void sge::gui::widgets::base::process_invalid_area(
 
 	BOOST_FOREACH(widgets::base &w,children())
 	{
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
 			log::_
 				<< FCPPT_TEXT("checking if ")
@@ -369,7 +369,7 @@ void sge::gui::widgets::base::process_invalid_area(
 
 		if (intersects(w.absolute_area(),e.area()))
 		{
-			SGE_LOG_DEBUG(
+			FCPPT_LOG_DEBUG(
 				mylogger,
 				log::_
 					<< FCPPT_TEXT("sending widgets::base ")
@@ -394,13 +394,13 @@ sge::gui::key_handling::type sge::gui::widgets::base::process_key(
 void sge::gui::widgets::base::process_keyboard_enter(
 	events::keyboard_enter const &)
 {
-	SGE_LOG_DEBUG(mylogger,log::_ << FCPPT_TEXT("got keyboard_enter"));
+	FCPPT_LOG_DEBUG(mylogger,log::_ << FCPPT_TEXT("got keyboard_enter"));
 }
 
 void sge::gui::widgets::base::process_keyboard_leave(
 	events::keyboard_leave const &)
 {
-	SGE_LOG_DEBUG(mylogger,log::_ << FCPPT_TEXT("got keyboard_leave"));
+	FCPPT_LOG_DEBUG(mylogger,log::_ << FCPPT_TEXT("got keyboard_leave"));
 }
 
 sge::gui::widgets::base::~base()

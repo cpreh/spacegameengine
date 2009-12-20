@@ -190,7 +190,7 @@ void sge::x11input::system::on_acquire(
 		return;
 	acquired = true;
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		log::global(),
 		log::_
 			<< FCPPT_TEXT("x11: acquire window"));
@@ -208,7 +208,7 @@ void sge::x11input::system::on_release(
 		return;
 	acquired = false;
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		log::global(),
 		log::_
 			<< FCPPT_TEXT("x11: release window"));

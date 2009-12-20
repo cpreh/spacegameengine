@@ -49,14 +49,14 @@ sge::gui::layouts::base::base()
 
 void sge::gui::layouts::base::compile(invalidation::type const &i)
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("in compile of widget: ")
 		        << type_name(typeid(connected_widget())));
 
 	if (i & invalidation::position)
 	{
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
 			log::_ << FCPPT_TEXT("position invalid"));
 
@@ -64,7 +64,7 @@ void sge::gui::layouts::base::compile(invalidation::type const &i)
 		// global one which sets the widget's position
 		if (!connected_widget().has_parent())
 		{
-			SGE_LOG_DEBUG(
+			FCPPT_LOG_DEBUG(
 				mylogger,
 				log::_ << FCPPT_TEXT("setting raw new position"));
 
@@ -79,7 +79,7 @@ void sge::gui::layouts::base::compile(invalidation::type const &i)
 	if (!(i & invalidation::size))
 		return;
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
 		log::_ << FCPPT_TEXT("size invalid, so recompiling"));
 

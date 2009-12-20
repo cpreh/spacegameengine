@@ -42,7 +42,7 @@ void sge::mainloop::add_instance(
 	dispatchable *const i)
 {
 	if(!instances.insert(i).second)
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
 			log::_
 				<< FCPPT_TEXT("mainloop instance inserted twice!"));
@@ -52,7 +52,7 @@ void sge::mainloop::remove_instance(
 	dispatchable *const i)
 {
 	if(!instances.erase(i))
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
 			log::_
 				<< FCPPT_TEXT("mainloop instance not found!"));

@@ -74,7 +74,7 @@ sge::md3::object::object(
 
 	s32 const version = io::read<s32>(is, endian);
 	if(version != 15)
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
 			log::_ << FCPPT_TEXT("md3 version is not 15 but continuing anyway.")
 		);

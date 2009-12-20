@@ -106,7 +106,7 @@ void init_dga(
 	if(have_dga)
 		return;
 
-	SGE_LOG_WARNING(
+	FCPPT_LOG_WARNING(
 		sge::log::global(),
 		sge::log::_
 			<< FCPPT_TEXT(

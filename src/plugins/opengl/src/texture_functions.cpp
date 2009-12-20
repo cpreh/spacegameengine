@@ -82,7 +82,7 @@ void sge::opengl::set_texture(
 	renderer::const_raw_pointer const src)
 {
 	if(dim.w() < 64 || dim.h() < 64)
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
 			log::_
 				<< FCPPT_TEXT("opengl implementations are not required to support textures smaller than 64x64.")\
@@ -92,7 +92,7 @@ void sge::opengl::set_texture(
 		);
 
 	if(!fcppt::math::is_power_of_2(dim.w()) || !math::is_power_of_2(dim.h()))
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
 			log::_
 				<< FCPPT_TEXT("opengl implementations are not required to support textures with dimensions that are not a power of 2.")\
@@ -276,7 +276,7 @@ void sge::opengl::set_texture_filter(
 
 	if(!have_anisotropic_filter())
 	{
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
 			log::_
 				<< FCPPT_TEXT("anisotropic filtering is not supported!")
@@ -294,7 +294,7 @@ void sge::opengl::set_texture_filter(
 	}
 	catch(exception const &)
 	{
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
 			log::_
 				<< FCPPT_TEXT("anisotropy level ")

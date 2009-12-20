@@ -58,11 +58,11 @@ bool sge::openal::stream_sound::fill_buffer(ALuint const buffer)
 	audio::sample_count samples_read =
 		audio_file_->read(buffer_samples_, data);
 
-	SGE_LOG_DEBUG(log(),log::_ << "read " << samples_read << " samples");
+	FCPPT_LOG_DEBUG(log(),log::_ << "read " << samples_read << " samples");
 
 	if (samples_read == static_cast<audio::sample_count>(0))
 	{
-		SGE_LOG_DEBUG(log(),log::_ << "at the end of last buffer");
+		FCPPT_LOG_DEBUG(log(),log::_ << "at the end of last buffer");
 
 		// there's nothing more to load, but the sound should be looped? then reset
 		// and start from the beginning
@@ -102,7 +102,7 @@ void sge::openal::stream_sound::do_play()
 	fill_buffer(al_buffers_[0]);
 	fill_buffer(al_buffers_[1]);
 
-	SGE_LOG_DEBUG(log(),log::_ << "queued 2 buffers");
+	FCPPT_LOG_DEBUG(log(),log::_ << "queued 2 buffers");
 
 	alSourceQueueBuffers(
 		alsource(),
@@ -130,7 +130,7 @@ void sge::openal::stream_sound::update()
 	)
 
 	if (processed)
-		SGE_LOG_DEBUG(log(),log::_ << processed << " buffers processed");
+		FCPPT_LOG_DEBUG(log(),log::_ << processed << " buffers processed");
 
 	while(processed--)
 	{
