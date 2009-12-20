@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_COLOR_OBJECT_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_OBJECT_HPP_INCLUDED
 
-#include <sge/restrict_typedef_struct.hpp>
+#include <fcppt/restrict_typedef_struct.hpp>
 #include <mizuiro/color/object_fwd.hpp>
 
 namespace sge
@@ -40,7 +40,7 @@ struct object
 		Format
 	> type;
 
-	SGE_RESTRICT_TYPEDEF_STRUCT(object)
+	FCPPT_RESTRICT_TYPEDEF_STRUCT(object)
 };
 
 }

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/elements.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/mpl/index_of.hpp>
-#include <sge/restrict_typedef_struct.hpp>
+#include <fcppt/restrict_typedef_struct.hpp>
 #include <boost/static_assert.hpp>
 
 namespace sge
@@ -52,7 +52,7 @@ struct format_static {
 		value < format::size
 	);
 
-	SGE_RESTRICT_TYPEDEF_STRUCT(format_static)
+	FCPPT_RESTRICT_TYPEDEF_STRUCT(format_static)
 };
 
 }
