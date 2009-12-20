@@ -68,7 +68,7 @@ sge::config::find_config_path(
 	fcppt::string const &appname
 )
 {
-#if defined(SGE_WINDOWS_PLATFORM)
+#if defined(FCPPT_WINDOWS_PLATFORM)
 	return try_create_path(
 		fcppt::filesystem::path(
 			getenv(
@@ -77,7 +77,7 @@ sge::config::find_config_path(
 		)
 		/ appname
 	);
-#elif defined(SGE_POSIX_PLATFORM)
+#elif defined(FCPPT_POSIX_PLATFORM)
 	try
 	{
 		return try_create_path(
