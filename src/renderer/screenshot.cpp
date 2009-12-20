@@ -25,10 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/file.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
-void sge::renderer::screenshot(
+void
+sge::renderer::screenshot(
 	const_device_ptr const rend,
 	image::loader_ptr const il,
-	filesystem::path const &file)
+	fcppt::filesystem::path const &file
+)
 {
 	il->create(
 		const_scoped_target_lock(

@@ -22,12 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format_stride.hpp>
 #include <sge/image/view/make.hpp>
 #include <sge/image/view/sub.hpp>
-#include <sge/container/raw_vector_impl.hpp>
-#include <sge/container/bitfield/basic_impl.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <sge/assert.hpp>
+#include <fcppt/assert_message.hpp>
 #include <fcppt/text.hpp>
 
 sge::renderer::texture_software::texture_software(
@@ -57,7 +57,7 @@ sge::renderer::texture_software::lock(
 	lock_mode::type const
 )
 {
-	SGE_ASSERT_MESSAGE(
+	FCPPT_ASSERT_MESSAGE(
 		!locked,
 		FCPPT_TEXT("already locked software texture")
 	);
@@ -94,7 +94,7 @@ sge::renderer::texture_software::lock(
 void
 sge::renderer::texture_software::unlock() const
 {
-	SGE_ASSERT_MESSAGE(
+	FCPPT_ASSERT_MESSAGE(
 		locked,
 		FCPPT_TEXT("software texture was not locked, though you tried to unlock")
 	);

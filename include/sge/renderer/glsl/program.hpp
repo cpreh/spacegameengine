@@ -21,9 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_GLSL_PROGRAM_HPP_INCLUDED
 #define SGE_RENDERER_GLSL_PROGRAM_HPP_INCLUDED
 
-#include <sge/renderer/glsl/uniform/variable_fwd.hpp>
+#include <sge/renderer/glsl/program_fwd.hpp>
+#include <sge/renderer/glsl/uniform/variable_ptr.hpp>
 #include <sge/renderer/glsl/string.hpp>
 #include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -33,14 +35,16 @@ namespace renderer
 namespace glsl
 {
 
-class SGE_CLASS_SYMBOL program {
+class SGE_CLASS_SYMBOL program
+{
 	FCPPT_NONCOPYABLE(program)
 protected:
 	SGE_SYMBOL program();
 public:
 	virtual glsl::uniform::variable_ptr const
 	uniform(
-		string const &) = 0;
+		string const &
+	) = 0;
 
 	SGE_SYMBOL virtual ~program();
 };

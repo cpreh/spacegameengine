@@ -21,27 +21,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_CONST_SCOPED_TARGET_LOCK_HPP_INCLUDED
 #define SGE_RENDERER_CONST_SCOPED_TARGET_LOCK_HPP_INCLUDED
 
-#include <sge/renderer/target_fwd.hpp>
+#include <sge/renderer/target_ptr.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/image/view/const_object.hpp>
+#include <sge/symbol.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <sge/symbol.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-class const_scoped_target_lock {
+class const_scoped_target_lock
+{
 	FCPPT_NONCOPYABLE(const_scoped_target_lock)
 public:
 	SGE_SYMBOL explicit const_scoped_target_lock(
-		const_target_ptr);
+		const_target_ptr
+	);
 
 	SGE_SYMBOL const_scoped_target_lock(
 		const_target_ptr,
-		lock_rect const &);
+		lock_rect const &
+	);
 
 	SGE_SYMBOL image::view::const_object const
 	value() const;
@@ -49,6 +52,7 @@ public:
 	SGE_SYMBOL ~const_scoped_target_lock();
 private:
 	const_target_ptr const target;
+
 	image::view::const_object const view;
 };
 

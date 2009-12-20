@@ -24,16 +24,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/refresh_rate.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
 #include <sge/symbol.hpp>
-#include <sge/ostream.hpp>
+#include <fcppt/io/ostream.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-class display_mode {
+class display_mode
+{
 public:
 	SGE_SYMBOL display_mode(
 		screen_size const &,
@@ -55,9 +56,9 @@ private:
 	renderer::refresh_rate    refresh_rate_;
 };
 
-SGE_SYMBOL ostream &
+SGE_SYMBOL fcppt::io::ostream &
 operator<<(
-	ostream &,
+	fcppt::io::ostream &,
 	display_mode const &
 );
 

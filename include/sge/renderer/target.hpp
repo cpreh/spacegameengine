@@ -21,11 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TARGET_HPP_INCLUDED
 #define SGE_RENDERER_TARGET_HPP_INCLUDED
 
+#include <sge/renderer/target_fwd.hpp>
 #include <sge/renderer/dim_type.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/image/view/const_object.hpp>
 #include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -33,7 +35,8 @@ namespace sge
 namespace renderer
 {
 
-class SGE_CLASS_SYMBOL target {
+class SGE_CLASS_SYMBOL target
+{
 	FCPPT_NONCOPYABLE(target)
 protected:
 	SGE_SYMBOL target();
@@ -47,13 +50,20 @@ public:
 
 	virtual image::view::const_object const
 	lock(
-		lock_rect const &dest) const = 0;
+		lock_rect const &dest
+	) const = 0;
 
-	virtual void unlock() const = 0;
+	virtual void
+	unlock() const = 0;
 
-	virtual dim_type const dim() const = 0;
-	SGE_SYMBOL rect_type const rect() const;
-	SGE_SYMBOL size_type size() const;
+	virtual dim_type const
+	dim() const = 0;
+
+	SGE_SYMBOL rect_type const
+	rect() const;
+
+	SGE_SYMBOL size_type
+	size() const;
 
 	SGE_SYMBOL virtual ~target();
 };

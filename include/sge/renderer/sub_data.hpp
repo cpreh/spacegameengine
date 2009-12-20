@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_SUB_DATA_HPP_INCLUDED
 
 #include <sge/renderer/texture_pos_type.hpp>
-#include <sge/renderer/texture_fwd.hpp>
+#include <sge/renderer/texture_ptr.hpp>
 #include <sge/image/view/const_object.hpp>
 #include <sge/symbol.hpp>
 
@@ -35,7 +35,8 @@ SGE_SYMBOL void
 sub_data(
 	texture_ptr,
 	image::view::const_object const &data,
-	texture_pos_type const &pos);
+	texture_pos_type const &pos
+);
 
 }
 }

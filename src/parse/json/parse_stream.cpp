@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 bool
 sge::parse::json::parse_stream(
-	istream &stream,
+	fcppt::io::istream &stream,
 	object &result
 )
 {

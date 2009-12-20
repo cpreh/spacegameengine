@@ -45,7 +45,7 @@ namespace renderer
 namespace state
 {
 
-typedef variant::object<
+typedef fcppt::variant::object<
 	boost::mpl::vector13<
 		int_::type,
 		uint::type,

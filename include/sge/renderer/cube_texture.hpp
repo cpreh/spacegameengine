@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/const_object.hpp>
 #include <sge/image/view/object.hpp>
 #include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
 
 namespace sge
 {

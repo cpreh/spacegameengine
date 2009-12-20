@@ -21,8 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_GLSL_UNIFORM_VARIABLE_FWD_HPP_INCLUDED
 #define SGE_RENDERER_GLSL_UNIFORM_VARIABLE_FWD_HPP_INCLUDED
 
-#include <sge/shared_ptr.hpp>
-
 namespace sge
 {
 namespace renderer
@@ -33,14 +31,6 @@ namespace uniform
 {
 
 class variable;
-
-typedef shared_ptr<
-	variable
-> variable_ptr;
-
-typedef shared_ptr<
-	variable const
-> const_variable_ptr;
 
 }
 }

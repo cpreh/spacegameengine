@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/static.hpp>
 #include <fcppt/math/matrix/basic_decl.hpp>
 #include <fcppt/math/matrix/structure_cast.hpp>
-#include <sge/export.hpp>
+#include <fcppt/export_symbol.hpp>
 
 namespace
 {
@@ -33,7 +33,8 @@ namespace
 template<
 	typename Dest
 >
-class visitor {
+class visitor
+{
 public:
 	typedef Dest result_type;
 
@@ -42,7 +43,8 @@ public:
 	>
 	result_type const
 	operator()(
-		T const &) const;
+		T const &
+	) const;
 };
 
 }
@@ -53,9 +55,10 @@ template<
 >
 Dest const
 sge::renderer::matrix_convert(
-	Source const &v)
+	Source const &v
+)
 {
-	return variant::apply_unary(
+	return fcppt::variant::apply_unary(
 		visitor<Dest>(),
 		v
 	);
@@ -72,9 +75,10 @@ template<
 >
 typename visitor<Dest>::result_type const
 visitor<Dest>::operator()(
-	T const &v) const
+	T const &v
+) const
 {
-	return sge::fcppt::math::matrix::structure_cast<
+	return fcppt::math::matrix::structure_cast<
 		Dest
 	>(v);
 }
@@ -82,10 +86,11 @@ visitor<Dest>::operator()(
 }
 
 #define SGE_INSTANTIATE_MATRIX_CONVERT(t, n, m)\
-template SGE_SYMBOL \
-sge::fcppt::math::matrix::static_<t, n, m>::type const \
+template FCPPT_EXPORT_SYMBOL \
+fcppt::math::matrix::static_<t, n, m>::type const \
 sge::renderer::matrix_convert(\
-	sge::renderer::basic_any_matrix<n, m>::type const &);
+	sge::renderer::basic_any_matrix<n, m>::type const &\
+);
 
 #define SGE_INSTANTIATE_MATRIX_CONVERT_N(n, m)\
 SGE_INSTANTIATE_MATRIX_CONVERT(float, n, m)\

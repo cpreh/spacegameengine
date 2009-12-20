@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/detail/scoped_buffer_lock.hpp>
 #include <sge/renderer/vf/dynamic_view.hpp>
-#include <sge/renderer/vertex_buffer_fwd.hpp>
+#include <sge/renderer/vertex_buffer_ptr.hpp>
 
 namespace sge
 {

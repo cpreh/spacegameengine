@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "scoped_buffer_lock_impl.hpp"
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
-#include <sge/export.hpp>
+#include <fcppt/export_symbol.hpp>
 
-template SGE_SYMBOL class
+template FCPPT_EXPORT_SYMBOL class
 sge::renderer::detail::scoped_buffer_lock<
 	sge::renderer::vertex_buffer_ptr,
 	sge::renderer::vf::dynamic_view

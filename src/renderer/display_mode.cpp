@@ -51,25 +51,30 @@ sge::renderer::display_mode::refresh_rate() const
 	return refresh_rate_;
 }
 
-bool sge::renderer::operator== (
+bool
+sge::renderer::operator==(
 	display_mode const &l,
-	display_mode const &r)
+	display_mode const &r
+)
 {
-	return l.bit_depth() == r.bit_depth()
+	return
+		l.bit_depth() == r.bit_depth()
 		&& l.size() == r.size()
 		&& l.refresh_rate() == r.refresh_rate();
 }
 
-bool sge::renderer::operator!= (
+bool
+sge::renderer::operator!=(
 	display_mode const &l,
-	display_mode const &r)
+	display_mode const &r
+)
 {
 	return !(l==r);
 }
 
-sge::ostream &
+fcppt::io::ostream &
 sge::renderer::operator<<(
-	ostream &s,
+	fcppt::io::ostream &s,
 	display_mode const &mode
 )
 {

@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_JSON_PARSE_FILE_HPP_INCLUDED
 
 #include <sge/parse/json/object_fwd.hpp>
-#include <sge/filesystem/path.hpp>
 #include <sge/symbol.hpp>
+#include <fcppt/filesystem/path.hpp>
 
 namespace sge
 {
@@ -34,8 +34,9 @@ namespace json
 
 SGE_SYMBOL bool
 parse_file(
-	filesystem::path const &,
-	object &ret);
+	fcppt::filesystem::path const &,
+	object &ret
+);
 
 }
 }

@@ -25,16 +25,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/object.hpp>
 #include <sge/renderer/any_vector3.hpp>
 #include <sge/renderer/any_arithmetic.hpp>
+#include <sge/symbol.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <sge/symbol.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-class light {
+class light
+{
 public:
 	typedef any_vector3 position_type;
 	typedef any_vector3 direction_type;

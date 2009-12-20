@@ -22,13 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/any_compare.hpp>
 #include <sge/renderer/state/trampoline.hpp>
-#include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
-#include <fcppt/text.hpp>
 #include <sge/exception.hpp>
-#include <sge/export.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/export_symbol.hpp>
+#include <fcppt/text.hpp>
 #include <boost/foreach.hpp>
-#include <tr1/functional>
 
 sge::renderer::state::list::list(
 	any const &a
@@ -54,19 +54,26 @@ sge::renderer::state::list::operator()(
 ) const
 {
 	state::list temp(*this);
+
 	if(!temp.set_.insert(a).second)
 		FCPPT_LOG_WARNING(
 			log::global(),
-			log::_ << FCPPT_TEXT("duplicate renderer state given!"));
+			fcppt::log::_
+				<< FCPPT_TEXT("duplicate renderer state given!")
+		);
 	return temp;
 }
 
 void sge::renderer::state::list::overwrite(
 	any const &a)
 {
-	set_type::iterator const it(set_.find(a));
+	set_type::iterator const it(
+		set_.find(a)
+	);
+
 	if(it != set_.end())
 		set_.erase(it);
+	
 	set_.insert(a);
 	// TODO: is there a better way to do this?
 }
@@ -79,12 +86,16 @@ sge::renderer::state::list::get() const
 {
 	// TODO: can we optimize this?
 
-	BOOST_FOREACH(set_type::const_reference ref, set_)
+	BOOST_FOREACH(
+		set_type::const_reference ref,
+		set_
+	)
 		if(ref.type() == typeid(T))
 			return ref.get<T>();
 
 	throw exception(
-		FCPPT_TEXT("renderer::list::get(): state not found!"));
+		FCPPT_TEXT("renderer::list::get(): state not found!")
+	);
 }
 
 template<
@@ -117,7 +128,8 @@ sge::renderer::state::list::get(
 		}
 
 	throw exception(
-		FCPPT_TEXT("renderer::list::get(): state not found!"));
+		FCPPT_TEXT("renderer::list::get(): state not found!")
+	);
 }
 
 sge::renderer::state::list::set_type const &
@@ -129,7 +141,7 @@ sge::renderer::state::list::values() const
 // TODO: move this out of this file! Make the functions free functions instead!
 
 #define SGE_INSTANTIATE_STATE_LIST_GET(x)\
-template SGE_SYMBOL x sge::renderer::state::list::get<x>() const;
+template FCPPT_EXPORT_SYMBOL x sge::renderer::state::list::get<x>() const;
 
 SGE_INSTANTIATE_STATE_LIST_GET(sge::renderer::state::cull_mode::type)
 SGE_INSTANTIATE_STATE_LIST_GET(sge::renderer::state::depth_func::type)
@@ -143,11 +155,12 @@ SGE_INSTANTIATE_STATE_LIST_GET(sge::renderer::state::dest_blend_func::type)
 #undef SGE_INSTANTIATE_STATE_LIST_GET
 
 #define SGE_INSTANTIATE_STATE_LIST_GET_T(x)\
-template SGE_SYMBOL x::base_type sge::renderer::state::list::get(\
+template FCPPT_EXPORT_SYMBOL x::base_type sge::renderer::state::list::get(\
 	sge::renderer::state::trampoline<\
 		x::base_type,\
 		x::available_states::type\
-	> const &) const;
+	> const &\
+) const;
 
 SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::int_)
 SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::uint)

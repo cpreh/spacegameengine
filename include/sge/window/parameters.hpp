@@ -21,36 +21,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WINDOW_PARAMETERS_HPP_INCLUDED
 #define SGE_WINDOW_PARAMETERS_HPP_INCLUDED
 
+#include <sge/window/parameters_fwd.hpp>
 #include <sge/window/dim_type.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <sge/string.hpp>
-#include <sge/symbol.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/optional.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
 namespace window
 {
 
-class parameters {
+class parameters
+{
 public:
-	SGE_SYMBOL static string const default_class;
+	SGE_SYMBOL static fcppt::string const default_class;
 
 	SGE_SYMBOL explicit parameters(
-		string const &title,
-		string const &class_name = default_class);
-	SGE_SYMBOL parameters(
-		string const &title,
-		dim_type const &dim,
-		string const &class_name = default_class);
+		fcppt::string const &title,
+		fcppt::string const &class_name = default_class
+	);
 
-	SGE_SYMBOL string const &
+	SGE_SYMBOL parameters(
+		fcppt::string const &title,
+		dim_type const &dim,
+		fcppt::string const &class_name = default_class
+	);
+
+	SGE_SYMBOL fcppt::string const &
 	title() const;
 
-	SGE_SYMBOL string const &
+	SGE_SYMBOL fcppt::string const &
 	class_name() const;
 
-	typedef optional<
+	typedef fcppt::optional<
 		dim_type
 	> optional_dim;
 
@@ -59,11 +64,12 @@ public:
 
 	SGE_SYMBOL void
 	dim(
-		dim_type const &);
+		dim_type const &
+	);
 private:
-	string title_;
+	fcppt::string title_;
 	optional_dim dim_;
-	string class_name_;
+	fcppt::string class_name_;
 };
 
 }

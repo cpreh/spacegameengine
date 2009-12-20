@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_STATE_SCOPED_HPP_INCLUDED
 
 #include <sge/renderer/state/list_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/device_ptr.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -33,12 +33,14 @@ namespace renderer
 namespace state
 {
 
-class scoped {
+class scoped
+{
 	FCPPT_NONCOPYABLE(scoped)
 public:
 	SGE_SYMBOL scoped(
-		device_ptr rend,
-		list const &);
+		device_ptr,
+		list const &
+	);
 	SGE_SYMBOL ~scoped();
 private:
 	device_ptr const rend;

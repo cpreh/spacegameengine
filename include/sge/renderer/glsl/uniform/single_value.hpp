@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_GLSL_UNIFORM_SINGLE_VALUE_HPP_INCLUDED
 
 #include <sge/renderer/glsl/uniform/single_value_type.hpp>
-#include <sge/renderer/glsl/uniform/variable_fwd.hpp>
+#include <sge/renderer/glsl/uniform/variable_ptr.hpp>
 #include <sge/symbol.hpp>
 
 namespace sge
@@ -37,7 +37,8 @@ namespace uniform
 SGE_SYMBOL void
 single_value(
 	variable_ptr,
-	single_value_type const &);
+	single_value_type const &
+);
 
 }
 }

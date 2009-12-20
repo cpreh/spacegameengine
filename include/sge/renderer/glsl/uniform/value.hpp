@@ -35,7 +35,7 @@ namespace glsl
 namespace uniform
 {
 
-typedef variant::object<
+typedef fcppt::variant::object<
 	boost::mpl::vector2<
 		int_value,
 		float_value

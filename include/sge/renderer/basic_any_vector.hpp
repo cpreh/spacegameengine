@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/object_fwd.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/restrict_typedef_struct.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 
 namespace sge
@@ -35,9 +36,9 @@ namespace renderer
 template<
 	size_type sz
 >
-class basic_any_vector {
-public:
-	typedef typename variant::object<
+struct basic_any_vector
+{
+	typedef typename fcppt::variant::object<
 		boost::mpl::vector2<
 			typename fcppt::math::vector::static_<
 				float,
@@ -49,6 +50,8 @@ public:
 			>::type
 		>
 	> type;
+
+	FCPPT_RESTRICT_TYPEDEF_STRUCT(basic_any_vector)
 };
 
 }

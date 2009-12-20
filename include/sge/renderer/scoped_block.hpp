@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_SCOPED_BLOCK_HPP_INCLUDED
 #define SGE_RENDERER_SCOPED_BLOCK_HPP_INCLUDED
 
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/device_ptr.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -30,11 +30,14 @@ namespace sge
 namespace renderer
 {
 
-class scoped_block {
+class scoped_block
+{
 	FCPPT_NONCOPYABLE(scoped_block)
 public:
 	SGE_SYMBOL explicit scoped_block(
-		device_ptr);
+		device_ptr
+	);
+
 	SGE_SYMBOL ~scoped_block();
 private:
 	device_ptr const rend;

@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::caps::caps(
 	adapter_type const adapter_,
-	string const &driver_name_,
-	string const &description_,
+	fcppt::string const &driver_name_,
+	fcppt::string const &description_,
 	dim_type const &max_texture_size_,
 	filter::anisotropy_type const max_anisotropy_,
 	bool const render_target_supported_,
@@ -47,13 +47,13 @@ sge::renderer::caps::adapter() const
 	return adapter_;
 }
 
-sge::string const &
+fcppt::string const &
 sge::renderer::caps::driver_name() const
 {
 	return driver_name_;
 }
 
-sge::string const &
+fcppt::string const &
 sge::renderer::caps::description() const
 {
 	return description_;

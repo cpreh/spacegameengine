@@ -18,31 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/primitive_count.hpp>
-#include <sge/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_MODEL_OBJECT_PTR_HPP_INCLUDED
+#define SGE_MODEL_OBJECT_PTR_HPP_INCLUDED
 
-sge::renderer::size_type
-sge::renderer::primitive_count(
-	size_type const vertex_count,
-	nonindexed_primitive_type::type const prim)
+#include <sge/model/object_fwd.hpp>
+#include <fcppt/shared_ptr.hpp>
+
+namespace sge
 {
-	switch(prim) {
-	case nonindexed_primitive_type::point:
-		return vertex_count;
-	case nonindexed_primitive_type::line_strip:
-		if(vertex_count <= 1)
-			throw exception(
-				FCPPT_TEXT("primitive_count(): line_strip needs at least two vertices!"));
-		return vertex_count - 1;
-	case nonindexed_primitive_type::triangle_strip:
-	case nonindexed_primitive_type::triangle_fan:
-		if(vertex_count <= 2)
-			throw exception(
-				FCPPT_TEXT("primitive_count(): triangles need at least three vertices!"));
-		return vertex_count - 2;
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid nonindexed_primitive_type!"));
-	}
+namespace model
+{
+
+typedef fcppt::shared_ptr<
+	object
+> object_ptr;
+
 }
+}
+
+#endif

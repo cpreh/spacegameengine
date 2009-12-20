@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_PARSE_FILE_HPP_INCLUDED
 #define SGE_PARSE_PARSE_FILE_HPP_INCLUDED
 
-#include <sge/filesystem/path.hpp>
-#include <sge/fstream.hpp>
-#include <fcppt/text.hpp>
-#include <sge/string.hpp>
 #include <sge/exception.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/io/ifstream.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
@@ -37,10 +37,11 @@ template<
 >
 bool
 parse_file(
-	filesystem::path const &path,
-	Result &result)
+	fcppt::filesystem::path const &path,
+	Result &result
+)
 {
-	ifstream ifs(
+	fcppt::io::ifstream ifs(
 		path,
 		std::ios_base::binary
 	);
@@ -55,7 +56,8 @@ parse_file(
 	return
 		parse_stream(
 			ifs,
-			result);
+			result
+		);
 }
 
 }

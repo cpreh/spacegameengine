@@ -22,17 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/image/algorithm/copy_and_convert.hpp>
 #include <sge/image/view/make_const.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <sge/container/bitfield/basic_impl.hpp>
 #include <sge/exception.hpp>
-#include <sge/assert.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/assert_message.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <typeinfo>
 
 class sge::renderer::texture_rw::lock_data {
 public:
-	typedef optional<
+	typedef fcppt::optional<
 		image::view::object
 	> optional_image;
 
@@ -51,14 +51,16 @@ public:
 
 sge::renderer::texture_rw::texture_rw(
 	texture_ptr const _read,
-	texture_ptr const _write)
+	texture_ptr const _write
+)
 :
 	read_(_read),
 	write_(_write)
 {
-	SGE_ASSERT_MESSAGE(
+	FCPPT_ASSERT_MESSAGE(
 		read_->dim() == write_->dim(),
-		FCPPT_TEXT("read dimension has to be the same as write dimension"));
+		FCPPT_TEXT("read dimension has to be the same as write dimension")
+	);
 }
 
 sge::renderer::texture_rw::~texture_rw()
@@ -76,7 +78,7 @@ sge::renderer::texture_rw::lock(
 	lock_mode::type const lf
 )
 {
-	SGE_ASSERT_MESSAGE(
+	FCPPT_ASSERT_MESSAGE(
 		!locked,
 		FCPPT_TEXT("already locked texture_rw")
 	);
@@ -99,7 +101,7 @@ sge::renderer::texture_rw::lock(
 	lock_rect const &lr
 ) const
 {
-	SGE_ASSERT_MESSAGE(
+	FCPPT_ASSERT_MESSAGE(
 		!locked,
 		FCPPT_TEXT("already locked texture_rw")
 	);
@@ -118,7 +120,7 @@ sge::renderer::texture_rw::lock(
 void
 sge::renderer::texture_rw::unlock() const
 {
-	SGE_ASSERT_MESSAGE(
+	FCPPT_ASSERT_MESSAGE(
 		locked,
 		FCPPT_TEXT("unlocking texture_rw without (proper) locking")
 	);

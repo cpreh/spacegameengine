@@ -37,7 +37,7 @@ sge::renderer::target::rect_type const
 sge::renderer::target::rect() const
 {
 	return rect_type(
-		rect_type::pos_type::null(),
+		rect_type::vector::null(),
 		dim()
 	);
 }

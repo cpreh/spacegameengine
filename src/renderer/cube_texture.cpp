@@ -58,8 +58,8 @@ sge::renderer::cube_texture::rect_type const
 sge::renderer::cube_texture::rect() const
 {
 	return rect_type(
-		rect_type::pos_type::null(),
-		rect_type::dim_type(
+		rect_type::vector::null(),
+		rect_type::dim(
 			border_size(),
 			border_size()
 		)

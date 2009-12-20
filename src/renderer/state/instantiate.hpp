@@ -23,10 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "var_impl.hpp"
 #include "trampoline_impl.hpp"
-#include <sge/export.hpp>
+#include <fcppt/export_symbol.hpp>
 
 #define SGE_RENDERER_STATE_INSTANTIATE_CLASS(class_, type_)\
-template SGE_EXPORT_SYMBOL class class_<\
+template FCPPT_EXPORT_SYMBOL class class_<\
 	sge::renderer::state::type_::base_type,\
 	sge::renderer::state::type_::available_states::type\
 >;

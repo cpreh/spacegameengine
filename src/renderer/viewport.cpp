@@ -26,7 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::viewport::viewport(
 	pixel_pos const &pos_,
-	screen_size const &size_)
+	screen_size const &size_
+)
 :
 	pos_(pos_),
 	size_(size_)
@@ -44,10 +45,11 @@ sge::renderer::viewport::size() const
 	return size_;
 }
 
-sge::ostream &
+fcppt::io::ostream &
 sge::renderer::operator<<(
-	ostream &s,
-	viewport const &v)
+	fcppt::io::ostream &s,
+	viewport const &v
+)
 {
 	return s
 		<< v.pos()

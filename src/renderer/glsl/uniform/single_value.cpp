@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/glsl/uniform/single_value.hpp>
 #include <sge/renderer/glsl/uniform/variable.hpp>
+#include <sge/exception.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -29,45 +30,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/size_type.hpp>
-#include <sge/format.hpp>
+#include <fcppt/format.hpp>
 #include <fcppt/text.hpp>
-#include <sge/exception.hpp>
 
 namespace
 {
 
-class visitor {
+class visitor
+{
 public:
 	typedef void result_type;
 
 	explicit visitor(
-		sge::renderer::glsl::uniform::variable_ptr);
+		sge::renderer::glsl::uniform::variable_ptr
+	);
 
 	result_type
 	operator()(
-		sge::renderer::glsl::int_type) const;
+		sge::renderer::glsl::int_type
+	) const;
 
 	result_type
 	operator()(
-		sge::renderer::glsl::float_type) const;
+		sge::renderer::glsl::float_type
+	) const;
 
 	result_type
 	operator()(
-		sge::renderer::glsl::uniform::vector const &) const;
+		sge::renderer::glsl::uniform::vector const &
+	) const;
 
 	result_type
 	operator()(
-		sge::renderer::glsl::uniform::matrix const &) const;
+		sge::renderer::glsl::uniform::matrix const &
+	) const;
 private:
 	sge::renderer::glsl::uniform::variable_ptr const var;
 };
 
-class vector_visitor {
+class vector_visitor
+{
 public:
 	typedef void result_type;
 
 	explicit vector_visitor(
-		sge::renderer::glsl::uniform::variable_ptr);
+		sge::renderer::glsl::uniform::variable_ptr
+	);
 
 	template<
 		typename N,
@@ -75,11 +83,12 @@ public:
 	>
 	result_type
 	operator()(
-		sge::fcppt::math::vector::basic<
+		fcppt::math::vector::basic<
 			sge::renderer::glsl::int_type,
 			N,
 			S
-		> const &) const;
+		> const &
+	) const;
 
 	template<
 		typename N,
@@ -87,35 +96,40 @@ public:
 	>
 	result_type
 	operator()(
-		sge::fcppt::math::vector::basic<
+		fcppt::math::vector::basic<
 			sge::renderer::glsl::float_type,
 			N,
 			S
-		> const &) const;
+		> const &
+	) const;
 private:
 	sge::renderer::glsl::uniform::variable_ptr const var;
 };
 
 sge::renderer::glsl::uniform::float_value_type::type
 convert_matrix_type(
-	sge::renderer::glsl::uniform::matrix::dim_type const &);
+	sge::renderer::glsl::uniform::matrix::dim const &
+);
 
 sge::renderer::glsl::uniform::int_value_type::type
 convert_int_vector_type(
-	sge::fcppt::math::size_type);
+	fcppt::math::size_type
+);
 
 sge::renderer::glsl::uniform::float_value_type::type
 convert_float_vector_type(
-	sge::fcppt::math::size_type);
+	fcppt::math::size_type
+);
 
 }
 
 void
 sge::renderer::glsl::uniform::single_value(
 	variable_ptr const var,
-	single_value_type const &val)
+	single_value_type const &val
+)
 {
-	variant::apply_unary(
+	fcppt::variant::apply_unary(
 		visitor(
 			var
 		),
@@ -127,14 +141,16 @@ namespace
 {
 
 visitor::visitor(
-	sge::renderer::glsl::uniform::variable_ptr const var)
+	sge::renderer::glsl::uniform::variable_ptr const var
+)
 :
 	var(var)
 {}
 
 visitor::result_type
 visitor::operator()(
-	sge::renderer::glsl::int_type const i) const
+	sge::renderer::glsl::int_type const i
+) const
 {
 	var->set(
 		sge::renderer::glsl::uniform::int_value(
@@ -150,7 +166,8 @@ visitor::operator()(
 
 visitor::result_type
 visitor::operator()(
-	sge::renderer::glsl::float_type const f) const
+	sge::renderer::glsl::float_type const f
+) const
 {
 	var->set(
 		sge::renderer::glsl::uniform::float_value(
@@ -167,7 +184,8 @@ visitor::operator()(
 
 visitor::result_type
 visitor::operator()(
-	sge::renderer::glsl::uniform::vector const &v) const
+	sge::renderer::glsl::uniform::vector const &v
+) const
 {
 	fcppt::variant::apply_unary(
 		vector_visitor(
@@ -179,7 +197,8 @@ visitor::operator()(
 
 visitor::result_type
 visitor::operator()(
-	sge::renderer::glsl::uniform::matrix const &m) const
+	sge::renderer::glsl::uniform::matrix const &m
+) const
 {
 	var->set(
 		sge::renderer::glsl::uniform::float_value(
@@ -189,7 +208,7 @@ visitor::operator()(
 			),
 			1,
 			convert_matrix_type(
-				m.dim()
+				m.dimension()
 			)
 		)
 	);
@@ -197,7 +216,8 @@ visitor::operator()(
 
 
 vector_visitor::vector_visitor(
-	sge::renderer::glsl::uniform::variable_ptr const var)
+	sge::renderer::glsl::uniform::variable_ptr const var
+)
 :
 	var(var)
 {}
@@ -208,11 +228,12 @@ template<
 >
 vector_visitor::result_type
 vector_visitor::operator()(
-	sge::fcppt::math::vector::basic<
+	fcppt::math::vector::basic<
 		sge::renderer::glsl::int_type,
 		N,
 		S
-	> const &v) const
+	> const &v
+) const
 {
 	var->set(
 		sge::renderer::glsl::uniform::int_value(
@@ -234,11 +255,12 @@ template<
 >
 vector_visitor::result_type
 vector_visitor::operator()(
-	sge::fcppt::math::vector::basic<
+	fcppt::math::vector::basic<
 		sge::renderer::glsl::float_type,
 		N,
 		S
-	> const &v) const
+	> const &v
+) const
 {
 	var->set(
 		sge::renderer::glsl::uniform::float_value(
@@ -256,7 +278,8 @@ vector_visitor::operator()(
 
 sge::renderer::glsl::uniform::float_value_type::type
 convert_matrix_type(
-	sge::renderer::glsl::uniform::matrix::dim_type const &d)
+	sge::renderer::glsl::uniform::matrix::dim const &d
+)
 {
 	namespace fv = sge::renderer::glsl::uniform::float_value_type;
 
@@ -294,14 +317,19 @@ convert_matrix_type(
 	}
 
 	throw sge::exception(
-		(sge::format(
-			FCPPT_TEXT("Invalid matrix dim in glsl::uniform::single_value: %1%"))
-		% d).str());
+		(
+			fcppt::format(
+				FCPPT_TEXT("Invalid matrix dim in glsl::uniform::single_value: %1%")
+			)
+			% d
+		).str()
+	);
 }
 
 sge::renderer::glsl::uniform::int_value_type::type
 convert_int_vector_type(
-	sge::fcppt::math::size_type const sz)
+	fcppt::math::size_type const sz
+)
 {
 	namespace iv = sge::renderer::glsl::uniform::int_value_type;
 
@@ -316,15 +344,20 @@ convert_int_vector_type(
 		return iv::int4;
 	default:
 		throw sge::exception(
-			(sge::format(
-				FCPPT_TEXT("Invalid vector dim in glsl::uniform::single_value: %1%"))
-			% sz).str());
+			(
+				fcppt::format(
+					FCPPT_TEXT("Invalid vector dim in glsl::uniform::single_value: %1%")
+				)
+				% sz
+			).str()
+		);
 	}
 }
 
 sge::renderer::glsl::uniform::float_value_type::type
 convert_float_vector_type(
-	sge::fcppt::math::size_type const sz)
+	fcppt::math::size_type const sz
+)
 {
 	namespace fv = sge::renderer::glsl::uniform::float_value_type;
 
@@ -339,9 +372,13 @@ convert_float_vector_type(
 		return fv::float4;
 	default:
 		throw sge::exception(
-			(sge::format(
-				FCPPT_TEXT("Invalid vector dim in glsl::uniform::single_value: %1%"))
-			% sz).str());
+			(
+				fcppt::format(
+					FCPPT_TEXT("Invalid vector dim in glsl::uniform::single_value: %1%")
+				)
+				% sz
+			).str()
+		);
 	}
 }
 

@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 sge::renderer::texture_creation_failed::texture_creation_failed(
-	sge::string const &s)
+	fcppt::string const &s
+)
 :
 	exception(
 		FCPPT_TEXT("texture creation failed: ")

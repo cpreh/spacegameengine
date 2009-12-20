@@ -18,12 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/glsl/uniform/float_value.hpp>
-#include <sge/renderer/glsl/uniform/detail/basic_value_impl.hpp>
-#include <fcppt/export_symbol.hpp>
+#ifndef SGE_WINDOW_PARAMETERS_FWD_HPP_INCLUDED
+#define SGE_WINDOW_PARAMETERS_FWD_HPP_INCLUDED
 
-template FCPPT_EXPORT_SYMBOL class
-sge::renderer::glsl::uniform::detail::basic_value<
-	sge::renderer::glsl::float_type,
-	sge::renderer::glsl::uniform::float_value_type::type
->;
+namespace sge
+{
+namespace window
+{
+
+class parameters;
+
+}
+}
+
+#endif
