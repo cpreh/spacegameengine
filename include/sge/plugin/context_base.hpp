@@ -25,10 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/context_fwd.hpp>
 #include <sge/plugin/base.hpp>
 #include <sge/plugin/capabilities.hpp>
-#include <sge/filesystem/path.hpp>
-#include <sge/export.hpp>
-#include <sge/string.hpp>
-#include <sge/weak_ptr.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/weak_ptr.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
@@ -61,11 +61,18 @@ private:
 		typename T
 	> friend class context;
 
-	fcppt::weak_ptr<base> ref;
-	filesystem::path path_;
+	fcppt::weak_ptr<
+		base
+	> ref;
+
+	fcppt::filesystem::path path_;
+
 	fcppt::string name_;
+
 	fcppt::string description_;
+
 	unsigned version_;
+
 	capabilities::type type_;
 };
 

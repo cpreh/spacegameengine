@@ -21,21 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONFIG_FIND_PATH_HPP_INCLUDED
 #define SGE_CONFIG_FIND_PATH_HPP_INCLUDED
 
-#include <sge/filesystem/path.hpp>
 #include <sge/config/path_vector.hpp>
-#include <sge/string.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
 namespace config
 {
 
-SGE_SYMBOL filesystem::path const
+SGE_SYMBOL fcppt::filesystem::path const
 find_path(
 	path_vector const &config_files,
-	string const &what,
-	path_vector const &hard_paths);
+	fcppt::string const &what,
+	path_vector const &hard_paths
+);
 
 }
 }

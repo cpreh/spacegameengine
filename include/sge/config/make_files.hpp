@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CONFIG_MAKE_FILES_HPP_INCLUDED
 
 #include <sge/config/path_vector.hpp>
-#include <sge/string.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
@@ -32,7 +32,8 @@ namespace config
 
 SGE_SYMBOL sge::config::path_vector const
 make_files(
-	string const &config_basename);
+	fcppt::string const &config_basename
+);
 
 }
 }

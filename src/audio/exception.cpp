@@ -20,6 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/exception.hpp>
 
-sge::audio::exception::exception(sge::string const &s)
-: sge::exception(s)
+sge::audio::exception::exception(
+	fcppt::string const &s
+)
+:
+	sge::exception(
+		s
+	)
 {}

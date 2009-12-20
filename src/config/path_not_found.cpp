@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 sge::config::path_not_found::path_not_found(
-	sge::string const &file)
+	fcppt::string const &file
+)
 :
 	exception(
 		FCPPT_TEXT("path \"")

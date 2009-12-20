@@ -23,10 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/find_path.hpp>
 #include <fcppt/text.hpp>
 
-sge::filesystem::path const
+fcppt::filesystem::path const
 sge::config::find_own_path(
-	string const &what,
-	path_vector const &hard_paths)
+	fcppt::string const &what,
+	path_vector const &hard_paths
+)
 {
 	return find_path(
 		make_files(
