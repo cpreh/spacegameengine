@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../face.hpp"
 #include <sge/iconv.hpp>
 #include <sge/exception.hpp>
-#include <sge/string.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
 sge::freetype::face::face(

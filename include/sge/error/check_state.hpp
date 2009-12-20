@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/preprocessor/file.hpp>
 #include <sge/format.hpp>
 #include <fcppt/text.hpp>
-#include <sge/string.hpp>
+#include <fcppt/string.hpp>
 
 #define SGE_ERROR_CHECK_STATE(\
 	exception,\

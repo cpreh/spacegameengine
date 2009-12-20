@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_GUI_UTILITY_STRING_SQUARE_HPP_INCLUDED
 
 #include <sge/gui/dim.hpp>
-#include <sge/string.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {

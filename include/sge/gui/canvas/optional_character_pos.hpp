@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_CANVAS_OPTIONAL_CHARACTER_POS_HPP_INCLUDED
 #define SGE_GUI_CANVAS_OPTIONAL_CHARACTER_POS_HPP_INCLUDED
 
-#include <sge/string.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/optional_fwd.hpp>
 
 namespace sge

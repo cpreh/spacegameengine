@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mod_state.hpp>
 #include <sge/time/timer.hpp>
 #include <fcppt/optional_decl.hpp>
-#include <sge/string.hpp>
+#include <fcppt/string.hpp>
 #include <sge/char_type.hpp>
 #include <map>
 

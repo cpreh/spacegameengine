@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/windows/windows.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <sge/string.hpp>
+#include <fcppt/string.hpp>
 #include <sge/symbol.hpp>
 
 namespace sge

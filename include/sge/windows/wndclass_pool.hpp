@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/windows/wndclass_fwd.hpp>
 #include <sge/windows/windows.hpp>
-#include <sge/string.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {

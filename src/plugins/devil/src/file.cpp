@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../format.hpp"
 #include "../convert_image_format.hpp"
 #include <sge/exception.hpp>
-#include <sge/string.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <sge/iconv.hpp>
 #include <fcppt/optional_impl.hpp>

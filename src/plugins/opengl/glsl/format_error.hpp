@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GLSL_FORMAT_ERROR_HPP_INCLUDED
 
 #include <sge/container/raw_vector_impl.hpp>
-#include <sge/string.hpp>
+#include <fcppt/string.hpp>
 #include <sge/iconv.hpp>
 
 namespace sge

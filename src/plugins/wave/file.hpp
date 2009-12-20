@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_WAVE_FILE_HPP_INCLUDED
 
 #include <sge/filesystem/path.hpp>
-#include <sge/string.hpp>
+#include <fcppt/string.hpp>
 #include <sge/audio/file.hpp>
 #include <boost/logic/tribool.hpp>
 #include <boost/filesystem/fstream.hpp>
