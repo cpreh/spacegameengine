@@ -18,16 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <fcppt/texture/consume_and_set_fragment.hpp>
-#include <fcppt/texture/fragmented.hpp>
-#include <fcppt/texture/part.hpp>
+#include <sge/texture/consume_and_set_fragment.hpp>
+#include <sge/texture/fragmented.hpp>
+#include <sge/texture/part.hpp>
 #include <sge/image/view/dim.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 
 sge::texture::part_ptr const
 sge::texture::consume_and_set_fragment(
 	fragmented &f,
-	image::view::const_object const &view)
+	image::view::const_object const &view
+)
 {
 	texture::part_ptr const ret(
 		f.consume_fragment(

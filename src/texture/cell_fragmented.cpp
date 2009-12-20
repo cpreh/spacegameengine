@@ -18,32 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <fcppt/texture/atlasing.hpp>
-#include <fcppt/texture/cell_fragmented.hpp>
-#include <fcppt/texture/part_fragmented.hpp>
+#include <sge/texture/cell_fragmented.hpp>
+#include <sge/texture/atlasing.hpp>
+#include <sge/texture/part_fragmented.hpp>
+#include <sge/exception.hpp>
 #include <fcppt/math/vector/dim.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
-#include <sge/container/raw_vector_impl.hpp>
-#include <sge/container/field_impl.hpp>
-#include <sge/make_shared_ptr.hpp>
-#include <sge/exception.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/container/field_impl.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <sge/assert.hpp>
-#include <tr1/functional>
+#include <fcppt/assert.hpp>
+#include <algorithm>
 
 sge::texture::cell_fragmented::cell_fragmented(
 	renderer::device_ptr const rend,
 	image::color::format::type const format,
 	renderer::filter::texture const &filter,
-	renderer::dim_type const &cell_size)
+	renderer::dim_type const &cell_size
+)
 :
 	rend(rend),
 	cell_size(cell_size),
 	cells(
 		atlased_texture_dim(rend) / cell_size,
-		false),
+		false
+	),
 	tex(
 		atlased_texture(
 			rend,
@@ -67,19 +70,25 @@ sge::texture::cell_fragmented::consume_fragment(
 		);
 
 	// TODO maybe optimize this with a stack?
-	field_type::iterator const it = std::find(cells.begin(), cells.end(), false);
+	field_type::iterator const it(
+		std::find(
+			cells.begin(),
+			cells.end(),
+			false
+		)
+	);
 
 	if(it == cells.end())
 		return part_ptr();
 
 	*it = true;
 
-	field_type::vector_type const pos(
+	field_type::vector const pos(
 		cells.position(it)
 	);
 
 	return
-		make_shared_ptr<
+		fcppt::make_shared_ptr<
 			part_fragmented
 		>(
 			renderer::lock_rect(
@@ -96,10 +105,15 @@ sge::texture::cell_fragmented::consume_fragment(
 
 void
 sge::texture::cell_fragmented::on_return_fragment(
-	part const &t)
+	part const &t
+)
 {
-	field_type::vector_type const pos = t.area().pos() * cell_size;
-	SGE_ASSERT(cells.pos(pos));
+	field_type::vector const pos(
+		t.area().pos() * cell_size
+	);
+
+	FCPPT_ASSERT(cells.pos(pos));
+
 	cells.pos(pos) = false;
 }
 
@@ -109,7 +123,8 @@ sge::texture::cell_fragmented::texture() const
 	return tex;
 }
 
-bool sge::texture::cell_fragmented::repeatable() const
+bool
+sge::texture::cell_fragmented::repeatable() const
 {
 	return false;
 }
@@ -123,5 +138,10 @@ sge::texture::cell_fragmented::free_value() const
 bool
 sge::texture::cell_fragmented::empty() const
 {
-	return std::find(cells.begin(), cells.end(), false) == cells.end(); // TODO: optimize this!
+	return
+		std::find(
+			cells.begin(),
+			cells.end(),
+			false
+		) == cells.end(); // TODO: optimize this!
 }

@@ -18,13 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <fcppt/texture/detail/fragmented_sort.hpp>
-#include <fcppt/texture/fragmented.hpp>
+#include <sge/texture/detail/fragmented_sort.hpp>
+#include <sge/texture/fragmented.hpp>
 
 bool
 sge::texture::detail::fragmented_sort::operator()(
 	fragmented const &a,
-	fragmented const &b) const
+	fragmented const &b
+) const
 {
 	return a.free_value() < b.free_value();
 }

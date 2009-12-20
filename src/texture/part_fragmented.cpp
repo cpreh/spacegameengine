@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <fcppt/texture/part_fragmented.hpp>
-#include <fcppt/texture/fragmented.hpp>
-#include <fcppt/texture/atlasing.hpp>
+#include <sge/texture/part_fragmented.hpp>
+#include <sge/texture/fragmented.hpp>
+#include <sge/texture/atlasing.hpp>
 #include <sge/renderer/sub_data.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 
@@ -28,7 +28,8 @@ sge::texture::part_fragmented::part_fragmented(
 	renderer::lock_rect const &outer_area_,
 	fragmented &fragment,
 	bool const need_atlasing_w,
-	bool const need_atlasing_h)
+	bool const need_atlasing_h
+)
 :
 	outer_area_(outer_area_),
 	fragment(fragment),
@@ -48,8 +49,10 @@ sge::texture::part_fragmented::~part_fragmented()
 	fragment.return_fragment(*this);
 }
 
-void sge::texture::part_fragmented::data(
-	image::view::const_object const &src)
+void
+sge::texture::part_fragmented::data(
+	image::view::const_object const &src
+)
 {
 	renderer::sub_data(
 		texture(),
@@ -92,7 +95,8 @@ sge::texture::part_fragmented::texture() const
 	return fragment.texture();
 }
 
-bool sge::texture::part_fragmented::repeatable() const
+bool
+sge::texture::part_fragmented::repeatable() const
 {
 	return !need_atlasing_w && !need_atlasing_h;
 }

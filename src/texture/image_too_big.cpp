@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <fcppt/texture/image_too_big.hpp>
+#include <sge/texture/image_too_big.hpp>
 #include <fcppt/text.hpp>
 
 sge::texture::image_too_big::image_too_big()
 :
 	exception(
-		FCPPT_TEXT("texture::manager::add_texture() image too big!"))
+		FCPPT_TEXT("texture::manager::add_texture() image too big!")
+	)
 {}

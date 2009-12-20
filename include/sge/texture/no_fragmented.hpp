@@ -21,33 +21,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef FCPPT_TEXTURE_NO_FRAGMENTED_HPP_INCLUDED
 #define FCPPT_TEXTURE_NO_FRAGMENTED_HPP_INCLUDED
 
-#include <fcppt/texture/fragmented.hpp>
-#include <fcppt/texture/part_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/texture/fragmented.hpp>
+#include <sge/texture/part_ptr.hpp>
+#include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/dim_type.hpp>
 #include <sge/renderer/filter/texture.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
 
 namespace sge
 {
 namespace texture
 {
 
-class SGE_CLASS_SYMBOL no_fragmented : public fragmented {
+class SGE_CLASS_SYMBOL no_fragmented
+:
+	public fragmented
+{
 public:
 	SGE_SYMBOL no_fragmented(
 		renderer::device_ptr rend,
 		image::color::format::type,
-		renderer::filter::texture const &filter);
+		renderer::filter::texture const &filter
+	);
 private:
 	SGE_SYMBOL part_ptr const
 	consume_fragment(
-		renderer::dim_type const &);
+		renderer::dim_type const &
+	);
 
 	SGE_SYMBOL void
 	on_return_fragment(
-		part const &);
+		part const &
+	);
 
 	SGE_SYMBOL renderer::texture_ptr const
 	texture() const;
