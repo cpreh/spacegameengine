@@ -20,9 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config/make_files.hpp>
 #include <sge/config/homedir.hpp>
-#include <sge/config.h>
+#include <fcppt/config.h>
 #include <fcppt/text.hpp>
-#ifdef SGE_WINDOWS_PLATFORM
+#ifdef FCPPT_WINDOWS_PLATFORM
 #include <sge/config/appdir.hpp>
 #endif
 #include <boost/assign/list_of.hpp>
@@ -32,12 +32,12 @@ sge::config::make_files(
 	fcppt::string const &config_basename
 )
 {
-#ifdef SGE_WINDOWS_PLATFORM
+#ifdef FCPPT_WINDOWS_PLATFORM
 	return boost::assign::list_of
 		(appdir() / (config_basename + FCPPT_TEXT(".txt")))
 		(homedir() / (config_basename + FCPPT_TEXT(".txt"))
 	);
-#elif SGE_POSIX_PLATFORM
+#elif FCPPT_POSIX_PLATFORM
 	return boost::assign::list_of
 		(homedir() / (FCPPT_TEXT(".") + config_basename + FCPPT_TEXT(".conf")))
 		(fcppt::filesystem::path(FCPPT_TEXT("/etc")) / (config_basename + FCPPT_TEXT(".conf"))

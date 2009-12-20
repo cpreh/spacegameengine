@@ -20,26 +20,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/library/function_not_found.hpp>
 #include <sge/library/error.hpp>
-#include <sge/iconv.hpp>
+#include <fcppt/iconv.hpp>
 #include <fcppt/text.hpp>
 
 sge::library::function_not_found::function_not_found(
-	sge::string const &lib_,
-	std::string const &func_)
+	fcppt::string const &lib_,
+	std::string const &func_
+)
 :
 	exception(
 		FCPPT_TEXT("Failed to load function ")
-		+ iconv(func_)
+		+ fcppt::iconv(func_)
 		+ FCPPT_TEXT(" from object::library ")
 		+ lib_
 		+ FCPPT_TEXT(" : ")
-		+ error()),
+		+ error()
+	),
 	lib_(lib_),
 	func_(func_)
 {}
 
 
-sge::string const &
+fcppt::string const &
 sge::library::function_not_found::lib() const
 {
 	return lib_;

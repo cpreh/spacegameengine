@@ -18,15 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SYSTEM_FWD_HPP_INCLUDED
-#define SGE_RENDERER_SYSTEM_FWD_HPP_INCLUDED
+#ifndef SGE_RENDERER_SYSTEM_PTR_HPP_INCLUDED
+#define SGE_RENDERER_SYSTEM_PTR_HPP_INCLUDED
+
+#include <sge/renderer/system_fwd.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-class system;
+typedef fcppt::shared_ptr<
+	system
+> system_ptr;
+
+typedef fcppt::shared_ptr<
+	system const
+> const_system_ptr;
 
 }
 }

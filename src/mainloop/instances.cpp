@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/mainloop/instances.hpp>
 #include <sge/mainloop/dispatchable.hpp>
-#include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
+#include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
 #include <boost/foreach.hpp>
 #include <ostream>
@@ -38,28 +38,42 @@ instance_set instances;
 
 }
 
-void sge::mainloop::add_instance(
-	dispatchable *const i)
+void
+sge::mainloop::add_instance(
+	dispatchable *const i
+)
 {
-	if(!instances.insert(i).second)
-		FCPPT_LOG_WARNING(
+	if(
+		!instances.insert(i).second
+	)
+		FCPPT_LOG_ERROR(
 			log::global(),
-			log::_
-				<< FCPPT_TEXT("mainloop instance inserted twice!"));
+			fcppt::log::_
+				<< FCPPT_TEXT("mainloop instance inserted twice!")
+		);
 }
 
-void sge::mainloop::remove_instance(
-	dispatchable *const i)
+void
+sge::mainloop::remove_instance(
+	dispatchable *const i
+)
 {
-	if(!instances.erase(i))
-		FCPPT_LOG_WARNING(
+	if(
+		!instances.erase(i)
+	)
+		FCPPT_LOG_ERROR(
 			log::global(),
-			log::_
-				<< FCPPT_TEXT("mainloop instance not found!"));
+			fcppt::log::_
+				<< FCPPT_TEXT("mainloop instance not found!")
+		);
 }
 
-void sge::mainloop::dispatch_instances()
+void
+sge::mainloop::dispatch_instances()
 {
-	BOOST_FOREACH(instance_set::const_reference i, instances)
+	BOOST_FOREACH(
+		instance_set::const_reference i,
+		instances
+	)
 		i->dispatch();
 }
