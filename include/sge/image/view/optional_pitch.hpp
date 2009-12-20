@@ -31,7 +31,7 @@ namespace image
 namespace view
 {
 
-typedef optional<
+typedef fcppt::optional<
 	size_type
 > optional_pitch;
 

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef FCPPT_TEXTURE_DEFAULT_CREATOR_IMPL_HPP_INCLUDED
 #define FCPPT_TEXTURE_DEFAULT_CREATOR_IMPL_HPP_INCLUDED
 
-#include <fcppt/texture/default_creator.hpp>
-#include <sge/renderer/device.hpp>
+#include <sge/texture/default_creator.hpp>
+#include <sge/renderer/device_ptr.hpp>
 
 template<
 	typename T
@@ -30,7 +30,8 @@ template<
 sge::texture::default_creator<T>::default_creator(
 	renderer::device_ptr const rend,
 	image::color::format::type const format,
-	renderer::filter::texture const &filter)
+	renderer::filter::texture const &filter
+)
 :
 	rend(rend),
 	format(format),

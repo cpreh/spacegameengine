@@ -19,10 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/font/drawer_3d.hpp>
-#include <fcppt/texture/rect_fragmented.hpp>
-#include <fcppt/texture/default_creator_impl.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
+#include <sge/texture/rect_fragmented.hpp>
+#include <sge/texture/default_creator_impl.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/image/view/dim.hpp>
@@ -32,6 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/default_sort.hpp>
 #include <sge/sprite/default_equal.hpp>
 #include <sge/sprite/external_system_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <utility>
 
 sge::font::drawer_3d::drawer_3d(
 	renderer::device_ptr const rend,
@@ -73,7 +74,7 @@ sge::font::drawer_3d::begin_rendering(
 
 void
 sge::font::drawer_3d::draw_char(
-	char_type const char_,
+	fcppt::char_type const char_,
 	pos const &pos_,
 	const_image_view const &data_
 )
@@ -103,7 +104,7 @@ sge::font::drawer_3d::draw_char(
 					: texture::const_part_ptr()
 			)
 			.size(
-				sge::fcppt::math::dim::structure_cast<
+				fcppt::math::dim::structure_cast<
 					sprite_object::dim
 				>(
 					dim
@@ -133,16 +134,19 @@ sge::font::drawer_3d::end_rendering()
 	);
 }
 
-void sge::font::drawer_3d::color(
-	sge::image::color::any::object const &new_color)
+void
+sge::font::drawer_3d::color(
+	sge::image::color::any::object const &new_color
+)
 {
 	col = new_color;
 }
 
 sge::texture::const_part_ptr const
 sge::font::drawer_3d::cached_texture(
-	char_type const ch,
-	const_image_view const &data)
+	fcppt::char_type const ch,
+	const_image_view const &data
+)
 {
 	texture_map::const_iterator const it(
 		textures.find(ch)

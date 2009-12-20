@@ -21,10 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_CHAR_METRIC_HPP_INCLUDED
 #define SGE_FONT_CHAR_METRIC_HPP_INCLUDED
 
+#include <sge/font/char_metric_fwd.hpp>
 #include <sge/font/image_view.hpp>
 #include <sge/font/pos.hpp>
 #include <sge/font/unit.hpp>
 #include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -32,14 +34,21 @@ namespace sge
 namespace font
 {
 
-class SGE_CLASS_SYMBOL char_metric {
+class SGE_CLASS_SYMBOL char_metric
+{
 	FCPPT_NONCOPYABLE(char_metric)
 protected:
 	SGE_SYMBOL char_metric();
 public:
-	virtual const_image_view const pixmap() const = 0;
-	virtual pos const offset() const = 0;
-	virtual unit x_advance() const = 0;
+	virtual const_image_view const
+	pixmap() const = 0;
+
+	virtual pos const
+	offset() const = 0;
+
+	virtual unit
+	x_advance() const = 0;
+
 	SGE_SYMBOL virtual ~char_metric();
 };
 

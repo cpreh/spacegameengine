@@ -26,31 +26,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-class visitor {
+class visitor
+{
 public:
-	typedef sge::ostream &result_type;
+	typedef fcppt::io::ostream &result_type;
 
 	explicit visitor(
-		sge::ostream &s);
+		fcppt::io::ostream &s
+	);
 
 	template<
 		typename T
 	>
 	result_type
 	operator()(
-		T const &) const;
+		T const &
+	) const;
 private:
-	sge::ostream &s;
+	fcppt::io::ostream &s;
 };
 
 }
 
-sge::ostream &
+fcppt::io::ostream &
 sge::image::color::any::operator<<(
-	ostream &s,
-	object const &c)
+	fcppt::io::ostream &s,
+	object const &c
+)
 {
-	return variant::apply_unary(
+	return fcppt::variant::apply_unary(
 		visitor(s),
 		c
 	);
@@ -60,7 +64,8 @@ namespace
 {
 
 visitor::visitor(
-	sge::ostream &s)
+	fcppt::io::ostream &s
+)
 :
 	s(s)
 {}
@@ -70,10 +75,10 @@ template<
 >
 visitor::result_type
 visitor::operator()(
-	T const &t) const
+	T const &t
+) const
 {
 	return s << t;
-	//return sge::image::color::operator<<(s, t);
 }
 
 }

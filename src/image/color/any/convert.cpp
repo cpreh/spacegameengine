@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/argb32f_format.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
+#include <fcppt/export_symbol.hpp>
 #include <mizuiro/color/object_impl.hpp>
 
 namespace
@@ -38,7 +39,8 @@ namespace
 template<
 	typename Dest
 >
-class visitor {
+class visitor
+{
 public:
 	typedef mizuiro::color::object<
 		Dest
@@ -60,9 +62,10 @@ template<
 >
 mizuiro::color::object<Dest> const
 sge::image::color::any::convert(
-	object const &col)
+	object const &col
+)
 {
-	return variant::apply_unary(
+	return fcppt::variant::apply_unary(
 		visitor<
 			Dest
 		>(),
@@ -81,7 +84,8 @@ template<
 >
 typename visitor<Dest>::result_type
 visitor<Dest>::operator()(
-	Source const &src) const
+	Source const &src
+) const
 {
 	return sge::image::color::convert<
 		Dest
@@ -93,7 +97,7 @@ visitor<Dest>::operator()(
 }
 
 #define SGE_INSTANTIATE_COLOR_CONVERT(x)\
-template SGE_EXPORT_SYMBOL \
+template FCPPT_EXPORT_SYMBOL \
 mizuiro::color::object<sge::image::color::x> const \
 sge::image::color::any::convert<\
 	sge::image::color::x\

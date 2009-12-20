@@ -34,7 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::font::object::object(
 	metrics_ptr const metrics_,
-	drawer_ptr const drawer_)
+	drawer_ptr const drawer_
+)
 :
 	metrics_(metrics_),
 	drawer_(drawer_)
@@ -51,22 +52,25 @@ sge::font::object::height() const
 
 sge::font::text_size const
 sge::font::object::draw_text(
-	string const &text,
+	fcppt::string const &text,
 	pos const &start_pos,
 	dim const &max_sz,
 	align_h::type const align_h,
 	align_v::type const align_v,
-	flag_t const flags) const
+	flag_t const flags
+) const
 {
 	if(!drawer())
 		throw exception(
-			FCPPT_TEXT("font::drawer not set in font::draw_text!"));
+			FCPPT_TEXT("font::drawer not set in font::draw_text!")
+		);
 
 	if(text.empty() || height() > max_sz.h())
 		return font::text_size(
 			dim::null(),
 			text.begin(),
-			text.begin());
+			text.begin()
+		);
 
 	font::text_size const total_size(
 		text_size(
@@ -78,6 +82,7 @@ sge::font::object::draw_text(
 	);
 
 	pos pos_ = start_pos;
+
 	switch(align_v) {
 	case align_v::center:
 		pos_.y() += (max_sz.h() - total_size.size().h()) / 2;
@@ -91,13 +96,26 @@ sge::font::object::draw_text(
 		throw exception(FCPPT_TEXT("Invalid font::align_v!"));
 	}
 
-	string::const_iterator sbeg(text.begin());
+	fcppt::string::const_iterator sbeg(
+		text.begin()
+	);
 
-	drawer()->begin_rendering(text.size(), pos_, total_size.size());
+	drawer()->begin_rendering(
+		text.size(),
+		pos_,
+		total_size.size()
+	);
 
 	while(sbeg != total_size.next_begin())
 	{
-		font::text_size const line_size = line_width(sbeg, text.end(), max_sz.w(), flags);
+		font::text_size const line_size(
+			line_width(
+				sbeg,
+				text.end(),
+				max_sz.w(),
+				flags
+			)
+		);
 
 		pos_.x() = start_pos.x();
 
@@ -136,17 +154,19 @@ sge::font::object::draw_text(
 
 sge::font::unit
 sge::font::object::char_space(
-	char_type const ch) const
+	fcppt::char_type const ch
+) const
 {
 	return metrics()->load_char(ch)->x_advance();
 }
 
 sge::font::text_size const
 sge::font::object::text_size(
-	string::const_iterator sbeg,
-	string::const_iterator const send,
+	fcppt::string::const_iterator sbeg,
+	fcppt::string::const_iterator const send,
 	dim const &max_sz,
-	flag_t const flags) const
+	flag_t const flags
+) const
 {
 	dim sz(dim::null());
 
@@ -166,26 +186,29 @@ sge::font::object::text_size(
 
 sge::font::text_size const
 sge::font::object::text_size(
-	string const &s,
+	fcppt::string const &s,
 	dim const &max_sz,
-	flag_t const flags) const
+	flag_t const flags
+) const
 {
 	return text_size(
 		s.begin(),
 		s.end(),
 		max_sz,
-		flags);
+		flags
+	);
 }
 
 sge::font::text_size const
 sge::font::object::line_width(
-	string::const_iterator sbeg,
-	string::const_iterator const send,
+	fcppt::string::const_iterator sbeg,
+	fcppt::string::const_iterator const send,
 	unit const width,
-	flag_t const flags) const
+	flag_t const flags
+) const
 {
 	unit w(0), last_width(0);
-	string::const_iterator last_white = sbeg;
+	fcppt::string::const_iterator last_white = sbeg;
 
 	for(; sbeg != send; ++sbeg)
 	{

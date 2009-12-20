@@ -18,40 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef FCPPT_TEXTURE_DEFAULT_CREATOR_HPP_INCLUDED
-#define FCPPT_TEXTURE_DEFAULT_CREATOR_HPP_INCLUDED
-
-#include <sge/texture/fragmented_auto_ptr.hpp>
-#include <sge/renderer/filter/texture.hpp>
-#include <sge/renderer/device_ptr.hpp>
-#include <sge/image/color/format.hpp>
+#ifndef SGE_TEXTURE_MANAGER_FWD_HPP_INCLUDED
+#define SGE_TEXTURE_MANAGER_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace texture
 {
 
-template<
-	typename T
->
-class default_creator
-{
-public:
-	default_creator(
-		renderer::device_ptr rend,
-		image::color::format::type format,
-		renderer::filter::texture const &filter
-	);
-
-	fragmented_auto_ptr
-	operator()() const;
-private:
-	renderer::device_ptr rend;
-
-	image::color::format::type format;
-
-	renderer::filter::texture filter;
-};
+class manager;
 
 }
 }

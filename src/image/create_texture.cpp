@@ -41,7 +41,7 @@ sge::image::create_texture(
 
 sge::renderer::texture_ptr const
 sge::image::create_texture(
-	filesystem::path const &file,
+	fcppt::filesystem::path const &file,
 	renderer::device_ptr const r,
 	loader_ptr const p,
 	renderer::filter::texture const &filter,

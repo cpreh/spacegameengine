@@ -48,11 +48,13 @@ private:
 
 }
 
-void sge::image::algorithm::fill(
+void
+sge::image::algorithm::fill(
 	view::object const &dest,
-	color::any::object const &c)
+	color::any::object const &c
+)
 {
-	variant::apply_unary(
+	fcppt::variant::apply_unary(
 		fill_visitor(
 			c
 		),

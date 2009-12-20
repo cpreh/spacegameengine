@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_CREATE_TEXTURE_HPP_INCLUDED
 #define SGE_IMAGE_CREATE_TEXTURE_HPP_INCLUDED
 
-#include <sge/image/loader_fwd.hpp>
-#include <sge/image/file_fwd.hpp>
-#include <sge/filesystem/path.hpp>
+#include <sge/image/loader_ptr.hpp>
+#include <sge/image/file_ptr.hpp>
 #include <sge/renderer/filter/texture_fwd.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/texture_fwd.hpp>
+#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/texture_ptr.hpp>
 #include <sge/symbol.hpp>
+#include <fcppt/filesystem/path.hpp>
 
 namespace sge
 {
@@ -45,7 +45,7 @@ create_texture(
 
 SGE_SYMBOL renderer::texture_ptr const
 create_texture(
-	filesystem::path const &,
+	fcppt::filesystem::path const &,
 	renderer::device_ptr r,
 	loader_ptr p,
 	renderer::filter::texture const &,

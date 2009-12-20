@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/rgba8.hpp>
-#include <sge/export.hpp>
+#include <fcppt/export_symbol.hpp>
 #include "store_impl.hpp"
 
-template SGE_EXPORT_SYMBOL class sge::image::store<
+template FCPPT_EXPORT_SYMBOL class sge::image::store<
 	sge::image::rgba8_format
 >;

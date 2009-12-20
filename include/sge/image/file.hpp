@@ -21,25 +21,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_FILE_HPP_INCLUDED
 #define SGE_IMAGE_FILE_HPP_INCLUDED
 
+#include <sge/image/file_fwd.hpp>
 #include <sge/image/dim_type.hpp>
 #include <sge/image/view/const_object.hpp>
-#include <sge/filesystem/path.hpp>
-#include <fcppt/noncopyable.hpp>
 #include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace image
 {
 
-class SGE_CLASS_SYMBOL file {
+class SGE_CLASS_SYMBOL file
+{
 	FCPPT_NONCOPYABLE(file)
 protected:
 	SGE_SYMBOL file();
 public:
 	virtual void
 	data(
-		view::const_object const &) = 0;
+		view::const_object const &
+	) = 0;
 
 	virtual view::const_object const
 	view() const = 0;
@@ -49,7 +53,8 @@ public:
 
 	virtual void
 	save(
-		filesystem::path const &) = 0;
+		fcppt::filesystem::path const &
+	) = 0;
 
 	SGE_SYMBOL virtual ~file();
 };

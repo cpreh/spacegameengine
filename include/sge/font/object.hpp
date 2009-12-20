@@ -39,7 +39,7 @@ namespace sge
 namespace font
 {
 
-class SGE_CLASS_SYMBOL object
+class object
 {
 public:
 	SGE_SYMBOL explicit object(

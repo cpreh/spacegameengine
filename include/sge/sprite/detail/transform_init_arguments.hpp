@@ -76,7 +76,7 @@ transform_init_arguments(
 			>(
 				object_. template get<
 					roles::texture
-				>()->area().dim()
+				>()->area().dimension()
 			)
 		);
 	

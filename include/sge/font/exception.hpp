@@ -21,19 +21,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_EXCEPTION_HPP_INCLUDED
 #define SGE_FONT_EXCEPTION_HPP_INCLUDED
 
-#include <sge/symbol.hpp>
-#include <sge/string.hpp>
 #include <sge/exception.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
 namespace font
 {
 
-class SGE_CLASS_SYMBOL exception : public sge::exception {
+class SGE_CLASS_SYMBOL exception
+:
+	public sge::exception
+{
 public:
 	SGE_SYMBOL explicit exception(
-		sge::string const &);
+		fcppt::string const &
+	);
 };
 
 }

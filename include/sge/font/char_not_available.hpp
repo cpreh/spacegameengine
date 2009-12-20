@@ -22,22 +22,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FONT_CHAR_NOT_AVAILABLE_HPP_INCLUDED
 
 #include <sge/font/exception.hpp>
-#include <sge/char_type.hpp>
 #include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/char_type.hpp>
 
 namespace sge
 {
 namespace font
 {
 
-class SGE_CLASS_SYMBOL char_not_available : public exception {
+class SGE_CLASS_SYMBOL char_not_available
+:
+	public exception
+{
 public:
 	SGE_SYMBOL explicit char_not_available(
-		char_type);
+		fcppt::char_type
+	);
 
-	char_type character() const;
+	fcppt::char_type
+	character() const;
 private:
-	char_type character_;
+	fcppt::char_type character_;
 };
 
 }

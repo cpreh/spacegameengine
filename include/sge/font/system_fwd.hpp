@@ -21,16 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_SYSTEM_FWD_HPP_INCLUDED
 #define SGE_FONT_SYSTEM_FWD_HPP_INCLUDED
 
-#include <sge/shared_ptr.hpp>
-
 namespace sge
 {
 namespace font
 {
 
 class system;
-
-typedef shared_ptr<system> system_ptr;
 
 }
 }

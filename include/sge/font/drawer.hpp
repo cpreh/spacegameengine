@@ -21,10 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_DRAWER_HPP_INCLUDED
 #define SGE_FONT_DRAWER_HPP_INCLUDED
 
+#include <sge/font/drawer_fwd.hpp>
 #include <sge/font/pos.hpp>
 #include <sge/font/dim.hpp>
 #include <sge/font/image_view.hpp>
 #include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
 #include <fcppt/char_type.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <cstddef>
