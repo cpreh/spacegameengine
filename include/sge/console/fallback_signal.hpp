@@ -18,23 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONSOLE_SIGNALS_HPP_INCLUDED
-#define SGE_CONSOLE_SIGNALS_HPP_INCLUDED
+#ifndef SGE_CONSOLE_FALLBACK_SIGNAL_HPP_INCLUDED
+#define SGE_CONSOLE_FALLBACK_SIGNAL_HPP_INCLUDED
 
-#include <sge/console/callback_types.hpp>
-#include <sge/signal/object.hpp>
+#include <sge/console/fallback_type.hpp>
+#include <fcppt/signal/object.hpp>
 
 namespace sge
 {
 namespace console
 {
-typedef signal::object<
-	callback_type
-> signal;
 
-typedef sge::signal::object<
+typedef fcppt::signal::object<
 	fallback_type
 > fallback_signal;
+
 }
 }
 

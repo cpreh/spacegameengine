@@ -18,22 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONSOLE_FUNCTION_MAP_HPP_INCLUDED
-#define SGE_CONSOLE_FUNCTION_MAP_HPP_INCLUDED
+#ifndef SGE_CONSOLE_FALLBACK_TYPE_HPP_INCLUDED
+#define SGE_CONSOLE_FALLBACK_TYPE_HPP_INCLUDED
 
-#include <sge/console/function.hpp>
 #include <fcppt/string.hpp>
-#include <boost/ptr_container/ptr_map.hpp>
 
 namespace sge
 {
 namespace console
 {
 
-typedef boost::ptr_map<
-	string,
-	function
-> function_map;
+typedef void 
+fallback_type(
+	fcppt::string const &
+);
 
 }
 }

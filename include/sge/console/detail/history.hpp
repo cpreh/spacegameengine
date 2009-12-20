@@ -25,9 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/basic_decl.hpp>
 #include <fcppt/math/dim/static.hpp>
 #include <fcppt/math/box/rect.hpp>
-#include <sge/string.hpp>
+#include <fcppt/string.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <utility>
 #include <deque>
 
 namespace sge
@@ -39,7 +38,10 @@ namespace detail
 class history
 {
 public:
-	typedef std::deque<string> container;
+	typedef std::deque<
+		fcppt::string
+	> container;
+
 	typedef container::iterator iterator;
 	typedef container::const_iterator const_iterator;
 	typedef container::const_reverse_iterator const_reverse_iterator;
@@ -61,7 +63,7 @@ public:
 	void down();
 	void push_front(string const &);
 	void push_back(string const &);
-	string const current() const;
+	fcppt::string const current() const;
 private:
 	container items_;
 	iterator pos_;
