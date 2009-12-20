@@ -18,15 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_MANAGER_FWD_HPP_INCLUDED
-#define SGE_PLUGIN_MANAGER_FWD_HPP_INCLUDED
+#ifndef SGE_AUDIO_FILE_PTR_HPP_INCLUDED
+#define SGE_AUDIO_FILE_PTR_HPP_INCLUDED
+
+#include <sge/audio/file_fwd.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
-namespace plugin
+namespace audio
 {
 
-class manager;
+typedef fcppt::shared_ptr<
+	file
+> file_ptr;
 
 }
 }

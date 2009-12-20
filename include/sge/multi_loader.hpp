@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MULTI_LOADER_HPP_INCLUDED
 #define SGE_MULTI_LOADER_HPP_INCLUDED
 
-#include <fcppt/noncopyable.hpp>
-#include <sge/shared_ptr.hpp>
-#include <sge/export.hpp>
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/plugin/context.hpp>
-#include <sge/filesystem/path.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/shared_ptr.hpp>
 #include <vector>
 
 namespace sge
@@ -43,8 +43,8 @@ class multi_loader
 public:
 	typedef Loader loader;
 	typedef File file;
-	typedef shared_ptr<loader> loader_ptr;
-	typedef shared_ptr<file> file_ptr;
+	typedef fcppt::shared_ptr<loader> loader_ptr;
+	typedef fcppt::shared_ptr<file> file_ptr;
 	typedef Exception exception;
 
 	SGE_SYMBOL explicit multi_loader(
@@ -55,7 +55,7 @@ public:
 
 	SGE_SYMBOL file_ptr const
 	load(
-		filesystem::path const &
+		fcppt::filesystem::path const &
 	);
 private:
 	typedef std::vector<
@@ -73,7 +73,7 @@ private:
 
 	file_ptr const
 	brute_load(
-		filesystem::path const &
+		fcppt::filesystem::path const &
 	);
 };
 

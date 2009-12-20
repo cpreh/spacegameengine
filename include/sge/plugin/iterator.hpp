@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_ITERATOR_HPP_INCLUDED
 #define SGE_PLUGIN_ITERATOR_HPP_INCLUDED
 
+#include <sge/plugin/iterator_fwd.hpp>
 #include <sge/plugin/detail/iterator_base_type.hpp>
 #include <sge/plugin/category_array.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
@@ -47,19 +48,32 @@ public:
 	typedef typename base_type::iterator_category iterator_category;
 
 	SGE_SYMBOL explicit iterator(
-		category_array::iterator it);
+		category_array::iterator it
+	);
 
-	SGE_SYMBOL void advance(difference_type diff);
+	SGE_SYMBOL void
+	advance(
+		difference_type
+	);
 
-	SGE_SYMBOL void increment();
+	SGE_SYMBOL void
+	increment();
 
-	SGE_SYMBOL void decrement();
+	SGE_SYMBOL void
+	decrement();
 
-	SGE_SYMBOL bool equal(iterator const &r) const;
+	SGE_SYMBOL bool
+	equal(
+		iterator const &
+	) const;
 
-	SGE_SYMBOL reference dereference() const;
+	SGE_SYMBOL reference
+	dereference() const;
 
-	SGE_SYMBOL difference_type distance_to(iterator const &r) const;
+	SGE_SYMBOL difference_type
+	distance_to(
+		iterator const &
+	) const;
 private:
 	category_array::iterator it;
 

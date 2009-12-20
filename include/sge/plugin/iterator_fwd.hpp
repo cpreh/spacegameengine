@@ -18,17 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_MANAGER_FWD_HPP_INCLUDED
-#define SGE_PLUGIN_MANAGER_FWD_HPP_INCLUDED
+#ifndef SGE_PLUGIN_ITERATOR_FWD_HPP_INCLUDED
+#define SGE_PLUGIN_ITERATOR_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace plugin
 {
 
-class manager;
+template<
+	typename T
+>
+class iterator;
 
 }
 }
 
 #endif
+

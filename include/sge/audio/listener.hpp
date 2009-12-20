@@ -21,16 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_LISTENER_HPP_INCLUDED
 #define SGE_AUDIO_LISTENER_HPP_INCLUDED
 
+#include <sge/audio/listener_fwd.hpp>
+#include <sge/audio/angle_fwd.hpp>
 #include <sge/audio/point.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace audio
 {
-
-class angle;
 
 class SGE_CLASS_SYMBOL listener
 {

@@ -24,14 +24,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/plugin.hpp>
-#include <sge/filesystem/exists.hpp>
-#include <sge/filesystem/is_regular.hpp>
-#include <sge/filesystem/extension.hpp>
 #include <sge/loaders_exhausted.hpp>
-#include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
+#include <fcppt/filesystem/exists.hpp>
+#include <fcppt/filesystem/is_regular.hpp>
+#include <fcppt/filesystem/extension.hpp>
+#include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
-#include <sge/type_name.hpp>
+#include <fcppt/type_name.hpp>
+#include <typeinfo>
 
 template<
 	typename A,
@@ -42,13 +43,21 @@ sge::multi_loader<A,B,C>::multi_loader(
 	plugin::manager &pm
 )
 {
-	for (plugin::iterator<loader> i = pm.begin<loader>(); i != pm.end<loader>(); ++i)
+	for (
+		plugin::iterator<loader> i = pm.begin<loader>();
+		i != pm.end<loader>();
+		++i
+	)
 	{
 		plugins.push_back(
-			i->load());
+			i->load()
+		);
+
 		loaders.push_back(
 			loader_ptr(
-				plugins.back()->get()()));
+				plugins.back()->get()()
+			)
+		);
 	}
 }
 
@@ -63,95 +72,116 @@ sge::multi_loader<A,B,C>::~multi_loader()
 template<
 	typename A,
 	typename B,
-	typename C>
+	typename C
+>
 typename sge::multi_loader<A,B,C>::file_ptr const
 sge::multi_loader<A,B,C>::load(
-	sge::filesystem::path const &file)
+	fcppt::filesystem::path const &file
+)
 {
-	if (!filesystem::exists(file))
+	if (!fcppt::filesystem::exists(file))
 		throw exception(
 			FCPPT_TEXT("file \"")
 			+ file.string()
 			+ FCPPT_TEXT("\" does not exist"));
 
-	if (!filesystem::is_regular(file))
+	if (!fcppt::filesystem::is_regular(file))
 		throw exception(
 			FCPPT_TEXT("file \"")
 			+ file.string()
 			+ FCPPT_TEXT("\" is not a regular file"));
 
-	string const extension =
-		sge::filesystem::extension(
-			file);
+	fcppt::string const extension(
+		fcppt::filesystem::extension(
+			file
+		)
+	);
 
 	if (extension.empty())
 		return
 			brute_load(
-				file);
+				file
+			);
 
-	for (typename loader_container::iterator i = loaders.begin(); i != loaders.end(); ++i)
+	for (
+		typename loader_container::iterator i = loaders.begin();
+		i != loaders.end();
+		++i
+	)
 	{
 		// FIXME: replace by container::contains
 		if ((*i)->extensions().find(extension) == (*i)->extensions().end())
 			continue;
 
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			log::global(),
-			log::_
+			fcppt::log::_
 				<< FCPPT_TEXT("loader ")
-				<< type_name(typeid(loader))
-				<< FCPPT_TEXT(": trying to load audio file"));
+				<< fcppt::type_name(typeid(loader))
+				<< FCPPT_TEXT(": trying to load audio file")
+			);
 
 		return (*i)->load(file);
 	}
 
 	return
 		brute_load(
-			file);
+			file
+		);
 
 }
 
 template<
 	typename A,
 	typename B,
-	typename C>
+	typename C
+>
 typename sge::multi_loader<A,B,C>::file_ptr const
 sge::multi_loader<A,B,C>::brute_load(
-	sge::filesystem::path const &file)
+	fcppt::filesystem::path const &file
+)
 {
-	SGE_LOG_INFO(
+	FCPPT_LOG_INFO(
 		log::global(),
-		log::_
+		fcppt::log::_
 			<< FCPPT_TEXT("brute loading file ")
 			<< file.string()
-			<< FCPPT_TEXT(", add an extension to speed up the search"));
+			<< FCPPT_TEXT(", add an extension to speed up the search")
+	);
 
-	for (typename loader_container::iterator i = loaders.begin(); i != loaders.end(); ++i)
+	for (
+		typename loader_container::iterator i = loaders.begin();
+		i != loaders.end();
+		++i
+	)
 	{
 		try
 		{
-			SGE_LOG_DEBUG(
+			FCPPT_LOG_DEBUG(
 				log::global(),
-				log::_
+				fcppt::log::_
 					<< FCPPT_TEXT("loader ")
-					<< type_name(typeid(loader))
-					<< FCPPT_TEXT(": trying to load audio file"));
+					<< fcppt::type_name(typeid(loader))
+					<< FCPPT_TEXT(": trying to load audio file")
+			);
 		}
 		catch (sge::exception const &e)
 		{
-			SGE_LOG_INFO(
+			FCPPT_LOG_INFO(
 				log::global(),
-				log::_
+				fcppt::log::_
 					<< FCPPT_TEXT("loader ")
-					<< type_name(typeid(loader))
+					<< fcppt::type_name(typeid(loader))
 					<< FCPPT_TEXT("couldn't load the file: ")
-					<< e.string());
+					<< e.string()
+			);
 		}
 	}
 
 	throw
 		loaders_exhausted(
-			file);
+			file
+		);
 }
 
 #endif

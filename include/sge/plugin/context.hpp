@@ -21,28 +21,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_CONTEXT_HPP_INCLUDED
 #define SGE_PLUGIN_CONTEXT_HPP_INCLUDED
 
-#include <sge/shared_ptr.hpp>
-#include <sge/export.hpp>
+#include <sge/plugin/context_fwd.hpp>
+#include <sge/plugin/context_base_fwd.hpp>
+#include <sge/plugin/plugin_fwd.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
 namespace plugin
 {
 
-class context_base;
-
-template<typename T>
-class plugin;
-
-template<typename T>
-class context {
+template<
+	typename T
+>
+class context
+{
 public:
 	SGE_SYMBOL explicit context(
-		context_base &base_);
+		context_base &base_
+	);
 
-	typedef shared_ptr<plugin<T> > ptr_type;
+	typedef fcppt::shared_ptr<
+		plugin<
+			T
+		>
+	> ptr_type;
 
-	SGE_SYMBOL ptr_type load();
+	SGE_SYMBOL ptr_type
+	load();
 
 	SGE_SYMBOL context_base const &
 	info() const;
