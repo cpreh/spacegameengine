@@ -20,7 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/window/create.hpp>
 #include <sge/config.h>
-#if defined(SGE_WINDOWS_PLATFORM)
+#include <fcppt/config.h>
+#if defined(FCPPT_WINDOWS_PLATFORM)
 #include <sge/windows/create_window.hpp>
 #include <fcppt/optional.hpp>
 #elif defined(SGE_HAVE_X11)
@@ -30,25 +31,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/visual.hpp>
 #include <sge/x11/screen.hpp>
 #include <sge/window/parameters.hpp>
-#include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
-#include <fcppt/text.hpp>
 #include <sge/exception.hpp>
-#include <tr1/array>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/tr1/array.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/make_shared_ptr.hpp>
+#else
+#error "Implement me!"
 #endif
 
 sge::window::instance_ptr const
 sge::window::create(
-	parameters const &param)
+	parameters const &param
+)
 {
-#if defined(SGE_WINDOWS_PLATFORM)
+#if defined(FCPPT_WINDOWS_PLATFORM)
 	return windows::create_window(
 		param,
 		windows::optional_renderer_parameters()
 	);
 #elif defined(SGE_HAVE_X11)
 	x11::display_ptr const dsp(
-		new x11::display()
+		fcppt::make_shared_ptr<
+			x11::display
+		>()
 	);
 
 	int const screen(
@@ -58,7 +65,9 @@ sge::window::create(
 	);
 
 	x11::visual_ptr const visual(
-		new x11::visual(
+		fcppt::make_shared_ptr<
+			x11::visual
+		>(
 			dsp,
 			screen
 		)
@@ -93,7 +102,7 @@ sge::window::create(
 		{
 			FCPPT_LOG_ERROR(
 				log::global(),
-				log::_
+				fcppt::log::_
 					<< FCPPT_TEXT("window::create failed!")
 					<< FCPPT_TEXT(" Trying another bit depth. Reason: ")
 					<< e.string()

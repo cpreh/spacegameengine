@@ -18,15 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11_DISPLAY_FWD_HPP_INCLUDED
-#define SGE_X11_DISPLAY_FWD_HPP_INCLUDED
+#ifndef SGE_X11_COLORMAP_PTR_HPP_INCLUDED
+#define SGE_X11_COLORMAP_PTR_HPP_INCLUDED
+
+#include <sge/x11/colormap_fwd.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
 namespace x11
 {
 
-class display;
+typedef fcppt::shared_ptr<
+	colormap
+> colormap_ptr;
+
+typedef fcppt::shared_ptr<
+	colormap const
+> const_colormap_ptr;
 
 }
 }

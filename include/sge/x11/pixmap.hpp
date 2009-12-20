@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11_PIXMAP_HPP_INCLUDED
 
 #include <X11/Xlib.h>
-#include <sge/x11/display_fwd.hpp>
+#include <sge/x11/display_ptr.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -31,14 +31,19 @@ namespace sge
 namespace x11
 {
 
-class pixmap {
+class pixmap
+{
 	FCPPT_NONCOPYABLE(pixmap)
 public:
 	SGE_SYMBOL pixmap(
 		display_ptr,
-		Window wnd);
+		Window wnd
+	);
+
 	SGE_SYMBOL ~pixmap();
-	SGE_SYMBOL Pixmap get() const;
+
+	SGE_SYMBOL Pixmap
+	get() const;
 private:
 	display_ptr const dsp;
 	Pixmap      const pixmap_;

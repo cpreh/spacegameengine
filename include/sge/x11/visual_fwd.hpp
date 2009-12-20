@@ -21,16 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11_VISUAL_FWD_HPP_INCLUDED
 #define SGE_X11_VISUAL_FWD_HPP_INCLUDED
 
-#include <sge/shared_ptr.hpp>
-
 namespace sge
 {
 namespace x11
 {
 
 class visual;
-typedef shared_ptr<visual> visual_ptr;
-typedef shared_ptr<visual const> const_visual_ptr;
 
 }
 }

@@ -25,10 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/window.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/renderer/parameters.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
 #include <sge/exception.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/text.hpp>
-#include <sge/make_shared_ptr.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 
 sge::window::instance_ptr const
 sge::x11::create_window(
@@ -37,10 +37,13 @@ sge::x11::create_window(
 	int const screen,
 	int const depth,
 	visual_ptr const visual,
-	bool const fullscreen)
+	bool const fullscreen
+)
 {
 	x11::colormap_ptr const colormap(
-		new x11::colormap(
+		fcppt::make_shared_ptr<
+			x11::colormap
+		>(
 			dsp,
 			screen,
 			visual
@@ -52,7 +55,7 @@ sge::x11::create_window(
 			FCPPT_TEXT("x11::create_window: Please specify the window's dimensions!")
 		);
 
-	return make_shared_ptr<
+	return fcppt::make_shared_ptr<
 		sge::x11::window
 	>(
 		window::pos_type::null(),

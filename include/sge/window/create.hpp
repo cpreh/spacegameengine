@@ -21,23 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WINDOW_CREATE_HPP_INCLUDED
 #define SGE_WINDOW_CREATE_HPP_INCLUDED
 
-#include <sge/window/instance_fwd.hpp>
+#include <sge/window/instance_ptr.hpp>
+#include <sge/window/parameters_fwd.hpp>
 #include <sge/symbol.hpp>
 
 namespace sge
 {
-namespace renderer
-{
-class parameters;
-}
 namespace window
 {
 
-class parameters;
-
 SGE_SYMBOL instance_ptr const
 create(
-	parameters const &);
+	parameters const &
+);
 
 }
 }

@@ -21,13 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <fcppt/text.hpp>
 
-sge::string const
+fcppt::string const
 sge::window::parameters::default_class(
-	FCPPT_TEXT("sgeclass"));
+	FCPPT_TEXT("sgeclass")
+);
 
 sge::window::parameters::parameters(
-	string const &title_,
-	string const &class_name_)
+	fcppt::string const &title_,
+	fcppt::string const &class_name_
+)
 :
 	title_(title_),
 	dim_(),
@@ -35,22 +37,23 @@ sge::window::parameters::parameters(
 {}
 
 sge::window::parameters::parameters(
-	string const &title_,
+	fcppt::string const &title_,
 	dim_type const &dim_,
-	string const &class_name_)
+	fcppt::string const &class_name_
+)
 :
 	title_(title_),
 	dim_(dim_),
 	class_name_(class_name_)
 {}
 
-sge::string const &
+fcppt::string const &
 sge::window::parameters::title() const
 {
 	return title_;
 }
 
-sge::string const &
+fcppt::string const &
 sge::window::parameters::class_name() const
 {
 	return class_name_;
@@ -64,7 +67,8 @@ sge::window::parameters::dim() const
 
 void
 sge::window::parameters::dim(
-	dim_type const &d)
+	dim_type const &d
+)
 {
 	dim_ = d;
 }

@@ -21,16 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11_COLORMAP_FWD_HPP_INCLUDED
 #define SGE_X11_COLORMAP_FWD_HPP_INCLUDED
 
-#include <sge/shared_ptr.hpp>
-
 namespace sge
 {
 namespace x11
 {
 
 class colormap;
-typedef shared_ptr<colormap> colormap_ptr;
-typedef shared_ptr<colormap const> const_colormap_ptr;
 
 }
 }

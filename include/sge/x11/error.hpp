@@ -30,7 +30,7 @@ namespace sge
 namespace x11
 {
 
-typedef optional<
+typedef fcppt::optional<
 	XErrorEvent
 > optional_error;
 

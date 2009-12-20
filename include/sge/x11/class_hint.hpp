@@ -24,29 +24,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <sge/symbol.hpp>
-#include <sge/string.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <sge/scoped_ptr.hpp>
+#include <fcppt/scoped_ptr.hpp>
+#include <string>
 
 namespace sge
 {
 namespace x11
 {
 
-class class_hint {
+class class_hint
+{
 	FCPPT_NONCOPYABLE(class_hint)
 public:
 	SGE_SYMBOL class_hint(
-		string const &app_name,
-		string const &class_name);
+		fcppt::string const &app_name,
+		fcppt::string const &class_name
+	);
+
 	SGE_SYMBOL ~class_hint();
-	SGE_SYMBOL XClassHint *get() const;
+
+	SGE_SYMBOL XClassHint *
+	get() const;
 private:
 	class impl;
 
-	scoped_ptr<impl> impl_;
-	std::string const app_name,
-	                  res_name;
+	fcppt::scoped_ptr<impl> impl_;
+
+	std::string const
+		app_name,
+		res_name;
 };
 
 }

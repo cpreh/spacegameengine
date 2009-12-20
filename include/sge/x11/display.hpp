@@ -21,16 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11_DISPLAY_HPP_INCLUDED
 #define SGE_X11_DISPLAY_HPP_INCLUDED
 
-#include <X11/Xlib.h>
+#include <sge/x11/display_fwd.hpp>
 #include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <X11/Xlib.h>
 
 namespace sge
 {
 namespace x11
 {
 
-class SGE_CLASS_SYMBOL display {
+class SGE_CLASS_SYMBOL display
+{
 	FCPPT_NONCOPYABLE(display)
 public:
 	SGE_SYMBOL display();

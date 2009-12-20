@@ -23,25 +23,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/display.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/text.hpp>
-#include <sge/iconv.hpp>
+#include <fcppt/iconv.hpp>
 
 sge::x11::color::color(
 	display_ptr const dsp,
 	Colormap const colormap,
-	string const &name)
- : dsp(dsp),
-   colormap(colormap)
+	fcppt::string const &name
+)
+:
+	dsp(dsp),
+	colormap(colormap)
 {
 	XColor dummy;
-	if(XAllocNamedColor(
-		dsp->get(),
-		colormap,
-		iconv(name).c_str(),
-		&color_,
-		&dummy)
-	== 0)
+
+	if(
+		XAllocNamedColor(
+			dsp->get(),
+			colormap,
+			fcppt::iconv(name).c_str(),
+			&color_,
+			&dummy
+		)
+		== 0
+	)
 		throw exception(
-			FCPPT_TEXT("XAllocNamedColor() failed!"));
+			FCPPT_TEXT("XAllocNamedColor() failed!")
+		);
 }
 
 sge::x11::color::~color()
@@ -51,10 +58,12 @@ sge::x11::color::~color()
 		colormap,
 		&color_.pixel,
 		1,
-		0);
+		0
+	);
 }
 
-XColor sge::x11::color::get() const
+XColor
+sge::x11::color::get() const
 {
 	return color_;
 }

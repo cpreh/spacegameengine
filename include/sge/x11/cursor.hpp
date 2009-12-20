@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11_CURSOR_HPP_INCLUDED
 
 #include <X11/Xlib.h>
-#include <sge/x11/display_fwd.hpp>
+#include <sge/x11/display_ptr.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -31,15 +31,20 @@ namespace sge
 namespace x11
 {
 
-class cursor {
+class cursor
+{
 	FCPPT_NONCOPYABLE(cursor)
 public:
 	SGE_SYMBOL cursor(
 		display_ptr,
 		Pixmap pixmap,
-		XColor color);
+		XColor color
+	);
+
 	SGE_SYMBOL ~cursor();
-	SGE_SYMBOL Cursor get() const;
+
+	SGE_SYMBOL Cursor
+	get() const;
 private:
 	display_ptr const dsp;
 	Cursor            cursor_;
