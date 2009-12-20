@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TIME_SLEEP_HPP_INCLUDED
 #define SGE_TIME_SLEEP_HPP_INCLUDED
 
+#include <sge/time/duration.hpp>
 #include <sge/symbol.hpp>
 
 namespace sge
@@ -28,10 +29,10 @@ namespace sge
 namespace time
 {
 
-class resolution;
-
-SGE_SYMBOL void sleep(
-	resolution const &);
+SGE_SYMBOL void
+sleep(
+	duration const &
+);
 
 }
 }

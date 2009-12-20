@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TIME_DURATION_HPP_INCLUDED
 #define SGE_TIME_DURATION_HPP_INCLUDED
 
-#include <fcppt/chrono/high_resolution_clock.hpp>
+#include <sge/time/clock.hpp>
 
 namespace sge
 {
 namespace time
 {
 
-typedef fcppt::chrono::high_resolution_clock::duration duration;
+typedef clock::duration duration;
 
 }
 }

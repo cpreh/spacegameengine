@@ -18,16 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/time/resolution.hpp>
+#include <sge/time/default_callback.hpp>
+#include <sge/time/callback.hpp>
+#include <sge/time/clock.hpp>
+#include <fcppt/chrono/time_point_impl.hpp>
 
-sge::time::resolution::resolution(
-	unit const res_)
-:
-	res_(res_)
-{}
+namespace
+{
 
 sge::time::unit
-sge::time::resolution::get() const
+callback()
 {
-	return res_;
+	return sge::time::clock::now().time_since_epoch().count();
+}
+
+sge::time::callback fun_(
+	callback
+);
+
+}
+
+sge::time::callback const
+sge::time::default_callback()
+{
+	return fun_;
+}
+
+void
+sge::time::default_callback(
+	callback const &nfun
+)
+{
+	fun_ = nfun;
 }

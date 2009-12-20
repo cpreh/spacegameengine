@@ -18,24 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/time/fun.hpp>
-#include <sge/time/time.hpp>
+#ifndef SGE_TIME_CLOCK_HPP_INCLUDED
+#define SGE_TIME_CLOCK_HPP_INCLUDED
 
-namespace
+#include <fcppt/chrono/high_resolution_clock.hpp>
+
+namespace sge
+{
+namespace time
 {
 
-sge::time::fun fun_(sge::time::time);
+typedef fcppt::chrono::high_resolution_clock clock;
 
 }
-
-sge::time::fun const
-sge::time::default_time_fun()
-{
-	return fun_;
 }
 
-void sge::time::default_time_fun(
-	fun const &nfun)
-{
-	fun_ = nfun;
-}
+#endif
+

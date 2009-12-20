@@ -18,30 +18,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config.h>
 #include <sge/time/sleep.hpp>
-#include <sge/time/resolution.hpp>
-#include <sge/time/time.hpp>
-
-#ifdef SGE_WINDOWS_PLATFORM
+#include <sge/time/unit.hpp>
+#include <fcppt/chrono/duration_impl.hpp>
+#include <fcppt/chrono/duration_cast.hpp>
+#include <fcppt/ratio.hpp>
+#include <fcppt/config.h>
+#ifdef FCPPT_WINDOWS_PLATFORM
 #include <sge/windows/windows.hpp>
-#elif SGE_POSIX_PLATFORM
+#elif FCPPT_POSIX_PLATFORM
 #include <unistd.h>
 #endif
 
-void sge::time::sleep(
-	resolution const &res)
+void
+sge::time::sleep(
+	duration const &res
+)
 {
-#ifdef SGE_WINDOWS_PLATFORM
+#ifdef FCPPT_WINDOWS_PLATFORM
 	Sleep(
-		static_cast<DWORD>(
-			res.get() * 1000 / hz()
+		static_cast<
+			DWORD
+		>(
+			fcppt::chrono::duration_cast<
+				fcppt::chrono::duration<
+					unit,
+					fcppt::milli
+				>
+			>(
+				res
+			).count()
 		)
 	);
-#elif SGE_POSIX_PLATFORM
+#elif FCPPT_POSIX_PLATFORM
 	usleep(
-		static_cast<useconds_t>(
-			res.get() * 1000 * 1000 / hz()
+		static_cast<
+			useconds_t
+		>(
+			fcppt::chrono::duration_cast<
+				fcppt::chrono::duration<
+					unit,
+					fcppt::micro
+				>
+			>(
+				res
+			).count()
 		)
 	);
 #else

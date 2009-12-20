@@ -19,17 +19,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/time/timer.hpp>
-#include <sge/time/resolution.hpp>
+#include <fcppt/chrono/duration_impl.hpp>
 
 sge::time::timer::timer(
-	resolution const &res_,
+	duration const &res_,
 	activation_state::type const active_,
-	fun const &fun_,
-	expiration_state::type const expired_)
+	callback const &callback_,
+	expiration_state::type const expired_
+)
 :
-	fun_(fun_),
-	interval_(res_.get()),
-	last_time_(fun_()),
+	callback_(callback_),
+	interval_(res_.count()),
+	last_time_(callback_()),
 	active_(active_),
 	expired_(expired_)
 {}
@@ -38,14 +39,20 @@ sge::time::timer::frames_type
 sge::time::timer::update()
 {
 	frames_type const f = elapsed_frames();
+
 	if(f >= static_cast<frames_type>(1))
 		reset();
-	return f < static_cast<frames_type>(1)
-		? static_cast<frames_type>(0)
-		: f;
+
+	return
+		f < static_cast<frames_type>(1)
+		?
+			static_cast<frames_type>(0)
+		:
+			f;
 }
 
-bool sge::time::timer::update_b()
+bool
+sge::time::timer::update_b()
 {
 	if(!expired())
 		return false;
@@ -62,7 +69,8 @@ sge::time::timer::elapsed_frames() const
 	if(expired_ == expiration_state::expired)
 		return static_cast<frames_type>(1);
 
-	return static_cast<frames_type>(fun_() - last_time())
+	return
+		static_cast<frames_type>(callback_() - last_time())
 		/ static_cast<frames_type>(interval());
 }
 
@@ -70,12 +78,13 @@ sge::time::timer::frames_type
 sge::time::timer::reset()
 {
 	frames_type const f = elapsed_frames();
-	last_time_ = fun_();
+	last_time_ = callback_();
 	expired_ = expiration_state::not_expired;
 	return f;
 }
 
-bool sge::time::timer::expired() const
+bool
+sge::time::timer::expired() const
 {
 	return
 		active()
@@ -83,7 +92,8 @@ bool sge::time::timer::expired() const
 		|| elapsed_frames() >= 1);
 }
 
-void  sge::time::timer::activate()
+void
+sge::time::timer::activate()
 {
 	if(active())
 		return;
@@ -91,7 +101,8 @@ void  sge::time::timer::activate()
 	active_ = activation_state::active;
 }
 
-void sge::time::timer::deactivate()
+void
+sge::time::timer::deactivate()
 {
 	active_ = activation_state::inactive;
 }
@@ -108,19 +119,23 @@ sge::time::timer::last_time() const
 	return last_time_;
 }
 
-bool sge::time::timer::active() const
+bool
+sge::time::timer::active() const
 {
 	return active_ == activation_state::active;
 }
 
-void sge::time::timer::interval(
-	resolution const &i)
+void
+sge::time::timer::interval(
+	duration const &i
+)
 {
-	interval_ = i.get();
+	interval_ = i.count();
 	reset();
 }
 
-void sge::time::timer::expire()
+void
+sge::time::timer::expire()
 {
 	expired_ = expiration_state::expired;
 }

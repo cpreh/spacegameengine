@@ -20,8 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/time/frames_counter.hpp>
 #include <sge/time/second.hpp>
-#include <sge/time/resolution.hpp>
-#include <sge/lexical_cast.hpp>
+#include <fcppt/lexical_cast.hpp>
 
 sge::time::frames_counter::frames_counter()
 :
@@ -30,7 +29,8 @@ sge::time::frames_counter::frames_counter()
 	display_frames(0)
 {}
 
-void sge::time::frames_counter::update()
+void
+sge::time::frames_counter::update()
 {
 	++current_frames;
 	if(t.update() > 0)
@@ -40,10 +40,15 @@ void sge::time::frames_counter::update()
 	}
 }
 
-sge::string const
+fcppt::string const
 sge::time::frames_counter::frames_str() const
 {
-	return lexical_cast<string>(frames());
+	return
+		fcppt::lexical_cast<
+			fcppt::string
+		>(
+			frames()
+		);
 }
 
 sge::time::unit
