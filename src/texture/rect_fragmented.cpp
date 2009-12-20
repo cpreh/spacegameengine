@@ -18,19 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <fcppt/texture/rect_fragmented.hpp>
-#include <fcppt/texture/atlasing.hpp>
-#include <fcppt/texture/part_fragmented.hpp>
+#include <sge/texture/rect_fragmented.hpp>
+#include <sge/texture/atlasing.hpp>
+#include <sge/texture/part_fragmented.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/device.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <sge/make_shared_ptr.hpp>
-#include <tr1/functional>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/make_shared_ptr.hpp>
+#include <algorithm>
 
 sge::texture::rect_fragmented::rect_fragmented(
 	renderer::device_ptr const rend,
 	image::color::format::type const format,
-	renderer::filter::texture const &filter)
+	renderer::filter::texture const &filter
+)
 :
 	rend(rend),
 	cur_x(0),
@@ -48,12 +50,15 @@ sge::texture::rect_fragmented::rect_fragmented(
 
 sge::texture::part_ptr const
 sge::texture::rect_fragmented::consume_fragment(
-	renderer::dim_type const &dim)
+	renderer::dim_type const &dim
+)
 {
 	renderer::texture::dim_type const atlased_dim(
 		atlased_size(
 			dim,
-			true));
+			true
+		)
+	);
 
 	// if there is no space left for the requested height
 	if(cur_y + dim.h() >= tex->dim().h())
@@ -71,11 +76,11 @@ sge::texture::rect_fragmented::consume_fragment(
 		return part_ptr();
 
 	part_ptr const ret(
-		make_shared_ptr<
+		fcppt::make_shared_ptr<
 			part_fragmented
 		>(
 			renderer::lock_rect(
-				renderer::lock_rect::pos_type(
+				renderer::lock_rect::vector(
 					cur_x,
 					cur_y
 				),
@@ -97,8 +102,10 @@ sge::texture::rect_fragmented::consume_fragment(
 	return ret;
 }
 
-void sge::texture::rect_fragmented::on_return_fragment(
-	part const &)
+void
+sge::texture::rect_fragmented::on_return_fragment(
+	part const &
+)
 {
 	--texture_count;
 }
@@ -109,7 +116,8 @@ sge::texture::rect_fragmented::texture() const
 	return tex;
 }
 
-bool sge::texture::rect_fragmented::repeatable() const
+bool
+sge::texture::rect_fragmented::repeatable() const
 {
 	return false;
 }
@@ -121,7 +129,8 @@ sge::texture::rect_fragmented::free_value() const
 		free_type
 	>(
 		(texture()->dim().h() - cur_height)
-		* texture()->dim().w());
+		* texture()->dim().w()
+	);	
 }
 
 bool

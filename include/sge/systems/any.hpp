@@ -32,7 +32,7 @@ namespace sge
 namespace systems
 {
 
-typedef variant::object<
+typedef fcppt::variant::object<
 	boost::mpl::vector3<
 		window::parameters,
 		renderer::parameters,

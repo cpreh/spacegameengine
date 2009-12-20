@@ -19,16 +19,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/sprite/animation/entity.hpp>
+#include <sge/texture/part.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
-#include <sge/time/resolution.hpp>
-#include <fcppt/texture/part.hpp>
+#include <fcppt/chrono/duration_impl.hpp>
 
 sge::sprite::animation::entity::entity(
-	time::resolution const &res,
+	time::duration const &res,
 	texture::const_part_ptr const tex_
 )
 :
-	delay_(res.get()),
+	delay_(res.count()),
 	tex_(tex_)
 {}
 
@@ -55,5 +55,5 @@ sge::sprite::animation::entity::tex(
 sge::renderer::dim_type const
 sge::sprite::animation::entity::dim() const
 {
-	return tex_->area().dim();
+	return tex_->area().dimension();
 }

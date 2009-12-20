@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/texture/fragmented_fwd.hpp>
 #include <sge/texture/manager_fwd.hpp>
-#include <sge/texture/part_fwd.hpp>
+#include <sge/texture/part_ptr.hpp>
 #include <sge/texture/free_type.hpp>
 #include <sge/texture/detail/optional_container_position.hpp>
 #include <sge/renderer/texture_ptr.hpp>

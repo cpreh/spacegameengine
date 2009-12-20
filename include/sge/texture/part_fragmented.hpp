@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef FCPPT_TEXTURE_PART_FRAGMENTED_HPP_INCLUDED
 #define FCPPT_TEXTURE_PART_FRAGMENTED_HPP_INCLUDED
 
-#include <fcppt/texture/part.hpp>
-#include <fcppt/texture/fragmented_fwd.hpp>
-#include <sge/symbol.hpp>
+#include <sge/texture/part.hpp>
+#include <sge/texture/fragmented_fwd.hpp>
 #include <sge/renderer/texture_fwd.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/image/view/const_object.hpp>
+#include <sge/symbol.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 
 namespace sge

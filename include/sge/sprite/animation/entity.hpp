@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/animation/entity_fwd.hpp>
 #include <sge/time/unit.hpp>
-#include <sge/time/resolution.hpp>
-#include <fcppt/texture/part_fwd.hpp>
+#include <sge/time/duration.hpp>
+#include <sge/texture/part_ptr.hpp>
 #include <sge/renderer/dim_type.hpp>
 #include <sge/symbol.hpp>
 
@@ -39,7 +39,7 @@ class entity
 {
 public:
 	SGE_SYMBOL entity(
-		time::resolution const &delay,
+		time::duration const &delay,
 		sge::texture::const_part_ptr tex
 	);
 

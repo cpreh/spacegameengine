@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <fcppt/texture/atlasing.hpp>
+#include <sge/texture/atlasing.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/sub_data.hpp>
@@ -153,8 +153,8 @@ void sge::texture::atlas_w(
 		image::view::sub(
 			src,
 			renderer::lock_rect(
-				renderer::lock_rect::pos_type::null(),
-				renderer::lock_rect::dim_type(
+				renderer::lock_rect::vector::null(),
+				renderer::lock_rect::dim(
 					1,
 					dim.h()
 				)
@@ -174,11 +174,11 @@ void sge::texture::atlas_w(
 		image::view::sub(
 			src,
 			renderer::lock_rect(
-				renderer::lock_rect::pos_type(
+				renderer::lock_rect::vector(
 					dim.w() - 1,
 					0
 				),
-				renderer::lock_rect::dim_type(
+				renderer::lock_rect::dim(
 					1,
 					dim.h()
 				)
@@ -208,8 +208,8 @@ void sge::texture::atlas_h(
 		image::view::sub(
 			src,
 			renderer::lock_rect(
-				renderer::lock_rect::pos_type::null(),
-				renderer::lock_rect::dim_type(
+				renderer::lock_rect::vector::null(),
+				renderer::lock_rect::dim(
 					dim.w(),
 					1
 				)
@@ -229,11 +229,11 @@ void sge::texture::atlas_h(
 		image::view::sub(
 			src,
 			renderer::lock_rect(
-				renderer::lock_rect::pos_type(
+				renderer::lock_rect::vector(
 					0,
 					dim.h() - 1
 				),
-				renderer::lock_rect::dim_type(
+				renderer::lock_rect::dim(
 					dim.w(),
 					1
 				)

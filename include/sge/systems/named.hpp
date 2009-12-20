@@ -23,29 +23,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/named_fwd.hpp>
 #include <sge/systems/any.hpp>
-#include <fcppt/variant/object_impl.hpp>
-#include <sge/string.hpp>
 #include <sge/symbol.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
 namespace systems
 {
 
-class named {
+class named
+{
 public:
 	SGE_SYMBOL named(
 		any const &,
-		string const &);
+		fcppt::string const &
+	);
 
 	SGE_SYMBOL any const &
 	value() const;
 
-	SGE_SYMBOL string const &
+	SGE_SYMBOL fcppt::string const &
 	name() const;
 private:
 	any value_;
-	string name_;
+	fcppt::string name_;
 };
 
 }

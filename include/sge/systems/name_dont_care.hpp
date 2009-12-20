@@ -22,14 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_NAME_DONT_CARE_HPP_INCLUDED
 
 #include <sge/symbol.hpp>
-#include <sge/string.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
 namespace systems
 {
 
-SGE_SYMBOL extern string const name_dont_care;
+SGE_SYMBOL extern fcppt::string const name_dont_care;
 
 }
 }

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_NAMED_SET_HPP_INCLUDED
 
 #include <sge/systems/named_fwd.hpp>
-#include <sge/function/object.hpp>
+#include <fcppt/function/object.hpp>
 #include <set>
 
 namespace sge
@@ -32,7 +32,7 @@ namespace systems
 
 typedef std::set<
 	named,
-	function::object<
+	fcppt::function::object<
 		bool (
 			named const &,
 			named const &
