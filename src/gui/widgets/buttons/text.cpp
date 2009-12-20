@@ -42,7 +42,7 @@ sge::gui::widgets::buttons::text::text(
 {
 }
 
-sge::string const sge::gui::widgets::buttons::text::caption() const
+fcppt::string const sge::gui::widgets::buttons::text::caption() const
 {
 	return caption_;
 }

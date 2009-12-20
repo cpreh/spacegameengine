@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../alc_error_string.hpp"
 #include <fcppt/text.hpp>
 
-sge::string const
+fcppt::string const
 sge::openal::alc_error_string(
 	ALCenum const error)
 {

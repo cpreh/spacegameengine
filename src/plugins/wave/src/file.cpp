@@ -46,7 +46,7 @@ sge::wave::file::file(
 	read_wave();
 }
 
-sge::string const sge::wave::file::to_string() const
+fcppt::string const sge::wave::file::to_string() const
 {
 	sge::ostringstream ss;
 	ss << "bits_per_sample: " << bits_per_sample() << ", "

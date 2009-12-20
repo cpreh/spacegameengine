@@ -29,7 +29,7 @@ sge::gui::detail::cursor_delegate::cursor_delegate(string &text)
 {
 }
 
-sge::string::size_type
+fcppt::string::size_type
 sge::gui::detail::cursor_delegate::pos() const
 {
 	return pos_;

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 template<typename T>
 void sge::console::var<T>::string(
-	sge::string const &s)
+	fcppt::string const &s)
 {
 	try
 	{
@@ -44,10 +44,10 @@ void sge::console::var<T>::string(
 }
 
 template<typename T>
-sge::string const
+fcppt::string const
 sge::console::var<T>::string() const
 {
-	return lexical_cast<sge::string>(t);
+	return lexical_cast<fcppt::string>(t);
 }
 
 template<typename T>
@@ -65,7 +65,7 @@ void sge::console::var<T>::value(T const &_t)
 template<typename T>
 sge::console::var<T>::var(
 	object &object_,
-	sge::string const &name,
+	fcppt::string const &name,
 	value_type const &t)
 :
 	var_base(

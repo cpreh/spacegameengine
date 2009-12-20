@@ -43,7 +43,7 @@ template<
 T
 find_member(
 	member_vector const &members,
-	sge::string const &name)
+	fcppt::string const &name)
 {
 	member_vector::const_iterator const it(
 		std::find_if(

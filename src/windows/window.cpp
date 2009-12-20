@@ -142,7 +142,7 @@ sge::windows::window::viewport_offset() const
 	);
 }
 
-sge::string const
+fcppt::string const
 sge::windows::window::title() const
 {
 	// TODO: read the length first!

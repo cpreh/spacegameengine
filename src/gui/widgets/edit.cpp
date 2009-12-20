@@ -88,7 +88,7 @@ sge::gui::widgets::edit::edit(
 {
 }
 
-sge::string const sge::gui::widgets::edit::text() const
+fcppt::string const sge::gui::widgets::edit::text() const
 {
 	return text_;
 }

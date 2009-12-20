@@ -60,14 +60,14 @@ public:
 
 	SGE_SYMBOL window(
 		dim_type const &sz,
-		sge::string const &title,
-		sge::string const &class_name);
+		fcppt::string const &title,
+		fcppt::string const &class_name);
 	SGE_SYMBOL ~window();
 
-	SGE_SYMBOL void title(sge::string const &t);
+	SGE_SYMBOL void title(fcppt::string const &t);
 	SGE_SYMBOL void size(dim_type const &newsize);
 	SGE_SYMBOL window::dim_type const size() const;
-	SGE_SYMBOL sge::string const title() const;
+	SGE_SYMBOL fcppt::string const title() const;
 	SGE_SYMBOL HWND hwnd() const;
 	SGE_SYMBOL signal::auto_connection
 	register_callback(

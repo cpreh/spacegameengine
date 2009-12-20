@@ -181,7 +181,7 @@ void sge::dinput::device::enum_objects(
 			FCPPT_TEXT("enumerating objects failed!"));
 }
 
-sge::string const &
+fcppt::string const &
 sge::dinput::device::name() const
 {
 	return name_;

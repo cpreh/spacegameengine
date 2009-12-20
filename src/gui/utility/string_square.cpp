@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/text.hpp>
 
-sge::string const sge::gui::utility::string_square(dim const &s)
+fcppt::string const sge::gui::utility::string_square(dim const &s)
 {
 	string const line(
 		static_cast<string::size_type>(s.w()),

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 sge::gui::exception::exception(
-	sge::string const &what)
+	fcppt::string const &what)
 :
 	sge::exception(FCPPT_TEXT("gui: ")+what)
 {

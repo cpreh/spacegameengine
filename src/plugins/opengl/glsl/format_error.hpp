@@ -36,7 +36,7 @@ template<
 	typename Function,
 	typename Id
 >
-sge::string const
+fcppt::string const
 format_error(
 	Function const &function,
 	Id const &id

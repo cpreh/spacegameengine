@@ -61,7 +61,7 @@ sge::gui::widgets::label::label(
 {
 }
 
-sge::string const sge::gui::widgets::label::text() const
+fcppt::string const sge::gui::widgets::label::text() const
 {
 	return text_;
 }

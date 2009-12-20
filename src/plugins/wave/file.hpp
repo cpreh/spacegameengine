@@ -39,7 +39,7 @@ public:
 	explicit file(
 		filesystem::path const &);
 
-	sge::string const to_string() const;
+	fcppt::string const to_string() const;
 
 	audio::sample_count bits_per_sample() const { return bits_per_sample_; }
 	audio::sample_count sample_rate() const { return sample_rate_; }

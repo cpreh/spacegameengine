@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-sge::string const
+fcppt::string const
 get_key_name(
 	KeySym const ks);
 
@@ -89,13 +89,13 @@ sge::x11input::keyboard_key(
 namespace
 {
 
-sge::string const
+fcppt::string const
 get_key_name(
 	KeySym const ks)
 {
 	typedef std::map<
 		KeySym,
-		sge::string
+		fcppt::string
 	> name_map;
 
 	static name_map names;

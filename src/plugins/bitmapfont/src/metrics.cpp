@@ -108,7 +108,7 @@ sge::bitmapfont::metrics::metrics(
 			).members
 		);
 
-		sge::string const name(
+		fcppt::string const name(
 			parse::json::find_member<
 				string
 			>(

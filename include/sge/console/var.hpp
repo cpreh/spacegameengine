@@ -36,11 +36,11 @@ public:
 
 	var(
 		object &,
-		sge::string const &name,
+		fcppt::string const &name,
 		value_type const & = value_type());
 
-	void string(sge::string const &);
-	sge::string const string() const;
+	void string(fcppt::string const &);
+	fcppt::string const string() const;
 
 	value_type const &value() const;
 	void value(value_type const &);

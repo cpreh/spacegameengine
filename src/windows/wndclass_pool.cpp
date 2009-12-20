@@ -34,7 +34,7 @@ typedef sge::weak_ptr<
 > wndclass_weak_ptr;
 
 typedef std::map<
-	sge::string,
+	fcppt::string,
 	wndclass_weak_ptr
 > wndclass_map;
 

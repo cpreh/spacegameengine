@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/iconv.hpp>
 
-sge::string const
+fcppt::string const
 sge::opengl::get_string(
 	GLenum const what)
 {

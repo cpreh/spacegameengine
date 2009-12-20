@@ -63,11 +63,11 @@ void sge::gui::canvas::object::draw_line(
 	if (!contains_point(area(),a) || !contains_point(area(),b))
 		throw exception(
 			FCPPT_TEXT("tried to draw line from ")+
-			sge::lexical_cast<sge::string>(a)+
+			sge::lexical_cast<fcppt::string>(a)+
 			FCPPT_TEXT(" to ")+
-			sge::lexical_cast<sge::string>(b)+
+			sge::lexical_cast<fcppt::string>(b)+
 			FCPPT_TEXT(" in ")+
-			sge::lexical_cast<sge::string>(area()));
+			sge::lexical_cast<fcppt::string>(area()));
 
 	// increment in each direction, is also diagonal step
 	point const dd = apply(b-a,std::tr1::bind(&fcppt::math::signum<unit>,std::tr1::placeholders::_1));
