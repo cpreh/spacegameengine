@@ -18,24 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef FCPPT_TEXTURE_PART_HPP_INCLUDED
-#define FCPPT_TEXTURE_PART_HPP_INCLUDED
+#ifndef SGE_TEXTURE_PART_HPP_INCLUDED
+#define SGE_TEXTURE_PART_HPP_INCLUDED
 
+#include <sge/texture/part_fwd.hpp>
+#include <sge/texture/fragmented_fwd.hpp>
 #include <sge/renderer/texture_fwd.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/image/view/const_object.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/texture/part_fwd.hpp>
 
 namespace sge
 {
 namespace texture
 {
 
-class fragmented;
-
-class SGE_CLASS_SYMBOL part {
+class SGE_CLASS_SYMBOL part
+{
 	FCPPT_NONCOPYABLE(part)
 protected:
 	SGE_SYMBOL part();
@@ -44,7 +44,7 @@ public:
 
 	virtual void
 	data(
-		image::view::const_object const &src
+		image::view::const_object const &
 	) = 0;
 
 	virtual renderer::lock_rect const &

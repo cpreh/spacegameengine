@@ -1,3 +1,4 @@
+
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
@@ -18,27 +19,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TIME_RESOLUTION_HPP_INCLUDED
-#define SGE_TIME_RESOLUTION_HPP_INCLUDED
+#ifndef SGE_RENDERER_TARGET_PTR_HPP_INCLUDED
+#define SGE_RENDERER_TARGET_PTR_HPP_INCLUDED
 
-#include <sge/time/resolution_fwd.hpp>
-#include <sge/time/unit.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/target_fwd.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
-namespace time
+namespace renderer
 {
 
-class resolution {
-public:
-	SGE_SYMBOL explicit resolution(
-		unit);
+typedef fcppt::shared_ptr<
+	target
+> target_ptr;
 
-	SGE_SYMBOL unit get() const;
-private:
-	unit res_;
-};
+typedef fcppt::shared_ptr<
+	target const
+> const_target_ptr;
 
 }
 }

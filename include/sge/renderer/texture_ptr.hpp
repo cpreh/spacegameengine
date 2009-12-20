@@ -18,22 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONSOLE_FUNCTION_MAP_HPP_INCLUDED
-#define SGE_CONSOLE_FUNCTION_MAP_HPP_INCLUDED
+#ifndef SGE_RENDERER_TEXTURE_PTR_HPP_INCLUDED
+#define SGE_RENDERER_TEXTURE_PTR_HPP_INCLUDED
 
-#include <sge/console/function.hpp>
-#include <fcppt/string.hpp>
-#include <boost/ptr_container/ptr_map.hpp>
+#include <sge/renderer/texture_fwd.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
-namespace console
+namespace renderer
 {
 
-typedef boost::ptr_map<
-	fcppt::string,
-	function
-> function_map;
+typedef fcppt::shared_ptr<
+	texture
+> texture_ptr;
+
+typedef fcppt::shared_ptr<
+	texture const
+> const_texture_ptr;
 
 }
 }

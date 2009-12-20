@@ -21,36 +21,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_MATERIAL_HPP_INCLUDED
 #define SGE_RENDERER_MATERIAL_HPP_INCLUDED
 
-#include <sge/image/color/any/object.hpp>
+#include <sge/renderer/material_fwd.hpp>
 #include <sge/renderer/any_arithmetic.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/symbol.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-class material {
+class material
+{
 public:
 	SGE_SYMBOL material(
 		image::color::any::object const &diffuse,
 		image::color::any::object const &ambient,
 		image::color::any::object const &specular,
 		image::color::any::object const &emissive,
-		any_arithmetic const &power);
+		any_arithmetic const &power
+	);
 
-	SGE_SYMBOL image::color::any::object const &diffuse() const;
-	SGE_SYMBOL image::color::any::object const &ambient() const;
-	SGE_SYMBOL image::color::any::object const &specular() const;
-	SGE_SYMBOL image::color::any::object const &emissive() const;
-	SGE_SYMBOL any_arithmetic const &power() const;
+	SGE_SYMBOL image::color::any::object const &
+	diffuse() const;
+
+	SGE_SYMBOL image::color::any::object const &
+	ambient() const;
+
+	SGE_SYMBOL image::color::any::object const &
+	specular() const;
+
+	SGE_SYMBOL image::color::any::object const &
+	emissive() const;
+
+	SGE_SYMBOL any_arithmetic const &
+	power() const;
 private:
 	image::color::any::object
 		diffuse_,
 		ambient_,
 		specular_,
 		emissive_;
+	
 	any_arithmetic power_;
 };
 

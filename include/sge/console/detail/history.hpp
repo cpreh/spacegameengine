@@ -35,6 +35,7 @@ namespace console
 {
 namespace detail
 {
+
 class history
 {
 public:
@@ -59,11 +60,24 @@ public:
 		unit height
 	) const;
 
-	void up();
-	void down();
-	void push_front(string const &);
-	void push_back(string const &);
-	fcppt::string const current() const;
+	void
+	up();
+
+	void
+	down();
+
+	void
+	push_front(
+		fcppt::string const &
+	);
+
+	void
+	push_back(
+		fcppt::string const &
+	);
+
+	fcppt::string const
+	current() const;
 private:
 	container items_;
 	iterator pos_;

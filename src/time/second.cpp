@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::time::resolution const
 sge::time::second(
-	unit const tm)
+	unit const tm
+)
 {
 	return resolution(
 		tm * hz());

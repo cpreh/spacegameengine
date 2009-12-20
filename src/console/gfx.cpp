@@ -27,15 +27,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text_size.hpp>
 #include <sge/font/pos.hpp>
 #include <sge/time/second_f.hpp>
-#include <sge/time/resolution.hpp>
-#include <sge/container/map_impl.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/vector/structure_cast.hpp>
 #include <sge/sprite/external_system_impl.hpp>
 #include <sge/sprite/render_one.hpp>
-#include <sge/make_shared_ptr.hpp>
+#include <fcppt/container/map_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <boost/foreach.hpp>
-#include <tr1/functional>
 #include <locale>
 
 sge::console::gfx::gfx(

@@ -1,3 +1,4 @@
+
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
@@ -18,22 +19,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONSOLE_FUNCTION_MAP_HPP_INCLUDED
-#define SGE_CONSOLE_FUNCTION_MAP_HPP_INCLUDED
+#ifndef SGE_RENDERER_CUBE_TEXTURE_PTR_HPP_INCLUDED
+#define SGE_RENDERER_CUBE_TEXTURE_PTR_HPP_INCLUDED
 
-#include <sge/console/function.hpp>
-#include <fcppt/string.hpp>
-#include <boost/ptr_container/ptr_map.hpp>
+#include <sge/renderer/cube_texture_fwd.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
-namespace console
+namespace renderer
 {
 
-typedef boost::ptr_map<
-	fcppt::string,
-	function
-> function_map;
+typedef fcppt::shared_ptr<
+	cube_texture
+> cube_texture_ptr;
+
+typedef fcppt::shared_ptr<
+	cube_texture const
+> const_cube_texture_ptr;
 
 }
 }

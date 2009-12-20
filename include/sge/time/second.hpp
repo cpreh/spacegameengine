@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TIME_SECOND_HPP_INCLUDED
 
 #include <sge/time/unit.hpp>
-#include <sge/time/resolution.hpp>
+#include <sge/time/duration.hpp>
 #include <sge/symbol.hpp>
 
 namespace sge
@@ -30,9 +30,10 @@ namespace sge
 namespace time
 {
 
-SGE_SYMBOL resolution const
+SGE_SYMBOL duration const
 second(
-	unit);
+	unit
+);
 
 }
 }

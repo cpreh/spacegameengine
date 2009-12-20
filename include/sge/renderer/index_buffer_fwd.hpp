@@ -21,17 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDEX_BUFFER_FWD_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_BUFFER_FWD_HPP_INCLUDED
 
-#include <sge/shared_ptr.hpp>
-
 namespace sge
 {
 namespace renderer
 {
 
 class index_buffer;
-
-typedef shared_ptr<index_buffer> index_buffer_ptr;
-typedef shared_ptr<index_buffer const> const_index_buffer_ptr;
 
 }
 }

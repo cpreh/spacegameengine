@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef FCPPT_TEXTURE_ADD_IMAGE_HPP_INCLUDED
-#define FCPPT_TEXTURE_ADD_IMAGE_HPP_INCLUDED
+#ifndef SGE_TEXTURE_ADD_IMAGE_HPP_INCLUDED
+#define SGE_TEXTURE_ADD_IMAGE_HPP_INCLUDED
 
-#include <fcppt/texture/part_fwd.hpp>
+#include <sge/texture/manager_fwd.hpp>
+#include <sge/texture/part_fwd.hpp>
 #include <sge/image/file_fwd.hpp>
 #include <sge/symbol.hpp>
 
@@ -30,12 +31,11 @@ namespace sge
 namespace texture
 {
 
-class manager;
-
 SGE_SYMBOL part_ptr const
 add_image(
 	manager &,
-	image::file_ptr);
+	image::file_ptr
+);
 
 }
 }

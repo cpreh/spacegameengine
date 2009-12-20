@@ -1,3 +1,4 @@
+
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
@@ -18,23 +19,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TIME_FUN_HPP_INCLUDED
-#define SGE_TIME_FUN_HPP_INCLUDED
+#ifndef SGE_RENDERER_NONINDEXED_PRIMITIVE_COUNT_HPP_INCLUDED
+#define SGE_RENDERER_NONINDEXED_PRIMITIVE_COUNT_HPP_INCLUDED
 
-#include <sge/time/unit.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <sge/symbol.hpp>
-#include <sge/function/object.hpp>
 
 namespace sge
 {
-namespace time
+namespace renderer
 {
 
-typedef sge::function::object<unit()> fun;
-
-SGE_SYMBOL fun const default_time_fun();
-SGE_SYMBOL void default_time_fun(fun const &);
-
+SGE_SYMBOL size_type
+nonindexed_primitive_count(
+	size_type vertex_count,
+	nonindexed_primitive_type::type
+);
 }
 }
 

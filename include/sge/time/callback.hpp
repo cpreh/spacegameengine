@@ -18,22 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONSOLE_FUNCTION_MAP_HPP_INCLUDED
-#define SGE_CONSOLE_FUNCTION_MAP_HPP_INCLUDED
+#ifndef SGE_TIME_CALLBACK_HPP_INCLUDED
+#define SGE_TIME_CALLBACK_HPP_INCLUDED
 
-#include <sge/console/function.hpp>
-#include <fcppt/string.hpp>
-#include <boost/ptr_container/ptr_map.hpp>
+#include <sge/time/unit.hpp>
+#include <fcppt/function/object.hpp>
 
 namespace sge
 {
-namespace console
+namespace time
 {
 
-typedef boost::ptr_map<
-	fcppt::string,
-	function
-> function_map;
+typedef sge::function::object<
+	unit()
+> callback;
 
 }
 }

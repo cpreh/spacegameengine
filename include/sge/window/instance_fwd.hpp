@@ -21,16 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WINDOW_INSTANCE_FWD_HPP_INCLUDED
 #define SGE_WINDOW_INSTANCE_FWD_HPP_INCLUDED
 
-#include <sge/shared_ptr.hpp>
-
 namespace sge
 {
 namespace window
 {
 
 class instance;
-
-typedef shared_ptr<instance> instance_ptr;
 
 }
 }

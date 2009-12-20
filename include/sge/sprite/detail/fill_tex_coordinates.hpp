@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/fill_tex_coordinates_impl.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/with_texture.hpp>
-#include <fcppt/texture/part.hpp>
+#include <sge/texture/part.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/utility/enable_if.hpp>
 

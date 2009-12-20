@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/with_color.hpp>
 #include <sge/sprite/with_texture.hpp>
 #include <sge/renderer/vf/format.hpp>
-#include <sge/mpl/inner.hpp>
+#include <fcppt/mpl/inner.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/mpl/pair.hpp>
 #include <boost/mpl/contains.hpp>
@@ -85,7 +85,7 @@ public:
 				>,
 				boost::mpl::push_back<
 					boost::mpl::_1,
-					sge::mpl::inner<
+					fcppt::mpl::inner<
 						boost::mpl::second<
 							boost::mpl::_2
 						>

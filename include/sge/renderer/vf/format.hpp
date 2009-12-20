@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_FORMAT_HPP_INCLUDED
 #define SGE_RENDERER_VF_FORMAT_HPP_INCLUDED
 
-#include <sge/mpl/partial_sums.hpp>
-#include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/vf/element_stride.hpp>
+#include <sge/renderer/raw_pointer.hpp>
+#include <fcppt/mpl/partial_sums.hpp>
 #include <boost/mpl/transform.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/placeholders.hpp>
@@ -39,7 +39,8 @@ template<
 	typename ElementList,
 	bool IsConst = false
 >
-struct format {
+struct format
+{
 	typedef ElementList elements;
 
 	typedef format<
@@ -54,7 +55,7 @@ struct format {
 		>
 	>::type strides;
 
-	typedef typename mpl::partial_sums<
+	typedef typename fcppt::mpl::partial_sums<
 		strides
 	>::type offsets;
 

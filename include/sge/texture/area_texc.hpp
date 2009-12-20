@@ -21,17 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef FCPPT_TEXTURE_AREA_TEXC_HPP_INCLUDED
 #define FCPPT_TEXTURE_AREA_TEXC_HPP_INCLUDED
 
-#include <fcppt/texture/part_fwd.hpp>
-#include <fcppt/texture/part.hpp>
+#include <sge/texture/part_ptr.hpp>
+#include <sge/texture/part.hpp>
 #include <sge/renderer/lock_rect_to_coords.hpp>
 #include <sge/renderer/texture.hpp>
+#include <sge/log/global.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/box/rect.hpp>
 #include <fcppt/math/compare.hpp>
-#include <sge/log/headers.hpp>
-#include <sge/log/global.hpp>
+#include <fcppt/log/headers.hpp>
 #include <ostream>
 
 namespace sge
@@ -57,7 +57,7 @@ area_texc(
 	)
 		FCPPT_LOG_WARNING(
 			log::global(),
-			log::_
+			fcppt::log::_
 				<< FCPPT_TEXT("texture not repeatable but repetition is ")
 				<< repeat
 				<< FCPPT_TEXT('!')
