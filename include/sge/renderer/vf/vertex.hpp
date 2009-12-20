@@ -84,7 +84,7 @@ public:
 		T const &t
 	)
 	{
-		typedef typename mpl::find_nth<
+		typedef typename fcppt::mpl::find_nth<
 			elements,
 			Field,
 			boost::mpl::integral_c<
@@ -117,7 +117,7 @@ public:
 	typename Field::packed_type
 	get() const
 	{
-		typedef typename mpl::find_nth<
+		typedef typename fcppt::mpl::find_nth<
 			elements,
 			Field,
 			boost::mpl::integral_c<

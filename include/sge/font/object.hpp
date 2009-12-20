@@ -25,13 +25,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/pos.hpp>
 #include <sge/font/dim.hpp>
 #include <sge/font/unit.hpp>
-#include <sge/font/drawer_fwd.hpp>
-#include <sge/font/metrics_fwd.hpp>
+#include <sge/font/drawer_ptr.hpp>
+#include <sge/font/metrics_ptr.hpp>
 #include <sge/font/align_h.hpp>
 #include <sge/font/align_v.hpp>
 #include <sge/font/flags.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/char_type.hpp>
 
 namespace sge
 {
@@ -86,7 +87,7 @@ public:
 
 	SGE_SYMBOL unit
 	char_space(
-		char_type ch
+		fcppt::char_type ch
 	) const;
 
 	SGE_SYMBOL metrics_ptr const

@@ -33,7 +33,7 @@ namespace texture
 namespace detail
 {
 
-typedef variant::object<
+typedef fcppt::variant::object<
 	boost::mpl::vector2<
 		fragmented_queue::iterator,
 		fragmented_list::iterator

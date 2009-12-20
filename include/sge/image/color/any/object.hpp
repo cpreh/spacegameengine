@@ -33,7 +33,7 @@ namespace color
 namespace any
 {
 
-typedef variant::object<
+typedef fcppt::variant::object<
 	elements
 > object;
 

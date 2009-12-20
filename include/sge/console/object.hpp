@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CONSOLE_OBJECT_HPP_INCLUDED
 
 #include <sge/console/callback.hpp>
+#include <sge/console/fallback.hpp>
 #include <sge/console/fallback_signal.hpp>
 #include <sge/console/variable_map.hpp>
 #include <sge/console/function_map.hpp>
@@ -45,13 +46,13 @@ public:
 		fcppt::string::value_type prefix
 	);
 
-	SGE_SYMBOL sge::signal::auto_connection insert(
+	SGE_SYMBOL fcppt::signal::auto_connection insert(
 		fcppt::string const &name,
 		callback const &,
 		fcppt::string const &description = fcppt::string()
 	);
 
-	SGE_SYMBOL sge::signal::auto_connection
+	SGE_SYMBOL fcppt::signal::auto_connection
 	register_fallback(
 		fallback const &
 	);

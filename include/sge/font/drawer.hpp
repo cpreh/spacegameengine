@@ -49,7 +49,7 @@ public:
 
 	virtual void
 	draw_char(
-		char_type,
+		fcppt::char_type,
 		pos const &,
 		const_image_view const &data
 	) = 0;

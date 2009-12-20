@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/second_f.hpp>
 #include <sge/sprite/external_system_impl.hpp>
 #include <sge/sprite/render_one.hpp>
+#include <sge/exception.hpp>
 #include <fcppt/container/map_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
@@ -49,7 +50,7 @@ sge::console::gfx::gfx(
 	object_(_object),
 	fn(
 		_metrics,
-		make_shared_ptr<
+		fcppt::make_shared_ptr<
 			font::drawer_3d
 		>(
 			_rend,
@@ -106,7 +107,7 @@ sge::console::gfx::draw()
 
 	font::unit current_y = static_cast<font::unit>(bg.y()+bg.h()-2*fn.height());
 	BOOST_FOREACH(
-		string const s,
+		fcppt::string const s,
 		output_history_.lines_inside(
 			detail::history::rect(
 				fcppt::math::vector::structure_cast<detail::history::point>(
@@ -131,7 +132,7 @@ sge::console::gfx::draw()
 		current_y -= fn.height();
 	}
 
-	string const il = input_line_.edited(cursor_active_);
+	fcppt::string const il = input_line_.edited(cursor_active_);
 
 	fn.draw_text(
 		il,
@@ -146,34 +147,45 @@ sge::console::gfx::draw()
 		cursor_active_ = !cursor_active_;
 }
 
-bool sge::console::gfx::active() const
+bool
+sge::console::gfx::active() const
 {
 	return active_;
 }
 
-void sge::console::gfx::active(bool const _active)
+void
+sge::console::gfx::active(
+	bool const _active
+)
 {
 	active_ = _active;
 }
 
-void sge::console::gfx::print(string const &s)
+void
+sge::console::gfx::print(
+	fcppt::string const &s
+)
 {
 	output_history_.push_front(s);
 }
 
-sge::console::object &sge::console::gfx::object()
+sge::console::object &
+sge::console::gfx::object()
 {
 	return object_;
 }
 
-sge::console::object const &sge::console::gfx::object() const
+sge::console::object const &
+sge::console::gfx::object() const
 {
 	return object_;
 }
 
-void sge::console::gfx::key_callback(
+void
+sge::console::gfx::key_callback(
 	input::key_pair const &k,
-	input::modifier::states const &s)
+	input::modifier::states const &s
+)
 {
 	if (!active_)
 		return;
@@ -184,9 +196,11 @@ void sge::console::gfx::key_callback(
 			s);
 }
 
-void sge::console::gfx::key_action(
+void
+sge::console::gfx::key_action(
 	input::key_type const &k,
-	input::modifier::states const &s)
+	input::modifier::states const &s
+)
 {
 	if (!active_)
 		return;

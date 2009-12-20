@@ -38,9 +38,10 @@ template<
 void
 generate(
 	view const &v,
-	Gen const &gen)
+	Gen const &gen
+)
 {
-	variant::apply_unary(
+	fcppt::variant::apply_unary(
 		detail::generate_visitor<Gen>(
 			gen
 		),

@@ -18,36 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_VIEW_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_VIEW_HPP_INCLUDED
+#ifndef SGE_TEXTURE_ON_ALLOC_FUNCTION_HPP_INCLUDED
+#define SGE_TEXTURE_ON_ALLOC_FUNCTION_HPP_INCLUDED
 
-#include <sge/renderer/index/view_16.hpp>
-#include <sge/renderer/index/view_32.hpp>
-#include <fcppt/variant/object_fwd.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <sge/texture/fragmented_auto_ptr.hpp>
+#include <fcppt/function/object.hpp>
 
 namespace sge
 {
-namespace renderer
-{
-namespace index
+namespace texture
 {
 
-typedef fcppt::variant::object<
-	boost::mpl::vector2<
-		view_16,
-		view_32
-	>
-> view;
+typedef fcppt::function::object<
+	fragmented_auto_ptr ()
+> on_alloc_function;
 
-typedef fcppt::variant::object<
-	boost::mpl::vector2<
-		const_view_16,
-		const_view_32
-	>
-> const_view;
-
-}
 }
 }
 

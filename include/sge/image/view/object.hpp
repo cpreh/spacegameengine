@@ -31,7 +31,7 @@ namespace image
 namespace view
 {
 
-typedef variant::object<
+typedef fcppt::variant::object<
 	elements
 > object;
 

@@ -26,17 +26,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/detail/cursor.hpp>
 #include <sge/console/sprite_system.hpp>
 #include <sge/console/sprite_object.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/device_ptr.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <sge/font/metrics_fwd.hpp>
+#include <sge/font/metrics_ptr.hpp>
 #include <sge/font/object.hpp>
-#include <sge/input/system_fwd.hpp>
+#include <sge/input/system_ptr.hpp>
 #include <sge/input/modifier/filter.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/external_system_decl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
@@ -71,7 +72,7 @@ public:
 
 	SGE_SYMBOL void
 	print(
-		string const &
+		fcppt::string const &
 	);
 
 	SGE_SYMBOL sge::console::object &
@@ -114,7 +115,10 @@ private:
 		input::modifier::states const &
 	);
 
-	void tab_complete(string &);
+	void
+	tab_complete(
+		fcppt::string &
+	);
 };
 
 }

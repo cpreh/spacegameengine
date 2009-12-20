@@ -29,6 +29,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/indexed_primitive_type.hpp>
+#include <sge/renderer/first_vertex.hpp>
+#include <sge/renderer/vertex_count.hpp>
+#include <sge/renderer/primitive_count.hpp>
+#include <sge/renderer/first_index.hpp>
 #include <iterator>
 
 namespace sge
@@ -91,11 +95,19 @@ render(
 		rend->render(
 			vb,
 			ib,
-			offset * detail::vertices_per_sprite,
-			num_objects * detail::vertices_per_sprite,
+			renderer::first_vertex(
+				offset * detail::vertices_per_sprite
+			),
+			renderer::vertex_count(
+				num_objects * detail::vertices_per_sprite
+			),
 			renderer::indexed_primitive_type::triangle,
-			num_objects * 2,
-			offset * detail::indices_per_sprite
+			renderer::primitive_count(
+				num_objects * 2
+			),
+			renderer::first_index(
+				offset * detail::indices_per_sprite
+			)
 		);
 
 		offset += num_objects;

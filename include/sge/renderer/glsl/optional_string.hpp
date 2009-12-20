@@ -31,7 +31,7 @@ namespace renderer
 namespace glsl
 {
 
-typedef optional<
+typedef fcppt::optional<
 	string
 > optional_string;
 

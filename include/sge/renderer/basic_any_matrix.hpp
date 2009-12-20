@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/object_fwd.hpp>
 #include <fcppt/math/matrix/static.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/restrict_typedef_struct.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 
 namespace sge
@@ -36,9 +37,9 @@ template<
 	size_type N,
 	size_type M
 >
-class basic_any_matrix {
-public:
-	typedef typename variant::object<
+struct basic_any_matrix
+{
+	typedef typename fcppt::variant::object<
 		boost::mpl::vector2<
 			typename fcppt::math::matrix::static_<
 				float,
@@ -52,6 +53,8 @@ public:
 			>::type
 		>
 	> type;
+
+	FCPPT_RESTRICT_TYPEDEF_STRUCT(basic_any_matrix)
 };
 
 }

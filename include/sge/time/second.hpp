@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/unit.hpp>
 #include <sge/time/duration.hpp>
 #include <sge/symbol.hpp>
+#include <fcppt/chrono/duration_impl.hpp>
 
 namespace sge
 {

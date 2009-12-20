@@ -31,7 +31,7 @@ namespace renderer
 namespace glsl
 {
 
-typedef optional<
+typedef fcppt::optional<
 	istream_ref
 > optional_istream;
 

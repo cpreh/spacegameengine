@@ -22,13 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TEXTURE_MANAGER_HPP_INCLUDED
 
 #include <sge/texture/part_ptr.hpp>
+#include <sge/texture/on_alloc_function.hpp>
 #include <sge/texture/fragmented_fwd.hpp>
-#include <sge/texture/fragmented_auto_ptr.hpp>
 #include <sge/texture/detail/container_position.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/device_ptr.hpp>
 #include <sge/image/view/const_object.hpp>
 #include <sge/symbol.hpp>
-#include <fcppt/function/object.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -40,13 +39,9 @@ class manager
 {
 	FCPPT_NONCOPYABLE(manager)
 public:
-	typedef sge::function::object<
-		fragmented_auto_ptr ()
-	> onalloc_function;
-
 	SGE_SYMBOL manager(
 		sge::renderer::device_ptr rend,
-		onalloc_function const &
+		on_alloc_function const &
 	);
 
 	SGE_SYMBOL ~manager();
@@ -60,8 +55,8 @@ public:
 	renderer() const;
 
 	SGE_SYMBOL void
-	onalloc(
-		onalloc_function const &
+	on_alloc(
+		on_alloc_function const &
 	);
 
 	SGE_SYMBOL void
@@ -75,11 +70,13 @@ private:
 		fragmented const &
 	);
 
-	sge::renderer::device_ptr const     rend;
-	onalloc_function                    onalloc_;
+	sge::renderer::device_ptr const rend;
 
-	detail::fragmented_queue            free_textures;
-	detail::fragmented_list             full_textures;
+	on_alloc_function on_alloc_;
+
+	detail::fragmented_queue free_textures;
+
+	detail::fragmented_list full_textures;
 };
 
 }

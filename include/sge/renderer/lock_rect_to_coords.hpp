@@ -73,11 +73,11 @@ lock_rect_to_coords(
 	);
 
 	return ret_type(
-		typename ret_type::pos_type(
+		typename ret_type::vector(
 			srect.left() / sdim.w(),
 			srect.top() / sdim.h()
 		),
-		srect.dim() / sdim
+		srect.dimension() / sdim
 	);
 }
 

@@ -33,7 +33,7 @@ namespace renderer
 namespace vf
 {
 
-typedef variant::object<
+typedef fcppt::variant::object<
 	boost::mpl::vector2<
 		dynamic_vector,
 		dynamic_color

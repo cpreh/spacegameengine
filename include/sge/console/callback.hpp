@@ -29,7 +29,7 @@ namespace sge
 namespace console
 {
 
-typedef fcppt:::function::object<
+typedef fcppt::function::object<
 	callback_type
 > callback;
 

@@ -29,7 +29,7 @@ namespace sge
 namespace time
 {
 
-typedef sge::function::object<
+typedef fcppt::function::object<
 	unit()
 > callback;
 

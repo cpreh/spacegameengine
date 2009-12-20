@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/variable_map.hpp>
 #include <sge/console/function_map.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/char_type.hpp>
 
 namespace sge
 {
@@ -36,20 +37,54 @@ class cursor
 {
 public:
 	cursor();
-	void reset();
-	fcppt::string const edited(bool) const;
-	fcppt::string const string() const;
-	void string(fcppt::string const &);
-	void erase_word();
-	void erase_char();
-	void left();
-	void right();
-	void to_start();
-	void to_end();
-	bool empty() const;
-	void insert(char_type);
-	bool at_start() const;
-	void complete_word(
+
+	void
+	reset();
+
+	fcppt::string const
+	edited(
+		bool
+	) const;
+
+	fcppt::string const
+	string() const;
+
+	void
+	string(
+		fcppt::string const &
+	);
+
+	void
+	erase_word();
+
+	void
+	erase_char();
+
+	void
+	left();
+
+	void
+	right();
+
+	void
+	to_start();
+
+	void
+	to_end();
+
+	bool
+	empty() const;
+
+	void
+	insert(
+		fcppt::char_type
+	);
+
+	bool
+	at_start() const;
+
+	void
+	complete_word(
 		variable_map const &,
 		function_map const &
 	);
