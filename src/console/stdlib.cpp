@@ -21,13 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/stdlib.hpp>
 #include <sge/console/object.hpp>
 #include <sge/console/exception.hpp>
-#include <sge/assign/make_container.hpp>
-#include <sge/signal/connection_manager.hpp>
-#include <sge/signal/shared_connection.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/signal/connection_manager.hpp>
+#include <fcppt/signal/shared_connection.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>
-#include <sge/lexical_cast.hpp>
+#include <fcppt/lexical_cast.hpp>
 #include <boost/foreach.hpp>
-#include <tr1/functional>
 
 sge::console::stdlib::stdlib(
 	object &_object,
@@ -39,9 +39,11 @@ sge::console::stdlib::stdlib(
 	print_(_print),
 	error_(_error),
 		connections(
-			assign::make_container<sge::signal::connection_manager::container>
+			fcppt::assign::make_container<
+				fcppt::signal::connection_manager::container
+			>
 			(
-				sge::signal::shared_connection(
+				fcppt::signal::shared_connection(
 					object_.insert(
 						FCPPT_TEXT("get"),
 						std::tr1::bind(
@@ -54,7 +56,7 @@ sge::console::stdlib::stdlib(
 				)
 			)
 			(
-				sge::signal::shared_connection(
+				fcppt::signal::shared_connection(
 					object_.insert(
 						FCPPT_TEXT("set"),
 						std::tr1::bind(
@@ -67,7 +69,7 @@ sge::console::stdlib::stdlib(
 				)
 			)
 			(
-				sge::signal::shared_connection(
+				fcppt::signal::shared_connection(
 					object_.insert(
 						FCPPT_TEXT("help"),
 						std::tr1::bind(
@@ -80,7 +82,7 @@ sge::console::stdlib::stdlib(
 				)
 			)
 			(
-				sge::signal::shared_connection(
+				fcppt::signal::shared_connection(
 					object_.insert(
 						FCPPT_TEXT("lsfuncs"),
 						std::tr1::bind(
@@ -93,7 +95,7 @@ sge::console::stdlib::stdlib(
 				)
 			)
 			(
-				sge::signal::shared_connection(
+				fcppt::signal::shared_connection(
 					object_.insert(
 						FCPPT_TEXT("lsvars"),
 						std::tr1::bind(
@@ -106,7 +108,7 @@ sge::console::stdlib::stdlib(
 				)
 			)
 			(
-				sge::signal::shared_connection(
+				fcppt::signal::shared_connection(
 					object_.insert(
 						FCPPT_TEXT("man"),
 						std::tr1::bind(
@@ -129,7 +131,7 @@ void sge::console::stdlib::fn_get(arg_list const &v)
 		error_(FCPPT_TEXT("no variable given"));
 		return;
 	}
-	string const arg = v[1];
+	fcppt::string const arg = v[1];
 	variable_map const &vars = object_.variables();
 	variable_map::const_iterator i = vars.find(arg);
 	if (i == vars.end())
@@ -147,8 +149,8 @@ void sge::console::stdlib::fn_set(arg_list const &v)
 		error_(FCPPT_TEXT("not enough arguments or empty variable name"));
 		return;
 	}
-	string const arg = v[1];
-	string const value = v[2];
+	fcppt::string const arg = v[1];
+	fcppt::string const value = v[2];
 	variable_map &vars = object_.variables();
 	variable_map::iterator i = vars.find(arg);
 	if (i == vars.end())
@@ -172,7 +174,14 @@ void sge::console::stdlib::fn_help(arg_list const &)
 {
 	function_map const &fns = object_.functions();
 
-	print_(lexical_cast<string>(fns.size())+FCPPT_TEXT(" available functions:"));
+	print_(
+		fcppt::lexical_cast<
+			fcppt::string
+		>(
+			fns.size()
+		)
+		+ FCPPT_TEXT(" available functions:")
+	);
 
 	BOOST_FOREACH(function_map::const_reference p,fns)
 		print_function(p);
@@ -182,7 +191,14 @@ void sge::console::stdlib::fn_lsvars(arg_list const &)
 {
 	variable_map const &vars = object_.variables();
 
-	print_(lexical_cast<string>(vars.size())+FCPPT_TEXT(" available variables:"));
+	print_(
+		fcppt::lexical_cast<
+			fcppt::string
+		>(
+			vars.size()
+		)
+		+ FCPPT_TEXT(" available variables:")
+	);
 
 	BOOST_FOREACH(variable_map::const_reference p,vars)
 		print_(p.first+FCPPT_TEXT('=')+p.second->string());

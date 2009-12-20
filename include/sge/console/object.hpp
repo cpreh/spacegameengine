@@ -43,7 +43,7 @@ class SGE_CLASS_SYMBOL object
 	FCPPT_NONCOPYABLE(object)
 public:
 	SGE_SYMBOL explicit object(
-		fcppt::string::value_type prefix
+		fcppt::char_type prefix
 	);
 
 	SGE_SYMBOL fcppt::signal::auto_connection insert(

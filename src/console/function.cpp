@@ -20,15 +20,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/console/function.hpp>
 
-sge::console::function::function(string const &_description)
-	: description_(_description) {}
+sge::console::function::function(
+	fcppt::string const &_description
+)
+:
+	description_(_description)
+{}
 
-sge::console::signal &sge::console::function::signal()
+sge::console::signal &
+sge::console::function::signal()
 {
 	return signal_;
 }
 
-sge::string const &sge::console::function::description() const
+fcppt::string const &
+sge::console::function::description() const
 {
 	return description_;
 }

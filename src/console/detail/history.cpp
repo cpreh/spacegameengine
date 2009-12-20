@@ -23,8 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key_type.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/almost_zero.hpp>
-#include <sge/assert.hpp>
+#include <fcppt/assert.hpp>
 #include <boost/next_prior.hpp>
+#include <iterator>
 
 sge::console::detail::history::history()
 :
@@ -34,47 +35,57 @@ sge::console::detail::history::history()
 }
 
 sge::console::detail::history::iterator_pair const
-	sge::console::detail::history::lines_inside(
+sge::console::detail::history::lines_inside(
 	rect const &r,
-	unit const height) const
+	unit const height
+) const
 {
-	SGE_ASSERT(!fcppt::math::almost_zero(height));
+	FCPPT_ASSERT(!fcppt::math::almost_zero(height));
 
 	// draw history
 	unit const total_lines = static_cast<unit>(r.h()/height);
 
 	// go from pos_ to min(pos_+total_lines,end)
 	const_iterator it = pos_;
-	for (unit i = static_cast<unit>(0);
-	     i < total_lines && it != items_.end();
-			 ++i)
+	for (
+		unit i = static_cast<unit>(0);
+		i < total_lines && it != items_.end();
+		++i
+	)
 		++it;
 
 	return boost::make_iterator_range(
 		const_iterator(pos_),
-		const_iterator(it));
+		const_iterator(it)
+	);
 }
 
-void sge::console::detail::history::up()
+void
+sge::console::detail::history::up()
 {
 	if (pos_ == --items_.end())
 		return;
 	pos_ = boost::next(pos_);
 }
 
-void sge::console::detail::history::down()
+void
+sge::console::detail::history::down()
 {
 	if (pos_ == items_.begin())
 		return;
 	pos_ = boost::prior(pos_);
 }
 
-sge::string const sge::console::detail::history::current() const
+fcppt::string const
+sge::console::detail::history::current() const
 {
 	return *pos_;
 }
 
-void sge::console::detail::history::push_front(string const &s)
+void
+sge::console::detail::history::push_front(
+	fcppt::string const &s
+)
 {
 	iterator::difference_type const d =
 		std::distance(
@@ -84,12 +95,17 @@ void sge::console::detail::history::push_front(string const &s)
 	pos_ = boost::next(items_.begin(),d);
 }
 
-void sge::console::detail::history::push_back(string const &s)
+void
+sge::console::detail::history::push_back(
+	fcppt::string const &s
+)
 {
-	iterator::difference_type const d =
+	iterator::difference_type const d(
 		std::distance(
 			items_.begin(),
-			pos_);
+			pos_
+		)
+	);
 	items_.push_back(s);
 	pos_ = boost::next(items_.begin(),d);
 }

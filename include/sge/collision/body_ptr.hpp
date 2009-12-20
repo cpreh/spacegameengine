@@ -18,20 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_COLLISION_OPTIONAL_RECT_HPP_INCLUDED
-#define SGE_COLLISION_OPTIONAL_RECT_HPP_INCLUDED
+#ifndef SGE_COLLISION_BODY_PTR_HPP_INCLUDED
+#define SGE_COLLISION_BODY_PTR_HPP_INCLUDED
 
-#include <sge/collision/rect.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <sge/collision/body_fwd.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
 namespace collision
 {
 
-typedef fcppt::optional<
-	rect
-> optional_rect;
+typedef fcppt::shared_ptr<
+	body
+> body_ptr;
+
+typedef fcppt::shared_ptr<
+	body const
+> const_body_ptr;
 
 }
 }

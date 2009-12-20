@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::font::text_size::text_size(
 	dim const &size_,
-	string::const_iterator const end_,
-	string::const_iterator const next_begin_)
+	fcppt::string::const_iterator const end_,
+	fcppt::string::const_iterator const next_begin_
+)
 :
 	size_(size_),
 	end_(end_),

@@ -1,3 +1,4 @@
+
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
@@ -18,20 +19,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_COLLISION_OPTIONAL_RECT_HPP_INCLUDED
-#define SGE_COLLISION_OPTIONAL_RECT_HPP_INCLUDED
+#ifndef SGE_COLLISION_WORLD_PTR_HPP_INCLUDED
+#define SGE_COLLISION_WORLD_PTR_HPP_INCLUDED
 
-#include <sge/collision/rect.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <sge/collision/world_fwd.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
 namespace collision
 {
 
-typedef fcppt::optional<
-	rect
-> optional_rect;
+typedef fcppt::shared_ptr<
+	world
+> world_ptr;
+
+typedef fcppt::shared_ptr<
+	world const
+> const_world_ptr;
 
 }
 }

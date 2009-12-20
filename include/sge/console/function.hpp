@@ -30,7 +30,7 @@ namespace sge
 namespace console
 {
 
-class SGE_CLASS_SYMBOL function
+class function
 {
 public:
 	SGE_SYMBOL explicit function(

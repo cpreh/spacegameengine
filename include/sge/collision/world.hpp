@@ -22,19 +22,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_COLLISION_WORLD_HPP_INCLUDED
 
 #include <sge/collision/world_fwd.hpp>
-#include <sge/collision/body_fwd.hpp>
-#include <sge/collision/group_fwd.hpp>
+#include <sge/collision/body_ptr.hpp>
+#include <sge/collision/group_ptr.hpp>
 #include <sge/collision/unit.hpp>
 #include <sge/collision/point.hpp>
-#include <sge/collision/satellite_fwd.hpp>
+#include <sge/collision/satellite_ptr.hpp>
 #include <sge/collision/time_unit.hpp>
-#include <sge/collision/shapes/circle_fwd.hpp>
+#include <sge/collision/shapes/circle_ptr.hpp>
 #include <sge/collision/shapes/container.hpp>
 #include <sge/collision/callback.hpp>
 #include <sge/collision/test_callback.hpp>
 #include <sge/collision/test_callback_combiner.hpp>
-#include <sge/signal/auto_connection.hpp>
 #include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -47,44 +48,52 @@ class SGE_CLASS_SYMBOL world
 protected:
 	SGE_SYMBOL world();
 public:
-	virtual signal::auto_connection
+	virtual fcppt::signal::auto_connection
 	register_test_callback(
-		test_callback const &) = 0;
+		test_callback const &
+	) = 0;
 
 	virtual void
 	test_callback_combiner(
-		collision::test_callback_combiner const &) = 0;
+		collision::test_callback_combiner const &
+	) = 0;
 
-	virtual signal::auto_connection
+	virtual fcppt::signal::auto_connection
 	register_begin_callback(
-		callback const &) = 0;
+		callback const &
+	) = 0;
 
-	virtual signal::auto_connection
+	virtual fcppt::signal::auto_connection
 	register_end_callback(
-		callback const &) = 0;
+		callback const &
+	) = 0;
 
 	virtual body_ptr const
 	create_body(
 		satellite_ptr,
 		shapes::container const &,
 		point const &,
-		point const &) = 0;
+		point const &
+	) = 0;
 
 	virtual shapes::circle_ptr const
 	create_circle(
-		unit radius) = 0;
+		unit radius
+	) = 0;
 
 	virtual group_ptr const
 	create_group() = 0;
 
 	virtual void
 	update(
-		time_unit delta) = 0;
+		time_unit delta
+	) = 0;
 
 	virtual void
 	collides_with(
 		group_ptr,
-		group_ptr) = 0;
+		group_ptr
+	) = 0;
 
 	SGE_SYMBOL virtual ~world();
 };

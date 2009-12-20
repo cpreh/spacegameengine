@@ -22,24 +22,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FONT_METRICS_HPP_INCLUDED
 
 #include <sge/font/unit.hpp>
-#include <sge/font/char_metric_fwd.hpp>
-#include <sge/char_type.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/font/char_metric_ptr.hpp>
 #include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/char_type.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace font
 {
 
-class SGE_CLASS_SYMBOL metrics {
+class SGE_CLASS_SYMBOL metrics
+{
 	FCPPT_NONCOPYABLE(metrics)
 protected:
 	SGE_SYMBOL metrics();
 public:
 	virtual char_metric_ptr const
 	load_char(
-		char_type) = 0;
+		fcppt::char_type
+	) = 0;
 
 	virtual unit
 	line_height() const = 0;

@@ -21,17 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_COLLISION_WORLD_FWD_HPP_INCLUDED
 #define SGE_COLLISION_WORLD_FWD_HPP_INCLUDED
 
-#include <sge/shared_ptr.hpp>
-
 namespace sge
 {
 namespace collision
 {
 
 class world;
-
-typedef shared_ptr<world> world_ptr;
-typedef shared_ptr<world const> const_world_ptr;
 
 }
 }
