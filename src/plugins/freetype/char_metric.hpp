@@ -25,10 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/unit.hpp>
 #include <sge/font/char_metric.hpp>
 #include <sge/font/image_view.hpp>
-#include <fcppt/math/vector/basic_decl.hpp>
 #include <sge/image/alpha8.hpp>
 #include <sge/image/store.hpp>
-#include <sge/char_type.hpp>
+#include <fcppt/math/vector/basic_decl.hpp>
+#include <fcppt/char_type.hpp>
 
 namespace sge
 {
@@ -41,7 +41,7 @@ class char_metric : public font::char_metric {
 public:
 	char_metric(
 		face &,
-		char_type
+		fcppt::char_type
 	);
 
 	~char_metric();

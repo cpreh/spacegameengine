@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/string.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/text.hpp>
-#include <sge/iconv.hpp>
+#include <fcppt/iconv.hpp>
 
 void sge::devil::check_errors()
 {
@@ -32,14 +32,14 @@ void sge::devil::check_errors()
 	if(e == IL_NO_ERROR)
 		return;
 
-	string error_message(FCPPT_TEXT("The following devil errors were detected:\n"));
+	fcppt::string error_message(FCPPT_TEXT("The following devil errors were detected:\n"));
 	do
 	{
 		error_message +=
 #ifdef UNICODE
 			iluErrorString(e);
 #else
-			iconv(iluErrorString(e));
+			fcppt::iconv(iluErrorString(e));
 #endif
 		error_message += FCPPT_TEXT('\n');
 	}

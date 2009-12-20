@@ -22,30 +22,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DEVIL_FILE_HPP_INCLUDED
 
 #include "image_impl.hpp"
-#include <sge/filesystem/path.hpp>
 #include <sge/image/file.hpp>
 #include <sge/image/format.hpp>
+#include <fcppt/filesystem/path.hpp>
 
 namespace sge
 {
 namespace devil
 {
 
-class file : public image::file {
+class file
+:
+	public image::file
+{
 public:
 	explicit file(
-		filesystem::path const &);
+		fcppt::filesystem::path const &
+	);
 	/*file(
 		image::format::type type,
 		const_pointer format_data,
 		size_type size);*/
 	explicit file(
-		image::view::const_object const &);
-	image::view::const_object const view() const;
-	void data(
-		image::view::const_object const &);
-	image::dim_type const dim() const;
-	void save(filesystem::path const &);
+		image::view::const_object const &
+	);
+
+	image::view::const_object const
+	view() const;
+
+	void
+	data(
+		image::view::const_object const &
+	);
+
+	image::dim_type const
+	dim() const;
+
+	void
+	save(
+		fcppt::filesystem::path const &
+	);
 private:
 	void bind_me() const;
 	image_impl impl;

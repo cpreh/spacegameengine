@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../player.hpp"
 #include "../sound.hpp"
-#include <sge/make_shared_ptr.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 
 sge::audio_null::player::player()
 :
@@ -42,7 +42,8 @@ sge::audio_null::player::speed_of_sound() const
 
 void
 sge::audio_null::player::speed_of_sound(
-	audio::unit const nspeed)
+	audio::unit const nspeed
+)
 {
 	speed_of_sound_ = nspeed;
 }
@@ -51,7 +52,7 @@ sge::audio::sound_ptr const
 sge::audio_null::player::create_nonstream_sound(
 	audio::file_ptr)
 {
-	return  make_shared_ptr<
+	return fcppt::make_shared_ptr<
 		sound
 	>();
 }
@@ -60,7 +61,7 @@ sge::audio::sound_ptr const
 sge::audio_null::player::create_stream_sound(
 	audio::file_ptr)
 {
-	return  make_shared_ptr<
+	return fcppt::make_shared_ptr<
 		sound
 	>();
 }

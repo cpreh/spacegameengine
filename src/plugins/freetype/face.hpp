@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FREETYPE_FACE_HPP_INCLUDED
 
 #include "freetype.hpp"
-#include <sge/filesystem/path.hpp>
+#include <fcppt/filesystem/path.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -37,7 +37,9 @@ class face {
 public:
 	face(
 		library &,
-		filesystem::path const &name);
+		fcppt::filesystem::path const &name
+	);
+
 	~face();
 	FT_Face get() const;
 	FT_Face operator->() const;

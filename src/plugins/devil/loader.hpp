@@ -35,7 +35,8 @@ public:
 
 	image::file_ptr const
 	load(
-		filesystem::path const &);
+		fcppt::filesystem::path const &
+	);
 
 	/*image::object_ptr const
 	load_image(
@@ -45,7 +46,8 @@ public:
 
 	image::file_ptr const
 	create(
-		image::view::const_object const &src);
+		image::view::const_object const &src
+	);
 
 	extension_set const extensions() const;
 private:

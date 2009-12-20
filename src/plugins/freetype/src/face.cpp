@@ -20,20 +20,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../library.hpp"
 #include "../face.hpp"
-#include <sge/iconv.hpp>
 #include <sge/exception.hpp>
+#include <fcppt/iconv.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
 sge::freetype::face::face(
 	library &lib,
-	filesystem::path const &name)
+	fcppt::filesystem::path const &name
+)
 {
-	if(FT_New_Face(lib.lib(), iconv(name.string()).c_str(), 0, &impl))
+	if(
+		FT_New_Face(
+			lib.lib(),
+			fcppt::iconv(name.string()).c_str(),
+			0,
+			&impl
+		)
+	)
 		throw exception(
-			string(
+			fcppt::string(
 				FCPPT_TEXT("FT_New_Face() failed for font: "))
-			+= name.string());
+			+= name.string()
+		);
 }
 
 sge::freetype::face::~face()
