@@ -19,25 +19,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config/appdir.hpp>
-#include <fcppt/text.hpp>
 #include <sge/exception.hpp>
 #include <sge/config.h>
+#include <fcppt/text.hpp>
 #if defined(SGE_WINDOWS_PLATFORM)
 #include <sge/windows/windows.hpp>
-#include <sge/container/raw_vector_impl.hpp>
-#include <sge/filesystem/remove_filename.hpp>
-#include <sge/char_type.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/filesystem/remove_filename.hpp>
+#include <fcppt/char_type.hpp>
 #elif defined(SGE_POSIX_PLATFORM)
-#include <sge/filesystem/remove_filename.hpp>
-#include <sge/filesystem/readlink.hpp>
-#include <sge/filesystem/exists.hpp>
+#include <fcppt/filesystem/remove_filename.hpp>
+#include <fcppt/filesystem/readlink.hpp>
+#include <fcppt/filesystem/exists.hpp>
 #endif
 
-sge::filesystem::path const
+fcppt::filesystem::path const
 sge::config::appdir()
 {
 #if defined(SGE_WINDOWS_PLATFORM)
-	container::raw_vector<
+	fcppt::container::raw_vector<
 		char_type
 	> buf(32768);
 
@@ -52,18 +52,18 @@ sge::config::appdir()
 			FCPPT_TEXT("GetModuleFileName() failed!")
 		);
 
-	return filesystem::remove_filename(
-		string(
+	return fcppt::filesystem::remove_filename(
+		fcppt::string(
 			buf.data()
 		)
 	);
 #elif defined(SGE_POSIX_PLATFORM)
-	sge::filesystem::path const self(
+	fcppt::filesystem::path const self(
 		"/proc/self/exe"
 	);
 
 	if(
-		!filesystem::exists(
+		!fcppt::filesystem::exists(
 			self
 		)
 	)
@@ -71,8 +71,8 @@ sge::config::appdir()
 			FCPPT_TEXT("/prof/self/exe does not exist")
 		);
 
-	return filesystem::remove_filename(
-		filesystem::readlink(
+	return fcppt::filesystem::remove_filename(
+		fcppt::filesystem::readlink(
 			self
 		)
 	);

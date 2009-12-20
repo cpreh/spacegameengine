@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 sge::config::no_such_env_var::no_such_env_var(
-	sge::string const &env_var)
+	fcppt::string const &env_var
+)
 :
 	exception(
 		FCPPT_TEXT("no such environment variable: \"")

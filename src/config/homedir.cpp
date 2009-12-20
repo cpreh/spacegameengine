@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config.h>
 #include <fcppt/text.hpp>
 
-sge::filesystem::path const
+fcppt::filesystem::path const
 sge::config::homedir()
 {
 #ifdef SGE_POSIX_PLATFORM
