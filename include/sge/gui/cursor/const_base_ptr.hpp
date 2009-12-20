@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_GUI_CURSOR_CONST_BASE_PTR_HPP_INCLUDED
 
 #include <sge/gui/cursor/base_fwd.hpp>
-#include <sge/shared_ptr.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
@@ -30,7 +30,7 @@ namespace gui
 {
 namespace cursor
 {
-typedef shared_ptr<base const> const_base_ptr;
+typedef fcppt::shared_ptr<base const> const_base_ptr;
 }
 }
 }

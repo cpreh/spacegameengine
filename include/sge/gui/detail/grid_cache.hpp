@@ -21,13 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_DETAIL_GRID_CACHE_HPP_INCLUDED
 #define SGE_GUI_DETAIL_GRID_CACHE_HPP_INCLUDED
 
-#include <sge/container/field.hpp>
-#include <sge/container/raw_vector.hpp>
 #include <sge/gui/dim.hpp>
 #include <sge/gui/unit.hpp>
 #include <sge/gui/widgets/base.hpp>
 #include <sge/gui/size_policy.hpp>
-
+#include <fcppt/container/field.hpp>
+#include <fcppt/container/raw_vector.hpp>
 #include <map>
 
 namespace sge
@@ -45,7 +44,7 @@ public:
 		/*dim optimal_size;
 		dim final_size;
     */
-    dim size;
+		dim size;
 
 		widget_data();
 	};
@@ -60,9 +59,9 @@ public:
 	};
 
 	// the "real" grid
-	typedef container::field<
+	typedef fcppt::container::field<
 		widgets::base*,
-		container::raw_vector
+		fcppt::container::raw_vector
 		> child_plane;
 	typedef child_plane::size_type size_type;
 	// stores the size data for each widget (is there because the real grid could
@@ -72,7 +71,7 @@ public:
 		widget_data
 		> data_map;
 	// stores data per column and row (per rolumn)
-	typedef container::field<
+	typedef fcppt::container::field<
 		rolumn_data
 		> rolumn_container;
 

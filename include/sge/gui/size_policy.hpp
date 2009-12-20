@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_SIZE_POLICY_HPP_INCLUDED
 #define SGE_GUI_SIZE_POLICY_HPP_INCLUDED
 
-#include <sge/container/bitfield/basic_impl.hpp>
 #include <sge/gui/export.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <cstddef>
 
 namespace sge

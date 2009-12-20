@@ -29,7 +29,7 @@ namespace sge
 namespace gui
 {
 
-typedef sge::fcppt::math::vector::static_<
+typedef fcppt::math::vector::static_<
 	unit,
 	2
 >::type point;

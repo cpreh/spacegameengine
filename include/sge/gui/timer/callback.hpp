@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_TIMER_CALLBACK_HPP_INCLUDED
 #define SGE_GUI_TIMER_CALLBACK_HPP_INCLUDED
 
-#include <sge/function/object.hpp>
+#include <fcppt/function/object.hpp>
 
 namespace sge
 {
@@ -29,7 +29,7 @@ namespace gui
 {
 namespace timer
 {
-typedef sge::function::object<void ()> callback;
+typedef fcppt::function::object<void ()> callback;
 }
 }
 }
