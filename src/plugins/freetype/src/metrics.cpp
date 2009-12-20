@@ -27,8 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::freetype::metrics::metrics(
 	library &lib,
-	filesystem::path const &font_path,
-	font::size_type const font_height)
+	fcppt::filesystem::path const &font_path,
+	font::size_type const font_height
+)
 :
 	face_(lib, font_path),
 	pixel_size(font_height)
@@ -42,7 +43,8 @@ sge::freetype::metrics::metrics(
 
 sge::font::char_metric_ptr const
 sge::freetype::metrics::load_char(
-	char_type const c)
+	fcppt::char_type const c
+)
 {
 	{
 		buffer_type::const_iterator const it = buffer.find(c);

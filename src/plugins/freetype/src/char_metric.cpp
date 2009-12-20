@@ -24,19 +24,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glyph.hpp"
 #include <sge/image/view/make.hpp>
 #include <sge/image/algorithm/copy_and_convert.hpp>
+#include <sge/log/global.hpp>
+#include <sge/exception.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <sge/log/headers.hpp>
-#include <sge/log/global.hpp>
+#include <fcppt/log/headers.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <sge/exception.hpp>
 #include <fcppt/text.hpp>
 #include <ostream>
 
 sge::freetype::char_metric::char_metric(
 	face &face_,
-	char_type const ch)
+	fcppt::char_type const ch
+)
 :
 	buffer_(),
 	offset_(),
@@ -69,7 +70,7 @@ sge::freetype::char_metric::char_metric(
 	if(offset_.x() < 0)
 		FCPPT_LOG_WARNING(
 			log::global(),
-			log::_
+			fcppt::log::_
 				<< FCPPT_TEXT("x offset of character '")
 				<< ch
 				<< FCPPT_TEXT("' is ")
@@ -80,7 +81,7 @@ sge::freetype::char_metric::char_metric(
 	if(offset_.y() < 0)
 		FCPPT_LOG_WARNING(
 			log::global(),
-			log::_
+			fcppt::log::_
 				<< FCPPT_TEXT("y offset of character '")
 				<< ch
 				<< FCPPT_TEXT("' is ")
