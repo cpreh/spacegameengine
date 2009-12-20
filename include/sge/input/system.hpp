@@ -23,25 +23,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/system_fwd.hpp>
 #include <sge/input/callback.hpp>
-#include <sge/window/instance_fwd.hpp>
-#include <sge/signal/auto_connection.hpp>
+#include <sge/input/repeat_callback.hpp>
+#include <sge/window/instance_ptr.hpp>
 #include <sge/mainloop/dispatchable.hpp>
 #include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 
 namespace sge
 {
 namespace input
 {
 
-class SGE_CLASS_SYMBOL system : public mainloop::dispatchable {
+class SGE_CLASS_SYMBOL system
+:
+	public mainloop::dispatchable
+{
 public:
-	virtual signal::auto_connection
+	virtual fcppt::signal::auto_connection
 	register_callback(
-		callback const &c) = 0;
+		callback const &c
+	) = 0;
 
-	virtual signal::auto_connection
+	virtual fcppt::signal::auto_connection
 	register_repeat_callback(
-		repeat_callback const &c) = 0;
+		repeat_callback const &
+	) = 0;
 
 	virtual sge::window::instance_ptr const
 	window() const = 0;

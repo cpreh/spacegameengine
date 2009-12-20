@@ -21,20 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_CALLBACK_HPP_INCLUDED
 #define SGE_INPUT_CALLBACK_HPP_INCLUDED
 
-#include <sge/function/object.hpp>
+#include <sge/input/key_pair_function.hpp>
+#include <fcppt/function/object.hpp>
 
 namespace sge
 {
 namespace input
 {
 
-class key_pair;
-class key_type;
-
-typedef void key_pair_fun (key_pair const &);
-typedef sge::function::object<key_pair_fun> callback;
-typedef void key_type_fun (key_type const &);
-typedef sge::function::object<key_type_fun> repeat_callback;
+typedef fcppt::function::object<
+	key_pair_function
+> callback;
 
 }
 }

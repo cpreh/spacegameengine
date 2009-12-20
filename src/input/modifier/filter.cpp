@@ -23,12 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/modifier/states.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/key_pair.hpp>
-#include <sge/container/map_impl.hpp>
-#include <sge/assert.hpp>
+#include <fcppt/container/map_impl.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/assert.hpp>
 #include <boost/foreach.hpp>
-#include <tr1/functional>
 
-sge::input::modifier::filter::filter(sge::input::system_ptr const is)
+sge::input::modifier::filter::filter(
+	sge::input::system_ptr const is
+)
 :
 	signal(),
 	repeat_signal(),
@@ -52,12 +54,21 @@ sge::input::modifier::filter::filter(sge::input::system_ptr const is)
 	),
 	modifiers()
 {
-	BOOST_FOREACH(object const &o,list())
-		BOOST_FOREACH(key_code const &c,o.codes)
-			modifiers.insert(c,static_cast<key_state>(0));
+	BOOST_FOREACH(
+		object const &o,
+		list()
+	)
+		BOOST_FOREACH(
+			key_code const &c,
+			o.codes
+		)
+			modifiers.insert(
+				c,
+				static_cast<key_state>(0)
+			);
 }
 
-sge::signal::auto_connection
+fcppt::signal::auto_connection
 sge::input::modifier::filter::register_callback(
 	callback_type const &f
 )
@@ -65,7 +76,7 @@ sge::input::modifier::filter::register_callback(
 	return signal.connect(f);
 }
 
-sge::signal::auto_connection
+fcppt::signal::auto_connection
 sge::input::modifier::filter::register_repeat_callback(
 	repeat_callback_type const &f
 )
@@ -76,11 +87,20 @@ sge::input::modifier::filter::register_repeat_callback(
 sge::input::modifier::filter::~filter()
 {}
 
-void sge::input::modifier::filter::input_callback(key_pair const &k)
+void
+sge::input::modifier::filter::input_callback(
+	key_pair const &k
+)
 {
-	BOOST_FOREACH(object const &o,list())
+	BOOST_FOREACH(
+		object const &o,
+		list()
+	)
 	{
-		BOOST_FOREACH(key_code const &c,o.codes)
+		BOOST_FOREACH(
+			key_code const &c,
+			o.codes
+		)
 		{
 			if (c == k.key().code())
 			{
@@ -93,7 +113,10 @@ void sge::input::modifier::filter::input_callback(key_pair const &k)
 	signal(k,modifiers);
 }
 
-void sge::input::modifier::filter::input_repeat_callback(key_type const &k)
+void
+sge::input::modifier::filter::input_repeat_callback(
+	key_type const &k
+)
 {
 	repeat_signal(k,modifiers);
 }

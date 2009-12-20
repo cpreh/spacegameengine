@@ -18,35 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <fcppt/config.h>
-#include <sge/library/error.hpp>
-#ifdef FCPPT_WINDOWS_PLATFORM
-#include <sge/windows/windows.hpp>
-#include <sge/windows/format_message.hpp>
-#elif FCPPT_POSIX_PLATFORM
-#include <fcppt/iconv.hpp>
-#include <fcppt/text.hpp>
-#include <dlfcn.h>
-#else
-#error "Implement me!"
-#endif
+#ifndef SGE_INPUT_REPEAT_CALLBACK_HPP_INCLUDED
+#define SGE_INPUT_REPEAT_CALLBACK_HPP_INCLUDED
 
-fcppt::string const
-sge::library::error()
+#include <sge/input/key_type_function.hpp>
+#include <fcppt/function/object.hpp>
+
+namespace sge
 {
-#if defined( FCPPT_POSIX_PLATFORM)
-	char const *const err(
-		dlerror()
-	);
+namespace input
+{
 
-	return err
-		? fcppt::iconv(
-			err
-		)
-		: FCPPT_TEXT("no error");
-#elif defined(FCPPT_WINDOWS_PLATFORM)
-	return sge::windows::format_message(
-		GetLastError()
-	);
-#endif
+typedef fcppt::function::object<
+	key_type_function
+> repeat_callback;
+
 }
+}
+
+#endif

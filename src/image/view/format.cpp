@@ -26,7 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-class visitor {
+class visitor
+{
 public:
 	typedef sge::image::color::format::type result_type;
 
@@ -35,16 +36,18 @@ public:
 	>
 	result_type
 	operator()(
-		T const &) const;
+		T const &
+	) const;
 };
 
 }
 
 sge::image::color::format::type
 sge::image::view::format(
-	const_object const &view)
+	const_object const &view
+)
 {
-	return variant::apply_unary(
+	return fcppt::variant::apply_unary(
 		visitor(),
 		view
 	);
@@ -58,7 +61,8 @@ template<
 >
 visitor::result_type
 visitor::operator()(
-	T const &) const
+	T const &
+) const
 {
 	return sge::image::color::format_static<
 		typename T::color_format::normal

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key_state_tracker.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/key_pair.hpp>
-#include <tr1/functional>
+#include <fcppt/tr1/functional.hpp>
 
 sge::input::key_state_tracker::key_state_tracker(
 	system_ptr const is
@@ -40,28 +40,32 @@ sge::input::key_state_tracker::key_state_tracker(
 
 sge::input::key_state
 sge::input::key_state_tracker::state(
-	key_code const c)
+	key_code const c
+)
 {
 	return key_codes[c];
 }
 
 sge::input::key_state
 sge::input::key_state_tracker::state(
-	key_type const &c)
+	key_type const &c
+)
 {
 	return key_types[c];
 }
 
 sge::input::key_state
 sge::input::key_state_tracker::operator[](
-	key_code const k)
+	key_code const k
+)
 {
 	return state(k);
 }
 
 sge::input::key_state
 sge::input::key_state_tracker::operator[](
-	key_type const &k)
+	key_type const &k
+)
 {
 	return state(k);
 }
@@ -72,5 +76,6 @@ sge::input::key_state_tracker::event_handler(
 )
 {
 	key_type const key = pair.key();
+
 	key_codes[key.code()] = key_types[key] = pair.value();
 }

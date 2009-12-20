@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/make_const.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <sge/mpl/invoke_on.hpp>
+#include <fcppt/mpl/invoke_on.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <mizuiro/image/is_raw_view.hpp>
 #include <boost/mpl/filter_view.hpp>
@@ -34,14 +34,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-class operation {
+class operation
+{
 public:
 	typedef sge::image::view::object result_type;
 
 	operation(
 		sge::image::raw_pointer data,
 		sge::image::dim_type const &,
-		sge::image::view::optional_pitch const &pitch);
+		sge::image::view::optional_pitch const &pitch
+	);
 
 	template<
 		typename View
@@ -61,12 +63,13 @@ sge::image::view::make(
 	raw_pointer const data,
 	dim_type const &d,
 	color::format::type const format,
-	optional_pitch const pitch)
+	optional_pitch const pitch
+)
 {
 
 	// TODO: gcc-4.5: Check if this is a gcc bug
 
-	return sge::mpl::invoke_on<
+	return fcppt::mpl::invoke_on<
 		boost::mpl::filter_view<
 			elements,
 			boost::mpl::bind<
@@ -117,7 +120,8 @@ namespace
 operation::operation(
 	sge::image::raw_pointer const data,
 	sge::image::dim_type const &dim,
-	sge::image::view::optional_pitch const &pitch)
+	sge::image::view::optional_pitch const &pitch
+)
 :
 	data(data),
 	dim(dim),

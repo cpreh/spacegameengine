@@ -28,7 +28,8 @@ namespace
 
 // TODO: make this auto convertible!
 
-class visitor {
+class visitor
+{
 public:
 	typedef sge::image::view::const_object result_type;
 
@@ -37,16 +38,18 @@ public:
 	>
 	result_type const
 	operator()(
-		T const &) const;
+		T const &
+	) const;
 };
 
 }
 
 sge::image::view::const_object const
 sge::image::view::make_const(
-	object const &view)
+	object const &view
+)
 {
-	return variant::apply_unary(
+	return fcppt::variant::apply_unary(
 		visitor(),
 		view
 	);
@@ -60,7 +63,8 @@ template<
 >
 visitor::result_type const
 visitor::operator()(
-	T const &v) const
+	T const &v
+) const
 {
 	return result_type(
 		mizuiro::image::make_const_view(
