@@ -7,10 +7,6 @@
 #include <sge/collision/satellite.hpp>
 #include <boost/foreach.hpp>
 
-// DEBUG
-#include <sge/cerr.hpp>
-#include <fcppt/math/vector/output.hpp>
-
 sge::ode::body::body(
 	world &_world,
 	transformer const &_transformer,
@@ -32,7 +28,6 @@ sge::ode::body::body(
 {
 	BOOST_FOREACH(collision::shapes::container::const_reference r,_shapes)
 		add(r);
-	//sge::cerr << "ode: created a body " << this << " at position " << _position << " with velocity " << _linear_velocity;
 	world_.body_count_++;
 	dBodySetData(
 		body_,
@@ -63,7 +58,6 @@ sge::collision::point const sge::ode::body::position() const
 void sge::ode::body::position(
 	collision::point const &_p)
 {
-	//sge::cerr << "ode: body " << this << " position was set to " << _p << "\n";
 	point const p =
 		transformer_.position_to_ode(
 			_p);
@@ -90,7 +84,6 @@ sge::collision::point const sge::ode::body::linear_velocity() const
 void sge::ode::body::linear_velocity(
 	collision::point const &_p)
 {
-	//sge::cerr << "ode: body " << this << " velocity was set to " << _p << "\n";
 	point const p =
 		transformer_.velocity_to_ode(
 			_p);
@@ -129,7 +122,6 @@ void sge::ode::body::add_to_group(
 
 sge::ode::body::~body()
 {
-	//sge::cerr << "destroyed a body " << this << " \n";
 	world_.body_count_--;
 	world_.destroy_body(
 		body_);
@@ -141,9 +133,8 @@ void sge::ode::body::add(
 	collision::shapes::base_ptr const _s)
 {
 	shapes_.push_back(
-		sge::dynamic_pointer_cast<shapes::base,collision::shapes::base>(
+		fcppt::dynamic_pointer_cast<shapes::base,collision::shapes::base>(
 			_s));
-	//sge::cerr << "ode: adding shape to body " << this << "\n";
 	dynamic_cast<ode::shapes::base &>(
 		*_s).assign_body(body_);
 }

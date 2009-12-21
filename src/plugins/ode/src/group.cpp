@@ -1,9 +1,8 @@
 #include "../group.hpp"
 #include "../body.hpp"
 #include <fcppt/math/null.hpp>
-#include <sge/assert.hpp>
+#include <fcppt/assert_message.hpp>
 #include <fcppt/text.hpp>
-#include <sge/cerr.hpp>
 
 sge::ode::group::group(
 	group_id const _category)
@@ -11,10 +10,9 @@ sge::ode::group::group(
 	category_(
 		_category),
 	collides_(
-		sge::fcppt::math::null<group_id>()),
+		fcppt::math::null<group_id>()),
 	dirty_(false)
 {
-	//sge::cerr << "created new group with category " << category_ << " and collides: " << collides_ << "\n";
 }
 
 void sge::ode::group::add(
@@ -30,9 +28,8 @@ void sge::ode::group::add(
 void sge::ode::group::collides_with(
 	group const &other)
 {
-	SGE_ASSERT_MESSAGE(!dirty_ && !other.dirty_,FCPPT_TEXT("Constraint violation: Tried to change a group which already has shapes in it"));
+	FCPPT_ASSERT_MESSAGE(!dirty_ && !other.dirty_,FCPPT_TEXT("Constraint violation: Tried to change a group which already has shapes in it"));
 	collides_ |= other.category();
-	//sge::cerr << "group with category: " << category() << ": collides with group with category " << other.category() << ", collides is now: " << collides_ << "\n";
 }
 
 sge::ode::group_id sge::ode::group::category() const

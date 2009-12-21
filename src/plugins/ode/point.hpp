@@ -8,7 +8,7 @@ namespace sge
 {
 namespace ode
 {
-typedef sge::fcppt::math::vector::static_<dReal,3>::type point;
+typedef fcppt::math::vector::static_<dReal,3>::type point;
 }
 }
 

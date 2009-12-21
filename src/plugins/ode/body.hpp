@@ -7,7 +7,7 @@
 #include "shapes/container.hpp"
 #include <sge/collision/body.hpp>
 #include <sge/collision/shapes/container.hpp>
-#include <sge/collision/satellite_fwd.hpp>
+#include <sge/collision/satellite_ptr.hpp>
 #include <ode/ode.h>
 #include "group.hpp"
 

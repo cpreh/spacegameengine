@@ -8,6 +8,8 @@
 #include <sge/collision/optional_rect.hpp>
 #include <sge/collision/callback_signal.hpp>
 #include <sge/collision/dim.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/object.hpp>
 #include <ode/ode.h>
 #include <map>
 #include <utility>
@@ -24,7 +26,7 @@ public:
 	world(
 		collision::optional_rect const &);
 
-	signal::auto_connection
+	fcppt::signal::auto_connection
 	register_test_callback(
 		collision::test_callback const &);
 
@@ -32,11 +34,11 @@ public:
 	test_callback_combiner(
 		collision::test_callback_combiner const &);
 
-	signal::auto_connection
+	fcppt::signal::auto_connection
 	register_begin_callback(
 		collision::callback const &);
 
-	signal::auto_connection
+	fcppt::signal::auto_connection
 	register_end_callback(
 		collision::callback const &);
 
@@ -84,7 +86,7 @@ private:
 	collision::callback_signal
 		begin_signal_,
 		end_signal_;
-	sge::signal::object<collision::test_callback_fn>
+	fcppt::signal::object<collision::test_callback_fn>
 		test_signal_;
 	group_id group_id_;
 	dReal time_remainder_;

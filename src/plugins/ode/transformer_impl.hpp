@@ -31,10 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/null.hpp>
 #include <algorithm>
 
-//DEBUG
-#include <sge/cerr.hpp>
-#include <fcppt/math/vector/output.hpp>
-
 namespace
 {
 sge::collision::unit calculate_scaling(
@@ -47,10 +43,10 @@ sge::collision::unit calculate_scaling(
 
 	return
 		static_cast<sge::collision::unit>(
-			sge::fcppt::math::inverse<sge::collision::unit>(
+			fcppt::math::inverse<sge::collision::unit>(
 				std::max(
-					_r->dim().w(),
-					_r->dim().h())));
+					_r->dimension().w(),
+					_r->dimension().h())));
 }
 }
 
@@ -85,7 +81,7 @@ sge::ode::transformer::position_from_ode(
 			_p*
 			static_cast<dReal>(
 				inverse_scaling_)-
-			sge::fcppt::math::vector::structure_cast<point>(
+			fcppt::math::vector::structure_cast<point>(
 				translation_));
 }
 
@@ -105,7 +101,7 @@ sge::ode::transformer::dim_from_ode(
 	dim const &_d) const
 {
 	return
-		sge::fcppt::math::dim::structure_cast<collision::dim>(
+		fcppt::math::dim::structure_cast<collision::dim>(
 			static_cast<dReal>(
 				inverse_scaling_)*_d);
 }
@@ -130,7 +126,7 @@ sge::ode::dim const sge::ode::transformer::dim_to_ode(
 	collision::dim const &_d) const
 {
 	return
-		sge::fcppt::math::dim::structure_cast<dim>(
+		fcppt::math::dim::structure_cast<dim>(
 			_d*scaling_);
 }
 

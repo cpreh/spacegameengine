@@ -5,17 +5,14 @@
 #include "../shapes/container.hpp"
 #include "../transformer_impl.hpp"
 #include <sge/collision/group_overflow.hpp>
-#include <fcppt/math/null.hpp>
-#include <sge/assert.hpp>
-#include <fcppt/text.hpp>
-#include <sge/cout.hpp>
 #include <sge/exception.hpp>
-#include <tr1/functional>
+#include <fcppt/math/null.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/assert_message.hpp>
+#include <fcppt/text.hpp>
 #include <functional>
+#include <utility>
 #include <cmath>
-
-// DEBUG
-#include <sge/cerr.hpp>
 
 sge::ode::world::world(
 	collision::optional_rect const &_r)
@@ -30,7 +27,7 @@ sge::ode::world::world(
 		static_cast<group_id>(
 			1)),
 	time_remainder_(
-		sge::fcppt::math::null<dReal>()),
+		fcppt::math::null<dReal>()),
 	collisions_(),
 	transformer_(
 		_r),
@@ -56,7 +53,7 @@ sge::ode::world::world(
 		*/
 }
 
-sge::signal::auto_connection
+fcppt::signal::auto_connection
 sge::ode::world::register_test_callback(
 	collision::test_callback const &_c)
 {
@@ -73,7 +70,7 @@ sge::ode::world::test_callback_combiner(
 		_c);
 }
 
-sge::signal::auto_connection
+fcppt::signal::auto_connection
 sge::ode::world::register_begin_callback(
 	collision::callback const &_c)
 {
@@ -82,7 +79,7 @@ sge::ode::world::register_begin_callback(
 			_c);
 }
 
-sge::signal::auto_connection
+fcppt::signal::auto_connection
 sge::ode::world::register_end_callback(
 	collision::callback const &_c)
 {
@@ -171,7 +168,7 @@ sge::ode::world::collides_with(
 
 sge::ode::world::~world()
 {
-	SGE_ASSERT_MESSAGE(!body_count_,FCPPT_TEXT("You've tried to delete a world before all of its bodys are dead"));
+	FCPPT_ASSERT_MESSAGE(!body_count_,FCPPT_TEXT("You've tried to delete a world before all of its bodys are dead"));
 	dSpaceDestroy(
 		space_);
 	dWorldDestroy(
@@ -221,7 +218,6 @@ sge::ode::group_id sge::ode::world::next_group_id()
 	group_id const old =
 		group_id_;
 	group_id_ <<= 1;
-	//sge::cerr << "returning group id " << old << "\n";
 	return
 		old;
 }
@@ -240,7 +236,6 @@ void sge::ode::world::collide(
 	dGeomID const g0,
 	dGeomID const g1)
 {
-	//sge::cerr << "there was a collision!\n";
 	dBodyID const
 		b0 =
 			dGeomGetBody(
@@ -261,17 +256,14 @@ void sge::ode::world::collide(
 
 	if (!test_signal_(s0,s1))
 	{
-	//	sge::cerr << "test signal returned false\n";
 		return;
 	}
 
-	//sge::cerr << "there was a collision!\n";
 	// manual states that the contact array has to contain at least 1 element,
 	// so to be sure, allocate one dContactGeom here
 	dContactGeom g;
 	if (!dCollide(g0,g1,1,&g,sizeof(dContactGeom)))
 	{
-		//sge::cerr << "but dcollide returned false :(\n";
 		return;
 	}
 
@@ -287,7 +279,6 @@ void sge::ode::world::collide(
 	// insertion was successful, so this collision is new. we then send a collision_begin
 	if (result.second)
 	{
-		//sge::cerr << "inserting was successful\n";
 		call_signal(
 			begin_signal_,
 			b0,
@@ -296,7 +287,6 @@ void sge::ode::world::collide(
 	// if it wasn't successful, then we shall update the timestamp for the later end-check
 	else
 	{
-		//sge::cerr << "inserting was not sucessful\n";
 		result.first->second = true;
 	}
 }

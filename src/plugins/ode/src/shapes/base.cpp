@@ -2,9 +2,6 @@
 #include "../../group.hpp"
 #include <sge/collision/shape_ambiguity.hpp>
 
-// DEBUG
-#include <sge/cerr.hpp>
-
 sge::ode::shapes::base::base(
 	dGeomID const _shape)
 :

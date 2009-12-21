@@ -2,9 +2,6 @@
 #include "../../transformer.hpp"
 #include "../../transformer_impl.hpp"
 
-// DEBUG
-#include <sge/cerr.hpp>
-
 sge::ode::shapes::circle::circle(
 	transformer const &_transformer,
 	dSpaceID const _space,
@@ -19,7 +16,6 @@ sge::ode::shapes::circle::circle(
 	transformer_(
 		_transformer)
 {
-	//sge::cerr << "created a circle " << this << " with radius " << _radius << "\n";
 }
 
 sge::collision::unit sge::ode::shapes::circle::radius() const
@@ -33,7 +29,6 @@ sge::collision::unit sge::ode::shapes::circle::radius() const
 void sge::ode::shapes::circle::radius(
 	collision::unit const _radius)
 {
-	//sge::cerr << "set radius to " << this << " with radius " << _radius << "\n";
 	dGeomSphereSetRadius(
 		shape_,
 		transformer_.unit_to_ode(
