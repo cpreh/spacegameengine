@@ -34,7 +34,8 @@ class mode;
 
 mode const
 current_resolution(
-	configuration_ptr);
+	configuration_ptr
+);
 
 }
 }

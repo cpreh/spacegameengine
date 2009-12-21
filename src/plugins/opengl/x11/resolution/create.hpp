@@ -22,16 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_X11_RESOLUTION_CREATE_HPP_INCLUDED
 
 #include "auto_ptr.hpp"
+#include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/adapter_type.hpp>
-#include <sge/x11/window_fwd.hpp>
+#include <sge/x11/window_ptr.hpp>
 
 namespace sge
 {
-namespace renderer
-{
-class parameters;
-}
-
 namespace opengl
 {
 namespace x11
@@ -43,7 +39,8 @@ auto_ptr
 create(
 	sge::x11::window_ptr,
 	renderer::parameters const &,
-	renderer::adapter_type);
+	renderer::adapter_type
+);
 
 }
 }

@@ -19,21 +19,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../system.hpp"
-#include <sge/export.hpp>
 #include <sge/plugin/info.hpp>
+#include <fcppt/export_symbol.hpp>
 #include <fcppt/text.hpp>
 
 extern "C"
 {
 
-SGE_EXPORT_SYMBOL void
+FCPPT_EXPORT_SYMBOL void
 plugin_version_info(
 	sge::plugin::info *);
 
-SGE_EXPORT_SYMBOL sge::renderer::system *
+FCPPT_EXPORT_SYMBOL sge::renderer::system *
 create_renderer_system();
 
-SGE_EXPORT_SYMBOL void
+FCPPT_EXPORT_SYMBOL void
 plugin_version_info(
 	sge::plugin::info *const p)
 {
@@ -46,7 +46,7 @@ plugin_version_info(
 	p->type = sge::plugin::capabilities::renderer;
 }
 
-SGE_EXPORT_SYMBOL sge::renderer::system *
+FCPPT_EXPORT_SYMBOL sge::renderer::system *
 create_renderer_system()
 {
 	return new sge::opengl::system();

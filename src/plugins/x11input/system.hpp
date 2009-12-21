@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/window_fwd.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/callback.hpp>
-#include <sge/signal/object.hpp>
-#include <sge/signal/connection_manager.hpp>
+#include <fcppt/signal/object.hpp>
+#include <fcppt/signal/connection_manager.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
 namespace sge

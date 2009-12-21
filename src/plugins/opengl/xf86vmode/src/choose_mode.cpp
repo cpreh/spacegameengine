@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../calc_refresh_rate.hpp"
 #include "../resolution.hpp"
 #include <sge/renderer/display_mode.hpp>
-#include <sge/make_shared_ptr.hpp>
-#include <fcppt/text.hpp>
 #include <sge/exception.hpp>
+#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/text.hpp>
 
 sge::opengl::xf86vmode::resolution_ptr const
 sge::opengl::xf86vmode::choose_mode(
@@ -52,7 +52,7 @@ sge::opengl::xf86vmode::choose_mode(
 			FCPPT_TEXT("No matching resolution found in xf86vmode!"));
 	return
 		resolution_ptr(
-			make_shared_ptr<
+			fcppt::make_shared_ptr<
 				resolution
 			>(
 				m.display(),

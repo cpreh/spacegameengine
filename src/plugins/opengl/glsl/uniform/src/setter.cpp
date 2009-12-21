@@ -23,10 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/uniform/int_value_type.hpp>
 #include <sge/renderer/glsl/uniform/float_value_type.hpp>
 #include <sge/renderer/glsl/exception.hpp>
-#include <sge/once.hpp>
 #include <sge/exception.hpp>
+#include <fcppt/function_once.hpp>
 #include <fcppt/text.hpp>
-#include <sge/format.hpp>
+#include <fcppt/format.hpp>
 #include <fcppt/assert.hpp>
 
 namespace
@@ -155,7 +155,7 @@ namespace
 
 void initialize_setter()
 {
-	SGE_FUNCTION_ONCE
+	FCPPT_FUNCTION_ONCE
 	if(sge::opengl::glsl::is_native())
 	{
 		uniform_1iv = glUniform1iv;
@@ -248,9 +248,13 @@ set_float(
 			elements);
 	default:
 		throw sge::exception(
-			(sge::format(
-				FCPPT_TEXT("Invalid float dimension in glsl uniform: %1%"))
-			% size).str());
+			(
+				fcppt::format(
+					FCPPT_TEXT("Invalid float dimension in glsl uniform: %1%")
+				)
+				% size
+			).str()
+		);
 	}
 }
 
@@ -310,9 +314,13 @@ set_int(
 			elements);
 	default:
 		throw sge::exception(
-			(sge::format(
-				FCPPT_TEXT("Invalid vector dimension in glsl: %1%"))
-			% size).str());
+			(
+				fcppt::format(
+					FCPPT_TEXT("Invalid vector dimension in glsl: %1%")
+				)
+				% size
+			).str()
+		);
 	}
 }
 
@@ -329,11 +337,15 @@ set_matrix(
 		&& rows != columns
 	)
 		throw sge::exception(
-			(sge::format(
-				FCPPT_TEXT("You specified a glsl matrix whose dimensions are not equal which is not supported by the ARB extension!")
-				FCPPT_TEXT(" Specified size was: %1%x%2%"))
-			% columns
-			% rows).str());
+			(
+				fcppt::format(
+					FCPPT_TEXT("You specified a glsl matrix whose dimensions are not equal which is not supported by the ARB extension!")
+					FCPPT_TEXT(" Specified size was: %1%x%2%")
+				)
+				% columns
+				% rows
+			).str()
+		);
 
 	namespace et = sge::opengl::glsl::uniform::element_type;
 
@@ -451,10 +463,14 @@ set_matrix(
 	}
 
 	throw sge::exception(
-		(sge::format(
-			FCPPT_TEXT("Invalid matrix dimensions in glsl: %1%x%2%"))
+		(
+			fcppt::format(
+				FCPPT_TEXT("Invalid matrix dimensions in glsl: %1%x%2%")
+			)
 			% columns
-			% rows).str());
+			% rows
+		).str()
+	);
 }
 
 // TODO: add some assertions!

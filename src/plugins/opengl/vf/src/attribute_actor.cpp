@@ -34,7 +34,7 @@ sge::opengl::vf::attribute_actor::attribute_actor(
 		stride
 	),
 	elements(
-		variant::apply_unary(
+		fcppt::variant::apply_unary(
 			convert_num_elements(),
 			e.element().info()
 		)

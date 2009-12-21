@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/shared_ptr.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::fbo_target::fbo_target()
@@ -63,8 +64,8 @@ void sge::opengl::fbo_target::bind_texture(
 {
 	bind_me();
 
-	shared_ptr<texture_base> const p(
-		dynamic_pointer_cast<texture_base>(t));
+	fcppt::shared_ptr<texture_base> const p(
+		fcppt::dynamic_pointer_cast<texture_base>(t));
 
 	glFramebufferTexture2DEXT(
 		GL_FRAMEBUFFER_EXT,
@@ -83,7 +84,7 @@ void sge::opengl::fbo_target::bind_texture(
 		throw renderer::exception(
 			FCPPT_TEXT("glCheckFramebufferStatusEXT: fbo incomplete!"));
 
-	texture_target = dynamic_pointer_cast<texture>(t);
+	texture_target = fcppt::dynamic_pointer_cast<texture>(t);
 }
 
 sge::renderer::target::dim_type const

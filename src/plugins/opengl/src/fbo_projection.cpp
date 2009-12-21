@@ -45,7 +45,7 @@ sge::renderer::any_matrix const
 sge::opengl::fbo_projection(
 	renderer::any_matrix const &m)
 {
-	return variant::apply_unary(
+	return fcppt::variant::apply_unary(
 		multiply_visitor(),
 		m
 	);
@@ -62,7 +62,7 @@ multiply_visitor::operator()(
 	T const &t) const
 {
 	typedef typename T::value_type value_type;
-	return t * sge::fcppt::math::matrix::scaling<
+	return t * fcppt::math::matrix::scaling<
 		value_type
 	>(
 		static_cast<value_type>(1),

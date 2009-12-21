@@ -24,19 +24,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/texture_mag_filter.hpp"
 #include "../glew.hpp"
 #include "../pbo.hpp" // TODO: maybe put this somewhere else
-#include <sge/log/headers.hpp>
+#include <fcppt/log/headers.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/is_power_of_2.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/format.hpp>
 #include <sge/renderer/filter/texture.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/texture_creation_failed.hpp>
 #include <sge/log/global.hpp>
-#include <sge/log/temporary_output.hpp>
-#include <fcppt/text.hpp>
-#include <sge/format.hpp>
 #include <ostream>
 
 namespace
@@ -84,17 +83,17 @@ void sge::opengl::set_texture(
 	if(dim.w() < 64 || dim.h() < 64)
 		FCPPT_LOG_WARNING(
 			log::global(),
-			log::_
+			fcppt::log::_
 				<< FCPPT_TEXT("opengl implementations are not required to support textures smaller than 64x64.")\
 				FCPPT_TEXT(" Specified texture size was ")
 				<< dim
 				<< FCPPT_TEXT('.')
 		);
 
-	if(!fcppt::math::is_power_of_2(dim.w()) || !math::is_power_of_2(dim.h()))
+	if(!fcppt::math::is_power_of_2(dim.w()) || !fcppt::math::is_power_of_2(dim.h()))
 		FCPPT_LOG_WARNING(
 			log::global(),
-			log::_
+			fcppt::log::_
 				<< FCPPT_TEXT("opengl implementations are not required to support textures with dimensions that are not a power of 2.")\
 				FCPPT_TEXT(" Specified texture size was ")
 				<< dim
@@ -114,11 +113,12 @@ void sge::opengl::set_texture(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		sge::str(
-			sge::format(
-				FCPPT_TEXT("Creation of texture with size %1% failed!"))
+		(
+			fcppt::format(
+				FCPPT_TEXT("Creation of texture with size %1% failed!")
+			)
 			% dim
-		),
+		).str(),
 		sge::renderer::texture_creation_failed
 	);
 
@@ -174,10 +174,14 @@ void sge::opengl::set_texture_rect(
 
 	if(r.right() > dim.w() || r.bottom() > dim.h())
 		throw exception(
-			(sge::format(
-				FCPPT_TEXT("rect for setting a texture is out of range (rect=%1%, dim=%2%)!"))
+			(
+				fcppt::format(
+					FCPPT_TEXT("rect for setting a texture is out of range (rect=%1%, dim=%2%)!")
+				)
 				% r
-				% dim).str());
+				% dim)
+			.str()
+		);
 
 	if(need_mipmap(filter.min()))
 		throw exception(
@@ -196,12 +200,12 @@ void sge::opengl::set_texture_rect(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		sge::str(
-			sge::format(
+		(
+			fcppt::format(
 				FCPPT_TEXT("glTexSubImage2D with rect %1% failed")
 			)
 			% r
-		),
+		).str(),
 		sge::renderer::exception
 	)
 }
@@ -278,7 +282,7 @@ void sge::opengl::set_texture_filter(
 	{
 		FCPPT_LOG_WARNING(
 			log::global(),
-			log::_
+			fcppt::log::_
 				<< FCPPT_TEXT("anisotropic filtering is not supported!")
 		);
 		return;
@@ -296,7 +300,7 @@ void sge::opengl::set_texture_filter(
 	{
 		FCPPT_LOG_WARNING(
 			log::global(),
-			log::_
+			fcppt::log::_
 				<< FCPPT_TEXT("anisotropy level ")
 				<< filter.anisotropy()
 				<< FCPPT_TEXT(" not supported!")

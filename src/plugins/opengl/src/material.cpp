@@ -94,7 +94,7 @@ void sge::opengl::set_material(
 		GL_EMISSION,
 		mat.emissive());
 
-	variant::apply_unary(
+	fcppt::variant::apply_unary(
 		arithmetic_visitor(
 			face,
 			GL_SHININESS

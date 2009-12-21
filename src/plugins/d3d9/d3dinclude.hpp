@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/windows/windows.hpp>
 #include <d3d9.h>
-#include <sge/shared_ptr.hpp>
+#include <fcppt/shared_ptr.hpp>
 #include <sge/com_deleter.hpp>
 
 namespace sge

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/string.hpp>
-#include <sge/iconv.hpp>
+#include <fcppt/iconv.hpp>
 
 namespace sge
 {
@@ -42,7 +42,7 @@ format_error(
 	Id const &id
 )
 {
-	typedef container::raw_vector<
+	typedef fcppt::container::raw_vector<
 		char
 	> errorlog_array;
 
@@ -93,7 +93,7 @@ format_error(
 
 		errorlog.push_back(0);
 
-		return sge::iconv(
+		return fcppt::iconv(
 			errorlog.data()
 		);
 	}

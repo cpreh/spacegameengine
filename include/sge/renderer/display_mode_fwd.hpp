@@ -18,36 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLX_CURRENT_HPP_INCLUDED
-#define SGE_OPENGL_GLX_CURRENT_HPP_INCLUDED
-
-#include "context_fwd.hpp"
-#include <sge/x11/display_ptr.hpp>
-#include <sge/x11/window_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#ifndef SGE_RENDERER_DISPLAY_MODE_FWD_HPP_INCLUDED
+#define SGE_RENDERER_DISPLAY_MODE_FWD_HPP_INCLUDED
 
 namespace sge
 {
-namespace opengl
-{
-namespace glx
+namespace renderer
 {
 
-class current {
-	FCPPT_NONCOPYABLE(current)
-public:
-	current(
-		sge::x11::display_ptr,
-		sge::x11::window const &,
-		context_ptr);
-	~current();
-private:
-	sge::x11::display_ptr const dsp;
-	context_ptr const context;
-};
+class display_mode;
 
-}
 }
 }
 
 #endif
+

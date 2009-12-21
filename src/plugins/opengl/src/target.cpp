@@ -48,7 +48,7 @@ sge::opengl::target::lock(
 			FCPPT_TEXT("renderer::target()::lock(): already locked!"));
 
 	buffer.resize_uninitialized(
-		dest.dim().content() * stride()
+		dest.dimension().content() * stride()
 	);
 
 	bind_me();
@@ -56,8 +56,8 @@ sge::opengl::target::lock(
 	read_pixels(
 		pos().x() + dest.left(),
 		pos().y() + dest.top(),
-		dest.dim().w(),
-		dest.dim().h(),
+		dest.dimension().w(),
+		dest.dimension().h(),
 		format(),
 		format_type(),
 		buffer.data()

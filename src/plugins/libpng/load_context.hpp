@@ -8,7 +8,7 @@
 #include <sge/image/dim_type.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/scoped_ptr.hpp>
+#include <fcppt/scoped_ptr.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <png.h>
 #include <cstddef>

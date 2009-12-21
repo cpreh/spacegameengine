@@ -23,10 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../check_state.hpp"
 #include "../glew.hpp"
 #include <sge/renderer/exception.hpp>
-#include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
 #include <fcppt/text.hpp>
-#include <sge/format.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/format.hpp>
 #include <ostream>
 #include <algorithm>
 
@@ -56,7 +56,7 @@ void sge::opengl::set_texture_level(
 
 		FCPPT_LOG_ERROR(
 			log::global(),
-			log::_
+			fcppt::log::_
 				<< FCPPT_TEXT("Tried to set texture stage ")
 				<< stage
 				<< FCPPT_TEXT(" but opengl does not support it.")
@@ -76,7 +76,7 @@ void sge::opengl::set_texture_level(
 	{
 		FCPPT_LOG_WARNING(
 			log::global(),
-			log::_
+			fcppt::log::_
 				<< FCPPT_TEXT("GL_MAX_COMBINED_TEXTURE_UNITS is ")
 				<< GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS
 				<< FCPPT_TEXT(". Setting texture stage ")
@@ -94,12 +94,12 @@ void sge::opengl::set_texture_level(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		sge::str(
-			sge::format(
+		(
+			fcppt::format(
 				FCPPT_TEXT("glActiveTexture failed for stage %1%")
 			)
 			% stage
-		),
+		).str(),
 		sge::renderer::exception
 	)
 }
@@ -114,7 +114,7 @@ void sge::opengl::client_texture_level(
 
 		FCPPT_LOG_ERROR(
 			log::global(),
-			log::_
+			fcppt::log::_
 				<< FCPPT_TEXT("Tried to set texture coordinates for stage ")
 				<< stage
 				<< FCPPT_TEXT(" but opengl does not support it.")
@@ -132,12 +132,12 @@ void sge::opengl::client_texture_level(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		sge::str(
-			sge::format(
+		(
+			fcppt::format(
 				FCPPT_TEXT("glClientActiveTexture failed for stage %1%")
 			)
 			% stage
-		),
+		).str(),
 		sge::renderer::exception
 	)
 }

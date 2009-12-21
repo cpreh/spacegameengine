@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "traits.hpp"
 #include "attachment_fwd.hpp"
 #include "program_instance.hpp"
-#include <sge/renderer/glsl/program_fwd.hpp>
+#include <sge/renderer/glsl/program_ptr.hpp>
 #include <sge/renderer/glsl/program.hpp>
 #include <sge/renderer/glsl/optional_string.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>

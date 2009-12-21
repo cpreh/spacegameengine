@@ -27,11 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../xf86_vmode.hpp"
 #endif
 #include <sge/renderer/parameters.hpp>
-#include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
 #include <sge/x11/window.hpp>
-#include <fcppt/text.hpp>
 #include <sge/exception.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/log/headers.hpp>
 
 sge::opengl::x11::resolution::auto_ptr
 sge::opengl::x11::resolution::create(
@@ -53,7 +53,7 @@ sge::opengl::x11::resolution::create(
 	{
 		FCPPT_LOG_WARNING(
 			log::global(),
-			log::_ << e.string());
+			fcppt::log::_ << e.string());
 	}
 #endif
 #if defined(SGE_HAVE_XF86_VMODE)
@@ -69,12 +69,12 @@ sge::opengl::x11::resolution::create(
 	{
 		FCPPT_LOG_WARNING(
 			log::global(),
-			log::_ << e.string());
+			fcppt::log::_ << e.string());
 	}
 #endif
 	FCPPT_LOG_WARNING(
 		log::global(),
-		log::_
+		fcppt::log::_
 			<< FCPPT_TEXT("sge cannot switch resolutions because ")
 			<< FCPPT_TEXT("no known method worked!"));
 	return auto_ptr();

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../visual.hpp"
 #include <sge/x11/display.hpp>
 #include <sge/exception.hpp>
-#include <sge/make_shared_ptr.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::glx::visual_ptr const
@@ -47,7 +47,7 @@ sge::opengl::glx::create_visual(
 			FCPPT_TEXT("glXChooseVisual() failed!")
 		);
 
-	return sge::make_shared_ptr<
+	return fcppt::make_shared_ptr<
 		visual
 	>(
 		info

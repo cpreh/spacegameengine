@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vbo.hpp"
 #include "../convert_vertex_colors.hpp"
 #include "../instantiate_basic_buffer.hpp"
+#include <sge/renderer/vf/dynamic_view.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/assert.hpp>
 #include <boost/foreach.hpp>

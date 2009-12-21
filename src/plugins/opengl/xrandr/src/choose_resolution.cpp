@@ -25,45 +25,64 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../current_resolution.hpp"
 #include "../check_extension.hpp"
 #include <sge/renderer/display_mode.hpp>
+#include <sge/renderer/screen_unit.hpp>
 #include <sge/x11/window.hpp>
 #include <sge/x11/sentry.hpp>
-#include <sge/make_shared_ptr.hpp>
 #include <sge/exception.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::xrandr::resolution_ptr const
 sge::opengl::xrandr::choose_resolution(
 	x11::window_ptr const wnd,
-	renderer::display_mode const &mode)
+	renderer::display_mode const &mode
+)
 {
 	check_extension(
-		wnd->display());
+		wnd->display()
+	);
 
 	configuration_ptr const config(
-		make_shared_ptr<configuration>(
-			wnd));
+		fcppt::make_shared_ptr<
+			configuration
+		>(
+			wnd
+		)
+	);
 
 	SGE_X11_SENTRY
 
 	int nsizes;
-	XRRScreenSize *const sizes
-		= XRRConfigSizes(
+	XRRScreenSize *const sizes(
+		XRRConfigSizes(
 			config->get(),
-			&nsizes);
+			&nsizes
+		)
+	);
 
 	for(int i = 0; i < nsizes; ++i)
-		if(static_cast<renderer::screen_unit>(sizes[i].width) == mode.size().w()
-		&& static_cast<renderer::screen_unit>(sizes[i].height) == mode.size().h())
+		if(
+			static_cast<renderer::screen_unit>(sizes[i].width) == mode.size().w()
+			&& static_cast<renderer::screen_unit>(sizes[i].height) == mode.size().h()
+		)
 			return resolution_ptr(
-				make_shared_ptr<resolution>(
+				fcppt::make_shared_ptr<
+					resolution
+				>(
 					wnd,
 					config,
 					xrandr::mode(
 						i,
 						RR_Rotate_0,
-						mode.refresh_rate()),
+						mode.refresh_rate()
+					),
 					current_resolution(
-						config)));
+						config
+					)
+				)
+			);
+
 	throw exception(
-		FCPPT_TEXT("No matching resolution found!"));
+		FCPPT_TEXT("No matching resolution found!")
+	);
 }

@@ -22,14 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VIEWPORT_FUN_HPP_INCLUDED
 
 #include <sge/window/dim_type.hpp>
-#include <sge/function/object.hpp>
+#include <fcppt/function/object.hpp>
 
 namespace sge
 {
 namespace opengl
 {
 
-typedef sge::function::object<
+typedef fcppt::function::object<
 	void (window::dim_type const &)
 > view_port_fun;
 

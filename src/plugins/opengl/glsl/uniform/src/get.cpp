@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../get.hpp"
 #include "../type.hpp"
 #include "../../init.hpp"
+#include <sge/exception.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
-#include <sge/once.hpp>
-#include <sge/exception.hpp>
+#include <fcppt/function_once.hpp>
 #include <fcppt/text.hpp>
 
 namespace
@@ -197,7 +197,7 @@ namespace
 
 void initialize_getter()
 {
-	SGE_FUNCTION_ONCE
+	FCPPT_FUNCTION_ONCE
 	if(sge::opengl::glsl::is_native())
 	{
 		get_uniform_iv = glGetUniformiv;

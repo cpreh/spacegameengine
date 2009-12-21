@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
 #include <fcppt/math/box/basic_decl.hpp>
-#include <sge/shared_ptr.hpp>
+#include <fcppt/shared_ptr.hpp>
 #include <fcppt/optional.hpp>
 
 namespace sge
@@ -43,7 +43,7 @@ typedef basic_texture<renderer::texture> texture_base;
 
 class texture : public detail::texture_base {
 public:
-	typedef optional<GLenum> optional_type;
+	typedef fcppt::optional<GLenum> optional_type;
 
 	texture(
 		dim_type const &,
@@ -78,12 +78,12 @@ private:
 	dim_type const lock_dim() const;
 
 	dim_type const dim_;
-	mutable optional<
+	mutable fcppt::optional<
 		renderer::lock_rect
 	> lock_rect_;
 };
 
-typedef shared_ptr<texture> texture_ptr;
+typedef fcppt::shared_ptr<texture> texture_ptr;
 
 }
 }

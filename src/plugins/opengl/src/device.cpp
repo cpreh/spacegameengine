@@ -56,17 +56,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/combine.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/window/instance.hpp>
+#include <sge/exception.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <sge/window/instance.hpp>
 #include <fcppt/variant/apply_unary.hpp>
-#include <sge/make_shared_ptr.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <sge/exception.hpp>
 #include <fcppt/text.hpp>
 #include <boost/cstdint.hpp>
-#include <tr1/functional>
 #include <sstream>
 
 sge::opengl::device::device(
@@ -103,7 +103,7 @@ sge::opengl::device::device(
 		param.mode().size()
 	),
 	default_target_(
-		make_shared_ptr<
+		fcppt::make_shared_ptr<
 			opengl::default_target
 		>(
 			fcppt::math::dim::structure_cast<
@@ -161,7 +161,7 @@ sge::opengl::device::create_index_buffer(
 	switch(format) {
 	case renderer::index::format::i16:
 		return renderer::index_buffer_ptr(
-			make_shared_ptr<
+			fcppt::make_shared_ptr<
 				opengl::index_buffer<
 					boost::uint16_t
 				>
@@ -172,7 +172,7 @@ sge::opengl::device::create_index_buffer(
 		);
 	case renderer::index::format::i32:
 		return renderer::index_buffer_ptr(
-			make_shared_ptr<
+			fcppt::make_shared_ptr<
 				opengl::index_buffer<
 					boost::uint32_t
 				>
@@ -196,7 +196,7 @@ sge::opengl::device::create_texture(
 )
 {
 	return renderer::texture_ptr(
-		make_shared_ptr<
+		fcppt::make_shared_ptr<
 			opengl::texture
 		>(
 			dim,
@@ -215,7 +215,7 @@ sge::opengl::device::create_vertex_buffer(
 )
 {
 	return renderer::vertex_buffer_ptr(
-		make_shared_ptr<
+		fcppt::make_shared_ptr<
 			opengl::vertex_buffer
 		>(
 			format,
@@ -233,7 +233,7 @@ sge::opengl::device::create_volume_texture(
 	const renderer::volume_texture::resource_flag_type flags)
 {
 	/*return renderer::volume_texture_ptr(
-		make_shared_ptr<
+		fcppt::make_shared_ptr<
 			volume_texture
 		>(
 			src,
@@ -251,7 +251,7 @@ sge::opengl::device::create_cube_texture(
 )
 {
 	return renderer::cube_texture_ptr(
-		make_shared_ptr<
+		fcppt::make_shared_ptr<
 			cube_texture
 		>(
 			border_size,
@@ -296,11 +296,11 @@ void
 sge::opengl::device::render(
 	renderer::const_vertex_buffer_ptr const vb,
 	renderer::const_index_buffer_ptr const ib,
-	renderer::size_type const first_vertex,
-	renderer::size_type const num_vertices,
+	renderer::first_vertex const first_vertex,
+	renderer::vertex_count const num_vertices,
 	renderer::indexed_primitive_type::type const ptype,
-	renderer::size_type const pcount,
-	renderer::size_type const first_index
+	renderer::primitive_count const pcount,
+	renderer::first_index const first_index
 )
 {
 	if(!vb)
@@ -346,8 +346,8 @@ sge::opengl::device::render(
 void
 sge::opengl::device::render(
 	renderer::const_vertex_buffer_ptr const vb,
-	renderer::size_type const first_vertex,
-	renderer::size_type const num_vertices,
+	renderer::first_vertex const first_vertex,
+	renderer::vertex_count const num_vertices,
 	renderer::nonindexed_primitive_type::type const ptype
 )
 {
@@ -384,7 +384,7 @@ sge::opengl::device::state(
 	{
 		current_states.overwrite(s);
 
-		variant::apply_unary(
+		fcppt::variant::apply_unary(
 			visitor, s
 		);
 	}
@@ -491,8 +491,10 @@ void sge::opengl::device::target(
 		return;
 	}
 
-	shared_ptr<opengl::texture> const p(
-		dynamic_pointer_cast<opengl::texture>(
+	fcppt::shared_ptr<
+		opengl::texture
+	> const p(
+		fcppt::dynamic_pointer_cast<opengl::texture>(
 			ntarget
 		)
 	);
@@ -648,7 +650,7 @@ void sge::opengl::device::vertex_buffer(
 sge::opengl::fbo_target_ptr const
 sge::opengl::device::create_target()
 {
-	return make_shared_ptr<
+	return fcppt::make_shared_ptr<
 		fbo_target
 	>();
 }

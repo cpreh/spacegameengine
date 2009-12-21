@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_DISPLAY_MODE_HPP_INCLUDED
 #define SGE_RENDERER_DISPLAY_MODE_HPP_INCLUDED
 
+#include <sge/renderer/display_mode_fwd.hpp>
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/refresh_rate.hpp>

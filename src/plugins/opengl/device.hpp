@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list.hpp>
 #include <sge/window/instance_fwd.hpp>
 #include <sge/window/dim_type.hpp>
-#include <sge/scoped_ptr.hpp>
+#include <fcppt/scoped_ptr.hpp>
 #include <stack>
 
 namespace sge
@@ -58,20 +58,27 @@ public:
 		window::instance_ptr wnd);
 
 	void begin_rendering();
+
 	void end_rendering();
-	void render(
-		renderer::const_vertex_buffer_ptr vb,
-		renderer::const_index_buffer_ptr ib,
-		renderer::size_type first_vertex,
-		renderer::size_type num_vertices,
-		renderer::indexed_primitive_type::type ptype,
-		renderer::size_type pcount,
-		renderer::size_type first_index);
-	void render(
-		renderer::const_vertex_buffer_ptr vb,
-		renderer::size_type first_vertex,
-		renderer::size_type num_vertices,
-		renderer::nonindexed_primitive_type::type ptype);
+
+	void
+	render(
+		renderer::const_vertex_buffer_ptr,
+		renderer::const_index_buffer_ptr,
+		renderer::first_vertex,
+		renderer::vertex_count,
+		renderer::indexed_primitive_type::type,
+		renderer::primitive_count,
+		renderer::first_index
+	);
+
+	void
+	render(
+		renderer::const_vertex_buffer_ptr,
+		renderer::first_vertex,
+		renderer::vertex_count,
+		renderer::nonindexed_primitive_type::type 
+	);
 
 	void state(renderer::state::list const &);
 
@@ -205,7 +212,7 @@ private:
 		renderer::state::list
 	> stack_type;
 
-	mutable scoped_ptr<
+	mutable fcppt::scoped_ptr<
 		renderer::caps
 	> caps_;
 

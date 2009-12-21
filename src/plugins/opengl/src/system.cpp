@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
-#include <sge/make_shared_ptr.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 
 sge::renderer::device_ptr const
 sge::opengl::system::create_renderer(
@@ -54,7 +54,7 @@ sge::opengl::system::create_renderer(
 		);
 
 	renderer::device_ptr const r(
-		make_shared_ptr<
+		fcppt::make_shared_ptr<
 			device
 		>(
 			param,
@@ -75,7 +75,7 @@ sge::opengl::system::create_window(
 {
 #if defined(SGE_HAVE_X11)
 	sge::x11::display_ptr const dsp(
-		make_shared_ptr<
+		fcppt::make_shared_ptr<
 			sge::x11::display
 		>()
 	);

@@ -29,7 +29,7 @@ sge::opengl::vf::pointer_actor::pointer_actor(
 	renderer::vf::vertex_size const stride_)
 :
 	format_(
-		variant::apply_unary(
+		fcppt::variant::apply_unary(
 			convert_format(),
 			e.element().info()
 		)

@@ -19,10 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../client_state.hpp"
-#include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/log/headers.hpp>
 #include <fcppt/container/linear_set_impl.hpp>
+#include <fcppt/text.hpp>
 #include <ostream>
 
 namespace
@@ -78,8 +78,9 @@ void insert_checked(
 	if(!s.insert(v).second)
 		FCPPT_LOG_WARNING(
 			sge::log::global(),
-			sge::log::_
-				<< FCPPT_TEXT("Duplicate state inserted in opengl::vf!"));
+			fcppt::log::_
+				<< FCPPT_TEXT("Duplicate state inserted in opengl::vf!")
+		);
 }
 
 }

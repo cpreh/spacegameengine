@@ -43,7 +43,8 @@ public:
 private:
 	image::view::const_object const
 	lock(
-		renderer::lock_rect const &dest) const;
+		renderer::lock_rect const &dest
+	) const;
 
 	void unlock() const;
 
@@ -52,7 +53,7 @@ private:
 	virtual GLenum format() const = 0;
 	virtual GLenum format_type() const = 0;
 
-	typedef sge::container::raw_vector<
+	typedef fcppt::container::raw_vector<
 		renderer::raw_value
 	> buffer_type;
 

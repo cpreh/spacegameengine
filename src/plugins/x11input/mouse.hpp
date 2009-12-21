@@ -26,13 +26,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "dga.hpp"
 #include <X11/Xlib.h>
 #include <sge/input/callback.hpp>
-#include <sge/signal/connection_manager.hpp>
+#include <fcppt/signal/connection_manager.hpp>
 #include <sge/x11/window_fwd.hpp>
 #include <sge/x11/color.hpp>
 #include <sge/x11/pixmap.hpp>
 #include <sge/x11/cursor.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
-#include <sge/scoped_ptr.hpp>
+#include <fcppt/scoped_ptr.hpp>
 
 namespace sge
 {

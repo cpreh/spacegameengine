@@ -23,15 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "instance.hpp"
 #include "../../xrandr/resolution_fwd.hpp"
-#include <sge/x11/window_fwd.hpp>
+#include <sge/renderer/display_mode_fwd.hpp>
+#include <sge/x11/window_ptr.hpp>
 
 namespace sge
 {
-namespace renderer
-{
-class display_mode;
-}
-
 namespace opengl
 {
 namespace x11

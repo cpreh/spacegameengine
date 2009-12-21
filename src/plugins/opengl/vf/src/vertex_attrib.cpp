@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../check_state.hpp"
 #include "../../common.hpp"
 #include <sge/renderer/exception.hpp>
-#include <sge/once.hpp>
+#include <fcppt/function_once.hpp>
 #include <fcppt/text.hpp>
 
 namespace
@@ -98,7 +98,7 @@ namespace
 
 void initialize()
 {
-	SGE_FUNCTION_ONCE
+	FCPPT_FUNCTION_ONCE
 
 	if(sge::opengl::glew_is_supported("GL_VERSION_2_0"))
 	{

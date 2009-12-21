@@ -34,7 +34,7 @@ namespace opengl
 namespace glx
 {
 
-typedef sge::container::raw_vector<
+typedef fcppt::container::raw_vector<
 	int
 > visual_attribute_array;
 

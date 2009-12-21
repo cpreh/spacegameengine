@@ -66,7 +66,7 @@ template<
 void sge::opengl::glsl::uniform::variable<Native>::set(
 	renderer::glsl::uniform::value const &v)
 {
-	stored_type = variant::apply_unary(
+	stored_type = fcppt::variant::apply_unary(
 		setter(
 			location
 		),

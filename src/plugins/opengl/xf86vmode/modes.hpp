@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/extensions/xf86vmode.h>
 #include "resolution_fwd.hpp"
 #include <sge/x11/deleter.hpp>
-#include <sge/x11/display_fwd.hpp>
-#include <sge/shared_ptr.hpp>
+#include <sge/x11/display_ptr.hpp>
+#include <fcppt/shared_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <cstddef>
 
@@ -56,13 +56,16 @@ public:
 	int screen() const;
 private:
 	sge::x11::display_ptr const dsp;
+
 	int const screen_;
-	typedef shared_ptr<
+
+	typedef fcppt::shared_ptr<
 		XF86VidModeModeInfo *,
 		sge::x11::deleter
 	> vidmode_ptr;
 
 	vidmode_ptr modes_;
+
 	size_type sz;
 };
 

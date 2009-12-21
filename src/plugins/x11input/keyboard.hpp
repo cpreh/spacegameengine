@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "device.hpp"
 #include <X11/Xlib.h>
 #include <sge/input/callback.hpp>
-#include <sge/signal/connection_manager.hpp>
+#include <fcppt/signal/connection_manager.hpp>
 #include <sge/x11/window_fwd.hpp>
-#include <sge/scoped_ptr.hpp>
+#include <fcppt/scoped_ptr.hpp>
 
 namespace sge
 {

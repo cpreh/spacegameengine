@@ -46,7 +46,7 @@ public:
 		Visual *
 	);
 
-	SGE_SYMBOL ~visual();
+	SGE_SYMBOL virtual ~visual();
 
 	SGE_SYMBOL Visual *
 	get() const;

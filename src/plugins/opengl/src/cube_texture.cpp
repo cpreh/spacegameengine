@@ -28,12 +28,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glew.hpp"
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <sge/once.hpp>
-#include <sge/exception.hpp>
+#include <fcppt/tr1/array.hpp>
+#include <fcppt/function_once.hpp>
 #include <fcppt/text.hpp>
-#include <sge/make_auto_ptr.hpp>
-#include <sge/auto_ptr.hpp>
-#include <tr1/array>
+#include <fcppt/make_auto_ptr.hpp>
+#include <fcppt/auto_ptr.hpp>
+#include <sge/exception.hpp>
 
 namespace
 {
@@ -80,8 +80,8 @@ sge::opengl::cube_texture::cube_texture(
 			sge::renderer::cube_side::num_elements);
 		++i)
 	{
-		sge::auto_ptr<texture> p(
-			make_auto_ptr<
+		fcppt::auto_ptr<texture> p(
+			fcppt::make_auto_ptr<
 				texture
 			>(
 				texture::dim_type(
@@ -165,7 +165,7 @@ namespace
 
 void initialize_cube_texture()
 {
-	SGE_FUNCTION_ONCE
+	FCPPT_FUNCTION_ONCE
 
 	if(sge::opengl::glew_is_supported("GL_VERSION_1_3"))
 		gl_cube_texture_type = GL_TEXTURE_CUBE_MAP;

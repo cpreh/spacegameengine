@@ -29,9 +29,10 @@ namespace sge
 namespace opengl
 {
 
-string const
+fcppt::string const
 get_string(
-	GLenum);
+	GLenum
+);
 
 }
 }

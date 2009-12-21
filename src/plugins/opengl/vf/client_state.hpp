@@ -33,11 +33,11 @@ namespace vf
 
 class client_state {
 public:
-	typedef container::linear_set<
+	typedef fcppt::container::linear_set<
 		GLenum
 	> normal_state_set;
 
-	typedef container::linear_set<
+	typedef fcppt::container::linear_set<
 		GLuint
 	> index_state_set;
 

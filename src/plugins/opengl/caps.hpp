@@ -22,14 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_CAPS_HPP_INCLUDED
 
 #include <sge/renderer/caps_fwd.hpp>
-#include <sge/auto_ptr.hpp>
+#include <fcppt/auto_ptr.hpp>
 
 namespace sge
 {
 namespace opengl
 {
 
-typedef auto_ptr<
+typedef fcppt::auto_ptr<
 	renderer::caps
 > caps_auto_ptr;
 

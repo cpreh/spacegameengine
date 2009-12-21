@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../multi_sample.hpp"
 #include "../glew.hpp"
-#include <sge/once.hpp>
+#include <fcppt/function_once.hpp>
 
 namespace
 {
@@ -32,7 +32,7 @@ GLenum multi_sample_flag_;
 void
 init_multi_sample()
 {
-	SGE_FUNCTION_ONCE
+	FCPPT_FUNCTION_ONCE
 
 	if(
 		GL_VERSION_1_3
