@@ -20,19 +20,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../file.hpp"
 #include <sge/audio/exception.hpp>
-#include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
-#include <sge/endianness/is_little_endian.hpp>
-#include <sge/endianness/copy_swapped.hpp>
-#include <sge/endianness/swap.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/endianness/is_little_endian.hpp>
+#include <fcppt/endianness/copy_swapped.hpp>
+#include <fcppt/endianness/swap.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
-#include <sge/ostringstream.hpp>
-#include <sge/format.hpp>
+#include <fcppt/io/ostringstream.hpp>
+#include <fcppt/format.hpp>
 #include <fcppt/assert.hpp>
 #include <boost/cstdint.hpp>
 
 sge::wave::file::file(
-	filesystem::path const &filename)
+	fcppt::filesystem::path const &filename)
 :
 	filename_(filename.string()),
 	swap_(boost::logic::indeterminate),
@@ -48,7 +48,7 @@ sge::wave::file::file(
 
 fcppt::string const sge::wave::file::to_string() const
 {
-	sge::ostringstream ss;
+	fcppt::io::ostringstream ss;
 	ss << "bits_per_sample: " << bits_per_sample() << ", "
 	   << "sample_rate: " << sample_rate() << ", "
 	   << "channels: " << channels() << ", "
@@ -58,7 +58,7 @@ fcppt::string const sge::wave::file::to_string() const
 
 void sge::wave::file::reset()
 {
-	FCPPT_LOG_DEBUG(log::global(),log::_ << "wave: resetting file");
+	FCPPT_LOG_DEBUG(log::global(),fcppt::log::_ << "wave: resetting file");
 	file_.seekg(data_segment);
 	samples_read_ = static_cast<audio::sample_count>(0);
 }
@@ -92,14 +92,14 @@ sge::audio::sample_count sge::wave::file::read(
 
 	// TODO: replace this with copy_to_host
 	if (bytes_per_sample() > static_cast<audio::sample_count>(1) && swap_)
-		endianness::copy_swapped(
+		fcppt::endianness::copy_swapped(
 			old_pos,
 			_array.data_end(),
 			old_pos,
 			bytes_per_sample()
 		);
 		//for (audio::sample_container::pointer i = _array.data() + old_size; i != _array.data_end(); i += bytes_per_sample())
-		//	endianness::swap(i,bytes_per_sample());
+		//	fcppt::endianness::swap(i,bytes_per_sample());
 
 	samples_read_ += samples_to_read;
 	return samples_to_read;
@@ -126,7 +126,7 @@ void sge::wave::file::read_riff()
 	else
 		throw audio::exception(FCPPT_TEXT("file \"")+filename_+FCPPT_TEXT("\" is not a riff file and thus not a wave file"));
 
-	swap_ = file_bigendian == endianness::is_little_endian();
+	swap_ = file_bigendian == fcppt::endianness::is_little_endian();
 
 	// throw away riff size
 	extract_primitive<boost::uint32_t>(FCPPT_TEXT("riff chunk size"));
@@ -147,8 +147,14 @@ void sge::wave::file::read_wave()
 
 	if (audio_format != static_cast<boost::uint16_t>(1))
 		throw audio::exception(
-			str(format(FCPPT_TEXT("wave file \"%1%\" is not pcm encoded (format code is %2%)"))
-				% filename_ % audio_format));
+			(
+				fcppt::format(
+					FCPPT_TEXT("wave file \"%1%\" is not pcm encoded (format code is %2%)")
+				)
+				% filename_
+				% audio_format
+			).str()
+		);
 
 	channels_ = static_cast<audio::channel_type>(
 			extract_primitive<boost::uint16_t>(FCPPT_TEXT("channel count")));
@@ -182,7 +188,7 @@ void sge::wave::file::ignore_chunks_until(std::string const &desc)
 	{
 		FCPPT_LOG_INFO(
 			log::global(),
-			log::_ << FCPPT_TEXT("detected unknown subchunk in wave file \"")
+			fcppt::log::_ << FCPPT_TEXT("detected unknown subchunk in wave file \"")
 			        << filename_
 			        << FCPPT_TEXT("\""));
 
@@ -194,9 +200,9 @@ void sge::wave::file::ignore_chunks_until(std::string const &desc)
 	}
 }
 
-std::string const sge::wave::file::extract_header(string const &_desc)
+std::string const sge::wave::file::extract_header(fcppt::string const &_desc)
 {
-	typedef container::raw_vector<char> char_vector;
+	typedef fcppt::container::raw_vector<char> char_vector;
 
 	char_vector::size_type const byte_count =
 		static_cast<char_vector::size_type>(4);
@@ -213,7 +219,7 @@ std::string const sge::wave::file::extract_header(string const &_desc)
 }
 
 template<typename T>
-T sge::wave::file::extract_primitive(string const &_desc)
+T sge::wave::file::extract_primitive(fcppt::string const &_desc)
 {
 	FCPPT_ASSERT(swap_ != boost::logic::indeterminate);
 
@@ -231,5 +237,5 @@ T sge::wave::file::extract_primitive(string const &_desc)
 			+ filename_
 			+ FCPPT_TEXT("\""));
 
-	return swap_ ? endianness::swap(ret) : ret;
+	return swap_ ? fcppt::endianness::swap(ret) : ret;
 }

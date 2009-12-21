@@ -21,15 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../file.hpp"
 #include "../loader.hpp"
 #include <sge/audio/exception.hpp>
-#include <sge/log/headers.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <ostream>
 
 sge::audio::file_ptr const
 sge::wave::loader::load(
-	filesystem::path const &filename)
+	fcppt::filesystem::path const &filename
+)
 {
-	return audio::file_ptr(new file(filename));
+	return
+		fcppt::make_shared_ptr<
+			file
+		>(
+			filename
+		);
 }
 
 sge::extension_set const sge::wave::loader::extensions() const
