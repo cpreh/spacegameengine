@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_VORBIS_FILE_HPP_INCLUDED
 
 #include <sge/audio/file.hpp>
-#include <sge/filesystem/path.hpp>
-#include <boost/filesystem/fstream.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/io/ifstream.hpp>
+#include <fcppt/string.hpp>
 #include <vorbis/vorbisfile.h>
 #include <cstddef>
 
@@ -33,13 +34,14 @@ namespace vorbis
 {
 class file : public audio::file
 {
-	public:
+public:
 	typedef audio::sample_count sample_count;
 	typedef audio::channel_type channel_type;
 	typedef audio::sample_container sample_container;
 
 	explicit file(
-		filesystem::path const &);
+		fcppt::filesystem::path const &
+	);
 	sample_count read(sample_count samples, sample_container &);
 	sample_count read_all(sample_container &);
 
@@ -50,9 +52,9 @@ class file : public audio::file
 
 	~file();
 
-	private:
-	string const                file_name;
-	boost::filesystem::ifstream stdstream;
+private:
+	fcppt::string const         file_name;
+	fcppt::io::ifstream         stdstream;
 	OggVorbis_File              ogg_file;
 	channel_type                channels_;
 	sample_count                sample_rate_;

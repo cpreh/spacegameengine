@@ -20,17 +20,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../file.hpp"
 #include "../loader.hpp"
-#include <sge/log/headers.hpp>
-#include <sge/make_shared_ptr.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 
 sge::audio::file_ptr const
 sge::vorbis::loader::load(
-	filesystem::path const &filename
+	fcppt::filesystem::path const &filename
 )
 {
 	return
-		sge::make_shared_ptr<
+		fcppt::make_shared_ptr<
 			file
 		>(
 			filename

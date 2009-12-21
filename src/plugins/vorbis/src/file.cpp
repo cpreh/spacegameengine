@@ -20,11 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../file.hpp"
 #include <sge/audio/exception.hpp>
-#include <fcppt/text.hpp>
-#include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
-#include <sge/endianness/is_little_endian.hpp>
+#include <fcppt/endianness/is_little_endian.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/assert.hpp>
 #include <algorithm>
 #include <iterator>
@@ -54,7 +54,8 @@ fcppt::string ogg_error(int const code)
 }
 
 sge::vorbis::file::file(
-	filesystem::path const &p)
+	fcppt::filesystem::path const &p
+)
 :
 	file_name(p.string()),
 	stdstream(p, std::ios_base::binary)
@@ -87,7 +88,7 @@ sge::audio::sample_count sge::vorbis::file::read(
 	/*
 	if (stdstream.eof())
 	{
-		FCPPT_LOG_DEBUG(log::global(),log::_ << FCPPT_TEXT("vorbis: we're at the end, returning"));
+		FCPPT_LOG_DEBUG(log::global(),fcppt::log::_ << FCPPT_TEXT("vorbis: we're at the end, returning"));
 		return static_cast<sample_count>(0);
 	}
 	*/
@@ -104,7 +105,7 @@ sge::audio::sample_count sge::vorbis::file::read(
 			&ogg_file,
 			reinterpret_cast<char *>(&newdata[bytes_read]),
 			static_cast<int>(bytes_to_read - bytes_read),
-			static_cast<int>(!endianness::is_little_endian()),
+			static_cast<int>(!fcppt::endianness::is_little_endian()),
 			static_cast<int>(2), // 8 or 16 bit samples
 			static_cast<int>(1), // 0 is unsigned data, 1 is signed
 			&bitstream);
@@ -121,7 +122,7 @@ sge::audio::sample_count sge::vorbis::file::read(
 
 		if (result == static_cast<long>(0))
 		{
-			FCPPT_LOG_DEBUG(log::global(),log::_ << FCPPT_TEXT("vorbis: read until the end"));
+			FCPPT_LOG_DEBUG(log::global(),fcppt::log::_ << FCPPT_TEXT("vorbis: read until the end"));
 			break;
 		}
 
