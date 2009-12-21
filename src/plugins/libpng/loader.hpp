@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LIBPNG_LOADER_HPP_INCLUDED
 #define SGE_LIBPNG_LOADER_HPP_INCLUDED
 
-#include <sge/filesystem/path.hpp>
 #include <sge/image/loader.hpp>
+#include <fcppt/filesystem/path.hpp>
 
 namespace sge
 {
@@ -34,11 +34,13 @@ class loader : public image::loader
 public:
 	image::file_ptr const
 	load(
-		filesystem::path const &);
+		fcppt::filesystem::path const &
+	);
 
 	image::file_ptr const
 	create(
-		image::view::const_object const &);
+		image::view::const_object const &
+	);
 
 	extension_set const extensions() const;
 };

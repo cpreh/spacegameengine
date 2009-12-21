@@ -1,23 +1,29 @@
 #include "../loader.hpp"
 #include "../file.hpp"
 #include <sge/image/file_fwd.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 
 sge::image::file_ptr const sge::libpng::loader::load(
-	filesystem::path const &_path)
+	fcppt::filesystem::path const &_path
+)
 {
 	return
-		image::file_ptr(
-			new file(
-				_path));
+		fcppt::make_shared_ptr<
+			file
+		>(
+			_path
+		);
 }
 
 sge::image::file_ptr const sge::libpng::loader::create(
 	image::view::const_object const&p)
 {
 	return
-		image::file_ptr(
-			new file(
-				p));
+		fcppt::make_shared_ptr<
+			file
+		>(
+			p
+		);
 }
 
 sge::extension_set const

@@ -4,12 +4,12 @@
 #include "context_base.hpp"
 #include "read_ptr.hpp"
 #include "byte_vector.hpp"
-#include <sge/filesystem/path.hpp>
-#include <sge/image/dim_type.hpp>
-#include <fcppt/math/dim/basic_decl.hpp>
 #include <sge/image/color/format.hpp>
+#include <sge/image/dim_type.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/math/dim/basic_decl.hpp>
+#include <fcppt/io/ifstream.hpp>
 #include <fcppt/scoped_ptr.hpp>
-#include <boost/filesystem/fstream.hpp>
 #include <png.h>
 #include <cstddef>
 
@@ -23,7 +23,9 @@ class load_context
 {
 public:
 	explicit load_context(
-		sge::filesystem::path const &);
+		fcppt::filesystem::path const &
+	);
+
 	image::dim_type const &dim() const;
 	byte_vector &bytes();
 	byte_vector const &bytes() const;
@@ -31,8 +33,8 @@ public:
 private:
 	static std::size_t const header_bytes_;
 
-	boost::filesystem::ifstream file_;
-	scoped_ptr<read_ptr> read_ptr_;
+	fcppt::io::ifstream file_;
+	fcppt::scoped_ptr<read_ptr> read_ptr_;
 	image::dim_type dim_;
 	byte_vector bytes_;
 	image::color::format::type format_;

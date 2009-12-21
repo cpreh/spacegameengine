@@ -1,16 +1,16 @@
 #include "../file.hpp"
 #include "../load_context.hpp"
 #include "../write_context.hpp"
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/optional_impl.hpp>
 #include <sge/image/view/dim.hpp>
 #include <sge/image/view/format.hpp>
 #include <sge/image/view/make.hpp>
 #include <sge/image/algorithm/copy_and_convert.hpp>
 #include <sge/image/color/format_stride.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/optional_impl.hpp>
 
 sge::libpng::file::file(
-	sge::filesystem::path const &_path)
+	fcppt::filesystem::path const &_path)
 {
 	load_context context(
 		_path);
@@ -69,7 +69,7 @@ sge::image::dim_type const sge::libpng::file::dim() const
 }
 
 void sge::libpng::file::save(
-	filesystem::path const &p)
+	fcppt::filesystem::path const &p)
 {
 	write_context context(
 		p,

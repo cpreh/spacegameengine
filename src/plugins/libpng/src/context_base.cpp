@@ -1,15 +1,17 @@
 #include "../context_base.hpp"
 #include <sge/image/file_exception.hpp>
-#include <sge/iconv.hpp>
-#include <fcppt/text.hpp>
-#include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
+#include <fcppt/iconv.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/log/headers.hpp>
 
 sge::libpng::context_base::context_base(
-	filesystem::path const &_path)
+	fcppt::filesystem::path const &_path
+)
 :
 	path_(
-		_path)
+		_path
+	)
 {
 }
 
@@ -26,11 +28,12 @@ void sge::libpng::context_base::handle_warning_impl(
 {
 	FCPPT_LOG_WARNING(
 		log::global(),
-		log::_
+		fcppt::log::_
 			<< FCPPT_TEXT("libpng: file: ")
 			<< path_.string()
 			<< FCPPT_TEXT(": ")
-			<< iconv(message));
+			<< fcppt::iconv(message)
+	);
 }
 
 void sge::libpng::context_base::handle_error(
@@ -47,8 +50,10 @@ void sge::libpng::context_base::handle_error_impl(
 	throw
 		image::file_exception(
 			path_,
-			iconv(
-				message));
+			fcppt::iconv(
+				message
+			)
+		);
 }
 
 sge::libpng::context_base::~context_base() {}

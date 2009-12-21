@@ -38,7 +38,7 @@ unsigned channels_from_format(
 }
 
 int transforms_from_format(
-	sge::filesystem::path const &_path,
+	fcppt::filesystem::path const &_path,
 	sge::image::color::format::type const _format)
 {
 	switch (_format)
@@ -69,7 +69,7 @@ int transforms_from_format(
 }
 
 int bit_depth_from_format(
-	sge::filesystem::path const &_path,
+	fcppt::filesystem::path const &_path,
 	sge::image::color::format::type const _format)
 {
 	switch (_format)
@@ -96,7 +96,7 @@ int bit_depth_from_format(
 }
 
 int color_type_from_format(
-	sge::filesystem::path const &_path,
+	fcppt::filesystem::path const &_path,
 	sge::image::color::format::type const _format)
 {
 	switch (_format)
@@ -127,7 +127,7 @@ int color_type_from_format(
 }
 
 sge::libpng::write_context::write_context(
-	filesystem::path const &_path,
+	fcppt::filesystem::path const &_path,
 	image::dim_type const &_dim,
 	byte_vector &_bytes,
 	image::color::format::type const _format)
@@ -182,7 +182,7 @@ sge::libpng::write_context::write_context(
 		write_ptr_.ptr(),
 		write_ptr_.info());
 
-	typedef container::raw_vector<png_bytep> row_ptr_vector;
+	typedef fcppt::container::raw_vector<png_bytep> row_ptr_vector;
 
 	row_ptr_vector row_ptrs(
 		static_cast<row_ptr_vector::size_type>(

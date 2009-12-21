@@ -1,12 +1,13 @@
 #include "../load_context.hpp"
 #include <sge/image/file_exception.hpp>
 #include <sge/image/unsupported_format.hpp>
-#include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
+#include <fcppt/log/headers.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/output.hpp>
-#include <sge/lexical_cast.hpp>
+#include <fcppt/lexical_cast.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/string.hpp>
 #include <climits>
 #include <cstddef>
 
@@ -14,7 +15,7 @@ std::size_t const sge::libpng::load_context::header_bytes_ =
 	static_cast<std::size_t>(8);
 
 sge::libpng::load_context::load_context(
-	sge::filesystem::path const &_path)
+	fcppt::filesystem::path const &_path)
 :
 	context_base(
 		_path),
@@ -85,13 +86,13 @@ sge::libpng::load_context::load_context(
 			read_ptr_->info());
 	FCPPT_LOG_DEBUG(
 		log::global(),
-		log::_ << FCPPT_TEXT("png: dimensions: ") << dim_);
+		fcppt::log::_ << FCPPT_TEXT("png: dimensions: ") << dim_);
 	FCPPT_LOG_DEBUG(
 		log::global(),
-		log::_ << FCPPT_TEXT("png: bit depth: ") << static_cast<int>(bpp));
+		fcppt::log::_ << FCPPT_TEXT("png: bit depth: ") << static_cast<int>(bpp));
 	FCPPT_LOG_DEBUG(
 		log::global(),
-		log::_ << FCPPT_TEXT("png: channels: ") << static_cast<int>(cs));
+		fcppt::log::_ << FCPPT_TEXT("png: channels: ") << static_cast<int>(cs));
 
 	if (color_type == PNG_COLOR_TYPE_PALETTE)
 	{
@@ -117,7 +118,7 @@ sge::libpng::load_context::load_context(
 		static_cast<byte_vector::size_type>(
 			dim_.content()*(bpp/CHAR_BIT)*cs));
 
-	typedef container::raw_vector<png_bytep> row_ptr_vector;
+	typedef fcppt::container::raw_vector<png_bytep> row_ptr_vector;
 
 	row_ptr_vector row_ptrs(
 		static_cast<row_ptr_vector::size_type>(
@@ -238,7 +239,7 @@ sge::image::color::format::type sge::libpng::load_context::convert_gray_format()
 			read_ptr_->ptr(),
 			read_ptr_->info());
 	if (depth != 8)
-		throw image::unsupported_format(path_,FCPPT_TEXT("gray, ")+lexical_cast<string>(depth)+FCPPT_TEXT(" bits per pixel"));
+		throw image::unsupported_format(path_,FCPPT_TEXT("gray, ")+fcppt::lexical_cast<fcppt::string>(depth)+FCPPT_TEXT(" bits per pixel"));
 	return sge::image::color::format::gray8;
 }
 
@@ -248,7 +249,7 @@ sge::image::color::format::type sge::libpng::load_context::convert_rgb_format() 
 		png_get_bit_depth(
 			read_ptr_->ptr(),
 			read_ptr_->info());
-	throw image::unsupported_format(path_,FCPPT_TEXT("rgb, ")+lexical_cast<string>(depth)+FCPPT_TEXT(" bits"));
+	throw image::unsupported_format(path_,FCPPT_TEXT("rgb, ")+fcppt::lexical_cast<fcppt::string>(depth)+FCPPT_TEXT(" bits"));
 }
 
 sge::image::color::format::type sge::libpng::load_context::convert_rgba_format() const
@@ -258,6 +259,6 @@ sge::image::color::format::type sge::libpng::load_context::convert_rgba_format()
 			read_ptr_->ptr(),
 			read_ptr_->info());
 	if (depth != 8)
-		throw image::unsupported_format(path_,FCPPT_TEXT("rgb, ")+lexical_cast<string>(depth)+FCPPT_TEXT(" bits"));
+		throw image::unsupported_format(path_,FCPPT_TEXT("rgb, ")+fcppt::lexical_cast<fcppt::string>(depth)+FCPPT_TEXT(" bits"));
 	return sge::image::color::format::rgba8;
 }

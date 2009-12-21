@@ -4,11 +4,11 @@
 #include "write_ptr.hpp"
 #include "context_base.hpp"
 #include "byte_vector.hpp"
-#include <sge/filesystem/path.hpp>
 #include <sge/image/view/const_object.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/dim_type.hpp>
-#include <boost/filesystem/fstream.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/io/ofstream.hpp>
 #include <png.h>
 
 namespace sge
@@ -21,12 +21,12 @@ class write_context
 {
 public:
 	write_context(
-		filesystem::path const &,
+		fcppt::filesystem::path const &,
 		image::dim_type const &,
 		byte_vector &,
 		image::color::format::type);
 private:
-	boost::filesystem::ofstream file_;
+	fcppt::io::ofstream file_;
 	byte_vector &bytes_;
 	image::color::format::type const format_;
 	write_ptr const write_ptr_;

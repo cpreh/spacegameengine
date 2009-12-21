@@ -3,8 +3,9 @@
 
 #include "byte_vector.hpp"
 #include <sge/image/color/format.hpp>
-#include <fcppt/math/dim/basic_decl.hpp>
 #include <sge/image/file.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/math/dim/basic_decl.hpp>
 
 namespace sge
 {
@@ -15,16 +16,20 @@ class file
 	public image::file
 {
 public:
-	file(
-		sge::filesystem::path const &);
-	file(
-		image::view::const_object const &);
+	explicit file(
+		fcppt::filesystem::path const &
+	);
+
+	explicit file(
+		image::view::const_object const &
+	);
+
 	void data(
 		image::view::const_object const &);
 	image::view::const_object const view() const;
 	image::dim_type const dim() const;
 	void save(
-		filesystem::path const &);
+		fcppt::filesystem::path const &);
 private:
 	image::dim_type dim_;
 	byte_vector bytes_;

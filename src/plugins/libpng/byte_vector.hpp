@@ -8,7 +8,7 @@ namespace sge
 {
 namespace libpng
 {
-typedef container::raw_vector<png_byte> byte_vector;
+typedef fcppt::container::raw_vector<png_byte> byte_vector;
 }
 }
 
