@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../to_actor.hpp"
 #include "../client_state_combiner.hpp"
 #include "../global_client_state.hpp"
-#include <sge/container/linear_set_impl.hpp>
+#include <fcppt/container/linear_set_impl.hpp>
 #include <boost/foreach.hpp>
 
 sge::opengl::vf::format::format(

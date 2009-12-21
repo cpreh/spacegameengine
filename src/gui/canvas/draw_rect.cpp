@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/gui/canvas/object.hpp>
-#include <sge/assert.hpp>
+#include <fcppt/assert.hpp>
 #include <fcppt/math/box/contains.hpp>
 #include <fcppt/math/box/structure_cast.hpp>
 #include <fcppt/math/box/output.hpp>
@@ -32,7 +32,7 @@ void sge::gui::canvas::object::draw_rect(
 	color const c,
 	rect_type::type const t)
 {
-	SGE_ASSERT_MESSAGE(
+	FCPPT_ASSERT_MESSAGE(
 		contains(area(),r),
 		FCPPT_TEXT("tried to draw rectangle ")+
 			lexical_cast<string>(r)+

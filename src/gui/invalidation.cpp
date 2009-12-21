@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/gui/invalidation.hpp>
-#include <sge/container/bitfield/basic_impl.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 
 sge::gui::invalidation::type const sge::gui::invalidation::all(
 	sge::gui::invalidation::type(sge::gui::invalidation::position) |

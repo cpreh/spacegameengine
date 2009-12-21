@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/canvas/font_drawer.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/text_size.hpp>
-#include <sge/assert.hpp>
+#include <fcppt/assert.hpp>
 #include <fcppt/text.hpp>
 #include <sge/make_shared_ptr.hpp>
 #include <tr1/functional>
@@ -40,7 +40,7 @@ void sge::gui::canvas::object::draw_text(
 	optional_character_pos cp,
 	point *const p)
 {
-	SGE_ASSERT(!cp || *cp < text.length());
+	FCPPT_ASSERT(!cp || *cp < text.length());
 
 	// determine which invisible characters have to be filtered
 	if (cp)

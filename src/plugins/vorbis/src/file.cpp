@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
 #include <sge/endianness/is_little_endian.hpp>
-#include <sge/container/raw_vector_impl.hpp>
-#include <sge/assert.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/assert.hpp>
 #include <algorithm>
 #include <iterator>
 
@@ -167,7 +167,7 @@ void sge::vorbis::file::reset()
 sge::vorbis::file::~file()
 {
 	int result = ov_clear(&ogg_file);
-	SGE_ASSERT(!result);
+	FCPPT_ASSERT(!result);
 }
 
 std::size_t sge::vorbis::file::ogg_read_static(

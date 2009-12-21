@@ -55,7 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/object.hpp>
 #include <sge/log/headers.hpp>
 #include <fcppt/text.hpp>
-#include <sge/assert.hpp>
+#include <fcppt/assert.hpp>
 #include <sge/type_name.hpp>
 #include <sge/make_shared_ptr.hpp>
 #include <sge/make_auto_ptr.hpp>
@@ -170,7 +170,7 @@ void sge::gui::detail::managers::render::activation(
 	if (w.has_parent())
 		return;
 
-	SGE_ASSERT(widgets.find(&w) != widgets.end());
+	FCPPT_ASSERT(widgets.find(&w) != widgets.end());
 
 	switch (t)
 	{
@@ -223,7 +223,7 @@ void sge::gui::detail::managers::render::remove(
 		return;
 
 	widget_container::iterator wi = widgets.find(&w);
-	SGE_ASSERT(wi != widgets.end());
+	FCPPT_ASSERT(wi != widgets.end());
 	widgets.erase(wi);
 }
 
@@ -352,7 +352,7 @@ sge::gui::detail::managers::render::connected_sprite(
 )
 {
 	widget_container::iterator wi = widgets.find(&w);
-	SGE_ASSERT(wi != widgets.end());
+	FCPPT_ASSERT(wi != widgets.end());
 	return wi->second->sprite;
 }
 
@@ -396,7 +396,7 @@ void sge::gui::detail::managers::render::clean()
 		// NOTE: we could remove rectangles which are completely inside this one
 		// (maybe order by area first)
 
-		SGE_ASSERT(widgets.find(&p) != widgets.end());
+		FCPPT_ASSERT(widgets.find(&p) != widgets.end());
 
 		if (!widgets[&p].texture)
 		{

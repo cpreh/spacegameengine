@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_UTILITY_PTR_FIND_HPP_INCLUDED
 #define SGE_GUI_UTILITY_PTR_FIND_HPP_INCLUDED
 
-#include <sge/container/ptr_equal.hpp>
+#include <fcppt/container/ptr_equal.hpp>
 #include <algorithm>
 
 namespace sge

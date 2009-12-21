@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/gui/canvas/object.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <sge/assert.hpp>
+#include <fcppt/assert.hpp>
 
 void sge::gui::canvas::object::draw_line_strip(
 	point_container const &points,
@@ -28,7 +28,7 @@ void sge::gui::canvas::object::draw_line_strip(
 	line_type::type const lt,
 	strip_type::type const st)
 {
-	SGE_ASSERT(points.size() > 1);
+	FCPPT_ASSERT(points.size() > 1);
 
 	for (point_container::size_type i = 0;
 		i < static_cast<point_container::size_type>(points.size()-1);

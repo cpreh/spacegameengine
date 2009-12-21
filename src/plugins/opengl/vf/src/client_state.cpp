@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
 #include <fcppt/text.hpp>
-#include <sge/container/linear_set_impl.hpp>
+#include <fcppt/container/linear_set_impl.hpp>
 #include <ostream>
 
 namespace

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/parameters/inherited.hpp>
 #include <sge/log/object.hpp>
 #include <sge/log/headers.hpp>
-#include <sge/assert.hpp>
+#include <fcppt/assert.hpp>
 #include <sge/type_info.hpp>
 #include <boost/foreach.hpp>
 
@@ -173,7 +173,7 @@ void sge::gui::layouts::row::adapt(
 {
 	unsigned const count = count_flags(flag,axis);
 
-	SGE_ASSERT_MESSAGE(
+	FCPPT_ASSERT_MESSAGE(
 		count,
 		FCPPT_TEXT("adapt called when there are no widgets to adapt"));
 
@@ -205,7 +205,7 @@ void sge::gui::layouts::row::adapt_outer(
 
 	if (optimal[axis] > usable[axis])
 	{
-		SGE_ASSERT_MESSAGE(
+		FCPPT_ASSERT_MESSAGE(
 			count_flags(axis_policy::can_shrink,axis),
 			FCPPT_TEXT("not enough space to hold all widgets and no shrinkable widgets found"));
 

@@ -189,7 +189,7 @@ void sge::gui::layouts::grid::shrink(
 	dim const &usable,
 	axis_type const axis)
 {
-	SGE_ASSERT_MESSAGE(
+	FCPPT_ASSERT_MESSAGE(
 		count_flags(
 			axis_policy::can_shrink,
 			axis),
@@ -268,7 +268,7 @@ void sge::gui::layouts::grid::adapt(
 			flag,
 			axis);
 
-	SGE_ASSERT_MESSAGE(
+	FCPPT_ASSERT_MESSAGE(
 		count,
 		FCPPT_TEXT("adapt called when there are no widgets to adapt"));
 

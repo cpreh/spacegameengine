@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VF_CLIENT_STATE_HPP_INCLUDED
 
 #include "../common.hpp"
-#include <sge/container/linear_set.hpp>
+#include <fcppt/container/linear_set.hpp>
 
 namespace sge
 {

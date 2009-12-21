@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "vbo_base.hpp"
 #include "lock_method.hpp"
 #include "convert/resource_flags.hpp"
-#include <sge/container/bitfield/basic_impl.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/text.hpp>
 

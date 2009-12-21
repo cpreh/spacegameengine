@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/algorithm/transform.hpp>
 #include <sge/image/view/sub.hpp>
 #include <sge/image/view/make_const.hpp>
-#include <sge/assert.hpp>
+#include <fcppt/assert.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <mizuiro/color/has_channel.hpp>
@@ -325,7 +325,7 @@ void sge::gui::utility::blit(
 	rect const &dst_rect,
 	rect const &clip_rect)
 {
-	SGE_ASSERT(src_rect.dim() == dst_rect.dim());
+	FCPPT_ASSERT(src_rect.dim() == dst_rect.dim());
 
 	rect const clipped = intersection(
 		dst_rect,

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/make_shared_ptr.hpp>
 #include <sge/make_auto_ptr.hpp>
 #include <sge/auto_ptr.hpp>
-#include <sge/assert.hpp>
+#include <fcppt/assert.hpp>
 
 template<
 	bool Native
@@ -42,7 +42,7 @@ sge::opengl::glsl::program<Native>::program(
 	instance_(),
 	attachments()
 {
-	SGE_ASSERT(
+	FCPPT_ASSERT(
 		vs_source || ps_source
 	);
 

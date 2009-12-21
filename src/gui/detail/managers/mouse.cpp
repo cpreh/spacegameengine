@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/object.hpp>
 #include <sge/log/headers.hpp>
 #include <fcppt/text.hpp>
-#include <sge/assert.hpp>
+#include <fcppt/assert.hpp>
 #include <boost/foreach.hpp>
 #include <tr1/functional>
 
@@ -170,7 +170,7 @@ void sge::gui::detail::managers::mouse::remove(widgets::base &w)
 	// And if it's a top level widget, we have to delete it from our widgets list
 	if (!w.has_parent())
 	{
-		SGE_ASSERT(
+		FCPPT_ASSERT(
 			utility::ptr_find(widgets.begin(),widgets.end(),&w) != widgets.end());
 		algorithm::ptr_container_erase(
 			widgets,

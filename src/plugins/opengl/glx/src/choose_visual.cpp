@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../choose_visual.hpp"
 #include <GL/glx.h>
-#include <sge/container/raw_vector_impl.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/text.hpp>

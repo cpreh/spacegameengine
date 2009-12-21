@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "texture_functions.hpp"
 #include "color_convert.hpp"
 #include "texture_lock_factory.hpp"
-#include <sge/container/bitfield/basic_impl.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/text.hpp>

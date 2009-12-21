@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/parameters/inherited.hpp>
 #include <sge/log/object.hpp>
 #include <sge/log/headers.hpp>
-#include <sge/assert.hpp>
+#include <fcppt/assert.hpp>
 #include <boost/next_prior.hpp>
 #include <tr1/functional>
 #include <algorithm>
@@ -109,7 +109,7 @@ void sge::gui::detail::managers::keyboard::add(widgets::base &w)
 		mylogger,
 		log::_ << FCPPT_TEXT("adding widget"));
 
-	SGE_ASSERT(
+	FCPPT_ASSERT(
 		utility::ptr_find(widgets.begin(),widgets.end(),&w)
 			== widgets.end());
 
@@ -139,7 +139,7 @@ void sge::gui::detail::managers::keyboard::request_focus(widgets::base &w)
 			widgets.begin(),
 			widgets.end(),&w);
 
-	SGE_ASSERT_MESSAGE(
+	FCPPT_ASSERT_MESSAGE(
 		wi != widgets.end(),
 		FCPPT_TEXT("a widgets::base requested the keyboard focus which cannot receive keys"));
 
@@ -159,7 +159,7 @@ void sge::gui::detail::managers::keyboard::remove(widgets::base &w)
 			widgets.begin(),
 			widgets.end(),&w);
 
-	SGE_ASSERT(wi != widgets.end());
+	FCPPT_ASSERT(wi != widgets.end());
 
 	// the widgets::base to delete has the focus? then reset focus
 	if (focus && *focus == wi)
@@ -196,7 +196,7 @@ void sge::gui::detail::managers::keyboard::cycle_focus()
 		return;
 	}
 
-	SGE_ASSERT((*focus)->activation() == activation_state::active);
+	FCPPT_ASSERT((*focus)->activation() == activation_state::active);
 
 	widget_container::iterator next = boost::next(*focus);
 	if (next == widgets.end())
