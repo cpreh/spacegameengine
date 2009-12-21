@@ -28,10 +28,12 @@ namespace sge
 namespace opengl
 {
 
-void on_not_supported(
-	string const &function,
-	string const &min_version,
-	string const &possible_extension);
+void
+on_not_supported(
+	fcppt::string const &function,
+	fcppt::string const &min_version,
+	fcppt::string const &possible_extension
+);
 
 }
 }

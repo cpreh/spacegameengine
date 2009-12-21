@@ -24,16 +24,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "texture_lock.hpp"
 #include "lock_method.hpp"
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/auto_ptr.hpp>
+#include <fcppt/auto_ptr.hpp>
 
 namespace sge
 {
 namespace opengl
 {
 
-typedef auto_ptr<texture_lock> texture_lock_auto_ptr;
+typedef fcppt::auto_ptr<texture_lock> texture_lock_auto_ptr;
 
-texture_lock_auto_ptr create_texture_lock(
+texture_lock_auto_ptr
+create_texture_lock(
 	lock_method::type,
 	texture_lock::size_type lock_size,
 	texture_lock::size_type offset,

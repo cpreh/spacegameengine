@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../readonly_texture_lock.hpp"
 #include <fcppt/container/raw_vector_impl.hpp>
-#include <sge/algorithm/copy_n.hpp>
+#include <fcppt/algorithm/copy_n.hpp>
 #include <fcppt/assert.hpp>
 
 sge::opengl::readonly_texture_lock::readonly_texture_lock(
@@ -78,7 +78,7 @@ void sge::opengl::readonly_texture_lock::copy_read_part(
 		p != dest + lock_size;
 		i += pitch + block_size, p += block_size
 	)
-		algorithm::copy_n(
+		fcppt::algorithm::copy_n(
 			buffer.data() + i,
 			block_size,
 			p

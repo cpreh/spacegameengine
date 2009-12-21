@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::on_not_supported(
-	string const &function,
-	string const &min_version,
-	string const &possible_extensions
+	fcppt::string const &function,
+	fcppt::string const &min_version,
+	fcppt::string const &possible_extensions
 )
 {
 	throw exception(
@@ -36,5 +36,6 @@ sge::opengl::on_not_supported(
 		+ min_version
 		+ FCPPT_TEXT(" is at least required. The possible extensions sge can use are: \"")
 		+ possible_extensions
-		+ FCPPT_TEXT("\"."));
+		+ FCPPT_TEXT("\".")
+	);
 }

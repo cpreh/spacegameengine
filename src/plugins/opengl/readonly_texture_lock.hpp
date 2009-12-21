@@ -59,7 +59,7 @@ private:
 		pitch,
 		block_size;
 
-	typedef container::raw_vector<
+	typedef fcppt::container::raw_vector<
 		value_type
 	> cutout_buffer_type;
 

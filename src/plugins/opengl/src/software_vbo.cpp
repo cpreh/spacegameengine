@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../software_vbo.hpp"
 #include "../vbo.hpp"
 #include "../pbo.hpp"
-#include <sge/algorithm/copy_n.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/raw_value.hpp>
 #include <sge/exception.hpp>
+#include <fcppt/algorithm/copy_n.hpp>
 #include <fcppt/text.hpp>
 #include <utility>
 #include <map>
@@ -139,10 +139,13 @@ void sge::opengl::software_vbo::buffer_sub_data(
 		throw exception(
 			FCPPT_TEXT("buffer_sub_data(): data may not be 0!"));
 
-	algorithm::copy_n(
+	fcppt::algorithm::copy_n(
 		static_cast<renderer::const_raw_pointer>(data) + first,
 		size,
-		buffer_object(bound_buffer(type))->second);
+		buffer_object(
+			bound_buffer(type)
+		)->second
+	);
 }
 
 void *sge::opengl::software_vbo::buffer_offset(
