@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/file.hpp>
 #include <sge/audio/exception.hpp>
 #include <fcppt/text.hpp>
-#include <sge/lexical_cast.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/lexical_cast.hpp>
 
 ALenum sge::openal::file_format(audio::file const &file)
 {
@@ -37,9 +38,9 @@ ALenum sge::openal::file_format(audio::file const &file)
 
 	throw audio::exception(
 		FCPPT_TEXT("OpenAL error: Format not supported: ")
-		+ lexical_cast<string>(file.bits_per_sample())
+		+ fcppt::lexical_cast<fcppt::string>(file.bits_per_sample())
 		+ FCPPT_TEXT(" bps, ")
-		+ lexical_cast<string>(file.channels())
+		+ fcppt::lexical_cast<fcppt::string>(file.channels())
 		+ FCPPT_TEXT(" channels"));
 
 	return AL_FORMAT_MONO8;

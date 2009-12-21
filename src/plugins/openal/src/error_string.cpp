@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 fcppt::string const
 sge::openal::error_string(
-	ALenum const error)
+	ALenum const error
+)
 {
 	switch (error)
 	{

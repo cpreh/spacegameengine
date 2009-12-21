@@ -29,9 +29,10 @@ namespace sge
 namespace openal
 {
 
-string const
+fcppt::string const
 error_string(
-	ALenum error);
+	ALenum error
+);
 
 }
 }

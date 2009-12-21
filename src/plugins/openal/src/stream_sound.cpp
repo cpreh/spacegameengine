@@ -27,9 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../file_format.hpp"
 #include <sge/audio/sound.hpp>
 #include <sge/audio/exception.hpp>
-#include <sge/container/raw_vector_impl.hpp>
+#include <sge/audio/file.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
-#include <sge/assert.hpp>
+#include <fcppt/assert.hpp>
 
 sge::openal::stream_sound::stream_sound(
 	audio::file_ptr const _audio_file,
@@ -58,11 +60,11 @@ bool sge::openal::stream_sound::fill_buffer(ALuint const buffer)
 	audio::sample_count samples_read =
 		audio_file_->read(buffer_samples_, data);
 
-	FCPPT_LOG_DEBUG(log(),log::_ << "read " << samples_read << " samples");
+	FCPPT_LOG_DEBUG(log(),fcppt::log::_ << "read " << samples_read << " samples");
 
 	if (samples_read == static_cast<audio::sample_count>(0))
 	{
-		FCPPT_LOG_DEBUG(log(),log::_ << "at the end of last buffer");
+		FCPPT_LOG_DEBUG(log(),fcppt::log::_ << "at the end of last buffer");
 
 		// there's nothing more to load, but the sound should be looped? then reset
 		// and start from the beginning
@@ -73,7 +75,7 @@ bool sge::openal::stream_sound::fill_buffer(ALuint const buffer)
 		samples_read = audio_file_->read(buffer_samples_,data);
 	}
 
-	SGE_ASSERT(data.size());
+	FCPPT_ASSERT(data.size());
 
 	alBufferData(
 		buffer,
@@ -102,7 +104,7 @@ void sge::openal::stream_sound::do_play()
 	fill_buffer(al_buffers_[0]);
 	fill_buffer(al_buffers_[1]);
 
-	FCPPT_LOG_DEBUG(log(),log::_ << "queued 2 buffers");
+	FCPPT_LOG_DEBUG(log(),fcppt::log::_ << "queued 2 buffers");
 
 	alSourceQueueBuffers(
 		alsource(),
@@ -130,7 +132,7 @@ void sge::openal::stream_sound::update()
 	)
 
 	if (processed)
-		FCPPT_LOG_DEBUG(log(),log::_ << processed << " buffers processed");
+		FCPPT_LOG_DEBUG(log(),fcppt::log::_ << processed << " buffers processed");
 
 	while(processed--)
 	{

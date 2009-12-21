@@ -25,7 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../openal.hpp"
 #include "../log.hpp"
 #include <sge/audio/exception.hpp>
-#include <sge/assert.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/assert.hpp>
 #include <boost/foreach.hpp>
 #include <vector>
 
@@ -45,7 +46,7 @@ sge::openal::context::context(
 	al_attributes.push_back(static_cast<ALCint>(0));
 	al_attributes.push_back(static_cast<ALCint>(0));
 
-	FCPPT_LOG_DEBUG(log(),log::_ << FCPPT_TEXT("creating audio context"))
+	FCPPT_LOG_DEBUG(log(),fcppt::log::_ << FCPPT_TEXT("creating audio context"))
 
 	context_ = alcCreateContext(device_.aldevice(),&(al_attributes[0]));
 
@@ -65,8 +66,8 @@ sge::openal::context::context(
 
 	// FIXME: can this leak? For example the creation of the context succeeds but there is an alError?
 
-	SGE_ASSERT(context_);
-	FCPPT_LOG_DEBUG(log(),log::_ << FCPPT_TEXT("created audio context"))
+	FCPPT_ASSERT(context_);
+	FCPPT_LOG_DEBUG(log(),fcppt::log::_ << FCPPT_TEXT("created audio context"))
 }
 
 ALCcontext *
@@ -78,7 +79,7 @@ sge::openal::context::alcontext()
 void sge::openal::context::make_current()
 {
 	FCPPT_LOG_DEBUG(log(),
-		log::_ << FCPPT_TEXT("making audio context the current context"));
+		fcppt::log::_ << FCPPT_TEXT("making audio context the current context"));
 
 	alcMakeContextCurrent(context_);
 
@@ -94,7 +95,7 @@ void sge::openal::context::make_current()
 	)
 
 	FCPPT_LOG_DEBUG(log(),
-		log::_ << FCPPT_TEXT("made audio context the current context"));
+		fcppt::log::_ << FCPPT_TEXT("made audio context the current context"));
 }
 
 sge::openal::context::~context()
@@ -117,7 +118,7 @@ sge::openal::context::~context()
 	if (current == context_)
 	{
 		FCPPT_LOG_DEBUG(log(),
-			log::_ << FCPPT_TEXT("context is the current context, so resetting current context"));
+			fcppt::log::_ << FCPPT_TEXT("context is the current context, so resetting current context"));
 
 		// TODO: alcMakeContextCurrent is called more than once, split this!
 		alcMakeContextCurrent(0);

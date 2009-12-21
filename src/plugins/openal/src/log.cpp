@@ -19,15 +19,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../log.hpp"
-#include <sge/log/parameters/inherited.hpp>
 #include <sge/log/global.hpp>
+#include <fcppt/log/parameters/inherited.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/text.hpp>
 
-sge::log::object &
+fcppt::log::object &
 sge::openal::log()
 {
-	static log::object l(
-		log::parameters::inherited(
+	static fcppt::log::object l(
+		fcppt::log::parameters::inherited(
 			log::global(),
 			FCPPT_TEXT("openal")
 		)

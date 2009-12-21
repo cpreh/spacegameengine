@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../check_alc_state.hpp"
 #include "../openal.hpp"
 #include <sge/audio/exception.hpp>
-#include <sge/assert.hpp>
+#include <fcppt/assert.hpp>
 #include <fcppt/text.hpp>
 
 sge::openal::device::device(
@@ -36,7 +36,7 @@ sge::openal::device::device(
 		audio::exception
 	)
 
-	SGE_ASSERT(device_);
+	FCPPT_ASSERT(device_);
 }
 
 ALCdevice *

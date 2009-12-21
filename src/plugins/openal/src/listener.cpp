@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../check_state.hpp"
 #include "../log.hpp"
 #include "../openal.hpp"
+#include <sge/audio/exception.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <sge/audio/exception.hpp>
+#include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
 
 namespace
@@ -56,7 +57,7 @@ sge::openal::listener::listener()
 
 void sge::openal::listener::vel(audio::point const &n)
 {
-	FCPPT_LOG_DEBUG(log(),log::_ << FCPPT_TEXT("setting listener velocity to ") << n);
+	FCPPT_LOG_DEBUG(log(),fcppt::log::_ << FCPPT_TEXT("setting listener velocity to ") << n);
 	vel_ = n;
 
 	// TODO: use sge::fcppt::math::vector!
@@ -79,7 +80,7 @@ sge::audio::point const sge::openal::listener::vel() const
 
 void sge::openal::listener::pos(audio::point const &n)
 {
-	FCPPT_LOG_DEBUG(log(),log::_ << FCPPT_TEXT("setting listener position to ") << n);
+	FCPPT_LOG_DEBUG(log(),fcppt::log::_ << FCPPT_TEXT("setting listener position to ") << n);
 	pos_ = n;
 	ALfloat const vec[3] =
 		{

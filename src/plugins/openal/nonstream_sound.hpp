@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENAL_NONSTREAM_SOUND_HPP_INCLUDED
 #define SGE_OPENAL_NONSTREAM_SOUND_HPP_INCLUDED
 
-#include <sge/audio/file_fwd.hpp>
+#include <sge/audio/file_ptr.hpp>
 #include "source.hpp"
 
 namespace sge

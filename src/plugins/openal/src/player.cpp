@@ -27,9 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../buffer.hpp"
 #include <sge/audio/sound.hpp>
 #include <sge/audio/pool.hpp>
+#include <sge/audio/file.hpp>
 #include <sge/audio/exception.hpp>
-#include <sge/log/headers.hpp>
-#include <sge/container/raw_vector_impl.hpp>
+#include <sge/audio/sample_container.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/text.hpp>
 #include <boost/foreach.hpp>
 
@@ -105,7 +107,7 @@ ALuint sge::openal::player::register_nonstream_sound(
 
 	FCPPT_LOG_DEBUG(
 		log(),
-		log::_
+		fcppt::log::_
 			<< FCPPT_TEXT("creating buffer of size ")
 	        	<< data.size()
 			<< FCPPT_TEXT(" and format ")
