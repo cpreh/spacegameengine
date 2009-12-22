@@ -23,12 +23,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/text.hpp>
 
-fcppt::string const sge::gui::utility::string_square(dim const &s)
+fcppt::string const
+sge::gui::utility::string_square(
+	dim const &s
+)
 {
-	string const line(
-		static_cast<string::size_type>(s.w()),
-		FCPPT_TEXT('W'));
-	string result;
+	fcppt::string const line(
+		static_cast<fcppt::string::size_type>(s.w()),
+		FCPPT_TEXT('W')
+	);
+
+	fcppt::string result;
 	for (unit i = 0; i < s.h(); ++i)
 		result += line+FCPPT_TEXT('\n');
 	return result;

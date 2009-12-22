@@ -20,17 +20,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "unlimited_text_size.hpp"
 #include <sge/gui/dim.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/dim.hpp>
 #include <sge/font/unit.hpp>
 #include <sge/font/text_size.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <limits>
 
-sge::gui::dim const sge::gui::utility::unlimited_text_size(
+sge::gui::dim const
+sge::gui::utility::unlimited_text_size(
 	font::metrics_ptr const f,
-	string const &t)
+	fcppt::string const &t
+)
 {
 	return fcppt::math::dim::structure_cast<dim>(
 		font::object(f).text_size(

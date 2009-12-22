@@ -30,7 +30,12 @@ namespace gui
 {
 namespace utility
 {
-string const string_square(dim const &);
+
+fcppt::string const
+string_square(
+	dim const &
+);
+
 }
 }
 }

@@ -67,7 +67,7 @@ class object
 
 	SGE_GUI_SYMBOL void draw_text(
 		font_info const &,
-		string const &,
+		fcppt::string const &,
 		point const &,
 		dim const &max_size,
 		font::align_h::type,

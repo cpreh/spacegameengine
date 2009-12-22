@@ -31,8 +31,8 @@ namespace gui
 namespace canvas
 {
 
-typedef optional<
-	string::size_type
+typedef fcppt::optional<
+	fcppt::string::size_type
 > optional_character_pos;
 
 }

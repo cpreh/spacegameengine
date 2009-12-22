@@ -26,22 +26,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/canvas/object.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/gui/unit.hpp>
-#include <fcppt/math/dim/output.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/text_size.hpp>
 #include <sge/image/colors.hpp>
-#include <sge/log/parameters/inherited.hpp>
-#include <sge/log/object.hpp>
-#include <sge/log/headers.hpp>
-#include <fcppt/assert.hpp>
+#include <fcppt/math/dim/output.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/log/parameters/inherited.hpp>
+#include <fcppt/log/object.hpp>
+#include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
 
 namespace
 {
 
-sge::log::object mylogger(
-	sge::log::parameters::inherited(
+fcppt::log::object mylogger(
+	fcppt::log::parameters::inherited(
 		sge::gui::global_log(),
 		FCPPT_TEXT("skins::standard::label")
 	)
@@ -57,7 +56,7 @@ void sge::gui::skins::standard::draw(
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("creating canvas from buffer"));
+		fcppt::log::_ << FCPPT_TEXT("creating canvas from buffer"));
 
 	canvas::object c(b.buffer());
 
@@ -70,7 +69,7 @@ void sge::gui::skins::standard::draw(
 		*/
 	c.draw_rect(
 		rect(
-			rect::pos_type::null(),
+			rect::vector::null(),
 			c.size()
 		),
 		sge::image::colors::transparent(),
@@ -78,7 +77,7 @@ void sge::gui::skins::standard::draw(
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("drawing text (label \"")
+		fcppt::log::_ << FCPPT_TEXT("drawing text (label \"")
 		        << b.text()
 		        << FCPPT_TEXT("\")"));
 
@@ -93,7 +92,7 @@ void sge::gui::skins::standard::draw(
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("blitting (label \"")
+		fcppt::log::_ << FCPPT_TEXT("blitting (label \"")
 		        << b.text()
 		        << FCPPT_TEXT("\")"));
 
@@ -109,7 +108,7 @@ sge::gui::dim const sge::gui::skins::standard::optimal_size(
 {
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("calling size hint for label"));
+		fcppt::log::_ << FCPPT_TEXT("calling size hint for label"));
 
 	return
 		utility::unlimited_text_size(

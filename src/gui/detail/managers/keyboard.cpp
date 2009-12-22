@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/headers.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/assert.hpp>
+#include <fcppt/assert_message.hpp>
 #include <boost/next_prior.hpp>
 #include <algorithm>
 
@@ -107,7 +108,7 @@ void sge::gui::detail::managers::keyboard::add(widgets::base &w)
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("adding widget"));
+		fcppt::log::_ << FCPPT_TEXT("adding widget"));
 
 	FCPPT_ASSERT(
 		utility::ptr_find(widgets.begin(),widgets.end(),&w)
@@ -253,7 +254,7 @@ void sge::gui::detail::managers::keyboard::keyboard_focus(
 		{
 			FCPPT_LOG_DEBUG(
 				mylogger,
-				log::_ << FCPPT_TEXT("adding widgets::base after focus change"));
+				fcppt::log::_ << FCPPT_TEXT("adding widgets::base after focus change"));
 			widget_container::iterator wi = utility::ptr_find(
 					widgets.begin(),
 					widgets.end(),&w);
@@ -300,7 +301,7 @@ void sge::gui::detail::managers::keyboard::input_callback(
 
 	if (k.key().code() == sge::input::kc::key_tab)
 	{
-		if (!sge::fcppt::math::almost_zero(k.value()))
+		if (!fcppt::math::almost_zero(k.value()))
 			cycle_focus();
 		return;
 	}
@@ -308,7 +309,7 @@ void sge::gui::detail::managers::keyboard::input_callback(
 
 void sge::gui::detail::managers::keyboard::switch_focus(widget_container::iterator n)
 {
-	FCPPT_LOG_DEBUG(mylogger,log::_ << FCPPT_TEXT("switching focus"));
+	FCPPT_LOG_DEBUG(mylogger,fcppt::log::_ << FCPPT_TEXT("switching focus"));
 	if (focus)
 		(*focus)->process_keyboard_leave(events::keyboard_leave());
 	focus = n;

@@ -23,17 +23,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/manager.hpp>
 #include <sge/gui/exception.hpp>
 #include <sge/gui/log.hpp>
-#include <sge/log/parameters/inherited.hpp>
-#include <sge/log/object.hpp>
-#include <sge/log/headers.hpp>
-#include <sge/type_name.hpp>
+#include <fcppt/log/parameters/inherited.hpp>
+#include <fcppt/log/object.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/type_name.hpp>
 #include <fcppt/text.hpp>
 
 namespace
 {
 
-sge::log::object mylogger(
-	sge::log::parameters::inherited(
+fcppt::log::object mylogger(
+	fcppt::log::parameters::inherited(
 		sge::gui::global_log(),
 		FCPPT_TEXT("layouts: base")
 	)
@@ -51,14 +51,16 @@ void sge::gui::layouts::base::compile(invalidation::type const &i)
 {
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("in compile of widget: ")
-		        << type_name(typeid(connected_widget())));
+		fcppt::log::_
+			<< FCPPT_TEXT("in compile of widget: ")
+			<< fcppt::type_name(typeid(connected_widget()))
+	);
 
 	if (i & invalidation::position)
 	{
 		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_ << FCPPT_TEXT("position invalid"));
+			fcppt::log::_ << FCPPT_TEXT("position invalid"));
 
 		// Currently, the layout doesn't support any internal size hints (just the
 		// global one which sets the widget's position
@@ -66,7 +68,7 @@ void sge::gui::layouts::base::compile(invalidation::type const &i)
 		{
 			FCPPT_LOG_DEBUG(
 				mylogger,
-				log::_ << FCPPT_TEXT("setting raw new position"));
+				fcppt::log::_ << FCPPT_TEXT("setting raw new position"));
 
 			base::set_widget_pos(
 				connected_widget(),
@@ -81,7 +83,7 @@ void sge::gui::layouts::base::compile(invalidation::type const &i)
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("size invalid, so recompiling"));
+		fcppt::log::_ << FCPPT_TEXT("size invalid, so recompiling"));
 
 	dim const s =
 		connected_widget().optimal_size();

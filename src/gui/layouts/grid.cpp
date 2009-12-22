@@ -23,22 +23,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/layouts/grid.hpp>
 #include <sge/gui/widgets/base.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/dim/dim.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/arithmetic.hpp>
+#include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/dim.hpp>
 #include <fcppt/math/negative.hpp>
-#include <sge/log/parameters/inherited.hpp>
-#include <sge/log/object.hpp>
-#include <sge/log/headers.hpp>
-#include <sge/type_name.hpp>
+#include <fcppt/log/parameters/inherited.hpp>
+#include <fcppt/log/object.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/assert_message.hpp>
+#include <fcppt/type_name.hpp>
 #include <fcppt/text.hpp>
 #include <boost/foreach.hpp>
 
 namespace
 {
 
-sge::log::object mylogger(
-	sge::log::parameters::inherited(
+fcppt::log::object mylogger(
+	fcppt::log::parameters::inherited(
 		sge::gui::global_log(),
 		FCPPT_TEXT("layouts: grid")
 	)
@@ -53,8 +56,10 @@ void sge::gui::layouts::grid::compile_static()
 {
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("In static compilation for widget ")
-		        << type_name(typeid(connected_widget())));
+		fcppt::log::_
+			<< FCPPT_TEXT("In static compilation for widget ")
+			<< fcppt::type_name(typeid(connected_widget()))
+	);
 
 	cache_.reset(
 		new detail::grid_cache(
@@ -77,29 +82,31 @@ void sge::gui::layouts::grid::compile_static()
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("optimal size ") << optimal
-		        << FCPPT_TEXT(", usable size: ") << usable);
+		fcppt::log::_
+			<< FCPPT_TEXT("optimal size ") << optimal
+			<< FCPPT_TEXT(", usable size: ") << usable
+	);
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("adapting y axis begin"));
+		fcppt::log::_ << FCPPT_TEXT("adapting y axis begin"));
 	adapt_outer(
 		optimal,
 		usable,
 		y_axis);
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("adapting y axis end"));
+		fcppt::log::_ << FCPPT_TEXT("adapting y axis end"));
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("adapting x axis begin"));
+		fcppt::log::_ << FCPPT_TEXT("adapting x axis begin"));
 	adapt_outer(
 		optimal,
 		usable,
 		x_axis);
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("adapting x axis end"));
+		fcppt::log::_ << FCPPT_TEXT("adapting x axis end"));
 
 	distribute_overhead(
 		usable);
@@ -110,7 +117,7 @@ sge::gui::dim const sge::gui::layouts::grid::optimal_size() const
 {
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("optimal size, begin"));
+		fcppt::log::_ << FCPPT_TEXT("optimal size, begin"));
 
 	detail::grid_cache::rolumn_container const &rolumns =
 		valid_cache().rolumns();
@@ -119,12 +126,12 @@ sge::gui::dim const sge::gui::layouts::grid::optimal_size() const
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("rolumn dimension is ")
-		        << rolumns.dim());
+		fcppt::log::_ << FCPPT_TEXT("rolumn dimension is ")
+		        << rolumns.dimension());
 
 	for (
 		detail::grid_cache::rolumn_container::size_type i = 0;
-		i < rolumns.dim().h();
+		i < rolumns.dimension().h();
 		++i)
 		for (
 			unit j = static_cast<unit>(0);
@@ -133,18 +140,21 @@ sge::gui::dim const sge::gui::layouts::grid::optimal_size() const
 		{
 			FCPPT_LOG_DEBUG(
 				mylogger,
-				log::_ << FCPPT_TEXT("axis: ")
-				        << j
-								<< FCPPT_TEXT(", rolumn ")
-								<< i
-								<< FCPPT_TEXT(", adding size ")
-								<< rolumns.pos(detail::grid_cache::rolumn_container::vector_type(j,i)).size);
-			maxdims[j] += rolumns.pos(detail::grid_cache::rolumn_container::vector_type(j,i)).size;
+				fcppt::log::_
+					<< FCPPT_TEXT("axis: ")
+					<< j
+					<< FCPPT_TEXT(", rolumn ")
+					<< i
+					<< FCPPT_TEXT(", adding size ")
+					<< rolumns.pos(detail::grid_cache::rolumn_container::vector(j,i)).size
+			);
+
+			maxdims[j] += rolumns.pos(detail::grid_cache::rolumn_container::vector(j,i)).size;
 		}
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("optimal size, end"));
+		fcppt::log::_ << FCPPT_TEXT("optimal size, end"));
 
 	return maxdims;
 }
@@ -197,7 +207,7 @@ void sge::gui::layouts::grid::shrink(
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("there is too less space, shrinking begin"));
+		fcppt::log::_ << FCPPT_TEXT("there is too less space, shrinking begin"));
 	adapt(
 		optimal,
 		usable,
@@ -205,7 +215,7 @@ void sge::gui::layouts::grid::shrink(
 		axis);
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("shrinking end"));
+		fcppt::log::_ << FCPPT_TEXT("shrinking end"));
 }
 
 void sge::gui::layouts::grid::expand(
@@ -215,14 +225,14 @@ void sge::gui::layouts::grid::expand(
 {
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("there is too much space, expanding begin"));
+		fcppt::log::_ << FCPPT_TEXT("there is too much space, expanding begin"));
 
 	unsigned count;
 	if ((count = count_flags(axis_policy::should_grow,axis)))
 	{
 		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_ << FCPPT_TEXT("there are ")
+			fcppt::log::_ << FCPPT_TEXT("there are ")
 							<< count
 							<< FCPPT_TEXT(" widgets which should grow, growing those"));
 
@@ -236,7 +246,7 @@ void sge::gui::layouts::grid::expand(
 	{
 		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_ << FCPPT_TEXT("there are ")
+			fcppt::log::_ << FCPPT_TEXT("there are ")
 							<< count
 							<< FCPPT_TEXT(" widgets which can grow, growing those"));
 
@@ -250,11 +260,11 @@ void sge::gui::layouts::grid::expand(
 	{
 		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_ << FCPPT_TEXT("there are no widgets which could grow :("));
+			fcppt::log::_ << FCPPT_TEXT("there are no widgets which could grow :("));
 	}
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("expanding end"));
+		fcppt::log::_ << FCPPT_TEXT("expanding end"));
 }
 
 void sge::gui::layouts::grid::adapt(
@@ -280,7 +290,7 @@ void sge::gui::layouts::grid::adapt(
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("adding ") << diff << FCPPT_TEXT("/")
+		fcppt::log::_ << FCPPT_TEXT("adding ") << diff << FCPPT_TEXT("/")
 		        << count << FCPPT_TEXT("=") << addition
 						<< FCPPT_TEXT(" pixels to the flagged rolumns"));
 
@@ -289,15 +299,15 @@ void sge::gui::layouts::grid::adapt(
 
 	for (
 		detail::grid_cache::child_plane::size_type i = 0;
-		i < valid_cache().plane().dim()[axis];
+		i < valid_cache().plane().dimension()[axis];
 		++i
 		)
 	{
-		if (rolumns.pos(detail::grid_cache::rolumn_container::vector_type(axis,i)).policy & flag)
+		if (rolumns.pos(detail::grid_cache::rolumn_container::vector(axis,i)).policy & flag)
 		{
 			FCPPT_LOG_DEBUG(
 				mylogger,
-				log::_ << FCPPT_TEXT("rolumn ") << i << FCPPT_TEXT(" can be modified"));
+				fcppt::log::_ << FCPPT_TEXT("rolumn ") << i << FCPPT_TEXT(" can be modified"));
 
 			update_rolumn(
 				axis,
@@ -322,8 +332,8 @@ Result field_swap_pos(
 {
 	return
 		swap
-			? f.pos(typename Container::vector_type(b,a))
-			: f.pos(typename Container::vector_type(a,b));
+			? f.pos(typename Container::vector(b,a))
+			: f.pos(typename Container::vector(a,b));
 }
 }
 
@@ -335,29 +345,29 @@ void sge::gui::layouts::grid::update_rolumn(
 {
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("updating rolumn ")
+		fcppt::log::_ << FCPPT_TEXT("updating rolumn ")
 		        << rolumn
 						<< FCPPT_TEXT(" on axis ")
 						<< axis);
 	// update the cache
 	valid_cache().rolumns().pos(
-		detail::grid_cache::rolumn_container::vector_type(
+		detail::grid_cache::rolumn_container::vector(
 			axis,
 			rolumn)).size += addition;
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("added addition, plane dimensions are: ")
-		        << valid_cache().plane().dim());
+		fcppt::log::_ << FCPPT_TEXT("added addition, plane dimensions are: ")
+		        << valid_cache().plane().dimension());
 
 	for (
 		detail::grid_cache::child_plane::size_type i = 0;
-		i < valid_cache().plane().dim()[1-axis];
+		i < valid_cache().plane().dimension()[1-axis];
 		++i)
 	{
 		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_ << FCPPT_TEXT("swapping positions: ")
+			fcppt::log::_ << FCPPT_TEXT("swapping positions: ")
 							<< bool(axis)
 							<< FCPPT_TEXT(" and accessing ")
 							<< i << FCPPT_TEXT("x") << rolumn);
@@ -383,7 +393,7 @@ void sge::gui::layouts::grid::update_rolumn(
 	}
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("update rolumn, end "));
+		fcppt::log::_ << FCPPT_TEXT("update rolumn, end "));
 }
 
 // counts the number of widgets on the specified axis (not rolumn, axis) which
@@ -399,9 +409,9 @@ unsigned sge::gui::layouts::grid::count_flags(
 
 	for (
 		detail::grid_cache::rolumn_container::size_type i = 0;
-		i < rolumns.dim().w();
+		i < rolumns.dimension().w();
 		++i)
-		if (rolumns.pos(detail::grid_cache::rolumn_container::vector_type(axis,i)).policy & flags)
+		if (rolumns.pos(detail::grid_cache::rolumn_container::vector(axis,i)).policy & flags)
 			++count;
 
 	return count;
@@ -418,14 +428,14 @@ void sge::gui::layouts::grid::distribute_overhead(
 	// we might have overhead space (difference "usable - real"), which we
 	// distribute evenly among rolumns
 	dim real = dim::null();
-	for (detail::grid_cache::rolumn_container::size_type i = 0; i < rolumns.dim().h(); ++i)
+	for (detail::grid_cache::rolumn_container::size_type i = 0; i < rolumns.dimension().h(); ++i)
 		real += dim(
 			rolumns.pos(
-				detail::grid_cache::rolumn_container::vector_type(
+				detail::grid_cache::rolumn_container::vector(
 					x_axis,
 					i)).size,
 			rolumns.pos(
-				detail::grid_cache::rolumn_container::vector_type(
+				detail::grid_cache::rolumn_container::vector(
 					y_axis,
 					i)).size);
 
@@ -433,15 +443,15 @@ void sge::gui::layouts::grid::distribute_overhead(
 		diff = usable - real,
 		extra(
 			diff.w()/
-			static_cast<unit>(valid_cache().plane().dim().w()),
+			static_cast<unit>(valid_cache().plane().dimension().w()),
 			diff.h()/
-			static_cast<unit>(valid_cache().plane().dim().h()));
+			static_cast<unit>(valid_cache().plane().dimension().h()));
 
 
-	for (detail::grid_cache::rolumn_container::size_type i = 0; i < rolumns.dim().h(); ++i)
+	for (detail::grid_cache::rolumn_container::size_type i = 0; i < rolumns.dimension().h(); ++i)
 		for (detail::grid_cache::rolumn_container::size_type j = 0; j < 2; ++j)
 			rolumns.pos(
-				detail::grid_cache::rolumn_container::vector_type(
+				detail::grid_cache::rolumn_container::vector(
 					j,
 					i)).size += extra[static_cast<dim::size_type>(j)];
 }
@@ -452,7 +462,7 @@ void sge::gui::layouts::grid::update_widgets()
 {
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("updating widgets begin"));
+		fcppt::log::_ << FCPPT_TEXT("updating widgets begin"));
 
 	detail::grid_cache::child_plane &c =
 		valid_cache().plane();
@@ -462,48 +472,54 @@ void sge::gui::layouts::grid::update_widgets()
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("volatile rolumns dim: ")
+		fcppt::log::_ << FCPPT_TEXT("volatile rolumns dim: ")
 		        << rolumns.size());
 
 	// this pos represents the "screen position", not the position in the array
 	point pos = point::null();
-	for (detail::grid_cache::rolumn_container::size_type x = 0; x < c.dim().w(); ++x)
+	for (detail::grid_cache::rolumn_container::size_type x = 0; x < c.dimension().w(); ++x)
 	{
 		pos.y() = static_cast<unit>(0);
-		for (detail::grid_cache::rolumn_container::size_type y = 0; y < c.dim().h(); ++y)
+		for (detail::grid_cache::rolumn_container::size_type y = 0; y < c.dimension().h(); ++y)
 		{
 			widgets::base * const w =
-				c.pos(detail::grid_cache::child_plane::vector_type(x,y));
+				c.pos(detail::grid_cache::child_plane::vector(x,y));
 			if (w)
 				update_widget(
 					*w,
 					pos,
 					dim(
 						rolumns.pos(
-							detail::grid_cache::rolumn_container::vector_type(
+							detail::grid_cache::rolumn_container::vector(
 								x_axis,
-								x)).size,
+								x
+							)
+						).size,
 						rolumns.pos(
-							detail::grid_cache::rolumn_container::vector_type(
+							detail::grid_cache::rolumn_container::vector(
 								y_axis,
-								y)).size));
+								y
+							)
+						).size
+					)
+				);
 
 			pos.y() +=
 				rolumns.pos(
-					detail::grid_cache::rolumn_container::vector_type(
+					detail::grid_cache::rolumn_container::vector(
 						y_axis,
 						y)).size;
 		}
 		pos.x() +=
 			rolumns.pos(
-				detail::grid_cache::rolumn_container::vector_type(
+				detail::grid_cache::rolumn_container::vector(
 					x_axis,
 					x)).size;
 	}
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("updating widgets end"));
+		fcppt::log::_ << FCPPT_TEXT("updating widgets end"));
 }
 
 namespace
@@ -529,14 +545,16 @@ void sge::gui::layouts::grid::update_widget(
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("setting widget position to ")
-		        << p
-						<< FCPPT_TEXT(", with large size ")
-						<< d
-						<< FCPPT_TEXT(" and small size ")
-						<< smaller
-						<< FCPPT_TEXT(" and centered position ")
-						<< center(p,d,smaller));
+		fcppt::log::_
+			<< FCPPT_TEXT("setting widget position to ")
+			<< p
+			<< FCPPT_TEXT(", with large size ")
+			<< d
+			<< FCPPT_TEXT(" and small size ")
+			<< smaller
+			<< FCPPT_TEXT(" and centered position ")
+			<< center(p,d,smaller)
+	);
 
 	base::set_widget_pos(
 		w,

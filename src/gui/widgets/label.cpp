@@ -23,16 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/gui/manager.hpp>
 #include <sge/gui/widgets/log.hpp>
-#include <sge/log/parameters/inherited.hpp>
-#include <sge/log/object.hpp>
-#include <sge/log/headers.hpp>
-#include <fcppt/assert.hpp>
+#include <fcppt/log/parameters/inherited.hpp>
+#include <fcppt/log/object.hpp>
+#include <fcppt/log/headers.hpp>
 
 namespace
 {
 
-sge::log::object mylogger(
-	sge::log::parameters::inherited(
+fcppt::log::object mylogger(
+	fcppt::log::parameters::inherited(
 		sge::gui::widgets::global_log(),
 		FCPPT_TEXT("label")
 	)
@@ -43,7 +42,7 @@ sge::log::object mylogger(
 sge::gui::widgets::label::label(
 	parent_data const &_parent,
 	parameters _params,
-	string const &_text,
+	fcppt::string const &_text,
 	sge::font::align_h::type _align_h,
 	sge::font::align_v::type _align_v,
 	optional_dim const &_static_size)
@@ -77,12 +76,14 @@ sge::font::align_v::type sge::gui::widgets::label::align_v() const
 }
 
 void sge::gui::widgets::label::text(
-	string const &_text)
+	fcppt::string const &_text)
 {
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("setting text to: ")
-		        << _text);
+		fcppt::log::_
+			<< FCPPT_TEXT("setting text to: ")
+			<< _text
+	);
 	text_ = _text;
 	invalidate(
 		*this,

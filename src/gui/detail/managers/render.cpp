@@ -31,6 +31,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/sprite/depth_type.hpp>
 #include <sge/gui/sprite/parameters.hpp>
 #include <sge/gui/log.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/filter/linear.hpp>
+#include <sge/renderer/texture_software.hpp>
+#include <sge/renderer/texture.hpp>
+#include <sge/renderer/texture_rw.hpp>
+#include <sge/renderer/scoped_texture_lock.hpp>
+#include <sge/texture/part_raw.hpp>
+#include <sge/sprite/default_sort.hpp>
+#include <sge/sprite/default_equal.hpp>
+#include <sge/sprite/parameters_impl.hpp>
+#include <sge/sprite/external_system_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/box/structure_cast.hpp>
 #include <fcppt/math/box/output.hpp>
@@ -40,33 +51,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/filter/linear.hpp>
-#include <sge/renderer/texture_software.hpp>
-#include <sge/renderer/texture.hpp>
-#include <sge/renderer/texture_rw.hpp>
-#include <sge/renderer/scoped_texture_lock.hpp>
-#include <fcppt/texture/part_raw.hpp>
-#include <sge/sprite/default_sort.hpp>
-#include <sge/sprite/default_equal.hpp>
-#include <sge/sprite/parameters_impl.hpp>
-#include <sge/sprite/external_system_impl.hpp>
-#include <sge/log/parameters/inherited.hpp>
-#include <sge/log/object.hpp>
-#include <sge/log/headers.hpp>
+#include <fcppt/log/parameters/inherited.hpp>
+#include <fcppt/log/object.hpp>
+#include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert.hpp>
-#include <sge/type_name.hpp>
-#include <sge/make_shared_ptr.hpp>
-#include <sge/make_auto_ptr.hpp>
+#include <fcppt/type_name.hpp>
+#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_auto_ptr.hpp>
+#include <fcppt/auto_ptr.hpp>
 #include <boost/foreach.hpp>
 #include <utility>
 
 namespace
 {
 
-sge::log::object mylogger(
-	sge::log::parameters::inherited(
+fcppt::log::object mylogger(
+	fcppt::log::parameters::inherited(
 		sge::gui::global_log(),
 		FCPPT_TEXT("managers: render")
 	)
@@ -81,10 +82,10 @@ sge::texture::const_part_ptr assign_textures(
 	sge::renderer::texture_ptr &tex)
 {
 	sge::renderer::texture_ptr const software_texture(
-		sge::make_shared_ptr<
+		fcppt::make_shared_ptr<
 			sge::renderer::texture_software
 		>(
-			sge::fcppt::math::dim::structure_cast<
+			fcppt::math::dim::structure_cast<
 				sge::renderer::texture::dim_type
 			>(
 				d)
@@ -95,7 +96,7 @@ sge::texture::const_part_ptr assign_textures(
 
 	sge::renderer::texture_ptr const hardware_texture =
 		rend->create_texture(
-			sge::fcppt::math::dim::structure_cast<
+			fcppt::math::dim::structure_cast<
 				sge::renderer::texture::dim_type
 			>(
 				d
@@ -105,7 +106,7 @@ sge::texture::const_part_ptr assign_textures(
 			sge::renderer::resource_flags::dynamic);
 
 	tex =
-		sge::make_shared_ptr<
+		fcppt::make_shared_ptr<
 			sge::renderer::texture_rw
 		>(
 			software_texture,
@@ -117,7 +118,7 @@ sge::texture::const_part_ptr assign_textures(
 
 	return
 		sge::texture::const_part_ptr(
-			sge::make_shared_ptr<
+			fcppt::make_shared_ptr<
 				sge::texture::part_raw
 			>(
 				hardware_texture));
@@ -142,15 +143,15 @@ void sge::gui::detail::managers::render::add(widgets::base &w)
 {
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("adding new widget"));
+		fcppt::log::_ << FCPPT_TEXT("adding new widget"));
 	widgets::base *w_ptr = &w;
 
 	if (!w.has_parent())
 	{
-		sge::auto_ptr<
+		fcppt::auto_ptr<
 			widget_data
 		> to_insert(
-			sge::make_auto_ptr<
+			fcppt::make_auto_ptr<
 				widget_data
 			>()
 		);
@@ -233,16 +234,19 @@ void sge::gui::detail::managers::render::resize(
 {
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_
-			<< FCPPT_TEXT("widget ") << type_name(typeid(w))
-			<< FCPPT_TEXT(" was resized to ") << d);
+		fcppt::log::_
+			<< FCPPT_TEXT("widget ")
+			<< fcppt::type_name(typeid(w))
+			<< FCPPT_TEXT(" was resized to ")
+			<< d
+	);
 
 	dirt_.erase(&w);
 
 	dirty(
 		w,
 		rect(
-			rect::pos_type::null(),
+			rect::vector::null(),
 			d
 		)
 	);
@@ -256,7 +260,7 @@ void sge::gui::detail::managers::render::resize(
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_
+		fcppt::log::_
 			<< FCPPT_TEXT("resizing widget from ") << w.size()
 			<< FCPPT_TEXT(" to ") << d);
 
@@ -271,7 +275,7 @@ void sge::gui::detail::managers::render::resize(
 	{
 		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_
+			fcppt::log::_
 				<< FCPPT_TEXT("texture resolution ")
 				<< wd.texture->dim()
 				<< FCPPT_TEXT(" suffices, doing nothing"));
@@ -280,7 +284,7 @@ void sge::gui::detail::managers::render::resize(
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_
+		fcppt::log::_
 			<< FCPPT_TEXT("new resolution is ")
 			<< new_dim
 	);
@@ -379,17 +383,18 @@ void sge::gui::detail::managers::render::clean()
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("cleaning dirty regions"));
+		fcppt::log::_ << FCPPT_TEXT("cleaning dirty regions"));
 
 	BOOST_FOREACH(dirt_container::reference d,dirt_)
 	{
 		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_
+			fcppt::log::_
 				<< FCPPT_TEXT("cleaning rect: ")
 				<< d.second
 				<< FCPPT_TEXT(" from widget: ")
-				<< type_info(typeid(*d.first)).name());
+				<< fcppt::type_name(typeid(*d.first))
+		);
 
 		widgets::base &p = d.first->oldest_parent();
 
@@ -402,17 +407,17 @@ void sge::gui::detail::managers::render::clean()
 		{
 			FCPPT_LOG_DEBUG(
 				mylogger,
-				log::_ << FCPPT_TEXT("cannot lock because oldest parent hasn't been inited yet"));
+				fcppt::log::_ << FCPPT_TEXT("cannot lock because oldest parent hasn't been inited yet"));
 			continue;
 		}
 
 		rect const to_lock(
 			d.first->absolute_pos()+d.second.pos(),
-			d.second.dim());
+			d.second.dimension());
 
 		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_
+			fcppt::log::_
 				<< FCPPT_TEXT("trying to lock area: ")
 				<< to_lock);
 
@@ -428,7 +433,7 @@ void sge::gui::detail::managers::render::clean()
 
 		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_
+			fcppt::log::_
 				<< FCPPT_TEXT("sending dirty for area: ")
 				<< d.second);
 
