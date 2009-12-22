@@ -13,7 +13,7 @@
 #include <sge/math/clamp.hpp>
 #include <sge/math/pi.hpp>
 #include <fcppt/text.hpp>
-#include <sge/cerr.hpp>
+#include <fcppt/io/cerr.hpp>
 #include <sge/iconv.hpp>
 #include <sge/lexical_cast.hpp>
 #include <sge/assert.hpp>

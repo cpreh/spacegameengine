@@ -68,7 +68,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/default_creator_impl.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/math/dim/structure_cast.hpp>
-#include <sge/cerr.hpp>
+#include <fcppt/io/cerr.hpp>
 #include <sge/exception.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>

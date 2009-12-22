@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/ini/parse_range.hpp>
 #include <sge/string.hpp>
-#include <sge/cout.hpp>
-#include <sge/cerr.hpp>
+#include <fcppt/io/cout.hpp>
+#include <fcppt/io/cerr.hpp>
 #include <fcppt/text.hpp>
 #include <boost/foreach.hpp>
 #include <cstdlib>

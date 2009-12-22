@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/matrix/static.hpp>
 #include <sge/math/vector/vector.hpp>
 #include <sge/math/vector/static.hpp>
-#include <sge/cout.hpp>
-#include <sge/cin.hpp>
-#include <sge/cerr.hpp>
+#include <fcppt/io/cout.hpp>
+#include <fcppt/io/cin.hpp>
+#include <fcppt/io/cerr.hpp>
 #include <fcppt/text.hpp>
 #include <limits>
 #include <iosfwd>
