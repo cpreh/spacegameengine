@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/assert.hpp>
+#include <fcppt/assert.hpp>
 #include <fcppt/text.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/rgba8_format.hpp>
@@ -279,7 +279,7 @@ try
 
 			}
 
-		SGE_ASSERT(vb_it == vertices.end());
+		FCPPT_ASSERT(vb_it == vertices.end());
 	}
 
 	bool running = true;

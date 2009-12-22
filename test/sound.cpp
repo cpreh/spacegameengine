@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/time/sleep.hpp>
-#include <sge/iconv.hpp>
+#include <fcppt/iconv.hpp>
 #include <boost/program_options.hpp>
 #include <ostream>
 #include <exception>
@@ -92,7 +92,7 @@ try
 		 return EXIT_SUCCESS;
 	}
 
-	sge::filesystem::path file_name(sge::iconv(file_name_prog_options));
+	sge::filesystem::path file_name(fcppt::iconv(file_name_prog_options));
 	if (file_name.empty())
 		file_name = sge::config::media_path() / FCPPT_TEXT("ding.wav");
 

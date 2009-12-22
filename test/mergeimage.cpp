@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <sge/iconv.hpp>
+#include <fcppt/iconv.hpp>
 #include <boost/foreach.hpp>
 #include <algorithm>
 #include <iterator>
@@ -132,7 +132,7 @@ try
 	);
 
 	sge::filesystem::path const path(
-		sge::iconv(
+		fcppt::iconv(
 			argv[1]
 		)
 	);

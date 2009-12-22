@@ -1,6 +1,3 @@
-#include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/container/field.hpp>
-#include <sge/log/headers.hpp>
 #include <sge/image/loader.hpp>
 #include <sge/image/file.hpp>
 #include <sge/image/view/make.hpp>
@@ -10,15 +7,18 @@
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/window/parameters.hpp>
+#include <sge/exception.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/clamp.hpp>
 #include <fcppt/math/pi.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/container/field.hpp>
+#include <fcppt/log/headers.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <sge/iconv.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/lexical_cast.hpp>
-#include <sge/assert.hpp>
-#include <sge/exception.hpp>
-#include <sge/optional_impl.hpp>
+#include <fcppt/assert.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/iconv.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/foreach.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
@@ -275,7 +275,7 @@ fill_with_gauss(
 			i,
 			e);
 
-	SGE_ASSERT((span - 1) % 2 == 0);
+	FCPPT_ASSERT((span - 1) % 2 == 0);
 
 	value_type const r =
 		static_cast<value_type>(
@@ -310,7 +310,7 @@ void field_combine(
 	fcppt::container::field<U> const &right,
 	Combine c)
 {
-	SGE_ASSERT(left.dim() == right.dim());
+	FCPPT_ASSERT(left.dim() == right.dim());
 
 	typename fcppt::container::field<T>::iterator li = left.begin();
 	typename fcppt::container::field<U>::const_iterator ri = right.begin();
@@ -465,7 +465,7 @@ try
 	sge::image::file_ptr const
 		bg(
 			sys.image_loader()->load(
-				sge::iconv(argv[1]
+				fcppt::iconv(argv[1]
 			)
 		)
 	);
