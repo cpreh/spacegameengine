@@ -23,16 +23,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../mouse_grab.hpp"
 #include "../mouse_keys.hpp"
 #include <X11/Xlib.h>
-#include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
 #include <sge/input/key_pair.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
+#include <fcppt/log/headers.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>
-#include <tr1/functional>
 
 namespace
 {
@@ -235,7 +235,7 @@ void sge::x11input::mouse::warped_motion(
 
 	FCPPT_LOG_WARNING(
 		log::global(),
-		log::_
+		fcppt::log::_
 			<< FCPPT_TEXT("Didn't detect mouse warp motion! ")
 			FCPPT_TEXT("Try to enable dga mouse instead."));
 }

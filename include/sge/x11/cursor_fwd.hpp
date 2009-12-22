@@ -18,48 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_KEYBOARD_HPP_INCLUDED
-#define SGE_X11INPUT_KEYBOARD_HPP_INCLUDED
-
-#include "device.hpp"
-#include <X11/Xlib.h>
-#include <sge/input/callback.hpp>
-#include <sge/input/repeat_callback.hpp>
-#include <sge/x11/window_ptr.hpp>
-#include <fcppt/signal/connection_manager.hpp>
-#include <fcppt/scoped_ptr.hpp>
+#ifndef SGE_X11_CURSOR_FWD_HPP_INCLUDED
+#define SGE_X11_CURSOR_FWD_HPP_INCLUDED
 
 namespace sge
 {
-namespace x11input
+namespace x11
 {
 
-class keyboard_grab;
-
-class keyboard : public device {
-public:
-	keyboard(
-		x11::window_ptr,
-		input::callback const &,
-		input::repeat_callback const &);
-private:
-	void grab();
-	void ungrab();
-
-	void on_key_event(
-		XEvent const &);
-
-	x11::window_ptr const        wnd;
-	input::callback const        callback;
-	input::repeat_callback const repeat_callback;
-	bool const                   need_grab;
-
-	fcppt::signal::connection_manager connections;
-
-	fcppt::scoped_ptr<
-		keyboard_grab
-	> grab_;
-};
+class cursor;
 
 }
 }

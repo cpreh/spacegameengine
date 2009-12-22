@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11_CURSOR_HPP_INCLUDED
 #define SGE_X11_CURSOR_HPP_INCLUDED
 
-#include <X11/Xlib.h>
+#include <sge/x11/cursor_fwd.hpp>
 #include <sge/x11/display_ptr.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <X11/Xlib.h>
 
 namespace sge
 {

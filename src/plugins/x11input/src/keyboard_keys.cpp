@@ -24,12 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/Xutil.h>
 #include <sge/x11/sentry.hpp>
 #include <sge/input/key_type.hpp>
-#include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/tr1/array.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/string.hpp>
-#include <sge/iconv.hpp>
-#include <tr1/array>
+#include <fcppt/iconv.hpp>
 #include <map>
 #include <ostream>
 #include <utility>
@@ -71,7 +71,7 @@ sge::x11input::keyboard_key(
 	{
 		FCPPT_LOG_WARNING(
 			log::global(),
-			log::_
+			fcppt::log::_
 				<< FCPPT_TEXT("stub: character '")
 				<< code
 				<< FCPPT_TEXT("' in XLookupString has ")
@@ -113,7 +113,7 @@ get_key_name(
 		std::make_pair(
 			ks,
 			name
-			? sge::iconv(name)
+			? fcppt::iconv(name)
 			: FCPPT_TEXT("unknown"))).first->second;
 }
 

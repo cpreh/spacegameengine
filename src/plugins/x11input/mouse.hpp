@@ -25,22 +25,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "mouse_coordinate.hpp"
 #include "dga.hpp"
 #include <X11/Xlib.h>
-#include <sge/input/callback.hpp>
-#include <fcppt/signal/connection_manager.hpp>
 #include <sge/x11/window_fwd.hpp>
 #include <sge/x11/color.hpp>
 #include <sge/x11/pixmap.hpp>
 #include <sge/x11/cursor.hpp>
+#include <sge/input/callback.hpp>
+#include <sge/x11/cursor_fwd.hpp>
+#include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
 #include <fcppt/scoped_ptr.hpp>
 
 namespace sge
 {
-namespace x11
-{
-class cursor;
-}
-
 namespace x11input
 {
 
@@ -77,9 +73,9 @@ private:
 	mouse_pos             mouse_last;
 	dga                   dga_;
 
-	signal::connection_manager connections;
+	fcppt::signal::connection_manager connections;
 
-	scoped_ptr<
+	fcppt::scoped_ptr<
 		mouse_grab
 	> grab_;
 };

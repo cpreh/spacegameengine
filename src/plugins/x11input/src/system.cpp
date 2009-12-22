@@ -26,11 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../device.hpp"
 #include <sge/x11/display.hpp>
 #include <sge/x11/window.hpp>
-#include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/auto_ptr.hpp>
-#include <tr1/functional>
 #include <ostream>
 
 sge::x11input::system::system(
@@ -107,7 +107,7 @@ sge::x11input::system::system(
 		)
 	);
 
-	typedef auto_ptr<
+	typedef fcppt::auto_ptr<
 		device
 	> device_auto_ptr;
 
@@ -147,14 +147,14 @@ sge::x11input::system::system(
 	}
 }
 
-sge::signal::auto_connection
+fcppt::signal::auto_connection
 sge::x11input::system::register_callback(
 	input::callback const &c)
 {
 	return sig.connect(c);
 }
 
-sge::signal::auto_connection
+fcppt::signal::auto_connection
 sge::x11input::system::register_repeat_callback(
 	input::repeat_callback const &c)
 {
@@ -192,7 +192,7 @@ void sge::x11input::system::on_acquire(
 
 	FCPPT_LOG_DEBUG(
 		log::global(),
-		log::_
+		fcppt::log::_
 			<< FCPPT_TEXT("x11: acquire window"));
 
 	BOOST_FOREACH(device_vector::reference dev, devices)
@@ -210,7 +210,7 @@ void sge::x11input::system::on_release(
 
 	FCPPT_LOG_DEBUG(
 		log::global(),
-		log::_
+		fcppt::log::_
 			<< FCPPT_TEXT("x11: release window"));
 
 	BOOST_FOREACH(device_vector::reference dev, devices)

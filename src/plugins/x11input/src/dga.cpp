@@ -20,14 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../dga.hpp"
 #include <sge/x11/window.hpp>
-#include <sge/once.hpp>
+#include <fcppt/function_once.hpp>
 #ifdef SGE_USE_DGA
 #include "../check_dga_mouse.hpp"
 #include <X11/extensions/Xxf86dga.h>
 #include <sge/x11/display.hpp>
 #include <sge/x11/sentry.hpp>
-#include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
+#include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
 #endif
 
@@ -98,7 +98,7 @@ void init_dga(
 	)
 {
 #ifdef SGE_USE_DGA
-	SGE_FUNCTION_ONCE
+	FCPPT_FUNCTION_ONCE
 
 	have_dga = sge::x11input::check_dga_mouse(
 		wnd);
@@ -108,7 +108,7 @@ void init_dga(
 
 	FCPPT_LOG_WARNING(
 		sge::log::global(),
-		sge::log::_
+		fcppt::log::_
 			<< FCPPT_TEXT(
 				"You compiled spacegameengine with DGA support but DGA Mouse is not supported by your system!"
 				"Maybe you are missing libXxf86dga or a proper video driver? Disabling dga."));
