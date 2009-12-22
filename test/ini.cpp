@@ -20,21 +20,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/parse/ini/parse_range.hpp>
-#include <sge/string.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <boost/foreach.hpp>
 #include <cstdlib>
 
 int main()
 {
-	sge::string const test(
+	fcppt::string const test(
 		FCPPT_TEXT("[blabla]\nfoo = 42\nconfuse=5\nbar=3.4\nimagepath=/tmp/test\n")
 		FCPPT_TEXT("[section2]\nblubb=bar\n")
 	);
 
-	sge::string::const_iterator beg(
+	fcppt::string::const_iterator beg(
 		test.begin()
 	);
 
@@ -55,7 +55,10 @@ int main()
 		result
 	)
 	{
-		fcppt::io::cout << FCPPT_TEXT('[') << section.header << SGE_TEXT("]\n");
+		fcppt::io::cout
+			<< FCPPT_TEXT('[')
+			<< section.header
+			<< FCPPT_TEXT("]\n");
 
 		BOOST_FOREACH(
 			sge::parse::ini::entry_vector::const_reference entry,

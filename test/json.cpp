@@ -20,11 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/parse/json/parse_stream.hpp>
-#include <sge/string.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
-#include <sge/istringstream.hpp>
+#include <fcppt/io/istringstream.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 #include <boost/variant/static_visitor.hpp>
 #include <boost/variant/apply_visitor.hpp>
 #include <boost/next_prior.hpp>
@@ -146,15 +146,16 @@ void print(
 
 int main()
 {
-	sge::string const test(
+	fcppt::string const test(
 		FCPPT_TEXT("{ \"foo\": 42, \"bar\" : { \"inner\" : 5.5 } }")
 	);
 
-	sge::istringstream
+	fcppt::io::istringstream
 		ss(
-			test);
+			test
+		);
 
-	sge::string::const_iterator beg(
+	fcppt::string::const_iterator beg(
 		test.begin()
 	);
 

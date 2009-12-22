@@ -63,9 +63,12 @@ namespace
 {
 
 void fallback(
-	sge::string const &arg)
+	fcppt::string const &arg)
 {
-	fcppt::io::cout << FCPPT_TEXT("fallback called with argument:") << arg << SGE_TEXT('\n');
+	fcppt::io::cout
+		<< FCPPT_TEXT("fallback called with argument:")
+		<< arg
+		<< FCPPT_TEXT('\n');
 }
 
 void quit(bool &running,sge::console::arg_list const &)

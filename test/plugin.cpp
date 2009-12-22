@@ -31,27 +31,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/system.hpp>
 #include <sge/model/loader.hpp>
 #include <sge/renderer/system.hpp>
-#include <sge/mpl/for_each.hpp>
 #include <sge/log/global.hpp>
-#include <sge/log/activate_levels.hpp>
 #include <sge/mainloop/catch_block.hpp>
-#include <sge/type_name.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/mpl/for_each.hpp>
+#include <fcppt/log/activate_levels.hpp>
 #include <fcppt/io/cout.hpp>
+#include <fcppt/type_name.hpp>
+#include <fcppt/text.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <typeinfo>
 
 namespace
 {
 
-struct print_plugins {
+struct print_plugins
+{
+	typedef void result_type;
+
 	explicit print_plugins(
-		sge::plugin::manager &);
+		sge::plugin::manager &
+	);
 
 	template<
 		typename T
 	>
-	void
+	result_type
 	operator()() const;
 private:
 	sge::plugin::manager &man;
@@ -62,9 +66,9 @@ private:
 int main()
 try
 {
-	sge::log::activate_levels(
+	fcppt::log::activate_levels(
 		sge::log::global(),
-		sge::log::level::debug
+		fcppt::log::level::debug
 	);
 
 	sge::plugin::manager man;
@@ -80,7 +84,7 @@ try
 		sge::renderer::system
 	> plugins;
 
-	sge::mpl::for_each<
+	fcppt::mpl::for_each<
 		plugins
 	>(
 		print_plugins(
@@ -106,7 +110,7 @@ void
 print_plugins::operator()() const
 {
 	fcppt::io::cout
-		<< sge::type_name(
+		<< fcppt::type_name(
 			typeid(T)
 		)
 		<< FCPPT_TEXT('\n');

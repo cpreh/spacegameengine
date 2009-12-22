@@ -36,14 +36,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/algorithm/copy_and_convert.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/mainloop/catch_block.hpp>
-#include <sge/filesystem/path.hpp>
-#include <sge/filesystem/directory_iterator.hpp>
+#include <sge/exception.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/filesystem/directory_iterator.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
-#include <sge/exception.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/iconv.hpp>
 #include <boost/foreach.hpp>
 #include <algorithm>
@@ -75,10 +75,10 @@ calc_size(
 
 sge::renderer::dim_type const
 first_dim(
-	sge::filesystem::path const &p,
+	fcppt::filesystem::path const &p,
 	sge::image::loader_ptr const il)
 {
-	sge::filesystem::directory_iterator const it(
+	fcppt::filesystem::directory_iterator const it(
 		p
 	);
 
@@ -86,18 +86,18 @@ first_dim(
 }
 
 typedef std::vector<
-	sge::filesystem::path
+	fcppt::filesystem::path
 > path_vector;
 
 path_vector const
 sort_paths(
-	sge::filesystem::path const &p)
+	fcppt::filesystem::path const &p)
 {
 	path_vector ret;
 
 	std::copy(
-		sge::filesystem::directory_iterator(p),
-		sge::filesystem::directory_iterator(),
+		fcppt::filesystem::directory_iterator(p),
+		fcppt::filesystem::directory_iterator(),
 		std::back_inserter(
 			ret
 		)
@@ -131,7 +131,7 @@ try
 		sys.image_loader()
 	);
 
-	sge::filesystem::path const path(
+	fcppt::filesystem::path const path(
 		fcppt::iconv(
 			argv[1]
 		)
@@ -139,10 +139,10 @@ try
 
 	sge::renderer::size_type const image_count(
 		std::distance(
-			sge::filesystem::directory_iterator(
+			fcppt::filesystem::directory_iterator(
 				path
 			),
-			sge::filesystem::directory_iterator()
+			fcppt::filesystem::directory_iterator()
 		)
 	);
 

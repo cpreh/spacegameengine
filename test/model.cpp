@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/context.hpp>
 #include <sge/model/plugin.hpp>
 #include <sge/model/loader.hpp>
-#include <sge/model/loader_fwd.hpp>
+#include <sge/model/loader_ptr.hpp>
 #include <sge/model/object.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/action.hpp>
@@ -189,11 +189,11 @@ try
 		sys.renderer()->render(
 			vb,
 			ib,
-			0,
-			vb->size(),
+			sge::renderer::first_vertex(0),
+			sge::renderer::vertex_count(vb->size()),
 			sge::renderer::indexed_primitive_type::triangle,
-			ib->size() / 3,
-			0
+			sge::renderer::primitive_count(ib->size() / 3),
+			sge::renderer::first_index(0)
 		);
 	}
 }

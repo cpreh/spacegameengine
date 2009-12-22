@@ -76,8 +76,8 @@ area_texc(
 		)
 	);
 
-	ret_.dim(
-		ret_.dim() * repeat
+	ret_.dimension(
+		ret_.dimension() * repeat
 	);
 
 	return ret_;

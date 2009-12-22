@@ -187,7 +187,7 @@ try
 					sge::renderer::screenshot,
 					device,
 					loader,
-					sge::filesystem::path(
+					fcppt::filesystem::path(
 						FCPPT_TEXT("output.png")
 					)
 				)

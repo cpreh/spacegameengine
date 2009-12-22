@@ -35,17 +35,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/cursor/default.hpp>
 #include <sge/gui/cursor/base_ptr.hpp>
 
-#include <sge/log/activate_levels.hpp>
 #include <sge/log/global.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/mainloop/dispatch.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/input/action.hpp>
 #include <sge/input/system.hpp>
-#include <fcppt/io/cerr.hpp>
 #include <sge/exception.hpp>
+
+#include <fcppt/log/activate_levels.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/io/cerr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 
@@ -60,9 +61,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int main()
 try
 {
-	sge::log::activate_levels(
+	fcppt::log::activate_levels(
 		sge::log::global(),
-		sge::log::level::debug
+		fcppt::log::level::debug
 	);
 
 	sge::renderer::screen_size const screen_size(640,480);
@@ -138,7 +139,7 @@ try
 }
 catch (sge::exception const &e)
 {
-	fcppt::io::cerr << FCPPT_TEXT("caught sge exception: ") << e.string() << SGE_TEXT('\n');
+	fcppt::io::cerr << FCPPT_TEXT("caught sge exception: ") << e.string() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }
 catch (std::exception const &e)

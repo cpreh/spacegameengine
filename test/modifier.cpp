@@ -29,14 +29,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/classification.hpp>
 #include <sge/input/modifier/filter.hpp>
 #include <sge/input/action.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/log/global.hpp>
-#include <sge/log/activate_levels.hpp>
+#include <sge/exception.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/log/activate_levels.hpp>
 #include <fcppt/container/map_impl.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/text.hpp>
-#include <sge/exception.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <exception>
@@ -67,9 +67,9 @@ void mod_callback(
 int main()
 try
 {
-	sge::log::activate_levels(
+	fcppt::log::activate_levels(
 		sge::log::global(),
-		sge::log::level::debug
+		fcppt::log::level::debug
 	);
 
 	sge::renderer::screen_size const screen_size(1024,768);

@@ -191,11 +191,11 @@ try
 	sge::collision::world_ptr const world(
 		sys.collision_system()->create_world(
 			sge::collision::rect(
-				sge::collision::rect::pos_type(
+				sge::collision::rect::vector(
 					-10,
 					-10
 				),
-				sge::collision::rect::dim_type(
+				sge::collision::rect::dim(
 					660,
 					500
 				)
