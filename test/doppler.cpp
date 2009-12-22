@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/signal/scoped_connection.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>

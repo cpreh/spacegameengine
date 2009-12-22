@@ -51,7 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/no_color.hpp>
 #include <sge/sprite/with_texture.hpp>
 #include <sge/sprite/render_one.hpp>
-#include <sge/signal/scoped_connection.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/config/media_path.hpp>
 #include <fcppt/text.hpp>

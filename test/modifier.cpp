@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/classification.hpp>
 #include <sge/input/modifier/filter.hpp>
 #include <sge/input/action.hpp>
-#include <sge/signal/scoped_connection.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/log/global.hpp>
 #include <sge/log/activate_levels.hpp>

@@ -45,7 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
-#include <sge/signal/scoped_connection.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <sge/image/create_texture.hpp>
 #include <sge/mainloop/catch_block.hpp>
 #include <sge/mainloop/dispatch.hpp>

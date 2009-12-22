@@ -72,7 +72,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/second_f.hpp>
 #include <sge/time/resolution.hpp>
 #include <sge/time/timer.hpp>
-#include <sge/signal/scoped_connection.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/variant/object_impl.hpp>
