@@ -110,7 +110,7 @@ bool test_callback0(
 	sge::collision::satellite const &,
 	sge::collision::satellite const &)
 {
-	//sge::cerr << "test callback called\n";
+	//fcppt::io::cerr << "test callback called\n";
 	return true;
 }
 
@@ -118,7 +118,7 @@ bool test_callback1(
 	sge::collision::satellite const &,
 	sge::collision::satellite const &)
 {
-	//sge::cerr << "test callback called\n";
+	//fcppt::io::cerr << "test callback called\n";
 	return false;
 }
 
@@ -307,7 +307,7 @@ try
 		)
 	);
 
-	sge::cerr << "velocity is " << body_a->linear_velocity() << "\n";
+	fcppt::io::cerr << "velocity is " << body_a->linear_velocity() << "\n";
 
 	sge::collision::group_ptr const
 		g_a = world->create_group(),
@@ -402,11 +402,11 @@ try
 }
 catch(sge::exception const &e)
 {
-	sge::cerr << e.string() << FCPPT_TEXT('\n');
+	fcppt::io::cerr << e.string() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }
 catch(std::exception const &e)
 {
-	sge::cerr << e.what() << FCPPT_TEXT('\n');
+	fcppt::io::cerr << e.what() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }

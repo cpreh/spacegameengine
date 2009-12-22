@@ -76,15 +76,15 @@ try
 		pool.update();
 		if (t.update_b())
 		{
-			sge::cerr << FCPPT_TEXT("killing sound\n");
+			fcppt::io::cerr << FCPPT_TEXT("killing sound\n");
 			sound.reset();
 		}
 	}
 } catch (const sge::audio::exception &e) {
-	sge::cerr << FCPPT_TEXT("audio exception caught: ") << e.string() << SGE_TEXT('\n');
+	fcppt::io::cerr << FCPPT_TEXT("audio exception caught: ") << e.string() << SGE_TEXT('\n');
 	return EXIT_FAILURE;
 } catch (const sge::exception &e) {
-	sge::cerr << FCPPT_TEXT("Exception caught: ") << e.string() << SGE_TEXT('\n');
+	fcppt::io::cerr << FCPPT_TEXT("Exception caught: ") << e.string() << SGE_TEXT('\n');
 	return EXIT_FAILURE;
 } catch (const std::exception &e) {
 	std::cerr << "Exception caught: " << e.what() << '\n';

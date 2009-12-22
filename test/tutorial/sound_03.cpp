@@ -77,11 +77,11 @@ try
 }
 catch(sge::exception const &e)
 {
-	sge::cerr << e.string() << FCPPT_TEXT('\n');
+	fcppt::io::cerr << e.string() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }
 catch(std::exception const &e)
 {
-	sge::cerr << e.what() << FCPPT_TEXT('\n');
+	fcppt::io::cerr << e.what() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }

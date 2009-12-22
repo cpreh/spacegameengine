@@ -46,7 +46,7 @@ int main()
 		result
 	))
 	{
-		sge::cerr << FCPPT_TEXT("failure\n");
+		fcppt::io::cerr << FCPPT_TEXT("failure\n");
 		return EXIT_FAILURE;
 	}
 
@@ -55,18 +55,18 @@ int main()
 		result
 	)
 	{
-		sge::cout << FCPPT_TEXT('[') << section.header << SGE_TEXT("]\n");
+		fcppt::io::cout << FCPPT_TEXT('[') << section.header << SGE_TEXT("]\n");
 
 		BOOST_FOREACH(
 			sge::parse::ini::entry_vector::const_reference entry,
 			section.entries
 		)
-			sge::cout
+			fcppt::io::cout
 				<< entry.name
 				<< FCPPT_TEXT(" = ")
 				<< entry.value
 				<< FCPPT_TEXT('\n');
 
-		sge::cout << FCPPT_TEXT('\n');
+		fcppt::io::cout << FCPPT_TEXT('\n');
 	}
 }

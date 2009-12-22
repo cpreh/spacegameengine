@@ -157,7 +157,7 @@ catch(
 	sge::exception const &e
 )
 {
-	sge::cerr
+	fcppt::io::cerr
 		<< FCPPT_TEXT("caught sge exception: ")
 		<< e.string()
 		<< FCPPT_TEXT('\n');

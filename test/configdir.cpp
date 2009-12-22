@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int main()
 try
 {
-	sge::cout
+	fcppt::io::cout
 		<< sge::config::find_config_path(
 			FCPPT_TEXT("sgeconfigtest")
 		)

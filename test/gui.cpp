@@ -135,7 +135,7 @@ try
 				fcppt::make_shared_ptr<sge::gui::layouts::horizontal>())
 			.size(sge::gui::dim(400,300)));
 
-	sge::cerr << "added top level widget\n";
+	fcppt::io::cerr << "added top level widget\n";
 
 	sge::gui::widgets::base left(
 		top,
@@ -168,7 +168,7 @@ try
 		sge::gui::widgets::parameters(),
 		FCPPT_TEXT("(right bottom) me!"));
 
-	sge::cerr << "added buttons and children\n";
+	fcppt::io::cerr << "added buttons and children\n";
 
 	// set sensible render states
 	sys.renderer()->state(
@@ -193,7 +193,7 @@ try
 	fcppt::signal::scoped_connection const conn2(
 		left_top.register_clicked(p)
 	);
-	sge::cerr << FCPPT_TEXT("---------------------------\nall widgets added!\n");
+	fcppt::io::cerr << FCPPT_TEXT("---------------------------\nall widgets added!\n");
 
 	sge::time::timer delete_timer(sge::time::second(static_cast<sge::time::unit>(2)));
 	while (running)
@@ -203,7 +203,7 @@ try
 
 		if (delete_timer.active() && delete_timer.expired())
 		{
-			sge::cerr << FCPPT_TEXT("sge: gui test program: removing button\n");
+			fcppt::io::cerr << FCPPT_TEXT("sge: gui test program: removing button\n");
 			delete_timer.deactivate();
 			right_top.reset();
 		}
@@ -214,7 +214,7 @@ try
 }
 catch (sge::exception const &e)
 {
-	sge::cerr << FCPPT_TEXT("caught sge exception: ") << e.string() << SGE_TEXT("\n");
+	fcppt::io::cerr << FCPPT_TEXT("caught sge exception: ") << e.string() << SGE_TEXT("\n");
 }
 catch (std::exception const &e)
 {

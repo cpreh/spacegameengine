@@ -447,13 +447,13 @@ try
 #if 0
 	if (argc < 2)
 	{
-		sge::cerr << FCPPT_TEXT("please specify an input file\n");
+		fcppt::io::cerr << FCPPT_TEXT("please specify an input file\n");
 		return EXIT_FAILURE;
 	}
 
 	unsigned blur_radius =
 		argc == 3
-		? sge::lexical_cast<unsigned>(std::string(argv[2]))
+		? fcppt::lexical_cast<unsigned>(std::string(argv[2]))
 		: 16;
 
 	sge::log::global().activate_hierarchy(
@@ -530,11 +530,11 @@ try
 }
 catch(sge::exception const &e)
 {
-	sge::cerr << e.string() << FCPPT_TEXT('\n');
+	fcppt::io::cerr << e.string() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }
 catch(std::exception const &e)
 {
-	sge::cerr << e.what() << FCPPT_TEXT('\n');
+	fcppt::io::cerr << e.what() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }

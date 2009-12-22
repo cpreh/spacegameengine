@@ -46,13 +46,13 @@ template<
 void print(
 	T const &t)
 {
-	sge::cout << t;
+	fcppt::io::cout << t;
 }
 
 void print(
 	sge::parse::json::null const &)
 {
-	sge::cout << FCPPT_TEXT("null");
+	fcppt::io::cout << FCPPT_TEXT("null");
 }
 
 void print(
@@ -63,7 +63,7 @@ void print(
 void print(
 	sge::parse::json::array const &a)
 {
-	sge::cout << FCPPT_TEXT('[');
+	fcppt::io::cout << FCPPT_TEXT('[');
 
 	for(
 		sge::parse::json::element_vector::const_iterator it(
@@ -83,10 +83,10 @@ void print(
 			)
 			!= a.elements.end()
 		)
-			sge::cout << FCPPT_TEXT(',');
+			fcppt::io::cout << FCPPT_TEXT(',');
 	}
 
-	sge::cout << FCPPT_TEXT(']');
+	fcppt::io::cout << FCPPT_TEXT(']');
 }
 
 struct output_visitor : boost::static_visitor<> {
@@ -112,7 +112,7 @@ void print(
 void print(
 	sge::parse::json::object const &obj)
 {
-	sge::cout << FCPPT_TEXT('{');
+	fcppt::io::cout << FCPPT_TEXT('{');
 
 	for(
 		sge::parse::json::member_vector::const_iterator it(
@@ -122,7 +122,7 @@ void print(
 		++it
 	)
 	{
-		sge::cout
+		fcppt::io::cout
 			<< it->name
 			<< FCPPT_TEXT(": ");
 
@@ -136,10 +136,10 @@ void print(
 			)
 			!= obj.members.end()
 		)
-			sge::cout << FCPPT_TEXT(", ");
+			fcppt::io::cout << FCPPT_TEXT(", ");
 	}
 
-	sge::cout << FCPPT_TEXT('}');
+	fcppt::io::cout << FCPPT_TEXT('}');
 }
 
 }
@@ -165,7 +165,7 @@ int main()
 		result
 	))
 	{
-		sge::cerr << FCPPT_TEXT("failure\n");
+		fcppt::io::cerr << FCPPT_TEXT("failure\n");
 		return EXIT_FAILURE;
 	}
 
@@ -173,5 +173,5 @@ int main()
 		result
 	);
 
-	sge::cout << FCPPT_TEXT('\n');
+	fcppt::io::cout << FCPPT_TEXT('\n');
 }

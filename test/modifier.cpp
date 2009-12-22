@@ -51,15 +51,15 @@ void mod_callback(
 	sge::input::modifier::states const &mods)
 {
 	if (mods[sge::input::kc::key_lshift])
-		sge::cerr << FCPPT_TEXT("S-");
+		fcppt::io::cerr << FCPPT_TEXT("S-");
 
 	if (mods[sge::input::kc::key_lctrl])
-		sge::cerr << FCPPT_TEXT("C-");
+		fcppt::io::cerr << FCPPT_TEXT("C-");
 
 	if (mods[sge::input::kc::key_alt])
-		sge::cerr << FCPPT_TEXT("A-");
+		fcppt::io::cerr << FCPPT_TEXT("A-");
 
-	sge::cerr << kp.key().char_code() << FCPPT_TEXT('\n');
+	fcppt::io::cerr << kp.key().char_code() << FCPPT_TEXT('\n');
 }
 
 }
@@ -114,11 +114,11 @@ try
 }
 catch(sge::exception const &e)
 {
-	sge::cerr << e.string() << FCPPT_TEXT('\n');
+	fcppt::io::cerr << e.string() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }
 catch(std::exception const &e)
 {
-	sge::cerr << e.what() << FCPPT_TEXT('\n');
+	fcppt::io::cerr << e.what() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }

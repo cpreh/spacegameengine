@@ -118,7 +118,7 @@ try
 {
 	if(argc != 2)
 	{
-		sge::cerr << FCPPT_TEXT("please specify a path!\n");
+		fcppt::io::cerr << FCPPT_TEXT("please specify a path!\n");
 		return EXIT_FAILURE;
 	}
 
@@ -148,7 +148,7 @@ try
 
 	if(image_count == 0)
 	{
-		sge::cerr << FCPPT_TEXT("No files here.\n");
+		fcppt::io::cerr << FCPPT_TEXT("No files here.\n");
 		return EXIT_SUCCESS;
 	}
 
@@ -206,7 +206,7 @@ try
 
 		if(img->dim() != dim)
 		{
-			sge::cerr << FCPPT_TEXT("some dimensions do not match!\n");
+			fcppt::io::cerr << FCPPT_TEXT("some dimensions do not match!\n");
 			return EXIT_FAILURE;
 		}
 

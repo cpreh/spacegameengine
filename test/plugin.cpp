@@ -105,7 +105,7 @@ template<
 void
 print_plugins::operator()() const
 {
-	sge::cout
+	fcppt::io::cout
 		<< sge::type_name(
 			typeid(T)
 		)
@@ -123,7 +123,7 @@ print_plugins::operator()() const
 			it->info()
 		);
 
-		sge::cout
+		fcppt::io::cout
 			<< FCPPT_TEXT("\tname: \"")
 			<< base.name()
 			<< FCPPT_TEXT("\", description: \"")

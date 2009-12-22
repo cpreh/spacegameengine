@@ -52,11 +52,11 @@ int main()
 
 	vector_type in;
 
-	while(!(sge::cin >> in))
+	while(!(fcppt::io::cin >> in))
 	{
-		sge::cerr << FCPPT_TEXT("Invalid input\n");
-		sge::cin.clear();
-		sge::cin.ignore(
+		fcppt::io::cerr << FCPPT_TEXT("Invalid input\n");
+		fcppt::io::cin.clear();
+		fcppt::io::cin.ignore(
 			std::numeric_limits<std::streamsize>::max(),
 			FCPPT_TEXT('\n')
 		);
@@ -64,7 +64,7 @@ int main()
 
 	vector_type const cie_vec = cie * in;
 
-	sge::cout
+	fcppt::io::cout
 		<< FCPPT_TEXT("vector in cie space: ")
 		<< cie_vec
 		<< FCPPT_TEXT('\n');
@@ -78,7 +78,7 @@ int main()
 		)
 	);
 
-	sge::cout
+	fcppt::io::cout
 		<< FCPPT_TEXT("vector in normalized cie space: ")
 		<< cie_vec / norm
 		<< FCPPT_TEXT('\n');

@@ -244,7 +244,7 @@ catch(
 	sge::exception const &e
 )
 {
-	sge::cerr
+	fcppt::io::cerr
 		<< e.string()
 		<< FCPPT_TEXT('\n');
 	
@@ -254,7 +254,7 @@ catch(
 	std::exception const &e
 )
 {
-	sge::cerr
+	fcppt::io::cerr
 		<< e.what()
 		<< FCPPT_TEXT('\n');
 	
