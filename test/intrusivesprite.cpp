@@ -70,7 +70,7 @@ try
 		sge::systems::list()
 		(
 			sge::window::parameters(
-				SGE_TEXT("sge intrusive sprite test")
+				FCPPT_TEXT("sge intrusive sprite test")
 			)
 		)
 		(
@@ -123,7 +123,7 @@ try
 				tex_man,
 				image_loader.load(
 					sge::config::media_path()
-					/ SGE_TEXT("cloudsquare.jpg")
+					/ FCPPT_TEXT("cloudsquare.jpg")
 				)
 			)
 		),
@@ -132,7 +132,7 @@ try
 				tex_man,
 				image_loader.load(
 					sge::config::media_path()
-					/ SGE_TEXT("grass.png")
+					/ FCPPT_TEXT("grass.png")
 				)
 			)
 		);
@@ -246,7 +246,7 @@ catch(
 {
 	sge::cerr
 		<< e.string()
-		<< SGE_TEXT('\n');
+		<< FCPPT_TEXT('\n');
 	
 	return EXIT_FAILURE;
 }
@@ -256,7 +256,7 @@ catch(
 {
 	sge::cerr
 		<< e.what()
-		<< SGE_TEXT('\n');
+		<< FCPPT_TEXT('\n');
 	
 	return EXIT_FAILURE;
 }

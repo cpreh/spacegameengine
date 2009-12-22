@@ -98,7 +98,7 @@ try
 	sge::systems::instance sys(
 		sge::systems::list()
 		(sge::window::parameters(
-			SGE_TEXT("sge gui test")
+			FCPPT_TEXT("sge gui test")
 		))
 		(sge::renderer::parameters(
 			sge::renderer::display_mode(
@@ -150,23 +150,23 @@ try
 	sge::gui::widgets::buttons::text left_top(
 		left,
 		sge::gui::widgets::parameters(),
-		SGE_TEXT("(left top) me!"));
+		FCPPT_TEXT("(left top) me!"));
 
 	sge::gui::widgets::buttons::text left_bottom(
 		left,
 		sge::gui::widgets::parameters(),
-		SGE_TEXT("(left bottom) me!"));
+		FCPPT_TEXT("(left bottom) me!"));
 
 	sge::shared_ptr<sge::gui::widgets::buttons::text>
 		right_top(new sge::gui::widgets::buttons::text(
 			right,
 			sge::gui::widgets::parameters(),
-			SGE_TEXT("(right top) me!")));
+			FCPPT_TEXT("(right top) me!")));
 
 	sge::gui::widgets::buttons::text right_bottom(
 		right,
 		sge::gui::widgets::parameters(),
-		SGE_TEXT("(right bottom) me!"));
+		FCPPT_TEXT("(right bottom) me!"));
 
 	sge::cerr << "added buttons and children\n";
 
@@ -193,7 +193,7 @@ try
 	sge::signal::scoped_connection const conn2(
 		left_top.register_clicked(p)
 	);
-	sge::cerr << SGE_TEXT("---------------------------\nall widgets added!\n");
+	sge::cerr << FCPPT_TEXT("---------------------------\nall widgets added!\n");
 
 	sge::time::timer delete_timer(sge::time::second(static_cast<sge::time::unit>(2)));
 	while (running)
@@ -203,7 +203,7 @@ try
 
 		if (delete_timer.active() && delete_timer.expired())
 		{
-			sge::cerr << SGE_TEXT("sge: gui test program: removing button\n");
+			sge::cerr << FCPPT_TEXT("sge: gui test program: removing button\n");
 			delete_timer.deactivate();
 			right_top.reset();
 		}
@@ -214,7 +214,7 @@ try
 }
 catch (sge::exception const &e)
 {
-	sge::cerr << SGE_TEXT("caught sge exception: ") << e.string() << SGE_TEXT("\n");
+	sge::cerr << FCPPT_TEXT("caught sge exception: ") << e.string() << SGE_TEXT("\n");
 }
 catch (std::exception const &e)
 {

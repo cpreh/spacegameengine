@@ -23,8 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/animation/texture_decl.hpp>
 #include <sge/sprite/object.hpp>
-#include <sge/time/resolution.hpp>
+#include <sge/time/second.hpp>
 #include <sge/exception.hpp>
+#include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/text.hpp>
 #include <boost/next_prior.hpp>
 
@@ -35,14 +36,14 @@ sge::sprite::animation::texture<Choices>::texture(
 	animation::series const &nseries_,
 	loop_method::type const action,
 	object &spr,
-	time::fun const &time_function
+	time::callback const &time_function
 )
 :
 	base(),
 	series_(nseries_),
 	action(action),
 	cur_timer(
-		time::resolution(
+		time::second(
 			0
 		),
 		time::activation_state::active,
@@ -85,7 +86,7 @@ sge::sprite::animation::texture<Choices>::process()
 	++pos;
 
 	cur_timer.interval(
-		time::resolution(
+		time::duration(
 			pos->delay()
 		)
 	);
@@ -110,7 +111,7 @@ sge::sprite::animation::texture<Choices>::reset()
 	pos = series_.begin();
 
 	cur_timer.interval(
-		time::resolution(
+		time::duration(
 			series_.begin()->delay()
 		)
 	);

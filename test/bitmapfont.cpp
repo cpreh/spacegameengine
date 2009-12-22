@@ -52,7 +52,7 @@ try
 	sge::systems::instance const sys(
 		sge::systems::list()
 		(sge::window::parameters(
-			SGE_TEXT("sge animtest")
+			FCPPT_TEXT("sge animtest")
 		))
 		(sge::renderer::parameters(
 			sge::renderer::display_mode(
@@ -75,9 +75,9 @@ try
 	sge::font::object font(
 		sys.font_system()->create_font(
 			sge::config::media_path()
-			/ SGE_TEXT("fonts")
-			/ SGE_TEXT("bitmap")
-			/ SGE_TEXT("font.png"),
+			/ FCPPT_TEXT("fonts")
+			/ FCPPT_TEXT("bitmap")
+			/ FCPPT_TEXT("font.png"),
 			0,
 			sys.image_loader()
 		),
@@ -117,7 +117,7 @@ try
 		);
 
 		font.draw_text(
-			SGE_TEXT("test abcd"),
+			FCPPT_TEXT("test abcd"),
 			sge::font::pos::null(),
 			sge::math::dim::structure_cast<
 				sge::font::dim

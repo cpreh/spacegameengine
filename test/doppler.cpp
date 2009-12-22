@@ -184,7 +184,7 @@ try
 		sge::systems::list()
 		(
 			sge::window::parameters(
-				SGE_TEXT("sge dopplertest")
+				FCPPT_TEXT("sge dopplertest")
 			)
 		)
 		(
@@ -210,20 +210,20 @@ try
 		image_bg(
 			sys.image_loader()->load(
 				sge::config::media_path()
-				/ SGE_TEXT("grass.png")
+				/ FCPPT_TEXT("grass.png")
 			)
 		),
 		image_pointer(
 			sys.image_loader()->load(
 				sge::config::media_path()
-				/ SGE_TEXT("gui")
-				/ SGE_TEXT("cursor.png")
+				/ FCPPT_TEXT("gui")
+				/ FCPPT_TEXT("cursor.png")
 			)
 		),
 		image_tux(
 			sys.image_loader()->load(
 				sge::config::media_path()
-				/ SGE_TEXT("tux.png")
+				/ FCPPT_TEXT("tux.png")
 			)
 		);
 
@@ -352,7 +352,7 @@ try
 	sge::audio::file_ptr const af_siren(
 		ml.load(
 			sge::config::media_path()
-			/ SGE_TEXT("siren.ogg")
+			/ FCPPT_TEXT("siren.ogg")
 		)
 	);
 
@@ -441,11 +441,11 @@ try
 }
 catch(sge::exception const &e)
 {
-	sge::cerr << e.string() << SGE_TEXT('\n');
+	sge::cerr << e.string() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }
 catch(std::exception const &e)
 {
-	sge::cerr << e.what() << SGE_TEXT('\n');
+	sge::cerr << e.what() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }

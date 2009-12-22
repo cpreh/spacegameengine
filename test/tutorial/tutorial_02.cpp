@@ -147,7 +147,7 @@ try
 		sge::systems::list()
 		(
 			sge::window::parameters(
-				SGE_TEXT("sge tutorial02")
+				FCPPT_TEXT("sge tutorial02")
 			)
 		)
 		(
@@ -182,7 +182,7 @@ try
 	sge::image::file_ptr const image(
 		sys.image_loader()->load(
 			sge::config::media_path()
-			/ SGE_TEXT("tux.png")
+			/ FCPPT_TEXT("tux.png")
 		)
 	);
 
@@ -259,7 +259,7 @@ try
 }
 catch (sge::exception const &e)
 {
-	sge::cerr << SGE_TEXT("caught sge exception: ") << e.string() << SGE_TEXT('\n');
+	sge::cerr << FCPPT_TEXT("caught sge exception: ") << e.string() << SGE_TEXT('\n');
 	return EXIT_FAILURE;
 }
 catch (std::exception const &e)

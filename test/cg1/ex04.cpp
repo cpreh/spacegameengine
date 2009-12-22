@@ -161,7 +161,7 @@ try
 		sge::systems::list()
 		(
 			sge::window::parameters(
-				SGE_TEXT("sge cg1 ex04")
+				FCPPT_TEXT("sge cg1 ex04")
 			)
 		)
 		(

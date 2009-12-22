@@ -70,7 +70,7 @@ try
 	sge::systems::instance const sys(
 		sge::systems::list()
 		(sge::window::parameters(
-			SGE_TEXT("sge gui test")))
+			FCPPT_TEXT("sge gui test")))
 		(sge::renderer::parameters(
 			sge::renderer::display_mode(
 				screen_size,
@@ -105,7 +105,7 @@ try
 			.size(sge::gui::dim(400,300)),
 		sge::gui::widgets::edit::single_line,
 		sge::gui::dim(30,30));
-	//b.text(SGE_TEXT("test"));
+	//b.text(FCPPT_TEXT("test"));
 
 	// set sensible render states
 	sys.renderer()->state(
@@ -138,7 +138,7 @@ try
 }
 catch (sge::exception const &e)
 {
-	sge::cerr << SGE_TEXT("caught sge exception: ") << e.string() << SGE_TEXT('\n');
+	sge::cerr << FCPPT_TEXT("caught sge exception: ") << e.string() << SGE_TEXT('\n');
 	return EXIT_FAILURE;
 }
 catch (std::exception const &e)

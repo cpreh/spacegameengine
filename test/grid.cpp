@@ -98,7 +98,7 @@ try
 	sge::systems::instance sys(
 		sge::systems::list()
 		(sge::window::parameters(
-			SGE_TEXT("sge gui test")
+			FCPPT_TEXT("sge gui test")
 		))
 		(sge::renderer::parameters(
 			sge::renderer::display_mode(
@@ -143,21 +143,21 @@ try
 		sge::gui::widgets::parameters()
 			.pos(
 				sge::gui::point(0,0)),
-		SGE_TEXT("lefttop me!"));
+		FCPPT_TEXT("lefttop me!"));
 
 	sge::gui::widgets::buttons::text right(
 		top,
 		sge::gui::widgets::parameters()
 			.pos(
 				sge::gui::point(1,0)),
-		SGE_TEXT("righttop me!"));
+		FCPPT_TEXT("righttop me!"));
 
 	sge::gui::widgets::buttons::text leftbottom(
 		top,
 		sge::gui::widgets::parameters()
 			.pos(
 				sge::gui::point(0,3)),
-		SGE_TEXT("leftbottom me!"));
+		FCPPT_TEXT("leftbottom me!"));
 
 	sge::cerr << "added buttons and children\n";
 
@@ -184,7 +184,7 @@ try
 	sge::signal::scoped_connection const conn2(
 		left.register_clicked(p)
 	);
-	sge::cerr << SGE_TEXT("---------------------------\nall widgets added!\n");
+	sge::cerr << FCPPT_TEXT("---------------------------\nall widgets added!\n");
 
 	sge::time::timer delete_timer(sge::time::second(static_cast<sge::time::unit>(2)));
 	while (running)
@@ -194,7 +194,7 @@ try
 
 		if (delete_timer.active() && delete_timer.expired())
 		{
-			sge::cerr << SGE_TEXT("sge: gui test program: removing button\n");
+			sge::cerr << FCPPT_TEXT("sge: gui test program: removing button\n");
 			delete_timer.deactivate();
 		}
 
@@ -204,7 +204,7 @@ try
 }
 catch (sge::exception const &e)
 {
-	sge::cerr << SGE_TEXT("caught sge exception: ") << e.string() << SGE_TEXT("\n");
+	sge::cerr << FCPPT_TEXT("caught sge exception: ") << e.string() << SGE_TEXT("\n");
 }
 catch (std::exception const &e)
 {

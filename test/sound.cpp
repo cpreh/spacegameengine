@@ -94,7 +94,7 @@ try
 
 	sge::filesystem::path file_name(sge::iconv(file_name_prog_options));
 	if (file_name.empty())
-		file_name = sge::config::media_path() / SGE_TEXT("ding.wav");
+		file_name = sge::config::media_path() / FCPPT_TEXT("ding.wav");
 
 	sge::systems::instance sys(
 		sge::systems::list()
@@ -144,10 +144,10 @@ try
 		sge::time::sleep(sge::time::millisecond(250));
 	}
 } catch (const sge::audio::exception &e) {
-	sge::cerr << SGE_TEXT("audio exception caught: ") << e.string() << SGE_TEXT('\n');
+	sge::cerr << FCPPT_TEXT("audio exception caught: ") << e.string() << SGE_TEXT('\n');
 	return EXIT_FAILURE;
 } catch (const sge::exception &e) {
-	sge::cerr << SGE_TEXT("Exception caught: ") << e.string() << SGE_TEXT('\n');
+	sge::cerr << FCPPT_TEXT("Exception caught: ") << e.string() << SGE_TEXT('\n');
 	return EXIT_FAILURE;
 } catch (const std::exception &e) {
 	std::cerr << "Exception caught: " << e.what() << '\n';

@@ -43,7 +43,7 @@ try
 	sge::audio::multi_loader loader(sys.plugin_manager());
 
 	sge::audio::file_ptr const file = loader.load(
-		sge::config::media_path() / SGE_TEXT("ding.wav")
+		sge::config::media_path() / FCPPT_TEXT("ding.wav")
 	);
 
 	sge::audio::sound_ptr const sound = sys.audio_player()->create_nonstream_sound(file);
@@ -55,11 +55,11 @@ try
 }
 catch(sge::exception const &e)
 {
-	sge::cerr << e.string() << SGE_TEXT('\n');
+	sge::cerr << e.string() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }
 catch(std::exception const &e)
 {
-	sge::cerr << e.what() << SGE_TEXT('\n');
+	sge::cerr << e.what() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }

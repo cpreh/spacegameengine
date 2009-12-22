@@ -158,7 +158,7 @@ try
 		sge::systems::list()
 		(
 			sge::window::parameters(
-				SGE_TEXT("sge dopplertest")
+				FCPPT_TEXT("sge dopplertest")
 			)
 		)
 		(
@@ -183,20 +183,20 @@ try
 		image_bg(
 			sys.image_loader()->load(
 				sge::config::media_path()
-				/ SGE_TEXT("shadertest.jpg")
+				/ FCPPT_TEXT("shadertest.jpg")
 			)
 		),
 		image_pointer(
 			sys.image_loader()->load(
 				sge::config::media_path()
-				/ SGE_TEXT("gui")
-				/ SGE_TEXT("cursor.png")
+				/ FCPPT_TEXT("gui")
+				/ FCPPT_TEXT("cursor.png")
 			)
 		),
 		image_tux(
 			sys.image_loader()->load(
 				sge::config::media_path()
-				/ SGE_TEXT("tux.png")
+				/ FCPPT_TEXT("tux.png")
 			)
 		);
 
@@ -383,14 +383,14 @@ try
 
 	sge::cifstream fragment_stream(
 		sge::config::media_path()
-		/ SGE_TEXT("shaders")
-		/ SGE_TEXT("fragment.glsl")
+		/ FCPPT_TEXT("shaders")
+		/ FCPPT_TEXT("fragment.glsl")
 	);
 
 	sge::cifstream vertex_stream(
 		sge::config::media_path()
-		/ SGE_TEXT("shaders")
-		/ SGE_TEXT("vertex.glsl")
+		/ FCPPT_TEXT("shaders")
+		/ FCPPT_TEXT("vertex.glsl")
 	);
 
 	sge::renderer::glsl::program_ptr const p(
@@ -468,11 +468,11 @@ try
 }
 catch(sge::exception const &e)
 {
-	sge::cerr << e.string() << SGE_TEXT('\n');
+	sge::cerr << e.string() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }
 catch(std::exception const &e)
 {
-	sge::cerr << e.what() << SGE_TEXT('\n');
+	sge::cerr << e.what() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }

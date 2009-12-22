@@ -52,7 +52,7 @@ try
 		sge::systems::list()
 		(
 			sge::window::parameters(
-				SGE_TEXT("sge fonttest")
+				FCPPT_TEXT("sge fonttest")
 			)
 		)
 		(
@@ -76,7 +76,7 @@ try
 
 	sge::font::metrics_ptr const metrics(
 		sys.font_system()->create_font(
-			sge::config::media_path() / SGE_TEXT("fonts") / SGE_TEXT("default.ttf"),
+			sge::config::media_path() / FCPPT_TEXT("fonts") / SGE_TEXT("default.ttf"),
 			static_cast<sge::font::size_type>(15)
 		)
 	);
@@ -100,7 +100,7 @@ try
 		sge::mainloop::dispatch();
 		sge::renderer::scoped_block const block(sys.renderer());
 		font.draw_text(
-			SGE_TEXT("hello world"),
+			FCPPT_TEXT("hello world"),
 			sge::font::pos::null(),
 			sge::math::dim::structure_cast<sge::font::dim>(
 				sys.renderer()->screen_size()
@@ -112,7 +112,7 @@ try
 }
 catch (sge::exception const &e)
 {
-	sge::cerr << SGE_TEXT("caught sge exception: ") << e.string() << SGE_TEXT('\n');
+	sge::cerr << FCPPT_TEXT("caught sge exception: ") << e.string() << SGE_TEXT('\n');
 	return EXIT_FAILURE;
 }
 catch (std::exception const &e)

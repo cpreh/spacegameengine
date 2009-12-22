@@ -49,7 +49,7 @@ try
 		sge::audio::sound_ptr const sound_01(
 			sys.audio_player()->create_nonstream_sound(
 				loader.load(
-					sge::config::media_path() / SGE_TEXT("ding.wav")
+					sge::config::media_path() / FCPPT_TEXT("ding.wav")
 				)
 			)
 		);
@@ -57,7 +57,7 @@ try
 		sge::audio::sound_ptr const sound_02(
 			sys.audio_player()->create_stream_sound(
 				loader.load(
-					sge::config::media_path() / SGE_TEXT("siren.ogg")
+					sge::config::media_path() / FCPPT_TEXT("siren.ogg")
 				)
 			)
 		);
@@ -74,11 +74,11 @@ try
 }
 catch(sge::exception const &e)
 {
-	sge::cerr << e.string() << SGE_TEXT('\n');
+	sge::cerr << e.string() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }
 catch(std::exception const &e)
 {
-	sge::cerr << e.what() << SGE_TEXT('\n');
+	sge::cerr << e.what() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }

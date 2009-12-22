@@ -52,7 +52,7 @@ void print(
 void print(
 	sge::parse::json::null const &)
 {
-	sge::cout << SGE_TEXT("null");
+	sge::cout << FCPPT_TEXT("null");
 }
 
 void print(
@@ -63,7 +63,7 @@ void print(
 void print(
 	sge::parse::json::array const &a)
 {
-	sge::cout << SGE_TEXT('[');
+	sge::cout << FCPPT_TEXT('[');
 
 	for(
 		sge::parse::json::element_vector::const_iterator it(
@@ -83,10 +83,10 @@ void print(
 			)
 			!= a.elements.end()
 		)
-			sge::cout << SGE_TEXT(',');
+			sge::cout << FCPPT_TEXT(',');
 	}
 
-	sge::cout << SGE_TEXT(']');
+	sge::cout << FCPPT_TEXT(']');
 }
 
 struct output_visitor : boost::static_visitor<> {
@@ -112,7 +112,7 @@ void print(
 void print(
 	sge::parse::json::object const &obj)
 {
-	sge::cout << SGE_TEXT('{');
+	sge::cout << FCPPT_TEXT('{');
 
 	for(
 		sge::parse::json::member_vector::const_iterator it(
@@ -124,7 +124,7 @@ void print(
 	{
 		sge::cout
 			<< it->name
-			<< SGE_TEXT(": ");
+			<< FCPPT_TEXT(": ");
 
 		print(
 			it->value_
@@ -136,10 +136,10 @@ void print(
 			)
 			!= obj.members.end()
 		)
-			sge::cout << SGE_TEXT(", ");
+			sge::cout << FCPPT_TEXT(", ");
 	}
 
-	sge::cout << SGE_TEXT('}');
+	sge::cout << FCPPT_TEXT('}');
 }
 
 }
@@ -147,7 +147,7 @@ void print(
 int main()
 {
 	sge::string const test(
-		SGE_TEXT("{ \"foo\": 42, \"bar\" : { \"inner\" : 5.5 } }")
+		FCPPT_TEXT("{ \"foo\": 42, \"bar\" : { \"inner\" : 5.5 } }")
 	);
 
 	sge::istringstream
@@ -165,7 +165,7 @@ int main()
 		result
 	))
 	{
-		sge::cerr << SGE_TEXT("failure\n");
+		sge::cerr << FCPPT_TEXT("failure\n");
 		return EXIT_FAILURE;
 	}
 
@@ -173,5 +173,5 @@ int main()
 		result
 	);
 
-	sge::cout << SGE_TEXT('\n');
+	sge::cout << FCPPT_TEXT('\n');
 }

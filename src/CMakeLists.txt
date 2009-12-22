@@ -90,6 +90,8 @@ set_source_files_properties(
 
 ADD_LIBRARY (sgecore SHARED ${sgecorefiles})
 
+TARGET_LINK_LIBRARIES (sgecore fcppt)
+
 IF (NOT MSVC)
 	TARGET_LINK_LIBRARIES (
 		sgecore
@@ -98,7 +100,6 @@ IF (NOT MSVC)
 ENDIF ()
 
 IF (UNIX)
-
 	TARGET_LINK_LIBRARIES (sgecore ${X11_LIBRARIES} dl)
 
 	message(${X11_LIBRARIES} ${X11_Xxf86misc_LIB} )

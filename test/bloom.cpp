@@ -447,7 +447,7 @@ try
 #if 0
 	if (argc < 2)
 	{
-		sge::cerr << SGE_TEXT("please specify an input file\n");
+		sge::cerr << FCPPT_TEXT("please specify an input file\n");
 		return EXIT_FAILURE;
 	}
 
@@ -524,17 +524,17 @@ try
 			view
 		)
 	)->save(
-		SGE_TEXT("output.jpg")
+		FCPPT_TEXT("output.jpg")
 	);
 #endif
 }
 catch(sge::exception const &e)
 {
-	sge::cerr << e.string() << SGE_TEXT('\n');
+	sge::cerr << e.string() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }
 catch(std::exception const &e)
 {
-	sge::cerr << e.what() << SGE_TEXT('\n');
+	sge::cerr << e.what() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }

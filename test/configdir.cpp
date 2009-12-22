@@ -28,8 +28,8 @@ try
 {
 	sge::cout
 		<< sge::config::find_config_path(
-			SGE_TEXT("sgeconfigtest")
+			FCPPT_TEXT("sgeconfigtest")
 		)
-		<< SGE_TEXT('\n');
+		<< FCPPT_TEXT('\n');
 }
 SGE_MAINLOOP_CATCH_BLOCK

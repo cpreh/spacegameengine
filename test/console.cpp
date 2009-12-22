@@ -65,7 +65,7 @@ namespace
 void fallback(
 	sge::string const &arg)
 {
-	sge::cout << SGE_TEXT("fallback called with argument:") << arg << SGE_TEXT('\n');
+	sge::cout << FCPPT_TEXT("fallback called with argument:") << arg << SGE_TEXT('\n');
 }
 
 void quit(bool &running,sge::console::arg_list const &)
@@ -83,7 +83,7 @@ try
 	sge::systems::instance const sys(
 		sge::systems::list()
 		(sge::window::parameters(
-			SGE_TEXT("sge console test")
+			FCPPT_TEXT("sge console test")
 		))
 		(sge::renderer::parameters(
 			sge::renderer::display_mode(
@@ -102,11 +102,11 @@ try
 		(sge::systems::parameterless::font)
 		(sge::systems::parameterless::image));
 
-	sge::console::object o(SGE_TEXT('/'));
+	sge::console::object o(FCPPT_TEXT('/'));
 
 	sge::signal::scoped_connection const c0(
 		o.insert(
-			SGE_TEXT("quit"),
+			FCPPT_TEXT("quit"),
 			std::tr1::bind(
 				&quit,
 				std::tr1::ref(
@@ -114,7 +114,7 @@ try
 				),
 				std::tr1::placeholders::_1
 			),
-			SGE_TEXT("quit test")
+			FCPPT_TEXT("quit test")
 		)
 	);
 
@@ -128,7 +128,7 @@ try
 		image_bg(
 			sys.image_loader()->load(
 				sge::config::media_path()
-				/ SGE_TEXT("grass.png")
+				/ FCPPT_TEXT("grass.png")
 			)
 		);
 
@@ -160,8 +160,8 @@ try
 		sge::image::colors::white(),
 		sys.font_system()->create_font(
 			sge::config::media_path()
-			/ SGE_TEXT("fonts")
-			/ SGE_TEXT("default.ttf"),
+			/ FCPPT_TEXT("fonts")
+			/ FCPPT_TEXT("default.ttf"),
 			15
 		),
 		sys.input_system(),
@@ -211,11 +211,11 @@ try
 }
 catch(sge::exception const &e)
 {
-	sge::cerr << e.string() << SGE_TEXT('\n');
+	sge::cerr << e.string() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }
 catch(std::exception const &e)
 {
-	sge::cerr << e.what() << SGE_TEXT('\n');
+	sge::cerr << e.what() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }

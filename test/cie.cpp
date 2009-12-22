@@ -54,20 +54,20 @@ int main()
 
 	while(!(sge::cin >> in))
 	{
-		sge::cerr << SGE_TEXT("Invalid input\n");
+		sge::cerr << FCPPT_TEXT("Invalid input\n");
 		sge::cin.clear();
 		sge::cin.ignore(
 			std::numeric_limits<std::streamsize>::max(),
-			SGE_TEXT('\n')
+			FCPPT_TEXT('\n')
 		);
 	}
 
 	vector_type const cie_vec = cie * in;
 
 	sge::cout
-		<< SGE_TEXT("vector in cie space: ")
+		<< FCPPT_TEXT("vector in cie space: ")
 		<< cie_vec
-		<< SGE_TEXT('\n');
+		<< FCPPT_TEXT('\n');
 
 	value_type const norm(
 		std::accumulate(
@@ -79,7 +79,7 @@ int main()
 	);
 
 	sge::cout
-		<< SGE_TEXT("vector in normalized cie space: ")
+		<< FCPPT_TEXT("vector in normalized cie space: ")
 		<< cie_vec / norm
-		<< SGE_TEXT('\n');
+		<< FCPPT_TEXT('\n');
 }

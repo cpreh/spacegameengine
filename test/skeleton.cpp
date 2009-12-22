@@ -62,7 +62,7 @@ app::app()
 		sge::systems::list()
 		(
 			sge::window::parameters(
-				SGE_TEXT("sge skeletontest")
+				FCPPT_TEXT("sge skeletontest")
 			)
 		)
 		(

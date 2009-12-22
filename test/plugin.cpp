@@ -109,7 +109,7 @@ print_plugins::operator()() const
 		<< sge::type_name(
 			typeid(T)
 		)
-		<< SGE_TEXT('\n');
+		<< FCPPT_TEXT('\n');
 
 	for(
 		sge::plugin::iterator<T> it(
@@ -124,11 +124,11 @@ print_plugins::operator()() const
 		);
 
 		sge::cout
-			<< SGE_TEXT("\tname: \"")
+			<< FCPPT_TEXT("\tname: \"")
 			<< base.name()
-			<< SGE_TEXT("\", description: \"")
+			<< FCPPT_TEXT("\", description: \"")
 			<< base.description()
-			<< SGE_TEXT("\"\n");
+			<< FCPPT_TEXT("\"\n");
 	}
 }
 

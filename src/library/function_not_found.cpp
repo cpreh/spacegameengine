@@ -52,3 +52,6 @@ sge::library::function_not_found::func() const
 {
 	return func_;
 }
+
+sge::library::function_not_found::~function_not_found() throw()
+{}

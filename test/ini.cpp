@@ -30,8 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int main()
 {
 	sge::string const test(
-		SGE_TEXT("[blabla]\nfoo = 42\nconfuse=5\nbar=3.4\nimagepath=/tmp/test\n")
-		SGE_TEXT("[section2]\nblubb=bar\n")
+		FCPPT_TEXT("[blabla]\nfoo = 42\nconfuse=5\nbar=3.4\nimagepath=/tmp/test\n")
+		FCPPT_TEXT("[section2]\nblubb=bar\n")
 	);
 
 	sge::string::const_iterator beg(
@@ -46,7 +46,7 @@ int main()
 		result
 	))
 	{
-		sge::cerr << SGE_TEXT("failure\n");
+		sge::cerr << FCPPT_TEXT("failure\n");
 		return EXIT_FAILURE;
 	}
 
@@ -55,7 +55,7 @@ int main()
 		result
 	)
 	{
-		sge::cout << SGE_TEXT('[') << section.header << SGE_TEXT("]\n");
+		sge::cout << FCPPT_TEXT('[') << section.header << SGE_TEXT("]\n");
 
 		BOOST_FOREACH(
 			sge::parse::ini::entry_vector::const_reference entry,
@@ -63,10 +63,10 @@ int main()
 		)
 			sge::cout
 				<< entry.name
-				<< SGE_TEXT(" = ")
+				<< FCPPT_TEXT(" = ")
 				<< entry.value
-				<< SGE_TEXT('\n');
+				<< FCPPT_TEXT('\n');
 
-		sge::cout << SGE_TEXT('\n');
+		sge::cout << FCPPT_TEXT('\n');
 	}
 }

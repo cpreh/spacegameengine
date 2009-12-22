@@ -67,7 +67,7 @@ try
 		sge::systems::list()
 		(
 			sge::window::parameters(
-				SGE_TEXT("sge animtest")
+				FCPPT_TEXT("sge animtest")
 			)
 		)
 		(
@@ -118,7 +118,7 @@ try
 		sge::texture::add_image(
 			tex_man,
 			sys.image_loader()->load(
-				sge::config::media_path() / SGE_TEXT("tux.png")
+				sge::config::media_path() / FCPPT_TEXT("tux.png")
 			)
 		)
 	);
@@ -188,7 +188,7 @@ try
 					device,
 					loader,
 					sge::filesystem::path(
-						SGE_TEXT("output.png")
+						FCPPT_TEXT("output.png")
 					)
 				)
 			)

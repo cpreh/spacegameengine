@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/animation/loop_method.hpp>
 #include <sge/sprite/object_fwd.hpp>
 #include <sge/time/timer.hpp>
-#include <sge/time/fun.hpp>
+#include <sge/time/callback.hpp>
 
 namespace sge
 {
@@ -52,7 +52,7 @@ public:
 		animation::series const &,
 		loop_method::type,
 		object &init_sprite,
-		time::fun const &time_fun
+		time::callback const &time_fun
 	);
 
 	bool

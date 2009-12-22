@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/config/media_path.hpp>
-#include <sge/signal/scoped_connection.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/device.hpp>
@@ -55,14 +54,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/default_creator_impl.hpp>
 #include <sge/time/millisecond.hpp>
 #include <sge/time/second.hpp>
-#include <sge/time/time.hpp>
-#include <sge/time/resolution.hpp>
+#include <sge/time/default_callback.hpp>
 #include <sge/mainloop/dispatch.hpp>
-#include <sge/assign/make_container.hpp>
 #include <sge/log/global.hpp>
-#include <sge/log/activate_levels.hpp>
-#include <sge/cerr.hpp>
 #include <sge/exception.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/log/activate_levels.hpp>
+#include <fcppt/log/level.hpp>
+#include <fcppt/io/cerr.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
@@ -73,16 +73,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int main()
 try
 {
-	sge::log::activate_levels(
+	fcppt::log::activate_levels(
 		sge::log::global(),
-		sge::log::level::debug
+		fcppt::log::level::debug
 	);
 
 	sge::systems::instance sys(
 		sge::systems::list()
 		(
 			sge::window::parameters(
-				SGE_TEXT("sge animtest")
+				FCPPT_TEXT("sge animtest")
 			)
 		)
 		(
@@ -143,7 +143,7 @@ try
 				tex_man,
 				image_loader.load(
 					sge::config::media_path()
-					/ SGE_TEXT("cloudsquare.jpg")
+					/ FCPPT_TEXT("cloudsquare.jpg")
 				)
 			)
 		),
@@ -152,7 +152,7 @@ try
 				tex_man,
 				image_loader.load(
 					sge::config::media_path()
-					/ SGE_TEXT("grass.png")
+					/ FCPPT_TEXT("grass.png")
 				)
 			)
 		);
@@ -203,7 +203,7 @@ try
 	);
 
 	sge::sprite::animation::series const series(
-		sge::assign::make_container<
+		fcppt::assign::make_container<
 			sge::sprite::animation::entity_vector
 		>(
 			sge::sprite::animation::entity(
@@ -229,12 +229,12 @@ try
 		series,
 		sge::sprite::animation::loop_method::repeat,
 		spr,
-		sge::time::default_time_fun()
+		sge::time::default_callback()
 	);
 
 	bool running = true;
 
-	sge::signal::scoped_connection const cb(
+	fcppt::signal::scoped_connection const cb(
 		is->register_callback(
 			sge::input::action(
 				sge::input::kc::key_escape,
@@ -266,11 +266,11 @@ try
 }
 catch(sge::exception const &e)
 {
-	sge::cerr << e.string() << SGE_TEXT('\n');
+	fcppt::io::cerr << e.string() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }
 catch(std::exception const &e)
 {
-	sge::cerr << e.what() << SGE_TEXT('\n');
+	fcppt::io::cerr << e.what() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }

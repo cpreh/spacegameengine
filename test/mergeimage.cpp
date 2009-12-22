@@ -69,7 +69,7 @@ calc_size(
 			return sz;
 	}
 	throw sge::exception(
-		SGE_TEXT("size too big!")
+		FCPPT_TEXT("size too big!")
 	);
 }
 
@@ -118,7 +118,7 @@ try
 {
 	if(argc != 2)
 	{
-		sge::cerr << SGE_TEXT("please specify a path!\n");
+		sge::cerr << FCPPT_TEXT("please specify a path!\n");
 		return EXIT_FAILURE;
 	}
 
@@ -148,7 +148,7 @@ try
 
 	if(image_count == 0)
 	{
-		sge::cerr << SGE_TEXT("No files here.\n");
+		sge::cerr << FCPPT_TEXT("No files here.\n");
 		return EXIT_SUCCESS;
 	}
 
@@ -206,7 +206,7 @@ try
 
 		if(img->dim() != dim)
 		{
-			sge::cerr << SGE_TEXT("some dimensions do not match!\n");
+			sge::cerr << FCPPT_TEXT("some dimensions do not match!\n");
 			return EXIT_FAILURE;
 		}
 
@@ -234,7 +234,7 @@ try
 			dest_view
 		)
 	)->save(
-		SGE_TEXT("out.png")
+		FCPPT_TEXT("out.png")
 	);
 }
 SGE_MAINLOOP_CATCH_BLOCK

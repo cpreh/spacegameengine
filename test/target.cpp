@@ -71,7 +71,7 @@ try
 		sge::systems::list()
 		(
 			sge::window::parameters(
-				SGE_TEXT("sge targettest")
+				FCPPT_TEXT("sge targettest")
 			)
 		)
 		(
@@ -98,7 +98,7 @@ try
 	sge::image::file_ptr const image(
 		sys.image_loader()->load(
 			sge::config::media_path()
-			/ SGE_TEXT("tux.png")
+			/ FCPPT_TEXT("tux.png")
 		)
 	);
 
@@ -263,9 +263,9 @@ try
 catch (sge::exception const &e)
 {
 	sge::cerr
-		<< SGE_TEXT("caught sge exception: ")
+		<< FCPPT_TEXT("caught sge exception: ")
 		<< e.string()
-		<< SGE_TEXT('\n');
+		<< FCPPT_TEXT('\n');
 	
 	return EXIT_FAILURE;
 }

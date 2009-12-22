@@ -23,8 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/exception.hpp>
 #include <fcppt/text.hpp>
-#include <sge/cerr.hpp>
-#include <sge/exception.hpp>
+#include <fcppt/io/cerr.hpp>
 #include <exception>
 #include <iostream>
 #include <ostream>
@@ -33,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MAINLOOP_CATCH_BLOCK \
 catch(sge::exception const &e)\
 {\
-	sge::cerr << e.string() << FCPPT_TEXT('\n');\
+	fcppt::io::cerr << e.string() << FCPPT_TEXT('\n');\
 	return EXIT_FAILURE;\
 }\
 catch(std::exception const &e)\
@@ -43,7 +42,7 @@ catch(std::exception const &e)\
 }\
 catch(...)\
 {\
-	sge::cerr << FCPPT_TEXT("Unknown exception.\n");\
+	fcppt::io::cerr << FCPPT_TEXT("Unknown exception.\n");\
 	return EXIT_FAILURE;\
 }
 

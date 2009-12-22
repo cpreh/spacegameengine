@@ -64,7 +64,7 @@ try
 	sge::systems::instance sys(
 		sge::systems::list()
 		(sge::window::parameters(
-			SGE_TEXT("sge animtest")
+			FCPPT_TEXT("sge animtest")
 		))
 		(sge::renderer::parameters(
 			sge::renderer::display_mode(
@@ -94,7 +94,7 @@ try
 	);
 
 	std::ifstream ifs(
-		sge::iconv((sge::config::media_path() / SGE_TEXT("european_fnt_v2.md3")).string()).c_str(),
+		sge::iconv((sge::config::media_path() / FCPPT_TEXT("european_fnt_v2.md3")).string()).c_str(),
 		std::ios_base::binary
 	);
 
@@ -136,7 +136,7 @@ try
 
 	sge::renderer::texture_ptr const tex(
 		sge::image::create_texture(
-			sge::config::media_path() / SGE_TEXT("european_fnt.tga"),
+			sge::config::media_path() / FCPPT_TEXT("european_fnt.tga"),
 			sys.renderer(),
 			sys.image_loader(),
 			sge::renderer::filter::linear,

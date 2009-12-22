@@ -48,7 +48,7 @@ try
 		sge::log::level::debug
 	);
 
-	sge::filesystem::path const file_name(sge::config::media_path() / SGE_TEXT("ding.wav"));
+	sge::filesystem::path const file_name(sge::config::media_path() / FCPPT_TEXT("ding.wav"));
 
 	bool const streaming = false;
 
@@ -76,15 +76,15 @@ try
 		pool.update();
 		if (t.update_b())
 		{
-			sge::cerr << SGE_TEXT("killing sound\n");
+			sge::cerr << FCPPT_TEXT("killing sound\n");
 			sound.reset();
 		}
 	}
 } catch (const sge::audio::exception &e) {
-	sge::cerr << SGE_TEXT("audio exception caught: ") << e.string() << SGE_TEXT('\n');
+	sge::cerr << FCPPT_TEXT("audio exception caught: ") << e.string() << SGE_TEXT('\n');
 	return EXIT_FAILURE;
 } catch (const sge::exception &e) {
-	sge::cerr << SGE_TEXT("Exception caught: ") << e.string() << SGE_TEXT('\n');
+	sge::cerr << FCPPT_TEXT("Exception caught: ") << e.string() << SGE_TEXT('\n');
 	return EXIT_FAILURE;
 } catch (const std::exception &e) {
 	std::cerr << "Exception caught: " << e.what() << '\n';
