@@ -32,7 +32,7 @@ namespace windows
 
 wndclass_ptr const
 wndclass_pool(
-	string const &,
+	fcppt::string const &,
 	WNDPROC
 );
 

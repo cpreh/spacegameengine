@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/wndclass_pool.hpp>
 #include <sge/windows/module_handle.hpp>
 #include <sge/exception.hpp>
-#include <fcppt/math/rect/basic_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/tr1/array.hpp>
@@ -67,10 +67,14 @@ sge::windows::window::window(
 			FCPPT_TEXT("AdjustWindowRect() failed!"));
 
 	decoration_size = decoration_rect(
-		r.left,
-		r.top,
-		r.right,
-		r.bottom
+		decoration_rect::vector(
+			r.left,
+			r.top
+		),
+		decoration_rect::dim(
+			r.right,
+			r.bottom
+		)
 	);
 
 	handle = CreateWindow(
@@ -79,12 +83,13 @@ sge::windows::window::window(
 		flags,
 		0,
 		0,
-		decoration_size.dim().w() + sz.w(),
-		decoration_size.dim().h() + sz.h(),
+		decoration_size.w() + sz.w(),
+		decoration_size.h() + sz.h(),
 		0,
 		0,
 		module_handle(),
-		this);
+		this
+	);
 
 	if(!handle)
 		throw exception(
@@ -104,8 +109,8 @@ void sge::windows::window::size(
 		HWND_TOP,
 		0,
 		0,
-		decoration_size.dim().w() + nsz.w(),
-		decoration_size.dim().h() + nsz.h(),
+		decoration_size.w() + nsz.w(),
+		decoration_size.h() + nsz.h(),
 		SWP_SHOWWINDOW
 	) == 0)
 		throw exception(
@@ -128,8 +133,8 @@ sge::windows::window::size() const
 		throw exception(
 			FCPPT_TEXT("GetWindowRect() failed!"));
 	return dim_type(
-		rect.right - rect.left - decoration_size.dim().w(),
-		rect.bottom - rect.top - decoration_size.dim().h()
+		rect.right - rect.left - decoration_size.w(),
+		rect.bottom - rect.top - decoration_size.h()
 	);
 }
 
@@ -158,7 +163,7 @@ HWND sge::windows::window::hwnd() const
 	return handle;
 }
 
-sge::signal::auto_connection
+fcppt::signal::auto_connection
 sge::windows::window::register_callback(
 	event_type const msg,
 	callback_type const func)

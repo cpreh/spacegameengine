@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/create_window.hpp>
 #include <sge/windows/choose_and_set_pixel_format.hpp>
 #include <sge/windows/gdi_device.hpp>
+#include <sge/windows/window_ptr.hpp>
 #include <sge/windows/window.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/renderer/parameters.hpp>

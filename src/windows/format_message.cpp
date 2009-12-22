@@ -23,13 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <fcppt/tr1/array.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/char_type.hpp>
 
 fcppt::string const
 sge::windows::format_message(
 	DWORD const error)
 {
 	std::tr1::array<
-		char_type,
+		fcppt::char_type,
 		1024
 	> errmsg;
 

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config.h>
 #ifdef FCPPT_WINDOWS_PLATFORM
-#include <sge/scoped_ptr.hpp>
+#include <fcppt/scoped_ptr.hpp>
 #endif
 
 namespace sge
@@ -66,7 +66,7 @@ private:
 	void *const handle;
 #ifdef FCPPT_WINDOWS_PLATFORM
 	struct destroyer;
-	scoped_ptr<
+	fcppt::scoped_ptr<
 		destroyer
 	> destroyer_;
 #endif

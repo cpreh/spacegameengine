@@ -38,7 +38,7 @@ sge::config::getenv(
 {
 #ifdef FCPPT_WINDOWS_PLATFORM
 	fcppt::container::raw_vector<
-		char_type
+		fcppt::char_type
 	> home_dir(32767);
 
 	if(

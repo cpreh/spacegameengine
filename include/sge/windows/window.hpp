@@ -25,12 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/callback_return_type.hpp>
 #include <sge/windows/event_type.hpp>
 #include <sge/windows/windows.hpp>
-#include <sge/windows/wndclass_fwd.hpp>
+#include <sge/windows/wndclass_ptr.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
-#include <fcppt/math/rect/basic_decl.hpp>
+#include <fcppt/math/box/rect.hpp>
+#include <fcppt/math/box/basic_decl.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/optional_fwd.hpp>
@@ -84,9 +85,9 @@ public:
 private:
 	wndclass_ptr const wndclass_;
 
-	typedef fcppt::math::rect::basic<
+	typedef fcppt::math::box::rect<
 		LONG
-	> decoration_rect;
+	>::type decoration_rect;
 
 	decoration_rect decoration_size;
 	HWND        handle;
