@@ -1,5 +1,5 @@
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <sge/container/field.hpp>
+#include <fcppt/container/field.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/image/loader.hpp>
 #include <sge/image/file.hpp>
@@ -15,7 +15,7 @@
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <sge/iconv.hpp>
-#include <sge/lexical_cast.hpp>
+#include <fcppt/lexical_cast.hpp>
 #include <sge/assert.hpp>
 #include <sge/exception.hpp>
 #include <sge/optional_impl.hpp>
