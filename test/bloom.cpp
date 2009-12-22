@@ -1,4 +1,4 @@
-#include <sge/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <sge/container/field.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/image/loader.hpp>
@@ -10,8 +10,8 @@
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/window/parameters.hpp>
-#include <sge/math/clamp.hpp>
-#include <sge/math/pi.hpp>
+#include <fcppt/math/clamp.hpp>
+#include <fcppt/math/pi.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <sge/iconv.hpp>

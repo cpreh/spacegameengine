@@ -36,8 +36,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/sleep.hpp>
 #include <sge/log/global.hpp>
 #include <sge/log/activate_levels.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/pi.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/pi.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/time/sleep.hpp>

@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/colors.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/any/convert.hpp>
-#include <sge/math/vector/output.hpp>
+#include <fcppt/math/vector/output.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/sprite/system.hpp>
@@ -57,8 +57,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/collision/satellite.hpp>
 #include <sge/collision/world.hpp>
 #include <sge/signal/scoped_connection.hpp>
-#include <sge/math/box/basic_impl.hpp>
-#include <sge/math/vector/basic_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <sge/assign/make_container.hpp>
 #include <sge/exception.hpp>
 #include <sge/optional_impl.hpp>

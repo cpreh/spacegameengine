@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/math/matrix/matrix.hpp>
-#include <sge/math/matrix/static.hpp>
-#include <sge/math/vector/vector.hpp>
-#include <sge/math/vector/static.hpp>
+#include <fcppt/math/matrix/matrix.hpp>
+#include <fcppt/math/matrix/static.hpp>
+#include <fcppt/math/vector/vector.hpp>
+#include <fcppt/math/vector/static.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/io/cin.hpp>
 #include <fcppt/io/cerr.hpp>

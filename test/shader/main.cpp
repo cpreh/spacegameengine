@@ -65,14 +65,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/default_sort.hpp>
 #include <sge/sprite/default_equal.hpp>
 #include <sge/sprite/render_one.hpp>
-#include <sge/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/add_image.hpp>
 #include <sge/texture/no_fragmented.hpp>
 #include <sge/texture/default_creator.hpp>
 #include <sge/texture/default_creator_impl.hpp>
 #include <sge/mainloop/dispatch.hpp>
-#include <sge/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <sge/fstream.hpp>
 #include <sge/make_shared_ptr.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>

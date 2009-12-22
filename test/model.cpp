@@ -49,8 +49,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/create_texture.hpp>
 #include <sge/mainloop/catch_block.hpp>
 #include <sge/mainloop/dispatch.hpp>
-#include <sge/math/matrix/perspective.hpp>
-#include <sge/math/pi.hpp>
+#include <fcppt/math/matrix/perspective.hpp>
+#include <fcppt/math/pi.hpp>
 #include <sge/config/media_path.hpp>
 #include <fcppt/text.hpp>
 #include <sge/iconv.hpp>
