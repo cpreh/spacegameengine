@@ -183,10 +183,10 @@ private:
 
 template<typename T>
 void field_increase_contrast(
-	sge::container::field<T> &f,
+	fcppt::container::field<T> &f,
 	double const coefficient)
 {
-	typedef sge::container::field<T> field_type;
+	typedef fcppt::container::field<T> field_type;
 	typedef T color_type;
 	typedef typename T::layout::channel_type channel_type;
 
@@ -306,14 +306,14 @@ template<
 	typename U,
 	typename Combine>
 void field_combine(
-	sge::container::field<T> &left,
-	sge::container::field<U> const &right,
+	fcppt::container::field<T> &left,
+	fcppt::container::field<U> const &right,
 	Combine c)
 {
 	SGE_ASSERT(left.dim() == right.dim());
 
-	typename sge::container::field<T>::iterator li = left.begin();
-	typename sge::container::field<U>::const_iterator ri = right.begin();
+	typename fcppt::container::field<T>::iterator li = left.begin();
+	typename fcppt::container::field<U>::const_iterator ri = right.begin();
 
 	while (li != left.end() && ri != right.end())
 	{
@@ -327,11 +327,11 @@ void field_combine(
 
 template<typename T>
 void field_gaussian_blur(
-	sge::container::field<T> &f,
-	typename sge::container::field<T>::dim_type const radii)
+	fcppt::container::field<T> &f,
+	typename fcppt::container::field<T>::dim_type const radii)
 {
 	typedef T value_type;
-	typedef sge::container::field<T> field_type;
+	typedef fcppt::container::field<T> field_type;
 	typedef typename field_type::size_type size_type;
 	typedef typename field_type::iterator iterator;
 	typedef typename T::layout::channel_type channel_type;
@@ -471,7 +471,7 @@ try
 	);
 
 	typedef sge::image::color::rgba8 color_type;
-	typedef sge::container::field<color_type> color_field;
+	typedef fcppt::container::field<color_type> color_field;
 
 	color_field f(
 		fcppt::math::dim::structure_cast<color_field::dim_type>(
