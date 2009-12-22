@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/find_config_path.hpp>
 #include <sge/mainloop/catch_block.hpp>
 #include <sge/cout.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 int main()
 try

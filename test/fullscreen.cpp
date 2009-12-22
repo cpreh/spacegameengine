@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/timer.hpp>
 #include <sge/time/second.hpp>
 #include <sge/time/resolution.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <sge/exception.hpp>
 #include <sge/cerr.hpp>
 #include <ostream>

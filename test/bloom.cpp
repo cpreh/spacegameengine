@@ -12,7 +12,7 @@
 #include <sge/window/parameters.hpp>
 #include <sge/math/clamp.hpp>
 #include <sge/math/pi.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <sge/cerr.hpp>
 #include <sge/iconv.hpp>
 #include <sge/lexical_cast.hpp>
