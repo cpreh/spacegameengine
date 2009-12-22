@@ -204,7 +204,7 @@ try
 			sprite_object::point::null()
 		)
 		.texture(
-			sge::make_shared_ptr<
+			fcppt::make_shared_ptr<
 				sge::texture::part_raw
 			>(
 				image_texture

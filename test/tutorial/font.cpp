@@ -82,7 +82,7 @@ try
 	);
 
 	sge::font::drawer_ptr const drawer(
-		sge::make_shared_ptr<
+		fcppt::make_shared_ptr<
 			sge::font::drawer_3d
 		>(
 			sys.renderer(),
@@ -102,7 +102,7 @@ try
 		font.draw_text(
 			FCPPT_TEXT("hello world"),
 			sge::font::pos::null(),
-			sge::math::dim::structure_cast<sge::font::dim>(
+			fcppt::math::dim::structure_cast<sge::font::dim>(
 				sys.renderer()->screen_size()
 			),
 			sge::font::align_h::center,

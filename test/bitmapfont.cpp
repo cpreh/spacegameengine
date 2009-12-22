@@ -81,7 +81,7 @@ try
 			0,
 			sys.image_loader()
 		),
-		sge::make_shared_ptr<
+		fcppt::make_shared_ptr<
 			sge::font::drawer_3d
 		>(
 			sys.renderer(),
@@ -119,7 +119,7 @@ try
 		font.draw_text(
 			FCPPT_TEXT("test abcd"),
 			sge::font::pos::null(),
-			sge::math::dim::structure_cast<
+			fcppt::math::dim::structure_cast<
 				sge::font::dim
 			>(
 				sys.renderer()->screen_size()

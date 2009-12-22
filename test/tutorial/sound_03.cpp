@@ -62,7 +62,7 @@ try
 	sge::time::timer frame_timer(sge::time::second(static_cast<sge::time::unit>(1)));
 	sge::audio::unit const rpm = static_cast<sge::audio::unit>(1);
 	sge::audio::unit const speed = static_cast<sge::audio::unit>(
-		static_cast<sge::audio::unit>(2) * sge::math::pi<sge::audio::unit>() * rpm);
+		static_cast<sge::audio::unit>(2) * fcppt::math::pi<sge::audio::unit>() * rpm);
 	while (true)
 	{
 		sge::audio::unit const angle =

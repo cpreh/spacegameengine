@@ -35,7 +35,7 @@ int main()
 {
 	typedef double value_type;
 
-	sge::math::matrix::static_<
+	fcppt::math::matrix::static_<
 		value_type,
 		3,
 		3
@@ -45,7 +45,7 @@ int main()
 		0, 0.01, 0.99
 	);
 
-	typedef sge::math::vector::static_<
+	typedef fcppt::math::vector::static_<
 		value_type,
 		3
 	>::type vector_type;

@@ -163,7 +163,7 @@ struct field_increase_contrast_channel {
 	{
 		c. template set<T>(
 			denormalize<typename Color::layout::channel_type>(
-				sge::math::clamp(
+				fcppt::math::clamp(
 					logistic<double>(
 						normalize<double>(
 							c. template get<T>()
@@ -240,7 +240,7 @@ bell_curve(
 	// 1/(stddev*sqrt(2*pi))
 	T const prefix =
 		static_cast<T>(1)/
-		(stddev*std::sqrt(static_cast<T>(2)*sge::math::pi<T>()));
+		(stddev*std::sqrt(static_cast<T>(2)*fcppt::math::pi<T>()));
 
 	// 1/(2*stddev^2)
 	T const eprefix =
@@ -435,7 +435,7 @@ T clamping_adder(T const &left,T const &right)
 {
 	//return left+right;
 	return static_cast<T>(
-		sge::math::clamp(
+		fcppt::math::clamp(
 			left+right,
 			std::numeric_limits<T>::min()+left-left,
 			std::numeric_limits<T>::max()+left-left));
@@ -474,7 +474,7 @@ try
 	typedef sge::container::field<color_type> color_field;
 
 	color_field f(
-		sge::math::dim::structure_cast<color_field::dim_type>(
+		fcppt::math::dim::structure_cast<color_field::dim_type>(
 			bg->dim()
 		)
 	);
@@ -484,7 +484,7 @@ try
 			reinterpret_cast<unsigned char *>(
 				&(*f.begin())
 			),
-			sge::math::dim::structure_cast<
+			fcppt::math::dim::structure_cast<
 				sge::image::dim_type
 			>(
 				f.dim()

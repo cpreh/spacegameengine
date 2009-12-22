@@ -282,7 +282,7 @@ try
 			sprite_object::point::null()
 		)
 		.size(
-			sge::math::dim::structure_cast<
+			fcppt::math::dim::structure_cast<
 				sprite_object::dim
 			>(
 				screen_size

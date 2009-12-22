@@ -132,7 +132,7 @@ try
 		{
 			sge::audio::unit const angle =
 				static_cast<sge::audio::unit>(
-					frame_timer.elapsed_frames() * (2 * sge::math::pi<sge::audio::unit>() * speed));
+					frame_timer.elapsed_frames() * (2 * fcppt::math::pi<sge::audio::unit>() * speed));
 			sound->pos(
 				sge::audio::point(
 					std::sin(angle),

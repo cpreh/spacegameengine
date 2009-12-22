@@ -168,11 +168,11 @@ try
 	typedef float unit;
 
 	sys.renderer()->projection(
-		sge::math::matrix::perspective<unit>(
+		fcppt::math::matrix::perspective<unit>(
 			sge::renderer::aspect<unit>(
 				sys.renderer()->screen_size()
 			),
-			sge::math::pi<unit>() / static_cast<unit>(4),
+			fcppt::math::pi<unit>() / static_cast<unit>(4),
 			-100.f,
 			100.f
 		)

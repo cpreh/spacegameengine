@@ -189,7 +189,7 @@ try
 	);
 
 	float_type const step(
-		sge::math::twopi<float_type>()
+		fcppt::math::twopi<float_type>()
 		/ static_cast<float_type>(40)
 	);
 
@@ -201,9 +201,9 @@ try
 			6 * static_cast<
 				sge::renderer::size_type
 			>(
-				sge::math::quad(
+				fcppt::math::quad(
 					std::ceil(
-						sge::math::twopi<float_type>()
+						fcppt::math::twopi<float_type>()
 						/ step
 					)
 				)
@@ -228,12 +228,12 @@ try
 
 		for(
 			float_type theta = 0;
-			theta < sge::math::twopi<float_type>();
+			theta < fcppt::math::twopi<float_type>();
 			theta += step, shift += step / 2
 		)
 			for(
 				float_type phi = 0;
-				phi < sge::math::twopi<float_type>();
+				phi < fcppt::math::twopi<float_type>();
 				phi += step
 			)
 			{
@@ -294,13 +294,13 @@ try
 	);
 
 	rend->projection(
-		sge::math::matrix::perspective(
+		fcppt::math::matrix::perspective(
 			sge::renderer::aspect<
 				float_type
 			>(
 				rend->screen_size()
 			),
-			sge::math::pi<float_type>() / 2,
+			fcppt::math::pi<float_type>() / 2,
 			static_cast<float_type>(1),
 			static_cast<float_type>(256)
 		)
@@ -330,7 +330,7 @@ try
 	{
 		sge::renderer::light_index const light_index(0);
 
-		typedef sge::math::vector::static_<
+		typedef fcppt::math::vector::static_<
 			float_type,
 			3
 		>::type vec3f;
@@ -402,20 +402,20 @@ try
 	{
 		sge::mainloop::dispatch();
 
-		angle += sge::math::twopi<float_type>() * rotation_time.update();
+		angle += fcppt::math::twopi<float_type>() * rotation_time.update();
 
 		{
-			typedef sge::math::vector::static_<
+			typedef fcppt::math::vector::static_<
 				float_type,
 				3
 			>::type vec3;
 
 			rend->transform(
-				sge::math::matrix::rotation_y(
+				fcppt::math::matrix::rotation_y(
 					angle
 				)
 				*
-				sge::math::matrix::look_at(
+				fcppt::math::matrix::look_at(
 					vec3(
 						0,
 						0,

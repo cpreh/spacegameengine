@@ -255,7 +255,7 @@ try
 				tex_bg
 			)
 			.size(
-				sge::math::dim::structure_cast<
+				fcppt::math::dim::structure_cast<
 					sprite_object::dim
 				>(
 					screen_size
@@ -348,7 +348,7 @@ try
 
 	sge::renderer::texture_ptr const target(
 		sys.renderer()->create_texture(
-			sge::math::dim::structure_cast<
+			fcppt::math::dim::structure_cast<
 				sge::renderer::texture::dim_type
 			>(
 				screen_size
@@ -365,7 +365,7 @@ try
 			sprite_object::point::null()
 		)
 		.texture(
-			sge::make_shared_ptr<
+			fcppt::make_shared_ptr<
 				sge::texture::part_raw
 			>(
 				target

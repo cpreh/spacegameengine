@@ -132,7 +132,7 @@ try
 		sge::gui::widgets::parameters()
 			.pos(sge::gui::point(10,10))
 			.layout(
-				sge::make_shared_ptr<sge::gui::layouts::horizontal>())
+				fcppt::make_shared_ptr<sge::gui::layouts::horizontal>())
 			.size(sge::gui::dim(400,300)));
 
 	sge::cerr << "added top level widget\n";
@@ -140,12 +140,12 @@ try
 	sge::gui::widgets::base left(
 		top,
 		sge::gui::widgets::parameters()
-			.layout(sge::make_shared_ptr<sge::gui::layouts::vertical>()));
+			.layout(fcppt::make_shared_ptr<sge::gui::layouts::vertical>()));
 
 	sge::gui::widgets::base right(
 		top,
 		sge::gui::widgets::parameters()
-			.layout(sge::make_shared_ptr<sge::gui::layouts::vertical>()));
+			.layout(fcppt::make_shared_ptr<sge::gui::layouts::vertical>()));
 
 	sge::gui::widgets::buttons::text left_top(
 		left,

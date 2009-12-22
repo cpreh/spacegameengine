@@ -132,7 +132,7 @@ try
 		sge::gui::widgets::parameters()
 			.pos(sge::gui::point(10,10))
 			.layout(
-				sge::make_shared_ptr<sge::gui::layouts::grid>())
+				fcppt::make_shared_ptr<sge::gui::layouts::grid>())
 			.size(
 				sge::gui::dim(400,300)));
 
