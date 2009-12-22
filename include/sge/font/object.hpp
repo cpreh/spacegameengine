@@ -44,7 +44,7 @@ class object
 public:
 	SGE_SYMBOL explicit object(
 		metrics_ptr metrics,
-		drawer_ptr drawer
+		drawer_ptr drawer = drawer_ptr()
 	);
 
 	SGE_SYMBOL ~object();

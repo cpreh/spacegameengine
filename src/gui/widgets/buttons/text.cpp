@@ -20,15 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/gui/widgets/buttons/text.hpp>
 #include <sge/gui/widgets/parameters.hpp>
-#include <sge/gui/events/key.hpp>
-#include <sge/gui/manager.hpp>
-#include <sge/input/key_type.hpp>
-#include <fcppt/assert.hpp>
 
 sge::gui::widgets::buttons::text::text(
 	parent_data const &_parent,
 	parameters _params,
-	string const &_caption)
+	fcppt::string const &_caption
+)
 :
 	base(
 		_parent,
@@ -37,12 +34,16 @@ sge::gui::widgets::buttons::text::text(
 				sge::gui::size_policy(
 					//axis_policy::can_grow,
 					axis_policy::none,
-					axis_policy::none))),
+					axis_policy::none
+				)
+			)
+	),
 	  caption_(_caption)
 {
 }
 
-fcppt::string const sge::gui::widgets::buttons::text::caption() const
+fcppt::string const
+sge::gui::widgets::buttons::text::caption() const
 {
 	return caption_;
 }

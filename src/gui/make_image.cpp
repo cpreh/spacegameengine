@@ -26,14 +26,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <sge/make_shared_ptr.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 
 sge::gui::image_ptr const
 sge::gui::make_image(
-	sge::image::file_ptr _image)
+	sge::image::file_ptr _image
+)
 {
 	sge::gui::image_ptr i(
-		sge::make_shared_ptr<
+		fcppt::make_shared_ptr<
 			gui::image
 		>(
 			fcppt::math::dim::structure_cast<dim>(

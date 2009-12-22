@@ -20,15 +20,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "blit.hpp"
 #include "normalization.hpp"
-#include <fcppt/math/box/intersection.hpp>
-#include <fcppt/math/box/structure_cast.hpp>
-#include <fcppt/math/vector/arithmetic.hpp>
 #include <sge/image/color/convert.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/algorithm/copy_and_convert.hpp>
 #include <sge/image/algorithm/transform.hpp>
 #include <sge/image/view/sub.hpp>
 #include <sge/image/view/make_const.hpp>
+#include <fcppt/math/box/intersection.hpp>
+#include <fcppt/math/box/structure_cast.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/assert.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -267,11 +267,11 @@ void sge::gui::utility::blit_invalid(
 	// Move intersection rect to origin of invalid rect
 	rect const is_translated_dst(
 		is.pos()-dst_rect.pos(),
-		is.dim());
+		is.dimension());
 
 	rect const is_translated_src(
 		is.pos()-src_rect.pos(),
-		is.dim());
+		is.dimension());
 
 	if (transparency)
 	{
@@ -325,7 +325,7 @@ void sge::gui::utility::blit(
 	rect const &dst_rect,
 	rect const &clip_rect)
 {
-	FCPPT_ASSERT(src_rect.dim() == dst_rect.dim());
+	FCPPT_ASSERT(src_rect.dimension() == dst_rect.dimension());
 
 	rect const clipped = intersection(
 		dst_rect,
@@ -333,7 +333,7 @@ void sge::gui::utility::blit(
 
 	rect const src_trans = rect(
 		clipped.pos() - dst_rect.pos(),
-		clipped.dim());
+		clipped.dimension());
 
 	sge::image::algorithm::transform(
 		sge::image::view::sub(

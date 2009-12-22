@@ -89,7 +89,7 @@ void sge::gui::manager::invalidate(
 }
 
 sge::gui::timer::object_ptr const sge::gui::manager::register_timer(
-	time::resolution const &r,
+	time::duration const &r,
 	timer::callback const cb)
 {
 	return timer_->add(r,cb);

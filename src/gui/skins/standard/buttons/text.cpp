@@ -31,15 +31,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/object.hpp>
 #include <sge/font/text_size.hpp>
 #include <fcppt/math/box/output.hpp>
-#include <sge/log/parameters/inherited.hpp>
-#include <sge/log/object.hpp>
-#include <sge/log/headers.hpp>
+#include <fcppt/log/parameters/inherited.hpp>
+#include <fcppt/log/object.hpp>
+#include <fcppt/log/headers.hpp>
 
 namespace
 {
 
-sge::log::object mylogger(
-	sge::log::parameters::inherited(
+fcppt::log::object mylogger(
+	fcppt::log::parameters::inherited(
 		sge::gui::global_log(),
 		FCPPT_TEXT("skins: standard: buttons: text")
 	)
@@ -58,7 +58,7 @@ void sge::gui::skins::standard::draw(
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("creating canvas from buffer"));
+		fcppt::log::_ << FCPPT_TEXT("creating canvas from buffer"));
 	canvas::object c(b.buffer());
 
 	typedef internal_color::format::channel_type channel;
@@ -66,7 +66,7 @@ void sge::gui::skins::standard::draw(
 	// Background
 	c.draw_rect(
 		rect(
-			rect::pos_type::null(),
+			rect::vector::null(),
 			c.size()
 		),
 		b.mouse_over()
@@ -158,7 +158,7 @@ void sge::gui::skins::standard::draw(
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("drawing text (button \"")
+		fcppt::log::_ << FCPPT_TEXT("drawing text (button \"")
 		        << b.caption()
 		        << FCPPT_TEXT("\")"));
 
@@ -173,13 +173,13 @@ void sge::gui::skins::standard::draw(
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("blitting (button \"")
+		fcppt::log::_ << FCPPT_TEXT("blitting (button \"")
 		        << b.caption()
 		        << FCPPT_TEXT("\")"));
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_
+		fcppt::log::_
 			<< FCPPT_TEXT("source rect is \"")
 			<< rect(b.absolute_pos(),c.size())
 			<< FCPPT_TEXT(", invalid rect is ")
@@ -193,7 +193,7 @@ sge::gui::dim const sge::gui::skins::standard::optimal_size(
 {
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("calling size hint for button"));
+		fcppt::log::_ << FCPPT_TEXT("calling size hint for button"));
 
 	dim const font_dim =
 		utility::unlimited_text_size(

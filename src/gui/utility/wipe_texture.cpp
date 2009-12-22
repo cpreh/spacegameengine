@@ -33,7 +33,7 @@ sge::gui::utility::wipe_texture(
 	renderer::scoped_texture_lock const lock_(
 		t,
 		renderer::lock_rect(
-			renderer::lock_rect::pos_type::null(),
+			renderer::lock_rect::vector::null(),
 			t->dim()
 		),
 		renderer::lock_mode::readwrite

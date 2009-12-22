@@ -22,8 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_GUI_WIDGETS_BUTTONS_BASE_HPP_INCLUDED
 
 #include <sge/gui/widgets/base.hpp>
-#include <sge/signal/auto_connection.hpp>
-#include <sge/signal/object.hpp>
+#include <sge/gui/export.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/object.hpp>
+#include <fcppt/function/object.hpp>
 
 namespace sge
 {
@@ -47,8 +50,8 @@ public:
 	SGE_GUI_SYMBOL key_handling::type process_key(events::key const &);
 	SGE_GUI_SYMBOL void process_keyboard_leave(events::keyboard_leave const &);
 
-	typedef sge::function::object<void ()> clicked_fn;
-	SGE_GUI_SYMBOL signal::auto_connection register_clicked(
+	typedef fcppt::function::object<void ()> clicked_fn;
+	SGE_GUI_SYMBOL fcppt::signal::auto_connection register_clicked(
 		clicked_fn const &);
 
 	SGE_GUI_SYMBOL ~base();
@@ -56,7 +59,7 @@ private:
 
 	bool mouse_over_;
 	bool key_over_;
-	sge::signal::object<void ()> clicked_;
+	fcppt::signal::object<void ()> clicked_;
 protected:
 	SGE_GUI_SYMBOL base(
 		parent_data const &,

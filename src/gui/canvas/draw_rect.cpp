@@ -19,13 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/gui/canvas/object.hpp>
-#include <fcppt/assert.hpp>
+#include <sge/image/algorithm/fill.hpp>
+#include <sge/image/view/sub.hpp>
+#include <fcppt/assert_message.hpp>
 #include <fcppt/math/box/contains.hpp>
 #include <fcppt/math/box/structure_cast.hpp>
 #include <fcppt/math/box/output.hpp>
-#include <sge/image/algorithm/fill.hpp>
-#include <sge/image/view/sub.hpp>
-#include <sge/lexical_cast.hpp>
+#include <fcppt/lexical_cast.hpp>
+#include <fcppt/string.hpp>
 
 void sge::gui::canvas::object::draw_rect(
 	rect const &r,
@@ -35,9 +36,10 @@ void sge::gui::canvas::object::draw_rect(
 	FCPPT_ASSERT_MESSAGE(
 		contains(area(),r),
 		FCPPT_TEXT("tried to draw rectangle ")+
-			lexical_cast<string>(r)+
-			FCPPT_TEXT(" which is not completely inside ")+
-			lexical_cast<string>(area()));
+		fcppt::lexical_cast<fcppt::string>(r)+
+		FCPPT_TEXT(" which is not completely inside ")+
+		fcppt::lexical_cast<fcppt::string>(area())
+	);
 
 	switch (t)
 	{

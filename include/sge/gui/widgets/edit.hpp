@@ -26,8 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/timer/fwd.hpp>
 #include <sge/gui/events/fwd.hpp>
 #include <sge/gui/image.hpp>
-#include <sge/signal/object.hpp>
 #include <sge/gui/export.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/signal/object.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
@@ -37,7 +39,7 @@ namespace widgets
 {
 class SGE_CLASS_SYMBOL edit : public base
 {
-	public:
+public:
 	enum line_type { single_line,multi_line };
 
 	SGE_GUI_SYMBOL edit(
@@ -46,8 +48,8 @@ class SGE_CLASS_SYMBOL edit : public base
 		line_type,
 		dim const &desired_size);
 
-	SGE_GUI_SYMBOL string const text() const;
-	SGE_GUI_SYMBOL void text(string const &);
+	SGE_GUI_SYMBOL fcppt::string const text() const;
+	SGE_GUI_SYMBOL void text(fcppt::string const &);
 	SGE_GUI_SYMBOL point const &scroll_pos() const;
 	SGE_GUI_SYMBOL dim const desired_size() const;
 	SGE_GUI_SYMBOL image &text_buffer();
@@ -61,10 +63,10 @@ class SGE_CLASS_SYMBOL edit : public base
 	SGE_GUI_SYMBOL void refresh() const;
 
 	// will only be called for single_line
-	signal::object<void ()> return_pressed;
-	private:
+	fcppt::signal::object<void ()> return_pressed;
+private:
 	line_type type;
-	string text_;
+	fcppt::string text_;
 	dim desired_size_;
 	timer::object_ptr timer_;
 	bool cursor_visible_;

@@ -22,17 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/canvas/object.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/gui/unit.hpp>
-#include <fcppt/math/dim/output.hpp>
 #include <sge/gui/widgets/buttons/image.hpp>
-#include <sge/log/parameters/inherited.hpp>
-#include <sge/log/object.hpp>
-#include <sge/log/headers.hpp>
+#include <fcppt/math/dim/output.hpp>
+#include <fcppt/log/parameters/inherited.hpp>
+#include <fcppt/log/object.hpp>
+#include <fcppt/log/headers.hpp>
 
 namespace
 {
 
-sge::log::object mylogger(
-	sge::log::parameters::inherited(
+fcppt::log::object mylogger(
+	fcppt::log::parameters::inherited(
 		sge::gui::global_log(),
 		FCPPT_TEXT("skins: standard: buttons: image")
 	)
@@ -61,7 +61,7 @@ void sge::gui::skins::standard::draw(
 {
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("creating canvas from buffer"));
+		fcppt::log::_ << FCPPT_TEXT("creating canvas from buffer"));
 
 	b.buffer() = choose_image(b);
 
@@ -75,7 +75,7 @@ sge::gui::dim const sge::gui::skins::standard::optimal_size(
 {
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("returning button dimension ")
+		fcppt::log::_ << FCPPT_TEXT("returning button dimension ")
 		        << b.normal()->size());
 
 	return b.normal()->size();

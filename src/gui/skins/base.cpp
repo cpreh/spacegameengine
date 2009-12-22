@@ -34,22 +34,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/log.hpp>
 #include <sge/gui/unit.hpp>
 #include <sge/gui/exception.hpp>
-#include <fcppt/math/dim/output.hpp>
 #include <sge/image/view/make_const.hpp>
-#include <sge/log/parameters/inherited.hpp>
-#include <sge/log/object.hpp>
-#include <sge/log/headers.hpp>
+#include <fcppt/math/dim/output.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/log/parameters/inherited.hpp>
+#include <fcppt/log/object.hpp>
+#include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
-#include <sge/type_info.hpp>
+#include <fcppt/type_name.hpp>
 #include <boost/mpl/vector.hpp>
-#include <tr1/functional>
 #include <typeinfo>
 
 namespace
 {
 
-sge::log::object mylogger(
-	sge::log::parameters::inherited(
+fcppt::log::object mylogger(
+	fcppt::log::parameters::inherited(
 		sge::gui::global_log(),
 		FCPPT_TEXT("skin")
 	)
@@ -107,7 +107,7 @@ SGE_GUI_SKIN_DRAW_RETURN(widgets::base) sge::gui::skins::base::draw(
 	{
 		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_ << FCPPT_TEXT("draw called for widget, falling back"));
+			fcppt::log::_ << FCPPT_TEXT("draw called for widget, falling back"));
 		fallback(
 			w,
 			e);
@@ -116,7 +116,7 @@ SGE_GUI_SKIN_DRAW_RETURN(widgets::base) sge::gui::skins::base::draw(
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("draw called for some other widget"));
+		fcppt::log::_ << FCPPT_TEXT("draw called for some other widget"));
 
 	utility::type_comparator<widgets::types>(
 		w,
@@ -139,14 +139,16 @@ SGE_GUI_SKIN_SIZE_RETURN(widgets::base) sge::gui::skins::base::optimal_size(
 	{
 		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_ << FCPPT_TEXT("optimal_size called for widget, returning null"));
+			fcppt::log::_ << FCPPT_TEXT("optimal_size called for widget, returning null"));
 		return dim::null();
 	}
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("optimal_size called for widgets::base ")
-		        << type_info(typeid(w)).name());
+		fcppt::log::_
+			<< FCPPT_TEXT("optimal_size called for widgets::base ")
+			<< fcppt::type_name(typeid(w))
+	);
 
 	return utility::type_comparator<widgets::types>(
 		w,
@@ -182,7 +184,7 @@ void sge::gui::skins::base::resize_buffer(
 	{
 		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_
+			fcppt::log::_
 				<< FCPPT_TEXT("resizing from ")
 				<< b.buffer().size()
 				<< FCPPT_TEXT(" to ")

@@ -25,10 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/media_path.hpp>
 #include <sge/gui/unit.hpp>
 #include <sge/gui/dim.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/image/loader.hpp>
 #include <sge/image/file.hpp>
-#include <fcppt/texture/consume_and_set_fragment.hpp>
+#include <sge/texture/consume_and_set_fragment.hpp>
+#include <sge/renderer/device.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/object_impl.hpp>
@@ -74,7 +74,7 @@ void sge::gui::cursor::default_::pos(
 	point const &p)
 {
 	sge::gui::dim const ss(
-		sge::fcppt::math::dim::structure_cast<
+		fcppt::math::dim::structure_cast<
 			sge::gui::dim
 		>(
 			rend_->screen_size()
@@ -86,7 +86,7 @@ void sge::gui::cursor::default_::pos(
 			sge::gui::sprite::point
 		>(
 			sge::gui::point(
-				sge::fcppt::math::clamp(
+				fcppt::math::clamp(
 					p.x(),
 					static_cast<sge::gui::unit>(
 						-sprite_.w()
@@ -95,7 +95,7 @@ void sge::gui::cursor::default_::pos(
 						ss.w()+sprite_.w()
 					)
 				),
-				sge::fcppt::math::clamp(
+				fcppt::math::clamp(
 					p.y(),
 					static_cast<sge::gui::unit>(
 						-sprite_.h()

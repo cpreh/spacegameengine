@@ -28,9 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/box/structure_cast.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
-#include <sge/log/parameters/inherited.hpp>
-#include <sge/log/object.hpp>
-#include <sge/log/headers.hpp>
+#include <fcppt/log/parameters/inherited.hpp>
+#include <fcppt/log/object.hpp>
+#include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
 #include "log.hpp"
 #include "utility/font_blitter.hpp"
@@ -38,8 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-sge::log::object mylogger(
-	sge::log::parameters::inherited(
+fcppt::log::object mylogger(
+	fcppt::log::parameters::inherited(
 		sge::gui::canvas::global_log(),
 		FCPPT_TEXT("font_drawer")
 	)
@@ -59,7 +59,7 @@ sge::gui::canvas::font_drawer::font_drawer(
 	character_pos(character_pos),
 	p(p)
 {
-	FCPPT_LOG_DEBUG(mylogger,log::_ << FCPPT_TEXT("instantiated"));
+	FCPPT_LOG_DEBUG(mylogger,fcppt::log::_ << FCPPT_TEXT("instantiated"));
 }
 
 void sge::gui::canvas::font_drawer::begin_rendering(
@@ -70,20 +70,20 @@ void sge::gui::canvas::font_drawer::begin_rendering(
 }
 
 void sge::gui::canvas::font_drawer::draw_char(
-	char_type const,
+	fcppt::char_type const,
 	font::pos const &pos,
 	font::const_image_view const &data)
 {
-	FCPPT_LOG_DEBUG(mylogger,log::_ << FCPPT_TEXT("drawing char"));
+	FCPPT_LOG_DEBUG(mylogger,fcppt::log::_ << FCPPT_TEXT("drawing char"));
 
 	image_view const sub_view = sge::image::view::sub(
 		texture_,
-		sge::fcppt::math::box::structure_cast<
+		fcppt::math::box::structure_cast<
 			sge::image::rect
 		>(
 			sge::font::rect(
 				pos,
-				sge::fcppt::math::dim::structure_cast<
+				fcppt::math::dim::structure_cast<
 					sge::font::dim
 				>(
 					sge::image::view::dim(
@@ -98,14 +98,14 @@ void sge::gui::canvas::font_drawer::draw_char(
 	{
 		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_ << FCPPT_TEXT("counter: ") << counter << FCPPT_TEXT(" | ")
+			fcppt::log::_ << FCPPT_TEXT("counter: ") << counter << FCPPT_TEXT(" | ")
 			        << FCPPT_TEXT("character pos: ") << *character_pos);
 	}
 	else
 	{
 		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_ << FCPPT_TEXT("character position invalid"));
+			fcppt::log::_ << FCPPT_TEXT("character position invalid"));
 	}
 
 	if (character_pos && counter++ == *character_pos)
@@ -113,7 +113,7 @@ void sge::gui::canvas::font_drawer::draw_char(
 		*p = fcppt::math::vector::structure_cast<point>(pos);
 		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_ << FCPPT_TEXT("found character!"));
+			fcppt::log::_ << FCPPT_TEXT("found character!"));
 	}
 
 	sge::image::algorithm::transform(

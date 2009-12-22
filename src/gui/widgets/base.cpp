@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/algorithm/ptr_container_erase.hpp>
 #include <sge/gui/widgets/base.hpp>
 #include <sge/gui/widgets/parameters.hpp>
 #include <sge/gui/layouts/null.hpp>
@@ -31,19 +30,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/box/intersects.hpp>
 #include <fcppt/math/box/output.hpp>
-#include <sge/log/parameters/inherited.hpp>
-#include <sge/log/object.hpp>
-#include <sge/log/headers.hpp>
-#include <sge/type_info.hpp>
-#include <sge/make_auto_ptr.hpp>
+#include <fcppt/algorithm/ptr_container_erase.hpp>
+#include <fcppt/log/parameters/inherited.hpp>
+#include <fcppt/log/object.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/type_name.hpp>
+#include <fcppt/make_auto_ptr.hpp>
 #include <boost/foreach.hpp>
 #include <typeinfo>
 
 namespace
 {
 
-sge::log::object mylogger(
-	sge::log::parameters::inherited(
+fcppt::log::object mylogger(
+	fcppt::log::parameters::inherited(
 		sge::gui::global_log(),
 		FCPPT_TEXT("widget")
 	)
@@ -77,7 +77,7 @@ sge::gui::widgets::base::base(
 		params.layout()
 		? params.layout()
 		: layouts::auto_ptr(
-			sge::make_auto_ptr<
+			fcppt::make_auto_ptr<
 				layouts::null
 			>()
 		)
@@ -244,9 +244,10 @@ void sge::gui::widgets::base::add_child(widgets::base &w)
 
 void sge::gui::widgets::base::remove_child(widgets::base &w)
 {
-	algorithm::ptr_container_erase(
+	fcppt::algorithm::ptr_container_erase(
 		children_,
-		&w);
+		&w
+	);
 }
 
 void sge::gui::widgets::base::activation(
@@ -316,7 +317,7 @@ void sge::gui::widgets::base::compile(
 {
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("in compile"));
+		fcppt::log::_ << FCPPT_TEXT("in compile"));
 	layout().compile(
 		i);
 }
@@ -339,7 +340,7 @@ void sge::gui::widgets::base::invalidate(
 {
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("in invalidate"));
+		fcppt::log::_ << FCPPT_TEXT("in invalidate"));
 	layout().invalidate(
 		w,
 		i);
@@ -351,7 +352,7 @@ void sge::gui::widgets::base::process_invalid_area(
 	// draw itself, then draw children
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("redrawing myself, region ")
+		fcppt::log::_ << FCPPT_TEXT("redrawing myself, region ")
 		        << e.area());
 	parent_manager().skin().draw(*this,e);
 
@@ -359,7 +360,7 @@ void sge::gui::widgets::base::process_invalid_area(
 	{
 		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_
+			fcppt::log::_
 				<< FCPPT_TEXT("checking if ")
 				<< w.absolute_area()
 				<< FCPPT_TEXT(" intersects with ")
@@ -371,9 +372,9 @@ void sge::gui::widgets::base::process_invalid_area(
 		{
 			FCPPT_LOG_DEBUG(
 				mylogger,
-				log::_
+				fcppt::log::_
 					<< FCPPT_TEXT("sending widgets::base ")
-					<< type_info(typeid(w)).name()
+					<< fcppt::type_name(typeid(w))
 					<< FCPPT_TEXT(" an invalid area event"));
 			w.process_invalid_area(e);
 		}
@@ -394,13 +395,13 @@ sge::gui::key_handling::type sge::gui::widgets::base::process_key(
 void sge::gui::widgets::base::process_keyboard_enter(
 	events::keyboard_enter const &)
 {
-	FCPPT_LOG_DEBUG(mylogger,log::_ << FCPPT_TEXT("got keyboard_enter"));
+	FCPPT_LOG_DEBUG(mylogger,fcppt::log::_ << FCPPT_TEXT("got keyboard_enter"));
 }
 
 void sge::gui::widgets::base::process_keyboard_leave(
 	events::keyboard_leave const &)
 {
-	FCPPT_LOG_DEBUG(mylogger,log::_ << FCPPT_TEXT("got keyboard_leave"));
+	FCPPT_LOG_DEBUG(mylogger,fcppt::log::_ << FCPPT_TEXT("got keyboard_leave"));
 }
 
 sge::gui::widgets::base::~base()

@@ -31,30 +31,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/manager.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/time/second_f.hpp>
+#include <sge/font/metrics.hpp>
 #include <fcppt/math/almost_zero.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/dim/output.hpp>
-#include <sge/font/metrics.hpp>
-#include <sge/log/parameters/inherited.hpp>
-#include <sge/log/object.hpp>
-#include <sge/log/headers.hpp>
+#include <fcppt/log/parameters/inherited.hpp>
+#include <fcppt/log/object.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/text.hpp>
-#include <tr1/functional>
 #include <locale>
 
 namespace
 {
 
-sge::log::object mylogger(
-	sge::log::parameters::inherited(
+fcppt::log::object mylogger(
+	fcppt::log::parameters::inherited(
 		sge::gui::widgets::global_log(),
 		FCPPT_TEXT("edit")
 	)
 );
 
-sge::log::object mygraphlogger(
-	sge::log::parameters::inherited(
+fcppt::log::object mygraphlogger(
+	fcppt::log::parameters::inherited(
 		sge::gui::widgets::global_log(),
 		FCPPT_TEXT("editgraph")
 	)
@@ -93,7 +93,7 @@ fcppt::string const sge::gui::widgets::edit::text() const
 	return text_;
 }
 
-void sge::gui::widgets::edit::text(string const &n)
+void sge::gui::widgets::edit::text(fcppt::string const &n)
 {
 	text_ = n;
 	parent_manager().dirty(
@@ -174,7 +174,7 @@ void sge::gui::widgets::edit::blink_callback()
 	cursor_visible_ = !cursor_visible_;
 	FCPPT_LOG_DEBUG(
 		mygraphlogger,
-		log::_ << FCPPT_TEXT("blinking cursor, visibility: ") << cursor_visible_);
+		fcppt::log::_ << FCPPT_TEXT("blinking cursor, visibility: ") << cursor_visible_);
 	parent_manager().dirty(
 		*this,
 		rect(
@@ -188,7 +188,7 @@ void sge::gui::widgets::edit::resize(dim const &d) const
 
 	if (text_size.w() > d.w() && text_size.h() > d.h())
 	{
-		FCPPT_LOG_DEBUG(mygraphlogger,log::_ << FCPPT_TEXT("no resize needed"));
+		FCPPT_LOG_DEBUG(mygraphlogger,fcppt::log::_ << FCPPT_TEXT("no resize needed"));
 		return;
 	}
 
@@ -202,13 +202,13 @@ void sge::gui::widgets::edit::refresh() const
 {
 	FCPPT_LOG_DEBUG(
 		mygraphlogger,
-		log::_ << FCPPT_TEXT("redrawing text buffer"));
+		fcppt::log::_ << FCPPT_TEXT("redrawing text buffer"));
 
-	string const ntext = text_+FCPPT_TEXT(' ');
+	fcppt::string const ntext = text_+FCPPT_TEXT(' ');
 
 	FCPPT_LOG_DEBUG(
 		mygraphlogger,
-		log::_ << FCPPT_TEXT("getting font size"));
+		fcppt::log::_ << FCPPT_TEXT("getting font size"));
 
 	font_info const font =
 		parent_manager().skin().standard_font();
@@ -218,7 +218,7 @@ void sge::gui::widgets::edit::refresh() const
 			font.metrics(),
 			ntext);
 
-	FCPPT_LOG_DEBUG(mygraphlogger,log::_ << FCPPT_TEXT("resizing buffer"));
+	FCPPT_LOG_DEBUG(mygraphlogger,fcppt::log::_ << FCPPT_TEXT("resizing buffer"));
 
 	// text larger than buffer? resize!
 	resize(d);
@@ -227,7 +227,7 @@ void sge::gui::widgets::edit::refresh() const
 
 	// TODO: use a transparent background here and blit it with alpha blending
 	// enabled OR introduce widgets::edit::background_color
-	FCPPT_LOG_DEBUG(mygraphlogger,log::_ << FCPPT_TEXT("filling background"));
+	FCPPT_LOG_DEBUG(mygraphlogger,fcppt::log::_ << FCPPT_TEXT("filling background"));
 
 	c.draw_rect(
 		c.area(),
@@ -239,15 +239,15 @@ void sge::gui::widgets::edit::refresh() const
 
 	FCPPT_LOG_DEBUG(
 		mygraphlogger,
-		log::_ << FCPPT_TEXT("drawing text: ") << ntext);
+		fcppt::log::_ << FCPPT_TEXT("drawing text: ") << ntext);
 
 	FCPPT_LOG_DEBUG(
 		mygraphlogger,
-		log::_ << FCPPT_TEXT("cursor position is: ") << cursor.pos());
+		fcppt::log::_ << FCPPT_TEXT("cursor position is: ") << cursor.pos());
 
 	FCPPT_LOG_DEBUG(
 		mygraphlogger,
-		log::_ << FCPPT_TEXT("text buffer size is: ")
+		fcppt::log::_ << FCPPT_TEXT("text buffer size is: ")
 						<< text_buffer_.size());
 
 	point p;
@@ -264,7 +264,7 @@ void sge::gui::widgets::edit::refresh() const
 
 	FCPPT_LOG_DEBUG(
 		mygraphlogger,
-		log::_ << FCPPT_TEXT("text drawn"));
+		fcppt::log::_ << FCPPT_TEXT("text drawn"));
 
 	if (cursor_visible_)
 	{
@@ -276,9 +276,13 @@ void sge::gui::widgets::edit::refresh() const
 
 		FCPPT_LOG_DEBUG(
 			mygraphlogger,
-			log::_ << FCPPT_TEXT("the cursor is on line ") << cursor_line
-							<< FCPPT_TEXT("and stands on the character: '") << ntext[cursor.pos()]
-							<< FCPPT_TEXT("'"));
+			fcppt::log::_
+				<< FCPPT_TEXT("the cursor is on line ")
+				<< cursor_line
+				<< FCPPT_TEXT("and stands on the character: '")
+				<< ntext[cursor.pos()]
+				<< FCPPT_TEXT("'")
+		);
 
 		unit const
 			cursor_start =
@@ -289,7 +293,7 @@ void sge::gui::widgets::edit::refresh() const
 
 		FCPPT_LOG_DEBUG(
 			mygraphlogger,
-			log::_ << FCPPT_TEXT("drawing cursor at ") << cursor_start);
+			fcppt::log::_ << FCPPT_TEXT("drawing cursor at ") << cursor_start);
 
 		// draw cursor
 		c.draw_line(
