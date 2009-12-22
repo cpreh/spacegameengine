@@ -23,15 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/wndclass.hpp>
 #include <sge/windows/wndclass_pool.hpp>
 #include <sge/windows/module_handle.hpp>
+#include <sge/exception.hpp>
 #include <fcppt/math/rect/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <sge/exception.hpp>
+#include <fcppt/tr1/array.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/auto_ptr.hpp>
-#include <tr1/array>
-#include <tr1/functional>
 
 namespace
 {

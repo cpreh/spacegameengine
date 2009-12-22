@@ -35,8 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/vector/construct.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/tr1/array.hpp>
 #include <boost/foreach.hpp>
-#include <tr1/array>
 #include <cmath>
 
 namespace sge

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/display.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/input/key_pair.hpp>
-#include <tr1/functional>
+#include <fcppt/tr1/functional.hpp>
 
 sge::x11input::keyboard::keyboard(
 	x11::window_ptr const wnd,

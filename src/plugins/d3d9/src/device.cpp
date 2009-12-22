@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/bit.hpp>
 #include <sge/exception.hpp>
 #include <sge/make_shared_ptr.hpp>
-#include <tr1/functional>
+#include <fcppt/tr1/functional.hpp>
 #include <algorithm>
 
 namespace

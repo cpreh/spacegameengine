@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert_multi_sample.hpp"
 #include <sge/exception.hpp>
 #include <fcppt/text.hpp>
-#include <tr1/array>
+#include <fcppt/tr1/array.hpp>
 #include <boost/foreach.hpp>
 
 namespace

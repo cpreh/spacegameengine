@@ -52,13 +52,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/with_texture.hpp>
 #include <sge/sprite/render_one.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/text.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/config/media_path.hpp>
-#include <fcppt/text.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
-#include <tr1/functional>
 
 int main()
 try
