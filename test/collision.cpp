@@ -206,7 +206,7 @@ try
 
 	world->test_callback_combiner(std::logical_or<bool>());
 
-	sge::signal::auto_connection
+	fcppt::signal::auto_connection
 		bc = world->register_begin_callback(&collision_begin),
 		be = world->register_end_callback(&collision_end),
 		foobar0 = world->register_test_callback(&test_callback0),
@@ -340,7 +340,7 @@ try
 
 	bool running = true;
 
-	sge::signal::scoped_connection const cb(
+	fcppt::signal::scoped_connection const cb(
 		sys.input_system()->register_callback(
 			sge::input::action(
 				sge::input::kc::key_escape,

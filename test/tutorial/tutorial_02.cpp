@@ -216,7 +216,7 @@ try
 
 	bool running = true;
 
-	sge::signal::scoped_connection const conn(
+	fcppt::signal::scoped_connection const conn(
 		sys.input_system()->register_callback(
 			input_functor(
 				running
@@ -224,7 +224,7 @@ try
 		)
 	);
 
-	sge::signal::scoped_connection const conn_other(
+	fcppt::signal::scoped_connection const conn_other(
 		sys.input_system()->register_callback(
 			sprite_functor(
 				my_object

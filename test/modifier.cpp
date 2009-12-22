@@ -92,7 +92,7 @@ try
 
 	bool running = true;
 
-	sge::signal::scoped_connection const cb(
+	fcppt::signal::scoped_connection const cb(
 		sys.input_system()->register_callback(
 			sge::input::action(
 				sge::input::kc::key_escape,
@@ -103,7 +103,7 @@ try
 
 	sge::input::modifier::filter mf(sys.input_system());
 
-	sge::signal::scoped_connection const pc(
+	fcppt::signal::scoped_connection const pc(
 		mf.register_callback(&mod_callback));
 
 	while(running)

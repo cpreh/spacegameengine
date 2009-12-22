@@ -104,7 +104,7 @@ try
 
 	sge::console::object o(FCPPT_TEXT('/'));
 
-	sge::signal::scoped_connection const c0(
+	fcppt::signal::scoped_connection const c0(
 		o.insert(
 			FCPPT_TEXT("quit"),
 			std::tr1::bind(
@@ -118,7 +118,7 @@ try
 		)
 	);
 
-	sge::signal::scoped_connection const c1(
+	fcppt::signal::scoped_connection const c1(
 		o.register_fallback(
 			&fallback
 		)

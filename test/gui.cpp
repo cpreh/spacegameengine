@@ -182,7 +182,7 @@ try
 
 	bool running = true;
 	end_program p(running);
-	sge::signal::scoped_connection const conn(
+	fcppt::signal::scoped_connection const conn(
 		sys.input_system()->register_callback(
 			input_functor(
 				running
@@ -190,7 +190,7 @@ try
 		)
 	);
 
-	sge::signal::scoped_connection const conn2(
+	fcppt::signal::scoped_connection const conn2(
 		left_top.register_clicked(p)
 	);
 	sge::cerr << FCPPT_TEXT("---------------------------\nall widgets added!\n");

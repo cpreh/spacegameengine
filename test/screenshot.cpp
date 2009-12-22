@@ -170,7 +170,7 @@ try
 
 	bool running = true;
 
-	sge::signal::scoped_connection const cb(
+	fcppt::signal::scoped_connection const cb(
 		is->register_callback(
 			sge::input::action(
 				sge::input::kc::key_escape,
@@ -179,7 +179,7 @@ try
 		)
 	);
 
-	sge::signal::scoped_connection const cb2(
+	fcppt::signal::scoped_connection const cb2(
 		is->register_callback(
 			sge::input::action(
 				sge::input::kc::key_f12,

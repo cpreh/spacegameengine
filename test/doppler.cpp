@@ -389,7 +389,7 @@ try
 
 	bool running = true;
 
-	sge::signal::scoped_connection const cb(
+	fcppt::signal::scoped_connection const cb(
 		sys.input_system()->register_callback(
 			sge::input::action(
 				sge::input::kc::key_escape,
@@ -398,7 +398,7 @@ try
 		)
 	);
 
-	sge::signal::scoped_connection const pc(
+	fcppt::signal::scoped_connection const pc(
 		sys.input_system()->register_callback(
 			sprite_functor(
 				pointer,
