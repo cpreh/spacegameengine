@@ -22,11 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_DEVICE_HPP_INCLUDED
 
 #include <sge/config.h>
+#include <fcppt/config.h>
 #include "target_fwd.hpp"
 #include "default_target_fwd.hpp"
 #include "fbo_target_fwd.hpp"
 #include "common.hpp"
-#if defined(SGE_WINDOWS_PLATFORM)
+#if defined(FCPPT_WINDOWS_PLATFORM)
 #include "windows/state.hpp"
 #elif defined(SGE_HAVE_X11)
 #include "x11/state.hpp"
@@ -196,7 +197,7 @@ private:
 	renderer::parameters const param;
 	window::instance_ptr const wnd;
 	renderer::state::list      current_states;
-#if defined(SGE_WINDOWS_PLATFORM)
+#if defined(FCPPT_WINDOWS_PLATFORM)
 	windows::state state_;
 #elif defined(SGE_HAVE_X11)
 	x11::state state_;
