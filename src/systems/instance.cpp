@@ -290,19 +290,19 @@ visitor::operator()(
 	{
 	case sge::systems::parameterless::input:
 		impl_.init_input(name);
-		break;
+		return;
 	case sge::systems::parameterless::image:
 		impl_.init_image(name);
-		break;
+		return;
 	case sge::systems::parameterless::audio_player:
 		impl_.init_audio_player(name);
-		break;
+		return;
 	case sge::systems::parameterless::collision_system:
 		impl_.init_collision_system(name);
-		break;
+		return;
 	case sge::systems::parameterless::font:
 		impl_.init_font(name);
-		break;
+		return;
 	}
 
 	throw sge::exception(
