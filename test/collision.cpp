@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/sleep.hpp>
 #include <sge/time/second.hpp>
 #include <sge/time/second_f.hpp>
-#include <sge/time/resolution.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/trampoline.hpp>
@@ -37,7 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/colors.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/any/convert.hpp>
-#include <fcppt/math/vector/output.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/sprite/system.hpp>
@@ -56,13 +54,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/collision/system.hpp>
 #include <sge/collision/satellite.hpp>
 #include <sge/collision/world.hpp>
+#include <sge/exception.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <sge/assign/make_container.hpp>
-#include <sge/exception.hpp>
-#include <sge/optional_impl.hpp>
+#include <fcppt/math/vector/output.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
@@ -261,7 +260,7 @@ try
 			sge::collision::satellite_ptr(
 				new object(s_a)
 			),
-			sge::assign::make_container<
+			fcppt::assign::make_container<
 				sge::collision::shapes::container
 			>(
 				world->create_circle(
@@ -287,7 +286,7 @@ try
 			sge::collision::satellite_ptr(
 				new object(s_b)
 			),
-			sge::assign::make_container<
+			fcppt::assign::make_container<
 				sge::collision::shapes::container
 			>(
 				world->create_circle(
