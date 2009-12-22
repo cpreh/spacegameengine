@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/rgba32f.hpp>
 #include <sge/image/color/init.hpp>
-//#include <sge/image/color/any/convert.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/input/action.hpp>
 #include <sge/input/system.hpp>
@@ -61,7 +60,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/var.hpp>
-#include <sge/renderer/vf/color.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/make_dynamic_format.hpp>
@@ -70,13 +68,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/time/second_f.hpp>
-#include <sge/time/resolution.hpp>
 #include <sge/time/timer.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/variant/object_impl.hpp>
 #include <sge/window/parameters.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
@@ -96,17 +93,10 @@ typedef sge::renderer::vf::normal<
 	float_type
 > normal_type;
 
-typedef sge::image::color::rgba8_format color_;
-
-typedef sge::renderer::vf::color<
-	color_
-> color_type;
-
 typedef sge::renderer::vf::format<
 	boost::mpl::vector2<
 		pos_type,
-		normal_type//,
-		//color_type
+		normal_type
 	>
 > vertex_format;
 
@@ -140,16 +130,6 @@ make_vertex(
 	vert.set<normal_type>(
 		pos
 	);
-
-	/*
-	vert.set<color_type>(
-		sge::image::color::any::convert<
-			color_
-		>(
-			sge::image::color::colors::black()
-		)
-	);
-	*/
 }
 
 }

@@ -21,9 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <fcppt/io/cerr.hpp>
-#include <sge/exception.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/system.hpp>
@@ -40,10 +37,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/uniform/variable.hpp>
 #include <sge/renderer/glsl/uniform/single_value.hpp>
 #include <sge/renderer/glsl/program.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/log/global.hpp>
-#include <sge/log/activate_levels.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/action.hpp>
 #include <sge/input/key_pair.hpp>
@@ -65,15 +60,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/default_sort.hpp>
 #include <sge/sprite/default_equal.hpp>
 #include <sge/sprite/render_one.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/add_image.hpp>
 #include <sge/texture/no_fragmented.hpp>
 #include <sge/texture/default_creator.hpp>
 #include <sge/texture/default_creator_impl.hpp>
 #include <sge/mainloop/dispatch.hpp>
+#include <sge/exception.hpp>
+#include <fcppt/log/activate_levels.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <sge/fstream.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/io/cerr.hpp>
+#include <fcppt/io/cifstream.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
@@ -144,9 +144,9 @@ private:
 int main()
 try
 {
-	sge::log::activate_levels(
+	fcppt::log::activate_levels(
 		sge::log::global(),
-		sge::log::level::debug
+		fcppt::log::level::debug
 	);
 
 	sge::renderer::screen_size const screen_size(
@@ -381,13 +381,13 @@ try
 		.elements()
 	);
 
-	sge::cifstream fragment_stream(
+	fcppt::io::cifstream fragment_stream(
 		sge::config::media_path()
 		/ FCPPT_TEXT("shaders")
 		/ FCPPT_TEXT("fragment.glsl")
 	);
 
-	sge::cifstream vertex_stream(
+	fcppt::io::cifstream vertex_stream(
 		sge::config::media_path()
 		/ FCPPT_TEXT("shaders")
 		/ FCPPT_TEXT("vertex.glsl")

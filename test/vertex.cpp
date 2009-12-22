@@ -198,8 +198,8 @@ try
 
 		rend->render(
 			vb,
-			0,
-			3,
+			sge::renderer::first_vertex(0),
+			sge::renderer::vertex_count(3),
 			sge::renderer::nonindexed_primitive_type::triangle_strip
 		);
 	}

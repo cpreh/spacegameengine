@@ -259,11 +259,19 @@ try
 }
 catch (sge::exception const &e)
 {
-	fcppt::io::cerr << FCPPT_TEXT("caught sge exception: ") << e.string() << SGE_TEXT('\n');
+	fcppt::io::cerr
+		<< FCPPT_TEXT("caught sge exception: ")
+		<< e.string()
+		<< FCPPT_TEXT('\n');
+
 	return EXIT_FAILURE;
 }
 catch (std::exception const &e)
 {
-	std::cerr << "caught std exception: " << e.what() << '\n';
+	std::cerr
+		<< "caught std exception: "
+		<< e.what()
+		<< '\n';
+
 	return EXIT_FAILURE;
 }

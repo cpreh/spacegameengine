@@ -35,11 +35,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <sge/config/media_path.hpp>
-#include <sge/exception.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/text.hpp>
+#include <sge/config/media_path.hpp>
+#include <sge/exception.hpp>
 #include <exception>
 #include <iostream>
 #include <ostream>
@@ -76,7 +76,9 @@ try
 
 	sge::font::metrics_ptr const metrics(
 		sys.font_system()->create_font(
-			sge::config::media_path() / FCPPT_TEXT("fonts") / SGE_TEXT("default.ttf"),
+			sge::config::media_path()
+			/ FCPPT_TEXT("fonts")
+			/ FCPPT_TEXT("default.ttf"),
 			static_cast<sge::font::size_type>(15)
 		)
 	);
@@ -112,11 +114,19 @@ try
 }
 catch (sge::exception const &e)
 {
-	fcppt::io::cerr << FCPPT_TEXT("caught sge exception: ") << e.string() << SGE_TEXT('\n');
+	fcppt::io::cerr
+		<< FCPPT_TEXT("caught sge exception: ")
+		<< e.string()
+		<< FCPPT_TEXT('\n');
+	
 	return EXIT_FAILURE;
 }
 catch (std::exception const &e)
 {
-	std::cerr << "caught std exception: " << e.what() << '\n';
+	std::cerr
+		<< "caught std exception: "
+		<< e.what()
+		<< '\n';
+	
 	return EXIT_FAILURE;
 }

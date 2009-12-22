@@ -27,8 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/multi_loader.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/time/second.hpp>
-#include <sge/time/resolution.hpp>
-#include <sge/filesystem/path.hpp>
 #include <sge/config/media_path.hpp>
 #include <fcppt/math/pi.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
