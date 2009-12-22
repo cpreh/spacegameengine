@@ -23,9 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <algorithm>
 
-sge::gui::detail::cursor_delegate::cursor_delegate(string &text)
-	: text(text),
-	  pos_(text.length())
+sge::gui::detail::cursor_delegate::cursor_delegate(fcppt::string &text)
+:
+	text(text),
+	pos_(text.length())
 {
 }
 

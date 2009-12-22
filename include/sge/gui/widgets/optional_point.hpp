@@ -31,7 +31,7 @@ namespace gui
 namespace widgets
 {
 
-typedef optional<
+typedef fcppt::optional<
 	point
 > optional_point;
 

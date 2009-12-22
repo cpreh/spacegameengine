@@ -19,16 +19,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/gui/log.hpp>
-#include <sge/log/parameters/inherited.hpp>
-#include <sge/log/object.hpp>
 #include <sge/log/global.hpp>
+#include <fcppt/log/parameters/inherited.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/text.hpp>
 
-sge::log::object &
+fcppt::log::object &
 sge::gui::global_log()
 {
-	static sge::log::object global(
-		sge::log::parameters::inherited(
+	static fcppt::log::object global(
+		fcppt::log::parameters::inherited(
 			sge::log::global(),
 			FCPPT_TEXT("gui")
 		)

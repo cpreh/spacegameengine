@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/algorithm/ptr_container_erase.hpp>
 #include "../../utility/ptr_find.hpp"
 #include <sge/gui/detail/managers/mouse.hpp>
 #include <sge/gui/events/mouse_click.hpp>
@@ -31,28 +30,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/sprite/point.hpp>
 #include <sge/gui/exception.hpp>
 #include <sge/gui/log.hpp>
+#include <sge/input/key_pair.hpp>
+#include <sge/input/system.hpp>
+#include <sge/input/classification.hpp>
+#include <sge/texture/part_raw.hpp>
 #include <fcppt/math/box/contains_point.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
-#include <sge/input/key_pair.hpp>
-#include <sge/input/system.hpp>
-#include <sge/input/classification.hpp>
-#include <fcppt/texture/part_raw.hpp>
-#include <sge/log/parameters/inherited.hpp>
-#include <sge/log/object.hpp>
-#include <sge/log/headers.hpp>
+#include <fcppt/log/parameters/inherited.hpp>
+#include <fcppt/log/object.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/algorithm/ptr_container_erase.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert.hpp>
 #include <boost/foreach.hpp>
-#include <tr1/functional>
 
 namespace
 {
 
-sge::log::object mylogger(
-	sge::log::parameters::inherited(
+fcppt::log::object mylogger(
+	fcppt::log::parameters::inherited(
 		sge::gui::global_log(),
 		FCPPT_TEXT("managers: mouse")
 	)
@@ -172,7 +172,7 @@ void sge::gui::detail::managers::mouse::remove(widgets::base &w)
 	{
 		FCPPT_ASSERT(
 			utility::ptr_find(widgets.begin(),widgets.end(),&w) != widgets.end());
-		algorithm::ptr_container_erase(
+		fcppt::algorithm::ptr_container_erase(
 			widgets,
 			&w);
 	}
@@ -182,7 +182,7 @@ void sge::gui::detail::managers::mouse::recalculate_focus()
 {
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("in top level recalculate_focus"));
+		fcppt::log::_ << FCPPT_TEXT("in top level recalculate_focus"));
 
 	point const click_point(
 		fcppt::math::vector::structure_cast<
@@ -196,7 +196,7 @@ void sge::gui::detail::managers::mouse::recalculate_focus()
 	{
 		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_ << FCPPT_TEXT("a widgets::base currently has the focus, recalculating"));
+			fcppt::log::_ << FCPPT_TEXT("a widgets::base currently has the focus, recalculating"));
 
 		focus = recalculate_focus(*focus,click_point);
 	}
@@ -205,14 +205,14 @@ void sge::gui::detail::managers::mouse::recalculate_focus()
 	{
 		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_ <<
+			fcppt::log::_ <<
 				FCPPT_TEXT("no widgets::base currently has the focus, so letting it recalculate"));
 
 		BOOST_FOREACH(widgets::base &w,widgets)
 		{
 			FCPPT_LOG_DEBUG(
 				mylogger,
-				log::_ << FCPPT_TEXT("checking if ") << w.screen_area()
+				fcppt::log::_ << FCPPT_TEXT("checking if ") << w.screen_area()
 				        << FCPPT_TEXT(" contains ") << click_point);
 
 			if (w.activation() == activation_state::active &&
@@ -267,7 +267,7 @@ sge::gui::widgets::base *sge::gui::detail::managers::mouse::recalculate_focus(
 	{
 		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_ << FCPPT_TEXT("mouse no longer inside widget, sending leave"));
+			fcppt::log::_ << FCPPT_TEXT("mouse no longer inside widget, sending leave"));
 
 		w.process_mouse_leave(events::mouse_leave());
 
@@ -285,7 +285,7 @@ sge::gui::widgets::base *sge::gui::detail::managers::mouse::recalculate_focus(
 	{
 		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_ << FCPPT_TEXT("focus hasn't changed, sending mouse_move"));
+			fcppt::log::_ << FCPPT_TEXT("focus hasn't changed, sending mouse_move"));
 		w.process_mouse_move(events::mouse_move(mouse_click));
 	}
 	return new_focus;
@@ -302,7 +302,7 @@ sge::gui::widgets::base *sge::gui::detail::managers::mouse::do_recalculate_focus
 		{
 			FCPPT_LOG_DEBUG(
 				mylogger,
-				log::_ << FCPPT_TEXT("a child has the focus, sending enter and descending"));
+				fcppt::log::_ << FCPPT_TEXT("a child has the focus, sending enter and descending"));
 			child.process_mouse_enter(events::mouse_enter(p));
 			return do_recalculate_focus(child,p);
 		}
@@ -310,6 +310,6 @@ sge::gui::widgets::base *sge::gui::detail::managers::mouse::do_recalculate_focus
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << FCPPT_TEXT("no child has the focus, doing nothing"));
+		fcppt::log::_ << FCPPT_TEXT("no child has the focus, doing nothing"));
 	return &w;
 }

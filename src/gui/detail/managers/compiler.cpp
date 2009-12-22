@@ -23,19 +23,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/detail/managers/mouse.hpp>
 #include <sge/gui/widgets/base.hpp>
 #include <sge/gui/log.hpp>
-#include <sge/log/parameters/inherited.hpp>
-#include <sge/log/object.hpp>
-#include <sge/log/headers.hpp>
+#include <fcppt/log/object.hpp>
+#include <fcppt/log/parameters/inherited.hpp>
+#include <fcppt/log/headers.hpp>
 #include <fcppt/assert.hpp>
-#include <sge/type_info.hpp>
+#include <fcppt/type_info.hpp>
 #include <fcppt/text.hpp>
 #include <boost/foreach.hpp>
 
 namespace
 {
 
-sge::log::object mylogger(
-	sge::log::parameters::inherited(
+fcppt::log::object mylogger(
+	fcppt::log::parameters::inherited(
 		sge::gui::global_log(),
 		FCPPT_TEXT("managers: compiler")
 	)
@@ -70,9 +70,9 @@ void sge::gui::detail::managers::compiler::add(widgets::base &w)
 {
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_
+		fcppt::log::_
 			<< FCPPT_TEXT("adding widget ")
-			<< type_info(typeid(w)).name()
+			<< fcppt::type_info(typeid(w)).name()
 			<< FCPPT_TEXT(" to invalidate list"));
 
 	// since we cannot assume that widgets::base is fully constructed (just the base
@@ -87,9 +87,9 @@ void sge::gui::detail::managers::compiler::remove(widgets::base &w)
 {
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_
+		fcppt::log::_
 			<< FCPPT_TEXT("deleting a widget of type ")
-			<< type_info(typeid(w)).name());
+			<< fcppt::type_info(typeid(w)).name());
 
 	// remove now dead references from recompile list
 	for (recompile_container::iterator it = recompiles.begin(),next = it;
@@ -114,7 +114,7 @@ void sge::gui::detail::managers::compiler::remove(widgets::base &w)
 	{
 		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_ << FCPPT_TEXT("inserting parent to invalidates list"));
+			fcppt::log::_ << FCPPT_TEXT("inserting parent to invalidates list"));
 		invalidates.insert(
 			std::make_pair(
 				&(w.parent_widget()),
@@ -129,7 +129,7 @@ void sge::gui::detail::managers::compiler::update()
 		/*
 		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_ << FCPPT_TEXT("in update, but nothing to do!"));
+			fcppt::log::_ << FCPPT_TEXT("in update, but nothing to do!"));
 			*/
 		return;
 	}
@@ -139,9 +139,9 @@ void sge::gui::detail::managers::compiler::update()
 	{
 		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_
+			fcppt::log::_
 				<< FCPPT_TEXT("invalidating widget's parent: ")
-				<< type_info(typeid(r.first)).name());
+				<< fcppt::type_info(typeid(r.first)).name());
 		r.first->invalidate(
 			*r.first,
 			r.second);
@@ -152,9 +152,9 @@ void sge::gui::detail::managers::compiler::update()
 	{
 		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_
+			fcppt::log::_
 				<< FCPPT_TEXT("compiling widget of type ")
-				<< type_info(typeid(*r.first)).name());
+				<< fcppt::type_info(typeid(*r.first)).name());
 		r.first->compile(
 			r.second);
 	}
@@ -185,14 +185,14 @@ void sge::gui::detail::managers::compiler::insert_or_combine(
 	{
 		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_ << FCPPT_TEXT("widget already in list, combining"));
+			fcppt::log::_ << FCPPT_TEXT("widget already in list, combining"));
 		it->second |= i;
 	}
 	else
 	{
 		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_ << FCPPT_TEXT("inserting widget"));
+			fcppt::log::_ << FCPPT_TEXT("inserting widget"));
 		c.insert(
 			std::make_pair(
 				&w,i));

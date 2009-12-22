@@ -40,7 +40,7 @@ enum internal_type
 	size
 };
 
-typedef container::bitfield::basic<
+typedef fcppt::container::bitfield::basic<
 	internal_type,
 	size
 > type;

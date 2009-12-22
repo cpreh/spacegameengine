@@ -36,7 +36,7 @@ Beg ptr_find(Beg b,End const e,Ptr const s)
 	return std::find_if(
 		b,
 		e,
-		container::make_ptr_equal(
+		fcppt::container::make_ptr_equal(
 			s
 		)
 	);

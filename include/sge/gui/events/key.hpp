@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/key_pair.hpp>
 #include <sge/input/modifier/states.hpp>
-#include <sge/container/map_decl.hpp>
 #include <sge/gui/export.hpp>
+#include <fcppt/container/map_decl.hpp>
 
 namespace sge
 {

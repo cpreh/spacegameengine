@@ -31,7 +31,7 @@ namespace gui
 namespace widgets
 {
 
-typedef optional<
+typedef fcppt::optional<
 	dim
 > optional_dim;
 
