@@ -18,36 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/time/default_callback.hpp>
-#include <sge/time/callback.hpp>
-#include <sge/time/now.hpp>
+#ifndef SGE_TIME_NOW_HPP_INCLUDED
+#define SGE_TIME_NOW_HPP_INCLUDED
+
+#include <sge/time/point.hpp>
+#include <sge/symbol.hpp>
 #include <fcppt/chrono/time_point_impl.hpp>
 
-namespace
+namespace sge
+{
+namespace time
 {
 
-sge::time::unit
-callback()
-{
-	return sge::time::now().time_since_epoch().count();
-}
-
-sge::time::callback fun_(
-	callback
-);
+SGE_SYMBOL point const
+now();
 
 }
-
-sge::time::callback const
-sge::time::default_callback()
-{
-	return fun_;
 }
 
-void
-sge::time::default_callback(
-	callback const &nfun
-)
-{
-	fun_ = nfun;
-}
+#endif
