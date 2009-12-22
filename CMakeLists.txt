@@ -85,6 +85,8 @@ FILE(WRITE ${pkgfile}
 #ENDIF()
 INSTALL (FILES ${pkgfile} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/pkgconfig)
 
+SET (Boost_ADDITIONAL_VERSIONS "1.41.0" "1.41")
+
 FIND_PACKAGE(
 	Boost 1.41.0 REQUIRED COMPONENTS
 	program_options
