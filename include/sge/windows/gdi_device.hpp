@@ -30,15 +30,21 @@ namespace sge
 namespace windows
 {
 
-class gdi_device {
+class gdi_device
+{
 	FCPPT_NONCOPYABLE(gdi_device)
 public:
 	class get_tag{};
+
 	SGE_SYMBOL gdi_device(
 		HWND,
-		get_tag);
+		get_tag
+	);
+
 	SGE_SYMBOL ~gdi_device();
-	SGE_SYMBOL HDC hdc() const;
+
+	SGE_SYMBOL HDC
+	hdc() const;
 private:
 	HWND hwnd;
 	HDC dc;

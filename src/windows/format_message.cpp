@@ -44,6 +44,7 @@ sge::windows::format_message(
 	) == 0)
 		throw exception(
 			FCPPT_TEXT("FormatMessage() failed!"));
-	return string(
-		errmsg.data());
+	return fcppt::string(
+		errmsg.data()
+	);
 }

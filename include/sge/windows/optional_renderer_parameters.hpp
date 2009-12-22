@@ -29,7 +29,7 @@ namespace sge
 namespace windows
 {
 
-typedef optional<
+typedef fcppt::optional<
 	renderer::parameters
 > optional_renderer_parameters;
 

@@ -22,23 +22,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_WINDOWS_CREATE_WINDOW_HPP_INCLUDED
 
 #include <sge/windows/optional_renderer_parameters.hpp>
-#include <sge/window/instance_fwd.hpp>
+#include <sge/window/instance_ptr.hpp>
+#include <sge/window/parameters_fwd.hpp>
 #include <sge/symbol.hpp>
 
 namespace sge
 {
-namespace window
-{
-class parameters;
-}
-
 namespace windows
 {
 
 SGE_SYMBOL sge::window::instance_ptr const
 create_window(
 	sge::window::parameters const &,
-	optional_renderer_parameters const &);
+	optional_renderer_parameters const &
+);
 
 }
 }

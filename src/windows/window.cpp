@@ -46,8 +46,8 @@ LRESULT CALLBACK wnd_proc(
 
 sge::windows::window::window(
 	dim_type const &sz,
-	string const &title,
-	string const &class_name)
+	fcppt::string const &title,
+	fcppt::string const &class_name)
 :
 	wndclass_(
 		wndclass_pool(
@@ -113,7 +113,7 @@ void sge::windows::window::size(
 }
 
 void sge::windows::window::title(
-	string const &title)
+	fcppt::string const &title)
 {
 	if(SetWindowText(hwnd(), title.c_str()) == 0)
 		throw exception(
@@ -150,7 +150,7 @@ sge::windows::window::title() const
 	if(GetWindowText(hwnd(), buffer.data(), buffer.size()) == 0)
 		throw exception(
 			FCPPT_TEXT("GetWindowText() failed!"));
-	return string(buffer.data());
+	return fcppt::string(buffer.data());
 }
 
 HWND sge::windows::window::hwnd() const
@@ -171,7 +171,7 @@ sge::windows::window::register_callback(
 
 	if(it == signals.end())
 	{
-		auto_ptr<
+		fcppt::auto_ptr<
 			signal_type
 		> sig(
 			new signal_type(

@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/windows/wndclass_pool.hpp>
 #include <sge/windows/wndclass.hpp>
-#include <sge/make_shared_ptr.hpp>
-#include <sge/weak_ptr.hpp>
+#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/weak_ptr.hpp>
 #include <map>
 
 // TODO: we have to somehow free the weak_ptrs
@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-typedef sge::weak_ptr<
+typedef fcppt::weak_ptr<
 	sge::windows::wndclass
 > wndclass_weak_ptr;
 
@@ -44,25 +44,32 @@ wndclass_map wndclasses;
 
 sge::windows::wndclass_ptr const
 sge::windows::wndclass_pool(
-	string const &name,
-	WNDPROC const proc)
+	fcppt::string const &name,
+	WNDPROC const proc
+)
 {
 	wndclass_weak_ptr &ptr(
-		wndclasses[name]);
+		wndclasses[name]
+	);
 
 	{
 		wndclass_ptr const ref(
-			ptr.lock());
+			ptr.lock()
+		);
+
 		if(ref)
 			return ref;
 	}
 
 	wndclass_ptr const nref(
-		make_shared_ptr<
+		fcppt::make_shared_ptr<
 			wndclass
 		>(
 			name,
-			proc));
+			proc
+		)
+	);
+
 	ptr = nref;
 
 	return nref;

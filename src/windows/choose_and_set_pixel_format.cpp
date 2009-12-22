@@ -23,13 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <fcppt/text.hpp>
 
-void sge::windows::choose_and_set_pixel_format(
+void
+sge::windows::choose_and_set_pixel_format(
 	gdi_device const &dc,
 	DWORD const flags,
 	BYTE const pixel_type,
 	BYTE const depth,
 	BYTE const depth_buffer,
-	BYTE const stencil_buffer)
+	BYTE const stencil_buffer
+)
 {
 	PIXELFORMATDESCRIPTOR const pfd = {
 		sizeof(PIXELFORMATDESCRIPTOR),  // Size Of This Pixel Format Descriptor

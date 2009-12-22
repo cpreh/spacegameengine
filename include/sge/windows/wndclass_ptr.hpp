@@ -18,23 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_WINDOWS_WNDCLASS_POOL_HPP_INCLUDED
-#define SGE_WINDOWS_WNDCLASS_POOL_HPP_INCLUDED
+#ifndef SGE_WINDOWS_WNDCLASS_PTR_HPP_INCLUDED
+#define SGE_WINDOWS_WNDCLASS_PTR_HPP_INCLUDED
 
-#include <sge/windows/wndclass_ptr.hpp>
-#include <sge/windows/windows.hpp>
-#include <fcppt/string.hpp>
+#include <sge/windows/wndclass_fwd.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
 namespace windows
 {
 
-wndclass_ptr const
-wndclass_pool(
-	string const &,
-	WNDPROC
-);
+typedef fcppt::shared_ptr<
+	wndclass
+> wndclass_ptr;
 
 }
 }
