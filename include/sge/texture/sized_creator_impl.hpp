@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef FCPPT_TEXTURE_SIZED_CREATOR_IMPL_HPP_INCLUDED
-#define FCPPT_TEXTURE_SIZED_CREATOR_IMPL_HPP_INCLUDED
+#ifndef SGE_TEXTURE_SIZED_CREATOR_IMPL_HPP_INCLUDED
+#define SGE_TEXTURE_SIZED_CREATOR_IMPL_HPP_INCLUDED
 
 #include <fcppt/texture/sized_creator.hpp>
 #include <sge/renderer/device.hpp>
