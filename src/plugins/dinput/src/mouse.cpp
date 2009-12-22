@@ -44,7 +44,7 @@ inline bool is_di_mouse_axis(const DWORD di_mouse)
 
 sge::dinput::mouse::mouse(
 	dinput_ptr const di,
-	string const &name,
+	fcppt::string const &name,
 	GUID const guid,
 	windows::window_ptr const window)
 :

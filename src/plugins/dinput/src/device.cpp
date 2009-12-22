@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../device.hpp"
 #include <sge/windows/window.hpp>
-#include <fcppt/optional_impl.hpp>
 #include <sge/exception.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 
 namespace
@@ -86,7 +86,7 @@ void sge::dinput::device::unacquire()
 
 sge::dinput::device::device(
 	dinput_ptr const di,
-	string const &name_,
+	fcppt::string const &name_,
 	GUID const guid,
 	windows::window_ptr const window)
 :

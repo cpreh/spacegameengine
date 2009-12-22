@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "device.hpp"
 #include "di.hpp"
+#include <fcppt/string.hpp>
 #include <map>
 
 namespace sge
@@ -34,7 +35,7 @@ class mouse : public device {
 public:
 	mouse(
 		dinput_ptr di,
-		string const &name,
+		fcppt::string const &name,
 		GUID guid,
 		windows::window_ptr window);
 	void dispatch(signal_type &);

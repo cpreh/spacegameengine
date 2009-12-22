@@ -19,15 +19,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../system.hpp"
-#include <sge/export.hpp>
-#include <fcppt/text.hpp>
 #include <sge/plugin/info.hpp>
 #include <sge/windows/window.hpp>
+#include <fcppt/export_symbol.hpp>
+#include <fcppt/text.hpp>
 
 extern "C"
 {
 
-SGE_EXPORT_SYMBOL void plugin_version_info(sge::plugin::info* const p)
+FCPPT_EXPORT_SYMBOL void
+plugin_version_info(
+	sge::plugin::info* const p
+)
 {
 	if(!p)
 		return;
@@ -38,10 +41,12 @@ SGE_EXPORT_SYMBOL void plugin_version_info(sge::plugin::info* const p)
 	p->type = sge::plugin::capabilities::input;
 }
 
-SGE_EXPORT_SYMBOL sge::input::system* create_input_system(
-	sge::window::instance_ptr const w)
+FCPPT_EXPORT_SYMBOL sge::input::system*
+create_input_system(
+	sge::window::instance_ptr const w
+)
 {
-	sge::windows::window_ptr const ww = sge::dynamic_pointer_cast<sge::windows::window>(w);
+	sge::windows::window_ptr const ww = fcppt::dynamic_pointer_cast<sge::windows::window>(w);
 	return new sge::dinput::system(ww);
 }
 

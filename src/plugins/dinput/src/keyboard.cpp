@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../keyboard.hpp"
 #include "../keyboard_repeat.hpp"
 #include <sge/input/key_pair.hpp>
-#include <sge/time/resolution.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/tr1/array.hpp>
@@ -31,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::dinput::keyboard::keyboard(
 	dinput_ptr const di,
-	string const &name,
+	fcppt::string const &name,
 	GUID const guid,
 	windows::window_ptr const window,
 	key_converter const &conv,
@@ -163,7 +162,7 @@ sge::dinput::keyboard::keycode_to_char(
 	case 0:
 		FCPPT_LOG_WARNING(
 			log::global(),
-			log::_1
+			fcppt::log::_
 				<< FCPPT_TEXT("No translation found for dik: ")
 				<< dik);
 		return 0;
@@ -172,7 +171,7 @@ sge::dinput::keyboard::keycode_to_char(
 	case 2:
 		FCPPT_LOG_WARNING(
 			log::global(),
-			log::_1
+			fcppt::log::_
 				<< FCPPT_TEXT("stub: Key names with more than one char are not supported."));
 		return 0;
 	default:

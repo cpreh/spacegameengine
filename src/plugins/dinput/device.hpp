@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/array.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/string.hpp>
 #include <cstddef>
 
 namespace sge
@@ -48,9 +49,10 @@ public:
 protected:
 	device(
 		dinput_ptr di,
-		string const &name,
+		fcppt::string const &name,
 		GUID Guid,
-		windows::window_ptr window);
+		windows::window_ptr window
+	);
 
 	void poll();
 	void set_data_format(
@@ -70,13 +72,13 @@ protected:
 		unsigned d = 0);
 	void enum_objects(
 		LPDIENUMDEVICEOBJECTSCALLBACK fun);
-	string const &name() const;
+	fcppt::string const &name() const;
 private:
 	void set_cooperative_level(
 		HWND hwnd,
 		DWORD flags);
-	string const name_;
-	signal::scoped_connection const activate_connection;
+	fcppt::string const name_;
+	fcppt::signal::scoped_connection const activate_connection;
 	dinput_device_ptr device_;
 };
 

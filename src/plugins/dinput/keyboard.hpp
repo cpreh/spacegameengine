@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/timer.hpp>
 #include <fcppt/optional_decl.hpp>
 #include <fcppt/string.hpp>
-#include <sge/char_type.hpp>
+#include <fcppt/char_type.hpp>
 #include <map>
 
 namespace sge
@@ -43,7 +43,7 @@ class keyboard : public device {
 public:
 	keyboard(
 		dinput_ptr,
-		string const &name,
+		fcppt::string const &name,
 		GUID guid,
 		windows::window_ptr window,
 		key_converter const &conv,
@@ -53,10 +53,10 @@ public:
 
 	input::key_state
 	query_key(
-		string const &name);
+		fcppt::string const &name);
 private:
-	char_type
-		keycode_to_char(
+	fcppt::char_type
+	keycode_to_char(
 		input::key_code key) const;
 
 	static BOOL CALLBACK
@@ -69,7 +69,7 @@ private:
 	HKL kblayout;
 	repeat_signal_type &repeat_sig;
 	time::timer repeat_time;
-	optional<input::key_type> old_key;
+	fcppt::optional<input::key_type> old_key;
 	typedef std::map<
 		unsigned,
 		input::key_type
