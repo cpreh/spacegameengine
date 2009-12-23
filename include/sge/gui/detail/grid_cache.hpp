@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/size_policy.hpp>
 #include <fcppt/container/field.hpp>
 #include <fcppt/container/raw_vector.hpp>
+#include <vector>
 #include <map>
 
 namespace sge
@@ -60,20 +61,23 @@ public:
 
 	// the "real" grid
 	typedef fcppt::container::field<
-		widgets::base*,
-		fcppt::container::raw_vector
-		> child_plane;
+		fcppt::container::raw_vector<
+			widgets::base *
+		>
+	> child_plane;
 	typedef child_plane::size_type size_type;
 	// stores the size data for each widget (is there because the real grid could
 	// be sparse
 	typedef std::map<
 		widgets::base*,
 		widget_data
-		> data_map;
+	> data_map;
 	// stores data per column and row (per rolumn)
 	typedef fcppt::container::field<
-		rolumn_data
-		> rolumn_container;
+		std::vector<
+			rolumn_data
+		>
+	> rolumn_container;
 
 	grid_cache(
 		widgets::base::child_container const &);

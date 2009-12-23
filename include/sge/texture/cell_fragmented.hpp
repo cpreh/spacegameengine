@@ -75,8 +75,9 @@ private:
 	empty() const;
 
 	typedef fcppt::container::field<
-		bool,
-		fcppt::container::raw_vector
+		fcppt::container::raw_vector<
+			bool
+		>
 	> field_type;
 
 	renderer::device_ptr      const rend;
