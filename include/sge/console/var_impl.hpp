@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/var.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/text.hpp>
-#include <sge/lexical_cast.hpp>
+#include <fcppt/lexical_cast.hpp>
+#include <fcppt/bad_lexical_cast.hpp>
 
 template<typename T>
 void sge::console::var<T>::string(
@@ -32,9 +33,9 @@ void sge::console::var<T>::string(
 {
 	try
 	{
-		t = lexical_cast<value_type>(s);
+		t = fcppt::lexical_cast<value_type>(s);
 	}
-	catch (bad_lexical_cast const &)
+	catch (fcppt::bad_lexical_cast const &)
 	{
 		throw exception(
 			FCPPT_TEXT("couldn't parse variable \"")
@@ -47,7 +48,7 @@ template<typename T>
 fcppt::string const
 sge::console::var<T>::string() const
 {
-	return lexical_cast<fcppt::string>(t);
+	return fcppt::lexical_cast<fcppt::string>(t);
 }
 
 template<typename T>
@@ -73,7 +74,6 @@ sge::console::var<T>::var(
 		name),
 	t(t)
 {
-	//late_construct();
 }
 
 #endif
