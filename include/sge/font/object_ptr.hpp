@@ -18,15 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_OBJECT_FWD_HPP_INCLUDED
-#define SGE_FONT_OBJECT_FWD_HPP_INCLUDED
+#ifndef SGE_FONT_OBJECT_PTR_HPP_INCLUDED
+#define SGE_FONT_OBJECT_PTR_HPP_INCLUDED
+
+#include <sge/font/object_fwd.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
 namespace font
 {
 
-class object;
+typedef fcppt::shared_ptr<
+	object
+> object_ptr;
 
 }
 }
