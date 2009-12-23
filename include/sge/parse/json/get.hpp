@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/value.hpp>
 #include <sge/exception.hpp>
-#include <sge/type_name.hpp>
+#include <fcppt/type_name.hpp>
 #include <fcppt/text.hpp>
 #include <boost/variant/get.hpp>
 #include <typeinfo>
@@ -41,7 +41,8 @@ template<
 >
 T const &
 get(
-	value const &val)
+	value const &val
+)
 {
 	try
 	{
@@ -55,11 +56,11 @@ get(
 	{
 		throw exception(
 			FCPPT_TEXT("json::get<")
-			+ sge::type_name(
+			+ fcppt::type_name(
 				typeid(T)
 			)
 			+ FCPPT_TEXT("> failed! Type is \"")
-			+ sge::type_name(
+			+ fcppt::type_name(
 				val.type()
 			)
 			+ FCPPT_TEXT("\" instead!")
