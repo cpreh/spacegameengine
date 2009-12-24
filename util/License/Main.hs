@@ -8,16 +8,9 @@ import Debug.Trace(traceShow,trace)
 import qualified Data.ByteString.Char8 as BS
 import Data.ByteString.Internal(isSpaceChar8)
 import Data.ByteString(ByteString)
-import Control.Monad.Reader
 
-data Env = Env {
-  envKeyword :: ByteString,
-  envTemplate :: FilePath
-}
-
-env = Env { envKeyword = BS.pack "Franklin Street", envTemplate = "template.hpp"  }
-
-type EnvReader = Reader Env
+keyword = BS.pack "Franklin Street"
+template = "template.hpp"
 
 data CppData = Text ByteString | Comment ByteString
 type CppFile = [CppData]
@@ -60,7 +53,7 @@ addHeader tempFile s = tempFile `BS.append` s
 editFile :: FilePath -> IO ()
 editFile name = do contents <- BS.readFile (trace ("editing file " ++ name) name)
                    tempFile <- BS.readFile template
-                   BS.writeFile name (runReader (editContents (BS.init tempFile) contents) env)
+                   BS.writeFile name (editContents (BS.init tempFile) contents)
 {-
 editFile name = do withFile name ReadWriteMode editIt
   where editIt h = do contents <- BS.hGetContents h
@@ -74,3 +67,4 @@ cppFilter xs = "hpp" `isSuffixOf` xs || "cpp" `isSuffixOf` xs
 
 main = do args <- getArgs
           walkDirs editFile cppFilter (if null args then ["."] else args)
+--          walkDirs putStrLn (if null args then ["."] else args)
