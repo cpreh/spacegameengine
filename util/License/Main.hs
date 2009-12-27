@@ -70,16 +70,18 @@ cppFilter xs = "hpp" `isSuffixOf` xs || "cpp" `isSuffixOf` xs
 exclusionFilter :: [FilePath] -> FilePath -> Bool
 exclusionFilter paths path = elem path paths
 
-loadExclusions :: FilePath -> [FilePath]
+loadExclusions :: FilePath -> IO [FilePath]
 loadExclusions path = do contents <- BS.readFile path
-                         map BS.unpack (BS.split '\n' contents)
+                         return $ map BS.unpack (BS.split '\n' contents)
 
-loadKeyword :: FilePath -> ByteString
-loadKeyword path = do BS.readFile path
+loadKeyword :: FilePath -> IO ByteString
+loadKeyword path = BS.readFile path
 
 filterAnd :: (a -> Bool) -> (a -> Bool) -> a -> Bool
 filterAnd func1 func2 x = (func1 x) && (func2 x)
 
 main = do args <- getArgs
-          walkDirs (editFile (loadKeyword keywordfile)) (filterAnd cppFilter (exclusionFilter (loadExclusions exclusionfile))) (if null args then ["."] else args)
+          keyword <- loadKeyword keywordfile
+          exclusions <- loadExclusions exclusionfile
+          walkDirs (editFile keyword) (filterAnd cppFilter (exclusionFilter exclusions)) (if null args then ["."] else args)
 --          walkDirs putStrLn (if null args then ["."] else args)
