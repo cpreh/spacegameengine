@@ -9,8 +9,10 @@ import qualified Data.ByteString.Char8 as BS
 import Data.ByteString.Internal(isSpaceChar8)
 import Data.ByteString(ByteString)
 
-keyword = BS.pack "Franklin Street"
 template = "template.hpp"
+keyword = BS.pack "Franklin Street"
+keywordfile = "hint.txt"
+exclusionfile = "exclusions.txt"
 
 data CppData = Text ByteString | Comment ByteString
 type CppFile = [CppData]
@@ -31,8 +33,8 @@ makeFile s = makeCpp scrambled
                           | otherwise = Comment x : rest
           where rest = makeCpp' (a+1) xs
 
-updateDate :: ByteString -> ByteString -> ByteString
-updateDate tempFile s = iterate scrambled
+updateDate :: ByteString -> ByteString -> ByteString -> ByteString
+updateDate keyword tempFile s = iterate scrambled
   where scrambled = makeFile s 
         iterate :: CppFile -> ByteString
         iterate [] = BS.pack ""
@@ -43,17 +45,17 @@ updateDate tempFile s = iterate scrambled
         iterate' (x:xs) = (stripWhites (extractCpp x)) `BS.append` (iterate xs)
         stripWhites x = (BS.pack "\n") `BS.append` (BS.dropWhile isSpaceChar8 x)
 
-editContents :: ByteString -> ByteString -> ByteString
-editContents tempFile xs | keyword `BS.isInfixOf` xs = updateDate tempFile xs
-                         | otherwise = addHeader tempFile xs
+editContents :: ByteString -> ByteString -> ByteString -> ByteString
+editContents keyword tempFile xs | keyword `BS.isInfixOf` xs = updateDate keyword tempFile xs
+                                 | otherwise = addHeader tempFile xs
 
 addHeader :: ByteString -> ByteString -> ByteString
 addHeader tempFile s = tempFile `BS.append` s
 
-editFile :: FilePath -> IO ()
-editFile name = do contents <- BS.readFile (trace ("editing file " ++ name) name)
-                   tempFile <- BS.readFile template
-                   BS.writeFile name (editContents (BS.init tempFile) contents)
+editFile :: ByteString -> FilePath -> IO ()
+editFile keyword name = do contents <- BS.readFile (trace ("editing file " ++ name) name)
+                           tempFile <- BS.readFile template
+                           BS.writeFile name (editContents keyword (BS.init tempFile) contents)
 {-
 editFile name = do withFile name ReadWriteMode editIt
   where editIt h = do contents <- BS.hGetContents h
@@ -65,6 +67,19 @@ editFile name = do withFile name ReadWriteMode editIt
 cppFilter :: FilePath -> Bool
 cppFilter xs = "hpp" `isSuffixOf` xs || "cpp" `isSuffixOf` xs
 
+exclusionFilter :: [FilePath] -> FilePath -> Bool
+exclusionFilter paths path = elem path paths
+
+loadExclusions :: FilePath -> [FilePath]
+loadExclusions path = do contents <- BS.readFile path
+                         map BS.unpack (BS.split '\n' contents)
+
+loadKeyword :: FilePath -> ByteString
+loadKeyword path = do BS.readFile path
+
+filterAnd :: (a -> Bool) -> (a -> Bool) -> a -> Bool
+filterAnd func1 func2 x = (func1 x) && (func2 x)
+
 main = do args <- getArgs
-          walkDirs editFile cppFilter (if null args then ["."] else args)
+          walkDirs (editFile (loadKeyword keywordfile)) (filterAnd cppFilter (exclusionFilter (loadExclusions exclusionfile))) (if null args then ["."] else args)
 --          walkDirs putStrLn (if null args then ["."] else args)
