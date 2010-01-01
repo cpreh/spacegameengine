@@ -81,7 +81,7 @@ sge::x11input::dga::enable(
 			? XF86DGADirectMouse
 			: 0
 		)
-		!= Success
+		!= True
 	)
 	{
 		FCPPT_LOG_ERROR(
