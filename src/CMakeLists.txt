@@ -52,6 +52,7 @@ FILE (GLOB sgecorefiles
 	sprite/detail/*.cpp
 	systems/*.cpp
 	texture/*.cpp
+	texture/atlasing/*.cpp
 	texture/detail/*.cpp
 	thread/*.cpp
 	thread/future/*.cpp
@@ -59,7 +60,8 @@ FILE (GLOB sgecorefiles
 	time/*.cpp
 	utf8/*.cpp
 	variant/*.cpp
-	window/*.cpp)
+	window/*.cpp
+)
 
 FILE (GLOB_RECURSE sgecoreheaders
 	../include/*.hpp)

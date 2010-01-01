@@ -19,8 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/texture/rect_fragmented.hpp>
-#include <sge/texture/atlasing.hpp>
 #include <sge/texture/part_fragmented.hpp>
+#include <sge/texture/atlasing/create_texture.hpp>
+#include <sge/texture/atlasing/size.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/device.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
@@ -39,7 +40,7 @@ sge::texture::rect_fragmented::rect_fragmented(
 	cur_y(0),
 	cur_height(0),
 	tex(
-		atlased_texture(
+		atlasing::create_texture(
 			rend,
 			format,
 			filter
@@ -54,7 +55,7 @@ sge::texture::rect_fragmented::consume_fragment(
 )
 {
 	renderer::texture::dim_type const atlased_dim(
-		atlased_size(
+		atlasing::size(
 			dim,
 			true
 		)

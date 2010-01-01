@@ -19,7 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/texture/cell_fragmented.hpp>
-#include <sge/texture/atlasing.hpp>
+#include <sge/texture/atlasing/create_texture.hpp>
+#include <sge/texture/atlasing/texture_dim.hpp>
 #include <sge/texture/part_fragmented.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/math/vector/dim.hpp>
@@ -44,11 +45,11 @@ sge::texture::cell_fragmented::cell_fragmented(
 	rend(rend),
 	cell_size(cell_size),
 	cells(
-		atlased_texture_dim(rend) / cell_size,
+		atlasing::texture_dim(rend) / cell_size,
 		false
 	),
 	tex(
-		atlased_texture(
+		atlasing::create_texture(
 			rend,
 			format,
 			filter

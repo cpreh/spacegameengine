@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/no_fragmented.hpp>
 #include <sge/texture/guaranteed_free.hpp>
 #include <sge/texture/part_fragmented.hpp>
-#include <sge/texture/atlasing.hpp>
+#include <sge/texture/atlasing/bounds.hpp>
+#include <sge/texture/atlasing/need.hpp>
+#include <sge/texture/atlasing/size.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/log/global.hpp>
@@ -54,7 +56,7 @@ sge::texture::no_fragmented::consume_fragment(
 		return part_ptr();
 
 	renderer::dim_type const real_dim(
-		atlased_bounds(
+		atlasing::bounds(
 			dim
 		)
 	);
@@ -83,13 +85,13 @@ sge::texture::no_fragmented::consume_fragment(
 		>(
 			renderer::lock_rect(
 				renderer::lock_rect::vector::null(),
-				atlased_size(dim)
+				atlasing::size(dim)
 			),
 			std::tr1::ref(
 				*this
 			),
-			need_atlasing(dim.w()),
-			need_atlasing(dim.h())
+			atlasing::need(dim.w()),
+			atlasing::need(dim.h())
 		)
 	);
 }

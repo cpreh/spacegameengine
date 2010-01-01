@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/texture/part_fragmented.hpp>
 #include <sge/texture/fragmented.hpp>
-#include <sge/texture/atlasing.hpp>
+#include <sge/texture/atlasing/border_w.hpp>
+#include <sge/texture/atlasing/border_h.hpp>
+#include <sge/texture/atlasing/inner_rect.hpp>
 #include <sge/renderer/sub_data.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 
@@ -36,7 +38,7 @@ sge::texture::part_fragmented::part_fragmented(
 	need_atlasing_w(need_atlasing_w),
 	need_atlasing_h(need_atlasing_h),
 	inner_area_(
-		inner_atlased_rect(
+		atlasing::inner_rect(
 			outer_area_,
 			need_atlasing_w,
 			need_atlasing_h
@@ -61,7 +63,7 @@ sge::texture::part_fragmented::data(
 	);
 
 	if(need_atlasing_h)
-		atlas_h(
+		atlasing::border_h(
 			texture(),
 			src,
 			outer_area_,
@@ -69,7 +71,7 @@ sge::texture::part_fragmented::data(
 		);
 
 	if(need_atlasing_w)
-		atlas_w(
+		atlasing::border_w(
 			texture(),
 			src,
 			outer_area_,
