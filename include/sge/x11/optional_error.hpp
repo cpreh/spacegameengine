@@ -18,18 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11_ERROR_HPP_INCLUDED
-#define SGE_X11_ERROR_HPP_INCLUDED
+#ifndef SGE_X11_OPTIONAL_ERROR_HPP_INCLUDED
+#define SGE_X11_OPTIONAL_ERROR_HPP_INCLUDED
 
-#include <sge/x11/optional_error.hpp>
+#include <fcppt/optional_fwd.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
 namespace x11
 {
 
-optional_error const
-error();
+typedef fcppt::optional<
+	fcppt::string
+> optional_error;
 
 }
 }

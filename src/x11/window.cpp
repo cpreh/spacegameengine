@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/iconv.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <boost/assign/list_of.hpp>
 
 sge::x11::window::window(
@@ -245,14 +246,19 @@ void
 sge::x11::window::dispatch()
 {
 	// check for recent errors
-	
-	if(
-		error()
-	)
-		throw exception(
-			FCPPT_TEXT("Xerror event caught.")
+	{
+		optional_error const error_(
+			error()
 		);
 
+		if(
+			error_
+		)
+			throw exception(
+				FCPPT_TEXT("Xerror event caught: ")
+				+ *error_
+			);
+	}
 
 	XEvent xev;
 
