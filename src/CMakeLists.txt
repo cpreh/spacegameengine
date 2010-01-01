@@ -125,9 +125,7 @@ IF (UNIX)
 				"Xxf86dga")
 		ENDIF()
 
-
 	IF(ENABLE_DGA AND HAVE_XF86_DGA)
-
 		TARGET_LINK_LIBRARIES (sgecore Xxf86dga)
 	ENDIF()
 

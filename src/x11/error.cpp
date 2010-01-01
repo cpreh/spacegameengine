@@ -18,49 +18,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <X11/Xlib.h>
 #include <sge/x11/error.hpp>
-#include <fcppt/optional.hpp>
 
 namespace
 {
 
-sge::x11::optional_error last_error_;
-
-int error_handler(
+int
+error_handler(
 	Display *,
-	XErrorEvent *);
+	XErrorEvent *
+);
 
-class init {
-public:
+struct init
+{
 	init();
 } init_;
 
+bool error_ = false;
+
 }
 
-sge::x11::optional_error const
-sge::x11::last_error()
+bool
+sge::x11::error()
 {
-	optional_error const ret(
-		last_error_);
-	last_error_.reset();
-	return ret;
+	return error_;
 }
 
 namespace
 {
 
-int error_handler(
+int
+error_handler(
 	Display *,
-	XErrorEvent *const ev)
+	XErrorEvent *
+)
 {
-	last_error_ = *ev;
+	error_ = true;
+
 	return 0; // TODO: what should we return?
 }
 
 init::init()
 {
 	XSetErrorHandler(
-		error_handler);
+		error_handler
+	);
 }
 
 }

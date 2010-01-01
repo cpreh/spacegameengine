@@ -21,17 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../configuration.hpp"
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
-#include <sge/x11/sentry.hpp>
+#include <fcppt/assert.hpp>
 
 sge::opengl::xrandr::configuration::configuration(
-	x11::window_ptr const wnd)
+	x11::window_ptr const wnd
+)
 :
 	config(
 		XRRGetScreenInfo(
 			wnd->display()->get(),
-			wnd->get()))
+			wnd->get()
+		)
+	)
 {
-	SGE_X11_SENTRY
+	FCPPT_ASSERT(config)
 }
 
 XRRScreenConfiguration *
@@ -43,5 +46,6 @@ sge::opengl::xrandr::configuration::get() const
 sge::opengl::xrandr::configuration::~configuration()
 {
 	XRRFreeScreenConfigInfo(
-		config);
+		config
+	);
 }

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/Xlib.h>
 #include <sge/x11/display.hpp>
 #include <sge/x11/window.hpp>
-#include <sge/x11/sentry.hpp>
+#include <sge/exception.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include "../pointer.hpp"
 
@@ -40,30 +40,38 @@ sge::x11input::get_pointer(
 		win_y_return;
 	unsigned mask_return;
 
-	SGE_X11_SENTRY
-
-	XQueryPointer(
-		wnd->display()->get(),
-		wnd->get(),
-		&root_return,
-		&child_return,
-		&root_x_return,
-		&root_y_return,
-		&win_x_return,
-		&win_y_return,
-		&mask_return);
+	if(
+		XQueryPointer(
+			wnd->display()->get(),
+			wnd->get(),
+			&root_return,
+			&child_return,
+			&root_x_return,
+			&root_y_return,
+			&win_x_return,
+			&win_y_return,
+			&mask_return
+		)
+		== False
+	)
+		throw sge::exception(
+			FCPPT_TEXT("XQueryPointer failed!")
+		);
 
 	return mouse_pos(
 		win_x_return,
-		win_y_return);
+		win_y_return
+	);
 }
 
-void sge::x11input::warp_pointer(
+void
+sge::x11input::warp_pointer(
 	x11::window_ptr const wnd,
-	mouse_pos const &pos)
+	mouse_pos const &pos
+)
 {
-	SGE_X11_SENTRY
-
+	// always returns 1
+	
 	XWarpPointer(
 		wnd->display()->get(),
 		None,
@@ -73,5 +81,6 @@ void sge::x11input::warp_pointer(
 		0,
 		0,
 		pos.x(),
-		pos.y());
+		pos.y()
+	);
 }

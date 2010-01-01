@@ -18,41 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/x11/sentry.hpp>
-#include <sge/x11/error.hpp>
-#include <fcppt/text.hpp>
-#include <sge/exception.hpp>
-#include <fcppt/format.hpp>
-#include <fcppt/iconv.hpp>
-#include <fcppt/optional.hpp>
-#include <exception>
+#ifndef SGE_X11_CHECK_STATE_HPP_INCLUDED
+#define SGE_X11_CHECK_STATE_HPP_INCLUDED
 
-sge::x11::sentry::sentry(
-	std::string const &file_name,
-	int const line
+#include "error_string.hpp"
+#include "common.hpp"
+#include <sge/error/check_state.hpp>
+
+#define SGE_X11_CHECK_STATE(message, exception)\
+SGE_ERROR_CHECK_STATE(\
+	exception,\
+	message,\
+	GLenum,\
+	glGetError(),\
+	GL_NO_ERROR,\
+	sge::opengl::error_string\
 )
-:
-	file_name(file_name),
-	line(line)
-{}
 
-sge::x11::sentry::~sentry()
-{
-	optional_error const err(
-		last_error()
-	);
-
-	if(std::uncaught_exception() || !err)
-		return;
-
-	// TODO: print something about the error!
-	throw exception(
-		(
-			fcppt::format(
-				FCPPT_TEXT("x11 error in file %1%, line %2%!")
-			)
-			% fcppt::iconv(file_name)
-			% line
-		).str()
-	);
-}
+#endif

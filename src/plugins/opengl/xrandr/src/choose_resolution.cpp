@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode.hpp>
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/x11/window.hpp>
-#include <sge/x11/sentry.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
@@ -49,8 +48,6 @@ sge::opengl::xrandr::choose_resolution(
 			wnd
 		)
 	);
-
-	SGE_X11_SENTRY
 
 	int nsizes;
 	XRRScreenSize *const sizes(
