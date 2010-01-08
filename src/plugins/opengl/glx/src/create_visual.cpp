@@ -30,7 +30,8 @@ sge::opengl::glx::visual_ptr const
 sge::opengl::glx::create_visual(
 	x11::display_ptr const dsp,
 	int const screen,
-	int const *const param)
+	int const *const param
+)
 {
 	XVisualInfo *const info(
 		glXChooseVisual(

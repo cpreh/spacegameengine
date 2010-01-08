@@ -72,7 +72,8 @@ sge::opengl::system::create_renderer(
 sge::window::instance_ptr const
 sge::opengl::system::create_window(
 	window::parameters const &param,
-	renderer::parameters const &rparam)
+	renderer::parameters const &rparam
+)
 {
 #if defined(SGE_HAVE_X11)
 	sge::x11::display_ptr const dsp(
