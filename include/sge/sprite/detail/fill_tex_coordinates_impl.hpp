@@ -22,13 +22,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_FILL_TEX_COORDINATES_IMPL_HPP_INCLUDED
 
 #include <sge/sprite/detail/fill_tex_coordinates_rect.hpp>
+#include <sge/sprite/detail/convert_texture_rect.hpp>
 #include <sge/sprite/with_repetition.hpp>
+#include <sge/sprite/with_texture_coordinates.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/texture/area_texc.hpp>
 #include <sge/texture/part.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/lock_rect_to_coords.hpp>
 #include <boost/mpl/contains.hpp>
+#include <boost/mpl/or.hpp>
 #include <boost/utility/enable_if.hpp>
 
 namespace sge
@@ -37,6 +40,31 @@ namespace sprite
 {
 namespace detail
 {
+
+template<
+	typename Iterator,
+	typename Choices
+>
+typename boost::enable_if<
+	boost::mpl::contains<
+		typename Choices::elements,
+		with_texture_coordinates
+	>
+>::type
+fill_tex_coordinates_impl(
+	Iterator const &iterator,
+	object<
+		Choices
+	> const &sprite_
+)
+{
+	fill_tex_coordinates_rect<
+		Choices
+	>(
+		iterator,
+		sprite_.texture_coordinates()
+	);
+}
 
 template<
 	typename Iterator,
@@ -60,9 +88,11 @@ fill_tex_coordinates_impl(
 		Choices
 	>(
 		iterator,
-		texture::area_texc(
-			sprite_.texture(),
-			sprite_.repetition()
+		convert_texture_rect(
+			texture::area_texc(
+				sprite_.texture(),
+				sprite_.repetition()
+			)
 		)
 	);
 }
@@ -72,9 +102,15 @@ template<
 	typename Choices
 >
 typename boost::disable_if<
-	boost::mpl::contains<
-		typename Choices::elements,
-		with_repetition
+	boost::mpl::or_<
+		boost::mpl::contains<
+			typename Choices::elements,
+			with_repetition
+		>,
+		boost::mpl::contains<
+			typename Choices::elements,
+			with_texture_coordinates
+		>
 	>,
 	void
 >::type
@@ -89,11 +125,13 @@ fill_tex_coordinates_impl(
 		Choices
 	>(
 		iterator,
-		renderer::lock_rect_to_coords<
-			typename Choices::type_choices::float_type
-		>(
-			sprite_.texture()->area(),
-			sprite_.texture()->texture()->dim()
+		convert_texture_rect(
+			renderer::lock_rect_to_coords<
+				typename Choices::type_choices::float_type
+			>(
+				sprite_.texture()->area(),
+				sprite_.texture()->texture()->dim()
+			)
 		)
 	);
 }

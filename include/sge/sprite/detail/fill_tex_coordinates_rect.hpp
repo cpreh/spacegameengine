@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_FILL_TEX_COORDINATES_RECT_HPP_INCLUDED
 
 #include <sge/sprite/detail/point_float.hpp>
-#include <sge/sprite/detail/rect_float.hpp>
 #include <sge/sprite/detail/vertex_texpos.hpp>
+#include <sge/sprite/texture_coordinates.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 
@@ -41,8 +41,8 @@ template<
 void
 fill_tex_coordinates_rect(
 	Iterator iterator,
-	typename rect_float<
-		typename Choices::type_choices
+	typename texture_coordinates<
+		typename Choices::type_choices::float_type
 	>::type const &rt
 )
 {
@@ -60,8 +60,8 @@ fill_tex_coordinates_rect(
 		vertex_texpos
 	>(
 		tex_pos(
-			rt.left(),
-			rt.top()
+			rt.first.x(),
+			rt.first.y()
 		)
 	);
 
@@ -69,8 +69,8 @@ fill_tex_coordinates_rect(
 		vertex_texpos
 	>(
 		tex_pos(
-			rt.right(),
-			rt.top()
+			rt.second.x(),
+			rt.first.y()
 		)
 	);
 
@@ -78,8 +78,8 @@ fill_tex_coordinates_rect(
 		vertex_texpos
 	>(
 		tex_pos(
-			rt.right(),
-			rt.bottom()
+			rt.second.x(),
+			rt.second.y()
 		)
 	);
 
@@ -87,8 +87,8 @@ fill_tex_coordinates_rect(
 		vertex_texpos
 	>(
 		tex_pos(
-			rt.left(),
-			rt.bottom()
+			rt.first.x(),
+			rt.second.y()
 		)
 	);
 }
