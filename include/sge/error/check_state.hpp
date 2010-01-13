@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_ERROR_CHECK_STATE_HPP_INCLUDED
 #define SGE_ERROR_CHECK_STATE_HPP_INCLUDED
 
-#include <sge/preprocessor/stringize.hpp>
-#include <sge/preprocessor/file.hpp>
-#include <sge/format.hpp>
-#include <sge/text.hpp>
-#include <sge/string.hpp>
+#include <fcppt/preprocessor/stringize.hpp>
+#include <fcppt/preprocessor/file.hpp>
+#include <fcppt/format.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/string.hpp>
 
 #define SGE_ERROR_CHECK_STATE(\
 	exception,\
@@ -42,15 +42,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	\
 	if(sge_return_value_ != success_code)\
 		throw exception(\
-			sge::str( \
-				sge::format(\
-					SGE_TEXT("Function failed in %1%:%2% (errorcode: %3%): %4%")\
+			(\
+				fcppt::format(\
+					FCPPT_TEXT("Function failed in %1%:%2% (errorcode: %3%): %4%")\
 				) \
-				% SGE_PP_FILE \
-				% SGE_PP_STRINGIZE(__LINE__) \
+				% FCPPT_PP_FILE \
+				% FCPPT_PP_STRINGIZE(__LINE__) \
 				% error_code_function(sge_return_value_) \
 				% message \
-			) \
+			).str() \
 		);\
 } \
 

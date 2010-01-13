@@ -22,17 +22,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_WINDOWS_FORMAT_MESSAGE_HPP_INCLUDED
 
 #include <sge/windows/windows.hpp>
-#include <sge/string.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
 namespace windows
 {
 
-SGE_SYMBOL string const
+SGE_SYMBOL fcppt::string const
 format_message(
-	DWORD);
+	DWORD
+);
 
 }
 }

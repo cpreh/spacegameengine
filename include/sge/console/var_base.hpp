@@ -22,32 +22,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CONSOLE_VAR_BASE_HPP_INCLUDED
 
 #include <sge/console/object_fwd.hpp>
-#include <sge/string.hpp>
-#include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace console
 {
+
 class SGE_CLASS_SYMBOL var_base
 {
-	SGE_NONCOPYABLE(var_base)
-	public:
+	FCPPT_NONCOPYABLE(var_base)
+public:
 	SGE_SYMBOL var_base(
 		object &,
-		sge::string const &);
-	
-	virtual void string(sge::string const &) = 0;
-	virtual sge::string const string() const = 0;
+		fcppt::string const &
+	);
 
-	SGE_SYMBOL sge::string const name() const;
-	
+	virtual void
+	string(
+		fcppt::string const &
+	) = 0;
+
+	virtual fcppt::string const
+	string() const = 0;
+
+	SGE_SYMBOL fcppt::string const
+	name() const;
+
 	virtual ~var_base();
-	private:
+private:
 	object &object_;
-	sge::string name_;
+	fcppt::string name_;
 };
+
 }
 }
 

@@ -31,7 +31,9 @@ namespace renderer
 namespace glsl
 {
 
-typedef std::basic_string<char_type> string;
+typedef std::basic_string<
+	char_type
+> string;
 
 }
 }

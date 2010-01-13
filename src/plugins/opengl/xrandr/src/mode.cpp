@@ -30,7 +30,7 @@ sge::opengl::xrandr::mode::mode(
 	rotation_(rotation_),
 	rate_(rate_)
 {}
-	
+
 int
 sge::opengl::xrandr::mode::index() const
 {

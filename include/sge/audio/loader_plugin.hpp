@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/loader.hpp>
 #include <sge/plugin/traits.hpp>
 #include <sge/plugin/capabilities.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
@@ -33,10 +33,18 @@ namespace plugin
 namespace detail
 {
 
-template<> class traits<audio::loader> {
+template<>
+class traits<
+	audio::loader
+>
+{
 public:
-	SGE_SYMBOL static address_name plugin_loader_name();
-	SGE_SYMBOL static capabilities::type plugin_type();
+	SGE_SYMBOL static address_name
+	plugin_loader_name();
+
+	SGE_SYMBOL static capabilities::type
+	plugin_type();
+
 	typedef audio::loader* (*loader_fun)();
 };
 

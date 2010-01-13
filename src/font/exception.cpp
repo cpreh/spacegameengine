@@ -19,13 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/font/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::font::exception::exception(
-	sge::string const &str)
+	fcppt::string const &str
+)
 :
 	sge::exception(
-		SGE_TEXT("font: ")
+		FCPPT_TEXT("font: ")
 		+ str
 	)
 {}

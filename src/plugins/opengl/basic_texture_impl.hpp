@@ -25,10 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "texture_functions.hpp"
 #include "color_convert.hpp"
 #include "texture_lock_factory.hpp"
-#include <sge/container/bitfield/basic_impl.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 template<typename Base>
 void sge::opengl::basic_texture<Base>::bind_me() const
@@ -161,13 +161,13 @@ void sge::opengl::basic_texture<Base>::pre_setdata() const
 template<typename Base>
 typename sge::opengl::basic_texture<Base>::size_type
 sge::opengl::basic_texture<Base>::stride() const
-{	
+{
 	return stride_;
 }
 
 template<typename Base>
 GLenum sge::opengl::basic_texture<Base>::format() const
-{	
+{
 	return format_;
 }
 
@@ -214,7 +214,7 @@ void sge::opengl::basic_texture<Base>::check_locked() const
 {
 	if(!lock_)
 		throw exception(
-			SGE_TEXT("ogl::basic_texture not locked!"));
+			FCPPT_TEXT("ogl::basic_texture not locked!"));
 }
 
 template<typename Base>
@@ -222,7 +222,7 @@ void sge::opengl::basic_texture<Base>::check_not_locked() const
 {
 	if(lock_)
 		throw exception(
-			SGE_TEXT("ogl::basic_texture already locked!"));
+			FCPPT_TEXT("ogl::basic_texture already locked!"));
 }
 
 #endif

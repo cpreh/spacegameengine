@@ -21,13 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_VERTEX_FORMAT_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_VERTEX_FORMAT_HPP_INCLUDED
 
-#include <sge/sprite/funit.hpp>
+#include <sge/sprite/detail/vertex_pos.hpp>
+#include <sge/sprite/detail/vertex_texpos.hpp>
+#include <sge/sprite/detail/vertex_color.hpp>
+#include <sge/sprite/with_color.hpp>
+#include <sge/sprite/with_texture.hpp>
 #include <sge/renderer/vf/format.hpp>
-#include <sge/renderer/vf/pos.hpp>
-#include <sge/renderer/vf/color.hpp>
-#include <sge/renderer/vf/texpos.hpp>
-#include <sge/image/color/rgba8.hpp>
-#include <boost/mpl/vector.hpp>
+#include <fcppt/mpl/inner.hpp>
+#include <boost/mpl/vector/vector10.hpp>
+#include <boost/mpl/pair.hpp>
+#include <boost/mpl/contains.hpp>
+#include <boost/mpl/fold.hpp>
+#include <boost/mpl/placeholders.hpp>
+#include <boost/mpl/push_back.hpp>
+#include <boost/mpl/eval_if.hpp>
 
 namespace sge
 {
@@ -36,19 +43,59 @@ namespace sprite
 namespace detail
 {
 
-typedef image::color::rgba8 base_color;
+template<
+	typename Choices
+>
+struct vertex_format
+{
+private:
+	typedef typename Choices::type_choices type_choices;
 
-typedef renderer::vf::pos<funit, 3> vertex_pos;
-typedef renderer::vf::color<base_color::format> vertex_color;
-typedef renderer::vf::texpos<funit, 2> vertex_texpos;
+	typedef boost::mpl::vector1<
+		typename vertex_pos<
+			type_choices
+		>::type
+	> basic;
 
-typedef renderer::vf::format<
-	boost::mpl::vector<
-		vertex_pos,
-		vertex_color,
-		vertex_texpos
-	>
-> vertex_format;
+	typedef boost::mpl::vector2<
+		boost::mpl::pair<
+			with_color,
+			vertex_color<
+				type_choices
+			>
+		>,
+		boost::mpl::pair<
+			with_texture,
+			vertex_texpos<
+				type_choices
+			>
+		>
+	> optional_elements;
+public:
+	typedef renderer::vf::format<
+		typename boost::mpl::fold<
+			optional_elements,
+			basic,
+			boost::mpl::eval_if<
+				boost::mpl::contains<
+					typename Choices::elements,
+					boost::mpl::first<
+						boost::mpl::_2
+					>
+				>,
+				boost::mpl::push_back<
+					boost::mpl::_1,
+					fcppt::mpl::inner<
+						boost::mpl::second<
+							boost::mpl::_2
+						>
+					>
+				>,
+				boost::mpl::_1
+			>
+		>::type
+	> type;
+};
 
 }
 }

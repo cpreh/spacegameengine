@@ -21,14 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert_dim.hpp"
 #include <sge/image/view/dim.hpp>
 #include <sge/image/size_type.hpp>
-#include <sge/variant/apply_unary.hpp>
-#include <sge/variant/object_impl.hpp>
-#include <sge/math/dim/basic_impl.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 
 namespace
 {
 
-class visitor {
+class visitor
+{
 public:
 	typedef sge::image::dim_type result_type;
 
@@ -37,16 +38,18 @@ public:
 	>
 	result_type const
 	operator()(
-		View const &) const;
+		View const &
+	) const;
 };
 
 }
 
 sge::image::dim_type const
 sge::image::view::dim(
-	const_object const &v)
+	const_object const &v
+)
 {
-	return variant::apply_unary(
+	return fcppt::variant::apply_unary(
 		visitor(),
 		v
 	);
@@ -60,7 +63,8 @@ template<
 >
 visitor::result_type const
 visitor::operator()(
-	View const &view) const
+	View const &view
+) const
 {
 	return sge::image::convert_dim<
 		visitor::result_type

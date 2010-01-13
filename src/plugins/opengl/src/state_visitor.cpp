@@ -20,20 +20,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../state_visitor.hpp"
 #include "../split_states.hpp"
-#include "../convert_states.hpp"
-#include "../convert_fog_float_state.hpp"
 #include "../enable.hpp"
 #include "../check_state.hpp"
 #include "../multi_sample.hpp"
+#include "../convert/bool.hpp"
+#include "../convert/cull_mode.hpp"
+#include "../convert/fog_mode.hpp"
+#include "../convert/draw_mode.hpp"
+#include "../convert/depth_func.hpp"
+#include "../convert/fog_float_state.hpp"
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/rgba32f_format.hpp>
 #include <sge/image/color/rgba32f.hpp>
 #include <sge/renderer/arithmetic_convert.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/variant/object_impl.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::opengl::state_visitor::state_visitor(
 	split_states &states
@@ -52,9 +56,9 @@ sge::opengl::state_visitor::operator()(
 	switch(s.state()) {
 	case rs::stencil_clear_val:
 		glClearStencil(s.value());
-	
+
 		SGE_OPENGL_CHECK_STATE(
-			SGE_TEXT("glClearStencil failed"),
+			FCPPT_TEXT("glClearStencil failed"),
 			sge::renderer::exception
 		)
 		break;
@@ -63,7 +67,7 @@ sge::opengl::state_visitor::operator()(
 		break;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid int_state!"));
+			FCPPT_TEXT("Invalid int_state!"));
 	}
 }
 
@@ -79,7 +83,7 @@ sge::opengl::state_visitor::operator()(
 		break;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid uint_state!"));
+			FCPPT_TEXT("Invalid uint_state!"));
 	}
 }
 
@@ -100,7 +104,7 @@ sge::opengl::state_visitor::operator()(
 		);
 
 		SGE_OPENGL_CHECK_STATE(
-			SGE_TEXT("glClearDepth failed"),
+			FCPPT_TEXT("glClearDepth failed"),
 			sge::renderer::exception
 		)
 		break;
@@ -111,7 +115,7 @@ sge::opengl::state_visitor::operator()(
 	case rs::fog_end:
 	case rs::fog_density:
 		glFogf(
-			convert_fog_float_state(s),
+			convert::fog_float_state(s),
 			renderer::arithmetic_convert<
 				GLfloat
 			>(
@@ -120,13 +124,13 @@ sge::opengl::state_visitor::operator()(
 		);
 
 		SGE_OPENGL_CHECK_STATE(
-			SGE_TEXT("glFogf failed"),
+			FCPPT_TEXT("glFogf failed"),
 			sge::renderer::exception
 		)
 		break;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid float_state!"));
+			FCPPT_TEXT("Invalid float_state!"));
 	}
 }
 
@@ -144,7 +148,7 @@ sge::opengl::state_visitor::operator()(
 	case rs::enable_alpha_blending:
 	case rs::enable_lighting:
 		enable(
-			convert_states(s),
+			convert::bool_(s),
 			s.value()
 		);
 		break;
@@ -161,7 +165,7 @@ sge::opengl::state_visitor::operator()(
 		break;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid bool_state!"));
+			FCPPT_TEXT("Invalid bool_state!"));
 	}
 }
 
@@ -189,7 +193,7 @@ sge::opengl::state_visitor::operator()(
 		);
 
 		SGE_OPENGL_CHECK_STATE(
-			SGE_TEXT("glClearColor failed"),
+			FCPPT_TEXT("glClearColor failed"),
 			sge::renderer::exception
 		)
 		break;
@@ -199,7 +203,7 @@ sge::opengl::state_visitor::operator()(
 			fcolor.data()
 		);
 		SGE_OPENGL_CHECK_STATE(
-			SGE_TEXT("glLightMOdelfv failed"),
+			FCPPT_TEXT("glLightMOdelfv failed"),
 			sge::renderer::exception
 		)
 		break;
@@ -210,31 +214,37 @@ sge::opengl::state_visitor::operator()(
 		);
 
 		SGE_OPENGL_CHECK_STATE(
-			SGE_TEXT("glFogfv failed"),
+			FCPPT_TEXT("glFogfv failed"),
 			sge::renderer::exception
 		)
 		break;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid color_state!"));
+			FCPPT_TEXT("Invalid color_state!"));
 	}
 }
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
-	renderer::state::cull_mode::type const m) const
+	renderer::state::cull_mode::type const m
+) const
 {
 	if(m == renderer::state::cull_mode::off)
 	{
 		disable(GL_CULL_FACE);
 		return;
 	}
+
 	enable(GL_CULL_FACE);
-	
-	glCullFace(convert_states(m));
+
+	glCullFace(
+		convert::cull_mode(
+			m
+		)
+	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glCullFace failed"),
+		FCPPT_TEXT("glCullFace failed"),
 		sge::renderer::exception
 	)
 }
@@ -251,10 +261,14 @@ sge::opengl::state_visitor::operator()(
 
 	enable(GL_DEPTH_TEST);
 
-	glDepthFunc(convert_states(f));
+	glDepthFunc(
+		convert::depth_func(
+			f
+		)
+	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glDepthFunc failed"),
+		FCPPT_TEXT("glDepthFunc failed"),
 		sge::renderer::exception
 	)
 }
@@ -275,7 +289,8 @@ sge::opengl::state_visitor::operator()(
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
-	renderer::state::fog_mode::type const m) const
+	renderer::state::fog_mode::type const m
+) const
 {
 	if(m == renderer::state::fog_mode::off)
 	{
@@ -285,25 +300,33 @@ sge::opengl::state_visitor::operator()(
 
 	enable(GL_FOG);
 
-	glFogi(GL_FOG_MODE, convert_states(m));
+	glFogi(
+		GL_FOG_MODE,
+		convert::fog_mode(
+			m
+		)
+	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glFogi failed"),
+		FCPPT_TEXT("glFogi failed"),
 		sge::renderer::exception
 	)
 }
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
-	renderer::state::draw_mode::type const m) const
+	renderer::state::draw_mode::type const m
+) const
 {
 	glPolygonMode(
 		GL_FRONT_AND_BACK,
-		convert_states(m)
+		convert::draw_mode(
+			m
+		)
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glPolygonMode failed"),
+		FCPPT_TEXT("glPolygonMode failed"),
 		sge::renderer::exception
 	)
 }

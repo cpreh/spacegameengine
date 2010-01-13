@@ -39,14 +39,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/manager_fwd.hpp>
 #include <sge/gui/size_policy.hpp>
 #include <sge/image/store.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <sge/gui/export.hpp>
-#include <sge/optional.hpp>
-
+#include <fcppt/optional.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
-#include <boost/function.hpp>
 
 namespace sge
 {
@@ -56,14 +54,14 @@ namespace widgets
 {
 class SGE_CLASS_SYMBOL base
 {
-	SGE_NONCOPYABLE(base)
+	FCPPT_NONCOPYABLE(base)
 	public:
 	typedef boost::ptr_vector<
 		widgets::base,
 		boost::view_clone_allocator> child_container;
 
 	/**
-	 * This: 
+	 * This:
 	 * -Sets the layout's connected widget (can only be set once)
 	 * -Calls base::add_child on the parent widget (if any)
 	 * -Calls manager::add(*this)
@@ -87,12 +85,12 @@ class SGE_CLASS_SYMBOL base
 
 	SGE_GUI_SYMBOL void z(depth_type);
 	SGE_GUI_SYMBOL depth_type z() const;
-	
+
 	SGE_GUI_SYMBOL image &buffer() const;
 
 	SGE_GUI_SYMBOL manager &parent_manager();
 	SGE_GUI_SYMBOL manager const &parent_manager() const;
-	
+
 	SGE_GUI_SYMBOL widgets::base &parent_widget();
 	SGE_GUI_SYMBOL widgets::base const &parent_widget() const;
 

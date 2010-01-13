@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/plugin/manager.hpp>
@@ -26,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/context.hpp>
 #include <sge/model/plugin.hpp>
 #include <sge/model/loader.hpp>
-#include <sge/model/loader_fwd.hpp>
+#include <sge/model/loader_ptr.hpp>
 #include <sge/model/object.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/action.hpp>
@@ -45,15 +44,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
-#include <sge/signal/scoped_connection.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <sge/image/create_texture.hpp>
 #include <sge/mainloop/catch_block.hpp>
 #include <sge/mainloop/dispatch.hpp>
-#include <sge/math/matrix/perspective.hpp>
-#include <sge/math/pi.hpp>
+#include <fcppt/math/matrix/perspective.hpp>
+#include <fcppt/math/pi.hpp>
 #include <sge/config/media_path.hpp>
-#include <sge/text.hpp>
-#include <sge/iconv.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/iconv.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <fstream>
@@ -64,7 +63,7 @@ try
 	sge::systems::instance sys(
 		sge::systems::list()
 		(sge::window::parameters(
-			SGE_TEXT("sge animtest")
+			FCPPT_TEXT("sge animtest")
 		))
 		(sge::renderer::parameters(
 			sge::renderer::display_mode(
@@ -81,7 +80,7 @@ try
 		(sge::systems::parameterless::input)
 		(sge::systems::parameterless::image)
 	);
-	
+
 	sge::plugin::plugin<
 		sge::model::loader
 	>::ptr_type const  model_plugin(
@@ -94,7 +93,7 @@ try
 	);
 
 	std::ifstream ifs(
-		sge::iconv((sge::config::media_path() / SGE_TEXT("european_fnt_v2.md3")).string()).c_str(),
+		fcppt::iconv((sge::config::media_path() / FCPPT_TEXT("european_fnt_v2.md3")).string()).c_str(),
 		std::ios_base::binary
 	);
 
@@ -136,7 +135,7 @@ try
 
 	sge::renderer::texture_ptr const tex(
 		sge::image::create_texture(
-			sge::config::media_path() / SGE_TEXT("european_fnt.tga"),
+			sge::config::media_path() / FCPPT_TEXT("european_fnt.tga"),
 			sys.renderer(),
 			sys.image_loader(),
 			sge::renderer::filter::linear,
@@ -151,12 +150,12 @@ try
 	sys.renderer()->state(
 		sge::renderer::state::list
 			(sge::renderer::state::cull_mode::off)
-		
+
 	);
 
 	bool running = true;
 
-	sge::signal::scoped_connection const cb(
+	fcppt::signal::scoped_connection const cb(
 		sys.input_system()->register_callback(
 			sge::input::action(
 				sge::input::kc::key_escape,
@@ -168,11 +167,11 @@ try
 	typedef float unit;
 
 	sys.renderer()->projection(
-		sge::math::matrix::perspective<unit>(
+		fcppt::math::matrix::perspective<unit>(
 			sge::renderer::aspect<unit>(
 				sys.renderer()->screen_size()
 			),
-			sge::math::pi<unit>() / static_cast<unit>(4),
+			fcppt::math::pi<unit>() / static_cast<unit>(4),
 			-100.f,
 			100.f
 		)
@@ -189,11 +188,11 @@ try
 		sys.renderer()->render(
 			vb,
 			ib,
-			0,
-			vb->size(),
+			sge::renderer::first_vertex(0),
+			sge::renderer::vertex_count(vb->size()),
 			sge::renderer::indexed_primitive_type::triangle,
-			ib->size() / 3,
-			0
+			sge::renderer::primitive_count(ib->size() / 3),
+			sge::renderer::first_index(0)
 		);
 	}
 }

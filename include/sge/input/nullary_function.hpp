@@ -21,15 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_NULLARY_FUNCTION_HPP_INCLUDED
 #define SGE_INPUT_NULLARY_FUNCTION_HPP_INCLUDED
 
-//#include <boost/function.hpp>
-#include <sge/function/object.hpp>
+#include <fcppt/function/object.hpp>
 
 namespace sge
 {
 namespace input
 {
 
-typedef sge::function::object<
+typedef fcppt::function::object<
 	void ()
 > nullary_function;
 

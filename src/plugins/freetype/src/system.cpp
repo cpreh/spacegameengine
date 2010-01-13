@@ -20,12 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../system.hpp"
 #include "../metrics.hpp"
-#include <sge/make_shared_ptr.hpp>
-#include <tr1/functional>
+#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/tr1/functional.hpp>
 
 sge::font::metrics_ptr const
 sge::freetype::system::create_font(
-	filesystem::path const &font_name,
+	fcppt::filesystem::path const &font_name,
 	font::size_type const font_size,
 	sge::image::loader_ptr)
 {
@@ -42,7 +42,7 @@ sge::freetype::system::create_font(
 
 	if (!fptr)
 	{
-		fptr = make_shared_ptr<
+		fptr = fcppt::make_shared_ptr<
 			metrics
 		>(
 			std::tr1::ref(

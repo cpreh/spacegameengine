@@ -24,10 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list_fwd.hpp>
 #include <sge/renderer/state/trampoline_fwd.hpp>
 #include <sge/renderer/state/any.hpp>
-#include <sge/variant/object_impl.hpp>
-#include <sge/export.hpp>
-#include <sge/function/object.hpp>
-//#include <boost/function.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/function/object.hpp>
 #include <set>
 
 namespace sge
@@ -37,11 +36,12 @@ namespace renderer
 namespace state
 {
 
-class list {
+class list
+{
 public:
 	typedef std::set<
 		any,
-		sge::function::object<
+		fcppt::function::object<
 			bool(
 				any const &,
 				any const &
@@ -54,7 +54,7 @@ public:
 	);
 
 	SGE_SYMBOL ~list();
-	
+
 	SGE_SYMBOL list const
 	operator()(
 		any const &

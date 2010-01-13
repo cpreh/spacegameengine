@@ -21,18 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONFIG_FIND_CONFIG_PATH_HPP_INCLUDED
 #define SGE_CONFIG_FIND_CONFIG_PATH_HPP_INCLUDED
 
-#include <sge/filesystem/path.hpp>
-#include <sge/string.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
 namespace config
 {
 
-SGE_SYMBOL filesystem::path const
+SGE_SYMBOL fcppt::filesystem::path const
 find_config_path(
-	string const &appname
+	fcppt::string const &appname
 );
 
 }

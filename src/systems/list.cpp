@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list.hpp>
 #include <sge/systems/named_compare.hpp>
 #include <sge/systems/name_dont_care.hpp>
-#include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
-#include <sge/text.hpp>
-#include <functional>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/text.hpp>
 #include <ostream>
 
 namespace
@@ -34,8 +34,10 @@ sge::systems::named_set const
 init_states()
 {
 	return sge::systems::named_set(
-		std::ptr_fun(
-			sge::systems::named_compare
+		std::tr1::bind(
+			sge::systems::named_compare,
+			std::tr1::placeholders::_1,
+			std::tr1::placeholders::_2
 		)
 	);
 }
@@ -50,7 +52,8 @@ sge::systems::list::list()
 {}
 
 sge::systems::list::list(
-	any const &any_)
+	any const &any_
+)
 :
 	states(
 		init_states()
@@ -65,7 +68,8 @@ sge::systems::list::list(
 }
 
 sge::systems::list::list(
-	named const &named_)
+	named const &named_
+)
 :
 	states(
 		init_states()
@@ -78,7 +82,8 @@ sge::systems::list::list(
 
 sge::systems::list const
 sge::systems::list::operator()(
-	any const &any_) const
+	any const &any_
+) const
 {
 	return (*this)(
 		named(
@@ -90,7 +95,8 @@ sge::systems::list::operator()(
 
 sge::systems::list const
 sge::systems::list::operator()(
-	named const &named_) const
+	named const &named_
+) const
 {
 	list ret(*this);
 
@@ -100,10 +106,10 @@ sge::systems::list::operator()(
 		).second
 	)
 	{
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
-			log::_
-				<< SGE_TEXT("Duplicate system state given!")
+			fcppt::log::_
+				<< FCPPT_TEXT("Duplicate system state given!")
 		);
 	}
 	return ret;

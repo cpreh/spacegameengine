@@ -21,13 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../matrix.hpp"
 #include "../check_state.hpp"
 #include "../glew.hpp"
-#include <sge/variant/apply_unary.hpp>
-#include <sge/variant/object_impl.hpp>
-#include <sge/math/matrix/basic_impl.hpp>
-#include <sge/math/matrix/static.hpp>
-#include <sge/math/matrix/transpose.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/math/matrix/static.hpp>
+#include <fcppt/math/matrix/transpose.hpp>
+#include <fcppt/text.hpp>
 
 namespace
 {
@@ -38,11 +38,11 @@ public:
 
 	result_type
 	operator()(
-		sge::math::matrix::static_<float, 4, 4>::type const &m) const;
+		fcppt::math::matrix::static_<float, 4, 4>::type const &m) const;
 
 	result_type
 	operator()(
-		sge::math::matrix::static_<double, 4, 4>::type const &m) const;
+		fcppt::math::matrix::static_<double, 4, 4>::type const &m) const;
 };
 
 bool have_transpose()
@@ -72,7 +72,7 @@ void sge::opengl::matrix_mode(
 	glMatrixMode(mode);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glMatrixMode failed"),
+		FCPPT_TEXT("glMatrixMode failed"),
 		sge::renderer::exception
 	)
 }
@@ -80,7 +80,7 @@ void sge::opengl::matrix_mode(
 void sge::opengl::set_matrix(
 	renderer::any_matrix const &mat)
 {
-	variant::apply_unary(
+	fcppt::variant::apply_unary(
 		visitor(),
 		mat
 	);
@@ -90,7 +90,7 @@ namespace
 {
 
 void visitor::operator()(
-	sge::math::matrix::static_<float, 4, 4>::type const &m) const
+	fcppt::math::matrix::static_<float, 4, 4>::type const &m) const
 {
 	if(have_transpose())
 		glLoadTransposeMatrixf(
@@ -98,19 +98,19 @@ void visitor::operator()(
 		);
 	else
 		glLoadMatrixf(
-			sge::math::matrix::transpose(
+			fcppt::math::matrix::transpose(
 				m
 			).data()
 		);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glLoadMatrixf failed"),
+		FCPPT_TEXT("glLoadMatrixf failed"),
 		sge::renderer::exception
-	)	
+	)
 }
-	
+
 void visitor::operator()(
-	sge::math::matrix::static_<double, 4, 4>::type const &m) const
+	fcppt::math::matrix::static_<double, 4, 4>::type const &m) const
 {
 	if(have_transpose())
 		glLoadTransposeMatrixd(
@@ -118,13 +118,13 @@ void visitor::operator()(
 		);
 	else
 		glLoadMatrixd(
-			sge::math::matrix::transpose(
+			fcppt::math::matrix::transpose(
 				m
 			).data()
 		);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glLoadMatrixd failed"),
+		FCPPT_TEXT("glLoadMatrixd failed"),
 		sge::renderer::exception
 	)
 }

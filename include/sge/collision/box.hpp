@@ -22,18 +22,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_COLLISION_BOX_HPP_INCLUDED
 
 #include <sge/collision/unit.hpp>
-#include <sge/math/box/basic_fwd.hpp>
+#include <fcppt/math/box/basic_fwd.hpp>
 
 namespace sge
 {
 namespace collision
 {
-typedef math::box::basic
+typedef fcppt::math::box::basic
 <
 	unit,
 	3
 >
 box;
+
 }
 }
 

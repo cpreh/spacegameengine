@@ -21,35 +21,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VIEWPORT_HPP_INCLUDED
 #define SGE_RENDERER_VIEWPORT_HPP_INCLUDED
 
+#include <sge/renderer/viewport_fwd.hpp>
 #include <sge/renderer/pixel_pos.hpp>
 #include <sge/renderer/screen_size.hpp>
-#include <sge/export.hpp>
-#include <sge/ostream.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/dim/basic_impl.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/io/ostream.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-class viewport {
+class viewport
+{
 public:
 	SGE_SYMBOL viewport(
 		pixel_pos const &,
-		screen_size const &);
+		screen_size const &
+	);
 
-	SGE_SYMBOL pixel_pos const &pos() const;
-	SGE_SYMBOL screen_size const &size() const;
+	SGE_SYMBOL pixel_pos const &
+	pos() const;
+
+	SGE_SYMBOL screen_size const &
+	size() const;
 private:
 	pixel_pos   pos_;
 	screen_size size_;
 };
 
-SGE_SYMBOL ostream &
+SGE_SYMBOL fcppt::io::ostream &
 operator<<(
-	ostream &,
-	viewport const &);
+	fcppt::io::ostream &,
+	viewport const &
+);
 
 }
 }

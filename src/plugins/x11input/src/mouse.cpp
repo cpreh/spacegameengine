@@ -23,16 +23,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../mouse_grab.hpp"
 #include "../mouse_keys.hpp"
 #include <X11/Xlib.h>
-#include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
 #include <sge/input/key_pair.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/text.hpp>
-#include <tr1/functional>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/text.hpp>
 
 namespace
 {
@@ -53,7 +53,7 @@ sge::x11input::mouse::mouse(
 		XDefaultColormap(
 			wnd->display()->get(),
 			wnd->screen()), // TODO: do we have to release this?
-		SGE_TEXT("black")
+		FCPPT_TEXT("black")
 	),
 	no_bmp_(
 		wnd->display(),
@@ -173,12 +173,12 @@ void sge::x11input::mouse::warped_motion(
 {
 	if(!grab_)
 		return;
-	
+
 	mouse_coordinate_t const
 		MOUSE_FUDGE_FACTOR = 8,
 		w = wnd->size().w(),
 		h = wnd->size().h();
-	
+
 	mouse_coordinate_t
 		deltax = xevent.xmotion.x - mouse_last.x(),
 		deltay = xevent.xmotion.y - mouse_last.y();
@@ -190,10 +190,12 @@ void sge::x11input::mouse::warped_motion(
 		deltax,
 		deltay);
 
-	if ( !((xevent.xmotion.x < MOUSE_FUDGE_FACTOR) ||
-	     (xevent.xmotion.x > (w-MOUSE_FUDGE_FACTOR)) ||
-	     (xevent.xmotion.y < MOUSE_FUDGE_FACTOR) ||
-	     (xevent.xmotion.y > (h-MOUSE_FUDGE_FACTOR)) ))
+	if (
+		!((xevent.xmotion.x < MOUSE_FUDGE_FACTOR) ||
+		(xevent.xmotion.x > (w-MOUSE_FUDGE_FACTOR)) ||
+		(xevent.xmotion.y < MOUSE_FUDGE_FACTOR) ||
+		(xevent.xmotion.y > (h-MOUSE_FUDGE_FACTOR)) )
+	)
 		return;
 
 	while (XCheckTypedEvent(wnd->display()->get(), MotionNotify, &xevent) )
@@ -221,19 +223,21 @@ void sge::x11input::mouse::warped_motion(
 			PointerMotionMask,
 			&xevent);
 
-		if ( (xevent.xmotion.x > mouse_last.x() - MOUSE_FUDGE_FACTOR) &&
-		     (xevent.xmotion.x < mouse_last.x() + MOUSE_FUDGE_FACTOR) &&
-		     (xevent.xmotion.y > mouse_last.y() - MOUSE_FUDGE_FACTOR) &&
-		     (xevent.xmotion.y < mouse_last.y() + MOUSE_FUDGE_FACTOR) )
+		if (
+			(xevent.xmotion.x > mouse_last.x() - MOUSE_FUDGE_FACTOR) &&
+			(xevent.xmotion.x < mouse_last.x() + MOUSE_FUDGE_FACTOR) &&
+			(xevent.xmotion.y > mouse_last.y() - MOUSE_FUDGE_FACTOR) &&
+			(xevent.xmotion.y < mouse_last.y() + MOUSE_FUDGE_FACTOR)
+		)
 			return;
 
 	}
-	
-	SGE_LOG_WARNING(
+
+	FCPPT_LOG_WARNING(
 		log::global(),
-		log::_
-			<< SGE_TEXT("Didn't detect mouse warp motion! ")
-			   SGE_TEXT("Try to enable dga mouse instead."));
+		fcppt::log::_
+			<< FCPPT_TEXT("Didn't detect mouse warp motion! ")
+			FCPPT_TEXT("Try to enable dga mouse instead."));
 }
 
 void sge::x11input::mouse::private_mouse_motion(
@@ -247,7 +251,7 @@ void sge::x11input::mouse::private_mouse_motion(
 				deltax
 			)
 		);
-	
+
 	if(deltay)
 		callback(
 			input::key_pair(

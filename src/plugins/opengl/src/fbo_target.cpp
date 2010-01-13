@@ -25,23 +25,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../check_state.hpp"
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/text.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/shared_ptr.hpp>
+#include <fcppt/text.hpp>
 
 sge::opengl::fbo_target::fbo_target()
 {
 	if(!glGenFramebuffersEXT)
 		on_not_supported(
-			SGE_TEXT("glGenFrameBuffersEXT"),
-			SGE_TEXT("none"),
-			SGE_TEXT("frame_buffer_ext")
+			FCPPT_TEXT("glGenFrameBuffersEXT"),
+			FCPPT_TEXT("none"),
+			FCPPT_TEXT("frame_buffer_ext")
 		);
 
 	glGenFramebuffersEXT(1, &fbo);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glGenFramebuffersEXT failed"),
+		FCPPT_TEXT("glGenFramebuffersEXT failed"),
 		sge::renderer::exception
 	)
 
@@ -63,8 +64,8 @@ void sge::opengl::fbo_target::bind_texture(
 {
 	bind_me();
 
-	shared_ptr<texture_base> const p(
-		dynamic_pointer_cast<texture_base>(t));
+	fcppt::shared_ptr<texture_base> const p(
+		fcppt::dynamic_pointer_cast<texture_base>(t));
 
 	glFramebufferTexture2DEXT(
 		GL_FRAMEBUFFER_EXT,
@@ -81,9 +82,9 @@ void sge::opengl::fbo_target::bind_texture(
 
 	if(status != GL_FRAMEBUFFER_COMPLETE_EXT)
 		throw renderer::exception(
-			SGE_TEXT("glCheckFramebufferStatusEXT: fbo incomplete!"));
-	
-	texture_target = dynamic_pointer_cast<texture>(t);
+			FCPPT_TEXT("glCheckFramebufferStatusEXT: fbo incomplete!"));
+
+	texture_target = fcppt::dynamic_pointer_cast<texture>(t);
 }
 
 sge::renderer::target::dim_type const

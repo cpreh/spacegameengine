@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_GLSL_UNIFORM_MATRIX_HPP_INCLUDED
 
 #include <sge/renderer/glsl/float_type.hpp>
-#include <sge/math/matrix/dynamic.hpp>
+#include <fcppt/math/matrix/dynamic.hpp>
 
 namespace sge
 {
@@ -33,7 +33,7 @@ namespace glsl
 namespace uniform
 {
 
-typedef math::matrix::dynamic<
+typedef fcppt::math::matrix::dynamic<
 	float_type
 >::type matrix;
 

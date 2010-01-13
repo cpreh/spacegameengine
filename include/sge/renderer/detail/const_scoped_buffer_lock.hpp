@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/detail/npos.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/noncopyable.hpp>
-#include <sge/export.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
@@ -38,13 +38,13 @@ template<
 	typename View
 >
 class const_scoped_buffer_lock {
-	SGE_NONCOPYABLE(const_scoped_buffer_lock)
+	FCPPT_NONCOPYABLE(const_scoped_buffer_lock)
 public:
 	SGE_SYMBOL explicit const_scoped_buffer_lock(
 		Ptr,
 		size_type first = 0,
 		size_type count = npos);
-	
+
 	SGE_SYMBOL View const
 	value() const;
 

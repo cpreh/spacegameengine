@@ -23,31 +23,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/console/var.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
-#include <sge/lexical_cast.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/lexical_cast.hpp>
+#include <fcppt/bad_lexical_cast.hpp>
 
 template<typename T>
 void sge::console::var<T>::string(
-	sge::string const &s) 
-{ 
+	fcppt::string const &s)
+{
 	try
 	{
-		t = lexical_cast<value_type>(s); 
-	} 
-	catch (bad_lexical_cast const &)
+		t = fcppt::lexical_cast<value_type>(s);
+	}
+	catch (fcppt::bad_lexical_cast const &)
 	{
 		throw exception(
-			SGE_TEXT("couldn't parse variable \"")
+			FCPPT_TEXT("couldn't parse variable \"")
 			+ name()
-			+ SGE_TEXT("\""));
+			+ FCPPT_TEXT("\""));
 	}
 }
 
 template<typename T>
-sge::string const
+fcppt::string const
 sge::console::var<T>::string() const
 {
-	return lexical_cast<sge::string>(t);
+	return fcppt::lexical_cast<fcppt::string>(t);
 }
 
 template<typename T>
@@ -65,15 +66,14 @@ void sge::console::var<T>::value(T const &_t)
 template<typename T>
 sge::console::var<T>::var(
 	object &object_,
-	sge::string const &name,
-	value_type const &t) 
+	fcppt::string const &name,
+	value_type const &t)
 :
 	var_base(
 		object_,
 		name),
 	t(t)
 {
-	//late_construct();
 }
 
 #endif

@@ -35,14 +35,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/object.hpp>
 #include <sge/font/text_size.hpp>
 #include <sge/config/media_path.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/math/dim/structure_cast.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/signal/scoped_connection.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/action.hpp>
-#include <sge/text.hpp>
-#include <sge/make_shared_ptr.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 
@@ -52,7 +52,7 @@ try
 	sge::systems::instance const sys(
 		sge::systems::list()
 		(sge::window::parameters(
-			SGE_TEXT("sge animtest")
+			FCPPT_TEXT("sge animtest")
 		))
 		(sge::renderer::parameters(
 			sge::renderer::display_mode(
@@ -75,13 +75,13 @@ try
 	sge::font::object font(
 		sys.font_system()->create_font(
 			sge::config::media_path()
-			/ SGE_TEXT("fonts")
-			/ SGE_TEXT("bitmap")
-			/ SGE_TEXT("font.png"),
+			/ FCPPT_TEXT("fonts")
+			/ FCPPT_TEXT("bitmap")
+			/ FCPPT_TEXT("font.png"),
 			0,
 			sys.image_loader()
 		),
-		sge::make_shared_ptr<
+		fcppt::make_shared_ptr<
 			sge::font::drawer_3d
 		>(
 			sys.renderer(),
@@ -99,7 +99,7 @@ try
 
 	bool running = true;
 
-	sge::signal::scoped_connection const cb(
+	fcppt::signal::scoped_connection const cb(
 		sys.input_system()->register_callback(
 			sge::input::action(
 				sge::input::kc::key_escape,
@@ -117,9 +117,9 @@ try
 		);
 
 		font.draw_text(
-			SGE_TEXT("test abcd"),
+			FCPPT_TEXT("test abcd"),
 			sge::font::pos::null(),
-			sge::math::dim::structure_cast<
+			fcppt::math::dim::structure_cast<
 				sge::font::dim
 			>(
 				sys.renderer()->screen_size()

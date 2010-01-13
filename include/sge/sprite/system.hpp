@@ -21,56 +21,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_SYSTEM_HPP_INCLUDED
 #define SGE_SPRITE_SYSTEM_HPP_INCLUDED
 
-#include <sge/sprite/fwd.hpp>
-#include <sge/sprite/system_base.hpp>
-#include <sge/sprite/container.hpp>
-#include <sge/export.hpp>
-#include <sge/function/object.hpp>
-//#include <boost/function.hpp>
+#include <sge/sprite/intrusive/tag.hpp>
+#include <sge/sprite/intrusive/system_fwd.hpp>
+#include <sge/sprite/external_system_fwd.hpp>
+#include <fcppt/restrict_typedef_struct.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/mpl/contains.hpp>
 
 namespace sge
 {
 namespace sprite
 {
 
-class system : public system_base {
-public:
-	SGE_SYMBOL explicit system(
-		renderer::device_ptr rend);
-	
-	typedef sge::function::object<
-		void (
-			object *,
-			object *)
-	> sort_method;
-
-	typedef sge::function::object<
-		bool (
-			object const &,
-			object const &)
-	> equal_method;
-
-	SGE_SYMBOL static sort_method const default_sort;
-	SGE_SYMBOL static equal_method const default_equal;
-
-	SGE_SYMBOL void render(
-		container::iterator begin,
-		container::iterator end,
-		sort_method const &
-			= default_sort,
-		equal_method const &
-			= default_equal);
-
-	SGE_SYMBOL void render(
-		object *begin,
-		object *end,
-		sort_method const &
-			= default_sort,
-		equal_method const &
-			= default_equal);
-	
-	SGE_SYMBOL void render(
-		object);
+template<
+	typename Choices
+>
+struct system
+:
+boost::mpl::if_<
+	boost::mpl::contains<
+		typename Choices::elements,
+		intrusive::tag
+	>,
+	intrusive::system<
+		Choices
+	>,
+	external_system<
+		Choices
+	>
+>
+{
+	FCPPT_RESTRICT_TYPEDEF_STRUCT(system)
 };
 
 }

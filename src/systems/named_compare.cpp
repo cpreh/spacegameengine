@@ -20,9 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/named_compare.hpp>
 #include <sge/systems/named.hpp>
-#include <sge/container/map.hpp>
-#include <sge/type_info.hpp>
-#include <sge/variant/apply_binary.hpp>
+#include <fcppt/container/map.hpp>
+#include <fcppt/variant/apply_binary.hpp>
+#include <fcppt/type_info.hpp>
 #include <boost/assign/list_of.hpp>
 #include <typeinfo>
 #include <map>
@@ -30,36 +30,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-class compare {
+class compare
+{
 public:
 	typedef bool result_type;
 
 	bool operator()(
 		sge::systems::parameterless::type const &,
-		sge::systems::parameterless::type const &) const;
-	
+		sge::systems::parameterless::type const &
+	) const;
+
 	template<
 		typename T,
 		typename U
 	>
-	bool operator()(
+	result_type
+	operator()(
 		T const &,
-		U const &) const;
+		U const &
+	) const;
 };
 
 typedef unsigned priority_type;
 
 priority_type
 priority(
-	sge::type_info const &);
+	fcppt::type_info const &
+);
 
 }
 
-bool sge::systems::named_compare(
+bool
+sge::systems::named_compare(
 	named const &a,
-	named const &b)
+	named const &b
+)
 {
-	return variant::apply_binary(
+	return fcppt::variant::apply_binary(
 		compare(),
 		a.value(),
 		b.value()
@@ -69,37 +76,46 @@ bool sge::systems::named_compare(
 namespace
 {
 
-bool compare::operator()(
+compare::result_type
+compare::operator()(
 	sge::systems::parameterless::type const &a,
-	sge::systems::parameterless::type const &b) const
+	sge::systems::parameterless::type const &b
+) const
 {
 	return a < b;
 }
 
-template<typename T, typename U>
-bool compare::operator()(
+template<
+	typename T,
+	typename U
+>
+compare::result_type
+compare::operator()(
 	T const &,
-	U const &) const
+	U const &
+) const
 {
-	return priority(typeid(T))
+	return
+		priority(typeid(T))
 		< priority(typeid(U));
 }
 
 priority_type
 priority(
-	sge::type_info const &t)
+	fcppt::type_info const &t
+)
 {
-	static sge::container::map<
+	static fcppt::container::map<
 		std::map<
-			sge::type_info,
+			fcppt::type_info,
 			priority_type
 		>
 	> const priorities =
 		boost::assign::map_list_of
-			(sge::type_info(typeid(sge::window::parameters)), 0)
-			(sge::type_info(typeid(sge::renderer::parameters)), 1)
-			(sge::type_info(typeid(sge::systems::parameterless::type)), 2);
-	
+			(fcppt::type_info(typeid(sge::window::parameters)), 0)
+			(fcppt::type_info(typeid(sge::renderer::parameters)), 1)
+			(fcppt::type_info(typeid(sge::systems::parameterless::type)), 2);
+
 	return priorities[t];
 }
 

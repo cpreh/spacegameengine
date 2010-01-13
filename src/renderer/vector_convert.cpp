@@ -20,12 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vector_convert.hpp>
 #include <sge/renderer/basic_any_vector.hpp>
-#include <sge/variant/apply_unary.hpp>
-#include <sge/variant/object_impl.hpp>
-#include <sge/math/vector/static.hpp>
-#include <sge/math/vector/basic_decl.hpp>
-#include <sge/math/vector/structure_cast.hpp>
-#include <sge/export.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/math/vector/static.hpp>
+#include <fcppt/math/vector/basic_decl.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/export_symbol.hpp>
 
 namespace
 {
@@ -33,7 +33,8 @@ namespace
 template<
 	typename Dest
 >
-class visitor {
+class visitor
+{
 public:
 	typedef Dest result_type;
 
@@ -42,7 +43,8 @@ public:
 	>
 	result_type const
 	operator()(
-		T const &) const;
+		T const &
+	) const;
 };
 
 }
@@ -53,9 +55,10 @@ template<
 >
 Dest const
 sge::renderer::vector_convert(
-	Source const &v)
+	Source const &v
+)
 {
-	return variant::apply_unary(
+	return fcppt::variant::apply_unary(
 		visitor<Dest>(),
 		v
 	);
@@ -72,9 +75,10 @@ template<
 >
 typename visitor<Dest>::result_type const
 visitor<Dest>::operator()(
-	T const &v) const
+	T const &v
+) const
 {
-	return sge::math::vector::structure_cast<
+	return fcppt::math::vector::structure_cast<
 		Dest
 	>(v);
 }
@@ -82,10 +86,11 @@ visitor<Dest>::operator()(
 }
 
 #define SGE_INSTANTIATE_VECTOR_CONVERT(t, n)\
-template SGE_SYMBOL \
-sge::math::vector::static_<t, n>::type const \
+template FCPPT_EXPORT_SYMBOL \
+fcppt::math::vector::static_<t, n>::type const \
 sge::renderer::vector_convert(\
-	sge::renderer::basic_any_vector<n>::type const &);
+	sge::renderer::basic_any_vector<n>::type const &\
+);
 
 #define SGE_INSTANTIATE_VECTOR_CONVERT_N(n)\
 SGE_INSTANTIATE_VECTOR_CONVERT(float, n)\

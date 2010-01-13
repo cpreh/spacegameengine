@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_DETAIL_FRAGMENTED_QUEUE_HPP_INCLUDED
 #define SGE_TEXTURE_DETAIL_FRAGMENTED_QUEUE_HPP_INCLUDED
 
+#include <sge/texture/fragmented_fwd.hpp>
 #include <sge/texture/detail/fragmented_sort.hpp>
 #include <boost/ptr_container/ptr_set.hpp>
 
@@ -28,9 +29,6 @@ namespace sge
 {
 namespace texture
 {
-
-class fragmented;
-
 namespace detail
 {
 

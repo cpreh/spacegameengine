@@ -21,15 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_RW_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_RW_HPP_INCLUDED
 
-#include <sge/renderer/texture_fwd.hpp>
+#include <sge/renderer/texture_ptr.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/image/view/object.hpp>
 #include <sge/image/view/const_object.hpp>
-#include <sge/export.hpp>
-#include <sge/scoped_ptr.hpp>
-#include <sge/noncopyable.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/scoped_ptr.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -40,7 +41,7 @@ class SGE_CLASS_SYMBOL texture_rw
 :
 	public texture
 {
-	SGE_NONCOPYABLE(texture_rw)
+	FCPPT_NONCOPYABLE(texture_rw)
 public:
 	SGE_SYMBOL texture_rw(
 		texture_ptr read,
@@ -81,7 +82,7 @@ private:
 		read_,
 		write_;
 
-	mutable scoped_ptr<
+	mutable fcppt::scoped_ptr<
 		lock_data
 	> locked;
 };

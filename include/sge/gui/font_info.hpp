@@ -23,8 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/gui/export.hpp>
 #include <sge/gui/color.hpp>
-#include <sge/font/metrics_fwd.hpp>
-#include <sge/variant/object_impl.hpp>
+#include <sge/font/metrics_ptr.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 namespace sge
 {
@@ -36,7 +37,7 @@ public:
 	SGE_GUI_SYMBOL font_info(
 		font::metrics_ptr,
 		sge::gui::color const &);
-	
+
 	SGE_GUI_SYMBOL font::metrics_ptr const metrics() const;
 	SGE_GUI_SYMBOL sge::gui::color const color() const;
 private:

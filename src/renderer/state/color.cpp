@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "instantiate.hpp"
 #include <sge/renderer/state/color.hpp>
-#include <sge/renderer/state/impl/instantiate.hpp>
-#include <sge/variant/object_impl.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
-SGE_RENDERER_STATE_IMPL_INSTANTIATE_VAR_AND_TRAMPOLINE(color)
-SGE_RENDERER_STATE_IMPL_INSTANTIATE_TRAMPOLINE_OBJECT(color, clear_color)
-SGE_RENDERER_STATE_IMPL_INSTANTIATE_TRAMPOLINE_OBJECT(color, ambient_light_color)
-SGE_RENDERER_STATE_IMPL_INSTANTIATE_TRAMPOLINE_OBJECT(color, fog_color)
+SGE_RENDERER_STATE_INSTANTIATE_VAR_AND_TRAMPOLINE(color)
+SGE_RENDERER_STATE_INSTANTIATE_TRAMPOLINE_OBJECT(color, clear_color)
+SGE_RENDERER_STATE_INSTANTIATE_TRAMPOLINE_OBJECT(color, ambient_light_color)
+SGE_RENDERER_STATE_INSTANTIATE_TRAMPOLINE_OBJECT(color, fog_color)

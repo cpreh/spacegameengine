@@ -23,8 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../configuration.hpp"
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
-#include <sge/x11/sentry.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 #include <X11/Xlib.h>
 #include <X11/extensions/Xrandr.h>
 
@@ -35,25 +36,37 @@ sge::opengl::xrandr::set_resolution(
 	mode const &m
 )
 {
-	SGE_X11_SENTRY
-
 	if(m.rate() != renderer::refresh_rate_dont_care)
-		XRRSetScreenConfigAndRate(
-			wnd->display()->get(),
-			config->get(),
-			wnd->get(),
-			m.index(),
-			m.rotation(),
-			static_cast<short>(m.rate()),
-			CurrentTime
-		);
+	{
+		if(
+			XRRSetScreenConfigAndRate(
+				wnd->display()->get(),
+				config->get(),
+				wnd->get(),
+				m.index(),
+				m.rotation(),
+				static_cast<short>(m.rate()),
+				CurrentTime
+			) != Success
+		)
+			throw sge::renderer::exception(
+				FCPPT_TEXT("Cannot change screen mode with rate!")
+			);
+	}
 	else
-		XRRSetScreenConfig(
-			wnd->display()->get(),
-			config->get(),
-			wnd->get(),
-			m.index(),
-			m.rotation(),
-			CurrentTime
-		);
+	{
+		if(
+			XRRSetScreenConfig(
+				wnd->display()->get(),
+				config->get(),
+				wnd->get(),
+				m.index(),
+				m.rotation(),
+				CurrentTime
+			) != Success
+		)
+			throw sge::renderer::exception(
+				FCPPT_TEXT("Cannot change screen mode!")
+			);
+	}
 }

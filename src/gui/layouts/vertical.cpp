@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/gui/layouts/vertical.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/math/vector/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 
 sge::gui::layouts::vertical::vertical()
 	: row()

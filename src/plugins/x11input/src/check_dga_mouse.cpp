@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../check_dga_mouse.hpp"
 #include <sge/x11/window.hpp>
 #ifdef SGE_USE_DGA
-#include <X11/extensions/xf86dga.h>
+#include <X11/extensions/Xxf86dga.h>
 #include <sge/x11/display.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #endif
 
 bool sge::x11input::check_dga_mouse(
@@ -33,7 +33,7 @@ bool sge::x11input::check_dga_mouse(
 	const wnd
 #endif
 )
-	
+
 {
 #ifdef SGE_USE_DGA
 	int flags;
@@ -43,7 +43,7 @@ bool sge::x11input::check_dga_mouse(
 		&flags)
 	== false)
 		throw exception(
-			SGE_TEXT("XF86DGAQueryDirectVideo() failed!"));
+			FCPPT_TEXT("XF86DGAQueryDirectVideo() failed!"));
 	return !(flags & XF86DGADirectMouse);
 #else
 	return false;

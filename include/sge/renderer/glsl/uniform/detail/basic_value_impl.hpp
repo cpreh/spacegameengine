@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_GLSL_UNIFORM_DETAIL_BASIC_VALUE_IMPL_HPP_INCLUDED
 
 #include <sge/renderer/glsl/uniform/detail/basic_value.hpp>
-#include <sge/container/raw_vector_impl.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
 
 template<
 	typename Value,
@@ -31,7 +31,8 @@ template<
 sge::renderer::glsl::uniform::detail::basic_value<Value, Type>::basic_value(
 	data_type const &data_,
 	size_type const elements_,
-	Type const type_)
+	Type const type_
+)
 :
 	data_(data_),
 	elements_(elements_),

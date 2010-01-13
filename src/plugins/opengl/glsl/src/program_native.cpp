@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../program_native.hpp"
 #include "../../check_state.hpp"
 #include <sge/renderer/glsl/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 template<>
 sge::opengl::glsl::traits<true>::handle
@@ -32,7 +32,7 @@ sge::opengl::glsl::create_program<true>()
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glCreateProgram failed"),
+		FCPPT_TEXT("glCreateProgram failed"),
 		sge::renderer::glsl::exception
 	)
 
@@ -40,14 +40,14 @@ sge::opengl::glsl::create_program<true>()
 }
 
 template<>
-GLenum 
+GLenum
 sge::opengl::glsl::vertex_shader_type<true>()
 {
 	return GL_VERTEX_SHADER;
 }
 
 template<>
-GLenum 
+GLenum
 sge::opengl::glsl::pixel_shader_type<true>()
 {
 	return GL_FRAGMENT_SHADER;
@@ -61,7 +61,7 @@ void sge::opengl::glsl::detach_shader<true>(
 	glDetachShader(program, shader);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glDetachShader failed"),
+		FCPPT_TEXT("glDetachShader failed"),
 		sge::renderer::glsl::exception
 	)
 }
@@ -73,7 +73,7 @@ void sge::opengl::glsl::delete_program<true>(
 	glDeleteProgram(program);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glDeleteProgram failed"),
+		FCPPT_TEXT("glDeleteProgram failed"),
 		sge::renderer::glsl::exception
 	)
 }
@@ -86,7 +86,7 @@ void sge::opengl::glsl::attach_shader<true>(
 	glAttachShader(program, shader);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glAttachShader failed"),
+		FCPPT_TEXT("glAttachShader failed"),
 		sge::renderer::glsl::exception
 	)
 }
@@ -98,7 +98,7 @@ void sge::opengl::glsl::link_program<true>(
 	glLinkProgram(program);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glLinKProgram failed"),
+		FCPPT_TEXT("glLinKProgram failed"),
 		sge::renderer::glsl::exception
 	)
 }
@@ -113,7 +113,7 @@ GLint sge::opengl::glsl::program_integer<true>(
 	glGetProgramiv(program, what, &result);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glGetProgramiv failed"),
+		FCPPT_TEXT("glGetProgramiv failed"),
 		sge::renderer::glsl::exception
 	)
 
@@ -137,7 +137,7 @@ void sge::opengl::glsl::use_program<true>(
 	glUseProgram(program);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glUseProgram failed"),
+		FCPPT_TEXT("glUseProgram failed"),
 		sge::renderer::glsl::exception
 	)
 }
@@ -157,7 +157,7 @@ void sge::opengl::glsl::program_info_log<true>(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glGetProgramInfoLog failed"),
+		FCPPT_TEXT("glGetProgramInfoLog failed"),
 		sge::renderer::glsl::exception
 	)
 }

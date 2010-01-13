@@ -22,15 +22,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../check_state.hpp"
 #include "../vector4f.hpp"
 #include "../vector3f.hpp"
+#include "../convert/light_index.hpp"
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/rgba32f_format.hpp>
 #include <sge/renderer/vector_convert.hpp>
 #include <sge/renderer/arithmetic_convert.hpp>
 #include <sge/renderer/light.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/math/vector/construct.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/text.hpp>
+#include <fcppt/math/vector/construct.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/text.hpp>
 
 namespace
 {
@@ -64,11 +65,13 @@ void light_color(
 	sge::image::color::any::object const &color);
 }
 
-void sge::opengl::set_light(
+void
+sge::opengl::set_light(
 	renderer::light_index const index,
-	renderer::light const &l)
+	renderer::light const &l
+)
 {
-	GLenum const glindex = convert_light_index(index);
+	GLenum const glindex = convert::light_index(index);
 
 	light_color(glindex, GL_AMBIENT, l.ambient());
 	light_color(glindex, GL_DIFFUSE, l.diffuse());
@@ -87,12 +90,6 @@ void sge::opengl::set_light(
 
 }
 
-GLenum sge::opengl::convert_light_index(
-	renderer::light_index const index)
-{
-	return GL_LIGHT0 + index;
-}
-
 namespace
 {
 
@@ -105,10 +102,10 @@ void light_float_ptr(
 	glLightfv(index, name, data);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glLightfv failed"),
+		FCPPT_TEXT("glLightfv failed"),
 		sge::renderer::exception
 	)
-	
+
 }
 
 void light_float(
@@ -119,7 +116,7 @@ void light_float(
 	glLightf(index, name, value);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glLightf failed"),
+		FCPPT_TEXT("glLightf failed"),
 		sge::renderer::exception
 	)
 }
@@ -145,7 +142,7 @@ void light_pos(
 	sge::renderer::any_vector3 const &pos)
 {
 	sge::opengl::vector4f const pos4(
-		sge::math::vector::construct(
+		fcppt::math::vector::construct(
 			sge::renderer::vector_convert<
 				sge::opengl::vector3f
 			>(
@@ -154,7 +151,7 @@ void light_pos(
 			static_cast<GLfloat>(1)
 		)
 	);
-	
+
 	light_float_ptr(
 		index,
 		GL_POSITION,

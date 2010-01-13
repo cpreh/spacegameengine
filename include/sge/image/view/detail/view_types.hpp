@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <mizuiro/image/interleaved.hpp>
 #include <mizuiro/image/dimension_impl.hpp>
 #include <mizuiro/image/format.hpp>
-#include <mizuiro/detail/nonconst_tag.hpp> // TODO
-#include <boost/mpl/vector.hpp>
+#include <mizuiro/nonconst_tag.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace sge
 {
@@ -53,10 +53,10 @@ struct view_types {
 		>
 	> format;
 
-	typedef boost::mpl::vector<
+	typedef boost::mpl::vector2<
 		mizuiro::image::view<
 			format,
-			mizuiro::detail::nonconst_tag
+			mizuiro::nonconst_tag
 		>,
 		typename mizuiro::image::raw_view<
 			format

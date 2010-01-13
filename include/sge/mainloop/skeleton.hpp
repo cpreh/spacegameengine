@@ -22,45 +22,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MAINLOOP_SKELETON_HPP_INCLUDED
 
 #include <sge/systems/instance.hpp>
-#include <sge/signal/shared_connection.hpp>
-#include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
-#include <sge/optional.hpp>
+#include <sge/systems/list_fwd.hpp>
+#include <sge/input/key_pair_fwd.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/signal/shared_connection.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/optional.hpp>
 
 namespace sge
 {
-namespace systems
-{
-class list;
-}
-namespace input
-{
-class key_pair;
-}
-
 namespace mainloop
 {
 
-class SGE_CLASS_SYMBOL skeleton {
-	SGE_NONCOPYABLE(skeleton)
+class SGE_CLASS_SYMBOL skeleton
+{
+	FCPPT_NONCOPYABLE(skeleton)
 public:
-	SGE_SYMBOL void run();
+	SGE_SYMBOL void
+	run();
 protected:
 	SGE_SYMBOL explicit skeleton(
-		systems::list const &);	
-	SGE_SYMBOL void exit();
-	SGE_SYMBOL systems::instance const &system() const;
+		systems::list const &
+	);
+
+	SGE_SYMBOL void
+	exit();
+
+	SGE_SYMBOL systems::instance const &
+	system() const;
+
 	SGE_SYMBOL virtual ~skeleton();
 private:
-	virtual void loop() = 0;
-	virtual void key_event(
-		input::key_pair const &);	
+	virtual void
+	loop() = 0;
+
+	virtual void
+	key_event(
+		input::key_pair const &
+	);
 
 	bool running;
+
 	systems::instance const sys;
 
-	typedef optional<
-		signal::shared_connection
+	typedef fcppt::optional<
+		fcppt::signal::shared_connection
 	> optional_shared_connection;
 
 	optional_shared_connection input_con;

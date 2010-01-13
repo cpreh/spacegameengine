@@ -21,13 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LIBRARY_OBJECT_HPP_INCLUDED
 #define SGE_LIBRARY_OBJECT_HPP_INCLUDED
 
-#include <sge/config.h>
 #include <sge/library/function_string.hpp>
-#include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
-#include <sge/filesystem/path.hpp>
-#ifdef SGE_WINDOWS_PLATFORM
-#include <sge/scoped_ptr.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/config.h>
+#ifdef FCPPT_WINDOWS_PLATFORM
+#include <fcppt/scoped_ptr.hpp>
 #endif
 
 namespace sge
@@ -35,33 +35,42 @@ namespace sge
 namespace library
 {
 
-class object {
-	SGE_NONCOPYABLE(object)
+class object
+{
+	FCPPT_NONCOPYABLE(object)
 public:
 	SGE_SYMBOL explicit object(
-		filesystem::path const &);
+		fcppt::filesystem::path const &
+	);
+
 	SGE_SYMBOL ~object();
 
-	template<typename Fun>
-	Fun load_function(
-		function_string const &fun);
+	template<
+		typename Fun
+	>
+	Fun
+	load_function(
+		function_string const &
+	);
 
-	SGE_SYMBOL filesystem::path const &
+	SGE_SYMBOL fcppt::filesystem::path const &
 	name() const;
 private:
 	typedef void *(*base_fun)();
+
 	SGE_SYMBOL base_fun
 	load_address_base(
-		function_string const &fun);
+		function_string const &
+	);
 
 	void *const handle;
-#ifdef SGE_WINDOWS_PLATFORM
+#ifdef FCPPT_WINDOWS_PLATFORM
 	struct destroyer;
-	scoped_ptr<
+	fcppt::scoped_ptr<
 		destroyer
 	> destroyer_;
 #endif
-	filesystem::path const name_;
+	fcppt::filesystem::path const name_;
 };
 
 }

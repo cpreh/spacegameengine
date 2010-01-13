@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../change_display_settings.hpp"
 #include <sge/renderer/parameters.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <sge/windows/window.hpp>
 #include <sge/windows/windows.hpp>
 
@@ -47,14 +47,14 @@ sge::opengl::windows::state::state(
 
 	if(param.wmode() == renderer::window_mode::fullscreen)
 		change_display_settings(
-			param.mode());	
+			param.mode());
 }
 
 void sge::opengl::windows::state::swap_buffers()
 {
 	if(wglSwapLayerBuffers(hdc.hdc(), WGL_SWAP_MAIN_PLANE) == FALSE)
 		throw exception(
-			SGE_TEXT("wglSwapLayerBuffers() failed!"));
+			FCPPT_TEXT("wglSwapLayerBuffers() failed!"));
 }
 
 void sge::opengl::windows::state::reset_viewport()

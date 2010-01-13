@@ -20,22 +20,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../texture_functions.hpp"
 #include "../check_state.hpp"
-#include "../convert_texture_filter.hpp"
+#include "../convert/texture_min_filter.hpp"
+#include "../convert/texture_mag_filter.hpp"
 #include "../glew.hpp"
 #include "../pbo.hpp" // TODO: maybe put this somewhere else
-#include <sge/log/headers.hpp>
-#include <sge/math/box/basic_impl.hpp>
-#include <sge/math/box/output.hpp>
-#include <sge/math/is_power_of_2.hpp>
-#include <sge/math/dim/output.hpp>
-#include <sge/math/dim/basic_impl.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/box/output.hpp>
+#include <fcppt/math/is_power_of_2.hpp>
+#include <fcppt/math/dim/output.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/format.hpp>
 #include <sge/renderer/filter/texture.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/texture_creation_failed.hpp>
 #include <sge/log/global.hpp>
-#include <sge/log/temporary_output.hpp>
-#include <sge/text.hpp>
-#include <sge/format.hpp>
 #include <ostream>
 
 namespace
@@ -54,10 +54,10 @@ GLuint sge::opengl::gen_texture()
 	glGenTextures(1, &id);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glGenTextures failed"),
+		FCPPT_TEXT("glGenTextures failed"),
 		sge::renderer::exception
 	)
-	
+
 	return id;
 }
 
@@ -67,7 +67,7 @@ void sge::opengl::delete_texture(
 	glDeleteTextures(1, &id);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glDeleteTextures failed"),
+		FCPPT_TEXT("glDeleteTextures failed"),
 		sge::renderer::exception
 	)
 }
@@ -81,25 +81,25 @@ void sge::opengl::set_texture(
 	renderer::const_raw_pointer const src)
 {
 	if(dim.w() < 64 || dim.h() < 64)
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
-			log::_
-				<< SGE_TEXT("opengl implementations are not required to support textures smaller than 64x64.")\
-				SGE_TEXT(" Specified texture size was ")
+			fcppt::log::_
+				<< FCPPT_TEXT("opengl implementations are not required to support textures smaller than 64x64.")\
+				FCPPT_TEXT(" Specified texture size was ")
 				<< dim
-				<< SGE_TEXT('.')
+				<< FCPPT_TEXT('.')
 		);
 
-	if(!math::is_power_of_2(dim.w()) || !math::is_power_of_2(dim.h()))
-		SGE_LOG_WARNING(
+	if(!fcppt::math::is_power_of_2(dim.w()) || !fcppt::math::is_power_of_2(dim.h()))
+		FCPPT_LOG_WARNING(
 			log::global(),
-			log::_
-				<< SGE_TEXT("opengl implementations are not required to support textures with dimensions that are not a power of 2.")\
-				SGE_TEXT(" Specified texture size was ")
+			fcppt::log::_
+				<< FCPPT_TEXT("opengl implementations are not required to support textures with dimensions that are not a power of 2.")\
+				FCPPT_TEXT(" Specified texture size was ")
 				<< dim
-				<< SGE_TEXT('.')
+				<< FCPPT_TEXT('.')
 		);
-		
+
 	glTexImage2D(
 		tex_type,
 		0,
@@ -113,11 +113,12 @@ void sge::opengl::set_texture(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		sge::str(
-			sge::format(
-				SGE_TEXT("Creation of texture with size %1% failed!"))
+		(
+			fcppt::format(
+				FCPPT_TEXT("Creation of texture with size %1% failed!")
+			)
 			% dim
-		),
+		).str(),
 		sge::renderer::texture_creation_failed
 	);
 
@@ -140,7 +141,7 @@ void sge::opengl::build_mipmaps(
 {
 	if(!src)
 		throw exception(
-			SGE_TEXT("ogl::build_mipmaps: src is 0!"));
+			FCPPT_TEXT("ogl::build_mipmaps: src is 0!"));
 
 	gluBuild2DMipmaps(
 		tex_type,
@@ -153,7 +154,7 @@ void sge::opengl::build_mipmaps(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("gluBuild2DMipmaps failed"),
+		FCPPT_TEXT("gluBuild2DMipmaps failed"),
 		sge::renderer::texture_creation_failed
 	)
 }
@@ -169,18 +170,22 @@ void sge::opengl::set_texture_rect(
 {
 	if(!src && !pbo_in_hardware())
 		throw exception(
-			SGE_TEXT("ogl::set_texture_rect(): src is 0!"));
+			FCPPT_TEXT("ogl::set_texture_rect(): src is 0!"));
 
 	if(r.right() > dim.w() || r.bottom() > dim.h())
 		throw exception(
-			(sge::format(
-				SGE_TEXT("rect for setting a texture is out of range (rect=%1%, dim=%2%)!"))
+			(
+				fcppt::format(
+					FCPPT_TEXT("rect for setting a texture is out of range (rect=%1%, dim=%2%)!")
+				)
 				% r
-				% dim).str());
+				% dim)
+			.str()
+		);
 
 	if(need_mipmap(filter.min()))
 		throw exception(
-			SGE_TEXT("You can't specify an update rect while using mipmaps."));
+			FCPPT_TEXT("You can't specify an update rect while using mipmaps."));
 
 	glTexSubImage2D(
 		tex_type,
@@ -195,12 +200,12 @@ void sge::opengl::set_texture_rect(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		sge::str(
-			sge::format(
-				SGE_TEXT("glTexSubImage2D with rect %1% failed")
+		(
+			fcppt::format(
+				FCPPT_TEXT("glTexSubImage2D with rect %1% failed")
 			)
 			% r
-		),
+		).str(),
 		sge::renderer::exception
 	)
 }
@@ -219,7 +224,7 @@ void sge::opengl::get_tex_image(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glGetTexImage failed"),
+		FCPPT_TEXT("glGetTexImage failed"),
 		sge::renderer::exception
 	)
 }
@@ -232,10 +237,10 @@ void sge::opengl::tex_parameter_i(
 	glTexParameteri(type, name, value);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glTexParameteri failed"),
+		FCPPT_TEXT("glTexParameteri failed"),
 		sge::renderer::exception
 	)
-	
+
 }
 
 void sge::opengl::bind_texture(
@@ -245,7 +250,7 @@ void sge::opengl::bind_texture(
 	glBindTexture(type, value);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glBindTexture failed"),
+		FCPPT_TEXT("glBindTexture failed"),
 		sge::renderer::exception
 	)
 }
@@ -257,28 +262,32 @@ void sge::opengl::set_texture_filter(
 	tex_parameter_i(
 		type,
 		GL_TEXTURE_MIN_FILTER,
-		convert_texture_filter(filter.min())
+		convert::texture_min_filter(
+			filter.min()
+		)
 	);
-	
+
 	tex_parameter_i(
 		type,
 		GL_TEXTURE_MAG_FILTER,
-		convert_texture_filter(filter.mag())
+		convert::texture_mag_filter(
+			filter.mag()
+		)
 	);
 
 	if(!filter.anisotropy())
 		return;
-	
+
 	if(!have_anisotropic_filter())
 	{
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
-			log::_
-				<< SGE_TEXT("anisotropic filtering is not supported!")
+			fcppt::log::_
+				<< FCPPT_TEXT("anisotropic filtering is not supported!")
 		);
 		return;
 	}
-	
+
 	try
 	{
 		tex_parameter_i(
@@ -289,12 +298,12 @@ void sge::opengl::set_texture_filter(
 	}
 	catch(exception const &)
 	{
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
-			log::_
-				<< SGE_TEXT("anisotropy level ")
+			fcppt::log::_
+				<< FCPPT_TEXT("anisotropy level ")
 				<< filter.anisotropy()
-				<< SGE_TEXT(" not supported!")
+				<< FCPPT_TEXT(" not supported!")
 		);
 	}
 }

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/format_stride.hpp>
 #include <sge/renderer/index/view.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::renderer::size_type
 sge::renderer::index::format_stride(
@@ -34,6 +34,6 @@ sge::renderer::index::format_stride(
 		return sizeof(view_32::value_type);
 	default:
 		throw exception(
-			SGE_TEXT("Invalid index::format in index::format_stride()!"));
+			FCPPT_TEXT("Invalid index::format in index::format_stride()!"));
 	}
 }

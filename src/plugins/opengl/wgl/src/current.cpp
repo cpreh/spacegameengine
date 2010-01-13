@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../current.hpp"
 #include "../context.hpp"
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <sge/windows/gdi_device.hpp>
 
 sge::opengl::wgl::current::current(
@@ -30,7 +30,7 @@ sge::opengl::wgl::current::current(
 {
 	if(wglMakeCurrent(dev.hdc(), ctx.hglrc()) == FALSE)
 		throw exception(
-			SGE_TEXT("wglMakeCurrent() failed!"));
+			FCPPT_TEXT("wglMakeCurrent() failed!"));
 }
 
 sge::opengl::wgl::current::~current()

@@ -26,44 +26,67 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim_type.hpp>
 #include <sge/renderer/filter/anisotropy_type.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/export.hpp>
-#include <sge/string.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-class caps {
+class caps
+{
 public:
 	SGE_SYMBOL caps(
 		adapter_type adapter_,
-		string const &driver_name,
-		string const &description,
+		fcppt::string const &driver_name,
+		fcppt::string const &description,
 		dim_type const &max_texure_size,
 		filter::anisotropy_type max_anisotropy_,
 		bool render_target_supported,
 		bool glsl_supported,
 		image::color::format::type preferred_texture_format
 	);
-		
-	SGE_SYMBOL adapter_type adapter() const;
-	SGE_SYMBOL string const &driver_name() const;
-	SGE_SYMBOL string const &description() const;
-	SGE_SYMBOL dim_type const &max_texture_size() const;
-	SGE_SYMBOL filter::anisotropy_type max_anisotropy() const; 
-	SGE_SYMBOL bool render_target_supported() const;
-	SGE_SYMBOL bool glsl_supported() const;
-	SGE_SYMBOL image::color::format::type preferred_texture_format() const;
+
+	SGE_SYMBOL adapter_type
+	adapter() const;
+
+	SGE_SYMBOL fcppt::string const &
+	driver_name() const;
+
+	SGE_SYMBOL fcppt::string const &
+	description() const;
+
+	SGE_SYMBOL dim_type const &
+	max_texture_size() const;
+
+	SGE_SYMBOL filter::anisotropy_type
+	max_anisotropy() const;
+
+	SGE_SYMBOL bool
+	render_target_supported() const;
+
+	SGE_SYMBOL bool
+	glsl_supported() const;
+
+	SGE_SYMBOL image::color::format::type
+	preferred_texture_format() const;
 private:
-	adapter_type            adapter_;
-	string                  driver_name_;
-	string                  description_;
-	dim_type                max_texture_size_;
+	adapter_type adapter_;
+
+	fcppt::string driver_name_;
+
+	fcppt::string description_;
+
+	dim_type max_texture_size_;
+
 	filter::anisotropy_type max_anisotropy_;
-	bool                    render_target_supported_;
-	bool                    glsl_supported_;
+
+	bool render_target_supported_;
+
+	bool glsl_supported_;
+
 	image::color::format::type preferred_texture_format_;
 };
 

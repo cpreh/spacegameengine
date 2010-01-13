@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vf/role.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
@@ -36,7 +36,7 @@ class dynamic_color {
 public:
 	SGE_SYMBOL explicit dynamic_color(
 		image::color::format::type);
-	
+
 	SGE_SYMBOL image::color::format::type
 	color_format() const;
 private:

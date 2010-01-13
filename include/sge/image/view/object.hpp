@@ -22,17 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_VIEW_OBJECT_HPP_INCLUDED
 
 #include <sge/image/view/elements.hpp>
-#include <sge/variant/object_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
 
 namespace sge
 {
-namespace image 
+namespace image
 {
 namespace view
 {
 
-typedef variant::object<
-	elements	
+typedef fcppt::variant::object<
+	elements
 > object;
 
 }

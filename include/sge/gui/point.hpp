@@ -21,13 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_POINT_HPP_INCLUDED
 #define SGE_GUI_POINT_HPP_INCLUDED
 
-#include <sge/sprite/point.hpp>
+#include <fcppt/math/vector/static.hpp>
+#include <sge/gui/unit.hpp>
 
 namespace sge
 {
 namespace gui
 {
-typedef sprite::point point;
+
+typedef fcppt::math::vector::static_<
+	unit,
+	2
+>::type point;
+
 }
 }
 

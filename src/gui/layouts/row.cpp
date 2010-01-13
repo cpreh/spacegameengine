@@ -22,27 +22,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widgets/base.hpp>
 #include <sge/gui/unit.hpp>
 #include <sge/gui/log.hpp>
-#include <sge/math/dim/output.hpp>
-#include <sge/math/box/basic_impl.hpp>
-#include <sge/math/vector/arithmetic.hpp>
-#include <sge/math/vector/structure_cast.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/math/dim/structure_cast.hpp>
-#include <sge/log/parameters/inherited.hpp>
-#include <sge/log/object.hpp>
-#include <sge/log/headers.hpp>
-#include <sge/assert.hpp>
-#include <sge/type_info.hpp>
+#include <fcppt/math/dim/output.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/log/parameters/inherited.hpp>
+#include <fcppt/log/object.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/assert_message.hpp>
+#include <fcppt/type_name.hpp>
 #include <boost/foreach.hpp>
 
 namespace
 {
 
-sge::log::object mylogger(
-	sge::log::parameters::inherited(
+fcppt::log::object mylogger(
+	fcppt::log::parameters::inherited(
 		sge::gui::global_log(),
-		SGE_TEXT("layouts: row")
+		FCPPT_TEXT("layouts: row")
 	)
 );
 
@@ -50,64 +50,66 @@ sge::log::object mylogger(
 
 sge::gui::layouts::row::row(
 	spacing const &_spacing)
-: 
+:
 	base(),
 	sizes(),
 	spacing_(_spacing)
 {
 }
-	
+
 void sge::gui::layouts::row::compile_static()
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("In static compilation for widget ")
-		        << type_info(typeid(connected_widget())).name());
+		fcppt::log::_
+			<< FCPPT_TEXT("In static compilation for widget ")
+			<< fcppt::type_name(typeid(connected_widget()))
+	);
 
 	reset_cache();
-	
+
 	// Make everything dirty. There's no better place to do it. If a child of
 	// connected_widget() is deleted, this function gets called and we have to
 	// redraw everything, else we get errors
 	connected_widget().parent_manager().dirty(
 		connected_widget(),
 		rect(
-			rect::pos_type::null(),
+			rect::vector::null(),
 			connected_widget().size()
 		)
 	);
-	
-	dim const 
+
+	dim const
 		optimal = optimal_size(),
 		usable = connected_widget().size();
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("optimal size ") << optimal 
-		        << SGE_TEXT(", usable size: ") << usable);
+		fcppt::log::_ << FCPPT_TEXT("optimal size ") << optimal
+		        << FCPPT_TEXT(", usable size: ") << usable);
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("adapting master axis begin"));
+		fcppt::log::_ << FCPPT_TEXT("adapting master axis begin"));
 	adapt_outer(
 		optimal,
 		usable,
 		master(
 			dim(0,1)));
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("adapting master axis end"));
-	SGE_LOG_DEBUG(
+		fcppt::log::_ << FCPPT_TEXT("adapting master axis end"));
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("adapting slave axis begin"));
+		fcppt::log::_ << FCPPT_TEXT("adapting slave axis begin"));
 	adapt_outer(
 		optimal,
 		usable,
 		slave(
 			dim(0,1)));
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("adapting slave axis end"));
+		fcppt::log::_ << FCPPT_TEXT("adapting slave axis end"));
 
 	// finally, set positions and sizes
 	update_widgets(usable);
@@ -121,14 +123,14 @@ sge::gui::dim const sge::gui::layouts::row::optimal_size() const
 		master(hint) += master(w.optimal_size());
 		slave(hint) = std::max(slave(hint),slave(w.optimal_size()));
 	}
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("returning optimal size ") 
+		fcppt::log::_ << FCPPT_TEXT("returning optimal size ")
 		        << hint);
-	
-	return 
-		math::vector::structure_cast<dim>(
-			math::dim::structure_cast<spacing>(hint) *
+
+	return
+		fcppt::math::vector::structure_cast<dim>(
+			fcppt::math::dim::structure_cast<spacing>(hint) *
 			spacing_
 		);
 }
@@ -173,17 +175,17 @@ void sge::gui::layouts::row::adapt(
 {
 	unsigned const count = count_flags(flag,axis);
 
-	SGE_ASSERT_MESSAGE(
+	FCPPT_ASSERT_MESSAGE(
 		count,
-		SGE_TEXT("adapt called when there are no widgets to adapt"));
+		FCPPT_TEXT("adapt called when there are no widgets to adapt"));
 
 	unit const diff = usable[axis] - optimal[axis];
 	unit const addition = static_cast<unit>(diff/count);
 
-	SGE_LOG_DEBUG(mylogger,
-		log::_ << SGE_TEXT("adding ") << diff << SGE_TEXT("/") 
-		        << count << SGE_TEXT("=") << addition 
-						<< SGE_TEXT(" pixels to each widget"));
+	FCPPT_LOG_DEBUG(mylogger,
+		fcppt::log::_ << FCPPT_TEXT("adding ") << diff << FCPPT_TEXT("/")
+		        << count << FCPPT_TEXT("=") << addition
+						<< FCPPT_TEXT(" pixels to each widget"));
 
 	BOOST_FOREACH(widget_map::value_type &p,sizes)
 		if (p.first->size_policy().index(axis) & flag)
@@ -198,36 +200,36 @@ void sge::gui::layouts::row::adapt_outer(
 	// optimal > size
 	// count widgets with shrink flag and distribute (optimal - size) among
 	// them. if there are no shrinkable widgets, issue an error
-	// optimal < size 
+	// optimal < size
 	// count widgets with expand flag and distribute (size - optimal) among
 	// them. if there are no widgets with the expand flag, distribute space among
 	// widgets with grow flag.
-	
+
 	if (optimal[axis] > usable[axis])
 	{
-		SGE_ASSERT_MESSAGE(
+		FCPPT_ASSERT_MESSAGE(
 			count_flags(axis_policy::can_shrink,axis),
-			SGE_TEXT("not enough space to hold all widgets and no shrinkable widgets found"));
+			FCPPT_TEXT("not enough space to hold all widgets and no shrinkable widgets found"));
 
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_ << SGE_TEXT("there is too less space, shrinking begin"));
+			fcppt::log::_ << FCPPT_TEXT("there is too less space, shrinking begin"));
 		adapt(optimal,usable,axis_policy::can_shrink,axis);
-		SGE_LOG_DEBUG(mylogger,log::_ << SGE_TEXT("shrinking end"));
+		FCPPT_LOG_DEBUG(mylogger,fcppt::log::_ << FCPPT_TEXT("shrinking end"));
 	}
 	else if (optimal[axis] <= usable[axis])
 	{
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_ << SGE_TEXT("there is too much space, expanding begin"));
+			fcppt::log::_ << FCPPT_TEXT("there is too much space, expanding begin"));
 		unsigned count;
 		if ((count = count_flags(axis_policy::should_grow,axis)))
 		{
-			SGE_LOG_DEBUG(
+			FCPPT_LOG_DEBUG(
 				mylogger,
-				log::_ << SGE_TEXT("there are ") 
-				        << count 
-				        << SGE_TEXT(" widgets which should grow, growing those"));
+				fcppt::log::_ << FCPPT_TEXT("there are ")
+				        << count
+				        << FCPPT_TEXT(" widgets which should grow, growing those"));
 			adapt(
 				optimal,
 				usable,
@@ -236,11 +238,11 @@ void sge::gui::layouts::row::adapt_outer(
 		}
 		else if ((count = count_flags(axis_policy::can_grow,axis)))
 		{
-			SGE_LOG_DEBUG(
+			FCPPT_LOG_DEBUG(
 				mylogger,
-				log::_ << SGE_TEXT("there are ") 
-				        << count 
-				        << SGE_TEXT(" widgets which can grow, growing those"));
+				fcppt::log::_ << FCPPT_TEXT("there are ")
+				        << count
+				        << FCPPT_TEXT(" widgets which can grow, growing those"));
 			adapt(
 				optimal,
 				usable,
@@ -249,39 +251,39 @@ void sge::gui::layouts::row::adapt_outer(
 		}
 		else
 		{
-			SGE_LOG_DEBUG(
+			FCPPT_LOG_DEBUG(
 				mylogger,
-				log::_ << SGE_TEXT("there are no widgets which could grow :("));
+				fcppt::log::_ << FCPPT_TEXT("there are no widgets which could grow :("));
 		}
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_ << SGE_TEXT("expanding end"));
+			fcppt::log::_ << FCPPT_TEXT("expanding end"));
 	}
 }
 
 void sge::gui::layouts::row::update_widgets(dim const &usable)
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("update widgets begin"));
+		fcppt::log::_ << FCPPT_TEXT("update widgets begin"));
 
 	// calculate "bounding line" of all widgets on the master axis
 	unit bounding = static_cast<unit>(0);
 	BOOST_FOREACH(widget_map::value_type &p,sizes)
 		bounding += master(p.second);
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("bounding size in master direction is ")
+		fcppt::log::_ << FCPPT_TEXT("bounding size in master direction is ")
 		        << bounding);
-	
+
 	unit const extra_space = static_cast<unit>(master(usable)-bounding);
 	unit const increment = static_cast<unit>(extra_space/(sizes.size()+1));
-	
-	SGE_LOG_DEBUG(mylogger,
-		log::_ << SGE_TEXT("there are ") << extra_space 
-		        << SGE_TEXT(" pixels extra space and ") 
-		        << increment << SGE_TEXT(" is the increment"));
+
+	FCPPT_LOG_DEBUG(mylogger,
+		fcppt::log::_ << FCPPT_TEXT("there are ") << extra_space
+		        << FCPPT_TEXT(" pixels extra space and ")
+		        << increment << FCPPT_TEXT(" is the increment"));
 
 	point pos;
 	master(pos) = increment;
@@ -292,13 +294,13 @@ void sge::gui::layouts::row::update_widgets(dim const &usable)
 			static_cast<unit>(
 				slave(usable)/2-slave(p.second)/2);
 
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_ << SGE_TEXT("setting widgets::base (master) position to ")
+			fcppt::log::_ << FCPPT_TEXT("setting widgets::base (master) position to ")
 							<< master(pos)
-							<< SGE_TEXT(" and size to ")
+							<< FCPPT_TEXT(" and size to ")
 							<< p.second);
-		
+
 		base::set_widget_size(
 			*p.first,
 			p.second);
@@ -311,27 +313,27 @@ void sge::gui::layouts::row::update_widgets(dim const &usable)
 
 		master(pos) += master(p.second)+increment;
 	}
-	SGE_LOG_DEBUG(mylogger,log::_ << SGE_TEXT("update widgets end"));
+	FCPPT_LOG_DEBUG(mylogger,fcppt::log::_ << FCPPT_TEXT("update widgets end"));
 }
 
 void sge::gui::layouts::row::reset_cache()
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("resetting cache begin"));
+		fcppt::log::_ << FCPPT_TEXT("resetting cache begin"));
 	sizes.clear();
 	BOOST_FOREACH(widgets::base &w,connected_widget().children())
 	{
 		dim const _optimal_size = w.optimal_size();
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_ << SGE_TEXT("optimal size for this child is ") << _optimal_size);
+			fcppt::log::_ << FCPPT_TEXT("optimal size for this child is ") << _optimal_size);
 		sizes.push_back(
 			widget_map::value_type(
 				&w,
 				_optimal_size));
 	}
-	SGE_LOG_DEBUG(mylogger,log::_ << SGE_TEXT("resetting cache end"));
+	FCPPT_LOG_DEBUG(mylogger,fcppt::log::_ << FCPPT_TEXT("resetting cache end"));
 }
 
 

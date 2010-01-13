@@ -20,14 +20,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../loader.hpp"
 #include "../object.hpp"
-#include <sge/make_shared_ptr.hpp>
-#include <tr1/functional>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 
 sge::model::object_ptr const
 sge::md3::loader::load(
-	model::istream &is)
+	model::istream &is
+)
 {
-	return make_shared_ptr<
+	return fcppt::make_shared_ptr<
 		object
 	>(
 		std::tr1::ref(

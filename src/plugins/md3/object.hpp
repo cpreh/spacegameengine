@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "funit.hpp"
 #include <sge/model/object.hpp>
 #include <sge/model/istream.hpp>
-#include <sge/math/vector/static.hpp>
-#include <sge/math/vector/basic_decl.hpp>
-#include <tr1/array>
+#include <fcppt/math/vector/static.hpp>
+#include <fcppt/math/vector/basic_decl.hpp>
+#include <fcppt/tr1/array.hpp>
 #include <boost/cstdint.hpp>
 #include <vector>
 #include <string>
@@ -53,17 +53,17 @@ public:
 	void
 	copy_vertices(
 		renderer::vf::dynamic_view const &);
-	
+
 	void
 	copy_indices(
 		renderer::index::view const &);
-	
+
 	// TODO: split this!
 	typedef boost::int16_t s16;
 	typedef boost::int32_t s32;
 	typedef boost::uint8_t u8;
 	typedef std::basic_string<u8> string;
-	typedef math::vector::static_<
+	typedef fcppt::math::vector::static_<
 		funit,
 		3
 	>::type vec3;
@@ -71,7 +71,7 @@ public:
 	class frame {
 	public:
 		frame(std::istream& is);
-		
+
 		vec3 min_bounds,
 		     max_bounds,
 		     local_origin;
@@ -82,7 +82,7 @@ public:
 	class tag {
 	public:
 		explicit tag(model::istream& is);
-		
+
 		string                           name;
 		vec3                             origin;
 		typedef std::tr1::array<vec3, 3> axis_array;
@@ -111,8 +111,8 @@ public:
 		class texcoord {
 		public:
 			explicit texcoord(model::istream &);
-			
-			typedef math::vector::static_<
+
+			typedef fcppt::math::vector::static_<
 				funit,
 				2
 			>::type tex_pos;
@@ -142,7 +142,7 @@ public:
 
 		typedef std::vector<shader>   shader_vector;
 		shader_vector                 shaders;
-		
+
 		typedef std::vector<triangle> triangle_vector;
 		triangle_vector               triangles;
 

@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/display_mode.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <ostream>
-	
+
 sge::renderer::display_mode::display_mode(
 	screen_size const &size_,
 	renderer::bit_depth::type const bit_depth_,
@@ -51,37 +51,42 @@ sge::renderer::display_mode::refresh_rate() const
 	return refresh_rate_;
 }
 
-bool sge::renderer::operator== (
+bool
+sge::renderer::operator==(
 	display_mode const &l,
-	display_mode const &r)
+	display_mode const &r
+)
 {
-	return l.bit_depth() == r.bit_depth()
+	return
+		l.bit_depth() == r.bit_depth()
 		&& l.size() == r.size()
 		&& l.refresh_rate() == r.refresh_rate();
 }
 
-bool sge::renderer::operator!= (
+bool
+sge::renderer::operator!=(
 	display_mode const &l,
-	display_mode const &r)
+	display_mode const &r
+)
 {
 	return !(l==r);
 }
 
-sge::ostream &
+fcppt::io::ostream &
 sge::renderer::operator<<(
-	ostream &s,
+	fcppt::io::ostream &s,
 	display_mode const &mode
 )
 {
 	return s
-		<< SGE_TEXT('(')
+		<< FCPPT_TEXT('(')
 		<< mode.size().w()
-		<< SGE_TEXT('x')
+		<< FCPPT_TEXT('x')
 		<< mode.size().h()
-		<< SGE_TEXT('x')
+		<< FCPPT_TEXT('x')
 		<< static_cast<unsigned>(
 			mode.bit_depth())
-		<< SGE_TEXT('@')
+		<< FCPPT_TEXT('@')
 		<< mode.refresh_rate()
-		<< SGE_TEXT(')');
+		<< FCPPT_TEXT(')');
 }

@@ -27,10 +27,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../buffer.hpp"
 #include <sge/audio/sound.hpp>
 #include <sge/audio/pool.hpp>
+#include <sge/audio/file.hpp>
 #include <sge/audio/exception.hpp>
-#include <sge/log/headers.hpp>
-#include <sge/container/raw_vector_impl.hpp>
-#include <sge/text.hpp>
+#include <sge/audio/sample_container.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/text.hpp>
 #include <boost/foreach.hpp>
 
 sge::openal::player::player()
@@ -103,29 +105,29 @@ ALuint sge::openal::player::register_nonstream_sound(
 	audio::sample_container data;
 	_audio_file->read_all(data);
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		log(),
-		log::_
-			<< SGE_TEXT("creating buffer of size ")
+		fcppt::log::_
+			<< FCPPT_TEXT("creating buffer of size ")
 	        	<< data.size()
-			<< SGE_TEXT(" and format ")
+			<< FCPPT_TEXT(" and format ")
 			<< file_format(*_audio_file)
-			<< SGE_TEXT(" and sample rate ")
+			<< FCPPT_TEXT(" and sample rate ")
 			<< _audio_file->sample_rate());
 
 	if (data.empty())
-		throw audio::exception(SGE_TEXT("tried to create empty nonstreaming sound, that's not possible!"));
+		throw audio::exception(FCPPT_TEXT("tried to create empty nonstreaming sound, that's not possible!"));
 
 	// TODO: this function is called more than once!
 	alBufferData(
-		buffer.albuffer(), 
-		file_format(*_audio_file), 
-		data.data(), 
-		static_cast<ALsizei>(data.size()), 
+		buffer.albuffer(),
+		file_format(*_audio_file),
+		data.data(),
+		static_cast<ALsizei>(data.size()),
 		static_cast<ALsizei>(_audio_file->sample_rate()));
 
 	SGE_OPENAL_CHECK_STATE(
-		SGE_TEXT("alBufferData failed"),
+		FCPPT_TEXT("alBufferData failed"),
 		audio::exception
 	)
 

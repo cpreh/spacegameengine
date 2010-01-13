@@ -22,13 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_COLLISION_WORLD_HPP_INCLUDED
 
 #include <sge/collision/world_fwd.hpp>
-#include <sge/collision/body_fwd.hpp>
-#include <sge/collision/group_fwd.hpp>
+#include <sge/collision/body_ptr.hpp>
+#include <sge/collision/group_ptr.hpp>
 #include <sge/collision/unit.hpp>
 #include <sge/collision/solidity.hpp>
 #include <sge/collision/dim.hpp>
 #include <sge/collision/point.hpp>
-#include <sge/collision/satellite_fwd.hpp>
+#include <sge/collision/satellite_ptr.hpp>
 #include <sge/collision/time_unit.hpp>
 #include <sge/collision/shapes/sphere_fwd.hpp>
 #include <sge/collision/shapes/box_fwd.hpp>
@@ -36,10 +36,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/collision/shape_callback.hpp>
 #include <sge/collision/test_callback.hpp>
 #include <sge/collision/test_callback_combiner.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/signal/auto_connection.hpp>
-#include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -47,19 +47,21 @@ namespace collision
 {
 class SGE_CLASS_SYMBOL world
 {
-	SGE_NONCOPYABLE(world)
+	FCPPT_NONCOPYABLE(world)
 protected:
 	SGE_SYMBOL world();
 public:
-	virtual signal::auto_connection
+	virtual fcppt::signal::auto_connection
 	register_test_callback(
-		test_callback const &) = 0;
-	
-	virtual void 
-	test_callback_combiner(
-		test_callback_combiner const &) = 0;
+		test_callback const &
+	) = 0;
 
-	virtual signal::auto_connection
+	virtual void
+	test_callback_combiner(
+		collision::test_callback_combiner const &
+	) = 0;
+
+	virtual fcppt::signal::auto_connection
 	register_begin_callback(
 		shape_callback const &) = 0;
 		
@@ -97,13 +99,15 @@ public:
 
 	virtual void
 	update(
-		time_unit delta) = 0;
-	
+		time_unit delta
+	) = 0;
+
 	virtual void
 	collides_with(
 		group_ptr,
-		group_ptr) = 0;
-	
+		group_ptr
+	) = 0;
+
 	SGE_SYMBOL virtual ~world();
 };
 }

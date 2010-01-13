@@ -21,17 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DINPUT_SIGNAL_HPP_INCLUDED
 #define SGE_DINPUT_SIGNAL_HPP_INCLUDED
 
-#include <sge/input/callback.hpp>
-#include <sge/signal/object.hpp>
+#include <sge/input/key_pair_function.hpp>
+#include <sge/input/key_type_function.hpp>
+#include <fcppt/signal/object.hpp>
 
 namespace sge
 {
 namespace dinput
 {
 
-typedef sge::signal::object<input::key_pair_fun> signal_type;
+typedef fcppt::signal::object<input::key_pair_function> signal_type;
 
-typedef sge::signal::object<input::key_type_fun> repeat_signal_type;
+typedef fcppt::signal::object<input::key_type_function> repeat_signal_type;
 
 }
 }

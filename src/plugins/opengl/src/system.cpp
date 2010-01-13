@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config.h>
+#include <fcppt/config.h>
 #include "../system.hpp"
 #include "../device.hpp"
 #if defined(SGE_HAVE_X11)
@@ -30,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/create_window.hpp>
 #include <sge/x11/screen.hpp>
 #include <sge/renderer/parameters.hpp>
-#elif defined(SGE_WINDOWS_PLATFORM)
+#elif defined(FCPPT_WINDOWS_PLATFORM)
 #include <sge/windows/create_window.hpp>
 #else
 #error "Implement me!"
@@ -38,9 +39,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
-#include <sge/container/raw_vector_impl.hpp>
-#include <sge/make_shared_ptr.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 
 sge::renderer::device_ptr const
 sge::opengl::system::create_renderer(
@@ -50,11 +51,11 @@ sge::opengl::system::create_renderer(
 {
 	if(ref.lock())
 		throw exception(
-			SGE_TEXT("The opengl plugin may only have one renderer!")
+			FCPPT_TEXT("The opengl plugin may only have one renderer!")
 		);
 
 	renderer::device_ptr const r(
-		make_shared_ptr<
+		fcppt::make_shared_ptr<
 			device
 		>(
 			param,
@@ -71,11 +72,12 @@ sge::opengl::system::create_renderer(
 sge::window::instance_ptr const
 sge::opengl::system::create_window(
 	window::parameters const &param,
-	renderer::parameters const &rparam)
+	renderer::parameters const &rparam
+)
 {
 #if defined(SGE_HAVE_X11)
 	sge::x11::display_ptr const dsp(
-		make_shared_ptr<
+		fcppt::make_shared_ptr<
 			sge::x11::display
 		>()
 	);
@@ -92,7 +94,7 @@ sge::opengl::system::create_window(
 			).data()
 		)
 	);
-	
+
 	return sge::x11::create_window(
 		param,
 		dsp,
@@ -101,7 +103,7 @@ sge::opengl::system::create_window(
 		visual,
 		rparam.wmode() == renderer::window_mode::fullscreen
 	);
-#elif defined(SGE_WINDOWS_PLATFORM)
+#elif defined(FCPPT_WINDOWS_PLATFORM)
 	return sge::windows::create_window(
 		param,
 		rparam

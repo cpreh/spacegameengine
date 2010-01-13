@@ -43,7 +43,7 @@ public:
 	void operator()(
 		T &t) const
 	{
-		offsets.push_back(t);	
+		offsets.push_back(t);
 	}
 private:
 	dynamic_offset_list &offsets;

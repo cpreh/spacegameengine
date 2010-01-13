@@ -1,15 +1,36 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
 #include "../context_base.hpp"
 #include <sge/image/file_exception.hpp>
-#include <sge/iconv.hpp>
-#include <sge/text.hpp>
-#include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
+#include <fcppt/iconv.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/log/headers.hpp>
 
 sge::libpng::context_base::context_base(
-	filesystem::path const &_path)
+	fcppt::filesystem::path const &_path
+)
 :
 	path_(
-		_path)
+		_path
+	)
 {
 }
 
@@ -24,13 +45,14 @@ void sge::libpng::context_base::handle_warning(
 void sge::libpng::context_base::handle_warning_impl(
 	png_const_charp const message)
 {
-	SGE_LOG_WARNING(
+	FCPPT_LOG_WARNING(
 		log::global(),
-		log::_ 
-			<< SGE_TEXT("libpng: file: ") 
-			<< path_.string() 
-			<< SGE_TEXT(": ") 
-			<< iconv(message));
+		fcppt::log::_
+			<< FCPPT_TEXT("libpng: file: ")
+			<< path_.string()
+			<< FCPPT_TEXT(": ")
+			<< fcppt::iconv(message)
+	);
 }
 
 void sge::libpng::context_base::handle_error(
@@ -44,11 +66,13 @@ void sge::libpng::context_base::handle_error(
 void sge::libpng::context_base::handle_error_impl(
 	png_const_charp const message)
 {
-	throw 
+	throw
 		image::file_exception(
 			path_,
-			iconv(
-				message));
+			fcppt::iconv(
+				message
+			)
+		);
 }
 
 sge::libpng::context_base::~context_base() {}

@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/x11/wm_hints.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::x11::wm_hints::wm_hints()
 :
@@ -29,8 +29,8 @@ sge::x11::wm_hints::wm_hints()
 {
 	if(!hints)
 		throw exception(
-			SGE_TEXT("XAllocWMHints() failed!"));
-	
+			FCPPT_TEXT("XAllocWMHints() failed!"));
+
 	hints->input = False;
 	hints->initial_state = NormalState;
 	hints->flags = InputHint | StateHint;

@@ -27,35 +27,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../error.hpp"
 #include "../format.hpp"
 #include "../convert_image_format.hpp"
-#include <sge/exception.hpp>
-#include <sge/string.hpp>
-#include <sge/text.hpp>
-#include <sge/iconv.hpp>
-#include <sge/optional_impl.hpp>
-#include <sge/container/raw_vector_impl.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <sge/image/view/make.hpp>
 #include <sge/image/view/format.hpp>
 #include <sge/image/view/dim.hpp>
 #include <sge/image/algorithm/copy_and_convert.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/variant/object_impl.hpp>
+#include <sge/exception.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/iconv.hpp>
+#include <fcppt/optional_impl.hpp>
 
 sge::devil::file::file(
-	filesystem::path const &file)
+	fcppt::filesystem::path const &file
+)
 {
 	bind_me();
 	if(ilLoadImage(
 //#ifdef UNICODE
 //		const_cast<wchar_t*>(file.string().c_str())
 //#else
-		const_cast<char*>(iconv(file.string()).c_str())
+		const_cast<char*>(fcppt::iconv(file.string()).c_str())
 //#endif
-		) == IL_FALSE)
+		) == IL_FALSE
+	)
 		throw exception(
-			SGE_TEXT("ilLoadImage() failed! Could not load '")
+			FCPPT_TEXT("ilLoadImage() failed! Could not load '")
 			+ file.string()
-			+ SGE_TEXT("'!"));
+			+ FCPPT_TEXT("'!"));
 }
 
 /*
@@ -66,7 +68,7 @@ sge::devil::file::file(
 {
 	if(!format_data || size == 0)
 		throw exception(
-			SGE_TEXT("load_image(): format_data or size is 0!"));
+			FCPPT_TEXT("load_image(): format_data or size is 0!"));
 	bind_me();
 	if(ilLoadL(
 		convert_image_format(type),
@@ -74,7 +76,7 @@ sge::devil::file::file(
 		static_cast<ILuint>(size))
 	== IL_FALSE)
 		throw exception(
-			SGE_TEXT("ilLoadL() failed!"));
+			FCPPT_TEXT("ilLoadL() failed!"));
 }
 */
 
@@ -104,7 +106,7 @@ void sge::devil::file::data(
 {
 	bind_me();
 
-	typedef container::raw_vector<
+	typedef fcppt::container::raw_vector<
 		unsigned char
 	> raw_vector_t;
 
@@ -181,8 +183,10 @@ sge::devil::file::view() const
 	);
 }
 
-void sge::devil::file::save(
-	filesystem::path const &file)
+void
+sge::devil::file::save(
+	fcppt::filesystem::path const &file
+)
 {
 	bind_me();
 
@@ -193,7 +197,7 @@ void sge::devil::file::save(
 //#ifdef UNICODE
 //		const_cast<wchar_t*>(file.string().c_str())
 //#else
-		const_cast<char*>(iconv(file.string()).c_str())
+		const_cast<char*>(fcppt::iconv(file.string()).c_str())
 //#endif
 		);
 	ilDisable(IL_ORIGIN_SET);

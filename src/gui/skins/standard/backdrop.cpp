@@ -26,18 +26,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/log.hpp>
 #include <sge/gui/internal_color.hpp>
 #include <sge/image/color/init.hpp>
-#include <sge/log/parameters/inherited.hpp>
-#include <sge/log/object.hpp>
-#include <sge/log/headers.hpp>
-#include <sge/text.hpp>
+#include <fcppt/log/parameters/inherited.hpp>
+#include <fcppt/log/object.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/text.hpp>
 
 namespace
 {
 
-sge::log::object mylogger(
-	sge::log::parameters::inherited(
+fcppt::log::object mylogger(
+	fcppt::log::parameters::inherited(
 		sge::gui::global_log(),
-		SGE_TEXT("skins::standard::backdrop")
+		FCPPT_TEXT("skins::standard::backdrop")
 	)
 );
 
@@ -56,7 +56,7 @@ void sge::gui::skins::standard::draw(
 	// Background
 	c.draw_rect(
 		rect(
-			rect::pos_type::null(),
+			rect::vector::null(),
 			c.size()
 		),
 		internal_color(
@@ -74,8 +74,8 @@ void sge::gui::skins::standard::draw(
 sge::gui::dim const sge::gui::skins::standard::optimal_size(
 	widgets::backdrop const &) const
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("optimal_size called for backdrop, returning null"));
+		fcppt::log::_ << FCPPT_TEXT("optimal_size called for backdrop, returning null"));
 	return dim::null();
 }

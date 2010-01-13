@@ -24,11 +24,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/detail/submanager.hpp>
 #include <sge/gui/cursor/base_ptr.hpp>
 #include <sge/gui/widgets/fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/texture_fwd.hpp>
-#include <sge/sprite/system.hpp>
-#include <sge/sprite/object.hpp>
+#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/texture_ptr.hpp>
+#include <sge/gui/sprite/system.hpp>
+#include <sge/gui/sprite/object.hpp>
+#include <sge/sprite/object_decl.hpp>
+#include <sge/sprite/external_system_decl.hpp>
+#include <fcppt/math/dim/basic_decl.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
+#include <vector>
 #include <map>
 
 namespace sge
@@ -41,10 +46,14 @@ namespace managers
 {
 class render : public submanager
 {
-	public:
+	FCPPT_NONCOPYABLE(render)
+public:
 	render(
 		renderer::device_ptr,
 		cursor::base_ptr);
+	
+	~render();
+
 	void add(
 		widgets::base &);
 	void update();
@@ -63,31 +72,47 @@ class render : public submanager
 	void dirty(
 		widgets::base &,
 		rect const &);
-	sge::sprite::object &connected_sprite(
-		widgets::base &);
+
+	sge::gui::sprite::object &
+	connected_sprite(
+		widgets::base &
+	);
+
 	void z(
 		widgets::base &,
 		depth_type);
-	private:
+private:
+	// TODO: this should be a base class
+	// and its implementation should be hidden!
 	class widget_data
 	{
 	public:
 		widget_data();
 
 		renderer::texture_ptr texture;
-		sprite::object sprite;
+		sge::gui::sprite::object sprite;
 	};
 
 	typedef boost::ptr_map<
 		widgets::base*,
-		widget_data> widget_container;
+		widget_data
+	> widget_container;
+
 	typedef std::multimap<
 		widgets::base*,
-		rect> dirt_container;
+		rect
+	> dirt_container;
 
 	renderer::device_ptr rend;
-	sprite::system ss;
-	sprite::container sprites_;
+
+	sge::gui::sprite::system ss;
+
+	typedef std::vector<
+		sge::gui::sprite::object
+	> sprite_container;
+
+	sprite_container sprites_;
+
 	cursor::base_ptr cursor_;
 	widget_container widgets;
 	dirt_container dirt_;

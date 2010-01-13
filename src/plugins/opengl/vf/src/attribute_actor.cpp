@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../client_state_combiner.hpp"
 #include "../vertex_attrib.hpp"
 #include <sge/renderer/vf/dynamic_ordered_element.hpp>
-#include <sge/variant/apply_unary.hpp>
+#include <fcppt/variant/apply_unary.hpp>
 
 sge::opengl::vf::attribute_actor::attribute_actor(
 	renderer::vf::dynamic_ordered_element const &e,
@@ -34,7 +34,7 @@ sge::opengl::vf::attribute_actor::attribute_actor(
 		stride
 	),
 	elements(
-		variant::apply_unary(
+		fcppt::variant::apply_unary(
 			convert_num_elements(),
 			e.element().info()
 		)
@@ -52,7 +52,7 @@ void sge::opengl::vf::attribute_actor::operator()(
 		stride(),
 		pointer()
 	);
-	
+
 	c.enable_attribute(
 		static_cast<GLuint>(
 			index()

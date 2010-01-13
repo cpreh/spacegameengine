@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../char_metric.hpp"
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/variant/object_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 sge::bitmapfont::char_metric::char_metric(
 	font::const_image_view const &pixmap_,
@@ -31,10 +31,10 @@ sge::bitmapfont::char_metric::char_metric(
 	offset_(offset_),
 	x_advance_(x_advance_)
 {}
-	
+
 sge::bitmapfont::char_metric::~char_metric()
 {}
-	
+
 sge::font::const_image_view const
 sge::bitmapfont::char_metric::pixmap() const
 {

@@ -24,19 +24,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glyph.hpp"
 #include <sge/image/view/make.hpp>
 #include <sge/image/algorithm/copy_and_convert.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
-#include <sge/variant/object_impl.hpp>
-#include <sge/optional_impl.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/text.hpp>
 #include <ostream>
 
 sge::freetype::char_metric::char_metric(
 	face &face_,
-	char_type const ch)
+	fcppt::char_type const ch
+)
 :
 	buffer_(),
 	offset_(),
@@ -50,7 +51,7 @@ sge::freetype::char_metric::char_metric(
 		)
 	)
 		throw exception(
-			SGE_TEXT("FT_Load_Glyph() failed!")
+			FCPPT_TEXT("FT_Load_Glyph() failed!")
 		);
 
 	glyph glyph_(
@@ -67,33 +68,33 @@ sge::freetype::char_metric::char_metric(
 
 	// FIXME: fix offsets and maybe those warnings
 	if(offset_.x() < 0)
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
-			log::_
-				<< SGE_TEXT("x offset of character '")
+			fcppt::log::_
+				<< FCPPT_TEXT("x offset of character '")
 				<< ch
-				<< SGE_TEXT("' is ")
+				<< FCPPT_TEXT("' is ")
 				<< offset_.x()
-				<< SGE_TEXT('!')
+				<< FCPPT_TEXT('!')
 		);
-	
+
 	if(offset_.y() < 0)
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
-			log::_
-				<< SGE_TEXT("y offset of character '")
+			fcppt::log::_
+				<< FCPPT_TEXT("y offset of character '")
 				<< ch
-				<< SGE_TEXT("' is ")
+				<< FCPPT_TEXT("' is ")
 				<< offset_.y()
-				<< SGE_TEXT('!')
+				<< FCPPT_TEXT('!')
 		);
-	
+
 	// FIXME
 	if(
 		bitmap.pitch < 0
 	)
 		throw sge::exception(
-			SGE_TEXT("FIXME: bitmap pitch < 0, case not handled!")
+			FCPPT_TEXT("FIXME: bitmap pitch < 0, case not handled!")
 		);
 
 	image::dim_type const dim_(
@@ -104,7 +105,7 @@ sge::freetype::char_metric::char_metric(
 	buffer_ = buffer_type(
 		dim_
 	);
-		
+
 	image::algorithm::copy_and_convert(
 		sge::image::view::make(
 			static_cast<

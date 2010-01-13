@@ -18,12 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/system.hpp>
-#include <sge/sprite/object.hpp>
-#include <sge/sprite/parameters.hpp>
+#include <sge/sprite/external_system_impl.hpp>
+#include <sge/sprite/parameters_impl.hpp>
+#include <sge/sprite/no_color.hpp>
+#include <sge/sprite/choices.hpp>
+#include <sge/sprite/type_choices.hpp>
+#include <sge/sprite/with_texture.hpp>
+#include <sge/sprite/render_one.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/device.hpp>
@@ -38,20 +43,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/action.hpp>
-#include <sge/signal/scoped_connection.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <sge/image/loader.hpp>
 #include <sge/image/file.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/config/media_path.hpp>
-#include <sge/container/bitfield/basic_impl.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <sge/exception.hpp>
-#include <sge/cerr.hpp>
-#include <sge/text.hpp>
-#include <sge/make_shared_ptr.hpp>
+#include <fcppt/io/cerr.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <exception>
 #include <iostream>
 #include <ostream>
@@ -64,7 +70,7 @@ try
 		sge::systems::list()
 		(
 			sge::window::parameters(
-				SGE_TEXT("sge targettest")
+				FCPPT_TEXT("sge targettest")
 			)
 		)
 		(
@@ -88,11 +94,10 @@ try
 		(sge::systems::parameterless::input)
 	);
 
-	sge::sprite::system ss(sys.renderer());
-
 	sge::image::file_ptr const image(
 		sys.image_loader()->load(
-			sge::config::media_path() / SGE_TEXT("tux.png")
+			sge::config::media_path()
+			/ FCPPT_TEXT("tux.png")
 		)
 	);
 
@@ -104,35 +109,77 @@ try
 		)
 	);
 
-	sge::sprite::object my_object(
-		sge::sprite::parameters()
+	typedef sge::sprite::choices<
+		sge::sprite::type_choices<
+			int,
+			float,
+			sge::sprite::no_color
+		>,
+		boost::mpl::vector1<
+			sge::sprite::with_texture
+		> 
+	> sprite_choices;
+
+	typedef sge::sprite::system<
+		sprite_choices
+	>::type sprite_system;
+
+	typedef sge::sprite::object<
+		sprite_choices
+	> sprite_object;
+
+	typedef sge::sprite::parameters<
+		sprite_choices
+	> sprite_parameters;
+
+	sprite_system ss(
+		sys.renderer()
+	);
+
+	sprite_object my_object(
+		sprite_parameters()
 		.pos(
-			sge::sprite::point(100,0)
+			sprite_object::point(
+				100,
+				0
+			)
 		)
 		.texture(
-			sge::make_shared_ptr<
+			fcppt::make_shared_ptr<
 				sge::texture::part_raw
 			>(
 				image_texture
 			)
 		)
+		.texture_size()
+		.elements()
 	);
 
-	sge::sprite::object my_object_2(
-		sge::sprite::parameters()
+	sprite_object my_object_2(
+		sprite_parameters()
 		.pos(
-			sge::sprite::point(100,20)
+			sprite_object::point(
+				100,
+				20
+			)
 		)
 		.texture(
-			sge::make_shared_ptr<
+			fcppt::make_shared_ptr<
 				sge::texture::part_raw
-			>(image_texture)
+			>(
+				image_texture
+			)
 		)
+		.texture_size()
+		.elements()
 	);
-	
+
 	sge::renderer::texture_ptr const target(
 		sys.renderer()->create_texture(
-			sge::renderer::texture::dim_type(640,480),
+			sge::renderer::texture::dim_type(
+				640,
+				480
+			),
 			sge::image::color::format::rgba8,
 			sge::renderer::filter::linear,
 			sge::renderer::resource_flags::none
@@ -141,35 +188,55 @@ try
 
 	{
 		sge::renderer::scoped_block const block_(
-			sys.renderer());
+			sys.renderer()
+		);
 
 		sge::renderer::scoped_target const target_(
 			sys.renderer(),
-			target);
+			target
+		);
 
-		ss.render(my_object);
-		ss.render(my_object_2);
+		sge::sprite::render_one(
+			ss,
+			my_object
+		);
+
+		sge::sprite::render_one(
+			ss,
+			my_object_2
+		);
 	}
 
-	sge::sprite::object rendered_stuff(
-		sge::sprite::parameters()
-		.texture(
-			sge::make_shared_ptr<
-				sge::texture::part_raw
-			>(target)
+	sprite_object rendered_stuff(
+		sprite_parameters()
+		.pos(
+			sprite_object::point::null()
 		)
+		.texture(
+			fcppt::make_shared_ptr<
+				sge::texture::part_raw
+			>(
+				target
+			)
+		)
+		.texture_size()
+		.elements()
 	);
 
 	sys.renderer()->state(
 		sge::renderer::state::list
-			(sge::renderer::state::bool_::clear_backbuffer = true)
-			(sge::renderer::state::color::clear_color
-				= sge::image::colors::red())
+		(
+			sge::renderer::state::bool_::clear_backbuffer = true
+		)
+		(
+			sge::renderer::state::color::clear_color
+				= sge::image::colors::red()
+		)
 	);
 
 	bool running = true;
 
-	sge::signal::scoped_connection const cb(
+	fcppt::signal::scoped_connection const cb(
 		sys.input_system()->register_callback(
 			sge::input::action(
 				sge::input::kc::key_escape,
@@ -181,17 +248,32 @@ try
 	while (running)
 	{
 		sge::mainloop::dispatch();
-		sge::renderer::scoped_block const block_(sys.renderer());
-		ss.render(rendered_stuff);
+
+		sge::renderer::scoped_block const block_(
+			sys.renderer()
+		);
+
+		sge::sprite::render_one(
+			ss,
+			rendered_stuff
+		);
 	}
-} 
+}
 catch (sge::exception const &e)
 {
-	sge::cerr << SGE_TEXT("caught sge exception: ") << e.string() << SGE_TEXT('\n');
+	fcppt::io::cerr
+		<< FCPPT_TEXT("caught sge exception: ")
+		<< e.string()
+		<< FCPPT_TEXT('\n');
+	
 	return EXIT_FAILURE;
 }
 catch (std::exception const &e)
 {
-	std::cerr << "caught std exception: " << e.what() << '\n';
+	std::cerr
+		<< "caught std exception: "
+		<< e.what()
+		<< '\n';
+	
 	return EXIT_FAILURE;
 }

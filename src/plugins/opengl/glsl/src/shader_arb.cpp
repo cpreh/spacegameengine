@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../shader_arb.hpp"
 #include "../../check_state.hpp"
 #include <sge/renderer/glsl/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 template<>
 sge::opengl::glsl::traits<false>::handle
@@ -35,7 +35,7 @@ sge::opengl::glsl::create_shader<false>(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glCreateShaderObjectARB failed"),
+		FCPPT_TEXT("glCreateShaderObjectARB failed"),
 		sge::renderer::glsl::exception
 	)
 
@@ -57,7 +57,7 @@ void sge::opengl::glsl::shader_source<false>(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glShaderSourceARB"),
+		FCPPT_TEXT("glShaderSourceARB"),
 		sge::renderer::glsl::exception
 	)
 }
@@ -69,7 +69,7 @@ void sge::opengl::glsl::compile_shader<false>(
 	glCompileShaderARB(shader);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glCompileShaderARB failed"),
+		FCPPT_TEXT("glCompileShaderARB failed"),
 		sge::renderer::glsl::exception
 	)
 }
@@ -84,10 +84,10 @@ GLint sge::opengl::glsl::shader_integer<false>(
 	glGetObjectParameterivARB(shader, what, &result);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glGetObjectParameterivARB"),
+		FCPPT_TEXT("glGetObjectParameterivARB"),
 		sge::renderer::glsl::exception
 	)
-	
+
 	return result;
 }
 
@@ -116,7 +116,7 @@ void sge::opengl::glsl::shader_info_log<false>(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glGetInfoLogARB failed"),
+		FCPPT_TEXT("glGetInfoLogARB failed"),
 		sge::renderer::glsl::exception
 	)
 }
@@ -128,7 +128,7 @@ void sge::opengl::glsl::delete_shader<false>(
 	glDeleteObjectARB(shader);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glDeleteObjectARB failed"),
+		FCPPT_TEXT("glDeleteObjectARB failed"),
 		sge::renderer::glsl::exception
 	)
 }

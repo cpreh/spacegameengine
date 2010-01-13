@@ -25,9 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "signal.hpp"
 #include <sge/windows/window_fwd.hpp>
 #include <sge/input/key_type.hpp>
-#include <sge/signal/scoped_connection.hpp>
-#include <sge/noncopyable.hpp>
-#include <tr1/array>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/tr1/array.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/string.hpp>
 #include <cstddef>
 
 namespace sge
@@ -36,7 +37,7 @@ namespace dinput
 {
 
 class device {
-	SGE_NONCOPYABLE(device)
+	FCPPT_NONCOPYABLE(device)
 public:
 	virtual void dispatch(signal_type &) = 0;
 	virtual ~device();
@@ -48,9 +49,10 @@ public:
 protected:
 	device(
 		dinput_ptr di,
-		string const &name,
+		fcppt::string const &name,
 		GUID Guid,
-		windows::window_ptr window);
+		windows::window_ptr window
+	);
 
 	void poll();
 	void set_data_format(
@@ -70,13 +72,13 @@ protected:
 		unsigned d = 0);
 	void enum_objects(
 		LPDIENUMDEVICEOBJECTSCALLBACK fun);
-	string const &name() const;
+	fcppt::string const &name() const;
 private:
 	void set_cooperative_level(
 		HWND hwnd,
 		DWORD flags);
-	string const name_;
-	signal::scoped_connection const activate_connection;
+	fcppt::string const name_;
+	fcppt::signal::scoped_connection const activate_connection;
 	dinput_device_ptr device_;
 };
 

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../source_functions.hpp"
 #include "../check_state.hpp"
 #include <sge/audio/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 void
 sge::openal::source_i(
@@ -36,7 +36,7 @@ sge::openal::source_i(
 	);
 
 	SGE_OPENAL_CHECK_STATE(
-		SGE_TEXT("alSourcei failed"),
+		FCPPT_TEXT("alSourcei failed"),
 		audio::exception
 	)
 }
@@ -54,7 +54,7 @@ sge::openal::source_f(
 	);
 
 	SGE_OPENAL_CHECK_STATE(
-		SGE_TEXT("alSourcef failed"),
+		FCPPT_TEXT("alSourcef failed"),
 		audio::exception
 	)
 }
@@ -72,7 +72,7 @@ sge::openal::source_fv(
 	);
 
 	SGE_OPENAL_CHECK_STATE(
-		SGE_TEXT("alSourcefv failed"),
+		FCPPT_TEXT("alSourcefv failed"),
 		audio::exception
 	)
 }
@@ -84,7 +84,7 @@ sge::openal::source_play(
 	alSourcePlay(source);
 
 	SGE_OPENAL_CHECK_STATE(
-		SGE_TEXT("alSourcePlay failed"),
+		FCPPT_TEXT("alSourcePlay failed"),
 		audio::exception
 	)
 }

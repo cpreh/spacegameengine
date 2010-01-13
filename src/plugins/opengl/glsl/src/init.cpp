@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../glew.hpp"
 #include "../../version.hpp"
 #include "../../common.hpp"
-#include <sge/once.hpp>
-#include <sge/text.hpp>
 #include <sge/exception.hpp>
+#include <fcppt/function_once.hpp>
+#include <fcppt/text.hpp>
 
 namespace
 {
@@ -59,7 +59,7 @@ namespace
 
 void initialize_glsl()
 {
-	SGE_FUNCTION_ONCE
+	FCPPT_FUNCTION_ONCE
 
 	if(sge::opengl::glew_is_supported("GL_VERSION_2_0"))
 		native = true;
@@ -67,9 +67,9 @@ void initialize_glsl()
 		native = false;
 	else
 		sge::opengl::on_not_supported(
-			SGE_TEXT("shader"),
-			SGE_TEXT("2.0"),
-			SGE_TEXT("gl_arb_vertex_shader && gl_arb_fragment_shader"));
+			FCPPT_TEXT("shader"),
+			FCPPT_TEXT("2.0"),
+			FCPPT_TEXT("gl_arb_vertex_shader && gl_arb_fragment_shader"));
 }
 
 }

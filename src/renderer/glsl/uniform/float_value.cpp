@@ -20,9 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/glsl/uniform/float_value.hpp>
 #include <sge/renderer/glsl/uniform/detail/basic_value_impl.hpp>
-#include <sge/export.hpp>
+#include <fcppt/export_symbol.hpp>
 
-template SGE_EXPORT_SYMBOL class
+template FCPPT_EXPORT_SYMBOL class
 sge::renderer::glsl::uniform::detail::basic_value<
 	sge::renderer::glsl::float_type,
 	sge::renderer::glsl::uniform::float_value_type::type

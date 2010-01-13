@@ -23,11 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/Xlib.h>
 #include <sge/time/sleep.hpp>
 #include <sge/time/second.hpp>
-#include <sge/time/resolution.hpp>
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
 #include <sge/x11/cursor.hpp>
-#include <sge/x11/sentry.hpp>
 
 sge::x11input::mouse_grab::mouse_grab(
 	x11::window_ptr const wnd,
@@ -36,8 +34,6 @@ sge::x11input::mouse_grab::mouse_grab(
 :
 	wnd(wnd)
 {
-	SGE_X11_SENTRY
-
 	while(
 		!handle_grab(
 			XGrabPointer(
@@ -64,8 +60,6 @@ sge::x11input::mouse_grab::mouse_grab(
 
 sge::x11input::mouse_grab::~mouse_grab()
 {
-	SGE_X11_SENTRY
-
 	XUngrabPointer(
 		wnd->display()->get(),
 		CurrentTime

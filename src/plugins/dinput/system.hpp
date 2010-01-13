@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "signal.hpp"
 #include <sge/input/system.hpp>
 #include <sge/windows/window.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <map>
 
@@ -40,11 +41,11 @@ public:
 	explicit system(
 		windows::window_ptr w);
 
-	signal::auto_connection
+	fcppt::signal::auto_connection
 	register_callback(
 		input::callback const &c);
 
-	signal::auto_connection
+	fcppt::signal::auto_connection
 	register_repeat_callback(
 		input::repeat_callback const &c);
 

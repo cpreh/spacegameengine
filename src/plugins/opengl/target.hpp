@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target.hpp>
 #include <sge/renderer/pixel_pos.hpp>
 #include <sge/renderer/raw_value.hpp>
-#include <sge/container/raw_vector_decl.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/container/raw_vector_decl.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -34,7 +34,7 @@ namespace opengl
 {
 
 class target : public sge::renderer::target {
-	SGE_NONCOPYABLE(target)
+	FCPPT_NONCOPYABLE(target)
 protected:
 	target();
 public:
@@ -43,8 +43,9 @@ public:
 private:
 	image::view::const_object const
 	lock(
-		renderer::lock_rect const &dest) const;
-	
+		renderer::lock_rect const &dest
+	) const;
+
 	void unlock() const;
 
 	virtual renderer::pixel_pos const pos() const = 0;
@@ -52,7 +53,7 @@ private:
 	virtual GLenum format() const = 0;
 	virtual GLenum format_type() const = 0;
 
-	typedef sge::container::raw_vector<
+	typedef fcppt::container::raw_vector<
 		renderer::raw_value
 	> buffer_type;
 

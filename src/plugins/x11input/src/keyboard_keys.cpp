@@ -22,14 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../translation.hpp"
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
-#include <sge/x11/sentry.hpp>
 #include <sge/input/key_type.hpp>
-#include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
-#include <sge/text.hpp>
-#include <sge/string.hpp>
-#include <sge/iconv.hpp>
-#include <tr1/array>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/tr1/array.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/iconv.hpp>
 #include <map>
 #include <ostream>
 #include <utility>
@@ -38,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-sge::string const
+fcppt::string const
 get_key_name(
 	KeySym const ks);
 
@@ -52,69 +51,90 @@ sge::x11input::keyboard_key(
 	KeySym ks;
 	std::tr1::array<char, 32> keybuf;
 
-	SGE_X11_SENTRY
+	int const num_chars(
+		XLookupString(
+			const_cast<XKeyEvent *>(&xev),
+			keybuf.data(),
+			static_cast<int>(keybuf.size()),
+			&ks,
+			&state
+		)
+	);
 
-	int const num_chars = XLookupString(
-		const_cast<XKeyEvent *>(&xev),
-		keybuf.data(),
-		static_cast<int>(keybuf.size()),
-		&ks,
-		&state);
-	
 	// xev does it this way
-	char const code = 
+	char const code =
 		ks > static_cast<KeySym>(std::numeric_limits<char>::max())
 		? static_cast<char>(0)
 		: static_cast<char>(ks);
 
 	if(num_chars > 1)
 	{
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
-			log::_
-				<< SGE_TEXT("stub: character '")
+			fcppt::log::_
+				<< FCPPT_TEXT("stub: character '")
 				<< code
-				<< SGE_TEXT("' in XLookupString has ")
+				<< FCPPT_TEXT("' in XLookupString has ")
 				<< num_chars
-				<< SGE_TEXT(" bytes!"));
+				<< FCPPT_TEXT(" bytes!"));
 		return input::key_type();
 	}
 
 	return input::key_type(
 		get_key_name(ks),
 		translate_key_code(ks),
-		code);
+		code
+	);
 }
 
 namespace
 {
 
-sge::string const
+fcppt::string const
 get_key_name(
-	KeySym const ks)
+	KeySym const ks
+)
 {
 	typedef std::map<
 		KeySym,
-		sge::string
+		fcppt::string
 	> name_map;
 
 	static name_map names;
 
 	name_map::const_iterator const it(
-		names.find(ks));
+		names.find(ks)
+	);
 
 	if(names.find(ks) != names.end())
 		return it->second;
 
-	SGE_X11_SENTRY
-
 	char const* const name = XKeysymToString(ks);
-	return names.insert(
-		std::make_pair(
-			ks,
-			name
-			? sge::iconv(name)
-			: SGE_TEXT("unknown"))).first->second;
+
+	if(
+		!name
+	)
+	{
+		FCPPT_LOG_ERROR(
+			sge::log::global(),
+			fcppt::log::_
+				<< FCPPT_TEXT("Failed to lookup the key name of ")
+				<< ks
+				<< FCPPT_TEXT('!')
+		);
+
+		return FCPPT_TEXT("");
+	}
+
+	return
+		names.insert(
+			std::make_pair(
+				ks,
+				name
+				? fcppt::iconv(name)
+				: FCPPT_TEXT("unknown")
+			)
+		).first->second;
 }
 
 }

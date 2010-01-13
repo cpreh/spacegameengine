@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_NULL_SOUND_HPP_INCLUDED
 
 #include <sge/audio/sound.hpp>
-#include <sge/math/vector/basic_decl.hpp>
+#include <fcppt/math/vector/basic_decl.hpp>
 
 namespace sge
 {
@@ -56,7 +56,7 @@ public:
 	void outer_cone_angle(audio::unit);
 	audio::unit outer_cone_angle() const;
 private:
-	audio::play_mode::type play_mode_;		
+	audio::play_mode::type play_mode_;
 	audio::sound_status::type const status_;
 	audio::point
 		pos_,

@@ -22,19 +22,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_COLOR_ANY_OBJECT_HPP_INCLUDED
 
 #include <sge/image/color/any/elements.hpp>
-#include <sge/variant/object_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
 
 namespace sge
 {
-namespace image 
+namespace image
 {
 namespace color
 {
 namespace any
 {
 
-typedef variant::object<
-	elements	
+typedef fcppt::variant::object<
+	elements
 > object;
 
 }

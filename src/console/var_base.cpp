@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::console::var_base::var_base(
 	object &_object,
-	sge::string const &_name)
+	fcppt::string const &_name
+)
 :
 	object_(_object),
 	name_(_name)
@@ -31,7 +32,7 @@ sge::console::var_base::var_base(
 	object_.insert(*this);
 }
 
-sge::string const
+fcppt::string const
 sge::console::var_base::name() const
 {
 	return name_;

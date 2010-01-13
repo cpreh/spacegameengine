@@ -23,17 +23,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/exception.hpp>
 #include <sge/audio/sound.hpp>
 #include <sge/audio/listener.hpp>
-#include <sge/multi_loader.hpp>
+#include <sge/audio/multi_loader.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/time/second.hpp>
-#include <sge/time/resolution.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/exception.hpp>
-#include <sge/cerr.hpp>
 #include <sge/log/global.hpp>
-#include <sge/log/activate_levels.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <fcppt/log/activate_levels.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/io/cerr.hpp>
 #include <ostream>
 #include <exception>
 #include <iostream>
@@ -43,29 +43,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int main()
 try
 {
-	sge::log::activate_levels(
+	fcppt::log::activate_levels(
 		sge::log::global(),
-		sge::log::level::debug
+		fcppt::log::level::debug
 	);
 
-	sge::filesystem::path const file_name(sge::config::media_path() / SGE_TEXT("ding.wav"));
+	fcppt::filesystem::path const file_name(
+		sge::config::media_path()
+		/ FCPPT_TEXT("ding.wav")
+	);
 
 	bool const streaming = false;
 
 	sge::systems::instance sys(
 		sge::systems::list()
-		(sge::systems::parameterless::audio_player));
+		(sge::systems::parameterless::audio_player)
+	);
 
-	sge::multi_loader<
-		sge::audio::loader,
-		sge::audio::file,
-		sge::audio::exception> loader(sys.plugin_manager());
-	
+	sge::audio::multi_loader loader(sys.plugin_manager());
+
 	sge::audio::file_ptr const soundfile = loader.load(file_name);
+
 	sge::audio::pool pool;
 
-	sge::audio::sound_ptr sound = 
-		streaming 
+	sge::audio::sound_ptr sound =
+		streaming
 		? sys.audio_player()->create_stream_sound(soundfile)
 		: sys.audio_player()->create_nonstream_sound(soundfile);
 
@@ -79,17 +81,41 @@ try
 		pool.update();
 		if (t.update_b())
 		{
-			sge::cerr << SGE_TEXT("killing sound\n");
+			fcppt::io::cerr << FCPPT_TEXT("killing sound\n");
 			sound.reset();
 		}
 	}
-} catch (const sge::audio::exception &e) {
-	sge::cerr << SGE_TEXT("audio exception caught: ") << e.string() << SGE_TEXT('\n');
+}
+catch(
+	sge::audio::exception const &e
+)
+{
+	fcppt::io::cerr
+		<< FCPPT_TEXT("audio exception caught: ")
+		<< e.string()
+		<< FCPPT_TEXT('\n');
+	
 	return EXIT_FAILURE;
-} catch (const sge::exception &e) {
-	sge::cerr << SGE_TEXT("Exception caught: ") << e.string() << SGE_TEXT('\n');
+}
+catch(
+	sge::exception const &e
+)
+{
+	fcppt::io::cerr
+		<< FCPPT_TEXT("Exception caught: ")
+		<< e.string()
+		<< FCPPT_TEXT('\n');
+	
 	return EXIT_FAILURE;
-} catch (const std::exception &e) {
-	std::cerr << "Exception caught: " << e.what() << '\n';
+}
+catch(
+	std::exception const &e
+)
+{
+	std::cerr
+		<< "Exception caught: "
+		<< e.what()
+		<< '\n';
+
 	return EXIT_FAILURE;
 }

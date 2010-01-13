@@ -26,10 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "lock_method.hpp"
 #include <sge/renderer/texture.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/math/dim/basic_decl.hpp>
-#include <sge/math/box/basic_decl.hpp>
-#include <sge/shared_ptr.hpp>
-#include <sge/optional.hpp>
+#include <fcppt/math/dim/basic_decl.hpp>
+#include <fcppt/math/box/basic_decl.hpp>
+#include <fcppt/shared_ptr.hpp>
+#include <fcppt/optional.hpp>
 
 namespace sge
 {
@@ -43,7 +43,7 @@ typedef basic_texture<renderer::texture> texture_base;
 
 class texture : public detail::texture_base {
 public:
-	typedef optional<GLenum> optional_type;
+	typedef fcppt::optional<GLenum> optional_type;
 
 	texture(
 		dim_type const &,
@@ -52,9 +52,9 @@ public:
 		renderer::resource_flags_field const &,
 		optional_type type
 			= optional_type());
-	
+
 	dim_type const dim() const;
-	
+
 	image::view::object const
 	lock(
 		renderer::lock_rect const &,
@@ -76,14 +76,14 @@ private:
 	image::view::const_object const view() const;
 
 	dim_type const lock_dim() const;
-	
+
 	dim_type const dim_;
-	mutable optional<
+	mutable fcppt::optional<
 		renderer::lock_rect
 	> lock_rect_;
 };
 
-typedef shared_ptr<texture> texture_ptr;
+typedef fcppt::shared_ptr<texture> texture_ptr;
 
 }
 }

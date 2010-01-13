@@ -18,36 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config.h>
 #include <sge/library/object.hpp>
 #include <sge/library/error.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
-#ifdef SGE_WINDOWS_PLATFORM
+#include <fcppt/text.hpp>
+#include <fcppt/config.h>
+#ifdef FCPPT_WINDOWS_PLATFORM
 #include <sge/windows/windows.hpp>
-#include <sge/iconv.hpp>
-#include <sge/auto_ptr.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/iconv.hpp>
+#include <fcppt/auto_ptr.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <exception>
-#elif SGE_POSIX_PLATFORM
-#include <sge/iconv.hpp>
+#elif FCPPT_POSIX_PLATFORM
+#include <fcppt/iconv.hpp>
 #include <dlfcn.h>
 #else
 #error "Implement me!"
 #endif
 
-#ifdef SGE_WINDOWS_PLATFORM
-namespace {
+#ifdef FCPPT_WINDOWS_PLATFORM
+namespace
+{
 
-void free_library(
-	HMODULE const module)
+void
+free_library(
+	HMODULE const module
+)
 {
 	FreeLibrary(module);
 }
 
-struct context {
-	SGE_NONCOPYABLE(context);
+struct context
+{
+	FCPPT_NONCOPYABLE(context);
 public:
 	explicit context(
 		HMODULE const hinst)
@@ -71,8 +75,9 @@ library_vector libraries;
 
 }
 
-struct sge::library::object::destroyer {
-	SGE_NONCOPYABLE(destroyer)
+struct sge::library::object::destroyer
+{
+	FCPPT_NONCOPYABLE(destroyer)
 public:
 	destroyer()
 	{
@@ -83,9 +88,10 @@ public:
 #endif
 
 sge::library::object::object(
-	filesystem::path const &nname)
+	fcppt::filesystem::path const &nname
+)
 :
-#ifdef SGE_WINDOWS_PLATFORM
+#ifdef FCPPT_WINDOWS_PLATFORM
 	destroyer_(
 		new destroyer()
 	),
@@ -96,10 +102,10 @@ sge::library::object::object(
 			)
 		)
 	)
-#elif SGE_POSIX_PLATFORM
+#elif FCPPT_POSIX_PLATFORM
 	handle(
 		dlopen(
-			iconv(
+			fcppt::iconv(
 				nname.string()
 			).c_str(),
 			RTLD_NOW | RTLD_GLOBAL
@@ -110,8 +116,8 @@ sge::library::object::object(
 {
 	if(!handle)
 		throw exception(
-			string(
-				SGE_TEXT("failed to load library::object: "))
+			fcppt::string(
+				FCPPT_TEXT("failed to load library::object: "))
 				+ error()
 			);
 }
@@ -121,7 +127,7 @@ sge::library::object::~object()
 	if(!handle)
 		return;
 
-#ifdef SGE_WINDOWS_PLATFORM
+#ifdef FCPPT_WINDOWS_PLATFORM
 	HMODULE const module(
 		static_cast<HMODULE>(
 			handle
@@ -149,12 +155,12 @@ sge::library::object::~object()
 		free_library(
 			module
 		);
-#elif SGE_POSIX_PLATFORM
+#elif FCPPT_POSIX_PLATFORM
 	dlclose(handle);
 #endif
 }
 
-sge::filesystem::path const &
+fcppt::filesystem::path const &
 sge::library::object::name() const
 {
 	return name_;
@@ -164,7 +170,7 @@ sge::library::object::base_fun
 sge::library::object::load_address_base(
 	std::string const &fun)
 {
-#ifdef SGE_WINDOWS_PLATFORM
+#ifdef FCPPT_WINDOWS_PLATFORM
 	FARPROC const ret(
 		GetProcAddress(
 			static_cast<HMODULE>(handle),
@@ -173,16 +179,16 @@ sge::library::object::load_address_base(
 
 	if(!ret)
 		throw exception(
-			SGE_TEXT("Function ")
-			+ sge::iconv(fun)
-			+ SGE_TEXT(" not found in ")
+			FCPPT_TEXT("Function ")
+			+ fcppt::iconv(fun)
+			+ FCPPT_TEXT(" not found in ")
 			+ name_.string()
 		);
 
 	return reinterpret_cast<base_fun>(
 		ret
 	);
-#elif SGE_POSIX_PLATFORM
+#elif FCPPT_POSIX_PLATFORM
 	dlerror(); // clear last error
 
 	union {
@@ -197,11 +203,11 @@ sge::library::object::load_address_base(
 
 	if(dlerror())
 		throw exception(
-			sge::iconv(fun)
-			+ SGE_TEXT(" not found in library ")
+			fcppt::iconv(fun)
+			+ FCPPT_TEXT(" not found in library ")
 			+ name().string()
 		);
-	
+
 	return ret.dl_fun;
 #endif
 }

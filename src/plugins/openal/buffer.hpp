@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENAL_BUFFER_HPP_INCLUDED
 #define SGE_OPENAL_BUFFER_HPP_INCLUDED
 
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 #include "openal.hpp"
 
 namespace sge
@@ -35,7 +35,7 @@ namespace openal
 {
 class buffer
 {
-	SGE_NONCOPYABLE(buffer)
+	FCPPT_NONCOPYABLE(buffer)
 	public:
 	explicit buffer(audio::file &);
 	ALuint albuffer() const;

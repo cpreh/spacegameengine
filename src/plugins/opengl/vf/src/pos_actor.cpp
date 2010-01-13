@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../check_state.hpp"
 #include <sge/renderer/vf/dynamic_ordered_element.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::opengl::vf::pos_actor::pos_actor(
 	renderer::vf::dynamic_ordered_element const &e,
@@ -42,7 +42,7 @@ sge::opengl::vf::pos_actor::pos_actor(
 {
 	if(index() > 0)
 		throw renderer::exception(
-			SGE_TEXT("opengl does not support more than one pos type in the vertex format!")
+			FCPPT_TEXT("opengl does not support more than one pos type in the vertex format!")
 		);
 }
 
@@ -55,9 +55,9 @@ void sge::opengl::vf::pos_actor::operator()(
 		stride(),
 		pointer()
 	);
-	
+
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glVertexPointer failed"),
+		FCPPT_TEXT("glVertexPointer failed"),
 		sge::renderer::exception
 	)
 

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../shader_functions.hpp"
 #include "../format_error.hpp"
 #include <sge/renderer/glsl/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 template<bool Native>
 sge::opengl::glsl::shader<Native>::shader(
@@ -43,12 +43,12 @@ sge::opengl::glsl::shader<Native>::shader(
 	);
 
 	compile_shader<Native>(id());
-	
+
 	if(
 		compile_status<Native>(id()) == GL_FALSE
 	)
 		throw sge::renderer::glsl::exception(
-			SGE_TEXT("Compiling a shader failed:\n")
+			FCPPT_TEXT("Compiling a shader failed:\n")
 			+
 			format_error(
 				&shader_info_log<

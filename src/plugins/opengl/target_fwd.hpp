@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TARGET_FWD_HPP_INCLUDED
 #define SGE_OPENGL_TARGET_FWD_HPP_INCLUDED
 
-#include <sge/shared_ptr.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
@@ -30,7 +30,7 @@ namespace opengl
 
 class target;
 
-typedef shared_ptr<
+typedef fcppt::shared_ptr<
 	target
 > target_ptr;
 

@@ -20,51 +20,61 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/console/object.hpp>
 #include <sge/console/exception.hpp>
-#include <sge/console/callbacks.hpp>
 #include <sge/console/function.hpp>
 #include <sge/console/var_base.hpp>
-#include <sge/auto_ptr.hpp>
-#include <sge/make_auto_ptr.hpp>
-#include <sge/assert.hpp>
+#include <sge/parse/encoding.hpp>
+#include <fcppt/auto_ptr.hpp>
+#include <fcppt/make_auto_ptr.hpp>
+#include <fcppt/assert.hpp>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix_core.hpp>
-#include <boost/spirit/include/phoenix_object.hpp>
-#include <boost/spirit/include/phoenix_stl.hpp>
+//#include <boost/spirit/include/phoenix_object.hpp>
+//#include <boost/spirit/include/phoenix_stl.hpp>
+#include <utility>
 
-sge::console::object::object(string::value_type const _prefix)
+sge::console::object::object(
+	fcppt::char_type const _prefix
+)
 :
 	prefix_(_prefix)
 {
 }
 
-sge::signal::auto_connection sge::console::object::insert(
-	string const &name,
+fcppt::signal::auto_connection
+sge::console::object::insert(
+	fcppt::string const &name,
 	callback const &c,
-	string const &description)
+	fcppt::string const &description
+)
 {
 	function_map::iterator i = funcs_.find(name);
 	if (i == funcs_.end())
 	{
-		auto_ptr<
+		fcppt::auto_ptr<
 			function
 		> sig(
-			make_auto_ptr<
+			fcppt::make_auto_ptr<
 				function
-			>(description));
+			>(description)
+		);
 
-		std::pair<function_map::iterator,bool> const ret = 
+		std::pair<function_map::iterator,bool> const ret(
 			funcs_.insert(
 				name,
-				sig);
-	
+				sig
+			)
+		);
+
 		i = ret.first;
-		SGE_ASSERT(ret.second);
+		FCPPT_ASSERT(ret.second);
 	}
 	return i->second->signal().connect(c);
 }
 
-sge::signal::auto_connection sge::console::object::register_fallback(
-	fallback const &c)
+fcppt::signal::auto_connection
+sge::console::object::register_fallback(
+	fallback const &c
+)
 {
 	return fallback_.connect(c);
 }
@@ -73,31 +83,32 @@ namespace
 {
 template <typename Iterator>
 class eval_grammar : public boost::spirit::qi::grammar<
-	Iterator, 
+	Iterator,
 	sge::console::arg_list()>
 {
 public:
-	typedef boost::spirit::ascii::space_type space_type;
-
 	eval_grammar() : eval_grammar::base_type(start)
 	{
-		using boost::spirit::char_;
-		using boost::spirit::ascii::space;
+		using sge::parse::encoding::char_;
+		using sge::parse::encoding::space;
 
 		word  %=           +(char_ - space);
-		quoted_string %=    '"' >> +(char_ - '"') >> '"';
+		quoted_string %=   FCPPT_TEXT('"') >> +(char_ - FCPPT_TEXT('"')) >> FCPPT_TEXT('"');
 		argument %=        quoted_string | word;
 		start %=           argument % (+space);
 	}
 
-	boost::spirit::qi::rule<Iterator, sge::string()> word;
-	boost::spirit::qi::rule<Iterator, sge::string()> quoted_string;
-	boost::spirit::qi::rule<Iterator, sge::string()> argument;
+	boost::spirit::qi::rule<Iterator, fcppt::string()> word;
+	boost::spirit::qi::rule<Iterator, fcppt::string()> quoted_string;
+	boost::spirit::qi::rule<Iterator, fcppt::string()> argument;
 	boost::spirit::qi::rule<Iterator, sge::console::arg_list()> start;
 };
 }
 
-void sge::console::object::eval(string const &sp)
+void
+sge::console::object::eval(
+	fcppt::string const &sp
+)
 {
 	if (sp.empty())
 		return;
@@ -108,47 +119,61 @@ void sge::console::object::eval(string const &sp)
 		return;
 	}
 
-	string const s = sp.substr(1);
+	fcppt::string const s = sp.substr(1);
 
 	arg_list args;
-	eval_grammar<string::const_iterator> grammar;
-	string::const_iterator beg = s.begin();
+
+	eval_grammar<
+		fcppt::string::const_iterator
+	> grammar;
+
+	fcppt::string::const_iterator beg = s.begin();
 
 	boost::spirit::qi::parse(
 		beg,
 		s.end(),
 		grammar,
-		args);
+		args
+	);
 
 	function_map::iterator i = funcs_.find(args[0]);
 
 	if (i == funcs_.end())
-		throw exception(SGE_TEXT("couldn't find command \"")+args[0]+SGE_TEXT("\""));
+		throw exception(FCPPT_TEXT("couldn't find command \"")+args[0]+FCPPT_TEXT("\""));
 
 	i->second->signal()(args);
 }
 
-sge::console::variable_map const &sge::console::object::variables() const
+sge::console::variable_map const &
+sge::console::object::variables() const
 {
 	return vars_;
 }
 
-sge::console::variable_map &sge::console::object::variables()
+sge::console::variable_map &
+sge::console::object::variables()
 {
 	return vars_;
 }
 
-sge::console::function_map const &sge::console::object::functions() const
+sge::console::function_map const &
+sge::console::object::functions() const
 {
 	return funcs_;
 }
 
-void sge::console::object::insert(var_base &o)
+void
+sge::console::object::insert(
+	var_base &o
+)
 {
 	vars_[o.name()] = &o;
 }
 
-void sge::console::object::erase(var_base &o)
+void
+sge::console::object::erase(
+	var_base &o
+)
 {
-	SGE_ASSERT(vars_.erase(o.name()) > 0);
+	FCPPT_ASSERT(vars_.erase(o.name()) > 0);
 }

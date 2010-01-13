@@ -22,24 +22,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TIME_FRAMES_COUNTER_HPP_INCLUDED
 
 #include <sge/time/timer.hpp>
-#include <sge/string.hpp>
-#include <sge/export.hpp>
+#include <sge/time/unit.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
 namespace time
 {
 
-class frames_counter {
-private:
-	timer t;
-	time::unit current_frames,
-	           display_frames;
+class frames_counter
+{
 public:
 	SGE_SYMBOL frames_counter();
-	SGE_SYMBOL void update();
-	SGE_SYMBOL string const frames_str() const;
-	SGE_SYMBOL time::unit frames() const;
+
+	SGE_SYMBOL void
+	update();
+
+	SGE_SYMBOL fcppt::string const
+	frames_str() const;
+
+	SGE_SYMBOL time::unit
+	frames() const;
+private:
+	timer t;
+
+	time::unit
+		current_frames,
+		display_frames;
 };
 
 }

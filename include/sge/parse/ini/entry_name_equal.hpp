@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/ini/entry_fwd.hpp>
 #include <sge/parse/ini/string.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
@@ -38,7 +38,7 @@ public:
 
 	SGE_SYMBOL explicit entry_name_equal(
 		string const &);
-	
+
 	SGE_SYMBOL bool
 	operator()(
 		entry const &) const;

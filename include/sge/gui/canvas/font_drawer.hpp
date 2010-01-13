@@ -25,10 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/image_view.hpp>
 #include <sge/gui/color.hpp>
 #include <sge/gui/point.hpp>
-#include <sge/font/drawer.hpp>
-#include <sge/variant/object_impl.hpp>
 #include <sge/gui/export.hpp>
-#include <sge/optional.hpp>
+#include <sge/font/drawer.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/optional.hpp>
+#include <fcppt/char_type.hpp>
 
 namespace sge
 {
@@ -47,13 +48,13 @@ public:
 
 	// NOTE: this is font::drawer::size_type, _not_ font::size_type!
 	SGE_GUI_SYMBOL void begin_rendering(
-		size_type, 
-		font::pos const &, 
+		size_type,
+		font::pos const &,
 		font::dim);
 
 	SGE_GUI_SYMBOL void draw_char(
-		char_type, 
-		font::pos const &c, 
+		fcppt::char_type,
+		font::pos const &c,
 		font::const_image_view const &);
 
 	SGE_GUI_SYMBOL void end_rendering();

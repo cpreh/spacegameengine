@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../variable_functions.hpp"
 #include "../setter.hpp"
 #include "../get.hpp"
-#include <sge/variant/apply_unary.hpp>
-#include <sge/variant/object_impl.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 template<
 	bool Native
@@ -66,7 +66,7 @@ template<
 void sge::opengl::glsl::uniform::variable<Native>::set(
 	renderer::glsl::uniform::value const &v)
 {
-	stored_type = variant::apply_unary(
+	stored_type = fcppt::variant::apply_unary(
 		setter(
 			location
 		),

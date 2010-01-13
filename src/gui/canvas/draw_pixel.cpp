@@ -19,31 +19,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/gui/canvas/object.hpp>
-#include <sge/assert.hpp>
-#include <sge/math/box/contains_point.hpp>
-#include <sge/math/box/structure_cast.hpp>
-#include <sge/math/box/output.hpp>
-#include <sge/math/vector/output.hpp>
 #include <sge/image/algorithm/fill.hpp>
 #include <sge/image/view/sub.hpp>
-#include <sge/text.hpp>
-#include <sge/lexical_cast.hpp>
+#include <fcppt/math/box/contains_point.hpp>
+#include <fcppt/math/box/structure_cast.hpp>
+#include <fcppt/math/box/output.hpp>
+#include <fcppt/math/vector/output.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/assert_message.hpp>
+#include <fcppt/lexical_cast.hpp>
 
 void sge::gui::canvas::object::draw_pixel(
 	point const &p,
 	color const c)
 {
-	SGE_ASSERT_MESSAGE(
+	FCPPT_ASSERT_MESSAGE(
 		contains_point(area(),p),
-		SGE_TEXT("tried to draw pixel ")+
-		lexical_cast<string>(p)+
-		SGE_TEXT(" which is not inside rect ")+
-		lexical_cast<string>(area()));
-	
+		FCPPT_TEXT("tried to draw pixel ")+
+		fcppt::lexical_cast<fcppt::string>(p)+
+		FCPPT_TEXT(" which is not inside rect ")+
+		fcppt::lexical_cast<fcppt::string>(area()));
+
 	sge::image::algorithm::fill(
 		sge::image::view::sub(
 			view_,
-			math::box::structure_cast<
+			fcppt::math::box::structure_cast<
 				sge::image::rect
 			>(
 				rect(

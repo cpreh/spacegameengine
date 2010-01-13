@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_ANGLE_HPP_INCLUDED
 #define SGE_AUDIO_ANGLE_HPP_INCLUDED
 
+#include <sge/audio/angle_fwd.hpp>
 #include <sge/audio/point.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 
 namespace sge
 {
@@ -34,23 +35,27 @@ class angle
 {
 public:
 	SGE_SYMBOL angle();
+
 	SGE_SYMBOL angle(
 		point const &forward,
-		point const &up);
-	
+		point const &up
+	);
+
 	SGE_SYMBOL point const &
 	forward() const;
 
 	SGE_SYMBOL void
 	forward(
-		point const &);
-	
+		point const &
+	);
+
 	SGE_SYMBOL point const
 	up() const;
 
 	SGE_SYMBOL void
 	up(
-		point const &);
+		point const &
+	);
 private:
 	point
 		forward_,

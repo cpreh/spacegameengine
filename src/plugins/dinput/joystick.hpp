@@ -42,7 +42,7 @@ private:
 	static BOOL CALLBACK enum_joystick_keys(
 		LPCDIDEVICEOBJECTINSTANCE ddoi,
 		LPVOID ref);
-	
+
 	typedef std::map<
 		unsigned,
 		input::key_type

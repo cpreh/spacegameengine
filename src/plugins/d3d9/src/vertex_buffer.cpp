@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert_resource_flags.hpp"
 #include "../convert_lock_flags.hpp"
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::d3d9::vertex_buffer::vertex_buffer(
 	d3d_device_ptr const device_,
@@ -88,7 +88,7 @@ sge::d3d9::vertex_buffer::unlock() const
 {
 	if(!lock_dest)
 		throw exception(
-			SGE_TEXT("d3d::vertex_buffer::unlock() you have to lock first!")
+			FCPPT_TEXT("d3d::vertex_buffer::unlock() you have to lock first!")
 		);
 
 /*#ifndef SGE_USE_ARGB
@@ -98,7 +98,7 @@ sge::d3d9::vertex_buffer::unlock() const
 #endif*/
 	if(buffer->Unlock() != D3D_OK)
 		throw exception(
-			SGE_TEXT("Cannot unlock d3d vertex buffer!")
+			FCPPT_TEXT("Cannot unlock d3d vertex buffer!")
 		);
 
 	lock_dest = 0;
@@ -142,7 +142,7 @@ sge::d3d9::vertex_buffer::init()
 		) != D3D_OK
 	)
 		throw exception(
-			SGE_TEXT("Cannot create vertex buffer!")
+			FCPPT_TEXT("Cannot create vertex buffer!")
 		);
 
 	buffer.reset(p);
@@ -166,7 +166,7 @@ sge::d3d9::vertex_buffer::do_lock(
 {
 	if(lock_dest)
 		throw exception(
-			SGE_TEXT("d3d::vertex_buffer::lock() you have to unlock first!")
+			FCPPT_TEXT("d3d::vertex_buffer::lock() you have to unlock first!")
 	);
 
 	void *p = 0;
@@ -180,7 +180,7 @@ sge::d3d9::vertex_buffer::do_lock(
 		) != D3D_OK
 	)
 		throw exception(
-			SGE_TEXT("Cannot lock d3d vertex buffer!")
+			FCPPT_TEXT("Cannot lock d3d vertex buffer!")
 		);
 
 	lock_dest = static_cast<renderer::raw_pointer>(p);

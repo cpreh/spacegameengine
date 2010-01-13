@@ -21,13 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_UNIT_HPP_INCLUDED
 #define SGE_GUI_UNIT_HPP_INCLUDED
 
-#include <sge/sprite/unit.hpp>
-
 namespace sge
 {
 namespace gui
 {
-typedef sprite::unit unit;
+
+typedef int unit;
+
 }
 }
 

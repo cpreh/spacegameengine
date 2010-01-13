@@ -21,27 +21,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_LOADER_HPP_INCLUDED
 #define SGE_AUDIO_LOADER_HPP_INCLUDED
 
-#include <sge/audio/file_fwd.hpp>
-#include <sge/filesystem/path.hpp>
-#include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <sge/audio/loader_fwd.hpp>
+#include <sge/audio/file_ptr.hpp>
 #include <sge/extension_set.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace audio
 {
 
-class SGE_CLASS_SYMBOL loader {
-	SGE_NONCOPYABLE(loader)
+class SGE_CLASS_SYMBOL loader
+{
+	FCPPT_NONCOPYABLE(loader)
 protected:
 	SGE_SYMBOL loader();
 public:
 	virtual file_ptr const
 	load(
-		filesystem::path const &file) = 0;
-	virtual extension_set const 
-		extensions() const = 0;
+		fcppt::filesystem::path const &
+	) = 0;
+
+	virtual extension_set const
+	extensions() const = 0;
+	
 	SGE_SYMBOL virtual ~loader();
 };
 

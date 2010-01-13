@@ -21,20 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_SCREENSHOT_HPP_INCLUDED
 #define SGE_RENDERER_SCREENSHOT_HPP_INCLUDED
 
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/image/loader_fwd.hpp>
-#include <sge/filesystem/path.hpp>
-#include <sge/export.hpp>
+#include <sge/renderer/device_ptr.hpp>
+#include <sge/image/loader_ptr.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/filesystem/path.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-SGE_SYMBOL void screenshot(
+SGE_SYMBOL void
+screenshot(
 	const_device_ptr rend,
 	image::loader_ptr il,
-	filesystem::path const &);
+	fcppt::filesystem::path const &
+);
 
 }
 }

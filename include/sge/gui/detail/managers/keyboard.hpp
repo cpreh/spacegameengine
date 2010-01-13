@@ -24,13 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/detail/submanager.hpp>
 #include <sge/gui/widgets/fwd.hpp>
 #include <sge/gui/keyboard_focus.hpp>
-#include <sge/input/system_fwd.hpp>
+#include <sge/input/system_ptr.hpp>
 #include <sge/input/modifier/filter.hpp>
 #include <sge/input/modifier/states.hpp>
 #include <sge/input/key_pair_fwd.hpp>
 #include <sge/input/key_type.hpp>
-#include <sge/signal/scoped_connection.hpp>
-#include <sge/optional.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/optional.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
 
 namespace sge
@@ -43,8 +43,8 @@ namespace managers
 {
 class keyboard : public submanager
 {
-	public:
-	keyboard(input::system_ptr);
+public:
+	explicit keyboard(input::system_ptr);
 	void add(widgets::base &);
 	void activation(widgets::base &,activation_state::type);
 	void request_focus(widgets::base &);
@@ -59,8 +59,8 @@ class keyboard : public submanager
 
 	input::modifier::filter input_filter;
 	widget_container widgets;
-	optional<widget_container::iterator> focus;
-	signal::scoped_connection const
+	fcppt::optional<widget_container::iterator> focus;
+	fcppt::signal::scoped_connection const
 		ic,
 		irc;
 

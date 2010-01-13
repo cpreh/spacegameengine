@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../metrics.hpp"
 #include <sge/font/exception.hpp>
 #include <sge/make_shared_ptr.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::font::metrics_ptr const
 sge::bitmapfont::system::create_font(
@@ -32,7 +32,7 @@ sge::bitmapfont::system::create_font(
 {
 	if(!loader)
 		throw font::exception(
-			SGE_TEXT("The bitmap font plugin needs an image loader passed in create_font!")
+			FCPPT_TEXT("The bitmap font plugin needs an image loader passed in create_font!")
 		);
 
 	return make_shared_ptr<

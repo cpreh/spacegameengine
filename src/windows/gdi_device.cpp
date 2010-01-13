@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/windows/gdi_device.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::windows::gdi_device::gdi_device(
 	HWND hwnd,
@@ -31,7 +31,7 @@ sge::windows::gdi_device::gdi_device(
 {
 	if(!dc)
 		throw exception(
-			SGE_TEXT("GetDC() failed!"));
+			FCPPT_TEXT("GetDC() failed!"));
 }
 
 sge::windows::gdi_device::~gdi_device()

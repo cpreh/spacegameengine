@@ -21,18 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../default_target.hpp"
 #include "../common.hpp"
 #include "../fbo_functions.hpp"
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/dim/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <boost/cstdint.hpp>
 
 sge::opengl::default_target::default_target(
 	dim_type const & dim_,
-	renderer::bit_depth::type const depth_)
- :
- 	pos_(renderer::pixel_pos::null()),
- 	dim_(dim_),
+	renderer::bit_depth::type const depth_
+)
+:
+	pos_(renderer::pixel_pos::null()),
+	dim_(dim_),
 	depth_(depth_)
 {}
 
@@ -56,7 +57,7 @@ sge::opengl::default_target::pos() const
 	return pos_;
 }
 
-sge::renderer::target::dim_type const 
+sge::renderer::target::dim_type const
 sge::opengl::default_target::dim() const
 {
 	return dim_;
@@ -77,7 +78,7 @@ sge::opengl::default_target::stride() const
 		return sizeof(boost::uint32_t);
 	default:
 		throw exception(
-			SGE_TEXT("Invalid bit_depth in ogl::default_target!"));
+			FCPPT_TEXT("Invalid bit_depth in ogl::default_target!"));
 	}
 }
 

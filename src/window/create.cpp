@@ -20,9 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/window/create.hpp>
 #include <sge/config.h>
-#if defined(SGE_WINDOWS_PLATFORM)
+#include <fcppt/config.h>
+#if defined(FCPPT_WINDOWS_PLATFORM)
 #include <sge/windows/create_window.hpp>
-#include <sge/optional.hpp>
+#include <fcppt/optional.hpp>
 #elif defined(SGE_HAVE_X11)
 #include <boost/foreach.hpp> // something destroys BOOST_FOREACH
 #include <sge/x11/create_window.hpp>
@@ -30,25 +31,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/visual.hpp>
 #include <sge/x11/screen.hpp>
 #include <sge/window/parameters.hpp>
-#include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
-#include <sge/text.hpp>
 #include <sge/exception.hpp>
-#include <tr1/array>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/tr1/array.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/make_shared_ptr.hpp>
+#else
+#error "Implement me!"
 #endif
 
 sge::window::instance_ptr const
 sge::window::create(
-	parameters const &param)
+	parameters const &param
+)
 {
-#if defined(SGE_WINDOWS_PLATFORM)
+#if defined(FCPPT_WINDOWS_PLATFORM)
 	return windows::create_window(
 		param,
 		windows::optional_renderer_parameters()
 	);
 #elif defined(SGE_HAVE_X11)
 	x11::display_ptr const dsp(
-		new x11::display()
+		fcppt::make_shared_ptr<
+			x11::display
+		>()
 	);
 
 	int const screen(
@@ -58,7 +65,9 @@ sge::window::create(
 	);
 
 	x11::visual_ptr const visual(
-		new x11::visual(
+		fcppt::make_shared_ptr<
+			x11::visual
+		>(
 			dsp,
 			screen
 		)
@@ -91,18 +100,18 @@ sge::window::create(
 		}
 		catch(exception const &e)
 		{
-			SGE_LOG_ERROR(
+			FCPPT_LOG_ERROR(
 				log::global(),
-				log::_
-					<< SGE_TEXT("window::create failed!")
-					<< SGE_TEXT(" Trying another bit depth. Reason: ")
+				fcppt::log::_
+					<< FCPPT_TEXT("window::create failed!")
+					<< FCPPT_TEXT(" Trying another bit depth. Reason: ")
 					<< e.string()
 			);
 			throw;
 		}
 
 	throw exception(
-		SGE_TEXT("window::create failed! No matching visual!")
+		FCPPT_TEXT("window::create failed! No matching visual!")
 	);
 #else
 #error "Implement me!"

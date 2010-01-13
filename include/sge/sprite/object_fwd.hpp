@@ -26,6 +26,9 @@ namespace sge
 namespace sprite
 {
 
+template<
+	typename Choices
+>
 class object;
 
 }

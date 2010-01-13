@@ -22,11 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_DEVICE_HPP_INCLUDED
 
 #include <sge/config.h>
+#include <fcppt/config.h>
 #include "target_fwd.hpp"
 #include "default_target_fwd.hpp"
 #include "fbo_target_fwd.hpp"
 #include "common.hpp"
-#if defined(SGE_WINDOWS_PLATFORM)
+#if defined(FCPPT_WINDOWS_PLATFORM)
 #include "windows/state.hpp"
 #elif defined(SGE_HAVE_X11)
 #include "x11/state.hpp"
@@ -42,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list.hpp>
 #include <sge/window/instance_fwd.hpp>
 #include <sge/window/dim_type.hpp>
-#include <sge/scoped_ptr.hpp>
+#include <fcppt/scoped_ptr.hpp>
 #include <stack>
 
 namespace sge
@@ -58,20 +59,27 @@ public:
 		window::instance_ptr wnd);
 
 	void begin_rendering();
+
 	void end_rendering();
-	void render(
-		renderer::const_vertex_buffer_ptr vb,
-		renderer::const_index_buffer_ptr ib,
-		renderer::size_type first_vertex,
-		renderer::size_type num_vertices,
-		renderer::indexed_primitive_type::type ptype,
-		renderer::size_type pcount,
-		renderer::size_type first_index);
-	void render(
-		renderer::const_vertex_buffer_ptr vb,
-		renderer::size_type first_vertex,
-		renderer::size_type num_vertices,
-		renderer::nonindexed_primitive_type::type ptype);
+
+	void
+	render(
+		renderer::const_vertex_buffer_ptr,
+		renderer::const_index_buffer_ptr,
+		renderer::first_vertex,
+		renderer::vertex_count,
+		renderer::indexed_primitive_type::type,
+		renderer::primitive_count,
+		renderer::first_index
+	);
+
+	void
+	render(
+		renderer::const_vertex_buffer_ptr,
+		renderer::first_vertex,
+		renderer::vertex_count,
+		renderer::nonindexed_primitive_type::type 
+	);
 
 	void state(renderer::state::list const &);
 
@@ -96,7 +104,7 @@ public:
 
 	void viewport(
 		renderer::viewport const &);
-	
+
 	void viewport_mode(
 		renderer::viewport_mode::type);
 
@@ -125,7 +133,7 @@ public:
 	create_glsl_program(
 		renderer::glsl::optional_istream const &vertex_shader_source,
 		renderer::glsl::optional_istream const &pixel_shader_source);
-	
+
 	void glsl_program(
 		renderer::glsl::program_ptr);
 
@@ -177,7 +185,7 @@ private:
 
 	void vertex_buffer(
 		renderer::const_vertex_buffer_ptr);
-	
+
 	fbo_target_ptr const
 	create_target();
 
@@ -189,7 +197,7 @@ private:
 	renderer::parameters const param;
 	window::instance_ptr const wnd;
 	renderer::state::list      current_states;
-#if defined(SGE_WINDOWS_PLATFORM)
+#if defined(FCPPT_WINDOWS_PLATFORM)
 	windows::state state_;
 #elif defined(SGE_HAVE_X11)
 	x11::state state_;
@@ -205,7 +213,7 @@ private:
 		renderer::state::list
 	> stack_type;
 
-	mutable scoped_ptr<
+	mutable fcppt::scoped_ptr<
 		renderer::caps
 	> caps_;
 

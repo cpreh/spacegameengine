@@ -21,37 +21,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_PART_HPP_INCLUDED
 #define SGE_TEXTURE_PART_HPP_INCLUDED
 
-#include <sge/renderer/texture_fwd.hpp>
+#include <sge/texture/part_fwd.hpp>
+#include <sge/renderer/texture_ptr.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/image/view/const_object.hpp>
-#include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
-#include <sge/texture/part_fwd.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace texture
 {
 
-class fragmented;
-
-class SGE_CLASS_SYMBOL part {
-	SGE_NONCOPYABLE(part)
+class SGE_CLASS_SYMBOL part
+{
+	FCPPT_NONCOPYABLE(part)
 protected:
 	SGE_SYMBOL part();
 public:
 	SGE_SYMBOL virtual ~part();
 
-	virtual void data(
-		image::view::const_object const &src) = 0;
+	virtual void
+	data(
+		image::view::const_object const &
+	) = 0;
 
-	virtual renderer::lock_rect const &area() const = 0;
+	virtual renderer::lock_rect const &
+	area() const = 0;
 
-	virtual renderer::texture_ptr const texture() = 0;
-	
-	virtual renderer::const_texture_ptr const texture() const = 0;
+	virtual renderer::texture_ptr const
+	texture() = 0;
 
-	virtual bool repeatable() const = 0;
+	virtual renderer::const_texture_ptr const
+	texture() const = 0;
+
+	virtual bool
+	repeatable() const = 0;
 };
 
 }

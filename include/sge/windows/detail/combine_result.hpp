@@ -33,7 +33,8 @@ namespace detail
 callback_return_type const
 combine_result(
 	callback_return_type const &,
-	callback_return_type const &);
+	callback_return_type const &
+);
 
 }
 }

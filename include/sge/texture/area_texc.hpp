@@ -21,15 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_AREA_TEXC_HPP_INCLUDED
 #define SGE_TEXTURE_AREA_TEXC_HPP_INCLUDED
 
-#include <sge/texture/part_fwd.hpp>
+#include <sge/texture/part_ptr.hpp>
 #include <sge/texture/part.hpp>
 #include <sge/renderer/lock_rect_to_coords.hpp>
 #include <sge/renderer/texture.hpp>
-#include <sge/math/box/basic_impl.hpp>
-#include <sge/math/box/rect.hpp>
-#include <sge/math/compare.hpp>
-#include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
+#include <fcppt/math/dim/arithmetic.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/box/rect.hpp>
+#include <fcppt/math/compare.hpp>
+#include <fcppt/log/headers.hpp>
 #include <ostream>
 
 namespace sge
@@ -40,40 +42,45 @@ namespace texture
 template<
 	typename T
 >
-typename math::box::rect<T>::type const
+typename fcppt::math::box::rect<T>::type const
 area_texc(
 	const_part_ptr const part,
 	T const repeat
 )
 {
 	if(
-		!math::compare(
+		!fcppt::math::compare(
 			repeat,
 			static_cast<T>(1)
 		)
 		&& !part->repeatable()
 	)
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
-			log::_
-				<< SGE_TEXT("texture not repeatable but repetition is ")
+			fcppt::log::_
+				<< FCPPT_TEXT("texture not repeatable but repetition is ")
 				<< repeat
-				<< SGE_TEXT('!')
+				<< FCPPT_TEXT('!')
 		);
 
-	renderer::const_texture_ptr const tex(
-		part->texture()
+	typedef typename fcppt::math::box::rect<
+		T
+	>::type ret_type;
+	
+	ret_type ret_(
+		renderer::lock_rect_to_coords<
+			T
+		>(
+			part->area(),
+			part->texture()->dim()
+		)
 	);
 
-	return tex
-		?
-			renderer::lock_rect_to_coords(
-				part->area(),
-				tex->dim(),
-				repeat
-			)
-		:
-			math::box::rect<T>::type::null();
+	ret_.dimension(
+		ret_.dimension() * repeat
+	);
+
+	return ret_;
 }
 
 }

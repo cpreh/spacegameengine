@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VF_CLIENT_STATE_HPP_INCLUDED
 
 #include "../common.hpp"
-#include <sge/container/linear_set.hpp>
+#include <fcppt/container/linear_set.hpp>
 
 namespace sge
 {
@@ -33,11 +33,11 @@ namespace vf
 
 class client_state {
 public:
-	typedef container::linear_set<
+	typedef fcppt::container::linear_set<
 		GLenum
 	> normal_state_set;
 
-	typedef container::linear_set<
+	typedef fcppt::container::linear_set<
 		GLuint
 	> index_state_set;
 
@@ -45,7 +45,7 @@ public:
 		GLenum);
 	void enable_attribute(
 		GLuint);
-	
+
 	normal_state_set const &normal_states() const;
 	index_state_set const &attribute_states() const;
 private:

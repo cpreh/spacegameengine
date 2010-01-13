@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../convert_texture_stage_arg_value.hpp"
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 DWORD
 sge::d3d9::convert_texture_stage_arg_value(
@@ -38,7 +38,7 @@ sge::d3d9::convert_texture_stage_arg_value(
 		return D3DTA_TEXTURE;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid texture_stage_arg_value!")
+			FCPPT_TEXT("Invalid texture_stage_arg_value!")
 		);
 	}
 }

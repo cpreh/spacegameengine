@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/media_path.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/font/system.hpp>
-#include <sge/math/dim/output.hpp>
-#include <sge/text.hpp>
+#include <fcppt/math/dim/output.hpp>
+#include <fcppt/text.hpp>
 
 sge::gui::skins::standard::standard(
 	font::system_ptr const fs)
@@ -36,8 +36,8 @@ sge::gui::skins::standard::standard(
 	standard_font_(
 		fs->create_font(
 			media_path()/
-			SGE_TEXT("fonts")/
-			SGE_TEXT("default.ttf"),
+			FCPPT_TEXT("fonts")/
+			FCPPT_TEXT("default.ttf"),
 			static_cast<font::size_type>(
 				15)),
 		sge::image::colors::black())
@@ -50,10 +50,10 @@ SGE_GUI_SKIN_DRAW_RETURN(widgets::base) sge::gui::skins::standard::fallback(
 	/*
 	resize_buffer(w);
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("buffer size is ")
-		        << w.buffer().width() << SGE_TEXT(",") << w.buffer().height());
+		log::_1 << FCPPT_TEXT("buffer size is ")
+		        << w.buffer().width() << FCPPT_TEXT(",") << w.buffer().height());
 
 	canvas::object c(w.buffer());
 
@@ -61,10 +61,10 @@ SGE_GUI_SKIN_DRAW_RETURN(widgets::base) sge::gui::skins::standard::fallback(
 		rect(c.size()),
 		internal_color(0x0,0x0,0x0,0x0),
 		canvas::rect_type::solid);
-	
-	SGE_LOG_DEBUG(
+
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("blitting to texture"));
+		log::_1 << FCPPT_TEXT("blitting to texture"));
 
 	blit_invalid(
 		w,

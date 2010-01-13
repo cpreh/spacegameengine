@@ -22,10 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_BASIC_ANY_VECTOR_HPP_INCLUDED
 
 #include <sge/renderer/size_type.hpp>
-#include <sge/variant/object_fwd.hpp>
-#include <sge/math/vector/static.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <boost/mpl/vector.hpp>
+#include <fcppt/variant/object_fwd.hpp>
+#include <fcppt/math/vector/static.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/restrict_typedef_struct.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace sge
 {
@@ -35,20 +36,22 @@ namespace renderer
 template<
 	size_type sz
 >
-class basic_any_vector {
-public:
-	typedef typename variant::object<
-		boost::mpl::vector<
-			typename math::vector::static_<
+struct basic_any_vector
+{
+	typedef typename fcppt::variant::object<
+		boost::mpl::vector2<
+			typename fcppt::math::vector::static_<
 				float,
 				sz
 			>::type,
-			typename math::vector::static_<
+			typename fcppt::math::vector::static_<
 				double,
 				sz
 			>::type
 		>
 	> type;
+
+	FCPPT_RESTRICT_TYPEDEF_STRUCT(basic_any_vector)
 };
 
 }

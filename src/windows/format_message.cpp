@@ -21,15 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/format_message.hpp>
 #include <sge/windows/windows.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
-#include <tr1/array>
+#include <fcppt/tr1/array.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/char_type.hpp>
 
-sge::string const
+fcppt::string const
 sge::windows::format_message(
 	DWORD const error)
 {
 	std::tr1::array<
-		char_type,
+		fcppt::char_type,
 		1024
 	> errmsg;
 
@@ -43,7 +44,8 @@ sge::windows::format_message(
 		0
 	) == 0)
 		throw exception(
-			SGE_TEXT("FormatMessage() failed!"));
-	return string(
-		errmsg.data());
+			FCPPT_TEXT("FormatMessage() failed!"));
+	return fcppt::string(
+		errmsg.data()
+	);
 }

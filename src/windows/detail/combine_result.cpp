@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/windows/detail/combine_result.hpp>
-#include <sge/optional_impl.hpp>
+#include <fcppt/optional_impl.hpp>
 
 sge::windows::callback_return_type const
 sge::windows::detail::combine_result(

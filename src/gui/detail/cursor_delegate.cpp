@@ -20,16 +20,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/gui/detail/cursor_delegate.hpp>
 #include <sge/input/key_pair.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <algorithm>
 
-sge::gui::detail::cursor_delegate::cursor_delegate(string &text)
-	: text(text),
-	  pos_(text.length())
+sge::gui::detail::cursor_delegate::cursor_delegate(fcppt::string &text)
+:
+	text(text),
+	pos_(text.length())
 {
 }
 
-sge::string::size_type
+fcppt::string::size_type
 sge::gui::detail::cursor_delegate::pos() const
 {
 	return pos_;
@@ -41,20 +42,20 @@ void sge::gui::detail::cursor_delegate::key_callback(
 	switch (c.key().code())
 	{
 		case input::kc::key_return:
-			text += SGE_TEXT('\n');
+			text += FCPPT_TEXT('\n');
 		break;
 		case input::kc::key_left:
 			if (pos_ == 0)
 				return;
-			
+
 			pos_--;
 
-			if (text[pos_] == SGE_TEXT('\n'))
+			if (text[pos_] == FCPPT_TEXT('\n'))
 				pos_--;
 		break;
 		case input::kc::key_right:
 			pos_ = std::min(pos_+1,text.length());
-			if (text[pos_] == SGE_TEXT('\n'))
+			if (text[pos_] == FCPPT_TEXT('\n'))
 				pos_++;
 		break;
 		case input::kc::key_backspace:

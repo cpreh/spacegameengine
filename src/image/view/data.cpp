@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/view/data.hpp>
-#include <sge/variant/apply_unary.hpp>
-#include <sge/variant/object_impl.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <mizuiro/image/is_raw_view.hpp>
 #include <boost/utility/enable_if.hpp>
 
@@ -74,13 +74,13 @@ public:
 
 template<
 	typename Dest,
-	typename View 
+	typename View
 >
-Dest 
+Dest
 data_impl(
 	View const &v)
 {
-	return sge::variant::apply_unary(
+	return fcppt::variant::apply_unary(
 		visitor<Dest>(),
 		v
 	);

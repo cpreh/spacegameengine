@@ -19,11 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../transform.hpp"
-#include <sge/variant/object_impl.hpp>
-#include <sge/variant/apply_unary.hpp>
-#include <sge/math/matrix/basic_impl.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <boost/spirit/home/phoenix/object/static_cast.hpp>
 #include <algorithm>
 
@@ -45,7 +45,7 @@ D3DMATRIX const
 convert_matrix(
 	sge::renderer::any_matrix const &m)
 {
-	return sge::variant::apply_unary(
+	return fcppt::variant::apply_unary(
 		visitor(),
 		m
 	);
@@ -72,7 +72,7 @@ sge::d3d9::set_transform(
 		) != D3D_OK
 	)
 		throw exception(
-			SGE_TEXT("SetTransform() failed!")
+			FCPPT_TEXT("SetTransform() failed!")
 		);
 }
 

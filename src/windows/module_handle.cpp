@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/windows/module_handle.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 HINSTANCE
 sge::windows::module_handle()
@@ -28,7 +28,7 @@ sge::windows::module_handle()
 	HINSTANCE const instance = GetModuleHandle(0);
 	if(!instance)
 		throw exception(
-			SGE_TEXT("GetModuleHandle() failed!"));
+			FCPPT_TEXT("GetModuleHandle() failed!"));
 	return instance;
 }
 

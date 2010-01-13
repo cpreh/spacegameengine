@@ -21,24 +21,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/no_fragmented.hpp>
 #include <sge/texture/guaranteed_free.hpp>
 #include <sge/texture/part_fragmented.hpp>
-#include <sge/texture/atlasing.hpp>
+#include <sge/texture/atlasing/bounds.hpp>
+#include <sge/texture/atlasing/need.hpp>
+#include <sge/texture/atlasing/size.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
-#include <sge/math/dim/output.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/box/basic_impl.hpp>
-#include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
-#include <sge/text.hpp>
-#include <sge/make_shared_ptr.hpp>
-#include <tr1/functional>
+#include <fcppt/math/dim/output.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <ostream>
 
 sge::texture::no_fragmented::no_fragmented(
 	renderer::device_ptr const rend,
 	image::color::format::type const format,
-	renderer::filter::texture const &filter)
- :
+	renderer::filter::texture const &filter
+)
+:
  	rend(rend),
 	format(format),
  	filter(filter)
@@ -46,13 +49,14 @@ sge::texture::no_fragmented::no_fragmented(
 
 sge::texture::part_ptr const
 sge::texture::no_fragmented::consume_fragment(
-	renderer::dim_type const &dim)
+	renderer::dim_type const &dim
+)
 {
 	if(tex)
 		return part_ptr();
 
 	renderer::dim_type const real_dim(
-		atlased_bounds(
+		atlasing::bounds(
 			dim
 		)
 	);
@@ -65,36 +69,37 @@ sge::texture::no_fragmented::consume_fragment(
 	);
 
 	if(real_dim != dim)
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
-			log::_
-				<< SGE_TEXT("You used a texture::no_fragmented whose dimensions are not a power of 2.")\
-				SGE_TEXT(" This is slower to load and requires more texture memory because it needs atlasing and thus is not intuitive.")\
-				SGE_TEXT(" The texture's size was ")
+			fcppt::log::_
+				<< FCPPT_TEXT("You used a texture::no_fragmented whose dimensions are not a power of 2.")\
+				FCPPT_TEXT(" This is slower to load and requires more texture memory because it needs atlasing and thus is not intuitive.")\
+				FCPPT_TEXT(" The texture's size was ")
 				<< dim
-				<< SGE_TEXT('.')
+				<< FCPPT_TEXT('.')
 		);
 
 	return part_ptr(
-		make_shared_ptr<
+		fcppt::make_shared_ptr<
 			part_fragmented
 		>(
 			renderer::lock_rect(
-				renderer::lock_rect::pos_type::null(),
-				atlased_size(dim)
+				renderer::lock_rect::vector::null(),
+				atlasing::size(dim)
 			),
 			std::tr1::ref(
 				*this
 			),
-			need_atlasing(dim.w()),
-			need_atlasing(dim.h())
+			atlasing::need(dim.w()),
+			atlasing::need(dim.h())
 		)
 	);
 }
 
 void
 sge::texture::no_fragmented::on_return_fragment(
-	part const &)
+	part const &
+)
 {
 	tex.reset();
 }
@@ -105,7 +110,8 @@ sge::texture::no_fragmented::texture() const
 	return tex;
 }
 
-bool sge::texture::no_fragmented::repeatable() const
+bool
+sge::texture::no_fragmented::repeatable() const
 {
 	return true;
 }

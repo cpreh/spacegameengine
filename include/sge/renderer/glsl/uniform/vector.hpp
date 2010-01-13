@@ -23,10 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/glsl/float_type.hpp>
 #include <sge/renderer/glsl/int_type.hpp>
-#include <sge/math/vector/dynamic.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/variant/object_fwd.hpp>
-#include <boost/mpl/vector.hpp>
+#include <fcppt/math/vector/dynamic.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/variant/object_fwd.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace sge
 {
@@ -37,12 +37,12 @@ namespace glsl
 namespace uniform
 {
 
-typedef variant::object<
-	boost::mpl::vector<
-		math::vector::dynamic<
+typedef fcppt::variant::object<
+	boost::mpl::vector2<
+		fcppt::math::vector::dynamic<
 			float_type
 		>::type,
-		math::vector::dynamic<
+		fcppt::math::vector::dynamic<
 			int_type
 		>::type
 	>

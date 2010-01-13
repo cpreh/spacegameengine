@@ -48,11 +48,11 @@ FILE (GLOB sgecorefiles
 	signal/*.cpp
 	signal/detail/*.cpp
 	sprite/*.cpp
+	sprite/animation/*.cpp
 	sprite/detail/*.cpp
-	sprite/intrusive/*.cpp
-	sprite/intrusive/detail/*.cpp
 	systems/*.cpp
 	texture/*.cpp
+	texture/atlasing/*.cpp
 	texture/detail/*.cpp
 	thread/*.cpp
 	thread/future/*.cpp
@@ -60,7 +60,8 @@ FILE (GLOB sgecorefiles
 	time/*.cpp
 	utf8/*.cpp
 	variant/*.cpp
-	window/*.cpp)
+	window/*.cpp
+)
 
 FILE (GLOB_RECURSE sgecoreheaders
 	../include/*.hpp)
@@ -91,6 +92,8 @@ set_source_files_properties(
 
 ADD_LIBRARY (sgecore SHARED ${sgecorefiles})
 
+TARGET_LINK_LIBRARIES (sgecore fcppt)
+
 IF (NOT MSVC)
 	TARGET_LINK_LIBRARIES (
 		sgecore
@@ -99,7 +102,6 @@ IF (NOT MSVC)
 ENDIF ()
 
 IF (UNIX)
-
 	TARGET_LINK_LIBRARIES (sgecore ${X11_LIBRARIES} dl)
 
 	message(${X11_LIBRARIES} ${X11_Xxf86misc_LIB} )
@@ -112,7 +114,7 @@ IF (UNIX)
 
 	CHECK_CXX_SOURCE_COMPILES("
 			#include <X11/Xlib.h>
-			#include <X11/extensions/xf86dga.h>
+			#include <X11/extensions/Xxf86dga.h>
 			int main() {}"
 			HAVE_XF86_DGA_H
 		)
@@ -123,9 +125,7 @@ IF (UNIX)
 				"Xxf86dga")
 		ENDIF()
 
-
 	IF(ENABLE_DGA AND HAVE_XF86_DGA)
-
 		TARGET_LINK_LIBRARIES (sgecore Xxf86dga)
 	ENDIF()
 

@@ -19,35 +19,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/matrix_pixel_to_space.hpp>
-#include <sge/math/matrix/basic_impl.hpp>
-#include <sge/math/matrix/translation.hpp>
-#include <sge/math/matrix/scaling.hpp>
-#include <sge/math/matrix/arithmetic.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/math/instantiate_arithmetic.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/math/matrix/translation.hpp>
+#include <fcppt/math/matrix/scaling.hpp>
+#include <fcppt/math/matrix/arithmetic.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/instantiate_arithmetic.hpp>
+#include <fcppt/export_symbol.hpp>
 
 template<
 	typename T
 >
-typename sge::math::matrix::static_<T, 4, 4>::type const
+typename fcppt::math::matrix::static_<T, 4, 4>::type const
 sge::renderer::matrix_pixel_to_space(
-	screen_size const &sz)
+	screen_size const &sz
+)
 {
-	return math::matrix::translation(
-		static_cast<T>(-static_cast<int>(sz.w()) / 2),
-		static_cast<T>(-static_cast<int>(sz.h()) / 2),
-		static_cast<T>(0))
-		* math::matrix::scaling(
+	return
+		fcppt::math::matrix::translation(
+			static_cast<T>(-static_cast<int>(sz.w()) / 2),
+			static_cast<T>(-static_cast<int>(sz.h()) / 2),
+			static_cast<T>(0)
+		)
+		* fcppt::math::matrix::scaling(
 			static_cast<T>(2) / static_cast<T>(sz.w()),
 	        	static_cast<T>(-2) / static_cast<T>(sz.h()),
-	        	static_cast<T>(1));
+	        	static_cast<T>(1)
+		);
 }
 
 #define SGE_INSTANTIATE_MATRIX_PIXEL_TO_SPACE(x)\
-template SGE_EXPORT_SYMBOL sge::math::matrix::static_<x, 4, 4>::type const \
+template FCPPT_EXPORT_SYMBOL fcppt::math::matrix::static_<x, 4, 4>::type const \
 sge::renderer::matrix_pixel_to_space<x>(\
-	sge::renderer::screen_size const &);
+	sge::renderer::screen_size const &\
+);
 
-SGE_MATH_INSTANTIATE_ARITHMETIC(SGE_INSTANTIATE_MATRIX_PIXEL_TO_SPACE)
+FCPPT_MATH_INSTANTIATE_ARITHMETIC(SGE_INSTANTIATE_MATRIX_PIXEL_TO_SPACE)
 
 #undef SGE_INSTANTIATE_MATRIX_PIXEL_TO_SPACE

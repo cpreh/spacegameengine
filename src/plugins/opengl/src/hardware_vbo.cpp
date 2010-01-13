@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glew.hpp"
 #include <sge/renderer/exception.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
-#include <sge/once.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/function_once.hpp>
 
 namespace
 {
@@ -36,6 +36,7 @@ PFNGLMAPBUFFERPROC gl_map_buffer;
 PFNGLUNMAPBUFFERPROC gl_unmap_buffer;
 PFNGLBUFFERDATAPROC gl_buffer_data;
 PFNGLBUFFERSUBDATAPROC gl_buffer_sub_data;
+PFNGLMAPBUFFERRANGEPROC gl_map_buffer_range;
 
 void initialize_hardware_vbo();
 
@@ -47,9 +48,9 @@ GLuint sge::opengl::hardware_vbo::gen_buffer()
 
 	GLuint id;
 	gl_gen_buffers(1, &id);
-	
+
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glGenBuffers failed"),
+		FCPPT_TEXT("glGenBuffers failed"),
 		sge::renderer::exception
 	)
 
@@ -62,7 +63,7 @@ void sge::opengl::hardware_vbo::delete_buffer(
 	gl_delete_buffers(1, &id);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glDeleteBuffers failed"),
+		FCPPT_TEXT("glDeleteBuffers failed"),
 		sge::renderer::exception
 	)
 }
@@ -74,17 +75,19 @@ void sge::opengl::hardware_vbo::bind_buffer(
 	gl_bind_buffer(type, id);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glBindBuffer failed"),
+		FCPPT_TEXT("glBindBuffer failed"),
 		sge::renderer::exception
 	)
 }
 
-void *sge::opengl::hardware_vbo::map_buffer(
+GLvoid *
+sge::opengl::hardware_vbo::map_buffer(
 	GLenum const type,
-	GLenum const flags)
+	GLenum const flags
+)
 {
-	void *const ret(
-		static_cast<void *>(
+	GLvoid *const ret(
+		static_cast<GLvoid *>(
 			gl_map_buffer(
 				type,
 				flags
@@ -93,29 +96,62 @@ void *sge::opengl::hardware_vbo::map_buffer(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glMapBuffer failed"),
+		FCPPT_TEXT("glMapBuffer failed"),
 		sge::renderer::exception
 	)
 
 	return ret;
 }
 
+GLvoid *
+sge::opengl::hardware_vbo::map_buffer_range(
+	GLenum const type,
+	GLenum const flags,
+	GLsizei const first,
+	GLsizei const size
+)
+{
+	GLvoid *const ret(
+		gl_map_buffer_range(
+			type,
+			first,
+			size,
+			flags
+		)
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("glMapBufferRange failed"),
+		sge::renderer::exception
+	)
+
+	return ret;
+}
+
+bool
+sge::opengl::hardware_vbo::map_buffer_range_supported() const
+{
+	return gl_map_buffer_range;
+}
+
 void sge::opengl::hardware_vbo::unmap_buffer(
 	GLenum const type)
 {
-	gl_unmap_buffer(type); 
+	gl_unmap_buffer(type);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glUnmapBuffer failed"),
+		FCPPT_TEXT("glUnmapBuffer failed"),
 		sge::renderer::exception
 	)
 }
 
-void sge::opengl::hardware_vbo::buffer_data(
+void
+sge::opengl::hardware_vbo::buffer_data(
 	GLenum const type,
 	GLsizei const size,
-	void const *const data,
-	GLenum const flags)
+	GLvoid const *const data,
+	GLenum const flags
+)
 {
 	gl_buffer_data(
 		type,
@@ -123,18 +159,20 @@ void sge::opengl::hardware_vbo::buffer_data(
 		data,
 		flags
 	);
-	
+
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glBufferData failed"),
+		FCPPT_TEXT("glBufferData failed"),
 		sge::renderer::exception
 	)
 }
 
-void sge::opengl::hardware_vbo::buffer_sub_data(
+void
+sge::opengl::hardware_vbo::buffer_sub_data(
 	GLenum const type,
 	GLsizei const first,
 	GLsizei const size,
-	void const *const data)
+	GLvoid const *const data
+)
 {
 	gl_buffer_sub_data(
 		type,
@@ -144,16 +182,18 @@ void sge::opengl::hardware_vbo::buffer_sub_data(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glBufferSubData failed"),
+		FCPPT_TEXT("glBufferSubData failed"),
 		sge::renderer::exception
 	)
 }
 
-void *sge::opengl::hardware_vbo::buffer_offset(
+void *
+sge::opengl::hardware_vbo::buffer_offset(
 	GLenum,
-	GLsizei const offset) const
+	GLsizei const offset
+) const
 {
-	return reinterpret_cast<void*>(offset);
+	return reinterpret_cast<void *>(offset);
 }
 
 namespace
@@ -161,7 +201,7 @@ namespace
 
 void initialize_hardware_vbo()
 {
-	SGE_FUNCTION_ONCE
+	FCPPT_FUNCTION_ONCE
 
 	if(sge::opengl::glew_is_supported("GL_VERSION_1_5"))
 	{
@@ -185,7 +225,10 @@ void initialize_hardware_vbo()
 	}
 	else
 		throw sge::exception(
-			SGE_TEXT("Invalid initialization of hardware_vbo!"));
+			FCPPT_TEXT("Invalid initialization of hardware_vbo!")
+		);
+	
+	gl_map_buffer_range = glMapBufferRange;
 }
 
 }

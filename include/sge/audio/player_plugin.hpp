@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_PLAYER_PLUGIN_HPP_INCLUDED
 
 #include <sge/audio/player.hpp>
-#include <sge/export.hpp>
 #include <sge/plugin/traits.hpp>
 #include <sge/plugin/capabilities.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
@@ -33,10 +33,18 @@ namespace plugin
 namespace detail
 {
 
-template<> class traits<audio::player> {
+template<>
+class traits<
+	audio::player
+>
+{
 public:
-	SGE_SYMBOL static address_name plugin_loader_name();
-	SGE_SYMBOL static capabilities::type plugin_type();
+	SGE_SYMBOL static address_name
+	plugin_loader_name();
+
+	SGE_SYMBOL static capabilities::type
+	plugin_type();
+
 	typedef audio::player* (*loader_fun)();
 };
 

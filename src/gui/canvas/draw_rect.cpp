@@ -19,25 +19,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/gui/canvas/object.hpp>
-#include <sge/assert.hpp>
-#include <sge/math/box/contains.hpp>
-#include <sge/math/box/structure_cast.hpp>
-#include <sge/math/box/output.hpp>
 #include <sge/image/algorithm/fill.hpp>
 #include <sge/image/view/sub.hpp>
-#include <sge/lexical_cast.hpp>
+#include <fcppt/assert_message.hpp>
+#include <fcppt/math/box/contains.hpp>
+#include <fcppt/math/box/structure_cast.hpp>
+#include <fcppt/math/box/output.hpp>
+#include <fcppt/lexical_cast.hpp>
+#include <fcppt/string.hpp>
 
 void sge::gui::canvas::object::draw_rect(
 	rect const &r,
 	color const c,
 	rect_type::type const t)
 {
-	SGE_ASSERT_MESSAGE(
+	FCPPT_ASSERT_MESSAGE(
 		contains(area(),r),
-		SGE_TEXT("tried to draw rectangle ")+
-			lexical_cast<string>(r)+
-			SGE_TEXT(" which is not completely inside ")+
-			lexical_cast<string>(area()));
+		FCPPT_TEXT("tried to draw rectangle ")+
+		fcppt::lexical_cast<fcppt::string>(r)+
+		FCPPT_TEXT(" which is not completely inside ")+
+		fcppt::lexical_cast<fcppt::string>(area())
+	);
 
 	switch (t)
 	{
@@ -45,7 +47,7 @@ void sge::gui::canvas::object::draw_rect(
 			sge::image::algorithm::fill(
 				sge::image::view::sub(
 					view_,
-					math::box::structure_cast<
+					fcppt::math::box::structure_cast<
 						sge::image::rect
 					>(r)
 				),

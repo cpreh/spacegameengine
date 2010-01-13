@@ -19,33 +19,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../mouse_keys.hpp"
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::input::key_type const
 sge::x11input::mouse_x(
-	SGE_TEXT("mouse_x"),
+	FCPPT_TEXT("mouse_x"),
 	input::kc::mouse_x_axis);
 
 sge::input::key_type const
 sge::x11input::mouse_y(
-	SGE_TEXT("mouse_y"),
+	FCPPT_TEXT("mouse_y"),
 	input::kc::mouse_y_axis);
 
 sge::input::key_type const
 sge::x11input::undefined_mouse_key(
-	SGE_TEXT("undefined mouse key"));
+	FCPPT_TEXT("undefined mouse key"));
 
 sge::input::key_type const
 sge::x11input::mouse_l(
-	SGE_TEXT("mouse_L"),
+	FCPPT_TEXT("mouse_L"),
 	input::kc::mouse_l);
 
 sge::input::key_type const
 sge::x11input::mouse_r(
-	SGE_TEXT("mouse_R"),
+	FCPPT_TEXT("mouse_R"),
 	input::kc::mouse_r);
 
 sge::input::key_type const
 sge::x11input::mouse_m(
-	SGE_TEXT("mouse_M"),
+	FCPPT_TEXT("mouse_M"),
 	input::kc::mouse_m);

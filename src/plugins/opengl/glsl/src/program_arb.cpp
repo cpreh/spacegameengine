@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../program_arb.hpp"
 #include "../../check_state.hpp"
 #include <sge/renderer/glsl/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 template<>
 sge::opengl::glsl::traits<false>::handle
@@ -32,7 +32,7 @@ sge::opengl::glsl::create_program<false>()
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glCreateProgramObjectARB"),
+		FCPPT_TEXT("glCreateProgramObjectARB"),
 		sge::renderer::glsl::exception
 	)
 
@@ -40,14 +40,14 @@ sge::opengl::glsl::create_program<false>()
 }
 
 template<>
-GLenum 
+GLenum
 sge::opengl::glsl::vertex_shader_type<false>()
 {
 	return GL_VERTEX_SHADER_ARB;
 }
 
 template<>
-GLenum 
+GLenum
 sge::opengl::glsl::pixel_shader_type<false>()
 {
 	return GL_FRAGMENT_SHADER_ARB;
@@ -61,7 +61,7 @@ void sge::opengl::glsl::detach_shader<false>(
 	glDetachObjectARB(program, shader);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glDetachObjectARB failed"),
+		FCPPT_TEXT("glDetachObjectARB failed"),
 		sge::renderer::glsl::exception
 	)
 }
@@ -73,7 +73,7 @@ void sge::opengl::glsl::delete_program<false>(
 	glDeleteObjectARB(program);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glDeleteObjectARB failed"),
+		FCPPT_TEXT("glDeleteObjectARB failed"),
 		sge::renderer::glsl::exception
 	)
 }
@@ -86,7 +86,7 @@ void sge::opengl::glsl::attach_shader<false>(
 	glAttachObjectARB(program, shader);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glAttachObjectARB"),
+		FCPPT_TEXT("glAttachObjectARB"),
 		sge::renderer::glsl::exception
 	)
 }
@@ -98,7 +98,7 @@ void sge::opengl::glsl::link_program<false>(
 	glLinkProgramARB(program);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glLinkProgramARB failed"),
+		FCPPT_TEXT("glLinkProgramARB failed"),
 		sge::renderer::glsl::exception
 	)
 }
@@ -109,11 +109,11 @@ GLint sge::opengl::glsl::program_integer<false>(
 	traits<false>::handle const program)
 {
 	GLint result;
-	
+
 	glGetObjectParameterivARB(program, what, &result);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glGetObjectParameterivARB failed"),
+		FCPPT_TEXT("glGetObjectParameterivARB failed"),
 		sge::renderer::glsl::exception
 	)
 
@@ -136,7 +136,7 @@ void sge::opengl::glsl::use_program<false>(
 	glUseProgramObjectARB(program);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glUseProgramObjectARB failed"),
+		FCPPT_TEXT("glUseProgramObjectARB failed"),
 		sge::renderer::glsl::exception
 	)
 }
@@ -156,7 +156,7 @@ void sge::opengl::glsl::program_info_log<false>(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glGetInfoLogARB failed"),
+		FCPPT_TEXT("glGetInfoLogARB failed"),
 		sge::renderer::glsl::exception
 	)
 }

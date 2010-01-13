@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../system.hpp"
 #include "../world.hpp"
-#include <sge/math/box/basic_impl.hpp>
-#include <sge/make_shared_ptr.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <ode/ode.h>
 
 sge::ode::system::system()
@@ -34,8 +34,8 @@ sge::ode::system::create_world(
 	collision::optional_box const &r,
 	collision::constraint::type const &c)
 {
-	return 
-		make_shared_ptr<world>(
+	return
+		fcppt::make_shared_ptr<world>(
 			r,
 			c);
 }

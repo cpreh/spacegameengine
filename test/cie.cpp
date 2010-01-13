@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/math/matrix/matrix.hpp>
-#include <sge/math/matrix/static.hpp>
-#include <sge/math/vector/vector.hpp>
-#include <sge/math/vector/static.hpp>
-#include <sge/cout.hpp>
-#include <sge/cin.hpp>
-#include <sge/cerr.hpp>
-#include <sge/text.hpp>
+#include <fcppt/math/matrix/matrix.hpp>
+#include <fcppt/math/matrix/static.hpp>
+#include <fcppt/math/vector/vector.hpp>
+#include <fcppt/math/vector/static.hpp>
+#include <fcppt/io/cout.hpp>
+#include <fcppt/io/cin.hpp>
+#include <fcppt/io/cerr.hpp>
+#include <fcppt/text.hpp>
 #include <limits>
 #include <iosfwd>
 #include <numeric>
@@ -35,7 +35,7 @@ int main()
 {
 	typedef double value_type;
 
-	sge::math::matrix::static_<
+	fcppt::math::matrix::static_<
 		value_type,
 		3,
 		3
@@ -45,29 +45,29 @@ int main()
 		0, 0.01, 0.99
 	);
 
-	typedef sge::math::vector::static_<
+	typedef fcppt::math::vector::static_<
 		value_type,
 		3
 	>::type vector_type;
-	
+
 	vector_type in;
 
-	while(!(sge::cin >> in))
+	while(!(fcppt::io::cin >> in))
 	{
-		sge::cerr << SGE_TEXT("Invalid input\n");
-		sge::cin.clear();
-		sge::cin.ignore(
+		fcppt::io::cerr << FCPPT_TEXT("Invalid input\n");
+		fcppt::io::cin.clear();
+		fcppt::io::cin.ignore(
 			std::numeric_limits<std::streamsize>::max(),
-			SGE_TEXT('\n')
+			FCPPT_TEXT('\n')
 		);
 	}
-	
+
 	vector_type const cie_vec = cie * in;
 
-	sge::cout
-		<< SGE_TEXT("vector in cie space: ")
+	fcppt::io::cout
+		<< FCPPT_TEXT("vector in cie space: ")
 		<< cie_vec
-		<< SGE_TEXT('\n');
+		<< FCPPT_TEXT('\n');
 
 	value_type const norm(
 		std::accumulate(
@@ -78,8 +78,8 @@ int main()
 		)
 	);
 
-	sge::cout
-		<< SGE_TEXT("vector in normalized cie space: ")
+	fcppt::io::cout
+		<< FCPPT_TEXT("vector in normalized cie space: ")
 		<< cie_vec / norm
-		<< SGE_TEXT('\n');
+		<< FCPPT_TEXT('\n');
 }

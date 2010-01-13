@@ -20,14 +20,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/state/any_compare.hpp>
 #include <sge/renderer/state/var.hpp>
-#include <sge/variant/apply_binary.hpp>
-#include <sge/variant/object_impl.hpp>
+#include <fcppt/variant/apply_binary.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <typeinfo>
 
 namespace
 {
 
-class compare {
+class compare
+{
 public:
 	typedef bool result_type;
 
@@ -38,7 +39,8 @@ public:
 	result_type
 	operator()(
 		sge::renderer::state::var<T, States> const &,
-		sge::renderer::state::var<T, States> const &) const;
+		sge::renderer::state::var<T, States> const &
+	) const;
 
 	template<
 		typename T,
@@ -47,7 +49,8 @@ public:
 	result_type
 	operator()(
 		T const &,
-		U const &) const;
+		U const &
+	) const;
 };
 
 }
@@ -55,9 +58,10 @@ public:
 bool
 sge::renderer::state::any_compare(
 	any const &a,
-	any const &b)
+	any const &b
+)
 {
-	return variant::apply_binary(
+	return fcppt::variant::apply_binary(
 		compare(),
 		a,
 		b
@@ -74,10 +78,12 @@ template<
 bool
 compare::operator()(
 	sge::renderer::state::var<T, States> const &a,
-	sge::renderer::state::var<T, States> const &b) const
+	sge::renderer::state::var<T, States> const &b
+) const
 {
-	return a.state()
-	     < b.state();
+	return
+		a.state()
+		< b.state();
 }
 
 template<
@@ -87,7 +93,8 @@ template<
 bool
 compare::operator()(
 	T const &,
-	U const &) const
+	U const &
+) const
 {
 	return typeid(T).before(typeid(U));
 }

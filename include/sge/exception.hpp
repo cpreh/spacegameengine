@@ -21,33 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_EXCEPTION_HPP_INCLUDED
 #define SGE_EXCEPTION_HPP_INCLUDED
 
-#include <sge/export.hpp>
-#include <sge/string.hpp>
+#include <sge/class_symbol.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/exception.hpp>
 
 namespace sge
 {
 
-class SGE_CLASS_SYMBOL exception 
+class SGE_CLASS_SYMBOL exception
+:
+	public fcppt::exception
 {
 public:
 	SGE_SYMBOL explicit exception(
-		sge::string const &s);
-
-	SGE_SYMBOL exception(
-		exception const &);
-
-	SGE_SYMBOL exception &
-	operator=(
-		exception const &);
-
-	SGE_SYMBOL sge::string const &
-	string() const;
-
-	//SGE_SYMBOL char const *what() const throw();
-
-	SGE_SYMBOL virtual ~exception();
-private:
-	sge::string s;
+		fcppt::string const &
+	);
 };
 
 }

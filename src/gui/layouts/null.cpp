@@ -21,40 +21,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/layouts/null.hpp>
 #include <sge/gui/widgets/base.hpp>
 #include <sge/gui/manager.hpp>
-#include <sge/math/box/basic_impl.hpp>
 #include <sge/gui/log.hpp>
-#include <sge/log/parameters/inherited.hpp>
-#include <sge/log/object.hpp>
-#include <sge/log/headers.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/log/parameters/inherited.hpp>
+#include <fcppt/log/object.hpp>
+#include <fcppt/log/headers.hpp>
 
 namespace
 {
 
-sge::log::object mylogger(
-	sge::log::parameters::inherited(
+fcppt::log::object mylogger(
+	fcppt::log::parameters::inherited(
 		sge::gui::global_log(),
-		SGE_TEXT("layouts::null")
+		FCPPT_TEXT("layouts::null")
 	)
 );
 
 }
 
 sge::gui::layouts::null::null()
-: 
+:
 	base()
 {
 }
 
 void sge::gui::layouts::null::compile_static()
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("in compile_static, doing nothing"));
-	
+		fcppt::log::_ << FCPPT_TEXT("in compile_static, doing nothing"));
+
 	connected_widget().parent_manager().dirty(
 		connected_widget(),
 		rect(
-			rect::pos_type::null(),
+			rect::vector::null(),
 			connected_widget().size()
 		)
 	);
@@ -62,9 +62,9 @@ void sge::gui::layouts::null::compile_static()
 
 sge::gui::dim const sge::gui::layouts::null::optimal_size() const
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("getting size hint from skin"));
+		fcppt::log::_ << FCPPT_TEXT("getting size hint from skin"));
 	return connected_widget().parent_manager().skin().optimal_size(
 		connected_widget());
 }

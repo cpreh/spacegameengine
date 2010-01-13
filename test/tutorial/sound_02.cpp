@@ -16,19 +16,20 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
-#include <sge/multi_loader.hpp>
+
+
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/audio/multi_loader.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/sound.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file.hpp>
 #include <sge/audio/pool.hpp>
-#include <sge/filesystem/path.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
-#include <sge/cerr.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/io/cerr.hpp>
 #include <exception>
 #include <cstdlib>
 
@@ -39,7 +40,7 @@ try
 		sge::systems::list()
 		(sge::systems::parameterless::audio_player));
 
-	sge::multi_loader<sge::audio::loader,sge::audio::file,sge::audio::exception> loader(sys.plugin_manager());
+	sge::audio::multi_loader loader(sys.plugin_manager());
 
 	sge::audio::pool pool;
 
@@ -47,15 +48,15 @@ try
 		sge::audio::sound_ptr const sound_01(
 			sys.audio_player()->create_nonstream_sound(
 				loader.load(
-					sge::config::media_path() / SGE_TEXT("ding.wav")
+					sge::config::media_path() / FCPPT_TEXT("ding.wav")
 				)
 			)
 		);
 
-		sge::audio::sound_ptr const sound_02( 
+		sge::audio::sound_ptr const sound_02(
 			sys.audio_player()->create_stream_sound(
 				loader.load(
-					sge::config::media_path() / SGE_TEXT("siren.ogg")
+					sge::config::media_path() / FCPPT_TEXT("siren.ogg")
 				)
 			)
 		);
@@ -72,11 +73,11 @@ try
 }
 catch(sge::exception const &e)
 {
-	sge::cerr << e.string() << SGE_TEXT('\n');
+	fcppt::io::cerr << e.string() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }
 catch(std::exception const &e)
 {
-	sge::cerr << e.what() << SGE_TEXT('\n');
+	fcppt::io::cerr << e.what() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }

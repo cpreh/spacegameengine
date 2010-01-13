@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/windows.hpp>
 #include <sge/windows/module_handle.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::windows::wndclass::wndclass(
-	sge::string const &class_name,
+	fcppt::string const &class_name,
 	WNDPROC const proc)
 :
 	class_name(
@@ -47,7 +47,7 @@ sge::windows::wndclass::wndclass(
 
 	if(!RegisterClassEx(&wndclass))
 		throw exception(
-			SGE_TEXT("RegisterClassEx() failed!"));
+			FCPPT_TEXT("RegisterClassEx() failed!"));
 }
 
 sge::windows::wndclass::~wndclass()
@@ -57,7 +57,7 @@ sge::windows::wndclass::~wndclass()
 		module_handle());
 }
 
-sge::string const &
+fcppt::string const &
 sge::windows::wndclass::name() const
 {
 	return class_name;

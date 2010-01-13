@@ -25,9 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widgets/fwd.hpp>
 #include <sge/gui/export.hpp>
 #include <sge/gui/size_policy.hpp>
-#include <sge/math/dim/basic_decl.hpp>
-#include <sge/math/vector/basic_decl.hpp>
-#include <sge/math/vector/basic_impl.hpp>
+#include <fcppt/math/dim/basic_decl.hpp>
+#include <fcppt/math/vector/basic_decl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <vector>
 #include <cstddef>
 
@@ -40,10 +40,10 @@ namespace layouts
 class SGE_CLASS_SYMBOL row : public base
 {
 	public:
-	typedef math::vector::static_<float,2>::type spacing;
+	typedef fcppt::math::vector::static_<float,2>::type spacing;
 
 	SGE_GUI_SYMBOL row(
-		spacing const & = 
+		spacing const & =
 			spacing(
 				static_cast<spacing::value_type>(1.1),
 				static_cast<spacing::value_type>(1.1)));

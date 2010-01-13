@@ -23,19 +23,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/manager.hpp>
 #include <sge/gui/exception.hpp>
 #include <sge/gui/log.hpp>
-#include <sge/log/parameters/inherited.hpp>
-#include <sge/log/object.hpp>
-#include <sge/log/headers.hpp>
-#include <sge/type_name.hpp>
-#include <sge/text.hpp>
+#include <fcppt/log/parameters/inherited.hpp>
+#include <fcppt/log/object.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/type_name.hpp>
+#include <fcppt/text.hpp>
 
 namespace
 {
 
-sge::log::object mylogger(
-	sge::log::parameters::inherited(
+fcppt::log::object mylogger(
+	fcppt::log::parameters::inherited(
 		sge::gui::global_log(),
-		SGE_TEXT("layouts: base")
+		FCPPT_TEXT("layouts: base")
 	)
 );
 
@@ -49,28 +49,30 @@ sge::gui::layouts::base::base()
 
 void sge::gui::layouts::base::compile(invalidation::type const &i)
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("in compile of widget: ")
-		        << type_name(typeid(connected_widget())));
+		fcppt::log::_
+			<< FCPPT_TEXT("in compile of widget: ")
+			<< fcppt::type_name(typeid(connected_widget()))
+	);
 
 	if (i & invalidation::position)
 	{
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_ << SGE_TEXT("position invalid"));
+			fcppt::log::_ << FCPPT_TEXT("position invalid"));
 
 		// Currently, the layout doesn't support any internal size hints (just the
 		// global one which sets the widget's position
 		if (!connected_widget().has_parent())
 		{
-			SGE_LOG_DEBUG(
+			FCPPT_LOG_DEBUG(
 				mylogger,
-				log::_ << SGE_TEXT("setting raw new position"));
+				fcppt::log::_ << FCPPT_TEXT("setting raw new position"));
 
 			base::set_widget_pos(
 				connected_widget(),
-				connected_widget().pos_hint() 
+				connected_widget().pos_hint()
 					? *connected_widget().pos_hint()
 					: point::null());
 		}
@@ -78,12 +80,12 @@ void sge::gui::layouts::base::compile(invalidation::type const &i)
 
 	if (!(i & invalidation::size))
 		return;
-		
-	SGE_LOG_DEBUG(
+
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("size invalid, so recompiling"));
-	
-	dim const s = 
+		fcppt::log::_ << FCPPT_TEXT("size invalid, so recompiling"));
+
+	dim const s =
 		connected_widget().optimal_size();
 
 	// Widget hasn't been resized yet?
@@ -148,7 +150,7 @@ void sge::gui::layouts::base::compile_widget(
 void sge::gui::layouts::base::connected_widget(widgets::base &_w)
 {
 	if (w)
-		throw exception(SGE_TEXT("registered connected widgets::base twice"));
-	
+		throw exception(FCPPT_TEXT("registered connected widgets::base twice"));
+
 	w = &_w;
 }

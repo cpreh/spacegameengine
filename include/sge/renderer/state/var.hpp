@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_STATE_VAR_HPP_INCLUDED
 
 #include <sge/renderer/state/var_fwd.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
@@ -43,7 +43,7 @@ public:
 	SGE_SYMBOL var &
 	operator=(
 		value_type const &);
-	
+
 	SGE_SYMBOL state_type state() const;
 	SGE_SYMBOL value_type value() const;
 

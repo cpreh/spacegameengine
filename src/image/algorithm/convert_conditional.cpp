@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/make_const.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <sge/image/size_type.hpp>
-#include <sge/variant/object_impl.hpp>
-#include <sge/optional_impl.hpp>
-#include <sge/text.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/text.hpp>
 #include <sge/exception.hpp>
 #include <boost/spirit/home/phoenix/bind/bind_function.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
@@ -43,13 +43,13 @@ sge::image::algorithm::convert_conditional(
 {
 	if(std::find(formats.begin(), formats.end(), fmt) != formats.end())
 		return;
-	
+
 	size_type const stride(
 		color::format_stride(
 			fmt
 		)
 	);
-	
+
 	accepted_format_array::const_iterator const it(
 		std::find_if(
 			formats.begin(),
@@ -61,11 +61,11 @@ sge::image::algorithm::convert_conditional(
 			== stride
 		)
 	);
-	
+
 	if(it == formats.end())
 		throw exception(
-			SGE_TEXT("No suitable color format in convert_conditional!"));
-	
+			FCPPT_TEXT("No suitable color format in convert_conditional!"));
+
 	copy_and_convert(
 		view::make_const(
 			view::make(

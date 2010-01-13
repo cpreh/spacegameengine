@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/cursor.hpp>
 #include <sge/x11/display.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::x11::cursor::cursor(
 	display_ptr const dsp,
@@ -42,7 +42,7 @@ sge::x11::cursor::cursor(
 {
 	if(get() == None)
 		throw exception(
-			SGE_TEXT("XCreatePixmapCursor() failed!"));
+			FCPPT_TEXT("XCreatePixmapCursor() failed!"));
 }
 
 sge::x11::cursor::~cursor()

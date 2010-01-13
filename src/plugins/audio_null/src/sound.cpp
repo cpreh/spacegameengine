@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../sound.hpp"
-#include <sge/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 
 sge::audio_null::sound::sound()
 :
@@ -59,7 +59,7 @@ void
 sge::audio_null::sound::play(
 	sge::audio::play_mode::type const nplay_mode)
 {
-	play_mode_ = nplay_mode;	
+	play_mode_ = nplay_mode;
 }
 
 sge::audio::play_mode::type

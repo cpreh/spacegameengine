@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_WGL_CURRENT_HPP_INCLUDED
 #define SGE_OPENGL_WGL_CURRENT_HPP_INCLUDED
 
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -38,7 +38,7 @@ namespace wgl
 class context;
 
 class current {
-	SGE_NONCOPYABLE(current)
+	FCPPT_NONCOPYABLE(current)
 public:
 	current(
 		windows::gdi_device const &,

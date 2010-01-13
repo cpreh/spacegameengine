@@ -19,25 +19,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config/appdir.hpp>
-#include <sge/text.hpp>
 #include <sge/exception.hpp>
 #include <sge/config.h>
-#if defined(SGE_WINDOWS_PLATFORM)
+#include <fcppt/text.hpp>
+#if defined(FCPPT_WINDOWS_PLATFORM)
 #include <sge/windows/windows.hpp>
-#include <sge/container/raw_vector_impl.hpp>
-#include <sge/filesystem/remove_filename.hpp>
-#include <sge/char_type.hpp>
-#elif defined(SGE_POSIX_PLATFORM)
-#include <sge/filesystem/remove_filename.hpp>
-#include <sge/filesystem/readlink.hpp>
-#include <sge/filesystem/exists.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/filesystem/remove_filename.hpp>
+#include <fcppt/char_type.hpp>
+#elif defined(FCPPT_POSIX_PLATFORM)
+#include <fcppt/filesystem/remove_filename.hpp>
+#include <fcppt/filesystem/readlink.hpp>
+#include <fcppt/filesystem/exists.hpp>
 #endif
 
-sge::filesystem::path const
+fcppt::filesystem::path const
 sge::config::appdir()
 {
-#if defined(SGE_WINDOWS_PLATFORM)
-	container::raw_vector<
+#if defined(FCPPT_WINDOWS_PLATFORM)
+	fcppt::container::raw_vector<
 		char_type
 	> buf(32768);
 
@@ -49,36 +49,36 @@ sge::config::appdir()
 		)
 	)
 		throw exception(
-			SGE_TEXT("GetModuleFileName() failed!")
+			FCPPT_TEXT("GetModuleFileName() failed!")
 		);
 
-	return filesystem::remove_filename(
-		string(
+	return fcppt::filesystem::remove_filename(
+		fcppt::string(
 			buf.data()
 		)
 	);
-#elif defined(SGE_POSIX_PLATFORM)
-	sge::filesystem::path const self(
+#elif defined(FCPPT_POSIX_PLATFORM)
+	fcppt::filesystem::path const self(
 		"/proc/self/exe"
 	);
 
 	if(
-		!filesystem::exists(
+		!fcppt::filesystem::exists(
 			self
 		)
 	)
 		throw exception(
-			SGE_TEXT("/prof/self/exe does not exist")
+			FCPPT_TEXT("/prof/self/exe does not exist")
 		);
-	
-	return filesystem::remove_filename(
-		filesystem::readlink(
+
+	return fcppt::filesystem::remove_filename(
+		fcppt::filesystem::readlink(
 			self
 		)
 	);
 #else
 	throw exception(
-		SGE_TEXT("Can't find the application's path!")
+		FCPPT_TEXT("Can't find the application's path!")
 	);
 #endif
 }

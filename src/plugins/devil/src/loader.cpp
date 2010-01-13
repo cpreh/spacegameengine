@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../loader.hpp"
 #include "../file.hpp"
 #include "../error.hpp"
-#include <sge/make_shared_ptr.hpp>
-#include <sge/text.hpp>
+#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/text.hpp>
 
 sge::devil::loader::loader()
 {
@@ -34,9 +34,10 @@ sge::devil::loader::loader()
 
 sge::image::file_ptr const
 sge::devil::loader::load(
-	filesystem::path const &p)
+	fcppt::filesystem::path const &p
+)
 {
-	return make_shared_ptr<
+	return fcppt::make_shared_ptr<
 		file
 	>(
 		p
@@ -54,9 +55,10 @@ sge::devil::loader::load_image(
 
 sge::image::file_ptr const
 sge::devil::loader::create(
-	image::view::const_object const &src)
+	image::view::const_object const &src
+)
 {
-	return make_shared_ptr<
+	return fcppt::make_shared_ptr<
 		file
 	>(
 		src
@@ -68,9 +70,9 @@ sge::devil::loader::extensions() const
 {
 	// FIXME: add more extensions, see: http://openil.sourceforge.net/features.php
 	extension_set s;
-	s.insert(SGE_TEXT("bmp"));
-	s.insert(SGE_TEXT("png"));
-	s.insert(SGE_TEXT("jpg"));
-	s.insert(SGE_TEXT("jpeg"));
+	s.insert(FCPPT_TEXT("bmp"));
+	s.insert(FCPPT_TEXT("png"));
+	s.insert(FCPPT_TEXT("jpg"));
+	s.insert(FCPPT_TEXT("jpeg"));
 	return s;
 }

@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../color_convert.hpp"
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::image::color::format::type
 sge::opengl::color_convert(
@@ -49,7 +49,7 @@ sge::opengl::color_convert(
 	}
 
 	throw exception(
-		SGE_TEXT("ogl::color_convert: No matching color_format!")
+		FCPPT_TEXT("ogl::color_convert: No matching color_format!")
 	);
 }
 
@@ -76,7 +76,7 @@ sge::opengl::to_format(
 	}
 
 	throw exception(
-		SGE_TEXT("Invalid color_format in to_format()!")
+		FCPPT_TEXT("Invalid color_format in to_format()!")
 	);
 }
 
@@ -101,6 +101,6 @@ sge::opengl::to_format_type(
 	}
 
 	throw exception(
-		SGE_TEXT("Invalid color_format in to_format_type()!")
+		FCPPT_TEXT("Invalid color_format in to_format_type()!")
 	);
 }

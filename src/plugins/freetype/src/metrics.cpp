@@ -22,27 +22,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glyph.hpp"
 #include "../char_metric.hpp"
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <utility>
 
 sge::freetype::metrics::metrics(
 	library &lib,
-	filesystem::path const &font_path,
-	font::size_type const font_height)
+	fcppt::filesystem::path const &font_path,
+	font::size_type const font_height
+)
 :
 	face_(lib, font_path),
 	pixel_size(font_height)
 {
 	if(FT_Select_Charmap(face_.get(), FT_ENCODING_UNICODE) != 0)
-		throw exception(SGE_TEXT("No Unicode code map found!"));
+		throw exception(FCPPT_TEXT("No Unicode code map found!"));
 
 	if(FT_Set_Pixel_Sizes(face_.get(), 0, font_height))
-		throw exception(SGE_TEXT("FT_Set_Pixel_Sizes() failed!"));
+		throw exception(FCPPT_TEXT("FT_Set_Pixel_Sizes() failed!"));
 }
 
 sge::font::char_metric_ptr const
 sge::freetype::metrics::load_char(
-	char_type const c)
+	fcppt::char_type const c
+)
 {
 	{
 		buffer_type::const_iterator const it = buffer.find(c);

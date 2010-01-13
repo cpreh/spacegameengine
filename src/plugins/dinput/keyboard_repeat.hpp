@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DINPUT_KEYBOARD_REPEAT_HPP_INCLUDED
 #define SGE_DINPUT_KEYBOARD_REPEAT_HPP_INCLUDED
 
-#include <sge/time/resolution_fwd.hpp>
+#include <sge/time/duration.hpp>
 
 namespace sge
 {
 namespace dinput
 {
 
-sge::time::resolution const
+sge::time::duration const
 keyboard_repeat();
 
 }

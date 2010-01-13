@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/member.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::font::pos const
 sge::bitmapfont::load_offset(
@@ -37,13 +37,13 @@ sge::bitmapfont::load_offset(
 			parse::json::array
 		>(
 			members,
-			SGE_TEXT("offset")
+			FCPPT_TEXT("offset")
 		).elements
 	);
 
 	if(elements.size() != 2)
 		throw exception(
-			SGE_TEXT("Bogus offset detected")
+			FCPPT_TEXT("Bogus offset detected")
 		);
 
 	return font::pos(

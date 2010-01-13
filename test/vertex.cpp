@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cerr.hpp>
-#include <sge/text.hpp>
+#include <fcppt/io/cerr.hpp>
+#include <fcppt/text.hpp>
 #include <sge/exception.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/signal/scoped_connection.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <sge/renderer/vf/make_dynamic_format.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/pos.hpp>
@@ -47,7 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/system.hpp>
 #include <sge/input/action.hpp>
 #include <sge/mainloop/dispatch.hpp>
-#include <boost/mpl/vector.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <ostream>
@@ -61,7 +61,7 @@ try
 		sge::systems::list()
 		(
 			sge::window::parameters(
-				SGE_TEXT("sge vertextest")
+				FCPPT_TEXT("sge vertextest")
 			)
 		)
 		(
@@ -96,7 +96,7 @@ try
 	> color_type;
 
 	typedef sge::renderer::vf::format<
-		boost::mpl::vector<
+		boost::mpl::vector2<
 			pos3_type,
 			color_type
 		>
@@ -123,7 +123,7 @@ try
 		typedef sge::renderer::vf::view<
 			format
 		> vertex_view;
-		
+
 		vertex_view const vertices(
 			vblock.value()
 		);
@@ -131,7 +131,7 @@ try
 		vertex_view::iterator vb_it(
 			vertices.begin()
 		);
-		
+
 		typedef pos3_type::packed_type vec3;
 
 		(*vb_it).set<pos3_type>(
@@ -173,7 +173,7 @@ try
 
 	bool running = true;
 
-	sge::signal::scoped_connection const cb(
+	fcppt::signal::scoped_connection const cb(
 		sys.input_system()->register_callback(
 			sge::input::action(
 				sge::input::kc::key_escape,
@@ -189,7 +189,7 @@ try
 				= sge::image::colors::black()
 		)
 	);
-	
+
 	while(running)
 	{
 		sge::mainloop::dispatch();
@@ -198,19 +198,19 @@ try
 
 		rend->render(
 			vb,
-			0,
-			3,
+			sge::renderer::first_vertex(0),
+			sge::renderer::vertex_count(3),
 			sge::renderer::nonindexed_primitive_type::triangle_strip
 		);
 	}
 }
 catch(sge::exception const &e)
 {
-	sge::cerr << e.string() << SGE_TEXT('\n');
+	fcppt::io::cerr << e.string() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }
 catch(std::exception const &e)
 {
-	sge::cerr << e.what() << SGE_TEXT('\n');
+	fcppt::io::cerr << e.what() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }

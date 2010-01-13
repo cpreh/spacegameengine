@@ -32,14 +32,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/colors.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/window/parameters.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/math/dim/structure_cast.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/io/cerr.hpp>
+#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/text.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
-#include <sge/cerr.hpp>
-#include <sge/make_shared_ptr.hpp>
 #include <exception>
 #include <iostream>
 #include <ostream>
@@ -52,7 +52,7 @@ try
 		sge::systems::list()
 		(
 			sge::window::parameters(
-				SGE_TEXT("sge fonttest")
+				FCPPT_TEXT("sge fonttest")
 			)
 		)
 		(
@@ -76,20 +76,22 @@ try
 
 	sge::font::metrics_ptr const metrics(
 		sys.font_system()->create_font(
-			sge::config::media_path() / SGE_TEXT("fonts") / SGE_TEXT("default.ttf"),
+			sge::config::media_path()
+			/ FCPPT_TEXT("fonts")
+			/ FCPPT_TEXT("default.ttf"),
 			static_cast<sge::font::size_type>(15)
 		)
 	);
-	
+
 	sge::font::drawer_ptr const drawer(
-		sge::make_shared_ptr<
+		fcppt::make_shared_ptr<
 			sge::font::drawer_3d
 		>(
 			sys.renderer(),
 			sge::image::colors::green()
 		)
 	);
-	
+
 	sge::font::object font(
 		metrics,
 		drawer
@@ -100,9 +102,9 @@ try
 		sge::mainloop::dispatch();
 		sge::renderer::scoped_block const block(sys.renderer());
 		font.draw_text(
-			SGE_TEXT("hello world"),
+			FCPPT_TEXT("hello world"),
 			sge::font::pos::null(),
-			sge::math::dim::structure_cast<sge::font::dim>(
+			fcppt::math::dim::structure_cast<sge::font::dim>(
 				sys.renderer()->screen_size()
 			),
 			sge::font::align_h::center,
@@ -112,11 +114,19 @@ try
 }
 catch (sge::exception const &e)
 {
-	sge::cerr << SGE_TEXT("caught sge exception: ") << e.string() << SGE_TEXT('\n');
+	fcppt::io::cerr
+		<< FCPPT_TEXT("caught sge exception: ")
+		<< e.string()
+		<< FCPPT_TEXT('\n');
+	
 	return EXIT_FAILURE;
 }
 catch (std::exception const &e)
 {
-	std::cerr << "caught std exception: " << e.what() << '\n';
+	std::cerr
+		<< "caught std exception: "
+		<< e.what()
+		<< '\n';
+	
 	return EXIT_FAILURE;
 }

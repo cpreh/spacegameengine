@@ -23,24 +23,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/library/function_string.hpp>
 #include <sge/exception.hpp>
-#include <sge/string.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
 namespace library
 {
 
-class SGE_CLASS_SYMBOL function_not_found : public exception {
+class SGE_CLASS_SYMBOL function_not_found
+:
+	public exception
+{
 public:
 	SGE_SYMBOL function_not_found(
-		sge::string const &lib,
-		function_string const &fun);
-	
-	SGE_SYMBOL sge::string const &lib() const;
-	SGE_SYMBOL function_string const &func() const;
+		fcppt::string const &lib,
+		function_string const &
+	);
+
+	SGE_SYMBOL fcppt::string const &
+	lib() const;
+
+	SGE_SYMBOL function_string const &
+	func() const;
+
+	SGE_SYMBOL virtual ~function_not_found() throw();
 private:
-	sge::string lib_;
+	fcppt::string lib_;
 	function_string func_;
 };
 

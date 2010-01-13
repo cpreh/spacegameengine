@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../readonly_texture_lock.hpp"
-#include <sge/container/raw_vector_impl.hpp>
-#include <sge/algorithm/copy_n.hpp>
-#include <sge/assert.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/algorithm/copy_n.hpp>
+#include <fcppt/assert.hpp>
 
 sge::opengl::readonly_texture_lock::readonly_texture_lock(
 	size_type const lock_size,
@@ -51,11 +51,11 @@ void sge::opengl::readonly_texture_lock::post_lock()
 
 	if(!pitch)
 		return;
-	
+
 	// if the pitch is set we copy the part to read
 	// in our own buffer so that the user sees a contiguous array
 
-	SGE_ASSERT(lock_size % block_size == 0);
+	FCPPT_ASSERT(lock_size % block_size == 0);
 
 	cutout_buffer.resize_uninitialized(
 		lock_size);
@@ -73,9 +73,16 @@ void sge::opengl::readonly_texture_lock::copy_read_part(
 	pointer const dest) const
 {
 	size_type i(offset);
-	for(pointer p(dest); p != dest + lock_size;
-	    i += pitch + block_size, p += block_size)
-		algorithm::copy_n(buffer.data() + i, block_size, p);
+	for(
+		pointer p(dest);
+		p != dest + lock_size;
+		i += pitch + block_size, p += block_size
+	)
+		fcppt::algorithm::copy_n(
+			buffer.data() + i,
+			block_size,
+			p
+		);
 }
 
 void sge::opengl::readonly_texture_lock::pre_unlock()

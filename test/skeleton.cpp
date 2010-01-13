@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <sge/mainloop/skeleton.hpp>
 #include <sge/mainloop/catch_block.hpp>
 #include <sge/input/key_pair.hpp>
@@ -33,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 namespace
 {
@@ -62,7 +61,7 @@ app::app()
 		sge::systems::list()
 		(
 			sge::window::parameters(
-				SGE_TEXT("sge skeletontest")
+				FCPPT_TEXT("sge skeletontest")
 			)
 		)
 		(

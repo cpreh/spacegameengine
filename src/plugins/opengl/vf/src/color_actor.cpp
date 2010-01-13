@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../client_state_combiner.hpp"
 #include "../../check_state.hpp"
 #include <sge/renderer/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::opengl::vf::color_actor::color_actor(
 	renderer::vf::dynamic_ordered_element const &e,
@@ -35,8 +35,8 @@ sge::opengl::vf::color_actor::color_actor(
 {
 	if(index() > 0)
 		throw renderer::exception(
-			SGE_TEXT("opengl does not support more than one color type in the vertex format!")
-			SGE_TEXT(" glSecondaryColor is currently not supported.")
+			FCPPT_TEXT("opengl does not support more than one color type in the vertex format!")
+			FCPPT_TEXT(" glSecondaryColor is currently not supported.")
 		);
 }
 
@@ -49,9 +49,9 @@ void sge::opengl::vf::color_actor::operator()(
 		stride(),
 		pointer()
 	);
-	
+
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glColorPointer failed"),
+		FCPPT_TEXT("glColorPointer failed"),
 		sge::renderer::exception
 	)
 

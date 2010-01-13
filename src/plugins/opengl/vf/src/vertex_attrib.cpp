@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../check_state.hpp"
 #include "../../common.hpp"
 #include <sge/renderer/exception.hpp>
-#include <sge/once.hpp>
-#include <sge/text.hpp>
+#include <fcppt/function_once.hpp>
+#include <fcppt/text.hpp>
 
 namespace
 {
@@ -58,7 +58,7 @@ void sge::opengl::vf::vertex_attrib_pointer(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glVertexAttribPointer failed"),
+		FCPPT_TEXT("glVertexAttribPointer failed"),
 		sge::renderer::exception
 	)
 }
@@ -73,7 +73,7 @@ void sge::opengl::vf::enable_vertex_attrib_array(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glEnableVertexAttribArray failed"),
+		FCPPT_TEXT("glEnableVertexAttribArray failed"),
 		sge::renderer::exception
 	)
 }
@@ -88,7 +88,7 @@ void sge::opengl::vf::disable_vertex_attrib_array(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glDsiableVertexAttribArray failed"),
+		FCPPT_TEXT("glDsiableVertexAttribArray failed"),
 		sge::renderer::exception
 	)
 }
@@ -98,14 +98,14 @@ namespace
 
 void initialize()
 {
-	SGE_FUNCTION_ONCE
+	FCPPT_FUNCTION_ONCE
 
 	if(sge::opengl::glew_is_supported("GL_VERSION_2_0"))
 	{
 		gl_vertex_attrib_pointer = glVertexAttribPointer;
 		gl_enable_vertex_attrib_array = glEnableVertexAttribArray;
 		gl_disable_vertex_attrib_array = glDisableVertexAttribArray;
-	
+
 	}
 	else if(sge::opengl::glew_is_supported("GL_ARB_vertex_shader"))
 	{
@@ -115,9 +115,9 @@ void initialize()
 	}
 	else
 		sge::opengl::on_not_supported(
-			SGE_TEXT("vertex attributes"),
-			SGE_TEXT("2.0"),
-			SGE_TEXT("gl_arb_vertex_shader")
+			FCPPT_TEXT("vertex attributes"),
+			FCPPT_TEXT("2.0"),
+			FCPPT_TEXT("gl_arb_vertex_shader")
 		);
 }
 

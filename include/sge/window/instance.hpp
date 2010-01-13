@@ -24,25 +24,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/dim_type.hpp>
 #include <sge/window/pos_type.hpp>
 #include <sge/mainloop/dispatchable.hpp>
-#include <sge/string.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace window
 {
 
-class SGE_CLASS_SYMBOL instance : public mainloop::dispatchable {
+class SGE_CLASS_SYMBOL instance
+:
+	public mainloop::dispatchable
+{
+	FCPPT_NONCOPYABLE(instance)
+protected:
+	SGE_SYMBOL instance();
 public:
 	typedef window::pos_type pos_type;
 	typedef window::dim_type dim_type;
 
-	virtual void title(
-		string const &title) = 0;
-	virtual dim_type const size() const = 0;
-	virtual pos_type const viewport_offset() const = 0;
-	virtual void size(
-		dim_type const &) = 0;
+	virtual void
+	title(
+		fcppt::string const &title
+	) = 0;
+
+	virtual dim_type const
+	size() const = 0;
+
+	virtual pos_type const
+	viewport_offset() const = 0;
+
+	virtual void
+	size(
+		dim_type const &
+	) = 0;
+
 	SGE_SYMBOL virtual ~instance();
 };
 

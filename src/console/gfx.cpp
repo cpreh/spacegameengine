@@ -27,13 +27,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text_size.hpp>
 #include <sge/font/pos.hpp>
 #include <sge/time/second_f.hpp>
-#include <sge/time/resolution.hpp>
-#include <sge/container/map_impl.hpp>
-#include <sge/math/box/basic_impl.hpp>
-#include <sge/math/vector/structure_cast.hpp>
-#include <sge/make_shared_ptr.hpp>
+#include <sge/sprite/external_system_impl.hpp>
+#include <sge/sprite/render_one.hpp>
+#include <sge/exception.hpp>
+#include <fcppt/container/map_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <boost/foreach.hpp>
-#include <tr1/functional>
 #include <locale>
 
 sge::console::gfx::gfx(
@@ -42,12 +44,13 @@ sge::console::gfx::gfx(
 	image::color::any::object const &_font_color,
 	font::metrics_ptr const _metrics,
 	input::system_ptr const _is,
-	sprite::object const &_bg)
+	sprite_object const &_bg
+)
 :
 	object_(_object),
 	fn(
 		_metrics,
-		make_shared_ptr<
+		fcppt::make_shared_ptr<
 			font::drawer_3d
 		>(
 			_rend,
@@ -94,16 +97,20 @@ sge::console::gfx::gfx(
 sge::console::gfx::~gfx()
 {}
 
-void sge::console::gfx::draw()
+void
+sge::console::gfx::draw()
 {
-	ss.render(bg);
+	sprite::render_one(
+		ss,
+		bg
+	);
 
 	font::unit current_y = static_cast<font::unit>(bg.y()+bg.h()-2*fn.height());
 	BOOST_FOREACH(
-		string const s,
+		fcppt::string const s,
 		output_history_.lines_inside(
 			detail::history::rect(
-				math::vector::structure_cast<detail::history::point>(
+				fcppt::math::vector::structure_cast<detail::history::point>(
 					bg.pos()
 				),
 				detail::history::dim(
@@ -112,7 +119,7 @@ void sge::console::gfx::draw()
 				)
 			),
 			static_cast<detail::history::unit>(fn.height())
-		)	
+		)
 	)
 	{
 		// draw history lines
@@ -124,8 +131,8 @@ void sge::console::gfx::draw()
 			font::align_v::top);
 		current_y -= fn.height();
 	}
-	
-	string const il = input_line_.edited(cursor_active_);
+
+	fcppt::string const il = input_line_.edited(cursor_active_);
 
 	fn.draw_text(
 		il,
@@ -135,39 +142,50 @@ void sge::console::gfx::draw()
 		font::dim(
 			static_cast<font::unit>(bg.w()),
 			static_cast<font::unit>(fn.height())));
-	
+
 	if (cursor_blink_.update_b())
 		cursor_active_ = !cursor_active_;
 }
 
-bool sge::console::gfx::active() const
+bool
+sge::console::gfx::active() const
 {
 	return active_;
 }
 
-void sge::console::gfx::active(bool const _active)
+void
+sge::console::gfx::active(
+	bool const _active
+)
 {
 	active_ = _active;
 }
 
-void sge::console::gfx::print(string const &s)
+void
+sge::console::gfx::print(
+	fcppt::string const &s
+)
 {
 	output_history_.push_front(s);
 }
 
-sge::console::object &sge::console::gfx::object()
+sge::console::object &
+sge::console::gfx::object()
 {
 	return object_;
 }
 
-sge::console::object const &sge::console::gfx::object() const
+sge::console::object const &
+sge::console::gfx::object() const
 {
 	return object_;
 }
 
-void sge::console::gfx::key_callback(
+void
+sge::console::gfx::key_callback(
 	input::key_pair const &k,
-	input::modifier::states const &s)
+	input::modifier::states const &s
+)
 {
 	if (!active_)
 		return;
@@ -178,20 +196,22 @@ void sge::console::gfx::key_callback(
 			s);
 }
 
-void sge::console::gfx::key_action(
+void
+sge::console::gfx::key_action(
 	input::key_type const &k,
-	input::modifier::states const &s)
+	input::modifier::states const &s
+)
 {
 	if (!active_)
 		return;
 
-	if ((k.char_code() == SGE_TEXT('w') || k.char_code() == SGE_TEXT('W'))
+	if ((k.char_code() == FCPPT_TEXT('w') || k.char_code() == FCPPT_TEXT('W'))
 	    && (s[input::kc::key_lctrl] || s[input::kc::key_rctrl]))
 	{
 		input_line_.erase_word();
 		return;
 	}
-	
+
 	// is a printable character? then append to input
 	if(std::isprint(k.char_code(),std::locale()))
 	{
@@ -243,14 +263,14 @@ void sge::console::gfx::key_action(
 		case input::kc::key_return:
 			if (input_line_.empty())
 				return;
-				
+
 			try
 			{
 				object_.eval(input_line_.string());
 			}
 			catch (exception const &e)
 			{
-				print(SGE_TEXT("console error: ")+e.string());
+				print(FCPPT_TEXT("console error: ")+e.string());
 			}
 
 			// add executed command to each history (at the front)...

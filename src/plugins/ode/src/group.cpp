@@ -1,9 +1,27 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
 #include "../group.hpp"
 #include "../body.hpp"
-#include <sge/math/null.hpp>
-#include <sge/assert.hpp>
-#include <sge/text.hpp>
-#include <sge/cerr.hpp>
+#include <fcppt/math/null.hpp>
+#include <fcppt/assert_message.hpp>
+#include <fcppt/text.hpp>
 
 sge::ode::group::group(
 	group_id const _category)
@@ -11,16 +29,15 @@ sge::ode::group::group(
 	category_(
 		_category),
 	collides_(
-		sge::math::null<group_id>()),
+		fcppt::math::null<group_id>()),
 	dirty_(false)
 {
-	//sge::cerr << "created new group with category " << category_ << " and collides: " << collides_ << "\n";
 }
 
 void sge::ode::group::add(
 	collision::body_ptr const _body)
 {
-	dirty_ = 
+	dirty_ =
 		true;
 	dynamic_cast<body &>(
 		*_body).add_to_group(
@@ -30,9 +47,8 @@ void sge::ode::group::add(
 void sge::ode::group::collides_with(
 	group const &other)
 {
-	SGE_ASSERT_MESSAGE(!dirty_ && !other.dirty_,SGE_TEXT("Constraint violation: Tried to change a group which already has shapes in it"));
+	FCPPT_ASSERT_MESSAGE(!dirty_ && !other.dirty_,FCPPT_TEXT("Constraint violation: Tried to change a group which already has shapes in it"));
 	collides_ |= other.category();
-	//sge::cerr << "group with category: " << category() << ": collides with group with category " << other.category() << ", collides is now: " << collides_ << "\n";
 }
 
 sge::ode::group_id sge::ode::group::category() const

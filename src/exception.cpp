@@ -21,37 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 
 sge::exception::exception(
-	sge::string const &s)
+	fcppt::string const &string_
+)
 :
-	s(s)
-{}
-
-sge::exception::exception(
-	exception const &e)
-:
-	s(e.s)
-{}
-
-sge::exception &
-sge::exception::operator=(
-	exception const &e)
-{
-	s = e.s;
-	return *this;
-}
-
-sge::string const &
-sge::exception::string() const
-{
-	return s;
-}
-
-/*
-char const *
-sge::exception::what() const throw()
-{
-	return "do not catch sge::exception as std::exception, no what() can be supplied";
-}*/
-
-sge::exception::~exception()
+	fcppt::exception(
+		string_
+	)
 {}

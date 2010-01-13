@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/index/view_16.hpp>
 #include <sge/renderer/index/view_32.hpp>
-#include <sge/variant/object_fwd.hpp>
-#include <boost/mpl/vector.hpp>
+#include <fcppt/variant/object_fwd.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace sge
 {
@@ -33,15 +33,15 @@ namespace renderer
 namespace index
 {
 
-typedef variant::object<
-	boost::mpl::vector<
+typedef fcppt::variant::object<
+	boost::mpl::vector2<
 		view_16,
 		view_32
 	>
 > view;
 
-typedef variant::object<
-	boost::mpl::vector<
+typedef fcppt::variant::object<
+	boost::mpl::vector2<
 		const_view_16,
 		const_view_32
 	>

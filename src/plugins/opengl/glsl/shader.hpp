@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../common.hpp"
 #include "traits.hpp"
-#include <sge/shared_ptr.hpp>
 #include <sge/renderer/glsl/string.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/shared_ptr.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -38,7 +38,7 @@ template<
 	bool Native
 >
 class shader {
-	SGE_NONCOPYABLE(shader)
+	FCPPT_NONCOPYABLE(shader)
 public:
 	typedef typename traits<Native>::handle handle;
 
@@ -48,7 +48,7 @@ public:
 	~shader();
 	handle id() const;
 
-	typedef sge::shared_ptr<shader<Native> > shared_ptr;
+	typedef fcppt::shared_ptr<shader<Native> > shared_ptr;
 private:
 	handle id_;
 };

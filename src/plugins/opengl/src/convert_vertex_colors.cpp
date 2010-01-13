@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic_ordered_element.hpp>
 #include <sge/image/algorithm/convert_conditional.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <boost/assign/list_of.hpp>
 
 void sge::opengl::convert_vertex_colors(

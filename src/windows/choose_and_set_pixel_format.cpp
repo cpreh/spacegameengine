@@ -21,15 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/choose_and_set_pixel_format.hpp>
 #include <sge/windows/gdi_device.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
-void sge::windows::choose_and_set_pixel_format(
+void
+sge::windows::choose_and_set_pixel_format(
 	gdi_device const &dc,
 	DWORD const flags,
 	BYTE const pixel_type,
 	BYTE const depth,
 	BYTE const depth_buffer,
-	BYTE const stencil_buffer)
+	BYTE const stencil_buffer
+)
 {
 	PIXELFORMATDESCRIPTOR const pfd = {
 		sizeof(PIXELFORMATDESCRIPTOR),  // Size Of This Pixel Format Descriptor
@@ -53,12 +55,12 @@ void sge::windows::choose_and_set_pixel_format(
 	int const format = ChoosePixelFormat(
 		dc.hdc(),
 		&pfd);
-	
+
 	if(format == 0)
 		throw exception(
-			SGE_TEXT("ChoosePixelFormat() failed"));
-	
+			FCPPT_TEXT("ChoosePixelFormat() failed"));
+
 	if(SetPixelFormat(dc.hdc(), format, &pfd) == FALSE)
 		throw exception(
-			SGE_TEXT("SetPixelFormat() failed"));
+			FCPPT_TEXT("SetPixelFormat() failed"));
 }

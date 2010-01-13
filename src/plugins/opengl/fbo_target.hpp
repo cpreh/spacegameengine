@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "common.hpp"
 #include "target.hpp"
 #include "texture.hpp"
-#include <sge/renderer/texture_fwd.hpp>
+#include <sge/renderer/texture_ptr.hpp>
 
 namespace sge
 {
@@ -37,7 +37,7 @@ public:
 	~fbo_target();
 
 	void bind_texture(
-		renderer::texture_ptr);	
+		renderer::texture_ptr);
 	void bind_me() const;
 private:
 	dim_type const dim() const;

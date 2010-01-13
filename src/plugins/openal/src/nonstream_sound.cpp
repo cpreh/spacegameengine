@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../player.hpp"
 #include "../check_state.hpp"
 #include <sge/audio/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::openal::nonstream_sound::nonstream_sound(
 	audio::file_ptr const _audio_file,
@@ -36,17 +36,17 @@ sge::openal::nonstream_sound::nonstream_sound(
 void sge::openal::nonstream_sound::play_mode(sge::audio::play_mode::type pm)
 {
 	source::play_mode(pm);
-	
+
 	alSourcei(
 		alsource(),
 		AL_LOOPING,
-		source::play_mode() == audio::play_mode::loop 
-			? AL_TRUE 
+		source::play_mode() == audio::play_mode::loop
+			? AL_TRUE
 			: AL_FALSE
-	); 
+	);
 
 	SGE_OPENAL_CHECK_STATE(
-		SGE_TEXT("alSourcei failed"),
+		FCPPT_TEXT("alSourcei failed"),
 		audio::exception
 	)
 }

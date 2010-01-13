@@ -23,15 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/canvas/font_drawer.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/text_size.hpp>
-#include <sge/assert.hpp>
-#include <sge/text.hpp>
-#include <sge/make_shared_ptr.hpp>
-#include <tr1/functional>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/assert.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <algorithm>
 
 void sge::gui::canvas::object::draw_text(
 	font_info const &font,
-	string const &text,
+	fcppt::string const &text,
 	point const &pos,
 	dim const &max_size,
 	font::align_h::type const h,
@@ -40,23 +40,23 @@ void sge::gui::canvas::object::draw_text(
 	optional_character_pos cp,
 	point *const p)
 {
-	SGE_ASSERT(!cp || *cp < text.length());
+	FCPPT_ASSERT(!cp || *cp < text.length());
 
 	// determine which invisible characters have to be filtered
 	if (cp)
 	{
-		string::size_type const filter = 
+		fcppt::string::size_type const filter =
 			std::count(
 				text.begin(),
 				text.begin()+(*cp)+1,
-				SGE_TEXT('\n'));
-		
+				FCPPT_TEXT('\n'));
+
 		cp = (*cp) - filter;
 	}
 
 	font::object(
 		font.metrics(),
-		sge::make_shared_ptr<
+		fcppt::make_shared_ptr<
 			canvas::font_drawer
 		>(
 			std::tr1::ref(
@@ -72,5 +72,6 @@ void sge::gui::canvas::object::draw_text(
 		max_size,
 		h,
 		v,
-		f);
+		f
+	);
 }

@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../readwrite_texture_lock.hpp"
-#include <sge/container/raw_vector_impl.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
 
 sge::opengl::readwrite_texture_lock::readwrite_texture_lock(
 	size_type const lock_size,
@@ -55,7 +55,7 @@ void sge::opengl::readwrite_texture_lock::post_lock()
 
 	read_lock.copy_read_part(
 		real_write_pointer());
-	
+
 	read_lock.pre_unlock();
 }
 

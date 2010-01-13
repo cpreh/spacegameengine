@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../handle_grab.hpp"
 #include <X11/Xlib.h>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 bool
 sge::x11input::handle_grab(
@@ -38,6 +38,6 @@ sge::x11input::handle_grab(
 		return false;
 	default:
 		throw exception(
-			SGE_TEXT("x11: Unknown grab result!"));
+			FCPPT_TEXT("x11: Unknown grab result!"));
 	}
 }

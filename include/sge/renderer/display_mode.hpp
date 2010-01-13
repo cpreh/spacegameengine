@@ -21,26 +21,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_DISPLAY_MODE_HPP_INCLUDED
 #define SGE_RENDERER_DISPLAY_MODE_HPP_INCLUDED
 
+#include <sge/renderer/display_mode_fwd.hpp>
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/refresh_rate.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/export.hpp>
-#include <sge/ostream.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/io/ostream.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-class display_mode {
+class display_mode
+{
 public:
 	SGE_SYMBOL display_mode(
-		screen_size const &sz,
-		renderer::bit_depth::type depth,
-		refresh_rate refresh_rate
+		screen_size const &,
+		renderer::bit_depth::type,
+		renderer::refresh_rate
 	);
-	
+
 	SGE_SYMBOL screen_size const &
 	size() const;
 
@@ -55,9 +57,9 @@ private:
 	renderer::refresh_rate    refresh_rate_;
 };
 
-SGE_SYMBOL ostream &
+SGE_SYMBOL fcppt::io::ostream &
 operator<<(
-	ostream &,
+	fcppt::io::ostream &,
 	display_mode const &
 );
 

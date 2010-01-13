@@ -23,8 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/glsl/uniform/variable_fwd.hpp>
 #include <sge/renderer/glsl/uniform/value.hpp>
-#include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -35,8 +36,9 @@ namespace glsl
 namespace uniform
 {
 
-class SGE_CLASS_SYMBOL variable {
-	SGE_NONCOPYABLE(variable)
+class SGE_CLASS_SYMBOL variable
+{
+	FCPPT_NONCOPYABLE(variable)
 protected:
 	SGE_SYMBOL variable();
 public:
@@ -45,7 +47,8 @@ public:
 
 	virtual void
 	set(
-		value const &) = 0;
+		value const &
+	) = 0;
 
 	SGE_SYMBOL virtual ~variable();
 };

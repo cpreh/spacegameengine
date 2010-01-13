@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../check_alc_state.hpp"
 #include "../openal.hpp"
 #include <sge/audio/exception.hpp>
-#include <sge/assert.hpp>
-#include <sge/text.hpp>
+#include <fcppt/assert.hpp>
+#include <fcppt/text.hpp>
 
 sge::openal::device::device(
 	ALCchar const * const specifier)
@@ -32,11 +32,11 @@ sge::openal::device::device(
 {
 	SGE_OPENAL_CHECK_ALC_STATE(
 		device_,
-		SGE_TEXT("alcOpenDevice failed"),
+		FCPPT_TEXT("alcOpenDevice failed"),
 		audio::exception
 	)
 
-	SGE_ASSERT(device_);
+	FCPPT_ASSERT(device_);
 }
 
 ALCdevice *
@@ -52,6 +52,6 @@ sge::openal::device::~device()
 		&& !std::uncaught_exception()
 	)
 		throw audio::exception(
-			SGE_TEXT("error closing audio device. this means you tried to close the device before unloading all contexts and buffers")
+			FCPPT_TEXT("error closing audio device. this means you tried to close the device before unloading all contexts and buffers")
 		);
 }

@@ -22,15 +22,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_TEXTURE_DIM_HPP_INCLUDED
 
 #include <sge/sprite/dim.hpp>
-#include <sge/export.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <limits>
 
 namespace sge
 {
 namespace sprite
 {
 
-SGE_SYMBOL dim const
-texture_dim();
+template<
+	typename UnitType
+>
+typename dim<
+	UnitType
+>::type const
+texture_dim()
+{
+	UnitType const max(
+		std::numeric_limits<
+			UnitType
+		>::max()
+	);
+
+	return
+		typename dim<
+			UnitType
+		>::type(
+			max,
+			max
+		);
+}
 
 }
 }

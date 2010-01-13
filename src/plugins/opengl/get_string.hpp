@@ -22,16 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GET_STRING_HPP_INCLUDED
 
 #include "common.hpp"
-#include <sge/string.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
 namespace opengl
 {
 
-string const
+fcppt::string const
 get_string(
-	GLenum);
+	GLenum
+);
 
 }
 }

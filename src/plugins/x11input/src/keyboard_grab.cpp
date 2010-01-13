@@ -23,17 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/Xlib.h>
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
-#include <sge/x11/sentry.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::x11input::keyboard_grab::keyboard_grab(
-	x11::window_ptr const wnd)
+	x11::window_ptr const wnd
+)
 :
 	wnd(wnd)
 {
-	SGE_X11_SENTRY
-
 	if(
 		handle_grab(
 			XGrabKeyboard(
@@ -47,15 +45,14 @@ sge::x11input::keyboard_grab::keyboard_grab(
 		)
 	)
 		throw exception(
-			SGE_TEXT("Keyboard grab failed!")
+			FCPPT_TEXT("Keyboard grab failed!")
 		);
 }
 
 sge::x11input::keyboard_grab::~keyboard_grab()
 {
-	SGE_X11_SENTRY
-
 	XUngrabKeyboard(
 		wnd->display()->get(),
-		CurrentTime);
+		CurrentTime
+	);
 }

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../framebuffer_functions.hpp"
 #include "../check_state.hpp"
 #include <sge/renderer/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 void sge::opengl::read_pixels(
 	renderer::size_type const x,
@@ -43,7 +43,7 @@ void sge::opengl::read_pixels(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glReadPixels failed"),
+		FCPPT_TEXT("glReadPixels failed"),
 		sge::renderer::exception
 	)
 }

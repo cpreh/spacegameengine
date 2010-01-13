@@ -22,25 +22,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11_COLORMAP_HPP_INCLUDED
 
 #include <X11/Xlib.h>
-#include <sge/x11/display_fwd.hpp>
-#include <sge/x11/visual_fwd.hpp>
-#include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <sge/x11/colormap_fwd.hpp>
+#include <sge/x11/display_ptr.hpp>
+#include <sge/x11/visual_ptr.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace x11
 {
 
-class colormap {
-	SGE_NONCOPYABLE(colormap)
+class colormap
+{
+	FCPPT_NONCOPYABLE(colormap)
 public:
 	SGE_SYMBOL colormap(
 		display_ptr,
 		int screen,
-		visual_ptr);
+		visual_ptr
+	);
+
 	SGE_SYMBOL ~colormap();
-	SGE_SYMBOL Colormap &get();
+
+	SGE_SYMBOL Colormap &
+	get();
 private:
 	display_ptr const dsp;
 	Colormap          c;

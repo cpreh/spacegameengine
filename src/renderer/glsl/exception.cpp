@@ -19,14 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/glsl/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::renderer::glsl::exception::exception(
-	sge::string const &s
+	fcppt::string const &s
 )
 :
 	renderer::exception(
-		SGE_TEXT("glsl: ")
+		FCPPT_TEXT("glsl: ")
 		+ s
 	)
 {}

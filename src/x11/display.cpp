@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/x11/display.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::x11::display::display()
 :
@@ -28,7 +28,7 @@ sge::x11::display::display()
 {
 	if(!d)
 		throw exception(
-			SGE_TEXT("XOpenDisplay failed or dsp is 0!"));
+			FCPPT_TEXT("XOpenDisplay failed or dsp is 0!"));
 }
 
 sge::x11::display::~display()

@@ -21,11 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_RENDER_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_HPP_INCLUDED
 
-#include <sge/sprite/detail/constants.hpp>
+#include <sge/sprite/detail/vertices_per_sprite.hpp>
+#include <sge/sprite/detail/indices_per_sprite.hpp>
+#include <sge/sprite/detail/set_texture_pre.hpp>
+#include <sge/sprite/detail/set_texture.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/texture.hpp>
-#include <sge/texture/part.hpp>
+#include <sge/renderer/indexed_primitive_type.hpp>
+#include <sge/renderer/first_vertex.hpp>
+#include <sge/renderer/vertex_count.hpp>
+#include <sge/renderer/primitive_count.hpp>
+#include <sge/renderer/first_index.hpp>
+#include <iterator>
 
 namespace sge
 {
@@ -38,49 +46,72 @@ template<
 	typename In,
 	typename Comp
 >
-void render(
+void
+render(
 	In const beg,
 	In const end,
 	Comp const comp,
 	renderer::device_ptr const rend,
 	renderer::vertex_buffer_ptr const vb,
-	renderer::index_buffer_ptr const ib)
+	renderer::index_buffer_ptr const ib
+)
 {
+	typedef typename std::iterator_traits<
+		In
+	>::value_type object_type;
+
 	renderer::size_type offset(0);
-	for(In cur(beg), next(cur); cur != end; cur = next )
+
+	set_texture_pre<
+		typename object_type::elements
+	>(
+		rend
+	);
+
+	for(
+		In cur(beg), next(cur);
+		cur != end; cur = next
+	)
 	{
 		renderer::size_type num_objects(0);
 
-		while(next != end && comp(*cur, *next))
+		while(
+			next != end && comp(*cur, *next)
+		)
 		{
 			++next;
-			++num_objects;
+
+			if(
+				visible(*cur)
+			)
+				++num_objects;
 		}
 
-		if(!cur->visible())
-			continue;
+		set_texture(
+			*cur,
+			rend
+		);
 
-		texture::const_part_ptr const vtex = cur->texture();
-
-		rend->texture(
-			vtex
-			? vtex->texture()
-			: renderer::const_texture_ptr(
-				renderer::device::no_texture));
-		
 		rend->render(
 			vb,
 			ib,
-			offset * detail::vertices_per_sprite,
-			num_objects * detail::vertices_per_sprite,
+			renderer::first_vertex(
+				offset * detail::vertices_per_sprite
+			),
+			renderer::vertex_count(
+				num_objects * detail::vertices_per_sprite
+			),
 			renderer::indexed_primitive_type::triangle,
-			num_objects * 2,
-			offset * detail::indices_per_sprite);
+			renderer::primitive_count(
+				num_objects * 2
+			),
+			renderer::first_index(
+				offset * detail::indices_per_sprite
+			)
+		);
 
 		offset += num_objects;
 	}
-
-	rend->texture(renderer::device::no_texture);
 }
 
 }

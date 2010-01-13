@@ -19,34 +19,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../system.hpp"
-#include <sge/export.hpp>
 #include <sge/plugin/info.hpp>
-#include <sge/text.hpp>
+#include <fcppt/export_symbol.hpp>
+#include <fcppt/text.hpp>
 
 extern "C"
 {
 
-SGE_EXPORT_SYMBOL void
+FCPPT_EXPORT_SYMBOL void
 plugin_version_info(
 	sge::plugin::info *);
 
-SGE_EXPORT_SYMBOL sge::renderer::system *
+FCPPT_EXPORT_SYMBOL sge::renderer::system *
 create_renderer_system();
 
-SGE_EXPORT_SYMBOL void
+FCPPT_EXPORT_SYMBOL void
 plugin_version_info(
 	sge::plugin::info *const p)
 {
 	if(!p)
 		return;
-	p->name = SGE_TEXT("opengl");
-	p->description = SGE_TEXT("Implements most of the functionality provided by opengl-2.1.");
+	p->name = FCPPT_TEXT("opengl");
+	p->description = FCPPT_TEXT("Implements most of the functionality provided by opengl-2.1.");
 	p->plugin_version = 0x1;
 	p->min_core_version = 0x1;
 	p->type = sge::plugin::capabilities::renderer;
 }
 
-SGE_EXPORT_SYMBOL sge::renderer::system *
+FCPPT_EXPORT_SYMBOL sge::renderer::system *
 create_renderer_system()
 {
 	return new sge::opengl::system();

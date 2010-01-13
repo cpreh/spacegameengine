@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/index/detail/generate_visitor.hpp>
 #include <sge/renderer/index/view.hpp>
-#include <sge/variant/apply_unary.hpp>
+#include <fcppt/variant/apply_unary.hpp>
 
 namespace sge
 {
@@ -38,9 +38,10 @@ template<
 void
 generate(
 	view const &v,
-	Gen const &gen)
+	Gen const &gen
+)
 {
-	variant::apply_unary(
+	fcppt::variant::apply_unary(
 		detail::generate_visitor<Gen>(
 			gen
 		),

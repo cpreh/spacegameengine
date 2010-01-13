@@ -16,7 +16,9 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
-#include <sge/multi_loader.hpp>
+
+
+#include <sge/audio/multi_loader.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/sound.hpp>
@@ -26,20 +28,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/context.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/exception.hpp>
-#include <sge/cerr.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/time/second.hpp>
 #include <sge/time/millisecond.hpp>
-#include <sge/time/resolution.hpp>
 #include <sge/time/sleep.hpp>
 #include <sge/log/global.hpp>
-#include <sge/log/activate_levels.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/pi.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/time/sleep.hpp>
-#include <sge/iconv.hpp>
+#include <fcppt/log/activate_levels.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/pi.hpp>
+#include <fcppt/io/cerr.hpp>
+#include <fcppt/iconv.hpp>
 #include <boost/program_options.hpp>
 #include <ostream>
 #include <exception>
@@ -51,9 +52,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int main(int argc, char *argv[])
 try
 {
-	sge::log::activate_levels(
+	fcppt::log::activate_levels(
 		sge::log::global(),
-		sge::log::level::debug
+		fcppt::log::level::debug
 	);
 
 	namespace po = boost::program_options;
@@ -90,20 +91,20 @@ try
 		 return EXIT_SUCCESS;
 	}
 
-	sge::filesystem::path file_name(sge::iconv(file_name_prog_options));
+	fcppt::filesystem::path file_name(fcppt::iconv(file_name_prog_options));
 	if (file_name.empty())
-		file_name = sge::config::media_path() / SGE_TEXT("ding.wav");
+		file_name = sge::config::media_path() / FCPPT_TEXT("ding.wav");
 
 	sge::systems::instance sys(
 		sge::systems::list()
 		(sge::systems::parameterless::audio_player));
 
-	sge::multi_loader<sge::audio::loader,sge::audio::file,sge::audio::exception> loader(sys.plugin_manager());
-	
+	sge::audio::multi_loader loader(sys.plugin_manager());
+
 	sge::audio::file_ptr const soundfile = loader.load(file_name);
 
-	sge::audio::sound_ptr const sound = 
-		streaming 
+	sge::audio::sound_ptr const sound =
+		streaming
 		? sys.audio_player()->create_stream_sound(soundfile)
 		: sys.audio_player()->create_nonstream_sound(soundfile);
 
@@ -128,9 +129,9 @@ try
 	{
 		if (revolving)
 		{
-			sge::audio::unit const angle = 
+			sge::audio::unit const angle =
 				static_cast<sge::audio::unit>(
-					frame_timer.elapsed_frames() * (2 * sge::math::pi<sge::audio::unit>() * speed));
+					frame_timer.elapsed_frames() * (2 * fcppt::math::pi<sge::audio::unit>() * speed));
 			sound->pos(
 				sge::audio::point(
 					std::sin(angle),
@@ -142,10 +143,10 @@ try
 		sge::time::sleep(sge::time::millisecond(250));
 	}
 } catch (const sge::audio::exception &e) {
-	sge::cerr << SGE_TEXT("audio exception caught: ") << e.string() << SGE_TEXT('\n');
+	fcppt::io::cerr << FCPPT_TEXT("audio exception caught: ") << e.string() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 } catch (const sge::exception &e) {
-	sge::cerr << SGE_TEXT("Exception caught: ") << e.string() << SGE_TEXT('\n');
+	fcppt::io::cerr << FCPPT_TEXT("Exception caught: ") << e.string() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 } catch (const std::exception &e) {
 	std::cerr << "Exception caught: " << e.what() << '\n';

@@ -25,9 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/rgba32f_format.hpp>
-#include <sge/variant/apply_unary.hpp>
-#include <sge/variant/object_impl.hpp>
-#include <sge/text.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/text.hpp>
 
 namespace
 {
@@ -54,7 +54,7 @@ public:
 	arithmetic_visitor(
 		GLenum face,
 		GLenum type);
-	
+
 	template<
 		typename T
 	>
@@ -78,23 +78,23 @@ void sge::opengl::set_material(
 		face,
 		GL_AMBIENT,
 		mat.ambient());
-	
+
 	material_color(
 		face,
 		GL_DIFFUSE,
 		mat.diffuse());
-	
+
 	material_color(
 		face,
 		GL_SPECULAR,
 		mat.specular());
-	
+
 	material_color(
 		face,
 		GL_EMISSION,
 		mat.emissive());
 
-	variant::apply_unary(
+	fcppt::variant::apply_unary(
 		arithmetic_visitor(
 			face,
 			GL_SHININESS
@@ -118,7 +118,7 @@ void glmaterialfv(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glMaterialfv failed"),
+		FCPPT_TEXT("glMaterialfv failed"),
 		sge::renderer::exception
 	)
 }
@@ -135,7 +135,7 @@ void glmaterialf(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glMaterialf failed"),
+		FCPPT_TEXT("glMaterialf failed"),
 		sge::renderer::exception
 	)
 }
@@ -175,7 +175,7 @@ void arithmetic_visitor::operator()(
 		type,
 		static_cast<GLfloat>(f)
 	);
-		
+
 }
 
 }

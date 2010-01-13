@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/detail/const_scoped_buffer_lock.hpp>
 #include <sge/renderer/index/view.hpp>
-#include <sge/renderer/index_buffer_fwd.hpp>
-#include <sge/variant/object_impl.hpp>
+#include <sge/renderer/index_buffer_ptr.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 namespace sge
 {

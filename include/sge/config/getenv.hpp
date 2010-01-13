@@ -21,17 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONFIG_GETENV_HPP_INCLUDED
 #define SGE_CONFIG_GETENV_HPP_INCLUDED
 
-#include <sge/export.hpp>
-#include <sge/string.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
 namespace config
 {
 
-SGE_SYMBOL string const
+SGE_SYMBOL fcppt::string const
 getenv(
-	string const &);
+	fcppt::string const &
+);
 
 }
 }

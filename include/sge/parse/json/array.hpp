@@ -23,6 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/array_fwd.hpp>
 #include <sge/parse/json/element_vector.hpp>
+#include <sge/parse/json/optional_element_vector.hpp>
+#include <sge/parse/json/value.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
@@ -33,6 +36,12 @@ namespace json
 
 class array {
 public:
+	SGE_SYMBOL array();
+
+	SGE_SYMBOL explicit array(
+		optional_element_vector const &
+	);
+
 	element_vector elements;
 };
 

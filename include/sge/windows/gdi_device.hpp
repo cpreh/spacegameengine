@@ -21,24 +21,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WINDOWS_GDI_DEVICE_HPP_INCLUDED
 #define SGE_WINDOWS_GDI_DEVICE_HPP_INCLUDED
 
+#include <sge/windows/gdi_device_fwd.hpp>
 #include <sge/windows/windows.hpp>
-#include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace windows
-{ 
+{
 
-class gdi_device {
-	SGE_NONCOPYABLE(gdi_device)
+class gdi_device
+{
+	FCPPT_NONCOPYABLE(gdi_device)
 public:
 	class get_tag{};
+
 	SGE_SYMBOL gdi_device(
 		HWND,
-		get_tag);
+		get_tag
+	);
+
 	SGE_SYMBOL ~gdi_device();
-	SGE_SYMBOL HDC hdc() const;
+
+	SGE_SYMBOL HDC
+	hdc() const;
 private:
 	HWND hwnd;
 	HDC dc;

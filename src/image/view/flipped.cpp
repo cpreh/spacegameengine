@@ -19,17 +19,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/view/flipped.hpp>
-#include <sge/variant/apply_unary.hpp>
-#include <sge/variant/object_impl.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <mizuiro/image/flipped_view.hpp>
 
 namespace
 {
 
 template<
-	typename View 
+	typename View
 >
-class visitor {
+class visitor
+{
 public:
 	typedef View const result_type;
 
@@ -38,16 +39,18 @@ public:
 	>
 	result_type
 	operator()(
-		T const &) const;
+		T const &
+	) const;
 };
 
 }
 
 sge::image::view::object const
 sge::image::view::flipped(
-	object const &v)
+	object const &v
+)
 {
-	return variant::apply_unary(
+	return fcppt::variant::apply_unary(
 		visitor<object>(),
 		v
 	);
@@ -55,9 +58,10 @@ sge::image::view::flipped(
 
 sge::image::view::const_object const
 sge::image::view::flipped(
-	const_object const &v)
+	const_object const &v
+)
 {
-	return variant::apply_unary(
+	return fcppt::variant::apply_unary(
 		visitor<const_object>(),
 		v
 	);
@@ -74,7 +78,8 @@ template<
 >
 typename visitor<View>::result_type
 visitor<View>::operator()(
-	T const &v) const
+	T const &v
+) const
 {
 	return typename visitor<View>::result_type(
 		mizuiro::image::flipped_view(

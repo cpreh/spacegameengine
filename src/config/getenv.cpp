@@ -20,28 +20,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config/getenv.hpp>
 #include <sge/config/no_such_env_var.hpp>
-#ifdef SGE_WINDOWS_PLATFORM
+#include <fcppt/config.h>
+#ifdef FCPPT_WINDOWS_PLATFORM
 #include <sge/windows/windows.hpp>
-#include <sge/container/raw_vector_impl.hpp>
-#include <sge/char_type.hpp>
-#include <sge/text.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/char_type.hpp>
+#include <fcppt/text.hpp>
 #else
-#include <sge/iconv.hpp>
+#include <fcppt/iconv.hpp>
 #include <cstdlib>
 #endif
 
-sge::string const
+fcppt::string const
 sge::config::getenv(
-	string const &s)
+	fcppt::string const &s
+)
 {
-#ifdef SGE_WINDOWS_PLATFORM
-	container::raw_vector<
-		char_type
+#ifdef FCPPT_WINDOWS_PLATFORM
+	fcppt::container::raw_vector<
+		fcppt::char_type
 	> home_dir(32767);
-	
+
 	if(
 		GetEnvironmentVariable(
-			SGE_TEXT("USERPROFILE"),
+			FCPPT_TEXT("USERPROFILE"),
 			home_dir.data(),
 			home_dir.size()
 		) == 0
@@ -49,12 +51,12 @@ sge::config::getenv(
 		throw no_such_env_var(
 			s
 		);
-	
+
 	return home_dir.data();
 #else
 	char const *const ret(
 		::std::getenv(
-			iconv(
+			fcppt::iconv(
 				s
 			).c_str()
 		)
@@ -64,8 +66,8 @@ sge::config::getenv(
 		throw no_such_env_var(
 			s
 		);
-	
-	return iconv(
+
+	return fcppt::iconv(
 		ret
 	);
 #endif

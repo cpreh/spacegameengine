@@ -27,8 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/canvas/fwd.hpp>
 #include <sge/gui/export.hpp>
 #include <sge/gui/font_info.hpp>
-#include <sge/auto_ptr.hpp>
-#include <sge/filesystem/path.hpp>
+#include <fcppt/auto_ptr.hpp>
 
 #define SGE_GUI_SKIN_DRAW_RETURN(name)\
 	void
@@ -93,7 +92,7 @@ class base
 		SGE_GUI_SKIN_SIZE_PARAMS(widgets::base)) const;
 
 	SGE_GUI_SKIN_WIDGETS_PURE
-	
+
 	virtual font_info const standard_font() const = 0;
 
 	SGE_GUI_SYMBOL virtual ~base();
@@ -108,8 +107,8 @@ class base
 		bool transparency = true);
 };
 
-typedef auto_ptr<base> ptr;
-typedef auto_ptr<base const> const_ptr;
+typedef fcppt::auto_ptr<base> ptr;
+typedef fcppt::auto_ptr<base const> const_ptr;
 }
 }
 }

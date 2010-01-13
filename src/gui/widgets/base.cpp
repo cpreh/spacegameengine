@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/algorithm/ptr_container_erase.hpp>
 #include <sge/gui/widgets/base.hpp>
 #include <sge/gui/widgets/parameters.hpp>
 #include <sge/gui/layouts/null.hpp>
@@ -27,25 +26,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/events/mouse_move.hpp>
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/gui/manager.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/vector/arithmetic.hpp>
-#include <sge/math/box/intersects.hpp>
-#include <sge/math/box/output.hpp>
-#include <sge/log/parameters/inherited.hpp>
-#include <sge/log/object.hpp>
-#include <sge/log/headers.hpp>
-#include <sge/type_info.hpp>
-#include <sge/make_auto_ptr.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/math/box/intersects.hpp>
+#include <fcppt/math/box/output.hpp>
+#include <fcppt/algorithm/ptr_container_erase.hpp>
+#include <fcppt/log/parameters/inherited.hpp>
+#include <fcppt/log/object.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/type_name.hpp>
+#include <fcppt/make_auto_ptr.hpp>
 #include <boost/foreach.hpp>
 #include <typeinfo>
 
 namespace
 {
 
-sge::log::object mylogger(
-	sge::log::parameters::inherited(
+fcppt::log::object mylogger(
+	fcppt::log::parameters::inherited(
 		sge::gui::global_log(),
-		SGE_TEXT("widget")
+		FCPPT_TEXT("widget")
 	)
 );
 
@@ -54,8 +54,8 @@ sge::log::object mylogger(
 sge::gui::widgets::base::base(
 	parent_data const &parent_data_,
 	parameters const &params)
-:	
-	parent_(	
+:
+	parent_(
 		parent_data_.parent_widget()),
 	manager_(
 		parent_data_.parent_manager()),
@@ -74,10 +74,10 @@ sge::gui::widgets::base::base(
 	keyboard_focus_(
 		params.keyboard_focus()),
 	layout_(
-		params.layout() 
-		? params.layout() 
+		params.layout()
+		? params.layout()
 		: layouts::auto_ptr(
-			sge::make_auto_ptr<
+			fcppt::make_auto_ptr<
 				layouts::null
 			>()
 		)
@@ -166,24 +166,24 @@ sge::gui::image &sge::gui::widgets::base::buffer() const
 	return buffer_;
 }
 
-sge::gui::manager &sge::gui::widgets::base::parent_manager() 
-{ 
-	return manager_; 
+sge::gui::manager &sge::gui::widgets::base::parent_manager()
+{
+	return manager_;
 }
 
-sge::gui::manager const &sge::gui::widgets::base::parent_manager() const 
-{ 
-	return manager_; 
+sge::gui::manager const &sge::gui::widgets::base::parent_manager() const
+{
+	return manager_;
 }
 
-sge::gui::widgets::base &sge::gui::widgets::base::parent_widget() 
-{ 
-	return *parent_; 
+sge::gui::widgets::base &sge::gui::widgets::base::parent_widget()
+{
+	return *parent_;
 }
 
-sge::gui::widgets::base const &sge::gui::widgets::base::parent_widget() const 
-{ 
-	return *parent_; 
+sge::gui::widgets::base const &sge::gui::widgets::base::parent_widget() const
+{
+	return *parent_;
 }
 
 bool sge::gui::widgets::base::has_parent() const
@@ -192,27 +192,27 @@ bool sge::gui::widgets::base::has_parent() const
 }
 
 sge::gui::widgets::base &sge::gui::widgets::base::oldest_parent()
-{ 
-	if (!has_parent())
-		return *this;
-	return parent_widget().oldest_parent();
-}
-
-sge::gui::widgets::base const &sge::gui::widgets::base::oldest_parent() const 
-{ 
-	if (!has_parent())
-		return *this;
-	return parent_widget().oldest_parent();
-}
-
-sge::gui::size_policy const &sge::gui::widgets::base::size_policy() const 
 {
-	return size_policy_; 
+	if (!has_parent())
+		return *this;
+	return parent_widget().oldest_parent();
 }
 
-void sge::gui::widgets::base::size_policy(sge::gui::size_policy const &s) 
-{ 
-	size_policy_ = s; 
+sge::gui::widgets::base const &sge::gui::widgets::base::oldest_parent() const
+{
+	if (!has_parent())
+		return *this;
+	return parent_widget().oldest_parent();
+}
+
+sge::gui::size_policy const &sge::gui::widgets::base::size_policy() const
+{
+	return size_policy_;
+}
+
+void sge::gui::widgets::base::size_policy(sge::gui::size_policy const &s)
+{
+	size_policy_ = s;
 }
 
 sge::gui::keyboard_focus::type sge::gui::widgets::base::keyboard_focus() const
@@ -244,9 +244,10 @@ void sge::gui::widgets::base::add_child(widgets::base &w)
 
 void sge::gui::widgets::base::remove_child(widgets::base &w)
 {
-	algorithm::ptr_container_erase(
+	fcppt::algorithm::ptr_container_erase(
 		children_,
-		&w);
+		&w
+	);
 }
 
 void sge::gui::widgets::base::activation(
@@ -274,13 +275,13 @@ void sge::gui::widgets::base::layout(
 }
 
 sge::gui::layouts::base &sge::gui::widgets::base::layout()
-{ 
-	return *layout_; 
+{
+	return *layout_;
 }
 
-sge::gui::layouts::base const &sge::gui::widgets::base::layout() const 
-{ 
-	return *layout_; 
+sge::gui::layouts::base const &sge::gui::widgets::base::layout() const
+{
+	return *layout_;
 }
 
 bool sge::gui::widgets::base::has_child(widgets::base const &w) const
@@ -300,23 +301,23 @@ bool sge::gui::widgets::base::has_child(widgets::base const &w) const
 sge::gui::rect const sge::gui::widgets::base::absolute_area() const
 {
 	return rect(
-		absolute_pos(), 
+		absolute_pos(),
 		size());
 }
 
 sge::gui::rect const sge::gui::widgets::base::screen_area() const
 {
 	return rect(
-		screen_pos(), 
+		screen_pos(),
 		size());
 }
 
 void sge::gui::widgets::base::compile(
 	invalidation::type const &i)
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("in compile"));
+		fcppt::log::_ << FCPPT_TEXT("in compile"));
 	layout().compile(
 		i);
 }
@@ -337,9 +338,9 @@ void sge::gui::widgets::base::invalidate(
 	widgets::base &w,
 	invalidation::type const &i)
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("in invalidate"));
+		fcppt::log::_ << FCPPT_TEXT("in invalidate"));
 	layout().invalidate(
 		w,
 		i);
@@ -349,32 +350,32 @@ void sge::gui::widgets::base::process_invalid_area(
 	events::invalid_area const &e)
 {
 	// draw itself, then draw children
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("redrawing myself, region ")
+		fcppt::log::_ << FCPPT_TEXT("redrawing myself, region ")
 		        << e.area());
 	parent_manager().skin().draw(*this,e);
 
 	BOOST_FOREACH(widgets::base &w,children())
 	{
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_
-				<< SGE_TEXT("checking if ")
+			fcppt::log::_
+				<< FCPPT_TEXT("checking if ")
 				<< w.absolute_area()
-				<< SGE_TEXT(" intersects with ")
-				<< e.area() 
-				<< SGE_TEXT(": ")
+				<< FCPPT_TEXT(" intersects with ")
+				<< e.area()
+				<< FCPPT_TEXT(": ")
 				<< intersects(w.absolute_area(),e.area()));
 
 		if (intersects(w.absolute_area(),e.area()))
 		{
-			SGE_LOG_DEBUG(
+			FCPPT_LOG_DEBUG(
 				mylogger,
-				log::_
-					<< SGE_TEXT("sending widgets::base ")
-					<< type_info(typeid(w)).name()
-					<< SGE_TEXT(" an invalid area event"));
+				fcppt::log::_
+					<< FCPPT_TEXT("sending widgets::base ")
+					<< fcppt::type_name(typeid(w))
+					<< FCPPT_TEXT(" an invalid area event"));
 			w.process_invalid_area(e);
 		}
 	}
@@ -386,21 +387,21 @@ void sge::gui::widgets::base::process_mouse_move(events::mouse_move const &) {}
 void sge::gui::widgets::base::process_mouse_click(events::mouse_click const &) {}
 
 sge::gui::key_handling::type sge::gui::widgets::base::process_key(
-	events::key const &) 
-{ 
-	return key_handling::process; 
+	events::key const &)
+{
+	return key_handling::process;
 }
 
 void sge::gui::widgets::base::process_keyboard_enter(
-	events::keyboard_enter const &) 
+	events::keyboard_enter const &)
 {
-	SGE_LOG_DEBUG(mylogger,log::_ << SGE_TEXT("got keyboard_enter"));
+	FCPPT_LOG_DEBUG(mylogger,fcppt::log::_ << FCPPT_TEXT("got keyboard_enter"));
 }
 
 void sge::gui::widgets::base::process_keyboard_leave(
-	events::keyboard_leave const &) 
+	events::keyboard_leave const &)
 {
-	SGE_LOG_DEBUG(mylogger,log::_ << SGE_TEXT("got keyboard_leave"));
+	FCPPT_LOG_DEBUG(mylogger,fcppt::log::_ << FCPPT_TEXT("got keyboard_leave"));
 }
 
 sge::gui::widgets::base::~base()
@@ -413,18 +414,18 @@ sge::gui::widgets::base::~base()
 }
 
 void sge::gui::widgets::base::size(
-	dim const &_size) 
-{ 
-	size_ = _size; 
+	dim const &_size)
+{
+	size_ = _size;
 	parent_manager().resize(
 		*this,
 		size_);
 }
 
 void sge::gui::widgets::base::pos(
-	point const &p) 
-{ 
-	pos_ = p; 
+	point const &p)
+{
+	pos_ = p;
 	parent_manager().reposition(
 		*this,
 		p);

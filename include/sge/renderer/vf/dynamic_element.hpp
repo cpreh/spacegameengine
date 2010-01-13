@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic_any.hpp>
 #include <sge/renderer/vf/role.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/variant/object_impl.hpp>
-#include <sge/export.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
@@ -40,7 +40,7 @@ public:
 		dynamic_any const &,
 		vf::role::type,
 		vertex_size index);
-	
+
 	SGE_SYMBOL dynamic_any const &info() const;
 	SGE_SYMBOL vf::role::type role() const;
 	SGE_SYMBOL vertex_size index() const;

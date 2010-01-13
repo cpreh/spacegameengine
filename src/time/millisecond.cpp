@@ -19,13 +19,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/time/millisecond.hpp>
-#include <sge/time/resolution.hpp>
-#include <sge/time/time.hpp>
+#include <fcppt/chrono/milliseconds.hpp>
+#include <fcppt/chrono/duration_impl.hpp>
+#include <fcppt/chrono/duration_cast.hpp>
+#include <fcppt/ratio.hpp>
 
-sge::time::resolution const
+sge::time::duration const
 sge::time::millisecond(
-	unit const tm)
+	unit const tm
+)
 {
-	return resolution(
-		tm * hz() / 1000);
+	return
+		fcppt::chrono::duration_cast<
+			duration
+		>(
+			fcppt::chrono::milliseconds(
+				tm
+			)
+		);
 }

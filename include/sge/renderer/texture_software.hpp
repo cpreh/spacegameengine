@@ -24,13 +24,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_mode.hpp>
-#include <sge/container/raw_vector_decl.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/view/object.hpp>
 #include <sge/image/view/const_object.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/export.hpp>
-#include <boost/scoped_ptr.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/container/raw_vector_decl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -41,12 +42,13 @@ class SGE_CLASS_SYMBOL texture_software
 :
 	public texture
 {
+	FCPPT_NONCOPYABLE(texture_software)
 public:
 	SGE_SYMBOL texture_software(
 		dim_type const &,
 		image::color::format::type
 	);
-	
+
 	SGE_SYMBOL ~texture_software();
 
 	SGE_SYMBOL dim_type const
@@ -69,16 +71,18 @@ public:
 	SGE_SYMBOL resource_flags_field const
 	flags() const;
 private:
-	typedef container::raw_vector<
+	typedef fcppt::container::raw_vector<
 		unsigned char
 	> internal_vector;
 
 	dim_type dim_;
+
 	image::color::format::type const cf;
+
 	internal_vector raw_bytes;
 	// has to be mutable for unlock
 	mutable bool locked;
-	
+
 	internal_vector::size_type
 	byte_count() const;
 
@@ -87,6 +91,7 @@ private:
 		dim_type const &
 	);
 };
+
 }
 }
 

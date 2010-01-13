@@ -18,13 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <sge/parse/json/parse_stream.hpp>
-#include <sge/string.hpp>
-#include <sge/text.hpp>
-#include <sge/cerr.hpp>
-#include <sge/cout.hpp>
-#include <sge/istringstream.hpp>
+#include <fcppt/io/cerr.hpp>
+#include <fcppt/io/cout.hpp>
+#include <fcppt/io/istringstream.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 #include <boost/variant/static_visitor.hpp>
 #include <boost/variant/apply_visitor.hpp>
 #include <boost/next_prior.hpp>
@@ -46,13 +45,13 @@ template<
 void print(
 	T const &t)
 {
-	sge::cout << t;
+	fcppt::io::cout << t;
 }
 
 void print(
 	sge::parse::json::null const &)
 {
-	sge::cout << SGE_TEXT("null");
+	fcppt::io::cout << FCPPT_TEXT("null");
 }
 
 void print(
@@ -63,7 +62,7 @@ void print(
 void print(
 	sge::parse::json::array const &a)
 {
-	sge::cout << SGE_TEXT('[');
+	fcppt::io::cout << FCPPT_TEXT('[');
 
 	for(
 		sge::parse::json::element_vector::const_iterator it(
@@ -83,10 +82,10 @@ void print(
 			)
 			!= a.elements.end()
 		)
-			sge::cout << SGE_TEXT(',');
+			fcppt::io::cout << FCPPT_TEXT(',');
 	}
 
-	sge::cout << SGE_TEXT(']');
+	fcppt::io::cout << FCPPT_TEXT(']');
 }
 
 struct output_visitor : boost::static_visitor<> {
@@ -112,7 +111,7 @@ void print(
 void print(
 	sge::parse::json::object const &obj)
 {
-	sge::cout << SGE_TEXT('{');
+	fcppt::io::cout << FCPPT_TEXT('{');
 
 	for(
 		sge::parse::json::member_vector::const_iterator it(
@@ -122,10 +121,10 @@ void print(
 		++it
 	)
 	{
-		sge::cout
+		fcppt::io::cout
 			<< it->name
-			<< SGE_TEXT(": ");
-		
+			<< FCPPT_TEXT(": ");
+
 		print(
 			it->value_
 		);
@@ -136,25 +135,26 @@ void print(
 			)
 			!= obj.members.end()
 		)
-			sge::cout << SGE_TEXT(", ");
+			fcppt::io::cout << FCPPT_TEXT(", ");
 	}
 
-	sge::cout << SGE_TEXT('}');
+	fcppt::io::cout << FCPPT_TEXT('}');
 }
 
 }
 
 int main()
 {
-	sge::string const test(
-		SGE_TEXT("{ \"foo\": 42, \"bar\" : { \"inner\" : 5.5 } }")
+	fcppt::string const test(
+		FCPPT_TEXT("{ \"foo\": 42, \"bar\" : { \"inner\" : 5.5 } }")
 	);
 
-	sge::istringstream 
+	fcppt::io::istringstream
 		ss(
-			test);
+			test
+		);
 
-	sge::string::const_iterator beg(
+	fcppt::string::const_iterator beg(
 		test.begin()
 	);
 
@@ -165,7 +165,7 @@ int main()
 		result
 	))
 	{
-		sge::cerr << SGE_TEXT("failure\n");
+		fcppt::io::cerr << FCPPT_TEXT("failure\n");
 		return EXIT_FAILURE;
 	}
 
@@ -173,5 +173,5 @@ int main()
 		result
 	);
 
-	sge::cout << SGE_TEXT('\n');
+	fcppt::io::cout << FCPPT_TEXT('\n');
 }

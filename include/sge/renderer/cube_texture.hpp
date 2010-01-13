@@ -27,7 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/image/view/const_object.hpp>
 #include <sge/image/view/object.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
 
 namespace sge
 {
@@ -44,7 +45,7 @@ public:
 	SGE_SYMBOL image::view::object const
 	lock(
 		cube_side::type side,
-		lock_mode::type	
+		lock_mode::type
 	);
 
 	SGE_SYMBOL image::view::const_object const
@@ -57,7 +58,7 @@ public:
 		lock_rect const &,
 		lock_mode::type
 	) = 0;
-	
+
 	virtual image::view::const_object const
 	lock(
 		cube_side::type side,

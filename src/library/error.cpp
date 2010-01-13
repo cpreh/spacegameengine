@@ -18,33 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config.h>
+#include <fcppt/config.h>
 #include <sge/library/error.hpp>
-#ifdef SGE_WINDOWS_PLATFORM
+#ifdef FCPPT_WINDOWS_PLATFORM
 #include <sge/windows/windows.hpp>
 #include <sge/windows/format_message.hpp>
-#elif SGE_POSIX_PLATFORM
-#include <sge/iconv.hpp>
-#include <sge/text.hpp>
+#elif FCPPT_POSIX_PLATFORM
+#include <fcppt/iconv.hpp>
+#include <fcppt/text.hpp>
 #include <dlfcn.h>
 #else
 #error "Implement me!"
 #endif
 
-sge::string const
+fcppt::string const
 sge::library::error()
 {
-#ifdef SGE_POSIX_PLATFORM
+#if defined( FCPPT_POSIX_PLATFORM)
 	char const *const err(
 		dlerror()
 	);
 
 	return err
-		? sge::iconv(
+		? fcppt::iconv(
 			err
 		)
-		: SGE_TEXT("no error");
-#else
+		: FCPPT_TEXT("no error");
+#elif defined(FCPPT_WINDOWS_PLATFORM)
 	return sge::windows::format_message(
 		GetLastError()
 	);

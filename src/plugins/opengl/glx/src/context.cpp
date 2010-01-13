@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../context.hpp"
 #include <sge/x11/display.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::opengl::glx::context::context(
 	x11::display_ptr const dsp,
@@ -37,7 +37,7 @@ sge::opengl::glx::context::context(
 {
 	if(c == 0)
 		throw exception(
-			SGE_TEXT("glXCreateContext() failed!"));
+			FCPPT_TEXT("glXCreateContext() failed!"));
 }
 
 sge::opengl::glx::context::~context()

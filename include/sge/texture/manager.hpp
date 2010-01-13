@@ -21,47 +21,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_MANAGER_HPP_INCLUDED
 #define SGE_TEXTURE_MANAGER_HPP_INCLUDED
 
-#include <sge/texture/part_fwd.hpp>
-#include <sge/texture/fragmented_auto_ptr.hpp>
+#include <sge/texture/manager_fwd.hpp>
+#include <sge/texture/part_ptr.hpp>
+#include <sge/texture/on_alloc_function.hpp>
+#include <sge/texture/fragmented_fwd.hpp>
 #include <sge/texture/detail/container_position.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/device_ptr.hpp>
 #include <sge/image/view/const_object.hpp>
-#include <sge/noncopyable.hpp>
-#include <sge/export.hpp>
-#include <sge/function/object.hpp>
-//#include <boost/function.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace texture
 {
 
-class fragmented;
-
-class manager {
-	SGE_NONCOPYABLE(manager)
+class manager
+{
+	FCPPT_NONCOPYABLE(manager)
 public:
-	typedef sge::function::object<
-		fragmented_auto_ptr ()
-	> onalloc_function;
-
 	SGE_SYMBOL manager(
 		sge::renderer::device_ptr rend,
-		onalloc_function const &);
+		on_alloc_function const &
+	);
 
 	SGE_SYMBOL ~manager();
 
 	SGE_SYMBOL part_ptr const
 	add(
-		image::view::const_object const &src);
+		image::view::const_object const &
+	);
 
 	SGE_SYMBOL sge::renderer::device_ptr const
 	renderer() const;
 
 	SGE_SYMBOL void
-	onalloc(
-		onalloc_function const &);
-	
+	on_alloc(
+		on_alloc_function const &
+	);
+
 	SGE_SYMBOL void
 	free_empty_textures();
 private:
@@ -70,13 +68,16 @@ private:
 	void
 	part_freed(
 		detail::container_position const &,
-		fragmented const &);
-	
-	sge::renderer::device_ptr const     rend;
-	onalloc_function                    onalloc_;
+		fragmented const &
+	);
 
-	detail::fragmented_queue            free_textures;
-	detail::fragmented_list             full_textures;
+	sge::renderer::device_ptr const rend;
+
+	on_alloc_function on_alloc_;
+
+	detail::fragmented_queue free_textures;
+
+	detail::fragmented_list full_textures;
 };
 
 }

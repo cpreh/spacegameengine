@@ -21,25 +21,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VERTEX_BUFFER_HPP_INCLUDED
 #define SGE_RENDERER_VERTEX_BUFFER_HPP_INCLUDED
 
-#include <sge/renderer/vf/dynamic_view.hpp>
+#include <sge/renderer/vertex_buffer_fwd.hpp>
+#include <sge/renderer/vf/dynamic_view_fwd.hpp>
+#include <sge/renderer/vf/dynamic_format_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-namespace vf
+class SGE_CLASS_SYMBOL vertex_buffer
 {
-class dynamic_format;
-}
-
-class SGE_CLASS_SYMBOL vertex_buffer {
-	SGE_NONCOPYABLE(vertex_buffer)
+	FCPPT_NONCOPYABLE(vertex_buffer)
 protected:
 	SGE_SYMBOL vertex_buffer();
 public:
@@ -49,13 +48,15 @@ public:
 
 	SGE_SYMBOL static size_type const npos;
 
-	virtual view_type const lock(
+	virtual view_type const
+	lock(
 		lock_mode::type,
 		size_type offset = 0,
 		size_type range = npos
 	) = 0;
 
-	virtual const_view_type const lock(
+	virtual const_view_type const
+	lock(
 		size_type offset = 0,
 		size_type range = npos
 	) const = 0;

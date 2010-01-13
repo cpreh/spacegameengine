@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../present_parameters.hpp"
 #include "../convert_multi_sample.hpp"
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
-#include <tr1/array>
+#include <fcppt/text.hpp>
+#include <fcppt/tr1/array.hpp>
 #include <boost/foreach.hpp>
 
 namespace
@@ -40,7 +40,7 @@ search_format(
 		return D3DFMT_X8R8G8B8;
 	default:
 		throw sge::exception(
-			SGE_TEXT("You may only pass valid bit_depths!")
+			FCPPT_TEXT("You may only pass valid bit_depths!")
 		);
 	}
 }

@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_UNSUPPORTED_FORMAT_HPP_INCLUDED
 
 #include <sge/image/file_exception.hpp>
-#include <sge/filesystem/path.hpp>
-#include <sge/string.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
@@ -37,8 +38,8 @@ class SGE_CLASS_SYMBOL unsupported_format
 {
 public:
 	SGE_SYMBOL unsupported_format(
-		filesystem::path const &,
-		sge::string const &
+		fcppt::filesystem::path const &,
+		fcppt::string const &
 	);
 };
 

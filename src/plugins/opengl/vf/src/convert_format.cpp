@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic_vector.hpp>
 #include <sge/renderer/vf/dynamic_color.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 GLenum sge::opengl::vf::convert_format::operator()(
 	renderer::vf::dynamic_vector const &v) const
@@ -37,7 +37,7 @@ GLenum sge::opengl::vf::convert_format::operator()(
 		return GL_UNSIGNED_BYTE;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid format in ogl::vf::convert_format!"));
+			FCPPT_TEXT("Invalid format in ogl::vf::convert_format!"));
 	}
 }
 

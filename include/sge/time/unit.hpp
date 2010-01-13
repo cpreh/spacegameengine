@@ -21,21 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TIME_UNIT_HPP_INCLUDED
 #define SGE_TIME_UNIT_HPP_INCLUDED
 
-#include <sge/config.h>
-#ifdef SGE_HAVE_ATLEAST_UINT64
-#include <boost/cstdint.hpp>
-#endif
+#include <sge/time/clock.hpp>
 
 namespace sge
 {
 namespace time
 {
 
-#ifndef SGE_HAVE_ATLEAST_UINT64
-typedef unsigned long unit;
-#else
-typedef boost::uint_least64_t unit;
-#endif
+typedef clock::rep unit;
 
 }
 }

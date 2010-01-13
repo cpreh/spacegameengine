@@ -25,13 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/make.hpp>
 #include <sge/image/view/make_const.hpp>
 #include <sge/image/view/flipped.hpp>
-#include <sge/math/box/basic_impl.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/variant/object_impl.hpp>
-#include <sge/container/raw_vector_impl.hpp>
-#include <sge/optional_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::opengl::target::target()
 {}
@@ -45,10 +45,10 @@ sge::opengl::target::lock(
 {
 	if(!buffer.empty())
 		throw exception(
-			SGE_TEXT("renderer::target()::lock(): already locked!"));
+			FCPPT_TEXT("renderer::target()::lock(): already locked!"));
 
 	buffer.resize_uninitialized(
-		dest.dim().content() * stride()
+		dest.dimension().content() * stride()
 	);
 
 	bind_me();
@@ -56,8 +56,8 @@ sge::opengl::target::lock(
 	read_pixels(
 		pos().x() + dest.left(),
 		pos().y() + dest.top(),
-		dest.dim().w(),
-		dest.dim().h(),
+		dest.dimension().w(),
+		dest.dimension().h(),
 		format(),
 		format_type(),
 		buffer.data()

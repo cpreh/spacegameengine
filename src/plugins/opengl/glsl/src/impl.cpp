@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../program.hpp"
 #include "../init.hpp"
 #include "../../common.hpp"
-#include <sge/make_shared_ptr.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 
 sge::renderer::glsl::program_ptr const
 sge::opengl::glsl::create_program_impl(
@@ -31,7 +31,7 @@ sge::opengl::glsl::create_program_impl(
 {
 	return is_native()
 		? renderer::glsl::program_ptr(
-			make_shared_ptr<
+			fcppt::make_shared_ptr<
 				program<true>
 			>(
 				vs_source,
@@ -39,7 +39,7 @@ sge::opengl::glsl::create_program_impl(
 			)
 		)
 		: renderer::glsl::program_ptr(
-			make_shared_ptr<
+			fcppt::make_shared_ptr<
 				program<false>
 			>(
 				vs_source,

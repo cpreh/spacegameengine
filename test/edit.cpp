@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/image/colors.hpp>
@@ -35,19 +34,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/cursor/default.hpp>
 #include <sge/gui/cursor/base_ptr.hpp>
 
-#include <sge/log/activate_levels.hpp>
 #include <sge/log/global.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/mainloop/dispatch.hpp>
-#include <sge/signal/scoped_connection.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/input/action.hpp>
 #include <sge/input/system.hpp>
-#include <sge/cerr.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
-#include <sge/make_shared_ptr.hpp>
+
+#include <fcppt/log/activate_levels.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/io/cerr.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
@@ -60,9 +60,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int main()
 try
 {
-	sge::log::activate_levels(
+	fcppt::log::activate_levels(
 		sge::log::global(),
-		sge::log::level::debug
+		fcppt::log::level::debug
 	);
 
 	sge::renderer::screen_size const screen_size(640,480);
@@ -70,7 +70,7 @@ try
 	sge::systems::instance const sys(
 		sge::systems::list()
 		(sge::window::parameters(
-			SGE_TEXT("sge gui test")))
+			FCPPT_TEXT("sge gui test")))
 		(sge::renderer::parameters(
 			sge::renderer::display_mode(
 				screen_size,
@@ -86,7 +86,7 @@ try
 		(sge::systems::parameterless::font)
 		(sge::systems::parameterless::image));
 
-	
+
 	sge::gui::manager m(
 		sys.renderer(),
 		sys.input_system(),
@@ -97,7 +97,7 @@ try
 			new sge::gui::cursor::default_(
 				sys.image_loader(),
 				sys.renderer())));
-	
+
 	sge::gui::widgets::edit b(
 		m,
 		sge::gui::widgets::parameters()
@@ -105,7 +105,7 @@ try
 			.size(sge::gui::dim(400,300)),
 		sge::gui::widgets::edit::single_line,
 		sge::gui::dim(30,30));
-	//b.text(SGE_TEXT("test"));
+	//b.text(FCPPT_TEXT("test"));
 
 	// set sensible render states
 	sys.renderer()->state(
@@ -116,10 +116,10 @@ try
 				sge::image::colors::black())
 			(sge::renderer::state::cull_mode::off)
 		);
-	
+
 	bool running = true;
 
-	sge::signal::scoped_connection const cb(
+	fcppt::signal::scoped_connection const cb(
 		sys.input_system()->register_callback(
 			sge::input::action(
 				sge::input::kc::key_escape,
@@ -135,10 +135,10 @@ try
 		m.update();
 		m.draw();
 	}
-} 
+}
 catch (sge::exception const &e)
 {
-	sge::cerr << SGE_TEXT("caught sge exception: ") << e.string() << SGE_TEXT('\n');
+	fcppt::io::cerr << FCPPT_TEXT("caught sge exception: ") << e.string() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }
 catch (std::exception const &e)

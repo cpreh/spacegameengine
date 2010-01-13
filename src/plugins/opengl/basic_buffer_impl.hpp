@@ -25,10 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "common.hpp"
 #include "vbo_base.hpp"
 #include "lock_method.hpp"
-#include "convert_resource_flags.hpp"
-#include <sge/container/bitfield/basic_impl.hpp>
+#include "convert/resource_flags.hpp"
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 template<
 	GLenum (*Type)(),
@@ -49,12 +49,12 @@ sge::opengl::basic_buffer<Type, Impl, T>::basic_buffer(
 	lock_offset(0),
 	lock_size_(0)
 {
-	GLuint const glflags = convert_resource_flags(flags());
 	size_type const nsz = size() * byte_stride();
 
 	if(nsz == 0)
 		throw exception(
-			SGE_TEXT("ogl_buffer: cannot create an empty buffer!"));
+			FCPPT_TEXT("ogl_buffer: cannot create an empty buffer!")
+		);
 
 	bind_me();
 
@@ -62,7 +62,9 @@ sge::opengl::basic_buffer<Type, Impl, T>::basic_buffer(
 		Type(),
 		static_cast<GLsizei>(nsz),
 		src,
-		glflags
+		convert::resource_flags(
+			flags()
+		)
 	);
 }
 
@@ -84,34 +86,87 @@ template<
 	sge::opengl::vbo_base &(*Impl)(),
 	typename T
 >
-void sge::opengl::basic_buffer<Type, Impl, T>::lock(
+void
+sge::opengl::basic_buffer<Type, Impl, T>::lock(
 	lock_flag_type const lockflags,
 	size_type const first,
-	size_type count)
+	size_type count
+)
 {
 	if(dest)
 		throw exception(
-			SGE_TEXT("ogl_buffer::lock(): you have to unlock before locking!"));
+			FCPPT_TEXT("ogl_buffer::lock(): you have to unlock before locking!")
+		);
 
-	if(lock_flag_read(lockflags) && !(flags() & renderer::resource_flags::readable))
+	if(
+		lock_flag_read(lockflags)
+		&& !(flags() & renderer::resource_flags::readable)
+	)
 		throw exception(
-			SGE_TEXT("ogl_buffer: Cannot lock a writeonly buffer for reading!"));
+			FCPPT_TEXT("ogl_buffer: Cannot lock a writeonly buffer for reading!")
+		);
 
 	if(first > size())
 		throw exception(
-			SGE_TEXT("ogl_buffer::lock(): first out of range!"));
+			FCPPT_TEXT("ogl_buffer::lock(): first out of range!")
+		);
 
 	if(count == npos)
 		count = size() - first;
 
 	if(first + count > size())
 		throw exception(
-			SGE_TEXT("ogl_buffer::lock(): first + count > size()"));
+			FCPPT_TEXT("ogl_buffer::lock(): first + count > size()")
+		);
 
-	GLuint const glflags = ogl_lock_method(lockflags);
 	bind_me();
-	dest = static_cast<pointer>(Impl().map_buffer(Type(), glflags));
-	lock_offset = first * stride();
+
+	if(
+		count < size()
+		&& Impl().map_buffer_range_supported()
+	)
+	{
+		dest =
+			static_cast<
+				pointer
+			>(
+				Impl().map_buffer_range(
+					Type(),
+					range_lock_method(
+						lockflags
+					),
+					static_cast<
+						GLsizei
+					>(
+						first * stride()
+					),
+					static_cast<
+						GLsizei
+					>(
+						count * stride()
+					)
+				)
+			);
+
+		lock_offset = 0;
+	}
+	else
+	{
+		dest =
+			static_cast<
+				pointer
+			>(
+				Impl().map_buffer(
+					Type(),
+					normal_lock_method(
+						lockflags
+					)
+				)
+			);
+
+		lock_offset = first * stride();
+	}
+
 	lock_size_ = count * stride();
 }
 
@@ -124,7 +179,7 @@ void sge::opengl::basic_buffer<Type, Impl, T>::unlock()
 {
 	if(!dest)
 		throw exception(
-			SGE_TEXT("ogl_buffer::unlock(), buffer is not locked! cannot unlock!"));
+			FCPPT_TEXT("ogl_buffer::unlock(), buffer is not locked! cannot unlock!"));
 	bind_me();
 	Impl().unmap_buffer(Type());
 	dest = 0;
@@ -143,9 +198,9 @@ void sge::opengl::basic_buffer<Type, Impl, T>::sub_data(
 	size_type const count)
 {
 	if(first + count > size())
-		throw exception(SGE_TEXT("ogl_buffer::sub_data(), first + count out of range!"));
+		throw exception(FCPPT_TEXT("ogl_buffer::sub_data(), first + count out of range!"));
 	if(dest)
-		throw exception(SGE_TEXT("ogl_buffer::sub_data(), buffer must not be locked!"));
+		throw exception(FCPPT_TEXT("ogl_buffer::sub_data(), buffer must not be locked!"));
 	bind_me();
 	Impl().buffer_sub_data(
 		Type(),
@@ -291,7 +346,7 @@ void sge::opengl::basic_buffer<Type, Impl, T>::check_lock() const
 {
 	if(!dest)
 		throw exception(
-			SGE_TEXT("ogl_buffer used but the buffer has not been locked!"));
+			FCPPT_TEXT("ogl_buffer used but the buffer has not been locked!"));
 }
 
 #endif

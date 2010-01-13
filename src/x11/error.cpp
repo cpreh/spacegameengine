@@ -18,49 +18,84 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <X11/Xlib.h>
 #include <sge/x11/error.hpp>
-#include <sge/optional.hpp>
+#include <sge/x11/optional_error.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/iconv.hpp>
+#include <fcppt/exception.hpp>
+#include <fcppt/text.hpp>
 
 namespace
 {
 
-sge::x11::optional_error last_error_;
-
-int error_handler(
+int
+error_handler(
 	Display *,
-	XErrorEvent *);
+	XErrorEvent *
+);
 
-class init {
-public:
+struct init
+{
 	init();
 } init_;
+
+sge::x11::optional_error error_;
 
 }
 
 sge::x11::optional_error const
-sge::x11::last_error()
+sge::x11::error()
 {
-	optional_error const ret(
-		last_error_);
-	last_error_.reset();
-	return ret;
+	return error_;
 }
 
 namespace
 {
 
-int error_handler(
-	Display *,
-	XErrorEvent *const ev)
+int
+error_handler(
+	Display *const dsp,
+	XErrorEvent *const event
+)
 {
-	last_error_ = *ev;
+	try
+	{
+		// size based on Xlib internals
+		// X11 uses sprintf internally, so let's hope this doesn't trash everything
+		typedef std::tr1::array<
+			char,
+			2048
+		> buffer_type;
+
+		buffer_type buffer;
+
+		XGetErrorText(
+			dsp,
+			event->error_code,
+			buffer.data(),
+			static_cast<int>(buffer.size())
+		);
+
+		error_ = fcppt::iconv(
+			buffer.data()
+		);
+	}
+	catch(
+		fcppt::exception const &
+	)
+	{
+		error_ = FCPPT_TEXT("Couldn't convert the X11 error.");
+	}
+
 	return 0; // TODO: what should we return?
 }
 
 init::init()
 {
 	XSetErrorHandler(
-		error_handler);
+		error_handler
+	);
 }
 
 }

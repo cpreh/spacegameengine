@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic_ordered_element.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/exception.hpp>
-#include <sge/format.hpp>
-#include <sge/text.hpp>
+#include <fcppt/format.hpp>
+#include <fcppt/text.hpp>
 
 sge::opengl::vf::texpos_actor::texpos_actor(
 	renderer::vf::dynamic_ordered_element const &e,
@@ -44,9 +44,14 @@ sge::opengl::vf::texpos_actor::texpos_actor(
 	)
 {
 	if(index() >= GL_MAX_TEXTURE_COORDS)
-		throw renderer::exception((
-			::sge::format(SGE_TEXT("opengl texture coordinates exceeded: Allowed are %1%."))
-			% GL_MAX_TEXTURE_COORDS).str());
+		throw renderer::exception(
+			(
+				fcppt::format(
+					FCPPT_TEXT("opengl texture coordinates exceeded: Allowed are %1%.")
+				)
+				% GL_MAX_TEXTURE_COORDS
+			).str()
+		);
 }
 
 void sge::opengl::vf::texpos_actor::operator()(
@@ -66,7 +71,7 @@ void sge::opengl::vf::texpos_actor::operator()(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glTexCoordPointer failed"),
+		FCPPT_TEXT("glTexCoordPointer failed"),
 		sge::renderer::exception
 	)
 

@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../key_converter.hpp"
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::dinput::key_converter::key_converter()
 :
@@ -176,7 +176,7 @@ sge::dinput::key_converter::create_dik(
 
 	if(it == vr.end())
 		throw exception(
-			SGE_TEXT("Input key not found in reverse map!")
+			FCPPT_TEXT("Input key not found in reverse map!")
 		);
 
 	return it->second;

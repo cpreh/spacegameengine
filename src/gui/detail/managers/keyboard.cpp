@@ -30,22 +30,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key_type.hpp>
 #include <sge/input/classification.hpp>
 #include <sge/input/key_pair.hpp>
-#include <sge/math/almost_zero.hpp>
-#include <sge/log/parameters/inherited.hpp>
-#include <sge/log/object.hpp>
-#include <sge/log/headers.hpp>
-#include <sge/assert.hpp>
+#include <fcppt/math/almost_zero.hpp>
+#include <fcppt/log/parameters/inherited.hpp>
+#include <fcppt/log/object.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/assert.hpp>
+#include <fcppt/assert_message.hpp>
 #include <boost/next_prior.hpp>
-#include <tr1/functional>
 #include <algorithm>
 
 namespace
 {
 
-sge::log::object mylogger(
-	sge::log::parameters::inherited(
+fcppt::log::object mylogger(
+	fcppt::log::parameters::inherited(
 		sge::gui::global_log(),
-		SGE_TEXT("managers: keyboard")
+		FCPPT_TEXT("managers: keyboard")
 	)
 );
 
@@ -60,7 +61,7 @@ bool active(sge::gui::widgets::base const &w)
 		case sge::gui::activation_state::inactive:
 			return false;
 	}
-	throw sge::gui::exception(SGE_TEXT("missed an activation state"));
+	throw sge::gui::exception(FCPPT_TEXT("missed an activation state"));
 }
 }
 
@@ -93,7 +94,7 @@ sge::gui::detail::managers::keyboard::keyboard(sge::input::system_ptr const is)
 
 // Here, we could add a keyboard_enter event to the first added widget, but the function
 // below is called from a base class constructor, so widget::process(keyboard_enter)
-// is called instead of most_derived::process(keyboard_enter), so the policy is: No 
+// is called instead of most_derived::process(keyboard_enter), so the policy is: No
 // widgets::base initially has the focus.
 void sge::gui::detail::managers::keyboard::add(widgets::base &w)
 {
@@ -103,14 +104,14 @@ void sge::gui::detail::managers::keyboard::add(widgets::base &w)
 		*/
 
 	if (w.keyboard_focus() == keyboard_focus::ignore)
-		return; 
+		return;
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("adding widget"));
-	
-	SGE_ASSERT(
-		utility::ptr_find(widgets.begin(),widgets.end(),&w) 
+		fcppt::log::_ << FCPPT_TEXT("adding widget"));
+
+	FCPPT_ASSERT(
+		utility::ptr_find(widgets.begin(),widgets.end(),&w)
 			== widgets.end());
 
 	widgets.push_back(&w);
@@ -128,7 +129,7 @@ void sge::gui::detail::managers::keyboard::activation(
 
 	if (a == activation_state::active)
 		return;
-	
+
 	(*focus)->process_keyboard_leave(events::keyboard_leave());
 	focus.reset();
 }
@@ -138,15 +139,15 @@ void sge::gui::detail::managers::keyboard::request_focus(widgets::base &w)
 	widget_container::iterator wi = utility::ptr_find(
 			widgets.begin(),
 			widgets.end(),&w);
-	
-	SGE_ASSERT_MESSAGE(
+
+	FCPPT_ASSERT_MESSAGE(
 		wi != widgets.end(),
-		SGE_TEXT("a widgets::base requested the keyboard focus which cannot receive keys"));
-	
+		FCPPT_TEXT("a widgets::base requested the keyboard focus which cannot receive keys"));
+
 	// Widget already has the focus?
 	if (focus && *focus == wi)
 		return;
-	
+
 	switch_focus(wi);
 }
 
@@ -154,23 +155,23 @@ void sge::gui::detail::managers::keyboard::remove(widgets::base &w)
 {
 	if (w.keyboard_focus() == keyboard_focus::ignore)
 		return;
-	
+
 	widget_container::iterator wi = utility::ptr_find(
 			widgets.begin(),
 			widgets.end(),&w);
-	
-	SGE_ASSERT(wi != widgets.end());
-	
+
+	FCPPT_ASSERT(wi != widgets.end());
+
 	// the widgets::base to delete has the focus? then reset focus
 	if (focus && *focus == wi)
 		focus.reset();
 /* old (alternative) behaviour was to take the next possible widget
 		switch_focus(
-			boost::next(*focus) == widgets.end() 
+			boost::next(*focus) == widgets.end()
 				? widgets.begin()
 				: boost::next(*focus));
 				*/
-	
+
 	widgets.erase(wi);
 }
 
@@ -178,14 +179,14 @@ void sge::gui::detail::managers::keyboard::cycle_focus()
 {
 	if (widgets.empty())
 		return;
-	
+
 	// If no widgets::base currently has the focus, take the first (active) one on the
 	// list
 	if (!focus)
 	{
-		for (widget_container::iterator i = widgets.begin(); 
-		     i != widgets.end(); 
-				 ++i) 
+		for (widget_container::iterator i = widgets.begin();
+		     i != widgets.end();
+				 ++i)
 		{
 			if (active(*i))
 			{
@@ -196,7 +197,7 @@ void sge::gui::detail::managers::keyboard::cycle_focus()
 		return;
 	}
 
-	SGE_ASSERT((*focus)->activation() == activation_state::active);
+	FCPPT_ASSERT((*focus)->activation() == activation_state::active);
 
 	widget_container::iterator next = boost::next(*focus);
 	if (next == widgets.end())
@@ -227,12 +228,12 @@ void sge::gui::detail::managers::keyboard::keyboard_focus(
 			widget_container::iterator wi = utility::ptr_find(
 					widgets.begin(),
 					widgets.end(),&w);
-			
+
 			// The widgets::base ignores keyboard focus and it never accepted it?
 			// then we can return
 			if (wi == widgets.end())
 				return;
-			
+
 			// The widgets::base to delete has the focus? then take the next one
 			if (focus && *focus == wi)
 			{
@@ -240,25 +241,25 @@ void sge::gui::detail::managers::keyboard::keyboard_focus(
 				if (widgets.size() != 1)
 				{
 					switch_focus(
-						boost::next(*focus) == widgets.end() 
+						boost::next(*focus) == widgets.end()
 							? widgets.begin()
 							: boost::next(*focus));
 				}
 			}
-			
+
 			widgets.erase(wi);
 		}
 		break;
 		case keyboard_focus::receive:
 		{
-			SGE_LOG_DEBUG(
+			FCPPT_LOG_DEBUG(
 				mylogger,
-				log::_ << SGE_TEXT("adding widgets::base after focus change"));
+				fcppt::log::_ << FCPPT_TEXT("adding widgets::base after focus change"));
 			widget_container::iterator wi = utility::ptr_find(
 					widgets.begin(),
 					widgets.end(),&w);
 
-			// The widgets::base has the focus and has had it before? Then 
+			// The widgets::base has the focus and has had it before? Then
 			// there's nothing to do
 			if (wi != widgets.end())
 				return;
@@ -288,10 +289,10 @@ void sge::gui::detail::managers::keyboard::input_callback(
 {
 	if (widgets.empty())
 		return;
-	
+
 	if (input::is_mouse_axis(k.key().code()) || input::is_mouse_button(k.key().code()))
 		return;
-	
+
 	if (focus)
 	{
 		if ((*focus)->process_key(events::key(k,s,repeated)) == key_handling::ignore)
@@ -300,7 +301,7 @@ void sge::gui::detail::managers::keyboard::input_callback(
 
 	if (k.key().code() == sge::input::kc::key_tab)
 	{
-		if (!sge::math::almost_zero(k.value()))
+		if (!fcppt::math::almost_zero(k.value()))
 			cycle_focus();
 		return;
 	}
@@ -308,7 +309,7 @@ void sge::gui::detail::managers::keyboard::input_callback(
 
 void sge::gui::detail::managers::keyboard::switch_focus(widget_container::iterator n)
 {
-	SGE_LOG_DEBUG(mylogger,log::_ << SGE_TEXT("switching focus"));
+	FCPPT_LOG_DEBUG(mylogger,fcppt::log::_ << FCPPT_TEXT("switching focus"));
 	if (focus)
 		(*focus)->process_keyboard_leave(events::keyboard_leave());
 	focus = n;

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLX_VISUAL_FWD_HPP_INCLUDED
 #define SGE_OPENGL_GLX_VISUAL_FWD_HPP_INCLUDED
 
-#include <sge/shared_ptr.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
@@ -31,7 +31,7 @@ namespace glx
 {
 
 class visual;
-typedef shared_ptr<visual> visual_ptr;
+typedef fcppt::shared_ptr<visual> visual_ptr;
 
 }
 }

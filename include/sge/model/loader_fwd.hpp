@@ -21,18 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MODEL_LOADER_FWD_HPP_INCLUDED
 #define SGE_MODEL_LOADER_FWD_HPP_INCLUDED
 
-#include <sge/shared_ptr.hpp>
-
 namespace sge
 {
 namespace model
 {
 
 class loader;
-
-typedef shared_ptr<
-	loader
-> loader_ptr;
 
 }
 }

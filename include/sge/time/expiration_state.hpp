@@ -26,7 +26,7 @@ namespace sge
 namespace time
 {
 
-namespace expiration_state 
+namespace expiration_state
 {
 enum type {
 	expired,

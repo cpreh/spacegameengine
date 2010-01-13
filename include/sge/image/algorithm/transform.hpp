@@ -25,11 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/algorithm/detail/transform_binary.hpp>
 #include <sge/image/view/object.hpp>
 #include <sge/image/view/const_object.hpp>
-#include <sge/variant/apply_unary.hpp>
-#include <sge/variant/apply_binary.hpp>
-#include <sge/variant/apply_ternary.hpp>
-#include <sge/variant/object_impl.hpp>
-#include <tr1/functional>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/apply_binary.hpp>
+#include <fcppt/variant/apply_ternary.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/tr1/functional.hpp>
 
 // TODO: provide all overloads
 
@@ -72,7 +72,7 @@ void transform(
 	view::object const &dst,
 	Op const &op)
 {
-	variant::apply_binary(
+	fcppt::variant::apply_binary(
 		detail::transform_unary<
 			Op
 		>(
@@ -92,7 +92,7 @@ void transform(
 	view::object const &dest,
 	Op const &op)
 {
-	variant::apply_unary(
+	fcppt::variant::apply_unary(
 		std::tr1::bind(
 			detail::transform_unary<
 				Op
@@ -115,7 +115,7 @@ void transform(
 	Dest const &dest,
 	Op const &op)
 {
-	variant::apply_unary(
+	fcppt::variant::apply_unary(
 		std::tr1::bind(
 			detail::transform_unary<
 				Op
@@ -139,7 +139,7 @@ void transform(
 	view::object const &dest,
 	Op const &op)
 {
-	variant::apply_binary(
+	fcppt::variant::apply_binary(
 		std::tr1::bind(
 			detail::transform_binary<
 				Op
@@ -164,7 +164,7 @@ void transform(
 	view::object const &dest,
 	Op const &op)
 {
-	variant::apply_ternary(
+	fcppt::variant::apply_ternary(
 		detail::transform_binary<
 			Op
 		>(

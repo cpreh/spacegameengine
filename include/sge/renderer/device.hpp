@@ -21,19 +21,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_DEVICE_HPP_INCLUDED
 #define SGE_RENDERER_DEVICE_HPP_INCLUDED
 
-#include <sge/renderer/any_matrix.hpp>
-#include <sge/renderer/vertex_buffer_fwd.hpp>
-#include <sge/renderer/index_buffer_fwd.hpp>
-#include <sge/renderer/texture_base_fwd.hpp>
-#include <sge/renderer/texture_fwd.hpp>
-#include <sge/renderer/cube_texture_fwd.hpp>
-//#include <sge/renderer/volume_texture.hpp>
-#include <sge/renderer/target_fwd.hpp>
 #include <sge/renderer/vf/dynamic_view.hpp>
-#include <sge/renderer/light_index.hpp>
-#include <sge/renderer/glsl/program_fwd.hpp>
+#include <sge/renderer/vf/dynamic_format_fwd.hpp>
+#include <sge/renderer/filter/texture_fwd.hpp>
+#include <sge/renderer/glsl/program_ptr.hpp>
 #include <sge/renderer/glsl/optional_string.hpp>
 #include <sge/renderer/glsl/optional_istream.hpp>
+#include <sge/renderer/state/list_fwd.hpp>
+#include <sge/renderer/index/view.hpp>
+#include <sge/renderer/index/format.hpp>
+#include <sge/renderer/any_matrix.hpp>
+#include <sge/renderer/vertex_buffer_ptr.hpp>
+#include <sge/renderer/index_buffer_ptr.hpp>
+#include <sge/renderer/texture_base_ptr.hpp>
+#include <sge/renderer/texture_ptr.hpp>
+#include <sge/renderer/cube_texture_ptr.hpp>
+//#include <sge/renderer/volume_texture_ptr.hpp>
+#include <sge/renderer/target_ptr.hpp>
+#include <sge/renderer/light_index.hpp>
 #include <sge/renderer/indexed_primitive_type.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <sge/renderer/texture_stage_op.hpp>
@@ -46,134 +51,176 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/viewport_mode.hpp>
-#include <sge/renderer/index/view.hpp>
-#include <sge/renderer/index/format.hpp>
+#include <sge/renderer/light_fwd.hpp>
+#include <sge/renderer/material_fwd.hpp>
+#include <sge/renderer/caps_fwd.hpp>
+#include <sge/renderer/viewport_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/first_vertex.hpp>
+#include <sge/renderer/vertex_count.hpp>
+#include <sge/renderer/primitive_count.hpp>
+#include <sge/renderer/first_index.hpp>
 #include <sge/image/view/const_object.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/window/instance_fwd.hpp>
-#include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <sge/window/instance_ptr.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace renderer
 {
-namespace state
+
+class SGE_CLASS_SYMBOL device
 {
-class list;
-}
-
-namespace vf
-{
-class dynamic_format;
-}
-
-namespace filter
-{
-class texture;
-}
-
-class viewport;
-class material;
-class caps;
-class light;
-
-class SGE_CLASS_SYMBOL device {
-	SGE_NONCOPYABLE(device)
+	FCPPT_NONCOPYABLE(device)
 protected:
 	SGE_SYMBOL device();
 public:
-	virtual void begin_rendering() = 0;
+	virtual void
+	begin_rendering() = 0;
 
-	virtual void end_rendering() = 0;
+	virtual void
+	end_rendering() = 0;
 
 	virtual void
 	render(
-		const_vertex_buffer_ptr vb,
-		const_index_buffer_ptr ib,
-		size_type first_vertex,
-		size_type num_vertices,
+		const_vertex_buffer_ptr,
+		const_index_buffer_ptr,
+		first_vertex,
+		vertex_count,
 		indexed_primitive_type::type ptype,
-		size_type primitive_count,
-		size_type first_index) = 0;
+		primitive_count,
+		first_index
+	) = 0;
 
 	SGE_SYMBOL void
 	render(
 		const_vertex_buffer_ptr,
 		const_index_buffer_ptr,
-		indexed_primitive_type::type);
+		indexed_primitive_type::type
+	);
 
 	virtual void
 	render(
 		const_vertex_buffer_ptr vb,
-		size_type first_vertex,
-		size_type num_vertices,
-		nonindexed_primitive_type::type ptype) = 0;
-	
+		first_vertex,
+		vertex_count,
+		nonindexed_primitive_type::type ptype
+	) = 0;
+
 	SGE_SYMBOL void
 	render(
 		const_vertex_buffer_ptr,
-		nonindexed_primitive_type::type ptype);
+		nonindexed_primitive_type::type
+	);
 
-	virtual void state(
-		renderer::state::list const &) = 0;
-	virtual void push_state(
-		renderer::state::list const &) = 0;
-	virtual void pop_state() = 0;
+	virtual void
+	state(
+		renderer::state::list const &
+	) = 0;
 
-	virtual void material(
-		renderer::material const &mat) = 0;
-	virtual void enable_light(
-		light_index index,
-		bool enable) = 0;
-	virtual void light(
-		light_index index,
-		renderer::light const &) = 0;
-	virtual void texture_stage_op(
-		stage_type stage,
+	virtual void
+	push_state(
+		renderer::state::list const &
+	) = 0;
+
+	virtual void
+	pop_state() = 0;
+
+	virtual void
+	material(
+		renderer::material const &
+	) = 0;
+
+	virtual void
+	enable_light(
+		light_index,
+		bool enable
+	) = 0;
+
+	virtual void
+	light(
+		light_index,
+		renderer::light const &
+	) = 0;
+
+	virtual void
+	texture_stage_op(
+		stage_type,
 		renderer::texture_stage_op::type,
-		renderer::texture_stage_op_value::type) = 0;
-	virtual void texture_stage_arg(
-		stage_type stage,
+		renderer::texture_stage_op_value::type
+	) = 0;
+
+	virtual void
+	texture_stage_arg(
+		stage_type,
 		renderer::texture_stage_arg::type,
-		renderer::texture_stage_arg_value::type) = 0;
+		renderer::texture_stage_arg_value::type
+	) = 0;
 
 	SGE_SYMBOL static texture_ptr const no_texture;
-	virtual void texture(
-		const_texture_base_ptr tex,
-		stage_type stage = 0) = 0;
 
-	virtual void transform(
-		any_matrix const &mat) = 0;
-	virtual void projection(
-		any_matrix const &mat) = 0;
-	virtual void texture_transform(
-		any_matrix const &mat) = 0;
+	virtual void
+	texture(
+		const_texture_base_ptr,
+		stage_type = 0 
+	) = 0;
+
+	virtual void
+	transform(
+		any_matrix const &
+	) = 0;
+
+	virtual void
+	projection(
+		any_matrix const &
+	) = 0;
+
+	virtual void
+	texture_transform(
+		any_matrix const &
+	) = 0;
 
 	SGE_SYMBOL static texture_ptr const default_target;
-	virtual void target(texture_ptr) = 0;
 
-	virtual void viewport(
-		renderer::viewport const &) = 0;
+	virtual void
+	target(
+		texture_ptr
+	) = 0;
 
-	virtual void viewport_mode(
-		renderer::viewport_mode::type) = 0;
+	virtual void
+	viewport(
+		renderer::viewport const &
+	) = 0;
+
+	virtual void
+	viewport_mode(
+		renderer::viewport_mode::type
+	) = 0;
 
 	virtual glsl::program_ptr const
 	create_glsl_program(
 		glsl::optional_string const &vertex_shader_source,
-		glsl::optional_string const &pixel_shader_source) = 0;
+		glsl::optional_string const &pixel_shader_source
+	) = 0;
 
 	virtual glsl::program_ptr const
 	create_glsl_program(
 		glsl::optional_istream const &vertex_shader_source,
-		glsl::optional_istream const &pixel_shader_source) = 0;
+		glsl::optional_istream const &pixel_shader_source
+	) = 0;
 
 	SGE_SYMBOL static glsl::program_ptr const no_program;
-	virtual void glsl_program(renderer::glsl::program_ptr) = 0;
 
-	virtual const_target_ptr const target() const = 0;
+	virtual void
+	glsl_program(
+		renderer::glsl::program_ptr
+	) = 0;
+
+	virtual const_target_ptr const
+	target() const = 0;
 
 	SGE_SYMBOL texture_ptr const
 	create_texture(
@@ -196,7 +243,7 @@ public:
 		image::view::const_object3 const &,
 		filter::texture const &filter,
 		resource_flags_field const & flags);
-	
+
 	virtual volume_texture_ptr const
 	create_volume_texture(
 		dim3_type const &dim,
@@ -218,7 +265,7 @@ public:
 		vf::const_dynamic_view const &,
 		resource_flags_field const &
 	);
-	
+
 	virtual vertex_buffer_ptr const
 	create_vertex_buffer(
 		vf::dynamic_format const &,
@@ -239,9 +286,14 @@ public:
 		resource_flags_field const &
 	) = 0;
 
-	virtual renderer::caps const caps() const = 0;
-	virtual renderer::screen_size const screen_size() const = 0;
-	virtual sge::window::instance_ptr const window() const = 0;
+	virtual renderer::caps const
+	caps() const = 0;
+
+	virtual renderer::screen_size const
+	screen_size() const = 0;
+
+	virtual sge::window::instance_ptr const
+	window() const = 0;
 
 	SGE_SYMBOL virtual ~device();
 };

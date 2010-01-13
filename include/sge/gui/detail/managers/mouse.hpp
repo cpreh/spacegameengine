@@ -26,11 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/detail/submanager.hpp>
 #include <sge/gui/cursor/base_ptr.hpp>
 #include <sge/gui/widgets/fwd.hpp>
-#include <sge/input/system_fwd.hpp>
+#include <sge/input/system_ptr.hpp>
 #include <sge/input/key_pair_fwd.hpp>
-#include <sge/signal/scoped_connection.hpp>
 #include <sge/sprite/object.hpp>
-
+#include <fcppt/signal/scoped_connection.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
 namespace sge
@@ -47,7 +46,7 @@ class mouse : public submanager
 	mouse(
 		input::system_ptr,
 		cursor::base_ptr);
-	
+
 	void resize(
 		widgets::base &,
 		dim const &);
@@ -66,7 +65,7 @@ class mouse : public submanager
 		boost::view_clone_allocator> widget_container;
 
 	widget_container widgets;
-	signal::scoped_connection const ic;
+	fcppt::signal::scoped_connection const ic;
 	cursor::base_ptr cursor_;
 	widgets::base *focus;
 	bool dirty_;

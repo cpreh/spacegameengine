@@ -25,16 +25,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/callback_return_type.hpp>
 #include <sge/windows/event_type.hpp>
 #include <sge/windows/windows.hpp>
-#include <sge/windows/wndclass_fwd.hpp>
-#include <sge/string.hpp>
+#include <sge/windows/wndclass_ptr.hpp>
 #include <sge/window/instance.hpp>
-#include <sge/export.hpp>
-#include <sge/signal/auto_connection.hpp>
-#include <sge/signal/object.hpp>
-#include <sge/math/rect/basic_decl.hpp>
-#include <sge/optional_fwd.hpp>
-#include <sge/function/object.hpp>
-//#include <boost/function.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/object.hpp>
+#include <fcppt/math/box/rect.hpp>
+#include <fcppt/math/box/basic_decl.hpp>
+#include <fcppt/function/object.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/optional_fwd.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 
 namespace sge
@@ -51,26 +51,26 @@ public:
 		WPARAM,
 		LPARAM);
 
-	typedef sge::function::object<
+	typedef fcppt::function::object<
 		callback_signature_type
 	> callback_type;
 
-	typedef signal::object<
+	typedef fcppt::signal::object<
 		callback_signature_type
 	> signal_type;
 
 	SGE_SYMBOL window(
 		dim_type const &sz,
-		sge::string const &title,
-		sge::string const &class_name);
+		fcppt::string const &title,
+		fcppt::string const &class_name);
 	SGE_SYMBOL ~window();
 
-	SGE_SYMBOL void title(sge::string const &t);
+	SGE_SYMBOL void title(fcppt::string const &t);
 	SGE_SYMBOL void size(dim_type const &newsize);
 	SGE_SYMBOL window::dim_type const size() const;
-	SGE_SYMBOL sge::string const title() const;
+	SGE_SYMBOL fcppt::string const title() const;
 	SGE_SYMBOL HWND hwnd() const;
-	SGE_SYMBOL signal::auto_connection
+	SGE_SYMBOL fcppt::signal::auto_connection
 	register_callback(
 		event_type,
 		callback_type);
@@ -85,9 +85,9 @@ public:
 private:
 	wndclass_ptr const wndclass_;
 
-	typedef math::rect::basic<
+	typedef fcppt::math::box::rect<
 		LONG
-	> decoration_rect;
+	>::type decoration_rect;
 
 	decoration_rect decoration_size;
 	HWND        handle;
@@ -96,6 +96,7 @@ private:
 		event_type,
 		signal_type
 	> signal_map;
+
 	signal_map signals;
 };
 

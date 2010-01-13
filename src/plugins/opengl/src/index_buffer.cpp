@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../instantiate_basic_buffer.hpp"
 #include <sge/renderer/index/view_16.hpp>
 #include <sge/renderer/index/view_32.hpp>
-#include <sge/variant/object_impl.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <boost/cstdint.hpp>
 
 namespace
@@ -119,7 +119,7 @@ sge::opengl::index_buffer<T>::lock(
 			flags),
 		offset,
 		range);
-	
+
 	return typename traits<T>::view(
 		buf.data(),
 		buf.lock_size());

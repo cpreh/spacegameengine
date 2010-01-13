@@ -20,19 +20,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config/homedir.hpp>
 #include <sge/config/getenv.hpp>
-#include <sge/config.h>
-#include <sge/text.hpp>
+#include <fcppt/config.h>
+#include <fcppt/text.hpp>
 
-sge::filesystem::path const
+fcppt::filesystem::path const
 sge::config::homedir()
 {
-#ifdef SGE_POSIX_PLATFORM
+#ifdef FCPPT_POSIX_PLATFORM
 	return getenv(
-		SGE_TEXT("HOME")
+		FCPPT_TEXT("HOME")
 	);
-#elif SGE_WINDOWS_PLATFORM
+#elif FCPPT_WINDOWS_PLATFORM
 	return getenv(
-		SGE_TEXT("USERPROFILE")
+		FCPPT_TEXT("USERPROFILE")
 	);
 #else
 #error "Don't know how to get the homedir"

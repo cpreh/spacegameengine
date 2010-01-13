@@ -21,37 +21,58 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_CONTEXT_BASE_HPP_INCLUDED
 #define SGE_PLUGIN_CONTEXT_BASE_HPP_INCLUDED
 
+#include <sge/plugin/context_base_fwd.hpp>
+#include <sge/plugin/context_fwd.hpp>
 #include <sge/plugin/base.hpp>
 #include <sge/plugin/capabilities.hpp>
-#include <sge/filesystem/path.hpp>
-#include <sge/export.hpp>
-#include <sge/string.hpp>
-#include <sge/weak_ptr.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/weak_ptr.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
 namespace plugin
 {
 
-template<typename T> class context;
-
-class context_base {
+class context_base
+{
 public:
 	SGE_SYMBOL explicit context_base(
-		filesystem::path const &p);
+		fcppt::filesystem::path const &p
+	);
 
-	SGE_SYMBOL string const &name() const;
-	SGE_SYMBOL string const &description() const;
-	SGE_SYMBOL unsigned version() const;
-	SGE_SYMBOL capabilities::type type() const;
-	SGE_SYMBOL filesystem::path const &path() const;
+	SGE_SYMBOL fcppt::string const &
+	name() const;
+
+	SGE_SYMBOL fcppt::string const &
+	description() const;
+
+	SGE_SYMBOL unsigned
+	version() const;
+
+	SGE_SYMBOL capabilities::type
+	type() const;
+
+	SGE_SYMBOL fcppt::filesystem::path const &
+	path() const;
 private:
-	template<typename T> friend class context;
-	weak_ptr<base>     ref;
-	filesystem::path   path_;
-	string             name_;
-	string             description_;
-	unsigned           version_;
+	template<
+		typename T
+	> friend class context;
+
+	fcppt::weak_ptr<
+		base
+	> ref;
+
+	fcppt::filesystem::path path_;
+
+	fcppt::string name_;
+
+	fcppt::string description_;
+
+	unsigned version_;
+
 	capabilities::type type_;
 };
 

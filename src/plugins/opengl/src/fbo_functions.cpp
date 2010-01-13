@@ -32,7 +32,7 @@ sge::opengl::bind_fbo(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glBindFramebufferEXT failed"),
+		FCPPT_TEXT("glBindFramebufferEXT failed"),
 		sge::renderer::exception
 	)
 }

@@ -33,35 +33,60 @@ class software_vbo : public vbo_base {
 public:
 	GLuint gen_buffer();
 
-	void delete_buffer(
-		GLuint);
+	void
+	delete_buffer(
+		GLuint
+	);
 
-	void bind_buffer(
+	void
+	bind_buffer(
 		GLenum type,
-		GLuint);
+		GLuint
+	);
 
-	void *map_buffer(
+	GLvoid *
+	map_buffer(
 		GLenum type,
-		GLenum flags);
+		GLenum flags
+	);
 
-	void unmap_buffer(
-		GLenum type);
+	GLvoid *
+	map_buffer_range(
+		GLenum type,
+		GLenum flags,
+		GLsizei first,
+		GLsizei size
+	);
 
-	void buffer_data(
+	bool
+	map_buffer_range_supported() const;
+
+	void
+	unmap_buffer(
+		GLenum type
+	);
+
+	void
+	buffer_data(
 		GLenum type,
 		GLsizei size,
-		void const *data,
-		GLenum flags);
+		GLvoid const *data,
+		GLenum flags
+	);
 
-	void buffer_sub_data(
+	void
+	buffer_sub_data(
 		GLenum type,
 		GLsizei first,
 		GLsizei size,
-		void const *data);
+		GLvoid const *data
+	);
 
-	void *buffer_offset(
+	void *
+	buffer_offset(
 		GLenum type,
-		GLsizei offset) const;
+		GLsizei offset
+	) const;
 
 	static GLenum unique_id();
 };

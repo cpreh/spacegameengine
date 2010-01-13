@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/renderer/size_type.hpp>
@@ -36,15 +35,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/algorithm/copy_and_convert.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/mainloop/catch_block.hpp>
-#include <sge/filesystem/path.hpp>
-#include <sge/filesystem/directory_iterator.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/math/box/basic_impl.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
-#include <sge/cerr.hpp>
-#include <sge/iconv.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/filesystem/directory_iterator.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/io/cerr.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/iconv.hpp>
 #include <boost/foreach.hpp>
 #include <algorithm>
 #include <iterator>
@@ -64,45 +63,45 @@ calc_size(
 		sge::renderer::size_type const sz(
 			1 << i
 		);
-		
+
 		if((sz / (dim.w() + 1)) * (sz / (dim.h() + 1)) >= image_count)
 			return sz;
 	}
 	throw sge::exception(
-		SGE_TEXT("size too big!")
+		FCPPT_TEXT("size too big!")
 	);
 }
 
 sge::renderer::dim_type const
 first_dim(
-	sge::filesystem::path const &p,
+	fcppt::filesystem::path const &p,
 	sge::image::loader_ptr const il)
 {
-	sge::filesystem::directory_iterator const it(
+	fcppt::filesystem::directory_iterator const it(
 		p
 	);
-	
+
 	return il->load(*it)->dim();
 }
 
 typedef std::vector<
-	sge::filesystem::path
+	fcppt::filesystem::path
 > path_vector;
 
 path_vector const
 sort_paths(
-	sge::filesystem::path const &p)
+	fcppt::filesystem::path const &p)
 {
 	path_vector ret;
 
 	std::copy(
-		sge::filesystem::directory_iterator(p),
-		sge::filesystem::directory_iterator(),
+		fcppt::filesystem::directory_iterator(p),
+		fcppt::filesystem::directory_iterator(),
 		std::back_inserter(
 			ret
 		)
 	);
-	
+
 	std::sort(
 		ret.begin(),
 		ret.end()
@@ -118,10 +117,10 @@ try
 {
 	if(argc != 2)
 	{
-		sge::cerr << SGE_TEXT("please specify a path!\n");
+		fcppt::io::cerr << FCPPT_TEXT("please specify a path!\n");
 		return EXIT_FAILURE;
 	}
-	
+
 	sge::systems::instance const sys(
 		(sge::systems::list
 		(sge::systems::parameterless::image))
@@ -131,24 +130,24 @@ try
 		sys.image_loader()
 	);
 
-	sge::filesystem::path const path(
-		sge::iconv(
+	fcppt::filesystem::path const path(
+		fcppt::iconv(
 			argv[1]
 		)
 	);
 
 	sge::renderer::size_type const image_count(
 		std::distance(
-			sge::filesystem::directory_iterator(
+			fcppt::filesystem::directory_iterator(
 				path
 			),
-			sge::filesystem::directory_iterator()
+			fcppt::filesystem::directory_iterator()
 		)
 	);
 
 	if(image_count == 0)
 	{
-		sge::cerr << SGE_TEXT("No files here.\n");
+		fcppt::io::cerr << FCPPT_TEXT("No files here.\n");
 		return EXIT_SUCCESS;
 	}
 
@@ -158,7 +157,7 @@ try
 			il
 		)
 	);
-	
+
 	sge::renderer::size_type const border_sz(
 		calc_size(
 			image_count,
@@ -206,7 +205,7 @@ try
 
 		if(img->dim() != dim)
 		{
-			sge::cerr << SGE_TEXT("some dimensions do not match!\n");
+			fcppt::io::cerr << FCPPT_TEXT("some dimensions do not match!\n");
 			return EXIT_FAILURE;
 		}
 
@@ -234,7 +233,7 @@ try
 			dest_view
 		)
 	)->save(
-		SGE_TEXT("out.png")
+		FCPPT_TEXT("out.png")
 	);
 }
 SGE_MAINLOOP_CATCH_BLOCK

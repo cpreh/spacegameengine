@@ -18,54 +18,80 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_DETAIL_MANAGER_IMPL_HPP_INCLUDED
-#define SGE_PLUGIN_DETAIL_MANAGER_IMPL_HPP_INCLUDED
+#ifndef SGE_PLUGIN_MANAGER_IMPL_HPP_INCLUDED
+#define SGE_PLUGIN_MANAGER_IMPL_HPP_INCLUDED
 
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
-#include <sge/type_info.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/type_info.hpp>
 
-template<typename T>
+template<
+	typename T
+>
 sge::plugin::iterator<T>
 sge::plugin::manager::begin()
 {
-	return iterator<T>(
-		categories[detail::traits<T>::plugin_type()].begin());
+	return
+		iterator<T>(
+			categories[
+				detail::traits<T>::plugin_type()
+			].begin()
+		);
 }
 
-template<typename T>
+template<
+	typename T
+>
 sge::plugin::iterator<T>
 sge::plugin::manager::end()
 {
-	return iterator<T>(
-		categories[detail::traits<T>::plugin_type()].end());
+	return
+		iterator<T>(
+			categories[
+				detail::traits<T>::plugin_type()
+			].end()
+		);
 }
 
-template<typename T>
+template<
+	typename T
+>
 sge::plugin::context<T>
 sge::plugin::manager::plugin(
-	size_type const index)
+	size_type const index
+)
 {
 	if(index >= size<T>())
 		throw exception(
-			SGE_TEXT("plugin(): No plugins found of type: \"")
-			+ type_info(typeid(T)).name()
-			+ SGE_TEXT("\"!"));
+			FCPPT_TEXT("plugin(): No plugins found of type: \"")
+			+ fcppt::type_info(typeid(T)).name()
+			+ FCPPT_TEXT("\"!")
+		);
+	
 	return *(begin<T>()+index);
 }
 
-template<typename T>
+template<
+	typename T
+>
 sge::plugin::manager::size_type
 sge::plugin::manager::size() const
 {
-	plugin_map::const_iterator const it = categories.find(
-		detail::traits<T>::plugin_type());
-	return it == categories.end()
-		? 0
-		: it->second.size();
+	plugin_map::const_iterator const it(
+		categories.find(
+			detail::traits<T>::plugin_type()
+		)
+	);
+
+	return
+		it == categories.end()
+		?
+			0
+		:
+			it->second.size();
 }
 
 #endif

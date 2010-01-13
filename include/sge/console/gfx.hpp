@@ -24,26 +24,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/object_fwd.hpp>
 #include <sge/console/detail/history.hpp>
 #include <sge/console/detail/cursor.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/console/sprite_system.hpp>
+#include <sge/console/sprite_object.hpp>
+#include <sge/renderer/device_ptr.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <sge/font/metrics_fwd.hpp>
+#include <sge/font/metrics_ptr.hpp>
 #include <sge/font/object.hpp>
-#include <sge/input/system_fwd.hpp>
+#include <sge/input/system_ptr.hpp>
 #include <sge/input/modifier/filter.hpp>
 #include <sge/time/timer.hpp>
-#include <sge/signal/scoped_connection.hpp>
-#include <sge/sprite/object.hpp>
-#include <sge/sprite/system.hpp>
-#include <sge/noncopyable.hpp>
-#include <deque>
+#include <sge/sprite/object_decl.hpp>
+#include <sge/sprite/external_system_decl.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
 namespace console
 {
+
 class gfx
 {
-	SGE_NONCOPYABLE(gfx)
+	FCPPT_NONCOPYABLE(gfx)
 public:
 	SGE_SYMBOL gfx(
 		sge::console::object &,
@@ -51,23 +54,47 @@ public:
 		image::color::any::object const &font_color,
 		font::metrics_ptr,
 		input::system_ptr,
-		sprite::object const &);
+		sprite_object const &
+	);
+
 	SGE_SYMBOL ~gfx();
 
-	SGE_SYMBOL void draw();
-	SGE_SYMBOL bool active() const;
-	SGE_SYMBOL void active(bool);
-	SGE_SYMBOL void print(string const &);
-	SGE_SYMBOL sge::console::object &object();
-	SGE_SYMBOL sge::console::object const &object() const;
+	SGE_SYMBOL void
+	draw();
+
+	SGE_SYMBOL bool
+	active() const;
+	
+	SGE_SYMBOL void
+	active(
+		bool
+	);
+
+	SGE_SYMBOL void
+	print(
+		fcppt::string const &
+	);
+
+	SGE_SYMBOL sge::console::object &
+	object();
+
+	SGE_SYMBOL sge::console::object const &
+	object() const;
 private:
 	sge::console::object &object_;
+
 	font::object fn;
+
 	input::system_ptr const is;
+
 	input::modifier::filter mf;
-	sge::signal::scoped_connection const ic, irc;
-	sprite::system ss;
-	sprite::object bg;
+
+	fcppt::signal::scoped_connection const
+		ic,
+		irc;
+
+	sprite_system ss;
+	sprite_object bg;
 	bool active_;
 
 	detail::cursor input_line_;
@@ -76,15 +103,22 @@ private:
 	detail::history input_history_;
 	detail::history output_history_;
 
-	SGE_SYMBOL void key_callback(
+	void
+	key_callback(
 		input::key_pair const &,
-		input::modifier::states const &);
+		input::modifier::states const &
+	);
 
-	SGE_SYMBOL void key_action(
+	void
+	key_action(
 		input::key_type const &,
-		input::modifier::states const &);
+		input::modifier::states const &
+	);
 
-	void tab_complete(string &);
+	void
+	tab_complete(
+		fcppt::string &
+	);
 };
 
 }

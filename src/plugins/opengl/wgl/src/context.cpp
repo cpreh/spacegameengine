@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../context.hpp"
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <sge/windows/gdi_device.hpp>
 
 sge::opengl::wgl::context::context(
@@ -30,7 +30,7 @@ sge::opengl::wgl::context::context(
 {
 	if(!hglrc())
 		throw exception(
-			SGE_TEXT("wglCreateContext() failed!"));
+			FCPPT_TEXT("wglCreateContext() failed!"));
 }
 
 sge::opengl::wgl::context::~context()

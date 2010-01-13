@@ -20,9 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../device.hpp"
 #include <sge/windows/window.hpp>
-#include <sge/optional_impl.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/text.hpp>
 
 namespace
 {
@@ -72,7 +72,7 @@ void sge::dinput::device::acquire()
 		break;
 	default:
 		throw exception(
-			SGE_TEXT("Acquire() failed!"));
+			FCPPT_TEXT("Acquire() failed!"));
 	}
 }
 
@@ -80,13 +80,13 @@ void sge::dinput::device::unacquire()
 {
 	if(device_->Unacquire() != S_FALSE)
 		throw exception(
-			SGE_TEXT("Unaquire() failed!")
+			FCPPT_TEXT("Unaquire() failed!")
 		);
 }
 
 sge::dinput::device::device(
 	dinput_ptr const di,
-	string const &name_,
+	fcppt::string const &name_,
 	GUID const guid,
 	windows::window_ptr const window)
 :
@@ -104,7 +104,7 @@ sge::dinput::device::device(
 	direct_input_device* d;
 	if(di->CreateDevice(guid, &d, 0) != DI_OK)
 		throw exception(
-			SGE_TEXT("dinput: cannot create input device!"));
+			FCPPT_TEXT("dinput: cannot create input device!"));
 	device_.reset(d);
 	set_cooperative_level(window->hwnd(),coop_level);
 	set_property(DIPROP_BUFFERSIZE, &buffer_settings.diph);
@@ -116,7 +116,7 @@ void sge::dinput::device::set_cooperative_level(
 {
 	if(device_->SetCooperativeLevel(hwnd, flags) != DI_OK)
 		throw exception(
-			SGE_TEXT("SetCooperativeLevel() failed!"));
+			FCPPT_TEXT("SetCooperativeLevel() failed!"));
 }
 
 void sge::dinput::device::set_data_format(
@@ -124,7 +124,7 @@ void sge::dinput::device::set_data_format(
 {
 	if(device_->SetDataFormat(df) != DI_OK)
 		throw exception(
-			SGE_TEXT("SetDataFormat() failed!"));
+			FCPPT_TEXT("SetDataFormat() failed!"));
 }
 
 void sge::dinput::device::set_property(
@@ -133,13 +133,13 @@ void sge::dinput::device::set_property(
 {
 	if(device_->SetProperty(guid, diph) != DI_OK)
 		throw exception(
-			SGE_TEXT("SetProperty() failed!"));
+			FCPPT_TEXT("SetProperty() failed!"));
 }
 
 void sge::dinput::device::poll()
 {
 	if(device_->Poll() != DI_OK)
-		throw exception(SGE_TEXT("Poll() failed!"));
+		throw exception(FCPPT_TEXT("Poll() failed!"));
 }
 
 bool sge::dinput::device::get_input(
@@ -153,7 +153,7 @@ bool sge::dinput::device::get_input(
 		data.data(),
 		&elements,
 		0);
-	
+
 	switch(res) {
 	case DI_OK:
 	case DI_BUFFEROVERFLOW:
@@ -169,7 +169,7 @@ bool sge::dinput::device::get_input(
 		return false;
 	default:
 		throw exception(
-			SGE_TEXT("GetDeviceData() failed!"));
+			FCPPT_TEXT("GetDeviceData() failed!"));
 	}
 }
 
@@ -178,10 +178,10 @@ void sge::dinput::device::enum_objects(
 {
 	if(device_->EnumObjects(fun, this, DIDFT_ALL) != DI_OK)
 		throw exception(
-			SGE_TEXT("enumerating objects failed!"));
+			FCPPT_TEXT("enumerating objects failed!"));
 }
 
-sge::string const &
+fcppt::string const &
 sge::dinput::device::name() const
 {
 	return name_;

@@ -22,14 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FONT_RECT_HPP_INCLUDED
 
 #include <sge/font/unit.hpp>
-#include <sge/math/box/rect.hpp>
+#include <fcppt/math/box/rect.hpp>
 
 namespace sge
 {
 namespace font
 {
 
-typedef math::box::rect<
+typedef fcppt::math::box::rect<
 	unit
 >::type rect;
 

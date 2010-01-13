@@ -24,11 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../glx/visual.hpp"
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
+#include <sge/x11/visual.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/parameters.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/make_shared_ptr.hpp>
-#include <tr1/functional>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 
 sge::opengl::x11::state::state(
 	renderer::parameters const &param,
@@ -43,7 +44,7 @@ sge::opengl::x11::state::state(
 		param.mode().size()
 	),
 	wnd(
-		polymorphic_pointer_cast<sge::x11::window>(
+		fcppt::polymorphic_pointer_cast<sge::x11::window>(
 			wnd_
 		)
 	),
@@ -54,9 +55,9 @@ sge::opengl::x11::state::state(
 		wnd->visual()
 	),
 	context(
-		make_shared_ptr<glx::context>(
+		fcppt::make_shared_ptr<glx::context>(
 			display,
-			dynamic_pointer_cast<glx::visual const>(
+			fcppt::dynamic_pointer_cast<glx::visual const>(
 				visual
 			)->info()
 		)
@@ -74,7 +75,7 @@ sge::opengl::x11::state::state(
 		)
 	)
 {
- 	con_manager.connect(
+	con_manager.connect(
 		wnd->register_callback(
 			MapNotify,
 			std::tr1::bind(
@@ -107,7 +108,7 @@ sge::opengl::x11::state::state(
 void sge::opengl::x11::state::swap_buffers()
 {
 	// TODO: how to get the error code here?
-		
+
 	glXSwapBuffers(
 		display->get(),
 		wnd->get()

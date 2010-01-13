@@ -21,22 +21,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_FILL_GEOMETRY_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_FILL_GEOMETRY_HPP_INCLUDED
 
-#include <sge/sprite/detail/vertex_format.hpp>
+#include <sge/sprite/detail/vertex_format_from_object.hpp>
+#include <sge/sprite/detail/indices_per_sprite.hpp>
+#include <sge/sprite/detail/vertices_per_sprite.hpp>
 #include <sge/sprite/detail/index_generator.hpp>
-#include <sge/sprite/detail/constants.hpp>
-#include <sge/sprite/detail/helper.hpp>
+#include <sge/sprite/detail/fill_position.hpp>
+#include <sge/sprite/detail/fill_color.hpp>
+#include <sge/sprite/detail/fill_tex_coordinates.hpp>
+#include <sge/sprite/detail/optional_size.hpp>
+#include <sge/sprite/detail/visible.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/index_buffer.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
+#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/index/generate.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
-#include <sge/texture/part.hpp>
-#include <sge/texture/area_texc.hpp>
-#include <sge/math/almost_zero.hpp>
-#include <boost/variant/get.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <iterator>
 
 namespace sge
 {
@@ -48,43 +52,80 @@ namespace detail
 template<
 	typename It
 >
-void fill_geometry(
+void
+fill_geometry(
 	It begin,
 	It const end,
 	renderer::vertex_buffer_ptr const vb,
-	renderer::index_buffer_ptr const ib)
+	renderer::index_buffer_ptr const ib,
+	optional_size const &num_sprites
+)
 {
-	renderer::scoped_vertex_lock const vblock(
-		vb,
-		renderer::lock_mode::writeonly
+	renderer::size_type const sprites_to_lock(
+		num_sprites
+		?
+			*num_sprites
+		:
+			renderer::vertex_buffer::npos
 	);
 
+	renderer::scoped_vertex_lock const vblock(
+		vb,
+		renderer::lock_mode::writeonly,
+		0,
+		sprites_to_lock
+		* detail::vertices_per_sprite
+	);
+
+	typedef typename std::iterator_traits<
+		It
+	>::value_type object_type;
+
 	typedef renderer::vf::view<
-		vertex_format
+		typename vertex_format_from_object<
+			object_type
+		>::type
 	> vertex_view;
 
-	vertex_view const vertices(vblock.value());
+	vertex_view const vertices(
+		vblock.value()
+	);
 
-	vertex_view::iterator vb_it = vertices.begin();
+	typename vertex_view::iterator vb_it(
+		vertices.begin()
+	);
 
 	renderer::size_type count(0);
 
-	for(It it(begin); it != end; ++it)
+	for(
+		It it(begin);
+		it != end;
+		++it
+	)
 	{
-		object const &spr(*it);
+		object_type const &spr(
+			*it
+		);
 
-		if(!spr.visible())
+		if(!visible(spr))
 			continue;
 
-		if(math::almost_zero(spr.rotation()))
-			fill_position(vb_it, spr.rect(), spr.z());
-		else
-			fill_position_rotated(vb_it, spr.rect(), spr.rotation(), spr.rotation_center(), spr.z());
+		fill_position(
+			vb_it,
+			spr
+		);
 
-		if(texture::const_part_ptr const tex = spr.texture())
-			fill_tex_coordinates(vb_it, texture::area_texc(tex, spr.repeat()));
+		fill_tex_coordinates(
+			vb_it,
+			spr
+		);
 
-		vb_it = fill_color(vb_it, spr.color());
+		fill_color(
+			vb_it,
+			spr
+		);
+
+		vb_it += detail::vertices_per_sprite;
 
 		++count;
 	}
@@ -96,7 +137,8 @@ void fill_geometry(
 			0,
 			count * detail::indices_per_sprite
 		).value(),
-		index_generator());
+		index_generator()
+	);
 }
 
 }

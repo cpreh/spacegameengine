@@ -25,9 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/member_vector.hpp>
 #include <sge/parse/json/member_name_equal.hpp>
 #include <sge/parse/json/member.hpp>
-#include <sge/string.hpp>
+#include <fcppt/string.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <algorithm>
 
 namespace sge
@@ -43,7 +43,7 @@ template<
 T
 find_member(
 	member_vector const &members,
-	sge::string const &name)
+	fcppt::string const &name)
 {
 	member_vector::const_iterator const it(
 		std::find_if(
@@ -57,11 +57,11 @@ find_member(
 
 	if(it == members.end())
 		throw exception(
-			SGE_TEXT("entry \"")
+			FCPPT_TEXT("entry \"")
 			+ name
-			+ SGE_TEXT("\" not found")
+			+ FCPPT_TEXT("\" not found")
 		);
-	
+
 	return json::get<
 		T
 	>(

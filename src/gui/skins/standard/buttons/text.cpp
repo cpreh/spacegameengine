@@ -30,18 +30,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/colors.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/text_size.hpp>
-#include <sge/math/box/output.hpp>
-#include <sge/log/parameters/inherited.hpp>
-#include <sge/log/object.hpp>
-#include <sge/log/headers.hpp>
+#include <fcppt/math/box/output.hpp>
+#include <fcppt/log/parameters/inherited.hpp>
+#include <fcppt/log/object.hpp>
+#include <fcppt/log/headers.hpp>
 
 namespace
 {
 
-sge::log::object mylogger(
-	sge::log::parameters::inherited(
+fcppt::log::object mylogger(
+	fcppt::log::parameters::inherited(
 		sge::gui::global_log(),
-		SGE_TEXT("skins: standard: buttons: text")
+		FCPPT_TEXT("skins: standard: buttons: text")
 	)
 );
 
@@ -56,9 +56,9 @@ void sge::gui::skins::standard::draw(
 
 	resize_buffer(b);
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("creating canvas from buffer"));
+		fcppt::log::_ << FCPPT_TEXT("creating canvas from buffer"));
 	canvas::object c(b.buffer());
 
 	typedef internal_color::format::channel_type channel;
@@ -66,10 +66,10 @@ void sge::gui::skins::standard::draw(
 	// Background
 	c.draw_rect(
 		rect(
-			rect::pos_type::null(),
+			rect::vector::null(),
 			c.size()
 		),
-		b.mouse_over() 
+		b.mouse_over()
 			? internal_color(
 				sge::image::color::init::red = static_cast<channel>(0xee),
 				sge::image::color::init::green = static_cast<channel>(0xeb),
@@ -82,7 +82,7 @@ void sge::gui::skins::standard::draw(
 				sge::image::color::init::alpha = static_cast<channel>(0xff)
 			),
 		canvas::rect_type::solid);
-	
+
 	c.draw_line(
 		point(0,0),
 		point(c.size().w()-1,0),
@@ -128,7 +128,7 @@ void sge::gui::skins::standard::draw(
 		point(c.size().w()-1,c.size().h()-1),
 		sge::image::colors::black()
 	);
-	
+
 	if (b.key_over())
 	{
 		c.draw_line(
@@ -156,11 +156,11 @@ void sge::gui::skins::standard::draw(
 			canvas::line_type::dashed);
 	}
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("drawing text (button \"")
+		fcppt::log::_ << FCPPT_TEXT("drawing text (button \"")
 		        << b.caption()
-		        << SGE_TEXT("\")"));
+		        << FCPPT_TEXT("\")"));
 
 	// draw text centered
 	c.draw_text(
@@ -171,18 +171,18 @@ void sge::gui::skins::standard::draw(
 		font::align_h::center,
 		font::align_v::center);
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("blitting (button \"")
+		fcppt::log::_ << FCPPT_TEXT("blitting (button \"")
 		        << b.caption()
-		        << SGE_TEXT("\")"));
+		        << FCPPT_TEXT("\")"));
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_
-			<< SGE_TEXT("source rect is \"")
+		fcppt::log::_
+			<< FCPPT_TEXT("source rect is \"")
 			<< rect(b.absolute_pos(),c.size())
-			<< SGE_TEXT(", invalid rect is ")
+			<< FCPPT_TEXT(", invalid rect is ")
 			<< e.area());
 
 	blit_invalid(b,c,e);
@@ -191,14 +191,14 @@ void sge::gui::skins::standard::draw(
 sge::gui::dim const sge::gui::skins::standard::optimal_size(
 	widgets::buttons::text const &b) const
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("calling size hint for button"));
+		fcppt::log::_ << FCPPT_TEXT("calling size hint for button"));
 
-	dim const font_dim = 
+	dim const font_dim =
 		utility::unlimited_text_size(
 			standard_font().metrics(),
-			b.caption()+SGE_TEXT("aa"));
+			b.caption()+FCPPT_TEXT("aa"));
 
 	return font_dim;
 }

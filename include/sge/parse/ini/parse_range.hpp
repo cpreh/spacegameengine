@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/ini/section_vector.hpp>
 #include <sge/parse/ini/grammar.hpp>
+#include <sge/parse/encoding.hpp>
 #include <boost/spirit/include/qi_parse.hpp>
-#include <boost/spirit/include/support_ascii.hpp>
 
 namespace sge
 {
@@ -40,16 +40,17 @@ bool
 parse_range(
 	In &beg,
 	In const end,
-	section_vector &result)
+	section_vector &result
+)
 {
 	grammar<In> parser;
-	
+
 	return boost::spirit::qi::phrase_parse(
 		beg,
 		end,
 		parser,
-		result,
-		boost::spirit::ascii::blank
+		encoding::blank,
+		result
 	);
 }
 

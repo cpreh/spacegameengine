@@ -22,16 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENAL_ERROR_STRING_HPP_INCLUDED
 
 #include "openal.hpp"
-#include <sge/string.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
 namespace openal
 {
 
-string const
+fcppt::string const
 error_string(
-	ALenum error);
+	ALenum error
+);
 
 }
 }

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DEVIL_LIBRARY_HPP_INCLUDED
 #define SGE_DEVIL_LIBRARY_HPP_INCLUDED
 
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -29,7 +29,7 @@ namespace devil
 {
 
 class library {
-	SGE_NONCOPYABLE(library)
+	FCPPT_NONCOPYABLE(library)
 public:
 	library();
 	~library();

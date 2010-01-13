@@ -23,15 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/wndclass.hpp>
 #include <sge/windows/wndclass_pool.hpp>
 #include <sge/windows/module_handle.hpp>
-#include <sge/math/rect/basic_impl.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/math/vector/basic_impl.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
-#include <sge/optional_impl.hpp>
-#include <sge/auto_ptr.hpp>
-#include <tr1/array>
-#include <tr1/functional>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/tr1/array.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/auto_ptr.hpp>
 
 namespace
 {
@@ -46,8 +46,8 @@ LRESULT CALLBACK wnd_proc(
 
 sge::windows::window::window(
 	dim_type const &sz,
-	string const &title,
-	string const &class_name)
+	fcppt::string const &title,
+	fcppt::string const &class_name)
 :
 	wndclass_(
 		wndclass_pool(
@@ -64,13 +64,17 @@ sge::windows::window::window(
 	RECT r = { 0, 0, 0, 0 };
 	if (!AdjustWindowRect(&r, flags, false))
 		throw exception(
-			SGE_TEXT("AdjustWindowRect() failed!"));
+			FCPPT_TEXT("AdjustWindowRect() failed!"));
 
 	decoration_size = decoration_rect(
-		r.left,
-		r.top,
-		r.right,
-		r.bottom
+		decoration_rect::vector(
+			r.left,
+			r.top
+		),
+		decoration_rect::dim(
+			r.right,
+			r.bottom
+		)
 	);
 
 	handle = CreateWindow(
@@ -79,16 +83,17 @@ sge::windows::window::window(
 		flags,
 		0,
 		0,
-		decoration_size.dim().w() + sz.w(),
-		decoration_size.dim().h() + sz.h(),
+		decoration_size.w() + sz.w(),
+		decoration_size.h() + sz.h(),
 		0,
 		0,
 		module_handle(),
-		this);
-	
+		this
+	);
+
 	if(!handle)
 		throw exception(
-			SGE_TEXT("CreateWindow() failed!"));
+			FCPPT_TEXT("CreateWindow() failed!"));
 }
 
 sge::windows::window::~window()
@@ -104,20 +109,20 @@ void sge::windows::window::size(
 		HWND_TOP,
 		0,
 		0,
-		decoration_size.dim().w() + nsz.w(),
-		decoration_size.dim().h() + nsz.h(),
+		decoration_size.w() + nsz.w(),
+		decoration_size.h() + nsz.h(),
 		SWP_SHOWWINDOW
 	) == 0)
 		throw exception(
-			SGE_TEXT("SetWindowPos() failed!"));
+			FCPPT_TEXT("SetWindowPos() failed!"));
 }
 
 void sge::windows::window::title(
-	string const &title)
+	fcppt::string const &title)
 {
 	if(SetWindowText(hwnd(), title.c_str()) == 0)
 		throw exception(
-			SGE_TEXT("SetWindowText() failed!"));
+			FCPPT_TEXT("SetWindowText() failed!"));
 }
 
 sge::windows::window::dim_type const
@@ -126,10 +131,10 @@ sge::windows::window::size() const
 	RECT rect;
 	if(GetWindowRect(handle, &rect) == FALSE)
 		throw exception(
-			SGE_TEXT("GetWindowRect() failed!"));
+			FCPPT_TEXT("GetWindowRect() failed!"));
 	return dim_type(
-		rect.right - rect.left - decoration_size.dim().w(),
-		rect.bottom - rect.top - decoration_size.dim().h()
+		rect.right - rect.left - decoration_size.w(),
+		rect.bottom - rect.top - decoration_size.h()
 	);
 }
 
@@ -142,15 +147,15 @@ sge::windows::window::viewport_offset() const
 	);
 }
 
-sge::string const
+fcppt::string const
 sge::windows::window::title() const
 {
 	// TODO: read the length first!
 	std::tr1::array<TCHAR, 1024> buffer;
 	if(GetWindowText(hwnd(), buffer.data(), buffer.size()) == 0)
 		throw exception(
-			SGE_TEXT("GetWindowText() failed!"));
-	return string(buffer.data());
+			FCPPT_TEXT("GetWindowText() failed!"));
+	return fcppt::string(buffer.data());
 }
 
 HWND sge::windows::window::hwnd() const
@@ -158,7 +163,7 @@ HWND sge::windows::window::hwnd() const
 	return handle;
 }
 
-sge::signal::auto_connection
+fcppt::signal::auto_connection
 sge::windows::window::register_callback(
 	event_type const msg,
 	callback_type const func)
@@ -171,7 +176,7 @@ sge::windows::window::register_callback(
 
 	if(it == signals.end())
 	{
-		auto_ptr<
+		fcppt::auto_ptr<
 			signal_type
 		> sig(
 			new signal_type(

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../shader_native.hpp"
 #include "../../check_state.hpp"
 #include <sge/renderer/glsl/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 template<>
 sge::opengl::glsl::traits<true>::handle
@@ -35,7 +35,7 @@ sge::opengl::glsl::create_shader<true>(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glCreateShader failed"),
+		FCPPT_TEXT("glCreateShader failed"),
 		sge::renderer::glsl::exception
 	)
 
@@ -57,7 +57,7 @@ void sge::opengl::glsl::shader_source<true>(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glShaderSource failed"),
+		FCPPT_TEXT("glShaderSource failed"),
 		sge::renderer::glsl::exception
 	)
 }
@@ -69,7 +69,7 @@ void sge::opengl::glsl::compile_shader<true>(
 	glCompileShader(shader);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glCompileShader failed"),
+		FCPPT_TEXT("glCompileShader failed"),
 		sge::renderer::glsl::exception
 	)
 }
@@ -84,7 +84,7 @@ GLint sge::opengl::glsl::shader_integer<true>(
 	glGetShaderiv(shader, what, &result);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glGetShaderiv failed"),
+		FCPPT_TEXT("glGetShaderiv failed"),
 		sge::renderer::glsl::exception
 	)
 
@@ -116,7 +116,7 @@ void sge::opengl::glsl::shader_info_log<true>(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glGetShaderInfoLog failed"),
+		FCPPT_TEXT("glGetShaderInfoLog failed"),
 		sge::renderer::glsl::exception
 	)
 }
@@ -128,7 +128,7 @@ void sge::opengl::glsl::delete_shader<true>(
 	glDeleteShader(shader);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glDeleteShader failed"),
+		FCPPT_TEXT("glDeleteShader failed"),
 		sge::renderer::glsl::exception
 	)
 }

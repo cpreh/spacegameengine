@@ -18,19 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_DETAIL_CONTEXT_IMPL_HPP_INCLUDED
-#define SGE_PLUGIN_DETAIL_CONTEXT_IMPL_HPP_INCLUDED
+#ifndef SGE_PLUGIN_CONTEXT_IMPL_HPP_INCLUDED
+#define SGE_PLUGIN_CONTEXT_IMPL_HPP_INCLUDED
 
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/context_base.hpp>
 #include <sge/plugin/plugin.hpp>
-#include <sge/make_shared_ptr.hpp>
+#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 template<
 	typename T
 >
 sge::plugin::context<T>::context(
-	context_base &base_)
+	context_base &base_
+)
 :
 	base_(&base_)
 {}
@@ -41,22 +43,33 @@ template<
 typename sge::plugin::context<T>::ptr_type
 sge::plugin::context<T>::load()
 {
-	shared_ptr<base> const ptr_base(
-		base_->ref.lock());
+	fcppt::shared_ptr<
+		base
+	> const ptr_base(
+		base_->ref.lock()
+	);
 
 	if(ptr_base)
-		return polymorphic_pointer_cast<
+		return fcppt::polymorphic_pointer_cast<
 			plugin<T>
 		>(
-			ptr_base);
-	
-	shared_ptr<plugin<T> > const new_ptr(
-		make_shared_ptr<
+			ptr_base
+		);
+
+	fcppt::shared_ptr<
+		plugin<
+			T
+		>
+	> const new_ptr(
+		fcppt::make_shared_ptr<
 			plugin<T>
 		>(
-			base_->path()));
+			base_->path()
+		)
+	);
 
 	base_->ref = new_ptr;
+
 	return new_ptr;
 }
 

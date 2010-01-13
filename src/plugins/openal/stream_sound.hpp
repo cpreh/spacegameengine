@@ -21,25 +21,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENAL_STREAM_SOUND_HPP_INCLUDED
 #define SGE_OPENAL_STREAM_SOUND_HPP_INCLUDED
 
-#include "player.hpp"
 #include "source.hpp"
-#include <sge/audio/sound.hpp>
-#include <sge/audio/file.hpp>
-#include <sge/shared_ptr.hpp>
+#include <sge/audio/file_ptr.hpp>
+#include <sge/audio/sample_count.hpp>
 
 namespace sge
 {
 namespace openal
 {
+
+class player;
+
 class stream_sound : public source
 {
-	public:
+public:
 	stream_sound(
 		audio::file_ptr,
 		player &);
 	void update();
 	void do_play();
-	private:
+private:
 	player &                       player_;
 	audio::file_ptr const          audio_file_;
 	audio::sample_count const      buffer_samples_;

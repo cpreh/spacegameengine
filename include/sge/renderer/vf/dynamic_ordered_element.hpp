@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vf/dynamic_element.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
@@ -37,10 +37,10 @@ public:
 	SGE_SYMBOL dynamic_ordered_element(
 		dynamic_element const &,
 		vertex_size offset);
-	
+
 	SGE_SYMBOL dynamic_element const &element() const;
 	SGE_SYMBOL vertex_size offset() const;
-private:	
+private:
 	dynamic_element element_;
 	vertex_size     offset_;
 };

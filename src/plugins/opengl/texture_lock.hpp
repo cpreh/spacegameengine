@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "lock_method.hpp"
 #include <sge/renderer/raw_value.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -32,7 +32,7 @@ namespace opengl
 {
 
 class texture_lock {
-	SGE_NONCOPYABLE(texture_lock)
+	FCPPT_NONCOPYABLE(texture_lock)
 protected:
 	texture_lock();
 public:
@@ -42,9 +42,9 @@ public:
 	typedef value_type const *const_pointer;
 
 	virtual ~texture_lock();
-		
+
 	virtual void post_lock() = 0;
-	
+
 	virtual void pre_unlock() = 0;
 
 	virtual pointer write_pointer() const;

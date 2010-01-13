@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_GUI_UTILITY_FONT_BLITTER_HPP_INCLUDED
-#define SGE_GUI_UTILITY_FONT_BLITTER_HPP_INCLUDED
+#ifndef SGE_GUI_CANVAS_UTILITY_FONT_BLITTER_HPP_INCLUDED
+#define SGE_GUI_CANVAS_UTILITY_FONT_BLITTER_HPP_INCLUDED
 
 #include "font_channel_blitter.hpp"
 #include <sge/image/color/any/convert.hpp>
@@ -69,7 +69,7 @@ public:
 		Font const &font_value,
 		Dst &dst_color
 	) const;
-	
+
 private:
 	color const font_color;
 };

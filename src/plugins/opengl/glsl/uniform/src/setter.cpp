@@ -23,11 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/uniform/int_value_type.hpp>
 #include <sge/renderer/glsl/uniform/float_value_type.hpp>
 #include <sge/renderer/glsl/exception.hpp>
-#include <sge/once.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
-#include <sge/format.hpp>
-#include <sge/assert.hpp>
+#include <fcppt/function_once.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/format.hpp>
+#include <fcppt/assert.hpp>
 
 namespace
 {
@@ -103,7 +103,7 @@ sge::opengl::glsl::uniform::setter::setter(
 {
 	initialize_setter();
 }
-	
+
 sge::opengl::glsl::uniform::type const
 sge::opengl::glsl::uniform::setter::operator()(
 	renderer::glsl::uniform::int_value const &i) const
@@ -119,7 +119,7 @@ sge::opengl::glsl::uniform::setter::operator()(
 		)
 	);
 }
-	
+
 sge::opengl::glsl::uniform::type const
 sge::opengl::glsl::uniform::setter::operator()(
 	renderer::glsl::uniform::float_value const &f) const
@@ -155,7 +155,7 @@ namespace
 
 void initialize_setter()
 {
-	SGE_FUNCTION_ONCE
+	FCPPT_FUNCTION_ONCE
 	if(sge::opengl::glsl::is_native())
 	{
 		uniform_1iv = glUniform1iv;
@@ -202,7 +202,7 @@ set_float(
 	// FIXME: check errors!
 	/*
 	SGE_OPENGL_SENTRY(
-		SGE_TEXT("uniform float failed"),
+		FCPPT_TEXT("uniform float failed"),
 		sge::renderer::glsl::exception
 	)
 	*/
@@ -248,9 +248,13 @@ set_float(
 			elements);
 	default:
 		throw sge::exception(
-			(sge::format(
-				SGE_TEXT("Invalid float dimension in glsl uniform: %1%"))
-			% size).str());
+			(
+				fcppt::format(
+					FCPPT_TEXT("Invalid float dimension in glsl uniform: %1%")
+				)
+				% size
+			).str()
+		);
 	}
 }
 
@@ -264,7 +268,7 @@ set_int(
 	// FIXME: check erroers
 	/*
 	SGE_OPENGL_SENTRY(
-		SGE_TEXT("uniform int failed"),
+		FCPPT_TEXT("uniform int failed"),
 		sge::renderer::glsl::exception
 	)
 	*/
@@ -310,9 +314,13 @@ set_int(
 			elements);
 	default:
 		throw sge::exception(
-			(sge::format(
-				SGE_TEXT("Invalid vector dimension in glsl: %1%"))
-			% size).str());
+			(
+				fcppt::format(
+					FCPPT_TEXT("Invalid vector dimension in glsl: %1%")
+				)
+				% size
+			).str()
+		);
 	}
 }
 
@@ -329,18 +337,22 @@ set_matrix(
 		&& rows != columns
 	)
 		throw sge::exception(
-			(sge::format(
-				SGE_TEXT("You specified a glsl matrix whose dimensions are not equal which is not supported by the ARB extension!")
-				SGE_TEXT(" Specified size was: %1%x%2%"))
-			% columns
-			% rows).str());
+			(
+				fcppt::format(
+					FCPPT_TEXT("You specified a glsl matrix whose dimensions are not equal which is not supported by the ARB extension!")
+					FCPPT_TEXT(" Specified size was: %1%x%2%")
+				)
+				% columns
+				% rows
+			).str()
+		);
 
 	namespace et = sge::opengl::glsl::uniform::element_type;
 
 	// FIXME: check errors
 	/*
 	SGE_OPENGL_SENTRY(
-		SGE_TEXT("uniform matrix failed"),
+		FCPPT_TEXT("uniform matrix failed"),
 		sge::renderer::glsl::exception
 	)
 	*/
@@ -451,10 +463,14 @@ set_matrix(
 	}
 
 	throw sge::exception(
-		(sge::format(
-			SGE_TEXT("Invalid matrix dimensions in glsl: %1%x%2%"))
+		(
+			fcppt::format(
+				FCPPT_TEXT("Invalid matrix dimensions in glsl: %1%x%2%")
+			)
 			% columns
-			% rows).str());
+			% rows
+		).str()
+	);
 }
 
 // TODO: add some assertions!
@@ -463,7 +479,7 @@ bool
 is_matrix(
 	sge::renderer::glsl::uniform::float_value_type::type const type)
 {
-	return type >= sge::renderer::glsl::uniform::float_value_type::matrix2x2;	
+	return type >= sge::renderer::glsl::uniform::float_value_type::matrix2x2;
 }
 
 GLsizei
@@ -501,7 +517,7 @@ element_columns(
 		return 4;
 	default:
 		throw sge::exception(
-			SGE_TEXT("Invalid matrix type in glsl element_columns!"));
+			FCPPT_TEXT("Invalid matrix type in glsl element_columns!"));
 	}
 }
 
@@ -526,7 +542,7 @@ element_rows(
 		return 4;
 	default:
 		throw sge::exception(
-			SGE_TEXT("Invalid matrix type in glsl element_rows!"));
+			FCPPT_TEXT("Invalid matrix type in glsl element_rows!"));
 	}
 }
 

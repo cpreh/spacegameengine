@@ -22,25 +22,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/display.hpp>
 #include <sge/x11/visual.hpp>
 #include <sge/x11/colormap.hpp>
-#include <sge/x11/sentry.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/math/vector/basic_impl.hpp>
+#include <sge/x11/error.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
-#include <sge/iconv.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/iconv.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <boost/assign/list_of.hpp>
 
 sge::x11::window::window(
 	pos_type const &pos,
 	dim_type const &sz,
-	string const &t,
+	fcppt::string const &t,
 	display_ptr const dsp,
 	int const screen_,
 	int const depth,
 	bool const fullscreen_,
 	const_visual_ptr const visual_,
 	colormap_ptr const colormap_,
-	string const &class_name)
+	fcppt::string const &class_name
+)
 :
 	dsp(dsp),
 	visual_(visual_),
@@ -54,13 +56,13 @@ sge::x11::window::window(
 		sz.w(),
 		sz.h(),
 		sz.w(),
-		sz.h()),
+		sz.h()
+	),
 	class_hint_(
 		t,
-		class_name)
+		class_name
+	)
 {
-	SGE_X11_SENTRY
-
 	XSetWindowAttributes swa;
 	swa.colormap = colormap_->get();
 	swa.border_pixel = 0;
@@ -68,11 +70,13 @@ sge::x11::window::window(
 	swa.override_redirect = fullscreen_ ? True : False;
 	swa.event_mask = StructureNotifyMask;
 
+	// always returns a handle
 	wnd = XCreateWindow(
 		dsp->get(),
 		XRootWindow(
 			dsp->get(),
-			screen()),
+			screen()
+		),
 		pos.x(),
 		pos.y(),
 		sz.w(),
@@ -82,7 +86,8 @@ sge::x11::window::window(
 		InputOutput,
 		visual_->get(),
 		CWColormap | CWOverrideRedirect | CWBorderPixel | CWEventMask,
-		const_cast<XSetWindowAttributes *>(&swa)),
+		const_cast<XSetWindowAttributes *>(&swa)
+	);
 
 	hints();
 	set_size_hints();
@@ -92,64 +97,84 @@ sge::x11::window::window(
 
 sge::x11::window::~window()
 {
-	SGE_X11_SENTRY
-
 	XDestroyWindow(dsp_(), wnd);
 }
 
-void sge::x11::window::size(
-	dim_type const &newsize)
+void
+sge::x11::window::size(
+	dim_type const &newsize
+)
 {
-	SGE_X11_SENTRY
-
-	XResizeWindow(dsp_(), wnd, newsize.w(), newsize.h());
+	// always returns 1
+	XResizeWindow(
+		dsp_(),
+		wnd,
+		newsize.w(),
+		newsize.h()
+	);
 }
 
-void sge::x11::window::title(
-	string const &t)
+void
+sge::x11::window::title(
+	fcppt::string const &t
+)
 {
-	SGE_X11_SENTRY
-
-	XStoreName(dsp_(), wnd, iconv(t).c_str());
+	XStoreName(
+		dsp_(),
+		wnd,
+		fcppt::iconv(t).c_str());
 }
 
 sge::x11::window::dim_type const
 sge::x11::window::size() const
 {
-	SGE_X11_SENTRY
-
 	Window root_return;
-	int x_return,
-	    y_return;
-	unsigned width_return,
-	         height_return,
-	         border_width_return,
-	         depth_return;
+	int
+		x_return,
+		y_return;
+	unsigned
+		width_return,
+		height_return,
+		border_width_return,
+		depth_return;
 
-	XGetGeometry(
-		dsp_(),
-		get(),
-		&root_return,
-		&x_return,
-		&y_return,
-		&width_return, 
-		&height_return,
-		&border_width_return,
-		&depth_return);
-	return dim_type(width_return, height_return);
+	if(
+		XGetGeometry(
+			dsp_(),
+			get(),
+			&root_return,
+			&x_return,
+			&y_return,
+			&width_return,
+			&height_return,
+			&border_width_return,
+			&depth_return
+		) == 0
+	)
+		throw sge::exception(
+			FCPPT_TEXT("XGetGeometry() failed!")
+		);
+
+	return dim_type(
+		width_return,
+		height_return
+	);
 }
 
-bool sge::x11::window::fullscreen() const
+bool
+sge::x11::window::fullscreen() const
 {
 	return fullscreen_;
 }
 
-Window sge::x11::window::get() const
+Window
+sge::x11::window::get() const
 {
 	return wnd;
 }
 
-int sge::x11::window::screen() const
+int
+sge::x11::window::screen() const
 {
 	return screen_;
 }
@@ -166,28 +191,32 @@ sge::x11::window::visual() const
 	return visual_;
 }
 
-void sge::x11::window::map()
+void
+sge::x11::window::map()
 {
-	SGE_X11_SENTRY
-
+	// always returns 1
 	XMapWindow(dsp->get(), get());
 }
 
-void sge::x11::window::map_raised()
+void
+sge::x11::window::map_raised()
 {
-	SGE_X11_SENTRY
-
+	// always returns 1
 	XMapRaised(dsp->get(), get());
 }
 
-sge::signal::auto_connection
+fcppt::signal::auto_connection
 sge::x11::window::register_callback(
 	event_type const event,
-	callback_type const &callback)
+	callback_type const &callback
+)
 {
 	add_event_mask(event);
 	return signals[event].connect(callback);
 }
+
+namespace
+{
 
 typedef std::map<
 	sge::x11::window::event_type,
@@ -211,15 +240,40 @@ boost::assign::map_list_of
 	(ConfigureRequest, SubstructureRedirectMask)
 	(ConfigureNotify, StructureNotifyMask);
 
-void sge::x11::window::dispatch()
+}
+
+void
+sge::x11::window::dispatch()
 {
-	SGE_X11_SENTRY
+	// check for recent errors
+	{
+		optional_error const error_(
+			error()
+		);
+
+		if(
+			error_
+		)
+			throw exception(
+				FCPPT_TEXT("Xerror event caught: ")
+				+ *error_
+			);
+	}
 
 	XEvent xev;
-	while(XCheckWindowEvent(dsp_(), get(), event_mask, &xev))
+
+	while(
+		XCheckWindowEvent(
+			dsp_(),
+			get(),
+			event_mask,
+			&xev
+		)
+	)
 	{
 		if(XFilterEvent(&xev, None))
 			continue;
+
 		signals[xev.type](xev);
 	}
 }
@@ -230,55 +284,77 @@ sge::x11::window::viewport_offset() const
 	return pos_type::null();
 }
 
-Display* sge::x11::window::dsp_() const
+Display *
+sge::x11::window::dsp_() const
 {
 	return display()->get();
 }
 
-void sge::x11::window::add_event_mask(
-	event_type const event)
+void
+sge::x11::window::add_event_mask(
+	event_type const event
+)
 {
-	mask_map::const_iterator const it = masks.find(event);
+	mask_map::const_iterator const it(
+		masks.find(
+			event
+		)
+	);
+
 	if(it == masks.end())
 		throw exception(
-			SGE_TEXT("X11 event mask mapping is missing!"));
+			FCPPT_TEXT("X11 event mask mapping is missing!")
+		);
 
 	event_mask_type const mask = it->second;
+
 	if(!(event_mask & mask))
 	{
 		event_mask |= mask;
+		
 		XSetWindowAttributes swa;
+		
 		swa.event_mask = event_mask;
-		XChangeWindowAttributes(dsp_(), wnd, CWEventMask, &swa);
+
+		// always returns 1
+		XChangeWindowAttributes(
+			dsp_(),
+			wnd,
+			CWEventMask,
+			&swa
+		);
 	}
 }
 
-void sge::x11::window::hints()
+void
+sge::x11::window::hints()
 {
-	SGE_X11_SENTRY
-
+	// always returns 1
 	XSetWMHints(
 		dsp_(),
 		get(),
-		hints_.get());	
+		hints_.get()
+	);
 }
 
-void sge::x11::window::set_size_hints()
+void
+sge::x11::window::set_size_hints()
 {
-	SGE_X11_SENTRY
-
+	// always returns 1
 	XSetWMNormalHints(
 		dsp_(),
 		get(),
-		size_hints_.get());
+		size_hints_.get()
+	);
 }
 
-void sge::x11::window::set_class_hint()
+void
+sge::x11::window::set_class_hint()
 {
-	SGE_X11_SENTRY
-
+	// always returns 1
 	XSetClassHint(
 		dsp_(),
 		get(),
-		class_hint_.get());
+		class_hint_.get()
+	);
 }

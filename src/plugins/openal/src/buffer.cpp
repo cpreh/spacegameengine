@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../check_state.hpp"
 #include <sge/audio/file.hpp>
 #include <sge/audio/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::openal::buffer::buffer(audio::file &file_)
 :
@@ -32,7 +32,7 @@ sge::openal::buffer::buffer(audio::file &file_)
 	alGenBuffers(static_cast<ALsizei>(1),&buffer_);
 
 	SGE_OPENAL_CHECK_STATE(
-		SGE_TEXT("alGenBuffers failed"),
+		FCPPT_TEXT("alGenBuffers failed"),
 		audio::exception
 	)
 }
@@ -56,7 +56,7 @@ sge::audio::file const &sge::openal::buffer::file() const
 void sge::openal::buffer::add_instance()
 {
 	refcount_++;
-}	
+}
 
 bool sge::openal::buffer::remove_instance()
 {
@@ -66,7 +66,7 @@ bool sge::openal::buffer::remove_instance()
 	alDeleteBuffers(static_cast<ALsizei>(1),&buffer_);
 
 	SGE_OPENAL_CHECK_STATE(
-		SGE_TEXT("alDeleteBuffers failed"),
+		FCPPT_TEXT("alDeleteBuffers failed"),
 		audio::exception
 	)
 

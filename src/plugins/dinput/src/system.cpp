@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../keyboard.hpp"
 #include "../mouse.hpp"
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
 #include <sge/windows/window.hpp>
+#include <fcppt/text.hpp>
 #include <boost/foreach.hpp>
 
 sge::dinput::system::system(
@@ -40,7 +40,7 @@ sge::dinput::system::system(
 		0)
 	!= DI_OK)
 		throw exception(
-			SGE_TEXT("Cannot create direct input!"));
+			FCPPT_TEXT("Cannot create direct input!"));
 	di.reset(d);
 
 	if(di->EnumDevices(
@@ -50,7 +50,7 @@ sge::dinput::system::system(
 		 DIEDFL_ATTACHEDONLY)
 	!= DI_OK)
 		throw exception(
-			SGE_TEXT("DirectInput Enumeration failed!"));
+			FCPPT_TEXT("DirectInput Enumeration failed!"));
 }
 
 sge::signal::auto_connection
@@ -84,7 +84,7 @@ BOOL sge::dinput::system::di_enum_devices_callback(
 		= static_cast<unsigned char>(
 			ddi->dwDevType & 0xFF);
 
-	string const product_name
+	fcppt::string const product_name
 		= ddi->tszProductName;
 
 	switch(dev_type) {
@@ -147,7 +147,7 @@ BOOL sge::dinput::system::di_enum_devices_callback(
 sge::window::instance_ptr const
 sge::dinput::system::window() const
 {
-	return sge::static_pointer_cast<
+	return fcppt::static_pointer_cast<
 		sge::window::instance
 	>(wnd);
 }

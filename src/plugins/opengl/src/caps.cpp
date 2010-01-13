@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../get_int.hpp"
 #include "../glsl/init.hpp"
 #include <sge/renderer/caps.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/text.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/text.hpp>
 
 sge::opengl::caps_auto_ptr
 sge::opengl::create_caps()
@@ -45,7 +45,7 @@ sge::opengl::create_caps()
 			get_string(
 				GL_RENDERER
 			)
-			+ SGE_TEXT(' ')
+			+ FCPPT_TEXT(' ')
 			+ get_string(
 				GL_VERSION
 			),

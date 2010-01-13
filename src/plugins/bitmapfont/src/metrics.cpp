@@ -33,13 +33,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/loader.hpp>
 #include <sge/font/char_not_available.hpp>
 #include <sge/font/exception.hpp>
-#include <sge/math/rect/basic_impl.hpp>
-#include <sge/math/vector/basic_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
-#include <sge/variant/object_impl.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <sge/make_shared_ptr.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <sge/exception.hpp>
 #include <boost/foreach.hpp>
 #include <utility>
@@ -59,10 +59,10 @@ sge::bitmapfont::metrics::metrics(
 	sge::filesystem::path const json_file(
 		filesystem::replace_extension(
 			path,
-			SGE_TEXT("json")
+			FCPPT_TEXT("json")
 		)
 	);
-	
+
 	sge::parse::json::object result;
 
 	if(
@@ -73,9 +73,9 @@ sge::bitmapfont::metrics::metrics(
 	)
 		throw font::exception(
 			json_file.string()
-			+ SGE_TEXT(" contains errors!")
+			+ FCPPT_TEXT(" contains errors!")
 		);
-			
+
 
 	sge::parse::json::member_vector const &top_members(
 		result.members
@@ -86,7 +86,7 @@ sge::bitmapfont::metrics::metrics(
 		int
 	>(
 		top_members,
-		SGE_TEXT("line_height")
+		FCPPT_TEXT("line_height")
 	);
 
 	BOOST_FOREACH(
@@ -95,7 +95,7 @@ sge::bitmapfont::metrics::metrics(
 			parse::json::array
 		>(
 			top_members,
-			SGE_TEXT("glyphs")
+			FCPPT_TEXT("glyphs")
 		).elements
 	)
 	try
@@ -108,21 +108,21 @@ sge::bitmapfont::metrics::metrics(
 			).members
 		);
 
-		sge::string const name(
+		fcppt::string const name(
 			parse::json::find_member<
 				string
 			>(
 				members,
-				SGE_TEXT("name")
+				FCPPT_TEXT("name")
 			)
 		);
 
 		if(name.size() != 1)
 		{
-			SGE_LOG_WARNING(
+			FCPPT_LOG_WARNING(
 				log::global(),
-				log::_1
-					<< SGE_TEXT("Invalid character in bitmap font: ")
+				log::_
+					<< FCPPT_TEXT("Invalid character in bitmap font: ")
 					<< name
 			);
 
@@ -149,7 +149,7 @@ sge::bitmapfont::metrics::metrics(
 						int
 					>(
 						members,
-						SGE_TEXT("x_advance")
+						FCPPT_TEXT("x_advance")
 					)
 				)
 			)
@@ -157,12 +157,12 @@ sge::bitmapfont::metrics::metrics(
 	}
 	catch(exception const &e)
 	{
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
-			log::_1
-				<< SGE_TEXT("Skipping character in bitmap font because \"")
+			log::_
+				<< FCPPT_TEXT("Skipping character in bitmap font because \"")
 				<< e.string()
-				<< SGE_TEXT('"')
+				<< FCPPT_TEXT('"')
 		);
 	}
 }
@@ -184,7 +184,7 @@ sge::bitmapfont::metrics::load_char(
 		throw font::char_not_available(
 			c
 		);
-	
+
 	return it->second;
 }
 

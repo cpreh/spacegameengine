@@ -21,19 +21,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_LIGHT_HPP_INCLUDED
 #define SGE_RENDERER_LIGHT_HPP_INCLUDED
 
+#include <sge/renderer/light_fwd.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/renderer/any_vector3.hpp>
 #include <sge/renderer/any_arithmetic.hpp>
-#include <sge/variant/object_impl.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-class light {
+class light
+{
 public:
 	typedef any_vector3 position_type;
 	typedef any_vector3 direction_type;
@@ -49,18 +51,38 @@ public:
 		attenuation_type const &linear_attenuation,
 		attenuation_type const &quadratic_attenuation,
 		any_arithmetic const &distribution_exponent,
-		any_arithmetic const &cutoff_angle);
-	
-	SGE_SYMBOL image::color::any::object const &ambient() const;
-	SGE_SYMBOL image::color::any::object const &diffuse() const;
-	SGE_SYMBOL image::color::any::object const &specular() const;
-	SGE_SYMBOL position_type const &position() const;
-	SGE_SYMBOL direction_type const &direction() const;
-	SGE_SYMBOL attenuation_type const &const_attenuation() const;
-	SGE_SYMBOL attenuation_type const &linear_attenuation() const;
-	SGE_SYMBOL attenuation_type const &quadratic_attenuation() const;
-	SGE_SYMBOL any_arithmetic const &distribution_exponent() const;
-	SGE_SYMBOL any_arithmetic const &cutoff_angle() const;
+		any_arithmetic const &cutoff_angle
+	);
+
+	SGE_SYMBOL image::color::any::object const &
+	ambient() const;
+
+	SGE_SYMBOL image::color::any::object const &
+	diffuse() const;
+
+	SGE_SYMBOL image::color::any::object const &
+	specular() const;
+
+	SGE_SYMBOL position_type const &
+	position() const;
+
+	SGE_SYMBOL direction_type const &
+	direction() const;
+
+	SGE_SYMBOL attenuation_type const &
+	const_attenuation() const;
+
+	SGE_SYMBOL attenuation_type const &
+	linear_attenuation() const;
+
+	SGE_SYMBOL attenuation_type const &
+	quadratic_attenuation() const;
+
+	SGE_SYMBOL any_arithmetic const &
+	distribution_exponent() const;
+
+	SGE_SYMBOL any_arithmetic const &
+	cutoff_angle() const;
 private:
 	image::color::any::object
 		ambient_,

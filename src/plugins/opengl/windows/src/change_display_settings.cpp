@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../change_display_settings.hpp"
 #include <sge/log/headers.hpp>
 #include <sge/renderer/display_mode.hpp>
-#include <sge/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <sge/windows/windows.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <cstring>
 
 void sge::opengl::windows::change_display_settings(
@@ -39,10 +39,10 @@ void sge::opengl::windows::change_display_settings(
 	settings.dmFields = DM_BITSPERPEL | DM_PELSWIDTH|DM_PELSHEIGHT | DM_DISPLAYFREQUENCY;
 
 	if(ChangeDisplaySettings(&settings, CDS_FULLSCREEN) != DISP_CHANGE_SUCCESSFUL)
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
 			log::_1
-				<< SGE_TEXT("Cannot change resolution to ")
+				<< FCPPT_TEXT("Cannot change resolution to ")
 				<< mode
-				<< SGE_TEXT("! Reverting to window mode!"));
+				<< FCPPT_TEXT("! Reverting to window mode!"));
 }

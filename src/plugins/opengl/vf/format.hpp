@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "actor.hpp"
 #include <sge/renderer/vf/dynamic_format.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
 namespace sge
@@ -33,8 +33,8 @@ namespace opengl
 namespace vf
 {
 
-class format {	
-	SGE_NONCOPYABLE(format)
+class format {
+	FCPPT_NONCOPYABLE(format)
 public:
 	explicit format(
 		renderer::vf::dynamic_format const &);

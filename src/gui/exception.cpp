@@ -17,12 +17,13 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+
 #include <sge/gui/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::gui::exception::exception(
-	sge::string const &what)
+	fcppt::string const &what)
 :
-	sge::exception(SGE_TEXT("gui: ")+what)
+	sge::exception(FCPPT_TEXT("gui: ")+what)
 {
 }

@@ -34,7 +34,7 @@ namespace json
 typedef std::vector<
 	member
 > member_vector;
-	
+
 }
 }
 }

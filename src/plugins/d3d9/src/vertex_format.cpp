@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../vertex_format.hpp"
-#include <sge/container/raw_vector_impl.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
 #include <sge/exception.hpp>
 #include <boost/foreach.hpp>
 
@@ -74,7 +74,7 @@ sge::d3d9::vertex_format::vertex_format(
 		//oi[usage] = offset;
 		offset += 0; // size
 	}
-	
+
 	D3DVERTEXELEMENT9 const end_token = D3DDECL_END();
 	vertex_elements.push_back(end_token);
 
@@ -87,7 +87,7 @@ sge::d3d9::vertex_format::vertex_format(
 		) != D3D_OK
 	)
 		throw exception(
-			SGE_TEXT("CreateVertexDeclaration() failed!")
+			FCPPT_TEXT("CreateVertexDeclaration() failed!")
 		);
 
 	vertex_declaration_.reset(decl);
@@ -136,7 +136,7 @@ vertex_type(
 	case sge::vertex_usage::diffuse:
 		return D3DDECLTYPE_D3DCOLOR;
 	default:
-		throw sge::exception(SGE_TEXT("Invalid vertex_usage!"));
+		throw sge::exception(FCPPT_TEXT("Invalid vertex_usage!"));
 	}
 }
 */
@@ -158,7 +158,7 @@ convert_role (
 		return D3DDECLUSAGE_COLOR;
 	default:
 		throw sge::exception(
-			SGE_TEXT("Invalid vertex_usage!")
+			FCPPT_TEXT("Invalid vertex_usage!")
 		);
 	}
 }

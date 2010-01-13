@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/store_fwd.hpp>
 #include <sge/image/dim_type.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
 #include <mizuiro/image/store_decl.hpp>
 
 namespace sge
@@ -41,7 +41,7 @@ class store {
 public:
 	typedef typename internal_type::pointer pointer;
 	typedef typename internal_type::const_pointer const_pointer;
-	
+
 	typedef image::dim_type dim_type; // TODO: has to work with 3d images as well!
 
 	typedef typename internal_type::view_type view_type;

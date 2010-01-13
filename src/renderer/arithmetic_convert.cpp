@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/arithmetic_convert.hpp>
-#include <sge/variant/apply_unary.hpp>
-#include <sge/variant/object_impl.hpp>
-#include <sge/export.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/export_symbol.hpp>
 
 namespace
 {
@@ -29,7 +29,8 @@ namespace
 template<
 	typename Dest
 >
-class visitor {
+class visitor
+{
 public:
 	typedef Dest result_type;
 
@@ -38,7 +39,8 @@ public:
 	>
 	result_type
 	operator()(
-		T const &) const;
+		T const &
+	) const;
 };
 
 }
@@ -50,7 +52,7 @@ Dest
 sge::renderer::arithmetic_convert(
 	any_arithmetic const &v)
 {
-	return variant::apply_unary(
+	return fcppt::variant::apply_unary(
 		visitor<Dest>(),
 		v
 	);
@@ -67,7 +69,8 @@ template<
 >
 Dest
 visitor<Dest>::operator()(
-	T const &v) const
+	T const &v
+) const
 {
 	return static_cast<Dest>(v);
 }
@@ -75,10 +78,11 @@ visitor<Dest>::operator()(
 }
 
 #define SGE_INSTANTIATE_ARITHMETIC_CONVERT(dest)\
-template SGE_SYMBOL \
+template FCPPT_EXPORT_SYMBOL \
 dest \
 sge::renderer::arithmetic_convert(\
-	sge::renderer::any_arithmetic const &);
+	sge::renderer::any_arithmetic const &\
+);
 
 SGE_INSTANTIATE_ARITHMETIC_CONVERT(float)
 SGE_INSTANTIATE_ARITHMETIC_CONVERT(double)

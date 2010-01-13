@@ -21,19 +21,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_MATRIX_HPP_INCLUDED
 #define SGE_SPRITE_MATRIX_HPP_INCLUDED
 
-#include <sge/sprite/funit.hpp>
-#include <sge/math/matrix/static.hpp>
+#include <fcppt/math/matrix/static.hpp>
 
 namespace sge
 {
 namespace sprite
 {
 
-typedef math::matrix::static_<
-	funit,
+template<
+	typename FloatType
+>
+struct matrix
+:
+fcppt::math::matrix::static_<
+	FloatType,
 	4,
 	4
->::type matrix;
+>
+{
+};
 
 }
 }

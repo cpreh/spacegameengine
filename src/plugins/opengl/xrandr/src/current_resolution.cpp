@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../current_resolution.hpp"
 #include "../mode.hpp"
 #include "../configuration.hpp"
-#include <sge/x11/sentry.hpp>
 #include <X11/Xlib.h>
 #include <X11/extensions/Xrandr.h>
 
@@ -30,8 +29,6 @@ sge::opengl::xrandr::current_resolution(
 	configuration_ptr const config
 )
 {
-	SGE_X11_SENTRY
-
 	Rotation cur_rotation;
 
 	int const cur_size(
@@ -40,14 +37,13 @@ sge::opengl::xrandr::current_resolution(
 			&cur_rotation
 		)
 	);
-	
+
 	short const rate(
 		XRRConfigCurrentRate(
 			config->get()
 		)
 	);
-	
-	// TODO: error checking!
+
 	return mode(
 		cur_size,
 		cur_rotation,

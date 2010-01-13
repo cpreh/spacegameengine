@@ -27,9 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "lock_method.hpp"
 #include <sge/renderer/filter/texture.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/container/bitfield/basic_decl.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/scoped_ptr.hpp>
+#include <fcppt/container/bitfield/basic_decl.hpp>
+#include <fcppt/scoped_ptr.hpp>
 
 namespace sge
 {
@@ -49,7 +49,7 @@ protected:
 	void set_my_filter() const;
 	GLuint id() const;
 	renderer::filter::texture const &filter() const;
-	
+
 	void do_lock(
 		lock_method::type mode,
 		size_type size,
@@ -65,9 +65,9 @@ protected:
 	pointer write_buffer() const;
 	const_pointer real_read_buffer() const;
 	pointer real_write_buffer() const;
-	
+
 	void pre_setdata() const;
-	
+
 	using Base::content;
 
 public:
@@ -97,10 +97,10 @@ private:
 	GLenum const
 		format_,
 		format_type_;
-	
+
 	size_type const stride_;
 
-	typedef scoped_ptr<
+	typedef fcppt::scoped_ptr<
 		texture_lock
 	> scoped_lock_ptr;
 

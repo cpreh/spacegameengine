@@ -30,21 +30,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/log.hpp>
 #include <sge/gui/widgets/edit.hpp>
 #include <sge/gui/skins/standard.hpp>
-#include <sge/math/vector/structure_cast.hpp>
-#include <sge/math/box/basic_impl.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/math/dim/arithmetic.hpp>
-#include <sge/log/parameters/inherited.hpp>
-#include <sge/log/object.hpp>
-#include <sge/log/headers.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/arithmetic.hpp>
+#include <fcppt/log/parameters/inherited.hpp>
+#include <fcppt/log/object.hpp>
+#include <fcppt/log/headers.hpp>
 
 namespace
 {
 
-sge::log::object mylogger(
-	sge::log::parameters::inherited(
+fcppt::log::object mylogger(
+	fcppt::log::parameters::inherited(
 		sge::gui::global_log(),
-		SGE_TEXT("skins: standard: edit")
+		FCPPT_TEXT("skins: standard: edit")
 	)
 );
 
@@ -57,7 +57,7 @@ sge::gui::dim const sge::gui::skins::standard::optimal_size(
 		standard_font().metrics(),
 		utility::string_square(w.desired_size()));
 
-	return 
+	return
 		dim(
 			static_cast<unit>(d.w() + 2),
 			static_cast<unit>(d.h() + 2));
@@ -70,15 +70,15 @@ void sge::gui::skins::standard::draw(
 	if (w.size() == dim::null())
 		return;
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("refreshing edit buffer"));
+		fcppt::log::_ << FCPPT_TEXT("refreshing edit buffer"));
 	// re-render text buffer
 	w.refresh();
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("refreshed edit buffer"));
-	
+		fcppt::log::_ << FCPPT_TEXT("refreshed edit buffer"));
+
 	resize_buffer(w);
 
 	canvas::object c(w.buffer());
@@ -100,11 +100,11 @@ void sge::gui::skins::standard::draw(
 		*/
 		canvas::rect_type::solid);
 
-	dim const scroll_size = 
-		w.text_buffer().size() - 
-		math::vector::structure_cast<dim>(
+	dim const scroll_size =
+		w.text_buffer().size() -
+		fcppt::math::vector::structure_cast<dim>(
 			w.scroll_pos());
-	
+
 	utility::blit(
 		w.text_buffer().const_view(),
 		rect(

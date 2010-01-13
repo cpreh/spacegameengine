@@ -29,36 +29,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/adapter_type.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/pixel_unit.hpp>
-#include <sge/math/dim/basic_decl.hpp>
-#include <sge/window/instance_fwd.hpp>
-#include <sge/signal/connection_manager.hpp>
-#include <sge/x11/window_fwd.hpp>
-#include <sge/x11/visual_fwd.hpp>
-#include <sge/x11/display_fwd.hpp>
-#include <sge/scoped_ptr.hpp>
-#include <sge/noncopyable.hpp>
+#include <sge/renderer/parameters_fwd.hpp>
+#include <sge/window/instance_ptr.hpp>
+#include <sge/x11/window_ptr.hpp>
+#include <sge/x11/visual_ptr.hpp>
+#include <sge/x11/display_ptr.hpp>
+#include <fcppt/signal/connection_manager.hpp>
+#include <fcppt/math/dim/basic_decl.hpp>
+#include <fcppt/scoped_ptr.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
-namespace renderer
-{
-class parameters;
-}
-
 namespace opengl
 {
 namespace x11
 {
 
 class state {
-	SGE_NONCOPYABLE(state)
+	FCPPT_NONCOPYABLE(state)
 public:
 	state(
 		renderer::parameters const &,
 		renderer::adapter_type,
 		window::instance_ptr,
-		view_port_fun const &);
-	
+		view_port_fun const &
+	);
+
 	void swap_buffers();
 private:
 	void reset_viewport_on_map(
@@ -73,10 +70,10 @@ private:
 	sge::x11::const_visual_ptr const visual;
 	glx::context_ptr           const context;
 	glx::current               const current;
-	scoped_ptr<
+	fcppt::scoped_ptr<
 		resolution::instance
 	> resolution_;
-	signal::connection_manager con_manager;
+	fcppt::signal::connection_manager con_manager;
 };
 
 }

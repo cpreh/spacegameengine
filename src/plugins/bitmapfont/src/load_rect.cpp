@@ -24,11 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/member.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/math/rect/basic_impl.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/dim/basic_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::image::rect const
 sge::bitmapfont::load_rect(
@@ -39,15 +39,15 @@ sge::bitmapfont::load_rect(
 			parse::json::array
 		>(
 			members,
-			SGE_TEXT("rect")
+			FCPPT_TEXT("rect")
 		).elements
 	);
 
 	if(elements.size() != 2)
 		throw exception(
-			SGE_TEXT("Bogus rect detected")
+			FCPPT_TEXT("Bogus rect detected")
 		);
-	
+
 	parse::json::element_vector const
 		&first_elements(
 			parse::json::get<
@@ -66,11 +66,11 @@ sge::bitmapfont::load_rect(
 
 	if(first_elements.size() != 2 || second_elements.size() != 2)
 		throw exception(
-			SGE_TEXT("Bogus rect subelements detected")
+			FCPPT_TEXT("Bogus rect subelements detected")
 		);
-	
+
 	return image::rect(
-		image::rect::point_type(
+		image::rect::pos_type(
 			parse::json::get<
 				int
 			>(

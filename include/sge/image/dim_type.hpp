@@ -22,14 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_DIM_TYPE_HPP_INCLUDED
 
 #include <sge/image/size_type.hpp>
-#include <sge/math/dim/static.hpp>
+#include <fcppt/math/dim/static.hpp>
 
 namespace sge
 {
 namespace image
 {
 
-typedef math::dim::static_<
+typedef fcppt::math::dim::static_<
 	size_type,
 	2
 >::type dim_type;

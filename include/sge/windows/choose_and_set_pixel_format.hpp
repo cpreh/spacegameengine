@@ -22,23 +22,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_WINDOWS_CHOOSE_AND_SET_PIXEL_FORMAT_HPP_INCLUDED
 
 #include <sge/windows/windows.hpp>
-#include <sge/export.hpp>
+#include <sge/windows/gdi_device_fwd.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
 namespace windows
 {
 
-class gdi_device;
-
 // TODO: maybe add the remaining parameters as well?
-SGE_SYMBOL void choose_and_set_pixel_format(
+SGE_SYMBOL void
+choose_and_set_pixel_format(
 	gdi_device const &,
 	DWORD flags,
 	BYTE pixel_type,
 	BYTE depth,
 	BYTE depth_buffer,
-	BYTE stencil_buffer);
+	BYTE stencil_buffer
+);
 
 }
 }

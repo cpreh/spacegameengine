@@ -24,13 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../uniform/variable.hpp"
 #include "../format_error.hpp"
 #include <sge/renderer/glsl/exception.hpp>
-#include <sge/text.hpp>
-#include <sge/optional_impl.hpp>
-#include <sge/string.hpp>
-#include <sge/make_shared_ptr.hpp>
-#include <sge/make_auto_ptr.hpp>
-#include <sge/auto_ptr.hpp>
-#include <sge/assert.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_auto_ptr.hpp>
+#include <fcppt/auto_ptr.hpp>
+#include <fcppt/assert.hpp>
 
 template<
 	bool Native
@@ -42,13 +42,13 @@ sge::opengl::glsl::program<Native>::program(
 	instance_(),
 	attachments()
 {
-	SGE_ASSERT(
+	FCPPT_ASSERT(
 		vs_source || ps_source
 	);
 
 	if(vs_source)
 		attach_shader(
-			sge::make_shared_ptr<
+			fcppt::make_shared_ptr<
 				shader_type
 			>(
 				vertex_shader_type<Native>(),
@@ -58,14 +58,14 @@ sge::opengl::glsl::program<Native>::program(
 
 	if(ps_source)
 		attach_shader(
-			sge::make_shared_ptr<
+			fcppt::make_shared_ptr<
 				shader_type
 			>(
 				pixel_shader_type<Native>(),
 				*ps_source
 			)
 		);
-	
+
 	link();
 }
 
@@ -87,7 +87,7 @@ void sge::opengl::glsl::program<Native>::use(
 		return;
 	}
 
-	dynamic_pointer_cast<
+	fcppt::dynamic_pointer_cast<
 		program<Native>
 	>(p)->use();
 }
@@ -98,10 +98,10 @@ template<
 void sge::opengl::glsl::program<Native>::attach_shader(
 	shader_ptr const s)
 {
-	auto_ptr<
+	fcppt::auto_ptr<
 		attachment_type
 	> a(
-		sge::make_auto_ptr<
+		fcppt::make_auto_ptr<
 			attachment_type
 		>(
 			s,
@@ -125,7 +125,7 @@ void sge::opengl::glsl::program<Native>::link()
 		link_status<Native>(id()) == GL_FALSE
 	)
 		throw sge::renderer::glsl::exception(
-			SGE_TEXT("Compiling a program failed:\n")
+			FCPPT_TEXT("Compiling a program failed:\n")
 			+
 			format_error(
 				&program_info_log<
@@ -147,7 +147,7 @@ sge::renderer::glsl::uniform::variable_ptr const
 sge::opengl::glsl::program<Native>::uniform(
 	renderer::glsl::string const &name)
 {
-	return make_shared_ptr<
+	return fcppt::make_shared_ptr<
 		uniform::variable<
 			Native
 		>

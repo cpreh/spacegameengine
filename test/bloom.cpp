@@ -1,6 +1,22 @@
-#include <sge/math/dim/structure_cast.hpp>
-#include <sge/container/field.hpp>
-#include <sge/log/headers.hpp>
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
 #include <sge/image/loader.hpp>
 #include <sge/image/file.hpp>
 #include <sge/image/view/make.hpp>
@@ -10,15 +26,18 @@
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/window/parameters.hpp>
-#include <sge/math/clamp.hpp>
-#include <sge/math/pi.hpp>
-#include <sge/text.hpp>
-#include <sge/cerr.hpp>
-#include <sge/iconv.hpp>
-#include <sge/lexical_cast.hpp>
-#include <sge/assert.hpp>
 #include <sge/exception.hpp>
-#include <sge/optional_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/clamp.hpp>
+#include <fcppt/math/pi.hpp>
+#include <fcppt/container/field.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/io/cerr.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/lexical_cast.hpp>
+#include <fcppt/assert.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/iconv.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/foreach.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
@@ -74,59 +93,59 @@ T cube(T const &t)
 // f'(0)=0
 // f'(1)=0
 template<typename T>
-typename 
+typename
 boost::enable_if<
 	boost::is_floating_point<T>,
-	T>::type 
+	T>::type
 sigmoid(T const &x)
 {
 	return static_cast<T>(3)*square(x)-static_cast<T>(2)*cube(x);
 }
 
 template<typename T>
-typename 
+typename
 boost::enable_if<
 	boost::is_floating_point<T>,
-	T>::type 
+	T>::type
 logistic(
 	T const &x,
 	T const &h)
 {
-	T const exponent = 
+	T const exponent =
 		-((x*static_cast<T>(16))-static_cast<T>(8))/h;
 
-	return 
+	return
 		static_cast<T>(1)/
 		(static_cast<T>(1)+std::exp(exponent));
 }
 
 // TODO: replace these with mizuiro::color::(de)normalize!
 template<typename Float,typename Input>
-typename 
+typename
 boost::enable_if<
 	boost::is_floating_point<Float>,
-	Float>::type 
+	Float>::type
 normalize(Input const &x)
 {
-	Float const denominator = 
+	Float const denominator =
 		static_cast<Float>(
 				std::numeric_limits<Input>::max())-
 			static_cast<Float>(
 				std::numeric_limits<Input>::min());
 
-	return 
+	return
 		static_cast<Float>(x)/
 		denominator;
 }
 
 template<typename Output,typename Float>
-typename 
+typename
 boost::enable_if<
 	boost::is_floating_point<Float>,
-	Output>::type 
+	Output>::type
 denormalize(Float const &x)
 {
-	Float const factor = 
+	Float const factor =
 		static_cast<Float>(
 				std::numeric_limits<Output>::max())-
 			static_cast<Float>(
@@ -141,7 +160,7 @@ template<
 	typename Color
 >
 struct field_increase_contrast_channel {
-	
+
 	field_increase_contrast_channel(
 		Color &c,
 		double const coefficient
@@ -152,7 +171,7 @@ struct field_increase_contrast_channel {
 	{}
 
 	typedef void result_type;
-	
+
 	template<
 		typename T
 	>
@@ -161,9 +180,9 @@ struct field_increase_contrast_channel {
 		T &
 	) const
 	{
-		c. template set<T>( 
+		c. template set<T>(
 			denormalize<typename Color::layout::channel_type>(
-				sge::math::clamp(
+				fcppt::math::clamp(
 					logistic<double>(
 						normalize<double>(
 							c. template get<T>()
@@ -183,10 +202,10 @@ private:
 
 template<typename T>
 void field_increase_contrast(
-	sge::container::field<T> &f,
+	fcppt::container::field<T> &f,
 	double const coefficient)
 {
-	typedef sge::container::field<T> field_type;
+	typedef fcppt::container::field<T> field_type;
 	typedef T color_type;
 	typedef typename T::layout::channel_type channel_type;
 
@@ -209,48 +228,48 @@ template<typename T>
 typename
 boost::enable_if<
 	boost::is_floating_point<T>,
-	T>::type 
+	T>::type
 gauss_stddev(
 	T const radius,
 	T const range)
 {
 	// 2*log(1/range)
-	T denom = 
+	T denom =
 		static_cast<T>(2)*std::log(range);
 
 	// little hack, just add 1
 	//r = r + static_cast<U>(1);
 	// sqrt(-r^2/(2*log(1/255)))
-	return 
+	return
 		std::sqrt(
 			-square(radius)/
 			denom);
 }
 
 template<typename T>
-typename 
+typename
 boost::enable_if<
 	boost::is_floating_point<T>,
-	T>::type 
+	T>::type
 bell_curve(
 	T const stddev,
 	T const center,
 	T const x)
 {
 	// 1/(stddev*sqrt(2*pi))
-	T const prefix = 
+	T const prefix =
 		static_cast<T>(1)/
-		(stddev*std::sqrt(static_cast<T>(2)*sge::math::pi<T>()));
+		(stddev*std::sqrt(static_cast<T>(2)*fcppt::math::pi<T>()));
 
 	// 1/(2*stddev^2)
-	T const eprefix = 
+	T const eprefix =
 		-static_cast<T>(1)/
 		(static_cast<T>(2)*square(stddev));
 
 	T const pos = x - center;
 
-	return 
-		prefix * 
+	return
+		prefix *
 		std::exp(
 			square(pos)*
 			eprefix);
@@ -262,7 +281,7 @@ typename
 boost::enable_if<
 	boost::is_floating_point<
 		typename std::iterator_traits<It>::value_type>,
-	void>::type 
+	void>::type
 fill_with_gauss(
 	It i,
 	It const e)
@@ -270,29 +289,29 @@ fill_with_gauss(
 	typedef typename std::iterator_traits<It>::difference_type difference_type;
 	typedef typename std::iterator_traits<It>::value_type value_type;
 
-	difference_type const span = 
+	difference_type const span =
 		std::distance(
 			i,
 			e);
 
-	SGE_ASSERT((span - 1) % 2 == 0);
+	FCPPT_ASSERT((span - 1) % 2 == 0);
 
-	value_type const r = 
+	value_type const r =
 		static_cast<value_type>(
 			span/2);
 
-	value_type const stddev = 
+	value_type const stddev =
 		gauss_stddev(
 			r+
 			static_cast<value_type>(1),
 			static_cast<value_type>(1.0/255.0));
-	
-	difference_type x = 
+
+	difference_type x =
 		0;
 
 	for (;i != e; ++i)
 	{
-		*i = 
+		*i =
 			bell_curve(
 				stddev,
 				r,
@@ -306,20 +325,20 @@ template<
 	typename U,
 	typename Combine>
 void field_combine(
-	sge::container::field<T> &left,
-	sge::container::field<U> const &right,
+	fcppt::container::field<T> &left,
+	fcppt::container::field<U> const &right,
 	Combine c)
 {
-	SGE_ASSERT(left.dim() == right.dim());
+	FCPPT_ASSERT(left.dim() == right.dim());
 
-	typename sge::container::field<T>::iterator li = left.begin();
-	typename sge::container::field<U>::const_iterator ri = right.begin();
+	typename fcppt::container::field<T>::iterator li = left.begin();
+	typename fcppt::container::field<U>::const_iterator ri = right.begin();
 
 	while (li != left.end() && ri != right.end())
 	{
 		for (unsigned i = 0; i <= 3; ++i)
 			(*li)[i] = c((*li)[i],(*ri)[i]);
-		
+
 		++li;
 		++ri;
 	}
@@ -327,11 +346,11 @@ void field_combine(
 
 template<typename T>
 void field_gaussian_blur(
-	sge::container::field<T> &f,
-	typename sge::container::field<T>::dim_type const radii)
+	fcppt::container::field<T> &f,
+	typename fcppt::container::field<T>::dim_type const radii)
 {
 	typedef T value_type;
-	typedef sge::container::field<T> field_type;
+	typedef fcppt::container::field<T> field_type;
 	typedef typename field_type::size_type size_type;
 	typedef typename field_type::iterator iterator;
 	typedef typename T::layout::channel_type channel_type;
@@ -342,10 +361,10 @@ void field_gaussian_blur(
 	typedef std::vector<double> value_container;
 	typedef typename value_container::size_type value_size_type;
 
-	value_size_type const 
+	value_size_type const
 		xd = static_cast<value_size_type>(2*radii.w()+1),
 	  yd = static_cast<value_size_type>(2*radii.h()+1);
-	value_container 
+	value_container
 		gx(xd),
 		gy(yd);
 	fill_with_gauss(
@@ -355,7 +374,7 @@ void field_gaussian_blur(
 		gy.begin(),
 		gy.end());
 
-	color_container 
+	color_container
 		row(f.dim().w()),
 		col(f.dim().h());
 
@@ -368,7 +387,7 @@ void field_gaussian_blur(
 			b,
 			b+f.dim().w(),
 			row.begin());
-			
+
 		for (size_type x = 0; x < f.dim().w(); ++x)
 		{
 			size_type const hw = xd/2;
@@ -376,7 +395,7 @@ void field_gaussian_blur(
 			size_type const cxb = (x < hw) ? (hw-x) : 0,
 			                cxe = (x >= f.dim().w()-hw) ? xd-(x-(f.dim().w()-hw)+1) : xd;
 
-			T &cur_pixel = 
+			T &cur_pixel =
 				f.pos(typename field_type::vector_type(x,y));
 			for (unsigned i = 0; i <= 3; ++i)
 			{
@@ -409,7 +428,7 @@ void field_gaussian_blur(
 			const size_type cyb = (y < hh) ? (hh-y) : 0,
 			                cye = (y >= f.dim().h()-hh) ? yd-(y-(f.dim().w()-hh)+1) : yd;
 
-			T &cur_pixel = 
+			T &cur_pixel =
 				f.pos(typename field_type::vector_type(x,y));
 
 			for (unsigned i = 0; i <= 3; ++i)
@@ -435,7 +454,7 @@ T clamping_adder(T const &left,T const &right)
 {
 	//return left+right;
 	return static_cast<T>(
-		sge::math::clamp(
+		fcppt::math::clamp(
 			left+right,
 			std::numeric_limits<T>::min()+left-left,
 			std::numeric_limits<T>::max()+left-left));
@@ -447,13 +466,13 @@ try
 #if 0
 	if (argc < 2)
 	{
-		sge::cerr << SGE_TEXT("please specify an input file\n");
+		fcppt::io::cerr << FCPPT_TEXT("please specify an input file\n");
 		return EXIT_FAILURE;
 	}
 
-	unsigned blur_radius = 
+	unsigned blur_radius =
 		argc == 3
-		? sge::lexical_cast<unsigned>(std::string(argv[2]))
+		? fcppt::lexical_cast<unsigned>(std::string(argv[2]))
 		: 16;
 
 	sge::log::global().activate_hierarchy(
@@ -461,30 +480,30 @@ try
 	sge::systems::instance sys(
 		sge::systems::list()
 		(sge::systems::parameterless::image));
-	
-	sge::image::file_ptr const 
+
+	sge::image::file_ptr const
 		bg(
 			sys.image_loader()->load(
-				sge::iconv(argv[1]
+				fcppt::iconv(argv[1]
 			)
 		)
 	);
-	
+
 	typedef sge::image::color::rgba8 color_type;
-	typedef sge::container::field<color_type> color_field;
-	
+	typedef fcppt::container::field<color_type> color_field;
+
 	color_field f(
-		sge::math::dim::structure_cast<color_field::dim_type>(
+		fcppt::math::dim::structure_cast<color_field::dim_type>(
 			bg->dim()
 		)
 	);
-	
+
 	sge::image::view::object const view(
 		sge::image::view::make(
 			reinterpret_cast<unsigned char *>(
 				&(*f.begin())
 			),
-			sge::math::dim::structure_cast<
+			fcppt::math::dim::structure_cast<
 				sge::image::dim_type
 			>(
 				f.dim()
@@ -493,18 +512,18 @@ try
 			sge::image::view::optional_pitch()
 		)
 	);
-	
+
 	sge::image::algorithm::copy_and_convert(
 		bg->view(),
 		view
 	);
-	
+
 	color_field original = f;
 
 	field_increase_contrast(
 		f,
 		0.8);
-	
+
 	field_gaussian_blur(
 		f,
 		color_field::dim_type(
@@ -518,23 +537,23 @@ try
 			color_field::value_type::layout::channel_type
 		>
 	);
-	
+
 	sys.image_loader()->create(
 		sge::image::view::make_const(
 			view
 		)
 	)->save(
-		SGE_TEXT("output.jpg")
+		FCPPT_TEXT("output.jpg")
 	);
 #endif
 }
 catch(sge::exception const &e)
 {
-	sge::cerr << e.string() << SGE_TEXT('\n');
+	fcppt::io::cerr << e.string() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }
 catch(std::exception const &e)
 {
-	sge::cerr << e.what() << SGE_TEXT('\n');
+	fcppt::io::cerr << e.what() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }

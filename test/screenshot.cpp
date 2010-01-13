@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/mainloop/catch_block.hpp>
@@ -43,15 +42,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part.hpp>
 #include <sge/texture/add_image.hpp>
 #include <sge/sprite/system.hpp>
-#include <sge/sprite/parameters.hpp>
-#include <sge/sprite/object.hpp>
-#include <sge/signal/scoped_connection.hpp>
+#include <sge/sprite/external_system_impl.hpp>
+#include <sge/sprite/parameters_impl.hpp>
+#include <sge/sprite/object_impl.hpp>
+#include <sge/sprite/choices.hpp>
+#include <sge/sprite/type_choices.hpp>
+#include <sge/sprite/no_color.hpp>
+#include <sge/sprite/with_texture.hpp>
+#include <sge/sprite/render_one.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/text.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/config/media_path.hpp>
-#include <sge/text.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
-#include <tr1/functional>
 
 int main()
 try
@@ -60,7 +66,7 @@ try
 		sge::systems::list()
 		(
 			sge::window::parameters(
-				SGE_TEXT("sge animtest")
+				FCPPT_TEXT("sge animtest")
 			)
 		)
 		(
@@ -111,30 +117,59 @@ try
 		sge::texture::add_image(
 			tex_man,
 			sys.image_loader()->load(
-				sge::config::media_path() / SGE_TEXT("tux.png")
+				sge::config::media_path() / FCPPT_TEXT("tux.png")
 			)
 		)
 	);
 
-	sge::sprite::system ss(
+	typedef sge::sprite::choices<
+		sge::sprite::type_choices<
+			int,
+			float,
+			sge::sprite::no_color
+		>,
+		boost::mpl::vector1<
+			sge::sprite::with_texture
+		>
+	> sprite_choices;
+
+	typedef sge::sprite::system<
+		sprite_choices
+	>::type sprite_system;
+
+	typedef sge::sprite::object<
+		sprite_choices
+	> sprite_object;
+
+	typedef sge::sprite::parameters<
+		sprite_choices
+	> sprite_parameters;
+
+	sprite_system ss(
 		device
 	);
 
-	sge::sprite::object bg(
-		sge::sprite::parameters()
-			.texture(tex)
+	sprite_object bg(
+		sprite_parameters()
+		.pos(
+			sprite_object::point::null()
+		)
+		.texture(tex)
+		.texture_size()
+		.elements()
 	);
 
 	device->state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(sge::renderer::state::color::clear_color
-				= sge::image::colors::green())
+				= sge::image::colors::green()
+			)
 	);
 
 	bool running = true;
 
-	sge::signal::scoped_connection const cb(
+	fcppt::signal::scoped_connection const cb(
 		is->register_callback(
 			sge::input::action(
 				sge::input::kc::key_escape,
@@ -143,7 +178,7 @@ try
 		)
 	);
 
-	sge::signal::scoped_connection const cb2(
+	fcppt::signal::scoped_connection const cb2(
 		is->register_callback(
 			sge::input::action(
 				sge::input::kc::key_f12,
@@ -151,14 +186,14 @@ try
 					sge::renderer::screenshot,
 					device,
 					loader,
-					sge::filesystem::path(
-						SGE_TEXT("output.png")
+					fcppt::filesystem::path(
+						FCPPT_TEXT("output.png")
 					)
 				)
 			)
 		)
 	);
-	
+
 	while(running)
 	{
 		sge::mainloop::dispatch();
@@ -167,7 +202,10 @@ try
 			device
 		);
 
-		ss.render(bg);
+		sge::sprite::render_one(
+			ss,
+			bg
+		);
 	}
 }
 SGE_MAINLOOP_CATCH_BLOCK

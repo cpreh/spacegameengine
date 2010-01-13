@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part.hpp>
 #include <sge/texture/image_too_big.hpp>
 #include <sge/image/view/dim.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/variant/apply_unary.hpp>
-#include <sge/text.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/text.hpp>
 #include <boost/next_prior.hpp>
 
 namespace
@@ -34,24 +34,29 @@ namespace
 sge::texture::part_ptr const
 init_texture(
 	sge::texture::fragmented &,
-	sge::image::view::const_object const &src);
+	sge::image::view::const_object const &src
+);
 
-class move_visitor {
+class move_visitor
+{
 public:
 	typedef void result_type;
 
 	move_visitor(
 		sge::texture::fragmented const &,
 		sge::texture::detail::fragmented_list &,
-		sge::texture::detail::fragmented_queue &);
-	
+		sge::texture::detail::fragmented_queue &
+	);
+
 	result_type
 	operator()(
-		sge::texture::detail::fragmented_list::iterator) const;
-	
+		sge::texture::detail::fragmented_list::iterator
+	) const;
+
 	result_type
 	operator()(
-		sge::texture::detail::fragmented_queue::iterator) const;
+		sge::texture::detail::fragmented_queue::iterator
+	) const;
 private:
 	sge::texture::fragmented const &tex;
 	sge::texture::detail::fragmented_list &full_textures;
@@ -62,10 +67,11 @@ private:
 
 sge::texture::manager::manager(
 	renderer::device_ptr const rend,
-	onalloc_function const &onalloc_)
+	on_alloc_function const &on_alloc_
+)
 :
 	rend(rend),
-	onalloc_(onalloc_)
+	on_alloc_(on_alloc_)
 {}
 
 sge::texture::manager::~manager()
@@ -73,7 +79,8 @@ sge::texture::manager::~manager()
 
 sge::texture::part_ptr const
 sge::texture::manager::add(
-	image::view::const_object const &src)
+	image::view::const_object const &src
+)
 {
 	for(
 		detail::fragmented_queue::iterator it = free_textures.begin();
@@ -103,18 +110,23 @@ sge::texture::manager::add(
 		}
 
 	fragmented_auto_ptr ntex(
-		onalloc_());
+		on_alloc_()
+	);
 
-	part_ptr const p = init_texture(
-		*ntex,
-		src);
-	
+	part_ptr const p(
+		init_texture(
+			*ntex,
+			src
+		)
+	);
+
 	if(!p)
 		throw image_too_big();
-	
+
 	fragmented *const tmp(
-		ntex.get());
-	
+		ntex.get()
+	);
+
 	if(ntex->full())
 		tmp->container_position(
 			full_textures.insert(
@@ -137,10 +149,12 @@ sge::texture::manager::renderer() const
 	return rend;
 }
 
-void sge::texture::manager::onalloc(
-	onalloc_function const &fun)
+void
+sge::texture::manager::on_alloc(
+	on_alloc_function const &fun
+)
 {
-	onalloc_ = fun;
+	on_alloc_ = fun;
 }
 
 void
@@ -173,8 +187,8 @@ void
 sge::texture::manager::part_freed(
 	detail::container_position const &pos,
 	fragmented const &frag)
-{	
-	variant::apply_unary(
+{
+	fcppt::variant::apply_unary(
 		move_visitor(
 			frag,
 			full_textures,
@@ -189,7 +203,8 @@ namespace
 sge::texture::part_ptr const
 init_texture(
 	sge::texture::fragmented &tex,
-	sge::image::view::const_object const &src)
+	sge::image::view::const_object const &src
+)
 {
 	sge::texture::part_ptr const p(
 		tex.consume_fragment(
@@ -208,15 +223,18 @@ init_texture(
 move_visitor::move_visitor(
 	sge::texture::fragmented const &tex,
 	sge::texture::detail::fragmented_list &full_textures,
-	sge::texture::detail::fragmented_queue &free_textures)
+	sge::texture::detail::fragmented_queue &free_textures
+)
 :
 	tex(tex),
 	full_textures(full_textures),
 	free_textures(free_textures)
 {}
 
-void move_visitor::operator()(
-	sge::texture::detail::fragmented_list::iterator const it) const
+void
+move_visitor::operator()(
+	sge::texture::detail::fragmented_list::iterator const it
+) const
 {
 	if(tex.empty())
 		full_textures.erase(it);
@@ -227,8 +245,10 @@ void move_visitor::operator()(
 		);
 }
 
-void move_visitor::operator()(
-	sge::texture::detail::fragmented_queue::iterator const it) const
+void
+move_visitor::operator()(
+	sge::texture::detail::fragmented_queue::iterator const it
+) const
 {
 	if(tex.empty())
 		free_textures.erase(it);

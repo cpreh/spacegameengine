@@ -23,12 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/dim_type.hpp>
 #include <sge/renderer/lock_rect.hpp>
-#include <sge/math/box/basic_impl.hpp>
-#include <sge/math/box/structure_cast.hpp>
-#include <sge/math/box/rect.hpp>
-#include <sge/math/dim/static.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/math/dim/structure_cast.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/box/structure_cast.hpp>
+#include <fcppt/math/box/rect.hpp>
+#include <fcppt/math/dim/static.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/arithmetic.hpp>
 
 namespace sge
 {
@@ -36,34 +37,35 @@ namespace renderer
 {
 
 template<
-	typename T
+	typename Ret
 >
-typename math::box::rect<T>::type const
+typename fcppt::math::box::rect<
+	Ret
+>::type const
 lock_rect_to_coords(
 	lock_rect const &l,
-	dim_type const &dim,
-	T const repeat
+	dim_type const &dim
 )
 {
-	typedef typename math::box::rect<
-		T
+	typedef typename fcppt::math::box::rect<
+		Ret
 	>::type ret_type;
 
 	ret_type const srect(
-		math::box::structure_cast<
+		fcppt::math::box::structure_cast<
 			ret_type
 		>(
 			l
 		)
 	);
-	
-	typedef typename math::dim::static_<
-		T,
+
+	typedef typename fcppt::math::dim::static_<
+		Ret,
 		2
 	>::type sdim_type;
 
 	sdim_type const sdim(
-		math::dim::structure_cast<
+		fcppt::math::dim::structure_cast<
 			sdim_type
 		>(
 			dim
@@ -71,14 +73,11 @@ lock_rect_to_coords(
 	);
 
 	return ret_type(
-		typename ret_type::pos_type(
+		typename ret_type::vector(
 			srect.left() / sdim.w(),
 			srect.top() / sdim.h()
 		),
-		typename ret_type::dim_type(
-			repeat * srect.w() / sdim.w(),
-			repeat * srect.h() / sdim.h()
-		)
+		srect.dimension() / sdim
 	);
 }
 

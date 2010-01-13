@@ -21,60 +21,70 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_INSTANCE_HPP_INCLUDED
 #define SGE_SYSTEMS_INSTANCE_HPP_INCLUDED
 
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/system_fwd.hpp>
-#include <sge/font/system_fwd.hpp>
-#include <sge/input/system_fwd.hpp>
-#include <sge/image/loader_fwd.hpp>
-#include <sge/audio/player_fwd.hpp>
-#include <sge/collision/system_fwd.hpp>
-#include <sge/window/instance_fwd.hpp>
-#include <sge/export.hpp>
-#include <sge/scoped_ptr.hpp>
-#include <sge/noncopyable.hpp>
+#include <sge/systems/list_fwd.hpp>
+#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/system_ptr.hpp>
+#include <sge/font/system_ptr.hpp>
+#include <sge/input/system_ptr.hpp>
+#include <sge/image/loader_ptr.hpp>
+#include <sge/audio/player_ptr.hpp>
+#include <sge/collision/system_ptr.hpp>
+#include <sge/window/instance_ptr.hpp>
+#include <sge/plugin/manager_fwd.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/scoped_ptr.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
-namespace plugin
-{
-class manager;
-}
-
 namespace systems
 {
 
-class list;
-
-class instance {
-	SGE_NONCOPYABLE(instance)
+class instance
+{
+	FCPPT_NONCOPYABLE(instance)
 public:
 	SGE_SYMBOL explicit instance(
-		list const &);
+		list const &
+	);
+
 	SGE_SYMBOL ~instance();
 
-	SGE_SYMBOL void reinit(
-		list const &);
-	
-	SGE_SYMBOL plugin::manager &plugin_manager();
+	SGE_SYMBOL void
+	reinit(
+		list const &
+	);
 
-	SGE_SYMBOL sge::renderer::system_ptr const renderer_system() const;
-	SGE_SYMBOL sge::renderer::device_ptr const renderer() const;
+	SGE_SYMBOL plugin::manager &
+	plugin_manager();
 
-	SGE_SYMBOL input::system_ptr const input_system() const;
+	SGE_SYMBOL sge::renderer::system_ptr const
+	renderer_system() const;
 
-	SGE_SYMBOL image::loader_ptr const image_loader() const; // TODO: replace this with an image prober
+	SGE_SYMBOL sge::renderer::device_ptr const
+	renderer() const;
 
-	SGE_SYMBOL audio::player_ptr const audio_player() const;
-	
-	SGE_SYMBOL collision::system_ptr const collision_system() const;
+	SGE_SYMBOL input::system_ptr const
+	input_system() const;
 
-	SGE_SYMBOL font::system_ptr const font_system() const;
+	SGE_SYMBOL image::loader_ptr const
+	image_loader() const; // TODO: replace this with an image prober
 
-	SGE_SYMBOL sge::window::instance_ptr const window() const;
+	SGE_SYMBOL audio::player_ptr const
+	audio_player() const;
+
+	SGE_SYMBOL collision::system_ptr const
+	collision_system() const;
+
+	SGE_SYMBOL font::system_ptr const
+	font_system() const;
+
+	SGE_SYMBOL sge::window::instance_ptr const
+	window() const;
 
 	class impl;
 private:
-	sge::scoped_ptr<impl> impl_;
+	fcppt::scoped_ptr<impl> impl_;
 };
 
 }

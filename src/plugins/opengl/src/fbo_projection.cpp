@@ -19,10 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../fbo_projection.hpp"
-#include <sge/math/matrix/scaling.hpp>
-#include <sge/math/matrix/arithmetic.hpp>
-#include <sge/variant/apply_unary.hpp>
-#include <sge/variant/object_impl.hpp>
+#include <fcppt/math/matrix/scaling.hpp>
+#include <fcppt/math/matrix/arithmetic.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 namespace
 {
@@ -45,7 +45,7 @@ sge::renderer::any_matrix const
 sge::opengl::fbo_projection(
 	renderer::any_matrix const &m)
 {
-	return variant::apply_unary(
+	return fcppt::variant::apply_unary(
 		multiply_visitor(),
 		m
 	);
@@ -62,7 +62,7 @@ multiply_visitor::operator()(
 	T const &t) const
 {
 	typedef typename T::value_type value_type;
-	return t * sge::math::matrix::scaling<
+	return t * fcppt::math::matrix::scaling<
 		value_type
 	>(
 		static_cast<value_type>(1),

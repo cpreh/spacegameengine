@@ -1,6 +1,7 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
 as published by the Free Software Foundation; either version 2
@@ -19,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/algorithm/fill.hpp>
 #include <sge/image/color/any/convert.hpp>
-#include <sge/variant/apply_unary.hpp>
-#include <sge/variant/object_impl.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <mizuiro/image/algorithm/fill_c.hpp>
 #include <mizuiro/image/view_impl.hpp>
 #include <mizuiro/color/object_impl.hpp>
@@ -35,7 +36,7 @@ public:
 	explicit fill_visitor(
 		sge::image::color::any::object const &col
 	);
-	
+
 	template<
 		typename T
 	>
@@ -48,11 +49,13 @@ private:
 
 }
 
-void sge::image::algorithm::fill(
+void
+sge::image::algorithm::fill(
 	view::object const &dest,
-	color::any::object const &c)
+	color::any::object const &c
+)
 {
-	variant::apply_unary(
+	fcppt::variant::apply_unary(
 		fill_visitor(
 			c
 		),

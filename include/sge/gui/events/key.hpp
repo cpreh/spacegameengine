@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/key_pair.hpp>
 #include <sge/input/modifier/states.hpp>
-#include <sge/container/map_decl.hpp>
 #include <sge/gui/export.hpp>
+#include <fcppt/container/map_decl.hpp>
 
 namespace sge
 {
@@ -39,7 +39,7 @@ class key
 		input::key_pair const &,
 		input::modifier::states const &,
 		bool repeated);
-	
+
 	SGE_GUI_SYMBOL input::key_pair const &value() const;
 	SGE_GUI_SYMBOL input::modifier::states const &modifiers() const;
 	SGE_GUI_SYMBOL bool repeated() const;

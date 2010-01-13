@@ -21,17 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../keyboard.hpp"
 #include "../keyboard_repeat.hpp"
 #include <sge/input/key_pair.hpp>
-#include <sge/time/resolution.hpp>
-#include <sge/log/headers.hpp>
-#include <sge/optional_impl.hpp>
-#include <sge/text.hpp>
 #include <sge/exception.hpp>
-#include <tr1/array>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/tr1/array.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/text.hpp>
 #include <ostream>
 
 sge::dinput::keyboard::keyboard(
 	dinput_ptr const di,
-	string const &name,
+	fcppt::string const &name,
 	GUID const guid,
 	windows::window_ptr const window,
 	key_converter const &conv,
@@ -64,7 +63,7 @@ void sge::dinput::keyboard::dispatch(signal_type &sig)
 	DWORD elements;
 	if(!get_input(data,elements))
 		return;
-	
+
 	for(unsigned i = 0; i < elements; ++i)
 	{
 		input::key_type key = keys[data[i].dwOfs];
@@ -161,22 +160,22 @@ sge::dinput::keyboard::keycode_to_char(
 			kblayout))
 	{
 	case 0:
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
-			log::_1
-				<< SGE_TEXT("No translation found for dik: ")
+			fcppt::log::_
+				<< FCPPT_TEXT("No translation found for dik: ")
 				<< dik);
 		return 0;
 	case 1:
 		return static_cast<char_type>(result & 0xFF);
 	case 2:
-		SGE_LOG_WARNING(
+		FCPPT_LOG_WARNING(
 			log::global(),
-			log::_1
-				<< SGE_TEXT("stub: Key names with more than one char are not supported."));
+			fcppt::log::_
+				<< FCPPT_TEXT("stub: Key names with more than one char are not supported."));
 		return 0;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid return value of ToAsciiEx!"));
+			FCPPT_TEXT("Invalid return value of ToAsciiEx!"));
 	}
 }

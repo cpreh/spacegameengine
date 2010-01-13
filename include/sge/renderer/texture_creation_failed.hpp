@@ -22,18 +22,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TEXTURE_CREATION_FAILED_HPP_INCLUDED
 
 #include <sge/renderer/exception.hpp>
-#include <sge/export.hpp>
-#include <sge/string.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-class SGE_CLASS_SYMBOL texture_creation_failed : public exception {
+class SGE_CLASS_SYMBOL texture_creation_failed
+:
+	public exception
+{
 public:
 	SGE_SYMBOL explicit texture_creation_failed(
-		sge::string const &);
+		fcppt::string const &
+	);
 };
 
 }

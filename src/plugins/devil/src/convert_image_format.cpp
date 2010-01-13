@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../convert_image_format.hpp"
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 ILuint sge::devil::convert_image_format(
 	image::format::type const t)
@@ -40,6 +40,6 @@ ILuint sge::devil::convert_image_format(
 		return IL_TGA;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid image_format!"));
+			FCPPT_TEXT("Invalid image_format!"));
 	}
 }

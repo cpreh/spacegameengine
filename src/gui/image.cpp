@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/gui/image.hpp>
-#include <sge/math/dim/structure_cast.hpp>
-#include <sge/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 
 sge::gui::image::image()
 :
@@ -32,7 +32,7 @@ sge::gui::image::image(
 )
 :
 	impl_(
-		sge::math::dim::structure_cast<
+		fcppt::math::dim::structure_cast<
 			sge::image::dim_type
 		>(
 			dim_
@@ -43,7 +43,7 @@ sge::gui::image::image(
 sge::gui::dim const
 sge::gui::image::size() const
 {
-	return sge::math::dim::structure_cast<
+	return fcppt::math::dim::structure_cast<
 		sge::gui::dim
 	>(
 		impl_.dim()
@@ -69,7 +69,7 @@ sge::gui::image::resize(
 {
 	impl_ =
 		impl_type(
-			sge::math::dim::structure_cast<
+			fcppt::math::dim::structure_cast<
 				impl_type::dim_type
 			>(
 				ndim

@@ -21,17 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VERTEX_BUFFER_FWD_HPP_INCLUDED
 #define SGE_RENDERER_VERTEX_BUFFER_FWD_HPP_INCLUDED
 
-#include <sge/shared_ptr.hpp>
-
 namespace sge
 {
 namespace renderer
 {
 
 class vertex_buffer;
-
-typedef shared_ptr<vertex_buffer> vertex_buffer_ptr;
-typedef shared_ptr<vertex_buffer const> const_vertex_buffer_ptr;
 
 }
 }

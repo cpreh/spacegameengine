@@ -20,9 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../choose_visual.hpp"
 #include <GL/glx.h>
-#include <sge/container/raw_vector_impl.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
+#include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 namespace
 {
@@ -58,7 +59,7 @@ sge::opengl::glx::choose_visual(
 		break;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid bit_depth!"));
+			FCPPT_TEXT("Invalid bit_depth!"));
 	}
 
 	if(depth_buffer != renderer::depth_buffer::off)
@@ -75,7 +76,7 @@ sge::opengl::glx::choose_visual(
 
 	// note: create_window is called before glew can be initialized, so we can't ask it here
 	// if we have multi sample support
-	if(multi_samples != 0)
+	if(multi_samples != renderer::no_multi_sampling)
 	{
 		ret.push_back(GLX_SAMPLES);
 		ret.push_back(static_cast<int>(multi_samples));

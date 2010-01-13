@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../software_vbo.hpp"
 #include "../vbo.hpp"
 #include "../pbo.hpp"
-#include <sge/algorithm/copy_n.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/raw_value.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/algorithm/copy_n.hpp>
+#include <fcppt/text.hpp>
 #include <utility>
 #include <map>
 
@@ -76,12 +76,38 @@ void sge::opengl::software_vbo::bind_buffer(
 	bound_buffer(type) = id;
 }
 
-void *sge::opengl::software_vbo::map_buffer(
+GLvoid *
+sge::opengl::software_vbo::map_buffer(
 	GLenum const type,
-	GLenum)
+	GLenum
+)
 {
 	check_bound(type);
 	return buffer_object(bound_buffer(type))->second;
+}
+
+GLvoid *
+sge::opengl::software_vbo::map_buffer_range(
+	GLenum const type,
+	GLenum const,
+	GLsizei const first,
+	GLsizei const
+)
+{
+	check_bound(type);
+
+	return
+		buffer_object(
+			bound_buffer(
+				type
+			)
+		)->second + first;
+}
+
+bool
+sge::opengl::software_vbo::map_buffer_range_supported() const
+{
+	return true;
 }
 
 void sge::opengl::software_vbo::unmap_buffer(
@@ -111,12 +137,15 @@ void sge::opengl::software_vbo::buffer_sub_data(
 {
 	if(!data)
 		throw exception(
-			SGE_TEXT("buffer_sub_data(): data may not be 0!"));
+			FCPPT_TEXT("buffer_sub_data(): data may not be 0!"));
 
-	algorithm::copy_n(
+	fcppt::algorithm::copy_n(
 		static_cast<renderer::const_raw_pointer>(data) + first,
 		size,
-		buffer_object(bound_buffer(type))->second);
+		buffer_object(
+			bound_buffer(type)
+		)->second
+	);
 }
 
 void *sge::opengl::software_vbo::buffer_offset(
@@ -134,7 +163,7 @@ GLenum sge::opengl::software_vbo::unique_id()
 
 namespace
 {
-	
+
 GLuint &bound_buffer(
 	GLenum const type)
 {
@@ -146,7 +175,7 @@ GLuint &bound_buffer(
 		return bound_pack;
 	if(type == sge::opengl::pixel_unpack_buffer_type())
 		return bound_unpack;
-	throw sge::exception(SGE_TEXT("bound_buffer(): invalid type!"));
+	throw sge::exception(FCPPT_TEXT("bound_buffer(): invalid type!"));
 }
 
 buffer_map::iterator
@@ -156,7 +185,7 @@ buffer_object(
 	buffer_map::iterator const it = buffers.find(id);
 	if(it == buffers.end())
 		throw sge::exception(
-			SGE_TEXT("buffer_object(): invalid id!"));
+			FCPPT_TEXT("buffer_object(): invalid id!"));
 	return it;
 }
 
@@ -165,7 +194,7 @@ void check_bound(
 {
 	if(bound_buffer(type) == 0)
 		throw sge::exception(
-			SGE_TEXT("ogl soft buffer: no buffer bound!"));
+			FCPPT_TEXT("ogl soft buffer: no buffer bound!"));
 }
 
 }

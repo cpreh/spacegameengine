@@ -25,7 +25,9 @@ namespace sge
 {
 namespace plugin
 {
+
 class manager;
+
 }
 }
 

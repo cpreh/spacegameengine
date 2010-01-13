@@ -34,24 +34,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/log.hpp>
 #include <sge/gui/unit.hpp>
 #include <sge/gui/exception.hpp>
-#include <sge/math/dim/output.hpp>
 #include <sge/image/view/make_const.hpp>
-#include <sge/log/parameters/inherited.hpp>
-#include <sge/log/object.hpp>
-#include <sge/log/headers.hpp>
-#include <sge/text.hpp>
-#include <sge/type_info.hpp>
+#include <fcppt/math/dim/output.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/log/parameters/inherited.hpp>
+#include <fcppt/log/object.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/type_name.hpp>
 #include <boost/mpl/vector.hpp>
-#include <tr1/functional>
 #include <typeinfo>
 
 namespace
 {
 
-sge::log::object mylogger(
-	sge::log::parameters::inherited(
+fcppt::log::object mylogger(
+	fcppt::log::parameters::inherited(
 		sge::gui::global_log(),
-		SGE_TEXT("skin")
+		FCPPT_TEXT("skin")
 	)
 );
 
@@ -66,7 +66,7 @@ class call_draw
 
 	call_draw(
 		sge::gui::skins::base &s,
-		sge::gui::events::invalid_area const &e) 
+		sge::gui::events::invalid_area const &e)
 		: s(s),
 		  e(e) {}
 
@@ -88,9 +88,9 @@ class call_optimal_size
 		sge::gui::skins::base const &s) : s(s) {}
 
 	template<typename V>
-	void operator()(V const &v) 
-	{ 
-		sh = s.optimal_size(v); 
+	void operator()(V const &v)
+	{
+		sh = s.optimal_size(v);
 	}
 
 	sge::gui::dim const value() const { return sh; }
@@ -105,18 +105,18 @@ SGE_GUI_SKIN_DRAW_RETURN(widgets::base) sge::gui::skins::base::draw(
 {
 	if (typeid(w) == typeid(widgets::base))
 	{
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_ << SGE_TEXT("draw called for widget, falling back"));
+			fcppt::log::_ << FCPPT_TEXT("draw called for widget, falling back"));
 		fallback(
 			w,
 			e);
 		return;
 	}
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("draw called for some other widget"));
+		fcppt::log::_ << FCPPT_TEXT("draw called for some other widget"));
 
 	utility::type_comparator<widgets::types>(
 		w,
@@ -137,16 +137,18 @@ SGE_GUI_SKIN_SIZE_RETURN(widgets::base) sge::gui::skins::base::optimal_size(
 {
 	if (typeid(w) == typeid(widgets::base))
 	{
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_ << SGE_TEXT("optimal_size called for widget, returning null"));
+			fcppt::log::_ << FCPPT_TEXT("optimal_size called for widget, returning null"));
 		return dim::null();
 	}
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("optimal_size called for widgets::base ") 
-		        << type_info(typeid(w)).name());
+		fcppt::log::_
+			<< FCPPT_TEXT("optimal_size called for widgets::base ")
+			<< fcppt::type_name(typeid(w))
+	);
 
 	return utility::type_comparator<widgets::types>(
 		w,
@@ -162,15 +164,15 @@ SGE_GUI_SKIN_SIZE_RETURN(widgets::base) sge::gui::skins::base::optimal_size(
 SGE_GUI_SKIN_DRAW_RETURN(widgets::base) sge::gui::skins::base::default_handler(
 	SGE_GUI_SKIN_DRAW_PARAMS(widgets::base))
 {
-	throw exception(SGE_TEXT("tried to draw a widgets::base whose type is not drawable"));
+	throw exception(FCPPT_TEXT("tried to draw a widgets::base whose type is not drawable"));
 }
 
 SGE_GUI_SKIN_SIZE_RETURN(widgets::base) sge::gui::skins::base::default_hint_handler(
 	SGE_GUI_SKIN_SIZE_PARAMS(widgets::base)) const
 {
-	throw exception(SGE_TEXT("tried to hint a widgets::base whose type is not drawable"));
+	throw exception(FCPPT_TEXT("tried to hint a widgets::base whose type is not drawable"));
 }
-	
+
 sge::gui::skins::base::~base()
 {}
 
@@ -180,12 +182,12 @@ void sge::gui::skins::base::resize_buffer(
 	// resize internal buffer if neccessary
 	if (b.size() != b.buffer().size())
 	{
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mylogger,
-			log::_
-				<< SGE_TEXT("resizing from ") 
+			fcppt::log::_
+				<< FCPPT_TEXT("resizing from ")
 				<< b.buffer().size()
-				<< SGE_TEXT(" to ")
+				<< FCPPT_TEXT(" to ")
 				<< b.size());
 		b.buffer().resize(
 			b.size());

@@ -19,10 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/aspect.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/math/instantiate_arithmetic.hpp>
-#include <sge/math/almost_zero.hpp>
-#include <sge/assert.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/instantiate_arithmetic.hpp>
+#include <fcppt/math/almost_zero.hpp>
+#include <fcppt/assert.hpp>
+#include <fcppt/export_symbol.hpp>
 
 template<
 	typename T
@@ -34,20 +35,20 @@ sge::renderer::aspect(
 	T const
 		w(static_cast<T>(sz.w())),
 		h(static_cast<T>(sz.h()));
-	
-	SGE_ASSERT(
-		!math::almost_zero(w)
-		&& !math::almost_zero(h)
+
+	FCPPT_ASSERT(
+		!fcppt::math::almost_zero(w)
+		&& !fcppt::math::almost_zero(h)
 	)
-	
+
 	return w > h
 		? w / h
 		: h / w;
 }
 
 #define SGE_INSTANTIATE_ASPECT(x)\
-template SGE_SYMBOL x sge::renderer::aspect(sge::renderer::screen_size const &);
+template FCPPT_EXPORT_SYMBOL x sge::renderer::aspect(sge::renderer::screen_size const &);
 
-SGE_MATH_INSTANTIATE_ARITHMETIC(SGE_INSTANTIATE_ASPECT)
+FCPPT_MATH_INSTANTIATE_ARITHMETIC(SGE_INSTANTIATE_ASPECT)
 
 #undef SGE_INSTANTIATE_ASPECT

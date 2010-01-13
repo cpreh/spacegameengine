@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../system.hpp"
 #include <sge/plugin/info.hpp>
 #include <sge/export.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 extern "C"
 {
@@ -31,8 +31,8 @@ SGE_EXPORT_SYMBOL void plugin_version_info(
 {
 	if(!p)
 		return;
-	p->name = SGE_TEXT("Direct3D renderer plugin");
-	p->description = SGE_TEXT("");
+	p->name = FCPPT_TEXT("Direct3D renderer plugin");
+	p->description = FCPPT_TEXT("");
 	p->plugin_version = 0x1;
 	p->min_core_version = 0x1;
 	p->type = sge::plugin::capabilities::renderer;

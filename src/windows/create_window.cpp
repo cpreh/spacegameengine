@@ -21,24 +21,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/create_window.hpp>
 #include <sge/windows/choose_and_set_pixel_format.hpp>
 #include <sge/windows/gdi_device.hpp>
+#include <sge/windows/window_ptr.hpp>
 #include <sge/windows/window.hpp>
 #include <sge/window/parameters.hpp>
-#include <sge/math/dim/basic_impl.hpp>
 #include <sge/renderer/parameters.hpp>
-#include <sge/make_shared_ptr.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 
 sge::window::instance_ptr const
 sge::windows::create_window(
 	sge::window::parameters const &param,
-	optional_renderer_parameters const &rparam)
+	optional_renderer_parameters const &rparam
+)
 {
 	windows::window_ptr const wnd(
-		make_shared_ptr<
+		fcppt::make_shared_ptr<
 			windows::window
 		>(
 			*param.dim(),
 			param.title(),
-			param.class_name()));
+			param.class_name()
+		)
+	);
 
 	if(rparam)
 		windows::choose_and_set_pixel_format(

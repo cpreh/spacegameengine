@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/bool_type.hpp>
 #include <sge/renderer/state/trampoline_fwd.hpp>
 #include <sge/renderer/state/var_fwd.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {

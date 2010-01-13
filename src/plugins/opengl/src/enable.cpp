@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../enable.hpp"
 #include "../check_state.hpp"
 #include <sge/renderer/exception.hpp>
-#include <sge/text.hpp>
-#include <sge/format.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/format.hpp>
 
 void sge::opengl::enable(
 	GLenum const what,
@@ -40,12 +40,12 @@ void sge::opengl::enable(
 	glEnable(what);
 
 	SGE_OPENGL_CHECK_STATE(
-		sge::str(
-			sge::format(
-				SGE_TEXT("glEnable %1% failed")
+		(
+			fcppt::format(
+				FCPPT_TEXT("glEnable %1% failed")
 			)
 			% what
-		),
+		).str(),
 		sge::renderer::exception
 	)
 }
@@ -56,12 +56,12 @@ void sge::opengl::disable(
 	glDisable(what);
 
 	SGE_OPENGL_CHECK_STATE(
-		sge::str(
-			sge::format(
-				SGE_TEXT("glDisable %1% failed")
+		(
+			fcppt::format(
+				FCPPT_TEXT("glDisable %1% failed")
 			)
 			% what
-		),
+		).str(),
 		sge::renderer::exception
 	)
 }

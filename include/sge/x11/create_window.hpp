@@ -21,18 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11_CREATE_WINDOW_HPP_INCLUDED
 #define SGE_X11_CREATE_WINDOW_HPP_INCLUDED
 
-#include <sge/x11/visual_fwd.hpp>
-#include <sge/x11/display_fwd.hpp>
-#include <sge/window/instance_fwd.hpp>
-#include <sge/export.hpp>
+#include <sge/x11/visual_ptr.hpp>
+#include <sge/x11/display_ptr.hpp>
+#include <sge/window/instance_ptr.hpp>
+#include <sge/window/parameters_fwd.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
-namespace window
-{
-class parameters;
-}
-
 namespace x11
 {
 
@@ -43,7 +39,8 @@ create_window(
 	int screen,
 	int depth,
 	visual_ptr,
-	bool fullscreen);
+	bool fullscreen
+);
 
 }
 }

@@ -33,10 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/time/second.hpp>
-#include <sge/time/resolution.hpp>
-#include <sge/text.hpp>
 #include <sge/exception.hpp>
-#include <sge/cerr.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/io/cerr.hpp>
 #include <ostream>
 #include <exception>
 #include <cstdlib>
@@ -48,7 +47,7 @@ try
 		sge::systems::list()
 		(
 			sge::window::parameters(
-				SGE_TEXT("sge fullscreen test")
+				FCPPT_TEXT("sge fullscreen test")
 			)
 		)
 		(
@@ -69,7 +68,7 @@ try
 			)
 		)
 	);
-	
+
 	sge::time::timer tm(
 		sge::time::second(10));
 
@@ -92,11 +91,11 @@ try
 }
 catch(sge::exception const &e)
 {
-	sge::cerr << e.string() << SGE_TEXT('\n');
+	fcppt::io::cerr << e.string() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }
 catch(std::exception const &e)
 {
-	sge::cerr << e.what() << SGE_TEXT('\n');
+	fcppt::io::cerr << e.what() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }

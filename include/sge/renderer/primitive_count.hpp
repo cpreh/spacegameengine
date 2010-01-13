@@ -22,18 +22,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_PRIMITIVE_COUNT_HPP_INCLUDED
 
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/nonindexed_primitive_type.hpp>
-#include <sge/export.hpp>
+#include <fcppt/strong_typedef.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-SGE_SYMBOL size_type
-primitive_count(
-	size_type vertex_count,
-	nonindexed_primitive_type::type prim);
+FCPPT_MAKE_STRONG_TYPEDEF(
+	size_type,
+	primitive_count	
+)
+
 }
 }
 

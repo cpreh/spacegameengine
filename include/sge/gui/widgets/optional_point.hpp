@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_GUI_WIDGETS_OPTIONAL_POINT_HPP_INCLUDED
 
 #include <sge/gui/point.hpp>
-#include <sge/optional_fwd.hpp>
+#include <fcppt/optional_fwd.hpp>
 
 namespace sge
 {
@@ -31,7 +31,7 @@ namespace gui
 namespace widgets
 {
 
-typedef optional<
+typedef fcppt::optional<
 	point
 > optional_point;
 

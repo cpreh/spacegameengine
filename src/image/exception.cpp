@@ -19,14 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::image::exception::exception(
-	sge::string const &s
+	fcppt::string const &s
 )
 :
 	sge::exception(
-		SGE_TEXT("image: ")
+		FCPPT_TEXT("image: ")
 		+ s
 	)
 {}

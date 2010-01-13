@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define WIN32_LEAN_AND_MEAN
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
-#include <sge/shared_ptr.hpp>
-#include <sge/com_deleter.hpp>
+#include <fcppt/shared_ptr.hpp>
+#include <fcppt/com_deleter.hpp>
 
 namespace sge
 {
@@ -34,8 +34,8 @@ namespace dinput
 
 typedef IDirectInput8       direct_input;
 typedef IDirectInputDevice8 direct_input_device;
-typedef shared_ptr<direct_input,com_deleter> dinput_ptr;
-typedef shared_ptr<direct_input_device,com_deleter> dinput_device_ptr;
+typedef fcppt::shared_ptr<direct_input,fcppt::com_deleter> dinput_ptr;
+typedef fcppt::shared_ptr<direct_input_device,fcppt::com_deleter> dinput_device_ptr;
 
 }
 }

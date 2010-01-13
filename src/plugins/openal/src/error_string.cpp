@@ -19,28 +19,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../error_string.hpp"
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
-sge::string const
+fcppt::string const
 sge::openal::error_string(
-	ALenum const error)
+	ALenum const error
+)
 {
 	switch (error)
 	{
 		case AL_NO_ERROR:
-			return SGE_TEXT("no error in openal (maybe somewhere else)");
+			return FCPPT_TEXT("no error in openal (maybe somewhere else)");
 		case AL_INVALID_NAME:
-			return SGE_TEXT("invalid name parameter");
+			return FCPPT_TEXT("invalid name parameter");
 		case AL_INVALID_ENUM:
-			return SGE_TEXT("invalid parameter");
+			return FCPPT_TEXT("invalid parameter");
 		case AL_INVALID_VALUE:
-			return SGE_TEXT("invalid enum parameter value");
+			return FCPPT_TEXT("invalid enum parameter value");
 		case AL_INVALID_OPERATION:
-			return SGE_TEXT("illegal call");
+			return FCPPT_TEXT("illegal call");
 		case AL_OUT_OF_MEMORY:
-			return SGE_TEXT("unable to allocate memory");
+			return FCPPT_TEXT("unable to allocate memory");
 		default:
-			return SGE_TEXT("Unknown");
+			return FCPPT_TEXT("Unknown");
 	}
 }
 

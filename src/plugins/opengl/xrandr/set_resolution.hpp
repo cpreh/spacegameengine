@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_XRANDR_SET_RESOLUTION_HPP_INCLUDED
 
 #include "configuration_fwd.hpp"
-#include <sge/x11/window_fwd.hpp>
+#include <sge/x11/window_ptr.hpp>
 
 namespace sge
 {
@@ -36,7 +36,8 @@ class mode;
 void set_resolution(
 	sge::x11::window_ptr,
 	configuration_ptr,
-	mode const &);
+	mode const &
+);
 
 }
 }

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../check_state.hpp"
 #include <sge/audio/bad_sound_alloc.hpp>
 #include <sge/audio/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::openal::source_wrapper::source_wrapper()
 {
@@ -32,7 +32,7 @@ sge::openal::source_wrapper::source_wrapper()
 	);
 
 	SGE_OPENAL_CHECK_STATE(
-		SGE_TEXT("alGenSources failed"),
+		FCPPT_TEXT("alGenSources failed"),
 		audio::bad_sound_alloc
 	)
 }
@@ -45,7 +45,7 @@ sge::openal::source_wrapper::~source_wrapper()
 	);
 
 	SGE_OPENAL_CHECK_STATE(
-		SGE_TEXT("alDeleteSources failed"),
+		FCPPT_TEXT("alDeleteSources failed"),
 		audio::exception
 	)
 }

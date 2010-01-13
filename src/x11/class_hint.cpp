@@ -19,14 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/x11/class_hint.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/iconv.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
-#include <sge/iconv.hpp>
 
-class sge::x11::class_hint::impl {
+class sge::x11::class_hint::impl
+{
 public:
-	SGE_NONCOPYABLE(impl)
+	FCPPT_NONCOPYABLE(impl)
 public:
 	impl();
 	~impl();
@@ -37,21 +38,28 @@ private:
 
 
 sge::x11::class_hint::class_hint(
-	string const &app_name_,
-	string const &res_name_)
+	fcppt::string const &app_name_,
+	fcppt::string const &res_name_
+)
 :
 	impl_(
-		new impl()),
+		new impl()
+	),
 	app_name(
-		iconv(
-			app_name_)),
+		fcppt::iconv(
+			app_name_
+		)
+	),
 	res_name(
-		iconv(
-			res_name_))
+		fcppt::iconv(
+			res_name_
+		)
+	)
 {
 	XClassHint *const hint(
-		get());
-	
+		get()
+	);
+
 	hint->res_name = const_cast<char *>(app_name.c_str());
 	hint->res_class = const_cast<char *>(res_name.c_str());
 }
@@ -68,11 +76,13 @@ sge::x11::class_hint::get() const
 sge::x11::class_hint::impl::impl()
 :
 	hint(
-		XAllocClassHint())
+		XAllocClassHint()
+	)
 {
 	if(!hint)
 		throw exception(
-			SGE_TEXT("XAllocClassHint() failed!"));
+			FCPPT_TEXT("XAllocClassHint() failed!")
+		);
 }
 
 sge::x11::class_hint::impl::~impl()

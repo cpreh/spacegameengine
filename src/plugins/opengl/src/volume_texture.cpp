@@ -25,9 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../version.hpp"
 #include "../basic_texture_impl.hpp"
 #include <sge/exception.hpp>
-#include <sge/string.hpp>
+#include <fcppt/string.hpp>
 #include <sge/once.hpp>
-#include <sge/math/box_impl.hpp>
+#include <fcppt/math/box_impl.hpp>
 
 namespace
 {
@@ -45,11 +45,11 @@ sge::opengl::volume_texture::volume_texture(
 	image_view_array const &src,
 	renderer::filter_args const &filter,
 	resource_flag_type const flags)
- : detail::volume_texture_base(
- 	filter,
+: detail::volume_texture_base(
+	filter,
 	flags,
 	volume_texture_type()),
-   box_(box_)
+	box_(box_)
 {
 	//set_data(src);
 }
@@ -91,8 +91,8 @@ void sge::opengl::volume_texture::do_sub_data(
 {
 /*	if(volume_texture_type() == GL_EXT_texture3D)
 		throw exception(
-			SGE_TEXT("GL_EXT_texture3d can't set sub images!"));
-	
+			FCPPT_TEXT("GL_EXT_texture3d can't set sub images!"));
+
 	pre_setdata();
 	const GLenum format = GL_RGBA, type = GL_UNSIGNED_BYTE;
 
@@ -140,9 +140,9 @@ void initialize_volume_texture()
 		gl_volume_texture_type = GL_TEXTURE_3D_EXT;
 	else
 		sge::opengl::on_not_supported(
-			SGE_TEXT("volume_texture"),
-			SGE_TEXT("1.2"),
-			SGE_TEXT("gl_ext_texture3d"));
+			FCPPT_TEXT("volume_texture"),
+			FCPPT_TEXT("1.2"),
+			FCPPT_TEXT("gl_ext_texture3d"));
 }
 
 GLenum volume_texture_type()

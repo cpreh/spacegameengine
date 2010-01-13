@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #if 0
 
-#include <sge/export.hpp>
-#include <sge/math/dim.hpp>
-#include <sge/math/box.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/math/dim.hpp>
+#include <fcppt/math/box.hpp>
 #include <sge/renderer/texture_base.hpp>
 #include <sge/renderer/image_view.hpp>
 #include <vector>
@@ -38,12 +38,12 @@ namespace renderer
 // FIXME: volume_textures are unsupported until we have something like a 3D image in GIL
 
 /*
-typedef math::box<texture_base::size_type> lock_box;
+typedef fcppt::math::box<texture_base::size_type> lock_box;
 
 class volume_texture : public texture_base {
 public:
 	// TODO: create a real 3d image type for this!
-	typedef math::dim<size_type, 3> box_type;
+	typedef fcppt::math::dim<size_type, 3> box_type;
 
 	virtual const box_type box() const = 0;
 	virtual void lock(

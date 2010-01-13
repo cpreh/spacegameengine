@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MAINLOOP_DISPATCHABLE_HPP_INCLUDED
 #define SGE_MAINLOOP_DISPATCHABLE_HPP_INCLUDED
 
-#include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -30,7 +30,7 @@ namespace mainloop
 {
 
 class dispatchable {
-	SGE_NONCOPYABLE(dispatchable)
+	FCPPT_NONCOPYABLE(dispatchable)
 public:
 	virtual void dispatch() = 0;
 protected:

@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_VERTEX_HPP_INCLUDED
 #define SGE_RENDERER_VF_VERTEX_HPP_INCLUDED
 
-#include <sge/algorithm/copy_n.hpp>
-#include <sge/mpl/find_nth.hpp>
 #include <sge/renderer/vf/raw_data.hpp>
 #include <sge/renderer/vf/calc_offset.hpp>
 #include <sge/renderer/vf/element_stride.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
+#include <fcppt/mpl/find_nth.hpp>
+#include <fcppt/algorithm/copy_n.hpp>
 #include <boost/mpl/find.hpp>
 #include <boost/mpl/integral_c.hpp>
 #include <boost/mpl/deref.hpp>
@@ -40,15 +40,19 @@ namespace renderer
 namespace vf
 {
 
-template<typename VertexFormat>
-class vertex {
+template<
+	typename VertexFormat
+>
+class vertex
+{
 public:
 	typedef typename VertexFormat::pointer pointer;
 	typedef typename VertexFormat::elements elements;
 	typedef typename VertexFormat::offsets offsets;
 
 	explicit vertex(
-		pointer const data)
+		pointer const data
+	)
 	:
 		data(data)
 	{}
@@ -57,14 +61,16 @@ public:
 		typename Field,
 		typename T
 	>
-	void set(
-		T const &t)
+	void
+	set(
+		T const &t
+	)
 	{
 		typedef typename boost::mpl::find<
 			elements,
 			Field
 		>::type element;
-	
+
 		set_internal<element>(t);
 	}
 
@@ -73,10 +79,12 @@ public:
 		vertex_size Index,
 		typename T
 	>
-	void set(
-		T const &t)
+	void
+	set(
+		T const &t
+	)
 	{
-		typedef typename mpl::find_nth<
+		typedef typename fcppt::mpl::find_nth<
 			elements,
 			Field,
 			boost::mpl::integral_c<
@@ -109,7 +117,7 @@ public:
 	typename Field::packed_type
 	get() const
 	{
-		typedef typename mpl::find_nth<
+		typedef typename fcppt::mpl::find_nth<
 			elements,
 			Field,
 			boost::mpl::integral_c<
@@ -117,7 +125,7 @@ public:
 				Index
 			>
 		>::type element;
-		
+
 		return get_internal<element>();
 	}
 private:
@@ -125,8 +133,10 @@ private:
 		typename Iter,
 		typename T
 	>
-	void set_internal(
-		T const &t)
+	void
+	set_internal(
+		T const &t
+	)
 	{
 		typedef typename calc_offset<
 			elements,
@@ -142,17 +152,19 @@ private:
 			boost::is_same<
 				typename element::packed_type,
 				T
-			>::value));
+			>::value)
+		);
 
-		algorithm::copy_n(
+		fcppt::algorithm::copy_n(
 			raw_data(t),
 			element_stride<
 				element
 			>::type::value,
-			data + boost::mpl::deref<offset>::type::value);
+			data + boost::mpl::deref<offset>::type::value
+		);
 	}
 
-	
+
 	template<
 		typename Iter
 	>
@@ -164,23 +176,30 @@ private:
 			offsets,
 			Iter
 		>::type offset;
-	
+
 		typedef typename boost::mpl::deref<Iter>::type element;
 
 		typedef typename element::packed_type packed_type;
 
 		packed_type ret;
 
-		algorithm::copy_n(
+		fcppt::algorithm::copy_n(
 			data + boost::mpl::deref<offset>::type::value,
 			element_stride<
 				element
 			>::type::value,
-			const_cast<raw_pointer>(raw_data(ret)));
+			const_cast<
+				raw_pointer
+			>(
+				raw_data(
+					ret
+				)
+			)
+		);
 
 		return ret;
 	}
-	
+
 	pointer const data;
 };
 

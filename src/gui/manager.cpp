@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widgets/base.hpp>
 #include <sge/gui/cursor/base.hpp>
 #include <sge/gui/manager.hpp>
-#include <sge/math/box/basic_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <boost/foreach.hpp>
 
 sge::gui::manager::manager(
@@ -89,7 +89,7 @@ void sge::gui::manager::invalidate(
 }
 
 sge::gui::timer::object_ptr const sge::gui::manager::register_timer(
-	time::resolution const &r,
+	time::duration const &r,
 	timer::callback const cb)
 {
 	return timer_->add(r,cb);
@@ -111,17 +111,17 @@ sge::gui::cursor::const_base_ptr const sge::gui::manager::cursor() const
 	return cursor_;
 }
 
-sge::gui::skins::base &sge::gui::manager::skin() 
-{ 
-	return *skin_; 
+sge::gui::skins::base &sge::gui::manager::skin()
+{
+	return *skin_;
 }
 
 sge::gui::skins::base const &sge::gui::manager::skin() const
-{ 
-	return *skin_; 
+{
+	return *skin_;
 }
 
-sge::sprite::object &sge::gui::manager::connected_sprite(
+sge::gui::sprite::object &sge::gui::manager::connected_sprite(
 	widgets::base &w)
 {
 	return render_->connected_sprite(w);

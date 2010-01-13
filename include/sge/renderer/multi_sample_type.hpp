@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_MULTI_SAMPLE_TYPE_HPP_INCLUDED
 #define SGE_RENDERER_MULTI_SAMPLE_TYPE_HPP_INCLUDED
 
-#include <sge/strong_typedef.hpp>
+#include <fcppt/strong_typedef.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-SGE_MAKE_STRONG_TYPEDEF(
+FCPPT_MAKE_STRONG_TYPEDEF(
 	unsigned,
 	multi_sample_type
 )

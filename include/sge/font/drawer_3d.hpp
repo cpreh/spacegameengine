@@ -26,59 +26,111 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/dim.hpp>
 #include <sge/font/image_view.hpp>
 #include <sge/texture/manager.hpp>
-#include <sge/texture/part_fwd.hpp>
+#include <sge/texture/part_ptr.hpp>
+#include <sge/renderer/device_ptr.hpp>
 #include <sge/sprite/system.hpp>
-#include <sge/sprite/container.hpp>
+#include <sge/sprite/external_system_decl.hpp>
+#include <sge/sprite/object_decl.hpp>
+#include <sge/sprite/with_color.hpp>
+#include <sge/sprite/with_texture.hpp>
+#include <sge/sprite/type_choices.hpp>
+#include <sge/sprite/choices.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <sge/variant/object_impl.hpp>
-#include <sge/export.hpp>
+#include <sge/image/color/rgba8_format.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/char_type.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <map>
+#include <vector>
 
 namespace sge
 {
-
 namespace font
 {
 
-class SGE_CLASS_SYMBOL drawer_3d : public drawer {
+class SGE_CLASS_SYMBOL drawer_3d
+:
+	public drawer
+{
+	FCPPT_NONCOPYABLE(drawer_3d)
 public:
 	SGE_SYMBOL drawer_3d(
 		renderer::device_ptr rend,
-		image::color::any::object const &);
+		image::color::any::object const &
+	);
 
 	SGE_SYMBOL ~drawer_3d();
 
-	SGE_SYMBOL void begin_rendering(
+	SGE_SYMBOL void
+	begin_rendering(
 		size_type buffer_chars,
 		pos const &start,
-		dim size);
-	
-	SGE_SYMBOL void draw_char(
-		char_type,
+		dim size
+	);
+
+	SGE_SYMBOL void
+	draw_char(
+		fcppt::char_type,
 		pos const &,
-		const_image_view const &data);
-	
-	SGE_SYMBOL void end_rendering();
+		const_image_view const &data
+	);
+
+	SGE_SYMBOL void
+	end_rendering();
 
 	SGE_SYMBOL void
 	color(
-		image::color::any::object const &col);
+		image::color::any::object const &col
+	);
 private:
 	texture::const_part_ptr const
 	cached_texture(
-		char_type,
-		const_image_view const &);
+		fcppt::char_type,
+		const_image_view const &
+	);
 
-	renderer::device_ptr            rend;
-	image::color::any::object       col;
-	texture::manager                texman;
+	renderer::device_ptr rend;
+
+	image::color::any::object col;
+
+	texture::manager texman;
+
 	typedef std::map<
-		char_type,
+		fcppt::char_type,
 		texture::const_part_ptr
-	>                               texture_map;
-	texture_map                     textures;
-	sprite::system                  sys;
-	sprite::container               sprites;
+	> texture_map;
+
+	texture_map textures;
+
+	typedef sge::sprite::choices<
+		sge::sprite::type_choices<
+			int,
+			float,
+			image::color::rgba8_format
+		>,
+		boost::mpl::vector2<
+			sprite::with_color,
+			sprite::with_texture
+		>
+	> sprite_choices;
+
+	typedef sprite::system<
+		sprite_choices
+	>::type sprite_system;
+
+	typedef sprite::object<
+		sprite_choices
+	> sprite_object;
+
+	typedef std::vector<
+		sprite_object
+	> sprite_container;
+
+	sprite_system sys;
+
+	sprite_container sprites;
 };
 
 }

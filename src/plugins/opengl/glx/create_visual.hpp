@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GLX_CREATE_VISUAL_HPP_INCLUDED
 
 #include "visual_fwd.hpp"
-#include <sge/x11/display_fwd.hpp>
+#include <sge/x11/display_ptr.hpp>
 
 namespace sge
 {
@@ -35,7 +35,8 @@ visual_ptr const
 create_visual(
 	sge::x11::display_ptr,
 	int screen,
-	int const *attributes);
+	int const *attributes
+);
 
 }
 }

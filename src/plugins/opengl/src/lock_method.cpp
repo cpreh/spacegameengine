@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../lock_method.hpp"
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::opengl::lock_method::type
 sge::opengl::convert_lock_method(
@@ -33,14 +33,16 @@ sge::opengl::convert_lock_method(
 	case renderer::lock_mode::readwrite:
 		return lock_method::readwrite;
 	}
-	
+
 	throw exception(
-		SGE_TEXT("Invalid lock_flags in opengl!")
+		FCPPT_TEXT("Invalid lock_flags in opengl!")
 	);
 }
 
-GLuint sge::opengl::ogl_lock_method(
-	lock_method::type const m)
+GLenum
+sge::opengl::normal_lock_method(
+	lock_method::type const m
+)
 {
 	switch(m) {
 	case lock_method::readonly:
@@ -49,11 +51,32 @@ GLuint sge::opengl::ogl_lock_method(
 		return GL_WRITE_ONLY;
 	case lock_method::readwrite:
 		return GL_READ_WRITE;
-	default:
-		throw exception(
-			SGE_TEXT("Invalid lock_method!"));
 	}
+
+	throw exception(
+		FCPPT_TEXT("Invalid lock_method!")
+	);
 }
+
+GLenum
+sge::opengl::range_lock_method(
+	lock_method::type const m
+)
+{
+	switch(m) {
+	case lock_method::readonly:
+		return GL_MAP_READ_BIT | GL_MAP_INVALIDATE_RANGE_BIT;
+	case lock_method::writeonly:
+		return GL_MAP_WRITE_BIT;
+	case lock_method::readwrite:
+		return GL_MAP_READ_BIT | GL_MAP_WRITE_BIT;
+	}
+
+	throw exception(
+		FCPPT_TEXT("Invalid lock_method!")
+	);
+}
+
 
 bool sge::opengl::lock_flag_write(
 	lock_method::type const m)

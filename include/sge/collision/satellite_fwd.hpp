@@ -21,15 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_COLLISION_SATELLITE_FWD_HPP_INCLUDED
 #define SGE_COLLISION_SATELLITE_FWD_HPP_INCLUDED
 
-#include <sge/auto_ptr.hpp>
-
 namespace sge
 {
 namespace collision
 {
+
 class satellite;
-typedef sge::auto_ptr<satellite> satellite_ptr;
-typedef sge::auto_ptr<satellite const> const_satellite_ptr;
+
 }
 }
 

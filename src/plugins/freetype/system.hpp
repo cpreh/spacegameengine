@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FREETYPE_SYSTEM_HPP_INCLUDED
 
 #include "library.hpp"
-#include <sge/filesystem/path.hpp>
 #include <sge/font/system.hpp>
 #include <sge/font/metrics.hpp>
-#include <sge/weak_ptr.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/weak_ptr.hpp>
 #include <map>
 #include <utility>
 
@@ -38,7 +38,7 @@ class system : public font::system {
 public:
 	font::metrics_ptr const
 	create_font(
-		filesystem::path const &font_name,
+		fcppt::filesystem::path const &font_name,
 		font::size_type font_size,
 		sge::image::loader_ptr);
 private:
@@ -46,9 +46,9 @@ private:
 	typedef std::map<
 		std::pair<
 			font::size_type,
-			filesystem::path
+			fcppt::filesystem::path
 		>,
-		weak_ptr<
+		fcppt::weak_ptr<
 			font::metrics
 		>
 	> loaded_fonts_list;

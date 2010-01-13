@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../variable_arb.hpp"
 #include "../../../check_state.hpp"
 #include <sge/renderer/glsl/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 template<>
 GLint sge::opengl::glsl::uniform::location<false>(
@@ -36,7 +36,7 @@ GLint sge::opengl::glsl::uniform::location<false>(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glGetUniformLocationARB failed"),
+		FCPPT_TEXT("glGetUniformLocationARB failed"),
 		sge::renderer::glsl::exception
 	)
 

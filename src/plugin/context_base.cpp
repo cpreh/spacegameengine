@@ -24,35 +24,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/library/object_impl.hpp>
 
 sge::plugin::context_base::context_base(
-	filesystem::path const &path_)
+	fcppt::filesystem::path const &path_
+)
 :
 	path_(path_)
 {
 	typedef void (*version_function)(sge::plugin::info*);
 
 	library::object lib(path());
-	version_function vf = lib.load_function<version_function>(version_fun);
+
+	version_function vf(
+		lib.load_function<version_function>(version_fun)
+	);
+
 	info info_;
+
 	vf(&info_);
+
 	name_ = info_.name;
 	description_ = info_.description;
 	version_ = info_.plugin_version;
 	type_ = info_.type;
 }
 
-sge::string const &
+fcppt::string const &
 sge::plugin::context_base::name() const
 {
 	return name_;
 }
 
-sge::string const &
+fcppt::string const &
 sge::plugin::context_base::description() const
 {
 	return description_;
 }
 
-unsigned sge::plugin::context_base::version() const
+unsigned
+sge::plugin::context_base::version() const
 {
 	return version_;
 }
@@ -63,7 +71,7 @@ sge::plugin::context_base::type() const
 	return type_;
 }
 
-sge::filesystem::path const &
+fcppt::filesystem::path const &
 sge::plugin::context_base::path() const
 {
 	return path_;

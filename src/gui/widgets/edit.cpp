@@ -31,32 +31,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/manager.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/time/second_f.hpp>
-#include <sge/math/almost_zero.hpp>
-#include <sge/math/vector/output.hpp>
-#include <sge/math/dim/output.hpp>
 #include <sge/font/metrics.hpp>
-#include <sge/log/parameters/inherited.hpp>
-#include <sge/log/object.hpp>
-#include <sge/log/headers.hpp>
-#include <sge/assert.hpp>
-#include <sge/text.hpp>
-#include <tr1/functional>
+#include <fcppt/math/almost_zero.hpp>
+#include <fcppt/math/vector/output.hpp>
+#include <fcppt/math/dim/output.hpp>
+#include <fcppt/log/parameters/inherited.hpp>
+#include <fcppt/log/object.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/assert.hpp>
+#include <fcppt/text.hpp>
 #include <locale>
 
 namespace
 {
 
-sge::log::object mylogger(
-	sge::log::parameters::inherited(
+fcppt::log::object mylogger(
+	fcppt::log::parameters::inherited(
 		sge::gui::widgets::global_log(),
-		SGE_TEXT("edit")
+		FCPPT_TEXT("edit")
 	)
 );
 
-sge::log::object mygraphlogger(
-	sge::log::parameters::inherited(
+fcppt::log::object mygraphlogger(
+	fcppt::log::parameters::inherited(
 		sge::gui::widgets::global_log(),
-		SGE_TEXT("editgraph")
+		FCPPT_TEXT("editgraph")
 	)
 );
 
@@ -88,12 +88,12 @@ sge::gui::widgets::edit::edit(
 {
 }
 
-sge::string const sge::gui::widgets::edit::text() const
+fcppt::string const sge::gui::widgets::edit::text() const
 {
 	return text_;
 }
 
-void sge::gui::widgets::edit::text(string const &n)
+void sge::gui::widgets::edit::text(fcppt::string const &n)
 {
 	text_ = n;
 	parent_manager().dirty(
@@ -124,7 +124,7 @@ sge::gui::image const &sge::gui::widgets::edit::text_buffer() const
 void sge::gui::widgets::edit::process_keyboard_enter(events::keyboard_enter const &)
 {
 	cursor_visible_ = true;
-	timer_ = 
+	timer_ =
 		parent_manager().register_timer(
 			sge::time::second_f(static_cast<time::funit>(0.5)),
 			std::tr1::bind(
@@ -136,15 +136,15 @@ void sge::gui::widgets::edit::process_keyboard_enter(events::keyboard_enter cons
 
 sge::gui::key_handling::type sge::gui::widgets::edit::process_key(events::key const &k)
 {
-	if (math::almost_zero(k.value().value()))
+	if (fcppt::math::almost_zero(k.value().value()))
 		return key_handling::process;
-	
+
 	if (type == single_line && k.value().key().code() == input::kc::key_return)
 	{
 		return_pressed();
 		return key_handling::process;
 	}
-	
+
 	// hand over to delegate
 	cursor.key_callback(k.value());
 
@@ -172,9 +172,9 @@ void sge::gui::widgets::edit::process_keyboard_leave(events::keyboard_leave cons
 void sge::gui::widgets::edit::blink_callback()
 {
 	cursor_visible_ = !cursor_visible_;
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mygraphlogger,
-		log::_ << SGE_TEXT("blinking cursor, visibility: ") << cursor_visible_);
+		fcppt::log::_ << FCPPT_TEXT("blinking cursor, visibility: ") << cursor_visible_);
 	parent_manager().dirty(
 		*this,
 		rect(
@@ -188,10 +188,10 @@ void sge::gui::widgets::edit::resize(dim const &d) const
 
 	if (text_size.w() > d.w() && text_size.h() > d.h())
 	{
-		SGE_LOG_DEBUG(mygraphlogger,log::_ << SGE_TEXT("no resize needed"));
+		FCPPT_LOG_DEBUG(mygraphlogger,fcppt::log::_ << FCPPT_TEXT("no resize needed"));
 		return;
 	}
-	
+
 	text_buffer_.resize(
 		dim(
 			text_size.w() >= d.w() ? text_size.w() : d.w(),
@@ -200,26 +200,26 @@ void sge::gui::widgets::edit::resize(dim const &d) const
 
 void sge::gui::widgets::edit::refresh() const
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mygraphlogger,
-		log::_ << SGE_TEXT("redrawing text buffer"));
+		fcppt::log::_ << FCPPT_TEXT("redrawing text buffer"));
 
-	string const ntext = text_+SGE_TEXT(' ');
+	fcppt::string const ntext = text_+FCPPT_TEXT(' ');
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mygraphlogger,
-		log::_ << SGE_TEXT("getting font size"));
+		fcppt::log::_ << FCPPT_TEXT("getting font size"));
 
-	font_info const font = 
+	font_info const font =
 		parent_manager().skin().standard_font();
-	
-	dim const d = 
+
+	dim const d =
 		utility::unlimited_text_size(
 			font.metrics(),
 			ntext);
 
-	SGE_LOG_DEBUG(mygraphlogger,log::_ << SGE_TEXT("resizing buffer"));
-	
+	FCPPT_LOG_DEBUG(mygraphlogger,fcppt::log::_ << FCPPT_TEXT("resizing buffer"));
+
 	// text larger than buffer? resize!
 	resize(d);
 
@@ -227,27 +227,27 @@ void sge::gui::widgets::edit::refresh() const
 
 	// TODO: use a transparent background here and blit it with alpha blending
 	// enabled OR introduce widgets::edit::background_color
-	SGE_LOG_DEBUG(mygraphlogger,log::_ << SGE_TEXT("filling background"));
+	FCPPT_LOG_DEBUG(mygraphlogger,fcppt::log::_ << FCPPT_TEXT("filling background"));
 
 	c.draw_rect(
 		c.area(),
 		sge::image::colors::white(),
 		canvas::rect_type::solid);
-	
+
 	if (ntext.empty())
 		return;
-	
-	SGE_LOG_DEBUG(
-		mygraphlogger,
-		log::_ << SGE_TEXT("drawing text: ") << ntext);
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mygraphlogger,
-		log::_ << SGE_TEXT("cursor position is: ") << cursor.pos());
+		fcppt::log::_ << FCPPT_TEXT("drawing text: ") << ntext);
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mygraphlogger,
-		log::_ << SGE_TEXT("text buffer size is: ")
+		fcppt::log::_ << FCPPT_TEXT("cursor position is: ") << cursor.pos());
+
+	FCPPT_LOG_DEBUG(
+		mygraphlogger,
+		fcppt::log::_ << FCPPT_TEXT("text buffer size is: ")
 						<< text_buffer_.size());
 
 	point p;
@@ -262,9 +262,9 @@ void sge::gui::widgets::edit::refresh() const
 		cursor.pos(),
 		&p);
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mygraphlogger,
-		log::_ << SGE_TEXT("text drawn"));
+		fcppt::log::_ << FCPPT_TEXT("text drawn"));
 
 	if (cursor_visible_)
 	{
@@ -272,24 +272,28 @@ void sge::gui::widgets::edit::refresh() const
 			std::count(
 				ntext.begin(),
 				ntext.begin()+cursor.pos()+1,
-				SGE_TEXT('\n')));
+				FCPPT_TEXT('\n')));
 
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mygraphlogger,
-			log::_ << SGE_TEXT("the cursor is on line ") << cursor_line
-							<< SGE_TEXT("and stands on the character: '") << ntext[cursor.pos()] 
-							<< SGE_TEXT("'")); 
+			fcppt::log::_
+				<< FCPPT_TEXT("the cursor is on line ")
+				<< cursor_line
+				<< FCPPT_TEXT("and stands on the character: '")
+				<< ntext[cursor.pos()]
+				<< FCPPT_TEXT("'")
+		);
 
-		unit const 
-			cursor_start = 
+		unit const
+			cursor_start =
 				static_cast<unit>(cursor_line*font.metrics()->line_height()),
-			cursor_end = 
+			cursor_end =
 				std::min(c.area().h()-1,cursor_start + font.metrics()->line_height());
 			//	static_cast<unit>(cursor_start+2);
 
-		SGE_LOG_DEBUG(
+		FCPPT_LOG_DEBUG(
 			mygraphlogger,
-			log::_ << SGE_TEXT("drawing cursor at ") << cursor_start); 
+			fcppt::log::_ << FCPPT_TEXT("drawing cursor at ") << cursor_start);
 
 		// draw cursor
 		c.draw_line(

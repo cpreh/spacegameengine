@@ -50,7 +50,7 @@ public:
 		const filter_args& filter,
 		resource_flag_t flags);
 
-	const box_type box() const;	
+	const box_type box() const;
 	void set_data(const_pointer src);
 	void set_data(const_pointer src, const lock_box& b);
 

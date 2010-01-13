@@ -23,18 +23,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/gui/manager.hpp>
 #include <sge/gui/widgets/log.hpp>
-#include <sge/log/parameters/inherited.hpp>
-#include <sge/log/object.hpp>
-#include <sge/log/headers.hpp>
-#include <sge/assert.hpp>
+#include <fcppt/log/parameters/inherited.hpp>
+#include <fcppt/log/object.hpp>
+#include <fcppt/log/headers.hpp>
 
 namespace
 {
 
-sge::log::object mylogger(
-	sge::log::parameters::inherited(
+fcppt::log::object mylogger(
+	fcppt::log::parameters::inherited(
 		sge::gui::widgets::global_log(),
-		SGE_TEXT("label")
+		FCPPT_TEXT("label")
 	)
 );
 
@@ -43,11 +42,11 @@ sge::log::object mylogger(
 sge::gui::widgets::label::label(
 	parent_data const &_parent,
 	parameters _params,
-	string const &_text,
+	fcppt::string const &_text,
 	sge::font::align_h::type _align_h,
 	sge::font::align_v::type _align_v,
 	optional_dim const &_static_size)
-: 
+:
 	base(
 		_parent,
 		_params.size_policy(
@@ -61,36 +60,38 @@ sge::gui::widgets::label::label(
 {
 }
 
-sge::string const sge::gui::widgets::label::text() const 
-{ 
-	return text_; 
+fcppt::string const sge::gui::widgets::label::text() const
+{
+	return text_;
 }
 
-sge::font::align_h::type sge::gui::widgets::label::align_h() const 
-{ 
-	return align_h_; 
+sge::font::align_h::type sge::gui::widgets::label::align_h() const
+{
+	return align_h_;
 }
 
-sge::font::align_v::type sge::gui::widgets::label::align_v() const 
-{ 
-	return align_v_; 
+sge::font::align_v::type sge::gui::widgets::label::align_v() const
+{
+	return align_v_;
 }
 
 void sge::gui::widgets::label::text(
-	string const &_text) 
-{ 
-	SGE_LOG_DEBUG(
+	fcppt::string const &_text)
+{
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("setting text to: ")
-		        << _text);
-	text_ = _text; 
+		fcppt::log::_
+			<< FCPPT_TEXT("setting text to: ")
+			<< _text
+	);
+	text_ = _text;
 	invalidate(
 		*this,
 		invalidation::all);
 }
 
 sge::gui::widgets::optional_dim const &
-sge::gui::widgets::label::static_size() const 
-{ 
-	return static_size_; 
+sge::gui::widgets::label::static_size() const
+{
+	return static_size_;
 }

@@ -23,19 +23,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "format_traits.hpp"
 #include <sge/renderer/index/detail/basic_view.hpp>
-#include <sge/assert.hpp>
+#include <fcppt/assert.hpp>
 
 template<
 	typename Index
 >
 sge::renderer::index::detail::basic_view<Index>::basic_view(
 	pointer const data_,
-	size_type const size_)
+	size_type const size_
+)
 :
 	data_(data_),
 	size_(size_)
 {
-	SGE_ASSERT(data_);
+	FCPPT_ASSERT(data_);
 }
 
 template<

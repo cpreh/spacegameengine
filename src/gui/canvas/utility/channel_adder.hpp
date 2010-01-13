@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_GUI_UTILITY_CHANNEL_ADDER_HPP_INCLUDED
-#define SGE_GUI_UTILITY_CHANNEL_ADDER_HPP_INCLUDED
+#ifndef SGE_GUI_CANVAS_UTILITY_CHANNEL_ADDER_HPP_INCLUDED
+#define SGE_GUI_CANVAS_UTILITY_CHANNEL_ADDER_HPP_INCLUDED
 
 namespace sge
 {
@@ -33,7 +33,7 @@ template<
 	class Pixel1,
 	class PixelResult
 >
-class channel_adder 
+class channel_adder
 {
 public:
 	channel_adder(

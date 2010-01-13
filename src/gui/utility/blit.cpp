@@ -20,16 +20,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "blit.hpp"
 #include "normalization.hpp"
-#include <sge/math/box/intersection.hpp>
-#include <sge/math/box/structure_cast.hpp>
-#include <sge/math/vector/arithmetic.hpp>
 #include <sge/image/color/convert.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/algorithm/copy_and_convert.hpp>
 #include <sge/image/algorithm/transform.hpp>
 #include <sge/image/view/sub.hpp>
 #include <sge/image/view/make_const.hpp>
-#include <sge/assert.hpp>
+#include <fcppt/math/box/intersection.hpp>
+#include <fcppt/math/box/structure_cast.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/assert.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <mizuiro/color/has_channel.hpp>
@@ -140,7 +140,7 @@ channel_blitter<
 	Source,
 	DstPixel
 >::operator()(
-	mizuiro::color::channel::alpha &	
+	mizuiro::color::channel::alpha &
 ) const
 {
 	typedef mizuiro::color::channel::alpha alpha;
@@ -259,7 +259,7 @@ void sge::gui::utility::blit_invalid(
 		src_rect,
 		dst_rect
 	);
-	
+
 	// No intersection? then leave now.
 	if (is == rect::null())
 		return;
@@ -267,18 +267,18 @@ void sge::gui::utility::blit_invalid(
 	// Move intersection rect to origin of invalid rect
 	rect const is_translated_dst(
 		is.pos()-dst_rect.pos(),
-		is.dim());
+		is.dimension());
 
 	rect const is_translated_src(
 		is.pos()-src_rect.pos(),
-		is.dim());
+		is.dimension());
 
 	if (transparency)
 	{
 		sge::image::algorithm::transform(
 			sge::image::view::sub(
 				src,
-				math::box::structure_cast<
+				fcppt::math::box::structure_cast<
 					sge::image::rect
 				>(
 					is_translated_src
@@ -286,7 +286,7 @@ void sge::gui::utility::blit_invalid(
 			),
 			sge::image::view::sub(
 				dst,
-				math::box::structure_cast<
+				fcppt::math::box::structure_cast<
 					sge::image::rect
 				>(
 					is_translated_dst
@@ -300,7 +300,7 @@ void sge::gui::utility::blit_invalid(
 		sge::image::algorithm::copy_and_convert(
 			sge::image::view::sub(
 				src,
-				math::box::structure_cast<
+				fcppt::math::box::structure_cast<
 					sge::image::rect
 				>(
 					is_translated_src
@@ -308,7 +308,7 @@ void sge::gui::utility::blit_invalid(
 			),
 			sge::image::view::sub(
 				dst,
-				math::box::structure_cast<
+				fcppt::math::box::structure_cast<
 					sge::image::rect
 				>(
 					is_translated_dst
@@ -325,27 +325,27 @@ void sge::gui::utility::blit(
 	rect const &dst_rect,
 	rect const &clip_rect)
 {
-	SGE_ASSERT(src_rect.dim() == dst_rect.dim());
+	FCPPT_ASSERT(src_rect.dimension() == dst_rect.dimension());
 
 	rect const clipped = intersection(
 		dst_rect,
 		clip_rect);
-	
+
 	rect const src_trans = rect(
 		clipped.pos() - dst_rect.pos(),
-		clipped.dim());
+		clipped.dimension());
 
 	sge::image::algorithm::transform(
 		sge::image::view::sub(
 			sge::image::view::sub(
 				src,
-				math::box::structure_cast<
+				fcppt::math::box::structure_cast<
 					sge::image::rect
 				>(
 					src_rect
 				)
 			),
-			math::box::structure_cast<
+			fcppt::math::box::structure_cast<
 				sge::image::rect
 			>(
 				src_trans
@@ -353,7 +353,7 @@ void sge::gui::utility::blit(
 		),
 		sge::image::view::sub(
 			dst,
-			math::box::structure_cast<
+			fcppt::math::box::structure_cast<
 				sge::image::rect
 			>(
 				clipped

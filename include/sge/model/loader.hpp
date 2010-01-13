@@ -21,25 +21,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MODEL_LOADER_HPP_INCLUDED
 #define SGE_MODEL_LOADER_HPP_INCLUDED
 
-#include <sge/model/object_fwd.hpp>
+#include <sge/model/loader_fwd.hpp>
+#include <sge/model/object_ptr.hpp>
 #include <sge/model/istream.hpp>
-#include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace model
 {
 
-class SGE_CLASS_SYMBOL loader {
-	SGE_NONCOPYABLE(loader)
+class SGE_CLASS_SYMBOL loader
+{
+	FCPPT_NONCOPYABLE(loader)
 protected:
 	SGE_SYMBOL loader();
 public:
 	virtual object_ptr const
 	load(
-		istream &) = 0;
-	
+		istream &
+	) = 0;
+
 	SGE_SYMBOL virtual ~loader();
 };
 

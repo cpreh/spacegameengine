@@ -20,14 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config/appdir.hpp>
 #include <sge/mainloop/catch_block.hpp>
-#include <sge/cout.hpp>
-#include <sge/text.hpp>
+#include <fcppt/io/cout.hpp>
+#include <fcppt/text.hpp>
 
 int main()
 try
 {
-	sge::cout
+	fcppt::io::cout
 		<< sge::config::appdir()
-		<< SGE_TEXT('\n');
+		<< FCPPT_TEXT('\n');
 }
 SGE_MAINLOOP_CATCH_BLOCK

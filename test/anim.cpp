@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/config/media_path.hpp>
-#include <sge/signal/scoped_connection.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/device.hpp>
@@ -33,11 +32,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/action.hpp>
-#include <sge/image/loader.hpp>
-#include <sge/sprite/object.hpp>
+#include <sge/image/multi_loader.hpp>
+#include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/system.hpp>
-#include <sge/sprite/parameters.hpp>
-#include <sge/sprite/texture_animation.hpp>
+#include <sge/sprite/external_system_impl.hpp>
+#include <sge/sprite/parameters_impl.hpp>
+#include <sge/sprite/no_color.hpp>
+#include <sge/sprite/choices.hpp>
+#include <sge/sprite/type_choices.hpp>
+#include <sge/sprite/with_texture.hpp>
+#include <sge/sprite/render_one.hpp>
+#include <sge/sprite/animation/texture_impl.hpp>
+#include <sge/sprite/animation/series.hpp>
+#include <sge/sprite/animation/entity_vector.hpp>
+#include <sge/sprite/animation/entity.hpp>
+#include <sge/sprite/animation/loop_method.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/add_image.hpp>
 #include <sge/texture/no_fragmented.hpp>
@@ -45,13 +54,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/default_creator_impl.hpp>
 #include <sge/time/millisecond.hpp>
 #include <sge/time/second.hpp>
-#include <sge/time/resolution.hpp>
+#include <sge/time/default_callback.hpp>
 #include <sge/mainloop/dispatch.hpp>
-#include <sge/assign/make_container.hpp>
 #include <sge/log/global.hpp>
-#include <sge/log/activate_levels.hpp>
-#include <sge/cerr.hpp>
 #include <sge/exception.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/log/activate_levels.hpp>
+#include <fcppt/log/level.hpp>
+#include <fcppt/io/cerr.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <cstdlib>
@@ -61,16 +73,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int main()
 try
 {
-	sge::log::activate_levels(
+	fcppt::log::activate_levels(
 		sge::log::global(),
-		sge::log::level::debug
+		fcppt::log::level::debug
 	);
 
-	sge::systems::instance const sys(
+	sge::systems::instance sys(
 		sge::systems::list()
 		(
 			sge::window::parameters(
-				SGE_TEXT("sge animtest")
+				FCPPT_TEXT("sge animtest")
 			)
 		)
 		(
@@ -98,80 +110,131 @@ try
 		)
 	);
 
-	sge::input::system_ptr const    is   = sys.input_system();
-	sge::renderer::device_ptr const rend = sys.renderer();
-	sge::image::loader_ptr const    pl   = sys.image_loader();
+	sge::input::system_ptr const is(
+		sys.input_system()
+	);
 
+	sge::renderer::device_ptr const rend(
+		sys.renderer()
+	);
 
-	sge::texture::default_creator<
+	sge::image::multi_loader image_loader(
+		sys.plugin_manager()
+	);
+
+	typedef sge::texture::default_creator<
 		sge::texture::no_fragmented
-	> const creator(
+	> texture_creator;
+	
+	texture_creator const creator(
 		rend,
 		sge::image::color::format::rgba8,
 		sge::renderer::filter::linear
 	);
 
-	sge::texture::manager tex_man(rend, creator);
+	sge::texture::manager tex_man(
+		rend,
+		creator
+	);
 
 	sge::texture::const_part_ptr const
 		tex1(
 			sge::texture::add_image(
 				tex_man,
-				pl->load(
-					sge::config::media_path() / SGE_TEXT("cloudsquare.jpg")
+				image_loader.load(
+					sge::config::media_path()
+					/ FCPPT_TEXT("cloudsquare.jpg")
 				)
 			)
 		),
 		tex2(
 			sge::texture::add_image(
 				tex_man,
-				pl->load(
-					sge::config::media_path() / SGE_TEXT("grass.png")
+				image_loader.load(
+					sge::config::media_path()
+					/ FCPPT_TEXT("grass.png")
 				)
 			)
 		);
 
-	sge::sprite::system ss(rend);
-	sge::sprite::object spr(
-		sge::sprite::parameters()
+	typedef sge::sprite::choices<
+		sge::sprite::type_choices<
+			int,
+			float,
+			sge::sprite::no_color
+		>,
+		boost::mpl::vector1<
+			sge::sprite::with_texture
+		>
+	> sprite_choices;
+
+	typedef sge::sprite::system<
+		sprite_choices
+	>::type sprite_system;
+
+	typedef sge::sprite::object<
+		sprite_choices
+	> sprite_object;
+
+	typedef sge::sprite::parameters<
+		sprite_choices
+	> sprite_parameters;
+
+	sprite_system ss(
+		rend
+	);
+
+	sprite_object spr(
+		sprite_parameters()
+		.pos(
+			sprite_object::point::null()
+		)
 		.size(
-			sge::sprite::dim(
+			sprite_object::dim(
 				rend->screen_size().w(),
-				static_cast<sge::sprite::unit>(
+				static_cast<
+					sprite_object::unit
+				>(
 					rend->screen_size().h()
 				)
 			)
 		)
+		.elements()
 	);
 
-	sge::sprite::animation_series::entity_vector const series(
-		sge::assign::make_container<
-			sge::sprite::animation_series::entity_vector
+	sge::sprite::animation::series const series(
+		fcppt::assign::make_container<
+			sge::sprite::animation::entity_vector
 		>(
-			sge::sprite::animation_entity(
+			sge::sprite::animation::entity(
 				sge::time::millisecond(500),
 				tex1
 			)
 		)
 		(
-			sge::sprite::animation_entity(
+			sge::sprite::animation::entity(
 				sge::time::second(
 					1
 				),
-				tex2		
+				tex2
 			)
 		)
 	);
+	
+	typedef sge::sprite::animation::texture<
+		sprite_choices
+	> texture_animation;
 
-	sge::sprite::texture_animation anim(
+	texture_animation anim(
 		series,
-		sge::sprite::texture_animation::loop_method::repeat,
-		spr
+		sge::sprite::animation::loop_method::repeat,
+		spr,
+		sge::time::default_callback()
 	);
 
 	bool running = true;
 
-	sge::signal::scoped_connection const cb(
+	fcppt::signal::scoped_connection const cb(
 		is->register_callback(
 			sge::input::action(
 				sge::input::kc::key_escape,
@@ -188,18 +251,26 @@ try
 	while(running)
 	{
 		sge::mainloop::dispatch();
-		sge::renderer::scoped_block const block_(rend);
+
+		sge::renderer::scoped_block const block_(
+			rend
+		);
+
 		anim.process();
-		ss.render(spr);
+
+		sge::sprite::render_one(
+			ss,
+			spr
+		);
 	}
 }
 catch(sge::exception const &e)
 {
-	sge::cerr << e.string() << SGE_TEXT('\n');
+	fcppt::io::cerr << e.string() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }
 catch(std::exception const &e)
 {
-	sge::cerr << e.what() << SGE_TEXT('\n');
+	fcppt::io::cerr << e.what() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }

@@ -21,13 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_RECT_HPP_INCLUDED
 #define SGE_GUI_RECT_HPP_INCLUDED
 
-#include <sge/sprite/rect.hpp>
+#include <sge/gui/unit.hpp>
+#include <fcppt/math/box/rect.hpp>
 
 namespace sge
 {
 namespace gui
 {
-typedef sprite::rect rect;
+
+typedef fcppt::math::box::rect<
+	unit
+>::type rect;
+
 }
 }
 

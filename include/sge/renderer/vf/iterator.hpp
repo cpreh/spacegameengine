@@ -83,17 +83,17 @@ private:
 	{
 		data += stride * d;
 	}
-	
+
 	void increment()
 	{
 		data += stride;
 	}
-	
+
 	void decrement()
 	{
 		data -= stride;
 	}
-	
+
 	bool equal(iterator const &r) const
 	{
 		return data == r.data;
@@ -103,7 +103,7 @@ private:
 	{
 		return (r.data - data) / difference_type(stride);
 	}
-	
+
 	vertex_type dereference() const
 	{
 		return vertex_type(data);

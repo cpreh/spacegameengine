@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/gui/widgets/buttons/image.hpp>
 #include <sge/gui/widgets/parameters.hpp>
-#include <sge/assert.hpp>
+#include <fcppt/assert.hpp>
 
 sge::gui::widgets::buttons::image::image(
 	parent_data const &_parent,
@@ -47,8 +47,8 @@ sge::gui::widgets::buttons::image::image(
 	keyboard_(_keyboard),
 	hover_keyboard_(_hover_keyboard)
 {
-	SGE_ASSERT(
-		normal_->size() == hover_->size() && 
-		hover_->size() == keyboard_->size() && 
+	FCPPT_ASSERT(
+		normal_->size() == hover_->size() &&
+		hover_->size() == keyboard_->size() &&
 		keyboard_->size() == hover_keyboard_->size());
 }

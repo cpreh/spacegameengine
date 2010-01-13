@@ -26,18 +26,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widgets/log.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/input/key_code.hpp>
-#include <sge/math/box/basic_impl.hpp>
-#include <sge/log/parameters/inherited.hpp>
-#include <sge/log/object.hpp>
-#include <sge/log/headers.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/log/parameters/inherited.hpp>
+#include <fcppt/log/object.hpp>
+#include <fcppt/log/headers.hpp>
 
 namespace
 {
 
-sge::log::object mylogger(
-	sge::log::parameters::inherited(
+fcppt::log::object mylogger(
+	fcppt::log::parameters::inherited(
 		sge::gui::widgets::global_log(),
-		SGE_TEXT("buttons::base")
+		FCPPT_TEXT("buttons::base")
 	)
 );
 
@@ -49,7 +49,7 @@ sge::gui::widgets::buttons::base::mouse_over() const
 {
 	return mouse_over_;
 }
-	
+
 bool
 sge::gui::widgets::buttons::base::key_over() const
 {
@@ -87,20 +87,22 @@ sge::gui::key_handling::type sge::gui::widgets::buttons::base::process_key(
 
 void sge::gui::widgets::buttons::base::process_keyboard_enter(events::keyboard_enter const &)
 {
-	SGE_LOG_DEBUG(mylogger,log::_ << SGE_TEXT("got keyboard_enter"));
+	FCPPT_LOG_DEBUG(mylogger,fcppt::log::_ << FCPPT_TEXT("got keyboard_enter"));
 	key_over_ = true;
 	parent_manager().dirty(*this,rect(point::null(),size()));
 }
 
 void sge::gui::widgets::buttons::base::process_keyboard_leave(events::keyboard_leave const &)
 {
-	SGE_LOG_DEBUG(mylogger,log::_ << SGE_TEXT("got keyboard_leave"));
+	FCPPT_LOG_DEBUG(mylogger,fcppt::log::_ << FCPPT_TEXT("got keyboard_leave"));
 	key_over_ = false;
 	parent_manager().dirty(*this,rect(point::null(),size()));
 }
 
-sge::signal::auto_connection sge::gui::widgets::buttons::base::register_clicked(
-	clicked_fn const &_clicked)
+fcppt::signal::auto_connection
+sge::gui::widgets::buttons::base::register_clicked(
+	clicked_fn const &_clicked
+)
 {
 	return clicked_.connect(_clicked);
 }

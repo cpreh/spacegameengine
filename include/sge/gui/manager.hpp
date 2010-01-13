@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widgets/fwd.hpp>
 #include <sge/gui/cursor/base_ptr.hpp>
 #include <sge/gui/cursor/const_base_ptr.hpp>
+#include <sge/gui/sprite/object.hpp>
 #include <sge/gui/export.hpp>
 #include <sge/gui/rect.hpp>
 #include <sge/gui/invalidation.hpp>
@@ -35,23 +36,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/depth_type.hpp>
 #include <sge/gui/activation_state.hpp>
 #include <sge/gui/keyboard_focus.hpp>
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/texture_fwd.hpp>
-#include <sge/input/system_fwd.hpp>
-#include <sge/sprite/fwd.hpp>
-#include <sge/time/resolution.hpp>
-#include <sge/noncopyable.hpp>
-#include <sge/scoped_ptr.hpp>
+#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/texture_ptr.hpp>
+#include <sge/input/system_ptr.hpp>
+#include <sge/time/duration.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr.hpp>
 #include <vector>
 
 namespace sge
 {
 namespace gui
 {
-class manager 
+class manager
 {
-	SGE_NONCOPYABLE(manager)
-	public:
+	FCPPT_NONCOPYABLE(manager)
+public:
 	SGE_GUI_SYMBOL manager(
 		renderer::device_ptr,
 		input::system_ptr,
@@ -65,32 +65,36 @@ class manager
 		widgets::base &,
 		invalidation::type const &);
 	SGE_GUI_SYMBOL timer::object_ptr const register_timer(
-		time::resolution const &,
+		time::duration const &,
 		timer::callback);
 	SGE_GUI_SYMBOL void update();
 	SGE_GUI_SYMBOL void draw();
 	SGE_GUI_SYMBOL sge::gui::cursor::const_base_ptr const cursor() const;
 	SGE_GUI_SYMBOL skins::base &skin();
 	SGE_GUI_SYMBOL skins::base const &skin() const;
-	SGE_GUI_SYMBOL sprite::object &connected_sprite(
-		widgets::base &);
+
+	SGE_GUI_SYMBOL sge::gui::sprite::object &
+	connected_sprite(
+		widgets::base &
+	);
+
 	SGE_GUI_SYMBOL void request_keyboard_focus(
 		widgets::base &);
 	SGE_GUI_SYMBOL void z(
 		widgets::base &,
 		depth_type);
-	private:
+private:
 	friend class widgets::base;
 
 	skins::ptr const skin_;
 	cursor::base_ptr const cursor_;
 
 	// this is just to prevent the detail dependencies
-	scoped_ptr<detail::managers::mouse> mouse_;
-	scoped_ptr<detail::managers::render> render_;
-	scoped_ptr<detail::managers::keyboard> keyboard_;
-	scoped_ptr<detail::managers::compiler> compiler_;
-	scoped_ptr<detail::managers::time> timer_;
+	fcppt::scoped_ptr<detail::managers::mouse> mouse_;
+	fcppt::scoped_ptr<detail::managers::render> render_;
+	fcppt::scoped_ptr<detail::managers::keyboard> keyboard_;
+	fcppt::scoped_ptr<detail::managers::compiler> compiler_;
+	fcppt::scoped_ptr<detail::managers::time> timer_;
 
 	typedef std::vector<detail::submanager*> submanager_container;
 	submanager_container submanagers;

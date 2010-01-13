@@ -20,29 +20,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../dga.hpp"
 #include <sge/x11/window.hpp>
-#include <sge/once.hpp>
 #ifdef SGE_USE_DGA
 #include "../check_dga_mouse.hpp"
-#include <X11/extensions/xf86dga.h>
+#include <X11/extensions/Xxf86dga.h>
 #include <sge/x11/display.hpp>
-#include <sge/x11/sentry.hpp>
-#include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
-#include <sge/text.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/function_once.hpp>
+#include <fcppt/text.hpp>
 #endif
 
 namespace
 {
 
-void init_dga(
-	sge::x11::window_ptr);
+void
+init_dga(
+	sge::x11::window_ptr
+);
 
 bool have_dga = false;
 
 }
 
 sge::x11input::dga::dga(
-	x11::window_ptr const wnd)
+	x11::window_ptr const wnd
+)
 :
 	wnd(wnd),
 	enabled(false)
@@ -56,7 +58,8 @@ sge::x11input::dga::~dga()
 	enable(false);
 }
 
-void sge::x11input::dga::enable(
+void
+sge::x11input::dga::enable(
 	bool
 #ifdef SGE_USE_DGA
 	const b
@@ -69,20 +72,33 @@ void sge::x11input::dga::enable(
 
 	if(!have_dga)
 		return;
-	
-	SGE_X11_SENTRY
 
-	XF86DGADirectVideo(
-		wnd->display()->get(),
-		wnd->screen(),
-		b
-		? XF86DGADirectMouse
-		: 0);
+	if(
+		XF86DGADirectVideo(
+			wnd->display()->get(),
+			wnd->screen(),
+			b
+			? XF86DGADirectMouse
+			: 0
+		)
+		!= True
+	)
+	{
+		FCPPT_LOG_ERROR(
+			sge::log::global(),
+			fcppt::log::_
+				<< FCPPT_TEXT("Failed to enable or disable dga mouse!")
+		);
+
+		return;
+	}
+
 	enabled = b;
 #endif
 }
 
-bool sge::x11input::dga::useable() const
+bool
+sge::x11input::dga::useable() const
 {
 	return have_dga;
 }
@@ -90,29 +106,31 @@ bool sge::x11input::dga::useable() const
 namespace
 {
 
-void init_dga(
+void
+init_dga(
 	sge::x11::window_ptr
 #ifdef SGE_USE_DGA
 	const wnd
 #endif
-	)
+)
 {
 #ifdef SGE_USE_DGA
-	SGE_FUNCTION_ONCE
+	FCPPT_FUNCTION_ONCE
 
 	have_dga = sge::x11input::check_dga_mouse(
-		wnd);
-	
+		wnd
+	);
+
 	if(have_dga)
 		return;
 
-	SGE_LOG_WARNING(
+	FCPPT_LOG_WARNING(
 		sge::log::global(),
-		sge::log::_
-			<< SGE_TEXT(
+		fcppt::log::_
+			<< FCPPT_TEXT(
 				"You compiled spacegameengine with DGA support but DGA Mouse is not supported by your system!"
-				"Maybe you are missing libXxf86dga or a proper video driver? Disabling dga."));
-
+				"Maybe you are missing libXxf86dga or a proper video driver? Disabling dga.")
+	);
 #endif
 }
 

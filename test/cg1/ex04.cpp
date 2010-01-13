@@ -18,27 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/assert.hpp>
-#include <sge/text.hpp>
+#include <fcppt/assert.hpp>
+#include <fcppt/text.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/rgba32f.hpp>
 #include <sge/image/color/init.hpp>
-//#include <sge/image/color/any/convert.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/input/action.hpp>
 #include <sge/input/system.hpp>
 #include <sge/mainloop/catch_block.hpp>
 #include <sge/mainloop/dispatch.hpp>
-#include <sge/math/quad.hpp>
-#include <sge/math/pi.hpp>
-#include <sge/math/twopi.hpp>
-#include <sge/math/matrix/arithmetic.hpp>
-#include <sge/math/matrix/perspective.hpp>
-#include <sge/math/matrix/rotation_y.hpp>
-#include <sge/math/matrix/look_at.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/vector/static.hpp>
+#include <fcppt/math/quad.hpp>
+#include <fcppt/math/pi.hpp>
+#include <fcppt/math/twopi.hpp>
+#include <fcppt/math/matrix/arithmetic.hpp>
+#include <fcppt/math/matrix/perspective.hpp>
+#include <fcppt/math/matrix/rotation_y.hpp>
+#include <fcppt/math/matrix/look_at.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/static.hpp>
 #include <sge/renderer/aspect.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/light.hpp>
@@ -61,7 +60,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/var.hpp>
-#include <sge/renderer/vf/color.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/make_dynamic_format.hpp>
@@ -70,14 +68,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/time/second_f.hpp>
-#include <sge/time/resolution.hpp>
 #include <sge/time/timer.hpp>
-#include <sge/signal/scoped_connection.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/variant/object_impl.hpp>
 #include <sge/window/parameters.hpp>
-#include <boost/mpl/vector.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <cmath>
@@ -96,17 +93,10 @@ typedef sge::renderer::vf::normal<
 	float_type
 > normal_type;
 
-typedef sge::image::color::rgba8_format color_;
-
-typedef sge::renderer::vf::color<
-	color_
-> color_type;
-
 typedef sge::renderer::vf::format<
-	boost::mpl::vector<
+	boost::mpl::vector2<
 		pos_type,
-		normal_type//,
-		//color_type
+		normal_type
 	>
 > vertex_format;
 
@@ -140,16 +130,6 @@ make_vertex(
 	vert.set<normal_type>(
 		pos
 	);
-
-	/*
-	vert.set<color_type>(
-		sge::image::color::any::convert<
-			color_
-		>(
-			sge::image::color::colors::black()
-		)
-	);
-	*/
 }
 
 }
@@ -161,7 +141,7 @@ try
 		sge::systems::list()
 		(
 			sge::window::parameters(
-				SGE_TEXT("sge cg1 ex04")
+				FCPPT_TEXT("sge cg1 ex04")
 			)
 		)
 		(
@@ -189,7 +169,7 @@ try
 	);
 
 	float_type const step(
-		sge::math::twopi<float_type>()
+		fcppt::math::twopi<float_type>()
 		/ static_cast<float_type>(40)
 	);
 
@@ -201,9 +181,9 @@ try
 			6 * static_cast<
 				sge::renderer::size_type
 			>(
-				sge::math::quad(
+				fcppt::math::quad(
 					std::ceil(
-						sge::math::twopi<float_type>()
+						fcppt::math::twopi<float_type>()
 						/ step
 					)
 				)
@@ -217,7 +197,7 @@ try
 			vb,
 			sge::renderer::lock_mode::writeonly
 		);
-	
+
 		vertex_view const vertices(
 			vblock.value()
 		);
@@ -225,15 +205,15 @@ try
 		float_type shift(0);
 
 		vertex_iterator vb_it = vertices.begin();
-		
+
 		for(
 			float_type theta = 0;
-			theta < sge::math::twopi<float_type>();
+			theta < fcppt::math::twopi<float_type>();
 			theta += step, shift += step / 2
 		)
 			for(
 				float_type phi = 0;
-				phi < sge::math::twopi<float_type>();
+				phi < fcppt::math::twopi<float_type>();
 				phi += step
 			)
 			{
@@ -246,7 +226,7 @@ try
 					theta,
 					phi_shift
 				);
-				
+
 				make_vertex(
 					*vb_it++,
 					theta + step,
@@ -279,12 +259,12 @@ try
 
 			}
 
-		SGE_ASSERT(vb_it == vertices.end());
+		FCPPT_ASSERT(vb_it == vertices.end());
 	}
 
 	bool running = true;
 
-	sge::signal::scoped_connection const cb(
+	fcppt::signal::scoped_connection const cb(
 		sys.input_system()->register_callback(
 			sge::input::action(
 				sge::input::kc::key_escape,
@@ -294,13 +274,13 @@ try
 	);
 
 	rend->projection(
-		sge::math::matrix::perspective(
+		fcppt::math::matrix::perspective(
 			sge::renderer::aspect<
 				float_type
 			>(
 				rend->screen_size()
 			),
-			sge::math::pi<float_type>() / 2,
+			fcppt::math::pi<float_type>() / 2,
 			static_cast<float_type>(1),
 			static_cast<float_type>(256)
 		)
@@ -330,7 +310,7 @@ try
 	{
 		sge::renderer::light_index const light_index(0);
 
-		typedef sge::math::vector::static_<
+		typedef fcppt::math::vector::static_<
 			float_type,
 			3
 		>::type vec3f;
@@ -402,20 +382,20 @@ try
 	{
 		sge::mainloop::dispatch();
 
-		angle += sge::math::twopi<float_type>() * rotation_time.update();
+		angle += fcppt::math::twopi<float_type>() * rotation_time.update();
 
 		{
-			typedef sge::math::vector::static_<
+			typedef fcppt::math::vector::static_<
 				float_type,
 				3
 			>::type vec3;
 
 			rend->transform(
-				sge::math::matrix::rotation_y(
+				fcppt::math::matrix::rotation_y(
 					angle
 				)
 				*
-				sge::math::matrix::look_at(
+				fcppt::math::matrix::look_at(
 					vec3(
 						0,
 						0,
@@ -430,7 +410,7 @@ try
 				)
 			);
 		}
-					
+
 		sge::renderer::scoped_block const block_(
 			rend
 		);

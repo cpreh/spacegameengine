@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
-#include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -32,7 +32,7 @@ namespace x11
 {
 
 class size_hints {
-	SGE_NONCOPYABLE(size_hints)
+	FCPPT_NONCOPYABLE(size_hints)
 public:
 	SGE_SYMBOL size_hints(
 		int min_w,

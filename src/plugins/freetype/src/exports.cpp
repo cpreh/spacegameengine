@@ -19,34 +19,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../system.hpp"
-#include <sge/export.hpp>
 #include <sge/plugin/info.hpp>
-#include <sge/text.hpp>
+#include <fcppt/export_symbol.hpp>
+#include <fcppt/text.hpp>
 
 extern "C"
 {
 
-SGE_EXPORT_SYMBOL void
+FCPPT_EXPORT_SYMBOL void
 plugin_version_info(
-	sge::plugin::info *);
+	sge::plugin::info *
+);
 
-SGE_EXPORT_SYMBOL sge::font::system *
+FCPPT_EXPORT_SYMBOL sge::font::system *
 create_font_system();
 
-SGE_EXPORT_SYMBOL void
+FCPPT_EXPORT_SYMBOL void
 plugin_version_info(
-	sge::plugin::info *const p)
+	sge::plugin::info *const p
+)
 {
 	if(!p)
 		return;
-	p->name = SGE_TEXT("freetype");
-	p->description = SGE_TEXT("");
+	p->name = FCPPT_TEXT("freetype");
+	p->description = FCPPT_TEXT("");
 	p->min_core_version = 0x1;
 	p->plugin_version = 0x1;
 	p->type = sge::plugin::capabilities::font;
 }
 
-SGE_EXPORT_SYMBOL sge::font::system *
+FCPPT_EXPORT_SYMBOL sge::font::system *
 create_font_system()
 {
 	return new sge::freetype::system();

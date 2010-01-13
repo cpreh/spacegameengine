@@ -20,19 +20,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../version.hpp"
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
-void sge::opengl::on_not_supported(
-	string const &function,
-        string const &min_version,
-	string const &possible_extensions)
+void
+sge::opengl::on_not_supported(
+	fcppt::string const &function,
+	fcppt::string const &min_version,
+	fcppt::string const &possible_extensions
+)
 {
 	throw exception(
-		SGE_TEXT("You tried to use the following functionality: \"")
+		FCPPT_TEXT("You tried to use the following functionality: \"")
 		+ function
-		+ SGE_TEXT("\" which is not supported by your implementation. opengl-")
+		+ FCPPT_TEXT("\" which is not supported by your implementation. opengl-")
 		+ min_version
-		+ SGE_TEXT(" is at least required. The possible extensions sge can use are: \"")
+		+ FCPPT_TEXT(" is at least required. The possible extensions sge can use are: \"")
 		+ possible_extensions
-		+ SGE_TEXT("\"."));
+		+ FCPPT_TEXT("\".")
+	);
 }

@@ -26,9 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../attribute_actor.hpp"
 #include <sge/renderer/vf/dynamic_ordered_element.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
-sge::opengl::vf::actor_ptr 
+sge::opengl::vf::actor_ptr
 sge::opengl::vf::to_actor(
 	renderer::vf::dynamic_ordered_element const &e,
 	renderer::vf::vertex_size const stride)
@@ -51,6 +51,6 @@ sge::opengl::vf::to_actor(
 			new attribute_actor(e, stride));
 	default:
 		throw exception(
-			SGE_TEXT("Invalid role in ogl vertex format!"));
+			FCPPT_TEXT("Invalid role in ogl vertex format!"));
 	}
 }

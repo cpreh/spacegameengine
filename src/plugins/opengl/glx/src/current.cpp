@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../current.hpp"
 #include "../context.hpp"
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
 
@@ -40,7 +40,7 @@ sge::opengl::glx::current::current(
 		context->get())
 	== false)
 		throw exception(
-			SGE_TEXT("glXMakeCurrent() failed!"));
+			FCPPT_TEXT("glXMakeCurrent() failed!"));
 }
 
 sge::opengl::glx::current::~current()

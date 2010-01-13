@@ -20,17 +20,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../texture_stage.hpp"
 #include "../check_state.hpp"
-#include "../convert_texture_stage.hpp"
+#include "../convert/texture_stage_op.hpp"
+#include "../convert/texture_stage_op_value.hpp"
+#include "../convert/texture_stage_arg.hpp"
+#include "../convert/texture_stage_arg_value.hpp"
 #include "../multi_texture.hpp"
 #include <sge/renderer/exception.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 namespace
 {
 
-GLenum stage_value_scale(
-	sge::renderer::texture_stage_op_value::type const value)
+GLenum
+stage_value_scale(
+	sge::renderer::texture_stage_op_value::type const value
+)
 {
 	switch(value) {
 	case sge::renderer::texture_stage_op_value::arg0:
@@ -49,7 +54,7 @@ GLenum stage_value_scale(
 		return 4;
 	default:
 		throw sge::exception(
-			SGE_TEXT("Invalid texture_stage_op_value!")
+			FCPPT_TEXT("Invalid texture_stage_op_value!")
 		);
 	}
 }
@@ -66,7 +71,7 @@ void tex_env_f(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glTexEnvf failed"),
+		FCPPT_TEXT("glTexEnvf failed"),
 		sge::renderer::exception
 	)
 }
@@ -94,39 +99,57 @@ void sge::opengl::set_texture_stage_scale(
 	renderer::texture_stage_op_value::type const value)
 {
 	GLenum const scale = stage_value_scale(value);
-	tex_envf_ext(GL_RGB_SCALE, scale);
-	tex_envf_ext(GL_ALPHA_SCALE, scale);
+
+	tex_envf_ext(
+		GL_RGB_SCALE,
+		scale
+	);
+	tex_envf_ext(
+		GL_ALPHA_SCALE,
+		scale
+	);
 }
 
 template<
 	typename Arg,
 	typename Value
 >
-void sge::opengl::set_texture_stage(
+void
+sge::opengl::set_texture_stage(
 	renderer::stage_type const stage,
 	Arg const arg,
-	Value const value)
+	Value const value
+)
 {
-	set_texture_level(stage);
-	GLenum const
-		glarg = convert_texture_stage(arg),
-		glvalue = convert_texture_stage(value);
+	set_texture_level(
+		stage
+	);
 
-	tex_envf_ext(glarg, glvalue);
+	tex_envf_ext(
+		convert::texture_stage(
+			arg
+		),
+		convert::texture_stage_value(
+			value
+		)
+	);
 }
 
 #define SGE_OPENGL_INSTANTIATE_SET_TEXTURE_STAGE(arg, value)\
 template void sge::opengl::set_texture_stage(\
 	sge::renderer::stage_type,\
 	arg,\
-	value);
+	value\
+);
 
 SGE_OPENGL_INSTANTIATE_SET_TEXTURE_STAGE(
 	sge::renderer::texture_stage_op::type,
-	sge::renderer::texture_stage_op_value::type)
+	sge::renderer::texture_stage_op_value::type
+)
 
 SGE_OPENGL_INSTANTIATE_SET_TEXTURE_STAGE(
 	sge::renderer::texture_stage_arg::type,
-	sge::renderer::texture_stage_arg_value::type)
+	sge::renderer::texture_stage_arg_value::type
+)
 
 #undef SGE_OPENGL_INSTANTIATE_SET_TEXTURE_STAGE

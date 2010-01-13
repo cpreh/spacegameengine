@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/format_stride.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 #include <boost/cstdint.hpp>
 
 sge::image::size_type
@@ -40,7 +40,7 @@ sge::image::color::format_stride(
 		return sizeof(float) * 4;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid format in format_stride()!")
+			FCPPT_TEXT("Invalid format in format_stride()!")
 		);
 	}
 }

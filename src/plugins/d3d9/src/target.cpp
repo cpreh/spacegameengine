@@ -46,11 +46,11 @@ void sge::d3d9::render_target::init()
 		D3DPOOL_DEFAULT,
 		&t,
 		0) != D3D_OK)
-		throw exception(SGE_TEXT("Creating render target failed!"));
+		throw exception(FCPPT_TEXT("Creating render target failed!"));
 	tex.reset(t);
 	IDirect3DSurface9* s;
 	if(tex->GetSurfaceLevel(0,&s) != D3D_OK)
-		throw exception(SGE_TEXT("Getting surface for render target failed!"));
+		throw exception(FCPPT_TEXT("Getting surface for render target failed!"));
 	surface.reset(s);
 	*/
 }

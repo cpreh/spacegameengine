@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_GLSL_UNIFORM_DETAIL_BASIC_VALUE_HPP_INCLUDED
 
 #include <sge/renderer/size_type.hpp>
-#include <sge/container/raw_vector_decl.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/container/raw_vector_decl.hpp>
 
 namespace sge
 {
@@ -40,9 +40,10 @@ template<
 	typename Value,
 	typename Type
 >
-class basic_value {
+class basic_value
+{
 public:
-	typedef container::raw_vector<
+	typedef fcppt::container::raw_vector<
 		Value
 	> data_type;
 
@@ -55,8 +56,9 @@ public:
 	SGE_SYMBOL basic_value(
 		data_type const &,
 		size_type elements,
-		Type);
-	
+		Type
+	);
+
 	SGE_SYMBOL const_pointer
 	data() const;
 

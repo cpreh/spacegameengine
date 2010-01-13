@@ -22,14 +22,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CONSOLE_VARIABLE_MAP_HPP_INCLUDED
 
 #include <sge/console/var_base.hpp>
-#include <sge/string.hpp>
+#include <fcppt/string.hpp>
 #include <map>
 
 namespace sge
 {
 namespace console
 {
-typedef std::map<string,var_base*> variable_map;
+
+typedef std::map<
+	fcppt::string,
+	var_base *
+> variable_map;
+
 }
 }
 

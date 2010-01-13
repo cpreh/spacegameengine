@@ -21,20 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_COLLISION_SYSTEM_HPP_INCLUDED
 #define SGE_COLLISION_SYSTEM_HPP_INCLUDED
 
-#include <sge/collision/world_fwd.hpp>
+#include <sge/collision/system_fwd.hpp>
+#include <sge/collision/world_ptr.hpp>
 #include <sge/collision/optional_box.hpp>
-#include <sge/collision/constraint.hpp>
-#include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
-#include <sge/optional.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/optional.hpp>
 
 namespace sge
 {
 namespace collision
 {
+
 class SGE_CLASS_SYMBOL system
 {
-	SGE_NONCOPYABLE(system)
+	FCPPT_NONCOPYABLE(system)
 protected:
 	SGE_SYMBOL system();
 public:
@@ -42,7 +44,6 @@ public:
 	create_world(
 		optional_box const &,
 		constraint::type) = 0;
-	
 	SGE_SYMBOL virtual ~system();
 };
 }

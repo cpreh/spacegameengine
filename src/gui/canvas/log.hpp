@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_CANVAS_LOG_HPP_INCLUDED
 #define SGE_GUI_CANVAS_LOG_HPP_INCLUDED
 
-#include <sge/gui/log.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 namespace sge
 {
@@ -29,7 +29,10 @@ namespace gui
 {
 namespace canvas
 {
-sge::log::object &global_log();
+
+fcppt::log::object &
+global_log();
+
 }
 }
 }

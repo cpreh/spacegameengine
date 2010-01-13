@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <IL/il.h>
 #include <IL/ilu.h>
 #include "../error.hpp"
-#include <sge/string.hpp>
+#include <fcppt/string.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
-#include <sge/iconv.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/iconv.hpp>
 
 void sge::devil::check_errors()
 {
@@ -32,16 +32,16 @@ void sge::devil::check_errors()
 	if(e == IL_NO_ERROR)
 		return;
 
-	string error_message(SGE_TEXT("The following devil errors were detected:\n"));
+	fcppt::string error_message(FCPPT_TEXT("The following devil errors were detected:\n"));
 	do
 	{
-		error_message += 
+		error_message +=
 #ifdef UNICODE
 			iluErrorString(e);
 #else
-			iconv(iluErrorString(e));
+			fcppt::iconv(iluErrorString(e));
 #endif
-		error_message += SGE_TEXT('\n');
+		error_message += FCPPT_TEXT('\n');
 	}
 	while((e = ilGetError()) != IL_NO_ERROR);
 	throw exception(error_message);

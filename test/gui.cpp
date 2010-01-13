@@ -38,21 +38,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/colors.hpp>
 #include <sge/log/global.hpp>
-#include <sge/log/activate_levels.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/time/second.hpp>
 #include <sge/font/system.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/mainloop/dispatch.hpp>
-#include <sge/signal/scoped_connection.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/key_pair.hpp>
-#include <sge/cerr.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
-#include <sge/make_shared_ptr.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/log/activate_levels.hpp>
+#include <fcppt/io/cerr.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <iostream>
 #include <ostream>
 #include <exception>
@@ -88,9 +88,9 @@ class input_functor
 int main()
 try
 {
-	sge::log::activate_levels(
+	fcppt::log::activate_levels(
 		sge::log::global(),
-		sge::log::level::debug
+		fcppt::log::level::debug
 	);
 
 	sge::renderer::screen_size const screen_size(640,480);
@@ -98,7 +98,7 @@ try
 	sge::systems::instance sys(
 		sge::systems::list()
 		(sge::window::parameters(
-			SGE_TEXT("sge gui test")
+			FCPPT_TEXT("sge gui test")
 		))
 		(sge::renderer::parameters(
 			sge::renderer::display_mode(
@@ -115,7 +115,7 @@ try
 		(sge::systems::parameterless::font)
 		(sge::systems::parameterless::image));
 
-	
+
 	sge::gui::manager m(
 		sys.renderer(),
 		sys.input_system(),
@@ -126,75 +126,75 @@ try
 			new sge::gui::cursor::default_(
 				sys.image_loader(),
 				sys.renderer())));
-	
+
 	sge::gui::widgets::backdrop top(
 		sge::gui::widgets::parent_data(m),
 		sge::gui::widgets::parameters()
 			.pos(sge::gui::point(10,10))
 			.layout(
-				sge::make_shared_ptr<sge::gui::layouts::horizontal>())
+				fcppt::make_shared_ptr<sge::gui::layouts::horizontal>())
 			.size(sge::gui::dim(400,300)));
 
-	sge::cerr << "added top level widget\n";
+	fcppt::io::cerr << "added top level widget\n";
 
 	sge::gui::widgets::base left(
 		top,
 		sge::gui::widgets::parameters()
-			.layout(sge::make_shared_ptr<sge::gui::layouts::vertical>()));
+			.layout(fcppt::make_shared_ptr<sge::gui::layouts::vertical>()));
 
 	sge::gui::widgets::base right(
 		top,
 		sge::gui::widgets::parameters()
-			.layout(sge::make_shared_ptr<sge::gui::layouts::vertical>()));
+			.layout(fcppt::make_shared_ptr<sge::gui::layouts::vertical>()));
 
 	sge::gui::widgets::buttons::text left_top(
 		left,
 		sge::gui::widgets::parameters(),
-		SGE_TEXT("(left top) me!"));
-	
+		FCPPT_TEXT("(left top) me!"));
+
 	sge::gui::widgets::buttons::text left_bottom(
 		left,
 		sge::gui::widgets::parameters(),
-		SGE_TEXT("(left bottom) me!"));
+		FCPPT_TEXT("(left bottom) me!"));
 
-	sge::shared_ptr<sge::gui::widgets::buttons::text>
+	fcppt::shared_ptr<sge::gui::widgets::buttons::text>
 		right_top(new sge::gui::widgets::buttons::text(
 			right,
 			sge::gui::widgets::parameters(),
-			SGE_TEXT("(right top) me!")));
+			FCPPT_TEXT("(right top) me!")));
 
 	sge::gui::widgets::buttons::text right_bottom(
 		right,
 		sge::gui::widgets::parameters(),
-		SGE_TEXT("(right bottom) me!"));
+		FCPPT_TEXT("(right bottom) me!"));
 
-	sge::cerr << "added buttons and children\n";
+	fcppt::io::cerr << "added buttons and children\n";
 
 	// set sensible render states
 	sys.renderer()->state(
 		sge::renderer::state::list
 			(sge::renderer::state::depth_func::off)
 			(sge::renderer::state::bool_::clear_backbuffer = true)
-			(sge::renderer::state::color::clear_color = 
+			(sge::renderer::state::color::clear_color =
 				sge::image::colors::red())
 			(sge::renderer::state::cull_mode::off)
 		);
-	
+
 	bool running = true;
 	end_program p(running);
-	sge::signal::scoped_connection const conn(
+	fcppt::signal::scoped_connection const conn(
 		sys.input_system()->register_callback(
 			input_functor(
 				running
 			)
 		)
 	);
-	
-	sge::signal::scoped_connection const conn2(
+
+	fcppt::signal::scoped_connection const conn2(
 		left_top.register_clicked(p)
 	);
-	sge::cerr << SGE_TEXT("---------------------------\nall widgets added!\n");
-	
+	fcppt::io::cerr << FCPPT_TEXT("---------------------------\nall widgets added!\n");
+
 	sge::time::timer delete_timer(sge::time::second(static_cast<sge::time::unit>(2)));
 	while (running)
 	{
@@ -203,7 +203,7 @@ try
 
 		if (delete_timer.active() && delete_timer.expired())
 		{
-			sge::cerr << SGE_TEXT("sge: gui test program: removing button\n");
+			fcppt::io::cerr << FCPPT_TEXT("sge: gui test program: removing button\n");
 			delete_timer.deactivate();
 			right_top.reset();
 		}
@@ -211,10 +211,10 @@ try
 		m.update();
 		m.draw();
 	}
-} 
+}
 catch (sge::exception const &e)
 {
-	sge::cerr << SGE_TEXT("caught sge exception: ") << e.string() << SGE_TEXT("\n");
+	fcppt::io::cerr << FCPPT_TEXT("caught sge exception: ") << e.string() << FCPPT_TEXT("\n");
 }
 catch (std::exception const &e)
 {

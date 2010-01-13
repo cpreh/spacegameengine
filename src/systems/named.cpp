@@ -22,19 +22,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::systems::named::named(
 	any const &value_,
-	string const &name_)
+	fcppt::string const &name_
+)
 :
 	value_(value_),
 	name_(name_)
 {}
-	
+
 sge::systems::any const &
 sge::systems::named::value() const
 {
 	return value_;
 }
 
-sge::string const &
+fcppt::string const &
 sge::systems::named::name() const
 {
 	return name_;

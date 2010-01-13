@@ -21,33 +21,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_SCOPED_TEXTURE_LOCK_HPP_INCLUDED
 #define SGE_RENDERER_SCOPED_TEXTURE_LOCK_HPP_INCLUDED
 
-#include <sge/renderer/texture_fwd.hpp>
+#include <sge/renderer/texture_ptr.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/image/view/object.hpp>
-#include <sge/variant/object_impl.hpp>
-#include <sge/noncopyable.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-class scoped_texture_lock {
-	SGE_NONCOPYABLE(scoped_texture_lock)
+class scoped_texture_lock
+{
+	FCPPT_NONCOPYABLE(scoped_texture_lock)
 public:
 	SGE_SYMBOL scoped_texture_lock(
 		texture_ptr,
 		lock_mode::type
 	);
-	
+
 	SGE_SYMBOL scoped_texture_lock(
 		texture_ptr,
 		lock_rect const &,
 		lock_mode::type
 	);
-	
+
 	SGE_SYMBOL image::view::object const
 	value() const;
 

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../system.hpp"
 #include <sge/export.hpp>
 #include <sge/plugin/info.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 extern "C"
 {
@@ -39,8 +39,8 @@ plugin_version_info(
 {
 	if(!p)
 		return;
-	p->name = SGE_TEXT("bitmapfont");
-	p->description = SGE_TEXT("");
+	p->name = FCPPT_TEXT("bitmapfont");
+	p->description = FCPPT_TEXT("");
 	p->min_core_version = 0x1;
 	p->plugin_version = 0x1;
 	p->type = sge::plugin::capabilities::font;

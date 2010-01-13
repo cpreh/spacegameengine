@@ -18,29 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/global.hpp> 
-#include <sge/log/object.hpp>
+#include <sge/log/global.hpp>
 #include <sge/log/global_context.hpp>
-#include <sge/log/parameters/root.hpp>
-#include <sge/log/parameters/all.hpp>
-#include <sge/text.hpp>
-#include <sge/cout.hpp>
+#include <fcppt/log/object.hpp>
+#include <fcppt/log/parameters/root.hpp>
+#include <fcppt/log/parameters/all.hpp>
+#include <fcppt/io/cout.hpp>
+#include <fcppt/text.hpp>
 
-sge::log::object &
+fcppt::log::object &
 sge::log::global()
 {
-	static object global_(
-		parameters::root(
-			cout
+	static fcppt::log::object global_(
+		fcppt::log::parameters::root(
+			fcppt::io::cout
 		)
 		.prefix(
-			SGE_TEXT("sge")
+			FCPPT_TEXT("sge")
 		)
 		.enabled(
 			true
 		)
 		.level(
-			log::level::warning
+			fcppt::log::level::warning
 		)
 		.context(
 			global_context()

@@ -22,8 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/input/system.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/tr1/functional.hpp>
 
-void sge::mainloop::skeleton::run()
+void
+sge::mainloop::skeleton::run()
 {
 	while(running)
 	{
@@ -31,9 +34,10 @@ void sge::mainloop::skeleton::run()
 		loop();
 	}
 }
-	
+
 sge::mainloop::skeleton::skeleton(
-	systems::list const &s)
+	systems::list const &s
+)
 :
 	running(true),
 	sys(s)
@@ -42,19 +46,21 @@ sge::mainloop::skeleton::skeleton(
 		return;
 
 	// this is to avoid hassle with shared_ptr(auto_ptr &)
-	signal::auto_connection a = 
+	fcppt::signal::auto_connection a(
 		sys.input_system()->register_callback(
 			std::tr1::bind(
 				&skeleton::key_event,
 				this,
 				std::tr1::placeholders::_1
 			)
-		);
-	
-	input_con = signal::shared_connection(a);
+		)
+	);
+
+	input_con = fcppt::signal::shared_connection(a);
 }
 
-void sge::mainloop::skeleton::exit()
+void
+sge::mainloop::skeleton::exit()
 {
 	running = false;
 }
@@ -68,6 +74,8 @@ sge::mainloop::skeleton::system() const
 sge::mainloop::skeleton::~skeleton()
 {}
 
-void sge::mainloop::skeleton::key_event(
-	input::key_pair const &)
+void
+sge::mainloop::skeleton::key_event(
+	input::key_pair const &
+)
 {}

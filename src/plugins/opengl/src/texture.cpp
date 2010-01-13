@@ -26,15 +26,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../pbo.hpp"
 #include "../color_convert.hpp"
 #include <sge/image/view/make.hpp>
-#include <sge/math/dim/output.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/math/box/basic_impl.hpp>
-#include <sge/math/box/output.hpp>
-#include <sge/variant/object_impl.hpp>
-#include <sge/optional_impl.hpp>
-#include <sge/format.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/math/dim/output.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/box/output.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/format.hpp>
+#include <fcppt/text.hpp>
 
 template class sge::opengl::basic_texture<sge::renderer::texture>;
 
@@ -110,7 +110,7 @@ void sge::opengl::texture::unlock() const
 			lock_rect_
 				? *lock_rect_
 				: renderer::lock_rect(
-					renderer::lock_rect::pos_type::null(),
+					renderer::lock_rect::vector::null(),
 					dim()
 				)
 		);
@@ -134,9 +134,14 @@ void sge::opengl::texture::lock_me(
 	if(l.right() > dim().w()
 	|| l.bottom() > dim().h())
 		throw exception(
-			(sge::format(
-				SGE_TEXT("ogl: lock_rect (%1%) out of range! dim is %2%!"))
-				% l % dim()).str());
+			(
+				fcppt::format(
+					FCPPT_TEXT("ogl: lock_rect (%1%) out of range! dim is %2%!")
+				)
+				% l
+				% dim()
+			).str()
+		);
 
 	bool const must_read = lock_flag_read(method);
 
@@ -147,8 +152,8 @@ void sge::opengl::texture::lock_me(
 			method,
 			l.area(),
 			l.left() + l.top() * dim().w(),
-			dim().w() - l.dim().w(),
-			l.dim().w());
+			dim().w() - l.dimension().w(),
+			l.dimension().w());
 	else
 		do_lock(
 			method,
@@ -156,7 +161,7 @@ void sge::opengl::texture::lock_me(
 			0,
 			0,
 			0);
-	
+
 	if(must_read)
 		get_tex_image(
 			format(),
@@ -207,6 +212,6 @@ sge::opengl::texture::dim_type const
 sge::opengl::texture::lock_dim() const
 {
 	return lock_rect_
-		? lock_rect_->dim()
+		? lock_rect_->dimension()
 		: dim();
 }

@@ -25,7 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../openal.hpp"
 #include "../log.hpp"
 #include <sge/audio/exception.hpp>
-#include <sge/assert.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/assert.hpp>
 #include <boost/foreach.hpp>
 #include <vector>
 
@@ -45,28 +46,28 @@ sge::openal::context::context(
 	al_attributes.push_back(static_cast<ALCint>(0));
 	al_attributes.push_back(static_cast<ALCint>(0));
 
-	SGE_LOG_DEBUG(log(),log::_ << SGE_TEXT("creating audio context"))
+	FCPPT_LOG_DEBUG(log(),fcppt::log::_ << FCPPT_TEXT("creating audio context"))
 
 	context_ = alcCreateContext(device_.aldevice(),&(al_attributes[0]));
 
 	SGE_OPENAL_CHECK_ALC_STATE(
 		device_.aldevice(),
-		SGE_TEXT("alcCreateContext failed"),
+		FCPPT_TEXT("alcCreateContext failed"),
 		audio::exception
 	)
 
 	// TODO: why is this here?
 	/*
 	SGE_OPENAL_CHECK_STATE(
-		SGE_TEXT("alcCreateContext failed"),
+		FCPPT_TEXT("alcCreateContext failed"),
 		audio::exception
 	)
 	*/
 
 	// FIXME: can this leak? For example the creation of the context succeeds but there is an alError?
-	
-	SGE_ASSERT(context_);
-	SGE_LOG_DEBUG(log(),log::_ << SGE_TEXT("created audio context"))
+
+	FCPPT_ASSERT(context_);
+	FCPPT_LOG_DEBUG(log(),fcppt::log::_ << FCPPT_TEXT("created audio context"))
 }
 
 ALCcontext *
@@ -77,24 +78,24 @@ sge::openal::context::alcontext()
 
 void sge::openal::context::make_current()
 {
-	SGE_LOG_DEBUG(log(),
-		log::_ << SGE_TEXT("making audio context the current context"));
+	FCPPT_LOG_DEBUG(log(),
+		fcppt::log::_ << FCPPT_TEXT("making audio context the current context"));
 
 	alcMakeContextCurrent(context_);
 
 	SGE_OPENAL_CHECK_ALC_STATE(
 		device_.aldevice(),
-		SGE_TEXT("alcMakeContextCurrent failed"),
+		FCPPT_TEXT("alcMakeContextCurrent failed"),
 		audio::exception
 	)
 
 	SGE_OPENAL_CHECK_STATE(
-		SGE_TEXT("alcMakeContextCurrent failed"),
+		FCPPT_TEXT("alcMakeContextCurrent failed"),
 		audio::exception
 	)
 
-	SGE_LOG_DEBUG(log(),
-		log::_ << SGE_TEXT("made audio context the current context"));
+	FCPPT_LOG_DEBUG(log(),
+		fcppt::log::_ << FCPPT_TEXT("made audio context the current context"));
 }
 
 sge::openal::context::~context()
@@ -102,40 +103,40 @@ sge::openal::context::~context()
 	ALCcontext const * const current = alcGetCurrentContext();
 
 	// TODO: this needs to be split and std::uncaugt_exception needs to be checked
-	
+
 	SGE_OPENAL_CHECK_ALC_STATE(
 		device_.aldevice(),
-		SGE_TEXT("alcGetCurrentContext failed"),
+		FCPPT_TEXT("alcGetCurrentContext failed"),
 		audio::exception
 	)
 
 	SGE_OPENAL_CHECK_STATE(
-		SGE_TEXT("alcGetCurrentContext failed"),
+		FCPPT_TEXT("alcGetCurrentContext failed"),
 		audio::exception
 	)
 
 	if (current == context_)
 	{
-		SGE_LOG_DEBUG(log(),
-			log::_ << SGE_TEXT("context is the current context, so resetting current context"));
+		FCPPT_LOG_DEBUG(log(),
+			fcppt::log::_ << FCPPT_TEXT("context is the current context, so resetting current context"));
 
 		// TODO: alcMakeContextCurrent is called more than once, split this!
-		alcMakeContextCurrent(0); 
+		alcMakeContextCurrent(0);
 
 		SGE_OPENAL_CHECK_ALC_STATE(
 			device_.aldevice(),
-			SGE_TEXT("alcMakeContextCurrent failed"),
+			FCPPT_TEXT("alcMakeContextCurrent failed"),
 			audio::exception
 		);
 		// at this point: DO NOT CHECK FOR OPENAL ERRORS. IT'S ILLEGAL
 		//SGE_OPENAL_ERROR_CHECK;
 	}
 
-	alcDestroyContext(context_); 
+	alcDestroyContext(context_);
 
 	SGE_OPENAL_CHECK_ALC_STATE(
 		device_.aldevice(),
-		SGE_TEXT("alcDestroyContext failed"),
+		FCPPT_TEXT("alcDestroyContext failed"),
 		audio::exception
 	);
 }

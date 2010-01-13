@@ -21,20 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_SYSTEM_HPP_INCLUDED
 #define SGE_FONT_SYSTEM_HPP_INCLUDED
 
-#include <sge/font/metrics_fwd.hpp>
+#include <sge/font/system_fwd.hpp>
+#include <sge/font/metrics_ptr.hpp>
 #include <sge/font/size_type.hpp>
-#include <sge/image/loader_fwd.hpp>
-#include <sge/filesystem/path.hpp>
-#include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <sge/image/loader_ptr.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace font
 {
 
-class SGE_CLASS_SYMBOL system {
-	SGE_NONCOPYABLE(system)
+class SGE_CLASS_SYMBOL system
+{
+	FCPPT_NONCOPYABLE(system)
 protected:
 	SGE_SYMBOL system();
 public:
@@ -42,10 +45,11 @@ public:
 
 	virtual metrics_ptr const
 	create_font(
-		filesystem::path const &,
+		fcppt::filesystem::path const &,
 		size_type font_height,
 		sge::image::loader_ptr
-			= sge::image::loader_ptr()) = 0;
+			= sge::image::loader_ptr()
+	) = 0;
 };
 
 }

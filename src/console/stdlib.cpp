@@ -21,13 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/stdlib.hpp>
 #include <sge/console/object.hpp>
 #include <sge/console/exception.hpp>
-#include <sge/assign/make_container.hpp>
-#include <sge/signal/connection_manager.hpp>
-#include <sge/signal/shared_connection.hpp>
-#include <sge/text.hpp>
-#include <sge/lexical_cast.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/signal/connection_manager.hpp>
+#include <fcppt/signal/shared_connection.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/lexical_cast.hpp>
 #include <boost/foreach.hpp>
-#include <tr1/functional>
 
 sge::console::stdlib::stdlib(
 	object &_object,
@@ -39,82 +39,84 @@ sge::console::stdlib::stdlib(
 	print_(_print),
 	error_(_error),
 		connections(
-			assign::make_container<sge::signal::connection_manager::container>
+			fcppt::assign::make_container<
+				fcppt::signal::connection_manager::container
+			>
 			(
-				sge::signal::shared_connection(
+				fcppt::signal::shared_connection(
 					object_.insert(
-						SGE_TEXT("get"),
+						FCPPT_TEXT("get"),
 						std::tr1::bind(
 							&stdlib::fn_get,
 							this,
 							std::tr1::placeholders::_1
 						),
-						SGE_TEXT("get <name> - display value of <name>")
+						FCPPT_TEXT("get <name> - display value of <name>")
 					)
 				)
 			)
 			(
-				sge::signal::shared_connection(
+				fcppt::signal::shared_connection(
 					object_.insert(
-						SGE_TEXT("set"),
+						FCPPT_TEXT("set"),
 						std::tr1::bind(
 							&stdlib::fn_set,
 							this,
 							std::tr1::placeholders::_1
 						),
-						SGE_TEXT("set <name> <value> - set <name> to <value>")
+						FCPPT_TEXT("set <name> <value> - set <name> to <value>")
 					)
 				)
 			)
 			(
-				sge::signal::shared_connection(
+				fcppt::signal::shared_connection(
 					object_.insert(
-						SGE_TEXT("help"),
+						FCPPT_TEXT("help"),
 						std::tr1::bind(
 							&stdlib::fn_help,
 							this,
 							std::tr1::placeholders::_1
 						),
-						SGE_TEXT("list available functions")
+						FCPPT_TEXT("list available functions")
 					)
 				)
 			)
 			(
-				sge::signal::shared_connection(
+				fcppt::signal::shared_connection(
 					object_.insert(
-						SGE_TEXT("lsfuncs"),
+						FCPPT_TEXT("lsfuncs"),
 						std::tr1::bind(
 							&stdlib::fn_help,
 							this,
 							std::tr1::placeholders::_1
 						),
-						SGE_TEXT("list available functions")
+						FCPPT_TEXT("list available functions")
 					)
 				)
 			)
 			(
-				sge::signal::shared_connection(
+				fcppt::signal::shared_connection(
 					object_.insert(
-						SGE_TEXT("lsvars"),
+						FCPPT_TEXT("lsvars"),
 						std::tr1::bind(
 							&stdlib::fn_lsvars,
 							this,
 							std::tr1::placeholders::_1
 						),
-						SGE_TEXT("list available variables with values")
+						FCPPT_TEXT("list available variables with values")
 					)
 				)
 			)
 			(
-				sge::signal::shared_connection(
+				fcppt::signal::shared_connection(
 					object_.insert(
-						SGE_TEXT("man"),
+						FCPPT_TEXT("man"),
 						std::tr1::bind(
 							&stdlib::fn_man,
 							this,
 							std::tr1::placeholders::_1
 						),
-						SGE_TEXT("usage: man <function> - display help to <function>")
+						FCPPT_TEXT("usage: man <function> - display help to <function>")
 					)
 				)
 			)
@@ -126,34 +128,34 @@ void sge::console::stdlib::fn_get(arg_list const &v)
 {
 	if (v.size() == 1 || v[1].empty())
 	{
-		error_(SGE_TEXT("no variable given"));
+		error_(FCPPT_TEXT("no variable given"));
 		return;
 	}
-	string const arg = v[1];
+	fcppt::string const arg = v[1];
 	variable_map const &vars = object_.variables();
 	variable_map::const_iterator i = vars.find(arg);
 	if (i == vars.end())
 	{
-		error_(SGE_TEXT("variable ")+arg+SGE_TEXT(" not found"));
+		error_(FCPPT_TEXT("variable ")+arg+FCPPT_TEXT(" not found"));
 		return;
 	}
-	print_(arg+SGE_TEXT('=')+(i->second->string()));
+	print_(arg+FCPPT_TEXT('=')+(i->second->string()));
 }
 
 void sge::console::stdlib::fn_set(arg_list const &v)
 {
 	if (v.size() < 3 || v[1].empty())
 	{
-		error_(SGE_TEXT("not enough arguments or empty variable name"));
+		error_(FCPPT_TEXT("not enough arguments or empty variable name"));
 		return;
 	}
-	string const arg = v[1];
-	string const value = v[2];
+	fcppt::string const arg = v[1];
+	fcppt::string const value = v[2];
 	variable_map &vars = object_.variables();
 	variable_map::iterator i = vars.find(arg);
 	if (i == vars.end())
 	{
-		error_(SGE_TEXT("variable ")+arg+SGE_TEXT(" not found"));
+		error_(FCPPT_TEXT("variable ")+arg+FCPPT_TEXT(" not found"));
 		return;
 	}
 	try
@@ -162,17 +164,24 @@ void sge::console::stdlib::fn_set(arg_list const &v)
 	}
 	catch (exception const &e)
 	{
-		error_(SGE_TEXT("error: ")+e.string());
+		error_(FCPPT_TEXT("error: ")+e.string());
 		return;
 	}
-	print_(arg+SGE_TEXT('=')+(i->second->string()));
+	print_(arg+FCPPT_TEXT('=')+(i->second->string()));
 }
 
 void sge::console::stdlib::fn_help(arg_list const &)
 {
 	function_map const &fns = object_.functions();
 
-	print_(lexical_cast<string>(fns.size())+SGE_TEXT(" available functions:"));
+	print_(
+		fcppt::lexical_cast<
+			fcppt::string
+		>(
+			fns.size()
+		)
+		+ FCPPT_TEXT(" available functions:")
+	);
 
 	BOOST_FOREACH(function_map::const_reference p,fns)
 		print_function(p);
@@ -182,27 +191,34 @@ void sge::console::stdlib::fn_lsvars(arg_list const &)
 {
 	variable_map const &vars = object_.variables();
 
-	print_(lexical_cast<string>(vars.size())+SGE_TEXT(" available variables:"));
+	print_(
+		fcppt::lexical_cast<
+			fcppt::string
+		>(
+			vars.size()
+		)
+		+ FCPPT_TEXT(" available variables:")
+	);
 
 	BOOST_FOREACH(variable_map::const_reference p,vars)
-		print_(p.first+SGE_TEXT('=')+p.second->string());
+		print_(p.first+FCPPT_TEXT('=')+p.second->string());
 }
 
 void sge::console::stdlib::fn_man(arg_list const &v)
 {
 	if (v.size() < 2 || v[1].empty())
 	{
-		error_(SGE_TEXT("no function given"));
+		error_(FCPPT_TEXT("no function given"));
 		return;
 	}
-	
+
 	function_map const &fns = object_.functions();
 
 	function_map::const_iterator i = fns.find(v[1]);
 
 	if (i == fns.end())
 	{
-		error_(SGE_TEXT("function \"")+v[1]+SGE_TEXT("\" not found"));
+		error_(FCPPT_TEXT("function \"")+v[1]+FCPPT_TEXT("\" not found"));
 		return;
 	}
 
@@ -214,5 +230,5 @@ void sge::console::stdlib::print_function(function_map::const_reference p)
 	if (p.second->description().empty())
 		print_(p.first);
 	else
-		print_(p.first+SGE_TEXT(": ")+p.second->description());
+		print_(p.first+FCPPT_TEXT(": ")+p.second->description());
 }

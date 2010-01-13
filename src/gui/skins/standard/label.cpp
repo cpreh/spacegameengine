@@ -26,24 +26,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/canvas/object.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/gui/unit.hpp>
-#include <sge/math/dim/output.hpp>
-#include <sge/math/box/basic_impl.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/text_size.hpp>
 #include <sge/image/colors.hpp>
-#include <sge/log/parameters/inherited.hpp>
-#include <sge/log/object.hpp>
-#include <sge/log/headers.hpp>
-#include <sge/assert.hpp>
-#include <sge/text.hpp>
+#include <fcppt/math/dim/output.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/log/parameters/inherited.hpp>
+#include <fcppt/log/object.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/text.hpp>
 
 namespace
 {
 
-sge::log::object mylogger(
-	sge::log::parameters::inherited(
+fcppt::log::object mylogger(
+	fcppt::log::parameters::inherited(
 		sge::gui::global_log(),
-		SGE_TEXT("skins::standard::label")
+		FCPPT_TEXT("skins::standard::label")
 	)
 );
 
@@ -55,9 +54,9 @@ void sge::gui::skins::standard::draw(
 {
 	resize_buffer(b);
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("creating canvas from buffer"));
+		fcppt::log::_ << FCPPT_TEXT("creating canvas from buffer"));
 
 	canvas::object c(b.buffer());
 
@@ -70,17 +69,17 @@ void sge::gui::skins::standard::draw(
 		*/
 	c.draw_rect(
 		rect(
-			rect::pos_type::null(),
+			rect::vector::null(),
 			c.size()
 		),
 		sge::image::colors::transparent(),
 		canvas::rect_type::solid);
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("drawing text (label \"")
+		fcppt::log::_ << FCPPT_TEXT("drawing text (label \"")
 		        << b.text()
-		        << SGE_TEXT("\")"));
+		        << FCPPT_TEXT("\")"));
 
 	// draw text centered
 	c.draw_text(
@@ -91,11 +90,11 @@ void sge::gui::skins::standard::draw(
 		b.align_h(),
 		b.align_v());
 
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("blitting (label \"")
+		fcppt::log::_ << FCPPT_TEXT("blitting (label \"")
 		        << b.text()
-		        << SGE_TEXT("\")"));
+		        << FCPPT_TEXT("\")"));
 
 	blit_invalid(
 		b,
@@ -107,14 +106,14 @@ void sge::gui::skins::standard::draw(
 sge::gui::dim const sge::gui::skins::standard::optimal_size(
 	widgets::label const &b) const
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		mylogger,
-		log::_ << SGE_TEXT("calling size hint for label"));
+		fcppt::log::_ << FCPPT_TEXT("calling size hint for label"));
 
-	return 
+	return
 		utility::unlimited_text_size(
 			standard_font().metrics(),
-			b.static_size() 
-				? utility::string_square(*b.static_size()) 
+			b.static_size()
+				? utility::string_square(*b.static_size())
 				: b.text());
 }

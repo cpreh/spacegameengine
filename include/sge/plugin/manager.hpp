@@ -21,10 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_MANAGER_HPP_INCLUDED
 #define SGE_PLUGIN_MANAGER_HPP_INCLUDED
 
+#include <sge/plugin/manager_fwd.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/category_array.hpp>
-#include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <sge/plugin/context_base_fwd.hpp>
+#include <sge/plugin/context_fwd.hpp>
+#include <sge/plugin/iterator_fwd.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <vector>
 #include <map>
 #include <cstddef>
@@ -34,40 +38,53 @@ namespace sge
 namespace plugin
 {
 
-class context_base;
+class manager
+{
+	typedef std::vector<
+		context_base
+	> plugin_array;
 
-template<typename T>
-class context;
+	typedef std::map<
+		capabilities::type,
+		category_array
+	> plugin_map;
 
-template<typename T>
-class iterator;
-
-class manager {
-	typedef std::vector<context_base> plugin_array;
-	typedef std::map<capabilities::type, category_array> plugin_map;
-
-	SGE_NONCOPYABLE(manager)
+	FCPPT_NONCOPYABLE(manager)
 public:
 	typedef std::size_t size_type;
 
 	SGE_SYMBOL manager();
+
 	SGE_SYMBOL ~manager();
 
-	template<typename T>
-	SGE_SYMBOL iterator<T> begin();
+	template<
+		typename T
+	>
+	SGE_SYMBOL iterator<T>
+	begin();
 
-	template<typename T>
-	SGE_SYMBOL iterator<T> end();
+	template<
+		typename T
+	>
+	SGE_SYMBOL iterator<T>
+	end();
 
-	template<typename T>
+	template<
+		typename T
+	>
 	SGE_SYMBOL context<T>
 	plugin(
-		size_type index = 0);
+		size_type index = 0
+	);
 
-	template<typename T>
-	SGE_SYMBOL size_type size() const;
+	template<
+		typename T
+	>
+	SGE_SYMBOL size_type
+	size() const;
 private:
 	plugin_array plugins;
+
 	plugin_map categories;
 };
 

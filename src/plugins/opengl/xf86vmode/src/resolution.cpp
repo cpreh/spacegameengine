@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../resolution.hpp"
 #include <sge/x11/display.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::opengl::xf86vmode::resolution::resolution(
 	x11::display_ptr const dsp,
@@ -40,7 +40,7 @@ sge::opengl::xf86vmode::resolution::resolution(
 			&new_mode))
 	== False)
 		throw exception(
-			SGE_TEXT("XF86VidModeSwitchToMode() failed!"));
+			FCPPT_TEXT("XF86VidModeSwitchToMode() failed!"));
 
 	XF86VidModeSetViewPort(
 		dsp->get(),

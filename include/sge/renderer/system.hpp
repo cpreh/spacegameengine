@@ -21,39 +21,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_SYSTEM_HPP_INCLUDED
 #define SGE_RENDERER_SYSTEM_HPP_INCLUDED
 
+#include <sge/renderer/system_fwd.hpp>
 #include <sge/renderer/adapter_type.hpp>
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/window/instance_fwd.hpp>
-#include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/parameters_fwd.hpp>
+#include <sge/window/instance_ptr.hpp>
+#include <sge/window/parameters_fwd.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
-namespace window
-{
-class parameters;
-}
-
 namespace renderer
 {
 
-class parameters;
-
-class SGE_CLASS_SYMBOL system {
-	SGE_NONCOPYABLE(system)
+class SGE_CLASS_SYMBOL system
+{
+	FCPPT_NONCOPYABLE(system)
 protected:
 	SGE_SYMBOL system();
 public:
 	virtual device_ptr const
 	create_renderer(
-		parameters const &param,
-		adapter_type adapter,
-		window::instance_ptr wnd) = 0;
+		parameters const &,
+		adapter_type,
+		window::instance_ptr
+	) = 0;
 
 	virtual window::instance_ptr const
 	create_window(
 		window::parameters const &,
-		renderer::parameters const &) = 0;
+		renderer::parameters const &
+	) = 0;
 
 	SGE_SYMBOL virtual ~system();
 };

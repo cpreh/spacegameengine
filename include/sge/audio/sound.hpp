@@ -21,21 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_SOUND_HPP_INCLUDED
 #define SGE_AUDIO_SOUND_HPP_INCLUDED
 
+#include <sge/audio/sound_fwd.hpp>
 #include <sge/audio/unit.hpp>
 #include <sge/audio/point.hpp>
 #include <sge/audio/play_mode.hpp>
 #include <sge/audio/sound_status.hpp>
-#include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
-#include <boost/noncopyable.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace audio
 {
 
-class SGE_CLASS_SYMBOL sound {
-	SGE_NONCOPYABLE(sound)
+class SGE_CLASS_SYMBOL sound
+{
+	FCPPT_NONCOPYABLE(sound)
 protected:
 	SGE_SYMBOL sound();
 public:

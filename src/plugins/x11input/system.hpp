@@ -22,21 +22,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_SYSTEM_HPP_INCLUDED
 
 #include <X11/Xlib.h>
-#include <sge/x11/window_fwd.hpp>
+#include <sge/x11/window_ptr.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/callback.hpp>
-#include <sge/signal/object.hpp>
-#include <sge/signal/connection_manager.hpp>
+#include <sge/input/repeat_callback.hpp>
+#include <sge/input/key_pair_function.hpp>
+#include <sge/input/key_type_function.hpp>
+#include <sge/input/key_pair_fwd.hpp>
+#include <sge/input/key_type_fwd.hpp>
+#include <fcppt/signal/object.hpp>
+#include <fcppt/signal/connection_manager.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
 namespace sge
 {
-namespace input
-{
-class key_pair;
-class key_type;
-}
-
 namespace x11input
 {
 
@@ -47,11 +47,11 @@ public:
 	explicit system(
 		x11::window_ptr wnd);
 private:
-	signal::auto_connection
+	fcppt::signal::auto_connection
 	register_callback(
 		input::callback const &c);
 
-	signal::auto_connection
+	fcppt::signal::auto_connection
 	register_repeat_callback(
 		input::repeat_callback const &c);
 
@@ -62,24 +62,29 @@ private:
 		input::key_pair const &);
 	void emit_repeat_callback(
 		input::key_type const &);
-	
+
 	void on_key_event(XEvent const &);
 	void on_acquire(XEvent const &);
 	void on_release(XEvent const &);
 
 	x11::window_ptr const wnd;
 	bool                  acquired;
-	
+
 	typedef boost::ptr_vector<
 		device
 	> device_vector;
 
 	device_vector devices;
 
-	signal::connection_manager connections;
+	fcppt::signal::connection_manager connections;
 
-	typedef signal::object<input::key_pair_fun> signal_type;
-	typedef signal::object<input::key_type_fun> repeat_signal_type;
+	typedef fcppt::signal::object<
+		input::key_pair_function
+	> signal_type;
+
+	typedef fcppt::signal::object<
+		input::key_type_function
+	> repeat_signal_type;
 
 	signal_type        sig;
 	repeat_signal_type repeat_sig;

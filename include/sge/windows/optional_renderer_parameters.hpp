@@ -22,14 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_WINDOWS_OPTIONAL_RENDERER_PARAMETERS_HPP_INCLUDED
 
 #include <sge/renderer/parameters.hpp>
-#include <sge/optional_fwd.hpp>
+#include <fcppt/optional_fwd.hpp>
 
 namespace sge
 {
 namespace windows
 {
 
-typedef optional<
+typedef fcppt::optional<
 	renderer::parameters
 > optional_renderer_parameters;
 

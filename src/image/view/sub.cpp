@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/view/sub.hpp>
-#include <sge/math/box/basic_impl.hpp>
-#include <sge/variant/apply_unary.hpp>
-#include <sge/variant/object_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <mizuiro/image/sub_view.hpp>
 
 namespace
@@ -45,7 +45,7 @@ public:
 
 	explicit visitor(
 		sge::image::rect const &);
-	
+
 	template<
 		typename T
 	>
@@ -95,7 +95,7 @@ sub_impl(
 	sge::image::rect const &r
 )
 {
-	return sge::variant::apply_unary(
+	return fcppt::variant::apply_unary(
 		visitor<View>(
 			r
 		),
@@ -125,7 +125,7 @@ visitor<Result>::operator()(
 ) const
 {
 	// TODO: make this more generic!
-	
+
 	return mizuiro::image::sub_view(
 		v,
 		typename T::bound_type(

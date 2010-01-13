@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLSL_FORMAT_ERROR_HPP_INCLUDED
 #define SGE_OPENGL_GLSL_FORMAT_ERROR_HPP_INCLUDED
 
-#include <sge/container/raw_vector_impl.hpp>
-#include <sge/string.hpp>
-#include <sge/iconv.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/iconv.hpp>
 
 namespace sge
 {
@@ -36,13 +36,13 @@ template<
 	typename Function,
 	typename Id
 >
-sge::string const
+fcppt::string const
 format_error(
 	Function const &function,
 	Id const &id
 )
 {
-	typedef container::raw_vector<
+	typedef fcppt::container::raw_vector<
 		char
 	> errorlog_array;
 
@@ -82,7 +82,7 @@ format_error(
 
 			continue;
 		}
-	
+
 		errorlog.resize(
 			static_cast<
 				errorlog_array::size_type
@@ -93,7 +93,7 @@ format_error(
 
 		errorlog.push_back(0);
 
-		return sge::iconv(
+		return fcppt::iconv(
 			errorlog.data()
 		);
 	}

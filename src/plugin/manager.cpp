@@ -19,28 +19,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "version_fun.hpp"
-#include <sge/config.h>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/context_base.hpp>
-#include <sge/log/headers.hpp>
 #include <sge/log/global.hpp>
 #include <sge/library/function_not_found.hpp>
-#include <sge/filesystem/directory_iterator.hpp>
-#include <sge/filesystem/is_directory.hpp>
-#include <sge/filesystem/extension.hpp>
 #include <sge/config/plugin_path.hpp>
-#include <sge/iconv.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/filesystem/directory_iterator.hpp>
+#include <fcppt/filesystem/is_directory.hpp>
+#include <fcppt/filesystem/extension.hpp>
+#include <fcppt/iconv.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/config.h>
 #include <boost/foreach.hpp>
 
-sge::char_type const *const plugin_extension =
-#ifdef SGE_DARWIN_PLATFORM
-	SGE_TEXT(".dylib")
-#elif SGE_POSIX_PLATFORM
-	SGE_TEXT(".so")
-#elif SGE_WINDOWS_PLATFORM
-	SGE_TEXT(".dll")
+fcppt::char_type const *const plugin_extension =
+#ifdef FCPPT_DARWIN_PLATFORM
+	FCPPT_TEXT(".dylib")
+#elif FCPPT_POSIX_PLATFORM
+	FCPPT_TEXT(".so")
+#elif FCPPT_WINDOWS_PLATFORM
+	FCPPT_TEXT(".dll")
 #else
 #error "Don't know which plugin extension to use!"
 #endif
@@ -48,17 +48,17 @@ sge::char_type const *const plugin_extension =
 
 sge::plugin::manager::manager()
 {
-	SGE_LOG_DEBUG(
+	FCPPT_LOG_DEBUG(
 		log::global(),
-		log::_
-			<< SGE_TEXT("Scanning for plugins in ")
+		fcppt::log::_
+			<< FCPPT_TEXT("Scanning for plugins in ")
 			<< config::plugin_path()
 	);
 
-	filesystem::directory_iterator const end;
+	fcppt::filesystem::directory_iterator const end;
 
 	for(
-		filesystem::directory_iterator it(
+		fcppt::filesystem::directory_iterator it(
 			config::plugin_path()
 		);
 		it != end;
@@ -66,17 +66,17 @@ sge::plugin::manager::manager()
 	)
 	{
 		if(
-			filesystem::is_directory(*it)
-			|| filesystem::extension(*it) != plugin_extension
+			fcppt::filesystem::is_directory(*it)
+			|| fcppt::filesystem::extension(*it) != plugin_extension
 		)
 		{
-			SGE_LOG_WARNING(
+			FCPPT_LOG_WARNING(
 				log::global(),
-				log::_
+				fcppt::log::_
 					<< it->path().string()
-					<< SGE_TEXT(" does not have the extension ")
+					<< FCPPT_TEXT(" does not have the extension ")
 					<< plugin_extension
-					<< SGE_TEXT(" and thus is ignored!")
+					<< FCPPT_TEXT(" and thus is ignored!")
 			);
 			continue;
 		}
@@ -93,27 +93,27 @@ sge::plugin::manager::manager()
 			library::function_not_found const &e
 		)
 		{
-			SGE_LOG_WARNING(
+			FCPPT_LOG_WARNING(
 				log::global(),
-				log::_
+				fcppt::log::_
 					<< it->path().string()
-					<< SGE_TEXT(" doesn't seem to be a valid sge plugin")
-					<< SGE_TEXT(" because the function \"")
-					<< iconv(e.func())
-					<< SGE_TEXT("\" is missing!")
+					<< FCPPT_TEXT(" doesn't seem to be a valid sge plugin")
+					<< FCPPT_TEXT(" because the function \"")
+					<< fcppt::iconv(e.func())
+					<< FCPPT_TEXT("\" is missing!")
 			);
 		}
 		catch(
 			exception const &e
 		)
 		{
-			SGE_LOG_WARNING(
+			FCPPT_LOG_WARNING(
 				log::global(),
-				log::_
+				fcppt::log::_
 					<< it->path().string()
-					<< SGE_TEXT(" failed to load: \"")
+					<< FCPPT_TEXT(" failed to load: \"")
 					<< e.string()
-					<< SGE_TEXT("\"!")
+					<< FCPPT_TEXT("\"!")
 			);
 		}
 	}
@@ -129,8 +129,11 @@ sge::plugin::manager::manager()
 		)
 		{
 			unsigned const type = ref.type();
+
 			if(type & i)
-				categories[static_cast<capabilities::type>(i)].push_back(&ref);
+				categories[
+					static_cast<capabilities::type>(i)
+				].push_back(&ref);
 		}
 }
 

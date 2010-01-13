@@ -20,11 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../viewport_pos.hpp"
 #include "../center_coordinate.hpp"
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/vector/arithmetic.hpp>
-#include <sge/math/dim/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::renderer::pixel_pos const
 sge::opengl::viewport_pos(
@@ -49,7 +49,7 @@ sge::opengl::viewport_pos(
 		return pos;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid viewport_mode!")
+			FCPPT_TEXT("Invalid viewport_mode!")
 		);
 	}
 }

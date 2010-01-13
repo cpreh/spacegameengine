@@ -21,17 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_VERSION_HPP_INCLUDED
 #define SGE_OPENGL_VERSION_HPP_INCLUDED
 
-#include <sge/string.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
 namespace opengl
 {
 
-void on_not_supported(
-	string const &function,
-	string const &min_version,
-	string const &possible_extension);
+void
+on_not_supported(
+	fcppt::string const &function,
+	fcppt::string const &min_version,
+	fcppt::string const &possible_extension
+);
 
 }
 }

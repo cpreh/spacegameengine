@@ -22,10 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../check_state.hpp"
 #include "../log.hpp"
 #include "../openal.hpp"
-#include <sge/math/vector/output.hpp>
-#include <sge/math/vector/basic_impl.hpp>
 #include <sge/audio/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/math/vector/output.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/log/headers.hpp>
+#include <fcppt/text.hpp>
 
 namespace
 {
@@ -40,7 +41,7 @@ void listener_fv(
 	);
 
 	SGE_OPENAL_CHECK_STATE(
-		SGE_TEXT("alListenerfv failed"),
+		FCPPT_TEXT("alListenerfv failed"),
 		sge::audio::exception
 	)
 }
@@ -56,15 +57,15 @@ sge::openal::listener::listener()
 
 void sge::openal::listener::vel(audio::point const &n)
 {
-	SGE_LOG_DEBUG(log(),log::_ << SGE_TEXT("setting listener velocity to ") << n);
+	FCPPT_LOG_DEBUG(log(),fcppt::log::_ << FCPPT_TEXT("setting listener velocity to ") << n);
 	vel_ = n;
 
-	// TODO: use sge::math::vector!
-	ALfloat const vec[3] = 
-		{ 
+	// TODO: use sge::fcppt::math::vector!
+	ALfloat const vec[3] =
+		{
 			static_cast<ALfloat>(n.x()),
 			static_cast<ALfloat>(n.y()),
-			static_cast<ALfloat>(n.z()) 
+			static_cast<ALfloat>(n.z())
 		};
 	listener_fv(
 		AL_VELOCITY,
@@ -79,13 +80,13 @@ sge::audio::point const sge::openal::listener::vel() const
 
 void sge::openal::listener::pos(audio::point const &n)
 {
-	SGE_LOG_DEBUG(log(),log::_ << SGE_TEXT("setting listener position to ") << n);
+	FCPPT_LOG_DEBUG(log(),fcppt::log::_ << FCPPT_TEXT("setting listener position to ") << n);
 	pos_ = n;
-	ALfloat const vec[3] = 
-		{ 
+	ALfloat const vec[3] =
+		{
 			static_cast<ALfloat>(n.x()),
 			static_cast<ALfloat>(n.y()),
-			static_cast<ALfloat>(n.z()) 
+			static_cast<ALfloat>(n.z())
 		};
 	listener_fv(
 		AL_POSITION,
@@ -100,14 +101,14 @@ sge::audio::point const sge::openal::listener::pos() const
 
 void sge::openal::listener::direction(audio::angle const &n)
 {
-	ALfloat const vec[6] = 
-		{ 
+	ALfloat const vec[6] =
+		{
 			static_cast<ALfloat>(n.forward().x()),
 			static_cast<ALfloat>(n.forward().y()),
 			static_cast<ALfloat>(n.forward().z()),
 			static_cast<ALfloat>(n.up().x()),
 			static_cast<ALfloat>(n.up().y()),
-			static_cast<ALfloat>(n.up().z()) 
+			static_cast<ALfloat>(n.up().z())
 		};
 
 	listener_fv(

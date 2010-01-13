@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/raw_value.hpp>
-#include <sge/container/bitfield/basic_decl.hpp>
-#include <sge/noncopyable.hpp>
+#include <fcppt/container/bitfield/basic_decl.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -42,7 +42,7 @@ template<
 	typename T = renderer::raw_value
 >
 class basic_buffer {
-	SGE_NONCOPYABLE(basic_buffer)
+	FCPPT_NONCOPYABLE(basic_buffer)
 public:
 	typedef renderer::size_type                  size_type;
 	typedef T                                    value_type;
@@ -50,7 +50,7 @@ public:
 	typedef value_type const                     *const_pointer;
 	typedef renderer::resource_flags_field       resource_flag_type;
 	typedef lock_method::type                    lock_flag_type;
-			
+
 	basic_buffer(
 		size_type sz,
 		size_type stride,
@@ -81,7 +81,7 @@ public:
 
 	static void unbind();
 	void bind_me() const;
-	
+
 	pointer
 	buffer_offset(
 		size_type offset) const;

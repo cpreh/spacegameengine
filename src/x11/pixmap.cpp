@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/pixmap.hpp>
 #include <sge/x11/display.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 namespace
 {
@@ -46,7 +46,7 @@ sge::x11::pixmap::pixmap(
 {
 	if(get() == None)
 		throw exception(
-			SGE_TEXT("XCreateBitmapFromData() failed!"));
+			FCPPT_TEXT("XCreateBitmapFromData() failed!"));
 }
 
 sge::x11::pixmap::~pixmap()

@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/cube_texture.hpp>
-#include <sge/math/box/basic_impl.hpp>
-#include <sge/math/quad.hpp>
-#include <sge/variant/object_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/quad.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 sge::image::view::object const
 sge::renderer::cube_texture::lock(
@@ -49,7 +49,7 @@ sge::renderer::cube_texture::lock(
 sge::renderer::cube_texture::size_type
 sge::renderer::cube_texture::content() const
 {
-	return math::quad(
+	return fcppt::math::quad(
 		border_size()
 	);
 }
@@ -58,8 +58,8 @@ sge::renderer::cube_texture::rect_type const
 sge::renderer::cube_texture::rect() const
 {
 	return rect_type(
-		rect_type::pos_type::null(),
-		rect_type::dim_type(
+		rect_type::vector::null(),
+		rect_type::dim(
 			border_size(),
 			border_size()
 		)

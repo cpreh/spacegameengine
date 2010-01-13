@@ -21,26 +21,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_FUNCTION_HPP_INCLUDED
 #define SGE_CONSOLE_FUNCTION_HPP_INCLUDED
 
-#include <sge/console/signals.hpp>
-#include <sge/export.hpp>
-#include <sge/string.hpp>
+#include <sge/console/signal.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
 namespace console
 {
-class SGE_CLASS_SYMBOL function
+
+class function
 {
-	public:
-	SGE_SYMBOL function(string const &);
+public:
+	SGE_SYMBOL explicit function(
+		fcppt::string const &
+	);
 
-	SGE_SYMBOL sge::console::signal &signal();
-	SGE_SYMBOL string const &description() const;
+	SGE_SYMBOL sge::console::signal &
+	signal();
 
-	private:
+	SGE_SYMBOL fcppt::string const &
+	description() const;
+private:
 	sge::console::signal signal_;
-	string description_;
+	fcppt::string description_;
 };
+
 }
 }
 

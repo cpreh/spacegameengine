@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../convert_nonindexed_primitive.hpp"
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 D3DPRIMITIVETYPE
 sge::d3d9::convert_nonindexed_primitive(
@@ -37,7 +37,7 @@ sge::d3d9::convert_nonindexed_primitive(
 		return D3DPT_TRIANGLEFAN;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid non indexed primitive type!")
+			FCPPT_TEXT("Invalid non indexed primitive type!")
 		);
 	}
 }

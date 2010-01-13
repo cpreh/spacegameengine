@@ -20,12 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../library.hpp"
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::freetype::library::library()
 {
 	if(FT_Init_FreeType(&impl))
-		throw exception(SGE_TEXT("FT_Init_FreeType() failed!"));
+		throw exception(FCPPT_TEXT("FT_Init_FreeType() failed!"));
 }
 
 sge::freetype::library::~library()

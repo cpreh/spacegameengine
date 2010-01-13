@@ -19,15 +19,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/time/second_f.hpp>
-#include <sge/time/resolution.hpp>
-#include <sge/time/time.hpp>
+#include <sge/time/unit.hpp>
+#include <boost/static_assert.hpp>
 
-sge::time::resolution const
+sge::time::duration const
 sge::time::second_f(
-	funit const tm)
+	funit const tm
+)
 {
-	return resolution(
-		static_cast<unit>(
-			tm * static_cast<funit>(
-				hz())));
+	BOOST_STATIC_ASSERT(
+		duration::period::num == 1
+	);
+
+	return
+		duration(
+			static_cast<
+				unit
+			>(
+				tm
+				* static_cast<
+				 	funit
+				>(
+					duration::period::den
+				)
+			)
+		);
 }

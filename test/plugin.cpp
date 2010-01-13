@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/context.hpp>
@@ -31,27 +30,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/system.hpp>
 #include <sge/model/loader.hpp>
 #include <sge/renderer/system.hpp>
-#include <sge/mpl/for_each.hpp>
 #include <sge/log/global.hpp>
-#include <sge/log/activate_levels.hpp>
 #include <sge/mainloop/catch_block.hpp>
-#include <sge/type_name.hpp>
-#include <sge/text.hpp>
-#include <sge/cout.hpp>
-#include <boost/mpl/vector.hpp>
+#include <fcppt/mpl/for_each.hpp>
+#include <fcppt/log/activate_levels.hpp>
+#include <fcppt/io/cout.hpp>
+#include <fcppt/type_name.hpp>
+#include <fcppt/text.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <typeinfo>
 
 namespace
 {
 
-struct print_plugins {
+struct print_plugins
+{
+	typedef void result_type;
+
 	explicit print_plugins(
-		sge::plugin::manager &);
+		sge::plugin::manager &
+	);
 
 	template<
 		typename T
 	>
-	void
+	result_type
 	operator()() const;
 private:
 	sge::plugin::manager &man;
@@ -62,14 +65,14 @@ private:
 int main()
 try
 {
-	sge::log::activate_levels(
+	fcppt::log::activate_levels(
 		sge::log::global(),
-		sge::log::level::debug
+		fcppt::log::level::debug
 	);
 
 	sge::plugin::manager man;
 
-	typedef boost::mpl::vector<
+	typedef boost::mpl::vector8<
 		sge::audio::loader,
 		sge::audio::player,
 		sge::collision::system,
@@ -80,7 +83,7 @@ try
 		sge::renderer::system
 	> plugins;
 
-	sge::mpl::for_each<
+	fcppt::mpl::for_each<
 		plugins
 	>(
 		print_plugins(
@@ -105,11 +108,11 @@ template<
 void
 print_plugins::operator()() const
 {
-	sge::cout
-		<< sge::type_name(
+	fcppt::io::cout
+		<< fcppt::type_name(
 			typeid(T)
 		)
-		<< SGE_TEXT('\n');
+		<< FCPPT_TEXT('\n');
 
 	for(
 		sge::plugin::iterator<T> it(
@@ -123,12 +126,12 @@ print_plugins::operator()() const
 			it->info()
 		);
 
-		sge::cout
-			<< SGE_TEXT("\tname: \"")
+		fcppt::io::cout
+			<< FCPPT_TEXT("\tname: \"")
 			<< base.name()
-			<< SGE_TEXT("\", description: \"")
+			<< FCPPT_TEXT("\", description: \"")
 			<< base.description()
-			<< SGE_TEXT("\"\n");
+			<< FCPPT_TEXT("\"\n");
 	}
 }
 

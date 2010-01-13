@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part_raw.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/sub_data.hpp>
-#include <sge/math/box/basic_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 
 sge::texture::part_raw::part_raw(
 	renderer::texture_ptr const tex,
-	renderer::lock_rect const &area_)
+	renderer::lock_rect const &area_
+)
 :
 	area_(area_),
 	tex(tex)
@@ -36,7 +37,7 @@ sge::texture::part_raw::part_raw(
 )
 :
 	area_(
-		renderer::lock_rect::pos_type::null(),
+		renderer::lock_rect::vector::null(),
 		tex->dim()
 	),
 	tex(tex)
@@ -45,8 +46,10 @@ sge::texture::part_raw::part_raw(
 sge::texture::part_raw::~part_raw()
 {}
 
-void sge::texture::part_raw::data(
-	image::view::const_object const &src)
+void
+sge::texture::part_raw::data(
+	image::view::const_object const &src
+)
 {
 	renderer::sub_data(
 		tex,
@@ -73,7 +76,8 @@ sge::texture::part_raw::texture() const
 	return tex;
 }
 
-bool sge::texture::part_raw::repeatable() const
+bool
+sge::texture::part_raw::repeatable() const
 {
-	return area().dim() == tex->dim();
+	return area().dimension() == tex->dim();
 }

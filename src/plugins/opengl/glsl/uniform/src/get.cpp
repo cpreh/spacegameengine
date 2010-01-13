@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../get.hpp"
 #include "../type.hpp"
 #include "../../init.hpp"
-#include <sge/variant/object_impl.hpp>
-#include <sge/container/raw_vector_impl.hpp>
-#include <sge/once.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/function_once.hpp>
+#include <fcppt/text.hpp>
 
 namespace
 {
@@ -121,7 +121,7 @@ get_impl(
 			location,
 			data.data() + i * elements
 		);
-	
+
 	return sge::renderer::glsl::uniform::value(
 		ValueType(
 			data,
@@ -187,7 +187,7 @@ sge::opengl::glsl::uniform::get(
 		);
 	default:
 		throw exception(
-			SGE_TEXT("Invalid variable type!")
+			FCPPT_TEXT("Invalid variable type!")
 		);
 	}
 }
@@ -197,7 +197,7 @@ namespace
 
 void initialize_getter()
 {
-	SGE_FUNCTION_ONCE
+	FCPPT_FUNCTION_ONCE
 	if(sge::opengl::glsl::is_native())
 	{
 		get_uniform_iv = glGetUniformiv;
@@ -229,7 +229,7 @@ element_count<
 		return 4;
 	default:
 		throw sge::exception(
-			SGE_TEXT("Invalid int type!")
+			FCPPT_TEXT("Invalid int type!")
 		);
 	}
 }
@@ -269,7 +269,7 @@ element_count<
 		return 12;
 	default:
 		throw sge::exception(
-			SGE_TEXT("Invalid float type!")
+			FCPPT_TEXT("Invalid float type!")
 		);
 	}
 }
@@ -295,7 +295,7 @@ to_type<
 		return ivt::int4;
 	default:
 		throw sge::exception(
-			SGE_TEXT("Invalid int element!")
+			FCPPT_TEXT("Invalid int element!")
 		);
 	}
 }
@@ -339,7 +339,7 @@ to_type<
 		return fvt::matrix4x3;
 	default:
 		throw sge::exception(
-			SGE_TEXT("Invalid float type!")
+			FCPPT_TEXT("Invalid float type!")
 		);
 	}
 }

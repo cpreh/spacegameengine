@@ -19,14 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/algorithm/copy_and_convert.hpp>
-#include <sge/variant/apply_binary.hpp>
-#include <sge/variant/object_impl.hpp>
+#include <fcppt/variant/apply_binary.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <mizuiro/image/algorithm/copy_and_convert.hpp>
 
 namespace
 {
 
-class visitor {
+class visitor
+{
 public:
 	typedef void result_type;
 
@@ -43,11 +44,13 @@ public:
 
 }
 
-void sge::image::algorithm::copy_and_convert(
+void
+sge::image::algorithm::copy_and_convert(
 	view::const_object const &src,
-	view::object const &dest)
+	view::object const &dest
+)
 {
-	variant::apply_binary(
+	fcppt::variant::apply_binary(
 		visitor(),
 		src,
 		dest

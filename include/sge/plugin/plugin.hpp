@@ -21,31 +21,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_PLUGIN_HPP_INCLUDED
 #define SGE_PLUGIN_PLUGIN_HPP_INCLUDED
 
+#include <sge/plugin/plugin_fwd.hpp>
 #include <sge/plugin/traits.hpp>
 #include <sge/plugin/base.hpp>
 #include <sge/library/object.hpp>
-#include <sge/filesystem/path.hpp>
-#include <sge/noncopyable.hpp>
-#include <sge/shared_ptr.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
 namespace plugin
 {
 
-template<typename T>
-class plugin : public base {
-	SGE_NONCOPYABLE(plugin)
+template<
+	typename T
+>
+class plugin
+:
+	public base
+{
+	FCPPT_NONCOPYABLE(plugin)
 public:
-	typedef typename detail::traits<T>::loader_fun loader_fun;
-	typedef shared_ptr<plugin<T> > ptr_type;
+	typedef typename detail::traits<
+		T
+	>::loader_fun loader_fun;
+
+	typedef fcppt::shared_ptr<
+		plugin<
+			T
+		>
+	> ptr_type;
 
 	SGE_SYMBOL explicit plugin(
-		filesystem::path const &);
-	SGE_SYMBOL loader_fun get() const;
+		fcppt::filesystem::path const &
+	);
+
+	SGE_SYMBOL loader_fun
+	get() const;
 private:
 	library::object lib;
+
 	loader_fun const loader;
 };
 

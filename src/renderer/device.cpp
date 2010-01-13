@@ -33,8 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/format.hpp>
 #include <sge/image/view/dim.hpp>
 #include <sge/image/algorithm/copy_and_convert.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/algorithm/copy_n.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/algorithm/copy_n.hpp>
+#include <fcppt/assert.hpp>
 #include <boost/variant/apply_visitor.hpp>
 
 sge::renderer::texture_ptr const sge::renderer::device::no_texture;
@@ -47,12 +48,15 @@ sge::renderer::device::device()
 void
 sge::renderer::device::render(
 	const_vertex_buffer_ptr const vb,
-	nonindexed_primitive_type::type const ptype)
+	nonindexed_primitive_type::type const ptype
+)
 {
 	render(
 		vb,
-		0,
-		vb->size(),
+		first_vertex(0),
+		vertex_count(
+			vb->size()
+		),
 		ptype
 	);
 }
@@ -61,7 +65,8 @@ void
 sge::renderer::device::render(
 	const_vertex_buffer_ptr const vb,
 	const_index_buffer_ptr const ib,
-	indexed_primitive_type::type const ptype)
+	indexed_primitive_type::type const ptype
+)
 {
 	size_type const ipp(
 		indices_per_primitive(
@@ -69,18 +74,20 @@ sge::renderer::device::render(
 		)
 	);
 
-	SGE_ASSERT(
+	FCPPT_ASSERT(
 		ib->size() % ipp == 0
 	);
 
 	render(
 		vb,
 		ib,
-		0,
-		vb->size(),
+		first_vertex(0),
+		vertex_count(
+			vb->size()
+		),
 		ptype,
-		ib->size() / ipp,
-		0
+		primitive_count(ib->size() / ipp),
+		first_index(0)
 	);
 }
 
@@ -99,7 +106,7 @@ sge::renderer::device::create_texture(
 			flags
 		)
 	);
-	
+
 	scoped_texture_lock const lock(
 		tex,
 		lock_mode::writeonly
@@ -158,13 +165,13 @@ sge::renderer::device::create_vertex_buffer(
 			flags
 		)
 	);
-	
+
 	scoped_vertex_lock const lock(
 		vb,
 		lock_mode::writeonly
 	);
-	
-	algorithm::copy_n(
+
+	fcppt::algorithm::copy_n(
 		view.data(),
 		view.format().stride() * view.size(),
 		lock.value().data()
@@ -182,23 +189,25 @@ sge::renderer::device::create_index_buffer(
 	index_buffer_ptr const ib(
 		create_index_buffer(
 			index::view_format(
-				view),
+				view
+			),
 			index::view_size(
-				view),
+				view
+			),
 			flags
 		)
 	);
-	
+
 	scoped_index_lock const lock(
 		ib,
 		lock_mode::writeonly
 	);
-	
+
 	index::copy(
 		view,
 		lock.value()
 	);
-	
+
 	return ib;
 }
 

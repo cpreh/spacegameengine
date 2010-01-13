@@ -35,10 +35,12 @@ template<
 	typename Format
 >
 struct color
-: color_base<
+:
+color_base<
 	Format,
 	role::color
->{};
+>
+{};
 
 }
 }

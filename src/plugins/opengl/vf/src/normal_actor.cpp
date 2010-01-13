@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../check_state.hpp"
 #include <sge/renderer/vf/dynamic_ordered_element.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/text.hpp>
 
 sge::opengl::vf::normal_actor::normal_actor(
 	renderer::vf::dynamic_ordered_element const &e,
@@ -36,7 +36,7 @@ sge::opengl::vf::normal_actor::normal_actor(
 {
 	if(index() > 0)
 		throw renderer::exception(
-			SGE_TEXT("opengl does not support more than one normal type in the vertex format!")
+			FCPPT_TEXT("opengl does not support more than one normal type in the vertex format!")
 		);
 }
 
@@ -48,9 +48,9 @@ void sge::opengl::vf::normal_actor::operator()(
 		stride(),
 		pointer()
 	);
-	
+
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glNormalPointer failed"),
+		FCPPT_TEXT("glNormalPointer failed"),
 		sge::renderer::exception
 	)
 

@@ -19,16 +19,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/index/copy.hpp>
-#include <sge/variant/apply_binary.hpp>
-#include <sge/variant/object_impl.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/variant/apply_binary.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/text.hpp>
 #include <algorithm>
 
 namespace
 {
 
-class copy_visitor {
+class copy_visitor
+{
 public:
 	typedef void result_type;
 
@@ -38,7 +39,8 @@ public:
 	result_type
 	operator()(
 		T const &src,
-		T &dest) const
+		T &dest
+	) const
 	{
 		std::copy(
 			src.begin(),
@@ -54,10 +56,11 @@ public:
 	result_type
 	operator()(
 		T,
-		U) const
+		U
+	) const
 	{
 		throw sge::exception(
-			SGE_TEXT("Incompatible index::views in index::copy!")
+			FCPPT_TEXT("Incompatible index::views in index::copy!")
 		);
 	}
 };
@@ -67,9 +70,10 @@ public:
 void
 sge::renderer::index::copy(
 	const_view const &src,
-	view const &dest)
+	view const &dest
+)
 {
-	variant::apply_binary(
+	fcppt::variant::apply_binary(
 		copy_visitor(),
 		src,
 		dest

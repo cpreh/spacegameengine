@@ -21,16 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/canvas/object.hpp>
 #include <sge/gui/unit.hpp>
 #include <sge/gui/exception.hpp>
-#include <sge/math/signum.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/vector/arithmetic.hpp>
-#include <sge/math/vector/output.hpp>
-#include <sge/math/box/basic_impl.hpp>
-#include <sge/math/box/contains_point.hpp>
-#include <sge/math/box/output.hpp>
-#include <sge/text.hpp>
-#include <sge/lexical_cast.hpp>
-#include <tr1/functional>
+#include <fcppt/math/signum.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/math/vector/output.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/box/contains_point.hpp>
+#include <fcppt/math/box/output.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/lexical_cast.hpp>
 #include <algorithm>
 #include <cmath>
 #include <cstdlib>
@@ -43,12 +43,12 @@ template<
 	typename S,
 	typename F
 >
-sge::math::vector::basic<T, N, S> const
+fcppt::math::vector::basic<T, N, S> const
 apply(
-	sge::math::vector::basic<T, N, S> const &v,
+	fcppt::math::vector::basic<T, N, S> const &v,
 	F f)
 {
-	sge::math::vector::basic<T, N, S> newone = v;
+	fcppt::math::vector::basic<T, N, S> newone = v;
 	std::transform(newone.begin(),newone.end(),newone.begin(),f);
 	return newone;
 }
@@ -62,19 +62,19 @@ void sge::gui::canvas::object::draw_line(
 {
 	if (!contains_point(area(),a) || !contains_point(area(),b))
 		throw exception(
-			SGE_TEXT("tried to draw line from ")+
-			sge::lexical_cast<sge::string>(a)+
-			SGE_TEXT(" to ")+
-			sge::lexical_cast<sge::string>(b)+
-			SGE_TEXT(" in ")+
-			sge::lexical_cast<sge::string>(area()));
-	
+			FCPPT_TEXT("tried to draw line from ")+
+			fcppt::lexical_cast<fcppt::string>(a)+
+			FCPPT_TEXT(" to ")+
+			fcppt::lexical_cast<fcppt::string>(b)+
+			FCPPT_TEXT(" in ")+
+			fcppt::lexical_cast<fcppt::string>(area()));
+
 	// increment in each direction, is also diagonal step
- 	point const dd = apply(b-a,std::tr1::bind(&math::signum<unit>,std::tr1::placeholders::_1));
+	point const dd = apply(b-a,std::tr1::bind(&fcppt::math::signum<unit>,std::tr1::placeholders::_1));
 	// absolute distance between the points
 	point const d = apply(b-a,std::tr1::bind(static_cast<unit (*)(unit)>(std::abs),std::tr1::placeholders::_1));
 	// parallel step
-	point const pd = d.x() > d.y() 
+	point const pd = d.x() > d.y()
 		? point(dd.x(),static_cast<unit>(0)) : point(static_cast<unit>(0),dd.y());
 	// error values
 	unit const es = std::min(d.x(),d.y()),el = std::max(d.x(),d.y());
@@ -86,11 +86,11 @@ void sge::gui::canvas::object::draw_line(
 	draw_pixel(pos,color_);
 
 	unsigned count = 0;
- 
+
 	// t counts the pixels
-	for(unit t = static_cast<unit>(0),err = static_cast<unit>(el/2-es); 
-	    t < el; 
-	    t += 1,err -= es) 
+	for(unit t = static_cast<unit>(0),err = static_cast<unit>(el/2-es);
+	    t < el;
+	    t += 1,err -= es)
 	{
 		if(err < static_cast<unit>(0))
 			// make error term positive again, then do diagonal step

@@ -28,6 +28,9 @@ namespace sprite
 namespace intrusive
 {
 
+template<
+	typename Choices
+>
 class system;
 
 }

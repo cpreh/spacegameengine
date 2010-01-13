@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_SIZE_POLICY_HPP_INCLUDED
 #define SGE_GUI_SIZE_POLICY_HPP_INCLUDED
 
-#include <sge/container/bitfield/basic_impl.hpp>
 #include <sge/gui/export.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <cstddef>
 
 namespace sge
@@ -31,16 +31,16 @@ namespace gui
 {
 namespace axis_policy
 {
-enum internal_type 
-{ 
+enum internal_type
+{
 	none,
 	can_grow,
 	can_shrink,
 	should_grow,
-	size 
+	size
 };
 
-typedef container::bitfield::basic<
+typedef fcppt::container::bitfield::basic<
 	internal_type,
 	size
 > type;

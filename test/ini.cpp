@@ -18,23 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <sge/parse/ini/parse_range.hpp>
-#include <sge/string.hpp>
-#include <sge/cout.hpp>
-#include <sge/cerr.hpp>
-#include <sge/text.hpp>
+#include <fcppt/io/cout.hpp>
+#include <fcppt/io/cerr.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 #include <boost/foreach.hpp>
 #include <cstdlib>
 
 int main()
 {
-	sge::string const test(
-		SGE_TEXT("[blabla]\nfoo = 42\nconfuse=5\nbar=3.4\nimagepath=/tmp/test\n")
-		SGE_TEXT("[section2]\nblubb=bar\n")
+	fcppt::string const test(
+		FCPPT_TEXT("[blabla]\nfoo = 42\nconfuse=5\nbar=3.4\nimagepath=/tmp/test\n")
+		FCPPT_TEXT("[section2]\nblubb=bar\n")
 	);
 
-	sge::string::const_iterator beg(
+	fcppt::string::const_iterator beg(
 		test.begin()
 	);
 
@@ -46,7 +45,7 @@ int main()
 		result
 	))
 	{
-		sge::cerr << SGE_TEXT("failure\n");
+		fcppt::io::cerr << FCPPT_TEXT("failure\n");
 		return EXIT_FAILURE;
 	}
 
@@ -55,18 +54,21 @@ int main()
 		result
 	)
 	{
-		sge::cout << SGE_TEXT('[') << section.header << SGE_TEXT("]\n");
+		fcppt::io::cout
+			<< FCPPT_TEXT('[')
+			<< section.header
+			<< FCPPT_TEXT("]\n");
 
 		BOOST_FOREACH(
 			sge::parse::ini::entry_vector::const_reference entry,
 			section.entries
 		)
-			sge::cout
+			fcppt::io::cout
 				<< entry.name
-				<< SGE_TEXT(" = ")
+				<< FCPPT_TEXT(" = ")
 				<< entry.value
-				<< SGE_TEXT('\n');
+				<< FCPPT_TEXT('\n');
 
-		sge::cout << SGE_TEXT('\n');
+		fcppt::io::cout << FCPPT_TEXT('\n');
 	}
 }

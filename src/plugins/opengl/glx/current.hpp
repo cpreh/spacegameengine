@@ -22,25 +22,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GLX_CURRENT_HPP_INCLUDED
 
 #include "context_fwd.hpp"
-#include <sge/x11/display_fwd.hpp>
-#include <sge/noncopyable.hpp>
+#include <sge/x11/display_ptr.hpp>
+#include <sge/x11/window_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
-namespace x11
-{
-
-class window;
-
-}
-
 namespace opengl
 {
 namespace glx
 {
 
 class current {
-	SGE_NONCOPYABLE(current)
+	FCPPT_NONCOPYABLE(current)
 public:
 	current(
 		sge::x11::display_ptr,

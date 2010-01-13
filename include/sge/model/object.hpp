@@ -21,32 +21,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MODEL_OBJECT_HPP_INCLUDED
 #define SGE_MODEL_OBJECT_HPP_INCLUDED
 
+#include <sge/model/object_fwd.hpp>
 #include <sge/renderer/index/view.hpp>
 #include <sge/renderer/vf/dynamic_view_fwd.hpp>
+#include <sge/renderer/vf/dynamic_format_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/noncopyable.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
-namespace renderer
-{
-namespace vf
-{
-class dynamic_format;
-}
-}
 namespace model
 {
 
-class SGE_CLASS_SYMBOL object {
-	SGE_NONCOPYABLE(object)
+class SGE_CLASS_SYMBOL object
+{
+	FCPPT_NONCOPYABLE(object)
 protected:
 	SGE_SYMBOL object();
 public:
 	// very basic interface
 	// will need a lot more abstraction
-	
+
 	virtual renderer::vf::dynamic_format const
 	format() const = 0;
 
@@ -58,12 +55,14 @@ public:
 
 	virtual void
 	copy_vertices(
-		renderer::vf::dynamic_view const &) = 0;
-	
+		renderer::vf::dynamic_view const &
+	) = 0;
+
 	virtual void
 	copy_indices(
-		renderer::index::view const &) = 0;
-	
+		renderer::index::view const &
+	) = 0;
+
 	SGE_SYMBOL virtual ~object();
 };
 

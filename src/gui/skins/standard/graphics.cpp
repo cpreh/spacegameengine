@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widgets/graphics.hpp>
 #include <sge/gui/canvas/object.hpp>
 #include <sge/gui/unit.hpp>
-#include <sge/math/dim/output.hpp>
-#include <sge/assert.hpp>
-#include <sge/text.hpp>
+#include <fcppt/math/dim/output.hpp>
+#include <fcppt/assert.hpp>
+#include <fcppt/text.hpp>
 
 void sge::gui::skins::standard::draw(
 	widgets::graphics const &w,

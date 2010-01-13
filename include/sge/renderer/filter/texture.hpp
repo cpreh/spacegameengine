@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/filter/min.hpp>
 #include <sge/renderer/filter/mag.hpp>
 #include <sge/renderer/filter/anisotropy_type.hpp>
-#include <sge/export.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
@@ -40,7 +40,7 @@ public:
 		filter::min::type,
 		filter::mag::type,
 		anisotropy_type anisotropy_level = 0);
-	
+
 	SGE_SYMBOL filter::min::type min() const;
 	SGE_SYMBOL filter::mag::type mag() const;
 	SGE_SYMBOL anisotropy_type anisotropy() const;

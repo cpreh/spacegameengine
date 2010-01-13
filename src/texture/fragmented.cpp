@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/texture/fragmented.hpp>
 #include <sge/texture/manager.hpp>
-#include <sge/assert.hpp>
+#include <fcppt/assert.hpp>
 
 sge::texture::fragmented::fragmented()
 :
@@ -32,16 +32,19 @@ sge::texture::fragmented::~fragmented()
 
 void
 sge::texture::fragmented::return_fragment(
-	part const &p)
+	part const &p
+)
 {
 	on_return_fragment(p);
 
 	if(manager())
 	{
-		SGE_ASSERT(iter);
+		FCPPT_ASSERT(iter);
+
 		manager()->part_freed(
 			*iter,
-			*this);
+			*this
+		);
 	}
 }
 
@@ -53,7 +56,8 @@ sge::texture::fragmented::full() const
 
 void
 sge::texture::fragmented::manager(
-	texture::manager *const nman)
+	texture::manager *const nman
+)
 {
 	man = nman;
 }
@@ -66,7 +70,8 @@ sge::texture::fragmented::manager() const
 
 void
 sge::texture::fragmented::container_position(
-	detail::container_position const &nit)
+	detail::container_position const &nit
+)
 {
 	iter = nit;
 }

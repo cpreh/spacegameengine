@@ -21,17 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_BASE_FWD_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_BASE_FWD_HPP_INCLUDED
 
-#include <sge/shared_ptr.hpp>
-
 namespace sge
 {
 namespace renderer
 {
 
 class texture_base;
-
-typedef shared_ptr<texture_base>       texture_base_ptr;
-typedef shared_ptr<texture_base const> const_texture_base_ptr;
 
 }
 }

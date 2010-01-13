@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/renderer/parameters.hpp>
@@ -35,8 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/add_image.hpp>
 #include <sge/texture/default_creator_impl.hpp>
 #include <sge/texture/no_fragmented.hpp>
-#include <sge/sprite/object.hpp>
-#include <sge/sprite/parameters.hpp>
 #include <sge/image/loader.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/window/parameters.hpp>
@@ -44,16 +41,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/object.hpp>
 #include <sge/console/arg_list.hpp>
 #include <sge/console/gfx.hpp>
+#include <sge/console/sprite_parameters.hpp>
+#include <sge/console/sprite_object.hpp>
 #include <sge/console/stdlib.hpp>
+#include <sge/sprite/parameters_impl.hpp>
+#include <sge/sprite/object_impl.hpp>
 #include <sge/font/system.hpp>
-#include <sge/signal/scoped_connection.hpp>
 #include <sge/config/media_path.hpp>
-#include <sge/text.hpp>
 #include <sge/exception.hpp>
-#include <sge/cerr.hpp>
-#include <sge/cout.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/io/cerr.hpp>
+#include <fcppt/io/cout.hpp>
+#include <fcppt/text.hpp>
 #include <boost/foreach.hpp>
-#include <tr1/functional>
 #include <ostream>
 #include <cstdlib>
 
@@ -61,9 +62,12 @@ namespace
 {
 
 void fallback(
-	sge::string const &arg)
+	fcppt::string const &arg)
 {
-	sge::cout << SGE_TEXT("fallback called with argument:") << arg << SGE_TEXT('\n');
+	fcppt::io::cout
+		<< FCPPT_TEXT("fallback called with argument:")
+		<< arg
+		<< FCPPT_TEXT('\n');
 }
 
 void quit(bool &running,sge::console::arg_list const &)
@@ -81,7 +85,7 @@ try
 	sge::systems::instance const sys(
 		sge::systems::list()
 		(sge::window::parameters(
-			SGE_TEXT("sge console test")
+			FCPPT_TEXT("sge console test")
 		))
 		(sge::renderer::parameters(
 			sge::renderer::display_mode(
@@ -100,11 +104,11 @@ try
 		(sge::systems::parameterless::font)
 		(sge::systems::parameterless::image));
 
-	sge::console::object o(SGE_TEXT('/'));
-	
-	sge::signal::scoped_connection const c0(
+	sge::console::object o(FCPPT_TEXT('/'));
+
+	fcppt::signal::scoped_connection const c0(
 		o.insert(
-			SGE_TEXT("quit"),
+			FCPPT_TEXT("quit"),
 			std::tr1::bind(
 				&quit,
 				std::tr1::ref(
@@ -112,51 +116,69 @@ try
 				),
 				std::tr1::placeholders::_1
 			),
-			SGE_TEXT("quit test")
+			FCPPT_TEXT("quit test")
 		)
 	);
 
-	sge::signal::scoped_connection const c1(
+	fcppt::signal::scoped_connection const c1(
 		o.register_fallback(
 			&fallback
 		)
 	);
 
-	sge::image::file_ptr const 
+	sge::image::file_ptr const
 		image_bg(
 			sys.image_loader()->load(
-				sge::config::media_path()/SGE_TEXT("grass.png")));
+				sge::config::media_path()
+				/ FCPPT_TEXT("grass.png")
+			)
+		);
 
-	sge::texture::default_creator<sge::texture::no_fragmented> const 
+	sge::texture::default_creator<
+		sge::texture::no_fragmented
+	> const
 		creator(
 			sys.renderer(),
 			sge::image::color::format::rgba8,
-			sge::renderer::filter::linear);
+			sge::renderer::filter::linear
+		);
 
-	sge::texture::manager tex_man(sys.renderer(),creator);
+	sge::texture::manager tex_man(
+		sys.renderer(),
+		creator
+	);
 
-	sge::texture::const_part_ptr const 
+	sge::texture::const_part_ptr const
 		tex_bg(
 			sge::texture::add_image(
-				tex_man, 
-				image_bg));
+				tex_man,
+				image_bg
+			)
+		);
 
 	sge::console::gfx gfx_(
 		o,
 		sys.renderer(),
 		sge::image::colors::white(),
 		sys.font_system()->create_font(
-			sge::config::media_path()/SGE_TEXT("fonts")/SGE_TEXT("default.ttf"),
-			15),
+			sge::config::media_path()
+			/ FCPPT_TEXT("fonts")
+			/ FCPPT_TEXT("default.ttf"),
+			15
+		),
 		sys.input_system(),
-		sge::sprite::object(
-			sge::sprite::parameters()
+		sge::console::sprite_object(
+			sge::console::sprite_parameters()
+			.pos(
+				sge::console::sprite_object::point::null()
+			)
 			.texture(
 				tex_bg
 			)
 			.size(
-				sge::sprite::dim(400,300)
+				sge::console::sprite_object::dim(400,300)
 			)
+			.elements()
 		)
 	);
 
@@ -181,7 +203,7 @@ try
 	);
 
 	gfx_.active(true);
-	
+
 	while (running)
 	{
 		sge::mainloop::dispatch();
@@ -191,11 +213,11 @@ try
 }
 catch(sge::exception const &e)
 {
-	sge::cerr << e.string() << SGE_TEXT('\n');
+	fcppt::io::cerr << e.string() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }
 catch(std::exception const &e)
 {
-	sge::cerr << e.what() << SGE_TEXT('\n');
+	fcppt::io::cerr << e.what() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }

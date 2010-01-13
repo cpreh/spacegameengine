@@ -21,13 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/foreach.hpp>
 #include "../device.hpp"
 #include "../pbo.hpp"
-#include "../vertex_buffer.hpp"
 #include "../index_buffer.hpp"
 #include "../vertex_buffer.hpp"
 #include "../texture.hpp"
 #include "../cube_texture.hpp"
 #include "../volume_texture.hpp"
-#include "../convert_clear_bit.hpp"
 #include "../default_target.hpp"
 #include "../light.hpp"
 #include "../enable.hpp"
@@ -43,29 +41,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../material.hpp"
 #include "../glew.hpp"
 #include "../fbo_target.hpp"
-#include "../convert_primitive.hpp"
 #include "../fbo_projection.hpp"
 #include "../viewport.hpp"
 #include "../viewport_pos.hpp"
 #include "../background_dim.hpp"
 #include "../caps.hpp"
+#include "../convert/clear_bit.hpp"
+#include "../convert/indexed_primitive.hpp"
+#include "../convert/nonindexed_primitive.hpp"
+#include "../convert/light_index.hpp"
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/state/default.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/combine.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/dim/basic_impl.hpp>
-#include <sge/math/dim/structure_cast.hpp>
 #include <sge/window/instance.hpp>
-#include <sge/variant/apply_unary.hpp>
-#include <sge/make_shared_ptr.hpp>
-#include <sge/optional_impl.hpp>
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/text.hpp>
 #include <boost/cstdint.hpp>
-#include <tr1/functional>
 #include <sstream>
 
 sge::opengl::device::device(
@@ -92,7 +93,7 @@ sge::opengl::device::device(
 		false
 	),
 	projection_(
-		math::matrix::static_<float, 4, 4>::type::identity()
+		fcppt::math::matrix::static_<float, 4, 4>::type::identity()
 	),
 	viewport_mode_(
 		renderer::viewport_mode::centered_screen_size
@@ -102,10 +103,10 @@ sge::opengl::device::device(
 		param.mode().size()
 	),
 	default_target_(
-		make_shared_ptr<
+		fcppt::make_shared_ptr<
 			opengl::default_target
 		>(
-			math::dim::structure_cast<
+			fcppt::math::dim::structure_cast<
 				target::dim_type
 			>(
 				screen_size()
@@ -127,11 +128,11 @@ sge::opengl::device::device(
 	state(
 		renderer::state::default_()
 	);
-	
+
 	projection_internal();
 
 	reset_viewport_default();
-	
+
 	target_->bind_me();
 
 	//glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, 1);
@@ -145,7 +146,7 @@ void sge::opengl::device::begin_rendering()
 		| clear_bit(renderer::state::bool_::clear_stencil));
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glClear failed"),
+		FCPPT_TEXT("glClear failed"),
 		sge::renderer::exception
 	)
 }
@@ -160,7 +161,7 @@ sge::opengl::device::create_index_buffer(
 	switch(format) {
 	case renderer::index::format::i16:
 		return renderer::index_buffer_ptr(
-			make_shared_ptr<
+			fcppt::make_shared_ptr<
 				opengl::index_buffer<
 					boost::uint16_t
 				>
@@ -171,7 +172,7 @@ sge::opengl::device::create_index_buffer(
 		);
 	case renderer::index::format::i32:
 		return renderer::index_buffer_ptr(
-			make_shared_ptr<
+			fcppt::make_shared_ptr<
 				opengl::index_buffer<
 					boost::uint32_t
 				>
@@ -182,7 +183,7 @@ sge::opengl::device::create_index_buffer(
 		);
 	default:
 		throw exception(
-			SGE_TEXT("Invalid index::format!"));
+			FCPPT_TEXT("Invalid index::format!"));
 	}
 }
 
@@ -195,7 +196,7 @@ sge::opengl::device::create_texture(
 )
 {
 	return renderer::texture_ptr(
-		make_shared_ptr<
+		fcppt::make_shared_ptr<
 			opengl::texture
 		>(
 			dim,
@@ -214,7 +215,7 @@ sge::opengl::device::create_vertex_buffer(
 )
 {
 	return renderer::vertex_buffer_ptr(
-		make_shared_ptr<
+		fcppt::make_shared_ptr<
 			opengl::vertex_buffer
 		>(
 			format,
@@ -232,7 +233,7 @@ sge::opengl::device::create_volume_texture(
 	const renderer::volume_texture::resource_flag_type flags)
 {
 	/*return renderer::volume_texture_ptr(
-		make_shared_ptr<
+		fcppt::make_shared_ptr<
 			volume_texture
 		>(
 			src,
@@ -250,7 +251,7 @@ sge::opengl::device::create_cube_texture(
 )
 {
 	return renderer::cube_texture_ptr(
-		make_shared_ptr<
+		fcppt::make_shared_ptr<
 			cube_texture
 		>(
 			border_size,
@@ -291,25 +292,25 @@ sge::opengl::device::screen_size() const
 	return param.mode().size();
 }
 
-void sge::opengl::device::render(
+void
+sge::opengl::device::render(
 	renderer::const_vertex_buffer_ptr const vb,
 	renderer::const_index_buffer_ptr const ib,
-	renderer::size_type const first_vertex,
-	renderer::size_type const num_vertices,
+	renderer::first_vertex const first_vertex,
+	renderer::vertex_count const num_vertices,
 	renderer::indexed_primitive_type::type const ptype,
-	renderer::size_type const pcount,
-	renderer::size_type const first_index)
+	renderer::primitive_count const pcount,
+	renderer::first_index const first_index
+)
 {
 	if(!vb)
 		throw exception(
-			SGE_TEXT("vb may not be 0 for renderer::render!"));
+			FCPPT_TEXT("vb may not be 0 for renderer::render!"));
 	if(!ib)
 		throw exception(
-			SGE_TEXT("ib may not be 0 for renderer::render for indexed primitives!"));
+			FCPPT_TEXT("ib may not be 0 for renderer::render for indexed primitives!"));
 
 	vertex_buffer(vb);
-
-	GLenum const prim_type = convert_primitive(ptype);
 
 	index_buffer_base const & gl_ib(
 		dynamic_cast<
@@ -322,7 +323,9 @@ void sge::opengl::device::render(
 	gl_ib.bind_me();
 
 	glDrawElements(
-		prim_type,
+		convert::indexed_primitive(
+			ptype
+		),
 		static_cast<GLsizei>(
 			renderer::indices_per_primitive(
 				ptype
@@ -335,39 +338,43 @@ void sge::opengl::device::render(
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glDrawElements failed"),
+		FCPPT_TEXT("glDrawElements failed"),
 		sge::renderer::exception
 	)
 }
 
-void sge::opengl::device::render(
+void
+sge::opengl::device::render(
 	renderer::const_vertex_buffer_ptr const vb,
-	renderer::size_type const first_vertex,
-	renderer::size_type const num_vertices,
-	renderer::nonindexed_primitive_type::type const ptype)
+	renderer::first_vertex const first_vertex,
+	renderer::vertex_count const num_vertices,
+	renderer::nonindexed_primitive_type::type const ptype
+)
 {
 	if(!vb)
 		throw exception(
-			SGE_TEXT("vb may not be 0 for renderer::render!"));
+			FCPPT_TEXT("vb may not be 0 for renderer::render!"));
 
 	vertex_buffer(vb);
 
-	GLenum const prim_type = convert_primitive(ptype);
-
 	glDrawArrays(
-		prim_type,
+		convert::nonindexed_primitive(
+			ptype
+		),
 		static_cast<GLsizei>(first_vertex),
 		static_cast<GLint>(num_vertices)
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		SGE_TEXT("glDrawArrays failed"),
+		FCPPT_TEXT("glDrawArrays failed"),
 		sge::renderer::exception
 	)
 }
 
-void sge::opengl::device::state(
-	renderer::state::list const &states)
+void
+sge::opengl::device::state(
+	renderer::state::list const &states
+)
 {
 	split_states split(current_states);
 
@@ -377,15 +384,17 @@ void sge::opengl::device::state(
 	{
 		current_states.overwrite(s);
 
-		variant::apply_unary(
+		fcppt::variant::apply_unary(
 			visitor, s
 		);
 	}
 }
 
-void sge::opengl::device::push_state(
-	renderer::state::list const &states)
-{	
+void
+sge::opengl::device::push_state(
+	renderer::state::list const &states
+)
+{
 	state_levels.push(
 		current_states);
 
@@ -397,16 +406,24 @@ void sge::opengl::device::push_state(
 	);
 }
 
-void sge::opengl::device::pop_state()
+void
+sge::opengl::device::pop_state()
 {
 	state(state_levels.top());
 	state_levels.pop();
 }
 
-GLenum sge::opengl::device::clear_bit(
-	renderer::state::bool_::trampoline_type const &s) const
+GLenum
+sge::opengl::device::clear_bit(
+	renderer::state::bool_::trampoline_type const &s
+) const
 {
-	return current_states.get(s) ? convert_clear_bit(s) : 0;
+	return
+		current_states.get(s)
+		?
+			convert::clear_bit(s)
+		:
+			0;
 }
 
 void sge::opengl::device::material(
@@ -435,7 +452,7 @@ void sge::opengl::device::viewport(
 void sge::opengl::device::viewport_mode(
 	renderer::viewport_mode::type const mode)
 {
-	viewport_mode_ = mode;	
+	viewport_mode_ = mode;
 }
 
 void sge::opengl::device::transform(
@@ -474,12 +491,14 @@ void sge::opengl::device::target(
 		return;
 	}
 
-	shared_ptr<opengl::texture> const p(
-		dynamic_pointer_cast<opengl::texture>(
+	fcppt::shared_ptr<
+		opengl::texture
+	> const p(
+		fcppt::dynamic_pointer_cast<opengl::texture>(
 			ntarget
 		)
 	);
-	
+
 	fbo_target_ptr const ftarget = create_target();
 
 	ftarget->bind_texture(p);
@@ -490,14 +509,14 @@ void sge::opengl::device::target(
 	viewport(
 		renderer::viewport(
 			renderer::pixel_pos::null(),
-			math::dim::structure_cast<
+			fcppt::math::dim::structure_cast<
 				renderer::screen_size
 			>(
 				p->dim()
 			)
 		)
 	);
-	
+
 	projection_internal();
 }
 
@@ -507,9 +526,11 @@ sge::opengl::device::target() const
 	return target_;
 }
 
-void sge::opengl::device::texture(
+void
+sge::opengl::device::texture(
 	renderer::const_texture_base_ptr const tex,
-	renderer::stage_type const stage)
+	renderer::stage_type const stage
+)
 {
 	set_texture_level(stage);
 
@@ -520,17 +541,24 @@ void sge::opengl::device::texture(
 
 	if(!tex)
 		return;
+	
 	texture_base const &b = dynamic_cast<texture_base const &>(*tex);
 	enable(b.type());
 	b.bind_me();
 }
 
-void sge::opengl::device::enable_light(
+void
+sge::opengl::device::enable_light(
 	renderer::light_index const index,
-	bool const enable_)
+	bool const enable_
+)
 {
-	GLenum const glindex = convert_light_index(index);
-	enable(glindex, enable_);
+	enable(
+		convert::light_index(
+			index
+		),
+		enable_
+	);
 }
 
 void sge::opengl::device::light(
@@ -564,7 +592,7 @@ sge::opengl::device::create_glsl_program(
 	renderer::glsl::optional_string const &vs_source,
 	renderer::glsl::optional_string const &ps_source)
 {
-	return	
+	return
 		vs_source || ps_source
 		? glsl::create_program_impl(
 			vs_source,
@@ -586,7 +614,7 @@ sge::opengl::device::create_glsl_program(
 	osstream
 		vs_stream,
 		ps_stream;
-	
+
 	if(vs_source)
 		vs_stream << vs_source->get().rdbuf();
 	if(ps_source)
@@ -613,14 +641,16 @@ void sge::opengl::device::vertex_buffer(
 {
 	opengl::vertex_buffer const &
 		ovb = dynamic_cast<opengl::vertex_buffer const &>(
-			*vb);
+			*vb
+		);
+	
 	ovb.set_format();
 }
 
 sge::opengl::fbo_target_ptr const
 sge::opengl::device::create_target()
 {
-	return make_shared_ptr<
+	return fcppt::make_shared_ptr<
 		fbo_target
 	>();
 }
@@ -676,5 +706,5 @@ void sge::opengl::device::projection_internal()
 		? fbo_projection(
 			projection_)
 		: projection_);
-		
+
 }

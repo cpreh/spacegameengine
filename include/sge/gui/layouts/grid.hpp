@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_GUI_LAYOUTS_GRID_HPP_INCLUDED	
-#define SGE_GUI_LAYOUTS_GRID_HPP_INCLUDED	
+#ifndef SGE_GUI_LAYOUTS_GRID_HPP_INCLUDED
+#define SGE_GUI_LAYOUTS_GRID_HPP_INCLUDED
 
 #include <sge/gui/detail/grid_cache.hpp>
 #include <sge/gui/layouts/base.hpp>
@@ -29,13 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/size_policy.hpp>
 #include <sge/gui/unit.hpp>
 #include <sge/gui/axis_type.hpp>
-#include <sge/container/field.hpp>
-#include <sge/container/raw_vector.hpp>
-#include <sge/scoped_ptr.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/scoped_ptr.hpp>
 #include <boost/multi_array.hpp>
-#include <utility>
-#include <vector>
-#include <map>
 
 namespace sge
 {
@@ -49,7 +45,7 @@ public:
 	SGE_GUI_SYMBOL void compile_static();
 	SGE_GUI_SYMBOL dim const optimal_size() const;
 private:
-	typedef scoped_ptr<detail::grid_cache> cache_ptr;
+	typedef fcppt::scoped_ptr<detail::grid_cache> cache_ptr;
 	mutable cache_ptr cache_;
 
 	detail::grid_cache &valid_cache() const;
