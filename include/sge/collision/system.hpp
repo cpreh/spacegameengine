@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/collision/system_fwd.hpp>
 #include <sge/collision/world_ptr.hpp>
 #include <sge/collision/optional_box.hpp>
+#include <sge/collision/constraint.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_COLLISION_GROUP_HPP_INCLUDED
 
 #include <sge/collision/group_fwd.hpp>
-#include <sge/collision/shapes/base_fwd.hpp>
+#include <sge/collision/shapes/base_ptr.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
