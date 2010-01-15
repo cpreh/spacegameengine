@@ -30,8 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/collision/point.hpp>
 #include <sge/collision/satellite_ptr.hpp>
 #include <sge/collision/time_unit.hpp>
-#include <sge/collision/shapes/sphere_fwd.hpp>
-#include <sge/collision/shapes/box_fwd.hpp>
+#include <sge/collision/shapes/sphere_ptr.hpp>
+#include <sge/collision/shapes/box_ptr.hpp>
 #include <sge/collision/shapes/container.hpp>
 #include <sge/collision/shape_callback.hpp>
 #include <sge/collision/test_callback.hpp>
@@ -63,36 +63,42 @@ public:
 
 	virtual fcppt::signal::auto_connection
 	register_begin_callback(
-		shape_callback const &) = 0;
+		shape_callback const &
+	) = 0;
 		
-	virtual signal::auto_connection
+	virtual fcppt::signal::auto_connection
 	register_end_callback(
-		shape_callback const &) = 0;
+		shape_callback const &
+	) = 0;
 	
-	virtual signal::auto_connection
+	virtual fcppt::signal::auto_connection
 	register_solid_callback(
-		shape_callback const &) = 0;
+		shape_callback const &
+	) = 0;
 		
 	// NOTE: the body gets the (shared) ownership to the shapes!
 	virtual body_ptr const 
 	create_body(
 		shapes::container const &,
 		point const &,
-		point const &) = 0;
+		point const &
+	) = 0;
 	
 	virtual shapes::sphere_ptr const
 	create_sphere(
 		satellite_ptr,
 		unit radius,
 		solidity::type,
-		point const & = point::null()) = 0;
+		point const &
+	) = 0;
 
 	virtual shapes::box_ptr const
 	create_box(
 		satellite_ptr,
 		dim const &,
 		solidity::type,
-		point const & = point::null()) = 0;
+		point const &
+	) = 0;
 	
 	virtual group_ptr const 
 	create_group() = 0;
