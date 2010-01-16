@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_COLLISION_BODY_HPP_INCLUDED
 
 #include <sge/collision/body_fwd.hpp>
+#include <sge/collision/shapes/base_ptr.hpp>
 #include <sge/collision/point.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
@@ -43,14 +44,21 @@ public:
 	
 	virtual void 
 	position(
-		point const &) = 0;
+		point const &
+	) = 0;
 		
 	virtual point const 
 	linear_velocity() const = 0;
 	
 	virtual void 
 	linear_velocity(
-		point const &) = 0;
+		point const &
+	) = 0;
+	
+	virtual void
+	add_shape(
+		shapes::base_ptr
+	) = 0;
 		
 	SGE_SYMBOL virtual ~body();
 };
