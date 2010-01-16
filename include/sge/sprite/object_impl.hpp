@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/rotate_around.hpp>
 #include <sge/sprite/roles/use_rotation.hpp>
 #include <sge/sprite/roles/repetition.hpp>
+#include <sge/sprite/roles/texture_coordinates.hpp>
 #include <sge/sprite/roles/color.hpp>
 #include <sge/sprite/roles/texture.hpp>
 #include <sge/sprite/roles/order.hpp>
@@ -233,6 +234,19 @@ sge::sprite::object<Choices>::repetition() const
 			roles::repetition
 		>();
 }
+
+template<
+	typename Choices
+>
+typename sge::sprite::object<Choices>::texture_coordinates_type const
+sge::sprite::object<Choices>::texture_coordinates() const
+{
+	return
+		elements_. template get<
+			roles::texture_coordinates
+		>();
+}
+
 
 template<
 	typename Choices
@@ -464,6 +478,21 @@ sge::sprite::object<Choices>::repeat(
 		roles::repetition
 	>(
 		repeat_
+	);
+}
+
+template<
+	typename Choices
+>
+void
+sge::sprite::object<Choices>::texture_coordinates(
+	texture_coordinates_type const &coordinates_
+)
+{
+	elements_. template set<
+		roles::texture_coordinates
+	>(
+		coordinates_
 	);
 }
 

@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/depth_type.hpp>
 #include <sge/sprite/rotation_type.hpp>
 #include <sge/sprite/repetition_type.hpp>
+#include <sge/sprite/texture_coordinates.hpp>
 #include <sge/sprite/color.hpp>
 #include <sge/texture/part_ptr.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
@@ -88,6 +89,10 @@ public:
 	typedef typename sprite::repetition_type<
 		float_type
 	>::type repetition_type;
+
+	typedef typename sprite::texture_coordinates<
+		float_type
+	>::type texture_coordinates_type;
 
 	typedef typename sprite::point<
 		unit
@@ -159,6 +164,9 @@ public:
 	repetition_type
 	repetition() const;
 
+	texture_coordinates_type const
+	texture_coordinates() const;
+
 	color_type const
 	color() const;
 
@@ -229,6 +237,11 @@ public:
 	void
 	repeat(
 		repetition_type
+	);
+
+	void
+	texture_coordinates(
+		texture_coordinates_type const &
 	);
 
 	void
