@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/collision/shapes/base_fwd.hpp>
 #include <sge/collision/body_fwd.hpp>
+#include <sge/collision/satellite_fwd.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -44,6 +45,12 @@ public:
 	
 	virtual body *
 	parent_body() = 0;
+
+	virtual collision::satellite &
+	satellite() = 0;
+	
+	virtual collision::satellite const &
+	satellite() const = 0;
 	
 	// FIXME: technically you should have getters and setters for:
 	// solidity
