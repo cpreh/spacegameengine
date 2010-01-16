@@ -1,20 +1,24 @@
 #include "../joint.hpp"
+#include <ode/objects.h>
 
 sge::ode::joint::joint(
 	dJointID const _value)
 :
 	value_(
-		_value)
+		_value
+	)
 {
 }
 
 sge::ode::joint::~joint()
 {
 	dJointDestroy(
-		value_);
+		value_
+	);
 }
 
-dJointID sge::ode::joint::value() const
+dJointID
+sge::ode::joint::value() const
 {
 	return value_;
 }

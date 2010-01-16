@@ -34,14 +34,21 @@ sge::ode::group::group(
 {
 }
 
-void sge::ode::group::add(
-	collision::body_ptr const _body)
+void
+sge::ode::group::add(
+	collision::shapes::base_ptr const _body
+)
 {
+// FIXME!
+#if 0
 	dirty_ =
 		true;
 	dynamic_cast<body &>(
-		*_body).add_to_group(
-		*this);
+		*_body
+	).add_to_group(
+		*this
+	);
+#endif
 }
 
 void sge::ode::group::collides_with(

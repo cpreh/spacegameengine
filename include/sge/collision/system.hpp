@@ -44,7 +44,9 @@ public:
 	virtual world_ptr const
 	create_world(
 		optional_box const &,
-		constraint::type) = 0;
+		constraint::type
+	) = 0;
+
 	SGE_SYMBOL virtual ~system();
 };
 }

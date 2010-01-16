@@ -32,12 +32,14 @@ sge::ode::system::system()
 sge::collision::world_ptr const
 sge::ode::system::create_world(
 	collision::optional_box const &r,
-	collision::constraint::type const &c)
+	collision::constraint::type const c
+)
 {
 	return
 		fcppt::make_shared_ptr<world>(
 			r,
-			c);
+			c
+		);
 }
 
 sge::ode::system::~system()

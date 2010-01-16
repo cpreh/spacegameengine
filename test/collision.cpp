@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#if 0
 #include <sge/time/timer.hpp>
 #include <sge/time/sleep.hpp>
 #include <sge/time/second.hpp>
@@ -411,3 +412,6 @@ catch(std::exception const &e)
 	fcppt::io::cerr << e.what() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }
+#endif
+
+int main() {}

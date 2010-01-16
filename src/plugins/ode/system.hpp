@@ -35,7 +35,8 @@ public:
 	sge::collision::world_ptr const
 	create_world(
 		collision::optional_box const &,
-		collision::constraint::type);
+		collision::constraint::type
+	);
 
 	~system();
 };

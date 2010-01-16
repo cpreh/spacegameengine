@@ -23,11 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "transformer.hpp"
 #include "point.hpp"
 #include "group_id.hpp"
-#include "joint.hpp"
+#include "joint_fwd.hpp"
 #include <sge/collision/world.hpp>
 #include <sge/collision/optional_box.hpp>
 #include <sge/collision/callback_signal.hpp>
 #include <sge/collision/dim.hpp>
+#include <sge/collision/callback.hpp>
+#include <sge/collision/constraint.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/scoped_ptr.hpp>
@@ -46,50 +48,70 @@ class world
 public:
 	world(
 		collision::optional_box const &,
-		collision::constraint::type);
+		collision::constraint::type
+	);
 	
-	signal::auto_connection
+	fcppt::signal::auto_connection
 	register_test_callback(
-		collision::test_callback const &);
+		collision::test_callback const &
+	);
 
 	void
 	test_callback_combiner(
-		collision::test_callback_combiner const &);
+		collision::test_callback_combiner const &
+	);
 
 	fcppt::signal::auto_connection
 	register_begin_callback(
-		collision::callback const &);
+		collision::callback const &
+	);
 
 	fcppt::signal::auto_connection
 	register_end_callback(
-		collision::callback const &);
+		collision::callback const &
+	);
 
+	fcppt::signal::auto_connection
+	register_solid_callback(
+		collision::shape_callback const &
+	);
+	
 	collision::body_ptr const
 	create_body(
-		collision::satellite_ptr,
 		collision::shapes::container const &,
 		collision::point const &,
-		collision::point const &);
-	
+		collision::point const &
+	);
+
 	collision::shapes::sphere_ptr const
 	create_sphere(
-		collision::unit radius);
+		collision::satellite_ptr,
+		collision::unit radius,
+		collision::solidity::type,
+		collision::point const &
+	);
 
 	collision::shapes::box_ptr const
 	create_box(
-		collision::dim const &);
+		collision::satellite_ptr,
+		collision::dim const &,
+		collision::solidity::type,
+		collision::point const &
+	);
 	
 	collision::group_ptr const 
 	create_group();
 
 	void
 	update(
-		collision::time_unit delta);
+		collision::time_unit delta
+	);
 
 	void
 	collides_with(
 		collision::group_ptr,
-		collision::group_ptr);
+		collision::group_ptr
+	);
 
 	~world();
 private:
@@ -119,7 +141,7 @@ private:
 	object_map collisions_;
 	transformer transformer_;
 	unsigned long body_count_;
-	scoped_ptr<joint> plane_joint_;
+	fcppt::scoped_ptr<joint> plane_joint_;
 	
 	void step(
 		dReal);

@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../world.hpp"
 #include "../body.hpp"
 #include "../group.hpp"
+#include "../joint.hpp"
 #include "../shapes/sphere.hpp"
 #include "../shapes/box.hpp"
 #include "../shapes/container.hpp"
@@ -36,7 +37,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::ode::world::world(
 	collision::optional_box const &_r,
-	collision::constraint::type const &_c)
+	collision::constraint::type const _c
+)
 :
 	world_(
 		dWorldCreate()),
@@ -51,31 +53,49 @@ sge::ode::world::world(
 		fcppt::math::null<dReal>()),
 	collisions_(),
 	transformer_(
-		collision::optional_box())
-		//_r), disable transformer for now
+		collision::optional_box()
+	),
 	body_count_(
-		0),
+		0
+	),
 	plane_joint_(
-		_c == constraint::constrain_2d
+		_c == collision::constraint::constrain_2d
 		? 
 			new joint(
 				dJointCreatePlane2D(
 					world_, 
-					0);)
+					0
+				)
+			)
 		: 
-			0)
+			0
+		)
 {
+// FIXME
+#if 0
 	if (!_r)
 		throw sge::exception(FCPPT_TEXT("ode needs the optional box in the world"));
 
-	point const center = 
-		sge::math::structure_cast<point>(
+	point const center(
+		fcppt::math::vector::structure_cast<
+			point
+		>(
 			_r.pos() + 
-			sge::math::dim::structure_cast<collision::point>(
-				static_cast<collision::unit>(0.5)*_r.dim()));
-	dim const extents =
-		sge::math::structure_cast<dim>(
-			_r.dim());
+			fcppt::math::dim::structure_cast<
+				collision::point
+			>(
+				static_cast<collision::unit>(0.5)*_r.dim()
+			)
+		)
+	);
+
+	dim const extents(
+		fcppt::math::dim::structure_cast<
+			dim
+		>(
+			_r.dim()
+		)
+	);
 
 	space_ =
 		dQuadTreeSpaceCreate(
@@ -83,7 +103,7 @@ sge::ode::world::world(
 			center.data(),
 			extents.data(),
 			10);
-
+#endif
 	/*
 	dWorldSetAutoDisableFlag(
 		world_,
@@ -128,11 +148,12 @@ sge::ode::world::register_end_callback(
 
 sge::collision::body_ptr const
 sge::ode::world::create_body(
-	collision::satellite_ptr _satellite,
-	collision::shapes::container const &_shapes,
-	collision::point const &_position,
-	collision::point const &_linear_velocity)
+	collision::shapes::container const &,
+	collision::point const &,
+	collision::point const &
+)
 {
+#if 0
 	return
 		collision::body_ptr(
 			new body(
@@ -143,29 +164,42 @@ sge::ode::world::create_body(
 				_shapes,
 				_position,
 				_linear_velocity));
+#endif
 }
 
 sge::collision::shapes::sphere_ptr const
 sge::ode::world::create_sphere(
-	collision::unit const _radius)
+	collision::satellite_ptr,
+	collision::unit radius,
+	collision::solidity::type,
+	collision::point const &
+)
 {
+#if 0
 		collision::shapes::sphere_ptr(
 			new shapes::sphere(
 				transformer_,
 				space_,
 				_radius));
+#endif
 }
 
 sge::collision::shapes::box_ptr const
 sge::ode::world::create_box(
-	collision::dim const &_dim)
+	collision::satellite_ptr,
+	collision::dim const &,
+	collision::solidity::type,
+	collision::point const &
+)
 {
+#if 0
 	return 
 		collision::shapes::box_ptr(
 			new shapes::box(
 				transformer_,
 				space_,
 				_dim));
+#endif
 }
 
 sge::collision::group_ptr const 
@@ -219,7 +253,9 @@ sge::ode::world::~world()
 {
 	FCPPT_ASSERT_MESSAGE(
 		!body_count_,
-		SGE_TEXT("You've tried to delete a world before all of its bodys are dead"));
+		FCPPT_TEXT("You've tried to delete a world before all of its bodys are dead")
+	);
+
 	dSpaceDestroy(
 		space_);
 	dWorldDestroy(

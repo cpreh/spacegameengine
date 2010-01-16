@@ -32,16 +32,25 @@ class group
 	public collision::group
 {
 public:
-	group(
-		group_id);
+	explicit group(
+		group_id
+	);
 
-	void add(
-		collision::body_ptr);
-	void collides_with(
-		group const &);
+	void
+	add(
+		collision::shapes::base_ptr
+	);
 
-	group_id category() const;
-	group_id collides() const;
+	void
+	collides_with(
+		group const &
+	);
+
+	group_id
+	category() const;
+
+	group_id
+	collides() const;
 private:
 	group_id
 		category_,

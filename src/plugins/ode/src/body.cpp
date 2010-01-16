@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../body.hpp"
 #include "../shapes/base.hpp"
 #include "../world.hpp"
+#include "../joint.hpp"
 #include "../transformer_impl.hpp"
 #include <fcppt/math/vector/basic_decl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -60,7 +61,7 @@ sge::ode::body::body(
 		_linear_velocity);
 	if (world_.plane_joint_)
 		dJointAttach(
-			world_.plane_joint_.value(), 
+			world_.plane_joint_->value(), 
 			body_, 
 			0);
 }
