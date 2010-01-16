@@ -3,6 +3,7 @@ IF (WIN32)
 ENDIF ()
 
 
+FIND_PACKAGE(Bullet)
 FIND_PACKAGE(DevIL)
 FIND_PACKAGE(Freetype)
 FIND_PACKAGE(GLEW)
@@ -17,6 +18,12 @@ OPTION (ENABLE_BITMAP_FONT "Build the bitmap font plugin" OFF)
 OPTION (ENABLE_DINPUT "Build the Direct Input plugin" OFF)
 OPTION (ENABLE_MD3 "Build the md3 model loader plugin" ON)
 OPTION (ENABLE_WAVE "Build the wave loader plugin" ON)
+
+IF(BULLET_FOUND)
+	OPTION (ENABLE_BULLET "Build the bullet collision plugin" ON)
+ELSE()
+	OPTION (ENABLE_BULLET "Build the bullet collision plugin" OFF)
+ENDIF()
 
 IF(ODE_FOUND)
 	OPTION (ENABLE_ODE "Build the ode collision plugin" ON)
@@ -78,6 +85,10 @@ ENDIF ()
 IF(ENABLE_BITMAP_FONT)
 	ADD_SUBDIRECTORY (bitmapfont)
 ENDIF()
+
+IF(ENABLE_BULLET)
+	ADD_SUBDIRECTORY (bullet)
+ENDIF ()
 
 IF(ENABLE_D3D9)
 	ADD_SUBDIRECTORY (d3d9)
