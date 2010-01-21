@@ -90,25 +90,30 @@ sge::bullet::motion_state::setWorldTransform(
 			fcppt::log::_ 
 				<< FCPPT_TEXT("Shape is not position changer, so just assigning new position"));
 		position_  = new_position;
-		return;
 	}
-	
+	else
+	{
+		FCPPT_LOG_DEBUG(
+			mylogger,
+			fcppt::log::_ 
+				<< FCPPT_TEXT("Shape is position changer, old body position ")
+				<< position_
+				<< FCPPT_TEXT(", new body position: "));
+				
+		FCPPT_ASSERT(
+			meta_body_);
+
+		meta_body_->position(
+			position_ - relative_position_);
+			
+		position_ = 
+			new_position;
+	}
+		
 	FCPPT_LOG_DEBUG(
 		mylogger,
 		fcppt::log::_ 
-			<< FCPPT_TEXT("Shape is position changer, old body position ")
-			<< position_
-			<< FCPPT_TEXT(", new body position: "));
-			
-	FCPPT_ASSERT(
-		meta_body_);
-
-	meta_body_->position(
-		position_ - relative_position_);
-		
-	position_ = 
-		new_position;
-		
+			<< FCPPT_TEXT("Sending position_change"));
 	satellite_.position_change(
 		fcppt::math::vector::structure_cast<collision::point>(
 			position_));

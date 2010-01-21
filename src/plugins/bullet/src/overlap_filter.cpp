@@ -58,8 +58,8 @@ sge::bullet::overlap_filter::needBroadphaseCollision(
 				*b);
 	
 	// no "inner body" collisions
-	if (sa.has_meta_body() && sb.has_meta_body() && &(sa.meta_body()) == &(sb.meta_body()))
-		return false;
+	//if (sa.has_meta_body() && sb.has_meta_body() && &(sa.meta_body()) == &(sb.meta_body()))
+	//	return false;
 	return
 		test_callback_(
 			sa.satellite(),

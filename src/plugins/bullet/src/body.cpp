@@ -102,11 +102,14 @@ sge::bullet::body::add_shape(
 	shapes_.back()->meta_body(
 		*this);
 
-	if (!shapes_.back()->is_solid())
+	// If this shape is not solid _but_ there are no solid shapes and no nonsolids yet, then
+	// this shape will be the position changer (since it's the best choice)
+	if(
+	    !shapes_.back()->is_solid())
 	{
-		// If this shape is not solid _but_ there are no solid shapes yet, then
-		// this shape will be the position changer (since it's the best choice)
-		if (!solid_shapes_)
+		if(
+		    !solid_shapes_ && 
+		    shapes_.size() == static_cast<shape_container::size_type>(1))
 			shapes_.back()->is_position_changer(
 				true);
 		return;

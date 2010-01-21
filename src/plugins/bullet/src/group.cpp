@@ -36,6 +36,13 @@ void
 sge::bullet::group::add(
 	collision::shapes::base_ptr const s)
 {
+	FCPPT_LOG_DEBUG(
+		mylogger,
+		fcppt::log::_ 
+			<< FCPPT_TEXT("A shape of type ")
+			<< typeid(*s).name()
+			<< FCPPT_TEXT(" was added to group with category: ")
+			<< category_);
 	dynamic_cast<shapes::base &>(*s).add_to_group(
 		*this);
 }
