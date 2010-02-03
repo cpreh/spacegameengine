@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/chrono/microseconds.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/chrono/duration_cast.hpp>
-#include <fcppt/ratio.hpp>
 
 sge::time::duration const
 sge::time::microsecond(
