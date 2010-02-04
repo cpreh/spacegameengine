@@ -73,11 +73,13 @@ sge::bullet::shapes::base::base(
 		static_cast<group_id>(
 			0))
 {
+	/*
 	FCPPT_LOG_DEBUG(
 		mylogger,
 		fcppt::log::_ 
 			<< FCPPT_TEXT("created a shape at relative position ")
 			<< _relative_position);
+			*/
 			
 	body_.setUserPointer(
 		this);
@@ -150,10 +152,12 @@ sge::bullet::shapes::base::meta_body(
 	if (has_meta_body())
 		throw collision::shape_ambiguity();
 	
+	/*
 	FCPPT_LOG_DEBUG(
 		mylogger,
 		fcppt::log::_ 
 			<< FCPPT_TEXT("a meta body was assigned to a shape"));
+			*/
 	
 	meta_body_ = 
 		&_meta_body;
@@ -187,8 +191,10 @@ sge::bullet::shapes::base::meta_body(
 	// Why this? Well, if the body was static before, it got the ISLAND_SLEEPING tag. Now it's
 	// not static anymore, but bullet has a bug: It doesn't (re)set the activation state of new bodys if
 	// they happen to be non-static. So we do this here
-	body_.setActivationState(
-		ACTIVE_TAG);
+	body_.activate(
+		true);
+	//body_.setActivationState(
+	//	ACTIVE_TAG);
 		
 	if (in_world_)
 	{
@@ -206,11 +212,13 @@ sge::bullet::shapes::base::meta_body(
 			mask;
 	}
 	
+	/*
 	FCPPT_LOG_DEBUG(
 		mylogger,
 		fcppt::log::_ 
 			<< FCPPT_TEXT("setting shape's absolute position to ")
 			<< (_meta_body.position() + relative_position_));
+			*/
 		
 	// the position is now relative to the meta body
 	motion_state_.position(
@@ -259,11 +267,13 @@ void
 sge::bullet::shapes::base::meta_body_position(
 	point const &_position)
 {
+	/*
 	FCPPT_LOG_DEBUG(
 		mylogger,
 		fcppt::log::_ 
 			<< FCPPT_TEXT("setting shape's absolute position to ")
 			<< (_position + relative_position_));
+			*/
 		
 	motion_state_.position(
 		_position + relative_position_);
@@ -273,15 +283,19 @@ void
 sge::bullet::shapes::base::linear_velocity(
 	point const &_linear_velocity)
 {
+	/*
 	FCPPT_LOG_DEBUG(
 		mylogger,
 		fcppt::log::_ 
 			<< FCPPT_TEXT("setting shape's linear velocity to ")
 			<< _linear_velocity);
+			*/
 			
 	// setLinearVelocity is just an operator= call, it doesn't reactivate the body - sadly
-	body_.setActivationState(
-		ACTIVE_TAG);
+	body_.activate(
+		true);
+	//body_.setActivationState(
+	//	ACTIVE_TAG);
 	body_.setLinearVelocity(
 		convert::to_bullet(
 			point(
@@ -368,6 +382,12 @@ sge::bullet::shapes::base::insert_into_world()
 		queued_group_;
 	p.m_collisionFilterMask = 
 		queued_mask_;
+	
+	FCPPT_LOG_DEBUG(
+		mylogger,
+		fcppt::log::_ 
+			<< FCPPT_TEXT("Added a shape to the world, position is: ")
+			<< motion_state_.position());
 		
 	in_world_ = true;
 }

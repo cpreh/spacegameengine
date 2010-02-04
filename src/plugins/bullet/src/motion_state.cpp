@@ -54,11 +54,15 @@ void
 sge::bullet::motion_state::getWorldTransform(
 	btTransform &t) const
 {
+	/*
 	FCPPT_LOG_DEBUG(
 		mylogger,
 		fcppt::log::_ 
 			<< FCPPT_TEXT("Bullet body requests world transformation, returning: ")
 			<< position_);
+			*/
+	t.setBasis(
+		btMatrix3x3::getIdentity());
 	t.setOrigin(
 		convert::to_bullet(
 			position_));
@@ -74,12 +78,12 @@ sge::bullet::motion_state::setWorldTransform(
 			<< FCPPT_TEXT("Bullet sets world transform to: ")
 			<< 
 				convert::point_to_sge(
-					t.getOrigin())
+					t.getOrigin())/*
 			<< FCPPT_TEXT(", speed is ")
 			<< 
 				convert::point_to_sge(
-					body_.getLinearVelocity()));
-					
+					body_.getLinearVelocity())*/);
+	
 	point const &new_position = 
 		convert::point_to_sge(
 			t.getOrigin());
@@ -89,20 +93,24 @@ sge::bullet::motion_state::setWorldTransform(
 	// update the parent body's position? That's the one with the position changer attribute
 	if (!is_position_changer_)
 	{
+		/*
 		FCPPT_LOG_DEBUG(
 			mylogger,
 			fcppt::log::_ 
 				<< FCPPT_TEXT("Shape is not position changer, so just assigning new position"));
+				*/
 		position_  = new_position;
 	}
 	else
 	{
+		/*
 		FCPPT_LOG_DEBUG(
 			mylogger,
 			fcppt::log::_ 
 				<< FCPPT_TEXT("Shape is position changer, old body position ")
 				<< position_
 				<< FCPPT_TEXT(", new body position: "));
+				*/
 				
 		FCPPT_ASSERT(
 			meta_body_);
@@ -135,9 +143,10 @@ sge::bullet::motion_state::position(
 {
 	position_ = 
 		_position;
-	// bullet doesn't notice the position has changed until we reset its motion state (kind of a hack)
-	body_.setMotionState(
-		this);
+	getWorldTransform(
+		body_.getWorldTransform());
+	body_.setCenterOfMassTransform(
+		body_.getWorldTransform());
 	satellite_.position_change(
 		fcppt::math::vector::structure_cast<collision::point>(
 			position_));
