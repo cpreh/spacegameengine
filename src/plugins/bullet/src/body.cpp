@@ -34,7 +34,9 @@ sge::bullet::body::body(
 	position_(
 		_position),
 	linear_velocity_(
-		_linear_velocity)
+		_linear_velocity),
+	solid_shapes_(
+		0)
 {
 	FCPPT_LOG_DEBUG(
 		mylogger,
@@ -105,13 +107,26 @@ sge::bullet::body::add_shape(
 	// If this shape is not solid _but_ there are no solid shapes and no nonsolids yet, then
 	// this shape will be the position changer (since it's the best choice)
 	if(
-	    !shapes_.back()->is_solid())
+	  !shapes_.back()->is_solid())
 	{
 		if(
 		    !solid_shapes_ && 
 		    shapes_.size() == static_cast<shape_container::size_type>(1))
+		{
+			FCPPT_LOG_DEBUG(
+				mylogger,
+				fcppt::log::_ << FCPPT_TEXT("Setting position changer"));
+
 			shapes_.back()->is_position_changer(
 				true);
+
+		}
+		else
+		{
+			FCPPT_LOG_DEBUG(
+				mylogger,
+				fcppt::log::_ << FCPPT_TEXT("NOT Setting position changer"));
+		}
 		return;
 	}
 	

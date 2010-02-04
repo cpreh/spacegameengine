@@ -150,12 +150,10 @@ sge::bullet::body_manager::end(
 		return;
 	}
 	
-	/*
 	FCPPT_LOG_DEBUG(
 		mylogger,
 		fcppt::log::_ 
 			<< FCPPT_TEXT("Decreased refcount is zero."));
-			*/
 	
 	pairs_.erase(
 		i);
