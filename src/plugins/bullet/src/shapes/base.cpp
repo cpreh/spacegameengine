@@ -267,6 +267,8 @@ sge::bullet::shapes::base::linear_velocity(
 			<< FCPPT_TEXT("setting shape's linear velocity to ")
 			<< _linear_velocity);
 			
+	body_.setActivationState(
+		ACTIVE_TAG);
 	body_.setLinearVelocity(
 		convert::to_bullet(
 			_linear_velocity));
