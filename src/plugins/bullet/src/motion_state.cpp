@@ -74,7 +74,11 @@ sge::bullet::motion_state::setWorldTransform(
 			<< FCPPT_TEXT("Bullet sets world transform to: ")
 			<< 
 				convert::point_to_sge(
-					t.getOrigin()));
+					t.getOrigin())
+			<< FCPPT_TEXT(", speed is ")
+			<< 
+				convert::point_to_sge(
+					body_.getLinearVelocity()));
 					
 	point const &new_position = 
 		convert::point_to_sge(

@@ -177,6 +177,7 @@ sge::bullet::world::update(
 	world_.stepSimulation(
 		delta,
 		std::numeric_limits<int>::max(),
+		//2,
 		fixed_step);
 }
 

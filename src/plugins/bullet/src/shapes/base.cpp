@@ -267,11 +267,15 @@ sge::bullet::shapes::base::linear_velocity(
 			<< FCPPT_TEXT("setting shape's linear velocity to ")
 			<< _linear_velocity);
 			
+	// setLinearVelocity is just an operator= call, it doesn't reactivate the body - sadly
 	body_.setActivationState(
 		ACTIVE_TAG);
 	body_.setLinearVelocity(
 		convert::to_bullet(
-			_linear_velocity));
+			point(
+				_linear_velocity.x()/2,
+				_linear_velocity.y()/2,
+				_linear_velocity.z()/2)/*_linear_velocity*/));
 	
 	velocity_change();
 }
