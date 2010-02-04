@@ -63,7 +63,15 @@ sge::bullet::shapes::base::base(
 		body_,
 		relative_position_),
 	meta_body_(
-		0)
+		0),
+	in_world_(
+		false),
+	queued_group_(
+		static_cast<group_id>(
+			0)),
+	queued_mask_(
+		static_cast<group_id>(
+			0))
 {
 	FCPPT_LOG_DEBUG(
 		mylogger,
@@ -110,13 +118,14 @@ sge::bullet::shapes::base::base(
 
 	// NOTE: the order is important here. getBroadPhaseProxy works only if
 	// the body is registered in the world
-	world_.add_shape(
-		body_);
+	world_.queue_add_shape(
+		*this);
 	
+	/*
 	body_.getBroadphaseProxy()->m_collisionFilterGroup = 
 	body_.getBroadphaseProxy()->m_collisionFilterMask = 
 		static_cast<group_id>(
-			0);
+			0);*/
 }
 
 void
@@ -181,18 +190,21 @@ sge::bullet::shapes::base::meta_body(
 	body_.setActivationState(
 		ACTIVE_TAG);
 		
-	// NOTE: we have to reset the group settings here because world::reset_shapes creates new broadphase proxies
-	group_id const 
-		group = body_.getBroadphaseProxy()->m_collisionFilterGroup,
-		mask = body_.getBroadphaseProxy()->m_collisionFilterMask;
+	if (in_world_)
+	{
+		// NOTE: we have to reset the group settings here because world::reset_shapes creates new broadphase proxies
+		group_id const 
+			group = body_.getBroadphaseProxy()->m_collisionFilterGroup,
+			mask = body_.getBroadphaseProxy()->m_collisionFilterMask;
 		
-	world_.reset_shape(
-		body_);
-	
-	body_.getBroadphaseProxy()->m_collisionFilterGroup = 
-		group;
-	body_.getBroadphaseProxy()->m_collisionFilterMask = 
-		mask;
+		world_.reset_shape(
+			body_);
+		
+		body_.getBroadphaseProxy()->m_collisionFilterGroup = 
+			group;
+		body_.getBroadphaseProxy()->m_collisionFilterMask = 
+			mask;
+	}
 	
 	FCPPT_LOG_DEBUG(
 		mylogger,
@@ -299,28 +311,38 @@ void
 sge::bullet::shapes::base::add_to_group(
 	group &g)
 {
-	FCPPT_ASSERT(
-		body_.getBroadphaseProxy());
-		
-	btBroadphaseProxy &p = 
-		*body_.getBroadphaseProxy();
-		
-	FCPPT_LOG_DEBUG(
-		mylogger,
-		fcppt::log::_ 
-			<< FCPPT_TEXT("shape -> group, current category is ")
-			<< p.m_collisionFilterGroup
-			<< FCPPT_TEXT(" and collides is ")
-			<< p.m_collisionFilterMask
-			<< FCPPT_TEXT(", group's category/collides: ")
-			<< g.category()
-			<< FCPPT_TEXT("/")
-			<< g.collides());
+	if (!in_world_)
+	{
+		queued_group_ |= 
+			g.category();
+		queued_mask_ |=
+			g.collides();
+	}
+	else
+	{
+		FCPPT_ASSERT(
+			body_.getBroadphaseProxy());
 			
-	p.m_collisionFilterGroup |= 
-		g.category();
-	p.m_collisionFilterMask |= 
-		g.collides();
+		btBroadphaseProxy &p = 
+			*body_.getBroadphaseProxy();
+			
+		FCPPT_LOG_DEBUG(
+			mylogger,
+			fcppt::log::_ 
+				<< FCPPT_TEXT("shape -> group, current category is ")
+				<< p.m_collisionFilterGroup
+				<< FCPPT_TEXT(" and collides is ")
+				<< p.m_collisionFilterMask
+				<< FCPPT_TEXT(", group's category/collides: ")
+				<< g.category()
+				<< FCPPT_TEXT("/")
+				<< g.collides());
+				
+		p.m_collisionFilterGroup |= 
+			g.category();
+		p.m_collisionFilterMask |= 
+			g.collides();
+	}
 }
 
 bool
@@ -328,6 +350,26 @@ sge::bullet::shapes::base::is_solid() const
 {
 	return 
 		!(body_.getCollisionFlags() & btCollisionObject::CF_NO_CONTACT_RESPONSE);
+}
+
+void
+sge::bullet::shapes::base::insert_into_world()
+{
+	FCPPT_ASSERT(
+		!in_world_);
+	
+	world_.add_shape(
+		body_);
+	
+	btBroadphaseProxy &p = 
+		*body_.getBroadphaseProxy();
+			
+	p.m_collisionFilterGroup = 
+		queued_group_;
+	p.m_collisionFilterMask = 
+		queued_mask_;
+		
+	in_world_ = true;
 }
 
 sge::bullet::shapes::base::~base()
@@ -338,7 +380,8 @@ sge::bullet::shapes::base::~base()
 	if (meta_body_)
 		meta_body_->remove_shape(
 			*this);
-	world_.remove_shape(
-		body_,
-		*this);
+	if (in_world_)
+		world_.remove_shape(
+			body_,
+			*this);
 }

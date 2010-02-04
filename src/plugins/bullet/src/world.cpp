@@ -179,6 +179,12 @@ sge::bullet::world::update(
 		std::numeric_limits<int>::max(),
 		//2,
 		fixed_step);
+		
+	BOOST_FOREACH(
+		shapes::base *s,
+		queued_shapes_)
+		s->insert_into_world();
+	queued_shapes_.clear();
 }
 
 void
@@ -190,6 +196,14 @@ sge::bullet::world::collides_with(
 		dynamic_cast<group &>(*b));
 	dynamic_cast<group &>(*b).collides_with(
 		dynamic_cast<group &>(*a));
+}
+
+void 
+sge::bullet::world::queue_add_shape(
+	shapes::base &_s)
+{
+	queued_shapes_.insert(
+		&_s);
 }
 
 void 

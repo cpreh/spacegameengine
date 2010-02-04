@@ -85,6 +85,10 @@ public:
 	collides_with(
 		collision::group_ptr,
 		collision::group_ptr);
+		
+	void 
+	queue_add_shape(
+		shapes::base &);
 	
 	void 
 	add_shape(
@@ -122,7 +126,15 @@ private:
 	std::set
 	<
 		shapes::base*
-	> solid_collision_set;
+	> 
+	solid_collision_set;
+	
+	typedef
+	std::set
+	<
+		shapes::base*
+	> 
+	queued_shapes_set;
 	
 	// this is mainly for memory allocation, I think
 	btDefaultCollisionConfiguration configuration_;
@@ -143,6 +155,7 @@ private:
 	body_manager body_manager_;
 	group_id group_id_;
 	solid_collision_set solid_collisions_;
+	queued_shapes_set queued_shapes_;
 	
 	group_id 
 	next_group_id();

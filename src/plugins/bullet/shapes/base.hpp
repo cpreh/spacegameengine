@@ -5,6 +5,7 @@
 #include "../body_fwd.hpp"
 #include "../world_fwd.hpp"
 #include "../group_fwd.hpp"
+#include "../group_id.hpp"
 #include "../motion_state.hpp"
 #include "../bullet_shape_ptr.hpp"
 #include <sge/collision/point.hpp>
@@ -89,6 +90,10 @@ public:
 	void
 	velocity_change();
 	
+	// Finally, insert into world (see in_world_)
+	void
+	insert_into_world();
+	
 	~base();
 protected:
 	// could also be a getter function, but for this minimal case, just make the variable protected
@@ -100,6 +105,10 @@ private:
 	point relative_position_;
 	motion_state motion_state_;
 	body *meta_body_;
+	// This stores if the body has been inserted into the world yet. We have to delay insertion into the world
+	// because you cannot insert bodies into the world inside the stepSimulation loop.
+	bool in_world_;
+	group_id queued_group_,queued_mask_;
 };
 }
 }
