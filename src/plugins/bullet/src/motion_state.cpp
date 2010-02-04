@@ -115,7 +115,7 @@ sge::bullet::motion_state::setWorldTransform(
 		FCPPT_ASSERT(
 			meta_body_);
 
-		meta_body_->position(
+		meta_body_->position_changed(
 			position_ - relative_position_);
 			
 		position_ = 
@@ -143,10 +143,17 @@ sge::bullet::motion_state::position(
 {
 	position_ = 
 		_position;
+	
 	getWorldTransform(
 		body_.getWorldTransform());
+		/*
 	body_.setCenterOfMassTransform(
 		body_.getWorldTransform());
+	body_.setInterpolationWorldTransform(
+		body_.getWorldTransform());
+  body_.setInterpolationLinearVelocity(
+		body_.getLinearVelocity());
+		*/
 	satellite_.position_change(
 		fcppt::math::vector::structure_cast<collision::point>(
 			position_));

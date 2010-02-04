@@ -35,7 +35,7 @@ fcppt::log::object
 mylogger(
 	fcppt::log::parameters::inherited(
 		sge::bullet::log(),
-		FCPPT_TEXT("shapes: base")));
+		FCPPT_TEXT("shapes_base")));
 }
 
 sge::bullet::shapes::base::base(
@@ -73,13 +73,11 @@ sge::bullet::shapes::base::base(
 		static_cast<group_id>(
 			0))
 {
-	/*
 	FCPPT_LOG_DEBUG(
 		mylogger,
 		fcppt::log::_ 
 			<< FCPPT_TEXT("created a shape at relative position ")
 			<< _relative_position);
-			*/
 			
 	body_.setUserPointer(
 		this);
@@ -118,16 +116,8 @@ sge::bullet::shapes::base::base(
 		break;
 	}
 
-	// NOTE: the order is important here. getBroadPhaseProxy works only if
-	// the body is registered in the world
 	world_.queue_add_shape(
 		*this);
-	
-	/*
-	body_.getBroadphaseProxy()->m_collisionFilterGroup = 
-	body_.getBroadphaseProxy()->m_collisionFilterMask = 
-		static_cast<group_id>(
-			0);*/
 }
 
 void
@@ -193,9 +183,15 @@ sge::bullet::shapes::base::meta_body(
 	// they happen to be non-static. So we do this here
 	body_.activate(
 		true);
+	// That's more manually than the above statement?
 	//body_.setActivationState(
 	//	ACTIVE_TAG);
-		
+
+	/*
+	world_.reset_shape(
+		*this);
+		*/
+	/*
 	if (in_world_)
 	{
 		// NOTE: we have to reset the group settings here because world::reset_shapes creates new broadphase proxies
@@ -211,6 +207,7 @@ sge::bullet::shapes::base::meta_body(
 		body_.getBroadphaseProxy()->m_collisionFilterMask = 
 			mask;
 	}
+	*/
 	
 	/*
 	FCPPT_LOG_DEBUG(
@@ -220,10 +217,14 @@ sge::bullet::shapes::base::meta_body(
 			<< (_meta_body.position() + relative_position_));
 			*/
 		
-	// the position is now relative to the meta body
+		/*
 	motion_state_.position(
 		_meta_body.position() + relative_position_);
+		*/
 		
+	// the position is now relative to the meta body
+	meta_body_position(
+		_meta_body.position());
 	linear_velocity(
 		meta_body_->linear_velocity());
 }
@@ -267,14 +268,16 @@ void
 sge::bullet::shapes::base::meta_body_position(
 	point const &_position)
 {
-	/*
 	FCPPT_LOG_DEBUG(
 		mylogger,
 		fcppt::log::_ 
 			<< FCPPT_TEXT("setting shape's absolute position to ")
 			<< (_position + relative_position_));
-			*/
-		
+
+	if (in_world_)
+		world_.reset_shape(
+			*this);
+
 	motion_state_.position(
 		_position + relative_position_);
 }
@@ -298,18 +301,21 @@ sge::bullet::shapes::base::linear_velocity(
 	//	ACTIVE_TAG);
 	body_.setLinearVelocity(
 		convert::to_bullet(
+		/*
 			point(
 				_linear_velocity.x()/2,
 				_linear_velocity.y()/2,
-				_linear_velocity.z()/2)/*_linear_velocity*/));
+				_linear_velocity.z()/2)*/_linear_velocity));
 	
-	velocity_change();
+	satellite_->velocity_change(
+		convert::point_to_sge(
+			body_.getLinearVelocity()));
 }
 
 void
 sge::bullet::shapes::base::velocity_change()
 {
-	satellite_->velocity_change(
+	meta_body().linear_velocity(
 		convert::point_to_sge(
 			body_.getLinearVelocity()));
 }
@@ -375,6 +381,9 @@ sge::bullet::shapes::base::insert_into_world()
 	world_.add_shape(
 		body_);
 	
+	FCPPT_ASSERT(
+		body_.getBroadphaseProxy());
+	
 	btBroadphaseProxy &p = 
 		*body_.getBroadphaseProxy();
 			
@@ -390,6 +399,31 @@ sge::bullet::shapes::base::insert_into_world()
 			<< motion_state_.position());
 		
 	in_world_ = true;
+}
+
+void
+sge::bullet::shapes::base::remove_from_world()
+{
+	FCPPT_ASSERT(
+		in_world_);
+		
+	in_world_ = 
+		false;
+
+	FCPPT_ASSERT(
+		body_.getBroadphaseProxy());
+			
+	btBroadphaseProxy &p = 
+		*body_.getBroadphaseProxy();
+			
+	queued_group_ = 
+		p.m_collisionFilterGroup;
+	queued_mask_ = 
+		p.m_collisionFilterMask;
+	
+	world_.remove_shape(
+		body_,
+		*this);
 }
 
 sge::bullet::shapes::base::~base()

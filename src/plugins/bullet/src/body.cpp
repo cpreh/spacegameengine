@@ -71,6 +71,15 @@ sge::bullet::body::position(
 		r->meta_body_position(
 			position_);
 }
+
+void 
+sge::bullet::body::position_changed(
+	collision::point const &_position)
+{
+	position_ = 
+		fcppt::math::vector::structure_cast<point>(
+			_position);
+}
 	
 sge::collision::point const 
 sge::bullet::body::linear_velocity() const

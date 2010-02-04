@@ -169,22 +169,43 @@ sge::bullet::world::update(
 	unit const fixed_step = 
 		static_cast<btScalar>(1)/
 		static_cast<btScalar>(60);
-	
-	BOOST_FOREACH(solid_collision_set::const_reference r,solid_collisions_)
+
+	BOOST_FOREACH(
+		solid_collision_set::const_reference r,
+		solid_collisions_)
 		r->velocity_change();
 	solid_collisions_.clear();
 	
 	world_.stepSimulation(
 		delta,
 		std::numeric_limits<int>::max(),
-		//2,
 		fixed_step);
 		
 	BOOST_FOREACH(
 		shapes::base *s,
-		queued_shapes_)
+		queued_delete_shapes_)
+	{
+		FCPPT_LOG_DEBUG(
+			mylogger,
+			fcppt::log::_ 
+				<< FCPPT_TEXT("Removing a shape (queued)."));
+		s->remove_from_world();
+		solid_collisions_.erase(
+			s);
+	}
+	queued_delete_shapes_.clear();
+		
+	BOOST_FOREACH(
+		shapes::base *s,
+		queued_insert_shapes_)
+	{
+		FCPPT_LOG_DEBUG(
+			mylogger,
+			fcppt::log::_ 
+				<< FCPPT_TEXT("Inserting a shape"));
 		s->insert_into_world();
-	queued_shapes_.clear();
+	}
+	queued_insert_shapes_.clear();
 }
 
 void
@@ -202,7 +223,7 @@ void
 sge::bullet::world::queue_add_shape(
 	shapes::base &_s)
 {
-	queued_shapes_.insert(
+	queued_insert_shapes_.insert(
 		&_s);
 }
 
@@ -216,17 +237,25 @@ sge::bullet::world::add_shape(
 
 void
 sge::bullet::world::reset_shape(
-	btRigidBody &_body)
+	shapes::base &_s)
 {
 	FCPPT_LOG_DEBUG(
 		mylogger,
 		fcppt::log::_ 
-			<< FCPPT_TEXT("Resetting shape. This shape is static: ")
-			<< _body.isStaticObject());
+			<< FCPPT_TEXT("Resetting shape. "));
+	
+	queued_delete_shapes_.insert(
+		&_s);
+	queued_insert_shapes_.insert(
+		&_s);
+	/*
 	world_.removeRigidBody(
 		&_body);
+	*/
+	/*
 	world_.addRigidBody(
 		&_body);
+		*/
 }
 
 void 
@@ -234,6 +263,10 @@ sge::bullet::world::remove_shape(
 	btRigidBody &_body,
 	shapes::base &_shape)
 {
+	FCPPT_LOG_DEBUG(
+		mylogger,
+		fcppt::log::_ 
+			<< FCPPT_TEXT("Removing a shape (remove_shape)."));
 	world_.removeRigidBody(
 		&_body);
 	solid_collisions_.erase(

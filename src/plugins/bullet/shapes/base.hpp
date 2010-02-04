@@ -55,7 +55,7 @@ public:
 	collision::body *
 	parent_body();
 	
-	// NOTE: this will fail if there _is_ no meta body
+	/// NOTE: this will fail if there _is_ no meta body
 	body &
 	meta_body() const;
 	
@@ -66,8 +66,8 @@ public:
 	collision::satellite const &
 	satellite() const;
 	
-	// this is called when the meta body's position changes, we have
-	// to update our own position to be relative to this position
+	/// this is called when the meta body's position changes, we have
+	/// to update our own position to be relative to this position
 	void 
 	meta_body_position(
 		point const &);
@@ -90,9 +90,13 @@ public:
 	void
 	velocity_change();
 	
-	// Finally, insert into world (see in_world_)
+	/// Finally, insert into world (@see in_world_)
 	void
 	insert_into_world();
+
+	/// Remove the shape from the world, saving the neccesary data
+	void
+	remove_from_world();
 	
 	~base();
 protected:

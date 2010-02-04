@@ -32,6 +32,11 @@ public:
 	position(
 		collision::point const &);
 		
+	/// This is called by the position changer and merely updates the body's position (not the position of its shapes)
+	void 
+	position_changed(
+		collision::point const &);
+		
 	collision::point const 
 	linear_velocity() const;
 	

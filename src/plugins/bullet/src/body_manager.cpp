@@ -16,7 +16,7 @@ fcppt::log::object
 mylogger(
 	fcppt::log::parameters::inherited(
 		sge::bullet::log(),
-		FCPPT_TEXT("body manager")));
+		FCPPT_TEXT("body_manager")));
 }
 
 
