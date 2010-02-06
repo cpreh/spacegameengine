@@ -65,7 +65,9 @@ sge::gui::detail::grid_cache::rolumn_data::rolumn_data()
 :
 	size(
 		static_cast<unit>(0)),
-	policy()
+	policy(
+		axis_policy::type::null()
+	)
 {}
 
 sge::gui::detail::grid_cache::grid_cache(
