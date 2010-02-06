@@ -76,8 +76,8 @@ sge::bullet::shapes::base::base(
 	FCPPT_LOG_DEBUG(
 		mylogger,
 		fcppt::log::_ 
-			<< FCPPT_TEXT("created a shape at relative position ")
-			<< _relative_position);
+			<< FCPPT_TEXT("created shape ")
+			<< &body_);
 			
 	body_.setUserPointer(
 		this);
@@ -142,12 +142,11 @@ sge::bullet::shapes::base::meta_body(
 	if (has_meta_body())
 		throw collision::shape_ambiguity();
 	
-	/*
 	FCPPT_LOG_DEBUG(
 		mylogger,
 		fcppt::log::_ 
-			<< FCPPT_TEXT("a meta body was assigned to a shape"));
-			*/
+			<< FCPPT_TEXT("metabody for shape ")
+			<< &body_);
 	
 	meta_body_ = 
 		&_meta_body;
@@ -268,12 +267,23 @@ void
 sge::bullet::shapes::base::meta_body_position(
 	point const &_position)
 {
+	/*
 	FCPPT_LOG_DEBUG(
 		mylogger,
 		fcppt::log::_ 
 			<< FCPPT_TEXT("setting shape's absolute position to ")
 			<< (_position + relative_position_));
-
+	*/
+	FCPPT_LOG_DEBUG(
+		mylogger,
+		fcppt::log::_ 
+			<< FCPPT_TEXT("meta_body_position ") 
+			<< _position
+			<< FCPPT_TEXT(" relative position ")
+			<< relative_position_
+			<< FCPPT_TEXT(" ")
+			<< &body_);
+			
 	if (in_world_)
 		world_.reset_shape(
 			*this);
@@ -397,7 +407,7 @@ sge::bullet::shapes::base::insert_into_world()
 		fcppt::log::_ 
 			<< FCPPT_TEXT("Added a shape to the world, position is: ")
 			<< motion_state_.position());
-		
+
 	in_world_ = true;
 }
 
@@ -435,7 +445,11 @@ sge::bullet::shapes::base::~base()
 		meta_body_->remove_shape(
 			*this);
 	if (in_world_)
+	{
+		FCPPT_ASSERT(
+			!world_.in_simulation());
 		world_.remove_shape(
 			body_,
 			*this);
+	}
 }

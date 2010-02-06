@@ -46,7 +46,9 @@ sge::bullet::world::world(
 		*this),
 	group_id_(
 		static_cast<group_id>(
-			1))
+			1)),
+	in_simulation_(
+		false)
 {
 	// bullet sets the default gravity to (0,-10,0) so we counteract this
 	world_.setGravity(
@@ -176,10 +178,13 @@ sge::bullet::world::update(
 		r->velocity_change();
 	solid_collisions_.clear();
 	
+	// NOTE: should we catch exceptions, set in_simulation to false and rethrow the exception here?
+	in_simulation_ = true;
 	world_.stepSimulation(
 		delta,
 		std::numeric_limits<int>::max(),
 		fixed_step);
+	in_simulation_ = false;
 		
 	BOOST_FOREACH(
 		shapes::base *s,
@@ -309,6 +314,12 @@ sge::bullet::world::solid_collision(
 	if (b.has_meta_body())
 		solid_collisions_.insert(
 			&b);
+}
+
+bool
+sge::bullet::world::in_simulation() const
+{
+	return in_simulation_;
 }
 
 sge::bullet::group_id

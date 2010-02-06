@@ -54,13 +54,12 @@ void
 sge::bullet::motion_state::getWorldTransform(
 	btTransform &t) const
 {
-	/*
 	FCPPT_LOG_DEBUG(
 		mylogger,
 		fcppt::log::_ 
-			<< FCPPT_TEXT("Bullet body requests world transformation, returning: ")
+			<< &body_
+			<< FCPPT_TEXT(": Bullet body requests world transformation, returning: ")
 			<< position_);
-			*/
 	t.setBasis(
 		btMatrix3x3::getIdentity());
 	t.setOrigin(
@@ -75,7 +74,8 @@ sge::bullet::motion_state::setWorldTransform(
 	FCPPT_LOG_DEBUG(
 		mylogger,
 		fcppt::log::_ 
-			<< FCPPT_TEXT("Bullet sets world transform to: ")
+			<< &body_
+			<< FCPPT_TEXT(": Bullet sets world transform to: ")
 			<< 
 				convert::point_to_sge(
 					t.getOrigin())/*
@@ -93,30 +93,29 @@ sge::bullet::motion_state::setWorldTransform(
 	// update the parent body's position? That's the one with the position changer attribute
 	if (!is_position_changer_)
 	{
-		/*
 		FCPPT_LOG_DEBUG(
 			mylogger,
 			fcppt::log::_ 
-				<< FCPPT_TEXT("Shape is not position changer, so just assigning new position"));
-				*/
+				<< &body_
+				<< FCPPT_TEXT(": Shape is not position changer, so just assigning new position"));
 		position_  = new_position;
 	}
 	else
 	{
-		/*
 		FCPPT_LOG_DEBUG(
 			mylogger,
 			fcppt::log::_ 
-				<< FCPPT_TEXT("Shape is position changer, old body position ")
+				<< &body_
+				<< FCPPT_TEXT(": Shape is position changer, old body position ")
 				<< position_
-				<< FCPPT_TEXT(", new body position: "));
-				*/
+				<< FCPPT_TEXT(", new body position: ")
+				<< (new_position - relative_position_));
 				
 		FCPPT_ASSERT(
 			meta_body_);
 
 		meta_body_->position_changed(
-			position_ - relative_position_);
+			new_position - relative_position_);
 			
 		position_ = 
 			new_position;
@@ -144,16 +143,19 @@ sge::bullet::motion_state::position(
 	position_ = 
 		_position;
 	
+	// Why the stuff below? When adding a shape into the world, bullet is only interested in the
+	// m_worldTransform member of the collisionObject class. This is synchronized with the position_
+	// variable of our motion state (the getWorldTransform returns a mutable reference to m_worldTransform).
 	getWorldTransform(
 		body_.getWorldTransform());
-		/*
+	// For speed and position calculation afterwards, it uses the centerOfMassTransform and the *Interpolation*
+	// methods, so we reset them here, too. It _seems_ to work at least.
 	body_.setCenterOfMassTransform(
 		body_.getWorldTransform());
 	body_.setInterpolationWorldTransform(
 		body_.getWorldTransform());
   body_.setInterpolationLinearVelocity(
 		body_.getLinearVelocity());
-		*/
 	satellite_.position_change(
 		fcppt::math::vector::structure_cast<collision::point>(
 			position_));

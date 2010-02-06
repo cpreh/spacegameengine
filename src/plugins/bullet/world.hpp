@@ -127,6 +127,10 @@ public:
 	solid_collision(
 		shapes::base &,
 		shapes::base &);
+	
+	/// Returns true if we are inside a world step
+	bool
+	in_simulation() const;
 private:
 	typedef 
 	std::set
@@ -165,6 +169,7 @@ private:
 	solid_collision_set solid_collisions_;
 	queued_shapes_set queued_insert_shapes_;
 	queued_shapes_set queued_delete_shapes_;
+	bool in_simulation_;
 	
 	group_id 
 	next_group_id();
