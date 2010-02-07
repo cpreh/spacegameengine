@@ -12,6 +12,7 @@
 #include <fcppt/log/object.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/math/null.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <boost/foreach.hpp>
 #include <limits>
@@ -237,7 +238,9 @@ sge::bullet::world::add_shape(
 	btRigidBody &_body)
 {
 	world_.addRigidBody(
-		&_body);
+		&_body,
+		fcppt::math::null<group_id>(),
+		fcppt::math::null<group_id>());
 }
 
 void

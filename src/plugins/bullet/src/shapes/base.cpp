@@ -343,6 +343,18 @@ sge::bullet::shapes::base::add_to_group(
 {
 	if (!in_world_)
 	{
+		FCPPT_LOG_DEBUG(
+			mylogger,
+			fcppt::log::_ 
+				<< FCPPT_TEXT("shape -> group, current category is ")
+				<< queued_group_
+				<< FCPPT_TEXT(" and collides is ")
+				<< queued_mask_
+				<< FCPPT_TEXT(", group's category/collides: ")
+				<< g.category()
+				<< FCPPT_TEXT("/")
+				<< g.collides());
+
 		queued_group_ |= 
 			g.category();
 		queued_mask_ |=

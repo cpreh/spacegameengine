@@ -1,5 +1,8 @@
 #include "../overlap_filter.hpp"
 #include "../shapes/base.hpp"
+#include "../log.hpp"
+#include <fcppt/log/parameters/inherited.hpp>
+#include <fcppt/log/headers.hpp>
 #include <BulletDynamics/Dynamics/btRigidBody.h>
 
 namespace
@@ -13,6 +16,12 @@ proxy_to_shape(
 			static_cast<btRigidBody *>(
 				b.m_clientObject)->getUserPointer());
 }
+
+fcppt::log::object 
+mylogger(
+	fcppt::log::parameters::inherited(
+		sge::bullet::log(),
+		FCPPT_TEXT("overlap_filter")));
 }
 
 fcppt::signal::auto_connection
@@ -45,6 +54,24 @@ sge::bullet::overlap_filter::needBroadphaseCollision(
 	bool const group_collides = 
 		(a->m_collisionFilterGroup & b->m_collisionFilterMask) != 0 &&
 		(b->m_collisionFilterGroup & a->m_collisionFilterMask) != 0;
+	
+	FCPPT_LOG_DEBUG(
+		mylogger,
+		fcppt::log::_ 
+			<< FCPPT_TEXT("a: ")
+			<< a
+			<< FCPPT_TEXT(", b: ")
+			<< b
+			<< FCPPT_TEXT(", group(a): ")
+			<< a->m_collisionFilterGroup
+			<< FCPPT_TEXT(", group(b): ")
+			<< b->m_collisionFilterGroup
+			<< FCPPT_TEXT(", mask(a): ")
+			<< a->m_collisionFilterMask
+			<< FCPPT_TEXT(", mask(b): ")
+			<< b->m_collisionFilterMask
+			<< FCPPT_TEXT(", result: ")
+			<< group_collides);
 		
 	if (!group_collides)
 		return false;
