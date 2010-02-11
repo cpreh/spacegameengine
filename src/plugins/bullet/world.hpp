@@ -113,7 +113,7 @@ public:
 	/// This function removes a shape from the world _immediately_. This is called from
 	/// a shape's destructor (where queueing the deletion is not possible). 
 	void 
-	remove_shape_from_entirely(
+	remove_shape_entirely(
 		btRigidBody &,
 		shapes::base &);
 	
