@@ -103,11 +103,17 @@ public:
 	reset_shape(
 		shapes::base &);
 		
-	/// This function removes a shape from the world _immediately_. This is called from
-	/// a shape's destructor (where queueing the deletion is not possible). It's also called
-	/// from shapes::base::remove_from_world (which is, in turn, queued).
+	/// This is called from shapes::base::remove_from_world (which is, in turn, queued). 
+	/// It doesn't remove the shape from the insertion or deletion queue. It's a "soft" removal.
 	void 
-	remove_shape(
+	remove_shape_from_world(
+		btRigidBody &,
+		shapes::base &);
+		
+	/// This function removes a shape from the world _immediately_. This is called from
+	/// a shape's destructor (where queueing the deletion is not possible). 
+	void 
+	remove_shape_from_entirely(
 		btRigidBody &,
 		shapes::base &);
 	

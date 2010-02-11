@@ -208,7 +208,8 @@ sge::bullet::world::update(
 		FCPPT_LOG_DEBUG(
 			mylogger,
 			fcppt::log::_ 
-				<< FCPPT_TEXT("Inserting a shape"));
+				<< FCPPT_TEXT("Inserting a shape: ")
+				<< s);
 		s->insert_into_world();
 	}
 	queued_insert_shapes_.clear();
@@ -267,17 +268,33 @@ sge::bullet::world::reset_shape(
 }
 
 void 
-sge::bullet::world::remove_shape(
+sge::bullet::world::remove_shape_from_world(
 	btRigidBody &_body,
 	shapes::base &_shape)
 {
 	FCPPT_LOG_DEBUG(
 		mylogger,
 		fcppt::log::_ 
-			<< FCPPT_TEXT("Removing a shape (remove_shape)."));
+			<< FCPPT_TEXT("Removing a shape (remove_shape): ")
+			<< &_shape);
 	world_.removeRigidBody(
 		&_body);
 	solid_collisions_.erase(
+		&_shape);
+}
+
+void 
+sge::bullet::world::remove_shape_entirely(
+	btRigidBody &_body,
+	shapes::base &_shape)
+{
+	remove_shape_from_world(
+		_body,
+		_shape);
+		
+	queued_insert_shapes_.erase(
+		&_shape);
+	queued_delete_shapes_.erase(
 		&_shape);
 }
 

@@ -15,6 +15,7 @@
 #include <fcppt/log/object.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/assert.hpp>
+#include <fcppt/assert_message.hpp>
 #include <fcppt/text.hpp>
 
 namespace
@@ -420,7 +421,8 @@ sge::bullet::shapes::base::insert_into_world()
 			<< FCPPT_TEXT("Added a shape to the world, position is: ")
 			<< motion_state_.position());
 
-	in_world_ = true;
+	in_world_ = 
+		true;
 }
 
 void
@@ -428,6 +430,10 @@ sge::bullet::shapes::base::remove_from_world()
 {
 	FCPPT_ASSERT(
 		in_world_);
+		
+	FCPPT_ASSERT_MESSAGE(
+		!world_.in_simulation(),
+		FCPPT_TEXT("You tried to remove a shape (from the world) while you are in a world::update. That's not possible!"));
 		
 	in_world_ = 
 		false;
@@ -443,7 +449,7 @@ sge::bullet::shapes::base::remove_from_world()
 	queued_mask_ = 
 		p.m_collisionFilterMask;
 	
-	world_.remove_shape(
+	world_.remove_shape_from_world(
 		body_,
 		*this);
 }
@@ -452,16 +458,22 @@ sge::bullet::shapes::base::~base()
 {
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		fcppt::log::_ << FCPPT_TEXT("In shape destructor"));
+		fcppt::log::_ 
+			<< FCPPT_TEXT("In shape destructor, shape ") 
+			<< this);
+			
 	if (meta_body_)
 		meta_body_->remove_shape(
 			*this);
+
 	if (in_world_)
 	{
-		FCPPT_ASSERT(
-			!world_.in_simulation());
-		world_.remove_shape(
-			body_,
-			*this);
+		FCPPT_ASSERT_MESSAGE(
+			!world_.in_simulation(),
+			FCPPT_TEXT("You tried to remove a shape while you are in a world::update. That's not possible!"));
 	}
+	
+	world_.remove_shape_entirely(
+		body_,
+		*this);
 }
