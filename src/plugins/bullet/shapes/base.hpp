@@ -7,8 +7,8 @@
 #include "../world_fwd.hpp"
 #include "../group_fwd.hpp"
 #include "../group_id.hpp"
-#include "../motion_state.hpp"
 #include "../bullet_shape_ptr.hpp"
+#include "../point.hpp"
 #include <sge/collision/point.hpp>
 #include <sge/collision/solidity.hpp>
 #include <sge/collision/constraint.hpp>
@@ -28,7 +28,8 @@ namespace shapes
 {
 class base
 :
-	public virtual sge::collision::shapes::base
+	public virtual sge::collision::shapes::base,
+	public btMotionState
 {
 public:
 	base(
@@ -100,6 +101,16 @@ public:
 	void
 	remove_from_world();
 	
+	/// @override
+	void 
+	getWorldTransform(
+		btTransform&) const;
+
+	/// @override
+	void 
+	setWorldTransform(
+		btTransform const &);
+	
 	~base();
 protected:
 	// could also be a getter function, but for this minimal case, just make the variable protected
@@ -108,8 +119,8 @@ private:
 	collision::satellite_ptr satellite_;
 	sge::bullet::world &world_;
 	btRigidBody body_;
-	point relative_position_;
-	motion_state motion_state_;
+	point relative_position_,position_;
+	bool is_position_changer_;
 	fcppt::scoped_ptr<shape_body_connection> body_connection_;
 	// This stores if the body has been inserted into the world yet. We have to delay insertion into the world
 	// because you cannot insert bodies into the world inside the stepSimulation loop.
