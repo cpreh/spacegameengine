@@ -2,6 +2,7 @@
 #define SGE_BULLET_SHAPES_BASE_HPP_INCLUDED
 
 #include "base_fwd.hpp"
+#include "../shape_body_connection.hpp"
 #include "../body_fwd.hpp"
 #include "../world_fwd.hpp"
 #include "../group_fwd.hpp"
@@ -14,6 +15,7 @@
 #include <sge/collision/shapes/base.hpp>
 #include <sge/collision/satellite_ptr.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/scoped_ptr.hpp>
 #include <BulletDynamics/Dynamics/btRigidBody.h>
 
 class btCollisionShape;
@@ -108,7 +110,7 @@ private:
 	btRigidBody body_;
 	point relative_position_;
 	motion_state motion_state_;
-	body *meta_body_;
+	fcppt::scoped_ptr<shape_body_connection> body_connection_;
 	// This stores if the body has been inserted into the world yet. We have to delay insertion into the world
 	// because you cannot insert bodies into the world inside the stepSimulation loop.
 	bool in_world_;

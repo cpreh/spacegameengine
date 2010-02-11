@@ -63,8 +63,7 @@ sge::bullet::shapes::base::base(
 		*satellite_,
 		body_,
 		relative_position_),
-	meta_body_(
-		0),
+	body_connection_(),
 	in_world_(
 		false),
 	queued_group_(
@@ -140,17 +139,13 @@ void
 sge::bullet::shapes::base::meta_body(
 	body &_meta_body)
 {
-	if (has_meta_body())
+	if (body_connection_)
 		throw collision::shape_ambiguity();
-	
-	FCPPT_LOG_DEBUG(
-		mylogger,
-		fcppt::log::_ 
-			<< FCPPT_TEXT("metabody for shape ")
-			<< &body_);
-	
-	meta_body_ = 
-		&_meta_body;
+
+	body_connection_.reset(
+		new shape_body_connection(
+			*this,
+			_meta_body));
 	
 	// since now the shape (or body) isn't static anymore, don't set the mass to zero (1 is arbitrary)
 	btScalar const mass = 
@@ -183,71 +178,33 @@ sge::bullet::shapes::base::meta_body(
 	// they happen to be non-static. So we do this here
 	body_.activate(
 		true);
-	// That's more manually than the above statement?
-	//body_.setActivationState(
-	//	ACTIVE_TAG);
 
-	/*
-	world_.reset_shape(
-		*this);
-		*/
-	/*
-	if (in_world_)
-	{
-		// NOTE: we have to reset the group settings here because world::reset_shapes creates new broadphase proxies
-		group_id const 
-			group = body_.getBroadphaseProxy()->m_collisionFilterGroup,
-			mask = body_.getBroadphaseProxy()->m_collisionFilterMask;
-		
-		world_.reset_shape(
-			body_);
-		
-		body_.getBroadphaseProxy()->m_collisionFilterGroup = 
-			group;
-		body_.getBroadphaseProxy()->m_collisionFilterMask = 
-			mask;
-	}
-	*/
-	
-	/*
-	FCPPT_LOG_DEBUG(
-		mylogger,
-		fcppt::log::_ 
-			<< FCPPT_TEXT("setting shape's absolute position to ")
-			<< (_meta_body.position() + relative_position_));
-			*/
-		
-		/*
-	motion_state_.position(
-		_meta_body.position() + relative_position_);
-		*/
-		
 	// the position is now relative to the meta body
 	meta_body_position(
 		_meta_body.position());
 	linear_velocity(
-		meta_body_->linear_velocity());
+		_meta_body.linear_velocity());
 }
 
 bool
 sge::bullet::shapes::base::has_meta_body() const
 {
 	return 
-		meta_body_;
+		body_connection_;
 }
 
 sge::collision::body *
 sge::bullet::shapes::base::parent_body()
 {
 	return 
-		meta_body_;
+		&(body_connection_->body());
 }
 
 sge::bullet::body &
 sge::bullet::shapes::base::meta_body() const
 {
 	return 
-		*meta_body_;
+		body_connection_->body();
 }
 
 sge::collision::satellite &
@@ -462,10 +419,6 @@ sge::bullet::shapes::base::~base()
 			<< FCPPT_TEXT("In shape destructor, shape ") 
 			<< this);
 			
-	if (meta_body_)
-		meta_body_->remove_shape(
-			*this);
-
 	if (in_world_)
 	{
 		FCPPT_ASSERT_MESSAGE(
