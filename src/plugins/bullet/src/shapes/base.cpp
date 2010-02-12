@@ -11,6 +11,7 @@
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/math/null.hpp>
 #include <fcppt/log/parameters/inherited.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/log/headers.hpp>
@@ -22,13 +23,13 @@ namespace
 {
 btRigidBody::btRigidBodyConstructionInfo const 
 create_construction_info(
+	btMotionState &_motion_state,
 	btCollisionShape &_shape)
 {
 	return 
 		btRigidBody::btRigidBodyConstructionInfo(
-			static_cast<btScalar>(
-				0),
-			0,
+			fcppt::math::null<btScalar>(),
+			&_motion_state,
 			&_shape);
 }
 
@@ -61,6 +62,7 @@ sge::bullet::shapes::base::base(
 		_world),
 	body_(
 		create_construction_info(
+			*this,
 			*shape_)),
 	relative_position_(
 		fcppt::math::vector::structure_cast<point>(
@@ -68,23 +70,15 @@ sge::bullet::shapes::base::base(
 	position_(
 		relative_position_),
 	body_connection_(),
-	in_world_(
-		false),
-	queued_group_(
-		static_cast<group_id>(
-			0)),
-	queued_mask_(
-		static_cast<group_id>(
-			0))
+	world_connection_(
+		*this,
+		world_)
 {
 	FCPPT_LOG_DEBUG(
 		mylogger,
 		fcppt::log::_ 
-			<< FCPPT_TEXT("created shape ")
-			<< &body_);
-	
-	body_.setMotionState(
-		this);
+			<< this
+			<< FCPPT_TEXT(": In constructor"));
 		
 	satellite_->position_change(
 		position_);
@@ -203,6 +197,13 @@ sge::bullet::shapes::base::has_meta_body() const
 		body_connection_;
 }
 
+btRigidBody &
+sge::bullet::shapes::base::bullet_body()
+{
+	return 
+		body_;
+}
+
 sge::collision::body *
 sge::bullet::shapes::base::parent_body()
 {
@@ -235,24 +236,16 @@ void
 sge::bullet::shapes::base::meta_body_position(
 	point const &_position)
 {
-	/*
 	FCPPT_LOG_DEBUG(
 		mylogger,
 		fcppt::log::_ 
-			<< FCPPT_TEXT("setting shape's absolute position to ")
-			<< (_position + relative_position_));
-	*/
-	FCPPT_LOG_DEBUG(
-		mylogger,
-		fcppt::log::_ 
-			<< FCPPT_TEXT("meta_body_position ") 
+			<< this
+			<< FCPPT_TEXT(": meta_body_position: ") 
 			<< _position
-			<< FCPPT_TEXT(" relative position ")
-			<< relative_position_
-			<< FCPPT_TEXT(" ")
-			<< &body_);
+			<< FCPPT_TEXT(", relative position: ")
+			<< relative_position_);
 			
-	if (in_world_)
+	if (world_connection_.in_world())
 		world_.reset_shape(
 			*this);
 
@@ -281,26 +274,19 @@ void
 sge::bullet::shapes::base::linear_velocity(
 	point const &_linear_velocity)
 {
-	/*
 	FCPPT_LOG_DEBUG(
 		mylogger,
 		fcppt::log::_ 
-			<< FCPPT_TEXT("setting shape's linear velocity to ")
+			<< this
+			<< FCPPT_TEXT(": setting shape's linear velocity to ")
 			<< _linear_velocity);
-			*/
 			
 	// setLinearVelocity is just an operator= call, it doesn't reactivate the body - sadly
 	body_.activate(
 		true);
-	//body_.setActivationState(
-	//	ACTIVE_TAG);
 	body_.setLinearVelocity(
 		convert::to_bullet(
-		/*
-			point(
-				_linear_velocity.x()/2,
-				_linear_velocity.y()/2,
-				_linear_velocity.z()/2)*/_linear_velocity));
+		_linear_velocity));
 	
 	satellite_->velocity_change(
 		convert::point_to_sge(
@@ -326,50 +312,23 @@ void
 sge::bullet::shapes::base::add_to_group(
 	group &g)
 {
-	if (!in_world_)
-	{
-		FCPPT_LOG_DEBUG(
-			mylogger,
-			fcppt::log::_ 
-				<< FCPPT_TEXT("shape -> group, current category is ")
-				<< queued_group_
-				<< FCPPT_TEXT(" and collides is ")
-				<< queued_mask_
-				<< FCPPT_TEXT(", group's category/collides: ")
-				<< g.category()
-				<< FCPPT_TEXT("/")
-				<< g.collides());
+	FCPPT_LOG_DEBUG(
+		mylogger,
+		fcppt::log::_ 
+			<< this
+			<< FCPPT_TEXT(": shape -> group, current category is ")
+			<< world_connection_.group()
+			<< FCPPT_TEXT(" and collides is ")
+			<< world_connection_.mask()
+			<< FCPPT_TEXT(", group's category/collides: ")
+			<< g.category()
+			<< FCPPT_TEXT("/")
+			<< g.collides());
 
-		queued_group_ |= 
-			g.category();
-		queued_mask_ |=
-			g.collides();
-	}
-	else
-	{
-		FCPPT_ASSERT(
-			body_.getBroadphaseProxy());
-			
-		btBroadphaseProxy &p = 
-			*body_.getBroadphaseProxy();
-			
-		FCPPT_LOG_DEBUG(
-			mylogger,
-			fcppt::log::_ 
-				<< FCPPT_TEXT("shape -> group, current category is ")
-				<< p.m_collisionFilterGroup
-				<< FCPPT_TEXT(" and collides is ")
-				<< p.m_collisionFilterMask
-				<< FCPPT_TEXT(", group's category/collides: ")
-				<< g.category()
-				<< FCPPT_TEXT("/")
-				<< g.collides());
-				
-		p.m_collisionFilterGroup |= 
-			g.category();
-		p.m_collisionFilterMask |= 
-			g.collides();
-	}
+	world_connection_.group() |= 
+		g.category();
+	world_connection_.mask() |=
+		g.collides();
 }
 
 bool
@@ -382,60 +341,13 @@ sge::bullet::shapes::base::is_solid() const
 void
 sge::bullet::shapes::base::insert_into_world()
 {
-	FCPPT_ASSERT(
-		!in_world_);
-	
-	world_.add_shape(
-		body_);
-	
-	FCPPT_ASSERT(
-		body_.getBroadphaseProxy());
-	
-	btBroadphaseProxy &p = 
-		*body_.getBroadphaseProxy();
-			
-	p.m_collisionFilterGroup = 
-		queued_group_;
-	p.m_collisionFilterMask = 
-		queued_mask_;
-	
-	FCPPT_LOG_DEBUG(
-		mylogger,
-		fcppt::log::_ 
-			<< FCPPT_TEXT("Added a shape to the world, position is: ")
-			<< position_);
-
-	in_world_ = 
-		true;
+	world_connection_.insert();
 }
 
 void
 sge::bullet::shapes::base::remove_from_world()
 {
-	FCPPT_ASSERT(
-		in_world_);
-		
-	FCPPT_ASSERT_MESSAGE(
-		!world_.in_simulation(),
-		FCPPT_TEXT("You tried to remove a shape (from the world) while you are in a world::update. That's not possible!"));
-		
-	in_world_ = 
-		false;
-
-	FCPPT_ASSERT(
-		body_.getBroadphaseProxy());
-			
-	btBroadphaseProxy &p = 
-		*body_.getBroadphaseProxy();
-			
-	queued_group_ = 
-		p.m_collisionFilterGroup;
-	queued_mask_ = 
-		p.m_collisionFilterMask;
-	
-	world_.remove_shape_from_world(
-		body_,
-		*this);
+	world_connection_.remove();
 }
 
 void 
@@ -445,7 +357,7 @@ sge::bullet::shapes::base::getWorldTransform(
 	FCPPT_LOG_DEBUG(
 		mylogger_motionstate,
 		fcppt::log::_ 
-			<< &body_
+			<< this
 			<< FCPPT_TEXT(": Bullet body requests world transformation, returning: ")
 			<< position_);
 	t.setBasis(
@@ -462,7 +374,7 @@ sge::bullet::shapes::base::setWorldTransform(
 	FCPPT_LOG_DEBUG(
 		mylogger_motionstate,
 		fcppt::log::_ 
-			<< &body_
+			<< this
 			<< FCPPT_TEXT(": Bullet sets world transform to: ")
 			<< 
 				convert::point_to_sge(
@@ -472,7 +384,7 @@ sge::bullet::shapes::base::setWorldTransform(
 		convert::point_to_sge(
 			t.getOrigin());
 			
-	// why this? Well, the metabody (the parent body) contains multiple bodys, all of them changing their positions
+	// why this? Well, the metabody (the parent body) contains multiple bodies, all of them changing their positions
 	// if linear_velocity is != 0. The metabody, however, also has a position attribute, so which of his children should
 	// update the parent body's position? That's the one with the position changer attribute
 	if (!is_position_changer_)
@@ -480,16 +392,17 @@ sge::bullet::shapes::base::setWorldTransform(
 		FCPPT_LOG_DEBUG(
 			mylogger_motionstate,
 			fcppt::log::_ 
-				<< &body_
+				<< this
 				<< FCPPT_TEXT(": Shape is not position changer, so just assigning new position"));
-		position_  = new_position;
+		position_  = 
+			new_position;
 	}
 	else
 	{
 		FCPPT_LOG_DEBUG(
 			mylogger_motionstate,
 			fcppt::log::_ 
-				<< &body_
+				<< this
 				<< FCPPT_TEXT(": Shape is position changer, old body position ")
 				<< position_
 				<< FCPPT_TEXT(", new body position: ")
@@ -506,30 +419,12 @@ sge::bullet::shapes::base::setWorldTransform(
 	}
 		
 	FCPPT_LOG_DEBUG(
-		mylogger,
+		mylogger_motionstate,
 		fcppt::log::_ 
-			<< FCPPT_TEXT("Sending position_change"));
+			<< this
+			<< FCPPT_TEXT(": Sending position_change"));
+			
 	satellite_->position_change(
 		fcppt::math::vector::structure_cast<collision::point>(
 			position_));
-}
-
-sge::bullet::shapes::base::~base()
-{
-	FCPPT_LOG_DEBUG(
-		mylogger,
-		fcppt::log::_ 
-			<< FCPPT_TEXT("In shape destructor, shape ") 
-			<< this);
-			
-	if (in_world_)
-	{
-		FCPPT_ASSERT_MESSAGE(
-			!world_.in_simulation(),
-			FCPPT_TEXT("You tried to remove a shape while you are in a world::update. That's not possible!"));
-	}
-	
-	world_.remove_shape_entirely(
-		body_,
-		*this);
 }

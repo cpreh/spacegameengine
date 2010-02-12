@@ -1,7 +1,9 @@
 #ifndef SGE_BULLET_LOG_HPP_INCLUDED
 #define SGE_BULLET_LOG_HPP_INCLUDED
 
-#include <fcppt/log/object_fwd.hpp>
+/// NOTE: THIS IS INTENTIONAL! IF YOU INCLUDE log.hpp YOU WANT ALL THIS STUFF - ALWAYS!
+#include <fcppt/log/headers.hpp>
+#include <fcppt/log/parameters/inherited.hpp>
 
 namespace sge
 {

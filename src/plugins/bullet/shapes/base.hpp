@@ -3,6 +3,7 @@
 
 #include "base_fwd.hpp"
 #include "../shape_body_connection.hpp"
+#include "../shape_world_connection.hpp"
 #include "../body_fwd.hpp"
 #include "../world_fwd.hpp"
 #include "../group_fwd.hpp"
@@ -32,6 +33,7 @@ class base
 	public btMotionState
 {
 public:
+	/// The bullet_shape_ptr is passed to shapes::base by the derived classes.
 	base(
 		bullet_shape_ptr,
 		collision::satellite_ptr,
@@ -61,6 +63,9 @@ public:
 	/// NOTE: this will fail if there _is_ no meta body
 	body &
 	meta_body() const;
+
+	btRigidBody &
+	bullet_body();
 	
 	// Thte broadphase collision needs this
 	collision::satellite &
@@ -79,7 +84,7 @@ public:
 	linear_velocity(
 		point const &);
 	
-	// the global collision begin/end callbacks need this
+	/// the global collision begin/end callbacks need this
 	sge::bullet::world &
 	world() const;
 	
@@ -110,10 +115,8 @@ public:
 	void 
 	setWorldTransform(
 		btTransform const &);
-	
-	~base();
 protected:
-	// could also be a getter function, but for this minimal case, just make the variable protected
+	/// could also be a getter function, but for this minimal case, just make the variable protected
 	bullet_shape_ptr shape_;
 private:
 	collision::satellite_ptr satellite_;
@@ -122,10 +125,7 @@ private:
 	point relative_position_,position_;
 	bool is_position_changer_;
 	fcppt::scoped_ptr<shape_body_connection> body_connection_;
-	// This stores if the body has been inserted into the world yet. We have to delay insertion into the world
-	// because you cannot insert bodies into the world inside the stepSimulation loop.
-	bool in_world_;
-	group_id queued_group_,queued_mask_;
+	shape_world_connection world_connection_;
 };
 }
 }

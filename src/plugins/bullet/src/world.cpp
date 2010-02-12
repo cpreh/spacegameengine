@@ -177,14 +177,33 @@ sge::bullet::world::update(
 		solid_collision_set::const_reference r,
 		solid_collisions_)
 		r->velocity_change();
+	
+	if (!solid_collisions_.empty())
+	{
+		FCPPT_LOG_DEBUG(
+			mylogger,
+			fcppt::log::_ 
+				<< FCPPT_TEXT("processed ")
+				<< solid_collisions_.size()
+				<< FCPPT_TEXT(" solid collisions"));
+	}
+		
 	solid_collisions_.clear();
 	
-	// NOTE: should we catch exceptions, set in_simulation to false and rethrow the exception here?
 	in_simulation_ = true;
-	world_.stepSimulation(
-		delta,
-		std::numeric_limits<int>::max(),
-		fixed_step);
+	// NOTE: does this make sense?
+	try
+	{
+		world_.stepSimulation(
+			delta,
+			std::numeric_limits<int>::max(),
+			fixed_step);
+	}
+	catch (...)
+	{
+		in_simulation_ = false;
+		throw;
+	}
 	in_simulation_ = false;
 		
 	BOOST_FOREACH(
@@ -194,10 +213,9 @@ sge::bullet::world::update(
 		FCPPT_LOG_DEBUG(
 			mylogger,
 			fcppt::log::_ 
-				<< FCPPT_TEXT("Removing a shape (queued)."));
+				<< FCPPT_TEXT("Removing a shape (queued): ")
+				<< s);
 		s->remove_from_world();
-		solid_collisions_.erase(
-			s);
 	}
 	queued_delete_shapes_.clear();
 		
@@ -208,7 +226,7 @@ sge::bullet::world::update(
 		FCPPT_LOG_DEBUG(
 			mylogger,
 			fcppt::log::_ 
-				<< FCPPT_TEXT("Inserting a shape: ")
+				<< FCPPT_TEXT("Inserting a shape (queued): ")
 				<< s);
 		s->insert_into_world();
 	}
@@ -236,10 +254,16 @@ sge::bullet::world::queue_add_shape(
 
 void 
 sge::bullet::world::add_shape(
-	btRigidBody &_body)
+	shapes::base &_shape)
 {
+	FCPPT_LOG_DEBUG(
+		mylogger,
+		fcppt::log::_ 
+			<< FCPPT_TEXT("Adding a shape: ")
+			<< &_shape);
+			
 	world_.addRigidBody(
-		&_body,
+		&(_shape.bullet_body()),
 		fcppt::math::null<group_id>(),
 		fcppt::math::null<group_id>());
 }
@@ -251,47 +275,43 @@ sge::bullet::world::reset_shape(
 	FCPPT_LOG_DEBUG(
 		mylogger,
 		fcppt::log::_ 
-			<< FCPPT_TEXT("Resetting shape. "));
+			<< FCPPT_TEXT("Resetting shape: ")
+			<< &_s);
 	
 	queued_delete_shapes_.insert(
 		&_s);
 	queued_insert_shapes_.insert(
 		&_s);
-	/*
-	world_.removeRigidBody(
-		&_body);
-	*/
-	/*
-	world_.addRigidBody(
-		&_body);
-		*/
 }
 
 void 
 sge::bullet::world::remove_shape_from_world(
-	btRigidBody &_body,
 	shapes::base &_shape)
 {
 	FCPPT_LOG_DEBUG(
 		mylogger,
 		fcppt::log::_ 
-			<< FCPPT_TEXT("Removing a shape (remove_shape): ")
+			<< FCPPT_TEXT("Removing a shape (remove_shape_from_world): ")
 			<< &_shape);
 	world_.removeRigidBody(
-		&_body);
+		&(_shape.bullet_body()));
 	solid_collisions_.erase(
 		&_shape);
 }
 
 void 
 sge::bullet::world::remove_shape_entirely(
-	btRigidBody &_body,
 	shapes::base &_shape)
 {
+	FCPPT_LOG_DEBUG(
+		mylogger,
+		fcppt::log::_ 
+			<< FCPPT_TEXT("Removing a shape (remove_shape_entirely): ")
+			<< &_shape);
+			
 	remove_shape_from_world(
-		_body,
 		_shape);
-		
+	
 	queued_insert_shapes_.erase(
 		&_shape);
 	queued_delete_shapes_.erase(
@@ -334,12 +354,6 @@ sge::bullet::world::solid_collision(
 	if (b.has_meta_body())
 		solid_collisions_.insert(
 			&b);
-}
-
-bool
-sge::bullet::world::in_simulation() const
-{
-	return in_simulation_;
 }
 
 sge::bullet::group_id

@@ -93,7 +93,7 @@ public:
 	/// This is called from shapes::base::insert_into_world (which is queued)
 	void 
 	add_shape(
-		btRigidBody &);
+		shapes::base &);
 	
 	/// When a shape is assigned a meta body, the bullet body switches from static to
 	/// dynamic. For this to work (a bug?) we have to reinsert the shape to the world.
@@ -107,14 +107,12 @@ public:
 	/// It doesn't remove the shape from the insertion or deletion queue. It's a "soft" removal.
 	void 
 	remove_shape_from_world(
-		btRigidBody &,
 		shapes::base &);
 		
 	/// This function removes a shape from the world _immediately_. This is called from
 	/// a shape's destructor (where queueing the deletion is not possible). 
 	void 
 	remove_shape_entirely(
-		btRigidBody &,
 		shapes::base &);
 	
 	// this is called by the system in the global callbacks
@@ -133,10 +131,6 @@ public:
 	solid_collision(
 		shapes::base &,
 		shapes::base &);
-	
-	/// Returns true if we are inside a world step
-	bool
-	in_simulation() const;
 private:
 	typedef 
 	std::set
