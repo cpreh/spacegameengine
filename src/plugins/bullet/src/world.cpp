@@ -248,8 +248,11 @@ void
 sge::bullet::world::queue_add_shape(
 	shapes::base &_s)
 {
-	queued_insert_shapes_.insert(
-		&_s);
+	if (in_simulation_)
+		queued_insert_shapes_.insert(
+			&_s);
+	else
+		_s.insert_into_world();
 }
 
 void 
@@ -278,10 +281,18 @@ sge::bullet::world::reset_shape(
 			<< FCPPT_TEXT("Resetting shape: ")
 			<< &_s);
 	
-	queued_delete_shapes_.insert(
-		&_s);
-	queued_insert_shapes_.insert(
-		&_s);
+	if (in_simulation_)
+	{
+		queued_delete_shapes_.insert(
+			&_s);
+		queued_insert_shapes_.insert(
+			&_s);
+	}
+	else
+	{
+		_s.remove_from_world();
+		_s.insert_into_world();
+	}
 }
 
 void 

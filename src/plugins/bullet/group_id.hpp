@@ -5,7 +5,7 @@ namespace sge
 {
 namespace bullet
 {
-typedef short int group_id;
+typedef short group_id;
 }
 }
 
