@@ -50,6 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/indexed_primitive.hpp"
 #include "../convert/nonindexed_primitive.hpp"
 #include "../convert/light_index.hpp"
+#include "../convert/matrix_mode.hpp"
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/state/default.hpp>
 #include <sge/renderer/state/var.hpp>
@@ -138,7 +139,8 @@ sge::opengl::device::device(
 	//glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, 1);
 }
 
-void sge::opengl::device::begin_rendering()
+void
+sge::opengl::device::begin_rendering()
 {
 	glClear(
 		clear_bit(renderer::state::bool_::clear_backbuffer)
@@ -151,145 +153,10 @@ void sge::opengl::device::begin_rendering()
 	)
 }
 
-sge::renderer::index_buffer_ptr const
-sge::opengl::device::create_index_buffer(
-	renderer::index::format::type const format,
-	renderer::size_type const sz,
-	renderer::resource_flags_field const &flags
-)
-{
-	switch(format) {
-	case renderer::index::format::i16:
-		return renderer::index_buffer_ptr(
-			fcppt::make_shared_ptr<
-				opengl::index_buffer<
-					boost::uint16_t
-				>
-			>(
-				sz,
-				flags
-			)
-		);
-	case renderer::index::format::i32:
-		return renderer::index_buffer_ptr(
-			fcppt::make_shared_ptr<
-				opengl::index_buffer<
-					boost::uint32_t
-				>
-			>(
-				sz,
-				flags
-			)
-		);
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid index::format!"));
-	}
-}
-
-sge::renderer::texture_ptr const
-sge::opengl::device::create_texture(
-	renderer::texture::dim_type const &dim,
-	image::color::format::type const format,
-	renderer::filter::texture const &filter,
-	renderer::resource_flags_field const &flags
-)
-{
-	return renderer::texture_ptr(
-		fcppt::make_shared_ptr<
-			opengl::texture
-		>(
-			dim,
-			format,
-			filter,
-			flags
-		)
-	);
-}
-
-sge::renderer::vertex_buffer_ptr const
-sge::opengl::device::create_vertex_buffer(
-	renderer::vf::dynamic_format const &format,
-	renderer::size_type const sz,
-	renderer::resource_flags_field const &flags
-)
-{
-	return renderer::vertex_buffer_ptr(
-		fcppt::make_shared_ptr<
-			opengl::vertex_buffer
-		>(
-			format,
-			sz,
-			flags
-		)
-	);
-}
-
-#if 0
-const sge::renderer::volume_texture_ptr
-sge::opengl::device::create_volume_texture(
-	renderer::volume_texture::image_view_array const &src,
-	const renderer::texture_filter& filter,
-	const renderer::volume_texture::resource_flag_type flags)
-{
-	/*return renderer::volume_texture_ptr(
-		fcppt::make_shared_ptr<
-			volume_texture
-		>(
-			src,
-			filter,
-			flags));*/
-}
-#endif
-
-sge::renderer::cube_texture_ptr const
-sge::opengl::device::create_cube_texture(
-	renderer::size_type const border_size,
-	image::color::format::type const format,
-	renderer::filter::texture const &filter,
-	renderer::resource_flags_field const &flags
-)
-{
-	return renderer::cube_texture_ptr(
-		fcppt::make_shared_ptr<
-			cube_texture
-		>(
-			border_size,
-			format,
-			filter,
-			flags
-		)
-	);
-}
-
-void sge::opengl::device::end_rendering()
+void
+sge::opengl::device::end_rendering()
 {
 	state_.swap_buffers();
-}
-
-sge::renderer::caps const
-sge::opengl::device::caps() const
-{
-	if(!caps_)
-	{
-		caps_.take(
-			create_caps()
-		);
-	}
-
-	return *caps_;
-}
-
-sge::window::instance_ptr const
-sge::opengl::device::window() const
-{
-	return wnd;
-}
-
-sge::renderer::screen_size const
-sge::opengl::device::screen_size() const
-{
-	return param.mode().size();
 }
 
 void
@@ -380,7 +247,10 @@ sge::opengl::device::state(
 
 	state_visitor const visitor(split);
 
-	BOOST_FOREACH(renderer::state::any const &s, states.values())
+	BOOST_FOREACH(
+		renderer::state::any const &s,
+		states.values()
+	)
 	{
 		current_states.overwrite(s);
 
@@ -396,7 +266,8 @@ sge::opengl::device::push_state(
 )
 {
 	state_levels.push(
-		current_states);
+		current_states
+	);
 
 	state(
 		renderer::state::combine(
@@ -413,73 +284,131 @@ sge::opengl::device::pop_state()
 	state_levels.pop();
 }
 
-GLenum
-sge::opengl::device::clear_bit(
-	renderer::state::bool_::trampoline_type const &s
-) const
+void
+sge::opengl::device::material(
+	renderer::material const &mat
+)
 {
-	return
-		current_states.get(s)
-		?
-			convert::clear_bit(s)
-		:
-			0;
+	opengl::set_material(
+		mat
+	);
 }
 
-void sge::opengl::device::material(
-	renderer::material const &mat)
+void
+sge::opengl::device::enable_light(
+	renderer::light_index const index,
+	bool const enable_
+)
 {
-	opengl::set_material(mat);
+	enable(
+		convert::light_index(
+			index
+		),
+		enable_
+	);
 }
 
-void sge::opengl::device::viewport(
-	renderer::viewport const &v)
+void
+sge::opengl::device::light(
+	renderer::light_index const index,
+	renderer::light const &l
+)
 {
-	viewport_ = v;
-	if(fbo_active)
-		opengl::viewport(
-			v,
-			static_cast<
-				renderer::screen_unit
-			>(
-				target_->dim().h()
-			)
-		);
+	opengl::set_light(
+		index,
+		l
+	);
+}
+
+void
+sge::opengl::device::texture_stage_op(
+	renderer::stage_type const stage,
+	renderer::texture_stage_op::type const op,
+	renderer::texture_stage_op_value::type const value
+)
+{
+	set_texture_stage(
+		stage,
+		op,
+		value
+	);
+
+	set_texture_stage_scale(
+		value
+	);
+}
+
+void
+sge::opengl::device::texture_stage_arg(
+	renderer::stage_type const stage,
+	renderer::texture_stage_arg::type const arg,
+	renderer::texture_stage_arg_value::type const value
+)
+{
+	set_texture_stage(
+		stage,
+		arg,
+		value
+	);
+}
+
+void
+sge::opengl::device::texture(
+	renderer::const_texture_base_ptr const tex,
+	renderer::stage_type const stage
+)
+{
+	set_texture_level(stage);
+
+	disable(GL_TEXTURE_1D);
+	disable(GL_TEXTURE_2D);
+	//disable(detail::volume_texture_type);
+	disable_cube_texture();
+
+	if(!tex)
+		return;
+	
+	texture_base const &b(
+		dynamic_cast<
+			texture_base const &
+		>(
+			*tex
+		)
+	);
+
+	enable(b.type());
+
+	b.bind_me();
+}
+
+void
+sge::opengl::device::transform(
+	renderer::matrix_mode::type const mode,
+	renderer::any_matrix const &matrix
+)
+{
+	if(
+		mode == renderer::matrix_mode::projection
+	)
+	{
+		// TODO: what can we do about this?
+		projection_ = matrix;
+
+		projection_internal();
+	}
 	else
-		reset_viewport_default();
+		set_matrix(
+			convert::matrix_mode(
+				mode
+			),
+			matrix
+		);
 }
 
-void sge::opengl::device::viewport_mode(
-	renderer::viewport_mode::type const mode)
-{
-	viewport_mode_ = mode;
-}
-
-void sge::opengl::device::transform(
-	renderer::any_matrix const &matrix)
-{
-	set_matrix(
-		GL_MODELVIEW,
-		matrix);
-}
-
-void sge::opengl::device::projection(
-	renderer::any_matrix const &matrix)
-{
-	projection_ = matrix;
-	projection_internal();
-}
-
-void sge::opengl::device::texture_transform(
-	renderer::any_matrix const &matrix)
-{
-	set_matrix(
-		GL_TEXTURE,
-		matrix);
-}
-
-void sge::opengl::device::target(
-	renderer::texture_ptr const ntarget)
+void
+sge::opengl::device::target(
+	renderer::texture_ptr const ntarget
+)
 {
 	if(!ntarget)
 	{
@@ -520,77 +449,39 @@ void sge::opengl::device::target(
 	projection_internal();
 }
 
-sge::renderer::const_target_ptr const
-sge::opengl::device::target() const
+void
+sge::opengl::device::viewport(
+	renderer::viewport const &v
+)
 {
-	return target_;
+	viewport_ = v;
+
+	if(fbo_active)
+		opengl::viewport(
+			v,
+			static_cast<
+				renderer::screen_unit
+			>(
+				target_->dim().h()
+			)
+		);
+	else
+		reset_viewport_default();
 }
 
 void
-sge::opengl::device::texture(
-	renderer::const_texture_base_ptr const tex,
-	renderer::stage_type const stage
+sge::opengl::device::viewport_mode(
+	renderer::viewport_mode::type const mode
 )
 {
-	set_texture_level(stage);
-
-	disable(GL_TEXTURE_1D);
-	disable(GL_TEXTURE_2D);
-	//disable(detail::volume_texture_type);
-	disable_cube_texture();
-
-	if(!tex)
-		return;
-	
-	texture_base const &b = dynamic_cast<texture_base const &>(*tex);
-	enable(b.type());
-	b.bind_me();
-}
-
-void
-sge::opengl::device::enable_light(
-	renderer::light_index const index,
-	bool const enable_
-)
-{
-	enable(
-		convert::light_index(
-			index
-		),
-		enable_
-	);
-}
-
-void sge::opengl::device::light(
-	renderer::light_index const index,
-	renderer::light const &l)
-{
-	opengl::set_light(
-		index,
-		l);
-}
-
-void sge::opengl::device::texture_stage_op(
-	renderer::stage_type const stage,
-	renderer::texture_stage_op::type const op,
-	renderer::texture_stage_op_value::type const value)
-{
-	set_texture_stage(stage, op, value);
-	set_texture_stage_scale(value);
-}
-
-void sge::opengl::device::texture_stage_arg(
-	renderer::stage_type const stage,
-	renderer::texture_stage_arg::type const arg,
-	renderer::texture_stage_arg_value::type const value)
-{
-	set_texture_stage(stage, arg, value);
+	viewport_mode_ = mode;
 }
 
 sge::renderer::glsl::program_ptr const
 sge::opengl::device::create_glsl_program(
 	renderer::glsl::optional_string const &vs_source,
-	renderer::glsl::optional_string const &ps_source)
+	renderer::glsl::optional_string const &ps_source
+)
 {
 	return
 		vs_source || ps_source
@@ -604,7 +495,8 @@ sge::opengl::device::create_glsl_program(
 sge::renderer::glsl::program_ptr const
 sge::opengl::device::create_glsl_program(
 	renderer::glsl::optional_istream const &vs_source,
-	renderer::glsl::optional_istream const &ps_source)
+	renderer::glsl::optional_istream const &ps_source
+)
 {
 	// unfortunately opengl can't read out of files directly
 	typedef std::basic_ostringstream<
@@ -630,14 +522,173 @@ sge::opengl::device::create_glsl_program(
 		);
 }
 
-void sge::opengl::device::glsl_program(
-	renderer::glsl::program_ptr const prog)
+void
+sge::opengl::device::glsl_program(
+	renderer::glsl::program_ptr const prog
+)
 {
 	glsl::set_program_impl(prog);
 }
 
-void sge::opengl::device::vertex_buffer(
-	renderer::const_vertex_buffer_ptr const vb)
+sge::renderer::const_target_ptr const
+sge::opengl::device::target() const
+{
+	return target_;
+}
+
+sge::renderer::texture_ptr const
+sge::opengl::device::create_texture(
+	renderer::texture::dim_type const &dim,
+	image::color::format::type const format,
+	renderer::filter::texture const &filter,
+	renderer::resource_flags_field const &flags
+)
+{
+	return renderer::texture_ptr(
+		fcppt::make_shared_ptr<
+			opengl::texture
+		>(
+			dim,
+			format,
+			filter,
+			flags
+		)
+	);
+}
+
+sge::renderer::cube_texture_ptr const
+sge::opengl::device::create_cube_texture(
+	renderer::size_type const border_size,
+	image::color::format::type const format,
+	renderer::filter::texture const &filter,
+	renderer::resource_flags_field const &flags
+)
+{
+	return renderer::cube_texture_ptr(
+		fcppt::make_shared_ptr<
+			cube_texture
+		>(
+			border_size,
+			format,
+			filter,
+			flags
+		)
+	);
+}
+
+sge::renderer::vertex_buffer_ptr const
+sge::opengl::device::create_vertex_buffer(
+	renderer::vf::dynamic_format const &format,
+	renderer::size_type const sz,
+	renderer::resource_flags_field const &flags
+)
+{
+	return renderer::vertex_buffer_ptr(
+		fcppt::make_shared_ptr<
+			opengl::vertex_buffer
+		>(
+			format,
+			sz,
+			flags
+		)
+	);
+}
+
+sge::renderer::index_buffer_ptr const
+sge::opengl::device::create_index_buffer(
+	renderer::index::format::type const format,
+	renderer::size_type const sz,
+	renderer::resource_flags_field const &flags
+)
+{
+	switch(format) {
+	case renderer::index::format::i16:
+		return renderer::index_buffer_ptr(
+			fcppt::make_shared_ptr<
+				opengl::index_buffer<
+					boost::uint16_t
+				>
+			>(
+				sz,
+				flags
+			)
+		);
+	case renderer::index::format::i32:
+		return renderer::index_buffer_ptr(
+			fcppt::make_shared_ptr<
+				opengl::index_buffer<
+					boost::uint32_t
+				>
+			>(
+				sz,
+				flags
+			)
+		);
+	default:
+		throw exception(
+			FCPPT_TEXT("Invalid index::format!"));
+	}
+}
+
+#if 0
+const sge::renderer::volume_texture_ptr
+sge::opengl::device::create_volume_texture(
+	renderer::volume_texture::image_view_array const &src,
+	const renderer::texture_filter& filter,
+	const renderer::volume_texture::resource_flag_type flags)
+{
+	/*return renderer::volume_texture_ptr(
+		fcppt::make_shared_ptr<
+			volume_texture
+		>(
+			src,
+			filter,
+			flags));*/
+}
+#endif
+
+sge::renderer::caps const
+sge::opengl::device::caps() const
+{
+	if(!caps_)
+	{
+		caps_.take(
+			create_caps()
+		);
+	}
+
+	return *caps_;
+}
+
+sge::renderer::screen_size const
+sge::opengl::device::screen_size() const
+{
+	return param.mode().size();
+}
+
+sge::window::instance_ptr const
+sge::opengl::device::window() const
+{
+	return wnd;
+}
+
+GLenum
+sge::opengl::device::clear_bit(
+	renderer::state::bool_::trampoline_type const &s
+) const
+{
+	return
+		current_states.get(s)
+		?
+			convert::clear_bit(s)
+		:
+			0;
+}
+
+void
+sge::opengl::device::vertex_buffer(
+	renderer::const_vertex_buffer_ptr const vb
+)
 {
 	opengl::vertex_buffer const &
 		ovb = dynamic_cast<opengl::vertex_buffer const &>(
@@ -655,8 +706,10 @@ sge::opengl::device::create_target()
 	>();
 }
 
-void sge::opengl::device::reset_viewport(
-	sge::window::dim_type const &wnd_sz)
+void
+sge::opengl::device::reset_viewport(
+	sge::window::dim_type const &wnd_sz
+)
 {
 	opengl::viewport(
 		renderer::viewport(
@@ -691,20 +744,23 @@ void sge::opengl::device::reset_viewport(
 	);
 }
 
-void sge::opengl::device::reset_viewport_default()
+void
+sge::opengl::device::reset_viewport_default()
 {
 	reset_viewport(
 		wnd->size()
 	);
 }
 
-void sge::opengl::device::projection_internal()
+void
+sge::opengl::device::projection_internal()
 {
 	set_matrix(
 		GL_PROJECTION,
 		fbo_active
 		? fbo_projection(
-			projection_)
-		: projection_);
-
+			projection_
+		)
+		: projection_
+	);
 }

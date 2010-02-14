@@ -60,6 +60,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/first_index.hpp>
+#include <sge/renderer/matrix_mode.hpp>
 #include <sge/image/view/const_object.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/window/instance_ptr.hpp>
@@ -170,16 +171,7 @@ public:
 
 	virtual void
 	transform(
-		any_matrix const &
-	) = 0;
-
-	virtual void
-	projection(
-		any_matrix const &
-	) = 0;
-
-	virtual void
-	texture_transform(
+		matrix_mode::type,
 		any_matrix const &
 	) = 0;
 

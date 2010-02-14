@@ -166,7 +166,8 @@ try
 
 	typedef float unit;
 
-	sys.renderer()->projection(
+	sys.renderer()->transform(
+		sge::renderer::matrix_mode::projection,
 		fcppt::math::matrix::perspective<unit>(
 			sge::renderer::aspect<unit>(
 				sys.renderer()->screen_size()

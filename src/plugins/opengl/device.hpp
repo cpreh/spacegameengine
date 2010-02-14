@@ -51,16 +51,22 @@ namespace sge
 namespace opengl
 {
 
-class device : public renderer::device {
+class device
+:
+	public renderer::device
+{
 public:
 	device(
 		renderer::parameters const &param,
 		renderer::adapter_type adapter,
-		window::instance_ptr wnd);
+		window::instance_ptr wnd
+	);
 
-	void begin_rendering();
+	void
+	begin_rendering();
 
-	void end_rendering();
+	void
+	end_rendering();
 
 	void
 	render(
@@ -81,61 +87,93 @@ public:
 		renderer::nonindexed_primitive_type::type 
 	);
 
-	void state(renderer::state::list const &);
+	void
+	state(
+		renderer::state::list const &
+	);
 
-	void push_state(renderer::state::list const &);
+	void
+	push_state(
+		renderer::state::list const &
+	);
 
-	void pop_state();
+	void
+	pop_state();
 
-	void texture(
-		renderer::const_texture_base_ptr tex,
-		renderer::stage_type stage);
-	void material(
-		renderer::material const &);
+	void
+	material(
+		renderer::material const &
+	);
 
-	void transform(
-		renderer::any_matrix const &);
-	void projection(
-		renderer::any_matrix const &);
-	void texture_transform(
-		renderer::any_matrix const &);
+	void
+	enable_light(
+		renderer::light_index,
+		bool enable
+	);
 
-	void target(renderer::texture_ptr);
+	void
+	light(
+		renderer::light_index,
+		renderer::light const &
+	);
 
-	void viewport(
-		renderer::viewport const &);
-
-	void viewport_mode(
-		renderer::viewport_mode::type);
-
-	void enable_light(
-		renderer::light_index index,
-		bool enable);
-
-	void light(
-		renderer::light_index index,
-		renderer::light const &);
-	void texture_stage_op(
+	void
+	texture_stage_op(
 		renderer::stage_type stage,
 		renderer::texture_stage_op::type,
-		renderer::texture_stage_op_value::type);
-	void texture_stage_arg(
+		renderer::texture_stage_op_value::type
+	);
+
+	void
+	texture_stage_arg(
 		renderer::stage_type stage,
 		renderer::texture_stage_arg::type,
-		renderer::texture_stage_arg_value::type);
+		renderer::texture_stage_arg_value::type
+	);
+
+	void
+	texture(
+		renderer::const_texture_base_ptr tex,
+		renderer::stage_type stage
+	);
+
+	void
+	transform(
+		renderer::matrix_mode::type,
+		renderer::any_matrix const &
+	);
+
+	void
+	target(
+		renderer::texture_ptr
+	);
+
+	void
+	viewport(
+		renderer::viewport const &
+	);
+
+	void
+	viewport_mode(
+		renderer::viewport_mode::type
+	);
 
 	renderer::glsl::program_ptr const
 	create_glsl_program(
 		renderer::glsl::optional_string const &vertex_shader_source,
-		renderer::glsl::optional_string const &pixel_shader_source);
+		renderer::glsl::optional_string const &pixel_shader_source
+	);
 
 	renderer::glsl::program_ptr const
 	create_glsl_program(
 		renderer::glsl::optional_istream const &vertex_shader_source,
-		renderer::glsl::optional_istream const &pixel_shader_source);
+		renderer::glsl::optional_istream const &pixel_shader_source
+	);
 
-	void glsl_program(
-		renderer::glsl::program_ptr);
+	void
+	glsl_program(
+		renderer::glsl::program_ptr
+	);
 
 	renderer::const_target_ptr const
 	target() const;
@@ -145,7 +183,8 @@ public:
 		renderer::dim_type const &,
 		image::color::format::type,
 		renderer::filter::texture const &,
-		renderer::resource_flags_field const &);
+		renderer::resource_flags_field const &
+	);
 
 	/*const renderer::volume_texture_ptr
 	create_volume_texture(
@@ -176,23 +215,38 @@ public:
 		renderer::resource_flags_field const &
 	);
 
-	renderer::caps const caps() const;
-	renderer::screen_size const screen_size() const;
-	window::instance_ptr const window() const;
-private:
-	GLenum clear_bit(
-		renderer::state::bool_::trampoline_type const &) const;
+	renderer::caps const
+	caps() const;
 
-	void vertex_buffer(
-		renderer::const_vertex_buffer_ptr);
+	renderer::screen_size const
+	screen_size() const;
+
+	window::instance_ptr const
+	window() const;
+private:
+	GLenum
+	clear_bit(
+		renderer::state::bool_::trampoline_type const &
+	) const;
+
+	void
+	vertex_buffer(
+		renderer::const_vertex_buffer_ptr
+	);
 
 	fbo_target_ptr const
 	create_target();
 
-	void reset_viewport(
-		window::dim_type const &);
-	void reset_viewport_default();
-	void projection_internal();
+	void
+	reset_viewport(
+		window::dim_type const &
+	);
+
+	void
+	reset_viewport_default();
+
+	void
+	projection_internal();
 
 	renderer::parameters const param;
 	window::instance_ptr const wnd;

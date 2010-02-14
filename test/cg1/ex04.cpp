@@ -273,7 +273,8 @@ try
 		)
 	);
 
-	rend->projection(
+	rend->transform(
+		sge::renderer::matrix_mode::projection,
 		fcppt::math::matrix::perspective(
 			sge::renderer::aspect<
 				float_type
@@ -391,6 +392,7 @@ try
 			>::type vec3;
 
 			rend->transform(
+				sge::renderer::matrix_mode::world,
 				fcppt::math::matrix::rotation_y(
 					angle
 				)

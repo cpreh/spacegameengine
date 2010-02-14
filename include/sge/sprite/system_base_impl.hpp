@@ -72,11 +72,13 @@ void
 sge::sprite::system_base<Choices>::matrices()
 {
 	rend->transform(
+		renderer::matrix_mode::world,
 		additional_transform_
 		* transform_matrix
 	);
 
-	rend->projection(
+	rend->transform(
+		renderer::matrix_mode::projection,
 		projection_matrix
 	);
 }
