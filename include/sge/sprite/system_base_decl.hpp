@@ -55,6 +55,9 @@ public:
 		matrix const &
 	);
 
+	matrix const &
+	transform() const;
+
 	void
 	matrices();
 protected:

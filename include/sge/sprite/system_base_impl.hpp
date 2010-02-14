@@ -59,6 +59,15 @@ sge::sprite::system_base<Choices>::transform(
 template<
 	typename Choices
 >
+typename sge::sprite::system_base<Choices>::matrix const &
+sge::sprite::system_base<Choices>::transform() const
+{
+	return additional_transform_;
+}
+
+template<
+	typename Choices
+>
 void
 sge::sprite::system_base<Choices>::matrices()
 {

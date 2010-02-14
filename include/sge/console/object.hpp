@@ -46,7 +46,8 @@ public:
 		fcppt::char_type prefix
 	);
 
-	SGE_SYMBOL fcppt::signal::auto_connection insert(
+	SGE_SYMBOL fcppt::signal::auto_connection
+	insert(
 		fcppt::string const &name,
 		callback const &,
 		fcppt::string const &description = fcppt::string()
@@ -81,6 +82,7 @@ private:
 	void insert(var_base &);
 	void erase(var_base &);
 };
+
 }
 }
 
