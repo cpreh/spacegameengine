@@ -32,20 +32,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-class visitor {
+class visitor
+{
 public:
 	typedef void result_type;
 
 	result_type
 	operator()(
-		fcppt::math::matrix::static_<float, 4, 4>::type const &m) const;
+		fcppt::math::matrix::static_<float, 4, 4>::type const &m
+	) const;
 
 	result_type
 	operator()(
-		fcppt::math::matrix::static_<double, 4, 4>::type const &m) const;
+		fcppt::math::matrix::static_<double, 4, 4>::type const &m
+	) const;
 };
 
-bool have_transpose()
+bool
+have_transpose()
 {
 	static bool const ret(
 		sge::opengl::glew_is_supported(
@@ -58,16 +62,20 @@ bool have_transpose()
 
 }
 
-void sge::opengl::set_matrix(
+void
+sge::opengl::set_matrix(
 	GLenum const mode,
-	renderer::any_matrix const &mat)
+	renderer::any_matrix const &mat
+)
 {
 	matrix_mode(mode);
 	set_matrix(mat);
 }
 
-void sge::opengl::matrix_mode(
-	GLenum const mode)
+void
+sge::opengl::matrix_mode(
+	GLenum const mode
+)
 {
 	glMatrixMode(mode);
 
@@ -77,8 +85,10 @@ void sge::opengl::matrix_mode(
 	)
 }
 
-void sge::opengl::set_matrix(
-	renderer::any_matrix const &mat)
+void
+sge::opengl::set_matrix(
+	renderer::any_matrix const &mat
+)
 {
 	fcppt::variant::apply_unary(
 		visitor(),
@@ -89,8 +99,10 @@ void sge::opengl::set_matrix(
 namespace
 {
 
-void visitor::operator()(
-	fcppt::math::matrix::static_<float, 4, 4>::type const &m) const
+void
+visitor::operator()(
+	fcppt::math::matrix::static_<float, 4, 4>::type const &m
+) const
 {
 	if(have_transpose())
 		glLoadTransposeMatrixf(
@@ -109,8 +121,10 @@ void visitor::operator()(
 	)
 }
 
-void visitor::operator()(
-	fcppt::math::matrix::static_<double, 4, 4>::type const &m) const
+void
+visitor::operator()(
+	fcppt::math::matrix::static_<double, 4, 4>::type const &m
+) const
 {
 	if(have_transpose())
 		glLoadTransposeMatrixd(
