@@ -48,7 +48,11 @@ sge::bullet::body::body(
 			
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		fcppt::log::_ << FCPPT_TEXT("Shapes added, now setting position and velocity"));
+		fcppt::log::_ 
+			<< FCPPT_TEXT("Shapes added, now setting position ")
+			<< position_
+			<< FCPPT_TEXT(" and velocity ")
+			<< linear_velocity_);
 }
 
 sge::collision::point const 
