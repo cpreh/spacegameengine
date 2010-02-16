@@ -121,7 +121,7 @@ sge::console::gfx::draw()
 	output_line_sequence::size_type const line_count = 
 		static_cast<output_line_sequence::size_type>(
 			(background_.h()-font_.height())/
-			font_.height());
+			font_.height() + 1);
 	
 	font::unit current_y = 
 		static_cast<font::unit>(
@@ -272,16 +272,20 @@ sge::console::gfx::key_action(
 		case input::kc::key_pagedown:
 			output_lines_.down();
 		break;
-		/*
 		case input::kc::key_up:
-			input_history_.up();
-			input_line_.string(input_history_.current());
+			if (current_input_ != --input_history_.end())
+				++current_input_;
+			input_line_.string(
+				*current_input_);
 		break;
 		case input::kc::key_down:
-			input_history_.down();
-			input_line_.string(input_history_.current());
+			if (current_input_ != input_history_.begin())
+			{
+				--current_input_;
+				input_line_.string(
+					*current_input_);
+			}
 		break;
-		*/
 		case input::kc::key_left:
 			input_line_.left();
 		break;
@@ -311,10 +315,11 @@ sge::console::gfx::key_action(
 			}
 
 			// add executed command to each history (at the front)...
-			/*
 			input_history_.push_front(
 				input_line_.string());
-				*/
+
+			current_input_ = 
+				input_history_.begin();
 
 			// clear input line
 			input_line_.string(
