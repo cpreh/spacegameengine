@@ -179,7 +179,9 @@ try
 				sge::console::sprite_object::dim(400,300)
 			)
 			.elements()
-		)
+		),
+		static_cast<sge::console::gfx::output_line_limit>(
+			100)
 	);
 
 	sys.renderer()->state(
@@ -191,12 +193,12 @@ try
 	sge::console::stdlib lib(
 		o,
 		std::tr1::bind(
-			&sge::console::gfx::print,
+			&sge::console::gfx::print_line,
 			&gfx_,
 			std::tr1::placeholders::_1
 		),
 		std::tr1::bind(
-			&sge::console::gfx::print,
+			&sge::console::gfx::print_line,
 			&gfx_,
 			std::tr1::placeholders::_1
 		)

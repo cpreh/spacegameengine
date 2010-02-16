@@ -30,4 +30,4 @@ MACRO(
 	ADD_TEST(NAME ${TESTNAME} COMMAND ${TESTNAME})
 ENDMACRO()
 
-ADD_SGE_TEST(console/history)
+ADD_SGE_TEST(console/cursor)

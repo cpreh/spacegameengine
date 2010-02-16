@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONSOLE_DETAIL_CURSOR_HPP_INCLUDED
-#define SGE_CONSOLE_DETAIL_CURSOR_HPP_INCLUDED
+#ifndef SGE_CONSOLE_CURSOR_HPP_INCLUDED
+#define SGE_CONSOLE_CURSOR_HPP_INCLUDED
 
 #include <sge/console/variable_map.hpp>
 #include <sge/console/function_map.hpp>
@@ -30,70 +30,66 @@ namespace sge
 {
 namespace console
 {
-namespace detail
-{
-
 class cursor
 {
 public:
-	cursor();
+	typedef 
+	fcppt::string::size_type 
+	size_type;
 
-	void
-	reset();
+	SGE_SYMBOL cursor();
 
-	fcppt::string const
+	SGE_SYMBOL fcppt::string const
 	edited(
 		bool
 	) const;
 
-	fcppt::string const
+	SGE_SYMBOL fcppt::string const
 	string() const;
 
-	void
+	SGE_SYMBOL void
 	string(
 		fcppt::string const &
 	);
 
-	void
+	SGE_SYMBOL void
 	erase_word();
 
-	void
+	SGE_SYMBOL void
 	erase_char();
 
-	void
+	SGE_SYMBOL void
 	left();
 
-	void
+	SGE_SYMBOL void
 	right();
 
-	void
+	SGE_SYMBOL void
 	to_start();
 
-	void
+	SGE_SYMBOL void
 	to_end();
 
-	bool
+	SGE_SYMBOL bool
 	empty() const;
 
-	void
+	SGE_SYMBOL void
 	insert(
 		fcppt::char_type
 	);
 
-	bool
+	SGE_SYMBOL bool
 	at_start() const;
 
-	void
+	SGE_SYMBOL void
 	complete_word(
 		variable_map const &,
 		function_map const &
 	);
 private:
 	fcppt::string line_;
-	fcppt::string::size_type pos_;
+	size_type pos_;
 };
-
-}
 }
 }
 

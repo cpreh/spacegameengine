@@ -18,129 +18,162 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/console/detail/cursor.hpp>
+#include <sge/console/cursor.hpp>
 #include <fcppt/text.hpp>
 
-sge::console::detail::cursor::cursor()
+sge::console::cursor::cursor()
 :
-	line_(FCPPT_TEXT(" ")),
-	pos_(0)
+	line_(
+		FCPPT_TEXT(" ")),
+	pos_(
+		static_cast<size_type>(
+			0))
 {
-}
-
-void
-sge::console::detail::cursor::reset()
-{
-	line_ = FCPPT_TEXT(" ");
-	pos_ = 0;
 }
 
 fcppt::string const
-sge::console::detail::cursor::edited(
+sge::console::cursor::edited(
 	bool const _active
 ) const
 {
-	fcppt::string l = line_;
+	fcppt::string l = 
+		line_;
 	if (_active)
-		l[pos_] = FCPPT_TEXT('_');
-	return l;
+		l[pos_] = 
+			FCPPT_TEXT('_');
+	return 
+		l;
 }
 
 fcppt::string const
-sge::console::detail::cursor::string() const
+sge::console::cursor::string() const
 {
 	// skip last space
-	return line_.substr(0,line_.length()-1);
+	return 
+		line_.substr(
+			static_cast<size_type>(
+				0),
+			static_cast<size_type>(
+				line_.length()-1));
 }
 
 void
-sge::console::detail::cursor::string(
+sge::console::cursor::string(
 	fcppt::string const &_line
 )
 {
-	line_ = _line;
-	line_.push_back(FCPPT_TEXT(' '));
-	pos_ = line_.length()-1;
+	line_ = 
+		_line+FCPPT_TEXT(' ');
+	pos_ = 
+		static_cast<size_type>(
+			line_.length()-1);
 }
 
 void
-sge::console::detail::cursor::erase_word()
+sge::console::cursor::erase_word()
 {
-	if (line_.length() == 1)
+	if (line_.length() == static_cast<size_type>(1) || pos_ == static_cast<size_type>(0))
 		return;
 
-	fcppt::string::size_type s = line_.rfind(FCPPT_TEXT(' '),pos_-1);
+	size_type 
+		s = 
+			line_.rfind(
+				FCPPT_TEXT(' '),
+				static_cast<size_type>(
+					pos_-1));
 
 	if (s == fcppt::string::npos)
-		s = 0;
+		s = 
+			static_cast<size_type>(
+				0);
 
-	line_.erase(s,pos_-s);
-	pos_ = s;
+	line_.erase(
+		s,
+		static_cast<size_type>(
+			pos_-s));
+	pos_ = 
+		s;
 }
 
 void
-sge::console::detail::cursor::erase_char()
+sge::console::cursor::erase_char()
 {
-	if (pos_ == line_.length()-1)
+	if (pos_ == static_cast<size_type>(line_.length()-1))
 		return;
 
-	line_.erase(pos_,1);
+	line_.erase(
+		pos_,
+		static_cast<size_type>(
+			1));
 }
 
 void
-sge::console::detail::cursor::left()
+sge::console::cursor::left()
 {
-	if (pos_ == 0)
+	if (pos_ == static_cast<size_type>(0))
 		return;
-	pos_ = pos_-1;
+	pos_ = 
+		static_cast<size_type>(
+			pos_-1);
 }
 
 void
-sge::console::detail::cursor::right()
+sge::console::cursor::right()
 {
-	if (pos_ == line_.length()-1)
+	if (pos_ == static_cast<size_type>(line_.length()-1))
 		return;
-	pos_ = pos_+1;
+	pos_++;
 }
 
 void
-sge::console::detail::cursor::to_start()
+sge::console::cursor::to_start()
 {
-	pos_ = 0;
+	pos_ = 
+		static_cast<size_type>(
+			0);
 }
 
 void
-sge::console::detail::cursor::to_end()
+sge::console::cursor::to_end()
 {
-	pos_ = line_.length()-1;
+	pos_ = 
+		static_cast<size_type>(
+			line_.length()-1);
 }
 
 bool
-sge::console::detail::cursor::empty() const
+sge::console::cursor::empty() const
 {
-	return line_.length() == 1;
+	return 
+		line_.length() == 
+			static_cast<size_type>(
+				1);
 }
 
 void
-sge::console::detail::cursor::insert(
+sge::console::cursor::insert(
 	fcppt::char_type const c
 )
 {
 	line_.insert(
-		pos_,
-		1,
+		pos_++,
+		static_cast<size_type>(
+			1),
 		c
 	);
 }
 
 bool
-sge::console::detail::cursor::at_start() const
+sge::console::cursor::at_start() const
 {
-	return pos_ == 0;
+	return 
+		pos_ == 
+			static_cast<size_type>(
+				0);
 }
 
 void
-sge::console::detail::cursor::complete_word(
+sge::console::cursor::complete_word(
 	variable_map const &,
 	function_map const &
 )

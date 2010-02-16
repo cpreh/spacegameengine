@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "next_or_last.hpp"
 #include <sge/console/gfx.hpp>
 #include <sge/console/object.hpp>
 #include <sge/font/drawer_3d.hpp>
@@ -35,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/assert.hpp>
 #include <boost/foreach.hpp>
 #include <locale>
 
@@ -43,12 +45,14 @@ sge::console::gfx::gfx(
 	renderer::device_ptr const _rend,
 	image::color::any::object const &_font_color,
 	font::metrics_ptr const _metrics,
-	input::system_ptr const _is,
-	sprite_object const &_bg
+	input::system_ptr const _input_system,
+	sprite_object const &_background,
+	output_line_limit const _line_limit
 )
 :
-	object_(_object),
-	fn(
+	object_(
+		_object),
+	font_(
 		_metrics,
 		fcppt::make_shared_ptr<
 			font::drawer_3d
@@ -57,10 +61,12 @@ sge::console::gfx::gfx(
 			_font_color
 		)
 	),
-	is(_is),
-	mf(_is),
-	ic(
-		mf.register_callback(
+	input_system_(
+		_input_system),
+	input_modifier_filter_(
+		input_system_),
+	ic_(
+		input_modifier_filter_.register_callback(
 			std::tr1::bind(
 				&gfx::key_callback,
 				this,
@@ -69,8 +75,8 @@ sge::console::gfx::gfx(
 			)
 		)
 	),
-	irc(
-		mf.register_repeat_callback(
+	irc_(
+		input_modifier_filter_.register_repeat_callback(
 			std::tr1::bind(
 				&gfx::key_action,
 				this,
@@ -79,18 +85,26 @@ sge::console::gfx::gfx(
 			)
 		)
 	),
-	ss(_rend),
-	bg(_bg),
-	active_(false),
+	sprite_system_(
+		_rend),
+	background_(
+		_background),
+	active_(
+		false),
 	input_line_(),
 	cursor_blink_(
 		time::second_f(
-			static_cast<time::funit>(0.5)
+			static_cast<time::funit>(
+				0.5)
 		)
 	),
-	cursor_active_(false),
+	cursor_active_(
+		false),
 	input_history_(),
-	output_history_()
+	current_input_(
+		input_history_.begin()),
+	output_lines_(
+		_line_limit)
 {
 }
 
@@ -100,54 +114,62 @@ void
 sge::console::gfx::draw()
 {
 	sprite::render_one(
-		ss,
-		bg
+		sprite_system_,
+		background_
 	);
-
+	
+	output_line_sequence::size_type const line_count = 
+		static_cast<output_line_sequence::size_type>(
+			(background_.h()-font_.height())/
+			font_.height());
+	
 	font::unit current_y = 
 		static_cast<font::unit>(
-			bg.y()+bg.h()-2*fn.height());
-	BOOST_FOREACH(
-		fcppt::string const s,
-		output_history_.lines_inside(
-			detail::history::rect(
-				fcppt::math::vector::structure_cast<detail::history::point>(
-					bg.pos()
-				),
-				detail::history::dim(
-					static_cast<detail::history::scalar>(bg.w()),
-					static_cast<detail::history::scalar>(bg.h()-fn.height())
-				)
-			),
-			static_cast<detail::history::scalar>(fn.height())
-		)
-	)
+			background_.y()+background_.h()-2*font_.height());
+			
+	for(
+		output_line_sequence::const_iterator 
+			i = 
+				output_lines_.point(),
+			end = 
+				next_or_last(
+					output_lines_.point(),
+					output_lines_.end(),
+					line_count); 
+		i != end; 
+		++i)
 	{
 		// draw history lines
-		fn.draw_text(
-			s,
+		font_.draw_text(
+			*i,
 			font::pos(
-				bg.x(),
+				background_.x(),
 				current_y),
 			font::dim(
-				bg.w(), 
-				bg.h() - fn.height()),
+				background_.w(), 
+				background_.h() - font_.height()),
 			font::align_h::left,
 			font::align_v::top);
 		current_y -= 
-			fn.height();
+			font_.height();
 	}
 
-	fcppt::string const il = input_line_.edited(cursor_active_);
+	fcppt::string const il = 
+		input_line_.edited(
+			cursor_active_);
 
-	fn.draw_text(
+	font_.draw_text(
 		il,
 		font::pos(
-			static_cast<font::unit>(bg.x()),
-			static_cast<font::unit>(bg.y()+bg.h()-fn.height())),
+			static_cast<font::unit>(
+				background_.x()),
+			static_cast<font::unit>(
+				background_.y()+background_.h()-font_.height())),
 		font::dim(
-			static_cast<font::unit>(bg.w()),
-			static_cast<font::unit>(fn.height())));
+			static_cast<font::unit>(
+				background_.w()),
+			static_cast<font::unit>(
+				font_.height())));
 
 	if (cursor_blink_.update_b())
 		cursor_active_ = !cursor_active_;
@@ -156,7 +178,8 @@ sge::console::gfx::draw()
 bool
 sge::console::gfx::active() const
 {
-	return active_;
+	return 
+		active_;
 }
 
 void
@@ -164,27 +187,33 @@ sge::console::gfx::active(
 	bool const _active
 )
 {
-	active_ = _active;
+	active_ = 
+		_active;
 }
 
 void
-sge::console::gfx::print(
-	fcppt::string const &s
+sge::console::gfx::print_line(
+	fcppt::string const &_s
 )
 {
-	output_history_.push_front(s);
+	FCPPT_ASSERT(
+		_s.find(FCPPT_TEXT('\n')) == fcppt::string::npos);
+	output_lines_.push_front(
+		_s);
 }
 
 sge::console::object &
 sge::console::gfx::object()
 {
-	return object_;
+	return 
+		object_;
 }
 
 sge::console::object const &
 sge::console::gfx::object() const
 {
-	return object_;
+	return 
+		object_;
 }
 
 void
@@ -193,10 +222,7 @@ sge::console::gfx::key_callback(
 	input::modifier::states const &s
 )
 {
-	if (!active_)
-		return;
-
-	if (k.value())
+	if (active_ && k.value())
 		key_action(
 			k.key(),
 			s);
@@ -241,11 +267,12 @@ sge::console::gfx::key_action(
 			input_line_.complete_word(object_.variables(),object_.functions());
 		break;
 		case input::kc::key_pageup:
-			output_history_.up();
+			output_lines_.up();
 		break;
 		case input::kc::key_pagedown:
-			output_history_.down();
+			output_lines_.down();
 		break;
+		/*
 		case input::kc::key_up:
 			input_history_.up();
 			input_line_.string(input_history_.current());
@@ -254,6 +281,7 @@ sge::console::gfx::key_action(
 			input_history_.down();
 			input_line_.string(input_history_.current());
 		break;
+		*/
 		case input::kc::key_left:
 			input_line_.left();
 		break;
@@ -272,18 +300,25 @@ sge::console::gfx::key_action(
 
 			try
 			{
-				object_.eval(input_line_.string());
+				object_.eval(
+					input_line_.string());
 			}
 			catch (exception const &e)
 			{
-				print(FCPPT_TEXT("console error: ")+e.string());
+				print_line(
+					FCPPT_TEXT("console error: ")+
+					e.string());
 			}
 
 			// add executed command to each history (at the front)...
-			input_history_.push_front(input_line_.string());
+			/*
+			input_history_.push_front(
+				input_line_.string());
+				*/
 
 			// clear input line
-			input_line_.reset();
+			input_line_.string(
+				FCPPT_TEXT(""));
 		break;
 		// else we get a million warnings about unhandled enumeration values
 		default: break;

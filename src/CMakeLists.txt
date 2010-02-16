@@ -5,7 +5,6 @@ FILE (GLOB sgecorefiles
 	chrono/*.cpp
 	config/*.cpp
 	console/*.cpp
-	console/detail/*.cpp
 	collision/*.cpp
 	collision/shapes/*.cpp
 	config/detail/*.cpp

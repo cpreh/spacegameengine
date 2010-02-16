@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CONSOLE_GFX_HPP_INCLUDED
 
 #include <sge/console/object_fwd.hpp>
-#include <sge/console/detail/history.hpp>
-#include <sge/console/detail/cursor.hpp>
+#include <sge/console/pointed_history.hpp>
+#include <sge/console/cursor.hpp>
 #include <sge/console/sprite_system.hpp>
 #include <sge/console/sprite_object.hpp>
 #include <sge/renderer/device_ptr.hpp>
@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
+#include <list>
 
 namespace sge
 {
@@ -48,13 +49,22 @@ class gfx
 {
 	FCPPT_NONCOPYABLE(gfx)
 public:
+	typedef 
+	pointed_history<fcppt::string> 
+	output_line_sequence;
+	
+	typedef
+	output_line_sequence::size_type
+	output_line_limit;
+	
 	SGE_SYMBOL gfx(
 		sge::console::object &,
 		renderer::device_ptr,
 		image::color::any::object const &font_color,
 		font::metrics_ptr,
 		input::system_ptr,
-		sprite_object const &
+		sprite_object const &,
+		output_line_limit
 	);
 
 	/// If destructor doesn't exist: undefined reference to `sge::sprite::system_base ...
@@ -72,7 +82,7 @@ public:
 	);
 
 	SGE_SYMBOL void
-	print(
+	print_line(
 		fcppt::string const &
 	);
 
@@ -82,27 +92,32 @@ public:
 	SGE_SYMBOL sge::console::object const &
 	object() const;
 private:
+	typedef 
+	std::list<fcppt::string>
+	input_history_sequence;
+
 	sge::console::object &object_;
 
-	font::object fn;
+	font::object font_;
 
-	input::system_ptr const is;
+	input::system_ptr const input_system_;
 
-	input::modifier::filter mf;
+	input::modifier::filter input_modifier_filter_;
 
 	fcppt::signal::scoped_connection const
-		ic,
-		irc;
+		ic_,
+		irc_;
 
-	sprite_system ss;
-	sprite_object bg;
+	sprite_system sprite_system_;
+	sprite_object background_;
 	bool active_;
 
-	detail::cursor input_line_;
+	cursor input_line_;
 	time::timer cursor_blink_;
 	bool cursor_active_;
-	detail::history input_history_;
-	detail::history output_history_;
+	input_history_sequence input_history_;
+	input_history_sequence::iterator current_input_;
+	output_line_sequence output_lines_;
 
 	void
 	key_callback(
