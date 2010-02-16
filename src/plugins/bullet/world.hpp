@@ -1,6 +1,7 @@
 #ifndef SGE_BULLET_WORLD_HPP_INCLUDED
 #define SGE_BULLET_WORLD_HPP_INCLUDED
 
+#include "world_hack.hpp"
 #include "group_id.hpp"
 #include "overlap_filter.hpp"
 #include "collision_proxy_fwd.hpp"
@@ -15,7 +16,6 @@
 #include <BulletCollision/CollisionDispatch/btCollisionDispatcher.h>
 #include <BulletCollision/BroadphaseCollision/btDbvtBroadphase.h>
 #include <BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h>
-#include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
 
 #include <set>
 
@@ -158,7 +158,7 @@ private:
 	/// NOTE: I don't know what this is for
 	btSequentialImpulseConstraintSolver constraint_solver_;
 	/// the world, the container of all bodys
-	btDiscreteDynamicsWorld world_;
+	world_hack world_;
 	
 	collision::constraint::type constrain_;
 	overlap_filter overlap_filter_;

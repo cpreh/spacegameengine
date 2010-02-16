@@ -194,10 +194,19 @@ sge::bullet::world::update(
 	// NOTE: does this make sense?
 	try
 	{
+		FCPPT_LOG_DEBUG(
+			mylogger,
+			fcppt::log::_ 
+				<< FCPPT_TEXT("Starting simulation"));
+		world_.callback_hack();
 		world_.stepSimulation(
 			delta,
 			std::numeric_limits<int>::max(),
 			fixed_step);
+		FCPPT_LOG_DEBUG(
+			mylogger,
+			fcppt::log::_ 
+				<< FCPPT_TEXT("Ending simulation"));
 	}
 	catch (...)
 	{
@@ -249,10 +258,24 @@ sge::bullet::world::queue_add_shape(
 	shapes::base &_s)
 {
 	if (in_simulation_)
+	{
+		FCPPT_LOG_DEBUG(
+			mylogger,
+			fcppt::log::_ 
+				<< FCPPT_TEXT("In simulation, so queueing add shape ")
+				<< &_s);
 		queued_insert_shapes_.insert(
 			&_s);
+	}
 	else
+	{
+		FCPPT_LOG_DEBUG(
+			mylogger,
+			fcppt::log::_ 
+				<< FCPPT_TEXT("Not in simulation, immediately adding shape ")
+				<< &_s);
 		_s.insert_into_world();
+	}
 }
 
 void 
