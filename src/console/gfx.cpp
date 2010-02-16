@@ -273,6 +273,8 @@ sge::console::gfx::key_action(
 			output_lines_.down();
 		break;
 		case input::kc::key_up:
+			if (input_history_.empty())
+				return;
 			if (current_input_ != --input_history_.end())
 				++current_input_;
 			input_line_.string(
