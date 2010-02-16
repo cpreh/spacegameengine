@@ -30,25 +30,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::console::detail::history::history()
 :
 	items_(),
-	pos_(items_.begin())
+	pos_(
+		items_.begin())
 {
 }
 
 sge::console::detail::history::iterator_pair const
 sge::console::detail::history::lines_inside(
 	rect const &r,
-	unit const height
+	scalar const height
 ) const
 {
-	FCPPT_ASSERT(!fcppt::math::almost_zero(height));
+	FCPPT_ASSERT(
+		!fcppt::math::almost_zero(height));
 
 	// draw history
-	unit const total_lines = static_cast<unit>(r.h()/height);
+	scalar const total_lines = 
+		static_cast<scalar>(
+			r.h()/height);
 
 	// go from pos_ to min(pos_+total_lines,end)
-	const_iterator it = pos_;
+	const_iterator it = 
+		pos_;
 	for (
-		unit i = static_cast<unit>(0);
+		scalar i = static_cast<scalar>(0);
 		i < total_lines && it != items_.end();
 		++i
 	)

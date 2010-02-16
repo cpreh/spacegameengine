@@ -57,6 +57,7 @@ public:
 		sprite_object const &
 	);
 
+	/// If destructor doesn't exist: undefined reference to `sge::sprite::system_base ...
 	SGE_SYMBOL ~gfx();
 
 	SGE_SYMBOL void

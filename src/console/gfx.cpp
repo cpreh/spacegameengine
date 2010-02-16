@@ -94,8 +94,7 @@ sge::console::gfx::gfx(
 {
 }
 
-sge::console::gfx::~gfx()
-{}
+sge::console::gfx::~gfx() {}
 
 void
 sge::console::gfx::draw()
@@ -105,7 +104,9 @@ sge::console::gfx::draw()
 		bg
 	);
 
-	font::unit current_y = static_cast<font::unit>(bg.y()+bg.h()-2*fn.height());
+	font::unit current_y = 
+		static_cast<font::unit>(
+			bg.y()+bg.h()-2*fn.height());
 	BOOST_FOREACH(
 		fcppt::string const s,
 		output_history_.lines_inside(
@@ -114,22 +115,27 @@ sge::console::gfx::draw()
 					bg.pos()
 				),
 				detail::history::dim(
-					static_cast<detail::history::unit>(bg.w()),
-					static_cast<detail::history::unit>(bg.h()-fn.height())
+					static_cast<detail::history::scalar>(bg.w()),
+					static_cast<detail::history::scalar>(bg.h()-fn.height())
 				)
 			),
-			static_cast<detail::history::unit>(fn.height())
+			static_cast<detail::history::scalar>(fn.height())
 		)
 	)
 	{
 		// draw history lines
 		fn.draw_text(
 			s,
-			font::pos(bg.x(),current_y),
-			font::dim(bg.w(), bg.h() - fn.height()),
+			font::pos(
+				bg.x(),
+				current_y),
+			font::dim(
+				bg.w(), 
+				bg.h() - fn.height()),
 			font::align_h::left,
 			font::align_v::top);
-		current_y -= fn.height();
+		current_y -= 
+			fn.height();
 	}
 
 	fcppt::string const il = input_line_.edited(cursor_active_);
