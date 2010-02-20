@@ -180,7 +180,7 @@ try
 			)
 			.elements()
 		),
-		static_cast<sge::console::gfx::output_line_limit>(
+		static_cast<sge::console::output_line_limit>(
 			100)
 	);
 

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_GFX_HPP_INCLUDED
 #define SGE_CONSOLE_GFX_HPP_INCLUDED
 
+#include <sge/console/output_line_limit.hpp>
 #include <sge/console/object_fwd.hpp>
-#include <sge/console/pointed_history.hpp>
 #include <sge/console/cursor.hpp>
 #include <sge/console/sprite_system.hpp>
 #include <sge/console/sprite_object.hpp>
@@ -49,14 +49,6 @@ class gfx
 {
 	FCPPT_NONCOPYABLE(gfx)
 public:
-	typedef 
-	pointed_history<fcppt::string> 
-	output_line_sequence;
-	
-	typedef
-	output_line_sequence::size_type
-	output_line_limit;
-	
 	SGE_SYMBOL gfx(
 		sge::console::object &,
 		renderer::device_ptr,
