@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/headers.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>
+#include <boost/foreach.hpp>
 #include <ostream>
 
 namespace
@@ -112,6 +113,23 @@ sge::systems::list::operator()(
 				<< FCPPT_TEXT("Duplicate system state given!")
 		);
 	}
+	return ret;
+}
+
+sge::systems::list const
+sge::systems::list::append(
+	list const &other_
+) const
+{
+	list ret(*this);
+
+	// TODO: this could be optimized
+	BOOST_FOREACH(
+		named_set::const_reference ref,
+		other_.get()
+	)
+		ret = ret(ref);
+	
 	return ret;
 }
 

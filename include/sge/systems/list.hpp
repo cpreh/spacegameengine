@@ -55,6 +55,11 @@ public:
 		named const &
 	) const;
 
+	SGE_SYMBOL list const
+	append(
+		list const &
+	) const;
+
 	SGE_SYMBOL named_set const &
 	get() const;
 private:
