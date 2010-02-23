@@ -28,13 +28,17 @@ namespace sge
 namespace bitmapfont
 {
 
-class system : public font::system {
+class system
+:
+	public font::system
+{
 public:
 	font::metrics_ptr const
 	create_font(
-		filesystem::path const &,
+		fcppt::filesystem::path const &,
 		font::size_type font_height,
-		sge::image::loader_ptr);
+		sge::image::loader_ptr
+	);
 };
 
 }

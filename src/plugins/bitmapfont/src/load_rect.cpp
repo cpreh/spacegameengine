@@ -70,7 +70,7 @@ sge::bitmapfont::load_rect(
 		);
 
 	return image::rect(
-		image::rect::pos_type(
+		image::rect::vector(
 			parse::json::get<
 				int
 			>(
@@ -82,7 +82,7 @@ sge::bitmapfont::load_rect(
 				first_elements[1]
 			)
 		),
-		image::rect::dim_type(
+		image::rect::dim(
 			parse::json::get<
 				int
 			>(

@@ -27,26 +27,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_member.hpp>
 #include <sge/parse/json/get.hpp>
-#include <sge/filesystem/replace_extension.hpp>
 #include <sge/image/view/sub.hpp>
 #include <sge/image/file.hpp>
 #include <sge/image/loader.hpp>
 #include <sge/font/char_not_available.hpp>
 #include <sge/font/exception.hpp>
+#include <sge/log/global.hpp>
+#include <sge/exception.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <sge/log/headers.hpp>
-#include <sge/log/global.hpp>
+#include <fcppt/filesystem/replace_extension.hpp>
+#include <fcppt/log/headers.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <sge/make_shared_ptr.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <sge/exception.hpp>
+#include <fcppt/string.hpp>
 #include <boost/foreach.hpp>
 #include <utility>
 
 sge::bitmapfont::metrics::metrics(
-	filesystem::path const &path,
-	sge::image::loader_ptr const loader)
+	fcppt::filesystem::path const &path,
+	sge::image::loader_ptr const loader
+)
 :
 	image_(
 		loader->load(
@@ -56,8 +58,8 @@ sge::bitmapfont::metrics::metrics(
 	line_height_(),
 	char_map_()
 {
-	sge::filesystem::path const json_file(
-		filesystem::replace_extension(
+	fcppt::filesystem::path const json_file(
+		fcppt::filesystem::replace_extension(
 			path,
 			FCPPT_TEXT("json")
 		)
@@ -110,7 +112,7 @@ sge::bitmapfont::metrics::metrics(
 
 		fcppt::string const name(
 			parse::json::find_member<
-				string
+				fcppt::string
 			>(
 				members,
 				FCPPT_TEXT("name")
@@ -121,7 +123,7 @@ sge::bitmapfont::metrics::metrics(
 		{
 			FCPPT_LOG_WARNING(
 				log::global(),
-				log::_
+				fcppt::log::_
 					<< FCPPT_TEXT("Invalid character in bitmap font: ")
 					<< name
 			);
@@ -133,7 +135,7 @@ sge::bitmapfont::metrics::metrics(
 		char_map_.insert(
 			std::make_pair(
 				name[0],
-				make_shared_ptr<
+				fcppt::make_shared_ptr<
 					char_metric
 				>(
 					sge::image::view::sub(
@@ -155,11 +157,13 @@ sge::bitmapfont::metrics::metrics(
 			)
 		);
 	}
-	catch(exception const &e)
+	catch(
+		exception const &e
+	)
 	{
 		FCPPT_LOG_WARNING(
 			log::global(),
-			log::_
+			fcppt::log::_
 				<< FCPPT_TEXT("Skipping character in bitmap font because \"")
 				<< e.string()
 				<< FCPPT_TEXT('"')
@@ -172,7 +176,8 @@ sge::bitmapfont::metrics::~metrics()
 
 sge::font::char_metric_ptr const
 sge::bitmapfont::metrics::load_char(
-	char_type const c)
+	fcppt::char_type const c
+)
 {
 	char_map::const_iterator const it(
 		char_map_.find(

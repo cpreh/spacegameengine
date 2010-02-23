@@ -30,7 +30,7 @@ namespace bitmapfont
 
 class char_metric;
 
-typedef shared_ptr<
+typedef fcppt::shared_ptr<
 	char_metric
 > char_metric_ptr;
 

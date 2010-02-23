@@ -23,10 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "char_metric_fwd.hpp"
 #include <sge/font/metrics.hpp>
-#include <sge/filesystem/path.hpp>
-#include <sge/image/file_fwd.hpp>
-#include <sge/image/loader_fwd.hpp>
-#include <sge/char_type.hpp>
+#include <sge/image/file_ptr.hpp>
+#include <sge/image/loader_ptr.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/char_type.hpp>
 #include <map>
 
 namespace sge
@@ -34,16 +34,22 @@ namespace sge
 namespace bitmapfont
 {
 
-class metrics : public font::metrics {
+class metrics
+:
+	public font::metrics
+{
 public:
 	metrics(
-		filesystem::path const &,
-		sge::image::loader_ptr);
+		fcppt::filesystem::path const &,
+		sge::image::loader_ptr
+	);
+
 	~metrics();
 
 	font::char_metric_ptr const
 	load_char(
-		char_type);
+		fcppt::char_type
+	);
 
 	font::unit
 	line_height() const;
@@ -53,7 +59,7 @@ private:
 	font::unit line_height_;
 
 	typedef std::map<
-		char_type,
+		fcppt::char_type,
 		char_metric_ptr
 	> char_map;
 
