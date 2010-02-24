@@ -40,10 +40,11 @@ namespace json
 template<
 	typename T
 >
-T
+T const &
 find_member(
 	member_vector const &members,
-	fcppt::string const &name)
+	fcppt::string const &name
+)
 {
 	member_vector::const_iterator const it(
 		std::find_if(
