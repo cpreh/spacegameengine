@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/events/mouse_move.hpp>
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/gui/manager.hpp>
-#include <sge/exception.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/box/intersects.hpp>
@@ -434,7 +433,6 @@ sge::gui::widgets::base::~base()
 void sge::gui::widgets::base::size(
 	dim const &_size)
 {
-	throw exception("tja kacke");
 	size_ = _size;
 	parent_manager().resize(
 		*this,
