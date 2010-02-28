@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/events/mouse_move.hpp>
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/gui/manager.hpp>
+#include <sge/exception.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/box/intersects.hpp>
@@ -45,7 +46,7 @@ namespace
 fcppt::log::object mylogger(
 	fcppt::log::parameters::inherited(
 		sge::gui::global_log(),
-		FCPPT_TEXT("widget")
+		FCPPT_TEXT("widgets_base")
 	)
 );
 
@@ -84,6 +85,16 @@ sge::gui::widgets::base::base(
 	),
 	activation_(params.activation())
 {
+	if (size_hint())
+	{
+		FCPPT_LOG_DEBUG(
+			mylogger,
+			fcppt::log::_ 
+				<< FCPPT_TEXT("widget has a size hint of ")
+				<< *size_hint()
+				<< FCPPT_TEXT(", has type: ")
+				<< typeid(*this).name());
+	}
 	layout_->connected_widget(*this);
 	if (has_parent())
 		parent_widget().add_child(*this);
@@ -330,7 +341,14 @@ void sge::gui::widgets::base::compile_static()
 sge::gui::dim const sge::gui::widgets::base::optimal_size() const
 {
 	if (size_hint())
+	{
+		FCPPT_LOG_DEBUG(
+			mylogger,
+			fcppt::log::_ 
+				<< FCPPT_TEXT("Widget has a size hint, so returning: ")
+				<< *size_hint());
 		return *size_hint();
+	}
 	return layout().optimal_size();
 }
 
@@ -416,6 +434,7 @@ sge::gui::widgets::base::~base()
 void sge::gui::widgets::base::size(
 	dim const &_size)
 {
+	throw exception("tja kacke");
 	size_ = _size;
 	parent_manager().resize(
 		*this,

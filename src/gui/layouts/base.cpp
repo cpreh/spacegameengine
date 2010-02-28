@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/parameters/inherited.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/log/headers.hpp>
+#include <fcppt/math/dim/output.hpp>
 #include <fcppt/type_name.hpp>
 #include <fcppt/text.hpp>
 
@@ -35,7 +36,7 @@ namespace
 fcppt::log::object mylogger(
 	fcppt::log::parameters::inherited(
 		sge::gui::global_log(),
-		FCPPT_TEXT("layouts: base")
+		FCPPT_TEXT("layouts_base")
 	)
 );
 
@@ -87,6 +88,10 @@ void sge::gui::layouts::base::compile(invalidation::type const &i)
 
 	dim const s =
 		connected_widget().optimal_size();
+
+	FCPPT_LOG_DEBUG(
+		mylogger,
+		fcppt::log::_ << FCPPT_TEXT("optimal size is ") << s);
 
 	// Widget hasn't been resized yet?
 	if (connected_widget().size() != s)

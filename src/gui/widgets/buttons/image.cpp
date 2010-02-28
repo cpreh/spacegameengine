@@ -37,11 +37,9 @@ sge::gui::widgets::buttons::image::image(
 				sge::gui::size_policy(
 					axis_policy::none,
 					axis_policy::none))
-				/*
+					/*
 				.size(
-					dim(
-						static_cast<unit>(normal_->width()),
-						static_cast<unit>(normal_->height())))*/),
+					_normal->size())*/),
 	normal_(_normal),
 	hover_(_hover),
 	keyboard_(_keyboard),
