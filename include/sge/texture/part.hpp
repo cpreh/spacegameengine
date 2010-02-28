@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part_fwd.hpp>
 #include <sge/renderer/texture_ptr.hpp>
 #include <sge/renderer/lock_rect.hpp>
+#include <sge/renderer/dim_type.hpp>
 #include <sge/image/view/const_object.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
@@ -49,6 +50,9 @@ public:
 
 	virtual renderer::lock_rect const &
 	area() const = 0;
+
+	SGE_SYMBOL renderer::dim_type const
+	dim() const;
 
 	virtual renderer::texture_ptr const
 	texture() = 0;
