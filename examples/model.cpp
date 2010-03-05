@@ -44,15 +44,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
 #include <sge/image/create_texture.hpp>
 #include <sge/mainloop/catch_block.hpp>
+#include <sge/config/media_path.hpp>
 #include <sge/mainloop/dispatch.hpp>
+#include <fcppt/io/cifstream.hpp>
 #include <fcppt/math/matrix/perspective.hpp>
 #include <fcppt/math/pi.hpp>
-#include <sge/config/media_path.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/iconv.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <fstream>
@@ -92,8 +92,8 @@ try
 		model_plugin->get()()
 	);
 
-	std::ifstream ifs(
-		fcppt::iconv((sge::config::media_path() / FCPPT_TEXT("european_fnt_v2.md3")).string()).c_str(),
+	fcppt::io::cifstream ifs(
+		sge::config::media_path() / FCPPT_TEXT("european_fnt_v2.md3"),
 		std::ios_base::binary
 	);
 

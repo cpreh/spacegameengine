@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/string.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/iconv.hpp>
+#include <fcppt/from_std_string.hpp>
 
 void sge::devil::check_errors()
 {
@@ -39,7 +39,7 @@ void sge::devil::check_errors()
 #ifdef UNICODE
 			iluErrorString(e);
 #else
-			fcppt::iconv(iluErrorString(e));
+			fcppt::from_std_string(iluErrorString(e));
 #endif
 		error_message += FCPPT_TEXT('\n');
 	}

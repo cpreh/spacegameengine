@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/iconv.hpp>
+#include <fcppt/to_std_string.hpp>
 #include <fcppt/optional_impl.hpp>
 
 sge::devil::file::file(
@@ -50,7 +50,7 @@ sge::devil::file::file(
 //#ifdef UNICODE
 //		const_cast<wchar_t*>(file.string().c_str())
 //#else
-		const_cast<char*>(fcppt::iconv(file.string()).c_str())
+		const_cast<char*>(fcppt::to_std_string(file.string()).c_str())
 //#endif
 		) == IL_FALSE
 	)
@@ -197,7 +197,7 @@ sge::devil::file::save(
 //#ifdef UNICODE
 //		const_cast<wchar_t*>(file.string().c_str())
 //#else
-		const_cast<char*>(fcppt::iconv(file.string()).c_str())
+		const_cast<char*>(fcppt::to_std_string(file.string()).c_str())
 //#endif
 		);
 	ilDisable(IL_ORIGIN_SET);

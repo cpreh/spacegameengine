@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/char_type.hpp>
 #include <fcppt/text.hpp>
 #else
-#include <fcppt/iconv.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <cstdlib>
 #endif
 
@@ -56,7 +56,7 @@ sge::config::getenv(
 #else
 	char const *const ret(
 		::std::getenv(
-			fcppt::iconv(
+			fcppt::from_std_string(
 				s
 			).c_str()
 		)
@@ -67,7 +67,7 @@ sge::config::getenv(
 			s
 		);
 
-	return fcppt::iconv(
+	return fcppt::from_std_string(
 		ret
 	);
 #endif

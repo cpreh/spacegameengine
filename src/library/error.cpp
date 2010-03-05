@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/windows.hpp>
 #include <sge/windows/format_message.hpp>
 #elif FCPPT_POSIX_PLATFORM
-#include <fcppt/iconv.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <dlfcn.h>
 #else
@@ -40,7 +40,7 @@ sge::library::error()
 	);
 
 	return err
-		? fcppt::iconv(
+		? fcppt::from_std_string(
 			err
 		)
 		: FCPPT_TEXT("no error");

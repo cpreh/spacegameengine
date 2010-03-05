@@ -21,17 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/library/object.hpp>
 #include <sge/library/error.hpp>
 #include <sge/exception.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config.h>
 #ifdef FCPPT_WINDOWS_PLATFORM
 #include <sge/windows/windows.hpp>
-#include <fcppt/iconv.hpp>
 #include <fcppt/auto_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <exception>
 #elif FCPPT_POSIX_PLATFORM
-#include <fcppt/iconv.hpp>
+#include <fcppt/to_std_string.hpp>
 #include <dlfcn.h>
 #else
 #error "Implement me!"
@@ -105,7 +105,7 @@ sge::library::object::object(
 #elif FCPPT_POSIX_PLATFORM
 	handle(
 		dlopen(
-			fcppt::iconv(
+			fcppt::to_std_string(
 				nname.string()
 			).c_str(),
 			RTLD_NOW | RTLD_GLOBAL
@@ -180,7 +180,7 @@ sge::library::object::load_address_base(
 	if(!ret)
 		throw exception(
 			FCPPT_TEXT("Function ")
-			+ fcppt::iconv(fun)
+			+ fcppt::from_std_string(fun)
 			+ FCPPT_TEXT(" not found in ")
 			+ name_.string()
 		);
@@ -203,7 +203,7 @@ sge::library::object::load_address_base(
 
 	if(dlerror())
 		throw exception(
-			fcppt::iconv(fun)
+			fcppt::from_std_string(fun)
 			+ FCPPT_TEXT(" not found in library ")
 			+ name().string()
 		);

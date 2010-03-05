@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/error.hpp>
 #include <sge/x11/optional_error.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <fcppt/iconv.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
 
@@ -77,7 +77,7 @@ error_handler(
 			static_cast<int>(buffer.size())
 		);
 
-		error_ = fcppt::iconv(
+		error_ = fcppt::from_std_string(
 			buffer.data()
 		);
 	}

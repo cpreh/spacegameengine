@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/lexical_cast.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/iconv.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/foreach.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
@@ -484,7 +484,7 @@ try
 	sge::image::file_ptr const
 		bg(
 			sys.image_loader()->load(
-				fcppt::iconv(argv[1]
+				fcppt::from_std_string(argv[1]
 			)
 		)
 	);

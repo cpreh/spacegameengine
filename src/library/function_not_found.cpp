@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/library/function_not_found.hpp>
 #include <sge/library/error.hpp>
-#include <fcppt/iconv.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 
 sge::library::function_not_found::function_not_found(
@@ -30,7 +30,7 @@ sge::library::function_not_found::function_not_found(
 :
 	exception(
 		FCPPT_TEXT("Failed to load function ")
-		+ fcppt::iconv(func_)
+		+ fcppt::from_std_string(func_)
 		+ FCPPT_TEXT(" from object::library ")
 		+ lib_
 		+ FCPPT_TEXT(" : ")

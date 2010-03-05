@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/tr1/array.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/iconv.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <map>
 #include <ostream>
 #include <utility>
@@ -131,7 +131,7 @@ get_key_name(
 			std::make_pair(
 				ks,
 				name
-				? fcppt::iconv(name)
+				? fcppt::from_std_string(name)
 				: FCPPT_TEXT("unknown")
 			)
 		).first->second;

@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "find_own_path.hpp"
 #include <sge/config/media_path.hpp>
-#include <fcppt/iconv.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <boost/assign/list_of.hpp>
 
@@ -31,7 +31,7 @@ sge::config::media_path()
 		find_own_path(
 			FCPPT_TEXT("media_path"),
 			boost::assign::list_of(
-				fcppt::iconv(
+				fcppt::from_std_string(
 					MEDIA_PATH
 				)
 			)

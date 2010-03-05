@@ -43,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/iconv.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <boost/foreach.hpp>
 #include <algorithm>
 #include <iterator>
@@ -131,7 +131,7 @@ try
 	);
 
 	fcppt::filesystem::path const path(
-		fcppt::iconv(
+		fcppt::from_std_string(
 			argv[1]
 		)
 	);

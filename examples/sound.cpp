@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/pi.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/iconv.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <boost/program_options.hpp>
 #include <ostream>
 #include <exception>
@@ -91,7 +91,7 @@ try
 		 return EXIT_SUCCESS;
 	}
 
-	fcppt::filesystem::path file_name(fcppt::iconv(file_name_prog_options));
+	fcppt::filesystem::path file_name(fcppt::from_std_string(file_name_prog_options));
 	if (file_name.empty())
 		file_name = sge::config::media_path() / FCPPT_TEXT("ding.wav");
 

@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../context_base.hpp"
 #include <sge/image/file_exception.hpp>
 #include <sge/log/global.hpp>
-#include <fcppt/iconv.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/headers.hpp>
 
@@ -51,7 +51,7 @@ void sge::libpng::context_base::handle_warning_impl(
 			<< FCPPT_TEXT("libpng: file: ")
 			<< path_.string()
 			<< FCPPT_TEXT(": ")
-			<< fcppt::iconv(message)
+			<< fcppt::from_std_string(message)
 	);
 }
 
@@ -69,7 +69,7 @@ void sge::libpng::context_base::handle_error_impl(
 	throw
 		image::file_exception(
 			path_,
-			fcppt::iconv(
+			fcppt::from_std_string(
 				message
 			)
 		);

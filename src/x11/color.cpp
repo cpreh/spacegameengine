@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/display.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/iconv.hpp>
+#include <fcppt/to_std_string.hpp>
 
 sge::x11::color::color(
 	display_ptr const dsp,
@@ -40,7 +40,7 @@ sge::x11::color::color(
 		XAllocNamedColor(
 			dsp->get(),
 			colormap,
-			fcppt::iconv(name).c_str(),
+			fcppt::to_std_string(name).c_str(),
 			&color_,
 			&dummy
 		)

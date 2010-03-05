@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/filesystem/directory_iterator.hpp>
 #include <fcppt/filesystem/is_directory.hpp>
 #include <fcppt/filesystem/extension.hpp>
-#include <fcppt/iconv.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config.h>
@@ -99,7 +99,7 @@ sge::plugin::manager::manager()
 					<< it->path().string()
 					<< FCPPT_TEXT(" doesn't seem to be a valid sge plugin")
 					<< FCPPT_TEXT(" because the function \"")
-					<< fcppt::iconv(e.func())
+					<< fcppt::from_std_string(e.func())
 					<< FCPPT_TEXT("\" is missing!")
 			);
 		}

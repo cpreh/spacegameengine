@@ -34,6 +34,7 @@ sge::libpng::file::file(
 	load_context context(
 		_path);
 	dim_ = context.dim();
+
 	bytes_.swap(
 		context.bytes());
 	format_ = context.format();

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/class_hint.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/iconv.hpp>
+#include <fcppt/to_std_string.hpp>
 #include <sge/exception.hpp>
 
 class sge::x11::class_hint::impl
@@ -46,12 +46,12 @@ sge::x11::class_hint::class_hint(
 		new impl()
 	),
 	app_name(
-		fcppt::iconv(
+		fcppt::to_std_string(
 			app_name_
 		)
 	),
 	res_name(
-		fcppt::iconv(
+		fcppt::to_std_string(
 			res_name_
 		)
 	)

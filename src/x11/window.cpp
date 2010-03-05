@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/iconv.hpp>
+#include <fcppt/to_std_string.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <boost/assign/list_of.hpp>
 
@@ -122,7 +122,7 @@ sge::x11::window::title(
 	XStoreName(
 		dsp_(),
 		wnd,
-		fcppt::iconv(t).c_str());
+		fcppt::to_std_string(t).c_str());
 }
 
 sge::x11::window::dim_type const
