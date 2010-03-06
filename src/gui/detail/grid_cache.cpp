@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/unit.hpp>
 #include <sge/gui/exception.hpp>
 #include <sge/gui/log.hpp>
-#include <fcppt/math/negative.hpp>
+#include <fcppt/math/is_negative.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/log/parameters/inherited.hpp>
 #include <fcppt/log/headers.hpp>
@@ -135,7 +135,7 @@ void sge::gui::detail::grid_cache::first_pass()
 				<< hint
 		);
 
-		if(fcppt::math::negative(hint.x()) || fcppt::math::negative(hint.y()))
+		if(fcppt::math::is_negative(hint.x()) || fcppt::math::is_negative(hint.y()))
 			throw exception(
 				FCPPT_TEXT("grid layout position hints have to be positive"));
 

@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/dim.hpp>
-#include <fcppt/math/negative.hpp>
 #include <fcppt/log/parameters/inherited.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/log/headers.hpp>
@@ -234,8 +233,8 @@ void sge::gui::layouts::grid::expand(
 		FCPPT_LOG_DEBUG(
 			mylogger,
 			fcppt::log::_ << FCPPT_TEXT("there are ")
-							<< count
-							<< FCPPT_TEXT(" widgets which should grow, growing those"));
+			<< count
+			<< FCPPT_TEXT(" widgets which should grow, growing those"));
 
 		adapt(
 			optimal,
