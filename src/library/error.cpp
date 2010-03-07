@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <fcppt/config.h>
+#include <fcppt/config.hpp>
 #include <sge/library/error.hpp>
 #ifdef FCPPT_WINDOWS_PLATFORM
 #include <sge/windows/windows.hpp>

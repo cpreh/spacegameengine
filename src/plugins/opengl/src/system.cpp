@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config.h>
-#include <fcppt/config.h>
+#include <fcppt/config.hpp>
 #include "../system.hpp"
 #include "../device.hpp"
 #if defined(SGE_HAVE_X11)

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/config.h>
+#include <fcppt/config.hpp>
 #include <boost/foreach.hpp>
 
 fcppt::char_type const *const plugin_extension =

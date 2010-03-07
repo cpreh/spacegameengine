@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config/getenv.hpp>
 #include <sge/config/no_such_env_var.hpp>
-#include <fcppt/config.h>
+#include <fcppt/config.hpp>
 #ifdef FCPPT_WINDOWS_PLATFORM
 #include <sge/windows/windows.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
