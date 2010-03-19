@@ -41,6 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/pi.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/text.hpp>
 #include <boost/program_options.hpp>
 #include <ostream>
 #include <exception>

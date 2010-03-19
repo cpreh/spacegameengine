@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/text.hpp>
 #include <ostream>
 #include <exception>
 #include <iostream>

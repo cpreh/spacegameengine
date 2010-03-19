@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/auto_ptr.hpp>
 #include <fcppt/make_auto_ptr.hpp>
 #include <fcppt/assert.hpp>
+#include <fcppt/text.hpp>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix_core.hpp>
 //#include <boost/spirit/include/phoenix_object.hpp>

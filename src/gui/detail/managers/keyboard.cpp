@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/headers.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/assert.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/assert_message.hpp>
 #include <boost/next_prior.hpp>
 #include <algorithm>

@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/lexical_cast.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 
 void sge::gui::canvas::object::draw_rect(
 	rect const &r,

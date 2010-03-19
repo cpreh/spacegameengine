@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../file.hpp"
 #include <sge/image/file_fwd.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/text.hpp>
 
 sge::image::file_ptr const sge::libpng::loader::load(
 	fcppt::filesystem::path const &_path

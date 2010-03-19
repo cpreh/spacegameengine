@@ -14,6 +14,7 @@
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/null.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/text.hpp>
 #include <boost/foreach.hpp>
 #include <limits>
 

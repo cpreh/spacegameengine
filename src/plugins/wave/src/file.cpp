@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/ostringstream.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/assert.hpp>
+#include <fcppt/text.hpp>
 #include <boost/cstdint.hpp>
 
 sge::wave::file::file(

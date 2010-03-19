@@ -6,6 +6,7 @@
 #include <fcppt/assert.hpp>
 #include <fcppt/assert_message.hpp>
 #include <fcppt/math/null.hpp>
+#include <fcppt/text.hpp>
 
 namespace
 {

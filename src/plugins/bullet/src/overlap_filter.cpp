@@ -3,6 +3,7 @@
 #include "../log.hpp"
 #include <fcppt/log/parameters/inherited.hpp>
 #include <fcppt/log/headers.hpp>
+#include <fcppt/text.hpp>
 #include <BulletDynamics/Dynamics/btRigidBody.h>
 
 namespace
