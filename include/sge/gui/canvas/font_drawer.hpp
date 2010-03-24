@@ -50,7 +50,7 @@ public:
 	SGE_GUI_SYMBOL void begin_rendering(
 		size_type,
 		font::pos const &,
-		font::dim);
+		font::dim const &);
 
 	SGE_GUI_SYMBOL void draw_char(
 		fcppt::char_type,

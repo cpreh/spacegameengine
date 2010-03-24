@@ -62,7 +62,7 @@ void
 sge::font::drawer_3d::begin_rendering(
 	size_type const buffer_chars,
 	pos const &,
-	dim const
+	dim const &
 )
 {
 	sprites.clear();

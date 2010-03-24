@@ -46,7 +46,7 @@ public:
 	begin_rendering(
 		size_type buffer_chars,
 		pos const &start,
-		dim size
+		dim const &size
 	) = 0;
 
 	virtual void

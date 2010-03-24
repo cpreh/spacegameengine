@@ -65,7 +65,7 @@ sge::gui::canvas::font_drawer::font_drawer(
 void sge::gui::canvas::font_drawer::begin_rendering(
 	size_type const /*buffer_chars*/,
 	font::pos const &/*pos*/,
-	font::dim const /*size*/)
+	font::dim const &/*size*/)
 {
 }
 

@@ -67,7 +67,7 @@ public:
 	begin_rendering(
 		size_type buffer_chars,
 		pos const &start,
-		dim size
+		dim const &size
 	);
 
 	SGE_SYMBOL void
