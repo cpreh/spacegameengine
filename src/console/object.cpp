@@ -37,7 +37,10 @@ sge::console::object::object(
 	fcppt::char_type const _prefix
 )
 :
-	prefix_(_prefix)
+	prefix_(_prefix),
+	vars_(),
+	funcs_(),
+	fallback_()
 {
 }
 
@@ -161,6 +164,12 @@ sge::console::function_map const &
 sge::console::object::functions() const
 {
 	return funcs_;
+}
+
+fcppt::char_type
+sge::console::object::prefix() const
+{
+	return prefix_;
 }
 
 void

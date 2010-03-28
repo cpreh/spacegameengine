@@ -71,16 +71,29 @@ public:
 
 	SGE_SYMBOL function_map const &
 	functions() const;
+
+	SGE_SYMBOL fcppt::char_type
+	prefix() const;
 private:
 	friend class var_base;
 
-	variable_map vars_;
-	function_map funcs_;
-	fallback_signal fallback_;
-	fcppt::char_type prefix_;
+	fcppt::char_type const prefix_;
 
-	void insert(var_base &);
-	void erase(var_base &);
+	variable_map vars_;
+
+	function_map funcs_;
+
+	fallback_signal fallback_;
+
+	void
+	insert(
+		var_base &
+	);
+
+	void
+	erase(
+		var_base &
+	);
 };
 
 }
