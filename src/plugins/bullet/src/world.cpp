@@ -200,9 +200,15 @@ sge::bullet::world::update(
 			fcppt::log::_ 
 				<< FCPPT_TEXT("Starting simulation"));
 		world_.callback_hack();
+		/* This didn't work out well
 		world_.stepSimulation(
 			delta,
 			std::numeric_limits<int>::max(),
+			fixed_step);
+			*/
+		world_.stepSimulation(
+			delta,
+			7, // 7 is a bit arbitrary but then again, so is this damn parameter
 			fixed_step);
 		FCPPT_LOG_DEBUG(
 			mylogger,
