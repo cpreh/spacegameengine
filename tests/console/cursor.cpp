@@ -238,4 +238,20 @@ BOOST_AUTO_TEST_CASE(cursor)
 	BOOST_REQUIRE(
 		c.string() == 
 			FCPPT_TEXT(" bar"));
+	
+	c.string(
+		FCPPT_TEXT("foo"));
+	c.left();
+	c.left();
+
+	BOOST_REQUIRE(
+		c.edited(true) == 
+			FCPPT_TEXT("f_o "));
+
+	c.insert(
+		FCPPT_TEXT('a'));
+	
+	BOOST_REQUIRE(
+		c.edited(true) == 
+			FCPPT_TEXT("fa_o "));
 }

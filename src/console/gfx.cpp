@@ -236,7 +236,7 @@ sge::console::gfx::key_action(
 {
 	if (!active_)
 		return;
-
+	
 	if ((k.char_code() == FCPPT_TEXT('w') || k.char_code() == FCPPT_TEXT('W'))
 	    && (s[input::kc::key_lctrl] || s[input::kc::key_rctrl]))
 	{
@@ -248,7 +248,6 @@ sge::console::gfx::key_action(
 	if(std::isprint(k.char_code(),std::locale()))
 	{
 		input_line_.insert(k.char_code());
-		input_line_.right();
 		return;
 	}
 
