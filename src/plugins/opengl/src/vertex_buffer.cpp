@@ -59,6 +59,12 @@ sge::opengl::vertex_buffer::set_format() const
 	);
 }
 
+void
+sge::opengl::vertex_buffer::unset_format() const
+{
+	format_.unuse_me();
+}
+
 sge::opengl::vertex_buffer::view_type const
 sge::opengl::vertex_buffer::lock(
 	renderer::lock_mode::type const flags,

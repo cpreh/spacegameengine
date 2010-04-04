@@ -31,18 +31,28 @@ namespace opengl
 namespace vf
 {
 
-class client_state_combiner {
+class client_state_combiner
+{
 	FCPPT_NONCOPYABLE(client_state_combiner)
 public:
 	explicit client_state_combiner(
-		client_state const &old_states);
-	void enable(
-		GLenum);
-	void enable_attribute(
-		GLuint);
+		client_state const &old_states
+	);
+
+	void
+	enable(
+		GLenum
+	);
+
+	void
+	enable_attribute(
+		GLuint
+	);
+
 	~client_state_combiner();
 private:
 	client_state const old_states;
+
 	client_state new_states;
 };
 

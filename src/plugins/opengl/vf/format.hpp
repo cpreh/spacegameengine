@@ -33,20 +33,31 @@ namespace opengl
 namespace vf
 {
 
-class format {
+class format
+{
 	FCPPT_NONCOPYABLE(format)
 public:
 	explicit format(
-		renderer::vf::dynamic_format const &);
-	renderer::vf::dynamic_format const &get() const;
-	void use_me(
-		pointer) const;
+		renderer::vf::dynamic_format const &
+	);
+
+	renderer::vf::dynamic_format const &
+	get() const;
+
+	void
+	use_me(
+		pointer
+	) const;
+
+	void
+	unuse_me() const;
 private:
 	renderer::vf::dynamic_format const fmt;
 
 	typedef boost::ptr_vector<
 		actor
 	> actor_array;
+
 	mutable actor_array actors;
 };
 

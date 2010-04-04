@@ -32,7 +32,10 @@ namespace sge
 namespace opengl
 {
 
-class vertex_buffer : public renderer::vertex_buffer {
+class vertex_buffer
+:
+	public renderer::vertex_buffer
+{
 public:
 	vertex_buffer(
 		renderer::vf::dynamic_format const &,
@@ -42,6 +45,9 @@ public:
 
 	void
 	set_format() const;
+
+	void
+	unset_format() const;
 private:
 	view_type const
 	lock(
@@ -56,9 +62,11 @@ private:
 		size_type range
 	) const;
 
-	void unlock() const;
+	void
+	unlock() const;
 
-	size_type size() const;
+	size_type
+	size() const;
 
 	renderer::resource_flags_field const
 	flags() const;

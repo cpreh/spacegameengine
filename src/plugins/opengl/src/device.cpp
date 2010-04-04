@@ -229,12 +229,11 @@ sge::opengl::device::set_vertex_buffer(
 	renderer::const_vertex_buffer_ptr const vb
 )
 {
-	opengl::vertex_buffer const &
-		ovb = dynamic_cast<opengl::vertex_buffer const &>(
-			*vb
-		);
-	
-	ovb.set_format();
+	dynamic_cast<
+		opengl::vertex_buffer const &
+	>(
+		*vb
+	).set_format();
 }
 
 void
@@ -242,7 +241,11 @@ sge::opengl::device::unset_vertex_buffer(
 	renderer::const_vertex_buffer_ptr const vb
 )
 {
-	// TODO!
+	dynamic_cast<
+		opengl::vertex_buffer const &
+	>(
+		*vb
+	).unset_format();
 }
 
 void
