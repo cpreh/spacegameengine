@@ -31,7 +31,8 @@ namespace opengl
 namespace vf
 {
 
-class client_state {
+class client_state
+{
 public:
 	typedef fcppt::container::linear_set<
 		GLenum
@@ -41,15 +42,34 @@ public:
 		GLuint
 	> index_state_set;
 
-	void enable(
-		GLenum);
-	void enable_attribute(
-		GLuint);
+	void
+	enable(
+		GLenum
+	);
 
-	normal_state_set const &normal_states() const;
-	index_state_set const &attribute_states() const;
+	void
+	disable(
+		GLenum
+	);
+
+	void
+	enable_attribute(
+		GLuint
+	);
+
+	void
+	disable_attribute(
+		GLuint
+	);
+
+	normal_state_set const &
+	normal_states() const;
+
+	index_state_set const &
+	attribute_states() const;
 private:
 	normal_state_set normal_states_;
+
 	index_state_set attribute_states_;
 };
 

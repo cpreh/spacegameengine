@@ -45,7 +45,17 @@ public:
 	);
 
 	void
+	disable(
+		GLenum
+	);
+
+	void
 	enable_attribute(
+		GLuint
+	);
+
+	void
+	disable_attribute(
 		GLuint
 	);
 

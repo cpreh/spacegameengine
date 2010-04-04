@@ -81,7 +81,6 @@ sge::opengl::vf::format::use_me(
 void
 sge::opengl::vf::format::unuse_me() const
 {
-#if 0
 	client_state_combiner states_(
 		global_client_state()
 	);
@@ -91,9 +90,8 @@ sge::opengl::vf::format::unuse_me() const
 		actors
 	)
 	{
-		c(
+		c.unuse(
 			states_
 		);
 	}
-#endif
 }

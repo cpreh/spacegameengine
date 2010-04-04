@@ -37,13 +37,34 @@ insert_checked(
 	typename Set::value_type
 );
 
+template<
+	typename Set
+>
+void
+erase_checked(
+	Set &,
+	typename Set::value_type
+);
+
 }
 
 void
 sge::opengl::vf::client_state::enable(
-	GLenum const e)
+	GLenum const e
+)
 {
 	insert_checked(
+		normal_states_,
+		e
+	);
+}
+
+void
+sge::opengl::vf::client_state::disable(
+	GLenum const e
+)
+{
+	erase_checked(
 		normal_states_,
 		e
 	);
@@ -55,6 +76,17 @@ sge::opengl::vf::client_state::enable_attribute(
 )
 {
 	insert_checked(
+		attribute_states_,
+		i
+	);
+}
+
+void
+sge::opengl::vf::client_state::disable_attribute(
+	GLuint const i
+)
+{
+	erase_checked(
 		attribute_states_,
 		i
 	);
@@ -91,6 +123,25 @@ insert_checked(
 			sge::log::global(),
 			fcppt::log::_
 				<< FCPPT_TEXT("Duplicate state inserted in opengl::vf!")
+		);
+}
+
+template<
+	typename Set
+>
+void
+erase_checked(
+	Set &s,
+	typename Set::value_type const v
+)
+{
+	if(
+		!s.erase(v)
+	)
+		FCPPT_LOG_WARNING(
+			sge::log::global(),
+			fcppt::log::_
+				<< FCPPT_TEXT("States erased in opengl::vf that was not there!")
 		);
 }
 

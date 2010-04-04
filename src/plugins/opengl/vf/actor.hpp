@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VF_ACTOR_HPP_INCLUDED
 
 #include "pointer.hpp"
+#include "client_state_combiner_fwd.hpp"
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -31,18 +32,25 @@ namespace opengl
 namespace vf
 {
 
-class client_state_combiner;
-
-class actor {
+class actor
+{
 public:
 	FCPPT_NONCOPYABLE(actor)
 protected:
 	actor();
 public:
-	virtual void operator()(
-		client_state_combiner &) const = 0;
+	virtual void
+	operator()(
+		client_state_combiner &
+	) const = 0;
 
-	virtual void source(vf::pointer) = 0;
+	virtual void
+	source(
+		vf::pointer
+	) = 0;
+
+	virtual void
+	unset() const = 0;
 
 	virtual ~actor();
 };

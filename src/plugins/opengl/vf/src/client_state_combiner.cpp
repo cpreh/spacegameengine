@@ -60,11 +60,27 @@ sge::opengl::vf::client_state_combiner::enable(
 }
 
 void
+sge::opengl::vf::client_state_combiner::disable(
+	GLenum const e
+)
+{
+	new_states.disable(e);
+}
+
+void
 sge::opengl::vf::client_state_combiner::enable_attribute(
 	GLuint const i
 )
 {
 	new_states.enable_attribute(i);
+}
+
+void
+sge::opengl::vf::client_state_combiner::disable_attribute(
+	GLuint const i
+)
+{
+	new_states.disable_attribute(i);
 }
 
 sge::opengl::vf::client_state_combiner::~client_state_combiner()

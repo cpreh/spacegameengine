@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "actor.hpp"
 #include "../common.hpp"
 #include <sge/renderer/vf/vertex_size.hpp>
+#include <sge/renderer/vf/dynamic_ordered_element.hpp>
 
 namespace sge
 {
