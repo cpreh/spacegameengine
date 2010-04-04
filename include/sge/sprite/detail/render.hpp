@@ -52,7 +52,6 @@ render(
 	In const end,
 	Comp const comp,
 	renderer::device_ptr const rend,
-	renderer::vertex_buffer_ptr const vb,
 	renderer::index_buffer_ptr const ib
 )
 {
@@ -66,10 +65,6 @@ render(
 		typename object_type::elements
 	>(
 		rend
-	);
-
-	rend->set_vertex_buffer(
-		vb
 	);
 
 	for(

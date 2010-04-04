@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/index_buffer.hpp>
+#include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <iterator>
 
@@ -112,12 +113,16 @@ sge::sprite::external_system<Choices>::render(
 		render_states()
 	);
 
+	renderer::scoped_vertex_buffer const vb_context(
+		rend,
+		vb
+	);
+
 	detail::render(
 		begin,
 		end,
 		equal_fun,
 		rend,
-		vb,
 		ib
 	);
 }
