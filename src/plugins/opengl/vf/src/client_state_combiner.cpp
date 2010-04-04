@@ -34,28 +34,35 @@ template<
 	typename EnableFun,
 	typename DisableFun
 >
-void apply_difference(
+void
+apply_difference(
 	Set const &old_states,
 	Set const &new_states,
 	EnableFun,
-	DisableFun);
+	DisableFun
+);
 
 }
 
 sge::opengl::vf::client_state_combiner::client_state_combiner(
-	client_state const &old_states)
+	client_state const &old_states
+)
 :
 	old_states(old_states)
 {}
 
-void sge::opengl::vf::client_state_combiner::enable(
-	GLenum const e)
+void
+sge::opengl::vf::client_state_combiner::enable(
+	GLenum const e
+)
 {
 	new_states.enable(e);
 }
 
-void sge::opengl::vf::client_state_combiner::enable_attribute(
-	GLuint const i)
+void
+sge::opengl::vf::client_state_combiner::enable_attribute(
+	GLuint const i
+)
 {
 	new_states.enable_attribute(i);
 }
@@ -66,16 +73,19 @@ sge::opengl::vf::client_state_combiner::~client_state_combiner()
 		old_states.normal_states(),
 		new_states.normal_states(),
 		glEnableClientState,
-		glDisableClientState);
+		glDisableClientState
+	);
 
 	apply_difference(
 		old_states.attribute_states(),
 		new_states.attribute_states(),
 		enable_vertex_attrib_array,
-		disable_vertex_attrib_array);
+		disable_vertex_attrib_array
+	);
 
 	global_client_state(
-		new_states);
+		new_states
+	);
 }
 
 namespace
@@ -86,13 +96,16 @@ template<
 	typename EnableFun,
 	typename DisableFun
 >
-void apply_difference(
+void
+apply_difference(
 	Set const &old_states,
 	Set const &new_states,
 	EnableFun const enable,
-	DisableFun const disable)
+	DisableFun const disable
+)
 {
 	Set diff;
+
 	std::set_difference(
 		old_states.begin(),
 		old_states.end(),
@@ -100,9 +113,14 @@ void apply_difference(
 		new_states.end(),
 		std::inserter(
 			diff,
-			diff.begin()));
+			diff.begin()
+		)
+	);
 
-	BOOST_FOREACH(typename Set::const_reference r, diff)
+	BOOST_FOREACH(
+		typename Set::const_reference r,
+		diff
+	)
 		disable(r);
 
 	diff.clear();
@@ -114,9 +132,14 @@ void apply_difference(
 		old_states.end(),
 		std::inserter(
 			diff,
-			diff.begin()));
+			diff.begin()
+		)
+	);
 
-	BOOST_FOREACH(typename Set::const_reference r, diff)
+	BOOST_FOREACH(
+		typename Set::const_reference r,
+		diff
+	)
 		enable(r);
 }
 

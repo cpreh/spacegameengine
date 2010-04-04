@@ -31,26 +31,33 @@ namespace
 template<
 	typename Set
 >
-void insert_checked(
+void
+insert_checked(
 	Set &,
-	typename Set::value_type);
+	typename Set::value_type
+);
 
 }
 
-void sge::opengl::vf::client_state::enable(
+void
+sge::opengl::vf::client_state::enable(
 	GLenum const e)
 {
 	insert_checked(
 		normal_states_,
-		e);
+		e
+	);
 }
 
-void sge::opengl::vf::client_state::enable_attribute(
-	GLuint const i)
+void
+sge::opengl::vf::client_state::enable_attribute(
+	GLuint const i
+)
 {
 	insert_checked(
 		attribute_states_,
-		i);
+		i
+	);
 }
 
 sge::opengl::vf::client_state::normal_state_set const &
@@ -71,11 +78,15 @@ namespace
 template<
 	typename Set
 >
-void insert_checked(
+void
+insert_checked(
 	Set &s,
-	typename Set::value_type const v)
+	typename Set::value_type const v
+)
 {
-	if(!s.insert(v).second)
+	if(
+		!s.insert(v).second
+	)
 		FCPPT_LOG_WARNING(
 			sge::log::global(),
 			fcppt::log::_

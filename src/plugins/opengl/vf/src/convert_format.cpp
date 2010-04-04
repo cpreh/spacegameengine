@@ -25,25 +25,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <fcppt/text.hpp>
 
-GLenum sge::opengl::vf::convert_format::operator()(
-	renderer::vf::dynamic_vector const &v) const
+GLenum
+sge::opengl::vf::convert_format::operator()(
+	renderer::vf::dynamic_vector const &v
+) const
 {
-	switch(v.element_type()) {
+	switch(v.element_type())
+	{
 	case renderer::vf::element_type::float_:
 		return GL_FLOAT;
 	case renderer::vf::element_type::double_:
 		return GL_DOUBLE;
 	case renderer::vf::element_type::byte:
 		return GL_UNSIGNED_BYTE;
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid format in ogl::vf::convert_format!"));
 	}
+
+	throw exception(
+		FCPPT_TEXT("Invalid format in ogl::vf::convert_format!")
+	);
 }
 
-GLenum sge::opengl::vf::convert_format::operator()(
-	renderer::vf::dynamic_color const &c) const
+GLenum
+sge::opengl::vf::convert_format::operator()(
+	renderer::vf::dynamic_color const &c
+) const
 {
 	return to_format_type(
-		c.color_format());
+		c.color_format()
+	);
 }

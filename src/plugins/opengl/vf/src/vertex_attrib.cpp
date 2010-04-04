@@ -34,17 +34,20 @@ PFNGLVERTEXATTRIBPOINTERPROC gl_vertex_attrib_pointer;
 PFNGLENABLEVERTEXATTRIBARRAYPROC gl_enable_vertex_attrib_array;
 PFNGLDISABLEVERTEXATTRIBARRAYPROC gl_disable_vertex_attrib_array;
 
-void initialize();
+void
+initialize();
 
 }
 
-void sge::opengl::vf::vertex_attrib_pointer(
+void
+sge::opengl::vf::vertex_attrib_pointer(
 	GLuint const index,
 	GLint const size,
 	GLenum const type,
 	GLboolean const normalized,
 	GLsizei const stride,
-	void const *const pointer)
+	void const *const pointer
+)
 {
 	initialize();
 
@@ -63,8 +66,10 @@ void sge::opengl::vf::vertex_attrib_pointer(
 	)
 }
 
-void sge::opengl::vf::enable_vertex_attrib_array(
-	GLuint const index)
+void
+sge::opengl::vf::enable_vertex_attrib_array(
+	GLuint const index
+)
 {
 	initialize();
 
@@ -78,8 +83,10 @@ void sge::opengl::vf::enable_vertex_attrib_array(
 	)
 }
 
-void sge::opengl::vf::disable_vertex_attrib_array(
-	GLuint const index)
+void
+sge::opengl::vf::disable_vertex_attrib_array(
+	GLuint const index
+)
 {
 	initialize();
 
@@ -96,7 +103,8 @@ void sge::opengl::vf::disable_vertex_attrib_array(
 namespace
 {
 
-void initialize()
+void
+initialize()
 {
 	FCPPT_FUNCTION_ONCE
 

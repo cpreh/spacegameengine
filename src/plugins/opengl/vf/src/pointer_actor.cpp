@@ -26,7 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::vf::pointer_actor::pointer_actor(
 	renderer::vf::dynamic_ordered_element const &e,
-	renderer::vf::vertex_size const stride_)
+	renderer::vf::vertex_size const stride_
+)
 :
 	format_(
 		fcppt::variant::apply_unary(
@@ -50,17 +51,20 @@ sge::opengl::vf::pointer_actor::pointer_actor(
 	)
 {}
 
-GLenum sge::opengl::vf::pointer_actor::format() const
+GLenum
+sge::opengl::vf::pointer_actor::format() const
 {
 	return format_;
 }
 
-GLsizei sge::opengl::vf::pointer_actor::stride() const
+GLsizei
+sge::opengl::vf::pointer_actor::stride() const
 {
 	return stride_;
 }
 
-GLvoid const *sge::opengl::vf::pointer_actor::pointer() const
+GLvoid const *
+sge::opengl::vf::pointer_actor::pointer() const
 {
 	return pointer_;
 }
@@ -73,7 +77,8 @@ sge::opengl::vf::pointer_actor::index() const
 
 void
 sge::opengl::vf::pointer_actor::source(
-	vf::pointer const src)
+	vf::pointer const src
+)
 {
 	pointer_ = static_cast<renderer::const_raw_pointer>(src) + offset_;
 }
