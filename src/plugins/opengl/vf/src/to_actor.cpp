@@ -24,13 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../color_actor.hpp"
 #include "../texpos_actor.hpp"
 #include "../attribute_actor.hpp"
-#include <sge/renderer/vf/dynamic_ordered_element.hpp>
+#include <sge/renderer/vf/dynamic/ordered_element.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::vf::actor_ptr
 sge::opengl::vf::to_actor(
-	renderer::vf::dynamic_ordered_element const &e,
+	renderer::vf::dynamic::ordered_element const &e,
 	renderer::vf::vertex_size const stride
 )
 {

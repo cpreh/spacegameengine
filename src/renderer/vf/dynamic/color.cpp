@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vf/dynamic/color.hpp>
 
-sge::renderer::vf::dynamic::color::dynamic::color(
+sge::renderer::vf::dynamic::color::color(
 	image::color::format::type const color_format_
 )
 :

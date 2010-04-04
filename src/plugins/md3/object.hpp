@@ -41,7 +41,7 @@ public:
 	explicit object(
 		model::istream &);
 
-	renderer::vf::dynamic_format const
+	renderer::vf::dynamic::format const
 	format() const;
 
 	renderer::size_type
@@ -52,7 +52,7 @@ public:
 
 	void
 	copy_vertices(
-		renderer::vf::dynamic_view const &);
+		renderer::vf::dynamic::view const &);
 
 	void
 	copy_indices(

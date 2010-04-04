@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_FORMAT_HPP_INCLUDED
 #define SGE_RENDERER_VF_FORMAT_HPP_INCLUDED
 
-#include <sge/renderer/vf/element_stride.hpp>
+#include <sge/renderer/vf/detail/element_stride.hpp>
+#include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <fcppt/mpl/partial_sums.hpp>
 #include <boost/mpl/transform.hpp>
@@ -50,7 +51,7 @@ struct format
 
 	typedef typename boost::mpl::transform<
 		elements,
-		element_stride<
+		detail::element_stride<
 			boost::mpl::_1
 		>
 	>::type strides;

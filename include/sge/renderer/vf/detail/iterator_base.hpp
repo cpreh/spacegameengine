@@ -18,13 +18,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "scoped_buffer_lock_impl.hpp"
-#include <sge/renderer/scoped_vertex_lock.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
-#include <fcppt/export_symbol.hpp>
+#ifndef SGE_RENDERER_VF_DETAIL_ITERATOR_BASE_HPP_INCLUDED
+#define SGE_RENDERER_VF_DETAIL_ITERATOR_BASE_HPP_INCLUDED
 
-template FCPPT_EXPORT_SYMBOL class
-sge::renderer::detail::scoped_buffer_lock<
-	sge::renderer::vertex_buffer_ptr,
-	sge::renderer::vf::dynamic::view
->;
+#include <sge/renderer/vf/iterator_fwd.hpp>
+#include <sge/renderer/vf/vertex_fwd.hpp>
+#include <boost/type_traits/make_signed.hpp>
+#include <boost/iterator/iterator_facade.hpp>
+#include <iterator>
+
+namespace sge
+{
+namespace renderer
+{
+namespace vf
+{
+namespace detail
+{
+
+template<
+	typename VertexFormat
+>
+struct
+iterator_base
+{
+	typedef boost::iterator_facade<
+		iterator<
+			VertexFormat
+		>,
+		vertex<
+			VertexFormat
+		>,
+		std::random_access_iterator_tag,
+		vertex<
+			VertexFormat
+		>,
+		boost::make_signed<vertex_size>::type
+	> type;
+};
+
+}
+}
+}
+}
+
+#endif
+

@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/model/object_fwd.hpp>
 #include <sge/renderer/index/view.hpp>
-#include <sge/renderer/vf/dynamic_view_fwd.hpp>
-#include <sge/renderer/vf/dynamic_format_fwd.hpp>
+#include <sge/renderer/vf/dynamic/view_fwd.hpp>
+#include <sge/renderer/vf/dynamic/format_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
@@ -44,7 +44,7 @@ public:
 	// very basic interface
 	// will need a lot more abstraction
 
-	virtual renderer::vf::dynamic_format const
+	virtual renderer::vf::dynamic::format const
 	format() const = 0;
 
 	virtual renderer::size_type
@@ -55,7 +55,7 @@ public:
 
 	virtual void
 	copy_vertices(
-		renderer::vf::dynamic_view const &
+		renderer::vf::dynamic::view const &
 	) = 0;
 
 	virtual void

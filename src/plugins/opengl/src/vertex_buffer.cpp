@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vbo.hpp"
 #include "../convert_vertex_colors.hpp"
 #include "../instantiate_basic_buffer.hpp"
-#include <sge/renderer/vf/dynamic_view.hpp>
+#include <sge/renderer/vf/dynamic/view.hpp>
+#include <sge/renderer/vf/dynamic/const_view.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/assert.hpp>
 #include <boost/foreach.hpp>
@@ -33,7 +34,7 @@ SGE_OPENGL_INSTANTIATE_BASIC_BUFFER(
 )
 
 sge::opengl::vertex_buffer::vertex_buffer(
-	renderer::vf::dynamic_format const &format_,
+	renderer::vf::dynamic::format const &format_,
 	size_type const sz,
 	renderer::resource_flags_field const &flags
 )
@@ -108,7 +109,7 @@ sge::opengl::vertex_buffer::lock(
 void
 sge::opengl::vertex_buffer::unlock() const
 {
-	renderer::vf::dynamic_ordered_element_list const &elems(
+	renderer::vf::dynamic::ordered_element_list const &elems(
 		format().elements()
 	);
 
@@ -119,7 +120,7 @@ sge::opengl::vertex_buffer::unlock() const
 	FCPPT_ASSERT(buf.lock_size() % stride == 0);
 
 	BOOST_FOREACH(
-		renderer::vf::dynamic_ordered_element_list::const_reference elem,
+		renderer::vf::dynamic::ordered_element_list::const_reference elem,
 		elems
 	)
 		if(elem.element().role() == renderer::vf::role::color)
@@ -145,7 +146,7 @@ sge::opengl::vertex_buffer::flags() const
 	return buf.flags();
 }
 
-sge::renderer::vf::dynamic_format const &
+sge::renderer::vf::dynamic::format const &
 sge::opengl::vertex_buffer::format() const
 {
 	return format_.get();

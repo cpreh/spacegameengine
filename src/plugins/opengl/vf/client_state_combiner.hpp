@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_VF_CLIENT_STATE_COMBINER_HPP_INCLUDED
 #define SGE_OPENGL_VF_CLIENT_STATE_COMBINER_HPP_INCLUDED
 
+#include "client_state_combiner_fwd.hpp"
 #include "client_state.hpp"
 #include <fcppt/noncopyable.hpp>
 

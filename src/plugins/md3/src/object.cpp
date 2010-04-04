@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../object.hpp"
 #include "../vertex_format.hpp"
 #include <sge/log/global.hpp>
-#include <sge/renderer/vf/dynamic_view.hpp>
-#include <sge/renderer/vf/dynamic_format.hpp>
-#include <sge/renderer/vf/make_dynamic_format.hpp>
+#include <sge/renderer/vf/dynamic/view.hpp>
+#include <sge/renderer/vf/dynamic/format.hpp>
+#include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
@@ -120,11 +120,11 @@ sge::md3::object::object(
 	is.seekg(start + ofs_eof);
 }
 
-sge::renderer::vf::dynamic_format const
+sge::renderer::vf::dynamic::format const
 sge::md3::object::format() const
 {
-	static renderer::vf::dynamic_format const fmt(
-		renderer::vf::make_dynamic_format<
+	static renderer::vf::dynamic::format const fmt(
+		renderer::vf::dynamic::make_format<
 			vertex_format
 		>()
 	);
@@ -146,7 +146,7 @@ sge::md3::object::indices() const
 
 void
 sge::md3::object::copy_vertices(
-	renderer::vf::dynamic_view const &view)
+	renderer::vf::dynamic::view const &view)
 {
 	if(vertices() > view.size())
 		throw exception(

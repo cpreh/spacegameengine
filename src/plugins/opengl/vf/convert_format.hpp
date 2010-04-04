@@ -22,34 +22,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VF_CONVERT_FORMAT_HPP_INCLUDED
 
 #include "../common.hpp"
+#include <sge/renderer/vf/dynamic/vector_fwd.hpp>
+#include <sge/renderer/vf/dynamic/color_fwd.hpp>
 
 namespace sge
 {
-namespace renderer
-{
-namespace vf
-{
-class dynamic_vector;
-class dynamic_color;
-}
-}
-
 namespace opengl
 {
 namespace vf
 {
 
-class convert_format {
+class convert_format
+{
 public:
 	typedef GLenum result_type;
 
 	result_type
 	operator()(
-		renderer::vf::dynamic_vector const &) const;
+		renderer::vf::dynamic::vector const &
+	) const;
 
 	result_type
 	operator()(
-		renderer::vf::dynamic_color const &) const;
+		renderer::vf::dynamic::color const &
+	) const;
 };
 
 }

@@ -211,7 +211,7 @@ public:
 
 	renderer::vertex_buffer_ptr const
 	create_vertex_buffer(
-		renderer::vf::dynamic_format const &,
+		renderer::vf::dynamic::format const &,
 		renderer::size_type,
 		renderer::resource_flags_field const &
 	);

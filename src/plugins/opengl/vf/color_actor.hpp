@@ -22,34 +22,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VF_COLOR_ACTOR_HPP_INCLUDED
 
 #include "pointer_actor.hpp"
+#include "client_state_combiner_fwd.hpp"
 #include <sge/renderer/vf/vertex_size.hpp>
+#include <sge/renderer/vf/dynamic/ordered_element_fwd.hpp>
 
 namespace sge
 {
-namespace renderer
-{
-namespace vf
-{
-class dynamic_ordered_element;
-}
-}
-
 namespace opengl
 {
 namespace vf
 {
 
-class client_state_combiner;
-
-class color_actor : public pointer_actor {
+class color_actor
+:
+	public pointer_actor
+{
 public:
 	color_actor(
-		renderer::vf::dynamic_ordered_element const &,
-		renderer::vf::vertex_size);
+		renderer::vf::dynamic::ordered_element const &,
+		renderer::vf::vertex_size
+	);
 
 private:
-	void operator()(
-		client_state_combiner &) const;
+	void
+	operator()(
+		client_state_combiner &
+	) const;
 
 	GLint const elements;
 };

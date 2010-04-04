@@ -21,12 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../pos_actor.hpp"
 #include "../client_state_combiner.hpp"
 #include "../../check_state.hpp"
-#include <sge/renderer/vf/dynamic_ordered_element.hpp>
+#include <sge/renderer/vf/dynamic/ordered_element.hpp>
+#include <sge/renderer/vf/dynamic/vector.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::vf::pos_actor::pos_actor(
-	renderer::vf::dynamic_ordered_element const &e,
+	renderer::vf::dynamic::ordered_element const &e,
 	renderer::vf::vertex_size const stride
 )
 :
@@ -37,7 +38,7 @@ sge::opengl::vf::pos_actor::pos_actor(
 	elements(
 		static_cast<GLint>(
 			e.element().info().get<
-				renderer::vf::dynamic_vector
+				renderer::vf::dynamic::vector
 			>().elements()
 		)
 	)

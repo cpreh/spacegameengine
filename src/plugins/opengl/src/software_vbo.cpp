@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vbo.hpp"
 #include "../pbo.hpp"
 #include <sge/renderer/raw_pointer.hpp>
+#include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/raw_value.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/algorithm/copy_n.hpp>

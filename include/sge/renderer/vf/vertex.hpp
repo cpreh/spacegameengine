@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_VERTEX_HPP_INCLUDED
 #define SGE_RENDERER_VF_VERTEX_HPP_INCLUDED
 
-#include <sge/renderer/vf/raw_data.hpp>
-#include <sge/renderer/vf/calc_offset.hpp>
-#include <sge/renderer/vf/element_stride.hpp>
+#include <sge/renderer/vf/vertex_fwd.hpp>
+#include <sge/renderer/vf/detail/raw_data.hpp>
+#include <sge/renderer/vf/detail/calc_offset.hpp>
+#include <sge/renderer/vf/detail/element_stride.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <fcppt/mpl/find_nth.hpp>
 #include <fcppt/algorithm/copy_n.hpp>
@@ -138,7 +139,7 @@ private:
 		T const &t
 	)
 	{
-		typedef typename calc_offset<
+		typedef typename detail::calc_offset<
 			elements,
 			offsets,
 			Iter
@@ -156,8 +157,8 @@ private:
 		);
 
 		fcppt::algorithm::copy_n(
-			raw_data(t),
-			element_stride<
+			detail::raw_data(t),
+			detail::element_stride<
 				element
 			>::type::value,
 			data + boost::mpl::deref<offset>::type::value
@@ -171,7 +172,7 @@ private:
 	typename boost::mpl::deref<Iter>::type::packed_type const
 	get_internal() const
 	{
-		typedef typename calc_offset<
+		typedef typename detail::calc_offset<
 			elements,
 			offsets,
 			Iter
@@ -185,13 +186,13 @@ private:
 
 		fcppt::algorithm::copy_n(
 			data + boost::mpl::deref<offset>::type::value,
-			element_stride<
+			detail::element_stride<
 				element
 			>::type::value,
 			const_cast<
 				raw_pointer
 			>(
-				raw_data(
+				detail::raw_data(
 					ret
 				)
 			)

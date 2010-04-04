@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_VIEW_HPP_INCLUDED
 #define SGE_RENDERER_VF_VIEW_HPP_INCLUDED
 
-#include <sge/renderer/vf/dynamic_view.hpp>
+#include <sge/renderer/vf/dynamic/view.hpp>
+#include <sge/renderer/vf/iterator_fwd.hpp>
 
 namespace sge
 {
@@ -30,47 +31,56 @@ namespace renderer
 namespace vf
 {
 
-template<typename>
-class iterator;
-
 template<
 	typename VertexFormat
 >
-class view {
+class view
+{
 public:
 	typedef vf::iterator<VertexFormat> iterator;
+
 	typedef typename VertexFormat::pointer pointer;
-	typedef basic_dynamic_view<pointer> dynamic_view_type;
+
+	typedef dynamic::basic_view<pointer> dynamic_view_type;
+
 	typedef vertex_size size_type;
 
 	explicit view(
-		dynamic_view_type const &v)
+		dynamic_view_type const &v
+	)
 	:
 		data(v.data()),
 		size(v.size())
 	{}
 
-	template<typename OtherView>
+	template<
+		typename OtherView
+	>
 	explicit view(
-		basic_dynamic_view<OtherView> const &v)
+		dynamic::basic_view<OtherView> const &v)
 	:
 		data(v.data()),
 		size(v.size())
 	{}
 
-	iterator begin() const
+	iterator
+	begin() const
 	{
 		return iterator(
-			data);
+			data
+		);
 	}
 
-	iterator end() const
+	iterator
+	end() const
 	{
 		return iterator(
-			data + size);
+			data + size
+		);
 	}
 private:
 	pointer   const data;
+
 	size_type const size;
 };
 

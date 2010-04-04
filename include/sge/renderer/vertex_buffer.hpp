@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VERTEX_BUFFER_HPP_INCLUDED
 
 #include <sge/renderer/vertex_buffer_fwd.hpp>
-#include <sge/renderer/vf/dynamic_view_fwd.hpp>
-#include <sge/renderer/vf/dynamic_format_fwd.hpp>
+#include <sge/renderer/vf/dynamic/view_fwd.hpp>
+#include <sge/renderer/vf/dynamic/const_view_fwd.hpp>
+#include <sge/renderer/vf/dynamic/format_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
@@ -42,9 +43,11 @@ class SGE_CLASS_SYMBOL vertex_buffer
 protected:
 	SGE_SYMBOL vertex_buffer();
 public:
-	typedef renderer::size_type     size_type;
-	typedef vf::dynamic_view        view_type;
-	typedef vf::const_dynamic_view  const_view_type;
+	typedef renderer::size_type size_type;
+
+	typedef vf::dynamic::view view_type;
+
+	typedef vf::dynamic::const_view const_view_type;
 
 	SGE_SYMBOL static size_type const npos;
 
@@ -70,7 +73,7 @@ public:
 	virtual resource_flags_field const
 	flags() const = 0;
 
-	virtual vf::dynamic_format const &
+	virtual vf::dynamic::format const &
 	format() const = 0;
 
 	SGE_SYMBOL virtual ~vertex_buffer();

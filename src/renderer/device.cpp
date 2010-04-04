@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index_buffer.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
-#include <sge/renderer/vf/dynamic_format.hpp>
+#include <sge/renderer/vf/dynamic/format.hpp>
 #include <sge/renderer/index/view_format.hpp>
 #include <sge/renderer/index/view_size.hpp>
 #include <sge/image/view/format.hpp>
@@ -160,7 +160,7 @@ sge::renderer::device::create_volume_texture(
 
 sge::renderer::vertex_buffer_ptr const
 sge::renderer::device::create_vertex_buffer(
-	vf::const_dynamic_view const &view,
+	vf::dynamic::const_view const &view,
 	resource_flags_field const &flags
 )
 {

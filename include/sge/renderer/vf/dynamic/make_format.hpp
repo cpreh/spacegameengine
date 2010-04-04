@@ -62,7 +62,7 @@ make_format()
 	boost::mpl::for_each<
 		offsets
 	>(
-		make_offsets(
+		detail::make_offsets(
 			offs
 		)
 	);

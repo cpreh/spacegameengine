@@ -24,39 +24,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "actor.hpp"
 #include "../common.hpp"
 #include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/renderer/vf/dynamic_ordered_element.hpp>
+#include <sge/renderer/vf/dynamic/ordered_element_fwd.hpp>
 
 namespace sge
 {
-namespace renderer
-{
-namespace vf
-{
-class dynamic_ordered_element;
-}
-}
-
 namespace opengl
 {
 namespace vf
 {
 
-class pointer_actor : public actor {
+class pointer_actor
+:
+	public actor
+{
 protected:
 	pointer_actor(
-		renderer::vf::dynamic_ordered_element const &,
-		renderer::vf::vertex_size stride);
+		renderer::vf::dynamic::ordered_element const &,
+		renderer::vf::vertex_size stride
+	);
 
-	GLenum format() const;
-	GLsizei stride() const;
-	GLvoid const *pointer() const;
-	renderer::vf::vertex_size index() const;
+	GLenum
+	format() const;
+
+	GLsizei
+	stride() const;
+
+	GLvoid const *
+	pointer() const;
+
+	renderer::vf::vertex_size
+	index() const;
 private:
-	void source(vf::pointer);
+	void
+	source(
+		vf::pointer
+	);
 
 	GLenum const format_;
+
 	GLsizei const stride_;
+
 	vf::pointer pointer_;
+
 	renderer::vf::vertex_size const
 		index_,
 		offset_;

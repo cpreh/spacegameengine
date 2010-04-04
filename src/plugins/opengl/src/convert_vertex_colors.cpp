@@ -19,22 +19,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../convert_vertex_colors.hpp"
-#include <sge/renderer/vf/dynamic_color.hpp>
-#include <sge/renderer/vf/dynamic_ordered_element.hpp>
+#include <sge/renderer/vf/dynamic/color.hpp>
+#include <sge/renderer/vf/dynamic/ordered_element.hpp>
 #include <sge/image/algorithm/convert_conditional.hpp>
 #include <sge/image/color/format.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <boost/assign/list_of.hpp>
 
-void sge::opengl::convert_vertex_colors(
-	renderer::vf::dynamic_ordered_element const &e,
+void
+sge::opengl::convert_vertex_colors(
+	renderer::vf::dynamic::ordered_element const &e,
 	renderer::size_type const vertex_stride,
 	renderer::size_type const num_vertices,
-	renderer::raw_pointer const data)
+	renderer::raw_pointer const data
+)
 {
-	sge::renderer::vf::dynamic_color const dcolor(
+	sge::renderer::vf::dynamic::color const dcolor(
 		e.element().info().get<
-			sge::renderer::vf::dynamic_color
+			sge::renderer::vf::dynamic::color
 		>()
 	);
 

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_DEVICE_HPP_INCLUDED
 #define SGE_RENDERER_DEVICE_HPP_INCLUDED
 
-#include <sge/renderer/vf/dynamic_view.hpp>
-#include <sge/renderer/vf/dynamic_format_fwd.hpp>
+#include <sge/renderer/vf/dynamic/const_view_fwd.hpp>
+#include <sge/renderer/vf/dynamic/format_fwd.hpp>
 #include <sge/renderer/filter/texture_fwd.hpp>
 #include <sge/renderer/glsl/program_ptr.hpp>
 #include <sge/renderer/glsl/optional_string.hpp>
@@ -262,13 +262,13 @@ public:
 
 	SGE_SYMBOL vertex_buffer_ptr const
 	create_vertex_buffer(
-		vf::const_dynamic_view const &,
+		vf::dynamic::const_view const &,
 		resource_flags_field const &
 	);
 
 	virtual vertex_buffer_ptr const
 	create_vertex_buffer(
-		vf::dynamic_format const &,
+		vf::dynamic::format const &,
 		size_type size,
 		resource_flags_field const &
 	) = 0;

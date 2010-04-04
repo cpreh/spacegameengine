@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index_buffer.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/matrix_pixel_to_space.hpp>
-#include <sge/renderer/vf/make_dynamic_format.hpp>
+#include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/matrix/orthogonal_xy.hpp>
@@ -161,9 +161,9 @@ sge::sprite::system_base<Choices>::index_buffer() const
 template<
 	typename Choices
 >
-sge::renderer::vf::dynamic_format const
+sge::renderer::vf::dynamic::format const
 sge::sprite::system_base<Choices>::dyn_vertex_fmt(
-	sge::renderer::vf::make_dynamic_format<
+	sge::renderer::vf::dynamic::make_format<
 		typename sge::sprite::detail::vertex_format<
 			Choices
 		>::type

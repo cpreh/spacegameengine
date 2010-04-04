@@ -588,7 +588,7 @@ sge::opengl::device::create_cube_texture(
 
 sge::renderer::vertex_buffer_ptr const
 sge::opengl::device::create_vertex_buffer(
-	renderer::vf::dynamic_format const &format,
+	renderer::vf::dynamic::format const &format,
 	renderer::size_type const sz,
 	renderer::resource_flags_field const &flags
 )

@@ -49,8 +49,13 @@ public:
 		vf::pointer
 	) = 0;
 
-	virtual void
-	unset() const = 0;
+	void
+	unuse(
+		client_state_combiner &
+	) const
+	{
+		// FIXME!
+	}
 
 	virtual ~actor();
 };

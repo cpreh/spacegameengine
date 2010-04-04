@@ -22,30 +22,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VF_CONVERT_NUM_ELEMENTS_HPP_INCLUDED
 
 #include "../common.hpp"
-#include <boost/variant/static_visitor.hpp>
+#include <sge/renderer/vf/dynamic/vector_fwd.hpp>
+#include <sge/renderer/vf/dynamic/color_fwd.hpp>
 
 namespace sge
 {
-namespace renderer
-{
-namespace vf
-{
-class dynamic_vector;
-class dynamic_color;
-}
-}
-
 namespace opengl
 {
 namespace vf
 {
 
-class convert_num_elements : public boost::static_visitor<GLint> {
+class convert_num_elements
+{
 public:
-	GLint operator()(
-		renderer::vf::dynamic_vector const &) const;
-	GLint operator()(
-		renderer::vf::dynamic_color const &) const;
+	typedef GLint result_type;
+
+	result_type
+	operator()(
+		renderer::vf::dynamic::vector const &
+	) const;
+
+	GLint
+	operator()(
+		renderer::vf::dynamic::color const &
+	) const;
 };
 
 }

@@ -18,13 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "scoped_buffer_lock_impl.hpp"
-#include <sge/renderer/scoped_vertex_lock.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
-#include <fcppt/export_symbol.hpp>
+#ifndef SGE_OPENGL_VF_CLIENT_STATE_COMBINER_FWD_HPP_INCLUDED
+#define SGE_OPENGL_VF_CLIENT_STATE_COMBINER_FWD_HPP_INCLUDED
 
-template FCPPT_EXPORT_SYMBOL class
-sge::renderer::detail::scoped_buffer_lock<
-	sge::renderer::vertex_buffer_ptr,
-	sge::renderer::vf::dynamic::view
->;
+namespace sge
+{
+namespace opengl
+{
+namespace vf
+{
+
+class client_state_combiner;
+
+}
+}
+}
+
+#endif

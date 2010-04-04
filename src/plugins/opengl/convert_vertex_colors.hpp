@@ -23,25 +23,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/raw_pointer.hpp>
+#include <sge/renderer/vf/dynamic/ordered_element_fwd.hpp>
 
 namespace sge
 {
-namespace renderer
-{
-namespace vf
-{
-class dynamic_ordered_element;
-}
-}
-
 namespace opengl
 {
 
-void convert_vertex_colors(
-	renderer::vf::dynamic_ordered_element const &e,
+void
+convert_vertex_colors(
+	renderer::vf::dynamic::ordered_element const &e,
 	renderer::size_type vertex_stride,
 	renderer::size_type num_vertices,
-	renderer::raw_pointer data);
+	renderer::raw_pointer data
+);
 
 }
 }

@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_ITERATOR_HPP_INCLUDED
 #define SGE_RENDERER_VF_ITERATOR_HPP_INCLUDED
 
+#include <sge/renderer/vf/iterator_fwd.hpp>
+#include <sge/renderer/vf/detail/iterator_base.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
-#include <boost/type_traits/make_signed.hpp>
 #include <boost/iterator/iterator_facade.hpp>
-#include <iterator>
+#include <boost/mpl/back.hpp>
 
 namespace sge
 {
@@ -33,30 +34,15 @@ namespace renderer
 namespace vf
 {
 
-template<typename>
-class vertex;
-
-template<typename>
-class iterator;
-
-namespace detail
+template<
+	typename VertexFormat
+>
+class iterator
+:
+	public detail::iterator_base<
+		VertexFormat
+	>::type
 {
-
-template<typename VertexFormat>
-struct iterator_base {
-	typedef boost::iterator_facade<
-		iterator<VertexFormat>,
-		vertex<VertexFormat>,
-		std::random_access_iterator_tag,
-		vertex<VertexFormat>,
-		boost::make_signed<vertex_size>::type
-	> type;
-};
-
-}
-
-template<typename VertexFormat>
-class iterator : public detail::iterator_base<VertexFormat>::type {
 	typedef typename detail::iterator_base<VertexFormat>::type base;
 public:
 	typedef typename base::value_type value_type;
@@ -66,52 +52,68 @@ public:
 	typedef typename base::iterator_category iterator_category;
 private:
 	typedef value_type vertex_type;
+
 	typedef typename vertex_type::pointer internal_pointer;
 
 	static vertex_size const stride
 		= boost::mpl::back<typename VertexFormat::offsets>::type::value;
 
 	explicit iterator(
-		internal_pointer const data)
+		internal_pointer const data
+	)
 	:
 		data(data)
 	{}
 
 	friend class boost::iterator_core_access;
 
-	void advance(difference_type const d)
+	void
+	advance(
+		difference_type const d
+	)
 	{
 		data += stride * d;
 	}
 
-	void increment()
+	void
+	increment()
 	{
 		data += stride;
 	}
 
-	void decrement()
+	void
+	decrement()
 	{
 		data -= stride;
 	}
 
-	bool equal(iterator const &r) const
+	bool
+	equal(
+		iterator const &r
+	) const
 	{
 		return data == r.data;
 	}
 
-	difference_type distance_to(iterator const &r) const
+	difference_type
+	distance_to(
+		iterator const &
+	r) const
 	{
 		return (r.data - data) / difference_type(stride);
 	}
 
-	vertex_type dereference() const
+	vertex_type
+	dereference() const
 	{
 		return vertex_type(data);
 	}
 
 	internal_pointer data;
 
-	template<typename> friend class view;
+	template<
+		typename
+	> friend class view;
 };
 
 }

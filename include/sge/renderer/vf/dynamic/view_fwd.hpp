@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_DYNAMIC_VIEW_FWD_HPP_INCLUDED
 
 #include <sge/renderer/raw_pointer.hpp>
+#include <sge/renderer/vf/dynamic/basic_view_fwd.hpp>
 
 namespace sge
 {

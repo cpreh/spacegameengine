@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 sge::opengl::vf::color_actor::color_actor(
-	renderer::vf::dynamic_ordered_element const &e,
+	renderer::vf::dynamic::ordered_element const &e,
 	renderer::vf::vertex_size const stride
 )
 :

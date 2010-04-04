@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_ELEMENTS_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_ELEMENTS_HPP_INCLUDED
 
+#include <sge/renderer/vf/dynamic/detail/format_to_element.hpp>
 #include <sge/renderer/vf/dynamic/element_list.hpp>
 #include <sge/renderer/vf/dynamic/format.hpp>
 #include <sge/renderer/vf/role.hpp>
-#include <sge/renderer/vf/format_to_element.hpp>
 #include <sge/renderer/vf/color_base.hpp>
 #include <sge/renderer/vf/vec_base.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
@@ -71,7 +71,7 @@ public:
 		elems.push_back(
 			element(
 				vector(
-					format_to_element<
+					detail::format_to_element<
 						Format
 					>::value,
 					NumSubElements

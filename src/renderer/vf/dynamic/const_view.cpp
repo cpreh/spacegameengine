@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "basic_view_impl.hpp"
 #include <sge/renderer/vf/dynamic/const_view.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
-#include <sge/class_symbol.hpp>
+#include <fcppt/export_symbol.hpp>
 
-template SGE_CLASS_SYMBOL class sge::renderer::vf::dynamic::basic_view<
+template FCPPT_EXPORT_SYMBOL class sge::renderer::vf::dynamic::basic_view<
 	sge::renderer::const_raw_pointer
 >;

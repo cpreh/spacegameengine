@@ -25,17 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim_type.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/raw_pointer.hpp>
+#include <sge/renderer/const_raw_pointer.hpp>
+#include <sge/renderer/filter/texture_fwd.hpp>
 
 namespace sge
 {
-namespace renderer
-{
-namespace filter
-{
-class texture;
-}
-}
-
 namespace opengl
 {
 

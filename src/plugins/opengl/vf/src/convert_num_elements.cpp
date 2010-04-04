@@ -19,12 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../convert_num_elements.hpp"
-#include <sge/renderer/vf/dynamic_vector.hpp>
-#include <sge/renderer/vf/dynamic_color.hpp>
+#include <sge/renderer/vf/dynamic/vector.hpp>
+#include <sge/renderer/vf/dynamic/color.hpp>
 
 GLint
 sge::opengl::vf::convert_num_elements::operator()(
-	renderer::vf::dynamic_vector const &v
+	renderer::vf::dynamic::vector const &v
 ) const
 {
 	return static_cast<GLint>(
@@ -34,8 +34,8 @@ sge::opengl::vf::convert_num_elements::operator()(
 
 GLint
 sge::opengl::vf::convert_num_elements::operator()(
-	renderer::vf::dynamic_color const &
+	renderer::vf::dynamic::color const &
 ) const
 {
-	return 4;
+	return 4; // FIXME!
 }

@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <fcppt/text.hpp>
 
-sge::renderer::vf::dynamic::format::dynamic::format(
+sge::renderer::vf::dynamic::format::format(
 	element_list const &elem,
-	offset_list const &offs)
+	offset_list const &offs
+)
 {
 	if(elem.size() + 1 != offs.size())
 		throw exception(

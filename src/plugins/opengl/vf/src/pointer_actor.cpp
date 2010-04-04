@@ -20,12 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../pointer_actor.hpp"
 #include "../convert_format.hpp"
-#include <sge/renderer/vf/dynamic_ordered_element.hpp>
-#include <sge/renderer/raw_pointer.hpp>
+#include <sge/renderer/vf/dynamic/ordered_element.hpp>
+#include <sge/renderer/const_raw_pointer.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 
 sge::opengl::vf::pointer_actor::pointer_actor(
-	renderer::vf::dynamic_ordered_element const &e,
+	renderer::vf::dynamic::ordered_element const &e,
 	renderer::vf::vertex_size const stride_
 )
 :
