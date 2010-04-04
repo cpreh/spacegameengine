@@ -18,36 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/vf/dynamic_format.hpp>
-#include <sge/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/renderer/vf/dynamic/vector.hpp>
 
-sge::renderer::vf::dynamic_format::dynamic_format(
-	dynamic_element_list const &elem,
-	dynamic_offset_list const &offs)
-{
-	if(elem.size() + 1 != offs.size())
-		throw exception(
-			FCPPT_TEXT("dynamic_format: Invalid sizes of vectors!"));
-	if(elem.empty() || offs.empty())
-		throw exception(
-			FCPPT_TEXT("dynamic_format: Format cannot be empty!"));
-	for(dynamic_element_list::size_type i(0); i < elem.size(); ++i)
-		elements_.push_back(
-			dynamic_ordered_element(
-				elem[i],
-				offs[i]));
-	stride_ = offs.back();
-}
+sge::renderer::vf::dynamic::vector::dynamic::vector(
+	vf::element_type::type const element_type_,
+	vertex_size const elements_
+)
+:
+	element_type_(element_type_),
+	elements_(elements_)
+{}
 
-sge::renderer::vf::dynamic_ordered_element_list const &
-sge::renderer::vf::dynamic_format::elements() const
+sge::renderer::vf::element_type::type
+sge::renderer::vf::dynamic::vector::element_type() const
 {
-	return elements_;
+	return element_type_;
 }
 
 sge::renderer::vf::vertex_size
-sge::renderer::vf::dynamic_format::stride() const
+sge::renderer::vf::dynamic::vector::elements() const
 {
-	return stride_;
+	return elements_;
 }

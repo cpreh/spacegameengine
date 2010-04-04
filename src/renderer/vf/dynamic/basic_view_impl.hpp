@@ -18,45 +18,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/vf/dynamic_view.hpp>
+#ifdef SGE_RENDERER_VF_DYNAMIC_BASIC_VIEW_IMPL_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_BASIC_VIEW_IMPL_HPP_INCLUDED
 
-template<typename Pointer>
-sge::renderer::vf::basic_dynamic_view<Pointer>::basic_dynamic_view(
+#include <sge/renderer/vf/dynamic/basic_view.hpp>
+
+template<
+	typename Pointer
+>
+sge::renderer::vf::dynamic::basic_view<Pointer>::basic_view(
 	pointer const data_,
 	size_type const size_,
-	dynamic_format const &format_)
+	dynamic::format const &format_
+)
 :
 	data_(data_),
 	size_(size_),
 	format_(format_)
 {}
 
-template<typename Pointer>
-typename sge::renderer::vf::basic_dynamic_view<Pointer>::pointer
-sge::renderer::vf::basic_dynamic_view<Pointer>::data() const
+template<
+	typename Pointer
+>
+typename sge::renderer::vf::dynamic::basic_view<Pointer>::pointer
+sge::renderer::vf::dynamic::basic_view<Pointer>::data() const
 {
 	return data_;
 }
 
-template<typename Pointer>
-typename sge::renderer::vf::basic_dynamic_view<Pointer>::size_type
-sge::renderer::vf::basic_dynamic_view<Pointer>::size() const
+template<
+	typename Pointer
+>
+typename sge::renderer::vf::dynamic::basic_view<Pointer>::size_type
+sge::renderer::vf::dynamic::basic_view<Pointer>::size() const
 {
 	return size_;
 }
 
-template<typename Pointer>
-sge::renderer::vf::dynamic_format const &
-sge::renderer::vf::basic_dynamic_view<Pointer>::format() const
+template<
+	typename Pointer
+>
+sge::renderer::vf::dynamic::format const &
+sge::renderer::vf::dynamic::basic_view<Pointer>::format() const
 {
 	return format_;
 }
 
-
-#define SGE_VF_INSTANTIATE_DYNAMIC_VIEW(x)\
-template class sge::renderer::vf::basic_dynamic_view<sge::renderer::x>;
-
-SGE_VF_INSTANTIATE_DYNAMIC_VIEW(raw_pointer)
-SGE_VF_INSTANTIATE_DYNAMIC_VIEW(const_raw_pointer)
-
-#undef SGE_VF_INSTANTIATE_DYNAMIC_VIEW
+#endif

@@ -18,32 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/vf/dynamic_element.hpp>
+#include <sge/renderer/vf/dynamic/format.hpp>
+#include <sge/exception.hpp>
+#include <fcppt/text.hpp>
 
-sge::renderer::vf::dynamic_element::dynamic_element(
-	dynamic_any const &info_,
-	vf::role::type const role_,
-	vertex_size const index_)
-:
-	info_(info_),
-	role_(role_),
-	index_(index_)
-{}
-
-sge::renderer::vf::dynamic_any const &
-sge::renderer::vf::dynamic_element::info() const
+sge::renderer::vf::dynamic::format::dynamic::format(
+	element_list const &elem,
+	offset_list const &offs)
 {
-	return info_;
+	if(elem.size() + 1 != offs.size())
+		throw exception(
+			FCPPT_TEXT("dynamic::format: Invalid sizes of vectors!")
+		);
+
+	if(elem.empty() || offs.empty())
+		throw exception(
+			FCPPT_TEXT("dynamic::format: Format cannot be empty!")
+		);
+
+	for(
+		element_list::size_type i(0);
+		i < elem.size();
+		++i
+	)
+		elements_.push_back(
+			ordered_element(
+				elem[i],
+				offs[i]
+			)
+		);
+
+	stride_ = offs.back();
 }
 
-sge::renderer::vf::role::type
-sge::renderer::vf::dynamic_element::role() const
+sge::renderer::vf::dynamic::ordered_element_list const &
+sge::renderer::vf::dynamic::format::elements() const
 {
-	return role_;
+	return elements_;
 }
 
 sge::renderer::vf::vertex_size
-sge::renderer::vf::dynamic_element::index() const
+sge::renderer::vf::dynamic::format::stride() const
 {
-	return index_;
+	return stride_;
 }

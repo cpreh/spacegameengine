@@ -18,24 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/vf/dynamic_ordered_element.hpp>
+#include <sge/renderer/vf/dynamic/color.hpp>
 
-sge::renderer::vf::dynamic_ordered_element::dynamic_ordered_element(
-	dynamic_element const &element_,
-	vertex_size const offset_)
+sge::renderer::vf::dynamic::color::dynamic::color(
+	image::color::format::type const color_format_
+)
 :
-	element_(element_),
-	offset_(offset_)
+	color_format_(color_format_)
 {}
 
-sge::renderer::vf::dynamic_element const &
-sge::renderer::vf::dynamic_ordered_element::element() const
+sge::image::color::format::type
+sge::renderer::vf::dynamic::color::color_format() const
 {
-	return element_;
-}
-
-sge::renderer::vf::vertex_size
-sge::renderer::vf::dynamic_ordered_element::offset() const
-{
-	return offset_;
+	return color_format_;
 }

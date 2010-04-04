@@ -43,7 +43,7 @@ FILE (GLOB sgecorefiles
 	renderer/glsl/attribute/*.cpp
 	renderer/glsl/uniform/*.cpp
 	renderer/state/*.cpp
-	renderer/vf/*.cpp
+	renderer/vf/dynamic/*.cpp
 	signal/*.cpp
 	signal/detail/*.cpp
 	sprite/*.cpp
