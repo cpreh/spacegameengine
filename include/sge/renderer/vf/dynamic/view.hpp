@@ -18,19 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_RAW_POINTER_HPP_INCLUDED
-#define SGE_RENDERER_RAW_POINTER_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DYNAMIC_VIEW_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_VIEW_HPP_INCLUDED
 
-#include <sge/renderer/raw_value.hpp>
-
-namespace sge
-{
-namespace renderer
-{
-
-typedef raw_value *raw_pointer;
-
-}
-}
+#include <sge/renderer/vf/dynamic/basic_view.hpp>
+#include <sge/renderer/vf/dynamic/view_fwd.hpp>
 
 #endif

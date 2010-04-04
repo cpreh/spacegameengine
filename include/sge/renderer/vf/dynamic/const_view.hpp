@@ -18,35 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_DYNAMIC_ORDERED_ELEMENT_HPP_INCLUDED
-#define SGE_RENDERER_VF_DYNAMIC_ORDERED_ELEMENT_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DYNAMIC_CONST_VIEW_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_CONST_VIEW_HPP_INCLUDED
 
-#include <sge/renderer/vf/dynamic_element.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/symbol.hpp>
-
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-
-class dynamic_ordered_element {
-public:
-	SGE_SYMBOL dynamic_ordered_element(
-		dynamic_element const &,
-		vertex_size offset);
-
-	SGE_SYMBOL dynamic_element const &element() const;
-	SGE_SYMBOL vertex_size offset() const;
-private:
-	dynamic_element element_;
-	vertex_size     offset_;
-};
-
-}
-}
-}
+#include <sge/renderer/vf/dynamic/basic_view.hpp>
+#include <sge/renderer/vf/dynamic/const_view_fwd.hpp>
 
 #endif

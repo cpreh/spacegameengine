@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_ELEMENT_STRIDE_HPP_INCLUDED
-#define SGE_RENDERER_VF_ELEMENT_STRIDE_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DYNAMIC_COLOR_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_COLOR_HPP_INCLUDED
 
-#include <sge/renderer/vf/vertex_size.hpp>
-#include <boost/mpl/integral_c.hpp>
+#include <sge/renderer/vf/role.hpp>
+#include <sge/image/color/format.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
@@ -30,15 +31,23 @@ namespace renderer
 {
 namespace vf
 {
+namespace dynamic
+{
 
-template<typename T>
-struct element_stride
-: boost::mpl::integral_c<
-	vertex_size,
-	sizeof(typename T::subelement_type)
-	* T::num_subelements
->{};
+class color
+{
+public:
+	SGE_SYMBOL explicit color(
+		image::color::format::type
+	);
 
+	SGE_SYMBOL image::color::format::type
+	color_format() const;
+private:
+	image::color::format::type color_format_;
+};
+
+}
 }
 }
 }

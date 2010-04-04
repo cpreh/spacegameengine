@@ -18,10 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_FORMAT_TO_ELEMENT_HPP_INCLUDED
-#define SGE_RENDERER_VF_FORMAT_TO_ELEMENT_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DETAIL_CALC_OFFSET_HPP_INCLUDED
+#define SGE_RENDERER_VF_DETAIL_CALC_OFFSET_HPP_INCLUDED
 
-#include <sge/renderer/vf/element_type.hpp>
+#include <boost/mpl/advance.hpp>
+#include <boost/mpl/distance.hpp>
+#include <boost/mpl/begin.hpp>
 
 namespace sge
 {
@@ -29,20 +31,30 @@ namespace renderer
 {
 namespace vf
 {
+namespace detail
+{
 
-template<typename T>
-class format_to_element;
+template<
+	typename Elements,
+	typename Offsets,
+	typename Iter
+>
+struct calc_offset
+:
+boost::mpl::advance<
+	typename boost::mpl::begin<
+		Offsets
+	>::type,
+	boost::mpl::distance<
+		typename boost::mpl::begin<
+			Elements
+		>::type,
+		Iter
+	>
+>
+{};
 
-template<>
-struct format_to_element<float> {
-	static element_type::type const value = element_type::float_;
-};
-
-template<>
-struct format_to_element<double> {
-	static element_type::type const value = element_type::double_;
-};
-
+}
 }
 }
 }

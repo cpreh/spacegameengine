@@ -1,4 +1,3 @@
-
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
@@ -19,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_DYNAMIC_OFFSET_LIST_HPP_INCLUDED
-#define SGE_RENDERER_VF_DYNAMIC_OFFSET_LIST_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DYNAMIC_BASIC_VIEW_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_BASIC_VIEW_HPP_INCLUDED
 
+#include <sge/renderer/vf/dynamic/basic_view_fwd.hpp>
+#include <sge/renderer/vf/dynamic/_format_fwd.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
-#include <vector>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
@@ -31,11 +32,41 @@ namespace renderer
 {
 namespace vf
 {
+namespace dynamic
+{
 
-typedef std::vector<
-	vertex_size
-> dynamic_offset_list;
+template<
+	typename Pointer
+>
+class basic_view
+{
+public:
+	typedef Pointer     pointer;
+	typedef vertex_size size_type;
 
+	SGE_SYMBOL basic_view(
+		pointer data,
+		size_type elements,
+		dynamic::format const &
+	);
+
+	SGE_SYMBOL pointer
+	data() const;
+
+	SGE_SYMBOL size_type
+	size() const;
+
+	SGE_SYMBOL dynamic::format const &
+	format() const;
+private:
+	pointer data_;
+
+	size_type size_;
+
+	dynamic::format const &format_;
+};
+
+}
 }
 }
 }

@@ -18,14 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_DYNAMIC_ELEMENT_HPP_INCLUDED
-#define SGE_RENDERER_VF_DYNAMIC_ELEMENT_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DYNAMIC_CONST_VIEW_FWD_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_CONST_VIEW_FWD_HPP_INCLUDED
 
-#include <sge/renderer/vf/dynamic_any.hpp>
-#include <sge/renderer/vf/role.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
-#include <fcppt/variant/object_impl.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/raw_pointer.hpp>
 
 namespace sge
 {
@@ -33,23 +29,14 @@ namespace renderer
 {
 namespace vf
 {
+namespace dynamic
+{
 
-class dynamic_element {
-public:
-	SGE_SYMBOL dynamic_element(
-		dynamic_any const &,
-		vf::role::type,
-		vertex_size index);
+typedef basic_view<
+	const_raw_pointer
+> const_view;
 
-	SGE_SYMBOL dynamic_any const &info() const;
-	SGE_SYMBOL vf::role::type role() const;
-	SGE_SYMBOL vertex_size index() const;
-private:
-	dynamic_any    info_;
-	vf::role::type role_;
-	vertex_size    index_;
-};
-
+}
 }
 }
 }

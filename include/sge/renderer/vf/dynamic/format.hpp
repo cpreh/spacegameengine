@@ -18,11 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_DYNAMIC_ORDERED_ELEMENT_LIST_HPP_INCLUDED
-#define SGE_RENDERER_VF_DYNAMIC_ORDERED_ELEMENT_LIST_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DYNAMIC_FORMAT_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_FORMAT_HPP_INCLUDED
 
-#include <sge/renderer/vf/dynamic_ordered_element.hpp>
-#include <vector>
+#include <sge/renderer/vf/dynamic/format_fwd.hpp>
+#include <sge/renderer/vf/dynamic/ordered_element_list.hpp>
+#include <sge/renderer/vf/dynamic/offset_list.hpp>
+#include <sge/renderer/vf/dynamic/element_list.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
@@ -30,11 +33,28 @@ namespace renderer
 {
 namespace vf
 {
+namespace dynamic
+{
 
-typedef std::vector<
-	dynamic_ordered_element
-> dynamic_ordered_element_list;
+class format
+{
+public:
+	SGE_SYMBOL format(
+		element_list const &,
+		offset_list const &
+	);
 
+	SGE_SYMBOL ordered_element_list const &
+	elements() const;
+
+	SGE_SYMBOL vertex_size stride() const;
+private:
+	ordered_element_list elements_;
+
+	vertex_size stride_;
+};
+
+}
 }
 }
 }

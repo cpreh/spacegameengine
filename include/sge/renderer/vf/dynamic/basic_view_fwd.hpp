@@ -18,11 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_DYNAMIC_ELEMENT_LIST_HPP_INCLUDED
-#define SGE_RENDERER_VF_DYNAMIC_ELEMENT_LIST_HPP_INCLUDED
-
-#include <sge/renderer/vf/dynamic_element.hpp>
-#include <vector>
+#ifndef SGE_RENDERER_VF_DYNAMIC_BASIC_VIEW_FWD_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_BASIC_VIEW_FWD_HPP_INCLUDED
 
 namespace sge
 {
@@ -30,11 +27,15 @@ namespace renderer
 {
 namespace vf
 {
+namespace dynamic
+{
 
-typedef std::vector<
-	dynamic_element
-> dynamic_element_list;
+template<
+	typename Pointer
+>
+class basic_view;
 
+}
 }
 }
 }

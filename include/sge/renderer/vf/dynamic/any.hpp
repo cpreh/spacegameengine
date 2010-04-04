@@ -18,12 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_DYNAMIC_COLOR_HPP_INCLUDED
-#define SGE_RENDERER_VF_DYNAMIC_COLOR_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DYNAMIC_ANY_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_ANY_HPP_INCLUDED
 
-#include <sge/renderer/vf/role.hpp>
-#include <sge/image/color/format.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/vf/dynamic/vector.hpp>
+#include <sge/renderer/vf/dynamic/color.hpp>
+#include <fcppt/variant/object_fwd.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace sge
 {
@@ -31,18 +32,17 @@ namespace renderer
 {
 namespace vf
 {
+namespace dynamic
+{
 
-class dynamic_color {
-public:
-	SGE_SYMBOL explicit dynamic_color(
-		image::color::format::type);
+typedef fcppt::variant::object<
+	boost::mpl::vector2<
+		vector,
+		color
+	>
+> any;
 
-	SGE_SYMBOL image::color::format::type
-	color_format() const;
-private:
-	image::color::format::type color_format_;
-};
-
+}
 }
 }
 }

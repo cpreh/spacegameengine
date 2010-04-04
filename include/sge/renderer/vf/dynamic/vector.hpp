@@ -18,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_MAKE_DYNAMIC_OFFSETS_HPP_INCLUDED
-#define SGE_RENDERER_VF_MAKE_DYNAMIC_OFFSETS_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DYNAMIC_VECTOR_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_VECTOR_HPP_INCLUDED
 
-#include <sge/renderer/vf/dynamic_offset_list.hpp>
+#include <sge/renderer/vf/role.hpp>
+#include <sge/renderer/vf/element_type.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
@@ -30,25 +32,29 @@ namespace renderer
 {
 namespace vf
 {
+namespace dynamic
+{
 
-class make_dynamic_offsets {
+class vector
+{
 public:
-	explicit make_dynamic_offsets(
-		dynamic_offset_list &offsets)
-	:
-		offsets(offsets)
-	{}
+	SGE_SYMBOL vector(
+		vf::element_type::type,
+		vertex_size num_elements
+	);
+	
+	SGE_SYMBOL vf::element_type::type
+	element_type() const;
 
-	template<typename T>
-	void operator()(
-		T &t) const
-	{
-		offsets.push_back(t);
-	}
+	SGE_SYMBOL vertex_size
+	elements() const;
 private:
-	dynamic_offset_list &offsets;
+	vf::element_type::type element_type_;
+
+	vertex_size elements_;
 };
 
+}
 }
 }
 }

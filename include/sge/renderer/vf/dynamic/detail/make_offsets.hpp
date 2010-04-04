@@ -18,18 +18,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_RAW_POINTER_HPP_INCLUDED
-#define SGE_RENDERER_RAW_POINTER_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_OFFSETS_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_OFFSETS_HPP_INCLUDED
 
-#include <sge/renderer/raw_value.hpp>
+#include <sge/renderer/vf/dynamic/offset_list.hpp>
+#include <sge/renderer/vf/vertex_size.hpp>
 
 namespace sge
 {
 namespace renderer
 {
+namespace vf
+{
+namespace dynamic
+{
+namespace detail
+{
 
-typedef raw_value *raw_pointer;
+class make_offsets
+{
+public:
+	explicit make_offsets(
+		offset_list &offsets
+	)
+	:
+		offsets(offsets)
+	{}
 
+	typedef void result_type;
+
+	template<
+		typename T
+	>
+	result_type
+	operator()(
+		T &t
+	) const
+	{
+		offsets.push_back(t);
+	}
+private:
+	offset_list &offsets;
+};
+
+}
+}
+}
 }
 }
 

@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_MAKE_DYNAMIC_ELEMENTS_HPP_INCLUDED
-#define SGE_RENDERER_VF_MAKE_DYNAMIC_ELEMENTS_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_ELEMENTS_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_ELEMENTS_HPP_INCLUDED
 
-#include <sge/renderer/vf/dynamic_element_list.hpp>
-#include <sge/renderer/vf/dynamic_format.hpp>
+#include <sge/renderer/vf/dynamic/element_list.hpp>
+#include <sge/renderer/vf/dynamic/format.hpp>
 #include <sge/renderer/vf/role.hpp>
 #include <sge/renderer/vf/format_to_element.hpp>
 #include <sge/renderer/vf/color_base.hpp>
@@ -37,30 +37,40 @@ namespace renderer
 {
 namespace vf
 {
+namespace dynamic
+{
+namespace detail
+{
 
-class make_dynamic_elements {
+class make_elements
+{
 public:
-	explicit make_dynamic_elements(
-		dynamic_element_list &elems)
+	explicit make_elements(
+		element_list &elems
+	)
 	:
 		elems(elems)
 	{}
+
+	typedef void result_type;
 
 	template<
 		typename Format,
 		role::type Role,
 		vertex_size NumSubElements
 	>
-	void operator()(
+	result_type
+	operator()(
 		vec_base<
 			Format,
 			Role,
 			NumSubElements
-		> &) const
+		> &
+	) const
 	{
 		elems.push_back(
-			dynamic_element(
-				dynamic_vector(
+			element(
+				vector(
 					format_to_element<
 						Format
 					>::value,
@@ -68,22 +78,25 @@ public:
 				),
 				Role,
 				category_count[Role]++
-			));
+			)
+		);
 	}
 
 	template<
 		typename Format,
 		role::type Role
 	>
-	void operator()(
+	result_type
+	operator()(
 		color_base<
 			Format,
 			Role
-		> &) const
+		> &
+	) const
 	{
 		elems.push_back(
-			dynamic_element(
-				dynamic_color(
+			element(
+				color(
 					image::color::format_static<Format>::value
 				),
 				Role,
@@ -92,7 +105,7 @@ public:
 		);
 	}
 private:
-	dynamic_element_list &elems;
+	element_list &elems;
 
 	typedef std::map<
 		role::type,
@@ -102,6 +115,8 @@ private:
 	mutable category_count_map category_count;
 };
 
+}
+}
 }
 }
 }

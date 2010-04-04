@@ -18,8 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_DYNAMIC_FORMAT_FWD_HPP_INCLUDED
-#define SGE_RENDERER_VF_DYNAMIC_FORMAT_FWD_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DYNAMIC_VIEW_FWD_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_VIEW_FWD_HPP_INCLUDED
+
+#include <sge/renderer/raw_pointer.hpp>
 
 namespace sge
 {
@@ -27,9 +29,14 @@ namespace renderer
 {
 namespace vf
 {
+namespace dynamic
+{
 
-class dynamic_format;
+typedef basic_view<
+	raw_pointer
+> view;
 
+}
 }
 }
 }

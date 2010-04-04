@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_DYNAMIC_VIEW_FWD_HPP_INCLUDED
-#define SGE_RENDERER_VF_DYNAMIC_VIEW_FWD_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DETAIL_ELEMENT_STRIDE_HPP_INCLUDED
+#define SGE_RENDERER_VF_DETAIL_ELEMENT_STRIDE_HPP_INCLUDED
 
-#include <sge/renderer/raw_pointer.hpp>
+#include <sge/renderer/vf/vertex_size.hpp>
+#include <boost/mpl/integral_c.hpp>
 
 namespace sge
 {
@@ -29,13 +30,22 @@ namespace renderer
 {
 namespace vf
 {
+namespace detail
+{
 
-template<typename Pointer>
-class basic_dynamic_view;
+template<
+	typename T
+>
+struct element_stride
+:
+boost::mpl::integral_c<
+	vertex_size,
+	sizeof(typename T::subelement_type)
+	* T::num_subelements
+>
+{};
 
-typedef basic_dynamic_view<raw_pointer> dynamic_view;
-typedef basic_dynamic_view<const_raw_pointer> const_dynamic_view;
-
+}
 }
 }
 }

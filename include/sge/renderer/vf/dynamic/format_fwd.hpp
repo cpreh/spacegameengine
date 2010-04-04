@@ -18,12 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_CALC_OFFSET_HPP_INCLUDED
-#define SGE_RENDERER_VF_CALC_OFFSET_HPP_INCLUDED
-
-#include <boost/mpl/advance.hpp>
-#include <boost/mpl/distance.hpp>
-#include <boost/mpl/begin.hpp>
+#ifndef SGE_RENDERER_VF_DYNAMIC_FORMAT_FWD_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_FORMAT_FWD_HPP_INCLUDED
 
 namespace sge
 {
@@ -31,25 +27,12 @@ namespace renderer
 {
 namespace vf
 {
+namespace dynamic
+{
 
-template<
-	typename Elements,
-	typename Offsets,
-	typename Iter
->
-struct calc_offset
-: boost::mpl::advance<
-	typename boost::mpl::begin<
-		Offsets
-	>::type,
-	boost::mpl::distance<
-		typename boost::mpl::begin<
-			Elements
-		>::type,
-		Iter
-	>
-> {};
+class format;
 
+}
 }
 }
 }

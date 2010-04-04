@@ -18,13 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_DYNAMIC_VIEW_HPP_INCLUDED
-#define SGE_RENDERER_VF_DYNAMIC_VIEW_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DYNAMIC_MAKE_FORMAT_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_MAKE_FORMAT_HPP_INCLUDED
 
-#include <sge/renderer/vf/dynamic_view_fwd.hpp>
-#include <sge/renderer/vf/dynamic_format_fwd.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/vf/dynamic/element_list.hpp>
+#include <sge/renderer/vf/dynamic/offset_list.hpp>
+#include <sge/renderer/vf/dynamic/detail/make_elements.hpp>
+#include <sge/renderer/vf/dynamic/detail/make_offsets.hpp>
+#include <sge/renderer/vf/format.hpp>
+#include <boost/mpl/for_each.hpp>
 
 namespace sge
 {
@@ -32,31 +34,46 @@ namespace renderer
 {
 namespace vf
 {
+namespace dynamic
+{
 
 template<
-	typename Pointer
+	typename Format
 >
-class basic_dynamic_view
+format const
+make_format()
 {
-public:
-	typedef Pointer     pointer;
-	typedef vertex_size size_type;
+	typedef typename Format::elements elements;
 
-	SGE_SYMBOL basic_dynamic_view(
-		pointer data,
-		size_type elements,
-		dynamic_format const &
+	typedef typename Format::offsets offsets;
+
+	element_list elems;
+
+	boost::mpl::for_each<
+		elements
+	>(
+		detail::make_elements(
+			elems
+		)
 	);
 
-	SGE_SYMBOL pointer data() const;
-	SGE_SYMBOL size_type size() const;
-	SGE_SYMBOL dynamic_format const &format() const;
-private:
-	pointer        const data_;
-	size_type      const size_;
-	dynamic_format const &format_;
-};
+	offset_list offs;
 
+	boost::mpl::for_each<
+		offsets
+	>(
+		make_offsets(
+			offs
+		)
+	);
+
+	return format(
+		elems,
+		offs
+	);
+}
+
+}
 }
 }
 }

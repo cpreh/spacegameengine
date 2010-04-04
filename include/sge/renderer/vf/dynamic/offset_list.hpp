@@ -1,3 +1,4 @@
+
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
@@ -18,13 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_DYNAMIC_ANY_HPP_INCLUDED
-#define SGE_RENDERER_VF_DYNAMIC_ANY_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DYNAMIC_OFFSET_LIST_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_OFFSET_LIST_HPP_INCLUDED
 
-#include <sge/renderer/vf/dynamic_vector.hpp>
-#include <sge/renderer/vf/dynamic_color.hpp>
-#include <fcppt/variant/object_fwd.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <sge/renderer/vf/vertex_size.hpp>
+#include <vector>
 
 namespace sge
 {
@@ -32,14 +31,14 @@ namespace renderer
 {
 namespace vf
 {
+namespace dynamic
+{
 
-typedef fcppt::variant::object<
-	boost::mpl::vector2<
-		dynamic_vector,
-		dynamic_color
-	>
-> dynamic_any;
+typedef std::vector<
+	vertex_size
+> offset_list;
 
+}
 }
 }
 }
