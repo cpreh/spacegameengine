@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
-#include <sge/renderer/vf/make_dynamic_format.hpp>
+#include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/pos.hpp>
 #include <sge/renderer/vf/color.hpp>
@@ -109,7 +109,7 @@ try
 
 	sge::renderer::vertex_buffer_ptr const vb(
 		rend->create_vertex_buffer(
-			sge::renderer::vf::make_dynamic_format<format>(),
+			sge::renderer::vf::dynamic::make_format<format>(),
 			3,
 			sge::renderer::resource_flags::none
 		)

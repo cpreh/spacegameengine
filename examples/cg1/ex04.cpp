@@ -62,7 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/iterator.hpp>
-#include <sge/renderer/vf/make_dynamic_format.hpp>
+#include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/normal.hpp>
 #include <sge/renderer/vf/pos.hpp>
 #include <sge/renderer/vf/view.hpp>
@@ -175,7 +175,7 @@ try
 
 	sge::renderer::vertex_buffer_ptr const vb(
 		rend->create_vertex_buffer(
-			sge::renderer::vf::make_dynamic_format<
+			sge::renderer::vf::dynamic::make_format<
 				vertex_format
 			>(),
 			6 * static_cast<
