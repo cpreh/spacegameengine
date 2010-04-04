@@ -51,8 +51,11 @@ sge::renderer::device::render(
 	nonindexed_primitive_type::type const ptype
 )
 {
+	set_vertex_buffer(
+		vb
+	);
+
 	render(
-		vb,
 		first_vertex(0),
 		vertex_count(
 			vb->size()
@@ -68,6 +71,10 @@ sge::renderer::device::render(
 	indexed_primitive_type::type const ptype
 )
 {
+	set_vertex_buffer(
+		vb
+	);
+
 	size_type const ipp(
 		indices_per_primitive(
 			ptype
@@ -79,7 +86,6 @@ sge::renderer::device::render(
 	);
 
 	render(
-		vb,
 		ib,
 		first_vertex(0),
 		vertex_count(

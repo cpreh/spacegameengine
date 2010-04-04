@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
@@ -190,6 +191,11 @@ try
 		)
 	);
 
+	sge::renderer::scoped_vertex_buffer const vb_context(
+		rend,
+		vb
+	);
+
 	while(running)
 	{
 		sge::mainloop::dispatch();
@@ -197,7 +203,6 @@ try
 		sge::renderer::scoped_block const block_(rend);
 
 		rend->render(
-			vb,
 			sge::renderer::first_vertex(0),
 			sge::renderer::vertex_count(3),
 			sge::renderer::nonindexed_primitive_type::triangle_strip

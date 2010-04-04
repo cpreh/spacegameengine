@@ -135,8 +135,6 @@ sge::opengl::device::device(
 	reset_viewport_default();
 
 	target_->bind_me();
-
-	//glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, 1);
 }
 
 void
@@ -161,7 +159,6 @@ sge::opengl::device::end_rendering()
 
 void
 sge::opengl::device::render(
-	renderer::const_vertex_buffer_ptr const vb,
 	renderer::const_index_buffer_ptr const ib,
 	renderer::first_vertex const first_vertex,
 	renderer::vertex_count const num_vertices,
@@ -170,14 +167,10 @@ sge::opengl::device::render(
 	renderer::first_index const first_index
 )
 {
-	if(!vb)
-		throw exception(
-			FCPPT_TEXT("vb may not be 0 for renderer::render!"));
 	if(!ib)
 		throw exception(
-			FCPPT_TEXT("ib may not be 0 for renderer::render for indexed primitives!"));
-
-	vertex_buffer(vb);
+			FCPPT_TEXT("ib may not be 0 for renderer::render for indexed primitives!")
+		);
 
 	index_buffer_base const & gl_ib(
 		dynamic_cast<
@@ -212,18 +205,11 @@ sge::opengl::device::render(
 
 void
 sge::opengl::device::render(
-	renderer::const_vertex_buffer_ptr const vb,
 	renderer::first_vertex const first_vertex,
 	renderer::vertex_count const num_vertices,
 	renderer::nonindexed_primitive_type::type const ptype
 )
 {
-	if(!vb)
-		throw exception(
-			FCPPT_TEXT("vb may not be 0 for renderer::render!"));
-
-	vertex_buffer(vb);
-
 	glDrawArrays(
 		convert::nonindexed_primitive(
 			ptype
@@ -236,6 +222,27 @@ sge::opengl::device::render(
 		FCPPT_TEXT("glDrawArrays failed"),
 		sge::renderer::exception
 	)
+}
+
+void
+sge::opengl::device::set_vertex_buffer(
+	renderer::const_vertex_buffer_ptr const vb
+)
+{
+	opengl::vertex_buffer const &
+		ovb = dynamic_cast<opengl::vertex_buffer const &>(
+			*vb
+		);
+	
+	ovb.set_format();
+}
+
+void
+sge::opengl::device::unset_vertex_buffer(
+	renderer::const_vertex_buffer_ptr const vb
+)
+{
+	// TODO!
 }
 
 void
@@ -683,19 +690,6 @@ sge::opengl::device::clear_bit(
 			convert::clear_bit(s)
 		:
 			0;
-}
-
-void
-sge::opengl::device::vertex_buffer(
-	renderer::const_vertex_buffer_ptr const vb
-)
-{
-	opengl::vertex_buffer const &
-		ovb = dynamic_cast<opengl::vertex_buffer const &>(
-			*vb
-		);
-	
-	ovb.set_format();
 }
 
 sge::opengl::fbo_target_ptr const

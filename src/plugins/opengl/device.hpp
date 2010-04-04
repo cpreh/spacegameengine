@@ -70,7 +70,6 @@ public:
 
 	void
 	render(
-		renderer::const_vertex_buffer_ptr,
 		renderer::const_index_buffer_ptr,
 		renderer::first_vertex,
 		renderer::vertex_count,
@@ -81,10 +80,19 @@ public:
 
 	void
 	render(
-		renderer::const_vertex_buffer_ptr,
 		renderer::first_vertex,
 		renderer::vertex_count,
 		renderer::nonindexed_primitive_type::type 
+	);
+
+	void
+	set_vertex_buffer(
+		renderer::const_vertex_buffer_ptr
+	);
+
+	void
+	unset_vertex_buffer(
+		renderer::const_vertex_buffer_ptr
 	);
 
 	void
@@ -228,11 +236,6 @@ private:
 	clear_bit(
 		renderer::state::bool_::trampoline_type const &
 	) const;
-
-	void
-	vertex_buffer(
-		renderer::const_vertex_buffer_ptr
-	);
 
 	fbo_target_ptr const
 	create_target();

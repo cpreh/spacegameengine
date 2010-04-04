@@ -47,11 +47,15 @@ sge::opengl::vertex_buffer::vertex_buffer(
 	)
 {}
 
-void sge::opengl::vertex_buffer::set_format() const
+void
+sge::opengl::vertex_buffer::set_format() const
 {
 	buf.bind_me();
+
 	format_.use_me(
-		buf.buffer_offset(0)
+		buf.buffer_offset(
+			0
+		)
 	);
 }
 
@@ -85,22 +89,26 @@ sge::opengl::vertex_buffer::lock(
 	buf.lock(
 		lock_method::readonly,
 		offset,
-		range);
+		range
+	);
 
 	return const_view_type(
 		buf.data(),
 		buf.lock_size(),
-		format());
+		format()
+	);
 }
 
 void
 sge::opengl::vertex_buffer::unlock() const
 {
 	renderer::vf::dynamic_ordered_element_list const &elems(
-		format().elements());
+		format().elements()
+	);
 
 	renderer::size_type const stride(
-		format().stride());
+		format().stride()
+	);
 
 	FCPPT_ASSERT(buf.lock_size() % stride == 0);
 

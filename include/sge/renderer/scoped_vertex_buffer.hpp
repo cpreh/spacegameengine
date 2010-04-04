@@ -18,27 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../global_client_state.hpp"
-#include "../client_state.hpp"
-#include <fcppt/container/linear_set_impl.hpp>
+#ifndef SGE_RENDERER_SCOPED_VERTEX_BUFFER_HPP_INCLUDED
+#define SGE_RENDERER_SCOPED_VERTEX_BUFFER_HPP_INCLUDED
 
-namespace
+#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/vertex_buffer_ptr.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/noncopyable.hpp>
+
+namespace sge
+{
+namespace renderer
 {
 
-sge::opengl::vf::client_state state;
-
-}
-
-void
-sge::opengl::vf::global_client_state(
-	client_state const &s
-)
+class scoped_vertex_buffer
 {
-	state = s;
+	FCPPT_NONCOPYABLE(scoped_vertex_buffer)
+public:
+	SGE_SYMBOL scoped_vertex_buffer(
+		renderer::device_ptr,
+		renderer::const_vertex_buffer_ptr
+	);
+
+	SGE_SYMBOL ~scoped_vertex_buffer();
+private:
+	renderer::device_ptr const device_;
+	renderer::const_vertex_buffer_ptr const vb_;
+};
+
+}
 }
 
-sge::opengl::vf::client_state const &
-sge::opengl::vf::global_client_state()
-{
-	return state;
-}
+#endif

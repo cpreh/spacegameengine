@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/aspect.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/texture.hpp>
+#include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_block.hpp>
@@ -178,6 +179,11 @@ try
 		)
 	);
 
+	sge::renderer::scoped_vertex_buffer const vb_context(
+		sys.renderer(),
+		vb
+	);
+
 	while(running)
 	{
 		sge::mainloop::dispatch();
@@ -187,7 +193,6 @@ try
 		);
 
 		sys.renderer()->render(
-			vb,
 			ib,
 			sge::renderer::first_vertex(0),
 			sge::renderer::vertex_count(vb->size()),

@@ -68,6 +68,10 @@ render(
 		rend
 	);
 
+	rend->set_vertex_buffer(
+		vb
+	);
+
 	for(
 		In cur(beg), next(cur);
 		cur != end; cur = next
@@ -93,7 +97,6 @@ render(
 		);
 
 		rend->render(
-			vb,
 			ib,
 			renderer::first_vertex(
 				offset * detail::vertices_per_sprite

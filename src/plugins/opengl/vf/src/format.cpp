@@ -27,16 +27,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/foreach.hpp>
 
 sge::opengl::vf::format::format(
-	renderer::vf::dynamic_format const &fmt)
+	renderer::vf::dynamic_format const &fmt
+)
 :
 	fmt(fmt)
 {
 	renderer::vf::dynamic_ordered_element_list const &elems(
-		fmt.elements());
+		fmt.elements()
+	);
 
-	BOOST_FOREACH(renderer::vf::dynamic_ordered_element const &e, elems)
+	BOOST_FOREACH(
+		renderer::vf::dynamic_ordered_element const &e,
+		elems
+	)
 		actors.push_back(
-			to_actor(e, fmt.stride()));
+			to_actor(
+				e,
+				fmt.stride()
+			)
+		);
 }
 
 sge::renderer::vf::dynamic_format const &
@@ -45,16 +54,26 @@ sge::opengl::vf::format::get() const
 	return fmt;
 }
 
-void sge::opengl::vf::format::use_me(
-	pointer const src) const
+void
+sge::opengl::vf::format::use_me(
+	pointer const src
+) const
 {
 	client_state_combiner states_(
 		global_client_state()
 	);
 
-	BOOST_FOREACH(actor_array::reference c, actors)
+	BOOST_FOREACH(
+		actor_array::reference c,
+		actors
+	)
 	{
-		c.source(src);
-		c(states_);
+		c.source(
+			src
+		);
+
+		c(
+			states_
+		);
 	}
 }

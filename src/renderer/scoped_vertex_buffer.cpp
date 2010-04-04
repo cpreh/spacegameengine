@@ -18,27 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../global_client_state.hpp"
-#include "../client_state.hpp"
-#include <fcppt/container/linear_set_impl.hpp>
+#include <sge/renderer/scoped_vertex_buffer.hpp>
+#include <sge/renderer/device.hpp>
 
-namespace
-{
-
-sge::opengl::vf::client_state state;
-
-}
-
-void
-sge::opengl::vf::global_client_state(
-	client_state const &s
+sge::renderer::scoped_vertex_buffer::scoped_vertex_buffer(
+	renderer::device_ptr const device_,
+	renderer::const_vertex_buffer_ptr const vb_
 )
+:
+	device_(device_),
+	vb_(vb_)
 {
-	state = s;
+	device_->set_vertex_buffer(
+		vb_
+	);
 }
 
-sge::opengl::vf::client_state const &
-sge::opengl::vf::global_client_state()
+sge::renderer::scoped_vertex_buffer::~scoped_vertex_buffer()
 {
-	return state;
+	device_->unset_vertex_buffer(
+		vb_
+	);
 }
