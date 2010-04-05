@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../normal_actor.hpp"
-#include "../client_state_combiner.hpp"
 #include "../../check_state.hpp"
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
 #include <sge/renderer/exception.hpp>
@@ -30,9 +29,10 @@ sge::opengl::vf::normal_actor::normal_actor(
 	renderer::vf::vertex_size const stride
 )
 :
-	pointer_actor(
+	fp_actor(
 		e,
-		stride
+		stride,
+		GL_NORMAL_ARRAY
 	)
 {
 	if(index() > 0)
@@ -42,9 +42,7 @@ sge::opengl::vf::normal_actor::normal_actor(
 }
 
 void
-sge::opengl::vf::normal_actor::operator()(
-	client_state_combiner &c
-) const
+sge::opengl::vf::normal_actor::on_use() const
 {
 	glNormalPointer(
 		format(),
@@ -56,6 +54,4 @@ sge::opengl::vf::normal_actor::operator()(
 		FCPPT_TEXT("glNormalPointer failed"),
 		sge::renderer::exception
 	)
-
-	c.enable(GL_NORMAL_ARRAY);
 }

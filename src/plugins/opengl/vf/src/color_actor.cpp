@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../color_actor.hpp"
-#include "../client_state_combiner.hpp"
 #include "../../check_state.hpp"
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
@@ -29,9 +28,11 @@ sge::opengl::vf::color_actor::color_actor(
 	renderer::vf::vertex_size const stride
 )
 :
-	pointer_actor(
+	fp_actor(
 		e,
-		stride),
+		stride,
+		GL_COLOR_ARRAY
+	),
 	elements(4) // TODO: maybe allow colors without alpha?
 {
 	if(index() > 0)
@@ -42,9 +43,7 @@ sge::opengl::vf::color_actor::color_actor(
 }
 
 void
-sge::opengl::vf::color_actor::operator()(
-	client_state_combiner &c
-) const
+sge::opengl::vf::color_actor::on_use() const
 {
 	glColorPointer(
 		elements,
@@ -57,6 +56,4 @@ sge::opengl::vf::color_actor::operator()(
 		FCPPT_TEXT("glColorPointer failed"),
 		sge::renderer::exception
 	)
-
-	c.enable(GL_COLOR_ARRAY);
 }

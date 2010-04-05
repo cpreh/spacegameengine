@@ -18,10 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VF_NORMAL_ACTOR_HPP_INCLUDED
-#define SGE_OPENGL_VF_NORMAL_ACTOR_HPP_INCLUDED
+#ifndef SGE_OPENGL_VF_FP_ACTOR_HPP_INCLUDED
+#define SGE_OPENGL_VF_FP_ACTOR_HPP_INCLUDED
 
-#include "fp_actor.hpp"
+#include "pointer_actor.hpp"
+#include "client_state_combiner_fwd.hpp"
+#include "../common.hpp"
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element_fwd.hpp>
 
@@ -32,18 +34,31 @@ namespace opengl
 namespace vf
 {
 
-class normal_actor
+class fp_actor
 :
-	public fp_actor
+	public pointer_actor
 {
-public:
-	normal_actor(
+protected:
+	fp_actor(
 		renderer::vf::dynamic::ordered_element const &,
-		renderer::vf::vertex_size stride
+		renderer::vf::vertex_size stride,
+		GLenum client_state
 	);
 private:
 	void
-	on_use() const;
+	operator()(
+		client_state_combiner &
+	) const;
+
+	void
+	unuse(
+		client_state_combiner &
+	) const;
+
+	virtual void
+	on_use() const = 0;
+
+	GLenum const client_state_;
 };
 
 }

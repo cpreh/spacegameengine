@@ -57,8 +57,27 @@ sge::opengl::vf::attribute_actor::operator()(
 	);
 
 	c.enable_attribute(
-		static_cast<GLuint>(
-			index()
-		)
+		gl_index()
 	);
+}
+
+void
+sge::opengl::vf::attribute_actor::unuse(
+	client_state_combiner &c
+) const
+{
+	c.disable_attribute(
+		gl_index()
+	);
+}
+
+GLuint
+sge::opengl::vf::attribute_actor::gl_index() const
+{
+	return
+		static_cast<
+			GLuint
+		>(
+			index()
+		);
 }

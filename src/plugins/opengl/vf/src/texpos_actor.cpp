@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../texpos_actor.hpp"
-#include "../client_state_combiner.hpp"
 #include "../../check_state.hpp"
 #include "../../multi_texture.hpp"
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
@@ -34,9 +33,11 @@ sge::opengl::vf::texpos_actor::texpos_actor(
 	renderer::vf::vertex_size const stride
 )
 :
-	pointer_actor(
+	fp_actor(
 		e,
-		stride),
+		stride,
+		GL_TEXTURE_COORD_ARRAY
+	),
 	elements(
 		static_cast<GLint>(
 			e.element().info().get<
@@ -57,14 +58,14 @@ sge::opengl::vf::texpos_actor::texpos_actor(
 }
 
 void
-sge::opengl::vf::texpos_actor::operator()(
-	client_state_combiner &c
-) const
+sge::opengl::vf::texpos_actor::on_use() const
 {
 	client_texture_level(
 		static_cast<
 			renderer::stage_type
-		>(index())
+		>(
+			index()
+		)
 	);
 
 	glTexCoordPointer(
@@ -78,6 +79,4 @@ sge::opengl::vf::texpos_actor::operator()(
 		FCPPT_TEXT("glTexCoordPointer failed"),
 		sge::renderer::exception
 	)
-
-	c.enable(GL_TEXTURE_COORD_ARRAY);
 }

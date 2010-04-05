@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../pos_actor.hpp"
-#include "../client_state_combiner.hpp"
 #include "../../check_state.hpp"
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
 #include <sge/renderer/vf/dynamic/vector.hpp>
@@ -31,12 +30,15 @@ sge::opengl::vf::pos_actor::pos_actor(
 	renderer::vf::vertex_size const stride
 )
 :
-	pointer_actor(
+	fp_actor(
 		e,
-		stride
+		stride,
+		GL_VERTEX_ARRAY
 	),
 	elements(
-		static_cast<GLint>(
+		static_cast<
+			GLint
+		>(
 			e.element().info().get<
 				renderer::vf::dynamic::vector
 			>().elements()
@@ -50,9 +52,7 @@ sge::opengl::vf::pos_actor::pos_actor(
 }
 
 void
-sge::opengl::vf::pos_actor::operator()(
-	client_state_combiner &c
-) const
+sge::opengl::vf::pos_actor::on_use() const
 {
 	glVertexPointer(
 		elements,
@@ -65,6 +65,4 @@ sge::opengl::vf::pos_actor::operator()(
 		FCPPT_TEXT("glVertexPointer failed"),
 		sge::renderer::exception
 	)
-
-	c.enable(GL_VERTEX_ARRAY);
 }

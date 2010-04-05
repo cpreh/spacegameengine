@@ -42,12 +42,20 @@ public:
 		renderer::vf::dynamic::ordered_element const &,
 		renderer::vf::vertex_size stride
 	);
-
+private:
 	void
 	operator()(
 		client_state_combiner &
 	) const;
-private:
+
+	void
+	unuse(
+		client_state_combiner &
+	) const;
+
+	GLuint
+	gl_index() const;
+
 	GLint const elements;
 };
 

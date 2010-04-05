@@ -49,13 +49,10 @@ public:
 		vf::pointer
 	) = 0;
 
-	void
+	virtual void
 	unuse(
 		client_state_combiner &
-	) const
-	{
-		// FIXME!
-	}
+	) const = 0;
 
 	virtual ~actor();
 };

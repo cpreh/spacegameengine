@@ -21,8 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_VF_COLOR_ACTOR_HPP_INCLUDED
 #define SGE_OPENGL_VF_COLOR_ACTOR_HPP_INCLUDED
 
-#include "pointer_actor.hpp"
-#include "client_state_combiner_fwd.hpp"
+#include "fp_actor.hpp"
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element_fwd.hpp>
 
@@ -35,7 +34,7 @@ namespace vf
 
 class color_actor
 :
-	public pointer_actor
+	public fp_actor
 {
 public:
 	color_actor(
@@ -45,9 +44,7 @@ public:
 
 private:
 	void
-	operator()(
-		client_state_combiner &
-	) const;
+	on_use() const;
 
 	GLint const elements;
 };
