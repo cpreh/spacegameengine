@@ -48,7 +48,8 @@ sge::opengl::vf::client_state_combiner::client_state_combiner(
 	client_state const &old_states
 )
 :
-	old_states(old_states)
+	old_states(old_states),
+	new_states(old_states)
 {}
 
 void
