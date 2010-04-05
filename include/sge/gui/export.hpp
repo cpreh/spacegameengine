@@ -21,12 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_EXPORT_HPP_INCLUDED
 #define SGE_GUI_EXPORT_HPP_INCLUDED
 
-#include <fcppt/export_symbol.hpp>
-#include <fcppt/import_symbol.hpp>
-
 #ifdef sgegui_EXPORTS
+#include <fcppt/export_symbol.hpp>
 #define SGE_GUI_SYMBOL FCPPT_EXPORT_SYMBOL
 #else
+#include <fcppt/import_symbol.hpp>
 #define SGE_GUI_SYMBOL FCPPT_IMPORT_SYMBOL
 #endif
 

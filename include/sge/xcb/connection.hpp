@@ -18,15 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYMBOL_HPP_INCLUDED
-#define SGE_SYMBOL_HPP_INCLUDED
+#ifndef SGE_XCB_CONNECTION_HPP_INCLUDED
+#define SGE_XCB_CONNECTION_HPP_INCLUDED
 
-#ifdef sgecore_EXPORTS
-#include <fcppt/export_symbol.hpp>
-#	define SGE_SYMBOL FCPPT_EXPORT_SYMBOL
-#else
-#include <fcppt/import_symbol.hpp>
-#	define SGE_SYMBOL FCPPT_IMPORT_SYMBOL
-#endif
+#include <sge/xcb/connection_fwd.hpp>
+#include <sge/xcb/screen.hpp>
+#include <sge/xcb/string.hpp>
+#include <sge/xcb/symbol.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <xcb/xcb.h>
+
+namespace sge
+{
+namespace xcb
+{
+
+class connection
+{
+	FCPPT_NONCOPYABLE(connection)
+public:
+	SGE_XCB_SYMBOL
+	connection();
+
+	SGE_XCB_SYMBOL
+	explicit connection(
+		string const &display,
+		screen
+	);
+
+	SGE_XCB_SYMBOL
+	~connection();
+private:
+	xcb_connection_t *const connection_;
+};
+
+}
+}
 
 #endif
