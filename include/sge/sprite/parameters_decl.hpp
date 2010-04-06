@@ -117,6 +117,9 @@ public:
 	) const;
 
 	parameters const
+	no_rotation_point() const;
+
+	parameters const
 	repetition(
 		typename majutsu::role_return_type<
 			flattened_types,

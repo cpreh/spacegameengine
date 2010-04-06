@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/parameters_decl.hpp>
 #include <sge/sprite/texture_dim.hpp>
+#include <sge/sprite/roles/use_rotation.hpp>
 #include <sge/image/color/init.hpp>
 #include <sge/image/color/object.hpp>
 
@@ -197,6 +198,20 @@ sge::sprite::parameters<Choices>::rotation(
 			roles::rotation
 		>(
 			rotation_
+		);
+}
+
+template<
+	typename Choices
+>
+sge::sprite::parameters<Choices> const
+sge::sprite::parameters<Choices>::no_rotation_point() const
+{
+	return
+		this->set<
+			roles::use_rotation
+		>(
+			false
 		);
 }
 
