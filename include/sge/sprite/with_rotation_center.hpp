@@ -45,7 +45,7 @@ struct with_rotation_center
 			boost::mpl::vector2<
 				majutsu::role<
 					typename primitives::pos<
-						typename Choices::type_choices::float_type
+						typename Choices::type_choices::unit_type
 					>::type,
 					roles::rotate_around
 				>,

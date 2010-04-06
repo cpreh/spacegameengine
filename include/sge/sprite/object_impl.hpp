@@ -451,6 +451,12 @@ sge::sprite::object<Choices>::rotate_around(
 	>(
 		rotate_around_
 	);
+
+	elements_. template set<
+		roles::use_rotation
+	>(
+		true
+	);
 }
 
 template<
