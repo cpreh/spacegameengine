@@ -44,7 +44,7 @@ template<
 >
 ElementType const
 transform_parameters_arguments(
-	Parameters parameters_
+	Parameters const &parameters_
 )
 {
 	ElementType ret(
