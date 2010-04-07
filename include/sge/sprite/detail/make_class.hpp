@@ -34,10 +34,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/transform.hpp>
-#include <boost/mpl/back_inserter.hpp>
 #include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/copy.hpp>
 #include <boost/mpl/contains.hpp>
+#include <boost/mpl/joint_view.hpp>
 #include <boost/static_assert.hpp>
 
 namespace sge
@@ -48,7 +47,8 @@ namespace detail
 {
 
 template<
-	typename Choices
+	typename Choices,
+	typename ExtraElements = boost::mpl::vector0<>
 >
 struct make_class
 {
@@ -81,7 +81,7 @@ struct make_class
 	{};
 
 	typedef majutsu::class_<
-		typename boost::mpl::copy<
+		typename boost::mpl::joint_view<
 			typename boost::mpl::transform<
 				elements,
 				application<
@@ -89,22 +89,23 @@ struct make_class
 					Choices
 				>
 			>::type,
-			boost::mpl::back_inserter<
+			typename boost::mpl::joint_view<
 				boost::mpl::vector2<
 					majutsu::role<
 						typename primitives::pos<
 							typename Choices::type_choices::unit_type
 						>::type,
-						roles::pos
+						sge::sprite::roles::pos
 					>,
 					majutsu::role<
 						typename primitives::dim<
 							typename Choices::type_choices::unit_type
 						>::type,
-						roles::size
+						sge::sprite::roles::size
 					>
-				>
-			>
+				>,
+				ExtraElements
+			>::type
 		>::type,
 		majutsu::memory::fusion
 	> type;

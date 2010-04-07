@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/parameters_fwd.hpp>
 #include <sge/sprite/system.hpp>
+#include <sge/sprite/detail/roles/use_center.hpp>
 #include <sge/sprite/detail/make_class.hpp>
 #include <sge/sprite/roles/adder.hpp>
 #include <sge/sprite/roles/color.hpp>
@@ -31,10 +32,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/pos.hpp>
 #include <sge/sprite/roles/repetition.hpp>
 #include <sge/sprite/roles/rotation.hpp>
+#include <sge/sprite/roles/rotate_around.hpp>
 #include <sge/sprite/roles/size.hpp>
 #include <sge/sprite/roles/texture.hpp>
 #include <sge/sprite/roles/visible.hpp>
 #include <majutsu/role_return_type.hpp>
+#include <majutsu/role.hpp>
+#include <majutsu/fundamental.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace sge
 {
@@ -47,7 +52,15 @@ template<
 class parameters
 {
 	typedef typename detail::make_class<
-		Choices
+		Choices,
+		boost::mpl::vector1<
+			majutsu::role<
+				majutsu::fundamental<
+					bool
+				>,
+				detail::roles::use_center
+			>
+		>
 	>::type elements_type;
 
 	typedef typename elements_type::memory_type::types flattened_types;
@@ -56,6 +69,14 @@ public:
 
 	parameters const
 	pos(
+		typename majutsu::role_return_type<
+			flattened_types,
+			roles::pos
+		>::type const &
+	) const;
+
+	parameters const
+	center(
 		typename majutsu::role_return_type<
 			flattened_types,
 			roles::pos
@@ -118,6 +139,14 @@ public:
 
 	parameters const
 	no_rotation_point() const;
+
+	parameters const
+	rotation_point(
+		typename majutsu::role_return_type<
+			flattened_types,
+			roles::rotate_around
+		>::type const &
+	) const;
 
 	parameters const
 	repetition(

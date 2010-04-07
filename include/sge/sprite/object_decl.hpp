@@ -119,6 +119,13 @@ public:
 	explicit object(
 		element_type const &
 	);
+
+	template<
+		typename Parameters
+	>
+	explicit object(
+		Parameters const &
+	);
 	
 	object(
 		object const &

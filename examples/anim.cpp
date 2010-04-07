@@ -186,7 +186,7 @@ try
 
 	sprite_object spr(
 		sprite_parameters()
-		.pos(
+		.center(
 			sprite_object::point::null()
 		)
 		.size(

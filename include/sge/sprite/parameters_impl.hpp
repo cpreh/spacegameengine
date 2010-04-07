@@ -51,6 +51,35 @@ sge::sprite::parameters<Choices>::pos(
 			roles::pos
 		>(
 			pos_
+		)
+		.set<
+			detail::roles::use_center
+		>(
+			false
+		);
+}
+
+template<
+	typename Choices
+>
+sge::sprite::parameters<Choices> const
+sge::sprite::parameters<Choices>::center(
+	typename majutsu::role_return_type<
+		flattened_types,
+		roles::pos
+	>::type const &pos_
+) const
+{
+	return
+		this->set<
+			roles::pos
+		>(
+			pos_
+		)
+		.set<
+			detail::roles::use_center
+		>(
+			true
 		);
 }
 
@@ -212,6 +241,25 @@ sge::sprite::parameters<Choices>::no_rotation_point() const
 			roles::use_rotation
 		>(
 			false
+		);
+}
+
+template<
+	typename Choices
+>
+sge::sprite::parameters<Choices> const
+sge::sprite::parameters<Choices>::rotation_point(
+	typename majutsu::role_return_type<
+		flattened_types,
+		roles::rotate_around
+	>::type const &rotation_point_
+) const
+{
+	return
+		this->set<
+			roles::rotate_around
+		>(
+			rotation_point_
 		);
 }
 

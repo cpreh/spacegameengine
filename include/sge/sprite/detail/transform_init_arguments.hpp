@@ -56,18 +56,18 @@ transform_init_arguments(
 {
 	if(
 		object_. template get<
-			roles::size
+			sge::sprite::roles::size
 		>()
 		== texture_dim<
 			typename Choices::type_choices::unit_type
 		>()
 		&&
 		object_. template get<
-			roles::texture
+			sge::sprite::roles::texture
 		>()
 	)
 		object_. template set<
-			roles::size
+			sge::sprite::roles::size
 		>(
 			fcppt::math::dim::structure_cast<
 				typename dim<
@@ -75,7 +75,7 @@ transform_init_arguments(
 				>::type
 			>(
 				object_. template get<
-					roles::texture
+					sge::sprite::roles::texture
 				>()->area().dimension()
 			)
 		);

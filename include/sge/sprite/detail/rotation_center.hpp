@@ -56,11 +56,11 @@ rotation_center(
 {
 	return
 		sprite_. template get<
-			roles::use_rotation
+			sge::sprite::roles::use_rotation
 		>()
 		?
 			sprite_. template get<
-				roles::rotate_around
+				sge::sprite::roles::rotate_around
 			>()
 		:
 			center(

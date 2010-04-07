@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/detail/transform_init_arguments.hpp>
+#include <sge/sprite/detail/transform_parameters_arguments.hpp>
 #include <sge/sprite/detail/rotation_center.hpp>
 #include <sge/sprite/detail/assign_pre.hpp>
 #include <sge/sprite/detail/assign_post.hpp>
@@ -62,6 +63,30 @@ sge::sprite::object<Choices>::object(
 			Choices
 		>(
 			nelements_
+		)
+	)
+{
+	detail::assign_post(
+		*this
+	);
+}
+
+template<
+	typename Choices
+>
+template<
+	typename Parameters
+>
+sge::sprite::object<Choices>::object(
+	Parameters const &parameters_
+)
+:
+	elements_(
+		detail::transform_parameters_arguments<
+			element_type,
+			Choices
+		>(
+			parameters_
 		)
 	)
 {

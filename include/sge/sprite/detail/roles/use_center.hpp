@@ -18,12 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_ASSIGN_POST_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_ASSIGN_POST_HPP_INCLUDED
-
-#include <sge/sprite/object_decl.hpp>
-#include <boost/mpl/contains.hpp>
-#include <boost/utility/enable_if.hpp>
+#ifndef SGE_SPRITE_DETAIL_ROLES_USE_CENTER_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_ROLES_USE_CENTER_HPP_INCLUDED
 
 namespace sge
 {
@@ -31,48 +27,13 @@ namespace sprite
 {
 namespace detail
 {
-
-template<
-	typename Choices
->
-typename boost::enable_if<
-	boost::mpl::contains<
-		typename Choices::elements,
-		intrusive::tag
-	>,
-	void
->::type
-assign_post(
-	object<
-		Choices
-	> &this_
-)
+namespace roles
 {
-	this_.template get<
-		sge::sprite::roles::adder
-	>()->add(
-		this_,
-		this_.order()
-	);
+
+struct use_center
+{};
+
 }
-
-template<
-	typename Choices
->
-typename boost::disable_if<
-	boost::mpl::contains<
-		typename Choices::elements,
-		intrusive::tag
-	>,
-	void
->::type
-assign_post(
-	object<
-		Choices
-	> &
-)
-{}
-
 }
 }
 }
