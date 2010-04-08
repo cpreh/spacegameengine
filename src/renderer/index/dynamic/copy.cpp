@@ -24,27 +24,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/text.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <boost/type_traits/remove_const.hpp>
+#include <boost/mpl/sizeof.hpp>
+#include <boost/mpl/less_equal.hpp>
 #include <algorithm>
 
 namespace
 {
+
+template<
+	typename Src,
+	typename Dest
+>
+struct is_compatible
+:
+boost::mpl::less_equal<
+	boost::mpl::sizeof_<
+		typename boost::remove_const<
+			typename Src::format_type::type
+		>::type
+	>,
+	boost::mpl::sizeof_<
+		typename Dest::format_type::type
+	>
+>
+{};
 
 class copy_visitor
 {
 public:
 	typedef void result_type;
 
-	// TODO: allow widening copies!
-
 	template<
 		typename T,
 		typename U
 	>
 	typename boost::enable_if<
-		boost::is_same<
-			typename T::format_type::type,
-			typename U::format_type::type
+		is_compatible<
+			T,
+			U
 		>,
 		result_type
 	>::type
@@ -65,9 +83,9 @@ public:
 		typename U
 	>
 	typename boost::disable_if<
-		boost::is_same<
-			typename T::format_type::type,
-			typename U::format_type::type
+		is_compatible<
+			T,
+			U
 		>,
 		result_type
 	>::type
