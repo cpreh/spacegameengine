@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_BASIC_VIEW_FWD_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_BASIC_VIEW_FWD_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_VIEW_FWD_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_VIEW_FWD_HPP_INCLUDED
 
 namespace sge
 {
@@ -31,7 +31,7 @@ namespace index
 template<
 	typename Format
 >
-class basic_view;
+class view;
 
 }
 }

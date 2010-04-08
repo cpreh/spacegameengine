@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/index/dynamic/basic_view_fwd.hpp>
 #include <sge/renderer/index/dynamic/detail/variant_types.hpp>
-#include <sge/renderer/index/dynamic/detail/make_basic_view.hpp>
+#include <sge/renderer/index/dynamic/detail/make_view.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
-#include <sge/renderer/index/basic_view.hpp>
+#include <sge/renderer/index/view.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/variant/object_decl.hpp>
@@ -52,7 +52,7 @@ public:
 			typename detail::variant_types<
 				IsConst
 			>::type,
-			detail::make_basic_view<
+			detail::make_view<
 				boost::mpl::_1
 			>
 		>::type

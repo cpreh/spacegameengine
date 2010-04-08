@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 #include "../instantiate_basic_buffer.hpp"
 #include <sge/renderer/index/dynamic/make_format.hpp>
-#include <sge/renderer/index/basic_view.hpp>
+#include <sge/renderer/index/view.hpp>
 #include <sge/renderer/index/i16.hpp>
 #include <sge/renderer/index/i32.hpp>
 #include <sge/renderer/index/format.hpp>
@@ -123,7 +123,7 @@ sge::opengl::index_buffer<T>::lock(
 
 	return 
 		view_type(
-			renderer::index::basic_view<
+			renderer::index::view<
 				sge::renderer::index::format<
 					T
 				>
@@ -151,7 +151,7 @@ sge::opengl::index_buffer<T>::lock(
 
 	return 
 		const_view_type(
-			renderer::index::basic_view<
+			renderer::index::view<
 				sge::renderer::index::format<
 					T const
 				>

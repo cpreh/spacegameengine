@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_BASIC_VIEW_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_BASIC_VIEW_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_VIEW_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_VIEW_HPP_INCLUDED
 
-#include <sge/renderer/index/basic_view_fwd.hpp>
+#include <sge/renderer/index/view_fwd.hpp>
 #include <sge/renderer/index/is_format.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/index/dynamic/basic_view_fwd.hpp>
@@ -40,7 +40,7 @@ namespace index
 template<
 	typename Format
 >
-class basic_view
+class view
 {
 public:
 	BOOST_STATIC_ASSERT(
@@ -56,11 +56,11 @@ public:
 	typedef value_type *pointer;
 	typedef pointer iterator;
 
-	typedef basic_view<
+	typedef view<
 		typename Format::const_type
 	> const_type;
 
-	typedef basic_view<
+	typedef view<
 		typename Format::nonconst_type
 	> nonconst_type;
 
@@ -70,16 +70,16 @@ public:
 		>::value
 	> dynamic_view_type;		
 
-	SGE_SYMBOL explicit basic_view(
+	SGE_SYMBOL explicit view(
 		pointer,
 		size_type
 	);
 
-	SGE_SYMBOL basic_view(
+	SGE_SYMBOL view(
 		nonconst_type const &
 	);
 
-	SGE_SYMBOL explicit basic_view(
+	SGE_SYMBOL explicit view(
 		dynamic_view_type const &
 	);
 
