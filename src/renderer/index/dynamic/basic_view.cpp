@@ -18,11 +18,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "view_size.hpp"
-#include "view_format.hpp"
 #include <sge/renderer/index/dynamic/basic_view.hpp>
+#include <sge/renderer/index/dynamic/format.hpp>
+#include <sge/renderer/size_type.hpp>
 #include <fcppt/variant/object_impl.hpp>
+#include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/export_symbol.hpp>
+
+namespace
+{
+
+class view_size_visitor
+{
+public:
+	typedef sge::renderer::size_type result_type;
+
+	template<
+		typename T
+	>
+	result_type
+	operator()(
+		T const &t
+	) const
+	{
+		return t.size();
+	}
+};
+
+class view_format_visitor
+{
+public:
+	typedef sge::renderer::index::dynamic::format::type result_type;
+
+	template<
+		typename T
+	>
+	result_type
+	operator()(
+		T const &t
+	) const
+	{
+		return t.format();
+	}
+};
+
+}
 
 template<
 	bool IsConst
@@ -50,7 +90,8 @@ sge::renderer::size_type
 sge::renderer::index::dynamic::basic_view<IsConst>::size() const
 {
 	return
-		view_size(
+		fcppt::variant::apply_unary(
+			view_size_visitor(),
 			any()
 		);
 }
@@ -62,7 +103,8 @@ sge::renderer::index::dynamic::format::type
 sge::renderer::index::dynamic::basic_view<IsConst>::format() const
 {
 	return 
-		view_format(
+		fcppt::variant::apply_unary(
+			view_format_visitor(),
 			any()
 		);
 }
