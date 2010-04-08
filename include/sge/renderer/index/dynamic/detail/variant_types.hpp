@@ -18,10 +18,63 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_VIEW_32_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_VIEW_32_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_DYNAMIC_DETAIL_VARIANT_TYPES_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_DYNAMIC_DETAIL_VARIANT_TYPES_HPP_INCLUDED
 
-#include <sge/renderer/index/view_32_fwd.hpp>
-#include <sge/renderer/index/basic_view.hpp>
+#include <sge/renderer/index/i16.hpp>
+#include <sge/renderer/index/i32.hpp>
+#include <boost/mpl/transform.hpp>
+#include <boost/mpl/placeholders.hpp>
+#include <boost/mpl/vector/vector10.hpp>
+#include <boost/type_traits/add_const.hpp>
+
+namespace sge
+{
+namespace renderer
+{
+namespace index
+{
+namespace dynamic
+{
+namespace detail
+{
+
+template<
+	bool IsConst
+>
+struct variant_types;
+
+template<>
+struct variant_types<
+	false
+>
+{
+	typedef boost::mpl::vector2<
+		index::i16,
+		index::i32
+	> type;
+};
+
+template<>
+struct variant_types<
+	true
+>
+{
+	typedef boost::mpl::transform<
+		variant_types<
+			false
+		>::type,
+		boost::add_const<
+			boost::mpl::_1
+		>
+	>::type type;
+};
+
+}
+}
+}
+}
+}
 
 #endif
+

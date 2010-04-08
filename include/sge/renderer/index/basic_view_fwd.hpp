@@ -29,7 +29,7 @@ namespace index
 {
 
 template<
-	typename Index
+	typename Format
 >
 class basic_view;
 

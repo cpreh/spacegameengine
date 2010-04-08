@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/export_symbol.hpp>
 
 template<
-	typename T
+	typename Format
 >
 sge::renderer::index::dynamic::format::type
 sge::renderer::index::dynamic::make_format()

@@ -23,8 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/index/basic_view_fwd.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
+#include <sge/renderer/index/dynamic/basic_view_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/symbol.hpp>
+#include <boost/type_traits/is_const.hpp>
 
 namespace sge
 {
@@ -34,19 +36,41 @@ namespace index
 {
 
 template<
-	typename Index
+	typename Format
 >
 class basic_view
 {
 public:
-	typedef Index value_type;
+	typedef typename Format::type value_type;
 	typedef value_type &reference;
 	typedef value_type *pointer;
 	typedef pointer iterator;
 
-	SGE_SYMBOL basic_view(
+	typedef basic_view<
+		typename Format::const_type
+	> const_type;
+
+	typedef basic_view<
+		typename Format::nonconst_type
+	> nonconst_type;
+
+	typedef dynamic::basic_view<
+		boost::is_const<
+			value_type
+		>::value
+	> dynamic_view_type;		
+
+	SGE_SYMBOL explicit basic_view(
 		pointer,
 		size_type
+	);
+
+	SGE_SYMBOL explicit basic_view(
+		nonconst_type const &
+	);
+
+	SGE_SYMBOL explicit basic_view(
+		dynamic_view_type const &
 	);
 
 	SGE_SYMBOL pointer

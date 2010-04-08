@@ -18,11 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_DYNAMIC_MAKE_FORMAT_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_DYNAMIC_MAKE_FORMAT_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_DYNAMIC_BASIC_VIEW_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_DYNAMIC_BASIC_VIEW_HPP_INCLUDED
 
+#include <sge/renderer/index/dynamic/basic_view_fwd.hpp>
+#include <sge/renderer/index/dynamic/detail/variant_types.hpp>
+#include <sge/renderer/index/dynamic/detail/make_basic_view.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
+#include <sge/renderer/index/basic_view.hpp>
+#include <sge/renderer/size_type.hpp>
 #include <sge/symbol.hpp>
+#include <fcppt/variant/object_decl.hpp>
+#include <boost/mpl/transform.hpp>
+#include <boost/mpl/placeholders.hpp>
 
 namespace sge
 {
@@ -34,10 +42,41 @@ namespace dynamic
 {
 
 template<
-	typename Format
+	bool isConst
 >
-SGE_SYMBOL format::type
-make_format();
+class basic_view
+{
+public:
+	typedef fcppt::variant::object<
+		typename boost::mpl::transform<
+			typename detail::variant_types<
+				isConst
+			>::type,
+			detail::make_basic_view<
+				boost::mpl::_1
+			>
+		>::type
+	> any_type;
+
+	SGE_SYMBOL
+	explicit basic_view(
+		any_type const &
+	);
+	
+	SGE_SYMBOL
+	any_type const &
+	any() const;
+
+	SGE_SYMBOL
+	renderer::size_type
+	size() const;
+
+	SGE_SYMBOL
+	dynamic::format::type
+	format() const;
+private:
+	any_type any_;	
+};
 
 }
 }

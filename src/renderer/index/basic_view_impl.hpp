@@ -23,8 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/index/basic_view.hpp>
 #include <sge/renderer/index/dynamic/make_format.hpp>
+#include <sge/renderer/index/dynamic/view_size.hpp>
+#include <sge/renderer/index/dynamic/basic_view.hpp>
 #include <fcppt/assert.hpp>
 #include <boost/type_traits/remove_const.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 template<
 	typename Index
@@ -39,6 +42,39 @@ sge::renderer::index::basic_view<Index>::basic_view(
 {
 	FCPPT_ASSERT(data_);
 }
+
+template<
+	typename Index
+>
+sge::renderer::index::basic_view<Index>::basic_view(
+	nonconst_type const &other_
+)
+:
+	data_(other_.data()),
+	size_(other_.size())
+{
+}
+
+template<
+	typename Index
+>
+sge::renderer::index::basic_view<Index>::basic_view(
+	dnyamic_view_type const &view_
+)
+:
+	data_(
+		view_. template get<
+			basic_view<
+				Index
+			>
+		>().data()
+	),
+	size_(
+		dynamic::view_size(
+			view_
+		)
+	)
+{}
 
 template<
 	typename Index

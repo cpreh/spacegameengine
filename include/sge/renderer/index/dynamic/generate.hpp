@@ -49,7 +49,7 @@ generate(
 		>(
 			gen
 		),
-		v
+		v.any()
 	);
 }
 

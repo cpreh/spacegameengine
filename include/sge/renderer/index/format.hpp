@@ -18,10 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_CONST_VIEW_16_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_CONST_VIEW_16_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_FORMAT_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_FORMAT_HPP_INCLUDED
 
-#include <sge/renderer/index/const_view_16_fwd.hpp>
-#include <sge/renderer/index/basic_view.hpp>
+#include <boost/type_traits/add_const.hpp>
+#include <boost/type_traits/remove_const.hpp>
+
+namespace sge
+{
+namespace renderer
+{
+namespace index
+{
+
+template<
+	typename Index
+>
+struct format
+{
+	typedef Index type;
+
+	typedef format<
+		typename boost::add_const<
+			type
+		>::type
+	> const_type;
+
+	typedef format<
+		typename boost::remove_const<
+			type
+		>::type
+	> nonconst_type;
+};
+
+}
+}
+}
 
 #endif

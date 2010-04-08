@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_CONST_VIEW_16_FWD_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_CONST_VIEW_16_FWD_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_DYNAMIC_DETAIL_MAKE_BASIC_VIEW_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_DYNAMIC_DETAIL_MAKE_BASIC_VIEW_HPP_INCLUDED
 
 #include <sge/renderer/index/basic_view_fwd.hpp>
-#include <sge/renderer/index/i16.hpp>
+#include <sge/renderer/index/format.hpp>
 
 namespace sge
 {
@@ -30,11 +30,25 @@ namespace renderer
 {
 namespace index
 {
+namespace dynamic
+{
+namespace detail
+{
 
-typedef basic_view<
-	i16 const
-> const_view_16;
+template<
+	typename Element
+>
+struct make_basic_view
+{
+	typedef index::basic_view<
+		index::format<
+			Element
+		>
+	> type;
+};
 
+}
+}
 }
 }
 }
