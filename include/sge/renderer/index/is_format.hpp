@@ -18,12 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_FORMAT_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_FORMAT_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_IS_FORMAT_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_IS_FORMAT_HPP_INCLUDED
 
 #include <sge/renderer/index/format_fwd.hpp>
-#include <boost/type_traits/add_const.hpp>
-#include <boost/type_traits/remove_const.hpp>
+#include <boost/type_traits/integral_constant.hpp>
 
 namespace sge
 {
@@ -33,24 +32,24 @@ namespace index
 {
 
 template<
+	typename Format
+>
+struct is_format
+:
+boost::false_type
+{};
+
+template<
 	typename Index
 >
-struct format
-{
-	typedef Index type;
-
-	typedef format<
-		typename boost::add_const<
-			type
-		>::type
-	> const_type;
-
-	typedef format<
-		typename boost::remove_const<
-			type
-		>::type
-	> nonconst_type;
-};
+struct is_format<
+	format<
+		Index
+	>
+>
+:
+boost::true_type
+{};
 
 }
 }

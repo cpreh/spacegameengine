@@ -49,7 +49,7 @@ sge::renderer::index::dynamic::make_const_view(
 {
 	return fcppt::variant::apply_unary(
 		visitor(),
-		v
+		v.any()
 	);
 }
 
@@ -64,12 +64,13 @@ visitor::operator()(
 	T const &v
 ) const
 {
-	return sge::renderer::index::basic_view<
-		typename T::value_type const
-	>(
-		v.data(),
-		v.size()
-	);
+	return
+		result_type(
+			typename T::const_type(
+				v.data(),
+				v.size()
+			)
+		);
 }
 
 }

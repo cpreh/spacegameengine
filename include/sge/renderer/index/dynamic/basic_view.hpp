@@ -42,7 +42,7 @@ namespace dynamic
 {
 
 template<
-	bool isConst
+	bool IsConst
 >
 class basic_view
 {
@@ -50,7 +50,7 @@ public:
 	typedef fcppt::variant::object<
 		typename boost::mpl::transform<
 			typename detail::variant_types<
-				isConst
+				IsConst
 			>::type,
 			detail::make_basic_view<
 				boost::mpl::_1

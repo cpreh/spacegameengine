@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/index/basic_view.hpp>
 #include <sge/renderer/index/dynamic/make_format.hpp>
-#include <sge/renderer/index/dynamic/view_size.hpp>
 #include <sge/renderer/index/dynamic/basic_view.hpp>
 #include <sge/renderer/index/format.hpp>
 #include <sge/renderer/index/i16.hpp>
@@ -70,9 +69,7 @@ sge::renderer::index::basic_view<Format>::basic_view(
 		>().data()
 	),
 	size_(
-		dynamic::view_size(
-			view_
-		)
+		view_.size()
 	)
 {}
 

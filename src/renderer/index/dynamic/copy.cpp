@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/apply_binary.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/text.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <algorithm>
 
 namespace
@@ -33,13 +35,22 @@ class copy_visitor
 public:
 	typedef void result_type;
 
+	// TODO: allow widening copies!
+
 	template<
-		typename T
+		typename T,
+		typename U
 	>
-	result_type
+	typename boost::enable_if<
+		boost::is_same<
+			typename T::format_type::type,
+			typename U::format_type::type
+		>,
+		result_type
+	>::type
 	operator()(
 		T const &src,
-		T &dest
+		U const &dest
 	) const
 	{
 		std::copy(
@@ -53,7 +64,13 @@ public:
 		typename T,
 		typename U
 	>
-	result_type
+	typename boost::disable_if<
+		boost::is_same<
+			typename T::format_type::type,
+			typename U::format_type::type
+		>,
+		result_type
+	>::type
 	operator()(
 		T,
 		U
@@ -75,7 +92,7 @@ sge::renderer::index::dynamic::copy(
 {
 	fcppt::variant::apply_binary(
 		copy_visitor(),
-		src,
-		dest
+		src.any(),
+		dest.any()
 	);
 }

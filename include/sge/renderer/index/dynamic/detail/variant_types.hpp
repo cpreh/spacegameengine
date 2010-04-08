@@ -25,6 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/i32.hpp>
 #include <boost/mpl/transform.hpp>
 #include <boost/mpl/placeholders.hpp>
+#include <boost/mpl/bool.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/mpl/identity.hpp>
+#include <boost/mpl/lambda.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/type_traits/add_const.hpp>
 
@@ -42,33 +46,28 @@ namespace detail
 template<
 	bool IsConst
 >
-struct variant_types;
-
-template<>
-struct variant_types<
-	false
->
-{
-	typedef boost::mpl::vector2<
+struct variant_types
+:
+boost::mpl::transform<
+	boost::mpl::vector2<
 		index::i16,
 		index::i32
-	> type;
-};
-
-template<>
-struct variant_types<
-	true
->
-{
-	typedef boost::mpl::transform<
-		variant_types<
-			false
-		>::type,
-		boost::add_const<
+	>,
+	boost::mpl::if_<
+		boost::mpl::bool_<
+			IsConst
+		>,
+		boost::mpl::lambda<
+			boost::add_const<
+				boost::mpl::_1
+			>
+		>,
+		boost::mpl::identity<
 			boost::mpl::_1
 		>
-	>::type type;
-};
+	>
+>
+{};
 
 }
 }

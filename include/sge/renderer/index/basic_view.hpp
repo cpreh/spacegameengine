@@ -22,11 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_INDEX_BASIC_VIEW_HPP_INCLUDED
 
 #include <sge/renderer/index/basic_view_fwd.hpp>
+#include <sge/renderer/index/is_format.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/index/dynamic/basic_view_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/symbol.hpp>
 #include <boost/type_traits/is_const.hpp>
+#include <boost/static_assert.hpp>
 
 namespace sge
 {
@@ -41,7 +43,15 @@ template<
 class basic_view
 {
 public:
-	typedef typename Format::type value_type;
+	BOOST_STATIC_ASSERT(
+		is_format<
+			Format
+		>::value
+	);
+
+	typedef Format format_type;
+
+	typedef typename format_type::type value_type;
 	typedef value_type &reference;
 	typedef value_type *pointer;
 	typedef pointer iterator;
@@ -65,7 +75,7 @@ public:
 		size_type
 	);
 
-	SGE_SYMBOL explicit basic_view(
+	SGE_SYMBOL basic_view(
 		nonconst_type const &
 	);
 

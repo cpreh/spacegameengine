@@ -28,8 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/indices_per_primitive.hpp>
 #include <sge/renderer/vf/dynamic/format.hpp>
 #include <sge/renderer/index/dynamic/copy.hpp>
-#include <sge/renderer/index/dynamic/view_format.hpp>
-#include <sge/renderer/index/dynamic/view_size.hpp>
 #include <sge/image/view/format.hpp>
 #include <sge/image/view/dim.hpp>
 #include <sge/image/algorithm/copy_and_convert.hpp>
@@ -194,12 +192,8 @@ sge::renderer::device::create_index_buffer(
 {
 	index_buffer_ptr const ib(
 		create_index_buffer(
-			index::dynamic::view_format(
-				view
-			),
-			index::dynamic::view_size(
-				view
-			),
+			view.format(),
+			view.size(),
 			flags
 		)
 	);
