@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_INDEX_BUFFER_HPP_INCLUDED
 
 #include <sge/renderer/index_buffer_fwd.hpp>
-#include <sge/renderer/index/view.hpp>
+#include <sge/renderer/index/dynamic/view.hpp>
+#include <sge/renderer/index/dynamic/const_view.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/size_type.hpp>
@@ -42,8 +43,8 @@ protected:
 	SGE_SYMBOL index_buffer();
 public:
 	typedef renderer::size_type           size_type;
-	typedef index::view                   view_type;
-	typedef index::const_view             const_view_type;
+	typedef index::dynamic::view          view_type;
+	typedef index::dynamic::const_view    const_view_type;
 
 	SGE_SYMBOL static size_type const npos;
 

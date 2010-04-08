@@ -57,7 +57,8 @@ public:
 		typename OtherView
 	>
 	explicit view(
-		dynamic::basic_view<OtherView> const &v)
+		dynamic::basic_view<OtherView> const &v
+	)
 	:
 		data(v.data()),
 		size(v.size())

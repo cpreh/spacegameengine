@@ -34,7 +34,8 @@ namespace index
 
 SGE_SYMBOL size_type
 format_stride(
-	format::type);
+	format::type
+);
 
 }
 }

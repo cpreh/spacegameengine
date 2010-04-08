@@ -18,37 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_VIEW_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_VIEW_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_CONST_VIEW_16_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_CONST_VIEW_16_HPP_INCLUDED
 
-#include <sge/renderer/index/view_16.hpp>
-#include <sge/renderer/index/view_32.hpp>
-#include <fcppt/variant/object_fwd.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-
-namespace sge
-{
-namespace renderer
-{
-namespace index
-{
-
-typedef fcppt::variant::object<
-	boost::mpl::vector2<
-		view_16,
-		view_32
-	>
-> view;
-
-typedef fcppt::variant::object<
-	boost::mpl::vector2<
-		const_view_16,
-		const_view_32
-	>
-> const_view;
-
-}
-}
-}
+#include <sge/renderer/index/const_view_16_fwd.hpp>
+#include <sge/renderer/index/basic_view.hpp>
 
 #endif

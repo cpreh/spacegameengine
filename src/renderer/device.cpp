@@ -99,7 +99,7 @@ sge::renderer::device::render(
 
 sge::renderer::texture_ptr const
 sge::renderer::device::create_texture(
-	image::view::const_object const &v,
+	image::view::dynamic::const_object const &v,
 	filter::texture const &filter,
 	resource_flags_field const &flags
 )

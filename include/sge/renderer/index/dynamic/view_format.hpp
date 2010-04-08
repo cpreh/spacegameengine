@@ -18,10 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_DETAIL_GENERATE_VISITOR_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_DETAIL_GENERATE_VISITOR_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_DYNAMIC_VIEW_FORMAT_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_DYNAMIC_VIEW_FORMAT_HPP_INCLUDED
 
-//#include <boost/foreach.hpp>
+#include <sge/renderer/index/dynamic/const_view.hpp>
+#include <sge/renderer/index/format.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
@@ -29,36 +31,13 @@ namespace renderer
 {
 namespace index
 {
-namespace detail
+namespace dynamic
 {
 
-template<
-	typename Gen
->
-class generate_visitor {
-public:
-	typedef void result_type;
-
-	explicit generate_visitor(
-		Gen const &gen)
-	:
-		gen(gen)
-	{}
-
-	template<
-		typename View
-	>
-	result_type
-	operator()(
-		View const &v) const
-	{
-		//BOOST_FOREACH(typename View::reference r, v)
-		for(typename View::iterator it(v.begin()), end(v.end()); it != end; ++it)
-			*it = gen.operator()<typename View::value_type>();
-	}
-private:
-	Gen const gen;
-};
+SGE_SYMBOL format::type
+view_format(
+	const_view const &
+);
 
 }
 }

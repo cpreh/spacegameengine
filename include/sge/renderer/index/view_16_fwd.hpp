@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_MAKE_CONST_VIEW_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_MAKE_CONST_VIEW_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_VIEW_16_FWD_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_VIEW_16_FWD_HPP_INCLUDED
 
-#include <sge/renderer/index/view.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/index/basic_view_fwd.hpp>
+#include <boost/cstdint.hpp>
 
 namespace sge
 {
@@ -31,9 +31,9 @@ namespace renderer
 namespace index
 {
 
-SGE_SYMBOL const_view const
-make_const_view(
-	view const &);
+typedef basic_view<
+	boost::uint16_t
+> view_16;
 
 }
 }

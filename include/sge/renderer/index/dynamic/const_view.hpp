@@ -1,3 +1,4 @@
+
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
@@ -18,39 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_GENERATE_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_GENERATE_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_DYNAMIC_CONST_VIEW_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_DYNAMIC_CONST_VIEW_HPP_INCLUDED
 
-#include <sge/renderer/index/detail/generate_visitor.hpp>
-#include <sge/renderer/index/view.hpp>
-#include <fcppt/variant/apply_unary.hpp>
-
-namespace sge
-{
-namespace renderer
-{
-namespace index
-{
-
-template<
-	typename Gen
->
-void
-generate(
-	view const &v,
-	Gen const &gen
-)
-{
-	fcppt::variant::apply_unary(
-		detail::generate_visitor<Gen>(
-			gen
-		),
-		v
-	);
-}
-
-}
-}
-}
+#include <sge/renderer/index/dynamic/const_view_fwd.hpp>
+#include <sge/renderer/index/const_view_16.hpp>
+#include <sge/renderer/index/const_view_32.hpp>
 
 #endif

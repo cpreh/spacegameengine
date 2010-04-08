@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_VIEW_SIZE_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_VIEW_SIZE_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_DYNAMIC_VIEW_SIZE_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_DYNAMIC_VIEW_SIZE_HPP_INCLUDED
 
-#include <sge/renderer/index/view.hpp>
+#include <sge/renderer/index/dynamic/const_view.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/symbol.hpp>
 
@@ -31,11 +31,15 @@ namespace renderer
 {
 namespace index
 {
+namespace dynamic
+{
 
 SGE_SYMBOL size_type
 view_size(
-	const_view const &);
+	const_view const &
+);
 
+}
 }
 }
 }

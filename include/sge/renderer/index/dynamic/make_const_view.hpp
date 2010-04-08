@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_DETAIL_BASIC_VIEW_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_DETAIL_BASIC_VIEW_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_DYNAMIC_MAKE_CONST_VIEW_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_DYNAMIC_MAKE_CONST_VIEW_HPP_INCLUDED
 
-#include <sge/renderer/index/format.hpp>
-#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/index/dynamic/view.hpp>
+#include <sge/renderer/index/dynamic/const_view.hpp>
 #include <sge/symbol.hpp>
 
 namespace sge
@@ -31,34 +31,13 @@ namespace renderer
 {
 namespace index
 {
-namespace detail
+namespace dynamic
 {
 
-template<
-	typename Index
->
-class basic_view {
-public:
-	typedef Index value_type;
-	typedef value_type &reference;
-	typedef value_type *pointer;
-	typedef pointer iterator;
-
-	SGE_SYMBOL basic_view(
-		pointer,
-		size_type);
-
-	SGE_SYMBOL pointer data() const;
-	SGE_SYMBOL size_type size() const;
-
-	SGE_SYMBOL iterator begin() const;
-	SGE_SYMBOL iterator end() const;
-
-	SGE_SYMBOL index::format::type format() const;
-private:
-	pointer data_;
-	size_type size_;
-};
+SGE_SYMBOL const_view const
+make_const_view(
+	view const &
+);
 
 }
 }

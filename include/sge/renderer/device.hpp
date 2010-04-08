@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/optional_string.hpp>
 #include <sge/renderer/glsl/optional_istream.hpp>
 #include <sge/renderer/state/list_fwd.hpp>
-#include <sge/renderer/index/view.hpp>
+#include <sge/renderer/index/dynamic/const_view.hpp>
 #include <sge/renderer/index/format.hpp>
 #include <sge/renderer/any_matrix.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
@@ -275,7 +275,7 @@ public:
 
 	SGE_SYMBOL index_buffer_ptr const
 	create_index_buffer(
-		index::const_view const &,
+		index::dynamic::const_view const &,
 		resource_flags_field const &
 	);
 

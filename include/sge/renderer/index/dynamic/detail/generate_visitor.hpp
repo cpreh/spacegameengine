@@ -18,24 +18,63 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SCOPED_INDEX_LOCK_HPP_INCLUDED
-#define SGE_RENDERER_SCOPED_INDEX_LOCK_HPP_INCLUDED
-
-#include <sge/renderer/detail/scoped_buffer_lock.hpp>
-#include <sge/renderer/index/dynamic/view.hpp>
-#include <sge/renderer/index_buffer_ptr.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#ifndef SGE_RENDERER_INDEX_DYNAMIC_DETAIL_GENERATE_VISITOR_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_DYNAMIC_DETAIL_GENERATE_VISITOR_HPP_INCLUDED
 
 namespace sge
 {
 namespace renderer
 {
+namespace index
+{
+namespace dynamic
+{
+namespace detail
+{
 
-typedef detail::scoped_buffer_lock<
-	index_buffer_ptr,
-	index::dynamic::view
-> scoped_index_lock;
+template<
+	typename Gen
+>
+class generate_visitor
+{
+public:
+	typedef void result_type;
 
+	explicit generate_visitor(
+		Gen const &gen
+	)
+	:
+		gen(gen)
+	{}
+
+	template<
+		typename View
+	>
+	result_type
+	operator()(
+		View const &v
+	) const
+	{
+		for(
+			typename View::iterator
+				it(
+					v.begin()
+				),
+				end(
+					v.end()
+				);
+			it != end;
+			++it
+		)
+			*it = gen.operator()<typename View::value_type>();
+	}
+private:
+	Gen const gen;
+};
+
+}
+}
+}
 }
 }
 

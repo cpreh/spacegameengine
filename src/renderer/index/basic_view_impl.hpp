@@ -22,13 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_INDEX_BASIC_VIEW_IMPL_HPP_INCLUDED
 
 #include "format_traits.hpp"
-#include <sge/renderer/index/detail/basic_view.hpp>
+#include <sge/renderer/index/basic_view.hpp>
 #include <fcppt/assert.hpp>
 
 template<
 	typename Index
 >
-sge::renderer::index::detail::basic_view<Index>::basic_view(
+sge::renderer::index::basic_view<Index>::basic_view(
 	pointer const data_,
 	size_type const size_
 )
@@ -42,8 +42,8 @@ sge::renderer::index::detail::basic_view<Index>::basic_view(
 template<
 	typename Index
 >
-typename sge::renderer::index::detail::basic_view<Index>::pointer
-sge::renderer::index::detail::basic_view<Index>::data() const
+typename sge::renderer::index::basic_view<Index>::pointer
+sge::renderer::index::basic_view<Index>::data() const
 {
 	return data_;
 }
@@ -52,7 +52,7 @@ template<
 	typename Index
 >
 sge::renderer::size_type
-sge::renderer::index::detail::basic_view<Index>::size() const
+sge::renderer::index::basic_view<Index>::size() const
 {
 	return size_;
 }
@@ -60,8 +60,8 @@ sge::renderer::index::detail::basic_view<Index>::size() const
 template<
 	typename Index
 >
-typename sge::renderer::index::detail::basic_view<Index>::iterator
-sge::renderer::index::detail::basic_view<Index>::begin() const
+typename sge::renderer::index::basic_view<Index>::iterator
+sge::renderer::index::basic_view<Index>::begin() const
 {
 	return data();
 }
@@ -69,8 +69,8 @@ sge::renderer::index::detail::basic_view<Index>::begin() const
 template<
 	typename Index
 >
-typename sge::renderer::index::detail::basic_view<Index>::iterator
-sge::renderer::index::detail::basic_view<Index>::end() const
+typename sge::renderer::index::basic_view<Index>::iterator
+sge::renderer::index::basic_view<Index>::end() const
 {
 	return begin() + size();
 }
@@ -79,7 +79,7 @@ template<
 	typename Index
 >
 sge::renderer::index::format::type
-sge::renderer::index::detail::basic_view<Index>::format() const
+sge::renderer::index::basic_view<Index>::format() const
 {
 	return format_traits<
 		value_type
