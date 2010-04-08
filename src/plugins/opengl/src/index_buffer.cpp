@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/basic_view.hpp>
 #include <sge/renderer/index/i16.hpp>
 #include <sge/renderer/index/i32.hpp>
+#include <sge/renderer/index/format.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
 namespace
@@ -121,11 +122,15 @@ sge::opengl::index_buffer<T>::lock(
 	);
 
 	return 
-		renderer::index::basic_view<
-			T
-		>(
-			buf.data(),
-			buf.lock_size()
+		view_type(
+			renderer::index::basic_view<
+				sge::renderer::index::format<
+					T
+				>
+			>(
+				buf.data(),
+				buf.lock_size()
+			)
 		);
 }
 
@@ -135,7 +140,8 @@ template<
 typename sge::opengl::index_buffer<T>::const_view_type const
 sge::opengl::index_buffer<T>::lock(
 	size_type const offset,
-	size_type const range) const
+	size_type const range
+) const
 {
 	buf.lock(
 		lock_method::readonly,
@@ -144,11 +150,15 @@ sge::opengl::index_buffer<T>::lock(
 	);
 
 	return 
-		renderer::index::basic_view<
-			T const
-		>(
-			buf.data(),
-			buf.lock_size()
+		const_view_type(
+			renderer::index::basic_view<
+				sge::renderer::index::format<
+					T const
+				>
+			>(
+				buf.data(),
+				buf.lock_size()
+			)
 		);
 }
 
@@ -187,7 +197,9 @@ sge::opengl::index_buffer<T>::format() const
 {
 	return
 		renderer::index::dynamic::make_format<
-			T
+			sge::renderer::index::format<
+				T
+			>
 		>();
 }
 

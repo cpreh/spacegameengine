@@ -18,21 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_BASIC_VIEW_IMPL_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_BASIC_VIEW_IMPL_HPP_INCLUDED
-
 #include <sge/renderer/index/basic_view.hpp>
 #include <sge/renderer/index/dynamic/make_format.hpp>
 #include <sge/renderer/index/dynamic/view_size.hpp>
 #include <sge/renderer/index/dynamic/basic_view.hpp>
+#include <sge/renderer/index/format.hpp>
+#include <sge/renderer/index/i16.hpp>
+#include <sge/renderer/index/i32.hpp>
+#include <fcppt/export_symbol.hpp>
 #include <fcppt/assert.hpp>
-#include <boost/type_traits/remove_const.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
 template<
-	typename Index
+	typename Format
 >
-sge::renderer::index::basic_view<Index>::basic_view(
+sge::renderer::index::basic_view<Format>::basic_view(
 	pointer const data_,
 	size_type const size_
 )
@@ -44,9 +44,9 @@ sge::renderer::index::basic_view<Index>::basic_view(
 }
 
 template<
-	typename Index
+	typename Format
 >
-sge::renderer::index::basic_view<Index>::basic_view(
+sge::renderer::index::basic_view<Format>::basic_view(
 	nonconst_type const &other_
 )
 :
@@ -56,16 +56,16 @@ sge::renderer::index::basic_view<Index>::basic_view(
 }
 
 template<
-	typename Index
+	typename Format
 >
-sge::renderer::index::basic_view<Index>::basic_view(
-	dnyamic_view_type const &view_
+sge::renderer::index::basic_view<Format>::basic_view(
+	dynamic_view_type const &view_
 )
 :
 	data_(
-		view_. template get<
+		view_.any(). template get<
 			basic_view<
-				Index
+				Format
 			>
 		>().data()
 	),
@@ -77,53 +77,74 @@ sge::renderer::index::basic_view<Index>::basic_view(
 {}
 
 template<
-	typename Index
+	typename Format
 >
-typename sge::renderer::index::basic_view<Index>::pointer
-sge::renderer::index::basic_view<Index>::data() const
+typename sge::renderer::index::basic_view<Format>::pointer
+sge::renderer::index::basic_view<Format>::data() const
 {
 	return data_;
 }
 
 template<
-	typename Index
+	typename Format
 >
 sge::renderer::size_type
-sge::renderer::index::basic_view<Index>::size() const
+sge::renderer::index::basic_view<Format>::size() const
 {
 	return size_;
 }
 
 template<
-	typename Index
+	typename Format
 >
-typename sge::renderer::index::basic_view<Index>::iterator
-sge::renderer::index::basic_view<Index>::begin() const
+typename sge::renderer::index::basic_view<Format>::iterator
+sge::renderer::index::basic_view<Format>::begin() const
 {
 	return data();
 }
 
 template<
-	typename Index
+	typename Format
 >
-typename sge::renderer::index::basic_view<Index>::iterator
-sge::renderer::index::basic_view<Index>::end() const
+typename sge::renderer::index::basic_view<Format>::iterator
+sge::renderer::index::basic_view<Format>::end() const
 {
 	return begin() + size();
 }
 
 template<
-	typename Index
+	typename Format
 >
 sge::renderer::index::dynamic::format::type
-sge::renderer::index::basic_view<Index>::format() const
+sge::renderer::index::basic_view<Format>::format() const
 {
 	return
 		dynamic::make_format<
-			typename boost::remove_const<
-				Index
-			>::type
+			Format
 		>();
 }
 
-#endif
+#define SGE_RENDERER_INDEX_DEFINE_BASIC_VIEW(x)\
+template FCPPT_EXPORT_SYMBOL class sge::renderer::index::basic_view<\
+	sge::renderer::index::format<\
+		x\
+	> \
+>;
+
+SGE_RENDERER_INDEX_DEFINE_BASIC_VIEW(
+	sge::renderer::index::i16
+)
+
+SGE_RENDERER_INDEX_DEFINE_BASIC_VIEW(
+	sge::renderer::index::i16 const
+)
+
+SGE_RENDERER_INDEX_DEFINE_BASIC_VIEW(
+	sge::renderer::index::i32
+)
+
+SGE_RENDERER_INDEX_DEFINE_BASIC_VIEW(
+	sge::renderer::index::i32 const
+)
+
+#undef SGE_RENDERER_INDEX_DEFINE_BASIC_VIEW

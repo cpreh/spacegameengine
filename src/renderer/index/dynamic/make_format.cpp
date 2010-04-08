@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "format_traits.hpp"
 #include <sge/renderer/index/dynamic/make_format.hpp>
+#include <sge/renderer/index/format.hpp>
 #include <fcppt/export_symbol.hpp>
+#include <boost/type_traits/remove_const.hpp>
 
 template<
 	typename Format
@@ -30,7 +32,9 @@ sge::renderer::index::dynamic::make_format()
 {
 	return
 		format_traits<
-			T
+			typename boost::remove_const<
+				typename Format::type
+			>::type
 		>::value;
 }
 
@@ -38,15 +42,26 @@ sge::renderer::index::dynamic::make_format()
 template \
 FCPPT_EXPORT_SYMBOL \
 sge::renderer::index::dynamic::format::type \
-sge::renderer::index::dynamic::make_format<x>();
+sge::renderer::index::dynamic::make_format<\
+	sge::renderer::index::format<\
+		x\
+	> \
+>();
 
 SGE_RENDERER_INDEX_DYNAMIC_INSTANTIATE_MAKE_FORMAT(
 	sge::renderer::index::i16
 )
 
+SGE_RENDERER_INDEX_DYNAMIC_INSTANTIATE_MAKE_FORMAT(
+	sge::renderer::index::i16 const
+)
 
 SGE_RENDERER_INDEX_DYNAMIC_INSTANTIATE_MAKE_FORMAT(
 	sge::renderer::index::i32
+)
+
+SGE_RENDERER_INDEX_DYNAMIC_INSTANTIATE_MAKE_FORMAT(
+	sge::renderer::index::i32 const
 )
 
 #undef SGE_RENDERER_INDEX_DYNAMIC_INSTANTIATE_MAKE_FORMAT

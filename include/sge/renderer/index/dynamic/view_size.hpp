@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_INDEX_DYNAMIC_VIEW_SIZE_HPP_INCLUDED
 
 #include <sge/renderer/index/dynamic/const_view.hpp>
+#include <sge/renderer/index/dynamic/view.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/symbol.hpp>
 
@@ -37,6 +38,11 @@ namespace dynamic
 SGE_SYMBOL size_type
 view_size(
 	const_view const &
+);
+
+SGE_SYMBOL size_type
+view_size(
+	view const &
 );
 
 }

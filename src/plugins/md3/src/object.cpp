@@ -204,7 +204,8 @@ public:
 	>
 	result_type
 	operator()(
-		T const &t) const
+		T const &t
+	) const
 	{
 
 		sge::renderer::size_type ib_offset(0);
@@ -239,7 +240,8 @@ private:
 
 void
 sge::md3::object::copy_indices(
-	renderer::index::dynamic::view const &view)
+	renderer::index::dynamic::view const &view
+)
 {
 	if(
 		indices() > renderer::index::dynamic::view_size(
@@ -256,7 +258,7 @@ sge::md3::object::copy_indices(
 		index_visitor(
 			surfaces
 		),
-		view
+		view.any()
 	);
 }
 
