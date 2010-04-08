@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDEX_BASIC_VIEW_IMPL_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_BASIC_VIEW_IMPL_HPP_INCLUDED
 
-#include "format_traits.hpp"
 #include <sge/renderer/index/basic_view.hpp>
+#include <sge/renderer/index/dynamic/make_format.hpp>
 #include <fcppt/assert.hpp>
+#include <boost/type_traits/remove_const.hpp>
 
 template<
 	typename Index
@@ -78,12 +79,15 @@ sge::renderer::index::basic_view<Index>::end() const
 template<
 	typename Index
 >
-sge::renderer::index::format::type
+sge::renderer::index::dynamic::format::type
 sge::renderer::index::basic_view<Index>::format() const
 {
-	return format_traits<
-		value_type
-	>::value;
+	return
+		dynamic::make_format<
+			typename boost::remove_const<
+				Index
+			>::type
+		>();
 }
 
 #endif

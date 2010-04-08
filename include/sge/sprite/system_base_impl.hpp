@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index_buffer.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/matrix_pixel_to_space.hpp>
+#include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
@@ -134,7 +135,7 @@ sge::sprite::system_base<Choices>::allocate_buffers(
 	);
 
 	ib = rend->create_index_buffer(
-		renderer::index::format::i16,
+		renderer::index::dynamic::format::i16,
 		num_sprites * detail::indices_per_sprite,
 		renderer::resource_flags::dynamic
 	);

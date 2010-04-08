@@ -18,12 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_FORMAT_STRIDE_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_FORMAT_STRIDE_HPP_INCLUDED
-
-#include <sge/renderer/index/format.hpp>
-#include <sge/renderer/size_type.hpp>
-#include <sge/symbol.hpp>
+#ifndef SGE_RENDERER_INDEX_DYNAMIC_FORMAT_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_DYNAMIC_FORMAT_HPP_INCLUDED
 
 namespace sge
 {
@@ -31,12 +27,18 @@ namespace renderer
 {
 namespace index
 {
+namespace dynamic
+{
 
-SGE_SYMBOL size_type
-format_stride(
-	format::type
-);
+namespace format
+{
+enum type {
+	i16,
+	i32
+};
+}
 
+}
 }
 }
 }

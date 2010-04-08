@@ -56,6 +56,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/combine.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
+#include <sge/renderer/index/i16.hpp>
+#include <sge/renderer/index/i32.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/exception.hpp>
@@ -73,7 +75,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::device::device(
 	renderer::parameters const &param,
 	renderer::adapter_type const adapter,
-	window::instance_ptr const wnd)
+	window::instance_ptr const wnd
+)
 :
 	param(param),
 	wnd(wnd),
@@ -606,38 +609,40 @@ sge::opengl::device::create_vertex_buffer(
 
 sge::renderer::index_buffer_ptr const
 sge::opengl::device::create_index_buffer(
-	renderer::index::format::type const format,
+	renderer::index::dynamic::format::type const format,
 	renderer::size_type const sz,
 	renderer::resource_flags_field const &flags
 )
 {
-	switch(format) {
-	case renderer::index::format::i16:
+	switch(format)
+	{
+	case renderer::index::dynamic::format::i16:
 		return renderer::index_buffer_ptr(
 			fcppt::make_shared_ptr<
 				opengl::index_buffer<
-					boost::uint16_t
+					sge::renderer::index::i16
 				>
 			>(
 				sz,
 				flags
 			)
 		);
-	case renderer::index::format::i32:
+	case renderer::index::dynamic::format::i32:
 		return renderer::index_buffer_ptr(
 			fcppt::make_shared_ptr<
 				opengl::index_buffer<
-					boost::uint32_t
+					sge::renderer::index::i32
 				>
 			>(
 				sz,
 				flags
 			)
 		);
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid index::format!"));
 	}
+
+	throw exception(
+		FCPPT_TEXT("Invalid index::format!")
+	);
 }
 
 #if 0

@@ -20,11 +20,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../index_buffer.hpp"
 #include "../vbo.hpp"
+#include "../common.hpp"
 #include "../instantiate_basic_buffer.hpp"
-#include <sge/renderer/index/view_16.hpp>
-#include <sge/renderer/index/view_32.hpp>
+#include <sge/renderer/index/dynamic/make_format.hpp>
+#include <sge/renderer/index/basic_view.hpp>
+#include <sge/renderer/index/i16.hpp>
+#include <sge/renderer/index/i32.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <boost/cstdint.hpp>
 
 namespace
 {
@@ -32,28 +34,22 @@ namespace
 template<
 	typename T
 >
-class traits;
+class gl_format_c;
 
 template<>
-class traits<
-	boost::uint16_t
-> {
-public:
-	static GLenum const gl_format = GL_UNSIGNED_SHORT;
-	static sge::renderer::index::format::type const format = sge::renderer::index::format::i16;
-	typedef sge::renderer::index::view_16 view;
-	typedef sge::renderer::index::const_view_16 const_view;
+struct gl_format_c<
+	sge::renderer::index::i16
+>
+{
+	static GLenum const value = GL_UNSIGNED_SHORT;
 };
 
 template<>
-class traits<
-	boost::uint32_t
-> {
-public:
-	static GLenum const gl_format = GL_UNSIGNED_INT;
-	static sge::renderer::index::format::type const format = sge::renderer::index::format::i32;
-	typedef sge::renderer::index::view_32 view;
-	typedef sge::renderer::index::const_view_32 const_view;
+struct gl_format_c<
+	sge::renderer::index::i32
+>
+{
+	static GLenum const value = GL_UNSIGNED_INT;
 };
 
 }
@@ -63,7 +59,8 @@ template<
 >
 sge::opengl::index_buffer<T>::index_buffer(
 	size_type const sz,
-	renderer::resource_flags_field const &flags)
+	renderer::resource_flags_field const &flags
+)
 :
 	buf(
 		sz,
@@ -79,9 +76,9 @@ template<
 GLenum
 sge::opengl::index_buffer<T>::gl_format() const
 {
-	return traits<
+	return gl_format_c<
 		T
-	>::gl_format;
+	>::value;
 }
 
 template<
@@ -92,7 +89,8 @@ sge::opengl::index_buffer<T>::buffer_offset(
 	size_type const sz) const
 {
 	return buf.buffer_offset(
-		sz);
+		sz
+	);
 }
 
 template<
@@ -116,13 +114,19 @@ sge::opengl::index_buffer<T>::lock(
 {
 	buf.lock(
 		convert_lock_method(
-			flags),
+			flags
+		),
 		offset,
-		range);
+		range
+	);
 
-	return typename traits<T>::view(
-		buf.data(),
-		buf.lock_size());
+	return 
+		renderer::index::basic_view<
+			T
+		>(
+			buf.data(),
+			buf.lock_size()
+		);
 }
 
 template<
@@ -136,11 +140,16 @@ sge::opengl::index_buffer<T>::lock(
 	buf.lock(
 		lock_method::readonly,
 		offset,
-		range);
+		range
+	);
 
-	return typename traits<T>::const_view(
-		buf.data(),
-		buf.lock_size());
+	return 
+		renderer::index::basic_view<
+			T const
+		>(
+			buf.data(),
+			buf.lock_size()
+		);
 }
 
 template<
@@ -173,12 +182,13 @@ sge::opengl::index_buffer<T>::flags() const
 template<
 	typename T
 >
-sge::renderer::index::format::type
+sge::renderer::index::dynamic::format::type
 sge::opengl::index_buffer<T>::format() const
 {
-	return traits<
-		T
-	>::format;
+	return
+		renderer::index::dynamic::make_format<
+			T
+		>();
 }
 
 #define SGE_OPENGL_INSTANTIATE_INDEX_BUFFER(t) \
@@ -189,7 +199,11 @@ template class sge::opengl::basic_buffer<\
 	t\
 >;
 
-SGE_OPENGL_INSTANTIATE_INDEX_BUFFER(boost::uint16_t)
-SGE_OPENGL_INSTANTIATE_INDEX_BUFFER(boost::uint32_t)
+SGE_OPENGL_INSTANTIATE_INDEX_BUFFER(
+	sge::renderer::index::i16
+)
+SGE_OPENGL_INSTANTIATE_INDEX_BUFFER(
+	sge::renderer::index::i32
+)
 
 #undef SGE_OPENGL_INSTANTIATE_INDEX_BUFFER

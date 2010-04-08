@@ -35,40 +35,50 @@ namespace opengl
 template<
 	typename T
 >
-class index_buffer : public index_buffer_base {
+class index_buffer
+:
+	public index_buffer_base
+{
 public:
 	index_buffer(
 		size_type sz,
 		renderer::resource_flags_field const &
 	);
 
-	GLenum gl_format() const;
+	GLenum
+	gl_format() const;
 
-	void *
+	GLvoid *
 	buffer_offset(
-		size_type) const;
+		size_type
+	) const;
 
-	void bind_me() const;
+	void
+	bind_me() const;
 private:
 	view_type const
 	lock(
 		renderer::lock_mode::type,
 		size_type offset,
-		size_type range);
+		size_type range
+	);
 
 	const_view_type const
 	lock(
 		size_type offset,
-		size_type range) const;
+		size_type range
+	) const;
 
-	void unlock() const;
+	void
+	unlock() const;
 
-	size_type size() const;
+	size_type
+	size() const;
 
 	renderer::resource_flags_field const
 	flags() const;
 
-	renderer::index::format::type
+	renderer::index::dynamic::format::type
 	format() const;
 
 	typedef basic_buffer<

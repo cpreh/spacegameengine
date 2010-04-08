@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_INDEX_BASIC_VIEW_HPP_INCLUDED
 
 #include <sge/renderer/index/basic_view_fwd.hpp>
-#include <sge/renderer/index/format.hpp>
+#include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/symbol.hpp>
 
@@ -61,7 +61,7 @@ public:
 	SGE_SYMBOL iterator
 	end() const;
 
-	SGE_SYMBOL index::format::type
+	SGE_SYMBOL index::dynamic::format::type
 	format() const;
 private:
 	pointer data_;

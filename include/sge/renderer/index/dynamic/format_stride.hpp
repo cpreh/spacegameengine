@@ -18,13 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_FORMAT_TRAITS_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_FORMAT_TRAITS_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_DYNAMIC_FORMAT_STRIDE_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_DYNAMIC_FORMAT_STRIDE_HPP_INCLUDED
 
-#include <sge/renderer/index/format.hpp>
-#include <sge/renderer/index/i16.hpp>
-#include <sge/renderer/index/i32.hpp>
-#include <boost/mpl/integral_c.hpp>
+#include <sge/renderer/index/dynamic/format.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
@@ -32,55 +31,13 @@ namespace renderer
 {
 namespace index
 {
-namespace
+namespace dynamic
 {
 
-template<
-	typename
->
-class format_traits;
-
-template<>
-struct format_traits<
-	i16
->
-:
-boost::mpl::integral_c<
-	format::type,
-	format::i16
->
-{};
-
-template<>
-struct format_traits<
-	i16 const
->
-:
-format_traits<
-	i16
->
-{};
-
-template<>
-struct format_traits<
-	i32
->
-:
-boost::mpl::integral_c<
-	format::type,
-	format::i32
->
-{};
-
-template<>
-struct format_traits<
-	i32 const
->
-:
-format_traits<
-	i32
->
-{};
+SGE_SYMBOL size_type
+format_stride(
+	format::type
+);
 
 }
 }
@@ -88,5 +45,3 @@ format_traits<
 }
 
 #endif
-
-

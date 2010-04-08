@@ -218,7 +218,7 @@ public:
 
 	renderer::index_buffer_ptr const
 	create_index_buffer(
-		renderer::index::format::type,
+		renderer::index::dynamic::format::type,
 		renderer::size_type,
 		renderer::resource_flags_field const &
 	);

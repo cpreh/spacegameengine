@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/optional_istream.hpp>
 #include <sge/renderer/state/list_fwd.hpp>
 #include <sge/renderer/index/dynamic/const_view.hpp>
-#include <sge/renderer/index/format.hpp>
+#include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/any_matrix.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/index_buffer_ptr.hpp>
@@ -281,7 +281,7 @@ public:
 
 	virtual index_buffer_ptr const
 	create_index_buffer(
-		index::format::type,
+		index::dynamic::format::type,
 		size_type size,
 		resource_flags_field const &
 	) = 0;

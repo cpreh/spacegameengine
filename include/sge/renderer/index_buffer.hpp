@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index_buffer_fwd.hpp>
 #include <sge/renderer/index/dynamic/view.hpp>
 #include <sge/renderer/index/dynamic/const_view.hpp>
+#include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/size_type.hpp>
@@ -70,7 +71,7 @@ public:
 	virtual resource_flags_field const
 	flags() const = 0;
 
-	virtual index::format::type
+	virtual index::dynamic::format::type
 	format() const = 0;
 
 	SGE_SYMBOL virtual ~index_buffer();

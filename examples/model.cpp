@@ -114,7 +114,7 @@ try
 
 	sge::renderer::index_buffer_ptr const ib(
 		sys.renderer()->create_index_buffer(
-			sge::renderer::index::format::i16,
+			sge::renderer::index::dynamic::format::i16,
 			object->indices(),
 			sge::renderer::resource_flags::none
 		)

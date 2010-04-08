@@ -18,26 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_FORMAT_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_FORMAT_HPP_INCLUDED
+#include "format_traits.hpp"
+#include <sge/renderer/index/dynamic/make_format.hpp>
+#include <fcppt/export_symbol.hpp>
 
-namespace sge
+template<
+	typename T
+>
+sge::renderer::index::dynamic::format::type
+sge::renderer::index::dynamic::make_format()
 {
-namespace renderer
-{
-namespace index
-{
-
-namespace format
-{
-enum type {
-	i16,
-	i32
-};
+	return
+		format_traits<
+			T
+		>::value;
 }
 
-}
-}
-}
+#define SGE_RENDERER_INDEX_DYNAMIC_INSTANTIATE_MAKE_FORMAT(x)\
+template \
+FCPPT_EXPORT_SYMBOL \
+sge::renderer::index::dynamic::format::type \
+sge::renderer::index::dynamic::make_format<x>();
 
-#endif
+SGE_RENDERER_INDEX_DYNAMIC_INSTANTIATE_MAKE_FORMAT(
+	sge::renderer::index::i16
+)
+
+
+SGE_RENDERER_INDEX_DYNAMIC_INSTANTIATE_MAKE_FORMAT(
+	sge::renderer::index::i32
+)
+
+#undef SGE_RENDERER_INDEX_DYNAMIC_INSTANTIATE_MAKE_FORMAT
