@@ -33,7 +33,7 @@ namespace renderer
 
 typedef detail::const_scoped_buffer_lock<
 	const_index_buffer_ptr,
-	index::dymamic::const_view
+	index::dynamic::const_view
 > const_scoped_index_lock;
 
 }

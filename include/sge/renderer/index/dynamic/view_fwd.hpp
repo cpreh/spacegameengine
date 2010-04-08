@@ -37,10 +37,10 @@ namespace dynamic
 
 typedef fcppt::variant::object<
 	boost::mpl::vector2<
-		const_view_16,
-		const_view_32
+		view_16,
+		view_32
 	>
-> const_view;
+> view;
 
 }
 }

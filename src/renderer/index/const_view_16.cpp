@@ -18,52 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/index/view_size.hpp>
-#include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include "basic_view_impl.hpp"
+#include <sge/renderer/index/i16.hpp>
+#include <fcppt/export_symbol.hpp>
 
-namespace
-{
-
-class visitor
-{
-public:
-	typedef sge::renderer::size_type result_type;
-
-	template<
-		typename T
-	>
-	result_type
-	operator()(
-		T const &
-	) const;
-};
-
-}
-
-sge::renderer::size_type
-sge::renderer::index::view_size(
-	const_view const &v
-)
-{
-	return fcppt::variant::apply_unary(
-		visitor(),
-		v
-	);
-}
-
-namespace
-{
-
-template<
-	typename T
->
-visitor::result_type
-visitor::operator()(
-	T const &t
-) const
-{
-	return t.size();
-}
-
-}
+template FCPPT_EXPORT_SYMBOL class sge::renderer::index::basic_view<
+	sge::renderer::index::i16 const
+>;

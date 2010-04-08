@@ -56,7 +56,7 @@ public:
 
 	void
 	copy_indices(
-		renderer::index::view const &);
+		renderer::index::dynamic::view const &);
 
 	// TODO: split this!
 	typedef boost::int16_t s16;

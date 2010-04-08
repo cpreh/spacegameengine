@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_INDEX_CONST_VIEW_16_FWD_HPP_INCLUDED
 
 #include <sge/renderer/index/basic_view_fwd.hpp>
-#include <boost/cstdint.hpp>
+#include <sge/renderer/index/i16.hpp>
 
 namespace sge
 {
@@ -32,8 +32,8 @@ namespace index
 {
 
 typedef basic_view<
-	boost::uint16_t const
-> view_16;
+	i16 const
+> const_view_16;
 
 }
 }

@@ -18,10 +18,64 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "basic_view_impl.hpp"
-#include <sge/renderer/index/i16.hpp>
-#include <fcppt/export_symbol.hpp>
+#include <sge/renderer/index/dynamic/copy.hpp>
+#include <sge/exception.hpp>
+#include <fcppt/variant/apply_binary.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/text.hpp>
+#include <algorithm>
 
-template FCPPT_EXPORT_SYMBOL class sge::renderer::index::basic_view<
-	sge::renderer::index::i16
->;
+namespace
+{
+
+class copy_visitor
+{
+public:
+	typedef void result_type;
+
+	template<
+		typename T
+	>
+	result_type
+	operator()(
+		T const &src,
+		T &dest
+	) const
+	{
+		std::copy(
+			src.begin(),
+			src.end(),
+			dest.begin()
+		);
+	}
+
+	template<
+		typename T,
+		typename U
+	>
+	result_type
+	operator()(
+		T,
+		U
+	) const
+	{
+		throw sge::exception(
+			FCPPT_TEXT("Incompatible index::dynamic::views in index::dynamic::copy!")
+		);
+	}
+};
+
+}
+
+void
+sge::renderer::index::dynamic::copy(
+	const_view const &src,
+	view const &dest
+)
+{
+	fcppt::variant::apply_binary(
+		copy_visitor(),
+		src,
+		dest
+	);
+}

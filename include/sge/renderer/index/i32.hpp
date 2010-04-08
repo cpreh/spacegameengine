@@ -18,64 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/index/copy.hpp>
-#include <sge/exception.hpp>
-#include <fcppt/variant/apply_binary.hpp>
-#include <fcppt/variant/object_impl.hpp>
-#include <fcppt/text.hpp>
-#include <algorithm>
+#ifndef SGE_RENDERER_INDEX_I32_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_I32_HPP_INCLUDED
 
-namespace
+#include <boost/cstdint.hpp>
+
+namespace sge
+{
+namespace renderer
+{
+namespace index
 {
 
-class copy_visitor
-{
-public:
-	typedef void result_type;
-
-	template<
-		typename T
-	>
-	result_type
-	operator()(
-		T const &src,
-		T &dest
-	) const
-	{
-		std::copy(
-			src.begin(),
-			src.end(),
-			dest.begin()
-		);
-	}
-
-	template<
-		typename T,
-		typename U
-	>
-	result_type
-	operator()(
-		T,
-		U
-	) const
-	{
-		throw sge::exception(
-			FCPPT_TEXT("Incompatible index::views in index::copy!")
-		);
-	}
-};
+typedef boost::uint32_t i32;
 
 }
-
-void
-sge::renderer::index::copy(
-	const_view const &src,
-	view const &dest
-)
-{
-	fcppt::variant::apply_binary(
-		copy_visitor(),
-		src,
-		dest
-	);
 }
+}
+
+#endif

@@ -19,21 +19,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/index/format_stride.hpp>
-#include <sge/renderer/index/view.hpp>
+#include <sge/renderer/index/i16.hpp>
+#include <sge/renderer/index/i32.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/text.hpp>
 
 sge::renderer::size_type
 sge::renderer::index::format_stride(
-	format::type const f)
+	format::type const f
+)
 {
-	switch(f) {
+	switch(f)
+	{
 	case format::i16:
-		return sizeof(view_16::value_type);
+		return sizeof(index::i16);
 	case format::i32:
-		return sizeof(view_32::value_type);
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid index::format in index::format_stride()!"));
+		return sizeof(index::i32);
 	}
+
+	throw exception(
+		FCPPT_TEXT("Invalid index::format in index::format_stride()!")
+	);
 }

@@ -19,8 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "basic_view_impl.hpp"
-#include <sge/renderer/index/view_32.hpp>
-#include <boost/cstdint.hpp>
+#include <sge/renderer/index/i32.hpp>
+#include <fcppt/export_symbol.hpp>
 
-template class sge::renderer::index::detail::basic_view<boost::uint32_t>;
-template class sge::renderer::index::detail::basic_view<boost::uint32_t const>;
+template FCPPT_EXPORT_SYMBOL class sge::renderer::index::basic_view<
+	sge::renderer::index::i32
+>;

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MODEL_OBJECT_HPP_INCLUDED
 
 #include <sge/model/object_fwd.hpp>
-#include <sge/renderer/index/view.hpp>
+#include <sge/renderer/index/dynamic/view.hpp>
 #include <sge/renderer/vf/dynamic/view_fwd.hpp>
 #include <sge/renderer/vf/dynamic/format_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
@@ -60,7 +60,7 @@ public:
 
 	virtual void
 	copy_indices(
-		renderer::index::view const &
+		renderer::index::dynamic::view const &
 	) = 0;
 
 	SGE_SYMBOL virtual ~object();

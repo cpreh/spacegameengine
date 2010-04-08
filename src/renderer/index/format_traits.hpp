@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_INDEX_FORMAT_TRAITS_HPP_INCLUDED
 
 #include <sge/renderer/index/format.hpp>
+#include <sge/renderer/index/i16.hpp>
+#include <sge/renderer/index/i32.hpp>
 #include <boost/mpl/integral_c.hpp>
-#include <boost/cstdint.hpp>
 
 namespace sge
 {
@@ -31,7 +32,7 @@ namespace renderer
 {
 namespace index
 {
-namespace detail
+namespace
 {
 
 template<
@@ -40,44 +41,44 @@ template<
 class format_traits;
 
 template<>
-class format_traits<
-	boost::uint16_t
+struct format_traits<
+	i16
 >
 :
-public boost::mpl::integral_c<
+boost::mpl::integral_c<
 	format::type,
 	format::i16
 >
 {};
 
 template<>
-class format_traits<
-	boost::uint16_t const
+struct format_traits<
+	i16 const
 >
 :
-public format_traits<
-	boost::uint16_t
+format_traits<
+	i16
 >
 {};
 
 template<>
-class format_traits<
-	boost::uint32_t
+struct format_traits<
+	i32
 >
 :
-public boost::mpl::integral_c<
+boost::mpl::integral_c<
 	format::type,
 	format::i32
 >
 {};
 
 template<>
-class format_traits<
-	boost::uint32_t const
+struct format_traits<
+	i32 const
 >
 :
-public format_traits<
-	boost::uint32_t
+format_traits<
+	i32
 >
 {};
 

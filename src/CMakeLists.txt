@@ -39,6 +39,7 @@ FILE (GLOB sgecorefiles
 	renderer/detail/*.cpp
 	renderer/filter/*.cpp
 	renderer/index/*.cpp
+	renderer/index/dynamic/*.cpp
 	renderer/glsl/*.cpp
 	renderer/glsl/attribute/*.cpp
 	renderer/glsl/uniform/*.cpp

@@ -27,9 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
-#include <sge/renderer/index/view.hpp>
-#include <sge/renderer/index/view_size.hpp>
-#include <sge/renderer/index/make_const_view.hpp>
+#include <sge/renderer/index/dynamic/view.hpp>
+#include <sge/renderer/index/dynamic/view_size.hpp>
+#include <sge/renderer/index/dynamic/make_const_view.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/math/twopi.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -239,11 +239,11 @@ private:
 
 void
 sge::md3::object::copy_indices(
-	renderer::index::view const &view)
+	renderer::index::dynamic::view const &view)
 {
 	if(
-		indices() > renderer::index::view_size(
-			renderer::index::make_const_view(
+		indices() > renderer::index::dynamic::view_size(
+			renderer::index::dynamic::make_const_view(
 				view
 			)
 		)

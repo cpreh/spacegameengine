@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/index/generate.hpp>
+#include <sge/renderer/index/dynamic/generate.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
@@ -130,7 +130,7 @@ fill_geometry(
 		++count;
 	}
 
-	renderer::index::generate(
+	renderer::index::dynamic::generate(
 		renderer::scoped_index_lock(
 			ib,
 			renderer::lock_mode::writeonly,

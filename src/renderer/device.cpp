@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/index/copy.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
@@ -28,8 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
 #include <sge/renderer/vf/dynamic/format.hpp>
-#include <sge/renderer/index/view_format.hpp>
-#include <sge/renderer/index/view_size.hpp>
+#include <sge/renderer/index/dynamic/copy.hpp>
+#include <sge/renderer/index/dynamic/view_format.hpp>
+#include <sge/renderer/index/dynamic/view_size.hpp>
 #include <sge/image/view/format.hpp>
 #include <sge/image/view/dim.hpp>
 #include <sge/image/algorithm/copy_and_convert.hpp>
@@ -99,7 +99,7 @@ sge::renderer::device::render(
 
 sge::renderer::texture_ptr const
 sge::renderer::device::create_texture(
-	image::view::dynamic::const_object const &v,
+	image::view::const_object const &v,
 	filter::texture const &filter,
 	resource_flags_field const &flags
 )
@@ -188,16 +188,16 @@ sge::renderer::device::create_vertex_buffer(
 
 sge::renderer::index_buffer_ptr const
 sge::renderer::device::create_index_buffer(
-	index::const_view const &view,
+	index::dynamic::const_view const &view,
 	resource_flags_field const &flags
 )
 {
 	index_buffer_ptr const ib(
 		create_index_buffer(
-			index::view_format(
+			index::dynamic::view_format(
 				view
 			),
-			index::view_size(
+			index::dynamic::view_size(
 				view
 			),
 			flags
@@ -209,7 +209,7 @@ sge::renderer::device::create_index_buffer(
 		lock_mode::writeonly
 	);
 
-	index::copy(
+	index::dynamic::copy(
 		view,
 		lock.value()
 	);

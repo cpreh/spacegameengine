@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/index/view_format.hpp>
+#include <sge/renderer/index/dynamic/view_size.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
@@ -28,7 +28,7 @@ namespace
 class visitor
 {
 public:
-	typedef sge::renderer::index::format::type result_type;
+	typedef sge::renderer::size_type result_type;
 
 	template<
 		typename T
@@ -41,8 +41,8 @@ public:
 
 }
 
-sge::renderer::index::format::type
-sge::renderer::index::view_format(
+sge::renderer::size_type
+sge::renderer::index::dynamic::view_size(
 	const_view const &v
 )
 {
@@ -63,7 +63,7 @@ visitor::operator()(
 	T const &t
 ) const
 {
-	return t.format();
+	return t.size();
 }
 
 }

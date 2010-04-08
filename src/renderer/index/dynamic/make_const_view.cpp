@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/index/make_const_view.hpp>
+#include <sge/renderer/index/dynamic/make_const_view.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
@@ -28,7 +28,7 @@ namespace
 class visitor
 {
 public:
-	typedef sge::renderer::index::const_view result_type;
+	typedef sge::renderer::index::dynamic::const_view result_type;
 
 	template<
 		typename T
@@ -42,8 +42,8 @@ public:
 }
 
 
-sge::renderer::index::const_view const
-sge::renderer::index::make_const_view(
+sge::renderer::index::dynamic::const_view const
+sge::renderer::index::dynamic::make_const_view(
 	view const &v
 )
 {
@@ -64,7 +64,7 @@ visitor::operator()(
 	T const &v
 ) const
 {
-	return sge::renderer::index::detail::basic_view<
+	return sge::renderer::index::basic_view<
 		typename T::value_type const
 	>(
 		v.data(),

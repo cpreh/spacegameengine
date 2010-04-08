@@ -18,10 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "basic_view_impl.hpp"
-#include <sge/renderer/index/i16.hpp>
-#include <fcppt/export_symbol.hpp>
+#ifndef SGE_RENDERER_INDEX_I16_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_I16_HPP_INCLUDED
 
-template FCPPT_EXPORT_SYMBOL class sge::renderer::index::basic_view<
-	sge::renderer::index::i16
->;
+#include <boost/cstdint.hpp>
+
+namespace sge
+{
+namespace renderer
+{
+namespace index
+{
+
+typedef boost::uint16_t i16;
+
+}
+}
+}
+
+#endif
