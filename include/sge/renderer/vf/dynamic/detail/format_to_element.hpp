@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_DYNAMIC_DETAIL_FORMAT_TO_ELEMENT_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_DETAIL_FORMAT_TO_ELEMENT_HPP_INCLUDED
 
+#include <sge/renderer/vf/dynamic/detail/element_c.hpp>
 #include <sge/renderer/vf/element_type.hpp>
 
 namespace sge
@@ -43,17 +44,81 @@ template<>
 struct format_to_element<
 	float
 >
-{
-	static element_type::type const value = element_type::float_;
-};
+:
+element_c<
+	element_type::float_
+>
+{};
 
 template<>
 struct format_to_element<
 	double
 >
-{
-	static element_type::type const value = element_type::double_;
-};
+:
+element_c<
+	element_type::double_
+>
+{};
+
+template<>
+struct format_to_element<
+	char
+>
+:
+element_c<
+	element_type::byte
+>
+{};
+
+template<>
+struct format_to_element<
+	unsigned char
+>
+:
+element_c<
+	element_type::ubyte
+>
+{};
+
+template<>
+struct format_to_element<
+	short
+>
+:
+element_c<
+	element_type::short_
+>
+{};
+
+template<>
+struct format_to_element<
+	unsigned short
+>
+:
+element_c<
+	element_type::ushort
+>
+{};
+
+template<>
+struct format_to_element<
+	int
+>
+:
+element_c<
+	element_type::int_
+>
+{};
+
+template<>
+struct format_to_element<
+	unsigned
+>
+:
+element_c<
+	element_type::uint
+>
+{};
 
 }
 }

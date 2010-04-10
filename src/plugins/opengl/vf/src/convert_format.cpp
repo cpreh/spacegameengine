@@ -37,7 +37,17 @@ sge::opengl::vf::convert_format::operator()(
 	case renderer::vf::element_type::double_:
 		return GL_DOUBLE;
 	case renderer::vf::element_type::byte:
+		return GL_BYTE;
+	case renderer::vf::element_type::ubyte:
 		return GL_UNSIGNED_BYTE;
+	case renderer::vf::element_type::short_:
+		return GL_SHORT;
+	case renderer::vf::element_type::ushort:
+		return GL_UNSIGNED_SHORT;
+	case renderer::vf::element_type::int_:
+		return GL_INT;
+	case renderer::vf::element_type::uint:
+		return GL_UNSIGNED_INT;
 	}
 
 	throw exception(

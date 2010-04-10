@@ -18,8 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_ELEMENT_TYPE_HPP_INCLUDED
-#define SGE_RENDERER_VF_ELEMENT_TYPE_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DYNAMIC_DETAIL_ELEMENT_C_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_DETAIL_ELEMENT_C_HPP_INCLUDED
+
+#include <sge/renderer/vf/element_type.hpp>
+#include <boost/mpl/integral_c.hpp>
 
 namespace sge
 {
@@ -27,21 +30,24 @@ namespace renderer
 {
 namespace vf
 {
-
-namespace element_type
+namespace dynamic
 {
-enum type {
-	float_,
-	double_,
-	byte,
-	ubyte,
-	short_,
-	ushort,
-	int_,
-	uint
-};
-}
+namespace detail
+{
 
+template<
+	element_type::type Elem
+>
+struct element_c
+:
+boost::mpl::integral_c<
+	element_type::type,
+	Elem
+>
+{};
+
+}
+}
 }
 }
 }
