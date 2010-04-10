@@ -82,6 +82,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 #include <cstdlib>
 
+#include <sge/renderer/glsl/uniform/array_value.hpp>
+#include <fcppt/math/matrix/matrix.hpp>
+#include <vector>
+
 namespace
 {
 
@@ -415,6 +419,21 @@ try
 		v,
 		static_cast<int>(0)
 	);
+
+#if 0
+	std::vector<
+		fcppt::math::matrix::static_<
+			float,
+			3,
+			3
+		>::type
+	> matrix_vector;
+
+	sge::renderer::glsl::uniform::array_value(
+		v,
+		matrix_vector
+	);
+#endif
 
 	while(running)
 	{

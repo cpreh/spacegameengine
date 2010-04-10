@@ -49,7 +49,7 @@ array_value(
 	In const end
 )
 {
-	typename std::iterator_traits<
+	typedef typename std::iterator_traits<
 		In
 	>::value_type value_type;
 
@@ -82,6 +82,22 @@ array_value(
 				value_type
 			>::value
 		)
+	);
+}
+
+template<
+	typename Container
+>
+void
+array_value(
+	variable_ptr const var,
+	Container const &cont
+)
+{
+	array_value(
+		var,
+		cont.begin(),
+		cont.end()
 	);
 }
 
