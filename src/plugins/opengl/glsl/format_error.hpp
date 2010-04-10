@@ -57,11 +57,17 @@ format_error(
 	);
 
 	if(
-		required_length <= 0
+		required_length == 0
 	)
 		return fcppt::string(
 			FCPPT_TEXT("glsl::format_error: No message.")
 		);
+
+	// note: required_length includes the terminating 0 character,
+	// so we should get at least 1
+	FCPPT_ASSERT(
+		required_length > 0
+	);
 
 	errorlog_array errorlog(
 		static_cast<
@@ -84,13 +90,15 @@ format_error(
 		errorlog.data()
 	);
 
+	// note: the required length includes the terminating 0 character,
+	// while length_return does not!
 	FCPPT_ASSERT(
 		length_return
 		==
 		static_cast<
 			GLsizei
 		>(
-			required_length
+			required_length - 1
 		)
 	);
 
