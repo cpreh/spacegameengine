@@ -142,11 +142,13 @@ void sge::opengl::glsl::use_program<false>(
 }
 
 template<>
-void sge::opengl::glsl::program_info_log<false>(
+void
+sge::opengl::glsl::program_info_log<false>(
 	traits<false>::handle const program,
 	GLint const maxlen,
 	GLint *const len,
-	char *const data)
+	char *const data
+)
 {
 	glGetInfoLogARB(
 		program,
@@ -159,4 +161,17 @@ void sge::opengl::glsl::program_info_log<false>(
 		FCPPT_TEXT("glGetInfoLogARB failed"),
 		sge::renderer::glsl::exception
 	)
+}
+
+template<>
+GLint
+sge::opengl::glsl::program_info_log_length<false>(
+	traits<false>::handle const program
+)
+{
+	return
+		program_integer<false>(
+			GL_OBJECT_INFO_LOG_LENGTH_ARB,
+			program
+		);
 }

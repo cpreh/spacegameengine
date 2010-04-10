@@ -27,7 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<bool Native>
 sge::opengl::glsl::shader<Native>::shader(
 	GLenum const type,
-	renderer::glsl::string const &source)
+	renderer::glsl::string const &source
+)
 :
 	id_(create_shader<Native>(type))
 {
@@ -52,6 +53,9 @@ sge::opengl::glsl::shader<Native>::shader(
 			+
 			format_error(
 				&shader_info_log<
+					Native
+				>,
+				&shader_info_log_length<
 					Native
 				>,
 				id()

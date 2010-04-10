@@ -37,16 +37,21 @@ namespace glsl
 template<
 	bool Native
 >
-class shader {
+class shader
+{
 	FCPPT_NONCOPYABLE(shader)
 public:
 	typedef typename traits<Native>::handle handle;
 
 	shader(
 		GLenum type,
-		renderer::glsl::string const &source);
+		renderer::glsl::string const &source
+	);
+
 	~shader();
-	handle id() const;
+
+	handle
+	id() const;
 
 	typedef fcppt::shared_ptr<shader<Native> > shared_ptr;
 private:

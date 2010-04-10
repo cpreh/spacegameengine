@@ -73,11 +73,19 @@ void use_program<false>(
 	traits<false>::handle program);
 
 template<>
-void program_info_log<false>(
+void
+program_info_log<false>(
 	traits<false>::handle program,
 	GLint maxlen,
 	GLint *len,
-	char *data);
+	char *data
+);
+
+template<>
+GLint
+program_info_log_length<false>(
+	traits<false>::handle shader
+);
 
 }
 }

@@ -161,3 +161,16 @@ void sge::opengl::glsl::program_info_log<true>(
 		sge::renderer::glsl::exception
 	)
 }
+
+template<>
+GLint
+sge::opengl::glsl::program_info_log_length<true>(
+	traits<true>::handle const program
+)
+{
+	return
+		program_integer<true>(
+			GL_INFO_LOG_LENGTH,
+			program
+		);
+}

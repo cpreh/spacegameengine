@@ -55,16 +55,32 @@ template<bool Native>
 GLint compile_status(
 	typename traits<Native>::handle shader);
 
-template<bool Native>
-void shader_info_log(
+template<
+	bool Native
+>
+void
+shader_info_log(
 	typename traits<Native>::handle program,
 	GLint maxlen,
 	GLint *len,
-	char *data);
+	char *data
+);
 
-template<bool Native>
-void delete_shader(
-	typename traits<Native>::handle shader);
+template<
+	bool Native
+>
+void
+delete_shader(
+	typename traits<Native>::handle shader
+);
+
+template<
+	bool Native
+>
+GLint
+shader_info_log_length(
+	typename traits<Native>::handle shader
+);
 
 }
 }

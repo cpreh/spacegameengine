@@ -33,39 +33,59 @@ namespace glsl
 {
 
 template<>
-traits<true>::handle create_shader<true>(
-	GLenum type);
+traits<true>::handle
+create_shader<true>(
+	GLenum type
+);
 
 template<>
-void shader_source<true>(
+void
+shader_source<true>(
 	traits<true>::handle shader,
 	GLint num_strings,
 	char const **strings,
-	GLint const *len_of_strings);
+	GLint const *len_of_strings
+);
 
 template<>
-void compile_shader<true>(
-	traits<true>::handle shader);
+void
+compile_shader<true>(
+	traits<true>::handle shader
+);
 
 template<>
-GLint shader_integer<true>(
+GLint
+shader_integer<true>(
 	GLenum what,
-	traits<true>::handle shader);
+	traits<true>::handle shader
+);
 
 template<>
-GLint compile_status<true>(
-	traits<true>::handle shader);
+GLint
+compile_status<true>(
+	traits<true>::handle shader
+);
 
 template<>
-void shader_info_log<true>(
+void
+shader_info_log<true>(
 	traits<true>::handle program,
 	GLint maxlen,
 	GLint *len,
-	char *data);
+	char *data
+);
 
 template<>
-void delete_shader<true>(
-	traits<true>::handle shader);
+void
+delete_shader<true>(
+	traits<true>::handle shader
+);
+
+template<>
+GLint
+shader_info_log_length<true>(
+	traits<true>::handle shader
+);
 
 }
 }

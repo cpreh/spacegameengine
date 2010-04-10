@@ -77,11 +77,16 @@ void sge::opengl::glsl::compile_shader<false>(
 template<>
 GLint sge::opengl::glsl::shader_integer<false>(
 	GLenum const what,
-	traits<false>::handle const shader)
+	traits<false>::handle const shader
+)
 {
 	GLint result;
 
-	glGetObjectParameterivARB(shader, what, &result);
+	glGetObjectParameterivARB(
+		shader,
+		what,
+		&result
+	);
 
 	SGE_OPENGL_CHECK_STATE(
 		FCPPT_TEXT("glGetObjectParameterivARB"),
@@ -93,7 +98,8 @@ GLint sge::opengl::glsl::shader_integer<false>(
 
 template<>
 GLint sge::opengl::glsl::compile_status<false>(
-	traits<false>::handle const shader)
+	traits<false>::handle const shader
+)
 {
 	return shader_integer<false>(
 		GL_OBJECT_COMPILE_STATUS_ARB,
@@ -106,7 +112,8 @@ void sge::opengl::glsl::shader_info_log<false>(
 	traits<false>::handle const shader,
 	GLint const maxlen,
 	GLint *const len,
-	char *const data)
+	char *const data
+)
 {
 	glGetInfoLogARB(
 		shader,
@@ -131,4 +138,17 @@ void sge::opengl::glsl::delete_shader<false>(
 		FCPPT_TEXT("glDeleteObjectARB failed"),
 		sge::renderer::glsl::exception
 	)
+}
+
+template<>
+GLint
+sge::opengl::glsl::shader_info_log_length<false>(
+	traits<false>::handle const shader
+)
+{
+	return
+		shader_integer<false>(
+			GL_OBJECT_INFO_LOG_LENGTH_ARB,
+			shader
+		);
 }

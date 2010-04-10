@@ -131,6 +131,9 @@ void sge::opengl::glsl::program<Native>::link()
 				&program_info_log<
 					Native
 				>,
+				&program_info_log_length<
+					Native
+				>,
 				id()
 			)
 		);

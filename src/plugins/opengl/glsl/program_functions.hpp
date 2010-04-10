@@ -58,10 +58,14 @@ template<bool Native>
 void link_program(
 	typename traits<Native>::handle program);
 
-template<bool Native>
-GLint program_integer(
+template<
+	bool Native
+>
+GLint
+program_integer(
 	GLenum what,
-	typename traits<Native>::handle program);
+	typename traits<Native>::handle program
+);
 
 template<bool Native>
 GLint link_status(
@@ -71,12 +75,24 @@ template<bool Native>
 void use_program(
 	typename traits<Native>::handle program);
 
-template<bool Native>
-void program_info_log(
+template<
+	bool Native
+>
+void
+program_info_log(
 	typename traits<Native>::handle program,
 	GLint maxlen,
 	GLint *len,
-	char *data);
+	char *data
+);
+
+template<
+	bool Native
+>
+GLint
+program_info_log_length(
+	typename traits<Native>::handle program
+);
 
 }
 }

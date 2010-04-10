@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/assert.hpp>
 #include <fcppt/from_std_string.hpp>
 
 namespace sge
@@ -34,11 +36,13 @@ namespace glsl
 
 template<
 	typename Function,
+	typename LengthFunction,
 	typename Id
 >
 fcppt::string const
 format_error(
 	Function const &function,
+	LengthFunction const &length_function,
 	Id const &id
 )
 {
@@ -46,59 +50,54 @@ format_error(
 		char
 	> errorlog_array;
 
-	errorlog_array errorlog;
-
-	errorlog.reserve(
-		1024
+	GLint const required_length(
+		length_function(
+			id
+		)
 	);
 
-	GLint len;
-
-	for(;;)
-	{
-		function(
-			id,
-			static_cast<
-				GLint
-			>(
-			errorlog.capacity()
-			),
-			&len,
-			errorlog.data()
+	if(
+		required_length <= 0
+	)
+		return fcppt::string(
+			FCPPT_TEXT("glsl::format_error: No message.")
 		);
 
-		if(
-			static_cast<
-				errorlog_array::size_type
-			>(
-				len
-			)
-			> errorlog.size()
+	errorlog_array errorlog(
+		static_cast<
+			errorlog_array::size_type
+		>(
+			required_length
 		)
-		{
-			errorlog.reserve(
-				errorlog.capacity() * 2
-			);
+	);
 
-			continue;
-		}
+	GLsizei length_return;
 
-		errorlog.resize(
-			static_cast<
-				errorlog_array::size_type
-			>(
-				len
-			)
-		);
+	function(
+		id,
+		static_cast<
+			GLint
+		>(
+			errorlog.size()
+		),
+		&length_return,
+		errorlog.data()
+	);
 
-		errorlog.push_back(0);
+	FCPPT_ASSERT(
+		length_return
+		==
+		static_cast<
+			GLsizei
+		>(
+			required_length
+		)
+	);
 
-		return fcppt::from_std_string(
-			errorlog.data()
-		);
-	}
+	return fcppt::from_std_string(
+		errorlog.data()
+	);
 }
-
 
 }
 }

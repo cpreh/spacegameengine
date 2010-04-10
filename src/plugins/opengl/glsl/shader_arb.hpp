@@ -64,8 +64,16 @@ void shader_info_log<false>(
 	char *data);
 
 template<>
-void delete_shader<false>(
-	traits<false>::handle shader);
+void
+delete_shader<false>(
+	traits<false>::handle shader
+);
+
+template<>
+GLint
+shader_info_log_length<false>(
+	traits<false>::handle shader
+);
 
 }
 }

@@ -26,7 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<>
 sge::opengl::glsl::traits<true>::handle
 sge::opengl::glsl::create_shader<true>(
-	GLenum const type)
+	GLenum const type
+)
 {
 	traits<true>::handle const ret(
 		glCreateShader(
@@ -43,11 +44,13 @@ sge::opengl::glsl::create_shader<true>(
 }
 
 template<>
-void sge::opengl::glsl::shader_source<true>(
+void
+sge::opengl::glsl::shader_source<true>(
 	traits<true>::handle const shader,
 	GLint const num_strings,
 	char const **const strings,
-	GLint const *const len_of_strings)
+	GLint const *const len_of_strings
+)
 {
 	glShaderSource(
 		shader,
@@ -63,8 +66,10 @@ void sge::opengl::glsl::shader_source<true>(
 }
 
 template<>
-void sge::opengl::glsl::compile_shader<true>(
-	traits<true>::handle const shader)
+void
+sge::opengl::glsl::compile_shader<true>(
+	traits<true>::handle const shader
+)
 {
 	glCompileShader(shader);
 
@@ -77,7 +82,8 @@ void sge::opengl::glsl::compile_shader<true>(
 template<>
 GLint sge::opengl::glsl::shader_integer<true>(
 	GLenum const what,
-	traits<true>::handle const shader)
+	traits<true>::handle const shader
+)
 {
 	GLint result;
 
@@ -93,7 +99,8 @@ GLint sge::opengl::glsl::shader_integer<true>(
 
 template<>
 GLint sge::opengl::glsl::compile_status<true>(
-	traits<true>::handle const shader)
+	traits<true>::handle const shader
+)
 {
 	return shader_integer<true>(
 		GL_COMPILE_STATUS,
@@ -102,11 +109,13 @@ GLint sge::opengl::glsl::compile_status<true>(
 }
 
 template<>
-void sge::opengl::glsl::shader_info_log<true>(
+void
+sge::opengl::glsl::shader_info_log<true>(
 	traits<true>::handle const shader,
 	GLint const maxlen,
 	GLint *const len,
-	char *const data)
+	char *const data
+)
 {
 	glGetShaderInfoLog(
 		shader,
@@ -122,8 +131,10 @@ void sge::opengl::glsl::shader_info_log<true>(
 }
 
 template<>
-void sge::opengl::glsl::delete_shader<true>(
-	traits<true>::handle const shader)
+void
+sge::opengl::glsl::delete_shader<true>(
+	traits<true>::handle const shader
+)
 {
 	glDeleteShader(shader);
 
@@ -131,4 +142,17 @@ void sge::opengl::glsl::delete_shader<true>(
 		FCPPT_TEXT("glDeleteShader failed"),
 		sge::renderer::glsl::exception
 	)
+}
+
+template<>
+GLint
+sge::opengl::glsl::shader_info_log_length<true>(
+	traits<true>::handle const shader
+)
+{
+	return
+		shader_integer<true>(
+			GL_INFO_LOG_LENGTH,
+			shader
+		);
 }
