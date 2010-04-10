@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_GLSL_UNIFORM_FLOAT_VALUE_HPP_INCLUDED
 #define SGE_RENDERER_GLSL_UNIFORM_FLOAT_VALUE_HPP_INCLUDED
 
-#include <sge/renderer/glsl/uniform/detail/basic_value.hpp>
+#include <sge/renderer/glsl/uniform/basic_value.hpp>
 #include <sge/renderer/glsl/uniform/float_value_type.hpp>
 #include <sge/renderer/glsl/float_type.hpp>
 
@@ -34,7 +34,7 @@ namespace glsl
 namespace uniform
 {
 
-typedef detail::basic_value<
+typedef basic_value<
 	float_type,
 	float_value_type::type
 > float_value;
