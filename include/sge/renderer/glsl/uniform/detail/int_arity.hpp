@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_GLSL_UNIFORM_BASIC_VALUE_HPP_INCLUDED
-#define SGE_RENDERER_GLSL_UNIFORM_BASIC_VALUE_HPP_INCLUDED
+#ifndef SGE_RENDERER_GLSL_UNIFORM_DETAIL_INT_ARITY_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_UNIFORM_DETAIL_INT_ARITY_HPP_INCLUDED
 
-#include <sge/renderer/glsl/uniform/basic_value_fwd.hpp>
+#include <sge/renderer/glsl/uniform/int_value_type.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/symbol.hpp>
-#include <fcppt/container/raw_vector_decl.hpp>
+#include <boost/mpl/integral_c.hpp>
+#include <boost/static_assert.hpp>
 
 namespace sge
 {
@@ -34,47 +34,30 @@ namespace glsl
 {
 namespace uniform
 {
+namespace detail
+{
 
 template<
-	typename Value,
-	typename Type
+	size_type Arity
 >
-class basic_value
+struct int_arity
+:
+boost::mpl::integral_c<
+	int_value_type::type,
+	static_cast<
+		int_value_type::type
+	>(
+		Arity - 1
+	)
+>
 {
-public:
-	typedef fcppt::container::raw_vector<
-		Value
-	> data_type;
-
-	typedef Value value_type;
-	typedef Type element_type;
-
-	typedef typename data_type::pointer pointer;
-	typedef typename data_type::const_pointer const_pointer;
-
-	SGE_SYMBOL basic_value(
-		data_type const &,
-		size_type elements,
-		Type
+	BOOST_STATIC_ASSERT(
+		Arity >= 1
+		&& Arity <= 4
 	);
-
-	SGE_SYMBOL const_pointer
-	data() const;
-
-	SGE_SYMBOL pointer
-	data();
-
-	SGE_SYMBOL size_type
-	elements() const;
-
-	SGE_SYMBOL Type
-	type() const;
-private:
-	data_type data_;
-	size_type elements_;
-	Type type_;
 };
 
+}
 }
 }
 }

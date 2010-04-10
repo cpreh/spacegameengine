@@ -18,13 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_GLSL_UNIFORM_BASIC_VALUE_HPP_INCLUDED
-#define SGE_RENDERER_GLSL_UNIFORM_BASIC_VALUE_HPP_INCLUDED
+#ifndef SGE_RENDERER_GLSL_UNIFORM_MAKE_BASIC_VALUE_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_UNIFORM_MAKE_BASIC_VALUE_HPP_INCLUDED
 
 #include <sge/renderer/glsl/uniform/basic_value_fwd.hpp>
-#include <sge/renderer/size_type.hpp>
-#include <sge/symbol.hpp>
-#include <fcppt/container/raw_vector_decl.hpp>
+#include <sge/renderer/glsl/uniform/make_enum_type.hpp>
 
 namespace sge
 {
@@ -36,43 +34,16 @@ namespace uniform
 {
 
 template<
-	typename Value,
-	typename Type
+	typename T
 >
-class basic_value
+struct make_basic_value
 {
-public:
-	typedef fcppt::container::raw_vector<
-		Value
-	> data_type;
-
-	typedef Value value_type;
-	typedef Type element_type;
-
-	typedef typename data_type::pointer pointer;
-	typedef typename data_type::const_pointer const_pointer;
-
-	SGE_SYMBOL basic_value(
-		data_type const &,
-		size_type elements,
-		Type
-	);
-
-	SGE_SYMBOL const_pointer
-	data() const;
-
-	SGE_SYMBOL pointer
-	data();
-
-	SGE_SYMBOL size_type
-	elements() const;
-
-	SGE_SYMBOL Type
-	type() const;
-private:
-	data_type data_;
-	size_type elements_;
-	Type type_;
+	typedef basic_value<
+		T,
+		typename make_enum_type<
+			T
+		>::type
+	> type;
 };
 
 }
