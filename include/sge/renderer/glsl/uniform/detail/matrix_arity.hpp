@@ -49,7 +49,7 @@ struct matrix_arity<\
 	M\
 >\
 :\
-boost::mpl::integral_constant<\
+boost::mpl::integral_c<\
 	float_value_type::type,\
 	float_value_type::matrix ## N ## x ## M \
 >\

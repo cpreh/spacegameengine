@@ -21,9 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_GLSL_UNIFORM_SINGLE_VALUE_HPP_INCLUDED
 #define SGE_RENDERER_GLSL_UNIFORM_SINGLE_VALUE_HPP_INCLUDED
 
-#include <sge/renderer/glsl/uniform/single_value_type.hpp>
 #include <sge/renderer/glsl/uniform/variable_ptr.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/glsl/uniform/variable.hpp>
+#include <sge/renderer/glsl/uniform/make_element_type.hpp>
+#include <sge/renderer/glsl/uniform/make_basic_value.hpp>
+#include <sge/renderer/glsl/uniform/basic_value.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/static.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/is_fundamental.hpp>
 
 namespace sge
 {
@@ -34,11 +41,65 @@ namespace glsl
 namespace uniform
 {
 
-SGE_SYMBOL void
+template<
+	typename Value
+>
+typename boost::disable_if<
+	boost::is_fundamental<
+		Value
+	>,
+	void
+>::type
 single_value(
-	variable_ptr,
-	single_value_type const &
-);
+	variable_ptr const var,
+	Value const &arg
+)
+{
+	typedef typename make_basic_value<
+		typename Value::value_type
+	>::type value;
+
+	typedef typename value::data_type data_type;
+
+	var->set(
+		value(
+			data_type(
+				arg.begin(),
+				arg.end()
+			),
+			1u,
+			make_element_type<
+				Value
+			>::value
+		)
+	);
+		
+}
+
+template<
+	typename Value
+>
+typename boost::enable_if<
+	boost::is_fundamental<
+		Value
+	>,
+	void
+>::type
+single_value(
+	variable_ptr const var,
+	Value const &arg
+)
+{
+	single_value(
+		var,
+		typename fcppt::math::vector::static_<
+			Value,
+			1
+		>::type(
+			arg
+		)
+	);
+}
 
 }
 }
