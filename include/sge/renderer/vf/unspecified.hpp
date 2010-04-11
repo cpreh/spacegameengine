@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/color_base.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/role.hpp>
-#include <sge/renderer/color_channel.hpp>
+#include <mizuiro/color/homogenous_fwd.hpp>
 #include <boost/static_assert.hpp>
 #include <boost/utility/enable_if.hpp>
 
@@ -39,17 +39,19 @@ namespace vf
 
 template<
 	typename Format,
-	vertex_size NumSubElements,
-	typename Enable = void
+	vertex_size NumSubElements
 >
 struct unspecified
-: vec_base<
+:
+vec_base<
 	Format,
 	role::unspecified,
 	NumSubElements
-> {
+>
+{
 	BOOST_STATIC_ASSERT(
-		NumSubElements >= 2 && NumSubElements <= 4);
+		NumSubElements >= 2 && NumSubElements <= 4
+	);
 };
 
 template<
@@ -57,28 +59,35 @@ template<
 >
 struct unspecified<
 	Format,
-	1,
-	void
+	1
 >
-: single_base<
+:
+single_base<
 	Format,
 	role::unspecified
-> {};
+>
+{};
 
 template<
-	typename Color
+	typename ColorChannel,
+	typename ColorLayout
 >
 struct unspecified<
-	Color,
-	1,
-	typename color_channel<
-		Color
-	>::type
+	mizuiro::color::homogenous<
+		ColorChannel,
+		ColorLayout
+	>,
+	1
 >
-: color_base<
-	Color,
+:
+color_base<
+	mizuiro::color::homogenous<
+		ColorChannel,
+		ColorLayout
+	>,
 	role::unspecified
-> {};
+>
+{};
 
 }
 }
