@@ -18,44 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_XCB_CONNECTION_HPP_INCLUDED
-#define SGE_XCB_CONNECTION_HPP_INCLUDED
+#ifndef SGE_XCB_WINDOW_HPP_INCLUDED
+#define SGE_XCB_WINDOW_HPP_INCLUDED
 
-#include <sge/xcb/connection_fwd.hpp>
-#include <sge/xcb/screen.hpp>
-#include <sge/xcb/string.hpp>
+#include <sge/window/instance.hpp>
 #include <sge/xcb/symbol.hpp>
+#include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <xcb/xcb.h>
 
 namespace sge
 {
 namespace xcb
 {
 
-class connection
+class SGE_CLASS_SYMBOL window
+:
+	public sge::window::instance
 {
-	FCPPT_NONCOPYABLE(connection)
+	FCPPT_NONCOPYABLE(window)
 public:
 	SGE_XCB_SYMBOL
-	connection();
-
-	SGE_XCB_SYMBOL
-	explicit connection(
-		string const &display,
-		screen
-	);
-
-	SGE_XCB_SYMBOL
-	~connection();
-
-	SGE_XCB_SYMBOL
-	xcb_connection_t *
-	get() const;
+	dim_type const
+	size() const;
 private:
-	xcb_connection_t *const connection_;
-
-	int screen_;
+	
 };
 
 }

@@ -92,37 +92,17 @@ sge::x11::window::window(
 	hints();
 	set_size_hints();
 	set_class_hint();
-	title(t);
+
+	XStoreName(
+		dsp_(),
+		wnd,
+		fcppt::to_std_string(t).c_str()
+	);
 }
 
 sge::x11::window::~window()
 {
 	XDestroyWindow(dsp_(), wnd);
-}
-
-void
-sge::x11::window::size(
-	dim_type const &newsize
-)
-{
-	// always returns 1
-	XResizeWindow(
-		dsp_(),
-		wnd,
-		newsize.w(),
-		newsize.h()
-	);
-}
-
-void
-sge::x11::window::title(
-	fcppt::string const &t
-)
-{
-	XStoreName(
-		dsp_(),
-		wnd,
-		fcppt::to_std_string(t).c_str());
 }
 
 sge::x11::window::dim_type const
@@ -276,12 +256,6 @@ sge::x11::window::dispatch()
 
 		signals[xev.type](xev);
 	}
-}
-
-sge::window::pos_type const
-sge::x11::window::viewport_offset() const
-{
-	return pos_type::null();
 }
 
 Display *

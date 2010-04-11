@@ -30,7 +30,8 @@ template<
 >
 T
 sge::renderer::aspect(
-	screen_size const &sz)
+	screen_size const &sz
+)
 {
 	T const
 		w(static_cast<T>(sz.w())),

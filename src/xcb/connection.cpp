@@ -36,10 +36,13 @@ check_connection(
 
 sge::xcb::connection::connection()
 :
+	screen_(
+		0
+	),
 	connection_(
 		xcb_connect(
 			NULL,
-			NULL
+			&screen_
 		)
 	)
 {
@@ -51,15 +54,16 @@ sge::xcb::connection::connection()
 
 sge::xcb::connection::connection(
 	string const &display_,
-	screen screen_
+	screen _screen
 )
 :
+	screen_(_screen),
 	connection_(
 		xcb_connect(
 			fcppt::to_std_string(
 				display_
 			).c_str(),
-			&screen_.operator int&()
+			&screen_
 		)
 	)
 {
@@ -68,10 +72,15 @@ sge::xcb::connection::connection(
 	);
 }
 
+xcb_connection_t *
+sge::xcb::connection::get() const
+{
+	return connection_;
+}
+
 sge::xcb::connection::~connection()
 {
 	xcb_disconnect(
 		connection_
 	);
 }
-

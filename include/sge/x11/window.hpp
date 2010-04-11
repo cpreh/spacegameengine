@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/wm_hints.hpp>
 #include <sge/x11/size_hints.hpp>
 #include <sge/x11/class_hint.hpp>
+#include <sge/window/pos_type.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -52,6 +53,8 @@ public:
 	typedef void function_type(XEvent const &);
 	typedef fcppt::function::object<function_type> callback_type;
 
+	typedef sge::window::pos_type pos_type;
+
 	SGE_SYMBOL window(
 		pos_type const &,
 		dim_type const &,
@@ -67,21 +70,8 @@ public:
 
 	SGE_SYMBOL ~window();
 
-	SGE_SYMBOL void
-	title(
-		fcppt::string const &
-	);
-
-	SGE_SYMBOL void
-	size(
-		dim_type const &
-	);
-
 	SGE_SYMBOL dim_type const
 	size() const;
-
-	SGE_SYMBOL pos_type const
-	viewport_offset() const;
 
 	SGE_SYMBOL bool
 	fullscreen() const;
