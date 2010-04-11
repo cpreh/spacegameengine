@@ -357,6 +357,8 @@ set_matrix(
 	)
 	*/
 
+	bool const transpose = true;
+
 	switch(rows) {
 	case 2:
 		switch(columns) {
@@ -364,32 +366,38 @@ set_matrix(
 			uniform_matrix_2fv(
 				location,
 				elements,
-				false,
-				data);
+				transpose,
+				data
+			);
 
 			return sge::opengl::glsl::uniform::type(
 				et::matrix2x2,
-				elements);
+				elements
+			);
 		case 3:
 			uniform_matrix_3x2fv(
 				location,
 				elements,
-				false,
-				data);
+				transpose,
+				data
+			);
 
 			return sge::opengl::glsl::uniform::type(
 				et::matrix3x2,
-				elements);
+				elements
+			);
 		case 4:
 			uniform_matrix_4x2fv(
 				location,
 				elements,
-				false,
-				data);
+				transpose,
+				data
+			);
 
 			return sge::opengl::glsl::uniform::type(
 				et::matrix4x2,
-				elements);
+				elements
+			);
 		}
 		break;
 	case 3:
@@ -398,32 +406,38 @@ set_matrix(
 			uniform_matrix_3x2fv(
 				location,
 				elements,
-				false,
-				data);
+				transpose,
+				data
+			);
 
 			return sge::opengl::glsl::uniform::type(
 				et::matrix3x2,
-				elements);
+				elements
+			);
 		case 3:
 			uniform_matrix_3fv(
 				location,
 				elements,
-				false,
-				data);
+				transpose,
+				data
+			);
 
 			return sge::opengl::glsl::uniform::type(
 				et::matrix3x3,
-				elements);
+				elements
+			);
 		case 4:
 			uniform_matrix_4x3fv(
 				location,
 				elements,
-				false,
-				data);
+				transpose,
+				data
+			);
 
 			return sge::opengl::glsl::uniform::type(
 				et::matrix4x3,
-				elements);
+				elements
+			);
 		}
 		break;
 	case 4:
@@ -432,18 +446,21 @@ set_matrix(
 			uniform_matrix_4x2fv(
 				location,
 				elements,
-				false,
-				data);
+				transpose,
+				data
+			);
 
 			return sge::opengl::glsl::uniform::type(
 				et::matrix4x2,
-				elements);
+				elements
+			);
 		case 3:
 			uniform_matrix_3x4fv(
 				location,
 				elements,
-				false,
-				data);
+				transpose,
+				data
+			);
 
 			return sge::opengl::glsl::uniform::type(
 				et::matrix3x4,
@@ -452,12 +469,14 @@ set_matrix(
 			uniform_matrix_4fv(
 				location,
 				elements,
-				false,
-				data);
+				transpose,
+				data
+			);
 
 			return sge::opengl::glsl::uniform::type(
 				et::matrix4x4,
-				elements);
+				elements
+			);
 		}
 		break;
 	}
