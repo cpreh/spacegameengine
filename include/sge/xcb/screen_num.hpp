@@ -18,69 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/xcb/connection.hpp>
-#include <fcppt/to_std_string.hpp>
-#include <xcb/xcb.h>
+#ifndef SGE_XCB_SCREEN_NUM_HPP_INCLUDED
+#define SGE_XCB_SCREEN_NUM_HPP_INCLUDED
 
-namespace
+#include <fcppt/strong_typedef.hpp>
+
+namespace sge
+{
+namespace xcb
 {
 
-void
-check_connection(
-	xcb_connection_t *const connection_
+FCPPT_MAKE_STRONG_TYPEDEF(
+	int,
+	screen_num
 )
-{
-}
 
 }
-
-sge::xcb::connection::connection()
-:
-	screen_(
-		0
-	),
-	connection_(
-		xcb_connect(
-			NULL,
-			&screen_
-		)
-	)
-{
-	check_connection(
-		connection_
-	);
 }
 
-
-sge::xcb::connection::connection(
-	string const &display_,
-	screen_num const _screen
-)
-:
-	screen_(_screen),
-	connection_(
-		xcb_connect(
-			fcppt::to_std_string(
-				display_
-			).c_str(),
-			&screen_
-		)
-	)
-{
-	check_connection(
-		connection_
-	);
-}
-
-xcb_connection_t *
-sge::xcb::connection::get() const
-{
-	return connection_;
-}
-
-sge::xcb::connection::~connection()
-{
-	xcb_disconnect(
-		connection_
-	);
-}
+#endif

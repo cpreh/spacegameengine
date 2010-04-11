@@ -65,7 +65,7 @@ array_value(
 
 	for(
 		In it(beg);
-		beg != end;
+		it != end;
 		++it, ++count
 	)
 		buffer.insert(

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_XCB_CONNECTION_HPP_INCLUDED
 
 #include <sge/xcb/connection_fwd.hpp>
-#include <sge/xcb/screen.hpp>
+#include <sge/xcb/screen_num.hpp>
 #include <sge/xcb/string.hpp>
 #include <sge/xcb/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -43,7 +43,7 @@ public:
 	SGE_XCB_SYMBOL
 	explicit connection(
 		string const &display,
-		screen
+		screen_num
 	);
 
 	SGE_XCB_SYMBOL
@@ -53,9 +53,9 @@ public:
 	xcb_connection_t *
 	get() const;
 private:
-	xcb_connection_t *const connection_;
-
 	int screen_;
+
+	xcb_connection_t *const connection_;
 };
 
 }

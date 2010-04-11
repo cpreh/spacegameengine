@@ -82,7 +82,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 #include <cstdlib>
 
-#include <sge/renderer/glsl/uniform/array_value.hpp>
+//#include <sge/renderer/glsl/uniform/array_value.hpp>
 #include <fcppt/math/matrix/matrix.hpp>
 #include <vector>
 

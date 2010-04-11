@@ -21,17 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_XCB_SCREEN_HPP_INCLUDED
 #define SGE_XCB_SCREEN_HPP_INCLUDED
 
-#include <fcppt/strong_typedef.hpp>
-
 namespace sge
 {
 namespace xcb
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
-	int,
-	screen
-)
+class screen
+{
+	FCPPT_NONCOPYABLE(screen)
+public:
+	explicit screen(
+	);
+
+};
 
 }
 }
