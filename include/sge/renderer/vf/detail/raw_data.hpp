@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_DETAIL_RAW_DATA_HPP_INCLUDED
 
 #include <sge/renderer/const_raw_pointer.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/is_fundamental.hpp>
 
 namespace sge
 {
@@ -35,7 +37,12 @@ namespace detail
 template<
 	typename T
 >
-const_raw_pointer
+typename boost::disable_if<
+	boost::is_fundamental<
+		T
+	>,
+	const_raw_pointer
+>::type
 raw_data(
 	T const &t
 )
@@ -44,6 +51,26 @@ raw_data(
 		const_raw_pointer
 	>(
 		t.data()
+	);
+}
+
+template<
+	typename T
+>
+typename boost::enable_if<
+	boost::is_fundamental<
+		T
+	>,
+	const_raw_pointer
+>::type
+raw_data(
+	T const &t
+)
+{
+	return reinterpret_cast<
+		const_raw_pointer
+	>(
+		&t
 	);
 }
 

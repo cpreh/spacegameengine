@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/role.hpp>
 #include <sge/renderer/vf/color_base.hpp>
 #include <sge/renderer/vf/vec_base.hpp>
+#include <sge/renderer/vf/single_base.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/image/color/format_static.hpp>
 #include <map>
@@ -103,6 +104,30 @@ public:
 				category_count[Role]++
 			)
 		);
+	}
+
+	template<
+		typename Format,
+		role::type Role
+	>
+	result_type
+	operator()(
+		single_base<
+			Format,
+			Role
+		> &
+	) const
+	{
+		vec_base<
+			Format,
+			Role,
+			1u
+		> base;
+
+		return
+			(*this)(
+				base
+			);
 	}
 private:
 	element_list &elems;
