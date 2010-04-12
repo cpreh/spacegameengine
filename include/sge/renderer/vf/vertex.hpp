@@ -25,9 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/detail/raw_data.hpp>
 #include <sge/renderer/vf/detail/calc_offset.hpp>
 #include <sge/renderer/vf/detail/element_stride.hpp>
+#include <sge/renderer/vf/detail/copy_n.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <fcppt/mpl/find_nth.hpp>
-#include <fcppt/algorithm/copy_n.hpp>
 #include <boost/mpl/find.hpp>
 #include <boost/mpl/integral_c.hpp>
 #include <boost/mpl/deref.hpp>
@@ -156,7 +156,7 @@ private:
 			>::value)
 		);
 
-		fcppt::algorithm::copy_n(
+		detail::copy_n(
 			detail::raw_data(t),
 			detail::element_stride<
 				element
@@ -184,7 +184,7 @@ private:
 
 		packed_type ret;
 
-		fcppt::algorithm::copy_n(
+		detail::copy_n(
 			data + boost::mpl::deref<offset>::type::value,
 			detail::element_stride<
 				element
