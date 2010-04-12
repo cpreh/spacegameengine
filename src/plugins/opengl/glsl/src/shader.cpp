@@ -24,7 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/exception.hpp>
 #include <fcppt/text.hpp>
 
-template<bool Native>
+template<
+	bool Native
+>
 sge::opengl::glsl::shader<Native>::shader(
 	GLenum const type,
 	renderer::glsl::string const &source
@@ -50,30 +52,43 @@ sge::opengl::glsl::shader<Native>::shader(
 	)
 		throw sge::renderer::glsl::exception(
 			FCPPT_TEXT("Compiling a shader failed:\n")
-			+
-			format_error(
-				&shader_info_log<
-					Native
-				>,
-				&shader_info_log_length<
-					Native
-				>,
-				id()
-			)
+			+ info_log()
 		);
 }
 
-template<bool Native>
+template<
+	bool Native
+>
 sge::opengl::glsl::shader<Native>::~shader()
 {
 	delete_shader<Native>(id());
 }
 
-template<bool Native>
+template<
+	bool Native
+>
 typename sge::opengl::glsl::traits<Native>::handle
 sge::opengl::glsl::shader<Native>::id() const
 {
 	return id_;
+}
+
+template<
+	bool Native
+>
+fcppt::string const
+sge::opengl::glsl::shader<Native>::info_log() const
+{
+	return
+		format_error(
+			&shader_info_log<
+				Native
+			>,
+			&shader_info_log_length<
+				Native
+			>,
+			id()
+		);
 }
 
 template class sge::opengl::glsl::shader<true>;

@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "traits.hpp"
 #include <sge/renderer/glsl/string.hpp>
 #include <fcppt/shared_ptr.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -55,6 +56,9 @@ public:
 
 	typedef fcppt::shared_ptr<shader<Native> > shared_ptr;
 private:
+	fcppt::string const
+	info_log() const;
+
 	handle id_;
 };
 
