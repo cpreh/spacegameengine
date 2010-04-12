@@ -27,7 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::vf::attribute_actor::attribute_actor(
 	renderer::vf::dynamic::ordered_element const &e,
-	renderer::vf::vertex_size const stride
+	renderer::vf::vertex_size const stride,
+	renderer::vf::vertex_size const absolute_index
 )
 :
 	pointer_actor(
@@ -39,6 +40,13 @@ sge::opengl::vf::attribute_actor::attribute_actor(
 			convert_num_elements(),
 			e.element().info()
 		)
+	),
+	absolute_index(
+		static_cast<
+			GLuint
+		>(
+			absolute_index
+		)
 	)
 {}
 
@@ -48,7 +56,7 @@ sge::opengl::vf::attribute_actor::operator()(
 ) const
 {
 	vertex_attrib_pointer(
-		static_cast<GLuint>(index()),
+		absolute_index,
 		elements,
 		format(),
 		true, // normalized
@@ -57,7 +65,7 @@ sge::opengl::vf::attribute_actor::operator()(
 	);
 
 	c.enable_attribute(
-		gl_index()
+		absolute_index
 	);
 }
 
@@ -67,17 +75,6 @@ sge::opengl::vf::attribute_actor::unuse(
 ) const
 {
 	c.disable_attribute(
-		gl_index()
+		absolute_index
 	);
-}
-
-GLuint
-sge::opengl::vf::attribute_actor::gl_index() const
-{
-	return
-		static_cast<
-			GLuint
-		>(
-			index()
-		);
 }

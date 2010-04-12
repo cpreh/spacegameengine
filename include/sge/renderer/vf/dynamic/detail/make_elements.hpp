@@ -78,7 +78,9 @@ public:
 					NumSubElements
 				),
 				Role,
-				category_count[Role]++
+				make_category_count<
+					Role
+				>()
 			)
 		);
 	}
@@ -101,7 +103,9 @@ public:
 					image::color::format_static<Format>::value
 				),
 				Role,
-				category_count[Role]++
+				make_category_count<
+					Role
+				>()
 			)
 		);
 	}
@@ -130,6 +134,15 @@ public:
 			);
 	}
 private:
+	template<
+		role::type Role
+	>
+	vertex_size
+	make_category_count() const
+	{
+		return category_count[Role]++;
+	}
+
 	element_list &elems;
 
 	typedef std::map<
