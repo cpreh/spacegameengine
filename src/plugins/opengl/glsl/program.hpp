@@ -62,7 +62,11 @@ public:
 private:
 	renderer::glsl::uniform::variable_ptr const
 	uniform(
-		renderer::glsl::string const&);
+		renderer::glsl::string const &
+	);
+
+	fcppt::string const
+	info_log() const;
 
 	static void use_ffp();
 

@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/string.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -45,6 +46,9 @@ public:
 	uniform(
 		string const &
 	) = 0;
+
+	virtual fcppt::string const
+	info_log() const = 0;
 
 	SGE_SYMBOL virtual ~program();
 };

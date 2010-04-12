@@ -37,7 +37,8 @@ template<
 >
 sge::opengl::glsl::program<Native>::program(
 	renderer::glsl::optional_string const &vs_source,
-	renderer::glsl::optional_string const &ps_source)
+	renderer::glsl::optional_string const &ps_source
+)
 :
 	instance_(),
 	attachments()
@@ -78,8 +79,10 @@ sge::opengl::glsl::program<Native>::~program()
 template<
 	bool Native
 >
-void sge::opengl::glsl::program<Native>::use(
-	renderer::glsl::program_ptr const p)
+void
+sge::opengl::glsl::program<Native>::use(
+	renderer::glsl::program_ptr const p
+)
 {
 	if(!p)
 	{
@@ -95,8 +98,10 @@ void sge::opengl::glsl::program<Native>::use(
 template<
 	bool Native
 >
-void sge::opengl::glsl::program<Native>::attach_shader(
-	shader_ptr const s)
+void
+sge::opengl::glsl::program<Native>::attach_shader(
+	shader_ptr const s
+)
 {
 	fcppt::auto_ptr<
 		attachment_type
@@ -117,7 +122,8 @@ void sge::opengl::glsl::program<Native>::attach_shader(
 template<
 	bool Native
 >
-void sge::opengl::glsl::program<Native>::link()
+void
+sge::opengl::glsl::program<Native>::link()
 {
 	link_program<Native>(id());
 
@@ -126,29 +132,24 @@ void sge::opengl::glsl::program<Native>::link()
 	)
 		throw sge::renderer::glsl::exception(
 			FCPPT_TEXT("Compiling a program failed:\n")
-			+
-			format_error(
-				&program_info_log<
-					Native
-				>,
-				&program_info_log_length<
-					Native
-				>,
-				id()
-			)
+			+ info_log()
 		);
 }
 
 template<bool Native>
-void sge::opengl::glsl::program<Native>::use()
+void
+sge::opengl::glsl::program<Native>::use()
 {
 	use_program<Native>(id());
 }
 
-template<bool Native>
+template<
+	bool Native
+>
 sge::renderer::glsl::uniform::variable_ptr const
 sge::opengl::glsl::program<Native>::uniform(
-	renderer::glsl::string const &name)
+	renderer::glsl::string const &name
+)
 {
 	return fcppt::make_shared_ptr<
 		uniform::variable<
@@ -163,7 +164,26 @@ sge::opengl::glsl::program<Native>::uniform(
 template<
 	bool Native
 >
-void sge::opengl::glsl::program<Native>::use_ffp()
+fcppt::string const
+sge::opengl::glsl::program<Native>::info_log() const
+{
+	return
+		format_error(
+			&program_info_log<
+				Native
+			>,
+			&program_info_log_length<
+				Native
+			>,
+			id()
+		);
+}
+
+template<
+	bool Native
+>
+void
+sge::opengl::glsl::program<Native>::use_ffp()
 {
 	use_program<Native>(0);
 }
