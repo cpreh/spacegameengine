@@ -31,34 +31,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::vf::actor_ptr
 sge::opengl::vf::to_actor(
 	renderer::vf::dynamic::ordered_element const &e,
-	renderer::vf::vertex_size const stride,
-	renderer::vf::vertex_size const absolute_index
+	renderer::vf::vertex_size const stride
 )
 {
 	switch(e.element().role())
 	{
 	case renderer::vf::role::pos:
 		return actor_ptr(
-			new pos_actor(e, stride)
+			new pos_actor(
+				e,
+				stride
+			)
 		);
 	case renderer::vf::role::normal:
 		return actor_ptr(
-			new normal_actor(e, stride)
+			new normal_actor(
+				e,
+				stride
+			)
 		);
 	case renderer::vf::role::color:
 		return actor_ptr(
-			new color_actor(e, stride)
+			new color_actor(
+				e,
+				stride
+			)
 		);
 	case renderer::vf::role::texpos:
 		return actor_ptr(
-			new texpos_actor(e, stride)
+			new texpos_actor(
+				e,
+				stride
+			)
 		);
 	case renderer::vf::role::unspecified:
 		return actor_ptr(
 			new attribute_actor(
 				e,
-				stride,
-				absolute_index
+				stride
 			)
 		);
 	}

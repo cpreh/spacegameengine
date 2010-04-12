@@ -36,8 +36,7 @@ namespace vf
 actor_ptr
 to_actor(
 	renderer::vf::dynamic::ordered_element const &,
-	renderer::vf::vertex_size stride,
-	renderer::vf::vertex_size absolute_index
+	renderer::vf::vertex_size stride
 );
 
 }

@@ -40,8 +40,7 @@ class attribute_actor
 public:
 	attribute_actor(
 		renderer::vf::dynamic::ordered_element const &,
-		renderer::vf::vertex_size stride,
-		renderer::vf::vertex_size absolute_index
+		renderer::vf::vertex_size stride
 	);
 private:
 	void
@@ -54,9 +53,10 @@ private:
 		client_state_combiner &
 	) const;
 
-	GLint const elements;
+	GLuint
+	gl_index() const;
 
-	GLuint const absolute_index;
+	GLint const elements;
 };
 
 }

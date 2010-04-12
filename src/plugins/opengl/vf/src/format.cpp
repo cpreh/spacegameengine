@@ -36,16 +36,14 @@ sge::opengl::vf::format::format(
 		fmt.elements()
 	);
 
-	for(
-		renderer::vf::dynamic::ordered_element_list::size_type i = 0;
-		i < elems.size();
-		++i
+	BOOST_FOREACH(
+		renderer::vf::dynamic::ordered_element_list::const_reference elem,
+		elems
 	)
 		actors.push_back(
 			to_actor(
-				elems[i],
-				fmt.stride(),
-				i
+				elem,
+				fmt.stride()
 			)
 		);
 }
