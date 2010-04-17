@@ -38,6 +38,12 @@ class attribute_list
 {
 public:
 	SGE_XCB_SYMBOL
+	explicit attribute_list();
+
+	SGE_XCB_SYMBOL
+	~attribute_list();
+
+	SGE_XCB_SYMBOL
 	attribute const *
 	data() const;
 

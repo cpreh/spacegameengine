@@ -18,31 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/xcb/screen.hpp>
-#include <xcb/xcb.h>
+#ifndef SGE_XCB_WINDOW_SCOPED_PTR_HPP_INCLUDED
+#define SGE_XCB_WINDOW_SCOPED_PTR_HPP_INCLUDED
 
-sge::xcb::screen::screen(
-	xcb_screen_t *const screen_
-)
-:
-	screen_(screen_)
-{}
+#include <sge/xcb/window/object_fwd.hpp>
+#include <fcppt/scoped_ptr.hpp>
 
-sge::xcb::visual::id_num const
-sge::xcb::screen::root_visual() const
+namespace sge
 {
-	return
-		visual::id_num(
-			screen_->root_visual
-		);
+namespace xcb
+{
+namespace window
+{
+
+typedef fcppt::scoped_ptr<
+	object
+> scoped_ptr;
+
+}
+}
 }
 
-sge::xcb::window::id_num const
-sge::xcb::screen::root_window() const
-{
-	return
-		window::id_num(
-			screen_->root
-		);
-}
-
+#endif

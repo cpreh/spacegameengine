@@ -18,31 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/xcb/screen.hpp>
-#include <xcb/xcb.h>
+#ifndef SGE_XCB_FLUSH_HPP_INCLUDED
+#define SGE_XCB_FLUSH_HPP_INCLUDED
 
-sge::xcb::screen::screen(
-	xcb_screen_t *const screen_
-)
-:
-	screen_(screen_)
-{}
+#include <sge/xcb/symbol.hpp>
+#include <sge/xcb/connection_fwd.hpp>
 
-sge::xcb::visual::id_num const
-sge::xcb::screen::root_visual() const
+namespace sge
 {
-	return
-		visual::id_num(
-			screen_->root_visual
-		);
+namespace xcb
+{
+
+SGE_XCB_SYMBOL
+void
+flush(
+	connection const &
+);
+
+}
 }
 
-sge::xcb::window::id_num const
-sge::xcb::screen::root_window() const
-{
-	return
-		window::id_num(
-			screen_->root
-		);
-}
-
+#endif

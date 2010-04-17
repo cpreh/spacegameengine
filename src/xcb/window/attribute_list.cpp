@@ -18,31 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/xcb/screen.hpp>
-#include <xcb/xcb.h>
+#include <sge/xcb/window/attribute_list.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
 
-sge::xcb::screen::screen(
-	xcb_screen_t *const screen_
-)
+sge::xcb::window::attribute_list::attribute_list()
 :
-	screen_(screen_)
+	container_()
 {}
 
-sge::xcb::visual::id_num const
-sge::xcb::screen::root_visual() const
+sge::xcb::window::attribute_list::~attribute_list()
+{}
+
+sge::xcb::window::attribute const *
+sge::xcb::window::attribute_list::data() const
 {
-	return
-		visual::id_num(
-			screen_->root_visual
-		);
+	return container_.data();
 }
 
-sge::xcb::window::id_num const
-sge::xcb::screen::root_window() const
+sge::xcb::value_mask const
+sge::xcb::window::attribute_list::value_mask() const
 {
-	return
-		window::id_num(
-			screen_->root
-		);
+	return xcb::value_mask(0); // TODO
 }
-
