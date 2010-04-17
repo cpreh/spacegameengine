@@ -72,15 +72,24 @@ sge::xcb::connection::connection(
 	);
 }
 
+sge::xcb::connection::~connection()
+{
+	xcb_disconnect(
+		connection_
+	);
+}
+
 xcb_connection_t *
 sge::xcb::connection::get() const
 {
 	return connection_;
 }
 
-sge::xcb::connection::~connection()
+sge::xcb::screen_num const
+sge::xcb::connection::screen_num() const
 {
-	xcb_disconnect(
-		connection_
-	);
+	return
+		xcb::screen_num(
+			screen_
+		);
 }

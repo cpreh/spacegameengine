@@ -7,7 +7,7 @@ FILE (
 
 ADD_LIBRARY (sgexcb SHARED ${sgexcbfiles})
 
-TARGET_LINK_LIBRARIES (sgexcb sgecore)
+TARGET_LINK_LIBRARIES (sgexcb sgecore xcb)
 
 INSTALL (TARGETS sgexcb DESTINATION lib)
 

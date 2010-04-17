@@ -18,58 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "convert_class.hpp"
-#include <sge/xcb/window/create.hpp>
 #include <sge/xcb/window/object.hpp>
-#include <sge/xcb/window/attribute_list.hpp>
 #include <sge/xcb/connection.hpp>
-#include <sge/xcb/create_id.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/make_auto_ptr.hpp>
+#include <xcb/xcb.h>
 
-sge::xcb::window::auto_ptr
-sge::xcb::window::create(
-	connection const &connection_,
-	id_num const &parent_,
-	pos const &pos_,
-	dim const &dim_,
-	depth const &depth_,
-	border_width const &border_width_,
-	class_::type const class_value_,
-	visual::id_num const &visual_id_,
-	attribute_list const &attributes_
+sge::xcb::window::object::object(
+	id_num const &id_,
+	connection const &connection_
 )
+:
+	id_(id_),
+	connection_(connection_)
+{}
+
+sge::xcb::window::object::~object()
 {
-	id_num const window_num(
-		create_id(
-			connection_
-		)
-	);
-
-	xcb_create_window(
+	xcb_destroy_window(
 		connection_.get(),
-		depth_,
-		window_num,
-		parent_,
-		pos_.x(),
-		pos_.y(),
-		dim_.w(),
-		dim_.h(),
-		border_width_,
-		convert_class(
-			class_value_
-		),
-		visual_id_,
-		attributes_.value_mask(),
-		attributes_.data()
+		id_
 	);
+}
 
-	return
-		fcppt::make_auto_ptr<
-			window::object
-		>(
-			window_num,
-			connection_
-		);
+void
+sge::xcb::window::object::map()
+{
+	xcb_map_window(
+		connection_.get(),
+		id_
+	);
 }

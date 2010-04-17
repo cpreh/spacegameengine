@@ -54,7 +54,7 @@ public:
 	get() const;
 
 	SGE_XCB_SYMBOL
-	xcb::screen_num
+	xcb::screen_num const
 	screen_num() const;
 private:
 	int screen_;

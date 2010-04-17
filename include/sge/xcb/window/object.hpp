@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/xcb/window/object_fwd.hpp>
 #include <sge/xcb/window/id_num.hpp>
+#include <sge/xcb/connection_fwd.hpp>
+#include <sge/xcb/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -38,13 +40,20 @@ class object
 public:
 	SGE_XCB_SYMBOL
 	explicit object(
-		id_num const &
+		id_num const &,
+		connection const &
 	);
 
 	SGE_XCB_SYMBOL
 	~object();
+
+	SGE_XCB_SYMBOL
+	void
+	map();
 private:
 	id_num const id_;
+
+	connection const &connection_;
 };
 
 }

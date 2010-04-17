@@ -30,6 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/xcb/window/depth.hpp>
 #include <sge/xcb/window/border_width.hpp>
 #include <sge/xcb/window/class.hpp>
+#include <sge/xcb/window/attribute_list.hpp>
+#include <fcppt/chrono/seconds.hpp>
+#include <fcppt/time/sleep_any.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 
@@ -45,24 +48,38 @@ int main()
 
 	sge::xcb::window::scoped_ptr wnd(
 		sge::xcb::window::create(
-			connection_
+			connection_,
 			screen_.root_window(),
 			sge::xcb::window::pos::null(),
-			sge::xcb::widnow::dim(
-				1024,
-				768
+			sge::xcb::window::dim(
+				1024u,
+				768u
 			),
 			sge::xcb::window::depth(
-				32
+				static_cast<sge::xcb::window::depth::value_type>(
+					32u
+				)
 			),
 			sge::xcb::window::border_width(
-				0
+				static_cast<sge::xcb::window::border_width::value_type>(
+					0u
+				)
 			),
 			sge::xcb::window::class_::input_output,
 			screen_.root_visual(),
 			sge::xcb::window::attribute_list()
 		)
 	);
+	
+	wnd->map();
 
-	sge::xcb::flush();
+	sge::xcb::flush(
+		connection_
+	);
+
+	fcppt::time::sleep_any(
+		fcppt::chrono::seconds(
+			5
+		)
+	);
 }
