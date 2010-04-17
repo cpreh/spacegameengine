@@ -18,69 +18,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/xcb/connection.hpp>
-#include <fcppt/to_std_string.hpp>
+#include <sge/xcb/screen_iterator.hpp>
+#include <sge/xcb/screen.hpp>
+#include <sge/xcb/setup.hpp>
 #include <xcb/xcb.h>
 
-namespace
+sge::xcb::screen_iterator::screen_iterator()
+:
+	iterator_()
+{}
+
+
+sge::xcb::screen_iterator::screen_iterator(
+	setup const &setup_
+)
+:
+	iterator_(
+		xcb_setup_roots_iterator(
+			setup_.get()
+		)
+	)
+{}
+
+sge::xcb::screen_iterator::reference
+sge::xcb::screen_iterator::dereference() const
 {
+	return
+		screen(
+			iterator_.data
+		);
+}
 
 void
-check_connection(
-	xcb_connection_t *const connection_
-)
+sge::xcb::screen_iterator::increment()
 {
-}
-
-}
-
-sge::xcb::connection::connection()
-:
-	screen_(
-		0
-	),
-	connection_(
-		xcb_connect(
-			NULL,
-			&screen_
-		)
-	)
-{
-	check_connection(
-		connection_
+	xcb_screen_next(
+		&iterator_
 	);
 }
 
-
-sge::xcb::connection::connection(
-	string const &display_,
-	xcb::screen_num const _screen
-)
-:
-	screen_(_screen),
-	connection_(
-		xcb_connect(
-			fcppt::to_std_string(
-				display_
-			).c_str(),
-			&screen_
-		)
-	)
+bool
+sge::xcb::screen_iterator::equal_to(
+	screen_iterator const &other_
+) const
 {
-	check_connection(
-		connection_
-	);
-}
-
-xcb_connection_t *
-sge::xcb::connection::get() const
-{
-	return connection_;
-}
-
-sge::xcb::connection::~connection()
-{
-	xcb_disconnect(
-		connection_
-	);
+	return iterator_.data == other_.iterator_.data;
 }

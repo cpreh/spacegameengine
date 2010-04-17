@@ -43,7 +43,7 @@ public:
 	SGE_XCB_SYMBOL
 	explicit connection(
 		string const &display,
-		screen_num
+		xcb::screen_num
 	);
 
 	SGE_XCB_SYMBOL
@@ -52,6 +52,10 @@ public:
 	SGE_XCB_SYMBOL
 	xcb_connection_t *
 	get() const;
+
+	SGE_XCB_SYMBOL
+	xcb::screen_num
+	screen_num() const;
 private:
 	int screen_;
 

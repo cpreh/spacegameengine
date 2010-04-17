@@ -18,69 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/xcb/connection.hpp>
-#include <fcppt/to_std_string.hpp>
+#ifndef SGE_XCB_SETUP_HPP_INCLUDED
+#define SGE_XCB_SETUP_HPP_INCLUDED
+
+#include <sge/xcb/setup_fwd.hpp>
+#include <sge/xcb/connection_fwd.hpp>
+#include <sge/xcb/symbol.hpp>
 #include <xcb/xcb.h>
 
-namespace
+namespace sge
+{
+namespace xcb
 {
 
-void
-check_connection(
-	xcb_connection_t *const connection_
-)
+class setup
 {
-}
-
-}
-
-sge::xcb::connection::connection()
-:
-	screen_(
-		0
-	),
-	connection_(
-		xcb_connect(
-			NULL,
-			&screen_
-		)
-	)
-{
-	check_connection(
-		connection_
+public:
+	SGE_XCB_SYMBOL
+	explicit setup(
+		connection const &
 	);
+
+	SGE_XCB_SYMBOL
+	xcb_setup_t const *
+	get() const;
+private:
+	xcb_setup_t const *setup_;
+};
+
+}
 }
 
-
-sge::xcb::connection::connection(
-	string const &display_,
-	xcb::screen_num const _screen
-)
-:
-	screen_(_screen),
-	connection_(
-		xcb_connect(
-			fcppt::to_std_string(
-				display_
-			).c_str(),
-			&screen_
-		)
-	)
-{
-	check_connection(
-		connection_
-	);
-}
-
-xcb_connection_t *
-sge::xcb::connection::get() const
-{
-	return connection_;
-}
-
-sge::xcb::connection::~connection()
-{
-	xcb_disconnect(
-		connection_
-	);
-}
+#endif

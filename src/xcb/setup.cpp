@@ -18,69 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/xcb/setup.hpp>
 #include <sge/xcb/connection.hpp>
-#include <fcppt/to_std_string.hpp>
-#include <xcb/xcb.h>
 
-namespace
-{
-
-void
-check_connection(
-	xcb_connection_t *const connection_
-)
-{
-}
-
-}
-
-sge::xcb::connection::connection()
-:
-	screen_(
-		0
-	),
-	connection_(
-		xcb_connect(
-			NULL,
-			&screen_
-		)
-	)
-{
-	check_connection(
-		connection_
-	);
-}
-
-
-sge::xcb::connection::connection(
-	string const &display_,
-	xcb::screen_num const _screen
+sge::xcb::setup::setup(
+	connection const &connection_
 )
 :
-	screen_(_screen),
-	connection_(
-		xcb_connect(
-			fcppt::to_std_string(
-				display_
-			).c_str(),
-			&screen_
+	setup_(
+		xcb_get_setup(
+			connection_.get()
 		)
 	)
-{
-	check_connection(
-		connection_
-	);
-}
+{}
 
-xcb_connection_t *
-sge::xcb::connection::get() const
+xcb_setup_t const *
+sge::xcb::setup::get() const
 {
-	return connection_;
-}
-
-sge::xcb::connection::~connection()
-{
-	xcb_disconnect(
-		connection_
-	);
+	return setup_;
 }

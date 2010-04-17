@@ -18,69 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/xcb/screen_from_connection.hpp>
 #include <sge/xcb/connection.hpp>
-#include <fcppt/to_std_string.hpp>
-#include <xcb/xcb.h>
+#include <sge/xcb/screen.hpp>
+#include <sge/xcb/screen_iterator.hpp>
+#include <sge/xcb/setup.hpp>
+#include <iterator>
 
-namespace
-{
-
-void
-check_connection(
-	xcb_connection_t *const connection_
+sge::xcb::screen const
+sge::xcb::screen_from_connection(
+	connection const &connection_
 )
 {
-}
-
-}
-
-sge::xcb::connection::connection()
-:
-	screen_(
-		0
-	),
-	connection_(
-		xcb_connect(
-			NULL,
-			&screen_
+	screen_iterator iterator((
+		setup(
+			connection_
 		)
-	)
-{
-	check_connection(
-		connection_
+	));
+
+	std::advance(
+		iterator,
+		connection_.screen_num()
 	);
-}
 
-
-sge::xcb::connection::connection(
-	string const &display_,
-	xcb::screen_num const _screen
-)
-:
-	screen_(_screen),
-	connection_(
-		xcb_connect(
-			fcppt::to_std_string(
-				display_
-			).c_str(),
-			&screen_
-		)
-	)
-{
-	check_connection(
-		connection_
-	);
-}
-
-xcb_connection_t *
-sge::xcb::connection::get() const
-{
-	return connection_;
-}
-
-sge::xcb::connection::~connection()
-{
-	xcb_disconnect(
-		connection_
-	);
+	return
+		screen(
+			*iterator
+		);
 }

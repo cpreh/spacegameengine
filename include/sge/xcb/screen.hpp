@@ -21,6 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_XCB_SCREEN_HPP_INCLUDED
 #define SGE_XCB_SCREEN_HPP_INCLUDED
 
+#include <sge/xcb/screen_fwd.hpp>
+#include <sge/xcb/symbol.hpp>
+#include <xcb/xcb.h>
+
 namespace sge
 {
 namespace xcb
@@ -28,11 +32,14 @@ namespace xcb
 
 class screen
 {
-	FCPPT_NONCOPYABLE(screen)
 public:
+	SGE_XCB_SYMBOL
 	explicit screen(
+		xcb_screen_t *
 	);
 
+private:
+	xcb_screen_t *screen_;
 };
 
 }
