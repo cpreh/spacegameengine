@@ -1,6 +1,8 @@
 FILE (
 	GLOB_RECURSE sgexcbfiles
 	*.cpp
+	visual/*.cpp
+	window/*.cpp
 )
 
 ADD_LIBRARY (sgexcb SHARED ${sgexcbfiles})

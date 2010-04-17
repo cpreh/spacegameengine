@@ -18,32 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_XCB_WINDOW_HPP_INCLUDED
-#define SGE_XCB_WINDOW_HPP_INCLUDED
+#ifndef SGE_XCB_WINDOW_DEPTH_HPP_INCLUDED
+#define SGE_XCB_WINDOW_DEPTH_HPP_INCLUDED
 
-#include <sge/window/instance.hpp>
-#include <sge/xcb/symbol.hpp>
-#include <sge/class_symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/strong_typedef.hpp>
+#include <boost/cstdint.hpp>
 
 namespace sge
 {
 namespace xcb
 {
-
-class SGE_CLASS_SYMBOL window
-:
-	public sge::window::instance
+namespace window
 {
-	FCPPT_NONCOPYABLE(window)
-public:
-	SGE_XCB_SYMBOL
-	dim_type const
-	size() const;
-private:
-	
-};
 
+FCPPT_MAKE_STRONG_TYPEDEF(
+	boost::uint8_t,
+	depth
+)
+
+}
 }
 }
 
