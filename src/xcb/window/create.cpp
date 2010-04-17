@@ -18,7 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "convert_class.hpp"
 #include <sge/xcb/window/create.hpp>
+#include <sge/xcb/window/object.hpp>
+#include <sge/xcb/window/attribute_list.hpp>
+#include <sge/xcb/connection.hpp>
+#include <sge/xcb/create_id.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/make_auto_ptr.hpp>
 
 sge::xcb::window::auto_ptr
 sge::xcb::window::create(
@@ -33,4 +41,34 @@ sge::xcb::window::create(
 	attribute_list const &attributes_
 )
 {
+	id_num const window_num(
+		create_id(
+			connection_
+		)
+	);
+
+	xcb_create_window(
+		connection_.get(),
+		depth_,
+		window_num,
+		parent_,
+		pos_.x(),
+		pos_.y(),
+		dim_.w(),
+		dim_.h(),
+		border_width_,
+		convert_class(
+			class_value_
+		),
+		visual_id_,
+		attributes_.value_mask(),
+		attributes_.data()
+	);
+
+	return
+		fcppt::make_auto_ptr<
+			window::object
+		>(
+			window_num	
+		);
 }

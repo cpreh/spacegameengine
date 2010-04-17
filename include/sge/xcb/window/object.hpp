@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_XCB_WINDOW_OBJECT_HPP_INCLUDED
 
 #include <sge/xcb/window/object_fwd.hpp>
+#include <sge/xcb/window/id_num.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -32,6 +34,17 @@ namespace window
 
 class object
 {
+	FCPPT_NONCOPYABLE(object)
+public:
+	SGE_XCB_SYMBOL
+	explicit object(
+		id_num const &
+	);
+
+	SGE_XCB_SYMBOL
+	~object();
+private:
+	id_num const id_;
 };
 
 }

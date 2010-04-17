@@ -18,41 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_XCB_WINDOW_ATTRIBUTE_LIST_HPP_INCLUDED
-#define SGE_XCB_WINDOW_ATTRIBUTE_LIST_HPP_INCLUDED
+#ifndef SGE_XCB_CREATE_ID_HPP_INCLUDED
+#define SGE_XCB_CREATE_ID_HPP_INCLUDED
 
-#include <sge/xcb/window/attribute_list_fwd.hpp>
-#include <sge/xcb/window/attribute.hpp>
-#include <sge/xcb/value_mask.hpp>
+#include <sge/xcb/id_num.hpp>
+#include <sge/xcb/connection_fwd.hpp>
 #include <sge/xcb/symbol.hpp>
-#include <fcppt/container/raw_vector_decl.hpp>
 
 namespace sge
 {
 namespace xcb
 {
-namespace window
-{
 
-class attribute_list
-{
-public:
-	SGE_XCB_SYMBOL
-	attribute const *
-	data() const;
+SGE_XCB_SYMBOL
+id_num const
+create_id(
+	connection const &
+);
 
-	SGE_XCB_SYMBOL
-	xcb::value_mask const
-	value_mask() const;
-private:
-	typedef fcppt::container::raw_vector<
-		attribute
-	> attribute_container;
-
-	attribute_container container_;
-};
-
-}
 }
 }
 
