@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/to_std_string.hpp>
 #include <xcb/xcb.h>
 
+#include <fcppt/assert.hpp>
+
 namespace
 {
 
@@ -30,6 +32,10 @@ check_connection(
 	xcb_connection_t *const connection_
 )
 {
+	// TODO: what to do here?
+	FCPPT_ASSERT(
+		connection_ != 0
+	)
 }
 
 }
@@ -42,7 +48,7 @@ sge::xcb::connection::connection()
 	connection_(
 		xcb_connect(
 			NULL,
-			&screen_
+			NULL // TODO!
 		)
 	)
 {

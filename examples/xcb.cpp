@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/xcb/window/scoped_ptr.hpp>
 #include <sge/xcb/window/pos.hpp>
 #include <sge/xcb/window/dim.hpp>
-#include <sge/xcb/window/depth.hpp>
+#include <sge/xcb/window/depth_from_parent.hpp>
 #include <sge/xcb/window/border_width.hpp>
 #include <sge/xcb/window/class.hpp>
 #include <sge/xcb/window/attribute_list.hpp>
@@ -55,11 +55,7 @@ int main()
 				1024u,
 				768u
 			),
-			sge::xcb::window::depth(
-				static_cast<sge::xcb::window::depth::value_type>(
-					32u
-				)
-			),
+			sge::xcb::window::depth_from_parent,
 			sge::xcb::window::border_width(
 				static_cast<sge::xcb::window::border_width::value_type>(
 					0u
