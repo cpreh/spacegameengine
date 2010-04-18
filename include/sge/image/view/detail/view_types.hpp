@@ -43,7 +43,9 @@ template<
 	typename Color//,
 //	size_type Dimension
 >
-struct view_types {
+struct view_types
+{
+private:
 	typedef mizuiro::image::format<
 		mizuiro::image::dimension<
 			2//Dimension
@@ -52,7 +54,7 @@ struct view_types {
 			Color
 		>
 	> format;
-
+public:
 	typedef boost::mpl::vector2<
 		mizuiro::image::view<
 			format,

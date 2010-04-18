@@ -23,14 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/view/detail/view_types.hpp>
 #include <sge/image/color/elements.hpp>
-#include <sge/image/raw_pointer.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/mpl/back_inserter.hpp>
 #include <boost/mpl/fold.hpp>
 #include <boost/mpl/copy.hpp>
 #include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/quote.hpp>
-#include <boost/mpl/bind.hpp>
 
 namespace sge
 {
@@ -39,25 +36,14 @@ namespace image
 namespace view
 {
 
-// TODO: gcc-4.5: Check if this is a gcc bug
-
 typedef boost::mpl::fold<
 	color::elements,
 	boost::mpl::vector0<>,
-	boost::mpl::bind<
-		boost::mpl::quote2<
-			boost::mpl::copy
-		>,
-		boost::mpl::bind<
-			boost::mpl::quote1<
-				detail::view_types
-			>,
+	boost::mpl::copy<
+		detail::view_types<
 			boost::mpl::_2
 		>,
-		boost::mpl::bind<
-			boost::mpl::quote1<
-				boost::mpl::back_inserter
-			>,
+		boost::mpl::back_inserter<
 			boost::mpl::_1
 		>
 	>
