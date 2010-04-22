@@ -36,8 +36,10 @@ ADD_SGE_EXAMPLE(target)
 ADD_SGE_EXAMPLE(vertex)
 
 
-ADD_SGE_EXAMPLE(xcb)
-TARGET_LINK_LIBRARIES (sgexcbexample sgexcb)
+IF (ENABLE_XCB)
+	ADD_SGE_EXAMPLE(xcb)
+	TARGET_LINK_LIBRARIES (sgexcbexample sgexcb)
+ENDIF()
 
 
 # TODO: this should be part of the macro
