@@ -143,4 +143,10 @@ ENDIF ()
 
 ADD_SUBDIRECTORY (plugins)
 
-ADD_SUBDIRECTORY (xcb)
+OPTION (ENABLE_XCB "Build the xcb bindings" ON)
+
+# TODO: add a search script for xcb!
+
+IF (ENABLE_XCB)
+	ADD_SUBDIRECTORY (xcb)
+ENDIF ()
