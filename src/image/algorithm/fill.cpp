@@ -84,7 +84,7 @@ fill_visitor::operator()(
 	return mizuiro::image::algorithm::fill_c(
 		view,
 		sge::image::color::any::convert<
-			typename T::color_format::normal
+			typename T::color_format
 		>(
 			col
 		)

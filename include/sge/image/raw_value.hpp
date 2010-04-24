@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_RAW_VALUE_HPP_INCLUDED
 #define SGE_IMAGE_RAW_VALUE_HPP_INCLUDED
 
-#include <mizuiro/image/raw_value.hpp>
+#include <mizuiro/raw_value.hpp>
 
 namespace sge
 {
 namespace image
 {
 
-typedef mizuiro::image::raw_value raw_value;
+typedef mizuiro::raw_value raw_value;
 
 }
 }

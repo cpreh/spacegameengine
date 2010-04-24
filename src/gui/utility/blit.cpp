@@ -34,7 +34,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/utility/enable_if.hpp>
 #include <mizuiro/color/has_channel.hpp>
 #include <mizuiro/color/for_each_channel.hpp>
+#include <mizuiro/color/channel_max.hpp>
 #include <mizuiro/color/channel/alpha.hpp>
+#include <mizuiro/color/types/channel_value.hpp>
 #include <algorithm>
 
 namespace
@@ -145,12 +147,22 @@ channel_blitter<
 {
 	typedef mizuiro::color::channel::alpha alpha;
 
+	typedef typename mizuiro::color::types::channel_value<
+		typename DstPixel::access,
+		typename DstPixel::format,
+		alpha
+	>::type alpha_channel_value;
+
+	alpha_channel_value const alpha_max(
+		mizuiro::color::channel_max<alpha_channel_value>()
+	);
+
 	result. template set<alpha>(
 		src. template get<alpha>()
 		+ result. template get<alpha>()
-		> DstPixel::format:: template channel_max<alpha>()
+		> alpha_max
 		?
-			DstPixel::format:: template channel_max<alpha>()
+			alpha_max
 		:
 			static_cast<
 				channel_type

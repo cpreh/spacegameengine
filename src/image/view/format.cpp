@@ -65,7 +65,7 @@ visitor::operator()(
 ) const
 {
 	return sge::image::color::format_static<
-		typename T::color_format::normal
+		typename T::color_format
 	>::value;
 }
 
