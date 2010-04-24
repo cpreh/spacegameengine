@@ -148,13 +148,14 @@ channel_blitter<
 	typedef mizuiro::color::channel::alpha alpha;
 
 	typedef typename mizuiro::color::types::channel_value<
-		typename DstPixel::access,
 		typename DstPixel::format,
 		alpha
 	>::type alpha_channel_value;
 
 	alpha_channel_value const alpha_max(
-		mizuiro::color::channel_max<alpha_channel_value>()
+		mizuiro::color::channel_max<
+			alpha_channel_value
+		>()
 	);
 
 	result. template set<alpha>(
