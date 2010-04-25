@@ -40,7 +40,7 @@ sge::openal::alc_error_string(
 			return FCPPT_TEXT("a value (e.g. attribute) is not valid, or not applicable");
 		case ALC_OUT_OF_MEMORY:
 			return FCPPT_TEXT("unable to allocate memory");
-		default:
-			return FCPPT_TEXT("Unkown");
 	}
+
+	return FCPPT_TEXT("Unkown");
 }

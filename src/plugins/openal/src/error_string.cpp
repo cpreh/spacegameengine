@@ -40,8 +40,7 @@ sge::openal::error_string(
 			return FCPPT_TEXT("illegal call");
 		case AL_OUT_OF_MEMORY:
 			return FCPPT_TEXT("unable to allocate memory");
-		default:
-			return FCPPT_TEXT("Unknown");
 	}
-}
 
+	return FCPPT_TEXT("Unknown");
+}

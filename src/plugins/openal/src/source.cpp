@@ -85,17 +85,18 @@ void sge::openal::source::sync() const
 		case AL_STOPPED:
 		case AL_INITIAL:
 			status_ = audio::sound_status::stopped;
-		break;
+		return;
 		case AL_PAUSED:
 			status_ = audio::sound_status::paused;
-		break;
+		return;
 		case AL_PLAYING:
 			status_ = audio::sound_status::playing;
-		break;
-		default:
-			throw audio::exception(FCPPT_TEXT("OpenAL error: invalid playing status"));
-		break;
+		return;
 	}
+
+	throw audio::exception(
+		FCPPT_TEXT("OpenAL error: invalid playing status")
+	);
 }
 
 void sge::openal::source::play(audio::play_mode::type const _play_mode)
