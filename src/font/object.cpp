@@ -18,16 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "align_pos_v.hpp"
+#include "align_pos_h.hpp"
 #include <sge/font/object.hpp>
 #include <sge/font/char_metric.hpp>
 #include <sge/font/metrics.hpp>
 #include <sge/font/drawer.hpp>
 #include <sge/font/text_size.hpp>
+#include <sge/exception.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <sge/exception.hpp>
 #include <fcppt/text.hpp>
 #include <boost/next_prior.hpp>
 #include <locale>
@@ -83,18 +86,12 @@ sge::font::object::draw_text(
 
 	pos pos_ = start_pos;
 
-	switch(align_v) {
-	case align_v::center:
-		pos_.y() += (max_sz.h() - total_size.size().h()) / 2;
-		break;
-	case align_v::bottom:
-		pos_.y() += max_sz.h() - total_size.size().h();
-		break;
-	case align_v::top:
-		break;
-	default:
-		throw exception(FCPPT_TEXT("Invalid font::align_v!"));
-	}
+	align_pos_v(
+		pos_,
+		max_sz,
+		total_size,
+		align_v
+	);
 
 	fcppt::string::const_iterator sbeg(
 		text.begin()
@@ -119,18 +116,12 @@ sge::font::object::draw_text(
 
 		pos_.x() = start_pos.x();
 
-		switch(align_h) {
-		case align_h::center:
-			pos_.x() += (max_sz.w() - line_size.size().w()) / 2;
-			break;
-		case align_h::right:
-			pos_.x() += max_sz.w() - line_size.size().w();
-			break;
-		case align_h::left:
-			break;
-		default:
-			throw exception(FCPPT_TEXT("Invalid font::align_h!"));
-		}
+		align_pos_h(
+			pos_,
+			max_sz,
+			line_size,
+			align_h
+		);
 
 		for(;sbeg != line_size.end(); ++sbeg)
 		{

@@ -70,18 +70,8 @@ sge::sprite::animation::texture<Choices>::process()
 		return false;
 
 	if(boost::next(pos) == series_.end())
-	{
-		switch(action) {
-		case loop_method::repeat:
-			reset();
-		case loop_method::stop_at_end:
+		if(handle_action())
 			return true;
-		default:
-			throw exception(
-				FCPPT_TEXT("Invalid loop_method!")
-			);
-		}
-	}
 
 	++pos;
 
@@ -124,6 +114,26 @@ sge::sprite::animation::series const &
 sge::sprite::animation::texture<Choices>::series() const
 {
 	return series_;
+}
+
+template<
+	typename Choices
+>
+bool
+sge::sprite::animation::texture<Choices>::handle_action()
+{
+	switch(action)
+	{
+	case loop_method::repeat:
+		reset();
+		return false;
+	case loop_method::stop_at_end:
+		return true;
+	}
+
+	throw exception(
+		FCPPT_TEXT("Invalid loop_method!")
+	);
 }
 
 #endif
