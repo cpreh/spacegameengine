@@ -32,15 +32,19 @@ sge::opengl::writeonly_texture_lock::writeonly_texture_lock(
 		flags,
 		0
 	)
-{}
-
-void sge::opengl::writeonly_texture_lock::post_lock()
 {
-	buffer.lock(
-		lock_method::writeonly);
 }
 
-void sge::opengl::writeonly_texture_lock::pre_unlock()
+void
+sge::opengl::writeonly_texture_lock::post_lock()
+{
+	buffer.lock(
+		lock_method::writeonly
+	);
+}
+
+void
+sge::opengl::writeonly_texture_lock::pre_unlock()
 {
 	buffer.unlock();
 }

@@ -25,10 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::image::size_type
 sge::image::color::format_stride(
-	format::type const fmt)
+	format::type const fmt
+)
 {
-	switch(fmt) {
+	switch(fmt)
+	{
 	case format::gray8:
+	case format::alpha8:
 		return sizeof(boost::uint8_t);
 	case format::rgba8:
 	case format::argb8:
@@ -38,9 +41,11 @@ sge::image::color::format_stride(
 	case format::argb32f:
 	case format::bgra32f:
 		return sizeof(float) * 4;
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid format in format_stride()!")
-		);
+	case format::size:
+		break;
 	}
+
+	throw exception(
+		FCPPT_TEXT("Invalid format in format_stride()!")
+	);
 }

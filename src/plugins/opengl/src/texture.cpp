@@ -57,17 +57,20 @@ sge::opengl::texture::texture(
 		filter_,
 		flags,
 		type_ ? *type_ : texture_type,
-		format_),
+		format_
+	),
 	dim_(d)
 {
 	pre_setdata();
+
 	set_texture(
 		type(),
 		format(),
 		format_type(),
 		filter(),
 		dim(),
-		0);
+		0
+	);
 }
 
 sge::opengl::texture::dim_type const
@@ -85,23 +88,31 @@ sge::opengl::texture::lock(
 	lock_me(
 		r,
 		convert_lock_method(
-			lmode));
+			lmode
+		)
+	);
+
 	return view();
 }
 
 sge::image::view::const_object const
 sge::opengl::texture::lock(
-	renderer::lock_rect const &l) const
+	renderer::lock_rect const &l
+) const
 {
 	lock_me(
 		l,
-		lock_method::readonly);
+		lock_method::readonly
+	);
+
 	return view();
 }
 
-void sge::opengl::texture::unlock() const
+void
+sge::opengl::texture::unlock() const
 {
 	pre_unlock();
+
 	if(lock_flag_write(lock_mode()))
 	{
 		bind_me();
@@ -122,17 +133,23 @@ void sge::opengl::texture::unlock() const
 			filter(),
 			dim(),
 			lr,
-			write_buffer());
+			write_buffer()
+		);
 	}
+
 	do_unlock();
 }
 
-void sge::opengl::texture::lock_me(
+void
+sge::opengl::texture::lock_me(
 	renderer::lock_rect const &l,
-	lock_method::type const method) const
+	lock_method::type const method
+) const
 {
-	if(l.right() > dim().w()
-	|| l.bottom() > dim().h())
+	if(
+		l.right() > dim().w()
+		|| l.bottom() > dim().h()
+	)
 		throw exception(
 			(
 				fcppt::format(
@@ -153,20 +170,23 @@ void sge::opengl::texture::lock_me(
 			l.area(),
 			l.left() + l.top() * dim().w(),
 			dim().w() - l.dimension().w(),
-			l.dimension().w());
+			l.dimension().w()
+		);
 	else
 		do_lock(
 			method,
 			l.area(),
 			0,
 			0,
-			0);
+			0
+		);
 
 	if(must_read)
 		get_tex_image(
 			format(),
 			format_type(),
-			read_buffer());
+			read_buffer()
+		);
 
 	post_lock();
 

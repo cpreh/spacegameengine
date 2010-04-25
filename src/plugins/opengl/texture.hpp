@@ -41,7 +41,10 @@ namespace detail
 typedef basic_texture<renderer::texture> texture_base;
 }
 
-class texture : public detail::texture_base {
+class texture
+:
+	public detail::texture_base
+{
 public:
 	typedef fcppt::optional<GLenum> optional_type;
 
@@ -51,9 +54,11 @@ public:
 		renderer::filter::texture const &,
 		renderer::resource_flags_field const &,
 		optional_type type
-			= optional_type());
+			= optional_type()
+	);
 
-	dim_type const dim() const;
+	dim_type const
+	dim() const;
 
 	image::view::object const
 	lock(
@@ -66,18 +71,26 @@ public:
 		renderer::lock_rect const &
 	) const;
 
-	void unlock() const;
+	void
+	unlock() const;
 private:
-	void lock_me(
+	void
+	lock_me(
 		renderer::lock_rect const &,
-		lock_method::type) const;
+		lock_method::type
+	) const;
 
-	image::view::object const view();
-	image::view::const_object const view() const;
+	image::view::object const
+	view();
 
-	dim_type const lock_dim() const;
+	image::view::const_object const
+	view() const;
+
+	dim_type const
+	lock_dim() const;
 
 	dim_type const dim_;
+
 	mutable fcppt::optional<
 		renderer::lock_rect
 	> lock_rect_;
