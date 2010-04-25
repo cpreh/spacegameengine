@@ -25,54 +25,85 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::image::color::format::type
 sge::devil::convert_format(
 	ILint const bits_per_pixel,
-	ILint const format)
+	ILint const format
+)
 {
 	if(bits_per_pixel != 32)
 		throw exception(
-			FCPPT_TEXT("bits_per_pixel should be 32 for devil!"));
-	switch(format) {
+			FCPPT_TEXT("bits_per_pixel should be 32 for devil!")
+		);
+
+	switch(format)
+	{
 	case IL_RGBA:
 		return image::color::format::rgba8;
 	case IL_BGRA:
 		return image::color::format::bgra8;
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid il format in devil::convert_format!"));
 	}
+
+	throw exception(
+		FCPPT_TEXT("Invalid il format in devil::convert_format!")
+	);
 }
 
-ILint sge::devil::to_il_format(
-	image::color::format::type const fmt)
+ILint
+sge::devil::to_il_format(
+	image::color::format::type const fmt
+)
 {
-	switch(fmt) {
+	switch(fmt)
+	{
 	case image::color::format::bgra8:
 		return IL_BGRA;
 	case image::color::format::rgba8:
 		return IL_RGBA;
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid color_format in to_il_format!"));
+	case image::color::format::argb8:
+	case image::color::format::alpha8:
+	case image::color::format::gray8:
+	case image::color::format::argb32f:
+	case image::color::format::bgra32f:
+	case image::color::format::rgba32f:
+	case image::color::format::size:
+		break;
 	}
+
+	throw exception(
+		FCPPT_TEXT("Invalid color_format in to_il_format!")
+	);
 }
 
-ILint sge::devil::to_il_channel(
-	image::color::format::type const fmt)
+ILint
+sge::devil::to_il_channel(
+	image::color::format::type const fmt
+)
 {
-	switch(fmt) {
+	switch(fmt)
+	{
 	case image::color::format::bgra8:
 	case image::color::format::rgba8:
 		return IL_UNSIGNED_BYTE;
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid color_format in to_il_channel!"));
+	case image::color::format::argb8:
+	case image::color::format::alpha8:
+	case image::color::format::gray8:
+	case image::color::format::argb32f:
+	case image::color::format::bgra32f:
+	case image::color::format::rgba32f:
+	case image::color::format::size:
+		break;
 	}
+
+	throw exception(
+		FCPPT_TEXT("Invalid color_format in to_il_channel!")
+	);
 }
 
 sge::image::color::format::type
 sge::devil::best_il_format(
-	image::color::format::type const fmt)
+	image::color::format::type const fmt
+)
 {
-	switch(fmt) {
+	switch(fmt)
+	{
 	case image::color::format::bgra8:
 	case image::color::format::rgba8:
 		return fmt;
@@ -81,8 +112,13 @@ sge::devil::best_il_format(
 	case image::color::format::argb32f:
 	case image::color::format::bgra32f:
 		return image::color::format::rgba8;
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid color_format in best_il_format!"));
+	case image::color::format::gray8:
+	case image::color::format::alpha8:
+	case image::color::format::size:
+		break;
 	}
+
+	throw exception(
+		FCPPT_TEXT("Invalid color_format in best_il_format!")
+	);
 }

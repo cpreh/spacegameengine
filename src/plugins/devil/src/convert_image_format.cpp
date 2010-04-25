@@ -22,10 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <fcppt/text.hpp>
 
-ILuint sge::devil::convert_image_format(
-	image::format::type const t)
+ILuint
+sge::devil::convert_image_format(
+	image::format::type const t
+)
 {
-	switch(t) {
+	switch(t)
+	{
 	case image::format::bmp:
 		return IL_BMP;
 	case image::format::gif:
@@ -38,8 +41,9 @@ ILuint sge::devil::convert_image_format(
 		return IL_TIF;
 	case image::format::tga:
 		return IL_TGA;
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid image_format!"));
 	}
+
+	throw exception(
+		FCPPT_TEXT("Invalid image_format!")
+	);
 }
