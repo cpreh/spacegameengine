@@ -64,8 +64,8 @@ public:
 	animation::series const &
 	series() const;
 private:
-	bool
-	handle_action();
+	void
+	handle_end();
 
 	animation::series series_;
 	loop_method::type action;

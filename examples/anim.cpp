@@ -227,7 +227,7 @@ try
 
 	texture_animation anim(
 		series,
-		sge::sprite::animation::loop_method::repeat,
+		sge::sprite::animation::loop_method::stop_at_end,
 		spr,
 		sge::time::default_callback()
 	);
@@ -256,7 +256,10 @@ try
 			rend
 		);
 
-		anim.process();
+		if(
+			anim.process()
+		)
+			return 0;
 
 		sge::sprite::render_one(
 			ss,

@@ -66,12 +66,18 @@ template<
 bool
 sge::sprite::animation::texture<Choices>::process()
 {
-	if(!cur_timer.expired())
+	if(
+		!cur_timer.expired()
+	)
 		return false;
 
-	if(boost::next(pos) == series_.end())
-		if(handle_action())
-			return true;
+	if(
+		boost::next(pos) == series_.end()
+	)
+	{
+		handle_end();
+		return true;
+	}
 
 	++pos;
 
@@ -119,16 +125,16 @@ sge::sprite::animation::texture<Choices>::series() const
 template<
 	typename Choices
 >
-bool
-sge::sprite::animation::texture<Choices>::handle_action()
+void
+sge::sprite::animation::texture<Choices>::handle_end()
 {
 	switch(action)
 	{
 	case loop_method::repeat:
 		reset();
-		return false;
+		return;
 	case loop_method::stop_at_end:
-		return true;
+		return;
 	}
 
 	throw exception(
