@@ -305,8 +305,7 @@ try
 			(sge::renderer::state::float_::zbuffer_clear_val = 1.f)
 			(sge::renderer::state::color::clear_color = sge::image::colors::black())
 			(sge::renderer::state::cull_mode::back)
-			(sge::renderer::state::depth_func::less)
-	);
+			(sge::renderer::state::depth_func::less));
 
 	{
 		sge::renderer::light_index const light_index(0);

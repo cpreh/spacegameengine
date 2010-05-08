@@ -121,7 +121,7 @@ sge::libpng::load_context::load_context(
 	else if (color_type == PNG_COLOR_TYPE_GRAY)
 	{
 		if (bpp < 8)
-			png_set_gray_1_2_4_to_8(
+			png_set_expand_gray_1_2_4_to_8(
 				read_ptr_->ptr());
 	}
 
