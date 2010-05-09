@@ -18,30 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_EXCEPTION_HPP_INCLUDED
-#define SGE_PARSE_EXCEPTION_HPP_INCLUDED
+#include <sge/parse/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include <sge/symbol.hpp>
-#include <sge/class_symbol.hpp>
-#include <sge/exception.hpp>
-#include <fcppt/string.hpp>
-
-namespace sge
-{
-namespace parse
-{
-
-class SGE_CLASS_SYMBOL exception
+sge::parse::exception::exception(
+	fcppt::string const &string_
+)
 :
-	public sge::exception
-{
-public:
-	SGE_SYMBOL explicit exception(
-		fcppt::string const &
-	);
-};
-
-}
-}
-
-#endif
+	sge::exception(
+		FCPPT_TEXT("parse: " )
+		+ string_
+	)
+{}
