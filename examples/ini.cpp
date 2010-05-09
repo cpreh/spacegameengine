@@ -26,6 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/foreach.hpp>
 #include <cstdlib>
 
+#include <sge/parse/ini/output/grammar.hpp>
+#include <boost/spirit/include/karma_generate.hpp>
+#include <iterator>
+
 int main()
 {
 	fcppt::string const test(
@@ -39,14 +43,36 @@ int main()
 
 	sge::parse::ini::section_vector result;
 
-	if(!sge::parse::ini::parse_range(
-		beg,
-		test.end(),
-		result
-	))
+	if(
+		!sge::parse::ini::parse_range(
+			beg,
+			test.end(),
+			result
+		)
+	)
 	{
 		fcppt::io::cerr << FCPPT_TEXT("failure\n");
 		return EXIT_FAILURE;
+	}
+
+	{
+		typedef std::ostream_iterator<
+			fcppt::char_type
+		> iterator;
+
+		sge::parse::ini::output::grammar<
+			iterator
+		> generator;
+
+		iterator iterator_(
+			fcppt::io::cout
+		);
+
+		boost::spirit::karma::generate(
+			iterator_,
+			generator,
+			result
+		);
 	}
 
 	BOOST_FOREACH(

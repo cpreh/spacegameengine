@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_INI_GRAMMAR_HPP_INCLUDED
-#define SGE_PARSE_INI_GRAMMAR_HPP_INCLUDED
+#ifndef SGE_PARSE_INI_OUTPUT_GRAMMAR_HPP_INCLUDED
+#define SGE_PARSE_INI_OUTPUT_GRAMMAR_HPP_INCLUDED
 
 #include <sge/parse/ini/detail/adapt_entry.hpp>
 #include <sge/parse/ini/detail/adapt_section.hpp>
@@ -28,15 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/entry_vector.hpp>
 #include <sge/parse/ini/entry.hpp>
 #include <sge/parse/ini/string.hpp>
-#include <sge/parse/encoding.hpp>
 #include <fcppt/text.hpp>
 
-#include <boost/spirit/include/qi_string.hpp>
-#include <boost/spirit/include/qi_char.hpp>
-#include <boost/spirit/include/qi_operator.hpp>
-#include <boost/spirit/include/qi_action.hpp>
-#include <boost/spirit/include/qi_nonterminal.hpp>
-#include <boost/spirit/include/qi_directive.hpp>
+#include <boost/spirit/include/karma_char.hpp>
+#include <boost/spirit/include/karma_grammar.hpp>
+#include <boost/spirit/include/karma_rule.hpp>
 
 namespace sge
 {
@@ -44,16 +40,17 @@ namespace parse
 {
 namespace ini
 {
+namespace output
+{
 
 template<
-	typename In
+	typename Out
 >
 class grammar
 :
-	public boost::spirit::qi::grammar<
-		In,
-		section_vector(),
-		encoding::blank_type
+	public boost::spirit::karma::grammar<
+		Out,
+		section_vector()
 	>
 {
 public:
@@ -63,71 +60,56 @@ public:
 			ini_
 		)
 	{
-		using encoding::char_;
+		using encoding::char_; // TODO
 		using boost::spirit::lit;
-		using boost::spirit::lexeme;
-
-		char_seq %= +(char_ - lit(FCPPT_TEXT('\n')));
 
 		entry_ %=
-			!char_(FCPPT_TEXT('['))
-			>> +(
-				char_
-				- lit(FCPPT_TEXT('='))
-			)
-			>> lit(FCPPT_TEXT('='))
-			>> char_seq
-			>> lit(FCPPT_TEXT('\n'));
+			*char_
+			<< lit(FCPPT_TEXT(" = "))
+			<< *char_;
 
+	/*
 		header_ %=
-			lexeme[
-				FCPPT_TEXT('[')
-				>> +(
-					char_ - FCPPT_TEXT(']')
-				)
-				>> FCPPT_TEXT(']')
-			]
-			>> lit(FCPPT_TEXT('\n'));
+			lit(FCPPT_TEXT('['))
+			<< +char_
+			<< lit(FCPPT_TEXT(']'));
 
 		section_ %=
 			header_
-			>> *entry_;
+			<< lit(FCPPT_TEXT('\n'))
+			<< *(
+				lit(FCPPT_TEXT('\t'))
+				<< entry_
+				<< lit(FCPPT_TEXT('\n'))
+			);
 
 		ini_ %=
 			*section_;
+	*/
 	}
 private:
-	boost::spirit::qi::rule<
-		In,
-		string(),
-		encoding::blank_type
-	> char_seq;
-
-	boost::spirit::qi::rule<
-		In,
-		entry(),
-		encoding::blank_type
+	boost::spirit::karma::rule<
+		Out,
+		entry()
 	> entry_;
 
-	boost::spirit::qi::rule<
-		In,
-		string(),
-		encoding::blank_type
+	boost::spirit::karma::rule<
+		Out,
+		string()
 	> header_;
 
-	boost::spirit::qi::rule	<
-		In,
-		section(),
-		encoding::blank_type
+	boost::spirit::karma::rule<
+		Out,
+		section()
 	> section_;
 
-	boost::spirit::qi::rule<
-		In,
-		section_vector(),
-		encoding::blank_type
+	boost::spirit::karma::rule<
+		Out,
+		section_vector()
 	> ini_;
 };
 
+}
 }
 }
 }

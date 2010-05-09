@@ -35,12 +35,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/encoding.hpp>
 #include <fcppt/text.hpp>
 
-#include <boost/spirit/home/qi/string.hpp>
-#include <boost/spirit/home/qi/numeric.hpp>
-#include <boost/spirit/home/qi/operator.hpp>
-#include <boost/spirit/home/qi/action.hpp>
-#include <boost/spirit/home/qi/nonterminal.hpp>
-#include <boost/spirit/home/qi/directive.hpp>
+#include <boost/spirit/include/qi_string.hpp>
+#include <boost/spirit/include/qi_char.hpp>
+#include <boost/spirit/include/qi_operator.hpp>
+#include <boost/spirit/include/qi_action.hpp>
+#include <boost/spirit/include/qi_nonterminal.hpp>
+#include <boost/spirit/include/qi_directive.hpp>
+#include <boost/spirit/include/qi_numeric.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 

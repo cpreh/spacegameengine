@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_ENCODING_HPP_INCLUDED
 #define SGE_PARSE_ENCODING_HPP_INCLUDED
 
-#include <boost/spirit/include/qi_char.hpp>
+#include <boost/spirit/home/support/common_terminals.hpp>
 #include <sge/config.h>
 
 namespace sge
@@ -30,9 +30,9 @@ namespace parse
 {
 
 #ifdef SGE_NARROW_STRING
-namespace encoding = boost::spirit::qi::standard;
+namespace encoding = boost::spirit::standard;
 #else
-namespace encoding = boost::spirit::qi::standard_wide;
+namespace encoding = boost::spirit::standard_wide;
 #endif
 
 }
