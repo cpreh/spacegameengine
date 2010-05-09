@@ -46,7 +46,9 @@ public:
 		parent_data const &,
 		parameters,
 		line_type,
-		dim const &desired_size);
+		dim const &desired_size,
+		fcppt::string const &text = fcppt::string()
+	);
 
 	SGE_GUI_SYMBOL fcppt::string const text() const;
 	SGE_GUI_SYMBOL void text(fcppt::string const &);

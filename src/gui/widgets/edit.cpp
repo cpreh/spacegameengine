@@ -66,7 +66,9 @@ sge::gui::widgets::edit::edit(
 	parent_data const &_parent,
 	parameters _params,
 	line_type const _type,
-	dim const &_desired_size)
+	dim const &_desired_size,
+	fcppt::string const &_text
+)
 :
 	base(
 		_parent,
@@ -80,6 +82,7 @@ sge::gui::widgets::edit::edit(
 			)
 	),
 	type(_type),
+	text_(_text),
 	desired_size_(_desired_size),
 	cursor_visible_(false),
 	text_buffer_(),
