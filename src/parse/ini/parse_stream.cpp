@@ -28,8 +28,9 @@ sge::parse::ini::parse_stream(
 	section_vector &result
 )
 {
-	return parse::parse_stream(
-		stream,
-		result
-	);
+	return
+		parse::parse_stream(
+			stream,
+			result
+		);
 }

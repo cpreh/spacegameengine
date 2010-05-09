@@ -28,8 +28,9 @@ sge::parse::ini::parse_file(
 	section_vector &result
 )
 {
-	return parse::parse_file(
-		path,
-		result
-	);
+	return
+		parse::parse_file(
+			path,
+			result	
+		);
 }

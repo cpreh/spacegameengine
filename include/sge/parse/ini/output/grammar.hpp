@@ -33,7 +33,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <boost/spirit/include/karma_char.hpp>
 #include <boost/spirit/include/karma_grammar.hpp>
+#include <boost/spirit/include/karma_operator.hpp>
 #include <boost/spirit/include/karma_rule.hpp>
+#include <boost/spirit/include/karma_nonterminal.hpp>
+#include <boost/spirit/include/karma_directive.hpp>
+#include <boost/spirit/include/karma_string.hpp>
 
 namespace sge
 {
@@ -61,7 +65,7 @@ public:
 			ini_
 		)
 	{
-		using encoding::char_; // TODO
+		using encoding::char_;
 		using boost::spirit::lit;
 
 		entry_ %=
@@ -69,7 +73,6 @@ public:
 			<< lit(FCPPT_TEXT(" = "))
 			<< *char_;
 
-	/*
 		header_ %=
 			lit(FCPPT_TEXT('['))
 			<< +char_
@@ -86,7 +89,6 @@ public:
 
 		ini_ %=
 			*section_;
-	*/
 	}
 private:
 	boost::spirit::karma::rule<

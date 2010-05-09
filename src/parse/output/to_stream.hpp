@@ -18,51 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/ini/parse_range.hpp>
-#include <sge/parse/ini/output/to_stream.hpp>
-#include <fcppt/io/cout.hpp>
-#include <fcppt/io/cerr.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/text.hpp>
-#include <cstdlib>
+#ifndef SGE_PARSE_OUTPUT_TO_STREAM_HPP_INCLUDED
+#define SGE_PARSE_OUTPUT_TO_STREAM_HPP_INCLUDED
 
-int main()
+#include <fcppt/io/ostream.hpp>
+#include <iterator>
+
+namespace sge
 {
-	fcppt::string const test(
-		FCPPT_TEXT("[blabla]\nfoo = 42\nconfuse=5\nbar=3.4\nimagepath=/tmp/test\n")
-		FCPPT_TEXT("[section2]\nblubb=bar\n")
+namespace parse
+{
+namespace output
+{
+
+template<
+	typename Data
+>
+bool
+to_stream(
+	fcppt::io::ostream &ofs,
+	Data const &data
+)
+{
+	typedef std::ostream_iterator<
+		fcppt::io::ostream::char_type
+	> ostream_iterator;
+
+	ostream_iterator sink(
+		ofs
 	);
 
-	fcppt::string::const_iterator beg(
-		test.begin()
-	);
-
-	sge::parse::ini::section_vector result;
-
-	if(
-		!sge::parse::ini::parse_range(
-			beg,
-			test.end(),
-			result
-		)
-	)
-	{
-		fcppt::io::cerr
-			<< FCPPT_TEXT("Parsing failed\n");
-	
-		return EXIT_FAILURE;
-	}
-
-	if(
-		!sge::parse::ini::output::to_stream(
-			fcppt::io::cout,
-			result
-		)
-	)
-	{
-		fcppt::io::cerr
-			<< FCPPT_TEXT("Output failed\n");
-
-		return EXIT_FAILURE;
-	}
+	return
+		SGE_PARSE_DETAIL_TO_RANGE_NAMESPACE :: to_range(
+			sink,
+			data
+		);
+#undef SGE_PARSE_DETAIL_TO_RANGE_NAMESPACE
 }
+
+}
+}
+}
+
+#endif

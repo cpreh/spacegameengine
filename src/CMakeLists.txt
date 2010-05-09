@@ -30,7 +30,9 @@ FILE (GLOB sgecorefiles
 	model/*.cpp
 	mpl/*.cpp
 	parse/*.cpp
+	parse/output/*.cpp
 	parse/ini/*.cpp
+	parse/ini/output/*.cpp
 	parse/json/*.cpp
 	plugin/*.cpp
 	plugin/detail/*.cpp
