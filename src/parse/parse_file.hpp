@@ -47,7 +47,7 @@ parse_file(
 	);
 
 	if(!ifs.is_open())
-		throw exception(
+		throw parse::exception(
 			FCPPT_TEXT("Opening ")
 			+ path.string()
 			+ FCPPT_TEXT(" failed!")
