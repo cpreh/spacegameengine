@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/entry_vector.hpp>
 #include <sge/parse/ini/entry.hpp>
 #include <sge/parse/ini/string.hpp>
+#include <sge/parse/encoding.hpp>
 #include <fcppt/text.hpp>
 
 #include <boost/spirit/include/karma_char.hpp>
