@@ -31,7 +31,7 @@ namespace sge
 namespace image
 {
 
-typedef multi_loader<
+typedef sge::multi_loader<
 	loader,
 	file,
 	exception
