@@ -28,7 +28,7 @@ namespace parse
 namespace ini
 {
 
-class section;
+struct section;
 
 }
 }

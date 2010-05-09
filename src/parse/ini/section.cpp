@@ -18,36 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_INI_ENTRY_HPP_INCLUDED
-#define SGE_PARSE_INI_ENTRY_HPP_INCLUDED
+#include <sge/parse/ini/section.hpp>
+#include <sge/parse/ini/entry.hpp>
 
-#include <sge/parse/ini/entry_fwd.hpp>
-#include <sge/parse/ini/string.hpp>
-#include <sge/symbol.hpp>
+sge::parse::ini::section::section()
+:
+	header(),
+	entries()
+{}
 
-namespace sge
-{
-namespace parse
-{
-namespace ini
-{
-
-struct entry
-{
-	SGE_SYMBOL entry();
-
-	SGE_SYMBOL entry(
-		string const &name,
-		string const &value
-	);
-
-	string
-		name,
-		value;
-};
-
-}
-}
-}
-
-#endif
+sge::parse::ini::section::section(
+	string const &header
+)
+:
+	header(header),
+	entries()
+{}

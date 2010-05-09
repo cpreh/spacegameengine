@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/section_fwd.hpp>
 #include <sge/parse/ini/string.hpp>
 #include <sge/parse/ini/entry_vector.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
@@ -32,9 +33,16 @@ namespace parse
 namespace ini
 {
 
-class section {
-public:
+struct section
+{
+	SGE_SYMBOL section();
+
+	SGE_SYMBOL explicit section(
+		string const &header
+	);
+	
 	string header;
+
 	entry_vector entries;
 };
 
