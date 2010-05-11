@@ -19,16 +19,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config/find_config_path.hpp>
-#include <sge/config/getenv.hpp>
-#include <sge/config/no_such_env_var.hpp>
+#include <sge/config/optional_string.hpp>
 #include <sge/config/exception.hpp>
 #include <fcppt/filesystem/exists.hpp>
 #include <fcppt/filesystem/is_directory.hpp>
 #include <fcppt/filesystem/create_directories_recursive.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config.hpp>
-#ifdef FCPPT_POSIX_PLATFORM
+#if defined(FCPPT_POSIX_PLATFORM)
 #include <sge/config/homedir.hpp>
+#include <sge/config/getenv.hpp>
+#include <fcppt/optional_impl.hpp>
+#elif defined(FCPPT_WINDOWS_PLATFORM)
+#include <sge/config/getenv_exn.hpp>
 #endif
 
 namespace
@@ -69,38 +72,35 @@ sge::config::find_config_path(
 )
 {
 #if defined(FCPPT_WINDOWS_PLATFORM)
-	return try_create_path(
-		fcppt::filesystem::path(
-			getenv(
-				FCPPT_TEXT("APPDIR")
-			)
-		)
-		/ appname
-	);
-#elif defined(FCPPT_POSIX_PLATFORM)
-	try
-	{
-		return try_create_path(
+	return
+		try_create_path(
 			fcppt::filesystem::path(
-				getenv(
-					FCPPT_TEXT("XDG_CONFIG_PATH")
+				getenv_exn(
+					FCPPT_TEXT("APPDIR")
 				)
 			)
 			/ appname
 		);
-	}
-	catch(
-		sge::config::no_such_env_var const &
-	)
-	{
-		return try_create_path(
-			fcppt::filesystem::path(
-				homedir()
-				/ FCPPT_TEXT(".config")
-				/ appname
-			)
+#elif defined(FCPPT_POSIX_PLATFORM)
+	optional_string const xdg_config_path(
+		getenv(
+			FCPPT_TEXT("XDG_CONFIG_PATH")
+		)
+	);
+
+	fcppt::filesystem::path const path(
+		xdg_config_path
+		?
+			*xdg_config_path
+		:
+			homedir() / FCPPT_TEXT(".config")
+	);
+	
+	return
+		try_create_path(
+			path
+			/ appname
 		);
-	}
 #else
 #error "don't know how to find a config path"
 #endif

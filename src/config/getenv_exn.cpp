@@ -18,25 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config/homedir.hpp>
 #include <sge/config/getenv_exn.hpp>
-#include <fcppt/config.hpp>
-#include <fcppt/text.hpp>
+#include <sge/config/getenv.hpp>
+#include <sge/config/optional_string.hpp>
+#include <sge/config/no_such_env_var.hpp>
+#include <fcppt/optional_impl.hpp>
 
-fcppt::filesystem::path const
-sge::config::homedir()
+fcppt::string const
+sge::config::getenv_exn(
+	fcppt::string const &s
+)
 {
-#ifdef FCPPT_POSIX_PLATFORM
-	return
-		getenv_exn(
-			FCPPT_TEXT("HOME")
+	optional_string const ret(
+		getenv(
+			s
+		)
+	);
+
+	if(
+		!ret
+	)
+		throw no_such_env_var(
+			s
 		);
-#elif FCPPT_WINDOWS_PLATFORM
-	return
-		getenv_exn(
-			FCPPT_TEXT("USERPROFILE")
-		);
-#else
-#error "Don't know how to get the homedir"
-#endif
+	
+	return *ret;
 }

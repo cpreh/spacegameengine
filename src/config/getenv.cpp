@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config/getenv.hpp>
-#include <sge/config/no_such_env_var.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/config.hpp>
 #ifdef FCPPT_WINDOWS_PLATFORM
 #include <sge/windows/windows.hpp>
@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cstdlib>
 #endif
 
-fcppt::string const
+sge::config::optional_string const
 sge::config::getenv(
 	fcppt::string const &s
 )
@@ -41,18 +41,18 @@ sge::config::getenv(
 		fcppt::char_type
 	> home_dir(32767);
 
-	if(
+	return
 		GetEnvironmentVariable(
 			FCPPT_TEXT("USERPROFILE"),
 			home_dir.data(),
 			home_dir.size()
 		) == 0
-	)
-		throw no_such_env_var(
-			s
-		);
-
-	return home_dir.data();
+		?
+			optional_string()
+		:
+			optional_string(
+				home_dir.data()
+			);
 #else
 	char const *const ret(
 		::std::getenv(
@@ -62,13 +62,15 @@ sge::config::getenv(
 		)
 	);
 
-	if(!ret)
-		throw no_such_env_var(
-			s
-		);
-
-	return fcppt::from_std_string(
+	return 
 		ret
-	);
+		?
+			optional_string(
+				fcppt::from_std_string(
+					ret
+				)
+			)
+		:
+			optional_string();
 #endif
 }
