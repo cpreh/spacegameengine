@@ -19,45 +19,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config/find_path.hpp>
-#include <sge/config/path_not_found.hpp>
 #include <sge/parse/ini/parse_file.hpp>
 #include <sge/parse/ini/header_name_equal.hpp>
 #include <sge/parse/ini/entry_name_equal.hpp>
 #include <sge/parse/ini/entry.hpp>
 #include <sge/parse/ini/section.hpp>
 #include <sge/parse/ini/section_vector.hpp>
-#include <sge/log/global.hpp>
-#include <sge/exception.hpp>
-#include <fcppt/algorithm/find_if_exn.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/filesystem/exists.hpp>
-#include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <boost/foreach.hpp>
+#include <algorithm>
 
-namespace
-{
-
-fcppt::filesystem::path const
-try_path(
-	fcppt::filesystem::path const &p
-)
-{
-	if(
-		fcppt::filesystem::exists(
-			p
-		)
-	)
-		return p;
-
-	throw sge::exception(
-		p.string() + FCPPT_TEXT(" does not exist")
-	);
-}
-
-}
-
-fcppt::filesystem::path const
+sge::config::optional_path const
 sge::config::find_path(
 	path_vector const &config_files,
 	fcppt::string const &what,
@@ -69,71 +44,72 @@ sge::config::find_path(
 		config_files
 	)
 	{
-		try
-		{
-			parse::ini::section_vector result;
+		parse::ini::section_vector result;
 
-			parse::ini::parse_file(
+		if(
+			!parse::ini::parse_file(
 				r,
 				result
-			);
-
-			parse::ini::section const &section(
-				*fcppt::algorithm::find_if_exn(
-					result.begin(),
-					result.end(),
-					parse::ini::header_name_equal(
-						FCPPT_TEXT("paths")
-					)
-				)
-			);
-
-			parse::ini::entry_vector const &entries(
-				section.entries
-			);
-
-			return try_path(
-				fcppt::algorithm::find_if_exn(
-					entries.begin(),
-					entries.end(),
-					parse::ini::entry_name_equal(
-						what
-					)
-				)->value
-			);
-		}
-		catch(
-			sge::exception const &e
+			)
 		)
-		{
-			FCPPT_LOG_DEBUG(
-				log::global(),
-				fcppt::log::_
-					<< e.string()
-			);
-		}
+			continue;
+
+		parse::ini::section_vector::const_iterator const section_it(
+			std::find_if(
+				result.begin(),
+				result.end(),
+				parse::ini::header_name_equal(
+					FCPPT_TEXT("paths")
+				)
+			)
+		);
+
+		if(
+			section_it == result.end()
+		)
+			continue;
+
+		parse::ini::entry_vector const &entries(
+			section_it->entries
+		);
+
+		sge::parse::ini::entry_vector::const_iterator const entry_it(
+			std::find_if(
+				entries.begin(),
+				entries.end(),
+				parse::ini::entry_name_equal(
+					what
+				)
+			)		
+		);
+
+		if(
+			entry_it == entries.end()
+		)
+			continue;
+
+		fcppt::filesystem::path const path_(
+			entry_it->value
+		);
+
+		if(
+			fcppt::filesystem::exists(
+				path_
+			)
+		)
+			return path_;
 	}
 
 	BOOST_FOREACH(
-		path_vector::const_reference r,
+		path_vector::const_reference path_,
 		hard_paths
 	)
-		try
-		{
-			return try_path(
-				r
-			);
-		}
-		catch(exception const &e)
-		{
-			FCPPT_LOG_DEBUG(
-				log::global(),
-				fcppt::log::_
-					<< e.string()
-			);
-		}
+		if(
+			fcppt::filesystem::exists(
+				path_
+			)
+		)
+			return path_;
 
-	throw path_not_found(
-		what
-	);
+	return optional_path();
 }
