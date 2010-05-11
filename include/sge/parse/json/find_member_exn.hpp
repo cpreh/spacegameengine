@@ -18,16 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_FIND_MEMBER_HPP_INCLUDED
-#define SGE_PARSE_JSON_FIND_MEMBER_HPP_INCLUDED
+#ifndef SGE_PARSE_JSON_FIND_MEMBER_EXN_HPP_INCLUDED
+#define SGE_PARSE_JSON_FIND_MEMBER_EXN_HPP_INCLUDED
 
-#include <sge/parse/json/get.hpp>
 #include <sge/parse/json/member_vector.hpp>
-#include <sge/parse/json/member_name_equal.hpp>
-#include <sge/parse/json/member.hpp>
+#include <sge/parse/json/member_not_found.hpp>
+#include <sge/parse/json/find_member.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <algorithm>
 
 namespace sge
 {
@@ -38,38 +36,35 @@ namespace json
 
 /// Searches for a member with the name @a name
 /**
- * @return 0 if the member was not found
+ * @throws member_not_found if the member is not found
  * @throws invalid_get if the member has a different type than T
 */
 template<
 	typename T
 >
-T const *
-find_member(
+T const &
+find_member_exn(
 	member_vector const &members,
 	fcppt::string const &name
 )
 {
-	member_vector::const_iterator const it(
-		std::find_if(
-			members.begin(),
-			members.end(),
-			member_name_equal(
-				name
-			)
+	T const *const ret(
+		sge::parse::json::find_member<
+			T
+		>(
+			members,
+			name
 		)
 	);
 
-	return 
-		it == members.end()
-		?
-			0
-		:
-			&json::get<
-				T
-			>(
-				it->value_
-			);
+	if(
+		!ret
+	)
+		throw sge::parse::json::member_not_found(
+			FCPPT_TEXT("")
+		);
+	
+	return *ret;
 }
 
 }

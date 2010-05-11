@@ -18,16 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_FIND_MEMBER_HPP_INCLUDED
-#define SGE_PARSE_JSON_FIND_MEMBER_HPP_INCLUDED
+#ifndef SGE_PARSE_JSON_INVALID_GET_HPP_INCLUDED
+#define SGE_PARSE_JSON_INVALID_GET_HPP_INCLUDED
 
-#include <sge/parse/json/get.hpp>
-#include <sge/parse/json/member_vector.hpp>
-#include <sge/parse/json/member_name_equal.hpp>
-#include <sge/parse/json/member.hpp>
+#include <sge/parse/json/exception.hpp>
+#include <sge/class_symbol.hpp>
+#include <sge/symbol.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/text.hpp>
-#include <algorithm>
 
 namespace sge
 {
@@ -36,41 +33,15 @@ namespace parse
 namespace json
 {
 
-/// Searches for a member with the name @a name
-/**
- * @return 0 if the member was not found
- * @throws invalid_get if the member has a different type than T
-*/
-template<
-	typename T
->
-T const *
-find_member(
-	member_vector const &members,
-	fcppt::string const &name
-)
+class SGE_CLASS_SYMBOL invalid_get
+:
+	public sge::parse::json::exception
 {
-	member_vector::const_iterator const it(
-		std::find_if(
-			members.begin(),
-			members.end(),
-			member_name_equal(
-				name
-			)
-		)
+public:
+	SGE_SYMBOL explicit invalid_get(
+		fcppt::string const &
 	);
-
-	return 
-		it == members.end()
-		?
-			0
-		:
-			&json::get<
-				T
-			>(
-				it->value_
-			);
-}
+};
 
 }
 }

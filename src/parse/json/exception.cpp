@@ -18,62 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_GET_HPP_INCLUDED
-#define SGE_PARSE_JSON_GET_HPP_INCLUDED
+#include <sge/parse/json/exception.hpp>
 
-#include <sge/parse/json/value.hpp>
-#include <sge/parse/json/invalid_get.hpp>
-#include <sge/exception.hpp>
-#include <fcppt/type_name.hpp>
-#include <fcppt/text.hpp>
-#include <boost/variant/get.hpp>
-#include <typeinfo>
-#include <exception>
-
-namespace sge
-{
-namespace parse
-{
-namespace json
-{
-
-template<
-	typename T
->
-T const &
-get(
-	value const &val
+sge::parse::json::exception::exception(
+	fcppt::string const &string_
 )
-{
-	try
-	{
-		return
-			boost::get<
-				T
-			>(
-				val
-			);
-	}
-	catch(
-		std::exception const &
+:
+	sge::parse::exception(
+		string_
 	)
-	{
-		throw invalid_get(
-			FCPPT_TEXT("json::get<")
-			+ fcppt::type_name(
-				typeid(T)
-			)
-			+ FCPPT_TEXT("> failed! Type is \"")
-			+ fcppt::type_name(
-				val.type()
-			)
-			+ FCPPT_TEXT("\" instead!")
-		);
-	}
-}
-
-}
-}
-}
-
-#endif
+{}

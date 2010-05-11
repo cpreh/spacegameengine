@@ -19,6 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/parse/json/parse_stream.hpp>
+#include <sge/parse/json/find_member_exn.hpp>
+#include <sge/parse/json/null.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/value.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/parse_stream.hpp>
+#include <fcppt/exception.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/io/istringstream.hpp>
@@ -29,16 +36,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/next_prior.hpp>
 #include <cstdlib>
 
-#include <sge/parse/json/null.hpp>
-#include <sge/parse/json/object.hpp>
-#include <sge/parse/json/value.hpp>
-#include <sge/parse/json/array.hpp>
-#include <sge/parse/json/parse_stream.hpp>
-
-
 namespace
 {
 
+// TODO: create a karma generator for json, too!
 template<
 	typename T
 >
@@ -144,6 +145,7 @@ void print(
 }
 
 int main()
+try
 {
 	fcppt::string const test(
 		FCPPT_TEXT("{ \"foo\": 42, \"bar\" : { \"inner\" : 5.5 } }")
@@ -160,10 +162,20 @@ int main()
 
 	sge::parse::json::object result;
 
-	if(!sge::parse::json::parse_stream(
-		ss,
-		result
-	))
+	// assert that we have member foo
+	sge::parse::json::find_member_exn<
+		int
+	>(
+		result.members,
+		FCPPT_TEXT("foo")
+	);
+
+	if(
+		!sge::parse::json::parse_stream(
+			ss,
+			result
+		)
+	)
 	{
 		fcppt::io::cerr << FCPPT_TEXT("failure\n");
 		return EXIT_FAILURE;
@@ -174,4 +186,13 @@ int main()
 	);
 
 	fcppt::io::cout << FCPPT_TEXT('\n');
+}
+catch(
+	fcppt::exception const &e
+)
+{
+	fcppt::io::cerr
+		<< e.string()
+		<< FCPPT_TEXT('\n');
+	return EXIT_FAILURE;
 }
