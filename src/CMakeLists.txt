@@ -34,6 +34,7 @@ FILE (GLOB sgecorefiles
 	parse/ini/*.cpp
 	parse/ini/output/*.cpp
 	parse/json/*.cpp
+	parse/json/output/*.cpp
 	plugin/*.cpp
 	plugin/detail/*.cpp
 	random/*.cpp

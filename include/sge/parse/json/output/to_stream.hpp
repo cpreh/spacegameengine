@@ -18,26 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_INI_OUTPUT_TO_FILE_HPP_INCLUDED
-#define SGE_PARSE_INI_OUTPUT_TO_FILE_HPP_INCLUDED
+#ifndef SGE_PARSE_JSON_OUTPUT_TO_STREAM_HPP_INCLUDED
+#define SGE_PARSE_JSON_OUTPUT_TO_STREAM_HPP_INCLUDED
 
-#include <sge/parse/ini/section_vector.hpp>
+#include <sge/parse/json/object_fwd.hpp>
 #include <sge/symbol.hpp>
-#include <fcppt/filesystem/path.hpp>
+#include <fcppt/io/ostream.hpp>
 
 namespace sge
 {
 namespace parse
 {
-namespace ini
+namespace json
 {
 namespace output
 {
 
 SGE_SYMBOL bool
-to_file(
-	fcppt::filesystem::path const &,
-	section_vector const &
+to_stream(
+	fcppt::io::ostream &,
+	object const &
 );
 
 }
