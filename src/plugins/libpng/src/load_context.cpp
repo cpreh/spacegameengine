@@ -267,7 +267,11 @@ sge::image::color::format::type sge::libpng::load_context::convert_rgb_format() 
 		png_get_bit_depth(
 			read_ptr_->ptr(),
 			read_ptr_->info());
-	throw image::unsupported_format(path_,FCPPT_TEXT("rgb, ")+fcppt::lexical_cast<fcppt::string>(depth)+FCPPT_TEXT(" bits"));
+	
+	if (depth != 8)
+		throw image::unsupported_format(path_,FCPPT_TEXT("rgb, ")+fcppt::lexical_cast<fcppt::string>(depth)+FCPPT_TEXT(" bits"));
+	
+	return sge::image::color::format::rgb8;
 }
 
 sge::image::color::format::type sge::libpng::load_context::convert_rgba_format() const
@@ -277,6 +281,6 @@ sge::image::color::format::type sge::libpng::load_context::convert_rgba_format()
 			read_ptr_->ptr(),
 			read_ptr_->info());
 	if (depth != 8)
-		throw image::unsupported_format(path_,FCPPT_TEXT("rgb, ")+fcppt::lexical_cast<fcppt::string>(depth)+FCPPT_TEXT(" bits"));
+		throw image::unsupported_format(path_,FCPPT_TEXT("rgba, ")+fcppt::lexical_cast<fcppt::string>(depth)+FCPPT_TEXT(" bits"));
 	return sge::image::color::format::rgba8;
 }
