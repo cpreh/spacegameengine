@@ -36,6 +36,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
 
+#include <iostream>
+
 namespace
 {
 
@@ -64,6 +66,7 @@ void sge::gui::skins::standard::draw(
 
 	typedef internal_color::format::channel_type channel;
 
+	std::cout << "draw rect\n";
 	// Background
 	c.draw_rect(
 		rect(
@@ -84,17 +87,23 @@ void sge::gui::skins::standard::draw(
 			),
 		canvas::rect_type::solid);
 
+	std::cout << "draw line 1\n";
+
 	c.draw_line(
 		point(0,0),
 		point(c.size().w()-1,0),
 		sge::image::colors::white()
 	);
 
+	std::cout << "draw line 2\n";
+
 	c.draw_line(
 		point(0,0),
 		point(0,c.size().h()-1),
 		sge::image::colors::white()
 	);
+
+	std::cout << "draw line 3\n";
 
 	c.draw_line(
 		point(c.size().w()-2,1),
@@ -107,6 +116,7 @@ void sge::gui::skins::standard::draw(
 		)
 	);
 
+	std::cout << "draw line 4\n";
 	c.draw_line(
 		point(1,c.size().h()-2),
 		point(c.size().w()-2,c.size().h()-2),
@@ -118,12 +128,14 @@ void sge::gui::skins::standard::draw(
 		)
 	);
 
+	std::cout << "draw line 5\n";
 	c.draw_line(
 		point(c.size().w()-1,0),
 		point(c.size().w()-1,c.size().h()-1),
 		sge::image::colors::black()
 	);
 
+	std::cout << "draw line 6\n";
 	c.draw_line(
 		point(0,c.size().h()-1),
 		point(c.size().w()-1,c.size().h()-1),
@@ -132,6 +144,8 @@ void sge::gui::skins::standard::draw(
 
 	if (b.key_over())
 	{
+		std::cout << "key over\n";
+
 		c.draw_line(
 			point(2,2),
 			point(c.size().w()-3,2),
@@ -163,6 +177,7 @@ void sge::gui::skins::standard::draw(
 		        << b.caption()
 		        << FCPPT_TEXT("\")"));
 
+	std::cout << "draw text: " << b.caption() << '\n';
 	// draw text centered
 	c.draw_text(
 		standard_font(),
@@ -186,6 +201,7 @@ void sge::gui::skins::standard::draw(
 			<< FCPPT_TEXT(", invalid rect is ")
 			<< e.area());
 
+	std::cout << "blit invalid\n";
 	blit_invalid(b,c,e);
 }
 

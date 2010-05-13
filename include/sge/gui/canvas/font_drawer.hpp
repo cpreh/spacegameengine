@@ -44,26 +44,32 @@ public:
 		image_view &,
 		color,
 		optional_character_pos const & = optional_character_pos(),
-		point * = 0);
+		point * = 0
+	);
 
 	// NOTE: this is font::drawer::size_type, _not_ font::size_type!
-	SGE_GUI_SYMBOL void begin_rendering(
+	SGE_GUI_SYMBOL void
+	begin_rendering(
 		size_type,
 		font::pos const &,
-		font::dim const &);
+		font::dim const &
+	);
 
-	SGE_GUI_SYMBOL void draw_char(
+	SGE_GUI_SYMBOL void
+	draw_char(
 		fcppt::char_type,
-		font::pos const &c,
-		font::const_image_view const &);
+		font::pos const &,
+		font::const_image_view const &
+	);
 
-	SGE_GUI_SYMBOL void end_rendering();
+	SGE_GUI_SYMBOL void
+	end_rendering();
 private:
 	image_view &texture_;
-	color const c;
-	unsigned counter;
-	optional_character_pos character_pos;
-	point *p;
+	color const color_;
+	unsigned counter_;
+	optional_character_pos character_pos_;
+	point *point_;
 };
 }
 }

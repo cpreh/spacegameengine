@@ -21,11 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_CANVAS_UTILITY_FONT_BLITTER_HPP_INCLUDED
 #define SGE_GUI_CANVAS_UTILITY_FONT_BLITTER_HPP_INCLUDED
 
-#include "font_channel_blitter.hpp"
+#include "make_font_channel_blitter.hpp"
 #include <sge/image/color/any/convert.hpp>
 #include <mizuiro/color/for_each_channel.hpp>
 #include <mizuiro/color/is_alpha.hpp>
 #include <boost/utility/enable_if.hpp>
+
+#include <iostream>
 
 namespace sge
 {
@@ -33,12 +35,15 @@ namespace gui
 {
 namespace utility
 {
-class font_blitter {
+
+class font_blitter
+{
 public:
 	typedef void result_type;
 
 	explicit font_blitter(
-		color const &font_color);
+		color const &font_color
+	);
 
 	template<
 		typename Font,
@@ -73,12 +78,14 @@ public:
 private:
 	color const font_color;
 };
+
 }
 }
 }
 
 sge::gui::utility::font_blitter::font_blitter(
-	color const &font_color)
+	color const &font_color
+)
 :
 	font_color(font_color)
 {
@@ -96,20 +103,14 @@ boost::enable_if
 >::type
 sge::gui::utility::font_blitter::operator()(
 	Font const &font_value,
-	//Src const &src_color,
-	Dst &result) const
+	Dst &result
+) const
 {
 	mizuiro::color::for_each_channel<
 		typename Dst::format
 	>(
-		font_channel_blitter<
-			// TODO: create a function for this like std::make_pair!
-			mizuiro::color::object<
-				typename Dst::format
-			>,
-			Dst,
-			Font
-		>(
+		make_font_channel_blitter
+		(
 			image::color::any::convert<
 				typename Dst::format
 			>(
@@ -133,7 +134,8 @@ boost::disable_if
 >::type
 sge::gui::utility::font_blitter::operator()(
 	Font const &,
-	Dst &) const
+	Dst &
+) const
 {
 }
 

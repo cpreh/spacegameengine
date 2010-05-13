@@ -18,56 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_ALGORITHM_DETAIL_TRANSFORM_UNARY_HPP_INCLUDED
-#define SGE_IMAGE_ALGORITHM_DETAIL_TRANSFORM_UNARY_HPP_INCLUDED
+#ifndef SGE_IMAGE_COLOR_RGB8_HPP_INCLUDED
+#define SGE_IMAGE_COLOR_RGB8_HPP_INCLUDED
 
-#include <mizuiro/image/algorithm/transform_binary.hpp>
+#include <sge/image/color/rgb8_format.hpp>
+#include <mizuiro/color/object_impl.hpp>
 
 namespace sge
 {
 namespace image
 {
-namespace algorithm
-{
-namespace detail
+namespace color
 {
 
-template<
-	typename Op
->
-class transform_unary
-{
-public:
-	typedef void result_type;
+typedef mizuiro::color::object<
+	rgb8_format
+> rgb8;
 
-	explicit transform_unary(
-		Op const &op
-	)
-	:
-		op(op)
-	{}
-
-	template<
-		typename Src,
-		typename Dest
-	>
-	result_type
-	operator()(
-		Src const &src,
-		Dest const &dest
-	) const
-	{
-		mizuiro::image::algorithm::transform_binary(
-			src,
-			dest,
-			op
-		);
-	}
-private:
-	Op const op;
-};
-
-}
 }
 }
 }

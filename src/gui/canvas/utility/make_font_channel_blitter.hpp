@@ -18,56 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_ALGORITHM_DETAIL_TRANSFORM_UNARY_HPP_INCLUDED
-#define SGE_IMAGE_ALGORITHM_DETAIL_TRANSFORM_UNARY_HPP_INCLUDED
+#ifndef SGE_GUI_CANVAS_UTILITY_MAKE_FONT_CHANNEL_BLITTER_HPP_INCLUDED
+#define SGE_GUI_CANVAS_UTILITY_MAKE_FONT_CHANNEL_BLITTER_HPP_INCLUDED
 
-#include <mizuiro/image/algorithm/transform_binary.hpp>
+#include "font_channel_blitter.hpp"
 
 namespace sge
 {
-namespace image
+namespace gui
 {
-namespace algorithm
-{
-namespace detail
+namespace utility
 {
 
 template<
-	typename Op
+	typename FontColor,
+	typename FontPixel,
+	typename DstPixel
 >
-class transform_unary
+font_channel_blitter<
+	FontColor,
+	FontPixel,
+	DstPixel
+> const
+make_font_channel_blitter(
+	FontColor const &fontcolor,
+	FontPixel const &font,
+	DstPixel &result
+)
 {
-public:
-	typedef void result_type;
-
-	explicit transform_unary(
-		Op const &op
-	)
-	:
-		op(op)
-	{}
-
-	template<
-		typename Src,
-		typename Dest
-	>
-	result_type
-	operator()(
-		Src const &src,
-		Dest const &dest
-	) const
-	{
-		mizuiro::image::algorithm::transform_binary(
-			src,
-			dest,
-			op
+	return
+		font_channel_blitter<
+			FontColor,
+			FontPixel,
+			DstPixel
+		>(
+			fontcolor,
+			font,
+			result
 		);
-	}
-private:
-	Op const op;
-};
-
 }
+
 }
 }
 }

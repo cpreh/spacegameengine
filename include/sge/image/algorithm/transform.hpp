@@ -67,10 +67,12 @@ transform(
 template<
 	typename Op
 >
-void transform(
+void
+transform(
 	view::const_object const &src,
 	view::object const &dst,
-	Op const &op)
+	Op const &op
+)
 {
 	fcppt::variant::apply_binary(
 		detail::transform_unary<
@@ -87,10 +89,12 @@ template<
 	typename Src,
 	typename Op
 >
-void transform(
+void
+transform(
 	Src const &src,
 	view::object const &dest,
-	Op const &op)
+	Op const &op
+)
 {
 	fcppt::variant::apply_unary(
 		std::tr1::bind(
@@ -110,10 +114,12 @@ template<
 	typename Dest,
 	typename Op
 >
-void transform(
+void
+transform(
 	view::const_object const &src,
 	Dest const &dest,
-	Op const &op)
+	Op const &op
+)
 {
 	fcppt::variant::apply_unary(
 		std::tr1::bind(
@@ -133,11 +139,13 @@ template<
 	typename Src1,
 	typename Op
 >
-void transform(
+void
+transform(
 	Src1 const &src1,
 	view::const_object const &src2,
 	view::object const &dest,
-	Op const &op)
+	Op const &op
+)
 {
 	fcppt::variant::apply_binary(
 		std::tr1::bind(
@@ -158,11 +166,13 @@ void transform(
 template<
 	typename Op
 >
-void transform(
+void
+transform(
 	view::const_object const &src1,
 	view::const_object const &src2,
 	view::object const &dest,
-	Op const &op)
+	Op const &op
+)
 {
 	fcppt::variant::apply_ternary(
 		detail::transform_binary<
