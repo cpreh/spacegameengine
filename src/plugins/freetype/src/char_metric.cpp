@@ -130,21 +130,9 @@ sge::freetype::char_metric::offset() const
 	return offset_;
 }
 
-#include <mizuiro/image/algorithm/print.hpp>
-#include <iostream>
-
 sge::font::const_image_view const
 sge::freetype::char_metric::pixmap() const
 {
-	/*
-	mizuiro::image::algorithm::print(
-		std::cout,
-		buffer_.view()
-	);
-
-	std::cout << "\nbuffer: " << buffer_.view().dim()[0] << ',' << buffer_.view().dim()[1] << '\n';
-	*/
-
 	return buffer_.view();
 }
 

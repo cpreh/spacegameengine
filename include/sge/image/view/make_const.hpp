@@ -34,7 +34,8 @@ namespace view
 
 SGE_SYMBOL const_object const
 make_const(
-	object const &);
+	object const &
+);
 
 }
 }

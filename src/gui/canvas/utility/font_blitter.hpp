@@ -27,8 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <mizuiro/color/is_alpha.hpp>
 #include <boost/utility/enable_if.hpp>
 
-#include <iostream>
-
 namespace sge
 {
 namespace gui
@@ -52,7 +50,10 @@ public:
 	typename
 	boost::enable_if
 	<
-		mizuiro::color::is_alpha<typename Font::format>,
+		mizuiro::color::is_alpha
+		<
+			typename Font::format
+		>,
 		result_type
 	>::type
 	operator()(
@@ -67,10 +68,14 @@ public:
 	typename
 	boost::disable_if
 	<
-		mizuiro::color::is_alpha<typename Font::format>,
+		mizuiro::color::is_alpha
+		<
+			typename Font::format
+		>,
 		result_type
 	>::type
-	operator()(
+	operator()
+	(
 		Font const &font_value,
 		Dst &dst_color
 	) const;

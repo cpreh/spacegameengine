@@ -21,10 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_CANVAS_UTILITY_FONT_CHANNEL_BLITTER_HPP_INCLUDED
 #define SGE_GUI_CANVAS_UTILITY_FONT_CHANNEL_BLITTER_HPP_INCLUDED
 
-#include "../../utility/normalization.hpp"
+#include <mizuiro/color/normalize.hpp>
+#include <mizuiro/color/denormalize.hpp>
 #include <boost/type_traits/remove_const.hpp>
-
-#include <iostream>
 
 namespace sge
 {
@@ -121,22 +120,22 @@ sge::gui::utility::font_channel_blitter<
 	Channel &
 ) const
 {
-	std::cout << "blit other\n";
 	// FIXME: add range value, divide by max-min (for font_channel_type and channel_type)
 	float const font_value_(
 		font_value()
 	);
 
-	std::cout << font_value_ << '\n';
-
-	result. template set<Channel>(
-		42
-	/*
-		static_cast<channel_type>(
+	result. template set
+	<
+		Channel
+	>(
+		static_cast<
+			channel_type
+		>(
 			static_cast<float>(fontcolor. template get<Channel>()) * font_value_
 			+ static_cast<float>(result. template get<Channel>())
 			* (1.f - font_value_)
-		)*/
+		)
 	);
 }
 
@@ -158,35 +157,26 @@ sge::gui::utility::font_channel_blitter<
 	mizuiro::color::channel::alpha &
 ) const
 {
-	std::cout << "blit alpha\n";
-
-	std::cout << 
-			font. template get<
-				mizuiro::color::channel::alpha
-			>()
-			<< '\n';
-//	std::cout << font_value() << '\n';
-
 	result. template set<
 		mizuiro::color::channel::alpha
 	>(
-		42
-	#if 0
-		denormalize<channel_type>(
+		mizuiro::color::denormalize<
+			typename DstPixel::format,
+			channel_type
+		>(
 			std::min(
-				normalize<
+				mizuiro::color::normalize<
+					mizuiro::color::channel::alpha,
 					float
 				>(
-					result. template get<
-						mizuiro::color::channel::alpha
-					>()
+					result
 				)
 				+ font_value(),
 				1.f
 			)
 		)
-	#endif
 	);
+
 }
 
 template<
@@ -202,12 +192,11 @@ sge::gui::utility::font_channel_blitter<
 >::font_value() const
 {
 	return
-		normalize<
+		mizuiro::color::normalize<
+			mizuiro::color::channel::alpha,
 			float
 		>(
-			font. template get<
-				mizuiro::color::channel::alpha
-			>()
+			font
 		);
 }
 

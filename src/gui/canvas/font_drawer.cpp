@@ -60,7 +60,11 @@ sge::gui::canvas::font_drawer::font_drawer(
 	character_pos_(character_pos_),
 	point_(point_)
 {
-	FCPPT_LOG_DEBUG(mylogger,fcppt::log::_ << FCPPT_TEXT("instantiated"));
+	FCPPT_LOG_DEBUG(
+		mylogger,
+		fcppt::log::_
+			<< FCPPT_TEXT("instantiated")
+	);
 }
 
 void
@@ -71,11 +75,6 @@ sge::gui::canvas::font_drawer::begin_rendering(
 )
 {
 }
-
-#include <sge/image/color/any/print.hpp>
-#include <fcppt/math/vector/output.hpp>
-#include <fcppt/math/dim/output.hpp>
-#include <iostream>
 
 void
 sge::gui::canvas::font_drawer::draw_char(
@@ -90,18 +89,20 @@ sge::gui::canvas::font_drawer::draw_char(
 			<< FCPPT_TEXT("drawing char")
 	);
 
-	image_view const sub_view = sge::image::view::sub(
-		texture_,
-		fcppt::math::box::structure_cast<
-			sge::image::rect
-		>(
-			sge::font::rect(
-				pos,
-				fcppt::math::dim::structure_cast<
-					sge::font::dim
-				>(
-					sge::image::view::dim(
-						data
+	image_view const sub_view(
+		sge::image::view::sub(
+			texture_,
+			fcppt::math::box::structure_cast<
+				sge::image::rect
+			>(
+				sge::font::rect(
+					pos,
+					fcppt::math::dim::structure_cast<
+						sge::font::dim
+					>(
+						sge::image::view::dim(
+							data
+						)
 					)
 				)
 			)
@@ -136,8 +137,6 @@ sge::gui::canvas::font_drawer::draw_char(
 				<< FCPPT_TEXT("found character!")
 		);
 	}
-
-	std::cout << pos << ' ' << sge::image::view::dim(data) << '\n';
 
 	sge::image::algorithm::transform(
 		data,
