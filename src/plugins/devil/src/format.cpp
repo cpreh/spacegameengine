@@ -37,6 +37,8 @@ sge::devil::convert_format(
 	{
 	case IL_RGBA:
 		return image::color::format::rgba8;
+	case IL_RGB:
+		return image::color::format::rgb8;
 	case IL_BGRA:
 		return image::color::format::bgra8;
 	}
@@ -57,6 +59,8 @@ sge::devil::to_il_format(
 		return IL_BGRA;
 	case image::color::format::rgba8:
 		return IL_RGBA;
+	case image::color::format::rgb8:
+		return IL_RGB;
 	case image::color::format::argb8:
 	case image::color::format::alpha8:
 	case image::color::format::gray8:
@@ -81,6 +85,7 @@ sge::devil::to_il_channel(
 	{
 	case image::color::format::bgra8:
 	case image::color::format::rgba8:
+	case image::color::format::rgb8:
 		return IL_UNSIGNED_BYTE;
 	case image::color::format::argb8:
 	case image::color::format::alpha8:
@@ -106,6 +111,7 @@ sge::devil::best_il_format(
 	{
 	case image::color::format::bgra8:
 	case image::color::format::rgba8:
+	case image::color::format::rgb8:
 		return fmt;
 	case image::color::format::argb8:
 	case image::color::format::rgba32f:

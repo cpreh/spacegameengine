@@ -46,6 +46,8 @@ sge::opengl::color_convert(
 			return image::color::format::bgra32f;
 		}
 		break;
+	case GL_RGB:
+		return image::color::format::rgb8;
 	}
 
 	throw exception(
@@ -66,6 +68,8 @@ sge::opengl::to_format(
 	case image::color::format::rgba8:
 	case image::color::format::rgba32f:
 		return GL_RGBA;
+	case image::color::format::rgb8:
+		return GL_RGB;
 	case image::color::format::argb8:
 	case image::color::format::argb32f:
 	case image::color::format::bgra8:
@@ -91,6 +95,7 @@ sge::opengl::to_format_type(
 	case image::color::format::rgba8:
 	case image::color::format::argb8:
 	case image::color::format::bgra8:
+	case image::color::format::rgb8:
 		return GL_UNSIGNED_BYTE;
 	case image::color::format::rgba32f:
 	case image::color::format::argb32f:

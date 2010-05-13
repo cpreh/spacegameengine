@@ -36,6 +36,8 @@ unsigned channels_from_format(
 {
 	switch (_format)
 	{
+		case sge::image::color::format::rgb8:
+			return 3;
 		case sge::image::color::format::alpha8:
 			return 1;
 		case sge::image::color::format::gray8:
@@ -66,9 +68,11 @@ int transforms_from_format(
 			throw
 				sge::image::unsupported_format(
 					_path,
-					FCPPT_TEXT("alpha8"));
+					FCPPT_TEXT("alpha8")
+				);
 		case sge::image::color::format::gray8:
 		case sge::image::color::format::rgba8:
+		case sge::image::color::format::rgb8:
 			return PNG_TRANSFORM_IDENTITY;
 		case sge::image::color::format::argb8:
 			return PNG_TRANSFORM_SWAP_ALPHA;
@@ -80,7 +84,8 @@ int transforms_from_format(
 			throw
 				sge::image::unsupported_format(
 					_path,
-					FCPPT_TEXT("alpha8"));
+					FCPPT_TEXT("alpha8")
+				);
 		case sge::image::color::format::size: break;
 	}
 
@@ -98,6 +103,7 @@ int bit_depth_from_format(
 		case sge::image::color::format::rgba8:
 		case sge::image::color::format::argb8:
 		case sge::image::color::format::bgra8:
+		case sge::image::color::format::rgb8:
 			return 8;
 		case sge::image::color::format::rgba32f:
 		case sge::image::color::format::argb32f:
@@ -131,6 +137,8 @@ int color_type_from_format(
 		case sge::image::color::format::argb8:
 		case sge::image::color::format::bgra8:
 			return PNG_COLOR_TYPE_RGB_ALPHA;
+		case sge::image::color::format::rgb8:
+			return PNG_COLOR_TYPE_RGB;
 		case sge::image::color::format::rgba32f:
 		case sge::image::color::format::argb32f:
 		case sge::image::color::format::bgra32f:

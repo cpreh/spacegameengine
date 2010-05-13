@@ -240,7 +240,6 @@ sge::image::color::format::type sge::libpng::load_context::convert_format() cons
 			return convert_gray_format();
 		case PNG_COLOR_TYPE_GRAY_ALPHA:
 			throw image::unsupported_format(path_,FCPPT_TEXT("gray alpha"));
-		break;
 		case PNG_COLOR_TYPE_PALETTE:
 			throw image::unsupported_format(path_,FCPPT_TEXT("palette"));
 		case PNG_COLOR_TYPE_RGB:

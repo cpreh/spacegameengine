@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <mizuiro/image/interleaved.hpp>
 #include <mizuiro/image/dimension_impl.hpp>
 #include <mizuiro/image/format.hpp>
-//#include <mizuiro/access/normal.hpp>
 #include <mizuiro/access/raw.hpp>
 #include <mizuiro/nonconst_tag.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -47,30 +46,6 @@ template<
 >
 struct view_types
 {
-/*
-private:
-	typedef mizuiro::image::format<
-		mizuiro::image::dimension<
-			2//Dimension
-		>,
-		mizuiro::image::interleaved<
-			Color
-		>
-	> format;
-public:
-	typedef boost::mpl::vector2<
-		mizuiro::image::view<
-			mizuiro::access::normal,
-			format,
-			mizuiro::nonconst_tag
-		>,
-		mizuiro::image::view<
-			mizuiro::access::raw,
-			format,
-			mizuiro::nonconst_tag
-		>
-	> type;
-*/
 	typedef mizuiro::image::view<
 		mizuiro::access::raw,
 		mizuiro::image::format<
