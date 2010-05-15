@@ -18,22 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_ALL_EXTENSIONS_HPP_INCLUDED
-#define SGE_SYSTEMS_ALL_EXTENSIONS_HPP_INCLUDED
+#include <sge/all_extensions.hpp>
 
-#include <sge/extension_set.hpp>
-#include <sge/symbol.hpp>
-
-namespace sge
-{
-namespace systems
-{
-
-SGE_SYMBOL
-extern sge::extension_set const
-all_extensions;
-
-}
-}
-
-#endif
+sge::extension_set const
+sge::all_extensions;

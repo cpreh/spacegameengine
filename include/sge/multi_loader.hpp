@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/multi_loader_fwd.hpp>
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/plugin/context.hpp>
+#include <sge/extension_set.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -44,12 +45,13 @@ class multi_loader
 public:
 	typedef Loader loader;
 	typedef File file;
+	typedef Exception exception;
 	typedef fcppt::shared_ptr<loader> loader_ptr;
 	typedef fcppt::shared_ptr<file> file_ptr;
-	typedef Exception exception;
 
 	SGE_SYMBOL explicit multi_loader(
-		plugin::manager &
+		plugin::manager &,
+		extension_set const &
 	);
 
 	SGE_SYMBOL ~multi_loader();
@@ -59,10 +61,12 @@ public:
 		fcppt::filesystem::path const &
 	);
 private:
+	typedef typename plugin::context<
+		loader
+	>::ptr_type plugin_ptr;
+
 	typedef std::vector<
-		typename plugin::context<
-			loader
-		>::ptr_type
+		plugin_ptr
 	> plugin_container;
 
 	typedef std::vector<
@@ -70,6 +74,7 @@ private:
 	> loader_container;
 
 	plugin_container plugins;
+
 	loader_container loaders;
 
 	file_ptr const

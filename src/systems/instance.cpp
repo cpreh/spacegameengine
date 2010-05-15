@@ -415,7 +415,8 @@ sge::systems::instance::impl::init_image(
 {
 	image_multi_loader.reset(
 		new sge::image::multi_loader(
-			plugin_manager
+			plugin_manager,
+			params.extensions()
 		)
 	);
 }
@@ -427,7 +428,8 @@ sge::systems::instance::impl::init_audio_loader(
 {
 	audio_multi_loader.reset(
 		new sge::audio::multi_loader(
-			plugin_manager
+			plugin_manager,
+			params.extensions()
 		)
 	);
 }

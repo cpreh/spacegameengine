@@ -58,6 +58,8 @@ public:
 		fcppt::filesystem::path const &
 	);
 
+	~plugin();
+
 	SGE_SYMBOL loader_fun
 	get() const;
 private:
