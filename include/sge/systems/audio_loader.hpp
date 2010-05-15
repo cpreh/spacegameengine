@@ -18,24 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_PARAMETERLESS_HPP_INCLUDED
-#define SGE_SYSTEMS_PARAMETERLESS_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_AUDIO_LOADER_HPP_INCLUDED
+#define SGE_SYSTEMS_AUDIO_LOADER_HPP_INCLUDED
+
+#include <sge/extension_set.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
 namespace systems
 {
 
-namespace parameterless
+class audio_loader
 {
-enum type
-{
-	input,
-	audio_player,
-	collision_system,
-	font
+public:
+	SGE_SYMBOL explicit audio_loader(
+		sge::extension_set const &
+	);
+
+	SGE_SYMBOL sge::extension_set const &
+	extensions() const;
+private:
+	sge::extension_set const extensions_;
 };
-}
 
 }
 }

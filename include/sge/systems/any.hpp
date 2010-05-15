@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_ANY_HPP_INCLUDED
 
 #include <sge/systems/parameterless.hpp>
+#include <sge/systems/image_loader.hpp>
+#include <sge/systems/audio_loader.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <fcppt/variant/object_fwd.hpp>
@@ -33,12 +35,13 @@ namespace systems
 {
 
 typedef fcppt::variant::object<
-	boost::mpl::vector3<
+	boost::mpl::vector5<
 		window::parameters,
 		renderer::parameters,
+		image_loader,
+		audio_loader,
 		parameterless::type
 	>
-// TODO: add image format and audio format, too!
 > any;
 
 }

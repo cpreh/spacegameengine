@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MULTI_LOADER_HPP_INCLUDED
 #define SGE_MULTI_LOADER_HPP_INCLUDED
 
+#include <sge/multi_loader_fwd.hpp>
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/symbol.hpp>

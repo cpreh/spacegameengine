@@ -26,8 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/system_ptr.hpp>
 #include <sge/font/system_ptr.hpp>
 #include <sge/input/system_ptr.hpp>
-#include <sge/image/loader_ptr.hpp>
+#include <sge/image/multi_loader.hpp>
 #include <sge/audio/player_ptr.hpp>
+#include <sge/audio/multi_loader.hpp>
 #include <sge/collision/system_ptr.hpp>
 #include <sge/window/instance_ptr.hpp>
 #include <sge/plugin/manager_fwd.hpp>
@@ -67,10 +68,13 @@ public:
 	SGE_SYMBOL input::system_ptr const
 	input_system() const;
 
-	SGE_SYMBOL image::loader_ptr const
-	image_loader() const; // TODO: replace this with an image prober
+	SGE_SYMBOL sge::image::multi_loader const &
+	image_multi_loader() const;
 
-	SGE_SYMBOL audio::player_ptr const
+	SGE_SYMBOL sge::audio::multi_loader const &
+	audio_multi_loader() const;
+
+	SGE_SYMBOL sge::audio::player_ptr const
 	audio_player() const;
 
 	SGE_SYMBOL collision::system_ptr const

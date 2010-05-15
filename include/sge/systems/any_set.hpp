@@ -18,25 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems/named.hpp>
+#ifndef SGE_SYSTEMS_ANY_SET_HPP_INCLUDED
+#define SGE_SYSTEMS_ANY_SET_HPP_INCLUDED
 
-sge::systems::named::named(
-	any const &value_,
-	fcppt::string const &name_
-)
-:
-	value_(value_),
-	name_(name_)
-{}
+#include <sge/systems/any.hpp>
+#include <fcppt/function/object.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <set>
 
-sge::systems::any const &
-sge::systems::named::value() const
+namespace sge
 {
-	return value_;
+namespace systems
+{
+
+typedef std::set<
+	any,
+	fcppt::function::object<
+		bool (
+			any const &,
+			any const &
+		)
+	>
+> any_set;
+
+}
 }
 
-fcppt::string const &
-sge::systems::named::name() const
-{
-	return name_;
-}
+#endif

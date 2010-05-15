@@ -18,22 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_NAMED_COMPARE_HPP_INCLUDED
-#define SGE_SYSTEMS_NAMED_COMPARE_HPP_INCLUDED
-
-#include <sge/systems/named_fwd.hpp>
+#ifndef SGE_MULTI_LOADER_FWD_HPP_INCLUDED
+#define SGE_MULTI_LOADER_FWD_HPP_INCLUDED
 
 namespace sge
 {
-namespace systems
-{
 
-bool named_compare(
-	named const &,
-	named const &
-);
+template<
+	typename Loader,
+	typename File,
+	typename Exception
+>
+class multi_loader;
 
-}
 }
 
 #endif

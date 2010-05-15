@@ -23,8 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/list_fwd.hpp>
 #include <sge/systems/any.hpp>
-#include <sge/systems/named.hpp>
-#include <sge/systems/named_set.hpp>
+#include <sge/systems/any_set.hpp>
 #include <sge/symbol.hpp>
 
 namespace sge
@@ -41,18 +40,9 @@ public:
 		any const &
 	);
 
-	SGE_SYMBOL explicit list(
-		named const &
-	);
-
 	SGE_SYMBOL list const
 	operator()(
 		any const &
-	) const;
-
-	SGE_SYMBOL list const
-	operator()(
-		named const &
 	) const;
 
 	SGE_SYMBOL list const
@@ -60,10 +50,10 @@ public:
 		list const &
 	) const;
 
-	SGE_SYMBOL named_set const &
+	SGE_SYMBOL any_set const &
 	get() const;
 private:
-	named_set states;
+	any_set states;
 };
 
 }

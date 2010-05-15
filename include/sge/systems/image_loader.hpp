@@ -18,36 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_NAMED_HPP_INCLUDED
-#define SGE_SYSTEMS_NAMED_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_IMAGE_LOADER_HPP_INCLUDED
+#define SGE_SYSTEMS_IMAGE_LOADER_HPP_INCLUDED
 
-#include <sge/systems/named_fwd.hpp>
-#include <sge/systems/any.hpp>
+#include <sge/image/capabilities_field.hpp>
+#include <sge/extension_set.hpp>
 #include <sge/symbol.hpp>
-#include <fcppt/variant/object_impl.hpp>
-#include <fcppt/string.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 
 namespace sge
 {
 namespace systems
 {
 
-class named
+class image_loader
 {
 public:
-	SGE_SYMBOL named(
-		any const &,
-		fcppt::string const &
+	SGE_SYMBOL explicit image_loader(
+		sge::image::capabilities_field const &,
+		sge::extension_set const &
 	);
+	
+	SGE_SYMBOL sge::image::capabilities_field const &
+	capabilities() const;
 
-	SGE_SYMBOL any const &
-	value() const;
-
-	SGE_SYMBOL fcppt::string const &
-	name() const;
+	SGE_SYMBOL sge::extension_set const &
+	extensions() const;
 private:
-	any value_;
-	fcppt::string name_;
+	sge::image::capabilities_field const capabilities_;
+
+	sge::extension_set const extensions_;
 };
 
 }

@@ -18,29 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_NAMED_SET_HPP_INCLUDED
-#define SGE_SYSTEMS_NAMED_SET_HPP_INCLUDED
+#include <sge/systems/all_extensions.hpp>
 
-#include <sge/systems/named_fwd.hpp>
-#include <fcppt/function/object.hpp>
-#include <set>
-
-namespace sge
-{
-namespace systems
-{
-
-typedef std::set<
-	named,
-	fcppt::function::object<
-		bool (
-			named const &,
-			named const &
-		)
-	>
-> named_set;
-
-}
-}
-
-#endif
+sge::extension_set const
+sge::systems::all_extensions;

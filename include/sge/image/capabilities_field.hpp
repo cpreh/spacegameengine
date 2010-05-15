@@ -18,24 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_PARAMETERLESS_HPP_INCLUDED
-#define SGE_SYSTEMS_PARAMETERLESS_HPP_INCLUDED
+#ifndef SGE_IMAGE_CAPABILITIES_FIELD_HPP_INCLUDED
+#define SGE_IMAGE_CAPABILITIES_FIELD_HPP_INCLUDED
+
+#include <sge/image/capabilities.hpp>
+#include <fcppt/container/bitfield/basic_fwd.hpp>
 
 namespace sge
 {
-namespace systems
+namespace image
 {
 
-namespace parameterless
-{
-enum type
-{
-	input,
-	audio_player,
-	collision_system,
-	font
-};
-}
+typedef fcppt::container::bitfield::basic<
+	sge::image::capabilities::type,
+	sge::image::capabilities::size
+> capabilities_field;
 
 }
 }

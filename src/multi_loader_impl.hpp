@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/plugin.hpp>
 #include <sge/loaders_exhausted.hpp>
 #include <sge/log/global.hpp>
+#include <sge/multi_loader.hpp>
 #include <fcppt/filesystem/exists.hpp>
 #include <fcppt/filesystem/is_regular.hpp>
 #include <fcppt/filesystem/extension.hpp>

@@ -18,18 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_NAME_DONT_CARE_HPP_INCLUDED
-#define SGE_SYSTEMS_NAME_DONT_CARE_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_ANY_COMPARE_HPP_INCLUDED
+#define SGE_SYSTEMS_ANY_COMPARE_HPP_INCLUDED
 
-#include <sge/symbol.hpp>
-#include <fcppt/string.hpp>
+#include <sge/systems/any.hpp>
 
 namespace sge
 {
 namespace systems
 {
 
-SGE_SYMBOL extern fcppt::string const name_dont_care;
+bool
+any_compare(
+	any const &a,
+	any const &b
+);
 
 }
 }

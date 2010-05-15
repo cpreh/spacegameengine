@@ -18,7 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems/name_dont_care.hpp>
+#ifndef SGE_IMAGE_CAPABILITIES_HPP_INCLUDED
+#define SGE_IMAGE_CAPABILITIES_HPP_INCLUDED
 
-fcppt::string const
-sge::systems::name_dont_care;
+namespace sge
+{
+namespace image
+{
+
+namespace capabilities
+{
+enum type
+{
+	threadsafe,
+	size
+};
+}
+
+}
+}
+
+#endif
