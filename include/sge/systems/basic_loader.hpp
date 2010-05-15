@@ -18,19 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_AUDIO_LOADER_HPP_INCLUDED
-#define SGE_SYSTEMS_AUDIO_LOADER_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_BASIC_LOADER_HPP_INCLUDED
+#define SGE_SYSTEMS_BASIC_LOADER_HPP_INCLUDED
 
-#include <sge/image/capabilities_field.hpp>
+#include <sge/extension_set.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
 namespace systems
 {
 
-typedef systems::basic_loader<
-	sge::image::capabilities_field
-> image_loader;
+template<
+	typename Capabilities
+>
+class basic_loader
+{
+public:
+	typedef Capabilities capabilities_type;
+
+	SGE_SYMBOL explicit basic_loader(
+		capabilities_type const &,	
+		sge::extension_set const &
+	);
+
+	SGE_SYMBOL sge::extension_set const &
+	extensions() const;
+	
+	SGE_SYMBOL capabilities_type const &
+	capabilities() const;
+private:
+	sge::extension_set const extensions_;
+
+	capabilities_type const capabilities_;
+};
 
 }
 }
