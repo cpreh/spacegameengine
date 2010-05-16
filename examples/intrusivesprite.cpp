@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config/media_path.hpp>
-#include <sge/image/multi_loader.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/action.hpp>
@@ -31,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/filter/linear.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
 #include <sge/sprite/choices.hpp>
 #include <sge/sprite/default_equal.hpp>
 #include <sge/sprite/no_color.hpp>
@@ -54,7 +52,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part_fwd.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/exception.hpp>
+#include <sge/multi_loader.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/text.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
@@ -94,12 +96,19 @@ try
 			sge::systems::parameterless::input
 		)
 		(
-			sge::systems::parameterless::image
+			sge::systems::image_loader(
+				sge::image::capabilities_field::null(),
+				fcppt::assign::make_container<
+					sge::extension_set
+				>
+				(
+					FCPPT_TEXT("jpg")
+				)
+				(
+					FCPPT_TEXT("png")
+				)
+			)
 		)
-	);
-
-	sge::image::multi_loader image_loader(
-		sys.plugin_manager()
 	);
 
 	typedef sge::texture::default_creator<
@@ -121,7 +130,7 @@ try
 		tex1(
 			sge::texture::add_image(
 				tex_man,
-				image_loader.load(
+				sys.image_loader().load(
 					sge::config::media_path()
 					/ FCPPT_TEXT("cloudsquare.jpg")
 				)
@@ -130,7 +139,7 @@ try
 		tex2(
 			sge::texture::add_image(
 				tex_man,
-				image_loader.load(
+				sys.image_loader().load(
 					sge::config::media_path()
 					/ FCPPT_TEXT("grass.png")
 				)

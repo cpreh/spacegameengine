@@ -51,6 +51,10 @@ public:
 	typedef fcppt::shared_ptr<loader> loader_ptr;
 	typedef fcppt::shared_ptr<file> file_ptr;
 
+	typedef std::vector<
+		loader_ptr
+	> loader_container;
+
 	SGE_SYMBOL explicit multi_loader(
 		plugin::manager &,
 		extension_set const &,
@@ -63,6 +67,9 @@ public:
 	load(
 		fcppt::filesystem::path const &
 	) const;
+
+	SGE_SYMBOL loader_container const &
+	loaders() const;
 private:
 	typedef typename plugin::context<
 		loader
@@ -72,13 +79,9 @@ private:
 		plugin_ptr
 	> plugin_container;
 
-	typedef std::vector<
-		loader_ptr
-	> loader_container;
+	plugin_container plugins_;
 
-	plugin_container plugins;
-
-	loader_container loaders;
+	loader_container loaders_;
 };
 
 }

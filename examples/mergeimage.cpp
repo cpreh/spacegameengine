@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim_type.hpp>
 #include <sge/renderer/texture_pos_type.hpp>
 #include <sge/renderer/lock_rect.hpp>
-#include <sge/image/loader.hpp>
 #include <sge/image/file.hpp>
+#include <sge/image/loader.hpp>
 #include <sge/image/dim_type.hpp>
 #include <sge/image/rgba8.hpp>
 #include <sge/image/store.hpp>
@@ -36,6 +36,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/colors.hpp>
 #include <sge/mainloop/catch_block.hpp>
 #include <sge/exception.hpp>
+#include <sge/extension_set.hpp>
+#include <sge/multi_loader.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/filesystem/directory_iterator.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -56,7 +60,8 @@ namespace
 sge::renderer::size_type
 calc_size(
 	sge::renderer::size_type const image_count,
-	sge::renderer::dim_type const &dim)
+	sge::renderer::dim_type const &dim
+)
 {
 	for(sge::renderer::size_type i = 0; i <= 10; ++i)
 	{
@@ -75,13 +80,14 @@ calc_size(
 sge::renderer::dim_type const
 first_dim(
 	fcppt::filesystem::path const &p,
-	sge::image::loader_ptr const il)
+	sge::image::multi_loader const &il
+)
 {
 	fcppt::filesystem::directory_iterator const it(
 		p
 	);
 
-	return il->load(*it)->dim();
+	return il.load(*it)->dim();
 }
 
 typedef std::vector<
@@ -90,7 +96,8 @@ typedef std::vector<
 
 path_vector const
 sort_paths(
-	fcppt::filesystem::path const &p)
+	fcppt::filesystem::path const &p
+)
 {
 	path_vector ret;
 
@@ -122,11 +129,22 @@ try
 	}
 
 	sge::systems::instance const sys(
-		(sge::systems::list
-		(sge::systems::parameterless::image))
+		(
+			sge::systems::list
+			(
+				sge::systems::image_loader(
+					sge::image::capabilities_field::null(),
+					fcppt::assign::make_container<
+						sge::extension_set
+					>(
+						FCPPT_TEXT("png")
+					)
+				)
+			)
+		)
 	);
 
-	sge::image::loader_ptr const il(
+	sge::image::multi_loader const &il(
 		sys.image_loader()
 	);
 
@@ -198,7 +216,7 @@ try
 	)
 	{
 		sge::image::file_ptr const img(
-			il->load(
+			il.load(
 				path
 			)
 		);
@@ -228,7 +246,8 @@ try
 		}
 	}
 
-	il->create(
+	// FIXME!
+	il.loaders().at(0)->create(
 		sge::image::view::make_const(
 			dest_view
 		)

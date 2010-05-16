@@ -51,6 +51,9 @@ sge::multi_loader<Loader, File, Exception, Capabilities>::multi_loader(
 	extension_set const &extensions,
 	capabilities const &capabilities_
 )
+:
+	plugins_(),
+	loaders_()
 {
 	for (
 		plugin::iterator<loader> i = pm.begin<loader>();
@@ -64,7 +67,7 @@ sge::multi_loader<Loader, File, Exception, Capabilities>::multi_loader(
 
 		loader_ptr const loader_(
 			loader_ptr(
-				plugins.back()->get()()
+				plugin_->get()()
 			)
 		);
 
@@ -85,11 +88,11 @@ sge::multi_loader<Loader, File, Exception, Capabilities>::multi_loader(
 			)
 		)
 		{
-			plugins.push_back(
+			plugins_.push_back(
 				plugin_
 			);
 
-			loaders.push_back(
+			loaders_.push_back(
 				loader_
 			);
 		}
@@ -143,7 +146,7 @@ sge::multi_loader<Loader, File, Exception, Capabilities>::load(
 
 	BOOST_FOREACH(
 		typename loader_container::const_reference ref,
-		loaders
+		loaders_
 	)
 	{
 		if (
@@ -171,6 +174,18 @@ sge::multi_loader<Loader, File, Exception, Capabilities>::load(
 	throw loaders_exhausted(
 		file
 	);
+}
+
+template<
+	typename Loader,
+	typename File,
+	typename Exception,
+	typename Capabilities
+>
+typename sge::multi_loader<Loader, File, Exception, Capabilities>::loader_container const &
+sge::multi_loader<Loader, File, Exception, Capabilities>::loaders() const
+{
+	return loaders_;
 }
 
 #endif
