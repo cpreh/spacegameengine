@@ -21,10 +21,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../loader.hpp"
 #include "../file.hpp"
 #include "../error.hpp"
+#include <sge/extension_set.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
+
+namespace
+{
+	// FIXME: add more extensions, see: http://openil.sourceforge.net/features.php
+sge::extension_set const extensions_(
+	fcppt::assign::make_container<
+		sge::extension_set
+	>
+	(
+		FCPPT_TEXT("bmp")
+	)
+	(
+		FCPPT_TEXT("png")
+	)
+	(
+		FCPPT_TEXT("jpg")
+	)
+	(
+		FCPPT_TEXT("jpeg")
+	)
+);
+
+}
 
 sge::devil::loader::loader()
 {
@@ -70,24 +94,5 @@ sge::devil::loader::capabilities() const
 sge::extension_set const
 sge::devil::loader::extensions() const
 {
-	// FIXME: add more extensions, see: http://openil.sourceforge.net/features.php
-	static extension_set s(
-		fcppt::assign::make_container<
-			extension_set
-		>
-		(
-			FCPPT_TEXT("bmp")
-		)
-		(
-			FCPPT_TEXT("png")
-		)
-		(
-			FCPPT_TEXT("jpg")
-		)
-		(
-			FCPPT_TEXT("jpeg")
-		)
-	);
-
-	return s;
+	return extensions_;
 }

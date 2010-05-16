@@ -20,11 +20,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../file.hpp"
 #include "../loader.hpp"
-#include <sge/audio/exception.hpp>
+#include <sge/extension_set.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
+
+namespace
+{
+
+sge::extension_set const extensions_(
+	fcppt::assign::make_container<
+		sge::extension_set
+	>(
+		FCPPT_TEXT("wav")
+	)
+);
+
+}
 
 sge::audio::file_ptr const
 sge::wave::loader::load(
@@ -48,13 +61,5 @@ sge::wave::loader::capabilities() const
 sge::extension_set const
 sge::wave::loader::extensions() const
 {
-	static extension_set s(
-		fcppt::assign::make_container<
-			extension_set
-		>(
-			FCPPT_TEXT("wav")
-		)
-	);
-
-	return s;
+	return extensions_;
 }
