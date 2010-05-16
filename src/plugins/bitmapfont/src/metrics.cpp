@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/get.hpp>
 #include <sge/image/view/sub.hpp>
 #include <sge/image/file.hpp>
-#include <sge/image/loader.hpp>
+#include <sge/multi_loader.hpp>
 #include <sge/font/char_not_available.hpp>
 #include <sge/font/exception.hpp>
 #include <sge/log/global.hpp>
@@ -47,11 +47,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::bitmapfont::metrics::metrics(
 	fcppt::filesystem::path const &path,
-	sge::image::loader_ptr const loader
+	sge::image::multi_loader const &loader
 )
 :
 	image_(
-		loader->load(
+		loader.load(
 			path
 		)
 	),

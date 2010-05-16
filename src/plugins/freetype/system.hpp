@@ -34,13 +34,17 @@ namespace sge
 namespace freetype
 {
 
-class system : public font::system {
+class system
+:
+	public font::system
+{
 public:
 	font::metrics_ptr const
 	create_font(
 		fcppt::filesystem::path const &font_name,
 		font::size_type font_size,
-		sge::image::loader_ptr);
+		sge::image::multi_loader const *
+	);
 private:
 	library library_;
 	typedef std::map<
