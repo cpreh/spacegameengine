@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name.hpp>
+#include <boost/foreach.hpp>
 #include <typeinfo>
 
 template<
@@ -101,7 +102,7 @@ template<
 typename sge::multi_loader<Loader, File, Exception>::file_ptr const
 sge::multi_loader<Loader, File, Exception>::load(
 	fcppt::filesystem::path const &file
-)
+) const
 {
 	if (!fcppt::filesystem::exists(file))
 		throw exception(
@@ -124,20 +125,18 @@ sge::multi_loader<Loader, File, Exception>::load(
 	);
 
 	if (extension.empty())
-		return
-			brute_load(
-				file
-			);
+		throw loaders_exhausted(
+			file
+		);
 
-	for (
-		typename loader_container::iterator i = loaders.begin();
-		i != loaders.end();
-		++i
+	BOOST_FOREACH(
+		typename loader_container::const_reference ref,
+		loaders
 	)
 	{
 		if (
 			!fcppt::algorithm::contains(
-				(*i)->extensions(),
+				ref->extensions(),
 				extension
 			)
 		)
@@ -151,67 +150,15 @@ sge::multi_loader<Loader, File, Exception>::load(
 				<< FCPPT_TEXT(": trying to load audio file")
 			);
 
-		return (*i)->load(file);
+		return
+			ref->load(
+				file
+			);
 	}
 
-	return
-		brute_load(
-			file
-		);
-
-}
-
-template<
-	typename Loader,
-	typename File,
-	typename Exception
->
-typename sge::multi_loader<Loader, File, Exception>::file_ptr const
-sge::multi_loader<Loader, File, Exception>::brute_load(
-	fcppt::filesystem::path const &file
-)
-{
-	FCPPT_LOG_INFO(
-		log::global(),
-		fcppt::log::_
-			<< FCPPT_TEXT("brute loading file ")
-			<< file.string()
-			<< FCPPT_TEXT(", add an extension to speed up the search")
+	throw loaders_exhausted(
+		file
 	);
-
-	for (
-		typename loader_container::iterator i = loaders.begin();
-		i != loaders.end();
-		++i
-	)
-	{
-		try
-		{
-			FCPPT_LOG_DEBUG(
-				log::global(),
-				fcppt::log::_
-					<< FCPPT_TEXT("loader ")
-					<< fcppt::type_name(typeid(loader))
-					<< FCPPT_TEXT(": trying to load audio file")
-			);
-		}
-		catch (sge::exception const &e)
-		{
-			FCPPT_LOG_INFO(
-				log::global(),
-				fcppt::log::_
-					<< FCPPT_TEXT("loader ")
-					<< fcppt::type_name(typeid(loader))
-					<< FCPPT_TEXT("couldn't load the file: ")
-					<< e.string()
-			);
-		}
-	}
-
-	throw
-		loaders_exhausted(
-			file
-		);
 }
 
 #endif

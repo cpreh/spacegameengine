@@ -227,13 +227,13 @@ sge::systems::instance::input_system() const
 }
 
 sge::image::multi_loader const &
-sge::systems::instance::image_multi_loader() const
+sge::systems::instance::image_loader() const
 {
 	return *impl_->image_multi_loader;
 }
 
 sge::audio::multi_loader const &
-sge::systems::instance::audio_multi_loader() const
+sge::systems::instance::audio_loader() const
 {
 	return *impl_->audio_multi_loader;
 }

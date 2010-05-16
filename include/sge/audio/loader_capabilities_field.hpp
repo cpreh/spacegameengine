@@ -18,19 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_AUDIO_LOADER_HPP_INCLUDED
-#define SGE_SYSTEMS_AUDIO_LOADER_HPP_INCLUDED
+#ifndef SGE_AUDIO_LOADER_CAPABILITIES_FIELD_HPP_INCLUDED
+#define SGE_AUDIO_LOADER_CAPABILITIES_FIELD_HPP_INCLUDED
 
-#include <sge/audio/loader_capabilities_field.hpp>
+#include <sge/audio/loader_capabilities.hpp>
+#include <fcppt/container/bitfield/basic_fwd.hpp>
 
 namespace sge
 {
-namespace systems
+namespace audio
 {
 
-typedef systems::basic_loader<
-	audio::loader_capabilities_field
-> audio_loader;
+typedef fcppt::container::bitfield::basic<
+	loader_capabilities::type,
+	loader_capabilities::size
+> loader_capabilities_field;
 
 }
 }

@@ -21,9 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_IMAGE_LOADER_HPP_INCLUDED
 #define SGE_SYSTEMS_IMAGE_LOADER_HPP_INCLUDED
 
+#include <sge/systems/basic_loader_fwd.hpp>
 #include <sge/image/capabilities_field.hpp>
-#include <sge/extension_set.hpp>
-#include <sge/symbol.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 
 namespace sge
@@ -31,24 +30,9 @@ namespace sge
 namespace systems
 {
 
-class image_loader
-{
-public:
-	SGE_SYMBOL explicit image_loader(
-		sge::image::capabilities_field const &,
-		sge::extension_set const &
-	);
-	
-	SGE_SYMBOL sge::image::capabilities_field const &
-	capabilities() const;
-
-	SGE_SYMBOL sge::extension_set const &
-	extensions() const;
-private:
-	sge::image::capabilities_field const capabilities_;
-
-	sge::extension_set const extensions_;
-};
+typedef systems::basic_loader<
+	image::capabilities_field
+> image_loader;
 
 }
 }

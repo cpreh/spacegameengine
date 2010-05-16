@@ -59,7 +59,7 @@ public:
 	SGE_SYMBOL file_ptr const
 	load(
 		fcppt::filesystem::path const &
-	);
+	) const;
 private:
 	typedef typename plugin::context<
 		loader
@@ -76,11 +76,6 @@ private:
 	plugin_container plugins;
 
 	loader_container loaders;
-
-	file_ptr const
-	brute_load(
-		fcppt::filesystem::path const &
-	);
 };
 
 }

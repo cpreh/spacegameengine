@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/parameterless.hpp>
 #include <sge/systems/image_loader.hpp>
 #include <sge/systems/audio_loader.hpp>
+#include <sge/systems/basic_loader.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <fcppt/variant/object_fwd.hpp>
