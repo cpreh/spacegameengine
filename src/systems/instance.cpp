@@ -43,7 +43,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/create.hpp>
 #include <sge/log/global.hpp>
 #include <sge/exception.hpp>
-#include <sge/multi_loader.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/optional.hpp>

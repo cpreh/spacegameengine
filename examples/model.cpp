@@ -68,7 +68,7 @@ try
 		sge::systems::list()
 		(
 			sge::window::parameters(
-				FCPPT_TEXT("sge animtest")
+				FCPPT_TEXT("sge modeltest")
 			)
 		)
 		(
@@ -103,7 +103,7 @@ try
 
 	sge::plugin::plugin<
 		sge::model::loader
-	>::ptr_type const  model_plugin(
+	>::ptr_type const model_plugin(
 		sys.plugin_manager().plugin<sge::model::loader>()
 		.load()
 	);

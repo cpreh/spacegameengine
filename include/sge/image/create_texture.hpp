@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_CREATE_TEXTURE_HPP_INCLUDED
 #define SGE_IMAGE_CREATE_TEXTURE_HPP_INCLUDED
 
-#include <sge/image/multi_loader.hpp>
+#include <sge/image/multi_loader_fwd.hpp>
 #include <sge/image/file_ptr.hpp>
 #include <sge/renderer/filter/texture_fwd.hpp>
 #include <sge/renderer/resource_flags_field.hpp>

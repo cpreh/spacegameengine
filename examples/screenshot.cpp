@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/action.hpp>
 #include <sge/input/system.hpp>
 #include <sge/image/colors.hpp>
+#include <sge/image/multi_loader.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/default_creator_impl.hpp>
 #include <sge/texture/no_fragmented.hpp>
@@ -51,7 +52,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/render_one.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/window/parameters.hpp>
-#include <sge/multi_loader.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -68,7 +68,7 @@ try
 		sge::systems::list()
 		(
 			sge::window::parameters(
-				FCPPT_TEXT("sge animtest")
+				FCPPT_TEXT("sge screenshot test")
 			)
 		)
 		(

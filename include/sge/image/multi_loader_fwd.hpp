@@ -18,11 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_MULTI_LOADER_HPP_INCLUDED
-#define SGE_IMAGE_MULTI_LOADER_HPP_INCLUDED
+#ifndef SGE_IMAGE_MULTI_LOADER_FWD_HPP_INCLUDED
+#define SGE_IMAGE_MULTI_LOADER_FWD_HPP_INCLUDED
 
-#include <sge/image/multi_loader_fwd.hpp>
-#include <sge/multi_loader.hpp>
+#include <sge/multi_loader_fwd.hpp>
+#include <sge/image/loader_fwd.hpp>
+#include <sge/image/file_fwd.hpp>
+#include <sge/image/exception_fwd.hpp>
+#include <sge/image/capabilities_field.hpp>
+
+namespace sge
+{
+namespace image
+{
+
+typedef sge::multi_loader<
+	sge::image::loader,
+	sge::image::file,
+	sge::image::exception,
+	sge::image::capabilities_field	
+> multi_loader;
 
 }
 }

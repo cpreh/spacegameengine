@@ -26,9 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/system_ptr.hpp>
 #include <sge/font/system_ptr.hpp>
 #include <sge/input/system_ptr.hpp>
-#include <sge/image/multi_loader.hpp>
+#include <sge/image/multi_loader_fwd.hpp>
 #include <sge/audio/player_ptr.hpp>
-#include <sge/audio/multi_loader.hpp>
+#include <sge/audio/multi_loader_fwd.hpp>
 #include <sge/collision/system_ptr.hpp>
 #include <sge/window/instance_ptr.hpp>
 #include <sge/plugin/manager_fwd.hpp>

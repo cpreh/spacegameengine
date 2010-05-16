@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture_pos_type.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/image/file.hpp>
-#include <sge/image/loader.hpp>
 #include <sge/image/dim_type.hpp>
+#include <sge/image/multi_loader.hpp>
 #include <sge/image/rgba8.hpp>
 #include <sge/image/store.hpp>
 #include <sge/image/view/sub.hpp>
@@ -37,7 +37,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/mainloop/catch_block.hpp>
 #include <sge/exception.hpp>
 #include <sge/extension_set.hpp>
-#include <sge/multi_loader.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/filesystem/path.hpp>

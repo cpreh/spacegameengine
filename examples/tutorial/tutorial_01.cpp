@@ -36,13 +36,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/image/file.hpp>
+#include <sge/image/multi_loader.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/exception.hpp>
 #include <sge/extension_set.hpp>
-#include <sge/multi_loader.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/io/cerr.hpp>

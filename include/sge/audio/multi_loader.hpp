@@ -21,25 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_MULTI_LOADER_HPP_INCLUDED
 #define SGE_AUDIO_MULTI_LOADER_HPP_INCLUDED
 
-#include <sge/multi_loader_fwd.hpp>
-#include <sge/audio/loader.hpp>
-#include <sge/audio/file.hpp>
-#include <sge/audio/exception.hpp>
-#include <sge/audio/loader_capabilities_field.hpp>
-
-namespace sge
-{
-namespace audio
-{
-
-typedef sge::multi_loader<
-	sge::audio::loader,
-	sge::audio::file,
-	sge::audio::exception,
-	sge::audio::loader_capabilities_field
-> multi_loader;
-
-}
-}
+#include <sge/audio/multi_loader_fwd.hpp>
+#include <sge/multi_loader.hpp>
 
 #endif

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/const_scoped_target_lock.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/image/file.hpp>
-#include <sge/multi_loader.hpp>
+#include <sge/image/multi_loader.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
 void
