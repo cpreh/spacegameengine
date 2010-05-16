@@ -49,6 +49,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/mainloop/catch_block.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/mainloop/dispatch.hpp>
+#include <sge/extension_set.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/io/cifstream.hpp>
 #include <fcppt/math/matrix/perspective.hpp>
 #include <fcppt/math/pi.hpp>
@@ -63,23 +66,39 @@ try
 {
 	sge::systems::instance sys(
 		sge::systems::list()
-		(sge::window::parameters(
-			FCPPT_TEXT("sge animtest")
-		))
-		(sge::renderer::parameters(
-			sge::renderer::display_mode(
-				sge::renderer::screen_size( 1024,
-					768),
-				sge::renderer::bit_depth::depth32,
-				sge::renderer::refresh_rate_dont_care),
-			sge::renderer::depth_buffer::off,
-			sge::renderer::stencil_buffer::off,
-			sge::renderer::window_mode::windowed,
-			sge::renderer::vsync::on,
-			sge::renderer::no_multi_sampling
-		))
+		(
+			sge::window::parameters(
+				FCPPT_TEXT("sge animtest")
+			)
+		)
+		(
+			sge::renderer::parameters(
+				sge::renderer::display_mode(
+					sge::renderer::screen_size(
+						1024,
+						768
+					),
+					sge::renderer::bit_depth::depth32,
+					sge::renderer::refresh_rate_dont_care
+				),
+				sge::renderer::depth_buffer::off,
+				sge::renderer::stencil_buffer::off,
+				sge::renderer::window_mode::windowed,
+				sge::renderer::vsync::on,
+				sge::renderer::no_multi_sampling
+			)
+		)
 		(sge::systems::parameterless::input)
-		(sge::systems::parameterless::image)
+		(
+			sge::systems::image_loader(
+				sge::image::capabilities_field::null(),
+				fcppt::assign::make_container<
+					sge::extension_set
+				>(
+					FCPPT_TEXT("tga")
+				)
+			)
+		)
 	);
 
 	sge::plugin::plugin<
