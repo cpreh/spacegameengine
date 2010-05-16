@@ -137,19 +137,19 @@ priority(
 		(
 			std::make_pair(
 				fcppt::type_info(typeid(sge::systems::parameterless::type)),
-				2
+				2	
 			)
 		)
 		(
 			std::make_pair(
 				fcppt::type_info(typeid(sge::systems::image_loader)),
-				2
+				3	
 			)
 		)
 		(
 			std::make_pair(
 				fcppt::type_info(typeid(sge::systems::audio_loader)),
-				2
+				4	
 			)
 		)
 

@@ -39,6 +39,12 @@ sge::wave::loader::load(
 		);
 }
 
+sge::audio::loader_capabilities_field const
+sge::wave::loader::capabilities() const
+{
+	return audio::loader_capabilities_field::null();
+}
+
 sge::extension_set const
 sge::wave::loader::extensions() const
 {

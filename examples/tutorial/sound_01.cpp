@@ -20,15 +20,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/audio/multi_loader.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/sound.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file.hpp>
 #include <sge/config/media_path.hpp>
-#include <fcppt/text.hpp>
 #include <sge/exception.hpp>
+#include <sge/extension_set.hpp>
+#include <sge/multi_loader.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/text.hpp>
 #include <exception>
 #include <cstdlib>
 
@@ -37,17 +40,36 @@ try
 {
 	sge::systems::instance sys(
 		sge::systems::list()
-		(sge::systems::parameterless::audio_player));
-
-	sge::audio::multi_loader loader(sys.plugin_manager());
-
-	sge::audio::file_ptr const file = loader.load(
-		sge::config::media_path() / FCPPT_TEXT("ding.wav")
+		(
+			sge::systems::parameterless::audio_player
+		)
+		(
+			sge::systems::audio_loader(
+				sge::audio::loader_capabilities_field::null(),
+				fcppt::assign::make_container<
+					sge::extension_set
+				>(
+					FCPPT_TEXT("wav")
+				)
+			)
+		)
 	);
 
-	sge::audio::sound_ptr const sound = sys.audio_player()->create_nonstream_sound(file);
+	sge::audio::file_ptr const file(
+		sys.audio_loader().load(
+			sge::config::media_path() / FCPPT_TEXT("ding.wav")
+		)
+	);
 
-	sound->play(sge::audio::play_mode::loop);
+	sge::audio::sound_ptr const sound(
+		sys.audio_player()->create_nonstream_sound(
+			file
+		)
+	);
+
+	sound->play(
+		sge::audio::play_mode::loop
+	);
 
 	while (true)
 		sound->update();
