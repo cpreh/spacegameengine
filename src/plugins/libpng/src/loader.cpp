@@ -20,10 +20,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../loader.hpp"
 #include "../file.hpp"
 #include <sge/image/file_fwd.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 
-sge::image::file_ptr const sge::libpng::loader::load(
+sge::image::file_ptr const
+sge::libpng::loader::load(
 	fcppt::filesystem::path const &_path
 )
 {
@@ -35,8 +38,10 @@ sge::image::file_ptr const sge::libpng::loader::load(
 		);
 }
 
-sge::image::file_ptr const sge::libpng::loader::create(
-	image::view::const_object const&p)
+sge::image::file_ptr const
+sge::libpng::loader::create(
+	image::view::const_object const &p
+)
 {
 	return
 		fcppt::make_shared_ptr<
@@ -46,10 +51,26 @@ sge::image::file_ptr const sge::libpng::loader::create(
 		);
 }
 
+sge::image::capabilities_field const
+sge::libpng::loader::capabilities() const
+{
+	return
+		image::capabilities_field(
+			image::capabilities::threadsafe
+		);
+}
+
 sge::extension_set const
 sge::libpng::loader::extensions() const
 {
-	extension_set s;
-	s.insert(FCPPT_TEXT("png"));
+	static extension_set s(
+		fcppt::assign::make_container<
+			extension_set
+		>
+		(
+			FCPPT_TEXT("png")
+		)
+	);
+
 	return s;
 }

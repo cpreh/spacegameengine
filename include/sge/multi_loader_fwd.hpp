@@ -27,7 +27,8 @@ namespace sge
 template<
 	typename Loader,
 	typename File,
-	typename Exception
+	typename Exception,
+	typename Capabilities
 >
 class multi_loader;
 

@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/loader.hpp>
 #include <sge/image/file.hpp>
 #include <sge/image/exception.hpp>
+#include <sge/image/capabilities_field.hpp>
 
 namespace sge
 {
@@ -32,9 +33,10 @@ namespace image
 {
 
 typedef sge::multi_loader<
-	loader,
-	file,
-	exception
+	sge::image::loader,
+	sge::image::file,
+	sge::image::exception,
+	sge::image::capabilities_field	
 > multi_loader;
 
 }

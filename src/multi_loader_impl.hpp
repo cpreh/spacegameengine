@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/filesystem/exists.hpp>
 #include <fcppt/filesystem/is_regular.hpp>
 #include <fcppt/filesystem/extension.hpp>
+#include <fcppt/container/bitfield/is_subset_eq.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name.hpp>
@@ -42,11 +43,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename Loader,
 	typename File,
-	typename Exception 
+	typename Exception,
+	typename Capabilities
 >
-sge::multi_loader<Loader, File, Exception>::multi_loader(
+sge::multi_loader<Loader, File, Exception, Capabilities>::multi_loader(
 	plugin::manager &pm,
-	extension_set const &extensions
+	extension_set const &extensions,
+	capabilities const &capabilities_
 )
 {
 	for (
@@ -67,12 +70,19 @@ sge::multi_loader<Loader, File, Exception>::multi_loader(
 
 		// check if this plugin might be useful
 		if(
-			extensions == sge::all_extensions
-			||
-			!fcppt::algorithm::set_intersection(
-				extensions,
-				loader_->extensions()
-			).empty()
+			fcppt::container::bitfield::is_subset_eq(
+				capabilities_,
+				loader_->capabilities()
+			)
+			&&
+			(
+				extensions == sge::all_extensions
+				||
+				!fcppt::algorithm::set_intersection(
+					extensions,
+					loader_->extensions()
+				).empty()
+			)
 		)
 		{
 			plugins.push_back(
@@ -89,18 +99,20 @@ sge::multi_loader<Loader, File, Exception>::multi_loader(
 template<
 	typename Loader,
 	typename File,
-	typename Exception
+	typename Exception,
+	typename Capabilities
 >
-sge::multi_loader<Loader, File, Exception>::~multi_loader()
+sge::multi_loader<Loader, File, Exception, Capabilities>::~multi_loader()
 {}
 
 template<
 	typename Loader,
 	typename File,
-	typename Exception 
+	typename Exception,
+	typename Capabilities
 >
-typename sge::multi_loader<Loader, File, Exception>::file_ptr const
-sge::multi_loader<Loader, File, Exception>::load(
+typename sge::multi_loader<Loader, File, Exception, Capabilities>::file_ptr const
+sge::multi_loader<Loader, File, Exception, Capabilities>::load(
 	fcppt::filesystem::path const &file
 ) const
 {

@@ -29,7 +29,9 @@ namespace sge
 namespace libpng
 {
 
-class loader : public image::loader
+class loader
+:
+	public image::loader
 {
 public:
 	image::file_ptr const
@@ -42,7 +44,11 @@ public:
 		image::view::const_object const &
 	);
 
-	extension_set const extensions() const;
+	image::capabilities_field const
+	capabilities() const;
+
+	extension_set const
+	extensions() const;
 };
 
 }

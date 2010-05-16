@@ -37,7 +37,8 @@ namespace sge
 template<
 	typename Loader,
 	typename File,
-	typename Exception
+	typename Exception,
+	typename Capabilities
 >
 class multi_loader
 {
@@ -46,12 +47,14 @@ public:
 	typedef Loader loader;
 	typedef File file;
 	typedef Exception exception;
+	typedef Capabilities capabilities;
 	typedef fcppt::shared_ptr<loader> loader_ptr;
 	typedef fcppt::shared_ptr<file> file_ptr;
 
 	SGE_SYMBOL explicit multi_loader(
 		plugin::manager &,
-		extension_set const &
+		extension_set const &,
+		capabilities const &
 	);
 
 	SGE_SYMBOL ~multi_loader();

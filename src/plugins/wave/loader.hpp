@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_WAVE_LOADER_HPP_INCLUDED
 
 #include <sge/audio/loader.hpp>
+#include <sge/audio/file_ptr.hpp>
+#include <sge/audio/loader_capabilities_field.hpp>
 #include <fcppt/filesystem/path.hpp>
 
 namespace sge
@@ -29,7 +31,9 @@ namespace sge
 namespace wave
 {
 
-class loader : public audio::loader
+class loader
+:
+	public audio::loader
 {
 public:
 	audio::file_ptr const
@@ -37,7 +41,11 @@ public:
 		fcppt::filesystem::path const &
 	);
 
-	extension_set const extensions() const;
+	audio::loader_capabilities_field const
+	capabilities() const;
+
+	extension_set const
+	extensions() const;
 };
 
 }

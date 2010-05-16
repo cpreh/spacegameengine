@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/loader_fwd.hpp>
 #include <sge/image/file_ptr.hpp>
+#include <sge/image/capabilities_field.hpp>
 #include <sge/image/view/const_object.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
@@ -50,6 +51,9 @@ public:
 	create(
 		view::const_object const &
 	) = 0;
+
+	virtual capabilities_field const
+	capabilities() const = 0;
 
 	virtual extension_set const
 	extensions() const = 0;

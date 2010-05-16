@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/loader.hpp>
 #include <sge/audio/file.hpp>
 #include <sge/audio/exception.hpp>
+#include <sge/audio/loader_capabilities_field.hpp>
 
 namespace sge
 {
@@ -32,9 +33,10 @@ namespace audio
 {
 
 typedef sge::multi_loader<
-	loader,
-	file,
-	exception
+	sge::audio::loader,
+	sge::audio::file,
+	sge::audio::exception,
+	sge::audio::loader_capabilities_field
 > multi_loader;
 
 }

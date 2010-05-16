@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/file_ptr.hpp>
+#include <sge/audio/loader_capabilities_field.hpp>
 #include <sge/extension_set.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
@@ -44,6 +45,9 @@ public:
 	load(
 		fcppt::filesystem::path const &
 	) = 0;
+
+	virtual loader_capabilities_field const
+	capabilities() const = 0;
 
 	virtual extension_set const
 	extensions() const = 0;
