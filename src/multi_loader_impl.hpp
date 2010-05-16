@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/plugin.hpp>
+#include <sge/plugin/context_base.hpp>
 #include <sge/loaders_exhausted.hpp>
 #include <sge/log/global.hpp>
 #include <sge/multi_loader.hpp>
@@ -32,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/algorithm/set_intersection.hpp>
 #include <fcppt/filesystem/exists.hpp>
 #include <fcppt/filesystem/is_regular.hpp>
-#include <fcppt/filesystem/extension.hpp>
+#include <fcppt/filesystem/extension_without_dot.hpp>
 #include <fcppt/container/bitfield/is_subset_eq.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
@@ -96,6 +97,18 @@ sge::multi_loader<Loader, File, Exception, Capabilities>::multi_loader(
 				loader_
 			);
 		}
+		else
+		{
+			FCPPT_LOG_DEBUG(
+				log::global(),
+				fcppt::log::_
+					<< FCPPT_TEXT("loader ")
+					<< fcppt::type_name(typeid(loader))
+					<< FCPPT_TEXT(" didn't find plugin \"")
+					<< i->info().name()
+					<< FCPPT_TEXT("\" to be useful.")
+			)
+		}
 	}
 }
 
@@ -134,14 +147,15 @@ sge::multi_loader<Loader, File, Exception, Capabilities>::load(
 		);
 
 	fcppt::string const extension(
-		fcppt::filesystem::extension(
+		fcppt::filesystem::extension_without_dot(
 			file
 		)
 	);
 
 	if (extension.empty())
 		throw loaders_exhausted(
-			file
+			file,
+			FCPPT_TEXT("File has no extension!")
 		);
 
 	BOOST_FOREACH(
@@ -149,21 +163,13 @@ sge::multi_loader<Loader, File, Exception, Capabilities>::load(
 		loaders_
 	)
 	{
-		if (
+		if(
 			!fcppt::algorithm::contains(
 				ref->extensions(),
 				extension
 			)
 		)
 			continue;
-
-		FCPPT_LOG_DEBUG(
-			log::global(),
-			fcppt::log::_
-				<< FCPPT_TEXT("loader ")
-				<< fcppt::type_name(typeid(loader))
-				<< FCPPT_TEXT(": trying to load audio file")
-			);
 
 		return
 			ref->load(
@@ -172,7 +178,8 @@ sge::multi_loader<Loader, File, Exception, Capabilities>::load(
 	}
 
 	throw loaders_exhausted(
-		file
+		file,
+		FCPPT_TEXT("Tried all loaders but none matched!")
 	);
 }
 
