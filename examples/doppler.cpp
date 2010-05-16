@@ -65,6 +65,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/default_creator_impl.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/exception.hpp>
+#include <sge/extension_set.hpp>
+#include <sge/multi_loader.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -202,33 +206,54 @@ try
 		)
 		(sge::systems::parameterless::input)
 		(sge::systems::parameterless::audio_player)
-		(sge::systems::parameterless::image)
+		(
+			sge::systems::image_loader(
+				sge::image::capabilities_field::null(),
+				fcppt::assign::make_container<
+					sge::extension_set
+				>(
+					FCPPT_TEXT("png")
+				)
+			)
+		)
+		(
+			sge::systems::audio_loader(
+				sge::audio::loader_capabilities_field::null(),
+				fcppt::assign::make_container<
+					sge::extension_set
+				>(
+					FCPPT_TEXT("ogg")
+				)
+			)
+		)
 	);
 
 	sge::image::file_ptr const
 		image_bg(
-			sys.image_loader()->load(
+			sys.image_loader().load(
 				sge::config::media_path()
 				/ FCPPT_TEXT("grass.png")
 			)
 		),
 		image_pointer(
-			sys.image_loader()->load(
+			sys.image_loader().load(
 				sge::config::media_path()
 				/ FCPPT_TEXT("gui")
 				/ FCPPT_TEXT("cursor.png")
 			)
 		),
 		image_tux(
-			sys.image_loader()->load(
+			sys.image_loader().load(
 				sge::config::media_path()
 				/ FCPPT_TEXT("tux.png")
 			)
 		);
 
-	sge::texture::default_creator<
+	typedef sge::texture::default_creator<
 		sge::texture::no_fragmented
-	> const
+	> texture_creator;
+	
+	texture_creator const
 		creator(
 			sys.renderer(),
 			sge::image::color::format::rgba8,
@@ -344,12 +369,8 @@ try
 		.elements()
 	);
 
-	sge::audio::multi_loader ml(
-		sys.plugin_manager()
-	);
-
 	sge::audio::file_ptr const af_siren(
-		ml.load(
+		sys.audio_loader().load(
 			sge::config::media_path()
 			/ FCPPT_TEXT("siren.ogg")
 		)

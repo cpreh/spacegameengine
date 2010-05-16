@@ -25,21 +25,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/media_path.hpp>
 #include <sge/gui/unit.hpp>
 #include <sge/gui/dim.hpp>
-#include <sge/image/loader.hpp>
 #include <sge/image/file.hpp>
 #include <sge/texture/consume_and_set_fragment.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/object_impl.hpp>
+#include <sge/multi_loader.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/clamp.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/text.hpp>
 
 sge::gui::cursor::default_::default_(
-	sge::image::loader_ptr const il,
-	sge::renderer::device_ptr const _rend)
+	sge::image::multi_loader const &il,
+	sge::renderer::device_ptr const _rend
+)
 :
 	rend_(
 		_rend),
@@ -52,7 +53,7 @@ sge::gui::cursor::default_::default_(
 			.texture(
 				texture::consume_and_set_fragment(
 					texture_,
-					il->load(
+					il.load(
 						media_path()/
 						FCPPT_TEXT("gui")/
 						FCPPT_TEXT("cursor.png")
