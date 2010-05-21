@@ -47,8 +47,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key_type.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/key_pair.hpp>
+#include <sge/all_extensions.hpp>
 #include <sge/exception.hpp>
 
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -115,19 +117,29 @@ try
 		))
 		(sge::systems::parameterless::input)
 		(sge::systems::parameterless::font)
-		(sge::systems::parameterless::image));
-
+		(
+			sge::systems::image_loader(
+				sge::image::capabilities_field::null(),
+				sge::all_extensions
+			)	
+		)
+	);
 
 	sge::gui::manager m(
 		sys.renderer(),
 		sys.input_system(),
 		sge::gui::skins::ptr(
 			new sge::gui::skins::standard(
-				sys.font_system())),
+				sys.font_system()
+			)
+		),
 		sge::gui::cursor::base_ptr(
 			new sge::gui::cursor::default_(
 				sys.image_loader(),
-				sys.renderer())));
+				sys.renderer()
+			)
+		)
+	);
 
 	sge::gui::widgets::backdrop top(
 		sge::gui::widgets::parent_data(m),

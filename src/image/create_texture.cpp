@@ -19,39 +19,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/create_texture.hpp>
-#include <sge/image/loader.hpp>
 #include <sge/image/file.hpp>
+#include <sge/image/multi_loader.hpp>
 #include <sge/renderer/device.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
 sge::renderer::texture_ptr const
 sge::image::create_texture(
-	renderer::device_ptr const r,
-	file_ptr const p,
+	renderer::device_ptr const renderer,
+	file_ptr const file,
 	renderer::filter::texture const &filter,
 	renderer::resource_flags_field const &flags
 )
 {
-	return r->create_texture(
-		p->view(),
-		filter,
-		flags
-	);
+	return
+		renderer->create_texture(
+			file->view(),
+			filter,
+			flags
+		);
 }
 
 sge::renderer::texture_ptr const
 sge::image::create_texture(
 	fcppt::filesystem::path const &file,
-	renderer::device_ptr const r,
-	loader_ptr const p,
+	renderer::device_ptr const renderer,
+	multi_loader const &loader,
 	renderer::filter::texture const &filter,
 	renderer::resource_flags_field const &flags
 )
 {
-	return create_texture(
-		r,
-		p->load(file),
-		filter,
-		flags
-	);
+	return
+		create_texture(
+			renderer,
+			loader.load(
+				file
+			),
+			filter,
+			flags
+		);
 }

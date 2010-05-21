@@ -21,8 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MULTI_LOADER_HPP_INCLUDED
 #define SGE_MULTI_LOADER_HPP_INCLUDED
 
+#include <sge/multi_loader_fwd.hpp>
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/plugin/context.hpp>
+#include <sge/extension_set.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -35,7 +37,8 @@ namespace sge
 template<
 	typename Loader,
 	typename File,
-	typename Exception
+	typename Exception,
+	typename Capabilities
 >
 class multi_loader
 {
@@ -43,12 +46,19 @@ class multi_loader
 public:
 	typedef Loader loader;
 	typedef File file;
+	typedef Exception exception;
+	typedef Capabilities capabilities;
 	typedef fcppt::shared_ptr<loader> loader_ptr;
 	typedef fcppt::shared_ptr<file> file_ptr;
-	typedef Exception exception;
+
+	typedef std::vector<
+		loader_ptr
+	> loader_container;
 
 	SGE_SYMBOL explicit multi_loader(
-		plugin::manager &
+		plugin::manager &,
+		extension_set const &,
+		capabilities const &
 	);
 
 	SGE_SYMBOL ~multi_loader();
@@ -56,25 +66,22 @@ public:
 	SGE_SYMBOL file_ptr const
 	load(
 		fcppt::filesystem::path const &
-	);
+	) const;
+
+	SGE_SYMBOL loader_container const &
+	loaders() const;
 private:
+	typedef typename plugin::context<
+		loader
+	>::ptr_type plugin_ptr;
+
 	typedef std::vector<
-		typename plugin::context<
-			loader
-		>::ptr_type
+		plugin_ptr
 	> plugin_container;
 
-	typedef std::vector<
-		loader_ptr
-	> loader_container;
+	plugin_container plugins_;
 
-	plugin_container plugins;
-	loader_container loaders;
-
-	file_ptr const
-	brute_load(
-		fcppt::filesystem::path const &
-	);
+	loader_container loaders_;
 };
 
 }

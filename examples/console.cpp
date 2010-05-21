@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/image_loader.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/state/list.hpp>
@@ -34,8 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/add_image.hpp>
 #include <sge/texture/default_creator_impl.hpp>
 #include <sge/texture/no_fragmented.hpp>
-#include <sge/image/loader.hpp>
 #include <sge/image/colors.hpp>
+#include <sge/image/multi_loader.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/console/object.hpp>
@@ -49,6 +50,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/system.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/exception.hpp>
+#include <sge/extension_set.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -84,25 +88,40 @@ try
 
 	sge::systems::instance const sys(
 		sge::systems::list()
-		(sge::window::parameters(
-			FCPPT_TEXT("sge console test")
-		))
-		(sge::renderer::parameters(
-			sge::renderer::display_mode(
-				sge::renderer::screen_size(
-					1024,
-					768),
-				sge::renderer::bit_depth::depth32,
-				sge::renderer::refresh_rate_dont_care),
-			sge::renderer::depth_buffer::off,
-			sge::renderer::stencil_buffer::off,
-			sge::renderer::window_mode::windowed,
-			sge::renderer::vsync::on,
-			sge::renderer::no_multi_sampling
-		))
+		(
+			sge::window::parameters(
+				FCPPT_TEXT("sge console test")
+			)
+		)
+		(	sge::renderer::parameters(
+				sge::renderer::display_mode(
+					sge::renderer::screen_size(
+						1024,
+						768
+					),
+					sge::renderer::bit_depth::depth32,
+					sge::renderer::refresh_rate_dont_care
+				),
+				sge::renderer::depth_buffer::off,
+				sge::renderer::stencil_buffer::off,
+				sge::renderer::window_mode::windowed,
+				sge::renderer::vsync::on,
+				sge::renderer::no_multi_sampling
+			)
+		)
 		(sge::systems::parameterless::input)
 		(sge::systems::parameterless::font)
-		(sge::systems::parameterless::image));
+		(
+			sge::systems::image_loader(
+				sge::image::capabilities_field::null(),
+				fcppt::assign::make_container<
+					sge::extension_set
+				>(
+					FCPPT_TEXT("png")
+				)
+			)
+		)
+	);
 
 	sge::console::object o(FCPPT_TEXT('/'));
 
@@ -128,7 +147,7 @@ try
 
 	sge::image::file_ptr const
 		image_bg(
-			sys.image_loader()->load(
+			sys.image_loader().load(
 				sge::config::media_path()
 				/ FCPPT_TEXT("grass.png")
 			)

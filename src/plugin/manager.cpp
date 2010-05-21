@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <fcppt/filesystem/directory_iterator.hpp>
 #include <fcppt/filesystem/is_directory.hpp>
-#include <fcppt/filesystem/extension.hpp>
+#include <fcppt/filesystem/extension_without_dot.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
@@ -36,11 +36,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 fcppt::char_type const *const plugin_extension =
 #ifdef FCPPT_DARWIN_PLATFORM
-	FCPPT_TEXT(".dylib")
+	FCPPT_TEXT("dylib")
 #elif FCPPT_POSIX_PLATFORM
-	FCPPT_TEXT(".so")
+	FCPPT_TEXT("so")
 #elif FCPPT_WINDOWS_PLATFORM
-	FCPPT_TEXT(".dll")
+	FCPPT_TEXT("dll")
 #else
 #error "Don't know which plugin extension to use!"
 #endif
@@ -67,7 +67,7 @@ sge::plugin::manager::manager()
 	{
 		if(
 			fcppt::filesystem::is_directory(*it)
-			|| fcppt::filesystem::extension(*it) != plugin_extension
+			|| fcppt::filesystem::extension_without_dot(*it) != plugin_extension
 		)
 		{
 			FCPPT_LOG_WARNING(

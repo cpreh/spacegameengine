@@ -20,14 +20,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/audio/multi_loader.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/sound.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file.hpp>
+#include <sge/audio/multi_loader.hpp>
 #include <sge/audio/pool.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/exception.hpp>
+#include <sge/extension_set.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <exception>
@@ -38,16 +41,30 @@ try
 {
 	sge::systems::instance sys(
 		sge::systems::list()
-		(sge::systems::parameterless::audio_player));
-
-	sge::audio::multi_loader loader(sys.plugin_manager());
+		(
+			sge::systems::parameterless::audio_player
+		)
+		(
+			sge::systems::audio_loader(
+				sge::audio::loader_capabilities_field::null(),
+				fcppt::assign::make_container<
+					sge::extension_set
+				>(
+					FCPPT_TEXT("wav")
+				)
+				(
+					FCPPT_TEXT("ogg")
+				)
+			)
+		)
+	);
 
 	sge::audio::pool pool;
 
 	{
 		sge::audio::sound_ptr const sound_01(
 			sys.audio_player()->create_nonstream_sound(
-				loader.load(
+				sys.audio_loader().load(
 					sge::config::media_path() / FCPPT_TEXT("ding.wav")
 				)
 			)
@@ -55,7 +72,7 @@ try
 
 		sge::audio::sound_ptr const sound_02(
 			sys.audio_player()->create_stream_sound(
-				loader.load(
+				sys.audio_loader().load(
 					sge::config::media_path() / FCPPT_TEXT("siren.ogg")
 				)
 			)

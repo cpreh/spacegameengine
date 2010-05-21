@@ -28,7 +28,7 @@ sge::font::metrics_ptr const
 sge::bitmapfont::system::create_font(
 	fcppt::filesystem::path const &path,
 	font::size_type const font_height,
-	sge::image::loader_ptr const loader
+	sge::image::multi_loader const *const loader
 )
 {
 	if(!loader)
@@ -36,10 +36,11 @@ sge::bitmapfont::system::create_font(
 			FCPPT_TEXT("The bitmap font plugin needs an image loader passed in create_font!")
 		);
 
-	return fcppt::make_shared_ptr<
-		metrics
-	>(
-		path,
-		loader
-	);
+	return
+		fcppt::make_shared_ptr<
+			metrics
+		>(
+			path,
+			*loader
+		);
 }

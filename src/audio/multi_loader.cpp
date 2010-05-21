@@ -25,5 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 SGE_INSTANTIATE_MULTI_LOADER(
 	sge::audio::loader,
 	sge::audio::file,
-	sge::audio::exception
+	sge::audio::exception,
+	sge::audio::loader_capabilities_field
 )

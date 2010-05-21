@@ -18,9 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "any_compare.hpp"
 #include <sge/systems/list.hpp>
-#include <sge/systems/named_compare.hpp>
-#include <sge/systems/name_dont_care.hpp>
 #include <sge/log/global.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -31,16 +30,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-sge::systems::named_set const
+sge::systems::any_set const
 init_states()
 {
-	return sge::systems::named_set(
-		std::tr1::bind(
-			sge::systems::named_compare,
-			std::tr1::placeholders::_1,
-			std::tr1::placeholders::_2
-		)
-	);
+	return
+		sge::systems::any_set(
+			std::tr1::bind(
+				sge::systems::any_compare,
+				std::tr1::placeholders::_1,
+				std::tr1::placeholders::_2
+			)
+		);
 }
 
 }
@@ -61,23 +61,7 @@ sge::systems::list::list(
 	)
 {
 	states.insert(
-		named(
-			any_,
-			name_dont_care
-		)
-	);
-}
-
-sge::systems::list::list(
-	named const &named_
-)
-:
-	states(
-		init_states()
-	)
-{
-	states.insert(
-		named_
+		any_
 	);
 }
 
@@ -86,24 +70,11 @@ sge::systems::list::operator()(
 	any const &any_
 ) const
 {
-	return (*this)(
-		named(
-			any_,
-			name_dont_care
-		)
-	);
-}
-
-sge::systems::list const
-sge::systems::list::operator()(
-	named const &named_
-) const
-{
 	list ret(*this);
 
 	if(
 		!ret.states.insert(
-			named_
+			any_
 		).second
 	)
 	{
@@ -125,7 +96,7 @@ sge::systems::list::append(
 
 	// TODO: this could be optimized
 	BOOST_FOREACH(
-		named_set::const_reference ref,
+		any_set::const_reference ref,
 		other_.get()
 	)
 		ret = ret(ref);
@@ -133,7 +104,7 @@ sge::systems::list::append(
 	return ret;
 }
 
-sge::systems::named_set const &
+sge::systems::any_set const &
 sge::systems::list::get() const
 {
 	return states;

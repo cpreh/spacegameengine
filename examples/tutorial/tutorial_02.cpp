@@ -42,16 +42,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key_pair.hpp>
 #include <sge/input/system.hpp>
 #include <sge/image/file.hpp>
-#include <sge/image/loader.hpp>
+#include <sge/image/file_ptr.hpp>
 #include <sge/image/colors.hpp>
+#include <sge/image/multi_loader.hpp>
 #include <sge/texture/part_raw.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/config/media_path.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <sge/exception.hpp>
+#include <sge/extension_set.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -167,8 +170,19 @@ try
 				sge::renderer::no_multi_sampling
 			)
 		)
-		(sge::systems::parameterless::input)
-		(sge::systems::parameterless::image)
+		(
+			sge::systems::image_loader(
+				sge::image::capabilities_field::null(),
+				fcppt::assign::make_container<
+					sge::extension_set
+				>(
+					FCPPT_TEXT("png")
+				)
+			)
+		)
+		(
+			sge::systems::parameterless::input
+		)
 	);
 
 	typedef sge::sprite::system<
@@ -180,7 +194,7 @@ try
 	);
 
 	sge::image::file_ptr const image(
-		sys.image_loader()->load(
+		sys.image_loader().load(
 			sge::config::media_path()
 			/ FCPPT_TEXT("tux.png")
 		)

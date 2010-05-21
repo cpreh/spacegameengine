@@ -49,80 +49,105 @@ fcppt::log::object mylogger(
 
 sge::gui::canvas::font_drawer::font_drawer(
 	image_view &texture_,
-	color c,
-	optional_character_pos const &character_pos,
-	point *const p)
+	color const color_,
+	optional_character_pos const &character_pos_,
+	point *const point_
+)
 :
 	texture_(texture_),
-	c(c),
-	counter(0),
-	character_pos(character_pos),
-	p(p)
+	color_(color_),
+	counter_(0),
+	character_pos_(character_pos_),
+	point_(point_)
 {
-	FCPPT_LOG_DEBUG(mylogger,fcppt::log::_ << FCPPT_TEXT("instantiated"));
+	FCPPT_LOG_DEBUG(
+		mylogger,
+		fcppt::log::_
+			<< FCPPT_TEXT("instantiated")
+	);
 }
 
-void sge::gui::canvas::font_drawer::begin_rendering(
+void
+sge::gui::canvas::font_drawer::begin_rendering(
 	size_type const /*buffer_chars*/,
 	font::pos const &/*pos*/,
-	font::dim const &/*size*/)
+	font::dim const &/*size*/
+)
 {
 }
 
-void sge::gui::canvas::font_drawer::draw_char(
+void
+sge::gui::canvas::font_drawer::draw_char(
 	fcppt::char_type const,
 	font::pos const &pos,
-	font::const_image_view const &data)
+	font::const_image_view const &data
+)
 {
-	FCPPT_LOG_DEBUG(mylogger,fcppt::log::_ << FCPPT_TEXT("drawing char"));
+	FCPPT_LOG_DEBUG(
+		mylogger,
+		fcppt::log::_
+			<< FCPPT_TEXT("drawing char")
+	);
 
-	image_view const sub_view = sge::image::view::sub(
-		texture_,
-		fcppt::math::box::structure_cast<
-			sge::image::rect
-		>(
-			sge::font::rect(
-				pos,
-				fcppt::math::dim::structure_cast<
-					sge::font::dim
-				>(
-					sge::image::view::dim(
-						data
+	image_view const sub_view(
+		sge::image::view::sub(
+			texture_,
+			fcppt::math::box::structure_cast<
+				sge::image::rect
+			>(
+				sge::font::rect(
+					pos,
+					fcppt::math::dim::structure_cast<
+						sge::font::dim
+					>(
+						sge::image::view::dim(
+							data
+						)
 					)
 				)
 			)
 		)
 	);
 
-	if (character_pos)
+	if (character_pos_)
 	{
 		FCPPT_LOG_DEBUG(
 			mylogger,
-			fcppt::log::_ << FCPPT_TEXT("counter: ") << counter << FCPPT_TEXT(" | ")
-			        << FCPPT_TEXT("character pos: ") << *character_pos);
+			fcppt::log::_
+				<< FCPPT_TEXT("counter: ") << counter_ << FCPPT_TEXT(" | ")
+				<< FCPPT_TEXT("character pos: ") << *character_pos_
+		);
 	}
 	else
 	{
 		FCPPT_LOG_DEBUG(
 			mylogger,
-			fcppt::log::_ << FCPPT_TEXT("character position invalid"));
+			fcppt::log::_
+				<< FCPPT_TEXT("character position invalid")
+		);
 	}
 
-	if (character_pos && counter++ == *character_pos)
+	if (character_pos_ && counter_++ == *character_pos_)
 	{
-		*p = fcppt::math::vector::structure_cast<point>(pos);
+		*point_ = fcppt::math::vector::structure_cast<point>(pos);
+
 		FCPPT_LOG_DEBUG(
 			mylogger,
-			fcppt::log::_ << FCPPT_TEXT("found character!"));
+			fcppt::log::_
+				<< FCPPT_TEXT("found character!")
+		);
 	}
 
 	sge::image::algorithm::transform(
 		data,
 		sub_view,
-		utility::font_blitter(c)
+		utility::font_blitter(
+			color_
+		)
 	);
 }
 
-void sge::gui::canvas::font_drawer::end_rendering()
+void
+sge::gui::canvas::font_drawer::end_rendering()
 {
 }

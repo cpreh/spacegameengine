@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_CANVAS_UTILITY_FONT_CHANNEL_BLITTER_HPP_INCLUDED
 #define SGE_GUI_CANVAS_UTILITY_FONT_CHANNEL_BLITTER_HPP_INCLUDED
 
-#include "../../utility/normalization.hpp"
+#include <mizuiro/color/normalize.hpp>
+#include <mizuiro/color/denormalize.hpp>
 #include <boost/type_traits/remove_const.hpp>
 
 namespace sge
@@ -32,9 +33,9 @@ namespace utility
 {
 
 template<
-	typename Source1,
-	typename DstPixel,
-	typename FontPixel
+	typename FontColor,
+	typename FontPixel,
+	typename DstPixel
 >
 class font_channel_blitter
 {
@@ -46,7 +47,7 @@ public:
 	typedef typename FontPixel::format::channel_type font_channel_type;
 
 	font_channel_blitter(
-		Source1 const &fontcolor,
+		FontColor const &fontcolor,
 		FontPixel const &font,
 		DstPixel &result
 	);
@@ -66,9 +67,9 @@ public:
 private:
 	float font_value() const;
 
-	Source1 const fontcolor;
+	FontColor const &fontcolor;
 
-	FontPixel const font;
+	FontPixel const &font;
 
 	DstPixel &result;
 };
@@ -78,16 +79,16 @@ private:
 }
 
 template<
-	typename Source1,
-	typename DstPixel,
-	typename FontPixel
+	typename FontColor,
+	typename FontPixel,
+	typename DstPixel
 >
 sge::gui::utility::font_channel_blitter<
-	Source1,
-	DstPixel,
-	FontPixel
+	FontColor,
+	FontPixel,
+	DstPixel
 >::font_channel_blitter(
-	Source1 const &fontcolor,
+	FontColor const &fontcolor,
 	FontPixel const &font,
 	DstPixel &result
 )
@@ -99,22 +100,22 @@ sge::gui::utility::font_channel_blitter<
 
 
 template<
-	typename Source1,
-	typename DstPixel,
-	typename FontPixel
+	typename FontColor,
+	typename FontPixel,
+	typename DstPixel
 >
 template<
 	typename Channel
 >
 typename sge::gui::utility::font_channel_blitter<
-	Source1,
-	DstPixel,
-	FontPixel
+	FontColor,
+	FontPixel,
+	DstPixel
 >::result_type
 sge::gui::utility::font_channel_blitter<
-	Source1,
-	DstPixel,
-	FontPixel
+	FontColor,
+	FontPixel,
+	DstPixel
 >::operator()(
 	Channel &
 ) const
@@ -124,8 +125,13 @@ sge::gui::utility::font_channel_blitter<
 		font_value()
 	);
 
-	result. template set<Channel>(
-		static_cast<channel_type>(
+	result. template set
+	<
+		Channel
+	>(
+		static_cast<
+			channel_type
+		>(
 			static_cast<float>(fontcolor. template get<Channel>()) * font_value_
 			+ static_cast<float>(result. template get<Channel>())
 			* (1.f - font_value_)
@@ -134,19 +140,19 @@ sge::gui::utility::font_channel_blitter<
 }
 
 template<
-	typename Source1,
-	typename DstPixel,
-	typename FontPixel
+	typename FontColor,
+	typename FontPixel,
+	typename DstPixel
 >
 typename sge::gui::utility::font_channel_blitter<
-	Source1,
-	DstPixel,
-	FontPixel
+	FontColor,
+	FontPixel,
+	DstPixel
 >::result_type
 sge::gui::utility::font_channel_blitter<
-	Source1,
-	DstPixel,
-	FontPixel
+	FontColor,
+	FontPixel,
+	DstPixel
 >::operator()(
 	mizuiro::color::channel::alpha &
 ) const
@@ -154,41 +160,43 @@ sge::gui::utility::font_channel_blitter<
 	result. template set<
 		mizuiro::color::channel::alpha
 	>(
-		denormalize<channel_type>(
+		mizuiro::color::denormalize<
+			typename DstPixel::format,
+			channel_type
+		>(
 			std::min(
-				normalize<
+				mizuiro::color::normalize<
+					mizuiro::color::channel::alpha,
 					float
 				>(
-					result. template get<
-						mizuiro::color::channel::alpha
-					>()
+					result
 				)
 				+ font_value(),
 				1.f
 			)
 		)
 	);
+
 }
 
 template<
-	typename Source1,
-	typename DstPixel,
-	typename FontPixel
+	typename FontColor,
+	typename FontPixel,
+	typename DstPixel
 >
 float
 sge::gui::utility::font_channel_blitter<
-	Source1,
-	DstPixel,
-	FontPixel
+	FontColor,
+	FontPixel,
+	DstPixel
 >::font_value() const
 {
 	return
-		normalize<
+		mizuiro::color::normalize<
+			mizuiro::color::channel::alpha,
 			float
 		>(
-			font. template get<
-				mizuiro::color::channel::alpha
-			>()
+			font
 		);
 }
 

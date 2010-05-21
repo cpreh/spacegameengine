@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "char_metric_fwd.hpp"
 #include <sge/font/metrics.hpp>
 #include <sge/image/file_ptr.hpp>
-#include <sge/image/loader_ptr.hpp>
+#include <sge/image/multi_loader_fwd.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/char_type.hpp>
 #include <map>
@@ -41,7 +41,7 @@ class metrics
 public:
 	metrics(
 		fcppt::filesystem::path const &,
-		sge::image::loader_ptr
+		sge::image::multi_loader const &
 	);
 
 	~metrics();

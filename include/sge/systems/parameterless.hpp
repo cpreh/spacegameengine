@@ -28,9 +28,9 @@ namespace systems
 
 namespace parameterless
 {
-enum type {
+enum type
+{
 	input,
-	image,
 	audio_player,
 	collision_system,
 	font

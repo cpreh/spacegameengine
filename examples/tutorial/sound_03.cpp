@@ -28,9 +28,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/timer.hpp>
 #include <sge/time/second.hpp>
 #include <sge/config/media_path.hpp>
-#include <fcppt/math/pi.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
 #include <sge/exception.hpp>
+#include <sge/extension_set.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/math/twopi.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <exception>
@@ -42,12 +45,23 @@ try
 {
 	sge::systems::instance sys(
 		sge::systems::list()
-		(sge::systems::parameterless::audio_player));
-
-	sge::audio::multi_loader loader(sys.plugin_manager());
+		(
+			sge::systems::parameterless::audio_player
+		)
+		(
+			sge::systems::audio_loader(
+				sge::audio::loader_capabilities_field::null(),
+				fcppt::assign::make_container<
+					sge::extension_set
+				>(
+					FCPPT_TEXT("wav")
+				)
+			)
+		)
+	);
 
 	sge::audio::file_ptr const file(
-		loader.load(
+		sys.audio_loader().load(
 			sge::config::media_path() / FCPPT_TEXT("ding.wav")
 		)
 	);
@@ -60,7 +74,7 @@ try
 	sge::time::timer frame_timer(sge::time::second(static_cast<sge::time::unit>(1)));
 	sge::audio::unit const rpm = static_cast<sge::audio::unit>(1);
 	sge::audio::unit const speed = static_cast<sge::audio::unit>(
-		static_cast<sge::audio::unit>(2) * fcppt::math::pi<sge::audio::unit>() * rpm);
+		fcppt::math::twopi<sge::audio::unit>() * rpm);
 	while (true)
 	{
 		sge::audio::unit const angle =

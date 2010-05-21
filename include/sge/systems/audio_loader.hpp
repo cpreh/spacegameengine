@@ -18,32 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../convert_image_format.hpp"
-#include <sge/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_SYSTEMS_AUDIO_LOADER_HPP_INCLUDED
+#define SGE_SYSTEMS_AUDIO_LOADER_HPP_INCLUDED
 
-ILuint
-sge::devil::convert_image_format(
-	image::format::type const t
-)
+#include <sge/audio/loader_capabilities_field.hpp>
+
+namespace sge
 {
-	switch(t)
-	{
-	case image::format::bmp:
-		return IL_BMP;
-	case image::format::gif:
-		return IL_GIF;
-	case image::format::jpeg:
-		return IL_JPG;
-	case image::format::png:
-		return IL_PNG;
-	case image::format::tiff:
-		return IL_TIF;
-	case image::format::tga:
-		return IL_TGA;
-	}
+namespace systems
+{
 
-	throw exception(
-		FCPPT_TEXT("Invalid image_format!")
-	);
+typedef systems::basic_loader<
+	audio::loader_capabilities_field
+> audio_loader;
+
 }
+}
+
+#endif

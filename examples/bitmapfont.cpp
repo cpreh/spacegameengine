@@ -30,17 +30,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/image/colors.hpp>
+#include <sge/image/capabilities_field.hpp>
 #include <sge/font/system.hpp>
 #include <sge/font/drawer_3d.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/text_size.hpp>
 #include <sge/config/media_path.hpp>
+#include <sge/input/system.hpp>
+#include <sge/input/action.hpp>
+#include <sge/extension_set.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
-#include <sge/input/system.hpp>
-#include <sge/input/action.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
@@ -68,7 +72,16 @@ try
 			sge::renderer::no_multi_sampling
 		))
 		(sge::systems::parameterless::input)
-		(sge::systems::parameterless::image)
+		(
+			sge::systems::image_loader(
+				sge::image::capabilities_field::null(),
+				fcppt::assign::make_container<
+					sge::extension_set
+				>(
+					FCPPT_TEXT("png")
+				)
+			)
+		)
 		(sge::systems::parameterless::font)
 	);
 
@@ -79,7 +92,7 @@ try
 			/ FCPPT_TEXT("bitmap")
 			/ FCPPT_TEXT("font.png"),
 			0,
-			sys.image_loader()
+			&sys.image_loader()
 		),
 		fcppt::make_shared_ptr<
 			sge::font::drawer_3d

@@ -18,22 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_NAMED_COMPARE_HPP_INCLUDED
-#define SGE_SYSTEMS_NAMED_COMPARE_HPP_INCLUDED
+#ifndef SGE_CONFIG_PATH_NOT_FOUND_HPP_INCLUDED
+#define SGE_CONFIG_PATH_NOT_FOUND_HPP_INCLUDED
 
-#include <sge/systems/named_fwd.hpp>
+#include <sge/config/exception.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
-namespace systems
+namespace config
 {
 
-bool named_compare(
-	named const &,
-	named const &
-);
+class SGE_CLASS_SYMBOL path_not_found
+:
+	public sge::config::exception
+{
+public:
+	SGE_SYMBOL explicit path_not_found(
+		fcppt::string const &
+	);
+};
 
 }
 }
+
 
 #endif

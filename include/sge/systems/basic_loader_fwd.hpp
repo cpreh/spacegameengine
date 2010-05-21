@@ -18,25 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems/named.hpp>
+#ifndef SGE_SYSTEMS_BASIC_LOADER_FWD_HPP_INCLUDED
+#define SGE_SYSTEMS_BASIC_LOADER_FWD_HPP_INCLUDED
 
-sge::systems::named::named(
-	any const &value_,
-	fcppt::string const &name_
-)
-:
-	value_(value_),
-	name_(name_)
-{}
-
-sge::systems::any const &
-sge::systems::named::value() const
+namespace sge
 {
-	return value_;
+namespace systems
+{
+
+template<
+	typename Capabilities
+>
+class basic_loader;
+
+}
 }
 
-fcppt::string const &
-sge::systems::named::name() const
-{
-	return name_;
-}
+#endif

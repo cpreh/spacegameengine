@@ -18,18 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_NAME_DONT_CARE_HPP_INCLUDED
-#define SGE_SYSTEMS_NAME_DONT_CARE_HPP_INCLUDED
-
-#include <sge/symbol.hpp>
-#include <fcppt/string.hpp>
+#ifndef SGE_AUDIO_EXCEPTION_FWD_HPP_INCLUDED
+#define SGE_AUDIO_EXCEPTION_FWD_HPP_INCLUDED
 
 namespace sge
 {
-namespace systems
+namespace audio
 {
 
-SGE_SYMBOL extern fcppt::string const name_dont_care;
+class exception;
 
 }
 }

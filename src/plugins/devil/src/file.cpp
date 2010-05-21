@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../file.hpp"
 #include "../error.hpp"
 #include "../format.hpp"
-#include "../convert_image_format.hpp"
 #include <sge/image/color/format_stride.hpp>
 #include <sge/image/view/make.hpp>
 #include <sge/image/view/format.hpp>
@@ -59,26 +58,6 @@ sge::devil::file::file(
 			+ file.string()
 			+ FCPPT_TEXT("'!"));
 }
-
-/*
-sge::devil::file::file(
-	image::format::type const type,
-	const const_pointer format_data,
-	const size_type size)
-{
-	if(!format_data || size == 0)
-		throw exception(
-			FCPPT_TEXT("load_image(): format_data or size is 0!"));
-	bind_me();
-	if(ilLoadL(
-		convert_image_format(type),
-		const_cast<pointer>(format_data),
-		static_cast<ILuint>(size))
-	== IL_FALSE)
-		throw exception(
-			FCPPT_TEXT("ilLoadL() failed!"));
-}
-*/
 
 sge::devil::file::file(
 	image::view::const_object const &src)

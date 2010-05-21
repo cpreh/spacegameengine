@@ -61,7 +61,9 @@ find_member_exn(
 		!ret
 	)
 		throw sge::parse::json::member_not_found(
-			FCPPT_TEXT("")
+			FCPPT_TEXT("Cannot find member \"")
+			+ name
+			+ FCPPT_TEXT("\" in a json object's member list!")
 		);
 	
 	return *ret;

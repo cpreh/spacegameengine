@@ -18,7 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems/name_dont_care.hpp>
+#ifndef SGE_IMAGE_EXCEPTION_FWD_HPP_INCLUDED
+#define SGE_IMAGE_EXCEPTION_FWD_HPP_INCLUDED
 
-fcppt::string const
-sge::systems::name_dont_care;
+namespace sge
+{
+namespace image
+{
+
+class exception;
+
+}
+}
+
+#endif

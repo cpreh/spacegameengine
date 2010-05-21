@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "image_impl.hpp"
 #include <sge/image/file.hpp>
-#include <sge/image/format.hpp>
 #include <fcppt/filesystem/path.hpp>
 
 namespace sge
@@ -39,10 +38,7 @@ public:
 	explicit file(
 		fcppt::filesystem::path const &
 	);
-	/*file(
-		image::format::type type,
-		const_pointer format_data,
-		size_type size);*/
+
 	explicit file(
 		image::view::const_object const &
 	);

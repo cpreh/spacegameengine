@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/systems/name_dont_care.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/plugin.hpp>
 #include <sge/plugin/iterator.hpp>
@@ -31,10 +30,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/plugin.hpp>
-#include <sge/image/loader.hpp>
+#include <sge/image/multi_loader.hpp>
 #include <sge/image/plugin.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/player_plugin.hpp>
+#include <sge/audio/multi_loader.hpp>
 #include <sge/collision/system.hpp>
 #include <sge/collision/plugin.hpp>
 #include <sge/font/system.hpp>
@@ -46,9 +46,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/optional.hpp>
+#include <fcppt/scoped_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_info.hpp>
-#include <fcppt/string.hpp>
 #include <boost/foreach.hpp>
 #include <typeinfo>
 
@@ -64,8 +64,17 @@ public:
 	plugin::plugin<input::system>::ptr_type         input_plugin;
 	input::system_ptr                               input_system;
 
-	plugin::plugin<image::loader>::ptr_type         image_loader_plugin;
-	image::loader_ptr                               image_loader;
+	typedef fcppt::scoped_ptr<
+		sge::image::multi_loader
+	> image_multi_loader_ptr;
+
+	image_multi_loader_ptr                          image_multi_loader;
+
+	typedef fcppt::scoped_ptr<
+		sge::audio::multi_loader
+	> audio_multi_loader_ptr;
+
+	audio_multi_loader_ptr                          audio_multi_loader;
 
 	plugin::plugin<audio::player>::ptr_type         audio_player_plugin;
 	audio::player_ptr                               audio_player;
@@ -82,49 +91,36 @@ public:
 
 	void
 	init_renderer(
-		renderer::parameters const &,
-		fcppt::string const &name
+		renderer::parameters const &
 	);
 
 	void
 	init_window(
-		window::parameters const &,
-		fcppt::string const &name
+		window::parameters const &
 	);
 
 	void
-	init_input(
-		fcppt::string const &name
-	);
+	init_input();
 
 	void
-	init_collision_system(
-		fcppt::string const &name
-	);
+	init_collision_system();
 
 	void
 	init_image(
-		fcppt::string const &name
+		sge::systems::image_loader const &
+	);
+	
+	void
+	init_audio_loader(
+		sge::systems::audio_loader const &
 	);
 
 	void
-	init_audio_player(
-		fcppt::string const &name
-	);
+	init_audio_player();
 
 	void
-	init_font(
-		fcppt::string const &name
-	);
+	init_font();
 private:
-	template<
-		typename T
-	>
-	typename plugin::plugin<T>::ptr_type const
-	load_plugin(
-		fcppt::string const &name
-	);
-
 	template<
 		typename T
 	>
@@ -141,8 +137,7 @@ public:
 	typedef void result_type;
 
 	visitor(
-		sge::systems::instance::impl &,
-		fcppt::string const &name
+		sge::systems::instance::impl &
 	);
 
 	result_type
@@ -157,11 +152,20 @@ public:
 
 	result_type
 	operator()(
+		sge::systems::image_loader const &
+	) const;
+
+	result_type
+	operator()(
+		sge::systems::audio_loader const &
+	) const;
+
+	result_type
+	operator()(
 		sge::systems::parameterless::type
 	) const;
 private:
 	sge::systems::instance::impl &impl_;
-	fcppt::string const name;
 };
 
 }
@@ -186,15 +190,14 @@ sge::systems::instance::reinit(
 )
 {
 	BOOST_FOREACH(
-		named const &named_,
+		any const &any_,
 		l.get()
 	)
 		fcppt::variant::apply_unary(
 			visitor(
-				*impl_,
-				named_.name()
+				*impl_
 			),
-			named_.value()
+			any_
 		);
 }
 
@@ -222,10 +225,16 @@ sge::systems::instance::input_system() const
 	return impl_->input_system;
 }
 
-sge::image::loader_ptr const
+sge::image::multi_loader const &
 sge::systems::instance::image_loader() const
 {
-	return impl_->image_loader;
+	return *impl_->image_multi_loader;
+}
+
+sge::audio::multi_loader const &
+sge::systems::instance::audio_loader() const
+{
+	return *impl_->audio_multi_loader;
 }
 
 sge::audio::player_ptr const
@@ -250,12 +259,10 @@ namespace
 {
 
 visitor::visitor(
-	sge::systems::instance::impl &impl_,
-	fcppt::string const &name
+	sge::systems::instance::impl &impl_
 )
 :
-	impl_(impl_),
-	name(name)
+	impl_(impl_)
 {}
 
 
@@ -265,8 +272,7 @@ visitor::operator()(
 ) const
 {
 	impl_.init_renderer(
-		p,
-		name
+		p
 	);
 }
 
@@ -276,32 +282,50 @@ visitor::operator()(
 ) const
 {
 	impl_.init_window(
-		p,
-		name
+		p
 	);
 }
 
 void
 visitor::operator()(
-	sge::systems::parameterless::type const p
+	sge::systems::image_loader const &p
 ) const
 {
-	switch(p)
+	impl_.init_image(
+		p
+	);
+}
+
+void
+visitor::operator()(
+	sge::systems::audio_loader const &p
+) const
+{
+	impl_.init_audio_loader(
+		p
+	);
+}
+
+void
+visitor::operator()(
+	sge::systems::parameterless::type const type_
+) const
+{
+	switch(
+		type_
+	)
 	{
 	case sge::systems::parameterless::input:
-		impl_.init_input(name);
-		return;
-	case sge::systems::parameterless::image:
-		impl_.init_image(name);
+		impl_.init_input();
 		return;
 	case sge::systems::parameterless::audio_player:
-		impl_.init_audio_player(name);
+		impl_.init_audio_player();
 		return;
 	case sge::systems::parameterless::collision_system:
-		impl_.init_collision_system(name);
+		impl_.init_collision_system();
 		return;
 	case sge::systems::parameterless::font:
-		impl_.init_font(name);
+		impl_.init_font();
 		return;
 	}
 
@@ -314,8 +338,7 @@ visitor::operator()(
 
 void
 sge::systems::instance::impl::init_window(
-	window::parameters const &p,
-	fcppt::string const &name
+	window::parameters const &p
 )
 {
 	wparam_ = p;
@@ -323,11 +346,10 @@ sge::systems::instance::impl::init_window(
 
 void
 sge::systems::instance::impl::init_renderer(
-	renderer::parameters const &p,
-	fcppt::string const &name
+	renderer::parameters const &p
 )
 {
-	renderer_plugin = load_plugin<renderer::system>(name);
+	renderer_plugin = default_plugin<renderer::system>();
 	renderer_system.reset(renderer_plugin->get()());
 
 	if(!window_)
@@ -357,9 +379,7 @@ sge::systems::instance::impl::init_renderer(
 }
 
 void
-sge::systems::instance::impl::init_input(
-	fcppt::string const &name
-)
+sge::systems::instance::impl::init_input()
 {
 	if(!window_)
 	{
@@ -374,78 +394,61 @@ sge::systems::instance::impl::init_input(
 	}
 
 
-	input_plugin = load_plugin<sge::input::system>(name);
+	input_plugin = default_plugin<sge::input::system>();
+
 	input_system.reset(input_plugin->get()(window_));
 }
 
 void
-sge::systems::instance::impl::init_collision_system(
-	fcppt::string const &name
-)
+sge::systems::instance::impl::init_collision_system()
 {
-	collision_plugin = load_plugin<sge::collision::system>(name);
+	collision_plugin = default_plugin<sge::collision::system>();
+
 	collision_system.reset(collision_plugin->get()());
 }
 
 void
 sge::systems::instance::impl::init_image(
-	fcppt::string const &name
+	sge::systems::image_loader const &params
 )
 {
-	image_loader_plugin = load_plugin<sge::image::loader>(name);
-	image_loader.reset(image_loader_plugin->get()());
+	image_multi_loader.reset(
+		new sge::image::multi_loader(
+			plugin_manager,
+			params.extensions(),
+			params.capabilities()
+		)
+	);
 }
 
 void
-sge::systems::instance::impl::init_audio_player(
-	fcppt::string const &name
+sge::systems::instance::impl::init_audio_loader(
+	sge::systems::audio_loader const &params
 )
 {
-	audio_player_plugin = load_plugin<sge::audio::player>(name);
+	audio_multi_loader.reset(
+		new sge::audio::multi_loader(
+			plugin_manager,
+			params.extensions(),
+			params.capabilities()
+		)
+	);
+}
+
+void
+sge::systems::instance::impl::init_audio_player()
+{
+	audio_player_plugin = default_plugin<sge::audio::player>();
+
 	audio_player.reset(audio_player_plugin->get()());
 }
 
-
 void
-sge::systems::instance::impl::init_font(
-	fcppt::string const &name
-)
+sge::systems::instance::impl::init_font()
 {
-	font_plugin = load_plugin<sge::font::system>(name);
+	font_plugin = default_plugin<sge::font::system>();
+
 	font_system.reset(font_plugin->get()());
-}
-
-template<
-	typename T
->
-typename sge::plugin::plugin<T>::ptr_type const
-sge::systems::instance::impl::load_plugin(
-	fcppt::string const &name
-)
-{
-	if(name == name_dont_care)
-		return default_plugin<T>();
-
-	for(
-		sge::plugin::iterator<T> it(plugin_manager.begin<T>());
-		it != plugin_manager.end<T>();
-		++it
-	)
-		if(it->info().name() == name)
-			return it->load();
-
-	FCPPT_LOG_WARNING(
-		log::global(),
-		fcppt::log::_
-			<< FCPPT_TEXT("Tried to load plugin of type ")
-			<< fcppt::type_info(typeid(T)).name()
-			<< FCPPT_TEXT(" with name \"")
-			<< name
-			<< FCPPT_TEXT("\" but it could not be found!")
-			<< FCPPT_TEXT(" Trying to load a default plugin instead.")
-	);
-
-	return default_plugin<T>();
 }
 
 template<

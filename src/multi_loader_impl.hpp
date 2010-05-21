@@ -24,24 +24,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/plugin.hpp>
+#include <sge/plugin/context_base.hpp>
 #include <sge/loaders_exhausted.hpp>
 #include <sge/log/global.hpp>
+#include <sge/multi_loader.hpp>
+#include <sge/all_extensions.hpp>
+#include <fcppt/algorithm/contains.hpp>
+#include <fcppt/algorithm/set_intersection.hpp>
 #include <fcppt/filesystem/exists.hpp>
 #include <fcppt/filesystem/is_regular.hpp>
-#include <fcppt/filesystem/extension.hpp>
+#include <fcppt/filesystem/extension_without_dot.hpp>
+#include <fcppt/container/bitfield/is_subset_eq.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name.hpp>
+#include <boost/foreach.hpp>
 #include <typeinfo>
 
 template<
-	typename A,
-	typename B,
-	typename C
+	typename Loader,
+	typename File,
+	typename Exception,
+	typename Capabilities
 >
-sge::multi_loader<A,B,C>::multi_loader(
-	plugin::manager &pm
+sge::multi_loader<Loader, File, Exception, Capabilities>::multi_loader(
+	plugin::manager &pm,
+	extension_set const &extensions,
+	capabilities const &capabilities_
 )
+:
+	plugins_(),
+	loaders_()
 {
 	for (
 		plugin::iterator<loader> i = pm.begin<loader>();
@@ -49,139 +62,137 @@ sge::multi_loader<A,B,C>::multi_loader(
 		++i
 	)
 	{
-		plugins.push_back(
+		plugin_ptr const plugin_(
 			i->load()
 		);
 
-		loaders.push_back(
+		loader_ptr const loader_(
 			loader_ptr(
-				plugins.back()->get()()
+				plugin_->get()()
 			)
 		);
-	}
-}
 
-template<
-	typename A,
-	typename B,
-	typename C
->
-sge::multi_loader<A,B,C>::~multi_loader()
-{}
-
-template<
-	typename A,
-	typename B,
-	typename C
->
-typename sge::multi_loader<A,B,C>::file_ptr const
-sge::multi_loader<A,B,C>::load(
-	fcppt::filesystem::path const &file
-)
-{
-	if (!fcppt::filesystem::exists(file))
-		throw exception(
-			FCPPT_TEXT("file \"")
-			+ file.string()
-			+ FCPPT_TEXT("\" does not exist"));
-
-	if (!fcppt::filesystem::is_regular(file))
-		throw exception(
-			FCPPT_TEXT("file \"")
-			+ file.string()
-			+ FCPPT_TEXT("\" is not a regular file"));
-
-	fcppt::string const extension(
-		fcppt::filesystem::extension(
-			file
+		// check if this plugin might be useful
+		if(
+			fcppt::container::bitfield::is_subset_eq(
+				capabilities_,
+				loader_->capabilities()
+			)
+			&&
+			(
+				extensions == sge::all_extensions
+				||
+				!fcppt::algorithm::set_intersection(
+					extensions,
+					loader_->extensions()
+				).empty()
+			)
 		)
-	);
-
-	if (extension.empty())
-		return
-			brute_load(
-				file
+		{
+			plugins_.push_back(
+				plugin_
 			);
 
-	for (
-		typename loader_container::iterator i = loaders.begin();
-		i != loaders.end();
-		++i
-	)
-	{
-		// FIXME: replace by container::contains
-		if ((*i)->extensions().find(extension) == (*i)->extensions().end())
-			continue;
-
-		FCPPT_LOG_DEBUG(
-			log::global(),
-			fcppt::log::_
-				<< FCPPT_TEXT("loader ")
-				<< fcppt::type_name(typeid(loader))
-				<< FCPPT_TEXT(": trying to load audio file")
+			loaders_.push_back(
+				loader_
 			);
-
-		return (*i)->load(file);
-	}
-
-	return
-		brute_load(
-			file
-		);
-
-}
-
-template<
-	typename A,
-	typename B,
-	typename C
->
-typename sge::multi_loader<A,B,C>::file_ptr const
-sge::multi_loader<A,B,C>::brute_load(
-	fcppt::filesystem::path const &file
-)
-{
-	FCPPT_LOG_INFO(
-		log::global(),
-		fcppt::log::_
-			<< FCPPT_TEXT("brute loading file ")
-			<< file.string()
-			<< FCPPT_TEXT(", add an extension to speed up the search")
-	);
-
-	for (
-		typename loader_container::iterator i = loaders.begin();
-		i != loaders.end();
-		++i
-	)
-	{
-		try
+		}
+		else
 		{
 			FCPPT_LOG_DEBUG(
 				log::global(),
 				fcppt::log::_
 					<< FCPPT_TEXT("loader ")
 					<< fcppt::type_name(typeid(loader))
-					<< FCPPT_TEXT(": trying to load audio file")
-			);
-		}
-		catch (sge::exception const &e)
-		{
-			FCPPT_LOG_INFO(
-				log::global(),
-				fcppt::log::_
-					<< FCPPT_TEXT("loader ")
-					<< fcppt::type_name(typeid(loader))
-					<< FCPPT_TEXT("couldn't load the file: ")
-					<< e.string()
-			);
+					<< FCPPT_TEXT(" didn't find plugin \"")
+					<< i->info().name()
+					<< FCPPT_TEXT("\" to be useful.")
+			)
 		}
 	}
+}
 
-	throw
-		loaders_exhausted(
-			file
+template<
+	typename Loader,
+	typename File,
+	typename Exception,
+	typename Capabilities
+>
+sge::multi_loader<Loader, File, Exception, Capabilities>::~multi_loader()
+{}
+
+template<
+	typename Loader,
+	typename File,
+	typename Exception,
+	typename Capabilities
+>
+typename sge::multi_loader<Loader, File, Exception, Capabilities>::file_ptr const
+sge::multi_loader<Loader, File, Exception, Capabilities>::load(
+	fcppt::filesystem::path const &file
+) const
+{
+	if (!fcppt::filesystem::exists(file))
+		throw exception(
+			FCPPT_TEXT("file \"")
+			+ file.string()
+			+ FCPPT_TEXT("\" does not exist")
 		);
+
+	if (!fcppt::filesystem::is_regular(file))
+		throw exception(
+			FCPPT_TEXT("file \"")
+			+ file.string()
+			+ FCPPT_TEXT("\" is not a regular file")
+		);
+
+	fcppt::string const extension(
+		fcppt::filesystem::extension_without_dot(
+			file
+		)
+	);
+
+	if (extension.empty())
+		throw loaders_exhausted(
+			file,
+			FCPPT_TEXT("File has no extension!")
+		);
+
+	BOOST_FOREACH(
+		typename loader_container::const_reference ref,
+		loaders_
+	)
+	{
+		if(
+			!fcppt::algorithm::contains(
+				ref->extensions(),
+				extension
+			)
+		)
+			continue;
+
+		return
+			ref->load(
+				file
+			);
+	}
+
+	throw loaders_exhausted(
+		file,
+		FCPPT_TEXT("Tried all loaders but none matched!")
+	);
+}
+
+template<
+	typename Loader,
+	typename File,
+	typename Exception,
+	typename Capabilities
+>
+typename sge::multi_loader<Loader, File, Exception, Capabilities>::loader_container const &
+sge::multi_loader<Loader, File, Exception, Capabilities>::loaders() const
+{
+	return loaders_;
 }
 
 #endif

@@ -43,6 +43,12 @@ sge::plugin::plugin<T>::plugin(
 template<
 	typename T
 >
+sge::plugin::plugin<T>::~plugin()
+{}
+
+template<
+	typename T
+>
 typename sge::plugin::plugin<T>::loader_fun
 sge::plugin::plugin<T>::get() const
 {

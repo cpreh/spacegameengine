@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/system.hpp>
 #include <sge/input/action.hpp>
 #include <sge/image/multi_loader.hpp>
+#include <sge/image/capabilities.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/external_system_impl.hpp>
@@ -57,6 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/default_callback.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/log/global.hpp>
+#include <sge/all_extensions.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -106,7 +108,10 @@ try
 			sge::systems::parameterless::input
 		)
 		(
-			sge::systems::parameterless::image
+			sge::systems::image_loader(
+				sge::image::capabilities_field::null(),
+				sge::all_extensions
+			)
 		)
 	);
 
@@ -118,8 +123,8 @@ try
 		sys.renderer()
 	);
 
-	sge::image::multi_loader image_loader(
-		sys.plugin_manager()
+	sge::image::multi_loader const &image_loader(
+		sys.image_loader()
 	);
 
 	typedef sge::texture::default_creator<

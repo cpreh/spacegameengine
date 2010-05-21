@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_CREATE_TEXTURE_HPP_INCLUDED
 #define SGE_IMAGE_CREATE_TEXTURE_HPP_INCLUDED
 
-#include <sge/image/loader_ptr.hpp>
+#include <sge/image/multi_loader_fwd.hpp>
 #include <sge/image/file_ptr.hpp>
 #include <sge/renderer/filter/texture_fwd.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
@@ -46,8 +46,8 @@ create_texture(
 SGE_SYMBOL renderer::texture_ptr const
 create_texture(
 	fcppt::filesystem::path const &,
-	renderer::device_ptr r,
-	loader_ptr p,
+	renderer::device_ptr,
+	multi_loader const &,
 	renderer::filter::texture const &,
 	renderer::resource_flags_field const &
 );

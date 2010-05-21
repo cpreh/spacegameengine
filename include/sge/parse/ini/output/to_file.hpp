@@ -37,7 +37,7 @@ namespace output
 SGE_SYMBOL bool
 to_file(
 	fcppt::filesystem::path const &,
-	section_vector const &ret
+	section_vector const &
 );
 
 }

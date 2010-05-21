@@ -18,14 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems/named_compare.hpp>
-#include <sge/systems/named.hpp>
+#include "any_compare.hpp"
+#include <sge/systems/any.hpp>
+#include <sge/systems/audio_loader.hpp>
+#include <sge/systems/image_loader.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/map.hpp>
 #include <fcppt/variant/apply_binary.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/type_info.hpp>
-#include <boost/assign/list_of.hpp>
 #include <typeinfo>
 #include <map>
+#include <utility>
 
 namespace
 {
@@ -35,7 +39,8 @@ class compare
 public:
 	typedef bool result_type;
 
-	bool operator()(
+	result_type
+	operator()(
 		sge::systems::parameterless::type const &,
 		sge::systems::parameterless::type const &
 	) const;
@@ -61,16 +66,17 @@ priority(
 }
 
 bool
-sge::systems::named_compare(
-	named const &a,
-	named const &b
+sge::systems::any_compare(
+	any const &a,
+	any const &b
 )
 {
-	return fcppt::variant::apply_binary(
-		compare(),
-		a.value(),
-		b.value()
-	);
+	return
+		fcppt::variant::apply_binary(
+			compare(),
+			a,
+			b
+		);
 }
 
 namespace
@@ -105,16 +111,49 @@ priority(
 	fcppt::type_info const &t
 )
 {
-	static fcppt::container::map<
+	typedef fcppt::container::map<
 		std::map<
 			fcppt::type_info,
 			priority_type
 		>
-	> const priorities =
-		boost::assign::map_list_of
-			(fcppt::type_info(typeid(sge::window::parameters)), 0)
-			(fcppt::type_info(typeid(sge::renderer::parameters)), 1)
-			(fcppt::type_info(typeid(sge::systems::parameterless::type)), 2);
+	> priority_map;
+	
+	static priority_map const priorities(
+		fcppt::assign::make_container<
+			priority_map
+		>
+		(
+			std::make_pair(
+				fcppt::type_info(typeid(sge::window::parameters)),
+				0
+			)
+		)
+		(
+			std::make_pair(
+				fcppt::type_info(typeid(sge::renderer::parameters)),
+				1
+			)
+		)
+		(
+			std::make_pair(
+				fcppt::type_info(typeid(sge::systems::parameterless::type)),
+				2	
+			)
+		)
+		(
+			std::make_pair(
+				fcppt::type_info(typeid(sge::systems::image_loader)),
+				3	
+			)
+		)
+		(
+			std::make_pair(
+				fcppt::type_info(typeid(sge::systems::audio_loader)),
+				4	
+			)
+		)
+
+	);
 
 	return priorities[t];
 }

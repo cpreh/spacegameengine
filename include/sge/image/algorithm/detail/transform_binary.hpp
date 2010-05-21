@@ -35,12 +35,14 @@ namespace detail
 template<
 	typename Op
 >
-class transform_binary {
+class transform_binary
+{
 public:
 	typedef void result_type;
 
 	explicit transform_binary(
-		Op const &op)
+		Op const &op
+	)
 	:
 		op(op)
 	{}
@@ -54,7 +56,8 @@ public:
 	operator()(
 		Src1 const &src1,
 		Src2 const &src2,
-		Dest const &dest) const
+		Dest const &dest
+	) const
 	{
 		mizuiro::image::algorithm::transform_ternary(
 			src1,

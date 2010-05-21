@@ -21,23 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_MULTI_LOADER_HPP_INCLUDED
 #define SGE_IMAGE_MULTI_LOADER_HPP_INCLUDED
 
-#include <sge/multi_loader.hpp>
-#include <sge/image/loader.hpp>
-#include <sge/image/file.hpp>
+#include <sge/image/multi_loader_fwd.hpp>
 #include <sge/image/exception.hpp>
-
-namespace sge
-{
-namespace image
-{
-
-typedef sge::multi_loader<
-	loader,
-	file,
-	exception
-> multi_loader;
-
-}
-}
+#include <sge/multi_loader.hpp>
 
 #endif

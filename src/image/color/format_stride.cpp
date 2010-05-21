@@ -37,6 +37,8 @@ sge::image::color::format_stride(
 	case format::argb8:
 	case format::bgra8:
 		return sizeof(boost::uint8_t) * 4;
+	case format::rgb8:
+		return sizeof(boost::uint8_t) * 3;
 	case format::rgba32f:
 	case format::argb32f:
 	case format::bgra32f:

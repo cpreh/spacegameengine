@@ -35,12 +35,14 @@ namespace detail
 template<
 	typename Op
 >
-class transform_unary {
+class transform_unary
+{
 public:
 	typedef void result_type;
 
 	explicit transform_unary(
-		Op const &op)
+		Op const &op
+	)
 	:
 		op(op)
 	{}

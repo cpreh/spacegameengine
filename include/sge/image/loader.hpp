@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/loader_fwd.hpp>
 #include <sge/image/file_ptr.hpp>
+#include <sge/image/capabilities_field.hpp>
 #include <sge/image/view/const_object.hpp>
-//#include <sge/image/format.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <sge/extension_set.hpp>
@@ -47,17 +47,13 @@ public:
 		fcppt::filesystem::path const &
 	) = 0;
 
-	/*virtual file_ptr const
-	load(
-		format::type type,
-		object::const_pointer format_data,
-		object::size_type size
-	) = 0;*/
-
 	virtual file_ptr const
 	create(
 		view::const_object const &
 	) = 0;
+
+	virtual capabilities_field const
+	capabilities() const = 0;
 
 	virtual extension_set const
 	extensions() const = 0;

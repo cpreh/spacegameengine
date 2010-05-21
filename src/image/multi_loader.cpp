@@ -25,5 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 SGE_INSTANTIATE_MULTI_LOADER(
 	sge::image::loader,
 	sge::image::file,
-	sge::image::exception
+	sge::image::exception,
+	sge::image::capabilities_field
 )

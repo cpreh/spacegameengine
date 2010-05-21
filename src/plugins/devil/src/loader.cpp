@@ -21,14 +21,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../loader.hpp"
 #include "../file.hpp"
 #include "../error.hpp"
+#include <sge/extension_set.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
+
+namespace
+{
+	// FIXME: add more extensions, see: http://openil.sourceforge.net/features.php
+sge::extension_set const extensions_(
+	fcppt::assign::make_container<
+		sge::extension_set
+	>
+	(
+		FCPPT_TEXT("bmp")
+	)
+	(
+		FCPPT_TEXT("png")
+	)
+	(
+		FCPPT_TEXT("jpg")
+	)
+	(
+		FCPPT_TEXT("jpeg")
+	)
+);
+
+}
 
 sge::devil::loader::loader()
 {
 	ilEnable(IL_FORMAT_SET);
+
 	ilSetInteger(IL_FORMAT_MODE, IL_RGBA);
+
 	ilEnable(IL_FILE_OVERWRITE);
+
 	check_errors();
 }
 
@@ -44,15 +73,6 @@ sge::devil::loader::load(
 	);
 }
 
-/*const sge::image::object_ptr
-sge::devil::loader::load_image(
-	const image::format::type type,
-	const object::const_pointer format_data,
-	const object::size_type size)
-{
-	return image::object_ptr(new object(type, format_data, size));
-}*/
-
 sge::image::file_ptr const
 sge::devil::loader::create(
 	image::view::const_object const &src
@@ -65,14 +85,14 @@ sge::devil::loader::create(
 	);
 }
 
+sge::image::capabilities_field const
+sge::devil::loader::capabilities() const
+{
+	return image::capabilities_field::null();
+}
+
 sge::extension_set const
 sge::devil::loader::extensions() const
 {
-	// FIXME: add more extensions, see: http://openil.sourceforge.net/features.php
-	extension_set s;
-	s.insert(FCPPT_TEXT("bmp"));
-	s.insert(FCPPT_TEXT("png"));
-	s.insert(FCPPT_TEXT("jpg"));
-	s.insert(FCPPT_TEXT("jpeg"));
-	return s;
+	return extensions_;
 }

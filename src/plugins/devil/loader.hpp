@@ -29,7 +29,10 @@ namespace sge
 namespace devil
 {
 
-class loader : public image::loader {
+class loader
+:
+	public image::loader
+{
 public:
 	loader();
 
@@ -38,18 +41,16 @@ public:
 		fcppt::filesystem::path const &
 	);
 
-	/*image::object_ptr const
-	load_image(
-		image::format::type type,
-		image::object::const_pointer format_data,
-		image::object::size_type size);*/
-
 	image::file_ptr const
 	create(
 		image::view::const_object const &src
 	);
 
-	extension_set const extensions() const;
+	image::capabilities_field const
+	capabilities() const;
+
+	extension_set const
+	extensions() const;
 private:
 	library lib_;
 };

@@ -20,8 +20,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../file.hpp"
 #include "../loader.hpp"
+#include <sge/extension_set.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
+
+namespace
+{
+
+sge::extension_set const extensions_(
+	fcppt::assign::make_container<
+		sge::extension_set
+	>(
+		FCPPT_TEXT("ogg")
+	)
+);
+
+}
 
 sge::audio::file_ptr const
 sge::vorbis::loader::load(
@@ -36,10 +52,14 @@ sge::vorbis::loader::load(
 		);
 }
 
+sge::audio::loader_capabilities_field const
+sge::vorbis::loader::capabilities() const
+{
+	return audio::loader_capabilities_field::null();
+}
+
 sge::extension_set const
 sge::vorbis::loader::extensions() const
 {
-	extension_set s;
-	s.insert(FCPPT_TEXT("ogg"));
-	return s;
+	return extensions_;
 }

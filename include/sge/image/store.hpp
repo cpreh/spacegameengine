@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/dim_type.hpp>
 #include <sge/symbol.hpp>
 #include <mizuiro/image/store_decl.hpp>
+#include <mizuiro/image/raw_view.hpp>
+#include <mizuiro/access/raw.hpp>
 
 namespace sge
 {
@@ -36,7 +38,8 @@ template<
 >
 class store {
 	typedef mizuiro::image::store<
-		Format
+		Format,
+		::mizuiro::access::raw
 	> internal_type;
 public:
 	typedef typename internal_type::pointer pointer;

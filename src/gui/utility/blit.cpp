@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "blit.hpp"
-#include "normalization.hpp"
 #include <sge/image/color/convert.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/algorithm/copy_and_convert.hpp>
@@ -37,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <mizuiro/color/channel_max.hpp>
 #include <mizuiro/color/channel/alpha.hpp>
 #include <mizuiro/color/types/channel_value.hpp>
+#include <mizuiro/normalize.hpp>
 #include <algorithm>
 
 namespace
@@ -46,7 +46,8 @@ template<
 	typename Source,
 	typename DstPixel
 >
-class channel_blitter {
+class channel_blitter
+{
 public:
 	typedef typename DstPixel::format::channel_type channel_type;
 
@@ -88,7 +89,8 @@ channel_blitter<
 	Source const &src,
 	channel_type const src_alpha,
 	channel_type const dest_alpha,
-	DstPixel const &result)
+	DstPixel const &result
+)
 :
 	src(src),
 	src_alpha(src_alpha),
@@ -114,8 +116,21 @@ channel_blitter<
 	Channel &
 ) const
 {
-	float const src_floating = sge::gui::utility::normalize<float>(src_alpha);
-	float const dest_floating = sge::gui::utility::normalize<float>(dest_alpha);
+	float const src_floating(
+		mizuiro::normalize<
+			float
+		>(
+			src_alpha
+		)
+	);
+
+	float const dest_floating(
+		mizuiro::normalize<
+			float
+		>(
+			dest_alpha
+		)
+	);
 
 	result. template set<Channel>(
 		static_cast<channel_type>(

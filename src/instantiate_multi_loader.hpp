@@ -22,17 +22,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INSTANTIATE_MULTI_LOADER_HPP_INCLUDED
 
 #include "multi_loader_impl.hpp"
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/export_symbol.hpp>
 
 #define SGE_INSTANTIATE_MULTI_LOADER(\
 	loader,\
 	file,\
-	exception\
+	exception,\
+	capabilities\
 )\
 template FCPPT_EXPORT_SYMBOL class sge::multi_loader<\
 	loader,\
 	file,\
-	exception\
+	exception,\
+	capabilities\
 >;
 
 #endif

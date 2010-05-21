@@ -18,26 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_FORMAT_HPP_INCLUDED
-#define SGE_IMAGE_FORMAT_HPP_INCLUDED
+#ifndef SGE_IMAGE_ALGORITHM_PRINT_HPP_INCLUDED
+#define SGE_IMAGE_ALGORITHM_PRINT_HPP_INCLUDED
+
+#include <sge/image/view/const_object.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/io/ostream.hpp>
 
 namespace sge
 {
 namespace image
 {
-
-namespace format
+namespace algorithm
 {
-	enum type {
-		bmp,
-		gif,
-		jpeg,
-		png,
-		tiff,
-		tga
-	};
-}
 
+SGE_SYMBOL
+void
+print(
+	fcppt::io::ostream &,
+	view::const_object const &
+);
+
+}
 }
 }
 
