@@ -66,7 +66,7 @@ public:
 	SGE_SYMBOL file_ptr const
 	load(
 		fcppt::filesystem::path const &
-	) const;
+	);
 
 	SGE_SYMBOL loader_container const &
 	loaders() const;

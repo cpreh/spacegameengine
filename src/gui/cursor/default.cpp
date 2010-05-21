@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 sge::gui::cursor::default_::default_(
-	sge::image::multi_loader const &il,
+	sge::image::multi_loader &il,
 	sge::renderer::device_ptr const _rend
 )
 :

@@ -123,7 +123,7 @@ try
 		sys.renderer()
 	);
 
-	sge::image::multi_loader const &image_loader(
+	sge::image::multi_loader &image_loader(
 		sys.image_loader()
 	);
 

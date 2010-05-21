@@ -68,10 +68,10 @@ public:
 	SGE_SYMBOL input::system_ptr const
 	input_system() const;
 
-	SGE_SYMBOL sge::image::multi_loader const &
+	SGE_SYMBOL sge::image::multi_loader &
 	image_loader() const;
 
-	SGE_SYMBOL sge::audio::multi_loader const &
+	SGE_SYMBOL sge::audio::multi_loader &
 	audio_loader() const;
 
 	SGE_SYMBOL sge::audio::player_ptr const

@@ -47,7 +47,7 @@ SGE_SYMBOL renderer::texture_ptr const
 create_texture(
 	fcppt::filesystem::path const &,
 	renderer::device_ptr,
-	multi_loader const &,
+	multi_loader &,
 	renderer::filter::texture const &,
 	renderer::resource_flags_field const &
 );

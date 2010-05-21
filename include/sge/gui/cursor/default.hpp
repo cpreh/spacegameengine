@@ -46,7 +46,7 @@ class SGE_CLASS_SYMBOL default_
 {
 public:
 	SGE_GUI_SYMBOL default_(
-		sge::image::multi_loader const &,
+		sge::image::multi_loader &,
 		sge::renderer::device_ptr
 	);
 
