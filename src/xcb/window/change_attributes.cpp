@@ -20,14 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/xcb/window/change_attributes.hpp>
 #include <sge/xcb/window/object.hpp>
-#include <sge/xcb/window/attribute_list.hpp>
+#include <sge/xcb/window/attribute/list.hpp>
 #include <sge/xcb/connection.hpp>
 #include <xcb/xcb.h>
 
 void
 sge::xcb::window::change_attributes(
 	object &window_,
-	attribute_list const &attributes_
+	attribute::list const &attributes_
 )
 {
 	xcb_change_window_attributes_checked(

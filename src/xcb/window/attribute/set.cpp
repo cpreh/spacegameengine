@@ -18,29 +18,57 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_XCB_WINDOW_CHANGE_ATTRIBUTES_HPP_INCLUDED
-#define SGE_XCB_WINDOW_CHANGE_ATTRIBUTES_HPP_INCLUDED
+#include <sge/xcb/window/attribute/set.hpp>
 
-#include <sge/xcb/window/object_fwd.hpp>
-#include <sge/xcb/window/attribute/list_fwd.hpp>
-#include <sge/xcb/symbol.hpp>
+sge::xcb::window::attribute::set::set()
+:
+	map_()
+{}
 
-namespace sge
+sge::xcb::window::attribute::set::set(
+	attribute::value_map const &_map
+)
+:
+	map_(_map)
+{}
+
+sge::xcb::window::attribute::set::~set()
+{}
+
+bool
+sge::xcb::window::attribute::set::add(
+	enum_::type const what_,
+	value const value_
+)
 {
-namespace xcb
+	return
+		map_.insert(
+			std::make_pair(
+				what_,
+				value_
+			)
+		).second;
+}
+
+bool
+sge::xcb::window::attribute::set::remove(
+	enum_::type const what_
+)
 {
-namespace window
+	return
+		map_.erase(
+			what_
+		) > 0;
+}
+
+sge::xcb::window::attribute::value_map &
+sge::xcb::window::attribute::set::value_map()
 {
-
-SGE_XCB_SYMBOL
-void
-change_attributes(
-	object &,
-	attribute::list const &
-);
-
-}
-}
+	return map_;
 }
 
-#endif
+sge::xcb::window::attribute::value_map const &
+sge::xcb::window::attribute::set::value_map() const
+{
+	return map_;
+}

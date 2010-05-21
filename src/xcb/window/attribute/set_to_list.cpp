@@ -18,29 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_XCB_WINDOW_CHANGE_ATTRIBUTES_HPP_INCLUDED
-#define SGE_XCB_WINDOW_CHANGE_ATTRIBUTES_HPP_INCLUDED
+#include <sge/xcb/window/attribute/set_to_list.hpp>
+#include <sge/xcb/window/attribute/set.hpp>
+#include <sge/xcb/window/attribute/list.hpp>
+#include <boost/foreach.hpp>
 
-#include <sge/xcb/window/object_fwd.hpp>
-#include <sge/xcb/window/attribute/list_fwd.hpp>
-#include <sge/xcb/symbol.hpp>
-
-namespace sge
+sge::xcb::window::attribute::list const
+sge::xcb::window::attribute::set_to_list(
+	set const &set_
+)
 {
-namespace xcb
-{
-namespace window
-{
+	value_map const &value_map_(
+		set_.value_map()
+	);
 
-SGE_XCB_SYMBOL
-void
-change_attributes(
-	object &,
-	attribute::list const &
-);
+	list ret(
+		value_map_.size()
+	);
 
+	BOOST_FOREACH(
+		value_map::const_reference val,
+		value_map_
+	)
+		ret.add(
+			val.first,
+			val.second
+		);
+	
+	return ret;
 }
-}
-}
-
-#endif

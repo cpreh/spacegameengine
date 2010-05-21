@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/xcb/window/depth_from_parent.hpp>
 #include <sge/xcb/window/border_width.hpp>
 #include <sge/xcb/window/class.hpp>
-#include <sge/xcb/window/attribute_list.hpp>
+#include <sge/xcb/window/attribute/list.hpp>
 #include <sge/xcb/window/map.hpp>
 #include <fcppt/chrono/seconds.hpp>
 #include <fcppt/time/sleep_any.hpp>
@@ -64,7 +64,7 @@ int main()
 			),
 			sge::xcb::window::class_::input_output,
 			screen_.root_visual(),
-			sge::xcb::window::attribute_list()
+			sge::xcb::window::attribute::list()
 		)
 	);
 	

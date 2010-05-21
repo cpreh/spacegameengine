@@ -18,8 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_XCB_WINDOW_ATTRIBUTE_LIST_FWD_HPP_INCLUDED
-#define SGE_XCB_WINDOW_ATTRIBUTE_LIST_FWD_HPP_INCLUDED
+#ifndef SGE_XCB_WINDOW_ATTRIBUTE_SET_TO_LIST_HPP_INCLUDED
+#define SGE_XCB_WINDOW_ATTRIBUTE_SET_TO_LIST_HPP_INCLUDED
+
+#include <sge/xcb/window/attribute/set_fwd.hpp>
+#include <sge/xcb/window/attribute/list_fwd.hpp>
+#include <sge/xcb/symbol.hpp>
 
 namespace sge
 {
@@ -27,9 +31,16 @@ namespace xcb
 {
 namespace window
 {
+namespace attribute
+{
 
-class attribute_list;
+SGE_XCB_SYMBOL
+list const
+set_to_list(
+	set const &
+);
 
+}
 }
 }
 }

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/xcb/window/depth.hpp>
 #include <sge/xcb/window/border_width.hpp>
 #include <sge/xcb/window/class.hpp>
-#include <sge/xcb/window/attribute_list_fwd.hpp>
+#include <sge/xcb/window/attribute/list_fwd.hpp>
 #include <sge/xcb/visual/id_num.hpp>
 #include <sge/xcb/connection_fwd.hpp>
 #include <sge/xcb/symbol.hpp>
@@ -51,7 +51,7 @@ create(
 	border_width const &,
 	class_::type,
 	visual::id_num const &,
-	attribute_list const &
+	attribute::list const &
 );
 
 }

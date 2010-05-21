@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_XCB_WINDOW_CHANGE_ATTRIBUTES_HPP_INCLUDED
-#define SGE_XCB_WINDOW_CHANGE_ATTRIBUTES_HPP_INCLUDED
+#ifndef SGE_XCB_WINDOW_ATTRIBUTE_ENUM_TO_MASK_HPP_INCLUDED
+#define SGE_XCB_WINDOW_ATTRIBUTE_ENUM_TO_MASK_HPP_INCLUDED
 
-#include <sge/xcb/window/object_fwd.hpp>
-#include <sge/xcb/window/attribute/list_fwd.hpp>
+#include <sge/xcb/window/attribute/enum.hpp>
+#include <sge/xcb/value_mask.hpp>
 #include <sge/xcb/symbol.hpp>
 
 namespace sge
@@ -31,14 +31,16 @@ namespace xcb
 {
 namespace window
 {
+namespace attribute
+{
 
 SGE_XCB_SYMBOL
-void
-change_attributes(
-	object &,
-	attribute::list const &
+xcb::value_mask const
+enum_to_mask(
+	enum_::type
 );
 
+}
 }
 }
 }

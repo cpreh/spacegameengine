@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_XCB_WINDOW_ATTRIBUTE_LIST_HPP_INCLUDED
-#define SGE_XCB_WINDOW_ATTRIBUTE_LIST_HPP_INCLUDED
+#ifndef SGE_XCB_WINDOW_ATTRIBUTE_SET_HPP_INCLUDED
+#define SGE_XCB_WINDOW_ATTRIBUTE_SET_HPP_INCLUDED
 
-#include <sge/xcb/window/attribute_list_fwd.hpp>
-#include <sge/xcb/window/attribute.hpp>
-#include <sge/xcb/value_mask.hpp>
+#include <sge/xcb/window/attribute/set_fwd.hpp>
+#include <sge/xcb/window/attribute/value_map.hpp>
+#include <sge/xcb/window/attribute/enum.hpp>
+#include <sge/xcb/window/attribute/value.hpp>
 #include <sge/xcb/symbol.hpp>
-#include <fcppt/container/raw_vector_decl.hpp>
 
 namespace sge
 {
@@ -33,31 +33,48 @@ namespace xcb
 {
 namespace window
 {
+namespace attribute
+{
 
-class attribute_list
+class set
 {
 public:
 	SGE_XCB_SYMBOL
-	explicit attribute_list();
+	explicit set();
 
 	SGE_XCB_SYMBOL
-	~attribute_list();
+	explicit set(
+		attribute::value_map const &
+	);
 
 	SGE_XCB_SYMBOL
-	attribute const *
-	data() const;
+	~set();
 
 	SGE_XCB_SYMBOL
-	xcb::value_mask const
-	value_mask() const;
+	bool
+	add(
+		enum_::type,
+		value
+	);
+
+	SGE_XCB_SYMBOL
+	bool
+	remove(
+		enum_::type
+	);
+
+	SGE_XCB_SYMBOL
+	attribute::value_map &
+	value_map();
+
+	SGE_XCB_SYMBOL
+	attribute::value_map const &
+	value_map() const;
 private:
-	typedef fcppt::container::raw_vector<
-		attribute
-	> attribute_container;
-
-	attribute_container container_;
+	attribute::value_map map_;
 };
 
+}
 }
 }
 }

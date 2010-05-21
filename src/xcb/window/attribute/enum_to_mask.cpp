@@ -18,25 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/xcb/window/attribute_list.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
-
-sge::xcb::window::attribute_list::attribute_list()
-:
-	container_()
-{}
-
-sge::xcb::window::attribute_list::~attribute_list()
-{}
-
-sge::xcb::window::attribute const *
-sge::xcb::window::attribute_list::data() const
-{
-	return container_.data();
-}
+#include <sge/xcb/window/attribute/enum_to_mask.hpp>
 
 sge::xcb::value_mask const
-sge::xcb::window::attribute_list::value_mask() const
+sge::xcb::window::attribute::enum_to_mask(
+	enum_::type const what_
+)
 {
-	return xcb::value_mask(0); // TODO
+	return
+		value_mask(
+			static_cast<
+				value_mask::value_type
+			>(
+				1
+			)
+			<<
+			(
+				static_cast<
+					value_mask::value_type
+				>(
+					what_
+				)
+				+ 1u
+			)
+		);
 }

@@ -18,29 +18,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_XCB_WINDOW_CHANGE_ATTRIBUTES_HPP_INCLUDED
-#define SGE_XCB_WINDOW_CHANGE_ATTRIBUTES_HPP_INCLUDED
+#include <sge/xcb/window/attribute/list.hpp>
+#include <sge/xcb/window/attribute/enum_to_mask.hpp>
+#include <sge/xcb/window/attribute/enum_to_mask.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
 
-#include <sge/xcb/window/object_fwd.hpp>
-#include <sge/xcb/window/attribute/list_fwd.hpp>
-#include <sge/xcb/symbol.hpp>
+sge::xcb::window::attribute::list::list()
+:
+	container_(),
+	mask_(0)
+{}
 
-namespace sge
+sge::xcb::window::attribute::list::list(
+	size_type const size_
+)
+:
+	container_(),
+	mask_(0)
 {
-namespace xcb
-{
-namespace window
-{
+	container_.reserve(
+		size_
+	);
+}
 
-SGE_XCB_SYMBOL
+sge::xcb::window::attribute::list::~list()
+{}
+
 void
-change_attributes(
-	object &,
-	attribute::list const &
-);
+sge::xcb::window::attribute::list::add(
+	enum_::type const what_,
+	value const &value_
+)
+{
+	mask_ |=
+		enum_to_mask(
+			what_
+		);
 
-}
-}
+	container_.push_back(
+		value_
+	);
 }
 
-#endif
+sge::xcb::window::attribute::value const *
+sge::xcb::window::attribute::list::data() const
+{
+	return container_.data();
+}
+
+sge::xcb::value_mask const
+sge::xcb::window::attribute::list::value_mask() const
+{
+	return mask_;
+}

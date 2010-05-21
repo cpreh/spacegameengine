@@ -18,10 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_XCB_WINDOW_ATTRIBUTE_HPP_INCLUDED
-#define SGE_XCB_WINDOW_ATTRIBUTE_HPP_INCLUDED
+#ifndef SGE_XCB_WINDOW_ATTRIBUTE_VALUE_MAP_HPP_INCLUDED
+#define SGE_XCB_WINDOW_ATTRIBUTE_VALUE_MAP_HPP_INCLUDED
 
-#include <boost/cstdint.hpp>
+#include <sge/xcb/window/attribute/enum.hpp>
+#include <sge/xcb/window/attribute/value.hpp>
+#include <map>
 
 namespace sge
 {
@@ -29,9 +31,15 @@ namespace xcb
 {
 namespace window
 {
+namespace attribute
+{
 
-typedef boost::uint32_t attribute;
+typedef std::map<
+	enum_::type,
+	value
+> value_map;
 
+}
 }
 }
 }
