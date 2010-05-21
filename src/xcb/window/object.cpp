@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::xcb::window::object::object(
 	id_num const &id_,
-	connection const &connection_
+	xcb::connection const &connection_
 )
 :
 	id_(id_),
@@ -39,11 +39,15 @@ sge::xcb::window::object::~object()
 	);
 }
 
-void
-sge::xcb::window::object::map()
+sge::xcb::connection const &
+sge::xcb::window::object::connection() const
 {
-	xcb_map_window(
-		connection_.get(),
-		id_
-	);
+	return connection_;
+}
+
+SGE_XCB_SYMBOL
+sge::xcb::window::id_num const
+sge::xcb::window::object::id() const
+{
+	return id_;
 }

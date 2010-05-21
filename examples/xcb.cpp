@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/xcb/window/border_width.hpp>
 #include <sge/xcb/window/class.hpp>
 #include <sge/xcb/window/attribute_list.hpp>
+#include <sge/xcb/window/map.hpp>
 #include <fcppt/chrono/seconds.hpp>
 #include <fcppt/time/sleep_any.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
@@ -67,7 +68,9 @@ int main()
 		)
 	);
 	
-	wnd->map();
+	sge::xcb::window::map(
+		*wnd
+	);
 
 	sge::xcb::flush(
 		connection_

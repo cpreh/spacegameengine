@@ -18,54 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_XCB_WINDOW_OBJECT_HPP_INCLUDED
-#define SGE_XCB_WINDOW_OBJECT_HPP_INCLUDED
+#include <sge/xcb/window/change_attributes.hpp>
+#include <sge/xcb/window/object.hpp>
+#include <sge/xcb/window/attribute_list.hpp>
+#include <sge/xcb/connection.hpp>
+#include <xcb/xcb.h>
 
-#include <sge/xcb/window/object_fwd.hpp>
-#include <sge/xcb/window/id_num.hpp>
-#include <sge/xcb/connection_fwd.hpp>
-#include <sge/xcb/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
-
-namespace sge
+void
+sge::xcb::window::change_attributes(
+	object &window_,
+	attribute_list const &attributes_
+)
 {
-namespace xcb
-{
-namespace window
-{
-
-class object
-{
-	FCPPT_NONCOPYABLE(object)
-public:
-	SGE_XCB_SYMBOL
-	explicit object(
-		id_num const &,
-		xcb::connection const &
+	xcb_change_window_attributes_checked(
+		window_.connection().get(),
+		window_.id(),
+		attributes_.value_mask(),
+		attributes_.data()
 	);
-
-	SGE_XCB_SYMBOL
-	~object();
-
-	SGE_XCB_SYMBOL
-	void
-	map();
-
-	SGE_XCB_SYMBOL
-	xcb::connection const &
-	connection() const;
-
-	SGE_XCB_SYMBOL
-	id_num const
-	id() const;
-private:
-	id_num const id_;
-
-	xcb::connection const &connection_;
-};
-
 }
-}
-}
-
-#endif

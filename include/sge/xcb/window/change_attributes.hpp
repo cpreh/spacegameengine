@@ -18,14 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_XCB_WINDOW_OBJECT_HPP_INCLUDED
-#define SGE_XCB_WINDOW_OBJECT_HPP_INCLUDED
+#ifndef SGE_XCB_WINDOW_CHANGE_ATTRIBUTES_HPP_INCLUDED
+#define SGE_XCB_WINDOW_CHANGE_ATTRIBUTES_HPP_INCLUDED
 
 #include <sge/xcb/window/object_fwd.hpp>
-#include <sge/xcb/window/id_num.hpp>
-#include <sge/xcb/connection_fwd.hpp>
+#include <sge/xcb/window/attribute_list_fwd.hpp>
 #include <sge/xcb/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -34,35 +32,12 @@ namespace xcb
 namespace window
 {
 
-class object
-{
-	FCPPT_NONCOPYABLE(object)
-public:
-	SGE_XCB_SYMBOL
-	explicit object(
-		id_num const &,
-		xcb::connection const &
-	);
-
-	SGE_XCB_SYMBOL
-	~object();
-
-	SGE_XCB_SYMBOL
-	void
-	map();
-
-	SGE_XCB_SYMBOL
-	xcb::connection const &
-	connection() const;
-
-	SGE_XCB_SYMBOL
-	id_num const
-	id() const;
-private:
-	id_num const id_;
-
-	xcb::connection const &connection_;
-};
+SGE_XCB_SYMBOL
+void
+change_attributes(
+	object &,
+	attribute_list const &
+);
 
 }
 }
