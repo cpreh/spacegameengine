@@ -18,44 +18,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/create_texture.hpp>
-#include <sge/image/file.hpp>
-#include <sge/image/multi_loader.hpp>
-#include <sge/renderer/device.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <sge/xcb/window/attribute/list.hpp>
+#include <sge/xcb/window/attribute/enum_to_mask.hpp>
+#include <sge/xcb/window/attribute/enum_to_mask.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
 
-sge::renderer::texture_ptr const
-sge::image::create_texture(
-	renderer::device_ptr const renderer,
-	file_ptr const file,
-	renderer::filter::texture const &filter,
-	renderer::resource_flags_field const &flags
+sge::xcb::window::attribute::list::list()
+:
+	container_(),
+	mask_(0)
+{}
+
+sge::xcb::window::attribute::list::list(
+	size_type const size_
 )
+:
+	container_(),
+	mask_(0)
 {
-	return
-		renderer->create_texture(
-			file->view(),
-			filter,
-			flags
-		);
+	container_.reserve(
+		size_
+	);
 }
 
-sge::renderer::texture_ptr const
-sge::image::create_texture(
-	fcppt::filesystem::path const &file,
-	renderer::device_ptr const renderer,
-	multi_loader &loader,
-	renderer::filter::texture const &filter,
-	renderer::resource_flags_field const &flags
+sge::xcb::window::attribute::list::~list()
+{}
+
+void
+sge::xcb::window::attribute::list::add(
+	enum_::type const what_,
+	value const &value_
 )
 {
-	return
-		create_texture(
-			renderer,
-			loader.load(
-				file
-			),
-			filter,
-			flags
+	mask_ |=
+		enum_to_mask(
+			what_
 		);
+
+	container_.push_back(
+		value_
+	);
+}
+
+sge::xcb::window::attribute::value const *
+sge::xcb::window::attribute::list::data() const
+{
+	return container_.data();
+}
+
+sge::xcb::value_mask const
+sge::xcb::window::attribute::list::value_mask() const
+{
+	return mask_;
 }

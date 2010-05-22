@@ -18,44 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/create_texture.hpp>
-#include <sge/image/file.hpp>
-#include <sge/image/multi_loader.hpp>
-#include <sge/renderer/device.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <sge/xcb/window/map.hpp>
+#include <sge/xcb/window/object.hpp>
+#include <sge/xcb/connection.hpp>
+#include <xcb/xcb.h>
 
-sge::renderer::texture_ptr const
-sge::image::create_texture(
-	renderer::device_ptr const renderer,
-	file_ptr const file,
-	renderer::filter::texture const &filter,
-	renderer::resource_flags_field const &flags
+void
+sge::xcb::window::map(
+	object &window_
 )
 {
-	return
-		renderer->create_texture(
-			file->view(),
-			filter,
-			flags
-		);
-}
-
-sge::renderer::texture_ptr const
-sge::image::create_texture(
-	fcppt::filesystem::path const &file,
-	renderer::device_ptr const renderer,
-	multi_loader &loader,
-	renderer::filter::texture const &filter,
-	renderer::resource_flags_field const &flags
-)
-{
-	return
-		create_texture(
-			renderer,
-			loader.load(
-				file
-			),
-			filter,
-			flags
-		);
+	xcb_map_window(
+		window_.connection().get(),
+		window_.id()
+	);
 }

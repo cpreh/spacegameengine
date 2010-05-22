@@ -81,7 +81,7 @@ calc_size(
 sge::renderer::dim_type const
 first_dim(
 	fcppt::filesystem::path const &p,
-	sge::image::multi_loader const &il
+	sge::image::multi_loader &il
 )
 {
 	fcppt::filesystem::directory_iterator const it(
@@ -145,7 +145,7 @@ try
 		)
 	);
 
-	sge::image::multi_loader const &il(
+	sge::image::multi_loader &il(
 		sys.image_loader()
 	);
 

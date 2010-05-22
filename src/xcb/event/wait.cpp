@@ -18,25 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/xcb/window/attribute_list.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
+#include <sge/xcb/event/wait.hpp>
+#include <sge/xcb/event/generic.hpp>
+#include <sge/xcb/connection.hpp>
+#include <xcb/xcb.h>
 
-sge::xcb::window::attribute_list::attribute_list()
-:
-	container_()
-{}
-
-sge::xcb::window::attribute_list::~attribute_list()
-{}
-
-sge::xcb::window::attribute const *
-sge::xcb::window::attribute_list::data() const
+sge::xcb::event::generic const
+sge::xcb::event::wait(
+	connection const &connection_
+)
 {
-	return container_.data();
-}
-
-sge::xcb::value_mask const
-sge::xcb::window::attribute_list::value_mask() const
-{
-	return xcb::value_mask(0); // TODO
+	return
+		generic(
+			xcb_wait_for_event(
+				connection_.get()
+			)
+		);
 }

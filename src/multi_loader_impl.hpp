@@ -130,7 +130,7 @@ template<
 typename sge::multi_loader<Loader, File, Exception, Capabilities>::file_ptr const
 sge::multi_loader<Loader, File, Exception, Capabilities>::load(
 	fcppt::filesystem::path const &file
-) const
+)
 {
 	if (!fcppt::filesystem::exists(file))
 		throw exception(

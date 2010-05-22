@@ -18,14 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_XCB_WINDOW_OBJECT_HPP_INCLUDED
-#define SGE_XCB_WINDOW_OBJECT_HPP_INCLUDED
+#ifndef SGE_XCB_WINDOW_ATTRIBUTE_LIST_HPP_INCLUDED
+#define SGE_XCB_WINDOW_ATTRIBUTE_LIST_HPP_INCLUDED
 
-#include <sge/xcb/window/object_fwd.hpp>
-#include <sge/xcb/window/id_num.hpp>
-#include <sge/xcb/connection_fwd.hpp>
+#include <sge/xcb/window/attribute/list_fwd.hpp>
+#include <sge/xcb/window/attribute/value.hpp>
+#include <sge/xcb/window/attribute/enum.hpp>
+#include <sge/xcb/value_mask.hpp>
 #include <sge/xcb/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/container/raw_vector_decl.hpp>
 
 namespace sge
 {
@@ -33,37 +34,49 @@ namespace xcb
 {
 namespace window
 {
-
-class object
+namespace attribute
 {
-	FCPPT_NONCOPYABLE(object)
+
+class list
+{
+	typedef fcppt::container::raw_vector<
+		value
+	> container;
 public:
+	typedef typename container::size_type size_type;
+
 	SGE_XCB_SYMBOL
-	explicit object(
-		id_num const &,
-		xcb::connection const &
+	explicit list();
+
+	SGE_XCB_SYMBOL
+	explicit list(
+		size_type
 	);
 
 	SGE_XCB_SYMBOL
-	~object();
+	~list();
 
 	SGE_XCB_SYMBOL
 	void
-	map();
+	add(
+		enum_::type,
+		value const &
+	);
 
 	SGE_XCB_SYMBOL
-	xcb::connection const &
-	connection() const;
+	value const *
+	data() const;
 
 	SGE_XCB_SYMBOL
-	id_num const
-	id() const;
+	xcb::value_mask const
+	value_mask() const;
 private:
-	id_num const id_;
+	container container_;
 
-	xcb::connection const &connection_;
+	xcb::value_mask mask_;
 };
 
+}
 }
 }
 }

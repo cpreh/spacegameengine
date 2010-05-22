@@ -18,44 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/create_texture.hpp>
-#include <sge/image/file.hpp>
-#include <sge/image/multi_loader.hpp>
-#include <sge/renderer/device.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#ifndef SGE_XCB_WINDOW_ATTRIBUTE_SET_TO_LIST_HPP_INCLUDED
+#define SGE_XCB_WINDOW_ATTRIBUTE_SET_TO_LIST_HPP_INCLUDED
 
-sge::renderer::texture_ptr const
-sge::image::create_texture(
-	renderer::device_ptr const renderer,
-	file_ptr const file,
-	renderer::filter::texture const &filter,
-	renderer::resource_flags_field const &flags
-)
+#include <sge/xcb/window/attribute/set_fwd.hpp>
+#include <sge/xcb/window/attribute/list_fwd.hpp>
+#include <sge/xcb/symbol.hpp>
+
+namespace sge
 {
-	return
-		renderer->create_texture(
-			file->view(),
-			filter,
-			flags
-		);
+namespace xcb
+{
+namespace window
+{
+namespace attribute
+{
+
+SGE_XCB_SYMBOL
+list const
+set_to_list(
+	set const &
+);
+
+}
+}
+}
 }
 
-sge::renderer::texture_ptr const
-sge::image::create_texture(
-	fcppt::filesystem::path const &file,
-	renderer::device_ptr const renderer,
-	multi_loader &loader,
-	renderer::filter::texture const &filter,
-	renderer::resource_flags_field const &flags
-)
-{
-	return
-		create_texture(
-			renderer,
-			loader.load(
-				file
-			),
-			filter,
-			flags
-		);
-}
+#endif

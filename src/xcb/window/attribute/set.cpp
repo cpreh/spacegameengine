@@ -18,44 +18,57 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/create_texture.hpp>
-#include <sge/image/file.hpp>
-#include <sge/image/multi_loader.hpp>
-#include <sge/renderer/device.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <sge/xcb/window/attribute/set.hpp>
 
-sge::renderer::texture_ptr const
-sge::image::create_texture(
-	renderer::device_ptr const renderer,
-	file_ptr const file,
-	renderer::filter::texture const &filter,
-	renderer::resource_flags_field const &flags
+sge::xcb::window::attribute::set::set()
+:
+	map_()
+{}
+
+sge::xcb::window::attribute::set::set(
+	attribute::value_map const &_map
+)
+:
+	map_(_map)
+{}
+
+sge::xcb::window::attribute::set::~set()
+{}
+
+bool
+sge::xcb::window::attribute::set::add(
+	enum_::type const what_,
+	value const value_
 )
 {
 	return
-		renderer->create_texture(
-			file->view(),
-			filter,
-			flags
-		);
+		map_.insert(
+			std::make_pair(
+				what_,
+				value_
+			)
+		).second;
 }
 
-sge::renderer::texture_ptr const
-sge::image::create_texture(
-	fcppt::filesystem::path const &file,
-	renderer::device_ptr const renderer,
-	multi_loader &loader,
-	renderer::filter::texture const &filter,
-	renderer::resource_flags_field const &flags
+bool
+sge::xcb::window::attribute::set::remove(
+	enum_::type const what_
 )
 {
 	return
-		create_texture(
-			renderer,
-			loader.load(
-				file
-			),
-			filter,
-			flags
-		);
+		map_.erase(
+			what_
+		) > 0;
+}
+
+sge::xcb::window::attribute::value_map &
+sge::xcb::window::attribute::set::value_map()
+{
+	return map_;
+}
+
+sge::xcb::window::attribute::value_map const &
+sge::xcb::window::attribute::set::value_map() const
+{
+	return map_;
 }

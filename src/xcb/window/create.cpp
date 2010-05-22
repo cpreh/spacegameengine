@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "convert_class.hpp"
 #include <sge/xcb/window/create.hpp>
 #include <sge/xcb/window/object.hpp>
-#include <sge/xcb/window/attribute_list.hpp>
+#include <sge/xcb/window/attribute/list.hpp>
 #include <sge/xcb/connection.hpp>
 #include <sge/xcb/create_id.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
@@ -38,7 +38,7 @@ sge::xcb::window::create(
 	border_width const &border_width_,
 	class_::type const class_value_,
 	visual::id_num const &visual_id_,
-	attribute_list const &attributes_
+	attribute::list const &attributes_
 )
 {
 	id_num const window_num(

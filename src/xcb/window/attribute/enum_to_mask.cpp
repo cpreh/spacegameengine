@@ -18,22 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_XCB_WINDOW_ATTRIBUTE_HPP_INCLUDED
-#define SGE_XCB_WINDOW_ATTRIBUTE_HPP_INCLUDED
+#include <sge/xcb/window/attribute/enum_to_mask.hpp>
 
-#include <boost/cstdint.hpp>
-
-namespace sge
+sge::xcb::value_mask const
+sge::xcb::window::attribute::enum_to_mask(
+	enum_::type const what_
+)
 {
-namespace xcb
-{
-namespace window
-{
-
-typedef boost::uint32_t attribute;
-
+	return
+		value_mask(
+			static_cast<
+				value_mask::value_type
+			>(
+				1
+			)
+			<<
+			(
+				static_cast<
+					value_mask::value_type
+				>(
+					what_
+				)
+				+ 1u
+			)
+		);
 }
-}
-}
-
-#endif

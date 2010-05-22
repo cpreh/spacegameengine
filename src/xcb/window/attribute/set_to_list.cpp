@@ -18,44 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/create_texture.hpp>
-#include <sge/image/file.hpp>
-#include <sge/image/multi_loader.hpp>
-#include <sge/renderer/device.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <sge/xcb/window/attribute/set_to_list.hpp>
+#include <sge/xcb/window/attribute/set.hpp>
+#include <sge/xcb/window/attribute/list.hpp>
+#include <boost/foreach.hpp>
 
-sge::renderer::texture_ptr const
-sge::image::create_texture(
-	renderer::device_ptr const renderer,
-	file_ptr const file,
-	renderer::filter::texture const &filter,
-	renderer::resource_flags_field const &flags
+sge::xcb::window::attribute::list const
+sge::xcb::window::attribute::set_to_list(
+	set const &set_
 )
 {
-	return
-		renderer->create_texture(
-			file->view(),
-			filter,
-			flags
-		);
-}
+	value_map const &value_map_(
+		set_.value_map()
+	);
 
-sge::renderer::texture_ptr const
-sge::image::create_texture(
-	fcppt::filesystem::path const &file,
-	renderer::device_ptr const renderer,
-	multi_loader &loader,
-	renderer::filter::texture const &filter,
-	renderer::resource_flags_field const &flags
-)
-{
-	return
-		create_texture(
-			renderer,
-			loader.load(
-				file
-			),
-			filter,
-			flags
+	list ret(
+		value_map_.size()
+	);
+
+	BOOST_FOREACH(
+		value_map::const_reference val,
+		value_map_
+	)
+		ret.add(
+			val.first,
+			val.second
 		);
+	
+	return ret;
 }
