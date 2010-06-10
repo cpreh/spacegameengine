@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/gui/widgets/buttons/image.hpp>
 #include <sge/gui/widgets/parameters.hpp>
+#include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/assert.hpp>
 
 sge::gui::widgets::buttons::image::image(
