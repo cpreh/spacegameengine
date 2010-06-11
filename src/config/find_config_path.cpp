@@ -73,9 +73,9 @@ sge::config::find_config_path(
 {
 #if defined(FCPPT_WINDOWS_PLATFORM)
 	return
-		try_create_path(
+		::try_create_path(
 			fcppt::filesystem::path(
-				getenv_exn(
+				config::getenv_exn(
 					FCPPT_TEXT("APPDIR")
 				)
 			)
@@ -83,8 +83,8 @@ sge::config::find_config_path(
 		);
 #elif defined(FCPPT_POSIX_PLATFORM)
 	optional_string const xdg_config_path(
-		getenv(
-			FCPPT_TEXT("XDG_CONFIG_PATH")
+		config::getenv(
+			FCPPT_TEXT("XDG_CONFIG_HOME")
 		)
 	);
 
@@ -93,7 +93,7 @@ sge::config::find_config_path(
 		?
 			*xdg_config_path
 		:
-			homedir() / FCPPT_TEXT(".config")
+			config::homedir() / FCPPT_TEXT(".config")
 	);
 	
 	return
