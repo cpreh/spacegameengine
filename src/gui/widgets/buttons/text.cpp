@@ -38,7 +38,7 @@ sge::gui::widgets::buttons::text::text(
 				)
 			)
 	),
-	  caption_(_caption)
+	caption_(_caption)
 {
 }
 
