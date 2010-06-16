@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#if 0
 #include <sge/time/timer.hpp>
 #include <sge/time/sleep.hpp>
 #include <sge/time/second.hpp>
@@ -35,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/collision/shapes/sphere.hpp>
 #include <sge/collision/shapes/box.hpp>
 #include <sge/collision/group.hpp>
-#include <sge/math/dim/structure_cast.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/any/convert.hpp>
@@ -155,6 +153,9 @@ public:
 			)
 		);
 	}
+
+	void velocity_change(sge::collision::point const &)
+	{}
 private:
 	sprite_object &sprite_;
 };
@@ -194,17 +195,18 @@ try
 	sge::collision::world_ptr const world(
 		sys.collision_system()->create_world(
 			sge::collision::box(
-				sge::collision::box::point_type(
+				sge::collision::box::vector(
 					-10,
 					-10,
 					0
 				),
-				sge::collision::rect::dim(
+				sge::collision::box::dim(
 					660,
 					500,
 					1
 				)
-			)
+			),
+			sge::collision::constraint::constrain_2d
 		)
 	);
 
@@ -260,17 +262,34 @@ try
 		.elements()
 	);
 
+	sge::collision::shapes::base_ptr const shape_a(
+		world->create_box(
+			sge::collision::satellite_ptr(
+				new object(s_a)
+			),
+			sge::collision::dim(
+				static_cast<sge::collision::unit>(
+					s_a.size().w()
+				),
+				static_cast<sge::collision::unit>(
+					s_a.size().h()
+				),
+				static_cast<sge::collision::unit>(
+					1
+				)
+			),
+			sge::collision::solidity::nonsolid,
+			sge::collision::point::null()
+		)
+	);
+
 	sge::collision::body_ptr const body_a(
 		world->create_body(
-			sge::collision::satellite_ptr(
-				new object(s_a)),
-			sge::assign::make_container<sge::collision::shapes::container>(
-				world->create_box(
-					sge::collision::dim(
-						s_a.size().w(),
-						s_a.size().h(),
-						static_cast<sge::collision::unit>(
-							1)))),
+			fcppt::assign::make_container<
+				sge::collision::shapes::container
+			>(
+				shape_a
+			),
 			sge::collision::point(
 				static_cast<sge::collision::unit>(320),
 				static_cast<sge::collision::unit>(240),
@@ -284,18 +303,35 @@ try
 		)
 	);
 
+
+	sge::collision::shapes::base_ptr const shape_b(
+		world->create_box(
+			sge::collision::satellite_ptr(
+				new object(s_b)
+			),
+			sge::collision::dim(
+				static_cast<sge::collision::unit>(
+					s_b.size().w()
+				),
+				static_cast<sge::collision::unit>(
+					s_b.size().h()
+				),
+				static_cast<sge::collision::unit>(
+					1
+				)
+			),
+			sge::collision::solidity::nonsolid,
+			sge::collision::point::null()
+		)
+	);
 
 	sge::collision::body_ptr const body_b(
 		world->create_body(
-			sge::collision::satellite_ptr(
-				new object(s_b)),
-			sge::assign::make_container<sge::collision::shapes::container>(
-				world->create_box(
-					sge::collision::dim(
-						s_b.size().w(),
-						s_b.size().h(),
-						static_cast<sge::collision::unit>(
-							1)))),
+			fcppt::assign::make_container<
+				sge::collision::shapes::container
+			>(
+				shape_b
+			),
 			sge::collision::point(
 				static_cast<sge::collision::unit>(320),
 				static_cast<sge::collision::unit>(240),
@@ -308,8 +344,6 @@ try
 			)
 		)
 	);
-
-	fcppt::io::cerr << "velocity is " << body_a->linear_velocity() << "\n";
 
 	sge::collision::group_ptr const
 		g_a = world->create_group(),
@@ -326,9 +360,12 @@ try
 	);
 
 	g_a->add(
-		body_a);
+		shape_a
+	);
+
 	g_a->add(
-		body_b);
+		shape_b
+	);
 
 	sprite_system ss(
 		sys.renderer()
@@ -412,6 +449,3 @@ catch(std::exception const &e)
 	fcppt::io::cerr << e.what() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }
-#endif
-
-int main() {}
