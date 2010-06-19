@@ -1,3 +1,4 @@
+#if 0
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
@@ -30,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/clamp.hpp>
 #include <fcppt/math/pi.hpp>
-#include <fcppt/container/field.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/from_std_string.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/foreach.hpp>
+#include <boost/multi_array.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
 #include <exception>
 #include <limits>
@@ -202,10 +203,10 @@ private:
 
 template<typename T>
 void field_increase_contrast(
-	fcppt::container::field<T> &f,
+	boost::multi_array<T,2> &f,
 	double const coefficient)
 {
-	typedef fcppt::container::field<T> field_type;
+	typedef boost::multi_array<T,2> field_type;
 	typedef T color_type;
 	typedef typename T::layout::channel_type channel_type;
 
@@ -350,7 +351,7 @@ void field_gaussian_blur(
 	typename fcppt::container::field<T>::dim_type const radii)
 {
 	typedef T value_type;
-	typedef fcppt::container::field<T> field_type;
+	typedef boost::multi_array<T,2> field_type;
 	typedef typename field_type::size_type size_type;
 	typedef typename field_type::iterator iterator;
 	typedef typename T::layout::channel_type channel_type;
@@ -557,3 +558,6 @@ catch(std::exception const &e)
 	fcppt::io::cerr << e.what() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }
+#else
+int main() {}
+#endif

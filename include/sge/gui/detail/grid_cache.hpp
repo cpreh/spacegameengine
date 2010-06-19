@@ -25,8 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/unit.hpp>
 #include <sge/gui/widgets/base.hpp>
 #include <sge/gui/size_policy.hpp>
-#include <fcppt/container/field.hpp>
-#include <fcppt/container/raw_vector.hpp>
+#include <boost/multi_array.hpp>
 #include <vector>
 #include <map>
 
@@ -59,11 +58,20 @@ public:
 		rolumn_data();
 	};
 
+	typedef 
+	fcppt::math::vector::static_<std::size_t,2>::type
+	index_vector;
+
+	typedef 
+	fcppt::math::dim::static_<std::size_t,2>::type
+	index_dim;
+
 	// the "real" grid
-	typedef fcppt::container::field<
-		fcppt::container::raw_vector<
-			widgets::base *
-		>
+	typedef 
+	boost::multi_array
+	<
+		widgets::base *,
+		2
 	> child_plane;
 	typedef child_plane::size_type size_type;
 	// stores the size data for each widget (is there because the real grid could
@@ -73,10 +81,11 @@ public:
 		widget_data
 	> data_map;
 	// stores data per column and row (per rolumn)
-	typedef fcppt::container::field<
-		std::vector<
-			rolumn_data
-		>
+	typedef 
+	boost::multi_array
+	<
+		rolumn_data,
+		2
 	> rolumn_container;
 
 	grid_cache(

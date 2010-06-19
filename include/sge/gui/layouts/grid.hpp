@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/axis_type.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/scoped_ptr.hpp>
-#include <boost/multi_array.hpp>
 
 namespace sge
 {

@@ -30,8 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/container/raw_vector_decl.hpp>
-#include <fcppt/container/field_decl.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
+#include <boost/multi_array.hpp>
 
 namespace sge
 {
@@ -74,15 +74,15 @@ private:
 	SGE_SYMBOL bool
 	empty() const;
 
-	typedef fcppt::container::field<
-		fcppt::container::raw_vector<
-			bool
-		>
-	> field_type;
+	typedef 
+	boost::multi_array<
+		bool,
+		2
+	> grid_type;
 
 	renderer::device_ptr      const rend;
 	renderer::dim_type        const cell_size;
-	field_type                      cells;
+	grid_type                      cells;
 	renderer::texture_ptr     const tex;
 };
 

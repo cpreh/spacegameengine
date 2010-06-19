@@ -26,9 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/dim.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
-#include <fcppt/container/field_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
@@ -45,9 +47,7 @@ sge::texture::cell_fragmented::cell_fragmented(
 	rend(rend),
 	cell_size(cell_size),
 	cells(
-		atlasing::texture_dim(rend) / cell_size,
-		false
-	),
+		atlasing::texture_dim(rend) / cell_size),
 	tex(
 		atlasing::create_texture(
 			rend,
@@ -55,7 +55,12 @@ sge::texture::cell_fragmented::cell_fragmented(
 			filter
 		)
 	)
-{}
+{
+	std::fill(
+		cells.data(),
+		cells.data() + cells.num_elements(),
+		false);
+}
 
 sge::texture::cell_fragmented::~cell_fragmented()
 {}
@@ -71,23 +76,25 @@ sge::texture::cell_fragmented::consume_fragment(
 		);
 
 	// TODO maybe optimize this with a stack?
-	field_type::iterator const it(
+	grid_type::element *it(
 		std::find(
-			cells.begin(),
-			cells.end(),
+			cells.data(),
+			cells.data() + cells.num_elements(),
 			false
 		)
 	);
 
-	if(it == cells.end())
+	if(it == cells.data() + cells.num_elements())
 		return part_ptr();
 
 	*it = true;
 
-	field_type::vector const pos(
-		cells.position(it)
-	);
+	// FIXME: implement position(it) here
+	//grid_type::vector const pos(
+	//	cells.position(it)
+	//);
 
+	/*
 	return
 		fcppt::make_shared_ptr<
 			part_fragmented
@@ -102,6 +109,7 @@ sge::texture::cell_fragmented::consume_fragment(
 			true,
 			true
 		);
+		*/
 }
 
 void
@@ -109,13 +117,15 @@ sge::texture::cell_fragmented::on_return_fragment(
 	part const &t
 )
 {
-	field_type::vector const pos(
-		t.area().pos() * cell_size
-	);
+	renderer::dim_type const pos(
+		fcppt::math::vector::structure_cast<renderer::dim_type>(
+			t.area().pos() * cell_size));
 
-	FCPPT_ASSERT(cells.pos(pos));
+	FCPPT_ASSERT(
+		cells[pos.w()][pos.h()]);
 
-	cells.pos(pos) = false;
+	cells[pos.w()][pos.h()] =
+		false;
 }
 
 sge::renderer::texture_ptr const
@@ -141,8 +151,8 @@ sge::texture::cell_fragmented::empty() const
 {
 	return
 		std::find(
-			cells.begin(),
-			cells.end(),
+			cells.data(),
+			cells.data() + cells.num_elements(),
 			false
-		) == cells.end(); // TODO: optimize this!
+		) == cells.data() + cells.num_elements(); // TODO: optimize this!
 }
