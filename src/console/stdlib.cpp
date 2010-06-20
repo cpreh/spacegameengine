@@ -45,32 +45,6 @@ sge::console::stdlib::stdlib(
 			(
 				fcppt::signal::shared_connection(
 					object_.insert(
-						FCPPT_TEXT("get"),
-						std::tr1::bind(
-							&stdlib::fn_get,
-							this,
-							std::tr1::placeholders::_1
-						),
-						FCPPT_TEXT("get <name> - display value of <name>")
-					)
-				)
-			)
-			(
-				fcppt::signal::shared_connection(
-					object_.insert(
-						FCPPT_TEXT("set"),
-						std::tr1::bind(
-							&stdlib::fn_set,
-							this,
-							std::tr1::placeholders::_1
-						),
-						FCPPT_TEXT("set <name> <value> - set <name> to <value>")
-					)
-				)
-			)
-			(
-				fcppt::signal::shared_connection(
-					object_.insert(
 						FCPPT_TEXT("help"),
 						std::tr1::bind(
 							&stdlib::fn_help,
@@ -97,19 +71,6 @@ sge::console::stdlib::stdlib(
 			(
 				fcppt::signal::shared_connection(
 					object_.insert(
-						FCPPT_TEXT("lsvars"),
-						std::tr1::bind(
-							&stdlib::fn_lsvars,
-							this,
-							std::tr1::placeholders::_1
-						),
-						FCPPT_TEXT("list available variables with values")
-					)
-				)
-			)
-			(
-				fcppt::signal::shared_connection(
-					object_.insert(
 						FCPPT_TEXT("man"),
 						std::tr1::bind(
 							&stdlib::fn_man,
@@ -122,52 +83,6 @@ sge::console::stdlib::stdlib(
 			)
 		)
 {
-}
-
-void sge::console::stdlib::fn_get(arg_list const &v)
-{
-	if (v.size() == 1 || v[1].empty())
-	{
-		error_(FCPPT_TEXT("no variable given"));
-		return;
-	}
-	fcppt::string const arg = v[1];
-	variable_map const &vars = object_.variables();
-	variable_map::const_iterator i = vars.find(arg);
-	if (i == vars.end())
-	{
-		error_(FCPPT_TEXT("variable ")+arg+FCPPT_TEXT(" not found"));
-		return;
-	}
-	print_(arg+FCPPT_TEXT('=')+(i->second->string()));
-}
-
-void sge::console::stdlib::fn_set(arg_list const &v)
-{
-	if (v.size() < 3 || v[1].empty())
-	{
-		error_(FCPPT_TEXT("not enough arguments or empty variable name"));
-		return;
-	}
-	fcppt::string const arg = v[1];
-	fcppt::string const value = v[2];
-	variable_map &vars = object_.variables();
-	variable_map::iterator i = vars.find(arg);
-	if (i == vars.end())
-	{
-		error_(FCPPT_TEXT("variable ")+arg+FCPPT_TEXT(" not found"));
-		return;
-	}
-	try
-	{
-		i->second->string(value);
-	}
-	catch (exception const &e)
-	{
-		error_(FCPPT_TEXT("error: ")+e.string());
-		return;
-	}
-	print_(arg+FCPPT_TEXT('=')+(i->second->string()));
 }
 
 void sge::console::stdlib::fn_help(arg_list const &)
@@ -185,23 +100,6 @@ void sge::console::stdlib::fn_help(arg_list const &)
 
 	BOOST_FOREACH(function_map::const_reference p,fns)
 		print_function(p);
-}
-
-void sge::console::stdlib::fn_lsvars(arg_list const &)
-{
-	variable_map const &vars = object_.variables();
-
-	print_(
-		fcppt::lexical_cast<
-			fcppt::string
-		>(
-			vars.size()
-		)
-		+ FCPPT_TEXT(" available variables:")
-	);
-
-	BOOST_FOREACH(variable_map::const_reference p,vars)
-		print_(p.first+FCPPT_TEXT('=')+p.second->string());
 }
 
 void sge::console::stdlib::fn_man(arg_list const &v)

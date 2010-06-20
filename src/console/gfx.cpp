@@ -263,7 +263,7 @@ sge::console::gfx::key_action(
 			input_line_.erase_char();
 		break;
 		case input::kc::key_tab:
-			input_line_.complete_word(object_.variables(),object_.functions());
+			input_line_.complete_word(object_.functions());
 		break;
 		case input::kc::key_pageup:
 			output_lines_.up();

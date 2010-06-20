@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_CURSOR_HPP_INCLUDED
 #define SGE_CONSOLE_CURSOR_HPP_INCLUDED
 
-#include <sge/console/variable_map.hpp>
 #include <sge/console/function_map.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/char_type.hpp>
@@ -83,7 +82,6 @@ public:
 
 	SGE_SYMBOL void
 	complete_word(
-		variable_map const &,
 		function_map const &
 	);
 private:

@@ -24,11 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/callback.hpp>
 #include <sge/console/fallback.hpp>
 #include <sge/console/fallback_signal.hpp>
-#include <sge/console/variable_map.hpp>
 #include <sge/console/function_map.hpp>
-#include <sge/console/var_base_fwd.hpp>
 #include <sge/console/arg_list.hpp>
 #include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/char_type.hpp>
@@ -41,9 +40,10 @@ namespace console
 
 class SGE_CLASS_SYMBOL object
 {
-	FCPPT_NONCOPYABLE(object)
+FCPPT_NONCOPYABLE(object)
 public:
-	SGE_SYMBOL explicit object(
+	SGE_SYMBOL explicit 
+	object(
 		fcppt::char_type prefix
 	);
 
@@ -69,37 +69,17 @@ public:
 		console::arg_list const &
 	);
 
-	SGE_SYMBOL variable_map const &
-	variables() const;
-
-	SGE_SYMBOL variable_map &
-	variables();
-
 	SGE_SYMBOL function_map const &
 	functions() const;
 
 	SGE_SYMBOL fcppt::char_type
 	prefix() const;
 private:
-	friend class var_base;
-
 	fcppt::char_type const prefix_;
-
-	variable_map vars_;
 
 	function_map funcs_;
 
 	fallback_signal fallback_;
-
-	void
-	insert(
-		var_base &
-	);
-
-	void
-	erase(
-		var_base &
-	);
 };
 
 }

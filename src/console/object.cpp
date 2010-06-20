@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/object.hpp>
 #include <sge/console/exception.hpp>
 #include <sge/console/function.hpp>
-#include <sge/console/var_base.hpp>
 #include <sge/parse/encoding.hpp>
 #include <fcppt/auto_ptr.hpp>
 #include <fcppt/make_auto_ptr.hpp>
@@ -38,7 +37,6 @@ sge::console::object::object(
 )
 :
 	prefix_(_prefix),
-	vars_(),
 	funcs_(),
 	fallback_()
 {
@@ -176,18 +174,6 @@ sge::console::object::eval(
 	it->second->signal()(args);
 }
 
-sge::console::variable_map const &
-sge::console::object::variables() const
-{
-	return vars_;
-}
-
-sge::console::variable_map &
-sge::console::object::variables()
-{
-	return vars_;
-}
-
 sge::console::function_map const &
 sge::console::object::functions() const
 {
@@ -198,20 +184,4 @@ fcppt::char_type
 sge::console::object::prefix() const
 {
 	return prefix_;
-}
-
-void
-sge::console::object::insert(
-	var_base &o
-)
-{
-	vars_[o.name()] = &o;
-}
-
-void
-sge::console::object::erase(
-	var_base &o
-)
-{
-	FCPPT_ASSERT(vars_.erase(o.name()) > 0);
 }

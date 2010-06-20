@@ -58,10 +58,7 @@ private:
 
 	fcppt::signal::connection_manager connections;
 
-	void fn_get(arg_list const &);
-	void fn_set(arg_list const &);
 	void fn_help(arg_list const &);
-	void fn_lsvars(arg_list const &);
 	void fn_man(arg_list const &);
 
 	void print_function(function_map::const_reference);
