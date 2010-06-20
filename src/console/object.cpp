@@ -140,12 +140,40 @@ sge::console::object::eval(
 		args
 	);
 
-	function_map::iterator i = funcs_.find(args[0]);
+	object::eval(
+		args
+	);
+}
 
-	if (i == funcs_.end())
-		throw exception(FCPPT_TEXT("couldn't find command \"")+args[0]+FCPPT_TEXT("\""));
+void
+sge::console::object::eval(
+	console::arg_list const &args
+)
+{
+	// just typing the prefix is not an error
+	if(
+		args.empty()
+	)
+		return;
 
-	i->second->signal()(args);
+	function_map::iterator const it(
+		funcs_.find(
+			args[0]
+		)
+	);
+
+	if (
+		it == funcs_.end()
+	)
+		throw console::exception(
+			FCPPT_TEXT("couldn't find command \"")
+			+
+			args[0]
+			+
+			FCPPT_TEXT('"')
+		);
+
+	it->second->signal()(args);
 }
 
 sge::console::variable_map const &

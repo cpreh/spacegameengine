@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/variable_map.hpp>
 #include <sge/console/function_map.hpp>
 #include <sge/console/var_base_fwd.hpp>
+#include <sge/console/arg_list.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/string.hpp>
@@ -61,6 +62,11 @@ public:
 	SGE_SYMBOL void
 	eval(
 		fcppt::string const &
+	);
+
+	SGE_SYMBOL void
+	eval(
+		console::arg_list const &
 	);
 
 	SGE_SYMBOL variable_map const &

@@ -85,6 +85,14 @@ sge::bullet::body::position_changed(
 	position_ = 
 		fcppt::math::vector::structure_cast<point>(
 			_position);
+#if 0	
+	FCPPT_LOG_DEBUG(
+		mylogger,
+		fcppt::log::_
+			<< FCPPT_TEXT("Position changed: ")
+			<< position_
+	);
+#endif
 }
 	
 sge::collision::point const 
