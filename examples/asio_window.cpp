@@ -40,11 +40,15 @@ class test
 public:
 	test()
 	:
+		io_service(),
+		stream_wrapper(
+			io_service
+		),
 		sys(
 			sge::systems::list()
 			(
 				sge::window::parameters(
-					FCPPT_TEXT("sge animtest"),
+					FCPPT_TEXT("sge asio test"),
 					sge::window::dim_type(
 						1024,
 						768
@@ -54,18 +58,6 @@ public:
 			(
 				sge::systems::parameterless::input
 			)
-		),
-		io_service(),
-		stream_wrapper(
-			io_service,
-			fcppt::dynamic_pointer_cast<
-				sge::x11::window
-			>(
-				sys.window()
-			)
-			->display()
-			->get()
-			->fd
 		),
 		running(true),
 		input_connection(
@@ -77,7 +69,6 @@ public:
 			)
 		)
 	{
-		{
 		sge::x11::window_ptr const ptr(
 			fcppt::dynamic_pointer_cast<
 				sge::x11::window
@@ -86,13 +77,16 @@ public:
 			)
 		);
 		
+		stream_wrapper.assign(
+			ptr
+			->display()
+			->get()
+			->fd
+		);
+
 		ptr->map_raised();
 
 		ptr->display()->sync();
-
-		}
-		std::cout << "ctor: " << sys.window().use_count() << '\n';
-
 	}
 
 	void
@@ -101,8 +95,6 @@ public:
 		register_handlers();
 
 		io_service.run();
-
-		std::cout << "Running set to false\n";
 	}
 
 	void
@@ -114,7 +106,7 @@ public:
 			error
 		)
 		{
-			std::cout << "Error in socket\n";
+			std::cerr << "Error in socket\n";
 
 			return;
 		}
@@ -131,6 +123,10 @@ public:
 			register_handlers();
 
 	}
+	
+	~test()
+	{
+	}
 private:
 	void
 	register_handlers()
@@ -145,11 +141,11 @@ private:
 		);
 	}
 
-	sge::systems::instance const sys;
-
 	boost::asio::io_service io_service;
 
 	boost::asio::posix::stream_descriptor stream_wrapper;
+
+	sge::systems::instance const sys;
 
 	bool running;
 

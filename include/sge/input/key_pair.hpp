@@ -30,14 +30,19 @@ namespace sge
 namespace input
 {
 
-class key_pair {
+class key_pair
+{
 public:
 	SGE_SYMBOL key_pair(
 		key_type const &key,
-		key_state value);
+		key_state value
+	);
 
-	SGE_SYMBOL key_type const &key() const;
-	SGE_SYMBOL key_state value() const;
+	SGE_SYMBOL key_type const &
+	key() const;
+
+	SGE_SYMBOL key_state
+	value() const;
 private:
 	key_type  key_;
 	key_state value_;
