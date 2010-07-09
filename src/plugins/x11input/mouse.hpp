@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "device.hpp"
 #include "mouse_coordinate.hpp"
+#include "mouse_grab_fwd.hpp"
 #include "dga.hpp"
 #include <X11/Xlib.h>
 #include <sge/x11/window_fwd.hpp>
@@ -33,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/cursor_fwd.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
 
 namespace sge
@@ -40,37 +42,68 @@ namespace sge
 namespace x11input
 {
 
-class mouse_grab;
-
-class mouse : public device {
+class mouse
+:
+	public device
+{
+	FCPPT_NONCOPYABLE(mouse)
 public:
 	mouse(
 		x11::window_ptr,
-		input::callback const &);
+		input::callback const &
+	);
+
 	~mouse();
 private:
-	void grab();
-	void ungrab();
+	void
+	grab();
 
-	void on_motion(
-		XEvent const &);
-	void on_button_down(
-		XEvent const &);
-	void on_button_up(
-		XEvent const &);
+	void
+	ungrab();
 
-	void dga_motion(XEvent);
-	void warped_motion(XEvent);
-	void private_mouse_motion(
+	void
+	on_motion(
+		XEvent const &
+	);
+
+	void
+	on_button_down(
+		XEvent const &
+	);
+
+	void
+	on_button_up(
+		XEvent const &
+	);
+
+	void
+	dga_motion(
+		XEvent
+	);
+
+	void
+	warped_motion(
+		XEvent
+	);
+
+	void
+	private_mouse_motion(
 		mouse_coordinate_t deltax,
-		mouse_coordinate_t deltay);
+		mouse_coordinate_t deltay
+	);
 
 	x11::window_ptr const wnd;
+
 	x11::color      const black_;
+
 	x11::pixmap     const no_bmp_;
+
 	x11::cursor     const cur;
+
 	input::callback const callback;
+
 	mouse_pos             mouse_last;
+
 	dga                   dga_;
 
 	fcppt::signal::connection_manager connections;

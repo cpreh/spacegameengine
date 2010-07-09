@@ -29,13 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/create_window.hpp>
 #include <sge/x11/display.hpp>
 #include <sge/x11/visual.hpp>
-#include <sge/x11/screen.hpp>
+#include <sge/x11/default_screen.hpp>
+#include <sge/x11/default_depth.hpp>
 #include <sge/window/parameters.hpp>
-#include <sge/log/global.hpp>
-#include <sge/exception.hpp>
-#include <fcppt/log/headers.hpp>
-#include <fcppt/tr1/array.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #else
 #error "Implement me!"
@@ -59,7 +55,7 @@ sge::window::create(
 	);
 
 	int const screen(
-		default_screen(
+		x11::default_screen(
 			dsp
 		)
 	);
@@ -73,46 +69,18 @@ sge::window::create(
 		)
 	);
 
-	typedef std::tr1::array<
-		int,
-		2
-	> bit_depth_array;
-
-	bit_depth_array const depths = {{
-		32,
-		16
-	}};
-
-	BOOST_FOREACH(
-		bit_depth_array::const_reference depth,
-		depths
-	)
-		try
-		{
-			return x11::create_window(
-				param,
+	return
+		x11::create_window(
+			param,
+			dsp,
+			screen,
+			x11::default_depth(
 				dsp,
-				screen,
-				depth,
-				visual,
-				false
-			);
-		}
-		catch(exception const &e)
-		{
-			FCPPT_LOG_ERROR(
-				log::global(),
-				fcppt::log::_
-					<< FCPPT_TEXT("window::create failed!")
-					<< FCPPT_TEXT(" Trying another bit depth. Reason: ")
-					<< e.string()
-			);
-			throw;
-		}
-
-	throw exception(
-		FCPPT_TEXT("window::create failed! No matching visual!")
-	);
+				screen
+			),
+			visual,
+			false
+		);
 #else
 #error "Implement me!"
 #endif

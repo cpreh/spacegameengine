@@ -18,12 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/x11/screen.hpp>
+#include <sge/x11/default_depth.hpp>
 #include <sge/x11/display.hpp>
 #include <X11/Xlib.h>
 
-int sge::x11::default_screen(
-	display_ptr const dsp)
+int
+sge::x11::default_depth(
+	display_ptr const dsp,
+	int const screen
+)
 {
-	return XDefaultScreen(dsp->get());
+	return
+		XDefaultDepth(
+			dsp->get(),
+			screen
+		);
 }

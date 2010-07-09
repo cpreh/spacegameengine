@@ -18,31 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DEVICE_HPP_INCLUDED
-#define SGE_X11INPUT_DEVICE_HPP_INCLUDED
-
-#include "device_fwd.hpp"
-#include <fcppt/noncopyable.hpp>
+#ifndef SGE_X11INPUT_KEYBOARD_GRAB_FWD_HPP_INCLUDED
+#define SGE_X11INPUT_KEYBOARD_GRAB_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace x11input
 {
 
-class device
-{
-	FCPPT_NONCOPYABLE(device)
-protected:
-	device();
-public:
-	virtual void
-	grab() = 0;
-
-	virtual void
-	ungrab() = 0;
-
-	virtual ~device();
-};
+class keyboard_grab;
 
 }
 }

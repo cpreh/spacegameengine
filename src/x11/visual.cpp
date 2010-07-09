@@ -23,16 +23,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::x11::visual::visual(
 	display_ptr const dsp,
-	int const screen)
+	int const screen
+)
 :
 	visual_(
 		XDefaultVisual(
 			dsp->get(),
-			screen))
+			screen
+		)
+	)
 {}
 
 sge::x11::visual::visual(
-	Visual *const visual_)
+	Visual *const visual_
+)
 :
 	visual_(visual_)
 {}

@@ -37,11 +37,16 @@ class SGE_CLASS_SYMBOL display
 	FCPPT_NONCOPYABLE(display)
 public:
 	SGE_SYMBOL display();
+
 	SGE_SYMBOL ~display();
-	SGE_SYMBOL Display *get() const;
-	SGE_SYMBOL void sync();
+
+	SGE_SYMBOL Display *
+	get() const;
+
+	SGE_SYMBOL void
+	sync();
 private:
-	Display  *const d;
+	Display  *const display_;
 };
 
 }

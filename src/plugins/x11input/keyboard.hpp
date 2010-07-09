@@ -22,11 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_KEYBOARD_HPP_INCLUDED
 
 #include "device.hpp"
+#include "keyboard_grab_fwd.hpp"
 #include <X11/Xlib.h>
 #include <sge/input/callback.hpp>
 #include <sge/input/repeat_callback.hpp>
 #include <sge/x11/window_ptr.hpp>
 #include <fcppt/signal/connection_manager.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
 
 namespace sge
@@ -34,24 +36,37 @@ namespace sge
 namespace x11input
 {
 
-class keyboard_grab;
-
-class keyboard : public device {
+class keyboard
+:
+	public device
+{
+	FCPPT_NONCOPYABLE(keyboard)
 public:
 	keyboard(
 		x11::window_ptr,
 		input::callback const &,
-		input::repeat_callback const &);
-private:
-	void grab();
-	void ungrab();
+		input::repeat_callback const &
+	);
 
-	void on_key_event(
-		XEvent const &);
+	~keyboard();
+private:
+	void
+	grab();
+
+	void
+	ungrab();
+
+	void
+	on_key_event(
+		XEvent const &
+	);
 
 	x11::window_ptr const        wnd;
+
 	input::callback const        callback;
+
 	input::repeat_callback const repeat_callback;
+
 	bool const                   need_grab;
 
 	fcppt::signal::connection_manager connections;

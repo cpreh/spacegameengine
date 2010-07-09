@@ -18,31 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DEVICE_HPP_INCLUDED
-#define SGE_X11INPUT_DEVICE_HPP_INCLUDED
+#ifndef SGE_X11_DEFAULT_SCREEN_HPP_INCLUDED
+#define SGE_X11_DEFAULT_SCREEN_HPP_INCLUDED
 
-#include "device_fwd.hpp"
-#include <fcppt/noncopyable.hpp>
+#include <sge/x11/display_ptr.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
-namespace x11input
+namespace x11
 {
 
-class device
-{
-	FCPPT_NONCOPYABLE(device)
-protected:
-	device();
-public:
-	virtual void
-	grab() = 0;
-
-	virtual void
-	ungrab() = 0;
-
-	virtual ~device();
-};
+SGE_SYMBOL int
+default_screen(
+	display_ptr
+);
 
 }
 }

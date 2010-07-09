@@ -147,21 +147,34 @@ sge::x11input::system::system(
 	}
 }
 
+sge::x11input::system::~system()
+{
+}
+
 fcppt::signal::auto_connection
 sge::x11input::system::register_callback(
-	input::callback const &c)
+	input::callback const &_callback
+)
 {
-	return sig.connect(c);
+	return
+		sig.connect(
+			_callback
+		);
 }
 
 fcppt::signal::auto_connection
 sge::x11input::system::register_repeat_callback(
-	input::repeat_callback const &c)
+	input::repeat_callback const &_callback
+)
 {
-	return repeat_sig.connect(c);
+	return
+		repeat_sig.connect(
+			_callback
+		);
 }
 
-void sge::x11input::system::dispatch()
+void
+sge::x11input::system::dispatch()
 {
 }
 
@@ -171,48 +184,68 @@ sge::x11input::system::window() const
 	return wnd;
 }
 
-void sge::x11input::system::emit_callback(
-	input::key_pair const &k)
+void
+sge::x11input::system::emit_callback(
+	input::key_pair const &_key
+)
 {
-	sig(k);
+	sig(
+		_key
+	);
 }
 
-void sge::x11input::system::emit_repeat_callback(
-	input::key_type const &k)
+void
+sge::x11input::system::emit_repeat_callback(
+	input::key_type const &k
+)
 {
 	repeat_sig(k);
 }
 
-void sge::x11input::system::on_acquire(
-	XEvent const &)
+void
+sge::x11input::system::on_acquire(
+	XEvent const &
+)
 {
 	if(acquired)
 		return;
+
 	acquired = true;
 
 	FCPPT_LOG_DEBUG(
 		log::global(),
 		fcppt::log::_
-			<< FCPPT_TEXT("x11: acquire window"));
+			<< FCPPT_TEXT("x11: acquire window")
+	);
 
-	BOOST_FOREACH(device_vector::reference dev, devices)
+	BOOST_FOREACH(
+		device_vector::reference dev,
+		devices
+	)
 		dev.grab();
 
 	wnd->display()->sync();
 }
 
-void sge::x11input::system::on_release(
-	XEvent const &)
+void
+sge::x11input::system::on_release(
+	XEvent const &
+)
 {
 	if(!acquired)
 		return;
+
 	acquired = false;
 
 	FCPPT_LOG_DEBUG(
 		log::global(),
 		fcppt::log::_
-			<< FCPPT_TEXT("x11: release window"));
+			<< FCPPT_TEXT("x11: release window")
+	);
 
-	BOOST_FOREACH(device_vector::reference dev, devices)
+	BOOST_FOREACH(
+		device_vector::reference dev,
+		devices
+	)
 		dev.ungrab();
 }

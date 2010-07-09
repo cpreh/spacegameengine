@@ -64,7 +64,7 @@ sge::x11input::dga::enable(
 #ifdef SGE_USE_DGA
 	const b
 #endif
-	)
+)
 {
 #ifdef SGE_USE_DGA
 	if(enabled == b)
@@ -129,7 +129,8 @@ init_dga(
 		fcppt::log::_
 			<< FCPPT_TEXT(
 				"You compiled spacegameengine with DGA support but DGA Mouse is not supported by your system!"
-				"Maybe you are missing libXxf86dga or a proper video driver? Disabling dga.")
+				"Maybe you are missing libXxf86dga or a proper video driver? Disabling dga."
+			)
 	);
 #endif
 }

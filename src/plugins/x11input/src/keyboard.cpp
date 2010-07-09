@@ -62,9 +62,16 @@ sge::x11input::keyboard::keyboard(
 	);
 }
 
-void sge::x11input::keyboard::grab()
+sge::x11input::keyboard::~keyboard()
 {
-	if(need_grab)
+}
+
+void
+sge::x11input::keyboard::grab()
+{
+	if(
+		need_grab
+	)
 		grab_.reset(
 			new keyboard_grab(
 				wnd
@@ -72,13 +79,16 @@ void sge::x11input::keyboard::grab()
 		);
 }
 
-void sge::x11input::keyboard::ungrab()
+void
+sge::x11input::keyboard::ungrab()
 {
 	grab_.reset();
 }
 
-void sge::x11input::keyboard::on_key_event(
-	XEvent const &xev)
+void
+sge::x11input::keyboard::on_key_event(
+	XEvent const &xev
+)
 {
 	XKeyEvent const &key_event(xev.xkey);
 

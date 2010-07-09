@@ -39,20 +39,23 @@ namespace
 
 sge::input::key_type
 mouse_key(
-	unsigned x11code);
+	unsigned x11code
+);
 
 }
 
 sge::x11input::mouse::mouse(
 	x11::window_ptr const wnd,
-	input::callback const &callback)
+	input::callback const &callback
+)
 :
 	wnd(wnd),
 	black_(
 		wnd->display(),
 		XDefaultColormap(
 			wnd->display()->get(),
-			wnd->screen()), // TODO: do we have to release this?
+			wnd->screen()
+		), // TODO: do we have to release this?
 		FCPPT_TEXT("black")
 	),
 	no_bmp_(
@@ -106,25 +109,34 @@ sge::x11input::mouse::mouse(
 }
 
 sge::x11input::mouse::~mouse()
-{}
+{
+}
 
-void sge::x11input::mouse::grab()
+void
+sge::x11input::mouse::grab()
 {
 	dga_.enable(true);
+
 	grab_.reset(
 		new mouse_grab(
 			wnd,
-			cur));
+			cur
+		)
+	);
 }
 
-void sge::x11input::mouse::ungrab()
+void
+sge::x11input::mouse::ungrab()
 {
 	grab_.reset();
+
 	dga_.enable(false);
 }
 
-void sge::x11input::mouse::on_motion(
-	XEvent const &e)
+void
+sge::x11input::mouse::on_motion(
+	XEvent const &e
+)
 {
 	if(dga_.useable())
 		dga_motion(e);
@@ -132,34 +144,52 @@ void sge::x11input::mouse::on_motion(
 		warped_motion(e);
 }
 
-void sge::x11input::mouse::on_button_down(
-	XEvent const &e)
+void
+sge::x11input::mouse::on_button_down(
+	XEvent const &e
+)
 {
 	callback(
 		input::key_pair(
 			mouse_key(
-				e.xbutton.button),
-			1));
+				e.xbutton.button
+			),
+			1
+		)
+	);
 }
 
-void sge::x11input::mouse::on_button_up(
-	XEvent const &e)
+void
+sge::x11input::mouse::on_button_up(
+	XEvent const &e
+)
 {
 	callback(
 		input::key_pair(
 			mouse_key(
-				e.xbutton.button),
-			0));
+				e.xbutton.button
+			),
+			0
+		)
+	);
 }
 
-void sge::x11input::mouse::dga_motion(
-	XEvent xevent)
+void
+sge::x11input::mouse::dga_motion(
+	XEvent xevent
+)
 {
 	mouse_coordinate_t
 		dx = xevent.xmotion.x_root,
 		dy = xevent.xmotion.y_root;
 
-	while(XCheckTypedEvent(wnd->display()->get(), MotionNotify, &xevent))
+	while(
+		XCheckTypedEvent(
+			wnd->display()->get(),
+			MotionNotify,
+			&xevent
+		)
+	)
 	{
 		dx += xevent.xmotion.x_root;
 		dy += xevent.xmotion.y_root;
@@ -168,8 +198,10 @@ void sge::x11input::mouse::dga_motion(
 	private_mouse_motion(dx, dy);
 }
 
-void sge::x11input::mouse::warped_motion(
-	XEvent xevent)
+void
+sge::x11input::mouse::warped_motion(
+	XEvent xevent
+)
 {
 	if(!grab_)
 		return;
@@ -198,7 +230,13 @@ void sge::x11input::mouse::warped_motion(
 	)
 		return;
 
-	while (XCheckTypedEvent(wnd->display()->get(), MotionNotify, &xevent) )
+	while(
+		XCheckTypedEvent(
+			wnd->display()->get(),
+			MotionNotify,
+			&xevent
+		)
+	)
 	{
 		deltax = xevent.xmotion.x - mouse_last.x();
 		deltay = xevent.xmotion.y - mouse_last.y();
@@ -237,12 +275,15 @@ void sge::x11input::mouse::warped_motion(
 		log::global(),
 		fcppt::log::_
 			<< FCPPT_TEXT("Didn't detect mouse warp motion! ")
-			FCPPT_TEXT("Try to enable dga mouse instead."));
+			FCPPT_TEXT("Try to enable dga mouse instead.")
+	);
 }
 
-void sge::x11input::mouse::private_mouse_motion(
+void
+sge::x11input::mouse::private_mouse_motion(
 	mouse_coordinate_t const deltax,
-	mouse_coordinate_t const deltay)
+	mouse_coordinate_t const deltay
+)
 {
 	if(deltax)
 		callback(
@@ -266,18 +307,20 @@ namespace
 
 sge::input::key_type
 mouse_key(
-	unsigned const x11code)
+	unsigned const x11code
+)
 {
-	switch(x11code) {
+	switch(x11code)
+	{
 	case 1:
 		return sge::x11input::mouse_l;
 	case 2:
 		return sge::x11input::mouse_m;
 	case 3:
 		return sge::x11input::mouse_r;
-	default:
-		return sge::x11input::undefined_mouse_key;
 	}
+	
+	return sge::x11input::undefined_mouse_key;
 }
 
 }

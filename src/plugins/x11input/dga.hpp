@@ -29,17 +29,26 @@ namespace sge
 namespace x11input
 {
 
-class dga {
+class dga
+{
 	FCPPT_NONCOPYABLE(dga)
 public:
 	explicit dga(
-		x11::window_ptr);
+		x11::window_ptr
+	);
+
 	~dga();
-	void enable(
-		bool);
-	bool useable() const;
+	
+	void
+	enable(
+		bool
+	);
+
+	bool
+	useable() const;
 private:
 	x11::window_ptr const wnd;
+
 	bool enabled;
 };
 

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_SYSTEM_HPP_INCLUDED
 #define SGE_X11INPUT_SYSTEM_HPP_INCLUDED
 
+#include "device_fwd.hpp"
 #include <X11/Xlib.h>
 #include <sge/x11/window_ptr.hpp>
 #include <sge/input/system.hpp>
@@ -40,35 +41,60 @@ namespace sge
 namespace x11input
 {
 
-class device;
-
-class system : public input::system {
+class system
+:
+	public input::system
+{
 public:
 	explicit system(
-		x11::window_ptr wnd);
+		x11::window_ptr wnd
+	);
+
+	~system();
 private:
 	fcppt::signal::auto_connection
 	register_callback(
-		input::callback const &c);
+		input::callback const &c
+	);
 
 	fcppt::signal::auto_connection
 	register_repeat_callback(
-		input::repeat_callback const &c);
+		input::repeat_callback const &c
+	);
 
-	void dispatch();
-	window::instance_ptr const window() const;
+	void
+	dispatch();
+	window::instance_ptr const
+	window() const;
 
-	void emit_callback(
-		input::key_pair const &);
-	void emit_repeat_callback(
-		input::key_type const &);
+	void
+	emit_callback(
+		input::key_pair const &
+	);
 
-	void on_key_event(XEvent const &);
-	void on_acquire(XEvent const &);
-	void on_release(XEvent const &);
+	void
+	emit_repeat_callback(
+		input::key_type const &
+	);
+
+	void
+	on_key_event(
+		XEvent const &
+	);
+
+	void
+	on_acquire(
+		XEvent const &
+	);
+
+	void
+	on_release(
+		XEvent const &
+	);
 
 	x11::window_ptr const wnd;
-	bool                  acquired;
+
+	bool acquired;
 
 	typedef boost::ptr_vector<
 		device
@@ -87,6 +113,7 @@ private:
 	> repeat_signal_type;
 
 	signal_type        sig;
+
 	repeat_signal_type repeat_sig;
 };
 

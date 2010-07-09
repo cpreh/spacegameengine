@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_KEYBOARD_GRAB_HPP_INCLUDED
 #define SGE_X11INPUT_KEYBOARD_GRAB_HPP_INCLUDED
 
+#include "keyboard_grab_fwd.hpp"
 #include <sge/x11/window_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -29,11 +30,14 @@ namespace sge
 namespace x11input
 {
 
-class keyboard_grab {
+class keyboard_grab
+{
 	FCPPT_NONCOPYABLE(keyboard_grab)
 public:
 	explicit keyboard_grab(
-		x11::window_ptr);
+		x11::window_ptr
+	);
+
 	~keyboard_grab();
 private:
 	x11::window_ptr const wnd;

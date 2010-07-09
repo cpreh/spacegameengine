@@ -171,18 +171,21 @@ private:
 }
 
 sge::systems::instance::instance(
-	list const &l
+	list const &_list
 )
 :
 	impl_(
 		new impl()
 	)
 {
-	reinit(l);
+	reinit(
+		_list
+	);
 }
 
 sge::systems::instance::~instance()
-{}
+{
+}
 
 void
 sge::systems::instance::reinit(
@@ -253,6 +256,12 @@ sge::font::system_ptr const
 sge::systems::instance::font_system() const
 {
 	return impl_->font_system;
+}
+
+sge::window::instance_ptr const
+sge::systems::instance::window() const
+{
+	return impl_->window_;
 }
 
 namespace

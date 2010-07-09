@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11_SCREEN_HPP_INCLUDED
-#define SGE_X11_SCREEN_HPP_INCLUDED
+#ifndef SGE_X11_DEFAULT_DEPTH_HPP_INCLUDED
+#define SGE_X11_DEFAULT_DEPTH_HPP_INCLUDED
 
 #include <sge/x11/display_ptr.hpp>
 #include <sge/symbol.hpp>
@@ -30,8 +30,9 @@ namespace x11
 {
 
 SGE_SYMBOL int
-default_screen(
-	display_ptr
+default_depth(
+	display_ptr,
+	int screen
 );
 
 }
