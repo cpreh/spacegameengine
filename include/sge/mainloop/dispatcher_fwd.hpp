@@ -18,52 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MAINLOOP_IO_SERVICE_HPP_INCLUDED
-#define SGE_MAINLOOP_IO_SERVICE_HPP_INCLUDED
-
-#include <sge/mainloop/io_service_fwd.hpp>
-#include <sge/mainloop/native_handle.hpp>
-#include <sge/mainloop/dispatcher_ptr.hpp>
-#include <sge/mainloop/dispatcher_callback.hpp>
-#include <sge/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#ifndef SGE_MAINLOOP_DISPATCHER_FWD_HPP_INCLUDED
+#define SGE_MAINLOOP_DISPATCHER_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace mainloop
 {
 
-class io_service
-{
-	FCPPT_NONCOPYABLE(io_service)
-protected:
-	SGE_SYMBOL
-	io_service();
-public:
-	SGE_SYMBOL
-	virtual ~io_service();
-
-	virtual void
-	run_one() = 0;
-
-	virtual void
-	run() = 0;
-
-	virtual void
-	poll() = 0;
-
-	virtual void
-	stop() = 0;
-
-	virtual void
-	reset() = 0;
-
-	virtual dispatcher_ptr const
-	create_dispatcher(
-		native_handle,
-		dispatcher_callback const &
-	) = 0;
-};
+class dispatcher;
 
 }
 }

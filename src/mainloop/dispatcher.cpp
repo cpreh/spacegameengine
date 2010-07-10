@@ -18,15 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/mainloop/create_asio_io_service.hpp>
-#include <sge/mainloop/asio_io_service.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <sge/mainloop/dispatcher.hpp>
 
-sge::mainloop::io_service_ptr const
-sge::mainloop::create_asio_io_service()
+sge::mainloop::dispatcher::dispatcher()
 {
-	return
-		fcppt::make_shared_ptr<
-			mainloop::asio_io_service
-		>();
+}
+
+sge::mainloop::dispatcher::~dispatcher()
+{
 }

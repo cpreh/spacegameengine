@@ -18,53 +18,66 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MAINLOOP_IO_SERVICE_HPP_INCLUDED
-#define SGE_MAINLOOP_IO_SERVICE_HPP_INCLUDED
+#ifndef SGE_MAINLOOP_ASIO_IO_SERVICE_HPP_INCLUDED
+#define SGE_MAINLOOP_ASIO_IO_SERVICE_HPP_INCLUDED
 
-#include <sge/mainloop/io_service_fwd.hpp>
+#include <sge/mainloop/io_service.hpp>
 #include <sge/mainloop/native_handle.hpp>
-#include <sge/mainloop/dispatcher_ptr.hpp>
 #include <sge/mainloop/dispatcher_callback.hpp>
 #include <sge/symbol.hpp>
+#include <boost/asio/io_service.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace mainloop
 {
+namespace asio
+{
 
 class io_service
+:
+	public mainloop::io_service
 {
 	FCPPT_NONCOPYABLE(io_service)
-protected:
-	SGE_SYMBOL
-	io_service();
 public:
 	SGE_SYMBOL
-	virtual ~io_service();
+	io_service();
 
-	virtual void
-	run_one() = 0;
+	SGE_SYMBOL
+	~io_service();
 
-	virtual void
-	run() = 0;
+	SGE_SYMBOL
+	void
+	run_one();
 
-	virtual void
-	poll() = 0;
+	SGE_SYMBOL
+	void
+	run();
 
-	virtual void
-	stop() = 0;
+	SGE_SYMBOL
+	void
+	poll();
 
-	virtual void
-	reset() = 0;
+	SGE_SYMBOL
+	void
+	stop();
 
-	virtual dispatcher_ptr const
+	SGE_SYMBOL
+	void
+	reset();
+
+	SGE_SYMBOL
+	dispatcher_ptr const
 	create_dispatcher(
 		native_handle,
 		dispatcher_callback const &
-	) = 0;
+	);
+private:
+	boost::asio::io_service io_service_;
 };
 
+}
 }
 }
 

@@ -18,20 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MAINLOOP_CREATE_ASIO_IO_SERVICE_HPP_INCLUDED
-#define SGE_MAINLOOP_CREATE_ASIO_IO_SERVICE_HPP_INCLUDED
+#ifndef SGE_MAINLOOP_DISPATCHER_PTR_HPP_INCLUDED
+#define SGE_MAINLOOP_DISPATCHER_PTR_HPP_INCLUDED
 
-#include <sge/mainloop/io_service_ptr.hpp>
-#include <sge/symbol.hpp>
+#include <sge/mainloop/dispatcher_fwd.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
 namespace mainloop
 {
 
-SGE_SYMBOL
-io_service_ptr const
-create_asio_io_service();
+typedef fcppt::shared_ptr<
+	dispatcher
+> dispatcher_ptr;
 
 }
 }

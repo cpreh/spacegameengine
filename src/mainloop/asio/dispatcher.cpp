@@ -18,43 +18,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/mainloop/asio_io_service.hpp>
+#include <sge/mainloop/asio/dispatcher.hpp>
+#include <fcppt/tr1/functional.hpp>
 
-sge::mainloop::asio_io_service::asio_io_service()
+sge::mainloop::asio::dispatcher::dispatcher(	
+	boost::asio::io_service &_io_service,
+	mainloop::native_handle const _handle,
+	mainloop::dispatcher_callback const &_callback
+)
 :
-	io_service_()
-{}
+	stream_wrapper_(
+		_io_service,
+		_handle
+	),
+	callback_(
+		_callback
+	)
+{
+	register_handler();
+}
 
-sge::mainloop::asio_io_service::~asio_io_service()
+sge::mainloop::asio::dispatcher::~dispatcher()
 {
 }
 
 void
-sge::mainloop::asio_io_service::run_one()
+sge::mainloop::asio::dispatcher::register_handler()
 {
-	io_service_.run_one();
+	stream_wrapper_.async_read_some(
+		boost::asio::null_buffers(),
+		std::tr1::bind(
+			&dispatcher::callback,
+			this,
+			std::tr1::placeholders::_1
+		)
+	);
 }
 
 void
-sge::mainloop::asio_io_service::run()
+sge::mainloop::asio::dispatcher::callback(
+	boost::system::error_code const &_error
+)
 {
-	io_service_.run();
-}
+	if(
+		_error
+	)
+		return;
 
-void
-sge::mainloop::asio_io_service::poll()
-{
-	io_service_.poll();
-}
+	callback_();
 
-void
-sge::mainloop::asio_io_service::stop()
-{
-	io_service_.stop();
-}
-
-void
-sge::mainloop::asio_io_service::reset()
-{
-	io_service_.reset();
+	register_handler();
 }

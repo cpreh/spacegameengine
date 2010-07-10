@@ -18,54 +18,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MAINLOOP_ASIO_IO_SERVICE_HPP_INCLUDED
-#define SGE_MAINLOOP_ASIO_IO_SERVICE_HPP_INCLUDED
+#ifndef SGE_MAINLOOP_ASIO_DISPATCHER_HPP_INCLUDED
+#define SGE_MAINLOOP_ASIO_DISPATCHER_HPP_INCLUDED
 
-#include <sge/mainloop/io_service.hpp>
+#include <sge/mainloop/dispatcher.hpp>
+#include <sge/mainloop/dispatcher_callback.hpp>
+#include <sge/mainloop/native_handle.hpp>
 #include <sge/symbol.hpp>
-#include <boost/asio/io_service.hpp>
+#include <fcppt/function/object.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <boost/asio/posix/stream_descriptor.hpp>
+#include <boost/asio/io_service.hpp>
+#include <boost/system/error_code.hpp>
 
 namespace sge
 {
 namespace mainloop
 {
-
-class asio_io_service
-:
-	public mainloop::io_service
+namespace asio
 {
-	FCPPT_NONCOPYABLE(asio_io_service)
+
+class dispatcher
+:
+	public mainloop::dispatcher
+{
+	FCPPT_NONCOPYABLE(dispatcher)
 public:
 	SGE_SYMBOL
-	asio_io_service();
+	explicit dispatcher(	
+		boost::asio::io_service &,
+		mainloop::native_handle,
+		mainloop::dispatcher_callback const &
+	);
 
 	SGE_SYMBOL
-	~asio_io_service();
-
-	SGE_SYMBOL
-	void
-	run_one();
-
-	SGE_SYMBOL
-	void
-	run();
-
-	SGE_SYMBOL
-	void
-	poll();
-
-	SGE_SYMBOL
-	void
-	stop();
-
-	SGE_SYMBOL
-	void
-	reset();
+	~dispatcher();
 private:
-	boost::asio::io_service io_service_;
+	void
+	register_handler();
+
+	void
+	callback(
+		boost::system::error_code const &
+	);
+
+	boost::asio::posix::stream_descriptor stream_wrapper_;
+
+	dispatcher_callback const callback_;
 };
 
+}
 }
 }
 
