@@ -120,7 +120,13 @@ public:
 
 	void
 	init_font();
+
+	void
+	post_init();
 private:
+	void
+	create_window();
+
 	template<
 		typename T
 	>
@@ -202,6 +208,8 @@ sge::systems::instance::reinit(
 			),
 			any_
 		);
+	
+	impl_->post_init();
 }
 
 sge::plugin::manager &
@@ -397,11 +405,8 @@ sge::systems::instance::impl::init_input()
 				FCPPT_TEXT("systems: input system requested, but no window parameter given!")
 			);
 
-		window_ = sge::window::create(
-			*wparam_
-		);
+		create_window();
 	}
-
 
 	input_plugin = default_plugin<sge::input::system>();
 
@@ -458,6 +463,24 @@ sge::systems::instance::impl::init_font()
 	font_plugin = default_plugin<sge::font::system>();
 
 	font_system.reset(font_plugin->get()());
+}
+
+void
+sge::systems::instance::impl::post_init()
+{
+	if(
+		wparam_ && !window_
+	)
+		create_window();
+			
+}
+
+void
+sge::systems::instance::impl::create_window()
+{
+	window_ = sge::window::create(
+		*wparam_
+	);
 }
 
 template<
