@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/mainloop/asio/dispatcher.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <boost/asio/buffer.hpp>
 
 sge::mainloop::asio::dispatcher::dispatcher(	
 	boost::asio::io_service &_io_service,

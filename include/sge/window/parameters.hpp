@@ -43,19 +43,19 @@ public:
 	);
 
 	SGE_SYMBOL
-	parameters const
+	parameters
 	class_name(
 		fcppt::string const &
 	);
 
 	SGE_SYMBOL
-	parameters const
+	parameters 
 	dim(
 		dim_type const &
 	);
 
 	SGE_SYMBOL
-	parameters const
+	parameters 
 	io_service(
 		mainloop::io_service_ptr
 	);

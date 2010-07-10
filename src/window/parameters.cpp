@@ -43,7 +43,7 @@ sge::window::parameters::parameters(
 	io_service_()
 {}
 
-sge::window::parameters const
+sge::window::parameters
 sge::window::parameters::class_name(
 	fcppt::string const &_class_name
 )
@@ -53,7 +53,7 @@ sge::window::parameters::class_name(
 	return *this;
 }
 
-sge::window::parameters const
+sge::window::parameters
 sge::window::parameters::dim(
 	dim_type const &_dim
 )
@@ -63,7 +63,7 @@ sge::window::parameters::dim(
 	return *this;
 }
 
-sge::window::parameters const
+sge::window::parameters
 sge::window::parameters::io_service(
 	mainloop::io_service_ptr const _io_service
 )
