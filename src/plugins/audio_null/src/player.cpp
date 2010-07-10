@@ -34,7 +34,7 @@ sge::audio_null::player::listener()
 	return listener_;
 }
 
-sge::audio::unit
+sge::audio::scalar
 sge::audio_null::player::speed_of_sound() const
 {
 	return speed_of_sound_;
@@ -42,7 +42,7 @@ sge::audio_null::player::speed_of_sound() const
 
 void
 sge::audio_null::player::speed_of_sound(
-	audio::unit const nspeed
+	audio::scalar const nspeed
 )
 {
 	speed_of_sound_ = nspeed;

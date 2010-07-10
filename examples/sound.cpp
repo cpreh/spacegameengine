@@ -66,7 +66,7 @@ try
 
 	std::string file_name_prog_options;
 	bool revolving,streaming;
-	sge::audio::unit speed;
+	sge::audio::scalar speed;
 
 	// FIXME: can't we use wstring here too?
 	desc.add_options()
@@ -79,7 +79,7 @@ try
 	po::value<bool>(&revolving)->default_value(true),
 	"does the sound revolve around the player")
 	("speed",
-	po::value<sge::audio::unit>(&speed)->default_value(static_cast<sge::audio::unit>(1)),
+	po::value<sge::audio::scalar>(&speed)->default_value(static_cast<sge::audio::scalar>(1)),
 	"speed of the sound in percent of 2*pi per second")
 	("streaming",
 	po::value<bool>(&streaming)->default_value(false),
@@ -124,18 +124,18 @@ try
 		: sys.audio_player()->create_nonstream_sound(soundfile);
 
 	sys.audio_player()->listener().pos(
-		sge::audio::point(
-			static_cast<sge::audio::unit>(0),
-			static_cast<sge::audio::unit>(0),
-			static_cast<sge::audio::unit>(0)));
+		sge::audio::vector(
+			static_cast<sge::audio::scalar>(0),
+			static_cast<sge::audio::scalar>(0),
+			static_cast<sge::audio::scalar>(0)));
 	if (revolving)
 	{
 		sound->positional(true);
 		sound->pos(
-			sge::audio::point(
-				static_cast<sge::audio::unit>(-1),
-				static_cast<sge::audio::unit>(0),
-				static_cast<sge::audio::unit>(0)));
+			sge::audio::vector(
+				static_cast<sge::audio::scalar>(-1),
+				static_cast<sge::audio::scalar>(0),
+				static_cast<sge::audio::scalar>(0)));
 	}
 	sound->play(sge::audio::play_mode::once);
 
@@ -144,13 +144,13 @@ try
 	{
 		if (revolving)
 		{
-			sge::audio::unit const angle =
-				static_cast<sge::audio::unit>(
-					frame_timer.elapsed_frames() * (2 * fcppt::math::pi<sge::audio::unit>() * speed));
+			sge::audio::scalar const angle =
+				static_cast<sge::audio::scalar>(
+					frame_timer.elapsed_frames() * (2 * fcppt::math::pi<sge::audio::scalar>() * speed));
 			sound->pos(
-				sge::audio::point(
+				sge::audio::vector(
 					std::sin(angle),
-					static_cast<sge::audio::unit>(0),
+					static_cast<sge::audio::scalar>(0),
 					std::cos(angle)));
 		}
 

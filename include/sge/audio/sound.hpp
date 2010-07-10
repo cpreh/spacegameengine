@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_SOUND_HPP_INCLUDED
 
 #include <sge/audio/sound_fwd.hpp>
-#include <sge/audio/unit.hpp>
-#include <sge/audio/point.hpp>
+#include <sge/audio/scalar.hpp>
+#include <sge/audio/vector.hpp>
 #include <sge/audio/play_mode.hpp>
 #include <sge/audio/sound_status.hpp>
 #include <sge/symbol.hpp>
@@ -47,22 +47,22 @@ public:
 	virtual sound_status::type status() const = 0;
 	virtual void stop() = 0;
 
-	virtual point const pos() const = 0;
-	virtual void pos(point const &) = 0;
-	virtual point const vel() const = 0;
-	virtual void vel(point const &) = 0;
-	virtual void attenuation(unit) = 0;
-	virtual unit attenuation() const = 0;
-	virtual void rolloff(unit) = 0;
-	virtual unit rolloff() const = 0;
+	virtual vector const pos() const = 0;
+	virtual void pos(vector const &) = 0;
+	virtual vector const vel() const = 0;
+	virtual void vel(vector const &) = 0;
+	virtual void attenuation(scalar) = 0;
+	virtual scalar attenuation() const = 0;
+	virtual void rolloff(scalar) = 0;
+	virtual scalar rolloff() const = 0;
 	virtual bool positional() const = 0;
 	virtual void positional(bool) = 0;
-	virtual void direction(point const &) = 0;
-	virtual point const direction() const = 0;
-	virtual void inner_cone_angle(unit) = 0;
-	virtual unit inner_cone_angle() const = 0;
-	virtual void outer_cone_angle(unit) = 0;
-	virtual unit outer_cone_angle() const = 0;
+	virtual void direction(vector const &) = 0;
+	virtual vector const direction() const = 0;
+	virtual void inner_cone_angle(scalar) = 0;
+	virtual scalar inner_cone_angle() const = 0;
+	virtual void outer_cone_angle(scalar) = 0;
+	virtual scalar outer_cone_angle() const = 0;
 	SGE_SYMBOL virtual void update();
 	SGE_SYMBOL virtual ~sound();
 };

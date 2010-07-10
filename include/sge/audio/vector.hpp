@@ -18,15 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_AUDIO_UNIT_HPP_INCLUDED
-#define SGE_AUDIO_UNIT_HPP_INCLUDED
+#ifndef SGE_AUDIO_VECTOR_HPP_INCLUDED
+#define SGE_AUDIO_VECTOR_HPP_INCLUDED
+
+#include <sge/audio/scalar.hpp>
+#include <fcppt/math/vector/static.hpp>
 
 namespace sge
 {
 namespace audio
 {
 
-typedef float unit; // TODO: is float ok here?
+typedef 
+fcppt::math::vector::static_
+<
+	scalar,
+	3
+>::type vector;
 
 }
 }

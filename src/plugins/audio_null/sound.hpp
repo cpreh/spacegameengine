@@ -39,34 +39,34 @@ public:
 	audio::sound_status::type status() const;
 	void stop();
 
-	audio::point const pos() const;
-	void pos(audio::point const &);
-	audio::point const vel() const;
-	void vel(audio::point const &);
-	void attenuation(audio::unit);
-	audio::unit attenuation() const;
-	void rolloff(audio::unit);
-	audio::unit rolloff() const;
+	audio::vector const pos() const;
+	void pos(audio::vector const &);
+	audio::vector const vel() const;
+	void vel(audio::vector const &);
+	void attenuation(audio::scalar);
+	audio::scalar attenuation() const;
+	void rolloff(audio::scalar);
+	audio::scalar rolloff() const;
 	bool positional() const;
 	void positional(bool);
-	void direction(audio::point const &);
-	audio::point const direction() const;
-	void inner_cone_angle(audio::unit);
-	audio::unit inner_cone_angle() const;
-	void outer_cone_angle(audio::unit);
-	audio::unit outer_cone_angle() const;
+	void direction(audio::vector const &);
+	audio::vector const direction() const;
+	void inner_cone_angle(audio::scalar);
+	audio::scalar inner_cone_angle() const;
+	void outer_cone_angle(audio::scalar);
+	audio::scalar outer_cone_angle() const;
 private:
 	audio::play_mode::type play_mode_;
 	audio::sound_status::type const status_;
-	audio::point
+	audio::vector
 		pos_,
 		vel_;
-	audio::unit
+	audio::scalar
 		attenuation_,
 		rolloff_;
 	bool positional_;
-	audio::point direction_;
-	audio::unit
+	audio::vector direction_;
+	audio::scalar
 		inner_cone_angle_,
 		outer_cone_angle_;
 };

@@ -42,33 +42,33 @@ sge::openal::player::player()
 {
 	context_.make_current();
 	// set our own speed of sound standard rather than relying on OpenAL
-	speed_of_sound(static_cast<audio::unit>(343));
+	speed_of_sound(static_cast<audio::scalar>(343));
 
-	listener().pos(audio::point::null());
-	listener().vel(audio::point::null());
+	listener().pos(audio::vector::null());
+	listener().vel(audio::vector::null());
 	listener().direction(
 		audio::angle(
-			audio::point(
-				static_cast<audio::unit>(0),
-				static_cast<audio::unit>(0),
-				static_cast<audio::unit>(1)),
-			audio::point(
-				static_cast<audio::unit>(0),
-				static_cast<audio::unit>(1),
-				static_cast<audio::unit>(0))));
+			audio::vector(
+				static_cast<audio::scalar>(0),
+				static_cast<audio::scalar>(0),
+				static_cast<audio::scalar>(1)),
+			audio::vector(
+				static_cast<audio::scalar>(0),
+				static_cast<audio::scalar>(1),
+				static_cast<audio::scalar>(0))));
 }
 
 sge::openal::player::~player()
 {}
 
-sge::audio::unit sge::openal::player::speed_of_sound() const
+sge::audio::scalar sge::openal::player::speed_of_sound() const
 {
 	ALfloat dest;
 	alGetFloatv(AL_SPEED_OF_SOUND,&dest);
-	return static_cast<audio::unit>(dest);
+	return static_cast<audio::scalar>(dest);
 }
 
-void sge::openal::player::speed_of_sound(audio::unit const dest)
+void sge::openal::player::speed_of_sound(audio::scalar const dest)
 {
 	alSpeedOfSound(static_cast<ALfloat>(dest));
 }

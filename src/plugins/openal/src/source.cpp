@@ -30,16 +30,16 @@ void sge::openal::source::init()
 {
 	// we just impose our default values
 	positional(false);
-	pos(audio::point::null());
-	vel(audio::point::null());
-	attenuation(static_cast<audio::unit>(1));
-	rolloff(static_cast<audio::unit>(1));
-	inner_cone_angle(static_cast<audio::unit>(360));
-	outer_cone_angle(static_cast<audio::unit>(360));
+	pos(audio::vector::null());
+	vel(audio::vector::null());
+	attenuation(static_cast<audio::scalar>(1));
+	rolloff(static_cast<audio::scalar>(1));
+	inner_cone_angle(static_cast<audio::scalar>(360));
+	outer_cone_angle(static_cast<audio::scalar>(360));
 	// setting the direction vector to zero creates a non-directional source.
 	// this, of course, assumes that the zero vector is uniquely identified by
 	// (0.0f,0.0f,0.0f) which is not really guaranteed
-	direction(audio::point::null());
+	direction(audio::vector::null());
 }
 
 sge::openal::source::source()
@@ -164,7 +164,7 @@ void sge::openal::source::stop()
 	status_ = audio::sound_status::stopped;
 }
 
-void sge::openal::source::outer_cone_angle(audio::unit const n)
+void sge::openal::source::outer_cone_angle(audio::scalar const n)
 {
 	outer_cone_angle_ = n;
 
@@ -175,7 +175,7 @@ void sge::openal::source::outer_cone_angle(audio::unit const n)
 	);
 }
 
-void sge::openal::source::inner_cone_angle(audio::unit const n)
+void sge::openal::source::inner_cone_angle(audio::scalar const n)
 {
 	inner_cone_angle_ = n;
 
@@ -186,7 +186,7 @@ void sge::openal::source::inner_cone_angle(audio::unit const n)
 	);
 }
 
-void sge::openal::source::attenuation(audio::unit const n)
+void sge::openal::source::attenuation(audio::scalar const n)
 {
 	attenuation_ = n;
 
@@ -197,7 +197,7 @@ void sge::openal::source::attenuation(audio::unit const n)
 	);
 }
 
-void sge::openal::source::rolloff(audio::unit const n)
+void sge::openal::source::rolloff(audio::scalar const n)
 {
 	rolloff_ = n;
 
@@ -208,7 +208,7 @@ void sge::openal::source::rolloff(audio::unit const n)
 	);
 }
 
-void sge::openal::source::pos(audio::point const &n)
+void sge::openal::source::pos(audio::vector const &n)
 {
 	pos_ = n;
 
@@ -226,7 +226,7 @@ void sge::openal::source::pos(audio::point const &n)
 	);
 }
 
-void sge::openal::source::direction(audio::point const &n)
+void sge::openal::source::direction(audio::vector const &n)
 {
 	direction_ = n;
 
@@ -244,7 +244,7 @@ void sge::openal::source::direction(audio::point const &n)
 	);
 }
 
-void sge::openal::source::vel(audio::point const &n)
+void sge::openal::source::vel(audio::vector const &n)
 {
 	vel_ = n;
 
@@ -271,7 +271,7 @@ void sge::openal::source::positional(bool const n)
 
 	if (n)
 	{
-		rolloff(static_cast<audio::unit>(1));
+		rolloff(static_cast<audio::scalar>(1));
 
 		source_i(
 			alsource(),
@@ -281,7 +281,7 @@ void sge::openal::source::positional(bool const n)
 	}
 	else
 	{
-		rolloff(static_cast<audio::unit>(0));
+		rolloff(static_cast<audio::scalar>(0));
 		// make source relative to listener and set it's position to (0,0,0), so directly on the listener
 		source_i(
 			alsource(),
@@ -289,7 +289,7 @@ void sge::openal::source::positional(bool const n)
 			AL_TRUE
 		);
 
-		pos(audio::point::null());
+		pos(audio::vector::null());
 	}
 }
 

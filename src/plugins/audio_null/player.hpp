@@ -35,10 +35,10 @@ public:
 
 	audio::listener &listener();
 
-	audio::unit speed_of_sound() const;
+	audio::scalar speed_of_sound() const;
 
 	void speed_of_sound(
-		audio::unit);
+		audio::scalar);
 
 	audio::sound_ptr const
 	create_nonstream_sound(
@@ -49,7 +49,7 @@ public:
 		audio::file_ptr);
 private:
 	audio_null::listener listener_;
-	audio::unit          speed_of_sound_;
+	audio::scalar          speed_of_sound_;
 };
 
 }

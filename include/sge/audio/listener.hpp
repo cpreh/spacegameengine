@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/listener_fwd.hpp>
 #include <sge/audio/angle_fwd.hpp>
-#include <sge/audio/point.hpp>
+#include <sge/audio/vector.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -39,10 +39,10 @@ class SGE_CLASS_SYMBOL listener
 protected:
 	SGE_SYMBOL listener();
 public:
-	virtual point const pos() const = 0;
-	virtual void pos(point const &) = 0;
-	virtual point const vel() const = 0;
-	virtual void vel(point const &) = 0;
+	virtual vector const pos() const = 0;
+	virtual void pos(vector const &) = 0;
+	virtual vector const vel() const = 0;
+	virtual void vel(vector const &) = 0;
 	virtual angle const direction() const = 0;
 	virtual void direction(angle const &) = 0;
 	SGE_SYMBOL virtual ~listener();

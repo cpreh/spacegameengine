@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/player_fwd.hpp>
 #include <sge/audio/file_ptr.hpp>
 #include <sge/audio/listener_fwd.hpp>
-#include <sge/audio/unit.hpp>
+#include <sge/audio/scalar.hpp>
 #include <sge/audio/sound_ptr.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
@@ -43,8 +43,8 @@ protected:
 	SGE_SYMBOL player();
 public:
 	virtual audio::listener &listener() = 0;
-	virtual unit speed_of_sound() const = 0;
-	virtual void speed_of_sound(unit) = 0;
+	virtual scalar speed_of_sound() const = 0;
+	virtual void speed_of_sound(scalar) = 0;
 	virtual sound_ptr const create_nonstream_sound(file_ptr) = 0;
 	virtual sound_ptr const create_stream_sound(file_ptr) = 0;
 	SGE_SYMBOL virtual ~player();

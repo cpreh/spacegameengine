@@ -46,22 +46,22 @@ class source : public audio::sound
 	virtual void play_mode(audio::play_mode::type);
 	virtual void do_play() {}
 
-	audio::point const pos() const { return pos_; }
-	void pos(audio::point const &);
-	audio::point const vel() const { return vel_; }
-	void vel(audio::point const &);
-	audio::unit attenuation() const { return attenuation_; }
-	void attenuation(audio::unit);
-	audio::unit rolloff() const { return rolloff_; }
-	void rolloff(audio::unit);
+	audio::vector const pos() const { return pos_; }
+	void pos(audio::vector const &);
+	audio::vector const vel() const { return vel_; }
+	void vel(audio::vector const &);
+	audio::scalar attenuation() const { return attenuation_; }
+	void attenuation(audio::scalar);
+	audio::scalar rolloff() const { return rolloff_; }
+	void rolloff(audio::scalar);
 	bool positional() const { return positional_; }
 	void positional(bool);
-	audio::point const direction() const { return direction_; }
-	void direction(audio::point const &);
-	audio::unit inner_cone_angle() const { return inner_cone_angle_; }
-	void inner_cone_angle(audio::unit);
-	audio::unit outer_cone_angle() const { return outer_cone_angle_; }
-	void outer_cone_angle(audio::unit);
+	audio::vector const direction() const { return direction_; }
+	void direction(audio::vector const &);
+	audio::scalar inner_cone_angle() const { return inner_cone_angle_; }
+	void inner_cone_angle(audio::scalar);
+	audio::scalar outer_cone_angle() const { return outer_cone_angle_; }
+	void outer_cone_angle(audio::scalar);
 
 	private:
 	ALuint buffer_;
@@ -69,13 +69,13 @@ class source : public audio::sound
 	audio::play_mode::type play_mode_;
 	mutable audio::sound_status::type status_;
 	bool positional_;
-	audio::point pos_;
-	audio::point direction_;
-	audio::point vel_;
-	audio::unit attenuation_;
-	audio::unit rolloff_;
-	audio::unit inner_cone_angle_;
-	audio::unit outer_cone_angle_;
+	audio::vector pos_;
+	audio::vector direction_;
+	audio::vector vel_;
+	audio::scalar attenuation_;
+	audio::scalar rolloff_;
+	audio::scalar inner_cone_angle_;
+	audio::scalar outer_cone_angle_;
 
 	void init();
 };

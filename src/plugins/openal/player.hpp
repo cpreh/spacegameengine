@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/player.hpp>
 #include <sge/audio/sound_fwd.hpp>
 #include <sge/audio/pool_fwd.hpp>
-#include <sge/audio/unit.hpp>
+#include <sge/audio/scalar.hpp>
 
 #include <boost/ptr_container/ptr_list.hpp>
 
@@ -54,8 +54,8 @@ public:
 	audio::sound_ptr const create_nonstream_sound(audio::file_ptr);
 	audio::sound_ptr const create_stream_sound(audio::file_ptr);
 
-	audio::unit speed_of_sound() const;
-	void speed_of_sound(audio::unit);
+	audio::scalar speed_of_sound() const;
+	void speed_of_sound(audio::scalar);
 private:
 	typedef boost::ptr_list<
 		stream_sound,

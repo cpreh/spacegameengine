@@ -30,28 +30,28 @@ sge::audio_null::sound::sound()
 		audio::sound_status::stopped
 	),
 	pos_(
-		audio::point::null()
+		audio::vector::null()
 	),
 	vel_(
-		audio::point::null()
+		audio::vector::null()
 	),
 	attenuation_(
-		static_cast<audio::unit>(0)
+		static_cast<audio::scalar>(0)
 	),
 	rolloff_(
-		static_cast<audio::unit>(0)
+		static_cast<audio::scalar>(0)
 	),
 	positional_(
 		false
 	),
 	direction_(
-		audio::point::null()
+		audio::vector::null()
 	),
 	inner_cone_angle_(
-		static_cast<audio::unit>(0)
+		static_cast<audio::scalar>(0)
 	),
 	outer_cone_angle_(
-		static_cast<audio::unit>(0)
+		static_cast<audio::scalar>(0)
 	)
 {}
 
@@ -85,7 +85,7 @@ sge::audio_null::sound::stop()
 }
 
 
-sge::audio::point const
+sge::audio::vector const
 sge::audio_null::sound::pos() const
 {
 	return pos_;
@@ -93,12 +93,12 @@ sge::audio_null::sound::pos() const
 
 void
 sge::audio_null::sound::pos(
-	audio::point const &npos)
+	audio::vector const &npos)
 {
 	pos_ = npos;
 }
 
-sge::audio::point const
+sge::audio::vector const
 sge::audio_null::sound::vel() const
 {
 	return vel_;
@@ -106,19 +106,19 @@ sge::audio_null::sound::vel() const
 
 void
 sge::audio_null::sound::vel(
-	audio::point const &nvel)
+	audio::vector const &nvel)
 {
 	vel_ = nvel;
 }
 
 void
 sge::audio_null::sound::attenuation(
-	audio::unit const nattenuation)
+	audio::scalar const nattenuation)
 {
 	attenuation_ = nattenuation;
 }
 
-sge::audio::unit
+sge::audio::scalar
 sge::audio_null::sound::attenuation() const
 {
 	return attenuation_;
@@ -126,12 +126,12 @@ sge::audio_null::sound::attenuation() const
 
 void
 sge::audio_null::sound::rolloff(
-	audio::unit const nrolloff)
+	audio::scalar const nrolloff)
 {
 	rolloff_ = nrolloff;
 }
 
-sge::audio::unit
+sge::audio::scalar
 sge::audio_null::sound::rolloff() const
 {
 	return rolloff_;
@@ -152,12 +152,12 @@ sge::audio_null::sound::positional(
 
 void
 sge::audio_null::sound::direction(
-	audio::point const &ndirection)
+	audio::vector const &ndirection)
 {
 	direction_ = ndirection;
 }
 
-sge::audio::point const
+sge::audio::vector const
 sge::audio_null::sound::direction() const
 {
 	return direction_;
@@ -165,12 +165,12 @@ sge::audio_null::sound::direction() const
 
 void
 sge::audio_null::sound::inner_cone_angle(
-	audio::unit const ninner_cone_angle)
+	audio::scalar const ninner_cone_angle)
 {
 	inner_cone_angle_ = ninner_cone_angle;
 }
 
-sge::audio::unit
+sge::audio::scalar
 sge::audio_null::sound::inner_cone_angle() const
 {
 	return inner_cone_angle_;
@@ -178,12 +178,12 @@ sge::audio_null::sound::inner_cone_angle() const
 
 void
 sge::audio_null::sound::outer_cone_angle(
-	audio::unit const nouter_cone_angle)
+	audio::scalar const nouter_cone_angle)
 {
 	outer_cone_angle_ = nouter_cone_angle;
 }
 
-sge::audio::unit
+sge::audio::scalar
 sge::audio_null::sound::outer_cone_angle() const
 {
 	return outer_cone_angle_;

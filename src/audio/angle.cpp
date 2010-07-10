@@ -30,14 +30,14 @@ sge::audio::angle::angle()
 {}
 
 sge::audio::angle::angle(
-	point const &forward_,
-	point const &up_)
+	vector const &forward_,
+	vector const &up_)
 :
 	forward_(forward_),
 	up_(up_)
 {}
 
-sge::audio::point const &
+sge::audio::vector const &
 sge::audio::angle::forward() const
 {
 	return forward_;
@@ -45,12 +45,12 @@ sge::audio::angle::forward() const
 
 void
 sge::audio::angle::forward(
-	point const &nforward)
+	vector const &nforward)
 {
 	forward_ = nforward;
 }
 
-sge::audio::point const
+sge::audio::vector const
 sge::audio::angle::up() const
 {
 	return up_;
@@ -58,7 +58,7 @@ sge::audio::angle::up() const
 
 void
 sge::audio::angle::up(
-	point const &nup)
+	vector const &nup)
 {
 	up_ = nup;
 }

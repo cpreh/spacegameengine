@@ -55,7 +55,7 @@ sge::openal::listener::listener()
 {
 }
 
-void sge::openal::listener::vel(audio::point const &n)
+void sge::openal::listener::vel(audio::vector const &n)
 {
 	FCPPT_LOG_DEBUG(log(),fcppt::log::_ << FCPPT_TEXT("setting listener velocity to ") << n);
 	vel_ = n;
@@ -73,12 +73,12 @@ void sge::openal::listener::vel(audio::point const &n)
 	);
 }
 
-sge::audio::point const sge::openal::listener::vel() const
+sge::audio::vector const sge::openal::listener::vel() const
 {
 	return vel_;
 }
 
-void sge::openal::listener::pos(audio::point const &n)
+void sge::openal::listener::pos(audio::vector const &n)
 {
 	FCPPT_LOG_DEBUG(log(),fcppt::log::_ << FCPPT_TEXT("setting listener position to ") << n);
 	pos_ = n;
@@ -94,7 +94,7 @@ void sge::openal::listener::pos(audio::point const &n)
 	);
 }
 
-sge::audio::point const sge::openal::listener::pos() const
+sge::audio::vector const sge::openal::listener::pos() const
 {
 	return pos_;
 }
