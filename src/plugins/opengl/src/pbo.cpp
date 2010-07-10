@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../basic_buffer_impl.hpp"
 #include "../pbo.hpp"
 #include "../software_vbo.hpp"
-#include "../vbo_util.hpp"
+#include "../create_vbo_impl.hpp"
 #include "../glew.hpp"
 #include <fcppt/scoped_ptr.hpp>
 
@@ -34,7 +34,7 @@ fcppt::scoped_ptr<sge::opengl::vbo_base> impl;
 
 void sge::opengl::initialize_pbo()
 {
-	impl.reset(
+	impl.take(
 		create_vbo_impl(
 			sge::opengl::pbo_in_hardware()));
 }

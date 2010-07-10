@@ -88,7 +88,11 @@ public:
 		GLsizei offset
 	) const;
 
-	static GLenum unique_id();
+	bool
+	hardware_supported() const;
+
+	static GLenum
+	unique_id();
 };
 
 }

@@ -35,7 +35,8 @@ sge::opengl::x11::state::state(
 	renderer::parameters const &param,
 	renderer::adapter_type const adapter,
 	window::instance_ptr const wnd_,
-	view_port_fun const &set_viewport)
+	view_port_fun const &set_viewport
+)
 :
 	set_viewport(
 		set_viewport
@@ -44,7 +45,9 @@ sge::opengl::x11::state::state(
 		param.mode().size()
 	),
 	wnd(
-		fcppt::polymorphic_pointer_cast<sge::x11::window>(
+		fcppt::polymorphic_pointer_cast<
+			sge::x11::window
+		>(
 			wnd_
 		)
 	),
@@ -55,9 +58,13 @@ sge::opengl::x11::state::state(
 		wnd->visual()
 	),
 	context(
-		fcppt::make_shared_ptr<glx::context>(
+		fcppt::make_shared_ptr<
+			glx::context
+		>(
 			display,
-			fcppt::dynamic_pointer_cast<glx::visual const>(
+			fcppt::dynamic_pointer_cast<
+				glx::visual const
+			>(
 				visual
 			)->info()
 		)
@@ -105,29 +112,33 @@ sge::opengl::x11::state::state(
 	display->sync();
 }
 
-void sge::opengl::x11::state::swap_buffers()
+void
+sge::opengl::x11::state::swap_buffers()
 {
-	// TODO: how to get the error code here?
-
 	glXSwapBuffers(
 		display->get(),
 		wnd->get()
 	);
 }
 
-void sge::opengl::x11::state::reset_viewport_on_map(
-	XEvent const &)
+void
+sge::opengl::x11::state::reset_viewport_on_map(
+	XEvent const &
+)
 {
 	set_viewport(
 		wnd->size()
 	);
 }
 
-void sge::opengl::x11::state::reset_viewport_on_configure(
-	XEvent const &e)
+void
+sge::opengl::x11::state::reset_viewport_on_configure(
+	XEvent const &e
+)
 {
 	XConfigureEvent const &r(
-		e.xconfigure);
+		e.xconfigure
+	);
 
 	set_viewport(
 		window::dim_type(

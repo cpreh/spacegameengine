@@ -91,7 +91,8 @@ sge::opengl::vertex_buffer::lock(
 sge::opengl::vertex_buffer::const_view_type const
 sge::opengl::vertex_buffer::lock(
 	size_type const offset,
-	size_type const range) const
+	size_type const range
+) const
 {
 	buf.lock(
 		lock_method::readonly,

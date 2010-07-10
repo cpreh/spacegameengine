@@ -149,14 +149,23 @@ void sge::opengl::software_vbo::buffer_sub_data(
 	);
 }
 
-void *sge::opengl::software_vbo::buffer_offset(
+void *
+sge::opengl::software_vbo::buffer_offset(
 	GLenum const type,
-	GLsizei const offset) const
+	GLsizei const offset
+) const
 {
 	return buffer_object(bound_buffer(type))->second + offset;
 }
 
-GLenum sge::opengl::software_vbo::unique_id()
+bool
+sge::opengl::software_vbo::hardware_supported() const
+{
+	return false;
+}
+
+GLenum
+sge::opengl::software_vbo::unique_id()
 {
 	static GLenum id = 0;
 	return id++;

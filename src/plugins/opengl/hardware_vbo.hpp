@@ -29,7 +29,10 @@ namespace sge
 namespace opengl
 {
 
-class hardware_vbo : public vbo_base {
+class hardware_vbo
+:
+	public vbo_base
+{
 public:
 	GLuint gen_buffer();
 
@@ -87,6 +90,9 @@ public:
 		GLenum type,
 		GLsizei offset
 	) const;
+
+	bool
+	hardware_supported() const;
 };
 
 }

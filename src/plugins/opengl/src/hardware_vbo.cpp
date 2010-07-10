@@ -196,6 +196,12 @@ sge::opengl::hardware_vbo::buffer_offset(
 	return reinterpret_cast<void *>(offset);
 }
 
+bool
+sge::opengl::hardware_vbo::hardware_supported() const
+{
+	return true;
+}
+
 namespace
 {
 
