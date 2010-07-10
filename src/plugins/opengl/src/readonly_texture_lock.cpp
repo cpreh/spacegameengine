@@ -19,11 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../readonly_texture_lock.hpp"
+#include "../pbo_context.hpp"
+#include "../context/use.hpp"
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/algorithm/copy_n.hpp>
 #include <fcppt/assert.hpp>
 
 sge::opengl::readonly_texture_lock::readonly_texture_lock(
+	context::object &_context,
 	size_type const lock_size,
 	size_type const offset,
 	size_type const whole_size,
@@ -34,6 +37,16 @@ sge::opengl::readonly_texture_lock::readonly_texture_lock(
 )
 :
 	buffer(
+		context::use<
+			pbo_context
+		>(
+			_context
+		).impl(),
+		context::use<
+			pbo_context
+		>(
+			_context
+		).pixel_pack_buffer_type(),
 		whole_size,
 		stride,
 		flags,
@@ -45,7 +58,8 @@ sge::opengl::readonly_texture_lock::readonly_texture_lock(
 	block_size(block_size * stride)
 {}
 
-void sge::opengl::readonly_texture_lock::post_lock()
+void
+sge::opengl::readonly_texture_lock::post_lock()
 {
 	do_lock();
 
@@ -58,21 +72,29 @@ void sge::opengl::readonly_texture_lock::post_lock()
 	FCPPT_ASSERT(lock_size % block_size == 0);
 
 	cutout_buffer.resize_uninitialized(
-		lock_size);
+		lock_size
+	);
 
-	copy_read_part(cutout_buffer.data());
+	copy_read_part(
+		cutout_buffer.data()
+	);
 }
 
-void sge::opengl::readonly_texture_lock::do_lock()
+void
+sge::opengl::readonly_texture_lock::do_lock()
 {
 	buffer.lock(
-		lock_method::readonly);
+		lock_method::readonly
+	);
 }
 
-void sge::opengl::readonly_texture_lock::copy_read_part(
-	pointer const dest) const
+void
+sge::opengl::readonly_texture_lock::copy_read_part(
+	pointer const dest
+) const
 {
 	size_type i(offset);
+
 	for(
 		pointer p(dest);
 		p != dest + lock_size;
@@ -85,7 +107,8 @@ void sge::opengl::readonly_texture_lock::copy_read_part(
 		);
 }
 
-void sge::opengl::readonly_texture_lock::pre_unlock()
+void
+sge::opengl::readonly_texture_lock::pre_unlock()
 {
 	buffer.unlock();
 }

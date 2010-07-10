@@ -59,14 +59,25 @@ template<
 	typename T
 >
 sge::opengl::index_buffer<T>::index_buffer(
-	size_type const sz,
-	renderer::resource_flags_field const &flags
+	context::object &_context,
+	size_type const _size,
+	renderer::resource_flags_field const &_flags
 )
 :
 	buf(
-		sz,
-		1,
-		flags,
+		context::use<
+			vbo_context
+		>(
+			_context
+		).impl(),
+		context::use<
+			vbo_context
+		>(
+			_context
+		).index_buffer_type(),
+		_size,
+		sizeof(T),
+		_flags,
 		0
 	)
 {}
@@ -77,9 +88,10 @@ template<
 GLenum
 sge::opengl::index_buffer<T>::gl_format() const
 {
-	return gl_format_c<
-		T
-	>::value;
+	return
+		::gl_format_c<
+			T
+		>::value;
 }
 
 template<

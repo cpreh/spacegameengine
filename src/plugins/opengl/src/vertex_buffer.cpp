@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../vertex_buffer.hpp"
-#include "../vbo.hpp"
+#include "../context/object.hpp"
 #include "../convert_vertex_colors.hpp"
-#include "../instantiate_basic_buffer.hpp"
+#include "../vbo_context.hpp"
 #include <sge/renderer/vf/dynamic/view.hpp>
 #include <sge/renderer/vf/dynamic/const_view.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
@@ -34,16 +34,27 @@ SGE_OPENGL_INSTANTIATE_BASIC_BUFFER(
 )
 
 sge::opengl::vertex_buffer::vertex_buffer(
-	renderer::vf::dynamic::format const &format_,
-	size_type const sz,
-	renderer::resource_flags_field const &flags
+	context::object &_context,
+	renderer::vf::dynamic::format const &_format,
+	size_type const _size,
+	renderer::resource_flags_field const &_flags
 )
 :
-	format_(format_),
+	format_(_format),
 	buf(
-		sz,
+		context::use<
+			vbo_context
+		>(
+			_object
+		).impl(),
+		context::use<
+			vbo_context
+		>(
+			_object
+		).vertex_buffer_type(),
+		_size,
 		format_.stride(),
-		flags,
+		_flags,
 		0
 	)
 {}

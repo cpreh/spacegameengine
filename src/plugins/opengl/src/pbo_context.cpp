@@ -18,39 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_INDEX_BUFFER_BASE_HPP_INCLUDED
-#define SGE_OPENGL_INDEX_BUFFER_BASE_HPP_INCLUDED
+#include "../pbo_context.hpp"
+#include "../context/make_id.hpp"
+#include "../create_vbo_impl.hpp"
+#include "../vbo_base.hpp"
+#include "../make_buffer_type.hpp"
+#include "../glew/is_supported.hpp"
+#include <sge/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include "common.hpp"
-#include <sge/renderer/index_buffer.hpp>
-
-namespace sge
-{
-namespace opengl
-{
-
-class index_buffer_base
+sge::opengl::pbo_context::pbo_context()
 :
-	public renderer::index_buffer
-{
-protected:
-	index_buffer_base();
-public:
-	virtual GLenum
-	gl_format() const = 0;
-
-	virtual void *
-	buffer_offset(
-		size_type
-	) const = 0;
-
-	virtual void
-	bind_me() const = 0;
-
-	virtual ~index_buffer_base();
-};
-
-}
-}
-
-#endif
+	impl_(
+		create_vbo_impl(
+			glew::is_supported("GL_VERSION_2_1")
+			|| glew::is_supported("GL_ARB_pixel_buffer_object")
+		)
+	),
+	pixel_pack_buffer_type_(
+		opengl::make_buffer_type(
+			impl_->hardware_supported(),
+			"GL_VERSION_2_1",
+			GL_PIXEL_PACK_BUFFER,
+			"GL_ARB_pixel_buffer_object",
+			GL_PIXEL_PACK_BUFFER_ARB
+		)
+	),
+	pixel_unpack_buffer_type_(
+		opengl::make_buffer_type(
+			impl_->hardware_supported(),
+			"GL_VERSION_2_1",
+			GL_PIXEL_UNPACK_BUFFER,
+			"GL_ARB_pixel_buffer_object",
+			GL_PIXEL_UNPACK_BUFFER_ARB
+		)
+	)
+{}

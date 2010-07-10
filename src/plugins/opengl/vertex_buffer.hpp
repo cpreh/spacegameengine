@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "vbo.hpp"
 #include "basic_buffer.hpp"
 #include "vf/format.hpp"
+#include "context/object_fwd.hpp"
 #include <sge/renderer/vf/dynamic/format_fwd.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 
@@ -38,8 +39,9 @@ class vertex_buffer
 {
 public:
 	vertex_buffer(
+		context::object &,
 		renderer::vf::dynamic::format const &,
-		size_type sz,
+		size_type,
 		renderer::resource_flags_field const &
 	);
 

@@ -74,6 +74,4 @@ sge::opengl::vbo_base& sge::opengl::pbo_impl()
 
 bool sge::opengl::pbo_in_hardware()
 {
-	return glew_is_supported("GL_VERSION_2_1")
-		|| glew_is_supported("GL_ARB_pixel_buffer_object");
 }

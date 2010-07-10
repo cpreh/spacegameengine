@@ -19,60 +19,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../software_vbo.hpp"
-#include "../vbo.hpp"
-#include "../pbo.hpp"
-#include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/raw_value.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/algorithm/copy_n.hpp>
 #include <fcppt/text.hpp>
-#include <utility>
-#include <map>
 
-namespace
-{
+sge::opengl::software_vbo::software_vbo()
+:
+	nextid(1),
+	buffers(),
+	bound_buffers()
+{}
+
+sge::opengl::software_vbo::~software_vbo()
+{}
 
 GLuint
-	nextid = 1,
-	bound_vb = 0,
-	bound_ib = 0,
-	bound_pack = 0,
-	bound_unpack = 0;
-
-typedef std::map<
-	GLuint,
-	sge::renderer::raw_pointer
-> buffer_map;
-buffer_map buffers;
-
-GLuint &bound_buffer(GLenum type);
-buffer_map::iterator buffer_object(GLuint id);
-void check_bound(GLenum type);
-
-}
-
-GLuint sge::opengl::software_vbo::gen_buffer()
+sge::opengl::software_vbo::gen_buffer()
 {
 	buffers.insert(
 		buffer_map::value_type(
 			nextid,
-			static_cast<buffer_map::mapped_type>(
-				0))); // make gcc-4.3 -std=c++0x happy
+			static_cast<
+				buffer_map::mapped_type
+			>(
+				0
+			)
+		)
+	);
+
 	return nextid++;
 }
 
-void sge::opengl::software_vbo::delete_buffer(
-	GLuint const id)
+void
+sge::opengl::software_vbo::delete_buffer(
+	GLuint const id
+)
 {
 	buffer_map::iterator const it = buffer_object(id);
 	delete[] it->second;
 	buffers.erase(it);
 }
 
-void sge::opengl::software_vbo::bind_buffer(
+void
+sge::opengl::software_vbo::bind_buffer(
 	GLenum const type,
-	GLuint const id)
+	GLuint const id
+)
 {
 	bound_buffer(type) = id;
 }
@@ -111,37 +105,48 @@ sge::opengl::software_vbo::map_buffer_range_supported() const
 	return true;
 }
 
-void sge::opengl::software_vbo::unmap_buffer(
-	GLenum const type)
+void
+sge::opengl::software_vbo::unmap_buffer(
+	GLenum const type
+)
 {
 	check_bound(type);
 }
 
-void sge::opengl::software_vbo::buffer_data(
+void
+sge::opengl::software_vbo::buffer_data(
 	GLenum const type,
 	GLsizei const size,
 	void const *const data,
-	GLenum)
+	GLenum
+)
 {
 	buffer_map::iterator const it = buffer_object(bound_buffer(type));
+
 	delete[] it->second;
+
 	it->second = new renderer::raw_value[size];
+
 	if(data)
 		buffer_sub_data(type, 0, size, data);
 }
 
-void sge::opengl::software_vbo::buffer_sub_data(
+void
+sge::opengl::software_vbo::buffer_sub_data(
 	GLenum const type,
 	GLsizei const first,
 	GLsizei const size,
-	void const *const data)
+	void const *const data
+)
 {
 	if(!data)
 		throw exception(
 			FCPPT_TEXT("buffer_sub_data(): data may not be 0!"));
 
 	fcppt::algorithm::copy_n(
-		static_cast<renderer::const_raw_pointer>(data) + first,
+		static_cast<
+			renderer::const_raw_pointer
+		>(data) + first,
 		size,
 		buffer_object(
 			bound_buffer(type)
@@ -164,47 +169,39 @@ sge::opengl::software_vbo::hardware_supported() const
 	return false;
 }
 
-GLenum
-sge::opengl::software_vbo::unique_id()
+GLuint &
+sge::opengl::software_vbo::bound_buffer(
+	GLenum const type
+)
 {
-	static GLenum id = 0;
-	return id++;
+	return
+		bound_buffers[
+			type
+		];
 }
 
-namespace
-{
-
-GLuint &bound_buffer(
-	GLenum const type)
-{
-	if(type == sge::opengl::vertex_buffer_type())
-		return bound_vb;
-	if(type == sge::opengl::index_buffer_type())
-		return bound_ib;
-	if(type == sge::opengl::pixel_pack_buffer_type())
-		return bound_pack;
-	if(type == sge::opengl::pixel_unpack_buffer_type())
-		return bound_unpack;
-	throw sge::exception(FCPPT_TEXT("bound_buffer(): invalid type!"));
-}
-
-buffer_map::iterator
-buffer_object(
-	GLuint const id)
+sge::opengl::software_vbo::buffer_map::iterator
+sge::opengl::software_vbo::buffer_object(
+	GLuint const id
+)
 {
 	buffer_map::iterator const it = buffers.find(id);
+
 	if(it == buffers.end())
 		throw sge::exception(
-			FCPPT_TEXT("buffer_object(): invalid id!"));
+			FCPPT_TEXT("buffer_object(): invalid id!")
+		);
+
 	return it;
 }
 
-void check_bound(
-	GLenum const type)
+void
+sge::opengl::software_vbo::check_bound(
+	GLenum const type
+)
 {
 	if(bound_buffer(type) == 0)
 		throw sge::exception(
-			FCPPT_TEXT("ogl soft buffer: no buffer bound!"));
-}
-
+			FCPPT_TEXT("ogl soft buffer: no buffer bound!")
+		);
 }

@@ -22,61 +22,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../context/make_id.hpp"
 #include "../create_vbo_impl.hpp"
 #include "../vbo_base.hpp"
-#include "../software_vbo.hpp"
-#include "../glew.hpp"
-#include <sge/exception.hpp>
-#include <fcppt/text.hpp>
+#include "../make_buffer_type.hpp"
+#include "../glew/is_supported.hpp"
 
 sge::opengl::vbo_context::vbo_context()
 :
 	impl_(
 		create_vbo_impl(
-			glew_is_supported("GL_VERSION_1_5")
-			|| glew_is_supported("GL_ARB_vertex_buffer_object")
+			glew::is_supported("GL_VERSION_1_5")
+			|| glew::is_supported("GL_ARB_vertex_buffer_object")
 		)
 	),
 	index_buffer_type_(
-		impl_->hardware_supported()
-		?
-			glew_is_supported(
-				"GL_VERSION_1_5"
-			)
-			?
-				GL_ELEMENT_ARRAY_BUFFER
-			:
-				glew_is_supported(
-					"GL_ARB_vertex_buffer_object"
-				)
-				?
-					GL_ELEMENT_ARRAY_BUFFER_ARB
-				:
-					throw sge::exception(
-						FCPPT_TEXT("Can't figure out what GL_ELEMENT_ARRAY_BUFFER should be")
-					)
-		:
-			software_vbo::unique_id()
+		opengl::make_buffer_type(
+			impl_->hardware_supported()
+			"GL_VERSION_1_5"
+			GL_ELEMENT_ARRAY_BUFFER,
+			"GL_ARB_vertex_buffer_object",
+			GL_ELEMENT_ARRAY_BUFFER_ARB
+		)
 	),
 	vertex_buffer_type_(
-		impl_->hardware_supported()
-		?
-			glew_is_supported(
-				"GL_VERSION_1_5"
-			)
-			?
-				GL_ARRAY_BUFFER
-			:
-				glew_is_supported(
-					"GL_ARB_vertex_buffer_object"
-				)
-				?
-					GL_ARRAY_BUFFER_ARB
-				:
-					throw sge::exception(
-						FCPPT_TEXT("Can't figure out what GL_ARRAY_BUFFER should be")
-					)
-		:
-			software_vbo::unique_id()
-
+		opengl::make_buffer_type(
+			impl_->hardware_supported(),
+			"GL_VERSION_1_5"
+			GL_ARRAY_BUFFER,
+			"GL_ARB_vertex_buffer_object",
+			GL_ARRAY_BUFFER_ARB
+		)
 	)
 {
 }
@@ -91,8 +64,19 @@ sge::opengl::vbo_context::impl()
 	return *impl_;
 }
 
+GLenum
+sge::opengl::vbo_context::index_buffer_type() const
+{
+	return index_buffer_type_;
+}
+
+GLenum
+sge::opengl::vbo_context::vertex_buffer_type() const
+{
+	return vertex_buffer_type_;
+}
+
 sge::opengl::context::id const
 sge::opengl::vbo_context::static_id(
 	sge::opengl::context::make_id()
 );
-

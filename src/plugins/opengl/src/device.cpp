@@ -122,12 +122,10 @@ sge::opengl::device::device(
 		default_target_
 	),
 	caps_(),
-	state_levels()
+	state_levels(),
+	context_()
 {
 	initialize_glew();
-
-	initialize_vbo();
-	initialize_pbo();
 
 	state(
 		renderer::state::default_()
@@ -623,6 +621,9 @@ sge::opengl::device::create_index_buffer(
 					sge::renderer::index::i16
 				>
 			>(
+				std::tr1::ref(
+					context_
+				),
 				sz,
 				flags
 			)
@@ -634,6 +635,9 @@ sge::opengl::device::create_index_buffer(
 					sge::renderer::index::i32
 				>
 			>(
+				std::tr1::ref(
+					context_
+				),
 				sz,
 				flags
 			)

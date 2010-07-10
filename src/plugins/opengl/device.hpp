@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "default_target_fwd.hpp"
 #include "fbo_target_fwd.hpp"
 #include "common.hpp"
+#include "context/object.hpp"
 #if defined(FCPPT_WINDOWS_PLATFORM)
 #include "windows/state.hpp"
 #elif defined(SGE_HAVE_X11)
@@ -252,7 +253,9 @@ private:
 	projection_internal();
 
 	renderer::parameters const param;
+
 	window::instance_ptr const wnd;
+
 	renderer::state::list      current_states;
 #if defined(FCPPT_WINDOWS_PLATFORM)
 	windows::state state_;
@@ -260,10 +263,15 @@ private:
 	x11::state state_;
 #endif
 	bool fbo_active;
+
 	renderer::any_matrix projection_;
+
 	renderer::viewport_mode::type viewport_mode_;
+
 	renderer::viewport viewport_;
+
 	default_target_ptr default_target_;
+
 	target_ptr target_;
 
 	typedef std::stack<
@@ -275,6 +283,8 @@ private:
 	> caps_;
 
 	stack_type state_levels;
+
+	context::object context_;
 };
 
 }

@@ -18,39 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_INDEX_BUFFER_BASE_HPP_INCLUDED
-#define SGE_OPENGL_INDEX_BUFFER_BASE_HPP_INCLUDED
+#include "../make_buffer_type.hpp"
+#include "../glew/is_supported.hpp"
+#include <sge/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include "common.hpp"
-#include <sge/renderer/index_buffer.hpp>
-
-namespace sge
+GLenum
+sge::opengl::make_buffer_type(
+	bool const hardware_supported,
+	glew::string const &gl_version,
+	GLenum const normal_type,
+	glew::string const &extension,
+	GLenum const extension_type
+)
 {
-namespace opengl
-{
-
-class index_buffer_base
-:
-	public renderer::index_buffer
-{
-protected:
-	index_buffer_base();
-public:
-	virtual GLenum
-	gl_format() const = 0;
-
-	virtual void *
-	buffer_offset(
-		size_type
-	) const = 0;
-
-	virtual void
-	bind_me() const = 0;
-
-	virtual ~index_buffer_base();
-};
-
+	return
+		hardware_supported
+		?
+			glew::is_supported(
+				gl_version
+			)
+			?
+				normal_type
+			:
+				glew::is_supported(
+					extension
+				)
+				?
+					extension_type
+				:
+					throw sge::exception(
+						FCPPT_TEXT("Should not happen.")
+					)
+		:
+			normal_type
+		;
 }
-}
-
-#endif

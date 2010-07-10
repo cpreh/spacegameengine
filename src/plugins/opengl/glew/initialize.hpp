@@ -18,75 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_INDEX_BUFFER_HPP_INCLUDED
-#define SGE_OPENGL_INDEX_BUFFER_HPP_INCLUDED
-
-#include "common.hpp"
-#include "index_buffer_base.hpp"
-#include "buffer.hpp"
-#include "context/object_fwd.hpp"
-#include <sge/renderer/index_buffer.hpp>
+#ifndef SGE_OPENGL_GLEW_INITIALIZE_HPP_INCLUDED
+#define SGE_OPENGL_GLEW_INITIALIZE_HPP_INCLUDED
 
 namespace sge
 {
 namespace opengl
 {
-
-template<
-	typename T
->
-class index_buffer
-:
-	public index_buffer_base
+namespace glew
 {
-public:
-	index_buffer(
-		context::objcet &,
-		size_type,
-		renderer::resource_flags_field const &
-	);
 
-	GLenum
-	gl_format() const;
+void
+initialize();
 
-	GLvoid *
-	buffer_offset(
-		size_type
-	) const;
-
-	void
-	bind_me() const;
-private:
-	view_type const
-	lock(
-		renderer::lock_mode::type,
-		size_type offset,
-		size_type range
-	);
-
-	const_view_type const
-	lock(
-		size_type offset,
-		size_type range
-	) const;
-
-	void
-	unlock() const;
-
-	size_type
-	size() const;
-
-	renderer::resource_flags_field const
-	flags() const;
-
-	renderer::index::dynamic::format::type
-	format() const;
-
-	mutable buffer buf;
-};
-
+}
 }
 }
 
 #endif
-

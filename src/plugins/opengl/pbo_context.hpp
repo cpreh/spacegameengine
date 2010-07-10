@@ -18,20 +18,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../glew.hpp"
-#include "../common.hpp"
-#include <sge/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_OPENGL_PBO_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_PBO_CONTEXT_HPP_INCLUDED
 
-void sge::opengl::initialize_glew()
+#include "vbo_base_fwd.hpp"
+#include "context/base.hpp"
+#include "context/id.hpp"
+#include "common.hpp"
+#include <fcppt/scoped_ptr.hpp>
+#include <fcppt/noncopyable.hpp>
+
+namespace sge
 {
-	if(glewInit() != GLEW_OK)
-		throw exception(
-			FCPPT_TEXT("glewInit() failed!"));
+namespace opengl
+{
+
+class pbo_context
+:
+	public context::base
+{
+	FCPPT_NONCOPYABLE(pbo_context)
+public:
+	pbo_context();
+
+	~pbo_context();
+	
+	vbo_base &
+	impl();
+
+	GLenum
+	pixel_pack_buffer_type() const;
+
+	GLenum
+	pixel_unpack_buffer_type() const;
+
+	static context::id const static_id;
+private:
+	fcppt::scoped_ptr<
+		vbo_base
+	> impl_;
+
+	GLenum const
+		pixel_pack_buffer_type_,
+		pixel_unpack_buffer_type_;
+};
+
+}
 }
 
-bool sge::opengl::glew_is_supported(
-	glew_string const &str)
-{
-	return glewIsSupported(str.c_str());
-}
+#endif

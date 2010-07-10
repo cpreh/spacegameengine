@@ -11,6 +11,7 @@ FILE (GLOB sgeopenglfiles
 	src/*.cpp
 	context/src/*.cpp
 	convert/src/*.cpp
+	glew/src/*.cpp
 	glsl/src/*.cpp
 	glsl/attribute/src/*.cpp
 	glsl/uniform/src/*.cpp

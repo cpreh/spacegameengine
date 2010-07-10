@@ -18,12 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_INSTANTIATE_BASIC_BUFFER_HPP_INCLUDED
-#define SGE_OPENGL_INSTANTIATE_BASIC_BUFFER_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLEW_STRING_HPP_INCLUDED
+#define SGE_OPENGL_GLEW_STRING_HPP_INCLUDED
 
-#include "basic_buffer_impl.hpp"
+#include <string>
 
-#define SGE_OPENGL_INSTANTIATE_BASIC_BUFFER(f, v)\
-template class sge::opengl::basic_buffer<f, v>;\
+namespace sge
+{
+namespace opengl
+{
+namespace glew
+{
+
+typedef std::string string;
+
+}
+}
+}
 
 #endif

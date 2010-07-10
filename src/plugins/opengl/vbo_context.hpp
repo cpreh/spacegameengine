@@ -46,6 +46,12 @@ public:
 	vbo_base &
 	impl();
 
+	GLenum
+	index_buffer_type() const;
+
+	GLenum
+	vertex_buffer_type() const;
+
 	static context::id const static_id;
 private:
 	fcppt::scoped_ptr<

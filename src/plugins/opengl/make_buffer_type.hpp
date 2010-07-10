@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VBO_HPP_INCLUDED
-#define SGE_OPENGL_VBO_HPP_INCLUDED
+#ifndef SGE_OPENGL_MAKE_BUFFER_TYPE_HPP_INCLUDED
+#define SGE_OPENGL_MAKE_BUFFER_TYPE_HPP_INCLUDED
 
 #include "common.hpp"
-#include "vbo_base_fwd.hpp"
+#include "glew/string.hpp"
 
 namespace sge
 {
@@ -30,16 +30,13 @@ namespace opengl
 {
 
 GLenum
-index_buffer_type();
-
-GLenum
-vertex_buffer_type();
-
-void
-initialize_vbo();
-
-vbo_base &
-vb_ib_vbo_impl();
+make_buffer_type(
+	bool hardware_supported,
+	glew::string const &gl_version,
+	GLenum normal_type,
+	glew::string const &extension,
+	GLenum extension_type
+);
 
 }
 }

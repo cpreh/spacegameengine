@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_BASIC_BUFFER_HPP_INCLUDED
-#define SGE_OPENGL_BASIC_BUFFER_HPP_INCLUDED
+#ifndef SGE_OPENGL_BUFFER_HPP_INCLUDED
+#define SGE_OPENGL_BUFFER_HPP_INCLUDED
 
+#include "buffer_fwd.hpp"
 #include "common.hpp"
 #include "lock_method.hpp"
 #include <sge/renderer/resource_flags_field.hpp>
@@ -34,68 +35,101 @@ namespace sge
 namespace opengl
 {
 
-class vbo_base;
-
-template<
-	GLenum (*Type)(),
-	vbo_base& (*Impl)(),
-	typename T = renderer::raw_value
->
-class basic_buffer {
-	FCPPT_NONCOPYABLE(basic_buffer)
+class buffer
+{
+	FCPPT_NONCOPYABLE(buffer)
 public:
 	typedef renderer::size_type                  size_type;
-	typedef T                                    value_type;
+	typedef sge::renderer::raw_value             value_type;
 	typedef value_type                           *pointer;
 	typedef value_type const                     *const_pointer;
 	typedef renderer::resource_flags_field       resource_flag_type;
 	typedef lock_method::type                    lock_flag_type;
 
-	basic_buffer(
-		size_type sz,
+	buffer(
+		vbo_base &,
+		GLenum type,
+		size_type size,
 		size_type stride,
 		resource_flag_type flags,
-		const_pointer src);
-	~basic_buffer();
+		const_pointer src
+	);
+
+	~buffer();
 
 	static size_type const npos = static_cast<size_type>(-1);
 
-	void lock(
+	void
+	lock(
 		lock_flag_type lock_flags,
 		size_type first = 0,
-		size_type count = npos);
-	void unlock();
-	void sub_data(
+		size_type count = npos
+	);
+
+	void
+	unlock();
+
+	void
+	sub_data(
 		const_pointer data,
 		size_type first,
-		size_type count);
+		size_type count
+	);
 
-	size_type size() const;
-	size_type stride() const;
-	size_type byte_stride() const;
-	resource_flag_type flags() const;
+	size_type
+	size() const;
 
-	pointer data();
-	const_pointer data() const;
-	size_type lock_size() const;
+	size_type
+	stride() const;
 
-	static void unbind();
-	void bind_me() const;
+	resource_flag_type
+	flags() const;
+
+	pointer
+	data();
+
+	const_pointer
+	data() const;
+
+	size_type
+	lock_size() const;
+
+	void
+	unbind();
+
+	void
+	bind_me() const;
 
 	pointer
 	buffer_offset(
-		size_type offset) const;
+		size_type offset
+	) const;
 private:
-	static void bind(GLuint id);
-	void check_lock() const;
+	static void
+	bind(
+		GLuint id
+	);
 
-	size_type          sz,
-	                   stride_;
-	resource_flag_type flags_;
-	pointer            dest;
-	GLuint             id;
-	size_type          lock_offset,
-	                   lock_size_;
+	void
+	check_lock() const;
+
+	vbo_base &vbo_base_;
+
+	GLenum const type_;
+
+	size_type const
+		size_,
+		stride_;
+
+	resource_flag_type const flags_;
+
+	pointer dest;
+
+	GLuint const id;
+
+	size_type
+		lock_offset,
+		lock_size_;
 };
 
 }
