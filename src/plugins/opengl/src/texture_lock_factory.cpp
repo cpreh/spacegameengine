@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::texture_lock_auto_ptr
 sge::opengl::create_texture_lock(
+	context::object &_context,
 	lock_method::type const method,
 	texture_lock::size_type const lock_size,
 	texture_lock::size_type const offset,
@@ -37,10 +38,12 @@ sge::opengl::create_texture_lock(
 	renderer::resource_flags_field const &flags
 )
 {
-	switch(method) {
+	switch(method)
+	{
 	case lock_method::readonly:
 		return texture_lock_auto_ptr(
 			new readonly_texture_lock(
+				_context,
 				lock_size,
 				offset,
 				whole_size,
@@ -53,6 +56,7 @@ sge::opengl::create_texture_lock(
 	case lock_method::writeonly:
 		return texture_lock_auto_ptr(
 			new writeonly_texture_lock(
+				_context,
 				lock_size,
 				stride,
 				flags
@@ -61,6 +65,7 @@ sge::opengl::create_texture_lock(
 	case lock_method::readwrite:
 		return texture_lock_auto_ptr(
 			new readwrite_texture_lock(
+				_context,
 				lock_size,
 				offset,
 				whole_size,
@@ -70,10 +75,10 @@ sge::opengl::create_texture_lock(
 				flags
 			)
 		);
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid lock_method in opengl!")
-		);
 	}
+
+	throw sge::exception(
+		FCPPT_TEXT("Invalid lock_method in opengl!")
+	);
 }
 

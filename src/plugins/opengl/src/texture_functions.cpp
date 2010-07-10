@@ -22,8 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../check_state.hpp"
 #include "../convert/texture_min_filter.hpp"
 #include "../convert/texture_mag_filter.hpp"
-#include "../glew.hpp"
-#include "../pbo.hpp" // TODO: maybe put this somewhere else
+#include "../glew/is_supported.hpp"
 #include <fcppt/log/headers.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/box/output.hpp>
@@ -168,9 +167,12 @@ void sge::opengl::set_texture_rect(
 	renderer::lock_rect const &r,
 	renderer::const_raw_pointer const src)
 {
+	// TODO:!
+#if 0
 	if(!src && !pbo_in_hardware())
 		throw exception(
 			FCPPT_TEXT("ogl::set_texture_rect(): src is 0!"));
+#endif
 
 	if(r.right() > dim.w() || r.bottom() > dim.h())
 		throw exception(
@@ -326,7 +328,7 @@ bool need_mipmap(
 bool have_anisotropic_filter()
 {
 	static bool const b(
-		sge::opengl::glew_is_supported(
+		sge::opengl::glew::is_supported(
 			"GL_EXT_texture_filter_anisotropic"
 		)
 	);

@@ -27,16 +27,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::readonly_texture_lock::readonly_texture_lock(
 	context::object &_context,
-	size_type const lock_size,
-	size_type const offset,
-	size_type const whole_size,
-	size_type const stride,
-	size_type const pitch,
-	size_type const block_size,
-	renderer::resource_flags_field const &flags
+	size_type const _lock_size,
+	size_type const _offset,
+	size_type const _whole_size,
+	size_type const _stride,
+	size_type const _pitch,
+	size_type const _block_size,
+	renderer::resource_flags_field const &_flags
 )
 :
-	buffer(
+	buffer_(
 		context::use<
 			pbo_context
 		>(
@@ -47,15 +47,23 @@ sge::opengl::readonly_texture_lock::readonly_texture_lock(
 		>(
 			_context
 		).pixel_pack_buffer_type(),
-		whole_size,
-		stride,
-		flags,
+		_whole_size,
+		_stride,
+		_flags,
 		0
 	),
-	lock_size(lock_size * stride),
-	offset(offset * stride),
-	pitch(pitch * stride),
-	block_size(block_size * stride)
+	lock_size_(
+		_lock_size * _stride
+	),
+	offset_(
+		_offset * _stride
+	),
+	pitch_(
+		_pitch * _stride
+	),
+	block_size_(
+		_block_size * _stride
+	)
 {}
 
 void
@@ -63,27 +71,29 @@ sge::opengl::readonly_texture_lock::post_lock()
 {
 	do_lock();
 
-	if(!pitch)
+	if(!pitch_)
 		return;
 
 	// if the pitch is set we copy the part to read
 	// in our own buffer so that the user sees a contiguous array
 
-	FCPPT_ASSERT(lock_size % block_size == 0);
+	FCPPT_ASSERT(
+		lock_size_ % block_size_ == 0
+	);
 
-	cutout_buffer.resize_uninitialized(
-		lock_size
+	cutout_buffer_.resize_uninitialized(
+		lock_size_
 	);
 
 	copy_read_part(
-		cutout_buffer.data()
+		cutout_buffer_.data()
 	);
 }
 
 void
 sge::opengl::readonly_texture_lock::do_lock()
 {
-	buffer.lock(
+	buffer_.lock(
 		lock_method::readonly
 	);
 }
@@ -93,16 +103,16 @@ sge::opengl::readonly_texture_lock::copy_read_part(
 	pointer const dest
 ) const
 {
-	size_type i(offset);
+	size_type i(offset_);
 
 	for(
 		pointer p(dest);
-		p != dest + lock_size;
-		i += pitch + block_size, p += block_size
+		p != dest + lock_size_;
+		i += pitch_ + block_size_, p += block_size_
 	)
 		fcppt::algorithm::copy_n(
-			buffer.data() + i,
-			block_size,
+			buffer_.data() + i,
+			block_size_,
 			p
 		);
 }
@@ -110,20 +120,20 @@ sge::opengl::readonly_texture_lock::copy_read_part(
 void
 sge::opengl::readonly_texture_lock::pre_unlock()
 {
-	buffer.unlock();
+	buffer_.unlock();
 }
 
 sge::opengl::readonly_texture_lock::pointer
 sge::opengl::readonly_texture_lock::read_pointer() const
 {
-	return buffer.buffer_offset(0);
+	return buffer_.buffer_offset(0);
 }
 
 sge::opengl::readonly_texture_lock::const_pointer
 sge::opengl::readonly_texture_lock::real_read_pointer() const
 {
-	return pitch
-		? cutout_buffer.data()
+	return pitch_
+		? cutout_buffer_.data()
 		: read_pointer();
 }
 

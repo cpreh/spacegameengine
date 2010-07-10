@@ -18,24 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_PBO_HPP_INCLUDED
-#define SGE_OPENGL_PBO_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_LOCK_AUTO_PTR_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_LOCK_AUTO_PTR_HPP_INCLUDED
 
-#include "common.hpp"
+#include "texture_lock_fwd.hpp"
+#include <fcppt/auto_ptr.hpp>
 
 namespace sge
 {
 namespace opengl
 {
 
-class vbo_base;
-
-GLenum pixel_pack_buffer_type();
-GLenum pixel_unpack_buffer_type();
-
-void initialize_pbo();
-vbo_base& pbo_impl();
-bool pbo_in_hardware();
+typedef fcppt::auto_ptr<
+	texture_lock
+> texture_lock_auto_ptr;
 
 }
 }

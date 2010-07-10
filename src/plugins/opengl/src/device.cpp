@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <boost/foreach.hpp>
 #include "../device.hpp"
-#include "../pbo.hpp"
 #include "../index_buffer.hpp"
 #include "../vertex_buffer.hpp"
 #include "../texture.hpp"
@@ -31,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../enable.hpp"
 #include "../multi_texture.hpp"
 #include "../texture_stage.hpp"
-#include "../basic_buffer_impl.hpp"
 #include "../check_state.hpp"
 #include "../state_visitor.hpp"
 #include "../glsl/impl.hpp"
@@ -39,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../matrix.hpp"
 #include "../split_states.hpp"
 #include "../material.hpp"
-#include "../glew.hpp"
+#include "../glew/initialize.hpp"
 #include "../fbo_target.hpp"
 #include "../fbo_projection.hpp"
 #include "../viewport.hpp"
@@ -125,7 +123,7 @@ sge::opengl::device::device(
 	state_levels(),
 	context_()
 {
-	initialize_glew();
+	glew::initialize();
 
 	state(
 		renderer::state::default_()
@@ -559,6 +557,9 @@ sge::opengl::device::create_texture(
 		fcppt::make_shared_ptr<
 			opengl::texture
 		>(
+			std::tr1::ref(
+				context_
+			),
 			dim,
 			format,
 			filter,
@@ -579,6 +580,9 @@ sge::opengl::device::create_cube_texture(
 		fcppt::make_shared_ptr<
 			cube_texture
 		>(
+			std::tr1::ref(
+				context_
+			),
 			border_size,
 			format,
 			filter,
@@ -598,6 +602,9 @@ sge::opengl::device::create_vertex_buffer(
 		fcppt::make_shared_ptr<
 			opengl::vertex_buffer
 		>(
+			std::tr1::ref(
+				context_
+			),
 			format,
 			sz,
 			flags

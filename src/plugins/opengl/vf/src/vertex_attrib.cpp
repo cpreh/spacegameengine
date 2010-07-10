@@ -19,12 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../vertex_attrib.hpp"
-#include "../../glew.hpp"
+#include "../../glew/is_supported.hpp"
 #include "../../version.hpp"
 #include "../../check_state.hpp"
 #include "../../common.hpp"
 #include <sge/renderer/exception.hpp>
-#include <fcppt/function_once.hpp>
 #include <fcppt/text.hpp>
 
 namespace
@@ -106,16 +105,14 @@ namespace
 void
 initialize()
 {
-	FCPPT_FUNCTION_ONCE
-
-	if(sge::opengl::glew_is_supported("GL_VERSION_2_0"))
+	if(sge::opengl::glew::is_supported("GL_VERSION_2_0"))
 	{
 		gl_vertex_attrib_pointer = glVertexAttribPointer;
 		gl_enable_vertex_attrib_array = glEnableVertexAttribArray;
 		gl_disable_vertex_attrib_array = glDisableVertexAttribArray;
 
 	}
-	else if(sge::opengl::glew_is_supported("GL_ARB_vertex_shader"))
+	else if(sge::opengl::glew::is_supported("GL_ARB_vertex_shader"))
 	{
 		gl_vertex_attrib_pointer = glVertexAttribPointerARB;
 		gl_enable_vertex_attrib_array = glEnableVertexAttribArrayARB;

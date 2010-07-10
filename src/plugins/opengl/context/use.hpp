@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_CONTEXT_USE_HPP_INCLUDED
 
 #include "object.hpp"
+#include "base_auto_ptr.hpp"
 #include <fcppt/make_auto_ptr.hpp>
 
 namespace sge
@@ -45,20 +46,30 @@ use(
 		)
 	);
 
+	if(
+		ptr
+	)
+		return
+			static_cast<
+				Type &
+			>(
+				*ptr
+			);
+	
+	base_auto_ptr new_ptr(
+		fcppt::make_auto_ptr<
+			Type
+		>()
+	);
+
 	return
 		static_cast<
 			Type &
 		>(
-			ptr
-			?
-				*ptr
-			:
-				_object.insert(
-					Type::static_id,
-					fcppt::make_auto_ptr<
-						Type
-					>()
-				)
+			_object.insert(
+				Type::static_id,
+				new_ptr
+			)
 		);
 }
 

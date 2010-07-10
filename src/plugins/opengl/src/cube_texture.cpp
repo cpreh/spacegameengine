@@ -25,10 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../version.hpp"
 #include "../enable.hpp"
 #include "../texture.hpp"
-#include "../glew.hpp"
+#include "../glew/is_supported.hpp"
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/tr1/array.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/function_once.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/make_auto_ptr.hpp>
@@ -54,6 +55,7 @@ bool have_cube_texture_;
 template class sge::opengl::basic_texture<sge::renderer::cube_texture>;
 
 sge::opengl::cube_texture::cube_texture(
+	context::object &_object,
 	size_type const sz,
 	image::color::format::type const format,
 	renderer::filter::texture const &filter,
@@ -61,10 +63,12 @@ sge::opengl::cube_texture::cube_texture(
 )
 :
 	detail::cube_texture_base(
+		_object,
 		filter,
 		flags,
 		cube_texture_type(),
-		format),
+		format
+	),
 	sz(sz),
 	locked_texture(0)
 {
@@ -84,9 +88,13 @@ sge::opengl::cube_texture::cube_texture(
 			fcppt::make_auto_ptr<
 				texture
 			>(
+				std::tr1::ref(
+					_object
+				),
 				texture::dim_type(
 					sz,
-					sz),
+					sz
+				),
 				format,
 				filter,
 				flags,
@@ -167,9 +175,9 @@ void initialize_cube_texture()
 {
 	FCPPT_FUNCTION_ONCE
 
-	if(sge::opengl::glew_is_supported("GL_VERSION_1_3"))
+	if(sge::opengl::glew::is_supported("GL_VERSION_1_3"))
 		gl_cube_texture_type = GL_TEXTURE_CUBE_MAP;
-	else if(sge::opengl::glew_is_supported("GL_ARB_texture_cube_map"))
+	else if(sge::opengl::glew::is_supported("GL_ARB_texture_cube_map"))
 		gl_cube_texture_type = GL_TEXTURE_CUBE_MAP_ARB;
 	else
 		return;

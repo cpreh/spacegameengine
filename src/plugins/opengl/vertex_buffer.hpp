@@ -21,8 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_VERTEX_BUFFER_HPP_INCLUDED
 #define SGE_OPENGL_VERTEX_BUFFER_HPP_INCLUDED
 
-#include "vbo.hpp"
-#include "basic_buffer.hpp"
+#include "buffer.hpp"
 #include "vf/format.hpp"
 #include "context/object_fwd.hpp"
 #include <sge/renderer/vf/dynamic/format_fwd.hpp>
@@ -78,12 +77,7 @@ private:
 
 	vf::format const format_;
 
-	typedef basic_buffer<
-		vertex_buffer_type,
-		vb_ib_vbo_impl
-	> buffer_type;
-
-	mutable buffer_type buf;
+	mutable buffer buf;
 };
 
 }

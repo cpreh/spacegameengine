@@ -18,23 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_PIXEL_UNPACK_BUFFER_HPP_INCLUDED
-#define SGE_OPENGL_PIXEL_UNPACK_BUFFER_HPP_INCLUDED
+#include "../index_buffer_base.hpp"
 
-#include "basic_buffer.hpp"
-#include "pbo.hpp"
-
-namespace sge
+sge::opengl::index_buffer_base::index_buffer_base()
 {
-namespace opengl
-{
-
-typedef basic_buffer<
-	pixel_unpack_buffer_type,
-	pbo_impl
-> pixel_unpack_buffer;
-
-}
 }
 
-#endif
+sge::opengl::index_buffer_base::~index_buffer_base()
+{
+}

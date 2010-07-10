@@ -27,9 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::software_vbo::software_vbo()
 :
+	bound_buffers(),
 	nextid(1),
-	buffers(),
-	bound_buffers()
+	buffers()
 {}
 
 sge::opengl::software_vbo::~software_vbo()
@@ -68,7 +68,7 @@ sge::opengl::software_vbo::bind_buffer(
 	GLuint const id
 )
 {
-	bound_buffer(type) = id;
+	bound_buffers[type] = id;
 }
 
 GLvoid *
@@ -160,7 +160,13 @@ sge::opengl::software_vbo::buffer_offset(
 	GLsizei const offset
 ) const
 {
-	return buffer_object(bound_buffer(type))->second + offset;
+	return
+		buffer_object(
+			bound_buffer(
+				type
+			)
+		)->second
+		+ offset;
 }
 
 bool
@@ -169,15 +175,23 @@ sge::opengl::software_vbo::hardware_supported() const
 	return false;
 }
 
-GLuint &
+GLuint
 sge::opengl::software_vbo::bound_buffer(
 	GLenum const type
-)
+) const
 {
-	return
-		bound_buffers[
+	bound_buffer_map::const_iterator const it(
+		bound_buffers.find(
 			type
-		];
+		)
+	);
+
+	return
+		it == bound_buffers.end()
+		?
+			0
+		:
+			it->second;
 }
 
 sge::opengl::software_vbo::buffer_map::iterator
@@ -193,6 +207,21 @@ sge::opengl::software_vbo::buffer_object(
 		);
 
 	return it;
+}
+
+sge::opengl::software_vbo::buffer_map::const_iterator
+sge::opengl::software_vbo::buffer_object(
+	GLuint const id
+) const
+{
+	return
+		const_cast<
+			software_vbo &
+		>(
+			*this
+		).buffer_object(
+			id
+		);
 }
 
 void

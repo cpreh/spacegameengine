@@ -18,9 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../pixel_unpack_buffer.hpp"
-#include "../instantiate_basic_buffer.hpp"
+#ifndef SGE_OPENGL_TEXTURE_LOCK_FWD_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_LOCK_FWD_HPP_INCLUDED
 
-SGE_OPENGL_INSTANTIATE_BASIC_BUFFER(
-	sge::opengl::pixel_unpack_buffer_type,
-	sge::opengl::pbo_impl)
+namespace sge
+{
+namespace opengl
+{
+
+class texture_lock;
+
+}
+}
+
+#endif

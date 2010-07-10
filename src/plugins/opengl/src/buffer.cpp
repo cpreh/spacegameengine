@@ -67,23 +67,24 @@ sge::opengl::buffer::buffer(
 
 sge::opengl::buffer::~buffer()
 {
-	if(dest)
+	if(dest_)
 		unlock();
 
 	unbind();
 
-	vbo_impl_.delete_buffer(
+	vbo_base_.delete_buffer(
 		id_
 	);
 }
 
+void
 sge::opengl::buffer::lock(
 	lock_flag_type const lockflags,
 	size_type const first,
 	size_type count
 )
 {
-	if(dest)
+	if(dest_)
 		throw exception(
 			FCPPT_TEXT("ogl_buffer::lock(): you have to unlock before locking!")
 		);
@@ -113,15 +114,15 @@ sge::opengl::buffer::lock(
 
 	if(
 		count < size()
-		&& Impl().map_buffer_range_supported()
+		&& vbo_base_.map_buffer_range_supported()
 	)
 	{
-		dest =
+		dest_ =
 			static_cast<
 				pointer
 			>(
-				Impl().map_buffer_range(
-					Type(),
+				vbo_base_.map_buffer_range(
+					type_,
 					range_lock_method(
 						lockflags
 					),
@@ -138,23 +139,23 @@ sge::opengl::buffer::lock(
 				)
 			);
 
-		lock_offset = 0;
+		lock_offset_ = 0;
 	}
 	else
 	{
-		dest =
+		dest_ =
 			static_cast<
 				pointer
 			>(
-				Impl().map_buffer(
-					Type(),
+				vbo_base_.map_buffer(
+					type_,
 					normal_lock_method(
 						lockflags
 					)
 				)
 			);
 
-		lock_offset = first * stride();
+		lock_offset_ = first * stride();
 	}
 
 	lock_size_ = count * stride();
@@ -163,20 +164,20 @@ sge::opengl::buffer::lock(
 void
 sge::opengl::buffer::unlock()
 {
-	if(!dest)
+	if(!dest_)
 		throw exception(
 			FCPPT_TEXT("ogl_buffer::unlock(), buffer is not locked! cannot unlock!")
 		);
 	
 	bind_me();
 
-	vbo_impl_.unmap_buffer(
+	vbo_base_.unmap_buffer(
 		type_
 	);
 
-	dest = 0;
+	dest_ = 0;
 
-	lock_offset = lock_size_ = 0;
+	lock_offset_ = lock_size_ = 0;
 }
 
 
@@ -195,7 +196,7 @@ sge::opengl::buffer::sub_data(
 		);
 
 	if(
-		dest
+		dest_
 	)
 		throw exception(
 			FCPPT_TEXT("ogl_buffer::sub_data(), buffer must not be locked!")
@@ -203,7 +204,7 @@ sge::opengl::buffer::sub_data(
 
 	bind_me();
 
-	vbo_impl_.buffer_sub_data(
+	vbo_base_.buffer_sub_data(
 		type_,
 		static_cast<
 			GLsizei
@@ -215,14 +216,14 @@ sge::opengl::buffer::sub_data(
 		>(
 			count * stride()
 		),
-		data_
+		data
 	);
 }
 
 sge::opengl::buffer::size_type
 sge::opengl::buffer::size() const
 {
-	return sz;
+	return size_;
 }
 
 sge::opengl::buffer::size_type
@@ -269,7 +270,7 @@ sge::opengl::buffer::lock_size() const
 void
 sge::opengl::buffer::bind(
 	GLuint const _id
-)
+) const
 {
 	vbo_base_.bind_buffer(
 		type_,
@@ -314,7 +315,7 @@ sge::opengl::buffer::buffer_offset(
 void
 sge::opengl::buffer::check_lock() const
 {
-	if(!dest)
+	if(!dest_)
 		throw exception(
 			FCPPT_TEXT("ogl_buffer used but the buffer has not been locked!")
 		);

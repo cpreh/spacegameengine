@@ -41,7 +41,7 @@ class index_buffer
 {
 public:
 	index_buffer(
-		context::objcet &,
+		context::object &,
 		size_type,
 		renderer::resource_flags_field const &
 	);

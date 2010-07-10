@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../matrix.hpp"
 #include "../check_state.hpp"
-#include "../glew.hpp"
+#include "../glew/is_supported.hpp"
 #include <sge/renderer/exception.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
@@ -52,7 +52,7 @@ bool
 have_transpose()
 {
 	static bool const ret(
-		sge::opengl::glew_is_supported(
+		sge::opengl::glew::is_supported(
 			"GL_VERSION_1_3"
 		)
 	);

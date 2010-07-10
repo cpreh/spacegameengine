@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../multi_texture.hpp"
 #include "../common.hpp"
 #include "../check_state.hpp"
-#include "../glew.hpp"
+#include "../glew/is_supported.hpp"
 #include <sge/renderer/exception.hpp>
 #include <sge/log/global.hpp>
 #include <fcppt/text.hpp>
@@ -36,7 +36,7 @@ namespace
 bool have_multi_texture()
 {
 	static bool const ret(
-		sge::opengl::glew_is_supported(
+		sge::opengl::glew::is_supported(
 			"GL_VERSION_1_3"
 		)
 	);

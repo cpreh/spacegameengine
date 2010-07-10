@@ -22,8 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture.hpp"
 #include "../texture_functions.hpp"
 #include "../basic_texture_impl.hpp"
-#include "../vbo.hpp"
-#include "../pbo.hpp"
 #include "../color_convert.hpp"
 #include <sge/image/view/make.hpp>
 #include <sge/exception.hpp>
@@ -46,6 +44,7 @@ GLenum const texture_type = GL_TEXTURE_2D;
 }
 
 sge::opengl::texture::texture(
+	context::object &_object,
 	dim_type const &d,
 	image::color::format::type const format_,
 	renderer::filter::texture const &filter_,
@@ -54,6 +53,7 @@ sge::opengl::texture::texture(
 )
 :
 	detail::texture_base(
+		_object,
 		filter_,
 		flags,
 		type_ ? *type_ : texture_type,

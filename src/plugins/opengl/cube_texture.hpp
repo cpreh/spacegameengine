@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "common.hpp"
 #include "basic_texture.hpp"
+#include "context/object_fwd.hpp"
 #include <sge/renderer/cube_texture.hpp>
 #include <sge/renderer/texture.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
@@ -41,9 +42,13 @@ typedef basic_texture<
 
 }
 
-class cube_texture : public detail::cube_texture_base {
+class cube_texture
+:
+	public detail::cube_texture_base
+{
 public:
 	cube_texture(
+		context::object &,
 		size_type border_size,
 		image::color::format::type format,
 		renderer::filter::texture const &,

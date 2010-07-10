@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "texture_lock.hpp"
 #include "texture_base.hpp"
 #include "lock_method.hpp"
+#include "context/object_fwd.hpp"
 #include <sge/renderer/filter/texture.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/image/color/format.hpp>
@@ -39,59 +40,101 @@ namespace opengl
 template<
 	typename Base
 >
-class basic_texture : public Base, public texture_base {
+class basic_texture
+:
+	public Base,
+	public texture_base
+{
 public:
 	typedef typename Base::size_type size_type;
 	typedef texture_lock::pointer pointer;
 	typedef texture_lock::const_pointer const_pointer;
 protected:
-	void bind_me() const;
-	void set_my_filter() const;
-	GLuint id() const;
-	renderer::filter::texture const &filter() const;
+	void
+	bind_me() const;
 
-	void do_lock(
+	void
+	set_my_filter() const;
+
+	GLuint
+	id() const;
+
+	renderer::filter::texture const &
+	filter() const;
+
+	void
+	do_lock(
 		lock_method::type mode,
 		size_type size,
 		size_type offset,
 		size_type pitch,
-		size_type block_size) const;
+		size_type block_size
+	) const;
 
-	void post_lock() const;
-	void pre_unlock() const;
-	void do_unlock() const;
-	lock_method::type lock_mode() const;
-	pointer read_buffer() const;
-	pointer write_buffer() const;
-	const_pointer real_read_buffer() const;
-	pointer real_write_buffer() const;
+	void
+	post_lock() const;
 
-	void pre_setdata() const;
+	void
+	pre_unlock() const;
+
+	void
+	do_unlock() const;
+
+	lock_method::type
+	lock_mode() const;
+
+	pointer
+	read_buffer() const;
+
+	pointer
+	write_buffer() const;
+
+	const_pointer
+	real_read_buffer() const;
+
+	pointer
+	real_write_buffer() const;
+
+	void
+	pre_setdata() const;
 
 	using Base::content;
 
 public:
-	size_type stride() const;
+	size_type
+	stride() const;
 
-	GLenum format() const;
-	GLenum format_type() const;
+	GLenum
+	format() const;
+
+	GLenum
+	format_type() const;
 protected:
 	basic_texture(
+		context::object &,
 		renderer::filter::texture const &,
 		renderer::resource_flags_field const &,
 		GLenum type,
-		image::color::format::type);
+		image::color::format::type
+	);
 public:
 	~basic_texture();
 
 	renderer::resource_flags_field const
 	flags() const;
 private:
-	void check_locked() const;
-	void check_not_locked() const;
+	void
+	check_locked() const;
+
+	void
+	check_not_locked() const;
+
+	context::object &context_;
 
 	renderer::filter::texture const filter_;
+
 	renderer::resource_flags_field const flags_;
+
 	GLuint const id_;
 
 	GLenum const

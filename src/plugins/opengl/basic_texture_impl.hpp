@@ -61,12 +61,14 @@ void sge::opengl::basic_texture<Base>::do_lock(
 	size_type const lock_size,
 	size_type const offset,
 	size_type const pitch,
-	size_type const block_size) const
+	size_type const block_size
+) const
 {
 	check_not_locked();
 
 	scoped_lock_ptr new_lock(
 		create_texture_lock(
+			context_,
 			method,
 			lock_size,
 			offset,
@@ -177,23 +179,31 @@ GLenum sge::opengl::basic_texture<Base>::format_type() const
 	return format_type_;
 }
 
-template<typename Base>
+template<
+	typename Base
+>
 sge::opengl::basic_texture<Base>::basic_texture(
-	renderer::filter::texture const &filter_,
-	renderer::resource_flags_field const &flags_,
-	GLenum const type_,
-	image::color::format::type const cformat)
+	context::object &_context,
+	renderer::filter::texture const &_filter,
+	renderer::resource_flags_field const &_flags,
+	GLenum const _type,
+	image::color::format::type const _cformat
+)
 :
-	texture_base(type_),
-	filter_(filter_),
-	flags_(flags_),
+	texture_base(_type),
+	context_(_context),
+	filter_(_filter),
+	flags_(_flags),
 	id_(gen_texture()),
 	format_(
-		to_format(cformat)),
+		to_format(_cformat)
+	),
 	format_type_(
-		to_format_type(cformat)),
+		to_format_type(_cformat)
+	),
 	stride_(
-		image::color::format_stride(cformat))
+		image::color::format_stride(_cformat)
+	)
 {}
 
 template<typename Base>

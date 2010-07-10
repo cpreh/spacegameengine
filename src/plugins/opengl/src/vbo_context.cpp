@@ -35,8 +35,8 @@ sge::opengl::vbo_context::vbo_context()
 	),
 	index_buffer_type_(
 		opengl::make_buffer_type(
-			impl_->hardware_supported()
-			"GL_VERSION_1_5"
+			impl_->hardware_supported(),
+			"GL_VERSION_1_5",
 			GL_ELEMENT_ARRAY_BUFFER,
 			"GL_ARB_vertex_buffer_object",
 			GL_ELEMENT_ARRAY_BUFFER_ARB
@@ -45,7 +45,7 @@ sge::opengl::vbo_context::vbo_context()
 	vertex_buffer_type_(
 		opengl::make_buffer_type(
 			impl_->hardware_supported(),
-			"GL_VERSION_1_5"
+			"GL_VERSION_1_5",
 			GL_ARRAY_BUFFER,
 			"GL_ARB_vertex_buffer_object",
 			GL_ARRAY_BUFFER_ARB

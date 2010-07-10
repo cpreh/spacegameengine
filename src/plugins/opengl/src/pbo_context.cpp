@@ -54,3 +54,30 @@ sge::opengl::pbo_context::pbo_context()
 		)
 	)
 {}
+
+sge::opengl::pbo_context::~pbo_context()
+{
+}
+
+sge::opengl::vbo_base &
+sge::opengl::pbo_context::impl()
+{
+	return *impl_;
+}
+
+GLenum
+sge::opengl::pbo_context::pixel_pack_buffer_type() const
+{
+	return pixel_pack_buffer_type_;
+}
+
+GLenum
+sge::opengl::pbo_context::pixel_unpack_buffer_type() const
+{
+	return pixel_unpack_buffer_type_;
+}
+
+sge::opengl::context::id const
+sge::opengl::pbo_context::static_id(
+	sge::opengl::context::make_id()
+);

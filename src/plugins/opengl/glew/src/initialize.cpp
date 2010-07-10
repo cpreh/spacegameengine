@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../initialize.hpp"
-#include "../common.hpp"
+#include "../../common.hpp"
 #include <sge/exception.hpp>
 #include <fcppt/text.hpp>
 

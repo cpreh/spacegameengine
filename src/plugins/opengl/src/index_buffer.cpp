@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../index_buffer.hpp"
-#include "../vbo.hpp"
 #include "../common.hpp"
-#include "../instantiate_basic_buffer.hpp"
+#include "../vbo_context.hpp"
+#include "../context/use.hpp"
 #include <sge/renderer/index/dynamic/make_format.hpp>
 #include <sge/renderer/index/view.hpp>
 #include <sge/renderer/index/i16.hpp>
@@ -115,6 +115,8 @@ sge::opengl::index_buffer<T>::bind_me() const
 	buf.bind_me();
 }
 
+// FIXME: fix the reinterpret_casts!
+
 template<
 	typename T
 >
@@ -140,7 +142,11 @@ sge::opengl::index_buffer<T>::lock(
 					T
 				>
 			>(
-				buf.data(),
+				reinterpret_cast<
+					T *
+				>(
+					buf.data()
+				),
 				buf.lock_size()
 			)
 		);
@@ -168,7 +174,11 @@ sge::opengl::index_buffer<T>::lock(
 					T const
 				>
 			>(
-				buf.data(),
+				reinterpret_cast<
+					T const *
+				>(
+					buf.data()
+				),
 				buf.lock_size()
 			)
 		);
@@ -216,12 +226,7 @@ sge::opengl::index_buffer<T>::format() const
 }
 
 #define SGE_OPENGL_INSTANTIATE_INDEX_BUFFER(t) \
-template class sge::opengl::index_buffer<t>; \
-template class sge::opengl::basic_buffer<\
-	sge::opengl::index_buffer_type,\
-	sge::opengl::vb_ib_vbo_impl,\
-	t\
->;
+template class sge::opengl::index_buffer<t>;
 
 SGE_OPENGL_INSTANTIATE_INDEX_BUFFER(
 	sge::renderer::index::i16

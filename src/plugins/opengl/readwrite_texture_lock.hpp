@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "texture_lock.hpp"
 #include "readonly_texture_lock.hpp"
 #include "writeonly_texture_lock.hpp"
+#include "context/object_fwd.hpp"
 #include <sge/renderer/resource_flags_field.hpp>
 
 namespace sge
@@ -31,9 +32,13 @@ namespace sge
 namespace opengl
 {
 
-class readwrite_texture_lock : public texture_lock {
+class readwrite_texture_lock
+:
+	public texture_lock
+{
 public:
 	readwrite_texture_lock(
+		context::object &,
 		size_type lock_size,
 		size_type offset,
 		size_type whole_size,
@@ -43,21 +48,29 @@ public:
 		renderer::resource_flags_field const &
 	);
 private:
-	void post_lock();
+	void
+	post_lock();
 
-	void pre_unlock();
+	void
+	pre_unlock();
 
-	pointer read_pointer() const;
+	pointer
+	read_pointer() const;
 
-	pointer write_pointer() const;
+	pointer
+	write_pointer() const;
 
-	const_pointer real_read_pointer() const;
+	const_pointer
+	real_read_pointer() const;
 
-	pointer real_write_pointer();
+	pointer
+	real_write_pointer();
 
-	lock_method::type method() const;
+	lock_method::type
+	method() const;
 
 	readonly_texture_lock  read_lock;
+
 	writeonly_texture_lock write_lock;
 };
 

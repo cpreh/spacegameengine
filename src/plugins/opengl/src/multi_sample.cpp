@@ -19,8 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../multi_sample.hpp"
-#include "../glew.hpp"
-#include <fcppt/function_once.hpp>
+#include "../glew/is_supported.hpp"
 
 namespace
 {
@@ -32,14 +31,12 @@ GLenum multi_sample_flag_;
 void
 init_multi_sample()
 {
-	FCPPT_FUNCTION_ONCE
-
 	if(
 		GL_VERSION_1_3
 	)
 		multi_sample_flag_ = GL_MULTISAMPLE;
 	else if(
-		sge::opengl::glew_is_supported("GL_ARB_multisample")
+		sge::opengl::glew::is_supported("GL_ARB_multisample")
 	)
 		multi_sample_flag_ = GL_MULTISAMPLE_ARB;
 	else

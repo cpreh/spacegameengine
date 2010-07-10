@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../vertex_buffer.hpp"
-#include "../context/object.hpp"
+#include "../context/use.hpp"
 #include "../convert_vertex_colors.hpp"
 #include "../vbo_context.hpp"
 #include <sge/renderer/vf/dynamic/view.hpp>
@@ -27,11 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/assert.hpp>
 #include <boost/foreach.hpp>
-
-SGE_OPENGL_INSTANTIATE_BASIC_BUFFER(
-	sge::opengl::vertex_buffer_type,
-	sge::opengl::vb_ib_vbo_impl
-)
 
 sge::opengl::vertex_buffer::vertex_buffer(
 	context::object &_context,
@@ -45,15 +40,15 @@ sge::opengl::vertex_buffer::vertex_buffer(
 		context::use<
 			vbo_context
 		>(
-			_object
+			_context
 		).impl(),
 		context::use<
 			vbo_context
 		>(
-			_object
+			_context
 		).vertex_buffer_type(),
 		_size,
-		format_.stride(),
+		_format.stride(),
 		_flags,
 		0
 	)

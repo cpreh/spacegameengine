@@ -38,10 +38,11 @@ class software_vbo
 {
 	FCPPT_NONCOPYABLE(software_vbo)
 public:
-	software_vbo():
+	software_vbo();
 
 	~software_vbo();
 
+private:
 	GLuint
 	gen_buffer();
 
@@ -102,21 +103,26 @@ public:
 
 	bool
 	hardware_supported() const;
-private:
+
 	typedef std::map<
 		GLuint,
 		sge::renderer::raw_pointer
 	> buffer_map;
 
-	GLuint &
+	GLuint
 	bound_buffer(
 		GLenum
-	);
+	) const;
 
 	buffer_map::iterator
 	buffer_object(
 		GLuint id
 	);
+
+	buffer_map::const_iterator
+	buffer_object(
+		GLuint id
+	) const;
 
 	void
 	check_bound(

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "buffer_fwd.hpp"
 #include "common.hpp"
 #include "lock_method.hpp"
+#include "vbo_base_fwd.hpp"
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/raw_value.hpp>
@@ -105,10 +106,10 @@ public:
 		size_type offset
 	) const;
 private:
-	static void
+	void
 	bind(
 		GLuint id
-	);
+	) const;
 
 	void
 	check_lock() const;
@@ -123,12 +124,12 @@ private:
 
 	resource_flag_type const flags_;
 
-	pointer dest;
+	pointer dest_;
 
-	GLuint const id;
+	GLuint const id_;
 
 	size_type
-		lock_offset,
+		lock_offset_,
 		lock_size_;
 };
 
