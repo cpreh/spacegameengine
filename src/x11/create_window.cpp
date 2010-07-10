@@ -55,18 +55,20 @@ sge::x11::create_window(
 			FCPPT_TEXT("x11::create_window: Please specify the window's dimensions!")
 		);
 
-	return fcppt::make_shared_ptr<
-		sge::x11::window
-	>(
-		window::pos_type::null(),
-		*param.dim(),
-		param.title(),
-		dsp,
-		screen,
-		depth,
-		fullscreen,
-		visual,
-		colormap,
-		param.class_name()
-	);
+	return
+		fcppt::make_shared_ptr<
+			sge::x11::window
+		>(
+			window::pos_type::null(),
+			*param.dim(),
+			param.title(),
+			dsp,
+			screen,
+			depth,
+			fullscreen,
+			visual,
+			colormap,
+			param.class_name(),
+			param.io_service()
+		);
 }

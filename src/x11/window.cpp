@@ -23,13 +23,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/visual.hpp>
 #include <sge/x11/colormap.hpp>
 #include <sge/x11/error.hpp>
+#include <sge/mainloop/io_service.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/to_std_string.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <boost/assign/list_of.hpp>
+#include <X11/Xlibint.h>
 
 sge::x11::window::window(
 	pos_type const &pos,
@@ -41,7 +44,8 @@ sge::x11::window::window(
 	bool const fullscreen_,
 	const_visual_ptr const visual_,
 	colormap_ptr const colormap_,
-	fcppt::string const &class_name
+	fcppt::string const &class_name,
+	sge::mainloop::io_service_ptr const io_service_
 )
 :
 	dsp(dsp),
@@ -61,6 +65,20 @@ sge::x11::window::window(
 	class_hint_(
 		t,
 		class_name
+	),
+	signals(),
+	dispatcher_(
+		io_service_
+		?
+			io_service_->create_dispatcher(
+				dsp->get()->fd,
+				std::tr1::bind(
+					&window::dispatch,
+					this
+				)
+			)
+		:
+			mainloop::dispatcher_ptr()
 	)
 {
 	XSetWindowAttributes swa;

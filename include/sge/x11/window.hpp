@@ -29,6 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/class_hint.hpp>
 #include <sge/window/pos_type.hpp>
 #include <sge/window/instance.hpp>
+#include <sge/mainloop/io_service_ptr.hpp>
+#include <sge/mainloop/dispatcher_ptr.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
@@ -65,7 +67,8 @@ public:
 		bool fullscreen,
 		const_visual_ptr,
 		colormap_ptr,
-		fcppt::string const &class_name
+		fcppt::string const &class_name,
+		sge::mainloop::io_service_ptr
 	);
 
 	SGE_SYMBOL ~window();
@@ -143,6 +146,8 @@ private:
 	> signal_map;
 
 	signal_map signals;
+
+	sge::mainloop::dispatcher_ptr const dispatcher_;
 };
 
 }
