@@ -58,6 +58,11 @@ public:
 	virtual void
 	reset() = 0;
 
+	virtual void
+	dispatch(
+		dispatcher_callback const &
+	) = 0;
+
 	virtual dispatcher_ptr const
 	create_dispatcher(
 		native_handle,

@@ -48,32 +48,35 @@ public:
 	~io_service();
 
 	SGE_SYMBOL
+	boost::asio::io_service &
+	get();
+private:
 	void
 	run_one();
 
-	SGE_SYMBOL
 	void
 	run();
 
-	SGE_SYMBOL
 	void
 	poll();
 
-	SGE_SYMBOL
 	void
 	stop();
 
-	SGE_SYMBOL
 	void
 	reset();
 
-	SGE_SYMBOL
+	void
+	dispatch(
+		dispatcher_callback const &
+	);
+
 	dispatcher_ptr const
 	create_dispatcher(
 		native_handle,
 		dispatcher_callback const &
 	);
-private:
+
 	boost::asio::io_service io_service_;
 };
 

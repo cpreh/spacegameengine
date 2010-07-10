@@ -32,6 +32,12 @@ sge::mainloop::asio::io_service::~io_service()
 {
 }
 
+boost::asio::io_service &
+sge::mainloop::asio::io_service::get()
+{
+	return io_service_;
+}
+
 void
 sge::mainloop::asio::io_service::run_one()
 {
@@ -60,6 +66,16 @@ void
 sge::mainloop::asio::io_service::reset()
 {
 	io_service_.reset();
+}
+
+void
+sge::mainloop::asio::io_service::dispatch(
+	dispatcher_callback const &_callback
+)
+{
+	io_service_.dispatch(
+		_callback
+	);
 }
 
 sge::mainloop::dispatcher_ptr const
