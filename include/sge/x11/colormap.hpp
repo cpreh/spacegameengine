@@ -49,6 +49,7 @@ public:
 	get();
 private:
 	display_ptr const dsp;
+
 	Colormap          c;
 };
 

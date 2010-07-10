@@ -35,43 +35,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/Xlibint.h>
 
 sge::x11::window::window(
-	pos_type const &pos,
-	dim_type const &sz,
-	fcppt::string const &t,
-	display_ptr const dsp,
-	int const screen_,
-	int const depth,
-	bool const fullscreen_,
-	const_visual_ptr const visual_,
-	colormap_ptr const colormap_,
-	fcppt::string const &class_name,
-	sge::mainloop::io_service_ptr const io_service_
+	pos_type const &_pos,
+	dim_type const &_size,
+	fcppt::string const &_title,
+	display_ptr const _display,
+	int const _screen,
+	int const _depth,
+	bool const _fullscreen,
+	const_visual_ptr const _visual,
+	colormap_ptr const _colormap,
+	fcppt::string const &_class_name,
+	sge::mainloop::io_service_ptr const _io_service
 )
 :
-	dsp(dsp),
-	visual_(visual_),
-	colormap_(colormap_),
-	screen_(screen_),
-	wnd(0),
-	fullscreen_(fullscreen_),
-	event_mask(0),
-	hints_(),
-	size_hints_(
-		sz.w(),
-		sz.h(),
-		sz.w(),
-		sz.h()
-	),
-	class_hint_(
-		t,
-		class_name
-	),
-	signals(),
+	// FIXME: here we make sure the dispatcher is destroyed AFTER
+	// the display, because asio closes the socket (which it shouldn't!)
 	dispatcher_(
-		io_service_
+		_io_service
 		?
-			io_service_->create_dispatcher(
-				dsp->get()->fd,
+			_io_service->create_dispatcher(
+				_display->get()->fd,
 				std::tr1::bind(
 					&window::dispatch,
 					this
@@ -79,28 +62,47 @@ sge::x11::window::window(
 			)
 		:
 			mainloop::dispatcher_ptr()
-	)
+	),
+	display_(_display),
+	visual_(_visual),
+	colormap_(_colormap),
+	screen_(_screen),
+	window_(0),
+	fullscreen_(_fullscreen),
+	event_mask_(0),
+	hints_(),
+	size_hints_(
+		_size.w(),
+		_size.h(),
+		_size.w(),
+		_size.h()
+	),
+	class_hint_(
+		_title,
+		_class_name
+	),
+	signals_()
 {
 	XSetWindowAttributes swa;
-	swa.colormap = colormap_->get();
+		swa.colormap = _colormap->get();
 	swa.border_pixel = 0;
 	swa.background_pixel = 0;
 	swa.override_redirect = fullscreen_ ? True : False;
 	swa.event_mask = StructureNotifyMask;
 
 	// always returns a handle
-	wnd = XCreateWindow(
-		dsp->get(),
+	window_ = XCreateWindow(
+		display_->get(),
 		XRootWindow(
-			dsp->get(),
+			display_->get(),
 			screen()
 		),
-		pos.x(),
-		pos.y(),
-		sz.w(),
-		sz.h(),
+		_pos.x(),
+		_pos.y(),
+		_size.w(),
+		_size.h(),
 		0,
-		depth,
+		_depth,
 		InputOutput,
 		visual_->get(),
 		CWColormap | CWOverrideRedirect | CWBorderPixel | CWEventMask,
@@ -112,15 +114,20 @@ sge::x11::window::window(
 	set_class_hint();
 
 	XStoreName(
-		dsp_(),
-		wnd,
-		fcppt::to_std_string(t).c_str()
+		display_->get(),
+		window_,
+		fcppt::to_std_string(
+			_title
+		).c_str()
 	);
 }
 
 sge::x11::window::~window()
 {
-	XDestroyWindow(dsp_(), wnd);
+	XDestroyWindow(
+		display_->get(),
+		window_
+	);
 }
 
 sge::x11::window::dim_type const
@@ -138,7 +145,7 @@ sge::x11::window::size() const
 
 	if(
 		XGetGeometry(
-			dsp_(),
+			display_->get(),
 			get(),
 			&root_return,
 			&x_return,
@@ -153,10 +160,11 @@ sge::x11::window::size() const
 			FCPPT_TEXT("XGetGeometry() failed!")
 		);
 
-	return dim_type(
-		width_return,
-		height_return
-	);
+	return
+		dim_type(
+			width_return,
+			height_return
+		);
 }
 
 void
@@ -176,7 +184,7 @@ sge::x11::window::fullscreen() const
 Window
 sge::x11::window::get() const
 {
-	return wnd;
+	return window_;
 }
 
 int
@@ -188,7 +196,7 @@ sge::x11::window::screen() const
 sge::x11::display_ptr const
 sge::x11::window::display() const
 {
-	return dsp;
+	return display_;
 }
 
 sge::x11::const_visual_ptr const
@@ -201,14 +209,20 @@ void
 sge::x11::window::map()
 {
 	// always returns 1
-	XMapWindow(dsp->get(), get());
+	XMapWindow(
+		display_->get(),
+		get()
+	);
 }
 
 void
 sge::x11::window::map_raised()
 {
 	// always returns 1
-	XMapRaised(dsp->get(), get());
+	XMapRaised(
+		display_->get(),
+		get()
+	);
 }
 
 fcppt::signal::auto_connection
@@ -218,7 +232,7 @@ sge::x11::window::register_callback(
 )
 {
 	add_event_mask(event);
-	return signals[event].connect(callback);
+	return signals_[event].connect(callback);
 }
 
 namespace
@@ -270,24 +284,23 @@ sge::x11::window::dispatch()
 
 	while(
 		XCheckWindowEvent(
-			dsp_(),
+			display_->get(),
 			get(),
-			event_mask,
+			event_mask_,
 			&xev
 		)
 	)
 	{
-		if(XFilterEvent(&xev, None))
+		if(
+			XFilterEvent(
+				&xev,
+				None
+			)
+		)
 			continue;
 
-		signals[xev.type](xev);
+		signals_[xev.type](xev);
 	}
-}
-
-Display *
-sge::x11::window::dsp_() const
-{
-	return display()->get();
 }
 
 void
@@ -308,18 +321,18 @@ sge::x11::window::add_event_mask(
 
 	event_mask_type const mask = it->second;
 
-	if(!(event_mask & mask))
+	if(!(event_mask_ & mask))
 	{
-		event_mask |= mask;
+		event_mask_ |= mask;
 		
 		XSetWindowAttributes swa;
 		
-		swa.event_mask = event_mask;
+		swa.event_mask = event_mask_;
 
 		// always returns 1
 		XChangeWindowAttributes(
-			dsp_(),
-			wnd,
+			display_->get(),
+			get(),
 			CWEventMask,
 			&swa
 		);
@@ -331,7 +344,7 @@ sge::x11::window::hints()
 {
 	// always returns 1
 	XSetWMHints(
-		dsp_(),
+		display_->get(),
 		get(),
 		hints_.get()
 	);
@@ -342,7 +355,7 @@ sge::x11::window::set_size_hints()
 {
 	// always returns 1
 	XSetWMNormalHints(
-		dsp_(),
+		display_->get(),
 		get(),
 		size_hints_.get()
 	);
@@ -353,7 +366,7 @@ sge::x11::window::set_class_hint()
 {
 	// always returns 1
 	XSetClassHint(
-		dsp_(),
+		display_->get(),
 		get(),
 		class_hint_.get()
 	);

@@ -109,8 +109,6 @@ public:
 	SGE_SYMBOL void
 	dispatch();
 private:
-	Display *dsp_() const;
-
 	void
 	add_event_mask(
 		event_type
@@ -125,16 +123,27 @@ private:
 	void
 	set_class_hint();
 
-	display_ptr         dsp;
-	const_visual_ptr    visual_;
-	const_colormap_ptr  colormap_;
-	int                 screen_;
-	Window              wnd;
-	bool                fullscreen_;
-	event_mask_type     event_mask;
-	wm_hints            hints_;
-	size_hints          size_hints_;
-	class_hint          class_hint_;
+	sge::mainloop::dispatcher_ptr const dispatcher_;
+
+	display_ptr const display_;
+
+	const_visual_ptr const visual_;
+
+	const_colormap_ptr const colormap_;
+
+	int const screen_;
+
+	Window window_;
+
+	bool const fullscreen_;
+
+	event_mask_type event_mask_;
+
+	wm_hints hints_;
+	
+	size_hints size_hints_;
+
+	class_hint class_hint_;
 
 	typedef fcppt::signal::object<
 		function_type
@@ -145,9 +154,7 @@ private:
 		signal_type
 	> signal_map;
 
-	signal_map signals;
-
-	sge::mainloop::dispatcher_ptr const dispatcher_;
+	signal_map signals_;
 };
 
 }

@@ -40,8 +40,7 @@ sge::mainloop::asio::dispatcher::dispatcher(
 }
 
 sge::mainloop::asio::dispatcher::~dispatcher()
-{
-}
+{}
 
 void
 sge::mainloop::asio::dispatcher::register_handler()
