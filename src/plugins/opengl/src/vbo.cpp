@@ -40,8 +40,10 @@ sge::opengl::initialize_vbo()
 {
 	impl.take(
 		create_vbo_impl(
+			false
+			/*
 			glew_is_supported("GL_VERSION_1_5")
-			|| glew_is_supported("GL_ARB_vertex_buffer_object")
+			|| glew_is_supported("GL_ARB_vertex_buffer_object")*/
 		)
 	);
 }

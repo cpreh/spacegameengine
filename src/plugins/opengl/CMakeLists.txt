@@ -9,6 +9,7 @@ INCLUDE_DIRECTORIES(${OPENGL_INCLUDE_DIR})
 
 FILE (GLOB sgeopenglfiles
 	src/*.cpp
+	context/src/*.cpp
 	convert/src/*.cpp
 	glsl/src/*.cpp
 	glsl/attribute/src/*.cpp

@@ -18,87 +18,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_SOFTWARE_VBO_HPP_INCLUDED
-#define SGE_OPENGL_SOFTWARE_VBO_HPP_INCLUDED
+#ifndef SGE_OPENGL_CONTEXT_OBJECT_HPP_INCLUDED
+#define SGE_OPENGL_CONTEXT_OBJECT_HPP_INCLUDED
 
-#include "common.hpp"
-#include "vbo_base.hpp"
+#include "object_fwd.hpp"
+#include "id.hpp"
+#include "base_fwd.hpp"
+#include "base_auto_ptr.hpp"
+#include <fcppt/noncopyable.hpp>
+#include <boost/ptr_container/ptr_map.hpp>
 
 namespace sge
 {
 namespace opengl
 {
-
-class software_vbo
-:
-	public vbo_base
+namespace context
 {
+
+class object
+{
+	FCPPT_NONCOPYABLE(object)
 public:
-	GLuint
-	gen_buffer();
+	object();
 
-	void
-	delete_buffer(
-		GLuint
+	~object();
+
+	base *
+	get(
+		context::id
 	);
 
-	void
-	bind_buffer(
-		GLenum type,
-		GLuint
+	base &
+	insert(
+		context::id,
+		base_auto_ptr
 	);
+private:
+	typedef boost::ptr_map<
+		context::id,
+		base
+	> container;
 
-	GLvoid *
-	map_buffer(
-		GLenum type,
-		GLenum flags
-	);
-
-	GLvoid *
-	map_buffer_range(
-		GLenum type,
-		GLenum flags,
-		GLsizei first,
-		GLsizei size
-	);
-
-	bool
-	map_buffer_range_supported() const;
-
-	void
-	unmap_buffer(
-		GLenum type
-	);
-
-	void
-	buffer_data(
-		GLenum type,
-		GLsizei size,
-		GLvoid const *data,
-		GLenum flags
-	);
-
-	void
-	buffer_sub_data(
-		GLenum type,
-		GLsizei first,
-		GLsizei size,
-		GLvoid const *data
-	);
-
-	void *
-	buffer_offset(
-		GLenum type,
-		GLsizei offset
-	) const;
-
-	bool
-	hardware_supported() const;
-
-	static GLenum
-	unique_id();
+	container elements_;
 };
 
+}
 }
 }
 

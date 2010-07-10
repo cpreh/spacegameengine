@@ -18,87 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_SOFTWARE_VBO_HPP_INCLUDED
-#define SGE_OPENGL_SOFTWARE_VBO_HPP_INCLUDED
+#ifndef SGE_OPENGL_CONTEXT_BASE_HPP_INCLUDED
+#define SGE_OPENGL_CONTEXT_BASE_HPP_INCLUDED
 
-#include "common.hpp"
-#include "vbo_base.hpp"
+#include "base_fwd.hpp"
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace opengl
 {
-
-class software_vbo
-:
-	public vbo_base
+namespace context
 {
+
+class base
+{
+	FCPPT_NONCOPYABLE(base)
+protected:
+	base();
 public:
-	GLuint
-	gen_buffer();
-
-	void
-	delete_buffer(
-		GLuint
-	);
-
-	void
-	bind_buffer(
-		GLenum type,
-		GLuint
-	);
-
-	GLvoid *
-	map_buffer(
-		GLenum type,
-		GLenum flags
-	);
-
-	GLvoid *
-	map_buffer_range(
-		GLenum type,
-		GLenum flags,
-		GLsizei first,
-		GLsizei size
-	);
-
-	bool
-	map_buffer_range_supported() const;
-
-	void
-	unmap_buffer(
-		GLenum type
-	);
-
-	void
-	buffer_data(
-		GLenum type,
-		GLsizei size,
-		GLvoid const *data,
-		GLenum flags
-	);
-
-	void
-	buffer_sub_data(
-		GLenum type,
-		GLsizei first,
-		GLsizei size,
-		GLvoid const *data
-	);
-
-	void *
-	buffer_offset(
-		GLenum type,
-		GLsizei offset
-	) const;
-
-	bool
-	hardware_supported() const;
-
-	static GLenum
-	unique_id();
+	virtual ~base();
 };
 
+}
 }
 }
 
