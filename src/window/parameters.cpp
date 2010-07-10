@@ -36,10 +36,11 @@ sge::window::parameters::parameters(
 )
 :
 	title_(_title),
-	dim_(),
 	class_name_(
 		default_class
-	)
+	),
+	dim_(),
+	io_service_()
 {}
 
 sge::window::parameters const
@@ -64,9 +65,11 @@ sge::window::parameters::dim(
 
 sge::window::parameters const
 sge::window::parameters::io_service(
-	// TODO!
+	mainloop::io_service_ptr const _io_service
 )
 {
+	io_service_ = _io_service;
+
 	return *this;
 }
 
@@ -86,4 +89,10 @@ sge::window::parameters::optional_dim const &
 sge::window::parameters::dim() const
 {
 	return dim_;
+}
+
+sge::mainloop::io_service_ptr const
+sge::window::parameters::io_service() const
+{
+	return io_service_;
 }

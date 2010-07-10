@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/window/parameters_fwd.hpp>
 #include <sge/window/dim_type.hpp>
+#include <sge/mainloop/io_service_ptr.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/optional.hpp>
@@ -56,7 +57,7 @@ public:
 	SGE_SYMBOL
 	parameters const
 	io_service(
-		// TODO!
+		mainloop::io_service_ptr
 	);
 
 	SGE_SYMBOL fcppt::string const &
@@ -71,12 +72,17 @@ public:
 
 	SGE_SYMBOL optional_dim const &
 	dim() const;
+
+	SGE_SYMBOL mainloop::io_service_ptr const
+	io_service() const;
 private:
 	fcppt::string title_;
 
+	fcppt::string class_name_;
+
 	optional_dim dim_;
 
-	fcppt::string class_name_;
+	mainloop::io_service_ptr io_service_;
 };
 
 }
