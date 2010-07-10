@@ -48,7 +48,9 @@ public:
 			sge::systems::list()
 			(
 				sge::window::parameters(
-					FCPPT_TEXT("sge asio test"),
+					FCPPT_TEXT("sge asio test")
+				)
+				.dim(
 					sge::window::dim_type(
 						1024,
 						768

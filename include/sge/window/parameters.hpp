@@ -36,17 +36,27 @@ namespace window
 class parameters
 {
 public:
-	SGE_SYMBOL static fcppt::string const default_class;
 
 	SGE_SYMBOL explicit parameters(
-		fcppt::string const &title,
-		fcppt::string const &class_name = default_class
+		fcppt::string const &title_
 	);
 
-	SGE_SYMBOL parameters(
-		fcppt::string const &title,
-		dim_type const &dim,
-		fcppt::string const &class_name = default_class
+	SGE_SYMBOL
+	parameters const
+	class_name(
+		fcppt::string const &
+	);
+
+	SGE_SYMBOL
+	parameters const
+	dim(
+		dim_type const &
+	);
+
+	SGE_SYMBOL
+	parameters const
+	io_service(
+		// TODO!
 	);
 
 	SGE_SYMBOL fcppt::string const &
@@ -61,14 +71,11 @@ public:
 
 	SGE_SYMBOL optional_dim const &
 	dim() const;
-
-	SGE_SYMBOL void
-	dim(
-		dim_type const &
-	);
 private:
 	fcppt::string title_;
+
 	optional_dim dim_;
+
 	fcppt::string class_name_;
 };
 
