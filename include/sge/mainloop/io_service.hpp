@@ -18,10 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MAINLOOP_DISPATCHABLE_HPP_INCLUDED
-#define SGE_MAINLOOP_DISPATCHABLE_HPP_INCLUDED
+#ifndef SGE_MAINLOOP_IO_SERVICE_HPP_INCLUDED
+#define SGE_MAINLOOP_IO_SERVICE_HPP_INCLUDED
 
-#include <sge/mainloop/dispatchable_fwd.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -30,16 +29,30 @@ namespace sge
 namespace mainloop
 {
 
-class dispatchable
+class io_service
 {
-	FCPPT_NONCOPYABLE(dispatchable)
-public:
-	virtual void
-	dispatch() = 0;
+	FCPPT_NONCOPYABLE(io_service)
 protected:
-	SGE_SYMBOL dispatchable();
+	SGE_SYMBOL
+	io_service();
+public:
+	SGE_SYMBOL
+	virtual ~io_service();
 
-	SGE_SYMBOL virtual ~dispatchable();
+	virtual void
+	run_one() = 0;
+
+	virtual void
+	run() = 0;
+
+	virtual void
+	poll() = 0;
+
+	virtual void
+	stop() = 0;
+
+	virtual void
+	reset() = 0;
 };
 
 }

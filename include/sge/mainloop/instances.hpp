@@ -21,20 +21,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MAINLOOP_INSTANCES_HPP_INCLUDED
 #define SGE_MAINLOOP_INSTANCES_HPP_INCLUDED
 
+#include <sge/mainloop/dispatchable_fwd.hpp>
+
 namespace sge
 {
 namespace mainloop
 {
 
-class dispatchable;
+void
+add_instance(
+	dispatchable *
+);
 
-void add_instance(
-	dispatchable *);
+void
+remove_instance(
+	dispatchable *
+);
 
-void remove_instance(
-	dispatchable *);
-
-void dispatch_instances();
+void
+dispatch_instances();
 
 }
 }

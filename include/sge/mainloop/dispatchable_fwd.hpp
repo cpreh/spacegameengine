@@ -18,29 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MAINLOOP_DISPATCHABLE_HPP_INCLUDED
-#define SGE_MAINLOOP_DISPATCHABLE_HPP_INCLUDED
-
-#include <sge/mainloop/dispatchable_fwd.hpp>
-#include <sge/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#ifndef SGE_MAINLOOP_DISPATCHABLE_FWD_HPP_INCLUDED
+#define SGE_MAINLOOP_DISPATCHABLE_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace mainloop
 {
 
-class dispatchable
-{
-	FCPPT_NONCOPYABLE(dispatchable)
-public:
-	virtual void
-	dispatch() = 0;
-protected:
-	SGE_SYMBOL dispatchable();
-
-	SGE_SYMBOL virtual ~dispatchable();
-};
+class dispatchable;
 
 }
 }
