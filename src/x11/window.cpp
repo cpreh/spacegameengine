@@ -48,6 +48,9 @@ sge::x11::window::window(
 	sge::mainloop::io_service_ptr const _io_service
 )
 :
+	io_service_(
+		_io_service
+	),
 	// FIXME: here we make sure the dispatcher is destroyed AFTER
 	// the display, because asio closes the socket (which it shouldn't!)
 	dispatcher_(
@@ -173,6 +176,12 @@ sge::x11::window::show()
 	map();
 
 	display()->sync();
+}
+
+sge::mainloop::io_service_ptr const
+sge::x11::window::io_service() const
+{
+	return io_service_;
 }
 
 bool

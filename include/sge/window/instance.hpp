@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/window/dim_type.hpp>
 #include <sge/mainloop/dispatchable.hpp>
+#include <sge/mainloop/io_service_ptr.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -47,6 +48,13 @@ public:
 
 	virtual void
 	show() = 0;
+
+	/// Returns the associated io_service
+	/**
+	 * @return 0 if there is no io_service associated with this window
+	*/
+	virtual mainloop::io_service_ptr const
+	io_service() const = 0;
 
 	SGE_SYMBOL virtual ~instance();
 };

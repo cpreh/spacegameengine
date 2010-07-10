@@ -79,6 +79,10 @@ public:
 	SGE_SYMBOL void
 	show();
 
+	SGE_SYMBOL
+	mainloop::io_service_ptr const
+	io_service() const;
+
 	SGE_SYMBOL bool
 	fullscreen() const;
 
@@ -122,6 +126,8 @@ private:
 
 	void
 	set_class_hint();
+
+	sge::mainloop::io_service_ptr const io_service_;
 
 	sge::mainloop::dispatcher_ptr const dispatcher_;
 
