@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MAINLOOP_DISPATCHER_HPP_INCLUDED
 
 #include <sge/mainloop/dispatcher_fwd.hpp>
+#include <sge/class_symbol.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -30,7 +31,7 @@ namespace sge
 namespace mainloop
 {
 
-class dispatcher
+class SGE_CLASS_SYMBOL dispatcher
 {
 	FCPPT_NONCOPYABLE(dispatcher)
 protected:

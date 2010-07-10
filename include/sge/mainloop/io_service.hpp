@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/mainloop/native_handle.hpp>
 #include <sge/mainloop/dispatcher_ptr.hpp>
 #include <sge/mainloop/dispatcher_callback.hpp>
+#include <sge/class_symbol.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -33,7 +34,7 @@ namespace sge
 namespace mainloop
 {
 
-class io_service
+class SGE_CLASS_SYMBOL io_service
 {
 	FCPPT_NONCOPYABLE(io_service)
 protected:
