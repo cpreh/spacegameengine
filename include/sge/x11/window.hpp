@@ -73,6 +73,9 @@ public:
 	SGE_SYMBOL dim_type const
 	size() const;
 
+	SGE_SYMBOL void
+	show();
+
 	SGE_SYMBOL bool
 	fullscreen() const;
 

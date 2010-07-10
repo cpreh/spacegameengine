@@ -45,6 +45,9 @@ public:
 	virtual dim_type const
 	size() const = 0;
 
+	virtual void
+	show() = 0;
+
 	SGE_SYMBOL virtual ~instance();
 };
 

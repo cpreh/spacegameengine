@@ -84,9 +84,7 @@ public:
 			->fd
 		);
 
-		ptr->map_raised();
-
-		ptr->display()->sync();
+		ptr->show();
 	}
 
 	void
@@ -116,10 +114,8 @@ public:
 		sys.input_system()->dispatch();
 
 		if(
-			!running
+			running
 		)
-			io_service.stop();
-		else
 			register_handlers();
 
 	}

@@ -141,6 +141,14 @@ sge::x11::window::size() const
 	);
 }
 
+void
+sge::x11::window::show()
+{
+	map();
+
+	display()->sync();
+}
+
 bool
 sge::x11::window::fullscreen() const
 {
