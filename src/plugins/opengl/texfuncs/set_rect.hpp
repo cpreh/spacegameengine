@@ -18,66 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_FUNCTIONS_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_FUNCTIONS_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXFUNCS_SET_RECT_HPP_INCLUDED
+#define SGE_OPENGL_TEXFUNCS_SET_RECT_HPP_INCLUDED
 
-#include "common.hpp"
+#include "../common.hpp"
+#include "../context/object_fwd.hpp"
+#include <sge/renderer/filter/texture_fwd.hpp>
 #include <sge/renderer/dim_type.hpp>
 #include <sge/renderer/lock_rect.hpp>
-#include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
-#include <sge/renderer/filter/texture_fwd.hpp>
 
 namespace sge
 {
 namespace opengl
 {
+namespace texfuncs
+{
 
-GLuint gen_texture();
-void delete_texture(GLuint id);
-
-void set_texture(
-	GLenum target,
-	GLenum format,
-	GLenum type,
-	renderer::filter::texture const &filter,
-	renderer::dim_type const &dim,
-	renderer::const_raw_pointer src);
-
-void build_mipmaps(
-	GLenum target,
-	GLenum format,
-	GLenum type,
-	renderer::dim_type const &dim,
-	renderer::const_raw_pointer src);
-
-void set_texture_rect(
+void
+set_rect(
+	context::object &,
 	GLenum target,
 	GLenum format,
 	GLenum type,
 	renderer::filter::texture const &filter,
 	renderer::dim_type const &dim,
 	renderer::lock_rect const &dest,
-	renderer::const_raw_pointer src);
+	renderer::const_raw_pointer src
+);
 
-void get_tex_image(
-	GLenum format,
-	GLenum type,
-	renderer::raw_pointer dest);
-
-void tex_parameter_i(
-	GLenum type,
-	GLenum name,
-	GLint value);
-
-void bind_texture(
-	GLenum type,
-	GLuint value);
-
-void set_texture_filter(
-	GLenum type,
-	renderer::filter::texture const &);
-
+}
 }
 }
 

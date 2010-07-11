@@ -20,9 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../common.hpp"
 #include "../texture.hpp"
-#include "../texture_functions.hpp"
 #include "../basic_texture_impl.hpp"
 #include "../color_convert.hpp"
+#include "../texfuncs/set.hpp"
+#include "../texfuncs/set_rect.hpp"
+#include "../texfuncs/get_image.hpp"
 #include <sge/image/view/make.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/math/dim/output.hpp>
@@ -63,7 +65,7 @@ sge::opengl::texture::texture(
 {
 	pre_setdata();
 
-	set_texture(
+	texfuncs::set(
 		type(),
 		format(),
 		format_type(),
@@ -126,7 +128,8 @@ sge::opengl::texture::unlock() const
 				)
 		);
 
-		set_texture_rect(
+		texfuncs::set_rect(
+			context(),
 			type(),
 			format(),
 			format_type(),
@@ -182,7 +185,7 @@ sge::opengl::texture::lock_me(
 		);
 
 	if(must_read)
-		get_tex_image(
+		texfuncs::get_image(
 			format(),
 			format_type(),
 			read_buffer()

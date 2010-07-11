@@ -111,12 +111,15 @@ public:
 	format_type() const;
 protected:
 	basic_texture(
-		context::object &,
+		opengl::context::object &,
 		renderer::filter::texture const &,
 		renderer::resource_flags_field const &,
 		GLenum type,
 		image::color::format::type
 	);
+
+	opengl::context::object &
+	context() const;
 public:
 	~basic_texture();
 
@@ -129,7 +132,7 @@ private:
 	void
 	check_not_locked() const;
 
-	context::object &context_;
+	opengl::context::object &context_;
 
 	renderer::filter::texture const filter_;
 

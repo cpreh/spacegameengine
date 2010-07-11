@@ -18,33 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_LOCK_FACTORY_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_LOCK_FACTORY_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXFUNCS_DELETE_HPP_INCLUDED
+#define SGE_OPENGL_TEXFUNCS_DELETE_HPP_INCLUDED
 
-#include "texture_lock_auto_ptr.hpp"
-#include "texture_lock.hpp"
-#include "lock_method.hpp"
-#include "context/object_fwd.hpp"
-#include <sge/renderer/resource_flags_field.hpp>
+#include "../common.hpp"
 
 namespace sge
 {
 namespace opengl
 {
+namespace texfuncs
+{
 
-texture_lock_auto_ptr
-create_texture_lock(
-	context::object &,
-	lock_method::type,
-	texture_lock::size_type lock_size,
-	texture_lock::size_type offset,
-	texture_lock::size_type whole_size,
-	texture_lock::size_type stride,
-	texture_lock::size_type pitch,
-	texture_lock::size_type block_width,
-	renderer::resource_flags_field const &
+void
+delete_(
+	GLuint
 );
 
+}
 }
 }
 

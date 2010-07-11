@@ -7,7 +7,8 @@ ENDIF()
 
 INCLUDE_DIRECTORIES(${OPENGL_INCLUDE_DIR})
 
-FILE (GLOB sgeopenglfiles
+FILE (
+	GLOB sgeopenglfiles
 	src/*.cpp
 	context/src/*.cpp
 	convert/src/*.cpp
@@ -15,7 +16,9 @@ FILE (GLOB sgeopenglfiles
 	glsl/src/*.cpp
 	glsl/attribute/src/*.cpp
 	glsl/uniform/src/*.cpp
-	vf/src/*.cpp)
+	texfuncs/src/*.cpp
+	vf/src/*.cpp
+)
 	
 IF (X11_FOUND)
 	FILE (GLOB sgeopenglx11files

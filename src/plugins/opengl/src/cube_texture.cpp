@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../common.hpp"
 #include "../cube_texture.hpp"
-#include "../texture_functions.hpp"
 #include "../basic_texture_impl.hpp"
 #include "../version.hpp"
 #include "../enable.hpp"
@@ -30,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/tr1/array.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/function_once.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/make_auto_ptr.hpp>
 #include <fcppt/auto_ptr.hpp>
@@ -173,8 +171,6 @@ namespace
 
 void initialize_cube_texture()
 {
-	FCPPT_FUNCTION_ONCE
-
 	if(sge::opengl::glew::is_supported("GL_VERSION_1_3"))
 		gl_cube_texture_type = GL_TEXTURE_CUBE_MAP;
 	else if(sge::opengl::glew::is_supported("GL_ARB_texture_cube_map"))
