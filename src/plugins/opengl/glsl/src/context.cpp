@@ -18,36 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_UNIFORM_GET_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_UNIFORM_GET_HPP_INCLUDED
+#include "../context.hpp"
+#include "../../glew/is_supported.hpp"
+#include "../../context/make_id.hpp"
 
-#include "type_fwd.hpp"
-#include "../traits.hpp"
-#include "../../common.hpp"
-#include <sge/renderer/glsl/uniform/value.hpp>
+sge::opengl::glsl::context::context()
+:
+	normal_shader_(
+		glew::is_supported("GL_VERSION_2_0")
+	),
+	arb_shader_(
+		glew::is_supported("GL_ARB_vertex_shader GL_ARB_fragment_shader")
+	)
+{
+}
 
-namespace sge
+sge::opengl::glsl::context::~context()
 {
-namespace opengl
-{
-namespace glsl
-{
-namespace uniform
-{
+}
 
-template<
-	bool Native
->
-renderer::glsl::uniform::value const
-get(
-	typename traits<Native>::handle program,
-	GLint location,
-	type const &
+bool
+sge::opengl::glsl::context::is_supported() const
+{
+	return
+		normal_shader_
+		|| arb_shader_;
+}
+
+bool
+sge::opengl::glsl::context::is_native() const
+{
+	return normal_shader_;
+}
+
+sge::opengl::context::id const
+sge::opengl::glsl::context::static_id(
+	sge::opengl::context::make_id()
 );
-
-}
-}
-}
-}
-
-#endif

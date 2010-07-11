@@ -32,7 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture_stage.hpp"
 #include "../check_state.hpp"
 #include "../state_visitor.hpp"
-#include "../glsl/impl.hpp"
+#include "../glsl/set_program.hpp"
+#include "../glsl/create_program.hpp"
 #include "../common.hpp"
 #include "../set_matrix_and_mode.hpp"
 #include "../split_states.hpp"
@@ -513,11 +514,14 @@ sge::opengl::device::create_glsl_program(
 {
 	return
 		vs_source || ps_source
-		? glsl::create_program_impl(
-			vs_source,
-			ps_source
-		)
-		: no_program;
+		?
+			glsl::create_program(
+				context_,
+				vs_source,
+				ps_source
+			)
+		:
+			no_program;
 }
 
 sge::renderer::glsl::program_ptr const
@@ -540,13 +544,18 @@ sge::opengl::device::create_glsl_program(
 	if(ps_source)
 		ps_stream << ps_source->get().rdbuf();
 
-	return create_glsl_program(
-		vs_source
-			? vs_stream.str()
-			: renderer::glsl::optional_string(),
-		ps_source
-			? ps_stream.str()
-			: renderer::glsl::optional_string()
+	return
+		create_glsl_program(
+			vs_source
+			?
+				vs_stream.str()
+			:
+				renderer::glsl::optional_string(),
+			ps_source
+			?
+				ps_stream.str()
+			:
+				renderer::glsl::optional_string()
 		);
 }
 
@@ -555,7 +564,10 @@ sge::opengl::device::glsl_program(
 	renderer::glsl::program_ptr const prog
 )
 {
-	glsl::set_program_impl(prog);
+	glsl::set_program(
+		context_,
+		prog
+	);
 }
 
 sge::renderer::const_target_ptr const
@@ -698,7 +710,9 @@ sge::opengl::device::caps() const
 	if(!caps_)
 	{
 		caps_.take(
-			create_caps()
+			create_caps(
+				context_
+			)
 		);
 	}
 

@@ -18,24 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../version.hpp"
-#include <sge/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_OPENGL_GLSL_CREATE_PROGRAM_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_CREATE_PROGRAM_HPP_INCLUDED
 
-void
-sge::opengl::on_not_supported(
-	fcppt::string const &function,
-	fcppt::string const &min_version,
-	fcppt::string const &possible_extensions
-)
+#include "../context/object_fwd.hpp"
+#include <sge/renderer/glsl/program_ptr.hpp>
+#include <sge/renderer/glsl/optional_string.hpp>
+
+namespace sge
 {
-	throw exception(
-		FCPPT_TEXT("You tried to use the following functionality: \"")
-		+ function
-		+ FCPPT_TEXT("\" which is not supported by your implementation. opengl-")
-		+ min_version
-		+ FCPPT_TEXT(" is at least required. The possible extensions sge can use are: \"")
-		+ possible_extensions
-		+ FCPPT_TEXT("\".")
-	);
+namespace opengl
+{
+namespace glsl
+{
+
+sge::renderer::glsl::program_ptr const
+create_program(
+	opengl::context::object &,
+	renderer::glsl::optional_string const &vs_source,
+	renderer::glsl::optional_string const &ps_source
+);
+
 }
+}
+}
+
+#endif

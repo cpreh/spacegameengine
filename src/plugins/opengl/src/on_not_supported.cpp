@@ -18,36 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_UNIFORM_GET_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_UNIFORM_GET_HPP_INCLUDED
+#include "../on_not_supported.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include "type_fwd.hpp"
-#include "../traits.hpp"
-#include "../../common.hpp"
-#include <sge/renderer/glsl/uniform/value.hpp>
-
-namespace sge
+void
+sge::opengl::on_not_supported(
+	fcppt::string const &function,
+	fcppt::string const &min_version,
+	fcppt::string const &possible_extensions
+)
 {
-namespace opengl
-{
-namespace glsl
-{
-namespace uniform
-{
-
-template<
-	bool Native
->
-renderer::glsl::uniform::value const
-get(
-	typename traits<Native>::handle program,
-	GLint location,
-	type const &
-);
-
+	throw renderer::exception(
+		FCPPT_TEXT("You tried to use the following functionality: \"")
+		+ function
+		+ FCPPT_TEXT("\" which is not supported by your implementation. opengl-")
+		+ min_version
+		+ FCPPT_TEXT(" is at least required. The possible extensions sge can use are: \"")
+		+ possible_extensions
+		+ FCPPT_TEXT("\".")
+	);
 }
-}
-}
-}
-
-#endif

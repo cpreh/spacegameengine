@@ -18,35 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_UNIFORM_GET_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_UNIFORM_GET_HPP_INCLUDED
+#ifndef SGE_OPENGL_CAPS_AUTO_PTR_HPP_INCLUDED
+#define SGE_OPENGL_CAPS_AUTO_PTR_HPP_INCLUDED
 
-#include "type_fwd.hpp"
-#include "../traits.hpp"
-#include "../../common.hpp"
-#include <sge/renderer/glsl/uniform/value.hpp>
+#include <sge/renderer/caps_fwd.hpp>
+#include <fcppt/auto_ptr.hpp>
 
 namespace sge
 {
 namespace opengl
 {
-namespace glsl
-{
-namespace uniform
-{
 
-template<
-	bool Native
->
-renderer::glsl::uniform::value const
-get(
-	typename traits<Native>::handle program,
-	GLint location,
-	type const &
-);
+typedef fcppt::auto_ptr<
+	renderer::caps
+> caps_auto_ptr;
 
-}
-}
 }
 }
 

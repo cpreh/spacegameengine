@@ -284,7 +284,7 @@ private:
 
 	stack_type state_levels;
 
-	context::object context_;
+	mutable context::object context_;
 };
 
 }

@@ -18,55 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../init.hpp"
-#include "../../glew/is_supported.hpp"
-#include "../../version.hpp"
-#include "../../common.hpp"
-#include <sge/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_OPENGL_GLSL_UNIFORM_TYPE_FWD_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_UNIFORM_TYPE_FWD_HPP_INCLUDED
 
-namespace
+namespace sge
+{
+namespace opengl
+{
+namespace glsl
+{
+namespace uniform
 {
 
-bool native;
-
-void initialize_glsl();
+class type;
 
 }
-
-bool sge::opengl::glsl::is_native()
-{
-	initialize_glsl();
-	return native;
+}
+}
 }
 
-bool sge::opengl::glsl::is_supported()
-{
-	try
-	{
-		initialize_glsl();
-	}
-	catch(sge::exception const &)
-	{
-		return false;
-	}
-	return true;
-}
-
-namespace
-{
-
-void initialize_glsl()
-{
-	if(sge::opengl::glew::is_supported("GL_VERSION_2_0"))
-		native = true;
-	else if(sge::opengl::glew::is_supported("GL_ARB_vertex_shader GL_ARB_fragment_shader"))
-		native = false;
-	else
-		sge::opengl::on_not_supported(
-			FCPPT_TEXT("shader"),
-			FCPPT_TEXT("2.0"),
-			FCPPT_TEXT("gl_arb_vertex_shader && gl_arb_fragment_shader"));
-}
-
-}
+#endif

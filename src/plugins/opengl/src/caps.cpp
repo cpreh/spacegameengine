@@ -22,13 +22,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 #include "../get_string.hpp"
 #include "../get_int.hpp"
-#include "../glsl/init.hpp"
+#include "../glsl/context.hpp"
+#include "../context/use.hpp"
 #include <sge/renderer/caps.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::caps_auto_ptr
-sge::opengl::create_caps()
+sge::opengl::create_caps(
+	context::object &_context
+)
 {
 	GLint const max_texture_size(
 		get_int(
@@ -53,9 +56,13 @@ sge::opengl::create_caps()
 				max_texture_size,
 				max_texture_size
 			),
-			GL_TEXTURE_MAX_ANISOTROPY_EXT,
-			glGenFramebuffersEXT,
-			glsl::is_supported(),
+			GL_TEXTURE_MAX_ANISOTROPY_EXT, // TODO:
+			glGenFramebuffersEXT, // TODO!
+			context::use<
+				glsl::context
+			>(
+				_context
+			).is_supported(),
 			sge::image::color::format::rgba8 // TODO: use bgra8 for nvidia instead!
 		)
 	);

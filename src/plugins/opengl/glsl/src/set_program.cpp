@@ -18,29 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_IMPL_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_IMPL_HPP_INCLUDED
+#include "../set_program.hpp"
+#include "../context.hpp"
+#include "../program.hpp"
+#include "../../context/use.hpp"
 
-#include <sge/renderer/glsl/program_ptr.hpp>
-#include <sge/renderer/glsl/optional_string.hpp>
-
-namespace sge
+void
+sge::opengl::glsl::set_program(
+	opengl::context::object &_context,
+	renderer::glsl::program_ptr const _prog
+)
 {
-namespace opengl
-{
-namespace glsl
-{
-
-sge::renderer::glsl::program_ptr const
-create_program_impl(
-	renderer::glsl::optional_string const &vs_source,
-	renderer::glsl::optional_string const &ps_source);
-
-void set_program_impl(
-	sge::renderer::glsl::program_ptr);
-
+	if(
+		opengl::context::use<
+			glsl::context
+		>(
+			_context
+		).is_native()
+	)
+		program<true>::use(
+			_prog
+		);
+	else
+		program<false>::use(
+			_prog
+		);
 }
-}
-}
-
-#endif

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLSL_UNIFORM_TYPE_HPP_INCLUDED
 #define SGE_OPENGL_GLSL_UNIFORM_TYPE_HPP_INCLUDED
 
+#include "type_fwd.hpp"
 #include "element_type.hpp"
 #include "../../common.hpp"
 
@@ -33,20 +34,24 @@ namespace glsl
 namespace uniform
 {
 
-class type {
+class type
+{
 public:
 	typedef GLsizei size_type;
 
 	type(
 		uniform::element_type::type,
-		size_type elements);
+		size_type elements
+	);
 
 	uniform::element_type::type
 	element_type() const;
 
-	size_type elements() const;
+	size_type
+	elements() const;
 private:
 	uniform::element_type::type type_;
+
 	size_type elements_;
 };
 

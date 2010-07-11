@@ -18,8 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_INIT_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_INIT_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLSL_SET_PROGRAM_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_SET_PROGRAM_HPP_INCLUDED
+
+#include "../context/object_fwd.hpp"
+#include <sge/renderer/glsl/program_ptr.hpp>
 
 namespace sge
 {
@@ -28,9 +31,11 @@ namespace opengl
 namespace glsl
 {
 
-bool is_native();
-
-bool is_supported();
+void
+set_program(
+	opengl::context::object &,
+	sge::renderer::glsl::program_ptr
+);
 
 }
 }

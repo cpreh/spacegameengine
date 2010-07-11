@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 #include "../cube_texture.hpp"
 #include "../basic_texture_impl.hpp"
-#include "../version.hpp"
+#include "../on_not_supported.hpp"
 #include "../enable.hpp"
 #include "../texture.hpp"
 #include "../cube_texture_context.hpp"
