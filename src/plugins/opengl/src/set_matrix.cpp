@@ -18,15 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../matrix.hpp"
+#include "../set_matrix.hpp"
 #include "../check_state.hpp"
-#include "../glew/is_supported.hpp"
+#include "../matrix_context.hpp"
+#include "../context/use.hpp"
+#include "../common.hpp"
 #include <sge/renderer/exception.hpp>
-#include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/matrix/static.hpp>
 #include <fcppt/math/matrix/transpose.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/text.hpp>
 
 namespace
@@ -35,83 +37,84 @@ namespace
 class visitor
 {
 public:
+	explicit visitor(
+		sge::opengl::context::object &
+	);
+
 	typedef void result_type;
 
 	result_type
 	operator()(
-		fcppt::math::matrix::static_<float, 4, 4>::type const &m
+		fcppt::math::matrix::static_<
+			float,
+			4,
+			4
+		>::type const &
 	) const;
 
 	result_type
 	operator()(
-		fcppt::math::matrix::static_<double, 4, 4>::type const &m
+		fcppt::math::matrix::static_<
+			double,
+			4,
+			4
+		>::type const &
 	) const;
+private:
+	sge::opengl::context::object &context_;
 };
 
-bool
-have_transpose()
-{
-	static bool const ret(
-		sge::opengl::glew::is_supported(
-			"GL_VERSION_1_3"
-		)
-	);
-
-	return ret;
-}
-
 }
 
 void
 sge::opengl::set_matrix(
-	GLenum const mode,
-	renderer::any_matrix const &mat
-)
-{
-	matrix_mode(mode);
-	set_matrix(mat);
-}
-
-void
-sge::opengl::matrix_mode(
-	GLenum const mode
-)
-{
-	glMatrixMode(mode);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glMatrixMode failed"),
-		sge::renderer::exception
-	)
-}
-
-void
-sge::opengl::set_matrix(
-	renderer::any_matrix const &mat
+	context::object &_context,
+	renderer::any_matrix const &_matrix
 )
 {
 	fcppt::variant::apply_unary(
-		visitor(),
-		mat
+		visitor(
+			_context
+		),
+		_matrix
 	);
 }
 
 namespace
 {
 
-void
+visitor::visitor(
+	sge::opengl::context::object &_context
+)
+:
+	context_(
+		_context
+	)
+{}
+
+visitor::result_type
 visitor::operator()(
-	fcppt::math::matrix::static_<float, 4, 4>::type const &m
+	fcppt::math::matrix::static_<
+		float,
+		4,
+		4
+	>::type const &_matrix
 ) const
 {
-	if(have_transpose())
+	if(
+		sge::opengl::context::use<
+			sge::opengl::matrix_context
+		>(
+			context_
+		).have_transpose()
+	)
 		glLoadTransposeMatrixf(
-			m.data()
+			_matrix.data()
 		);
 	else
 		glLoadMatrixf(
 			fcppt::math::matrix::transpose(
-				m
+				_matrix
 			).data()
 		);
 
@@ -121,19 +124,29 @@ visitor::operator()(
 	)
 }
 
-void
+visitor::result_type
 visitor::operator()(
-	fcppt::math::matrix::static_<double, 4, 4>::type const &m
+	fcppt::math::matrix::static_<
+		double,
+		4,
+		4
+	>::type const &_matrix
 ) const
 {
-	if(have_transpose())
+	if(
+		sge::opengl::context::use<
+			sge::opengl::matrix_context
+		>(
+			context_
+		).have_transpose()
+	)
 		glLoadTransposeMatrixd(
-			m.data()
+			_matrix.data()
 		);
 	else
 		glLoadMatrixd(
 			fcppt::math::matrix::transpose(
-				m
+				_matrix
 			).data()
 		);
 

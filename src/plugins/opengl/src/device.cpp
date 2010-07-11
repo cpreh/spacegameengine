@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../state_visitor.hpp"
 #include "../glsl/impl.hpp"
 #include "../common.hpp"
-#include "../matrix.hpp"
+#include "../set_matrix_and_mode.hpp"
 #include "../split_states.hpp"
 #include "../material.hpp"
 #include "../glew/initialize.hpp"
@@ -406,7 +406,8 @@ sge::opengl::device::transform(
 		projection_internal();
 	}
 	else
-		set_matrix(
+		opengl::set_matrix_and_mode(
+			context_,
 			convert::matrix_mode(
 				mode
 			),
@@ -768,7 +769,8 @@ sge::opengl::device::reset_viewport_default()
 void
 sge::opengl::device::projection_internal()
 {
-	set_matrix(
+	opengl::set_matrix_and_mode(
+		context_,
 		GL_PROJECTION,
 		fbo_active
 		? fbo_projection(

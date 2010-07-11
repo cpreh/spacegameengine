@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_MATRIX_HPP_INCLUDED
-#define SGE_OPENGL_MATRIX_HPP_INCLUDED
+#ifndef SGE_OPENGL_SET_MATRIX_AND_MODE_HPP_INCLUDED
+#define SGE_OPENGL_SET_MATRIX_AND_MODE_HPP_INCLUDED
 
 #include "common.hpp"
+#include "context/object_fwd.hpp"
 #include <sge/renderer/any_matrix.hpp>
 
 namespace sge
@@ -29,15 +30,12 @@ namespace sge
 namespace opengl
 {
 
-void set_matrix(
+void
+set_matrix_and_mode(
+	context::object &,
 	GLenum mode,
-	renderer::any_matrix const &);
-
-void matrix_mode(
-	GLenum);
-
-void set_matrix(
-	renderer::any_matrix const &);
+	renderer::any_matrix const &
+);
 
 }
 }
