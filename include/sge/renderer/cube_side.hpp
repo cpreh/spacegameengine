@@ -35,7 +35,7 @@ enum type {
 	right,
 	top,
 	bottom,
-	num_elements
+	size
 };
 }
 

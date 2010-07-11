@@ -18,43 +18,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/texture.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#ifndef SGE_OPENGL_CUBE_TEXTURE_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_CUBE_TEXTURE_CONTEXT_HPP_INCLUDED
 
-sge::renderer::texture::texture()
+#include "context/base.hpp"
+#include "context/id.hpp"
+#include "common.hpp"
+#include "cube_side_array.hpp"
+#include <fcppt/noncopyable.hpp>
+
+namespace sge
 {
+namespace opengl
+{
+
+class cube_texture_context
+:
+	public context::base
+{
+	FCPPT_NONCOPYABLE(cube_texture_context)
+public:
+	cube_texture_context();
+
+	~cube_texture_context();
+	
+	bool
+	have_cube_texture() const;
+
+	GLenum
+	cube_texture_type() const;
+
+	cube_side_array const &
+	cube_sides() const;
+
+	static context::id const static_id;
+private:
+	bool const
+		cube_texture_normal_,
+		cube_texture_arb_;
+
+	GLenum const cube_texture_type_;
+
+	cube_side_array const cube_sides_;
+};
+
+}
 }
 
-sge::renderer::texture::~texture()
-{
-}
-
-sge::image::view::object const
-sge::renderer::texture::lock(
-	lock_mode::type const flags
-)
-{
-	return lock(rect(), flags);
-}
-
-sge::image::view::const_object const
-sge::renderer::texture::lock() const
-{
-	return lock(rect());
-}
-
-sge::renderer::texture::rect_type const
-sge::renderer::texture::rect() const
-{
-	return rect_type(
-		pos_type::null(),
-		dim()
-	);
-}
-
-sge::renderer::texture::size_type
-sge::renderer::texture::content() const
-{
-	return dim().content();
-}
+#endif

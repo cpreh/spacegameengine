@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_HPP_INCLUDED
 
+#include <sge/renderer/texture_fwd.hpp>
 #include <sge/renderer/texture_base.hpp>
 #include <sge/renderer/dim_type.hpp>
 #include <sge/renderer/lock_rect.hpp>
@@ -29,14 +30,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/object.hpp>
 #include <sge/image/view/const_object.hpp>
 #include <sge/symbol.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-class SGE_CLASS_SYMBOL texture : public texture_base {
+class SGE_CLASS_SYMBOL texture
+:
+	public texture_base
+{
+	FCPPT_NONCOPYABLE(texture)
+protected:
+	SGE_SYMBOL texture();
 public:
+	SGE_SYMBOL virtual ~texture();
+
 	typedef renderer::dim_type dim_type;
 	typedef lock_rect          rect_type;
 	typedef texture_pos_type   pos_type;

@@ -18,43 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/texture.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#ifndef SGE_OPENGL_CONVERT_CUBE_SIDE_HPP_INCLUDED
+#define SGE_OPENGL_CONVERT_CUBE_SIDE_HPP_INCLUDED
 
-sge::renderer::texture::texture()
+#include "../common.hpp"
+#include "../cube_side_array.hpp"
+#include <sge/renderer/cube_side.hpp>
+
+namespace sge
 {
+namespace opengl
+{
+namespace convert
+{
+
+GLenum
+cube_side(
+	cube_side_array const &,
+	renderer::cube_side::type
+);
+
+}
+}
 }
 
-sge::renderer::texture::~texture()
-{
-}
-
-sge::image::view::object const
-sge::renderer::texture::lock(
-	lock_mode::type const flags
-)
-{
-	return lock(rect(), flags);
-}
-
-sge::image::view::const_object const
-sge::renderer::texture::lock() const
-{
-	return lock(rect());
-}
-
-sge::renderer::texture::rect_type const
-sge::renderer::texture::rect() const
-{
-	return rect_type(
-		pos_type::null(),
-		dim()
-	);
-}
-
-sge::renderer::texture::size_type
-sge::renderer::texture::content() const
-{
-	return dim().content();
-}
+#endif

@@ -44,6 +44,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../viewport_pos.hpp"
 #include "../background_dim.hpp"
 #include "../caps.hpp"
+#include "../cube_texture_context.hpp"
+#include "../context/use.hpp"
 #include "../convert/clear_bit.hpp"
 #include "../convert/indexed_primitive.hpp"
 #include "../convert/nonindexed_primitive.hpp"
@@ -369,10 +371,26 @@ sge::opengl::device::texture(
 {
 	set_texture_level(stage);
 
+	// TODO: we should keep track of what is enabled and what isn't!
 	disable(GL_TEXTURE_1D);
 	disable(GL_TEXTURE_2D);
 	//disable(detail::volume_texture_type);
-	disable_cube_texture();
+	{
+		cube_texture_context &cube_texture_context_(
+			context::use<
+				cube_texture_context
+			>(
+				context_
+			)
+		);
+
+		if(
+			cube_texture_context_.have_cube_texture()
+		)
+			disable(
+				cube_texture_context_.cube_texture_type()
+			);
+	}
 
 	if(!tex)
 		return;

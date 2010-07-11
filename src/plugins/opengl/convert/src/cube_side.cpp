@@ -18,43 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/texture.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include "../cube_side.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-sge::renderer::texture::texture()
-{
-}
-
-sge::renderer::texture::~texture()
-{
-}
-
-sge::image::view::object const
-sge::renderer::texture::lock(
-	lock_mode::type const flags
+GLenum
+sge::opengl::convert::cube_side(
+	cube_side_array const &_cube_sides,
+	renderer::cube_side::type const _side
 )
 {
-	return lock(rect(), flags);
-}
-
-sge::image::view::const_object const
-sge::renderer::texture::lock() const
-{
-	return lock(rect());
-}
-
-sge::renderer::texture::rect_type const
-sge::renderer::texture::rect() const
-{
-	return rect_type(
-		pos_type::null(),
-		dim()
+	cube_side_array::size_type const pos(
+		static_cast<
+			cube_side_array::size_type
+		>(
+			_side
+		)
 	);
-}
 
-sge::renderer::texture::size_type
-sge::renderer::texture::content() const
-{
-	return dim().content();
+	if(
+		pos >= _cube_sides.size()
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("Invalid cube_side!")
+		);
+	
+	return _cube_sides[pos];
 }
