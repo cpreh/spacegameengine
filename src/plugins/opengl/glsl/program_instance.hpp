@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLSL_PROGRAM_INSTANCE_HPP_INCLUDED
 #define SGE_OPENGL_GLSL_PROGRAM_INSTANCE_HPP_INCLUDED
 
-#include "traits.hpp"
+#include "handle.hpp"
+#include "program_context_fwd.hpp"
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -31,20 +32,24 @@ namespace opengl
 namespace glsl
 {
 
-template<
-	bool Native
->
-class program_instance {
+class program_instance
+{
 	FCPPT_NONCOPYABLE(program_instance)
 public:
-	typedef typename traits<Native>::handle handle;
-
-	program_instance();
+	explicit program_instance(
+		opengl::context &
+	);
 
 	~program_instance();
 
-	handle id() const;
+	handle
+	id() const;
+
+	glsl::program_context &
+	context() const;
 private:
+	glsl::program_context const &context_;
+
 	handle const id_;
 };
 

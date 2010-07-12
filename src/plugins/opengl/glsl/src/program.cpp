@@ -32,103 +32,107 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/auto_ptr.hpp>
 #include <fcppt/assert.hpp>
 
-template<
-	bool Native
->
-sge::opengl::glsl::program<Native>::program(
-	renderer::glsl::optional_string const &vs_source,
-	renderer::glsl::optional_string const &ps_source
+sge::opengl::glsl::program::program(
+	opengl::context &_context,
+	renderer::glsl::optional_string const &_vs_source,
+	renderer::glsl::optional_string const &_ps_source
 )
 :
-	instance_(),
-	attachments()
+	instance_(
+		_context
+	),
+	attachments_()
 {
 	FCPPT_ASSERT(
 		vs_source || ps_source
 	);
 
-	if(vs_source)
+	if(
+		vs_source
+	)
 		attach_shader(
 			fcppt::make_shared_ptr<
-				shader_type
+				shader
 			>(
-				vertex_shader_type<Native>(),
-				*vs_source
+				context().vertex_shader_type(),
+				*_vs_source
 			)
 		);
 
-	if(ps_source)
+	if(
+		ps_source
+	)
 		attach_shader(
 			fcppt::make_shared_ptr<
 				shader_type
 			>(
-				pixel_shader_type<Native>(),
-				*ps_source
+				context().pixel_shader_type(),
+				*_ps_source
 			)
 		);
 
 	link();
 }
 
-template<
-	bool Native
->
-sge::opengl::glsl::program<Native>::~program()
+sge::opengl::glsl::program::~program()
 {}
 
-template<
-	bool Native
->
 void
-sge::opengl::glsl::program<Native>::use(
-	renderer::glsl::program_ptr const p
+sge::opengl::glsl::program::use(
+	renderer::glsl::program_ptr const _ptr
 )
 {
-	if(!p)
+	if(
+		!_ptr
+	)
 	{
 		use_ffp();
 		return;
 	}
 
 	fcppt::dynamic_pointer_cast<
-		program<Native>
-	>(p)->use();
+		program
+	>(
+		_ptr
+	)->use();
 }
 
-template<
-	bool Native
->
 void
-sge::opengl::glsl::program<Native>::attach_shader(
-	shader_ptr const s
+sge::opengl::glsl::program::attach_shader(
+	shader_ptr const _shader
 )
 {
+	typedef 
 	fcppt::auto_ptr<
 		attachment_type
-	> a(
+	> attachment_auto_ptr
+	
+	attackment_auto_ptr ptr(
 		fcppt::make_auto_ptr<
 			attachment_type
 		>(
-			s,
+			_shader,
 			id()
 		)
 	);
 
-	attachments.push_back(
-		a
+	attachments_.push_back(
+		ptr
 	);
 }
 
-template<
-	bool Native
->
 void
-sge::opengl::glsl::program<Native>::link()
+sge::opengl::glsl::program::link()
 {
-	link_program<Native>(id());
+	context().link_program(
+		id()
+	);
 
 	if(
-		link_status<Native>(id()) == GL_FALSE
+		context.link_status(
+			id()
+		)
+		== GL_FALSE
 	)
 		throw sge::renderer::glsl::exception(
 			FCPPT_TEXT("Compiling a program failed:\n")
@@ -136,66 +140,47 @@ sge::opengl::glsl::program<Native>::link()
 		);
 }
 
-template<bool Native>
 void
-sge::opengl::glsl::program<Native>::use()
+sge::opengl::glsl::program::use()
 {
-	use_program<Native>(id());
-}
-
-template<
-	bool Native
->
-sge::renderer::glsl::uniform::variable_ptr const
-sge::opengl::glsl::program<Native>::uniform(
-	renderer::glsl::string const &name
-)
-{
-	return fcppt::make_shared_ptr<
-		uniform::variable<
-			Native
-		>
-	>(
-		id(),
-		name
+	context().use_program(
+		id()
 	);
 }
 
-template<
-	bool Native
->
-fcppt::string const
-sge::opengl::glsl::program<Native>::info_log() const
+sge::renderer::glsl::uniform::variable_ptr const
+sge::opengl::glsl::program::uniform(
+	renderer::glsl::string const &_name
+)
 {
 	return
-		format_error(
-			&program_info_log<
-				Native
-			>,
-			&program_info_log_length<
-				Native
-			>,
+		fcppt::make_shared_ptr<
+			uniform::variable
+		>(
+			id(),
+			_name
+		);
+}
+
+fcppt::string const
+sge::opengl::glsl::program::info_log() const
+{
+	return
+		glsl::format_error(
+			&context().program_info_log()
+			&context().program_info_log_length(),
 			id()
 		);
 }
 
-template<
-	bool Native
->
 void
-sge::opengl::glsl::program<Native>::use_ffp()
+sge::opengl::glsl::program::use_ffp()
 {
-	use_program<Native>(0);
+	context().use_program(0);
 }
 
-template<
-	bool Native
->
-typename sge::opengl::glsl::traits<Native>::handle
-sge::opengl::glsl::program<Native>::id() const
+sge::opengl::glsl::handle
+sge::opengl::glsl::program::id() const
 {
 	return instance_.id();
 }
-
-template class sge::opengl::glsl::program<true>;
-template class sge::opengl::glsl::program<false>;

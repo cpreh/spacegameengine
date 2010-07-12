@@ -49,6 +49,8 @@ public:
 	is_native() const;
 
 	static opengl::context::id const static_id;
+
+	typedef void needs_before;
 private:
 	bool const
 		normal_shader_,

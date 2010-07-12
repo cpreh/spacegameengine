@@ -18,27 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../variable_arb.hpp"
-#include "../../../check_state.hpp"
-#include <sge/renderer/glsl/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_OPENGL_GLSL_UNIFORM_SET_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_UNIFORM_SET_HPP_INCLUDED
 
-template<>
-GLint sge::opengl::glsl::uniform::location<false>(
-	traits<false>::handle const program,
-	char const *const name)
+#include "type_fwd.hpp"
+#include "../traits.hpp"
+#include "../../common.hpp"
+#include <sge/renderer/glsl/uniform/value.hpp>
+
+namespace sge
 {
-	traits<false>::handle const ret(
-		glGetUniformLocationARB(
-			program,
-			name
-		)
-	);
+namespace opengl
+{
+namespace glsl
+{
+namespace uniform
+{
 
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glGetUniformLocationARB failed"),
-		sge::renderer::glsl::exception
-	)
+template<
+	bool Native
+>
+type const
+set(
+	typename traits<Native>::handle program,
+	GLint location,
+	renderer::glsl::uniform::value const &
+);
 
-	return ret;
 }
+}
+}
+}
+
+#endif

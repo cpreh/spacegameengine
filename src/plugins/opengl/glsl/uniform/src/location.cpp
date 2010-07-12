@@ -18,18 +18,66 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../variable_native.hpp"
+#include "../location.hpp"
+#include "../../traits.hpp"
 #include "../../../check_state.hpp"
+#include "../../../common.hpp"
 #include <sge/renderer/glsl/exception.hpp>
 #include <fcppt/text.hpp>
 
-template<>
-GLint sge::opengl::glsl::uniform::location<true>(
-	traits<true>::handle const program,
-	char const *const name)
+namespace
 {
-	traits<true>::handle const ret(
+
+template<
+	bool Native
+>
+sge::opengl::glsl::traits<Native>::handle
+location_impl(
+	typename sge::opengl::glsl::traits<Native>::handle,
+	char const *
+);
+
+template<>
+sge::opengl::glsl::traits<true>::handle
+location_impl(
+	typename sge::opengl::glsl::traits<true>::handle const _program
+	char const *const _name
+)
+{
+	return
 		glGetUniformLocation(
+			_program,
+			_name
+		);
+}
+
+template<>
+sge::opengl::glsl::traits<false>::handle
+location_impl(
+	typename sge::opengl::glsl::traits<false>::handle const _program
+	char const *const _name
+)
+{
+	return
+		glGetUniformLocationARB(
+			_program,
+			_name
+		);
+}
+
+}
+
+template<
+	bool Native
+>
+GLint
+sge::opengl::glsl::uniform::location(
+	typename traits<Native>::handle const program,
+	char const *const name
+)
+{
+	typename traits<Native>::handle const ret(
+		location_impl(
 			program,
 			name
 		)

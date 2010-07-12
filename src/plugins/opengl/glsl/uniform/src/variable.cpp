@@ -19,11 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../variable.hpp"
-#include "../variable_functions.hpp"
-#include "../setter.hpp"
+#include "../location.hpp"
+#include "../set.hpp"
 #include "../get.hpp"
-#include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
 template<
 	bool Native
@@ -53,25 +51,32 @@ template<
 sge::renderer::glsl::uniform::value const
 sge::opengl::glsl::uniform::variable<Native>::get() const
 {
-	return uniform::get<Native>(
-		program,
-		location,
-		stored_type
-	);
+	return
+		uniform::get<
+			Native
+		>(
+			program,
+			location,
+			stored_type
+		);
 }
 
 template<
 	bool Native
 >
-void sge::opengl::glsl::uniform::variable<Native>::set(
-	renderer::glsl::uniform::value const &v)
+void
+sge::opengl::glsl::uniform::variable<Native>::set(
+	renderer::glsl::uniform::value const &_value
+)
 {
-	stored_type = fcppt::variant::apply_unary(
-		setter(
-			location
-		),
-		v
-	);
+	stored_type =
+		uniform::set<
+			Native
+		>(
+			program,
+			location,
+			_value
+		);
 }
 
 template class sge::opengl::glsl::uniform::variable<true>;

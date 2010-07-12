@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/uniform/float_value_type.hpp>
 #include <sge/renderer/glsl/exception.hpp>
 #include <sge/exception.hpp>
-#include <fcppt/function_once.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/assert.hpp>
@@ -49,8 +48,6 @@ PFNGLUNIFORMMATRIX2X4FVPROC uniform_matrix_2x4fv;
 PFNGLUNIFORMMATRIX4X2FVPROC uniform_matrix_4x2fv;
 PFNGLUNIFORMMATRIX3X4FVPROC uniform_matrix_3x4fv;
 PFNGLUNIFORMMATRIX4X3FVPROC uniform_matrix_4x3fv;
-
-void initialize_setter();
 
 sge::opengl::glsl::uniform::type const
 set_float(
@@ -155,7 +152,6 @@ namespace
 
 void initialize_setter()
 {
-	FCPPT_FUNCTION_ONCE
 	if(sge::opengl::glsl::is_native())
 	{
 		uniform_1iv = glUniform1iv;

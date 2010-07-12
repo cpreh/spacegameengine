@@ -18,54 +18,71 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_UNIFORM_VARIABLE_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_UNIFORM_VARIABLE_HPP_INCLUDED
+#ifndef SGE_OPENGL_CONTEXT_CREATE_OBJECT_HPP_INCLUDED
+#define SGE_OPENGL_CONTEXT_CREATE_OBJECT_HPP_INCLUDED
 
-#include "type.hpp"
-#include "../traits.hpp"
-#include "../../common.hpp"
-#include <sge/renderer/glsl/uniform/variable.hpp>
-#include <sge/renderer/glsl/string.hpp>
+#include "use_fwd.hpp"
+#include "base_auto_ptr.hpp"
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/make_auto_ptr.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 namespace sge
 {
 namespace opengl
 {
-namespace glsl
-{
-namespace uniform
+namespace context
 {
 
 template<
-	bool Native
+	typename Type
 >
-class variable
-:
-	public renderer::glsl::uniform::variable
+typename boost::enable_if<
+	boost::is_same<
+		typename Type::needs_before,
+		void
+	>,
+	base_auto_ptr
+>::type
+create_object(
+	object &
+)
 {
-public:
-	typedef typename traits<Native>::handle handle;
-	variable(
-		handle program,
-		renderer::glsl::string const &name
-	);
-
-	renderer::glsl::uniform::value const
-	get() const;
-
-	void
-	set(
-		renderer::glsl::uniform::value const &
-	);
-private:
-	handle const program;
-
-	GLint const location;
-
-	type stored_type;
-};
-
+	return
+		fcppt::make_auto_ptr<
+			Type
+		>();
 }
+
+template<
+	typename Type
+>
+typename boost::disable_if<
+	boost::is_same<
+		typename Type::needs_before,
+		void
+	>,
+	base_auto_ptr
+>::type
+create_object(
+	object &_object
+)
+{
+	return
+		fcppt::make_auto_ptr<
+			Type
+		>(
+			std::tr1::ref(
+				context::use<
+					typename Type::needs_before
+				>(
+					_object
+				)
+			)
+		);
+}
+
 }
 }
 }

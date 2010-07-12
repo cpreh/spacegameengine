@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLSL_PROGRAM_HPP_INCLUDED
 #define SGE_OPENGL_GLSL_PROGRAM_HPP_INCLUDED
 
-#include "shader.hpp"
-#include "traits.hpp"
+#include "shader_ptr.hpp"
+#include "handle.hpp"
 #include "attachment_fwd.hpp"
 #include "program_instance.hpp"
 #include <sge/renderer/glsl/program_ptr.hpp>
@@ -37,28 +37,30 @@ namespace opengl
 namespace glsl
 {
 
-template<
-	bool Native
->
-class program : public renderer::glsl::program {
+class program
+:
+	public renderer::glsl::program
+{
 public:
-	typedef typename traits<Native>::handle handle;
-	typedef shader<Native> shader_type;
-	typedef typename shader_type::shared_ptr shader_ptr;
-
 	program(
 		renderer::glsl::optional_string const &vs_source,
-		renderer::glsl::optional_string const &ps_source);
+		renderer::glsl::optional_string const &ps_source
+	);
 
 	~program();
 
-	static void use(
-		renderer::glsl::program_ptr);
+	static void
+	use(
+		renderer::glsl::program_ptr
+	);
 
-	void attach_shader(
-		shader_ptr shader);
+	void
+	attach_shader(
+		shader_ptr shader
+	);
 
-	void link();
+	void
+	link();
 private:
 	renderer::glsl::uniform::variable_ptr const
 	uniform(
@@ -68,20 +70,22 @@ private:
 	fcppt::string const
 	info_log() const;
 
-	static void use_ffp();
+	static void
+	use_ffp();
 
-	void use();
+	void
+	use();
 
-	handle id() const;
-
-	typedef attachment<Native> attachment_type;
+	handle
+	id() const;
 
 	typedef boost::ptr_vector<
-		attachment_type
+		attachment
 	> attachment_vector;
 
-	program_instance<Native> instance_;
-	attachment_vector attachments;
+	handle const id_;
+
+	attachment_vector attachments_;
 };
 
 }

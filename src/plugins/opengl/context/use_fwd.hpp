@@ -18,27 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_UNIFORM_VARIABLE_FUNCTIONS_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_UNIFORM_VARIABLE_FUNCTIONS_HPP_INCLUDED
+#ifndef SGE_OPENGL_CONTEXT_USE_FWD_HPP_INCLUDED
+#define SGE_OPENGL_CONTEXT_USE_FWD_HPP_INCLUDED
 
-#include "../traits.hpp"
-#include "../../common.hpp"
+#include "object_fwd.hpp"
 
 namespace sge
 {
 namespace opengl
 {
-namespace glsl
-{
-namespace uniform
+namespace context
 {
 
-template<bool Native>
-GLint location(
-	typename traits<Native>::handle program,
-	char const *name);
+template<
+	typename Type
+>
+Type &
+use(
+	object &
+);
 
-}
 }
 }
 }

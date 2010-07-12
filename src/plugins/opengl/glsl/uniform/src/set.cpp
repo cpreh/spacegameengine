@@ -18,32 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_TRAITS_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_TRAITS_HPP_INCLUDED
+#include "../set.hpp"
 
-#include "../common.hpp"
-
-namespace sge
+template<
+	bool Native
+>
+sge::opengl::glsl::uniform::type const
+sge::opengl::glsl::uniform::set(
+	typename traits<Native>::handle const _program,
+	GLint const _location,
+	renderer::glsl::uniform::value const &_value
+)
 {
-namespace opengl
-{
-namespace glsl
-{
-
-template<bool Native>
-class traits {
-public:
-	typedef GLuint handle;
-};
-
-template<>
-class traits<false> {
-public:
-	typedef GLhandleARB handle;
-};
-
-}
-}
 }
 
-#endif
+#define SGE_OPENGL_INSTANTIATE_GLSL_SET(x)\
+sge::opengl::glsl::uniform::type const \
+sge::opengl::glsl::uniform::set<x>(\
+	sge::opengl::glsl::traits<x>::handle,\
+	GLint,\
+	sge::opengl::glsl::uniform::type const &\
+);
+
+SGE_OPENGL_INSTANTIATE_GLSL_SET(true)
+SGE_OPENGL_INSTANTIATE_GLSL_SET(false)
+
+#undef SGE_OPENGL_INSTANTIATE_GLSL_SET

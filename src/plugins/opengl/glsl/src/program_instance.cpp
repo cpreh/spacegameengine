@@ -21,25 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../program_instance.hpp"
 #include "../program_functions.hpp"
 
-template<
-	bool Native
->
 sge::opengl::glsl::program_instance<Native>::program_instance()
 :
-	id_(create_program<Native>())
+	context_(
+	),
+	id_(
+		context_.create_program()
+	)
 {}
 
-template<
-	bool Native
->
 sge::opengl::glsl::program_instance<Native>::~program_instance()
 {
 	delete_program<Native>(id());
 }
 
-template<
-	bool Native
->
 typename sge::opengl::glsl::program_instance<Native>::handle
 sge::opengl::glsl::program_instance<Native>::id() const
 {

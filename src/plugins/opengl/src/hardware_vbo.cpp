@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert.hpp>
 
 sge::opengl::hardware_vbo::hardware_vbo()
 {
@@ -57,7 +58,6 @@ sge::opengl::hardware_vbo::hardware_vbo()
 		);
 	
 	gl_map_buffer_range = glMapBufferRange;
-
 }
 
 sge::opengl::hardware_vbo::~hardware_vbo()
@@ -136,6 +136,10 @@ sge::opengl::hardware_vbo::map_buffer_range(
 	GLsizei const size
 )
 {
+	FCPPT_ASSERT(
+		gl_map_buffer_range
+	);
+
 	GLvoid *const ret(
 		gl_map_buffer_range(
 			type,
@@ -159,8 +163,10 @@ sge::opengl::hardware_vbo::map_buffer_range_supported() const
 	return gl_map_buffer_range;
 }
 
-void sge::opengl::hardware_vbo::unmap_buffer(
-	GLenum const type)
+void
+sge::opengl::hardware_vbo::unmap_buffer(
+	GLenum const type
+)
 {
 	gl_unmap_buffer(type);
 
