@@ -18,14 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_PROGRAM_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_PROGRAM_CONTEXT_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLSL_NORMAL_PROGRAM_ENVIRONMENT_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_NORMAL_PROGRAM_ENVIRONMENT_HPP_INCLUDED
 
-#include "program_context_fwd.hpp"
-#include "handle.hpp"
-#include "context_fwd.hpp"
-#include "../context/base.hpp"
-#include "../common.hpp"
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -34,90 +29,33 @@ namespace opengl
 {
 namespace glsl
 {
-
-class program_context
-:
-	public opengl::context::base
+namespace normal
 {
-	FCPPT_NONCOPYABLE(program_context)
+
+struct program_environment
+{
+	FCPPT_NONCOPYABLE(program_environment)
 public:
-	explicit program_context(
-		glsl::context &
-	);
+	program_environment();	
 
-	~program_context();
+	~program_environment();
 
-	GLenum
-	vertex_shader_type() const;
+	typedef GLuint (*gl_create_program);
 
-	GLenum
-	pixel_shader_type() const;
+	typedef void (*gl_delete_program)(GLuint);
 
-	/*
-	handle
+	gl_create_program
 	create_program() const;
 
-	void
-	delete_program(
-		handle
-	) const;
-
-	void
-	attach_shader(
-		handle program,
-		handle shader
-	) const;
-
-	void
-	detach_shader(
-		handle program,
-		handle shader
-	) const;
-
-	void
-	link_program(
-		handle
-	) const;
-
-	GLint
-	program_integer(
-		GLenum,
-		handle
-	) const;
-
-	GLint
-	link_status(
-		handle
-	) const;
-
-	void
-	use_program(
-		handle
-	) const;
-
-	void
-	program_info_log(
-		handle,
-		GLint maxlen,
-		GLint *len,
-		char *data
-	) const;
-
-	GLint
-	program_info_log_length(
-		handle
-	) const;
-	*/
+	gl_delete_program
+	delete_program() const;
 private:
-	typedef handle (*gl_create_program)();
-
-	typedef void (*gl_delete_program)(handle);
-
 	gl_create_program const create_program_;
 
 	gl_delete_program const delete_program_;
 };
-	
+
+}
 }
 }
 }

@@ -18,30 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../attachment.hpp"
-#include "../program_functions.hpp"
+#include <sge/renderer/glsl/vertex_shader.hpp>
 
-template<
-	bool Native
->
-sge::opengl::glsl::attachment<Native>::attachment(
-	shader_ptr const shader_,
-	handle const handle_
-)
-:
-	shader_(shader_),
-	handle_(handle_)
-{
-	attach_shader<Native>(handle_, shader_->id());
-}
+sge::renderer::glsl::vertex_shader::vertex_shader()
+{}
 
-template<
-	bool Native
->
-sge::opengl::glsl::attachment<Native>::~attachment()
-{
-	detach_shader<Native>(handle_, shader_->id());
-}
-
-template class sge::opengl::glsl::attachment<true>;
-template class sge::opengl::glsl::attachment<false>;
+sge::renderer::glsl::vertex_shader::~vertex_shader()
+{}

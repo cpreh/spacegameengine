@@ -32,15 +32,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/auto_ptr.hpp>
 #include <fcppt/assert.hpp>
 
-sge::opengl::glsl::program::program(
-	opengl::context &_context,
+template<
+	typename Environment
+>
+sge::opengl::glsl::program<Environment>::program(
 	renderer::glsl::optional_string const &_vs_source,
 	renderer::glsl::optional_string const &_ps_source
 )
 :
-	instance_(
-		_context
+	environment_(
+		Environment::program_environment()
 	),
+	instance_(),
 	attachments_()
 {
 	FCPPT_ASSERT(
@@ -54,7 +57,7 @@ sge::opengl::glsl::program::program(
 			fcppt::make_shared_ptr<
 				shader
 			>(
-				context().vertex_shader_type(),
+				vertex_shader_type(),
 				*_vs_source
 			)
 		);
@@ -124,14 +127,10 @@ sge::opengl::glsl::program::attach_shader(
 void
 sge::opengl::glsl::program::link()
 {
-	context().link_program(
-		id()
-	);
+	do_link();
 
 	if(
-		context.link_status(
-			id()
-		)
+		link_status()
 		== GL_FALSE
 	)
 		throw sge::renderer::glsl::exception(
@@ -141,9 +140,52 @@ sge::opengl::glsl::program::link()
 }
 
 void
+sge::opengl::glsl::program<Environment>::do_link()
+{
+	program_functions_.link_program(
+		id()
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("glLinKProgram failed"),
+		sge::renderer::glsl::exception
+	)
+}
+
+GLint
+sge::opengl::glsl::program<Environment>::get_integer(
+	GLenum const what_
+) const
+{
+	GLint result;
+
+	program_functions_.get_integer(	
+		id(),
+		what_,
+		&result
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("Getting a program integer failed"),
+		sge::renderer::glsl::exception
+	)
+
+	return result;
+}
+
+GLenum
+sge::opengl::glsl::program<Environment>::link_status() const
+{
+	return 
+		program_integer(
+			program_environment_.link_status()
+		);
+}
+
+void
 sge::opengl::glsl::program::use()
 {
-	context().use_program(
+	program_environment_.use_program(
 		id()
 	);
 }
@@ -155,7 +197,9 @@ sge::opengl::glsl::program::uniform(
 {
 	return
 		fcppt::make_shared_ptr<
-			uniform::variable
+			uniform::variable<
+				typename Environment::program_environment
+			>
 		>(
 			id(),
 			_name
@@ -167,8 +211,8 @@ sge::opengl::glsl::program::info_log() const
 {
 	return
 		glsl::format_error(
-			&context().program_info_log()
-			&context().program_info_log_length(),
+			info_log(),
+			info_log_length(),
 			id()
 		);
 }

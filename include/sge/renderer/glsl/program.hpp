@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_GLSL_PROGRAM_HPP_INCLUDED
 
 #include <sge/renderer/glsl/program_fwd.hpp>
+#include <sge/renderer/glsl/vertex_shader_ptr.hpp>
+#include <sge/renderer/glsl/pixel_shader_ptr.hpp>
 #include <sge/renderer/glsl/uniform/variable_ptr.hpp>
 #include <sge/renderer/glsl/string.hpp>
 #include <sge/symbol.hpp>
@@ -45,6 +47,16 @@ public:
 	virtual glsl::uniform::variable_ptr const
 	uniform(
 		string const &
+	) = 0;
+
+	virtual void
+	vertex_shader(
+		vertex_shader_ptr
+	) = 0;
+
+	virtual void
+	pixel_shader(
+		pixel_shader_ptr
 	) = 0;
 
 	virtual fcppt::string const

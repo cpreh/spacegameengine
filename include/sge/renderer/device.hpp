@@ -26,7 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/filter/texture_fwd.hpp>
 #include <sge/renderer/glsl/program_ptr.hpp>
 #include <sge/renderer/glsl/optional_string.hpp>
+#include <sge/renderer/glsl/string.hpp>
 #include <sge/renderer/glsl/optional_istream.hpp>
+#include <sge/renderer/glsl/vertex_shader_ptr.hpp>
+#include <sge/renderer/glsl/pixel_shader_ptr.hpp>
 #include <sge/renderer/state/list_fwd.hpp>
 #include <sge/renderer/index/dynamic/const_view.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
@@ -200,16 +203,31 @@ public:
 		renderer::viewport_mode::type
 	) = 0;
 
-	virtual glsl::program_ptr const
+	SGE_SYMBOL
+	glsl::program_ptr const
 	create_glsl_program(
 		glsl::optional_string const &vertex_shader_source,
 		glsl::optional_string const &pixel_shader_source
-	) = 0;
+	);
 
-	virtual glsl::program_ptr const
+	SGE_SYMBOL
+	glsl::program_ptr const
 	create_glsl_program(
 		glsl::optional_istream const &vertex_shader_source,
 		glsl::optional_istream const &pixel_shader_source
+	);
+
+	virtual glsl::program_ptr const
+	create_glsl_program() = 0;
+
+	virtual glsl::vertex_shader_ptr const
+	create_glsl_vertex_shader(
+		glsl::string const &
+	) = 0;
+
+	virtual glsl::pixel_shader_ptr const
+	create_glsl_pixel_shader(
+		glsl::string const &
 	) = 0;
 
 	SGE_SYMBOL static glsl::program_ptr const no_program;

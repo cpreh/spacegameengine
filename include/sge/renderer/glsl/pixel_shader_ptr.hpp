@@ -18,30 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../attachment.hpp"
-#include "../program_functions.hpp"
+#ifndef SGE_RENDERER_GLSL_PIXEL_SHADER_PTR_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_PIXEL_SHADER_PTR_HPP_INCLUDED
 
-template<
-	bool Native
->
-sge::opengl::glsl::attachment<Native>::attachment(
-	shader_ptr const shader_,
-	handle const handle_
-)
-:
-	shader_(shader_),
-	handle_(handle_)
+#include <sge/renderer/glsl/pixel_shader_fwd.hpp>
+#include <fcppt/shared_ptr.hpp>
+
+namespace sge
 {
-	attach_shader<Native>(handle_, shader_->id());
+namespace renderer
+{
+namespace glsl
+{
+
+typedef fcppt::shared_ptr<
+	pixel_shader
+> pixel_shader_ptr;
+
+}
+}
 }
 
-template<
-	bool Native
->
-sge::opengl::glsl::attachment<Native>::~attachment()
-{
-	detach_shader<Native>(handle_, shader_->id());
-}
-
-template class sge::opengl::glsl::attachment<true>;
-template class sge::opengl::glsl::attachment<false>;
+#endif

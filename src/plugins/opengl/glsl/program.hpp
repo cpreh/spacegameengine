@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLSL_PROGRAM_HPP_INCLUDED
 #define SGE_OPENGL_GLSL_PROGRAM_HPP_INCLUDED
 
-#include "shader_ptr.hpp"
 #include "handle.hpp"
 #include "attachment_fwd.hpp"
 #include "program_instance.hpp"
@@ -37,6 +36,9 @@ namespace opengl
 namespace glsl
 {
 
+template<
+	typename Environment
+>
 class program
 :
 	public renderer::glsl::program
@@ -53,14 +55,6 @@ public:
 	use(
 		renderer::glsl::program_ptr
 	);
-
-	void
-	attach_shader(
-		shader_ptr shader
-	);
-
-	void
-	link();
 private:
 	renderer::glsl::uniform::variable_ptr const
 	uniform(
@@ -79,8 +73,41 @@ private:
 	handle
 	id() const;
 
+	void
+	attach_shader(
+		shader_ptr shader
+	);
+
+	void
+	link();
+
+	void
+	do_link();
+
+	GLint
+	get_integer(
+		GLenum
+	) const;
+
+	GLenum
+	link_status() const;
+
+	typedef typename Environment::handle handle;
+
+	typedef glsl::shader<
+		typename Environment::shader_environment_type
+	> shader_type;
+
+	typedef fcppt::shared_ptr<
+		shared_type
+	> shader_ptr;
+
+	typedef glsl::shader<
+		typename Environment::program_environment_type
+	> attachment_type;
+
 	typedef boost::ptr_vector<
-		attachment
+		attachment_type
 	> attachment_vector;
 
 	handle const id_;

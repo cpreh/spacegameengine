@@ -18,30 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../attachment.hpp"
-#include "../program_functions.hpp"
+#include "../program_environment.hpp"
 
-template<
-	bool Native
->
-sge::opengl::glsl::attachment<Native>::attachment(
-	shader_ptr const shader_,
-	handle const handle_
-)
+sge::opengl::glsl::normal::program_environment::program_environment()
 :
-	shader_(shader_),
-	handle_(handle_)
+	create_program_(
+		glCreateProgram
+	),
+	delete_program_(
+		glDeleteProgram
+	)
+{}
+
+sge::opengl::glsl::normal::program_environment::~program_environment()
+{}
+
+sge::opengl::glsl::normal::program_environment::gl_create_program
+sge::opengl::glsl::normal::program_environment::create_program() const
 {
-	attach_shader<Native>(handle_, shader_->id());
+	return create_program_;
 }
 
-template<
-	bool Native
->
-sge::opengl::glsl::attachment<Native>::~attachment()
+sge::opengl::glsl::normal::program_environment::gl_delete_program
+sge::opengl::glsl::normal::program_environment::delete_program() const
 {
-	detach_shader<Native>(handle_, shader_->id());
+	return delete_program_;
 }
-
-template class sge::opengl::glsl::attachment<true>;
-template class sge::opengl::glsl::attachment<false>;

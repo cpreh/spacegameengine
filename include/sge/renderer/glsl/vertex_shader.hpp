@@ -18,30 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../attachment.hpp"
-#include "../program_functions.hpp"
+#ifndef SGE_RENDERER_GLSL_VERTEX_SHADER_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_VERTEX_SHADER_HPP_INCLUDED
 
-template<
-	bool Native
->
-sge::opengl::glsl::attachment<Native>::attachment(
-	shader_ptr const shader_,
-	handle const handle_
-)
+#include <sge/renderer/glsl/vertex_shader_fwd.hpp>
+#include <sge/renderer/glsl/shader.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/noncopyable.hpp>
+
+namespace sge
+{
+namespace renderer
+{
+namespace glsl
+{
+
+class SGE_CLASS_SYMBOL vertex_shader
 :
-	shader_(shader_),
-	handle_(handle_)
+	public shader
 {
-	attach_shader<Native>(handle_, shader_->id());
+	FCPPT_NONCOPYABLE(vertex_shader)
+protected:
+	SGE_SYMBOL vertex_shader();
+public:
+	SGE_SYMBOL virtual ~vertex_shader();
+};
+
+}
+}
 }
 
-template<
-	bool Native
->
-sge::opengl::glsl::attachment<Native>::~attachment()
-{
-	detach_shader<Native>(handle_, shader_->id());
-}
-
-template class sge::opengl::glsl::attachment<true>;
-template class sge::opengl::glsl::attachment<false>;
+#endif

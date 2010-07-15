@@ -56,7 +56,9 @@ sge::opengl::glsl::create_program(
 		?
 			renderer::glsl::program_ptr(
 				fcppt::make_shared_ptr<
-					program<true>
+					program<
+						normal_environment
+					>
 				>(
 					_vs_source,
 					_ps_source
@@ -65,7 +67,9 @@ sge::opengl::glsl::create_program(
 		:
 			renderer::glsl::program_ptr(
 				fcppt::make_shared_ptr<
-					program<false>
+					program<
+						arb_environment
+					>
 				>(
 					_vs_source,
 					_ps_source

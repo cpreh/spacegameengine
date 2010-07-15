@@ -507,55 +507,11 @@ sge::opengl::device::viewport_mode(
 }
 
 sge::renderer::glsl::program_ptr const
-sge::opengl::device::create_glsl_program(
-	renderer::glsl::optional_string const &vs_source,
-	renderer::glsl::optional_string const &ps_source
-)
+sge::opengl::device::create_glsl_program()
 {
 	return
-		vs_source || ps_source
-		?
-			glsl::create_program(
-				context_,
-				vs_source,
-				ps_source
-			)
-		:
-			no_program;
-}
-
-sge::renderer::glsl::program_ptr const
-sge::opengl::device::create_glsl_program(
-	renderer::glsl::optional_istream const &vs_source,
-	renderer::glsl::optional_istream const &ps_source
-)
-{
-	// unfortunately opengl can't read out of files directly
-	typedef std::basic_ostringstream<
-		renderer::glsl::char_type
-	> osstream;
-
-	osstream
-		vs_stream,
-		ps_stream;
-
-	if(vs_source)
-		vs_stream << vs_source->get().rdbuf();
-	if(ps_source)
-		ps_stream << ps_source->get().rdbuf();
-
-	return
-		create_glsl_program(
-			vs_source
-			?
-				vs_stream.str()
-			:
-				renderer::glsl::optional_string(),
-			ps_source
-			?
-				ps_stream.str()
-			:
-				renderer::glsl::optional_string()
+		glsl::create_program(
+			context_
 		);
 }
 

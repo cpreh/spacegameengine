@@ -28,7 +28,8 @@ template<
 >
 sge::opengl::glsl::uniform::variable<Native>::variable(
 	handle const program,
-	renderer::glsl::string const &name)
+	renderer::glsl::string const &name
+)
 :
 	program(
 		program
