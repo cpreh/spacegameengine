@@ -20,117 +20,150 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../program.hpp"
 #include "../attachment.hpp"
-#include "../program_functions.hpp"
-#include "../uniform/variable.hpp"
 #include "../format_error.hpp"
+#include "../uniform/variable.hpp"
+#include "../programfuncs/create.hpp"
+#include "../programfuncs/delete.hpp"
+#include "../programfuncs/link.hpp"
+#include "../programfuncs/link_status.hpp"
+#include "../programfuncs/info_log.hpp"
+#include "../programfuncs/info_log_length.hpp"
+#include "../programfuncs/use.hpp"
+#include "../../context/use.hpp"
 #include <sge/renderer/glsl/exception.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_auto_ptr.hpp>
-#include <fcppt/auto_ptr.hpp>
-#include <fcppt/assert.hpp>
 
 template<
 	typename Environment
 >
 sge::opengl::glsl::program<Environment>::program(
-	renderer::glsl::optional_string const &_vs_source,
-	renderer::glsl::optional_string const &_ps_source
+	opengl::context::object &_context
 )
 :
-	environment_(
-		Environment::program_environment()
+	context_(
+		opengl::context::use<
+			typename Environment::program_context
+		>(
+			_context
+		)
 	),
-	instance_(),
-	attachments_()
-{
-	FCPPT_ASSERT(
-		vs_source || ps_source
-	);
-
-	if(
-		vs_source
-	)
-		attach_shader(
-			fcppt::make_shared_ptr<
-				shader
-			>(
-				vertex_shader_type(),
-				*_vs_source
-			)
-		);
-
-	if(
-		ps_source
-	)
-		attach_shader(
-			fcppt::make_shared_ptr<
-				shader_type
-			>(
-				context().pixel_shader_type(),
-				*_ps_source
-			)
-		);
-
-	link();
-}
-
-sge::opengl::glsl::program::~program()
+	id_(
+		programfuncs::create<
+			Environment
+		>(
+			context_
+		)
+	),
+	vertex_shader_(),
+	pixel_shader_()
 {}
 
-void
-sge::opengl::glsl::program::use(
-	renderer::glsl::program_ptr const _ptr
-)
+template<
+	typename Environment
+>
+sge::opengl::glsl::program<Environment>::~program()
 {
-	if(
-		!_ptr
-	)
-	{
-		use_ffp();
-		return;
-	}
-
-	fcppt::dynamic_pointer_cast<
-		program
+	programfuncs::delete_<
+		Environment
 	>(
-		_ptr
-	)->use();
+		context_,
+		id_
+	);
 }
 
+template<
+	typename Environment
+>
 void
-sge::opengl::glsl::program::attach_shader(
-	shader_ptr const _shader
+sge::opengl::glsl::program<Environment>::use()
+{
+	do_use(
+		id()
+	);
+}
+
+template<
+	typename Environment
+>
+void
+sge::opengl::glsl::program<Environment>::unuse()
+{
+	do_use(
+		0
+	);
+}
+
+template<
+	typename Environment
+>
+sge::renderer::glsl::uniform::variable_ptr const
+sge::opengl::glsl::program<Environment>::uniform(
+	renderer::glsl::string const &_name
 )
 {
-	typedef 
-	fcppt::auto_ptr<
-		attachment_type
-	> attachment_auto_ptr
-	
-	attackment_auto_ptr ptr(
-		fcppt::make_auto_ptr<
-			attachment_type
+	return
+		fcppt::make_shared_ptr<
+			uniform::variable<
+				Environment
+			>
 		>(
-			_shader,
-			id()
+			id(),
+			_name
+		);
+}
+
+template<
+	typename Environment
+>
+void
+sge::opengl::glsl::program<Environment>::vertex_shader(
+	sge::renderer::glsl::vertex_shader_ptr const _pointer
+)
+{
+	vertex_shader_.take(
+		make_attachment(
+			_pointer
 		)
 	);
+}
 
-	attachments_.push_back(
-		ptr
+template<
+	typename Environment
+>
+void
+sge::opengl::glsl::program<Environment>::vertex_shader(
+	sge::renderer::glsl::pixel_shader_ptr const _pointer
+)
+{
+	pixel_shader_.take(
+		make_attachment(
+			_pointer
+		)
 	);
 }
 
+template<
+	typename Environment
+>
 void
-sge::opengl::glsl::program::link()
+sge::opengl::glsl::program<Environment>::link()
 {
-	do_link();
+	programfuncs::link<
+		Environment
+	>(
+		context_,
+		id_
+	);
 
 	if(
-		link_status()
+		programfuncs::link_status<
+			Environment
+		>(
+			context_,
+			id_
+		)
 		== GL_FALSE
 	)
 		throw sge::renderer::glsl::exception(
@@ -139,92 +172,62 @@ sge::opengl::glsl::program::link()
 		);
 }
 
-void
-sge::opengl::glsl::program<Environment>::do_link()
-{
-	program_functions_.link_program(
-		id()
-	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glLinKProgram failed"),
-		sge::renderer::glsl::exception
-	)
-}
-
-GLint
-sge::opengl::glsl::program<Environment>::get_integer(
-	GLenum const what_
-) const
-{
-	GLint result;
-
-	program_functions_.get_integer(	
-		id(),
-		what_,
-		&result
-	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("Getting a program integer failed"),
-		sge::renderer::glsl::exception
-	)
-
-	return result;
-}
-
-GLenum
-sge::opengl::glsl::program<Environment>::link_status() const
-{
-	return 
-		program_integer(
-			program_environment_.link_status()
-		);
-}
-
-void
-sge::opengl::glsl::program::use()
-{
-	program_environment_.use_program(
-		id()
-	);
-}
-
-sge::renderer::glsl::uniform::variable_ptr const
-sge::opengl::glsl::program::uniform(
-	renderer::glsl::string const &_name
-)
-{
-	return
-		fcppt::make_shared_ptr<
-			uniform::variable<
-				typename Environment::program_environment
-			>
-		>(
-			id(),
-			_name
-		);
-}
-
+template<
+	typename Environment
+>
 fcppt::string const
-sge::opengl::glsl::program::info_log() const
+sge::opengl::glsl::program<Environment>::info_log() const
 {
 	return
 		glsl::format_error(
-			info_log(),
-			info_log_length(),
-			id()
+			programfuncs::info_log<
+				Environment
+			>(
+				context_,
+				id_
+			),
+			programfuncs::info_log_length<
+				Environment
+			>(
+				context_,
+				id_
+			),
+			id_
 		);
 }
 
+template<
+	typename Environment
+>
 void
-sge::opengl::glsl::program::use_ffp()
+sge::opengl::glsl::program<Environment>::do_use(
+	handle const handle_
+)
 {
-	context().use_program(0);
+	programfuncs::use<
+		Environment
+	>(
+		context_,
+		handle_
+	);
 }
 
-sge::opengl::glsl::handle
-sge::opengl::glsl::program::id() const
+template<
+	typename Environment
+>
+typename sge::opengl::glsl::program<Environment>::attachment_auto_ptr
+sge::opengl::glsl::program::make_attachment(
+	sge::renderer::glsl::shader_ptr const _shader
+)
 {
-	return instance_.id();
+	attachment_auto_ptr ptr(
+		fcppt::make_auto_ptr<
+			attachment_type
+		>(
+			_shader,
+			id()
+		)
+	);
+
+	return ret;
 }

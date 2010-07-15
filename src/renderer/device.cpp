@@ -125,6 +125,8 @@ sge::renderer::device::create_glsl_program(
 			)
 		);
 
+	ret->link();
+
 	return ret;
 }
 

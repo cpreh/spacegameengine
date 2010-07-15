@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "object.hpp"
 #include "base_auto_ptr.hpp"
 #include "make_object.hpp"
-#include <fcppt/make_auto_ptr.hpp>
 
 namespace sge
 {

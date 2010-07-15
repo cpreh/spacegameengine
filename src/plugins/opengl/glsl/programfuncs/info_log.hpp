@@ -18,28 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../program_instance.hpp"
-#include "../program_functions.hpp"
+#ifndef SGE_OPENGL_GLSL_PROGRAMFUNCS_INFO_LOG_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_PROGRAMFUNCS_INFO_LOG_HPP_INCLUDED
 
-sge::opengl::glsl::program_instance<Native>::program_instance()
-:
-	context_(
-	),
-	id_(
-		context_.create_program()
-	)
-{}
+#include "../../common.hpp"
 
-sge::opengl::glsl::program_instance<Native>::~program_instance()
+namespace sge
 {
-	delete_program<Native>(id());
+namespace opengl
+{
+namespace glsl
+{
+namespace programfuncs
+{
+
+template<
+	typename Environment
+>
+void
+info_log(
+	typename Environment::program_context &
+	typename Environment::handle,
+	GLint maxlen,
+	GLint *len,
+	char *data
+);
+
+}
+}
+}
 }
 
-typename sge::opengl::glsl::program_instance<Native>::handle
-sge::opengl::glsl::program_instance<Native>::id() const
-{
-	return id_;
-}
-
-template class sge::opengl::glsl::program_instance<true>;
-template class sge::opengl::glsl::program_instance<false>;
+#endif

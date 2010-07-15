@@ -52,6 +52,8 @@ public:
 	GLenum
 	pixel_unpack_buffer_type() const;
 
+	typedef void needs_before;
+
 	static context::id const static_id;
 private:
 	fcppt::scoped_ptr<

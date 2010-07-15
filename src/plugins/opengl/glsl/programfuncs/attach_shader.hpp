@@ -18,13 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_SHADER_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_SHADER_HPP_INCLUDED
-
-#include "../common.hpp"
-#include <sge/renderer/glsl/string.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/noncopyable.hpp>
+#ifndef SGE_OPENGL_GLSL_PROGRAMFUNCS_ATTACH_SHADER_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_PROGRAMFUNCS_ATTACH_SHADER_HPP_INCLUDED
 
 namespace sge
 {
@@ -32,36 +27,20 @@ namespace opengl
 {
 namespace glsl
 {
+namespace programfuncs
+{
 
 template<
 	typename Environment
 >
-class shader
-{
-	FCPPT_NONCOPYABLE(shader)
-public:
-	typedef typename Environment::handle handle;
+void
+attach_shader(
+	typename Environment::program_context &,
+	typename Environment::handle program,
+	typename Environment::handle shader
+);
 
-	explicit shader(
-		GLenum type
-	);
-
-	~shader();
-
-	void
-	compile(
-		renderer::glsl::string const &source
-	);
-
-	handle
-	id() const;
-private:
-	fcppt::string const
-	info_log() const;
-
-	handle const id_;
-};
-
+}
 }
 }
 }

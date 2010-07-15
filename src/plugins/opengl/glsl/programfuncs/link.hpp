@@ -18,12 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_PROGRAM_INSTANCE_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_PROGRAM_INSTANCE_HPP_INCLUDED
-
-#include "handle.hpp"
-#include "program_context_fwd.hpp"
-#include <fcppt/noncopyable.hpp>
+#ifndef SGE_OPENGL_GLSL_PROGRAMFUNCS_LINK_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_PROGRAMFUNCS_LINK_HPP_INCLUDED
 
 namespace sge
 {
@@ -31,28 +27,19 @@ namespace opengl
 {
 namespace glsl
 {
-
-class program_instance
+namespace programfuncs
 {
-	FCPPT_NONCOPYABLE(program_instance)
-public:
-	explicit program_instance(
-		opengl::context &
-	);
 
-	~program_instance();
+template<
+	typename Environment
+>
+void
+link(
+	typename Environment::program_context &,
+	typename Environment::handle
+);
 
-	handle
-	id() const;
-
-	glsl::program_context &
-	context() const;
-private:
-	glsl::program_context const &context_;
-
-	handle const id_;
-};
-
+}
 }
 }
 }

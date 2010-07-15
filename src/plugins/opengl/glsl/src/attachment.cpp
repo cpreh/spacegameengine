@@ -19,29 +19,62 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../attachment.hpp"
-#include "../program_functions.hpp"
+#include "../programfuncs/attach_shader.hpp"
+#include "../programfuncs/detach_shader.hpp"
+#include "../normal/environment.hpp"
+//#include "../arb/environment.hpp"
+#include <fcppt/dynamic_pointer_cast.hpp>
 
 template<
-	bool Native
+	typename Environment
 >
 sge::opengl::glsl::attachment<Native>::attachment(
-	shader_ptr const shader_,
-	handle const handle_
+	typename Environment::program_context &_context,
+	sge::renderer::glsl::shader_ptr const _shader,
+	handle const _handle
 )
 :
-	shader_(shader_),
-	handle_(handle_)
+	context_(
+		_context
+	),
+	shader_(
+		fcppt::dynamic_pointer_cast<
+			shader_type
+		>(
+			_shader
+		)
+	),
+	handle_(_handle)
 {
-	attach_shader<Native>(handle_, shader_->id());
+	programfuncs::attach_shader<
+		Environment
+	>(
+		_context,
+		_handle,
+		shader_->id()
+	);
 }
 
 template<
-	bool Native
+	typename Environment
 >
-sge::opengl::glsl::attachment<Native>::~attachment()
+sge::opengl::glsl::attachment<Environment>::~attachment()
 {
-	detach_shader<Native>(handle_, shader_->id());
+	programfuncs::detach_shader<
+		Environment
+	>(
+		_context,
+		handle_,
+		shader_->id()
+	);
 }
 
-template class sge::opengl::glsl::attachment<true>;
-template class sge::opengl::glsl::attachment<false>;
+template class sge::opengl::glsl::attachment<
+	sge::opengl::glsl::normal::environment
+>;
+
+#if 0
+template class sge::opengl::glsl::attachment<
+	sge::opengl::glsl::arb::environment
+>;
+#endif

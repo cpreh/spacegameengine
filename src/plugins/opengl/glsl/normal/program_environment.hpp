@@ -21,6 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLSL_NORMAL_PROGRAM_ENVIRONMENT_HPP_INCLUDED
 #define SGE_OPENGL_GLSL_NORMAL_PROGRAM_ENVIRONMENT_HPP_INCLUDED
 
+#include "handle.hpp"
+#include "../../common.hpp"
+#include "../../context/base.hpp"
+#include "../../context/id.hpp"
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -32,27 +36,28 @@ namespace glsl
 namespace normal
 {
 
-struct program_environment
+struct program_context
+:
+	public opengl::context::base
 {
 	FCPPT_NONCOPYABLE(program_environment)
 public:
-	program_environment();	
+	typedef normal::handle handle;
 
-	~program_environment();
+	typedef handle (*gl_create_program);
 
-	typedef GLuint (*gl_create_program);
-
-	typedef void (*gl_delete_program)(GLuint);
+	typedef void (*gl_delete_program)(handle);
 
 	gl_create_program
 	create_program() const;
-
+	
 	gl_delete_program
 	delete_program() const;
-private:
-	gl_create_program const create_program_;
 
-	gl_delete_program const delete_program_;
+	typedef void needs_before;
+
+	static context::id const static_id;
+private:
 };
 
 }

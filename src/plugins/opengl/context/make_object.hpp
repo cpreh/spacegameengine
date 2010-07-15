@@ -18,49 +18,71 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_SHADER_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_SHADER_HPP_INCLUDED
+#ifndef SGE_OPENGL_CONTEXT_MAKE_OBJECT_HPP_INCLUDED
+#define SGE_OPENGL_CONTEXT_MAKE_OBJECT_HPP_INCLUDED
 
-#include "../common.hpp"
-#include <sge/renderer/glsl/string.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/noncopyable.hpp>
+#include "use_fwd.hpp"
+#include "base_auto_ptr.hpp"
+#include "object_fwd.hpp"
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/make_auto_ptr.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace sge
 {
 namespace opengl
 {
-namespace glsl
+namespace context
 {
 
 template<
-	typename Environment
+	typename Type
 >
-class shader
+typename boost::enable_if<
+	boost::is_same<
+		typename Type::needs_before,
+		void
+	>,
+	base_auto_ptr
+>::type
+make_object(
+	object &
+)
 {
-	FCPPT_NONCOPYABLE(shader)
-public:
-	typedef typename Environment::handle handle;
+	return
+		fcppt::make_auto_ptr<
+			Type
+		>();
+}
 
-	explicit shader(
-		GLenum type
-	);
-
-	~shader();
-
-	void
-	compile(
-		renderer::glsl::string const &source
-	);
-
-	handle
-	id() const;
-private:
-	fcppt::string const
-	info_log() const;
-
-	handle const id_;
-};
+template<
+	typename Type
+>
+typename boost::disable_if<
+	boost::is_same<
+		typename Type::needs_before,
+		void
+	>,
+	base_auto_ptr
+>::type
+make_object(
+	object &_object
+)
+{
+	return
+		fcppt::make_auto_ptr<
+			Type
+		>(
+			std::tr1::ref(
+				context::use<
+					typename Type::needs_before
+				>(
+					_object
+				)
+			)
+		);
+}
 
 }
 }

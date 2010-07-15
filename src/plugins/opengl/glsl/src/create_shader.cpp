@@ -18,56 +18,68 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../create_program.hpp"
-#include "../program.hpp"
+#include "../create_shader.hpp"
 #include "../context.hpp"
+#include "../vertex_shader.hpp"
+#include "../pixel_shader.hpp"
 #include "../normal/environment.hpp"
 #include "../arb/environment.hpp"
 #include "../../context/use.hpp"
-#include "../../common.hpp"
-#include "../../on_not_supported.hpp"
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/text.hpp>
 
-sge::renderer::glsl::program_ptr const
-sge::opengl::glsl::create_program(
-	opengl::context::object &_context
+template<
+	typename Shader
+>
+fcppt::shared_ptr<Shader> const
+sge::opengl::glsl::create_shader(
+	opengl::context::object &_context,
+	sge::renderer::glsl::string const &_source
 )
 {
-	glsl::context &glsl_context(
+	return
 		opengl::context::use<
 			glsl::context
 		>(
 			_context
-		)
-	);
-
-	if(
-		!glsl_context.is_supported()
-	)
-		sge::opengl::on_not_supported(
-			FCPPT_TEXT("shader"),
-			FCPPT_TEXT("2.0"),
-			FCPPT_TEXT("gl_arb_vertex_shader && gl_arb_fragment_shader")
-		);
-
-	return
-		glsl_context.is_native()
+		).is_native()
 		?
-			renderer::glsl::program_ptr(
-				fcppt::make_shared_ptr<
-					program<
-						normal::environment
-					>
+			fcppt::make_shared_ptr<
+				Shader<
+					normal::environment
 				>()
+			>(
+				std::tr1::ref(
+					_vertex
+				)
 			)
 		:
-			renderer::glsl::program_ptr(
-				fcppt::make_shared_ptr<
-					program<
-						arb::environment
-					>
+			fcppt::make_shared_ptr<
+				Shader<
+					normal::environment
 				>()
+			>(
+				std::tr1::ref(
+					_vertex
+				)
 			)
 		;
 }
+
+#define SGE_OPENGL_GLSL_CREATE_SHADER(shader) \
+template \
+fcppt::shared_ptr<shader> \
+sge::opengl::glsl::create_shader(\
+	opengl::context::object &, \
+	sge::renderer::glsl::string const &\
+);
+
+SGE_OPENGL_GLSL_CREATE_SHADER(
+	sge::opengl::glsl::vertex_shader
+)
+
+SGE_OPENGL_GLSL_CREATE_SHADER(
+	sge::opengl::glsl::pixel_shader
+)
+
+#undef SGE_OPENGL_GLSL_CREATE_SHADER

@@ -515,6 +515,34 @@ sge::opengl::device::create_glsl_program()
 		);
 }
 
+sge::renderer::glsl::vertex_shader_ptr const
+sge::opengl::device::create_glsl_vertex_shader(
+	renderer::glsl::string const &_source
+)
+{
+#if 0
+	return
+		glsl::create_vertex_shader(
+			context_,
+			_source
+		);
+#endif
+}
+
+sge::renderer::glsl::vertex_shader_ptr const
+sge::opengl::device::create_glsl_pixel_shader(
+	renderer::glsl::string const &_source
+)
+{
+#if 0
+	return
+		glsl::create_pixel_shader(
+			context_,
+			_source
+		);
+#endif
+}
+
 void
 sge::opengl::device::glsl_program(
 	renderer::glsl::program_ptr const prog

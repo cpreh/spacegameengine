@@ -18,52 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_SHADER_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_SHADER_HPP_INCLUDED
+#include "../create_vertex_shader.hpp"
+#include "../vertex_shader.hpp"
+#include "../compile_shader.hpp"
+#include "../create_shader.hpp"
 
-#include "../common.hpp"
-#include <sge/renderer/glsl/string.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/noncopyable.hpp>
-
-namespace sge
+sge::renderer::glsl::vertex_shader_ptr const
+sge::opengl::glsl::create_vertex_shader(
+	opengl::context::object &_context,
+	sge::renderer::glsl::string const &_source
+)
 {
-namespace opengl
-{
-namespace glsl
-{
-
-template<
-	typename Environment
->
-class shader
-{
-	FCPPT_NONCOPYABLE(shader)
-public:
-	typedef typename Environment::handle handle;
-
-	explicit shader(
-		GLenum type
-	);
-
-	~shader();
-
-	void
-	compile(
-		renderer::glsl::string const &source
-	);
-
-	handle
-	id() const;
-private:
-	fcppt::string const
-	info_log() const;
-
-	handle const id_;
-};
-
+	return
+		opengl::glsl::compile_shader(
+			opengl::glsl::create_shader<
+				opengl::glsl::vertex_shader	
+			>(
+				_context
+			),
+			_source
+		);
 }
-}
-}
-
-#endif

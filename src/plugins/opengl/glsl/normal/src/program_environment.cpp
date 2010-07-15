@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../program_environment.hpp"
+#include "../program_context.hpp"
 
-sge::opengl::glsl::normal::program_environment::program_environment()
+sge::opengl::glsl::normal::program_context::program_context()
+:
 :
 	create_program_(
 		glCreateProgram
@@ -30,17 +31,17 @@ sge::opengl::glsl::normal::program_environment::program_environment()
 	)
 {}
 
-sge::opengl::glsl::normal::program_environment::~program_environment()
+sge::opengl::glsl::normal::program_context::~program_context()
 {}
 
-sge::opengl::glsl::normal::program_environment::gl_create_program
-sge::opengl::glsl::normal::program_environment::create_program() const
+sge::opengl::glsl::normal::program_context::gl_create_program
+sge::opengl::glsl::normal::program_context::create_program() const
 {
 	return create_program_;
 }
 
-sge::opengl::glsl::normal::program_environment::gl_delete_program
-sge::opengl::glsl::normal::program_environment::delete_program() const
+sge::opengl::glsl::normal::program_context::gl_delete_program
+sge::opengl::glsl::normal::program_context::delete_program() const
 {
 	return delete_program_;
 }

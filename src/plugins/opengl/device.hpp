@@ -168,15 +168,16 @@ public:
 	);
 
 	renderer::glsl::program_ptr const
-	create_glsl_program(
-		renderer::glsl::optional_string const &vertex_shader_source,
-		renderer::glsl::optional_string const &pixel_shader_source
+	create_glsl_program();
+
+	glsl::vertex_shader_ptr const
+	create_glsl_vertex_shader(
+		glsl::string const &
 	);
 
-	renderer::glsl::program_ptr const
-	create_glsl_program(
-		renderer::glsl::optional_istream const &vertex_shader_source,
-		renderer::glsl::optional_istream const &pixel_shader_source
+	glsl::pixel_shader_ptr const
+	create_glsl_pixel_shader(
+		glsl::string const &
 	);
 
 	void

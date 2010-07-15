@@ -25,14 +25,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 template<
-	bool Native
+	typename Environment
 >
-sge::opengl::glsl::shader<Native>::shader(
-	GLenum const type,
-	renderer::glsl::string const &source
+sge::opengl::glsl::shader<Environment>::shader(
+	GLenum const _type,
+	renderer::glsl::string const &_source
 )
 :
-	id_(create_shader<Native>(type))
+	id_(
+		shaderfuncs::create<
+			Environment
+		>(
+			_context,
+			_type
+		)
+	)
 {
 	const char* const ptr = source.c_str();
 

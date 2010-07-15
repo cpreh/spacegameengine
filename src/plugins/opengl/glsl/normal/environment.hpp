@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLSL_NORMAL_ENVIRONMENT_HPP_INCLUDED
 #define SGE_OPENGL_GLSL_NORMAL_ENVIRONMENT_HPP_INCLUDED
 
-#include "program_environment.hpp"
-#include "shader_environment.hpp"
-#include "../../common.hpp"
+#include "program_context.hpp"
+#include "shader_context.hpp"
+#include "handle.hpp"
+#include <fcppt/restrict_typedef_struct.hpp>
 
 namespace sge
 {
@@ -36,11 +37,13 @@ namespace normal
 
 struct environment
 {
-	typedef GLuint handle;
+	FCPPT_RESTRICT_TYPEDEF_STRUCT(environment)
+public:
+	typedef normal::handle handle;
 
-	static normal::program_environment const program_environment;
+	typedef normal::program_context program_context;
 
-	static normal::shader_environment const shader_environment;
+	typedef normal::shader_context shader_context;
 };
 
 }

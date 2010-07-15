@@ -21,13 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLSL_PROGRAM_HPP_INCLUDED
 #define SGE_OPENGL_GLSL_PROGRAM_HPP_INCLUDED
 
-#include "handle.hpp"
 #include "attachment_fwd.hpp"
-#include "program_instance.hpp"
-#include <sge/renderer/glsl/program_ptr.hpp>
+#include "../context/object_fwd.hpp"
+#include <sge/renderer/glsl/uniform/variable_ptr.hpp>
+#include <sge/renderer/glsl/pixel_shader_ptr.hpp>
 #include <sge/renderer/glsl/program.hpp>
-#include <sge/renderer/glsl/optional_string.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <sge/renderer/glsl/shared_ptr.hpp>
+#include <sge/renderer/glsl/string.hpp>
+#include <sge/renderer/glsl/vertex_shader_ptr.hpp>
+#include <fcppt/auto_ptr.hpp>
+#include <fcppt/scoped_ptr.hpp>
+#include <fcppt/shared_ptr.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
@@ -44,75 +49,76 @@ class program
 	public renderer::glsl::program
 {
 public:
-	program(
-		renderer::glsl::optional_string const &vs_source,
-		renderer::glsl::optional_string const &ps_source
+	explicit program(
+		opengl::context::object &
 	);
 
 	~program();
 
-	static void
-	use(
-		renderer::glsl::program_ptr
-	);
+	// public interface for the renderer device
+	void
+	use();
+
+	void
+	unuse();
 private:
+	// overridden functions
 	renderer::glsl::uniform::variable_ptr const
 	uniform(
 		renderer::glsl::string const &
 	);
 
-	fcppt::string const
-	info_log() const;
-
-	static void
-	use_ffp();
+	void
+	vertex_shader(
+		sge::renderer::glsl::vertex_shader_ptr
+	);
 
 	void
-	use();
-
-	handle
-	id() const;
-
-	void
-	attach_shader(
-		shader_ptr shader
+	pixel_shader(
+		sge::renderer::glsl::pixel_shader_ptr
 	);
 
 	void
 	link();
 
-	void
-	do_link();
+	fcppt::string const
+	info_log() const;
 
-	GLint
-	get_integer(
-		GLenum
-	) const;
-
-	GLenum
-	link_status() const;
+	// internal functions
 
 	typedef typename Environment::handle handle;
 
-	typedef glsl::shader<
-		typename Environment::shader_environment_type
-	> shader_type;
+	void
+	do_use(
+		handle
+	);
 
-	typedef fcppt::shared_ptr<
-		shared_type
-	> shader_ptr;
-
-	typedef glsl::shader<
-		typename Environment::program_environment_type
+	typedef glsl::attachment<
+		Environment
 	> attachment_type;
 
-	typedef boost::ptr_vector<
+	typedef fcppt::auto_ptr<
+		attachmen_type
+	> attachment_auto_ptr;
+
+	attachment_auto_ptr
+	make_attachment(
+		sge::renderer::glsl::shader_ptr
+	);
+
+	typedef fcppt::scoped_ptr<
 		attachment_type
-	> attachment_vector;
+	> attachment_ptr;
 
-	handle const id_;
+	typedef typename Environment::program_context program_context;
 
-	attachment_vector attachments_;
+	program_context &context_;
+
+	handle const handle_;
+
+	attachmen_ptr
+		vertex_shader_,
+		pixel_shader_;
 };
 
 }

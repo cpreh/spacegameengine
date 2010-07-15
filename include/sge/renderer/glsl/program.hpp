@@ -59,6 +59,9 @@ public:
 		pixel_shader_ptr
 	) = 0;
 
+	virtual void
+	link() = 0;
+
 	virtual fcppt::string const
 	info_log() const = 0;
 
