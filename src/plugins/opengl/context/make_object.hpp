@@ -50,10 +50,13 @@ make_object(
 	object &
 )
 {
-	return
+	base_auto_ptr ret(
 		fcppt::make_auto_ptr<
 			Type
-		>();
+		>()
+	);
+
+	return ret;
 }
 
 template<
@@ -70,6 +73,7 @@ make_object(
 	object &_object
 )
 {
+/*
 	return
 		fcppt::make_auto_ptr<
 			Type
@@ -82,6 +86,7 @@ make_object(
 				)
 			)
 		);
+*/
 }
 
 }

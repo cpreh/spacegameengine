@@ -43,6 +43,8 @@ public:
 	bool
 	have_transpose() const;
 
+	typedef void needs_before;
+
 	static context::id const static_id;
 private:
 	bool const have_transpose_;

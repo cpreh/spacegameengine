@@ -170,14 +170,14 @@ public:
 	renderer::glsl::program_ptr const
 	create_glsl_program();
 
-	glsl::vertex_shader_ptr const
+	renderer::glsl::vertex_shader_ptr const
 	create_glsl_vertex_shader(
-		glsl::string const &
+		renderer::glsl::string const &
 	);
 
-	glsl::pixel_shader_ptr const
+	renderer::glsl::pixel_shader_ptr const
 	create_glsl_pixel_shader(
-		glsl::string const &
+		renderer::glsl::string const &
 	);
 
 	void

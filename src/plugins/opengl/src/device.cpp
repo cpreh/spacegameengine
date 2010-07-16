@@ -529,7 +529,7 @@ sge::opengl::device::create_glsl_vertex_shader(
 #endif
 }
 
-sge::renderer::glsl::vertex_shader_ptr const
+sge::renderer::glsl::pixel_shader_ptr const
 sge::opengl::device::create_glsl_pixel_shader(
 	renderer::glsl::string const &_source
 )
