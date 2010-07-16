@@ -18,13 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_UNIFORM_VARIABLE_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_UNIFORM_VARIABLE_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLSL_VERTEX_SHADER_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_VERTEX_SHADER_HPP_INCLUDED
 
-#include "type.hpp"
-#include "../../common.hpp"
-#include <sge/renderer/glsl/uniform/variable.hpp>
-#include <sge/renderer/glsl/string.hpp>
+#include "shader_type.hpp"
+#include <sge/renderer/glsl/vertex_shader.hpp>
 
 namespace sge
 {
@@ -32,40 +30,16 @@ namespace opengl
 {
 namespace glsl
 {
-namespace uniform
+
+struct vertex_shader
 {
+	typedef sge::renderer::glsl::vertex_shader base_type;
 
-template<
-	typename Environment
->
-class variable
-:
-	public renderer::glsl::uniform::variable
-{
-public:
-	typedef typename Environment::handle handle;
-
-	explicit variable(
-		handle program,
-		renderer::glsl::string const &name
-	);
-
-	renderer::glsl::uniform::value const
-	get() const;
-
-	void
-	set(
-		renderer::glsl::uniform::value const &
-	);
-private:
-	handle const program;
-
-	GLint const location;
-
-	type stored_type;
+	static
+	glsl::shader_type::type
+	shader_type();
 };
 
-}
 }
 }
 }

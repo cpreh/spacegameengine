@@ -29,6 +29,7 @@ sge::opengl::glsl::set_program(
 	renderer::glsl::program_ptr const _prog
 )
 {
+#if 0
 	if(
 		opengl::context::use<
 			glsl::context
@@ -43,4 +44,5 @@ sge::opengl::glsl::set_program(
 		program<false>::use(
 			_prog
 		);
+#endif
 }

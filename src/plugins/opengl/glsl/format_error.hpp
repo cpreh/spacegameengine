@@ -37,13 +37,15 @@ namespace glsl
 template<
 	typename Function,
 	typename LengthFunction,
-	typename Id
+	typename Id,
+	typename Context
 >
 fcppt::string const
 format_error(
-	Function const &function,
-	LengthFunction const &length_function,
-	Id const &id
+	Function const &function_,
+	LengthFunction const &length_function_,
+	Id const &id_,
+	Context const &context_
 )
 {
 	typedef fcppt::container::raw_vector<
@@ -51,8 +53,9 @@ format_error(
 	> errorlog_array;
 
 	GLint const required_length(
-		length_function(
-			id
+		length_function_(
+			context_,
+			id_
 		)
 	);
 
@@ -79,8 +82,9 @@ format_error(
 
 	GLsizei length_return;
 
-	function(
-		id,
+	function_(
+		context_,
+		id_,
 		static_cast<
 			GLint
 		>(
@@ -102,9 +106,10 @@ format_error(
 		)
 	);
 
-	return fcppt::from_std_string(
-		errorlog.data()
-	);
+	return
+		fcppt::from_std_string(
+			errorlog.data()
+		);
 }
 
 }

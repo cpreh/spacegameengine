@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#if 0
 #include "../program_arb.hpp"
 #include "../../check_state.hpp"
 #include <sge/renderer/glsl/exception.hpp>
@@ -175,3 +176,4 @@ sge::opengl::glsl::program_info_log_length<false>(
 			program
 		);
 }
+#endif

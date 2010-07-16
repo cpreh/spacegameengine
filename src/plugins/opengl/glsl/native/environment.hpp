@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_NORMAL_ENVIRONMENT_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_NORMAL_ENVIRONMENT_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLSL_NATIVE_ENVIRONMENT_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_NATIVE_ENVIRONMENT_HPP_INCLUDED
 
 #include "program_context.hpp"
 #include "shader_context.hpp"
@@ -32,18 +32,18 @@ namespace opengl
 {
 namespace glsl
 {
-namespace normal
+namespace native
 {
 
 struct environment
 {
 	FCPPT_RESTRICT_TYPEDEF_STRUCT(environment)
 public:
-	typedef normal::handle handle;
+	typedef native::handle handle;
 
-	typedef normal::program_context program_context;
+	typedef native::program_context program_context;
 
-	typedef normal::shader_context shader_context;
+	typedef native::shader_context shader_context;
 };
 
 }

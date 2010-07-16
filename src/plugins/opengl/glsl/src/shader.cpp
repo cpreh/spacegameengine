@@ -19,43 +19,91 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../shader.hpp"
-#include "../shader_functions.hpp"
+#include "../shaderfuncs/source.hpp"
+#include "../shaderfuncs/compile.hpp"
+#include "../shaderfuncs/get_integer.hpp"
+#include "../shaderfuncs/compile_status.hpp"
+#include "../shaderfuncs/info_log.hpp"
+#include "../shaderfuncs/info_log_length.hpp"
 #include "../format_error.hpp"
+#include "../instantiate.hpp"
+#include "../vertex_shader.hpp"
+#include "../pixel_shader.hpp"
+#include "../../context/use.hpp"
 #include <sge/renderer/glsl/exception.hpp>
 #include <fcppt/text.hpp>
 
 template<
+	typename Type,
 	typename Environment
 >
-sge::opengl::glsl::shader<Environment>::shader(
-	GLenum const _type,
-	renderer::glsl::string const &_source
+sge::opengl::glsl::shader<Type, Environment>::shader(
+	opengl::context::object &_context,
+	sge::renderer::glsl::string const &_source
 )
 :
-	id_(
-		shaderfuncs::create<
-			Environment
+	base_type(),
+	glsl_base(
+		_context,
+		opengl::context::use<
+			typename Environment::shader_context
 		>(
-			_context,
-			_type
+			_context
+		).make_shader_type(
+			Type::shader_type()
 		)
 	)
 {
-	const char* const ptr = source.c_str();
+	compile(
+		_source
+	);
+}
 
-	const GLint len = static_cast<GLint>(source.size());
+template<
+	typename Type,
+	typename Environment 
+>
+sge::opengl::glsl::shader<Type, Environment>::~shader()
+{}
 
-	shader_source<Native>(
-		id(),
+template<
+	typename Type,
+	typename Environment
+>
+void
+sge::opengl::glsl::shader<Type, Environment>::compile(
+	renderer::glsl::string const &_source
+)
+{
+	const char* const ptr = _source.c_str();
+
+	const GLint len = static_cast<GLint>(_source.size());
+
+	shaderfuncs::source<
+		Environment
+	>(
+		this->context(),
+		this->id(),
 		1,
 		const_cast<const char**>(&ptr),
 		&len
 	);
 
-	compile_shader<Native>(id());
+	shaderfuncs::compile<
+		Environment
+	>(
+		this->context(),
+		this->id()
+	);
 
 	if(
-		compile_status<Native>(id()) == GL_FALSE
+		shaderfuncs::compile_status<
+			Environment
+		>(
+			this->context(),
+			this->id()
+		)
+		== GL_FALSE
 	)
 		throw sge::renderer::glsl::exception(
 			FCPPT_TEXT("Compiling a shader failed:\n")
@@ -64,39 +112,46 @@ sge::opengl::glsl::shader<Environment>::shader(
 }
 
 template<
-	bool Native
->
-sge::opengl::glsl::shader<Native>::~shader()
-{
-	delete_shader<Native>(id());
-}
-
-template<
-	bool Native
->
-typename sge::opengl::glsl::traits<Native>::handle
-sge::opengl::glsl::shader<Native>::id() const
-{
-	return id_;
-}
-
-template<
-	bool Native
+	typename Type,
+	typename Environment
 >
 fcppt::string const
-sge::opengl::glsl::shader<Native>::info_log() const
+sge::opengl::glsl::shader<Type, Environment>::info_log() const
 {
 	return
-		format_error(
-			&shader_info_log<
-				Native
+		glsl::format_error(
+			&shaderfuncs::info_log<
+				Environment
 			>,
-			&shader_info_log_length<
-				Native
+			&shaderfuncs::info_log_length<
+				Environment
 			>,
-			id()
+			this->id(),
+			this->context()
 		);
 }
 
-template class sge::opengl::glsl::shader<true>;
-template class sge::opengl::glsl::shader<false>;
+#define SGE_OPENGL_GLSL_INSTANTIATE_SHADER_CONCRETE(\
+	shader_type,\
+	env\
+)\
+template class sge::opengl::glsl::shader<\
+	shader_type,\
+	env\
+>;
+
+#define SGE_OPENGL_GLSL_INSTANTIATE_SHADER(\
+	env\
+)\
+SGE_OPENGL_GLSL_INSTANTIATE_SHADER_CONCRETE(\
+	sge::opengl::glsl::vertex_shader,\
+	env\
+)\
+SGE_OPENGL_GLSL_INSTANTIATE_SHADER_CONCRETE(\
+	sge::opengl::glsl::pixel_shader,\
+	env\
+)
+
+SGE_OPENGL_GLSL_INSTANTIATE(
+	SGE_OPENGL_GLSL_INSTANTIATE_SHADER
+)

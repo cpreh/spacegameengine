@@ -18,30 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../program_context.hpp"
+#ifndef SGE_OPENGL_GLSL_SHADER_TYPE_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_SHADER_TYPE_HPP_INCLUDED
 
-sge::opengl::glsl::normal::program_context::program_context()
-:
-:
-	create_program_(
-		glCreateProgram
-	),
-	delete_program_(
-		glDeleteProgram
-	)
-{}
-
-sge::opengl::glsl::normal::program_context::~program_context()
-{}
-
-sge::opengl::glsl::normal::program_context::gl_create_program
-sge::opengl::glsl::normal::program_context::create_program() const
+namespace sge
 {
-	return create_program_;
+namespace opengl
+{
+namespace glsl
+{
+
+namespace shader_type
+{
+enum type
+{
+	pixel,
+	vertex,
+	size
+};
 }
 
-sge::opengl::glsl::normal::program_context::gl_delete_program
-sge::opengl::glsl::normal::program_context::delete_program() const
-{
-	return delete_program_;
 }
+}
+}
+
+
+#endif

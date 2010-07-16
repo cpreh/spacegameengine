@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../get.hpp"
 
 template<
-	bool Native
+	typename Environment
 >
 sge::opengl::glsl::uniform::variable<Native>::variable(
 	handle const program,
@@ -47,14 +47,14 @@ sge::opengl::glsl::uniform::variable<Native>::variable(
 {}
 
 template<
-	bool Native
+	typename Environment
 >
 sge::renderer::glsl::uniform::value const
 sge::opengl::glsl::uniform::variable<Native>::get() const
 {
 	return
 		uniform::get<
-			Native
+			Environment
 		>(
 			program,
 			location,
@@ -63,7 +63,7 @@ sge::opengl::glsl::uniform::variable<Native>::get() const
 }
 
 template<
-	bool Native
+	typename Environment
 >
 void
 sge::opengl::glsl::uniform::variable<Native>::set(
@@ -72,13 +72,10 @@ sge::opengl::glsl::uniform::variable<Native>::set(
 {
 	stored_type =
 		uniform::set<
-			Native
+			Environment
 		>(
 			program,
 			location,
 			_value
 		);
 }
-
-template class sge::opengl::glsl::uniform::variable<true>;
-template class sge::opengl::glsl::uniform::variable<false>;

@@ -15,6 +15,8 @@ FILE (
 	glew/src/*.cpp
 	glsl/src/*.cpp
 	glsl/attribute/src/*.cpp
+	glsl/arb/src/*.cpp
+	glsl/native/src/*.cpp
 	glsl/uniform/src/*.cpp
 	texfuncs/src/*.cpp
 	vf/src/*.cpp

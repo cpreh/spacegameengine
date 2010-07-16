@@ -26,12 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/uniform/variable_ptr.hpp>
 #include <sge/renderer/glsl/pixel_shader_ptr.hpp>
 #include <sge/renderer/glsl/program.hpp>
-#include <sge/renderer/glsl/shared_ptr.hpp>
 #include <sge/renderer/glsl/string.hpp>
 #include <sge/renderer/glsl/vertex_shader_ptr.hpp>
+#include <sge/renderer/glsl/shader_ptr.hpp>
 #include <fcppt/auto_ptr.hpp>
 #include <fcppt/scoped_ptr.hpp>
-#include <fcppt/shared_ptr.hpp>
 #include <fcppt/string.hpp>
 
 namespace sge
@@ -98,7 +97,7 @@ private:
 	> attachment_type;
 
 	typedef fcppt::auto_ptr<
-		attachmen_type
+		attachment_type
 	> attachment_auto_ptr;
 
 	attachment_auto_ptr
@@ -116,7 +115,7 @@ private:
 
 	handle const handle_;
 
-	attachmen_ptr
+	attachment_ptr
 		vertex_shader_,
 		pixel_shader_;
 };

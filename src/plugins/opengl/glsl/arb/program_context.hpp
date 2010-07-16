@@ -18,13 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_UNIFORM_VARIABLE_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_UNIFORM_VARIABLE_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLSL_ARB_PROGRAM_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_ARB_PROGRAM_CONTEXT_HPP_INCLUDED
 
-#include "type.hpp"
+#include "handle.hpp"
 #include "../../common.hpp"
-#include <sge/renderer/glsl/uniform/variable.hpp>
-#include <sge/renderer/glsl/string.hpp>
+#include "../../context/base.hpp"
+#include "../../context/id.hpp"
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -32,37 +33,38 @@ namespace opengl
 {
 namespace glsl
 {
-namespace uniform
+namespace arb
 {
 
-template<
-	typename Environment
->
-class variable
+struct program_context
 :
-	public renderer::glsl::uniform::variable
+	public opengl::context::base
 {
+	FCPPT_NONCOPYABLE(program_context)
 public:
-	typedef typename Environment::handle handle;
+	program_context();
 
-	explicit variable(
-		handle program,
-		renderer::glsl::string const &name
-	);
+	~program_context();
 
-	renderer::glsl::uniform::value const
-	get() const;
+	typedef arb::handle handle;
 
-	void
-	set(
-		renderer::glsl::uniform::value const &
-	);
+	typedef handle (*gl_create_program);
+
+	typedef void (*gl_delete_program)(handle);
+
+	gl_create_program
+	create_program() const;
+	
+	gl_delete_program
+	delete_program() const;
+
+	typedef void needs_before;
+
+	static opengl::context::id const static_id;
 private:
-	handle const program;
+	gl_create_program const create_program_;
 
-	GLint const location;
-
-	type stored_type;
+	gl_delete_program const delete_program_;
 };
 
 }

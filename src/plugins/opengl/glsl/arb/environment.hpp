@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_UNIFORM_VARIABLE_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_UNIFORM_VARIABLE_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLSL_ARB_ENVIRONMENT_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_ARB_ENVIRONMENT_HPP_INCLUDED
 
-#include "type.hpp"
-#include "../../common.hpp"
-#include <sge/renderer/glsl/uniform/variable.hpp>
-#include <sge/renderer/glsl/string.hpp>
+#include "program_context.hpp"
+#include "shader_context.hpp"
+#include "handle.hpp"
+#include <fcppt/restrict_typedef_struct.hpp>
 
 namespace sge
 {
@@ -32,37 +32,18 @@ namespace opengl
 {
 namespace glsl
 {
-namespace uniform
+namespace arb
 {
 
-template<
-	typename Environment
->
-class variable
-:
-	public renderer::glsl::uniform::variable
+struct environment
 {
+	FCPPT_RESTRICT_TYPEDEF_STRUCT(environment)
 public:
-	typedef typename Environment::handle handle;
+	typedef arb::handle handle;
 
-	explicit variable(
-		handle program,
-		renderer::glsl::string const &name
-	);
+	typedef arb::program_context program_context;
 
-	renderer::glsl::uniform::value const
-	get() const;
-
-	void
-	set(
-		renderer::glsl::uniform::value const &
-	);
-private:
-	handle const program;
-
-	GLint const location;
-
-	type stored_type;
+	typedef arb::shader_context shader_context;
 };
 
 }

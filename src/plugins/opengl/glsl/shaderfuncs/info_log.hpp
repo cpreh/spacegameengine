@@ -7,24 +7,21 @@ modify it under the terms of the GNU Lesser General Public License
 as published by the Free Software Foundation; either version 2
 of the License, or (at your option) any later version.
 
-This program is distributed in the hope that it will be useful,
+This shader is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
-along with this program; if not, write to the Free Software
+along with this shader; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_UNIFORM_VARIABLE_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_UNIFORM_VARIABLE_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLSL_SHADERFUNCS_INFO_LOG_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_SHADERFUNCS_INFO_LOG_HPP_INCLUDED
 
-#include "type.hpp"
 #include "../../common.hpp"
-#include <sge/renderer/glsl/uniform/variable.hpp>
-#include <sge/renderer/glsl/string.hpp>
 
 namespace sge
 {
@@ -32,38 +29,20 @@ namespace opengl
 {
 namespace glsl
 {
-namespace uniform
+namespace shaderfuncs
 {
 
 template<
 	typename Environment
 >
-class variable
-:
-	public renderer::glsl::uniform::variable
-{
-public:
-	typedef typename Environment::handle handle;
-
-	explicit variable(
-		handle program,
-		renderer::glsl::string const &name
-	);
-
-	renderer::glsl::uniform::value const
-	get() const;
-
-	void
-	set(
-		renderer::glsl::uniform::value const &
-	);
-private:
-	handle const program;
-
-	GLint const location;
-
-	type stored_type;
-};
+void
+info_log(
+	typename Environment::shader_context const &,
+	typename Environment::handle,
+	GLint maxlen,
+	GLint *len,
+	char *data
+);
 
 }
 }

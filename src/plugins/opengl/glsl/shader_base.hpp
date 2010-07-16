@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_UNIFORM_VARIABLE_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_UNIFORM_VARIABLE_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLSL_SHADER_BASE_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_SHADER_BASE_HPP_INCLUDED
 
-#include "type.hpp"
-#include "../../common.hpp"
-#include <sge/renderer/glsl/uniform/variable.hpp>
-#include <sge/renderer/glsl/string.hpp>
+#include "shader_base_fwd.hpp"
+#include "../context/object_fwd.hpp"
+#include "../common.hpp"
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -32,40 +32,37 @@ namespace opengl
 {
 namespace glsl
 {
-namespace uniform
-{
 
 template<
 	typename Environment
 >
-class variable
-:
-	public renderer::glsl::uniform::variable
+class shader_base
 {
+	FCPPT_NONCOPYABLE(shader_base)
+protected:
+	explicit shader_base(
+		opengl::context::object &,
+		GLenum type
+	);
+	
+	typedef typename Environment::shader_context shader_context;
+
+	shader_context const &
+	context() const;
 public:
+	virtual ~shader_base();
+
 	typedef typename Environment::handle handle;
 
-	explicit variable(
-		handle program,
-		renderer::glsl::string const &name
-	);
-
-	renderer::glsl::uniform::value const
-	get() const;
-
-	void
-	set(
-		renderer::glsl::uniform::value const &
-	);
+	handle
+	id() const;
 private:
-	handle const program;
+	shader_context &context_;
 
-	GLint const location;
-
-	type stored_type;
+	handle const id_;
+	
 };
 
-}
 }
 }
 }

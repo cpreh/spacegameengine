@@ -19,19 +19,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../create_shader.hpp"
+#include "../shader.hpp"
 #include "../context.hpp"
 #include "../vertex_shader.hpp"
 #include "../pixel_shader.hpp"
-#include "../normal/environment.hpp"
+#include "../native/environment.hpp"
 #include "../arb/environment.hpp"
 #include "../../context/use.hpp"
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 template<
 	typename Shader
 >
-fcppt::shared_ptr<Shader> const
+fcppt::shared_ptr<
+	typename Shader::base_type
+> const
 sge::opengl::glsl::create_shader(
 	opengl::context::object &_context,
 	sge::renderer::glsl::string const &_source
@@ -45,32 +49,37 @@ sge::opengl::glsl::create_shader(
 		).is_native()
 		?
 			fcppt::make_shared_ptr<
-				Shader<
-					normal::environment
-				>()
+				glsl::shader<
+					Shader,
+					native::environment
+				>
 			>(
 				std::tr1::ref(
-					_vertex
+					_context
 				)
 			)
 		:
 			fcppt::make_shared_ptr<
-				Shader<
-					normal::environment
-				>()
+				glsl::shader<
+					Shader,
+					arb::environment
+				>
 			>(
 				std::tr1::ref(
-					_vertex
+					_context
 				)
 			)
 		;
 }
 
+#if 0
 #define SGE_OPENGL_GLSL_CREATE_SHADER(shader) \
 template \
-fcppt::shared_ptr<shader> \
+fcppt::shared_ptr<\
+	typename shader::base_type\
+> \
 sge::opengl::glsl::create_shader(\
-	opengl::context::object &, \
+	sge::opengl::context::object &, \
 	sge::renderer::glsl::string const &\
 );
 
@@ -83,3 +92,4 @@ SGE_OPENGL_GLSL_CREATE_SHADER(
 )
 
 #undef SGE_OPENGL_GLSL_CREATE_SHADER
+#endif

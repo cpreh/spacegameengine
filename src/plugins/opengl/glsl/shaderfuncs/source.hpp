@@ -18,10 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../environment.hpp"
+#ifndef SGE_OPENGL_GLSL_SHADERFUNCS_SOURCE_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_SHADERFUNCS_SOURCE_HPP_INCLUDED
 
-sge::opengl::glsl::normal::program_environment const
-sge::opengl::glsl::normal::environment::program_environment;
+#include "../../common.hpp"
 
-sge::opengl::glsl::normal::shader_environment const
-sge::opengl::glsl::normal::environment::shader_environment;
+namespace sge
+{
+namespace opengl
+{
+namespace glsl
+{
+namespace shaderfuncs
+{
+
+template<
+	typename Environment
+>
+void
+source(
+	typename Environment::shader_context const &,
+	typename Environment::handle,
+	GLint num_strings,
+	char const **strings,
+	GLint const *len_of_strings
+);
+
+}
+}
+}
+}
+
+#endif

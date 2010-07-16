@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GLSL_ATTACHMENT_HPP_INCLUDED
 
 #include "attachment_fwd.hpp"
-#include "shader_fwd.hpp"
+#include "shader_base_fwd.hpp"
 #include <sge/renderer/glsl/shader_ptr.hpp>
 #include <fcppt/shared_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -43,21 +43,26 @@ class attachment
 public:
 	typedef typename Environment::handle handle;
 
+	typedef typename Environment::program_context program_context;
+
 	explicit attachment(
+		program_context &,
 		sge::renderer::glsl::shader_ptr,
 		handle program_
 	);
 
 	~attachment();
 private:
-	typedef glsl::shader<
+	typedef glsl::shader_base<
 		typename Environment::shader_environment
 	> shader_type;
 
 	typedef fcppt::shared_ptr<
 		shader_type
 	> shader_ptr;
-		
+	
+	program_context &context_;
+
 	shader_ptr const shader_;
 
 	handle const handle_;

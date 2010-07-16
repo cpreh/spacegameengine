@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../create_vertex_shader.hpp"
 #include "../vertex_shader.hpp"
-#include "../compile_shader.hpp"
 #include "../create_shader.hpp"
 
 sge::renderer::glsl::vertex_shader_ptr const
@@ -30,12 +29,10 @@ sge::opengl::glsl::create_vertex_shader(
 )
 {
 	return
-		opengl::glsl::compile_shader(
-			opengl::glsl::create_shader<
-				opengl::glsl::vertex_shader	
-			>(
-				_context
-			),
+		opengl::glsl::create_shader<
+			opengl::glsl::vertex_shader	
+		>(
+			_context,
 			_source
 		);
 }

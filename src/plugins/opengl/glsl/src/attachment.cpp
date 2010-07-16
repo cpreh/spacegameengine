@@ -21,15 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../attachment.hpp"
 #include "../programfuncs/attach_shader.hpp"
 #include "../programfuncs/detach_shader.hpp"
-#include "../normal/environment.hpp"
+#include "../native/environment.hpp"
 //#include "../arb/environment.hpp"
 #include <fcppt/dynamic_pointer_cast.hpp>
 
 template<
 	typename Environment
 >
-sge::opengl::glsl::attachment<Native>::attachment(
-	typename Environment::program_context &_context,
+sge::opengl::glsl::attachment<Environment>::attachment(
+	program_context &_context,
 	sge::renderer::glsl::shader_ptr const _shader,
 	handle const _handle
 )
@@ -63,15 +63,17 @@ sge::opengl::glsl::attachment<Environment>::~attachment()
 	programfuncs::detach_shader<
 		Environment
 	>(
-		_context,
+		context_,
 		handle_,
 		shader_->id()
 	);
 }
 
+#if 0
 template class sge::opengl::glsl::attachment<
 	sge::opengl::glsl::normal::environment
 >;
+#endif
 
 #if 0
 template class sge::opengl::glsl::attachment<

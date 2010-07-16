@@ -18,49 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_NORMAL_PROGRAM_ENVIRONMENT_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_NORMAL_PROGRAM_ENVIRONMENT_HPP_INCLUDED
+#ifndef SGE_RENDERER_GLSL_g_SHADER_PTR_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_g_SHADER_PTR_HPP_INCLUDED
 
-#include "handle.hpp"
-#include "../../common.hpp"
-#include "../../context/base.hpp"
-#include "../../context/id.hpp"
-#include <fcppt/noncopyable.hpp>
+#include <sge/renderer/glsl/shader_fwd.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
-namespace opengl
+namespace renderer
 {
 namespace glsl
 {
-namespace normal
-{
 
-struct program_context
-:
-	public opengl::context::base
-{
-	FCPPT_NONCOPYABLE(program_environment)
-public:
-	typedef normal::handle handle;
+typedef fcppt::shared_ptr<
+	shader
+> shader_ptr;
 
-	typedef handle (*gl_create_program);
-
-	typedef void (*gl_delete_program)(handle);
-
-	gl_create_program
-	create_program() const;
-	
-	gl_delete_program
-	delete_program() const;
-
-	typedef void needs_before;
-
-	static context::id const static_id;
-private:
-};
-
-}
 }
 }
 }

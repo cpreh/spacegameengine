@@ -18,56 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_UNIFORM_VARIABLE_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_UNIFORM_VARIABLE_HPP_INCLUDED
+#include "../program_context.hpp"
+#include "../../../common.hpp"
 
-#include "type.hpp"
-#include "../../common.hpp"
-#include <sge/renderer/glsl/uniform/variable.hpp>
-#include <sge/renderer/glsl/string.hpp>
-
-namespace sge
-{
-namespace opengl
-{
-namespace glsl
-{
-namespace uniform
-{
-
-template<
-	typename Environment
->
-class variable
+sge::opengl::glsl::native::program_context::program_context()
 :
-	public renderer::glsl::uniform::variable
+	create_program_(
+		glCreateProgram
+	),
+	delete_program_(
+		glDeleteProgram
+	)
+{}
+
+sge::opengl::glsl::native::program_context::~program_context()
+{}
+
+sge::opengl::glsl::native::program_context::gl_create_program
+sge::opengl::glsl::native::program_context::create_program() const
 {
-public:
-	typedef typename Environment::handle handle;
-
-	explicit variable(
-		handle program,
-		renderer::glsl::string const &name
-	);
-
-	renderer::glsl::uniform::value const
-	get() const;
-
-	void
-	set(
-		renderer::glsl::uniform::value const &
-	);
-private:
-	handle const program;
-
-	GLint const location;
-
-	type stored_type;
-};
-
-}
-}
-}
+	return create_program_;
 }
 
-#endif
+sge::opengl::glsl::native::program_context::gl_delete_program
+sge::opengl::glsl::native::program_context::delete_program() const
+{
+	return delete_program_;
+}

@@ -34,6 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../state_visitor.hpp"
 #include "../glsl/set_program.hpp"
 #include "../glsl/create_program.hpp"
+#include "../glsl/create_vertex_shader.hpp"
+#include "../glsl/create_pixel_shader.hpp"
 #include "../common.hpp"
 #include "../set_matrix_and_mode.hpp"
 #include "../split_states.hpp"
@@ -520,13 +522,11 @@ sge::opengl::device::create_glsl_vertex_shader(
 	renderer::glsl::string const &_source
 )
 {
-#if 0
 	return
 		glsl::create_vertex_shader(
 			context_,
 			_source
 		);
-#endif
 }
 
 sge::renderer::glsl::pixel_shader_ptr const
@@ -534,13 +534,11 @@ sge::opengl::device::create_glsl_pixel_shader(
 	renderer::glsl::string const &_source
 )
 {
-#if 0
 	return
 		glsl::create_pixel_shader(
 			context_,
 			_source
 		);
-#endif
 }
 
 void
