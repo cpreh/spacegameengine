@@ -131,7 +131,7 @@ sge::opengl::glsl::uniform::set_int(
 		)
 	);
 
-	SGE_OPENGL_SENTRY(
+	SGE_OPENGL_CHECK_STATE(
 		FCPPT_TEXT("uniform int failed"),
 		sge::renderer::glsl::exception
 	)

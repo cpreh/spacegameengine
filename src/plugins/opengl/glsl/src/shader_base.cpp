@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../shaderfuncs/create.hpp"
 #include "../shaderfuncs/delete.hpp"
 #include "../instantiate.hpp"
+#include "../shader_contexts.hpp"
 #include "../../context/use.hpp"
 
 template<

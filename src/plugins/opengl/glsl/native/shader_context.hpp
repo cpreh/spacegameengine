@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLSL_NATIVE_SHADER_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_GLSL_NATIVE_SHADER_CONTEXT_HPP_INCLUDED
 
+#include "shader_context_fwd.hpp"
 #include "handle.hpp"
 #include "../shader_type.hpp"
 #include "../../common.hpp"
@@ -37,7 +38,7 @@ namespace glsl
 namespace native
 {
 
-struct shader_context
+class shader_context
 :
 	public opengl::context::base
 {

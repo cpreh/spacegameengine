@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLSL_NATIVE_UNIFORM_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_GLSL_NATIVE_UNIFORM_CONTEXT_HPP_INCLUDED
 
+#include "uniform_context_fwd.hpp"
 #include "handle.hpp"
 #include "../../common.hpp"
 #include "../../context/base.hpp"
@@ -117,8 +118,41 @@ private:
 	PFNGLGETUNIFORMIVPROC const get_uniform_iv_;
 
 	PFNGLGETUNIFORMFVPROC const get_uniform_fv_;
-};
 
+	PFNGLUNIFORM1IVPROC const uniform_1iv_;
+	
+	PFNGLUNIFORM2IVPROC const uniform_2iv_;
+
+	PFNGLUNIFORM3IVPROC const uniform_3iv_;
+
+	PFNGLUNIFORM4IVPROC const uniform_4iv_;
+
+	PFNGLUNIFORM1FVPROC const uniform_1fv_;
+
+	PFNGLUNIFORM2FVPROC const uniform_2fv_;
+
+	PFNGLUNIFORM3FVPROC const uniform_3fv_;
+
+	PFNGLUNIFORM3FVPROC const uniform_4fv_;
+
+	PFNGLUNIFORMMATRIX2FVPROC const uniform_matrix_2fv_;
+	
+	PFNGLUNIFORMMATRIX3FVPROC const uniform_matrix_3fv_;
+
+	PFNGLUNIFORMMATRIX4FVPROC const uniform_matrix_4fv_;
+
+	PFNGLUNIFORMMATRIX2X3FVPROC const uniform_matrix_2x3fv_;
+
+	PFNGLUNIFORMMATRIX3X2FVPROC const uniform_matrix_3x2fv_;
+
+	PFNGLUNIFORMMATRIX2X4FVPROC const uniform_matrix_2x4fv_;
+
+	PFNGLUNIFORMMATRIX4X2FVPROC const uniform_matrix_4x2fv_;
+
+	PFNGLUNIFORMMATRIX3X4FVPROC const uniform_matrix_3x4fv_;
+
+	PFNGLUNIFORMMATRIX4X3FVPROC const uniform_matrix_4x3fv_;
+};
 
 }
 }

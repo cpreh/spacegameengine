@@ -20,7 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../set.hpp"
 #include "../type.hpp"
+#include "../set_visitor.hpp"
 #include "../../instantiate.hpp"
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 template<
 	typename Environment
@@ -53,7 +56,6 @@ sge::opengl::glsl::uniform::set<\
 	env\
 >(\
 	env::uniform_context const &,\
-	env::handle,\
 	GLint,\
 	sge::renderer::glsl::uniform::value const &\
 );

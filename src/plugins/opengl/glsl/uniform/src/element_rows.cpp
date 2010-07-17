@@ -1,4 +1,4 @@
-	/*
+/*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
 
@@ -18,51 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../uniform_context.hpp"
-#include "../../../common.hpp"
+#include "../element_rows.hpp"
+#include <sge/renderer/glsl/exception.hpp>
+#include <fcppt/text.hpp>
 
-sge::opengl::glsl::arb::uniform_context::uniform_context()
-:
-	get_uniform_location_(
-		glGetUniformLocationARB
-	),
-	get_uniform_iv_(
-		glGetUniformivARB
-	),
-	get_uniform_fv_(
-		glGetUniformfvARB
-	),
-	uniform_1iv_(
-		glUniform1ivARB
-	),
-	uniform_2iv_(
-		glUniform2ivARB
-	),
-	uniform_3iv_(
-		glUniform3ivARB
-	),
-	uniform_4iv_(
-		glUniform4ivARB
-	),
-	uniform_1fv_(
-		glUniform1fvARB
-	),
-	uniform_2fv_(
-		glUniform2fvARB
-	),
-	uniform_3fv_(
-		glUniform3fvARB
-	),
-	uniform_4fv_(
-		glUniform4fvARB
-	),
-	uniform_matrix_2fv_(
-		glUniformMatrix2fvARB
-	),
-	uniform_matrix_3fv_(
-		glUniformMatrix3fvARB
-	),
-	uniform_matrix_4fv_(
-		glUniformMatrix4fvARB
+GLsizei
+sge::opengl::glsl::uniform::element_rows(
+	sge::renderer::glsl::uniform::float_value_type::type const _type
+)
+{
+	namespace fv = sge::renderer::glsl::uniform::float_value_type;
+
+	switch(
+		_type
 	)
-{}
+	{
+	case fv::matrix2x2:
+	case fv::matrix3x2:
+	case fv::matrix4x2:
+		return 2;
+	case fv::matrix2x3:
+	case fv::matrix3x3:
+	case fv::matrix4x3:
+		return 3;
+	case fv::matrix2x4:
+	case fv::matrix3x4:
+	case fv::matrix4x4:
+		return 4;
+	}
+
+	throw sge::renderer::glsl::exception(
+		FCPPT_TEXT("Invalid matrix type in glsl element_rows!")
+	);
+}

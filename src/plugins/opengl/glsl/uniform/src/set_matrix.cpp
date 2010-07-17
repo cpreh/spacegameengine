@@ -36,8 +36,8 @@ set_matrix_impl(
 	sge::opengl::glsl::native::uniform_context const &_context,
 	GLint const _location,
 	GLfloat const *const _data,
-	GLsizei const _rows,
 	GLsizei const _columns,
+	GLsizei const _rows,
 	GLsizei const _elements
 )
 {
@@ -195,8 +195,8 @@ set_matrix_impl(
 	sge::opengl::glsl::arb::uniform_context const &_context,
 	GLint const _location,
 	GLfloat const *const _data,
-	GLsizei const _rows,
 	GLsizei const _columns,
+	GLsizei const _rows,
 	GLsizei const _elements
 )
 {
@@ -243,7 +243,8 @@ sge::opengl::glsl::uniform::set_matrix(
 	typename Environment::uniform_context const &_context,
 	GLint const _location,
 	GLfloat const *const _data,
-	GLsizei const _size,
+	GLsizei const _columns,
+	GLsizei const _rows,
 	GLsizei const _elements
 )
 {
@@ -254,7 +255,8 @@ sge::opengl::glsl::uniform::set_matrix(
 			_context,
 			_location,
 			_data,
-			_size,
+			_columns,
+			_rows,
 			_elements
 		)
 	);

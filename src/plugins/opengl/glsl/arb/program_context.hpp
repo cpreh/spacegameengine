@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLSL_ARB_PROGRAM_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_GLSL_ARB_PROGRAM_CONTEXT_HPP_INCLUDED
 
+#include "program_context_fwd.hpp"
 #include "handle.hpp"
 #include "../../common.hpp"
 #include "../../context/base.hpp"
@@ -36,7 +37,7 @@ namespace glsl
 namespace arb
 {
 
-struct program_context
+class program_context
 :
 	public opengl::context::base
 {

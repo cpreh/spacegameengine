@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../uniform_context.hpp"
+#include "../../../common.hpp"
 
 sge::opengl::glsl::native::uniform_context::uniform_context()
 :
@@ -31,55 +32,55 @@ sge::opengl::glsl::native::uniform_context::uniform_context()
 	get_uniform_fv_(
 		glGetUniformfv
 	),
-	uniform_1iv(
+	uniform_1iv_(
 		glUniform1iv
 	),
-	uniform_2iv(
+	uniform_2iv_(
 		glUniform2iv
 	),
-	uniform_3iv(
+	uniform_3iv_(
 		glUniform3iv
 	),
-	uniform_4iv(
+	uniform_4iv_(
 		glUniform4iv
 	),
-	uniform_1fv(
+	uniform_1fv_(
 		glUniform1fv
 	),
-	uniform_2fv(
+	uniform_2fv_(
 		glUniform2fv
 	),
-	uniform_3fv(
+	uniform_3fv_(
 		glUniform3fv
 	),
-	uniform_4fv(
+	uniform_4fv_(
 		glUniform4fv
 	),
-	uniform_matrix_2fv(
+	uniform_matrix_2fv_(
 		glUniformMatrix2fv
 	),
-	uniform_matrix_3fv(
+	uniform_matrix_3fv_(
 		glUniformMatrix3fv
 	),
-	uniform_matrix_4fv(
+	uniform_matrix_4fv_(
 		glUniformMatrix4fv
 	),
-	uniform_matrix_2x3fv(
+	uniform_matrix_2x3fv_(
 		glUniformMatrix2x3fv
 	),
-	uniform_matrix_3x2fv(
+	uniform_matrix_3x2fv_(
 		glUniformMatrix3x2fv
 	),
-	uniform_matrix_2x4fv(
+	uniform_matrix_2x4fv_(
 		glUniformMatrix2x4fv
 	),
-	uniform_matrix_4x2fv(
+	uniform_matrix_4x2fv_(
 		glUniformMatrix4x2fv
 	),
-	uniform_matrix_3x4fv(
+	uniform_matrix_3x4fv_(
 		glUniformMatrix3x4fv
 	),
-	uniform_matrix_4x3fv(
+	uniform_matrix_4x3fv_(
 		glUniformMatrix4x3fv
 	)
 {}
@@ -105,40 +106,3 @@ sge::opengl::glsl::native::uniform_context::get_uniform_fv() const
 {
 	return get_uniform_fv_;
 }
-
-
-#if 0
-namespace
-{
-
-template<>
-sge::opengl::glsl::traits<false>::handle
-location_impl(
-	typename sge::opengl::glsl::traits<false>::handle const _program
-	char const *const _name
-)
-{
-	return
-		glGetUniformLocationARB(
-			_program,
-			_name
-		);
-}
-
-}
-PFNGLGETUNIFORMIVPROC
-get_uniform_iv<false>::get()
-{
-	return glGetUniformivARB;
-}
-
-PFNGLGETUNIFORMFVPROC
-get_uniform_fv<false>::get()
-{
-	return glGetUniformfvARB;
-}
-
-
-#endif
-
-

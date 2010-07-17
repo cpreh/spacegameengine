@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../instantiate.hpp"
 #include "../vertex_shader.hpp"
 #include "../pixel_shader.hpp"
+#include "../shader_contexts.hpp"
 #include "../../context/use.hpp"
 #include <sge/renderer/glsl/exception.hpp>
 #include <fcppt/text.hpp>

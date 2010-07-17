@@ -18,55 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../setter.hpp"
-#include "../../init.hpp"
-#include <sge/renderer/glsl/uniform/int_value_type.hpp>
-#include <sge/renderer/glsl/uniform/float_value_type.hpp>
-#include <sge/renderer/glsl/exception.hpp>
-#include <sge/exception.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/format.hpp>
-#include <fcppt/assert.hpp>
-
-namespace
-{
-
-sge::opengl::glsl::uniform::type const
-set_int(
-	GLint location,
-	GLint const *data,
-	GLsizei size,
-	GLsizei elements);
-
-sge::opengl::glsl::uniform::type const
-set_matrix(
-	GLint location,
-	GLfloat const *data,
-	GLsizei rows,
-	GLsizei columns,
-	GLsizei elements);
-
-bool
-is_matrix(
-	sge::renderer::glsl::uniform::float_value_type::type);
-
-GLsizei
-element_size(
-	sge::renderer::glsl::uniform::int_value_type::type);
-
-GLsizei
-element_size(
-	sge::renderer::glsl::uniform::float_value_type::type);
-
-GLsizei
-element_columns(
-	sge::renderer::glsl::uniform::float_value_type::type);
-
-GLsizei
-element_rows(
-	sge::renderer::glsl::uniform::float_value_type::type);
-
-}
+#include "../set_visitor.hpp"
+#include "../set_int.hpp"
+#include "../set_float.hpp"
+#include "../set_matrix.hpp"
+#include "../is_matrix.hpp"
+#include "../element_size_int.hpp"
+#include "../element_size_float.hpp"
+#include "../element_columns.hpp"
+#include "../element_rows.hpp"
+#include "../../instantiate.hpp"
 
 template<
 	typename Environment
@@ -93,13 +54,13 @@ sge::opengl::glsl::uniform::set_visitor<Environment>::operator()(
 ) const
 {
 	return
-		set_int<
+		uniform::set_int<
 			Environment
 		>(
 			context_,
 			location_,
 			_value.data(),
-			element_size(
+			uniform::element_size_int(
 				_value.type()
 			),
 			static_cast<
@@ -119,20 +80,20 @@ sge::opengl::glsl::uniform::set_visitor<Environment>::operator()(
 ) const
 {
 	return
-		is_matrix(
+		uniform::is_matrix(
 			_value.type()
 		)
 		?
-			set_matrix<
+			uniform::set_matrix<
 				Environment
 			>(
 				context_,
 				location_,
 				_value.data(),
-				element_columns(
+				uniform::element_columns(
 					_value.type()
 				),
-				element_rows(
+				uniform::element_rows(
 					_value.type()
 				),
 				static_cast<
@@ -142,13 +103,13 @@ sge::opengl::glsl::uniform::set_visitor<Environment>::operator()(
 				)
 			)
 		:
-			set_float<
+			uniform::set_float<
 				Environment
 			>(
 				context_,
 				location_,
 				_value.data(),
-				element_size(
+				uniform::element_size_float(
 					_value.type()
 				),
 				static_cast<
@@ -157,82 +118,4 @@ sge::opengl::glsl::uniform::set_visitor<Environment>::operator()(
 					_value.elements()
 				)
 			);
-}
-
-namespace
-{
-
-// TODO: add some assertions!
-
-bool
-is_matrix(
-	sge::renderer::glsl::uniform::float_value_type::type const type)
-{
-	return type >= sge::renderer::glsl::uniform::float_value_type::matrix2x2;
-}
-
-GLsizei
-element_size(
-	sge::renderer::glsl::uniform::int_value_type::type const t)
-{
-	return static_cast<GLsizei>(t) + 1;
-}
-
-GLsizei
-element_size(
-	sge::renderer::glsl::uniform::float_value_type::type const t)
-{
-	return static_cast<GLsizei>(t) + 1;
-}
-
-GLsizei
-element_columns(
-	sge::renderer::glsl::uniform::float_value_type::type const t)
-{
-	namespace fv = sge::renderer::glsl::uniform::float_value_type;
-
-	switch(t) {
-	case fv::matrix2x2:
-	case fv::matrix2x3:
-	case fv::matrix2x4:
-		return 2;
-	case fv::matrix3x2:
-	case fv::matrix3x3:
-	case fv::matrix3x4:
-		return 3;
-	case fv::matrix4x2:
-	case fv::matrix4x3:
-	case fv::matrix4x4:
-		return 4;
-	default:
-		throw sge::exception(
-			FCPPT_TEXT("Invalid matrix type in glsl element_columns!"));
-	}
-}
-
-GLsizei
-element_rows(
-	sge::renderer::glsl::uniform::float_value_type::type const t)
-{
-	namespace fv = sge::renderer::glsl::uniform::float_value_type;
-
-	switch(t) {
-	case fv::matrix2x2:
-	case fv::matrix3x2:
-	case fv::matrix4x2:
-		return 2;
-	case fv::matrix2x3:
-	case fv::matrix3x3:
-	case fv::matrix4x3:
-		return 3;
-	case fv::matrix2x4:
-	case fv::matrix3x4:
-	case fv::matrix4x4:
-		return 4;
-	default:
-		throw sge::exception(
-			FCPPT_TEXT("Invalid matrix type in glsl element_rows!"));
-	}
-}
-
 }
