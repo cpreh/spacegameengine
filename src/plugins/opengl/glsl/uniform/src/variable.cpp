@@ -22,25 +22,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../location.hpp"
 #include "../set.hpp"
 #include "../get.hpp"
+#include "../element_type.hpp"
+#include "../../instantiate.hpp"
+#include <sge/renderer/glsl/uniform/value.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 template<
 	typename Environment
 >
-sge::opengl::glsl::uniform::variable<Native>::variable(
-	handle const program,
-	renderer::glsl::string const &name
+sge::opengl::glsl::uniform::variable<Environment>::variable(
+	uniform_context const &_context,
+	handle const _program,
+	renderer::glsl::string const &_name
 )
 :
-	program(
-		program
+	context_(
+		_context
 	),
-	location(
-		uniform::location<Native>(
-			program,
-			name.c_str()
+	program_(
+		_program
+	),
+	location_(
+		uniform::location<
+			Environment
+		>(
+			context_,
+			_program,
+			_name.c_str()
 		)
 	),
-	stored_type(
+	stored_type_(
 		element_type::nothing,
 		0
 	)
@@ -50,15 +61,16 @@ template<
 	typename Environment
 >
 sge::renderer::glsl::uniform::value const
-sge::opengl::glsl::uniform::variable<Native>::get() const
+sge::opengl::glsl::uniform::variable<Environment>::get() const
 {
 	return
 		uniform::get<
 			Environment
 		>(
-			program,
-			location,
-			stored_type
+			context_,
+			program_,
+			location_,
+			stored_type_
 		);
 }
 
@@ -66,16 +78,28 @@ template<
 	typename Environment
 >
 void
-sge::opengl::glsl::uniform::variable<Native>::set(
+sge::opengl::glsl::uniform::variable<Environment>::set(
 	renderer::glsl::uniform::value const &_value
 )
 {
-	stored_type =
+	stored_type_ =
 		uniform::set<
 			Environment
 		>(
-			program,
-			location,
+			context_,
+			location_,
 			_value
 		);
 }
+
+#define SGE_OPENGL_GLSL_UNIFORM_INSTANTIATE_VARIABLE(\
+	env\
+)\
+template class \
+sge::opengl::glsl::uniform::variable<\
+	env\
+>;
+
+SGE_OPENGL_GLSL_INSTANTIATE(
+	SGE_OPENGL_GLSL_UNIFORM_INSTANTIATE_VARIABLE
+)

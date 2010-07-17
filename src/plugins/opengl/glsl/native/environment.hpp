@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLSL_NATIVE_ENVIRONMENT_HPP_INCLUDED
 #define SGE_OPENGL_GLSL_NATIVE_ENVIRONMENT_HPP_INCLUDED
 
-#include "program_context.hpp"
-#include "shader_context.hpp"
+#include "program_context_fwd.hpp"
+#include "shader_context_fwd.hpp"
+#include "uniform_context_fwd.hpp"
 #include "handle.hpp"
 #include <fcppt/restrict_typedef_struct.hpp>
 
@@ -44,6 +45,8 @@ public:
 	typedef native::program_context program_context;
 
 	typedef native::shader_context shader_context;
+
+	typedef native::uniform_context uniform_context;
 };
 
 }

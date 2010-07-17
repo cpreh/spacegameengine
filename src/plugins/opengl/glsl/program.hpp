@@ -113,7 +113,7 @@ private:
 
 	program_context &context_;
 
-	handle const handle_;
+	handle const id_;
 
 	attachment_ptr
 		vertex_shader_,

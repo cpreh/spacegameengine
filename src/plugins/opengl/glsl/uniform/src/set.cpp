@@ -19,28 +19,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../set.hpp"
+#include "../type.hpp"
+#include "../../instantiate.hpp"
 
 template<
-	bool Native
+	typename Environment
 >
 sge::opengl::glsl::uniform::type const
 sge::opengl::glsl::uniform::set(
-	typename traits<Native>::handle const _program,
+	typename Environment::uniform_context const &_context,
 	GLint const _location,
 	renderer::glsl::uniform::value const &_value
 )
 {
+	return
+		fcppt::variant::apply_unary(
+			uniform::set_visitor<
+				Environment
+			>(
+				_context,
+				_location
+			),
+			_value
+		);
 }
 
-#define SGE_OPENGL_INSTANTIATE_GLSL_SET(x)\
+#define SGE_OPENGL_GLSL_INSTANTIATE_UNIFORM_SET(\
+	env\
+)\
+template \
 sge::opengl::glsl::uniform::type const \
-sge::opengl::glsl::uniform::set<x>(\
-	sge::opengl::glsl::traits<x>::handle,\
+sge::opengl::glsl::uniform::set<\
+	env\
+>(\
+	env::uniform_context const &,\
+	env::handle,\
 	GLint,\
-	sge::opengl::glsl::uniform::type const &\
+	sge::renderer::glsl::uniform::value const &\
 );
 
-SGE_OPENGL_INSTANTIATE_GLSL_SET(true)
-SGE_OPENGL_INSTANTIATE_GLSL_SET(false)
-
-#undef SGE_OPENGL_INSTANTIATE_GLSL_SET
+SGE_OPENGL_GLSL_INSTANTIATE(
+	SGE_OPENGL_GLSL_INSTANTIATE_UNIFORM_SET
+)

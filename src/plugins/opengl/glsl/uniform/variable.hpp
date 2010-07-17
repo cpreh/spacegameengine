@@ -45,7 +45,10 @@ class variable
 public:
 	typedef typename Environment::handle handle;
 
+	typedef typename Environment::uniform_context uniform_context;
+
 	explicit variable(
+		uniform_context const &,
 		handle program,
 		renderer::glsl::string const &name
 	);
@@ -58,11 +61,13 @@ public:
 		renderer::glsl::uniform::value const &
 	);
 private:
-	handle const program;
+	uniform_context const &context_;
 
-	GLint const location;
+	handle const program_;
 
-	type stored_type;
+	GLint const location_;
+
+	type stored_type_;
 };
 
 }

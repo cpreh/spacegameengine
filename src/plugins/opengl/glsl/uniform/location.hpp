@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLSL_UNIFORM_LOCATION_HPP_INCLUDED
 #define SGE_OPENGL_GLSL_UNIFORM_LOCATION_HPP_INCLUDED
 
-#include "../traits.hpp"
 #include "../../common.hpp"
 
 namespace sge
@@ -34,11 +33,12 @@ namespace uniform
 {
 
 template<
-	bool Native
+	typename Environment
 >
 GLint
 location(
-	typename traits<Native>::handle program,
+	typename Environment::uniform_context const &,
+	typename Environment::handle program,
 	char const *name
 );
 

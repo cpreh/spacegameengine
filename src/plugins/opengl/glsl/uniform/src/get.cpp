@@ -20,59 +20,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../get.hpp"
 #include "../type.hpp"
-#include <sge/renderer/exception.hpp>
+#include "../../instantiate.hpp"
+#include "../../../check_state.hpp"
+#include <sge/renderer/glsl/exception.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/text.hpp>
 
 namespace
 {
-
-template<
-	bool Native
->
-struct get_uniform_iv;
-
-template<>
-struct get_uniform_iv<
-	true
->
-{
-	static PFNGLGETUNIFORMIVPROC
-	get();
-};
-
-template<>
-struct get_uniform_iv<
-	false
->
-{
-	static PFNGLGETUNIFORMIVPROC
-	get();
-};
-
-template<
-	bool Native
->
-struct get_uniform_fv;
-
-template<>
-struct get_uniform_fv<
-	true
->
-{
-	static PFNGLGETUNIFORMFVPROC
-	get();
-};
-
-template<>
-struct get_uniform_fv<
-	false
->
-{
-	static PFNGLGETUNIFORMFVPROC
-	get();
-};
 
 template<
 	typename T
@@ -129,16 +85,16 @@ struct to_type<
 };
 
 template<
-	bool Native,
+	typename Environment,
 	typename ValueType,
 	typename Function
 >
 sge::renderer::glsl::uniform::value const
 get_impl(
-	typename sge::opengl::glsl::traits<Native>::handle const program,
-	GLint const location,
-	sge::opengl::glsl::uniform::type const &t,
-	Function const &function
+	typename Environment::handle const _program,
+	GLint const _location,
+	sge::opengl::glsl::uniform::type const &_type,
+	Function const &_function
 )
 {
 	typedef typename ValueType::element_type element_type;
@@ -147,67 +103,76 @@ get_impl(
 		element_count<
 			element_type
 		>::get(
-			t.element_type()
+			_type.element_type()
 		)
 	);
 
 	typename ValueType::data_type data(
-		elements * t.elements()
+		elements * _type.elements()
 	);
 
 	for(
 		sge::opengl::glsl::uniform::type::size_type i = 0;
-		i < t.elements();
+		i < _type.elements();
 		++i
 	)
-		function(
-			program,
-			location,
+	{
+		_function(
+			_program,
+			_location,
 			data.data() + i * elements
 		);
 
-	return sge::renderer::glsl::uniform::value(
-		ValueType(
-			data,
-				elements,
-			to_type<
-				element_type
-			>::get(
-				t.element_type()
-			)
+		SGE_OPENGL_CHECK_STATE(
+			FCPPT_TEXT("Getting a uniform variable failed"),
+
+			sge::renderer::glsl::exception
 		)
-	);
+	}
+
+	return
+		sge::renderer::glsl::uniform::value(
+			ValueType(
+				data,
+				elements,
+				to_type<
+					element_type
+				>::get(
+					_type.element_type()
+				)
+			)
+		);
 }
 
 }
 
 template<
-	bool Native
+	typename Environment
 >
 sge::renderer::glsl::uniform::value const
 sge::opengl::glsl::uniform::get(
-	typename traits<Native>::handle const program,
-	GLint const location,
-	type const &t
+	typename Environment::uniform_context const &_context,
+	typename Environment::handle const _program,
+	GLint const _location,
+	type const &_type
 )
 {
-	switch(t.element_type())
+	switch(_type.element_type())
 	{
 	case element_type::int1:
 	case element_type::int2:
 	case element_type::int3:
 	case element_type::int4:
-		return get_impl<
-			Native,
-			renderer::glsl::uniform::int_value
-		>(
-			program,
-			location,
-			t,
-			get_uniform_iv<
-				Native
-			>::get()
-		);
+		return
+			get_impl<
+				Environment,
+				renderer::glsl::uniform::int_value
+			>(
+				_program,
+				_location,
+				_type,
+				_context.get_uniform_iv()
+			);
 	case element_type::float1:
 	case element_type::float2:
 	case element_type::float3:
@@ -221,52 +186,27 @@ sge::opengl::glsl::uniform::get(
 	case element_type::matrix4x2:
 	case element_type::matrix3x4:
 	case element_type::matrix4x3:
-		return get_impl<
-			Native,
-			renderer::glsl::uniform::float_value
-		>(
-			program,
-			location,
-			t,
-			get_uniform_fv<
-				Native
-			>::get()
-		);
+		return
+			get_impl<
+				Environment,
+				renderer::glsl::uniform::float_value
+			>(
+				_program,
+				_location,
+				_type,
+				_context.get_uniform_fv()
+			);
 	case element_type::nothing:
 		break;
 	}
 
-	throw renderer::exception(
+	throw renderer::glsl::exception(
 		FCPPT_TEXT("Invalid variable type!")
 	);
 }
 
 namespace
 {
-
-PFNGLGETUNIFORMIVPROC
-get_uniform_iv<true>::get()
-{
-	return glGetUniformiv;
-}
-
-PFNGLGETUNIFORMIVPROC
-get_uniform_iv<false>::get()
-{
-	return glGetUniformivARB;
-}
-
-PFNGLGETUNIFORMFVPROC
-get_uniform_fv<true>::get()
-{
-	return glGetUniformfv;
-}
-
-PFNGLGETUNIFORMFVPROC
-get_uniform_fv<false>::get()
-{
-	return glGetUniformfvARB;
-}
 
 sge::renderer::size_type
 element_count<
@@ -304,7 +244,7 @@ element_count<
 		break;
 	}
 
-	throw sge::renderer::exception(
+	throw sge::renderer::glsl::exception(
 		FCPPT_TEXT("Invalid int type!")
 	);
 }
@@ -351,7 +291,7 @@ element_count<
 		break;
 	}
 
-	throw sge::renderer::exception(
+	throw sge::renderer::glsl::exception(
 		FCPPT_TEXT("Invalid float type!")
 	);
 }
@@ -393,7 +333,7 @@ to_type<
 		break;
 	}
 
-	throw sge::renderer::exception(
+	throw sge::renderer::glsl::exception(
 		FCPPT_TEXT("Invalid int element!")
 	);
 }
@@ -444,22 +384,26 @@ to_type<
 		break;
 	}
 
-	throw sge::renderer::exception(
+	throw sge::renderer::glsl::exception(
 		FCPPT_TEXT("Invalid float type!")
 	);
 }
 
 }
 
-#define SGE_OPENGL_INSTANTIATE_GLSL_GET(x)\
+#define SGE_OPENGL_GLSL_INSTANTIATE_UNIFORM_GET(\
+	env\
+)\
 template sge::renderer::glsl::uniform::value const \
-sge::opengl::glsl::uniform::get<x>(\
-	sge::opengl::glsl::traits<x>::handle,\
+sge::opengl::glsl::uniform::get<\
+	env\
+>(\
+	env::uniform_context const &,\
+	env::handle,\
 	GLint,\
 	sge::opengl::glsl::uniform::type const &\
 );
 
-SGE_OPENGL_INSTANTIATE_GLSL_GET(true)
-SGE_OPENGL_INSTANTIATE_GLSL_GET(false)
-
-#undef SGE_OPENGL_INSTANTIATE_GLSL_GET
+SGE_OPENGL_GLSL_INSTANTIATE(
+	SGE_OPENGL_GLSL_INSTANTIATE_UNIFORM_GET
+)

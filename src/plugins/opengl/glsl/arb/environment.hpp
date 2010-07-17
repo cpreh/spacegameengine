@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "program_context.hpp"
 #include "shader_context.hpp"
+#include "uniform_context.hpp"
 #include "handle.hpp"
 #include <fcppt/restrict_typedef_struct.hpp>
 
@@ -44,6 +45,8 @@ public:
 	typedef arb::program_context program_context;
 
 	typedef arb::shader_context shader_context;
+
+	typedef arb::uniform_context uniform_context;
 };
 
 }

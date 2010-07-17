@@ -18,10 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_SHADERFUNCS_CREATE_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_SHADERFUNCS_CREATE_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLSL_UNIFORM_SET_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_UNIFORM_SET_HPP_INCLUDED
 
+#include "type_fwd.hpp"
 #include "../../common.hpp"
+#include <sge/renderer/glsl/uniform/value.hpp>
 
 namespace sge
 {
@@ -29,16 +31,17 @@ namespace opengl
 {
 namespace glsl
 {
-namespace shaderfuncs
+namespace uniform
 {
 
 template<
 	typename Environment
 >
-typename Environment::handle
-create(
-	typename Environment::shader_context const &,
-	GLenum
+type const
+set(
+	typename Environment::uniform_context const &,
+	GLint location,
+	renderer::glsl::uniform::value const &
 );
 
 }

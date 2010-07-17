@@ -40,14 +40,12 @@ sge::opengl::glsl::shader_base<Environment>::shader_base(
 		)
 	),
 	id_(
-	#if 0
 		shaderfuncs::create<
 			Environment
 		>(
 			context_,
 			_type
 		)
-	#endif
 	)
 {}
 

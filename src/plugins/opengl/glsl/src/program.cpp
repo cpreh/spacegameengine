@@ -80,7 +80,7 @@ void
 sge::opengl::glsl::program<Environment>::use()
 {
 	do_use(
-		id()
+		id_
 	);
 }
 
@@ -109,7 +109,7 @@ sge::opengl::glsl::program<Environment>::uniform(
 				Environment
 			>
 		>(
-			id(),
+			id_,
 			_name
 		);
 }
@@ -133,7 +133,7 @@ template<
 	typename Environment
 >
 void
-sge::opengl::glsl::program<Environment>::vertex_shader(
+sge::opengl::glsl::program<Environment>::pixel_shader(
 	sge::renderer::glsl::pixel_shader_ptr const _pointer
 )
 {
@@ -216,7 +216,7 @@ template<
 	typename Environment
 >
 typename sge::opengl::glsl::program<Environment>::attachment_auto_ptr
-sge::opengl::glsl::program::make_attachment(
+sge::opengl::glsl::program<Environment>::make_attachment(
 	sge::renderer::glsl::shader_ptr const _shader
 )
 {
@@ -225,9 +225,9 @@ sge::opengl::glsl::program::make_attachment(
 			attachment_type
 		>(
 			_shader,
-			id()
+			id_
 		)
 	);
 
-	return ret;
+	return ptr;
 }

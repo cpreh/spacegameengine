@@ -48,7 +48,7 @@ public:
 
 	typedef native::handle handle;
 
-	typedef handle (*gl_create_program);
+	typedef handle (*gl_create_program)();
 
 	typedef void (*gl_delete_program)(handle);
 

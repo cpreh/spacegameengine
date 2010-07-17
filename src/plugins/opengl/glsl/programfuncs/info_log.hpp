@@ -37,7 +37,7 @@ template<
 >
 void
 info_log(
-	typename Environment::program_context &
+	typename Environment::program_context const &,
 	typename Environment::handle,
 	GLint maxlen,
 	GLint *len,

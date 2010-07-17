@@ -18,10 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_SHADERFUNCS_CREATE_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_SHADERFUNCS_CREATE_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLSL_ARB_UNIFORM_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_ARB_UNIFORM_CONTEXT_HPP_INCLUDED
 
+#include "handle.hpp"
 #include "../../common.hpp"
+#include "../../context/base.hpp"
+#include "../../context/id.hpp"
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -29,17 +33,41 @@ namespace opengl
 {
 namespace glsl
 {
-namespace shaderfuncs
+namespace arb
 {
 
-template<
-	typename Environment
->
-typename Environment::handle
-create(
-	typename Environment::shader_context const &,
-	GLenum
-);
+class uniform_context
+:
+	public opengl::context::base
+{
+	FCPPT_NONCOPYABLE(uniform_context)
+public:
+	uniform_context();
+
+	~uniform_context();
+
+	typedef arb::handle handle;
+
+	PFNGLGETUNIFORMLOCATIONARBPROC
+	get_uniform_location() const;
+
+	PFNGLGETUNIFORMIVARBPROC
+	get_uniform_iv() const;
+
+	PFNGLGETUNIFORMFVARBPROC
+	get_uniform_fv() const;
+
+	typedef void needs_before;
+
+	static opengl::context::id const static_id;
+private:
+	PFNGLGETUNIFORMLOCATIONARBPROC const get_uniform_location_;
+	
+	PFNGLGETUNIFORMIVARBPROC const get_uniform_iv_;
+
+	PFNGLGETUNIFORMFVARBPROC const get_uniform_fv_;
+};
+
 
 }
 }

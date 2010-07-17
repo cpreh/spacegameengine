@@ -1,3 +1,4 @@
+
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
@@ -18,9 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_SHADERFUNCS_CREATE_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_SHADERFUNCS_CREATE_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLSL_UNIFORM_SET_INT_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_UNIFORM_SET_INT_HPP_INCLUDED
 
+#include "type_fwd.hpp"
 #include "../../common.hpp"
 
 namespace sge
@@ -29,16 +31,19 @@ namespace opengl
 {
 namespace glsl
 {
-namespace shaderfuncs
+namespace uniform
 {
 
 template<
 	typename Environment
 >
-typename Environment::handle
-create(
-	typename Environment::shader_context const &,
-	GLenum
+sge::opengl::glsl::uniform::type const
+set_int(
+	typename Environment::uniform_context const &,
+	GLint location,
+	GLint const *data,
+	GLsizei size,
+	GLsizei elements
 );
 
 }

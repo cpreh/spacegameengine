@@ -18,13 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_UNIFORM_SETTER_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_UNIFORM_SETTER_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLSL_UNIFORM_SET_VISITOR_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_UNIFORM_SET_VISITOR_HPP_INCLUDED
 
 #include "type.hpp"
 #include <sge/renderer/glsl/uniform/int_value.hpp>
 #include <sge/renderer/glsl/uniform/float_value.hpp>
-#include <boost/variant/static_visitor.hpp>
 
 namespace sge
 {
@@ -35,20 +34,34 @@ namespace glsl
 namespace uniform
 {
 
-class setter : public boost::static_visitor<type> {
+template<
+	typename Environment
+>
+class set_visitor
+{
 public:
-	explicit setter(
-		GLint location);
+	typedef type result_type;
+
+	typedef typename Environment::uniform_context uniform_context;
+
+	explicit set_visitor(
+		uniform_context const &,
+		GLint location
+	);
 
 	type const
 	operator()(
-		renderer::glsl::uniform::int_value const &) const;
+		renderer::glsl::uniform::int_value const &
+	) const;
 
 	type const
 	operator()(
-		renderer::glsl::uniform::float_value const &) const;
+		renderer::glsl::uniform::float_value const &
+	) const;
 private:
-	GLint const location;
+	uniform_context const &context_;
+
+	GLint const location_;
 };
 
 }
