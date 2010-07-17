@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../vertex_attrib.hpp"
 #include "../../glew/is_supported.hpp"
-#include "../../version.hpp"
+#include "../../on_not_supported.hpp"
 #include "../../check_state.hpp"
 #include "../../common.hpp"
 #include <sge/renderer/exception.hpp>

@@ -18,38 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_CONTEXT_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLSL_UNIFORM_ELEMENT_COUNT_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_UNIFORM_ELEMENT_COUNT_HPP_INCLUDED
 
-#include "context/base.hpp"
-#include "context/id.hpp"
-#include <fcppt/noncopyable.hpp>
+#include "element_type.hpp"
+#include <sge/renderer/size_type.hpp>
 
 namespace sge
 {
 namespace opengl
 {
-
-class texture_context
-:
-	public context::base
+namespace glsl
 {
-	FCPPT_NONCOPYABLE(texture_context)
-public:
-	texture_context();
+namespace uniform
+{
 
-	~texture_context();
+sge::renderer::size_type
+element_count(
+	element_type::type
+);
 
-	bool
-	anisotropic_filter_supported() const;
-
-	typedef void needs_before;
-
-	static context::id const static_id;
-private:
-	bool const anisotropic_filter_supported_;
-};
-
+}
+}
 }
 }
 

@@ -18,38 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_CONTEXT_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLSL_UNIFORM_CONVERT_TYPE_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_UNIFORM_CONVERT_TYPE_HPP_INCLUDED
 
-#include "context/base.hpp"
-#include "context/id.hpp"
-#include <fcppt/noncopyable.hpp>
+#include "element_type.hpp"
+#include <sge/renderer/glsl/uniform/int_value_type.hpp>
+#include <sge/renderer/glsl/uniform/float_value_type.hpp>
 
 namespace sge
 {
 namespace opengl
 {
-
-class texture_context
-:
-	public context::base
+namespace glsl
 {
-	FCPPT_NONCOPYABLE(texture_context)
-public:
-	texture_context();
+namespace uniform
+{
 
-	~texture_context();
+template<
+	typename Dest
+>
+Dest
+convert_type(
+	element_type::type
+);
 
-	bool
-	anisotropic_filter_supported() const;
+template<>
+sge::renderer::glsl::uniform::int_value_type::type
+convert_type(
+	element_type::type
+);
 
-	typedef void needs_before;
+template<>
+sge::renderer::glsl::uniform::float_value_type::type
+convert_type(
+	element_type::type
+);
 
-	static context::id const static_id;
-private:
-	bool const anisotropic_filter_supported_;
-};
-
+}
+}
 }
 }
 

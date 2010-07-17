@@ -20,69 +20,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../get.hpp"
 #include "../type.hpp"
+#include "../convert_type.hpp"
+#include "../element_count.hpp"
+#include "../contexts.hpp"
 #include "../../instantiate.hpp"
 #include "../../../check_state.hpp"
 #include <sge/renderer/glsl/exception.hpp>
-#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/text.hpp>
 
 namespace
 {
-
-template<
-	typename T
->
-struct element_count;
-
-template<>
-struct element_count<
-	sge::renderer::glsl::uniform::int_value_type::type
->
-{
-	static sge::renderer::size_type
-	get(
-		sge::opengl::glsl::uniform::element_type::type
-	);
-};
-
-template<>
-struct element_count<
-	sge::renderer::glsl::uniform::float_value_type::type
->
-{
-	static sge::renderer::size_type
-	get(
-		sge::opengl::glsl::uniform::element_type::type
-	);
-};
-
-template<
-	typename T
->
-struct to_type;
-
-template<>
-struct to_type<
-	sge::renderer::glsl::uniform::int_value_type::type
->
-{
-	static sge::renderer::glsl::uniform::int_value_type::type
-	get(
-		sge::opengl::glsl::uniform::element_type::type
-	);
-};
-
-template<>
-struct to_type<
-	sge::renderer::glsl::uniform::float_value_type::type
->
-{
-	static sge::renderer::glsl::uniform::float_value_type::type
-	get(
-		sge::opengl::glsl::uniform::element_type::type
-	);
-};
 
 template<
 	typename Environment,
@@ -100,9 +49,7 @@ get_impl(
 	typedef typename ValueType::element_type element_type;
 
 	sge::renderer::size_type const elements(
-		element_count<
-			element_type
-		>::get(
+		sge::opengl::glsl::uniform::element_count(
 			_type.element_type()
 		)
 	);
@@ -125,7 +72,6 @@ get_impl(
 
 		SGE_OPENGL_CHECK_STATE(
 			FCPPT_TEXT("Getting a uniform variable failed"),
-
 			sge::renderer::glsl::exception
 		)
 	}
@@ -135,9 +81,9 @@ get_impl(
 			ValueType(
 				data,
 				elements,
-				to_type<
+				sge::opengl::glsl::uniform::convert_type<
 					element_type
-				>::get(
+				>(
 					_type.element_type()
 				)
 			)
@@ -203,192 +149,6 @@ sge::opengl::glsl::uniform::get(
 	throw renderer::glsl::exception(
 		FCPPT_TEXT("Invalid variable type!")
 	);
-}
-
-namespace
-{
-
-sge::renderer::size_type
-element_count<
-	sge::renderer::glsl::uniform::int_value_type::type
->::get(
-	sge::opengl::glsl::uniform::element_type::type const _type
-)
-{
-	namespace et = sge::opengl::glsl::uniform::element_type;
-
-	switch(_type)
-	{
-	case et::int1:
-		return 1;
-	case et::int2:
-		return 2;
-	case et::int3:
-		return 3;
-	case et::int4:
-		return 4;
-	case et::nothing:
-	case et::float1:
-	case et::float2:
-	case et::float3:
-	case et::float4:
-	case et::matrix2x2:
-	case et::matrix3x3:
-	case et::matrix4x4:
-	case et::matrix2x3:
-	case et::matrix3x2:
-	case et::matrix2x4:
-	case et::matrix4x2:
-	case et::matrix3x4:
-	case et::matrix4x3:
-		break;
-	}
-
-	throw sge::renderer::glsl::exception(
-		FCPPT_TEXT("Invalid int type!")
-	);
-}
-
-sge::renderer::size_type
-element_count<
-	sge::renderer::glsl::uniform::float_value_type::type
->::get(
-	sge::opengl::glsl::uniform::element_type::type const _type
-)
-{
-	namespace et = sge::opengl::glsl::uniform::element_type;
-
-	switch(_type)
-	{
-	case et::float1:
-		return 1;
-	case et::float2:
-		return 2;
-	case et::float3:
-		return 3;
-	case et::float4:
-		return 4;
-	case et::matrix2x2:
-		return 4;
-	case et::matrix3x3:
-		return 9;
-	case et::matrix4x4:
-		return 16;
-	case et::matrix2x3:
-	case et::matrix3x2:
-		return 6;
-	case et::matrix2x4:
-	case et::matrix4x2:
-		return 8;
-	case et::matrix3x4:
-	case et::matrix4x3:
-		return 12;
-	case et::nothing:
-	case et::int1:
-	case et::int2:
-	case et::int3:
-	case et::int4:
-		break;
-	}
-
-	throw sge::renderer::glsl::exception(
-		FCPPT_TEXT("Invalid float type!")
-	);
-}
-
-sge::renderer::glsl::uniform::int_value_type::type
-to_type<
-	sge::renderer::glsl::uniform::int_value_type::type
->::get(
-	sge::opengl::glsl::uniform::element_type::type const _type
-)
-{
-	namespace et = sge::opengl::glsl::uniform::element_type;
-	namespace ivt = sge::renderer::glsl::uniform::int_value_type;
-
-	switch(_type)
-	{
-	case et::int1:
-		return ivt::int1;
-	case et::int2:
-		return ivt::int2;
-	case et::int3:
-		return ivt::int3;
-	case et::int4:
-		return ivt::int4;
-	case et::nothing:
-	case et::float1:
-	case et::float2:
-	case et::float3:
-	case et::float4:
-	case et::matrix2x2:
-	case et::matrix3x3:
-	case et::matrix4x4:
-	case et::matrix2x3:
-	case et::matrix3x2:
-	case et::matrix2x4:
-	case et::matrix4x2:
-	case et::matrix3x4:
-	case et::matrix4x3:
-		break;
-	}
-
-	throw sge::renderer::glsl::exception(
-		FCPPT_TEXT("Invalid int element!")
-	);
-}
-
-sge::renderer::glsl::uniform::float_value_type::type
-to_type<
-	sge::renderer::glsl::uniform::float_value_type::type
->::get(
-	sge::opengl::glsl::uniform::element_type::type const _type
-)
-{
-	namespace et = sge::opengl::glsl::uniform::element_type;
-	namespace fvt = sge::renderer::glsl::uniform::float_value_type;
-
-	switch(_type)
-	{
-	case et::float1:
-		return fvt::float1;
-	case et::float2:
-		return fvt::float2;
-	case et::float3:
-		return fvt::float3;
-	case et::float4:
-		return fvt::float4;
-	case et::matrix2x2:
-		return fvt::matrix2x2;
-	case et::matrix3x3:
-		return fvt::matrix3x3;
-	case et::matrix4x4:
-		return fvt::matrix4x4;
-	case et::matrix2x3:
-		return fvt::matrix2x3;
-	case et::matrix3x2:
-		return fvt::matrix3x2;
-	case et::matrix2x4:
-		return fvt::matrix2x4;
-	case et::matrix4x2:
-		return fvt::matrix4x2;
-	case et::matrix3x4:
-		return fvt::matrix3x4;
-	case et::matrix4x3:
-		return fvt::matrix4x3;
-	case et::nothing:
-	case et::int1:
-	case et::int2:
-	case et::int3:
-	case et::int4:
-		break;
-	}
-
-	throw sge::renderer::glsl::exception(
-		FCPPT_TEXT("Invalid float type!")
-	);
-}
-
 }
 
 #define SGE_OPENGL_GLSL_INSTANTIATE_UNIFORM_GET(\
