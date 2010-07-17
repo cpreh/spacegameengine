@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../set_matrix.hpp"
 #include "../type.hpp"
+#include "../contexts.hpp"
 #include "../../instantiate.hpp"
 #include "../../../check_state.hpp"
 #include <sge/renderer/glsl/exception.hpp>
@@ -49,10 +50,10 @@ set_matrix_impl(
 		switch(_columns)
 		{
 		case 2:
-			context_.uniform_matrix_2fv()(
+			_context.uniform_matrix_2fv()(
 				_location,
 				_elements,
-				_transpose,
+				transpose,
 				_data
 			);
 
@@ -62,10 +63,10 @@ set_matrix_impl(
 					_elements
 				);
 		case 3:
-			context_.uniform_matrix_3x2fv()(
+			_context.uniform_matrix_3x2fv()(
 				_location,
 				_elements,
-				_transpose,
+				transpose,
 				_data
 			);
 
@@ -75,10 +76,10 @@ set_matrix_impl(
 					_elements
 				);
 		case 4:
-			context_.uniform_matrix_4x2fv()(
+			_context.uniform_matrix_4x2fv()(
 				_location,
 				_elements,
-				_transpose,
+				transpose,
 				_data
 			);
 
@@ -93,10 +94,10 @@ set_matrix_impl(
 		switch(_columns)
 		{
 		case 2:
-			context_.uniform_matrix_3x2fv()(
+			_context.uniform_matrix_3x2fv()(
 				_location,
 				_elements,
-				_transpose,
+				transpose,
 				_data
 			);
 
@@ -106,10 +107,10 @@ set_matrix_impl(
 					_elements
 				);
 		case 3:
-			context_.uniform_matrix_3fv()(
+			_context.uniform_matrix_3fv()(
 				_location,
 				_elements,
-				_transpose,
+				transpose,
 				_data
 			);
 
@@ -119,10 +120,10 @@ set_matrix_impl(
 					_elements
 				);
 		case 4:
-			context_.uniform_matrix_4x3fv()(
+			_context.uniform_matrix_4x3fv()(
 				_location,
 				_elements,
-				_transpose,
+				transpose,
 				_data
 			);
 
@@ -137,10 +138,10 @@ set_matrix_impl(
 		switch(_columns)
 		{
 		case 2:
-			context_.uniform_matrix_4x2fv()(
+			_context.uniform_matrix_4x2fv()(
 				_location,
 				_elements,
-				_transpose,
+				transpose,
 				_data
 			);
 
@@ -150,10 +151,10 @@ set_matrix_impl(
 					_elements
 				);
 		case 3:
-			context_.uniform_matrix_3x4fv()(
+			_context.uniform_matrix_3x4fv()(
 				_location,
 				_elements,
-				_transpose,
+				transpose,
 				_data
 			);
 
@@ -163,10 +164,10 @@ set_matrix_impl(
 					_elements
 				);
 		case 4:
-			context_.uniform_matrix_4fv()(
+			_context.uniform_matrix_4fv()(
 				_location,
 				_elements,
-				_transpose,
+				transpose,
 				_data
 			);
 
@@ -200,6 +201,8 @@ set_matrix_impl(
 	GLsizei const _elements
 )
 {
+	namespace et = sge::opengl::glsl::uniform::element_type;
+
 	if(
 		_rows != _columns
 	)
@@ -218,10 +221,46 @@ set_matrix_impl(
 		_rows
 	)
 	{
-		// FIXME!
 	case 2:
+		_context.uniform_matrix_2fv()(
+			_location,
+			_elements,
+			transpose,
+			_data
+		);
+
+		return
+			sge::opengl::glsl::uniform::type(
+				et::matrix2x2,
+				_elements
+			);
+
 	case 3:
+		_context.uniform_matrix_3fv()(
+			_location,
+			_elements,
+			transpose,
+			_data
+		);
+
+		return
+			sge::opengl::glsl::uniform::type(
+				et::matrix3x3,
+				_elements
+			);
 	case 4:
+		_context.uniform_matrix_4fv()(
+			_location,
+			_elements,
+			transpose,
+			_data
+		);
+
+		return
+			sge::opengl::glsl::uniform::type(
+				et::matrix4x4,
+				_elements
+			);
 	}
 
 	throw sge::renderer::glsl::exception(
@@ -233,6 +272,8 @@ set_matrix_impl(
 			% _rows
 		).str()
 	);
+}
+
 }
 
 template<
@@ -249,9 +290,7 @@ sge::opengl::glsl::uniform::set_matrix(
 )
 {
 	sge::opengl::glsl::uniform::type const ret(
-		set_float_impl<
-			Environment
-		>(
+		set_matrix_impl(
 			_context,
 			_location,
 			_data,
@@ -261,10 +300,30 @@ sge::opengl::glsl::uniform::set_matrix(
 		)
 	);
 
-	SGE_OPENGL_SENTRY(
+	SGE_OPENGL_CHECK_STATE(
 		FCPPT_TEXT("uniform float failed"),
 		sge::renderer::glsl::exception
 	)
 
 	return ret;
 }
+
+#define SGE_OPENGL_GLSL_UNIFORM_INSTANTIATE_SET_MATRIX(\
+	env\
+)\
+template \
+sge::opengl::glsl::uniform::type const \
+sge::opengl::glsl::uniform::set_matrix<\
+	env\
+>(\
+	env::uniform_context const &,\
+	GLint,\
+	GLfloat const *,\
+	GLsizei,\
+	GLsizei,\
+	GLsizei\
+);
+
+SGE_OPENGL_GLSL_INSTANTIATE(
+	SGE_OPENGL_GLSL_UNIFORM_INSTANTIATE_SET_MATRIX
+)

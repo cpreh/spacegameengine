@@ -45,6 +45,11 @@ sge::opengl::glsl::uniform::element_columns(
 	case fv::matrix4x3:
 	case fv::matrix4x4:
 		return 4;
+	case fv::float1:
+	case fv::float2:
+	case fv::float3:
+	case fv::float4:
+		break;
 	}
 
 	throw sge::renderer::glsl::exception(

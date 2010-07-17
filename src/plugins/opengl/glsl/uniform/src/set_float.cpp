@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../set_float.hpp"
 #include "../type.hpp"
+#include "../contexts.hpp"
 #include "../../instantiate.hpp"
 #include "../../../check_state.hpp"
 #include <sge/renderer/glsl/exception.hpp>
@@ -105,6 +106,8 @@ set_float_impl(
 	);
 }
 
+}
+
 template<
 	typename Environment
 >
@@ -129,10 +132,29 @@ sge::opengl::glsl::uniform::set_float(
 		)
 	);
 
-	SGE_OPENGL_SENTRY(
+	SGE_OPENGL_CHECK_STATE(
 		FCPPT_TEXT("uniform float failed"),
 		sge::renderer::glsl::exception
 	)
 
 	return ret;
 }
+
+#define SGE_OPENGL_GLSL_UNIFORM_INSTANTIATE_SET_FLOAT(\
+	env\
+)\
+template \
+sge::opengl::glsl::uniform::type const \
+sge::opengl::glsl::uniform::set_float<\
+	env\
+>(\
+	env::uniform_context const &,\
+	GLint,\
+	GLfloat const *,\
+	GLsizei,\
+	GLsizei\
+);
+
+SGE_OPENGL_GLSL_INSTANTIATE(
+	SGE_OPENGL_GLSL_UNIFORM_INSTANTIATE_SET_FLOAT
+)

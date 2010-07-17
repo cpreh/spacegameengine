@@ -37,7 +37,7 @@ template<
 	typename Environment
 >
 sge::opengl::glsl::uniform::type const
-set_float(
+set_matrix(
 	typename Environment::uniform_context const &,
 	GLint location,
 	GLfloat const *data,

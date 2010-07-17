@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../is_matrix.hpP"
+#include "../is_matrix.hpp"
 #include <sge/renderer/glsl/exception.hpp>
 #include <fcppt/text.hpp>
 
@@ -27,24 +27,26 @@ sge::opengl::glsl::uniform::is_matrix(
 	sge::renderer::glsl::uniform::float_value_type::type const _type
 )
 {
+	namespace ft = sge::renderer::glsl::uniform::float_value_type;
+
 	switch(
 		_type
 	)
 	{
-	case float1:
-	case float2:
-	case float3:
-	case float4:
+	case ft::float1:
+	case ft::float2:
+	case ft::float3:
+	case ft::float4:
 		return false;
-	case matrix2x2:
-	case matrix3x3:
-	case matrix4x4:
-	case matrix2x3:
-	case matrix3x2:
-	case matrix2x4:
-	case matrix4x2:
-	case matrix3x4:
-	case matrix4x3:
+	case ft::matrix2x2:
+	case ft::matrix3x3:
+	case ft::matrix4x4:
+	case ft::matrix2x3:
+	case ft::matrix3x2:
+	case ft::matrix2x4:
+	case ft::matrix4x2:
+	case ft::matrix3x4:
+	case ft::matrix4x3:
 		return true;
 	}
 
