@@ -44,7 +44,7 @@ sge::opengl::glsl::native::program_context::program_context()
 	use_program_(
 		glUseProgram
 	),
-	info_log_(
+	program_info_log_(
 		glGetProgramInfoLog
 	),
 	link_status_type_(
@@ -100,10 +100,10 @@ sge::opengl::glsl::native::program_context::use_program() const
 	return use_program_;
 }
 
-sge::opengl::glsl::native::program_context::gl_info_log
-sge::opengl::glsl::native::program_context::info_log() const
+sge::opengl::glsl::native::program_context::gl_program_info_log
+sge::opengl::glsl::native::program_context::program_info_log() const
 {
-	return info_log_;
+	return program_info_log_;
 }
 
 GLenum

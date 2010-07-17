@@ -18,53 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../info_log.hpp"
-#include "../../program_contexts.hpp"
+#include "../info_log_length.hpp"
+#include "../get_integer.hpp"
+#include "../../shader_contexts.hpp"
 #include "../../instantiate.hpp"
-#include "../../../check_state.hpp"
-#include <sge/renderer/glsl/exception.hpp>
-#include <fcppt/text.hpp>
 
 template<
 	typename Environment
 >
-void
-sge::opengl::glsl::programfuncs::info_log(
-	typename Environment::program_context const &_context,
-	typename Environment::handle const _handle,
-	GLint const _maxlen,
-	GLint *const _len,
-	char *const _data
+GLint
+sge::opengl::glsl::shaderfuncs::info_log_length(
+	typename Environment::shader_context const &_context,
+	typename Environment::handle const _handle
 )
 {
-	_context.program_info_log()(
-		_handle,
-		_maxlen,
-		_len,
-		_data
-	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("Getting a glsl program's info log failed"),
-		sge::renderer::glsl::exception
-	)
+	return
+		shaderfuncs::get_integer<
+			Environment
+		>(
+			_context,
+			_handle,
+			_context.info_log_length_type()
+		);
 }
 
-#define SGE_OPENGL_GLSL_PROGRAMFUNCS_INSTANTIATE_INFO_LOG(\
+#define SGE_OPENGL_GLSL_SHADERFUNCS_INSTANTIATE_INFO_LOG_LENGTH(\
 	env\
 )\
 template \
-void \
-sge::opengl::glsl::programfuncs::info_log<\
+GLint \
+sge::opengl::glsl::shaderfuncs::info_log_length<\
 	env\
 >(\
-	env::program_context const &,\
-	env::handle,\
-	GLint,\
-	GLint *,\
-	char *\
+	env::shader_context const &,\
+	env::handle\
 );
 
 SGE_OPENGL_GLSL_INSTANTIATE(
-	SGE_OPENGL_GLSL_PROGRAMFUNCS_INSTANTIATE_INFO_LOG
+	SGE_OPENGL_GLSL_SHADERFUNCS_INSTANTIATE_INFO_LOG_LENGTH
 )

@@ -49,9 +49,17 @@ public:
 
 	typedef native::handle handle;
 
-	typedef handle (*gl_create_shader);
+	typedef handle (*gl_create_shader)(GLenum);
 
 	typedef void (*gl_delete_shader)(handle);
+
+	typedef void (*gl_compile_shader)(handle);
+
+	typedef void (*gl_shader_source)(handle, GLint, char const **, GLint const *);
+
+	typedef void (*gl_shader_integer)(handle, GLenum, GLint *);
+
+	typedef void (*gl_shader_info_log)(handle, GLint, GLint *, char *);
 
 	gl_create_shader
 	create_shader() const;
@@ -59,11 +67,29 @@ public:
 	gl_delete_shader
 	delete_shader() const;
 
+	gl_compile_shader
+	compile_shader() const;
+
+	gl_shader_source
+	shader_source() const;
+
+	gl_shader_integer
+	shader_integer() const;
+
+	gl_shader_info_log
+	shader_info_log() const;
+
 	GLenum
 	vertex_shader_type() const;
 
 	GLenum
 	pixel_shader_type() const;
+
+	GLenum
+	compile_status_type() const;
+
+	GLenum
+	info_log_length_type() const;
 
 	typedef void needs_before;
 
@@ -73,10 +99,18 @@ private:
 
 	gl_delete_shader const delete_shader_;
 
+	gl_compile_shader const compile_shader_;
+
+	gl_shader_source const shader_source_;
+
+	gl_shader_integer const shader_integer_;
+
+	gl_shader_info_log const shader_info_log_;
+
 	GLenum const
 		vertex_shader_type_,
 		pixel_shader_type_,
-		link_status_type_,
+		compile_status_type_,
 		info_log_length_type_;
 };
 

@@ -19,23 +19,91 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#if 0
+#include "../shader_context.hpp"
+#include "../../../common.hpp"
+
+sge::opengl::glsl::arb::shader_context::shader_context()
+:
+	create_shader_(
+		glCreateShaderObjectARB
+	),
+	delete_shader_(
+		glDeleteObjectARB
+	),
+	compile_shader_(
+		glCompileShaderARB
+	),
+	shader_source_(
+		glShaderSourceARB
+	),
+	shader_integer_(
+		glGetObjectParameterivARB
+	),
+	shader_info_log_(
+		glGetInfoLogARB
+	),
 	vertex_shader_type_(
 		GL_VERTEX_SHADER_ARB
 	),
 	pixel_shader_type_(
 		GL_FRAGMENT_SHADER_ARB
 	),
+	compile_status_type_(
+		GL_OBJECT_COMPILE_STATUS_ARB
+	),
+	info_log_length_type_(
+		GL_OBJECT_INFO_LOG_LENGTH_ARB
+	)
+{}
+
+sge::opengl::glsl::arb::shader_context::~shader_context()
+{}
+
+sge::opengl::glsl::arb::shader_context::gl_create_shader
+sge::opengl::glsl::arb::shader_context::create_shader() const
+{
+	return create_shader_;
+}
+	
+sge::opengl::glsl::arb::shader_context::gl_delete_shader
+sge::opengl::glsl::arb::shader_context::delete_shader() const
+{
+	return delete_shader_;
+}
+
+sge::opengl::glsl::arb::shader_context::gl_compile_shader
+sge::opengl::glsl::arb::shader_context::compile_shader() const
+{
+	return compile_shader_;
+}
+
+sge::opengl::glsl::arb::shader_context::gl_shader_source
+sge::opengl::glsl::arb::shader_context::shader_source() const
+{
+	return shader_source_;
+}
+
+sge::opengl::glsl::arb::shader_context::gl_shader_integer
+sge::opengl::glsl::arb::shader_context::shader_integer() const
+{
+	return shader_integer_;
+}
+
+sge::opengl::glsl::arb::shader_context::gl_shader_info_log
+sge::opengl::glsl::arb::shader_context::shader_info_log() const
+{
+	return shader_info_log_;
+}
+
+
 GLenum
-sge::opengl::glsl::arb::program_context::vertex_shader_type() const
+sge::opengl::glsl::arb::shader_context::vertex_shader_type() const
 {
 	return vertex_shader_type_;
 }
 
 GLenum
-sge::opengl::glsl::arb::program_context::pixel_shader_type() const
+sge::opengl::glsl::arb::shader_context::pixel_shader_type() const
 {
 	return pixel_shader_type_;
 }
-
-#endif

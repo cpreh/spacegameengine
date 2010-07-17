@@ -45,7 +45,7 @@ sge::opengl::glsl::arb::program_context::program_context()
 	use_program_(
 		glUseProgramObjectARB
 	),
-	info_log_(
+	program_info_log_(
 		glGetInfoLogARB
 	),
 	link_status_type_(
@@ -101,10 +101,10 @@ sge::opengl::glsl::arb::program_context::use_program() const
 	return use_program_;
 }
 
-sge::opengl::glsl::arb::program_context::gl_info_log
-sge::opengl::glsl::arb::program_context::info_log() const
+sge::opengl::glsl::arb::program_context::gl_program_info_log
+sge::opengl::glsl::arb::program_context::program_info_log() const
 {
-	return info_log_;
+	return program_info_log_;
 }
 
 GLenum

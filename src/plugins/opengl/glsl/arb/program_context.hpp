@@ -63,7 +63,7 @@ public:
 
 	typedef void (*gl_use_program)(handle);
 
-	typedef void (*gl_info_log)(handle, GLint, GLint *, char *);
+	typedef void (*gl_program_info_log)(handle, GLint, GLint *, char *);
 
 	gl_create_program
 	create_program() const;
@@ -86,8 +86,8 @@ public:
 	gl_use_program
 	use_program() const;
 
-	gl_info_log
-	info_log() const;
+	gl_program_info_log
+	program_info_log() const;
 
 	GLenum
 	link_status_type() const;
@@ -113,7 +113,7 @@ private:
 
 	gl_use_program const use_program_;
 
-	gl_info_log const info_log_;
+	gl_program_info_log const program_info_log_;
 
 	GLenum const
 		link_status_type_,

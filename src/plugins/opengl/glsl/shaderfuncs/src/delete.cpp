@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../info_log.hpp"
-#include "../../program_contexts.hpp"
+#include "../delete.hpp"
+#include "../../shader_contexts.hpp"
 #include "../../instantiate.hpp"
 #include "../../../check_state.hpp"
 #include <sge/renderer/glsl/exception.hpp>
@@ -29,42 +29,33 @@ template<
 	typename Environment
 >
 void
-sge::opengl::glsl::programfuncs::info_log(
-	typename Environment::program_context const &_context,
-	typename Environment::handle const _handle,
-	GLint const _maxlen,
-	GLint *const _len,
-	char *const _data
+sge::opengl::glsl::shaderfuncs::delete_(
+	typename Environment::shader_context const &_context,
+	typename Environment::handle const _handle
 )
 {
-	_context.program_info_log()(
-		_handle,
-		_maxlen,
-		_len,
-		_data
+	_context.delete_shader()(
+		_handle
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("Getting a glsl program's info log failed"),
+		FCPPT_TEXT("Deleting a glsl shader failed"),
 		sge::renderer::glsl::exception
 	)
 }
 
-#define SGE_OPENGL_GLSL_PROGRAMFUNCS_INSTANTIATE_INFO_LOG(\
+#define SGE_OPENGL_GLSL_SHADERFUNCS_INSTANTIATE_DELETE(\
 	env\
 )\
 template \
 void \
-sge::opengl::glsl::programfuncs::info_log<\
+sge::opengl::glsl::shaderfuncs::delete_<\
 	env\
 >(\
-	env::program_context const &,\
-	env::handle,\
-	GLint,\
-	GLint *,\
-	char *\
+	env::shader_context const &,\
+	env::handle\
 );
 
 SGE_OPENGL_GLSL_INSTANTIATE(
-	SGE_OPENGL_GLSL_PROGRAMFUNCS_INSTANTIATE_INFO_LOG
+	SGE_OPENGL_GLSL_SHADERFUNCS_INSTANTIATE_DELETE
 )

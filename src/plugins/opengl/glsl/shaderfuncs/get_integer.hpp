@@ -38,8 +38,9 @@ template<
 >
 GLint
 get_integer(
-	typename Environment::shader_context &,
-	typename Environment::handle
+	typename Environment::shader_context const &,
+	typename Environment::handle,
+	GLenum
 );
 
 }
