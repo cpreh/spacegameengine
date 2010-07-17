@@ -35,7 +35,7 @@ template<
 >
 void
 delete_(
-	typename Environment::program_context &,
+	typename Environment::program_context const &,
 	typename Environment::handle
 );
 

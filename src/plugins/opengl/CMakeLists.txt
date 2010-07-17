@@ -14,9 +14,10 @@ FILE (
 	convert/src/*.cpp
 	glew/src/*.cpp
 	glsl/src/*.cpp
-	glsl/attribute/src/*.cpp
 	glsl/arb/src/*.cpp
 	glsl/native/src/*.cpp
+	glsl/programfuncs/src/*.cpp
+	glsl/shaderfuncs/src/*.cpp
 	glsl/uniform/src/*.cpp
 	texfuncs/src/*.cpp
 	vf/src/*.cpp

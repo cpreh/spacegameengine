@@ -28,6 +28,30 @@ sge::opengl::glsl::native::program_context::program_context()
 	),
 	delete_program_(
 		glDeleteProgram
+	),
+	attach_shader_(
+		glAttachShader
+	),
+	detach_shader_(
+		glDetachShader
+	),
+	link_program_(
+		glLinkProgram
+	),
+	program_integer_(
+		glGetProgramiv
+	),
+	use_program_(
+		glUseProgram
+	),
+	info_log_(
+		glGetProgramInfoLog
+	),
+	link_status_type_(
+		GL_LINK_STATUS
+	),
+	info_log_length_type_(
+		GL_INFO_LOG_LENGTH
 	)
 {}
 
@@ -44,4 +68,52 @@ sge::opengl::glsl::native::program_context::gl_delete_program
 sge::opengl::glsl::native::program_context::delete_program() const
 {
 	return delete_program_;
+}
+
+sge::opengl::glsl::native::program_context::gl_attach_shader
+sge::opengl::glsl::native::program_context::attach_shader() const
+{
+	return attach_shader_;
+}
+
+sge::opengl::glsl::native::program_context::gl_detach_shader
+sge::opengl::glsl::native::program_context::detach_shader() const
+{
+	return detach_shader_;
+}
+
+sge::opengl::glsl::native::program_context::gl_link_program
+sge::opengl::glsl::native::program_context::link_program() const
+{
+	return link_program_;
+}
+
+sge::opengl::glsl::native::program_context::gl_program_integer
+sge::opengl::glsl::native::program_context::program_integer() const
+{
+	return program_integer_;
+}
+
+sge::opengl::glsl::native::program_context::gl_use_program
+sge::opengl::glsl::native::program_context::use_program() const
+{
+	return use_program_;
+}
+
+sge::opengl::glsl::native::program_context::gl_info_log
+sge::opengl::glsl::native::program_context::info_log() const
+{
+	return info_log_;
+}
+
+GLenum
+sge::opengl::glsl::native::program_context::link_status_type() const
+{
+	return link_status_type_;
+}
+
+GLenum
+sge::opengl::glsl::native::program_context::info_log_length_type() const
+{
+	return info_log_length_type_;
 }

@@ -53,11 +53,47 @@ public:
 
 	typedef void (*gl_delete_program)(handle);
 
+	typedef void (*gl_attach_shader)(handle, handle);
+
+	typedef void (*gl_detach_shader)(handle, handle);
+
+	typedef void (*gl_link_program)(handle);
+
+	typedef void (*gl_program_integer)(handle, GLenum, GLint *);
+
+	typedef void (*gl_use_program)(handle);
+
+	typedef void (*gl_info_log)(handle, GLint, GLint *, char *);
+
 	gl_create_program
 	create_program() const;
 	
 	gl_delete_program
 	delete_program() const;
+
+	gl_attach_shader
+	attach_shader() const;
+
+	gl_detach_shader
+	detach_shader() const;
+
+	gl_link_program
+	link_program() const;
+
+	gl_program_integer
+	program_integer() const;
+
+	gl_use_program
+	use_program() const;
+
+	gl_info_log
+	info_log() const;
+
+	GLenum
+	link_status_type() const;
+
+	GLenum
+	info_log_length_type() const;
 
 	typedef void needs_before;
 
@@ -66,6 +102,22 @@ private:
 	gl_create_program const create_program_;
 
 	gl_delete_program const delete_program_;
+
+	gl_attach_shader const attach_shader_;
+
+	gl_detach_shader const detach_shader_;
+
+	gl_link_program const link_program_;
+
+	gl_program_integer const program_integer_;
+
+	gl_use_program const use_program_;
+
+	gl_info_log const info_log_;
+
+	GLenum const
+		link_status_type_,
+		info_log_length_type_;
 };
 
 }

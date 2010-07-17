@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../instantiate.hpp"
 #include "../vertex_shader.hpp"
 #include "../pixel_shader.hpp"
+#include "../make_shader_type.hpp"
 #include "../shader_contexts.hpp"
 #include "../../context/use.hpp"
 #include <sge/renderer/glsl/exception.hpp>
@@ -46,11 +47,14 @@ sge::opengl::glsl::shader<Type, Environment>::shader(
 	base_type(),
 	glsl_base(
 		_context,
-		opengl::context::use<
-			typename Environment::shader_context
+		glsl::make_shader_type<
+			Environment
 		>(
-			_context
-		).make_shader_type(
+			opengl::context::use<
+				typename Environment::shader_context
+			>(
+				_context
+			),
 			Type::shader_type()
 		)
 	)

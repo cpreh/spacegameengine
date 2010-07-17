@@ -17,32 +17,23 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+#if 0
+	vertex_shader_type_(
+		GL_VERTEX_SHADER
+	),
+	pixel_shader_type_(
+		GL_FRAGMENT_SHADER
+	),
 
-#ifndef SGE_OPENGL_GLSL_PROGRAMFUNCS_DETACH_SHADER_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_PROGRAMFUNCS_DETACH_SHADER_HPP_INCLUDED
-
-namespace sge
+GLenum
+sge::opengl::glsl::native::program_context::vertex_shader_type() const
 {
-namespace opengl
-{
-namespace glsl
-{
-namespace programfuncs
-{
-
-template<
-	typename Environment
->
-void
-detach_shader(
-	typename Environment::program_context const &,
-	typename Environment::handle program,
-	typename Environment::handle shader
-);
-
-}
-}
-}
+	return vertex_shader_type_;
 }
 
+GLenum
+sge::opengl::glsl::native::program_context::pixel_shader_type() const
+{
+	return pixel_shader_type_;
+}
 #endif

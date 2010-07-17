@@ -18,31 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_PROGRAMFUNCS_DETACH_SHADER_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_PROGRAMFUNCS_DETACH_SHADER_HPP_INCLUDED
-
-namespace sge
-{
-namespace opengl
-{
-namespace glsl
-{
-namespace programfuncs
-{
+#include "../attach_shader.hpp"
+#include "../../program_contexts.hpp"
+#include "../../instantiate.hpp"
+#include "../../../check_state.hpp"
+#include <sge/renderer/glsl/exception.hpp>
+#include <fcppt/text.hpp>
 
 template<
 	typename Environment
 >
 void
-detach_shader(
-	typename Environment::program_context const &,
-	typename Environment::handle program,
-	typename Environment::handle shader
+sge::opengl::glsl::programfuncs::attach_shader(
+	typename Environment::program_context const &_context,
+	typename Environment::handle const _program,
+	typename Environment::handle const _shader
+)
+{
+	_context.attach_shader()(
+		_program,
+		_shader
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("Attaching a glsl shader failed"),
+		sge::renderer::glsl::exception
+	)
+}
+
+#define SGE_OPENGL_GLSL_PROGRAMFUNCS_INSTANTIATE_ATTACH_SHADER(\
+	env\
+)\
+template \
+void \
+sge::opengl::glsl::programfuncs::attach_shader<\
+	env\
+>(\
+	env::program_context const &,\
+	env::handle,\
+	env::handle\
 );
 
-}
-}
-}
-}
-
-#endif
+SGE_OPENGL_GLSL_INSTANTIATE(
+	SGE_OPENGL_GLSL_PROGRAMFUNCS_INSTANTIATE_ATTACH_SHADER
+)

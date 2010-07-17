@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "shader_context_fwd.hpp"
 #include "handle.hpp"
-#include "../shader_type.hpp"
 #include "../../common.hpp"
 #include "../../context/base.hpp"
 #include "../../context/id.hpp"
@@ -61,9 +60,10 @@ public:
 	delete_shader() const;
 
 	GLenum
-	make_shader_type(
-		glsl::shader_type::type
-	) const;
+	vertex_shader_type() const;
+
+	GLenum
+	pixel_shader_type() const;
 
 	typedef void needs_before;
 
@@ -72,6 +72,12 @@ private:
 	gl_create_shader const create_shader_;
 
 	gl_delete_shader const delete_shader_;
+
+	GLenum const
+		vertex_shader_type_,
+		pixel_shader_type_,
+		link_status_type_,
+		info_log_length_type_;
 };
 
 }

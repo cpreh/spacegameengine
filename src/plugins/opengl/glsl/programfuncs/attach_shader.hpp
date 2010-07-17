@@ -35,7 +35,7 @@ template<
 >
 void
 attach_shader(
-	typename Environment::program_context &,
+	typename Environment::program_context const &,
 	typename Environment::handle program,
 	typename Environment::handle shader
 );

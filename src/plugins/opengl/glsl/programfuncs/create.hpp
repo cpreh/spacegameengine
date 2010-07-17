@@ -35,7 +35,7 @@ template<
 >
 typename Environment::handle
 create(
-	typename Environment::program_context &
+	typename Environment::program_context const &
 );
 
 }

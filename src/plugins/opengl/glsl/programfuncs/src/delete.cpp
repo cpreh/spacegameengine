@@ -18,31 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_PROGRAMFUNCS_DETACH_SHADER_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_PROGRAMFUNCS_DETACH_SHADER_HPP_INCLUDED
-
-namespace sge
-{
-namespace opengl
-{
-namespace glsl
-{
-namespace programfuncs
-{
+#include "../delete.hpp"
+#include "../../program_contexts.hpp"
+#include "../../instantiate.hpp"
+#include "../../../check_state.hpp"
+#include <sge/renderer/glsl/exception.hpp>
+#include <fcppt/text.hpp>
 
 template<
 	typename Environment
 >
 void
-detach_shader(
-	typename Environment::program_context const &,
-	typename Environment::handle program,
-	typename Environment::handle shader
+sge::opengl::glsl::programfuncs::delete_(
+	typename Environment::program_context const &_context,
+	typename Environment::handle _id
+)
+{
+	_context.delete_program()(
+		_id
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("Deleting a glsl program failed."),
+		sge::renderer::glsl::exception
+	)
+}
+
+#define SGE_OPENGL_GLSL_PROGRAMFUNCS_INSTANTIATE_DELETE(\
+	env\
+)\
+template \
+void \
+sge::opengl::glsl::programfuncs::delete_<\
+	env\
+>(\
+	env::program_context const &,\
+	env::handle\
 );
 
-}
-}
-}
-}
-
-#endif
+SGE_OPENGL_GLSL_INSTANTIATE(
+	SGE_OPENGL_GLSL_PROGRAMFUNCS_INSTANTIATE_DELETE
+)

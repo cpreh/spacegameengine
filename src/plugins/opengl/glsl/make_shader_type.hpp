@@ -18,8 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_PROGRAMFUNCS_DETACH_SHADER_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_PROGRAMFUNCS_DETACH_SHADER_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLSL_MAKE_SHADER_TYPE_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_MAKE_SHADER_TYPE_HPP_INCLUDED
+
+#include "shader_type.hpp"
+#include "../common.hpp"
 
 namespace sge
 {
@@ -27,20 +30,16 @@ namespace opengl
 {
 namespace glsl
 {
-namespace programfuncs
-{
 
 template<
 	typename Environment
 >
-void
-detach_shader(
-	typename Environment::program_context const &,
-	typename Environment::handle program,
-	typename Environment::handle shader
+GLenum
+make_shader_type(
+	typename Environment::shader_context const &,
+	shader_type::type
 );
 
-}
 }
 }
 }

@@ -1,3 +1,4 @@
+
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
@@ -18,31 +19,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_PROGRAMFUNCS_DETACH_SHADER_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_PROGRAMFUNCS_DETACH_SHADER_HPP_INCLUDED
-
-namespace sge
+#if 0
+	vertex_shader_type_(
+		GL_VERTEX_SHADER_ARB
+	),
+	pixel_shader_type_(
+		GL_FRAGMENT_SHADER_ARB
+	),
+GLenum
+sge::opengl::glsl::arb::program_context::vertex_shader_type() const
 {
-namespace opengl
-{
-namespace glsl
-{
-namespace programfuncs
-{
-
-template<
-	typename Environment
->
-void
-detach_shader(
-	typename Environment::program_context const &,
-	typename Environment::handle program,
-	typename Environment::handle shader
-);
-
+	return vertex_shader_type_;
 }
-}
-}
+
+GLenum
+sge::opengl::glsl::arb::program_context::pixel_shader_type() const
+{
+	return pixel_shader_type_;
 }
 
 #endif

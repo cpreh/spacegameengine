@@ -18,31 +18,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_PROGRAMFUNCS_DETACH_SHADER_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_PROGRAMFUNCS_DETACH_SHADER_HPP_INCLUDED
-
-namespace sge
-{
-namespace opengl
-{
-namespace glsl
-{
-namespace programfuncs
-{
+#include "../make_shader_type.hpp"
+#include "../instantiate.hpp"
+#include "../shader_contexts.hpp"
+#include <sge/renderer/glsl/exception.hpp>
+#include <fcppt/text.hpp>
 
 template<
 	typename Environment
 >
-void
-detach_shader(
-	typename Environment::program_context const &,
-	typename Environment::handle program,
-	typename Environment::handle shader
+GLenum
+sge::opengl::glsl::make_shader_type(
+	typename Environment::shader_context const &_context,
+	shader_type::type const _type
+)
+{
+	switch(
+		_type
+	)
+	{
+	case shader_type::vertex:
+		return
+			_context.vertex_shader_type();
+	case shader_type::pixel:
+		return
+			_context.pixel_shader_type();
+	case shader_type::size:
+		break;
+	}
+
+	throw sge::renderer::glsl::exception(
+		FCPPT_TEXT("Invalid shader_type!")
+	);
+}
+
+#define SGE_OPENGL_GLSL_INSTANTIATE_MAKE_SHADER_TYPE(\
+	env\
+)\
+template \
+GLenum \
+sge::opengl::glsl::make_shader_type<\
+	env\
+>(\
+	env::shader_context const &,\
+	shader_type::type\
 );
 
-}
-}
-}
-}
-
-#endif
+SGE_OPENGL_GLSL_INSTANTIATE(
+	SGE_OPENGL_GLSL_INSTANTIATE_MAKE_SHADER_TYPE
+)

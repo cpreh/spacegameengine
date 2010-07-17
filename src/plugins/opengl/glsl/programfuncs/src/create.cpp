@@ -19,17 +19,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../create.hpp"
+#include "../../program_contexts.hpp"
+#include "../../instantiate.hpp"
+#include "../../../check_state.hpp"
+#include <sge/renderer/glsl/exception.hpp>
+#include <fcppt/text.hpp>
 
 template<
 	typename Environment
 >
 typename Environment::handle
 sge::opengl::glsl::programfuncs::create(
-	typename Environment::context &_context
+	typename Environment::program_context const &_context
 )
 {
 	typename Environment::handle const ret(
-		_context.create_program()
+		_context.create_program()()
 	);
 
 	SGE_OPENGL_CHECK_STATE(
@@ -39,3 +44,18 @@ sge::opengl::glsl::programfuncs::create(
 
 	return ret;
 }
+
+#define SGE_OPENGL_GLSL_PROGRAMFUNCS_INSTANTIATE_CREATE(\
+	env\
+)\
+template \
+env::handle \
+sge::opengl::glsl::programfuncs::create<\
+	env\
+>(\
+	env::program_context const &\
+);
+
+SGE_OPENGL_GLSL_INSTANTIATE(
+	SGE_OPENGL_GLSL_PROGRAMFUNCS_INSTANTIATE_CREATE
+)
