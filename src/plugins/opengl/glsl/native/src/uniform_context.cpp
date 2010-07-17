@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../uniform_context.hpp"
+#include "../../../context/make_id.hpp"
 #include "../../../common.hpp"
 
 sge::opengl::glsl::native::uniform_context::uniform_context()
@@ -106,3 +107,110 @@ sge::opengl::glsl::native::uniform_context::get_uniform_fv() const
 {
 	return get_uniform_fv_;
 }
+
+PFNGLUNIFORM1IVPROC
+sge::opengl::glsl::native::uniform_context::uniform_1iv() const
+{
+	return uniform_1iv_;
+}
+	
+PFNGLUNIFORM2IVPROC
+sge::opengl::glsl::native::uniform_context::uniform_2iv() const
+{
+	return uniform_2iv_;
+}
+
+PFNGLUNIFORM3IVPROC
+sge::opengl::glsl::native::uniform_context::uniform_3iv() const
+{
+	return uniform_3iv_;
+}
+
+PFNGLUNIFORM4IVPROC
+sge::opengl::glsl::native::uniform_context::uniform_4iv() const
+{
+	return uniform_4iv_;
+}
+
+PFNGLUNIFORM1FVPROC
+sge::opengl::glsl::native::uniform_context::uniform_1fv() const
+{
+	return uniform_1fv_;
+}
+
+PFNGLUNIFORM2FVPROC
+sge::opengl::glsl::native::uniform_context::uniform_2fv() const
+{
+	return uniform_2fv_;
+}
+
+PFNGLUNIFORM3FVPROC
+sge::opengl::glsl::native::uniform_context::uniform_3fv() const
+{
+	return uniform_3fv_;
+}
+
+PFNGLUNIFORM3FVPROC
+sge::opengl::glsl::native::uniform_context::uniform_4fv() const
+{
+	return uniform_4fv_;
+}
+
+PFNGLUNIFORMMATRIX2FVPROC
+sge::opengl::glsl::native::uniform_context::uniform_matrix_2fv() const
+{
+	return uniform_matrix_2fv_;
+}
+	
+PFNGLUNIFORMMATRIX3FVPROC
+sge::opengl::glsl::native::uniform_context::uniform_matrix_3fv() const
+{
+	return uniform_matrix_3fv_;
+}
+
+PFNGLUNIFORMMATRIX4FVPROC
+sge::opengl::glsl::native::uniform_context::uniform_matrix_4fv() const
+{
+	return uniform_matrix_4fv_;
+}
+
+PFNGLUNIFORMMATRIX2X3FVPROC
+sge::opengl::glsl::native::uniform_context::uniform_matrix_2x3fv() const
+{
+	return uniform_matrix_2x3fv_;
+}
+
+PFNGLUNIFORMMATRIX3X2FVPROC
+sge::opengl::glsl::native::uniform_context::uniform_matrix_3x2fv() const
+{
+	return uniform_matrix_3x2fv_;
+}
+
+PFNGLUNIFORMMATRIX2X4FVPROC
+sge::opengl::glsl::native::uniform_context::uniform_matrix_2x4fv() const
+{
+	return uniform_matrix_2x4fv_;
+}
+
+PFNGLUNIFORMMATRIX4X2FVPROC
+sge::opengl::glsl::native::uniform_context::uniform_matrix_4x2fv() const
+{
+	return uniform_matrix_4x2fv_;
+}
+
+PFNGLUNIFORMMATRIX3X4FVPROC
+sge::opengl::glsl::native::uniform_context::uniform_matrix_3x4fv() const
+{
+	return uniform_matrix_3x4fv_;
+}
+
+PFNGLUNIFORMMATRIX4X3FVPROC
+sge::opengl::glsl::native::uniform_context::uniform_matrix_4x3fv() const
+{
+	return uniform_matrix_4x3fv_;
+}
+
+sge::opengl::context::id const
+sge::opengl::glsl::native::uniform_context::static_id(
+	sge::opengl::context::make_id()
+);

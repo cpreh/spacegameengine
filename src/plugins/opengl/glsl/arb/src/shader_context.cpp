@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../shader_context.hpp"
+#include "../../../context/make_id.hpp"
 #include "../../../common.hpp"
 
 sge::opengl::glsl::arb::shader_context::shader_context()
@@ -107,3 +108,8 @@ sge::opengl::glsl::arb::shader_context::pixel_shader_type() const
 {
 	return pixel_shader_type_;
 }
+
+sge::opengl::context::id const
+sge::opengl::glsl::arb::shader_context::static_id(
+	sge::opengl::context::make_id()
+);

@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../uniform_context.hpp"
+#include "../../../context/make_id.hpp"
 #include "../../../common.hpp"
 
 sge::opengl::glsl::arb::uniform_context::uniform_context()
@@ -66,3 +67,92 @@ sge::opengl::glsl::arb::uniform_context::uniform_context()
 		glUniformMatrix4fvARB
 	)
 {}
+
+PFNGLGETUNIFORMLOCATIONARBPROC
+sge::opengl::glsl::arb::uniform_context::get_uniform_location() const
+{
+	return get_uniform_location_;
+}
+
+PFNGLGETUNIFORMIVARBPROC
+sge::opengl::glsl::arb::uniform_context::get_uniform_iv() const
+{
+	return get_uniform_iv_;
+}
+
+PFNGLGETUNIFORMFVARBPROC
+sge::opengl::glsl::arb::uniform_context::get_uniform_fv() const
+{
+	return get_uniform_fv_;
+}
+
+PFNGLUNIFORM1IVARBPROC
+sge::opengl::glsl::arb::uniform_context::uniform_1iv() const
+{
+	return uniform_1iv_;
+}
+
+PFNGLUNIFORM2IVARBPROC
+sge::opengl::glsl::arb::uniform_context::uniform_2iv() const
+{
+	return uniform_2iv_;
+}
+
+PFNGLUNIFORM3IVARBPROC
+sge::opengl::glsl::arb::uniform_context::uniform_3iv() const
+{
+	return uniform_3iv_;
+}
+
+PFNGLUNIFORM4IVARBPROC
+sge::opengl::glsl::arb::uniform_context::uniform_4iv() const
+{
+	return uniform_4iv_;
+}
+
+PFNGLUNIFORM1FVARBPROC
+sge::opengl::glsl::arb::uniform_context::uniform_1fv() const
+{
+	return uniform_1fv_;
+}
+
+PFNGLUNIFORM2FVARBPROC
+sge::opengl::glsl::arb::uniform_context::uniform_2fv() const
+{
+	return uniform_2fv_;
+}
+
+PFNGLUNIFORM3FVARBPROC
+sge::opengl::glsl::arb::uniform_context::uniform_3fv() const
+{
+	return uniform_3fv_;
+}
+
+PFNGLUNIFORM4FVARBPROC
+sge::opengl::glsl::arb::uniform_context::uniform_4fv() const
+{
+	return uniform_4fv_;
+}
+
+PFNGLUNIFORMMATRIX2FVARBPROC
+sge::opengl::glsl::arb::uniform_context::uniform_matrix_2fv() const
+{
+	return uniform_matrix_2fv_;
+}
+
+PFNGLUNIFORMMATRIX3FVARBPROC
+sge::opengl::glsl::arb::uniform_context::uniform_matrix_3fv() const
+{
+	return uniform_matrix_3fv_;
+}
+
+PFNGLUNIFORMMATRIX4FVARBPROC
+sge::opengl::glsl::arb::uniform_context::uniform_matrix_4fv() const
+{
+	return uniform_matrix_4fv_;
+}
+
+sge::opengl::context::id const
+sge::opengl::glsl::arb::uniform_context::static_id(
+	sge::opengl::context::make_id()
+);

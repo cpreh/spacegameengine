@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../program_context.hpp"
+#include "../../../context/make_id.hpp"
 #include "../../../common.hpp"
 
 sge::opengl::glsl::arb::program_context::program_context()
@@ -118,3 +119,8 @@ sge::opengl::glsl::arb::program_context::info_log_length_type() const
 {
 	return info_log_length_type_;
 }
+
+sge::opengl::context::id const
+sge::opengl::glsl::arb::program_context::static_id(
+	sge::opengl::context::make_id()
+);
