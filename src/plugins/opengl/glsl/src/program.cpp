@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../programfuncs/info_log.hpp"
 #include "../programfuncs/info_log_length.hpp"
 #include "../programfuncs/use.hpp"
+#include "../instantiate.hpp"
 #include "../../context/use.hpp"
 #include <sge/renderer/glsl/exception.hpp>
 #include <fcppt/text.hpp>
@@ -180,19 +181,14 @@ sge::opengl::glsl::program<Environment>::info_log() const
 {
 	return
 		glsl::format_error(
-			programfuncs::info_log<
+			&programfuncs::info_log<
 				Environment
-			>(
-				context_,
-				id_
-			),
-			programfuncs::info_log_length<
+			>,
+			&programfuncs::info_log_length<
 				Environment
-			>(
-				context_,
-				id_
-			),
-			id_
+			>,
+			id_,
+			context_
 		);
 }
 
@@ -231,3 +227,15 @@ sge::opengl::glsl::program<Environment>::make_attachment(
 
 	return ptr;
 }
+
+#define SGE_OPENGL_GLSL_INSTANTIATE_PROGRAM(\
+	env\
+)\
+template class \
+sge::opengl::glsl::program<\
+	env\
+>;
+
+SGE_OPENGL_GLSL_INSTANTIATE(
+	SGE_OPENGL_GLSL_INSTANTIATE_PROGRAM
+)

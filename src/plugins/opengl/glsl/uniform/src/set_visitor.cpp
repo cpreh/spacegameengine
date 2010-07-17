@@ -119,3 +119,15 @@ sge::opengl::glsl::uniform::set_visitor<Environment>::operator()(
 				)
 			);
 }
+
+#define SGE_OPENGL_GLSL_UNIFORM_INSTANTIATE_SET_VISITOR(\
+	env\
+)\
+template class \
+sge::opengl::glsl::uniform::set_visitor<\
+	env\
+>;
+
+SGE_OPENGL_GLSL_INSTANTIATE(
+	SGE_OPENGL_GLSL_UNIFORM_INSTANTIATE_SET_VISITOR
+)

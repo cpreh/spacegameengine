@@ -96,7 +96,6 @@ sge::opengl::glsl::arb::shader_context::shader_info_log() const
 	return shader_info_log_;
 }
 
-
 GLenum
 sge::opengl::glsl::arb::shader_context::vertex_shader_type() const
 {
@@ -107,6 +106,18 @@ GLenum
 sge::opengl::glsl::arb::shader_context::pixel_shader_type() const
 {
 	return pixel_shader_type_;
+}
+
+GLenum
+sge::opengl::glsl::arb::shader_context::compile_status_type() const
+{
+	return compile_status_type_;
+}
+
+GLenum
+sge::opengl::glsl::arb::shader_context::info_log_length_type() const
+{
+	return info_log_length_type_;
 }
 
 sge::opengl::context::id const

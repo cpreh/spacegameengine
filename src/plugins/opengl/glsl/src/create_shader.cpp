@@ -41,6 +41,10 @@ sge::opengl::glsl::create_shader(
 	sge::renderer::glsl::string const &_source
 )
 {
+	typedef fcppt::shared_ptr<
+		typename Shader::base_type
+	> ret_type;
+
 	return
 		opengl::context::use<
 			glsl::context
@@ -48,37 +52,44 @@ sge::opengl::glsl::create_shader(
 			_context
 		).is_native()
 		?
-			fcppt::make_shared_ptr<
-				glsl::shader<
-					Shader,
-					native::environment
-				>
-			>(
-				std::tr1::ref(
-					_context
+			ret_type(
+				fcppt::make_shared_ptr<
+					glsl::shader<
+						Shader,
+						native::environment
+					>
+				>(
+					std::tr1::ref(
+						_context
+					),
+					_source
 				)
 			)
 		:
-			fcppt::make_shared_ptr<
-				glsl::shader<
-					Shader,
-					arb::environment
-				>
-			>(
-				std::tr1::ref(
-					_context
+			ret_type(
+				fcppt::make_shared_ptr<
+					glsl::shader<
+						Shader,
+						arb::environment
+					>
+				>(
+					std::tr1::ref(
+						_context
+					),
+					_source
 				)
 			)
 		;
 }
 
-#if 0
-#define SGE_OPENGL_GLSL_CREATE_SHADER(shader) \
+#define SGE_OPENGL_GLSL_CREATE_SHADER(type) \
 template \
 fcppt::shared_ptr<\
-	typename shader::base_type\
-> \
-sge::opengl::glsl::create_shader(\
+	type::base_type\
+> const \
+sge::opengl::glsl::create_shader<\
+	type\
+>(\
 	sge::opengl::context::object &, \
 	sge::renderer::glsl::string const &\
 );
@@ -92,4 +103,3 @@ SGE_OPENGL_GLSL_CREATE_SHADER(
 )
 
 #undef SGE_OPENGL_GLSL_CREATE_SHADER
-#endif

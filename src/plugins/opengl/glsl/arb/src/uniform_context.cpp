@@ -68,6 +68,10 @@ sge::opengl::glsl::arb::uniform_context::uniform_context()
 	)
 {}
 
+sge::opengl::glsl::arb::uniform_context::~uniform_context()
+{
+}
+
 PFNGLGETUNIFORMLOCATIONARBPROC
 sge::opengl::glsl::arb::uniform_context::get_uniform_location() const
 {

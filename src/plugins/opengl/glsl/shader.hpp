@@ -42,8 +42,8 @@ template<
 >
 class shader
 :
-	Type::base_type,
-	glsl::shader_base<
+	public Type::base_type,
+	public glsl::shader_base<
 		Environment
 	>
 {
