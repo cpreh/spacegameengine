@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLSL_PROGRAMFUNCS_LINK_STATUS_HPP_INCLUDED
 #define SGE_OPENGL_GLSL_PROGRAMFUNCS_LINK_STATUS_HPP_INCLUDED
 
+#include "../../common.hpp"
+
 namespace sge
 {
 namespace opengl
@@ -35,7 +37,7 @@ template<
 >
 GLint
 link_status(
-	typename Environment::program_context &,
+	typename Environment::program_context const &,
 	typename Environment::handle
 );
 

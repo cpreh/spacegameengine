@@ -1,3 +1,4 @@
+
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
@@ -18,32 +19,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_PROGRAMFUNCS_INFO_LOG_LENGTH_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_PROGRAMFUNCS_INFO_LOG_LENGTH_HPP_INCLUDED
-
-#include "../../common.hpp"
-
-namespace sge
-{
-namespace opengl
-{
-namespace glsl
-{
-namespace programfuncs
-{
+#include "../get_integer.hpp"
+#include "../../program_contexts.hpp"
+#include "../../instantiate.hpp"
+#include "../../../check_state.hpp"
+#include <sge/renderer/glsl/exception.hpp>
+#include <fcppt/text.hpp>
 
 template<
 	typename Environment
 >
 GLint
-info_log_length(
-	typename Environment::program_context const &,
-	typename Environment::handle
+sge::opengl::glsl::programfuncs::get_integer(
+	typename Environment::program_context const &_context,
+	typename Environment::handle const _handle,
+	GLenum const _what
+)
+{
+	GLint result;
+
+	_context.program_integer()(
+		_handle,
+		_what,
+		&result
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("Getting a glsl program integer failed"),
+		sge::renderer::glsl::exception
+	)
+
+	return result;
+}
+
+#define SGE_OPENGL_GLSL_PROGRAMFUNCS_INSTANTIATE_GET_INTEGER(\
+	env\
+)\
+template \
+GLint \
+sge::opengl::glsl::programfuncs::get_integer<\
+	env\
+>(\
+	env::program_context const &,\
+	env::handle,\
+	GLenum\
 );
 
-}
-}
-}
-}
-
-#endif
+SGE_OPENGL_GLSL_INSTANTIATE(
+	SGE_OPENGL_GLSL_PROGRAMFUNCS_INSTANTIATE_GET_INTEGER
+)

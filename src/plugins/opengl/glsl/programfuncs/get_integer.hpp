@@ -38,8 +38,9 @@ template<
 >
 GLint
 get_integer(
-	typename Environment::program_context &,
-	typename Environment::handle
+	typename Environment::program_context const &,
+	typename Environment::handle,
+	GLenum what
 );
 
 }

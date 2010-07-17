@@ -35,7 +35,7 @@ template<
 >
 void
 link(
-	typename Environment::program_context &,
+	typename Environment::program_context const &,
 	typename Environment::handle
 );
 

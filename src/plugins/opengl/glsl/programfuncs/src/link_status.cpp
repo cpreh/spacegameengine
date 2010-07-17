@@ -18,30 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_PROGRAMFUNCS_USE_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_PROGRAMFUNCS_USE_HPP_INCLUDED
-
-namespace sge
-{
-namespace opengl
-{
-namespace glsl
-{
-namespace programfuncs
-{
+#include "../link_status.hpp"
+#include "../get_integer.hpp"
+#include "../../program_contexts.hpp"
+#include "../../instantiate.hpp"
 
 template<
 	typename Environment
 >
-void
-use(
-	typename Environment::program_context const &,
-	typename Environment::handle
+GLint
+sge::opengl::glsl::programfuncs::link_status(
+	typename Environment::program_context const &_context,
+	typename Environment::handle const _handle
+)
+{
+	return
+		programfuncs::get_integer<
+			Environment
+		>(
+			_context,
+			_handle,
+			_context.link_status_type()
+		);
+}
+
+#define SGE_OPENGL_GLSL_PROGRAMFUNCS_INSTANTIATE_LINK_STATUS(\
+	env\
+)\
+template \
+GLint \
+sge::opengl::glsl::programfuncs::link_status<\
+	env\
+>(\
+	env::program_context const &,\
+	env::handle\
 );
 
-}
-}
-}
-}
-
-#endif
+SGE_OPENGL_GLSL_INSTANTIATE(
+	SGE_OPENGL_GLSL_PROGRAMFUNCS_INSTANTIATE_LINK_STATUS
+)

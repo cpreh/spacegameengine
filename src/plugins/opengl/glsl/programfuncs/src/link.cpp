@@ -18,30 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_PROGRAMFUNCS_USE_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_PROGRAMFUNCS_USE_HPP_INCLUDED
-
-namespace sge
-{
-namespace opengl
-{
-namespace glsl
-{
-namespace programfuncs
-{
+#include "../link.hpp"
+#include "../../program_contexts.hpp"
+#include "../../instantiate.hpp"
+#include "../../../check_state.hpp"
+#include <sge/renderer/glsl/exception.hpp>
+#include <fcppt/text.hpp>
 
 template<
 	typename Environment
 >
 void
-use(
-	typename Environment::program_context const &,
-	typename Environment::handle
+sge::opengl::glsl::programfuncs::link(
+	typename Environment::program_context const &_context,
+	typename Environment::handle const _handle
+)
+{
+	_context.link_program()(
+		_handle
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("Linking a glsl program failed"),
+		sge::renderer::glsl::exception
+	)
+}
+
+#define SGE_OPENGL_GLSL_PROGRAMFUNCS_INSTANTIATE_LINK(\
+	env\
+)\
+template \
+void \
+sge::opengl::glsl::programfuncs::link<\
+	env\
+>(\
+	env::program_context const &,\
+	env::handle\
 );
 
-}
-}
-}
-}
-
-#endif
+SGE_OPENGL_GLSL_INSTANTIATE(
+	SGE_OPENGL_GLSL_PROGRAMFUNCS_INSTANTIATE_LINK
+)
