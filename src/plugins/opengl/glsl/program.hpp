@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLSL_PROGRAM_HPP_INCLUDED
 #define SGE_OPENGL_GLSL_PROGRAM_HPP_INCLUDED
 
+#include "program_base.hpp"
 #include "attachment_fwd.hpp"
 #include "../context/object_fwd.hpp"
 #include <sge/renderer/glsl/uniform/variable_ptr.hpp>
@@ -45,7 +46,8 @@ template<
 >
 class program
 :
-	public renderer::glsl::program
+	public renderer::glsl::program,
+	public program_base
 {
 public:
 	explicit program(

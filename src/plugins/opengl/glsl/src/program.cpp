@@ -49,6 +49,8 @@ sge::opengl::glsl::program<Environment>::program(
 	opengl::context::object &_context
 )
 :
+	renderer::glsl::program(),
+	program_base(),
 	context_(
 		opengl::context::use<
 			typename Environment::program_context

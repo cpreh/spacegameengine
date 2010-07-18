@@ -29,20 +29,11 @@ sge::opengl::glsl::set_program(
 	renderer::glsl::program_ptr const _prog
 )
 {
-#if 0
-	if(
-		opengl::context::use<
-			glsl::context
-		>(
-			_context
-		).is_native()
-	)
-		program<true>::use(
-			_prog
-		);
-	else
-		program<false>::use(
-			_prog
-		);
-#endif
+	opengl::context::use<
+		glsl::context
+	>(
+		_context
+	).use(
+		_prog
+	);
 }

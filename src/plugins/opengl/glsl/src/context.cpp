@@ -19,8 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../context.hpp"
+#include "../program_base.hpp"
 #include "../../glew/is_supported.hpp"
 #include "../../context/make_id.hpp"
+#include <sge/renderer/glsl/program.hpp>
+#include <fcppt/dynamic_pointer_cast.hpp>
 
 sge::opengl::glsl::context::context()
 :
@@ -29,7 +32,8 @@ sge::opengl::glsl::context::context()
 	),
 	arb_shader_(
 		glew::is_supported("GL_ARB_vertex_shader GL_ARB_fragment_shader")
-	)
+	),
+	last_program_()
 {
 }
 
@@ -49,6 +53,44 @@ bool
 sge::opengl::glsl::context::is_native() const
 {
 	return normal_shader_;
+}
+
+void
+sge::opengl::glsl::context::use(
+	sge::renderer::glsl::program_ptr const _prog
+)
+{
+	typedef fcppt::shared_ptr<
+		program_base
+	> program_base_ptr;
+
+	if(
+		!_prog
+	)
+	{
+		program_base_ptr const locked(
+			last_program_.lock()
+		);
+
+		if(
+			locked
+		)
+			locked->unuse();
+	}
+	else
+	{
+		program_base_ptr const base(
+			fcppt::dynamic_pointer_cast<
+				program_base
+			>(
+				_prog
+			)
+		);
+
+		base->use();
+
+		last_program_ = base;
+	}
 }
 
 sge::opengl::context::id const
