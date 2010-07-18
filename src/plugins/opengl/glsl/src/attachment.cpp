@@ -19,11 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../attachment.hpp"
+#include "../shader_base.hpp"
 #include "../programfuncs/attach_shader.hpp"
 #include "../programfuncs/detach_shader.hpp"
-#include "../native/environment.hpp"
-//#include "../arb/environment.hpp"
+#include "../instantiate.hpp"
+#include "../program_contexts.hpp"
+#include <sge/renderer/glsl/shader.hpp>
 #include <fcppt/dynamic_pointer_cast.hpp>
+#include <fcppt/shared_ptr_impl.hpp>
 
 template<
 	typename Environment
@@ -69,14 +72,14 @@ sge::opengl::glsl::attachment<Environment>::~attachment()
 	);
 }
 
-#if 0
-template class sge::opengl::glsl::attachment<
-	sge::opengl::glsl::normal::environment
+#define SGE_OPENGL_GLSL_INSTANTIATE_ATTACHTMENT(\
+	env\
+)\
+template class \
+sge::opengl::glsl::attachment<\
+	env\
 >;
-#endif
 
-#if 0
-template class sge::opengl::glsl::attachment<
-	sge::opengl::glsl::arb::environment
->;
-#endif
+SGE_OPENGL_GLSL_INSTANTIATE(
+	SGE_OPENGL_GLSL_INSTANTIATE_ATTACHTMENT
+)

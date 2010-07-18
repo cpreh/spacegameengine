@@ -30,8 +30,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../programfuncs/info_log_length.hpp"
 #include "../programfuncs/use.hpp"
 #include "../instantiate.hpp"
+#include "../program_contexts.hpp"
+#include "../uniform/contexts.hpp"
 #include "../../context/use.hpp"
+#include <sge/renderer/glsl/shader.hpp>
+#include <sge/renderer/glsl/vertex_shader.hpp>
+#include <sge/renderer/glsl/pixel_shader.hpp>
 #include <sge/renderer/glsl/exception.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_auto_ptr.hpp>
@@ -46,6 +52,13 @@ sge::opengl::glsl::program<Environment>::program(
 	context_(
 		opengl::context::use<
 			typename Environment::program_context
+		>(
+			_context
+		)
+	),
+	uniform_context_(
+		opengl::context::use<
+			typename Environment::uniform_context
 		>(
 			_context
 		)
@@ -110,6 +123,9 @@ sge::opengl::glsl::program<Environment>::uniform(
 				Environment
 			>
 		>(
+			std::tr1::ref(
+				uniform_context_
+			),
 			id_,
 			_name
 		);
@@ -220,6 +236,9 @@ sge::opengl::glsl::program<Environment>::make_attachment(
 		fcppt::make_auto_ptr<
 			attachment_type
 		>(
+			std::tr1::ref(
+				context_
+			),
 			_shader,
 			id_
 		)

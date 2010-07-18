@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "attachment_fwd.hpp"
 #include "shader_base_fwd.hpp"
 #include <sge/renderer/glsl/shader_ptr.hpp>
-#include <fcppt/shared_ptr.hpp>
+#include <fcppt/shared_ptr_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -54,7 +54,7 @@ public:
 	~attachment();
 private:
 	typedef glsl::shader_base<
-		typename Environment::shader_environment
+		Environment
 	> shader_type;
 
 	typedef fcppt::shared_ptr<

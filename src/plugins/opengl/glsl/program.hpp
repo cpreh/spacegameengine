@@ -111,7 +111,11 @@ private:
 
 	typedef typename Environment::program_context program_context;
 
+	typedef typename Environment::uniform_context uniform_context;
+
 	program_context &context_;
+
+	uniform_context &uniform_context_;
 
 	handle const id_;
 

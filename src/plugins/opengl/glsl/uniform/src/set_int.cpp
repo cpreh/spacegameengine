@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../set_int.hpp"
 #include "../type.hpp"
+#include "../contexts.hpp"
 #include "../../instantiate.hpp"
 #include "../../../check_state.hpp"
 #include <sge/renderer/glsl/exception.hpp>
@@ -139,3 +140,22 @@ sge::opengl::glsl::uniform::set_int(
 	return ret;
 
 }
+
+#define SGE_OPENGL_GLSL_UNIFORM_INSTANTIATE_SET_INT(\
+	env\
+)\
+template \
+sge::opengl::glsl::uniform::type const \
+sge::opengl::glsl::uniform::set_int<\
+	env\
+>(\
+	env::uniform_context const &,\
+	GLint,\
+	GLint const *,\
+	GLsizei,\
+	GLsizei\
+);
+
+SGE_OPENGL_GLSL_INSTANTIATE(
+	SGE_OPENGL_GLSL_UNIFORM_INSTANTIATE_SET_INT
+)
