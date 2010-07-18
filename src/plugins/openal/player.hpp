@@ -27,47 +27,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "listener.hpp"
 
 #include <sge/audio/player.hpp>
-#include <sge/audio/sound_fwd.hpp>
-#include <sge/audio/pool_fwd.hpp>
 #include <sge/audio/scalar.hpp>
-
-#include <boost/ptr_container/ptr_list.hpp>
+#include <sge/audio/file_ptr.hpp>
+#include <sge/audio/listener_fwd.hpp>
+#include <sge/audio/sound/positional_ptr.hpp>
+#include <sge/audio/sound/base_ptr.hpp>
+#include <sge/audio/sound/positional_parameters.hpp>
+#include <sge/audio/scalar.hpp>
 
 namespace sge
 {
 namespace openal
 {
-class stream_sound;
-class buffer;
-
-class player : public audio::player
+class player 
+: 
+	public audio::player
 {
 public:
+	explicit
 	player();
+
 	~player();
 
-	ALuint register_nonstream_sound(audio::file_ptr);
-	void unregister_nonstream_sound(ALuint);
+	audio::listener &
+	listener();
 
-	audio::listener &listener();
+	audio::scalar 
+	speed_of_sound() const;
 
-	audio::sound_ptr const create_nonstream_sound(audio::file_ptr);
-	audio::sound_ptr const create_stream_sound(audio::file_ptr);
+	void 
+	speed_of_sound(
+		audio::scalar);
 
-	audio::scalar speed_of_sound() const;
-	void speed_of_sound(audio::scalar);
+	audio::buffer_ptr const
+	create_buffer(
+		audio::file_ptr);
+
+	audio::sound::positional_ptr const 
+	create_positional_stream(
+		audio::file_ptr,
+		audio::sound::positional_parameters const &);
+
+	audio::sound::base_ptr const 
+	create_nonpositional_stream(
+		audio::file_ptr);
 private:
-	typedef boost::ptr_list<
-		stream_sound,
-		boost::view_clone_allocator
-	> stream_sound_container;
-
-	typedef boost::ptr_list<
-		buffer
-	> nonstream_sound_container;
-
-	stream_sound_container    stream_sounds;
-	nonstream_sound_container nonstream_sounds;
 	device                    device_;
 	context                   context_;
 	sge::openal::listener     listener_;

@@ -24,8 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/player_fwd.hpp>
 #include <sge/audio/file_ptr.hpp>
 #include <sge/audio/listener_fwd.hpp>
+#include <sge/audio/buffer_ptr.hpp>
+#include <sge/audio/sound/positional_ptr.hpp>
+#include <sge/audio/sound/positional_parameters.hpp>
+#include <sge/audio/sound/base_ptr.hpp>
 #include <sge/audio/scalar.hpp>
-#include <sge/audio/sound_ptr.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -40,13 +43,32 @@ class SGE_CLASS_SYMBOL player
 public:
 	FCPPT_NONCOPYABLE(player)
 protected:
-	SGE_SYMBOL player();
+	SGE_SYMBOL explicit
+	player();
 public:
-	virtual audio::listener &listener() = 0;
-	virtual scalar speed_of_sound() const = 0;
-	virtual void speed_of_sound(scalar) = 0;
-	virtual sound_ptr const create_nonstream_sound(file_ptr) = 0;
-	virtual sound_ptr const create_stream_sound(file_ptr) = 0;
+	virtual audio::listener &
+	listener() = 0;
+
+	virtual scalar 
+	speed_of_sound() const = 0;
+
+	virtual void 
+	speed_of_sound(
+		scalar) = 0;
+
+	virtual buffer_ptr const
+	create_buffer(
+		file_ptr) = 0;
+
+	virtual sound::positional_ptr const 
+	create_positional_stream(
+		file_ptr,
+		sound::positional_parameters const &) = 0;
+
+	virtual sound::base_ptr const 
+	create_nonpositional_stream(
+		file_ptr) = 0;
+
 	SGE_SYMBOL virtual ~player();
 };
 

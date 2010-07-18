@@ -23,25 +23,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/listener.hpp>
 #include <sge/audio/angle.hpp>
-#include <fcppt/math/vector/basic_decl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 
 namespace sge
 {
 namespace openal
 {
-class listener : public sge::audio::listener
+class listener 
+: 
+	public sge::audio::listener
 {
-	public:
+public:
+	explicit
 	listener();
-	void pos(audio::vector const &);
-	audio::vector const pos() const;
-	void vel(audio::vector const &);
-	audio::vector const vel() const;
-	void direction(audio::angle const &);
-	audio::angle const direction() const;
-	private:
-	audio::vector pos_;
-	audio::vector vel_;
+	
+	void 
+	position(
+		audio::vector const &);
+	
+	audio::vector const 
+	position() const;
+	
+	void 
+	linear_velocity(
+		audio::vector const &);
+	
+	audio::vector const 
+	linear_velocity() const;
+	
+	void 
+	direction(
+		audio::angle const &);
+	
+	audio::angle const 
+	direction() const;
+private:
+	audio::vector position_;
+	audio::vector linear_velocity_;
 	audio::angle angle_;
 };
 }

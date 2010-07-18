@@ -29,25 +29,34 @@ namespace sge
 {
 namespace openal
 {
-
-class player;
-
-class stream_sound : public source
+class stream_sound 
+: 
+	public source
 {
 public:
+	explicit
 	stream_sound(
-		audio::file_ptr,
-		player &);
-	void update();
-	void do_play();
-private:
-	player &                       player_;
-	audio::file_ptr const          audio_file_;
-	audio::sample_count const      buffer_samples_;
-	ALenum const                   format_;
-	ALuint                         al_buffers_[2];
+		audio::file_ptr);
 
-	bool fill_buffer(ALuint);
+	explicit
+	stream_sound(
+		audio::sound::positional_parameters const &,
+		audio::file_ptr);
+
+	void 
+	update();
+
+	void 
+	do_play();
+private:
+	audio::file_ptr const audio_file_;
+	audio::sample_count const buffer_samples_;
+	ALenum const format_;
+	ALuint al_buffers_[2];
+
+	bool 
+	fill_buffer(
+		ALuint);
 };
 }
 }

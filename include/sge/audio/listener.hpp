@@ -37,15 +37,32 @@ class SGE_CLASS_SYMBOL listener
 {
 	FCPPT_NONCOPYABLE(listener)
 protected:
-	SGE_SYMBOL listener();
+	SGE_SYMBOL explicit
+	listener();
 public:
-	virtual vector const pos() const = 0;
-	virtual void pos(vector const &) = 0;
-	virtual vector const vel() const = 0;
-	virtual void vel(vector const &) = 0;
-	virtual angle const direction() const = 0;
-	virtual void direction(angle const &) = 0;
-	SGE_SYMBOL virtual ~listener();
+	virtual vector const 
+	position() const = 0;
+	
+	virtual void 
+	position(
+		vector const &) = 0;
+		
+	virtual vector const 
+	linear_velocity() const = 0;
+	
+	virtual void 
+	linear_velocity(
+		vector const &) = 0;
+		
+	virtual angle const 
+	direction() const = 0;
+	
+	virtual void 
+	direction(
+		angle const &) = 0;
+		
+	SGE_SYMBOL virtual 
+	~listener();
 };
 
 }

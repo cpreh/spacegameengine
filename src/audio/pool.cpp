@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/audio/pool.hpp>
-#include <sge/audio/sound.hpp>
+#include <sge/audio/sound/base.hpp>
 #include <sge/log/global.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
@@ -31,11 +31,14 @@ sge::audio::pool::pool()
 
 void
 sge::audio::pool::add(
-	audio::sound_ptr const s,
+	sound::base_ptr const s,
 	stop_mode::type const pm
 )
 {
-	sounds.push_back(value_type(s,pm));
+	sounds.push_back(
+		value_type(
+			s,
+			pm));
 }
 
 void
@@ -58,11 +61,11 @@ sge::audio::pool::update()
 			break;
 			case stop_mode::continue_playing:
 				FCPPT_ASSERT_MESSAGE(
-					s->first->status() != audio::sound_status::paused,
+					s->first->status() != audio::sound::play_status::paused,
 					FCPPT_TEXT("a paused sound was destroyed but kept alive by the sound pool")
 				);
 
-				if (s->first->status() != audio::sound_status::stopped)
+				if (s->first->status() != audio::sound::play_status::stopped)
 				{
 					s++;
 					continue;
@@ -70,13 +73,13 @@ sge::audio::pool::update()
 			break;
 			case stop_mode::play_once:
 				FCPPT_ASSERT_MESSAGE(
-					s->first->status() != audio::sound_status::paused,
+					s->first->status() != audio::sound::play_status::paused,
 					FCPPT_TEXT("a paused sound was destroyed but kept alive by the sound pool")
 				);
 
-				if (s->first->status() != audio::sound_status::stopped)
+				if (s->first->status() != audio::sound::play_status::stopped)
 				{
-					if (s->first->play_mode() != play_mode::once)
+					if (s->first->repeat() != sound::repeat::once)
 					{
 						FCPPT_LOG_WARNING(
 							log::global(),
@@ -84,7 +87,7 @@ sge::audio::pool::update()
 								<< FCPPT_TEXT("got a looping sound, setting to play only once")
 						);
 
-						s->first->play(play_mode::once);
+						s->first->play(sound::repeat::once);
 					}
 					s++;
 					continue;
@@ -103,7 +106,7 @@ sge::audio::pool::sounds_finished() const
 		value_type const &s,
 		sounds
 	)
-		if (s.first->status() != audio::sound_status::stopped)
+		if (s.first->status() != audio::sound::play_status::stopped)
 			return false;
 	return true;
 }

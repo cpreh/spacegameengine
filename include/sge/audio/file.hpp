@@ -36,19 +36,37 @@ namespace audio
 
 class SGE_CLASS_SYMBOL file
 {
-	FCPPT_NONCOPYABLE(file)
+FCPPT_NONCOPYABLE(file)
 protected:
-	SGE_SYMBOL file();
+	SGE_SYMBOL explicit
+	file();
 public:
-	virtual sample_count read(sample_count samples, sample_container &) = 0;
-	virtual sample_count read_all(sample_container &) = 0;
+	virtual sample_count 
+	read(
+			sample_count samples, 
+			sample_container &) = 0;
+	
+	virtual sample_count 
+	read_all(
+		sample_container &) = 0;
 
-	virtual channel_type channels() const = 0;
-	virtual sample_count sample_rate() const = 0;
-	virtual sample_count bits_per_sample() const = 0;
-	virtual void reset() = 0;
-	SGE_SYMBOL sample_count bytes_per_sample() const;
-	SGE_SYMBOL virtual ~file();
+	virtual channel_type 
+	channels() const = 0;
+	
+	virtual sample_count 
+	sample_rate() const = 0;
+	
+	virtual sample_count 
+	bits_per_sample() const = 0;
+	
+	virtual void 
+	reset() = 0;
+	
+	SGE_SYMBOL sample_count 
+	bytes_per_sample() const;
+	
+	SGE_SYMBOL 
+	virtual ~file();
 };
 
 }

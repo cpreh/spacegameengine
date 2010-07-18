@@ -29,9 +29,9 @@ namespace sge
 namespace audio
 {
 
-typedef fcppt::shared_ptr<
-	file
-> file_ptr;
+typedef 
+fcppt::shared_ptr<file> 
+file_ptr;
 
 }
 }

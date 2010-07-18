@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_ANGLE_HPP_INCLUDED
 #define SGE_AUDIO_ANGLE_HPP_INCLUDED
 
-#include <sge/audio/angle_fwd.hpp>
 #include <sge/audio/vector.hpp>
 #include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 
 namespace sge
@@ -31,7 +31,7 @@ namespace sge
 namespace audio
 {
 
-class angle
+class SGE_CLASS_SYMBOL angle
 {
 public:
 	SGE_SYMBOL angle();

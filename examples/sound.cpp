@@ -20,8 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/player.hpp>
 #include <sge/audio/exception.hpp>
-#include <sge/audio/sound.hpp>
 #include <sge/audio/listener.hpp>
+#include <sge/audio/sound/base.hpp>
+#include <sge/audio/sound/positional.hpp>
+#include <sge/audio/sound/positional_parameters.hpp>
+#include <sge/audio/buffer.hpp>
 #include <sge/audio/multi_loader.hpp>
 #include <sge/plugin/plugin.hpp>
 #include <sge/plugin/manager.hpp>
@@ -43,17 +46,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/pi.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/io/cout.hpp>
+#include <fcppt/io/cin.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
-#include <boost/program_options.hpp>
 #include <ostream>
 #include <exception>
 #include <algorithm>
 #include <iostream>
+#include <string>
 #include <cstdlib>
 #include <cmath>
 
-int main(int argc, char *argv[])
+namespace
+{
+void
+wait_for_input()
+{
+	fcppt::io::cout << FCPPT_TEXT("Please press enter to continue...\n");
+	fcppt::string input;
+	std::getline(
+		fcppt::io::cin,
+		input);
+}
+}
+
+int main(int, char *[])
 try
 {
 	fcppt::log::activate_levels(
@@ -61,43 +79,12 @@ try
 		fcppt::log::level::debug
 	);
 
-	namespace po = boost::program_options;
-	po::options_description desc("allowed options");
+	fcppt::filesystem::path const file_name = 
+		sge::config::media_path() / 
+		FCPPT_TEXT("ding.wav");
 
-	std::string file_name_prog_options;
-	bool revolving,streaming;
-	sge::audio::scalar speed;
-
-	// FIXME: can't we use wstring here too?
-	desc.add_options()
-	("help",
-	"produce help message")
-	("file",
-	po::value<std::string>(&file_name_prog_options),
-	"sets the sound file name")
-	("revolving",
-	po::value<bool>(&revolving)->default_value(true),
-	"does the sound revolve around the player")
-	("speed",
-	po::value<sge::audio::scalar>(&speed)->default_value(static_cast<sge::audio::scalar>(1)),
-	"speed of the sound in percent of 2*pi per second")
-	("streaming",
-	po::value<bool>(&streaming)->default_value(false),
-	"stream sound or not");
-
-	po::variables_map vm;
-	po::store(po::parse_command_line(argc,argv,desc),vm);
-	po::notify(vm);
-
-	if (vm.count("help"))
-	{
-		std::cout << desc << "\n";
-		 return EXIT_SUCCESS;
-	}
-
-	fcppt::filesystem::path file_name(fcppt::from_std_string(file_name_prog_options));
-	if (file_name.empty())
-		file_name = sge::config::media_path() / FCPPT_TEXT("ding.wav");
+	fcppt::io::cout << FCPPT_TEXT("This is the sge sound example. We will now try to load the audio loader\n");
+	wait_for_input();
 
 	sge::systems::instance sys(
 		sge::systems::list()
@@ -116,18 +103,34 @@ try
 		)
 	);
 
-	sge::audio::file_ptr const soundfile = sys.audio_loader().load(file_name);
+	fcppt::io::cout << FCPPT_TEXT("Audio loader loaded\n");
+	fcppt::io::cout << FCPPT_TEXT("We will now try to load a sound file\n");
+	wait_for_input();
 
-	sge::audio::sound_ptr const sound =
-		streaming
-		? sys.audio_player()->create_stream_sound(soundfile)
-		: sys.audio_player()->create_nonstream_sound(soundfile);
+	sge::audio::file_ptr const soundfile = 
+		sys.audio_loader().load(
+			file_name);
 
-	sys.audio_player()->listener().pos(
-		sge::audio::vector(
-			static_cast<sge::audio::scalar>(0),
-			static_cast<sge::audio::scalar>(0),
-			static_cast<sge::audio::scalar>(0)));
+	fcppt::io::cout << FCPPT_TEXT("Sound file loaded\n");
+	fcppt::io::cout << FCPPT_TEXT("We will now try to create a nonstreaming buffer from it.\n");
+	wait_for_input();
+
+	sge::audio::buffer_ptr const buf = 
+		sys.audio_player()->create_buffer(
+			soundfile);
+
+	fcppt::io::cout << FCPPT_TEXT("Buffer created\n");
+	fcppt::io::cout << FCPPT_TEXT("We will now try to create a nonpositional source from it.\n");
+	wait_for_input();
+	
+	sge::audio::sound::base_ptr const s = 
+		buf->create_nonpositional();
+
+	fcppt::io::cout << FCPPT_TEXT("Nonpositional source loaded\n");
+	fcppt::io::cout << FCPPT_TEXT("You should hear a sound after pressing enter\n");
+	wait_for_input();
+
+	/*
 	if (revolving)
 	{
 		sound->positional(true);
@@ -137,33 +140,63 @@ try
 				static_cast<sge::audio::scalar>(0),
 				static_cast<sge::audio::scalar>(0)));
 	}
-	sound->play(sge::audio::play_mode::once);
+	*/
+	s->play(
+		sge::audio::sound::repeat::once);
 
-	sge::time::timer frame_timer(sge::time::second(1));
-	while (sound->status() != sge::audio::sound_status::stopped)
-	{
-		if (revolving)
-		{
-			sge::audio::scalar const angle =
-				static_cast<sge::audio::scalar>(
-					frame_timer.elapsed_frames() * (2 * fcppt::math::pi<sge::audio::scalar>() * speed));
-			sound->pos(
-				sge::audio::vector(
-					std::sin(angle),
-					static_cast<sge::audio::scalar>(0),
-					std::cos(angle)));
-		}
+	sge::time::timer frame_timer(
+		sge::time::second(
+			1));
 
-		sound->update();
-		sge::time::sleep(sge::time::millisecond(250));
-	}
-} catch (const sge::audio::exception &e) {
+	while (s->status() != sge::audio::sound::play_status::stopped)
+		s->update();
+
+	fcppt::io::cout << FCPPT_TEXT("Now we use the same sound, but create a positional source from it.\n");
+	wait_for_input();
+
+	sge::audio::sound::positional_ptr const ps = 
+		buf->create_positional(
+			sge::audio::sound::positional_parameters()
+				.linear_velocity(
+					sge::audio::vector::null())
+				.position(
+					sge::audio::vector::null())
+				.rolloff(
+					1));
+
+	fcppt::io::cout << FCPPT_TEXT("Sound created at the origin, now we play it\n");
+	wait_for_input();
+
+	s->play(
+		sge::audio::sound::repeat::once);
+
+	while (ps->status() != sge::audio::sound::play_status::stopped)
+		ps->update();
+
+	fcppt::io::cout << FCPPT_TEXT("Now we reposition and play again\n");
+	wait_for_input();
+
+	ps->position(
+		sge::audio::vector(
+			-10000,
+			0,
+			0));
+
+	s->play(
+		sge::audio::sound::repeat::once);
+
+	while (ps->status() != sge::audio::sound::play_status::stopped)
+		ps->update();
+
+	fcppt::io::cout << FCPPT_TEXT("Finished\n");
+	wait_for_input();
+} catch (sge::audio::exception const &e) {
 	fcppt::io::cerr << FCPPT_TEXT("audio exception caught: ") << e.string() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
-} catch (const sge::exception &e) {
+} catch (sge::exception const &e) {
 	fcppt::io::cerr << FCPPT_TEXT("Exception caught: ") << e.string() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
-} catch (const std::exception &e) {
+} catch (std::exception const &e) {
 	std::cerr << "Exception caught: " << e.what() << '\n';
 	return EXIT_FAILURE;
 }
