@@ -18,41 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../element_rows.hpp"
-#include <sge/renderer/glsl/exception.hpp>
-#include <fcppt/text.hpp>
+#include "../program_base.hpp"
 
-GLsizei
-sge::opengl::glsl::uniform::element_rows(
-	sge::renderer::glsl::uniform::float_value_type::type const _type
-)
-{
-	namespace fv = sge::renderer::glsl::uniform::float_value_type;
+sge::opengl::glsl::program_base::program_base()
+{}
 
-	switch(
-		_type
-	)
-	{
-	case fv::matrix2x2:
-	case fv::matrix3x2:
-	case fv::matrix4x2:
-		return 2;
-	case fv::matrix2x3:
-	case fv::matrix3x3:
-	case fv::matrix4x3:
-		return 3;
-	case fv::matrix2x4:
-	case fv::matrix3x4:
-	case fv::matrix4x4:
-		return 4;
-	case fv::float1:
-	case fv::float2:
-	case fv::float3:
-	case fv::float4:
-		break;
-	}
-
-	throw sge::renderer::glsl::exception(
-		FCPPT_TEXT("Invalid matrix type in glsl element_rows!")
-	);
-}
+sge::opengl::glsl::program_base::~program_base()
+{}

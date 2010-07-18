@@ -296,10 +296,10 @@ try
 			(sge::renderer::state::bool_::enable_lighting = true)
 			(sge::renderer::state::color::ambient_light_color
 				= rgba32f_color(
-					sge::image::color::init::red %= 0.577350269,
-					sge::image::color::init::green %= 0.577350269f,
-					sge::image::color::init::blue %= 0.577350269f,
-					sge::image::color::init::alpha %= 0.
+					(sge::image::color::init::red %= 0.577350269)
+					(sge::image::color::init::green %= 0.577350269f)
+					(sge::image::color::init::blue %= 0.577350269f)
+					(sge::image::color::init::alpha %= 0.)
 				)
 			)
 			(sge::renderer::state::float_::zbuffer_clear_val = 1.f)
@@ -348,22 +348,22 @@ try
 	rend->material(
 		sge::renderer::material(
 			rgba32f_color(
-				sge::image::color::init::red %= 0.1,
-				sge::image::color::init::green %= 0.1,
-				sge::image::color::init::blue %= 0.1,
-				sge::image::color::init::alpha %= 1.
+				(sge::image::color::init::red %= 0.1)
+				(sge::image::color::init::green %= 0.1)
+				(sge::image::color::init::blue %= 0.1)
+				(sge::image::color::init::alpha %= 1.)
 			),
 			rgba32f_color(
-				sge::image::color::init::red %= 0.75,
-				sge::image::color::init::green %= 0.75,
-				sge::image::color::init::blue %= 1.,
-				sge::image::color::init::alpha %= 1.
+				(sge::image::color::init::red %= 0.75)
+				(sge::image::color::init::green %= 0.75)
+				(sge::image::color::init::blue %= 1.)
+				(sge::image::color::init::alpha %= 1.)
 			),
 			rgba32f_color(
-				sge::image::color::init::red %= 0.5,
-				sge::image::color::init::green %= 0.5,
-				sge::image::color::init::blue %= 0.5,
-				sge::image::color::init::alpha %= 1.
+				(sge::image::color::init::red %= 0.5)
+				(sge::image::color::init::green %= 0.5)
+				(sge::image::color::init::blue %= 0.5)
+				(sge::image::color::init::alpha %= 1.)
 			),
 			sge::image::colors::black(),
 			100.f
