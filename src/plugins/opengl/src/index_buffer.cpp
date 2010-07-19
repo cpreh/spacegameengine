@@ -147,7 +147,7 @@ sge::opengl::index_buffer<T>::lock(
 				>(
 					buf.data()
 				),
-				buf.lock_size()
+				buf.lock_size() / sizeof(T) // FIXME
 			)
 		);
 }
@@ -179,7 +179,7 @@ sge::opengl::index_buffer<T>::lock(
 				>(
 					buf.data()
 				),
-				buf.lock_size()
+				buf.lock_size() / sizeof(T) // FIXME
 			)
 		);
 }
