@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert_num_elements.hpp"
 #include "../client_state_combiner.hpp"
 #include "../../context/use.hpp"
+#include "../../on_not_supported.hpp"
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 
@@ -49,7 +50,16 @@ sge::opengl::vf::attribute_actor::attribute_actor(
 			e.element().info()
 		)
 	)
-{}
+{
+	if(
+		!context_.is_supported()
+	)
+		opengl::on_not_supported(
+			FCPPT_TEXT("glVertexAttribPointer"),
+			FCPPT_TEXT("GL_VERSION_2_0"),
+			FCPPT_TEXT("GL_ARB_vertex_shader")
+		);
+}
 
 void
 sge::opengl::vf::attribute_actor::operator()(
