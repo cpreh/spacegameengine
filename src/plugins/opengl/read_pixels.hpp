@@ -18,32 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../framebuffer_functions.hpp"
-#include "../check_state.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_OPENGL_FRAMEBUFFER_FUNCTIONS_HPP_INCLUDED
+#define SGE_OPENGL_FRAMEBUFFER_FUNCTIONS_HPP_INCLUDED
 
-void sge::opengl::read_pixels(
-	renderer::size_type const x,
-	renderer::size_type const y,
-	renderer::size_type const width,
-	renderer::size_type const height,
-	GLenum const format,
-	GLenum const type,
-	renderer::raw_pointer const dest)
+#include "common.hpp"
+#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/raw_pointer.hpp>
+
+namespace sge
 {
-	glReadPixels(
-		static_cast<GLint>(x),
-		static_cast<GLint>(y),
-		static_cast<GLsizei>(width),
-		static_cast<GLsizei>(height),
-		format,
-		type,
-		dest
-	);
+namespace opengl
+{
 
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glReadPixels failed"),
-		sge::renderer::exception
-	)
+void
+read_pixels(
+	renderer::size_type x,
+	renderer::size_type y,
+	renderer::size_type width,
+	renderer::size_type height,
+	GLenum format,
+	GLenum type,
+	renderer::raw_pointer dest
+);
+
 }
+}
+
+#endif

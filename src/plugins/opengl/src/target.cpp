@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../common.hpp"
 #include "../target.hpp"
-#include "../framebuffer_functions.hpp"
+#include "../read_pixels.hpp"
 #include "../color_convert.hpp"
 #include <sge/image/view/make.hpp>
 #include <sge/image/view/make_const.hpp>
@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <sge/exception.hpp>
+#include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::target::target()
@@ -41,11 +41,15 @@ sge::opengl::target::~target()
 
 sge::image::view::const_object const
 sge::opengl::target::lock(
-	renderer::lock_rect const &dest) const
+	renderer::lock_rect const &dest
+) const
 {
-	if(!buffer.empty())
-		throw exception(
-			FCPPT_TEXT("renderer::target()::lock(): already locked!"));
+	if(
+		!buffer.empty()
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("renderer::target()::lock(): already locked!")
+		);
 
 	buffer.resize_uninitialized(
 		dest.dimension().content() * stride()
@@ -63,22 +67,24 @@ sge::opengl::target::lock(
 		buffer.data()
 	);
 
-	return image::view::make_const(
-		image::view::flipped(
-			image::view::make(
-				buffer.data(),
-				dim(),
-				color_convert(
-					format(),
-					format_type()
-				),
-				image::view::optional_pitch()
+	return
+		image::view::make_const(
+			image::view::flipped(
+				image::view::make(
+					buffer.data(),
+					dim(),
+					opengl::color_convert(
+						format(),
+						format_type()
+					),
+					image::view::optional_pitch()
+				)
 			)
-		)
-	);
+		);
 }
 
-void sge::opengl::target::unlock() const
+void
+sge::opengl::target::unlock() const
 {
 	buffer.free_memory();
 }
