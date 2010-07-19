@@ -70,6 +70,14 @@ sge::opengl::vf::attribute_context::~attribute_context()
 {
 }
 
+bool
+sge::opengl::vf::attribute_context::is_supported() const
+{
+	return
+		is_native_
+		|| is_arb_;
+}
+
 PFNGLVERTEXATTRIBPOINTERPROC
 sge::opengl::vf::attribute_context::vertex_attrib_pointer() const
 {
