@@ -18,13 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VF_ACTOR_HPP_INCLUDED
-#define SGE_OPENGL_VF_ACTOR_HPP_INCLUDED
-
-#include "actor_fwd.hpp"
-#include "pointer.hpp"
-#include "client_state_combiner_fwd.hpp"
-#include <fcppt/noncopyable.hpp>
+#ifndef SGE_OPENGL_VF_ACTOR_FWD_HPP_INCLUDED
+#define SGE_OPENGL_VF_ACTOR_FWD_HPP_INCLUDED
 
 namespace sge
 {
@@ -33,30 +28,7 @@ namespace opengl
 namespace vf
 {
 
-class actor
-{
-public:
-	FCPPT_NONCOPYABLE(actor)
-protected:
-	actor();
-public:
-	virtual void
-	operator()(
-		client_state_combiner &
-	) const = 0;
-
-	virtual void
-	source(
-		vf::pointer
-	) = 0;
-
-	virtual void
-	unuse(
-		client_state_combiner &
-	) const = 0;
-
-	virtual ~actor();
-};
+class actor;
 
 }
 }

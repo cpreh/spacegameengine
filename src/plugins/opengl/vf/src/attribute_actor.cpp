@@ -19,22 +19,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../attribute_actor.hpp"
+#include "../attribute_context.hpp"
 #include "../convert_num_elements.hpp"
 #include "../client_state_combiner.hpp"
-#include "../vertex_attrib.hpp"
+#include "../../context/use.hpp"
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 
 sge::opengl::vf::attribute_actor::attribute_actor(
 	renderer::vf::dynamic::ordered_element const &e,
-	renderer::vf::vertex_size const stride
+	renderer::vf::vertex_size const stride,
+	opengl::context::object &_context
 )
 :
 	pointer_actor(
 		e,
 		stride
 	),
-	elements(
+	context_(
+		opengl::context::use<
+			attribute_context
+		>(
+			_context
+		)
+	),
+	elements_(
 		fcppt::variant::apply_unary(
 			convert_num_elements(),
 			e.element().info()
@@ -47,9 +56,9 @@ sge::opengl::vf::attribute_actor::operator()(
 	client_state_combiner &c
 ) const
 {
-	vertex_attrib_pointer(
+	context_.vertex_attrib_pointer()(
 		gl_index(),
-		elements,
+		elements_,
 		format(),
 		GL_TRUE, // normalized
 		stride(),

@@ -35,7 +35,10 @@ sge::opengl::vertex_buffer::vertex_buffer(
 	renderer::resource_flags_field const &_flags
 )
 :
-	format_(_format),
+	format_(
+		_context,
+		_format
+	),
 	buf(
 		context::use<
 			vbo_context
@@ -106,11 +109,12 @@ sge::opengl::vertex_buffer::lock(
 		range
 	);
 
-	return const_view_type(
-		buf.data(),
-		buf.lock_size(),
-		format()
-	);
+	return
+		const_view_type(
+			buf.data(),
+			buf.lock_size(),
+			format()
+		);
 }
 
 void
@@ -130,7 +134,9 @@ sge::opengl::vertex_buffer::unlock() const
 		renderer::vf::dynamic::ordered_element_list::const_reference elem,
 		elems
 	)
-		if(elem.element().role() == renderer::vf::role::color)
+		if(
+			elem.element().role() == renderer::vf::role::color
+		)
 			convert_vertex_colors(
 				elem,
 				stride,

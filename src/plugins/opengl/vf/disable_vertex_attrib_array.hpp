@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VF_VERTEX_ATTRIB_HPP_INCLUDED
-#define SGE_OPENGL_VF_VERTEX_ATTRIB_HPP_INCLUDED
+#ifndef SGE_OPENGL_VF_DISABLE_VERTEX_ATTRIB_ARRAY_HPP_INCLUDED
+#define SGE_OPENGL_VF_DISABLE_VERTEX_ATTRIB_ARRAY_HPP_INCLUDED
 
+#include "attribute_context_fwd.hpp"
 #include "../common.hpp"
 
 namespace sge
@@ -30,19 +31,11 @@ namespace opengl
 namespace vf
 {
 
-void vertex_attrib_pointer(
-	GLuint index,
-	GLint size,
-	GLenum type,
-	GLboolean normalized,
-	GLsizei stride,
-	void const *pointer);
-
-void enable_vertex_attrib_array(
-	GLuint index);
-
-void disable_vertex_attrib_array(
-	GLuint index);
+void
+disable_vertex_attrib_array(
+	vf::attribute_context const &,
+	GLuint index
+);
 
 }
 }

@@ -18,12 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VF_ACTOR_HPP_INCLUDED
-#define SGE_OPENGL_VF_ACTOR_HPP_INCLUDED
+#ifndef SGE_OPENGL_VF_ATTRIBUTE_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_VF_ATTRIBUTE_CONTEXT_HPP_INCLUDED
 
-#include "actor_fwd.hpp"
-#include "pointer.hpp"
-#include "client_state_combiner_fwd.hpp"
+#include "attribute_context_fwd.hpp"
+#include "../context/base.hpp"
+#include "../context/id.hpp"
+#include "../common.hpp"
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -33,29 +34,41 @@ namespace opengl
 namespace vf
 {
 
-class actor
+class attribute_context
+:
+	public opengl::context::base
 {
+	FCPPT_NONCOPYABLE(attribute_context)
 public:
-	FCPPT_NONCOPYABLE(actor)
-protected:
-	actor();
-public:
-	virtual void
-	operator()(
-		client_state_combiner &
-	) const = 0;
+	attribute_context();
 
-	virtual void
-	source(
-		vf::pointer
-	) = 0;
+	~attribute_context();
 
-	virtual void
-	unuse(
-		client_state_combiner &
-	) const = 0;
+	bool
+	is_supported() const;
 
-	virtual ~actor();
+	PFNGLVERTEXATTRIBPOINTERPROC
+	vertex_attrib_pointer() const;
+
+	PFNGLENABLEVERTEXATTRIBARRAYPROC
+	enable_vertex_attrib_array() const;
+
+	PFNGLDISABLEVERTEXATTRIBARRAYPROC
+	disable_vertex_attrib_array() const;
+
+	typedef void needs_before;
+
+	static opengl::context::id const static_id;
+private:
+	bool const
+		is_native_,
+		is_arb_;
+
+	PFNGLVERTEXATTRIBPOINTERPROC const vertex_attrib_pointer_;
+
+	PFNGLENABLEVERTEXATTRIBARRAYPROC const enable_vertex_attrib_array_;
+
+	PFNGLDISABLEVERTEXATTRIBARRAYPROC const disable_vertex_attrib_array_;
 };
 
 }

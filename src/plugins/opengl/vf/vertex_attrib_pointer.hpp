@@ -18,27 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../global_client_state.hpp"
-#include "../client_state.hpp"
-#include <fcppt/container/linear_set_impl.hpp>
+#ifndef SGE_OPENGL_VF_VERTEX_ATTRIB_POINTER_HPP_INCLUDED
+#define SGE_OPENGL_VF_VERTEX_ATTRIB_POINTER_HPP_INCLUDED
 
-namespace
+#include "attribute_context_fwd.hpp"
+#include "../common.hpp"
+
+namespace sge
 {
-
-sge::opengl::vf::client_state state;
-
-}
+namespace opengl
+{
+namespace vf
+{
 
 void
-sge::opengl::vf::global_client_state(
-	client_state const &s
-)
-{
-	state = s;
+vertex_attrib_pointer(
+	vf::attribute_context const &,
+	GLuint index,
+	GLint size,
+	GLenum type,
+	GLboolean normalized,
+	GLsizei stride,
+	void const *pointer
+);
+
+}
+}
 }
 
-sge::opengl::vf::client_state const &
-sge::opengl::vf::global_client_state()
-{
-	return state;
-}
+#endif

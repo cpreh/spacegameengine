@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "pointer_actor.hpp"
 #include "client_state_combiner_fwd.hpp"
+#include "attribute_context_fwd.hpp"
+#include "../context/object_fwd.hpp"
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element_fwd.hpp>
 
@@ -38,9 +40,10 @@ class attribute_actor
 	public pointer_actor
 {
 public:
-	attribute_actor(
+	explicit attribute_actor(
 		renderer::vf::dynamic::ordered_element const &,
-		renderer::vf::vertex_size stride
+		renderer::vf::vertex_size stride,
+		opengl::context::object &
 	);
 private:
 	void
@@ -56,7 +59,9 @@ private:
 	GLuint
 	gl_index() const;
 
-	GLint const elements;
+	vf::attribute_context &context_;
+
+	GLint const elements_;
 };
 
 }

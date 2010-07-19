@@ -18,12 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VF_ACTOR_HPP_INCLUDED
-#define SGE_OPENGL_VF_ACTOR_HPP_INCLUDED
+#ifndef SGE_OPENGL_VF_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_VF_CONTEXT_HPP_INCLUDED
 
-#include "actor_fwd.hpp"
-#include "pointer.hpp"
-#include "client_state_combiner_fwd.hpp"
+#include "context_fwd.hpp"
+#include "client_state.hpp"
+#include "../context/base.hpp"
+#include "../context/id.hpp"
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -33,29 +34,29 @@ namespace opengl
 namespace vf
 {
 
-class actor
+class context
+:
+	public opengl::context::base
 {
+	FCPPT_NONCOPYABLE(context)
 public:
-	FCPPT_NONCOPYABLE(actor)
-protected:
-	actor();
-public:
-	virtual void
-	operator()(
-		client_state_combiner &
-	) const = 0;
+	context();
 
-	virtual void
-	source(
-		vf::pointer
-	) = 0;
+	~context();
 
-	virtual void
-	unuse(
-		client_state_combiner &
-	) const = 0;
+	client_state const &
+	state();
 
-	virtual ~actor();
+	void
+	state(
+		client_state const &
+	);
+
+	typedef void needs_before;
+
+	static opengl::context::id const static_id;
+private:
+	client_state state_;
 };
 
 }

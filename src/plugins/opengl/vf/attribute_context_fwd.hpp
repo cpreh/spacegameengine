@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VF_GLOBAL_CLIENT_STATE_HPP_INCLUDED
-#define SGE_OPENGL_VF_GLOBAL_CLIENT_STATE_HPP_INCLUDED
+#ifndef SGE_OPENGL_VF_ATTRIBUTE_CONTEXT_FWD_HPP_INCLUDED
+#define SGE_OPENGL_VF_ATTRIBUTE_CONTEXT_FWD_HPP_INCLUDED
 
 namespace sge
 {
@@ -28,13 +28,7 @@ namespace opengl
 namespace vf
 {
 
-class client_state;
-
-void global_client_state(
-	client_state const &);
-
-client_state const &
-global_client_state();
+class attribute_context;
 
 }
 }

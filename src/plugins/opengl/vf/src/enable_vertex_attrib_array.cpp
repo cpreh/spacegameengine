@@ -18,48 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VF_ACTOR_HPP_INCLUDED
-#define SGE_OPENGL_VF_ACTOR_HPP_INCLUDED
+#include "../enable_vertex_attrib_array.hpp"
+#include "../attribute_context.hpp"
+#include "../../check_state.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include "actor_fwd.hpp"
-#include "pointer.hpp"
-#include "client_state_combiner_fwd.hpp"
-#include <fcppt/noncopyable.hpp>
-
-namespace sge
+void
+sge::opengl::vf::enable_vertex_attrib_array(
+	vf::attribute_context const &_context,
+	GLuint const _index
+)
 {
-namespace opengl
-{
-namespace vf
-{
+	_context.enable_vertex_attrib_array()(
+		_index
+	);
 
-class actor
-{
-public:
-	FCPPT_NONCOPYABLE(actor)
-protected:
-	actor();
-public:
-	virtual void
-	operator()(
-		client_state_combiner &
-	) const = 0;
-
-	virtual void
-	source(
-		vf::pointer
-	) = 0;
-
-	virtual void
-	unuse(
-		client_state_combiner &
-	) const = 0;
-
-	virtual ~actor();
-};
-
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("Enabling a vertex attrib array failed"),
+		sge::renderer::exception
+	)
 }
-}
-}
-
-#endif

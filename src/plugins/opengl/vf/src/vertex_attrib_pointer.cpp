@@ -18,48 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VF_ACTOR_HPP_INCLUDED
-#define SGE_OPENGL_VF_ACTOR_HPP_INCLUDED
+#include "../vertex_attrib_pointer.hpp"
+#include "../attribute_context.hpp"
+#include "../../check_state.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include "actor_fwd.hpp"
-#include "pointer.hpp"
-#include "client_state_combiner_fwd.hpp"
-#include <fcppt/noncopyable.hpp>
-
-namespace sge
+void
+sge::opengl::vf::vertex_attrib_pointer(
+	vf::attribute_context const &_context,
+	GLuint const _index,
+	GLint const _size,
+	GLenum const _type,
+	GLboolean const _normalized,
+	GLsizei const _stride,
+	void const *const _pointer
+)
 {
-namespace opengl
-{
-namespace vf
-{
+	_context.vertex_attrib_pointer()(
+		_index,
+		_size,
+		_type,
+		_normalized,
+		_stride,
+		_pointer
+	);
 
-class actor
-{
-public:
-	FCPPT_NONCOPYABLE(actor)
-protected:
-	actor();
-public:
-	virtual void
-	operator()(
-		client_state_combiner &
-	) const = 0;
-
-	virtual void
-	source(
-		vf::pointer
-	) = 0;
-
-	virtual void
-	unuse(
-		client_state_combiner &
-	) const = 0;
-
-	virtual ~actor();
-};
-
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("Setting a vertex attribute pointer failed"),
+		sge::renderer::exception
+	)
 }
-}
-}
-
-#endif

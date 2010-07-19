@@ -18,19 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../common.hpp"
 #include "../format.hpp"
 #include "../to_actor.hpp"
+#include "../actor.hpp"
 #include "../client_state_combiner.hpp"
-#include "../global_client_state.hpp"
+#include "../../common.hpp"
 #include <fcppt/container/linear_set_impl.hpp>
 #include <boost/foreach.hpp>
 
 sge::opengl::vf::format::format(
-	renderer::vf::dynamic::format const &fmt
+	sge::opengl::context::object &_context,
+	renderer::vf::dynamic::format const &_fmt
 )
 :
-	fmt(fmt)
+	context_(
+		_context
+	),
+	fmt(
+		_fmt
+	)
 {
 	renderer::vf::dynamic::ordered_element_list const &elems(
 		fmt.elements()
@@ -43,9 +49,14 @@ sge::opengl::vf::format::format(
 		actors.push_back(
 			to_actor(
 				elem,
-				fmt.stride()
+				fmt.stride(),
+				_context
 			)
 		);
+}
+
+sge::opengl::vf::format::~format()
+{
 }
 
 sge::renderer::vf::dynamic::format const &
@@ -56,11 +67,11 @@ sge::opengl::vf::format::get() const
 
 void
 sge::opengl::vf::format::use_me(
-	pointer const src
+	vf::pointer const src
 ) const
 {
 	client_state_combiner states_(
-		global_client_state()
+		context_
 	);
 
 	BOOST_FOREACH(
@@ -82,16 +93,14 @@ void
 sge::opengl::vf::format::unuse_me() const
 {
 	client_state_combiner states_(
-		global_client_state()
+		context_
 	);
 
 	BOOST_FOREACH(
 		actor_array::reference c,
 		actors
 	)
-	{
 		c.unuse(
 			states_
 		);
-	}
 }

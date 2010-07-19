@@ -18,48 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VF_ACTOR_HPP_INCLUDED
-#define SGE_OPENGL_VF_ACTOR_HPP_INCLUDED
+#include "../context.hpp"
+#include "../../context/make_id.hpp"
+#include <fcppt/container/linear_set_impl.hpp>
 
-#include "actor_fwd.hpp"
-#include "pointer.hpp"
-#include "client_state_combiner_fwd.hpp"
-#include <fcppt/noncopyable.hpp>
+sge::opengl::vf::context::context()
+:
+	state_()
+{}
 
-namespace sge
+sge::opengl::vf::context::~context()
 {
-namespace opengl
-{
-namespace vf
-{
-
-class actor
-{
-public:
-	FCPPT_NONCOPYABLE(actor)
-protected:
-	actor();
-public:
-	virtual void
-	operator()(
-		client_state_combiner &
-	) const = 0;
-
-	virtual void
-	source(
-		vf::pointer
-	) = 0;
-
-	virtual void
-	unuse(
-		client_state_combiner &
-	) const = 0;
-
-	virtual ~actor();
-};
-
-}
-}
 }
 
-#endif
+sge::opengl::vf::client_state const &
+sge::opengl::vf::context::state()
+{
+	return state_;
+}
+
+void
+sge::opengl::vf::context::state(
+	client_state const &_state
+)
+{
+	state_ = _state;
+}
+
+sge::opengl::context::id const
+sge::opengl::vf::context::static_id(
+	sge::opengl::context::make_id()
+);
