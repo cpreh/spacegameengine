@@ -21,47 +21,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/parameters.hpp>
 
 sge::renderer::parameters::parameters(
-	display_mode const &mode_,
-	depth_buffer::type const depth_buffer_,
-	stencil_buffer::type const stencil_buffer_,
-	window_mode::type const window_mode_,
-	vsync::type const vsync_,
-	multi_sample_type const samples_)
+	renderer::display_mode const &_mode,
+	renderer::depth_buffer::type const _depth_buffer,
+	renderer::stencil_buffer::type const _stencil_buffer,
+	renderer::window_mode::type const _window_mode,
+	renderer::vsync::type const _vsync,
+	renderer::multi_sample_type const _samples
+)
 :
-	mode_(mode_),
-	depth_buffer_(depth_buffer_),
-	stencil_buffer_(stencil_buffer_),
-	window_mode_(window_mode_),
-	vsync_(vsync_),
-	samples_(samples_)
+	mode_(_mode),
+	depth_buffer_(_depth_buffer),
+	stencil_buffer_(_stencil_buffer),
+	window_mode_(_window_mode),
+	vsync_(_vsync),
+	samples_(_samples)
 {}
 
 sge::renderer::display_mode const &
-sge::renderer::parameters::mode() const
+sge::renderer::parameters::display_mode() const
 {
 	return mode_;
 }
 
 sge::renderer::depth_buffer::type
-sge::renderer::parameters::dbuffer() const
+sge::renderer::parameters::depth_buffer() const
 {
 	return depth_buffer_;
 }
 
 sge::renderer::stencil_buffer::type
-sge::renderer::parameters::sbuffer() const
+sge::renderer::parameters::stencil_buffer() const
 {
 	return stencil_buffer_;
 }
 
 sge::renderer::window_mode::type
-sge::renderer::parameters::wmode() const
+sge::renderer::parameters::window_mode() const
 {
 	return window_mode_;
 }
 
 sge::renderer::vsync::type
-sge::renderer::parameters::vsmode() const
+sge::renderer::parameters::vsync() const
 {
 	return vsync_;
 }

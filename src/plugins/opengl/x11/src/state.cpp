@@ -42,7 +42,7 @@ sge::opengl::x11::state::state(
 		set_viewport
 	),
 	screen_size_(
-		param.mode().size()
+		param.display_mode().size()
 	),
 	wnd(
 		fcppt::polymorphic_pointer_cast<

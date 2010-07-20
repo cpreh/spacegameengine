@@ -108,7 +108,7 @@ sge::opengl::device::device(
 	),
 	viewport_(
 		renderer::pixel_pos::null(),
-		param.mode().size()
+		param.display_mode().size()
 	),
 	default_target_(
 		fcppt::make_shared_ptr<
@@ -119,7 +119,7 @@ sge::opengl::device::device(
 			>(
 				screen_size()
 			),
-			param.mode().bit_depth()
+			param.display_mode().bit_depth()
 		)
 	),
 	target_(
@@ -148,7 +148,8 @@ sge::opengl::device::begin_rendering()
 	glClear(
 		clear_bit(renderer::state::bool_::clear_backbuffer)
 		| clear_bit(renderer::state::bool_::clear_zbuffer)
-		| clear_bit(renderer::state::bool_::clear_stencil));
+		| clear_bit(renderer::state::bool_::clear_stencil)
+	);
 
 	SGE_OPENGL_CHECK_STATE(
 		FCPPT_TEXT("glClear failed"),
@@ -264,7 +265,9 @@ sge::opengl::device::state(
 
 	state_visitor const visitor(
 		context_,
-		split
+		split,
+		param.depth_buffer(),
+		param.stencil_buffer()
 	);
 
 	BOOST_FOREACH(
@@ -715,7 +718,7 @@ sge::opengl::device::caps() const
 sge::renderer::screen_size const
 sge::opengl::device::screen_size() const
 {
-	return param.mode().size();
+	return param.display_mode().size();
 }
 
 sge::window::instance_ptr const

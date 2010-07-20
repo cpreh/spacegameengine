@@ -378,7 +378,7 @@ sge::systems::instance::impl::init_renderer(
 
 		if(!wparam_->dim())
 			wparam_->dim(
-				p.mode().size()
+				p.display_mode().size()
 			);
 
 		window_ =

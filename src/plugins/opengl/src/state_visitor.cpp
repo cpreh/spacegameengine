@@ -42,7 +42,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::state_visitor::state_visitor(
 	opengl::context::object &_context,
-	split_states &_states
+	split_states &_states,
+	renderer::depth_buffer::type const _depth_type,
+	renderer::stencil_buffer::type const _stencil_type
 )
 :
 	multi_sample_context_(
@@ -52,7 +54,9 @@ sge::opengl::state_visitor::state_visitor(
 			_context
 		)
 	),
-	states_(_states)
+	states_(_states),
+	depth_type_(_depth_type),
+	stencil_type_(_stencil_type)
 {
 }
 
@@ -78,7 +82,9 @@ sge::opengl::state_visitor::operator()(
 		)
 		return;
 	case rs::stencil_ref:
-		states_.update_stencil();
+		states_.update_stencil(
+			stencil_type_
+		);
 		return;
 	}
 	
@@ -97,7 +103,9 @@ sge::opengl::state_visitor::operator()(
 	switch(s.state())
 	{
 	case rs::stencil_mask:
-		states_.update_stencil();
+		states_.update_stencil(
+			stencil_type_
+		);
 		return;
 	}
 
@@ -301,6 +309,14 @@ sge::opengl::state_visitor::operator()(
 		return;
 	}
 
+	if(
+		depth_type_ == renderer::depth_buffer::off
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("You tried to use a depth_func besides depth_func::off.")
+			FCPPT_TEXT(" This will only work if you request a depth buffer in renderer::parameters!")
+		);
+
 	enable(GL_DEPTH_TEST);
 
 	glDepthFunc(
@@ -320,7 +336,9 @@ sge::opengl::state_visitor::operator()(
 	renderer::state::stencil_func::type
 ) const
 {
-	states_.update_stencil();
+	states_.update_stencil(
+		stencil_type_
+	);
 }
 
 sge::opengl::state_visitor::result_type

@@ -37,17 +37,22 @@ sge::opengl::x11::resolution::auto_ptr
 sge::opengl::x11::resolution::create(
 	sge::x11::window_ptr const wnd,
 	renderer::parameters const &param,
-	renderer::adapter_type const adapter)
+	renderer::adapter_type const adapter
+)
 {
-	if(param.wmode() == renderer::window_mode::windowed)
+	if(
+		param.window_mode() == renderer::window_mode::windowed
+	)
 		return auto_ptr();
 #if defined(SGE_HAVE_XRANDR)
 	try
 	{
 		return auto_ptr(
 			new xrandr_mode(
-				param.mode(),
-				wnd));
+				param.display_mode(),
+				wnd
+			)
+		);
 	}
 	catch(exception const &e)
 	{
@@ -61,9 +66,11 @@ sge::opengl::x11::resolution::create(
 	{
 		return auto_ptr(
 			new xf86_vmode(
-				param.mode(),
+				param.display_mode(),
 				wnd->display(),
-				wnd->screen()));
+				wnd->screen()
+			)
+		);
 	}
 	catch(exception const &e)
 	{

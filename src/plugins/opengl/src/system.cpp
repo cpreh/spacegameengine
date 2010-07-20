@@ -85,11 +85,13 @@ sge::opengl::system::create_window(
 	glx::visual_ptr const visual(
 		glx::create_visual(
 			dsp,
-			sge::x11::default_screen(dsp),
+			sge::x11::default_screen(
+				dsp
+			),
 			glx::choose_visual(
-				rparam.mode().bit_depth(),
-				rparam.dbuffer(),
-				rparam.sbuffer(),
+				rparam.display_mode().bit_depth(),
+				rparam.depth_buffer(),
+				rparam.stencil_buffer(),
 				rparam.samples()
 			).data()
 		)
@@ -101,7 +103,7 @@ sge::opengl::system::create_window(
 		visual->info().screen,
 		visual->info().depth,
 		visual,
-		rparam.wmode() == renderer::window_mode::fullscreen
+		rparam.window_mode() == renderer::window_mode::fullscreen
 	);
 #elif defined(FCPPT_WINDOWS_PLATFORM)
 	return sge::windows::create_window(
