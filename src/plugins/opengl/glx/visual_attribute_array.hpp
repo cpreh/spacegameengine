@@ -18,14 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLX_CHOOSE_VISUAL_HPP_INCLUDED
-#define SGE_OPENGL_GLX_CHOOSE_VISUAL_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLX_CHOOSE_VISUAL_ATTRIBUTE_ARRAY_HPP_INCLUDED
+#define SGE_OPENGL_GLX_CHOOSE_VISUAL_ATTRIBUTE_ARRAY_HPP_INCLUDED
 
-#include "visual_attribute_array.hpp"
-#include <sge/renderer/bit_depth.hpp>
-#include <sge/renderer/depth_buffer.hpp>
-#include <sge/renderer/stencil_buffer.hpp>
-#include <sge/renderer/multi_sample_type.hpp>
+#include <fcppt/container/raw_vector_fwd.hpp>
 
 namespace sge
 {
@@ -34,13 +30,9 @@ namespace opengl
 namespace glx
 {
 
-visual_attribute_array const
-choose_visual(
-	renderer::bit_depth::type,
-	renderer::depth_buffer::type,
-	renderer::stencil_buffer::type,
-	renderer::multi_sample_type
-);
+typedef fcppt::container::raw_vector<
+	int
+> visual_attribute_array;
 
 }
 }
