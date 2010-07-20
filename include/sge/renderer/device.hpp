@@ -98,25 +98,12 @@ public:
 		first_index
 	) = 0;
 
-	SGE_SYMBOL void
-	render(
-		const_vertex_buffer_ptr,
-		const_index_buffer_ptr,
-		indexed_primitive_type::type
-	);
-
 	virtual void
 	render(
 		first_vertex,
 		vertex_count,
 		nonindexed_primitive_type::type ptype
 	) = 0;
-
-	SGE_SYMBOL void
-	render(
-		const_vertex_buffer_ptr,
-		nonindexed_primitive_type::type
-	);
 
 	virtual void
 	set_vertex_buffer(

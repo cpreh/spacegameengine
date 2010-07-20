@@ -45,58 +45,6 @@ sge::renderer::glsl::program_ptr const sge::renderer::device::no_program;
 sge::renderer::device::device()
 {}
 
-void
-sge::renderer::device::render(
-	const_vertex_buffer_ptr const vb,
-	nonindexed_primitive_type::type const ptype
-)
-{
-	set_vertex_buffer(
-		vb
-	);
-
-	render(
-		first_vertex(0),
-		vertex_count(
-			vb->size()
-		),
-		ptype
-	);
-}
-
-void
-sge::renderer::device::render(
-	const_vertex_buffer_ptr const vb,
-	const_index_buffer_ptr const ib,
-	indexed_primitive_type::type const ptype
-)
-{
-	set_vertex_buffer(
-		vb
-	);
-
-	size_type const ipp(
-		indices_per_primitive(
-			ptype
-		)
-	);
-
-	FCPPT_ASSERT(
-		ib->size() % ipp == 0
-	);
-
-	render(
-		ib,
-		first_vertex(0),
-		vertex_count(
-			vb->size()
-		),
-		ptype,
-		primitive_count(ib->size() / ipp),
-		first_index(0)
-	);
-}
-
 sge::renderer::glsl::program_ptr const
 sge::renderer::device::create_glsl_program(
 	glsl::optional_string const &vertex_shader_source_,

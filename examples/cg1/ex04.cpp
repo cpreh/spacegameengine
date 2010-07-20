@@ -50,6 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
+#include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/state/bool.hpp>
@@ -378,6 +379,11 @@ try
 
 	float_type angle(0);
 
+	sge::renderer::scoped_vertex_buffer const scoped_vb(
+		rend,
+		vb
+	);
+
 	while(running)
 	{
 		sge::mainloop::dispatch();
@@ -417,7 +423,10 @@ try
 		);
 
 		rend->render(
-			vb,
+			sge::renderer::first_vertex(0),
+			sge::renderer::vertex_count(
+				vb->size()
+			),
 			sge::renderer::nonindexed_primitive_type::triangle
 		);
 	}
