@@ -38,7 +38,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <sge/exception.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::state_visitor::state_visitor(
@@ -68,7 +67,8 @@ sge::opengl::state_visitor::operator()(
 {
 	namespace rs = renderer::state::int_::available_states;
 
-	switch(s.state()) {
+	switch(s.state())
+	{
 	case rs::stencil_clear_val:
 		glClearStencil(s.value());
 
@@ -76,14 +76,15 @@ sge::opengl::state_visitor::operator()(
 			FCPPT_TEXT("glClearStencil failed"),
 			sge::renderer::exception
 		)
-		break;
+		return;
 	case rs::stencil_ref:
 		states_.update_stencil();
-		break;
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid int_state!"));
+		return;
 	}
+	
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid int_state!")
+	);
 }
 
 sge::opengl::state_visitor::result_type
@@ -93,14 +94,16 @@ sge::opengl::state_visitor::operator()(
 {
 	namespace rs = renderer::state::uint::available_states;
 
-	switch(s.state()) {
+	switch(s.state())
+	{
 	case rs::stencil_mask:
 		states_.update_stencil();
-		break;
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid uint_state!"));
+		return;
 	}
+
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid uint_state!")
+	);
 }
 
 sge::opengl::state_visitor::result_type
@@ -109,7 +112,8 @@ sge::opengl::state_visitor::operator()(
 {
 	namespace rs = renderer::state::float_::available_states;
 
-	switch(s.state()) {
+	switch(s.state())
+	{
 	case rs::zbuffer_clear_val:
 		glClearDepth(
 			renderer::arithmetic_convert<
@@ -123,10 +127,10 @@ sge::opengl::state_visitor::operator()(
 			FCPPT_TEXT("glClearDepth failed"),
 			sge::renderer::exception
 		)
-		break;
+		return;
 	case rs::alpha_test_ref:
 		states_.update_alpha_test();
-		break;
+		return;
 	case rs::fog_start:
 	case rs::fog_end:
 	case rs::fog_density:
@@ -143,37 +147,40 @@ sge::opengl::state_visitor::operator()(
 			FCPPT_TEXT("glFogf failed"),
 			sge::renderer::exception
 		)
-		break;
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid float_state!"));
+		return;
 	}
+
+
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid float_state!")
+	);
 }
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
-	renderer::state::bool_::type const s) const
+	renderer::state::bool_::type const s
+) const
 {
 	namespace rs = renderer::state::bool_::available_states;
 
-	switch(s.state()) {
+	switch(s.state())
+	{
 	case rs::clear_backbuffer:
 	case rs::clear_zbuffer:
 	case rs::clear_stencil:
-		break;
+		return;
 	case rs::enable_alpha_blending:
 	case rs::enable_lighting:
 		enable(
 			convert::bool_(s),
 			s.value()
 		);
-		break;
+		return;
 	case rs::enable_multi_sampling:
 		if(
 			!s.value()
 		)
 			return;
-
 
 		if(
 			!multi_sample_context_.is_supported()
@@ -192,16 +199,18 @@ sge::opengl::state_visitor::operator()(
 			multi_sample_context_.flag(),
 			s.value()
 		);
-		break;
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid bool_state!"));
+		return;
 	}
+	
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid bool_state!")
+	);
 }
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
-	renderer::state::color::type const &s) const
+	renderer::state::color::type const &s
+) const
 {
 	namespace rs = renderer::state::color::available_states;
 
@@ -213,7 +222,8 @@ sge::opengl::state_visitor::operator()(
 		)
 	);
 
-	switch(s.state()) {
+	switch(s.state())
+	{
 	case rs::clear_color:
 		glClearColor(
 			fcolor.get<mizuiro::color::channel::red>(),
@@ -226,7 +236,7 @@ sge::opengl::state_visitor::operator()(
 			FCPPT_TEXT("glClearColor failed"),
 			sge::renderer::exception
 		)
-		break;
+		return;
 	case rs::ambient_light_color:
 		glLightModelfv(
 			GL_LIGHT_MODEL_AMBIENT,
@@ -236,7 +246,7 @@ sge::opengl::state_visitor::operator()(
 			FCPPT_TEXT("glLightMOdelfv failed"),
 			sge::renderer::exception
 		)
-		break;
+		return;
 	case rs::fog_color:
 		glFogfv(
 			GL_FOG_COLOR,
@@ -247,11 +257,12 @@ sge::opengl::state_visitor::operator()(
 			FCPPT_TEXT("glFogfv failed"),
 			sge::renderer::exception
 		)
-		break;
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid color_state!"));
+		return;
 	}
+
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid color_state!")
+	);
 }
 
 sge::opengl::state_visitor::result_type
@@ -281,7 +292,8 @@ sge::opengl::state_visitor::operator()(
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
-	renderer::state::depth_func::type const f) const
+	renderer::state::depth_func::type const f
+) const
 {
 	if(f == renderer::state::depth_func::off)
 	{
@@ -305,14 +317,16 @@ sge::opengl::state_visitor::operator()(
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
-	renderer::state::stencil_func::type) const
+	renderer::state::stencil_func::type
+) const
 {
 	states_.update_stencil();
 }
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
-	renderer::state::alpha_func::type) const
+	renderer::state::alpha_func::type
+) const
 {
 	states_.update_alpha_test();
 }
@@ -363,14 +377,16 @@ sge::opengl::state_visitor::operator()(
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
-	renderer::state::source_blend_func::type) const
+	renderer::state::source_blend_func::type
+) const
 {
 	states_.update_blend();
 }
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
-	renderer::state::dest_blend_func::type) const
+	renderer::state::dest_blend_func::type
+) const
 {
 	states_.update_blend();
 }
