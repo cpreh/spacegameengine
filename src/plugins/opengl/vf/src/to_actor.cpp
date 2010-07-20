@@ -63,6 +63,7 @@ sge::opengl::vf::to_actor(
 	case renderer::vf::role::texpos:
 		return actor_ptr(
 			new texpos_actor(
+				_context,
 				_element,
 				_stride
 			)
@@ -70,9 +71,9 @@ sge::opengl::vf::to_actor(
 	case renderer::vf::role::unspecified:
 		return actor_ptr(
 			new attribute_actor(
+				_context,
 				_element,
-				_stride,
-				_context
+				_stride
 			)
 		);
 	}

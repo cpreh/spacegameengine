@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../texpos_actor.hpp"
 #include "../../check_state.hpp"
-#include "../../multi_texture.hpp"
+#include "../../multi_texture_context.hpp"
+#include "../../set_client_texture_level.hpp"
+#include "../../context/use.hpp"
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
 #include <sge/renderer/vf/dynamic/vector.hpp>
 #include <sge/renderer/exception.hpp>
@@ -29,30 +31,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 sge::opengl::vf::texpos_actor::texpos_actor(
-	renderer::vf::dynamic::ordered_element const &e,
-	renderer::vf::vertex_size const stride
+	opengl::context::object &_context,
+	renderer::vf::dynamic::ordered_element const &_elements,
+	renderer::vf::vertex_size const _stride
 )
 :
 	fp_actor(
-		e,
-		stride,
+		_elements,
+		_stride,
 		GL_TEXTURE_COORD_ARRAY
 	),
-	elements(
-		static_cast<GLint>(
-			e.element().info().get<
+	context_(
+		_context
+	),
+	elements_(
+		static_cast<
+			GLint
+		>(
+			_elements.element().info().get<
 				renderer::vf::dynamic::vector
 			>().elements()
 		)
 	)
 {
-	if(index() >= GL_MAX_TEXTURE_COORDS)
+	multi_texture_context &texture_context(
+		opengl::context::use<
+			multi_texture_context
+		>(
+			_context
+		)
+	);
+
+	if(
+		!texture_context.is_supported()
+		&& index() != 0
+	)
+		throw renderer::exception(
+			FCPPT_TEXT("multiple texture coordinates are not supported!")
+		);
+	else if(
+		index()
+		>= texture_context.max_level()
+	)
 		throw renderer::exception(
 			(
 				fcppt::format(
 					FCPPT_TEXT("opengl texture coordinates exceeded: Allowed are %1%.")
 				)
-				% GL_MAX_TEXTURE_COORDS
+				% texture_context.max_level()
 			).str()
 		);
 }
@@ -60,7 +86,8 @@ sge::opengl::vf::texpos_actor::texpos_actor(
 void
 sge::opengl::vf::texpos_actor::on_use() const
 {
-	client_texture_level(
+	opengl::set_client_texture_level(
+		context_,
 		static_cast<
 			renderer::stage_type
 		>(
@@ -69,7 +96,7 @@ sge::opengl::vf::texpos_actor::on_use() const
 	);
 
 	glTexCoordPointer(
-		elements,
+		elements_,
 		format(),
 		stride(),
 		pointer()

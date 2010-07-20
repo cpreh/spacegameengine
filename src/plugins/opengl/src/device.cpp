@@ -28,8 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../default_target.hpp"
 #include "../light.hpp"
 #include "../enable.hpp"
-#include "../multi_texture.hpp"
-#include "../texture_stage.hpp"
+#include "../set_texture_level.hpp"
+#include "../set_texture_stage.hpp"
+#include "../set_texture_stage_scale.hpp"
 #include "../check_state.hpp"
 #include "../state_visitor.hpp"
 #include "../glsl/set_program.hpp"
@@ -346,13 +347,14 @@ sge::opengl::device::texture_stage_op(
 	renderer::texture_stage_op_value::type const value
 )
 {
-	set_texture_stage(
+	opengl::set_texture_stage(
+		context_,
 		stage,
 		op,
 		value
 	);
 
-	set_texture_stage_scale(
+	opengl::set_texture_stage_scale(
 		value
 	);
 }
@@ -364,7 +366,8 @@ sge::opengl::device::texture_stage_arg(
 	renderer::texture_stage_arg_value::type const value
 )
 {
-	set_texture_stage(
+	opengl::set_texture_stage(
+		context_,
 		stage,
 		arg,
 		value
@@ -377,7 +380,10 @@ sge::opengl::device::texture(
 	renderer::stage_type const stage
 )
 {
-	set_texture_level(stage);
+	opengl::set_texture_level(
+		context_,
+		stage
+	);
 
 	// TODO: we should keep track of what is enabled and what isn't!
 	disable(GL_TEXTURE_1D);

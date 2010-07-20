@@ -18,12 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_STAGE_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_STAGE_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEX_EVNF_EXT_HPP_INCLUDED
+#define SGE_OPENGL_TEX_EVNF_EXT_HPP_INCLUDED
 
 #include "common.hpp"
-#include <sge/renderer/texture_stage_op_value.hpp>
-#include <sge/renderer/stage_type.hpp>
 
 namespace sge
 {
@@ -34,22 +32,6 @@ void
 tex_envf_ext(
 	GLenum arg,
 	GLenum value
-);
-
-void
-set_texture_stage_scale(
-	renderer::texture_stage_op_value::type value
-);
-
-template<
-	typename Arg,
-	typename Value
->
-void
-set_texture_stage(
-	renderer::stage_type stage,
-	Arg arg,
-	Value value
 );
 
 }

@@ -18,24 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/indices_per_primitive.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_OPENGL_SET_TEXTURE_LEVEL_HPP_INCLUDED
+#define SGE_OPENGL_SET_TEXTURE_LEVEL_HPP_INCLUDED
 
-sge::renderer::size_type
-sge::renderer::indices_per_primitive(
-	indexed_primitive_type::type const prim
-)
+#include "context/object_fwd.hpp"
+#include <sge/renderer/stage_type.hpp>
+
+namespace sge
 {
-	switch(prim)
-	{
-	case indexed_primitive_type::triangle:
-		return 3;
-	case indexed_primitive_type::line:
-		return 2;
-	}
+namespace opengl
+{
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("indices_per_primitive: Invalid indexed_primitive_format!")
-	);
+void
+set_texture_level(
+	context::object &,
+	renderer::stage_type 
+);
+
 }
+}
+
+#endif

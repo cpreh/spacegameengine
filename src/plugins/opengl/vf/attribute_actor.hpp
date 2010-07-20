@@ -41,9 +41,9 @@ class attribute_actor
 {
 public:
 	explicit attribute_actor(
+		opengl::context::object &,
 		renderer::vf::dynamic::ordered_element const &,
-		renderer::vf::vertex_size stride,
-		opengl::context::object &
+		renderer::vf::vertex_size stride
 	);
 private:
 	void

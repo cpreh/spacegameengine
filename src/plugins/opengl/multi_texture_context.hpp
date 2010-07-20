@@ -18,42 +18,57 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VF_TEXPOS_ACTOR_HPP_INCLUDED
-#define SGE_OPENGL_VF_TEXPOS_ACTOR_HPP_INCLUDED
+#ifndef SGE_OPENGL_MULTI_TEXTURE_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_MULTI_TEXTURE_CONTEXT_HPP_INCLUDED
 
-#include "fp_actor.hpp"
-#include "../context/object_fwd.hpp"
-#include "../multi_texture_context_fwd.hpp"
-#include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/renderer/vf/dynamic/ordered_element_fwd.hpp>
+#include "multi_texture_context_fwd.hpp"
+#include "context/base.hpp"
+#include "context/id.hpp"
+#include "common.hpp"
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace opengl
 {
-namespace vf
-{
 
-class texpos_actor
+class multi_texture_context
 :
-	public fp_actor
+	public context::base
 {
+	FCPPT_NONCOPYABLE(multi_texture_context)
 public:
-	explicit texpos_actor(
-		opengl::context::object &,
-		renderer::vf::dynamic::ordered_element const &,
-		renderer::vf::vertex_size stride
-	);
-private:
-	void
-	on_use() const;
+	multi_texture_context();
 
-	opengl::context::object &context_;
+	~multi_texture_context();
+
+	bool
+	is_supported() const;
+
+	PFNGLACTIVETEXTUREPROC
+	active_texture() const;
+
+	PFNGLCLIENTACTIVETEXTUREPROC
+	client_active_texture() const;
+
+	GLenum
+	max_level() const;
+
+	typedef void needs_before;
+
+	static context::id const static_id;
+private:
+	bool const
+		is_native_,
+		is_arb_;
 	
-	GLint const elements_;
+	PFNGLACTIVETEXTUREPROC const active_texture_;
+
+	PFNGLCLIENTACTIVETEXTUREPROC const client_active_texture_;
+
+	GLenum const max_level_;
 };
 
-}
 }
 }
 

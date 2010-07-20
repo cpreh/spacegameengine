@@ -28,9 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/apply_unary.hpp>
 
 sge::opengl::vf::attribute_actor::attribute_actor(
+	opengl::context::object &_context,
 	renderer::vf::dynamic::ordered_element const &e,
-	renderer::vf::vertex_size const stride,
-	opengl::context::object &_context
+	renderer::vf::vertex_size const stride
 )
 :
 	pointer_actor(

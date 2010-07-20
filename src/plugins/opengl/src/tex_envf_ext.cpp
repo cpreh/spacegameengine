@@ -18,24 +18,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/indices_per_primitive.hpp>
+#include "../tex_envf_ext.hpp"
+#include "../check_state.hpp"
+#include "../common.hpp"
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
-sge::renderer::size_type
-sge::renderer::indices_per_primitive(
-	indexed_primitive_type::type const prim
+namespace
+{
+
+void
+tex_env_f(
+	GLenum const type,
+	GLenum const arg,
+	GLfloat const value
 )
 {
-	switch(prim)
-	{
-	case indexed_primitive_type::triangle:
-		return 3;
-	case indexed_primitive_type::line:
-		return 2;
-	}
+	glTexEnvf(
+		type,
+		arg,
+		value
+	);
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("indices_per_primitive: Invalid indexed_primitive_format!")
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("glTexEnvf failed"),
+		sge::renderer::exception
+	)
+}
+
+}
+
+void
+sge::opengl::tex_envf_ext(
+	GLenum const arg,
+	GLenum const value
+)
+{
+	tex_env_f(
+		GL_TEXTURE_ENV,
+		GL_TEXTURE_ENV_MODE,
+		GL_COMBINE
+	);
+
+	tex_env_f(
+		GL_TEXTURE_ENV,
+		arg,
+		static_cast<GLfloat>(value)
 	);
 }

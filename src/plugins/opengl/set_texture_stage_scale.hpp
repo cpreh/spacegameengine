@@ -18,21 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_MULTI_TEXTURE_HPP_INCLUDED
-#define SGE_OPENGL_MULTI_TEXTURE_HPP_INCLUDED
+#ifndef SGE_OPENGL_SET_TEXTURE_STAGE_SCALE_HPP_INCLUDED
+#define SGE_OPENGL_SET_TEXTURE_STAGE_SCALE_HPP_INCLUDED
 
-#include <sge/renderer/stage_type.hpp>
+#include <sge/renderer/texture_stage_op_value.hpp>
 
 namespace sge
 {
 namespace opengl
 {
 
-void set_texture_level(
-	renderer::stage_type stage);
-
-void client_texture_level(
-	renderer::stage_type stage);
+void
+set_texture_stage_scale(
+	renderer::texture_stage_op_value::type
+);
 
 }
 }

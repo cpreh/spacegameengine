@@ -18,47 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../multi_texture.hpp"
-#include "../common.hpp"
+#include "../set_texture_level.hpp"
+#include "../multi_texture_context.hpp"
 #include "../check_state.hpp"
-#include "../glew/is_supported.hpp"
+#include "../common.hpp"
+#include "../context/use.hpp"
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/stage_type.hpp>
 #include <sge/log/global.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/log/headers.hpp>
+#include <fcppt/log/output.hpp>
+#include <fcppt/log/warning.hpp>
+#include <fcppt/log/error.hpp>
 #include <fcppt/format.hpp>
-#include <ostream>
-#include <algorithm>
+#include <fcppt/text.hpp>
 
-namespace
+void
+sge::opengl::set_texture_level(
+	context::object &_context,
+	renderer::stage_type const _stage
+)
 {
-
-bool have_multi_texture()
-{
-	static bool const ret(
-		sge::opengl::glew::is_supported(
-			"GL_VERSION_1_3"
+	multi_texture_context &context(
+		opengl::context::use<
+			multi_texture_context
+		>(
+			_context
 		)
 	);
-
-	return ret;
-}
-
-}
-
-void sge::opengl::set_texture_level(
-	renderer::stage_type const stage)
-{
-	if(!have_multi_texture())
+		
+	if(
+		!context.is_supported()
+	)
 	{
-		if(stage == 0)
+		if(
+			_stage == 0
+		)
 			return;
 
 		FCPPT_LOG_ERROR(
 			log::global(),
 			fcppt::log::_
 				<< FCPPT_TEXT("Tried to set texture stage ")
-				<< stage
+				<< _stage
 				<< FCPPT_TEXT(" but opengl does not support it.")
 		);
 
@@ -66,11 +67,11 @@ void sge::opengl::set_texture_level(
 	}
 
 	if(
-		stage >= static_cast<renderer::stage_type>(
-			std::max(
-				GL_MAX_TEXTURE_COORDS,
-				GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS
-			)
+		_stage >=
+		static_cast<
+			sge::renderer::stage_type
+		>(
+			context.max_level()
 		)
 	)
 	{
@@ -78,18 +79,20 @@ void sge::opengl::set_texture_level(
 			log::global(),
 			fcppt::log::_
 				<< FCPPT_TEXT("GL_MAX_COMBINED_TEXTURE_UNITS is ")
-				<< GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS
+				<< context.max_level()
 				<< FCPPT_TEXT(". Setting texture stage ")
-				<< stage
-				<< FCPPT_TEXT(" ignored!"));
+				<< _stage
+				<< FCPPT_TEXT(" ignored!")
+		);
+
 		return;
 	}
 
-	glActiveTexture(
+	context.active_texture()(
 		static_cast<
 			GLenum
 		>(
-			GL_TEXTURE0 + stage
+			GL_TEXTURE0 + _stage
 		)
 	);
 
@@ -98,45 +101,7 @@ void sge::opengl::set_texture_level(
 			fcppt::format(
 				FCPPT_TEXT("glActiveTexture failed for stage %1%")
 			)
-			% stage
-		).str(),
-		sge::renderer::exception
-	)
-}
-
-void sge::opengl::client_texture_level(
-	renderer::stage_type const stage)
-{
-	if(!have_multi_texture())
-	{
-		if(stage == 0)
-			return;
-
-		FCPPT_LOG_ERROR(
-			log::global(),
-			fcppt::log::_
-				<< FCPPT_TEXT("Tried to set texture coordinates for stage ")
-				<< stage
-				<< FCPPT_TEXT(" but opengl does not support it.")
-		);
-
-		return;
-	}
-
-	glClientActiveTexture(
-		static_cast<
-			GLenum
-		>(
-			GL_TEXTURE0 + stage
-		)
-	);
-
-	SGE_OPENGL_CHECK_STATE(
-		(
-			fcppt::format(
-				FCPPT_TEXT("glClientActiveTexture failed for stage %1%")
-			)
-			% stage
+			% _stage
 		).str(),
 		sge::renderer::exception
 	)
