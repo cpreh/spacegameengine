@@ -39,7 +39,8 @@ sge::opengl::default_target::default_target(
 
 void
 sge::opengl::default_target::pos(
-	renderer::pixel_pos const &p)
+	renderer::pixel_pos const &p
+)
 {
 	pos_ = p;
 }
@@ -63,7 +64,8 @@ sge::opengl::default_target::dim() const
 	return dim_;
 }
 
-void sge::opengl::default_target::bind_me() const
+void
+sge::opengl::default_target::bind_me() const
 {
 	unbind_fbo();
 }
@@ -71,26 +73,30 @@ void sge::opengl::default_target::bind_me() const
 sge::opengl::default_target::size_type
 sge::opengl::default_target::stride() const
 {
-	switch(depth_) {
+	switch(depth_)
+	{
 	case renderer::bit_depth::depth16:
 		return sizeof(boost::uint16_t);
 	case renderer::bit_depth::depth32:
 		return sizeof(boost::uint32_t);
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid bit_depth in ogl::default_target!"));
 	}
+
+	throw exception(
+		FCPPT_TEXT("Invalid bit_depth in ogl::default_target!")
+	);
 }
 
 // currently 16bit and 32bit framebuffers are supported
 // GL_UNSIGNED_BYTE is enough to read 32bit values so take this
 
-GLenum sge::opengl::default_target::format() const
+GLenum
+sge::opengl::default_target::format() const
 {
 	return GL_RGBA;
 }
 
-GLenum sge::opengl::default_target::format_type() const
+GLenum
+sge::opengl::default_target::format_type() const
 {
 	return GL_UNSIGNED_BYTE;
 }

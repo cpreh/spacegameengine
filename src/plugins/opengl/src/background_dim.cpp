@@ -19,18 +19,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../background_dim.hpp"
+#include <sge/renderer/exception.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <sge/exception.hpp>
 #include <fcppt/text.hpp>
 
 sge::renderer::dim_type const
 sge::opengl::background_dim(
 	sge::renderer::viewport_mode::type const m,
 	sge::window::dim_type const &d,
-	sge::renderer::screen_size const &sz)
+	sge::renderer::screen_size const &sz
+)
 {
-	switch(m) {
+	switch(m)
+	{
 	case renderer::viewport_mode::centered_screen_size:
 		return fcppt::math::dim::structure_cast<
 			renderer::dim_type
@@ -39,9 +41,9 @@ sge::opengl::background_dim(
 		return fcppt::math::dim::structure_cast<
 			renderer::dim_type
 		>(d);
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid viewport_mode!")
-		);
 	}
+
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid viewport_mode!")
+	);
 }

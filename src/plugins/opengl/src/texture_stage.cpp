@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/texture_stage_arg_value.hpp"
 #include "../multi_texture.hpp"
 #include <sge/renderer/exception.hpp>
-#include <sge/exception.hpp>
 #include <fcppt/text.hpp>
 
 namespace
@@ -37,7 +36,8 @@ stage_value_scale(
 	sge::renderer::texture_stage_op_value::type const value
 )
 {
-	switch(value) {
+	switch(value)
+	{
 	case sge::renderer::texture_stage_op_value::arg0:
 	case sge::renderer::texture_stage_op_value::modulate:
 	case sge::renderer::texture_stage_op_value::add:
@@ -52,11 +52,11 @@ stage_value_scale(
 	case sge::renderer::texture_stage_op_value::modulate4x:
 	case sge::renderer::texture_stage_op_value::add4x:
 		return 4;
-	default:
-		throw sge::exception(
-			FCPPT_TEXT("Invalid texture_stage_op_value!")
-		);
 	}
+
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid texture_stage_op_value!")
+	);
 }
 
 void tex_env_f(
