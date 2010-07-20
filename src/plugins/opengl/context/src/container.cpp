@@ -53,7 +53,7 @@ sge::opengl::context::container::get(
 		;
 }
 
-bool
+sge::opengl::context::container::pointer
 sge::opengl::context::container::insert(
 	size_type const _index,
 	auto_ptr _ptr
@@ -80,11 +80,15 @@ sge::opengl::context::container::insert(
 	if(
 		elements_[_index]
 	)
-		return false;
+		return 0;
 	
-	elements_[_index] = _ptr.release();
+	pointer const nptr(
+		_ptr.release()
+	);
 
-	return true;
+	elements_[_index] = nptr;
+
+	return nptr;
 }
 
 void

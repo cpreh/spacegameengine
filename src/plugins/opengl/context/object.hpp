@@ -25,8 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "id.hpp"
 #include "base_fwd.hpp"
 #include "base_auto_ptr.hpp"
+#include "container.hpp"
 #include <fcppt/noncopyable.hpp>
-#include <boost/ptr_container/ptr_map.hpp>
+//#include <boost/ptr_container/ptr_map.hpp>
 
 namespace sge
 {
@@ -54,10 +55,12 @@ public:
 		base_auto_ptr
 	);
 private:
-	typedef boost::ptr_map<
+	/*typedef boost::ptr_map<
 		context::id,
 		base
-	> container;
+	> container;*/
+
+	typedef context::container container;
 
 	container elements_;
 };

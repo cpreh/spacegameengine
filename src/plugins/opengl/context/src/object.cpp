@@ -38,18 +38,10 @@ sge::opengl::context::object::get(
 	context::id const id_
 )
 {
-	container::iterator const it(
-		elements_.find(
-			id_
-		)
-	);
-
 	return
-		it == elements_.end()
-		?
-			static_cast<base *>(0)
-		:
-			it->second;
+		elements_.get(
+			id_
+		);
 }
 
 sge::opengl::context::base &
@@ -58,12 +50,7 @@ sge::opengl::context::object::insert(
 	base_auto_ptr ptr_
 )
 {
-	typedef std::pair<
-		container::iterator,
-		bool
-	> ret_type;
-
-	ret_type const ret(
+	base *const ret(
 		elements_.insert(
 			id_,
 			ptr_
@@ -71,11 +58,11 @@ sge::opengl::context::object::insert(
 	);
 
 	if(
-		!ret.second
+		!ret
 	)
 		throw sge::exception(
 			FCPPT_TEXT("Double insert in opengl::context!")
 		);
 	
-	return *ret.first->second;
+	return *ret;
 }

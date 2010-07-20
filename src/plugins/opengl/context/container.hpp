@@ -71,9 +71,9 @@ public:
 
 	/// Inserts a new element at @a index.
 	/**
-	 * Returns true if the element was not present.
+	 * Returns the old pointer if the element was not present, 0 if a double insert occured.
 	*/
-	bool
+	pointer
 	insert(
 		size_type index,
 		auto_ptr
