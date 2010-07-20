@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_VISITOR_HPP_INCLUDED
 #define SGE_OPENGL_STATE_VISITOR_HPP_INCLUDED
 
+#include "split_states_fwd.hpp"
+#include "multi_sample_context_fwd.hpp"
+#include "context/object_fwd.hpp"
 #include <sge/renderer/state/int.hpp>
 #include <sge/renderer/state/uint.hpp>
 #include <sge/renderer/state/float.hpp>
@@ -34,20 +37,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/draw_mode.hpp>
 #include <sge/renderer/state/source_blend_func.hpp>
 #include <sge/renderer/state/dest_blend_func.hpp>
+#include <fcppt/nonassignable.hpp>
 
 namespace sge
 {
 namespace opengl
 {
 
-class split_states;
-
-class state_visitor {
+class state_visitor
+{
+	FCPPT_NONASSIGNABLE(state_visitor)
 public:
 	typedef void result_type;
 
 	explicit state_visitor(
-		split_states &states);
+		opengl::context::object &,
+		split_states &
+	);
+
+	~state_visitor();
 
 	result_type operator()(renderer::state::int_::type) const;
 	result_type operator()(renderer::state::uint::type) const;
@@ -63,7 +71,9 @@ public:
 	result_type operator()(renderer::state::source_blend_func::type) const;
 	result_type operator()(renderer::state::dest_blend_func::type) const;
 private:
-	split_states &states;
+	multi_sample_context &multi_sample_context_;
+
+	split_states &states_;
 };
 
 }

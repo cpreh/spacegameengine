@@ -257,9 +257,14 @@ sge::opengl::device::state(
 	renderer::state::list const &states
 )
 {
-	split_states split(current_states);
+	split_states split(
+		current_states
+	);
 
-	state_visitor const visitor(split);
+	state_visitor const visitor(
+		context_,
+		split
+	);
 
 	BOOST_FOREACH(
 		renderer::state::any const &s,

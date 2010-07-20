@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../split_states.hpp"
 #include "../enable.hpp"
 #include "../check_state.hpp"
-#include "../multi_sample.hpp"
+#include "../multi_sample_context.hpp"
+#include "../on_not_supported.hpp"
+#include "../context/use.hpp"
 #include "../convert/bool.hpp"
 #include "../convert/cull_mode.hpp"
 #include "../convert/fog_mode.hpp"
@@ -40,11 +42,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 sge::opengl::state_visitor::state_visitor(
-	split_states &states
+	opengl::context::object &_context,
+	split_states &_states
 )
 :
-	states(states)
-{}
+	multi_sample_context_(
+		context::use<
+			multi_sample_context
+		>(
+			_context
+		)
+	),
+	states_(_states)
+{
+}
+
+sge::opengl::state_visitor::~state_visitor()
+{
+}
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
@@ -63,7 +78,7 @@ sge::opengl::state_visitor::operator()(
 		)
 		break;
 	case rs::stencil_ref:
-		states.update_stencil();
+		states_.update_stencil();
 		break;
 	default:
 		throw exception(
@@ -73,13 +88,14 @@ sge::opengl::state_visitor::operator()(
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
-	renderer::state::uint::type const s) const
+	renderer::state::uint::type const s
+) const
 {
 	namespace rs = renderer::state::uint::available_states;
 
 	switch(s.state()) {
 	case rs::stencil_mask:
-		states.update_stencil();
+		states_.update_stencil();
 		break;
 	default:
 		throw exception(
@@ -109,7 +125,7 @@ sge::opengl::state_visitor::operator()(
 		)
 		break;
 	case rs::alpha_test_ref:
-		states.update_alpha_test();
+		states_.update_alpha_test();
 		break;
 	case rs::fog_start:
 	case rs::fog_end:
@@ -153,13 +169,27 @@ sge::opengl::state_visitor::operator()(
 		);
 		break;
 	case rs::enable_multi_sampling:
-		// don't complain here in case we don't have multi sampling
-		// because the default renderer settings will at least try to disable it
-		if(!have_multi_sample() && !s.value())
+		if(
+			!s.value()
+		)
 			return;
 
+
+		if(
+			!multi_sample_context_.is_supported()
+		)
+		{
+			// don't complain here in case we don't have multi sampling
+			// because the default renderer settings will at least try to disable it
+			on_not_supported(
+				FCPPT_TEXT("multi sampling"),
+				FCPPT_TEXT("GL_VERSION_1_3"),
+				FCPPT_TEXT("GL_ARB_multisample")
+			);
+		}
+
 		enable(
-			multi_sample_flag(),
+			multi_sample_context_.flag(),
 			s.value()
 		);
 		break;
@@ -277,14 +307,14 @@ sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
 	renderer::state::stencil_func::type) const
 {
-	states.update_stencil();
+	states_.update_stencil();
 }
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
 	renderer::state::alpha_func::type) const
 {
-	states.update_alpha_test();
+	states_.update_alpha_test();
 }
 
 sge::opengl::state_visitor::result_type
@@ -335,12 +365,12 @@ sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
 	renderer::state::source_blend_func::type) const
 {
-	states.update_blend();
+	states_.update_blend();
 }
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
 	renderer::state::dest_blend_func::type) const
 {
-	states.update_blend();
+	states_.update_blend();
 }

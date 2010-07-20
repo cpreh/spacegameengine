@@ -18,43 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_SPLIT_STATES_HPP_INCLUDED
-#define SGE_OPENGL_SPLIT_STATES_HPP_INCLUDED
+#ifndef SGE_OPENGL_MULTI_SAMPLE_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_MULTI_SAMPLE_CONTEXT_HPP_INCLUDED
 
-#include "split_states_fwd.hpp"
+#include "multi_sample_context_fwd.hpp"
 #include "common.hpp"
-#include <sge/renderer/state/list_fwd.hpp>
+#include "context/base.hpp"
+#include "context/id.hpp"
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace opengl
 {
 
-class split_states
+class multi_sample_context
+:
+	public opengl::context::base
 {
+	FCPPT_NONCOPYABLE(multi_sample_context)
 public:
-	explicit split_states(
-		renderer::state::list &
-	);
+	multi_sample_context();
 
-	void
-	update_stencil();
+	~multi_sample_context();
 
-	void
-	update_blend();
+	bool
+	is_supported() const;
 
-	void
-	update_alpha_test();
+	GLenum
+	flag() const;
+
+	typedef void needs_before;
+
+	static context::id const static_id;
 private:
-	template<
-		typename T
-	>
-	T const
-	get(
-		T const &
-	) const;
+	bool const
+		is_native_,
+		is_arb_;
 
-	renderer::state::list &states;
+	GLenum const flag_;
 };
 
 }

@@ -18,47 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../multi_sample.hpp"
-#include "../glew/is_supported.hpp"
+#ifndef SGE_OPENGL_MULTI_SAMPLE_CONTEXT_FWD_HPP_INCLUDED
+#define SGE_OPENGL_MULTI_SAMPLE_CONTEXT_FWD_HPP_INCLUDED
 
-namespace
+namespace sge
+{
+namespace opengl
 {
 
-bool have_multi_sample_;
-
-GLenum multi_sample_flag_;
-
-void
-init_multi_sample()
-{
-	if(
-		GL_VERSION_1_3
-	)
-		multi_sample_flag_ = GL_MULTISAMPLE;
-	else if(
-		sge::opengl::glew::is_supported("GL_ARB_multisample")
-	)
-		multi_sample_flag_ = GL_MULTISAMPLE_ARB;
-	else
-		return;
-
-	have_multi_sample_ = true;
-}
+class multi_sample_context;
 
 }
-
-bool
-sge::opengl::have_multi_sample()
-{
-	init_multi_sample();
-
-	return have_multi_sample_;
 }
 
-GLenum
-sge::opengl::multi_sample_flag()
-{
-	init_multi_sample();
-
-	return multi_sample_flag_;
-}
+#endif
