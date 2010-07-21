@@ -43,11 +43,16 @@ public:
 	bool
 	anisotropic_filter_supported() const;
 
+	bool
+	generate_mipmap_flag_supported() const;
+
 	typedef void needs_before;
 
 	static context::id const static_id;
 private:
-	bool const anisotropic_filter_supported_;
+	bool const
+		anisotropic_filter_supported_,
+		generate_mipmap_flag_supported_;
 };
 
 }

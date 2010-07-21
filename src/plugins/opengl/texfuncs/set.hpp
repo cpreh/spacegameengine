@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXFUNCS_SET_HPP_INCLUDED
 
 #include "../common.hpp"
+#include "../context/object_fwd.hpp"
 #include <sge/renderer/filter/texture_fwd.hpp>
 #include <sge/renderer/dim_type.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
@@ -35,6 +36,7 @@ namespace texfuncs
 
 void
 set(
+	opengl::context::object &,
 	GLenum target,
 	GLenum format,
 	GLenum type,

@@ -148,7 +148,7 @@ try
 				tex_man,
 				image_loader.load(
 					sge::config::media_path()
-					/ FCPPT_TEXT("cloudsquare.jpg")
+					/ FCPPT_TEXT("cloudsquare.png")
 				)
 			)
 		),

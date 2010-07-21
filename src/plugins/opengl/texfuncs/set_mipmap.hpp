@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXFUNCS_BUILD_MIPMAP_HPP_INCLUDED
-#define SGE_OPENGL_TEXFUNCS_BUILD_MIPMAP_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXFUNCS_SET_MIPMAP_HPP_INCLUDED
+#define SGE_OPENGL_TEXFUNCS_SET_MIPMAP_HPP_INCLUDED
 
 #include "../common.hpp"
-#include <sge/renderer/dim_type.hpp>
-#include <sge/renderer/const_raw_pointer.hpp>
+#include "../context/object_fwd.hpp"
+#include <sge/renderer/filter/texture_fwd.hpp>
 
 namespace sge
 {
@@ -33,12 +33,10 @@ namespace texfuncs
 {
 
 void
-build_mipmap(
-	GLenum target,
-	GLenum format,
-	GLenum type,
-	renderer::dim_type const &,
-	renderer::const_raw_pointer src
+set_mipmap(
+	opengl::context::object &,
+	GLenum texture_type,
+	renderer::filter::texture const &
 );
 
 }

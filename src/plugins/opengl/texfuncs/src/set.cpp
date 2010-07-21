@@ -19,14 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../set.hpp"
-#include "../need_mipmap.hpp"
-#include "../build_mipmap.hpp"
+#include "../set_mipmap.hpp"
 #include "../../common.hpp"
 #include "../../check_state.hpp"
 #include <sge/log/global.hpp>
-#include <sge/renderer/exception.hpp>
 #include <sge/renderer/texture_creation_failed.hpp>
-#include <sge/renderer/filter/texture.hpp>
 #include <fcppt/math/is_power_of_2.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/output.hpp>
@@ -36,47 +33,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::texfuncs::set(
-	GLenum const tex_type,
-	GLenum const format,
-	GLenum const type,
-	renderer::filter::texture const &filter,
-	renderer::dim_type const &dim,
-	renderer::const_raw_pointer const src
+	opengl::context::object &_context,
+	GLenum const _texture_type,
+	GLenum const _format,
+	GLenum const _format_type,
+	renderer::filter::texture const &_filter,
+	renderer::dim_type const &_dim,
+	renderer::const_raw_pointer const _src
 )
 {
-	if(dim.w() < 64 || dim.h() < 64)
+	if(
+		_dim.w() < 64 || _dim.h() < 64
+	)
 		FCPPT_LOG_WARNING(
 			log::global(),
 			fcppt::log::_
 				<< FCPPT_TEXT("opengl implementations are not required to support textures smaller than 64x64.")\
 				FCPPT_TEXT(" Specified texture size was ")
-				<< dim
+				<< _dim
 				<< FCPPT_TEXT('.')
 		);
 
 	if(
-		!fcppt::math::is_power_of_2(dim.w())
-		|| !fcppt::math::is_power_of_2(dim.h())
+		!fcppt::math::is_power_of_2(_dim.w())
+		|| !fcppt::math::is_power_of_2(_dim.h())
 	)
 		FCPPT_LOG_WARNING(
 			log::global(),
 			fcppt::log::_
 				<< FCPPT_TEXT("opengl implementations are not required to support textures with dimensions that are not a power of 2.")\
 				FCPPT_TEXT(" Specified texture size was ")
-				<< dim
+				<< _dim
 				<< FCPPT_TEXT('.')
 		);
 
+	texfuncs::set_mipmap(
+		_context,
+		_texture_type,
+		_filter
+	);
+
 	glTexImage2D(
-		tex_type,
+		_texture_type,
 		0,
 		4,
-		static_cast<GLsizei>(dim.w()),
-		static_cast<GLsizei>(dim.h()),
+		static_cast<GLsizei>(_dim.w()),
+		static_cast<GLsizei>(_dim.h()),
 		0,
-		format,
-		type,
-		src
+		_format,
+		_format_type,
+		_src
 	);
 
 	SGE_OPENGL_CHECK_STATE(
@@ -84,21 +90,8 @@ sge::opengl::texfuncs::set(
 			fcppt::format(
 				FCPPT_TEXT("Creation of texture with size %1% failed!")
 			)
-			% dim
+			% _dim
 		).str(),
 		sge::renderer::texture_creation_failed
 	);
-
-	if(
-		texfuncs::need_mipmap(
-			filter.min()
-		)
-	)
-		texfuncs::build_mipmap(
-			tex_type,
-			format,
-			type,
-			dim,
-			src
-		);
 }

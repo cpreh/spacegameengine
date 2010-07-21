@@ -46,26 +46,31 @@ GLenum const texture_type = GL_TEXTURE_2D;
 }
 
 sge::opengl::texture::texture(
-	context::object &_object,
-	dim_type const &d,
-	image::color::format::type const format_,
-	renderer::filter::texture const &filter_,
-	renderer::resource_flags_field const &flags,
-	optional_type const type_
+	context::object &_context,
+	dim_type const &_dim,
+	image::color::format::type const _format,
+	renderer::filter::texture const &_filter,
+	renderer::resource_flags_field const &_flags,
+	optional_type const _type
 )
 :
 	detail::texture_base(
-		_object,
-		filter_,
-		flags,
-		type_ ? *type_ : texture_type,
-		format_
+		_context,
+		_filter,
+		_flags,
+		_type
+		?
+			*_type
+		:
+			texture_type,
+		_format
 	),
-	dim_(d)
+	dim_(_dim)
 {
 	pre_setdata();
 
 	texfuncs::set(
+		_context,
 		type(),
 		format(),
 		format_type(),
