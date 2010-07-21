@@ -18,8 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <fcppt/assert.hpp>
-#include <fcppt/text.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/rgba32f.hpp>
@@ -29,15 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/system.hpp>
 #include <sge/mainloop/catch_block.hpp>
 #include <sge/mainloop/dispatch.hpp>
-#include <fcppt/math/quad.hpp>
-#include <fcppt/math/pi.hpp>
-#include <fcppt/math/twopi.hpp>
-#include <fcppt/math/matrix/arithmetic.hpp>
-#include <fcppt/math/matrix/perspective.hpp>
-#include <fcppt/math/matrix/rotation_y.hpp>
-#include <fcppt/math/matrix/look_at.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/vector/static.hpp>
 #include <sge/renderer/aspect.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/light.hpp>
@@ -73,6 +62,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/window/parameters.hpp>
+#include <fcppt/assert.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/math/quad.hpp>
+#include <fcppt/math/pi.hpp>
+#include <fcppt/math/twopi.hpp>
+#include <fcppt/math/matrix/arithmetic.hpp>
+#include <fcppt/math/matrix/perspective.hpp>
+#include <fcppt/math/matrix/rotation_y.hpp>
+#include <fcppt/math/matrix/look_at.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/static.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <boost/mpl/vector/vector10.hpp>
