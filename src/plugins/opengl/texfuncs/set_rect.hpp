@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../common.hpp"
 #include "../context/object_fwd.hpp"
-#include <sge/renderer/filter/texture_fwd.hpp>
 #include <sge/renderer/dim_type.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
@@ -41,7 +40,6 @@ set_rect(
 	GLenum target,
 	GLenum format,
 	GLenum type,
-	renderer::filter::texture const &filter,
 	renderer::dim_type const &dim,
 	renderer::lock_rect const &dest,
 	renderer::const_raw_pointer src

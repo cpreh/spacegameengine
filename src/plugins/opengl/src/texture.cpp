@@ -138,7 +138,6 @@ sge::opengl::texture::unlock() const
 			type(),
 			format(),
 			format_type(),
-			filter(),
 			dim(),
 			lr,
 			write_buffer()

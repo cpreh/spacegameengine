@@ -19,12 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../set_rect.hpp"
-#include "../need_mipmap.hpp"
 #include "../../check_state.hpp"
 #include "../../pbo_context.hpp"
 #include "../../vbo_base.hpp"
 #include "../../context/use.hpp"
-#include <sge/renderer/filter/texture.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/output.hpp>
@@ -39,7 +37,6 @@ sge::opengl::texfuncs::set_rect(
 	GLenum const _tex_type,
 	GLenum const _format,
 	GLenum const _type,
-	renderer::filter::texture const &_filter,
 	renderer::dim_type const &_dim,
 	renderer::lock_rect const &_lock_rect,
 	renderer::const_raw_pointer const _src
@@ -72,15 +69,6 @@ sge::opengl::texfuncs::set_rect(
 				% _dim
 			)
 			.str()
-		);
-
-	if(
-		texfuncs::need_mipmap(
-			_filter.min()
-		)
-	)
-		throw renderer::exception(
-			FCPPT_TEXT("You can't specify an update rect while using mipmaps.")
 		);
 
 	::glTexSubImage2D(
