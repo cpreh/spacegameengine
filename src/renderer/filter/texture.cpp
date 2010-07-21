@@ -21,13 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/filter/texture.hpp>
 
 sge::renderer::filter::texture::texture(
-	filter::min::type const min_,
-	filter::mag::type const mag_,
-	anisotropy_type const anisotropy_)
+	filter::min::type const _min,
+	filter::mag::type const _mag,
+	anisotropy_type const _anisotropy
+)
 :
-	min_(min_),
-	mag_(mag_),
-	anisotropy_(anisotropy_)
+	min_(_min),
+	mag_(_mag),
+	anisotropy_(_anisotropy)
 {}
 
 sge::renderer::filter::min::type

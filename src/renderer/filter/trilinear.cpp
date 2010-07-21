@@ -24,4 +24,5 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::renderer::filter::texture const
 sge::renderer::filter::trilinear(
 	min::trilinear,
-	mag::linear);
+	mag::linear
+);
