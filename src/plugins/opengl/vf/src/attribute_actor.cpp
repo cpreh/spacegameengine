@@ -29,13 +29,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::vf::attribute_actor::attribute_actor(
 	opengl::context::object &_context,
-	renderer::vf::dynamic::ordered_element const &e,
-	renderer::vf::vertex_size const stride
+	renderer::vf::dynamic::ordered_element const &_element,
+	renderer::vf::vertex_size const _stride
 )
 :
 	pointer_actor(
-		e,
-		stride
+		_element,
+		_stride
 	),
 	context_(
 		opengl::context::use<
@@ -47,7 +47,7 @@ sge::opengl::vf::attribute_actor::attribute_actor(
 	elements_(
 		fcppt::variant::apply_unary(
 			convert_num_elements(),
-			e.element().info()
+			_element.element().info()
 		)
 	)
 {
