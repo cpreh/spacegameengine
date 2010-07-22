@@ -18,13 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_ATTACHMENT_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_ATTACHMENT_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLSL_PROGRAM_HOLDER_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_PROGRAM_HOLDER_HPP_INCLUDED
 
-#include "attachment_fwd.hpp"
-#include "shader_base_fwd.hpp"
-#include <sge/renderer/glsl/shader_ptr.hpp>
-#include <fcppt/shared_ptr_fwd.hpp>
+#include "../context/object_fwd.hpp"
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -37,35 +34,29 @@ namespace glsl
 template<
 	typename Environment
 >
-class attachment
+class program_holder
 {
-	FCPPT_NONCOPYABLE(attachment)
+	FCPPT_NONCOPYABLE(program_holder)
 public:
-	typedef typename Environment::handle handle;
-
 	typedef typename Environment::program_context program_context;
 
-	explicit attachment(
-		program_context const &,
-		sge::renderer::glsl::shader_ptr,
-		handle program_
+	typedef typename Environment::handle handle;
+
+	explicit program_holder(
+		opengl::context::object &
 	);
 
-	~attachment();
+	~program_holder();
+
+	program_context &
+	context() const;
+
+	handle
+	id() const;
 private:
-	typedef glsl::shader_base<
-		Environment
-	> shader_type;
+	program_context &context_;
 
-	typedef fcppt::shared_ptr<
-		shader_type
-	> shader_ptr;
-	
-	program_context const &context_;
-
-	shader_ptr const shader_;
-
-	handle const handle_;
+	handle const id_;
 };
 
 }

@@ -18,68 +18,76 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../attachment.hpp"
-#include "../shader_base.hpp"
-#include "../programfuncs/attach_shader.hpp"
-#include "../programfuncs/detach_shader.hpp"
-#include "../instantiate.hpp"
+#include "../program_holder.hpp"
+#include "../programfuncs/create.hpp"
+#include "../programfuncs/delete.hpp"
 #include "../program_contexts.hpp"
-#include <sge/renderer/glsl/shader.hpp>
-#include <fcppt/dynamic_pointer_cast.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include "../instantiate.hpp"
+#include "../../context/use.hpp"
 
 template<
 	typename Environment
 >
-sge::opengl::glsl::attachment<Environment>::attachment(
-	program_context const &_context,
-	sge::renderer::glsl::shader_ptr const _shader,
-	handle const _handle
+sge::opengl::glsl::program_holder<Environment>::program_holder(
+	opengl::context::object &_context
 )
 :
 	context_(
-		_context
-	),
-	shader_(
-		fcppt::dynamic_pointer_cast<
-			shader_type
+		opengl::context::use<
+			typename Environment::program_context
 		>(
-			_shader
+			_context
 		)
 	),
-	handle_(_handle)
+	id_(
+		programfuncs::create<
+			Environment
+		>(
+			context_
+		)
+	)
 {
-	programfuncs::attach_shader<
+}
+
+template<
+	typename Environment
+>
+sge::opengl::glsl::program_holder<Environment>::~program_holder()
+{
+	programfuncs::delete_<
 		Environment
 	>(
-		_context,
-		_handle,
-		shader_->id()
+		context_,
+		id_
 	);
 }
 
 template<
 	typename Environment
 >
-sge::opengl::glsl::attachment<Environment>::~attachment()
+typename sge::opengl::glsl::program_holder<Environment>::program_context &
+sge::opengl::glsl::program_holder<Environment>::context() const
 {
-	programfuncs::detach_shader<
-		Environment
-	>(
-		context_,
-		handle_,
-		shader_->id()
-	);
+	return context_;
 }
 
-#define SGE_OPENGL_GLSL_INSTANTIATE_ATTACHTMENT(\
+template<
+	typename Environment
+>
+typename sge::opengl::glsl::program_holder<Environment>::handle
+sge::opengl::glsl::program_holder<Environment>::id() const
+{
+	return id_;
+}
+
+#define SGE_OPENGL_GLSL_INSTANTIATE_PROGRAM_HOLDER(\
 	env\
 )\
 template class \
-sge::opengl::glsl::attachment<\
+sge::opengl::glsl::program_holder<\
 	env\
 >;
 
 SGE_OPENGL_GLSL_INSTANTIATE(
-	SGE_OPENGL_GLSL_INSTANTIATE_ATTACHTMENT
+	SGE_OPENGL_GLSL_INSTANTIATE_PROGRAM_HOLDER
 )

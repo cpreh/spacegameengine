@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GLSL_PROGRAM_HPP_INCLUDED
 
 #include "program_base.hpp"
+#include "program_holder.hpp"
 #include "attachment_fwd.hpp"
 #include "../context/object_fwd.hpp"
 #include <sge/renderer/glsl/uniform/variable_ptr.hpp>
@@ -111,15 +112,15 @@ private:
 		attachment_type
 	> attachment_ptr;
 
-	typedef typename Environment::program_context program_context;
-
 	typedef typename Environment::uniform_context uniform_context;
 
-	program_context &context_;
+	typedef glsl::program_holder<
+		Environment
+	> holder;
 
-	uniform_context &uniform_context_;
+	holder const holder_;
 
-	handle const id_;
+	uniform_context const &uniform_context_;
 
 	attachment_ptr
 		vertex_shader_,

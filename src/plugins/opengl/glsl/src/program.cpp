@@ -21,23 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../program.hpp"
 #include "../attachment.hpp"
 #include "../format_error.hpp"
+#include "../instantiate.hpp"
+#include "../program_contexts.hpp"
 #include "../uniform/variable.hpp"
-#include "../programfuncs/create.hpp"
-#include "../programfuncs/delete.hpp"
 #include "../programfuncs/link.hpp"
 #include "../programfuncs/link_status.hpp"
 #include "../programfuncs/info_log.hpp"
 #include "../programfuncs/info_log_length.hpp"
 #include "../programfuncs/use.hpp"
-#include "../instantiate.hpp"
-#include "../program_contexts.hpp"
 #include "../uniform/contexts.hpp"
 #include "../../context/use.hpp"
 #include <sge/renderer/glsl/shader.hpp>
 #include <sge/renderer/glsl/vertex_shader.hpp>
 #include <sge/renderer/glsl/pixel_shader.hpp>
 #include <sge/renderer/glsl/exception.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_auto_ptr.hpp>
@@ -51,25 +48,14 @@ sge::opengl::glsl::program<Environment>::program(
 :
 	renderer::glsl::program(),
 	program_base(),
-	context_(
-		opengl::context::use<
-			typename Environment::program_context
-		>(
-			_context
-		)
+	holder_(
+		_context
 	),
 	uniform_context_(
 		opengl::context::use<
 			typename Environment::uniform_context
 		>(
 			_context
-		)
-	),
-	id_(
-		programfuncs::create<
-			Environment
-		>(
-			context_
 		)
 	),
 	vertex_shader_(),
@@ -81,12 +67,6 @@ template<
 >
 sge::opengl::glsl::program<Environment>::~program()
 {
-	programfuncs::delete_<
-		Environment
-	>(
-		context_,
-		id_
-	);
 }
 
 template<
@@ -96,7 +76,7 @@ void
 sge::opengl::glsl::program<Environment>::use()
 {
 	do_use(
-		id_
+		holder_.id()
 	);
 }
 
@@ -125,10 +105,8 @@ sge::opengl::glsl::program<Environment>::uniform(
 				Environment
 			>
 		>(
-			std::tr1::ref(
-				uniform_context_
-			),
-			id_,
+			uniform_context_,
+			holder_.id(),
 			_name
 		);
 }
@@ -172,16 +150,16 @@ sge::opengl::glsl::program<Environment>::link()
 	programfuncs::link<
 		Environment
 	>(
-		context_,
-		id_
+		holder_.context(),
+		holder_.id()
 	);
 
 	if(
 		programfuncs::link_status<
 			Environment
 		>(
-			context_,
-			id_
+			holder_.context(),
+			holder_.id()
 		)
 		== GL_FALSE
 	)
@@ -205,8 +183,8 @@ sge::opengl::glsl::program<Environment>::info_log() const
 			&programfuncs::info_log_length<
 				Environment
 			>,
-			id_,
-			context_
+			holder_.id(),
+			holder_.context()
 		);
 }
 
@@ -221,7 +199,7 @@ sge::opengl::glsl::program<Environment>::do_use(
 	programfuncs::use<
 		Environment
 	>(
-		context_,
+		holder_.context(),
 		handle_
 	);
 }
@@ -238,11 +216,9 @@ sge::opengl::glsl::program<Environment>::make_attachment(
 		fcppt::make_auto_ptr<
 			attachment_type
 		>(
-			std::tr1::ref(
-				context_
-			),
+			holder_.context(),
 			_shader,
-			id_
+			holder_.id()
 		)
 	);
 
