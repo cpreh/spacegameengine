@@ -65,7 +65,7 @@ sge::opengl::glsl::program_holder<Environment>::~program_holder()
 template<
 	typename Environment
 >
-typename sge::opengl::glsl::program_holder<Environment>::program_context &
+typename sge::opengl::glsl::program_holder<Environment>::program_context const &
 sge::opengl::glsl::program_holder<Environment>::context() const
 {
 	return context_;

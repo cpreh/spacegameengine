@@ -48,13 +48,13 @@ public:
 
 	~program_holder();
 
-	program_context &
+	program_context const &
 	context() const;
 
 	handle
 	id() const;
 private:
-	program_context &context_;
+	program_context const &context_;
 
 	handle const id_;
 };
