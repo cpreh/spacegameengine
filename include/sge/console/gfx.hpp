@@ -98,7 +98,8 @@ private:
 
 	fcppt::signal::scoped_connection const
 		ic_,
-		irc_;
+		irc_,
+		error_conn_;
 
 	sprite_system sprite_system_;
 	sprite_object background_;
@@ -127,6 +128,10 @@ private:
 	tab_complete(
 		fcppt::string &
 	);
+
+	void
+	error(
+		fcppt::string const &);
 };
 
 }

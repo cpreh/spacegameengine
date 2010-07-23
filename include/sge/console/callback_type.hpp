@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_CALLBACK_TYPE_HPP_INCLUDED
 #define SGE_CONSOLE_CALLBACK_TYPE_HPP_INCLUDED
 
+#include <sge/console/object_fwd.hpp>
 #include <sge/console/arg_list.hpp>
 
 namespace sge
@@ -30,7 +31,8 @@ namespace console
 
 typedef void
 callback_type(
-	arg_list const &
+	arg_list const &,
+	object &
 );
 
 }

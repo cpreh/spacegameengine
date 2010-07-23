@@ -85,6 +85,12 @@ sge::console::gfx::gfx(
 			)
 		)
 	),
+	error_conn_(
+		object_.register_error_callback(
+			std::tr1::bind(
+				&gfx::error,
+				this,
+				std::tr1::placeholders::_1))),
 	sprite_system_(
 		_rend),
 	background_(
@@ -329,4 +335,13 @@ sge::console::gfx::key_action(
 		// else we get a million warnings about unhandled enumeration values
 		default: break;
 	}
+}
+
+void
+sge::console::gfx::error(
+	fcppt::string const &s)
+{
+	print_line(
+		FCPPT_TEXT("command error: ")+
+		s);
 }
