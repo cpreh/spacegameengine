@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vf/dynamic/detail/make_vector.hpp>
 #include <sge/renderer/vf/dynamic/detail/make_color.hpp>
+#include <sge/renderer/vf/dynamic/detail/make_unspecified_element.hpp>
 #include <sge/renderer/vf/dynamic/pos.hpp>
 #include <sge/renderer/vf/dynamic/normal.hpp>
 #include <sge/renderer/vf/dynamic/color.hpp>
@@ -133,19 +134,25 @@ make_element(
 
 template<
 	typename Format,
-	vertex_size NumSubElements,
 	typename Tag
 >
 dynamic::element const
 operator()(
 	vf::unspecified<
 		Format,
-		NumSubElements,
 		Tag
 	> const &
 )
 {
-	// !
+	return
+		element(
+			dynamic::unspecified(
+				detail::make_unspecfied_element(
+					Format()
+				),
+				Tag::name()
+			)
+		);
 }
 
 }

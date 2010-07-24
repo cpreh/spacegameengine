@@ -18,11 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_COLOR_HPP_INCLUDED
-#define SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_COLOR_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_UNSPECIFIED_ELEMENT_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_UNSPECIFIED_ELEMENT_HPP_INCLUDED
 
-#include <sge/image/color/format_static.hpp>
-#include <sge/renderer/vf/dynamic/color.hpp>
+#include <sge/renderer/vf/dynamic/detail/make_vector.hpp>
+#include <sge/renderer/vf/dynamic/detail/make_color.hpp>
+#include <sge/renderer/vf/vector.hpp>
+#include <sge/renderer/vf/vertex_size.hpp>
+#include <mizuiro/color/homogenous_fwd.hpp>
 
 namespace sge
 {
@@ -38,15 +41,56 @@ namespace detail
 template<
 	typename Format
 >
-dynamic::color const
-make_color()
+dynamic::vector const
+make_unspecified_element(
+	Format const &
+)
 {
 	return
-		dynamic::color(
-			image::color::format_static<
-				Format
-			>::value
-		);
+		dynamic::make_vector<
+			Format,
+			1
+		>();
+}
+
+template<
+	typename Format,
+	vertex_size NumSubElements
+>
+dynamic::vector const
+make_unspecified_element(
+	vf::vector<
+		Format,
+		NumSubelements
+	> const &
+)
+{
+	return
+		detail::make_vector<
+			Format,
+			NumSubElements
+		>();
+}
+
+template<
+	typename ColorChannel,
+	typename ColorLayout
+>
+dynamic::color const
+make_unspecified_element(
+	mizuiro::color::homogenous<
+		ColorChannel,
+		ColorLayout
+	> const  &
+)
+{
+	return
+		detail::make_color<
+			mizuiro::color::homogenous<
+				ColorChannel,
+				ColorLayout
+			> 		
+		>();
 }
 
 }
