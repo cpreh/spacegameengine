@@ -109,9 +109,9 @@ unspecified_base<
 		mizuiro::color::homogenous<
 			ColorChannel,
 			ColorLayout
-		>,
-		Tag
-	>
+		>
+	>,
+	Tag
 >
 {};
 

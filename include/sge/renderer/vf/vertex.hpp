@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/detail/element_stride.hpp>
 #include <sge/renderer/vf/detail/copy_n.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
-#include <fcppt/nonassinable.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <boost/mpl/find.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/mpl/integral_c.hpp>
@@ -132,7 +132,7 @@ public:
 		packed_type ret;
 
 		detail::copy_n(
-			data + boost::mpl::deref<offset>::type::value,
+			data_ + boost::mpl::deref<offset>::type::value,
 			detail::element_stride<
 				element
 			>::type::value,
@@ -148,7 +148,7 @@ public:
 		return ret;
 	}
 private:
-	pointer const data;
+	pointer const data_;
 };
 
 }

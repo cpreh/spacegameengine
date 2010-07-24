@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_IS_INDEX_HPP_INCLUDED
 
 #include <sge/renderer/vf/index_fwd.hpp>
-#include <boost/mpl/integral_constant.hpp>
+#include <boost/type_traits/integral_constant.hpp>
 
 namespace sge
 {

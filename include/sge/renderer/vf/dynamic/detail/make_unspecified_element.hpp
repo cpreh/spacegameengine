@@ -47,7 +47,7 @@ make_unspecified_element(
 )
 {
 	return
-		dynamic::make_vector<
+		detail::make_vector<
 			Format,
 			1
 		>();
@@ -61,7 +61,7 @@ dynamic::vector const
 make_unspecified_element(
 	vf::vector<
 		Format,
-		NumSubelements
+		NumSubElements
 	> const &
 )
 {

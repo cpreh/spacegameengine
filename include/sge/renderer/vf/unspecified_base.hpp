@@ -29,7 +29,7 @@ namespace vf
 {
 
 template<
-	typename Base
+	typename Base,
 	typename Tag
 >
 struct unspecified_base

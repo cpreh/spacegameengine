@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vf/dynamic/element_list.hpp>
 #include <sge/renderer/vf/dynamic/offset_list.hpp>
-#include <sge/renderer/vf/dynamic/detail/make_elements.hpp>
+#include <sge/renderer/vf/dynamic/detail/make_element_list.hpp>
 #include <sge/renderer/vf/dynamic/detail/make_offsets.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <boost/mpl/for_each.hpp>
@@ -52,7 +52,7 @@ make_format()
 	boost::mpl::for_each<
 		elements
 	>(
-		detail::make_elements(
+		detail::make_element_list(
 			elems
 		)
 	);

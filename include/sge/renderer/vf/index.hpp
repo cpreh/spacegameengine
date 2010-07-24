@@ -37,7 +37,7 @@ template<
 >
 struct index
 :
-boost::integral_c<
+boost::mpl::integral_c<
 	vertex_size,
 	Index
 >

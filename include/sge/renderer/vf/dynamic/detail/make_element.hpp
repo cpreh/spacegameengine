@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/detail/make_vector.hpp>
 #include <sge/renderer/vf/dynamic/detail/make_color.hpp>
 #include <sge/renderer/vf/dynamic/detail/make_unspecified_element.hpp>
+#include <sge/renderer/vf/dynamic/detail/format_to_element.hpp>
 #include <sge/renderer/vf/dynamic/pos.hpp>
 #include <sge/renderer/vf/dynamic/normal.hpp>
 #include <sge/renderer/vf/dynamic/color.hpp>
@@ -35,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/texpos.hpp>
 #include <sge/renderer/vf/unspecified.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
+#include <sge/renderer/vf/index.hpp>
 
 namespace sge
 {
@@ -60,7 +62,7 @@ make_element(
 )
 {
 	return
-		element(
+		dynamic::element(
 			dynamic::pos(
 				detail::make_vector<
 					Format,
@@ -76,15 +78,16 @@ template<
 dynamic::element const
 make_element(
 	vf::normal<
-		Format,
-		NumSubelements
+		Format
 	> const &
 )
 {
 	return
-		elements(
+		dynamic::element(
 			dynamic::normal(
-				NumSubElements
+				detail::format_to_element<
+					Format
+				>::value
 			)
 		);
 }
@@ -97,10 +100,10 @@ make_element(
 	vf::color<
 		Format
 	> const &
-) const
+)
 {
 	return
-		element(
+		dynamic::element(
 			detail::make_color<
 				Format
 			>()
@@ -116,17 +119,18 @@ dynamic::element const
 make_element(
 	vf::texpos<
 		Format,
-		NumSubElements
+		NumSubElements,
+		Index
 	> const &
 )
 {
 	return
-		element(
+		dynamic::element(
 			dynamic::texpos(
-				detail::format_to_element<
-					Format
-				>::value,
-				NumSubElements,
+				detail::make_vector<
+					Format,
+					NumSubElements
+				>(),
 				Index::value
 			)
 		);
@@ -137,7 +141,7 @@ template<
 	typename Tag
 >
 dynamic::element const
-operator()(
+make_element(
 	vf::unspecified<
 		Format,
 		Tag
@@ -145,9 +149,9 @@ operator()(
 )
 {
 	return
-		element(
+		dynamic::element(
 			dynamic::unspecified(
-				detail::make_unspecfied_element(
+				detail::make_unspecified_element(
 					Format()
 				),
 				Tag::name()

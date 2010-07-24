@@ -37,11 +37,15 @@ template<
 class view
 {
 public:
-	typedef vf::iterator<VertexFormat> iterator;
+	typedef vf::iterator<
+		VertexFormat
+	> iterator;
 
 	typedef typename VertexFormat::pointer pointer;
 
-	typedef dynamic::basic_view<pointer> dynamic_view_type;
+	typedef dynamic::basic_view<
+		pointer
+	> dynamic_view_type;
 
 	typedef vertex_size size_type;
 
