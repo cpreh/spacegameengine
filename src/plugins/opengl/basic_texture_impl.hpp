@@ -26,7 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "texfuncs/set_filter.hpp"
 #include "texfuncs/gen.hpp"
 #include "texfuncs/delete.hpp"
-#include "color_convert.hpp"
+#include "convert/color_to_format.hpp"
+#include "convert/color_to_format_type.hpp"
 #include "create_texture_lock.hpp"
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <sge/image/color/format_stride.hpp>
@@ -251,13 +252,19 @@ sge::opengl::basic_texture<Base>::basic_texture(
 	flags_(_flags),
 	id_(texfuncs::gen()),
 	format_(
-		to_format(_cformat)
+		convert::color_to_format(
+			_cformat
+		)
 	),
 	format_type_(
-		to_format_type(_cformat)
+		convert::color_to_format_type(
+			_cformat
+		)
 	),
 	stride_(
-		image::color::format_stride(_cformat)
+		image::color::format_stride(
+			_cformat
+		)
 	)
 {}
 

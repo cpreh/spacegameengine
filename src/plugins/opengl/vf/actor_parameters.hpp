@@ -18,28 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_COLOR_CONVERT_HPP_INCLUDED
-#define SGE_OPENGL_COLOR_CONVERT_HPP_INCLUDED
+#ifndef SGE_OPENGL_VF_ACTOR_PARAMETERS_HPP_INCLUDED
+#define SGE_OPENGL_VF_ACTOR_PARAMETERS_HPP_INCLUDED
 
-#include "common.hpp"
-#include <sge/image/color/format.hpp>
+#include "actor_parameters_fwd.hpp"
+#include "../context/object_fwd.hpp"
+#include <sge/renderer/size_type.hpp>
 
 namespace sge
 {
 namespace opengl
 {
+namespace vf
+{
 
-image::color::format::type
-color_convert(
-	GLenum format,
-	GLenum format_type);
+class actor_parameters
+{
+public:
+	explicit actor_parameters(
+		sge::renderer::size_type stride,
+		sge::renderer::size_type offset,
+		opengl::context::object &
+	);
 
-GLenum to_format(
-	image::color::format::type);
+	sge::renderer::size_type
+	stride() const;
 
-GLenum to_format_type(
-	image::color::format::type);
+	sge::renderer::size_type
+	offset() const;
 
+	opengl::context::object &
+	context() const;
+private:
+	sge::renderer::size_type const
+		stride_,
+		offset_;
+	
+	opengl::context::object &context_;
+};
+
+}
 }
 }
 

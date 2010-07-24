@@ -18,13 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VF_POINTER_ACTOR_HPP_INCLUDED
-#define SGE_OPENGL_VF_POINTER_ACTOR_HPP_INCLUDED
+#ifndef SGE_OPENGL_VF_CONVERT_ELEMENT_TYPE_HPP_INCLUDED
+#define SGE_OPENGL_VF_CONVERT_ELEMENT_TYPE_HPP_INCLUDED
 
-#include "actor.hpp"
 #include "../common.hpp"
-#include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/renderer/vf/dynamic/ordered_element_fwd.hpp>
+#include <sge/renderer/vf/element_type.hpp>
 
 namespace sge
 {
@@ -33,40 +31,10 @@ namespace opengl
 namespace vf
 {
 
-class pointer_actor
-:
-	public actor
-{
-protected:
-	pointer_actor(
-		renderer::vf::dynamic::ordered_element const &,
-		renderer::vf::vertex_size stride
-	);
-
-	GLenum
-	format() const;
-
-	GLsizei
-	stride() const;
-
-	GLvoid const *
-	pointer() const;
-private:
-	void
-	source(
-		vf::pointer
-	);
-
-	GLenum const format_;
-
-	GLsizei const stride_;
-
-	vf::pointer pointer_;
-
-	renderer::vf::vertex_size const
-		index_,
-		offset_;
-};
+GLenum
+convert_element_type(
+	sge::renderer::vf::element_type::type
+);
 
 }
 }

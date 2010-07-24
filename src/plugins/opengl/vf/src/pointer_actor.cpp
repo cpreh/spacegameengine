@@ -40,12 +40,6 @@ sge::opengl::vf::pointer_actor::pointer_actor(
 			stride_
 		)
 	),
-	pointer_(
-		0
-	),
-	index_(
-		e.element().index()
-	),
 	offset_(
 		e.offset()
 	)
@@ -67,12 +61,6 @@ GLvoid const *
 sge::opengl::vf::pointer_actor::pointer() const
 {
 	return pointer_;
-}
-
-sge::renderer::vf::vertex_size
-sge::opengl::vf::pointer_actor::index() const
-{
-	return index_;
 }
 
 void

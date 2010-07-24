@@ -18,58 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VF_POINTER_ACTOR_HPP_INCLUDED
-#define SGE_OPENGL_VF_POINTER_ACTOR_HPP_INCLUDED
+#include "../convert_element_type.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include "actor.hpp"
-#include "../common.hpp"
-#include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/renderer/vf/dynamic/ordered_element_fwd.hpp>
+GLenum
+sge::opengl::vf::convert_element_type(
+	sge::renderer::vf::element_type const &_type
+) const
+{
+	switch(
+		_type
+	)
+	{
+	case renderer::vf::element_type::float_:
+		return GL_FLOAT;
+	case renderer::vf::element_type::double_:
+		return GL_DOUBLE;
+	case renderer::vf::element_type::byte:
+		return GL_BYTE;
+	case renderer::vf::element_type::ubyte:
+		return GL_UNSIGNED_BYTE;
+	case renderer::vf::element_type::short_:
+		return GL_SHORT;
+	case renderer::vf::element_type::ushort:
+		return GL_UNSIGNED_SHORT;
+	case renderer::vf::element_type::int_:
+		return GL_INT;
+	case renderer::vf::element_type::uint:
+		return GL_UNSIGNED_INT;
+	}
 
-namespace sge
-{
-namespace opengl
-{
-namespace vf
-{
-
-class pointer_actor
-:
-	public actor
-{
-protected:
-	pointer_actor(
-		renderer::vf::dynamic::ordered_element const &,
-		renderer::vf::vertex_size stride
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid format in ogl::vf::convert_format!")
 	);
-
-	GLenum
-	format() const;
-
-	GLsizei
-	stride() const;
-
-	GLvoid const *
-	pointer() const;
-private:
-	void
-	source(
-		vf::pointer
-	);
-
-	GLenum const format_;
-
-	GLsizei const stride_;
-
-	vf::pointer pointer_;
-
-	renderer::vf::vertex_size const
-		index_,
-		offset_;
-};
-
-}
-}
 }
 
-#endif
+

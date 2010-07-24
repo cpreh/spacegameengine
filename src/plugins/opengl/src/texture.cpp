@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 #include "../texture.hpp"
 #include "../basic_texture_impl.hpp"
-#include "../color_convert.hpp"
 #include "../texfuncs/set.hpp"
 #include "../texfuncs/set_rect.hpp"
 #include "../texfuncs/get_image.hpp"
+#include "../convert/format_to_color.hpp"
 #include <sge/image/view/make.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/math/dim/output.hpp>
@@ -206,39 +206,44 @@ sge::opengl::texture::lock_me(
 sge::image::view::object const
 sge::opengl::texture::view()
 {
-	return image::view::make(
-		real_write_buffer(),
-		lock_dim(),
-		color_convert(
-			format(),
-			format_type()
-		),
-		image::view::optional_pitch()
-	);
+	return
+		image::view::make(
+			real_write_buffer(),
+			lock_dim(),
+			convert::format_to_color(
+				format(),
+				format_type()
+			),
+			image::view::optional_pitch()
+		);
 }
 
 sge::image::view::const_object const
 sge::opengl::texture::view() const
 {
-	return image::view::make(
-		static_cast<
-			const_pointer
-		>(
-			real_read_buffer()
-		),
-		lock_dim(),
-		color_convert(
-			format(),
-			format_type()
-		),
-		image::view::optional_pitch()
-	);
+	return
+		image::view::make(
+			static_cast<
+				const_pointer
+			>(
+				real_read_buffer()
+			),
+			lock_dim(),
+			convert::format_to_color(
+				format(),
+				format_type()
+			),
+			image::view::optional_pitch()
+		);
 }
 
 sge::opengl::texture::dim_type const
 sge::opengl::texture::lock_dim() const
 {
-	return lock_rect_
-		? lock_rect_->dimension()
-		: dim();
+	return
+		lock_rect_
+		?
+			lock_rect_->dimension()
+		:
+			dim();
 }

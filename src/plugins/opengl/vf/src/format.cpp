@@ -75,18 +75,13 @@ sge::opengl::vf::format::use_me(
 	);
 
 	BOOST_FOREACH(
-		actor_array::reference c,
+		actor_array::reference actor,
 		actors
 	)
-	{
-		c.source(
+		actor(
+			states_,
 			src
 		);
-
-		c(
-			states_
-		);
-	}
 }
 
 void

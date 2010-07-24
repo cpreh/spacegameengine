@@ -18,12 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VF_POS_ACTOR_HPP_INCLUDED
-#define SGE_OPENGL_VF_POS_ACTOR_HPP_INCLUDED
+#ifndef SGE_OPENGL_VF_TO_ACTOR_VISITOR_HPP_INCLUDED
+#define SGE_OPENGL_VF_TO_ACTOR_VISITOR_HPP_INCLUDED
 
-#include "fp_actor.hpp"
-#include "actor_parameters_fwd.hpp"
+#include "actor_ptr.hpp"
+#include "actor_parameters.hpp"
 #include <sge/renderer/vf/dynamic/pos_fwd.hpp>
+#include <sge/renderer/vf/dynamic/normal_fwd.hpp>
+#include <sge/renderer/vf/dynamic/color_fwd.hpp>
+#include <sge/renderer/vf/dynamic/texpos_fwd.hpp>
+#include <sge/renderer/vf/dynamic/unspecified_fwd.hpp>
 
 namespace sge
 {
@@ -32,20 +36,41 @@ namespace opengl
 namespace vf
 {
 
-class pos_actor
-:
-	public fp_actor
+class to_actor_visitor
 {
 public:
-	explicit pos_actor(
-		actor_parameters const &,
-		sge::renderer::vf::dynamic::pos const &
+	explicit to_actor_visitor(
+		actor_parameters const &
 	);
-private:
-	void
-	on_use() const;
 
-	GLint const elements_;
+	typedef sge::opengl::vf::actor_ptr result_type;
+
+	result_type
+	operator()(
+		sge::renderer::vf::dynamic::pos const &
+	) const;
+
+	result_type
+	operator()(
+		sge::renderer::vf::dynamic::normal const &
+	) const;
+
+	result_type
+	operator()(
+		sge::renderer::vf::dynamic::color const &
+	) const;
+
+	result_type
+	operator()(
+		sge::renderer::vf::dynamic::texpos const &
+	) const;
+
+	result_type
+	operator()(
+		sge::renderer::vf::dynamic::unspecified const &
+	) const;
+private:
+	actor_parameters const parameters_;
 };
 
 }

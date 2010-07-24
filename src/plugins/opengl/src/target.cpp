@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 #include "../target.hpp"
 #include "../read_pixels.hpp"
-#include "../color_convert.hpp"
+#include "../convert/format_to_color.hpp"
 #include <sge/image/view/make.hpp>
 #include <sge/image/view/make_const.hpp>
 #include <sge/image/view/flipped.hpp>
@@ -73,7 +73,7 @@ sge::opengl::target::lock(
 				image::view::make(
 					buffer.data(),
 					dim(),
-					opengl::color_convert(
+					opengl::convert::format_to_color(
 						format(),
 						format_type()
 					),
