@@ -18,14 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_TEXPOS_HPP_INCLUDED
-#define SGE_RENDERER_VF_TEXPOS_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DYNAMIC_TEXPOS_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_TEXPOS_HPP_INCLUDED
 
-#include <sge/renderer/vf/vector_base.hpp>
+#include <sge/renderer/vf/dynamic/texpos_fwd.hpp>
+#include <sge/renderer/vf/dynamic/vector.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/renderer/vf/is_index.hpp>
-#include <fcppt/type_traits/is_float_or_double.hpp>
-#include <boost/static_assert.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
@@ -33,39 +32,31 @@ namespace renderer
 {
 namespace vf
 {
-
-template<
-	typename Format,
-	vertex_size NumSubElements,
-	typename Index
->
-struct texpos
-:
-vector_base<
-	Format,
-	NumSubElements
->
+namespace dynamic
 {
-	BOOST_STATIC_ASSERT(
-		fcppt::type_traits::is_float_or_double<
-			Format
-		>::value
+
+class texpos
+{
+public:
+	SGE_SYMBOL explicit texpos(
+		vector const &,
+		vf::vertex_size index
 	);
 
-	BOOST_STATIC_ASSERT(
-		NumSubElements >= 2
-		&& NumSubElements <= 3
-	);
+	SGE_SYMBOL
+	vector const &
+	type() const;
 
-	BOOST_STATIC_ASSERT(
-		vf::is_index<
-			Index
-		>::value
-	);
+	SGE_SYMBOL
+	vf::vertex_size
+	index() const;
+private:
+	vector type_;
 
-	typedef Index index;
+	vf::vertex_size index_;
 };
 
+}
 }
 }
 }

@@ -21,8 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_NORMAL_HPP_INCLUDED
 #define SGE_RENDERER_VF_NORMAL_HPP_INCLUDED
 
-#include <sge/renderer/vf/vec3_base.hpp>
-#include <sge/renderer/vf/role.hpp>
+#include <sge/renderer/vf/vector3_base.hpp>
 #include <fcppt/type_traits/is_float_or_double.hpp>
 #include <boost/static_assert.hpp>
 
@@ -38,7 +37,7 @@ template<
 >
 struct normal
 :
-vec3_base<
+vector3_base<
 	Format
 >
 {

@@ -18,14 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_TEXPOS_HPP_INCLUDED
-#define SGE_RENDERER_VF_TEXPOS_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_ELEMENT_LIST_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_ELEMENT_LIST_HPP_INCLUDED
 
-#include <sge/renderer/vf/vector_base.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/renderer/vf/is_index.hpp>
-#include <fcppt/type_traits/is_float_or_double.hpp>
-#include <boost/static_assert.hpp>
+#include <sge/renderer/vf/dynamic/detail/make_element.hpp>
+#include <sge/renderer/vf/dynamic/element_list.hpp>
+#include <fcppt/nonassignable.hpp>
 
 namespace sge
 {
@@ -33,39 +31,44 @@ namespace renderer
 {
 namespace vf
 {
-
-template<
-	typename Format,
-	vertex_size NumSubElements,
-	typename Index
->
-struct texpos
-:
-vector_base<
-	Format,
-	NumSubElements
->
+namespace dynamic
 {
-	BOOST_STATIC_ASSERT(
-		fcppt::type_traits::is_float_or_double<
-			Format
-		>::value
-	);
+namespace detail
+{
 
-	BOOST_STATIC_ASSERT(
-		NumSubElements >= 2
-		&& NumSubElements <= 3
-	);
+class make_element_list
+{
+	FCPPT_NONASSIGNABLE(make_element_list)
+public:
+	explicit make_element_list(
+		element_list &_elems
+	)
+	:
+		elems_(_elems)
+	{}
 
-	BOOST_STATIC_ASSERT(
-		vf::is_index<
-			Index
-		>::value
-	);
+	typedef void result_type;
 
-	typedef Index index;
+	template<
+		typename Type
+	>
+	result_type
+	operator()(
+		Type const &
+	) const
+	{
+		elems_.push_back(
+			detail::make_element(
+				Type()
+			)
+		);
+	}
+private:
+	element_list &elems_;
 };
 
+}
+}
 }
 }
 }

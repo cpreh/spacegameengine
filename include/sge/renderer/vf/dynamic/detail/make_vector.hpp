@@ -18,14 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_TEXPOS_HPP_INCLUDED
-#define SGE_RENDERER_VF_TEXPOS_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_VECTOR_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_VECTOR_HPP_INCLUDED
 
-#include <sge/renderer/vf/vector_base.hpp>
+#include <sge/renderer/vf/dynamic/detail/format_to_element.hpp>
+#include <sge/renderer/vf/dynamic/vector.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/renderer/vf/is_index.hpp>
-#include <fcppt/type_traits/is_float_or_double.hpp>
-#include <boost/static_assert.hpp>
 
 namespace sge
 {
@@ -33,39 +31,29 @@ namespace renderer
 {
 namespace vf
 {
+namespace dynamic
+{
+namespace detail
+{
 
 template<
 	typename Format,
-	vertex_size NumSubElements,
-	typename Index
+	vf::vertex_size NumSubElements
 >
-struct texpos
-:
-vector_base<
-	Format,
-	NumSubElements
->
+dynamic::vector const
+make_vector()
 {
-	BOOST_STATIC_ASSERT(
-		fcppt::type_traits::is_float_or_double<
-			Format
-		>::value
-	);
+	return
+		dynamic::vector(
+			detail::format_to_element<
+				Format
+			>::value,
+			NumSubElements
+		);
+}
 
-	BOOST_STATIC_ASSERT(
-		NumSubElements >= 2
-		&& NumSubElements <= 3
-	);
-
-	BOOST_STATIC_ASSERT(
-		vf::is_index<
-			Index
-		>::value
-	);
-
-	typedef Index index;
-};
-
+}
+}
 }
 }
 }

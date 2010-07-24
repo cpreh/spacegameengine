@@ -18,14 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_TEXPOS_HPP_INCLUDED
-#define SGE_RENDERER_VF_TEXPOS_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_STRING_HPP_INCLUDED
+#define SGE_RENDERER_VF_STRING_HPP_INCLUDED
 
-#include <sge/renderer/vf/vector_base.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/renderer/vf/is_index.hpp>
-#include <fcppt/type_traits/is_float_or_double.hpp>
-#include <boost/static_assert.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
@@ -34,37 +30,7 @@ namespace renderer
 namespace vf
 {
 
-template<
-	typename Format,
-	vertex_size NumSubElements,
-	typename Index
->
-struct texpos
-:
-vector_base<
-	Format,
-	NumSubElements
->
-{
-	BOOST_STATIC_ASSERT(
-		fcppt::type_traits::is_float_or_double<
-			Format
-		>::value
-	);
-
-	BOOST_STATIC_ASSERT(
-		NumSubElements >= 2
-		&& NumSubElements <= 3
-	);
-
-	BOOST_STATIC_ASSERT(
-		vf::is_index<
-			Index
-		>::value
-	);
-
-	typedef Index index;
-};
+typedef fcppt::string string;
 
 }
 }

@@ -18,11 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_VEC3_BASE_HPP_INCLUDED
-#define SGE_RENDERER_VF_VEC3_BASE_HPP_INCLUDED
-
-#include <sge/renderer/vf/vec_base.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
+#ifndef SGE_RENDERER_VF_DYNAMIC_TEXPOS_FWD_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_TEXPOS_FWD_HPP_INCLUDED
 
 namespace sge
 {
@@ -30,18 +27,12 @@ namespace renderer
 {
 namespace vf
 {
+namespace dynamic
+{
 
-template<
-	typename Format
->
-struct vec3_base
-:
-vec_base<
-	Format,
-	3
->
-{};
+class texpos;
 
+}
 }
 }
 }

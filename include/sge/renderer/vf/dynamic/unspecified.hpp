@@ -18,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_VEC_BASE_HPP_INCLUDED
-#define SGE_RENDERER_VF_VEC_BASE_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DYNAMIC_UNSPECIFIED_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_UNSPECIFIED_HPP_INCLUDED
 
-#include <sge/renderer/vf/vertex_size.hpp>
-#include <fcppt/math/vector/static.hpp>
+#include <sge/renderer/vf/dynamic/unspecified_fwd.hpp>
+#include <sge/renderer/vf/dynamic/unspecified_any.hpp>
+#include <sge/renderer/vf/string.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
@@ -30,23 +32,32 @@ namespace renderer
 {
 namespace vf
 {
-
-template<
-	typename Format,
-	vertex_size NumSubElements
->
-struct vec_base
+namespace dynamic
 {
-	typedef Format subelement_type;
 
-	typedef typename fcppt::math::vector::static_<
-		Format,
-		NumSubElements
-	>::type packed_type;
+class unspecified
+{
+public:
+	SGE_SYMBOL
+	explicit unspecified(
+		unspecified_any const &,
+		vf::string const &
+	);
 
-	static vertex_size const num_subelements = NumSubElements;
+	SGE_SYMBOL
+	unspecified_any const &
+	type() const;
+
+	SGE_SYMBOL
+	vf::string const &
+	tag() const;
+private:
+	unspecified_any type_;
+
+	vf::string tag_;
 };
 
+}
 }
 }
 }

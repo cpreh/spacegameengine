@@ -22,11 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_UNSPECIFIED_HPP_INCLUDED
 
 #include <sge/renderer/vf/unspecified_base.hpp>
-#include <sge/renderer/vf/vec_base.hpp>
 #include <sge/renderer/vf/single_base.hpp>
+#include <sge/renderer/vf/vector_base.hpp>
 #include <sge/renderer/vf/color_base.hpp>
+#include <sge/renderer/vf/vector_fwd.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <mizuiro/color/homogenous_fwd.hpp>
+#include <boost/type_traits/is_fundamental.hpp>
 #include <boost/static_assert.hpp>
 
 namespace sge
@@ -38,33 +40,15 @@ namespace vf
 
 template<
 	typename Format,
-	vertex_size NumSubElements,
 	typename Tag
 >
-struct unspecified
-:
-unspecified_base<
-	vec_base<
-		Format,
-		NumSubElements
-	>,
-	Tag
->
-{
-	BOOST_STATIC_ASSERT(
-		NumSubElements >= 2 && NumSubElements <= 4
-	);
-};
+struct unspecified;
 
 template<
 	typename Format,
 	typename Tag
 >
-struct unspecified<
-	Format,
-	1,
-	Tag
->
+struct unspecified
 :
 unspecified_base<
 	single_base<
@@ -72,7 +56,40 @@ unspecified_base<
 	>,
 	Tag
 >
-{};
+{
+	BOOST_STATIC_ASSERT(
+		boost::is_fundamental<
+			Format
+		>::value
+	);
+};
+
+template<
+	typename Format,
+	vertex_size NumSubElements,
+	typename Tag
+>
+struct unspecified<
+	vector<
+		Format,
+		NumSubElements
+	>,
+	Tag
+>
+:
+unspecified_base<
+	vector_base<
+		Format,
+		NumSubElements
+	>,
+	Tag
+>
+{
+	BOOST_STATIC_ASSERT(
+		NumSubElements >= 2
+		&& NumSubElements <= 4
+	);
+};
 
 template<
 	typename ColorChannel,
@@ -84,7 +101,6 @@ struct unspecified<
 		ColorChannel,
 		ColorLayout
 	>,
-	1,
 	Tag
 >
 :
@@ -93,9 +109,9 @@ unspecified_base<
 		mizuiro::color::homogenous<
 			ColorChannel,
 			ColorLayout
-		>
-	>,
-	Tag
+		>,
+		Tag
+	>
 >
 {};
 

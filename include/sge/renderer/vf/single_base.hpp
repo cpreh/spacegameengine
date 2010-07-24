@@ -33,13 +33,10 @@ namespace vf
 {
 
 template<
-	typename Format,
-	role::type Role
+	typename Format
 >
 struct single_base
-: element_base<
-	Role
-> {
+{
 	typedef Format subelement_type;
 	typedef Format packed_type;
 	static vertex_size const num_subelements = 1;
