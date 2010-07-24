@@ -89,6 +89,14 @@ sge::console::object::register_error_callback(
 	return error_.connect(c);
 }
 
+fcppt::signal::auto_connection
+sge::console::object::register_message_callback(
+	message_callback const &c
+)
+{
+	return message_.connect(c);
+}
+
 namespace
 {
 template <typename Iterator>
@@ -201,5 +209,13 @@ sge::console::object::emit_error(
 	fcppt::string const &s)
 {
 	error_(
+		s);
+}
+
+void
+sge::console::object::emit_message(
+	fcppt::string const &s)
+{
+	message_(
 		s);
 }

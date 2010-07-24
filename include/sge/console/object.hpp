@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/callback.hpp>
 #include <sge/console/fallback.hpp>
 #include <sge/console/error_callback.hpp>
+#include <sge/console/message_callback.hpp>
 #include <sge/console/fallback_signal.hpp>
 #include <sge/console/function_map.hpp>
 #include <sge/console/arg_list.hpp>
@@ -64,6 +65,10 @@ public:
 	register_error_callback(
 		error_callback const &);
 
+	fcppt::signal::auto_connection
+	register_message_callback(
+		message_callback const &);
+
 	SGE_SYMBOL void
 	eval(
 		fcppt::string const &
@@ -83,8 +88,13 @@ public:
 	void
 	emit_error(
 		fcppt::string const &);
+
+	void
+	emit_message(
+		fcppt::string const &);
 private:
 	fcppt::signal::object<error_callback_fn> error_;
+	fcppt::signal::object<message_callback_fn> message_;
 
 	fcppt::char_type const prefix_;
 

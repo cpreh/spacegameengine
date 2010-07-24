@@ -91,6 +91,12 @@ sge::console::gfx::gfx(
 				&gfx::error,
 				this,
 				std::tr1::placeholders::_1))),
+	message_conn_(
+		object_.register_message_callback(
+			std::tr1::bind(
+				&gfx::print_line,
+				this,
+				std::tr1::placeholders::_1))),
 	sprite_system_(
 		_rend),
 	background_(

@@ -99,7 +99,8 @@ private:
 	fcppt::signal::scoped_connection const
 		ic_,
 		irc_,
-		error_conn_;
+		error_conn_,
+		message_conn_;
 
 	sprite_system sprite_system_;
 	sprite_object background_;

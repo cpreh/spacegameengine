@@ -8,7 +8,8 @@ namespace sge
 namespace console
 {
 typedef
-void error_callback_fn(
+void 
+error_callback_fn(
 	fcppt::string const &);
 }
 }

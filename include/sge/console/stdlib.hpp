@@ -36,32 +36,24 @@ namespace console
 class stdlib
 {
 public:
-	typedef fcppt::function::object<
-		void (fcppt::string const &)
-	> print_callback;
-
-	typedef fcppt::function::object<
-		void (fcppt::string const &)
-	> error_callback;
-
-	SGE_SYMBOL stdlib(
-		object &,
-		print_callback const &,
-		error_callback const &
-	);
+	SGE_SYMBOL explicit
+	stdlib(
+		object &);
 private:
 	object &object_;
-	
-	print_callback print_;
-	
-	error_callback error_;
-
 	fcppt::signal::connection_manager connections;
 
-	void fn_help(arg_list const &);
-	void fn_man(arg_list const &);
+	void 
+	fn_help(
+		arg_list const &);
 
-	void print_function(function_map::const_reference);
+	void 
+	fn_man(
+		arg_list const &);
+
+	void 
+	print_function(
+		function_map::const_reference);
 };
 }
 }
