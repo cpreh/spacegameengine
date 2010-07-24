@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../vertex_buffer.hpp"
 #include "../context/use.hpp"
-#include "../convert_vertex_colors.hpp"
+#include "../convert_vertices.hpp"
 #include "../vbo_context.hpp"
 #include <sge/renderer/vf/dynamic/view.hpp>
 #include <sge/renderer/vf/dynamic/const_view.hpp>
@@ -134,15 +134,12 @@ sge::opengl::vertex_buffer::unlock() const
 		renderer::vf::dynamic::ordered_element_list::const_reference elem,
 		elems
 	)
-		if(
-			elem.element().role() == renderer::vf::role::color
-		)
-			convert_vertex_colors(
-				elem,
-				stride,
-				buf.lock_size() / stride,
-				buf.data()
-			);
+		convert_vertices(
+			elem,
+			stride,
+			buf.lock_size() / stride,
+			buf.data()
+		);
 
 	buf.unlock();
 }
