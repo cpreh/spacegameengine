@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "fp_actor.hpp"
 #include "actor_parameters_fwd.hpp"
+#include "pointer.hpp"
+#include "../common.hpp"
 #include <sge/renderer/vf/dynamic/pos_fwd.hpp>
 
 namespace sge
@@ -43,7 +45,11 @@ public:
 	);
 private:
 	void
-	on_use() const;
+	on_use(	
+		vf::pointer
+	) const;
+
+	GLenum const format_;
 
 	GLint const elements_;
 };

@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "pointer_actor.hpp"
 #include "client_state_combiner_fwd.hpp"
+#include "pointer.hpp"
+#include "actor_parameters_fwd.hpp"
 #include "../common.hpp"
-#include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/renderer/vf/dynamic/ordered_element_fwd.hpp>
 
 namespace sge
 {
@@ -39,15 +39,15 @@ class fp_actor
 	public pointer_actor
 {
 protected:
-	fp_actor(
-		renderer::vf::dynamic::ordered_element const &,
-		renderer::vf::vertex_size stride,
+	explicit fp_actor(
+		vf::actor_parameters const &,
 		GLenum client_state
 	);
 private:
 	void
 	operator()(
-		client_state_combiner &
+		client_state_combiner &,
+		vf::pointer
 	) const;
 
 	void

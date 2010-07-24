@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../pos_actor.hpp"
+#include "../convert_element_type.hpp"
 #include "../../check_state.hpp"
-#include <sge/renderer/vf/dynamic/ordered_element.hpp>
 #include <sge/renderer/vf/dynamic/vector.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
@@ -34,19 +34,26 @@ sge::opengl::vf::pos_actor::pos_actor(
 		_param,
 		GL_VERTEX_ARRAY
 	),
+	format_(
+		vf::convert_element_type(
+			_pos.type().element_type()
+		)
+	),
 	elements_(
 		_pos.type().elements()
 	)
 {}
 
 void
-sge::opengl::vf::pos_actor::on_use() const
+sge::opengl::vf::pos_actor::on_use(
+	vf::pointer const _src
+) const
 {
 	glVertexPointer(
 		elements_,
-		format(),
-		stride(),
-		pointer()
+		format_,
+		parameters().stride(),
+		_src
 	);
 
 	SGE_OPENGL_CHECK_STATE(

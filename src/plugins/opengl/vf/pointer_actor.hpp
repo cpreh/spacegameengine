@@ -22,9 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VF_POINTER_ACTOR_HPP_INCLUDED
 
 #include "actor.hpp"
-#include "../common.hpp"
-#include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/renderer/vf/dynamic/ordered_element_fwd.hpp>
+#include "actor_parameters.hpp"
+#include <sge/renderer/size_type.hpp>
 
 namespace sge
 {
@@ -38,34 +37,17 @@ class pointer_actor
 	public actor
 {
 protected:
-	pointer_actor(
-		renderer::vf::dynamic::ordered_element const &,
-		renderer::vf::vertex_size stride
+	explicit pointer_actor(
+		actor_parameters const &
 	);
 
-	GLenum
-	format() const;
+	renderer::size_type
+	offset() const;
 
-	GLsizei
-	stride() const;
-
-	GLvoid const *
-	pointer() const;
+	actor_parameters const &
+	parameters() const;
 private:
-	void
-	source(
-		vf::pointer
-	);
-
-	GLenum const format_;
-
-	GLsizei const stride_;
-
-	vf::pointer pointer_;
-
-	renderer::vf::vertex_size const
-		index_,
-		offset_;
+	actor_parameters parameters_;
 };
 
 }

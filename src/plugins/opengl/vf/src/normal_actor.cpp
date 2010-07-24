@@ -19,35 +19,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../normal_actor.hpp"
+#include "../convert_element_type.hpp"
 #include "../../check_state.hpp"
-#include <sge/renderer/vf/dynamic/ordered_element.hpp>
+#include <sge/renderer/vf/dynamic/normal.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::vf::normal_actor::normal_actor(
-	renderer::vf::dynamic::ordered_element const &e,
-	renderer::vf::vertex_size const stride
+	actor_parameters const &_param,
+	renderer::vf::dynamic::normal const _normal
 )
 :
 	fp_actor(
-		e,
-		stride,
+		_param,
 		GL_NORMAL_ARRAY
+	),
+	format_(
+		vf::convert_element_type(
+			_normal.element_type()
+		)
 	)
 {
-	if(index() > 0)
-		throw renderer::exception(
-			FCPPT_TEXT("opengl does not support more than one normal type in the vertex format!")
-		);
 }
 
 void
-sge::opengl::vf::normal_actor::on_use() const
+sge::opengl::vf::normal_actor::on_use(
+	vf::pointer const _src
+) const
 {
 	glNormalPointer(
-		format(),
-		stride(),
-		pointer()
+		format_,
+		parameters().stride(),
+		_src
 	);
 
 	SGE_OPENGL_CHECK_STATE(

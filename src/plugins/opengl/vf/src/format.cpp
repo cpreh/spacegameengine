@@ -80,7 +80,7 @@ sge::opengl::vf::format::use_me(
 	)
 		actor(
 			states_,
-			src
+			src + actor.offset()
 		);
 }
 

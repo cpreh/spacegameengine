@@ -19,54 +19,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../pointer_actor.hpp"
-#include "../convert_format.hpp"
-#include <sge/renderer/vf/dynamic/ordered_element.hpp>
-#include <sge/renderer/const_raw_pointer.hpp>
-#include <fcppt/variant/apply_unary.hpp>
 
 sge::opengl::vf::pointer_actor::pointer_actor(
-	renderer::vf::dynamic::ordered_element const &e,
-	renderer::vf::vertex_size const stride_
+	actor_parameters const &_param
 )
 :
-	format_(
-		fcppt::variant::apply_unary(
-			convert_format(),
-			e.element().info()
-		)
-	),
-	stride_(
-		static_cast<GLsizei>(
-			stride_
-		)
-	),
-	offset_(
-		e.offset()
+	param_(
+		_param
 	)
 {}
 
-GLenum
-sge::opengl::vf::pointer_actor::format() const
+sge::renderer::size_type
+sge::opengl::vf::pointer_actor::offset() const
 {
-	return format_;
+	return parameters().offset();
 }
 
-GLsizei
-sge::opengl::vf::pointer_actor::stride() const
+sge::opengl::vf::actor_parameters const &
+sge::opengl::vf::pointer_actor::parameters() const
 {
-	return stride_;
-}
-
-GLvoid const *
-sge::opengl::vf::pointer_actor::pointer() const
-{
-	return pointer_;
-}
-
-void
-sge::opengl::vf::pointer_actor::source(
-	vf::pointer const src
-)
-{
-	pointer_ = static_cast<renderer::const_raw_pointer>(src) + offset_;
+	return parameters_;
 }

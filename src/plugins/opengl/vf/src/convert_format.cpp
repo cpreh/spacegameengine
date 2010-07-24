@@ -19,7 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../convert_format.hpp"
-#include "../../color_convert.hpp"
+#include "../convert_element_type.hpp"
+#include "../../convert/color_to_format_type.hpp"
 #include <sge/renderer/vf/dynamic/vector.hpp>
 #include <sge/renderer/vf/dynamic/color.hpp>
 #include <sge/exception.hpp>
@@ -27,32 +28,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 GLenum
 sge::opengl::vf::convert_format::operator()(
-	renderer::vf::dynamic::vector const &v
+	renderer::vf::dynamic::vector const &_vector
 ) const
 {
-	switch(v.element_type())
-	{
-	case renderer::vf::element_type::float_:
-		return GL_FLOAT;
-	case renderer::vf::element_type::double_:
-		return GL_DOUBLE;
-	case renderer::vf::element_type::byte:
-		return GL_BYTE;
-	case renderer::vf::element_type::ubyte:
-		return GL_UNSIGNED_BYTE;
-	case renderer::vf::element_type::short_:
-		return GL_SHORT;
-	case renderer::vf::element_type::ushort:
-		return GL_UNSIGNED_SHORT;
-	case renderer::vf::element_type::int_:
-		return GL_INT;
-	case renderer::vf::element_type::uint:
-		return GL_UNSIGNED_INT;
-	}
-
-	throw exception(
-		FCPPT_TEXT("Invalid format in ogl::vf::convert_format!")
-	);
+	return
+		vf::convert_element_type(
+			_vector.element_type()
+		);
 }
 
 GLenum
@@ -60,7 +42,8 @@ sge::opengl::vf::convert_format::operator()(
 	renderer::vf::dynamic::color const &c
 ) const
 {
-	return to_format_type(
-		c.color_format()
-	);
+	return
+		opengl::convert::color_to_format_type(
+			c.color_format()
+		);
 }

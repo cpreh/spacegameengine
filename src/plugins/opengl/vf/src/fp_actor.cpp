@@ -22,7 +22,9 @@ sge::opengl::vf::fp_actor::operator()(
 	client_state_combiner &combiner_
 ) const
 {
-	on_use();
+	on_use(
+		_src + parameters().offset()
+	);
 
 	combiner_.enable(
 		client_state_
