@@ -36,7 +36,8 @@ namespace vf
 
 template<
 	typename Format,
-	vertex_size NumSubElements
+	vertex_size NumSubElements,
+	typename Index
 >
 struct texpos
 :
@@ -53,6 +54,14 @@ vec_base<
 	BOOST_STATIC_ASSERT(
 		NumSubElements >= 2 && NumSubElements <= 3
 	);
+
+	BOOST_STATIC_ASSERT(
+		vf::is_index<
+			Index
+		>::value
+	);
+
+	typedef Index index;
 };
 
 }

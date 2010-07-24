@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_COLOR_BASE_HPP_INCLUDED
-#define SGE_RENDERER_VF_COLOR_BASE_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_UNSPECIFIED_BASE_HPP_INCLUDED
+#define SGE_RENDERER_VF_UNSPECIFIED_BASE_HPP_INCLUDED
 
-#include <sge/renderer/vf/vertex_size.hpp>
-#include <mizuiro/color/object_impl.hpp>
+#include <sge/renderer/vf/detail/unspecified_tag.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/static_assert.hpp>
 
 namespace sge
 {
@@ -32,17 +33,21 @@ namespace vf
 {
 
 template<
-	typename Format
+	typename Base,
+	typename Tag
 >
-struct color_base
+struct unspecified_base
+:
+Base
 {
-	typedef typename Format::channel_type subelement_type;
+	BOOST_STATIC_ASSERT((
+		boost::is_same<
+			typename Tag::unspecified_tag,
+			detail::unspecified_tag
+		>
+	));
 
-	typedef mizuiro::color::object<
-		Format
-	> packed_type;
-
-	static vertex_size const num_subelements = Format::element_count;
+	typedef Tag tag;	
 };
 
 }

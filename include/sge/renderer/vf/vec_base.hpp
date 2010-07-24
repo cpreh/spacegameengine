@@ -22,8 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_VEC_BASE_HPP_INCLUDED
 
 #include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/renderer/vf/role.hpp>
-#include <sge/renderer/vf/element_base.hpp>
 #include <fcppt/math/vector/static.hpp>
 
 namespace sge
@@ -35,13 +33,10 @@ namespace vf
 
 template<
 	typename Format,
-	role::type Role,
 	vertex_size NumSubElements
 >
 struct vec_base
-: element_base<
-	Role
-> {
+{
 	typedef Format subelement_type;
 
 	typedef typename fcppt::math::vector::static_<

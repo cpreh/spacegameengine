@@ -40,7 +40,7 @@ namespace dynamic
 template<
 	typename Format
 >
-format const
+dynamic::format const
 make_format()
 {
 	typedef typename Format::elements elements;
@@ -67,10 +67,11 @@ make_format()
 		)
 	);
 
-	return format(
-		elems,
-		offs
-	);
+	return
+		format(
+			elems,
+			offs
+		);
 }
 
 }

@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vf/vec_base.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/renderer/vf/role.hpp>
 #include <fcppt/type_traits/is_float_or_double.hpp>
 #include <boost/static_assert.hpp>
 
@@ -42,12 +41,13 @@ struct pos
 :
 vec_base<
 	Format,
-	role::pos,
 	NumSubElements
 >
 {
 	BOOST_STATIC_ASSERT(
-		fcppt::type_traits::is_float_or_double<Format>::value
+		fcppt::type_traits::is_float_or_double<
+			Format
+		>::value
 	);
 
 	BOOST_STATIC_ASSERT(

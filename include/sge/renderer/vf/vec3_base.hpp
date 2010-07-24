@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vf/vec_base.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/renderer/vf/role.hpp>
 
 namespace sge
 {
@@ -33,14 +32,12 @@ namespace vf
 {
 
 template<
-	typename Format,
-	role::type Role
+	typename Format
 >
 struct vec3_base
 :
 vec_base<
 	Format,
-	Role,
 	3
 >
 {};

@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_ELEMENT_BASE_HPP_INCLUDED
-#define SGE_RENDERER_VF_ELEMENT_BASE_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_IS_INDEX_HPP_INCLUDED
+#define SGE_RENDERER_VF_IS_INDEX_HPP_INCLUDED
 
-#include <sge/renderer/vf/role.hpp>
+#include <sge/renderer/vf/index_fwd.hpp>
+#include <boost/mpl/integral_constant.hpp>
 
 namespace sge
 {
@@ -31,11 +32,24 @@ namespace vf
 {
 
 template<
-	vf::role::type Role
+	typename T
 >
-struct element_base {
-	static vf::role::type const role = Role;
-};
+struct is_index
+:
+boost::false_type
+{};
+
+template<
+	vertex_size Index
+>
+struct is_index<
+	vf::index<
+		Index
+	>
+>
+:
+boost::true_type
+{};
 
 }
 }

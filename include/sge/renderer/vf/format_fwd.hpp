@@ -18,11 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_COLOR_BASE_HPP_INCLUDED
-#define SGE_RENDERER_VF_COLOR_BASE_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_FORMAT_FWD_HPP_INCLUDED
+#define SGE_RENDERER_VF_FORMAT_FWD_HPP_INCLUDED
 
-#include <sge/renderer/vf/vertex_size.hpp>
-#include <mizuiro/color/object_impl.hpp>
+#include <sge/renderer/vf/nonconst_tag.hpp>
 
 namespace sge
 {
@@ -32,18 +31,10 @@ namespace vf
 {
 
 template<
-	typename Format
+	typename ElementList,
+	typename Constness = nonconst_tag
 >
-struct color_base
-{
-	typedef typename Format::channel_type subelement_type;
-
-	typedef mizuiro::color::object<
-		Format
-	> packed_type;
-
-	static vertex_size const num_subelements = Format::element_count;
-};
+struct format;
 
 }
 }

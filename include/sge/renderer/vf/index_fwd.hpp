@@ -18,8 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_ROLE_HPP_INCLUDED
-#define SGE_RENDERER_VF_ROLE_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_INDEX_FWD_HPP_INCLUDED
+#define SGE_RENDERER_VF_INDEX_FWD_HPP_INCLUDED
+
+#include <sge/renderer/vf/vertex_size.hpp>
 
 namespace sge
 {
@@ -28,16 +30,10 @@ namespace renderer
 namespace vf
 {
 
-namespace role
-{
-enum type {
-	pos,
-	normal,
-	texpos,
-	color,
-	unspecified
-};
-}
+template<
+	vertex_size Index
+>
+struct index;
 
 }
 }

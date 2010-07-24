@@ -39,8 +39,7 @@ template<
 struct normal
 :
 vec3_base<
-	Format,
-	role::normal
+	Format
 >
 {
 	BOOST_STATIC_ASSERT(

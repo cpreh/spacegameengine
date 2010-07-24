@@ -21,14 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_UNSPECIFIED_HPP_INCLUDED
 #define SGE_RENDERER_VF_UNSPECIFIED_HPP_INCLUDED
 
+#include <sge/renderer/vf/unspecified_base.hpp>
 #include <sge/renderer/vf/vec_base.hpp>
 #include <sge/renderer/vf/single_base.hpp>
 #include <sge/renderer/vf/color_base.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/renderer/vf/role.hpp>
 #include <mizuiro/color/homogenous_fwd.hpp>
 #include <boost/static_assert.hpp>
-#include <boost/utility/enable_if.hpp>
 
 namespace sge
 {
@@ -39,14 +38,17 @@ namespace vf
 
 template<
 	typename Format,
-	vertex_size NumSubElements
+	vertex_size NumSubElements,
+	typename Tag
 >
 struct unspecified
 :
-vec_base<
-	Format,
-	role::unspecified,
-	NumSubElements
+unspecified_base<
+	vec_base<
+		Format,
+		NumSubElements
+	>,
+	Tag
 >
 {
 	BOOST_STATIC_ASSERT(
@@ -55,37 +57,45 @@ vec_base<
 };
 
 template<
-	typename Format
+	typename Format,
+	typename Tag
 >
 struct unspecified<
 	Format,
-	1
+	1,
+	Tag
 >
 :
-single_base<
-	Format,
-	role::unspecified
+unspecified_base<
+	single_base<
+		Format
+	>,
+	Tag
 >
 {};
 
 template<
 	typename ColorChannel,
-	typename ColorLayout
+	typename ColorLayout,
+	typename Tag
 >
 struct unspecified<
 	mizuiro::color::homogenous<
 		ColorChannel,
 		ColorLayout
 	>,
-	1
+	1,
+	Tag
 >
 :
-color_base<
-	mizuiro::color::homogenous<
-		ColorChannel,
-		ColorLayout
+unspecified_base<
+	color_base<
+		mizuiro::color::homogenous<
+			ColorChannel,
+			ColorLayout
+		>
 	>,
-	role::unspecified
+	Tag
 >
 {};
 
