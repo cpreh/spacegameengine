@@ -18,23 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_FLAGS_HPP_INCLUDED
-#define SGE_FONT_FLAGS_HPP_INCLUDED
+#ifndef SGE_FONT_DRAW_TEXT_HPP_INCLUDED
+#define SGE_FONT_DRAW_TEXT_HPP_INCLUDED
+
+#include <sge/font/object_fwd.hpp>
+#include <sge/font/pos.hpp>
+#include <sge/font/dim.hpp>
+#include <sge/font/align_h.hpp>
+#include <sge/font/align_v.hpp>
+#include <sge/font/flags_field.hpp>
+#include <sge/font/text_size_fwd.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
 namespace font
 {
-
-namespace flags
-{
-enum type
-{
-	no_multi_line,
-	no_line_wrap,
-	size
-};
-}
+	
+SGE_SYMBOL
+font::text_size const
+draw_text(
+	object const &,
+	fcppt::string const &text,
+	pos const &start_pos,
+	dim const &max_size,
+	align_h::type = align_h::left,
+	align_v::type = align_v::top,
+	flags_field const &
+) const;
 
 }
 }

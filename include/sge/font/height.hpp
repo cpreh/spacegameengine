@@ -18,23 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_FLAGS_HPP_INCLUDED
-#define SGE_FONT_FLAGS_HPP_INCLUDED
+#ifndef SGE_FONT_HEIGHT_HPP_INCLUDED
+#define SGE_FONT_HEIGHT_HPP_INCLUDED
+
+#include <sge/font/unit.hpp>
+#include <sge/font/object_fwd.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
 namespace font
 {
 
-namespace flags
-{
-enum type
-{
-	no_multi_line,
-	no_line_wrap,
-	size
-};
-}
+SGE_SYMBOL
+unit
+height(
+	object const &
+);
 
 }
 }

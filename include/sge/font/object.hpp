@@ -50,19 +50,6 @@ public:
 
 	SGE_SYMBOL ~object();
 
-	SGE_SYMBOL unit
-	height() const;
-
-	SGE_SYMBOL font::text_size const
-	draw_text(
-		fcppt::string const &text,
-		pos const &start_pos,
-		dim const &max_size,
-		align_h::type = align_h::left,
-		align_v::type = align_v::top,
-		flag_t flags = flags::default_
-	) const;
-
 	SGE_SYMBOL font::text_size const
 	line_width(
 		fcppt::string::const_iterator beg,
