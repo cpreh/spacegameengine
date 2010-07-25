@@ -22,18 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FONT_OBJECT_HPP_INCLUDED
 
 #include <sge/font/object_fwd.hpp>
-#include <sge/font/text_size_fwd.hpp>
-#include <sge/font/pos.hpp>
-#include <sge/font/dim.hpp>
-#include <sge/font/unit.hpp>
 #include <sge/font/drawer_ptr.hpp>
 #include <sge/font/metrics_ptr.hpp>
-#include <sge/font/align_h.hpp>
-#include <sge/font/align_v.hpp>
-#include <sge/font/flags.hpp>
-#include <sge/symbol.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/char_type.hpp>
 
 namespace sge
 {
@@ -49,34 +39,6 @@ public:
 	);
 
 	SGE_SYMBOL ~object();
-
-	SGE_SYMBOL font::text_size const
-	line_width(
-		fcppt::string::const_iterator beg,
-		fcppt::string::const_iterator end,
-		unit width,
-		flag_t tflags
-	) const;
-
-	SGE_SYMBOL font::text_size const
-	text_size(
-		fcppt::string::const_iterator beg,
-		fcppt::string::const_iterator end,
-		dim const &max_size,
-		flag_t flags = flags::default_
-	) const;
-
-	SGE_SYMBOL font::text_size const
-	text_size(
-		fcppt::string const &s,
-		dim const &max_size,
-		flag_t flags = flags::default_
-	) const;
-
-	SGE_SYMBOL unit
-	char_space(
-		fcppt::char_type ch
-	) const;
 
 	SGE_SYMBOL metrics_ptr const
 	metrics() const;

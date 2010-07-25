@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/font/unit.hpp>
 #include <sge/font/char_metric_ptr.hpp>
+#include <sge/font/char_type.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
-#include <fcppt/char_type.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -41,7 +41,7 @@ protected:
 public:
 	virtual char_metric_ptr const
 	load_char(
-		fcppt::char_type
+		font::char_type
 	) = 0;
 
 	virtual unit

@@ -18,19 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_IMAGE_VIEW_HPP_INCLUDED
-#define SGE_FONT_IMAGE_VIEW_HPP_INCLUDED
+#include <sge/font/char_space.hpp>
+#include <sge/font/object.hpp>
+#include <sge/font/metrics.hpp>
+#include <sge/font/char_metrics.hpp>
 
-#include <sge/image/view/object.hpp>
-
-namespace sge
+sge::font::unit
+sge::font::object::char_space(
+	font::object const &_object,
+	font::char_type const ch
+)
 {
-namespace font
-{
-
-typedef image::view::object image_view;
-
+	return
+		_object.metrics()->load_char(
+			ch
+		)->x_advance();
 }
-}
-
-#endif

@@ -26,6 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key_code.hpp>
 #include <sge/input/key_pair.hpp>
 #include <sge/font/text_size.hpp>
+#include <sge/font/flags_none.hpp>
+#include <sge/font/text_part.hpp>
 #include <sge/font/pos.hpp>
 #include <sge/time/second_f.hpp>
 #include <sge/sprite/external_system_impl.hpp>
@@ -151,10 +153,12 @@ sge::console::gfx::gfx(
 		static_cast<fcppt::string::size_type>(
 			static_cast<font::unit>(
 				background_.size().w())/
-			font_.text_size(
+			font::text_size(
+				font_,
 				FCPPT_TEXT("W"),
 				fcppt::math::dim::structure_cast<font::dim>(
-					background_.size())).size().w()))
+					background_.size()),
+				font::flags::none).size().w()))
 {
 	fcppt::io::cout << "calculated " << max_line_chars_ << " as maximum number of chars in one line\n";
 }

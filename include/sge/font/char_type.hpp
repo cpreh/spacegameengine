@@ -18,17 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_IMAGE_VIEW_HPP_INCLUDED
-#define SGE_FONT_IMAGE_VIEW_HPP_INCLUDED
-
-#include <sge/image/view/object.hpp>
+#ifndef SGE_FONT_CHAR_TYPE_HPP_INCLUDED
+#define SGE_FONT_CHAR_TYPE_HPP_INCLUDED
 
 namespace sge
 {
 namespace font
 {
 
-typedef image::view::object image_view;
+// TODO: we might need to use something else, like utf32
+typedef char char_type;
 
 }
 }

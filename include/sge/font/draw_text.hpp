@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/align_v.hpp>
 #include <sge/font/flags_field.hpp>
 #include <sge/font/text_size_fwd.hpp>
+#include <sge/font/string.hpp>
 #include <sge/symbol.hpp>
-#include <fcppt/string.hpp>
 
 namespace sge
 {
@@ -40,13 +40,13 @@ SGE_SYMBOL
 font::text_size const
 draw_text(
 	object const &,
-	fcppt::string const &text,
+	string const &text,
 	pos const &start_pos,
 	dim const &max_size,
 	align_h::type = align_h::left,
 	align_v::type = align_v::top,
 	flags_field const &
-) const;
+);
 
 }
 }

@@ -18,15 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_TEXT_SIZE_FWD_HPP_INCLUDED
-#define SGE_FONT_TEXT_SIZE_FWD_HPP_INCLUDED
+#ifndef SGE_FONT_TEXT_PART_FWD_HPP_INCLUDED
+#define SGE_FONT_TEXT_PART_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace font
 {
 
-class text_size;
+class text_part;
 
 }
 }
