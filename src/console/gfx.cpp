@@ -25,10 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key_type.hpp>
 #include <sge/input/key_code.hpp>
 #include <sge/input/key_pair.hpp>
+#include <sge/font/line_width.hpp>
 #include <sge/font/text_size.hpp>
 #include <sge/font/flags_none.hpp>
 #include <sge/font/height.hpp>
 #include <sge/font/draw_text.hpp>
+
 #include <sge/font/text_part.hpp>
 #include <sge/font/pos.hpp>
 #include <sge/time/second_f.hpp>
@@ -41,7 +43,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/assert.hpp>
-#include <fcppt/io/cout.hpp>
 #include <boost/foreach.hpp>
 #include <locale>
 
@@ -56,19 +57,37 @@ line_sequence;
 
 line_sequence const
 wrap(
+	sge::font::object &obj,
 	fcppt::string const &s,
-	fcppt::string::size_type const n)
+	sge::font::dim const &max_dim)
 {
-	FCPPT_ASSERT(
-		s.find(FCPPT_TEXT('\n')) == fcppt::string::npos);
+	if (s.empty())
+		return line_sequence();
+
+	fcppt::string::const_iterator i = 
+		s.begin();
 
 	line_sequence lines;
 
-	for (fcppt::string::size_type i = 0; i < s.length(); i += n)
-		lines.push_back(
-			s.substr(
+	for (fcppt::string::const_iterator i = s.begin(); i != s.end();)
+	{
+
+		sge::font::text_part const tp = 
+			sge::font::line_width(
+				obj,
 				i,
-				n));
+				s.end(),
+				max_dim.w(),
+				sge::font::flags::none);
+
+		lines.push_back(
+			fcppt::string(
+				i,
+				tp.end()));
+
+		i = 
+			tp.next_begin();
+	}
 
 	return lines;
 }
@@ -128,7 +147,7 @@ sge::console::gfx::gfx(
 	message_conn_(
 		object_.register_message_callback(
 			std::tr1::bind(
-				&gfx::print_line,
+				&gfx::print,
 				this,
 				std::tr1::placeholders::_1))),
 	sprite_system_(
@@ -150,19 +169,8 @@ sge::console::gfx::gfx(
 	current_input_(
 		input_history_.begin()),
 	output_lines_(
-		_line_limit),
-	max_line_chars_(
-		static_cast<fcppt::string::size_type>(
-			static_cast<font::unit>(
-				background_.size().w())/
-			font::text_size(
-				font_,
-				FCPPT_TEXT("W"),
-				fcppt::math::dim::structure_cast<font::dim>(
-					background_.size()),
-				font::flags::none).size().w()))
+		_line_limit)
 {
-	fcppt::io::cout << "calculated " << max_line_chars_ << " as maximum number of chars in one line\n";
 }
 
 sge::console::gfx::~gfx() {}
@@ -177,13 +185,14 @@ sge::console::gfx::draw()
 
 	
 	output_line_sequence::size_type const line_count = 
-		background_.h() < font_.height()
+		background_.h() < font::height(font_)
 		?
 			0
 		:
 			static_cast<output_line_sequence::size_type>(
 				background_.h()/
-				font_.height());
+				font::height(
+					font_));
 	
 	font::unit current_y = 
 		static_cast<font::unit>(
@@ -215,7 +224,8 @@ sge::console::gfx::draw()
 			font::align_v::top,
 			font::flags::none);
 		current_y -= 
-			font::height(font_);
+			font::height(
+				font_);
 	}
 
 	fcppt::string const il = 
@@ -260,25 +270,19 @@ sge::console::gfx::active(
 }
 
 void
-sge::console::gfx::print_line(
+sge::console::gfx::print(
 	fcppt::string const &_s
 )
 {
-	FCPPT_ASSERT(
-		_s.find(FCPPT_TEXT('\n')) == fcppt::string::npos);
-
-fcppt::io::cout << "string has " << _s.length() << " characters. maximum size is " <<  max_line_chars_ << "\n";
-
 	BOOST_FOREACH(
 		fcppt::string const &l,
 		wrap(
+			font_,
 			_s,
-			max_line_chars_))
-	{
-		fcppt::io::cout << "pushing: " << l << "\n";
+			fcppt::math::dim::structure_cast<font::dim>(
+				background_.size())))
 		output_lines_.push_front(
 			l);
-	}
 }
 
 sge::console::object &
@@ -389,7 +393,7 @@ sge::console::gfx::key_action(
 			}
 			catch (exception const &e)
 			{
-				print_line(
+				print(
 					FCPPT_TEXT("console error: ")+
 					e.string());
 			}
@@ -414,7 +418,7 @@ void
 sge::console::gfx::error(
 	fcppt::string const &s)
 {
-	print_line(
+	print(
 		FCPPT_TEXT("command error: ")+
 		s);
 }
