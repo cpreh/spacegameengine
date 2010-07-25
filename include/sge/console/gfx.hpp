@@ -112,6 +112,7 @@ private:
 	input_history_sequence input_history_;
 	input_history_sequence::iterator current_input_;
 	output_line_sequence output_lines_;
+	fcppt::string::size_type const max_line_chars_;
 
 	void
 	key_callback(
