@@ -80,7 +80,7 @@ sge::opengl::vf::attribute_actor::operator()(
 ) const
 {
 	context_.vertex_attrib_pointer()(
-		42,//index_,
+		index_,
 		elements_,
 		format_,
 		GL_TRUE, // normalized
@@ -93,7 +93,7 @@ sge::opengl::vf::attribute_actor::operator()(
 	);
 
 	_combiner.enable_attribute(
-		42 //gl_index()
+		index_
 	);
 }
 
@@ -103,6 +103,6 @@ sge::opengl::vf::attribute_actor::unuse(
 ) const
 {
 	c.disable_attribute(
-		42//gl_index()
+		index_
 	);
 }
