@@ -168,11 +168,16 @@ sge::console::gfx::draw()
 		sprite_system_,
 		background_
 	);
+
 	
 	output_line_sequence::size_type const line_count = 
-		static_cast<output_line_sequence::size_type>(
-			(background_.h()-font_.height())/
-			font_.height() + 1);
+		background_.h() < font_.height()
+		?
+			0
+		:
+			static_cast<output_line_sequence::size_type>(
+				background_.h()/
+				font_.height());
 	
 	font::unit current_y = 
 		static_cast<font::unit>(
