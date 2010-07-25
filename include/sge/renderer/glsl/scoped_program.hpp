@@ -18,21 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TEXTURE_BASE_PTR_HPP_INCLUDED
-#define SGE_RENDERER_TEXTURE_BASE_PTR_HPP_INCLUDED
+#ifndef SGE_RENDERER_GLSL_SCOPED_PROGRAM_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_SCOPED_PROGRAM_HPP_INCLUDED
 
-#include <sge/renderer/texture_base_fwd.hpp>
-#include <fcppt/shared_ptr.hpp>
+#include <sge/renderer/glsl/program_ptr.hpp>
+#include <sge/renderer/device_ptr.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace renderer
 {
+namespace glsl
+{
 
-typedef fcppt::shared_ptr<
-	texture_base
-> texture_base_ptr;
+class scoped_program
+{
+	FCPPT_NONCOPYABLE(scoped_program)
+public:
+	SGE_SYMBOL
+	explicit scoped_program(
+		renderer::device_ptr,
+		glsl::program_ptr
+	);
 
+	SGE_SYMBOL
+	~scoped_program();
+private:
+	renderer::device_ptr const rend_;
+};
+
+}
 }
 }
 

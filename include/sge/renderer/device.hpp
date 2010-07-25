@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/any_matrix.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/index_buffer_ptr.hpp>
-#include <sge/renderer/texture_base_ptr.hpp>
+#include <sge/renderer/const_texture_base_ptr.hpp>
 #include <sge/renderer/texture_ptr.hpp>
 #include <sge/renderer/cube_texture_ptr.hpp>
 //#include <sge/renderer/volume_texture_ptr.hpp>
@@ -159,7 +159,7 @@ public:
 		renderer::texture_stage_arg_value::type
 	) = 0;
 
-	SGE_SYMBOL static texture_ptr const no_texture;
+	SGE_SYMBOL static const_texture_base_ptr const no_texture;
 
 	virtual void
 	texture(

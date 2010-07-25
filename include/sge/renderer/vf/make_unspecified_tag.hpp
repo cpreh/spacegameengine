@@ -29,10 +29,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 )\
 struct name \
 {\
-	typedef vf::detail::unspecified_tag unspecified_tag; \
+	typedef ::sge::renderer::vf::detail::unspecified_tag unspecified_tag; \
 \
 	static \
-	vf::string const \
+	::sge::renderer::vf::string const \
 	name() \
 	{ \
 		return #name; \

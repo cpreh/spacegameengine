@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TEXTURE_BASE_PTR_HPP_INCLUDED
-#define SGE_RENDERER_TEXTURE_BASE_PTR_HPP_INCLUDED
+#ifndef SGE_RENDERER_CONST_TEXTURE_BASE_PTR_HPP_INCLUDED
+#define SGE_RENDERER_CONST_TEXTURE_BASE_PTR_HPP_INCLUDED
 
 #include <sge/renderer/texture_base_fwd.hpp>
 #include <fcppt/shared_ptr.hpp>
@@ -30,8 +30,8 @@ namespace renderer
 {
 
 typedef fcppt::shared_ptr<
-	texture_base
-> texture_base_ptr;
+	texture_base const
+> const_texture_base_ptr;
 
 }
 }
