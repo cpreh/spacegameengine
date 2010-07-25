@@ -18,13 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_PROGRAM_BASE_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_PROGRAM_BASE_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLSL_CONST_PROGRAM_BASE_PTR_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_CONST_PROGRAM_BASE_PTR_HPP_INCLUDED
 
 #include "program_base_fwd.hpp"
-#include "../common.hpp"
-#include <sge/renderer/glsl/string.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
@@ -33,25 +31,9 @@ namespace opengl
 namespace glsl
 {
 
-class program_base
-{
-	FCPPT_NONCOPYABLE(program_base)
-protected:
-	program_base();
-public:
-	virtual void
-	use() = 0;
-
-	virtual void
-	unuse() = 0;
-
-	virtual GLint
-	location(
-		sge::renderer::glsl::string const &
-	) const = 0;
-
-	virtual ~program_base();
-};
+typedef fcppt::shared_ptr<
+	program_base const
+> const_program_base_ptr;
 
 }
 }

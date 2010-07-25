@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GLSL_CONTEXT_HPP_INCLUDED
 
 #include "program_base_fwd.hpp"
+#include "const_program_base_ptr.hpp"
 #include "../context/base.hpp"
 #include "../context/id.hpp"
 #include <sge/renderer/glsl/program_ptr.hpp>
@@ -55,6 +56,9 @@ public:
 	use(
 		sge::renderer::glsl::program_ptr
 	);
+
+	glsl::const_program_base_ptr const
+	active_program() const;
 
 	static opengl::context::id const static_id;
 

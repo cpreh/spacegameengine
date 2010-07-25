@@ -93,6 +93,12 @@ sge::opengl::glsl::context::use(
 	}
 }
 
+sge::opengl::glsl::const_program_base_ptr const
+sge::opengl::glsl::context::active_program() const
+{
+	return last_program_.lock();
+}
+
 sge::opengl::context::id const
 sge::opengl::glsl::context::static_id(
 	sge::opengl::context::make_id()

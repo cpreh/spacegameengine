@@ -62,6 +62,8 @@ private:
 	GLint const elements_;
 
 	GLenum const format_;
+
+	GLint const index_;
 };
 
 }

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../actor_parameters.hpp"
 #include "../unspecified_elements.hpp"
 #include "../unspecified_format.hpp"
+#include "../unspecified_index.hpp"
 #include "../client_state_combiner.hpp"
 #include "../../context/use.hpp"
 #include "../../on_not_supported.hpp"
@@ -52,8 +53,16 @@ sge::opengl::vf::attribute_actor::attribute_actor(
 		vf::unspecified_format(
 			_unspec.type()
 		)
+	),
+	index_(
+		vf::unspecified_index(
+			_param.context(),
+			_unspec.tag()
+		)
 	)
 {
+	// This check is not really necessary because this format cannot
+	// be used without an active program. But I'll leave it here.
 	if(
 		!context_.is_supported()
 	)

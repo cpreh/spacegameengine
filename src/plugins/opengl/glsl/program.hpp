@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/auto_ptr.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -51,6 +52,7 @@ class program
 	public renderer::glsl::program,
 	public program_base
 {
+	FCPPT_NONCOPYABLE(program)
 public:
 	explicit program(
 		opengl::context::object &
