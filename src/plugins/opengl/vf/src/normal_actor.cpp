@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::vf::normal_actor::normal_actor(
 	actor_parameters const &_param,
-	renderer::vf::dynamic::normal const _normal
+	renderer::vf::dynamic::normal const &_normal
 )
 :
 	fp_actor(
@@ -49,7 +49,11 @@ sge::opengl::vf::normal_actor::on_use(
 {
 	glNormalPointer(
 		format_,
-		parameters().stride(),
+		static_cast<
+			GLsizei
+		>(
+			stride()
+		),
 		_src
 	);
 

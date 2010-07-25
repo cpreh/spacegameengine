@@ -24,9 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "pointer_actor.hpp"
 #include "client_state_combiner_fwd.hpp"
 #include "attribute_context_fwd.hpp"
+#include "actor_parameters_fwd.hpp"
+#include "pointer.hpp"
 #include "../context/object_fwd.hpp"
-#include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/renderer/vf/dynamic/ordered_element_fwd.hpp>
+#include <sge/renderer/vf/dynamic/unspecified_fwd.hpp>
 
 namespace sge
 {
@@ -41,23 +42,20 @@ class attribute_actor
 {
 public:
 	explicit attribute_actor(
-		opengl::context::object &,
-		renderer::vf::dynamic::ordered_element const &,
-		renderer::vf::vertex_size stride
+		actor_parameters const &,
+		renderer::vf::dynamic::unspecified const &
 	);
 private:
 	void
 	operator()(
-		client_state_combiner &
+		client_state_combiner &,
+		vf::pointer
 	) const;
 
 	void
 	unuse(
 		client_state_combiner &
 	) const;
-
-	GLuint
-	gl_index() const;
 
 	vf::attribute_context &context_;
 

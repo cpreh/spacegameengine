@@ -56,7 +56,9 @@ private:
 	) const;
 
 	virtual void
-	on_use() const = 0;
+	on_use(
+		vf::pointer
+	) const = 0;
 
 	GLenum const client_state_;
 };

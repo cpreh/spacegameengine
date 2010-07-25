@@ -19,24 +19,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../pointer_actor.hpp"
+#include "../actor_parameters.hpp"
 
 sge::opengl::vf::pointer_actor::pointer_actor(
 	actor_parameters const &_param
 )
 :
-	param_(
-		_param
+	offset_(
+		_param.offset()
+	),
+	stride_(
+		_param.stride()
 	)
 {}
 
-sge::renderer::size_type
+sge::renderer::vf::vertex_size
 sge::opengl::vf::pointer_actor::offset() const
 {
-	return parameters().offset();
+	return offset_;
 }
 
-sge::opengl::vf::actor_parameters const &
-sge::opengl::vf::pointer_actor::parameters() const
+sge::renderer::vf::vertex_size
+sge::opengl::vf::pointer_actor::stride() const
 {
-	return parameters_;
+	return stride_;
 }

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../attribute_actor.hpp"
 
 sge::opengl::vf::to_actor_visitor::to_actor_visitor(
-	actor_parameters const &_parameters,
+	actor_parameters const &_parameters
 )
 :
 	parameters_(_parameters)
@@ -38,9 +38,11 @@ sge::opengl::vf::to_actor_visitor::operator()(
 ) const
 {
 	return
-		pos_actor(
-			parameters_
-			_pos,
+		actor_ptr(
+			new vf::pos_actor(
+				parameters_,
+				_pos
+			)
 		);
 }
 
@@ -50,9 +52,11 @@ sge::opengl::vf::to_actor_visitor::operator()(
 ) const
 {
 	return
-		normal_actor(
-			parameters_,
-			_normal
+		actor_ptr(
+			new vf::normal_actor(
+				parameters_,
+				_normal
+			)
 		);
 }
 
@@ -62,9 +66,11 @@ sge::opengl::vf::to_actor_visitor::operator()(
 ) const
 {
 	return
-		color_actor(
-			parameters_,
-			_color
+		actor_ptr(
+			new vf::color_actor(
+				parameters_,
+				_color
+			)
 		);
 }
 
@@ -74,9 +80,11 @@ sge::opengl::vf::to_actor_visitor::operator()(
 ) const
 {
 	return
-		texpos_actor(
-			parameters_,
-			_texpos
+		actor_ptr(
+			new vf::texpos_actor(
+				parameters_,
+				_texpos
+			)
 		);
 }
 
@@ -86,8 +94,10 @@ sge::opengl::vf::to_actor_visitor::operator()(
 ) const
 {
 	return
-		attribute_actor(
-			parameters_,
-			_unspecified
+		actor_ptr(
+			new vf::attribute_actor(
+				parameters_,
+				_unspecified
+			)
 		);
 }

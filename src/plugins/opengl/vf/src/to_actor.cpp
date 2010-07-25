@@ -41,6 +41,6 @@ sge::opengl::vf::to_actor(
 					_context
 				)
 			),
-			_element.element().info(),
+			_element.element().info()
 		);
 }

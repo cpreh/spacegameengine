@@ -48,7 +48,7 @@ public:
 	) const = 0;
 
 	virtual sge::renderer::size_type
-	offset() = 0;
+	offset() const = 0;
 
 	virtual void
 	unuse(

@@ -20,36 +20,55 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../color_actor.hpp"
 #include "../../check_state.hpp"
+#include "../../convert/color_to_format.hpp"
+#include <sge/image/color/element_count.hpp>
+#include <sge/renderer/vf/dynamic/color.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::vf::color_actor::color_actor(
-	renderer::vf::dynamic::ordered_element const &e,
-	renderer::vf::vertex_size const stride
+	actor_parameters const &_param,
+	sge::renderer::vf::dynamic::color const & _color
 )
 :
 	fp_actor(
-		e,
-		stride,
+		_param,
 		GL_COLOR_ARRAY
 	),
-	elements(4) // TODO: maybe allow colors without alpha?
-{
-	if(index() > 0)
-		throw renderer::exception(
-			FCPPT_TEXT("opengl does not support more than one color type in the vertex format!")
-			FCPPT_TEXT(" glSecondaryColor is currently not supported.")
-		);
-}
+	elements_(
+		static_cast<
+			GLint
+		>(
+			sge::image::color::element_count(
+				_color.color_format()
+			)
+		)
+	),
+	format_(
+		static_cast<
+			GLenum
+		>(
+			opengl::convert::color_to_format(
+				_color.color_format()
+			)
+		)
+	)
+{}
 
 void
-sge::opengl::vf::color_actor::on_use() const
+sge::opengl::vf::color_actor::on_use(
+	vf::pointer const _src
+) const
 {
 	glColorPointer(
-		elements,
-		format(),
-		stride(),
-		pointer()
+		elements_,
+		format_,
+		static_cast<
+			GLsizei
+		>(
+			stride()
+		),
+		_src
 	);
 
 	SGE_OPENGL_CHECK_STATE(

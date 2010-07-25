@@ -18,48 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VF_TEXPOS_ACTOR_HPP_INCLUDED
-#define SGE_OPENGL_VF_TEXPOS_ACTOR_HPP_INCLUDED
+#ifndef SGE_IMAGE_COLOR_ELEMENT_COUNT_HPP_INCLUDED
+#define SGE_IMAGE_COLOR_ELEMENT_COUNT_HPP_INCLUDED
 
-#include "fp_actor.hpp"
-#include "pointer.hpp"
-#include "actor_parameters_fwd.hpp"
-#include "../context/object_fwd.hpp"
-#include "../multi_texture_context_fwd.hpp"
-#include "../common.hpp"
-#include <sge/renderer/vf/dynamic/texpos_fwd.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
+#include <sge/image/size_type.hpp>
+#include <sge/image/color/format.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
-namespace opengl
+namespace image
 {
-namespace vf
+namespace color
 {
 
-class texpos_actor
-:
-	public fp_actor
-{
-public:
-	explicit texpos_actor(
-		actor_parameters const &,
-		sge::renderer::vf::dynamic::texpos const &
-	);
-private:
-	void
-	on_use(
-		vf::pointer
-	) const;
-
-	opengl::context::object &context_;
-	
-	GLint const elements_;
-
-	GLenum const format_;
-
-	renderer::vf::vertex_size const index_;
-};
+SGE_SYMBOL
+image::size_type
+element_count(
+	format::type
+);
 
 }
 }

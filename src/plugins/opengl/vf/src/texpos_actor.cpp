@@ -19,58 +19,64 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../texpos_actor.hpp"
+#include "../convert_element_type.hpp"
+#include "../actor_parameters.hpp"
 #include "../../check_state.hpp"
 #include "../../multi_texture_context.hpp"
 #include "../../set_client_texture_level.hpp"
 #include "../../context/use.hpp"
+#include "../../common.hpp"
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
 #include <sge/renderer/vf/dynamic/vector.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/exception.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::vf::texpos_actor::texpos_actor(
-	opengl::context::object &_context,
-	renderer::vf::dynamic::ordered_element const &_elements,
-	renderer::vf::vertex_size const _stride
+	actor_parameters const &_param,
+	renderer::vf::dynamic::texpos const &_element
 )
 :
 	fp_actor(
-		_elements,
-		_stride,
+		_param,
 		GL_TEXTURE_COORD_ARRAY
 	),
 	context_(
-		_context
+		_param.context()
 	),
 	elements_(
 		static_cast<
 			GLint
 		>(
-			_elements.element().info().get<
-				renderer::vf::dynamic::vector
-			>().elements()
+			_element.type().elements()
 		)
+	),
+	format_(
+		vf::convert_element_type(
+			_element.type().element_type()
+		)
+	),
+	index_(
+		_element.index()
 	)
 {
 	multi_texture_context &texture_context(
 		opengl::context::use<
 			multi_texture_context
 		>(
-			_context
+			context_
 		)
 	);
 
 	if(
 		!texture_context.is_supported()
-		&& index() != 0
+		&& index_ != 0
 	)
 		throw renderer::exception(
 			FCPPT_TEXT("multiple texture coordinates are not supported!")
 		);
 	else if(
-		index()
+		index_
 		>= texture_context.max_level()
 	)
 		throw renderer::exception(
@@ -84,22 +90,28 @@ sge::opengl::vf::texpos_actor::texpos_actor(
 }
 
 void
-sge::opengl::vf::texpos_actor::on_use() const
+sge::opengl::vf::texpos_actor::on_use(
+	vf::pointer const _src
+) const
 {
 	opengl::set_client_texture_level(
 		context_,
 		static_cast<
 			renderer::stage_type
 		>(
-			index()
+			index_
 		)
 	);
 
 	glTexCoordPointer(
 		elements_,
-		format(),
-		stride(),
-		pointer()
+		format_,
+		static_cast<
+			GLsizei
+		>(
+			stride()
+		),
+		_src
 	);
 
 	SGE_OPENGL_CHECK_STATE(

@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VF_POINTER_ACTOR_HPP_INCLUDED
 
 #include "actor.hpp"
-#include "actor_parameters.hpp"
-#include <sge/renderer/size_type.hpp>
+#include "actor_parameters_fwd.hpp"
+#include <sge/renderer/vf/vertex_size.hpp>
 
 namespace sge
 {
@@ -41,13 +41,15 @@ protected:
 		actor_parameters const &
 	);
 
-	renderer::size_type
+	renderer::vf::vertex_size
 	offset() const;
 
-	actor_parameters const &
-	parameters() const;
+	renderer::vf::vertex_size
+	stride() const;
 private:
-	actor_parameters parameters_;
+	sge::renderer::vf::vertex_size const
+		offset_,
+		stride_;
 };
 
 }

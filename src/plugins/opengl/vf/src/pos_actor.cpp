@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert_element_type.hpp"
 #include "../../check_state.hpp"
 #include <sge/renderer/vf/dynamic/vector.hpp>
+#include <sge/renderer/vf/dynamic/pos.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
@@ -40,7 +41,11 @@ sge::opengl::vf::pos_actor::pos_actor(
 		)
 	),
 	elements_(
-		_pos.type().elements()
+		static_cast<
+			GLint
+		>(
+			_pos.type().elements()
+		)
 	)
 {}
 
@@ -52,7 +57,11 @@ sge::opengl::vf::pos_actor::on_use(
 	glVertexPointer(
 		elements_,
 		format_,
-		parameters().stride(),
+		static_cast<
+			GLsizei
+		>(
+			stride()
+		),
 		_src
 	);
 
