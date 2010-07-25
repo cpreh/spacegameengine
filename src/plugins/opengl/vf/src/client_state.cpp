@@ -110,7 +110,7 @@ namespace
 {
 
 fcppt::string const common_error(
-	FCPPT_TEXT(" This usually happens if you forget to call renderer::device::unset_vertex_buffer() brefore setting a new one.")
+	FCPPT_TEXT(" This usually happens if you forget to call renderer::device::unset_vertex_buffer() before setting a new one.")
 );
 
 template<
@@ -148,7 +148,7 @@ erase_checked(
 		FCPPT_LOG_WARNING(
 			sge::log::global(),
 			fcppt::log::_
-				<< FCPPT_TEXT("1States erased in opengl::vf that was not there!")
+				<< FCPPT_TEXT("State erased in opengl::vf that was not there!")
 				<< common_error
 		);
 }
