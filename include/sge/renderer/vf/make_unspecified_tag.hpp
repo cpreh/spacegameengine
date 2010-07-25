@@ -25,9 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/string.hpp>
 
 #define SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(\
-	name\
+	tag_name\
 )\
-struct name \
+struct tag_name \
 {\
 	typedef ::sge::renderer::vf::detail::unspecified_tag unspecified_tag; \
 \
@@ -35,7 +35,7 @@ struct name \
 	::sge::renderer::vf::string const \
 	name() \
 	{ \
-		return #name; \
+		return #tag_name; \
 	} \
 };
 
