@@ -44,14 +44,25 @@ sge::opengl::glsl::programfuncs::get_attrib_location(
 		)
 	);
 
-	SGE_OPENGL_CHECK_STATE(
-		fcppt::string(
+	if(
+		result == -1
+	)
+		throw sge::renderer::glsl::exception(
 			FCPPT_TEXT("Get of the following attribute variable failed: \"")
-		)
+			+ fcppt::from_std_string(
+				_name
+			)
+			+ FCPPT_TEXT("\". This either means that the variable is not present in the shader, ")
+			+ FCPPT_TEXT("or you tried to use a reserved name that starts with gl_. ")
+			+ FCPPT_TEXT(" Please make sure your vertex declaration and vertex shader use the same names.")
+		);
+
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("Getting attribute location \"")
 		+ fcppt::from_std_string(
 			_name
 		)
-		+ FCPPT_TEXT("\". Please make sure your vertex declaration and vertex shader use the same names."),
+		+ FCPPT_TEXT("\" failed."),
 		sge::renderer::glsl::exception
 	)
 
