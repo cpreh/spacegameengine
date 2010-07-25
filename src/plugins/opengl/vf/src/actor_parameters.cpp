@@ -18,30 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../unspecified_format_visitor.hpp"
-#include "../convert_element_type.hpp"
-#include "../convert_color_type.hpp"
-#include <sge/renderer/vf/dynamic/vector.hpp>
-#include <sge/renderer/vf/dynamic/color.hpp>
+#include "../actor_parameters.hpp"
 
-GLenum
-sge::opengl::vf::unspecified_format_visitor::operator()(
-	renderer::vf::dynamic::vector const &_vector
-) const
+sge::opengl::vf::actor_parameters::actor_parameters(
+	sge::renderer::size_type const _stride,
+	sge::renderer::size_type const _offset,
+	opengl::context::object &_context
+)
+:
+	stride_(_stride),
+	offset_(_offset),
+	context_(_context)
+{}
+
+sge::renderer::size_type
+sge::opengl::vf::actor_parameters::stride() const
 {
-	return
-		vf::convert_element_type(
-			_vector.element_type()
-		);
+	return stride_;
 }
 
-GLenum
-sge::opengl::vf::unspecified_format_visitor::operator()(
-	renderer::vf::dynamic::color const &_color
-) const
+sge::renderer::size_type
+sge::opengl::vf::actor_parameters::offset() const
 {
-	return
-		vf::convert_color_type(
-			_color.color_format()
-		);
+	return offset_;
+}
+
+sge::opengl::context::object &
+sge::opengl::vf::actor_parameters::context() const
+{
+	return context_;
 }

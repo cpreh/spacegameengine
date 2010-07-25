@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../color_actor.hpp"
+#include "../convert_color_type.hpp"
 #include "../../check_state.hpp"
-#include "../../convert/color_to_format.hpp"
 #include <sge/image/color/element_count.hpp>
 #include <sge/renderer/vf/dynamic/color.hpp>
 #include <sge/renderer/exception.hpp>
@@ -48,7 +48,7 @@ sge::opengl::vf::color_actor::color_actor(
 		static_cast<
 			GLenum
 		>(
-			opengl::convert::color_to_format(
+			vf::convert_color_type(
 				_color.color_format()
 			)
 		)

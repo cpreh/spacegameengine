@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/offset_list.hpp>
 #include <sge/renderer/vf/dynamic/detail/make_element_list.hpp>
 #include <sge/renderer/vf/dynamic/detail/make_offsets.hpp>
+#include <sge/renderer/vf/dynamic/format.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <boost/mpl/for_each.hpp>
 

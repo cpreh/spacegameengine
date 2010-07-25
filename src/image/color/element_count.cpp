@@ -18,37 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/color/format_stride.hpp>
 #include <sge/image/color/element_count.hpp>
 #include <sge/image/exception.hpp>
 #include <fcppt/text.hpp>
-#include <boost/cstdint.hpp>
-
-namespace
-{
 
 sge::image::size_type
-base_size(
-	sge::image::color::format::type const _format
+sge::image::color::element_count(
+	format::type const _format
 )
 {
-	namespace format = sge::image::color::format;
-
-	switch(_format)
+	switch(
+		_format
+	)
 	{
 	case format::gray8:
 	case format::alpha8:
-		return sizeof(boost::uint8_t);
+		return 1;
 	case format::rgba8:
 	case format::argb8:
 	case format::bgra8:
-		return sizeof(boost::uint8_t);
-	case format::rgb8:
-		return sizeof(boost::uint8_t);
 	case format::rgba32f:
 	case format::argb32f:
 	case format::bgra32f:
-		return sizeof(float);
+		return 4;
+	case format::rgb8:
+		return 3;
 	case format::size:
 		break;
 	}
@@ -56,20 +50,4 @@ base_size(
 	throw sge::image::exception(
 		FCPPT_TEXT("Invalid format in format_stride()!")
 	);
-}
-
-}
-
-sge::image::size_type
-sge::image::color::format_stride(
-	format::type const _format
-)
-{
-	return
-		color::element_count(
-			_format
-		)
-		* base_size(
-			_format
-		);
 }

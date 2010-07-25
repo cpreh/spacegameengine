@@ -18,30 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../unspecified_format_visitor.hpp"
-#include "../convert_element_type.hpp"
-#include "../convert_color_type.hpp"
-#include <sge/renderer/vf/dynamic/vector.hpp>
-#include <sge/renderer/vf/dynamic/color.hpp>
+#ifndef SGE_OPENGL_VF_CONVERT_COLOR_TYPE_HPP_INCLUDED
+#define SGE_OPENGL_VF_CONVERT_COLOR_TYPE_HPP_INCLUDED
+
+#include "../common.hpp"
+#include <sge/image/color/format.hpp>
+
+namespace sge
+{
+namespace opengl
+{
+namespace vf
+{
 
 GLenum
-sge::opengl::vf::unspecified_format_visitor::operator()(
-	renderer::vf::dynamic::vector const &_vector
-) const
-{
-	return
-		vf::convert_element_type(
-			_vector.element_type()
-		);
+convert_color_type(
+	image::color::format::type const _format
+);
+
+}
+}
 }
 
-GLenum
-sge::opengl::vf::unspecified_format_visitor::operator()(
-	renderer::vf::dynamic::color const &_color
-) const
-{
-	return
-		vf::convert_color_type(
-			_color.color_format()
-		);
-}
+#endif

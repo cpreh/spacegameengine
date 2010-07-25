@@ -18,30 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../unspecified_format_visitor.hpp"
-#include "../convert_element_type.hpp"
-#include "../convert_color_type.hpp"
-#include <sge/renderer/vf/dynamic/vector.hpp>
-#include <sge/renderer/vf/dynamic/color.hpp>
+#include <sge/renderer/vf/dynamic/unspecified.hpp>
 
-GLenum
-sge::opengl::vf::unspecified_format_visitor::operator()(
-	renderer::vf::dynamic::vector const &_vector
-) const
+sge::renderer::vf::dynamic::unspecified::unspecified(
+	unspecified_any const &_type,
+	vf::string const &_tag
+)
+:
+	type_(_type),
+	tag_(_tag)
+{}
+
+sge::renderer::vf::dynamic::unspecified_any const &
+sge::renderer::vf::dynamic::unspecified::type() const
 {
-	return
-		vf::convert_element_type(
-			_vector.element_type()
-		);
+	return type_;
 }
 
-GLenum
-sge::opengl::vf::unspecified_format_visitor::operator()(
-	renderer::vf::dynamic::color const &_color
-) const
+sge::renderer::vf::string const &
+sge::renderer::vf::dynamic::unspecified::tag() const
 {
-	return
-		vf::convert_color_type(
-			_color.color_format()
-		);
+	return tag_;
 }

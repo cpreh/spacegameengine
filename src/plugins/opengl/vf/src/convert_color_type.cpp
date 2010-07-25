@@ -18,30 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../unspecified_format_visitor.hpp"
-#include "../convert_element_type.hpp"
 #include "../convert_color_type.hpp"
-#include <sge/renderer/vf/dynamic/vector.hpp>
-#include <sge/renderer/vf/dynamic/color.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
 GLenum
-sge::opengl::vf::unspecified_format_visitor::operator()(
-	renderer::vf::dynamic::vector const &_vector
-) const
+sge::opengl::vf::convert_color_type(
+	image::color::format::type const _format
+)
 {
-	return
-		vf::convert_element_type(
-			_vector.element_type()
-		);
-}
+	switch(
+		_format
+	)
+	{
+	case image::color::format::gray8:
+	case image::color::format::alpha8:
+	case image::color::format::rgba8:
+	case image::color::format::rgb8:
+	case image::color::format::argb8:
+	case image::color::format::bgra8:
+		return GL_UNSIGNED_BYTE;
+	case image::color::format::bgra32f:
+	case image::color::format::argb32f:
+	case image::color::format::rgba32f:
+		return GL_FLOAT;
+	case image::color::format::size:
+		break;
+	}
 
-GLenum
-sge::opengl::vf::unspecified_format_visitor::operator()(
-	renderer::vf::dynamic::color const &_color
-) const
-{
-	return
-		vf::convert_color_type(
-			_color.color_format()
-		);
+	throw renderer::exception(
+		FCPPT_TEXT("Invalid color_format in color_color_type()!")
+	);
 }
