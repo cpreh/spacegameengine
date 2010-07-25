@@ -81,6 +81,22 @@ sge::console::object::register_fallback(
 	return fallback_.connect(c);
 }
 
+fcppt::signal::auto_connection
+sge::console::object::register_error_callback(
+	error_callback const &c
+)
+{
+	return error_.connect(c);
+}
+
+fcppt::signal::auto_connection
+sge::console::object::register_message_callback(
+	message_callback const &c
+)
+{
+	return message_.connect(c);
+}
+
 namespace
 {
 template <typename Iterator>
@@ -171,7 +187,9 @@ sge::console::object::eval(
 			FCPPT_TEXT('"')
 		);
 
-	it->second->signal()(args);
+	it->second->signal()(
+		args,
+		std::tr1::ref(*this));
 }
 
 sge::console::function_map const &
@@ -184,4 +202,20 @@ fcppt::char_type
 sge::console::object::prefix() const
 {
 	return prefix_;
+}
+
+void
+sge::console::object::emit_error(
+	fcppt::string const &s)
+{
+	error_(
+		s);
+}
+
+void
+sge::console::object::emit_message(
+	fcppt::string const &s)
+{
+	message_(
+		s);
 }

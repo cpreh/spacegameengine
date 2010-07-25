@@ -85,6 +85,18 @@ sge::console::gfx::gfx(
 			)
 		)
 	),
+	error_conn_(
+		object_.register_error_callback(
+			std::tr1::bind(
+				&gfx::error,
+				this,
+				std::tr1::placeholders::_1))),
+	message_conn_(
+		object_.register_message_callback(
+			std::tr1::bind(
+				&gfx::print_line,
+				this,
+				std::tr1::placeholders::_1))),
 	sprite_system_(
 		_rend),
 	background_(
@@ -274,10 +286,10 @@ sge::console::gfx::key_action(
 		case input::kc::key_up:
 			if (input_history_.empty())
 				return;
-			if (current_input_ != --input_history_.end())
-				++current_input_;
 			input_line_.string(
 				*current_input_);
+			if (current_input_ != --input_history_.end())
+				++current_input_;
 		break;
 		case input::kc::key_down:
 			if (current_input_ != input_history_.begin())
@@ -329,4 +341,13 @@ sge::console::gfx::key_action(
 		// else we get a million warnings about unhandled enumeration values
 		default: break;
 	}
+}
+
+void
+sge::console::gfx::error(
+	fcppt::string const &s)
+{
+	print_line(
+		FCPPT_TEXT("command error: ")+
+		s);
 }

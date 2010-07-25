@@ -30,66 +30,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/foreach.hpp>
 
 sge::console::stdlib::stdlib(
-	object &_object,
-	print_callback const &_print,
-	error_callback const &_error
-)
+	object &_object)
 :
 	object_(_object),
-	print_(_print),
-	error_(_error),
-		connections(
-			fcppt::assign::make_container<
-				fcppt::signal::connection_manager::container
-			>
-			(
-				fcppt::signal::shared_connection(
-					object_.insert(
-						FCPPT_TEXT("help"),
-						std::tr1::bind(
-							&stdlib::fn_help,
-							this,
-							std::tr1::placeholders::_1
-						),
-						FCPPT_TEXT("list available functions")
-					)
-				)
-			)
-			(
-				fcppt::signal::shared_connection(
-					object_.insert(
-						FCPPT_TEXT("lsfuncs"),
-						std::tr1::bind(
-							&stdlib::fn_help,
-							this,
-							std::tr1::placeholders::_1
-						),
-						FCPPT_TEXT("list available functions")
-					)
-				)
-			)
-			(
-				fcppt::signal::shared_connection(
-					object_.insert(
-						FCPPT_TEXT("man"),
-						std::tr1::bind(
-							&stdlib::fn_man,
-							this,
-							std::tr1::placeholders::_1
-						),
-						FCPPT_TEXT("usage: man <function> - display help to <function>")
-					)
-				)
-			)
-		)
+	connections(
+		fcppt::assign::make_container<
+			fcppt::signal::connection_manager::container
+		>
+		(
+			fcppt::signal::shared_connection(
+				object_.insert(
+					FCPPT_TEXT("help"),
+					std::tr1::bind(
+						&stdlib::fn_help,
+						this,
+						std::tr1::placeholders::_1),
+					FCPPT_TEXT("list available functions"))))
+		(
+			fcppt::signal::shared_connection(
+				object_.insert(
+					FCPPT_TEXT("lsfuncs"),
+					std::tr1::bind(
+						&stdlib::fn_help,
+						this,
+						std::tr1::placeholders::_1),
+					FCPPT_TEXT("list available functions"))))
+		(
+			fcppt::signal::shared_connection(
+				object_.insert(
+					FCPPT_TEXT("man"),
+					std::tr1::bind(
+						&stdlib::fn_man,
+						this,
+						std::tr1::placeholders::_1),
+					FCPPT_TEXT("usage: man <function> - display help to <function>")))))
 {
 }
 
-void sge::console::stdlib::fn_help(arg_list const &)
+void 
+sge::console::stdlib::fn_help(
+	arg_list const &)
 {
-	function_map const &fns = object_.functions();
+	function_map const &fns = 
+		object_.functions();
 
-	print_(
+	object_.emit_message(
 		fcppt::lexical_cast<
 			fcppt::string
 		>(
@@ -99,34 +84,44 @@ void sge::console::stdlib::fn_help(arg_list const &)
 	);
 
 	BOOST_FOREACH(function_map::const_reference p,fns)
-		print_function(p);
+		print_function(
+			p);
 }
 
-void sge::console::stdlib::fn_man(arg_list const &v)
+void 
+sge::console::stdlib::fn_man(
+	arg_list const &v)
 {
 	if (v.size() < 2 || v[1].empty())
-	{
-		error_(FCPPT_TEXT("no function given"));
-		return;
-	}
+		object_.emit_error(
+			FCPPT_TEXT("no function given"));
 
-	function_map const &fns = object_.functions();
+	function_map const &fns = 
+		object_.functions();
 
-	function_map::const_iterator i = fns.find(v[1]);
+	function_map::const_iterator i = 
+		fns.find(
+			v[1]);
 
 	if (i == fns.end())
 	{
-		error_(FCPPT_TEXT("function \"")+v[1]+FCPPT_TEXT("\" not found"));
+		object_.emit_error(
+			FCPPT_TEXT("function \"")+v[1]+FCPPT_TEXT("\" not found"));
 		return;
 	}
 
-	print_function(*i);
+	print_function(
+		*i);
 }
 
-void sge::console::stdlib::print_function(function_map::const_reference p)
+void 
+sge::console::stdlib::print_function(
+	function_map::const_reference p)
 {
 	if (p.second->description().empty())
-		print_(p.first);
+		object_.emit_message(
+			p.first);
 	else
-		print_(p.first+FCPPT_TEXT(": ")+p.second->description());
+		object_.emit_message(
+			p.first+FCPPT_TEXT(": ")+p.second->description());
 }
