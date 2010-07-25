@@ -19,8 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/font/text_size.hpp>
+#include <sge/font/line_width.hpp>
+#include <sge/font/text_part.hpp>
+#include <sge/font/height.hpp>
+#include <sge/font/unit.hpp>
+#include <sge/font/dim.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 
-sge::font::text_size const
+sge::font::text_part const
 sge::font::text_size(
 	font::object const &_object,
 	string::const_iterator sbeg,
@@ -33,12 +39,18 @@ sge::font::text_size(
 		dim::null()
 	);
 
+	unit const height(
+		font::height(
+			_object
+		)
+	);
+
 	while(
 		sbeg != send
-		&& sz.h() + height() <= max_sz.h()
+		&& sz.h() + height <= max_sz.h()
 	)
 	{
-		font::text_size const line_size(
+		font::text_part const line_size(
 			font::line_width(
 				_object,
 				sbeg,
@@ -54,12 +66,12 @@ sge::font::text_size(
 
 		sz.w() = std::max(sz.w(), line_w);
 
-		sz.h() += height();
+		sz.h() += height;
 
 		sbeg = line_size.next_begin();
 
 		if(
-			flags & flags::no_multi_line
+			_flags & flags::no_multi_line
 		)
 			break;
 	}
@@ -72,8 +84,8 @@ sge::font::text_size(
 		);
 }
 
-sge::font::text_size const
-sge::font::object::text_size(
+sge::font::text_part const
+sge::font::text_size(
 	font::object const &_object,
 	font::string const &_string,
 	dim const &_max_sz,

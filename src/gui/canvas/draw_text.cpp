@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/canvas/object.hpp>
 #include <sge/gui/canvas/font_drawer.hpp>
 #include <sge/font/object.hpp>
-#include <sge/font/text_size.hpp>
+#include <sge/font/text_part.hpp>
+#include <sge/font/draw_text.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/text.hpp>
@@ -36,7 +37,7 @@ void sge::gui::canvas::object::draw_text(
 	dim const &max_size,
 	font::align_h::type const h,
 	font::align_v::type const v,
-	font::flag_t const f,
+	font::flags_field const &f,
 	optional_character_pos cp,
 	point *const p)
 {
@@ -54,19 +55,20 @@ void sge::gui::canvas::object::draw_text(
 		cp = (*cp) - filter;
 	}
 
-	font::object(
-		font.metrics(),
-		fcppt::make_shared_ptr<
-			canvas::font_drawer
-		>(
-			std::tr1::ref(
-				view_
-			),
-			font.color(),
-			cp,
-			p
-		)
-	).draw_text(
+	font::draw_text(
+		font::object(
+			font.metrics(),
+			fcppt::make_shared_ptr<
+				canvas::font_drawer
+			>(
+				std::tr1::ref(
+					view_
+				),
+				font.color(),
+				cp,
+				p
+			)
+		),
 		text,
 		pos,
 		max_size,

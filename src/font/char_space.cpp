@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/char_space.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/metrics.hpp>
-#include <sge/font/char_metrics.hpp>
+#include <sge/font/char_metric.hpp>
 
 sge::font::unit
-sge::font::object::char_space(
+sge::font::char_space(
 	font::object const &_object,
 	font::char_type const ch
 )

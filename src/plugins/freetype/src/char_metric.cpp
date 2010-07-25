@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::freetype::char_metric::char_metric(
 	face &face_,
-	fcppt::char_type const ch
+	font::char_type const ch
 )
 :
 	buffer_(),

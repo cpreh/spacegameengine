@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/metrics.hpp>
 #include <sge/font/size_type.hpp>
 #include <sge/font/unit.hpp>
+#include <sge/font/char_type.hpp>
 #include <fcppt/filesystem/path.hpp>
-#include <fcppt/char_type.hpp>
 #include <map>
 
 namespace sge
@@ -36,7 +36,10 @@ namespace sge
 namespace freetype
 {
 
-class metrics : public font::metrics {
+class metrics
+:
+	public font::metrics
+{
 public:
 	metrics(
 		library &lib,
@@ -44,9 +47,11 @@ public:
 		font::size_type font_height
 	);
 
+	~metrics();
+
 	font::char_metric_ptr const
 	load_char(
-		fcppt::char_type c
+		font::char_type c
 	);
 
 	font::unit line_height() const;
@@ -55,7 +60,7 @@ private:
 	font::size_type pixel_size;
 
 	typedef std::map<
-		fcppt::char_type,
+		font::char_type,
 		font::char_metric_ptr
 	> buffer_type;
 

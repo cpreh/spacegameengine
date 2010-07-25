@@ -18,35 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_DRAW_TEXT_HPP_INCLUDED
-#define SGE_FONT_DRAW_TEXT_HPP_INCLUDED
-
-#include <sge/font/object_fwd.hpp>
-#include <sge/font/pos.hpp>
-#include <sge/font/dim.hpp>
-#include <sge/font/align_h.hpp>
-#include <sge/font/align_v.hpp>
-#include <sge/font/flags_field.hpp>
-#include <sge/font/text_part_fwd.hpp>
-#include <sge/font/string.hpp>
-#include <sge/symbol.hpp>
+#ifndef SGE_FREETYPE_LIBRARY_FWD_HPP_INCLUDED
+#define SGE_FREETYPE_LIBRARY_FWD_HPP_INCLUDED
 
 namespace sge
 {
-namespace font
+namespace freetype
 {
-	
-SGE_SYMBOL
-font::text_part const
-draw_text(
-	object const &,
-	string const &text,
-	pos const &start_pos,
-	dim const &max_size,
-	align_h::type,
-	align_v::type,
-	flags_field const &
-);
+
+class library;
 
 }
 }

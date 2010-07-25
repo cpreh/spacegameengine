@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/object_fwd.hpp>
 #include <sge/font/drawer_ptr.hpp>
 #include <sge/font/metrics_ptr.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {

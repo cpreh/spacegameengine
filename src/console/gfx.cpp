@@ -27,6 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key_pair.hpp>
 #include <sge/font/text_size.hpp>
 #include <sge/font/flags_none.hpp>
+#include <sge/font/height.hpp>
+#include <sge/font/draw_text.hpp>
 #include <sge/font/text_part.hpp>
 #include <sge/font/pos.hpp>
 #include <sge/time/second_f.hpp>
@@ -175,12 +177,12 @@ sge::console::gfx::draw()
 	
 	output_line_sequence::size_type const line_count = 
 		static_cast<output_line_sequence::size_type>(
-			(background_.h()-font_.height())/
-			font_.height() + 1);
+			(background_.h())/
+			font::height(font_));
 	
 	font::unit current_y = 
 		static_cast<font::unit>(
-			background_.y()+background_.h()-2*font_.height());
+			background_.y()+background_.h()-2*font::height(font_));
 			
 	for(
 		output_line_sequence::const_iterator 
@@ -195,36 +197,42 @@ sge::console::gfx::draw()
 		++i)
 	{
 		// draw history lines
-		font_.draw_text(
+		font::draw_text(
+			font_,
 			*i,
 			font::pos(
 				background_.x(),
 				current_y),
 			font::dim(
 				background_.w(), 
-				background_.h() - font_.height()),
+				background_.h() - font::height(font_)),
 			font::align_h::left,
-			font::align_v::top);
+			font::align_v::top,
+			font::flags::none);
 		current_y -= 
-			font_.height();
+			font::height(font_);
 	}
 
 	fcppt::string const il = 
 		input_line_.edited(
 			cursor_active_);
 
-	font_.draw_text(
+	font::draw_text(
+		font_,
 		il,
 		font::pos(
 			static_cast<font::unit>(
 				background_.x()),
 			static_cast<font::unit>(
-				background_.y()+background_.h()-font_.height())),
+				background_.y()+background_.h()-font::height(font_))),
 		font::dim(
 			static_cast<font::unit>(
 				background_.w()),
 			static_cast<font::unit>(
-				font_.height())));
+				font::height(font_))),
+		font::align_h::left,
+		font::align_v::top,
+		font::flags::none);
 
 	if (cursor_blink_.update_b())
 		cursor_active_ = !cursor_active_;

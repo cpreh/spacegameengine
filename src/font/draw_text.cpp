@@ -21,26 +21,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "align_pos_v.hpp"
 #include "align_pos_h.hpp"
 #include <sge/font/draw_text.hpp>
+#include <sge/font/object.hpp>
 #include <sge/font/metrics.hpp>
 #include <sge/font/char_metric.hpp>
 #include <sge/font/drawer.hpp>
 #include <sge/font/text_size.hpp>
 #include <sge/font/line_width.hpp>
 #include <sge/font/height.hpp>
+#include <sge/font/char_space.hpp>
 #include <sge/font/text_part.hpp>
 #include <sge/font/exception.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/text.hpp>
 
 sge::font::text_part const
 sge::font::draw_text(
 	font::object const &_object,
-	font::string const &text,
-	pos const &start_pos,
-	dim const &max_sz,
-	align_h::type const align_h,
-	align_v::type const align_v,
-	flags_field const &flags
+	font::string const &_text,
+	pos const &_start_pos,
+	dim const &_max_sz,
+	align_h::type const _align_h,
+	align_v::type const _align_v,
+	flags_field const &_flags
 )
 {
 	if(
@@ -57,41 +60,42 @@ sge::font::draw_text(
 	);
 
 	if(
-		text.empty()
-		|| height > max_sz.h()
+		_text.empty()
+		|| height > _max_sz.h()
 	)
 		return
 			font::text_part(
 				dim::null(),
-				text.begin(),
-				text.begin()
+				_text.begin(),
+				_text.begin()
 			);
 
-	font::text_size const total_size(
+	font::text_part const total_size(
 		font::text_size(
-			text.begin(),
-			text.end(),
-			max_sz,
-			flags
+			_object,
+			_text.begin(),
+			_text.end(),
+			_max_sz,
+			_flags
 		)
 	);
 
-	pos pos_ = start_pos;
+	font::pos pos = _start_pos;
 
 	font::align_pos_v(
-		pos_,
-		max_sz,
+		pos,
+		_max_sz,
 		total_size,
-		align_v
+		_align_v
 	);
 
 	font::string::const_iterator sbeg(
-		text.begin()
+		_text.begin()
 	);
 
-	object_.drawer()->begin_rendering(
-		text.size(),
-		pos_,
+	_object.drawer()->begin_rendering(
+		_text.size(),
+		pos,
 		total_size.size()
 	);
 
@@ -99,22 +103,23 @@ sge::font::draw_text(
 		sbeg != total_size.next_begin()
 	)
 	{
-		font::text_size const line_size(
+		font::text_part const line_size(
 			font::line_width(
+				_object,
 				sbeg,
-				text.end(),
-				max_sz.w(),
-				flags
+				_text.end(),
+				_max_sz.w(),
+				_flags
 			)
 		);
 
-		pos_.x() = start_pos.x();
+		pos.x() = _start_pos.x();
 
 		font::align_pos_h(
-			pos_,
-			max_sz,
+			pos,
+			_max_sz,
 			line_size,
-			align_h
+			_align_h
 		);
 
 		for(
@@ -131,11 +136,11 @@ sge::font::draw_text(
 
 			_object.drawer()->draw_char(
 				*sbeg,
-				pos_ + cm->offset(),
+				pos + cm->offset(),
 				cm->pixmap()
 			);
 
-			pos_.x() +=
+			pos.x() +=
 				font::char_space(
 					_object,
 					*sbeg
@@ -144,7 +149,7 @@ sge::font::draw_text(
 
 		sbeg = line_size.next_begin();
 
-		pos_.y() += height;
+		pos.y() += height;
 	}
 
 	_object.drawer()->end_rendering();

@@ -21,11 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "unlimited_text_size.hpp"
 #include <sge/gui/dim.hpp>
 #include <sge/font/object.hpp>
+#include <sge/font/text_size.hpp>
 #include <sge/font/dim.hpp>
 #include <sge/font/unit.hpp>
-#include <sge/font/text_size.hpp>
+#include <sge/font/flags_none.hpp>
+#include <sge/font/text_part.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <limits>
 
 sge::gui::dim const
@@ -35,12 +38,14 @@ sge::gui::utility::unlimited_text_size(
 )
 {
 	return fcppt::math::dim::structure_cast<dim>(
-		font::object(f).text_size(
+		font::text_size(
+			font::object(f),
 			t,
 			font::dim(
 				std::numeric_limits<font::unit>::max(),
 				std::numeric_limits<font::unit>::max()
-			)
+			),
+			sge::font::flags::none
 		).size()
 	);
 }
