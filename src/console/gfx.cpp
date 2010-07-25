@@ -26,6 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key_code.hpp>
 #include <sge/input/key_pair.hpp>
 #include <sge/font/text_size.hpp>
+#include <sge/font/flags_none.hpp>
+#include <sge/font/height.hpp>
+#include <sge/font/draw_text.hpp>
+#include <sge/font/text_part.hpp>
 #include <sge/font/pos.hpp>
 #include <sge/time/second_f.hpp>
 #include <sge/sprite/external_system_impl.hpp>
@@ -151,10 +155,12 @@ sge::console::gfx::gfx(
 		static_cast<fcppt::string::size_type>(
 			static_cast<font::unit>(
 				background_.size().w())/
-			font_.text_size(
+			font::text_size(
+				font_,
 				FCPPT_TEXT("W"),
 				fcppt::math::dim::structure_cast<font::dim>(
-					background_.size())).size().w()))
+					background_.size()),
+				font::flags::none).size().w()))
 {
 	fcppt::io::cout << "calculated " << max_line_chars_ << " as maximum number of chars in one line\n";
 }
@@ -181,7 +187,7 @@ sge::console::gfx::draw()
 	
 	font::unit current_y = 
 		static_cast<font::unit>(
-			background_.y()+background_.h()-2*font_.height());
+			background_.y()+background_.h()-2*font::height(font_));
 			
 	for(
 		output_line_sequence::const_iterator 
@@ -196,36 +202,42 @@ sge::console::gfx::draw()
 		++i)
 	{
 		// draw history lines
-		font_.draw_text(
+		font::draw_text(
+			font_,
 			*i,
 			font::pos(
 				background_.x(),
 				current_y),
 			font::dim(
 				background_.w(), 
-				background_.h() - font_.height()),
+				background_.h() - font::height(font_)),
 			font::align_h::left,
-			font::align_v::top);
+			font::align_v::top,
+			font::flags::none);
 		current_y -= 
-			font_.height();
+			font::height(font_);
 	}
 
 	fcppt::string const il = 
 		input_line_.edited(
 			cursor_active_);
 
-	font_.draw_text(
+	font::draw_text(
+		font_,
 		il,
 		font::pos(
 			static_cast<font::unit>(
 				background_.x()),
 			static_cast<font::unit>(
-				background_.y()+background_.h()-font_.height())),
+				background_.y()+background_.h()-font::height(font_))),
 		font::dim(
 			static_cast<font::unit>(
 				background_.w()),
 			static_cast<font::unit>(
-				font_.height())));
+				font::height(font_))),
+		font::align_h::left,
+		font::align_v::top,
+		font::flags::none);
 
 	if (cursor_blink_.update_b())
 		cursor_active_ = !cursor_active_;

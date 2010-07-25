@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FREETYPE_LIBRARY_HPP_INCLUDED
 #define SGE_FREETYPE_LIBRARY_HPP_INCLUDED
 
+#include "library_fwd.hpp"
 #include "freetype.hpp"
 #include <fcppt/noncopyable.hpp>
 
@@ -29,7 +30,8 @@ namespace sge
 namespace freetype
 {
 
-class library {
+class library
+{
 	FCPPT_NONCOPYABLE(library)
 public:
 	library();

@@ -21,27 +21,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FREETYPE_CHAR_METRIC_HPP_INCLUDED
 #define SGE_FREETYPE_CHAR_METRIC_HPP_INCLUDED
 
+#include "face_fwd.hpp"
 #include <sge/font/pos.hpp>
 #include <sge/font/unit.hpp>
 #include <sge/font/char_metric.hpp>
 #include <sge/font/image_view.hpp>
+#include <sge/font/char_type.hpp>
 #include <sge/image/alpha8.hpp>
 #include <sge/image/store.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
-#include <fcppt/char_type.hpp>
 
 namespace sge
 {
 namespace freetype
 {
 
-class face;
-
-class char_metric : public font::char_metric {
+class char_metric
+:
+	public font::char_metric
+{
 public:
-	char_metric(
+	explicit char_metric(
 		face &,
-		fcppt::char_type
+		font::char_type
 	);
 
 	~char_metric();

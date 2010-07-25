@@ -18,41 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_OBJECT_HPP_INCLUDED
-#define SGE_FONT_OBJECT_HPP_INCLUDED
+#include <sge/font/text_part.hpp>
 
-#include <sge/font/object_fwd.hpp>
-#include <sge/font/drawer_ptr.hpp>
-#include <sge/font/metrics_ptr.hpp>
-#include <sge/symbol.hpp>
+sge::font::text_part::text_part(
+	dim const &size_,
+	string::const_iterator const end_,
+	string::const_iterator const next_begin_
+)
+:
+	size_(size_),
+	end_(end_),
+	next_begin_(next_begin_)
+{}
 
-namespace sge
+sge::font::dim const &
+sge::font::text_part::size() const
 {
-namespace font
-{
-
-class object
-{
-public:
-	SGE_SYMBOL explicit object(
-		metrics_ptr metrics,
-		drawer_ptr drawer = drawer_ptr()
-	);
-
-	SGE_SYMBOL ~object();
-
-	SGE_SYMBOL metrics_ptr const
-	metrics() const;
-
-	SGE_SYMBOL drawer_ptr const
-	drawer() const;
-private:
-	metrics_ptr metrics_;
-
-	drawer_ptr drawer_;
-};
-
-}
+	return size_;
 }
 
-#endif
+sge::font::text_part::const_iterator
+sge::font::text_part::end() const
+{
+	return end_;
+}
+
+sge::font::text_part::const_iterator
+sge::font::text_part::next_begin() const
+{
+	return next_begin_;
+}

@@ -18,38 +18,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_OBJECT_HPP_INCLUDED
-#define SGE_FONT_OBJECT_HPP_INCLUDED
+#ifndef SGE_FONT_TEXT_PART_HPP_INCLUDED
+#define SGE_FONT_TEXT_PART_HPP_INCLUDED
 
-#include <sge/font/object_fwd.hpp>
-#include <sge/font/drawer_ptr.hpp>
-#include <sge/font/metrics_ptr.hpp>
+#include <sge/font/text_part_fwd.hpp>
+#include <sge/font/dim.hpp>
+#include <sge/font/string.hpp>
 #include <sge/symbol.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 
 namespace sge
 {
 namespace font
 {
 
-class object
+class text_part
 {
 public:
-	SGE_SYMBOL explicit object(
-		metrics_ptr metrics,
-		drawer_ptr drawer = drawer_ptr()
+	typedef string::const_iterator const_iterator;
+
+	SGE_SYMBOL text_part(
+		dim const &sz,
+		string::const_iterator end,
+		string::const_iterator next_begin
 	);
 
-	SGE_SYMBOL ~object();
+	/// The size of this text part
+	SGE_SYMBOL dim const &
+	size() const;
 
-	SGE_SYMBOL metrics_ptr const
-	metrics() const;
+	/// The end() iterator for this text part.
+	/**
+	 * Don't render the text any further than this.
+	*/
+	SGE_SYMBOL const_iterator
+	end() const;
 
-	SGE_SYMBOL drawer_ptr const
-	drawer() const;
+	/// The next iterator one should start with to draw the next part.
+	SGE_SYMBOL const_iterator
+	next_begin() const;
 private:
-	metrics_ptr metrics_;
+	dim size_;
 
-	drawer_ptr drawer_;
+	const_iterator
+		end_,
+		next_begin_;
 };
 
 }

@@ -24,10 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/drawer_fwd.hpp>
 #include <sge/font/pos.hpp>
 #include <sge/font/dim.hpp>
-#include <sge/font/image_view.hpp>
+#include <sge/font/const_image_view.hpp>
+#include <sge/font/char_type.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
-#include <fcppt/char_type.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <cstddef>
 
@@ -51,7 +51,7 @@ public:
 
 	virtual void
 	draw_char(
-		fcppt::char_type,
+		font::char_type,
 		pos const &,
 		const_image_view const &data
 	) = 0;
