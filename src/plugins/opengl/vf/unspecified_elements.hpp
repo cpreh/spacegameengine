@@ -18,16 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VF_ATTRIBUTE_ACTOR_HPP_INCLUDED
-#define SGE_OPENGL_VF_ATTRIBUTE_ACTOR_HPP_INCLUDED
+#ifndef SGE_OPENGL_VF_UNSPECIFIED_ELEMENTS_HPP_INCLUDED
+#define SGE_OPENGL_VF_UNSPECIFIED_ELEMENTS_HPP_INCLUDED
 
-#include "pointer_actor.hpp"
-#include "client_state_combiner_fwd.hpp"
-#include "attribute_context_fwd.hpp"
-#include "actor_parameters_fwd.hpp"
-#include "pointer.hpp"
-#include "../context/object_fwd.hpp"
-#include <sge/renderer/vf/dynamic/unspecified_fwd.hpp>
+#include "../common.hpp"
+#include <sge/renderer/vf/dynamic/unspecified_any.hpp>
 
 namespace sge
 {
@@ -36,33 +31,10 @@ namespace opengl
 namespace vf
 {
 
-class attribute_actor
-:
-	public pointer_actor
-{
-public:
-	explicit attribute_actor(
-		actor_parameters const &,
-		renderer::vf::dynamic::unspecified const &
-	);
-private:
-	void
-	operator()(
-		client_state_combiner &,
-		vf::pointer
-	) const;
-
-	void
-	unuse(
-		client_state_combiner &
-	) const;
-
-	vf::attribute_context &context_;
-
-	GLint const elements_;
-
-	GLenum const format_;
-};
+GLint
+unspecified_elements(
+	renderer::vf::dynamic::unspecified_any const &
+);
 
 }
 }

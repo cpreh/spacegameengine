@@ -18,38 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VF_CONVERT_NUM_ELEMENTS_HPP_INCLUDED
-#define SGE_OPENGL_VF_CONVERT_NUM_ELEMENTS_HPP_INCLUDED
+#include "../unspecified_format_visitor.hpp"
+#include "../convert_element_type.hpp"
+#include "../../convert/color_to_format_type.hpp"
+#include <sge/renderer/vf/dynamic/vector.hpp>
+#include <sge/renderer/vf/dynamic/color.hpp>
 
-#include "../common.hpp"
-#include <sge/renderer/vf/dynamic/vector_fwd.hpp>
-#include <sge/renderer/vf/dynamic/color_fwd.hpp>
-
-namespace sge
+GLenum
+sge::opengl::vf::unspecified_format_visitor::operator()(
+	renderer::vf::dynamic::vector const &_vector
+) const
 {
-namespace opengl
-{
-namespace vf
-{
-
-class convert_num_elements
-{
-public:
-	typedef GLint result_type;
-
-	result_type
-	operator()(
-		renderer::vf::dynamic::vector const &
-	) const;
-
-	GLint
-	operator()(
-		renderer::vf::dynamic::color const &
-	) const;
-};
-
-}
-}
+	return
+		vf::convert_element_type(
+			_vector.element_type()
+		);
 }
 
-#endif
+GLenum
+sge::opengl::vf::unspecified_format_visitor::operator()(
+	renderer::vf::dynamic::color const &c
+) const
+{
+	return
+		opengl::convert::color_to_format_type(
+			c.color_format()
+		);
+}

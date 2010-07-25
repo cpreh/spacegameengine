@@ -18,32 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../convert_format.hpp"
-#include "../convert_element_type.hpp"
-#include "../../convert/color_to_format_type.hpp"
-#include <sge/renderer/vf/dynamic/vector.hpp>
-#include <sge/renderer/vf/dynamic/color.hpp>
-#include <sge/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_OPENGL_VF_UNSPECIFIED_FORMAT_VISITOR_HPP_INCLUDED
+#define SGE_OPENGL_VF_UNSPECIFIED_FORMAT_VISITOR_HPP_INCLUDED
 
-GLenum
-sge::opengl::vf::convert_format::operator()(
-	renderer::vf::dynamic::vector const &_vector
-) const
+#include "../common.hpp"
+#include <sge/renderer/vf/dynamic/vector_fwd.hpp>
+#include <sge/renderer/vf/dynamic/color_fwd.hpp>
+
+namespace sge
 {
-	return
-		vf::convert_element_type(
-			_vector.element_type()
-		);
+namespace opengl
+{
+namespace vf
+{
+
+class unspecified_format_visitor
+{
+public:
+	typedef GLenum result_type;
+
+	result_type
+	operator()(
+		renderer::vf::dynamic::vector const &
+	) const;
+
+	result_type
+	operator()(
+		renderer::vf::dynamic::color const &
+	) const;
+};
+
+}
+}
 }
 
-GLenum
-sge::opengl::vf::convert_format::operator()(
-	renderer::vf::dynamic::color const &c
-) const
-{
-	return
-		opengl::convert::color_to_format_type(
-			c.color_format()
-		);
-}
+#endif

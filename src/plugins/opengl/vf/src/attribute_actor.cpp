@@ -20,34 +20,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../attribute_actor.hpp"
 #include "../attribute_context.hpp"
-#include "../convert_num_elements.hpp"
+#include "../actor_parameters.hpp"
+#include "../unspecified_elements.hpp"
+#include "../unspecified_format.hpp"
 #include "../client_state_combiner.hpp"
 #include "../../context/use.hpp"
 #include "../../on_not_supported.hpp"
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
-#include <fcppt/variant/apply_unary.hpp>
 
 sge::opengl::vf::attribute_actor::attribute_actor(
-	opengl::context::object &_context,
-	renderer::vf::dynamic::ordered_element const &_element,
-	renderer::vf::vertex_size const _stride
+	actor_parameters const &_param,
+	renderer::vf::dynamic::unspecified const &_unspec
 )
 :
 	pointer_actor(
-		_element,
-		_stride
+		_param
 	),
 	context_(
 		opengl::context::use<
 			attribute_context
 		>(
-			_context
+			_param.context()
 		)
 	),
 	elements_(
-		fcppt::variant::apply_unary(
-			convert_num_elements(),
-			_element.element().info()
+		vf::unspecified_elements(
+			_unspec.type()
+		)
+	),
+	format_(
+		vf::unspecified_format(
+			_unspec.type()
 		)
 	)
 {
@@ -63,20 +66,25 @@ sge::opengl::vf::attribute_actor::attribute_actor(
 
 void
 sge::opengl::vf::attribute_actor::operator()(
-	client_state_combiner &c
+	client_state_combiner &_combiner,
+	vf::pointer const _src
 ) const
 {
 	context_.vertex_attrib_pointer()(
-		index_,
+		42,//index_,
 		elements_,
-		format(),
+		format_,
 		GL_TRUE, // normalized
-		stride(),
-		pointer()
+		static_cast<
+			GLsizei
+		>(
+			stride()
+		),
+		_src
 	);
 
-	c.enable_attribute(
-		gl_index()
+	_combiner.enable_attribute(
+		42 //gl_index()
 	);
 }
 
@@ -86,17 +94,6 @@ sge::opengl::vf::attribute_actor::unuse(
 ) const
 {
 	c.disable_attribute(
-		gl_index()
+		42//gl_index()
 	);
-}
-
-GLuint
-sge::opengl::vf::attribute_actor::gl_index() const
-{
-	return
-		static_cast<
-			GLuint
-		>(
-			index() + 1u
-		);
 }

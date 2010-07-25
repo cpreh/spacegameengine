@@ -18,24 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../convert_num_elements.hpp"
-#include <sge/renderer/vf/dynamic/vector.hpp>
-#include <sge/renderer/vf/dynamic/color.hpp>
+#ifndef SGE_OPENGL_VF_UNSPECIFIED_ELEMENTS_VISITOR_HPP_INCLUDED
+#define SGE_OPENGL_VF_UNSPECIFIED_ELEMENTS_VISITOR_HPP_INCLUDED
 
-GLint
-sge::opengl::vf::convert_num_elements::operator()(
-	renderer::vf::dynamic::vector const &v
-) const
+#include "../common.hpp"
+#include <sge/renderer/vf/dynamic/vector_fwd.hpp>
+#include <sge/renderer/vf/dynamic/color_fwd.hpp>
+
+namespace sge
 {
-	return static_cast<GLint>(
-		v.elements()
-	);
+namespace opengl
+{
+namespace vf
+{
+
+class unspecified_elements_visitor
+{
+public:
+	typedef GLint result_type;
+
+	result_type
+	operator()(
+		renderer::vf::dynamic::vector const &
+	) const;
+
+	GLint
+	operator()(
+		renderer::vf::dynamic::color const &
+	) const;
+};
+
+}
+}
 }
 
-GLint
-sge::opengl::vf::convert_num_elements::operator()(
-	renderer::vf::dynamic::color const &
-) const
-{
-	return 4; // FIXME!
-}
+#endif
