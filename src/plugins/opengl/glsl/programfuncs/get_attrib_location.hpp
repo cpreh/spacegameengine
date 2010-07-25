@@ -18,40 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ERROR_CHECK_STATE_HPP_INCLUDED
-#define SGE_ERROR_CHECK_STATE_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLSL_PROGRAMFUNCS_GET_ATTRIB_LOCATION_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_PROGRAMFUNCS_GET_ATTRIB_LOCATION_HPP_INCLUDED
 
-#include <fcppt/preprocessor/stringize.hpp>
-#include <fcppt/preprocessor/file.hpp>
-#include <fcppt/format.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/string.hpp>
+#include "../../common.hpp"
 
-#define SGE_ERROR_CHECK_STATE(\
-	exception,\
-	message,\
-	error_type,\
-	function,\
-	success_code, \
-	error_code_function \
-) \
-{ \
-	error_type const sge_return_value_(\
-		function \
-	); \
-	\
-	if(sge_return_value_ != success_code)\
-		throw exception(\
-			(\
-				fcppt::format(\
-					FCPPT_TEXT("Function failed in %1%:%2% (errorcode: %3%): %4%")\
-				) \
-				% FCPPT_PP_FILE \
-				% FCPPT_PP_STRINGIZE(__LINE__) \
-				% error_code_function(sge_return_value_) \
-				% (message) \
-			).str() \
-		);\
-} \
+namespace sge
+{
+namespace opengl
+{
+namespace glsl
+{
+namespace programfuncs
+{
+
+template<
+	typename Environment
+>
+GLint
+get_attrib_location(
+	typename Environment::program_context const &,
+	typename Environment::handle,
+	char const *name
+);
+
+}
+}
+}
+}
 
 #endif

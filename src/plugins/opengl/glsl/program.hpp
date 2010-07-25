@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "program_holder.hpp"
 #include "attachment_fwd.hpp"
 #include "../context/object_fwd.hpp"
+#include "../common.hpp"
 #include <sge/renderer/glsl/uniform/variable_ptr.hpp>
 #include <sge/renderer/glsl/pixel_shader_ptr.hpp>
 #include <sge/renderer/glsl/program.hpp>
@@ -63,6 +64,11 @@ public:
 
 	void
 	unuse();
+
+	GLint
+	location(
+		sge::renderer::glsl::string const &
+	) const;
 private:
 	// overridden functions
 	renderer::glsl::uniform::variable_ptr const

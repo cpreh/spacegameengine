@@ -67,7 +67,7 @@ sge::opengl::vf::attribute_actor::operator()(
 ) const
 {
 	context_.vertex_attrib_pointer()(
-		gl_index(),
+		index_,
 		elements_,
 		format(),
 		GL_TRUE, // normalized

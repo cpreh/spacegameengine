@@ -65,6 +65,8 @@ public:
 
 	typedef void (*gl_program_info_log)(handle, GLint, GLint *, char *);
 
+	typedef GLint (*gl_get_attrib_location)(handle, GLcharARB const *);
+
 	gl_create_program
 	create_program() const;
 	
@@ -88,6 +90,9 @@ public:
 
 	gl_program_info_log
 	program_info_log() const;
+
+	gl_get_attrib_location
+	get_attrib_location() const;
 
 	GLenum
 	link_status_type() const;
@@ -114,6 +119,8 @@ private:
 	gl_use_program const use_program_;
 
 	gl_program_info_log const program_info_log_;
+
+	gl_get_attrib_location const get_attrib_location_;
 
 	GLenum const
 		link_status_type_,
