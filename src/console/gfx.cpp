@@ -37,8 +37,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/assert.hpp>
+#include <fcppt/io/cout.hpp>
 #include <boost/foreach.hpp>
 #include <locale>
+
+namespace
+{
+typedef
+std::vector
+<
+	std::string
+>
+line_sequence;
+
+line_sequence const
+wrap(
+	fcppt::string const &s,
+	fcppt::string::size_type const n)
+{
+	FCPPT_ASSERT(
+		s.find(FCPPT_TEXT('\n')) == fcppt::string::npos);
+
+	line_sequence lines;
+
+	for (fcppt::string::size_type i = 0; i < s.length(); i += n)
+		lines.push_back(
+			s.substr(
+				i,
+				n));
+
+	return lines;
+}
+}
 
 sge::console::gfx::gfx(
 	sge::console::object &_object,
@@ -116,8 +146,17 @@ sge::console::gfx::gfx(
 	current_input_(
 		input_history_.begin()),
 	output_lines_(
-		_line_limit)
+		_line_limit),
+	max_line_chars_(
+		static_cast<fcppt::string::size_type>(
+			static_cast<font::unit>(
+				background_.size().w())/
+			font_.text_size(
+				FCPPT_TEXT("W"),
+				fcppt::math::dim::structure_cast<font::dim>(
+					background_.size())).size().w()))
 {
+	fcppt::io::cout << "calculated " << max_line_chars_ << " as maximum number of chars in one line\n";
 }
 
 sge::console::gfx::~gfx() {}
@@ -210,8 +249,19 @@ sge::console::gfx::print_line(
 {
 	FCPPT_ASSERT(
 		_s.find(FCPPT_TEXT('\n')) == fcppt::string::npos);
-	output_lines_.push_front(
-		_s);
+
+fcppt::io::cout << "string has " << _s.length() << " characters. maximum size is " <<  max_line_chars_ << "\n";
+
+	BOOST_FOREACH(
+		fcppt::string const &l,
+		wrap(
+			_s,
+			max_line_chars_))
+	{
+		fcppt::io::cout << "pushing: " << l << "\n";
+		output_lines_.push_front(
+			l);
+	}
 }
 
 sge::console::object &
