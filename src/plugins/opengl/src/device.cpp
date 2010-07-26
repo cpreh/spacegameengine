@@ -28,6 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../default_target.hpp"
 #include "../light.hpp"
 #include "../enable.hpp"
+#include "../enable_bool.hpp"
+#include "../disable.hpp"
 #include "../set_texture_level.hpp"
 #include "../set_texture_stage.hpp"
 #include "../set_texture_stage_scale.hpp"
@@ -323,7 +325,7 @@ sge::opengl::device::enable_light(
 	bool const enable_
 )
 {
-	enable(
+	opengl::enable_bool(
 		convert::light_index(
 			index
 		),

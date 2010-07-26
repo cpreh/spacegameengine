@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../state_visitor.hpp"
 #include "../split_states.hpp"
 #include "../enable.hpp"
+#include "../enable_bool.hpp"
+#include "../disable.hpp"
 #include "../check_state.hpp"
 #include "../multi_sample_context.hpp"
 #include "../on_not_supported.hpp"
@@ -179,7 +181,7 @@ sge::opengl::state_visitor::operator()(
 		return;
 	case rs::enable_alpha_blending:
 	case rs::enable_lighting:
-		enable(
+		opengl::enable_bool(
 			convert::bool_(s),
 			s.value()
 		);
@@ -203,7 +205,7 @@ sge::opengl::state_visitor::operator()(
 			);
 		}
 
-		enable(
+		opengl::enable_bool(
 			multi_sample_context_.flag(),
 			s.value()
 		);
@@ -278,13 +280,20 @@ sge::opengl::state_visitor::operator()(
 	renderer::state::cull_mode::type const m
 ) const
 {
-	if(m == renderer::state::cull_mode::off)
+	if(
+		m == renderer::state::cull_mode::off
+	)
 	{
-		disable(GL_CULL_FACE);
+		opengl::disable(
+			GL_CULL_FACE
+		);
+
 		return;
 	}
 
-	enable(GL_CULL_FACE);
+	opengl::enable(
+		GL_CULL_FACE
+	);
 
 	glCullFace(
 		convert::cull_mode(
@@ -303,9 +312,14 @@ sge::opengl::state_visitor::operator()(
 	renderer::state::depth_func::type const f
 ) const
 {
-	if(f == renderer::state::depth_func::off)
+	if(
+		f == renderer::state::depth_func::off
+	)
 	{
-		disable(GL_DEPTH_TEST);
+		opengl::disable(
+			GL_DEPTH_TEST
+		);
+
 		return;
 	}
 
@@ -317,7 +331,9 @@ sge::opengl::state_visitor::operator()(
 			FCPPT_TEXT(" This will only work if you request a depth buffer in renderer::parameters!")
 		);
 
-	enable(GL_DEPTH_TEST);
+	opengl::enable(
+		GL_DEPTH_TEST
+	);
 
 	glDepthFunc(
 		convert::depth_func(
@@ -354,13 +370,20 @@ sge::opengl::state_visitor::operator()(
 	renderer::state::fog_mode::type const m
 ) const
 {
-	if(m == renderer::state::fog_mode::off)
+	if(
+		m == renderer::state::fog_mode::off
+	)
 	{
-		disable(GL_FOG);
+		opengl::disable(
+			GL_FOG
+		);
+
 		return;
 	}
 
-	enable(GL_FOG);
+	opengl::enable(
+		GL_FOG
+	);
 
 	glFogi(
 		GL_FOG_MODE,

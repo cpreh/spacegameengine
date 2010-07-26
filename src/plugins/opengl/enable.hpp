@@ -28,9 +28,10 @@ namespace sge
 namespace opengl
 {
 
-void enable(GLenum what, bool enable);
-void enable(GLenum what);
-void disable(GLenum what);
+void
+enable(
+	GLenum
+);
 
 }
 }
