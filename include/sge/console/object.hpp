@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/char_type.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -53,7 +54,8 @@ public:
 	insert(
 		fcppt::string const &name,
 		callback const &,
-		fcppt::string const &description = fcppt::string()
+		fcppt::string const &short_description = fcppt::string(),
+		fcppt::string const &long_description = fcppt::string()
 	);
 
 	SGE_SYMBOL fcppt::signal::auto_connection
@@ -95,12 +97,18 @@ public:
 private:
 	fcppt::signal::object<error_callback_fn> error_;
 	fcppt::signal::object<message_callback_fn> message_;
-
 	fcppt::char_type const prefix_;
-
 	function_map funcs_;
-
 	fallback_signal fallback_;
+	fcppt::signal::scoped_connection help_connection_,man_connection_;
+
+	void 
+	help_callback(
+		arg_list const &);
+
+	void 
+	man_callback(
+		arg_list const &);
 };
 
 }
