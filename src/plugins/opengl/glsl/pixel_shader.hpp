@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "shader_type.hpp"
 #include <sge/renderer/glsl/pixel_shader.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
@@ -38,6 +39,10 @@ struct pixel_shader
 	static
 	glsl::shader_type::type
 	shader_type();
+
+	static
+	fcppt::string const
+	shader_name();
 };
 
 }

@@ -20,9 +20,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../pixel_shader.hpp"
 #include "../shader_type.hpp"
+#include <fcppt/text.hpp>
 
 sge::opengl::glsl::shader_type::type
 sge::opengl::glsl::pixel_shader::shader_type()
 {
 	return shader_type::pixel;
+}
+
+fcppt::string const
+sge::opengl::glsl::pixel_shader::shader_name()
+{
+	return FCPPT_TEXT("pixel");
 }

@@ -111,7 +111,9 @@ sge::opengl::glsl::shader<Type, Environment>::compile(
 		== GL_FALSE
 	)
 		throw sge::renderer::glsl::exception(
-			FCPPT_TEXT("Compiling a shader failed:\n")
+			FCPPT_TEXT("Compiling a ")
+			+ Type::shader_name()
+			+ FCPPT_TEXT(" shader failed:\n")
 			+ info_log()
 		);
 }
