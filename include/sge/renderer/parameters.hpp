@@ -39,7 +39,7 @@ class parameters
 {
 public:
 	SGE_SYMBOL parameters(
-		renderer::display_mode const &mode,
+		renderer::display_mode const &,
 		renderer::depth_buffer::type,
 		renderer::stencil_buffer::type,
 		renderer::window_mode::type,

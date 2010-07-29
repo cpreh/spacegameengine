@@ -169,6 +169,8 @@ sge::opengl::texture::lock_me(
 
 	bool const must_read = lock_flag_read(method);
 
+	bind_me();
+
 	// if we must read we have to lock the whole texture
 	// and set the lock size, the offset and the pitch accordingly
 	if(must_read)
