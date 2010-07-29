@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "context/base.hpp"
 #include "context/id.hpp"
+#include "common.hpp"
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -46,6 +47,9 @@ public:
 	bool
 	generate_mipmap_flag_supported() const;
 
+	GLenum
+	anisotropy_flag() const;
+
 	typedef void needs_before;
 
 	static context::id const static_id;
@@ -53,6 +57,8 @@ private:
 	bool const
 		anisotropic_filter_supported_,
 		generate_mipmap_flag_supported_;
+	
+	GLenum const anisotropy_flag_;
 };
 
 }

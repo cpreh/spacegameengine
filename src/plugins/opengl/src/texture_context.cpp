@@ -33,6 +33,13 @@ sge::opengl::texture_context::texture_context()
 		sge::opengl::glew::is_supported(
 			"GL_VERSION_1_4"
 		)
+	),
+	anisotropy_flag_(
+		anisotropic_filter_supported_
+		?
+			GL_TEXTURE_MAX_ANISOTROPY_EXT
+		:
+			0
 	)
 {}
 
@@ -50,6 +57,12 @@ bool
 sge::opengl::texture_context::generate_mipmap_flag_supported() const
 {
 	return generate_mipmap_flag_supported_;
+}
+
+GLenum
+sge::opengl::texture_context::anisotropy_flag() const
+{
+	return anisotropy_flag_;
 }
 
 sge::opengl::context::id const

@@ -60,12 +60,16 @@ sge::opengl::texfuncs::set_filter(
 	)
 		return;
 
-	if(
-		!context::use<
+	texture_context const &context(
+		opengl::context::use<
 			texture_context
 		>(
 			_context
-		).anisotropic_filter_supported()
+		)
+	);
+	
+	if(
+		!context.anisotropic_filter_supported()
 	)
 	{
 		FCPPT_LOG_ERROR(
@@ -73,6 +77,7 @@ sge::opengl::texfuncs::set_filter(
 			fcppt::log::_
 				<< FCPPT_TEXT("anisotropic filtering is not supported!")
 		);
+
 		return;
 	}
 
@@ -80,7 +85,7 @@ sge::opengl::texfuncs::set_filter(
 	{
 		texfuncs::parameter_int(
 			_type,
-			GL_TEXTURE_MAX_ANISOTROPY_EXT,
+			context.anisotropy_flag(),
 			_filter.anisotropy()
 		);
 	}
