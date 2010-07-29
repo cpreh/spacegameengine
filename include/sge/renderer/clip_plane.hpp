@@ -18,41 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_BASIC_ANY_VECTOR_HPP_INCLUDED
-#define SGE_RENDERER_BASIC_ANY_VECTOR_HPP_INCLUDED
+#ifndef SGE_RENDERER_CLIP_PLANE_HPP_INCLUDED
+#define SGE_RENDERER_CLIP_PLANE_HPP_INCLUDED
 
-#include <sge/renderer/size_type.hpp>
-#include <fcppt/variant/object_fwd.hpp>
-#include <fcppt/math/vector/static.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/restrict_typedef_struct.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <sge/renderer/any_vector4.hpp>
+#include <fcppt/strong_typedef.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-template<
-	size_type Size
->
-struct basic_any_vector
-{
-	typedef typename fcppt::variant::object<
-		boost::mpl::vector2<
-			typename fcppt::math::vector::static_<
-				float,
-				Size
-			>::type,
-			typename fcppt::math::vector::static_<
-				double,
-				Size
-			>::type
-		>
-	> type;
-
-	FCPPT_RESTRICT_TYPEDEF_STRUCT(basic_any_vector)
-};
+FCPPT_MAKE_STRONG_TYPEDEF(
+	renderer::any_vector4,
+	clip_plane
+)
 
 }
 }

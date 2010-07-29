@@ -18,43 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_BASIC_ANY_VECTOR_HPP_INCLUDED
-#define SGE_RENDERER_BASIC_ANY_VECTOR_HPP_INCLUDED
-
-#include <sge/renderer/size_type.hpp>
-#include <fcppt/variant/object_fwd.hpp>
-#include <fcppt/math/vector/static.hpp>
+#include "../set_clip_plane.hpp"
+#include "../convert/clip_plane_index.hpp"
+#include "../check_state.hpp"
+#include <sge/renderer/exception.hpp>
+#include <sge/renderer/vector_convert.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/restrict_typedef_struct.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/format.hpp>
+#include <fcppt/text.hpp>
 
-namespace sge
+void
+sge::opengl::set_clip_plane(
+	renderer::clip_plane_index const _index,
+	renderer::clip_plane const &_clip_plane
+)
 {
-namespace renderer
-{
+	::glClipPlane(
+		opengl::convert::clip_plane_index(
+			_index
+		),
+		renderer::vector_convert<
+			GLdouble,
+			4
+		>(
+			_clip_plane
+		).data()
+	);
 
-template<
-	size_type Size
->
-struct basic_any_vector
-{
-	typedef typename fcppt::variant::object<
-		boost::mpl::vector2<
-			typename fcppt::math::vector::static_<
-				float,
-				Size
-			>::type,
-			typename fcppt::math::vector::static_<
-				double,
-				Size
-			>::type
-		>
-	> type;
-
-	FCPPT_RESTRICT_TYPEDEF_STRUCT(basic_any_vector)
-};
-
+	SGE_OPENGL_CHECK_STATE(
+		(
+			fcppt::format(
+				FCPPT_TEXT("Setting clip plane %1% failed. ")
+				FCPPT_TEXT(" Note that a minimum of six clip planes is supported.")
+			)
+			%
+				_index
+		).str(),
+		sge::renderer::exception
+	)
 }
-}
-
-#endif

@@ -18,22 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_LIGHT_HPP_INCLUDED
-#define SGE_OPENGL_LIGHT_HPP_INCLUDED
-
-#include <sge/renderer/light_index.hpp>
-#include <sge/renderer/light_fwd.hpp>
+#ifndef SGE_RENDERER_CLIP_PLANE_INDEX_HPP_INCLUDED
+#define SGE_RENDERER_CLIP_PLANE_INDEX_HPP_INCLUDED
 
 namespace sge
 {
-namespace opengl
+namespace renderer
 {
 
-void
-set_light(
-	renderer::light_index,
-	renderer::light const &
-);
+typedef unsigned clip_plane_index;
 
 }
 }

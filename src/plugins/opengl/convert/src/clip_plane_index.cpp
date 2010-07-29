@@ -18,43 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_BASIC_ANY_VECTOR_HPP_INCLUDED
-#define SGE_RENDERER_BASIC_ANY_VECTOR_HPP_INCLUDED
+#include "../clip_plane_index.hpp"
+#include "../../common.hpp"
 
-#include <sge/renderer/size_type.hpp>
-#include <fcppt/variant/object_fwd.hpp>
-#include <fcppt/math/vector/static.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/restrict_typedef_struct.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-
-namespace sge
+GLenum
+sge::opengl::convert::clip_plane_index(
+	renderer::clip_plane_index const index
+)
 {
-namespace renderer
-{
-
-template<
-	size_type Size
->
-struct basic_any_vector
-{
-	typedef typename fcppt::variant::object<
-		boost::mpl::vector2<
-			typename fcppt::math::vector::static_<
-				float,
-				Size
-			>::type,
-			typename fcppt::math::vector::static_<
-				double,
-				Size
-			>::type
-		>
-	> type;
-
-	FCPPT_RESTRICT_TYPEDEF_STRUCT(basic_any_vector)
-};
-
+	return GL_CLIP_PLANE0 + index;
 }
-}
-
-#endif

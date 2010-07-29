@@ -18,10 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../light.hpp"
+#include "../set_light.hpp"
 #include "../check_state.hpp"
 #include "../vector4f.hpp"
-#include "../vector3f.hpp"
 #include "../convert/light_index.hpp"
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/rgba32f_format.hpp>
@@ -93,10 +92,12 @@ sge::opengl::set_light(
 namespace
 {
 
-void light_float_ptr(
+void
+light_float_ptr(
 	GLenum const index,
 	GLenum const name,
-	GLfloat const *const data)
+	GLfloat const *const data
+)
 {
 
 	glLightfv(index, name, data);
@@ -108,10 +109,12 @@ void light_float_ptr(
 
 }
 
-void light_float(
+void
+light_float(
 	GLenum const index,
 	GLenum const name,
-	GLfloat const value)
+	GLfloat const value
+)
 {
 	glLightf(index, name, value);
 
@@ -121,10 +124,12 @@ void light_float(
 	)
 }
 
-void light_arithmetic(
+void
+light_arithmetic(
 	GLenum const index,
 	GLenum const name,
-	sge::renderer::any_arithmetic const &value)
+	sge::renderer::any_arithmetic const &value
+)
 {
 	light_float(
 		index,
@@ -137,14 +142,17 @@ void light_arithmetic(
 	);
 }
 
-void light_pos(
+void
+light_pos(
 	GLenum const index,
-	sge::renderer::any_vector3 const &pos)
+	sge::renderer::any_vector3 const &pos
+)
 {
 	sge::opengl::vector4f const pos4(
 		fcppt::math::vector::construct(
 			sge::renderer::vector_convert<
-				sge::opengl::vector3f
+				GLfloat,
+				3
 			>(
 				pos
 			),
@@ -158,25 +166,30 @@ void light_pos(
 		pos4.data());
 }
 
-void light_dir(
+void
+light_dir(
 	GLenum const index,
-	sge::renderer::any_vector3 const &dir)
+	sge::renderer::any_vector3 const &dir
+)
 {
 	light_float_ptr(
 		index,
 		GL_SPOT_DIRECTION,
 		sge::renderer::vector_convert<
-			sge::opengl::vector3f
+			GLfloat,
+			3
 		>(
 			dir
 		).data()
 	);
 }
 
-void light_color(
+void
+light_color(
 	GLenum const index,
 	GLenum const name,
-	sge::image::color::any::object const &color)
+	sge::image::color::any::object const &color
+)
 {
 	light_float_ptr(
 		index,

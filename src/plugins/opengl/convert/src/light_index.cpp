@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../light_index.hpp"
+#include "../../common.hpp"
 
 GLenum
 sge::opengl::convert::light_index(

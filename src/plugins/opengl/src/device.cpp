@@ -26,7 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../cube_texture.hpp"
 #include "../volume_texture.hpp"
 #include "../default_target.hpp"
-#include "../light.hpp"
+#include "../set_light.hpp"
+#include "../set_clip_plane.hpp"
 #include "../enable.hpp"
 #include "../enable_bool.hpp"
 #include "../disable.hpp"
@@ -56,6 +57,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/indexed_primitive.hpp"
 #include "../convert/nonindexed_primitive.hpp"
 #include "../convert/light_index.hpp"
+#include "../convert/clip_plane_index.hpp"
 #include "../convert/matrix_mode.hpp"
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/state/default.hpp>
@@ -321,27 +323,53 @@ sge::opengl::device::material(
 
 void
 sge::opengl::device::enable_light(
-	renderer::light_index const index,
-	bool const enable_
+	renderer::light_index const _index,
+	bool const _enable
 )
 {
 	opengl::enable_bool(
 		convert::light_index(
-			index
+			_index
 		),
-		enable_
+		_enable
 	);
 }
 
 void
 sge::opengl::device::light(
-	renderer::light_index const index,
-	renderer::light const &l
+	renderer::light_index const _index,
+	renderer::light const &_light
 )
 {
 	opengl::set_light(
-		index,
-		l
+		_index,
+		_light
+	);
+}
+
+void
+sge::opengl::device::enable_clip_plane(
+	renderer::clip_plane_index const _index,
+	bool const _enable
+)
+{
+	opengl::enable_bool(
+		convert::clip_plane_index(
+			_index
+		),
+		_enable
+	);
+}
+
+void
+sge::opengl::device::clip_plane(
+	renderer::clip_plane_index const _index,
+	renderer::clip_plane const &_clip_plane
+)
+{
+	opengl::set_clip_plane(
+		_index,
+		_clip_plane
 	);
 }
 

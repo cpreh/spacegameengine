@@ -64,6 +64,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/first_index.hpp>
 #include <sge/renderer/matrix_mode.hpp>
+#include <sge/renderer/clip_plane_index.hpp>
+#include <sge/renderer/clip_plane.hpp>
 #include <sge/image/view/const_object.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/window/instance_ptr.hpp>
@@ -143,6 +145,18 @@ public:
 	light(
 		light_index,
 		renderer::light const &
+	) = 0;
+
+	virtual void
+	enable_clip_plane(
+		clip_plane_index,
+		bool enable
+	) = 0;
+
+	virtual void
+	clip_plane(
+		clip_plane_index,
+		renderer::clip_plane const &
 	) = 0;
 
 	virtual void

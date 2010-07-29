@@ -127,6 +127,18 @@ public:
 	);
 
 	void
+	enable_clip_plane(
+		renderer::clip_plane_index,
+		bool enable
+	);
+
+	void
+	clip_plane(
+		renderer::clip_plane_index,
+		renderer::clip_plane const &
+	);
+
+	void
 	texture_stage_op(
 		renderer::stage_type stage,
 		renderer::texture_stage_op::type,
