@@ -52,10 +52,6 @@ sge::extension_set const extensions_(
 
 sge::devil::loader::loader()
 {
-	ilEnable(IL_FORMAT_SET);
-
-	ilSetInteger(IL_FORMAT_MODE, IL_RGBA);
-
 	ilEnable(IL_FILE_OVERWRITE);
 
 	check_errors();
