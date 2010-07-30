@@ -164,7 +164,10 @@ sge::opengl::device::begin_rendering()
 void
 sge::opengl::device::end_rendering()
 {
-	state_.swap_buffers();
+	if(
+		!fbo_active
+	)
+		state_.swap_buffers();
 }
 
 void

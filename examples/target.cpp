@@ -272,6 +272,12 @@ try
 				= sge::image::colors::red()
 		)
 	);
+
+		sys.renderer()->texture(
+			sge::renderer::device::no_texture,
+			0
+		);
+
 		sge::renderer::scoped_target const target_(
 			sys.renderer(),
 			target
