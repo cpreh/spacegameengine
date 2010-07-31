@@ -23,13 +23,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::devil::image_impl::image_impl()
 {
-	ilGenImages(1, &id_);
+	ilGenImages(
+		1,
+		&id_
+	);
+
 	check_errors();
 }
 
 sge::devil::image_impl::~image_impl()
 {
-	ilDeleteImages(1, &id_);
+	ilDeleteImages(
+		1,
+		&id_
+	);
 }
 
 ILuint sge::devil::image_impl::id() const

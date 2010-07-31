@@ -31,57 +31,96 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/format.hpp>
 #include <sge/image/view/dim.hpp>
 #include <sge/image/algorithm/copy_and_convert.hpp>
-#include <sge/exception.hpp>
+#include <sge/image/exception.hpp>
+#include <sge/log/global.hpp>
+#include <fcppt/log/warning.hpp>
+#include <fcppt/log/output.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/assert.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/to_std_string.hpp>
 #include <fcppt/optional_impl.hpp>
 
 sge::devil::file::file(
-	fcppt::filesystem::path const &file
+	fcppt::filesystem::path const &_file
 )
+:
+	impl_()
 {
 	bind_me();
-	if(ilLoadImage(
-//#ifdef UNICODE
-//		const_cast<wchar_t*>(file.string().c_str())
-//#else
-		const_cast<char*>(fcppt::to_std_string(file.string()).c_str())
-//#endif
-		) == IL_FALSE
+
+	ilDisable(
+		IL_FORMAT_SET
+	);
+
+	load(
+		_file
+	);
+
+	if(
+		format() == IL_COLOR_INDEX
 	)
-		throw exception(
-			FCPPT_TEXT("ilLoadImage() failed! Could not load '")
-			+ file.string()
-			+ FCPPT_TEXT("'!"));
+	{
+		FCPPT_LOG_WARNING(
+			sge::log::global(),
+			fcppt::log::_
+				<< FCPPT_TEXT("File \"")
+				<< _file
+				<< FCPPT_TEXT("\" has a color palette, that sge won't handle.")
+				<< FCPPT_TEXT(" Instead, the file will be reloaded and converted.")
+				<< FCPPT_TEXT(" The process is inefficient and you should consider ")
+				<< FCPPT_TEXT(" converting the file beforehand.")
+		);
+
+        	ilSetInteger(
+			IL_FORMAT_MODE,
+			IL_RGBA
+		);
+
+		ilEnable(
+			IL_FORMAT_SET
+		);
+
+		load(
+			_file
+		);
+
+		FCPPT_ASSERT(
+			format() != IL_COLOR_INDEX
+		);
+	}
 }
 
 sge::devil::file::file(
-	image::view::const_object const &src)
+	image::view::const_object const &_src
+)
+:
+	impl_()
 {
-	data(src);
-}
-
-void sge::devil::file::bind_me() const
-{
-	ilBindImage(impl.id());
-	check_errors();
+	data(
+		_src
+	);
 }
 
 sge::image::dim_type const
 sge::devil::file::dim() const
 {
 	bind_me();
-	return image::dim_type(
-		ilGetInteger(IL_IMAGE_WIDTH),
-		ilGetInteger(IL_IMAGE_HEIGHT));
+
+	return
+		image::dim_type(
+			ilGetInteger(IL_IMAGE_WIDTH),
+			ilGetInteger(IL_IMAGE_HEIGHT)
+		);
 }
 
-void sge::devil::file::data(
-	image::view::const_object const &src)
+void
+sge::devil::file::data(
+	image::view::const_object const &_src
+)
 {
 	bind_me();
 
@@ -91,13 +130,13 @@ void sge::devil::file::data(
 
 	image::dim_type const src_dim(
 		image::view::dim(
-			src
+			_src
 		)
 	);
 
 	image::color::format::type const fmt(
 		image::view::format(
-			src
+			_src
 		)
 	);
 
@@ -111,7 +150,7 @@ void sge::devil::file::data(
 	);
 
 	image::algorithm::copy_and_convert(
-		src,
+		_src,
 		image::view::make(
 			v.data(),
 			src_dim,
@@ -122,7 +161,7 @@ void sge::devil::file::data(
 
 	image::dim_type const dim(
 		image::view::dim(
-			src
+			_src
 		)
 	);
 
@@ -147,19 +186,23 @@ sge::image::view::const_object const
 sge::devil::file::view() const
 {
 	bind_me();
-	return image::view::make(
-		const_cast<
-			image::const_raw_pointer
-		>(
-			ilGetData()
-		),
-		dim(),
-		convert_format(
-			ilGetInteger(IL_IMAGE_BITS_PER_PIXEL),
-			ilGetInteger(IL_IMAGE_FORMAT)
-		),
-		image::view::optional_pitch()
-	);
+
+	return
+		image::view::make(
+			const_cast<
+				image::const_raw_pointer
+			>(
+				ilGetData()
+			),
+			dim(),
+			devil::convert_format(
+				ilGetInteger(
+					IL_IMAGE_BITS_PER_PIXEL
+				),
+				format()
+			),
+			image::view::optional_pitch()
+		);
 }
 
 void
@@ -180,5 +223,53 @@ sge::devil::file::save(
 //#endif
 		);
 	ilDisable(IL_ORIGIN_SET);
+
 	check_errors();
+}
+
+void
+sge::devil::file::bind_me() const
+{
+	ilBindImage(
+		impl_.id()
+	);
+
+	check_errors();
+}
+
+void
+sge::devil::file::load(
+	fcppt::filesystem::path const &_file
+)
+{
+	if(
+		ilLoadImage(
+//#ifdef UNICODE
+//			const_cast<wchar_t*>(file.string().c_str())
+//#else
+			const_cast<
+				char *
+			>(
+				fcppt::to_std_string(
+					_file.string()
+				).c_str()
+			)
+//#endif
+		)
+		== IL_FALSE
+	)
+		throw sge::image::exception(
+			FCPPT_TEXT("ilLoadImage() failed! Could not load '")
+			+ _file.string()
+			+ FCPPT_TEXT("'!")
+		);
+}
+
+ILint
+sge::devil::file::format() const
+{
+	return
+		ilGetInteger(
+			IL_IMAGE_FORMAT
+		);
 }

@@ -100,7 +100,6 @@ sge::devil::convert_format(
 		}
 		break;
 	case IL_LUMINANCE:
-	case IL_COLOR_INDEX:
 		if(
 			bits_per_pixel == 8
 		)
@@ -118,7 +117,7 @@ sge::devil::convert_format(
 		(
 			fcppt::format(
 				FCPPT_TEXT("Invalid il format in devil::convert_format ")
-				FCPPT_TEXT(" with bits per pixel %1% and format %2%!")
+				FCPPT_TEXT("with bits per pixel %1% and format %2%!")
 			)
 			% bits_per_pixel
 			%

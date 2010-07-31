@@ -60,6 +60,11 @@ sge::opengl::convert::format_to_color(
 			_format_type == GL_UNSIGNED_BYTE
 		)
 			return image::color::format::alpha8;
+	case GL_LUMINANCE:
+		if(
+			_format_type == GL_UNSIGNED_BYTE
+		)
+			return image::color::format::gray8;
 	}
 
 	throw renderer::exception(

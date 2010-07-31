@@ -52,7 +52,9 @@ sge::extension_set const extensions_(
 
 sge::devil::loader::loader()
 {
-	ilEnable(IL_FILE_OVERWRITE);
+	ilEnable(
+		IL_FILE_OVERWRITE
+	);
 
 	check_errors();
 }
