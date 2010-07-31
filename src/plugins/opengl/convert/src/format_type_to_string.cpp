@@ -18,34 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DEVIL_FORMAT_HPP_INCLUDED
-#define SGE_DEVIL_FORMAT_HPP_INCLUDED
+#include "../format_type_to_string.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include <IL/il.h>
-#include <sge/image/color/format.hpp>
-
-namespace sge
+fcppt::string const
+sge::opengl::convert::format_type_to_string(
+	GLenum const _format_type
+)
 {
-namespace devil
-{
+	switch(
+		_format_type
+	)
+	{
+	case GL_UNSIGNED_BYTE:
+		return FCPPT_TEXT("UNSIGNED_BYTE");
+	case GL_BYTE:
+		return FCPPT_TEXT("BYTE");
+	case GL_BITMAP:
+		return FCPPT_TEXT("BITMAP");
+	case GL_UNSIGNED_SHORT:
+		return FCPPT_TEXT("UNSIGNED SHORT");
+	case GL_SHORT:
+		return FCPPT_TEXT("SHORT");
+	case GL_UNSIGNED_INT:
+		return FCPPT_TEXT("UNSIGNED INT");
+	case GL_INT:
+		return FCPPT_TEXT("INT");
+	case GL_FLOAT:
+		return FCPPT_TEXT("FLOAT");
+	}
 
-image::color::format::type
-convert_format(
-	ILint bits_per_pixel,
-	ILenum format
-);
-
-ILint to_il_format(
-	image::color::format::type);
-
-ILint to_il_channel(
-	image::color::format::type);
-
-image::color::format::type
-best_il_format(
-	image::color::format::type);
-
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid or not handlded format type in opengl::convert")
+	);
 }
-}
-
-#endif

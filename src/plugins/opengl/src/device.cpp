@@ -524,7 +524,7 @@ sge::opengl::device::target(
 		)
 	);
 
-	projection_internal();
+	//projection_internal();
 }
 
 void

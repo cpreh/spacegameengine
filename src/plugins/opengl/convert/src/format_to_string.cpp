@@ -18,58 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../format_to_color.hpp"
 #include "../format_to_string.hpp"
-#include "../format_type_to_string.hpp"
+#include "../../common.hpp"
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
-sge::image::color::format::type
-sge::opengl::convert::format_to_color(
-	GLenum const _format,
-	GLenum const _format_type
+fcppt::string const
+sge::opengl::convert::format_to_string(
+	GLenum const _format
 )
 {
-	switch(_format)
+	switch(
+		_format
+	)
 	{
-	case GL_RGBA:
-		switch(_format_type)
-		{
-		case GL_UNSIGNED_BYTE:
-			return image::color::format::rgba8;
-		case GL_FLOAT:
-			return image::color::format::rgba32f;
-		}
-		break;
-	case GL_BGRA:
-		switch(_format_type)
-		{
-		case GL_UNSIGNED_BYTE:
-			return image::color::format::bgra8;
-		case GL_FLOAT:
-			return image::color::format::bgra32f;
-		}
-		break;
-	case GL_RGB:
-		if(
-			_format_type == GL_UNSIGNED_BYTE
-		)
-			return image::color::format::rgb8;
+	case GL_COLOR_INDEX:
+		return FCPPT_TEXT("COLOR_INDEX");
+	case GL_RED:
+		return FCPPT_TEXT("RED");
+	case GL_GREEN:
+		return FCPPT_TEXT("GREEN");
+	case GL_BLUE:
+		return FCPPT_TEXT("BLUE");
 	case GL_ALPHA:
-		if(
-			_format_type == GL_UNSIGNED_BYTE
-		)
-			return image::color::format::alpha8;
+		return FCPPT_TEXT("ALPHA");
+	case GL_RGB:
+		return FCPPT_TEXT("RGB");
+	case GL_BGR:
+		return FCPPT_TEXT("BGR");
+	case GL_RGBA:
+		return FCPPT_TEXT("RGBA");
+	case GL_BGRA:
+		return FCPPT_TEXT("BGRA");
+	case GL_LUMINANCE:
+		return FCPPT_TEXT("LUMINANCE");
+	case GL_LUMINANCE_ALPHA:
+		return FCPPT_TEXT("LUMINANCE_ALPHA");
 	}
 
-	throw renderer::exception(
-		FCPPT_TEXT("opengl::convert::format_to_color: No matching conversion for ")
-		+ convert::format_to_string(
-			_format
-		)
-		+ FCPPT_TEXT(" ")
-		+ convert::format_type_to_string(
-			_format_type
-		)
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid format in opengl::convert::format_to_string()!")
 	);
 }

@@ -18,33 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DEVIL_FORMAT_HPP_INCLUDED
-#define SGE_DEVIL_FORMAT_HPP_INCLUDED
+#ifndef SGE_OPENGL_CONVERT_FORMAT_TYPE_TO_STRING_HPP_INCLUDED
+#define SGE_OPENGL_CONVERT_FORMAT_TYPE_TO_STRING_HPP_INCLUDED
 
-#include <IL/il.h>
-#include <sge/image/color/format.hpp>
+#include "../common.hpp"
+#include <fcppt/string.hpp>
 
 namespace sge
 {
-namespace devil
+namespace opengl
+{
+namespace convert
 {
 
-image::color::format::type
-convert_format(
-	ILint bits_per_pixel,
-	ILenum format
+fcppt::string const
+format_type_to_string(
+	GLenum
 );
 
-ILint to_il_format(
-	image::color::format::type);
-
-ILint to_il_channel(
-	image::color::format::type);
-
-image::color::format::type
-best_il_format(
-	image::color::format::type);
-
+}
 }
 }
 
