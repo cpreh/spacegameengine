@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/caps.hpp>
+#include <sge/image/color/format_to_string.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/text.hpp>
 #include <ostream>
@@ -102,11 +103,11 @@ sge::renderer::operator<<(
 	return _stream
 		<< FCPPT_TEXT("caps: adapter = ")
 		<< _caps.adapter()
-		<< FCPPT_TEXT(", driver_name = ")
+		<< FCPPT_TEXT(", driver_name = \"")
 		<< _caps.driver_name()
-		<< FCPPT_TEXT(", description = ")
+		<< FCPPT_TEXT("\", description = \"")
 		<< _caps.description()
-		<< FCPPT_TEXT(", max_texture_size = ")
+		<< FCPPT_TEXT("\", max_texture_size = ")
 		<< _caps.max_texture_size()
 		<< FCPPT_TEXT(", max_anisotropy = ")
 		<< _caps.max_anisotropy()
@@ -114,9 +115,7 @@ sge::renderer::operator<<(
 		<< std::boolalpha
 		<< _caps.glsl_supported()
 		<< FCPPT_TEXT(", preferred_texture_format = ")
-		<< static_cast<
-			unsigned
-		>(
+		<< sge::image::color::format_to_string(
 			_caps.preferred_texture_format()
 		);
 }
