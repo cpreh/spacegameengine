@@ -18,50 +18,64 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../fbo_texture_binding.hpp"
-#include "../fbo.hpp"
+#include "../render_buffer.hpp"
 #include "../fbo_context.hpp"
-#include "../texture.hpp"
-#include "../texture_base.hpp"
 #include "../check_state.hpp"
 #include <sge/renderer/exception.hpp>
-#include <fcppt/static_pointer_cast.hpp>
 #include <fcppt/text.hpp>
 
-sge::opengl::fbo_texture_binding::fbo_texture_binding(
-	fbo_context const &_context,
-	opengl::texture_ptr const _texture,
-	fbo &_fbo
+sge::opengl::render_buffer::render_buffer(
+	fbo_context const &_context
 )
 :
-	texture_(_texture)
+	context_(_context)
 {
-	_fbo.bind();
-
-	_context.framebuffer_texture_2d()(
-		_context.framebuffer_target(),
-		_context.color_attachment(),
-		GL_TEXTURE_2D,
-		fcppt::static_pointer_cast<
-			texture_base
-		>(
-			_texture
-		)->id(),
-		0
+	context_.gen_renderbuffers()(
+		1,
+		&id_
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("Binding a texture to an fbo failed."),
+		FCPPT_TEXT("Generating a render buffer failed."),
 		sge::renderer::exception
 	)
 }
 
-sge::opengl::fbo_texture_binding::~fbo_texture_binding()
+sge::opengl::render_buffer::~render_buffer()
 {
+	context_.delete_renderbuffers()(
+		1,
+		&id_
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("Deleting a render buffer failed."),
+		sge::renderer::exception
+	)
 }
 
-sge::renderer::texture_ptr const
-sge::opengl::fbo_texture_binding::texture() const
+void
+sge::opengl::render_buffer::store(
+	GLenum const _what,
+	GLsizei const _width,
+	GLsizei const _height
+)
 {
-	return texture_;
+	context_.renderbuffer_storage()(
+		context_.renderbuffer_target(),
+		_what,
+		_width,
+		_height
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("Setting the storage of a render buffer failed."),
+		sge::renderer::exception
+	)
+}
+
+GLuint
+sge::opengl::render_buffer::id() const
+{
+	return id_;
 }

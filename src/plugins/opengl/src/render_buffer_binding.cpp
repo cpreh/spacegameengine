@@ -18,50 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../fbo_texture_binding.hpp"
+#include "../render_buffer_binding.hpp"
+#include "../attach_render_buffer.hpp"
 #include "../fbo.hpp"
-#include "../fbo_context.hpp"
-#include "../texture.hpp"
-#include "../texture_base.hpp"
-#include "../check_state.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/static_pointer_cast.hpp>
-#include <fcppt/text.hpp>
+#include "../render_buffer.hpp"
 
-sge::opengl::fbo_texture_binding::fbo_texture_binding(
+sge::opengl::render_buffer_binding::render_buffer_binding(
 	fbo_context const &_context,
-	opengl::texture_ptr const _texture,
-	fbo &_fbo
+	fbo const &_fbo,
+	render_buffer const &_render_buffer,
+	GLenum const _what
 )
 :
-	texture_(_texture)
+	context_(_context),
+	fbo_(_fbo),
+	what_(_what)
 {
-	_fbo.bind();
+	fbo_.bind();
 
-	_context.framebuffer_texture_2d()(
-		_context.framebuffer_target(),
-		_context.color_attachment(),
-		GL_TEXTURE_2D,
-		fcppt::static_pointer_cast<
-			texture_base
-		>(
-			_texture
-		)->id(),
+	opengl::attach_render_buffer(
+		_context,
+		_what,
+		_render_buffer.id()
+	);
+}
+
+sge::opengl::render_buffer_binding::~render_buffer_binding()
+{
+	fbo_.bind();
+
+	opengl::attach_render_buffer(
+		context_,
+		what_,
 		0
 	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("Binding a texture to an fbo failed."),
-		sge::renderer::exception
-	)
-}
-
-sge::opengl::fbo_texture_binding::~fbo_texture_binding()
-{
-}
-
-sge::renderer::texture_ptr const
-sge::opengl::fbo_texture_binding::texture() const
-{
-	return texture_;
 }

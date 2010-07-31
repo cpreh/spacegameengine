@@ -21,9 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../fbo_target.hpp"
 #include "../bind_fbo.hpp"
 #include "../fbo_context.hpp"
+#include "../check_state.hpp"
 #include "../context/use.hpp"
 #include <sge/renderer/texture.hpp>
+#include <sge/renderer/exception.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/text.hpp>
 
 sge::opengl::fbo_target::fbo_target(
 	sge::opengl::context::object &_context,
@@ -47,6 +50,24 @@ sge::opengl::fbo_target::fbo_target(
 		fbo_
 	)
 {
+	GLenum const status(
+		context_.check_framebuffer_status()(
+			context_.framebuffer_target()
+		)
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("Checking the fbo status failed."),
+		sge::renderer::exception
+	)
+
+	if(
+		status !=
+		context_.framebuffer_complete()
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("FBO is incomplete!")
+		);
 }
 
 sge::opengl::fbo_target::~fbo_target()

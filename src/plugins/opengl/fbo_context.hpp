@@ -55,6 +55,16 @@ public:
 
 	typedef GLenum (*gl_check_framebuffer_status)(GLenum);
 
+	typedef void (*gl_gen_renderbuffers)(GLsizei, GLuint *);
+
+	typedef void (*gl_delete_renderbuffers)(GLsizei, GLuint const *);
+
+	typedef void (*gl_bind_renderbuffer)(GLenum, GLuint);
+
+	typedef void (*gl_renderbuffer_storage)(GLenum, GLenum, GLsizei, GLsizei);
+
+	typedef void (*gl_framebuffer_renderbuffer)(GLenum, GLenum, GLenum, GLuint);
+
 	gl_gen_framebuffers
 	gen_framebuffers() const;
 
@@ -70,6 +80,21 @@ public:
 	gl_check_framebuffer_status
 	check_framebuffer_status() const;
 
+	gl_gen_renderbuffers
+	gen_renderbuffers() const;
+
+	gl_delete_renderbuffers
+	delete_renderbuffers() const;
+
+	gl_bind_renderbuffer
+	bind_renderbuffer() const;
+
+	gl_renderbuffer_storage
+	renderbuffer_storage() const;
+
+	gl_framebuffer_renderbuffer
+	framebuffer_renderbuffer() const;
+
 	GLenum
 	framebuffer_target() const;
 
@@ -78,6 +103,9 @@ public:
 
 	GLenum
 	framebuffer_complete() const;
+
+	GLenum
+	renderbuffer_target() const;
 
 	typedef void needs_before;
 
@@ -97,10 +125,21 @@ private:
 
 	gl_check_framebuffer_status const check_framebuffer_status_;
 
+	gl_gen_renderbuffers const gen_renderbuffers_;
+
+	gl_delete_renderbuffers const delete_renderbuffers_;
+
+	gl_bind_renderbuffer const bind_renderbuffer_;
+
+	gl_renderbuffer_storage const renderbuffer_storage_;
+
+	gl_framebuffer_renderbuffer const framebuffer_renderbuffer_;
+
 	GLenum const
 		framebuffer_target_,
 		color_attachment_,
-		framebuffer_complete_;
+		framebuffer_complete_,
+		renderbuffer_target_;
 };
 
 }

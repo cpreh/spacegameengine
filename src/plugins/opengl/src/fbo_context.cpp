@@ -86,6 +86,61 @@ sge::opengl::fbo_context::fbo_context()
 			:
 				0
 	),
+	gen_renderbuffers_(
+		has_native_
+		?
+			glGenRenderbuffers
+		:
+			has_ext_
+			?
+				glGenRenderbuffersEXT
+			:
+				0
+	),
+	delete_renderbuffers_(
+		has_native_
+		?
+			glDeleteRenderbuffers
+		:
+			has_ext_
+			?
+				glDeleteRenderbuffersEXT
+			:
+				0
+	),
+	bind_renderbuffer_(
+		has_native_
+		?
+			glBindRenderbuffer
+		:
+			has_ext_
+			?
+				glBindRenderbufferEXT
+			:
+				0
+	),
+	renderbuffer_storage_(
+		has_native_
+		?
+			glRenderbufferStorage
+		:
+			has_ext_
+			?
+				glRenderbufferStorageEXT
+			:
+				0
+	),
+	framebuffer_renderbuffer_(
+		has_native_
+		?
+			glFramebufferRenderbuffer
+		:
+			has_ext_
+			?
+				glFramebufferRenderbufferEXT
+			:
+				0
+	),
 	framebuffer_target_(
 		has_native_
 		?
@@ -116,6 +171,17 @@ sge::opengl::fbo_context::fbo_context()
 			has_ext_
 			?
 				GL_FRAMEBUFFER_COMPLETE_EXT
+			:
+				0
+	),
+	renderbuffer_target_(
+		has_native_
+		?
+			GL_RENDERBUFFER
+		:
+			has_ext_
+			?
+				GL_RENDERBUFFER_EXT
 			:
 				0
 	)
@@ -164,6 +230,36 @@ sge::opengl::fbo_context::check_framebuffer_status() const
 	return check_framebuffer_status_;
 }
 
+sge::opengl::fbo_context::gl_gen_renderbuffers
+sge::opengl::fbo_context::gen_renderbuffers() const
+{
+	return gen_renderbuffers_;
+}
+
+sge::opengl::fbo_context::gl_delete_renderbuffers
+sge::opengl::fbo_context::delete_renderbuffers() const
+{
+	return delete_renderbuffers_;
+}
+
+sge::opengl::fbo_context::gl_bind_renderbuffer
+sge::opengl::fbo_context::bind_renderbuffer() const
+{
+	return bind_renderbuffer_;
+}
+
+sge::opengl::fbo_context::gl_renderbuffer_storage
+sge::opengl::fbo_context::renderbuffer_storage() const
+{
+	return renderbuffer_storage_;
+}
+
+sge::opengl::fbo_context::gl_framebuffer_renderbuffer
+sge::opengl::fbo_context::framebuffer_renderbuffer() const
+{
+	return framebuffer_renderbuffer_;
+}
+
 GLenum
 sge::opengl::fbo_context::framebuffer_target() const
 {
@@ -180,6 +276,12 @@ GLenum
 sge::opengl::fbo_context::framebuffer_complete() const
 {
 	return framebuffer_complete_;
+}
+
+GLenum
+sge::opengl::fbo_context::renderbuffer_target() const
+{
+	return renderbuffer_target_;
 }
 
 sge::opengl::context::id const
