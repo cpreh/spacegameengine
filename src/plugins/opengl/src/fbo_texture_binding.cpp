@@ -36,7 +36,6 @@ sge::opengl::fbo_texture_binding::fbo_texture_binding(
 :
 	texture_(_texture)
 {
-		//GL_COLOR_ATTACHMENT0_EXT,
 	_fbo.bind();
 
 	_context.framebuffer_texture_2d()(

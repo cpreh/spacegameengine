@@ -52,6 +52,10 @@ sge::opengl::default_target::default_target(
 	)
 {}
 
+sge::opengl::default_target::~default_target()
+{
+}
+
 void
 sge::opengl::default_target::bind() const
 {

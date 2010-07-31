@@ -47,7 +47,7 @@ public:
 
 	typedef void (*gl_gen_framebuffers)(GLsizei, GLuint *);
 
-	typedef void (*gl_delete_framebuffers)(GLsizei, GLuint *);
+	typedef void (*gl_delete_framebuffers)(GLsizei, GLuint const *);
 
 	typedef void (*gl_bind_framebuffer)(GLenum, GLuint);
 
@@ -84,8 +84,8 @@ public:
 	static context::id const static_id;
 private:
 	bool
-		is_native_,
-		is_ext_;
+		has_native_,
+		has_ext_;
 	
 	gl_gen_framebuffers const gen_framebuffers_;
 
@@ -93,7 +93,14 @@ private:
 
 	gl_bind_framebuffer const bind_framebuffer_;
 
-	GLenum const framebuffer_target_;
+	gl_framebuffer_texture_2d const framebuffer_texture_2d_;
+
+	gl_check_framebuffer_status const check_framebuffer_status_;
+
+	GLenum const
+		framebuffer_target_,
+		color_attachment_,
+		framebuffer_complete_;
 };
 
 }
