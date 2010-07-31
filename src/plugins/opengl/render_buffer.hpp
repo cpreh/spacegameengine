@@ -51,6 +51,9 @@ public:
 	GLuint
 	id() const;
 private:
+	void
+	bind() const;
+
 	fbo_context const &context_;
 
 	GLuint id_;

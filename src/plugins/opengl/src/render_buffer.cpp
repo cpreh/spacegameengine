@@ -61,6 +61,8 @@ sge::opengl::render_buffer::store(
 	GLsizei const _height
 )
 {
+	bind();
+
 	context_.renderbuffer_storage()(
 		context_.renderbuffer_target(),
 		_what,
@@ -78,4 +80,19 @@ GLuint
 sge::opengl::render_buffer::id() const
 {
 	return id_;
+}
+
+
+void
+sge::opengl::render_buffer::bind() const
+{
+	context_.bind_renderbuffer()(
+		context_.renderbuffer_target(),
+		id()
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("Binding a render buffer failed."),
+		sge::renderer::exception
+	)
 }
