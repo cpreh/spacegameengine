@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config.hpp>
 #include "target_fwd.hpp"
 #include "default_target_fwd.hpp"
-#include "fbo_target_fwd.hpp"
 #include "common.hpp"
 #include "context/object.hpp"
 #if defined(FCPPT_WINDOWS_PLATFORM)
@@ -166,7 +165,7 @@ public:
 
 	void
 	target(
-		renderer::texture_ptr
+		renderer::target_ptr
 	);
 
 	void
@@ -199,6 +198,11 @@ public:
 
 	renderer::const_target_ptr const
 	target() const;
+
+	renderer::target_ptr const
+	create_target(
+		renderer::texture_ptr
+	);
 
 	renderer::texture_ptr const
 	create_texture(
@@ -251,9 +255,6 @@ private:
 		renderer::state::bool_::trampoline_type const &
 	) const;
 
-	fbo_target_ptr const
-	create_target();
-
 	void
 	reset_viewport(
 		window::dim_type const &
@@ -265,6 +266,9 @@ private:
 	void
 	projection_internal();
 
+	bool
+	fbo_active() const;
+
 	renderer::parameters const param;
 
 	window::instance_ptr const wnd;
@@ -275,8 +279,6 @@ private:
 #elif defined(SGE_HAVE_X11)
 	x11::state state_;
 #endif
-	bool fbo_active;
-
 	renderer::any_matrix projection_;
 
 	renderer::viewport_mode::type viewport_mode_;

@@ -30,7 +30,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/shared_ptr.hpp>
 #include <fcppt/text.hpp>
 
-sge::opengl::fbo_target::fbo_target()
+sge::opengl::fbo_target::fbo_target(
+	sge::renderer::parameters const &param_,
+	opengl::texture_ptr const texture_
+)
+:
+	fbo_()
 {
 	if(!glGenFramebuffersEXT)
 		on_not_supported(

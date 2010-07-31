@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture_ptr.hpp>
 #include <sge/renderer/cube_texture_ptr.hpp>
 //#include <sge/renderer/volume_texture_ptr.hpp>
+#include <sge/renderer/const_target_ptr.hpp>
 #include <sge/renderer/target_ptr.hpp>
 #include <sge/renderer/light_index.hpp>
 #include <sge/renderer/indexed_primitive_type.hpp>
@@ -187,11 +188,11 @@ public:
 		any_matrix const &
 	) = 0;
 
-	SGE_SYMBOL static texture_ptr const default_target;
+	SGE_SYMBOL static renderer::target_ptr const default_target;
 
 	virtual void
 	target(
-		texture_ptr
+		renderer::target_ptr
 	) = 0;
 
 	virtual void
@@ -240,6 +241,11 @@ public:
 
 	virtual const_target_ptr const
 	target() const = 0;
+
+	virtual renderer::target_ptr const
+	create_target(
+		renderer::texture_ptr
+	) = 0;
 
 	SGE_SYMBOL texture_ptr const
 	create_texture(

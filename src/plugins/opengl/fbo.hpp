@@ -18,14 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_FBO_TARGET_HPP_INCLUDED
-#define SGE_OPENGL_FBO_TARGET_HPP_INCLUDED
+#ifndef SGE_OPENGL_FBO_HPP_INCLUDED
+#define SGE_OPENGL_FBO_HPP_INCLUDED
 
-#include "fbo_target_fwd.hpp"
-#include "texture_ptr.hpp"
-#include "fbo.hpp"
-#include <sge/renderer/target.hpp>
-#include <sge/renderer/parameters_fwd.hpp>
+#include "common.hpp"
+#include "fbo_context_fwd.hpp"
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -33,42 +30,22 @@ namespace sge
 namespace opengl
 {
 
-class fbo_target
-:
-	public sge::renderer::target
+class fbo
 {
-	FCPPT_NONCOPYABLE(fbo_target)
+	FCPPT_NONCOPYABLE(fbo)
 public:
-	explicit fbo_target(
-		sge::renderer::parameters const &,
-		opengl::texture_ptr
+	explicit fbo(
+		fbo_context const &
 	);
 
-	~fbo_target();
+	~fbo();
 
-	void
-	bind_me() const;
+	GLuint
+	id() const;
 private:
-	image::view::const_object const
-	lock(
-		renderer::lock_rect const &dest
-	) const;
+	fbo_context const &context_;
 
-	void
-	unlock() const;
-
-	dim_type const
-	dim() const;
-
-	GLenum
-	format() const;
-
-	GLenum
-	format_type() const;
-
-	opengl::fbo fbo_;
-
-	texture_ptr texture_;
+	GLuint id_;
 };
 
 }

@@ -22,38 +22,72 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_DEFAULT_TARGET_HPP_INCLUDED
 
 #include "common.hpp"
-#include "target.hpp"
+#include <sge/renderer/target.hpp>
 #include <sge/renderer/bit_depth.hpp>
+#include <sge/renderer/pixel_pos.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/raw_value.hpp>
+#include <fcppt/container/raw_vector_decl.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace opengl
 {
 
-class default_target : public target {
+class default_target
+:
+	public sge::renderer::target
+{
+	FCPPT_NONCOPYABLE(default_target)
 public:
 	default_target(
 		dim_type const &,
-		renderer::bit_depth::type);
+		renderer::bit_depth::type
+	);
 
-	void pos(
-		renderer::pixel_pos const &);
-	void dim(
-		dim_type const &);
+	~default_target();
+
+	void
+	pos(
+		renderer::pixel_pos const &
+	);
+
+	void
+	dim(
+		dim_type const &
+	);
 private:
-	renderer::pixel_pos const pos() const;
-	dim_type const dim() const;
+	image::view::const_object const
+	lock(
+		renderer::lock_rect const &dest
+	) const;
 
-	void bind_me() const;
-	size_type stride() const;
-	GLenum format() const;
-	GLenum format_type() const;
+	void
+	unlock() const;
+
+	dim_type const
+	dim() const;
+
+	GLenum
+	format() const;
+
+	GLenum
+	format_type() const;
+
+	typedef fcppt::container::raw_vector<
+		renderer::raw_value
+	> buffer_type;
+
+	mutable buffer_type buffer_;
 
 	renderer::pixel_pos pos_;
+
 	dim_type dim_;
-	renderer::bit_depth::type const depth_;
+
+	renderer::size_type const stride_;
 };
 
 }

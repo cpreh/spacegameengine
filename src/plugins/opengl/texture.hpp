@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_HPP_INCLUDED
 
+#include "texture_fwd.hpp"
 #include "common.hpp"
 #include "basic_texture.hpp"
 #include "lock_method.hpp"

@@ -101,9 +101,6 @@ sge::opengl::device::device(
 			std::tr1::placeholders::_1
 		)
 	),
-	fbo_active(
-		false
-	),
 	projection_(
 		fcppt::math::matrix::static_<float, 4, 4>::type::identity()
 	),
@@ -165,7 +162,7 @@ void
 sge::opengl::device::end_rendering()
 {
 	if(
-		!fbo_active
+		!fbo_active()
 	)
 		state_.swap_buffers();
 }
@@ -485,33 +482,37 @@ sge::opengl::device::transform(
 
 void
 sge::opengl::device::target(
-	renderer::texture_ptr const ntarget
+	renderer::target_ptr const _target
 )
 {
-	if(!ntarget)
+	if(!_target)
 	{
 		target_ = default_target_;
+
 		target_->bind_me();
-		fbo_active = false;
+
 		projection_internal();
+
 		reset_viewport_default();
+
 		return;
 	}
 
-	fcppt::shared_ptr<
-		opengl::texture
-	> const p(
-		fcppt::dynamic_pointer_cast<opengl::texture>(
-			ntarget
+	opengl::target_ptr const gl_target(
+		fcppt::dynamic::pointer_cast<
+			opengl::target
+		>(
+			_target
 		)
 	);
 
-	fbo_target_ptr const ftarget = create_target();
+	gl_target->bind_me();
 
-	ftarget->bind_texture(p);
+	/*fbo_target_ptr const ftarget = create_target();
 
-	target_ = ftarget;
-	fbo_active = true;
+	ftarget->bind_texture(p);*/
+
+	target_ = gl_target;
 
 	viewport(
 		renderer::viewport(
@@ -534,7 +535,9 @@ sge::opengl::device::viewport(
 {
 	viewport_ = v;
 
-	if(fbo_active)
+	if(
+		fbo_active()
+	)
 		opengl::viewport(
 			v,
 			static_cast<
@@ -603,6 +606,23 @@ sge::renderer::const_target_ptr const
 sge::opengl::device::target() const
 {
 	return target_;
+}
+
+renderer::target_ptr const
+sge::opengl::device::create_target(
+	renderer::texture_ptr const _texture
+)
+{
+	return
+		fcppt::make_shared_ptr<
+			fbo_target
+		>(
+			fcppt::dynamic_pointer_cast<
+				opengl::texture
+			>(
+				_texture
+			)
+		);
 }
 
 sge::renderer::texture_ptr const
@@ -833,10 +853,16 @@ sge::opengl::device::projection_internal()
 	opengl::set_matrix_and_mode(
 		context_,
 		GL_PROJECTION,
-		fbo_active
+		fbo_active()
 		? fbo_projection(
 			projection_
 		)
 		: projection_
 	);
+}
+
+bool
+sge::opengl::device::fbo_active() const
+{
+	return target_ != default_target_;
 }

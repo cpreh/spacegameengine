@@ -34,10 +34,6 @@ typedef fcppt::shared_ptr<
 	target
 > target_ptr;
 
-typedef fcppt::shared_ptr<
-	target const
-> const_target_ptr;
-
 }
 }
 

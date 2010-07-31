@@ -18,14 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_FBO_TARGET_HPP_INCLUDED
-#define SGE_OPENGL_FBO_TARGET_HPP_INCLUDED
+#ifndef SGE_OPENGL_FBO_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_FBO_CONTEXT_HPP_INCLUDED
 
-#include "fbo_target_fwd.hpp"
-#include "texture_ptr.hpp"
-#include "fbo.hpp"
-#include <sge/renderer/target.hpp>
-#include <sge/renderer/parameters_fwd.hpp>
+#include "fbo_context_fwd.hpp"
+#include "common.hpp"
+#include "context/base.hpp"
+#include "context/id.hpp"
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -33,42 +32,36 @@ namespace sge
 namespace opengl
 {
 
-class fbo_target
+class fbo_context
 :
-	public sge::renderer::target
+	public opengl::context::base
 {
-	FCPPT_NONCOPYABLE(fbo_target)
+	FCPPT_NONCOPYABLE(vbo_context)
 public:
-	explicit fbo_target(
-		sge::renderer::parameters const &,
-		opengl::texture_ptr
-	);
+	fbo_context();
 
-	~fbo_target();
+	~fbo_context();
 
-	void
-	bind_me() const;
+	bool
+	is_supported() const;
+
+	typedef void (gl_gen_framebuffers*)(GLsizei, GLuint *);
+
+	typedef void (gl_delete_framebuffers*)(GLsizei, GLuint *);
+
+	gl_gen_framebuffers
+	gen_framebuffers() const;
+
+	gl_delete_framebuffers
+	delete_framebuffers() const;
+
+	typedef void needs_before;
+
+	static context::id const static_id;
 private:
-	image::view::const_object const
-	lock(
-		renderer::lock_rect const &dest
-	) const;
-
-	void
-	unlock() const;
-
-	dim_type const
-	dim() const;
-
-	GLenum
-	format() const;
-
-	GLenum
-	format_type() const;
-
-	opengl::fbo fbo_;
-
-	texture_ptr texture_;
+	bool
+		is_native_,
+		is_ext_;
 };
 
 }

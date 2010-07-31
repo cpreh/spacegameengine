@@ -20,70 +20,108 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../default_target.hpp"
 #include "../common.hpp"
-#include "../fbo_functions.hpp"
+#include "../read_pixels.hpp"
+#include "../convert/format_to_color.hpp"
+#include <sge/renderer/exception.hpp>
+#include <sge/renderer/bit_depth_bytes.hpp>
+#include <sge/image/view/make_const.hpp>
+#include <sge/image/view/flipped.hpp>
+#include <sge/image/view/make.hpp>
+#include <sge/image/view/optional_pitch.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <sge/exception.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
-#include <boost/cstdint.hpp>
 
 sge::opengl::default_target::default_target(
-	dim_type const & dim_,
-	renderer::bit_depth::type const depth_
+	dim_type const & _dim,
+	renderer::bit_depth::type const _depth
 )
 :
-	pos_(renderer::pixel_pos::null()),
-	dim_(dim_),
-	depth_(depth_)
+	buffer_(),
+	pos_(
+		renderer::pixel_pos::null()
+	),
+	dim_(_dim),
+	stride_(
+		renderer::bit_depth_bytes(
+			_depth
+		)
+	)
 {}
 
 void
 sge::opengl::default_target::pos(
-	renderer::pixel_pos const &p
+	renderer::pixel_pos const &_pos
 )
 {
-	pos_ = p;
+	pos_ = _pos;
 }
 
 void
 sge::opengl::default_target::dim(
-	dim_type const &d)
+	dim_type const &_dim
+)
 {
-	dim_ = d;
+	dim_ = _dim;
 }
 
-sge::renderer::pixel_pos const
-sge::opengl::default_target::pos() const
+sge::image::view::const_object const
+sge::opengl::target::lock(
+	renderer::lock_rect const &_dest
+) const
 {
-	return pos_;
+	if(
+		!buffer_.empty()
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("renderer::target()::lock(): already locked!")
+		);
+
+	buffer_.resize_uninitialized(
+		_dest.dimension().content()
+		* stride_
+	);
+
+	bind_me();
+
+	opengl::read_pixels(
+		pos_.x() + dest.left(),
+		pos_.y() + dest.top(),
+		dest.dimension().w(),
+		dest.dimension().h(),
+		format(),
+		format_type(),
+		buffer.data()
+	);
+
+	return
+		image::view::make_const(
+			image::view::flipped(
+				image::view::make(
+					buffer_.data(),
+					dim(),
+					opengl::convert::format_to_color(
+						format(),
+						format_type()
+					),
+					image::view::optional_pitch()
+				)
+			)
+		);
+}
+
+void
+sge::opengl::target::unlock() const
+{
+	buffer_.free_memory();
 }
 
 sge::renderer::target::dim_type const
 sge::opengl::default_target::dim() const
 {
 	return dim_;
-}
-
-void
-sge::opengl::default_target::bind_me() const
-{
-	unbind_fbo();
-}
-
-sge::opengl::default_target::size_type
-sge::opengl::default_target::stride() const
-{
-	switch(depth_)
-	{
-	case renderer::bit_depth::depth16:
-		return sizeof(boost::uint16_t);
-	case renderer::bit_depth::depth32:
-		return sizeof(boost::uint32_t);
-	}
-
-	throw exception(
-		FCPPT_TEXT("Invalid bit_depth in ogl::default_target!")
-	);
 }
 
 // currently 16bit and 32bit framebuffers are supported

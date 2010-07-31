@@ -18,60 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_FBO_TARGET_HPP_INCLUDED
-#define SGE_OPENGL_FBO_TARGET_HPP_INCLUDED
+#include <sge/renderer/bit_depth_bytes.hpp>
+#include <sge/renderer/exception.hpp>
+#include <boost/cstdint.hpp>
 
-#include "fbo_target_fwd.hpp"
-#include "texture_ptr.hpp"
-#include "fbo.hpp"
-#include <sge/renderer/target.hpp>
-#include <sge/renderer/parameters_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+sge::renderer::size_type
+sge::renderer::bit_depth_bytes(
+	renderer::bit_depth::type const _type
+)
+{
+	switch(depth_)
+	{
+	case renderer::bit_depth::depth16:
+		return sizeof(boost::uint16_t);
+	case renderer::bit_depth::depth32:
+		return sizeof(boost::uint32_t);
+	}
 
-namespace sge
-{
-namespace opengl
-{
-
-class fbo_target
-:
-	public sge::renderer::target
-{
-	FCPPT_NONCOPYABLE(fbo_target)
-public:
-	explicit fbo_target(
-		sge::renderer::parameters const &,
-		opengl::texture_ptr
+	throw renderer::exception(
+		FCPPT_TEXT("Invalid bit_depth in ogl::default_target!")
 	);
-
-	~fbo_target();
-
-	void
-	bind_me() const;
-private:
-	image::view::const_object const
-	lock(
-		renderer::lock_rect const &dest
-	) const;
-
-	void
-	unlock() const;
-
-	dim_type const
-	dim() const;
-
-	GLenum
-	format() const;
-
-	GLenum
-	format_type() const;
-
-	opengl::fbo fbo_;
-
-	texture_ptr texture_;
-};
-
 }
-}
-
-#endif

@@ -1,3 +1,4 @@
+
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
@@ -18,58 +19,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_FBO_TARGET_HPP_INCLUDED
-#define SGE_OPENGL_FBO_TARGET_HPP_INCLUDED
+#ifndef SGE_RENDERER_CONST_TARGET_PTR_HPP_INCLUDED
+#define SGE_RENDERER_CONST_TARGET_PTR_HPP_INCLUDED
 
-#include "fbo_target_fwd.hpp"
-#include "texture_ptr.hpp"
-#include "fbo.hpp"
-#include <sge/renderer/target.hpp>
-#include <sge/renderer/parameters_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/renderer/target_fwd.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
-namespace opengl
+namespace renderer
 {
 
-class fbo_target
-:
-	public sge::renderer::target
-{
-	FCPPT_NONCOPYABLE(fbo_target)
-public:
-	explicit fbo_target(
-		sge::renderer::parameters const &,
-		opengl::texture_ptr
-	);
-
-	~fbo_target();
-
-	void
-	bind_me() const;
-private:
-	image::view::const_object const
-	lock(
-		renderer::lock_rect const &dest
-	) const;
-
-	void
-	unlock() const;
-
-	dim_type const
-	dim() const;
-
-	GLenum
-	format() const;
-
-	GLenum
-	format_type() const;
-
-	opengl::fbo fbo_;
-
-	texture_ptr texture_;
-};
+typedef fcppt::shared_ptr<
+	target const
+> const_target_ptr;
 
 }
 }

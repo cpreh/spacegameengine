@@ -18,60 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_FBO_TARGET_HPP_INCLUDED
-#define SGE_OPENGL_FBO_TARGET_HPP_INCLUDED
+#include "../fbo.hpp"
+#include "../fbo_context.hpp"
+#include "../check_state.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include "fbo_target_fwd.hpp"
-#include "texture_ptr.hpp"
-#include "fbo.hpp"
-#include <sge/renderer/target.hpp>
-#include <sge/renderer/parameters_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
-
-namespace sge
-{
-namespace opengl
-{
-
-class fbo_target
+sge::opengl::fbo::fbo(
+	fbo_context const &_context
+)
 :
-	public sge::renderer::target
+	context_(_context)
 {
-	FCPPT_NONCOPYABLE(fbo_target)
-public:
-	explicit fbo_target(
-		sge::renderer::parameters const &,
-		opengl::texture_ptr
+	_context.gen_framebuffers()(
+		1,
+		&id_
 	);
 
-	~fbo_target();
-
-	void
-	bind_me() const;
-private:
-	image::view::const_object const
-	lock(
-		renderer::lock_rect const &dest
-	) const;
-
-	void
-	unlock() const;
-
-	dim_type const
-	dim() const;
-
-	GLenum
-	format() const;
-
-	GLenum
-	format_type() const;
-
-	opengl::fbo fbo_;
-
-	texture_ptr texture_;
-};
-
-}
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("glGenFramebuffers failed"),
+		sge::renderer::exception
+	)
 }
 
-#endif
+sge::opengl::fbo::~fbo()
+(
+	context_.delete_framebuffers()(
+		1,
+		&id_
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("glDeleteFramebuffers failed"),
+		sge::renderer::exception
+	)
+)
+
+GLuint
+sge::opengl::fbo::id() const
+{
+	return id_;
+}
