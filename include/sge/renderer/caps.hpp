@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/filter/anisotropy_type.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/symbol.hpp>
+#include <fcppt/io/ostream.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/string.hpp>
 
@@ -89,6 +90,13 @@ private:
 
 	image::color::format::type preferred_texture_format_;
 };
+
+SGE_SYMBOL
+fcppt::io::ostream &
+operator<<(
+	fcppt::io::ostream &,
+	caps const &
+);
 
 }
 }
