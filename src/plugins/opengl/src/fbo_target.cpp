@@ -22,10 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../bind_fbo.hpp"
 #include "../fbo_context.hpp"
 #include "../check_state.hpp"
+#include "../render_buffer.hpp"
+#include "../render_buffer_binding.hpp"
 #include "../context/use.hpp"
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/parameters.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/auto_ptr.hpp>
+#include <fcppt/make_auto_ptr.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::fbo_target::fbo_target(
@@ -50,6 +55,22 @@ sge::opengl::fbo_target::fbo_target(
 		fbo_
 	)
 {
+	if(
+		param_.depth_buffer() != renderer::depth_buffer::off
+	)
+		attach_buffer(
+			GL_DEPTH_COMPONENT,
+			context_.depth_attachment()
+		);
+	
+	if(
+		param_.stencil_buffer() != renderer::stencil_buffer::off
+	)
+		attach_buffer(
+			GL_STENCIL_INDEX,
+			context_.stencil_attachment()
+		);
+
 	GLenum const status(
 		context_.check_framebuffer_status()(
 			context_.framebuffer_target()
@@ -110,4 +131,62 @@ sge::renderer::target::dim_type const
 sge::opengl::fbo_target::dim() const
 {
 	return texture_binding_.texture()->dim();
+}
+
+void
+sge::opengl::fbo_target::attach_buffer(
+	GLenum const _component,
+	GLenum const _attachment
+)
+{
+	{
+		typedef fcppt::auto_ptr<
+			render_buffer
+		> render_buffer_ptr;
+
+		render_buffer_ptr ptr(
+			fcppt::make_auto_ptr<
+				render_buffer
+			>(
+				context_
+			)
+		);
+
+		ptr->store(
+			_component,
+			static_cast<
+				GLsizei
+			>(
+				dim().w()
+			),
+			static_cast<
+				GLsizei
+			>(
+				dim().h()
+			)
+		);
+
+		render_buffers_.push_back(
+			ptr
+		);
+	}
+
+	typedef fcppt::auto_ptr<
+		render_buffer_binding
+	> render_buffer_binding_ptr;
+
+	render_buffer_binding_ptr ptr(
+		fcppt::make_auto_ptr<
+			render_buffer_binding
+		>(
+			context_,
+			fbo_,
+			render_buffers_.back(),
+			_attachment
+		)
+	);
+
+	render_buffer_bindings_.push_back(
+		ptr
+	);
 }

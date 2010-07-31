@@ -107,6 +107,12 @@ public:
 	GLenum
 	renderbuffer_target() const;
 
+	GLenum
+	depth_attachment() const;
+
+	GLenum
+	stencil_attachment() const;
+
 	typedef void needs_before;
 
 	static context::id const static_id;
@@ -139,7 +145,9 @@ private:
 		framebuffer_target_,
 		color_attachment_,
 		framebuffer_complete_,
-		renderbuffer_target_;
+		renderbuffer_target_,
+		depth_attachment_,
+		stencil_attachment_;
 };
 
 }

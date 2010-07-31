@@ -184,6 +184,28 @@ sge::opengl::fbo_context::fbo_context()
 				GL_RENDERBUFFER_EXT
 			:
 				0
+	),
+	depth_attachment_(
+		has_native_
+		?
+			GL_DEPTH_ATTACHMENT
+		:
+			has_ext_
+			?
+				GL_DEPTH_ATTACHMENT_EXT
+			:
+				0
+	),
+	stencil_attachment_(
+		has_native_
+		?
+			GL_STENCIL_ATTACHMENT
+		:
+			has_ext_
+			?
+				GL_STENCIL_ATTACHMENT_EXT
+			:
+				0
 	)
 {
 }
@@ -282,6 +304,18 @@ GLenum
 sge::opengl::fbo_context::renderbuffer_target() const
 {
 	return renderbuffer_target_;
+}
+
+GLenum
+sge::opengl::fbo_context::depth_attachment() const
+{
+	return depth_attachment_;
+}
+
+GLenum
+sge::opengl::fbo_context::stencil_attachment() const
+{
+	return stencil_attachment_;
 }
 
 sge::opengl::context::id const
