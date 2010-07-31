@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 #include "../get_string.hpp"
 #include "../get_int.hpp"
+#include "../texture_context.hpp"
+#include "../fbo_context.hpp"
 #include "../glsl/context.hpp"
 #include "../context/use.hpp"
 #include <sge/renderer/caps.hpp>
@@ -34,7 +36,7 @@ sge::opengl::create_caps(
 )
 {
 	GLint const max_texture_size(
-		get_int(
+		opengl::get_int(
 			GL_MAX_TEXTURE_SIZE
 		)
 	);
@@ -56,8 +58,18 @@ sge::opengl::create_caps(
 				max_texture_size,
 				max_texture_size
 			),
-			GL_TEXTURE_MAX_ANISOTROPY_EXT, // TODO:
-			glGenFramebuffersEXT, // TODO!
+			opengl::get_int(
+				context::use<
+					texture_context
+				>(
+					_context
+				).anisotropy_flag()
+			),
+			context::use<
+				fbo_context
+			>(
+				_context
+			).is_supported(),
 			context::use<
 				glsl::context
 			>(
