@@ -1,3 +1,4 @@
+
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
@@ -18,21 +19,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_FBO_FUNCTIONS_HPP_INCLUDED
-#define SGE_OPENGL_FBO_FUNCTIONS_HPP_INCLUDED
+#ifndef SGE_RENDERER_GLSL_CONST_PROGRAM_PTR_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_CONST_PROGRAM_PTR_HPP_INCLUDED
 
-#include "common.hpp"
+#include <sge/renderer/glsl/program_fwd.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
-namespace opengl
+namespace renderer
+{
+namespace glsl
 {
 
-void bind_fbo(
-	GLuint);
+typedef fcppt::shared_ptr<
+	program const
+> const_program_ptr;
 
-void unbind_fbo();
-
+}
 }
 }
 

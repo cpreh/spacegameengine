@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/uniform/variable.hpp>
 #include <sge/renderer/glsl/uniform/single_value.hpp>
 #include <sge/renderer/glsl/program.hpp>
+#include <sge/renderer/glsl/no_program.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/log/global.hpp>
 #include <sge/input/system.hpp>
@@ -364,7 +365,7 @@ try
 	);
 	*/
 
-	sge::renderer::texture_ptr const target(
+	sge::renderer::texture_ptr const target_texture(
 		sys.renderer()->create_texture(
 			fcppt::math::dim::structure_cast<
 				sge::renderer::texture::dim_type
@@ -377,6 +378,12 @@ try
 		)
 	);
 
+	sge::renderer::target_ptr const target(
+		sys.renderer()->create_target(
+			target_texture
+		)
+	);
+
 	sprite_object target_spr(
 		sprite_parameters()
 		.pos(
@@ -386,7 +393,7 @@ try
 			fcppt::make_shared_ptr<
 				sge::texture::part_raw
 			>(
-				target
+				target_texture
 			)
 		)
 		.texture_size()
@@ -455,7 +462,7 @@ try
 		sge::mainloop::dispatch();
 		{
 			sys.renderer()->glsl_program(
-				sge::renderer::device::no_program
+				sge::renderer::glsl::no_program()
 			);
 
 			sge::renderer::scoped_block const block_(

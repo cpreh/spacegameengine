@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_FBO_HPP_INCLUDED
 #define SGE_OPENGL_FBO_HPP_INCLUDED
 
+#include "fbo_fwd.hpp"
 #include "common.hpp"
 #include "fbo_context_fwd.hpp"
 #include <fcppt/noncopyable.hpp>
@@ -39,6 +40,9 @@ public:
 	);
 
 	~fbo();
+
+	void 
+	bind() const;
 
 	GLuint
 	id() const;

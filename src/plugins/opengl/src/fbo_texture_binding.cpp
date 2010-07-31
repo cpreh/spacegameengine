@@ -18,64 +18,70 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../fbo_texture_binding.hpp"
 #include "../fbo.hpp"
 #include "../fbo_context.hpp"
+#include "../texture.hpp"
+#include "../texture_base.hpp"
 #include "../check_state.hpp"
-#include "../on_not_supported.hpp"
-#include "../bind_fbo.hpp"
 #include <sge/renderer/exception.hpp>
+#include <fcppt/static_pointer_cast.hpp>
 #include <fcppt/text.hpp>
 
-sge::opengl::fbo::fbo(
-	fbo_context const &_context
+sge::opengl::fbo_texture_binding::fbo_texture_binding(
+	fbo_context const &_context,
+	opengl::texture_ptr const _texture,
+	fbo &_fbo
 )
 :
-	context_(_context)
+	texture_(_texture)
 {
+		//GL_COLOR_ATTACHMENT0_EXT,
+	_fbo.bind();
+
+	_context.framebuffer_texture_2d()(
+		_context.framebuffer_target(),
+		_context.color_attachment(),
+		GL_TEXTURE_2D,
+		fcppt::static_pointer_cast<
+			texture_base
+		>(
+			_texture
+		)->id(),
+		0
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("Binding a texture to an fbo failed."),
+		sge::renderer::exception
+	)
+
+	GLenum const status(
+		_context.check_framebuffer_status()(
+			_context.framebuffer_target()
+		)
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("Checking the fbo status failed."),
+		sge::renderer::exception
+	)
+
 	if(
-		!_context.is_supported()
+		status !=
+		_context.framebuffer_complete()
 	)
-		opengl::on_not_supported(
-			FCPPT_TEXT("glGenFrameBuffers"),
-			FCPPT_TEXT("Opengl-3.0"),
-			FCPPT_TEXT("frame_buffer_ext")
+		throw sge::renderer::exception(
+			FCPPT_TEXT("FBO is incomplete!")
 		);
-
-	_context.gen_framebuffers()(
-		1,
-		&id_
-	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glGenFramebuffers failed"),
-		sge::renderer::exception
-	)
 }
 
-sge::opengl::fbo::~fbo()
+sge::opengl::fbo_texture_binding::~fbo_texture_binding()
 {
-	context_.delete_framebuffers()(
-		1,
-		&id_
-	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glDeleteFramebuffers failed"),
-		sge::renderer::exception
-	)
 }
 
-void 
-sge::opengl::fbo::bind() const
+sge::renderer::texture_ptr const
+sge::opengl::fbo_texture_binding::texture() const
 {
-	opengl::bind_fbo(
-		context_,
-		id()
-	);
-}
-
-GLuint
-sge::opengl::fbo::id() const
-{
-	return id_;
+	return texture_;
 }

@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/make.hpp>
 #include <sge/image/view/optional_pitch.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -52,6 +53,16 @@ sge::opengl::default_target::default_target(
 {}
 
 void
+sge::opengl::default_target::bind() const
+{
+}
+
+void
+sge::opengl::default_target::unbind() const
+{
+}
+
+void
 sge::opengl::default_target::pos(
 	renderer::pixel_pos const &_pos
 )
@@ -68,7 +79,7 @@ sge::opengl::default_target::dim(
 }
 
 sge::image::view::const_object const
-sge::opengl::target::lock(
+sge::opengl::default_target::lock(
 	renderer::lock_rect const &_dest
 ) const
 {
@@ -84,16 +95,14 @@ sge::opengl::target::lock(
 		* stride_
 	);
 
-	bind_me();
-
 	opengl::read_pixels(
-		pos_.x() + dest.left(),
-		pos_.y() + dest.top(),
-		dest.dimension().w(),
-		dest.dimension().h(),
+		pos_.x() + _dest.left(),
+		pos_.y() + _dest.top(),
+		_dest.dimension().w(),
+		_dest.dimension().h(),
 		format(),
 		format_type(),
-		buffer.data()
+		buffer_.data()
 	);
 
 	return
@@ -113,7 +122,7 @@ sge::opengl::target::lock(
 }
 
 void
-sge::opengl::target::unlock() const
+sge::opengl::default_target::unlock() const
 {
 	buffer_.free_memory();
 }

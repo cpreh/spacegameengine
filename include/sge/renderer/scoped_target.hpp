@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_SCOPED_TARGET_HPP_INCLUDED
 
 #include <sge/renderer/device_ptr.hpp>
-#include <sge/renderer/texture_ptr.hpp>
+#include <sge/renderer/target_ptr.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -35,14 +35,14 @@ class scoped_target
 {
 	FCPPT_NONCOPYABLE(scoped_target)
 public:
-	SGE_SYMBOL scoped_target(
+	SGE_SYMBOL explicit scoped_target(
 		renderer::device_ptr,
-		renderer::texture_ptr
+		renderer::target_ptr
 	);
 
 	SGE_SYMBOL ~scoped_target();
 private:
-	renderer::device_ptr const rend;
+	renderer::device_ptr const rend_;
 };
 
 }

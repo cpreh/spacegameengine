@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/format_fwd.hpp>
 #include <sge/renderer/filter/texture_fwd.hpp>
 #include <sge/renderer/glsl/program_ptr.hpp>
+#include <sge/renderer/glsl/const_program_ptr.hpp>
 #include <sge/renderer/glsl/optional_string.hpp>
 #include <sge/renderer/glsl/string.hpp>
 #include <sge/renderer/glsl/optional_istream.hpp>
@@ -174,8 +175,6 @@ public:
 		renderer::texture_stage_arg_value::type
 	) = 0;
 
-	SGE_SYMBOL static const_texture_base_ptr const no_texture;
-
 	virtual void
 	texture(
 		const_texture_base_ptr,
@@ -187,8 +186,6 @@ public:
 		matrix_mode::type,
 		any_matrix const &
 	) = 0;
-
-	SGE_SYMBOL static renderer::target_ptr const default_target;
 
 	virtual void
 	target(
@@ -232,11 +229,9 @@ public:
 		glsl::string const &
 	) = 0;
 
-	SGE_SYMBOL static glsl::program_ptr const no_program;
-
 	virtual void
 	glsl_program(
-		renderer::glsl::program_ptr
+		renderer::glsl::const_program_ptr
 	) = 0;
 
 	virtual const_target_ptr const

@@ -57,11 +57,11 @@ sge::opengl::glsl::context::is_native() const
 
 void
 sge::opengl::glsl::context::use(
-	sge::renderer::glsl::program_ptr const _prog
+	sge::renderer::glsl::const_program_ptr const _prog
 )
 {
 	typedef fcppt::shared_ptr<
-		program_base
+		program_base const
 	> program_base_ptr;
 
 	if(
@@ -81,7 +81,7 @@ sge::opengl::glsl::context::use(
 	{
 		program_base_ptr const base(
 			fcppt::dynamic_pointer_cast<
-				program_base
+				program_base const
 			>(
 				_prog
 			)

@@ -186,7 +186,7 @@ try
 		.elements()
 	);
 
-	sge::renderer::texture_ptr const target(
+	sge::renderer::texture_ptr const target_texture(
 		sys.renderer()->create_texture(
 			sge::renderer::texture::dim_type(
 				640,
@@ -198,28 +198,11 @@ try
 		)
 	);
 
-#if 0
-	{
-		sge::renderer::scoped_block const block_(
-			sys.renderer()
-		);
-
-		sge::renderer::scoped_target const target_(
-			sys.renderer(),
-			target
-		);
-
-		sge::sprite::render_one(
-			ss,
-			my_object
-		);
-
-		sge::sprite::render_one(
-			ss,
-			my_object_2
-		);
-	}
-#endif
+	sge::renderer::target_ptr const target(
+		sys.renderer()->create_target(
+			target_texture
+		)
+	);
 
 	sprite_object rendered_stuff(
 		sprite_parameters()
@@ -230,7 +213,7 @@ try
 			fcppt::make_shared_ptr<
 				sge::texture::part_raw
 			>(
-				target
+				target_texture
 			)
 		)
 		.texture_size()
@@ -261,56 +244,56 @@ try
 
 	while (running)
 	{
-	{
-	sys.renderer()->state(
-		sge::renderer::state::list
-		(
-			sge::renderer::state::bool_::clear_backbuffer = true
-		)
-		(
-			sge::renderer::state::color::clear_color
-				= sge::image::colors::red()
-		)
-	);
+		{
+			sys.renderer()->state(
+				sge::renderer::state::list
+				(
+					sge::renderer::state::bool_::clear_backbuffer = true
+				)
+				(
+					sge::renderer::state::color::clear_color
+						= sge::image::colors::red()
+				)
+			);
 
-		sys.renderer()->texture(
-			sge::renderer::device::no_texture,
-			0
-		);
+			sys.renderer()->texture(
+				sge::renderer::no_texture(),
+				0
+			);
 
-		sge::renderer::scoped_target const target_(
-			sys.renderer(),
-			target
-		);
+			sge::renderer::scoped_target const target_(
+				sys.renderer(),
+				target
+			);
 
-		sge::renderer::scoped_block const block_(
-			sys.renderer()
-		);
+			sge::renderer::scoped_block const block_(
+				sys.renderer()
+			);
 
-		sge::sprite::render_one(
-			ss,
-			my_object
-		);
+			sge::sprite::render_one(
+				ss,
+				my_object
+			);
 
-		sge::sprite::render_one(
-			ss,
-			my_object_2
-		);
-	}
+			sge::sprite::render_one(
+				ss,
+				my_object_2
+			);
+		}
 
 
 		sge::mainloop::dispatch();
 
-	sys.renderer()->state(
-		sge::renderer::state::list
-		(
-			sge::renderer::state::bool_::clear_backbuffer = true
-		)
-		(
-			sge::renderer::state::color::clear_color
-				= sge::image::colors::blue()
-		)
-	);
+		sys.renderer()->state(
+			sge::renderer::state::list
+			(
+				sge::renderer::state::bool_::clear_backbuffer = true
+			)
+			(
+				sge::renderer::state::color::clear_color
+					= sge::image::colors::blue()
+			)
+		);
 
 		sge::renderer::scoped_block const block_(
 			sys.renderer()

@@ -19,19 +19,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/scoped_target.hpp>
+#include <sge/renderer/default_target.hpp>
 #include <sge/renderer/device.hpp>
 
 sge::renderer::scoped_target::scoped_target(
-	renderer::device_ptr const rend,
-	renderer::texture_ptr const tex)
+	renderer::device_ptr const _rend,
+	renderer::target_ptr const _target
+)
 :
-	rend(rend)
+	rend_(_rend)
 {
-	rend->target(tex);
+	rend_->target(
+		_target
+	);
 }
 
 sge::renderer::scoped_target::~scoped_target()
 {
-	rend->target(
-		renderer::device::default_target);
+	rend_->target(
+		renderer::default_target()
+	);
 }

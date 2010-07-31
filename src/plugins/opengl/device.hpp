@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config.h>
 #include <fcppt/config.hpp>
-#include "target_fwd.hpp"
-#include "default_target_fwd.hpp"
+#include "default_target_ptr.hpp"
+#include "target_ptr.hpp"
 #include "common.hpp"
 #include "context/object.hpp"
 #if defined(FCPPT_WINDOWS_PLATFORM)
@@ -193,7 +193,7 @@ public:
 
 	void
 	glsl_program(
-		renderer::glsl::program_ptr
+		renderer::glsl::const_program_ptr
 	);
 
 	renderer::const_target_ptr const
@@ -287,7 +287,7 @@ private:
 
 	default_target_ptr default_target_;
 
-	target_ptr target_;
+	opengl::target_ptr target_;
 
 	typedef std::stack<
 		renderer::state::list

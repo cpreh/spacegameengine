@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_GLSL_SCOPED_PROGRAM_HPP_INCLUDED
 #define SGE_RENDERER_GLSL_SCOPED_PROGRAM_HPP_INCLUDED
 
-#include <sge/renderer/glsl/program_ptr.hpp>
+#include <sge/renderer/glsl/const_program_ptr.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -40,7 +40,7 @@ public:
 	SGE_SYMBOL
 	explicit scoped_program(
 		renderer::device_ptr,
-		glsl::program_ptr
+		glsl::const_program_ptr
 	);
 
 	SGE_SYMBOL

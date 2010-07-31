@@ -18,25 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/bit_depth_bytes.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
-#include <boost/cstdint.hpp>
+#ifndef SGE_RENDERER_DEFAULT_TARGET_HPP_INCLUDED
+#define SGE_RENDERER_DEFAULT_TARGET_HPP_INCLUDED
 
-sge::renderer::size_type
-sge::renderer::bit_depth_bytes(
-	renderer::bit_depth::type const _type
-)
+#include <sge/renderer/target_ptr.hpp>
+#include <sge/symbol.hpp>
+
+namespace sge
 {
-	switch(_type)
-	{
-	case renderer::bit_depth::depth16:
-		return sizeof(boost::uint16_t);
-	case renderer::bit_depth::depth32:
-		return sizeof(boost::uint32_t);
-	}
+namespace renderer
+{
 
-	throw renderer::exception(
-		FCPPT_TEXT("Invalid bit_depth in ogl::default_target!")
-	);
+SGE_SYMBOL
+renderer::target_ptr const
+default_target();
+
 }
+}
+
+#endif

@@ -74,7 +74,7 @@ template<
 	typename Environment
 >
 void
-sge::opengl::glsl::program<Environment>::use()
+sge::opengl::glsl::program<Environment>::use() const
 {
 	do_use(
 		holder_.id()
@@ -85,7 +85,7 @@ template<
 	typename Environment
 >
 void
-sge::opengl::glsl::program<Environment>::unuse()
+sge::opengl::glsl::program<Environment>::unuse() const
 {
 	do_use(
 		0
@@ -213,7 +213,7 @@ template<
 void
 sge::opengl::glsl::program<Environment>::do_use(
 	handle const handle_
-)
+) const
 {
 	programfuncs::use<
 		Environment

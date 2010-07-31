@@ -36,7 +36,7 @@ class fbo_context
 :
 	public opengl::context::base
 {
-	FCPPT_NONCOPYABLE(vbo_context)
+	FCPPT_NONCOPYABLE(fbo_context)
 public:
 	fbo_context();
 
@@ -45,15 +45,39 @@ public:
 	bool
 	is_supported() const;
 
-	typedef void (gl_gen_framebuffers*)(GLsizei, GLuint *);
+	typedef void (*gl_gen_framebuffers)(GLsizei, GLuint *);
 
-	typedef void (gl_delete_framebuffers*)(GLsizei, GLuint *);
+	typedef void (*gl_delete_framebuffers)(GLsizei, GLuint *);
+
+	typedef void (*gl_bind_framebuffer)(GLenum, GLuint);
+
+	typedef void (*gl_framebuffer_texture_2d)(GLenum, GLenum, GLenum, GLuint, GLint);
+
+	typedef GLenum (*gl_check_framebuffer_status)(GLenum);
 
 	gl_gen_framebuffers
 	gen_framebuffers() const;
 
 	gl_delete_framebuffers
 	delete_framebuffers() const;
+
+	gl_bind_framebuffer
+	bind_framebuffer() const;
+
+	gl_framebuffer_texture_2d
+	framebuffer_texture_2d() const;
+
+	gl_check_framebuffer_status
+	check_framebuffer_status() const;
+
+	GLenum
+	framebuffer_target() const;
+
+	GLenum
+	color_attachment() const;
+
+	GLenum
+	framebuffer_complete() const;
 
 	typedef void needs_before;
 
@@ -62,6 +86,14 @@ private:
 	bool
 		is_native_,
 		is_ext_;
+	
+	gl_gen_framebuffers const gen_framebuffers_;
+
+	gl_delete_framebuffers const delete_framebuffers_;
+
+	gl_bind_framebuffer const bind_framebuffer_;
+
+	GLenum const framebuffer_target_;
 };
 
 }

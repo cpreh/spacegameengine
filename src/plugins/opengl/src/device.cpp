@@ -116,7 +116,7 @@ sge::opengl::device::device(
 			opengl::default_target
 		>(
 			fcppt::math::dim::structure_cast<
-				target::dim_type
+				renderer::target::dim_type
 			>(
 				screen_size()
 			),
@@ -140,7 +140,7 @@ sge::opengl::device::device(
 
 	reset_viewport_default();
 
-	target_->bind_me();
+	target_->bind();
 }
 
 void
@@ -485,11 +485,18 @@ sge::opengl::device::target(
 	renderer::target_ptr const _target
 )
 {
+	if(
+		_target == target_
+	)
+		return;
+	
+	target_->unbind();
+
 	if(!_target)
 	{
 		target_ = default_target_;
 
-		target_->bind_me();
+		target_->bind();
 
 		projection_internal();
 
@@ -499,18 +506,14 @@ sge::opengl::device::target(
 	}
 
 	opengl::target_ptr const gl_target(
-		fcppt::dynamic::pointer_cast<
+		fcppt::dynamic_pointer_cast<
 			opengl::target
 		>(
 			_target
 		)
 	);
 
-	gl_target->bind_me();
-
-	/*fbo_target_ptr const ftarget = create_target();
-
-	ftarget->bind_texture(p);*/
+	gl_target->bind();
 
 	target_ = gl_target;
 
@@ -520,7 +523,7 @@ sge::opengl::device::target(
 			fcppt::math::dim::structure_cast<
 				renderer::screen_size
 			>(
-				p->dim()
+				target_->dim()
 			)
 		)
 	);
@@ -593,7 +596,7 @@ sge::opengl::device::create_glsl_pixel_shader(
 
 void
 sge::opengl::device::glsl_program(
-	renderer::glsl::program_ptr const prog
+	renderer::glsl::const_program_ptr const prog
 )
 {
 	glsl::set_program(
@@ -608,7 +611,7 @@ sge::opengl::device::target() const
 	return target_;
 }
 
-renderer::target_ptr const
+sge::renderer::target_ptr const
 sge::opengl::device::create_target(
 	renderer::texture_ptr const _texture
 )
@@ -617,6 +620,10 @@ sge::opengl::device::create_target(
 		fcppt::make_shared_ptr<
 			fbo_target
 		>(
+			std::tr1::ref(
+				context_
+			),
+			param,
 			fcppt::dynamic_pointer_cast<
 				opengl::texture
 			>(
@@ -791,14 +798,6 @@ sge::opengl::device::clear_bit(
 			convert::clear_bit(s)
 		:
 			0;
-}
-
-sge::opengl::fbo_target_ptr const
-sge::opengl::device::create_target()
-{
-	return fcppt::make_shared_ptr<
-		fbo_target
-	>();
 }
 
 void

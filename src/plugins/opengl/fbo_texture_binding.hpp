@@ -18,25 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/bit_depth_bytes.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
-#include <boost/cstdint.hpp>
+#ifndef SGE_OPENGL_FBO_TEXTURE_BINDING_HPP_INCLUDED
+#define SGE_OPENGL_FBO_TEXTURE_BINDING_HPP_INCLUDED
 
-sge::renderer::size_type
-sge::renderer::bit_depth_bytes(
-	renderer::bit_depth::type const _type
-)
+#include "fbo_fwd.hpp"
+#include "fbo_context_fwd.hpp"
+#include "texture_ptr.hpp"
+#include <sge/renderer/texture_ptr.hpp>
+#include <fcppt/noncopyable.hpp>
+
+namespace sge
 {
-	switch(_type)
-	{
-	case renderer::bit_depth::depth16:
-		return sizeof(boost::uint16_t);
-	case renderer::bit_depth::depth32:
-		return sizeof(boost::uint32_t);
-	}
+namespace opengl
+{
 
-	throw renderer::exception(
-		FCPPT_TEXT("Invalid bit_depth in ogl::default_target!")
+class fbo_texture_binding
+{
+	FCPPT_NONCOPYABLE(fbo_texture_binding)
+public:
+	explicit fbo_texture_binding(
+		fbo_context const &,
+		opengl::texture_ptr,
+		fbo &
 	);
+
+	~fbo_texture_binding();
+
+	sge::renderer::texture_ptr const
+	texture() const;
+private:
+	sge::renderer::texture_ptr const texture_;
+};
+
 }
+}
+
+#endif

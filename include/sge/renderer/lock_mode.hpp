@@ -28,7 +28,8 @@ namespace renderer
 
 namespace lock_mode
 {
-enum type {
+enum type
+{
 	writeonly,
 	readwrite
 };

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "const_program_base_ptr.hpp"
 #include "../context/base.hpp"
 #include "../context/id.hpp"
-#include <sge/renderer/glsl/program_ptr.hpp>
+#include <sge/renderer/glsl/const_program_ptr.hpp>
 #include <fcppt/weak_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -54,7 +54,7 @@ public:
 
 	void
 	use(
-		sge::renderer::glsl::program_ptr
+		sge::renderer::glsl::const_program_ptr
 	);
 
 	glsl::const_program_base_ptr const
@@ -69,7 +69,7 @@ private:
 		arb_shader_;
 	
 	typedef fcppt::weak_ptr<
-		program_base
+		program_base const
 	> program_weak_ptr;
 
 	program_weak_ptr last_program_;

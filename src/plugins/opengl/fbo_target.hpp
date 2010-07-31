@@ -24,7 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "fbo_target_fwd.hpp"
 #include "texture_ptr.hpp"
 #include "fbo.hpp"
-#include <sge/renderer/target.hpp>
+#include "fbo_texture_binding.hpp"
+#include "fbo_context_fwd.hpp"
+#include "target.hpp"
+#include "context/object_fwd.hpp"
 #include <sge/renderer/parameters_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -35,11 +38,12 @@ namespace opengl
 
 class fbo_target
 :
-	public sge::renderer::target
+	public opengl::target
 {
 	FCPPT_NONCOPYABLE(fbo_target)
 public:
 	explicit fbo_target(
+		opengl::context::object &,
 		sge::renderer::parameters const &,
 		opengl::texture_ptr
 	);
@@ -47,11 +51,14 @@ public:
 	~fbo_target();
 
 	void
-	bind_me() const;
+	bind() const;
+
+	void
+	unbind() const;
 private:
 	image::view::const_object const
 	lock(
-		renderer::lock_rect const &dest
+		renderer::lock_rect const &
 	) const;
 
 	void
@@ -60,15 +67,11 @@ private:
 	dim_type const
 	dim() const;
 
-	GLenum
-	format() const;
-
-	GLenum
-	format_type() const;
+	fbo_context const &context_;
 
 	opengl::fbo fbo_;
 
-	texture_ptr texture_;
+	fbo_texture_binding texture_binding_;
 };
 
 }

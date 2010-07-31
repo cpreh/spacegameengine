@@ -18,28 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../fbo_functions.hpp"
-#include "../check_state.hpp"
-#include <sge/renderer/exception.hpp>
+#ifndef SGE_OPENGL_TARGET_PTR_HPP_INCLUDED
+#define SGE_OPENGL_TARGET_PTR_HPP_INCLUDED
 
-void
-sge::opengl::bind_fbo(
-	GLuint const buf)
+#include "target_fwd.hpp"
+#include <fcppt/shared_ptr.hpp>
+
+namespace sge
 {
-	glBindFramebufferEXT(
-		GL_FRAMEBUFFER_EXT,
-		buf
-	);
+namespace opengl
+{
 
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glBindFramebufferEXT failed"),
-		sge::renderer::exception
-	)
+typedef fcppt::shared_ptr<
+	target
+> target_ptr;
+
+}
 }
 
-void
-sge::opengl::unbind_fbo()
-{
-	if(glBindFramebufferEXT)
-		bind_fbo(0);
-}
+#endif

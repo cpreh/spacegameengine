@@ -18,25 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/bit_depth_bytes.hpp>
+#include "../bind_fbo.hpp"
+#include "../fbo_context.hpp"
+#include "../check_state.hpp"
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
-#include <boost/cstdint.hpp>
 
-sge::renderer::size_type
-sge::renderer::bit_depth_bytes(
-	renderer::bit_depth::type const _type
+void
+sge::opengl::bind_fbo(
+	opengl::fbo_context const &_context,
+	GLuint const _id
 )
 {
-	switch(_type)
-	{
-	case renderer::bit_depth::depth16:
-		return sizeof(boost::uint16_t);
-	case renderer::bit_depth::depth32:
-		return sizeof(boost::uint32_t);
-	}
-
-	throw renderer::exception(
-		FCPPT_TEXT("Invalid bit_depth in ogl::default_target!")
+	_context.bind_framebuffer()(
+		_context.framebuffer_target(),
+		_id
 	);
+
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("Binding an fbo failed."),
+		sge::renderer::exception
+	)
 }

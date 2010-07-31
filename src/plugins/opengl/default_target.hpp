@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_DEFAULT_TARGET_HPP_INCLUDED
 
 #include "common.hpp"
-#include <sge/renderer/target.hpp>
+#include "target.hpp"
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/pixel_pos.hpp>
 #include <sge/renderer/size_type.hpp>
@@ -39,16 +39,22 @@ namespace opengl
 
 class default_target
 :
-	public sge::renderer::target
+	public opengl::target
 {
 	FCPPT_NONCOPYABLE(default_target)
 public:
-	default_target(
+	explicit default_target(
 		dim_type const &,
 		renderer::bit_depth::type
 	);
 
 	~default_target();
+
+	void
+	bind() const;
+
+	void
+	unbind() const;
 
 	void
 	pos(

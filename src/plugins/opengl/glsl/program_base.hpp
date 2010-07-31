@@ -40,10 +40,10 @@ protected:
 	program_base();
 public:
 	virtual void
-	use() = 0;
+	use() const = 0;
 
 	virtual void
-	unuse() = 0;
+	unuse() const = 0;
 
 	virtual GLint
 	location(

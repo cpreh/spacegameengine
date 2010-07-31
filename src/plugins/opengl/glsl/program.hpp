@@ -62,10 +62,10 @@ public:
 
 	// public interface for the renderer device
 	void
-	use();
+	use() const;
 
 	void
-	unuse();
+	unuse() const;
 
 	GLint
 	location(
@@ -101,7 +101,7 @@ private:
 	void
 	do_use(
 		handle
-	);
+	) const;
 
 	typedef glsl::attachment<
 		Environment

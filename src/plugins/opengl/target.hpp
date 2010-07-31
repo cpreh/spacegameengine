@@ -18,25 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/bit_depth_bytes.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
-#include <boost/cstdint.hpp>
+#ifndef SGE_OPENGL_TARGET_HPP_INCLUDED
+#define SGE_OPENGL_TARGET_HPP_INCLUDED
 
-sge::renderer::size_type
-sge::renderer::bit_depth_bytes(
-	renderer::bit_depth::type const _type
-)
+#include "target_fwd.hpp"
+#include <sge/renderer/target.hpp>
+#include <fcppt/noncopyable.hpp>
+
+namespace sge
 {
-	switch(_type)
-	{
-	case renderer::bit_depth::depth16:
-		return sizeof(boost::uint16_t);
-	case renderer::bit_depth::depth32:
-		return sizeof(boost::uint32_t);
-	}
+namespace opengl
+{
 
-	throw renderer::exception(
-		FCPPT_TEXT("Invalid bit_depth in ogl::default_target!")
-	);
+class target
+:
+	public sge::renderer::target
+{
+	FCPPT_NONCOPYABLE(target)
+protected:
+	target();
+public:
+	virtual void
+	bind() const = 0;
+
+	virtual void
+	unbind() const = 0;
+	
+	virtual ~target();
+};
+
 }
+}
+
+#endif

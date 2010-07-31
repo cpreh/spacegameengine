@@ -38,10 +38,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional_impl.hpp>
 #include <sstream>
 
-sge::renderer::const_texture_base_ptr const sge::renderer::device::no_texture;
-sge::renderer::texture_ptr const sge::renderer::device::default_target;
-sge::renderer::glsl::program_ptr const sge::renderer::device::no_program;
-
 sge::renderer::device::device()
 {}
 
