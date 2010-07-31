@@ -18,27 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../get_int.hpp"
-#include "../check_state.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_OPENGL_GET_FLOAT_HPP_INCLUDED
+#define SGE_OPENGL_GET_FLOAT_HPP_INCLUDED
 
-GLint
-sge::opengl::get_int(
-	GLenum const _what
-)
+#include "common.hpp"
+
+namespace sge
 {
-	GLint ret;
+namespace opengl
+{
 
-	glGetIntegerv(
-		_what,
-		&ret
-	);
+GLfloat
+get_float(
+	GLenum
+);
 
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glGetIntegerv failed"),
-		sge::renderer::exception
-	)
-
-	return ret;
 }
+}
+
+#endif

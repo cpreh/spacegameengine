@@ -40,6 +40,13 @@ sge::opengl::texture_context::texture_context()
 			GL_TEXTURE_MAX_ANISOTROPY_EXT
 		:
 			0
+	),
+	max_anisotropy_flag_(
+		anisotropic_filter_supported_
+		?
+			GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT
+		:
+			0
 	)
 {}
 
@@ -63,6 +70,12 @@ GLenum
 sge::opengl::texture_context::anisotropy_flag() const
 {
 	return anisotropy_flag_;
+}
+
+GLenum
+sge::opengl::texture_context::max_anisotropy_flag() const
+{
+	return max_anisotropy_flag_;
 }
 
 sge::opengl::context::id const

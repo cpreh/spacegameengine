@@ -50,6 +50,9 @@ public:
 	GLenum
 	anisotropy_flag() const;
 
+	GLenum
+	max_anisotropy_flag() const;
+
 	typedef void needs_before;
 
 	static context::id const static_id;
@@ -58,7 +61,9 @@ private:
 		anisotropic_filter_supported_,
 		generate_mipmap_flag_supported_;
 	
-	GLenum const anisotropy_flag_;
+	GLenum const
+		anisotropy_flag_,
+		max_anisotropy_flag_;
 };
 
 }

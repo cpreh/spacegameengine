@@ -58,15 +58,13 @@ sge::opengl::create_caps(
 				max_texture_size,
 				max_texture_size
 			),
-			/*
 			opengl::get_int(
 				context::use<
 					texture_context
 				>(
 					_context
-				).anisotropy_flag()
-			),*/
-			0, // FIXME
+				).max_anisotropy_flag()
+			),
 			context::use<
 				fbo_context
 			>(
