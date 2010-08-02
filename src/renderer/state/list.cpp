@@ -25,22 +25,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/log/headers.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/export_symbol.hpp>
 #include <fcppt/text.hpp>
 #include <boost/foreach.hpp>
+
+sge::renderer::state::list::list()
+:
+	set_()
+{
+}
 
 sge::renderer::state::list::list(
 	any const &a
 )
 :
-	set_(
-		std::tr1::bind(
-			any_compare,
-			std::tr1::placeholders::_1,
-			std::tr1::placeholders::_2
-		)
-	)
+	set_()
 {
 	set_.insert(a);
 }
@@ -50,31 +49,39 @@ sge::renderer::state::list::~list()
 
 sge::renderer::state::list const
 sge::renderer::state::list::operator()(
-	any const &a
+	any const &_arg
 ) const
 {
-	state::list temp(*this);
+	state::list temp(
+		*this
+	);
 
-	if(!temp.set_.insert(a).second)
+	if(
+		!temp.set_.insert(
+			_arg
+		).second
+	)
 		FCPPT_LOG_WARNING(
 			log::global(),
 			fcppt::log::_
 				<< FCPPT_TEXT("duplicate renderer state given!")
 		);
+
 	return temp;
 }
 
-void sge::renderer::state::list::overwrite(
-	any const &a)
+void
+sge::renderer::state::list::overwrite(
+	any const &_state
+)
 {
-	set_type::iterator const it(
-		set_.find(a)
+	set_.erase(
+		_state
 	);
 
-	if(it != set_.end())
-		set_.erase(it);
-	
-	set_.insert(a);
+	set_.insert(
+		_state
+	);
 	// TODO: is there a better way to do this?
 }
 
@@ -84,18 +91,20 @@ template<
 T
 sge::renderer::state::list::get() const
 {
-	// TODO: can we optimize this?
-
-	BOOST_FOREACH(
-		set_type::const_reference ref,
-		set_
-	)
-		if(ref.type() == typeid(T))
-			return ref.get<T>();
-
-	throw exception(
-		FCPPT_TEXT("renderer::list::get(): state not found!")
+	set_type::const_iterator const it(
+		set_.find(
+			T()
+		)
 	);
+
+	if(
+		it == set_.end()
+	)
+		throw exception(
+			FCPPT_TEXT("renderer::list::get(): state not found!")
+		);
+	
+	return it->get<T>();
 }
 
 template<
@@ -140,25 +149,57 @@ sge::renderer::state::list::values() const
 
 // TODO: move this out of this file! Make the functions free functions instead!
 
-#define SGE_INSTANTIATE_STATE_LIST_GET(x)\
-template FCPPT_EXPORT_SYMBOL x sge::renderer::state::list::get<x>() const;
+#define SGE_INSTANTIATE_STATE_LIST_GET(\
+	_state\
+)\
+template FCPPT_EXPORT_SYMBOL \
+_state \
+sge::renderer::state::list::get<\
+	_state\
+>() const;
 
-SGE_INSTANTIATE_STATE_LIST_GET(sge::renderer::state::cull_mode::type)
-SGE_INSTANTIATE_STATE_LIST_GET(sge::renderer::state::depth_func::type)
-SGE_INSTANTIATE_STATE_LIST_GET(sge::renderer::state::stencil_func::type)
-SGE_INSTANTIATE_STATE_LIST_GET(sge::renderer::state::alpha_func::type)
-SGE_INSTANTIATE_STATE_LIST_GET(sge::renderer::state::fog_mode::type)
-SGE_INSTANTIATE_STATE_LIST_GET(sge::renderer::state::draw_mode::type)
-SGE_INSTANTIATE_STATE_LIST_GET(sge::renderer::state::source_blend_func::type)
-SGE_INSTANTIATE_STATE_LIST_GET(sge::renderer::state::dest_blend_func::type)
+SGE_INSTANTIATE_STATE_LIST_GET(
+	sge::renderer::state::cull_mode::type
+)
+
+SGE_INSTANTIATE_STATE_LIST_GET(
+	sge::renderer::state::depth_func::type
+)
+
+SGE_INSTANTIATE_STATE_LIST_GET(
+	sge::renderer::state::stencil_func::type
+)
+
+SGE_INSTANTIATE_STATE_LIST_GET(
+	sge::renderer::state::alpha_func::type
+)
+
+SGE_INSTANTIATE_STATE_LIST_GET(
+	sge::renderer::state::fog_mode::type
+)
+
+SGE_INSTANTIATE_STATE_LIST_GET(
+	sge::renderer::state::draw_mode::type
+)
+
+SGE_INSTANTIATE_STATE_LIST_GET(
+	sge::renderer::state::source_blend_func::type
+)
+
+SGE_INSTANTIATE_STATE_LIST_GET(
+	sge::renderer::state::dest_blend_func::type
+)
 
 #undef SGE_INSTANTIATE_STATE_LIST_GET
 
-#define SGE_INSTANTIATE_STATE_LIST_GET_T(x)\
-template FCPPT_EXPORT_SYMBOL x::base_type sge::renderer::state::list::get(\
+#define SGE_INSTANTIATE_STATE_LIST_GET_T(\
+	_state\
+)\
+template FCPPT_EXPORT_SYMBOL _state::base_type \
+sge::renderer::state::list::get(\
 	sge::renderer::state::trampoline<\
-		x::base_type,\
-		x::available_states::type\
+		_state::base_type,\
+		_state::available_states::type\
 	> const &\
 ) const;
 

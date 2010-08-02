@@ -88,9 +88,7 @@ sge::opengl::device::device(
 :
 	param(param),
 	wnd(wnd),
-	current_states(
-		renderer::state::default_()
-	),
+	current_states(),
 	state_(
 		param,
 		adapter,
@@ -275,14 +273,17 @@ sge::opengl::device::state(
 	);
 
 	BOOST_FOREACH(
-		renderer::state::any const &s,
+		renderer::state::any const &state,
 		states.values()
 	)
 	{
-		current_states.overwrite(s);
+		current_states.overwrite(
+			state
+		);
 
 		fcppt::variant::apply_unary(
-			visitor, s
+			visitor,
+			state
 		);
 	}
 }
@@ -297,17 +298,21 @@ sge::opengl::device::push_state(
 	);
 
 	state(
-		renderer::state::combine(
+		states
+		/*renderer::state::combine(
 			current_states,
 			states
-		)
+		)*/
 	);
 }
 
 void
 sge::opengl::device::pop_state()
 {
-	state(state_levels.top());
+	state(
+		state_levels.top()
+	);
+
 	state_levels.pop();
 }
 

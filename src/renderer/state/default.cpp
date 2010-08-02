@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::renderer::state::list const
 sge::renderer::state::default_()
 {
-	static list const l(
-		list
+	return
+		state::list
 			(int_::stencil_clear_val = 0)
 			(int_::stencil_ref = 0)
 			(uint::stencil_mask = 0)
@@ -54,7 +54,5 @@ sge::renderer::state::default_()
 			(draw_mode::fill)
 			(source_blend_func::src_alpha)
 			(dest_blend_func::inv_src_alpha)
-	);
-
-	return l;
+		;
 }

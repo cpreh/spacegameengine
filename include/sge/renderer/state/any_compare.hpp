@@ -34,7 +34,8 @@ namespace state
 SGE_SYMBOL bool
 any_compare(
 	any const &,
-	any const &);
+	any const &
+);
 
 }
 }
