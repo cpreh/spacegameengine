@@ -46,6 +46,9 @@ sge::extension_set const extensions_(
 	(
 		FCPPT_TEXT("jpeg")
 	)
+	(
+		FCPPT_TEXT("tga")
+	)
 );
 
 }
