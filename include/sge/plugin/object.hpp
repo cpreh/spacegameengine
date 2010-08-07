@@ -18,8 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_PLUGIN_FWD_HPP_INCLUDED
-#define SGE_PLUGIN_PLUGIN_FWD_HPP_INCLUDED
+#ifndef SGE_PLUGIN_OBJECT_HPP_INCLUDED
+#define SGE_PLUGIN_OBJECT_HPP_INCLUDED
+
+#include <sge/plugin/object_fwd.hpp>
+#include <sge/plugin/traits.hpp>
+#include <sge/plugin/base.hpp>
+#include <sge/library/object.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
@@ -29,7 +38,35 @@ namespace plugin
 template<
 	typename T
 >
-class plugin;
+class object
+:
+	public base
+{
+	FCPPT_NONCOPYABLE(object)
+public:
+	typedef typename detail::traits<
+		T
+	>::loader_fun loader_fun;
+
+	typedef fcppt::shared_ptr<
+		plugin::object<
+			T
+		>
+	> ptr_type;
+
+	SGE_SYMBOL explicit object(
+		fcppt::filesystem::path const &
+	);
+
+	~object();
+
+	SGE_SYMBOL loader_fun
+	get() const;
+private:
+	library::object lib;
+
+	loader_fun const loader;
+};
 
 }
 }

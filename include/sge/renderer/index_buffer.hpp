@@ -44,7 +44,9 @@ protected:
 	SGE_SYMBOL index_buffer();
 public:
 	typedef renderer::size_type           size_type;
+
 	typedef index::dynamic::view          view_type;
+
 	typedef index::dynamic::const_view    const_view_type;
 
 	SGE_SYMBOL static size_type const npos;

@@ -18,57 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_PLUGIN_HPP_INCLUDED
-#define SGE_PLUGIN_PLUGIN_HPP_INCLUDED
+#ifndef SGE_PLUGIN_OBJECT_IMPL_HPP_INCLUDED
+#define SGE_PLUGIN_OBJECT_IMPL_HPP_INCLUDED
 
-#include <sge/plugin/plugin_fwd.hpp>
+#include <sge/plugin/object.hpp>
 #include <sge/plugin/traits.hpp>
-#include <sge/plugin/base.hpp>
-#include <sge/library/object.hpp>
-#include <sge/symbol.hpp>
-#include <fcppt/filesystem/path.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/shared_ptr.hpp>
-
-namespace sge
-{
-namespace plugin
-{
+#include <sge/library/object_impl.hpp>
 
 template<
 	typename T
 >
-class plugin
+sge::plugin::object<T>::object(
+	fcppt::filesystem::path const &_path
+)
 :
-	public base
+	lib(_path),
+	loader(
+		lib.load_function<loader_fun>(
+			detail::traits<T>::plugin_loader_name()
+		)
+	)
+{}
+
+template<
+	typename T
+>
+sge::plugin::object<T>::~object()
+{}
+
+template<
+	typename T
+>
+typename sge::plugin::object<T>::loader_fun
+sge::plugin::object<T>::get() const
 {
-	FCPPT_NONCOPYABLE(plugin)
-public:
-	typedef typename detail::traits<
-		T
-	>::loader_fun loader_fun;
-
-	typedef fcppt::shared_ptr<
-		plugin<
-			T
-		>
-	> ptr_type;
-
-	SGE_SYMBOL explicit plugin(
-		fcppt::filesystem::path const &
-	);
-
-	~plugin();
-
-	SGE_SYMBOL loader_fun
-	get() const;
-private:
-	library::object lib;
-
-	loader_fun const loader;
-};
-
-}
+	return loader;
 }
 
 #endif
