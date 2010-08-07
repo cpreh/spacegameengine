@@ -33,7 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/capabilities_field.hpp>
 #include <sge/font/system.hpp>
 #include <sge/font/drawer_3d.hpp>
-#include <sge/font/object.hpp>
 #include <sge/font/text_part.hpp>
 #include <sge/font/draw_text.hpp>
 #include <sge/font/flags_none.hpp>
@@ -87,7 +86,7 @@ try
 		(sge::systems::parameterless::font)
 	);
 
-	sge::font::object font(
+	sge::font::metrics_ptr const font_metrics(
 		sys.font_system()->create_font(
 			sge::config::media_path()
 			/ FCPPT_TEXT("fonts")
@@ -95,7 +94,10 @@ try
 			/ FCPPT_TEXT("font.png"),
 			0,
 			&sys.image_loader()
-		),
+		)
+	);
+
+	sge::font::drawer_ptr const font_drawer(
 		fcppt::make_shared_ptr<
 			sge::font::drawer_3d
 		>(
@@ -132,7 +134,8 @@ try
 		);
 
 		sge::font::draw_text(
-			font,
+			font_metrics,
+			font_drawer,
 			FCPPT_TEXT("test abcd"),
 			sge::font::pos::null(),
 			fcppt::math::dim::structure_cast<

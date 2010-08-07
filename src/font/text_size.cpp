@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::font::text_part const
 sge::font::text_size(
-	font::object const &_object,
+	sge::font::metrics_ptr const _metrics,
 	string::const_iterator sbeg,
 	string::const_iterator const send,
 	dim const &max_sz,
@@ -41,7 +41,7 @@ sge::font::text_size(
 
 	unit const height(
 		font::height(
-			_object
+			_metrics
 		)
 	);
 
@@ -52,7 +52,7 @@ sge::font::text_size(
 	{
 		font::text_part const line_size(
 			font::line_width(
-				_object,
+				_metrics,
 				sbeg,
 				send,
 				max_sz.w(),
@@ -86,7 +86,7 @@ sge::font::text_size(
 
 sge::font::text_part const
 sge::font::text_size(
-	font::object const &_object,
+	sge::font::metrics_ptr const _metrics,
 	font::string const &_string,
 	dim const &_max_sz,
 	flags_field const &_flags
@@ -94,7 +94,7 @@ sge::font::text_size(
 {
 	return
 		font::text_size(
-			_object,
+			_metrics,
 			_string.begin(),
 			_string.end(),
 			_max_sz,

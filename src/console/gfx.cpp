@@ -57,7 +57,7 @@ line_sequence;
 
 line_sequence const
 wrap(
-	sge::font::object &obj,
+	sge::font::metrics_ptr const metrics,
 	fcppt::string const &s,
 	sge::font::dim const &max_dim)
 {
@@ -74,7 +74,7 @@ wrap(
 
 		sge::font::text_part const tp = 
 			sge::font::line_width(
-				obj,
+				metrics,
 				i,
 				s.end(),
 				max_dim.w(),
@@ -105,8 +105,10 @@ sge::console::gfx::gfx(
 :
 	object_(
 		_object),
-	font_(
-		_metrics,
+	font_metrics_(
+		_metrics
+	),
+	font_drawer_(
 		fcppt::make_shared_ptr<
 			font::drawer_3d
 		>(
@@ -185,18 +187,18 @@ sge::console::gfx::draw()
 
 	
 	output_line_sequence::size_type const line_count = 
-		background_.h() < font::height(font_)
+		background_.h() < font::height(font_metrics_)
 		?
 			0
 		:
 			static_cast<output_line_sequence::size_type>(
 				background_.h()/
 				font::height(
-					font_));
+					font_metrics_));
 	
 	font::unit current_y = 
 		static_cast<font::unit>(
-			background_.y()+background_.h()-2*font::height(font_));
+			background_.y()+background_.h()-2*font::height(font_metrics_));
 			
 	for(
 		output_line_sequence::const_iterator 
@@ -212,20 +214,21 @@ sge::console::gfx::draw()
 	{
 		// draw history lines
 		font::draw_text(
-			font_,
+			font_metrics_,
+			font_drawer_,
 			*i,
 			font::pos(
 				background_.x(),
 				current_y),
 			font::dim(
 				background_.w(), 
-				background_.h() - font::height(font_)),
+				background_.h() - font::height(font_metrics_)),
 			font::align_h::left,
 			font::align_v::top,
 			font::flags::none);
 		current_y -= 
 			font::height(
-				font_);
+				font_metrics_);
 	}
 
 	fcppt::string const il = 
@@ -233,18 +236,19 @@ sge::console::gfx::draw()
 			cursor_active_);
 
 	font::draw_text(
-		font_,
+		font_metrics_,
+		font_drawer_,
 		il,
 		font::pos(
 			static_cast<font::unit>(
 				background_.x()),
 			static_cast<font::unit>(
-				background_.y()+background_.h()-font::height(font_))),
+				background_.y()+background_.h()-font::height(font_metrics_))),
 		font::dim(
 			static_cast<font::unit>(
 				background_.w()),
 			static_cast<font::unit>(
-				font::height(font_))),
+				font::height(font_metrics_))),
 		font::align_h::left,
 		font::align_v::top,
 		font::flags::none);
@@ -277,7 +281,7 @@ sge::console::gfx::print(
 	BOOST_FOREACH(
 		fcppt::string const &l,
 		wrap(
-			font_,
+			font_metrics_,
 			_s,
 			fcppt::math::dim::structure_cast<font::dim>(
 				background_.size())))
