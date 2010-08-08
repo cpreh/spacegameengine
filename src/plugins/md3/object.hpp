@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/cstdint.hpp>
 #include <vector>
 #include <string>
+#include <cstddef>
 
 namespace sge
 {
@@ -41,22 +42,17 @@ public:
 	explicit object(
 		model::istream &);
 
-	renderer::vf::dynamic::format const
-	format() const;
-
-	renderer::size_type
-	vertices() const;
-
-	renderer::size_type
+	model::index_sequence const
 	indices() const;
 
-	void
-	copy_vertices(
-		renderer::vf::dynamic::view const &);
+	model::vertex_sequence const
+	vertices() const;
 
-	void
-	copy_indices(
-		renderer::index::dynamic::view const &);
+	fcppt::optional<model::texcoord_sequence> const
+	texcoords() const;
+
+	fcppt::optional<model::normal_sequence> const
+	normals() const;
 
 	// TODO: split this!
 	typedef boost::int16_t s16;
@@ -164,20 +160,20 @@ public:
 
 	static vec3 convert_normal(s16);
 
-	renderer::size_type
+	std::size_t
 		vertices_,
 		indices_;
 
 	string name_;
 
 	typedef std::vector<frame>   frames_vector;
-	frames_vector                frames;
+	frames_vector                frames_;
 
 	typedef std::vector<tag>     tags_vector;
-	tags_vector                  tags;
+	tags_vector                  tags_;
 
 	typedef std::vector<surface> surface_vector;
-	surface_vector               surfaces;
+	surface_vector               surfaces_;
 };
 
 }

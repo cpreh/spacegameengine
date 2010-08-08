@@ -19,24 +19,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../object.hpp"
-#include "../vertex_format.hpp"
 #include <sge/log/global.hpp>
-#include <sge/renderer/vf/dynamic/view.hpp>
-#include <sge/renderer/vf/dynamic/format.hpp>
-#include <sge/renderer/vf/dynamic/make_format.hpp>
-#include <sge/renderer/vf/view.hpp>
-#include <sge/renderer/vf/iterator.hpp>
-#include <sge/renderer/vf/vertex.hpp>
-#include <sge/renderer/index/dynamic/view.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/math/twopi.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/io/read.hpp>
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/tr1/array.hpp>
 #include <fcppt/log/headers.hpp>
+#include <fcppt/io/cerr.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
 #include <boost/foreach.hpp>
 #include <ios>
 #include <algorithm>
@@ -74,11 +67,13 @@ sge::md3::object::object(
 	s32 const version = fcppt::io::read<s32>(is, endian);
 
 	if(version != 15)
+	{
 		FCPPT_LOG_WARNING(
 			log::global(),
 			fcppt::log::_
 				<< FCPPT_TEXT("md3 version is not 15 but continuing anyway.")
 		);
+	}
 
 	name_ = read_string<max_qpath>(is);
 
@@ -99,17 +94,17 @@ sge::md3::object::object(
 
 	is.seekg(start + ofs_frames, std::ios_base::beg);
 	for(s32 i = 0; i < num_frames; ++i)
-		frames.push_back(frame(is));
+		frames_.push_back(frame(is));
 
 	is.seekg(start + ofs_tags, std::ios_base::beg);
 	for(s32 i = 0; i < num_tags; ++i)
-		tags.push_back(tag(is));
+		tags_.push_back(tag(is));
 
 	is.seekg(start + ofs_surfaces, std::ios_base::beg);
 	for(s32 i = 0; i < num_surfaces; ++i)
 	{
-		surfaces.push_back(surface(is, num_frames));
-		surface const &s = surfaces.back();
+		surfaces_.push_back(surface(is, num_frames));
+		surface const &s = surfaces_.back();
 		indices_ += s.triangles.size();
 		vertices_ += s.transformed_vertices.size();
 	}
@@ -118,142 +113,108 @@ sge::md3::object::object(
 	is.seekg(start + ofs_eof);
 }
 
-sge::renderer::vf::dynamic::format const
-sge::md3::object::format() const
-{
-	static renderer::vf::dynamic::format const fmt(
-		renderer::vf::dynamic::make_format<
-			vertex_format
-		>()
-	);
-
-	return fmt;
-}
-
-sge::renderer::size_type
-sge::md3::object::vertices() const
-{
-	return vertices_;
-}
-
-sge::renderer::size_type
+sge::model::index_sequence const
 sge::md3::object::indices() const
 {
-	return indices_;
+	model::index_sequence result;
+	model::index ib_offset(0);
+	BOOST_FOREACH(
+		sge::md3::object::surface_vector::const_reference surf,
+		surfaces_)
+	{
+		BOOST_FOREACH(
+			sge::md3::object::surface::triangle_vector::const_reference r,
+			surf.triangles)
+		{
+			BOOST_FOREACH(
+				sge::md3::object::surface::triangle::index_array::const_reference ind,
+				r.indices)
+			{
+				result.push_back(
+					static_cast<model::index>(
+						ind + ib_offset));
+			}
+		}
+		ib_offset += 
+			static_cast<model::index>(
+				surf.transformed_vertices.size());
+	}
+	return result;
 }
 
-void
-sge::md3::object::copy_vertices(
-	renderer::vf::dynamic::view const &view)
+sge::model::vertex_sequence const
+sge::md3::object::vertices() const
 {
-	if(vertices() > view.size())
-		throw exception(
-			FCPPT_TEXT("md3::object::copy_vertices(): view too small!")
-		);
-
-	typedef renderer::vf::view<
-		vertex_format
-	> vertex_view;
-
-	vertex_view const vertices(
-		view
-	);
-
-	vertex_view::iterator vbit = vertices.begin();
-
+	model::vertex_sequence result;
+	
 	BOOST_FOREACH(
 		surface_vector::const_reference surf,
-		surfaces
+		surfaces_
 	)
 		for(
 			surface::transformed_vertex_vector::size_type sz = 0;
 			sz < surf.transformed_vertices.size();
-			++sz, ++vbit
+			++sz
 		)
 		{
 			surface::transformed_vertex const &v(
-				surf.transformed_vertices[
-					sz
-				]
-			);
+				surf.transformed_vertices[sz]);
 
-			(*vbit).set<vertex_pos>(v.pos);
-			(*vbit).set<vertex_normal>(v.normal);
-			(*vbit).set<vertex_texpos>(surf.st.at(sz).tex); // TODO: this may be wrong?
+			result.push_back(
+				fcppt::math::vector::structure_cast<model::position>(
+					v.pos));
 		}
+
+	return result;
 }
 
-// TODO: split this, too!
-namespace
+fcppt::optional<sge::model::texcoord_sequence> const
+sge::md3::object::texcoords() const
 {
+	model::texcoord_sequence result;
 
-class index_visitor {
-public:
-	typedef void result_type;
-
-	explicit index_visitor(
-		sge::md3::object::surface_vector const &surfaces_)
-	:
-		surfaces_(surfaces_)
-	{}
-
-	template<
-		typename T
-	>
-	result_type
-	operator()(
-		T const &t
-	) const
+	BOOST_FOREACH(
+		surface_vector::const_reference surf,
+		surfaces_
+	)
 	{
-
-		sge::renderer::size_type ib_offset(0);
-		typedef typename T::value_type value_type;
-		typename T::iterator it = t.begin();
-		BOOST_FOREACH(
-			sge::md3::object::surface_vector::const_reference surf,
-			surfaces_
-		)
+		for(
+			surface::transformed_vertex_vector::size_type sz = 0;
+			sz < surf.transformed_vertices.size();
+			++sz) 
 		{
-			BOOST_FOREACH(
-				sge::md3::object::surface::triangle_vector::const_reference r,
-				surf.triangles
-			)
-			{
-				BOOST_FOREACH(
-					sge::md3::object::surface::triangle::index_array::const_reference ind,
-					r.indices
-				)
-					*it++ = static_cast<value_type>(ind + ib_offset);
-			}
-			ib_offset += static_cast<sge::renderer::size_type>(
-				surf.transformed_vertices.size()
-			);
+			result.push_back(
+				static_cast<model::texcoord>(
+					surf.st.at(sz).tex));
 		}
 	}
-private:
-	sge::md3::object::surface_vector const &surfaces_;
-};
 
+	return result;
 }
 
-void
-sge::md3::object::copy_indices(
-	renderer::index::dynamic::view const &view
-)
+fcppt::optional<sge::model::normal_sequence> const
+sge::md3::object::normals() const
 {
-	if(
-		indices() > view.size()
+	model::normal_sequence result;
+	
+	BOOST_FOREACH(
+		surface_vector::const_reference surf,
+		surfaces_
 	)
-		throw exception(
-			FCPPT_TEXT("md3::object::copy_indices(): view tool small!")
-		);
+		for(
+			surface::transformed_vertex_vector::size_type sz = 0;
+			sz < surf.transformed_vertices.size();
+			++sz
+		)
+		{
+			surface::transformed_vertex const &v(
+				surf.transformed_vertices[sz]);
 
-	fcppt::variant::apply_unary(
-		index_visitor(
-			surfaces
-		),
-		view.any()
-	);
+			result.push_back(
+				v.normal);
+		}
+
+	return result;
 }
 
 

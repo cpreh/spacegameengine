@@ -95,7 +95,7 @@ try
 				fcppt::assign::make_container<
 					sge::extension_set
 				>(
-					FCPPT_TEXT("tga")
+					FCPPT_TEXT("png")
 				)
 			)
 		)
@@ -150,12 +150,12 @@ try
 		sge::renderer::scoped_index_lock(
 			ib,
 			sge::renderer::lock_mode::writeonly
-		).value()
-	);
+		).value() 
+	); 
 
 	sge::renderer::texture_ptr const tex(
 		sge::image::create_texture(
-			sge::config::media_path() / FCPPT_TEXT("european_fnt.tga"),
+			sge::config::media_path() / FCPPT_TEXT("european_fnt.png"),
 			sys.renderer(),
 			sys.image_loader(),
 			sge::renderer::filter::linear,

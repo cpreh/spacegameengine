@@ -22,13 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MODEL_OBJECT_HPP_INCLUDED
 
 #include <sge/model/object_fwd.hpp>
-#include <sge/renderer/index/dynamic/view.hpp>
-#include <sge/renderer/vf/dynamic/view_fwd.hpp>
-#include <sge/renderer/vf/dynamic/format_fwd.hpp>
-#include <sge/renderer/size_type.hpp>
+#include <sge/model/index_sequence.hpp>
+#include <sge/model/vertex_sequence.hpp>
+#include <sge/model/texcoord_sequence.hpp>
+#include <sge/model/normal_sequence.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional.hpp>
 
 namespace sge
 {
@@ -41,27 +42,17 @@ class SGE_CLASS_SYMBOL object
 protected:
 	SGE_SYMBOL object();
 public:
-	// very basic interface
-	// will need a lot more abstraction
-
-	virtual renderer::vf::dynamic::format const
-	format() const = 0;
-
-	virtual renderer::size_type
-	vertices() const = 0;
-
-	virtual renderer::size_type
+	virtual index_sequence const
 	indices() const = 0;
 
-	virtual void
-	copy_vertices(
-		renderer::vf::dynamic::view const &
-	) = 0;
+	virtual vertex_sequence const
+	vertices() const = 0;
 
-	virtual void
-	copy_indices(
-		renderer::index::dynamic::view const &
-	) = 0;
+	virtual fcppt::optional<texcoord_sequence> const
+	texcoords() const = 0;
+
+	virtual fcppt::optional<normal_sequence> const
+	normals() const = 0;
 
 	SGE_SYMBOL virtual ~object();
 };
