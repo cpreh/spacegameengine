@@ -58,6 +58,9 @@ public:
 	normals(
 		fcppt::string const &) const;
 
+	model::part_name_sequence const
+	part_names() const;
+
 	// TODO: split this!
 	typedef boost::int16_t s16;
 	typedef boost::int32_t s32;

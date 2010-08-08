@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/vertex_sequence.hpp>
 #include <sge/model/texcoord_sequence.hpp>
 #include <sge/model/normal_sequence.hpp>
+#include <sge/model/part_name_sequence.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -58,6 +59,9 @@ public:
 	virtual fcppt::optional<normal_sequence> const
 	normals(
 		fcppt::string const &name) const = 0;
+
+	virtual part_name_sequence const
+	part_names() const = 0;
 
 	SGE_SYMBOL virtual ~object();
 };

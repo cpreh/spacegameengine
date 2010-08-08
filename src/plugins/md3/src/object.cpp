@@ -212,6 +212,18 @@ sge::md3::object::normals(
 	return result;
 }
 
+sge::model::part_name_sequence const
+sge::md3::object::part_names() const
+{
+	model::part_name_sequence result;
+	BOOST_FOREACH(
+		surface_vector::const_reference surf,
+		surfaces_)
+		result.push_back(
+			surf.name);
+	return result;
+}
+
 
 bool sge::md3::object::read_and_check_id3p(model::istream& is)
 {
