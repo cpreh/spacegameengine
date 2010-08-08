@@ -43,22 +43,28 @@ public:
 		model::istream &);
 
 	model::index_sequence const
-	indices() const;
+	indices(
+		fcppt::string const &) const;
 
 	model::vertex_sequence const
-	vertices() const;
+	vertices(
+		fcppt::string const &) const;
 
 	fcppt::optional<model::texcoord_sequence> const
-	texcoords() const;
+	texcoords(
+		fcppt::string const &) const;
 
 	fcppt::optional<model::normal_sequence> const
-	normals() const;
+	normals(
+		fcppt::string const &) const;
 
 	// TODO: split this!
 	typedef boost::int16_t s16;
 	typedef boost::int32_t s32;
 	typedef boost::uint8_t u8;
-	typedef std::basic_string<u8> string;
+	// FIXME: This isn't comparable, really
+	//typedef std::basic_string<u8> string;
+	typedef fcppt::string string;
 	typedef fcppt::math::vector::static_<
 		funit,
 		3
@@ -174,6 +180,10 @@ public:
 
 	typedef std::vector<surface> surface_vector;
 	surface_vector               surfaces_;
+
+	surface_vector::const_reference
+	surface_by_name(
+		fcppt::string const &) const;
 };
 
 }

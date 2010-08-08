@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/optional.hpp>
 
 namespace sge
@@ -43,16 +44,20 @@ protected:
 	SGE_SYMBOL object();
 public:
 	virtual index_sequence const
-	indices() const = 0;
+	indices(
+		fcppt::string const &name) const = 0;
 
 	virtual vertex_sequence const
-	vertices() const = 0;
+	vertices(
+		fcppt::string const &name) const = 0;
 
 	virtual fcppt::optional<texcoord_sequence> const
-	texcoords() const = 0;
+	texcoords(
+		fcppt::string const &name) const = 0;
 
 	virtual fcppt::optional<normal_sequence> const
-	normals() const = 0;
+	normals(
+		fcppt::string const &name) const = 0;
 
 	SGE_SYMBOL virtual ~object();
 };

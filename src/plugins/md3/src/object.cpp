@@ -114,105 +114,100 @@ sge::md3::object::object(
 }
 
 sge::model::index_sequence const
-sge::md3::object::indices() const
+sge::md3::object::indices(
+	fcppt::string const &name) const
 {
 	model::index_sequence result;
 	model::index ib_offset(0);
+
+	sge::md3::object::surface_vector::const_reference surf = 
+		surface_by_name(name);
+
 	BOOST_FOREACH(
-		sge::md3::object::surface_vector::const_reference surf,
-		surfaces_)
+		sge::md3::object::surface::triangle_vector::const_reference r,
+		surf.triangles)
 	{
 		BOOST_FOREACH(
-			sge::md3::object::surface::triangle_vector::const_reference r,
-			surf.triangles)
+			sge::md3::object::surface::triangle::index_array::const_reference ind,
+			r.indices)
 		{
-			BOOST_FOREACH(
-				sge::md3::object::surface::triangle::index_array::const_reference ind,
-				r.indices)
-			{
-				result.push_back(
-					static_cast<model::index>(
-						ind + ib_offset));
-			}
+			result.push_back(
+				static_cast<model::index>(
+					ind + ib_offset));
 		}
-		ib_offset += 
-			static_cast<model::index>(
-				surf.transformed_vertices.size());
 	}
+
 	return result;
 }
 
 sge::model::vertex_sequence const
-sge::md3::object::vertices() const
+sge::md3::object::vertices(
+	fcppt::string const &name) const
 {
 	model::vertex_sequence result;
-	
-	BOOST_FOREACH(
-		surface_vector::const_reference surf,
-		surfaces_
-	)
-		for(
-			surface::transformed_vertex_vector::size_type sz = 0;
-			sz < surf.transformed_vertices.size();
-			++sz
-		)
-		{
-			surface::transformed_vertex const &v(
-				surf.transformed_vertices[sz]);
 
-			result.push_back(
-				fcppt::math::vector::structure_cast<model::position>(
-					v.pos));
-		}
+	sge::md3::object::surface_vector::const_reference surf = 
+		surface_by_name(name);
+	
+	for(
+		surface::transformed_vertex_vector::size_type sz = 0;
+		sz < surf.transformed_vertices.size();
+		++sz)
+	{
+		surface::transformed_vertex const &v(
+			surf.transformed_vertices[sz]);
+
+		result.push_back(
+			fcppt::math::vector::structure_cast<model::position>(
+				v.pos));
+	}
 
 	return result;
 }
 
 fcppt::optional<sge::model::texcoord_sequence> const
-sge::md3::object::texcoords() const
+sge::md3::object::texcoords(
+	fcppt::string const &name) const
 {
 	model::texcoord_sequence result;
 
-	BOOST_FOREACH(
-		surface_vector::const_reference surf,
-		surfaces_
-	)
+	sge::md3::object::surface_vector::const_reference surf = 
+		surface_by_name(name);
+
+	for(
+		surface::transformed_vertex_vector::size_type sz = 0;
+		sz < surf.transformed_vertices.size();
+		++sz) 
 	{
-		for(
-			surface::transformed_vertex_vector::size_type sz = 0;
-			sz < surf.transformed_vertices.size();
-			++sz) 
-		{
-			result.push_back(
-				static_cast<model::texcoord>(
-					surf.st.at(sz).tex));
-		}
+		result.push_back(
+			static_cast<model::texcoord>(
+				surf.st.at(sz).tex));
 	}
 
 	return result;
 }
 
 fcppt::optional<sge::model::normal_sequence> const
-sge::md3::object::normals() const
+sge::md3::object::normals(
+	fcppt::string const &name) const
 {
 	model::normal_sequence result;
-	
-	BOOST_FOREACH(
-		surface_vector::const_reference surf,
-		surfaces_
-	)
-		for(
-			surface::transformed_vertex_vector::size_type sz = 0;
-			sz < surf.transformed_vertices.size();
-			++sz
-		)
-		{
-			surface::transformed_vertex const &v(
-				surf.transformed_vertices[sz]);
 
-			result.push_back(
-				v.normal);
-		}
+	sge::md3::object::surface_vector::const_reference surf = 
+		surface_by_name(name);
+	
+	for(
+		surface::transformed_vertex_vector::size_type sz = 0;
+		sz < surf.transformed_vertices.size();
+		++sz
+	)
+	{
+		surface::transformed_vertex const &v(
+			surf.transformed_vertices[sz]);
+
+		result.push_back(
+			v.normal);
+	}
 
 	return result;
 }
@@ -234,7 +229,7 @@ template<
 inline sge::md3::object::string const
 sge::md3::object::read_string(model::istream& is)
 {
-	std::tr1::array<u8, Max> tmp_name;
+	std::tr1::array<string::value_type, Max> tmp_name;
 	is.read(reinterpret_cast<char*>(tmp_name.data()), tmp_name.size());
 
 	if(!std::count(tmp_name.begin(), tmp_name.end(), 0))
@@ -255,6 +250,20 @@ inline sge::md3::object::vec3 sge::md3::object::convert_normal(const s16 normal)
 		std::cos(lng)
 	);
 }
+
+sge::md3::object::surface_vector::const_reference
+sge::md3::object::surface_by_name(
+	fcppt::string const &name) const
+{
+	BOOST_FOREACH(
+		surface_vector::const_reference surf,
+		surfaces_)
+		if (surf.name == name)
+			return surf;
+	
+	throw exception(FCPPT_TEXT("Couldn't find surface called \"")+name+FCPPT_TEXT("\""));
+}
+
 
 inline sge::md3::object::vec3
 sge::md3::object::read_vec3(
@@ -380,3 +389,5 @@ sge::md3::object::surface::transformed_vertex::transformed_vertex(
 		)
 	)
 {}
+
+
