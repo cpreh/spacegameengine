@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/font/metrics.hpp>
-#include <sge/font/object.hpp>
 #include <sge/font/drawer_3d.hpp>
 #include <sge/font/system.hpp>
 #include <sge/font/text_part.hpp>
@@ -95,11 +94,6 @@ try
 		)
 	);
 
-	sge::font::object font(
-		metrics,
-		drawer
-	);
-
 	while (true)
 	{
 		sge::mainloop::dispatch();
@@ -107,7 +101,8 @@ try
 		sge::renderer::scoped_block const block(sys.renderer());
 
 		sge::font::draw_text(
-			font,
+			metrics,
+			drawer,
 			FCPPT_TEXT("hello world"),
 			sge::font::pos::null(),
 			fcppt::math::dim::structure_cast<sge::font::dim>(

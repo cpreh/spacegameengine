@@ -22,14 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../utility/string_square.hpp"
 #include "../../utility/blit.hpp"
 #include <sge/gui/internal_color.hpp>
-#include <sge/font/object.hpp>
-#include <sge/font/text_size.hpp>
-#include <sge/image/colors.hpp>
 #include <sge/gui/unit.hpp>
 #include <sge/gui/canvas/object.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/gui/widgets/edit.hpp>
 #include <sge/gui/skins/standard.hpp>
+#include <sge/image/colors.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>

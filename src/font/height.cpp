@@ -19,16 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/font/height.hpp>
-#include <sge/font/object.hpp>
 #include <sge/font/metrics.hpp>
 
 sge::font::unit
 sge::font::height(
-	sge::font::object const &_object
+	sge::font::metrics_ptr const _metrics
 )
 {
 	return
-		_object.metrics()->line_height();
+		_metrics->line_height();
 }
-
-

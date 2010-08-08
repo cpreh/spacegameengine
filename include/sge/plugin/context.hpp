@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/plugin/context_fwd.hpp>
 #include <sge/plugin/context_base_fwd.hpp>
-#include <sge/plugin/plugin_fwd.hpp>
+#include <sge/plugin/object_fwd.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/shared_ptr.hpp>
 
@@ -43,7 +43,7 @@ public:
 	);
 
 	typedef fcppt::shared_ptr<
-		plugin<
+		plugin::object<
 			T
 		>
 	> ptr_type;

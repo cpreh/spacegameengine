@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/plugin/manager.hpp>
-#include <sge/plugin/plugin.hpp>
+#include <sge/plugin/object.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/model/plugin.hpp>
 #include <sge/model/loader.hpp>
@@ -101,7 +101,7 @@ try
 		)
 	);
 
-	sge::plugin::plugin<
+	sge::plugin::object<
 		sge::model::loader
 	>::ptr_type const model_plugin(
 		sys.plugin_manager().plugin<sge::model::loader>()

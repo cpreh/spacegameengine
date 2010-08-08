@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/font/metrics_ptr.hpp>
-#include <sge/font/object.hpp>
+#include <sge/font/drawer_ptr.hpp>
 #include <sge/input/system_ptr.hpp>
 #include <sge/input/modifier/filter.hpp>
 #include <sge/time/timer.hpp>
@@ -90,7 +90,9 @@ private:
 
 	sge::console::object &object_;
 
-	font::object font_;
+	font::metrics_ptr const font_metrics_;
+
+	font::drawer_ptr const font_drawer_;
 
 	input::system_ptr const input_system_;
 

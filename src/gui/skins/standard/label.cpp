@@ -26,8 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/canvas/object.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/gui/unit.hpp>
-#include <sge/font/object.hpp>
-#include <sge/font/text_size.hpp>
 #include <sge/image/colors.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
