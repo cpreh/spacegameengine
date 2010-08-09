@@ -376,7 +376,9 @@ sge::md3::object::surface::texcoord::texcoord(
 		fcppt::io::read<funit>(is, endian),
 		fcppt::io::read<funit>(is, endian)
 	)
-{}
+{
+	std::swap(tex.x(),tex.y());
+}
 
 sge::md3::object::surface::vertex::vertex(
 	model::istream& is)
