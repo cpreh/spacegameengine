@@ -269,11 +269,12 @@ private:
 	bool
 	fbo_active() const;
 
-	renderer::parameters const param;
+	renderer::parameters const parameters_;
 
-	window::instance_ptr const wnd;
+	window::instance_ptr const window_;
 
-	renderer::state::list      current_states;
+	renderer::state::list current_states_;
+
 #if defined(FCPPT_WINDOWS_PLATFORM)
 	windows::state state_;
 #elif defined(SGE_HAVE_X11)
@@ -297,7 +298,7 @@ private:
 		renderer::caps
 	> caps_;
 
-	stack_type state_levels;
+	stack_type state_levels_;
 
 	mutable context::object context_;
 };

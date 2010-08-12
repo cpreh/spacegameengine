@@ -18,23 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_MATERIAL_HPP_INCLUDED
-#define SGE_OPENGL_MATERIAL_HPP_INCLUDED
+#include "../apply_states.hpp"
+#include "../split_states.hpp"
+#include "../state_visitor.hpp"
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/parameters.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <boost/foreach.hpp>
 
-namespace sge
+void
+sge::opengl::apply_states(
+	opengl::context::object &_context,
+	sge::renderer::state::list &_current_states,
+	sge::renderer::state::list const &_new_states,
+	sge::renderer::parameters const &_param
+)
 {
-namespace renderer
-{
-class material;
+	opengl::split_states split(
+		_current_states
+	);
+
+	opengl::state_visitor const visitor(
+		_context,
+		split,
+		_param.depth_buffer(),
+		_param.stencil_buffer()
+	);
+
+	BOOST_FOREACH(
+		renderer::state::any const &state,
+		_new_states.values()
+	)
+	{
+		_current_states.overwrite(
+			state
+		);
+
+		fcppt::variant::apply_unary(
+			visitor,
+			state
+		);
+	}
 }
-
-namespace opengl
-{
-
-void set_material(
-	renderer::material const &);
-
-}
-}
-
-#endif

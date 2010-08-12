@@ -18,83 +18,76 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <boost/foreach.hpp>
 #include "../device.hpp"
-#include "../index_buffer.hpp"
-#include "../vertex_buffer.hpp"
-#include "../texture.hpp"
+#include "../apply_states.hpp"
+#include "../background_dim.hpp"
+#include "../check_state.hpp"
+#include "../common.hpp"
+#include "../create_caps.hpp"
 #include "../cube_texture.hpp"
-#include "../volume_texture.hpp"
+#include "../cube_texture_context.hpp"
 #include "../default_target.hpp"
-#include "../set_light.hpp"
-#include "../set_clip_plane.hpp"
+#include "../disable.hpp"
 #include "../enable.hpp"
 #include "../enable_bool.hpp"
-#include "../disable.hpp"
+#include "../fbo_projection.hpp"
+#include "../fbo_target.hpp"
+#include "../index_buffer.hpp"
+#include "../initial_states.hpp"
+#include "../set_clip_plane.hpp"
+#include "../set_light.hpp"
+#include "../set_material.hpp"
+#include "../set_matrix_and_mode.hpp"
 #include "../set_texture_level.hpp"
 #include "../set_texture_stage.hpp"
 #include "../set_texture_stage_scale.hpp"
-#include "../check_state.hpp"
-#include "../state_visitor.hpp"
+#include "../texture.hpp"
+#include "../vertex_buffer.hpp"
+#include "../viewport.hpp"
+#include "../viewport_pos.hpp"
+#include "../volume_texture.hpp"
+#include "../context/use.hpp"
+#include "../convert/clear_bit.hpp"
+#include "../convert/clip_plane_index.hpp"
+#include "../convert/indexed_primitive.hpp"
+#include "../convert/light_index.hpp"
+#include "../convert/matrix_mode.hpp"
+#include "../convert/nonindexed_primitive.hpp"
+#include "../glew/initialize.hpp"
 #include "../glsl/set_program.hpp"
 #include "../glsl/create_program.hpp"
 #include "../glsl/create_vertex_shader.hpp"
 #include "../glsl/create_pixel_shader.hpp"
-#include "../common.hpp"
-#include "../set_matrix_and_mode.hpp"
-#include "../split_states.hpp"
-#include "../material.hpp"
-#include "../glew/initialize.hpp"
-#include "../fbo_target.hpp"
-#include "../fbo_projection.hpp"
-#include "../viewport.hpp"
-#include "../viewport_pos.hpp"
-#include "../background_dim.hpp"
-#include "../caps.hpp"
-#include "../cube_texture_context.hpp"
-#include "../initial_states.hpp"
-#include "../context/use.hpp"
-#include "../convert/clear_bit.hpp"
-#include "../convert/indexed_primitive.hpp"
-#include "../convert/nonindexed_primitive.hpp"
-#include "../convert/light_index.hpp"
-#include "../convert/clip_plane_index.hpp"
-#include "../convert/matrix_mode.hpp"
-#include <sge/renderer/caps.hpp>
 #include <sge/renderer/state/default.hpp>
-#include <sge/renderer/state/var.hpp>
-#include <sge/renderer/indices_per_primitive.hpp>
 #include <sge/renderer/index/i16.hpp>
 #include <sge/renderer/index/i32.hpp>
+#include <sge/renderer/caps.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/indices_per_primitive.hpp>
 #include <sge/window/instance.hpp>
-#include <sge/exception.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
-#include <boost/cstdint.hpp>
-#include <sstream>
 
 sge::opengl::device::device(
-	renderer::parameters const &param,
-	renderer::adapter_type const adapter,
-	window::instance_ptr const wnd
+	renderer::parameters const &_parameters,
+	renderer::adapter_type const _adapter,
+	window::instance_ptr const _window
 )
 :
-	param(param),
-	wnd(wnd),
-	current_states(
+	parameters_(_parameters),
+	window_(_window),
+	current_states_(
 		opengl::initial_states()
 	),
 	state_(
-		param,
-		adapter,
-		wnd,
+		_parameters,
+		_adapter,
+		_window,
 		std::tr1::bind(
 			&device::reset_viewport,
 			this,
@@ -109,7 +102,7 @@ sge::opengl::device::device(
 	),
 	viewport_(
 		renderer::pixel_pos::null(),
-		param.display_mode().size()
+		_parameters.display_mode().size()
 	),
 	default_target_(
 		fcppt::make_shared_ptr<
@@ -120,14 +113,14 @@ sge::opengl::device::device(
 			>(
 				screen_size()
 			),
-			param.display_mode().bit_depth()
+			_parameters.display_mode().bit_depth()
 		)
 	),
 	target_(
 		default_target_
 	),
 	caps_(),
-	state_levels(),
+	state_levels_(),
 	context_()
 {
 	glew::initialize();
@@ -146,7 +139,7 @@ sge::opengl::device::device(
 void
 sge::opengl::device::begin_rendering()
 {
-	glClear(
+	::glClear(
 		clear_bit(renderer::state::bool_::clear_backbuffer)
 		| clear_bit(renderer::state::bool_::clear_zbuffer)
 		| clear_bit(renderer::state::bool_::clear_stencil)
@@ -177,11 +170,6 @@ sge::opengl::device::render(
 	renderer::first_index const first_index
 )
 {
-	if(!ib)
-		throw exception(
-			FCPPT_TEXT("ib may not be 0 for renderer::render for indexed primitives!")
-		);
-
 	index_buffer_base const & gl_ib(
 		dynamic_cast<
 			index_buffer_base const &
@@ -260,47 +248,28 @@ sge::opengl::device::unset_vertex_buffer(
 
 void
 sge::opengl::device::state(
-	renderer::state::list const &states
+	renderer::state::list const &_states
 )
 {
-	split_states split(
-		current_states
-	);
-
-	state_visitor const visitor(
+	opengl::apply_states(
 		context_,
-		split,
-		param.depth_buffer(),
-		param.stencil_buffer()
+		current_states_,
+		_states,
+		parameters_
 	);
-
-	BOOST_FOREACH(
-		renderer::state::any const &state,
-		states.values()
-	)
-	{
-		current_states.overwrite(
-			state
-		);
-
-		fcppt::variant::apply_unary(
-			visitor,
-			state
-		);
-	}
 }
 
 void
 sge::opengl::device::push_state(
-	renderer::state::list const &states
+	renderer::state::list const &_states
 )
 {
-	state_levels.push(
-		current_states
+	state_levels_.push(
+		current_states_
 	);
 
 	state(
-		states
+		_states
 	);
 }
 
@@ -308,10 +277,10 @@ void
 sge::opengl::device::pop_state()
 {
 	state(
-		state_levels.top()
+		state_levels_.top()
 	);
 
-	state_levels.pop();
+	state_levels_.pop();
 }
 
 void
@@ -626,7 +595,7 @@ sge::opengl::device::create_target(
 			std::tr1::ref(
 				context_
 			),
-			param,
+			parameters_,
 			fcppt::dynamic_pointer_cast<
 				opengl::texture
 			>(
@@ -741,7 +710,7 @@ sge::opengl::device::create_index_buffer(
 		);
 	}
 
-	throw exception(
+	throw sge::renderer::exception(
 		FCPPT_TEXT("Invalid index::format!")
 	);
 }
@@ -781,24 +750,28 @@ sge::opengl::device::caps() const
 sge::renderer::screen_size const
 sge::opengl::device::screen_size() const
 {
-	return param.display_mode().size();
+	return parameters_.display_mode().size();
 }
 
 sge::window::instance_ptr const
 sge::opengl::device::window() const
 {
-	return wnd;
+	return window_;
 }
 
 GLenum
 sge::opengl::device::clear_bit(
-	renderer::state::bool_::trampoline_type const &s
+	renderer::state::bool_::trampoline_type const &_state
 ) const
 {
 	return
-		current_states.get(s)
+		current_states_.get(
+			_state
+		)
 		?
-			convert::clear_bit(s)
+			convert::clear_bit(
+				_state
+			)
 		:
 			0;
 }
@@ -845,7 +818,7 @@ void
 sge::opengl::device::reset_viewport_default()
 {
 	reset_viewport(
-		wnd->size()
+		window_->size()
 	);
 }
 

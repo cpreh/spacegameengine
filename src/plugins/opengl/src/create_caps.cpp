@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../caps.hpp"
+#include "../create_caps.hpp"
 #include "../common.hpp"
 #include "../get_string.hpp"
 #include "../get_int.hpp"

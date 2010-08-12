@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../material.hpp"
+#include "../set_material.hpp"
 #include "../common.hpp"
 #include "../check_state.hpp"
 #include <sge/renderer/material.hpp>
@@ -32,89 +32,106 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-void glmaterialfv(
+void
+glmaterialfv(
 	GLenum face,
 	GLenum type,
-	GLfloat const *);
+	GLfloat const *
+);
 
-void glmaterialf(
+void
+glmaterialf(
 	GLenum face,
 	GLenum type,
-	GLfloat);
+	GLfloat
+);
 
-void material_color(
+void
+material_color(
 	GLenum face,
 	GLenum type,
-	sge::image::color::any::object const &);
+	sge::image::color::any::object const &
+);
 
-class arithmetic_visitor {
+class arithmetic_visitor
+{
 public:
 	typedef void result_type;
 
 	arithmetic_visitor(
 		GLenum face,
-		GLenum type);
+		GLenum type
+	);
 
 	template<
 		typename T
 	>
 	result_type
 	operator()(
-		T) const;
+		T
+	) const;
 private:
 	GLenum const
-		face,
-		type;
+		face_,
+		type_;
 };
 
 }
 
-void sge::opengl::set_material(
-	renderer::material const &mat)
+void
+sge::opengl::set_material(
+	renderer::material const &_material
+)
 {
 	GLenum const face = GL_FRONT_AND_BACK;
 
-	material_color(
+	::material_color(
 		face,
 		GL_AMBIENT,
-		mat.ambient());
+		_material.ambient()
+	);
 
-	material_color(
+	::material_color(
 		face,
 		GL_DIFFUSE,
-		mat.diffuse());
+		_material.diffuse()
+	);
 
-	material_color(
+	::material_color(
 		face,
 		GL_SPECULAR,
-		mat.specular());
+		_material.specular()
+	);
 
-	material_color(
+	::material_color(
 		face,
 		GL_EMISSION,
-		mat.emissive());
+		_material.emissive()
+	);
 
 	fcppt::variant::apply_unary(
-		arithmetic_visitor(
+		::arithmetic_visitor(
 			face,
 			GL_SHININESS
 		),
-		mat.power()
+		_material.power()
 	);
 }
 
 namespace
 {
 
-void glmaterialfv(
-	GLenum const face,
-	GLenum const type,
-	GLfloat const *const data)
+void
+materialfv(
+	GLenum const _face,
+	GLenum const _type,
+	GLfloat const *const _data
+)
 {
-	glMaterialfv(
-		face,
-		type,
-		data
+	::glMaterialfv(
+		_face,
+		_type,
+		_data
 	);
 
 	SGE_OPENGL_CHECK_STATE(
@@ -123,15 +140,17 @@ void glmaterialfv(
 	)
 }
 
-void glmaterialf(
-	GLenum const face,
-	GLenum const type,
-	GLfloat const f)
+void
+materialf(
+	GLenum const _face,
+	GLenum const _type,
+	GLfloat const _value
+)
 {
 	glMaterialf(
-		face,
-		type,
-		f
+		_face,
+		_type,
+		_value
 	);
 
 	SGE_OPENGL_CHECK_STATE(
@@ -140,40 +159,47 @@ void glmaterialf(
 	)
 }
 
-void material_color(
-	GLenum const face,
-	GLenum const type,
-	sge::image::color::any::object const &color)
+void
+material_color(
+	GLenum const _face,
+	GLenum const _type,
+	sge::image::color::any::object const &_color
+)
 {
-	glmaterialfv(
-		face,
-		type,
+	::materialfv(
+		_face,
+		_type,
 		sge::image::color::any::convert<
 			sge::image::color::rgba32f_format
 		>(
-			color
+			_color
 		).data()
 	);
 }
 
 arithmetic_visitor::arithmetic_visitor(
-	GLenum const face,
-	GLenum const type)
+	GLenum const _face,
+	GLenum const _type
+)
 :
-	face(face),
-	type(type)
+	face_(_face),
+	type_(_type)
 {}
 
 template<
 	typename T
 >
-void arithmetic_visitor::operator()(
-	T const f) const
+void
+arithmetic_visitor::operator()(
+	T const _value
+) const
 {
-	glmaterialf(
-		face,
-		type,
-		static_cast<GLfloat>(f)
+	::materialf(
+		face_,
+		type_,
+		static_cast<GLfloat>(
+			_value
+		)
 	);
 
 }
