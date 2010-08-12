@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/nonindexed_primitive_count.hpp>
-#include <sge/exception.hpp>
+#include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
 sge::renderer::size_type
@@ -32,6 +32,13 @@ sge::renderer::nonindexed_primitive_count(
 	{
 	case nonindexed_primitive_type::point:
 		return vertex_count;
+	case nonindexed_primitive_type::line:
+		if(vertex_count <= 1)
+			throw exception(
+				FCPPT_TEXT("nonindexed_primitive_count(): line needs at least two vertices!")
+			);
+		return vertex_count / 2;
+	
 	case nonindexed_primitive_type::line_strip:
 		if(vertex_count <= 1)
 			throw exception(
@@ -53,7 +60,7 @@ sge::renderer::nonindexed_primitive_count(
 		return vertex_count / 3;
 	}
 
-	throw exception(
+	throw renderer::exception(
 		FCPPT_TEXT("Invalid nonindexed_primitive_type!")
 	);
 }
