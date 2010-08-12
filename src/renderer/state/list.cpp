@@ -22,12 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/any_compare.hpp>
 #include <sge/renderer/state/trampoline.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/log/global.hpp>
-#include <sge/exception.hpp>
 #include <fcppt/log/headers.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/export_symbol.hpp>
 #include <fcppt/text.hpp>
-#include <boost/foreach.hpp>
+#include <fcppt/type_name.hpp>
 
 sge::renderer::state::list::list()
 :
@@ -82,7 +83,6 @@ sge::renderer::state::list::overwrite(
 	set_.insert(
 		_state
 	);
-	// TODO: is there a better way to do this?
 }
 
 template<
@@ -100,8 +100,12 @@ sge::renderer::state::list::get() const
 	if(
 		it == set_.end()
 	)
-		throw exception(
-			FCPPT_TEXT("renderer::list::get(): state not found!")
+		throw renderer::exception(
+			FCPPT_TEXT("renderer::list::get<")
+			+ fcppt::type_name(
+				typeid(T)
+			)
+			+ FCPPT_TEXT(">(): state not found!")
 		);
 	
 	return it->get<T>();
@@ -113,32 +117,29 @@ template<
 >
 T
 sge::renderer::state::list::get(
-	trampoline<T, States> const &t
+	state::trampoline<T, States> const &_trampoline
 ) const
 {
-	typedef typename trampoline<
-		T, States
-	>::var_type var_type;
-
-	// TODO: can we optimize this?
-
-	BOOST_FOREACH(
-		set_type::const_reference ref,
-		set_
-	)
-		if(ref.type() == typeid(var_type))
-		{
-			var_type const &v(
-				ref.get<var_type>()
-			);
-
-			if(v.state() == t.state())
-				return v.value();
-		}
-
-	throw exception(
-		FCPPT_TEXT("renderer::list::get(): state not found!")
+	set_type::const_iterator const it(
+		set_.find(
+			_trampoline = T()
+		)
 	);
+
+	if(
+		it == set_.end()
+	)
+		throw renderer::exception(
+			FCPPT_TEXT("renderer::list::get(): state not found!")
+		);
+	
+	return
+		it->get<
+			typename state::trampoline<
+				T,
+				States
+			>::var_type
+		>().value();
 }
 
 sge::renderer::state::list::set_type const &

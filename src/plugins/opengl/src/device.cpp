@@ -52,6 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../background_dim.hpp"
 #include "../caps.hpp"
 #include "../cube_texture_context.hpp"
+#include "../initial_states.hpp"
 #include "../context/use.hpp"
 #include "../convert/clear_bit.hpp"
 #include "../convert/indexed_primitive.hpp"
@@ -88,7 +89,9 @@ sge::opengl::device::device(
 :
 	param(param),
 	wnd(wnd),
-	current_states(),
+	current_states(
+		opengl::initial_states()
+	),
 	state_(
 		param,
 		adapter,

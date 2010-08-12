@@ -53,7 +53,10 @@ sge::opengl::split_states::update_stencil(
 
 	if(method == renderer::state::stencil_func::off)
 	{
-		disable(GL_STENCIL_TEST);
+		opengl::disable(
+			GL_STENCIL_TEST
+		);
+
 		return;
 	}
 

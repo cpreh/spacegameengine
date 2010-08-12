@@ -18,52 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_VAR_HPP_INCLUDED
-#define SGE_RENDERER_STATE_VAR_HPP_INCLUDED
+#include "../initial_states.hpp"
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/trampoline.hpp>
 
-#include <sge/renderer/state/var_fwd.hpp>
-#include <sge/symbol.hpp>
-
-namespace sge
+sge::renderer::state::list const
+sge::opengl::initial_states()
 {
-namespace renderer
-{
-namespace state
-{
-
-template<
-	typename T,
-	typename States
->
-class var
-{
-public:
-	typedef T value_type;
-	typedef States state_type;
-
-	SGE_SYMBOL var &
-	operator=(
-		value_type const &
-	);
-
-	SGE_SYMBOL state_type
-	state() const;
-
-	SGE_SYMBOL value_type
-	value() const;
-
-	SGE_SYMBOL explicit var(
-		state_type state,
-		value_type const &defval
-	);
-private:
-	state_type state_;
-
-	value_type val_;
-};
-
+	return
+		sge::renderer::state::list
+		(
+			sge::renderer::state::source_blend_func::one
+		)
+		(
+			sge::renderer::state::dest_blend_func::zero
+		)
+		(
+			sge::renderer::state::stencil_func::off
+		)
+		(
+			sge::renderer::state::alpha_func::off
+		)
+		(
+			sge::renderer::state::int_::stencil_ref = 1
+		)
+		(
+			sge::renderer::state::uint::stencil_mask = ~0u
+		)
+		(
+			sge::renderer::state::float_::alpha_test_ref = 0.f
+		);
 }
-}
-}
-
-#endif

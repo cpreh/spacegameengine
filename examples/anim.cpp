@@ -59,12 +59,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/log/global.hpp>
 #include <sge/all_extensions.hpp>
-#include <sge/exception.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/exception.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
@@ -272,13 +272,8 @@ try
 		);
 	}
 }
-catch(sge::exception const &e)
+catch(fcppt::exception const &e)
 {
 	fcppt::io::cerr << e.string() << FCPPT_TEXT('\n');
-	return EXIT_FAILURE;
-}
-catch(std::exception const &e)
-{
-	fcppt::io::cerr << e.what() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 }

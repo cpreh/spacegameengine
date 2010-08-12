@@ -75,7 +75,7 @@ public:
 	>
 	SGE_SYMBOL T
 	get(
-		trampoline<T, States> const &
+		state::trampoline<T, States> const &
 	) const;
 
 	SGE_SYMBOL set_type const &
