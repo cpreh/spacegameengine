@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_STATE_LIST_HPP_INCLUDED
 
 #include <sge/renderer/state/list_fwd.hpp>
-#include <sge/renderer/state/any_compare_functor.hpp>
+#include <sge/renderer/state/any_sort_functor.hpp>
 #include <sge/renderer/state/trampoline_fwd.hpp>
 #include <sge/renderer/state/any.hpp>
 #include <sge/symbol.hpp>
@@ -41,7 +41,7 @@ class list
 public:
 	typedef std::set<
 		any,
-		any_compare_functor
+		any_sort_functor
 	> set_type;
 
 	SGE_SYMBOL

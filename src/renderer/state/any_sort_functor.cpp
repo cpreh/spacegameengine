@@ -18,17 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/state/any_compare_functor.hpp>
-#include <sge/renderer/state/any_compare.hpp>
+#include <sge/renderer/state/any_sort_functor.hpp>
+#include <sge/renderer/state/any_sort.hpp>
 
-sge::renderer::state::any_compare_functor::result_type
-sge::renderer::state::any_compare_functor::operator()(
+sge::renderer::state::any_sort_functor::result_type
+sge::renderer::state::any_sort_functor::operator()(
 	any const &_a,
 	any const &_b
 ) const
 {
 	return
-		state::any_compare(
+		state::any_sort(
 			_a,
 			_b
 		);

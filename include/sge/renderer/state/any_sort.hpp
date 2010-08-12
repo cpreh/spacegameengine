@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_ANY_COMPARE_FUNCTOR_HPP_INCLUDED
-#define SGE_RENDERER_STATE_ANY_COMPARE_FUNCTOR_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_ANY_SORT_HPP_INCLUDED
+#define SGE_RENDERER_STATE_ANY_SORT_HPP_INCLUDED
 
 #include <sge/renderer/state/any.hpp>
 #include <sge/symbol.hpp>
@@ -31,17 +31,11 @@ namespace renderer
 namespace state
 {
 
-struct any_compare_functor
-{
-	typedef bool result_type;
-
-	SGE_SYMBOL
-	result_type
-	operator()(
-		any const &,
-		any const &
-	) const;
-};
+SGE_SYMBOL bool
+any_sort(
+	any const &,
+	any const &
+);
 
 }
 }
