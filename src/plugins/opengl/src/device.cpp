@@ -63,7 +63,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/state/default.hpp>
 #include <sge/renderer/state/var.hpp>
-#include <sge/renderer/state/combine.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
 #include <sge/renderer/index/i16.hpp>
 #include <sge/renderer/index/i32.hpp>
@@ -302,10 +301,6 @@ sge::opengl::device::push_state(
 
 	state(
 		states
-		/*renderer::state::combine(
-			current_states,
-			states
-		)*/
 	);
 }
 
