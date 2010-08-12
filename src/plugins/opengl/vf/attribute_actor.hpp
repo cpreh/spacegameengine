@@ -26,8 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "attribute_context_fwd.hpp"
 #include "actor_parameters_fwd.hpp"
 #include "pointer.hpp"
+#include "../glsl/context_fwd.hpp"
 #include "../context/object_fwd.hpp"
 #include <sge/renderer/vf/dynamic/unspecified_fwd.hpp>
+#include <sge/renderer/vf/string.hpp>
+#include <fcppt/optional_decl.hpp>
 
 namespace sge
 {
@@ -57,13 +60,21 @@ private:
 		client_state_combiner &
 	) const;
 
-	vf::attribute_context &context_;
+	vf::attribute_context &attribute_context_;
+
+	opengl::glsl::context &glsl_context_;
 
 	GLint const elements_;
 
 	GLenum const format_;
 
-	GLint const index_;
+	typedef fcppt::optional<
+		GLint
+	> optional_int;
+
+	sge::renderer::vf::string const element_tag_;
+
+	mutable optional_int index_;
 };
 
 }

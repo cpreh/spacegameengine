@@ -25,9 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../unspecified_format.hpp"
 #include "../unspecified_index.hpp"
 #include "../client_state_combiner.hpp"
+#include "../../glsl/context.hpp"
 #include "../../context/use.hpp"
 #include "../../on_not_supported.hpp"
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/assert.hpp>
 
 sge::opengl::vf::attribute_actor::attribute_actor(
 	actor_parameters const &_param,
@@ -37,9 +40,16 @@ sge::opengl::vf::attribute_actor::attribute_actor(
 	pointer_actor(
 		_param
 	),
-	context_(
+	attribute_context_(
 		opengl::context::use<
 			attribute_context
+		>(
+			_param.context()
+		)
+	),
+	glsl_context_(
+		opengl::context::use<
+			opengl::glsl::context
 		>(
 			_param.context()
 		)
@@ -54,17 +64,15 @@ sge::opengl::vf::attribute_actor::attribute_actor(
 			_unspec.type()
 		)
 	),
-	index_(
-		vf::unspecified_index(
-			_param.context(),
-			_unspec.tag()
-		)
-	)
+	element_tag_(
+		_unspec.tag()
+	),
+	index_()
 {
 	// This check is not really necessary because this format cannot
 	// be used without an active program. But I'll leave it here.
 	if(
-		!context_.is_supported()
+		!attribute_context_.is_supported()
 	)
 		opengl::on_not_supported(
 			FCPPT_TEXT("glVertexAttribPointer"),
@@ -79,8 +87,22 @@ sge::opengl::vf::attribute_actor::operator()(
 	vf::pointer const _src
 ) const
 {
-	context_.vertex_attrib_pointer()(
-		index_,
+	// This function is called when the vertex format
+	// is actually used.
+	// It is important to postpone the glGetAttribLocation
+	// until here.
+	index_ =
+		vf::unspecified_index(
+			glsl_context_,
+			element_tag_
+		);
+
+	_combiner.enable_attribute(
+		*index_
+	);
+
+	attribute_context_.vertex_attrib_pointer()(
+		*index_,
 		elements_,
 		format_,
 		GL_TRUE, // normalized
@@ -91,18 +113,18 @@ sge::opengl::vf::attribute_actor::operator()(
 		),
 		_src
 	);
-
-	_combiner.enable_attribute(
-		index_
-	);
 }
 
 void
 sge::opengl::vf::attribute_actor::unuse(
-	client_state_combiner &c
+	client_state_combiner &_combiner
 ) const
 {
-	c.disable_attribute(
-		index_
+	FCPPT_ASSERT(index_);
+
+	_combiner.disable_attribute(
+		*index_
 	);
+
+	index_.reset();
 }

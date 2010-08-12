@@ -18,34 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../unspecified_index.hpp"
-#include "../../glsl/context.hpp"
-#include "../../glsl/program_base.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_OPENGL_GLSL_CONTEXT_FWD_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_CONTEXT_FWD_HPP_INCLUDED
 
-GLint
-sge::opengl::vf::unspecified_index(
-	opengl::glsl::context &_context,
-	sge::renderer::vf::string const &_name
-)
+namespace sge
 {
-	glsl::const_program_base_ptr const ptr(
-		_context.active_program()
-	);
+namespace opengl
+{
+namespace glsl
+{
 
-	if(
-		!ptr
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("Tried to set a vertex_buffer that uses unspecified elements, ")
-			FCPPT_TEXT("but a GLSL program is not set. ")
-			FCPPT_TEXT(" You have to set the GLSL program before setting the vertex buffer, ")
-			FCPPT_TEXT("e.g. device->set_glsl_program(prog); device->set_vertex_buffer(buf);")
-		);
-	
-	return
-		ptr->location(
-			_name
-		);
+class context;
+
 }
+}
+}
+
+#endif
