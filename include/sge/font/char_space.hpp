@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_CHAR_SPACE_HPP_INCLUDED
 #define SGE_FONT_CHAR_SPACE_HPP_INCLUDED
 
-#include <sge/font/object_fwd.hpp>
+#include <sge/font/metrics_ptr.hpp>
 #include <sge/font/unit.hpp>
 #include <sge/font/char_type.hpp>
 #include <sge/symbol.hpp>
@@ -34,7 +34,7 @@ namespace font
 SGE_SYMBOL
 unit
 char_space(
-	object const &,
+	metrics_ptr,
 	char_type
 );
 

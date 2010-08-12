@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/font/line_width.hpp>
-#include <sge/font/object.hpp>
 #include <sge/font/height.hpp>
 #include <sge/font/char_space.hpp>
 #include <sge/font/text_part.hpp>
@@ -29,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::font::text_part const
 sge::font::line_width(
-	sge::font::object const &_object,
+	sge::font::metrics_ptr const _metrics,
 	fcppt::string::const_iterator sbeg,
 	fcppt::string::const_iterator const send,
 	unit const _max_width,
@@ -42,7 +41,7 @@ sge::font::line_width(
 
 	unit const height(
 		font::height(
-			_object
+			_metrics
 		)
 	);
 
@@ -84,7 +83,7 @@ sge::font::line_width(
 		unit const new_width(
 			width
 			+ font::char_space(
-				_object,
+				_metrics,
 				*sbeg
 			)
 		);

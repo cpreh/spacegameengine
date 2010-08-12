@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "align_pos_v.hpp"
 #include "align_pos_h.hpp"
 #include <sge/font/draw_text.hpp>
-#include <sge/font/object.hpp>
 #include <sge/font/metrics.hpp>
 #include <sge/font/char_metric.hpp>
 #include <sge/font/drawer.hpp>
@@ -30,14 +29,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/height.hpp>
 #include <sge/font/char_space.hpp>
 #include <sge/font/text_part.hpp>
-#include <sge/font/exception.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
-#include <fcppt/text.hpp>
 
 sge::font::text_part const
 sge::font::draw_text(
-	font::object const &_object,
+	font::metrics_ptr const _metrics,
+	font::drawer_ptr const _drawer,
 	font::string const &_text,
 	pos const &_start_pos,
 	dim const &_max_sz,
@@ -46,16 +44,9 @@ sge::font::draw_text(
 	flags_field const &_flags
 )
 {
-	if(
-		!_object.drawer()
-	)
-		throw font::exception(
-			FCPPT_TEXT("font::drawer not set in font::draw_text!")
-		);
-
 	unit const height(
 		font::height(
-			_object
+			_metrics
 		)
 	);
 
@@ -72,7 +63,7 @@ sge::font::draw_text(
 
 	font::text_part const total_size(
 		font::text_size(
-			_object,
+			_metrics,
 			_text.begin(),
 			_text.end(),
 			_max_sz,
@@ -93,7 +84,7 @@ sge::font::draw_text(
 		_text.begin()
 	);
 
-	_object.drawer()->begin_rendering(
+	_drawer->begin_rendering(
 		_text.size(),
 		pos,
 		total_size.size()
@@ -105,7 +96,7 @@ sge::font::draw_text(
 	{
 		font::text_part const line_size(
 			font::line_width(
-				_object,
+				_metrics,
 				sbeg,
 				_text.end(),
 				_max_sz.w(),
@@ -129,12 +120,12 @@ sge::font::draw_text(
 		)
 		{
 			char_metric_ptr const cm(
-				_object.metrics()->load_char(
+				_metrics->load_char(
 					*sbeg
 				)
 			);
 
-			_object.drawer()->draw_char(
+			_drawer->draw_char(
 				*sbeg,
 				pos + cm->offset(),
 				cm->pixmap()
@@ -142,7 +133,7 @@ sge::font::draw_text(
 
 			pos.x() +=
 				font::char_space(
-					_object,
+					_metrics,
 					*sbeg
 				);
 		}
@@ -152,7 +143,7 @@ sge::font::draw_text(
 		pos.y() += height;
 	}
 
-	_object.drawer()->end_rendering();
+	_drawer->end_rendering();
 
 	return total_size;
 }

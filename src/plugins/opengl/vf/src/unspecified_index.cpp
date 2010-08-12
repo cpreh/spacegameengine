@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../unspecified_index.hpp"
-#include "../../context/use.hpp"
 #include "../../glsl/context.hpp"
 #include "../../glsl/program_base.hpp"
 #include <sge/renderer/exception.hpp>
@@ -27,20 +26,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 GLint
 sge::opengl::vf::unspecified_index(
-	opengl::context::object &_context,
+	opengl::glsl::context &_context,
 	sge::renderer::vf::string const &_name
 )
 {
-	opengl::glsl::context &glsl_context(
-		opengl::context::use<
-			opengl::glsl::context
-		>(
-			_context
-		)
-	);
-
 	glsl::const_program_base_ptr const ptr(
-		glsl_context.active_program()
+		_context.active_program()
 	);
 
 	if(

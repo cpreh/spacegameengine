@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/cstdint.hpp>
 #include <vector>
 #include <string>
+#include <cstddef>
 
 namespace sge
 {
@@ -41,28 +42,32 @@ public:
 	explicit object(
 		model::istream &);
 
-	renderer::vf::dynamic::format const
-	format() const;
+	model::index_sequence const
+	indices(
+		fcppt::string const &) const;
 
-	renderer::size_type
-	vertices() const;
+	model::vertex_sequence const
+	vertices(
+		fcppt::string const &) const;
 
-	renderer::size_type
-	indices() const;
+	fcppt::optional<model::texcoord_sequence> const
+	texcoords(
+		fcppt::string const &) const;
 
-	void
-	copy_vertices(
-		renderer::vf::dynamic::view const &);
+	fcppt::optional<model::normal_sequence> const
+	normals(
+		fcppt::string const &) const;
 
-	void
-	copy_indices(
-		renderer::index::dynamic::view const &);
+	model::part_name_sequence const
+	part_names() const;
 
 	// TODO: split this!
 	typedef boost::int16_t s16;
 	typedef boost::int32_t s32;
 	typedef boost::uint8_t u8;
-	typedef std::basic_string<u8> string;
+	// FIXME: This isn't comparable, really
+	//typedef std::basic_string<u8> string;
+	typedef fcppt::string string;
 	typedef fcppt::math::vector::static_<
 		funit,
 		3
@@ -164,20 +169,24 @@ public:
 
 	static vec3 convert_normal(s16);
 
-	renderer::size_type
+	std::size_t
 		vertices_,
 		indices_;
 
 	string name_;
 
 	typedef std::vector<frame>   frames_vector;
-	frames_vector                frames;
+	frames_vector                frames_;
 
 	typedef std::vector<tag>     tags_vector;
-	tags_vector                  tags;
+	tags_vector                  tags_;
 
 	typedef std::vector<surface> surface_vector;
-	surface_vector               surfaces;
+	surface_vector               surfaces_;
+
+	surface_vector::const_reference
+	surface_by_name(
+		fcppt::string const &) const;
 };
 
 }

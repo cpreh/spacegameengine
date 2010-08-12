@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VF_UNSPECIFIED_INDEX_HPP_INCLUDED
 
 #include "../common.hpp"
-#include "../context/object_fwd.hpp"
+#include "../glsl/context_fwd.hpp"
 #include <sge/renderer/vf/string.hpp>
 
 namespace sge
@@ -34,7 +34,7 @@ namespace vf
 
 GLint
 unspecified_index(
-	opengl::context::object &,
+	opengl::glsl::context &,
 	sge::renderer::vf::string const &
 );
 

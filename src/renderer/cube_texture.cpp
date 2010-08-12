@@ -23,6 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/quad.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
+sge::renderer::cube_texture::cube_texture()
+{
+}
+
 sge::image::view::object const
 sge::renderer::cube_texture::lock(
 	cube_side::type const side,
@@ -64,4 +68,8 @@ sge::renderer::cube_texture::rect() const
 			border_size()
 		)
 	);
+}
+
+sge::renderer::cube_texture::~cube_texture()
+{
 }

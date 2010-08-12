@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_LINE_WIDTH_HPP_INCLUDED
 #define SGE_FONT_LINE_WIDTH_HPP_INCLUDED
 
-#include <sge/font/object_fwd.hpp>
+#include <sge/font/metrics_ptr.hpp>
 #include <sge/font/unit.hpp>
 #include <sge/font/flags_field.hpp>
 #include <sge/font/text_part_fwd.hpp>
@@ -36,7 +36,7 @@ namespace font
 SGE_SYMBOL
 font::text_part const
 line_width(
-	object const &,
+	metrics_ptr,
 	string::const_iterator beg,
 	string::const_iterator end,
 	unit width,

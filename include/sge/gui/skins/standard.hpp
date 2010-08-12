@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/skins/base.hpp>
 #include <sge/gui/export.hpp>
 #include <sge/font/system_ptr.hpp>
+#include <sge/font/metrics_ptr.hpp>
 
 namespace sge
 {
@@ -34,8 +35,12 @@ namespace skins
 class standard : public base
 {
 public:
-	SGE_GUI_SYMBOL standard(
+	SGE_GUI_SYMBOL explicit standard(
 		font::system_ptr);
+	
+	SGE_GUI_SYMBOL explicit standard(
+		font::metrics_ptr);
+
 	SGE_GUI_SYMBOL SGE_GUI_SKIN_DRAW_RETURN(widgets::base) fallback(
 		SGE_GUI_SKIN_DRAW_PARAMS(widgets::base));
 	SGE_GUI_SKIN_WIDGETS

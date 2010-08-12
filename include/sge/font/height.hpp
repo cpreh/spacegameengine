@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FONT_HEIGHT_HPP_INCLUDED
 
 #include <sge/font/unit.hpp>
-#include <sge/font/object_fwd.hpp>
+#include <sge/font/metrics_ptr.hpp>
 #include <sge/symbol.hpp>
 
 namespace sge
@@ -33,7 +33,7 @@ namespace font
 SGE_SYMBOL
 unit
 height(
-	object const &
+	metrics_ptr
 );
 
 }

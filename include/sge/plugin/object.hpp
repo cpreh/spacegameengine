@@ -18,38 +18,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_OBJECT_HPP_INCLUDED
-#define SGE_FONT_OBJECT_HPP_INCLUDED
+#ifndef SGE_PLUGIN_OBJECT_HPP_INCLUDED
+#define SGE_PLUGIN_OBJECT_HPP_INCLUDED
 
-#include <sge/font/object_fwd.hpp>
-#include <sge/font/drawer_ptr.hpp>
-#include <sge/font/metrics_ptr.hpp>
+#include <sge/plugin/object_fwd.hpp>
+#include <sge/plugin/traits.hpp>
+#include <sge/plugin/base.hpp>
+#include <sge/library/object.hpp>
 #include <sge/symbol.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
-namespace font
+namespace plugin
 {
 
+template<
+	typename T
+>
 class object
+:
+	public base
 {
+	FCPPT_NONCOPYABLE(object)
 public:
+	typedef typename detail::traits<
+		T
+	>::loader_fun loader_fun;
+
+	typedef fcppt::shared_ptr<
+		plugin::object<
+			T
+		>
+	> ptr_type;
+
 	SGE_SYMBOL explicit object(
-		metrics_ptr metrics,
-		drawer_ptr drawer = drawer_ptr()
+		fcppt::filesystem::path const &
 	);
 
-	SGE_SYMBOL ~object();
+	~object();
 
-	SGE_SYMBOL metrics_ptr const
-	metrics() const;
-
-	SGE_SYMBOL drawer_ptr const
-	drawer() const;
+	SGE_SYMBOL loader_fun
+	get() const;
 private:
-	metrics_ptr metrics_;
+	library::object lib;
 
-	drawer_ptr drawer_;
+	loader_fun const loader;
 };
 
 }

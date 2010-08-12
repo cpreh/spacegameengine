@@ -48,7 +48,9 @@ public:
 	SGE_SYMBOL virtual ~texture();
 
 	typedef renderer::dim_type dim_type;
+
 	typedef lock_rect          rect_type;
+
 	typedef texture_pos_type   pos_type;
 
 	virtual dim_type const dim() const = 0;
@@ -69,13 +71,17 @@ public:
 
 	virtual image::view::const_object const
 	lock(
-		lock_rect const &) const = 0;
+		lock_rect const &
+	) const = 0;
 
-	virtual void unlock() const = 0;
+	virtual void
+	unlock() const = 0;
 
-	SGE_SYMBOL rect_type const rect() const;
+	SGE_SYMBOL rect_type const
+	rect() const;
 
-	SGE_SYMBOL size_type content() const;
+	SGE_SYMBOL size_type
+	content() const;
 };
 
 }

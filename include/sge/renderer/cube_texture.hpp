@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/object.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -39,6 +40,9 @@ class SGE_CLASS_SYMBOL cube_texture
 :
 	public texture_base
 {
+	FCPPT_NONCOPYABLE(cube_texture)
+protected:
+	SGE_SYMBOL cube_texture();
 public:
 	typedef lock_rect rect_type;
 
@@ -76,6 +80,9 @@ public:
 
 	virtual size_type
 	border_size() const = 0;
+
+	SGE_SYMBOL
+	virtual ~cube_texture();
 };
 
 }
