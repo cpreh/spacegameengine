@@ -28,8 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/internal_color.hpp>
 #include <sge/image/color/init.hpp>
 #include <sge/image/colors.hpp>
-#include <sge/font/object.hpp>
-#include <sge/font/text_size.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/log/parameters/inherited.hpp>
 #include <fcppt/log/object.hpp>
@@ -72,15 +70,16 @@ void sge::gui::skins::standard::draw(
 		),
 		b.mouse_over()
 			? internal_color(
-				sge::image::color::init::red = static_cast<channel>(0xee),
-				sge::image::color::init::green = static_cast<channel>(0xeb),
-				sge::image::color::init::blue = static_cast<channel>(0xe7),
-				sge::image::color::init::alpha = static_cast<channel>(0xff))
+				(sge::image::color::init::red = static_cast<channel>(0xee))
+				(sge::image::color::init::green = static_cast<channel>(0xeb))
+				(sge::image::color::init::blue = static_cast<channel>(0xe7))
+				(sge::image::color::init::alpha = static_cast<channel>(0xff))
+			)
 			: internal_color(
-				sge::image::color::init::red = static_cast<channel>(0xdc),
-				sge::image::color::init::green = static_cast<channel>(0xda),
-				sge::image::color::init::blue = static_cast<channel>(0xd5),
-				sge::image::color::init::alpha = static_cast<channel>(0xff)
+				(sge::image::color::init::red = static_cast<channel>(0xdc))
+				(sge::image::color::init::green = static_cast<channel>(0xda))
+				(sge::image::color::init::blue = static_cast<channel>(0xd5))
+				(sge::image::color::init::alpha = static_cast<channel>(0xff))
 			),
 		canvas::rect_type::solid);
 
@@ -100,10 +99,10 @@ void sge::gui::skins::standard::draw(
 		point(c.size().w()-2,1),
 		point(c.size().w()-2,c.size().h()-2),
 		internal_color(
-			sge::image::color::init::red = static_cast<channel>(0x9e),
-			sge::image::color::init::green = static_cast<channel>(0x9a),
-			sge::image::color::init::blue = static_cast<channel>(0x91),
-			sge::image::color::init::alpha = static_cast<channel>(0xff)
+			(sge::image::color::init::red = static_cast<channel>(0x9e))
+			(sge::image::color::init::green = static_cast<channel>(0x9a))
+			(sge::image::color::init::blue = static_cast<channel>(0x91))
+			(sge::image::color::init::alpha = static_cast<channel>(0xff))
 		)
 	);
 
@@ -111,10 +110,10 @@ void sge::gui::skins::standard::draw(
 		point(1,c.size().h()-2),
 		point(c.size().w()-2,c.size().h()-2),
 		internal_color(
-			sge::image::color::init::red = static_cast<channel>(0x9e),
-			sge::image::color::init::green = static_cast<channel>(0x9a),
-			sge::image::color::init::blue = static_cast<channel>(0x91),
-			sge::image::color::init::alpha = static_cast<channel>(0xff)
+			(sge::image::color::init::red = static_cast<channel>(0x9e))
+			(sge::image::color::init::green = static_cast<channel>(0x9a))
+			(sge::image::color::init::blue = static_cast<channel>(0x91))
+			(sge::image::color::init::alpha = static_cast<channel>(0xff))
 		)
 	);
 

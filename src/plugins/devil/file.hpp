@@ -59,8 +59,18 @@ public:
 		fcppt::filesystem::path const &
 	);
 private:
-	void bind_me() const;
-	image_impl impl;
+	void
+	bind_me() const;
+
+	void
+	load(
+		fcppt::filesystem::path const &
+	);
+
+	ILint
+	format() const;
+
+	image_impl impl_;
 };
 
 }

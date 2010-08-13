@@ -19,9 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../client_state_combiner.hpp"
-#include "../global_client_state.hpp"
-#include "../vertex_attrib.hpp"
+#include "../context.hpp"
+#include "../attribute_context.hpp"
+#include "../enable_vertex_attrib_array.hpp"
+#include "../disable_vertex_attrib_array.hpp"
+#include "../../context/use.hpp"
 #include <fcppt/container/linear_set_impl.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <boost/foreach.hpp>
 #include <functional>
 #include <algorithm>
@@ -45,63 +49,101 @@ apply_difference(
 }
 
 sge::opengl::vf::client_state_combiner::client_state_combiner(
-	client_state const &old_states
+	opengl::context::object &_context
 )
 :
-	old_states(old_states),
-	new_states(old_states)
+	context_(
+		opengl::context::use<
+			vf::context
+		>(
+			_context
+		)
+	),
+	attribute_context_(
+		opengl::context::use<
+			vf::attribute_context
+		>(
+			_context
+		)
+	),
+	old_states_(
+		context_.state()
+	),
+	new_states_(
+		old_states_
+	)
 {}
 
 void
 sge::opengl::vf::client_state_combiner::enable(
-	GLenum const e
+	GLenum const _enum
 )
 {
-	new_states.enable(e);
+	new_states_.enable(
+		_enum
+	);
 }
 
 void
 sge::opengl::vf::client_state_combiner::disable(
-	GLenum const e
+	GLenum const _enum
 )
 {
-	new_states.disable(e);
+	new_states_.disable(
+		_enum
+	);
 }
 
 void
 sge::opengl::vf::client_state_combiner::enable_attribute(
-	GLuint const i
+	GLuint const _attribute
 )
 {
-	new_states.enable_attribute(i);
+	new_states_.enable_attribute(
+		_attribute
+	);
 }
 
 void
 sge::opengl::vf::client_state_combiner::disable_attribute(
-	GLuint const i
+	GLuint const _attribute
 )
 {
-	new_states.disable_attribute(i);
+	new_states_.disable_attribute(
+		_attribute
+	);
 }
 
 sge::opengl::vf::client_state_combiner::~client_state_combiner()
 {
 	apply_difference(
-		old_states.normal_states(),
-		new_states.normal_states(),
+		old_states_.normal_states(),
+		new_states_.normal_states(),
 		glEnableClientState,
 		glDisableClientState
 	);
 
 	apply_difference(
-		old_states.attribute_states(),
-		new_states.attribute_states(),
-		enable_vertex_attrib_array,
-		disable_vertex_attrib_array
+		old_states_.attribute_states(),
+		new_states_.attribute_states(),
+		std::tr1::bind(
+			vf::enable_vertex_attrib_array,
+			std::tr1::ref(
+				attribute_context_
+			),
+			std::tr1::placeholders::_1
+		),
+		std::tr1::bind(
+			vf::disable_vertex_attrib_array,
+			std::tr1::ref(
+				attribute_context_
+			),
+			std::tr1::placeholders::_1
+		)
 	);
 
-	global_client_state(
-		new_states
+	context_.state(
+		new_states_
 	);
 }
 

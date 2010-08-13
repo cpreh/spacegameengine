@@ -25,7 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key_type.hpp>
 #include <sge/input/key_code.hpp>
 #include <sge/input/key_pair.hpp>
-#include <sge/font/text_size.hpp>
+#include <sge/font/line_width.hpp>
+#include <sge/font/flags_none.hpp>
+#include <sge/font/height.hpp>
+#include <sge/font/draw_text.hpp>
+
+#include <sge/font/text_part.hpp>
 #include <sge/font/pos.hpp>
 #include <sge/time/second_f.hpp>
 #include <sge/sprite/external_system_impl.hpp>
@@ -40,6 +45,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/foreach.hpp>
 #include <locale>
 
+namespace
+{
+typedef
+std::vector
+<
+	std::string
+>
+line_sequence;
+
+line_sequence const
+wrap(
+	sge::font::metrics_ptr const metrics,
+	fcppt::string const &s,
+	sge::font::dim const &max_dim)
+{
+	if (s.empty())
+		return line_sequence();
+
+	fcppt::string::const_iterator i = 
+		s.begin();
+
+	line_sequence lines;
+
+	for (fcppt::string::const_iterator i = s.begin(); i != s.end();)
+	{
+
+		sge::font::text_part const tp = 
+			sge::font::line_width(
+				metrics,
+				i,
+				s.end(),
+				max_dim.w(),
+				sge::font::flags::none);
+
+		lines.push_back(
+			fcppt::string(
+				i,
+				tp.end()));
+
+		i = 
+			tp.next_begin();
+	}
+
+	return lines;
+}
+}
+
 sge::console::gfx::gfx(
 	sge::console::object &_object,
 	renderer::device_ptr const _rend,
@@ -52,8 +104,10 @@ sge::console::gfx::gfx(
 :
 	object_(
 		_object),
-	font_(
-		_metrics,
+	font_metrics_(
+		_metrics
+	),
+	font_drawer_(
 		fcppt::make_shared_ptr<
 			font::drawer_3d
 		>(
@@ -85,6 +139,18 @@ sge::console::gfx::gfx(
 			)
 		)
 	),
+	error_conn_(
+		object_.register_error_callback(
+			std::tr1::bind(
+				&gfx::error,
+				this,
+				std::tr1::placeholders::_1))),
+	message_conn_(
+		object_.register_message_callback(
+			std::tr1::bind(
+				&gfx::print,
+				this,
+				std::tr1::placeholders::_1))),
 	sprite_system_(
 		_rend),
 	background_(
@@ -117,15 +183,21 @@ sge::console::gfx::draw()
 		sprite_system_,
 		background_
 	);
+
 	
 	output_line_sequence::size_type const line_count = 
-		static_cast<output_line_sequence::size_type>(
-			(background_.h()-font_.height())/
-			font_.height() + 1);
+		background_.h() < font::height(font_metrics_)
+		?
+			0
+		:
+			static_cast<output_line_sequence::size_type>(
+				background_.h()/
+				font::height(
+					font_metrics_));
 	
 	font::unit current_y = 
 		static_cast<font::unit>(
-			background_.y()+background_.h()-2*font_.height());
+			background_.y()+background_.h()-2*font::height(font_metrics_));
 			
 	for(
 		output_line_sequence::const_iterator 
@@ -140,36 +212,45 @@ sge::console::gfx::draw()
 		++i)
 	{
 		// draw history lines
-		font_.draw_text(
+		font::draw_text(
+			font_metrics_,
+			font_drawer_,
 			*i,
 			font::pos(
 				background_.x(),
 				current_y),
 			font::dim(
 				background_.w(), 
-				background_.h() - font_.height()),
+				background_.h() - font::height(font_metrics_)),
 			font::align_h::left,
-			font::align_v::top);
+			font::align_v::top,
+			font::flags::none);
 		current_y -= 
-			font_.height();
+			font::height(
+				font_metrics_);
 	}
 
 	fcppt::string const il = 
 		input_line_.edited(
 			cursor_active_);
 
-	font_.draw_text(
+	font::draw_text(
+		font_metrics_,
+		font_drawer_,
 		il,
 		font::pos(
 			static_cast<font::unit>(
 				background_.x()),
 			static_cast<font::unit>(
-				background_.y()+background_.h()-font_.height())),
+				background_.y()+background_.h()-font::height(font_metrics_))),
 		font::dim(
 			static_cast<font::unit>(
 				background_.w()),
 			static_cast<font::unit>(
-				font_.height())));
+				font::height(font_metrics_))),
+		font::align_h::left,
+		font::align_v::top,
+		font::flags::none);
 
 	if (cursor_blink_.update_b())
 		cursor_active_ = !cursor_active_;
@@ -192,14 +273,19 @@ sge::console::gfx::active(
 }
 
 void
-sge::console::gfx::print_line(
+sge::console::gfx::print(
 	fcppt::string const &_s
 )
 {
-	FCPPT_ASSERT(
-		_s.find(FCPPT_TEXT('\n')) == fcppt::string::npos);
-	output_lines_.push_front(
-		_s);
+	BOOST_FOREACH(
+		fcppt::string const &l,
+		wrap(
+			font_metrics_,
+			_s,
+			fcppt::math::dim::structure_cast<font::dim>(
+				background_.size())))
+		output_lines_.push_front(
+			l);
 }
 
 sge::console::object &
@@ -274,10 +360,10 @@ sge::console::gfx::key_action(
 		case input::kc::key_up:
 			if (input_history_.empty())
 				return;
-			if (current_input_ != --input_history_.end())
-				++current_input_;
 			input_line_.string(
 				*current_input_);
+			if (current_input_ != --input_history_.end())
+				++current_input_;
 		break;
 		case input::kc::key_down:
 			if (current_input_ != input_history_.begin())
@@ -310,7 +396,7 @@ sge::console::gfx::key_action(
 			}
 			catch (exception const &e)
 			{
-				print_line(
+				print(
 					FCPPT_TEXT("console error: ")+
 					e.string());
 			}
@@ -329,4 +415,13 @@ sge::console::gfx::key_action(
 		// else we get a million warnings about unhandled enumeration values
 		default: break;
 	}
+}
+
+void
+sge::console::gfx::error(
+	fcppt::string const &s)
+{
+	print(
+		FCPPT_TEXT("command error: ")+
+		s);
 }

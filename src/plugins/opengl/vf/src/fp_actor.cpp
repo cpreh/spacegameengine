@@ -2,39 +2,40 @@
 #include "../client_state_combiner.hpp"
 
 sge::opengl::vf::fp_actor::fp_actor(
-	renderer::vf::dynamic::ordered_element const &elem_,
-	renderer::vf::vertex_size const stride_,
-	GLenum const client_state_
+	vf::actor_parameters const &_param,
+	GLenum const _client_state
 )
 :
 	pointer_actor(
-		elem_,
-		stride_
+		_param
 	),
 	client_state_(
-		client_state_
+		_client_state
 	)
 {
 }
 		
 void
 sge::opengl::vf::fp_actor::operator()(
-	client_state_combiner &combiner_
+	client_state_combiner &_combiner,
+	vf::pointer const _src
 ) const
 {
-	on_use();
+	on_use(
+		_src
+	);
 
-	combiner_.enable(
+	_combiner.enable(
 		client_state_
 	);
 }
 
 void
 sge::opengl::vf::fp_actor::unuse(
-	client_state_combiner &combiner_
+	client_state_combiner &_combiner
 ) const
 {
-	combiner_.disable(
+	_combiner.disable(
 		client_state_
 	);
 }

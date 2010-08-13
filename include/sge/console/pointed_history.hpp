@@ -41,6 +41,7 @@ public:
 			static_cast<size_type>(
 				0))
 	{
+		FCPPT_ASSERT(_limit);
 	}
 	
 	void

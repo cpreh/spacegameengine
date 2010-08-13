@@ -28,71 +28,89 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/indices_per_primitive.hpp>
 #include <sge/renderer/vf/dynamic/format.hpp>
 #include <sge/renderer/index/dynamic/copy.hpp>
+#include <sge/renderer/glsl/program.hpp>
 #include <sge/image/view/format.hpp>
 #include <sge/image/view/dim.hpp>
 #include <sge/image/algorithm/copy_and_convert.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/algorithm/copy_n.hpp>
 #include <fcppt/assert.hpp>
-#include <boost/variant/apply_visitor.hpp>
-
-sge::renderer::texture_ptr const sge::renderer::device::no_texture;
-sge::renderer::texture_ptr const sge::renderer::device::default_target;
-sge::renderer::glsl::program_ptr const sge::renderer::device::no_program;
+#include <fcppt/optional_impl.hpp>
+#include <sstream>
 
 sge::renderer::device::device()
 {}
 
-void
-sge::renderer::device::render(
-	const_vertex_buffer_ptr const vb,
-	nonindexed_primitive_type::type const ptype
+sge::renderer::glsl::program_ptr const
+sge::renderer::device::create_glsl_program(
+	glsl::optional_string const &vertex_shader_source_,
+	glsl::optional_string const &pixel_shader_source_
 )
 {
-	set_vertex_buffer(
-		vb
+	glsl::program_ptr const ret(
+		create_glsl_program()
 	);
 
-	render(
-		first_vertex(0),
-		vertex_count(
-			vb->size()
-		),
-		ptype
-	);
+	if(
+		vertex_shader_source_
+	)
+		ret->vertex_shader(
+			create_glsl_vertex_shader(
+				*vertex_shader_source_	
+			)
+		);
+	
+	if(
+		pixel_shader_source_
+	)
+		ret->pixel_shader(
+			create_glsl_pixel_shader(
+				*pixel_shader_source_
+			)
+		);
+
+	ret->link();
+
+	return ret;
 }
 
-void
-sge::renderer::device::render(
-	const_vertex_buffer_ptr const vb,
-	const_index_buffer_ptr const ib,
-	indexed_primitive_type::type const ptype
+sge::renderer::glsl::program_ptr const
+sge::renderer::device::create_glsl_program(
+	glsl::optional_istream const &vertex_shader_source_,
+	glsl::optional_istream const &pixel_shader_source_
 )
 {
-	set_vertex_buffer(
-		vb
-	);
+	typedef std::basic_ostringstream<
+		renderer::glsl::char_type
+	> osstream;
 
-	size_type const ipp(
-		indices_per_primitive(
-			ptype
-		)
-	);
+	osstream
+		vs_stream,
+		ps_stream;
 
-	FCPPT_ASSERT(
-		ib->size() % ipp == 0
-	);
+	if(
+		vertex_shader_source_
+	)
+		vs_stream << vertex_shader_source_->get().rdbuf();
 
-	render(
-		ib,
-		first_vertex(0),
-		vertex_count(
-			vb->size()
-		),
-		ptype,
-		primitive_count(ib->size() / ipp),
-		first_index(0)
-	);
+	if(
+		pixel_shader_source_
+	)
+		ps_stream << pixel_shader_source_->get().rdbuf();
+
+	return
+		create_glsl_program(
+			vertex_shader_source_
+			?
+				vs_stream.str()
+			:
+				renderer::glsl::optional_string(),
+			pixel_shader_source_
+			?
+				ps_stream.str()
+			:
+				renderer::glsl::optional_string()
+		);
 }
 
 sge::renderer::texture_ptr const

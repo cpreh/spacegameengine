@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/with_texture.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/const_texture_base_ptr.hpp>
+#include <sge/renderer/no_texture.hpp>
 #include <sge/texture/part_ptr.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -58,10 +60,12 @@ set_texture(
 
 	rend_->texture(
 		vtex
-		? vtex->texture()
-		: renderer::const_texture_ptr(
-			renderer::device::no_texture
-		)
+		?
+			renderer::const_texture_base_ptr(
+				vtex->texture()
+			)
+		:
+			renderer::no_texture()
 	);
 }
 

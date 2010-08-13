@@ -23,8 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "common.hpp"
 #include "basic_texture.hpp"
+#include "context/object_fwd.hpp"
 #include <sge/renderer/cube_texture.hpp>
-#include <sge/renderer/texture.hpp>
+#include <sge/renderer/texture_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
 namespace sge
@@ -41,14 +43,21 @@ typedef basic_texture<
 
 }
 
-class cube_texture : public detail::cube_texture_base {
+class cube_texture
+:
+	public detail::cube_texture_base
+{
+	FCPPT_NONCOPYABLE(cube_texture)
 public:
 	cube_texture(
+		context::object &,
 		size_type border_size,
 		image::color::format::type format,
 		renderer::filter::texture const &,
 		renderer::resource_flags_field const &
 	);
+
+	~cube_texture();
 
 	image::view::object const
 	lock(
@@ -63,23 +72,28 @@ public:
 		renderer::lock_rect const &
 	) const;
 
-	void unlock() const;
+	void
+	unlock() const;
 
-	size_type border_size() const;
+	size_type
+	border_size() const;
 private:
-	void check_locked() const;
-	void check_not_locked() const;
+	void
+	check_locked() const;
 
-	size_type const            sz;
-	mutable renderer::texture  *locked_texture;
+	void
+	check_not_locked() const;
+
+	size_type const size_;
+
+	mutable renderer::texture *locked_texture_;
 
 	typedef boost::ptr_vector<
 		renderer::texture
 	> texture_vector;
-	mutable texture_vector     textures;
-};
 
-void disable_cube_texture();
+	mutable texture_vector textures_;
+};
 
 }
 }

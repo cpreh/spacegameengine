@@ -27,7 +27,7 @@ sge::font::metrics_ptr const
 sge::freetype::system::create_font(
 	fcppt::filesystem::path const &font_name,
 	font::size_type const font_size,
-	sge::image::multi_loader const *
+	sge::image::multi_loader *
 )
 {
 	loaded_fonts_list::mapped_type &wfptr = loaded_fonts[

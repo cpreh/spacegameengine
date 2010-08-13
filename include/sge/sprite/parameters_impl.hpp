@@ -165,10 +165,10 @@ sge::sprite::parameters<Choices>::default_color() const
 			typename sge::image::color::object<
 				typename Choices::type_choices::color_type
 			>::type(
-				sge::image::color::init::red %= 1.0,
-				sge::image::color::init::green %= 1.0,
-				sge::image::color::init::blue %= 1.0,
-				sge::image::color::init::alpha %= 1.0
+				(sge::image::color::init::red %= 1.0)
+				(sge::image::color::init::green %= 1.0)
+				(sge::image::color::init::blue %= 1.0)
+				(sge::image::color::init::alpha %= 1.0)
 			)
 		);
 }

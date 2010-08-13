@@ -32,6 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/colors.hpp>
 #include <sge/time/second_f.hpp>
 #include <sge/font/metrics.hpp>
+#include <sge/font/flags_none.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/almost_zero.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/dim/output.hpp>
@@ -261,7 +263,7 @@ void sge::gui::widgets::edit::refresh() const
 		text_buffer_.size(),
 		font::align_h::left,
 		font::align_v::top,
-		font::flags::default_,
+		font::flags::none,
 		cursor.pos(),
 		&p);
 

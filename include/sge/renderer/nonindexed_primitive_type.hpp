@@ -28,15 +28,16 @@ namespace renderer
 
 namespace nonindexed_primitive_type
 {
-enum type {
+enum type
+{
 	point,
+	line,
 	line_strip,
 	triangle,
 	triangle_strip,
 	triangle_fan
 };
 }
-
 
 }
 }

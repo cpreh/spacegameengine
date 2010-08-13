@@ -19,24 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../choose_visual.hpp"
+#include "../handle_bit_depth.hpp"
 #include <GL/glx.h>
-#include <fcppt/container/raw_vector_impl.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
-#include <sge/exception.hpp>
-#include <fcppt/text.hpp>
-
-namespace
-{
-
-void
-add_bit_depth(
-	sge::opengl::glx::visual_attribute_array &,
-	int r,
-	int g,
-	int b
-);
-
-}
+#include <fcppt/container/raw_vector_impl.hpp>
 
 sge::opengl::glx::visual_attribute_array const
 sge::opengl::glx::choose_visual(
@@ -50,17 +36,10 @@ sge::opengl::glx::choose_visual(
 	ret.push_back(GLX_RGBA);
 	ret.push_back(GLX_DOUBLEBUFFER);
 
-	switch(bit_depth) {
-	case renderer::bit_depth::depth16:
-		add_bit_depth(ret, 5, 6, 5); // TODO: what can we choose from here?
-		break;
-	case renderer::bit_depth::depth32:
-		add_bit_depth(ret, 8, 8, 8);
-		break;
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid bit_depth!"));
-	}
+	glx::handle_bit_depth(
+		ret,
+		bit_depth
+	);
 
 	if(depth_buffer != renderer::depth_buffer::off)
 	{
@@ -84,25 +63,4 @@ sge::opengl::glx::choose_visual(
 
 	ret.push_back(None);
 	return ret;
-}
-
-namespace
-{
-
-void
-add_bit_depth(
-	sge::opengl::glx::visual_attribute_array &ret,
-	int const r,
-	int const g,
-	int const b
-)
-{
-	ret.push_back(GLX_RED_SIZE);
-	ret.push_back(r);
-	ret.push_back(GLX_BLUE_SIZE);
-	ret.push_back(g);
-	ret.push_back(GLX_GREEN_SIZE);
-	ret.push_back(b);
-}
-
 }

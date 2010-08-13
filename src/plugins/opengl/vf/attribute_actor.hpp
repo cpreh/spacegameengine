@@ -23,8 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "pointer_actor.hpp"
 #include "client_state_combiner_fwd.hpp"
-#include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/renderer/vf/dynamic/ordered_element_fwd.hpp>
+#include "attribute_context_fwd.hpp"
+#include "actor_parameters_fwd.hpp"
+#include "pointer.hpp"
+#include "../glsl/context_fwd.hpp"
+#include "../context/object_fwd.hpp"
+#include <sge/renderer/vf/dynamic/unspecified_fwd.hpp>
+#include <sge/renderer/vf/string.hpp>
+#include <fcppt/optional_decl.hpp>
 
 namespace sge
 {
@@ -38,14 +44,15 @@ class attribute_actor
 	public pointer_actor
 {
 public:
-	attribute_actor(
-		renderer::vf::dynamic::ordered_element const &,
-		renderer::vf::vertex_size stride
+	explicit attribute_actor(
+		actor_parameters const &,
+		renderer::vf::dynamic::unspecified const &
 	);
 private:
 	void
 	operator()(
-		client_state_combiner &
+		client_state_combiner &,
+		vf::pointer
 	) const;
 
 	void
@@ -53,10 +60,21 @@ private:
 		client_state_combiner &
 	) const;
 
-	GLuint
-	gl_index() const;
+	vf::attribute_context &attribute_context_;
 
-	GLint const elements;
+	opengl::glsl::context &glsl_context_;
+
+	GLint const elements_;
+
+	GLenum const format_;
+
+	typedef fcppt::optional<
+		GLint
+	> optional_int;
+
+	sge::renderer::vf::string const element_tag_;
+
+	mutable optional_int index_;
 };
 
 }

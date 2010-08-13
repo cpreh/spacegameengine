@@ -22,8 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VF_POS_ACTOR_HPP_INCLUDED
 
 #include "fp_actor.hpp"
-#include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/renderer/vf/dynamic/ordered_element_fwd.hpp>
+#include "actor_parameters_fwd.hpp"
+#include "pointer.hpp"
+#include "../common.hpp"
+#include <sge/renderer/vf/dynamic/pos_fwd.hpp>
 
 namespace sge
 {
@@ -37,15 +39,19 @@ class pos_actor
 	public fp_actor
 {
 public:
-	pos_actor(
-		renderer::vf::dynamic::ordered_element const &,
-		renderer::vf::vertex_size stride
+	explicit pos_actor(
+		actor_parameters const &,
+		sge::renderer::vf::dynamic::pos const &
 	);
 private:
 	void
-	on_use() const;
+	on_use(	
+		vf::pointer
+	) const;
 
-	GLint const elements;
+	GLenum const format_;
+
+	GLint const elements_;
 };
 
 }

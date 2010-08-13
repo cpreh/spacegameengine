@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_VBO_BASE_HPP_INCLUDED
 #define SGE_OPENGL_VBO_BASE_HPP_INCLUDED
 
+#include "vbo_base_fwd.hpp"
 #include "common.hpp"
 #include <fcppt/noncopyable.hpp>
 
@@ -93,9 +94,11 @@ public:
 		GLsizei offset
 	) const = 0;
 
+	virtual bool
+	hardware_supported() const = 0;
+
 	virtual ~vbo_base();
 };
-
 
 }
 }

@@ -21,10 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_FORMAT_HPP_INCLUDED
 #define SGE_RENDERER_VF_FORMAT_HPP_INCLUDED
 
+#include <sge/renderer/vf/format_fwd.hpp>
 #include <sge/renderer/vf/detail/element_stride.hpp>
+#include <sge/renderer/vf/const_tag.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <fcppt/mpl/partial_sums.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <boost/mpl/transform.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/placeholders.hpp>
@@ -38,16 +41,13 @@ namespace vf
 
 template<
 	typename ElementList,
-	bool IsConst = false
+	typename Constness
 >
 struct format
 {
 	typedef ElementList elements;
 
-	typedef format<
-		elements,
-		true
-	> const_type;
+	typedef Constness constness;
 
 	typedef typename boost::mpl::transform<
 		elements,
@@ -60,8 +60,11 @@ struct format
 		strides
 	>::type offsets;
 
-	typedef typename boost::mpl::if_c<
-		IsConst,
+	typedef typename boost::mpl::if_<
+		boost::is_same<
+			Constness,
+			const_tag
+		>,
 		const_raw_pointer,
 		raw_pointer
 	>::type pointer;

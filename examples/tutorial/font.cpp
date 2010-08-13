@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/font/metrics.hpp>
-#include <sge/font/object.hpp>
 #include <sge/font/drawer_3d.hpp>
 #include <sge/font/system.hpp>
-#include <sge/font/text_size.hpp>
+#include <sge/font/text_part.hpp>
+#include <sge/font/draw_text.hpp>
+#include <sge/font/flags_none.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
@@ -32,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/colors.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/window/parameters.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -92,23 +94,23 @@ try
 		)
 	);
 
-	sge::font::object font(
-		metrics,
-		drawer
-	);
-
 	while (true)
 	{
 		sge::mainloop::dispatch();
+
 		sge::renderer::scoped_block const block(sys.renderer());
-		font.draw_text(
+
+		sge::font::draw_text(
+			metrics,
+			drawer,
 			FCPPT_TEXT("hello world"),
 			sge::font::pos::null(),
 			fcppt::math::dim::structure_cast<sge::font::dim>(
 				sys.renderer()->screen_size()
 			),
 			sge::font::align_h::center,
-			sge::font::align_v::center
+			sge::font::align_v::center,
+			sge::font::flags::none
 		);
 	}
 }

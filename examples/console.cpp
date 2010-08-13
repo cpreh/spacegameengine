@@ -44,7 +44,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/gfx.hpp>
 #include <sge/console/sprite_parameters.hpp>
 #include <sge/console/sprite_object.hpp>
-#include <sge/console/stdlib.hpp>
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/font/system.hpp>
@@ -207,20 +206,6 @@ try
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(sge::renderer::state::color::clear_color = sge::image::colors::black())
-	);
-
-	sge::console::stdlib lib(
-		o,
-		std::tr1::bind(
-			&sge::console::gfx::print_line,
-			&gfx_,
-			std::tr1::placeholders::_1
-		),
-		std::tr1::bind(
-			&sge::console::gfx::print_line,
-			&gfx_,
-			std::tr1::placeholders::_1
-		)
 	);
 
 	gfx_.active(true);

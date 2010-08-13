@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_DYNAMIC_VECTOR_HPP_INCLUDED
 
 #include <sge/renderer/vf/dynamic/vector_fwd.hpp>
-#include <sge/renderer/vf/role.hpp>
 #include <sge/renderer/vf/element_type.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/symbol.hpp>

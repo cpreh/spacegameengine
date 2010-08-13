@@ -20,11 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../common.hpp"
 #include "../texture.hpp"
-#include "../texture_functions.hpp"
 #include "../basic_texture_impl.hpp"
-#include "../vbo.hpp"
-#include "../pbo.hpp"
-#include "../color_convert.hpp"
+#include "../texfuncs/set.hpp"
+#include "../texfuncs/set_rect.hpp"
+#include "../texfuncs/get_image.hpp"
+#include "../convert/format_to_color.hpp"
 #include <sge/image/view/make.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/math/dim/output.hpp>
@@ -46,24 +46,31 @@ GLenum const texture_type = GL_TEXTURE_2D;
 }
 
 sge::opengl::texture::texture(
-	dim_type const &d,
-	image::color::format::type const format_,
-	renderer::filter::texture const &filter_,
-	renderer::resource_flags_field const &flags,
-	optional_type const type_
+	context::object &_context,
+	dim_type const &_dim,
+	image::color::format::type const _format,
+	renderer::filter::texture const &_filter,
+	renderer::resource_flags_field const &_flags,
+	optional_type const _type
 )
 :
 	detail::texture_base(
-		filter_,
-		flags,
-		type_ ? *type_ : texture_type,
-		format_
+		_context,
+		_filter,
+		_flags,
+		_type
+		?
+			*_type
+		:
+			texture_type,
+		_format
 	),
-	dim_(d)
+	dim_(_dim)
 {
 	pre_setdata();
 
-	set_texture(
+	texfuncs::set(
+		_context,
 		type(),
 		format(),
 		format_type(),
@@ -126,11 +133,11 @@ sge::opengl::texture::unlock() const
 				)
 		);
 
-		set_texture_rect(
+		texfuncs::set_rect(
+			context(),
 			type(),
 			format(),
 			format_type(),
-			filter(),
 			dim(),
 			lr,
 			write_buffer()
@@ -162,6 +169,8 @@ sge::opengl::texture::lock_me(
 
 	bool const must_read = lock_flag_read(method);
 
+	bind_me();
+
 	// if we must read we have to lock the whole texture
 	// and set the lock size, the offset and the pitch accordingly
 	if(must_read)
@@ -182,7 +191,7 @@ sge::opengl::texture::lock_me(
 		);
 
 	if(must_read)
-		get_tex_image(
+		texfuncs::get_image(
 			format(),
 			format_type(),
 			read_buffer()
@@ -199,39 +208,44 @@ sge::opengl::texture::lock_me(
 sge::image::view::object const
 sge::opengl::texture::view()
 {
-	return image::view::make(
-		real_write_buffer(),
-		lock_dim(),
-		color_convert(
-			format(),
-			format_type()
-		),
-		image::view::optional_pitch()
-	);
+	return
+		image::view::make(
+			real_write_buffer(),
+			lock_dim(),
+			convert::format_to_color(
+				format(),
+				format_type()
+			),
+			image::view::optional_pitch()
+		);
 }
 
 sge::image::view::const_object const
 sge::opengl::texture::view() const
 {
-	return image::view::make(
-		static_cast<
-			const_pointer
-		>(
-			real_read_buffer()
-		),
-		lock_dim(),
-		color_convert(
-			format(),
-			format_type()
-		),
-		image::view::optional_pitch()
-	);
+	return
+		image::view::make(
+			static_cast<
+				const_pointer
+			>(
+				real_read_buffer()
+			),
+			lock_dim(),
+			convert::format_to_color(
+				format(),
+				format_type()
+			),
+			image::view::optional_pitch()
+		);
 }
 
 sge::opengl::texture::dim_type const
 sge::opengl::texture::lock_dim() const
 {
-	return lock_rect_
-		? lock_rect_->dimension()
-		: dim();
+	return
+		lock_rect_
+		?
+			lock_rect_->dimension()
+		:
+			dim();
 }

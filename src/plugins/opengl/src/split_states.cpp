@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 #include "../check_state.hpp"
 #include "../enable.hpp"
+#include "../disable.hpp"
 #include "../convert/stencil_func.hpp"
 #include "../convert/source_blend_func.hpp"
 #include "../convert/dest_blend_func.hpp"
@@ -42,7 +43,9 @@ sge::opengl::split_states::split_states(
 // to set all things in one go for a state::list
 
 void
-sge::opengl::split_states::update_stencil()
+sge::opengl::split_states::update_stencil(
+	renderer::stencil_buffer::type const _stencil_type
+)
 {
 	renderer::state::stencil_func::type const method(
 		states.get<renderer::state::stencil_func::type>()
@@ -50,9 +53,20 @@ sge::opengl::split_states::update_stencil()
 
 	if(method == renderer::state::stencil_func::off)
 	{
-		disable(GL_STENCIL_TEST);
+		opengl::disable(
+			GL_STENCIL_TEST
+		);
+
 		return;
 	}
+
+	if(
+		_stencil_type == sge::renderer::stencil_buffer::off
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("You tried to use a stencil_func besides stencil_func::off.")
+			FCPPT_TEXT(" This will only work if you request a stencil buffer in renderer::parameters!")
+		);
 
 	enable(GL_STENCIL_TEST);
 

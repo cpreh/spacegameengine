@@ -21,11 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TARGET_HPP_INCLUDED
 #define SGE_OPENGL_TARGET_HPP_INCLUDED
 
-#include "common.hpp"
+#include "target_fwd.hpp"
 #include <sge/renderer/target.hpp>
-#include <sge/renderer/pixel_pos.hpp>
-#include <sge/renderer/raw_value.hpp>
-#include <fcppt/container/raw_vector_decl.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -33,31 +30,21 @@ namespace sge
 namespace opengl
 {
 
-class target : public sge::renderer::target {
+class target
+:
+	public sge::renderer::target
+{
 	FCPPT_NONCOPYABLE(target)
 protected:
 	target();
 public:
-	virtual void bind_me() const = 0;
+	virtual void
+	bind() const = 0;
+
+	virtual void
+	unbind() const = 0;
+	
 	virtual ~target();
-private:
-	image::view::const_object const
-	lock(
-		renderer::lock_rect const &dest
-	) const;
-
-	void unlock() const;
-
-	virtual renderer::pixel_pos const pos() const = 0;
-	virtual size_type stride() const = 0;
-	virtual GLenum format() const = 0;
-	virtual GLenum format_type() const = 0;
-
-	typedef fcppt::container::raw_vector<
-		renderer::raw_value
-	> buffer_type;
-
-	mutable buffer_type buffer;
 };
 
 }

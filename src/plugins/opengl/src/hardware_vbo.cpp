@@ -20,32 +20,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../hardware_vbo.hpp"
 #include "../check_state.hpp"
-#include "../glew.hpp"
+#include "../glew/is_supported.hpp"
 #include <sge/renderer/exception.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/function_once.hpp>
+#include <fcppt/assert.hpp>
 
-namespace
+sge::opengl::hardware_vbo::hardware_vbo()
 {
-
-PFNGLGENBUFFERSPROC gl_gen_buffers;
-PFNGLDELETEBUFFERSPROC gl_delete_buffers;
-PFNGLBINDBUFFERPROC gl_bind_buffer;
-PFNGLMAPBUFFERPROC gl_map_buffer;
-PFNGLUNMAPBUFFERPROC gl_unmap_buffer;
-PFNGLBUFFERDATAPROC gl_buffer_data;
-PFNGLBUFFERSUBDATAPROC gl_buffer_sub_data;
-PFNGLMAPBUFFERRANGEPROC gl_map_buffer_range;
-
-void initialize_hardware_vbo();
-
+	if(
+		sge::opengl::glew::is_supported("GL_VERSION_1_5")
+	)
+	{
+		gl_gen_buffers = glGenBuffers;
+		gl_delete_buffers = glDeleteBuffers;
+		gl_bind_buffer = glBindBuffer;
+		gl_map_buffer = glMapBuffer;
+		gl_unmap_buffer = glUnmapBuffer;
+		gl_buffer_data = glBufferData;
+		gl_buffer_sub_data = glBufferSubData;
+	}
+	else if(
+		sge::opengl::glew::is_supported("GL_ARB_vertex_buffer_object")
+	)
+	{
+		gl_gen_buffers = glGenBuffersARB;
+		gl_delete_buffers = glDeleteBuffersARB;
+		gl_bind_buffer = glBindBufferARB;
+		gl_map_buffer = glMapBufferARB;
+		gl_unmap_buffer = glUnmapBufferARB;
+		gl_buffer_data = glBufferDataARB;
+		gl_buffer_sub_data = glBufferSubDataARB;
+	}
+	else
+		throw sge::exception(
+			FCPPT_TEXT("Invalid initialization of hardware_vbo!")
+		);
+	
+	gl_map_buffer_range = glMapBufferRange;
 }
 
-GLuint sge::opengl::hardware_vbo::gen_buffer()
+sge::opengl::hardware_vbo::~hardware_vbo()
 {
-	initialize_hardware_vbo();
+}
 
+GLuint
+sge::opengl::hardware_vbo::gen_buffer()
+{
 	GLuint id;
 	gl_gen_buffers(1, &id);
 
@@ -57,8 +78,10 @@ GLuint sge::opengl::hardware_vbo::gen_buffer()
 	return id;
 }
 
-void sge::opengl::hardware_vbo::delete_buffer(
-	GLuint const id)
+void
+sge::opengl::hardware_vbo::delete_buffer(
+	GLuint const id
+)
 {
 	gl_delete_buffers(1, &id);
 
@@ -68,9 +91,11 @@ void sge::opengl::hardware_vbo::delete_buffer(
 	)
 }
 
-void sge::opengl::hardware_vbo::bind_buffer(
+void
+sge::opengl::hardware_vbo::bind_buffer(
 	GLenum const type,
-	GLuint const id)
+	GLuint const id
+)
 {
 	gl_bind_buffer(type, id);
 
@@ -111,6 +136,10 @@ sge::opengl::hardware_vbo::map_buffer_range(
 	GLsizei const size
 )
 {
+	FCPPT_ASSERT(
+		gl_map_buffer_range
+	);
+
 	GLvoid *const ret(
 		gl_map_buffer_range(
 			type,
@@ -134,8 +163,10 @@ sge::opengl::hardware_vbo::map_buffer_range_supported() const
 	return gl_map_buffer_range;
 }
 
-void sge::opengl::hardware_vbo::unmap_buffer(
-	GLenum const type)
+void
+sge::opengl::hardware_vbo::unmap_buffer(
+	GLenum const type
+)
 {
 	gl_unmap_buffer(type);
 
@@ -196,39 +227,8 @@ sge::opengl::hardware_vbo::buffer_offset(
 	return reinterpret_cast<void *>(offset);
 }
 
-namespace
+bool
+sge::opengl::hardware_vbo::hardware_supported() const
 {
-
-void initialize_hardware_vbo()
-{
-	FCPPT_FUNCTION_ONCE
-
-	if(sge::opengl::glew_is_supported("GL_VERSION_1_5"))
-	{
-		gl_gen_buffers = glGenBuffers;
-		gl_delete_buffers = glDeleteBuffers;
-		gl_bind_buffer = glBindBuffer;
-		gl_map_buffer = glMapBuffer;
-		gl_unmap_buffer = glUnmapBuffer;
-		gl_buffer_data = glBufferData;
-		gl_buffer_sub_data = glBufferSubData;
-	}
-	else if(sge::opengl::glew_is_supported("GL_ARB_vertex_buffer_object"))
-	{
-		gl_gen_buffers = glGenBuffersARB;
-		gl_delete_buffers = glDeleteBuffersARB;
-		gl_bind_buffer = glBindBufferARB;
-		gl_map_buffer = glMapBufferARB;
-		gl_unmap_buffer = glUnmapBufferARB;
-		gl_buffer_data = glBufferDataARB;
-		gl_buffer_sub_data = glBufferSubDataARB;
-	}
-	else
-		throw sge::exception(
-			FCPPT_TEXT("Invalid initialization of hardware_vbo!")
-		);
-	
-	gl_map_buffer_range = glMapBufferRange;
-}
-
+	return true;
 }

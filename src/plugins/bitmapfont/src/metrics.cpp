@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/parse_file.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/array.hpp>
-#include <sge/parse/json/find_member.hpp>
+#include <sge/parse/json/find_member_exn.hpp>
 #include <sge/parse/json/get.hpp>
 #include <sge/image/view/sub.hpp>
 #include <sge/image/file.hpp>
@@ -47,7 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::bitmapfont::metrics::metrics(
 	fcppt::filesystem::path const &path,
-	sge::image::multi_loader const &loader
+	sge::image::multi_loader &loader
 )
 :
 	image_(
@@ -84,7 +84,7 @@ sge::bitmapfont::metrics::metrics(
 	);
 
 	line_height_
-	= parse::json::find_member<
+	= parse::json::find_member_exn<
 		int
 	>(
 		top_members,
@@ -93,7 +93,7 @@ sge::bitmapfont::metrics::metrics(
 
 	BOOST_FOREACH(
 		parse::json::element_vector::const_reference elem,
-		parse::json::find_member<
+		parse::json::find_member_exn<
 			parse::json::array
 		>(
 			top_members,
@@ -111,7 +111,7 @@ sge::bitmapfont::metrics::metrics(
 		);
 
 		fcppt::string const name(
-			parse::json::find_member<
+			parse::json::find_member_exn<
 				fcppt::string
 			>(
 				members,
@@ -147,7 +147,7 @@ sge::bitmapfont::metrics::metrics(
 					load_offset(
 						members
 					),
-					parse::json::find_member<
+					parse::json::find_member_exn<
 						int
 					>(
 						members,

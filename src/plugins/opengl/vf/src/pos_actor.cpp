@@ -19,46 +19,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../pos_actor.hpp"
+#include "../convert_element_type.hpp"
 #include "../../check_state.hpp"
-#include <sge/renderer/vf/dynamic/ordered_element.hpp>
 #include <sge/renderer/vf/dynamic/vector.hpp>
+#include <sge/renderer/vf/dynamic/pos.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::vf::pos_actor::pos_actor(
-	renderer::vf::dynamic::ordered_element const &e,
-	renderer::vf::vertex_size const stride
+	actor_parameters const &_param,
+	renderer::vf::dynamic::pos const &_pos
 )
 :
 	fp_actor(
-		e,
-		stride,
+		_param,
 		GL_VERTEX_ARRAY
 	),
-	elements(
+	format_(
+		vf::convert_element_type(
+			_pos.type().element_type()
+		)
+	),
+	elements_(
 		static_cast<
 			GLint
 		>(
-			e.element().info().get<
-				renderer::vf::dynamic::vector
-			>().elements()
+			_pos.type().elements()
 		)
 	)
-{
-	if(index() > 0)
-		throw renderer::exception(
-			FCPPT_TEXT("opengl does not support more than one pos type in the vertex format!")
-		);
-}
+{}
 
 void
-sge::opengl::vf::pos_actor::on_use() const
+sge::opengl::vf::pos_actor::on_use(
+	vf::pointer const _src
+) const
 {
 	glVertexPointer(
-		elements,
-		format(),
-		stride(),
-		pointer()
+		elements_,
+		format_,
+		static_cast<
+			GLsizei
+		>(
+			stride()
+		),
+		_src
 	);
 
 	SGE_OPENGL_CHECK_STATE(

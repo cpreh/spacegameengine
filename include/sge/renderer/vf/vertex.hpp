@@ -27,12 +27,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/detail/element_stride.hpp>
 #include <sge/renderer/vf/detail/copy_n.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
-#include <fcppt/mpl/find_nth.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <boost/mpl/find.hpp>
+#include <boost/mpl/contains.hpp>
 #include <boost/mpl/integral_c.hpp>
 #include <boost/mpl/deref.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/static_assert.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace sge
 {
@@ -46,146 +47,92 @@ template<
 >
 class vertex
 {
+	FCPPT_NONASSIGNABLE(vertex)
 public:
 	typedef typename VertexFormat::pointer pointer;
+
 	typedef typename VertexFormat::elements elements;
+
 	typedef typename VertexFormat::offsets offsets;
 
 	explicit vertex(
-		pointer const data
+		pointer const _data
 	)
 	:
-		data(data)
+		data_(_data)
 	{}
 
 	template<
-		typename Field,
-		typename T
+		typename Field
 	>
-	void
+	typename boost::enable_if<
+		boost::mpl::contains<
+			elements,
+			Field
+		>,
+		void
+	>::type
 	set(
-		T const &t
+		typename Field::packed_type const &_value
 	)
 	{
 		typedef typename boost::mpl::find<
 			elements,
 			Field
-		>::type element;
+		>::type element_iterator;
 
-		set_internal<element>(t);
-	}
-
-	template<
-		typename Field,
-		vertex_size Index,
-		typename T
-	>
-	void
-	set(
-		T const &t
-	)
-	{
-		typedef typename fcppt::mpl::find_nth<
+		typedef typename detail::calc_offset<
 			elements,
-			Field,
-			boost::mpl::integral_c<
-				vertex_size,
-				Index
-			>
+			offsets,
+			element_iterator
+		>::type offset;
+
+		typedef typename boost::mpl::deref<
+			element_iterator
 		>::type element;
 
-		set_internal<element>(t);
+		detail::copy_n(
+			detail::raw_data(
+				_value
+			),
+			detail::element_stride<
+				element
+			>::type::value,
+			data_ + boost::mpl::deref<offset>::type::value
+		);
 	}
 
 	template<
 		typename Field
 	>
-	typename Field::packed_type
+	typename boost::enable_if<
+		boost::mpl::contains<
+			elements,
+			Field
+		>,
+		typename Field::packed_type
+	>::type
 	get() const
 	{
 		typedef typename boost::mpl::find<
 			elements,
 			Field
-		>::type element;
+		>::type element_iterator;
 
-		return get_internal<element>();
-	}
-
-	template<
-		typename Field,
-		vertex_size Index
-	>
-	typename Field::packed_type
-	get() const
-	{
-		typedef typename fcppt::mpl::find_nth<
-			elements,
-			Field,
-			boost::mpl::integral_c<
-				vertex_size,
-				Index
-			>
-		>::type element;
-
-		return get_internal<element>();
-	}
-private:
-	template<
-		typename Iter,
-		typename T
-	>
-	void
-	set_internal(
-		T const &t
-	)
-	{
 		typedef typename detail::calc_offset<
 			elements,
 			offsets,
-			Iter
+			element_iterator
 		>::type offset;
 
-		typedef typename boost::mpl::deref<
-			Iter
-		>::type element;
-
-		BOOST_STATIC_ASSERT((
-			boost::is_same<
-				typename element::packed_type,
-				T
-			>::value)
-		);
-
-		detail::copy_n(
-			detail::raw_data(t),
-			detail::element_stride<
-				element
-			>::type::value,
-			data + boost::mpl::deref<offset>::type::value
-		);
-	}
-
-
-	template<
-		typename Iter
-	>
-	typename boost::mpl::deref<Iter>::type::packed_type const
-	get_internal() const
-	{
-		typedef typename detail::calc_offset<
-			elements,
-			offsets,
-			Iter
-		>::type offset;
-
-		typedef typename boost::mpl::deref<Iter>::type element;
+		typedef typename boost::mpl::deref<element_iterator>::type element;
 
 		typedef typename element::packed_type packed_type;
 
 		packed_type ret;
 
 		detail::copy_n(
-			data + boost::mpl::deref<offset>::type::value,
+			data_ + boost::mpl::deref<offset>::type::value,
 			detail::element_stride<
 				element
 			>::type::value,
@@ -200,8 +147,8 @@ private:
 
 		return ret;
 	}
-
-	pointer const data;
+private:
+	pointer const data_;
 };
 
 }

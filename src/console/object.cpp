@@ -36,9 +36,28 @@ sge::console::object::object(
 	fcppt::char_type const _prefix
 )
 :
-	prefix_(_prefix),
+	error_(),
+	message_(),
+	prefix_(
+		_prefix),
 	funcs_(),
-	fallback_()
+	fallback_(),
+	help_connection_(
+		insert(
+			FCPPT_TEXT("help"),
+			std::tr1::bind(
+				&object::help_callback,
+				this,
+				std::tr1::placeholders::_1),
+			FCPPT_TEXT("Display help message"))),
+	man_connection_(
+		insert(
+			FCPPT_TEXT("man"),
+			std::tr1::bind(
+				&object::man_callback,
+				this,
+				std::tr1::placeholders::_1),
+			FCPPT_TEXT("Display information for a specific function")))
 {
 }
 
@@ -46,26 +65,22 @@ fcppt::signal::auto_connection
 sge::console::object::insert(
 	fcppt::string const &name,
 	callback const &c,
-	fcppt::string const &description
+	fcppt::string const &short_description,
+	fcppt::string const &long_description
 )
 {
 	function_map::iterator i = funcs_.find(name);
 	if (i == funcs_.end())
 	{
-		fcppt::auto_ptr<
-			function
-		> sig(
-			fcppt::make_auto_ptr<
-				function
-			>(description)
-		);
+		fcppt::auto_ptr<function> sig(
+			fcppt::make_auto_ptr<function>(
+				short_description,
+				long_description));
 
 		std::pair<function_map::iterator,bool> const ret(
 			funcs_.insert(
 				name,
-				sig
-			)
-		);
+				sig));
 
 		i = ret.first;
 		FCPPT_ASSERT(ret.second);
@@ -79,6 +94,22 @@ sge::console::object::register_fallback(
 )
 {
 	return fallback_.connect(c);
+}
+
+fcppt::signal::auto_connection
+sge::console::object::register_error_callback(
+	error_callback const &c
+)
+{
+	return error_.connect(c);
+}
+
+fcppt::signal::auto_connection
+sge::console::object::register_message_callback(
+	message_callback const &c
+)
+{
+	return message_.connect(c);
 }
 
 namespace
@@ -171,7 +202,9 @@ sge::console::object::eval(
 			FCPPT_TEXT('"')
 		);
 
-	it->second->signal()(args);
+	it->second->signal()(
+		args,
+		std::tr1::ref(*this));
 }
 
 sge::console::function_map const &
@@ -184,4 +217,69 @@ fcppt::char_type
 sge::console::object::prefix() const
 {
 	return prefix_;
+}
+
+void
+sge::console::object::emit_error(
+	fcppt::string const &s)
+{
+	error_(
+		s);
+}
+
+void
+sge::console::object::emit_message(
+	fcppt::string const &s)
+{
+	message_(
+		s);
+}
+
+void
+sge::console::object::help_callback(
+	arg_list const &)
+{
+	emit_message(
+		fcppt::lexical_cast<fcppt::string>( 
+			funcs_.size())
+		+ FCPPT_TEXT(" available functions:"));
+
+	BOOST_FOREACH(function_map::value_type const &p,funcs_)
+		emit_message(
+			(p->first)+
+			FCPPT_TEXT(": ")+
+			(p.second)->short_description());
+}
+
+void
+sge::console::object::man_callback(
+	arg_list const &v)
+{
+	if (v.size() < 2)
+	{
+		emit_error(
+			FCPPT_TEXT("no function given"));
+		return;
+	}
+
+	function_map const &fns = 
+		funcs_;
+
+	function_map::const_iterator i = 
+		funcs_.find(
+			v[1]);
+
+	if (i == fns.end())
+	{
+		emit_error(
+			FCPPT_TEXT("function \"")+v[1]+FCPPT_TEXT("\" not found"));
+		return;
+	}
+
+	if (i->second->long_description().empty())
+		emit_message(
+			FCPPT_TEXT("No manpage available"));
+	else	
+		emit_message(
+			i->second->long_description());
 }

@@ -19,32 +19,87 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/font/text_size.hpp>
+#include <sge/font/line_width.hpp>
+#include <sge/font/text_part.hpp>
+#include <sge/font/height.hpp>
+#include <sge/font/unit.hpp>
+#include <sge/font/dim.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 
-sge::font::text_size::text_size(
-	dim const &size_,
-	fcppt::string::const_iterator const end_,
-	fcppt::string::const_iterator const next_begin_
+sge::font::text_part const
+sge::font::text_size(
+	sge::font::metrics_ptr const _metrics,
+	string::const_iterator sbeg,
+	string::const_iterator const send,
+	dim const &max_sz,
+	flags_field const &_flags
 )
-:
-	size_(size_),
-	end_(end_),
-	next_begin_(next_begin_)
-{}
-
-sge::font::dim const &
-sge::font::text_size::size() const
 {
-	return size_;
+	dim sz(
+		dim::null()
+	);
+
+	unit const height(
+		font::height(
+			_metrics
+		)
+	);
+
+	while(
+		sbeg != send
+		&& sz.h() + height <= max_sz.h()
+	)
+	{
+		font::text_part const line_size(
+			font::line_width(
+				_metrics,
+				sbeg,
+				send,
+				max_sz.w(),
+				_flags
+			)
+		);
+
+		unit const line_w(
+			line_size.size().w()
+		);
+
+		sz.w() = std::max(sz.w(), line_w);
+
+		sz.h() += height;
+
+		sbeg = line_size.next_begin();
+
+		if(
+			_flags & flags::no_multi_line
+		)
+			break;
+	}
+
+	return
+		font::text_part(
+			sz,
+			sbeg,
+			sbeg
+		);
 }
 
-sge::font::text_size::const_iterator
-sge::font::text_size::end() const
+sge::font::text_part const
+sge::font::text_size(
+	sge::font::metrics_ptr const _metrics,
+	font::string const &_string,
+	dim const &_max_sz,
+	flags_field const &_flags
+)
 {
-	return end_;
+	return
+		font::text_size(
+			_metrics,
+			_string.begin(),
+			_string.end(),
+			_max_sz,
+			_flags
+		);
 }
 
-sge::font::text_size::const_iterator
-sge::font::text_size::next_begin() const
-{
-	return next_begin_;
-}
+

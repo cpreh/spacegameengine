@@ -41,7 +41,7 @@ class metrics
 public:
 	metrics(
 		fcppt::filesystem::path const &,
-		sge::image::multi_loader const &
+		sge::image::multi_loader &
 	);
 
 	~metrics();

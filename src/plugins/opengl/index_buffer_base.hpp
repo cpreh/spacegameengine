@@ -29,12 +29,25 @@ namespace sge
 namespace opengl
 {
 
-class index_buffer_base : public renderer::index_buffer {
+class index_buffer_base
+:
+	public renderer::index_buffer
+{
+protected:
+	index_buffer_base();
 public:
-	virtual GLenum gl_format() const = 0;
-	virtual void *buffer_offset(
-		size_type) const = 0;
-	virtual void bind_me() const = 0;
+	virtual GLenum
+	gl_format() const = 0;
+
+	virtual void *
+	buffer_offset(
+		size_type
+	) const = 0;
+
+	virtual void
+	bind_me() const = 0;
+
+	virtual ~index_buffer_base();
 };
 
 }

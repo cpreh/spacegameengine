@@ -11,10 +11,17 @@ ADD_EXECUTABLE (sgeshaderexample shader/main.cpp)
 TARGET_LINK_LIBRARIES (sgeshaderexample sgecore)
 INSTALL (TARGETS sgeshaderexample DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 
+FIND_PACKAGE(
+	Boost 1.41.0 REQUIRED
+	COMPONENTS
+	program_options
+)
+
 ADD_SGE_EXAMPLE(anim)
 ADD_SGE_EXAMPLE(appdir)
 ADD_SGE_EXAMPLE(bitmapfont)
 ADD_SGE_EXAMPLE(bloom)
+ADD_SGE_EXAMPLE(caps)
 ADD_SGE_EXAMPLE(cie)
 ADD_SGE_EXAMPLE(collision)
 ADD_SGE_EXAMPLE(configdir)
@@ -25,15 +32,16 @@ ADD_SGE_EXAMPLE(ini)
 ADD_SGE_EXAMPLE(intrusivesprite)
 ADD_SGE_EXAMPLE(json)
 ADD_SGE_EXAMPLE(mergeimage)
-ADD_SGE_EXAMPLE(model)
+#ADD_SGE_EXAMPLE(model)
 ADD_SGE_EXAMPLE(modifier)
 ADD_SGE_EXAMPLE(plugin)
 #ADD_SGE_EXAMPLE(pool)
 ADD_SGE_EXAMPLE(screenshot)
-ADD_SGE_EXAMPLE(skeleton)
 ADD_SGE_EXAMPLE(sound)
 ADD_SGE_EXAMPLE(target)
 ADD_SGE_EXAMPLE(vertex)
+
+TARGET_LINK_LIBRARIES(sgesoundexample boost_program_options)
 
 IF(SGE_HAVE_X11)
 	ADD_SGE_EXAMPLE(asio_window)

@@ -49,7 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 				% FCPPT_PP_FILE \
 				% FCPPT_PP_STRINGIZE(__LINE__) \
 				% error_code_function(sge_return_value_) \
-				% message \
+				% (message) \
 			).str() \
 		);\
 } \

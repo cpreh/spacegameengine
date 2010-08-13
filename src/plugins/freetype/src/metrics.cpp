@@ -41,9 +41,12 @@ sge::freetype::metrics::metrics(
 		throw exception(FCPPT_TEXT("FT_Set_Pixel_Sizes() failed!"));
 }
 
+sge::freetype::metrics::~metrics()
+{}
+
 sge::font::char_metric_ptr const
 sge::freetype::metrics::load_char(
-	fcppt::char_type const c
+	font::char_type const c
 )
 {
 	{

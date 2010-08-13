@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../load_rect.hpp"
 #include <sge/parse/json/get.hpp>
-#include <sge/parse/json/find_member.hpp>
+#include <sge/parse/json/find_member_exn.hpp>
 #include <sge/parse/json/member.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
@@ -32,10 +32,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::image::rect const
 sge::bitmapfont::load_rect(
-	sge::parse::json::member_vector const &members)
+	sge::parse::json::member_vector const &members
+)
 {
 	parse::json::element_vector const &elements(
-		parse::json::find_member<
+		parse::json::find_member_exn<
 			parse::json::array
 		>(
 			members,

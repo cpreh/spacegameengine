@@ -21,34 +21,79 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_FBO_TARGET_HPP_INCLUDED
 #define SGE_OPENGL_FBO_TARGET_HPP_INCLUDED
 
-#include "common.hpp"
+#include "fbo_target_fwd.hpp"
 #include "target.hpp"
-#include "texture.hpp"
-#include <sge/renderer/texture_ptr.hpp>
+#include "texture_ptr.hpp"
+#include "fbo.hpp"
+#include "fbo_texture_binding.hpp"
+#include "fbo_context_fwd.hpp"
+#include "render_buffer_fwd.hpp"
+#include "render_buffer_binding_fwd.hpp"
+#include "common.hpp"
+#include "context/object_fwd.hpp"
+#include <sge/renderer/parameters_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
 
 namespace sge
 {
 namespace opengl
 {
 
-class fbo_target : public target {
+class fbo_target
+:
+	public opengl::target
+{
+	FCPPT_NONCOPYABLE(fbo_target)
 public:
-	fbo_target();
+	explicit fbo_target(
+		opengl::context::object &,
+		sge::renderer::parameters const &,
+		opengl::texture_ptr
+	);
+
 	~fbo_target();
 
-	void bind_texture(
-		renderer::texture_ptr);
-	void bind_me() const;
+	void
+	bind() const;
+
+	void
+	unbind() const;
 private:
-	dim_type const dim() const;
+	image::view::const_object const
+	lock(
+		renderer::lock_rect const &
+	) const;
 
-	renderer::pixel_pos const pos() const;
-	size_type stride() const;
-	GLenum format() const;
-	GLenum format_type() const;
+	void
+	unlock() const;
 
-	texture_ptr           texture_target;
-	GLuint                fbo;
+	dim_type const
+	dim() const;
+
+	void
+	attach_buffer(
+		GLenum component,
+		GLenum attachment
+	);
+
+	fbo_context const &context_;
+
+	opengl::fbo fbo_;
+
+	fbo_texture_binding texture_binding_;
+
+	typedef boost::ptr_vector<
+		opengl::render_buffer
+	> render_buffer_vector;
+
+	typedef boost::ptr_vector<
+		opengl::render_buffer_binding
+	> render_buffer_binding_vector;
+
+	render_buffer_vector render_buffers_;
+
+	render_buffer_binding_vector render_buffer_bindings_;
 };
 
 }

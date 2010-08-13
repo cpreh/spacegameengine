@@ -21,8 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../state_visitor.hpp"
 #include "../split_states.hpp"
 #include "../enable.hpp"
+#include "../enable_bool.hpp"
+#include "../disable.hpp"
 #include "../check_state.hpp"
-#include "../multi_sample.hpp"
+#include "../multi_sample_context.hpp"
+#include "../on_not_supported.hpp"
+#include "../context/use.hpp"
 #include "../convert/bool.hpp"
 #include "../convert/cull_mode.hpp"
 #include "../convert/fog_mode.hpp"
@@ -36,15 +40,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <sge/exception.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::state_visitor::state_visitor(
-	split_states &states
+	opengl::context::object &_context,
+	split_states &_states,
+	renderer::depth_buffer::type const _depth_type,
+	renderer::stencil_buffer::type const _stencil_type
 )
 :
-	states(states)
-{}
+	multi_sample_context_(
+		context::use<
+			multi_sample_context
+		>(
+			_context
+		)
+	),
+	states_(_states),
+	depth_type_(_depth_type),
+	stencil_type_(_stencil_type)
+{
+}
+
+sge::opengl::state_visitor::~state_visitor()
+{
+}
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
@@ -53,7 +73,8 @@ sge::opengl::state_visitor::operator()(
 {
 	namespace rs = renderer::state::int_::available_states;
 
-	switch(s.state()) {
+	switch(s.state())
+	{
 	case rs::stencil_clear_val:
 		glClearStencil(s.value());
 
@@ -61,30 +82,38 @@ sge::opengl::state_visitor::operator()(
 			FCPPT_TEXT("glClearStencil failed"),
 			sge::renderer::exception
 		)
-		break;
+		return;
 	case rs::stencil_ref:
-		states.update_stencil();
-		break;
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid int_state!"));
+		states_.update_stencil(
+			stencil_type_
+		);
+		return;
 	}
+	
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid int_state!")
+	);
 }
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
-	renderer::state::uint::type const s) const
+	renderer::state::uint::type const s
+) const
 {
 	namespace rs = renderer::state::uint::available_states;
 
-	switch(s.state()) {
+	switch(s.state())
+	{
 	case rs::stencil_mask:
-		states.update_stencil();
-		break;
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid uint_state!"));
+		states_.update_stencil(
+			stencil_type_
+		);
+		return;
 	}
+
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid uint_state!")
+	);
 }
 
 sge::opengl::state_visitor::result_type
@@ -93,7 +122,8 @@ sge::opengl::state_visitor::operator()(
 {
 	namespace rs = renderer::state::float_::available_states;
 
-	switch(s.state()) {
+	switch(s.state())
+	{
 	case rs::zbuffer_clear_val:
 		glClearDepth(
 			renderer::arithmetic_convert<
@@ -107,10 +137,10 @@ sge::opengl::state_visitor::operator()(
 			FCPPT_TEXT("glClearDepth failed"),
 			sge::renderer::exception
 		)
-		break;
+		return;
 	case rs::alpha_test_ref:
-		states.update_alpha_test();
-		break;
+		states_.update_alpha_test();
+		return;
 	case rs::fog_start:
 	case rs::fog_end:
 	case rs::fog_density:
@@ -127,51 +157,70 @@ sge::opengl::state_visitor::operator()(
 			FCPPT_TEXT("glFogf failed"),
 			sge::renderer::exception
 		)
-		break;
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid float_state!"));
+		return;
 	}
+
+
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid float_state!")
+	);
 }
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
-	renderer::state::bool_::type const s) const
+	renderer::state::bool_::type const s
+) const
 {
 	namespace rs = renderer::state::bool_::available_states;
 
-	switch(s.state()) {
+	switch(s.state())
+	{
 	case rs::clear_backbuffer:
 	case rs::clear_zbuffer:
 	case rs::clear_stencil:
-		break;
+		return;
 	case rs::enable_alpha_blending:
 	case rs::enable_lighting:
-		enable(
+		opengl::enable_bool(
 			convert::bool_(s),
 			s.value()
 		);
-		break;
+		return;
 	case rs::enable_multi_sampling:
-		// don't complain here in case we don't have multi sampling
-		// because the default renderer settings will at least try to disable it
-		if(!have_multi_sample() && !s.value())
+		if(
+			!s.value()
+		)
 			return;
 
-		enable(
-			multi_sample_flag(),
+		if(
+			!multi_sample_context_.is_supported()
+		)
+		{
+			// don't complain here in case we don't have multi sampling
+			// because the default renderer settings will at least try to disable it
+			on_not_supported(
+				FCPPT_TEXT("multi sampling"),
+				FCPPT_TEXT("GL_VERSION_1_3"),
+				FCPPT_TEXT("GL_ARB_multisample")
+			);
+		}
+
+		opengl::enable_bool(
+			multi_sample_context_.flag(),
 			s.value()
 		);
-		break;
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid bool_state!"));
+		return;
 	}
+	
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid bool_state!")
+	);
 }
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
-	renderer::state::color::type const &s) const
+	renderer::state::color::type const &s
+) const
 {
 	namespace rs = renderer::state::color::available_states;
 
@@ -183,7 +232,8 @@ sge::opengl::state_visitor::operator()(
 		)
 	);
 
-	switch(s.state()) {
+	switch(s.state())
+	{
 	case rs::clear_color:
 		glClearColor(
 			fcolor.get<mizuiro::color::channel::red>(),
@@ -196,7 +246,7 @@ sge::opengl::state_visitor::operator()(
 			FCPPT_TEXT("glClearColor failed"),
 			sge::renderer::exception
 		)
-		break;
+		return;
 	case rs::ambient_light_color:
 		glLightModelfv(
 			GL_LIGHT_MODEL_AMBIENT,
@@ -206,7 +256,7 @@ sge::opengl::state_visitor::operator()(
 			FCPPT_TEXT("glLightMOdelfv failed"),
 			sge::renderer::exception
 		)
-		break;
+		return;
 	case rs::fog_color:
 		glFogfv(
 			GL_FOG_COLOR,
@@ -217,11 +267,12 @@ sge::opengl::state_visitor::operator()(
 			FCPPT_TEXT("glFogfv failed"),
 			sge::renderer::exception
 		)
-		break;
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid color_state!"));
+		return;
 	}
+
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid color_state!")
+	);
 }
 
 sge::opengl::state_visitor::result_type
@@ -229,13 +280,20 @@ sge::opengl::state_visitor::operator()(
 	renderer::state::cull_mode::type const m
 ) const
 {
-	if(m == renderer::state::cull_mode::off)
+	if(
+		m == renderer::state::cull_mode::off
+	)
 	{
-		disable(GL_CULL_FACE);
+		opengl::disable(
+			GL_CULL_FACE
+		);
+
 		return;
 	}
 
-	enable(GL_CULL_FACE);
+	opengl::enable(
+		GL_CULL_FACE
+	);
 
 	glCullFace(
 		convert::cull_mode(
@@ -251,15 +309,31 @@ sge::opengl::state_visitor::operator()(
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
-	renderer::state::depth_func::type const f) const
+	renderer::state::depth_func::type const f
+) const
 {
-	if(f == renderer::state::depth_func::off)
+	if(
+		f == renderer::state::depth_func::off
+	)
 	{
-		disable(GL_DEPTH_TEST);
+		opengl::disable(
+			GL_DEPTH_TEST
+		);
+
 		return;
 	}
 
-	enable(GL_DEPTH_TEST);
+	if(
+		depth_type_ == renderer::depth_buffer::off
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("You tried to use a depth_func besides depth_func::off.")
+			FCPPT_TEXT(" This will only work if you request a depth buffer in renderer::parameters!")
+		);
+
+	opengl::enable(
+		GL_DEPTH_TEST
+	);
 
 	glDepthFunc(
 		convert::depth_func(
@@ -275,16 +349,20 @@ sge::opengl::state_visitor::operator()(
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
-	renderer::state::stencil_func::type) const
+	renderer::state::stencil_func::type
+) const
 {
-	states.update_stencil();
+	states_.update_stencil(
+		stencil_type_
+	);
 }
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
-	renderer::state::alpha_func::type) const
+	renderer::state::alpha_func::type
+) const
 {
-	states.update_alpha_test();
+	states_.update_alpha_test();
 }
 
 sge::opengl::state_visitor::result_type
@@ -292,13 +370,20 @@ sge::opengl::state_visitor::operator()(
 	renderer::state::fog_mode::type const m
 ) const
 {
-	if(m == renderer::state::fog_mode::off)
+	if(
+		m == renderer::state::fog_mode::off
+	)
 	{
-		disable(GL_FOG);
+		opengl::disable(
+			GL_FOG
+		);
+
 		return;
 	}
 
-	enable(GL_FOG);
+	opengl::enable(
+		GL_FOG
+	);
 
 	glFogi(
 		GL_FOG_MODE,
@@ -333,14 +418,16 @@ sge::opengl::state_visitor::operator()(
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
-	renderer::state::source_blend_func::type) const
+	renderer::state::source_blend_func::type
+) const
 {
-	states.update_blend();
+	states_.update_blend();
 }
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
-	renderer::state::dest_blend_func::type) const
+	renderer::state::dest_blend_func::type
+) const
 {
-	states.update_blend();
+	states_.update_blend();
 }

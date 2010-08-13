@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/font/pos.hpp>
 #include <sge/font/dim.hpp>
-#include <sge/font/text_size.hpp>
+#include <sge/font/text_part.hpp>
 #include <sge/font/align_v.hpp>
-#include <sge/exception.hpp>
+#include <sge/font/exception.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/text.hpp>
@@ -40,7 +40,7 @@ void
 align_pos_v(
 	pos &pos_,
 	dim const &max_sz,
-	text_size const &total_size,
+	text_part const &total_size,
 	align_v::type const align_v
 )
 {
@@ -56,7 +56,7 @@ align_pos_v(
 		return;
 	}
 
-	throw exception(
+	throw font::exception(
 		FCPPT_TEXT("Invalid font::align_v!")
 	);
 }

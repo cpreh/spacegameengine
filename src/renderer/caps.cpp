@@ -19,6 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/caps.hpp>
+#include <sge/image/color/format_to_string.hpp>
+#include <fcppt/math/dim/output.hpp>
+#include <fcppt/text.hpp>
+#include <ostream>
 
 sge::renderer::caps::caps(
 	adapter_type const adapter_,
@@ -88,4 +92,30 @@ sge::image::color::format::type
 sge::renderer::caps::preferred_texture_format() const
 {
 	return preferred_texture_format_;
+}
+
+fcppt::io::ostream &
+sge::renderer::operator<<(
+	fcppt::io::ostream &_stream,
+	caps const &_caps
+)
+{
+	return _stream
+		<< FCPPT_TEXT("caps: adapter = ")
+		<< _caps.adapter()
+		<< FCPPT_TEXT(", driver_name = \"")
+		<< _caps.driver_name()
+		<< FCPPT_TEXT("\", description = \"")
+		<< _caps.description()
+		<< FCPPT_TEXT("\", max_texture_size = ")
+		<< _caps.max_texture_size()
+		<< FCPPT_TEXT(", max_anisotropy = ")
+		<< _caps.max_anisotropy()
+		<< FCPPT_TEXT(", glsl_supported = ")
+		<< std::boolalpha
+		<< _caps.glsl_supported()
+		<< FCPPT_TEXT(", preferred_texture_format = ")
+		<< sge::image::color::format_to_string(
+			_caps.preferred_texture_format()
+		);
 }

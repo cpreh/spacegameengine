@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../index_buffer.hpp"
-#include "../vbo.hpp"
 #include "../common.hpp"
-#include "../instantiate_basic_buffer.hpp"
+#include "../vbo_context.hpp"
+#include "../context/use.hpp"
 #include <sge/renderer/index/dynamic/make_format.hpp>
 #include <sge/renderer/index/view.hpp>
 #include <sge/renderer/index/i16.hpp>
@@ -59,14 +59,25 @@ template<
 	typename T
 >
 sge::opengl::index_buffer<T>::index_buffer(
-	size_type const sz,
-	renderer::resource_flags_field const &flags
+	context::object &_context,
+	size_type const _size,
+	renderer::resource_flags_field const &_flags
 )
 :
 	buf(
-		sz,
-		1,
-		flags,
+		context::use<
+			vbo_context
+		>(
+			_context
+		).impl(),
+		context::use<
+			vbo_context
+		>(
+			_context
+		).index_buffer_type(),
+		_size,
+		sizeof(T),
+		_flags,
 		0
 	)
 {}
@@ -77,9 +88,10 @@ template<
 GLenum
 sge::opengl::index_buffer<T>::gl_format() const
 {
-	return gl_format_c<
-		T
-	>::value;
+	return
+		::gl_format_c<
+			T
+		>::value;
 }
 
 template<
@@ -102,6 +114,8 @@ sge::opengl::index_buffer<T>::bind_me() const
 {
 	buf.bind_me();
 }
+
+// FIXME: fix the reinterpret_casts!
 
 template<
 	typename T
@@ -128,8 +142,12 @@ sge::opengl::index_buffer<T>::lock(
 					T
 				>
 			>(
-				buf.data(),
-				buf.lock_size()
+				reinterpret_cast<
+					T *
+				>(
+					buf.data()
+				),
+				buf.lock_size() / sizeof(T) // FIXME
 			)
 		);
 }
@@ -156,8 +174,12 @@ sge::opengl::index_buffer<T>::lock(
 					T const
 				>
 			>(
-				buf.data(),
-				buf.lock_size()
+				reinterpret_cast<
+					T const *
+				>(
+					buf.data()
+				),
+				buf.lock_size() / sizeof(T) // FIXME
 			)
 		);
 }
@@ -204,12 +226,7 @@ sge::opengl::index_buffer<T>::format() const
 }
 
 #define SGE_OPENGL_INSTANTIATE_INDEX_BUFFER(t) \
-template class sge::opengl::index_buffer<t>; \
-template class sge::opengl::basic_buffer<\
-	sge::opengl::index_buffer_type,\
-	sge::opengl::vb_ib_vbo_impl,\
-	t\
->;
+template class sge::opengl::index_buffer<t>;
 
 SGE_OPENGL_INSTANTIATE_INDEX_BUFFER(
 	sge::renderer::index::i16

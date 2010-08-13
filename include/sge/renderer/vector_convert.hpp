@@ -21,7 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VECTOR_CONVERT_HPP_INCLUDED
 #define SGE_RENDERER_VECTOR_CONVERT_HPP_INCLUDED
 
+#include <sge/renderer/basic_any_vector.hpp>
+#include <sge/renderer/size_type.hpp>
 #include <sge/symbol.hpp>
+#include <fcppt/math/vector/static.hpp>
 
 namespace sge
 {
@@ -29,12 +32,19 @@ namespace renderer
 {
 
 template<
-	typename Dest,
-	typename Source
+	typename DestType,
+	size_type Size
 >
-SGE_SYMBOL Dest const
+SGE_SYMBOL
+typename fcppt::math::vector::static_<
+	DestType,
+	Size
+>::type const
 vector_convert(
-	Source const &);
+	typename basic_any_vector<
+		Size
+	>::type const &
+);
 
 }
 }

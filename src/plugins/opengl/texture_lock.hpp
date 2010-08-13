@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_LOCK_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_LOCK_HPP_INCLUDED
 
+#include "texture_lock_fwd.hpp"
 #include "lock_method.hpp"
 #include <sge/renderer/raw_value.hpp>
 #include <sge/renderer/size_type.hpp>
@@ -31,7 +32,8 @@ namespace sge
 namespace opengl
 {
 
-class texture_lock {
+class texture_lock
+{
 	FCPPT_NONCOPYABLE(texture_lock)
 protected:
 	texture_lock();
@@ -43,19 +45,26 @@ public:
 
 	virtual ~texture_lock();
 
-	virtual void post_lock() = 0;
+	virtual void
+	post_lock() = 0;
 
-	virtual void pre_unlock() = 0;
+	virtual void
+	pre_unlock() = 0;
 
-	virtual pointer write_pointer() const;
+	virtual pointer
+	write_pointer() const;
 
-	virtual pointer read_pointer() const;
+	virtual pointer
+	read_pointer() const;
 
-	virtual pointer real_write_pointer();
+	virtual pointer
+	real_write_pointer();
 
-	virtual const_pointer real_read_pointer() const;
+	virtual const_pointer
+	real_read_pointer() const;
 
-	virtual lock_method::type method() const = 0;
+	virtual lock_method::type
+	method() const = 0;
 };
 
 }

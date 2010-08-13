@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_WRITEONLY_TEXTURE_LOCK_HPP_INCLUDED
 
 #include "texture_lock.hpp"
-#include "pixel_unpack_buffer.hpp"
+#include "buffer.hpp"
+#include "context/object_fwd.hpp"
 #include <sge/renderer/resource_flags_field.hpp>
 
 namespace sge
@@ -30,24 +31,34 @@ namespace sge
 namespace opengl
 {
 
-class writeonly_texture_lock : public texture_lock {
+class writeonly_texture_lock
+:
+	public texture_lock
+{
 public:
 	writeonly_texture_lock(
+		context::object &,
 		size_type lock_size,
 		size_type stride,
 		renderer::resource_flags_field const &
 	);
 
-	void post_lock();
+	void
+	post_lock();
 
-	void pre_unlock();
+	void
+	pre_unlock();
 
-	pointer write_pointer() const;
-	pointer real_write_pointer();
+	pointer
+	write_pointer() const;
+
+	pointer
+	real_write_pointer();
 private:
-	lock_method::type method() const;
+	lock_method::type
+	method() const;
 
-	pixel_unpack_buffer buffer;
+	buffer buffer_;
 };
 
 }

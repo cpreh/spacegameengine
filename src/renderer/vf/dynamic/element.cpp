@@ -21,30 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/element.hpp>
 
 sge::renderer::vf::dynamic::element::element(
-	any const &info_,
-	vf::role::type const role_,
-	vertex_size const index_
+	any const &info_
 )
 :
-	info_(info_),
-	role_(role_),
-	index_(index_)
+	info_(info_)
 {}
 
 sge::renderer::vf::dynamic::any const &
 sge::renderer::vf::dynamic::element::info() const
 {
 	return info_;
-}
-
-sge::renderer::vf::role::type
-sge::renderer::vf::dynamic::element::role() const
-{
-	return role_;
-}
-
-sge::renderer::vf::vertex_size
-sge::renderer::vf::dynamic::element::index() const
-{
-	return index_;
 }

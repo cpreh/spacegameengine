@@ -74,8 +74,8 @@ sge::sprite::system_base<Choices>::matrices()
 {
 	rend->transform(
 		renderer::matrix_mode::world,
-		additional_transform_
-		* transform_matrix
+		transform_matrix
+		* additional_transform_
 	);
 
 	rend->transform(

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/mainloop/io_service.hpp>
 #include <sge/mainloop/native_handle.hpp>
 #include <sge/mainloop/dispatcher_callback.hpp>
+#include <sge/class_symbol.hpp>
 #include <sge/symbol.hpp>
 #include <boost/asio/io_service.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -35,7 +36,7 @@ namespace mainloop
 namespace asio
 {
 
-class io_service
+class SGE_CLASS_SYMBOL io_service
 :
 	public mainloop::io_service
 {
@@ -48,32 +49,35 @@ public:
 	~io_service();
 
 	SGE_SYMBOL
+	boost::asio::io_service &
+	get();
+private:
 	void
 	run_one();
 
-	SGE_SYMBOL
 	void
 	run();
 
-	SGE_SYMBOL
 	void
 	poll();
 
-	SGE_SYMBOL
 	void
 	stop();
 
-	SGE_SYMBOL
 	void
 	reset();
 
-	SGE_SYMBOL
+	void
+	dispatch(
+		dispatcher_callback const &
+	);
+
 	dispatcher_ptr const
 	create_dispatcher(
 		native_handle,
 		dispatcher_callback const &
 	);
-private:
+
 	boost::asio::io_service io_service_;
 };
 

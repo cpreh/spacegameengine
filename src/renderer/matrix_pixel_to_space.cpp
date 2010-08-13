@@ -36,15 +36,16 @@ sge::renderer::matrix_pixel_to_space(
 )
 {
 	return
+		fcppt::math::matrix::scaling(
+			static_cast<T>(2) / static_cast<T>(sz.w()),
+	        	static_cast<T>(-2) / static_cast<T>(sz.h()),
+	        	static_cast<T>(1)
+		)
+		*
 		fcppt::math::matrix::translation(
 			static_cast<T>(-static_cast<int>(sz.w()) / 2),
 			static_cast<T>(-static_cast<int>(sz.h()) / 2),
 			static_cast<T>(0)
-		)
-		* fcppt::math::matrix::scaling(
-			static_cast<T>(2) / static_cast<T>(sz.w()),
-	        	static_cast<T>(-2) / static_cast<T>(sz.h()),
-	        	static_cast<T>(1)
 		);
 }
 

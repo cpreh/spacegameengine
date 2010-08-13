@@ -22,6 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
+sge::renderer::texture::texture()
+{
+}
+
+sge::renderer::texture::~texture()
+{
+}
+
 sge::image::view::object const
 sge::renderer::texture::lock(
 	lock_mode::type const flags

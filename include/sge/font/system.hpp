@@ -47,7 +47,7 @@ public:
 	create_font(
 		fcppt::filesystem::path const &,
 		size_type font_height,
-		sge::image::multi_loader const * = 0
+		sge::image::multi_loader * = 0
 	) = 0;
 };
 

@@ -25,10 +25,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/internal_color.hpp>
 #include <sge/gui/canvas/object.hpp>
 #include <sge/gui/media_path.hpp>
+#include <sge/gui/color.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/font/system.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/text.hpp>
+
+namespace
+{
+
+sge::gui::color const standard_color = sge::image::colors::black();
+
+}
 
 sge::gui::skins::standard::standard(
 	font::system_ptr const fs)
@@ -40,9 +48,18 @@ sge::gui::skins::standard::standard(
 			FCPPT_TEXT("default.ttf"),
 			static_cast<font::size_type>(
 				15)),
-		sge::image::colors::black())
+		standard_color)
 {
 }
+
+sge::gui::skins::standard::standard(
+	font::metrics_ptr const _metrics)
+:
+	standard_font_(
+		_metrics,
+		standard_color
+	)
+{}
 
 SGE_GUI_SKIN_DRAW_RETURN(widgets::base) sge::gui::skins::standard::fallback(
 	SGE_GUI_SKIN_DRAW_PARAMS(widgets::base))

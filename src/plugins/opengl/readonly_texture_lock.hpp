@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_READONLY_TEXTURE_LOCK_HPP_INCLUDED
 
 #include "texture_lock.hpp"
-#include "pixel_pack_buffer.hpp"
+#include "buffer.hpp"
+#include "context/object_fwd.hpp"
 #include <sge/renderer/resource_flags_field.hpp>
 #include <fcppt/container/raw_vector_decl.hpp>
 
@@ -31,9 +32,13 @@ namespace sge
 namespace opengl
 {
 
-class readonly_texture_lock : public texture_lock {
+class readonly_texture_lock
+:
+	public texture_lock
+{
 public:
 	readonly_texture_lock(
+		context::object &,
 		size_type lock_size,
 		size_type offset,
 		size_type whole_size,
@@ -43,27 +48,42 @@ public:
 		renderer::resource_flags_field const &
 	);
 
-	void post_lock();
-	void do_lock();
-	void copy_read_part(pointer dest) const;
-	void pre_unlock();
-	pointer read_pointer() const;
-	const_pointer real_read_pointer() const;
-private:
-	lock_method::type method() const;
+	void
+	post_lock();
 
-	pixel_pack_buffer buffer;
+	void
+	do_lock();
+
+	void
+	copy_read_part(
+		pointer dest
+	) const;
+
+	void
+	pre_unlock();
+
+	pointer
+	read_pointer() const;
+
+	const_pointer
+	real_read_pointer() const;
+private:
+	lock_method::type
+	method() const;
+
+	buffer buffer_;
+
 	size_type
-		lock_size,
-		offset,
-		pitch,
-		block_size;
+		lock_size_,
+		offset_,
+		pitch_,
+		block_size_;
 
 	typedef fcppt::container::raw_vector<
 		value_type
 	> cutout_buffer_type;
 
-	cutout_buffer_type cutout_buffer;
+	cutout_buffer_type cutout_buffer_;
 };
 
 }

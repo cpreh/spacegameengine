@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../convert_vertex_colors.hpp"
 #include <sge/renderer/vf/dynamic/color.hpp>
-#include <sge/renderer/vf/dynamic/ordered_element.hpp>
 #include <sge/image/algorithm/convert_conditional.hpp>
 #include <sge/image/color/format.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
@@ -28,26 +27,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::convert_vertex_colors(
-	renderer::vf::dynamic::ordered_element const &e,
-	renderer::size_type const vertex_stride,
-	renderer::size_type const num_vertices,
-	renderer::raw_pointer const data
+	renderer::vf::dynamic::color const &_dcolor,
+	renderer::size_type const _vertex_stride,
+	renderer::size_type const _num_vertices,
+	renderer::raw_pointer const _data,
+	renderer::size_type const _offset
 )
 {
-	sge::renderer::vf::dynamic::color const dcolor(
-		e.element().info().get<
-			sge::renderer::vf::dynamic::color
-		>()
-	);
-
 	sge::image::algorithm::convert_conditional(
-		data + e.offset(),
+		_data + _offset,
 		sge::image::dim_type(
 			1,
-			num_vertices
+			_num_vertices
 		),
-		dcolor.color_format(),
-		vertex_stride,
+		_dcolor.color_format(),
+		_vertex_stride,
 		boost::assign::list_of
 			(sge::image::color::format::rgba8)
 			(sge::image::color::format::rgba32f)

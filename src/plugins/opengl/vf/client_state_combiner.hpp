@@ -22,7 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VF_CLIENT_STATE_COMBINER_HPP_INCLUDED
 
 #include "client_state_combiner_fwd.hpp"
+#include "context_fwd.hpp"
+#include "attribute_context_fwd.hpp"
 #include "client_state.hpp"
+#include "../context/object_fwd.hpp"
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -37,7 +40,7 @@ class client_state_combiner
 	FCPPT_NONCOPYABLE(client_state_combiner)
 public:
 	explicit client_state_combiner(
-		client_state const &old_states
+		opengl::context::object &
 	);
 
 	void
@@ -62,9 +65,13 @@ public:
 
 	~client_state_combiner();
 private:
-	client_state const old_states;
+	vf::context &context_;
+	
+	vf::attribute_context &attribute_context_;
 
-	client_state new_states;
+	client_state const old_states_;
+
+	client_state new_states_;
 };
 
 }

@@ -19,31 +19,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../vertex_buffer.hpp"
-#include "../vbo.hpp"
-#include "../convert_vertex_colors.hpp"
-#include "../instantiate_basic_buffer.hpp"
+#include "../context/use.hpp"
+#include "../convert_vertices.hpp"
+#include "../vbo_context.hpp"
 #include <sge/renderer/vf/dynamic/view.hpp>
 #include <sge/renderer/vf/dynamic/const_view.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/assert.hpp>
 #include <boost/foreach.hpp>
 
-SGE_OPENGL_INSTANTIATE_BASIC_BUFFER(
-	sge::opengl::vertex_buffer_type,
-	sge::opengl::vb_ib_vbo_impl
-)
-
 sge::opengl::vertex_buffer::vertex_buffer(
-	renderer::vf::dynamic::format const &format_,
-	size_type const sz,
-	renderer::resource_flags_field const &flags
+	context::object &_context,
+	renderer::vf::dynamic::format const &_format,
+	size_type const _size,
+	renderer::resource_flags_field const &_flags
 )
 :
-	format_(format_),
+	format_(
+		_context,
+		_format
+	),
 	buf(
-		sz,
-		format_.stride(),
-		flags,
+		context::use<
+			vbo_context
+		>(
+			_context
+		).impl(),
+		context::use<
+			vbo_context
+		>(
+			_context
+		).vertex_buffer_type(),
+		_size,
+		_format.stride(),
+		_flags,
 		0
 	)
 {}
@@ -91,7 +100,8 @@ sge::opengl::vertex_buffer::lock(
 sge::opengl::vertex_buffer::const_view_type const
 sge::opengl::vertex_buffer::lock(
 	size_type const offset,
-	size_type const range) const
+	size_type const range
+) const
 {
 	buf.lock(
 		lock_method::readonly,
@@ -99,11 +109,12 @@ sge::opengl::vertex_buffer::lock(
 		range
 	);
 
-	return const_view_type(
-		buf.data(),
-		buf.lock_size(),
-		format()
-	);
+	return
+		const_view_type(
+			buf.data(),
+			buf.lock_size(),
+			format()
+		);
 }
 
 void
@@ -123,13 +134,12 @@ sge::opengl::vertex_buffer::unlock() const
 		renderer::vf::dynamic::ordered_element_list::const_reference elem,
 		elems
 	)
-		if(elem.element().role() == renderer::vf::role::color)
-			convert_vertex_colors(
-				elem,
-				stride,
-				buf.lock_size() / stride,
-				buf.data()
-			);
+		convert_vertices(
+			elem,
+			stride,
+			buf.lock_size() / stride,
+			buf.data()
+		);
 
 	buf.unlock();
 }

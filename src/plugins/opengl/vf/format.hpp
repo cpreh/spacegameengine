@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_VF_FORMAT_HPP_INCLUDED
 #define SGE_OPENGL_VF_FORMAT_HPP_INCLUDED
 
-#include "actor.hpp"
+#include "actor_fwd.hpp"
+#include "pointer.hpp"
+#include "../context/object_fwd.hpp"
 #include <sge/renderer/vf/dynamic/format.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
@@ -38,20 +40,25 @@ class format
 	FCPPT_NONCOPYABLE(format)
 public:
 	explicit format(
+		sge::opengl::context::object &,
 		renderer::vf::dynamic::format const &
 	);
+
+	~format();
 
 	renderer::vf::dynamic::format const &
 	get() const;
 
 	void
 	use_me(
-		pointer
+		vf::pointer
 	) const;
 
 	void
 	unuse_me() const;
 private:
+	opengl::context::object &context_;
+
 	renderer::vf::dynamic::format const fmt;
 
 	typedef boost::ptr_vector<

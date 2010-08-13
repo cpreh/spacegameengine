@@ -19,98 +19,174 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../fbo_target.hpp"
-#include "../fbo_functions.hpp"
-#include "../version.hpp"
-#include "../texture_base.hpp"
+#include "../bind_fbo.hpp"
+#include "../fbo_context.hpp"
 #include "../check_state.hpp"
+#include "../render_buffer.hpp"
+#include "../render_buffer_binding.hpp"
+#include "../context/use.hpp"
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/exception.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <sge/renderer/parameters.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/shared_ptr.hpp>
+#include <fcppt/auto_ptr.hpp>
+#include <fcppt/make_auto_ptr.hpp>
 #include <fcppt/text.hpp>
 
-sge::opengl::fbo_target::fbo_target()
+sge::opengl::fbo_target::fbo_target(
+	sge::opengl::context::object &_context,
+	sge::renderer::parameters const &param_,
+	opengl::texture_ptr const texture_
+)
+:
+	context_(
+		opengl::context::use<
+			fbo_context
+		>(
+			_context
+		)
+	),
+	fbo_(
+		context_
+	),
+	texture_binding_(
+		context_,
+		texture_,
+		fbo_
+	)
 {
-	if(!glGenFramebuffersEXT)
-		on_not_supported(
-			FCPPT_TEXT("glGenFrameBuffersEXT"),
-			FCPPT_TEXT("none"),
-			FCPPT_TEXT("frame_buffer_ext")
+	if(
+		param_.depth_buffer() != renderer::depth_buffer::off
+	)
+		attach_buffer(
+			GL_DEPTH_COMPONENT,
+			context_.depth_attachment()
+		);
+	
+	if(
+		param_.stencil_buffer() != renderer::stencil_buffer::off
+	)
+		attach_buffer(
+			GL_STENCIL_INDEX,
+			context_.stencil_attachment()
 		);
 
-	glGenFramebuffersEXT(1, &fbo);
+	GLenum const status(
+		context_.check_framebuffer_status()(
+			context_.framebuffer_target()
+		)
+	);
 
 	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glGenFramebuffersEXT failed"),
+		FCPPT_TEXT("Checking the fbo status failed."),
 		sge::renderer::exception
 	)
 
-	bind_me();
+	if(
+		status !=
+		context_.framebuffer_complete()
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("FBO is incomplete!")
+		);
 }
 
 sge::opengl::fbo_target::~fbo_target()
 {
-	glDeleteFramebuffersEXT(1, &fbo);
 }
 
-void sge::opengl::fbo_target::bind_me() const
+void
+sge::opengl::fbo_target::bind() const
 {
-	bind_fbo(fbo);
+	fbo_.bind();
 }
 
-void sge::opengl::fbo_target::bind_texture(
-	renderer::texture_ptr const t)
+void
+sge::opengl::fbo_target::unbind() const
 {
-	bind_me();
-
-	fcppt::shared_ptr<texture_base> const p(
-		fcppt::dynamic_pointer_cast<texture_base>(t));
-
-	glFramebufferTexture2DEXT(
-		GL_FRAMEBUFFER_EXT,
-		GL_COLOR_ATTACHMENT0_EXT,
-		GL_TEXTURE_2D,
-		p->id(),
-		0);
-
-	GLenum const status(
-		glCheckFramebufferStatusEXT(
-			GL_FRAMEBUFFER_EXT
-		)
+	opengl::bind_fbo(
+		context_,
+		0
 	);
+}
 
-	if(status != GL_FRAMEBUFFER_COMPLETE_EXT)
-		throw renderer::exception(
-			FCPPT_TEXT("glCheckFramebufferStatusEXT: fbo incomplete!"));
+sge::image::view::const_object const
+sge::opengl::fbo_target::lock(
+	renderer::lock_rect const &_dest
+) const
+{
+	return
+		texture_binding_.texture()->lock(
+			_dest
+		);
+}
 
-	texture_target = fcppt::dynamic_pointer_cast<texture>(t);
+void
+sge::opengl::fbo_target::unlock() const
+{
+	texture_binding_.texture()->unlock();
 }
 
 sge::renderer::target::dim_type const
 sge::opengl::fbo_target::dim() const
 {
-	return texture_target->dim();
+	return texture_binding_.texture()->dim();
 }
 
-sge::renderer::pixel_pos const
-sge::opengl::fbo_target::pos() const
+void
+sge::opengl::fbo_target::attach_buffer(
+	GLenum const _component,
+	GLenum const _attachment
+)
 {
-	return renderer::pixel_pos::null();
-}
+	{
+		typedef fcppt::auto_ptr<
+			render_buffer
+		> render_buffer_ptr;
 
-sge::opengl::fbo_target::size_type
-sge::opengl::fbo_target::stride() const
-{
-	return texture_target->stride();
-}
+		render_buffer_ptr ptr(
+			fcppt::make_auto_ptr<
+				render_buffer
+			>(
+				context_
+			)
+		);
 
-GLenum sge::opengl::fbo_target::format() const
-{
-	return texture_target->format();
-}
+		ptr->store(
+			_component,
+			static_cast<
+				GLsizei
+			>(
+				dim().w()
+			),
+			static_cast<
+				GLsizei
+			>(
+				dim().h()
+			)
+		);
 
-GLenum sge::opengl::fbo_target::format_type() const
-{
-	return texture_target->format_type();
+		render_buffers_.push_back(
+			ptr
+		);
+	}
+
+	typedef fcppt::auto_ptr<
+		render_buffer_binding
+	> render_buffer_binding_ptr;
+
+	render_buffer_binding_ptr ptr(
+		fcppt::make_auto_ptr<
+			render_buffer_binding
+		>(
+			context_,
+			fbo_,
+			render_buffers_.back(),
+			_attachment
+		)
+	);
+
+	render_buffer_bindings_.push_back(
+		ptr
+	);
 }

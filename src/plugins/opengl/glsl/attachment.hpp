@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GLSL_ATTACHMENT_HPP_INCLUDED
 
 #include "attachment_fwd.hpp"
-#include "traits.hpp"
-#include "shader.hpp"
+#include "shader_base_fwd.hpp"
+#include <sge/renderer/glsl/shader_ptr.hpp>
+#include <fcppt/shared_ptr_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -34,21 +35,36 @@ namespace glsl
 {
 
 template<
-	bool Native
+	typename Environment
 >
-class attachment {
+class attachment
+{
 	FCPPT_NONCOPYABLE(attachment)
 public:
-	typedef typename shader<Native>::shared_ptr shader_ptr;
-	typedef typename traits<Native>::handle handle;
+	typedef typename Environment::handle handle;
 
-	attachment(
-		shader_ptr,
-		handle);
+	typedef typename Environment::program_context program_context;
+
+	explicit attachment(
+		program_context const &,
+		sge::renderer::glsl::shader_ptr,
+		handle program_
+	);
 
 	~attachment();
 private:
+	typedef glsl::shader_base<
+		Environment
+	> shader_type;
+
+	typedef fcppt::shared_ptr<
+		shader_type
+	> shader_ptr;
+	
+	program_context const &context_;
+
 	shader_ptr const shader_;
+
 	handle const handle_;
 };
 

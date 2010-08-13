@@ -30,7 +30,8 @@ namespace vf
 
 namespace element_type
 {
-enum type {
+enum type
+{
 	float_,
 	double_,
 	byte,

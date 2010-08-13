@@ -19,60 +19,99 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../texpos_actor.hpp"
+#include "../convert_element_type.hpp"
+#include "../actor_parameters.hpp"
 #include "../../check_state.hpp"
-#include "../../multi_texture.hpp"
+#include "../../multi_texture_context.hpp"
+#include "../../set_client_texture_level.hpp"
+#include "../../context/use.hpp"
+#include "../../common.hpp"
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
 #include <sge/renderer/vf/dynamic/vector.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/exception.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::vf::texpos_actor::texpos_actor(
-	renderer::vf::dynamic::ordered_element const &e,
-	renderer::vf::vertex_size const stride
+	actor_parameters const &_param,
+	renderer::vf::dynamic::texpos const &_element
 )
 :
 	fp_actor(
-		e,
-		stride,
+		_param,
 		GL_TEXTURE_COORD_ARRAY
 	),
-	elements(
-		static_cast<GLint>(
-			e.element().info().get<
-				renderer::vf::dynamic::vector
-			>().elements()
+	context_(
+		_param.context()
+	),
+	elements_(
+		static_cast<
+			GLint
+		>(
+			_element.type().elements()
 		)
+	),
+	format_(
+		vf::convert_element_type(
+			_element.type().element_type()
+		)
+	),
+	index_(
+		_element.index()
 	)
 {
-	if(index() >= GL_MAX_TEXTURE_COORDS)
+	multi_texture_context &texture_context(
+		opengl::context::use<
+			multi_texture_context
+		>(
+			context_
+		)
+	);
+
+	if(
+		!texture_context.is_supported()
+		&& index_ != 0
+	)
+		throw renderer::exception(
+			FCPPT_TEXT("multiple texture coordinates are not supported!")
+		);
+	else if(
+		index_
+		>= texture_context.max_level()
+	)
 		throw renderer::exception(
 			(
 				fcppt::format(
 					FCPPT_TEXT("opengl texture coordinates exceeded: Allowed are %1%.")
 				)
-				% GL_MAX_TEXTURE_COORDS
+				% texture_context.max_level()
 			).str()
 		);
 }
 
 void
-sge::opengl::vf::texpos_actor::on_use() const
+sge::opengl::vf::texpos_actor::on_use(
+	vf::pointer const _src
+) const
 {
-	client_texture_level(
+	opengl::set_client_texture_level(
+		context_,
 		static_cast<
 			renderer::stage_type
 		>(
-			index()
+			index_
 		)
 	);
 
 	glTexCoordPointer(
-		elements,
-		format(),
-		stride(),
-		pointer()
+		elements_,
+		format_,
+		static_cast<
+			GLsizei
+		>(
+			stride()
+		),
+		_src
 	);
 
 	SGE_OPENGL_CHECK_STATE(

@@ -37,16 +37,28 @@ template<
 	typename T,
 	typename States
 >
-class trampoline {
+class trampoline
+{
 	FCPPT_NONCOPYABLE(trampoline)
 public:
 	typedef States state_type;
-	typedef var<T, state_type> var_type;
+
+	typedef state::var<
+		T,
+		state_type
+	> var_type;
 
 	explicit trampoline(
-		state_type);
-	SGE_SYMBOL var_type const operator=(T const &) const;
-	SGE_SYMBOL state_type state() const;
+		state_type
+	);
+
+	SGE_SYMBOL var_type const
+	operator=(
+		T const &
+	) const;
+
+	SGE_SYMBOL state_type
+	state() const;
 private:
 	state_type const state_;
 };

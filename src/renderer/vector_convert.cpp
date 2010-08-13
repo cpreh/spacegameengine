@@ -50,18 +50,29 @@ public:
 }
 
 template<
-	typename Dest,
-	typename Source
+	typename DestType,
+	sge::renderer::size_type Size
 >
-Dest const
+typename fcppt::math::vector::static_<
+	DestType,
+	Size
+>::type const
 sge::renderer::vector_convert(
-	Source const &v
+	typename basic_any_vector<
+		Size
+	>::type const &_source
 )
 {
-	return fcppt::variant::apply_unary(
-		visitor<Dest>(),
-		v
-	);
+	return
+		fcppt::variant::apply_unary(
+			visitor<
+				typename fcppt::math::vector::static_<
+					DestType,
+					Size
+				>::type
+			>(),
+			_source
+		);
 }
 
 namespace
@@ -75,21 +86,35 @@ template<
 >
 typename visitor<Dest>::result_type const
 visitor<Dest>::operator()(
-	T const &v
+	T const &_value
 ) const
 {
-	return fcppt::math::vector::structure_cast<
-		Dest
-	>(v);
+	return
+		fcppt::math::vector::structure_cast<
+			Dest
+		>(
+			_value
+		);
 }
 
 }
 
-#define SGE_INSTANTIATE_VECTOR_CONVERT(t, n)\
+#define SGE_INSTANTIATE_VECTOR_CONVERT(\
+	elemtype,\
+	size\
+)\
 template FCPPT_EXPORT_SYMBOL \
-fcppt::math::vector::static_<t, n>::type const \
-sge::renderer::vector_convert(\
-	sge::renderer::basic_any_vector<n>::type const &\
+fcppt::math::vector::static_<\
+	elemtype,\
+	size\
+>::type const \
+sge::renderer::vector_convert<\
+	elemtype,\
+	size\
+>(\
+	sge::renderer::basic_any_vector<\
+		size\
+	>::type const &\
 );
 
 #define SGE_INSTANTIATE_VECTOR_CONVERT_N(n)\

@@ -20,115 +20,167 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../program.hpp"
 #include "../attachment.hpp"
-#include "../program_functions.hpp"
-#include "../uniform/variable.hpp"
 #include "../format_error.hpp"
+#include "../instantiate.hpp"
+#include "../program_contexts.hpp"
+#include "../uniform/variable.hpp"
+#include "../programfuncs/link.hpp"
+#include "../programfuncs/link_status.hpp"
+#include "../programfuncs/info_log.hpp"
+#include "../programfuncs/info_log_length.hpp"
+#include "../programfuncs/use.hpp"
+#include "../programfuncs/get_attrib_location.hpp"
+#include "../uniform/contexts.hpp"
+#include "../../context/use.hpp"
+#include <sge/renderer/glsl/shader.hpp>
+#include <sge/renderer/glsl/vertex_shader.hpp>
+#include <sge/renderer/glsl/pixel_shader.hpp>
 #include <sge/renderer/glsl/exception.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_auto_ptr.hpp>
-#include <fcppt/auto_ptr.hpp>
-#include <fcppt/assert.hpp>
 
 template<
-	bool Native
+	typename Environment
 >
-sge::opengl::glsl::program<Native>::program(
-	renderer::glsl::optional_string const &vs_source,
-	renderer::glsl::optional_string const &ps_source
+sge::opengl::glsl::program<Environment>::program(
+	opengl::context::object &_context
 )
 :
-	instance_(),
-	attachments()
-{
-	FCPPT_ASSERT(
-		vs_source || ps_source
-	);
-
-	if(vs_source)
-		attach_shader(
-			fcppt::make_shared_ptr<
-				shader_type
-			>(
-				vertex_shader_type<Native>(),
-				*vs_source
-			)
-		);
-
-	if(ps_source)
-		attach_shader(
-			fcppt::make_shared_ptr<
-				shader_type
-			>(
-				pixel_shader_type<Native>(),
-				*ps_source
-			)
-		);
-
-	link();
-}
-
-template<
-	bool Native
->
-sge::opengl::glsl::program<Native>::~program()
+	renderer::glsl::program(),
+	program_base(),
+	holder_(
+		_context
+	),
+	uniform_context_(
+		opengl::context::use<
+			typename Environment::uniform_context
+		>(
+			_context
+		)
+	),
+	vertex_shader_(),
+	pixel_shader_()
 {}
 
 template<
-	bool Native
+	typename Environment
 >
-void
-sge::opengl::glsl::program<Native>::use(
-	renderer::glsl::program_ptr const p
-)
+sge::opengl::glsl::program<Environment>::~program()
 {
-	if(!p)
-	{
-		use_ffp();
-		return;
-	}
-
-	fcppt::dynamic_pointer_cast<
-		program<Native>
-	>(p)->use();
 }
 
 template<
-	bool Native
+	typename Environment
 >
 void
-sge::opengl::glsl::program<Native>::attach_shader(
-	shader_ptr const s
+sge::opengl::glsl::program<Environment>::use() const
+{
+	do_use(
+		holder_.id()
+	);
+}
+
+template<
+	typename Environment
+>
+void
+sge::opengl::glsl::program<Environment>::unuse() const
+{
+	do_use(
+		0
+	);
+}
+
+template<
+	typename Environment
+>
+GLint
+sge::opengl::glsl::program<Environment>::location(
+	sge::renderer::glsl::string const &_name
+) const
+{
+	return
+		programfuncs::get_attrib_location<
+			Environment
+		>(
+			holder_.context(),
+			holder_.id(),
+			_name.c_str()
+		);
+}
+
+template<
+	typename Environment
+>
+sge::renderer::glsl::uniform::variable_ptr const
+sge::opengl::glsl::program<Environment>::uniform(
+	renderer::glsl::string const &_name
 )
 {
-	fcppt::auto_ptr<
-		attachment_type
-	> a(
-		fcppt::make_auto_ptr<
-			attachment_type
+	return
+		fcppt::make_shared_ptr<
+			uniform::variable<
+				Environment
+			>
 		>(
-			s,
-			id()
+			uniform_context_,
+			holder_.id(),
+			_name
+		);
+}
+
+template<
+	typename Environment
+>
+void
+sge::opengl::glsl::program<Environment>::vertex_shader(
+	sge::renderer::glsl::vertex_shader_ptr const _pointer
+)
+{
+	vertex_shader_.take(
+		make_attachment(
+			_pointer
 		)
 	);
+}
 
-	attachments.push_back(
-		a
+template<
+	typename Environment
+>
+void
+sge::opengl::glsl::program<Environment>::pixel_shader(
+	sge::renderer::glsl::pixel_shader_ptr const _pointer
+)
+{
+	pixel_shader_.take(
+		make_attachment(
+			_pointer
+		)
 	);
 }
 
 template<
-	bool Native
+	typename Environment
 >
 void
-sge::opengl::glsl::program<Native>::link()
+sge::opengl::glsl::program<Environment>::link()
 {
-	link_program<Native>(id());
+	programfuncs::link<
+		Environment
+	>(
+		holder_.context(),
+		holder_.id()
+	);
 
 	if(
-		link_status<Native>(id()) == GL_FALSE
+		programfuncs::link_status<
+			Environment
+		>(
+			holder_.context(),
+			holder_.id()
+		)
+		== GL_FALSE
 	)
 		throw sge::renderer::glsl::exception(
 			FCPPT_TEXT("Compiling a program failed:\n")
@@ -136,66 +188,70 @@ sge::opengl::glsl::program<Native>::link()
 		);
 }
 
-template<bool Native>
-void
-sge::opengl::glsl::program<Native>::use()
-{
-	use_program<Native>(id());
-}
-
 template<
-	bool Native
->
-sge::renderer::glsl::uniform::variable_ptr const
-sge::opengl::glsl::program<Native>::uniform(
-	renderer::glsl::string const &name
-)
-{
-	return fcppt::make_shared_ptr<
-		uniform::variable<
-			Native
-		>
-	>(
-		id(),
-		name
-	);
-}
-
-template<
-	bool Native
+	typename Environment
 >
 fcppt::string const
-sge::opengl::glsl::program<Native>::info_log() const
+sge::opengl::glsl::program<Environment>::info_log() const
 {
 	return
-		format_error(
-			&program_info_log<
-				Native
+		glsl::format_error(
+			&programfuncs::info_log<
+				Environment
 			>,
-			&program_info_log_length<
-				Native
+			&programfuncs::info_log_length<
+				Environment
 			>,
-			id()
+			holder_.id(),
+			holder_.context()
 		);
 }
 
 template<
-	bool Native
+	typename Environment
 >
 void
-sge::opengl::glsl::program<Native>::use_ffp()
+sge::opengl::glsl::program<Environment>::do_use(
+	handle const handle_
+) const
 {
-	use_program<Native>(0);
+	programfuncs::use<
+		Environment
+	>(
+		holder_.context(),
+		handle_
+	);
 }
 
 template<
-	bool Native
+	typename Environment
 >
-typename sge::opengl::glsl::traits<Native>::handle
-sge::opengl::glsl::program<Native>::id() const
+typename sge::opengl::glsl::program<Environment>::attachment_auto_ptr
+sge::opengl::glsl::program<Environment>::make_attachment(
+	sge::renderer::glsl::shader_ptr const _shader
+)
 {
-	return instance_.id();
+	attachment_auto_ptr ptr(
+		fcppt::make_auto_ptr<
+			attachment_type
+		>(
+			holder_.context(),
+			_shader,
+			holder_.id()
+		)
+	);
+
+	return ptr;
 }
 
-template class sge::opengl::glsl::program<true>;
-template class sge::opengl::glsl::program<false>;
+#define SGE_OPENGL_GLSL_INSTANTIATE_PROGRAM(\
+	env\
+)\
+template class \
+sge::opengl::glsl::program<\
+	env\
+>;
+
+SGE_OPENGL_GLSL_INSTANTIATE(
+	SGE_OPENGL_GLSL_INSTANTIATE_PROGRAM
+)

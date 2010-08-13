@@ -22,8 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VF_TEXPOS_ACTOR_HPP_INCLUDED
 
 #include "fp_actor.hpp"
+#include "pointer.hpp"
+#include "actor_parameters_fwd.hpp"
+#include "../context/object_fwd.hpp"
+#include "../multi_texture_context_fwd.hpp"
+#include "../common.hpp"
+#include <sge/renderer/vf/dynamic/texpos_fwd.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/renderer/vf/dynamic/ordered_element_fwd.hpp>
 
 namespace sge
 {
@@ -37,15 +42,23 @@ class texpos_actor
 	public fp_actor
 {
 public:
-	texpos_actor(
-		renderer::vf::dynamic::ordered_element const &,
-		renderer::vf::vertex_size stride
+	explicit texpos_actor(
+		actor_parameters const &,
+		sge::renderer::vf::dynamic::texpos const &
 	);
 private:
 	void
-	on_use() const;
+	on_use(
+		vf::pointer
+	) const;
 
-	GLint const elements;
+	opengl::context::object &context_;
+	
+	GLint const elements_;
+
+	GLenum const format_;
+
+	renderer::vf::vertex_size const index_;
 };
 
 }

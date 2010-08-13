@@ -20,8 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../client_state.hpp"
 #include <sge/log/global.hpp>
-#include <fcppt/log/headers.hpp>
+#include <fcppt/log/output.hpp>
+#include <fcppt/log/warning.hpp>
 #include <fcppt/container/linear_set_impl.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <ostream>
 
@@ -107,6 +109,10 @@ sge::opengl::vf::client_state::attribute_states() const
 namespace
 {
 
+fcppt::string const common_error(
+	FCPPT_TEXT(" This usually happens if you forget to call renderer::device::unset_vertex_buffer() before setting a new one.")
+);
+
 template<
 	typename Set
 >
@@ -123,6 +129,7 @@ insert_checked(
 			sge::log::global(),
 			fcppt::log::_
 				<< FCPPT_TEXT("Duplicate state inserted in opengl::vf!")
+				<< common_error
 		);
 }
 
@@ -141,7 +148,8 @@ erase_checked(
 		FCPPT_LOG_WARNING(
 			sge::log::global(),
 			fcppt::log::_
-				<< FCPPT_TEXT("States erased in opengl::vf that was not there!")
+				<< FCPPT_TEXT("State erased in opengl::vf that was not there!")
+				<< common_error
 		);
 }
 

@@ -22,51 +22,78 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_BASIC_TEXTURE_IMPL_HPP_INCLUDED
 
 #include "common.hpp"
-#include "texture_functions.hpp"
-#include "color_convert.hpp"
-#include "texture_lock_factory.hpp"
+#include "texfuncs/bind.hpp"
+#include "texfuncs/set_filter.hpp"
+#include "texfuncs/gen.hpp"
+#include "texfuncs/delete.hpp"
+#include "convert/color_to_format.hpp"
+#include "convert/color_to_format_type.hpp"
+#include "create_texture_lock.hpp"
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <sge/image/color/format_stride.hpp>
-#include <sge/exception.hpp>
+#include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
-template<typename Base>
-void sge::opengl::basic_texture<Base>::bind_me() const
+template<
+	typename Base
+>
+void
+sge::opengl::basic_texture<Base>::bind_me() const
 {
-	bind_texture(type(), id());
+	texfuncs::bind(
+		type(),
+		id()
+	);
 }
 
-template<typename Base>
-void sge::opengl::basic_texture<Base>::set_my_filter() const
+template<
+	typename Base
+>
+void
+sge::opengl::basic_texture<Base>::set_my_filter() const
 {
-	set_texture_filter(type(), filter());
+	texfuncs::set_filter(
+		context_,
+		type(),
+		filter()
+	);
 }
 
-template<typename Base>
-GLuint sge::opengl::basic_texture<Base>::id() const
+template<
+	typename Base
+>
+GLuint
+sge::opengl::basic_texture<Base>::id() const
 {
 	return id_;
 }
 
-template<typename Base>
+template<
+	typename Base
+>
 sge::renderer::filter::texture const &
 sge::opengl::basic_texture<Base>::filter() const
 {
 	return filter_;
 }
 
-template<typename Base>
-void sge::opengl::basic_texture<Base>::do_lock(
+template<
+	typename Base
+>
+void
+sge::opengl::basic_texture<Base>::do_lock(
 	lock_method::type const method,
 	size_type const lock_size,
 	size_type const offset,
 	size_type const pitch,
-	size_type const block_size) const
+	size_type const block_size
+) const
 {
 	check_not_locked();
 
 	scoped_lock_ptr new_lock(
-		create_texture_lock(
+		opengl::create_texture_lock(
+			context_,
 			method,
 			lock_size,
 			offset,
@@ -79,34 +106,46 @@ void sge::opengl::basic_texture<Base>::do_lock(
 	);
 
 	lock_.swap(
-		new_lock);
+		new_lock
+	);
 }
 
-template<typename Base>
-void sge::opengl::basic_texture<Base>::post_lock() const
+template<
+	typename Base
+>
+void
+sge::opengl::basic_texture<Base>::post_lock() const
 {
 	check_locked();
 
 	lock_->post_lock();
 }
 
-template<typename Base>
-void sge::opengl::basic_texture<Base>::pre_unlock() const
+template<
+	typename Base
+>
+void
+sge::opengl::basic_texture<Base>::pre_unlock() const
 {
 	check_locked();
 
 	lock_->pre_unlock();
 }
 
-template<typename Base>
-void sge::opengl::basic_texture<Base>::do_unlock() const
+template<
+	typename Base
+>
+void
+sge::opengl::basic_texture<Base>::do_unlock() const
 {
 	check_locked();
 
 	lock_.reset();
 }
 
-template<typename Base>
+template<
+	typename Base
+>
 sge::opengl::lock_method::type
 sge::opengl::basic_texture<Base>::lock_mode() const
 {
@@ -115,7 +154,9 @@ sge::opengl::basic_texture<Base>::lock_mode() const
 	return lock_->method();
 }
 
-template<typename Base>
+template<
+	typename Base
+>
 typename sge::opengl::basic_texture<Base>::pointer
 sge::opengl::basic_texture<Base>::read_buffer() const
 {
@@ -124,7 +165,9 @@ sge::opengl::basic_texture<Base>::read_buffer() const
 	return lock_->read_pointer();
 }
 
-template<typename Base>
+template<
+	typename Base
+>
 typename sge::opengl::basic_texture<Base>::pointer
 sge::opengl::basic_texture<Base>::write_buffer() const
 {
@@ -133,7 +176,9 @@ sge::opengl::basic_texture<Base>::write_buffer() const
 	return lock_->write_pointer();
 }
 
-template<typename Base>
+template<
+	typename Base
+>
 typename sge::opengl::basic_texture<Base>::const_pointer
 sge::opengl::basic_texture<Base>::real_read_buffer() const
 {
@@ -142,7 +187,9 @@ sge::opengl::basic_texture<Base>::real_read_buffer() const
 	return lock_->real_read_pointer();
 }
 
-template<typename Base>
+template<
+	typename Base
+>
 typename sge::opengl::basic_texture<Base>::pointer
 sge::opengl::basic_texture<Base>::real_write_buffer() const
 {
@@ -151,78 +198,124 @@ sge::opengl::basic_texture<Base>::real_write_buffer() const
 	return lock_->real_write_pointer();
 }
 
-template<typename Base>
-void sge::opengl::basic_texture<Base>::pre_setdata() const
+template<
+	typename Base
+>
+void
+sge::opengl::basic_texture<Base>::pre_setdata() const
 {
 	bind_me();
 	set_my_filter();
 }
 
-template<typename Base>
+template<
+	typename Base
+>
 typename sge::opengl::basic_texture<Base>::size_type
 sge::opengl::basic_texture<Base>::stride() const
 {
 	return stride_;
 }
 
-template<typename Base>
-GLenum sge::opengl::basic_texture<Base>::format() const
+template<
+	typename Base
+>
+GLenum
+sge::opengl::basic_texture<Base>::format() const
 {
 	return format_;
 }
 
-template<typename Base>
-GLenum sge::opengl::basic_texture<Base>::format_type() const
+template<
+	typename Base
+>
+GLenum
+sge::opengl::basic_texture<Base>::format_type() const
 {
 	return format_type_;
 }
 
-template<typename Base>
+template<
+	typename Base
+>
 sge::opengl::basic_texture<Base>::basic_texture(
-	renderer::filter::texture const &filter_,
-	renderer::resource_flags_field const &flags_,
-	GLenum const type_,
-	image::color::format::type const cformat)
+	opengl::context::object &_context,
+	renderer::filter::texture const &_filter,
+	renderer::resource_flags_field const &_flags,
+	GLenum const _type,
+	image::color::format::type const _cformat
+)
 :
-	texture_base(type_),
-	filter_(filter_),
-	flags_(flags_),
-	id_(gen_texture()),
+	texture_base(_type),
+	context_(_context),
+	filter_(_filter),
+	flags_(_flags),
+	id_(texfuncs::gen()),
 	format_(
-		to_format(cformat)),
+		convert::color_to_format(
+			_cformat
+		)
+	),
 	format_type_(
-		to_format_type(cformat)),
+		convert::color_to_format_type(
+			_cformat
+		)
+	),
 	stride_(
-		image::color::format_stride(cformat))
+		image::color::format_stride(
+			_cformat
+		)
+	)
 {}
 
-template<typename Base>
-sge::opengl::basic_texture<Base>::~basic_texture()
+template<
+	typename Base
+>
+sge::opengl::context::object &
+sge::opengl::basic_texture<Base>::context() const
 {
-	delete_texture(id());
+	return context_;
 }
 
-template<typename Base>
+template<
+	typename Base
+>
+sge::opengl::basic_texture<Base>::~basic_texture()
+{
+	texfuncs::delete_(id());
+}
+
+template<
+	typename Base
+>
 sge::renderer::resource_flags_field const
 sge::opengl::basic_texture<Base>::flags() const
 {
 	return flags_;
 }
 
-template<typename Base>
-void sge::opengl::basic_texture<Base>::check_locked() const
+template<
+	typename Base
+>
+void
+sge::opengl::basic_texture<Base>::check_locked() const
 {
 	if(!lock_)
-		throw exception(
-			FCPPT_TEXT("ogl::basic_texture not locked!"));
+		throw renderer::exception(
+			FCPPT_TEXT("ogl::basic_texture not locked!")
+		);
 }
 
-template<typename Base>
-void sge::opengl::basic_texture<Base>::check_not_locked() const
+template<
+	typename Base
+>
+void
+sge::opengl::basic_texture<Base>::check_not_locked() const
 {
 	if(lock_)
-		throw exception(
-			FCPPT_TEXT("ogl::basic_texture already locked!"));
+		throw renderer::exception(
+			FCPPT_TEXT("ogl::basic_texture already locked!")
+		);
 }
 
 #endif

@@ -20,10 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../viewport_pos.hpp"
 #include "../center_coordinate.hpp"
+#include <sge/renderer/exception.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <sge/exception.hpp>
 #include <fcppt/text.hpp>
 
 sge::renderer::pixel_pos const
@@ -31,9 +31,11 @@ sge::opengl::viewport_pos(
 	sge::renderer::pixel_pos const &pos,
 	sge::window::dim_type const &d,
 	sge::renderer::screen_size const &screen_size,
-	sge::renderer::viewport_mode::type const m)
+	sge::renderer::viewport_mode::type const m
+)
 {
-	switch(m) {
+	switch(m)
+	{
 	case renderer::viewport_mode::centered_screen_size:
 		return pos + renderer::pixel_pos(
 			center_coordinate(
@@ -47,9 +49,9 @@ sge::opengl::viewport_pos(
 		);
 	case renderer::viewport_mode::whole_window:
 		return pos;
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid viewport_mode!")
-		);
 	}
+
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid viewport_mode!")
+	);
 }

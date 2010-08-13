@@ -28,14 +28,13 @@ namespace font
 
 namespace flags
 {
-enum type {
-	none           = 0,
-	no_multi_line  = 1 << 0,
-	no_line_wrap   = 1 << 1,
-	default_       = none
+enum type
+{
+	no_multi_line,
+	no_line_wrap,
+	size
 };
 }
-typedef unsigned flag_t;
 
 }
 }

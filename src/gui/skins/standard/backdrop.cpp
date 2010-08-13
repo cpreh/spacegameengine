@@ -60,10 +60,10 @@ void sge::gui::skins::standard::draw(
 			c.size()
 		),
 		internal_color(
-			sge::image::color::init::red = static_cast<channel>(0xee),
-			sge::image::color::init::green = static_cast<channel>(0xeb),
-			sge::image::color::init::blue = static_cast<channel>(0xe7),
-			sge::image::color::init::alpha = static_cast<channel>(0xff)
+			(sge::image::color::init::red = static_cast<channel>(0xee))
+			(sge::image::color::init::green = static_cast<channel>(0xeb))
+			(sge::image::color::init::blue = static_cast<channel>(0xe7))
+			(sge::image::color::init::alpha = static_cast<channel>(0xff))
 		),
 		canvas::rect_type::solid
 	);

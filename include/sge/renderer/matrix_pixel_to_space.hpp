@@ -36,7 +36,8 @@ template<
 SGE_SYMBOL
 typename fcppt::math::matrix::static_<T, 4, 4>::type const
 matrix_pixel_to_space(
-	screen_size const &sz);
+	screen_size const &
+);
 
 }
 }

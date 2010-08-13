@@ -21,7 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/colors.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <mizuiro/color/init.hpp>
+#include <mizuiro/color/init/red.hpp>
+#include <mizuiro/color/init/green.hpp>
+#include <mizuiro/color/init/blue.hpp>
+#include <mizuiro/color/init/alpha.hpp>
 
 #define SGE_DEFINE_COLOR_A(name, r, g, b, a)\
 sge::image::color::any::object const \
@@ -30,12 +33,13 @@ sge::image::colors::name()\
 	typedef sge::image::color::rgba8 color_type;\
 	typedef color_type::format::channel_type value_type;\
 \
-	return sge::image::color::rgba8(\
-		mizuiro::color::init::red = static_cast<value_type>(r),\
-		mizuiro::color::init::green = static_cast<value_type>(g),\
-		mizuiro::color::init::blue = static_cast<value_type>(b),\
-		mizuiro::color::init::alpha = static_cast<value_type>(a)\
-	);\
+	return \
+		sge::image::color::rgba8(\
+			(mizuiro::color::init::red = static_cast<value_type>(r))\
+			(mizuiro::color::init::green = static_cast<value_type>(g))\
+			(mizuiro::color::init::blue = static_cast<value_type>(b))\
+			(mizuiro::color::init::alpha = static_cast<value_type>(a))\
+		);\
 }
 
 #define SGE_DEFINE_COLOR(name, r, g, b)\

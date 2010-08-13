@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/pos.hpp>
 #include <sge/font/dim.hpp>
 #include <sge/font/image_view.hpp>
+#include <sge/font/char_type.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/part_ptr.hpp>
 #include <sge/renderer/device_ptr.hpp>
@@ -40,7 +41,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/symbol.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/char_type.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <map>
 #include <vector>
@@ -72,7 +72,7 @@ public:
 
 	SGE_SYMBOL void
 	draw_char(
-		fcppt::char_type,
+		font::char_type,
 		pos const &,
 		const_image_view const &data
 	);
@@ -87,7 +87,7 @@ public:
 private:
 	texture::const_part_ptr const
 	cached_texture(
-		fcppt::char_type,
+		font::char_type,
 		const_image_view const &
 	);
 
@@ -98,7 +98,7 @@ private:
 	texture::manager texman;
 
 	typedef std::map<
-		fcppt::char_type,
+		font::char_type,
 		texture::const_part_ptr
 	> texture_map;
 

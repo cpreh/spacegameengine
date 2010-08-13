@@ -25,11 +25,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 GLint
 sge::opengl::get_int(
-	GLenum const what)
+	GLenum const _what
+)
 {
 	GLint ret;
 
-	glGetIntegerv(what, &ret);
+	glGetIntegerv(
+		_what,
+		&ret
+	);
 
 	SGE_OPENGL_CHECK_STATE(
 		FCPPT_TEXT("glGetIntegerv failed"),

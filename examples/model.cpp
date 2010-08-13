@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/plugin/manager.hpp>
-#include <sge/plugin/plugin.hpp>
+#include <sge/plugin/object.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/model/plugin.hpp>
 #include <sge/model/loader.hpp>
@@ -95,13 +95,13 @@ try
 				fcppt::assign::make_container<
 					sge::extension_set
 				>(
-					FCPPT_TEXT("tga")
+					FCPPT_TEXT("png")
 				)
 			)
 		)
 	);
 
-	sge::plugin::plugin<
+	sge::plugin::object<
 		sge::model::loader
 	>::ptr_type const model_plugin(
 		sys.plugin_manager().plugin<sge::model::loader>()
@@ -150,12 +150,12 @@ try
 		sge::renderer::scoped_index_lock(
 			ib,
 			sge::renderer::lock_mode::writeonly
-		).value()
-	);
+		).value() 
+	); 
 
 	sge::renderer::texture_ptr const tex(
 		sge::image::create_texture(
-			sge::config::media_path() / FCPPT_TEXT("european_fnt.tga"),
+			sge::config::media_path() / FCPPT_TEXT("european_fnt.png"),
 			sys.renderer(),
 			sys.image_loader(),
 			sge::renderer::filter::linear,

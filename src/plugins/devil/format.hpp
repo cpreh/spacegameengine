@@ -32,7 +32,8 @@ namespace devil
 image::color::format::type
 convert_format(
 	ILint bits_per_pixel,
-	ILint format);
+	ILenum format
+);
 
 ILint to_il_format(
 	image::color::format::type);

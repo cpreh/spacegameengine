@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_CONST_SCOPED_TARGET_LOCK_HPP_INCLUDED
 #define SGE_RENDERER_CONST_SCOPED_TARGET_LOCK_HPP_INCLUDED
 
-#include <sge/renderer/target_ptr.hpp>
+#include <sge/renderer/const_target_ptr.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/image/view/const_object.hpp>
 #include <sge/symbol.hpp>

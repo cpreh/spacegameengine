@@ -39,10 +39,10 @@ class make_offsets
 {
 public:
 	explicit make_offsets(
-		offset_list &offsets
+		offset_list &_offsets
 	)
 	:
-		offsets(offsets)
+		offsets_(_offsets)
 	{}
 
 	typedef void result_type;
@@ -52,13 +52,15 @@ public:
 	>
 	result_type
 	operator()(
-		T &t
+		T const &_value
 	) const
 	{
-		offsets.push_back(t);
+		offsets_.push_back(
+			_value
+		);
 	}
 private:
-	offset_list &offsets;
+	offset_list &offsets_;
 };
 
 }

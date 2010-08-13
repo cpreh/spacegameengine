@@ -35,30 +35,48 @@ namespace sge
 namespace renderer
 {
 
-class parameters {
+class parameters
+{
 public:
 	SGE_SYMBOL parameters(
-		display_mode const &mode,
-		depth_buffer::type,
-		stencil_buffer::type,
-		window_mode::type,
-		vsync::type,
-		multi_sample_type
+		renderer::display_mode const &,
+		renderer::depth_buffer::type,
+		renderer::stencil_buffer::type,
+		renderer::window_mode::type,
+		renderer::vsync::type,
+		renderer::multi_sample_type
 	);
 
-	SGE_SYMBOL display_mode const &mode() const;
-	SGE_SYMBOL depth_buffer::type dbuffer() const;
-	SGE_SYMBOL stencil_buffer::type sbuffer() const;
-	SGE_SYMBOL window_mode::type wmode() const;
-	SGE_SYMBOL vsync::type vsmode() const;
-	SGE_SYMBOL multi_sample_type samples() const;
+	SGE_SYMBOL
+	renderer::display_mode const &
+	display_mode() const;
+
+	SGE_SYMBOL
+	renderer::depth_buffer::type
+	depth_buffer() const;
+
+	SGE_SYMBOL
+	renderer::stencil_buffer::type
+	stencil_buffer() const;
+
+	SGE_SYMBOL
+	renderer::window_mode::type
+	window_mode() const;
+
+	SGE_SYMBOL
+	renderer::vsync::type
+	vsync() const;
+
+	SGE_SYMBOL
+	renderer::multi_sample_type
+	samples() const;
 private:
-	display_mode         mode_;
-	depth_buffer::type   depth_buffer_;
-	stencil_buffer::type stencil_buffer_;
-	window_mode::type    window_mode_;
-	vsync::type          vsync_;
-	multi_sample_type    samples_;
+	renderer::display_mode         mode_;
+	renderer::depth_buffer::type   depth_buffer_;
+	renderer::stencil_buffer::type stencil_buffer_;
+	renderer::window_mode::type    window_mode_;
+	renderer::vsync::type          vsync_;
+	renderer::multi_sample_type    samples_;
 };
 
 }

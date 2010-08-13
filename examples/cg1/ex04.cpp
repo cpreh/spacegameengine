@@ -18,8 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <fcppt/assert.hpp>
-#include <fcppt/text.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/rgba32f.hpp>
@@ -29,15 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/system.hpp>
 #include <sge/mainloop/catch_block.hpp>
 #include <sge/mainloop/dispatch.hpp>
-#include <fcppt/math/quad.hpp>
-#include <fcppt/math/pi.hpp>
-#include <fcppt/math/twopi.hpp>
-#include <fcppt/math/matrix/arithmetic.hpp>
-#include <fcppt/math/matrix/perspective.hpp>
-#include <fcppt/math/matrix/rotation_y.hpp>
-#include <fcppt/math/matrix/look_at.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/vector/static.hpp>
 #include <sge/renderer/aspect.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/light.hpp>
@@ -50,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
+#include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/state/bool.hpp>
@@ -72,6 +62,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/window/parameters.hpp>
+#include <fcppt/assert.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/math/quad.hpp>
+#include <fcppt/math/pi.hpp>
+#include <fcppt/math/twopi.hpp>
+#include <fcppt/math/matrix/arithmetic.hpp>
+#include <fcppt/math/matrix/perspective.hpp>
+#include <fcppt/math/matrix/rotation_y.hpp>
+#include <fcppt/math/matrix/look_at.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/static.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -296,10 +297,10 @@ try
 			(sge::renderer::state::bool_::enable_lighting = true)
 			(sge::renderer::state::color::ambient_light_color
 				= rgba32f_color(
-					sge::image::color::init::red %= 0.577350269,
-					sge::image::color::init::green %= 0.577350269f,
-					sge::image::color::init::blue %= 0.577350269f,
-					sge::image::color::init::alpha %= 0.
+					(sge::image::color::init::red %= 0.577350269)
+					(sge::image::color::init::green %= 0.577350269f)
+					(sge::image::color::init::blue %= 0.577350269f)
+					(sge::image::color::init::alpha %= 0.)
 				)
 			)
 			(sge::renderer::state::float_::zbuffer_clear_val = 1.f)
@@ -348,22 +349,22 @@ try
 	rend->material(
 		sge::renderer::material(
 			rgba32f_color(
-				sge::image::color::init::red %= 0.1,
-				sge::image::color::init::green %= 0.1,
-				sge::image::color::init::blue %= 0.1,
-				sge::image::color::init::alpha %= 1.
+				(sge::image::color::init::red %= 0.1)
+				(sge::image::color::init::green %= 0.1)
+				(sge::image::color::init::blue %= 0.1)
+				(sge::image::color::init::alpha %= 1.)
 			),
 			rgba32f_color(
-				sge::image::color::init::red %= 0.75,
-				sge::image::color::init::green %= 0.75,
-				sge::image::color::init::blue %= 1.,
-				sge::image::color::init::alpha %= 1.
+				(sge::image::color::init::red %= 0.75)
+				(sge::image::color::init::green %= 0.75)
+				(sge::image::color::init::blue %= 1.)
+				(sge::image::color::init::alpha %= 1.)
 			),
 			rgba32f_color(
-				sge::image::color::init::red %= 0.5,
-				sge::image::color::init::green %= 0.5,
-				sge::image::color::init::blue %= 0.5,
-				sge::image::color::init::alpha %= 1.
+				(sge::image::color::init::red %= 0.5)
+				(sge::image::color::init::green %= 0.5)
+				(sge::image::color::init::blue %= 0.5)
+				(sge::image::color::init::alpha %= 1.)
 			),
 			sge::image::colors::black(),
 			100.f
@@ -377,6 +378,11 @@ try
 	);
 
 	float_type angle(0);
+
+	sge::renderer::scoped_vertex_buffer const scoped_vb(
+		rend,
+		vb
+	);
 
 	while(running)
 	{
@@ -417,7 +423,10 @@ try
 		);
 
 		rend->render(
-			vb,
+			sge::renderer::first_vertex(0),
+			sge::renderer::vertex_count(
+				vb->size()
+			),
 			sge::renderer::nonindexed_primitive_type::triangle
 		);
 	}

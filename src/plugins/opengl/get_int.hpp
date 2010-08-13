@@ -28,7 +28,10 @@ namespace sge
 namespace opengl
 {
 
-GLint get_int(GLenum);
+GLint
+get_int(
+	GLenum
+);
 
 }
 }

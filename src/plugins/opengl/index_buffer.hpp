@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "common.hpp"
 #include "index_buffer_base.hpp"
-#include "vbo.hpp"
-#include "basic_buffer.hpp"
+#include "buffer.hpp"
+#include "context/object_fwd.hpp"
 #include <sge/renderer/index_buffer.hpp>
 
 namespace sge
@@ -41,7 +41,8 @@ class index_buffer
 {
 public:
 	index_buffer(
-		size_type sz,
+		context::object &,
+		size_type,
 		renderer::resource_flags_field const &
 	);
 
@@ -81,13 +82,7 @@ private:
 	renderer::index::dynamic::format::type
 	format() const;
 
-	typedef basic_buffer<
-		index_buffer_type,
-		vb_ib_vbo_impl,
-		T
-	> buffer_type;
-
-	mutable buffer_type buf;
+	mutable buffer buf;
 };
 
 }

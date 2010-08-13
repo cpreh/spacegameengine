@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/raw_vector_impl.hpp>
 
 sge::opengl::readwrite_texture_lock::readwrite_texture_lock(
+	context::object &_context,
 	size_type const lock_size,
 	size_type const offset,
 	size_type const whole_size,
@@ -32,34 +33,42 @@ sge::opengl::readwrite_texture_lock::readwrite_texture_lock(
 )
 :
 	read_lock(
+		_context,
 		lock_size,
 		offset,
 		whole_size,
 		stride,
 		pitch,
 		block_size,
-		flags),
+		flags
+	),
 	write_lock(
+		_context,
 	  	lock_size,
 		stride,
-		flags)
+		flags
+	)
 {}
 
-void sge::opengl::readwrite_texture_lock::post_lock()
+void
+sge::opengl::readwrite_texture_lock::post_lock()
 {
 	// skip copying the read pointer to its internal
 	// buffer because we can copy it directly
 	// to the write buffer
 	read_lock.do_lock();
+
 	write_lock.post_lock();
 
 	read_lock.copy_read_part(
-		real_write_pointer());
+		real_write_pointer()
+	);
 
 	read_lock.pre_unlock();
 }
 
-void sge::opengl::readwrite_texture_lock::pre_unlock()
+void
+sge::opengl::readwrite_texture_lock::pre_unlock()
 {
 	write_lock.pre_unlock();
 }

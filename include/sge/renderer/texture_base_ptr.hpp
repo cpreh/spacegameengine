@@ -33,10 +33,6 @@ typedef fcppt::shared_ptr<
 	texture_base
 > texture_base_ptr;
 
-typedef fcppt::shared_ptr<
-	texture_base const
-> const_texture_base_ptr;
-
 }
 }
 

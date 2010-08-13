@@ -22,8 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_SINGLE_BASE_HPP_INCLUDED
 
 #include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/renderer/vf/role.hpp>
-#include <sge/renderer/vf/element_base.hpp>
 
 namespace sge
 {
@@ -33,15 +31,14 @@ namespace vf
 {
 
 template<
-	typename Format,
-	role::type Role
+	typename Format
 >
 struct single_base
-: element_base<
-	Role
-> {
+{
 	typedef Format subelement_type;
+
 	typedef Format packed_type;
+
 	static vertex_size const num_subelements = 1;
 };
 

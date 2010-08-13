@@ -19,65 +19,112 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../attribute_actor.hpp"
-#include "../convert_num_elements.hpp"
+#include "../attribute_context.hpp"
+#include "../actor_parameters.hpp"
+#include "../unspecified_elements.hpp"
+#include "../unspecified_format.hpp"
+#include "../unspecified_index.hpp"
 #include "../client_state_combiner.hpp"
-#include "../vertex_attrib.hpp"
+#include "../../glsl/context.hpp"
+#include "../../context/use.hpp"
+#include "../../on_not_supported.hpp"
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/assert.hpp>
 
 sge::opengl::vf::attribute_actor::attribute_actor(
-	renderer::vf::dynamic::ordered_element const &e,
-	renderer::vf::vertex_size const stride
+	actor_parameters const &_param,
+	renderer::vf::dynamic::unspecified const &_unspec
 )
 :
 	pointer_actor(
-		e,
-		stride
+		_param
 	),
-	elements(
-		fcppt::variant::apply_unary(
-			convert_num_elements(),
-			e.element().info()
+	attribute_context_(
+		opengl::context::use<
+			attribute_context
+		>(
+			_param.context()
 		)
+	),
+	glsl_context_(
+		opengl::context::use<
+			opengl::glsl::context
+		>(
+			_param.context()
+		)
+	),
+	elements_(
+		vf::unspecified_elements(
+			_unspec.type()
+		)
+	),
+	format_(
+		vf::unspecified_format(
+			_unspec.type()
+		)
+	),
+	element_tag_(
+		_unspec.tag()
+	),
+	index_()
+{
+	// This check is not really necessary because this format cannot
+	// be used without an active program. But I'll leave it here.
+	if(
+		!attribute_context_.is_supported()
 	)
-{}
+		opengl::on_not_supported(
+			FCPPT_TEXT("glVertexAttribPointer"),
+			FCPPT_TEXT("GL_VERSION_2_0"),
+			FCPPT_TEXT("GL_ARB_vertex_shader")
+		);
+}
 
 void
 sge::opengl::vf::attribute_actor::operator()(
-	client_state_combiner &c
+	client_state_combiner &_combiner,
+	vf::pointer const _src
 ) const
 {
-	vertex_attrib_pointer(
-		gl_index(),
-		elements,
-		format(),
-		GL_TRUE, // normalized
-		stride(),
-		pointer()
+	// This function is called when the vertex format
+	// is actually used.
+	// It is important to postpone the glGetAttribLocation
+	// until here.
+	index_ =
+		vf::unspecified_index(
+			glsl_context_,
+			element_tag_
+		);
+
+	_combiner.enable_attribute(
+		*index_
 	);
 
-	c.enable_attribute(
-		gl_index()
+	attribute_context_.vertex_attrib_pointer()(
+		*index_,
+		elements_,
+		format_,
+		GL_TRUE, // normalized
+		static_cast<
+			GLsizei
+		>(
+			stride()
+		),
+		_src
 	);
 }
 
 void
 sge::opengl::vf::attribute_actor::unuse(
-	client_state_combiner &c
+	client_state_combiner &_combiner
 ) const
 {
-	c.disable_attribute(
-		gl_index()
-	);
-}
+	FCPPT_ASSERT(index_);
 
-GLuint
-sge::opengl::vf::attribute_actor::gl_index() const
-{
-	return
-		static_cast<
-			GLuint
-		>(
-			index() + 1u
-		);
+	_combiner.disable_attribute(
+		*index_
+	);
+
+	index_.reset();
 }

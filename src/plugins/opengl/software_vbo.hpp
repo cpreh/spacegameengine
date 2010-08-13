@@ -23,15 +23,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "common.hpp"
 #include "vbo_base.hpp"
+#include <sge/renderer/raw_pointer.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <map>
 
 namespace sge
 {
 namespace opengl
 {
 
-class software_vbo : public vbo_base {
+class software_vbo
+:
+	public vbo_base
+{
+	FCPPT_NONCOPYABLE(software_vbo)
 public:
-	GLuint gen_buffer();
+	software_vbo();
+
+	~software_vbo();
+
+private:
+	GLuint
+	gen_buffer();
 
 	void
 	delete_buffer(
@@ -88,7 +101,45 @@ public:
 		GLsizei offset
 	) const;
 
-	static GLenum unique_id();
+	bool
+	hardware_supported() const;
+
+	typedef std::map<
+		GLuint,
+		sge::renderer::raw_pointer
+	> buffer_map;
+
+	GLuint
+	bound_buffer(
+		GLenum
+	) const;
+
+	buffer_map::iterator
+	buffer_object(
+		GLuint id
+	);
+
+	buffer_map::const_iterator
+	buffer_object(
+		GLuint id
+	) const;
+
+	void
+	check_bound(
+		GLenum type
+	);
+
+	typedef std::map<
+		GLenum,
+		GLuint
+	> bound_buffer_map;
+
+	bound_buffer_map bound_buffers;
+
+	GLuint nextid;
+
+	buffer_map buffers;
+
 };
 
 }

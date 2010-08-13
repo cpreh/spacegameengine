@@ -28,10 +28,13 @@ namespace renderer
 
 namespace bit_depth
 {
-	enum type {
-		depth16 = 16,
-		depth32 = 32
-	};
+
+enum type
+{
+	depth16 = 16,
+	depth32 = 32
+};
+
 }
 
 }

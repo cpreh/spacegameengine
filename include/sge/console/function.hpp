@@ -34,17 +34,21 @@ class function
 {
 public:
 	SGE_SYMBOL explicit function(
-		fcppt::string const &
+		fcppt::string const &short_desc,
+		fcppt::string const &long_desc
 	);
 
 	SGE_SYMBOL sge::console::signal &
 	signal();
 
 	SGE_SYMBOL fcppt::string const &
-	description() const;
+	short_description() const;
+
+	SGE_SYMBOL fcppt::string const &
+	long_description() const;
 private:
 	sge::console::signal signal_;
-	fcppt::string description_;
+	fcppt::string short_description_,long_description_;
 };
 
 }

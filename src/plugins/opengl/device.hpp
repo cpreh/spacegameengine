@@ -23,10 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config.h>
 #include <fcppt/config.hpp>
-#include "target_fwd.hpp"
-#include "default_target_fwd.hpp"
-#include "fbo_target_fwd.hpp"
+#include "default_target_ptr.hpp"
+#include "target_ptr.hpp"
 #include "common.hpp"
+#include "context/object.hpp"
 #if defined(FCPPT_WINDOWS_PLATFORM)
 #include "windows/state.hpp"
 #elif defined(SGE_HAVE_X11)
@@ -126,6 +126,18 @@ public:
 	);
 
 	void
+	enable_clip_plane(
+		renderer::clip_plane_index,
+		bool enable
+	);
+
+	void
+	clip_plane(
+		renderer::clip_plane_index,
+		renderer::clip_plane const &
+	);
+
+	void
 	texture_stage_op(
 		renderer::stage_type stage,
 		renderer::texture_stage_op::type,
@@ -153,7 +165,7 @@ public:
 
 	void
 	target(
-		renderer::texture_ptr
+		renderer::target_ptr
 	);
 
 	void
@@ -167,24 +179,30 @@ public:
 	);
 
 	renderer::glsl::program_ptr const
-	create_glsl_program(
-		renderer::glsl::optional_string const &vertex_shader_source,
-		renderer::glsl::optional_string const &pixel_shader_source
+	create_glsl_program();
+
+	renderer::glsl::vertex_shader_ptr const
+	create_glsl_vertex_shader(
+		renderer::glsl::string const &
 	);
 
-	renderer::glsl::program_ptr const
-	create_glsl_program(
-		renderer::glsl::optional_istream const &vertex_shader_source,
-		renderer::glsl::optional_istream const &pixel_shader_source
+	renderer::glsl::pixel_shader_ptr const
+	create_glsl_pixel_shader(
+		renderer::glsl::string const &
 	);
 
 	void
 	glsl_program(
-		renderer::glsl::program_ptr
+		renderer::glsl::const_program_ptr
 	);
 
 	renderer::const_target_ptr const
 	target() const;
+
+	renderer::target_ptr const
+	create_target(
+		renderer::texture_ptr
+	);
 
 	renderer::texture_ptr const
 	create_texture(
@@ -237,9 +255,6 @@ private:
 		renderer::state::bool_::trampoline_type const &
 	) const;
 
-	fbo_target_ptr const
-	create_target();
-
 	void
 	reset_viewport(
 		window::dim_type const &
@@ -251,20 +266,29 @@ private:
 	void
 	projection_internal();
 
-	renderer::parameters const param;
-	window::instance_ptr const wnd;
-	renderer::state::list      current_states;
+	bool
+	fbo_active() const;
+
+	renderer::parameters const parameters_;
+
+	window::instance_ptr const window_;
+
+	renderer::state::list current_states_;
+
 #if defined(FCPPT_WINDOWS_PLATFORM)
 	windows::state state_;
 #elif defined(SGE_HAVE_X11)
 	x11::state state_;
 #endif
-	bool fbo_active;
 	renderer::any_matrix projection_;
+
 	renderer::viewport_mode::type viewport_mode_;
+
 	renderer::viewport viewport_;
+
 	default_target_ptr default_target_;
-	target_ptr target_;
+
+	opengl::target_ptr target_;
 
 	typedef std::stack<
 		renderer::state::list
@@ -274,7 +298,9 @@ private:
 		renderer::caps
 	> caps_;
 
-	stack_type state_levels;
+	stack_type state_levels_;
+
+	mutable context::object context_;
 };
 
 }

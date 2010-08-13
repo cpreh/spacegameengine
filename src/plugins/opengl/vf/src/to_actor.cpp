@@ -19,61 +19,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../to_actor.hpp"
-#include "../pos_actor.hpp"
-#include "../normal_actor.hpp"
-#include "../color_actor.hpp"
-#include "../texpos_actor.hpp"
-#include "../attribute_actor.hpp"
+#include "../to_actor_visitor.hpp"
+#include "../actor_parameters.hpp"
+#include "../actor.hpp"
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
-#include <sge/exception.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/variant/apply_unary.hpp>
 
 sge::opengl::vf::actor_ptr
 sge::opengl::vf::to_actor(
-	renderer::vf::dynamic::ordered_element const &e,
-	renderer::vf::vertex_size const stride
+	renderer::vf::dynamic::ordered_element const &_element,
+	renderer::vf::vertex_size const _stride,
+	opengl::context::object &_context
 )
 {
-	switch(e.element().role())
-	{
-	case renderer::vf::role::pos:
-		return actor_ptr(
-			new pos_actor(
-				e,
-				stride
-			)
+	return
+		fcppt::variant::apply_unary(
+			to_actor_visitor(
+				actor_parameters(
+					_stride,
+					_element.offset(),
+					_context
+				)
+			),
+			_element.element().info()
 		);
-	case renderer::vf::role::normal:
-		return actor_ptr(
-			new normal_actor(
-				e,
-				stride
-			)
-		);
-	case renderer::vf::role::color:
-		return actor_ptr(
-			new color_actor(
-				e,
-				stride
-			)
-		);
-	case renderer::vf::role::texpos:
-		return actor_ptr(
-			new texpos_actor(
-				e,
-				stride
-			)
-		);
-	case renderer::vf::role::unspecified:
-		return actor_ptr(
-			new attribute_actor(
-				e,
-				stride
-			)
-		);
-	}
-
-	throw exception(
-		FCPPT_TEXT("Invalid role in ogl vertex format!")
-	);
 }

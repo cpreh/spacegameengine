@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/plugin/manager.hpp>
-#include <sge/plugin/plugin.hpp>
+#include <sge/plugin/object.hpp>
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/context_base.hpp>
@@ -57,11 +57,11 @@ class sge::systems::instance::impl
 public:
 	plugin::manager                                 plugin_manager;
 
-	plugin::plugin<sge::renderer::system>::ptr_type renderer_plugin;
+	plugin::object<sge::renderer::system>::ptr_type renderer_plugin;
 	sge::renderer::system_ptr                       renderer_system;
 	sge::renderer::device_ptr                       renderer;
 
-	plugin::plugin<input::system>::ptr_type         input_plugin;
+	plugin::object<input::system>::ptr_type         input_plugin;
 	input::system_ptr                               input_system;
 
 	typedef fcppt::scoped_ptr<
@@ -76,13 +76,13 @@ public:
 
 	audio_multi_loader_ptr                          audio_multi_loader;
 
-	plugin::plugin<audio::player>::ptr_type         audio_player_plugin;
+	plugin::object<audio::player>::ptr_type         audio_player_plugin;
 	audio::player_ptr                               audio_player;
 
-	plugin::plugin<collision::system>::ptr_type     collision_plugin;
+	plugin::object<collision::system>::ptr_type     collision_plugin;
 	collision::system_ptr                           collision_system;
 
-	plugin::plugin<font::system>::ptr_type          font_plugin;
+	plugin::object<font::system>::ptr_type          font_plugin;
 	font::system_ptr                                font_system;
 
 	window::instance_ptr                            window_;
@@ -130,7 +130,7 @@ private:
 	template<
 		typename T
 	>
-	typename plugin::plugin<T>::ptr_type const
+	typename plugin::object<T>::ptr_type const
 	default_plugin();
 };
 
@@ -378,7 +378,7 @@ sge::systems::instance::impl::init_renderer(
 
 		if(!wparam_->dim())
 			wparam_->dim(
-				p.mode().size()
+				p.display_mode().size()
 			);
 
 		window_ =
@@ -486,7 +486,7 @@ sge::systems::instance::impl::create_window()
 template<
 	typename T
 >
-typename sge::plugin::plugin<T>::ptr_type const
+typename sge::plugin::object<T>::ptr_type const
 sge::systems::instance::impl::default_plugin()
 {
 	return plugin_manager.plugin<T>().load();

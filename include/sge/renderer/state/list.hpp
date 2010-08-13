@@ -22,11 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_STATE_LIST_HPP_INCLUDED
 
 #include <sge/renderer/state/list_fwd.hpp>
+#include <sge/renderer/state/any_sort_functor.hpp>
 #include <sge/renderer/state/trampoline_fwd.hpp>
 #include <sge/renderer/state/any.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <fcppt/function/object.hpp>
 #include <set>
 
 namespace sge
@@ -41,13 +41,11 @@ class list
 public:
 	typedef std::set<
 		any,
-		fcppt::function::object<
-			bool(
-				any const &,
-				any const &
-			)
-		>
+		any_sort_functor
 	> set_type;
+
+	SGE_SYMBOL
+	list();
 
 	SGE_SYMBOL explicit list(
 		any const &
@@ -77,7 +75,7 @@ public:
 	>
 	SGE_SYMBOL T
 	get(
-		trampoline<T, States> const &
+		state::trampoline<T, States> const &
 	) const;
 
 	SGE_SYMBOL set_type const &

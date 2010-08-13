@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_TEXPOS_HPP_INCLUDED
 #define SGE_RENDERER_VF_TEXPOS_HPP_INCLUDED
 
-#include <sge/renderer/vf/vec_base.hpp>
+#include <sge/renderer/vf/texpos_fwd.hpp>
+#include <sge/renderer/vf/vector_base.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/renderer/vf/role.hpp>
+#include <sge/renderer/vf/is_index.hpp>
 #include <fcppt/type_traits/is_float_or_double.hpp>
 #include <boost/static_assert.hpp>
 
@@ -36,23 +37,34 @@ namespace vf
 
 template<
 	typename Format,
-	vertex_size NumSubElements
+	vertex_size NumSubElements,
+	typename Index
 >
 struct texpos
 :
-vec_base<
+vector_base<
 	Format,
-	role::texpos,
 	NumSubElements
 >
 {
 	BOOST_STATIC_ASSERT(
-		fcppt::type_traits::is_float_or_double<Format>::value
+		fcppt::type_traits::is_float_or_double<
+			Format
+		>::value
 	);
 
 	BOOST_STATIC_ASSERT(
-		NumSubElements >= 2 && NumSubElements <= 3
+		NumSubElements >= 2
+		&& NumSubElements <= 3
 	);
+
+	BOOST_STATIC_ASSERT(
+		vf::is_index<
+			Index
+		>::value
+	);
+
+	typedef Index index;
 };
 
 }

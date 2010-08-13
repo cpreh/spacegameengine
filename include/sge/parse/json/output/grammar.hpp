@@ -84,7 +84,7 @@ public:
 
 		array_ %=
 			lit(FCPPT_TEXT('['))
-			<< value_ % lit(FCPPT_TEXT(", "))
+			<< -(value_ % lit(FCPPT_TEXT(", ")))
 			<< lit(FCPPT_TEXT(']'));
 
 		value_ %=
@@ -103,7 +103,7 @@ public:
 
 		object_ %=
 			lit(FCPPT_TEXT('{'))
-			<< (member_ % lit(FCPPT_TEXT(", ")))
+			<< -(member_ % lit(FCPPT_TEXT(", ")))
 			<< lit(FCPPT_TEXT('}'));
 	}
 private:

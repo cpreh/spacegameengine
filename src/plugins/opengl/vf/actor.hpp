@@ -21,8 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_VF_ACTOR_HPP_INCLUDED
 #define SGE_OPENGL_VF_ACTOR_HPP_INCLUDED
 
-#include "pointer.hpp"
+#include "actor_fwd.hpp"
 #include "client_state_combiner_fwd.hpp"
+#include "pointer.hpp"
+#include <sge/renderer/size_type.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -41,13 +43,12 @@ protected:
 public:
 	virtual void
 	operator()(
-		client_state_combiner &
+		client_state_combiner &,
+		vf::pointer
 	) const = 0;
 
-	virtual void
-	source(
-		vf::pointer
-	) = 0;
+	virtual sge::renderer::size_type
+	offset() const = 0;
 
 	virtual void
 	unuse(

@@ -21,8 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_DYNAMIC_ANY_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_ANY_HPP_INCLUDED
 
-#include <sge/renderer/vf/dynamic/vector.hpp>
+#include <sge/renderer/vf/dynamic/pos.hpp>
+#include <sge/renderer/vf/dynamic/normal.hpp>
 #include <sge/renderer/vf/dynamic/color.hpp>
+#include <sge/renderer/vf/dynamic/texpos.hpp>
+#include <sge/renderer/vf/dynamic/unspecified.hpp>
 #include <fcppt/variant/object_fwd.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 
@@ -36,9 +39,12 @@ namespace dynamic
 {
 
 typedef fcppt::variant::object<
-	boost::mpl::vector2<
-		vector,
-		color
+	boost::mpl::vector5<
+		dynamic::pos,
+		dynamic::normal,
+		dynamic::color,
+		dynamic::texpos,
+		dynamic::unspecified
 	>
 > any;
 

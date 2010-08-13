@@ -21,9 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_COLOR_BASE_HPP_INCLUDED
 #define SGE_RENDERER_VF_COLOR_BASE_HPP_INCLUDED
 
-#include <sge/renderer/vf/element_base.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
-#include <sge/renderer/vf/role.hpp>
 #include <mizuiro/color/object_impl.hpp>
 
 namespace sge
@@ -34,20 +32,17 @@ namespace vf
 {
 
 template<
-	typename Format,
-	role::type Role
+	typename Format
 >
 struct color_base
-:
-element_base<
-	Role
->
 {
 	typedef typename Format::channel_type subelement_type;
 
-	typedef mizuiro::color::object<Format> packed_type;
+	typedef mizuiro::color::object<
+		Format
+	> packed_type;
 
-	static vertex_size const num_subelements = 4;
+	static vertex_size const num_subelements = Format::element_count;
 };
 
 }

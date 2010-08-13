@@ -33,7 +33,11 @@ namespace plugin
 namespace detail
 {
 
-template<> class traits<font::system> {
+template<>
+class traits<
+	font::system
+>
+{
 public:
 	SGE_SYMBOL static address_name plugin_loader_name();
 	SGE_SYMBOL static capabilities::type plugin_type();

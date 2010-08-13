@@ -23,9 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 fcppt::string const
 sge::opengl::error_string(
-	GLenum const what)
+	GLenum const what
+)
 {
-	switch(what) {
+	switch(what)
+	{
 	case GL_NO_ERROR:
 		return FCPPT_TEXT("GL_NO_ERROR");
 	case GL_INVALID_ENUM:
@@ -42,7 +44,7 @@ sge::opengl::error_string(
 		return FCPPT_TEXT("GL_OUT_OF_MEMORY");
 	case GL_TABLE_TOO_LARGE:
 		return FCPPT_TEXT("GL_TABLE_TOO_LARGE");
-	default:
-		return FCPPT_TEXT("Unknown");
 	}
+
+	return FCPPT_TEXT("Unknown");
 }

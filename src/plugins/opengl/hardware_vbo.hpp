@@ -23,15 +23,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "common.hpp"
 #include "vbo_base.hpp"
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace opengl
 {
 
-class hardware_vbo : public vbo_base {
+class hardware_vbo
+:
+	public vbo_base
+{
+	FCPPT_NONCOPYABLE(hardware_vbo)
 public:
-	GLuint gen_buffer();
+	hardware_vbo();
+
+	~hardware_vbo();
+private:
+	GLuint
+	gen_buffer();
 
 	void
 	delete_buffer(
@@ -87,6 +97,18 @@ public:
 		GLenum type,
 		GLsizei offset
 	) const;
+
+	bool
+	hardware_supported() const;
+
+	PFNGLGENBUFFERSPROC gl_gen_buffers;
+	PFNGLDELETEBUFFERSPROC gl_delete_buffers;
+	PFNGLBINDBUFFERPROC gl_bind_buffer;
+	PFNGLMAPBUFFERPROC gl_map_buffer;
+	PFNGLUNMAPBUFFERPROC gl_unmap_buffer;
+	PFNGLBUFFERDATAPROC gl_buffer_data;
+	PFNGLBUFFERSUBDATAPROC gl_buffer_sub_data;
+	PFNGLMAPBUFFERRANGEPROC gl_map_buffer_range;
 };
 
 }

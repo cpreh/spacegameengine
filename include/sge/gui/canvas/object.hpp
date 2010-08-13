@@ -35,7 +35,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/font_info.hpp>
 #include <sge/font/align_h.hpp>
 #include <sge/font/align_v.hpp>
-#include <sge/font/flags.hpp>
+#include <sge/font/flags_field.hpp>
+#include <sge/font/flags_none.hpp>
+
 #include <fcppt/string.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional.hpp>
@@ -72,7 +74,7 @@ class object
 		dim const &max_size,
 		font::align_h::type,
 		font::align_v::type,
-		font::flag_t = font::flags::default_,
+		font::flags_field const & = font::flags::none,
 		optional_character_pos = optional_character_pos(),
 		point * = 0);
 

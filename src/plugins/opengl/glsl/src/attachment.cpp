@@ -19,28 +19,67 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../attachment.hpp"
-#include "../program_functions.hpp"
+#include "../shader_base.hpp"
+#include "../programfuncs/attach_shader.hpp"
+#include "../programfuncs/detach_shader.hpp"
+#include "../instantiate.hpp"
+#include "../program_contexts.hpp"
+#include <sge/renderer/glsl/shader.hpp>
+#include <fcppt/dynamic_pointer_cast.hpp>
+#include <fcppt/shared_ptr_impl.hpp>
 
 template<
-	bool Native
+	typename Environment
 >
-sge::opengl::glsl::attachment<Native>::attachment(
-	shader_ptr const shader_,
-	handle const handle_)
+sge::opengl::glsl::attachment<Environment>::attachment(
+	program_context const &_context,
+	sge::renderer::glsl::shader_ptr const _shader,
+	handle const _handle
+)
 :
-	shader_(shader_),
-	handle_(handle_)
+	context_(
+		_context
+	),
+	shader_(
+		fcppt::dynamic_pointer_cast<
+			shader_type
+		>(
+			_shader
+		)
+	),
+	handle_(_handle)
 {
-	attach_shader<Native>(handle_, shader_->id());
+	programfuncs::attach_shader<
+		Environment
+	>(
+		_context,
+		_handle,
+		shader_->id()
+	);
 }
 
 template<
-	bool Native
+	typename Environment
 >
-sge::opengl::glsl::attachment<Native>::~attachment()
+sge::opengl::glsl::attachment<Environment>::~attachment()
 {
-	detach_shader<Native>(handle_, shader_->id());
+	programfuncs::detach_shader<
+		Environment
+	>(
+		context_,
+		handle_,
+		shader_->id()
+	);
 }
 
-template class sge::opengl::glsl::attachment<true>;
-template class sge::opengl::glsl::attachment<false>;
+#define SGE_OPENGL_GLSL_INSTANTIATE_ATTACHTMENT(\
+	env\
+)\
+template class \
+sge::opengl::glsl::attachment<\
+	env\
+>;
+
+SGE_OPENGL_GLSL_INSTANTIATE(
+	SGE_OPENGL_GLSL_INSTANTIATE_ATTACHTMENT
+)

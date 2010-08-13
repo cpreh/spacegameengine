@@ -21,32 +21,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_SPLIT_STATES_HPP_INCLUDED
 #define SGE_OPENGL_SPLIT_STATES_HPP_INCLUDED
 
+#include "split_states_fwd.hpp"
 #include "common.hpp"
+#include <sge/renderer/state/list_fwd.hpp>
+#include <sge/renderer/stencil_buffer.hpp>
 
 namespace sge
 {
-namespace renderer
-{
-namespace state
-{
-class list;
-}
-}
-
 namespace opengl
 {
 
-class split_states {
+class split_states
+{
 public:
 	explicit split_states(
-		renderer::state::list &);
-	void update_stencil();
-	void update_blend();
-	void update_alpha_test();
+		renderer::state::list &
+	);
+
+	void
+	update_stencil(
+		renderer::stencil_buffer::type
+	);
+
+	void
+	update_blend();
+
+	void
+	update_alpha_test();
 private:
-	template<typename T>
-	T const get(
-		T const &) const;
+	template<
+		typename T
+	>
+	T const
+	get(
+		T const &
+	) const;
 
 	renderer::state::list &states;
 };

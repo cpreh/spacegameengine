@@ -25,18 +25,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/format_fwd.hpp>
 #include <sge/renderer/filter/texture_fwd.hpp>
 #include <sge/renderer/glsl/program_ptr.hpp>
+#include <sge/renderer/glsl/const_program_ptr.hpp>
 #include <sge/renderer/glsl/optional_string.hpp>
+#include <sge/renderer/glsl/string.hpp>
 #include <sge/renderer/glsl/optional_istream.hpp>
+#include <sge/renderer/glsl/vertex_shader_ptr.hpp>
+#include <sge/renderer/glsl/pixel_shader_ptr.hpp>
 #include <sge/renderer/state/list_fwd.hpp>
 #include <sge/renderer/index/dynamic/const_view.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/any_matrix.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/index_buffer_ptr.hpp>
-#include <sge/renderer/texture_base_ptr.hpp>
+#include <sge/renderer/const_texture_base_ptr.hpp>
 #include <sge/renderer/texture_ptr.hpp>
 #include <sge/renderer/cube_texture_ptr.hpp>
 //#include <sge/renderer/volume_texture_ptr.hpp>
+#include <sge/renderer/const_target_ptr.hpp>
 #include <sge/renderer/target_ptr.hpp>
 #include <sge/renderer/light_index.hpp>
 #include <sge/renderer/indexed_primitive_type.hpp>
@@ -61,6 +66,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/first_index.hpp>
 #include <sge/renderer/matrix_mode.hpp>
+#include <sge/renderer/clip_plane_index.hpp>
+#include <sge/renderer/clip_plane.hpp>
 #include <sge/image/view/const_object.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/window/instance_ptr.hpp>
@@ -95,25 +102,12 @@ public:
 		first_index
 	) = 0;
 
-	SGE_SYMBOL void
-	render(
-		const_vertex_buffer_ptr,
-		const_index_buffer_ptr,
-		indexed_primitive_type::type
-	);
-
 	virtual void
 	render(
 		first_vertex,
 		vertex_count,
 		nonindexed_primitive_type::type ptype
 	) = 0;
-
-	SGE_SYMBOL void
-	render(
-		const_vertex_buffer_ptr,
-		nonindexed_primitive_type::type
-	);
 
 	virtual void
 	set_vertex_buffer(
@@ -156,6 +150,18 @@ public:
 	) = 0;
 
 	virtual void
+	enable_clip_plane(
+		clip_plane_index,
+		bool enable
+	) = 0;
+
+	virtual void
+	clip_plane(
+		clip_plane_index,
+		renderer::clip_plane const &
+	) = 0;
+
+	virtual void
 	texture_stage_op(
 		stage_type,
 		renderer::texture_stage_op::type,
@@ -169,8 +175,6 @@ public:
 		renderer::texture_stage_arg_value::type
 	) = 0;
 
-	SGE_SYMBOL static texture_ptr const no_texture;
-
 	virtual void
 	texture(
 		const_texture_base_ptr,
@@ -183,11 +187,9 @@ public:
 		any_matrix const &
 	) = 0;
 
-	SGE_SYMBOL static texture_ptr const default_target;
-
 	virtual void
 	target(
-		texture_ptr
+		renderer::target_ptr
 	) = 0;
 
 	virtual void
@@ -200,27 +202,45 @@ public:
 		renderer::viewport_mode::type
 	) = 0;
 
-	virtual glsl::program_ptr const
+	SGE_SYMBOL
+	glsl::program_ptr const
 	create_glsl_program(
 		glsl::optional_string const &vertex_shader_source,
 		glsl::optional_string const &pixel_shader_source
-	) = 0;
+	);
 
-	virtual glsl::program_ptr const
+	SGE_SYMBOL
+	glsl::program_ptr const
 	create_glsl_program(
 		glsl::optional_istream const &vertex_shader_source,
 		glsl::optional_istream const &pixel_shader_source
+	);
+
+	virtual glsl::program_ptr const
+	create_glsl_program() = 0;
+
+	virtual glsl::vertex_shader_ptr const
+	create_glsl_vertex_shader(
+		glsl::string const &
 	) = 0;
 
-	SGE_SYMBOL static glsl::program_ptr const no_program;
+	virtual glsl::pixel_shader_ptr const
+	create_glsl_pixel_shader(
+		glsl::string const &
+	) = 0;
 
 	virtual void
 	glsl_program(
-		renderer::glsl::program_ptr
+		renderer::glsl::const_program_ptr
 	) = 0;
 
 	virtual const_target_ptr const
 	target() const = 0;
+
+	virtual renderer::target_ptr const
+	create_target(
+		renderer::texture_ptr
+	) = 0;
 
 	SGE_SYMBOL texture_ptr const
 	create_texture(

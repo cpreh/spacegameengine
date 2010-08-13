@@ -34,7 +34,7 @@ namespace renderer
 {
 
 template<
-	size_type sz
+	size_type Size
 >
 struct basic_any_vector
 {
@@ -42,11 +42,11 @@ struct basic_any_vector
 		boost::mpl::vector2<
 			typename fcppt::math::vector::static_<
 				float,
-				sz
+				Size
 			>::type,
 			typename fcppt::math::vector::static_<
 				double,
-				sz
+				Size
 			>::type
 		>
 	> type;
