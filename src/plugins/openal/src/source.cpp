@@ -282,6 +282,30 @@ sge::openal::source::gain(
 }
 
 sge::audio::scalar 
+sge::openal::source::pitch() const
+{
+	return pitch_;
+}
+
+void 
+sge::openal::source::pitch(
+	audio::scalar const n)
+{
+	pitch_ = n;
+
+	alSourcef(
+		source_id(),
+		AL_PITCH,
+		static_cast<ALfloat>(
+			n));
+
+	SGE_OPENAL_CHECK_STATE(
+		FCPPT_TEXT("alSourcef failed"),
+		audio::exception
+	)
+}
+
+sge::audio::scalar 
 sge::openal::source::rolloff() const
 {
 	return rolloff_;
@@ -440,6 +464,9 @@ sge::openal::source::init(
 {
 	status_ = 
 		audio::sound::play_status::stopped;
+
+	pitch_ = 
+		static_cast<audio::scalar>(1.0);
 	
 	position(
 		p.position());

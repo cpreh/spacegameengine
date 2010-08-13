@@ -53,6 +53,13 @@ public:
 	gain() const { return audio::scalar(); }
 
 	void 
+	pitch(
+		audio::scalar) {}
+
+	audio::scalar 
+	pitch() const { return audio::scalar(); }
+
+	void 
 	rolloff(
 		audio::scalar) {}
 

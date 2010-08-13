@@ -41,6 +41,12 @@ public:
 	virtual scalar 
 	gain() const = 0;
 
+	virtual void 
+	pitch(
+		scalar) = 0;
+
+	virtual scalar 
+	pitch() const = 0;
 
 	virtual void 
 	stop() = 0;

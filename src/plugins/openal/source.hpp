@@ -97,6 +97,13 @@ public:
 		audio::scalar);
 
 	audio::scalar 
+	pitch() const;
+
+	void 
+	pitch(
+		audio::scalar);
+
+	audio::scalar 
 	rolloff() const;
 
 	void 
@@ -140,6 +147,7 @@ private:
 	audio::vector direction_;
 	audio::vector linear_velocity_;
 	audio::scalar gain_;
+	audio::scalar pitch_;
 	audio::scalar rolloff_;
 	audio::scalar inner_cone_angle_;
 	audio::scalar outer_cone_angle_;

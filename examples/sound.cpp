@@ -221,11 +221,35 @@ try
 	wait_for_sound(
 		s);
 
-	fcppt::io::cout << FCPPT_TEXT("On to streaming sounds, we'll now create a positional streaming sound...\n");
-	wait_for_input();
-
 	sys.audio_player()->gain(
 		static_cast<sge::audio::scalar>(1.0));
+
+	fcppt::io::cout << FCPPT_TEXT("Let's try changing the sound pitch now...You'll hear the sound with a 50% pitch now.\n");
+	wait_for_input();
+
+	s->pitch(
+		static_cast<sge::audio::scalar>(
+			0.5));
+	
+	s->play(
+		sge::audio::sound::repeat::once);
+	wait_for_sound(
+		s);
+
+	fcppt::io::cout << FCPPT_TEXT("Now with 150% pitch...\n");
+	wait_for_input();
+
+	s->pitch(
+		static_cast<sge::audio::scalar>(
+			1.5));
+	
+	s->play(
+		sge::audio::sound::repeat::once);
+	wait_for_sound(
+		s);
+
+	fcppt::io::cout << FCPPT_TEXT("On to streaming sounds, we'll now create a positional streaming sound...\n");
+	wait_for_input();
 
 	sge::audio::sound::positional_ptr const sps = 
 		sys.audio_player()->create_positional_stream(
