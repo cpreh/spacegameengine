@@ -22,9 +22,55 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../split_states.hpp"
 #include "../state_visitor.hpp"
 #include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/var.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/equal.hpp>
+#include <mizuiro/color/operators/equal.hpp>
 #include <boost/foreach.hpp>
+
+namespace
+{
+
+bool
+state_unchanged(
+	sge::renderer::state::any const &,
+	sge::renderer::state::list const &
+);
+
+class compare_state_visitor
+{
+public:
+	explicit compare_state_visitor(
+		sge::renderer::state::any const &_state
+	);
+
+	typedef bool result_type;
+
+	template<
+		typename Type,
+		typename State
+	>
+	result_type
+	operator()(
+		sge::renderer::state::var<
+			Type,
+			State
+		> const &
+	) const;
+
+	template<
+		typename Type
+	>
+	result_type
+	operator()(
+		Type const &
+	) const;
+private:
+	sge::renderer::state::any const &state_;
+};
+
+}
 
 void
 sge::opengl::apply_states(
@@ -50,6 +96,14 @@ sge::opengl::apply_states(
 		_new_states.values()
 	)
 	{
+		if(
+			::state_unchanged(
+				state,
+				_current_states
+			)
+		)
+			continue;
+
 		_current_states.overwrite(
 			state
 		);
@@ -59,4 +113,84 @@ sge::opengl::apply_states(
 			state
 		);
 	}
+}
+
+namespace
+{
+
+bool
+state_unchanged(
+	sge::renderer::state::any const &_state,
+	sge::renderer::state::list const &_list
+)
+{
+	sge::renderer::state::list::set_type const &state_list(
+		_list.values()
+	);
+
+	sge::renderer::state::list::set_type::const_iterator const it(
+		state_list.find(
+			_state
+		)
+	);
+
+	if(
+		it == state_list.end()
+	)
+		return false;
+	
+	return
+		fcppt::variant::apply_unary(
+			::compare_state_visitor(
+				_state
+			),
+			*it
+		);
+}
+
+compare_state_visitor::compare_state_visitor(
+	sge::renderer::state::any const &_state
+)
+:
+	state_(_state)
+{}
+
+template<
+	typename Type,
+	typename State
+>
+compare_state_visitor::result_type
+compare_state_visitor::operator()(
+	sge::renderer::state::var<
+		Type,
+		State
+	> const &_other
+) const
+{
+	return
+		state_.get<
+			sge::renderer::state::var<
+				Type,
+				State
+			>
+		>().value()
+		== _other.value();
+}
+
+template<
+	typename Type
+>
+compare_state_visitor::result_type
+compare_state_visitor::operator()(
+	Type const &_other
+) const
+{
+	return
+		state_.get<
+			Type
+		>()
+		==
+		_other;
+}
+
 }

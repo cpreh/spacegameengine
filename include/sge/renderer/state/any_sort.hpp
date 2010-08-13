@@ -31,6 +31,7 @@ namespace renderer
 namespace state
 {
 
+/// Provides a strict weak ordering over the state types
 SGE_SYMBOL bool
 any_sort(
 	any const &,
