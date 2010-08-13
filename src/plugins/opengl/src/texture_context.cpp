@@ -47,7 +47,8 @@ sge::opengl::texture_context::texture_context()
 			GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT
 		:
 			0
-	)
+	),
+	last_types_()
 {}
 
 sge::opengl::texture_context::~texture_context()
@@ -77,6 +78,42 @@ sge::opengl::texture_context::max_anisotropy_flag() const
 {
 	return max_anisotropy_flag_;
 }
+
+void
+sge::opengl::texture_context::last_type(
+	GLenum const _last_type,
+	sge::renderer::stage_type const _stage
+)
+{
+	if(
+		last_types_.size() <= _stage
+	)
+		last_types_.resize(
+			_stage + 1u
+		);
+	
+	last_types_[
+		_stage
+	] = _last_type;
+}
+
+GLenum
+sge::opengl::texture_context::last_type(
+	sge::renderer::stage_type const _stage
+) const
+{
+	return
+		last_types_.size() <= _stage
+		?
+			invalid_type
+		:
+			last_types_[
+				_stage
+			];
+}
+
+GLenum const
+sge::opengl::texture_context::invalid_type(0); // must be != GL_TEXTURE_2D/3D/...
 
 sge::opengl::context::id const
 sge::opengl::texture_context::static_id(

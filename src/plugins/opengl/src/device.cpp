@@ -25,10 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 #include "../create_caps.hpp"
 #include "../cube_texture.hpp"
-#include "../cube_texture_context.hpp"
 #include "../default_target.hpp"
-#include "../disable.hpp"
-#include "../enable.hpp"
 #include "../enable_bool.hpp"
 #include "../fbo_projection.hpp"
 #include "../fbo_target.hpp"
@@ -38,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../set_light.hpp"
 #include "../set_material.hpp"
 #include "../set_matrix_and_mode.hpp"
-#include "../set_texture_level.hpp"
+#include "../set_texture.hpp"
 #include "../set_texture_stage.hpp"
 #include "../set_texture_stage_scale.hpp"
 #include "../texture.hpp"
@@ -46,7 +43,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../viewport.hpp"
 #include "../viewport_pos.hpp"
 #include "../volume_texture.hpp"
-#include "../context/use.hpp"
 #include "../convert/clear_bit.hpp"
 #include "../convert/clip_plane_index.hpp"
 #include "../convert/indexed_primitive.hpp"
@@ -58,9 +54,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glsl/create_program.hpp"
 #include "../glsl/create_vertex_shader.hpp"
 #include "../glsl/create_pixel_shader.hpp"
-#include <sge/renderer/state/default.hpp>
 #include <sge/renderer/index/i16.hpp>
 #include <sge/renderer/index/i32.hpp>
+#include <sge/renderer/state/default.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
@@ -381,50 +377,15 @@ sge::opengl::device::texture_stage_arg(
 
 void
 sge::opengl::device::texture(
-	renderer::const_texture_base_ptr const tex,
-	renderer::stage_type const stage
+	renderer::const_texture_base_ptr const _texture,
+	renderer::stage_type const _stage
 )
 {
-	opengl::set_texture_level(
+	opengl::set_texture(
 		context_,
-		stage
+		_texture,
+		_stage
 	);
-
-	// TODO: we should keep track of what is enabled and what isn't!
-	disable(GL_TEXTURE_1D);
-	disable(GL_TEXTURE_2D);
-	//disable(detail::volume_texture_type);
-	{
-		cube_texture_context &cube_texture_context_(
-			context::use<
-				cube_texture_context
-			>(
-				context_
-			)
-		);
-
-		if(
-			cube_texture_context_.have_cube_texture()
-		)
-			disable(
-				cube_texture_context_.cube_texture_type()
-			);
-	}
-
-	if(!tex)
-		return;
-	
-	texture_base const &b(
-		dynamic_cast<
-			texture_base const &
-		>(
-			*tex
-		)
-	);
-
-	enable(b.type());
-
-	b.bind_me();
 }
 
 void

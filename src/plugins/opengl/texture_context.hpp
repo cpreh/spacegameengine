@@ -24,7 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "context/base.hpp"
 #include "context/id.hpp"
 #include "common.hpp"
+#include <sge/renderer/stage_type.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <vector>
 
 namespace sge
 {
@@ -53,6 +55,23 @@ public:
 	GLenum
 	max_anisotropy_flag() const;
 
+	typedef std::vector<
+		GLenum
+	> texture_type_vector;
+
+	void
+	last_type(
+		GLenum,
+		sge::renderer::stage_type
+	);
+
+	GLenum
+	last_type(
+		sge::renderer::stage_type
+	) const;
+
+	static GLenum const invalid_type;
+
 	typedef void needs_before;
 
 	static context::id const static_id;
@@ -64,6 +83,8 @@ private:
 	GLenum const
 		anisotropy_flag_,
 		max_anisotropy_flag_;
+	
+	texture_type_vector last_types_;
 };
 
 }
