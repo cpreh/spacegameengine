@@ -66,6 +66,14 @@ wait_for_input()
 		fcppt::io::cin,
 		input);
 }
+
+void
+wait_for_sound(
+	sge::audio::sound::base_ptr const b)
+{
+	while (b->status() != sge::audio::sound::play_status::stopped)
+		b->update();
+}
 }
 
 int main(int, char *[])
@@ -76,9 +84,13 @@ try
 		fcppt::log::level::debug
 	);
 
-	fcppt::filesystem::path const file_name = 
-		sge::config::media_path() / 
-		FCPPT_TEXT("ding.wav");
+	fcppt::filesystem::path const 
+		file_name = 
+			sge::config::media_path() / 
+			FCPPT_TEXT("ding.wav"),
+		streaming_file_name =
+			sge::config::media_path() / 
+			FCPPT_TEXT("epoq.ogg");
 
 	fcppt::io::cout << FCPPT_TEXT("This is the sge sound example. We will now try to load the audio loader\n");
 	wait_for_input();
@@ -91,11 +103,9 @@ try
 		(
 			sge::systems::audio_loader(
 				sge::audio::loader_capabilities_field::null(),
-				fcppt::assign::make_container<
-					sge::extension_set
-				>(
-					FCPPT_TEXT("wav")
-				)
+				fcppt::assign::make_container<sge::extension_set>
+					(FCPPT_TEXT("wav"))
+					(FCPPT_TEXT("ogg"))
 			)
 		)
 	);
@@ -127,26 +137,11 @@ try
 	fcppt::io::cout << FCPPT_TEXT("You should hear a sound after pressing enter\n");
 	wait_for_input();
 
-	/*
-	if (revolving)
-	{
-		sound->positional(true);
-		sound->pos(
-			sge::audio::vector(
-				static_cast<sge::audio::scalar>(-1),
-				static_cast<sge::audio::scalar>(0),
-				static_cast<sge::audio::scalar>(0)));
-	}
-	*/
 	s->play(
 		sge::audio::sound::repeat::once);
 
-	sge::time::timer frame_timer(
-		sge::time::second(
-			1));
-
-	while (s->status() != sge::audio::sound::play_status::stopped)
-		s->update();
+	wait_for_sound(
+		s);
 
 	fcppt::io::cout << FCPPT_TEXT("Now we use the same sound, but create a positional source from it.\n");
 	wait_for_input();
@@ -167,23 +162,109 @@ try
 	s->play(
 		sge::audio::sound::repeat::once);
 
-	while (ps->status() != sge::audio::sound::play_status::stopped)
-		ps->update();
+	wait_for_sound(
+		s);
 
-	fcppt::io::cout << FCPPT_TEXT("Now we reposition and play again\n");
+	fcppt::io::cout << FCPPT_TEXT("Now we reposition and play again\nYou should hear the sound coming from the _left_ now.\n");
 	wait_for_input();
 
 	ps->position(
 		sge::audio::vector(
-			-10000,
+			-2,
 			0,
 			0));
 
-	s->play(
+	ps->play(
 		sge::audio::sound::repeat::once);
 
-	while (ps->status() != sge::audio::sound::play_status::stopped)
-		ps->update();
+	wait_for_sound(
+		s);
+
+	fcppt::io::cout << FCPPT_TEXT("Back to the nonpositional sound. We now try to lower the volume globally. Playing at 100% volume...\n");
+	wait_for_input();
+
+	s->play(
+		sge::audio::sound::repeat::once);
+	wait_for_sound(
+		s);
+
+	fcppt::io::cout << FCPPT_TEXT("Now 50% volume...\n");
+	wait_for_input();
+
+	sys.audio_player()->gain(
+		static_cast<sge::audio::scalar>(0.5));
+
+	s->play(
+		sge::audio::sound::repeat::once);
+	wait_for_sound(
+		s);
+
+	fcppt::io::cout << FCPPT_TEXT("Now 25% volume...\n");
+	wait_for_input();
+
+	sys.audio_player()->gain(
+		static_cast<sge::audio::scalar>(0.25));
+
+	s->play(
+		sge::audio::sound::repeat::once);
+	wait_for_sound(
+		s);
+
+	fcppt::io::cout << FCPPT_TEXT("And finally 0% volume...\n");
+	wait_for_input();
+
+	sys.audio_player()->gain(
+		static_cast<sge::audio::scalar>(0.0));
+
+	s->play(
+		sge::audio::sound::repeat::once);
+	wait_for_sound(
+		s);
+
+	fcppt::io::cout << FCPPT_TEXT("On to streaming sounds, we'll now create a positional streaming sound...\n");
+	wait_for_input();
+
+	sys.audio_player()->gain(
+		static_cast<sge::audio::scalar>(1.0));
+
+	sge::audio::sound::positional_ptr const sps = 
+		sys.audio_player()->create_positional_stream(
+			sys.audio_loader().load(
+				streaming_file_name),
+			sge::audio::sound::positional_parameters()
+				.linear_velocity(
+					sge::audio::vector::null())
+				.position(
+					sge::audio::vector(
+						-2000,
+						0,
+						0))
+				.rolloff(
+					1));
+
+	fcppt::io::cout << FCPPT_TEXT("Streaming sound created.\nWe'll now play it for 10 seconds.\n");
+	wait_for_input();
+
+	sps->play(
+		sge::audio::sound::repeat::once);
+
+	sps->position(
+		sge::audio::vector(
+						-2000,
+						0,
+						0));
+
+	wait_for_sound(
+		s);
+
+	sge::time::timer frame_timer(
+		sge::time::second(10));
+
+	while(
+		sps->status() != sge::audio::sound::play_status::stopped 
+		&& !frame_timer.expired())
+		sps->update();
+	sps->stop();
 
 	fcppt::io::cout << FCPPT_TEXT("Finished\n");
 	wait_for_input();

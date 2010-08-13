@@ -31,25 +31,40 @@ namespace audio_null
 
 class player : public audio::player {
 public:
+	explicit
 	player();
 
-	audio::listener &listener();
+	audio::listener &
+	listener();
 
-	audio::scalar speed_of_sound() const;
+	audio::scalar 
+	speed_of_sound() const { return audio::scalar(); }
 
-	void speed_of_sound(
-		audio::scalar);
+	void 
+	speed_of_sound(
+		audio::scalar) {}
 
-	audio::sound_ptr const
-	create_nonstream_sound(
+	audio::scalar
+	gain() const { return audio::scalar(); }
+
+	void
+	gain(
+		audio::scalar) {}
+
+	audio::buffer_ptr const
+	create_buffer(
 		audio::file_ptr);
 
-	audio::sound_ptr const
-	create_stream_sound(
+	audio::sound::positional_ptr const 
+	create_positional_stream(
+		audio::file_ptr,
+		audio::sound::positional_parameters const &);
+
+	audio::sound::base_ptr const 
+	create_nonpositional_stream(
 		audio::file_ptr);
 private:
 	audio_null::listener listener_;
-	audio::scalar          speed_of_sound_;
 };
 
 }

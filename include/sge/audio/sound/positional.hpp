@@ -32,11 +32,11 @@ public:
 		vector const &) = 0;
 
 	virtual void 
-	attenuation(
+	gain(
 		scalar) = 0;
 
 	virtual scalar 
-	attenuation() const = 0;
+	gain() const = 0;
 
 	virtual void 
 	rolloff(

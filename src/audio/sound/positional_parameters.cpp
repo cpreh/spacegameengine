@@ -6,7 +6,7 @@ sge::audio::sound::positional_parameters::positional_parameters()
 		vector::null()),
 	linear_velocity_(
 		vector::null()),
-	attenuation_(
+	gain_(
 		static_cast<scalar>(
 			1)),
 	rolloff_(
@@ -55,16 +55,16 @@ sge::audio::sound::positional_parameters::linear_velocity(
 }
 
 sge::audio::scalar const &
-sge::audio::sound::positional_parameters::attenuation() const
+sge::audio::sound::positional_parameters::gain() const
 {
-	return attenuation_;
+	return gain_;
 }
 
 sge::audio::sound::positional_parameters &
-sge::audio::sound::positional_parameters::attenuation(
-	sge::audio::scalar const &_attenuation)
+sge::audio::sound::positional_parameters::gain(
+	sge::audio::scalar const &_gain)
 {
-	attenuation_ = _attenuation;
+	gain_ = _gain;
 	return *this;
 }
 

@@ -59,6 +59,13 @@ public:
 	speed_of_sound(
 		audio::scalar);
 
+	audio::scalar 
+	gain() const;
+
+	void 
+	gain(
+		audio::scalar);
+
 	audio::buffer_ptr const
 	create_buffer(
 		audio::file_ptr);

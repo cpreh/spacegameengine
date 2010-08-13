@@ -33,16 +33,16 @@ namespace audio_null
 class listener : public audio::listener {
 public:
 	listener();
-	audio::vector const pos() const;
-	void pos(audio::vector const &);
-	audio::vector const vel() const;
-	void vel(audio::vector const &);
+	audio::vector const position() const;
+	void position(audio::vector const &);
+	audio::vector const linear_velocity() const;
+	void linear_velocity(audio::vector const &);
 	audio::angle const direction() const;
 	void direction(audio::angle const &);
 private:
 	audio::vector
-		pos_,
-		vel_;
+		position_,
+		linear_velocity_;
 	audio::angle direction_;
 };
 

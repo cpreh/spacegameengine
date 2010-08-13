@@ -90,10 +90,10 @@ public:
 		audio::vector const &);
 
 	audio::scalar 
-	attenuation() const;
+	gain() const;
 
 	void 
-	attenuation(
+	gain(
 		audio::scalar);
 
 	audio::scalar 
@@ -139,7 +139,7 @@ private:
 	audio::vector position_;
 	audio::vector direction_;
 	audio::vector linear_velocity_;
-	audio::scalar attenuation_;
+	audio::scalar gain_;
 	audio::scalar rolloff_;
 	audio::scalar inner_cone_angle_;
 	audio::scalar outer_cone_angle_;

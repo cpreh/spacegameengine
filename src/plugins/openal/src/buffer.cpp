@@ -18,6 +18,10 @@ sge::openal::buffer::buffer(
 		static_cast<ALsizei>(
 			1),
 		&buffer_);
+
+	SGE_OPENAL_CHECK_STATE(
+		FCPPT_TEXT("alGenBuffers failed"),
+		audio::exception)
 	
 	audio::sample_container data;
 	f->read_all(
@@ -34,7 +38,8 @@ sge::openal::buffer::buffer(
 			<< f->sample_rate());
 
 	if (data.empty())
-		throw audio::exception(FCPPT_TEXT("tried to create empty nonstreaming sound, that's not possible!"));
+		throw audio::exception(
+			FCPPT_TEXT("tried to create empty nonstreaming sound, that's not possible!"));
 
 	// TODO: this function is called more than once!
 	alBufferData(
@@ -49,13 +54,7 @@ sge::openal::buffer::buffer(
 
 	SGE_OPENAL_CHECK_STATE(
 		FCPPT_TEXT("alBufferData failed"),
-		audio::exception
-	)
-
-	SGE_OPENAL_CHECK_STATE(
-		FCPPT_TEXT("alGenBuffers failed"),
-		audio::exception
-	)
+		audio::exception)
 }
 
 sge::audio::sound::positional_ptr const
@@ -87,6 +86,5 @@ sge::openal::buffer::~buffer()
 
 	SGE_OPENAL_CHECK_STATE(
 		FCPPT_TEXT("alDeleteBuffers failed"),
-		audio::exception
-	)
+		audio::exception)
 }

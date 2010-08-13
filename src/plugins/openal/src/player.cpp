@@ -42,13 +42,16 @@ sge::openal::player::player()
 		device_)
 {
 	context_.make_current();
+
 	// set our own speed of sound standard rather than relying on OpenAL
 	speed_of_sound(
 		static_cast<audio::scalar>(
 			343));
 
-	listener().position(audio::vector::null());
-	listener().linear_velocity(audio::vector::null());
+	listener().position(
+		audio::vector::null());
+	listener().linear_velocity(
+		audio::vector::null());
 	listener().direction(
 		audio::angle(
 			audio::vector(
@@ -90,6 +93,27 @@ sge::openal::player::speed_of_sound(
 	alSpeedOfSound(
 		static_cast<ALfloat>(
 			dest));
+}
+
+sge::audio::scalar 
+sge::openal::player::gain() const
+{
+	ALfloat dest;
+	alGetListenerfv(
+		AL_GAIN,
+		&dest);
+	return 
+		static_cast<audio::scalar>(
+			dest);
+}
+
+void 
+sge::openal::player::gain(
+	audio::scalar g)
+{
+	alListenerf(
+		AL_GAIN,
+		g);
 }
 
 sge::audio::buffer_ptr const

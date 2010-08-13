@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/scalar.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/math/vector/output.hpp>
 
 sge::openal::source::source(
 	ALuint const _buffer)
@@ -38,13 +39,11 @@ sge::openal::source::source(
 	alSourcei(
 		source_id(),
 		AL_BUFFER,
-		_buffer
-	);
+		_buffer);
 
 	SGE_OPENAL_CHECK_STATE(
 		FCPPT_TEXT("alSourcei failed"),
-		audio::exception
-	)
+		audio::exception)
 
 	init(
 		audio::sound::positional_parameters());
@@ -254,23 +253,22 @@ sge::openal::source::linear_velocity(
 }
 
 sge::audio::scalar 
-sge::openal::source::attenuation() const
+sge::openal::source::gain() const
 {
-	return attenuation_;
+	return gain_;
 }
 
 void 
-sge::openal::source::attenuation(
+sge::openal::source::gain(
 	audio::scalar const n)
 {
-	attenuation_ = n;
+	gain_ = n;
 
 	alSourcef(
 		source_id(),
 		AL_GAIN,
 		static_cast<ALfloat>(
-			n)
-	);
+			n));
 
 	SGE_OPENAL_CHECK_STATE(
 		FCPPT_TEXT("alSourcef failed"),
@@ -444,8 +442,8 @@ sge::openal::source::init(
 	linear_velocity(
 		p.linear_velocity());
 	
-	attenuation(
-		p.attenuation());
+	gain(
+		p.gain());
 
 	rolloff(
 		p.rolloff());
@@ -473,8 +471,7 @@ sge::openal::source::positional(
 		alSourcei(
 			source_id(),
 			AL_SOURCE_RELATIVE,
-			AL_FALSE
-		);
+			AL_TRUE);
 
 		SGE_OPENAL_CHECK_STATE(
 			FCPPT_TEXT("alSourcei failed"),
@@ -483,19 +480,19 @@ sge::openal::source::positional(
 	}
 	else
 	{
+		// The special case "rolloff = 0" means that the source is not
+		// attenuated by distance.
 		rolloff(
 			static_cast<audio::scalar>(0));
-		// make source relative to listener and set it's position to (0,0,0), so directly on the listener
+
 		alSourcei(
 			source_id(),
 			AL_SOURCE_RELATIVE,
-			AL_TRUE
-		);
+			AL_TRUE);
 
 		SGE_OPENAL_CHECK_STATE(
 			FCPPT_TEXT("alSourcei failed"),
-			audio::exception
-		)
+			audio::exception)
 
 		position(
 			audio::vector::null());

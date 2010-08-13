@@ -3,8 +3,8 @@
 
 #include <sge/class_symbol.hpp>
 #include <sge/symbol.hpp>
-#include <sge/audio/point.hpp>
-#include <sge/audio/unit.hpp>
+#include <sge/audio/vector.hpp>
+#include <sge/audio/scalar.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 
 namespace sge
@@ -34,10 +34,10 @@ public:
 		vector const &);
 
 	SGE_SYMBOL scalar const &
-	attenuation() const;
+	gain() const;
 
 	SGE_SYMBOL positional_parameters &
-	attenuation(
+	gain(
 		scalar const &);
 
 	SGE_SYMBOL scalar const &
@@ -70,7 +70,7 @@ public:
 private:
 	vector position_;
 	vector linear_velocity_;
-	scalar attenuation_;
+	scalar gain_;
 	scalar rolloff_;
 	vector direction_;
 	scalar inner_cone_angle_;

@@ -23,39 +23,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::audio_null::listener::listener()
 :
-	pos_(
+	position_(
 		audio::vector::null()
 	),
-	vel_(
+	linear_velocity_(
 		audio::vector::null()
 	),
 	direction_()
 {}
 
 sge::audio::vector const
-sge::audio_null::listener::pos() const
+sge::audio_null::listener::position() const
 {
-	return pos_;
+	return position_;
 }
 
 void
-sge::audio_null::listener::pos(
+sge::audio_null::listener::position(
 	audio::vector const &p)
 {
-	pos_ = p;
+	position_ = p;
 }
 
 sge::audio::vector const
-sge::audio_null::listener::vel() const
+sge::audio_null::listener::linear_velocity() const
 {
-	return vel_;
+	return linear_velocity_;
 }
 
 void
-sge::audio_null::listener::vel(
+sge::audio_null::listener::linear_velocity(
 	audio::vector const &p)
 {
-	vel_ = p;
+	linear_velocity_ = p;
 }
 
 sge::audio::angle const

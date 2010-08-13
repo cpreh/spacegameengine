@@ -56,6 +56,13 @@ public:
 	speed_of_sound(
 		scalar) = 0;
 
+	virtual void
+	gain(
+		scalar) = 0;
+
+	virtual scalar
+	gain() const = 0;
+
 	virtual buffer_ptr const
 	create_buffer(
 		file_ptr) = 0;
