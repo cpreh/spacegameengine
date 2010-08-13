@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../openal.hpp"
 #include <sge/audio/exception.hpp>
 #include <fcppt/math/vector/output.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
 
@@ -50,15 +49,21 @@ void listener_fv(
 
 sge::openal::listener::listener()
 :
-	pos_(),
-	vel_()
+	position_(),
+	linear_velocity_()
 {
 }
 
-void sge::openal::listener::vel(audio::point const &n)
+void 
+sge::openal::listener::linear_velocity(
+	audio::vector const &n)
 {
-	FCPPT_LOG_DEBUG(log(),fcppt::log::_ << FCPPT_TEXT("setting listener velocity to ") << n);
-	vel_ = n;
+	FCPPT_LOG_DEBUG(
+		log(),
+		fcppt::log::_ << FCPPT_TEXT("setting listener velocity to ") << n);
+	
+	linear_velocity_ = 
+		n;
 
 	// TODO: use sge::fcppt::math::vector!
 	ALfloat const vec[3] =
@@ -67,21 +72,27 @@ void sge::openal::listener::vel(audio::point const &n)
 			static_cast<ALfloat>(n.y()),
 			static_cast<ALfloat>(n.z())
 		};
+		
 	listener_fv(
 		AL_VELOCITY,
-		vec
-	);
+		vec);
 }
 
-sge::audio::point const sge::openal::listener::vel() const
+sge::audio::vector const 
+sge::openal::listener::linear_velocity() const
 {
-	return vel_;
+	return linear_velocity_;
 }
 
-void sge::openal::listener::pos(audio::point const &n)
+void 
+sge::openal::listener::position(
+	audio::vector const &n)
 {
-	FCPPT_LOG_DEBUG(log(),fcppt::log::_ << FCPPT_TEXT("setting listener position to ") << n);
-	pos_ = n;
+	FCPPT_LOG_DEBUG(
+		log(),
+		fcppt::log::_ << FCPPT_TEXT("setting listener position to ") << n);
+	
+	position_ = n;
 	ALfloat const vec[3] =
 		{
 			static_cast<ALfloat>(n.x()),
@@ -94,12 +105,15 @@ void sge::openal::listener::pos(audio::point const &n)
 	);
 }
 
-sge::audio::point const sge::openal::listener::pos() const
+sge::audio::vector const 
+sge::openal::listener::position() const
 {
-	return pos_;
+	return position_;
 }
 
-void sge::openal::listener::direction(audio::angle const &n)
+void 
+sge::openal::listener::direction(
+	audio::angle const &n)
 {
 	ALfloat const vec[6] =
 		{
@@ -118,7 +132,8 @@ void sge::openal::listener::direction(audio::angle const &n)
 }
 
 
-sge::audio::angle const sge::openal::listener::direction() const
+sge::audio::angle const 
+sge::openal::listener::direction() const
 {
 	return angle_;
 }

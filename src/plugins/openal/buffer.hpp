@@ -1,53 +1,36 @@
-/*
-spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+#ifndef SGE_PLUGINS_OPENAL_BUFFER_HPP_INCLUDED
+#define SGE_PLUGINS_OPENAL_BUFFER_HPP_INCLUDED
 
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU Lesser General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*/
-
-
-#ifndef SGE_OPENAL_BUFFER_HPP_INCLUDED
-#define SGE_OPENAL_BUFFER_HPP_INCLUDED
-
-#include <fcppt/noncopyable.hpp>
 #include "openal.hpp"
+#include <sge/audio/buffer.hpp>
+#include <sge/audio/file_ptr.hpp>
+#include <sge/audio/sound/positional_ptr.hpp>
+#include <sge/audio/sound/positional_parameters.hpp>
+#include <sge/audio/sound/base_ptr.hpp>
 
 namespace sge
 {
-namespace audio
-{
-class file;
-}
-
 namespace openal
 {
 class buffer
+:
+	public audio::buffer
 {
-	FCPPT_NONCOPYABLE(buffer)
-	public:
-	explicit buffer(audio::file &);
-	ALuint albuffer() const;
-	audio::file &file();
-	audio::file const &file() const;
-	void add_instance();
-	bool remove_instance();
+public:
+	explicit
+	buffer(
+		audio::file_ptr);
+	
+	audio::sound::positional_ptr const
+	create_positional(
+		audio::sound::positional_parameters const&);
 
-	private:
-	audio::file &file_;
+	audio::sound::base_ptr const
+	create_nonpositional();
+
+	~buffer();
+private:
 	ALuint buffer_;
-	unsigned refcount_;
 };
 }
 }

@@ -43,8 +43,7 @@ protected:
 public:
 	virtual file_ptr const
 	load(
-		fcppt::filesystem::path const &
-	) = 0;
+		fcppt::filesystem::path const &) = 0;
 
 	virtual loader_capabilities_field const
 	capabilities() const = 0;

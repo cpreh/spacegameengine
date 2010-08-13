@@ -23,61 +23,134 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "openal.hpp"
 #include "source_wrapper.hpp"
-#include <sge/audio/sound.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <sge/audio/sound/positional_parameters.hpp>
+#include <sge/audio/sound/play_status.hpp>
+#include <sge/audio/sound/repeat.hpp>
+#include <sge/audio/sound/positional.hpp>
+#include <sge/audio/vector.hpp>
+#include <sge/audio/scalar.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
 namespace openal
 {
-class source : public audio::sound
+class source 
+: 
+	public audio::sound::positional
 {
-	public:
+public:
+	explicit
+	source(
+		ALuint buffer);
+
+	explicit 
+	source(
+		audio::sound::positional_parameters const &,
+		ALuint buffer);
+
+	explicit
 	source();
-	explicit source(ALuint);
-	ALuint alsource() const { return source_.value_; }
-	ALuint albuffer() const { return buffer_; }
-	void sync() const;
-	void play(audio::play_mode::type);
-	void toggle_pause();
-	audio::sound_status::type status() const;
-	void stop();
-	audio::play_mode::type play_mode() const { return play_mode_; }
-	virtual void play_mode(audio::play_mode::type);
-	virtual void do_play() {}
 
-	audio::point const pos() const { return pos_; }
-	void pos(audio::point const &);
-	audio::point const vel() const { return vel_; }
-	void vel(audio::point const &);
-	audio::unit attenuation() const { return attenuation_; }
-	void attenuation(audio::unit);
-	audio::unit rolloff() const { return rolloff_; }
-	void rolloff(audio::unit);
-	bool positional() const { return positional_; }
-	void positional(bool);
-	audio::point const direction() const { return direction_; }
-	void direction(audio::point const &);
-	audio::unit inner_cone_angle() const { return inner_cone_angle_; }
-	void inner_cone_angle(audio::unit);
-	audio::unit outer_cone_angle() const { return outer_cone_angle_; }
-	void outer_cone_angle(audio::unit);
+	explicit 
+	source(
+		audio::sound::positional_parameters const &);
 
-	private:
-	ALuint buffer_;
+	void 
+	play(
+		audio::sound::repeat::type);
+
+	void 
+	toggle_pause();
+
+	audio::sound::play_status::type 
+	status() const;
+	
+	audio::sound::repeat::type
+	repeat() const;
+
+	void 
+	stop();
+
+	void 
+	update();
+
+	audio::vector const 
+	position() const;
+
+	void 
+	position(
+		audio::vector const &);
+
+	audio::vector const 
+	linear_velocity() const;
+
+	void 
+	linear_velocity(
+		audio::vector const &);
+
+	audio::scalar 
+	gain() const;
+
+	void 
+	gain(
+		audio::scalar);
+
+	audio::scalar 
+	rolloff() const;
+
+	void 
+	rolloff(
+		audio::scalar);
+
+	audio::vector const 
+	direction() const;
+
+	void 
+	direction(
+		audio::vector const &);
+
+	audio::scalar 
+	inner_cone_angle() const;
+
+	void 
+	inner_cone_angle(
+		audio::scalar);
+
+	audio::scalar 
+	outer_cone_angle() const;
+
+	void 
+	outer_cone_angle(
+		audio::scalar);
+protected:
+	virtual void
+	do_play();
+
+	void 
+	sync() const;
+
+	ALuint 
+	source_id() const;
+private:
 	source_wrapper source_;
-	audio::play_mode::type play_mode_;
-	mutable audio::sound_status::type status_;
-	bool positional_;
-	audio::point pos_;
-	audio::point direction_;
-	audio::point vel_;
-	audio::unit attenuation_;
-	audio::unit rolloff_;
-	audio::unit inner_cone_angle_;
-	audio::unit outer_cone_angle_;
+	audio::sound::repeat::type repeat_;
+	mutable audio::sound::play_status::type status_;
+	audio::vector position_;
+	audio::vector direction_;
+	audio::vector linear_velocity_;
+	audio::scalar gain_;
+	audio::scalar rolloff_;
+	audio::scalar inner_cone_angle_;
+	audio::scalar outer_cone_angle_;
 
-	void init();
+	void 
+	init(
+		audio::sound::positional_parameters const &);
+	
+	void
+	positional(
+		bool);
 };
 }
 }

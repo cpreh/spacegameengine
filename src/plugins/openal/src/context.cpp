@@ -128,7 +128,7 @@ sge::openal::context::~context()
 			FCPPT_TEXT("alcMakeContextCurrent failed"),
 			audio::exception
 		);
-		// at this point: DO NOT CHECK FOR OPENAL ERRORS. IT'S ILLEGAL
+		// at this vector: DO NOT CHECK FOR OPENAL ERRORS. IT'S ILLEGAL
 		//SGE_OPENAL_ERROR_CHECK;
 	}
 

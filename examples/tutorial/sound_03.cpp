@@ -72,17 +72,17 @@ try
 	sound->play(sge::audio::play_mode::loop);
 
 	sge::time::timer frame_timer(sge::time::second(static_cast<sge::time::unit>(1)));
-	sge::audio::unit const rpm = static_cast<sge::audio::unit>(1);
-	sge::audio::unit const speed = static_cast<sge::audio::unit>(
-		fcppt::math::twopi<sge::audio::unit>() * rpm);
+	sge::audio::scalar const rpm = static_cast<sge::audio::scalar>(1);
+	sge::audio::scalar const speed = static_cast<sge::audio::scalar>(
+		fcppt::math::twopi<sge::audio::scalar>() * rpm);
 	while (true)
 	{
-		sge::audio::unit const angle =
-			static_cast<sge::audio::unit>(frame_timer.elapsed_frames() * speed);
+		sge::audio::scalar const angle =
+			static_cast<sge::audio::scalar>(frame_timer.elapsed_frames() * speed);
 		sound->pos(
-			sge::audio::point(
+			sge::audio::vector(
 				std::sin(angle),
-				static_cast<sge::audio::unit>(0),
+				static_cast<sge::audio::scalar>(0),
 				std::cos(angle)));
 		sound->update();
 	}

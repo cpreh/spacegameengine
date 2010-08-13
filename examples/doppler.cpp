@@ -128,8 +128,8 @@ public:
 			);
 
 			sound->vel(
-				sge::audio::point(
-					static_cast<sge::audio::unit>(k.value()),
+				sge::audio::vector(
+					static_cast<sge::audio::scalar>(k.value()),
 					sound->vel().y(),
 					sound->vel().z()
 				)
@@ -142,10 +142,10 @@ public:
 			);
 
 			sound->vel(
-				sge::audio::point(
+				sge::audio::vector(
 					sound->vel().x(),
 					sound->vel().y(),
-					static_cast<sge::audio::unit>(k.value())
+					static_cast<sge::audio::scalar>(k.value())
 				)
 			);
 
@@ -156,10 +156,10 @@ public:
 		}
 
 		sound->pos(
-			sge::audio::point(
-				static_cast<sge::audio::unit>(s.pos().x()),
-				static_cast<sge::audio::unit>(0),
-				static_cast<sge::audio::unit>(s.pos().y())
+			sge::audio::vector(
+				static_cast<sge::audio::scalar>(s.pos().x()),
+				static_cast<sge::audio::scalar>(0),
+				static_cast<sge::audio::scalar>(s.pos().y())
 			)
 		);
 	}
@@ -234,7 +234,7 @@ try
 				/ FCPPT_TEXT("grass.png")
 			)
 		),
-		image_pointer(
+		image_vectorer(
 			sys.image_loader().load(
 				sge::config::media_path()
 				/ FCPPT_TEXT("gui")
@@ -271,10 +271,10 @@ try
 				image_bg
 			)
 		),
-		tex_pointer(
+		tex_vectorer(
 			sge::texture::add_image(
 				tex_man,
-				image_pointer
+				image_vectorer
 			)
 		),
 		tex_tux(
@@ -320,10 +320,10 @@ try
 		.elements()
 	);
 
-	sprite_object pointer(
+	sprite_object vectorer(
 		sprite_parameters()
 		.texture(
-			tex_pointer
+			tex_vectorer
 		)
 		.depth(
 			static_cast<
@@ -382,15 +382,15 @@ try
 	);
 
 	sys.audio_player()->listener().pos(
-		sge::audio::point(
-			static_cast<sge::audio::unit>(screen_size.w()/2),
-			static_cast<sge::audio::unit>(0),
-			static_cast<sge::audio::unit>(screen_size.h()/2)
+		sge::audio::vector(
+			static_cast<sge::audio::scalar>(screen_size.w()/2),
+			static_cast<sge::audio::scalar>(0),
+			static_cast<sge::audio::scalar>(screen_size.h()/2)
 		)
 	);
 
 	sys.audio_player()->speed_of_sound(
-		static_cast<sge::audio::unit>(500)
+		static_cast<sge::audio::scalar>(500)
 	);
 
 	sound_siren->positional(
@@ -398,8 +398,8 @@ try
 	);
 
 	sound_siren->rolloff(
-		static_cast<sge::audio::unit>(1)
-		/ static_cast<sge::audio::unit>(screen_size.h())
+		static_cast<sge::audio::scalar>(1)
+		/ static_cast<sge::audio::scalar>(screen_size.h())
 	);
 
 	sound_siren->play(
@@ -420,7 +420,7 @@ try
 	fcppt::signal::scoped_connection const pc(
 		sys.input_system()->register_callback(
 			sprite_functor(
-				pointer,
+				vectorer,
 				sound_siren
 			)
 		)
@@ -445,7 +445,7 @@ try
 		> sprites;
 
 		sprites.push_back(bg);
-		sprites.push_back(pointer);
+		sprites.push_back(vectorer);
 		sprites.push_back(tux);
 
 		ss.render(

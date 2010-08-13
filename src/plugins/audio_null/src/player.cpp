@@ -19,13 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../player.hpp"
-#include "../sound.hpp"
+#include "../positional.hpp"
+#include "../buffer.hpp"
 #include <fcppt/make_shared_ptr.hpp>
 
 sge::audio_null::player::player()
 :
-	listener_(),
-	speed_of_sound_(0)
+	listener_()
 {}
 
 sge::audio::listener &
@@ -34,34 +34,30 @@ sge::audio_null::player::listener()
 	return listener_;
 }
 
-sge::audio::unit
-sge::audio_null::player::speed_of_sound() const
-{
-	return speed_of_sound_;
-}
-
-void
-sge::audio_null::player::speed_of_sound(
-	audio::unit const nspeed
-)
-{
-	speed_of_sound_ = nspeed;
-}
-
-sge::audio::sound_ptr const
-sge::audio_null::player::create_nonstream_sound(
+sge::audio::buffer_ptr const
+sge::audio_null::player::create_buffer(
 	audio::file_ptr)
 {
-	return fcppt::make_shared_ptr<
-		sound
-	>();
+	return 
+		sge::audio::buffer_ptr(
+			new buffer());
 }
 
-sge::audio::sound_ptr const
-sge::audio_null::player::create_stream_sound(
+sge::audio::sound::positional_ptr const 
+sge::audio_null::player::create_positional_stream(
+	audio::file_ptr,
+	audio::sound::positional_parameters const &)
+{
+	return 
+		sge::audio::sound::positional_ptr(
+			new positional());
+}
+
+sge::audio::sound::base_ptr const 
+sge::audio_null::player::create_nonpositional_stream(
 	audio::file_ptr)
 {
-	return fcppt::make_shared_ptr<
-		sound
-	>();
+	return 
+		sge::audio::sound::positional_ptr(
+			new positional());
 }

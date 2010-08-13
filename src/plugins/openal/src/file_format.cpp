@@ -25,7 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/string.hpp>
 #include <fcppt/lexical_cast.hpp>
 
-ALenum sge::openal::file_format(audio::file const &file)
+ALenum 
+sge::openal::file_format(
+	audio::file const &file)
 {
 	if (file.bits_per_sample() == static_cast<audio::sample_count>(8) && file.channels() == static_cast<audio::channel_type>(1))
 		return AL_FORMAT_MONO8;

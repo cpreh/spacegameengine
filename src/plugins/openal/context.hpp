@@ -34,14 +34,28 @@ class device;
 
 class context
 {
-	FCPPT_NONCOPYABLE(context)
-	public:
-	typedef std::vector< std::pair<ALCint,ALCint> > attribute_container;
-	context(device &,attribute_container const & = attribute_container());
-	ALCcontext *alcontext();
-	void make_current();
+FCPPT_NONCOPYABLE(context)
+public:
+	typedef 
+	std::vector
+	< 
+		std::pair<ALCint,ALCint> 
+	> 
+	attribute_container;
+	
+	explicit
+	context(
+		device &,
+		attribute_container const & = attribute_container());
+	
+	ALCcontext *
+	alcontext();
+	
+	void 
+	make_current();
+	
 	~context();
-	private:
+private:
 	ALCcontext *context_;
 	device &device_;
 };
