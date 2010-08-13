@@ -3,6 +3,7 @@
 
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
+#include <sge/audio/scalar.hpp>
 #include <sge/audio/sound/repeat.hpp>
 #include <sge/audio/sound/play_status.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -32,6 +33,14 @@ public:
 
 	virtual play_status::type 
 	status() const = 0;
+
+	virtual void 
+	gain(
+		scalar) = 0;
+
+	virtual scalar 
+	gain() const = 0;
+
 
 	virtual void 
 	stop() = 0;

@@ -79,6 +79,11 @@ sge::openal::buffer::create_nonpositional()
 
 sge::openal::buffer::~buffer()
 {
+	FCPPT_LOG_DEBUG(
+		log(),
+		fcppt::log::_
+			<< FCPPT_TEXT("Deleting a buffer"));
+
 	alDeleteBuffers(
 		static_cast<ALsizei>(
 			1),

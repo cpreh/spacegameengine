@@ -32,13 +32,6 @@ public:
 		vector const &) = 0;
 
 	virtual void 
-	gain(
-		scalar) = 0;
-
-	virtual scalar 
-	gain() const = 0;
-
-	virtual void 
 	rolloff(
 		scalar) = 0;
 
