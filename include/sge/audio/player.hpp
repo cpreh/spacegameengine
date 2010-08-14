@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/file_ptr.hpp>
 #include <sge/audio/listener_fwd.hpp>
 #include <sge/audio/buffer_ptr.hpp>
+#include <sge/audio/player_capabilities_field.hpp>
 #include <sge/audio/sound/positional_ptr.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>
 #include <sge/audio/sound/base_ptr.hpp>
@@ -75,6 +76,9 @@ public:
 	virtual sound::base_ptr const 
 	create_nonpositional_stream(
 		file_ptr) = 0;
+
+	virtual player_capabilities_field const
+	capabilities() const = 0;
 
 	SGE_SYMBOL virtual ~player();
 };

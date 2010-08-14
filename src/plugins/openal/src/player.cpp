@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound/positional.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/text.hpp>
 #include <boost/foreach.hpp>
 
@@ -128,7 +129,7 @@ sge::openal::player::create_buffer(
 
 sge::audio::sound::positional_ptr const 
 sge::openal::player::create_positional_stream(
-	audio::file_ptr f,
+	audio::file_ptr const f,
 	audio::sound::positional_parameters const &p)
 {
 	return 
@@ -140,10 +141,17 @@ sge::openal::player::create_positional_stream(
 
 sge::audio::sound::base_ptr const 
 sge::openal::player::create_nonpositional_stream(
-		audio::file_ptr f)
+		audio::file_ptr const f)
 {
 	return 
 		audio::sound::positional_ptr(
 			new stream_sound(
 				f));
+}
+
+
+sge::audio::player_capabilities_field const
+sge::openal::player::capabilities() const
+{
+	return audio::player_capabilities_field::null();
 }

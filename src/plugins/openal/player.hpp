@@ -78,6 +78,9 @@ public:
 	audio::sound::base_ptr const 
 	create_nonpositional_stream(
 		audio::file_ptr);
+	
+	audio::player_capabilities_field const
+	capabilities() const;
 private:
 	device                    device_;
 	context                   context_;

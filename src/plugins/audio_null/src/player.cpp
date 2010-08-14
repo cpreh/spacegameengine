@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../player.hpp"
 #include "../positional.hpp"
 #include "../buffer.hpp"
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 
 sge::audio_null::player::player()
@@ -60,4 +61,10 @@ sge::audio_null::player::create_nonpositional_stream(
 	return 
 		sge::audio::sound::positional_ptr(
 			new positional());
+}
+
+sge::audio::player_capabilities_field const
+sge::audio_null::player::capabilities() const
+{
+	return sge::audio::player_capabilities::null;
 }

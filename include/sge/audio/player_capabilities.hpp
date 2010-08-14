@@ -18,57 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_AUDIO_NULL_PLAYER_HPP_INCLUDED
-#define SGE_AUDIO_NULL_PLAYER_HPP_INCLUDED
-
-#include "listener.hpp"
-#include <sge/audio/player.hpp>
+#ifndef SGE_AUDIO_PLAYER_CAPABILITIES_HPP_INCLUDED
+#define SGE_AUDIO_PLAYER_CAPABILITIES_HPP_INCLUDED
 
 namespace sge
 {
-namespace audio_null
+namespace audio
 {
 
-class player : public audio::player {
-public:
-	explicit
-	player();
-
-	audio::listener &
-	listener();
-
-	audio::scalar 
-	speed_of_sound() const { return audio::scalar(); }
-
-	void 
-	speed_of_sound(
-		audio::scalar) {}
-
-	audio::scalar
-	gain() const { return audio::scalar(); }
-
-	void
-	gain(
-		audio::scalar) {}
-
-	audio::buffer_ptr const
-	create_buffer(
-		audio::file_ptr);
-
-	audio::sound::positional_ptr const 
-	create_positional_stream(
-		audio::file_ptr,
-		audio::sound::positional_parameters const &);
-
-	audio::sound::base_ptr const 
-	create_nonpositional_stream(
-		audio::file_ptr);
-	
-	audio::player_capabilities_field const
-	capabilities() const;
-private:
-	audio_null::listener listener_;
+namespace player_capabilities
+{
+enum type
+{
+	null,
+	size
 };
+}
 
 }
 }
