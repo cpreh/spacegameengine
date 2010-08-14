@@ -67,9 +67,7 @@ sge::multi_loader<Loader, File, Exception, Capabilities>::multi_loader(
 		);
 
 		loader_ptr const loader_(
-			loader_ptr(
-				plugin_->get()()
-			)
+			plugin_->get()()
 		);
 
 		// check if this plugin might be useful

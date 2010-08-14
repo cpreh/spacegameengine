@@ -44,7 +44,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/log/headers.hpp>
+#include <fcppt/log/output.hpp>
+#include <fcppt/log/warning.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/text.hpp>
@@ -116,7 +117,9 @@ public:
 	);
 
 	void
-	init_audio_player();
+	init_audio_player(
+		sge::systems::audio_player const &
+	);
 
 	void
 	init_font();
@@ -164,6 +167,11 @@ public:
 	result_type
 	operator()(
 		sge::systems::audio_loader const &
+	) const;
+
+	result_type
+	operator()(
+		sge::systems::audio_player const &
 	) const;
 
 	result_type
@@ -325,6 +333,16 @@ visitor::operator()(
 
 void
 visitor::operator()(
+	sge::systems::audio_player const &p
+) const
+{
+	impl_.init_audio_player(
+		p
+	);
+}
+
+void
+visitor::operator()(
 	sge::systems::parameterless::type const type_
 ) const
 {
@@ -334,9 +352,6 @@ visitor::operator()(
 	{
 	case sge::systems::parameterless::input:
 		impl_.init_input();
-		return;
-	case sge::systems::parameterless::audio_player:
-		impl_.init_audio_player();
 		return;
 	case sge::systems::parameterless::collision_system:
 		impl_.init_collision_system();
@@ -450,11 +465,56 @@ sge::systems::instance::impl::init_audio_loader(
 }
 
 void
-sge::systems::instance::impl::init_audio_player()
+sge::systems::instance::impl::init_audio_player(
+	sge::systems::audio_player const &param
+)
 {
+	for(
+		plugin::iterator<sge::audio::player> it(
+			plugin_manager.begin<sge::audio::player>()
+		);
+		it != plugin_manager.end<sge::audio::player>();
+		++it
+	)
+	{
+		typedef sge::plugin::context<
+			sge::audio::player
+		>::ptr_type plugin_ptr;
+
+		plugin_ptr const plugin(
+			it->load()
+		);
+
+		sge::audio::player_ptr const player(
+			plugin->get()()
+		);
+
+		if(
+			player->capabilities() == param.capabilities()
+		)
+		{
+			audio_player_plugin = plugin;
+			
+			audio_player.reset(
+				audio_player_plugin->get()()
+			);
+
+			return;
+		}
+	}
+
+	FCPPT_LOG_WARNING(
+		sge::log::global(),
+		fcppt::log::_
+			<< FCPPT_TEXT("No audio player satisfied the audio player capabilities.")
+			<< FCPPT_TEXT(" Trying to use the default audio plugin.")
+	);
+
 	audio_player_plugin = default_plugin<sge::audio::player>();
 
-	audio_player.reset(audio_player_plugin->get()());
+	audio_player.reset(
+		audio_player_plugin->get()()
+	);
 }
 
 void

@@ -31,7 +31,6 @@ namespace parameterless
 enum type
 {
 	input,
-	audio_player,
 	collision_system,
 	font
 };

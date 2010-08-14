@@ -18,29 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_EXCEPTION_HPP_INCLUDED
-#define SGE_EXCEPTION_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_AUDIO_PLAYER_HPP_INCLUDED
+#define SGE_SYSTEMS_AUDIO_PLAYER_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/audio/player_capabilities_field.hpp>
 #include <sge/symbol.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/exception.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 
 namespace sge
 {
+namespace systems
+{
 
-class SGE_CLASS_SYMBOL exception
-:
-	public fcppt::exception
+class audio_player
 {
 public:
-	SGE_SYMBOL explicit exception(
-		fcppt::string const &
+	SGE_SYMBOL explicit audio_player(
+		audio::player_capabilities_field const &
 	);
 
-	SGE_SYMBOL virtual ~exception() throw();
+	SGE_SYMBOL audio::player_capabilities_field const &
+	capabilities() const;
+private:
+	audio::player_capabilities_field const capabilities_;
 };
 
+}
 }
 
 #endif

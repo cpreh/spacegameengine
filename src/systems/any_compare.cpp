@@ -63,6 +63,56 @@ priority(
 	fcppt::type_info const &
 );
 
+typedef fcppt::container::map<
+	std::map<
+		fcppt::type_info,
+		priority_type
+	>
+> priority_map;
+	
+priority_map const priorities(
+	fcppt::assign::make_container<
+		priority_map
+	>
+	(
+		std::make_pair(
+			fcppt::type_info(typeid(sge::window::parameters)),
+			0
+		)
+	)
+	(
+		std::make_pair(
+			fcppt::type_info(typeid(sge::renderer::parameters)),
+			1
+		)
+	)
+	(
+		std::make_pair(
+			fcppt::type_info(typeid(sge::systems::parameterless::type)),
+			2	
+		)
+	)
+	(
+		std::make_pair(
+			fcppt::type_info(typeid(sge::systems::image_loader)),
+			3	
+		)
+	)
+	(
+		std::make_pair(
+			fcppt::type_info(typeid(sge::systems::audio_loader)),
+			4	
+		)
+	)
+	(
+		std::make_pair(
+			fcppt::type_info(typeid(sge::systems::audio_player)),
+			5
+		)
+	)
+);
+
+
 }
 
 bool
@@ -111,50 +161,6 @@ priority(
 	fcppt::type_info const &t
 )
 {
-	typedef fcppt::container::map<
-		std::map<
-			fcppt::type_info,
-			priority_type
-		>
-	> priority_map;
-	
-	static priority_map const priorities(
-		fcppt::assign::make_container<
-			priority_map
-		>
-		(
-			std::make_pair(
-				fcppt::type_info(typeid(sge::window::parameters)),
-				0
-			)
-		)
-		(
-			std::make_pair(
-				fcppt::type_info(typeid(sge::renderer::parameters)),
-				1
-			)
-		)
-		(
-			std::make_pair(
-				fcppt::type_info(typeid(sge::systems::parameterless::type)),
-				2	
-			)
-		)
-		(
-			std::make_pair(
-				fcppt::type_info(typeid(sge::systems::image_loader)),
-				3	
-			)
-		)
-		(
-			std::make_pair(
-				fcppt::type_info(typeid(sge::systems::audio_loader)),
-				4	
-			)
-		)
-
-	);
-
 	return priorities[t];
 }
 

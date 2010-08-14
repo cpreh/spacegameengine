@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/millisecond.hpp>
 #include <sge/time/sleep.hpp>
 #include <sge/log/global.hpp>
+#include <sge/systems/audio_player_default.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/time/sleep.hpp>
@@ -45,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/io/cin.hpp>
+#include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <ostream>
@@ -98,7 +100,7 @@ try
 	sge::systems::instance sys(
 		sge::systems::list()
 		(
-			sge::systems::parameterless::audio_player
+			sge::systems::audio_player_default()
 		)
 		(
 			sge::systems::audio_loader(
@@ -295,7 +297,7 @@ try
 } catch (sge::audio::exception const &e) {
 	fcppt::io::cerr << FCPPT_TEXT("audio exception caught: ") << e.string() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
-} catch (sge::exception const &e) {
+} catch (fcppt::exception const &e) {
 	fcppt::io::cerr << FCPPT_TEXT("Exception caught: ") << e.string() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
 } catch (std::exception const &e) {

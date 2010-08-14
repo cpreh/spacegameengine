@@ -28,3 +28,7 @@ sge::exception::exception(
 		string_
 	)
 {}
+
+sge::exception::~exception() throw()
+{
+}
