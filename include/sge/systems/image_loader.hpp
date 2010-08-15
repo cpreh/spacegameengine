@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_IMAGE_LOADER_HPP_INCLUDED
 #define SGE_SYSTEMS_IMAGE_LOADER_HPP_INCLUDED
 
-#include <sge/systems/basic_loader_fwd.hpp>
+#include <sge/systems/basic_loader.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 
