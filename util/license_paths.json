@@ -1,0 +1,5 @@
+{
+  "standard_match" : ".*\.?pp",
+  "main_license" : "util/license_template.hpp",
+  "nolicense" : ["build/.*", "util/.*"]
+}
