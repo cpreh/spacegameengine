@@ -43,7 +43,8 @@ namespace bool_ {
 			clear_stencil,
 			enable_alpha_blending,
 			enable_lighting,
-			enable_multi_sampling
+			enable_multi_sampling,
+			write_to_zbuffer
 		};
 	}
 
@@ -63,7 +64,8 @@ namespace bool_ {
 		clear_stencil,
 		enable_alpha_blending,
 		enable_lighting,
-		enable_multi_sampling;
+		enable_multi_sampling,
+		write_to_zbuffer;
 }
 
 }

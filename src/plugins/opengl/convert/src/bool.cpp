@@ -25,12 +25,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 GLenum
 sge::opengl::convert::bool_(
-	renderer::state::bool_::type const s
+	renderer::state::bool_::type const _state
 )
 {
 	namespace rs = renderer::state::bool_::available_states;
 
-	switch(s.state()) {
+	switch(
+		_state.state()
+	)
+	{
 	case rs::enable_alpha_blending:
 		return GL_BLEND;
 	case rs::enable_lighting:
@@ -39,6 +42,7 @@ sge::opengl::convert::bool_(
 	case rs::clear_zbuffer:
 	case rs::clear_stencil:
 	case rs::enable_multi_sampling:
+	case rs::write_to_zbuffer:
 		break;
 	}
 

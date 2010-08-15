@@ -210,6 +210,17 @@ sge::opengl::state_visitor::operator()(
 			s.value()
 		);
 		return;
+	case rs::write_to_zbuffer:
+		glDepthMask(
+			s.value()
+		);
+
+		SGE_OPENGL_CHECK_STATE(
+			FCPPT_TEXT("glDepthMask failed"),
+			sge::renderer::exception
+		)
+
+		return;
 	}
 	
 	throw sge::renderer::exception(
