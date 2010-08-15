@@ -503,7 +503,7 @@ sge::openal::source::positional(
 		alSourcei(
 			source_id(),
 			AL_SOURCE_RELATIVE,
-			AL_TRUE);
+			AL_FALSE);
 
 		SGE_OPENAL_CHECK_STATE(
 			FCPPT_TEXT("alSourcei failed"),
@@ -520,7 +520,7 @@ sge::openal::source::positional(
 		alSourcei(
 			source_id(),
 			AL_SOURCE_RELATIVE,
-			AL_TRUE);
+			AL_FALSE);
 
 		SGE_OPENAL_CHECK_STATE(
 			FCPPT_TEXT("alSourcei failed"),

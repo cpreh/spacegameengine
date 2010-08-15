@@ -58,9 +58,10 @@ void
 sge::openal::listener::linear_velocity(
 	audio::vector const &n)
 {
+/*
 	FCPPT_LOG_DEBUG(
 		log(),
-		fcppt::log::_ << FCPPT_TEXT("setting listener velocity to ") << n);
+		fcppt::log::_ << FCPPT_TEXT("setting listener velocity to ") << n);*/
 	
 	linear_velocity_ = 
 		n;
@@ -88,9 +89,11 @@ void
 sge::openal::listener::position(
 	audio::vector const &n)
 {
+	/*
 	FCPPT_LOG_DEBUG(
 		log(),
 		fcppt::log::_ << FCPPT_TEXT("setting listener position to ") << n);
+*/
 	
 	position_ = n;
 	ALfloat const vec[3] =
