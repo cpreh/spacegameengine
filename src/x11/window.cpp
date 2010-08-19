@@ -87,7 +87,7 @@ sge::x11::window::window(
 	signals_()
 {
 	XSetWindowAttributes swa;
-		swa.colormap = _colormap->get();
+	swa.colormap = _colormap->get();
 	swa.border_pixel = 0;
 	swa.background_pixel = 0;
 	swa.override_redirect = fullscreen_ ? True : False;
