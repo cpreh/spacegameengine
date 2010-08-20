@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/filesystem/path.hpp>
 
 namespace sge
 {
@@ -43,6 +44,10 @@ public:
 	load(
 		istream &
 	) = 0;
+
+	virtual object_ptr const
+	load(
+		fcppt::filesystem::path const &) = 0;
 
 	SGE_SYMBOL virtual ~loader();
 };

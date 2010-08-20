@@ -33,6 +33,10 @@ public:
 	model::object_ptr const
 	load(
 		model::istream &);
+
+	model::object_ptr const
+	load(
+		fcppt::filesystem::path const &);
 };
 
 }

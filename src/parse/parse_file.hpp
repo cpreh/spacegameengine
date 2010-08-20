@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_PARSE_FILE_HPP_INCLUDED
 #define SGE_PARSE_PARSE_FILE_HPP_INCLUDED
 
+#include "parse_stream.hpp"
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/io/ifstream.hpp>
 

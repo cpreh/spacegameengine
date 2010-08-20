@@ -108,11 +108,6 @@ sge::openal::source::play(
 	repeat_ = _repeat;
 	do_play();
 
-	alSourcei(
-		source_id(),
-		AL_LOOPING,
-		repeat_ == audio::sound::repeat::loop ? AL_TRUE : AL_FALSE);
-
 	if (status() != audio::sound::play_status::playing)
 	{
 		alSourcePlay(
@@ -417,6 +412,10 @@ sge::openal::source::outer_cone_angle(
 void
 sge::openal::source::do_play()
 {
+	alSourcei(
+		source_id(),
+		AL_LOOPING,
+		repeat_ == audio::sound::repeat::loop ? AL_TRUE : AL_FALSE);
 }
 
 void 
