@@ -10,30 +10,32 @@ namespace sge
 {
 namespace parse
 {
+
 template<
 	typename Result
 >
 Result const
 parse_file_exn(
-	fcppt::filesystem::path const &path)
+	fcppt::filesystem::path const &_path
+)
 {
-	fcppt::io::ifstream ifs(
-		path,
-		std::ios_base::binary
-	);
-
 	Result result;
 
-	if ( 
-		!parse_file(
-			path,
+	if( 
+		!parse::parse_file(
+			_path,
 			result
-		))
-	throw exception(
-		FCPPT_TEXT("Unable to parse file \"")+path.string()+FCPPT_TEXT(""));
+		)
+	)
+		throw sge::parse::exception(
+			FCPPT_TEXT("Unable to parse file \"")
+			+
+			_path.string()
+		);
 
 	return result;
 }
+
 }
 }
 
