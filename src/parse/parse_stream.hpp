@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_PARSE_STREAM_HPP_INCLUDED
 
 #include <fcppt/io/istream.hpp>
-#include <fcppt/string.hpp>
+#include <fcppt/char_type.hpp>
+#include <boost/spirit/home/support/iterators/istream_iterator.hpp>
 
 namespace sge
 {
@@ -38,29 +39,20 @@ parse_stream(
 	Result &result
 )
 {
-	fcppt::string ret;
+	typedef boost::spirit::basic_istream_iterator<
+		fcppt::char_type
+	> istream_iterator;
 
-	{
-		fcppt::io::istream::char_type ch;
-		while(ifs.get(ch))
-			ret.push_back(ch);
-	}
-
-	typedef fcppt::string::const_iterator iterator;
-
-	iterator beg(
-		ret.begin()
+	istream_iterator begin(
+		ifs
 	);
 
-	return parse_range(
-		beg,
-		static_cast<
-			fcppt::string const &
-		>(
-			ret
-		).end(),
-		result
-	);
+	return
+		parse_range(
+			begin,
+			istream_iterator(),
+			result
+		);
 }
 
 }
