@@ -106,7 +106,8 @@ public:
 						- lit(FCPPT_TEXT('\\'))
 						- lit(FCPPT_TEXT('"'))
 					)
-					| (
+					|
+					(
 						lit(FCPPT_TEXT('\\'))
 						>> char_
 					)
@@ -114,7 +115,7 @@ public:
 				>> lit(FCPPT_TEXT('"'))
 			];
 
-		array_ =
+		array_ %=
 			(
 				lit(FCPPT_TEXT('['))
 				>> -(
@@ -122,10 +123,7 @@ public:
 					% lit(FCPPT_TEXT(','))
 				)
 				>> lit(FCPPT_TEXT(']'))
-			)
-			[
-				_val = boost::phoenix::construct<array>(_1)
-			];
+			);
 
 		value_ %=
 			object_
@@ -141,7 +139,7 @@ public:
 			>> lit(FCPPT_TEXT(':'))
 			>> value_;
 
-		object_ =
+		object_ %=
 			(
 				lit(FCPPT_TEXT('{'))
 				>> -(
@@ -149,10 +147,7 @@ public:
 					% lit(FCPPT_TEXT(','))
 				)
 				>> lit(FCPPT_TEXT('}'))
-			)
-			[
-				_val = boost::phoenix::construct<object>(_1)
-			];
+			);
 	}
 private:
 	boost::spirit::qi::int_parser<
