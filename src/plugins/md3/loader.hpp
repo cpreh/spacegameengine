@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MD3_LOADER_HPP_INCLUDED
 
 #include <sge/model/loader.hpp>
+#include <sge/model/load_flags.hpp>
 
 namespace sge
 {
@@ -32,11 +33,8 @@ class loader : public model::loader {
 public:
 	model::object_ptr const
 	load(
-		model::istream &);
-
-	model::object_ptr const
-	load(
-		fcppt::filesystem::path const &);
+		fcppt::filesystem::path const &,
+		model::load_flags::type);
 };
 
 }

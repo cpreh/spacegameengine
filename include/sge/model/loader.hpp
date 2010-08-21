@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/model/loader_fwd.hpp>
 #include <sge/model/object_ptr.hpp>
-#include <sge/model/istream.hpp>
+#include <sge/model/load_flags.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -42,12 +42,8 @@ protected:
 public:
 	virtual object_ptr const
 	load(
-		istream &
-	) = 0;
-
-	virtual object_ptr const
-	load(
-		fcppt::filesystem::path const &) = 0;
+		fcppt::filesystem::path const &,
+		load_flags::type = load_flags::none) = 0;
 
 	SGE_SYMBOL virtual ~loader();
 };

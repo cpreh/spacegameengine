@@ -53,7 +53,8 @@ fcppt::endianness::format::type const endian(
 }
 
 sge::md3::object::object(
-	model::istream &is
+	model::istream &is,
+	model::load_flags::type const lf
 )
 :
 	vertices_(0),
@@ -103,7 +104,7 @@ sge::md3::object::object(
 	is.seekg(start + ofs_surfaces, std::ios_base::beg);
 	for(s32 i = 0; i < num_surfaces; ++i)
 	{
-		surfaces_.push_back(surface(is, num_frames));
+		surfaces_.push_back(surface(is, lf, num_frames));
 		surface const &s = surfaces_.back();
 		indices_ += s.triangles.size();
 		vertices_ += s.transformed_vertices.size();
@@ -307,7 +308,7 @@ inline sge::md3::object::tag::tag(model::istream& is)
 		*i = read_vec3(is);
 }
 
-inline sge::md3::object::surface::surface(model::istream& is, const s32 num_frames_head)
+inline sge::md3::object::surface::surface(model::istream& is, model::load_flags::type const lf, const s32 num_frames_head)
 {
 	const model::istream::off_type start = is.tellg();
 
@@ -348,7 +349,7 @@ inline sge::md3::object::surface::surface(model::istream& is, const s32 num_fram
 	for(s32 i = 0; i < num_verts; ++i)
 		transformed_vertices.push_back(
 			transformed_vertex(
-				vertex(is)
+				vertex(is,lf)
 			)
 		);
 
@@ -381,13 +382,23 @@ sge::md3::object::surface::texcoord::texcoord(
 }
 
 sge::md3::object::surface::vertex::vertex(
-	model::istream& is)
+	model::istream& is,
+	model::load_flags::type const lf)
 :
 	x(fcppt::io::read<s16>(is, endian)),
 	y(fcppt::io::read<s16>(is, endian)),
 	z(fcppt::io::read<s16>(is, endian)),
 	normal(fcppt::io::read<s16>(is, endian))
-{}
+{
+	switch (lf)
+	{
+		case model::load_flags::none:
+			break;
+		case model::load_flags::switch_yz:
+			std::swap(y,z);
+			break;
+	}
+}
 
 sge::md3::object::surface::transformed_vertex::transformed_vertex(
 	vertex const &v)

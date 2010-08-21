@@ -22,34 +22,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../object.hpp"
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/io/cifstream.hpp>
 #include <fstream>
 
 sge::model::object_ptr const
 sge::md3::loader::load(
-	model::istream &is
-)
+	fcppt::filesystem::path const &p,
+	model::load_flags::type const lf)
 {
-	return fcppt::make_shared_ptr<
-		object
-	>(
-		std::tr1::ref(
-			is
-		)
-	);
-}
-
-sge::model::object_ptr const
-sge::md3::loader::load(
-	fcppt::filesystem::path const &p
-)
-{
-	std::ifstream file(
-		p.string().c_str());
-	return fcppt::make_shared_ptr<
-		object
-	>(
-		std::tr1::ref(
-			file
-		)
-	);
+	fcppt::io::cifstream file(
+		p);
+	return 
+		fcppt::make_shared_ptr<object>(
+			std::tr1::ref( 
+				file),
+			lf);
 }

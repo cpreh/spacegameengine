@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "funit.hpp"
 #include <sge/model/object.hpp>
 #include <sge/model/istream.hpp>
+#include <sge/model/load_flags.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
 #include <fcppt/tr1/array.hpp>
@@ -40,7 +41,8 @@ namespace md3
 class object : public model::object {
 public:
 	explicit object(
-		model::istream &);
+		model::istream &,
+		model::load_flags::type);
 
 	model::index_sequence const
 	indices(
@@ -96,7 +98,7 @@ public:
 
 	class surface {
 	public:
-		surface(std::istream& is, s32 num_frames);
+		surface(std::istream& is, model::load_flags::type, s32 num_frames);
 
 		class shader {
 		public:
@@ -127,7 +129,7 @@ public:
 
 		class vertex {
 		public:
-			explicit vertex(model::istream &);
+			explicit vertex(model::istream &,model::load_flags::type);
 
 			s16 x,
 			    y,
