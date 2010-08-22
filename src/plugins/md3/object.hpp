@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "funit.hpp"
 #include <sge/model/object.hpp>
-#include <sge/model/istream.hpp>
 #include <sge/model/load_flags.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
@@ -32,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <vector>
 #include <string>
 #include <cstddef>
+#include <istream>
 
 namespace sge
 {
@@ -41,7 +41,7 @@ namespace md3
 class object : public model::object {
 public:
 	explicit object(
-		model::istream &,
+		std::istream &,
 		model::load_flags::type);
 
 	model::index_sequence const
@@ -88,7 +88,7 @@ public:
 
 	class tag {
 	public:
-		explicit tag(model::istream& is);
+		explicit tag(std::istream& is);
 
 		string                           name;
 		vec3                             origin;
@@ -102,7 +102,7 @@ public:
 
 		class shader {
 		public:
-			explicit shader(model::istream &);
+			explicit shader(std::istream &);
 
 			string name;
 			s32 shader_index;
@@ -110,14 +110,14 @@ public:
 
 		class triangle {
 		public:
-			explicit triangle(model::istream &);
+			explicit triangle(std::istream &);
 			typedef std::tr1::array<s32, 3> index_array;
 			index_array indices;
 		};
 
 		class texcoord {
 		public:
-			explicit texcoord(model::istream &);
+			explicit texcoord(std::istream &);
 
 			typedef fcppt::math::vector::static_<
 				funit,
@@ -129,7 +129,7 @@ public:
 
 		class vertex {
 		public:
-			explicit vertex(model::istream &,model::load_flags::type);
+			explicit vertex(std::istream &,model::load_flags::type);
 
 			s16 x,
 			    y,
@@ -160,14 +160,14 @@ public:
 		transformed_vertex_vector               transformed_vertices;
 	};
 
-	static bool read_and_check_id3p(model::istream &);
+	static bool read_and_check_id3p(std::istream &);
 
 	static vec3 read_vec3(std::istream&);
 
 	template<
 		string::size_type Max
 	>
-	static string const read_string(model::istream &);
+	static string const read_string(std::istream &);
 
 	static vec3 convert_normal(s16);
 
