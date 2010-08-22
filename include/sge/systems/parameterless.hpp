@@ -32,6 +32,7 @@ enum type
 {
 	input,
 	collision_system,
+	md3_loader,
 	font
 };
 }

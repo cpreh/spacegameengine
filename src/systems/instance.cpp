@@ -39,6 +39,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/collision/plugin.hpp>
 #include <sge/font/system.hpp>
 #include <sge/font/plugin.hpp>
+#include <sge/model/plugin.hpp>
+#include <sge/model/loader.hpp>
+#include <sge/model/loader_ptr.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/window/create.hpp>
 #include <sge/log/global.hpp>
@@ -86,6 +89,9 @@ public:
 	plugin::object<font::system>::ptr_type          font_plugin;
 	font::system_ptr                                font_system;
 
+	plugin::object<model::loader>::ptr_type         md3_plugin;
+	model::loader_ptr                               md3_loader;
+
 	window::instance_ptr                            window_;
 
 	fcppt::optional<window::parameters>             wparam_;
@@ -123,6 +129,9 @@ public:
 
 	void
 	init_font();
+
+	void
+	init_md3();
 
 	void
 	post_init();
@@ -274,6 +283,12 @@ sge::systems::instance::font_system() const
 	return impl_->font_system;
 }
 
+sge::model::loader_ptr const
+sge::systems::instance::md3_loader() const
+{
+	return impl_->md3_loader;
+}
+
 sge::window::instance_ptr const
 sge::systems::instance::window() const
 {
@@ -358,6 +373,9 @@ visitor::operator()(
 		return;
 	case sge::systems::parameterless::font:
 		impl_.init_font();
+		return;
+	case sge::systems::parameterless::md3_loader:
+		impl_.init_md3();
 		return;
 	}
 
@@ -523,6 +541,14 @@ sge::systems::instance::impl::init_font()
 	font_plugin = default_plugin<sge::font::system>();
 
 	font_system.reset(font_plugin->get()());
+}
+
+void
+sge::systems::instance::impl::init_md3()
+{
+	md3_plugin = default_plugin<sge::model::loader>();
+
+	md3_loader.reset(md3_plugin->get()());
 }
 
 void
