@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/system_ptr.hpp>
 #include <sge/font/system_ptr.hpp>
+#include <sge/model/loader_ptr.hpp>
 #include <sge/input/system_ptr.hpp>
 #include <sge/image/multi_loader_fwd.hpp>
 #include <sge/audio/player_ptr.hpp>
@@ -82,6 +83,9 @@ public:
 
 	SGE_SYMBOL font::system_ptr const
 	font_system() const;
+
+	SGE_SYMBOL model::loader_ptr const
+	md3_loader() const;
 
 	SGE_SYMBOL sge::window::instance_ptr const
 	window() const;

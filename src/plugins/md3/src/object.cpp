@@ -53,14 +53,14 @@ fcppt::endianness::format::type const endian(
 }
 
 sge::md3::object::object(
-	model::istream &is,
+	std::istream &is,
 	model::load_flags::type const lf
 )
 :
 	vertices_(0),
 	indices_(0)
 {
-	model::istream::off_type const start = is.tellg();
+	std::istream::off_type const start = is.tellg();
 
 	if(!read_and_check_id3p(is))
 		throw exception(FCPPT_TEXT("Invalid md3 format!"));
@@ -226,7 +226,7 @@ sge::md3::object::part_names() const
 }
 
 
-bool sge::md3::object::read_and_check_id3p(model::istream& is)
+bool sge::md3::object::read_and_check_id3p(std::istream& is)
 {
 	typedef std::tr1::array<u8, 4> id3p_array;
 	id3p_array id3p,
@@ -240,7 +240,7 @@ template<
 	sge::md3::object::string::size_type Max
 >
 inline sge::md3::object::string const
-sge::md3::object::read_string(model::istream& is)
+sge::md3::object::read_string(std::istream& is)
 {
 	std::tr1::array<string::value_type, Max> tmp_name;
 	is.read(reinterpret_cast<char*>(tmp_name.data()), tmp_name.size());
@@ -280,7 +280,7 @@ sge::md3::object::surface_by_name(
 
 inline sge::md3::object::vec3
 sge::md3::object::read_vec3(
-	model::istream &is)
+	std::istream &is)
 {
 	return vec3(
 		fcppt::io::read<funit>(is, endian),
@@ -290,7 +290,7 @@ sge::md3::object::read_vec3(
 }
 
 inline sge::md3::object::frame::frame(
-	model::istream &is)
+	std::istream &is)
 :
 	min_bounds(read_vec3(is)),
 	max_bounds(read_vec3(is)),
@@ -299,7 +299,7 @@ inline sge::md3::object::frame::frame(
 	name(read_string<16>(is))
 {}
 
-inline sge::md3::object::tag::tag(model::istream& is)
+inline sge::md3::object::tag::tag(std::istream& is)
 :
 	name(read_string<max_qpath>(is)),
 	origin(read_vec3(is))
@@ -308,9 +308,9 @@ inline sge::md3::object::tag::tag(model::istream& is)
 		*i = read_vec3(is);
 }
 
-inline sge::md3::object::surface::surface(model::istream& is, model::load_flags::type const lf, const s32 num_frames_head)
+inline sge::md3::object::surface::surface(std::istream& is, model::load_flags::type const lf, const s32 num_frames_head)
 {
-	const model::istream::off_type start = is.tellg();
+	const std::istream::off_type start = is.tellg();
 
 	if(!read_and_check_id3p(is))
 		throw exception(FCPPT_TEXT("Invalid md3 surface!"));
@@ -357,21 +357,21 @@ inline sge::md3::object::surface::surface(model::istream& is, model::load_flags:
 }
 
 sge::md3::object::surface::shader::shader(
-	model::istream &is)
+	std::istream &is)
 :
 	name(read_string<max_qpath>(is)),
 	shader_index(fcppt::io::read<s32>(is, endian))
 {}
 
 sge::md3::object::surface::triangle::triangle(
-	model::istream& is)
+	std::istream& is)
 {
 	for(index_array::iterator i = indices.begin(); i != indices.end(); ++i)
 		*i = fcppt::io::read<s32>(is, endian);
 }
 
 sge::md3::object::surface::texcoord::texcoord(
-	model::istream& is)
+	std::istream& is)
 :
 	tex(
 		fcppt::io::read<funit>(is, endian),
@@ -382,7 +382,7 @@ sge::md3::object::surface::texcoord::texcoord(
 }
 
 sge::md3::object::surface::vertex::vertex(
-	model::istream& is,
+	std::istream& is,
 	model::load_flags::type const lf)
 :
 	x(fcppt::io::read<s16>(is, endian)),
