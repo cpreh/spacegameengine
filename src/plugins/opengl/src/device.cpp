@@ -132,6 +132,10 @@ sge::opengl::device::device(
 	target_->bind();
 }
 
+sge::opengl::device::~device()
+{
+}
+
 void
 sge::opengl::device::begin_rendering()
 {

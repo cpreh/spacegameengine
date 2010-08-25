@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list.hpp>
 #include <sge/window/instance_fwd.hpp>
 #include <sge/window/dim_type.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <stack>
 
@@ -55,12 +56,15 @@ class device
 :
 	public renderer::device
 {
+	FCPPT_NONCOPYABLE(device)
 public:
 	device(
 		renderer::parameters const &param,
 		renderer::adapter_type adapter,
 		window::instance_ptr wnd
 	);
+
+	~device();
 
 	void
 	begin_rendering();
