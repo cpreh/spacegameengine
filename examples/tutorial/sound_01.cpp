@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/audio_player_default.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file.hpp>
@@ -40,7 +41,7 @@ try
 	sge::systems::instance sys(
 		sge::systems::list()
 		(
-			sge::systems::parameterless::audio_player
+			sge::systems::audio_player_default()
 		)
 		(
 			sge::systems::audio_loader(

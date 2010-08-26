@@ -1,5 +1,5 @@
 ADD_SUBDIRECTORY(cg1)
-#ADD_SUBDIRECTORY(tutorial)
+ADD_SUBDIRECTORY(tutorial)
 
 MACRO (ADD_SGE_EXAMPLE name)
 	ADD_EXECUTABLE (sge${name}example ${name}.cpp)
