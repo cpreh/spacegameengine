@@ -53,7 +53,7 @@ sge::renderer::state::default_()
 			(alpha_func::off)
 			(fog_mode::off)
 			(draw_mode::fill)
-			(source_blend_func::src_alpha)
-			(dest_blend_func::inv_src_alpha)
+			(source_blend_func::one)
+			(dest_blend_func::zero)
 		;
 }

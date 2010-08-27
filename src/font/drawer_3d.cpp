@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/rect_fragmented.hpp>
 #include <sge/texture/default_creator_impl.hpp>
 #include <sge/renderer/filter/linear.hpp>
+#include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/image/view/dim.hpp>
 #include <sge/image/color/any/convert.hpp>
@@ -30,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/default_sort.hpp>
 #include <sge/sprite/default_equal.hpp>
 #include <sge/sprite/external_system_impl.hpp>
+#include <sge/sprite/render_states.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <utility>
@@ -126,6 +128,11 @@ sge::font::drawer_3d::draw_char(
 void
 sge::font::drawer_3d::end_rendering()
 {
+	sge::renderer::state::scoped const state(
+		sys.renderer(),
+		sge::sprite::render_states()
+	);
+
 	sys.render(
 		sprites.begin(),
 		sprites.end(),
