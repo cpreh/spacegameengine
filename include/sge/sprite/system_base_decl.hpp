@@ -22,13 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_SYSTEM_BASE_DECL_HPP_INCLUDED
 
 #include <sge/sprite/system_base_fwd.hpp>
-#include <sge/sprite/matrix.hpp>
 #include <sge/renderer/vf/dynamic/format.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/index_buffer_ptr.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <fcppt/math/matrix/basic_decl.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -43,23 +41,13 @@ class system_base
 {
 	FCPPT_NONCOPYABLE(system_base)
 public:
+#if 0
 	typedef typename sprite::matrix<
 		typename Choices::type_choices::float_type
 	>::type matrix;
-
+#endif
 	sge::renderer::device_ptr const
 	renderer() const;
-
-	void
-	transform(
-		matrix const &
-	);
-
-	matrix const &
-	transform() const;
-
-	void
-	matrices();
 protected:
 	explicit system_base(
 		sge::renderer::device_ptr rend
@@ -78,19 +66,13 @@ protected:
 	sge::renderer::index_buffer_ptr const
 	index_buffer() const;
 private:
-	sge::renderer::device_ptr const rend;
+	sge::renderer::device_ptr const renderer_;
 
-	matrix const
-		transform_matrix,
-		projection_matrix;
+	sge::renderer::vertex_buffer_ptr vb_;
 
-	matrix additional_transform_;
+	sge::renderer::index_buffer_ptr  ib_;
 
-	sge::renderer::vertex_buffer_ptr vb;
-
-	sge::renderer::index_buffer_ptr  ib;
-
-	static sge::renderer::vf::dynamic::format const dyn_vertex_fmt;
+	static sge::renderer::vf::dynamic::format const dyn_vertex_fmt_;
 };
 
 }

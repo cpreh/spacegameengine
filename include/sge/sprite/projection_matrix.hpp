@@ -18,13 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_EXTERNAL_SYSTEM_DECL_HPP_INCLUDED
-#define SGE_SPRITE_EXTERNAL_SYSTEM_DECL_HPP_INCLUDED
+#ifndef SGE_SPRITE_PROJECTION_MATRIX_HPP_INCLUDED
+#define SGE_SPRITE_PROJECTION_MATRIX_HPP_INCLUDED
 
-#include <sge/sprite/external_system_fwd.hpp>
-#include <sge/sprite/object_fwd.hpp>
-#include <sge/sprite/system_base_decl.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/sprite/matrix.hpp>
+#include <fcppt/math/matrix/orthogonal_xy.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
 
 namespace sge
 {
@@ -34,38 +33,16 @@ namespace sprite
 template<
 	typename Choices
 >
-class external_system
-:
-	public system_base<
-		Choices
-	>
+typename sprite::matrix<
+	typename Choices::float_type
+>::type const
+projection_matrix()
 {
-public:
-	typedef system_base<
-		Choices
-	> base;
-
-	typedef sprite::object<
-		Choices
-	> object;
-
-	explicit external_system(
-		renderer::device_ptr
-	);
-
-	template<
-		typename Iterator,
-		typename SortFunction,
-		typename EqualFunction
-	>
-	void
-	render(
-		Iterator begin,
-		Iterator end,
-		SortFunction const &,
-		EqualFunction const &
-	);
-};
+	return
+		fcppt::math::matrix::orthogonal_xy<
+			typename Choices::type_choices::float_type
+		>();
+}
 
 }
 }

@@ -28,10 +28,10 @@ template<
 	typename Choices
 >
 sge::sprite::intrusive::adder<Choices>::adder(
-	level_map &levels_
+	level_map &_levels
 )
 :
-	levels_(levels_)
+	levels_(_levels)
 {}
 
 template<
@@ -39,14 +39,14 @@ template<
 >
 void
 sge::sprite::intrusive::adder<Choices>::add(
-	object &sprite_,
-	order const order_
+	object &_sprite,
+	order const _order
 )
 {
 	levels_[
-		order_
+		_order
 	].push_back(
-		sprite_
+		_sprite
 	);
 }
 

@@ -38,15 +38,15 @@ void
 render_one(
 	external_system<
 		Choices
-	> &system_,
+	> &_system,
 	object<
 		Choices
-	> const &sprite_
+	> const &_sprite
 )
 {
-	system_.render(
-		&sprite_,
-		&sprite_ + 1u,
+	_system.render(
+		&_sprite,
+		&_sprite + 1u,
 		dont_sort(),
 		default_equal()
 	);

@@ -29,13 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/index_buffer.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/matrix_pixel_to_space.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
-#include <fcppt/math/matrix/orthogonal_xy.hpp>
-#include <fcppt/math/matrix/arithmetic.hpp>
 
 template<
 	typename Choices
@@ -43,70 +39,17 @@ template<
 sge::renderer::device_ptr const
 sge::sprite::system_base<Choices>::renderer() const
 {
-	return rend;
-}
-
-template<
-	typename Choices
->
-void
-sge::sprite::system_base<Choices>::transform(
-	matrix const &ntransform_matrix
-)
-{
-	additional_transform_ = ntransform_matrix;
-}
-
-template<
-	typename Choices
->
-typename sge::sprite::system_base<Choices>::matrix const &
-sge::sprite::system_base<Choices>::transform() const
-{
-	return additional_transform_;
-}
-
-template<
-	typename Choices
->
-void
-sge::sprite::system_base<Choices>::matrices()
-{
-	rend->transform(
-		renderer::matrix_mode::world,
-		transform_matrix
-		* additional_transform_
-	);
-
-	rend->transform(
-		renderer::matrix_mode::projection,
-		projection_matrix
-	);
+	return rend_;
 }
 
 template<
 	typename Choices
 >
 sge::sprite::system_base<Choices>::system_base(
-	renderer::device_ptr const rend
+	renderer::device_ptr const _rend
 )
 :
-	rend(rend),
-	transform_matrix(
-		renderer::matrix_pixel_to_space<
-			typename Choices::type_choices::float_type
-		>(
-			rend->screen_size()
-		)
-	),
-	projection_matrix(
-		fcppt::math::matrix::orthogonal_xy<
-			typename Choices::type_choices::float_type
-		>()
-	),
-	additional_transform_(
-		matrix::identity()
-	),
+	rend_(_rend),
 	vb(),
 	ib()
 {}
@@ -125,7 +68,9 @@ sge::sprite::system_base<Choices>::allocate_buffers(
 	sge::renderer::size_type const num_sprites
 )
 {
-	if(vb && vb->size() >= num_sprites * detail::vertices_per_sprite)
+	if(
+		vb && vb->size() >= num_sprites * detail::vertices_per_sprite
+	)
 		return;
 
 	vb = rend->create_vertex_buffer(

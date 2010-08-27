@@ -43,13 +43,13 @@ template<
 	typename Choices
 >
 sge::sprite::intrusive::system<Choices>::system(
-	renderer::device_ptr const rend
+	renderer::device_ptr const _rend
 )
 :
 	base(
-		rend
+		_rend
 	),
-	sprite_levels(),
+	sprite_levels_(),
 	adder_(
 		sprite_levels
 	)
@@ -72,15 +72,8 @@ sge::sprite::intrusive::system<Choices>::render_all(
 	EqualFunction const &equal
 )
 {
-	base::matrices();
-
 	renderer::device_ptr const rend(
 		base::renderer()
-	);
-
-	renderer::state::scoped const state_(
-		rend,
-		sprite::render_states()
 	);
 
 	BOOST_FOREACH(

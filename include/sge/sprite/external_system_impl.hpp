@@ -23,13 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/external_system_decl.hpp>
 #include <sge/sprite/system_base_impl.hpp>
-#include <sge/sprite/render_states.hpp>
 #include <sge/sprite/detail/fill_geometry.hpp>
 #include <sge/sprite/detail/optional_size.hpp>
 #include <sge/sprite/detail/render.hpp>
-#include <sge/renderer/state/scoped.hpp>
-#include <sge/renderer/state/var.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/index_buffer.hpp>
@@ -41,11 +37,11 @@ template<
 	typename Choices
 >
 sge::sprite::external_system<Choices>::external_system(
-	renderer::device_ptr const rend
+	renderer::device_ptr const _rend
 )
 :
  	base(
-		rend
+		_rend
 	)
 {}
 
@@ -59,13 +55,15 @@ template<
 >
 void
 sge::sprite::external_system<Choices>::render(
-	Iterator const begin,
-	Iterator const end,
+	Iterator const _begin,
+	Iterator const _end,
 	SortFunction const &sort_fun,
 	EqualFunction const &equal_fun
 )
 {
-	if(begin == end)
+	if(
+		begin == end
+	)
 		return;
 	
 	sort_fun(
@@ -102,15 +100,8 @@ sge::sprite::external_system<Choices>::render(
 		)
 	);
 
-	base::matrices();
-
 	renderer::device_ptr const rend(
 		base::renderer()
-	);
-
-	renderer::state::scoped const state_(
-		rend,
-		render_states()
 	);
 
 	renderer::scoped_vertex_buffer const vb_context(
