@@ -30,50 +30,58 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <algorithm>
 
 sge::texture::rect_fragmented::rect_fragmented(
-	renderer::device_ptr const rend,
-	image::color::format::type const format,
-	renderer::filter::texture const &filter
+	renderer::device_ptr const _rend,
+	image::color::format::type const _format,
+	renderer::filter::texture const &_filter,
+	renderer::dim_type const &_initial_size
 )
 :
-	rend(rend),
-	cur_x(0),
-	cur_y(0),
-	cur_height(0),
-	tex(
+	rend_(_rend),
+	cur_x_(0),
+	cur_y_(0),
+	cur_height_(0),
+	tex_(
 		atlasing::create_texture(
-			rend,
-			format,
-			filter
+			_rend,
+			_format,
+			_filter,
+			_initial_size
 		)
 	),
-	texture_count(0)
+	texture_count_(0)
 {}
 
 sge::texture::part_ptr const
 sge::texture::rect_fragmented::consume_fragment(
-	renderer::dim_type const &dim
+	renderer::dim_type const &_dim
 )
 {
 	renderer::texture::dim_type const atlased_dim(
 		atlasing::size(
-			dim,
+			_dim,
 			true
 		)
 	);
 
 	// if there is no space left for the requested height
-	if(cur_y + dim.h() >= tex->dim().h())
+	if(
+		cur_y_ + _dim.h() >= tex_->dim().h()
+	)
 		return part_ptr();
 
 	// if the current line is full advance to the next
-	if(cur_x + dim.w() >= tex->dim().w())
+	if(
+		cur_x_ + _dim.w() >= tex_->dim().w()
+	)
 	{
-		cur_x = 0;
-		cur_y += cur_height;
-		cur_height = 0;
+		cur_x_ = 0;
+		cur_y_ += cur_height_;
+		cur_height_ = 0;
 	}
 
-	if(cur_y + dim.h() >= tex->dim().h())
+	if(
+		cur_y_ + _dim.h() >= tex_->dim().h()
+	)
 		return part_ptr();
 
 	part_ptr const ret(
@@ -82,8 +90,8 @@ sge::texture::rect_fragmented::consume_fragment(
 		>(
 			renderer::lock_rect(
 				renderer::lock_rect::vector(
-					cur_x,
-					cur_y
+					cur_x_,
+					cur_y_
 				),
 				atlased_dim
 			),
@@ -95,10 +103,10 @@ sge::texture::rect_fragmented::consume_fragment(
 		)
 	);
 
-	cur_x += dim.w() + 1;
-	cur_height = std::max(cur_height, dim.h());
+	cur_x_ += _dim.w() + 1;
+	cur_height_ = std::max(cur_height_, _dim.h());
 
-	++texture_count;
+	++texture_count_;
 
 	return ret;
 }
@@ -108,13 +116,13 @@ sge::texture::rect_fragmented::on_return_fragment(
 	part const &
 )
 {
-	--texture_count;
+	--texture_count_;
 }
 
 sge::renderer::texture_ptr const
 sge::texture::rect_fragmented::texture() const
 {
-	return tex;
+	return tex_;
 }
 
 bool
@@ -126,16 +134,17 @@ sge::texture::rect_fragmented::repeatable() const
 sge::texture::free_type
 sge::texture::rect_fragmented::free_value() const
 {
-	return static_cast<
-		free_type
-	>(
-		(texture()->dim().h() - cur_height)
-		* texture()->dim().w()
-	);	
+	return
+		static_cast<
+			free_type
+		>(
+			(texture()->dim().h() - cur_height_)
+			* texture()->dim().w()
+		);	
 }
 
 bool
 sge::texture::rect_fragmented::empty() const
 {
-	return !texture_count;
+	return !texture_count_;
 }

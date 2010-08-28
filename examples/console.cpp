@@ -30,10 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/texture/default_creator.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/add_image.hpp>
-#include <sge/texture/default_creator_impl.hpp>
 #include <sge/texture/no_fragmented.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/multi_loader.hpp>
@@ -57,7 +55,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/text.hpp>
-#include <boost/foreach.hpp>
+#include <boost/spirit/home/phoenix/object/construct.hpp>
+#include <boost/spirit/home/phoenix/object/new.hpp>
 #include <ostream>
 #include <cstdlib>
 
@@ -152,18 +151,21 @@ try
 			)
 		);
 
-	sge::texture::default_creator<
-		sge::texture::no_fragmented
-	> const
-		creator(
-			sys.renderer(),
-			sge::image::color::format::rgba8,
-			sge::renderer::filter::linear
-		);
-
 	sge::texture::manager tex_man(
 		sys.renderer(),
-		creator
+		boost::phoenix::construct<
+			sge::texture::fragmented_auto_ptr
+		>
+		(
+			boost::phoenix::new_<
+				sge::texture::no_fragmented
+			>
+			(
+				sys.renderer(),
+				sge::image::color::format::rgba8,
+				sge::renderer::filter::linear
+			)
+		)
 	);
 
 	sge::texture::const_part_ptr const

@@ -19,24 +19,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/texture/atlasing/create_texture.hpp>
-#include <sge/texture/atlasing/texture_dim.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 
 sge::renderer::texture_ptr const
 sge::texture::atlasing::create_texture(
-	renderer::device_ptr const rend,
-	image::color::format::type const format,
-	renderer::filter::texture const &filter
+	renderer::device_ptr const _rend,
+	image::color::format::type const _format,
+	renderer::filter::texture const &_filter,
+	renderer::dim_type const &_dim
 )
 {
-	return rend->create_texture(
-		texture_dim(
-			rend
-		),
-		format,
-		filter,
+	return _rend->create_texture(
+		_dim,
+		_format,
+		_filter,
 		renderer::resource_flags::none
 	);
 }

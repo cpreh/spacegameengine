@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/font/drawer_3d.hpp>
 #include <sge/texture/rect_fragmented.hpp>
-#include <sge/texture/default_creator_impl.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/caps.hpp>
@@ -34,27 +33,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/render_states.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/function/object.hpp>
+#include <boost/spirit/home/phoenix/object/new.hpp>
+#include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <utility>
 
 sge::font::drawer_3d::drawer_3d(
-	renderer::device_ptr const rend,
-	sge::image::color::any::object const &col
+	renderer::device_ptr const _rend,
+	sge::image::color::any::object const &_col
 )
 :
-	rend(rend),
-	col(col),
-	texman(
-		rend,
-		texture::default_creator<
-			texture::rect_fragmented
+	rend_(_rend),
+	col_(_col),
+	texman_(
+		rend_,
+		boost::phoenix::construct<
+			texture::fragmented_auto_ptr
 		>(
-			rend,
-			rend->caps().preferred_texture_format(),
-			renderer::filter::linear
+			boost::phoenix::new_<
+				texture::rect_fragmented
+			>(
+				rend_,
+				rend_->caps().preferred_texture_format(),
+				renderer::filter::linear,
+				renderer::dim_type(
+					256,
+					256
+				)
+			)
 		)
 	),
-	sys(rend),
-	sprites()
+	sys_(rend_),
+	sprites_()
 {}
 
 sge::font::drawer_3d::~drawer_3d()
@@ -67,23 +77,23 @@ sge::font::drawer_3d::begin_rendering(
 	dim const &
 )
 {
-	sprites.clear();
+	sprites_.clear();
 
-	sprites.reserve(
+	sprites_.reserve(
 		buffer_chars
 	);
 }
 
 void
 sge::font::drawer_3d::draw_char(
-	fcppt::char_type const char_,
-	pos const &pos_,
-	const_image_view const &data_
+	fcppt::char_type const _char,
+	pos const &_pos,
+	const_image_view const &_data
 )
 {
 	sge::image::dim_type const dim(
 		sge::image::view::dim(
-			data_
+			_data
 		)
 	);
 
@@ -91,19 +101,21 @@ sge::font::drawer_3d::draw_char(
 		sprite_choices
 	> sprite_parameters;
 
-	sprites.push_back(
+	sprites_.push_back(
 		sprite_object(
 			sprite_parameters()
 			.pos(
-				pos_
+				_pos
 			)
 			.texture(
 				dim.content()
-					? cached_texture(
-						char_,
-						data_
+				?
+					cached_texture(
+						_char,
+						_data
 					)
-					: texture::const_part_ptr()
+				:
+					texture::const_part_ptr()
 			)
 			.size(
 				fcppt::math::dim::structure_cast<
@@ -117,7 +129,7 @@ sge::font::drawer_3d::draw_char(
 				image::color::any::convert<
 					sprite_object::color_format
 				>(
-					col
+					col_
 				)
 			)
 			.elements()
@@ -128,14 +140,9 @@ sge::font::drawer_3d::draw_char(
 void
 sge::font::drawer_3d::end_rendering()
 {
-	sge::renderer::state::scoped const state(
-		sys.renderer(),
-		sge::sprite::render_states()
-	);
-
-	sys.render(
-		sprites.begin(),
-		sprites.end(),
+	sys_.render(
+		sprites_.begin(),
+		sprites_.end(),
 		sprite::default_sort(),
 		sprite::default_equal()
 	);
@@ -143,30 +150,35 @@ sge::font::drawer_3d::end_rendering()
 
 void
 sge::font::drawer_3d::color(
-	sge::image::color::any::object const &new_color
+	sge::image::color::any::object const &_col
 )
 {
-	col = new_color;
+	col_ = _col;
 }
 
 sge::texture::const_part_ptr const
 sge::font::drawer_3d::cached_texture(
-	fcppt::char_type const ch,
-	const_image_view const &data
+	fcppt::char_type const _ch,
+	const_image_view const &_data
 )
 {
 	texture_map::const_iterator const it(
-		textures.find(ch)
+		textures_.find(
+			_ch
+		)
 	);
 
-	return it != textures.end()
-		? it->second
-		: textures.insert(
-			std::make_pair(
-				ch,
-				texman.add(
-					data
+	return
+		it != textures_.end()
+		?
+			it->second
+		:
+			textures_.insert(
+				std::make_pair(
+					_ch,
+					texman_.add(
+						_data
+					)
 				)
-			)
-		).first->second;
+			).first->second;
 }
