@@ -18,36 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXFUNCS_SET_HPP_INCLUDED
-#define SGE_OPENGL_TEXFUNCS_SET_HPP_INCLUDED
+#include "../color_to_internal_format.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include "../common.hpp"
-#include "../context/object_fwd.hpp"
-#include <sge/renderer/filter/texture_fwd.hpp>
-#include <sge/renderer/dim_type.hpp>
-#include <sge/renderer/const_raw_pointer.hpp>
-
-namespace sge
+GLenum
+sge::opengl::convert::color_to_internal_format(
+	image::color::format::type const _fmt
+)
 {
-namespace opengl
-{
-namespace texfuncs
-{
+	switch(_fmt)
+	{
+	case image::color::format::gray8:
+		return GL_LUMINANCE8;
+	case image::color::format::alpha8:
+		return GL_ALPHA;
+	case image::color::format::rgba8:
+		return GL_RGBA8;
+	case image::color::format::rgba32f:
+		return 4;
+	case image::color::format::rgb8:
+		return GL_RGB8;
+	case image::color::format::argb8:
+	case image::color::format::bgra8:
+	case image::color::format::argb32f:
+	case image::color::format::bgra32f:
+		return 4;
+	case image::color::format::size:
+		break;
+	}
 
-void
-set(
-	opengl::context::object &,
-	GLenum target,
-	GLenum format,
-	GLenum type,
-	GLenum internal_format,
-	renderer::filter::texture const &filter,
-	renderer::dim_type const &dim,
-	renderer::const_raw_pointer src
-);
-
+	throw renderer::exception(
+		FCPPT_TEXT("Invalid color_format in color_to_internal_format()!")
+	);
 }
-}
-}
-
-#endif

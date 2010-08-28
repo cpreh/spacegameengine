@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "texfuncs/delete.hpp"
 #include "convert/color_to_format.hpp"
 #include "convert/color_to_format_type.hpp"
+#include "convert/color_to_internal_format.hpp"
 #include "create_texture_lock.hpp"
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <sge/image/color/format_stride.hpp>
@@ -238,6 +239,15 @@ sge::opengl::basic_texture<Base>::format_type() const
 template<
 	typename Base
 >
+GLenum
+sge::opengl::basic_texture<Base>::internal_format() const
+{
+	return internal_format_;
+}
+
+template<
+	typename Base
+>
 sge::opengl::basic_texture<Base>::basic_texture(
 	opengl::context::object &_context,
 	renderer::filter::texture const &_filter,
@@ -258,6 +268,11 @@ sge::opengl::basic_texture<Base>::basic_texture(
 	),
 	format_type_(
 		convert::color_to_format_type(
+			_cformat
+		)
+	),
+	internal_format_(
+		convert::color_to_internal_format(
 			_cformat
 		)
 	),
