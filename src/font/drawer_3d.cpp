@@ -32,8 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/external_system_impl.hpp>
 #include <sge/sprite/render_states.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/dim/quad.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/function/object.hpp>
 #include <boost/spirit/home/phoenix/object/new.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <utility>
@@ -56,8 +56,9 @@ sge::font::drawer_3d::drawer_3d(
 				rend_,
 				rend_->caps().preferred_texture_format(),
 				renderer::filter::linear,
-				renderer::dim_type(
-					256,
+				fcppt::math::dim::quad<
+					renderer::dim_type
+				>(
 					256
 				)
 			)
