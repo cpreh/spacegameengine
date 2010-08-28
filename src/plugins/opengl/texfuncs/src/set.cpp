@@ -37,6 +37,7 @@ sge::opengl::texfuncs::set(
 	GLenum const _texture_type,
 	GLenum const _format,
 	GLenum const _format_type,
+	GLenum const _internal_format,
 	renderer::filter::texture const &_filter,
 	renderer::dim_type const &_dim,
 	renderer::const_raw_pointer const _src
@@ -76,7 +77,7 @@ sge::opengl::texfuncs::set(
 	glTexImage2D(
 		_texture_type,
 		0,
-		4,
+		_internal_format,
 		static_cast<GLsizei>(_dim.w()),
 		static_cast<GLsizei>(_dim.h()),
 		0,

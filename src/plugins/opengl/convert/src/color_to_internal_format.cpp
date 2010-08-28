@@ -18,39 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_DEFAULT_CREATOR_IMPL_HPP_INCLUDED
-#define SGE_TEXTURE_DEFAULT_CREATOR_IMPL_HPP_INCLUDED
+#include "../color_to_internal_format.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include <sge/texture/default_creator.hpp>
-#include <sge/renderer/device_ptr.hpp>
-
-template<
-	typename T
->
-sge::texture::default_creator<T>::default_creator(
-	renderer::device_ptr const rend,
-	image::color::format::type const format,
-	renderer::filter::texture const &filter
+GLenum
+sge::opengl::convert::color_to_internal_format(
+	image::color::format::type const _fmt
 )
-:
-	rend(rend),
-	format(format),
-	filter(filter)
-{}
-
-template<
-	typename T
->
-sge::texture::fragmented_auto_ptr
-sge::texture::default_creator<T>::operator()() const
 {
-	return fragmented_auto_ptr(
-		new T(
-			rend,
-			format,
-			filter
-		)
+	switch(_fmt)
+	{
+	case image::color::format::gray8:
+		return GL_LUMINANCE8;
+	case image::color::format::alpha8:
+		return GL_ALPHA;
+	case image::color::format::rgba8:
+		return GL_RGBA8;
+	case image::color::format::rgba32f:
+		return 4;
+	case image::color::format::rgb8:
+		return GL_RGB8;
+	case image::color::format::argb8:
+	case image::color::format::bgra8:
+	case image::color::format::argb32f:
+	case image::color::format::bgra32f:
+		return 4;
+	case image::color::format::size:
+		break;
+	}
+
+	throw renderer::exception(
+		FCPPT_TEXT("Invalid color_format in color_to_internal_format()!")
 	);
 }
-
-#endif

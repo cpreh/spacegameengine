@@ -91,18 +91,18 @@ private:
 		const_image_view const &
 	);
 
-	renderer::device_ptr rend;
+	renderer::device_ptr const rend_;
 
-	image::color::any::object col;
+	image::color::any::object col_;
 
-	texture::manager texman;
+	texture::manager texman_;
 
 	typedef std::map<
 		font::char_type,
 		texture::const_part_ptr
 	> texture_map;
 
-	texture_map textures;
+	texture_map textures_;
 
 	typedef sge::sprite::choices<
 		sge::sprite::type_choices<
@@ -128,9 +128,9 @@ private:
 		sprite_object
 	> sprite_container;
 
-	sprite_system sys;
+	sprite_system sys_;
 
-	sprite_container sprites;
+	sprite_container sprites_;
 };
 
 }

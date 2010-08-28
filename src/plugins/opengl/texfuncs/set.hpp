@@ -40,6 +40,7 @@ set(
 	GLenum target,
 	GLenum format,
 	GLenum type,
+	GLenum internal_format,
 	renderer::filter::texture const &filter,
 	renderer::dim_type const &dim,
 	renderer::const_raw_pointer src

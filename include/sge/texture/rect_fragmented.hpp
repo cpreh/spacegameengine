@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim_type.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/image/color/format.hpp>
+#include <sge/class_symbol.hpp>
 #include <sge/symbol.hpp>
 
 namespace sge
@@ -37,7 +38,7 @@ namespace sge
 namespace texture
 {
 
-class rect_fragmented
+class SGE_CLASS_SYMBOL rect_fragmented
 :
 	public fragmented
 {
@@ -45,7 +46,8 @@ public:
 	SGE_SYMBOL rect_fragmented(
 		renderer::device_ptr,
 		image::color::format::type,
-		renderer::filter::texture const &filter
+		renderer::filter::texture const &,
+		renderer::dim_type const &initial_size
 	);
 private:
 	SGE_SYMBOL part_ptr const
@@ -69,16 +71,16 @@ private:
 	SGE_SYMBOL bool
 	empty() const;
 
-	renderer::device_ptr const rend;
+	renderer::device_ptr const rend_;
 
 	renderer::size_type
-		cur_x,
-		cur_y,
-		cur_height;
+		cur_x_,
+		cur_y_,
+		cur_height_;
 
-	renderer::texture_ptr const tex;
+	renderer::texture_ptr const tex_;
 
-	renderer::size_type texture_count;
+	renderer::size_type texture_count_;
 };
 
 }

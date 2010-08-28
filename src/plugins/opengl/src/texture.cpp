@@ -74,6 +74,7 @@ sge::opengl::texture::texture(
 		type(),
 		format(),
 		format_type(),
+		internal_format(),
 		filter(),
 		dim(),
 		0

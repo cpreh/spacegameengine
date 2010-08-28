@@ -109,6 +109,9 @@ public:
 
 	GLenum
 	format_type() const;
+
+	GLenum
+	internal_format() const;
 protected:
 	basic_texture(
 		opengl::context::object &,
@@ -142,7 +145,8 @@ private:
 
 	GLenum const
 		format_,
-		format_type_;
+		format_type_,
+		internal_format_;
 
 	size_type const stride_;
 

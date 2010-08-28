@@ -18,15 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/texture/atlasing/texture_dim.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/caps.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#ifndef SGE_OPENGL_CONVERT_COLOR_TO_INTERNAL_FORMAT_HPP_INCLUDED
+#define SGE_OPENGL_CONVERT_COLOR_TO_INTERNAL_FORMAT_HPP_INCLUDED
 
-sge::renderer::dim_type const
-sge::texture::atlasing::texture_dim(
-	renderer::device_ptr const rend
-)
+#include "../common.hpp"
+#include <sge/image/color/format.hpp>
+
+namespace sge
 {
-	return rend->caps().max_texture_size();
+namespace opengl
+{
+namespace convert
+{
+
+GLenum
+color_to_internal_format(
+	image::color::format::type
+);
+
 }
+}
+}
+
+#endif

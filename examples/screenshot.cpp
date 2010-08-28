@@ -37,7 +37,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/colors.hpp>
 #include <sge/image/multi_loader.hpp>
 #include <sge/texture/manager.hpp>
-#include <sge/texture/default_creator_impl.hpp>
 #include <sge/texture/no_fragmented.hpp>
 #include <sge/texture/part.hpp>
 #include <sge/texture/add_image.hpp>
@@ -59,6 +58,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
+#include <boost/spirit/home/phoenix/object/construct.hpp>
+#include <boost/spirit/home/phoenix/object/new.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 
 int main()
@@ -111,12 +112,16 @@ try
 
 	sge::texture::manager tex_man(
 		device,
-		sge::texture::default_creator<
-			sge::texture::no_fragmented
+		boost::phoenix::construct<
+			sge::texture::fragmented_auto_ptr
 		>(
-			device,
-			sge::image::color::format::rgba8,
-			sge::renderer::filter::linear
+			boost::phoenix::new_<
+				sge::texture::no_fragmented
+			>(
+				device,
+				sge::image::color::format::rgba8,
+				sge::renderer::filter::linear
+			)
 		)
 	);
 

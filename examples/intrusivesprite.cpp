@@ -47,7 +47,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list.hpp>
 #include <sge/systems/parameterless.hpp>
 #include <sge/texture/add_image.hpp>
-#include <sge/texture/default_creator_impl.hpp>
 #include <sge/texture/no_fragmented.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/part_fwd.hpp>
@@ -60,6 +59,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
+#include <boost/spirit/home/phoenix/object/construct.hpp>
+#include <boost/spirit/home/phoenix/object/new.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <exception>
 #include <ostream>
@@ -111,19 +112,20 @@ try
 		)
 	);
 
-	typedef sge::texture::default_creator<
-		sge::texture::no_fragmented
-	> texture_creator;
-	
-	texture_creator const creator(
-		sys.renderer(),
-		sge::image::color::format::rgba8,
-		sge::renderer::filter::linear
-	);
-
 	sge::texture::manager tex_man(
 		sys.renderer(),
-		creator
+		boost::phoenix::construct<
+			sge::texture::fragmented_auto_ptr
+		>(
+			boost::phoenix::new_<
+				sge::texture::no_fragmented
+			>
+			(
+				sys.renderer(),
+				sge::image::color::format::rgba8,
+				sge::renderer::filter::linear
+			)
+		)
 	);
 
 	sge::texture::const_part_ptr const
