@@ -50,8 +50,8 @@ sge::sprite::system_base<Choices>::system_base(
 )
 :
 	rend_(_rend),
-	vb(),
-	ib()
+	vb_(),
+	ib_()
 {}
 
 template<
@@ -69,17 +69,17 @@ sge::sprite::system_base<Choices>::allocate_buffers(
 )
 {
 	if(
-		vb && vb->size() >= num_sprites * detail::vertices_per_sprite
+		vb_ && vb_->size() >= num_sprites * detail::vertices_per_sprite
 	)
 		return;
 
-	vb = rend->create_vertex_buffer(
-		dyn_vertex_fmt,
+	vb_ = rend_->create_vertex_buffer(
+		dyn_vertex_fmt_,
 		num_sprites * detail::vertices_per_sprite,
 		renderer::resource_flags::dynamic
 	);
 
-	ib = rend->create_index_buffer(
+	ib_ = rend_->create_index_buffer(
 		renderer::index::dynamic::format::i16,
 		num_sprites * detail::indices_per_sprite,
 		renderer::resource_flags::dynamic
@@ -92,7 +92,7 @@ template<
 sge::renderer::vertex_buffer_ptr const
 sge::sprite::system_base<Choices>::vertex_buffer() const
 {
-	return vb;
+	return vb_;
 }
 
 template<
@@ -101,14 +101,14 @@ template<
 sge::renderer::index_buffer_ptr const
 sge::sprite::system_base<Choices>::index_buffer() const
 {
-	return ib;
+	return ib_;
 }
 
 template<
 	typename Choices
 >
 sge::renderer::vf::dynamic::format const
-sge::sprite::system_base<Choices>::dyn_vertex_fmt(
+sge::sprite::system_base<Choices>::dyn_vertex_fmt_(
 	sge::renderer::vf::dynamic::make_format<
 		typename sge::sprite::detail::vertex_format<
 			Choices

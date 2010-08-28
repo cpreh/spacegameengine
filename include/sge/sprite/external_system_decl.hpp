@@ -65,6 +65,20 @@ public:
 		SortFunction const &,
 		EqualFunction const &
 	);
+
+	/// doesn't set any matrices or render states!
+	template<
+		typename Iterator,
+		typename SortFunction,
+		typename EqualFunction
+	>
+	void
+	render_advanced(
+		Iterator begin,
+		Iterator end,
+		SortFunction const &,
+		EqualFunction const &
+	);
 };
 
 }

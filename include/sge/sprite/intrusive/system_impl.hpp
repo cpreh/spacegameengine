@@ -26,11 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/fill_geometry.hpp>
 #include <sge/sprite/detail/optional_size.hpp>
 #include <sge/sprite/detail/render.hpp>
+#include <sge/sprite/detail/set_matrices.hpp>
 #include <sge/sprite/render_states.hpp>
 #include <sge/sprite/system_base_impl.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/renderer/state/scoped.hpp>
-#include <sge/renderer/state/var.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/index_buffer.hpp>
@@ -51,7 +51,7 @@ sge::sprite::intrusive::system<Choices>::system(
 	),
 	sprite_levels_(),
 	adder_(
-		sprite_levels
+		sprite_levels_
 	)
 {}
 
@@ -69,20 +69,27 @@ template<
 >
 void
 sge::sprite::intrusive::system<Choices>::render_all(
-	EqualFunction const &equal
+	EqualFunction const &_equal
 )
 {
-	renderer::device_ptr const rend(
+	sprite::detail::set_matrices<
+		typename Choices::type_choices
+	>(
 		base::renderer()
+	);
+
+	sge::renderer::state::scoped const state(
+		base::renderer(),
+		sprite::render_states()
 	);
 
 	BOOST_FOREACH(
 		typename level_map::value_type const &v,
-		sprite_levels
+		sprite_levels_
 	)
 		render(
 			*v.second,
-			equal
+			_equal
 		);
 }
 
@@ -94,15 +101,46 @@ template<
 >
 void
 sge::sprite::intrusive::system<Choices>::render(
-	order const order_,
-	EqualFunction const &equal
+	order const _order,
+	EqualFunction const &_equal
+)
+{
+	sprite::detail::set_matrices<
+		typename Choices::type_choices
+	>(
+		base::renderer()
+	);
+
+	sge::renderer::state::scoped const state(
+		base::renderer(),
+		sprite::render_states()
+	);
+
+	render(
+		sprite_levels_[
+			_order
+		],
+		_equal
+	);
+}
+
+template<
+	typename Choices
+>
+template<
+	typename EqualFunction
+>
+void
+sge::sprite::intrusive::system<Choices>::render_advanced(
+	order const _order,
+	EqualFunction const &_equal
 )
 {
 	render(
-		sprite_levels[
-			order_
+		sprite_levels_[
+			_order
 		],
-		equal
+		_equal
 	);
 }
 
@@ -118,7 +156,9 @@ sge::sprite::intrusive::system<Choices>::render(
 	EqualFunction const &equal
 )
 {
-	if(sprites.empty())
+	if(
+		sprites.empty()
+	)
 		return;
 	
 	// TODO: better track the sprites size

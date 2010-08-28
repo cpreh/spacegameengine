@@ -18,37 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_TRANSFORM_MATRIX_HPP_INCLUDED
-#define SGE_SPRITE_TRANSFORM_MATRIX_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_SET_MATRICES_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_SET_MATRICES_HPP_INCLUDED
 
-#include <sge/sprite/matrix.hpp>
-#include <sge/renderer/matrix_pixel_to_space.hpp>
-#include <sge/renderer/screen_size.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
+#include <sge/sprite/projection_matrix.hpp>
+#include <sge/sprite/transform_matrix.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/matrix_mode.hpp>
 
 namespace sge
 {
 namespace sprite
 {
+namespace detail
+{
 
 template<
 	typename TypeChoices
 >
-typename sprite::matrix<
-	typename TypeChoices::float_type
->::type const
-transform_matrix(
-	sge::renderer::screen_size const &_dim
+void
+set_matrices(
+	renderer::device_ptr const _device
 )
 {
-	return
-		renderer::matrix_pixel_to_space<
-			typename TypeChoices::float_type
+	_device->transform(
+		sge::renderer::matrix_mode::world,
+		sprite::transform_matrix<
+			TypeChoices
 		>(
-			_dim
-		);
+			_device->screen_size()
+		)
+	);
+
+	_device->transform(
+		sge::renderer::matrix_mode::projection,
+		sprite::projection_matrix<
+			TypeChoices
+		>()
+	);
 }
 
+}
 }
 }
 

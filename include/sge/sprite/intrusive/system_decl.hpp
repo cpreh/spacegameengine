@@ -82,6 +82,15 @@ public:
 		EqualFunction const &
 	);
 
+	template<
+		typename EqualFunction
+	>
+	void
+	render_advanced(
+		order,
+		EqualFunction const &
+	);
+
 	adder_base *
 	adder();
 private:
@@ -102,7 +111,7 @@ private:
 		Choices
 	>::type level_map;
 
-	level_map sprite_levels;
+	level_map sprite_levels_;
 
 	typedef intrusive::adder<
 		Choices

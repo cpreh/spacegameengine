@@ -23,13 +23,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/external_system_decl.hpp>
 #include <sge/sprite/system_base_impl.hpp>
+#include <sge/sprite/render_states.hpp>
 #include <sge/sprite/detail/fill_geometry.hpp>
 #include <sge/sprite/detail/optional_size.hpp>
 #include <sge/sprite/detail/render.hpp>
+#include <sge/sprite/detail/set_matrices.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/index_buffer.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
+#include <sge/renderer/state/scoped.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <iterator>
 
@@ -57,24 +60,59 @@ void
 sge::sprite::external_system<Choices>::render(
 	Iterator const _begin,
 	Iterator const _end,
-	SortFunction const &sort_fun,
-	EqualFunction const &equal_fun
+	SortFunction const &_sort_fun,
+	EqualFunction const &_equal_fun
+)
+{
+	detail::set_matrices<
+		typename Choices::type_choices
+	>(
+		base::renderer()	
+	);
+
+	sge::renderer::state::scoped const state(
+		base::renderer(),
+		sprite::render_states()
+	);
+
+	render_advanced(
+		_begin,
+		_end,
+		_sort_fun,
+		_equal_fun
+	);
+}
+
+template<
+	typename Choices
+>
+template<
+	typename Iterator,
+	typename SortFunction,
+	typename EqualFunction
+>
+void
+sge::sprite::external_system<Choices>::render_advanced(
+	Iterator const _begin,
+	Iterator const _end,
+	SortFunction const &_sort_fun,
+	EqualFunction const &_equal_fun
 )
 {
 	if(
-		begin == end
+		_begin == _end
 	)
 		return;
 	
-	sort_fun(
-		begin,
-		end
+	_sort_fun(
+		_begin,
+		_end
 	);
 
 	renderer::size_type const sprite_count(
 		std::distance(
-			begin,
-			end
+			_begin,
+			_end
 		)
 	);
 
@@ -91,8 +129,8 @@ sge::sprite::external_system<Choices>::render(
 	);
 
 	detail::fill_geometry(
-		begin,
-		end,
+		_begin,
+		_end,
 		vb,
 		ib,
 		detail::optional_size(
@@ -110,9 +148,9 @@ sge::sprite::external_system<Choices>::render(
 	);
 
 	detail::render(
-		begin,
-		end,
-		equal_fun,
+		_begin,
+		_end,
+		_equal_fun,
 		rend,
 		ib
 	);

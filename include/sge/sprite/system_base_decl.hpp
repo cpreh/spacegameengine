@@ -66,7 +66,7 @@ protected:
 	sge::renderer::index_buffer_ptr const
 	index_buffer() const;
 private:
-	sge::renderer::device_ptr const renderer_;
+	sge::renderer::device_ptr const rend_;
 
 	sge::renderer::vertex_buffer_ptr vb_;
 
