@@ -61,9 +61,16 @@ sge::opengl::set_texture(
 			last_type
 			!= texture_context::invalid_type
 		)
+		{
 			opengl::disable(
 				last_type
 			);
+
+			context.last_type(
+				texture_context::invalid_type,
+				_stage
+			);
+		}
 
 		return;
 	}
@@ -88,9 +95,14 @@ sge::opengl::set_texture(
 			opengl::disable(
 				last_type
 			);
-			
+
 		opengl::enable(
 			base.type()
+		);
+
+		context.last_type(
+			base.type(),
+			_stage
 		);
 	}
 
