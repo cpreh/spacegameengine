@@ -206,7 +206,8 @@ sge::opengl::fbo_context::fbo_context()
 				GL_STENCIL_ATTACHMENT_EXT
 			:
 				0
-	)
+	),
+	last_buffer_(0)
 {
 }
 
@@ -316,6 +317,20 @@ GLenum
 sge::opengl::fbo_context::stencil_attachment() const
 {
 	return stencil_attachment_;
+}
+
+GLuint
+sge::opengl::fbo_context::last_buffer() const
+{
+	return last_buffer_;
+}
+
+void
+sge::opengl::fbo_context::last_buffer(
+	GLuint const _last_buffer
+)
+{
+	last_buffer_ = _last_buffer;
 }
 
 sge::opengl::context::id const

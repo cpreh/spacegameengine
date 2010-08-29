@@ -89,6 +89,12 @@ sge::opengl::fbo_target::fbo_target(
 		throw sge::renderer::exception(
 			FCPPT_TEXT("FBO is incomplete!")
 		);
+	
+	// restore the last binding
+	opengl::bind_fbo(
+		context_,
+		context_.last_buffer()
+	);
 }
 
 sge::opengl::fbo_target::~fbo_target()
@@ -99,6 +105,10 @@ void
 sge::opengl::fbo_target::bind() const
 {
 	fbo_.bind();
+
+	context_.last_buffer(
+		fbo_.id()
+	);
 }
 
 void
@@ -106,6 +116,10 @@ sge::opengl::fbo_target::unbind() const
 {
 	opengl::bind_fbo(
 		context_,
+		0
+	);
+
+	context_.last_buffer(
 		0
 	);
 }

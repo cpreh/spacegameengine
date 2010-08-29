@@ -113,6 +113,14 @@ public:
 	GLenum
 	stencil_attachment() const;
 
+	GLuint
+	last_buffer() const;
+
+	void
+	last_buffer(
+		GLuint
+	);
+
 	typedef void needs_before;
 
 	static context::id const static_id;
@@ -148,6 +156,8 @@ private:
 		renderbuffer_target_,
 		depth_attachment_,
 		stencil_attachment_;
+
+	GLuint last_buffer_;
 };
 
 }

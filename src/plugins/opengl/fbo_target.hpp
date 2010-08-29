@@ -77,7 +77,7 @@ private:
 		GLenum attachment
 	);
 
-	fbo_context const &context_;
+	fbo_context &context_;
 
 	opengl::fbo fbo_;
 
