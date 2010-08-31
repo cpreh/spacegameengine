@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../disable.hpp"
 #include "../check_state.hpp"
 #include "../multi_sample_context.hpp"
-#include "../on_not_supported.hpp"
 #include "../point_sprite_context.hpp"
 #include "../context/use.hpp"
 #include "../convert/bool.hpp"
@@ -40,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/arithmetic_convert.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/unsupported.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/text.hpp>
 
@@ -209,7 +209,7 @@ sge::opengl::state_visitor::operator()(
 			)
 				return;
 
-			opengl::on_not_supported(
+			throw sge::renderer::unsupported(
 				FCPPT_TEXT("GL_POINT_SPRITE"),
 				FCPPT_TEXT("opengl-2.0"),
 				FCPPT_TEXT("ARB_point_sprite")
@@ -237,7 +237,7 @@ sge::opengl::state_visitor::operator()(
 			)
 				return;
 
-			on_not_supported(
+			throw sge::renderer::unsupported(
 				FCPPT_TEXT("multi sampling"),
 				FCPPT_TEXT("GL_VERSION_1_3"),
 				FCPPT_TEXT("GL_ARB_multisample")

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../arb/environment.hpp"
 #include "../../context/use.hpp"
 #include "../../common.hpp"
-#include "../../on_not_supported.hpp"
+#include <sge/renderer/unsupported.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
@@ -46,7 +46,7 @@ sge::opengl::glsl::create_program(
 	if(
 		!glsl_context.is_supported()
 	)
-		sge::opengl::on_not_supported(
+		throw sge::renderer::unsupported(
 			FCPPT_TEXT("shader"),
 			FCPPT_TEXT("2.0"),
 			FCPPT_TEXT("gl_arb_vertex_shader && gl_arb_fragment_shader")

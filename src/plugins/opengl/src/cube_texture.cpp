@@ -21,13 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 #include "../cube_texture.hpp"
 #include "../basic_texture_impl.hpp"
-#include "../on_not_supported.hpp"
 #include "../texture.hpp"
 #include "../cube_texture_context.hpp"
 #include "../context/use.hpp"
 #include "../convert/cube_side.hpp"
 #include "../glew/is_supported.hpp"
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/unsupported.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -73,7 +73,7 @@ sge::opengl::cube_texture::cube_texture(
 	if(
 		!cube_texture_context_.have_cube_texture()
 	)
-		sge::opengl::on_not_supported(
+		throw sge::renderer::unsupported(
 			FCPPT_TEXT("cube texture"),
 			FCPPT_TEXT("1.3"),
 	       		FCPPT_TEXT("gl_arb_cube_texture")

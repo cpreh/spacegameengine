@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../client_state_combiner.hpp"
 #include "../../glsl/context.hpp"
 #include "../../context/use.hpp"
-#include "../../on_not_supported.hpp"
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
+#include <sge/renderer/unsupported.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/assert.hpp>
 
@@ -74,7 +74,7 @@ sge::opengl::vf::attribute_actor::attribute_actor(
 	if(
 		!attribute_context_.is_supported()
 	)
-		opengl::on_not_supported(
+		throw sge::renderer::unsupported(
 			FCPPT_TEXT("glVertexAttribPointer"),
 			FCPPT_TEXT("GL_VERSION_2_0"),
 			FCPPT_TEXT("GL_ARB_vertex_shader")

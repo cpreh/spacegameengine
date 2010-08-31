@@ -18,64 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../fbo.hpp"
-#include "../fbo_context.hpp"
-#include "../check_state.hpp"
-#include "../bind_fbo.hpp"
-#include <sge/renderer/exception.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <fcppt/text.hpp>
 
-sge::opengl::fbo::fbo(
-	fbo_context const &_context
+sge::renderer::unsupported::unsupported(
+	fcppt::string const &_feature,
+	fcppt::string const &_minimum_version_required,
+	fcppt::string const &_possible_extensions
 )
 :
-	context_(_context)
+	renderer::exception(
+		FCPPT_TEXT("Unsupported feature \"")
+		+ _feature
+		+ FCPPT_TEXT("\". Minimum required version is \"")
+		+ _minimum_version_required
+		+ FCPPT_TEXT("\". Possible extensions are \"")
+		+ _possible_extensions
+		+ FCPPT_TEXT("\"!")
+	),
+	feature_(_feature),
+	minimum_version_required_(_minimum_version_required),
+	possible_extensions_(_possible_extensions)
+{}
+
+fcppt::string const &
+sge::renderer::unsupported::feature() const
 {
-	if(
-		!_context.is_supported()
-	)
-		throw sge::renderer::unsupported(
-			FCPPT_TEXT("glGenFrameBuffers"),
-			FCPPT_TEXT("Opengl-3.0"),
-			FCPPT_TEXT("frame_buffer_ext")
-		);
-
-	_context.gen_framebuffers()(
-		1,
-		&id_
-	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glGenFramebuffers failed"),
-		sge::renderer::exception
-	)
+	return feature_;
 }
 
-sge::opengl::fbo::~fbo()
+fcppt::string const &
+sge::renderer::unsupported::minimum_version_required() const
 {
-	context_.delete_framebuffers()(
-		1,
-		&id_
-	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glDeleteFramebuffers failed"),
-		sge::renderer::exception
-	)
+	return minimum_version_required_;
 }
 
-void 
-sge::opengl::fbo::bind() const
+fcppt::string const &
+sge::renderer::unsupported::possible_extensions() const
 {
-	opengl::bind_fbo(
-		context_,
-		id()
-	);
+	return possible_extensions_;
 }
 
-GLuint
-sge::opengl::fbo::id() const
+sge::renderer::unsupported::~unsupported() throw()
 {
-	return id_;
 }

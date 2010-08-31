@@ -18,24 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../on_not_supported.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_RENDERER_UNSUPPORTED_HPP_INCLUDED
+#define SGE_RENDERER_UNSUPPORTED_HPP_INCLUDED
 
-void
-sge::opengl::on_not_supported(
-	fcppt::string const &function,
-	fcppt::string const &min_version,
-	fcppt::string const &possible_extensions
-)
+#include <sge/renderer/exception.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/string.hpp>
+
+namespace sge
 {
-	throw renderer::exception(
-		FCPPT_TEXT("You tried to use the following functionality: \"")
-		+ function
-		+ FCPPT_TEXT("\" which is not supported by your implementation. opengl-")
-		+ min_version
-		+ FCPPT_TEXT(" is at least required. The possible extensions sge can use are: \"")
-		+ possible_extensions
-		+ FCPPT_TEXT("\".")
+namespace renderer
+{
+
+class SGE_CLASS_SYMBOL unsupported
+:
+	public sge::renderer::exception
+{
+public:
+	SGE_SYMBOL 
+	explicit unsupported(
+		fcppt::string const &feature,
+		fcppt::string const &minimum_version_required,
+		fcppt::string const &possible_extensions
 	);
+
+	SGE_SYMBOL
+	fcppt::string const &
+	feature() const;
+
+	SGE_SYMBOL
+	fcppt::string const &
+	minimum_version_required() const;
+
+	SGE_SYMBOL
+	fcppt::string const &
+	possible_extensions() const;
+
+	SGE_SYMBOL
+	~unsupported() throw();
+private:
+	fcppt::string
+		feature_,
+		minimum_version_required_,
+		possible_extensions_;
+};
+
 }
+}
+
+#endif
