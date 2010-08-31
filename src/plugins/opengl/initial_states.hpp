@@ -28,6 +28,7 @@ namespace sge
 namespace opengl
 {
 
+// states to initialize the state list with
 renderer::state::list const
 initial_states();
 

@@ -56,10 +56,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glsl/create_pixel_shader.hpp"
 #include <sge/renderer/index/i16.hpp>
 #include <sge/renderer/index/i32.hpp>
-#include <sge/renderer/state/default.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
+#include <sge/renderer/state/default.hpp>
 #include <sge/window/instance.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
@@ -122,7 +122,7 @@ sge::opengl::device::device(
 	glew::initialize();
 
 	state(
-		renderer::state::default_()
+		sge::renderer::state::default_()
 	);
 
 	projection_internal();

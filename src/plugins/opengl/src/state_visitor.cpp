@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../check_state.hpp"
 #include "../multi_sample_context.hpp"
 #include "../on_not_supported.hpp"
+#include "../point_sprite_context.hpp"
 #include "../context/use.hpp"
 #include "../convert/bool.hpp"
 #include "../convert/cull_mode.hpp"
@@ -52,6 +53,13 @@ sge::opengl::state_visitor::state_visitor(
 	multi_sample_context_(
 		context::use<
 			multi_sample_context
+		>(
+			_context
+		)
+	),
+	point_sprite_context_(
+		context::use<
+			point_sprite_context
 		>(
 			_context
 		)
@@ -171,9 +179,14 @@ sge::opengl::state_visitor::operator()(
 	renderer::state::bool_::type const s
 ) const
 {
+	// don't complain about unsupported but disabled states in case we don't support them
+	// because the default renderer settings will at least try to disable them
+
 	namespace rs = renderer::state::bool_::available_states;
 
-	switch(s.state())
+	switch(
+		s.state()
+	)
 	{
 	case rs::clear_backbuffer:
 	case rs::clear_zbuffer:
@@ -186,18 +199,44 @@ sge::opengl::state_visitor::operator()(
 			s.value()
 		);
 		return;
-	case rs::enable_multi_sampling:
+	case rs::enable_point_sprites:
 		if(
-			!s.value()
+			!point_sprite_context_.is_supported()
 		)
-			return;
+		{
+			if(
+				!s.value()
+			)
+				return;
 
+			opengl::on_not_supported(
+				FCPPT_TEXT("GL_POINT_SPRITE"),
+				FCPPT_TEXT("opengl-2.0"),
+				FCPPT_TEXT("ARB_point_sprite")
+			);
+		}
+
+		opengl::enable_bool(
+			point_sprite_context_.point_sprite_flag(),
+			s.value()
+		);
+
+		opengl::enable_bool(
+			point_sprite_context_.vertex_shader_size_flag(),
+			s.value()
+		);
+
+		return;
+	case rs::enable_multi_sampling:
 		if(
 			!multi_sample_context_.is_supported()
 		)
 		{
-			// don't complain here in case we don't have multi sampling
-			// because the default renderer settings will at least try to disable it
+			if(
+				!s.value()
+			)
+				return;
+
 			on_not_supported(
 				FCPPT_TEXT("multi sampling"),
 				FCPPT_TEXT("GL_VERSION_1_3"),
@@ -209,6 +248,7 @@ sge::opengl::state_visitor::operator()(
 			multi_sample_context_.flag(),
 			s.value()
 		);
+
 		return;
 	case rs::write_to_zbuffer:
 		glDepthMask(

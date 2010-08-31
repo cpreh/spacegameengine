@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_POINT_SPRITE_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_POINT_SPRITE_CONTEXT_HPP_INCLUDED
 
+#include "point_sprite_context_fwd.hpp"
 #include "common.hpp"
 #include "context/base.hpp"
 #include "context/id.hpp"

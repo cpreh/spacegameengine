@@ -18,37 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../clear_bit.hpp"
-#include <sge/renderer/state/trampoline.hpp>
-#include <sge/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_OPENGL_POINT_SPRITE_CONTEXT_FWD_HPP_INCLUDED
+#define SGE_OPENGL_POINT_SPRITE_CONTEXT_FWD_HPP_INCLUDED
 
-GLenum
-sge::opengl::convert::clear_bit(
-	renderer::state::bool_::trampoline_type const &_state
-)
+namespace sge
 {
-	namespace rs = sge::renderer::state::bool_::available_states;
+namespace opengl
+{
 
-	switch(
-		_state.state()
-	)
-	{
-	case rs::clear_backbuffer:
-		return GL_COLOR_BUFFER_BIT;
-	case rs::clear_zbuffer:
-		return GL_DEPTH_BUFFER_BIT;
-	case rs::clear_stencil:
-		return GL_STENCIL_BUFFER_BIT;
-	case rs::enable_alpha_blending:
-	case rs::enable_lighting:
-	case rs::enable_multi_sampling:
-	case rs::enable_point_sprites:
-	case rs::write_to_zbuffer:
-		break;
-	}
+class point_sprite_context;
 
-	throw exception(
-		FCPPT_TEXT("Invalid bool_state in convert_clear_bit()!")
-	);
 }
+}
+
+#endif

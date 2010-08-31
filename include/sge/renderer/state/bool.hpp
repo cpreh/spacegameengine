@@ -44,6 +44,7 @@ namespace bool_ {
 			enable_alpha_blending,
 			enable_lighting,
 			enable_multi_sampling,
+			enable_point_sprites,
 			write_to_zbuffer
 		};
 	}
@@ -65,6 +66,7 @@ namespace bool_ {
 		enable_alpha_blending,
 		enable_lighting,
 		enable_multi_sampling,
+		enable_point_sprites,
 		write_to_zbuffer;
 }
 

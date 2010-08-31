@@ -42,6 +42,7 @@ sge::opengl::convert::bool_(
 	case rs::clear_zbuffer:
 	case rs::clear_stencil:
 	case rs::enable_multi_sampling:
+	case rs::enable_point_sprites:
 	case rs::write_to_zbuffer:
 		break;
 	}

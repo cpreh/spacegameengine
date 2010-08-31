@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "split_states_fwd.hpp"
 #include "multi_sample_context_fwd.hpp"
+#include "point_sprite_context_fwd.hpp"
 #include "context/object_fwd.hpp"
 #include <sge/renderer/state/int.hpp>
 #include <sge/renderer/state/uint.hpp>
@@ -75,7 +76,9 @@ public:
 	result_type operator()(renderer::state::source_blend_func::type) const;
 	result_type operator()(renderer::state::dest_blend_func::type) const;
 private:
-	multi_sample_context &multi_sample_context_;
+	opengl::multi_sample_context &multi_sample_context_;
+
+	opengl::point_sprite_context &point_sprite_context_;
 
 	split_states &states_;
 
