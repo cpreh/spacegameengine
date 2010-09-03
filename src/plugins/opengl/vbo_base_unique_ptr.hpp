@@ -18,24 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VF_ACTOR_PTR_HPP_INCLUDED
-#define SGE_OPENGL_VF_ACTOR_PTR_HPP_INCLUDED
+#ifndef SGE_OPENGL_VBO_BASE_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_OPENGL_VBO_BASE_UNIQUE_PTR_HPP_INCLUDED
 
-#include "actor_fwd.hpp"
+#include "vbo_base_fwd.hpp"
 #include <fcppt/unique_ptr.hpp>
 
 namespace sge
 {
 namespace opengl
 {
-namespace vf
-{
 
 typedef fcppt::unique_ptr<
-	actor
-> actor_ptr;
+	vbo_base
+> vbo_base_unique_ptr;
 
-}
 }
 }
 

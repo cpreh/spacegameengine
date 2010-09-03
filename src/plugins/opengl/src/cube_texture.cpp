@@ -28,13 +28,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glew/is_supported.hpp"
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/unsupported.hpp>
+#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/foreach_enumerator.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/make_auto_ptr.hpp>
-#include <fcppt/auto_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 
 template class sge::opengl::basic_texture<
 	sge::renderer::cube_texture
@@ -83,13 +83,9 @@ sge::opengl::cube_texture::cube_texture(
 		index,
 		sge::renderer::cube_side
 	)
-	{
-		typedef fcppt::auto_ptr<
-			texture
-		> texture_auto_ptr;
-
-		texture_auto_ptr ptr(
-			fcppt::make_auto_ptr<
+		fcppt::container::ptr::push_back_unique_ptr(
+			textures_,
+			fcppt::make_unique_ptr<
 				texture
 			>(
 				std::tr1::ref(
@@ -108,11 +104,6 @@ sge::opengl::cube_texture::cube_texture(
 				)
 			)
 		);
-
-		textures_.push_back(
-			ptr
-		);
-	}
 }
 
 sge::opengl::cube_texture::~cube_texture()

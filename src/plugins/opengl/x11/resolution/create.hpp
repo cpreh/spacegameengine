@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_X11_RESOLUTION_CREATE_HPP_INCLUDED
 #define SGE_OPENGL_X11_RESOLUTION_CREATE_HPP_INCLUDED
 
-#include "auto_ptr.hpp"
+#include "unique_ptr.hpp"
 #include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/adapter_type.hpp>
 #include <sge/x11/window_ptr.hpp>
@@ -35,7 +35,7 @@ namespace x11
 namespace resolution
 {
 
-auto_ptr
+unique_ptr
 create(
 	sge::x11::window_ptr,
 	renderer::parameters const &,

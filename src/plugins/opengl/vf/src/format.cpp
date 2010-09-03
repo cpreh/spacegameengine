@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../actor.hpp"
 #include "../client_state_combiner.hpp"
 #include "../../common.hpp"
+#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/container/linear_set_impl.hpp>
 #include <boost/foreach.hpp>
 
@@ -46,7 +47,8 @@ sge::opengl::vf::format::format(
 		renderer::vf::dynamic::ordered_element_list::const_reference elem,
 		elems
 	)
-		actors.push_back(
+		fcppt::container::ptr::push_back_unique_ptr(
+			actors,
 			to_actor(
 				elem,
 				fmt.stride(),

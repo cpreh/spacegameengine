@@ -18,10 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_X11_RESOLUTION_AUTO_PTR_HPP_INCLUDED
-#define SGE_OPENGL_X11_RESOLUTION_AUTO_PTR_HPP_INCLUDED
-
-#include <fcppt/auto_ptr.hpp>
+#ifndef SGE_OPENGL_X11_RESOLUTION_INSTANCE_FWD_HPP_INCLUDED
+#define SGE_OPENGL_X11_RESOLUTION_INSTANCE_FWD_HPP_INCLUDED
 
 namespace sge
 {
@@ -33,8 +31,6 @@ namespace resolution
 {
 
 class instance;
-
-typedef fcppt::auto_ptr<instance> auto_ptr;
 
 }
 }

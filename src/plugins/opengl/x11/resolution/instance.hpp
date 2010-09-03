@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_X11_RESOLUTION_INSTANCE_HPP_INCLUDED
 #define SGE_OPENGL_X11_RESOLUTION_INSTANCE_HPP_INCLUDED
 
+#include "instance_fwd.hpp"
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -32,7 +33,8 @@ namespace x11
 namespace resolution
 {
 
-class instance {
+class instance
+{
 	FCPPT_NONCOPYABLE(instance)
 protected:
 	instance();

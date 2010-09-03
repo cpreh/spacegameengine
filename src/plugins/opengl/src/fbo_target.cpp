@@ -28,9 +28,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/parameters.hpp>
+#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/auto_ptr.hpp>
-#include <fcppt/make_auto_ptr.hpp>
+#include <fcppt/unique_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::fbo_target::fbo_target(
@@ -154,12 +155,12 @@ sge::opengl::fbo_target::attach_buffer(
 )
 {
 	{
-		typedef fcppt::auto_ptr<
+		typedef fcppt::unique_ptr<
 			render_buffer
 		> render_buffer_ptr;
 
 		render_buffer_ptr ptr(
-			fcppt::make_auto_ptr<
+			fcppt::make_unique_ptr<
 				render_buffer
 			>(
 				context_
@@ -180,17 +181,20 @@ sge::opengl::fbo_target::attach_buffer(
 			)
 		);
 
-		render_buffers_.push_back(
-			ptr
+		fcppt::container::ptr::push_back_unique_ptr(
+			render_buffers_,
+			move(
+				ptr
+			)
 		);
 	}
 
-	typedef fcppt::auto_ptr<
+	typedef fcppt::unique_ptr<
 		render_buffer_binding
 	> render_buffer_binding_ptr;
 
 	render_buffer_binding_ptr ptr(
-		fcppt::make_auto_ptr<
+		fcppt::make_unique_ptr<
 			render_buffer_binding
 		>(
 			context_,
@@ -200,7 +204,10 @@ sge::opengl::fbo_target::attach_buffer(
 		)
 	);
 
-	render_buffer_bindings_.push_back(
-		ptr
+	fcppt::container::ptr::push_back_unique_ptr(
+		render_buffer_bindings_,
+		move(
+			ptr
+		)
 	);
 }

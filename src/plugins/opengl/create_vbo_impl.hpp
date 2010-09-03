@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_CREATE_VBO_IMPL_HPP_INCLUDED
 #define SGE_OPENGL_CREATE_VBO_IMPL_HPP_INCLUDED
 
-#include "vbo_base_auto_ptr.hpp"
+#include "vbo_base_unique_ptr.hpp"
 
 namespace sge
 {
 namespace opengl
 {
 
-vbo_base_auto_ptr
+vbo_base_unique_ptr
 create_vbo_impl(
 	bool hw_supported
 );

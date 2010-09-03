@@ -30,10 +30,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global.hpp>
 #include <sge/x11/window.hpp>
 #include <sge/exception.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/log/headers.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 
-sge::opengl::x11::resolution::auto_ptr
+sge::opengl::x11::resolution::unique_ptr
 sge::opengl::x11::resolution::create(
 	sge::x11::window_ptr const wnd,
 	renderer::parameters const &param,
@@ -43,46 +44,60 @@ sge::opengl::x11::resolution::create(
 	if(
 		param.window_mode() == renderer::window_mode::windowed
 	)
-		return auto_ptr();
+		return unique_ptr();
 #if defined(SGE_HAVE_XRANDR)
 	try
 	{
-		return auto_ptr(
-			new xrandr_mode(
-				param.display_mode(),
-				wnd
-			)
-		);
+		return
+			resolution::unique_ptr(
+				fcppt::make_unique_ptr<
+					xrandr_mode
+				>(
+					param.display_mode(),
+					wnd
+				)
+			);
 	}
-	catch(exception const &e)
+	catch(
+		exception const &_exception
+	)
 	{
 		FCPPT_LOG_WARNING(
 			log::global(),
-			fcppt::log::_ << e.string());
+			fcppt::log::_ << _exception.string()
+		);
 	}
 #endif
 #if defined(SGE_HAVE_XF86_VMODE)
 	try
 	{
-		return auto_ptr(
-			new xf86_vmode(
-				param.display_mode(),
-				wnd->display(),
-				wnd->screen()
-			)
-		);
+		return
+			resolution::unique_ptr(
+				fcppt::make_unique_ptr<
+					xf86_vmode
+				>(
+					param.display_mode(),
+					wnd->display(),
+					wnd->screen()
+				)
+			);
 	}
-	catch(exception const &e)
+	catch(
+		exception const &_exception
+	)
 	{
 		FCPPT_LOG_WARNING(
 			log::global(),
-			fcppt::log::_ << e.string());
+			fcppt::log::_ << _exception.string()
+		);
 	}
 #endif
 	FCPPT_LOG_WARNING(
 		log::global(),
 		fcppt::log::_
 			<< FCPPT_TEXT("sge cannot switch resolutions because ")
-			<< FCPPT_TEXT("no known method worked!"));
-	return auto_ptr();
+			<< FCPPT_TEXT("no known method worked!")
+	);
+
+	return resolution::unique_ptr();
 }

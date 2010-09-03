@@ -18,21 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VBO_BASE_AUTO_PTR_HPP_INCLUDED
-#define SGE_OPENGL_VBO_BASE_AUTO_PTR_HPP_INCLUDED
+#ifndef SGE_OPENGL_X11_RESOLUTION_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_OPENGL_X11_RESOLUTION_UNIQUE_PTR_HPP_INCLUDED
 
-#include "vbo_base_fwd.hpp"
-#include <fcppt/auto_ptr.hpp>
+#include "instance_fwd.hpp"
+#include <fcppt/unique_ptr.hpp>
 
 namespace sge
 {
 namespace opengl
 {
+namespace x11
+{
+namespace resolution
+{
 
-typedef fcppt::auto_ptr<
-	vbo_base
-> vbo_base_auto_ptr;
+typedef fcppt::unique_ptr<
+	instance
+> unique_ptr;
 
+}
+}
 }
 }
 

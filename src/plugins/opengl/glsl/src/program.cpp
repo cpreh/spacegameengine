@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/make_auto_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 
 template<
 	typename Environment
@@ -226,22 +226,19 @@ sge::opengl::glsl::program<Environment>::do_use(
 template<
 	typename Environment
 >
-typename sge::opengl::glsl::program<Environment>::attachment_auto_ptr
+typename sge::opengl::glsl::program<Environment>::attachment_unique_ptr
 sge::opengl::glsl::program<Environment>::make_attachment(
 	sge::renderer::glsl::shader_ptr const _shader
 )
 {
-	attachment_auto_ptr ptr(
-		fcppt::make_auto_ptr<
+	return
+		fcppt::make_unique_ptr<
 			attachment_type
 		>(
 			holder_.context(),
 			_shader,
 			holder_.id()
-		)
-	);
-
-	return ptr;
+		);
 }
 
 #define SGE_OPENGL_GLSL_INSTANTIATE_PROGRAM(\

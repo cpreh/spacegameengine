@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/string.hpp>
 #include <sge/renderer/glsl/vertex_shader_ptr.hpp>
 #include <sge/renderer/glsl/shader_ptr.hpp>
-#include <fcppt/auto_ptr.hpp>
+#include <fcppt/unique_ptr.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -107,11 +107,11 @@ private:
 		Environment
 	> attachment_type;
 
-	typedef fcppt::auto_ptr<
+	typedef fcppt::unique_ptr<
 		attachment_type
-	> attachment_auto_ptr;
+	> attachment_unique_ptr;
 
-	attachment_auto_ptr
+	attachment_unique_ptr
 	make_attachment(
 		sge::renderer::glsl::shader_ptr
 	);
