@@ -48,7 +48,7 @@ sge::font::drawer_3d::drawer_3d(
 	texman_(
 		rend_,
 		boost::phoenix::construct<
-			texture::fragmented_auto_ptr
+			texture::fragmented_unique_ptr
 		>(
 			boost::phoenix::new_<
 				texture::rect_fragmented

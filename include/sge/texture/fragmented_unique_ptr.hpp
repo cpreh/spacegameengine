@@ -18,37 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_SIZED_CREATOR_HPP_INCLUDED
-#define SGE_TEXTURE_SIZED_CREATOR_HPP_INCLUDED
+#ifndef SGE_TEXTURE_FRAGMENTED_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_TEXTURE_FRAGMENTED_UNIQUE_PTR_HPP_INCLUDED
 
-#include <fcppt/texture/fragmented_auto_ptr.hpp>
-#include <sge/renderer/filter/texture.hpp>
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/image/color/format.hpp>
-#include <sge/renderer/dim_types.hpp>
+#include <sge/texture/fragmented_fwd.hpp>
+#include <fcppt/unique_ptr.hpp>
 
 namespace sge
 {
 namespace texture
 {
 
-template<
-	typename T
->
-class sized_creator {
-public:
-	sizede_creator(
-		renderer::device_ptr rend,
-		image::color::format::type format,
-	        renderer::filter::texture const &filter,
-	        renderer::texture::dim_type const &dim);
-	fragmented_auto_ptr operator()() const;
-private:
-	renderer::device_ptr rend;
-	image::color::format::type format;
-	renderer::filter::texture filter;
-	renderer::dim_type dim;
-};
+typedef fcppt::unique_ptr<
+	fragmented
+> fragmented_unique_ptr;
 
 }
 }

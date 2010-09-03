@@ -113,7 +113,7 @@ try
 	sge::texture::manager tex_man(
 		device,
 		boost::phoenix::construct<
-			sge::texture::fragmented_auto_ptr
+			sge::texture::fragmented_unique_ptr
 		>(
 			boost::phoenix::new_<
 				sge::texture::no_fragmented
