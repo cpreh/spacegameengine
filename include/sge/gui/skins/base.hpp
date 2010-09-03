@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/canvas/fwd.hpp>
 #include <sge/gui/export.hpp>
 #include <sge/gui/font_info.hpp>
-#include <fcppt/auto_ptr.hpp>
+#include <fcppt/unique_ptr.hpp>
 
 #define SGE_GUI_SKIN_DRAW_RETURN(name)\
 	void
@@ -107,8 +107,8 @@ class base
 		bool transparency = true);
 };
 
-typedef fcppt::auto_ptr<base> ptr;
-typedef fcppt::auto_ptr<base const> const_ptr;
+typedef fcppt::unique_ptr<base> ptr;
+typedef fcppt::unique_ptr<base const> const_ptr;
 }
 }
 }

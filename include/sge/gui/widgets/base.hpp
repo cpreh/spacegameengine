@@ -32,10 +32,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/rect.hpp>
 #include <sge/gui/image.hpp>
 #include <sge/gui/events/fwd.hpp>
+#include <sge/gui/layouts/base_ptr.hpp>
 #include <sge/gui/keyboard_focus.hpp>
 #include <sge/gui/activation_state.hpp>
 #include <sge/gui/key_handling.hpp>
-#include <sge/gui/layouts/fwd.hpp>
 #include <sge/gui/manager_fwd.hpp>
 #include <sge/gui/size_policy.hpp>
 #include <sge/image/store.hpp>
@@ -114,7 +114,7 @@ class SGE_CLASS_SYMBOL base
 	SGE_GUI_SYMBOL void activation(activation_state::type);
 	SGE_GUI_SYMBOL activation_state::type activation() const;
 
-	SGE_GUI_SYMBOL void layout(layouts::auto_ptr);
+	SGE_GUI_SYMBOL void layout(layouts::base_ptr);
 
 	SGE_GUI_SYMBOL layouts::base &layout();
 	SGE_GUI_SYMBOL layouts::base const &layout() const;
@@ -155,7 +155,7 @@ class SGE_CLASS_SYMBOL base
 	keyboard_focus::type keyboard_focus_;
 	mutable image buffer_;
 	child_container children_;
-	layouts::auto_ptr layout_;
+	layouts::base_ptr layout_;
 	activation_state::type activation_;
 
 	friend class layouts::base;

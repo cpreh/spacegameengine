@@ -36,7 +36,10 @@ sge::gui::manager::manager(
 	cursor::base_ptr const _cursor)
 :
 	skin_(
-		_skin),
+		move(
+			_skin
+		)
+	),
 	cursor_(
 		_cursor),
 	mouse_(

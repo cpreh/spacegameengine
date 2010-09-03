@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_GUI_LAYOUTS_BASE_HPP_INCLUDED
 
 #include <sge/gui/widgets/fwd.hpp>
-#include <sge/gui/layouts/fwd.hpp>
+#include <sge/gui/layouts/base_fwd.hpp>
 #include <sge/gui/point.hpp>
 #include <sge/gui/dim.hpp>
 #include <sge/gui/invalidation.hpp>

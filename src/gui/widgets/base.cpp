@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/object.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/type_name.hpp>
-#include <fcppt/make_auto_ptr.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <boost/foreach.hpp>
 #include <typeinfo>
@@ -77,8 +77,8 @@ sge::gui::widgets::base::base(
 	layout_(
 		params.layout()
 		? params.layout()
-		: layouts::auto_ptr(
-			fcppt::make_auto_ptr<
+		: layouts::base_ptr(
+			fcppt::make_shared_ptr<
 				layouts::null
 			>()
 		)
@@ -276,7 +276,7 @@ sge::gui::activation_state::type sge::gui::widgets::base::activation() const
 }
 
 void sge::gui::widgets::base::layout(
-	layouts::auto_ptr n)
+	layouts::base_ptr n)
 {
 	layout_ = n;
 	layout_->connected_widget(*this);

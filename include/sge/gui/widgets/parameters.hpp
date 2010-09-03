@@ -27,13 +27,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/export.hpp>
 #include <sge/gui/point.hpp>
 #include <sge/gui/depth_type.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
 #include <sge/gui/dim.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
 #include <sge/gui/size_policy.hpp>
-#include <sge/gui/layouts/fwd.hpp>
+#include <sge/gui/layouts/base_ptr.hpp>
 #include <sge/gui/keyboard_focus.hpp>
 #include <sge/gui/activation_state.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/optional.hpp>
 
 namespace sge
@@ -50,7 +50,7 @@ public:
 	SGE_GUI_SYMBOL parameters &size(dim const &);
 	SGE_GUI_SYMBOL parameters &size_policy(sge::gui::size_policy const &);
 	SGE_GUI_SYMBOL parameters &keyboard_focus(keyboard_focus::type const &);
-	SGE_GUI_SYMBOL parameters &layout(layouts::auto_ptr);
+	SGE_GUI_SYMBOL parameters &layout(layouts::base_ptr);
 	SGE_GUI_SYMBOL parameters &activation(activation_state::type);
 
 	SGE_GUI_SYMBOL optional_point const &pos() const;
@@ -58,7 +58,7 @@ public:
 	SGE_GUI_SYMBOL depth_type z() const;
 	SGE_GUI_SYMBOL sge::gui::size_policy const &size_policy() const;
 	SGE_GUI_SYMBOL keyboard_focus::type const &keyboard_focus() const;
-	SGE_GUI_SYMBOL layouts::auto_ptr layout() const;
+	SGE_GUI_SYMBOL layouts::base_ptr layout() const;
 	SGE_GUI_SYMBOL activation_state::type activation() const;
 private:
 	optional_point pos_;
@@ -66,7 +66,7 @@ private:
 	depth_type z_;
 	sge::gui::size_policy size_policy_;
 	keyboard_focus::type keyboard_focus_;
-	layouts::auto_ptr layout_;
+	layouts::base_ptr layout_;
 	activation_state::type activation_;
 };
 }

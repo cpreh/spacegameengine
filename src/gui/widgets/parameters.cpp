@@ -65,7 +65,7 @@ sge::gui::widgets::parameters::keyboard_focus(
 
 sge::gui::widgets::parameters &
 sge::gui::widgets::parameters::layout(
-	layouts::auto_ptr _layout)
+	layouts::base_ptr _layout)
 {
 	layout_ = _layout;
 	return *this;
@@ -109,7 +109,7 @@ sge::gui::widgets::parameters::keyboard_focus() const
 	return keyboard_focus_;
 }
 
-sge::gui::layouts::auto_ptr
+sge::gui::layouts::base_ptr
 sge::gui::widgets::parameters::layout() const
 {
 	return layout_;
