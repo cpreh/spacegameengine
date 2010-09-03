@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/image_too_big.hpp>
 #include <sge/image/view/dim.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr.hpp>
+#include <fcppt/container/ptr/insert_unique_ptr_set.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/text.hpp>
@@ -145,7 +146,7 @@ sge::texture::manager::add(
 		);
 	else
 		tmp->container_position(
-			fcppt::container::ptr::insert_unique_ptr(
+			fcppt::container::ptr::insert_unique_ptr_set(
 				free_textures,
 				move(
 					ntex

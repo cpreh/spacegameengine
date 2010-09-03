@@ -26,7 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config.hpp>
 #ifdef FCPPT_WINDOWS_PLATFORM
 #include <sge/windows/windows.hpp>
-#include <fcppt/auto_ptr.hpp>
+#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <exception>
@@ -134,21 +135,21 @@ sge::library::object::~object()
 		)
 	);
 
-	sge::auto_ptr<
-		context
-	> ctx(
-		new context(
-			module
-		)
-	);
-
 	// NOTE: we can't free the library here,
 	// because an exception might be propagating that
 	// has been risen from a dll
 	// if we destroy the dll here, the catch of
 	// exception will crash
-	if(std::uncaught_exception())
-		libraries.push_back(
+	if(
+		std::uncaught_exception()
+	)
+		fcppt::containter::ptr::push_back_unique_ptr(
+			libraries,
+			fcppt::make_unique_ptr<
+				context
+			>(
+				module
+			)
 			ctx
 		);
 	else

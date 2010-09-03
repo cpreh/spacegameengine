@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/exception.hpp>
 #include <sge/console/function.hpp>
 #include <sge/parse/encoding.hpp>
-#include <fcppt/auto_ptr.hpp>
-#include <fcppt/make_auto_ptr.hpp>
+#include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/text.hpp>
 #include <boost/spirit/include/qi.hpp>
@@ -70,19 +70,29 @@ sge::console::object::insert(
 )
 {
 	function_map::iterator i = funcs_.find(name);
+
 	if (i == funcs_.end())
 	{
-		fcppt::auto_ptr<function> sig(
-			fcppt::make_auto_ptr<function>(
-				short_description,
-				long_description));
-
-		std::pair<function_map::iterator,bool> const ret(
-			funcs_.insert(
+		typedef std::pair<
+			function_map::iterator,
+			bool
+		> ret_type;
+		
+		ret_type const ret(
+			fcppt::container::ptr::insert_unique_ptr_map(
+				funcs_,
 				name,
-				sig));
+				fcppt::make_unique_ptr<
+					function
+				>(
+					short_description,
+					long_description
+				)
+			)
+		);
 
 		i = ret.first;
+
 		FCPPT_ASSERT(ret.second);
 	}
 	return i->second->signal().connect(c);

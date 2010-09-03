@@ -75,7 +75,10 @@ sge::bullet::shapes::base::base(
 	collision::solidity::type const _s)
 :
 	shape_(
-		_shape),
+		move(
+			_shape
+		)
+	),
 	satellite_(
 		move(
 			_satellite

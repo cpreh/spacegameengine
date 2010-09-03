@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_BULLET_BULLET_SHAPE_PTR_HPP_INCLUDED
 #define SGE_BULLET_BULLET_SHAPE_PTR_HPP_INCLUDED
 
-#include <fcppt/auto_ptr.hpp>
+#include <fcppt/unique_ptr.hpp>
 #include <BulletCollision/CollisionShapes/btCollisionShape.h>
 
 namespace sge
@@ -29,7 +29,7 @@ namespace sge
 namespace bullet
 {
 typedef 
-fcppt::auto_ptr<btCollisionShape> 
+fcppt::unique_ptr<btCollisionShape> 
 bullet_shape_ptr;
 }
 }

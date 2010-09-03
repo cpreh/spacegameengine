@@ -42,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/default_equal.hpp>
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/external_system_impl.hpp>
+#include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/box/structure_cast.hpp>
 #include <fcppt/math/box/output.hpp>
@@ -58,8 +59,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert.hpp>
 #include <fcppt/type_name.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/make_auto_ptr.hpp>
-#include <fcppt/auto_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <boost/foreach.hpp>
 #include <utility>
 
@@ -148,18 +148,12 @@ void sge::gui::detail::managers::render::add(widgets::base &w)
 
 	if (!w.has_parent())
 	{
-		fcppt::auto_ptr<
-			widget_data
-		> to_insert(
-			fcppt::make_auto_ptr<
+		fcppt::container::ptr::insert_unique_ptr_map(
+			widgets,
+			w_ptr,
+			fcppt::make_unique_ptr<
 				widget_data
 			>()
-		);
-
-
-		widgets.insert(
-			w_ptr,
-			to_insert
 		);
 	}
 }
