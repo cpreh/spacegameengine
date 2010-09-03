@@ -126,7 +126,8 @@ sge::opengl::state_visitor::operator()(
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
-	renderer::state::float_::type const &s) const
+	renderer::state::float_::type const &s
+) const
 {
 	namespace rs = renderer::state::float_::available_states;
 
