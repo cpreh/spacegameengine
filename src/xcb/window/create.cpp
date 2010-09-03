@@ -26,9 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/xcb/create_id.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/make_auto_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 
-sge::xcb::window::auto_ptr
+sge::xcb::window::unique_ptr
 sge::xcb::window::create(
 	connection const &connection_,
 	id_num const &parent_,
@@ -66,7 +66,7 @@ sge::xcb::window::create(
 	);
 
 	return
-		fcppt::make_auto_ptr<
+		fcppt::make_unique_ptr<
 			window::object
 		>(
 			window_num,

@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_XCB_WINDOW_AUTO_PTR_HPP_INCLUDED
-#define SGE_XCB_WINDOW_AUTO_PTR_HPP_INCLUDED
+#ifndef SGE_XCB_WINDOW_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_XCB_WINDOW_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/xcb/window/object_fwd.hpp>
-#include <fcppt/auto_ptr.hpp>
+#include <fcppt/unique_ptr.hpp>
 
 namespace sge
 {
@@ -31,9 +31,9 @@ namespace xcb
 namespace window
 {
 
-typedef fcppt::auto_ptr<
+typedef fcppt::unique_ptr<
 	object
-> auto_ptr;
+> unique_ptr;
 
 }
 }

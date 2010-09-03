@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_XCB_WINDOW_CREATE_HPP_INCLUDED
 #define SGE_XCB_WINDOW_CREATE_HPP_INCLUDED
 
-#include <sge/xcb/window/auto_ptr.hpp>
+#include <sge/xcb/window/unique_ptr.hpp>
 #include <sge/xcb/window/id_num.hpp>
 #include <sge/xcb/window/pos.hpp>
 #include <sge/xcb/window/dim.hpp>
@@ -41,7 +41,7 @@ namespace window
 {
 
 SGE_XCB_SYMBOL
-auto_ptr
+unique_ptr
 create(
 	connection const &,
 	id_num const &parent,
