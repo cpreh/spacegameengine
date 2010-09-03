@@ -1,5 +1,5 @@
-#ifndef SGE_PARSE_FILE_EXN_HPP_INCLUDED
-#define SGE_PARSE_FILE_EXN_HPP_INCLUDED
+#ifndef SGE_PARSE_PARSE_FILE_EXN_HPP_INCLUDED
+#define SGE_PARSE_PARSE_FILE_EXN_HPP_INCLUDED
 
 #include "parse_file.hpp"
 #include <sge/parse/exception.hpp>
