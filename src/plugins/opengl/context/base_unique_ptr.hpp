@@ -18,21 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_LOCK_AUTO_PTR_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_LOCK_AUTO_PTR_HPP_INCLUDED
+#ifndef SGE_OPENGL_CONTEXT_BASE_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_OPENGL_CONTEXT_BASE_UNIQUE_PTR_HPP_INCLUDED
 
-#include "texture_lock_fwd.hpp"
-#include <fcppt/auto_ptr.hpp>
+#include "base_fwd.hpp"
+#include <fcppt/unique_ptr.hpp>
 
 namespace sge
 {
 namespace opengl
 {
+namespace context
+{
 
-typedef fcppt::auto_ptr<
-	texture_lock
-> texture_lock_auto_ptr;
+typedef fcppt::unique_ptr<
+	base
+> base_unique_ptr;
 
+}
 }
 }
 

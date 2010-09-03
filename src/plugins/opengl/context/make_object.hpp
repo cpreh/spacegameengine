@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_CONTEXT_MAKE_OBJECT_HPP_INCLUDED
 
 #include "use_fwd.hpp"
-#include "base_auto_ptr.hpp"
+#include "base_unique_ptr.hpp"
 #include "object_fwd.hpp"
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/make_auto_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp>
 
@@ -44,19 +44,18 @@ typename boost::enable_if<
 		typename Type::needs_before,
 		void
 	>,
-	base_auto_ptr
+	base_unique_ptr
 >::type
 make_object(
 	object &
 )
 {
-	base_auto_ptr ret(
-		fcppt::make_auto_ptr<
-			Type
-		>()
-	);
-
-	return ret;
+	return
+		base_unique_ptr(
+			fcppt::make_unique_ptr<
+				Type
+			>()
+		);
 }
 
 template<
@@ -67,26 +66,26 @@ typename boost::disable_if<
 		typename Type::needs_before,
 		void
 	>,
-	base_auto_ptr
+	base_unique_ptr
 >::type
 make_object(
 	object &_object
 )
 {
-/*
 	return
-		fcppt::make_auto_ptr<
-			Type
-		>(
-			std::tr1::ref(
-				context::use<
-					typename Type::needs_before
-				>(
-					_object
+		base_unique_ptr(
+			fcppt::make_unique_ptr<
+				Type
+			>(
+				std::tr1::ref(
+					context::use<
+						typename Type::needs_before
+					>(
+						_object
+					)
 				)
 			)
 		);
-*/
 }
 
 }

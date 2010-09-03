@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_CREATE_CAPS_HPP_INCLUDED
 #define SGE_OPENGL_CREATE_CAPS_HPP_INCLUDED
 
-#include "caps_auto_ptr.hpp"
+#include "caps_unique_ptr.hpp"
 #include "context/object_fwd.hpp"
 
 namespace sge
@@ -29,7 +29,7 @@ namespace sge
 namespace opengl
 {
 
-caps_auto_ptr
+caps_unique_ptr
 create_caps(
 	context::object &
 );

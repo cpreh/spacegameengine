@@ -28,9 +28,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../context/use.hpp"
 #include <sge/renderer/caps.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 
-sge::opengl::caps_auto_ptr
+sge::opengl::caps_unique_ptr
 sge::opengl::create_caps(
 	context::object &_context
 )
@@ -41,8 +42,10 @@ sge::opengl::create_caps(
 		)
 	);
 
-	return caps_auto_ptr(
-		new renderer::caps(
+	return
+		fcppt::make_unique_ptr<
+			renderer::caps
+		>(
 			0,
 			get_string(
 				GL_VENDOR
@@ -76,6 +79,5 @@ sge::opengl::create_caps(
 				_context
 			).is_supported(),
 			sge::image::color::format::rgba8 // TODO: use bgra8 for nvidia instead!
-		)
-	);
+		);
 }

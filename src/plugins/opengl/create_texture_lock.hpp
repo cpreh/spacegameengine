@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_CREATE_TEXTURE_LOCK_HPP_INCLUDED
 #define SGE_OPENGL_CREATE_TEXTURE_LOCK_HPP_INCLUDED
 
-#include "texture_lock_auto_ptr.hpp"
+#include "texture_lock_unique_ptr.hpp"
 #include "texture_lock.hpp"
 #include "lock_method.hpp"
 #include "context/object_fwd.hpp"
@@ -32,7 +32,7 @@ namespace sge
 namespace opengl
 {
 
-texture_lock_auto_ptr
+texture_lock_unique_ptr
 create_texture_lock(
 	context::object &,
 	lock_method::type,

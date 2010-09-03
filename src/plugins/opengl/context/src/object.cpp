@@ -35,25 +35,27 @@ sge::opengl::context::object::~object()
 
 sge::opengl::context::base *
 sge::opengl::context::object::get(
-	context::id const id_
+	context::id const _id
 )
 {
 	return
 		elements_.get(
-			id_
+			_id
 		);
 }
 
 sge::opengl::context::base &
 sge::opengl::context::object::insert(
-	context::id const id_,
-	base_auto_ptr ptr_
+	context::id const _id,
+	base_unique_ptr _ptr
 )
 {
 	base *const ret(
 		elements_.insert(
-			id_,
-			ptr_
+			_id,
+			move(
+				_ptr
+			)
 		)
 	);
 

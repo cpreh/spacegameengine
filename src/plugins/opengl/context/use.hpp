@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "use_fwd.hpp"
 #include "object.hpp"
-#include "base_auto_ptr.hpp"
 #include "make_object.hpp"
 
 namespace sge
@@ -57,21 +56,17 @@ use(
 				*ptr
 			);
 	
-	base_auto_ptr new_ptr(
-		context::make_object<
-			Type
-		>(
-			_object
-		)
-	);
-
 	return
 		static_cast<
 			Type &
 		>(
 			_object.insert(
 				Type::static_id,
-				new_ptr
+				context::make_object<
+					Type
+				>(
+					_object
+				)
 			)
 		);
 }

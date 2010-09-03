@@ -56,7 +56,7 @@ sge::opengl::context::container::get(
 sge::opengl::context::container::pointer
 sge::opengl::context::container::insert(
 	size_type const _index,
-	auto_ptr _ptr
+	unique_ptr _ptr
 )
 {
 	try

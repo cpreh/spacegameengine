@@ -23,9 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../writeonly_texture_lock.hpp"
 #include "../readwrite_texture_lock.hpp"
 #include <sge/exception.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 
-sge::opengl::texture_lock_auto_ptr
+sge::opengl::texture_lock_unique_ptr
 sge::opengl::create_texture_lock(
 	context::object &_context,
 	lock_method::type const method,
@@ -41,40 +43,55 @@ sge::opengl::create_texture_lock(
 	switch(method)
 	{
 	case lock_method::readonly:
-		return texture_lock_auto_ptr(
-			new readonly_texture_lock(
-				_context,
-				lock_size,
-				offset,
-				whole_size,
-				stride,
-				pitch,
-				block_size,
-				flags
-			)
-		);
+		return
+			texture_lock_unique_ptr(
+				fcppt::make_unique_ptr<
+					readonly_texture_lock
+				>(
+					std::tr1::ref(
+						_context
+					),
+					lock_size,
+					offset,
+					whole_size,
+					stride,
+					pitch,
+					block_size,
+					flags
+				)
+			);
 	case lock_method::writeonly:
-		return texture_lock_auto_ptr(
-			new writeonly_texture_lock(
-				_context,
-				lock_size,
-				stride,
-				flags
-			)
-		);
+		return
+			texture_lock_unique_ptr(
+				fcppt::make_unique_ptr<
+					writeonly_texture_lock
+				>(
+					std::tr1::ref(
+						_context
+					),
+					lock_size,
+					stride,
+					flags
+				)
+			);
 	case lock_method::readwrite:
-		return texture_lock_auto_ptr(
-			new readwrite_texture_lock(
-				_context,
-				lock_size,
-				offset,
-				whole_size,
-				stride,
-				pitch,
-				block_size,
-				flags
-			)
-		);
+		return
+			texture_lock_unique_ptr(
+				fcppt::make_unique_ptr<
+					readwrite_texture_lock
+				>(
+					std::tr1::ref(
+						_context
+					),
+					lock_size,
+					offset,
+					whole_size,
+					stride,
+					pitch,
+					block_size,
+					flags
+				)
+			);
 	}
 
 	throw sge::exception(

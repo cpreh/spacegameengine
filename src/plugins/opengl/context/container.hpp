@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "base_fwd.hpp"
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/auto_ptr.hpp>
+#include <fcppt/unique_ptr.hpp>
 #include <vector>
 #include <cstddef>
 
@@ -49,9 +49,9 @@ public:
 
 	typedef value_type *pointer;
 
-	typedef std::auto_ptr<
+	typedef fcppt::unique_ptr<
 		value_type
-	> auto_ptr;
+	> unique_ptr;
 
 	typedef std::size_t size_type;
 
@@ -76,7 +76,7 @@ public:
 	pointer
 	insert(
 		size_type index,
-		auto_ptr
+		unique_ptr
 	);
 private:
 	void
