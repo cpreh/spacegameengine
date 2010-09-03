@@ -77,7 +77,10 @@ sge::bullet::shapes::base::base(
 	shape_(
 		_shape),
 	satellite_(
-		_satellite),
+		move(
+			_satellite
+		)
+	),
 	world_(
 		_world),
 	body_(

@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_COLLISION_SATELLITE_PTR_HPP_INCLUDED
-#define SGE_COLLISION_SATELLITE_PTR_HPP_INCLUDED
+#ifndef SGE_COLLISION_CONST_SATELLITE_PTR_HPP_INCLUDED
+#define SGE_COLLISION_CONST_SATELLITE_PTR_HPP_INCLUDED
 
 #include <sge/collision/satellite_fwd.hpp>
 #include <fcppt/unique_ptr.hpp>
@@ -30,8 +30,8 @@ namespace collision
 {
 
 typedef fcppt::unique_ptr<
-	satellite
-> satellite_ptr;
+	satellite const
+> const_satellite_ptr;
 
 }
 }

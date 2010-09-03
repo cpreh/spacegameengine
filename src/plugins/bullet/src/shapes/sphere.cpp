@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../shapes/sphere.hpp"
 #include "../../log.hpp"
+#include <sge/collision/satellite.hpp>
 #include <fcppt/log/parameters/inherited.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/log/headers.hpp>
@@ -47,7 +48,9 @@ sge::bullet::shapes::sphere::sphere(
 		bullet_shape_ptr(
 			new btSphereShape(
 				_radius)),
-		_satellite,
+		move(
+			_satellite
+		),
 		_constraint,
 		_world,
 		_position,

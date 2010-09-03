@@ -151,7 +151,9 @@ sge::bullet::world::create_sphere(
 	return 
 		collision::shapes::sphere_ptr(
 			new shapes::sphere(
-				_satellite,
+				move(
+					_satellite
+				),
 				constrain_,
 				*this,
 				_radius,
@@ -169,7 +171,9 @@ sge::bullet::world::create_box(
 	return
 		collision::shapes::box_ptr(
 			new shapes::box(
-				_satellite,
+				move(
+					_satellite
+				),
 				constrain_,
 				*this,
 				_position,

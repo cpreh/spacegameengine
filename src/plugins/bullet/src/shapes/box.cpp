@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../convert/to_bullet.hpp"
 #include "../../convert/dim_to_sge.hpp"
 #include "../../log.hpp"
+#include <sge/collision/satellite.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/log/parameters/inherited.hpp>
 #include <fcppt/log/object.hpp>
@@ -54,7 +55,9 @@ sge::bullet::shapes::box::box(
 				convert::to_bullet(
 					_dim/
 					static_cast<unit>(2)))),
-		_satellite,
+		move(
+			_satellite
+		),
 		_constraint,
 		_world,
 		_position,
