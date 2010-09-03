@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/wndclass_pool.hpp>
 #include <sge/windows/module_handle.hpp>
 #include <sge/exception.hpp>
+#include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -31,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <fcppt/auto_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 
 namespace
 {
@@ -174,21 +175,18 @@ sge::windows::window::register_callback(
 		)
 	);
 
-	if(it == signals.end())
-	{
-		fcppt::auto_ptr<
-			signal_type
-		> sig(
-			new signal_type(
+	if(
+		it == signals.end()
+	)
+		fcppt::container::ptr::insert_unique_ptr_map(
+			signals,
+			msg,
+			fcppt::make_unique_ptr<
+				signal_type
+			>(
 				detail::combine_result
 			)
 		);
-
-		signals.insert(
-			msg,
-			sig
-		);
-	}
 
 	// TODO: can be optimized
 	return signals[msg].connect(func);

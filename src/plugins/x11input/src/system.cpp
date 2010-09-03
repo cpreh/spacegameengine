@@ -27,10 +27,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/display.hpp>
 #include <sge/x11/window.hpp>
 #include <sge/log/global.hpp>
+#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/auto_ptr.hpp>
+#include <fcppt/unique_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <ostream>
 
 sge::x11input::system::system(
@@ -107,9 +109,9 @@ sge::x11input::system::system(
 		)
 	);
 
-	typedef fcppt::auto_ptr<
+	typedef fcppt::unique_ptr<
 		device
-	> device_auto_ptr;
+	> device_unique_ptr;
 
 	input::callback const callback(
 		std::tr1::bind(
@@ -119,32 +121,30 @@ sge::x11input::system::system(
 		)
 	);
 
-	{
-		device_auto_ptr mouse_(
-			new mouse(
-				wnd,
-				callback
+	fcppt::container::ptr::push_back_unique_ptr(
+		devices,
+		fcppt::make_unique_ptr<
+			mouse
+		>(
+			wnd,
+			callback
+		)
+	);
+
+	fcppt::container::ptr::push_back_unique_ptr(
+		devices,
+		fcppt::make_unique_ptr<
+			keyboard
+		>(
+			wnd,
+			callback,
+			std::tr1::bind(
+				&system::emit_repeat_callback,
+				this,
+				std::tr1::placeholders::_1
 			)
-		);
-
-		devices.push_back(mouse_);
-	}
-
-	{
-		device_auto_ptr keyboard_(
-			new keyboard(
-				wnd,
-				callback,
-				std::tr1::bind(
-					&system::emit_repeat_callback,
-					this,
-					std::tr1::placeholders::_1
-				)
-			)
-		);
-
-		devices.push_back(keyboard_);
-	}
+		)
+	);
 }
 
 sge::x11input::system::~system()
