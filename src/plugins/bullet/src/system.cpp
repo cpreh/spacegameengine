@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../world.hpp"
 #include "../shapes/base.hpp"
 #include "../collision_proxy.hpp"
+#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/optional.hpp>
 #include <fcppt/assert.hpp>
 
 extern ContactDestroyedCallback gContactDestroyedCallback;
