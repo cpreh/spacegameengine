@@ -18,50 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_DEPTH_STENCIL_TEXTURE_HPP_INCLUDED
-#define SGE_OPENGL_DEPTH_STENCIL_TEXTURE_HPP_INCLUDED
+#ifndef SGE_OPENGL_CONVERT_DEPTH_STENCIL_TO_INTERNAL_FORMAT_HPP_INCLUDED
+#define SGE_OPENGL_CONVERT_DEPTH_STENCIL_TO_INTERNAL_FORMAT_HPP_INCLUDED
 
-#include "depth_stencil_texture_fwd.hpp"
-#include "texture_holder.hpp"
-#include "common.hpp"
-#include "context/object_fwd.hpp"
+#include "../common.hpp"
 #include <sge/renderer/depth_stencil_format.hpp>
-#include <sge/renderer/depth_stencil_texture.hpp>
-#include <fcppt/math/dim/basic_decl.hpp>
 
 namespace sge
 {
 namespace opengl
 {
-
-class depth_stencil_texture
-:
-	public sge::renderer::depth_stencil_texture
+namespace convert
 {
-	FCPPT_NONCOPYABLE(depth_stencil_texture)
-public:
-	explicit depth_stencil_texture(
-		opengl::context::object &,
-		dim_type const &,
-		renderer::depth_stencil_format::type
-	);
 
-	~depth_stencil_texture();
+GLenum
+depth_stencil_to_internal_format(
+	renderer::depth_stencil_format::type
+);
 
-	GLuint
-	id() const;
-private:
-	dim_type const
-	dim() const;
-
-	renderer::resource_flags_field const
-	flags() const;
-
-	texture_holder const holder_;
-
-	dim_type const dim_;
-};
-
+}
 }
 }
 

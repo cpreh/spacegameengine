@@ -604,6 +604,9 @@ sge::opengl::device::create_depth_stencil_texture(
 			fcppt::make_shared_ptr<
 				opengl::depth_stencil_texture
 			>(
+				std::tr1::ref(
+					context_
+				),
 				_dim,
 				_format
 			)

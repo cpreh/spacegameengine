@@ -19,11 +19,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../depth_stencil_texture.hpp"
+#include "../common.hpp"
+#include "../convert/depth_stencil_to_format.hpp"
+#include "../convert/depth_stencil_to_format_type.hpp"
+#include "../convert/depth_stencil_to_internal_format.hpp"
+#include "../texfuncs/bind.hpp"
+#include "../texfuncs/set.hpp"
+#include <sge/renderer/filter/point.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 
 sge::opengl::depth_stencil_texture::depth_stencil_texture(
+	opengl::context::object &_context,
 	dim_type const &_dim,
 	renderer::depth_stencil_format::type const _format
 )
@@ -31,6 +39,29 @@ sge::opengl::depth_stencil_texture::depth_stencil_texture(
 	holder_(),
 	dim_(_dim)
 {
+	GLenum const type = GL_TEXTURE_2D;
+
+	texfuncs::bind(
+		type,
+		id()
+	);
+
+	texfuncs::set(
+		_context,
+		type,
+		convert::depth_stencil_to_format(
+			_format
+		),
+		convert::depth_stencil_to_format_type(
+			_format
+		),
+		convert::depth_stencil_to_internal_format(
+			_format
+		),
+		sge::renderer::filter::point,
+		dim(),
+		0
+	);
 }
 
 sge::opengl::depth_stencil_texture::~depth_stencil_texture()
