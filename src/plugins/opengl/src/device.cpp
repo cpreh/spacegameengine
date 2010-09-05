@@ -551,7 +551,8 @@ sge::opengl::device::target() const
 
 sge::renderer::target_ptr const
 sge::opengl::device::create_target(
-	renderer::texture_ptr const _texture
+	renderer::texture_ptr const _texture,
+	renderer::depth_stencil_texture_ptr const _depth_stencil_texture
 )
 {
 	return
@@ -566,31 +567,37 @@ sge::opengl::device::create_target(
 				opengl::texture
 			>(
 				_texture
+			),
+			fcppt::dynamic_pointer_cast<
+				opengl::depth_stencil_texture
+			>(
+				_depth_stencil_texture
 			)
 		);
 }
 
 sge::renderer::texture_ptr const
 sge::opengl::device::create_texture(
-	renderer::texture::dim_type const &dim,
-	image::color::format::type const format,
-	renderer::filter::texture const &filter,
-	renderer::resource_flags_field const &flags
+	renderer::texture::dim_type const &_dim,
+	image::color::format::type const _format,
+	renderer::filter::texture const &_filter,
+	renderer::resource_flags_field const &_flags
 )
 {
-	return renderer::texture_ptr(
-		fcppt::make_shared_ptr<
-			opengl::texture
-		>(
-			std::tr1::ref(
-				context_
-			),
-			dim,
-			format,
-			filter,
-			flags
-		)
-	);
+	return
+		renderer::texture_ptr(
+			fcppt::make_shared_ptr<
+				opengl::texture
+			>(
+				std::tr1::ref(
+					context_
+				),
+				_dim,
+				_format,
+				_filter,
+				_flags
+			)
+		);
 }
 
 sge::renderer::depth_stencil_texture_ptr const

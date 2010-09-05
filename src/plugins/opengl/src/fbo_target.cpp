@@ -36,8 +36,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::fbo_target::fbo_target(
 	sge::opengl::context::object &_context,
-	sge::renderer::parameters const &param_,
-	opengl::texture_ptr const texture_
+	sge::renderer::parameters const &_param,
+	opengl::texture_ptr const _texture,
+	opengl::depth_stencil_texture_ptr const _depth_stencil_texture
 )
 :
 	context_(
@@ -52,12 +53,12 @@ sge::opengl::fbo_target::fbo_target(
 	),
 	texture_binding_(
 		context_,
-		texture_,
+		_texture,
 		fbo_
 	)
 {
 	if(
-		param_.depth_buffer() != renderer::depth_buffer::off
+		_param.depth_buffer() != renderer::depth_buffer::off
 	)
 		attach_buffer(
 			GL_DEPTH_COMPONENT,
@@ -65,7 +66,7 @@ sge::opengl::fbo_target::fbo_target(
 		);
 	
 	if(
-		param_.stencil_buffer() != renderer::stencil_buffer::off
+		_param.stencil_buffer() != renderer::stencil_buffer::off
 	)
 		attach_buffer(
 			GL_STENCIL_INDEX,

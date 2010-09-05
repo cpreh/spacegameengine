@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
+#include <sge/renderer/no_depth_stencil_texture.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/var.hpp>
@@ -200,7 +201,8 @@ try
 
 	sge::renderer::target_ptr const target(
 		sys.renderer()->create_target(
-			target_texture
+			target_texture,
+			sge::renderer::no_depth_stencil_texture()
 		)
 	);
 

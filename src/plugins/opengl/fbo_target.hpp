@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "fbo_target_fwd.hpp"
 #include "target.hpp"
 #include "texture_ptr.hpp"
+#include "depth_stencil_texture_ptr.hpp"
 #include "fbo.hpp"
 #include "fbo_texture_binding.hpp"
 #include "fbo_context_fwd.hpp"
@@ -49,7 +50,8 @@ public:
 	explicit fbo_target(
 		opengl::context::object &,
 		sge::renderer::parameters const &,
-		opengl::texture_ptr
+		opengl::texture_ptr,
+		opengl::depth_stencil_texture_ptr
 	);
 
 	~fbo_target();
