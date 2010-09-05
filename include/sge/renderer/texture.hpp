@@ -53,7 +53,8 @@ public:
 
 	typedef texture_pos_type   pos_type;
 
-	virtual dim_type const dim() const = 0;
+	virtual dim_type const
+	dim() const = 0;
 
 	SGE_SYMBOL image::view::object const
 	lock(
