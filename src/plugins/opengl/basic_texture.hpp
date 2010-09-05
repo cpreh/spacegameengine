@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "common.hpp"
 #include "texture_lock.hpp"
 #include "texture_base.hpp"
+#include "texture_holder.hpp"
 #include "lock_method.hpp"
 #include "context/object_fwd.hpp"
 #include <sge/renderer/filter/texture.hpp>
@@ -141,7 +142,7 @@ private:
 
 	renderer::resource_flags_field const flags_;
 
-	GLuint const id_;
+	opengl::texture_holder const holder_;
 
 	GLenum const
 		format_,

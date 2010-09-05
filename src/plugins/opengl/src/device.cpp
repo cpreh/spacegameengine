@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../create_caps.hpp"
 #include "../cube_texture.hpp"
 #include "../default_target.hpp"
+#include "../depth_stencil_texture.hpp"
 #include "../enable_bool.hpp"
 #include "../fbo_projection.hpp"
 #include "../fbo_target.hpp"
@@ -599,7 +600,14 @@ sge::opengl::device::create_depth_stencil_texture(
 )
 {
 	return
-		renderer::depth_stencil_texture_ptr(); // TODO!
+		renderer::depth_stencil_texture_ptr(
+			fcppt::make_shared_ptr<
+				opengl::depth_stencil_texture
+			>(
+				_dim,
+				_format
+			)
+		);
 }
 
 sge::renderer::cube_texture_ptr const

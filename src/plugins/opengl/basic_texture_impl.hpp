@@ -24,8 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "common.hpp"
 #include "texfuncs/bind.hpp"
 #include "texfuncs/set_filter.hpp"
-#include "texfuncs/gen.hpp"
-#include "texfuncs/delete.hpp"
 #include "convert/color_to_format.hpp"
 #include "convert/color_to_format_type.hpp"
 #include "convert/color_to_internal_format.hpp"
@@ -66,7 +64,7 @@ template<
 GLuint
 sge::opengl::basic_texture<Base>::id() const
 {
-	return id_;
+	return holder_.id();
 }
 
 template<
@@ -260,7 +258,7 @@ sge::opengl::basic_texture<Base>::basic_texture(
 	context_(_context),
 	filter_(_filter),
 	flags_(_flags),
-	id_(texfuncs::gen()),
+	holder_(),
 	format_(
 		convert::color_to_format(
 			_cformat
@@ -297,7 +295,6 @@ template<
 >
 sge::opengl::basic_texture<Base>::~basic_texture()
 {
-	texfuncs::delete_(id());
 }
 
 template<
