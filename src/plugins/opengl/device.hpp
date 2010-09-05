@@ -216,6 +216,12 @@ public:
 		renderer::resource_flags_field const &
 	);
 
+	renderer::depth_stencil_texture_ptr const
+	create_depth_stencil_texture(
+		renderer::dim_type const &,
+		renderer::depth_stencil_format::type
+	);
+
 	/*const renderer::volume_texture_ptr
 	create_volume_texture(
 		renderer::volume_texture::image_view_array const &,

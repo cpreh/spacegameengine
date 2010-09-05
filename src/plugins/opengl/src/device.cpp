@@ -592,6 +592,16 @@ sge::opengl::device::create_texture(
 	);
 }
 
+sge::renderer::depth_stencil_texture_ptr const
+sge::opengl::device::create_depth_stencil_texture(
+	renderer::dim_type const &_dim,
+	renderer::depth_stencil_format::type const _format
+)
+{
+	return
+		renderer::depth_stencil_texture_ptr(); // TODO!
+}
+
 sge::renderer::cube_texture_ptr const
 sge::opengl::device::create_cube_texture(
 	renderer::size_type const border_size,
