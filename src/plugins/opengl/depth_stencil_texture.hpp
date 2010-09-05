@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "depth_stencil_texture_fwd.hpp"
 #include "texture_holder.hpp"
+#include "texture_base.hpp"
 #include "common.hpp"
 #include "context/object_fwd.hpp"
 #include <sge/renderer/depth_stencil_format.hpp>
@@ -36,7 +37,8 @@ namespace opengl
 
 class depth_stencil_texture
 :
-	public sge::renderer::depth_stencil_texture
+	public sge::renderer::depth_stencil_texture,
+	public opengl::texture_base
 {
 	FCPPT_NONCOPYABLE(depth_stencil_texture)
 public:
@@ -51,6 +53,9 @@ public:
 	GLuint
 	id() const;
 private:
+	void
+	bind_me() const;
+
 	dim_type const
 	dim() const;
 

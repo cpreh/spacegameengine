@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "target.hpp"
 #include "texture_ptr.hpp"
 #include "depth_stencil_texture_ptr.hpp"
+#include "texture_base_ptr.hpp"
 #include "fbo.hpp"
 #include "fbo_texture_binding.hpp"
 #include "fbo_context_fwd.hpp"
@@ -33,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "common.hpp"
 #include "context/object_fwd.hpp"
 #include <sge/renderer/parameters_fwd.hpp>
+#include <sge/renderer/texture_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
@@ -74,6 +76,12 @@ private:
 	dim() const;
 
 	void
+	add_texture_binding(
+		opengl::texture_base_ptr,
+		GLenum
+	);
+
+	void
 	attach_buffer(
 		GLenum component,
 		GLenum attachment
@@ -81,9 +89,15 @@ private:
 
 	fbo_context &context_;
 
+	sge::renderer::texture_ptr const texture_;
+
 	opengl::fbo fbo_;
 
-	fbo_texture_binding texture_binding_;
+	typedef boost::ptr_vector<
+		fbo_texture_binding
+	> fbo_texture_binding_vector;
+
+	fbo_texture_binding_vector texture_bindings_;
 
 	typedef boost::ptr_vector<
 		opengl::render_buffer

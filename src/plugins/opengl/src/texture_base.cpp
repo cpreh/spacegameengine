@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture_base.hpp"
 
 sge::opengl::texture_base::texture_base(
-	GLenum const type_
+	GLenum const _type
 )
 :
-	type_(type_)
+	type_(_type)
 {}
 
 sge::opengl::texture_base::~texture_base()

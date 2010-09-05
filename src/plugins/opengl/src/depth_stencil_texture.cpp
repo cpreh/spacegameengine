@@ -36,19 +36,18 @@ sge::opengl::depth_stencil_texture::depth_stencil_texture(
 	renderer::depth_stencil_format::type const _format
 )
 :
+	renderer::depth_stencil_texture(),
+	opengl::texture_base(
+		GL_TEXTURE_2D
+	),
 	holder_(),
 	dim_(_dim)
 {
-	GLenum const type = GL_TEXTURE_2D;
-
-	texfuncs::bind(
-		type,
-		id()
-	);
+	bind_me();
 
 	texfuncs::set(
 		_context,
-		type,
+		type(),
 		convert::depth_stencil_to_format(
 			_format
 		),
@@ -72,6 +71,15 @@ GLuint
 sge::opengl::depth_stencil_texture::id() const
 {
 	return holder_.id();
+}
+
+void
+sge::opengl::depth_stencil_texture::bind_me() const
+{
+	texfuncs::bind(
+		type(),
+		id()
+	);
 }
 
 sge::opengl::depth_stencil_texture::dim_type const

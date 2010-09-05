@@ -25,13 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture_base.hpp"
 #include "../check_state.hpp"
 #include <sge/renderer/exception.hpp>
-#include <fcppt/static_pointer_cast.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::fbo_texture_binding::fbo_texture_binding(
 	fbo_context const &_context,
-	opengl::texture_ptr const _texture,
-	fbo &_fbo
+	opengl::texture_base_ptr const _texture,
+	fbo &_fbo,
+	GLenum const _attachment
 )
 :
 	texture_(_texture)
@@ -40,13 +40,9 @@ sge::opengl::fbo_texture_binding::fbo_texture_binding(
 
 	_context.framebuffer_texture_2d()(
 		_context.framebuffer_target(),
-		_context.color_attachment(),
+		_attachment,
 		GL_TEXTURE_2D,
-		fcppt::static_pointer_cast<
-			texture_base
-		>(
-			_texture
-		)->id(),
+		_texture->id(),
 		0
 	);
 
@@ -58,10 +54,4 @@ sge::opengl::fbo_texture_binding::fbo_texture_binding(
 
 sge::opengl::fbo_texture_binding::~fbo_texture_binding()
 {
-}
-
-sge::renderer::texture_ptr const
-sge::opengl::fbo_texture_binding::texture() const
-{
-	return texture_;
 }

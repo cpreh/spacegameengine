@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../fbo_target.hpp"
+#include "../texture.hpp"
+#include "../depth_stencil_texture.hpp"
 #include "../bind_fbo.hpp"
 #include "../fbo_context.hpp"
 #include "../check_state.hpp"
@@ -48,16 +50,26 @@ sge::opengl::fbo_target::fbo_target(
 			_context
 		)
 	),
+	texture_(
+		_texture
+	),
 	fbo_(
 		context_
-	),
-	texture_binding_(
-		context_,
-		_texture,
-		fbo_
 	)
 {
+	add_texture_binding(
+		_texture,
+		context_.color_attachment()
+	);
+
 	if(
+		_depth_stencil_texture
+	)
+		add_texture_binding(
+			_depth_stencil_texture,
+			context_.depth_attachment()
+		);
+	else if(
 		_param.depth_buffer() != renderer::depth_buffer::off
 	)
 		attach_buffer(
@@ -132,7 +144,7 @@ sge::opengl::fbo_target::lock(
 ) const
 {
 	return
-		texture_binding_.texture()->lock(
+		texture_->lock(
 			_dest
 		);
 }
@@ -140,13 +152,36 @@ sge::opengl::fbo_target::lock(
 void
 sge::opengl::fbo_target::unlock() const
 {
-	texture_binding_.texture()->unlock();
+	texture_->unlock();
 }
 
 sge::renderer::target::dim_type const
 sge::opengl::fbo_target::dim() const
 {
-	return texture_binding_.texture()->dim();
+	return texture_->dim();
+}
+
+void
+sge::opengl::fbo_target::add_texture_binding(
+	opengl::texture_base_ptr const _texture,
+	GLenum const _type
+)
+{
+	fcppt::container::ptr::push_back_unique_ptr(
+		texture_bindings_,
+		fcppt::make_unique_ptr<
+			opengl::fbo_texture_binding
+		>(
+			std::tr1::ref(
+				context_
+			),
+			_texture,
+			std::tr1::ref(
+				fbo_
+			),
+			_type
+		)
+	);
 }
 
 void

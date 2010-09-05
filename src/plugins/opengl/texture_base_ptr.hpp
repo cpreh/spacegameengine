@@ -18,39 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_BASE_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_BASE_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_BASE_PTR_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_BASE_PTR_HPP_INCLUDED
 
 #include "texture_base_fwd.hpp"
-#include "common.hpp"
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
 namespace opengl
 {
 
-class texture_base
-{
-	FCPPT_NONCOPYABLE(texture_base)
-public:
-	GLenum
-	type() const;
-
-	virtual void
-	bind_me() const = 0;
-
-	virtual GLuint
-	id() const = 0;
-
-	virtual ~texture_base();
-protected:
-	explicit texture_base(
-		GLenum type
-	);
-private:
-	GLenum const type_;
-};
+typedef fcppt::shared_ptr<
+	texture_base
+> texture_base_ptr;
 
 }
 }
