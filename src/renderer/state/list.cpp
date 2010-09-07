@@ -64,7 +64,11 @@ sge::renderer::state::list::operator()(
 		FCPPT_LOG_WARNING(
 			log::global(),
 			fcppt::log::_
-				<< FCPPT_TEXT("duplicate renderer state given!")
+				<< FCPPT_TEXT("Duplicate renderer state of type \"")
+				<< fcppt::type_name(
+					_arg.type()
+				)
+				<< FCPPT_TEXT("\"!")
 		);
 
 	return temp;
