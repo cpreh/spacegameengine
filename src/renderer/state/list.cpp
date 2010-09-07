@@ -68,7 +68,7 @@ sge::renderer::state::list::operator()(
 				<< fcppt::type_name(
 					_arg.type()
 				)
-				<< FCPPT_TEXT("\"!")
+				<< FCPPT_TEXT("\" given!")
 		);
 
 	return temp;
