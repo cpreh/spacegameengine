@@ -396,6 +396,7 @@ sge::md3::object::surface::vertex::vertex(
 			break;
 		case model::load_flags::switch_yz:
 			std::swap(y,z);
+			z = -z;
 			break;
 	}
 }
