@@ -45,7 +45,10 @@ sge::ode::body::body(
 		dBodyCreate(
 			_worldid)),
 	satellite_(
-		_satellite)
+		move(
+			_satellite
+		)
+	)
 {
 	BOOST_FOREACH(collision::shapes::container::const_reference r,_shapes)
 		add(r);
