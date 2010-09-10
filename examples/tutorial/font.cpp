@@ -31,6 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/image/colors.hpp>
+#include <sge/input/action.hpp>
+#include <sge/input/system.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/window/parameters.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
@@ -38,10 +40,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/exception.hpp>
+#include <boost/spirit/home/phoenix/core/reference.hpp>
+#include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <exception>
 #include <iostream>
 #include <ostream>
@@ -74,7 +79,13 @@ try
 				sge::renderer::no_multi_sampling
 			)
 		)
-		(sge::systems::parameterless::font));
+		(
+			sge::systems::parameterless::font
+		)
+		(
+			sge::systems::parameterless::input
+		)
+	);
 
 	sge::font::metrics_ptr const metrics(
 		sys.font_system()->create_font(
@@ -94,7 +105,18 @@ try
 		)
 	);
 
-	while (true)
+	bool running = true;
+
+	fcppt::signal::scoped_connection const cb(
+		sys.input_system()->register_callback(
+			sge::input::action(
+				sge::input::kc::key_escape,
+				boost::phoenix::ref(running) = false
+			)
+		)
+	);
+
+	while (running)
 	{
 		sge::mainloop::dispatch();
 
