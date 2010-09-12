@@ -395,8 +395,29 @@ sge::md3::object::surface::vertex::vertex(
 		case model::load_flags::none:
 			break;
 		case model::load_flags::switch_yz:
+			// Motivation for this strange stuff:
+			//
+			// We assume our model is aligned with z as the "up" axis. To
+			// realign it, we rotate by 90 degrees on the x axis. This
+			// corresponds to a rotation matrix:
+			// 
+			//  1  0  0
+			//  0  0  1
+			//  0 -1  0
+			// 
+			// After that, however, the z axis points to the wrong
+			// direction (found empirically). So we rotate by 180 degrees
+			// around the y axis, which corresponds to a rotation matrix
+			// 
+			//  -1 0  0
+			//  0  1  0
+			//  0  0 -1
+			//	
+			// Multiplying those with an arbitrary vector (x,y,z) results in:
+			// 
+			// (-x,z,y)
+			x = static_cast<s16>(-x);
 			std::swap(y,z);
-			z = -z;
 			break;
 	}
 }
