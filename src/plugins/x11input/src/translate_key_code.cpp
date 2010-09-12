@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../translation.hpp"
+#include "../translate_key_code.hpp"
 #include <X11/keysym.h>
 #include <boost/assign/list_of.hpp>
 #include <map>
@@ -26,8 +26,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-typedef std::map<KeySym, sge::input::key_code> x11_to_sge_array;
-const x11_to_sge_array x11_to_sge = boost::assign::map_list_of
+typedef std::map<
+	KeySym,
+	sge::input::key_code
+> x11_to_sge_array;
+
+x11_to_sge_array const x11_to_sge = boost::assign::map_list_of
 	(NoSymbol, sge::input::kc::none)
 	(XK_BackSpace, sge::input::kc::key_backspace)
 	(XK_Tab, sge::input::kc::key_tab)
@@ -439,10 +443,21 @@ const x11_to_sge_array x11_to_sge = boost::assign::map_list_of
 
 }
 
-sge::input::key_code sge::x11input::translate_key_code(const KeySym sym)
+sge::input::key_code
+sge::x11input::translate_key_code(
+	KeySym const sym
+)
 {
-	const x11_to_sge_array::const_iterator it = x11_to_sge.find(sym);
-	return it == x11_to_sge.end()
-		? input::kc::none
-		: it->second;
+	x11_to_sge_array::const_iterator const it(
+		x11_to_sge.find(
+			sym
+		)
+	);
+
+	return
+		it == x11_to_sge.end()
+		?
+			input::kc::none
+		:
+			it->second;
 }

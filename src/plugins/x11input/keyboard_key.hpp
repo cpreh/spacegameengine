@@ -18,18 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_TRANSLATION_HPP_INCLUDED
-#define SGE_X11INPUT_TRANSLATION_HPP_INCLUDED
+#ifndef SGE_X11INPUT_KEYBOARD_KEY_HPP_INCLUDED
+#define SGE_X11INPUT_KEYBOARD_KEY_HPP_INCLUDED
 
+#include <sge/input/key_type_fwd.hpp>
 #include <X11/Xlib.h>
-#include <sge/input/key_code.hpp>
 
 namespace sge
 {
 namespace x11input
 {
 
-input::key_code translate_key_code(KeySym);
+input::key_type const
+keyboard_key(
+	XKeyEvent const &
+);
 
 }
 }

@@ -125,7 +125,7 @@ try
 		sge::font::draw_text(
 			metrics,
 			drawer,
-			FCPPT_TEXT("hello world"),
+			FCPPT_TEXT("hello world 1234567890hello world 123456789hello world 123456789hello world 123456789000"),
 			sge::font::pos::null(),
 			fcppt::math::dim::structure_cast<sge::font::dim>(
 				sys.renderer()->screen_size()

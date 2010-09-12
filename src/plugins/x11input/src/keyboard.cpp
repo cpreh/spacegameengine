@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../keyboard.hpp"
 #include "../keyboard_grab.hpp"
-#include "../keyboard_keys.hpp"
+#include "../keyboard_key.hpp"
 #include <X11/Xlib.h>
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
@@ -29,18 +29,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/tr1/functional.hpp>
 
 sge::x11input::keyboard::keyboard(
-	x11::window_ptr const wnd,
-	input::callback const &callback,
-	input::repeat_callback const &repeat_callback
+	x11::window_ptr const _wnd,
+	input::callback const &_callback,
+	input::repeat_callback const &_repeat_callback
 )
 :
-	wnd(wnd),
-	callback(callback),
-	repeat_callback(repeat_callback),
-	need_grab(wnd->fullscreen())
+	wnd_(_wnd),
+	callback_(_callback),
+	repeat_callback_(_repeat_callback),
+	need_grab_(_wnd->fullscreen()),
+	connections_(),
+	grab_()
 {
-	connections.connect(
-		wnd->register_callback(
+	connections_.connect(
+		wnd_->register_callback(
 			KeyPress,
 			std::tr1::bind(
 				&keyboard::on_key_event,
@@ -50,8 +52,8 @@ sge::x11input::keyboard::keyboard(
 		)
 	);
 
-	connections.connect(
-		wnd->register_callback(
+	connections_.connect(
+		wnd_->register_callback(
 			KeyRelease,
 			std::tr1::bind(
 				&keyboard::on_key_event,
@@ -70,11 +72,11 @@ void
 sge::x11input::keyboard::grab()
 {
 	if(
-		need_grab
+		need_grab_
 	)
 		grab_.reset(
 			new keyboard_grab(
-				wnd
+				wnd_
 			)
 		);
 }
@@ -87,38 +89,55 @@ sge::x11input::keyboard::ungrab()
 
 void
 sge::x11input::keyboard::on_key_event(
-	XEvent const &xev
+	XEvent const &_xev
 )
 {
-	XKeyEvent const &key_event(xev.xkey);
+	XKeyEvent const &key_event(
+		_xev.xkey
+	);
 
 	input::key_type const key(
-		keyboard_key(
+		x11input::keyboard_key(
 			key_event
 		)
 	);
 
 	// check for repeated key (thanks to SDL)
-	if(xev.type == KeyRelease && XPending(wnd->display()->get()))
+	if(
+		_xev.type == KeyRelease
+		&& XPending(wnd_->display()->get())
+	)
 	{
 		XEvent peek;
-		XPeekEvent(wnd->display()->get(), &peek);
+
+		XPeekEvent(
+			wnd_->display()->get(),
+			&peek
+		);
+		
 		if(
 			peek.type == KeyPress &&
-			peek.xkey.keycode == xev.xkey.keycode &&
-			(peek.xkey.time - xev.xkey.time) < 2
+			peek.xkey.keycode == _xev.xkey.keycode &&
+			(peek.xkey.time - _xev.xkey.time) < 2
 		)
 		{
-			XNextEvent(wnd->display()->get(), &peek);
-			repeat_callback(key);
+			XNextEvent(
+				wnd_->display()->get(),
+				&peek
+			);
+
+			repeat_callback_(
+				key
+			);
+
 			return;
 		}
 	}
 
-	callback(
+	callback_(
 		input::key_pair(
 			key,
-			xev.type == KeyRelease ? 0 : 1
+			_xev.type == KeyRelease ? 0 : 1
 		)
 	);
 }

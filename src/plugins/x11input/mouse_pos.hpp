@@ -18,23 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_MOUSE_KEYS_HPP_INCLUDED
-#define SGE_X11INPUT_MOUSE_KEYS_HPP_INCLUDED
+#ifndef SGE_X11INPUT_MOUSE_POS_HPP_INCLUDED
+#define SGE_X11INPUT_MOUSE_POS_HPP_INCLUDED
 
-#include <sge/input/key_type.hpp>
+#include "mouse_coordinate.hpp"
+#include <fcppt/math/vector/static.hpp>
 
 namespace sge
 {
 namespace x11input
 {
 
-extern input::key_type const
-	mouse_x,
-	mouse_y,
-	undefined_mouse_key,
-	mouse_l,
-	mouse_r,
-	mouse_m;
+typedef fcppt::math::vector::static_<
+	mouse_coordinate,
+	2
+>::type mouse_pos;
 
 }
 }
