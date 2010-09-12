@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/key_code.hpp>
 #include <sge/symbol.hpp>
-#include <fcppt/string.hpp>
+#include <fcppt/char_type.hpp>
 
 namespace sge
 {
@@ -33,17 +33,12 @@ namespace input
 class key_type
 {
 public:
-	typedef fcppt::string string;
-	typedef fcppt::string::value_type char_type;
+	typedef fcppt::char_type char_type;
 
 	SGE_SYMBOL explicit key_type(
-		string const &name = string(),
 		key_code code = kc::none,
 		char_type char_code = 0
 	);
-
-	SGE_SYMBOL string const &
-	name() const;
 
 	SGE_SYMBOL key_code
 	code() const;
@@ -56,8 +51,8 @@ public:
 		char_type
 	);
 private:
-	string    name_;
 	key_code  code_;
+
 	char_type char_code_;
 };
 

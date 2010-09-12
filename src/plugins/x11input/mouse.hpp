@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "device.hpp"
 #include "mouse_coordinate.hpp"
+#include "mouse_pos.hpp"
 #include "mouse_grab_fwd.hpp"
 #include "dga.hpp"
 #include <X11/Xlib.h>
@@ -88,25 +89,25 @@ private:
 
 	void
 	private_mouse_motion(
-		mouse_coordinate_t deltax,
-		mouse_coordinate_t deltay
+		mouse_coordinate deltax,
+		mouse_coordinate deltay
 	);
 
-	x11::window_ptr const wnd;
+	x11::window_ptr const wnd_;
 
-	x11::color      const black_;
+	x11::color const black_;
 
-	x11::pixmap     const no_bmp_;
+	x11::pixmap const no_bmp_;
 
-	x11::cursor     const cur;
+	x11::cursor const cursor_;
 
-	input::callback const callback;
+	input::callback const callback_;
 
-	mouse_pos             mouse_last;
+	mouse_pos mouse_last_;
 
-	dga                   dga_;
+	x11input::dga dga_;
 
-	fcppt::signal::connection_manager connections;
+	fcppt::signal::connection_manager connections_;
 
 	fcppt::scoped_ptr<
 		mouse_grab

@@ -18,26 +18,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_KEYBOARD_KEYS_HPP_INCLUDED
-#define SGE_X11INPUT_KEYBOARD_KEYS_HPP_INCLUDED
-
 #include <X11/Xlib.h>
+#include <sge/x11/display.hpp>
+#include <sge/x11/window.hpp>
+#include <sge/exception.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/text.hpp>
+#include "../get_pointer.hpp"
 
-namespace sge
+sge::x11input::mouse_pos const
+sge::x11input::get_pointer(
+	x11::window_ptr const _wnd
+)
 {
-namespace input
-{
-class key_type;
+	Window
+		root_return,
+		child_return;
+	int
+		root_x_return,
+		root_y_return,
+		win_x_return,
+		win_y_return;
+
+	unsigned mask_return;
+
+	if(
+		XQueryPointer(
+			_wnd->display()->get(),
+			_wnd->get(),
+			&root_return,
+			&child_return,
+			&root_x_return,
+			&root_y_return,
+			&win_x_return,
+			&win_y_return,
+			&mask_return
+		)
+		== False
+	)
+		throw sge::exception(
+			FCPPT_TEXT("XQueryPointer failed!")
+		);
+
+	return
+		x11input::mouse_pos(
+			win_x_return,
+			win_y_return
+		);
 }
-
-namespace x11input
-{
-
-input::key_type const
-keyboard_key(
-	XKeyEvent const &);
-
-}
-}
-
-#endif

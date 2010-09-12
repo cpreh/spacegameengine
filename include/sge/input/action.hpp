@@ -34,7 +34,8 @@ namespace input
 SGE_SYMBOL callback const
 action(
 	kc::type,
-	nullary_function const &);
+	nullary_function const &
+);
 
 }
 }

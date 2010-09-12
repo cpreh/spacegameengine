@@ -24,58 +24,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/tr1/functional.hpp>
 
 sge::input::key_state_tracker::key_state_tracker(
-	system_ptr const is
+	system_ptr const _sys
 )
 :
-	con(
-		is->register_callback(
+	con_(
+		_sys->register_callback(
 			std::tr1::bind(
 				&key_state_tracker::event_handler,
 				this,
 				std::tr1::placeholders::_1
 			)
 		)
-	)
+	),
+	key_codes_()
 {}
 
 sge::input::key_state
 sge::input::key_state_tracker::state(
-	key_code const c
+	key_code const _code
 )
 {
-	return key_codes[c];
-}
-
-sge::input::key_state
-sge::input::key_state_tracker::state(
-	key_type const &c
-)
-{
-	return key_types[c];
+	return key_codes_[_code];
 }
 
 sge::input::key_state
 sge::input::key_state_tracker::operator[](
-	key_code const k
+	key_code const _code
 )
 {
-	return state(k);
-}
-
-sge::input::key_state
-sge::input::key_state_tracker::operator[](
-	key_type const &k
-)
-{
-	return state(k);
+	return state(_code);
 }
 
 void
 sge::input::key_state_tracker::event_handler(
-	key_pair const &pair
+	key_pair const &_pair
 )
 {
-	key_type const key = pair.key();
-
-	key_codes[key.code()] = key_types[key] = pair.value();
+	key_codes_[
+		_pair.key().code()
+	] = _pair.value();
 }

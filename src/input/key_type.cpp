@@ -21,20 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key_type.hpp>
 
 sge::input::key_type::key_type(
-	string const &name_,
-	key_code const code_,
-	char_type const char_code_)
+	key_code const _code,
+	char_type const _char_code
+)
 :
-	name_(name_),
-	code_(code_),
-	char_code_(char_code_)
+	code_(_code),
+	char_code_(_char_code)
 {}
-
-sge::input::key_type::string const&
-sge::input::key_type::name() const
-{
-	return name_;
-}
 
 sge::input::key_code
 sge::input::key_type::code() const
@@ -48,23 +41,37 @@ sge::input::key_type::char_code() const
 	return char_code_;
 }
 
-void sge::input::key_type::char_code(
-	char_type const ch)
+void
+sge::input::key_type::char_code(
+	char_type const _char_code
+)
 {
-	char_code_ = ch;
+	char_code_ = _char_code;
 }
 
-bool sge::input::operator<(key_type const &l, key_type const &r)
+bool
+sge::input::operator<(
+	key_type const &l,
+	key_type const &r
+)
 {
-	return l.name() < r.name();
+	return l.code() < r.code();
 }
 
-bool sge::input::operator==(key_type const &l, key_type const &r)
+bool
+sge::input::operator==(
+	key_type const &l,
+	key_type const &r
+)
 {
-	return l.name() == r.name() && l.char_code() == r.char_code();
+	return l.char_code() == r.char_code();
 }
 
-bool sge::input::operator!=(key_type const &l, key_type const &r)
+bool
+sge::input::operator!=(
+	key_type const &l,
+	key_type const &r
+)
 {
 	return !(l==r);
 }

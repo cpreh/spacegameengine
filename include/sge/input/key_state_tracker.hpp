@@ -22,10 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_KEY_STATE_TRACKER_HPP_INCLUDED
 
 #include <sge/input/key_state_tracker_fwd.hpp>
-#include <sge/input/key_pair_fwd.hpp>
 #include <sge/input/system_ptr.hpp>
 #include <sge/input/key_code.hpp>
-#include <sge/input/key_type_fwd.hpp>
 #include <sge/input/key_state.hpp>
 #include <sge/input/key_pair_fwd.hpp>
 #include <sge/symbol.hpp>
@@ -52,40 +50,23 @@ public:
 	);
 
 	SGE_SYMBOL key_state
-	state(
-		key_type const &
-	);
-
-	SGE_SYMBOL key_state
 	operator[](
 		key_code
-	);
-
-	SGE_SYMBOL key_state
-	operator[](
-		key_type const &
 	);
 private:
 	void
 	event_handler(
-		key_pair const &key
+		key_pair const &
 	);
 
-	fcppt::signal::scoped_connection const con;
+	fcppt::signal::scoped_connection const con_;
 
 	typedef std::map<
 		key_code,
 		key_state
 	> key_code_map;
 
-	typedef std::map<
-		key_type,
-		key_state
-	> key_type_map;
-
-	key_code_map key_codes;
-
-	key_type_map key_types;
+	key_code_map key_codes_;
 };
 
 }
