@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/int_type.hpp>
 #include <sge/parse/encoding.hpp>
 #include <sge/parse/exception.hpp>
+#include <sge/parse/info_to_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
@@ -44,7 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/spirit/include/qi_nonterminal.hpp>
 #include <boost/spirit/include/qi_directive.hpp>
 #include <boost/spirit/include/qi_numeric.hpp>
-#include <boost/spirit/home/phoenix/core/argument.hpp>
+#include <boost/spirit/home/phoenix/bind/bind_function.hpp>
 #include <boost/spirit/home/phoenix/core/value.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/spirit/home/phoenix/operator/arithmetic.hpp>
@@ -191,23 +192,24 @@ public:
 					parse::exception
 				>(
 					boost::phoenix::val(
-						FCPPT_TEXT("error! ")
+						FCPPT_TEXT("Json parsing failed: \"")
 					)
-					/*
 					+
 					boost::phoenix::construct<
 						fcppt::string
 					>(
-						boost::phoenix::arg_names::_3,
-						boost::phoenix::arg_names::_2
+						boost::spirit::qi::labels::_1,
+						boost::spirit::qi::labels::_3
 					)
 					+
-					boost::phoenix::val(
-						FCPPT_TEXT(" ")
+					FCPPT_TEXT("\" - expected ")
+					+
+					boost::phoenix::bind(
+						&info_to_string,
+						boost::spirit::qi::labels::_4
 					)
 					+
-					boost::phoenix::arg_names::_4
-					*/
+					FCPPT_TEXT(" here.")
 				)
 			)
 		);

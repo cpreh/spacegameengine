@@ -28,6 +28,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <boost/test/unit_test.hpp>
 
+namespace
+{
+
+bool
+print_exception(
+	fcppt::exception const &_exception
+)
+{
+	fcppt::io::cout
+		<< _exception.string()
+		<< FCPPT_TEXT('\n');
+	
+	return true;
+}
+
+}
+
 BOOST_AUTO_TEST_CASE(
 	parse_json_main
 )
@@ -71,8 +88,8 @@ BOOST_AUTO_TEST_CASE(
 				"{"
 					"\"inner\" : 5.5,"
 					"\"booltest\" : true"
-				""
-			"}"
+				"}"
+			""
 		)
 	);
 
@@ -82,28 +99,12 @@ BOOST_AUTO_TEST_CASE(
 
 	sge::parse::json::object result;
 
-	try
-	{
-		sge::parse::json::parse_stream(
-			ss,
-			result
-		);
-	}
-	catch(
-		fcppt::exception const &_error
-	)
-	{
-		fcppt::io::cout
-			<< _error.string()
-			<< FCPPT_TEXT('\n');
-	}
-
-	/*BOOST_REQUIRE_EXCEPTION(
+	BOOST_REQUIRE_EXCEPTION(
 		sge::parse::json::parse_stream(
 			ss,
 			result
 		),
 		fcppt::exception,
-		void
-	);*/
+		::print_exception
+	);
 }
