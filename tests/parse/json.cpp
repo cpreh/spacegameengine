@@ -19,93 +19,91 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/parse/json/parse_stream.hpp>
-#include <sge/parse/json/find_member_exn.hpp>
-#include <sge/parse/json/null.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/parse/json/value.hpp>
 #include <sge/parse/json/array.hpp>
-#include <sge/parse/json/output/to_stream.hpp>
-#include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/io/istringstream.hpp>
-#include <fcppt/exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <iostream>
-#include <ostream>
-#include <exception>
-#include <cstdlib>
+#include <fcppt/exception.hpp>
+#include <boost/test/unit_test.hpp>
 
-int main()
-try
+BOOST_AUTO_TEST_CASE(
+	parse_json_main
+)
 {
 	fcppt::string const test(
-		FCPPT_TEXT("{ \"foo\": 42, \"bar\" : { \"inner\" : 5.5, \"booltest\" : true } }")
+		FCPPT_TEXT(
+			"{"
+				"\"foo\": 42,"
+				"\"bar\" :"
+				"{"
+					"\"inner\" : 5.5,"
+					"\"booltest\" : true"
+				"}"
+			"}"
+		)
 	);
 
-	fcppt::io::istringstream
-		ss(
-			test
-		);
+	fcppt::io::istringstream ss(
+		test
+	);
 
 	sge::parse::json::object result;
 
-	if(
-		!sge::parse::json::parse_stream(
+	BOOST_REQUIRE(
+		sge::parse::json::parse_stream(
 			ss,
 			result
 		)
-	)
-	{
-		fcppt::io::cerr
-			<< FCPPT_TEXT("failure\n");
+	);
+}
 
-		return EXIT_FAILURE;
-	}
-
-	// assert that we have member foo
-	sge::parse::json::find_member_exn<
-		int
-	>(
-		result.members,
-		FCPPT_TEXT("foo")
+BOOST_AUTO_TEST_CASE(
+	parse_json_error
+)
+{
+	fcppt::string const test(
+		FCPPT_TEXT(
+			"{"
+				"\"foo\": 42,"
+				"\"bar\" :"
+				"{"
+					"\"inner\" : 5.5,"
+					"\"booltest\" : true"
+				""
+			"}"
+		)
 	);
 
-	if(
-		!sge::parse::json::output::to_stream(
-			fcppt::io::cout,
+	fcppt::io::istringstream ss(
+		test
+	);
+
+	sge::parse::json::object result;
+
+	try
+	{
+		sge::parse::json::parse_stream(
+			ss,
 			result
-		)
+		);
+	}
+	catch(
+		fcppt::exception const &_error
 	)
 	{
-		fcppt::io::cerr
-			<< FCPPT_TEXT("output failed\n");
-
-		return EXIT_FAILURE;
+		fcppt::io::cout
+			<< _error.string()
+			<< FCPPT_TEXT('\n');
 	}
 
-	fcppt::io::cout
-		<< FCPPT_TEXT('\n');
-}
-catch(
-	fcppt::exception const &_exception
-)
-{
-	fcppt::io::cerr
-		<< FCPPT_TEXT("caugth exception: ")
-		<< _exception.string()
-		<< FCPPT_TEXT('\n');
-	
-	return EXIT_FAILURE;
-}
-catch(
-	std::exception const &_exception
-)
-{
-	std::cout
-		<< "caught exception: "
-		<< _exception.what()
-		<< '\n';
-	
-	return EXIT_FAILURE;
+	/*BOOST_REQUIRE_EXCEPTION(
+		sge::parse::json::parse_stream(
+			ss,
+			result
+		),
+		fcppt::exception,
+		void
+	);*/
 }

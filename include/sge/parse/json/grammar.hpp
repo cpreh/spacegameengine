@@ -33,6 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/float_type.hpp>
 #include <sge/parse/json/int_type.hpp>
 #include <sge/parse/encoding.hpp>
+#include <sge/parse/exception.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
 #include <boost/spirit/include/qi_string.hpp>
@@ -42,8 +44,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/spirit/include/qi_nonterminal.hpp>
 #include <boost/spirit/include/qi_directive.hpp>
 #include <boost/spirit/include/qi_numeric.hpp>
+#include <boost/spirit/home/phoenix/core/argument.hpp>
+#include <boost/spirit/home/phoenix/core/value.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
+#include <boost/spirit/home/phoenix/operator/arithmetic.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
+#include <boost/spirit/home/phoenix/statement/throw.hpp>
 
 namespace sge
 {
@@ -100,11 +106,10 @@ public:
 		quoted_string_ %=
 			lexeme[
 				lit(FCPPT_TEXT('"'))
-				>> *(
+				> *(
 					(
 						char_
-						- lit(FCPPT_TEXT('\\'))
-						- lit(FCPPT_TEXT('"'))
+						- char_(FCPPT_TEXT("\\\""))
 					)
 					|
 					(
@@ -112,17 +117,17 @@ public:
 						>> char_
 					)
 				)
-				>> lit(FCPPT_TEXT('"'))
+				> lit(FCPPT_TEXT('"'))
 			];
 
 		array_ %=
 			(
 				lit(FCPPT_TEXT('['))
-				>> -(
+				> -(
 					value_
 					% lit(FCPPT_TEXT(','))
 				)
-				>> lit(FCPPT_TEXT(']'))
+				> lit(FCPPT_TEXT(']'))
 			);
 
 		value_ %=
@@ -136,18 +141,76 @@ public:
 
 		member_ %=
 			quoted_string_
-			>> lit(FCPPT_TEXT(':'))
-			>> value_;
+			> lit(FCPPT_TEXT(':'))
+			> value_;
 
 		object_ %=
 			(
 				lit(FCPPT_TEXT('{'))
-				>> -(
+				> -(
 					member_
 					% lit(FCPPT_TEXT(','))
 				)
-				>> lit(FCPPT_TEXT('}'))
+				> lit(FCPPT_TEXT('}'))
 			);
+
+		null_.name(
+			"null"
+		);
+
+		bool_.name(
+			"bool"
+		);
+
+		quoted_string_.name(
+			"string"
+		);
+
+		array_.name(
+			"array"
+		);
+
+		value_.name(
+			"value"
+		);
+
+		member_.name(
+			"member"
+		);
+
+		object_.name(
+			"object"
+		);
+
+		boost::spirit::qi::on_error<
+			boost::spirit::qi::fail
+		>(
+			object_,
+			boost::phoenix::throw_(
+				boost::phoenix::construct<
+					parse::exception
+				>(
+					boost::phoenix::val(
+						FCPPT_TEXT("error! ")
+					)
+					/*
+					+
+					boost::phoenix::construct<
+						fcppt::string
+					>(
+						boost::phoenix::arg_names::_3,
+						boost::phoenix::arg_names::_2
+					)
+					+
+					boost::phoenix::val(
+						FCPPT_TEXT(" ")
+					)
+					+
+					boost::phoenix::arg_names::_4
+					*/
+				)
+			)
+		);
 	}
 private:
 	boost::spirit::qi::int_parser<
