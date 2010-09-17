@@ -85,7 +85,6 @@ IF (X11_FOUND)
 
 	SET (SGECOREFILES ${SGECOREFILES} ${sgecorex11files})
 ELSEIF (WIN32)
-
 	FILE (
 		GLOB sgecorewindowsfiles
 		windows/*.cpp
