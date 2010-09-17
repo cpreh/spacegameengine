@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/mainloop/asio/dispatcher.hpp>
+#include <fcppt/config.hpp>
+#ifdef FCPPT_POSIX_PLATFORM
 #include <fcppt/tr1/functional.hpp>
 #include <boost/asio/buffer.hpp>
 
@@ -69,3 +71,5 @@ sge::mainloop::asio::dispatcher::callback(
 
 	register_handler();
 }
+
+#endif

@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MAINLOOP_ASIO_DISPATCHER_HPP_INCLUDED
 #define SGE_MAINLOOP_ASIO_DISPATCHER_HPP_INCLUDED
 
+#include <fcppt/config.hpp>
+#ifdef FCPPT_POSIX_PLATFORM
 #include <sge/mainloop/dispatcher.hpp>
 #include <sge/mainloop/dispatcher_callback.hpp>
 #include <sge/mainloop/native_handle.hpp>
@@ -70,5 +72,6 @@ private:
 }
 }
 }
+#endif
 
 #endif

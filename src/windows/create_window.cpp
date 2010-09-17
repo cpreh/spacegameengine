@@ -53,9 +53,9 @@ sge::windows::create_window(
 			PFD_SUPPORT_OPENGL |
 			PFD_DOUBLEBUFFER,
 			PFD_TYPE_RGBA,
-			static_cast<BYTE>(rparam->mode().bit_depth()),
-			static_cast<BYTE>(rparam->dbuffer()),
-			static_cast<BYTE>(rparam->sbuffer()));
+			static_cast<BYTE>(rparam->display_mode().bit_depth()),
+			static_cast<BYTE>(rparam->depth_buffer()),
+			static_cast<BYTE>(rparam->stencil_buffer()));
 
 	return wnd;
 }

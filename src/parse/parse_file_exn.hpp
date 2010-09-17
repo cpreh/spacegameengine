@@ -4,6 +4,7 @@
 #include "parse_file.hpp"
 #include <sge/parse/exception.hpp>
 #include <fcppt/filesystem/path.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/text.hpp>
 
 namespace sge
@@ -30,7 +31,9 @@ parse_file_exn(
 		throw sge::parse::exception(
 			FCPPT_TEXT("Unable to parse file \"")
 			+
-			_path.string()
+			fcppt::filesystem::path_to_string(
+				_path
+			)
 		);
 
 	return result;

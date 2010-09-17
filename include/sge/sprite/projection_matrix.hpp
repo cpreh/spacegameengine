@@ -40,7 +40,7 @@ projection_matrix()
 {
 	return
 		fcppt::math::matrix::orthogonal_xy<
-			typename Choices::type_choices::float_type
+			typename Choices::float_type
 		>();
 }
 

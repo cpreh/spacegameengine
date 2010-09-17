@@ -1,6 +1,7 @@
 #ifndef MAJUTSU_DETAIL_COPY_SUBELEMENTS_HPP_INCLUDED
 #define MAJUTSU_DETAIL_COPY_SUBELEMENTS_HPP_INCLUDED
 
+#include <fcppt/nonassignable.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/mpl/contains.hpp>
 
@@ -15,6 +16,9 @@ template<
 >
 class copy_subelements
 {
+	FCPPT_NONASSIGNABLE(
+		copy_subelements
+	)
 public:
 	explicit copy_subelements(
 		DestClass &dest_,

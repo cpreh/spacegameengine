@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/action.hpp>
 #include <sge/input/key_pair.hpp>
 #include <sge/input/key_type.hpp>
+#include <fcppt/nonassignable.hpp>
 /*
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/bind/bind_member_function.hpp>
@@ -33,18 +34,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-class functor {
+class functor
+{
+	FCPPT_NONASSIGNABLE(
+		functor
+	)
 public:
 	functor(
 		sge::input::kc::type const code,
-		sge::input::nullary_function const &fun)
+		sge::input::nullary_function const &fun
+	)
 	:
 		code(code),
 		fun(fun)
 	{}
 
-	void operator()(
-		sge::input::key_pair const &p) const
+	void
+	operator()(
+		sge::input::key_pair const &p
+	) const
 	{
 		if(p.key().code() == code)
 			fun();

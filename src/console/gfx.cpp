@@ -50,7 +50,7 @@ namespace
 typedef
 std::vector
 <
-	std::string
+	fcppt::string
 >
 line_sequence;
 

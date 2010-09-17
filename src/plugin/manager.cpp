@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/filesystem/directory_iterator.hpp>
 #include <fcppt/filesystem/is_directory.hpp>
 #include <fcppt/filesystem/extension_without_dot.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
@@ -52,7 +53,9 @@ sge::plugin::manager::manager()
 		log::global(),
 		fcppt::log::_
 			<< FCPPT_TEXT("Scanning for plugins in ")
-			<< config::plugin_path()
+			<< fcppt::filesystem::path_to_string(
+				config::plugin_path()
+			)
 	);
 
 	fcppt::filesystem::directory_iterator const end;
@@ -73,7 +76,9 @@ sge::plugin::manager::manager()
 			FCPPT_LOG_WARNING(
 				log::global(),
 				fcppt::log::_
-					<< it->path().string()
+					<< fcppt::filesystem::path_to_string(
+						it->path()
+					)
 					<< FCPPT_TEXT(" does not have the extension ")
 					<< plugin_extension
 					<< FCPPT_TEXT(" and thus is ignored!")
@@ -96,7 +101,9 @@ sge::plugin::manager::manager()
 			FCPPT_LOG_WARNING(
 				log::global(),
 				fcppt::log::_
-					<< it->path().string()
+					<< fcppt::filesystem::path_to_string(
+						it->path()
+					)
 					<< FCPPT_TEXT(" doesn't seem to be a valid sge plugin")
 					<< FCPPT_TEXT(" because the function \"")
 					<< fcppt::from_std_string(e.func())
@@ -110,7 +117,9 @@ sge::plugin::manager::manager()
 			FCPPT_LOG_WARNING(
 				log::global(),
 				fcppt::log::_
-					<< it->path().string()
+					<< fcppt::filesystem::path_to_string(
+						it->path()
+					)
 					<< FCPPT_TEXT(" failed to load: \"")
 					<< e.string()
 					<< FCPPT_TEXT("\"!")

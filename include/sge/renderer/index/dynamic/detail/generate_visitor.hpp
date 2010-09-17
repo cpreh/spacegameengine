@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDEX_DYNAMIC_DETAIL_GENERATE_VISITOR_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_DYNAMIC_DETAIL_GENERATE_VISITOR_HPP_INCLUDED
 
+#include <fcppt/nonassignable.hpp>
+
 namespace sge
 {
 namespace renderer
@@ -37,6 +39,9 @@ template<
 >
 class generate_visitor
 {
+	FCPPT_NONASSIGNABLE(
+		generate_visitor
+	)
 public:
 	typedef void result_type;
 

@@ -61,8 +61,10 @@ sge::windows::window::window(
 	)
 {
 
-	DWORD const flags = (WS_VISIBLE | WS_OVERLAPPEDWINDOW);
+	DWORD const flags = WS_OVERLAPPEDWINDOW;
+
 	RECT r = { 0, 0, 0, 0 };
+
 	if (!AdjustWindowRect(&r, flags, false))
 		throw exception(
 			FCPPT_TEXT("AdjustWindowRect() failed!"));
@@ -102,30 +104,6 @@ sge::windows::window::~window()
 	DestroyWindow(handle);
 }
 
-void sge::windows::window::size(
-	dim_type const &nsz)
-{
-	if(SetWindowPos(
-		hwnd(),
-		HWND_TOP,
-		0,
-		0,
-		decoration_size.w() + nsz.w(),
-		decoration_size.h() + nsz.h(),
-		SWP_SHOWWINDOW
-	) == 0)
-		throw exception(
-			FCPPT_TEXT("SetWindowPos() failed!"));
-}
-
-void sge::windows::window::title(
-	fcppt::string const &title)
-{
-	if(SetWindowText(hwnd(), title.c_str()) == 0)
-		throw exception(
-			FCPPT_TEXT("SetWindowText() failed!"));
-}
-
 sge::windows::window::dim_type const
 sge::windows::window::size() const
 {
@@ -139,6 +117,7 @@ sge::windows::window::size() const
 	);
 }
 
+#if 0
 sge::window::pos_type const
 sge::windows::window::viewport_offset() const
 {
@@ -147,19 +126,10 @@ sge::windows::window::viewport_offset() const
 		-2*decoration_size.bottom()
 	);
 }
+#endif
 
-fcppt::string const
-sge::windows::window::title() const
-{
-	// TODO: read the length first!
-	std::tr1::array<TCHAR, 1024> buffer;
-	if(GetWindowText(hwnd(), buffer.data(), buffer.size()) == 0)
-		throw exception(
-			FCPPT_TEXT("GetWindowText() failed!"));
-	return fcppt::string(buffer.data());
-}
-
-HWND sge::windows::window::hwnd() const
+HWND
+sge::windows::window::hwnd() const
 {
 	return handle;
 }
@@ -167,7 +137,8 @@ HWND sge::windows::window::hwnd() const
 fcppt::signal::auto_connection
 sge::windows::window::register_callback(
 	event_type const msg,
-	callback_type const func)
+	callback_type const func
+)
 {
 	signal_map::iterator const it(
 		signals.find(
@@ -196,7 +167,8 @@ sge::windows::callback_return_type
 sge::windows::window::execute_callback(
 	event_type const msg,
 	WPARAM const wparam,
-	LPARAM const lparam)
+	LPARAM const lparam
+)
 {
 	signal_map::iterator const it(
 		signals.find(msg)
@@ -214,7 +186,22 @@ sge::windows::window::execute_callback(
 		: callback_return_type();
 }
 
-void sge::windows::window::dispatch()
+void
+sge::windows::window::show()
+{
+	if(
+		::ShowWindow(
+			hwnd(),
+			SW_NORMAL
+		) == FALSE
+	)
+		throw exception(
+			FCPPT_TEXT("ShowWindow() failed!")
+		);
+}
+
+void
+sge::windows::window::dispatch()
 {
 	MSG msg;
 	while(PeekMessage(&msg, handle, 0, 0, PM_REMOVE))
@@ -222,6 +209,12 @@ void sge::windows::window::dispatch()
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 	}
+}
+
+sge::mainloop::io_service_ptr const
+sge::windows::window::io_service() const
+{
+	return mainloop::io_service_ptr();
 }
 
 namespace
@@ -232,7 +225,8 @@ wnd_proc(
 	HWND const hwnd,
 	unsigned const msg,
 	WPARAM const wparam,
-	LPARAM const lparam)
+	LPARAM const lparam
+)
 {
 	if (msg == WM_CREATE)
 	{

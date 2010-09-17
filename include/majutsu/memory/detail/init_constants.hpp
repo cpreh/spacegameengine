@@ -1,9 +1,10 @@
 #ifndef MAJUTSU_MEMORY_DETAIL_INIT_CONSTANTS_HPP_INCLUDED
 #define MAJUTSU_MEMORY_DETAIL_INIT_CONSTANTS_HPP_INCLUDED
 
+#include <majutsu/is_constant.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <boost/mpl/deref.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <majutsu/is_constant.hpp>
 
 namespace majutsu
 {
@@ -15,7 +16,12 @@ namespace detail
 template<
 	typename Memory
 >
-struct init_constants {
+class init_constants
+{
+	FCPPT_NONASSIGNABLE(
+		init_constants
+	)
+public:
 	explicit init_constants(
 		Memory &mem_
 	)

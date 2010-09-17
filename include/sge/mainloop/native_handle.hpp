@@ -22,16 +22,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MAINLOOP_NATIVE_HANDLE_HPP_INCLUDED
 
 #include <fcppt/config.hpp>
+#if !defined(FCPPT_POSIX_PLATFORM)
+#include <boost/mpl/void.hpp> // TODO: use something else here
+#endif
 
 namespace sge
 {
 namespace mainloop
 {
 
-#ifdef FCPPT_POSIX_PLATFORM
+#if defined(FCPPT_POSIX_PLATFORM)
 typedef int native_handle;
 #else
-#error "TODO: implement me!"
+typedef boost::mpl::void_ native_handle;
 #endif
 
 }

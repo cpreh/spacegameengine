@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/exception.hpp>
 #include <fcppt/filesystem/path.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/io/ofstream.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/string.hpp>
@@ -53,7 +54,9 @@ to_file(
 	)
 		throw parse::exception(
 			FCPPT_TEXT("Opening ")
-			+ path.string()
+			+ fcppt::filesystem::path_to_string(
+				path
+			)
 			+ FCPPT_TEXT(" failed!")
 		);
 

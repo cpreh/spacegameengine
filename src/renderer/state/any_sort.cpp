@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/var.hpp>
 #include <fcppt/variant/apply_binary.hpp>
 #include <fcppt/variant/object_impl.hpp>
+#include <fcppt/type_info.hpp>
 #include <typeinfo>
 
 namespace
@@ -96,7 +97,14 @@ compare::operator()(
 	U const &
 ) const
 {
-	return typeid(T).before(typeid(U));
+	return
+		fcppt::type_info(
+			typeid(T)
+		)
+		<
+		fcppt::type_info(
+			typeid(U)
+		);
 }
 
 }

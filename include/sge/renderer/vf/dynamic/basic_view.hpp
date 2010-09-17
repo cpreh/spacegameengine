@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/format_fwd.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/symbol.hpp>
+#include <fcppt/nonassignable.hpp>
 
 namespace sge
 {
@@ -40,6 +41,9 @@ template<
 >
 class basic_view
 {
+	FCPPT_NONASSIGNABLE(
+		basic_view
+	)
 public:
 	typedef Pointer     pointer;
 	typedef vertex_size size_type;

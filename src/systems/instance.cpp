@@ -53,6 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_info.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <boost/foreach.hpp>
 #include <typeinfo>
 
@@ -151,6 +152,9 @@ namespace
 
 class visitor
 {
+	FCPPT_NONASSIGNABLE(
+		visitor
+	)
 public:
 	typedef void result_type;
 

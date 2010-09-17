@@ -19,16 +19,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/parse/info_to_string.hpp>
-#include <fcppt/io/ostringstream.hpp>
+#include <fcppt/from_std_string.hpp>
+#include <sstream>
 
 fcppt::string const
 sge::parse::info_to_string(
 	boost::spirit::info const &_info
 )
 {
-	fcppt::io::ostringstream stream;
-
+	std::ostringstream stream;
+	
 	stream << _info;
 
-	return stream.str();
+	return
+		fcppt::from_std_string(
+			stream.str()
+		);
 }

@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/function/object.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/optional_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 
 namespace sge
@@ -42,14 +43,21 @@ namespace sge
 namespace windows
 {
 
-class window : public sge::window::instance {
+class window
+:
+	public sge::window::instance
+{
+	FCPPT_NONCOPYABLE(
+		window
+	)
 public:
 	typedef callback_return_type
 	callback_signature_type(
 		window &,
 		event_type,
 		WPARAM,
-		LPARAM);
+		LPARAM
+	);
 
 	typedef fcppt::function::object<
 		callback_signature_type
@@ -60,28 +68,41 @@ public:
 	> signal_type;
 
 	SGE_SYMBOL window(
-		dim_type const &sz,
+		dim_type const &,
 		fcppt::string const &title,
-		fcppt::string const &class_name);
+		fcppt::string const &class_name
+	);
+
 	SGE_SYMBOL ~window();
 
-	SGE_SYMBOL void title(fcppt::string const &t);
-	SGE_SYMBOL void size(dim_type const &newsize);
-	SGE_SYMBOL window::dim_type const size() const;
-	SGE_SYMBOL fcppt::string const title() const;
-	SGE_SYMBOL HWND hwnd() const;
+	SGE_SYMBOL window::dim_type const
+	size() const;
+
+	SGE_SYMBOL HWND
+	hwnd() const;
+
 	SGE_SYMBOL fcppt::signal::auto_connection
 	register_callback(
 		event_type,
-		callback_type);
+		callback_type
+	);
+
 	SGE_SYMBOL callback_return_type
 	execute_callback(
 		event_type msg,
 		WPARAM wparam,
-		LPARAM lparam);
-	SGE_SYMBOL pos_type const viewport_offset() const;
+		LPARAM lparam
+	);
 
-	SGE_SYMBOL void dispatch();
+	SGE_SYMBOL void
+	show();
+
+	SGE_SYMBOL void
+	dispatch();
+
+	SGE_SYMBOL
+	sge::mainloop::io_service_ptr const
+	io_service() const;
 private:
 	wndclass_ptr const wndclass_;
 
@@ -90,6 +111,7 @@ private:
 	>::type decoration_rect;
 
 	decoration_rect decoration_size;
+
 	HWND        handle;
 
 	typedef boost::ptr_map<

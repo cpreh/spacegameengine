@@ -41,6 +41,7 @@ to_stream(
 )
 {
 	typedef std::ostream_iterator<
+		fcppt::io::ostream::char_type,
 		fcppt::io::ostream::char_type
 	> ostream_iterator;
 

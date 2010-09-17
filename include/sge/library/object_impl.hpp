@@ -23,16 +23,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/library/object.hpp>
 #include <sge/library/function_not_found.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 
 template<
 	typename Fun
 >
-Fun sge::library::object::load_function(
-	function_string const &fun)
+Fun
+sge::library::object::load_function(
+	function_string const &_fun
+)
 {
-	Fun const ptr = reinterpret_cast<Fun>(load_address_base(fun));
+	Fun const ptr = reinterpret_cast<Fun>(load_address_base(_fun));
 	if(!ptr)
-		throw function_not_found(name().string(), fun);
+		throw function_not_found(
+			fcppt::filesystem::path_to_string(
+				name().string()
+			),
+			_fun
+		);
 	return ptr;
 }
 

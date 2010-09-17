@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/library/object.hpp>
 #include <sge/library/error.hpp>
 #include <sge/exception.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config.hpp>
@@ -98,8 +99,10 @@ sge::library::object::object(
 	),
 	handle(
 		static_cast<void*>(
-			LoadLibrary(
-				nname.string().c_str()
+			::LoadLibrary(
+				fcppt::filesystem::path_to_string(
+					nname
+				).c_str()
 			)
 		)
 	)
@@ -107,7 +110,9 @@ sge::library::object::object(
 	handle(
 		dlopen(
 			fcppt::to_std_string(
-				nname.string()
+				fcppt::filesystem::path_to_string(
+					nname
+				)
 			).c_str(),
 			RTLD_NOW | RTLD_GLOBAL
 		)
@@ -143,14 +148,13 @@ sge::library::object::~object()
 	if(
 		std::uncaught_exception()
 	)
-		fcppt::containter::ptr::push_back_unique_ptr(
+		fcppt::container::ptr::push_back_unique_ptr(
 			libraries,
 			fcppt::make_unique_ptr<
 				context
 			>(
 				module
 			)
-			ctx
 		);
 	else
 		free_library(
@@ -183,7 +187,9 @@ sge::library::object::load_address_base(
 			FCPPT_TEXT("Function ")
 			+ fcppt::from_std_string(fun)
 			+ FCPPT_TEXT(" not found in ")
-			+ name_.string()
+			+ fcppt::filesystem::path_to_string(
+				name_
+			)
 		);
 
 	return reinterpret_cast<base_fun>(

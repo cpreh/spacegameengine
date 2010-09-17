@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/view_fwd.hpp>
 #include <sge/renderer/vf/dynamic/view.hpp>
 #include <sge/renderer/vf/iterator_fwd.hpp>
+#include <fcppt/nonassignable.hpp>
 
 namespace sge
 {
@@ -37,6 +38,9 @@ template<
 >
 class view
 {
+	FCPPT_NONASSIGNABLE(
+		view
+	)
 public:
 	typedef vf::iterator<
 		VertexFormat

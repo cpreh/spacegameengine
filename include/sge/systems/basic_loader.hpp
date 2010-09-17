@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/basic_loader_fwd.hpp>
 #include <sge/extension_set.hpp>
 #include <sge/symbol.hpp>
+#include <fcppt/nonassignable.hpp>
 
 namespace sge
 {
@@ -35,6 +36,9 @@ template<
 >
 class basic_loader
 {
+	FCPPT_NONASSIGNABLE(
+		basic_loader
+	)
 public:
 	typedef Capabilities capabilities_type;
 

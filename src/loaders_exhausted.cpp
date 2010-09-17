@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/loaders_exhausted.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
@@ -29,7 +30,9 @@ sge::loaders_exhausted::loaders_exhausted(
 :
 	exception(
 		FCPPT_TEXT("Couldn't load \"")
-		+ file.string()
+		+ fcppt::filesystem::path_to_string(
+			file
+		)
 		+ FCPPT_TEXT("\". Reason: ")
 		+ reason
 	)

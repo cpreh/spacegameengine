@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/filesystem/exists.hpp>
 #include <fcppt/filesystem/is_regular.hpp>
 #include <fcppt/filesystem/extension_without_dot.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/container/bitfield/is_subset_eq.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
@@ -133,14 +134,18 @@ sge::multi_loader<Loader, File, Exception, Capabilities>::load(
 	if (!fcppt::filesystem::exists(file))
 		throw exception(
 			FCPPT_TEXT("file \"")
-			+ file.string()
+			+ fcppt::filesystem::path_to_string(
+				file
+			)
 			+ FCPPT_TEXT("\" does not exist")
 		);
 
 	if (!fcppt::filesystem::is_regular(file))
 		throw exception(
 			FCPPT_TEXT("file \"")
-			+ file.string()
+			+ fcppt::filesystem::path_to_string(
+				file
+			)
 			+ FCPPT_TEXT("\" is not a regular file")
 		);
 

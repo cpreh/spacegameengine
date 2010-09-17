@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/ptr/insert_unique_ptr_set.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <fcppt/text.hpp>
 #include <boost/next_prior.hpp>
 
@@ -41,6 +42,9 @@ init_texture(
 
 class move_visitor
 {
+	FCPPT_NONASSIGNABLE(
+		move_visitor
+	)
 public:
 	typedef void result_type;
 

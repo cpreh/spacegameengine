@@ -37,12 +37,14 @@ fcppt::filesystem::path const
 sge::config::appdir()
 {
 #if defined(FCPPT_WINDOWS_PLATFORM)
-	fcppt::container::raw_vector<
-		char_type
-	> buf(32768);
+	typedef fcppt::container::raw_vector<
+		fcppt::char_type
+	> buffer_type;
+	
+	buffer_type buf(32768);
 
 	if(
-		!GetModuleFileName(
+		!::GetModuleFileName(
 			NULL,
 			buf.data(),
 			static_cast<DWORD>(buf.size())

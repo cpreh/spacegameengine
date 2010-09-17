@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <mizuiro/image/sub_view.hpp>
 
 namespace
@@ -39,7 +40,11 @@ sub_impl(
 template<
 	typename Result
 >
-class visitor {
+class visitor
+{
+	FCPPT_NONASSIGNABLE(
+		visitor
+	)
 public:
 	typedef Result result_type;
 
