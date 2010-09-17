@@ -48,12 +48,6 @@ IF(SGE_HAVE_X11)
 	ADD_SGE_EXAMPLE(asio_window)
 ENDIF()
 
-IF (ENABLE_XCB)
-	ADD_SGE_EXAMPLE(xcb)
-	TARGET_LINK_LIBRARIES (sgexcbexample sgexcb)
-ENDIF()
-
-
 # TODO: this should be part of the macro
 #IF (NOT MSVC)
 #	TARGET_LINK_LIBRARIES (sgesoundexample ${Boost_program_options_LIBRARIES})

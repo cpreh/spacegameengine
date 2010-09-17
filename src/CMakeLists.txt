@@ -1,4 +1,5 @@
-FILE (GLOB sgecorefiles 
+FILE (
+	GLOB SGECOREFILES 
 	*.cpp
 	algorithm/*.cpp
 	audio/*.cpp
@@ -69,36 +70,48 @@ FILE (GLOB sgecorefiles
 	window/*.cpp
 )
 
-FILE (GLOB_RECURSE sgecoreheaders
-	../include/*.hpp)
+FILE (
+	GLOB_RECURSE sgecoreheaders
+	../include/*.hpp
+)
 
-SET (sgecorefiles ${sgecorefiles} ${sgecoreheaders})
+SET (SGECOREFILES ${SGECOREFILES} ${sgecoreheaders})
 
 IF (X11_FOUND)
-	FILE (GLOB sgecorex11files
-		x11/*.cpp)
-	SET (sgecorefiles ${sgecorefiles} ${sgecorex11files})
+	FILE (
+		GLOB sgecorex11files
+		x11/*.cpp
+	)
+
+	SET (SGECOREFILES ${SGECOREFILES} ${sgecorex11files})
 ELSEIF (WIN32)
-	FILE (GLOB sgecorewindowsfiles
+
+	FILE (
+		GLOB sgecorewindowsfiles
 		windows/*.cpp
-		windows/detail/*.cpp)
-	SET (sgecorefiles ${sgecorefiles} ${sgecorewindowsfiles})
+		windows/detail/*.cpp
+	)
+
+	SET (SGECOREFILES ${SGECOREFILES} ${sgecorewindowsfiles})
 ENDIF ()
 
 set_source_files_properties(
 	config/plugin_path.cpp
 	PROPERTIES
 	COMPILE_FLAGS
-	-DPLUGIN_PATH="\\\"${CMAKE_INSTALL_PREFIX}/lib/sge\\\"")
+	-DPLUGIN_PATH="\\\"${CMAKE_INSTALL_PREFIX}/lib/sge\\\""
+)
+
 set_source_files_properties(
 	config/media_path.cpp
 	PROPERTIES
 	COMPILE_FLAGS
-	-DMEDIA_PATH="\\\"${CMAKE_INSTALL_PREFIX}/share/games/sge/media\\\"")
+	-DMEDIA_PATH="\\\"${CMAKE_INSTALL_PREFIX}/share/games/sge/media\\\""
+)
 
-ADD_LIBRARY (sgecore SHARED ${sgecorefiles})
+ADD_LIBRARY (sgecore SHARED ${SGECOREFILES})
 
-TARGET_LINK_LIBRARIES (sgecore fcppt)
+TARGET_LINK_LIBRARIES (sgecore ${FCPPT_LIBRARIES})
 
 IF (NOT MSVC)
 	TARGET_LINK_LIBRARIES (
@@ -114,19 +127,19 @@ IF (UNIX)
 	#otherwise XCloseDisplay will segfault on shutdown
 	#if the plugin using Xxf86dga has been unloaded already
 
-
 	CHECK_CXX_SOURCE_COMPILES("
-			#include <X11/Xlib.h>
-			#include <X11/extensions/Xxf86dga.h>
-			int main() {}"
-			HAVE_XF86_DGA_H
-		)
+		#include <X11/Xlib.h>
+		#include <X11/extensions/Xxf86dga.h>
+		int main() {}"
+		HAVE_XF86_DGA_H
+	)
 	
-		IF (HAVE_XF86_DGA_H)
-			FIND_LIBRARY(
-				HAVE_XF86_DGA
-				"Xxf86dga")
-		ENDIF()
+	IF (HAVE_XF86_DGA_H)
+		FIND_LIBRARY(
+			HAVE_XF86_DGA
+			"Xxf86dga"
+		)
+	ENDIF()
 
 	IF(ENABLE_DGA AND HAVE_XF86_DGA)
 		TARGET_LINK_LIBRARIES (sgecore Xxf86dga)
@@ -145,11 +158,3 @@ IF (ENABLE_GUI)
 ENDIF ()
 
 ADD_SUBDIRECTORY (plugins)
-
-OPTION (ENABLE_XCB "Build the xcb bindings" ON)
-
-# TODO: add a search script for xcb!
-
-IF (ENABLE_XCB)
-	ADD_SUBDIRECTORY (xcb)
-ENDIF ()
