@@ -122,29 +122,6 @@ ENDIF ()
 
 IF (UNIX)
 	TARGET_LINK_LIBRARIES (sgecore ${X11_X11_LIB} dl)
-
-	#also link sgecore against Xxf86dga
-	#otherwise XCloseDisplay will segfault on shutdown
-	#if the plugin using Xxf86dga has been unloaded already
-
-	CHECK_CXX_SOURCE_COMPILES("
-		#include <X11/Xlib.h>
-		#include <X11/extensions/Xxf86dga.h>
-		int main() {}"
-		HAVE_XF86_DGA_H
-	)
-	
-	IF (HAVE_XF86_DGA_H)
-		FIND_LIBRARY(
-			HAVE_XF86_DGA
-			"Xxf86dga"
-		)
-	ENDIF()
-
-	IF(ENABLE_DGA AND HAVE_XF86_DGA)
-		TARGET_LINK_LIBRARIES (sgecore Xxf86dga)
-	ENDIF()
-
 ELSEIF (WIN32)
 	TARGET_LINK_LIBRARIES (sgecore gdi32 kernel32 user32)
 ENDIF ()

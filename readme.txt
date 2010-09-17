@@ -38,7 +38,6 @@ Please follow the instructions below.
   At the moment the following options are available:
   - BULLET (build the bullet collision plugin)
   - DEVIL (build the devil image loader plugin)
-  - DGA (build the engine with xf86dga where appropriate - X11 only)
   - DINPUT (build the direct input plugin - Windows only)
   - FREETYPE (build the freetype font plugin)
   - GUI (build the gui)

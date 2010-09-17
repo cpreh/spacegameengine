@@ -69,8 +69,11 @@ sge::x11input::mouse::mouse(
 		black_.get()
 	),
 	callback_(_callback),
-	mouse_last_(),
-	dga_(_wnd),
+	mouse_last_(
+		x11input::get_pointer(
+			_wnd
+		)
+	),
 	connections_(),
 	grab_()
 {
@@ -106,9 +109,6 @@ sge::x11input::mouse::mouse(
 			)
 		)
 	);
-
-	if(!dga_.useable())
-		mouse_last_ = x11input::get_pointer(_wnd);
 }
 
 sge::x11input::mouse::~mouse()
@@ -118,8 +118,6 @@ sge::x11input::mouse::~mouse()
 void
 sge::x11input::mouse::grab()
 {
-	dga_.enable(true);
-
 	grab_.reset(
 		new mouse_grab(
 			wnd_,
@@ -132,8 +130,6 @@ void
 sge::x11input::mouse::ungrab()
 {
 	grab_.reset();
-
-	dga_.enable(false);
 }
 
 void
@@ -141,10 +137,7 @@ sge::x11input::mouse::on_motion(
 	XEvent const &e
 )
 {
-	if(dga_.useable())
-		dga_motion(e);
-	else
-		warped_motion(e);
+	warped_motion(e);
 }
 
 void
@@ -179,30 +172,6 @@ sge::x11input::mouse::on_button_up(
 			0
 		)
 	);
-}
-
-void
-sge::x11input::mouse::dga_motion(
-	XEvent xevent
-)
-{
-	mouse_coordinate
-		dx = xevent.xmotion.x_root,
-		dy = xevent.xmotion.y_root;
-
-	while(
-		XCheckTypedEvent(
-			wnd_->display()->get(),
-			MotionNotify,
-			&xevent
-		)
-	)
-	{
-		dx += xevent.xmotion.x_root;
-		dy += xevent.xmotion.y_root;
-	}
-
-	private_mouse_motion(dx, dy);
 }
 
 void
@@ -287,8 +256,7 @@ sge::x11input::mouse::warped_motion(
 	FCPPT_LOG_WARNING(
 		log::global(),
 		fcppt::log::_
-			<< FCPPT_TEXT("Didn't detect mouse warp motion! ")
-			FCPPT_TEXT("Try to enable dga mouse instead.")
+			<< FCPPT_TEXT("Didn't detect mouse warp motion!")
 	);
 }
 

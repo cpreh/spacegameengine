@@ -3,9 +3,4 @@ FILE (GLOB_RECURSE sgex11inputfiles src/*.cpp)
 ADD_LIBRARY (sgex11input SHARED ${sgex11inputfiles})
 TARGET_LINK_LIBRARIES (sgex11input sgecore ${X11_LIBRARIES})
 
-IF (ENABLE_DGA AND HAVE_XF86_DGA)
-	ADD_DEFINITIONS (-DSGE_USE_DGA)
-	TARGET_LINK_LIBRARIES (sgex11input Xxf86dga)
-ENDIF()
-
 INSTALL (TARGETS sgex11input DESTINATION lib/sge)

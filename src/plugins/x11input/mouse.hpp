@@ -25,13 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "mouse_coordinate.hpp"
 #include "mouse_pos.hpp"
 #include "mouse_grab_fwd.hpp"
-#include "dga.hpp"
+#include <sge/input/callback.hpp>
 #include <X11/Xlib.h>
-#include <sge/x11/window_fwd.hpp>
+#include <sge/x11/window_ptr.hpp>
 #include <sge/x11/color.hpp>
 #include <sge/x11/pixmap.hpp>
 #include <sge/x11/cursor.hpp>
-#include <sge/input/callback.hpp>
 #include <sge/x11/cursor_fwd.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
@@ -78,11 +77,6 @@ private:
 	);
 
 	void
-	dga_motion(
-		XEvent
-	);
-
-	void
 	warped_motion(
 		XEvent
 	);
@@ -104,8 +98,6 @@ private:
 	input::callback const callback_;
 
 	mouse_pos mouse_last_;
-
-	x11input::dga dga_;
 
 	fcppt::signal::connection_manager connections_;
 
