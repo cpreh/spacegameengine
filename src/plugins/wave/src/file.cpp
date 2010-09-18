@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/endianness/is_little_endian.hpp>
 #include <fcppt/endianness/copy_swapped.hpp>
 #include <fcppt/endianness/swap.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/io/ostringstream.hpp>
 #include <fcppt/format.hpp>
@@ -35,7 +36,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::wave::file::file(
 	fcppt::filesystem::path const &filename)
 :
-	filename_(filename.string()),
+	filename_(
+		fcppt::filesystem::path_to_string(
+			filename
+		)
+	),
 	swap_(boost::logic::indeterminate),
 	file_(filename_, std::ios_base::binary)
 {
