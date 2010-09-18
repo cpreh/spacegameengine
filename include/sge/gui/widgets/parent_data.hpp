@@ -38,10 +38,15 @@ class parent_data
 		parent_data
 	)
 public:
-	SGE_GUI_SYMBOL explicit parent_data(
-		base &);
-	SGE_GUI_SYMBOL explicit parent_data(
-		manager &);
+	// intentionally not explicit
+	SGE_GUI_SYMBOL parent_data(
+		base &
+	);
+
+	// intentionally not explicit
+	SGE_GUI_SYMBOL parent_data(
+		manager &
+	);
 
 	SGE_GUI_SYMBOL base *parent_widget() const;
 	SGE_GUI_SYMBOL manager &parent_manager() const;
