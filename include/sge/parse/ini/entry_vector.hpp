@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_INI_ENTRY_VECTOR_HPP_INCLUDED
 #define SGE_PARSE_INI_ENTRY_VECTOR_HPP_INCLUDED
 
+#include <sge/parse/ini/entry_fwd.hpp>
 #include <vector>
 
 namespace sge
@@ -29,8 +30,6 @@ namespace parse
 {
 namespace ini
 {
-
-class entry;
 
 typedef std::vector<
 	entry
