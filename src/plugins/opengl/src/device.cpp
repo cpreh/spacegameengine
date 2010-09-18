@@ -66,6 +66,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/assert.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
@@ -555,6 +556,10 @@ sge::opengl::device::create_target(
 	renderer::depth_stencil_texture_ptr const _depth_stencil_texture
 )
 {
+	FCPPT_ASSERT(
+		_texture || _depth_stencil_texture
+	);
+
 	return
 		fcppt::make_shared_ptr<
 			fbo_target

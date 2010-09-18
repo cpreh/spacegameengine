@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "context/object_fwd.hpp"
 #include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/texture_ptr.hpp>
+#include <fcppt/math/dim/basic_decl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
@@ -90,6 +91,8 @@ private:
 	fbo_context &context_;
 
 	sge::renderer::texture_ptr const texture_;
+
+	dim_type const dim_;
 
 	opengl::fbo fbo_;
 

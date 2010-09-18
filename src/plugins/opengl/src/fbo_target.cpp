@@ -32,8 +32,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/parameters.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/unique_ptr.hpp>
+#include <fcppt/math/dim/comparison.hpp>
+#include <fcppt/assert.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/unique_ptr.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::fbo_target::fbo_target(
@@ -53,14 +55,32 @@ sge::opengl::fbo_target::fbo_target(
 	texture_(
 		_texture
 	),
+	dim_(
+		texture_
+		?
+			texture_->dim()
+		:
+			_depth_stencil_texture->dim()
+	),
 	fbo_(
 		context_
 	)
 {
-	add_texture_binding(
-		_texture,
-		context_.color_attachment()
-	);
+	if(
+		texture_
+		&& _depth_stencil_texture
+	)
+		FCPPT_ASSERT(
+			texture_->dim() == _depth_stencil_texture->dim()
+		);
+
+	if(
+		_texture
+	)
+		add_texture_binding(
+			_texture,
+			context_.color_attachment()
+		);
 
 	if(
 		_depth_stencil_texture
@@ -158,7 +178,7 @@ sge::opengl::fbo_target::unlock() const
 sge::renderer::target::dim_type const
 sge::opengl::fbo_target::dim() const
 {
-	return texture_->dim();
+	return dim_;
 }
 
 void

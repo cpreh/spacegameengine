@@ -52,7 +52,7 @@ public:
 
 	GLuint
 	id() const;
-private:
+
 	void
 	bind_me() const;
 
@@ -61,7 +61,7 @@ private:
 
 	renderer::resource_flags_field const
 	flags() const;
-
+private:
 	texture_holder const holder_;
 
 	dim_type const dim_;
