@@ -53,14 +53,14 @@ sge::dinput::system::system(
 			FCPPT_TEXT("DirectInput Enumeration failed!"));
 }
 
-sge::signal::auto_connection
+fcppt::signal::auto_connection
 sge::dinput::system::register_callback(
 	input::callback const &c)
 {
 	return sig.connect(c);
 }
 
-sge::signal::auto_connection
+fcppt::signal::auto_connection
 sge::dinput::system::register_repeat_callback(
 	input::repeat_callback const &c)
 {

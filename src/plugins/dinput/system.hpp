@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "di.hpp"
 #include "signal.hpp"
 #include <sge/input/system.hpp>
-#include <sge/windows/window.hpp>
+#include <sge/windows/window_ptr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <map>
@@ -36,21 +36,30 @@ namespace sge
 namespace dinput
 {
 
-class system : public input::system {
+class system
+:
+	public input::system
+{
 public:
 	explicit system(
-		windows::window_ptr w);
+		windows::window_ptr
+	);
 
 	fcppt::signal::auto_connection
 	register_callback(
-		input::callback const &c);
+		input::callback const &
+	);
 
 	fcppt::signal::auto_connection
 	register_repeat_callback(
-		input::repeat_callback const &c);
+		input::repeat_callback const &
+	);
 
-	void dispatch();
-	window::instance_ptr const window() const;
+	void
+	dispatch();
+
+	window::instance_ptr const
+	window() const;
 private:
 	signal_type sig;
 	repeat_signal_type repeat_sig;

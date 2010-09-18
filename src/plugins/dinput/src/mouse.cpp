@@ -83,7 +83,7 @@ BOOL sge::dinput::mouse::enum_mouse_keys(LPCDIDEVICEOBJECTINSTANCE ddoi, LPVOID 
 {
 	mouse& m = *static_cast<mouse*>(s);
 	m.keys[ddoi->dwOfs] = input::key_type(
-		ddoi->tszName + m.name(),
+		//ddoi->tszName + m.name(),
 		create_mouse_code(
 			ddoi->dwOfs));
 	return DIENUM_CONTINUE;

@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../keyboard_repeat.hpp"
 #include <sge/windows/windows.hpp>
 #include <sge/time/millisecond.hpp>
-#include <sge/time/resolution.hpp>
+#include <fcppt/chrono/duration_impl.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/text.hpp>
 
-sge::time::resolution const
+sge::time::duration const
 sge::dinput::keyboard_repeat()
 {
 	int ret = 0;

@@ -27,6 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/shared_ptr.hpp>
 #include <fcppt/com_deleter.hpp>
 
+#undef min
+#undef max
+
 namespace sge
 {
 namespace dinput

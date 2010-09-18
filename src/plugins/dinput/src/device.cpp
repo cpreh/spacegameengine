@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../device.hpp"
 #include <sge/windows/window.hpp>
 #include <sge/exception.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 
@@ -41,6 +42,9 @@ DIPROPDWORD const buffer_settings = {
 };
 
 class activate_handler {
+	FCPPT_NONASSIGNABLE(
+		activate_handler
+	)
 public:
 	typedef sge::windows::callback_return_type result_type;
 
