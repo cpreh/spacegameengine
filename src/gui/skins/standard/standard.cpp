@@ -41,6 +41,7 @@ sge::gui::color const standard_color = sge::image::colors::black();
 sge::gui::skins::standard::standard(
 	font::system_ptr const fs)
 :
+	base(),
 	standard_font_(
 		fs->create_font(
 			media_path()/

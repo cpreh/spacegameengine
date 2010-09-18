@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/unit.hpp>
 #include <sge/gui/widgets/base.hpp>
 #include <sge/gui/size_policy.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <boost/multi_array.hpp>
 #include <vector>
 #include <map>
@@ -37,6 +38,9 @@ namespace detail
 {
 class grid_cache
 {
+	FCPPT_NONASSIGNABLE(
+		grid_cache
+	)
 public:
 	class widget_data
 	{

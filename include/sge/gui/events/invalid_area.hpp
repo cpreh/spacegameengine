@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/export.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/variant/object_impl.hpp>
+#include <fcppt/nonassignable.hpp>
 
 namespace sge
 {
@@ -35,6 +36,9 @@ namespace events
 {
 class invalid_area
 {
+	FCPPT_NONASSIGNABLE(
+		invalid_area
+	)
 public:
 	SGE_GUI_SYMBOL invalid_area(
 		image_view const &,

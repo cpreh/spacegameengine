@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/key_pair_fwd.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/nonassignable.hpp>
 
 namespace sge
 {
@@ -32,6 +33,9 @@ namespace detail
 {
 class cursor_delegate
 {
+	FCPPT_NONASSIGNABLE(
+		cursor_delegate
+	)
 public:
 	explicit cursor_delegate(fcppt::string &);
 	fcppt::string::size_type pos() const;

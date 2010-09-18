@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/export.hpp>
 #include <sge/font/system_ptr.hpp>
 #include <sge/font/metrics_ptr.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -34,6 +35,9 @@ namespace skins
 {
 class standard : public base
 {
+	FCPPT_NONCOPYABLE(
+		standard
+	)
 public:
 	SGE_GUI_SYMBOL explicit standard(
 		font::system_ptr);

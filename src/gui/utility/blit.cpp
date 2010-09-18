@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/structure_cast.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/assert.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <mizuiro/color/has_channel.hpp>
@@ -48,6 +49,9 @@ template<
 >
 class channel_blitter
 {
+	FCPPT_NONASSIGNABLE(
+		channel_blitter
+	)
 public:
 	typedef typename DstPixel::format::channel_type channel_type;
 

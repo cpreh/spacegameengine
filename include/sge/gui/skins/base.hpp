@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/export.hpp>
 #include <sge/gui/font_info.hpp>
 #include <fcppt/unique_ptr.hpp>
+#include <fcppt/noncopyable.hpp>
 
 #define SGE_GUI_SKIN_DRAW_RETURN(name)\
 	void
@@ -81,7 +82,10 @@ namespace skins
 {
 class base
 {
-	public:
+	FCPPT_NONCOPYABLE(
+		base
+	)
+public:
 	SGE_GUI_SYMBOL SGE_GUI_SKIN_WIDGET(base)
 
 	virtual SGE_GUI_SKIN_DRAW_RETURN(widgets::base) fallback(
@@ -96,7 +100,9 @@ class base
 	virtual font_info const standard_font() const = 0;
 
 	SGE_GUI_SYMBOL virtual ~base();
-	protected:
+protected:
+	SGE_GUI_SYMBOL base();
+
 	// NOTE: this can be a const widgets::base since the buffer is mutable
 	void resize_buffer(
 		widgets::base const &);

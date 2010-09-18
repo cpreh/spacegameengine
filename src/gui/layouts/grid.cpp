@@ -366,7 +366,7 @@ void sge::gui::layouts::grid::update_rolumn(
 		FCPPT_LOG_DEBUG(
 			mylogger,
 			fcppt::log::_ << FCPPT_TEXT("swapping positions: ")
-							<< bool(axis)
+							<< static_cast<bool>(axis != 0)
 							<< FCPPT_TEXT(" and accessing ")
 							<< i << FCPPT_TEXT("x") << rolumn);
 
@@ -377,7 +377,7 @@ void sge::gui::layouts::grid::update_rolumn(
 				unsigned
 			>(
 				valid_cache().plane(),
-				!static_cast<bool>(axis),
+				static_cast<bool>(axis == 0),
 				static_cast<unsigned>(
 					i),
 				static_cast<unsigned>(

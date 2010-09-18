@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_GUI_WIDGETS_PARENT_DATA_HPP_INCLUDED
 
 #include <sge/gui/widgets/fwd.hpp>
-#include <sge/gui/manager.hpp>
+#include <sge/gui/manager.hpp> // TODO: fwd this!
 #include <sge/gui/export.hpp>
+#include <fcppt/nonassignable.hpp>
 
 namespace sge
 {
@@ -33,10 +34,13 @@ namespace widgets
 {
 class parent_data
 {
+	FCPPT_NONASSIGNABLE(
+		parent_data
+	)
 public:
-	SGE_GUI_SYMBOL parent_data(
+	SGE_GUI_SYMBOL explicit parent_data(
 		base &);
-	SGE_GUI_SYMBOL parent_data(
+	SGE_GUI_SYMBOL explicit parent_data(
 		manager &);
 
 	SGE_GUI_SYMBOL base *parent_widget() const;

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_CANVAS_UTILITY_FONT_CHANNEL_BLITTER_HPP_INCLUDED
 #define SGE_GUI_CANVAS_UTILITY_FONT_CHANNEL_BLITTER_HPP_INCLUDED
 
+#include <fcppt/nonassignable.hpp>
 #include <mizuiro/color/normalize.hpp>
 #include <mizuiro/color/denormalize.hpp>
 #include <boost/type_traits/remove_const.hpp>
@@ -39,6 +40,9 @@ template<
 >
 class font_channel_blitter
 {
+	FCPPT_NONASSIGNABLE(
+		font_channel_blitter
+	)
 public:
 	typedef void result_type;
 

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/algorithm/print.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <mizuiro/image/algorithm/print.hpp>
 
 namespace
@@ -28,6 +29,9 @@ namespace
 
 class visitor
 {
+	FCPPT_NONASSIGNABLE(
+		visitor
+	)
 public:
 	typedef void result_type;
 

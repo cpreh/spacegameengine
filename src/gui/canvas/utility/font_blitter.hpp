@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "make_font_channel_blitter.hpp"
 #include <sge/image/color/any/convert.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <mizuiro/color/for_each_channel.hpp>
 #include <mizuiro/color/is_alpha.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -36,6 +37,9 @@ namespace utility
 
 class font_blitter
 {
+	FCPPT_NONASSIGNABLE(
+		font_blitter
+	)
 public:
 	typedef void result_type;
 

@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/export.hpp>
 #include <sge/input/key_pair.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/nonassignable.hpp>
 
 namespace sge
 {
@@ -34,13 +35,16 @@ namespace events
 {
 class mouse_click
 {
-	public:
+	FCPPT_NONASSIGNABLE(
+		mouse_click
+	)
+public:
 	SGE_GUI_SYMBOL mouse_click(
 		point const &,
 		input::key_pair const &);
 	point const &pos() const { return pos_; }
 	input::key_pair const &value() const { return kp; }
-	private:
+private:
 	point const pos_;
 	input::key_pair const kp;
 };

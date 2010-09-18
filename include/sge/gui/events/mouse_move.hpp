@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/point.hpp>
 #include <sge/gui/export.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/nonassignable.hpp>
 
 namespace sge
 {
@@ -33,10 +34,13 @@ namespace events
 {
 class mouse_move
 {
-	public:
+	FCPPT_NONASSIGNABLE(
+		mouse_move
+	)
+public:
 	SGE_GUI_SYMBOL mouse_move(point const &);
 	point const &pos() const { return pos_; }
-	private:
+private:
 	point const pos_;
 };
 }

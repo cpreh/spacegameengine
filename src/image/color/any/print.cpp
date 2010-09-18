@@ -22,12 +22,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/print.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
+#include <fcppt/nonassignable.hpp>
 
 namespace
 {
 
 class visitor
 {
+	FCPPT_NONASSIGNABLE(
+		visitor
+	)
 public:
 	typedef fcppt::io::ostream &result_type;
 

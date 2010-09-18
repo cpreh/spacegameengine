@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_ALGORITHM_DETAIL_TRANSFORM_UNARY_HPP_INCLUDED
 #define SGE_IMAGE_ALGORITHM_DETAIL_TRANSFORM_UNARY_HPP_INCLUDED
 
+#include <fcppt/nonassignable.hpp>
 #include <mizuiro/image/algorithm/transform_binary.hpp>
 
 namespace sge
@@ -37,6 +38,9 @@ template<
 >
 class transform_unary
 {
+	FCPPT_NONASSIGNABLE(
+		transform_unary
+	)
 public:
 	typedef void result_type;
 

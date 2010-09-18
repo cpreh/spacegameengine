@@ -199,7 +199,7 @@ sge::gui::widgets::base const &sge::gui::widgets::base::parent_widget() const
 
 bool sge::gui::widgets::base::has_parent() const
 {
-	return parent_;
+	return parent_ != 0;
 }
 
 sge::gui::widgets::base &sge::gui::widgets::base::oldest_parent()

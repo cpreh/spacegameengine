@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/modifier/states.hpp>
 #include <sge/gui/export.hpp>
 #include <fcppt/container/map_decl.hpp>
+#include <fcppt/nonassignable.hpp>
 
 namespace sge
 {
@@ -34,7 +35,10 @@ namespace events
 {
 class key
 {
-	public:
+	FCPPT_NONASSIGNABLE(
+		key
+	)
+public:
 	SGE_GUI_SYMBOL key(
 		input::key_pair const &,
 		input::modifier::states const &,
@@ -43,7 +47,7 @@ class key
 	SGE_GUI_SYMBOL input::key_pair const &value() const;
 	SGE_GUI_SYMBOL input::modifier::states const &modifiers() const;
 	SGE_GUI_SYMBOL bool repeated() const;
-	private:
+private:
 	input::key_pair const kp;
 	input::modifier::states const s;
 	bool repeated_;

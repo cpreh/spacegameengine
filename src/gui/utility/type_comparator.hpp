@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_UTILITY_TYPE_COMPARATOR_HPP_INCLUDED
 #define SGE_GUI_UTILITY_TYPE_COMPARATOR_HPP_INCLUDED
 
+#include <fcppt/nonassignable.hpp>
 #include <boost/mpl/for_each.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/add_reference.hpp>
@@ -41,8 +42,11 @@ template<
 	typename Callback>
 class type_comparator_impl
 {
+	FCPPT_NONASSIGNABLE(
+		type_comparator_impl
+	)
 public:
-type_comparator_impl(
+	type_comparator_impl(
 		Obj &obj,
 		Callback &cb,
 		unsigned &count)

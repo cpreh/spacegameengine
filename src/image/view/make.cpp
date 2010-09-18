@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/mpl/invoke_on.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <mizuiro/image/is_raw_view.hpp>
 #include <boost/mpl/filter_view.hpp>
@@ -36,6 +37,9 @@ namespace
 
 class operation
 {
+	FCPPT_NONASSIGNABLE(
+		operation
+	)
 public:
 	typedef sge::image::view::object result_type;
 

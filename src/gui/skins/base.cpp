@@ -42,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <boost/mpl/vector.hpp>
 #include <typeinfo>
 
@@ -61,7 +62,10 @@ namespace
 {
 class call_draw
 {
-	public:
+	FCPPT_NONASSIGNABLE(
+		call_draw
+	)
+public:
 	typedef void result_type;
 
 	call_draw(
@@ -74,14 +78,17 @@ class call_draw
 	void operator()(V &v) { s.draw(v,e); }
 
 	void value() const {}
-	private:
+private:
 	sge::gui::skins::base &s;
 	sge::gui::events::invalid_area const &e;
 };
 
 class call_optimal_size
 {
-	public:
+	FCPPT_NONASSIGNABLE(
+		call_optimal_size
+	)
+public:
 	typedef sge::gui::dim result_type;
 
 	call_optimal_size(
@@ -94,7 +101,7 @@ class call_optimal_size
 	}
 
 	sge::gui::dim const value() const { return sh; }
-	private:
+private:
 	sge::gui::skins::base const &s;
 	sge::gui::dim sh;
 };
@@ -174,6 +181,9 @@ SGE_GUI_SKIN_SIZE_RETURN(widgets::base) sge::gui::skins::base::default_hint_hand
 }
 
 sge::gui::skins::base::~base()
+{}
+
+sge::gui::skins::base::base()
 {}
 
 void sge::gui::skins::base::resize_buffer(

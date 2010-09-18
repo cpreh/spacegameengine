@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/convert.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <mizuiro/image/algorithm/fill_c.hpp>
 #include <mizuiro/image/view_impl.hpp>
 #include <mizuiro/color/object_impl.hpp>
@@ -29,12 +30,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-class fill_visitor {
+class fill_visitor
+{
+	FCPPT_NONASSIGNABLE(
+		fill_visitor
+	)
 public:
 	typedef void result_type;
 
 	explicit fill_visitor(
-		sge::image::color::any::object const &col
+		sge::image::color::any::object const &
 	);
 
 	template<
@@ -42,7 +47,8 @@ public:
 	>
 	result_type
 	operator()(
-		T const &) const;
+		T const &
+	) const;
 private:
 	sge::image::color::any::object const col;
 };

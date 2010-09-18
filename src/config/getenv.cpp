@@ -33,31 +33,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::config::optional_string const
 sge::config::getenv(
-	fcppt::string const &s
+	fcppt::string const &_name
 )
 {
 #ifdef FCPPT_WINDOWS_PLATFORM
 	fcppt::container::raw_vector<
 		fcppt::char_type
-	> home_dir(32767);
+	> buffer(32767);
 
 	return
-		GetEnvironmentVariable(
-			FCPPT_TEXT("USERPROFILE"),
-			home_dir.data(),
-			home_dir.size()
+		::GetEnvironmentVariable(
+			_name.c_str(),
+			buffer.data(),
+			buffer.size()
 		) == 0
 		?
 			optional_string()
 		:
 			optional_string(
-				home_dir.data()
+				buffer.data()
 			);
 #else
 	char const *const ret(
 		::std::getenv(
 			fcppt::from_std_string(
-				s
+				_name
 			).c_str()
 		)
 	);
