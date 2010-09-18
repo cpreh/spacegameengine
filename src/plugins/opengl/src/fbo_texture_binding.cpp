@@ -41,7 +41,7 @@ sge::opengl::fbo_texture_binding::fbo_texture_binding(
 	_context.framebuffer_texture_2d()(
 		_context.framebuffer_target(),
 		_attachment,
-		GL_TEXTURE_2D,
+		_texture->type(),
 		_texture->id(),
 		0
 	);
