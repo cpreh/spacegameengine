@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/file.hpp>
 #include <fcppt/filesystem/path.hpp>
-#include <fcppt/io/ifstream.hpp>
+#include <fcppt/io/cifstream.hpp>
 #include <fcppt/string.hpp>
 #include <boost/logic/tribool.hpp>
 #include <string>
@@ -53,7 +53,7 @@ public:
 private:
 	fcppt::string const         filename_;
 	boost::logic::tribool       swap_;
-	fcppt::io::ifstream         file_;
+	fcppt::io::cifstream        file_;
 	std::streampos              data_segment;
 	audio::sample_count         samples_,
 	                            samples_read_;
