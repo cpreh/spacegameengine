@@ -45,25 +45,25 @@ public:
 	bool
 	is_supported() const;
 
-	typedef void (*gl_gen_framebuffers)(GLsizei, GLuint *);
+	typedef PFNGLGENFRAMEBUFFERSPROC gl_gen_framebuffers;
 
-	typedef void (*gl_delete_framebuffers)(GLsizei, GLuint const *);
+	typedef PFNGLDELETEFRAMEBUFFERSPROC gl_delete_framebuffers;
 
-	typedef void (*gl_bind_framebuffer)(GLenum, GLuint);
+	typedef PFNGLBINDFRAMEBUFFERPROC gl_bind_framebuffer;
 
-	typedef void (*gl_framebuffer_texture_2d)(GLenum, GLenum, GLenum, GLuint, GLint);
+	typedef PFNGLFRAMEBUFFERTEXTURE2DPROC gl_framebuffer_texture_2d;
 
-	typedef GLenum (*gl_check_framebuffer_status)(GLenum);
+	typedef PFNGLCHECKFRAMEBUFFERSTATUSPROC gl_check_framebuffer_status;
 
-	typedef void (*gl_gen_renderbuffers)(GLsizei, GLuint *);
+	typedef PFNGLGENRENDERBUFFERSPROC gl_gen_renderbuffers;
 
-	typedef void (*gl_delete_renderbuffers)(GLsizei, GLuint const *);
+	typedef PFNGLDELETERENDERBUFFERSPROC gl_delete_renderbuffers;
 
-	typedef void (*gl_bind_renderbuffer)(GLenum, GLuint);
+	typedef PFNGLBINDRENDERBUFFERPROC gl_bind_renderbuffer;
 
-	typedef void (*gl_renderbuffer_storage)(GLenum, GLenum, GLsizei, GLsizei);
+	typedef PFNGLRENDERBUFFERSTORAGEPROC gl_renderbuffer_storage;
 
-	typedef void (*gl_framebuffer_renderbuffer)(GLenum, GLenum, GLenum, GLuint);
+	typedef PFNGLFRAMEBUFFERRENDERBUFFERPROC gl_framebuffer_renderbuffer;
 
 	gl_gen_framebuffers
 	gen_framebuffers() const;

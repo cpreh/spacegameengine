@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/transpose.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <fcppt/text.hpp>
 
 namespace
@@ -36,6 +37,9 @@ namespace
 
 class visitor
 {
+	FCPPT_NONASSIGNABLE(
+		visitor
+	)
 public:
 	explicit visitor(
 		sge::opengl::context::object &
