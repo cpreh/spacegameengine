@@ -742,24 +742,16 @@ sge::opengl::device::reset_viewport(
 	sge::window::dim_type const &_wnd_sz
 )
 {
-	renderer::pixel_pos const pos(
-		opengl::viewport_pos(
-			renderer::pixel_pos::null(),
-			_wnd_sz,
-			screen_size()
-		)
-	);
-
 	opengl::viewport(
 		sge::renderer::viewport(
-			pos,
+			opengl::viewport_pos(
+				renderer::pixel_pos::null(),
+				_wnd_sz,
+				screen_size()
+			),
 			screen_size()
 		),
 		_wnd_sz.h()
-	);
-
-	default_target_->pos(
-		pos
 	);
 }
 
