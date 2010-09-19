@@ -116,8 +116,10 @@ sge::libpng::load_context::load_context(
 
 	if (color_type == PNG_COLOR_TYPE_PALETTE)
 	{
-		png_set_palette_to_rgb(
-			read_ptr_->ptr());
+		throw exception(FCPPT_TEXT("Palette images are not supported."));
+		// For some reason, this causes a crash, so this is disabled for now
+		//png_set_palette_to_rgb(
+		//	read_ptr_->ptr());
 	}
 	else if (color_type == PNG_COLOR_TYPE_GRAY)
 	{
