@@ -61,10 +61,17 @@ public:
 
 	renderer::resource_flags_field const
 	flags() const;
+
+	void
+	debug(); // TODO: remove this!
 private:
 	texture_holder const holder_;
 
 	dim_type const dim_;
+
+	GLenum const
+		format_,
+		format_type_;
 };
 
 }

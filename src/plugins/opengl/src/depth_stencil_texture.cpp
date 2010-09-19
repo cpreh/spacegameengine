@@ -30,6 +30,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 
+#include "../texfuncs/get_image.hpp"
+#include <mizuiro/image/store.hpp>
+#include <mizuiro/image/format.hpp>
+#include <mizuiro/image/dimension.hpp>
+#include <mizuiro/image/interleaved.hpp>
+#include <mizuiro/image/raw_view.hpp>
+#include <mizuiro/image/underlying_data_pointer.hpp>
+#include <mizuiro/color/homogenous.hpp>
+#include <mizuiro/color/layout/alpha.hpp>
+#include <mizuiro/access/raw.hpp>
+
 sge::opengl::depth_stencil_texture::depth_stencil_texture(
 	opengl::context::object &_context,
 	dim_type const &_dim,
@@ -41,19 +52,25 @@ sge::opengl::depth_stencil_texture::depth_stencil_texture(
 		GL_TEXTURE_2D
 	),
 	holder_(),
-	dim_(_dim)
+	dim_(_dim),
+	format_(
+		convert::depth_stencil_to_format(
+			_format
+		)
+	),
+	format_type_(
+		convert::depth_stencil_to_format_type(
+			_format
+		)
+	)
 {
 	bind_me();
 
 	texfuncs::set(
 		_context,
 		type(),
-		convert::depth_stencil_to_format(
-			_format
-		),
-		convert::depth_stencil_to_format_type(
-			_format
-		),
+		format_,
+		format_type_,
 		convert::depth_stencil_to_internal_format(
 			_format
 		),
@@ -92,4 +109,43 @@ sge::renderer::resource_flags_field const
 sge::opengl::depth_stencil_texture::flags() const
 {
 	return renderer::resource_flags::none;
+}
+
+void
+sge::opengl::depth_stencil_texture::debug()
+{
+	typedef mizuiro::image::format<
+		mizuiro::image::dimension<
+			2
+		>,
+		mizuiro::image::interleaved<
+			mizuiro::color::homogenous<
+				float,
+				mizuiro::color::layout::alpha
+			>
+		>
+	> format;
+
+	typedef mizuiro::image::store<
+		format,
+		mizuiro::access::raw
+	> store;
+
+	store img(
+		store::dim_type(
+			dim().w(),
+			dim().h()
+		)
+	);
+
+	bind_me();
+
+	texfuncs::get_image(
+		format_,
+		format_type_,
+		mizuiro::image::underlying_data_pointer(
+			img.view()
+		)
+	);
+
 }
