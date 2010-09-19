@@ -1,6 +1,11 @@
 FILE (GLOB_RECURSE sgelibpngfiles src/*.cpp)
 
+INCLUDE_DIRECTORIES(${PNG_INCLUDE_DIR})
+
+ADD_DEFINITIONS(${PNG_DEFINITIONS})
+
 ADD_LIBRARY (sgelibpng SHARED ${sgelibpngfiles})
-TARGET_LINK_LIBRARIES (sgelibpng sgecore png)
+
+TARGET_LINK_LIBRARIES (sgelibpng sgecore ${PNG_LIBRARY})
 
 INSTALL (TARGETS sgelibpng DESTINATION lib/sge)

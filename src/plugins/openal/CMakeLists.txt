@@ -1,18 +1,9 @@
 FILE (GLOB_RECURSE sgeopenalfiles src/*.cpp)
 
-IF (MSVC)
-	INCLUDE_DIRECTORIES(${WININCLUDES}/openal/include)
-	LINK_DIRECTORIES(${CMAKE_SOURCE_DIR}/${WINLIBS}/openal/lib)
-ELSE ()
-	INCLUDE_DIRECTORIES(${OPENAL_INCLUDE_DIR})
-ENDIF ()
+INCLUDE_DIRECTORIES(${OPENAL_INCLUDE_DIR})
 
 ADD_LIBRARY (sgeopenal SHARED ${sgeopenalfiles})
 
-IF (${UNIX})
-	TARGET_LINK_LIBRARIES (sgeopenal sgecore openal)
-ELSEIF (${WIN32})
-	TARGET_LINK_LIBRARIES (sgeopenal sgecore OpenAL32)
-ENDIF ()
+TARGET_LINK_LIBRARIES (sgeopenal sgecore ${OPENAL_LIBRARY})
 
 INSTALL (TARGETS sgeopenal DESTINATION lib/sge)

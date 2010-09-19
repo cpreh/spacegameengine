@@ -1,14 +1,9 @@
 FILE (GLOB_RECURSE sgefreetypefiles src/*.cpp)
 
-IF (MSVC)
-	INCLUDE_DIRECTORIES (${WININCLUDES}/freetype/include ${WININCLUDES}/freetype/include/freetype2)
-	LINK_DIRECTORIES (${CMAKE_SOURCE_DIR}/${WINLIBS}/freetype/lib)
-ELSE ()
-	pkg_check_modules(FREETYPE2 freetype2)
-	INCLUDE_DIRECTORIES(${FREETYPE2_INCLUDE_DIRS})
-ENDIF ()
+INCLUDE_DIRECTORIES(${FREETYPE_INCLUDE_DIRS})
 
 ADD_LIBRARY (sgefreetype SHARED ${sgefreetypefiles})
-TARGET_LINK_LIBRARIES (sgefreetype sgecore freetype)
+
+TARGET_LINK_LIBRARIES (sgefreetype sgecore ${FREETYPE_LIBRARIES})
 
 INSTALL (TARGETS sgefreetype DESTINATION lib/sge)

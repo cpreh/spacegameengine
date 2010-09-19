@@ -2,7 +2,6 @@ IF (WIN32)
 	SET (LIBRARY_OUTPUT_PATH ${pluginpath})
 ENDIF ()
 
-
 FIND_PACKAGE(Bullet)
 FIND_PACKAGE(DevIL)
 FIND_PACKAGE(Freetype)
@@ -10,8 +9,8 @@ FIND_PACKAGE(GLEW)
 FIND_PACKAGE(ODE)
 FIND_PACKAGE(OpenGL)
 FIND_PACKAGE(OpenAL)
-FIND_PACKAGE(Vorbis)
 FIND_PACKAGE(PNG 1.4.1)
+FIND_PACKAGE(Vorbis)
 
 OPTION (ENABLE_AUDIO_NULL "Build the null audio player plugin" OFF)
 OPTION (ENABLE_BITMAP_FONT "Build the bitmap font plugin" OFF)
@@ -25,10 +24,34 @@ ELSE()
 	OPTION (ENABLE_BULLET "Build the bullet collision plugin" OFF)
 ENDIF()
 
+IF(FREETYPE_FOUND)
+	OPTION (ENABLE_FREETYPE "Build the freetype font plugin" ON)
+ELSE()
+	OPTION (ENABLE_FREETYPE "Build the freetype font plugin" OFF)
+ENDIF()
+
+IF(IL_FOUND)
+	OPTION (ENABLE_DEVIL "Build the devil image loader plugin" ON)
+ELSE ()
+	OPTION (ENABLE_DEVIL "Build the devil image loader plugin" OFF)
+ENDIF()
+
 IF(ODE_FOUND)
 	OPTION (ENABLE_ODE "Build the ode collision plugin" ON)
 ELSE()
 	OPTION (ENABLE_ODE "Build the ode collision plugin" OFF)
+ENDIF()
+
+IF(OPENAL_FOUND)
+	OPTION (ENABLE_OPENAL "Build the openal audio plugin" ON)
+ELSE()
+	OPTION (ENABLE_OPENAL "Build the openal audio plugin" OFF)
+ENDIF()
+
+IF(OPENGL_FOUND AND GLEW_FOUND)
+	OPTION (ENABLE_OPENGL "Build the opengl render plugin" ON)
+ELSE()
+	OPTION (ENABLE_OPENGL "Build the opengl render plugin" OFF)
 ENDIF()
 
 IF(PNG_FOUND)
@@ -37,40 +60,11 @@ ELSE()
 	OPTION (ENABLE_PNG "Build the libpng plugin" OFF)
 ENDIF()
 
-IF(DevIL_FOUND)
-	OPTION (ENABLE_DEVIL "Build the devil image loader plugin" ON)
-ELSE ()
-	OPTION (ENABLE_DEVIL "Build the devil image loader plugin" OFF)
-ENDIF()
-
-
-IF(FREETYPE_FOUND)
-	OPTION (ENABLE_FREETYPE "Build the freetype font plugin" ON)
-ELSE()
-	OPTION (ENABLE_FREETYPE "Build the freetype font plugin" OFF)
-ENDIF()
-
-
-IF(OPENAL_FOUND)
-	OPTION (ENABLE_OPENAL "Build the openal audio plugin" ON)
-ELSE()
-	OPTION (ENABLE_OPENAL "Build the openal audio plugin" OFF)
-ENDIF()
-
-
-IF(OPENGL_FOUND AND GLEW_FOUND)
-	OPTION (ENABLE_OPENGL "Build the opengl render plugin" ON)
-ELSE()
-	OPTION (ENABLE_OPENGL "Build the opengl render plugin" OFF)
-ENDIF()
-
-
 IF(VORBIS_FOUND)
 	OPTION (ENABLE_VORBIS "Build the vorbis loader plugin" ON)
 ELSE()	
 	OPTION (ENABLE_VORBIS "Build the vorbis loader plugin" OFF)
 ENDIF()
-
 
 IF(X11_Xinput_FOUND)
 	OPTION (ENABLE_X11INPUT "Build the x11 input plugin" ON)
@@ -122,16 +116,16 @@ IF (ENABLE_OPENGL)
 	ADD_SUBDIRECTORY (opengl)
 ENDIF ()
 
+IF (ENABLE_PNG)
+	ADD_SUBDIRECTORY (libpng)
+ENDIF ()
+
 IF (ENABLE_VORBIS)
 	ADD_SUBDIRECTORY (vorbis)
 ENDIF ()
 
 IF (ENABLE_WAVE)
 	ADD_SUBDIRECTORY (wave)
-ENDIF ()
-
-IF (ENABLE_PNG)
-	ADD_SUBDIRECTORY (libpng)
 ENDIF ()
 
 IF (ENABLE_X11INPUT)
