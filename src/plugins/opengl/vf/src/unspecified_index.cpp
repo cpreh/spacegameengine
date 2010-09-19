@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../glsl/context.hpp"
 #include "../../glsl/program_base.hpp"
 #include <sge/renderer/exception.hpp>
+#include <fcppt/to_std_string.hpp>
 #include <fcppt/text.hpp>
 
 GLint
@@ -46,6 +47,8 @@ sge::opengl::vf::unspecified_index(
 	
 	return
 		ptr->location(
-			_name
+			fcppt::to_std_string(
+				_name
+			)
 		);
 }

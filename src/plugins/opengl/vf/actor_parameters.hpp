@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "actor_parameters_fwd.hpp"
 #include "../context/object_fwd.hpp"
 #include <sge/renderer/size_type.hpp>
+#include <fcppt/nonassignable.hpp>
 
 namespace sge
 {
@@ -34,6 +35,9 @@ namespace vf
 
 class actor_parameters
 {
+	FCPPT_NONASSIGNABLE(
+		actor_parameters
+	)
 public:
 	explicit actor_parameters(
 		sge::renderer::size_type stride,

@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/parameters.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/equal.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <mizuiro/color/operators/equal.hpp>
 #include <boost/foreach.hpp>
 
@@ -40,6 +41,9 @@ state_unchanged(
 
 class compare_state_visitor
 {
+	FCPPT_NONASSIGNABLE(
+		compare_state_visitor
+	)
 public:
 	explicit compare_state_visitor(
 		sge::renderer::state::any const &_state

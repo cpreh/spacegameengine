@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "type.hpp"
 #include <sge/renderer/glsl/uniform/int_value.hpp>
 #include <sge/renderer/glsl/uniform/float_value.hpp>
+#include <fcppt/nonassignable.hpp>
 
 namespace sge
 {
@@ -39,6 +40,9 @@ template<
 >
 class set_visitor
 {
+	FCPPT_NONASSIGNABLE(
+		set_visitor
+	)
 public:
 	typedef type result_type;
 

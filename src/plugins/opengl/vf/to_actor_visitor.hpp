@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/color_fwd.hpp>
 #include <sge/renderer/vf/dynamic/texpos_fwd.hpp>
 #include <sge/renderer/vf/dynamic/unspecified_fwd.hpp>
+#include <fcppt/nonassignable.hpp>
 
 namespace sge
 {
@@ -38,6 +39,9 @@ namespace vf
 
 class to_actor_visitor
 {
+	FCPPT_NONASSIGNABLE(
+		to_actor_visitor
+	)
 public:
 	explicit to_actor_visitor(
 		actor_parameters const &

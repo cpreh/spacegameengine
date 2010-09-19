@@ -29,5 +29,6 @@ sge::opengl::glew::is_supported(
 	return
 		glewIsSupported(
 			str.c_str()
-		);
+		)
+		!= GL_FALSE;
 }

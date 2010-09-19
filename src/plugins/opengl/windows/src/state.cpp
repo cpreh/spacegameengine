@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../change_display_settings.hpp"
 #include <sge/renderer/parameters.hpp>
 #include <sge/exception.hpp>
+#include <fcppt/polymorphic_pointer_cast.hpp>
 #include <fcppt/text.hpp>
 #include <sge/windows/window.hpp>
 #include <sge/windows/windows.hpp>
@@ -33,21 +34,31 @@ sge::opengl::windows::state::state(
 	view_port_fun const &)
 :
 	wnd(
-		polymorphic_pointer_cast<sge::windows::window>(
-			wnd_)),
+		fcppt::polymorphic_pointer_cast<
+			sge::windows::window
+		>(
+			wnd_
+		)
+	),
 	hdc(
 		wnd->hwnd(),
-		sge::windows::gdi_device::get_tag()),
+		sge::windows::gdi_device::get_tag()
+	),
 	context(
-		hdc),
+		hdc
+	),
 	current(
 		hdc,
-		context)
+		context
+	)
 {
 
-	if(param.wmode() == renderer::window_mode::fullscreen)
+	if(
+		param.window_mode() == renderer::window_mode::fullscreen
+	)
 		change_display_settings(
-			param.mode());
+			param.display_mode()
+		);
 }
 
 void sge::opengl::windows::state::swap_buffers()
