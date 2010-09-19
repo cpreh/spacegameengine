@@ -49,23 +49,23 @@ public:
 
 	typedef arb::handle handle;
 
-	typedef handle (*gl_create_program)();
+	typedef PFNGLCREATEPROGRAMOBJECTARBPROC gl_create_program;
 
-	typedef void (*gl_delete_program)(handle);
+	typedef PFNGLDELETEOBJECTARBPROC gl_delete_program;
 
-	typedef void (*gl_attach_shader)(handle, handle);
+	typedef PFNGLATTACHOBJECTARBPROC gl_attach_shader;
 
-	typedef void (*gl_detach_shader)(handle, handle);
+	typedef PFNGLDETACHOBJECTARBPROC gl_detach_shader;
 
-	typedef void (*gl_link_program)(handle);
+	typedef PFNGLLINKPROGRAMARBPROC gl_link_program;
 
-	typedef void (*gl_program_integer)(handle, GLenum, GLint *);
+	typedef PFNGLGETOBJECTPARAMETERIVARBPROC gl_program_integer;
 
-	typedef void (*gl_use_program)(handle);
+	typedef PFNGLUSEPROGRAMOBJECTARBPROC gl_use_program;
 
-	typedef void (*gl_program_info_log)(handle, GLint, GLint *, char *);
+	typedef PFNGLGETINFOLOGARBPROC gl_program_info_log;
 
-	typedef GLint (*gl_get_attrib_location)(handle, GLcharARB const *);
+	typedef PFNGLGETATTRIBLOCATIONARBPROC gl_get_attrib_location;
 
 	gl_create_program
 	create_program() const;
