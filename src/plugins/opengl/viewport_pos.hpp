@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_VIEWPORT_POS_HPP_INCLUDED
 #define SGE_OPENGL_VIEWPORT_POS_HPP_INCLUDED
 
-#include <sge/renderer/viewport_mode.hpp>
 #include <sge/renderer/pixel_pos.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/window/dim_type.hpp>
@@ -35,8 +34,8 @@ renderer::pixel_pos const
 viewport_pos(
 	sge::renderer::pixel_pos const &,
 	sge::window::dim_type const &,
-	sge::renderer::screen_size const &,
-	sge::renderer::viewport_mode::type);
+	sge::renderer::screen_size const &
+);
 
 }
 }

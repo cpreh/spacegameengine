@@ -32,7 +32,8 @@ namespace opengl
 void
 viewport(
 	renderer::viewport const &,
-	renderer::screen_unit);
+	renderer::screen_unit
+);
 
 }
 }

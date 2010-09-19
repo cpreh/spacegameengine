@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../device.hpp"
 #include "../apply_states.hpp"
-#include "../background_dim.hpp"
 #include "../check_state.hpp"
 #include "../common.hpp"
 #include "../create_caps.hpp"
@@ -59,6 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/i32.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/viewport.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
 #include <sge/renderer/state/default.hpp>
 #include <sge/window/instance.hpp>
@@ -94,13 +94,6 @@ sge::opengl::device::device(
 	),
 	projection_(
 		fcppt::math::matrix::static_<float, 4, 4>::type::identity()
-	),
-	viewport_mode_(
-		renderer::viewport_mode::centered_screen_size
-	),
-	viewport_(
-		renderer::pixel_pos::null(),
-		_parameters.display_mode().size()
 	),
 	default_target_(
 		fcppt::make_shared_ptr<
@@ -439,8 +432,6 @@ sge::opengl::device::target(
 
 		projection_internal();
 
-		reset_viewport_default();
-
 		return;
 	}
 
@@ -455,49 +446,21 @@ sge::opengl::device::target(
 	gl_target->bind();
 
 	target_ = gl_target;
-
-	viewport(
-		renderer::viewport(
-			renderer::pixel_pos::null(),
-			fcppt::math::dim::structure_cast<
-				renderer::screen_size
-			>(
-				target_->dim()
-			)
-		)
-	);
-
-	//projection_internal();
 }
 
 void
 sge::opengl::device::viewport(
-	renderer::viewport const &v
+	renderer::viewport const &_viewport
 )
 {
-	viewport_ = v;
-
-	if(
-		fbo_active()
-	)
-		opengl::viewport(
-			v,
-			static_cast<
-				renderer::screen_unit
-			>(
-				target_->dim().h()
-			)
-		);
-	else
-		reset_viewport_default();
-}
-
-void
-sge::opengl::device::viewport_mode(
-	renderer::viewport_mode::type const mode
-)
-{
-	viewport_mode_ = mode;
+	opengl::viewport(
+		_viewport,
+		static_cast<
+			renderer::screen_unit
+		>(
+			target_->dim().h()
+		)
+	);
 }
 
 sge::renderer::glsl::program_ptr const
@@ -776,39 +739,27 @@ sge::opengl::device::clear_bit(
 
 void
 sge::opengl::device::reset_viewport(
-	sge::window::dim_type const &wnd_sz
+	sge::window::dim_type const &_wnd_sz
 )
 {
-	opengl::viewport(
-		renderer::viewport(
-			viewport_pos(
-				viewport_.pos(),
-				wnd_sz,
-				screen_size(),
-				viewport_mode_
-			),
-			viewport_.size()
-		),
-		wnd_sz.h()
-	);
-
-	// use viewport_pos to calculate the position of
-	// the backbuffer as well but starting with an offset of null
-	default_target_->pos(
-		viewport_pos(
+	renderer::pixel_pos const pos(
+		opengl::viewport_pos(
 			renderer::pixel_pos::null(),
-			wnd_sz,
-			screen_size(),
-			viewport_mode_
-		)
-	);
-
-	default_target_->dim(
-		background_dim(
-			viewport_mode_,
-			wnd_sz,
+			_wnd_sz,
 			screen_size()
 		)
+	);
+
+	opengl::viewport(
+		sge::renderer::viewport(
+			pos,
+			screen_size()
+		),
+		_wnd_sz.h()
+	);
+
+	default_target_->pos(
+		pos
 	);
 }
 
@@ -827,10 +778,12 @@ sge::opengl::device::projection_internal()
 		context_,
 		GL_PROJECTION,
 		fbo_active()
-		? fbo_projection(
+		?
+			opengl::fbo_projection(
+				projection_
+			)
+		:
 			projection_
-		)
-		: projection_
 	);
 }
 

@@ -36,7 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #endif
 #include <sge/renderer/adapter_type.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/viewport.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/dim_type.hpp>
 #include <sge/renderer/size_type.hpp>
@@ -177,11 +176,6 @@ public:
 		renderer::viewport const &
 	);
 
-	void
-	viewport_mode(
-		renderer::viewport_mode::type
-	);
-
 	renderer::glsl::program_ptr const
 	create_glsl_program();
 
@@ -292,10 +286,6 @@ private:
 	x11::state state_;
 #endif
 	renderer::any_matrix projection_;
-
-	renderer::viewport_mode::type viewport_mode_;
-
-	renderer::viewport viewport_;
 
 	default_target_ptr default_target_;
 

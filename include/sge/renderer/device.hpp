@@ -55,7 +55,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/viewport_fwd.hpp>
-#include <sge/renderer/viewport_mode.hpp>
 //#include <sge/renderer/volume_texture_ptr.hpp>
 #include <sge/renderer/filter/texture_fwd.hpp>
 #include <sge/renderer/glsl/const_program_ptr.hpp>
@@ -197,11 +196,6 @@ public:
 	virtual void
 	viewport(
 		renderer::viewport const &
-	) = 0;
-
-	virtual void
-	viewport_mode(
-		renderer::viewport_mode::type
 	) = 0;
 
 	SGE_SYMBOL

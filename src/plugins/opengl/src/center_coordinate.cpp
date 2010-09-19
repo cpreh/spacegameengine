@@ -22,14 +22,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::pixel_unit
 sge::opengl::center_coordinate(
-	renderer::pixel_unit const window_sz,
-	renderer::screen_unit const res_sz)
+	renderer::pixel_unit const _window_sz,
+	renderer::screen_unit const _res_sz
+)
 {
 	renderer::pixel_unit const res_p(
-		static_cast<renderer::pixel_unit>(
-			res_sz));
+		static_cast<
+			renderer::pixel_unit
+		>(
+			_res_sz
+		)
+	);
 
-	return window_sz > res_p
-		? (window_sz - res_p) / 2
-		: 0;
+	return
+		_window_sz > res_p
+		?
+			(_window_sz - res_p) / 2
+		:
+			0;
 }
