@@ -50,16 +50,14 @@ BOOST_AUTO_TEST_CASE(
 )
 {
 	fcppt::string const test(
-		FCPPT_TEXT(
-			"{"
-				"\"foo\": 42,"
-				"\"bar\" :"
-				"{"
-					"\"inner\" : 5.5,"
-					"\"booltest\" : true"
-				"}"
-			"}"
-		)
+		FCPPT_TEXT("{")
+			FCPPT_TEXT("\"foo\": 42,")
+			FCPPT_TEXT("\"bar\" :")
+			FCPPT_TEXT("{")
+				FCPPT_TEXT("\"inner\" : 5.5,")
+				FCPPT_TEXT("\"booltest\" : true")
+			FCPPT_TEXT("}")
+		FCPPT_TEXT("}")
 	);
 
 	fcppt::io::istringstream ss(
@@ -81,16 +79,14 @@ BOOST_AUTO_TEST_CASE(
 )
 {
 	fcppt::string const test(
-		FCPPT_TEXT(
-			"{"
-				"\"foo\": 42,"
-				"\"bar\" :"
-				"{"
-					"\"inner\" : 5.5,"
-					"\"booltest\" : true"
-				"}"
-			""
-		)
+		FCPPT_TEXT("{")
+			FCPPT_TEXT("\"foo\": 42,")
+			FCPPT_TEXT("\"bar\" :")
+			FCPPT_TEXT("{")
+				FCPPT_TEXT("\"inner\" : 5.5,")
+				FCPPT_TEXT("\"booltest\" : true")
+			FCPPT_TEXT("}")
+		FCPPT_TEXT("")
 	);
 
 	fcppt::io::istringstream ss(
