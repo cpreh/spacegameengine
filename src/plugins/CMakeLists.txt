@@ -56,11 +56,7 @@ ELSE()
 	OPTION (ENABLE_OPENGL "Build the opengl render plugin" OFF)
 ENDIF()
 
-IF(PNG_FOUND)
-	OPTION (ENABLE_PNG "Build the libpng plugin" ON)
-ELSE()
-	OPTION (ENABLE_PNG "Build the libpng plugin" OFF)
-ENDIF()
+OPTION (ENABLE_PNG "Build the libpng plugin" ${PNG_FOUND})
 
 IF(VORBIS_FOUND)
 	OPTION (ENABLE_VORBIS "Build the vorbis loader plugin" ON)

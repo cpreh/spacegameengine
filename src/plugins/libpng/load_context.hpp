@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/dim_type.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
-#include <fcppt/io/ifstream.hpp>
+#include <fcppt/io/cifstream.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <png.h>
 #include <cstddef>
@@ -53,7 +53,7 @@ public:
 private:
 	static std::size_t const header_bytes_;
 
-	fcppt::io::ifstream file_;
+	fcppt::io::cifstream file_;
 	fcppt::scoped_ptr<read_ptr> read_ptr_;
 	image::dim_type dim_;
 	byte_vector bytes_;
