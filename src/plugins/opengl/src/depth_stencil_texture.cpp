@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/depth_stencil_to_internal_format.hpp"
 #include "../texfuncs/bind.hpp"
 #include "../texfuncs/set.hpp"
+#include "../texfuncs/set_filter.hpp"
 #include <sge/renderer/filter/point.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
@@ -66,6 +67,16 @@ sge::opengl::depth_stencil_texture::depth_stencil_texture(
 {
 	bind_me();
 
+	sge::renderer::filter::texture const filter(
+		sge::renderer::filter::point
+	);
+
+	texfuncs::set_filter(
+		_context,
+		type(),
+		filter
+	);
+
 	texfuncs::set(
 		_context,
 		type(),
@@ -74,7 +85,7 @@ sge::opengl::depth_stencil_texture::depth_stencil_texture(
 		convert::depth_stencil_to_internal_format(
 			_format
 		),
-		sge::renderer::filter::point,
+		filter,
 		dim(),
 		0
 	);
@@ -110,6 +121,8 @@ sge::opengl::depth_stencil_texture::flags() const
 {
 	return renderer::resource_flags::none;
 }
+
+#include <iostream>
 
 void
 sge::opengl::depth_stencil_texture::debug()
@@ -148,4 +161,17 @@ sge::opengl::depth_stencil_texture::debug()
 		)
 	);
 
+	store::view_type const view(
+		img.view());
+
+	for(
+		store::view_type::iterator it(
+			view.begin()
+		);
+		it != view.end();
+		++it
+	)
+	{
+		std::cout << (*it).get<mizuiro::color::channel::alpha>() << " ";
+	}
 }
