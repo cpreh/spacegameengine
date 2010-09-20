@@ -41,6 +41,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <mizuiro/color/layout/alpha.hpp>
 #include <mizuiro/access/raw.hpp>
 
+#include <iostream>
+
 sge::opengl::depth_stencil_texture::depth_stencil_texture(
 	opengl::context::object &_context,
 	dim_type const &_dim,
@@ -148,4 +150,20 @@ sge::opengl::depth_stencil_texture::debug()
 		)
 	);
 
+	store::view_type const view(
+		img.view());
+
+	std::cout << "P2\n";
+	std::cout << dim().w() << " " << dim().h() << "\n";
+	std::cout << "255" << "\n";
+
+	for(
+		store::view_type::iterator it(
+			view.begin()
+		);
+		it != view.end();
+		++it
+	)
+		std::cout << 
+			static_cast<int>((*it).get<mizuiro::color::channel::alpha>()*255) << " ";
 }
