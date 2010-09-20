@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/mpl/for_each.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/io/cout.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <fcppt/type_name.hpp>
 #include <fcppt/text.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -43,8 +44,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-struct print_plugins
+class print_plugins
 {
+	FCPPT_NONASSIGNABLE(
+		print_plugins
+	)
+public:
 	typedef void result_type;
 
 	explicit print_plugins(

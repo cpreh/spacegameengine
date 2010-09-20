@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/rgba32f_format.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <fcppt/text.hpp>
 
 namespace
@@ -55,6 +56,9 @@ material_color(
 
 class arithmetic_visitor
 {
+	FCPPT_NONASSIGNABLE(
+		arithmetic_visitor
+	)
 public:
 	typedef void result_type;
 

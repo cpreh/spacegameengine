@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format.hpp>
 #include <sge/image/dim_type.hpp>
 #include <fcppt/filesystem/path.hpp>
-#include <fcppt/io/ofstream.hpp>
+#include <fcppt/io/cofstream.hpp>
 #include <png.h>
 
 namespace sge
@@ -46,7 +46,7 @@ public:
 		byte_vector &,
 		image::color::format::type);
 private:
-	fcppt::io::ofstream file_;
+	fcppt::io::cofstream file_;
 	byte_vector &bytes_;
 	image::color::format::type const format_;
 	write_ptr const write_ptr_;

@@ -42,7 +42,10 @@ ADD_SGE_EXAMPLE(sound)
 ADD_SGE_EXAMPLE(target)
 ADD_SGE_EXAMPLE(vertex)
 
-TARGET_LINK_LIBRARIES(sgesoundexample boost_program_options)
+TARGET_LINK_LIBRARIES(
+	sgesoundexample
+	${Boost_PROGRAM_OPTIONS_LIBRARY}
+)
 
 IF(SGE_HAVE_X11)
 	ADD_SGE_EXAMPLE(asio_window)

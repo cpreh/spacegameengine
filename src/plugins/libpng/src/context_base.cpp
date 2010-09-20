@@ -21,9 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../context_base.hpp"
 #include <sge/image/file_exception.hpp>
 #include <sge/log/global.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/log/output.hpp>
+#include <fcppt/log/warning.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/log/headers.hpp>
 
 sge::libpng::context_base::context_base(
 	fcppt::filesystem::path const &_path
@@ -50,7 +52,9 @@ void sge::libpng::context_base::handle_warning_impl(
 		log::global(),
 		fcppt::log::_
 			<< FCPPT_TEXT("libpng: file: ")
-			<< path_.string()
+			<< fcppt::filesystem::path_to_string(
+				path_
+			)
 			<< FCPPT_TEXT(": ")
 			<< fcppt::from_std_string(message)
 	);

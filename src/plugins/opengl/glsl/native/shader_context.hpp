@@ -49,17 +49,17 @@ public:
 
 	typedef native::handle handle;
 
-	typedef handle (*gl_create_shader)(GLenum);
+	typedef PFNGLCREATESHADERPROC gl_create_shader;
 
-	typedef void (*gl_delete_shader)(handle);
+	typedef PFNGLDELETESHADERPROC gl_delete_shader;
 
-	typedef void (*gl_compile_shader)(handle);
+	typedef PFNGLCOMPILESHADERPROC gl_compile_shader;
 
-	typedef void (*gl_shader_source)(handle, GLint, char const **, GLint const *);
+	typedef PFNGLSHADERSOURCEPROC gl_shader_source;
 
-	typedef void (*gl_shader_integer)(handle, GLenum, GLint *);
+	typedef PFNGLGETSHADERIVPROC gl_shader_integer;
 
-	typedef void (*gl_shader_info_log)(handle, GLint, GLint *, char *);
+	typedef PFNGLGETSHADERINFOLOGPROC gl_shader_info_log;
 
 	gl_create_shader
 	create_shader() const;

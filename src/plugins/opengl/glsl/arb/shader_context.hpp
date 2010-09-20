@@ -49,17 +49,17 @@ public:
 
 	typedef arb::handle handle;
 
-	typedef handle (*gl_create_shader)(GLenum);
+	typedef PFNGLCREATESHADEROBJECTARBPROC gl_create_shader;
 
-	typedef void (*gl_delete_shader)(handle);
+	typedef PFNGLDELETEOBJECTARBPROC gl_delete_shader;
 
-	typedef void (*gl_compile_shader)(handle);
+	typedef PFNGLCOMPILESHADERARBPROC gl_compile_shader;
 
-	typedef void (*gl_shader_source)(handle, GLint, char const **, GLint const *);
+	typedef PFNGLSHADERSOURCEARBPROC gl_shader_source;
 
-	typedef void (*gl_shader_integer)(handle, GLenum, GLint *);
+	typedef PFNGLGETOBJECTPARAMETERIVARBPROC gl_shader_integer;
 
-	typedef void (*gl_shader_info_log)(handle, GLint, GLint *, char *);
+	typedef PFNGLGETINFOLOGARBPROC gl_shader_info_log;
 
 	gl_create_shader
 	create_shader() const;

@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_LIBPNG_CONTEXT_BASE_HPP_INCLUDED
 
 #include <fcppt/filesystem/path.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <png.h>
 
 namespace sge
@@ -30,6 +31,9 @@ namespace libpng
 {
 class context_base
 {
+	FCPPT_NONCOPYABLE(
+		context_base
+	)
 protected:
 	explicit context_base(
 		fcppt::filesystem::path const &

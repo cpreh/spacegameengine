@@ -55,6 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <fcppt/text.hpp>
 
 #include <iostream>
@@ -64,16 +65,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
-struct end_program
+class end_program
 {
+	FCPPT_NONASSIGNABLE(
+		end_program
+	)
+public:
 	end_program(bool &running) : running(running) {}
 	void operator()() const { running = false; }
+private:
 	bool &running;
 };
 
 class input_functor
 {
-	public:
+	FCPPT_NONASSIGNABLE(
+		input_functor
+	)
+public:
 	explicit input_functor(bool &running)
 		: running(running)
 	{

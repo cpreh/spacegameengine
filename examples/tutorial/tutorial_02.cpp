@@ -57,6 +57,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <exception>
 #include <iostream>
@@ -83,6 +84,9 @@ typedef sge::sprite::object<
 
 class input_functor
 {
+	FCPPT_NONASSIGNABLE(
+		input_functor
+	)
 public:
 	explicit input_functor(
 		bool &running
@@ -107,6 +111,9 @@ private:
 
 class sprite_functor
 {
+	FCPPT_NONASSIGNABLE(
+		sprite_functor
+	)
 public:
 	explicit sprite_functor(
 		sprite_object &s

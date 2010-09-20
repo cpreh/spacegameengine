@@ -44,6 +44,4 @@ sge::openal::file_format(
 		+ FCPPT_TEXT(" bps, ")
 		+ fcppt::lexical_cast<fcppt::string>(file.channels())
 		+ FCPPT_TEXT(" channels"));
-
-	return AL_FORMAT_MONO8;
 }

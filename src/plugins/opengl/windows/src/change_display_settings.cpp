@@ -19,15 +19,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../change_display_settings.hpp"
-#include <sge/log/headers.hpp>
+#include <sge/log/global.hpp>
 #include <sge/renderer/display_mode.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
 #include <sge/windows/windows.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/log/output.hpp>
+#include <fcppt/log/warning.hpp>
 #include <fcppt/text.hpp>
 #include <cstring>
 
 void sge::opengl::windows::change_display_settings(
-	renderer::display_mode const &mode)
+	renderer::display_mode const &mode
+)
 {
 	DEVMODE settings;
 	std::memset(&settings, 0, sizeof(DEVMODE));
@@ -38,11 +41,18 @@ void sge::opengl::windows::change_display_settings(
 	settings.dmDisplayFrequency = mode.refresh_rate();
 	settings.dmFields = DM_BITSPERPEL | DM_PELSWIDTH|DM_PELSHEIGHT | DM_DISPLAYFREQUENCY;
 
-	if(ChangeDisplaySettings(&settings, CDS_FULLSCREEN) != DISP_CHANGE_SUCCESSFUL)
+	if(
+		::ChangeDisplaySettings(
+			&settings,
+			CDS_FULLSCREEN
+		)
+		!= DISP_CHANGE_SUCCESSFUL
+	)
 		FCPPT_LOG_WARNING(
-			log::global(),
-			log::_1
+			sge::log::global(),
+			fcppt::log::_
 				<< FCPPT_TEXT("Cannot change resolution to ")
 				<< mode
-				<< FCPPT_TEXT("! Reverting to window mode!"));
+				<< FCPPT_TEXT("! Reverting to window mode!")
+		);
 }

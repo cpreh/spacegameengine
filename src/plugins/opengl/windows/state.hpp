@@ -25,33 +25,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../wgl/context.hpp"
 #include "../wgl/current.hpp"
 #include <sge/windows/gdi_device.hpp>
-#include <sge/windows/window_fwd.hpp>
+#include <sge/windows/window_ptr.hpp>
 #include <sge/renderer/adapter_type.hpp>
-#include <sge/window/instance_fwd.hpp>
+#include <sge/renderer/parameters_fwd.hpp>
+#include <sge/window/instance_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
-namespace renderer
-{
-class parameters;
-}
 namespace opengl
 {
 namespace windows
 {
 
-class state {
+class state
+{
 	FCPPT_NONCOPYABLE(state)
 public:
 	state(
 		renderer::parameters const &,
 		renderer::adapter_type,
 		window::instance_ptr,
-		view_port_fun const &);
+		view_port_fun const &
+	);
 
-	void swap_buffers();
-	void reset_viewport();
+	void
+	swap_buffers();
+
+	void
+	reset_viewport();
 private:
 	sge::windows::window_ptr const wnd;
 	sge::windows::gdi_device const hdc;

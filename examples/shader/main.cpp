@@ -77,6 +77,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cifstream.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/spirit/home/phoenix/object/new.hpp>
@@ -115,6 +116,9 @@ typedef sge::sprite::object<
 
 class sprite_functor
 {
+	FCPPT_NONASSIGNABLE(
+		sprite_functor
+	)
 public:
 	explicit sprite_functor(
 		sprite_object &s
