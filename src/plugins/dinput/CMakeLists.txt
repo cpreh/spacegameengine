@@ -1,10 +1,9 @@
 FILE (GLOB_RECURSE sgedinputfiles src/*.cpp)
 
-ADD_LIBRARY (sgedinput SHARED ${sgedinputfiles})
-TARGET_LINK_LIBRARIES (sgedinput dinput8 dxguid sgecore)
+INCLUDE_DIRECTORIES(${DINPUT_INCLUDE_DIR})
 
-IF (NOT MSVC)
-	TARGET_LINK_LIBRARIES (sgedinput boost_signals)
-ENDIF ()
+ADD_LIBRARY (sgedinput SHARED ${sgedinputfiles})
+
+TARGET_LINK_LIBRARIES (sgedinput sgecore ${DINPUT_LIBRARIES})
 
 INSTALL (TARGETS sgedinput DESTINATION lib/sge)

@@ -4,6 +4,7 @@ ENDIF ()
 
 FIND_PACKAGE(Bullet)
 FIND_PACKAGE(DevIL)
+FIND_PACKAGE(DInput)
 FIND_PACKAGE(Freetype)
 FIND_PACKAGE(GLEW)
 FIND_PACKAGE(ODE)
@@ -14,7 +15,6 @@ FIND_PACKAGE(Vorbis)
 
 OPTION (ENABLE_AUDIO_NULL "Build the null audio player plugin" OFF)
 OPTION (ENABLE_BITMAP_FONT "Build the bitmap font plugin" OFF)
-OPTION (ENABLE_DINPUT "Build the Direct Input plugin" OFF)
 OPTION (ENABLE_MD3 "Build the md3 model loader plugin" ON)
 OPTION (ENABLE_WAVE "Build the wave loader plugin" ON)
 
@@ -23,6 +23,8 @@ IF(BULLET_FOUND)
 ELSE()
 	OPTION (ENABLE_BULLET "Build the bullet collision plugin" OFF)
 ENDIF()
+
+OPTION (ENABLE_DINPUT "Build the direct input 8 plugin" ${DINPUT_FOUND})
 
 IF(FREETYPE_FOUND)
 	OPTION (ENABLE_FREETYPE "Build the freetype font plugin" ON)
