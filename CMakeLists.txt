@@ -119,8 +119,8 @@ ENDIF()
 ADD_SUBDIRECTORY (src)
 
 CONFIGURE_FILE(
-	${CMAKE_SOURCE_DIR}/config.h.in
-	${CMAKE_SOURCE_DIR}/include/sge/config.h
+	${CMAKE_SOURCE_DIR}/config.hpp.in
+	${CMAKE_SOURCE_DIR}/include/sge/config.hpp
 )
 
 OPTION(ENABLE_TEST "Build the tests" OFF)

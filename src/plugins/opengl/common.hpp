@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_COMMON_HPP_INCLUDED
 #define SGE_OPENGL_COMMON_HPP_INCLUDED
 
-#include <sge/config.h>
+#include <fcppt/config.hpp>
 #include <GL/glew.h>
-#ifndef SGE_DARWIN_PLATFORM
+#ifndef FCPPT_DARWIN_PLATFORM
 #include <GL/gl.h>
 #include <GL/glu.h>
 #else

@@ -2,9 +2,7 @@
 bin
 build
 doc
-include/sge/config.h
-projects/windows/lib32_install.log
-projects/windows/lib32
+include/sge/config.hpp
 util/Include/Main
 util/Include/Main.o
 util/Include/Main.hi
