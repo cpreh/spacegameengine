@@ -206,9 +206,10 @@ sge::bullet::body::remove_shape(
 			return;
 		}
 	}
-	FCPPT_ASSERT_MESSAGE(
-		false,
-		FCPPT_TEXT("A shape had to be detached from the body, but the body didn't contain the shape. o_O"));
+
+	throw sge::exception(
+		FCPPT_TEXT("A shape had to be detached from the body, but the body didn't contain the shape. o_O")
+	);
 }
 
 sge::bullet::body::~body()

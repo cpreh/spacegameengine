@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "shapes/base_fwd.hpp"
 #include "body_fwd.hpp"
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -30,6 +31,9 @@ namespace bullet
 {
 class shape_body_connection
 {
+	FCPPT_NONCOPYABLE(
+		shape_body_connection
+	)
 public:
 	explicit
 	shape_body_connection(

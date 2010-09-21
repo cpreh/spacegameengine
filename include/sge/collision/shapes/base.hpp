@@ -39,7 +39,7 @@ class SGE_CLASS_SYMBOL base
 {
 	FCPPT_NONCOPYABLE(base)
 protected:
-	base();
+	SGE_SYMBOL base();
 public:
 	SGE_SYMBOL virtual ~base();
 	
