@@ -33,16 +33,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/algorithm/copy_and_convert.hpp>
 #include <sge/image/exception.hpp>
 #include <sge/log/global.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/assert.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/to_std_string.hpp>
-#include <fcppt/optional_impl.hpp>
 
 sge::devil::file::file(
 	fcppt::filesystem::path const &_file
@@ -68,7 +69,9 @@ sge::devil::file::file(
 			sge::log::global(),
 			fcppt::log::_
 				<< FCPPT_TEXT("File \"")
-				<< _file
+				<< fcppt::filesystem::path_to_string(
+					_file
+				)
 				<< FCPPT_TEXT("\" has a color palette, that sge won't handle.")
 				<< FCPPT_TEXT(" Instead, the file will be reloaded and converted.")
 				<< FCPPT_TEXT(" The process is inefficient and you should consider ")
@@ -219,7 +222,15 @@ sge::devil::file::save(
 //#ifdef UNICODE
 //		const_cast<wchar_t*>(file.string().c_str())
 //#else
-		const_cast<char*>(fcppt::to_std_string(file.string()).c_str())
+		const_cast<
+			char *
+		>(
+			fcppt::to_std_string(
+				fcppt::filesystem::path_to_string(
+					file
+				)
+			).c_str()
+		)
 //#endif
 		);
 	ilDisable(IL_ORIGIN_SET);
@@ -251,7 +262,9 @@ sge::devil::file::load(
 				char *
 			>(
 				fcppt::to_std_string(
-					_file.string()
+					fcppt::filesystem::path_to_string(
+						_file
+					)
 				).c_str()
 			)
 //#endif
@@ -260,7 +273,9 @@ sge::devil::file::load(
 	)
 		throw sge::image::exception(
 			FCPPT_TEXT("ilLoadImage() failed! Could not load '")
-			+ _file.string()
+			+ fcppt::filesystem::path_to_string(
+				_file
+			)
 			+ FCPPT_TEXT("'!")
 		);
 }
