@@ -18,10 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-// FIXME: sadly, it seems that devil's unicode support is broken
-#undef UNICODE
-#undef _UNICODE
-
 #include <IL/ilu.h>
 #include "../file.hpp"
 #include "../error.hpp"
@@ -210,7 +206,7 @@ sge::devil::file::view() const
 
 void
 sge::devil::file::save(
-	fcppt::filesystem::path const &file
+	fcppt::filesystem::path const &_file
 )
 {
 	bind_me();
@@ -219,20 +215,27 @@ sge::devil::file::save(
 	ilRegisterOrigin(IL_ORIGIN_UPPER_LEFT);
 
 	ilSaveImage(
-//#ifdef UNICODE
-//		const_cast<wchar_t*>(file.string().c_str())
-//#else
+#ifdef UNICODE
+		const_cast<
+			wchar_t *
+		>(
+			fcppt::filesystem::path_to_string(
+				_file
+			).c_str()
+		)
+#else
 		const_cast<
 			char *
 		>(
 			fcppt::to_std_string(
 				fcppt::filesystem::path_to_string(
-					file
+					_file
 				)
 			).c_str()
 		)
-//#endif
-		);
+#endif
+	);
+
 	ilDisable(IL_ORIGIN_SET);
 
 	check_errors();
@@ -255,9 +258,15 @@ sge::devil::file::load(
 {
 	if(
 		ilLoadImage(
-//#ifdef UNICODE
-//			const_cast<wchar_t*>(file.string().c_str())
-//#else
+#ifdef UNICODE
+			const_cast<
+				wchar_t *
+			>(
+				fcppt::filesystem::path_to_string(
+					_file
+				).c_str()
+			)
+#else
 			const_cast<
 				char *
 			>(
@@ -267,7 +276,7 @@ sge::devil::file::load(
 					)
 				).c_str()
 			)
-//#endif
+#endif
 		)
 		== IL_FALSE
 	)
