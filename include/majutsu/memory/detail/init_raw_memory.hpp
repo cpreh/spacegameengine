@@ -1,6 +1,7 @@
 #ifndef MAJUTSU_MEMORY_DETAIL_INIT_RAW_MEMORY_HPP_INCLUDED
 #define MAJUTSU_MEMORY_DETAIL_INIT_RAW_MEMORY_HPP_INCLUDED
 
+#include <fcppt/nonassignable.hpp>
 #include <boost/fusion/sequence/intrinsic/at_c.hpp>
 #include <boost/mpl/at.hpp>
 
@@ -14,7 +15,12 @@ namespace detail
 template<
 	typename Memory
 >
-struct init_raw_memory {
+class init_raw_memory
+{
+	FCPPT_NONASSIGNABLE(
+		init_raw_memory
+	)
+public:
 	explicit init_raw_memory(
 		Memory &memory_
 	)
