@@ -7,7 +7,6 @@ FIND_PACKAGE(DevIL)
 FIND_PACKAGE(DInput)
 FIND_PACKAGE(Freetype)
 FIND_PACKAGE(GLEW)
-FIND_PACKAGE(ODE)
 FIND_PACKAGE(OpenGL)
 FIND_PACKAGE(OpenAL)
 FIND_PACKAGE(PNG 1.4.1)
@@ -25,8 +24,6 @@ OPTION (ENABLE_DINPUT "Build the direct input 8 plugin" ${DINPUT_FOUND})
 OPTION (ENABLE_FREETYPE "Build the freetype font plugin" ${FREETYPE_FOUND})
 
 OPTION (ENABLE_DEVIL "Build the devil image loader plugin" ${IL_FOUND})
-
-OPTION (ENABLE_ODE "Build the ode collision plugin" ${ODE_FOUND})
 
 OPTION (ENABLE_OPENAL "Build the openal audio plugin" ${OPENAL_FOUND})
 
@@ -72,10 +69,6 @@ ENDIF ()
 
 IF (ENABLE_MD3)
 	ADD_SUBDIRECTORY (md3)
-ENDIF ()
-
-IF(ENABLE_ODE)
-	ADD_SUBDIRECTORY (ode)
 ENDIF ()
 
 IF (ENABLE_OPENAL)
