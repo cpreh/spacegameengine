@@ -60,7 +60,7 @@ public:
 	reset() = 0;
 
 	virtual void
-	dispatch(
+	post(
 		dispatcher_callback const &
 	) = 0;
 
