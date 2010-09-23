@@ -1,77 +1,77 @@
-FILE (
-	GLOB SGECOREFILES 
-	*.cpp
-	audio/*.cpp
-	audio/sound/*.cpp
-	collision/*.cpp
-	collision/shapes/*.cpp
-	config/*.cpp
-	config/detail/*.cpp
-	console/*.cpp
-	font/*.cpp
-	image/*.cpp
-	image/algorithm/*.cpp
-	image/color/*.cpp
-	image/color/any/*.cpp
-	image/view/*.cpp
-	input/*.cpp
-	input/modifier/*.cpp
-	library/*.cpp
-	log/*.cpp
-	mainloop/*.cpp
-	mainloop/asio/*.cpp
-	model/*.cpp
-	parse/*.cpp
-	parse/output/*.cpp
-	parse/ini/*.cpp
-	parse/ini/output/*.cpp
-	parse/json/*.cpp
-	parse/json/output/*.cpp
-	plugin/*.cpp
-	plugin/detail/*.cpp
-	renderer/*.cpp
-	renderer/detail/*.cpp
-	renderer/filter/*.cpp
-	renderer/index/*.cpp
-	renderer/index/dynamic/*.cpp
-	renderer/glsl/*.cpp
-	renderer/glsl/attribute/*.cpp
-	renderer/glsl/uniform/*.cpp
-	renderer/state/*.cpp
-	renderer/vf/dynamic/*.cpp
-	sprite/*.cpp
-	sprite/animation/*.cpp
-	sprite/detail/*.cpp
-	systems/*.cpp
-	texture/*.cpp
-	texture/atlasing/*.cpp
-	texture/detail/*.cpp
-	time/*.cpp
-	window/*.cpp
+MACRO(
+	ADD_SGE_CORE_SOURCE_GROUP
+	SOURCEPATH
 )
+	ADD_SGE_SOURCE_GROUP(
+		src
+		"${SOURCEPATH}"
+		*.?pp
+		TEMPFILES	
+	)
+
+	SET(SGECOREFILES ${SGECOREFILES} ${TEMPFILES})
+ENDMACRO()
+
+ADD_SGE_CORE_SOURCE_GROUP("")
+ADD_SGE_CORE_SOURCE_GROUP(audio)
+ADD_SGE_CORE_SOURCE_GROUP(audio/sound)
+ADD_SGE_CORE_SOURCE_GROUP(collision)
+ADD_SGE_CORE_SOURCE_GROUP(collision/shapes)
+ADD_SGE_CORE_SOURCE_GROUP(config)
+ADD_SGE_CORE_SOURCE_GROUP(config/detail)
+ADD_SGE_CORE_SOURCE_GROUP(console)
+ADD_SGE_CORE_SOURCE_GROUP(font)
+ADD_SGE_CORE_SOURCE_GROUP(image)
+ADD_SGE_CORE_SOURCE_GROUP(image/algorithm)
+ADD_SGE_CORE_SOURCE_GROUP(image/color)
+ADD_SGE_CORE_SOURCE_GROUP(image/color/any)
+ADD_SGE_CORE_SOURCE_GROUP(image/view)
+ADD_SGE_CORE_SOURCE_GROUP(input)
+ADD_SGE_CORE_SOURCE_GROUP(input/modifier)
+ADD_SGE_CORE_SOURCE_GROUP(library)
+ADD_SGE_CORE_SOURCE_GROUP(log)
+ADD_SGE_CORE_SOURCE_GROUP(mainloop)
+ADD_SGE_CORE_SOURCE_GROUP(mainloop/asio)
+ADD_SGE_CORE_SOURCE_GROUP(model)
+ADD_SGE_CORE_SOURCE_GROUP(parse)
+ADD_SGE_CORE_SOURCE_GROUP(parse/output)
+ADD_SGE_CORE_SOURCE_GROUP(parse/ini)
+ADD_SGE_CORE_SOURCE_GROUP(parse/ini/output)
+ADD_SGE_CORE_SOURCE_GROUP(parse/json)
+ADD_SGE_CORE_SOURCE_GROUP(parse/json/output)
+ADD_SGE_CORE_SOURCE_GROUP(plugin)
+ADD_SGE_CORE_SOURCE_GROUP(plugin/detail)
+ADD_SGE_CORE_SOURCE_GROUP(renderer)
+ADD_SGE_CORE_SOURCE_GROUP(renderer/detail)
+ADD_SGE_CORE_SOURCE_GROUP(renderer/filter)
+ADD_SGE_CORE_SOURCE_GROUP(renderer/index)
+ADD_SGE_CORE_SOURCE_GROUP(renderer/index/dynamic)
+ADD_SGE_CORE_SOURCE_GROUP(renderer/glsl)
+ADD_SGE_CORE_SOURCE_GROUP(renderer/glsl/attribute)
+ADD_SGE_CORE_SOURCE_GROUP(renderer/glsl/uniform)
+ADD_SGE_CORE_SOURCE_GROUP(renderer/state)
+ADD_SGE_CORE_SOURCE_GROUP(renderer/vf/dynamic/)
+ADD_SGE_CORE_SOURCE_GROUP(sprite)
+ADD_SGE_CORE_SOURCE_GROUP(sprite/animation)
+ADD_SGE_CORE_SOURCE_GROUP(sprite/detail)
+ADD_SGE_CORE_SOURCE_GROUP(systems)
+ADD_SGE_CORE_SOURCE_GROUP(texture)
+ADD_SGE_CORE_SOURCE_GROUP(texture/atlasing)
+ADD_SGE_CORE_SOURCE_GROUP(texture/detail)
+ADD_SGE_CORE_SOURCE_GROUP(time)
+ADD_SGE_CORE_SOURCE_GROUP(window)
 
 FILE (
 	GLOB_RECURSE sgecoreheaders
 	../include/*.hpp
 )
-
 SET (SGECOREFILES ${SGECOREFILES} ${sgecoreheaders})
 
 IF (X11_FOUND)
-	FILE (
-		GLOB sgecorex11files
-		x11/*.cpp
-	)
-
-	SET (SGECOREFILES ${SGECOREFILES} ${sgecorex11files})
+	ADD_SGE_CORE_SOURCE_GROUP(x11)
 ELSEIF (WIN32)
-	FILE (
-		GLOB sgecorewindowsfiles
-		windows/*.cpp
-		windows/detail/*.cpp
-	)
-
-	SET (SGECOREFILES ${SGECOREFILES} ${sgecorewindowsfiles})
+	ADD_SGE_CORE_SOURCE_GROUP(windows)
+	ADD_SGE_CORE_SOURCE_GROUP(windows/detail)
 ENDIF ()
 
 set_source_files_properties(
