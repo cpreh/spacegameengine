@@ -77,7 +77,6 @@ FILE(
 	"Version: 0.1\n"
 	"Requires:\n"
 	"Libs: -L\${libdir} -lsgecore\n"
-	"Cflags: -I\${includedir}/sge"
 )
 
 INSTALL (FILES ${PKGFILE} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/pkgconfig)

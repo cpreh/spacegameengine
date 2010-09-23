@@ -1,19 +1,13 @@
 FILE (
 	GLOB SGECOREFILES 
 	*.cpp
-	algorithm/*.cpp
 	audio/*.cpp
 	audio/sound/*.cpp
-	chrono/*.cpp
-	config/*.cpp
-	console/*.cpp
 	collision/*.cpp
 	collision/shapes/*.cpp
+	config/*.cpp
 	config/detail/*.cpp
-	container/*.cpp
-	endianness/*.cpp
-	error/*.cpp
-	filesystem/*.cpp
+	console/*.cpp
 	font/*.cpp
 	image/*.cpp
 	image/algorithm/*.cpp
@@ -24,14 +18,9 @@ FILE (
 	input/modifier/*.cpp
 	library/*.cpp
 	log/*.cpp
-	log/detail/*.cpp
-	log/format/*.cpp
-	log/parameters/*.cpp
 	mainloop/*.cpp
 	mainloop/asio/*.cpp
-	math/*.cpp
 	model/*.cpp
-	mpl/*.cpp
 	parse/*.cpp
 	parse/output/*.cpp
 	parse/ini/*.cpp
@@ -40,8 +29,6 @@ FILE (
 	parse/json/output/*.cpp
 	plugin/*.cpp
 	plugin/detail/*.cpp
-	random/*.cpp
-	random/actor/*.cpp
 	renderer/*.cpp
 	renderer/detail/*.cpp
 	renderer/filter/*.cpp
@@ -52,8 +39,6 @@ FILE (
 	renderer/glsl/uniform/*.cpp
 	renderer/state/*.cpp
 	renderer/vf/dynamic/*.cpp
-	signal/*.cpp
-	signal/detail/*.cpp
 	sprite/*.cpp
 	sprite/animation/*.cpp
 	sprite/detail/*.cpp
@@ -61,12 +46,7 @@ FILE (
 	texture/*.cpp
 	texture/atlasing/*.cpp
 	texture/detail/*.cpp
-	thread/*.cpp
-	thread/future/*.cpp
-	thread/future/detail/*.cpp
 	time/*.cpp
-	utf8/*.cpp
-	variant/*.cpp
 	window/*.cpp
 )
 
