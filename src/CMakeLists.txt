@@ -145,18 +145,15 @@ ELSEIF (WIN32)
 	ADD_SGE_CORE_SOURCE_GROUP(windows/detail)
 ENDIF ()
 
-set_source_files_properties(
-	config/plugin_path.cpp
-	PROPERTIES
-	COMPILE_FLAGS
-	-DPLUGIN_PATH="\\\"${CMAKE_INSTALL_PREFIX}/lib/sge\\\""
-)
+# configure some resource paths
+SET(SGE_PLUGIN_BUILD_PATH "${BINARY_PATH}/plugins")
+SET(SGE_PLUGIN_INSTALL_PATH "${CMAKE_INSTALL_PREFIX}/lib/sge")
+SET(SGE_MEDIA_BUILD_PATH "${CMAKE_SOURCE_DIR}/media")
+SET(SGE_MEDIA_INSTALL_PATH "${CMAKE_INSTALL_PREFIX}/share/games/sge/media")
 
-set_source_files_properties(
-	config/media_path.cpp
-	PROPERTIES
-	COMPILE_FLAGS
-	-DMEDIA_PATH="\\\"${CMAKE_INSTALL_PREFIX}/share/games/sge/media\\\""
+CONFIGURE_FILE(
+	${CMAKE_SOURCE_DIR}/config_paths.hpp.in
+	${CMAKE_SOURCE_DIR}/src/config/config_paths.hpp
 )
 
 ADD_LIBRARY (sgecore SHARED ${SGECOREFILES})

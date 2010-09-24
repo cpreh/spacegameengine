@@ -19,25 +19,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "find_own_path.hpp"
+#include "config_paths.hpp"
 #include <sge/config/plugin_path.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
-#include <boost/assign/list_of.hpp>
 
 fcppt::filesystem::path const
 sge::config::plugin_path()
 {
 	static fcppt::filesystem::path const ret(
-		find_own_path(
+		config::find_own_path(
 			FCPPT_TEXT("plugin_path"),
-			boost::assign::list_of(
+			fcppt::assign::make_container<
+				sge::config::path_vector
+			>(
 				fcppt::from_std_string(
-// TODO: why did we do this?
-#ifndef _MSC_VER
-					PLUGIN_PATH
-#else
-					PLUGIN_PATH "/" CMAKE_INTDIR
-#endif
+					SGE_PLUGIN_INSTALL_PATH
+				)
+			)
+			(
+				fcppt::from_std_string(
+					SGE_PLUGIN_BUILD_PATH
 				)
 			)
 		)

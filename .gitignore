@@ -3,6 +3,7 @@ bin
 build
 doc
 include/sge/config.hpp
+src/config/config_paths.hpp
 util/Include/Main
 util/Include/Main.o
 util/Include/Main.hi
