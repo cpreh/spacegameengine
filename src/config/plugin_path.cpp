@@ -41,6 +41,10 @@ sge::config::plugin_path()
 			(
 				fcppt::from_std_string(
 					SGE_PLUGIN_BUILD_PATH
+// VC++ puts the binaries inside ${LIBRARY_OUTPUT_PATH}/Release or Debug
+#ifdef _MSC_VER
+					"/" CMAKE_INTDIR
+#endif
 				)
 			)
 		)
