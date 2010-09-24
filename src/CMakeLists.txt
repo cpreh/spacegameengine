@@ -4,6 +4,7 @@ MACRO(
 )
 	ADD_SGE_SOURCE_GROUP(
 		src
+		""
 		"${SOURCEPATH}"
 		*.?pp
 		TEMPFILES	
@@ -18,7 +19,6 @@ ADD_SGE_CORE_SOURCE_GROUP(audio/sound)
 ADD_SGE_CORE_SOURCE_GROUP(collision)
 ADD_SGE_CORE_SOURCE_GROUP(collision/shapes)
 ADD_SGE_CORE_SOURCE_GROUP(config)
-ADD_SGE_CORE_SOURCE_GROUP(config/detail)
 ADD_SGE_CORE_SOURCE_GROUP(console)
 ADD_SGE_CORE_SOURCE_GROUP(font)
 ADD_SGE_CORE_SOURCE_GROUP(image)
@@ -40,14 +40,12 @@ ADD_SGE_CORE_SOURCE_GROUP(parse/ini/output)
 ADD_SGE_CORE_SOURCE_GROUP(parse/json)
 ADD_SGE_CORE_SOURCE_GROUP(parse/json/output)
 ADD_SGE_CORE_SOURCE_GROUP(plugin)
-ADD_SGE_CORE_SOURCE_GROUP(plugin/detail)
 ADD_SGE_CORE_SOURCE_GROUP(renderer)
 ADD_SGE_CORE_SOURCE_GROUP(renderer/detail)
 ADD_SGE_CORE_SOURCE_GROUP(renderer/filter)
 ADD_SGE_CORE_SOURCE_GROUP(renderer/index)
 ADD_SGE_CORE_SOURCE_GROUP(renderer/index/dynamic)
 ADD_SGE_CORE_SOURCE_GROUP(renderer/glsl)
-ADD_SGE_CORE_SOURCE_GROUP(renderer/glsl/attribute)
 ADD_SGE_CORE_SOURCE_GROUP(renderer/glsl/uniform)
 ADD_SGE_CORE_SOURCE_GROUP(renderer/state)
 ADD_SGE_CORE_SOURCE_GROUP(renderer/vf/dynamic/)
@@ -61,10 +59,6 @@ ADD_SGE_CORE_SOURCE_GROUP(texture/detail)
 ADD_SGE_CORE_SOURCE_GROUP(time)
 ADD_SGE_CORE_SOURCE_GROUP(window)
 
-FILE (
-	GLOB_RECURSE sgecoreheaders
-	../include/*.hpp
-)
 SET (SGECOREFILES ${SGECOREFILES} ${sgecoreheaders})
 
 IF (X11_FOUND)
