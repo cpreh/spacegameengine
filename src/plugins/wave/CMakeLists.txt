@@ -1,6 +1,22 @@
-FILE (GLOB_RECURSE sgewavefiles src/*.cpp)
+MACRO(
+	ADD_SGE_WAVE_SOURCE_GROUP
+	SOURCEPATH
+)
+	ADD_SGE_SOURCE_GROUP(
+		"src\\\\\\\\plugins\\\\\\\\wave"
+		""
+		"${SOURCEPATH}"
+		*.?pp
+		TEMPFILES
+	)
 
-ADD_LIBRARY (sgewave SHARED ${sgewavefiles})
+	SET(SGEWAVEFILES ${SGEWAVEFILES} ${TEMPFILES})
+ENDMACRO()
+
+ADD_SGE_WAVE_SOURCE_GROUP("")
+ADD_SGE_WAVE_SOURCE_GROUP(src)
+
+ADD_LIBRARY (sgewave SHARED ${SGEWAVEFILES})
 TARGET_LINK_LIBRARIES (sgewave sgecore)
 
 INSTALL (TARGETS sgewave DESTINATION lib/sge)

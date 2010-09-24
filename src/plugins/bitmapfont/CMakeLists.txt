@@ -1,6 +1,22 @@
-FILE (GLOB_RECURSE sgebitmapfontfiles src/*.cpp)
+MACRO(
+	ADD_SGE_BITMAPFONT_SOURCE_GROUP
+	SOURCEPATH
+)
+	ADD_SGE_SOURCE_GROUP(
+		"src\\\\\\\\plugins\\\\\\\\png"
+		""
+		"${SOURCEPATH}"
+		*.?pp
+		TEMPFILES
+	)
 
-ADD_LIBRARY (sgebitmapfont SHARED ${sgebitmapfontfiles})
+	SET(SGEBITMAPFONTFILES ${SGEBITMAPFONTFILES} ${TEMPFILES})
+ENDMACRO()
+
+ADD_SGE_BITMAPFONT_SOURCE_GROUP("")
+ADD_SGE_BITMAPFONT_SOURCE_GROUP(src)
+
+ADD_LIBRARY (sgebitmapfont SHARED ${SGEBITMAPFONTFILES})
 
 TARGET_LINK_LIBRARIES (sgebitmapfont sgecore)
 

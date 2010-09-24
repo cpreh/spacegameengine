@@ -1,6 +1,22 @@
-FILE (GLOB_RECURSE sgeaudionullfiles src/*.cpp)
+MACRO(
+	ADD_SGE_AUDIONULL_SOURCE_GROUP
+	SOURCEPATH
+)
+	ADD_SGE_SOURCE_GROUP(
+		"src\\\\\\\\plugins\\\\\\\\audio_null"
+		""
+		"${SOURCEPATH}"
+		*.?pp
+		TEMPFILES
+	)
 
-ADD_LIBRARY (sgeaudionull SHARED ${sgeaudionullfiles})
+	SET(SGEAUDIONULLFILES ${SGEAUDIONULLFILES} ${TEMPFILES})
+ENDMACRO()
+
+ADD_SGE_AUDIONULL_SOURCE_GROUP("")
+ADD_SGE_AUDIONULL_SOURCE_GROUP(src)
+
+ADD_LIBRARY (sgeaudionull SHARED ${SGEAUDIONULLFILES})
 
 TARGET_LINK_LIBRARIES (sgeaudionull sgecore)
 
