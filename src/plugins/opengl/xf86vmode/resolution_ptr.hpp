@@ -18,21 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config.hpp>
-#if defined(SGE_HAVE_XRANDR)
-#include "../xrandr_mode.hpp"
-#include "../../../xrandr/choose_resolution.hpp"
+#ifndef SGE_OPENGL_XF86VMODE_RESOLUTION_PTR_HPP_INCLUDED
+#define SGE_OPENGL_XF86VMODE_RESOLUTION_PTR_HPP_INCLUDED
 
-sge::opengl::x11::resolution::xrandr_mode::xrandr_mode(
-	renderer::display_mode const &_mode,
-	sge::x11::window_ptr const _wnd
-)
-:
-	resolution(
-		xrandr::choose_resolution(
-			_wnd,
-			_mode
-		)
-	)
-{}
+#include "resolution_fwd.hpp"
+#include <fcppt/shared_ptr.hpp>
+
+namespace sge
+{
+namespace opengl
+{
+namespace xf86vmode
+{
+
+typedef fcppt::shared_ptr<
+	resolution
+> resolution_ptr;
+
+}
+}
+}
+
 #endif
