@@ -18,10 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_XRANDR_CHECK_EXTENSION_HPP_INCLUDED
-#define SGE_OPENGL_XRANDR_CHECK_EXTENSION_HPP_INCLUDED
-
-#include <sge/x11/display_ptr.hpp>
+#ifndef SGE_OPENGL_XRANDR_MODE_FWD_HPP_INCLUDED
+#define SGE_OPENGL_XRANDR_MODE_FWD_HPP_INCLUDED
 
 namespace sge
 {
@@ -30,10 +28,7 @@ namespace opengl
 namespace xrandr
 {
 
-void
-check_extension(
-	sge::x11::display_ptr
-);
+class mode;
 
 }
 }

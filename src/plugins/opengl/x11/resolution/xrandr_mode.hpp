@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_X11_RESOLUTION_XRANDR_MODE_HPP_INCLUDED
 
 #include "instance.hpp"
-#include "../../xrandr/resolution_fwd.hpp"
+#include "../../xrandr/resolution_ptr.hpp"
 #include <sge/renderer/display_mode_fwd.hpp>
 #include <sge/x11/window_ptr.hpp>
 
@@ -35,11 +35,15 @@ namespace x11
 namespace resolution
 {
 
-class xrandr_mode : public instance {
+class xrandr_mode
+:
+	public instance
+{
 public:
 	xrandr_mode(
 		renderer::display_mode const &,
-		sge::x11::window_ptr);
+		sge::x11::window_ptr
+	);
 private:
 	xrandr::resolution_ptr const resolution;
 };

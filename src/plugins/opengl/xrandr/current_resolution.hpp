@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_XRANDR_CURRENT_RESOLUTION_HPP_INCLUDED
 #define SGE_OPENGL_XRANDR_CURRENT_RESOLUTION_HPP_INCLUDED
 
-#include "configuration_fwd.hpp"
+#include "mode_fwd.hpp"
+#include "configuration_ptr.hpp"
 
 namespace sge
 {
@@ -29,8 +30,6 @@ namespace opengl
 {
 namespace xrandr
 {
-
-class mode;
 
 mode const
 current_resolution(

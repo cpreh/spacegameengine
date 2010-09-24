@@ -33,19 +33,24 @@ namespace opengl
 namespace xf86vmode
 {
 
-class resolution {
+class resolution
+{
 	FCPPT_NONCOPYABLE(resolution)
 public:
 	resolution(
 		sge::x11::display_ptr,
 		int screen,
 		XF86VidModeModeInfo const &new_mode,
-		XF86VidModeModeInfo const &old_mode);
+		XF86VidModeModeInfo const &old_mode
+	);
+
 	~resolution();
 private:
-	sge::x11::display_ptr const dsp;
-	int const screen;
-	XF86VidModeModeInfo const old_mode;
+	sge::x11::display_ptr const dsp_;
+
+	int const screen_;
+
+	XF86VidModeModeInfo const old_mode_;
 };
 
 }

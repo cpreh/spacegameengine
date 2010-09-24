@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_XRANDR_RESOLUTION_HPP_INCLUDED
 #define SGE_OPENGL_XRANDR_RESOLUTION_HPP_INCLUDED
 
+#include "resolution_fwd.hpp"
 #include "mode.hpp"
-#include "configuration_fwd.hpp"
+#include "configuration_ptr.hpp"
 #include <sge/x11/window_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -33,7 +34,8 @@ namespace opengl
 namespace xrandr
 {
 
-class resolution {
+class resolution
+{
 	FCPPT_NONCOPYABLE(resolution)
 public:
 	resolution(
@@ -44,7 +46,9 @@ public:
 	~resolution();
 private:
 	sge::x11::window_ptr const wnd;
+
 	configuration_ptr const config;
+
 	mode const old_mode;
 };
 
