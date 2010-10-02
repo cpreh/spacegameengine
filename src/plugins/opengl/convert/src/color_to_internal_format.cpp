@@ -44,6 +44,8 @@ sge::opengl::convert::color_to_internal_format(
 	case image::color::format::argb32f:
 	case image::color::format::bgra32f:
 		return 4;
+	case image::color::format::rgb32f:
+		return GL_RGB32F;
 	case image::color::format::size:
 		break;
 	}

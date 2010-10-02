@@ -39,6 +39,7 @@ sge::opengl::convert::color_to_format_type(
 	case image::color::format::rgba32f:
 	case image::color::format::argb32f:
 	case image::color::format::bgra32f:
+	case image::color::format::rgb32f:
 		return GL_FLOAT;
 	case image::color::format::size:
 		break;

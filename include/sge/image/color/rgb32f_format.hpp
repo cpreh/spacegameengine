@@ -18,36 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../convert_color_type.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_IMAGE_COLOR_RGB32F_FORMAT_HPP_INCLUDED
+#define SGE_IMAGE_COLOR_RGB32F_FORMAT_HPP_INCLUDED
 
-GLenum
-sge::opengl::vf::convert_color_type(
-	image::color::format::type const _format
-)
+#include <sge/image/color/channel32f.hpp>
+#include <mizuiro/color/homogenous.hpp>
+#include <mizuiro/color/layout/rgb.hpp>
+
+namespace sge
 {
-	switch(
-		_format
-	)
-	{
-	case image::color::format::gray8:
-	case image::color::format::alpha8:
-	case image::color::format::rgba8:
-	case image::color::format::rgb8:
-	case image::color::format::argb8:
-	case image::color::format::bgra8:
-		return GL_UNSIGNED_BYTE;
-	case image::color::format::bgra32f:
-	case image::color::format::argb32f:
-	case image::color::format::rgba32f:
-	case image::color::format::rgb32f:
-		return GL_FLOAT;
-	case image::color::format::size:
-		break;
-	}
+namespace image
+{
+namespace color
+{
 
-	throw renderer::exception(
-		FCPPT_TEXT("Invalid color_format in color_color_type()!")
-	);
+typedef mizuiro::color::homogenous<
+	channel32f,
+	mizuiro::color::layout::rgb
+> rgb32f_format;
+
 }
+}
+}
+
+#endif
