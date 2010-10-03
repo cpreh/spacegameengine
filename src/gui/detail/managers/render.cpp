@@ -235,7 +235,7 @@ void sge::gui::detail::managers::render::resize(
 			<< d
 	);
 
-	if (d == dim::null())
+	if (d.content() == 0)
 		return;
 	
 
@@ -413,7 +413,7 @@ void sge::gui::detail::managers::render::clean()
 			d.first->absolute_pos()+d.second.pos(),
 			d.second.dimension());
 
-		if (to_lock.dimension() == dim::null())
+		if (to_lock.dimension().content() == 0)
 			continue;
 
 		FCPPT_LOG_DEBUG(
