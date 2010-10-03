@@ -235,6 +235,10 @@ void sge::gui::detail::managers::render::resize(
 			<< d
 	);
 
+	if (d == dim::null())
+		return;
+	
+
 	dirt_.erase(&w);
 
 	dirty(
@@ -408,6 +412,9 @@ void sge::gui::detail::managers::render::clean()
 		rect const to_lock(
 			d.first->absolute_pos()+d.second.pos(),
 			d.second.dimension());
+
+		if (to_lock.dimension() == dim::null())
+			continue;
 
 		FCPPT_LOG_DEBUG(
 			mylogger,
