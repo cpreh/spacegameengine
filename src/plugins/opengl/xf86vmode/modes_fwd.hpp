@@ -18,14 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ODE_GROUP_FWD_HPP_INCLUDED
-#define SGE_ODE_GROUP_FWD_HPP_INCLUDED
+#ifndef SGE_OPENGL_XF86VMODE_MODES_FWD_HPP_INCLUDED
+#define SGE_OPENGL_XF86VMODE_MODES_FWD_HPP_INCLUDED
 
 namespace sge
 {
-namespace ode
+namespace opengl
 {
-class group;
+namespace xf86vmode
+{
+
+class modes;
+
+}
 }
 }
 

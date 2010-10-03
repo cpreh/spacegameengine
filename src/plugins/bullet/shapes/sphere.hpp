@@ -35,7 +35,7 @@ namespace shapes
 {
 class sphere
 :
-	public base,
+	public bullet::shapes::base,
 	public collision::shapes::sphere
 {
 public:

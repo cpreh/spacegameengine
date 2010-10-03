@@ -73,12 +73,11 @@ sge::mainloop::asio::io_service::reset()
 }
 
 void
-sge::mainloop::asio::io_service::dispatch(
+sge::mainloop::asio::io_service::post(
 	dispatcher_callback const &_callback
 )
 {
-	// FIXME: use post here!
-	io_service_.dispatch(
+	io_service_.post(
 		_callback
 	);
 }

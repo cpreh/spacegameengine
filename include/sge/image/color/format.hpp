@@ -40,6 +40,7 @@ enum type {
 	rgba32f,
 	argb32f,
 	bgra32f,
+	rgb32f,
 	size
 };
 }

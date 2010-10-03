@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config.h>
+#include <sge/config.hpp>
 #include "../create.hpp"
 #if defined(SGE_HAVE_XRANDR)
 #include "../xrandr_mode.hpp"

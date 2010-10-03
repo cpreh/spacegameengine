@@ -18,46 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ODE_GROUP_HPP_INCLUDED
-#define SGE_ODE_GROUP_HPP_INCLUDED
+#ifndef SGE_IMAGE_COLOR_RGB32F_FORMAT_HPP_INCLUDED
+#define SGE_IMAGE_COLOR_RGB32F_FORMAT_HPP_INCLUDED
 
-#include "group_id.hpp"
-#include <sge/collision/group.hpp>
+#include <sge/image/color/channel32f.hpp>
+#include <mizuiro/color/homogenous.hpp>
+#include <mizuiro/color/layout/rgb.hpp>
 
 namespace sge
 {
-namespace ode
+namespace image
 {
-class group
-:
-	public collision::group
+namespace color
 {
-public:
-	explicit group(
-		group_id
-	);
 
-	void
-	add(
-		collision::shapes::base_ptr
-	);
+typedef mizuiro::color::homogenous<
+	channel32f,
+	mizuiro::color::layout::rgb
+> rgb32f_format;
 
-	void
-	collides_with(
-		group const &
-	);
-
-	group_id
-	category() const;
-
-	group_id
-	collides() const;
-private:
-	group_id
-		category_,
-		collides_;
-	bool dirty_;
-};
+}
 }
 }
 

@@ -60,8 +60,9 @@ ENDIF ()
 
 INCLUDE_DIRECTORIES (${CMAKE_SOURCE_DIR}/include)
 
-SET (LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
-SET (EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
+SET (BINARY_PATH ${CMAKE_BINARY_DIR}/bin)
+SET (LIBRARY_OUTPUT_PATH ${BINARY_PATH})
+SET (EXECUTABLE_OUTPUT_PATH ${BINARY_PATH})
 
 # Create package file for relocateable package
 SET (PKGFILE "${CMAKE_BINARY_DIR}/spacegameengine.pc")
@@ -77,7 +78,6 @@ FILE(
 	"Version: 0.1\n"
 	"Requires:\n"
 	"Libs: -L\${libdir} -lsgecore\n"
-	"Cflags: -I\${includedir}/sge"
 )
 
 INSTALL (FILES ${PKGFILE} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/pkgconfig)
@@ -116,12 +116,102 @@ IF(UNIX)
 	SET(SGE_HAVE_X11 true)
 ENDIF()
 
-ADD_SUBDIRECTORY (src)
-
 CONFIGURE_FILE(
-	${CMAKE_SOURCE_DIR}/config.h.in
-	${CMAKE_SOURCE_DIR}/include/sge/config.h
+	${CMAKE_SOURCE_DIR}/config.hpp.in
+	${CMAKE_SOURCE_DIR}/include/sge/config.hpp
 )
+
+# CONCATDELIM
+#
+# Eases the use of concatenating two paths components
+# of which both or one may be empty.
+# 
+# Effects:
+#   If ${VAR1} is empty, the result will be ${VAR2}.
+#   If ${VAR2} is empty, the result will be ${VAR1}.
+#   If both are not empty, then the result will be ${VAR1}${DELIM}${VAR2}
+#
+MACRO(
+	CONCATDELIM
+	VAR1
+	VAR2
+	RESULT
+	DELIM
+)
+	IF("${VAR1}" STREQUAL "")
+		SET(${RESULT} ${VAR2})
+	ELSEIF("${VAR2}" STREQUAL "")
+		SET(${RESULT} ${VAR1})
+	ELSE()
+		SET(${RESULT} ${VAR1}${DELIM}${VAR2})
+	ENDIF()
+ENDMACRO()
+
+# ADD_SGE_SOURCE_GRUP
+# - GROUPPREFIX - The prefix for the source groups,
+#                 for example it is "src" if you are in src/CMakeLists.txt
+#                 and add files from there.
+# - PATHPREFIX - The common prefix for a path,
+#                for example include/sge if you want to make a macro
+#                for including sge files without repeating this common prefix.
+# - SOURCEPATH - The relative path of the source,
+#                where files should be searched.
+# - PATTERN    - The pattern of files to search for,
+#                for example *.hpp, *.cpp or *.?pp.
+# - SOURCEVARIABLE - The variable that will hold the found source files.
+#
+# Effects:
+#   Searches for all files in PATHPREFIX/SOURCEPATH that match PATTERN,
+#   for each / in SOURCEPATH the substrings will be split
+#   and a group with the same name components will be created
+#   with GROUPPREFIX as its prefix.
+#   The result of all files found will be stored in SOURCEVARIABLE.
+#   It is an error when the PATTERN doesn't match anything.
+#   Note: The prefix handling is so messy because in corner cases trailing slashes
+#         will be produced which cmake is too stupid to handle.
+#
+MACRO(
+	ADD_SGE_SOURCE_GROUP
+	GROUPPREFIX
+	PATHPREFIX
+	SOURCEPATH
+	PATTERN
+	SOURCEVARIABLE
+)
+	CONCATDELIM(
+		"${PATHPREFIX}"
+		"${SOURCEPATH}"
+		RELATIVEPATH
+		"/"
+	)
+
+	IF("${RELATIVEPATH}" STREQUAL "")
+		SET(SEARCHEXPR "${PATTERN}")
+	ELSE()
+		SET(SEARCHEXPR "${RELATIVEPATH}/${PATTERN}")
+	ENDIF()
+
+	FILE(GLOB GROUPFILES "${SEARCHEXPR}")
+
+	IF("${GROUPFILES}" STREQUAL "")
+		MESSAGE(FATAL_ERROR "Nothing found in ${RELATIVEPATH}!")
+	ENDIF()
+
+	STRING(REPLACE "/" "\\\\" GROUPFOLDER "${SOURCEPATH}")
+
+	CONCATDELIM(
+		"${GROUPPREFIX}"
+		"${GROUPFOLDER}"
+		WHOLEGROUP
+		"\\\\"
+	)
+
+	SOURCE_GROUP("${WHOLEGROUP}" FILES ${GROUPFILES})
+
+	SET(${SOURCEVARIABLE} ${GROUPFILES})
+ENDMACRO()
+
+ADD_SUBDIRECTORY (src)
 
 OPTION(ENABLE_TEST "Build the tests" OFF)
 

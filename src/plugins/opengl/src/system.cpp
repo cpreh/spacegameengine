@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config.h>
+#include <sge/config.hpp>
 #include <fcppt/config.hpp>
 #include "../system.hpp"
 #include "../device.hpp"
@@ -47,7 +47,8 @@ sge::renderer::device_ptr const
 sge::opengl::system::create_renderer(
 	renderer::parameters const &param,
 	renderer::adapter_type const adapter,
-	window::instance_ptr const wnd)
+	window::instance_ptr const wnd
+)
 {
 	if(ref.lock())
 		throw exception(

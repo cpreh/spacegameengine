@@ -160,7 +160,7 @@ sge::opengl::hardware_vbo::map_buffer_range(
 bool
 sge::opengl::hardware_vbo::map_buffer_range_supported() const
 {
-	return gl_map_buffer_range;
+	return gl_map_buffer_range != 0;
 }
 
 void

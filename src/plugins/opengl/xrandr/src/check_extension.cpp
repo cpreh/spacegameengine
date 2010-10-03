@@ -25,16 +25,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <fcppt/text.hpp>
 
-void sge::opengl::xrandr::check_extension(
-	x11::display_ptr const dsp)
+void
+sge::opengl::xrandr::check_extension(
+	x11::display_ptr const _dsp
+)
 {
 	int event_base_return, error_base_return;
 
-	if(XRRQueryExtension(
-		dsp->get(),
-		&event_base_return,
-		&error_base_return)
-	== False)
+	if(
+		XRRQueryExtension(
+			_dsp->get(),
+			&event_base_return,
+			&error_base_return
+		)
+		== False
+	)
 		throw exception(
-			FCPPT_TEXT("xrandr extension not present!"));
+			FCPPT_TEXT("xrandr extension not present!")
+		);
 }

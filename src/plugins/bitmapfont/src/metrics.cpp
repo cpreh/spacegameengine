@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/filesystem/replace_extension.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/variant/object_impl.hpp>
@@ -74,7 +75,9 @@ sge::bitmapfont::metrics::metrics(
 		)
 	)
 		throw font::exception(
-			json_file.string()
+			fcppt::filesystem::path_to_string(
+				json_file
+			)
 			+ FCPPT_TEXT(" contains errors!")
 		);
 

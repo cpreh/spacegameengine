@@ -18,14 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ODE_WORLD_FWD_HPP_INCLUDED
-#define SGE_ODE_WORLD_FWD_HPP_INCLUDED
+#ifndef SGE_OPENGL_XRANDR_RESOLUTION_PTR_HPP_INCLUDED
+#define SGE_OPENGL_XRANDR_RESOLUTION_PTR_HPP_INCLUDED
+
+#include "resolution_fwd.hpp"
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
-namespace ode
+namespace opengl
 {
-class world;
+namespace xrandr
+{
+
+typedef fcppt::shared_ptr<
+	resolution
+> resolution_ptr;
+
+}
 }
 }
 

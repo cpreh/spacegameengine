@@ -21,26 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_XF86VMODE_CHOOSE_MODE_HPP_INCLUDED
 #define SGE_OPENGL_XF86VMODE_CHOOSE_MODE_HPP_INCLUDED
 
-#include "resolution_fwd.hpp"
+#include "resolution_ptr.hpp"
+#include "modes_fwd.hpp"
+#include <sge/renderer/display_mode_fwd.hpp>
 
 namespace sge
 {
-namespace renderer
-{
-class display_mode;
-}
-
 namespace opengl
 {
 namespace xf86vmode
 {
 
-class modes;
-
 resolution_ptr const
 choose_mode(
 	renderer::display_mode const &,
-	modes const &);
+	modes const &
+);
 
 }
 }

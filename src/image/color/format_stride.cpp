@@ -38,16 +38,15 @@ base_size(
 	{
 	case format::gray8:
 	case format::alpha8:
-		return sizeof(boost::uint8_t);
 	case format::rgba8:
 	case format::argb8:
 	case format::bgra8:
-		return sizeof(boost::uint8_t);
 	case format::rgb8:
 		return sizeof(boost::uint8_t);
 	case format::rgba32f:
 	case format::argb32f:
 	case format::bgra32f:
+	case format::rgb32f:
 		return sizeof(float);
 	case format::size:
 		break;

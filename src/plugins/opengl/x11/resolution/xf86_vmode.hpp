@@ -23,17 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "instance.hpp"
 #include "../../xf86vmode/modes.hpp"
-#include "../../xf86vmode/resolution.hpp"
+#include "../../xf86vmode/resolution_ptr.hpp"
 #include <sge/renderer/adapter_type.hpp>
-#include <sge/x11/display_fwd.hpp>
+#include <sge/renderer/display_mode_fwd.hpp>
+#include <sge/x11/display_ptr.hpp>
 
 namespace sge
 {
-namespace renderer
-{
-class display_mode;
-}
-
 namespace opengl
 {
 namespace x11
@@ -41,15 +37,20 @@ namespace x11
 namespace resolution
 {
 
-class xf86_vmode : public instance {
+class xf86_vmode
+:
+	public instance
+{
 public:
 	xf86_vmode(
 		renderer::display_mode const &,
 		sge::x11::display_ptr,
-		int screen);
+		int screen
+	);
 private:
-	xf86vmode::modes          const modes;
-	xf86vmode::resolution_ptr const resolution;
+	xf86vmode::modes const modes_;
+
+	xf86vmode::resolution_ptr const resolution_;
 };
 
 }

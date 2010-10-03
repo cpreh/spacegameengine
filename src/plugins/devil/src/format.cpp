@@ -148,6 +148,7 @@ sge::devil::to_il_format(
 	case image::color::format::argb32f:
 	case image::color::format::bgra32f:
 	case image::color::format::rgba32f:
+	case image::color::format::rgb32f:
 	case image::color::format::size:
 		break;
 	}
@@ -174,6 +175,7 @@ sge::devil::to_il_channel(
 	case image::color::format::argb32f:
 	case image::color::format::bgra32f:
 	case image::color::format::rgba32f:
+	case image::color::format::rgb32f:
 		return IL_FLOAT;
 	case image::color::format::size:
 		break;
@@ -201,6 +203,7 @@ sge::devil::best_il_format(
 	case image::color::format::rgba32f:
 	case image::color::format::argb32f:
 	case image::color::format::bgra32f:
+	case image::color::format::rgb32f:
 		return image::color::format::rgba8;
 	case image::color::format::size:
 		break;

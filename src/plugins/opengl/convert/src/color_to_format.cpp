@@ -37,6 +37,7 @@ sge::opengl::convert::color_to_format(
 	case image::color::format::rgba32f:
 		return GL_RGBA;
 	case image::color::format::rgb8:
+	case image::color::format::rgb32f:
 		return GL_RGB;
 	case image::color::format::argb8:
 	case image::color::format::argb32f:

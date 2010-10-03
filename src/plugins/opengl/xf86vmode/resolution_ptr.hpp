@@ -18,28 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ODE_SYSTEM_HPP_INCLUDED
-#define SGE_ODE_SYSTEM_HPP_INCLUDED
+#ifndef SGE_OPENGL_XF86VMODE_RESOLUTION_PTR_HPP_INCLUDED
+#define SGE_OPENGL_XF86VMODE_RESOLUTION_PTR_HPP_INCLUDED
 
-#include <sge/collision/system.hpp>
+#include "resolution_fwd.hpp"
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
-namespace ode
+namespace opengl
 {
-class system : public collision::system
+namespace xf86vmode
 {
-public:
-	system();
 
-	sge::collision::world_ptr const
-	create_world(
-		collision::optional_box const &,
-		collision::constraint::type
-	);
+typedef fcppt::shared_ptr<
+	resolution
+> resolution_ptr;
 
-	~system();
-};
+}
 }
 }
 

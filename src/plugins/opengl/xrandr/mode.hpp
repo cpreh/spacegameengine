@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_XRANDR_MODE_HPP_INCLUDED
 #define SGE_OPENGL_XRANDR_MODE_HPP_INCLUDED
 
+#include "mode_fwd.hpp"
 #include <X11/Xlib.h>
 #include <X11/extensions/Xrandr.h>
 #include <sge/renderer/refresh_rate.hpp>
@@ -32,7 +33,8 @@ namespace opengl
 namespace xrandr
 {
 
-class mode {
+class mode
+{
 public:
 	mode(
 		int index,
@@ -50,7 +52,9 @@ public:
 	rate() const;
 private:
 	int const index_;
+
 	Rotation const rotation_;
+
 	renderer::refresh_rate const rate_;
 };
 

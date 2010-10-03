@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/file.hpp>
 #include <fcppt/filesystem/path.hpp>
-#include <fcppt/io/ifstream.hpp>
+#include <fcppt/io/cifstream.hpp>
 #include <fcppt/string.hpp>
 #include <vorbis/vorbisfile.h>
 #include <cstddef>
@@ -54,7 +54,7 @@ public:
 
 private:
 	fcppt::string const         file_name;
-	fcppt::io::ifstream         stdstream;
+	fcppt::io::cifstream        stdstream;
 	OggVorbis_File              ogg_file;
 	channel_type                channels_;
 	sample_count                sample_rate_;

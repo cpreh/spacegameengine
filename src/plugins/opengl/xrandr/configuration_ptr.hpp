@@ -18,40 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ODE_SHAPES_BOX_HPP_INCLUDED
-#define SGE_ODE_SHAPES_BOX_HPP_INCLUDED
+#ifndef SGE_OPENGL_XRANDR_CONFIGURATION_PTR_HPP_INCLUDED
+#define SGE_OPENGL_XRANDR_CONFIGURATION_PTR_HPP_INCLUDED
 
-#include "../transformer_fwd.hpp"
-#include "base.hpp"
-#include <sge/collision/dim.hpp>
-#include <sge/collision/shapes/box.hpp>
+#include "configuration_fwd.hpp"
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
-namespace ode
+namespace opengl
 {
-namespace shapes
+namespace xrandr
 {
-class box
-:
-	public collision::shapes::box,
-	public ode::shapes::base
-{
-public:
-	box(
-		transformer const &,
-		dSpaceID,
-		collision::dim const &);
 
-	collision::dim const 
-	dim() const;
+typedef fcppt::shared_ptr<
+	configuration
+> configuration_ptr;
 
-	void 
-	dim(
-		collision::dim const &);
-private:
-	transformer const &transformer_;
-};
 }
 }
 }

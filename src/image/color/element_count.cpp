@@ -42,6 +42,7 @@ sge::image::color::element_count(
 	case format::bgra32f:
 		return 4;
 	case format::rgb8:
+	case format::rgb32f:
 		return 3;
 	case format::size:
 		break;

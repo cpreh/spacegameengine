@@ -28,45 +28,57 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/windows.hpp>
 
 sge::opengl::windows::state::state(
-	renderer::parameters const &param,
-	renderer::adapter_type const adapter,
-	window::instance_ptr const wnd_,
-	view_port_fun const &)
+	renderer::parameters const &_param,
+	renderer::adapter_type const _adapter,
+	window::instance_ptr const _wnd,
+	view_port_fun const &
+)
 :
-	wnd(
+	wnd_(
 		fcppt::polymorphic_pointer_cast<
 			sge::windows::window
 		>(
-			wnd_
+			_wnd
 		)
 	),
-	hdc(
-		wnd->hwnd(),
+	hdc_(
+		wnd_->hwnd(),
 		sge::windows::gdi_device::get_tag()
 	),
-	context(
-		hdc
+	context_(
+		hdc_
 	),
-	current(
-		hdc,
-		context
+	current_(
+		hdc_,
+		context_
 	)
 {
 
 	if(
-		param.window_mode() == renderer::window_mode::fullscreen
+		_param.window_mode() == renderer::window_mode::fullscreen
 	)
 		change_display_settings(
-			param.display_mode()
+			_param.display_mode()
+		);
+
+	wnd_->show();
+}
+
+void
+sge::opengl::windows::state::swap_buffers()
+{
+	if(
+		::wglSwapLayerBuffers(
+			hdc_.hdc(),
+			WGL_SWAP_MAIN_PLANE
+		)
+		== FALSE
+	)
+		throw exception(
+			FCPPT_TEXT("wglSwapLayerBuffers() failed!")
 		);
 }
 
-void sge::opengl::windows::state::swap_buffers()
-{
-	if(wglSwapLayerBuffers(hdc.hdc(), WGL_SWAP_MAIN_PLANE) == FALSE)
-		throw exception(
-			FCPPT_TEXT("wglSwapLayerBuffers() failed!"));
-}
-
-void sge::opengl::windows::state::reset_viewport()
+void
+sge::opengl::windows::state::reset_viewport()
 {}

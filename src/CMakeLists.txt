@@ -1,111 +1,159 @@
-FILE (
-	GLOB SGECOREFILES 
-	*.cpp
-	algorithm/*.cpp
-	audio/*.cpp
-	audio/sound/*.cpp
-	chrono/*.cpp
-	config/*.cpp
-	console/*.cpp
-	collision/*.cpp
-	collision/shapes/*.cpp
-	config/detail/*.cpp
-	container/*.cpp
-	endianness/*.cpp
-	error/*.cpp
-	filesystem/*.cpp
-	font/*.cpp
-	image/*.cpp
-	image/algorithm/*.cpp
-	image/color/*.cpp
-	image/color/any/*.cpp
-	image/view/*.cpp
-	input/*.cpp
-	input/modifier/*.cpp
-	library/*.cpp
-	log/*.cpp
-	log/detail/*.cpp
-	log/format/*.cpp
-	log/parameters/*.cpp
-	mainloop/*.cpp
-	mainloop/asio/*.cpp
-	math/*.cpp
-	model/*.cpp
-	mpl/*.cpp
-	parse/*.cpp
-	parse/output/*.cpp
-	parse/ini/*.cpp
-	parse/ini/output/*.cpp
-	parse/json/*.cpp
-	parse/json/output/*.cpp
-	plugin/*.cpp
-	plugin/detail/*.cpp
-	random/*.cpp
-	random/actor/*.cpp
-	renderer/*.cpp
-	renderer/detail/*.cpp
-	renderer/filter/*.cpp
-	renderer/index/*.cpp
-	renderer/index/dynamic/*.cpp
-	renderer/glsl/*.cpp
-	renderer/glsl/attribute/*.cpp
-	renderer/glsl/uniform/*.cpp
-	renderer/state/*.cpp
-	renderer/vf/dynamic/*.cpp
-	signal/*.cpp
-	signal/detail/*.cpp
-	sprite/*.cpp
-	sprite/animation/*.cpp
-	sprite/detail/*.cpp
-	systems/*.cpp
-	texture/*.cpp
-	texture/atlasing/*.cpp
-	texture/detail/*.cpp
-	thread/*.cpp
-	thread/future/*.cpp
-	thread/future/detail/*.cpp
-	time/*.cpp
-	utf8/*.cpp
-	variant/*.cpp
-	window/*.cpp
+MACRO(
+	ADD_SGE_INCLUDE_SOURCE_GROUP
+	SOURCEPATH
 )
+	ADD_SGE_SOURCE_GROUP(
+		"include\\\\\\\\sge" #cmake bitch
+		${CMAKE_SOURCE_DIR}/include/sge
+		"${SOURCEPATH}"
+		*.hpp
+		TEMPFILES
+	)
 
-FILE (
-	GLOB_RECURSE sgecoreheaders
-	../include/*.hpp
+	SET(SGECOREFILES ${SGECOREFILES} ${TEMPFILES})
+ENDMACRO()
+
+ADD_SGE_INCLUDE_SOURCE_GROUP("")
+ADD_SGE_INCLUDE_SOURCE_GROUP(audio)
+ADD_SGE_INCLUDE_SOURCE_GROUP(audio/sound)
+ADD_SGE_INCLUDE_SOURCE_GROUP(collision)
+ADD_SGE_INCLUDE_SOURCE_GROUP(collision/shapes)
+ADD_SGE_INCLUDE_SOURCE_GROUP(config)
+ADD_SGE_INCLUDE_SOURCE_GROUP(console)
+ADD_SGE_INCLUDE_SOURCE_GROUP(error)
+ADD_SGE_INCLUDE_SOURCE_GROUP(font)
+ADD_SGE_INCLUDE_SOURCE_GROUP(image)
+ADD_SGE_INCLUDE_SOURCE_GROUP(image/algorithm)
+ADD_SGE_INCLUDE_SOURCE_GROUP(image/algorithm/detail)
+ADD_SGE_INCLUDE_SOURCE_GROUP(image/color)
+ADD_SGE_INCLUDE_SOURCE_GROUP(image/color/any)
+ADD_SGE_INCLUDE_SOURCE_GROUP(image/color/any/detail)
+ADD_SGE_INCLUDE_SOURCE_GROUP(image/view)
+ADD_SGE_INCLUDE_SOURCE_GROUP(input)
+ADD_SGE_INCLUDE_SOURCE_GROUP(input/modifier)
+ADD_SGE_INCLUDE_SOURCE_GROUP(library)
+ADD_SGE_INCLUDE_SOURCE_GROUP(log)
+ADD_SGE_INCLUDE_SOURCE_GROUP(mainloop)
+ADD_SGE_INCLUDE_SOURCE_GROUP(mainloop/asio)
+ADD_SGE_INCLUDE_SOURCE_GROUP(model)
+ADD_SGE_INCLUDE_SOURCE_GROUP(parse)
+ADD_SGE_INCLUDE_SOURCE_GROUP(parse/ini)
+ADD_SGE_INCLUDE_SOURCE_GROUP(parse/ini/detail)
+ADD_SGE_INCLUDE_SOURCE_GROUP(parse/ini/output)
+ADD_SGE_INCLUDE_SOURCE_GROUP(parse/json)
+ADD_SGE_INCLUDE_SOURCE_GROUP(parse/json/detail)
+ADD_SGE_INCLUDE_SOURCE_GROUP(parse/json/output)
+ADD_SGE_INCLUDE_SOURCE_GROUP(plugin)
+ADD_SGE_INCLUDE_SOURCE_GROUP(plugin/detail)
+ADD_SGE_INCLUDE_SOURCE_GROUP(renderer)
+ADD_SGE_INCLUDE_SOURCE_GROUP(renderer/detail)
+ADD_SGE_INCLUDE_SOURCE_GROUP(renderer/filter)
+ADD_SGE_INCLUDE_SOURCE_GROUP(renderer/glsl)
+ADD_SGE_INCLUDE_SOURCE_GROUP(renderer/glsl/uniform)
+ADD_SGE_INCLUDE_SOURCE_GROUP(renderer/glsl/uniform/detail)
+ADD_SGE_INCLUDE_SOURCE_GROUP(renderer/index)
+ADD_SGE_INCLUDE_SOURCE_GROUP(renderer/index/dynamic)
+ADD_SGE_INCLUDE_SOURCE_GROUP(renderer/index/dynamic/detail)
+ADD_SGE_INCLUDE_SOURCE_GROUP(renderer/state)
+ADD_SGE_INCLUDE_SOURCE_GROUP(renderer/vf)
+ADD_SGE_INCLUDE_SOURCE_GROUP(renderer/vf/detail)
+ADD_SGE_INCLUDE_SOURCE_GROUP(renderer/vf/dynamic)
+ADD_SGE_INCLUDE_SOURCE_GROUP(renderer/vf/dynamic/detail)
+ADD_SGE_INCLUDE_SOURCE_GROUP(sprite)
+ADD_SGE_INCLUDE_SOURCE_GROUP(sprite/animation)
+ADD_SGE_INCLUDE_SOURCE_GROUP(sprite/detail)
+ADD_SGE_INCLUDE_SOURCE_GROUP(sprite/detail/roles)
+ADD_SGE_INCLUDE_SOURCE_GROUP(sprite/intrusive)
+ADD_SGE_INCLUDE_SOURCE_GROUP(sprite/intrusive/detail)
+ADD_SGE_INCLUDE_SOURCE_GROUP(sprite/primitives)
+ADD_SGE_INCLUDE_SOURCE_GROUP(sprite/roles)
+ADD_SGE_INCLUDE_SOURCE_GROUP(systems)
+ADD_SGE_INCLUDE_SOURCE_GROUP(texture)
+ADD_SGE_INCLUDE_SOURCE_GROUP(texture/atlasing)
+ADD_SGE_INCLUDE_SOURCE_GROUP(texture/detail)
+ADD_SGE_INCLUDE_SOURCE_GROUP(time)
+ADD_SGE_INCLUDE_SOURCE_GROUP(window)
+
+MACRO(
+	ADD_SGE_CORE_SOURCE_GROUP
+	SOURCEPATH
 )
+	ADD_SGE_SOURCE_GROUP(
+		src
+		""
+		"${SOURCEPATH}"
+		*.?pp
+		TEMPFILES	
+	)
 
-SET (SGECOREFILES ${SGECOREFILES} ${sgecoreheaders})
+	SET(SGECOREFILES ${SGECOREFILES} ${TEMPFILES})
+ENDMACRO()
+
+ADD_SGE_CORE_SOURCE_GROUP("")
+ADD_SGE_CORE_SOURCE_GROUP(audio)
+ADD_SGE_CORE_SOURCE_GROUP(audio/sound)
+ADD_SGE_CORE_SOURCE_GROUP(collision)
+ADD_SGE_CORE_SOURCE_GROUP(collision/shapes)
+ADD_SGE_CORE_SOURCE_GROUP(config)
+ADD_SGE_CORE_SOURCE_GROUP(console)
+ADD_SGE_CORE_SOURCE_GROUP(font)
+ADD_SGE_CORE_SOURCE_GROUP(image)
+ADD_SGE_CORE_SOURCE_GROUP(image/algorithm)
+ADD_SGE_CORE_SOURCE_GROUP(image/color)
+ADD_SGE_CORE_SOURCE_GROUP(image/color/any)
+ADD_SGE_CORE_SOURCE_GROUP(image/view)
+ADD_SGE_CORE_SOURCE_GROUP(input)
+ADD_SGE_CORE_SOURCE_GROUP(input/modifier)
+ADD_SGE_CORE_SOURCE_GROUP(library)
+ADD_SGE_CORE_SOURCE_GROUP(log)
+ADD_SGE_CORE_SOURCE_GROUP(mainloop)
+ADD_SGE_CORE_SOURCE_GROUP(mainloop/asio)
+ADD_SGE_CORE_SOURCE_GROUP(model)
+ADD_SGE_CORE_SOURCE_GROUP(parse)
+ADD_SGE_CORE_SOURCE_GROUP(parse/output)
+ADD_SGE_CORE_SOURCE_GROUP(parse/ini)
+ADD_SGE_CORE_SOURCE_GROUP(parse/ini/output)
+ADD_SGE_CORE_SOURCE_GROUP(parse/json)
+ADD_SGE_CORE_SOURCE_GROUP(parse/json/output)
+ADD_SGE_CORE_SOURCE_GROUP(plugin)
+ADD_SGE_CORE_SOURCE_GROUP(renderer)
+ADD_SGE_CORE_SOURCE_GROUP(renderer/detail)
+ADD_SGE_CORE_SOURCE_GROUP(renderer/filter)
+ADD_SGE_CORE_SOURCE_GROUP(renderer/index)
+ADD_SGE_CORE_SOURCE_GROUP(renderer/index/dynamic)
+ADD_SGE_CORE_SOURCE_GROUP(renderer/glsl)
+ADD_SGE_CORE_SOURCE_GROUP(renderer/glsl/uniform)
+ADD_SGE_CORE_SOURCE_GROUP(renderer/state)
+ADD_SGE_CORE_SOURCE_GROUP(renderer/vf/dynamic/)
+ADD_SGE_CORE_SOURCE_GROUP(sprite)
+ADD_SGE_CORE_SOURCE_GROUP(sprite/animation)
+ADD_SGE_CORE_SOURCE_GROUP(sprite/detail)
+ADD_SGE_CORE_SOURCE_GROUP(systems)
+ADD_SGE_CORE_SOURCE_GROUP(texture)
+ADD_SGE_CORE_SOURCE_GROUP(texture/atlasing)
+ADD_SGE_CORE_SOURCE_GROUP(texture/detail)
+ADD_SGE_CORE_SOURCE_GROUP(time)
+ADD_SGE_CORE_SOURCE_GROUP(window)
 
 IF (X11_FOUND)
-	FILE (
-		GLOB sgecorex11files
-		x11/*.cpp
-	)
-
-	SET (SGECOREFILES ${SGECOREFILES} ${sgecorex11files})
+	ADD_SGE_CORE_SOURCE_GROUP(x11)
 ELSEIF (WIN32)
-	FILE (
-		GLOB sgecorewindowsfiles
-		windows/*.cpp
-		windows/detail/*.cpp
-	)
+	ADD_SGE_INCLUDE_SOURCE_GROUP(windows)
+	ADD_SGE_INCLUDE_SOURCE_GROUP(windows/detail)
 
-	SET (SGECOREFILES ${SGECOREFILES} ${sgecorewindowsfiles})
+	ADD_SGE_CORE_SOURCE_GROUP(windows)
+	ADD_SGE_CORE_SOURCE_GROUP(windows/detail)
 ENDIF ()
 
-set_source_files_properties(
-	config/plugin_path.cpp
-	PROPERTIES
-	COMPILE_FLAGS
-	-DPLUGIN_PATH="\\\"${CMAKE_INSTALL_PREFIX}/lib/sge\\\""
-)
+# configure some resource paths
+SET(SGE_PLUGIN_BUILD_PATH "${BINARY_PATH}/plugins")
+SET(SGE_PLUGIN_INSTALL_PATH "${CMAKE_INSTALL_PREFIX}/lib/sge")
+SET(SGE_MEDIA_BUILD_PATH "${CMAKE_SOURCE_DIR}/media")
+SET(SGE_MEDIA_INSTALL_PATH "${CMAKE_INSTALL_PREFIX}/share/games/sge/media")
 
-set_source_files_properties(
-	config/media_path.cpp
-	PROPERTIES
-	COMPILE_FLAGS
-	-DMEDIA_PATH="\\\"${CMAKE_INSTALL_PREFIX}/share/games/sge/media\\\""
+CONFIGURE_FILE(
+	${CMAKE_SOURCE_DIR}/config_paths.hpp.in
+	${CMAKE_SOURCE_DIR}/src/config/config_paths.hpp
 )
 
 ADD_LIBRARY (sgecore SHARED ${SGECOREFILES})

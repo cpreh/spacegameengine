@@ -424,7 +424,7 @@ sge::bullet::world::solid_collision(
 sge::bullet::group_id
 sge::bullet::world::next_group_id()
 {
-	if (group_id_ == static_cast<group_id>(1 << 15))
+	if (group_id_ == std::numeric_limits<group_id>::max())
 		throw collision::group_overflow();
 	group_id const old = group_id_;
 	// <<= doesn't work because of -Wconversion

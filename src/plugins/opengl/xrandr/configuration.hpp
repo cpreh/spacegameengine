@@ -34,7 +34,8 @@ namespace opengl
 namespace xrandr
 {
 
-class configuration {
+class configuration
+{
 	FCPPT_NONCOPYABLE(configuration)
 public:
 	explicit configuration(

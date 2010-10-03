@@ -1,33 +1,52 @@
-find_package(OpenGL)
+MACRO(
+	ADD_SGE_OPENGL_SOURCE_GROUP
+	SOURCEPATH
+)
+	ADD_SGE_SOURCE_GROUP(
+		"src\\\\\\\\plugins\\\\\\\\opengl"
+		""
+		"${SOURCEPATH}"
+		*.?pp
+		TEMPFILES
+	)
+
+	SET(SGEOPENGLFILES ${SGEOPENGLFILES} ${TEMPFILES})
+ENDMACRO()
+
+ADD_SGE_OPENGL_SOURCE_GROUP("")
+ADD_SGE_OPENGL_SOURCE_GROUP(context)
+ADD_SGE_OPENGL_SOURCE_GROUP(context/src)
+ADD_SGE_OPENGL_SOURCE_GROUP(convert)
+ADD_SGE_OPENGL_SOURCE_GROUP(convert/src)
+ADD_SGE_OPENGL_SOURCE_GROUP(glew)
+ADD_SGE_OPENGL_SOURCE_GROUP(glew/src)
+ADD_SGE_OPENGL_SOURCE_GROUP(glsl)
+ADD_SGE_OPENGL_SOURCE_GROUP(glsl/arb)
+ADD_SGE_OPENGL_SOURCE_GROUP(glsl/arb/src)
+ADD_SGE_OPENGL_SOURCE_GROUP(glsl/native)
+ADD_SGE_OPENGL_SOURCE_GROUP(glsl/native/src)
+ADD_SGE_OPENGL_SOURCE_GROUP(glsl/programfuncs)
+ADD_SGE_OPENGL_SOURCE_GROUP(glsl/programfuncs/src)
+ADD_SGE_OPENGL_SOURCE_GROUP(glsl/shaderfuncs)
+ADD_SGE_OPENGL_SOURCE_GROUP(glsl/shaderfuncs/src)
+ADD_SGE_OPENGL_SOURCE_GROUP(glsl/src)
+ADD_SGE_OPENGL_SOURCE_GROUP(glsl/uniform)
+ADD_SGE_OPENGL_SOURCE_GROUP(glsl/uniform/src)
+ADD_SGE_OPENGL_SOURCE_GROUP(src)
+ADD_SGE_OPENGL_SOURCE_GROUP(texfuncs)
+ADD_SGE_OPENGL_SOURCE_GROUP(texfuncs/src)
+ADD_SGE_OPENGL_SOURCE_GROUP(vf)
+ADD_SGE_OPENGL_SOURCE_GROUP(vf/src)
 
 INCLUDE_DIRECTORIES(${OPENGL_INCLUDE_DIR})
 
-FILE(
-	GLOB sgeopenglfiles
-	src/*.cpp
-	context/src/*.cpp
-	convert/src/*.cpp
-	glew/src/*.cpp
-	glsl/src/*.cpp
-	glsl/arb/src/*.cpp
-	glsl/native/src/*.cpp
-	glsl/programfuncs/src/*.cpp
-	glsl/shaderfuncs/src/*.cpp
-	glsl/uniform/src/*.cpp
-	texfuncs/src/*.cpp
-	vf/src/*.cpp
-)
-	
 IF (X11_FOUND)
-	FILE (
-		GLOB sgeopenglx11files
-		glx/src/*.cpp
-		x11/src/*.cpp
-		x11/resolution/src/create.cpp
-		x11/resolution/src/instance.cpp
-	)
-
-	SET (sgeopenglfiles ${sgeopenglfiles} ${sgeopenglx11files})
+	ADD_SGE_OPENGL_SOURCE_GROUP(glx)
+	ADD_SGE_OPENGL_SOURCE_GROUP(glx/src)
+	ADD_SGE_OPENGL_SOURCE_GROUP(x11)
+	ADD_SGE_OPENGL_SOURCE_GROUP(x11/resolution)
+	ADD_SGE_OPENGL_SOURCE_GROUP(x11/resolution/src)
+	ADD_SGE_OPENGL_SOURCE_GROUP(x11/src)
 
 	IF(X11_xf86vmode_FOUND)
 		FIND_LIBRARY(
@@ -35,12 +54,10 @@ IF (X11_FOUND)
 			"Xxf86vm"
 		)
 
-		INCLUDE_DIRECTORIES(${X11_xf86vmode_INCLUDE_PATH})
+		ADD_SGE_OPENGL_SOURCE_GROUP(xf86vmode)
+		ADD_SGE_OPENGL_SOURCE_GROUP(xf86vmode/src)
 
-		FILE (GLOB sgeopenglxf86files
-			xf86vmode/src/*.cpp
-			x11/resolution/src/xf86_vmode.cpp)
-		SET (sgeopenglfiles ${sgeopenglfiles} ${sgeopenglxf86files})
+		INCLUDE_DIRECTORIES(${X11_xf86vmode_INCLUDE_PATH})
 	ENDIF()
 
 	IF(X11_Xrandr_FOUND)
@@ -48,28 +65,24 @@ IF (X11_FOUND)
 			SGE_HAVE_XRANDR
 			"Xrandr"
 		)
+	
+		ADD_SGE_OPENGL_SOURCE_GROUP(xrandr)
+		ADD_SGE_OPENGL_SOURCE_GROUP(xrandr/src)
 
 		INCLUDE_DIRECTORIES(${X11_Xrandr_INCLUDE_PATH})
-
-		FILE (GLOB sgeopenglxrandrfiles
-			xrandr/src/*.cpp
-			x11/resolution/src/xrandr_mode.cpp)
-		SET (sgeopenglfiles ${sgeopenglfiles} ${sgeopenglxrandrfiles})
 	ENDIF()
 ELSEIF (WIN32)
-	FILE (
-		GLOB sgeopenglwglfiles
-		wgl/src/*.cpp
-		windows/src/*.cpp
-	)
-	SET (sgeopenglfiles ${sgeopenglfiles} ${sgeopenglwglfiles})
+	ADD_SGE_OPENGL_SOURCE_GROUP(wgl)
+	ADD_SGE_OPENGL_SOURCE_GROUP(wgl/src)
+	ADD_SGE_OPENGL_SOURCE_GROUP(windows)
+	ADD_SGE_OPENGL_SOURCE_GROUP(windows/src)
 ENDIF ()
 
 INCLUDE_DIRECTORIES(${OPENGL_INCLUDE_DIR})
 
 INCLUDE_DIRECTORIES(${GLEW_INCLUDE_PATH})
 
-ADD_LIBRARY (sgeopengl SHARED ${sgeopenglfiles})
+ADD_LIBRARY (sgeopengl SHARED ${SGEOPENGLFILES})
 
 TARGET_LINK_LIBRARIES (sgeopengl sgecore ${OPENGL_LIBRARIES} ${GLEW_LIBRARY})
 

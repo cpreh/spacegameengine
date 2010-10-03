@@ -27,32 +27,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 sge::opengl::xf86vmode::modes::modes(
-	x11::display_ptr const dsp,
-	int const screen_)
+	x11::display_ptr const _dsp,
+	int const _screen
+)
 :
-	dsp(dsp),
-	screen_(screen_)
+	dsp_(_dsp),
+	screen_(_screen)
 {
 	check_extension(
-		dsp);
+		dsp_
+	);
 
 	int mode_count;
+
 	XF86VidModeModeInfo **ret;
-	if(XF86VidModeGetAllModeLines(
-		dsp->get(),
-		screen(),
-		&mode_count,
-		&ret)
-	== False)
+
+	if(
+		XF86VidModeGetAllModeLines(
+			dsp_->get(),
+			screen(),
+			&mode_count,
+			&ret
+		)
+		== False
+	)
 		throw exception(
-			FCPPT_TEXT("XF86VidModeGetAllModeLines() failed"));
+			FCPPT_TEXT("XF86VidModeGetAllModeLines() failed")
+		);
+
 	modes_.reset(ret);
-	sz = mode_count >= 0 ? mode_count : 0;
+
+	sz_ = mode_count >= 0 ? mode_count : 0;
 }
 
 XF86VidModeModeInfo const &
 sge::opengl::xf86vmode::modes::operator[](
-	size_type const index) const
+	size_type const index
+) const
 {
 	return (*modes_)[index];
 }
@@ -60,16 +71,17 @@ sge::opengl::xf86vmode::modes::operator[](
 sge::opengl::xf86vmode::modes::size_type
 sge::opengl::xf86vmode::modes::size() const
 {
-	return sz;
+	return sz_;
 }
 
 sge::x11::display_ptr const
 sge::opengl::xf86vmode::modes::display() const
 {
-	return dsp;
+	return dsp_;
 }
 
-int sge::opengl::xf86vmode::modes::screen() const
+int
+sge::opengl::xf86vmode::modes::screen() const
 {
 	return screen_;
 }

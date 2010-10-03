@@ -60,20 +60,12 @@ sge::opengl::fbo_target::fbo_target(
 		?
 			texture_->dim()
 		:
-			_depth_stencil_texture->dim()
+			dim_type::null()
 	),
 	fbo_(
 		context_
 	)
 {
-	if(
-		texture_
-		&& _depth_stencil_texture
-	)
-		FCPPT_ASSERT(
-			texture_->dim() == _depth_stencil_texture->dim()
-		);
-
 	if(
 		_texture
 	)

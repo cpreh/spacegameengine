@@ -96,7 +96,8 @@ sge::windows::window::window(
 
 	if(!handle)
 		throw exception(
-			FCPPT_TEXT("CreateWindow() failed!"));
+			FCPPT_TEXT("CreateWindow() failed!")
+		);
 }
 
 sge::windows::window::~window()
@@ -189,15 +190,10 @@ sge::windows::window::execute_callback(
 void
 sge::windows::window::show()
 {
-	if(
-		::ShowWindow(
-			hwnd(),
-			SW_NORMAL
-		) == FALSE
-	)
-		throw exception(
-			FCPPT_TEXT("ShowWindow() failed!")
-		);
+	::ShowWindow(
+		hwnd(),
+		SW_NORMAL
+	);
 }
 
 void

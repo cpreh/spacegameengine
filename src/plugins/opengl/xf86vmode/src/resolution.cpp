@@ -24,36 +24,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 sge::opengl::xf86vmode::resolution::resolution(
-	x11::display_ptr const dsp,
-	int const screen,
-	XF86VidModeModeInfo const &new_mode,
-	XF86VidModeModeInfo const &old_mode)
+	x11::display_ptr const _dsp,
+	int const _screen,
+	XF86VidModeModeInfo const &_new_mode,
+	XF86VidModeModeInfo const &_old_mode
+)
 :
-	dsp(dsp),
-	screen(screen),
-	old_mode(old_mode)
+	dsp_(_dsp),
+	screen_(_screen),
+	old_mode_(_old_mode)
 {
-	if(XF86VidModeSwitchToMode(
-		dsp->get(),
-		screen,
-		const_cast<XF86VidModeModeInfo*>(
-			&new_mode))
-	== False)
+	if(
+		XF86VidModeSwitchToMode(
+			dsp_->get(),
+			screen_,
+			const_cast<
+				XF86VidModeModeInfo *
+			>(
+				&_new_mode
+			)
+		)
+		== False
+	)
 		throw exception(
-			FCPPT_TEXT("XF86VidModeSwitchToMode() failed!"));
+			FCPPT_TEXT("XF86VidModeSwitchToMode() failed!")
+		);
 
 	XF86VidModeSetViewPort(
-		dsp->get(),
-		screen,
+		dsp_->get(),
+		screen_,
 		0,
-		0);
+		0
+	);
 }
 
 sge::opengl::xf86vmode::resolution::~resolution()
 {
 	XF86VidModeSwitchToMode(
-		dsp->get(),
-		screen,
-		const_cast<XF86VidModeModeInfo*>(
-			&old_mode));
+		dsp_->get(),
+		screen_,
+		const_cast<
+			XF86VidModeModeInfo *
+		>(
+			&old_mode_
+		)
+	);
 }

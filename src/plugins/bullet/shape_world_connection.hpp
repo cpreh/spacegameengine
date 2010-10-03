@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "shapes/base_fwd.hpp"
 #include "group_id.hpp"
 #include "world_fwd.hpp"
+#include <fcppt/noncopyable.hpp>
 
 class btRigidBody;
 
@@ -33,6 +34,9 @@ namespace bullet
 {
 class shape_world_connection
 {
+	FCPPT_NONCOPYABLE(
+		shape_world_connection
+	)
 public:
 	explicit
 	shape_world_connection(

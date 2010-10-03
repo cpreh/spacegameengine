@@ -63,13 +63,15 @@ public:
 		fallback const &
 	);
 
-	fcppt::signal::auto_connection
+	SGE_SYMBOL fcppt::signal::auto_connection
 	register_error_callback(
-		error_callback const &);
+		error_callback const &
+	);
 
-	fcppt::signal::auto_connection
+	SGE_SYMBOL fcppt::signal::auto_connection
 	register_message_callback(
-		message_callback const &);
+		message_callback const &
+	);
 
 	SGE_SYMBOL void
 	eval(
@@ -87,13 +89,15 @@ public:
 	SGE_SYMBOL fcppt::char_type
 	prefix() const;
 
-	void
+	SGE_SYMBOL void
 	emit_error(
-		fcppt::string const &);
+		fcppt::string const &
+	);
 
-	void
+	SGE_SYMBOL void
 	emit_message(
-		fcppt::string const &);
+		fcppt::string const &
+	);
 private:
 	fcppt::signal::object<error_callback_fn> error_;
 	fcppt::signal::object<message_callback_fn> message_;

@@ -68,7 +68,7 @@ private:
 	reset();
 
 	void
-	dispatch(
+	post(
 		dispatcher_callback const &
 	);
 

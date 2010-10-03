@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <X11/Xlib.h>
 #include <X11/extensions/xf86vmode.h>
-#include "resolution_fwd.hpp"
+#include "modes_fwd.hpp"
 #include <sge/x11/deleter.hpp>
 #include <sge/x11/display_ptr.hpp>
 #include <fcppt/shared_ptr.hpp>
@@ -37,25 +37,32 @@ namespace opengl
 namespace xf86vmode
 {
 
-class modes {
+class modes
+{
 	FCPPT_NONCOPYABLE(modes)
 public:
 	typedef std::size_t size_type;
 
 	modes(
 		sge::x11::display_ptr dsp,
-		int screen);
+		int screen
+	);
 
 	XF86VidModeModeInfo const &
 	operator[](
-		size_type index) const;
+		size_type index
+	) const;
 
-	size_type size() const;
+	size_type
+	size() const;
 
-	sge::x11::display_ptr const display() const;
-	int screen() const;
+	sge::x11::display_ptr const
+	display() const;
+
+	int
+	screen() const;
 private:
-	sge::x11::display_ptr const dsp;
+	sge::x11::display_ptr const dsp_;
 
 	int const screen_;
 
@@ -66,7 +73,7 @@ private:
 
 	vidmode_ptr modes_;
 
-	size_type sz;
+	size_type sz_;
 };
 
 }

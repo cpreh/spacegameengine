@@ -55,10 +55,10 @@ public:
 	void
 	reset_viewport();
 private:
-	sge::windows::window_ptr const wnd;
-	sge::windows::gdi_device const hdc;
-	wgl::context             const context;
-	wgl::current             const current;
+	sge::windows::window_ptr const wnd_;
+	sge::windows::gdi_device const hdc_;
+	wgl::context             const context_;
+	wgl::current             const current_;
 };
 
 }

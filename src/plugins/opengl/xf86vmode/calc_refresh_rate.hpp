@@ -31,8 +31,10 @@ namespace opengl
 namespace xf86vmode
 {
 
-unsigned calc_refresh_rate(
-	XF86VidModeModeInfo const &);
+unsigned
+calc_refresh_rate(
+	XF86VidModeModeInfo const &
+);
 
 }
 }

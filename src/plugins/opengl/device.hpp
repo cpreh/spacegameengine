@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_DEVICE_HPP_INCLUDED
 #define SGE_OPENGL_DEVICE_HPP_INCLUDED
 
-#include <sge/config.h>
+#include <sge/config.hpp>
 #include <fcppt/config.hpp>
 #include "default_target_ptr.hpp"
 #include "target_ptr.hpp"

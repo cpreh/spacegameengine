@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global.hpp>
 #include <fcppt/endianness/is_little_endian.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert.hpp>
@@ -57,7 +58,11 @@ sge::vorbis::file::file(
 	fcppt::filesystem::path const &p
 )
 :
-	file_name(p.string()),
+	file_name(
+		fcppt::filesystem::path_to_string(
+			p
+		)
+	),
 	stdstream(p, std::ios_base::binary)
 {
 	if (!stdstream.is_open())

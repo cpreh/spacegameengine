@@ -18,10 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-// FIXME: sadly, it seems that devil's unicode support is broken
-#undef UNICODE
-#undef _UNICODE
-
 #include <IL/ilu.h>
 #include "../file.hpp"
 #include "../error.hpp"
@@ -33,16 +29,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/algorithm/copy_and_convert.hpp>
 #include <sge/image/exception.hpp>
 #include <sge/log/global.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/assert.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/to_std_string.hpp>
-#include <fcppt/optional_impl.hpp>
 
 sge::devil::file::file(
 	fcppt::filesystem::path const &_file
@@ -68,7 +65,9 @@ sge::devil::file::file(
 			sge::log::global(),
 			fcppt::log::_
 				<< FCPPT_TEXT("File \"")
-				<< _file
+				<< fcppt::filesystem::path_to_string(
+					_file
+				)
 				<< FCPPT_TEXT("\" has a color palette, that sge won't handle.")
 				<< FCPPT_TEXT(" Instead, the file will be reloaded and converted.")
 				<< FCPPT_TEXT(" The process is inefficient and you should consider ")
@@ -207,7 +206,7 @@ sge::devil::file::view() const
 
 void
 sge::devil::file::save(
-	fcppt::filesystem::path const &file
+	fcppt::filesystem::path const &_file
 )
 {
 	bind_me();
@@ -216,12 +215,27 @@ sge::devil::file::save(
 	ilRegisterOrigin(IL_ORIGIN_UPPER_LEFT);
 
 	ilSaveImage(
-//#ifdef UNICODE
-//		const_cast<wchar_t*>(file.string().c_str())
-//#else
-		const_cast<char*>(fcppt::to_std_string(file.string()).c_str())
-//#endif
-		);
+#ifdef UNICODE
+		const_cast<
+			wchar_t *
+		>(
+			fcppt::filesystem::path_to_string(
+				_file
+			).c_str()
+		)
+#else
+		const_cast<
+			char *
+		>(
+			fcppt::to_std_string(
+				fcppt::filesystem::path_to_string(
+					_file
+				)
+			).c_str()
+		)
+#endif
+	);
+
 	ilDisable(IL_ORIGIN_SET);
 
 	check_errors();
@@ -244,23 +258,33 @@ sge::devil::file::load(
 {
 	if(
 		ilLoadImage(
-//#ifdef UNICODE
-//			const_cast<wchar_t*>(file.string().c_str())
-//#else
+#ifdef UNICODE
+			const_cast<
+				wchar_t *
+			>(
+				fcppt::filesystem::path_to_string(
+					_file
+				).c_str()
+			)
+#else
 			const_cast<
 				char *
 			>(
 				fcppt::to_std_string(
-					_file.string()
+					fcppt::filesystem::path_to_string(
+						_file
+					)
 				).c_str()
 			)
-//#endif
+#endif
 		)
 		== IL_FALSE
 	)
 		throw sge::image::exception(
 			FCPPT_TEXT("ilLoadImage() failed! Could not load '")
-			+ _file.string()
+			+ fcppt::filesystem::path_to_string(
+				_file
+			)
 			+ FCPPT_TEXT("'!")
 		);
 }
