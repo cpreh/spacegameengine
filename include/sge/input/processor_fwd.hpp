@@ -18,12 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/system.hpp>
+#ifndef SGE_INPUT_PROCESSOR_FWD_HPP_INCLUDED
+#define SGE_INPUT_PROCESSOR_FWD_HPP_INCLUDED
 
-sge::input::system::system()
+namespace sge
 {
+namespace input
+{
+
+class processor;
+
+}
 }
 
-sge::input::system::~system()
-{
-}
+#endif

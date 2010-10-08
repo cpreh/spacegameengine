@@ -18,12 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/system.hpp>
+#ifndef SGE_INPUT_KEYBOARD_HPP_INCLUDED
+#define SGE_INPUT_KEYBOARD_HPP_INCLUDED
 
-sge::input::system::system()
+#include <sge/input/keyboard_fwd.hpp>
+#include <sge/input/device.hpp>
+#include <sge/class_symbol.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/noncopyable.hpp>
+
+namespace sge
 {
+namespace input
+{
+
+class SGE_CLASS_SYMBOL keyboard
+:
+	public input::device
+{
+	FCPPT_NONCOPYABLE(
+		keyboard
+	)
+protected:
+	SGE_SYMBOL keyboard();
+public:
+	SGE_SYMBOL virtual ~keyboard();
+};
+
+}
 }
 
-sge::input::system::~system()
-{
-}
+#endif

@@ -18,12 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/system.hpp>
+#ifndef SGE_INPUT_DEVICE_HPP_INCLUDED
+#define SGE_INPUT_DEVICE_HPP_INCLUDED
 
-sge::input::system::system()
+#include <sge/input/device_fwd.hpp>
+#include <sge/class_symbol.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/noncopyable.hpp>
+
+namespace sge
 {
+namespace input
+{
+
+class SGE_CLASS_SYMBOL device
+{
+	FCPPT_NONCOPYABLE(
+		device
+	)
+protected:
+	SGE_SYMBOL device();
+public:
+	SGE_SYMBOL virtual ~device();
+};
+
+}
 }
 
-sge::input::system::~system()
-{
-}
+#endif

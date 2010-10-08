@@ -18,12 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/system.hpp>
+#ifndef SGE_INPUT_PROCESSOR_PTR_HPP_INCLUDED
+#define SGE_INPUT_PROCESSOR_PTR_HPP_INCLUDED
 
-sge::input::system::system()
+#include <sge/input/processor_fwd.hpp>
+#include <fcppt/shared_ptr.hpp>
+
+namespace sge
 {
+namespace input
+{
+
+typedef fcppt::shared_ptr<
+	processor
+> processor_ptr;
+
+}
 }
 
-sge::input::system::~system()
-{
-}
+#endif

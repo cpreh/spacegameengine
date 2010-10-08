@@ -18,14 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_SYSTEM_HPP_INCLUDED
-#define SGE_INPUT_SYSTEM_HPP_INCLUDED
+#ifndef SGE_INPUT_PROCESSOR_HPP_INCLUDED
+#define SGE_INPUT_PROCESSOR_HPP_INCLUDED
 
-#include <sge/input/system_fwd.hpp>
-#include <sge/input/processor_ptr.hpp>
+#include <sge/input/processor_fwd.hpp>
+#include <sge/input/callback.hpp>
+#include <sge/input/repeat_callback.hpp>
 #include <sge/window/instance_ptr.hpp>
-#include <sge/class_symbol.hpp>
+#include <sge/mainloop/dispatchable.hpp>
 #include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -33,20 +36,30 @@ namespace sge
 namespace input
 {
 
-class SGE_CLASS_SYMBOL system
+class SGE_CLASS_SYMBOL processor
+:
+	public mainloop::dispatchable
 {
 	FCPPT_NONCOPYABLE(
-		system
+		processor
 	)
 protected:
-	SGE_SYMBOL system();
+	SGE_SYMBOL processor();
 public:
-	SGE_SYMBOL virtual ~system();
-
-	virtual processor_ptr const
-	create_processor(
-		sge::window::instance_ptr
+	virtual fcppt::signal::auto_connection
+	register_callback(
+		callback const &
 	) = 0;
+
+	virtual fcppt::signal::auto_connection
+	register_repeat_callback(
+		repeat_callback const &
+	) = 0;
+
+	virtual sge::window::instance_ptr const
+	window() const = 0;
+
+	SGE_SYMBOL virtual ~processor();
 };
 
 }
