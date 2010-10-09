@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/filter/linear.hpp>
-#include <sge/input/system.hpp>
+#include <sge/input/processor.hpp>
 #include <sge/input/action.hpp>
 #include <sge/image/file.hpp>
 #include <sge/image/file_ptr.hpp>
@@ -236,7 +236,7 @@ try
 	bool running = true;
 
 	fcppt::signal::scoped_connection const cb(
-		sys.input_system()->register_callback(
+		sys.input_processor()->register_callback(
 			sge::input::action(
 				sge::input::kc::key_escape,
 				boost::phoenix::ref(running) = false

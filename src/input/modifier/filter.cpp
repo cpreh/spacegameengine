@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "list.hpp"
 #include <sge/input/modifier/filter.hpp>
 #include <sge/input/modifier/states.hpp>
-#include <sge/input/system.hpp>
+#include <sge/input/processor.hpp>
 #include <sge/input/key_pair.hpp>
 #include <fcppt/container/map_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -29,13 +29,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/foreach.hpp>
 
 sge::input::modifier::filter::filter(
-	sge::input::system_ptr const is
+	sge::input::processor_ptr const _processor
 )
 :
-	signal(),
-	repeat_signal(),
-	ic(
-		is->register_callback(
+	signal_(),
+	repeat_signal_(),
+	ic_(
+		_processor->register_callback(
 			std::tr1::bind(
 				&filter::input_callback,
 				this,
@@ -43,8 +43,8 @@ sge::input::modifier::filter::filter(
 			)
 		)
 	),
-	irc(
-		is->register_repeat_callback(
+	irc_(
+		_processor->register_repeat_callback(
 			std::tr1::bind(
 				&filter::input_repeat_callback,
 				this,
@@ -52,7 +52,7 @@ sge::input::modifier::filter::filter(
 			)
 		)
 	),
-	modifiers()
+	modifiers_()
 {
 	BOOST_FOREACH(
 		object const &o,
@@ -62,7 +62,7 @@ sge::input::modifier::filter::filter(
 			key_code const &c,
 			o.codes
 		)
-			modifiers.insert(
+			modifiers_.insert(
 				c,
 				static_cast<key_state>(0)
 			);
@@ -70,18 +70,24 @@ sge::input::modifier::filter::filter(
 
 fcppt::signal::auto_connection
 sge::input::modifier::filter::register_callback(
-	callback_type const &f
+	callback_type const &_function
 )
 {
-	return signal.connect(f);
+	return
+		signal_.connect(
+			_function
+		);
 }
 
 fcppt::signal::auto_connection
 sge::input::modifier::filter::register_repeat_callback(
-	repeat_callback_type const &f
+	repeat_callback_type const &_function
 )
 {
-	return repeat_signal.connect(f);
+	return
+		repeat_signal_.connect(
+			_function
+		);
 }
 
 sge::input::modifier::filter::~filter()
@@ -89,7 +95,7 @@ sge::input::modifier::filter::~filter()
 
 void
 sge::input::modifier::filter::input_callback(
-	key_pair const &k
+	key_pair const &_key
 )
 {
 	BOOST_FOREACH(
@@ -102,21 +108,30 @@ sge::input::modifier::filter::input_callback(
 			o.codes
 		)
 		{
-			if (c == k.key().code())
+			if (c == _key.key().code())
 			{
-				modifiers[k.key().code()] = k.value();
+				modifiers_[
+					_key.key().code()
+				] = _key.value();
+
 				return;
 			}
 		}
 	}
 
-	signal(k,modifiers);
+	signal_(
+		_key,
+		modifiers_
+	);
 }
 
 void
 sge::input::modifier::filter::input_repeat_callback(
-	key_type const &k
+	key_type const &_key
 )
 {
-	repeat_signal(k,modifiers);
+	repeat_signal_(
+		_key,
+		modifiers_
+	);
 }

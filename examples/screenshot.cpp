@@ -33,7 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/input/action.hpp>
-#include <sge/input/system.hpp>
+#include <sge/input/processor.hpp>
+#include <sge/input/processor_ptr.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/multi_loader.hpp>
 #include <sge/texture/manager.hpp>
@@ -106,8 +107,8 @@ try
 		sys.renderer()
 	);
 
-	sge::input::system_ptr const is(
-		sys.input_system()
+	sge::input::processor_ptr const is(
+		sys.input_processor()
 	);
 
 	sge::texture::manager tex_man(

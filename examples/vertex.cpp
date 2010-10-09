@@ -18,12 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <fcppt/io/cerr.hpp>
-#include <fcppt/text.hpp>
 #include <sge/exception.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/pos.hpp>
@@ -45,9 +42,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/any/convert.hpp>
-#include <sge/input/system.hpp>
+#include <sge/input/processor.hpp>
 #include <sge/input/action.hpp>
 #include <sge/mainloop/dispatch.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/io/cerr.hpp>
+#include <fcppt/text.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
@@ -175,7 +175,7 @@ try
 	bool running = true;
 
 	fcppt::signal::scoped_connection const cb(
-		sys.input_system()->register_callback(
+		sys.input_processor()->register_callback(
 			sge::input::action(
 				sge::input::kc::key_escape,
 				boost::phoenix::ref(running) = false

@@ -18,14 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/multi_loader.hpp>
-#include <sge/image/loader.hpp>
-#include <sge/image/plugin.hpp>
-#include "../instantiate_multi_loader.hpp"
+#include <sge/input/processor.hpp>
 
-SGE_INSTANTIATE_MULTI_LOADER(
-	sge::image::loader,
-	sge::image::file,
-	sge::image::exception,
-	sge::image::capabilities_field
-)
+sge::input::processor::processor()
+{
+}
+
+sge::input::processor::~processor()
+{
+}

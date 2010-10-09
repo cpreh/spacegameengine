@@ -18,234 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <boost/foreach.hpp> // some header breaks BOOST_FOREACH
-#include <X11/Xlib.h>
 #include "../system.hpp"
-#include "../mouse.hpp"
-#include "../keyboard.hpp"
-#include "../device.hpp"
-#include <sge/x11/display.hpp>
+#include "../processor.hpp"
 #include <sge/x11/window.hpp>
-#include <sge/log/global.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
-#include <fcppt/log/headers.hpp>
-#include <fcppt/tr1/functional.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/unique_ptr.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <ostream>
+#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/polymorphic_pointer_cast.hpp>
 
-sge::x11input::system::system(
-	x11::window_ptr const wnd
-)
-:
-	wnd(wnd),
-	acquired(false)
+sge::x11input::system::system()
 {
-	/*
-	connections.connect(
-		wnd->register_callback(
-			EnterNotify,
-			std::tr1::bind(
-				&system::on_acquire,
-				this,
-				std::tr1::placeholders::_1
-			)
-		)
-	);
-
-	connections.connect(
-		wnd->register_callback(
-			LeaveNotify,
-			std::tr1::bind(
-				&system::on_release,
-				this,
-				std::tr1::placeholders::_1
-			)
-		)
-	);
-*/
-	connections.connect(
-		wnd->register_callback(
-			FocusIn,
-			std::tr1::bind(
-				&system::on_acquire,
-				this,
-				std::tr1::placeholders::_1
-			)
-		)
-	);
-
-	connections.connect(
-		wnd->register_callback(
-			FocusOut,
-			std::tr1::bind(
-				&system::on_release,
-				this,
-				std::tr1::placeholders::_1
-			)
-		)
-	);
-
-	connections.connect(
-		wnd->register_callback(
-			MapNotify,
-			std::tr1::bind(
-				&system::on_acquire,
-				this,
-				std::tr1::placeholders::_1
-			)
-		)
-	);
-
-	connections.connect(
-		wnd->register_callback(
-			UnmapNotify,
-			std::tr1::bind(
-				&system::on_release,
-				this,
-				std::tr1::placeholders::_1
-			)
-		)
-	);
-
-	typedef fcppt::unique_ptr<
-		device
-	> device_unique_ptr;
-
-	input::callback const callback(
-		std::tr1::bind(
-			&system::emit_callback,
-			this,
-			std::tr1::placeholders::_1
-		)
-	);
-
-	fcppt::container::ptr::push_back_unique_ptr(
-		devices,
-		fcppt::make_unique_ptr<
-			mouse
-		>(
-			wnd,
-			callback
-		)
-	);
-
-	fcppt::container::ptr::push_back_unique_ptr(
-		devices,
-		fcppt::make_unique_ptr<
-			keyboard
-		>(
-			wnd,
-			callback,
-			std::tr1::bind(
-				&system::emit_repeat_callback,
-				this,
-				std::tr1::placeholders::_1
-			)
-		)
-	);
 }
 
 sge::x11input::system::~system()
 {
 }
 
-fcppt::signal::auto_connection
-sge::x11input::system::register_callback(
-	input::callback const &_callback
+sge::input::processor_ptr const
+sge::x11input::system::create_processor(
+	sge::window::instance_ptr const _window
 )
 {
 	return
-		sig.connect(
-			_callback
+		fcppt::make_shared_ptr<
+			x11input::processor
+		>(
+			fcppt::polymorphic_pointer_cast<
+				sge::x11::window
+			>(
+				_window
+			)
 		);
-}
-
-fcppt::signal::auto_connection
-sge::x11input::system::register_repeat_callback(
-	input::repeat_callback const &_callback
-)
-{
-	return
-		repeat_sig.connect(
-			_callback
-		);
-}
-
-void
-sge::x11input::system::dispatch()
-{
-}
-
-sge::window::instance_ptr const
-sge::x11input::system::window() const
-{
-	return wnd;
-}
-
-void
-sge::x11input::system::emit_callback(
-	input::key_pair const &_key
-)
-{
-	sig(
-		_key
-	);
-}
-
-void
-sge::x11input::system::emit_repeat_callback(
-	input::key_type const &k
-)
-{
-	repeat_sig(k);
-}
-
-void
-sge::x11input::system::on_acquire(
-	XEvent const &
-)
-{
-	if(acquired)
-		return;
-
-	acquired = true;
-
-	FCPPT_LOG_DEBUG(
-		log::global(),
-		fcppt::log::_
-			<< FCPPT_TEXT("x11: acquire window")
-	);
-
-	BOOST_FOREACH(
-		device_vector::reference dev,
-		devices
-	)
-		dev.grab();
-
-	wnd->display()->sync();
-}
-
-void
-sge::x11input::system::on_release(
-	XEvent const &
-)
-{
-	if(!acquired)
-		return;
-
-	acquired = false;
-
-	FCPPT_LOG_DEBUG(
-		log::global(),
-		fcppt::log::_
-			<< FCPPT_TEXT("x11: release window")
-	);
-
-	BOOST_FOREACH(
-		device_vector::reference dev,
-		devices
-	)
-		dev.ungrab();
 }

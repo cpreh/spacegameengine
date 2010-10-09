@@ -19,9 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../system.hpp"
-#include <sge/exception.hpp>
 #include <sge/plugin/info.hpp>
-#include <sge/x11/window.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/export_symbol.hpp>
 
@@ -34,38 +32,31 @@ plugin_version_info(
 );
 
 FCPPT_EXPORT_SYMBOL sge::input::system *
-create_input_system(
-	sge::window::instance_ptr
-);
+create_input_system();
 
 FCPPT_EXPORT_SYMBOL void
 plugin_version_info(
-	sge::plugin::info *const i
+	sge::plugin::info *const _info
 )
 {
-	if(!i)
+	if(!_info)
 		return;
-	i->name = FCPPT_TEXT("x11input");
-	i->description = FCPPT_TEXT("Handles keyboard and mouse.");
-	i->type = sge::plugin::capabilities::input;
-	i->plugin_version = 0x1;
-	i->min_core_version = 0x1;
+
+	_info->name = FCPPT_TEXT("x11input");
+
+	_info->description = FCPPT_TEXT("Handles keyboard and mouse.");
+
+	_info->type = sge::plugin::capabilities::input;
+
+	_info->plugin_version = 0x1;
+
+	_info->min_core_version = 0x1;
 }
 
 FCPPT_EXPORT_SYMBOL sge::input::system *
-create_input_system(
-	sge::window::instance_ptr const w
-)
+create_input_system()
 {
-	if(!w)
-		throw sge::exception(
-			FCPPT_TEXT("xinput plugin's window parameter may not be 0!"));
-
-	return new sge::x11input::system(
-		fcppt::dynamic_pointer_cast<sge::x11::window>(
-			w
-		)
-	);
+	return new sge::x11input::system();
 }
 
 }

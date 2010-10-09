@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/no_program.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/log/global.hpp>
-#include <sge/input/system.hpp>
+#include <sge/input/processor.hpp>
 #include <sge/input/action.hpp>
 #include <sge/input/key_pair.hpp>
 #include <sge/input/key_code.hpp>
@@ -348,7 +348,7 @@ try
 	bool running = true;
 
 	fcppt::signal::scoped_connection const cb(
-		sys.input_system()->register_callback(
+		sys.input_processor()->register_callback(
 			sge::input::action(
 				sge::input::kc::key_escape,
 				boost::phoenix::ref(running) = false
@@ -357,7 +357,7 @@ try
 	);
 
 	fcppt::signal::scoped_connection const pc(
-		sys.input_system()->register_callback(
+		sys.input_processor()->register_callback(
 			sprite_functor(
 				pointer
 			)

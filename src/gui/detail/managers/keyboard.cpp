@@ -66,7 +66,9 @@ bool active(sge::gui::widgets::base const &w)
 }
 }
 
-sge::gui::detail::managers::keyboard::keyboard(sge::input::system_ptr const is)
+sge::gui::detail::managers::keyboard::keyboard(
+	sge::input::processor_ptr const is
+)
 :
 	input_filter(is),
 	ic(

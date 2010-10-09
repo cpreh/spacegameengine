@@ -19,12 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/model/plugin.hpp>
+#include <sge/model/loader.hpp>
+#include "../plugin/address_name.hpp"
 #include "../plugin/instantiate_types.hpp"
 
 sge::plugin::detail::address_name
 sge::plugin::detail::traits<sge::model::loader>::plugin_loader_name()
 {
-	return SGE_ADDRESS_NAME("create_model_loader");
+	return SGE_PLUGIN_ADDRESS_NAME("create_model_loader");
 }
 
 sge::plugin::capabilities::type

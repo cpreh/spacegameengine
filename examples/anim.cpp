@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/filter/linear.hpp>
-#include <sge/input/system.hpp>
+#include <sge/input/processor.hpp>
 #include <sge/input/action.hpp>
 #include <sge/image/multi_loader.hpp>
 #include <sge/image/capabilities.hpp>
@@ -115,8 +115,8 @@ try
 		)
 	);
 
-	sge::input::system_ptr const is(
-		sys.input_system()
+	sge::input::processor_ptr const is(
+		sys.input_processor()
 	);
 
 	sge::renderer::device_ptr const rend(
@@ -196,7 +196,11 @@ try
 		)
 		.size(
 			sprite_object::dim(
-				rend->screen_size().w(),
+				static_cast<
+					sprite_object::unit
+				>(
+					rend->screen_size().w()
+				),
 				static_cast<
 					sprite_object::unit
 				>(

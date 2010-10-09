@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::gui::manager::manager(
 	renderer::device_ptr const rend,
-	input::system_ptr const is,
+	input::processor_ptr const is,
 	skins::ptr _skin,
 	cursor::base_ptr const _cursor)
 :

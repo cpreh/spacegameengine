@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/keyboard_focus.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/texture_ptr.hpp>
-#include <sge/input/system_ptr.hpp>
+#include <sge/input/processor_ptr.hpp>
 #include <sge/time/duration.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
@@ -54,7 +54,7 @@ class manager
 public:
 	SGE_GUI_SYMBOL manager(
 		renderer::device_ptr,
-		input::system_ptr,
+		input::processor_ptr,
 		skins::ptr,
 		cursor::base_ptr);
 	SGE_GUI_SYMBOL ~manager();

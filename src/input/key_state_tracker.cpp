@@ -19,16 +19,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/key_state_tracker.hpp>
-#include <sge/input/system.hpp>
+#include <sge/input/processor.hpp>
 #include <sge/input/key_pair.hpp>
 #include <fcppt/tr1/functional.hpp>
 
 sge::input::key_state_tracker::key_state_tracker(
-	system_ptr const _sys
+	processor_ptr const _processor
 )
 :
 	con_(
-		_sys->register_callback(
+		_processor->register_callback(
 			std::tr1::bind(
 				&key_state_tracker::event_handler,
 				this,

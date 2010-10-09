@@ -18,14 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/multi_loader.hpp>
-#include <sge/image/loader.hpp>
-#include <sge/image/plugin.hpp>
-#include "../instantiate_multi_loader.hpp"
+#ifndef SGE_PLUGIN_DETAIL_TRAITS_HPP_INCLUDED
+#define SGE_PLUGIN_DETAIL_TRAITS_HPP_INCLUDED
 
-SGE_INSTANTIATE_MULTI_LOADER(
-	sge::image::loader,
-	sge::image::file,
-	sge::image::exception,
-	sge::image::capabilities_field
-)
+namespace sge
+{
+namespace plugin
+{
+namespace detail
+{
+
+template<
+	typename T
+>
+struct traits;
+
+}
+
+}
+}
+
+#endif

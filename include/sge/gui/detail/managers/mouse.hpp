@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/detail/submanager.hpp>
 #include <sge/gui/cursor/base_ptr.hpp>
 #include <sge/gui/widgets/fwd.hpp>
-#include <sge/input/system_ptr.hpp>
+#include <sge/input/processor_ptr.hpp>
 #include <sge/input/key_pair_fwd.hpp>
 #include <sge/sprite/object.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -44,7 +44,7 @@ class mouse : public submanager
 {
 	public:
 	mouse(
-		input::system_ptr,
+		input::processor_ptr,
 		cursor::base_ptr);
 
 	void resize(

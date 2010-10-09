@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PLUGIN_OBJECT_HPP_INCLUDED
 
 #include <sge/plugin/object_fwd.hpp>
-#include <sge/plugin/traits.hpp>
+#include <sge/plugin/detail/traits.hpp>
 #include <sge/plugin/base.hpp>
 #include <sge/library/object.hpp>
 #include <sge/symbol.hpp>
@@ -63,9 +63,9 @@ public:
 	SGE_SYMBOL loader_fun
 	get() const;
 private:
-	library::object lib;
+	library::object lib_;
 
-	loader_fun const loader;
+	loader_fun const loader_;
 };
 
 }

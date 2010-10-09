@@ -45,7 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/input/key_type.hpp>
-#include <sge/input/system.hpp>
+#include <sge/input/processor.hpp>
 #include <sge/input/key_pair.hpp>
 #include <sge/all_extensions.hpp>
 #include <sge/exception.hpp>
@@ -125,7 +125,7 @@ try
 
 	sge::gui::manager m(
 		sys.renderer(),
-		sys.input_system(),
+		sys.input_processor(),
 		sge::gui::skins::ptr(
 			new sge::gui::skins::standard(
 				sys.font_system())),
@@ -190,7 +190,7 @@ try
 	bool running = true;
 	end_program p(running);
 	fcppt::signal::scoped_connection const conn(
-		sys.input_system()->register_callback(
+		sys.input_processor()->register_callback(
 			input_functor(
 				running
 			)

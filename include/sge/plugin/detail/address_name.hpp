@@ -18,26 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_TRAITS_HPP_INCLUDED
-#define SGE_PLUGIN_TRAITS_HPP_INCLUDED
+#ifndef SGE_PLUGIN_DETAIL_ADDRESS_NAME_HPP_INCLUDED
+#define SGE_PLUGIN_DETAIL_ADDRESS_NAME_HPP_INCLUDED
 
 namespace sge
 {
 namespace plugin
 {
-
 namespace detail
 {
-
-template<typename T> class traits;
 
 typedef char const *address_name;
 
 }
-
 }
 }
-
-#define SGE_ADDRESS_NAME(x) x
 
 #endif

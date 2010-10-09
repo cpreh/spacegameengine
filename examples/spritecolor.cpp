@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/input/action.hpp>
-#include <sge/input/system.hpp>
+#include <sge/input/processor.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
@@ -151,7 +151,7 @@ try
 	bool running = true;
 
 	fcppt::signal::scoped_connection const cb(
-		sys.input_system()->register_callback(
+		sys.input_processor()->register_callback(
 			sge::input::action(
 				sge::input::kc::key_escape,
 				boost::phoenix::ref(running) = false

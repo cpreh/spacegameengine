@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/exception.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/input/key_pair.hpp>
-#include <sge/input/system.hpp>
+#include <sge/input/processor.hpp>
 #include <sge/input/classification.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <fcppt/math/box/contains_point.hpp>
@@ -91,7 +91,7 @@ bool active(sge::gui::widgets::base const &w)
 }
 
 sge::gui::detail::managers::mouse::mouse(
-	input::system_ptr const is,
+	input::processor_ptr const is,
 	cursor::base_ptr _cursor)
 :
 	ic(

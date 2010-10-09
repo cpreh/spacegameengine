@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_KEY_STATE_TRACKER_HPP_INCLUDED
 
 #include <sge/input/key_state_tracker_fwd.hpp>
-#include <sge/input/system_ptr.hpp>
+#include <sge/input/processor_ptr.hpp>
 #include <sge/input/key_code.hpp>
 #include <sge/input/key_state.hpp>
 #include <sge/input/key_pair_fwd.hpp>
@@ -41,7 +41,7 @@ class key_state_tracker
 	FCPPT_NONCOPYABLE(key_state_tracker)
 public:
 	SGE_SYMBOL explicit key_state_tracker(
-		system_ptr
+		processor_ptr
 	);
 
 	SGE_SYMBOL key_state

@@ -186,7 +186,7 @@ try
 			/ FCPPT_TEXT("default.ttf"),
 			15
 		),
-		sys.input_system(),
+		sys.input_processor(),
 		sge::console::sprite_object(
 			sge::console::sprite_parameters()
 			.pos(

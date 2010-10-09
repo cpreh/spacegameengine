@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/object.hpp>
 #include <sge/font/metrics_ptr.hpp>
 #include <sge/font/drawer_ptr.hpp>
-#include <sge/input/system_ptr.hpp>
+#include <sge/input/processor_ptr.hpp>
 #include <sge/input/modifier/filter.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/sprite/object_decl.hpp>
@@ -54,7 +54,7 @@ public:
 		renderer::device_ptr,
 		image::color::any::object const &font_color,
 		font::metrics_ptr,
-		input::system_ptr,
+		input::processor_ptr,
 		sprite_object const &,
 		output_line_limit
 	);
@@ -94,7 +94,7 @@ private:
 
 	font::drawer_ptr const font_drawer_;
 
-	input::system_ptr const input_system_;
+	input::processor_ptr const input_processor_;
 
 	input::modifier::filter input_modifier_filter_;
 

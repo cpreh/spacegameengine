@@ -97,7 +97,7 @@ sge::console::gfx::gfx(
 	renderer::device_ptr const _rend,
 	image::color::any::object const &_font_color,
 	font::metrics_ptr const _metrics,
-	input::system_ptr const _input_system,
+	input::processor_ptr const _input_processor,
 	sprite_object const &_background,
 	output_line_limit const _line_limit
 )
@@ -115,10 +115,12 @@ sge::console::gfx::gfx(
 			_font_color
 		)
 	),
-	input_system_(
-		_input_system),
+	input_processor_(
+		_input_processor
+	),
 	input_modifier_filter_(
-		input_system_),
+		input_processor_
+	),
 	ic_(
 		input_modifier_filter_.register_callback(
 			std::tr1::bind(

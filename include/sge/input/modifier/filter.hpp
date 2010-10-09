@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/modifier/states.hpp>
 #include <sge/input/key_pair_fwd.hpp>
 #include <sge/input/key_type.hpp>
-#include <sge/input/system_ptr.hpp>
+#include <sge/input/processor_ptr.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/container/map_decl.hpp>
@@ -66,7 +66,7 @@ public:
 	> repeat_callback_type;
 
 	SGE_SYMBOL explicit filter(
-		system_ptr
+		processor_ptr
 	);
 
 	SGE_SYMBOL fcppt::signal::auto_connection
@@ -83,21 +83,29 @@ public:
 private:
 	fcppt::signal::object<
 		fn_callback_type
-	> signal;
+	> signal_;
 
 	fcppt::signal::object<
 		fn_repeat_callback_type
-	> repeat_signal;
+	> repeat_signal_;
 
 	fcppt::signal::scoped_connection const
-		ic,
-		irc;
+		ic_,
+		irc_;
 
-	states modifiers;
+	states modifiers_;
 
-	void input_callback(key_pair const &);
-	void input_repeat_callback(key_type const &);
+	void
+	input_callback(
+		key_pair const &
+	);
+
+	void
+	input_repeat_callback(
+		key_type const &
+	);
 };
+
 }
 }
 }

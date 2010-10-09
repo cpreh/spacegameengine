@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/input/key_pair.hpp>
-#include <sge/input/system.hpp>
+#include <sge/input/processor.hpp>
 #include <sge/image/file.hpp>
 #include <sge/image/file_ptr.hpp>
 #include <sge/image/colors.hpp>
@@ -238,7 +238,7 @@ try
 	bool running = true;
 
 	fcppt::signal::scoped_connection const conn(
-		sys.input_system()->register_callback(
+		sys.input_processor()->register_callback(
 			input_functor(
 				running
 			)
@@ -246,7 +246,7 @@ try
 	);
 
 	fcppt::signal::scoped_connection const conn_other(
-		sys.input_system()->register_callback(
+		sys.input_processor()->register_callback(
 			sprite_functor(
 				my_object
 			)

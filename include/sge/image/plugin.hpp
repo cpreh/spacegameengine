@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_PLUGIN_HPP_INCLUDED
 #define SGE_IMAGE_PLUGIN_HPP_INCLUDED
 
-#include <sge/image/loader.hpp>
-#include <sge/plugin/traits.hpp>
+#include <sge/image/loader_fwd.hpp>
+#include <sge/plugin/detail/traits.hpp>
+#include <sge/plugin/detail/address_name.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/symbol.hpp>
 
@@ -34,11 +35,17 @@ namespace detail
 {
 
 template<>
-class traits<image::loader> {
-public:
-	SGE_SYMBOL static address_name plugin_loader_name();
-	SGE_SYMBOL static capabilities::type plugin_type();
-	typedef image::loader* (*loader_fun)();
+struct traits<
+	image::loader
+>
+{
+	SGE_SYMBOL static address_name
+	plugin_loader_name();
+
+	SGE_SYMBOL static capabilities::type
+	plugin_type();
+
+	typedef image::loader *(*loader_fun)();
 };
 
 }

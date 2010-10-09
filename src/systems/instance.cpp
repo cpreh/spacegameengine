@@ -28,7 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/plugin.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/input/system_ptr.hpp>
 #include <sge/input/system.hpp>
+#include <sge/input/processor_ptr.hpp>
 #include <sge/input/plugin.hpp>
 #include <sge/image/multi_loader.hpp>
 #include <sge/image/plugin.hpp>
@@ -49,6 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/text.hpp>
@@ -68,6 +71,7 @@ public:
 
 	plugin::object<input::system>::ptr_type         input_plugin;
 	input::system_ptr                               input_system;
+	input::processor_ptr                            input_processor;
 
 	typedef fcppt::scoped_ptr<
 		sge::image::multi_loader
@@ -202,7 +206,9 @@ sge::systems::instance::instance(
 )
 :
 	impl_(
-		new impl()
+		fcppt::make_unique_ptr<
+			impl
+		>()
 	)
 {
 	reinit(
@@ -251,10 +257,10 @@ sge::systems::instance::renderer() const
 	return impl_->renderer;
 }
 
-sge::input::system_ptr const
-sge::systems::instance::input_system() const
+sge::input::processor_ptr const
+sge::systems::instance::input_processor() const
 {
-	return impl_->input_system;
+	return impl_->input_processor;
 }
 
 sge::image::multi_loader &
@@ -435,9 +441,13 @@ sge::systems::instance::impl::init_renderer(
 void
 sge::systems::instance::impl::init_input()
 {
-	if(!window_)
+	if(
+		!window_
+	)
 	{
-		if(!wparam_)
+		if(
+			!wparam_
+		)
 			throw exception(
 				FCPPT_TEXT("systems: input system requested, but no window parameter given!")
 			);
@@ -447,7 +457,14 @@ sge::systems::instance::impl::init_input()
 
 	input_plugin = default_plugin<sge::input::system>();
 
-	input_system.reset(input_plugin->get()(window_));
+	input_system.reset(
+		input_plugin->get()()
+	);
+
+	input_processor =
+		input_system->create_processor(
+			window_
+		);
 }
 
 void

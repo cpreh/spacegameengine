@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/draw_text.hpp>
 #include <sge/font/flags_none.hpp>
 #include <sge/config/media_path.hpp>
-#include <sge/input/system.hpp>
+#include <sge/input/processor.hpp>
 #include <sge/input/action.hpp>
 #include <sge/extension_set.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -117,7 +117,7 @@ try
 	bool running = true;
 
 	fcppt::signal::scoped_connection const cb(
-		sys.input_system()->register_callback(
+		sys.input_processor()->register_callback(
 			sge::input::action(
 				sge::input::kc::key_escape,
 				boost::phoenix::ref(running) = false
