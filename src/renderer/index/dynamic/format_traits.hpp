@@ -40,7 +40,7 @@ namespace
 template<
 	typename
 >
-class format_traits;
+struct format_traits;
 
 template<>
 struct format_traits<
