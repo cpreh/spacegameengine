@@ -38,7 +38,7 @@ namespace detail
 template<
 	typename T
 >
-class format_to_element;
+struct format_to_element;
 
 template<>
 struct format_to_element<

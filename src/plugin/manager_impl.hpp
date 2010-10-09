@@ -61,17 +61,30 @@ template<
 >
 sge::plugin::context<T>
 sge::plugin::manager::plugin(
-	size_type const index
+	size_type const _index
 )
 {
-	if(index >= size<T>())
+	if(
+		_index >= size<T>()
+	)
 		throw exception(
 			FCPPT_TEXT("plugin(): No plugins found of type: \"")
 			+ fcppt::type_info(typeid(T)).name()
 			+ FCPPT_TEXT("\"!")
 		);
 	
-	return *(begin<T>()+index);
+	return
+		*(
+			begin<T>()
+			+
+			static_cast<
+				typename plugin::iterator<
+					T
+				>::difference_type
+			>(
+				_index
+			)
+		);
 }
 
 template<
