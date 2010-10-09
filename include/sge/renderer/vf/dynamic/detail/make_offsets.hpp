@@ -51,12 +51,9 @@ public:
 
 	typedef void result_type;
 
-	template<
-		typename T
-	>
 	result_type
 	operator()(
-		T const &_value
+		offset_list::value_type const &_value
 	) const
 	{
 		offsets_.push_back(

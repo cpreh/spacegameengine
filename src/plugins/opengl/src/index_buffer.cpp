@@ -35,7 +35,7 @@ namespace
 template<
 	typename T
 >
-class gl_format_c;
+struct gl_format_c;
 
 template<>
 struct gl_format_c<

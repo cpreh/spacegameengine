@@ -18,10 +18,25 @@ IF(${CMAKE_BINARY_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
 ENDIF()
 
 INCLUDE (CheckCXXCompilerFlag)
+INCLUDE (CheckCXXSourceRuns)
 
 INCLUDE (FindPkgConfig)
 
-IF (CMAKE_COMPILER_IS_GNUCXX)
+CHECK_CXX_SOURCE_RUNS(
+	"#include <cstdlib>
+	int main()
+	{
+	#ifdef __clang__
+		return EXIT_SUCCESS;
+	#else
+		return EXIT_FAILURE;
+	#endif
+	}
+	"
+	COMPILER_IS_CLANGPP
+)
+
+IF (CMAKE_COMPILER_IS_GNUCXX OR COMPILER_IS_CLANGPP)
 	CHECK_CXX_COMPILER_FLAG(
 		"-fvisibility=hidden"
 		SGE_HAVE_GCC_VISIBILITY
@@ -33,7 +48,7 @@ IF (CMAKE_COMPILER_IS_GNUCXX)
 
 	ADD_DEFINITIONS (
 		"-ansi -pedantic-errors -Wall -Wextra -Wconversion"
-		"-Wfloat-equal -Wredundant-decls -Wstrict-null-sentinel -Winit-self"
+		"-Wfloat-equal -Wredundant-decls -Winit-self"
 		"-Woverloaded-virtual -Wnon-virtual-dtor"
 		"-Wsign-promo -Wstrict-aliasing=1 -Wmissing-declarations"
 		"-Wold-style-cast"
@@ -83,14 +98,14 @@ FILE(
 INSTALL (FILES ${PKGFILE} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/pkgconfig)
 
 # FIND BOOST
-SET (Boost_ADDITIONAL_VERSIONS "1.41" "1.41.0" "1.42" "1.42.0" "1.43" "1.43.0" "1.44" "1.44.0")
+SET (Boost_ADDITIONAL_VERSIONS "1.44" "1.44.0")
 
 IF(MSVC)
 	SET(Boost_USE_STATIC_LIBS ON)
 ENDIF()
 
 FIND_PACKAGE(
-	Boost 1.43.0 REQUIRED
+	Boost 1.44.0 REQUIRED
 )
 
 INCLUDE_DIRECTORIES(SYSTEM ${Boost_INCLUDE_DIR})

@@ -110,9 +110,13 @@ sge::sprite::external_system<Choices>::render_advanced(
 	);
 
 	renderer::size_type const sprite_count(
-		std::distance(
-			_begin,
-			_end
+		static_cast<
+			renderer::size_type
+		>(
+			std::distance(
+				_begin,
+				_end
+			)
 		)
 	);
 

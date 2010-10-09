@@ -29,14 +29,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::viewport(
-	renderer::viewport const &v,
-	renderer::screen_unit const h)
+	renderer::viewport const &_viewport,
+	renderer::screen_unit const _height
+)
 {
-	glViewport(
-		v.pos().x(),
-		h - v.size().h() - v.pos().y(),
-		v.size().w(),
-		v.size().h()
+	::glViewport(
+		static_cast<
+			GLint
+		>(
+			_viewport.pos().x()
+		),
+		static_cast<
+			GLint
+		>(
+			_height
+			- _viewport.size().h()
+			-
+			static_cast<
+				renderer::screen_unit
+			>(
+				_viewport.pos().y()
+			)
+		),
+		static_cast<
+			GLsizei
+		>(
+			_viewport.size().w()
+		),
+		static_cast<
+			GLsizei
+		>(
+			_viewport.size().h()
+		)
 	);
 
 	SGE_OPENGL_CHECK_STATE(

@@ -31,7 +31,7 @@ namespace opengl
 namespace convert
 {
 
-GLenum
+GLint
 fog_mode(
 	renderer::state::fog_mode::type
 );

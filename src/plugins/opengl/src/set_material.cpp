@@ -34,20 +34,6 @@ namespace
 {
 
 void
-glmaterialfv(
-	GLenum face,
-	GLenum type,
-	GLfloat const *
-);
-
-void
-glmaterialf(
-	GLenum face,
-	GLenum type,
-	GLfloat
-);
-
-void
 material_color(
 	GLenum face,
 	GLenum type,

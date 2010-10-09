@@ -22,12 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <fcppt/text.hpp>
 
-GLenum
+GLint
 sge::opengl::convert::fog_mode(
-	renderer::state::fog_mode::type const m
+	renderer::state::fog_mode::type const _mode
 )
 {
-	switch(m) {
+	switch(
+		_mode
+	)
+	{
 	case renderer::state::fog_mode::linear:
 		return GL_LINEAR;
 	case renderer::state::fog_mode::exp:

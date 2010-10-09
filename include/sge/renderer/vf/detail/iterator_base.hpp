@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vf/iterator_fwd.hpp>
 #include <sge/renderer/vf/vertex_fwd.hpp>
-#include <boost/type_traits/make_signed.hpp>
+#include <sge/renderer/vf/vertex_difference.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <iterator>
 
@@ -43,17 +43,17 @@ struct
 iterator_base
 {
 	typedef boost::iterator_facade<
-		iterator<
+		vf::iterator<
 			VertexFormat
 		>,
 		vertex<
 			VertexFormat
 		>,
 		std::random_access_iterator_tag,
-		vertex<
+		vf::vertex<
 			VertexFormat
 		>,
-		boost::make_signed<vertex_size>::type
+		vf::vertex_difference
 	> type;
 };
 

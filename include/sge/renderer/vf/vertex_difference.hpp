@@ -18,14 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_BULLET_GROUP_FWD_HPP_INCLUDED
-#define SGE_BULLET_GROUP_FWD_HPP_INCLUDED
+
+#ifndef SGE_RENDERER_VF_VERTEX_DIFFERENCE_HPP_INCLUDED
+#define SGE_RENDERER_VF_VERTEX_DIFFERENCE_HPP_INCLUDED
+
+#include <sge/renderer/vf/vertex_size.hpp>
+#include <boost/type_traits/make_signed.hpp>
 
 namespace sge
 {
-namespace bullet
+namespace renderer
 {
-class group;
+namespace vf
+{
+
+typedef boost::make_signed<
+	vf::vertex_size
+>::type vertex_difference;
+
+}
 }
 }
 

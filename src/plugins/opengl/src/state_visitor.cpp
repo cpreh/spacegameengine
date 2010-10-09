@@ -419,11 +419,11 @@ sge::opengl::state_visitor::operator()(
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
-	renderer::state::fog_mode::type const m
+	renderer::state::fog_mode::type const _mode
 ) const
 {
 	if(
-		m == renderer::state::fog_mode::off
+		_mode == renderer::state::fog_mode::off
 	)
 	{
 		opengl::disable(
@@ -437,10 +437,10 @@ sge::opengl::state_visitor::operator()(
 		GL_FOG
 	);
 
-	glFogi(
+	::glFogi(
 		GL_FOG_MODE,
 		convert::fog_mode(
-			m
+			_mode
 		)
 	);
 
