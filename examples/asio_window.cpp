@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/mainloop/catch_block.hpp>
 #include <sge/mainloop/io_service.hpp>
 #include <sge/mainloop/asio/create_io_service.hpp>
+#include <fcppt/function/object.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
