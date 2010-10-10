@@ -66,8 +66,22 @@ private:
 		input::repeat_callback const &c
 	);
 
+	fcppt::signal::auto_connection
+	keyboard_discover_callback(
+		input::keyboard::discover_callback const &
+	);
+
+	fcppt::signal::auto_connection
+	keyboard_remove_callback(
+		input::keyboard::remove_callback const &
+	);
+
+	input::keyboard::device_vector const
+	keyboards() const;
+
 	void
 	dispatch();
+
 	window::instance_ptr const
 	window() const;
 

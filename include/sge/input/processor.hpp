@@ -24,6 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/processor_fwd.hpp>
 #include <sge/input/callback.hpp>
 #include <sge/input/repeat_callback.hpp>
+#include <sge/input/keyboard/discover_callback.hpp>
+#include <sge/input/keyboard/remove_callback.hpp>
+#include <sge/input/keyboard/device_vector.hpp>
 #include <sge/window/instance_ptr.hpp>
 #include <sge/mainloop/dispatchable.hpp>
 #include <sge/symbol.hpp>
@@ -55,6 +58,19 @@ public:
 	register_repeat_callback(
 		repeat_callback const &
 	) = 0;
+
+	virtual fcppt::signal::auto_connection
+	keyboard_discover_callback(
+		input::keyboard::discover_callback const &
+	) = 0;
+
+	virtual fcppt::signal::auto_connection
+	keyboard_remove_callback(
+		input::keyboard::remove_callback const &
+	) = 0;
+
+	virtual keyboard::device_vector const
+	keyboards() const = 0;
 
 	virtual sge::window::instance_ptr const
 	window() const = 0;

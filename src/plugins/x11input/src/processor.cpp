@@ -173,6 +173,25 @@ sge::x11input::processor::register_repeat_callback(
 		);
 }
 
+fcppt::signal::auto_connection
+sge::x11input::processor::keyboard_discover_callback(
+	input::keyboard::discover_callback const &_callback
+)
+{
+}
+
+fcppt::signal::auto_connection
+sge::x11input::processor::keyboard_remove_callback(
+	input::keyboard::remove_callback const &_callback
+)
+{
+}
+
+sge::input::keyboard::device_vector const
+sge::x11input::processor::keyboards() const
+{
+}
+
 void
 sge::x11input::processor::dispatch()
 {
