@@ -25,14 +25,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "mouse_coordinate.hpp"
 #include "mouse_pos.hpp"
 #include "mouse_grab_fwd.hpp"
-#include <sge/input/callback.hpp>
 #include <X11/Xlib.h>
+#include <sge/input/mouse/device.hpp>
+#include <sge/input/mouse/axis_callback.hpp>
+#include <sge/input/mouse/axis_function.hpp>
+#include <sge/input/mouse/button_callback.hpp>
+#include <sge/input/mouse/button_function.hpp>
+#include <sge/input/callback.hpp>
 #include <sge/x11/window_ptr.hpp>
 #include <sge/x11/color.hpp>
 #include <sge/x11/pixmap.hpp>
 #include <sge/x11/cursor.hpp>
 #include <sge/x11/cursor_fwd.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
+#include <fcppt/signal/object.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
@@ -44,7 +51,8 @@ namespace x11input
 
 class mouse
 :
-	public device
+	public sge::input::mouse::device,
+	public x11input::device
 {
 	FCPPT_NONCOPYABLE(mouse)
 public:
@@ -55,6 +63,16 @@ public:
 
 	~mouse();
 private:
+	fcppt::signal::auto_connection
+	button_callback(
+		input::mouse::button_callback const &
+	);
+
+	fcppt::signal::auto_connection
+	axis_callback(
+		input::mouse::axis_callback const &
+	);
+
 	void
 	grab();
 
@@ -104,6 +122,14 @@ private:
 	fcppt::scoped_ptr<
 		mouse_grab
 	> grab_;
+
+	fcppt::signal::object<
+		sge::input::mouse::button_function
+	> button_signal_;
+
+	fcppt::signal::object<
+		sge::input::mouse::axis_function
+	> axis_signal_;
 };
 
 }

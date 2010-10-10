@@ -75,7 +75,9 @@ sge::x11input::mouse::mouse(
 		)
 	),
 	connections_(),
-	grab_()
+	grab_(),
+	button_signal_(),
+	axis_signal_()
 {
 	connections_.connect(
 		wnd_->register_callback(
@@ -113,6 +115,28 @@ sge::x11input::mouse::mouse(
 
 sge::x11input::mouse::~mouse()
 {
+}
+
+fcppt::signal::auto_connection
+sge::x11input::mouse::button_callback(
+	input::mouse::button_callback const &_callback
+)
+{
+	return
+		button_signal_.connect(
+			_callback
+		);
+}
+
+fcppt::signal::auto_connection
+sge::x11input::mouse::axis_callback(
+	input::mouse::axis_callback const &_callback
+)
+{
+	return
+		axis_signal_.connect(
+			_callback
+		);
 }
 
 void
