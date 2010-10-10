@@ -39,7 +39,9 @@ sge::x11input::keyboard::keyboard(
 	repeat_callback_(_repeat_callback),
 	need_grab_(_wnd->fullscreen()),
 	connections_(),
-	grab_()
+	grab_(),
+	key_signal_(),
+	key_repeat_signal_()
 {
 	connections_.connect(
 		wnd_->register_callback(
@@ -66,6 +68,28 @@ sge::x11input::keyboard::keyboard(
 
 sge::x11input::keyboard::~keyboard()
 {
+}
+
+fcppt::signal::auto_connection
+sge::x11input::keyboard::key_callback(
+	input::keyboard::key_callback const &_callback
+)
+{
+	return
+		key_signal_.connect(
+			_callback
+		);
+}
+
+fcppt::signal::auto_connection
+sge::x11input::keyboard::key_repeat_callback(
+	input::keyboard::key_repeat_callback const &_callback
+)
+{
+	return
+		key_repeat_signal_.connect(
+			_callback
+		);
 }
 
 void

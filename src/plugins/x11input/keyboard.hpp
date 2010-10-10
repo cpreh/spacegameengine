@@ -24,10 +24,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "device.hpp"
 #include "keyboard_grab_fwd.hpp"
 #include <X11/Xlib.h>
+#include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/key_callback.hpp>
+#include <sge/input/keyboard/key_repeat_callback.hpp>
+#include <sge/input/keyboard/key_function.hpp>
+#include <sge/input/keyboard/key_repeat_function.hpp>
 #include <sge/input/callback.hpp>
 #include <sge/input/repeat_callback.hpp>
 #include <sge/x11/window_ptr.hpp>
 #include <fcppt/signal/connection_manager.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/object.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
 
@@ -38,7 +45,8 @@ namespace x11input
 
 class keyboard
 :
-	public device
+	public sge::input::keyboard::device,
+	public x11input::device
 {
 	FCPPT_NONCOPYABLE(keyboard)
 public:
@@ -50,6 +58,16 @@ public:
 
 	~keyboard();
 private:
+	fcppt::signal::auto_connection
+	key_callback(
+		input::keyboard::key_callback const &
+	);
+
+	fcppt::signal::auto_connection
+	key_repeat_callback(
+		input::keyboard::key_repeat_callback const &
+	);
+
 	void
 	grab();
 
@@ -74,6 +92,14 @@ private:
 	fcppt::scoped_ptr<
 		keyboard_grab
 	> grab_;
+
+	fcppt::signal::object<
+		input::keyboard::key_function
+	> key_signal_;
+
+	fcppt::signal::object<
+		input::keyboard::key_repeat_function
+	> key_repeat_signal_;
 };
 
 }
