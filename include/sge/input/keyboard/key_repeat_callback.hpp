@@ -18,33 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_KEYBOARD_HPP_INCLUDED
-#define SGE_INPUT_KEYBOARD_HPP_INCLUDED
+#ifndef SGE_INPUT_KEYBOARD_KEY_REPEAT_CALLBACK_HPP_INCLUDED
+#define SGE_INPUT_KEYBOARD_KEY_REPEAT_CALLBACK_HPP_INCLUDED
 
-#include <sge/input/keyboard_fwd.hpp>
-#include <sge/input/device.hpp>
-#include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/input/keyboard/key_repeat_function.hpp>
+#include <fcppt/function/object_fwd.hpp>
 
 namespace sge
 {
 namespace input
 {
-
-class SGE_CLASS_SYMBOL keyboard
-:
-	public input::device
+namespace keyboard
 {
-	FCPPT_NONCOPYABLE(
-		keyboard
-	)
-protected:
-	SGE_SYMBOL keyboard();
-public:
-	SGE_SYMBOL virtual ~keyboard();
-};
 
+typedef fcppt::function::object<
+	key_repeat_function
+> key_repeat_callback;
+
+}
 }
 }
 

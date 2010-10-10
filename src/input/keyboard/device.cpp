@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/keyboard.hpp>
+#include <sge/input/keyboard/device.hpp>
 
-sge::input::keyboard::keyboard()
+sge::input::keyboard::device::device()
 {
 }
 
-sge::input::keyboard::~keyboard()
+sge::input::keyboard::device::~device()
 {
 }
