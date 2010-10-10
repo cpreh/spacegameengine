@@ -192,6 +192,25 @@ sge::x11input::processor::keyboards() const
 {
 }
 
+fcppt::signal::auto_connection
+sge::x11input::processor::mouse_discover_callback(
+	input::mouse::discover_callback const &_callback
+)
+{
+}
+
+fcppt::signal::auto_connection
+sge::x11input::processor::mouse_remove_callback(
+	input::mouse::remove_callback const &_callback
+)
+{
+}
+
+sge::input::mouse::device_vector const
+sge::x11input::processor::mice() const
+{
+}
+
 void
 sge::x11input::processor::dispatch()
 {

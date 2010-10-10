@@ -27,6 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/discover_callback.hpp>
 #include <sge/input/keyboard/remove_callback.hpp>
 #include <sge/input/keyboard/device_vector.hpp>
+#include <sge/input/mouse/discover_callback.hpp>
+#include <sge/input/mouse/remove_callback.hpp>
+#include <sge/input/mouse/device_vector.hpp>
 #include <sge/window/instance_ptr.hpp>
 #include <sge/mainloop/dispatchable.hpp>
 #include <sge/symbol.hpp>
@@ -59,6 +62,9 @@ public:
 		repeat_callback const &
 	) = 0;
 
+	//
+	// keyboards
+	//
 	virtual fcppt::signal::auto_connection
 	keyboard_discover_callback(
 		input::keyboard::discover_callback const &
@@ -72,6 +78,25 @@ public:
 	virtual keyboard::device_vector const
 	keyboards() const = 0;
 
+	//
+	// mice
+	//
+	virtual fcppt::signal::auto_connection
+	mouse_discover_callback(
+		input::mouse::discover_callback const &
+	) = 0;
+
+	virtual fcppt::signal::auto_connection
+	mouse_remove_callback(
+		input::mouse::remove_callback const &
+	) = 0;
+
+	virtual mouse::device_vector const
+	mice() const = 0;
+
+	//
+	// other
+	//
 	virtual sge::window::instance_ptr const
 	window() const = 0;
 

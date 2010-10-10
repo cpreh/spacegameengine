@@ -79,6 +79,19 @@ private:
 	input::keyboard::device_vector const
 	keyboards() const;
 
+	fcppt::signal::auto_connection
+	mouse_discover_callback(
+		input::mouse::discover_callback const &
+	);
+
+	fcppt::signal::auto_connection
+	mouse_remove_callback(
+		input::mouse::remove_callback const &
+	);
+
+	input::mouse::device_vector const
+	mice() const;
+
 	void
 	dispatch();
 
