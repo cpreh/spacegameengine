@@ -62,7 +62,17 @@ void sge::gui::detail::cursor_delegate::key_callback(
 			if (pos_ == 0)
 				return;
 
-			text.erase(text.begin()+(pos_-1));
+			text.erase(
+				text.begin()
+				+
+				static_cast<
+					fcppt::string::iterator::difference_type
+				>(
+					pos_
+				)
+				-1
+			);
+
 			pos_--;
 		break;
 		default:
@@ -70,7 +80,13 @@ void sge::gui::detail::cursor_delegate::key_callback(
 				return;
 
 			text.insert(
-				text.begin()+pos_,
+				text.begin()
+				+
+				static_cast<
+					fcppt::string::iterator::difference_type
+				>(
+					pos_
+				),
 				c.key().char_code());
 
 			pos_++;

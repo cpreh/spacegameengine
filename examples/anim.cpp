@@ -115,6 +115,7 @@ try
 		)
 	);
 
+	sys.
 	sge::input::processor_ptr const is(
 		sys.input_processor()
 	);

@@ -75,10 +75,26 @@ sge::x11::window::window(
 	event_mask_(0),
 	hints_(),
 	size_hints_(
-		_size.w(),
-		_size.h(),
-		_size.w(),
-		_size.h()
+		static_cast<
+			int
+		>(
+			_size.w()
+		),
+		static_cast<
+			int
+		>(
+			_size.h()
+		),
+		static_cast<
+			int
+		>(
+			_size.w()
+		),
+		static_cast<
+			int
+		>(
+			_size.h()
+		)
 	),
 	class_hint_(
 		_title,

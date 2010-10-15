@@ -67,7 +67,7 @@ private:
 		fcppt::filesystem::path const &
 	);
 
-	ILint
+	ILenum
 	format() const;
 
 	image_impl impl_;

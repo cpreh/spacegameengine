@@ -21,24 +21,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../metrics.hpp"
 #include "../glyph.hpp"
 #include "../char_metric.hpp"
-#include <sge/exception.hpp>
+#include <sge/font/exception.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <utility>
 
 sge::freetype::metrics::metrics(
-	library &lib,
-	fcppt::filesystem::path const &font_path,
-	font::size_type const font_height
+	library &_lib,
+	fcppt::filesystem::path const &_font_path,
+	font::size_type const _font_height
 )
 :
-	face_(lib, font_path),
-	pixel_size(font_height)
+	face_(
+		_lib,
+		_font_path
+	),
+	pixel_size_(
+		_font_height
+	)
 {
-	if(FT_Select_Charmap(face_.get(), FT_ENCODING_UNICODE) != 0)
-		throw exception(FCPPT_TEXT("No Unicode code map found!"));
+	if(
+		::FT_Select_Charmap(
+			face_.get(),
+			FT_ENCODING_UNICODE
+		)
+		!= 0
+	)
+		throw sge::font::exception(
+			FCPPT_TEXT("No Unicode code map found!")
+		);
 
-	if(FT_Set_Pixel_Sizes(face_.get(), 0, font_height))
-		throw exception(FCPPT_TEXT("FT_Set_Pixel_Sizes() failed!"));
+	if(
+		::FT_Set_Pixel_Sizes(
+			face_.get(),
+			0,
+			static_cast<
+				FT_UInt
+			>(
+				_font_height
+			)
+		)
+	)
+		throw sge::font::exception(
+			FCPPT_TEXT("FT_Set_Pixel_Sizes() failed!")
+		);
 }
 
 sge::freetype::metrics::~metrics()
@@ -46,28 +73,51 @@ sge::freetype::metrics::~metrics()
 
 sge::font::char_metric_ptr const
 sge::freetype::metrics::load_char(
-	font::char_type const c
+	font::char_type const _ch
 )
 {
 	{
-		buffer_type::const_iterator const it = buffer.find(c);
-		if(it != buffer.end())
+		buffer_type::const_iterator const it(
+			buffer_.find(
+				_ch
+			)
+		);
+
+		if(
+			it != buffer_.end()
+		)
 			return it->second;
 	}
 
 	font::char_metric_ptr const metric(
-		new char_metric(
-			face_,
-			c));
-	buffer.insert(std::make_pair(c, metric));
+		fcppt::make_shared_ptr<
+			freetype::char_metric
+		>(
+			std::tr1::ref(
+				face_
+			),
+			_ch
+		)
+	);
+
+	buffer_.insert(
+		std::make_pair(
+			_ch,
+			metric
+		)
+	);
+
 	return metric;
 }
 
 sge::font::unit
 sge::freetype::metrics::line_height() const
 {
-	return static_cast<
-		font::unit
-	>(
-		face_->size->metrics.height / 64);
+	return
+		static_cast<
+			font::unit
+		>(
+			face_->size->metrics.height
+			/ 64
+		);
 }

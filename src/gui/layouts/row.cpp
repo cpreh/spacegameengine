@@ -96,7 +96,9 @@ void sge::gui::layouts::row::compile_static()
 		optimal,
 		usable,
 		master(
-			dim(0,1)));
+			dim(0,1)
+		)
+	);
 	FCPPT_LOG_DEBUG(
 		mylogger,
 		fcppt::log::_ << FCPPT_TEXT("adapting master axis end"));
@@ -107,7 +109,9 @@ void sge::gui::layouts::row::compile_static()
 		optimal,
 		usable,
 		slave(
-			dim(0,1)));
+			dim(0,1)
+		)
+	);
 	FCPPT_LOG_DEBUG(
 		mylogger,
 		fcppt::log::_ << FCPPT_TEXT("adapting slave axis end"));

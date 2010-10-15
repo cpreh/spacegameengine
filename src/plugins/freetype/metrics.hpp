@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FREETYPE_METRICS_HPP_INCLUDED
 #define SGE_FREETYPE_METRICS_HPP_INCLUDED
 
-#include "library.hpp"
+#include "library_fwd.hpp"
 #include "face.hpp"
 #include "freetype.hpp"
 #include <sge/font/metrics.hpp>
@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/unit.hpp>
 #include <sge/font/char_type.hpp>
 #include <fcppt/filesystem/path.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <map>
 
 namespace sge
@@ -40,9 +41,12 @@ class metrics
 :
 	public font::metrics
 {
+	FCPPT_NONCOPYABLE(
+		metrics
+	)
 public:
 	metrics(
-		library &lib,
+		library &,
 		fcppt::filesystem::path const &font_path,
 		font::size_type font_height
 	);
@@ -51,20 +55,22 @@ public:
 
 	font::char_metric_ptr const
 	load_char(
-		font::char_type c
+		font::char_type
 	);
 
-	font::unit line_height() const;
+	font::unit
+	line_height() const;
 private:
-	face face_;
-	font::size_type pixel_size;
+	freetype::face face_;
+
+	font::size_type pixel_size_;
 
 	typedef std::map<
 		font::char_type,
 		font::char_metric_ptr
 	> buffer_type;
 
-	buffer_type buffer;
+	buffer_type buffer_;
 };
 
 }

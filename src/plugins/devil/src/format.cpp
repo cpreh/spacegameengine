@@ -128,7 +128,7 @@ sge::devil::convert_format(
 	);
 }
 
-ILint
+ILenum
 sge::devil::to_il_format(
 	image::color::format::type const fmt
 )
@@ -158,7 +158,7 @@ sge::devil::to_il_format(
 	);
 }
 
-ILint
+ILenum
 sge::devil::to_il_channel(
 	image::color::format::type const fmt
 )

@@ -24,8 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glyph.hpp"
 #include <sge/image/view/make.hpp>
 #include <sge/image/algorithm/copy_and_convert.hpp>
+#include <sge/image/size_type.hpp>
+#include <sge/font/exception.hpp>
 #include <sge/log/global.hpp>
-#include <sge/exception.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/log/headers.hpp>
@@ -35,8 +36,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 
 sge::freetype::char_metric::char_metric(
-	face &face_,
-	font::char_type const ch
+	freetype::face &_face,
+	font::char_type const _ch
 )
 :
 	buffer_(),
@@ -44,27 +45,33 @@ sge::freetype::char_metric::char_metric(
 	x_advance_()
 {
 	if(
-		FT_Load_Char(
-			face_.get(),
-			ch,
+		::FT_Load_Char(
+			_face.get(),
+			_ch, // FIXME!
 			FT_LOAD_DEFAULT
 		)
 	)
-		throw exception(
+		throw sge::font::exception(
 			FCPPT_TEXT("FT_Load_Glyph() failed!")
 		);
 
-	glyph glyph_(
-		face_
+	freetype::glyph glyph(
+		_face
 	);
 
-	FT_BitmapGlyph const bmp_glyph = glyph_.bitmap_glyph();
+	FT_BitmapGlyph const bmp_glyph(
+		glyph.bitmap_glyph()
+	);
 
-	FT_Bitmap &bitmap = bmp_glyph->bitmap;
+	FT_Bitmap &bitmap(
+		bmp_glyph->bitmap
+	);
 
 	offset_.x() = bmp_glyph->left;
-	offset_.y() = static_cast<font::unit>(face_->size->metrics.ascender / 64 - bmp_glyph->top);
-	x_advance_ = static_cast<font::unit>(face_->glyph->advance.x / 64);
+
+	offset_.y() = static_cast<font::unit>(_face->size->metrics.ascender / 64 - bmp_glyph->top);
+
+	x_advance_ = static_cast<font::unit>(_face->glyph->advance.x / 64);
 
 	// FIXME: fix offsets and maybe those warnings
 	if(offset_.x() < 0)
@@ -72,7 +79,7 @@ sge::freetype::char_metric::char_metric(
 			log::global(),
 			fcppt::log::_
 				<< FCPPT_TEXT("x offset of character '")
-				<< ch
+				<< _ch
 				<< FCPPT_TEXT("' is ")
 				<< offset_.x()
 				<< FCPPT_TEXT('!')
@@ -83,7 +90,7 @@ sge::freetype::char_metric::char_metric(
 			log::global(),
 			fcppt::log::_
 				<< FCPPT_TEXT("y offset of character '")
-				<< ch
+				<< _ch
 				<< FCPPT_TEXT("' is ")
 				<< offset_.y()
 				<< FCPPT_TEXT('!')
@@ -97,13 +104,21 @@ sge::freetype::char_metric::char_metric(
 			FCPPT_TEXT("FIXME: bitmap pitch < 0, case not handled!")
 		);
 
-	image::dim_type const dim_(
-		bitmap.width,
-		bitmap.rows
+	image::dim_type const dim(
+		static_cast<
+			image::dim_type::value_type
+		>(
+			bitmap.width
+		),
+		static_cast<
+			image::dim_type::value_type
+		>(
+			bitmap.rows
+		)
 	);
 
 	buffer_ = buffer_type(
-		dim_
+		dim
 	);
 
 	image::algorithm::copy_and_convert(
@@ -113,9 +128,13 @@ sge::freetype::char_metric::char_metric(
 			>(
 				bitmap.buffer
 			),
-			dim_,
+			dim,
 			sge::image::color::format::alpha8,
-			bitmap.pitch - bitmap.width
+			static_cast<
+				image::size_type
+			>(
+				bitmap.pitch - bitmap.width
+			)
 		),
 		buffer_.view()
 	);

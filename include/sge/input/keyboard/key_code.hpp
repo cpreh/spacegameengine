@@ -154,7 +154,8 @@ enum type
 //	stop,
 //	sysrq,
 //	unlabeled,
-	yen
+	yen,
+	unknown
 };
 }
 

@@ -111,8 +111,20 @@ sge::devil::file::dim() const
 
 	return
 		image::dim_type(
-			ilGetInteger(IL_IMAGE_WIDTH),
-			ilGetInteger(IL_IMAGE_HEIGHT)
+			static_cast<
+				image::dim_type::value_type
+			>(
+				::ilGetInteger(
+					IL_IMAGE_WIDTH
+				)
+			),
+			static_cast<
+				image::dim_type::value_type
+			>(
+				::ilGetInteger(
+					IL_IMAGE_HEIGHT
+				)
+			)
 		);
 }
 
@@ -169,10 +181,10 @@ sge::devil::file::data(
 		static_cast<ILuint>(dim.h()),
 		1,
 		4, // always 4 channels
-		to_il_format(
+		devil::to_il_format(
 			best_il_format
 		),
-		to_il_channel(
+		devil::to_il_channel(
 			best_il_format
 		),
 		const_cast<raw_vector_t::pointer>(v.data())
@@ -289,11 +301,15 @@ sge::devil::file::load(
 		);
 }
 
-ILint
+ILenum
 sge::devil::file::format() const
 {
 	return
-		ilGetInteger(
-			IL_IMAGE_FORMAT
+		static_cast<
+			ILenum
+		>(
+			::ilGetInteger(
+				IL_IMAGE_FORMAT
+			)
 		);
 }

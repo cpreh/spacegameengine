@@ -22,12 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../translate_key_code.hpp"
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
-#include <sge/input/key_type.hpp>
-#include <sge/log/global.hpp>
-#include <fcppt/log/headers.hpp>
-#include <fcppt/text.hpp>
+#include <sge/input/keyboard/key.hpp>
 #include <limits>
-#include <ostream>
 
 sge::input::key_type const
 sge::x11input::keyboard_key(
@@ -53,7 +49,7 @@ sge::x11input::keyboard_key(
 	);
 
 	// xev does it this way
-	char const code(
+	char const char_code(
 		ks
 		>
 		static_cast<
@@ -67,25 +63,11 @@ sge::x11input::keyboard_key(
 			static_cast<char>(ks)
 	);
 
-	if(
-		num_chars > 1
-	)
-	{
-		FCPPT_LOG_WARNING(
-			log::global(),
-			fcppt::log::_
-				<< FCPPT_TEXT("stub: character '")
-				<< code
-				<< FCPPT_TEXT("' in XLookupString has ")
-				<< num_chars
-				<< FCPPT_TEXT(" bytes!"));
-
-		return input::key_type();
-	}
-
 	return
-		input::key_type(
-			translate_key_code(ks),
-			code
+		input::keyboard::key(
+			x11input::translate_key_code(
+				ks
+			)	
+			char_code // TODO: translate this!
 		);
 }

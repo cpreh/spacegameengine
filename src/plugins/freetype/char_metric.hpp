@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/alpha8.hpp>
 #include <sge/image/store.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -40,6 +41,9 @@ class char_metric
 :
 	public font::char_metric
 {
+	FCPPT_NONCOPYABLE(
+		char_metric
+	)
 public:
 	explicit char_metric(
 		face &,
@@ -48,13 +52,21 @@ public:
 
 	~char_metric();
 
-	font::const_image_view const pixmap() const;
-	font::pos const offset() const;
-	font::unit x_advance() const;
+	font::const_image_view const
+	pixmap() const;
+
+	font::pos const
+	offset() const;
+
+	font::unit
+	x_advance() const;
 private:
 	typedef sge::image::alpha8 buffer_type;
+
 	buffer_type buffer_;
+
 	font::pos   offset_;
+
 	font::unit  x_advance_;
 };
 

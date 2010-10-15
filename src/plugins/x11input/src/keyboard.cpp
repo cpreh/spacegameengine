@@ -29,14 +29,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/tr1/functional.hpp>
 
 sge::x11input::keyboard::keyboard(
-	x11::window_ptr const _wnd,
-	input::callback const &_callback,
-	input::repeat_callback const &_repeat_callback
+	x11::window_ptr const _wnd
 )
 :
 	wnd_(_wnd),
-	callback_(_callback),
-	repeat_callback_(_repeat_callback),
 	need_grab_(_wnd->fullscreen()),
 	connections_(),
 	grab_(),
@@ -120,7 +116,7 @@ sge::x11input::keyboard::on_key_event(
 		_xev.xkey
 	);
 
-	input::key_type const key(
+	input::keyboard::key const key(
 		x11input::keyboard_key(
 			key_event
 		)
@@ -150,7 +146,7 @@ sge::x11input::keyboard::on_key_event(
 				&peek
 			);
 
-			repeat_callback_(
+			repeat_signal_(
 				key
 			);
 

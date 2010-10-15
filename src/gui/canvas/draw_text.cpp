@@ -45,11 +45,24 @@ void sge::gui::canvas::object::draw_text(
 	// determine which invisible characters have to be filtered
 	if (cp)
 	{
-		fcppt::string::size_type const filter =
-			std::count(
-				text.begin(),
-				text.begin()+(*cp)+1,
-				FCPPT_TEXT('\n'));
+		fcppt::string::size_type const filter(
+			static_cast<
+				fcppt::string::size_type
+			>(
+				std::count(
+					text.begin(),
+					text.begin()
+					+
+					static_cast<
+						fcppt::string::const_iterator::difference_type
+					>(
+						*cp
+					)
+					+ 1u,
+					FCPPT_TEXT('\n')
+				)
+			)
+		);
 
 		cp = (*cp) - filter;
 	}

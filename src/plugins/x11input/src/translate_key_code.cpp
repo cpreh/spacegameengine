@@ -28,35 +28,35 @@ namespace
 
 typedef std::map<
 	KeySym,
-	sge::input::key_code
-> x11_to_sge_array;
+	sge::input::keyboard::key_code::type
+> x11_to_sge_map;
 
-x11_to_sge_array const x11_to_sge = boost::assign::map_list_of
-	(NoSymbol, sge::input::kc::none)
-	(XK_BackSpace, sge::input::kc::key_backspace)
-	(XK_Tab, sge::input::kc::key_tab)
-	(XK_Return, sge::input::kc::key_return)
-	(XK_Pause, sge::input::kc::key_pause)
-	(XK_Scroll_Lock, sge::input::kc::key_scroll)
-	(XK_Escape, sge::input::kc::key_escape)
-	(XK_Delete, sge::input::kc::key_delete)
+x11_to_sge_map const x11_to_sge = boost::assign::map_list_of
+	(NoSymbol, sge::input::keyboard::key_code::none)
+	(XK_BackSpace, sge::input::keyboard::key_code::backspace)
+	(XK_Tab, sge::input::keyboard::key_code::tab)
+	(XK_Return, sge::input::keyboard::key_code::return)
+	(XK_Pause, sge::input::keyboard::key_code::pause)
+	(XK_Scroll_Lock, sge::input::keyboard::key_code::scroll)
+	(XK_Escape, sge::input::keyboard::key_code::escape)
+	(XK_Delete, sge::input::keyboard::key_code::delete)
 
-	(XK_Home, sge::input::kc::key_home)
-	(XK_Left, sge::input::kc::key_left)
-	(XK_Up, sge::input::kc::key_up)
-	(XK_Right, sge::input::kc::key_right)
-	(XK_Down, sge::input::kc::key_down)
+	(XK_Home, sge::input::keyboard::key_code::home)
+	(XK_Left, sge::input::keyboard::key_code::left)
+	(XK_Up, sge::input::keyboard::key_code::up)
+	(XK_Right, sge::input::keyboard::key_code::right)
+	(XK_Down, sge::input::keyboard::key_code::down)
 	//XK_Prior
-	(XK_Page_Up, sge::input::kc::key_pageup)
+	(XK_Page_Up, sge::input::keyboard::key_code::pageup)
 	//XK_Next
-	(XK_Page_Down, sge::input::kc::key_pagedown)
-	(XK_End, sge::input::kc::key_end)
-//	(XK_Begin, sge::input::kc::key_home)
+	(XK_Page_Down, sge::input::keyboard::key_code::pagedown)
+	(XK_End, sge::input::keyboard::key_code::end)
+//	(XK_Begin, sge::input::keyboard::key_code::home)
 
 	//#define XK_Select                        0xff60  /* Select, mark */
-	(XK_Print, sge::input::kc::key_print)
+	(XK_Print, sge::input::keyboard::key_code::print)
 	//#define XK_Execute                       0xff62  /* Execute, run, do */
-	(XK_Insert, sge::input::kc::key_insert)
+	(XK_Insert, sge::input::keyboard::key_code::insert)
 //#define XK_Undo                          0xff65
 //#define XK_Redo                          0xff66  /* Redo, again */
 //#define XK_Menu                          0xff67
@@ -68,16 +68,16 @@ x11_to_sge_array const x11_to_sge = boost::assign::map_list_of
 //#define XK_script_switch                 0xff7e  /* Alias for mode_switch */
 //#define XK_Num_Lock                      0xff7f
 
-//	(XK_KP_Space, sge::input::kc::key_SPACE)
+//	(XK_KP_Space, sge::input::keyboard::key_code::SPACE)
 //	(XK_KP_Tab])
-//	(XK_KP_Enter, sge::input::kc::key_ENTER)
+//	(XK_KP_Enter, sge::input::keyboard::key_code::ENTER)
 /*	(XK_KP_F1])
 	(XK_KP_F2])
 	(XK_KP_F3])
 	(XK_KP_F4])
-	(XK_KP_Home, sge::input::kc::key_NUM_HOME)
-	(XK_KP_Left, sge::input::kc::key_NUM_LEFT)
-	(XK_KP_Up, sge::input::kc::key_NUM_UP)
+	(XK_KP_Home, sge::input::keyboard::key_code::NUM_HOME)
+	(XK_KP_Left, sge::input::keyboard::key_code::NUM_LEFT)
+	(XK_KP_Up, sge::input::keyboard::key_code::NUM_UP)
 #define XK_KP_Right                      0xff98
 #define XK_KP_Down                       0xff99
 #define XK_KP_Prior                      0xff9a
@@ -107,18 +107,18 @@ x11_to_sge_array const x11_to_sge = boost::assign::map_list_of
 #define XK_KP_8                          0xffb8
 #define XK_KP_9                          0xffb9*/
 
-	(XK_F1, sge::input::kc::key_f1)
-	(XK_F2, sge::input::kc::key_f2)
-	(XK_F3, sge::input::kc::key_f3)
-	(XK_F4, sge::input::kc::key_f4)
-	(XK_F5, sge::input::kc::key_f5)
-	(XK_F6, sge::input::kc::key_f6)
-	(XK_F7, sge::input::kc::key_f7)
-	(XK_F8, sge::input::kc::key_f8)
-	(XK_F9, sge::input::kc::key_f9)
-	(XK_F10, sge::input::kc::key_f10)
-	(XK_F11, sge::input::kc::key_f11)
-	(XK_F12, sge::input::kc::key_f12)
+	(XK_F1, sge::input::keyboard::key_code::f1)
+	(XK_F2, sge::input::keyboard::key_code::f2)
+	(XK_F3, sge::input::keyboard::key_code::f3)
+	(XK_F4, sge::input::keyboard::key_code::f4)
+	(XK_F5, sge::input::keyboard::key_code::f5)
+	(XK_F6, sge::input::keyboard::key_code::f6)
+	(XK_F7, sge::input::keyboard::key_code::f7)
+	(XK_F8, sge::input::keyboard::key_code::f8)
+	(XK_F9, sge::input::keyboard::key_code::f9)
+	(XK_F10, sge::input::keyboard::key_code::f10)
+	(XK_F11, sge::input::keyboard::key_code::f11)
+	(XK_F12, sge::input::keyboard::key_code::f12)
 //#define XK_L1                            0xffc8
 /*
 #define XK_L2                            0xffc9
@@ -171,19 +171,19 @@ x11_to_sge_array const x11_to_sge = boost::assign::map_list_of
 */
 
 
-	(XK_Shift_L, sge::input::kc::key_lshift)
-	(XK_Shift_R, sge::input::kc::key_rshift)
-	(XK_Control_L, sge::input::kc::key_lctrl)
-	(XK_Control_R, sge::input::kc::key_rctrl)
+	(XK_Shift_L, sge::input::keyboard::key_code::lshift)
+	(XK_Shift_R, sge::input::keyboard::key_code::rshift)
+	(XK_Control_L, sge::input::keyboard::key_code::lctrl)
+	(XK_Control_R, sge::input::keyboard::key_code::rctrl)
 	//XK_Caps_Lock
-//	(XK_Shift_Lock, sge::input::kc::key_LSHIFT) // ???
+//	(XK_Shift_Lock, sge::input::keyboard::key_code::LSHIFT) // ???
 
 //#define XK_Meta_L                        0xffe7  /* Left meta */
 //#define XK_Meta_R                        0xffe8  /* Right meta */
 #define XK_Alt_L                         0xffe9  /* Left alt */
 #define XK_Alt_R                         0xffea  /* Right alt */
-	(XK_Alt_L, sge::input::kc::key_alt)
-	(XK_Alt_R, sge::input::kc::key_altgr)
+	(XK_Alt_L, sge::input::keyboard::key_code::alt)
+	(XK_Alt_R, sge::input::keyboard::key_code::altgr)
 //#define XK_Super_L                       0xffeb  /* Left super */
 //#define XK_Super_R                       0xffec  /* Right super */
 //#define XK_Hyper_L                       0xffed  /* Left hyper */
@@ -334,7 +334,7 @@ x11_to_sge_array const x11_to_sge = boost::assign::map_list_of
 #define XK_3270_Enter                    0xfd1e
 #endif
 
-	(XK_space, sge::input::kc::key_space)
+	(XK_space, sge::input::keyboard::key_code::space)
 #if 0
 #define XK_exclam                        0x0021  /* U+0021 EXCLAMATION MARK */
 #define XK_quotedbl                      0x0022  /* U+0022 QUOTATION MARK */
@@ -353,16 +353,16 @@ x11_to_sge_array const x11_to_sge = boost::assign::map_list_of
 #define XK_period                        0x002e  /* U+002E FULL STOP */
 #define XK_slash                         0x002f  /* U+002F SOLIDUS */
 #endif
-	(XK_0, sge::input::kc::key_0)
-	(XK_1, sge::input::kc::key_1)
-	(XK_2, sge::input::kc::key_2)
-	(XK_3, sge::input::kc::key_3)
-	(XK_4, sge::input::kc::key_4)
-	(XK_5, sge::input::kc::key_5)
-	(XK_6, sge::input::kc::key_6)
-	(XK_7, sge::input::kc::key_7)
-	(XK_8, sge::input::kc::key_8)
-	(XK_9, sge::input::kc::key_9)
+	(XK_0, sge::input::keyboard::key_code::_0)
+	(XK_1, sge::input::keyboard::key_code::_1)
+	(XK_2, sge::input::keyboard::key_code::_2)
+	(XK_3, sge::input::keyboard::key_code::_3)
+	(XK_4, sge::input::keyboard::key_code::_4)
+	(XK_5, sge::input::keyboard::key_code::_5)
+	(XK_6, sge::input::keyboard::key_code::_6)
+	(XK_7, sge::input::keyboard::key_code::_7)
+	(XK_8, sge::input::keyboard::key_code::_8)
+	(XK_9, sge::input::keyboard::key_code::_9)
 #if 0
 #define XK_colon                         0x003a  /* U+003A COLON */
 #define XK_semicolon                     0x003b  /* U+003B SEMICOLON */
@@ -372,67 +372,67 @@ x11_to_sge_array const x11_to_sge = boost::assign::map_list_of
 #define XK_question                      0x003f  /* U+003F QUESTION MARK */
 #define XK_at                            0x0040  /* U+0040 COMMERCIAL AT */
 #endif
-	(XK_A, sge::input::kc::key_a)
-	(XK_B, sge::input::kc::key_b)
-	(XK_C, sge::input::kc::key_c)
-	(XK_D, sge::input::kc::key_d)
-	(XK_E, sge::input::kc::key_e)
-	(XK_F, sge::input::kc::key_f)
-	(XK_G, sge::input::kc::key_g)
-	(XK_H, sge::input::kc::key_h)
-	(XK_I, sge::input::kc::key_i)
-	(XK_J, sge::input::kc::key_j)
-	(XK_K, sge::input::kc::key_k)
-	(XK_L, sge::input::kc::key_l)
-	(XK_M, sge::input::kc::key_m)
-	(XK_N, sge::input::kc::key_n)
-	(XK_O, sge::input::kc::key_o)
-	(XK_P, sge::input::kc::key_p)
-	(XK_Q, sge::input::kc::key_q)
-	(XK_R, sge::input::kc::key_r)
-	(XK_S, sge::input::kc::key_s)
-	(XK_T, sge::input::kc::key_t)
-	(XK_U, sge::input::kc::key_u)
-	(XK_V, sge::input::kc::key_v)
-	(XK_W, sge::input::kc::key_w)
-	(XK_X, sge::input::kc::key_x)
-	(XK_Y, sge::input::kc::key_y)
-	(XK_Z, sge::input::kc::key_z)
+	(XK_A, sge::input::keyboard::key_code::a)
+	(XK_B, sge::input::keyboard::key_code::b)
+	(XK_C, sge::input::keyboard::key_code::c)
+	(XK_D, sge::input::keyboard::key_code::d)
+	(XK_E, sge::input::keyboard::key_code::e)
+	(XK_F, sge::input::keyboard::key_code::f)
+	(XK_G, sge::input::keyboard::key_code::g)
+	(XK_H, sge::input::keyboard::key_code::h)
+	(XK_I, sge::input::keyboard::key_code::i)
+	(XK_J, sge::input::keyboard::key_code::j)
+	(XK_K, sge::input::keyboard::key_code::k)
+	(XK_L, sge::input::keyboard::key_code::l)
+	(XK_M, sge::input::keyboard::key_code::m)
+	(XK_N, sge::input::keyboard::key_code::n)
+	(XK_O, sge::input::keyboard::key_code::o)
+	(XK_P, sge::input::keyboard::key_code::p)
+	(XK_Q, sge::input::keyboard::key_code::q)
+	(XK_R, sge::input::keyboard::key_code::r)
+	(XK_S, sge::input::keyboard::key_code::s)
+	(XK_T, sge::input::keyboard::key_code::t)
+	(XK_U, sge::input::keyboard::key_code::u)
+	(XK_V, sge::input::keyboard::key_code::v)
+	(XK_W, sge::input::keyboard::key_code::w)
+	(XK_X, sge::input::keyboard::key_code::x)
+	(XK_Y, sge::input::keyboard::key_code::y)
+	(XK_Z, sge::input::keyboard::key_code::z)
 
-	(XK_bracketleft, sge::input::kc::key_lbracket)
-	(XK_backslash, sge::input::kc::key_backslash)
-	(XK_bracketright, sge::input::kc::key_rbracket)
+	(XK_bracketleft, sge::input::keyboard::key_code::lbracket)
+	(XK_backslash, sge::input::keyboard::key_code::backslash)
+	(XK_bracketright, sge::input::keyboard::key_code::rbracket)
 //#define XK_asciicircum                   0x005e  /* U+005E CIRCUMFLEX ACCENT */
-	(XK_underscore, sge::input::kc::key_underline)
-	(XK_grave, sge::input::kc::key_grave)
+	(XK_underscore, sge::input::keyboard::key_code::underline)
+	(XK_grave, sge::input::keyboard::key_code::grave)
 //#define XK_quoteleft                     0x0060  /* deprecated */
 
-	(XK_a, sge::input::kc::key_a)
-	(XK_b, sge::input::kc::key_b)
-	(XK_c, sge::input::kc::key_c)
-	(XK_d, sge::input::kc::key_d)
-	(XK_e, sge::input::kc::key_e)
-	(XK_f, sge::input::kc::key_f)
-	(XK_g, sge::input::kc::key_g)
-	(XK_h, sge::input::kc::key_h)
-	(XK_i, sge::input::kc::key_i)
-	(XK_j, sge::input::kc::key_j)
-	(XK_k, sge::input::kc::key_k)
-	(XK_l, sge::input::kc::key_l)
-	(XK_m, sge::input::kc::key_m)
-	(XK_n, sge::input::kc::key_n)
-	(XK_o, sge::input::kc::key_o)
-	(XK_p, sge::input::kc::key_p)
-	(XK_q, sge::input::kc::key_q)
-	(XK_r, sge::input::kc::key_r)
-	(XK_s, sge::input::kc::key_s)
-	(XK_t, sge::input::kc::key_t)
-	(XK_u, sge::input::kc::key_u)
-	(XK_v, sge::input::kc::key_v)
-	(XK_w, sge::input::kc::key_w)
-	(XK_x, sge::input::kc::key_x)
-	(XK_y, sge::input::kc::key_y)
-	(XK_z, sge::input::kc::key_z);
+	(XK_a, sge::input::keyboard::key_code::a)
+	(XK_b, sge::input::keyboard::key_code::b)
+	(XK_c, sge::input::keyboard::key_code::c)
+	(XK_d, sge::input::keyboard::key_code::d)
+	(XK_e, sge::input::keyboard::key_code::e)
+	(XK_f, sge::input::keyboard::key_code::f)
+	(XK_g, sge::input::keyboard::key_code::g)
+	(XK_h, sge::input::keyboard::key_code::h)
+	(XK_i, sge::input::keyboard::key_code::i)
+	(XK_j, sge::input::keyboard::key_code::j)
+	(XK_k, sge::input::keyboard::key_code::k)
+	(XK_l, sge::input::keyboard::key_code::l)
+	(XK_m, sge::input::keyboard::key_code::m)
+	(XK_n, sge::input::keyboard::key_code::n)
+	(XK_o, sge::input::keyboard::key_code::o)
+	(XK_p, sge::input::keyboard::key_code::p)
+	(XK_q, sge::input::keyboard::key_code::q)
+	(XK_r, sge::input::keyboard::key_code::r)
+	(XK_s, sge::input::keyboard::key_code::s)
+	(XK_t, sge::input::keyboard::key_code::t)
+	(XK_u, sge::input::keyboard::key_code::u)
+	(XK_v, sge::input::keyboard::key_code::v)
+	(XK_w, sge::input::keyboard::key_code::w)
+	(XK_x, sge::input::keyboard::key_code::x)
+	(XK_y, sge::input::keyboard::key_code::y)
+	(XK_z, sge::input::keyboard::key_code::z);
 
 #if 0
 #define XK_braceleft                     0x007b  /* U+007B LEFT CURLY BRACKET */
@@ -445,19 +445,19 @@ x11_to_sge_array const x11_to_sge = boost::assign::map_list_of
 
 sge::input::key_code
 sge::x11input::translate_key_code(
-	KeySym const sym
+	KeySym const _sym
 )
 {
-	x11_to_sge_array::const_iterator const it(
+	x11_to_sge_map::const_iterator const it(
 		x11_to_sge.find(
-			sym
+			_sym
 		)
 	);
 
 	return
 		it == x11_to_sge.end()
 		?
-			input::kc::none
+			input::keyboard::key_code::unknown
 		:
 			it->second;
 }

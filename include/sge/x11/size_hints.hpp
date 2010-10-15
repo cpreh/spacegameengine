@@ -31,18 +31,23 @@ namespace sge
 namespace x11
 {
 
-class size_hints {
+class size_hints
+{
 	FCPPT_NONCOPYABLE(size_hints)
 public:
 	SGE_SYMBOL size_hints(
 		int min_w,
 		int min_h,
 		int desired_w,
-		int desired_h);
+		int desired_h
+	);
+
 	SGE_SYMBOL ~size_hints();
-	SGE_SYMBOL XSizeHints *get() const;
+
+	SGE_SYMBOL XSizeHints *
+	get() const;
 private:
-	XSizeHints *const hints;
+	XSizeHints *const hints_;
 };
 
 }

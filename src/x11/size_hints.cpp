@@ -23,32 +23,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 sge::x11::size_hints::size_hints(
-	int const min_w,
-	int const min_h,
-	int const desired_w,
-	int const desired_h)
+	int const _min_w,
+	int const _min_h,
+	int const _desired_w,
+	int const _desired_h
+)
 :
-	hints(
-		XAllocSizeHints())
+	hints_(
+		XAllocSizeHints()
+	)
 {
-	if(!hints)
-		throw exception(
-			FCPPT_TEXT("XAllocSizeHints() failed!"));
+	if(
+		!hints_
+	)
+		throw sge::exception(
+			FCPPT_TEXT("XAllocSizeHints() failed!")
+		);
 
-	hints->flags = PSize | PMinSize;
-	hints->min_width = min_w;
-	hints->min_height = min_h;
-	hints->base_width = desired_w;
-	hints->base_height = desired_h;
+	hints_->flags = PSize | PMinSize;
+	hints_->min_width = _min_w;
+	hints_->min_height = _min_h;
+	hints_->base_width = _desired_w;
+	hints_->base_height = _desired_h;
 }
 
 XSizeHints *
 sge::x11::size_hints::get() const
 {
-	return hints;
+	return hints_;
 }
 
 sge::x11::size_hints::~size_hints()
 {
-	XFree(hints);
+	XFree(
+		hints_
+	);
 }

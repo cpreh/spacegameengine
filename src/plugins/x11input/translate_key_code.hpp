@@ -22,14 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_TRANSLATE_KEY_CODE_HPP_INCLUDED
 
 #include <X11/Xlib.h>
-#include <sge/input/key_code.hpp>
+#include <sge/input/keyboard/key_code.hpp>
 
 namespace sge
 {
 namespace x11input
 {
 
-input::key_code
+input::keyboard::key_code::type
 translate_key_code(
 	KeySym
 );

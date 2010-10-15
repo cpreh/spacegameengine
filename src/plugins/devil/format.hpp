@@ -29,21 +29,28 @@ namespace sge
 namespace devil
 {
 
+// TODO; split this!
+
 image::color::format::type
 convert_format(
 	ILint bits_per_pixel,
 	ILenum format
 );
 
-ILint to_il_format(
-	image::color::format::type);
+ILenum
+to_il_format(
+	image::color::format::type
+);
 
-ILint to_il_channel(
-	image::color::format::type);
+ILenum
+to_il_channel(
+	image::color::format::type
+);
 
 image::color::format::type
 best_il_format(
-	image::color::format::type);
+	image::color::format::type
+);
 
 }
 }
