@@ -25,12 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/Xlib.h>
 #include <sge/x11/window_ptr.hpp>
 #include <sge/input/processor.hpp>
-#include <sge/input/callback.hpp>
-#include <sge/input/repeat_callback.hpp>
-#include <sge/input/key_pair_function.hpp>
-#include <sge/input/key_type_function.hpp>
-#include <sge/input/key_pair_fwd.hpp>
-#include <sge/input/key_type_fwd.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -51,21 +45,11 @@ class processor
 	)
 public:
 	explicit processor(
-		x11::window_ptr wnd
+		x11::window_ptr
 	);
 
 	~processor();
 private:
-	fcppt::signal::auto_connection
-	register_callback(
-		input::callback const &c
-	);
-
-	fcppt::signal::auto_connection
-	register_repeat_callback(
-		input::repeat_callback const &c
-	);
-
 	fcppt::signal::auto_connection
 	keyboard_discover_callback(
 		input::keyboard::discover_callback const &
@@ -99,21 +83,6 @@ private:
 	window() const;
 
 	void
-	emit_callback(
-		input::key_pair const &
-	);
-
-	void
-	emit_repeat_callback(
-		input::key_type const &
-	);
-
-	void
-	on_key_event(
-		XEvent const &
-	);
-
-	void
 	on_acquire(
 		XEvent const &
 	);
@@ -123,29 +92,17 @@ private:
 		XEvent const &
 	);
 
-	x11::window_ptr const wnd;
+	x11::window_ptr const wnd_;
 
-	bool acquired;
+	bool acquired_;
 
 	typedef boost::ptr_vector<
 		device
 	> device_vector;
 
-	device_vector devices;
+	device_vector devices_;
 
-	fcppt::signal::connection_manager connections;
-
-	typedef fcppt::signal::object<
-		input::key_pair_function
-	> signal_type;
-
-	typedef fcppt::signal::object<
-		input::key_type_function
-	> repeat_signal_type;
-
-	signal_type        sig;
-
-	repeat_signal_type repeat_sig;
+	fcppt::signal::connection_manager const connections_;
 };
 
 }

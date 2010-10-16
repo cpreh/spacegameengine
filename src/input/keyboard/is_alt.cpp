@@ -18,49 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/classification.hpp>
+#include <sge/input/keyboard/is_alt.hpp>
 
-bool sge::input::is_mouse_button(
-	key_code const key)
-{
-	return (key & kc::input_type_mask) == kc::input_type_mouse_key;
-}
-
-bool sge::input::is_mouse_axis(
-	key_code const key)
-{
-	return (key & kc::input_type_mask) == kc::input_type_mouse_axis;
-}
-
-bool sge::input::is_keyboard_key(
-	key_code const key)
-{
-	return (key & kc::input_type_mask) == kc::input_type_keyboard;
-}
-
-bool sge::input::is_shift(
-	key_code const key)
+bool
+sge::input::keyboard::is_alt(
+	key_code const _key
+)
 {
 	return
-		(key == kc::key_lshift) ||
-		(key == kc::key_rshift);
-}
-
-bool sge::input::is_ctrl(
-	key_code const key)
-{
-	// TODO: reevaluate role of altgr
-	return
-		(key == kc::key_lctrl) ||
-		(key == kc::key_rctrl) ||
-		(key == kc::key_altgr);
-}
-
-bool sge::input::is_alt(
-	key_code const key)
-{
-	// TODO: reevaluate role of altgr
-	return
-		(key == kc::key_alt  ) ||
-		(key == kc::key_altgr);
+		(_key == key_code::alt)
+		|| (_key == key_code::altgr);
 }

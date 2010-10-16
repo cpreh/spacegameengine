@@ -24,21 +24,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../mouse_grab.hpp"
 #include <X11/Xlib.h>
 #include <sge/log/global.hpp>
-#include <sge/input/key_code.hpp>
-#include <sge/input/key_pair.hpp>
-#include <sge/input/key_type.hpp>
+#include <sge/input/mouse/axis_event.hpp>
+#include <sge/input/mouse/axis.hpp>
+#include <sge/input/mouse/button_code.hpp>
+#include <sge/input/mouse/button_event.hpp>
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/make_unqiue_ptr.hpp>
 #include <fcppt/text.hpp>
 
 namespace
 {
 
-sge::input::key_code
+sge::input::mouse::button_code::type
 mouse_key_code(
 	unsigned x11code
 );
@@ -46,14 +50,13 @@ mouse_key_code(
 }
 
 sge::x11input::mouse::mouse(
-	x11::window_ptr const _wnd,
-	input::callback const &_callback
+	x11::window_ptr const _wnd
 )
 :
 	wnd_(_wnd),
 	black_(
 		_wnd->display(),
-		XDefaultColormap(
+		::XDefaultColormap(
 			_wnd->display()->get(),
 			_wnd->screen()
 		), // TODO: do we have to release this?
@@ -68,49 +71,55 @@ sge::x11input::mouse::mouse(
 		no_bmp_.get(),
 		black_.get()
 	),
-	callback_(_callback),
 	mouse_last_(
 		x11input::get_pointer(
 			_wnd
 		)
 	),
-	connections_(),
+	connections_(
+		fcppt::assign::make_container<
+			fcppt::signal::connection_manager::container
+		>(
+			fcppt::signal::shared_connection(
+				wnd_->register_callback(
+					MotionNotify,
+					std::tr1::bind(
+						&mouse::on_motion,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+		(
+			fcppt::signal::shared_connection(
+				wnd_->register_callback(
+					ButtonPress,
+					std::tr1::bind(
+						&mouse::on_button_down,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+		(
+			fcppt::signal::shared_connection(
+				wnd_->register_callback(
+					ButtonRelease,
+					std::tr1::bind(
+						&mouse::on_button_up,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+	),
 	grab_(),
 	button_signal_(),
 	axis_signal_()
 {
-	connections_.connect(
-		wnd_->register_callback(
-			MotionNotify,
-			std::tr1::bind(
-				&mouse::on_motion,
-				this,
-				std::tr1::placeholders::_1
-			)
-		)
-	);
-
-	connections_.connect(
-		wnd_->register_callback(
-			ButtonPress,
-			std::tr1::bind(
-				&mouse::on_button_down,
-				this,
-				std::tr1::placeholders::_1
-			)
-		)
-	);
-
-	connections_.connect(
-		wnd_->register_callback(
-			ButtonRelease,
-			std::tr1::bind(
-				&mouse::on_button_up,
-				this,
-				std::tr1::placeholders::_1
-			)
-		)
-	);
 }
 
 sge::x11input::mouse::~mouse()
@@ -142,8 +151,10 @@ sge::x11input::mouse::axis_callback(
 void
 sge::x11input::mouse::grab()
 {
-	grab_.reset(
-		new mouse_grab(
+	grab_.take(
+		fcppt::make_unique_ptr<
+			x11input::mouse_grab
+		>(
 			wnd_,
 			cursor_
 		)
@@ -158,52 +169,60 @@ sge::x11input::mouse::ungrab()
 
 void
 sge::x11input::mouse::on_motion(
-	XEvent const &e
+	XEvent const &_event
 )
 {
-	warped_motion(e);
+	warped_motion(
+		_event
+	);
 }
 
 void
 sge::x11input::mouse::on_button_down(
-	XEvent const &e
+	XEvent const &_event
 )
 {
-	callback_(
-		input::key_pair(
-			input::key_type(
-				::mouse_key_code(
-					e.xbutton.button
-				)
-			),
-			1
-		)
+	button_event(
+		_event,
+		true
 	);
 }
 
 void
 sge::x11input::mouse::on_button_up(
-	XEvent const &e
+	XEvent const &_event
 )
 {
-	callback_(
-		input::key_pair(
-			input::key_type(
-				::mouse_key_code(
-					e.xbutton.button
-				)
+	button_event(
+		_event,
+		false
+	);
+}
+
+void
+sge::x11input::mouse::button_event(
+	XEvent const &_event,
+	bool const _pressed
+)
+{
+	button_signal(
+		input::mouse::button_event(
+			::mouse_key_code(
+				_event.xbutton.button
 			),
-			0
+			_pressed
 		)
 	);
 }
 
 void
 sge::x11input::mouse::warped_motion(
-	XEvent xevent
+	XEvent _event
 )
 {
-	if(!grab_)
+	if(
+		!grab_
+	)
 		return;
 
 	mouse_coordinate const
@@ -212,40 +231,43 @@ sge::x11input::mouse::warped_motion(
 		h = wnd_->size().h();
 
 	mouse_coordinate
-		deltax = xevent.xmotion.x - mouse_last_.x(),
-		deltay = xevent.xmotion.y - mouse_last_.y();
+		deltax = _event.xmotion.x - mouse_last_.x(),
+		deltay = _event.xmotion.y - mouse_last_.y();
 
-	mouse_last_.x() = xevent.xmotion.x;
-	mouse_last_.y() = xevent.xmotion.y;
+	mouse_last_.x() = _event.xmotion.x;
+	mouse_last_.y() = _event.xmotion.y;
 
 	private_mouse_motion(
 		deltax,
 		deltay
 	);
 
-	if (
-		!((xevent.xmotion.x < mouse_fudge_factor) ||
-		(xevent.xmotion.x > (w-mouse_fudge_factor)) ||
-		(xevent.xmotion.y < mouse_fudge_factor) ||
-		(xevent.xmotion.y > (h-mouse_fudge_factor)) )
+	if(
+		!((_event.xmotion.x < mouse_fudge_factor) ||
+		(_event.xmotion.x > (w-mouse_fudge_factor)) ||
+		(_event.xmotion.y < mouse_fudge_factor) ||
+		(_event.xmotion.y > (h-mouse_fudge_factor)) )
 	)
 		return;
 
 	while(
-		XCheckTypedEvent(
+		::XCheckTypedEvent(
 			wnd_->display()->get(),
 			MotionNotify,
-			&xevent
+			&_event
 		)
 	)
 	{
-		deltax = xevent.xmotion.x - mouse_last_.x();
-		deltay = xevent.xmotion.y - mouse_last_.y();
+		deltax = _event.xmotion.x - mouse_last_.x();
+		deltay = _event.xmotion.y - mouse_last_.y();
 
-		mouse_last_.x() = xevent.xmotion.x;
-		mouse_last_.y() = xevent.xmotion.y;
+		mouse_last_.x() = _event.xmotion.x;
+		mouse_last_.y() = _event.xmotion.y;
 
-		private_mouse_motion(deltax, deltay);
+		private_mouse_motion(
+			deltax,
+			deltay
+		);
 	}
 
 	mouse_last_.x() = w / 2;
@@ -262,17 +284,17 @@ sge::x11input::mouse::warped_motion(
 		++i
 	)
 	{
-		XMaskEvent(
+		::XMaskEvent(
 			wnd_->display()->get(),
 			PointerMotionMask,
 			&xevent
 		);
 
-		if (
-			(xevent.xmotion.x > mouse_last_.x() - mouse_fudge_factor) &&
-			(xevent.xmotion.x < mouse_last_.x() + mouse_fudge_factor) &&
-			(xevent.xmotion.y > mouse_last_.y() - mouse_fudge_factor) &&
-			(xevent.xmotion.y < mouse_last_.y() + mouse_fudge_factor)
+		if(
+			(_event.xmotion.x > mouse_last_.x() - mouse_fudge_factor) &&
+			(_event.xmotion.x < mouse_last_.x() + mouse_fudge_factor) &&
+			(_event.xmotion.y > mouse_last_.y() - mouse_fudge_factor) &&
+			(_event.xmotion.y < mouse_last_.y() + mouse_fudge_factor)
 		)
 			return;
 	}
@@ -286,27 +308,27 @@ sge::x11input::mouse::warped_motion(
 
 void
 sge::x11input::mouse::private_mouse_motion(
-	mouse_coordinate const deltax,
-	mouse_coordinate const deltay
+	mouse_coordinate const _deltax,
+	mouse_coordinate const _deltay
 )
 {
-	if(deltax)
-		callback_(
-			input::key_pair(
-				input::key_type(
-					input::kc::mouse_x_axis
-				),
+	if(
+		_deltax
+	)
+		axis_signal_(
+			input::mouse::axis_event(
+				input::mouse::axis::x
 				deltax
 			)
 		);
 
-	if(deltay)
-		callback_(
-			input::key_pair(
-				input::key_type(
-					input::kc::mouse_y_axis
-				),
-				deltay
+	if(
+		_deltay
+	)
+		axis_signal_(
+			input::mouse::axis_event(
+				input::mouse::axis::y,
+				_deltay
 			)
 		);
 }
@@ -314,7 +336,7 @@ sge::x11input::mouse::private_mouse_motion(
 namespace
 {
 
-sge::input::key_code
+sge::input::mouse::button_code::type
 mouse_key_code(
 	unsigned const _x11code
 )
@@ -324,14 +346,14 @@ mouse_key_code(
 	)
 	{
 	case 1:
-		return sge::input::kc::mouse_l;
+		return sge::input::mouse::button::left;
 	case 2:
-		return sge::input::kc::mouse_m;
+		return sge::input::mouse::button::middle;
 	case 3:
-		return sge::input::kc::mouse_r;
+		return sge::input::mouse::button::right;
 	}
 	
-	return sge::input::kc::none;
+	return sge::input::mouse::button::unknown;
 }
 
 }

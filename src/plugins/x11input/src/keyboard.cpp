@@ -24,42 +24,55 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/Xlib.h>
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
-#include <sge/input/key_type.hpp>
-#include <sge/input/key_pair.hpp>
+#include <sge/input/keyboard/key.hpp>
+#include <sge/input/keyboard/key_event.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 
 sge::x11input::keyboard::keyboard(
 	x11::window_ptr const _wnd
 )
 :
-	wnd_(_wnd),
-	need_grab_(_wnd->fullscreen()),
-	connections_(),
+	wnd_(
+		_wnd
+	),
+	need_grab_(
+		_wnd->fullscreen()
+	),
+	connections_(
+		fcppt::assign::make_container<
+			fcppt::signal::connection_manager::container
+		>(
+			fcppt::signal::shared_connection(
+				wnd_->register_callback(
+					KeyPress,
+					std::tr1::bind(
+						&keyboard::on_key_event,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+		(
+			fcppt::signal::shared_connection(
+				wnd_->register_callback(
+					KeyRelease,
+					std::tr1::bind(
+						&keyboard::on_key_event,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+	),
 	grab_(),
 	key_signal_(),
 	key_repeat_signal_()
 {
-	connections_.connect(
-		wnd_->register_callback(
-			KeyPress,
-			std::tr1::bind(
-				&keyboard::on_key_event,
-				this,
-				std::tr1::placeholders::_1
-			)
-		)
-	);
-
-	connections_.connect(
-		wnd_->register_callback(
-			KeyRelease,
-			std::tr1::bind(
-				&keyboard::on_key_event,
-				this,
-				std::tr1::placeholders::_1
-			)
-		)
-	);
 }
 
 sge::x11input::keyboard::~keyboard()
@@ -94,8 +107,10 @@ sge::x11input::keyboard::grab()
 	if(
 		need_grab_
 	)
-		grab_.reset(
-			new keyboard_grab(
+		grab_.take(
+			fcppt::make_unique_ptr<
+				x11input::keyboard_grab
+			>(
 				wnd_
 			)
 		);
@@ -125,12 +140,15 @@ sge::x11input::keyboard::on_key_event(
 	// check for repeated key (thanks to SDL)
 	if(
 		_xev.type == KeyRelease
-		&& XPending(wnd_->display()->get())
+		&&
+		::XPending(
+			wnd_->display()->get()
+		)
 	)
 	{
 		XEvent peek;
 
-		XPeekEvent(
+		::XPeekEvent(
 			wnd_->display()->get(),
 			&peek
 		);
@@ -141,12 +159,12 @@ sge::x11input::keyboard::on_key_event(
 			(peek.xkey.time - _xev.xkey.time) < 2
 		)
 		{
-			XNextEvent(
+			::XNextEvent(
 				wnd_->display()->get(),
 				&peek
 			);
 
-			repeat_signal_(
+			key_repeat_signal_(
 				key
 			);
 
@@ -154,10 +172,10 @@ sge::x11input::keyboard::on_key_event(
 		}
 	}
 
-	callback_(
-		input::key_pair(
+	key_signal_(
+		input::keyboard::key_event(
 			key,
-			_xev.type == KeyRelease ? 0 : 1
+			_xev.type == KeyRelease
 		)
 	);
 }

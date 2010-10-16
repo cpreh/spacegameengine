@@ -18,17 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_KEY_STATE_HPP_INCLUDED
-#define SGE_INPUT_KEY_STATE_HPP_INCLUDED
+#include <sge/input/keyboard/is_shift.hpp>
 
-namespace sge
+bool
+sge::input::keyboard::is_shift(
+	key_code::type const _key
+)
 {
-namespace input
-{
-
-typedef int key_state;
-
+	return
+		(_key == key_code::lshift)
+		|| (_key == key_code::rshift);
 }
-}
-
-#endif

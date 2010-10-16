@@ -22,8 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_PROCESSOR_HPP_INCLUDED
 
 #include <sge/input/processor_fwd.hpp>
-#include <sge/input/callback.hpp>
-#include <sge/input/repeat_callback.hpp>
 #include <sge/input/keyboard/discover_callback.hpp>
 #include <sge/input/keyboard/remove_callback.hpp>
 #include <sge/input/keyboard/device_vector.hpp>
@@ -52,16 +50,6 @@ class SGE_CLASS_SYMBOL processor
 protected:
 	SGE_SYMBOL processor();
 public:
-	virtual fcppt::signal::auto_connection
-	register_callback(
-		callback const &
-	) = 0;
-
-	virtual fcppt::signal::auto_connection
-	register_repeat_callback(
-		repeat_callback const &
-	) = 0;
-
 	//
 	// keyboards
 	//

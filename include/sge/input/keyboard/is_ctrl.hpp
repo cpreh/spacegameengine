@@ -18,36 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_KEY_PAIR_HPP_INCLUDED
-#define SGE_INPUT_KEY_PAIR_HPP_INCLUDED
+#ifndef SGE_INPUT_KEYBOARD_IS_CTRL_HPP_INCLUDED
+#define SGE_INPUT_KEYBOARD_IS_CTRL_HPP_INCLUDED
 
-#include <sge/input/key_type.hpp>
-#include <sge/input/key_state.hpp>
+#include <sge/input/keyboard/key_code.hpp>
 #include <sge/symbol.hpp>
 
 namespace sge
 {
 namespace input
 {
-
-class key_pair
+namespace keyboard
 {
-public:
-	SGE_SYMBOL key_pair(
-		key_type const &key,
-		key_state value
-	);
 
-	SGE_SYMBOL key_type const &
-	key() const;
+SGE_SYMBOL
+bool
+is_ctrl(
+	key_code::type
+);
 
-	SGE_SYMBOL key_state
-	value() const;
-private:
-	key_type  key_;
-	key_state value_;
-};
-
+}
 }
 }
 

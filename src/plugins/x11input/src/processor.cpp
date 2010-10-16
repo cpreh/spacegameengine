@@ -27,8 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/display.hpp>
 #include <sge/x11/window.hpp>
 #include <sge/log/global.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/log/headers.hpp>
+#include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr.hpp>
@@ -36,11 +38,64 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 
 sge::x11input::processor::processor(
-	x11::window_ptr const wnd
+	x11::window_ptr const _wnd
 )
 :
-	wnd(wnd),
-	acquired(false)
+	wnd_(_wnd),
+	acquired_(false),
+	devices_(),
+	connections_(
+		fcppt::assign::make_container<
+			fcppt::signal::connection_manager::container
+		>(
+			fcppt::signal::shared_connection(
+				wnd_->register_callback(
+					FocusIn,
+					std::tr1::bind(
+						&processor::on_acquire,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+		(
+			fcppt::signal::shared_connection(
+				wnd_->register_callback(
+					FocusOut,
+					std::tr1::bind(
+						&processor::on_release,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+		(
+			fcppt::signal::shared_connection(
+				wnd_->register_callback(
+					MapNotify,
+					std::tr1::bind(
+						&processor::on_acquire,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+		(
+			fcppt::signal::shared_connection(
+				wnd_->register_callback(
+					UnmapNotify,
+					std::tr1::bind(
+						&processor::on_release,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+	)
 {
 	/*
 	connections.connect(
@@ -65,112 +120,27 @@ sge::x11input::processor::processor(
 		)
 	);
 */
-	connections.connect(
-		wnd->register_callback(
-			FocusIn,
-			std::tr1::bind(
-				&processor::on_acquire,
-				this,
-				std::tr1::placeholders::_1
-			)
-		)
-	);
-
-	connections.connect(
-		wnd->register_callback(
-			FocusOut,
-			std::tr1::bind(
-				&processor::on_release,
-				this,
-				std::tr1::placeholders::_1
-			)
-		)
-	);
-
-	connections.connect(
-		wnd->register_callback(
-			MapNotify,
-			std::tr1::bind(
-				&processor::on_acquire,
-				this,
-				std::tr1::placeholders::_1
-			)
-		)
-	);
-
-	connections.connect(
-		wnd->register_callback(
-			UnmapNotify,
-			std::tr1::bind(
-				&processor::on_release,
-				this,
-				std::tr1::placeholders::_1
-			)
-		)
-	);
-
-	typedef fcppt::unique_ptr<
-		device
-	> device_unique_ptr;
-
-	input::callback const callback(
-		std::tr1::bind(
-			&processor::emit_callback,
-			this,
-			std::tr1::placeholders::_1
+	fcppt::container::ptr::push_back_unique_ptr(
+		devices_,
+		fcppt::make_unique_ptr<
+			x11input::mouse
+		>(
+			wnd_
 		)
 	);
 
 	fcppt::container::ptr::push_back_unique_ptr(
-		devices,
+		devices_,
 		fcppt::make_unique_ptr<
-			mouse
+			x11input::keyboard
 		>(
-			wnd,
-			callback
-		)
-	);
-
-	fcppt::container::ptr::push_back_unique_ptr(
-		devices,
-		fcppt::make_unique_ptr<
-			keyboard
-		>(
-			wnd,
-			callback,
-			std::tr1::bind(
-				&processor::emit_repeat_callback,
-				this,
-				std::tr1::placeholders::_1
-			)
+			wnd_
 		)
 	);
 }
 
 sge::x11input::processor::~processor()
 {
-}
-
-fcppt::signal::auto_connection
-sge::x11input::processor::register_callback(
-	input::callback const &_callback
-)
-{
-	return
-		sig.connect(
-			_callback
-		);
-}
-
-fcppt::signal::auto_connection
-sge::x11input::processor::register_repeat_callback(
-	input::repeat_callback const &_callback
-)
-{
-	return
-		repeat_sig.connect(
-			_callback
-		);
 }
 
 fcppt::signal::auto_connection
@@ -219,25 +189,7 @@ sge::x11input::processor::dispatch()
 sge::window::instance_ptr const
 sge::x11input::processor::window() const
 {
-	return wnd;
-}
-
-void
-sge::x11input::processor::emit_callback(
-	input::key_pair const &_key
-)
-{
-	sig(
-		_key
-	);
-}
-
-void
-sge::x11input::processor::emit_repeat_callback(
-	input::key_type const &k
-)
-{
-	repeat_sig(k);
+	return wnd_;
 }
 
 void
@@ -245,10 +197,12 @@ sge::x11input::processor::on_acquire(
 	XEvent const &
 )
 {
-	if(acquired)
+	if(
+		acquired_
+	)
 		return;
 
-	acquired = true;
+	acquired_ = true;
 
 	FCPPT_LOG_DEBUG(
 		log::global(),
@@ -258,11 +212,11 @@ sge::x11input::processor::on_acquire(
 
 	BOOST_FOREACH(
 		device_vector::reference dev,
-		devices
+		devices_
 	)
 		dev.grab();
 
-	wnd->display()->sync();
+	wnd_->display()->sync();
 }
 
 void
@@ -270,10 +224,12 @@ sge::x11input::processor::on_release(
 	XEvent const &
 )
 {
-	if(!acquired)
+	if(
+		!acquired_
+	)
 		return;
 
-	acquired = false;
+	acquired_ = false;
 
 	FCPPT_LOG_DEBUG(
 		log::global(),
@@ -283,7 +239,7 @@ sge::x11input::processor::on_release(
 
 	BOOST_FOREACH(
 		device_vector::reference dev,
-		devices
+		devices_
 	)
 		dev.ungrab();
 }

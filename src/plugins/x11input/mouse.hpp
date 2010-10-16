@@ -31,12 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/axis_function.hpp>
 #include <sge/input/mouse/button_callback.hpp>
 #include <sge/input/mouse/button_function.hpp>
-#include <sge/input/callback.hpp>
 #include <sge/x11/window_ptr.hpp>
 #include <sge/x11/color.hpp>
 #include <sge/x11/pixmap.hpp>
 #include <sge/x11/cursor.hpp>
-#include <sge/x11/cursor_fwd.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object.hpp>
@@ -54,11 +52,12 @@ class mouse
 	public sge::input::mouse::device,
 	public x11input::device
 {
-	FCPPT_NONCOPYABLE(mouse)
+	FCPPT_NONCOPYABLE(
+		mouse
+	)
 public:
-	mouse(
-		x11::window_ptr,
-		input::callback const &
+	explicit mouse(
+		x11::window_ptr
 	);
 
 	~mouse();
@@ -95,6 +94,12 @@ private:
 	);
 
 	void
+	button_event(
+		XEvent const &,
+		bool pressed
+	);
+
+	void
 	warped_motion(
 		XEvent
 	);
@@ -113,11 +118,9 @@ private:
 
 	x11::cursor const cursor_;
 
-	input::callback const callback_;
-
 	mouse_pos mouse_last_;
 
-	fcppt::signal::connection_manager connections_;
+	fcppt::signal::connection_manager const connections_;
 
 	fcppt::scoped_ptr<
 		mouse_grab

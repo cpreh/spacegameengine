@@ -18,62 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_KEY_TYPE_HPP_INCLUDED
-#define SGE_INPUT_KEY_TYPE_HPP_INCLUDED
+#ifndef SGE_INPUT_KEYBOARD_IS_ALT_HPP_INCLUDED
+#define SGE_INPUT_KEYBOARD_IS_ALT_HPP_INCLUDED
 
-#include <sge/input/key_code.hpp>
+#include <sge/input/keyboard/key_code.hpp>
 #include <sge/symbol.hpp>
-#include <fcppt/char_type.hpp>
 
 namespace sge
 {
 namespace input
 {
-
-class key_type
+namespace keyboard
 {
-public:
-	typedef fcppt::char_type char_type;
 
-	SGE_SYMBOL explicit key_type(
-		key_code code = kc::none,
-		char_type char_code = 0
-	);
-
-	SGE_SYMBOL key_code
-	code() const;
-
-	SGE_SYMBOL char_type
-	char_code() const;
-
-	SGE_SYMBOL void
-	char_code(
-		char_type
-	);
-private:
-	key_code  code_;
-
-	char_type char_code_;
-};
-
-SGE_SYMBOL bool
-operator<(
-	key_type const &,
-	key_type const &
+SGE_SYMBOL
+bool
+is_alt(
+	key_code::type
 );
 
-SGE_SYMBOL bool
-operator==(
-	key_type const &,
-	key_type const &
-);
-
-SGE_SYMBOL bool
-operator!=(
-	key_type const &,
-	key_type const &
-);
-
+}
 }
 }
 

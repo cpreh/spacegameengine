@@ -29,8 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_repeat_callback.hpp>
 #include <sge/input/keyboard/key_function.hpp>
 #include <sge/input/keyboard/key_repeat_function.hpp>
-#include <sge/input/callback.hpp>
-#include <sge/input/repeat_callback.hpp>
 #include <sge/x11/window_ptr.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -48,12 +46,12 @@ class keyboard
 	public sge::input::keyboard::device,
 	public x11input::device
 {
-	FCPPT_NONCOPYABLE(keyboard)
+	FCPPT_NONCOPYABLE(
+		keyboard
+	)
 public:
-	keyboard(
-		x11::window_ptr,
-		input::callback const &,
-		input::repeat_callback const &
+	explicit keyboard(
+		x11::window_ptr
 	);
 
 	~keyboard();
@@ -81,13 +79,9 @@ private:
 
 	x11::window_ptr const wnd_;
 
-	input::callback const callback_;
-
-	input::repeat_callback const repeat_callback_;
-
 	bool const need_grab_;
 
-	fcppt::signal::connection_manager connections_;
+	fcppt::signal::connection_manager const connections_;
 
 	fcppt::scoped_ptr<
 		keyboard_grab

@@ -18,16 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_KEY_PAIR_FWD_HPP_INCLUDED
-#define SGE_INPUT_KEY_PAIR_FWD_HPP_INCLUDED
+#ifndef SGE_INPUT_KEYBOARD_IS_SHIFT_HPP_INCLUDED
+#define SGE_INPUT_KEYBOARD_IS_SHIFT_HPP_INCLUDED
+
+#include <sge/input/keyboard/key_code.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
 namespace input
 {
+namespace keyboard
+{
 
-class key_pair;
+SGE_SYMBOL
+bool
+is_shift(
+	key_code::type
+);
 
+}
 }
 }
 
