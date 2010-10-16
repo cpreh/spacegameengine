@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/make_unqiue_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 
 namespace
@@ -205,7 +205,7 @@ sge::x11input::mouse::button_event(
 	bool const _pressed
 )
 {
-	button_signal(
+	button_signal_(
 		input::mouse::button_event(
 			::mouse_key_code(
 				_event.xbutton.button
@@ -287,7 +287,7 @@ sge::x11input::mouse::warped_motion(
 		::XMaskEvent(
 			wnd_->display()->get(),
 			PointerMotionMask,
-			&xevent
+			&_event
 		);
 
 		if(
@@ -317,8 +317,8 @@ sge::x11input::mouse::private_mouse_motion(
 	)
 		axis_signal_(
 			input::mouse::axis_event(
-				input::mouse::axis::x
-				deltax
+				input::mouse::axis::x,
+				_deltax
 			)
 		);
 
@@ -346,14 +346,14 @@ mouse_key_code(
 	)
 	{
 	case 1:
-		return sge::input::mouse::button::left;
+		return sge::input::mouse::button_code::left;
 	case 2:
-		return sge::input::mouse::button::middle;
+		return sge::input::mouse::button_code::middle;
 	case 3:
-		return sge::input::mouse::button::right;
+		return sge::input::mouse::button_code::right;
 	}
 	
-	return sge::input::mouse::button::unknown;
+	return sge::input::mouse::button_code::unknown;
 }
 
 }

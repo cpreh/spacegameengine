@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/foreach.hpp>
 
 sge::input::modifier::filter::filter(
-	sge::input::keyboard_ptr const _keyboard
+	sge::input::keyboard::device_ptr const _keyboard
 )
 :
 	signal_(),
@@ -59,12 +59,12 @@ sge::input::modifier::filter::filter(
 		list()
 	)
 		BOOST_FOREACH(
-			key_code const &c,
+			keyboard::key_code::type const &c,
 			o.codes
 		)
 			modifiers_.insert(
 				c,
-				static_cast<key_state>(0)
+				false
 			);
 }
 
@@ -112,7 +112,7 @@ sge::input::modifier::filter::input_callback(
 			{
 				modifiers_[
 					_key.key().code()
-				] = _key.value();
+				] = _key.pressed();
 
 				return;
 			}

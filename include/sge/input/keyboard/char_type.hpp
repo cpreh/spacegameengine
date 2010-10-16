@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_KEYBOARD_CHAR_TYPE_HPP_INCLUDED
 #define SGE_INPUT_KEYBOARD_CHAR_TYPE_HPP_INCLUDED
 
-#include <boost/cstdint.hpp>
+#include <fcppt/char_type.hpp>
 
 namespace sge
 {
@@ -30,7 +30,7 @@ namespace input
 namespace keyboard
 {
 
-typedef boost::uint32_t char_type; // TODO: what to use here?
+typedef fcppt::char_type char_type; // TODO: what to use here?
 
 }
 }

@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/events/mouse_click.hpp>
 #include <sge/gui/manager.hpp>
 #include <sge/gui/widgets/log.hpp>
-#include <sge/input/key_type.hpp>
-#include <sge/input/key_code.hpp>
+#include <sge/input/keyboard/key_event.hpp>
+#include <sge/input/keyboard/key_code.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/log/parameters/inherited.hpp>
 #include <fcppt/log/object.hpp>
@@ -71,14 +71,14 @@ void sge::gui::widgets::buttons::base::process_mouse_leave(events::mouse_leave c
 
 void sge::gui::widgets::buttons::base::process_mouse_click(events::mouse_click const &c)
 {
-	if (c.value().value())
+	if (c.value().pressed())
 		clicked_();
 }
 
 sge::gui::key_handling::type sge::gui::widgets::buttons::base::process_key(
 	events::key const &k)
 {
-	if (k.value().key().code() == input::kc::key_return)
+	if (k.value().key().code() == input::keyboard::key_code::return_)
 	{
 		clicked_();
 		return key_handling::ignore;

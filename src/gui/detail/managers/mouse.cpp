@@ -30,9 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/sprite/point.hpp>
 #include <sge/gui/exception.hpp>
 #include <sge/gui/log.hpp>
-#include <sge/input/key_pair.hpp>
-#include <sge/input/processor.hpp>
-#include <sge/input/classification.hpp>
+#include <sge/input/mouse/axis_event.hpp>
+#include <sge/input/mouse/button_event.hpp>
+#include <sge/input/mouse/device.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <fcppt/math/box/contains_point.hpp>
 #include <fcppt/math/box/output.hpp>
@@ -60,19 +60,26 @@ fcppt::log::object mylogger(
 
 sge::gui::sprite::point const
 key_to_mouse_coords(
-	sge::input::key_pair const &k
+	sge::input::mouse::axis_event const &k
 )
 {
-	if (k.key().code() == sge::input::kc::mouse_x_axis)
+	switch(
+		k.axis()
+	)
+	{
+	case sge::input::mouse::axis::x:
 		return sge::gui::sprite::point(
-			static_cast<sge::gui::sprite::unit>(k.value()),
+			static_cast<sge::gui::sprite::unit>(k.axis_position()),
 			static_cast<sge::gui::sprite::unit>(0)
 		);
-	
-	return sge::gui::sprite::point(
-		static_cast<sge::gui::sprite::unit>(0),
-		static_cast<sge::gui::sprite::unit>(k.value())
-	);
+	case sge::input::mouse::axis::y:
+		return sge::gui::sprite::point(
+			static_cast<sge::gui::sprite::unit>(0),
+			static_cast<sge::gui::sprite::unit>(k.axis_position())
+		);
+	default:
+		return sge::gui::sprite::point::null(); // TODO?
+	}
 }
 
 bool active(sge::gui::widgets::base const &w)
@@ -91,13 +98,24 @@ bool active(sge::gui::widgets::base const &w)
 }
 
 sge::gui::detail::managers::mouse::mouse(
-	input::processor_ptr const is,
-	cursor::base_ptr _cursor)
+	input::mouse::device_ptr const _mouse,
+	cursor::base_ptr _cursor
+)
 :
-	ic(
-	  	is->register_callback(
+	widgets(),
+	axis_connection(
+		_mouse->axis_callback(
 	  		std::tr1::bind(
-				&mouse::input_callback,
+				&mouse::axis_callback,
+				this,
+				std::tr1::placeholders::_1
+			)
+		)
+	),
+	button_connection(
+		_mouse->button_callback(
+			std::tr1::bind(
+				&mouse::button_callback,
 				this,
 				std::tr1::placeholders::_1
 			)
@@ -233,29 +251,37 @@ void sge::gui::detail::managers::mouse::z(
 
 }
 
-void sge::gui::detail::managers::mouse::input_callback(
-	input::key_pair const &k)
+void
+sge::gui::detail::managers::mouse::axis_callback(
+	input::mouse::axis_event const &k
+)
 {
-	if (input::is_mouse_axis(k.key().code()))
-	{
-		cursor_->pos(
-			cursor_->pos()+key_to_mouse_coords(k));
-		recalculate_focus();
-		return;
-	}
+	cursor_->pos(
+		cursor_->pos()
+		+ key_to_mouse_coords(k)
+	);
 
-	if (!input::is_mouse_button(k.key().code()))
-		return;
+	recalculate_focus();
+}
 
+void
+sge::gui::detail::managers::mouse::button_callback(
+	input::mouse::button_event const &k
+)
+{
 	if (!focus)
 		return;
 
 	focus->process_mouse_click(
 		events::mouse_click(
 			fcppt::math::vector::structure_cast<point>(
-				cursor_->pos()),
-			k));
+				cursor_->pos()
+			),
+			k
+		)
+	);
 }
+
 
 sge::gui::widgets::base *sge::gui::detail::managers::mouse::recalculate_focus(
 	widgets::base &w,

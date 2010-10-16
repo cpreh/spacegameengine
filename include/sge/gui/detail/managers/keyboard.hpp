@@ -24,11 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/detail/submanager.hpp>
 #include <sge/gui/widgets/fwd.hpp>
 #include <sge/gui/keyboard_focus.hpp>
-#include <sge/input/processor_ptr.hpp>
 #include <sge/input/modifier/filter.hpp>
 #include <sge/input/modifier/states.hpp>
-#include <sge/input/key_pair_fwd.hpp>
-#include <sge/input/key_type.hpp>
+#include <sge/input/keyboard/key_event_fwd.hpp>
+#include <sge/input/keyboard/key_fwd.hpp>
+#include <sge/input/keyboard/device_ptr.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/optional.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
@@ -44,14 +44,17 @@ namespace managers
 class keyboard : public submanager
 {
 public:
-	explicit keyboard(input::processor_ptr);
+	explicit keyboard(
+		input::keyboard::device_ptr
+	);
+
 	void add(widgets::base &);
 	void activation(widgets::base &,activation_state::type);
 	void request_focus(widgets::base &);
 	void remove(widgets::base &);
 	void cycle_focus();
 	void keyboard_focus(widgets::base &,keyboard_focus::type);
-	private:
+private:
 	typedef boost::ptr_list<
 		widgets::base,
 		boost::view_clone_allocator
@@ -65,11 +68,11 @@ public:
 		irc;
 
 	void input_callback(
-		input::key_pair const &,
+		input::keyboard::key_event const &,
 		input::modifier::states const &,
 		bool);
 	void repeat_callback(
-		input::key_type const &,
+		input::keyboard::key const &,
 		input::modifier::states const &);
 	void switch_focus(widget_container::iterator);
 };

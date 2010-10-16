@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key.hpp>
 #include <limits>
 
-sge::input::key_type const
+sge::input::keyboard::key const
 sge::x11input::keyboard_key(
 	XKeyEvent const &_xev
 )
@@ -67,7 +67,7 @@ sge::x11input::keyboard_key(
 		input::keyboard::key(
 			x11input::translate_key_code(
 				ks
-			)	
+			),
 			char_code // TODO: translate this!
 		);
 }

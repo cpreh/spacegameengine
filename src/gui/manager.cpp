@@ -27,13 +27,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/cursor/base.hpp>
 #include <sge/gui/manager.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <boost/foreach.hpp>
 
 sge::gui::manager::manager(
-	renderer::device_ptr const rend,
-	input::processor_ptr const is,
+	renderer::device_ptr const _rend,
+	input::keyboard::device_ptr const _keyboard,
+	input::mouse::device_ptr const _mouse,
 	skins::ptr _skin,
-	cursor::base_ptr const _cursor)
+	cursor::base_ptr const _cursor
+)
 :
 	skin_(
 		move(
@@ -41,24 +45,48 @@ sge::gui::manager::manager(
 		)
 	),
 	cursor_(
-		_cursor),
+		_cursor
+	),
 	mouse_(
-		new detail::managers::mouse(
-			is,
-			cursor_)),
+		fcppt::make_unique_ptr<
+			detail::managers::mouse
+		>(
+			_mouse,
+			cursor_
+		)
+	),
 	render_(
-		new detail::managers::render(
-			rend,
-			cursor_)),
+		fcppt::make_unique_ptr<
+			detail::managers::render
+		>(
+			_rend,
+			cursor_
+		)
+	),
 	keyboard_(
-		new detail::managers::keyboard(
-			is)),
+		fcppt::make_unique_ptr<
+			detail::managers::keyboard
+		>(
+			_keyboard
+		)
+	),
 	compiler_(
-		new detail::managers::compiler(
-			*mouse_,
-			*render_)),
+		fcppt::make_unique_ptr<
+			detail::managers::compiler
+		>(
+			std::tr1::ref(
+				*mouse_
+			),
+			std::tr1::ref(
+				*render_
+			)
+		)
+	),
 	timer_(
-		new detail::managers::time())
+		fcppt::make_unique_ptr<
+			detail::managers::time
+		>()
+	)
 {
 	// TODO: find a way to initialize this in the constructor
 	// that works for both gcc-4.3 and gcc-4.4.
@@ -69,7 +97,8 @@ sge::gui::manager::manager(
 	submanagers.push_back(render_.get());
 }
 
-sge::gui::manager::~manager() {}
+sge::gui::manager::~manager()
+{}
 
 void sge::gui::manager::dirty(
 	widgets::base &w,

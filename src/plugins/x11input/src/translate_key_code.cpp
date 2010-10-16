@@ -32,14 +32,14 @@ typedef std::map<
 > x11_to_sge_map;
 
 x11_to_sge_map const x11_to_sge = boost::assign::map_list_of
-	(NoSymbol, sge::input::keyboard::key_code::none)
+	(NoSymbol, sge::input::keyboard::key_code::unknown)
 	(XK_BackSpace, sge::input::keyboard::key_code::backspace)
 	(XK_Tab, sge::input::keyboard::key_code::tab)
-	(XK_Return, sge::input::keyboard::key_code::return)
+	(XK_Return, sge::input::keyboard::key_code::return_)
 	(XK_Pause, sge::input::keyboard::key_code::pause)
 	(XK_Scroll_Lock, sge::input::keyboard::key_code::scroll)
 	(XK_Escape, sge::input::keyboard::key_code::escape)
-	(XK_Delete, sge::input::keyboard::key_code::delete)
+	(XK_Delete, sge::input::keyboard::key_code::delete_)
 
 	(XK_Home, sge::input::keyboard::key_code::home)
 	(XK_Left, sge::input::keyboard::key_code::left)
@@ -443,7 +443,7 @@ x11_to_sge_map const x11_to_sge = boost::assign::map_list_of
 
 }
 
-sge::input::key_code
+sge::input::keyboard::key_code::type
 sge::x11input::translate_key_code(
 	KeySym const _sym
 )

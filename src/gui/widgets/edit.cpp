@@ -34,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/metrics.hpp>
 #include <sge/font/flags_none.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/math/almost_zero.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/log/parameters/inherited.hpp>
@@ -141,10 +140,10 @@ void sge::gui::widgets::edit::process_keyboard_enter(events::keyboard_enter cons
 
 sge::gui::key_handling::type sge::gui::widgets::edit::process_key(events::key const &k)
 {
-	if (fcppt::math::almost_zero(k.value().value()))
+	if (!k.value().pressed())
 		return key_handling::process;
 
-	if (type == single_line && k.value().key().code() == input::kc::key_return)
+	if (type == single_line && k.value().key().code() == input::keyboard::key_code::return_)
 	{
 		return_pressed();
 		return key_handling::process;

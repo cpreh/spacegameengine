@@ -26,8 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/detail/submanager.hpp>
 #include <sge/gui/cursor/base_ptr.hpp>
 #include <sge/gui/widgets/fwd.hpp>
-#include <sge/input/processor_ptr.hpp>
-#include <sge/input/key_pair_fwd.hpp>
+#include <sge/input/mouse/device_ptr.hpp>
+#include <sge/input/mouse/axis_event_fwd.hpp>
+#include <sge/input/mouse/button_event_fwd.hpp>
 #include <sge/sprite/object.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
@@ -42,9 +43,9 @@ namespace managers
 {
 class mouse : public submanager
 {
-	public:
+public:
 	mouse(
-		input::processor_ptr,
+		input::mouse::device_ptr,
 		cursor::base_ptr);
 
 	void resize(
@@ -59,18 +60,29 @@ class mouse : public submanager
 	void remove(widgets::base &);
 	void recalculate_focus();
 	void z(widgets::base &,depth_type);
-	private:
+private:
 	typedef boost::ptr_vector<
 		widgets::base,
 		boost::view_clone_allocator> widget_container;
 
 	widget_container widgets;
-	fcppt::signal::scoped_connection const ic;
+	fcppt::signal::scoped_connection const
+		axis_connection,
+		button_connection;
 	cursor::base_ptr cursor_;
 	widgets::base *focus;
 	bool dirty_;
 
-	void input_callback(input::key_pair const &);
+	void
+	axis_callback(
+		input::mouse::axis_event const &
+	);
+
+	void
+	button_callback(
+		input::mouse::button_event const &
+	);
+
 	widgets::base *recalculate_focus(widgets::base &w,point const &);
 	widgets::base *do_recalculate_focus(widgets::base &,point const &);
 };

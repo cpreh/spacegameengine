@@ -26,11 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widgets/base.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/gui/exception.hpp>
-#include <sge/input/system.hpp>
-#include <sge/input/key_type.hpp>
-#include <sge/input/classification.hpp>
-#include <sge/input/key_pair.hpp>
-#include <fcppt/math/almost_zero.hpp>
+#include <sge/input/keyboard/key_event.hpp>
+#include <sge/input/keyboard/key.hpp>
 #include <fcppt/log/parameters/inherited.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/log/headers.hpp>
@@ -67,7 +64,7 @@ bool active(sge::gui::widgets::base const &w)
 }
 
 sge::gui::detail::managers::keyboard::keyboard(
-	sge::input::processor_ptr const is
+	sge::input::keyboard::device_ptr const is
 )
 :
 	input_filter(is),
@@ -273,27 +270,29 @@ void sge::gui::detail::managers::keyboard::keyboard_focus(
 	}
 }
 
-void sge::gui::detail::managers::keyboard::repeat_callback(
-	input::key_type const &k,
-	input::modifier::states const &s)
+void
+sge::gui::detail::managers::keyboard::repeat_callback(
+	input::keyboard::key const &k,
+	input::modifier::states const &s
+)
 {
 	input_callback(
-		input::key_pair(
+		input::keyboard::key_event(
 			k,
-			static_cast<input::key_state>(1)),
+			true
+		),
 		s,
-		true);
+		true
+	);
 }
 
-void sge::gui::detail::managers::keyboard::input_callback(
-	input::key_pair const &k,
+void
+sge::gui::detail::managers::keyboard::input_callback(
+	input::keyboard::key_event const &k,
 	input::modifier::states const &s,
 	bool const repeated)
 {
 	if (widgets.empty())
-		return;
-
-	if (input::is_mouse_axis(k.key().code()) || input::is_mouse_button(k.key().code()))
 		return;
 
 	if (focus)
@@ -302,9 +301,9 @@ void sge::gui::detail::managers::keyboard::input_callback(
 			return;
 	}
 
-	if (k.key().code() == sge::input::kc::key_tab)
+	if (k.key().code() == sge::input::keyboard::key_code::tab)
 	{
-		if (!fcppt::math::almost_zero(k.value()))
+		if (k.pressed())
 			cycle_focus();
 		return;
 	}

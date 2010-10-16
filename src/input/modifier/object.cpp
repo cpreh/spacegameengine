@@ -18,28 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "list.hpp"
-#include <sge/input/keyboard/key_code.hpp>
-#include <boost/assign/list_of.hpp>
+#include "object.hpp"
 
-sge::input::modifier::container const &sge::input::modifier::list()
-{
-	static container mods =
-		boost::assign::list_of
-		(object(
-				boost::assign::list_of
-					(sge::input::keyboard::key_code::lshift)
-					(sge::input::keyboard::key_code::rshift),
-				types::shift))
-		(object(
-				boost::assign::list_of
-					(sge::input::keyboard::key_code::lctrl)
-					(sge::input::keyboard::key_code::rctrl),
-				types::ctrl))
-		(object(
-				boost::assign::list_of
-					(sge::input::keyboard::key_code::alt)
-					(sge::input::keyboard::key_code::altgr),
-				types::alt)).to_container(mods);
-	return mods;
-}
+sge::input::modifier::object::object(
+	code_container const &_codes,
+	types::type const _t
+)
+:
+	codes(_codes),
+	t(_t)
+{}

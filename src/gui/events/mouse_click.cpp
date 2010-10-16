@@ -19,14 +19,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/gui/events/mouse_click.hpp>
-#include <sge/input/classification.hpp>
-#include <fcppt/assert.hpp>
 
 sge::gui::events::mouse_click::mouse_click(
-	point const &pos_,
-	input::key_pair const &kp)
-	: pos_(pos_),
-	  kp(kp)
+	point const &_pos,
+	input::mouse::button_event const &_kp
+)
+:
+	pos_(_pos),
+	kp_(_kp)
 {
-	FCPPT_ASSERT(input::is_mouse_button(kp.key().code()));
+}
+
+
+sge::gui::point const &
+sge::gui::events::mouse_click::pos() const
+{
+	return pos_;
+}
+
+sge::input::mouse::button_event const &
+sge::gui::events::mouse_click::value() const
+{
+	return kp_;
 }

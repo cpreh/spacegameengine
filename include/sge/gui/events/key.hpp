@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_EVENTS_KEY_HPP_INCLUDED
 #define SGE_GUI_EVENTS_KEY_HPP_INCLUDED
 
-#include <sge/input/key_pair.hpp>
+#include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/modifier/states.hpp>
 #include <sge/gui/export.hpp>
 #include <fcppt/container/map_decl.hpp>
@@ -40,15 +40,20 @@ class key
 	)
 public:
 	SGE_GUI_SYMBOL key(
-		input::key_pair const &,
+		input::keyboard::key_event const &,
 		input::modifier::states const &,
 		bool repeated);
 
-	SGE_GUI_SYMBOL input::key_pair const &value() const;
-	SGE_GUI_SYMBOL input::modifier::states const &modifiers() const;
-	SGE_GUI_SYMBOL bool repeated() const;
+	SGE_GUI_SYMBOL input::keyboard::key_event const &
+	value() const;
+
+	SGE_GUI_SYMBOL input::modifier::states const &
+	modifiers() const;
+
+	SGE_GUI_SYMBOL bool
+	repeated() const;
 private:
-	input::key_pair const kp;
+	input::keyboard::key_event const kp;
 	input::modifier::states const s;
 	bool repeated_;
 };

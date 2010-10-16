@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/gui/detail/cursor_delegate.hpp>
-#include <sge/input/key_pair.hpp>
+#include <sge/input/keyboard/key_event.hpp>
 #include <fcppt/text.hpp>
 #include <algorithm>
 
@@ -36,15 +36,17 @@ sge::gui::detail::cursor_delegate::pos() const
 	return pos_;
 }
 
-void sge::gui::detail::cursor_delegate::key_callback(
-	input::key_pair const &c)
+void
+sge::gui::detail::cursor_delegate::key_callback(
+	input::keyboard::key_event const &c
+)
 {
 	switch (c.key().code())
 	{
-		case input::kc::key_return:
+		case input::keyboard::key_code::return_:
 			text += FCPPT_TEXT('\n');
 		break;
-		case input::kc::key_left:
+		case input::keyboard::key_code::left:
 			if (pos_ == 0)
 				return;
 
@@ -53,12 +55,12 @@ void sge::gui::detail::cursor_delegate::key_callback(
 			if (text[pos_] == FCPPT_TEXT('\n'))
 				pos_--;
 		break;
-		case input::kc::key_right:
+		case input::keyboard::key_code::right:
 			pos_ = std::min(pos_+1,text.length());
 			if (text[pos_] == FCPPT_TEXT('\n'))
 				pos_++;
 		break;
-		case input::kc::key_backspace:
+		case input::keyboard::key_code::backspace:
 			if (pos_ == 0)
 				return;
 
@@ -76,7 +78,7 @@ void sge::gui::detail::cursor_delegate::key_callback(
 			pos_--;
 		break;
 		default:
-			if (c.key().char_code() == 0)
+			if (c.key().character() == 0)
 				return;
 
 			text.insert(
@@ -87,7 +89,7 @@ void sge::gui::detail::cursor_delegate::key_callback(
 				>(
 					pos_
 				),
-				c.key().char_code());
+				c.key().character());
 
 			pos_++;
 		break;

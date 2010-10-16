@@ -19,12 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/gui/events/key.hpp>
-#include <sge/input/classification.hpp>
 #include <fcppt/container/map_impl.hpp>
-#include <fcppt/assert.hpp>
 
 sge::gui::events::key::key(
-	input::key_pair const &kp,
+	input::keyboard::key_event const &kp,
 	input::modifier::states const &s,
 	bool const repeated_)
 :
@@ -34,7 +32,7 @@ sge::gui::events::key::key(
 {
 }
 
-sge::input::key_pair const &
+sge::input::keyboard::key_event const &
 sge::gui::events::key::value() const
 {
 	return kp;
