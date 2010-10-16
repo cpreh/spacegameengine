@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/modifier/filter.hpp>
 #include <sge/input/modifier/states.hpp>
 #include <sge/input/processor.hpp>
-#include <sge/input/key_pair.hpp>
+#include <sge/input/keyboard/key_event.hpp>
+#include <sge/input/keyboard/key.hpp>
 #include <fcppt/container/map_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/assert.hpp>
 #include <boost/foreach.hpp>
 
 sge::input::modifier::filter::filter(
@@ -95,7 +95,7 @@ sge::input::modifier::filter::~filter()
 
 void
 sge::input::modifier::filter::input_callback(
-	key_pair const &_key
+	keyboard::key_event const &_key
 )
 {
 	BOOST_FOREACH(
@@ -104,7 +104,7 @@ sge::input::modifier::filter::input_callback(
 	)
 	{
 		BOOST_FOREACH(
-			key_code const &c,
+			keyboard::key_code::type const &c,
 			o.codes
 		)
 		{
@@ -127,7 +127,7 @@ sge::input::modifier::filter::input_callback(
 
 void
 sge::input::modifier::filter::input_repeat_callback(
-	key_type const &_key
+	keyboard::key const &_key
 )
 {
 	repeat_signal_(

@@ -97,7 +97,7 @@ sge::console::gfx::gfx(
 	renderer::device_ptr const _rend,
 	image::color::any::object const &_font_color,
 	font::metrics_ptr const _metrics,
-	input::processor_ptr const _input_processor,
+	input::keyboard::collector &_keyboard_collector,
 	sprite_object const &_background,
 	output_line_limit const _line_limit
 )
@@ -115,11 +115,8 @@ sge::console::gfx::gfx(
 			_font_color
 		)
 	),
-	input_processor_(
-		_input_processor
-	),
 	input_modifier_filter_(
-		input_processor_
+		_keyboard_collector
 	),
 	ic_(
 		input_modifier_filter_.register_callback(

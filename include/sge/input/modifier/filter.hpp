@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_MODIFIER_FILTER_HPP_INCLUDED
 
 #include <sge/input/modifier/states.hpp>
-#include <sge/input/key_pair_fwd.hpp>
-#include <sge/input/key_type.hpp>
+#include <sge/input/keyboard/key_event_fwd.hpp>
+#include <sge/input/keyboard/key_fwd.hpp>
 #include <sge/input/processor_ptr.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
@@ -47,7 +47,7 @@ class SGE_CLASS_SYMBOL filter
 public:
 	typedef void
 	fn_callback_type (
-		key_pair const &,
+		keyboard::key_event const &,
 		states const &
 	);
 
@@ -57,7 +57,7 @@ public:
 
 	typedef void
 	fn_repeat_callback_type (
-		key_type const &,
+		keyboard::key const &,
 		states const &
 	);
 
@@ -93,16 +93,16 @@ private:
 		ic_,
 		irc_;
 
-	states modifiers_;
+	modifier::states modifiers_;
 
 	void
 	input_callback(
-		key_pair const &
+		keyboard::key_event const &
 	);
 
 	void
 	input_repeat_callback(
-		key_type const &
+		keyboard::key const &
 	);
 };
 

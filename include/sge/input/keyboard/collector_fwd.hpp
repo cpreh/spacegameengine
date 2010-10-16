@@ -18,26 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_MODIFIER_STATES_HPP_INCLUDED
-#define SGE_INPUT_MODIFIER_STATES_HPP_INCLUDED
-
-#include <sge/input/keyboard/key_code.hpp>
-#include <fcppt/container/map_fwd.hpp>
-#include <map>
+#ifndef SGE_INPUT_KEYBOARD_COLLECTOR_FWD_HPP_INCLUDED
+#define SGE_INPUT_KEYBOARD_COLLECTOR_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace input
 {
-namespace modifier
+namespace keyboard
 {
 
-typedef fcppt::container::map<
-	std::map<
-		sge::input::keyboard::key_code::type,
-		bool
-	>
-> states;
+class collector;
 
 }
 }
