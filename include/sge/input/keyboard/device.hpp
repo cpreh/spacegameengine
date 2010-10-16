@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_callback.hpp>
 #include <sge/input/keyboard/key_repeat_callback.hpp>
 //#include <sge/input/keyboard/mod_state_fwd.hpp>
-#include <sge/input/device.hpp>
 #include <sge/class_symbol.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -39,8 +38,6 @@ namespace keyboard
 {
 
 class SGE_CLASS_SYMBOL device
-:
-	public input::device
 {
 	FCPPT_NONCOPYABLE(
 		device

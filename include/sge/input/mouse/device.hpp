@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/device_fwd.hpp>
 #include <sge/input/mouse/button_callback.hpp>
 #include <sge/input/mouse/axis_callback.hpp>
-#include <sge/input/device.hpp>
 #include <sge/class_symbol.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -38,8 +37,6 @@ namespace mouse
 {
 
 class SGE_CLASS_SYMBOL device
-:
-	public input::device
 {
 	FCPPT_NONCOPYABLE(
 		device

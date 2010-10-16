@@ -148,6 +148,7 @@ sge::x11input::processor::keyboard_discover_callback(
 	input::keyboard::discover_callback const &_callback
 )
 {
+	return fcppt::signal::auto_connection();
 }
 
 fcppt::signal::auto_connection
@@ -155,6 +156,7 @@ sge::x11input::processor::keyboard_remove_callback(
 	input::keyboard::remove_callback const &_callback
 )
 {
+	return fcppt::signal::auto_connection();
 }
 
 sge::input::keyboard::device_vector const
@@ -167,6 +169,7 @@ sge::x11input::processor::mouse_discover_callback(
 	input::mouse::discover_callback const &_callback
 )
 {
+	return fcppt::signal::auto_connection();
 }
 
 fcppt::signal::auto_connection
@@ -174,6 +177,7 @@ sge::x11input::processor::mouse_remove_callback(
 	input::mouse::remove_callback const &_callback
 )
 {
+	return fcppt::signal::auto_connection();
 }
 
 sge::input::mouse::device_vector const
