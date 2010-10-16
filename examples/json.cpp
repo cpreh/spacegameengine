@@ -71,6 +71,20 @@ try
 		FCPPT_TEXT("foo")
 	);
 
+	// test if this also works with const results
+	{
+		sge::parse::json::object const &const_result(
+			result
+		);
+
+		sge::parse::json::find_member_exn<
+			int
+		>(
+			const_result.members,
+			FCPPT_TEXT("foo")
+		);
+	}
+
 	if(
 		!sge::parse::json::output::to_stream(
 			fcppt::io::cout,

@@ -21,12 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_FIND_MEMBER_HPP_INCLUDED
 #define SGE_PARSE_JSON_FIND_MEMBER_HPP_INCLUDED
 
+#include <sge/parse/json/detail/find_member_return_type.hpp>
 #include <sge/parse/json/get.hpp>
 #include <sge/parse/json/member_vector.hpp>
 #include <sge/parse/json/member_name_equal.hpp>
 #include <sge/parse/json/member.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/type_traits/is_const.hpp>
 #include <algorithm>
 
 namespace sge
@@ -42,26 +45,38 @@ namespace json
  * @throws invalid_get if the member has a different type than T
 */
 template<
-	typename T
+	typename T,
+	typename Arg
 >
-T const *
+typename detail::find_member_return_type<
+	T,
+	Arg
+>::type
 find_member(
-	member_vector const &members,
-	fcppt::string const &name
+	Arg &_members,
+	fcppt::string const &_name
 )
 {
-	member_vector::const_iterator const it(
+	typedef typename boost::mpl::if_<
+		boost::is_const<
+			Arg
+		>,
+		member_vector::const_iterator,
+		member_vector::iterator
+	>::type iterator;
+
+	iterator const it(
 		std::find_if(
-			members.begin(),
-			members.end(),
-			member_name_equal(
-				name
+			_members.begin(),
+			_members.end(),
+			json::member_name_equal(
+				_name
 			)
 		)
 	);
 
 	return 
-		it == members.end()
+		it == _members.end()
 		?
 			0
 		:

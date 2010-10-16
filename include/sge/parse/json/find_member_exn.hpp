@@ -21,11 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_FIND_MEMBER_EXN_HPP_INCLUDED
 #define SGE_PARSE_JSON_FIND_MEMBER_EXN_HPP_INCLUDED
 
+#include <sge/parse/json/detail/find_member_return_type.hpp>
 #include <sge/parse/json/member_vector.hpp>
 #include <sge/parse/json/member_not_found.hpp>
 #include <sge/parse/json/find_member.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/type_traits/is_const.hpp>
 
 namespace sge
 {
@@ -40,20 +43,32 @@ namespace json
  * @throws invalid_get if the member has a different type than T
 */
 template<
-	typename T
+	typename T,
+	typename Arg
 >
-T const &
+typename boost::mpl::if_<
+	boost::is_const<
+		Arg
+	>,
+	T const &,
+	T &
+>::type
 find_member_exn(
-	member_vector const &members,
-	fcppt::string const &name
+	Arg &_members,
+	fcppt::string const &_name
 )
 {
-	T const *const ret(
+	typedef typename json::detail::find_member_return_type<
+		T,
+		Arg
+	>::type return_type;
+
+	return_type const ret(
 		sge::parse::json::find_member<
 			T
 		>(
-			members,
-			name
+			_members,
+			_name
 		)
 	);
 
@@ -62,7 +77,7 @@ find_member_exn(
 	)
 		throw sge::parse::json::member_not_found(
 			FCPPT_TEXT("Cannot find member \"")
-			+ name
+			+ _name
 			+ FCPPT_TEXT("\" in a json object's member list!")
 		);
 	
