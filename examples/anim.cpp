@@ -18,8 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems/instance.hpp>
-#include <sge/systems/list.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
@@ -30,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/filter/linear.hpp>
-#include <sge/input/processor.hpp>
-#include <sge/input/action.hpp>
+#include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/action.hpp>
 #include <sge/image/multi_loader.hpp>
 #include <sge/image/capabilities.hpp>
 #include <sge/sprite/object_impl.hpp>
@@ -48,6 +46,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/animation/entity_vector.hpp>
 #include <sge/sprite/animation/entity.hpp>
 #include <sge/sprite/animation/loop_method.hpp>
+#include <sge/systems/instance.hpp>
+#include <sge/systems/list.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/add_image.hpp>
 #include <sge/texture/no_fragmented.hpp>
@@ -105,7 +105,11 @@ try
 			)
 		)
 		(
-			sge::systems::parameterless::input
+			sge::systems::input(
+				sge::systems::input_helper_field(
+					sge::systems::input_helper::keyboard_collector
+				)
+			)
 		)
 		(
 			sge::systems::image_loader(
@@ -240,9 +244,9 @@ try
 	bool running = true;
 
 	fcppt::signal::scoped_connection const cb(
-		is->register_callback(
-			sge::input::action(
-				sge::input::kc::key_escape,
+		sys.keyboard_collector()->key_callback(
+			sge::input::keyboard::action(
+				sge::input::keyboard::key_code::escape,
 				boost::phoenix::ref(running) = false
 			)
 		)
