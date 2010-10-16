@@ -88,7 +88,7 @@ priority_map const priorities(
 	)
 	(
 		std::make_pair(
-			fcppt::type_info(typeid(sge::systems::parameterless::type)),
+			fcppt::type_info(typeid(sge::systems::input)),
 			2	
 		)
 	)
@@ -110,6 +110,12 @@ priority_map const priorities(
 			5
 		)
 	)
+	(
+		std::make_pair(
+			fcppt::type_info(typeid(sge::systems::parameterless::type)),
+			6
+		)
+	)
 );
 
 
@@ -117,15 +123,15 @@ priority_map const priorities(
 
 bool
 sge::systems::any_compare(
-	any const &a,
-	any const &b
+	any const &_a,
+	any const &_b
 )
 {
 	return
 		fcppt::variant::apply_binary(
-			compare(),
-			a,
-			b
+			::compare(),
+			_a,
+			_b
 		);
 }
 
@@ -134,11 +140,11 @@ namespace
 
 compare::result_type
 compare::operator()(
-	sge::systems::parameterless::type const &a,
-	sge::systems::parameterless::type const &b
+	sge::systems::parameterless::type const &_a,
+	sge::systems::parameterless::type const &_b
 ) const
 {
-	return a < b;
+	return _a < _b;
 }
 
 template<
@@ -153,15 +159,16 @@ compare::operator()(
 {
 	return
 		priority(typeid(T))
-		< priority(typeid(U));
+		<
+		priority(typeid(U));
 }
 
 priority_type
 priority(
-	fcppt::type_info const &t
+	fcppt::type_info const &_t
 )
 {
-	return priorities[t];
+	return priorities[_t];
 }
 
 }

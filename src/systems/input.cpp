@@ -18,38 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_ANY_HPP_INCLUDED
-#define SGE_SYSTEMS_ANY_HPP_INCLUDED
-
-#include <sge/systems/parameterless.hpp>
-#include <sge/systems/image_loader.hpp>
-#include <sge/systems/audio_loader.hpp>
-#include <sge/systems/audio_player.hpp>
 #include <sge/systems/input.hpp>
-#include <sge/systems/basic_loader.hpp>
-#include <sge/window/parameters.hpp>
-#include <sge/renderer/parameters.hpp>
-#include <fcppt/variant/object_fwd.hpp>
-#include <boost/mpl/vector/vector10.hpp>
 
-namespace sge
+sge::systems::input::input(
+	systems::input_helper_field const &_input_helpers
+)
+:
+	input_helpers_(_input_helpers)
+{}
+
+sge::systems::input_helper_field const &
+sge::systems::input::input_helpers() const
 {
-namespace systems
-{
-
-typedef fcppt::variant::object<
-	boost::mpl::vector7<
-		window::parameters,
-		renderer::parameters,
-		image_loader,
-		audio_loader,
-		audio_player,
-		input,
-		parameterless::type
-	>
-> any;
-
+	return input_helpers_;
 }
-}
-
-#endif

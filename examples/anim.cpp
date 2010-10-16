@@ -115,11 +115,6 @@ try
 		)
 	);
 
-	sys.
-	sge::input::processor_ptr const is(
-		sys.input_processor()
-	);
-
 	sge::renderer::device_ptr const rend(
 		sys.renderer()
 	);
