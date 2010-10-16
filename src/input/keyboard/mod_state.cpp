@@ -18,22 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_KEY_PAIR_FUNCTION_HPP_INCLUDED
-#define SGE_INPUT_KEY_PAIR_FUNCTION_HPP_INCLUDED
+#include <sge/input/keyboard/mod_state.hpp>
 
-#include <sge/input/key_pair_fwd.hpp>
+sge::input::keyboard::mod_state::mod_state()
+:
+	shift_(false),
+	alt_(false),
+	ctrl_(false)
+{}
 
-namespace sge
+bool
+sge::input::keyboard::mod_state::shift() const
 {
-namespace input
-{
-
-typedef void
-key_pair_function (
-	key_pair const &
-);
-
-}
+	return shift_;
 }
 
-#endif
+bool
+sge::input::keyboard::mod_state::alt() const
+{
+	return alt_;
+}
+
+bool
+sge::input::keyboard::mod_state::ctrl() const
+{
+	return ctrl_;
+}
+
+void
+sge::input::keyboard::mod_state::shift(
+	bool const _shift
+)
+{
+	shift_ = _shift;
+}
+
+void
+sge::input::keyboard::mod_state::alt(
+	bool const _alt
+)
+{
+	alt_ = _alt;
+}
+
+void
+sge::input::keyboard::mod_state::ctrl(
+	bool const _ctrl
+)
+{
+	ctrl_ = _ctrl;
+}

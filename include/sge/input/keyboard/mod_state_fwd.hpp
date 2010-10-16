@@ -18,25 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_ACTION_HPP_INCLUDED
-#define SGE_INPUT_ACTION_HPP_INCLUDED
-
-#include <sge/input/nullary_function.hpp>
-#include <sge/input/callback.hpp>
-#include <sge/input/key_code.hpp>
-#include <sge/symbol.hpp>
+#ifndef SGE_INPUT_KEYBOARD_MOD_STATE_FWD_HPP_INCLUDED
+#define SGE_INPUT_KEYBOARD_MOD_STATE_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace input
 {
+namespace keyboard
+{
 
-SGE_SYMBOL callback const
-action(
-	kc::type,
-	nullary_function const &
-);
+class mod_state;
 
+}
 }
 }
 

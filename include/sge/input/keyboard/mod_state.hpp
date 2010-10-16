@@ -18,28 +18,62 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_MOD_STATE_HPP_INCLUDED
-#define SGE_INPUT_MOD_STATE_HPP_INCLUDED
+#ifndef SGE_INPUT_KEYBOARD_MOD_STATE_HPP_INCLUDED
+#define SGE_INPUT_KEYBOARD_MOD_STATE_HPP_INCLUDED
 
+#include <sge/input/keyboard/mod_state_fwd.hpp>
 #include <sge/symbol.hpp>
 
 namespace sge
 {
 namespace input
 {
+namespace keyboard
+{
 
-class mod_state {
+class mod_state
+{
 public:
-	SGE_SYMBOL mod_state(
-		bool shift,
-		bool alt,
-		bool ctrl);
+	SGE_SYMBOL
+	mod_state();
 
-	bool shift,
-	     alt,
-	     ctrl;
+	SGE_SYMBOL
+	bool
+	shift() const;
+
+	SGE_SYMBOL
+	bool
+	alt() const;
+
+	SGE_SYMBOL
+	bool
+	ctrl() const;
+
+	SGE_SYMBOL
+	void
+	shift(
+		bool
+	);
+
+	SGE_SYMBOL
+	void
+	alt(
+		bool
+	);
+
+	SGE_SYMBOL
+	void
+	ctrl(
+		bool
+	);
+private:
+	bool
+		shift_,
+		alt_,
+		ctrl_;
 };
 
+}
 }
 }
 

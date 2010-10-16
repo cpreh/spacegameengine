@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/keyboard/key_callback.hpp>
 #include <sge/input/keyboard/key_repeat_callback.hpp>
+#include <sge/input/keyboard/mod_state_fwd.hpp>
 #include <sge/input/device.hpp>
 #include <sge/class_symbol.hpp>
 #include <sge/symbol.hpp>
@@ -58,6 +59,9 @@ public:
 	key_repeat_callback(
 		keyboard::key_repeat_callback const &
 	) = 0;
+
+	virtual keyboard::mod_state const
+	mod_state() const = 0;
 };
 
 }
