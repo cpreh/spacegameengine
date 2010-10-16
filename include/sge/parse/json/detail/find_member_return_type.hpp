@@ -18,17 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_GET_HPP_INCLUDED
-#define SGE_PARSE_JSON_GET_HPP_INCLUDED
+#ifndef SGE_PARSE_JSON_DETAIL_FIND_MEMBER_RETURN_TYPE_HPP_INCLUDED
+#define SGE_PARSE_JSON_DETAIL_FIND_MEMBER_RETURN_TYPE_HPP_INCLUDED
 
-#include <sge/parse/json/detail/get_return_type.hpp>
-#include <sge/parse/json/invalid_get.hpp>
-#include <sge/exception.hpp>
-#include <fcppt/type_name.hpp>
-#include <fcppt/text.hpp>
-#include <boost/variant/get.hpp>
-#include <typeinfo>
-#include <exception>
+#include <sge/parse/json/member_vector.hpp>
 
 namespace sge
 {
@@ -36,46 +29,38 @@ namespace parse
 {
 namespace json
 {
+namespace detail
+{
 
 template<
 	typename T,
 	typename Arg
 >
-typename detail::get_return_type<
-	T,
-	Arg
->::type
-get(
-	Arg &_val
-)
-{
-	try
-	{
-		return
-			boost::get<
-				T
-			>(
-				_val
-			);
-	}
-	catch(
-		std::exception const &
-	)
-	{
-		throw invalid_get(
-			FCPPT_TEXT("json::get<")
-			+ fcppt::type_name(
-				typeid(T)
-			)
-			+ FCPPT_TEXT("> failed! Type is \"")
-			+ fcppt::type_name(
-				_val.type()
-			)
-			+ FCPPT_TEXT("\" instead!")
-		);
-	}
-}
+struct find_member_return_type;
 
+template<
+	typename T
+>
+struct find_member_return_type<
+	T,
+	json::member_vector
+>
+{
+	typedef T *type;
+};
+
+template<
+	typename T
+>
+struct find_member_return_type<
+	T,
+	json::member_vector const
+>
+{
+	typedef T const *type;
+};
+
+}
 }
 }
 }
