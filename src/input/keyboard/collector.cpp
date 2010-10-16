@@ -99,7 +99,7 @@ sge::input::keyboard::collector::key_repeat_callback(
 }
 
 void
-sge::input::keyboard::collector::key_callback(
+sge::input::keyboard::collector::key_callback_internal(
 	keyboard::key_event const &_event
 )
 {
@@ -109,7 +109,7 @@ sge::input::keyboard::collector::key_callback(
 }
 
 void
-sge::input::keyboard::collector::key_repeat_callback(
+sge::input::keyboard::collector::key_repeat_callback_internal(
 	keyboard::key const &_event
 )
 {
@@ -135,7 +135,7 @@ sge::input::keyboard::collector::discover_callback(
 				fcppt::signal::shared_connection(
 					_device->key_callback(
 						std::tr1::bind(
-							&collector::key_callback,
+							&collector::key_callback_internal,
 							this,
 							std::tr1::placeholders::_1
 						)
@@ -146,7 +146,7 @@ sge::input::keyboard::collector::discover_callback(
 				fcppt::signal::shared_connection(
 					_device->key_repeat_callback(
 						std::tr1::bind(
-							&collector::key_repeat_callback,
+							&collector::key_repeat_callback_internal,
 							this,
 							std::tr1::placeholders::_1
 						)

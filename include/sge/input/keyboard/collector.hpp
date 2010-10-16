@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_KEYBOARD_COLLECTOR_HPP_INCLUDED
 
 #include <sge/input/keyboard/collector_fwd.hpp>
+#include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/device_ptr.hpp>
 #include <sge/input/keyboard/key_function.hpp>
 #include <sge/input/keyboard/key_repeat_function.hpp>
@@ -29,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_repeat_callback.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
 #include <sge/input/keyboard/key_fwd.hpp>
+#include <sge/input/keyboard/mod_state_fwd.hpp>
 #include <sge/input/processor_ptr.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -46,6 +48,8 @@ namespace keyboard
 {
 
 class collector
+:
+	public keyboard::device
 {
 	FCPPT_NONCOPYABLE(
 		collector
@@ -70,14 +74,17 @@ public:
 	key_repeat_callback(
 		keyboard::key_repeat_callback const &
 	);
+
+	keyboard::mod_state const
+	mod_state() const;
 private:
 	void
-	key_callback(
+	key_callback_internal(
 		keyboard::key_event const &
 	);
 
 	void
-	key_repeat_callback(
+	key_repeat_callback_internal(
 		keyboard::key const &
 	);
 

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "list.hpp"
 #include <sge/input/modifier/filter.hpp>
 #include <sge/input/modifier/states.hpp>
-#include <sge/input/processor.hpp>
+#include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/key.hpp>
 #include <fcppt/container/map_impl.hpp>
@@ -29,13 +29,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/foreach.hpp>
 
 sge::input::modifier::filter::filter(
-	sge::input::processor_ptr const _processor
+	sge::input::keyboard_ptr const _keyboard
 )
 :
 	signal_(),
 	repeat_signal_(),
 	ic_(
-		_processor->register_callback(
+		_keyboard->key_callback(
 			std::tr1::bind(
 				&filter::input_callback,
 				this,
@@ -44,7 +44,7 @@ sge::input::modifier::filter::filter(
 		)
 	),
 	irc_(
-		_processor->register_repeat_callback(
+		_keyboard->key_repeat_callback(
 			std::tr1::bind(
 				&filter::input_repeat_callback,
 				this,

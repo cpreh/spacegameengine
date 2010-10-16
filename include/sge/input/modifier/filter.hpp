@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/modifier/states.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
 #include <sge/input/keyboard/key_fwd.hpp>
-#include <sge/input/processor_ptr.hpp>
+#include <sge/input/keyboard/device_ptr.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/container/map_decl.hpp>
@@ -66,7 +66,7 @@ public:
 	> repeat_callback_type;
 
 	SGE_SYMBOL explicit filter(
-		processor_ptr
+		keyboard::device_ptr
 	);
 
 	SGE_SYMBOL fcppt::signal::auto_connection

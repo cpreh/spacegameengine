@@ -42,7 +42,7 @@ public:
 		sge::input::keyboard::key_event const &
 	) const;
 private:
-	sge::input::kc::type const code_;
+	sge::input::keyboard::key_code::type const code_;
 
 	sge::input::nullary_function const fun_;
 };
@@ -65,7 +65,7 @@ sge::input::keyboard::action(
 namespace
 {
 
-functotr::functor(
+functor::functor(
 	sge::input::keyboard::key_code::type const _code,
 	sge::input::nullary_function const &_fun
 )
@@ -81,7 +81,7 @@ functor::operator()(
 {
 	if(
 		_event.pressed()
-		&& _event.key().code() == _code
+		&& _event.key().code() == code_
 	)
 		fun_();
 }

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/metrics_ptr.hpp>
 #include <sge/font/drawer_ptr.hpp>
 #include <sge/input/modifier/filter.hpp>
-#include <sge/input/keyboard/collector_fwd.hpp>
+#include <sge/input/keyboard/device_ptr.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
 #include <sge/input/keyboard/key_fwd.hpp>
 #include <sge/time/timer.hpp>
@@ -49,14 +49,16 @@ namespace console
 
 class gfx
 {
-	FCPPT_NONCOPYABLE(gfx)
+	FCPPT_NONCOPYABLE(
+		gfx
+	)
 public:
 	SGE_SYMBOL gfx(
 		sge::console::object &,
 		renderer::device_ptr,
 		image::color::any::object const &font_color,
 		font::metrics_ptr,
-		input::keyboard::collector &,
+		input::keyboard::device_ptr,
 		sprite_object const &,
 		output_line_limit
 	);

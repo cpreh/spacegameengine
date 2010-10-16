@@ -22,13 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/gfx.hpp>
 #include <sge/console/object.hpp>
 #include <sge/font/drawer_3d.hpp>
-#include <sge/input/key_type.hpp>
-#include <sge/input/key_code.hpp>
-#include <sge/input/key_pair.hpp>
 #include <sge/font/line_width.hpp>
 #include <sge/font/flags_none.hpp>
 #include <sge/font/height.hpp>
 #include <sge/font/draw_text.hpp>
+#include <sge/input/keyboard/key.hpp>
+#include <sge/input/keyboard/key_event.hpp>
 
 #include <sge/font/text_part.hpp>
 #include <sge/font/pos.hpp>
@@ -97,13 +96,14 @@ sge::console::gfx::gfx(
 	renderer::device_ptr const _rend,
 	image::color::any::object const &_font_color,
 	font::metrics_ptr const _metrics,
-	input::keyboard::collector &_keyboard_collector,
+	input::keyboard::device_ptr const _keyboard,
 	sprite_object const &_background,
 	output_line_limit const _line_limit
 )
 :
 	object_(
-		_object),
+		_object
+	),
 	font_metrics_(
 		_metrics
 	),
@@ -116,7 +116,7 @@ sge::console::gfx::gfx(
 		)
 	),
 	input_modifier_filter_(
-		_keyboard_collector
+		_keyboard
 	),
 	ic_(
 		input_modifier_filter_.register_callback(
@@ -303,11 +303,11 @@ sge::console::gfx::object() const
 
 void
 sge::console::gfx::key_callback(
-	input::key_pair const &k,
+	input::keyboard::key_event const &k,
 	input::modifier::states const &s
 )
 {
-	if (active_ && k.value())
+	if (active_ && k.pressed())
 		key_action(
 			k.key(),
 			s);
@@ -315,48 +315,48 @@ sge::console::gfx::key_callback(
 
 void
 sge::console::gfx::key_action(
-	input::key_type const &k,
+	input::keyboard::key const &k,
 	input::modifier::states const &s
 )
 {
 	if (!active_)
 		return;
 	
-	if ((k.char_code() == FCPPT_TEXT('w') || k.char_code() == FCPPT_TEXT('W'))
-	    && (s[input::kc::key_lctrl] || s[input::kc::key_rctrl]))
+	if ((k.character() == FCPPT_TEXT('w') || k.character() == FCPPT_TEXT('W'))
+	    && (s[input::keyboard::key_code::lctrl] || s[input::keyboard::key_code::rctrl]))
 	{
 		input_line_.erase_word();
 		return;
 	}
 
 	// is a printable character? then append to input
-	if(std::isprint(k.char_code(),std::locale()))
+	if(std::isprint(k.character(),std::locale()))
 	{
-		input_line_.insert(k.char_code());
+		input_line_.insert(k.character());
 		return;
 	}
 
 	switch (k.code())
 	{
-		case input::kc::key_delete:
+		case input::keyboard::key_code::delete_:
 			input_line_.erase_char();
 		break;
-		case input::kc::key_backspace:
+		case input::keyboard::key_code::backspace:
 			if (input_line_.at_start())
 				return;
 			input_line_.left();
 			input_line_.erase_char();
 		break;
-		case input::kc::key_tab:
+		case input::keyboard::key_code::tab:
 			input_line_.complete_word(object_.functions());
 		break;
-		case input::kc::key_pageup:
+		case input::keyboard::key_code::pageup:
 			output_lines_.up();
 		break;
-		case input::kc::key_pagedown:
+		case input::keyboard::key_code::pagedown:
 			output_lines_.down();
 		break;
-		case input::kc::key_up:
+		case input::keyboard::key_code::up:
 			if (input_history_.empty())
 				return;
 			input_line_.string(
@@ -364,7 +364,7 @@ sge::console::gfx::key_action(
 			if (current_input_ != --input_history_.end())
 				++current_input_;
 		break;
-		case input::kc::key_down:
+		case input::keyboard::key_code::down:
 			if (current_input_ != input_history_.begin())
 			{
 				--current_input_;
@@ -372,19 +372,19 @@ sge::console::gfx::key_action(
 					*current_input_);
 			}
 		break;
-		case input::kc::key_left:
+		case input::keyboard::key_code::left:
 			input_line_.left();
 		break;
-		case input::kc::key_right:
+		case input::keyboard::key_code::right:
 			input_line_.right();
 		break;
-		case input::kc::key_home:
+		case input::keyboard::key_code::home:
 			input_line_.to_start();
 		break;
-		case input::kc::key_end:
+		case input::keyboard::key_code::end:
 			input_line_.to_end();
 		break;
-		case input::kc::key_return:
+		case input::keyboard::key_code::return_:
 			if (input_line_.empty())
 				return;
 
