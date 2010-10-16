@@ -28,13 +28,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/window.hpp>
 #include <sge/log/global.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
-#include <fcppt/log/headers.hpp>
+#include <fcppt/log/debug.hpp>
+#include <fcppt/log/output.hpp>
 #include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/unique_ptr.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <ostream>
 
 sge::x11input::processor::processor(
@@ -43,7 +42,6 @@ sge::x11input::processor::processor(
 :
 	wnd_(_wnd),
 	acquired_(false),
-	devices_(),
 	connections_(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
@@ -95,6 +93,29 @@ sge::x11input::processor::processor(
 				)
 			)
 		)
+	),
+	keyboards_(
+		fcppt::assign::make_container<
+			keyboard_vector
+		>(
+			fcppt::make_shared_ptr<
+				x11input::keyboard
+			>
+			(
+				wnd_
+			)
+		)
+	),
+	mice_(
+		fcppt::assign::make_container<
+			mouse_vector
+		>(
+			fcppt::make_shared_ptr<
+				x11input::mouse
+			>(
+				wnd_
+			)
+		)
 	)
 {
 	/*
@@ -120,23 +141,6 @@ sge::x11input::processor::processor(
 		)
 	);
 */
-	fcppt::container::ptr::push_back_unique_ptr(
-		devices_,
-		fcppt::make_unique_ptr<
-			x11input::mouse
-		>(
-			wnd_
-		)
-	);
-
-	fcppt::container::ptr::push_back_unique_ptr(
-		devices_,
-		fcppt::make_unique_ptr<
-			x11input::keyboard
-		>(
-			wnd_
-		)
-	);
 }
 
 sge::x11input::processor::~processor()
@@ -162,6 +166,11 @@ sge::x11input::processor::keyboard_remove_callback(
 sge::input::keyboard::device_vector const
 sge::x11input::processor::keyboards() const
 {
+	return
+		input::keyboard::device_vector(
+			keyboards_.begin(),
+			keyboards_.end()
+		);
 }
 
 fcppt::signal::auto_connection
@@ -183,6 +192,11 @@ sge::x11input::processor::mouse_remove_callback(
 sge::input::mouse::device_vector const
 sge::x11input::processor::mice() const
 {
+	return
+		input::mouse::device_vector(
+			mice_.begin(),
+			mice_.end()
+		);
 }
 
 void
@@ -214,11 +228,18 @@ sge::x11input::processor::on_acquire(
 			<< FCPPT_TEXT("x11: acquire window")
 	);
 
+	// TODO: what do we want to grab?
 	BOOST_FOREACH(
-		device_vector::reference dev,
-		devices_
+		keyboard_vector::value_type keyboard,
+		keyboards_
 	)
-		dev.grab();
+		keyboard->grab();
+
+	BOOST_FOREACH(
+		mouse_vector::value_type mouse,
+		mice_
+	)
+		mouse->grab();
 
 	wnd_->display()->sync();
 }
@@ -242,8 +263,14 @@ sge::x11input::processor::on_release(
 	);
 
 	BOOST_FOREACH(
-		device_vector::reference dev,
-		devices_
+		keyboard_vector::reference keyboard,
+		keyboards_	
 	)
-		dev.ungrab();
+		keyboard->ungrab();
+
+	BOOST_FOREACH(
+		mouse_vector::reference mouse,
+		mice_
+	)
+		mouse->ungrab();
 }

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_MOUSE_HPP_INCLUDED
 #define SGE_X11INPUT_MOUSE_HPP_INCLUDED
 
+#include "mouse_fwd.hpp"
 #include "device.hpp"
 #include "mouse_coordinate.hpp"
 #include "mouse_pos.hpp"
@@ -61,6 +62,12 @@ public:
 	);
 
 	~mouse();
+
+	void
+	grab();
+
+	void
+	ungrab();
 private:
 	fcppt::signal::auto_connection
 	button_callback(
@@ -71,12 +78,6 @@ private:
 	axis_callback(
 		input::mouse::axis_callback const &
 	);
-
-	void
-	grab();
-
-	void
-	ungrab();
 
 	void
 	on_motion(

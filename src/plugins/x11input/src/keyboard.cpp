@@ -79,6 +79,27 @@ sge::x11input::keyboard::~keyboard()
 {
 }
 
+void
+sge::x11input::keyboard::grab()
+{
+	if(
+		need_grab_
+	)
+		grab_.take(
+			fcppt::make_unique_ptr<
+				x11input::keyboard_grab
+			>(
+				wnd_
+			)
+		);
+}
+
+void
+sge::x11input::keyboard::ungrab()
+{
+	grab_.reset();
+}
+
 fcppt::signal::auto_connection
 sge::x11input::keyboard::key_callback(
 	input::keyboard::key_callback const &_callback
@@ -99,27 +120,6 @@ sge::x11input::keyboard::key_repeat_callback(
 		key_repeat_signal_.connect(
 			_callback
 		);
-}
-
-void
-sge::x11input::keyboard::grab()
-{
-	if(
-		need_grab_
-	)
-		grab_.take(
-			fcppt::make_unique_ptr<
-				x11input::keyboard_grab
-			>(
-				wnd_
-			)
-		);
-}
-
-void
-sge::x11input::keyboard::ungrab()
-{
-	grab_.reset();
 }
 
 void

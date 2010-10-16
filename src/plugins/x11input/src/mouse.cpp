@@ -126,6 +126,25 @@ sge::x11input::mouse::~mouse()
 {
 }
 
+void
+sge::x11input::mouse::grab()
+{
+	grab_.take(
+		fcppt::make_unique_ptr<
+			x11input::mouse_grab
+		>(
+			wnd_,
+			cursor_
+		)
+	);
+}
+
+void
+sge::x11input::mouse::ungrab()
+{
+	grab_.reset();
+}
+
 fcppt::signal::auto_connection
 sge::x11input::mouse::button_callback(
 	input::mouse::button_callback const &_callback
@@ -146,25 +165,6 @@ sge::x11input::mouse::axis_callback(
 		axis_signal_.connect(
 			_callback
 		);
-}
-
-void
-sge::x11input::mouse::grab()
-{
-	grab_.take(
-		fcppt::make_unique_ptr<
-			x11input::mouse_grab
-		>(
-			wnd_,
-			cursor_
-		)
-	);
-}
-
-void
-sge::x11input::mouse::ungrab()
-{
-	grab_.reset();
 }
 
 void

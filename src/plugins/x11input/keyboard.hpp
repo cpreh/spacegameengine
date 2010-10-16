@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_KEYBOARD_HPP_INCLUDED
 #define SGE_X11INPUT_KEYBOARD_HPP_INCLUDED
 
+#include "keyboard_fwd.hpp"
 #include "device.hpp"
 #include "keyboard_grab_fwd.hpp"
 #include <X11/Xlib.h>
@@ -55,6 +56,12 @@ public:
 	);
 
 	~keyboard();
+
+	void
+	grab();
+
+	void
+	ungrab();
 private:
 	fcppt::signal::auto_connection
 	key_callback(
@@ -65,12 +72,6 @@ private:
 	key_repeat_callback(
 		input::keyboard::key_repeat_callback const &
 	);
-
-	void
-	grab();
-
-	void
-	ungrab();
 
 	void
 	on_key_event(
