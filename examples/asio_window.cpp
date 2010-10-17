@@ -20,10 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/systems/parameterless.hpp>
-#include <sge/input/key_code.hpp>
-#include <sge/input/action.hpp>
-#include <sge/input/processor.hpp>
+#include <sge/systems/input.hpp>
+#include <sge/systems/input_helper_field.hpp>
+#include <sge/systems/input_helper.hpp>
+#include <sge/input/keyboard/key_code.hpp>
+#include <sge/input/keyboard/action.hpp>
+#include <sge/input/keyboard/device.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/window/dim_type.hpp>
@@ -60,16 +62,20 @@ try
 			)
 		)
 		(
-			sge::systems::parameterless::input
+			sge::systems::input(
+				sge::systems::input_helper_field(
+					sge::systems::input_helper::keyboard_collector
+				)
+			)
 		)
 	);
 
 	sys.window()->show();
 
 	fcppt::signal::scoped_connection const input_connection(
-		sys.input_processor()->register_callback(
-			sge::input::action(
-				sge::input::kc::key_escape,
+		sys.keyboard_collector()->key_callback(
+			sge::input::keyboard::action(
+				sge::input::keyboard::key_code::escape,
 				std::tr1::bind(
 					&sge::mainloop::io_service::stop,
 					io_service
