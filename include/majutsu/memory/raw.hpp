@@ -42,7 +42,8 @@ namespace memory
 template<
 	typename Type
 >
-class raw {
+class raw
+{
 public:
 	typedef raw_data value_type;
 private:
@@ -255,8 +256,9 @@ public:
 		size_type const offset(
 			std::accumulate(
 				sizes_.begin(),
-				sizes_.begin() + index,
-				0
+				sizes_.begin()
+				+ index,
+				0u
 			)
 		);
 

@@ -107,16 +107,26 @@ public:
 	size_type
 	size() const
 	{
-		return std::distance(
-			begin(),
-			end()
-		);
+		return
+			static_cast<
+				size_type
+			>(
+				std::distance(
+					begin(),
+					end()
+				)
+			);
 	}
 	
 	size_type
 	capacity() const
 	{
-		return cap_ - data_;
+		return
+			static_cast<
+				size_type
+			>(
+				cap_ - data_
+			);
 	}
 
 	pointer
