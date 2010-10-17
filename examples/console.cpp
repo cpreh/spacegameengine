@@ -107,7 +107,13 @@ try
 				sge::renderer::no_multi_sampling
 			)
 		)
-		(sge::systems::parameterless::input)
+		(
+			sge::systems::input(
+				sge::systems::input_helper_field(
+					sge::systems::input_helper::keyboard_collector
+				)
+			)
+		)
 		(sge::systems::parameterless::font)
 		(
 			sge::systems::image_loader(
@@ -121,10 +127,12 @@ try
 		)
 	);
 
-	sge::console::object o(FCPPT_TEXT('/'));
+	sge::console::object object(
+		FCPPT_TEXT('/')
+	);
 
 	fcppt::signal::scoped_connection const c0(
-		o.insert(
+		object.insert(
 			FCPPT_TEXT("quit"),
 			std::tr1::bind(
 				&quit,
@@ -138,7 +146,7 @@ try
 	);
 
 	fcppt::signal::scoped_connection const c1(
-		o.register_fallback(
+		object.register_fallback(
 			&fallback
 		)
 	);
@@ -177,7 +185,7 @@ try
 		);
 
 	sge::console::gfx gfx_(
-		o,
+		object,
 		sys.renderer(),
 		sge::image::colors::white(),
 		sys.font_system()->create_font(
@@ -186,7 +194,7 @@ try
 			/ FCPPT_TEXT("default.ttf"),
 			15
 		),
-		sys.input_processor(),
+		sys.keyboard_collector(),
 		sge::console::sprite_object(
 			sge::console::sprite_parameters()
 			.pos(

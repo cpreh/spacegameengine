@@ -18,45 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_KEYBOAD_KEY_HPP_INCLUDED
-#define SGE_INPUT_KEYBOAD_KEY_HPP_INCLUDED
+#include <sge/input/mouse/axis_event.hpp>
 
-#include <sge/input/keyboard/key_fwd.hpp>
-#include <sge/input/keyboard/key_code.hpp>
-#include <sge/input/keyboard/char_type.hpp>
-#include <sge/symbol.hpp>
-
-namespace sge
+sge::input::mouse::axis_event::axis_event(
+	mouse::axis::type const _axis,
+	mouse::axis_position const _axis_position
+)
+:
+	axis_(_axis),
+	axis_position_(_axis_position)
 {
-namespace input
-{
-namespace keyboard
-{
-
-class key
-{
-public:
-	SGE_SYMBOL
-	key(
-		key_code::type,
-		keyboard::char_type
-	);
-
-	SGE_SYMBOL
-	key_code::type
-	code() const;
-
-	SGE_SYMBOL
-	keyboard::char_type
-	character() const;
-private:
-	key_code::type code_;
-
-	keyboard::char_type character_;
-};
-
-}
-}
 }
 
-#endif
+sge::input::mouse::axis::type
+sge::input::mouse::axis_event::axis() const
+{
+	return axis_;
+}
+
+sge::input::mouse::axis_position
+sge::input::mouse::axis_event::axis_position() const
+{
+	return axis_position_;
+}

@@ -18,45 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_KEYBOAD_KEY_HPP_INCLUDED
-#define SGE_INPUT_KEYBOAD_KEY_HPP_INCLUDED
+#include <sge/input/mouse/button_event.hpp>
 
-#include <sge/input/keyboard/key_fwd.hpp>
-#include <sge/input/keyboard/key_code.hpp>
-#include <sge/input/keyboard/char_type.hpp>
-#include <sge/symbol.hpp>
-
-namespace sge
+sge::input::mouse::button_event::button_event(
+	mouse::button_code::type const _button_code,
+	bool const _pressed
+)
+:
+	button_code_(_button_code),
+	pressed_(_pressed)
 {
-namespace input
-{
-namespace keyboard
-{
-
-class key
-{
-public:
-	SGE_SYMBOL
-	key(
-		key_code::type,
-		keyboard::char_type
-	);
-
-	SGE_SYMBOL
-	key_code::type
-	code() const;
-
-	SGE_SYMBOL
-	keyboard::char_type
-	character() const;
-private:
-	key_code::type code_;
-
-	keyboard::char_type character_;
-};
-
-}
-}
 }
 
-#endif
+sge::input::mouse::button_code::type
+sge::input::mouse::button_event::button_code() const
+{
+	return button_code_;
+}
+
+bool
+sge::input::mouse::button_event::pressed() const
+{
+	return pressed_;
+}
