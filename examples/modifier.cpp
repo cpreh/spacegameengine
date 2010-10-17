@@ -22,12 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/scoped_block.hpp>
-#include <sge/input/processor.hpp>
-#include <sge/input/key_type.hpp>
-#include <sge/input/key_pair.hpp>
-#include <sge/input/classification.hpp>
+#include <sge/input/keyboard/action.hpp>
+#include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/modifier/filter.hpp>
-#include <sge/input/action.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/log/global.hpp>
 #include <sge/exception.hpp>
@@ -46,19 +44,19 @@ namespace
 {
 
 void mod_callback(
-	sge::input::key_pair const &kp,
+	sge::input::keyboard::key_event const &kp,
 	sge::input::modifier::states const &mods)
 {
-	if (mods[sge::input::kc::key_lshift])
+	if (mods[sge::input::keyboard::key_code::lshift])
 		fcppt::io::cerr << FCPPT_TEXT("S-");
 
-	if (mods[sge::input::kc::key_lctrl])
+	if (mods[sge::input::keyboard::key_code::lctrl])
 		fcppt::io::cerr << FCPPT_TEXT("C-");
 
-	if (mods[sge::input::kc::key_alt])
+	if (mods[sge::input::keyboard::key_code::alt])
 		fcppt::io::cerr << FCPPT_TEXT("A-");
 
-	fcppt::io::cerr << kp.key().char_code() << FCPPT_TEXT('\n');
+	fcppt::io::cerr << kp.key().character() << FCPPT_TEXT('\n');
 }
 
 }
@@ -75,33 +73,33 @@ try
 
 	sge::systems::instance sys(
 		sge::systems::list()
-		(sge::window::parameters(
-			FCPPT_TEXT("sge modifier test")
-		))
-		/*
-		(sge::renderer::parameters(
-			sge::renderer::display_mode(
-				screen_size,
-				sge::renderer::bit_depth::depth32,
-				sge::renderer::refresh_rate_dont_care),
-			sge::renderer::depth_buffer::off,
-			sge::renderer::stencil_buffer::off,
-			sge::renderer::window_mode::windowed))*/
-		(sge::systems::parameterless::input));
+		(
+			sge::window::parameters(
+				FCPPT_TEXT("sge modifier test")
+			)
+		)
+		(
+			sge::systems::input(
+				sge::systems::input_helper_field(
+					sge::systems::input_helper::keyboard_collector
+				)
+			)
+		)
+	);
 
 	bool running = true;
 
 	fcppt::signal::scoped_connection const cb(
-		sys.input_processor()->register_callback(
-			sge::input::action(
-				sge::input::kc::key_escape,
+		sys.keyboard_collector()->key_callback(
+			sge::input::keyboard::action(
+				sge::input::keyboard::key_code::escape,
 				boost::phoenix::ref(running) = false
 			)
 		)
 	);
 
 	sge::input::modifier::filter mf(
-		sys.input_processor()
+		sys.keyboard_collector()
 	);
 
 	fcppt::signal::scoped_connection const pc(

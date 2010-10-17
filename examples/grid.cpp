@@ -44,9 +44,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/mainloop/dispatch.hpp>
-#include <sge/input/key_type.hpp>
-#include <sge/input/processor.hpp>
-#include <sge/input/key_pair.hpp>
+#include <sge/input/keyboard/action.hpp>
+#include <sge/input/keyboard/device.hpp>
 #include <sge/all_extensions.hpp>
 #include <sge/exception.hpp>
 
@@ -54,49 +53,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/text.hpp>
+
+#include <boost/spirit/home/phoenix/core/reference.hpp>
+#include <boost/spirit/home/phoenix/operator/self.hpp>
 
 #include <iostream>
 #include <ostream>
 #include <exception>
 #include <cstdlib>
-
-namespace
-{
-class end_program
-{
-	FCPPT_NONASSIGNABLE(
-		end_program
-	)
-public:
-	end_program(bool &running) : running(running) {}
-	void operator()() const { running = false; }
-private:
-	bool &running;
-};
-
-class input_functor
-{
-	FCPPT_NONASSIGNABLE(
-		input_functor
-	)
-public:
-	explicit input_functor(bool &running)
-		: running(running)
-	{
-	}
-
-	void operator()(sge::input::key_pair const &k) const
-	{
-		if (k.key().code() == sge::input::kc::key_escape)
-			running = false;
-	}
-	private:
-	bool &running;
-};
-}
 
 int main()
 try
@@ -110,21 +79,34 @@ try
 
 	sge::systems::instance sys(
 		sge::systems::list()
-		(sge::window::parameters(
-			FCPPT_TEXT("sge gui test")
-		))
-		(sge::renderer::parameters(
-			sge::renderer::display_mode(
-				screen_size,
-				sge::renderer::bit_depth::depth32,
-				sge::renderer::refresh_rate_dont_care),
-			sge::renderer::depth_buffer::off,
-			sge::renderer::stencil_buffer::off,
-			sge::renderer::window_mode::windowed,
-			sge::renderer::vsync::on,
-			sge::renderer::no_multi_sampling
-		))
-		(sge::systems::parameterless::input)
+		(
+			sge::window::parameters(
+				FCPPT_TEXT("sge gui test")
+			)
+		)
+		(
+			sge::renderer::parameters(
+				sge::renderer::display_mode(
+					screen_size,
+					sge::renderer::bit_depth::depth32,
+					sge::renderer::refresh_rate_dont_care
+				),
+				sge::renderer::depth_buffer::off,
+				sge::renderer::stencil_buffer::off,
+				sge::renderer::window_mode::windowed,
+				sge::renderer::vsync::on,
+				sge::renderer::no_multi_sampling
+			)
+		)
+		(
+			sge::systems::input(
+				sge::systems::input_helper_field(
+					sge::systems::input_helper::keyboard_collector
+				)
+				|
+				sge::systems::input_helper::mouse_collector
+			)
+		)
 		(sge::systems::parameterless::font)
 		(
 			sge::systems::image_loader(
@@ -134,30 +116,44 @@ try
 		)
 	);
 
-	sge::gui::manager m(
+	sge::gui::manager manager(
 		sys.renderer(),
-		sys.input_processor(),
+		sys.keyboard_collector(),
+		sys.mouse_collector(),
 		sge::gui::skins::ptr(
-			new sge::gui::skins::standard(
+			fcppt::make_unique_ptr<
+				sge::gui::skins::standard
+			>(
 				sys.font_system()
 			)
 		),
 		sge::gui::cursor::base_ptr(
-			new sge::gui::cursor::default_(
-				sys.image_loader(),
+			fcppt::make_unique_ptr<
+				sge::gui::cursor::default_
+			>(
+				std::tr1::ref(
+					sys.image_loader()
+				),
 				sys.renderer()
 			)
 		)
 	);
 
 	sge::gui::widgets::backdrop top(
-		sge::gui::widgets::parent_data(m),
+		sge::gui::widgets::parent_data(
+			manager
+		),
 		sge::gui::widgets::parameters()
 			.pos(sge::gui::point(10,10))
 			.layout(
-				fcppt::make_shared_ptr<sge::gui::layouts::grid>())
+				fcppt::make_shared_ptr<
+					sge::gui::layouts::grid
+				>()
+			)
 			.size(
-				sge::gui::dim(400,300)));
+				sge::gui::dim(400,300)
+			)
+	);
 
 	fcppt::io::cerr << "added top level widget\n";
 
@@ -165,7 +161,8 @@ try
 		top,
 		sge::gui::widgets::parameters()
 			.pos(
-				sge::gui::point(0,0)),
+				sge::gui::point(0,0)
+			),
 		FCPPT_TEXT("lefttop me!"));
 
 	sge::gui::widgets::buttons::text right(
@@ -195,18 +192,22 @@ try
 		);
 
 	bool running = true;
-	end_program p(running);
+
 	fcppt::signal::scoped_connection const conn(
-		sys.input_processor()->register_callback(
-			input_functor(
-				running
+		sys.keyboard_collector()->key_callback(
+			sge::input::keyboard::action(
+				sge::input::keyboard::key_code::escape,
+				boost::phoenix::ref(running) = false
 			)
 		)
 	);
 
 	fcppt::signal::scoped_connection const conn2(
-		left.register_clicked(p)
+		left.register_clicked(
+			boost::phoenix::ref(running) = false
+		)
 	);
+
 	fcppt::io::cerr << FCPPT_TEXT("---------------------------\nall widgets added!\n");
 
 	sge::time::timer delete_timer(sge::time::second(static_cast<sge::time::unit>(2)));
@@ -221,8 +222,8 @@ try
 			delete_timer.deactivate();
 		}
 
-		m.update();
-		m.draw();
+		manager.update();
+		manager.draw();
 	}
 }
 catch (sge::exception const &e)
