@@ -175,7 +175,7 @@ sge::x11input::keyboard::on_key_event(
 	key_signal_(
 		input::keyboard::key_event(
 			key,
-			_xev.type == KeyRelease
+			_xev.type == KeyPress
 		)
 	);
 }
