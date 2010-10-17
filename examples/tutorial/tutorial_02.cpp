@@ -38,9 +38,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
-#include <sge/input/key_type.hpp>
-#include <sge/input/key_pair.hpp>
-#include <sge/input/processor.hpp>
+#include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/key_event.hpp>
+#include <sge/input/mouse/axis_event.hpp>
+#include <sge/input/mouse/device.hpp>
 #include <sge/image/file.hpp>
 #include <sge/image/file_ptr.hpp>
 #include <sge/image/colors.hpp>
@@ -97,11 +98,13 @@ public:
 
 	void
 	operator()(
-		sge::input::key_pair const &k
+		sge::input::keyboard::key_event const &k
 	) const
 	{
 		if(
-			k.key().code() == sge::input::kc::key_escape
+			k.pressed()
+			&&
+			k.key().code() == sge::input::keyboard::key_code::escape
 		)
 			running = false;
 	}
@@ -124,21 +127,21 @@ public:
 
 	void
 	operator()(
-		sge::input::key_pair const &k
+		sge::input::mouse::axis_event const &k
 	) const
 	{
 		switch(
-			k.key().code()
+			k.axis()
 		)
 		{
-		case sge::input::kc::mouse_x_axis:
+		case sge::input::mouse::axis::x:
 			s.x(
-				s.x() + k.value()
+				s.x() + k.axis_position()
 			);
 			break;
-		case sge::input::kc::mouse_y_axis:
+		case sge::input::mouse::axis::y:
 			s.y(
-				s.y() + k.value()
+				s.y() + k.axis_position()
 			);
 			break;
 		default:
@@ -188,7 +191,13 @@ try
 			)
 		)
 		(
-			sge::systems::parameterless::input
+			sge::systems::input(
+				sge::systems::input_helper_field(
+					sge::systems::input_helper::keyboard_collector
+				)
+				|
+				sge::systems::input_helper::mouse_collector
+			)
 		)
 	);
 
@@ -238,15 +247,15 @@ try
 	bool running = true;
 
 	fcppt::signal::scoped_connection const conn(
-		sys.input_processor()->register_callback(
-			input_functor(
+		sys.keyboard_collector()->key_callback(
+			::input_functor(
 				running
 			)
 		)
 	);
 
 	fcppt::signal::scoped_connection const conn_other(
-		sys.input_processor()->register_callback(
+		sys.mouse_collector()->axis_callback(
 			sprite_functor(
 				my_object
 			)

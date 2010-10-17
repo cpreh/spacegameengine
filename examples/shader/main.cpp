@@ -40,10 +40,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/no_program.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/log/global.hpp>
-#include <sge/input/processor.hpp>
-#include <sge/input/action.hpp>
-#include <sge/input/key_pair.hpp>
-#include <sge/input/key_code.hpp>
+#include <sge/input/keyboard/action.hpp>
+#include <sge/input/keyboard/device.hpp>
+#include <sge/input/mouse/axis_event.hpp>
+#include <sge/input/mouse/device.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/init.hpp>
@@ -121,27 +121,29 @@ class sprite_functor
 	)
 public:
 	explicit sprite_functor(
-		sprite_object &s
+		sprite_object &_sprite
 	)
 	:
-		s(s)
+		sprite_(_sprite)
 	{}
 
 	void
 	operator()(
-		sge::input::key_pair const &k
+		sge::input::mouse::axis_event const &_event
 	) const
 	{
-		switch (k.key().code())
+		switch (_event.axis())
 		{
-		case sge::input::kc::mouse_x_axis:
-			s.x(
-				s.x() + k.value()
+		case sge::input::mouse::axis::x:
+			sprite_.x(
+				sprite_.x()
+				+ _event.axis_position()
 			);
 			break;
-		case sge::input::kc::mouse_y_axis:
-			s.y(
-				s.y() + k.value()
+		case sge::input::mouse::axis::y:
+			sprite_.y(
+				sprite_.y()
+				+ _event.axis_position()
 			);
 			break;
 		default:
@@ -149,7 +151,7 @@ public:
 		}
 	}
 private:
-	sprite_object &s;
+	sprite_object &sprite_;
 };
 }
 
@@ -187,7 +189,15 @@ try
 				sge::renderer::no_multi_sampling
 			)
 		)
-		(sge::systems::parameterless::input)
+		(
+			sge::systems::input(
+				sge::systems::input_helper_field(
+					sge::systems::input_helper::keyboard_collector
+				)
+				|
+				sge::systems::input_helper::mouse_collector
+			)
+		)
 		(
 			sge::systems::image_loader(
 				sge::image::capabilities_field::null(),
@@ -348,16 +358,16 @@ try
 	bool running = true;
 
 	fcppt::signal::scoped_connection const cb(
-		sys.input_processor()->register_callback(
-			sge::input::action(
-				sge::input::kc::key_escape,
+		sys.keyboard_collector()->key_callback(
+			sge::input::keyboard::action(
+				sge::input::keyboard::key_code::escape,
 				boost::phoenix::ref(running) = false
 			)
 		)
 	);
 
 	fcppt::signal::scoped_connection const pc(
-		sys.input_processor()->register_callback(
+		sys.mouse_collector()->axis_callback(
 			sprite_functor(
 				pointer
 			)
