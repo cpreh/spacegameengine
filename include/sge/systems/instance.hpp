@@ -69,16 +69,16 @@ public:
 	SGE_SYMBOL sge::renderer::device_ptr const
 	renderer() const;
 
-	SGE_SYMBOL input::system_ptr const
+	SGE_SYMBOL sge::input::system_ptr const
 	input_system() const;
 
-	SGE_SYMBOL input::processor_ptr const
+	SGE_SYMBOL sge::input::processor_ptr const
 	input_processor() const;
 
-	SGE_SYMBOL input::keyboard::device_ptr const
+	SGE_SYMBOL sge::input::keyboard::device_ptr const
 	keyboard_collector() const;
 
-	SGE_SYMBOL input::mouse::device_ptr const
+	SGE_SYMBOL sge::input::mouse::device_ptr const
 	mouse_collector() const;
 
 	SGE_SYMBOL sge::image::multi_loader &
