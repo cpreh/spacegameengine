@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_KEYBOARD_MOD_STATE_FWD_HPP_INCLUDED
-#define SGE_INPUT_KEYBOARD_MOD_STATE_FWD_HPP_INCLUDED
+#ifndef SGE_INPUT_KEYBOARD_MODIFIER_HPP_INCLUDED
+#define SGE_INPUT_KEYBOARD_MODIFIER_HPP_INCLUDED
 
 namespace sge
 {
@@ -28,7 +28,16 @@ namespace input
 namespace keyboard
 {
 
-class mod_state;
+namespace modifier
+{
+enum type
+{
+	ctrl,
+	alt,
+	shift,
+	size
+};
+}
 
 }
 }

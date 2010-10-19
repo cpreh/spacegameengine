@@ -26,10 +26,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/display.hpp>
 #include <sge/input/keyboard/key.hpp>
 #include <sge/input/keyboard/key_event.hpp>
+#include <sge/input/keyboard/to_modifier.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/optional_impl.hpp>
 
 sge::x11input::keyboard::keyboard(
 	x11::window_ptr const _wnd
@@ -71,7 +74,10 @@ sge::x11input::keyboard::keyboard(
 	),
 	grab_(),
 	key_signal_(),
-	key_repeat_signal_()
+	key_repeat_signal_(),
+	modifiers_(
+		sge::input::keyboard::mod_state::null()
+	)
 {
 }
 
@@ -120,6 +126,12 @@ sge::x11input::keyboard::key_repeat_callback(
 		key_repeat_signal_.connect(
 			_callback
 		);
+}
+
+sge::input::keyboard::mod_state const
+sge::x11input::keyboard::mod_state() const
+{
+	return modifiers_;
 }
 
 void
@@ -172,10 +184,30 @@ sge::x11input::keyboard::on_key_event(
 		}
 	}
 
+	bool const is_pressed(
+		_xev.type == KeyPress
+	);
+
+	{	
+		sge::input::keyboard::optional_modifier const mod(
+			sge::input::keyboard::to_modifier(
+				key.code()
+			)
+		);
+
+		if(
+			mod
+		)
+			modifiers_[
+				*mod
+			] = is_pressed;
+	}
+
+
 	key_signal_(
 		input::keyboard::key_event(
 			key,
-			_xev.type == KeyPress
+			is_pressed
 		)
 	);
 }

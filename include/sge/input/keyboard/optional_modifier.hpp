@@ -18,53 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/keyboard/mod_state.hpp>
+#ifndef SGE_INPUT_KEYBOARD_OPTIONAL_MODIFIER_HPP_INCLUDED
+#define SGE_INPUT_KEYBOARD_OPTIONAL_MODIFIER_HPP_INCLUDED
 
-sge::input::keyboard::mod_state::mod_state()
-:
-	shift_(false),
-	alt_(false),
-	ctrl_(false)
-{}
+#include <sge/input/keyboard/modifier.hpp>
+#include <fcppt/optional_fwd.hpp>
 
-bool
-sge::input::keyboard::mod_state::shift() const
+namespace sge
 {
-	return shift_;
+namespace input
+{
+namespace keyboard
+{
+
+typedef fcppt::optional<
+	keyboard::modifier::type
+> optional_modifier;
+
+}
+}
 }
 
-bool
-sge::input::keyboard::mod_state::alt() const
-{
-	return alt_;
-}
-
-bool
-sge::input::keyboard::mod_state::ctrl() const
-{
-	return ctrl_;
-}
-
-void
-sge::input::keyboard::mod_state::shift(
-	bool const _shift
-)
-{
-	shift_ = _shift;
-}
-
-void
-sge::input::keyboard::mod_state::alt(
-	bool const _alt
-)
-{
-	alt_ = _alt;
-}
-
-void
-sge::input::keyboard::mod_state::ctrl(
-	bool const _ctrl
-)
-{
-	ctrl_ = _ctrl;
-}
+#endif

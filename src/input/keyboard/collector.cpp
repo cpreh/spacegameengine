@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/processor.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/shared_connection.hpp>
@@ -96,6 +97,25 @@ sge::input::keyboard::collector::key_repeat_callback(
 		repeat_signal_.connect(
 			_callback
 		);
+}
+
+sge::input::keyboard::mod_state const
+sge::input::keyboard::collector::mod_state() const
+{
+	keyboard::mod_state ret(
+		keyboard::mod_state::null()
+	);
+
+	for(
+		keyboard_map::const_iterator it(
+			devices_.begin()
+		);
+		it != devices_.end();
+		++it
+	)
+		ret |= it->first->mod_state();
+	
+	return ret;
 }
 
 void

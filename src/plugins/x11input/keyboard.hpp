@@ -31,8 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_function.hpp>
 #include <sge/input/keyboard/key_repeat_function.hpp>
 #include <sge/x11/window_ptr.hpp>
-#include <fcppt/signal/connection_manager.hpp>
+#include <fcppt/container/bitfield/basic_decl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
@@ -73,6 +74,9 @@ private:
 		input::keyboard::key_repeat_callback const &
 	);
 
+	sge::input::keyboard::mod_state const
+	mod_state() const;
+
 	void
 	on_key_event(
 		XEvent const &
@@ -95,6 +99,8 @@ private:
 	fcppt::signal::object<
 		input::keyboard::key_repeat_function
 	> key_repeat_signal_;
+
+	sge::input::keyboard::mod_state modifiers_;
 };
 
 }
