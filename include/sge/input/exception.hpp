@@ -18,29 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <X11/Xlib.h>
-#include <awl/backends/x11/display.hpp>
-#include <awl/backends/x11/window_instance.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
-#include "../warp_pointer.hpp"
+#ifndef SGE_INPUT_EXCEPTION_HPP_INCLUDED
+#define SGE_INPUT_EXCEPTION_HPP_INCLUDED
 
-void
-sge::x11input::warp_pointer(
-	awl::backends::x11::window_instance_ptr const _window,
-	x11input::mouse_pos const &_pos
-)
+#include <sge/exception.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/string.hpp>
+
+namespace sge
 {
-	// always returns 1
-	
-	::XWarpPointer(
-		_window->display()->get(),
-		None,
-		_window->get(),
-		0,
-		0,
-		0,
-		0,
-		_pos.x(),
-		_pos.y()
+namespace input
+{
+
+class SGE_CLASS_SYMBOL exception
+:
+	public sge::exception
+{
+public:
+	SGE_SYMBOL explicit exception(
+		fcppt::string const &
 	);
+};
+
 }
+}
+
+#endif

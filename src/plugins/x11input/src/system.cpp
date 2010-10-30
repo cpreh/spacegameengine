@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../processor.hpp"
 #include <X11/Xlib.h>
 #include <X11/extensions/XInput2.h>
-#include <sge/x11/display.hpp>
-#include <sge/x11/window.hpp>
+#include <sge/window/instance.hpp>
 #include <sge/exception.hpp>
+#include <awl/backends/x11/display.hpp>
+#include <awl/backends/x11/window_instance.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/polymorphic_pointer_cast.hpp>
 #include <fcppt/text.hpp>
@@ -42,12 +43,11 @@ sge::x11input::system::create_processor(
 	sge::window::instance_ptr const _window
 )
 {
-	sge::x11::window_ptr const x11_window(
+	awl::backends::x11::window_instance_ptr const x11_window(
 		fcppt::polymorphic_pointer_cast<
-			sge::x11::window
+			awl::backends::x11::window_instance
 		>(
-			_window
-		
+			_window->awl_instance()
 		)
 	);
 
@@ -89,6 +89,6 @@ sge::x11input::system::create_processor(
 		fcppt::make_shared_ptr<
 			x11input::processor
 		>(
-			x11_window
+			_window
 		);
 }

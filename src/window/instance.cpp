@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/instance.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <awl/event/processor.hpp>
+#include <awl/event/create_processor.hpp>
 #include <awl/window/instance.hpp>
 
 sge::window::instance::instance(
@@ -31,6 +32,9 @@ sge::window::instance::instance(
 		_instance
 	),
 	processor_(
+		awl::event::create_processor(
+			_instance
+		)
 	)
 {}
 
@@ -59,4 +63,16 @@ void
 sge::window::instance::dispatch()
 {
 	processor_->dispatch();
+}
+
+awl::window::instance_ptr const
+sge::window::instance::awl_instance() const
+{
+	return instance_;
+}
+
+awl::event::processor_ptr const
+sge::window::instance::awl_event_processor() const
+{
+	return processor_;
 }

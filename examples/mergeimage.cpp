@@ -156,11 +156,15 @@ try
 	);
 
 	sge::renderer::size_type const image_count(
-		std::distance(
-			fcppt::filesystem::directory_iterator(
-				path
-			),
-			fcppt::filesystem::directory_iterator()
+		static_cast<
+			sge::renderer::size_type
+		>(
+			std::distance(
+				fcppt::filesystem::directory_iterator(
+					path
+				),
+				fcppt::filesystem::directory_iterator()
+			)
 		)
 	);
 

@@ -30,7 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_repeat_callback.hpp>
 #include <sge/input/keyboard/key_function.hpp>
 #include <sge/input/keyboard/key_repeat_function.hpp>
-#include <sge/x11/window_ptr.hpp>
+#include <awl/backends/x11/event_fwd.hpp>
+#include <awl/backends/x11/event_processor_ptr.hpp>
+#include <awl/backends/x11/window_instance_ptr.hpp>
 #include <fcppt/container/bitfield/basic_decl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
@@ -52,8 +54,9 @@ class keyboard
 		keyboard
 	)
 public:
-	explicit keyboard(
-		x11::window_ptr
+	keyboard(
+		awl::backends::x11::window_instance_ptr,
+		awl::backends::x11::event_processor_ptr
 	);
 
 	~keyboard();
@@ -79,10 +82,12 @@ private:
 
 	void
 	on_key_event(
-		XEvent const &
+		awl::backends::x11::event const &
 	);
 
-	x11::window_ptr const wnd_;
+	awl::backends::x11::window_instance_ptr const window_;
+
+	awl::backends::x11::event_processor_ptr const event_processor_;
 
 	bool const need_grab_;
 

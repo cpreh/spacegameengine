@@ -70,8 +70,12 @@ public:
 	dispatch();
 
 	SGE_SYMBOL
-	awl::window::instance_ptr
+	awl::window::instance_ptr const
 	awl_instance() const;
+
+	SGE_SYMBOL
+	awl::event::processor_ptr const
+	awl_event_processor() const;
 private:
 	awl::window::instance_ptr const instance_;
 

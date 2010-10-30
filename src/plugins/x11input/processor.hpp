@@ -24,9 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "device_fwd.hpp"
 #include "keyboard_ptr.hpp"
 #include "mouse_ptr.hpp"
-#include <X11/Xlib.h>
-#include <sge/x11/window_ptr.hpp>
 #include <sge/input/processor.hpp>
+#include <sge/window/instance_ptr.hpp>
+#include <awl/backends/x11/event_fwd.hpp>
+#include <awl/backends/x11/event_processor_ptr.hpp>
+#include <awl/backends/x11/window_instance_ptr.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -40,14 +42,14 @@ namespace x11input
 
 class processor
 :
-	public input::processor
+	public sge::input::processor
 {
 	FCPPT_NONCOPYABLE(
 		processor
 	)
 public:
 	explicit processor(
-		x11::window_ptr
+		sge::window::instance_ptr
 	);
 
 	~processor();
@@ -86,15 +88,19 @@ private:
 
 	void
 	on_acquire(
-		XEvent const &
+		awl::backends::x11::event const &
 	);
 
 	void
 	on_release(
-		XEvent const &
+		awl::backends::x11::event const &
 	);
 
-	x11::window_ptr const wnd_;
+	sge::window::instance_ptr const window_;
+
+	awl::backends::x11::window_instance_ptr const x11_window_;
+
+	awl::backends::x11::event_processor_ptr const event_processor_;
 
 	bool acquired_;
 

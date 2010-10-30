@@ -19,28 +19,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <X11/Xlib.h>
+#include "../color.hpp"
+#include <sge/input/exception.hpp>
 #include <awl/backends/x11/display.hpp>
-#include <awl/backends/x11/window_instance.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
-#include "../warp_pointer.hpp"
+#include <fcppt/text.hpp>
+#include <fcppt/to_std_string.hpp>
 
-void
-sge::x11input::warp_pointer(
-	awl::backends::x11::window_instance_ptr const _window,
-	x11input::mouse_pos const &_pos
+sge::x11input::color::color(
+	awl::backends::x11::display_ptr const _display,
+	Colormap const _colormap,
+	fcppt::string const &_name
 )
+:
+	display_(_display),
+	colormap_(_colormap),
+	color_()
 {
-	// always returns 1
-	
-	::XWarpPointer(
-		_window->display()->get(),
-		None,
-		_window->get(),
-		0,
-		0,
-		0,
-		0,
-		_pos.x(),
-		_pos.y()
+	XColor dummy;
+
+	if(
+		::XAllocNamedColor(
+			display_->get(),
+			colormap_,
+			fcppt::to_std_string(
+				_name
+			).c_str(),
+			&color_,
+			&dummy
+		)
+		== 0
+	)
+		throw sge::input::exception(
+			FCPPT_TEXT("XAllocNamedColor() failed!")
+		);
+}
+
+sge::x11input::color::~color()
+{
+	::XFreeColors(
+		display_->get(),
+		colormap_,
+		&color_.pixel,
+		1,
+		0
 	);
+}
+
+XColor
+sge::x11input::color::get() const
+{
+	return color_;
 }

@@ -19,16 +19,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <X11/Xlib.h>
-#include <sge/x11/display.hpp>
-#include <sge/x11/window.hpp>
-#include <sge/exception.hpp>
+#include "../get_pointer.hpp"
+#include <sge/input/exception.hpp>
+#include <awl/backends/x11/display.hpp>
+#include <awl/backends/x11/window_instance.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/text.hpp>
-#include "../get_pointer.hpp"
 
 sge::x11input::mouse_pos const
 sge::x11input::get_pointer(
-	x11::window_ptr const _wnd
+	awl::backends::x11::window_instance_ptr const _window
 )
 {
 	Window
@@ -43,9 +43,9 @@ sge::x11input::get_pointer(
 	unsigned mask_return;
 
 	if(
-		XQueryPointer(
-			_wnd->display()->get(),
-			_wnd->get(),
+		::XQueryPointer(
+			_window->display()->get(),
+			_window->get(),
 			&root_return,
 			&child_return,
 			&root_x_return,
@@ -56,7 +56,7 @@ sge::x11input::get_pointer(
 		)
 		== False
 	)
-		throw sge::exception(
+		throw sge::input::exception(
 			FCPPT_TEXT("XQueryPointer failed!")
 		);
 

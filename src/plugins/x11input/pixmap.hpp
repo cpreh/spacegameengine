@@ -18,29 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <X11/Xlib.h>
-#include <awl/backends/x11/display.hpp>
-#include <awl/backends/x11/window_instance.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
-#include "../warp_pointer.hpp"
+#ifndef SGE_X11INPUT_PIXMAP_HPP_INCLUDED
+#define SGE_X11INPUT_PIXMAP_HPP_INCLUDED
 
-void
-sge::x11input::warp_pointer(
-	awl::backends::x11::window_instance_ptr const _window,
-	x11input::mouse_pos const &_pos
-)
+#include <X11/Xlib.h>
+#include <awl/backends/x11/window_instance_ptr.hpp>
+#include <awl/backends/x11/display_ptr.hpp>
+#include <fcppt/noncopyable.hpp>
+
+namespace sge
 {
-	// always returns 1
-	
-	::XWarpPointer(
-		_window->display()->get(),
-		None,
-		_window->get(),
-		0,
-		0,
-		0,
-		0,
-		_pos.x(),
-		_pos.y()
+namespace x11input
+{
+
+class pixmap
+{
+	FCPPT_NONCOPYABLE(
+		pixmap
+	)
+public:
+	explicit pixmap(
+		awl::backends::x11::window_instance_ptr
 	);
+
+	~pixmap();
+
+	Pixmap
+	get() const;
+private:
+	awl::backends::x11::display_ptr const display_;
+
+	Pixmap const pixmap_;
+};
+
 }
+}
+
+#endif

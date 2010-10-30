@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_GET_POINTER_HPP_INCLUDED
 
 #include "mouse_pos.hpp"
-#include <sge/x11/window_ptr.hpp>
+#include <awl/backends/x11/window_instance_ptr.hpp>
 
 namespace sge
 {
@@ -31,7 +31,7 @@ namespace x11input
 
 x11input::mouse_pos const
 get_pointer(
-	x11::window_ptr
+	awl::backends::x11::window_instance_ptr
 );
 
 }

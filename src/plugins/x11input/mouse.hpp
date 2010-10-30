@@ -22,20 +22,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_MOUSE_HPP_INCLUDED
 
 #include "mouse_fwd.hpp"
+#include "color.hpp"
+#include "cursor.hpp"
 #include "device.hpp"
 #include "mouse_coordinate.hpp"
 #include "mouse_pos.hpp"
 #include "mouse_grab_fwd.hpp"
-#include <X11/Xlib.h>
+#include "pixmap.hpp"
 #include <sge/input/mouse/device.hpp>
 #include <sge/input/mouse/axis_callback.hpp>
 #include <sge/input/mouse/axis_function.hpp>
 #include <sge/input/mouse/button_callback.hpp>
 #include <sge/input/mouse/button_function.hpp>
-#include <sge/x11/window_ptr.hpp>
-#include <sge/x11/color.hpp>
-#include <sge/x11/pixmap.hpp>
-#include <sge/x11/cursor.hpp>
+#include <awl/backends/x11/event_fwd.hpp>
+#include <awl/backends/x11/event_processor_ptr.hpp>
+#include <awl/backends/x11/window_instance_ptr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object.hpp>
@@ -57,8 +58,9 @@ class mouse
 		mouse
 	)
 public:
-	explicit mouse(
-		x11::window_ptr
+	mouse(
+		awl::backends::x11::window_instance_ptr,
+		awl::backends::x11::event_processor_ptr
 	);
 
 	~mouse();
@@ -81,28 +83,28 @@ private:
 
 	void
 	on_motion(
-		XEvent const &
+		awl::backends::x11::event const &
 	);
 
 	void
 	on_button_down(
-		XEvent const &
+		awl::backends::x11::event const &
 	);
 
 	void
 	on_button_up(
-		XEvent const &
+		awl::backends::x11::event const &
 	);
 
 	void
 	button_event(
-		XEvent const &,
+		awl::backends::x11::event const &,
 		bool pressed
 	);
 
 	void
 	warped_motion(
-		XEvent
+		awl::backends::x11::event const &
 	);
 
 	void
@@ -111,13 +113,13 @@ private:
 		mouse_coordinate deltay
 	);
 
-	x11::window_ptr const wnd_;
+	awl::backends::x11::window_instance_ptr const window_;
 
-	x11::color const black_;
+	x11input::color const black_;
 
-	x11::pixmap const no_bmp_;
+	x11input::pixmap const no_bmp_;
 
-	x11::cursor const cursor_;
+	x11input::cursor const cursor_;
 
 	mouse_pos mouse_last_;
 

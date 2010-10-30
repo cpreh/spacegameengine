@@ -21,22 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../keyboard_grab.hpp"
 #include "../handle_grab.hpp"
 #include <X11/Xlib.h>
-#include <sge/x11/window.hpp>
-#include <sge/x11/display.hpp>
-#include <sge/exception.hpp>
+#include <sge/input/exception.hpp>
+#include <awl/backends/x11/window_instance.hpp>
+#include <awl/backends/x11/display.hpp>
 #include <fcppt/text.hpp>
 
 sge::x11input::keyboard_grab::keyboard_grab(
-	x11::window_ptr const wnd
+	awl::backends::x11::window_instance_ptr const _window
 )
 :
-	wnd(wnd)
+	window_(_window)
 {
 	if(
-		handle_grab(
-			XGrabKeyboard(
-				wnd->display()->get(),
-				wnd->get(),
+		x11input::handle_grab(
+			::XGrabKeyboard(
+				window_->display()->get(),
+				window_->get(),
 				True,
 				GrabModeAsync,
 				GrabModeAsync,
@@ -44,15 +44,15 @@ sge::x11input::keyboard_grab::keyboard_grab(
 			)
 		)
 	)
-		throw exception(
+		throw sge::input::exception(
 			FCPPT_TEXT("Keyboard grab failed!")
 		);
 }
 
 sge::x11input::keyboard_grab::~keyboard_grab()
 {
-	XUngrabKeyboard(
-		wnd->display()->get(),
+	::XUngrabKeyboard(
+		window_->display()->get(),
 		CurrentTime
 	);
 }
