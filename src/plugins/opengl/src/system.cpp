@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../system.hpp"
 #include "../device.hpp"
 #include <sge/window/instance.hpp>
+#include <sge/window/to_awl_parameters.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/make_shared_ptr.hpp>
@@ -78,8 +79,10 @@ sge::opengl::system::create_window(
 			sge::window::instance
 		>(
 			awl::window::create_system()->create(
-				awl::window::parameters(
+				sge::window::to_awl_parameters(
+					_param
 				)
+				// TODO!
 			)
 		);
 }

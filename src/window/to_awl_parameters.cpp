@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert.hpp>
 #include <fcppt/optional_impl.hpp>
 
-awl::window::parameters const
+awl::window::parameters
 sge::window::to_awl_parameters(
 	sge::window::parameters const &_param
 )

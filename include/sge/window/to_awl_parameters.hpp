@@ -31,7 +31,7 @@ namespace window
 {
 
 SGE_SYMBOL
-awl::window::parameters const
+awl::window::parameters // intentionally not const
 to_awl_parameters(
 	sge::window::parameters const &
 );
