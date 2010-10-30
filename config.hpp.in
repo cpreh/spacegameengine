@@ -1,8 +1,0 @@
-#ifndef SGE_CONFIG_HPP_INCLUDED
-#define SGE_CONFIG_HPP_INCLUDED
-
-#cmakedefine SGE_HAVE_X11
-#cmakedefine SGE_HAVE_XF86_VMODE
-#cmakedefine SGE_HAVE_XRANDR
-
-#endif

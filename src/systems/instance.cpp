@@ -69,11 +69,17 @@ class sge::systems::instance::impl
 public:
 	plugin::manager                                 plugin_manager_;
 
+	// unload the plugins last so that any code that still needs them can run
 	plugin::object<sge::renderer::system>::ptr_type renderer_plugin_;
+	plugin::object<sge::input::system>::ptr_type    input_plugin_;
+	plugin::object<audio::player>::ptr_type         audio_player_plugin_;
+	plugin::object<collision::system>::ptr_type     collision_plugin_;
+	plugin::object<font::system>::ptr_type          font_plugin_;
+	plugin::object<model::loader>::ptr_type         md3_plugin_;
+
 	sge::renderer::system_ptr                       renderer_system_;
 	sge::renderer::device_ptr                       renderer_;
 
-	plugin::object<sge::input::system>::ptr_type    input_plugin_;
 	sge::input::system_ptr                          input_system_;
 	sge::input::processor_ptr                       input_processor_;
 	sge::input::keyboard::device_ptr                keyboard_collector_;
@@ -91,16 +97,12 @@ public:
 
 	audio_multi_loader_ptr                          audio_multi_loader_;
 
-	plugin::object<audio::player>::ptr_type         audio_player_plugin_;
 	audio::player_ptr                               audio_player_;
 
-	plugin::object<collision::system>::ptr_type     collision_plugin_;
 	collision::system_ptr                           collision_system_;
 
-	plugin::object<font::system>::ptr_type          font_plugin_;
 	font::system_ptr                                font_system_;
 
-	plugin::object<model::loader>::ptr_type         md3_plugin_;
 	model::loader_ptr                               md3_loader_;
 
 	window::instance_ptr                            window_;

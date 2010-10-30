@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/mainloop/dispatchable.hpp>
 #include <sge/mainloop/io_service_ptr.hpp>
 #include <sge/symbol.hpp>
-#include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -33,30 +32,48 @@ namespace sge
 namespace window
 {
 
-class SGE_CLASS_SYMBOL instance
+class instance
 :
 	public mainloop::dispatchable
 {
-	FCPPT_NONCOPYABLE(instance)
-protected:
-	SGE_SYMBOL instance();
+	FCPPT_NONCOPYABLE(
+		instance
+	)
 public:
+	SGE_SYMBOL
+	explicit
+	instance(
+		awl::window::instance_ptr
+	);
+
+	SGE_SYMBOL
+	~instance();
+
 	typedef window::dim_type dim_type;
 
-	virtual dim_type const
-	size() const = 0;
+	SGE_SYMBOL
+	dim_type const
+	size() const;
 
-	virtual void
-	show() = 0;
+	SGE_SYMBOL
+	void
+	show();
 
-	/// Returns the associated io_service
-	/**
-	 * @return 0 if there is no io_service associated with this window
-	*/
-	virtual mainloop::io_service_ptr const
-	io_service() const = 0;
+	SGE_SYMBOL
+	mainloop::io_service_ptr const
+	io_service() const;
 
-	SGE_SYMBOL virtual ~instance();
+	SGE_SYMBOL
+	void
+	dispatch();
+
+	SGE_SYMBOL
+	awl::window::instance_ptr
+	awl_instance() const;
+private:
+	awl::window::instance_ptr const instance_:
+
+	awl::event::processor_ptr const processor_;
 };
 
 }

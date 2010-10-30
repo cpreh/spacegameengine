@@ -20,9 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../system.hpp"
 #include "../processor.hpp"
+#include <X11/Xlib.h>
+#include <X11/extensions/XInput2.h>
+#include <sge/x11/display.hpp>
 #include <sge/x11/window.hpp>
+#include <sge/exception.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/polymorphic_pointer_cast.hpp>
+#include <fcppt/text.hpp>
 
 sge::x11input::system::system()
 {
@@ -37,14 +42,53 @@ sge::x11input::system::create_processor(
 	sge::window::instance_ptr const _window
 )
 {
+	sge::x11::window_ptr const x11_window(
+		fcppt::polymorphic_pointer_cast<
+			sge::x11::window
+		>(
+			_window
+		
+		)
+	);
+
+	// check if XInput 2 is available
+	Display *const display(
+		x11_window->display()->get()
+	);
+
+	int opcode, event, error;
+
+	if(
+		!::XQueryExtension(
+			display,
+			"XInputExtension",
+			&opcode,
+			&event,
+			&error
+		)
+	)
+		throw sge::exception(
+			FCPPT_TEXT("X Input extension not available!")
+		);
+
+	int major = 2, minor = 0;
+
+	if(
+		::XIQueryVersion(
+			display,
+			&major,
+			&minor
+		)
+		== BadRequest
+	)
+		throw sge::exception(
+			FCPPT_TEXT("X Input extension is not version 2 or later!")
+		);
+
 	return
 		fcppt::make_shared_ptr<
 			x11input::processor
 		>(
-			fcppt::polymorphic_pointer_cast<
-				sge::x11::window
-			>(
-				_window
-			)
+			x11_window
 		);
 }

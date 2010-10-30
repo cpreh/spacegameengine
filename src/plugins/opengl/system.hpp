@@ -29,20 +29,31 @@ namespace sge
 namespace opengl
 {
 
-class system : public renderer::system {
+class system
+:
+	public renderer::system
+{
 public:
+	system();
+
+	~system();
+
 	renderer::device_ptr const
 	create_renderer(
 		renderer::parameters const &param,
 		renderer::adapter_type adapter,
-		window::instance_ptr);
+		window::instance_ptr
+	);
 
 	window::instance_ptr const
 	create_window(
 		window::parameters const &,
-		renderer::parameters const &);
+		renderer::parameters const &
+	);
 private:
-	fcppt::weak_ptr<renderer::device> ref;
+	fcppt::weak_ptr<
+		renderer::device
+	> weak_ref_;
 };
 
 }

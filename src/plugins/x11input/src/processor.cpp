@@ -36,6 +36,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <ostream>
 
+#include <X11/extensions/XInput2.h>
+
 sge::x11input::processor::processor(
 	x11::window_ptr const _wnd
 )
@@ -118,6 +120,29 @@ sge::x11input::processor::processor(
 		)
 	)
 {
+
+{
+	XIEventMask eventmask;
+	unsigned char mask[1] = { 0 }; /* the actual mask */
+
+	eventmask.deviceid = XIAllDevices;
+	eventmask.mask_len = sizeof(mask); /* always in bytes */
+	eventmask.mask = mask;
+	/* now set the mask */
+	XISetMask(mask, XI_ButtonPress);
+	XISetMask(mask, XI_Motion);
+	XISetMask(mask, XI_KeyPress);
+
+	/* select on the window */
+	XISelectEvents(
+		wnd_->display()->get(),
+		wnd_->get(),
+		&eventmask,
+		1
+	);
+
+}
+
 	/*
 	connections.connect(
 		wnd->register_callback(
