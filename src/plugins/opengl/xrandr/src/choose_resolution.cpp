@@ -88,7 +88,7 @@ sge::opengl::xrandr::choose_resolution(
 						xrandr::mode(
 							i,
 							RR_Rotate_0,
-							mode.refresh_rate()
+							_mode.refresh_rate()
 						),
 						xrandr::current_resolution(
 							config

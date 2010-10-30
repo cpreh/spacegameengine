@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../set_resolution.hpp"
 #include "../mode.hpp"
 #include "../configuration.hpp"
-#include <sge/x11/window.hpp>
-#include <sge/x11/display.hpp>
+#include <awl/backends/x11/window_instance.hpp>
+#include <awl/backends/x11/display.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
@@ -31,21 +31,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::xrandr::set_resolution(
-	sge::x11::window_ptr const wnd,
-	configuration_ptr const config,
-	mode const &m
+	awl::backends::x11::window_instance_ptr const _window,
+	xrandr::configuration_ptr const _config,
+	xrandr::mode const &_mode
 )
 {
-	if(m.rate() != renderer::refresh_rate_dont_care)
+	if(
+		_mode.rate() != renderer::refresh_rate_dont_care
+	)
 	{
 		if(
-			XRRSetScreenConfigAndRate(
-				wnd->display()->get(),
-				config->get(),
-				wnd->get(),
-				m.index(),
-				m.rotation(),
-				static_cast<short>(m.rate()),
+			::XRRSetScreenConfigAndRate(
+				_window->display()->get(),
+				_config->get(),
+				_window->get(),
+				_mode.index(),
+				_mode.rotation(),
+				static_cast<
+					short
+				>(
+					_mode.rate()
+				),
 				CurrentTime
 			) != Success
 		)
@@ -56,12 +62,12 @@ sge::opengl::xrandr::set_resolution(
 	else
 	{
 		if(
-			XRRSetScreenConfig(
-				wnd->display()->get(),
-				config->get(),
-				wnd->get(),
-				m.index(),
-				m.rotation(),
+			::XRRSetScreenConfig(
+				_window->display()->get(),
+				_config->get(),
+				_window->get(),
+				_mode.index(),
+				_mode.rotation(),
 				CurrentTime
 			) != Success
 		)
