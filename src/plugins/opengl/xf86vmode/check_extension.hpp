@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_XF86VMODE_CHECK_EXTENSION_HPP_INCLUDED
 #define SGE_OPENGL_XF86VMODE_CHECK_EXTENSION_HPP_INCLUDED
 
-#include <sge/x11/display_ptr.hpp>
+#include <awl/backends/x11/display_ptr.hpp>
 
 namespace sge
 {
@@ -32,7 +32,7 @@ namespace xf86vmode
 
 void
 check_extension(
-	sge::x11::display_ptr
+	awl::backends::x11::display_ptr
 );
 
 }

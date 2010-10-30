@@ -22,20 +22,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../check_extension.hpp"
 #include <X11/Xlib.h>
 #include <X11/extensions/xf86vmode.h>
-#include <sge/x11/display.hpp>
-#include <sge/exception.hpp>
+#include <sge/renderer/exception.hpp>
+#include <awl/backends/x11/display.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::xf86vmode::modes::modes(
-	x11::display_ptr const _dsp,
+	awl::backends::x11::display_ptr const _display,
 	int const _screen
 )
 :
-	dsp_(_dsp),
+	display_(_display),
 	screen_(_screen)
 {
-	check_extension(
-		dsp_
+	xf86vmode::check_extension(
+		display_
 	);
 
 	int mode_count;
@@ -43,41 +43,52 @@ sge::opengl::xf86vmode::modes::modes(
 	XF86VidModeModeInfo **ret;
 
 	if(
-		XF86VidModeGetAllModeLines(
-			dsp_->get(),
+		::XF86VidModeGetAllModeLines(
+			display_->get(),
 			screen(),
 			&mode_count,
 			&ret
 		)
 		== False
 	)
-		throw exception(
+		throw sge::renderer::exception(
 			FCPPT_TEXT("XF86VidModeGetAllModeLines() failed")
 		);
 
-	modes_.reset(ret);
+	modes_.reset(
+		ret
+	);
 
-	sz_ = mode_count >= 0 ? mode_count : 0;
+	size_ =
+		static_cast<
+			size_type
+		>(
+			mode_count >= 0
+			?
+				mode_count
+			:
+				0
+		);
 }
 
 XF86VidModeModeInfo const &
 sge::opengl::xf86vmode::modes::operator[](
-	size_type const index
+	size_type const _index
 ) const
 {
-	return (*modes_)[index];
+	return (*modes_)[_index];
 }
 
 sge::opengl::xf86vmode::modes::size_type
 sge::opengl::xf86vmode::modes::size() const
 {
-	return sz_;
+	return size_;
 }
 
-sge::x11::display_ptr const
+awl::backends::x11::display_ptr const
 sge::opengl::xf86vmode::modes::display() const
 {
-	return dsp_;
+	return display_;
 }
 
 int

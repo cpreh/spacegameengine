@@ -18,36 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../configuration.hpp"
-#include <awl/backends/x11/window_instance.hpp>
-#include <awl/backends/x11/display.hpp>
-#include <fcppt/assert.hpp>
+#ifndef SGE_OPENGL_GLX_CURRENT_HPP_INCLUDED
+#define SGE_OPENGL_GLX_CURRENT_HPP_INCLUDED
 
-sge::opengl::xrandr::configuration::configuration(
-	awl::backends::x11::window_instance_ptr const _window
-)
-:
-	config_(
-		::XRRGetScreenInfo(
-			_window->display()->get(),
-			_window->get()
-		)
+#include "context_ptr.hpp"
+#include <awl/backends/x11/display_ptr.hpp>
+#include <awl/backends/x11/window_instance_ptr.hpp>
+#include <fcppt/noncopyable.hpp>
+
+namespace sge
+{
+namespace opengl
+{
+namespace glx
+{
+
+class current
+{
+	FCPPT_NONCOPYABLE(
+		current
 	)
-{
-	FCPPT_ASSERT(
-		config_
-	)
-}
-
-::XRRScreenConfiguration *
-sge::opengl::xrandr::configuration::get() const
-{
-	return config_;
-}
-
-sge::opengl::xrandr::configuration::~configuration()
-{
-	::XRRFreeScreenConfigInfo(
-		config_
+public:
+	current(
+		awl::backends::x11::display_ptr,
+		awl::backends::x11::window_instance_ptr,
+		glx::context_ptr
 	);
+
+	~current();
+private:
+	awl::backends::x11::display_ptr const display_;
+
+	glx::context_ptr const context_;
+};
+
 }
+}
+}
+
+#endif

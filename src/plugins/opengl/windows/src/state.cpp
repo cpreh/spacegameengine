@@ -30,8 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::windows::state::state(
 	renderer::parameters const &_param,
 	renderer::adapter_type const _adapter,
-	window::instance_ptr const _wnd,
-	view_port_fun const &
+	window::instance_ptr const _wnd
 )
 :
 	wnd_(
@@ -78,7 +77,3 @@ sge::opengl::windows::state::swap_buffers()
 			FCPPT_TEXT("wglSwapLayerBuffers() failed!")
 		);
 }
-
-void
-sge::opengl::windows::state::reset_viewport()
-{}

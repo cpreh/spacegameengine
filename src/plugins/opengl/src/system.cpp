@@ -20,11 +20,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../system.hpp"
 #include "../device.hpp"
-#include <sge/exception.hpp>
+#include <sge/window/instance.hpp>
+#include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <awl/window/create_system.hpp>
 #include <awl/window/parameters.hpp>
+#include <awl/window/system.hpp>
 
 sge::opengl::system::system()
 :
@@ -46,7 +48,7 @@ sge::opengl::system::create_renderer(
 	if(
 		weak_ref_.lock()
 	)
-		throw sge::exception(
+		throw sge::renderer::exception(
 			FCPPT_TEXT("The opengl plugin may only have one renderer!")
 		);
 
@@ -73,9 +75,9 @@ sge::opengl::system::create_window(
 {
 	return
 		fcppt::make_shared_ptr<
-			sge::window::instance_ptr
+			sge::window::instance
 		>(
-			awl::window::create_system()->create_window(
+			awl::window::create_system()->create(
 				awl::window::parameters(
 				)
 			)

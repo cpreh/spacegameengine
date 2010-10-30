@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/Xlib.h>
 #include <X11/extensions/xf86vmode.h>
 #include "modes_fwd.hpp"
-#include <sge/x11/deleter.hpp>
-#include <sge/x11/display_ptr.hpp>
+#include <awl/backends/x11/deleter.hpp>
+#include <awl/backends/x11/display_ptr.hpp>
 #include <fcppt/shared_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <cstddef>
@@ -39,14 +39,18 @@ namespace xf86vmode
 
 class modes
 {
-	FCPPT_NONCOPYABLE(modes)
+	FCPPT_NONCOPYABLE(
+		modes
+	)
 public:
 	typedef std::size_t size_type;
 
 	modes(
-		sge::x11::display_ptr dsp,
+		awl::backends::x11::display_ptr,
 		int screen
 	);
+
+	~modes();
 
 	XF86VidModeModeInfo const &
 	operator[](
@@ -56,24 +60,24 @@ public:
 	size_type
 	size() const;
 
-	sge::x11::display_ptr const
+	awl::backends::x11::display_ptr const
 	display() const;
 
 	int
 	screen() const;
 private:
-	sge::x11::display_ptr const dsp_;
+	awl::backends::x11::display_ptr const display_;
 
 	int const screen_;
 
 	typedef fcppt::shared_ptr<
 		XF86VidModeModeInfo *,
-		sge::x11::deleter
+		awl::backends::x11::deleter
 	> vidmode_ptr;
 
 	vidmode_ptr modes_;
 
-	size_type sz_;
+	size_type size_;
 };
 
 }

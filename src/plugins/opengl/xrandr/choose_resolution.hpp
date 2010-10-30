@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_XRANDR_CHOOSE_RESOLUTION_HPP_INCLUDED
 
 #include "resolution_ptr.hpp"
-#include <sge/x11/window_ptr.hpp>
 #include <sge/renderer/display_mode_fwd.hpp>
+#include <awl/backends/x11/window_instance_ptr.hpp>
 
 namespace sge
 {
@@ -32,9 +32,9 @@ namespace opengl
 namespace xrandr
 {
 
-resolution_ptr const
+xrandr::resolution_ptr const
 choose_resolution(
-	sge::x11::window_ptr,
+	awl::backends::x11::window_instance_ptr,
 	renderer::display_mode const &
 );
 

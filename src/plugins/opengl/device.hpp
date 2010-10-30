@@ -21,19 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_DEVICE_HPP_INCLUDED
 #define SGE_OPENGL_DEVICE_HPP_INCLUDED
 
-#include <sge/config.hpp>
-#include <fcppt/config.hpp>
+#include "common.hpp"
 #include "default_target_ptr.hpp"
 #include "target_ptr.hpp"
-#include "common.hpp"
+#include "device_state_ptr.hpp"
 #include "context/object.hpp"
-#if defined(FCPPT_WINDOWS_PLATFORM)
-#include "windows/state.hpp"
-#elif defined(SGE_HAVE_X11)
-#include "x11/state.hpp"
-#else
-#error "Implement me!"
-#endif
 #include <sge/renderer/adapter_type.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/parameters.hpp>
@@ -280,11 +272,8 @@ private:
 
 	renderer::state::list current_states_;
 
-#if defined(FCPPT_WINDOWS_PLATFORM)
-	windows::state state_;
-#elif defined(SGE_HAVE_X11)
-	x11::state state_;
-#endif
+	device_state_ptr state_;
+
 	renderer::any_matrix projection_;
 
 	default_target_ptr default_target_;

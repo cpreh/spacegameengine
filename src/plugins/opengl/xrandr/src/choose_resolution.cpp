@@ -26,60 +26,77 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../check_extension.hpp"
 #include <sge/renderer/display_mode.hpp>
 #include <sge/renderer/screen_unit.hpp>
-#include <sge/x11/window.hpp>
-#include <sge/exception.hpp>
+#include <sge/renderer/exception.hpp>
+#include <awl/backends/x11/window_instance.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::xrandr::resolution_ptr const
 sge::opengl::xrandr::choose_resolution(
-	x11::window_ptr const wnd,
-	renderer::display_mode const &mode
+	awl::backends::x11::window_instance_ptr const _window,
+	renderer::display_mode const &_mode
 )
 {
-	check_extension(
-		wnd->display()
+	xrandr::check_extension(
+		_window->display()
 	);
 
-	configuration_ptr const config(
+	xrandr::configuration_ptr const config(
 		fcppt::make_shared_ptr<
-			configuration
+			xrandr::configuration
 		>(
-			wnd
+			_window
 		)
 	);
 
 	int nsizes;
-	XRRScreenSize *const sizes(
-		XRRConfigSizes(
+
+	::XRRScreenSize *const sizes(
+		::XRRConfigSizes(
 			config->get(),
 			&nsizes
 		)
 	);
 
-	for(int i = 0; i < nsizes; ++i)
+	for(
+		int i = 0;
+		i < nsizes;
+		++i
+	)
 		if(
-			static_cast<renderer::screen_unit>(sizes[i].width) == mode.size().w()
-			&& static_cast<renderer::screen_unit>(sizes[i].height) == mode.size().h()
+			static_cast<
+				renderer::screen_unit
+			>(
+				sizes[i].width
+			)
+			== _mode.size().w()
+			&&
+			static_cast<
+				renderer::screen_unit
+			>(
+				sizes[i].height
+			)
+			== _mode.size().h()
 		)
-			return resolution_ptr(
-				fcppt::make_shared_ptr<
-					resolution
-				>(
-					wnd,
-					config,
-					xrandr::mode(
-						i,
-						RR_Rotate_0,
-						mode.refresh_rate()
-					),
-					current_resolution(
-						config
+			return
+				xrandr::resolution_ptr(
+					fcppt::make_shared_ptr<
+						xrandr::resolution
+					>(
+						_window,
+						config,
+						xrandr::mode(
+							i,
+							RR_Rotate_0,
+							mode.refresh_rate()
+						),
+						xrandr::current_resolution(
+							config
+						)
 					)
-				)
-			);
+				);
 
-	throw exception(
+	throw sge::renderer::exception(
 		FCPPT_TEXT("No matching resolution found!")
 	);
 }

@@ -26,7 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../xf86vmode/resolution_ptr.hpp"
 #include <sge/renderer/adapter_type.hpp>
 #include <sge/renderer/display_mode_fwd.hpp>
-#include <sge/x11/display_ptr.hpp>
+#include <awl/backends/x11/display_ptr.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -41,12 +42,17 @@ class xf86_vmode
 :
 	public instance
 {
+	FCPPT_NONCOPYABLE(
+		xf86_vmode
+	)
 public:
 	xf86_vmode(
 		renderer::display_mode const &,
-		sge::x11::display_ptr,
+		awl::backends::x11::display_ptr,
 		int screen
 	);
+
+	~xf86_vmode();
 private:
 	xf86vmode::modes const modes_;
 

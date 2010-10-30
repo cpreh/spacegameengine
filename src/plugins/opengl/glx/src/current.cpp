@@ -18,36 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../configuration.hpp"
+#include <GL/glx.h>
+#include "../current.hpp"
+#include "../context.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 #include <awl/backends/x11/window_instance.hpp>
 #include <awl/backends/x11/display.hpp>
-#include <fcppt/assert.hpp>
 
-sge::opengl::xrandr::configuration::configuration(
-	awl::backends::x11::window_instance_ptr const _window
+sge::opengl::glx::current::current(
+	awl::backends::x11::display_ptr const _display,
+	awl::backends::x11::window_instance_ptr const _window,
+	context_ptr const _context
 )
 :
-	config_(
-		::XRRGetScreenInfo(
-			_window->display()->get(),
-			_window->get()
+	display_(_display),
+	context_(_context)
+{
+	if(
+		::glXMakeCurrent(
+			_display->get(),
+			_window->get(),
+			_context->get()
 		)
+		== false
 	)
-{
-	FCPPT_ASSERT(
-		config_
-	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("glXMakeCurrent() failed!")
+		);
 }
 
-::XRRScreenConfiguration *
-sge::opengl::xrandr::configuration::get() const
+sge::opengl::glx::current::~current()
 {
-	return config_;
-}
-
-sge::opengl::xrandr::configuration::~configuration()
-{
-	::XRRFreeScreenConfigInfo(
-		config_
+	::glXMakeCurrent(
+		display_->get(),
+		None,
+		NULL
 	);
 }

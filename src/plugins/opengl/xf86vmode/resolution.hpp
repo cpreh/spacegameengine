@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <X11/Xlib.h>
 #include <X11/extensions/xf86vmode.h>
-#include <sge/x11/display_ptr.hpp>
+#include <awl/backends/x11/display_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -35,10 +35,12 @@ namespace xf86vmode
 
 class resolution
 {
-	FCPPT_NONCOPYABLE(resolution)
+	FCPPT_NONCOPYABLE(
+		resolution
+	)
 public:
 	resolution(
-		sge::x11::display_ptr,
+		awl::backends::x11::display_ptr,
 		int screen,
 		XF86VidModeModeInfo const &new_mode,
 		XF86VidModeModeInfo const &old_mode
@@ -46,7 +48,7 @@ public:
 
 	~resolution();
 private:
-	sge::x11::display_ptr const dsp_;
+	awl::backends::x11::display_ptr const display_;
 
 	int const screen_;
 

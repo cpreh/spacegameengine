@@ -18,36 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../configuration.hpp"
-#include <awl/backends/x11/window_instance.hpp>
+#include "../context.hpp"
 #include <awl/backends/x11/display.hpp>
-#include <fcppt/assert.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-sge::opengl::xrandr::configuration::configuration(
-	awl::backends::x11::window_instance_ptr const _window
+sge::opengl::glx::context::context(
+	awl::backends::x11::display_ptr const _display,
+	XVisualInfo const &_visual_info
 )
 :
-	config_(
-		::XRRGetScreenInfo(
-			_window->display()->get(),
-			_window->get()
+	display_(_display),
+	context_(
+		::glXCreateContext(
+			_display->get(),
+			const_cast<
+				XVisualInfo *
+			>(
+				&_visual_info
+			),
+			NULL,
+			True
 		)
 	)
 {
-	FCPPT_ASSERT(
-		config_
+	if(
+		context_ == 0
 	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("glXCreateContext() failed!")
+		);
 }
 
-::XRRScreenConfiguration *
-sge::opengl::xrandr::configuration::get() const
+sge::opengl::glx::context::~context()
 {
-	return config_;
-}
-
-sge::opengl::xrandr::configuration::~configuration()
-{
-	::XRRFreeScreenConfigInfo(
-		config_
+	::glXDestroyContext(
+		display_->get(),
+		get()
 	);
+}
+
+GLXContext &
+sge::opengl::glx::context::get()
+{
+	return context_;
 }

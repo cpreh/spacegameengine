@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_shared_ptr.hpp>
 #include <awl/window/create_system.hpp>
 #include <awl/window/parameters.hpp>
+#include <awl/window/system.hpp>
 
 sge::window::instance_ptr const
 sge::window::create(
@@ -32,9 +33,9 @@ sge::window::create(
 {
 	return
 		fcppt::make_shared_ptr<
-			sge::window::instance_ptr
+			sge::window::instance
 		>(
-			awl::window::create_system()->create_window(
+			awl::window::create_system()->create(
 				awl::window::parameters(
 				)
 			)

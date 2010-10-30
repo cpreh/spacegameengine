@@ -18,48 +18,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config.hpp>
 #include "../create.hpp"
-#if defined(SGE_HAVE_XRANDR)
+#include "../../../config.hpp"
+#if defined(SGE_OPENGL_HAVE_XRANDR)
 #include "../xrandr_mode.hpp"
 #endif
-#if defined(SGE_HAVE_XF86_VMODE)
+#if defined(SGE_OPENGL_HAVE_XF86_VMODE)
 #include "../xf86_vmode.hpp"
 #endif
 #include <sge/renderer/parameters.hpp>
 #include <sge/log/global.hpp>
-#include <sge/x11/window.hpp>
 #include <sge/exception.hpp>
-#include <fcppt/log/headers.hpp>
+#include <awl/backends/x11/window_instance.hpp>
+#include <fcppt/log/output.hpp>
+#include <fcppt/log/warning.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 
 sge::opengl::x11::resolution::unique_ptr
 sge::opengl::x11::resolution::create(
-	sge::x11::window_ptr const wnd,
-	renderer::parameters const &param,
-	renderer::adapter_type const adapter
+	awl::backends::x11::window_instance_ptr const _window,
+	renderer::parameters const &_param,
+	renderer::adapter_type const _adapter
 )
 {
 	if(
-		param.window_mode() == renderer::window_mode::windowed
+		_param.window_mode() == renderer::window_mode::windowed
 	)
 		return unique_ptr();
-#if defined(SGE_HAVE_XRANDR)
+#if defined(SGE_OPENGL_HAVE_XRANDR)
 	try
 	{
 		return
 			resolution::unique_ptr(
 				fcppt::make_unique_ptr<
-					xrandr_mode
+					resolution::xrandr_mode
 				>(
-					param.display_mode(),
-					wnd
+					_param.display_mode(),
+					_window
 				)
 			);
 	}
 	catch(
-		exception const &_exception
+		sge::exception const &_exception
 	)
 	{
 		FCPPT_LOG_WARNING(
@@ -68,22 +69,22 @@ sge::opengl::x11::resolution::create(
 		);
 	}
 #endif
-#if defined(SGE_HAVE_XF86_VMODE)
+#if defined(SGE_OPENGL_HAVE_XF86_VMODE)
 	try
 	{
 		return
 			resolution::unique_ptr(
 				fcppt::make_unique_ptr<
-					xf86_vmode
+					resolution::xf86_vmode
 				>(
-					param.display_mode(),
-					wnd->display(),
-					wnd->screen()
+					_param.display_mode(),
+					_window->display(),
+					_window->screen()
 				)
 			);
 	}
 	catch(
-		exception const &_exception
+		sge::exception const &_exception
 	)
 	{
 		FCPPT_LOG_WARNING(

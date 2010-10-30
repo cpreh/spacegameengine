@@ -18,16 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config.hpp>
-#if defined(SGE_HAVE_XF86_VMODE)
+#include "../../../config.hpp"
+#ifdef SGE_OPENGL_HAVE_XF86VMODE
 #include "../xf86_vmode.hpp"
 #include "../../../xf86vmode/choose_mode.hpp"
-#include <sge/x11/display.hpp>
 #include <sge/renderer/display_mode.hpp>
 
 sge::opengl::x11::resolution::xf86_vmode::xf86_vmode(
 	renderer::display_mode const &_mode,
-	sge::x11::display_ptr const _display,
+	awl::backends::x11::display_ptr const _display,
 	int const _screen
 )
 :
@@ -43,4 +42,7 @@ sge::opengl::x11::resolution::xf86_vmode::xf86_vmode(
 	)
 {}
 
+sge::opengl::x11::resolution::xf86_vmode::~xf86_vmode()
+{
+}
 #endif

@@ -19,39 +19,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../resolution.hpp"
-#include <sge/x11/display.hpp>
-#include <sge/exception.hpp>
+#include <sge/renderer/exception.hpp>
+#include <awl/backends/x11/display.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::xf86vmode::resolution::resolution(
-	x11::display_ptr const _dsp,
+	awl::backends::x11::display_ptr const _display,
 	int const _screen,
 	XF86VidModeModeInfo const &_new_mode,
 	XF86VidModeModeInfo const &_old_mode
 )
 :
-	dsp_(_dsp),
+	display_(_display),
 	screen_(_screen),
 	old_mode_(_old_mode)
 {
 	if(
-		XF86VidModeSwitchToMode(
-			dsp_->get(),
+		::XF86VidModeSwitchToMode(
+			display_->get(),
 			screen_,
 			const_cast<
-				XF86VidModeModeInfo *
+				::XF86VidModeModeInfo *
 			>(
 				&_new_mode
 			)
 		)
 		== False
 	)
-		throw exception(
+		throw sge::renderer::exception(
 			FCPPT_TEXT("XF86VidModeSwitchToMode() failed!")
 		);
 
-	XF86VidModeSetViewPort(
-		dsp_->get(),
+	::XF86VidModeSetViewPort(
+		display_->get(),
 		screen_,
 		0,
 		0
@@ -60,11 +60,11 @@ sge::opengl::xf86vmode::resolution::resolution(
 
 sge::opengl::xf86vmode::resolution::~resolution()
 {
-	XF86VidModeSwitchToMode(
-		dsp_->get(),
+	::XF86VidModeSwitchToMode(
+		display_->get(),
 		screen_,
 		const_cast<
-			XF86VidModeModeInfo *
+			::XF86VidModeModeInfo *
 		>(
 			&old_mode_
 		)

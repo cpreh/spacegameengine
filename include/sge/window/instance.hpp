@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/mainloop/dispatchable.hpp>
 #include <sge/mainloop/io_service_ptr.hpp>
 #include <sge/symbol.hpp>
+#include <awl/window/instance_ptr.hpp>
+#include <awl/event/processor_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -71,7 +73,7 @@ public:
 	awl::window::instance_ptr
 	awl_instance() const;
 private:
-	awl::window::instance_ptr const instance_:
+	awl::window::instance_ptr const instance_;
 
 	awl::event::processor_ptr const processor_;
 };

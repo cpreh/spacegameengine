@@ -23,9 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../check_state.hpp"
 #include "../common.hpp"
 #include "../create_caps.hpp"
+#include "../create_device_state.hpp"
 #include "../cube_texture.hpp"
 #include "../default_target.hpp"
 #include "../depth_stencil_texture.hpp"
+#include "../device_state.hpp"
 #include "../enable_bool.hpp"
 #include "../fbo_projection.hpp"
 #include "../fbo_target.hpp"
@@ -83,13 +85,15 @@ sge::opengl::device::device(
 		opengl::initial_states()
 	),
 	state_(
-		_parameters,
-		_adapter,
-		_window,
-		std::tr1::bind(
-			&device::reset_viewport,
-			this,
-			std::tr1::placeholders::_1
+		opengl::create_device_state(
+			_parameters,
+			_adapter,
+			_window,
+			std::tr1::bind(
+				&device::reset_viewport,
+				this,
+				std::tr1::placeholders::_1
+			)
 		)
 	),
 	projection_(
@@ -152,7 +156,7 @@ sge::opengl::device::end_rendering()
 	if(
 		!fbo_active()
 	)
-		state_.swap_buffers();
+		state_->swap_buffers();
 }
 
 void

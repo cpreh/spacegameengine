@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_XRANDR_CONFIGURATION_HPP_INCLUDED
 
 #include "configuration_fwd.hpp"
-#include <sge/x11/window_ptr.hpp>
+#include <awl/backends/x11/window_instance_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <X11/Xlib.h>
 #include <X11/extensions/Xrandr.h>
@@ -36,10 +36,12 @@ namespace xrandr
 
 class configuration
 {
-	FCPPT_NONCOPYABLE(configuration)
+	FCPPT_NONCOPYABLE(
+		configuration
+	)
 public:
 	explicit configuration(
-		sge::x11::window_ptr
+		awl::backends::x11::window_instance_ptr
 	);
 
 	~configuration();
@@ -47,7 +49,7 @@ public:
 	XRRScreenConfiguration *
 	get() const;
 private:
-	XRRScreenConfiguration *const config;
+	XRRScreenConfiguration *const config_;
 };
 
 }

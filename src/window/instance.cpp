@@ -19,6 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/window/instance.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <awl/event/processor.hpp>
+#include <awl/window/instance.hpp>
 
 sge::window::instance::instance(
 	awl::window::instance_ptr const _instance
@@ -37,7 +40,7 @@ sge::window::instance::~instance()
 sge::window::dim_type const
 sge::window::instance::size() const
 {
-	return instance_->size();	
+	return window::dim_type::null(); // FIXME
 }
 
 void

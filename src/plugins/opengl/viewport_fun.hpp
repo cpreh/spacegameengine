@@ -31,7 +31,7 @@ namespace opengl
 
 typedef fcppt::function::object<
 	void (window::dim_type const &)
-> view_port_fun;
+> viewport_fun;
 
 }
 }

@@ -21,103 +21,108 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <GL/glx.h>
 #include "../state.hpp"
 #include "../resolution/create.hpp"
-#include "../../glx/visual.hpp"
-#include <sge/x11/window.hpp>
-#include <sge/x11/display.hpp>
-#include <sge/x11/visual.hpp>
+#include "../resolution/instance.hpp"
+#include "../../glx/context.hpp"
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/parameters.hpp>
+#include <awl/backends/x11/visual.hpp>
+#include <awl/backends/x11/window_instance.hpp>
+#include <awl/backends/x11/display.hpp>
+//#include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+//#include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 
 sge::opengl::x11::state::state(
-	renderer::parameters const &param,
-	renderer::adapter_type const adapter,
-	window::instance_ptr const wnd_,
-	view_port_fun const &set_viewport
+	renderer::parameters const &_param,
+	renderer::adapter_type const _adapter,
+	awl::backends::x11::window_instance_ptr const _window,
+	opengl::viewport_fun const &_set_viewport
 )
 :
-	set_viewport(
-		set_viewport
+	device_state(),
+	set_viewport_(
+		_set_viewport
 	),
 	screen_size_(
-		param.display_mode().size()
+		_param.display_mode().size()
 	),
-	wnd(
-		fcppt::polymorphic_pointer_cast<
-			sge::x11::window
-		>(
-			wnd_
-		)
+	window_(
+		_window
 	),
-	display(
-		wnd->display()
+	display_(
+		window_->display()
 	),
-	visual(
-		wnd->visual()
+	visual_(
+		window_->visual()
 	),
-	context(
+	context_(
 		fcppt::make_shared_ptr<
 			glx::context
 		>(
-			display,
-			fcppt::dynamic_pointer_cast<
-				glx::visual const
+			display_,
+			*fcppt::dynamic_pointer_cast<
+				awl::backends::x11::visual const
 			>(
-				visual
+				visual_
 			)->info()
 		)
 	),
-	current(
-		display,
-		*wnd,
-		context
+	current_(
+		display_,
+		window_,
+		context_
 	),
 	resolution_(
-		resolution::create(
-			wnd,
-			param,
-			adapter
+		x11::resolution::create(
+			window_,
+			_param,
+			_adapter
 		)
-	)
+	),
+	connection_manager_()
+	/*
+		fcppt::assign::make_container<
+			fcppt::signal::connection_manager
+		>(
+			fcppt::signal::shared_connection(
+				window_->register_callback(
+					MapNotify,
+					std::tr1::bind(
+						&state::reset_viewport_on_map,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+		(
+			fcppt::signal::shared_connection(
+				window_->register_callback(
+					ConfigureNotify,
+					std::tr1::bind(
+						&state::reset_viewport_on_configure,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+	)*/
 {
-	con_manager.connect(
-		wnd->register_callback(
-			MapNotify,
-			std::tr1::bind(
-				&state::reset_viewport_on_map,
-				this,
-				std::tr1::placeholders::_1
-			)
-		)
-	);
+}
 
-	con_manager.connect(
-		wnd->register_callback(
-			ConfigureNotify,
-			std::tr1::bind(
-				&state::reset_viewport_on_configure,
-				this,
-				std::tr1::placeholders::_1
-			)
-		)
-	);
-
-	if(resolution_)
-		wnd->map_raised();
-	else
-		wnd->map();
-
-	display->sync();
+sge::opengl::x11::state::~state()
+{
 }
 
 void
 sge::opengl::x11::state::swap_buffers()
 {
-	glXSwapBuffers(
-		display->get(),
-		wnd->get()
+	::glXSwapBuffers(
+		display_->get(),
+		window_->get()
 	);
 }
 
@@ -126,24 +131,27 @@ sge::opengl::x11::state::reset_viewport_on_map(
 	XEvent const &
 )
 {
-	set_viewport(
-		wnd->size()
+	// TODO?
+#if 0
+	set_viewport_(
+		window_->size()
 	);
+#endif
 }
 
 void
 sge::opengl::x11::state::reset_viewport_on_configure(
-	XEvent const &e
+	XEvent const &_event
 )
 {
-	XConfigureEvent const &r(
-		e.xconfigure
+	XConfigureEvent const &configure_event(
+		_event.xconfigure
 	);
 
-	set_viewport(
+	set_viewport_(
 		window::dim_type(
-			r.width,
-			r.height
+			configure_event.width,
+			configure_event.height
 		)
 	);
 }

@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "instance.hpp"
 #include "../../xrandr/resolution_ptr.hpp"
 #include <sge/renderer/display_mode_fwd.hpp>
-#include <sge/x11/window_ptr.hpp>
+#include <awl/backends/x11/window_instance_ptr.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -39,13 +40,18 @@ class xrandr_mode
 :
 	public instance
 {
+	FCPPT_NONCOPYABLE(
+		xrandr_mode
+	)
 public:
 	xrandr_mode(
 		renderer::display_mode const &,
-		sge::x11::window_ptr
+		awl::backends::x11::window_instance_ptr
 	);
+
+	~xrandr_mode();
 private:
-	xrandr::resolution_ptr const resolution;
+	xrandr::resolution_ptr const resolution_;
 };
 
 }

@@ -18,36 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../configuration.hpp"
-#include <awl/backends/x11/window_instance.hpp>
-#include <awl/backends/x11/display.hpp>
-#include <fcppt/assert.hpp>
+#ifndef SGE_OPENGL_DEVICE_STATE_HPP_INCLUDED
+#define SGE_OPENGL_DEVICE_STATE_HPP_INCLUDED
 
-sge::opengl::xrandr::configuration::configuration(
-	awl::backends::x11::window_instance_ptr const _window
-)
-:
-	config_(
-		::XRRGetScreenInfo(
-			_window->display()->get(),
-			_window->get()
-		)
+#include "device_state_fwd.hpp"
+#include <fcppt/noncopyable.hpp>
+
+namespace sge
+{
+namespace opengl
+{
+
+class device_state
+{
+	FCPPT_NONCOPYABLE(
+		device_state
 	)
-{
-	FCPPT_ASSERT(
-		config_
-	)
+protected:
+	device_state();
+public:
+	virtual void
+	swap_buffers() = 0;
+
+	virtual ~device_state();
+};
+
+}
 }
 
-::XRRScreenConfiguration *
-sge::opengl::xrandr::configuration::get() const
-{
-	return config_;
-}
-
-sge::opengl::xrandr::configuration::~configuration()
-{
-	::XRRFreeScreenConfigInfo(
-		config_
-	);
-}
+#endif

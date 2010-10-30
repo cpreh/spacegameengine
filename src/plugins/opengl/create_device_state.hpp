@@ -18,36 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../configuration.hpp"
-#include <awl/backends/x11/window_instance.hpp>
-#include <awl/backends/x11/display.hpp>
-#include <fcppt/assert.hpp>
+#ifndef SGE_OPENGL_CREATE_DEVICE_STATE_HPP_INCLUDED
+#define SGE_OPENGL_CREATE_DEVICE_STATE_HPP_INCLUDED
 
-sge::opengl::xrandr::configuration::configuration(
-	awl::backends::x11::window_instance_ptr const _window
-)
-:
-	config_(
-		::XRRGetScreenInfo(
-			_window->display()->get(),
-			_window->get()
-		)
-	)
+#include "device_state_ptr.hpp"
+#include "viewport_fun.hpp"
+#include <sge/renderer/parameters_fwd.hpp>
+#include <sge/renderer/adapter_type.hpp>
+#include <sge/window/instance_ptr.hpp>
+
+namespace sge
 {
-	FCPPT_ASSERT(
-		config_
-	)
+namespace opengl
+{
+
+opengl::device_state_ptr
+create_device_state(
+	renderer::parameters const &,
+	renderer::adapter_type,
+	window::instance_ptr,
+	opengl::viewport_fun const &
+);
+
+}
 }
 
-::XRRScreenConfiguration *
-sge::opengl::xrandr::configuration::get() const
-{
-	return config_;
-}
-
-sge::opengl::xrandr::configuration::~configuration()
-{
-	::XRRFreeScreenConfigInfo(
-		config_
-	);
-}
+#endif

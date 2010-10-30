@@ -21,19 +21,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../check_extension.hpp"
 #include <X11/Xlib.h>
 #include <X11/extensions/xf86vmode.h>
-#include <sge/x11/display.hpp>
-#include <sge/exception.hpp>
+#include <sge/renderer/exception.hpp>
+#include <awl/backends/x11/display.hpp>
 #include <fcppt/text.hpp>
 
-void sge::opengl::xf86vmode::check_extension(
-	x11::display_ptr const dsp)
+void
+sge::opengl::xf86vmode::check_extension(
+	awl::backends::x11::display_ptr const _display
+)
 {
 	int event_base, error_base;
-	if(XF86VidModeQueryExtension(
-		dsp->get(),
-		&event_base,
-		&error_base)
-	== False)
-		throw exception(
-			FCPPT_TEXT("xf86vmode video modes queried but extension is not present!"));
+
+	if(
+		::XF86VidModeQueryExtension(
+			_display->get(),
+			&event_base,
+			&error_base
+		)
+		== False
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("xf86vmode video modes queried but extension is not present!")
+		);
 }
