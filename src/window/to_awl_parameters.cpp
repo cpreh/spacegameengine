@@ -18,26 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/window/create.hpp>
-#include <sge/window/instance.hpp>
 #include <sge/window/to_awl_parameters.hpp>
-#include <fcppt/make_shared_ptr.hpp>
-#include <awl/window/create_system.hpp>
+#include <sge/window/parameters.hpp>
+#include <awl/window/dim.hpp>
 #include <awl/window/parameters.hpp>
-#include <awl/window/system.hpp>
+#include <fcppt/assert.hpp>
+#include <fcppt/optional_impl.hpp>
 
-sge::window::instance_ptr const
-sge::window::create(
-	window::parameters const &_param
+awl::window::parameters const
+sge::window::to_awl_parameters(
+	sge::window::parameters const &_param
 )
 {
+	FCPPT_ASSERT(
+		_param.dim()
+	)
+
+	// TODO: add the io_service!
 	return
-		fcppt::make_shared_ptr<
-			sge::window::instance
-		>(
-			awl::window::create_system()->create(
-				sge::window::to_awl_parameters(
-					_param
+		awl::window::parameters()
+		.title(
+			_param.title()
+		)
+		.class_name(
+			_param.class_name()
+		)
+		.size(
+			awl::window::dim(
+				static_cast<
+					awl::window::scalar
+				>(
+					_param.dim()->w()
+				),
+				static_cast<
+					awl::window::scalar
+				>(
+					_param.dim()->h()
 				)
 			)
 		);

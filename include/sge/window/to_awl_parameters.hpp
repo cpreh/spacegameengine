@@ -18,72 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_WINDOW_PARAMETERS_HPP_INCLUDED
-#define SGE_WINDOW_PARAMETERS_HPP_INCLUDED
+#ifndef SGE_WINDOW_TO_AWL_PARAMETERS_HPP_INCLUDED
+#define SGE_WINDOW_TO_AWL_PARAMETERS_HPP_INCLUDED
 
 #include <sge/window/parameters_fwd.hpp>
-#include <sge/window/dim_type.hpp>
-#include <sge/mainloop/io_service_ptr.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/optional.hpp>
 #include <sge/symbol.hpp>
+#include <awl/window/parameters_fwd.hpp>
 
 namespace sge
 {
 namespace window
 {
 
-class parameters
-{
-public:
-
-	SGE_SYMBOL explicit parameters(
-		fcppt::string const &title
-	);
-
-	SGE_SYMBOL
-	parameters
-	class_name(
-		fcppt::string const &
-	);
-
-	SGE_SYMBOL
-	parameters 
-	dim(
-		dim_type const &
-	);
-
-	SGE_SYMBOL
-	parameters 
-	io_service(
-		mainloop::io_service_ptr
-	);
-
-	SGE_SYMBOL fcppt::string const &
-	title() const;
-
-	SGE_SYMBOL fcppt::string const &
-	class_name() const;
-
-	typedef fcppt::optional<
-		dim_type
-	> optional_dim;
-
-	SGE_SYMBOL optional_dim const &
-	dim() const;
-
-	SGE_SYMBOL mainloop::io_service_ptr const
-	io_service() const;
-private:
-	fcppt::string title_;
-
-	fcppt::string class_name_;
-
-	optional_dim dim_;
-
-	mainloop::io_service_ptr io_service_;
-};
+SGE_SYMBOL
+awl::window::parameters const
+to_awl_parameters(
+	sge::window::parameters const &
+);
 
 }
 }
