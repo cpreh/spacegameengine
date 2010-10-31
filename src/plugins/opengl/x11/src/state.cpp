@@ -23,28 +23,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../resolution/create.hpp"
 #include "../resolution/instance.hpp"
 #include "../../glx/context.hpp"
-#include <sge/renderer/viewport.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <awl/backends/x11/visual.hpp>
 #include <awl/backends/x11/window_instance.hpp>
 #include <awl/backends/x11/display.hpp>
-//#include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-//#include <fcppt/signal/shared_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 
 sge::opengl::x11::state::state(
 	renderer::parameters const &_param,
 	renderer::adapter_type const _adapter,
-	awl::backends::x11::window_instance_ptr const _window,
-	opengl::viewport_fun const &_set_viewport
+	awl::backends::x11::window_instance_ptr const _window
 )
 :
 	device_state(),
-	set_viewport_(
-		_set_viewport
-	),
 	screen_size_(
 		_param.display_mode().size()
 	),
@@ -80,36 +72,7 @@ sge::opengl::x11::state::state(
 			_param,
 			_adapter
 		)
-	),
-	connection_manager_()
-	/*
-		fcppt::assign::make_container<
-			fcppt::signal::connection_manager
-		>(
-			fcppt::signal::shared_connection(
-				window_->register_callback(
-					MapNotify,
-					std::tr1::bind(
-						&state::reset_viewport_on_map,
-						this,
-						std::tr1::placeholders::_1
-					)
-				)
-			)
-		)
-		(
-			fcppt::signal::shared_connection(
-				window_->register_callback(
-					ConfigureNotify,
-					std::tr1::bind(
-						&state::reset_viewport_on_configure,
-						this,
-						std::tr1::placeholders::_1
-					)
-				)
-			)
-		)
-	)*/
+	)
 {
 }
 
@@ -123,35 +86,5 @@ sge::opengl::x11::state::swap_buffers()
 	::glXSwapBuffers(
 		display_->get(),
 		window_->get()
-	);
-}
-
-void
-sge::opengl::x11::state::reset_viewport_on_map(
-	XEvent const &
-)
-{
-	// TODO?
-#if 0
-	set_viewport_(
-		window_->size()
-	);
-#endif
-}
-
-void
-sge::opengl::x11::state::reset_viewport_on_configure(
-	XEvent const &_event
-)
-{
-	XConfigureEvent const &configure_event(
-		_event.xconfigure
-	);
-
-	set_viewport_(
-		window::dim_type(
-			configure_event.width,
-			configure_event.height
-		)
 	);
 }

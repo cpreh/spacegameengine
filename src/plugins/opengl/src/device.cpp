@@ -43,7 +43,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture.hpp"
 #include "../vertex_buffer.hpp"
 #include "../viewport.hpp"
-#include "../viewport_pos.hpp"
 #include "../volume_texture.hpp"
 #include "../convert/clear_bit.hpp"
 #include "../convert/clip_plane_index.hpp"
@@ -88,12 +87,7 @@ sge::opengl::device::device(
 		opengl::create_device_state(
 			_parameters,
 			_adapter,
-			_window,
-			std::tr1::bind(
-				&device::reset_viewport,
-				this,
-				std::tr1::placeholders::_1
-			)
+			_window
 		)
 	),
 	projection_(
@@ -125,8 +119,6 @@ sge::opengl::device::device(
 	);
 
 	projection_internal();
-
-	reset_viewport_default();
 
 	target_->bind();
 }
@@ -739,32 +731,6 @@ sge::opengl::device::clear_bit(
 			)
 		:
 			0;
-}
-
-void
-sge::opengl::device::reset_viewport(
-	sge::window::dim_type const &_wnd_sz
-)
-{
-	opengl::viewport(
-		sge::renderer::viewport(
-			opengl::viewport_pos(
-				renderer::pixel_pos::null(),
-				_wnd_sz,
-				screen_size()
-			),
-			screen_size()
-		),
-		_wnd_sz.h()
-	);
-}
-
-void
-sge::opengl::device::reset_viewport_default()
-{
-	reset_viewport(
-		window_->size()
-	);
 }
 
 void

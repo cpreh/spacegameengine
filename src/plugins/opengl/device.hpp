@@ -33,7 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/window/instance_fwd.hpp>
-#include <sge/window/dim_type.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <stack>
@@ -251,14 +250,6 @@ private:
 	clear_bit(
 		renderer::state::bool_::trampoline_type const &
 	) const;
-
-	void
-	reset_viewport(
-		window::dim_type const &
-	);
-
-	void
-	reset_viewport_default();
 
 	void
 	projection_internal();

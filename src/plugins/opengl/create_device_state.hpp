@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_CREATE_DEVICE_STATE_HPP_INCLUDED
 
 #include "device_state_ptr.hpp"
-#include "viewport_fun.hpp"
 #include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/adapter_type.hpp>
 #include <sge/window/instance_ptr.hpp>
@@ -36,8 +35,7 @@ opengl::device_state_ptr
 create_device_state(
 	renderer::parameters const &,
 	renderer::adapter_type,
-	window::instance_ptr,
-	opengl::viewport_fun const &
+	window::instance_ptr
 );
 
 }

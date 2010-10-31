@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/Xlib.h>
 #include "resolution/instance_fwd.hpp"
 #include "../device_state.hpp"
-#include "../viewport_fun.hpp"
 #include "../glx/current.hpp"
 #include "../glx/context_ptr.hpp"
 #include <sge/renderer/adapter_type.hpp>
@@ -34,7 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/const_visual_ptr.hpp>
 #include <awl/backends/x11/display_ptr.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
-#include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -56,8 +54,7 @@ public:
 	state(
 		renderer::parameters const &,
 		renderer::adapter_type,
-		awl::backends::x11::window_instance_ptr,
-		opengl::viewport_fun const &
+		awl::backends::x11::window_instance_ptr
 	);
 
 	~state();
@@ -65,18 +62,6 @@ public:
 	void
 	swap_buffers();
 private:
-	void
-	reset_viewport_on_map(
-		XEvent const &
-	);
-
-	void
-	reset_viewport_on_configure(
-		XEvent const &
-	);
-
-	opengl::viewport_fun const set_viewport_;
-
 	renderer::screen_size const screen_size_;
 
 	awl::backends::x11::window_instance_ptr const window_;
@@ -92,8 +77,6 @@ private:
 	fcppt::scoped_ptr<
 		resolution::instance
 	> resolution_;
-
-	fcppt::signal::connection_manager const connection_manager_;
 };
 
 }

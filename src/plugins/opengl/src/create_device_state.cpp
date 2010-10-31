@@ -37,8 +37,7 @@ sge::opengl::device_state_ptr
 sge::opengl::create_device_state(
 	renderer::parameters const &_parameters,
 	renderer::adapter_type const _adapter,
-	window::instance_ptr const _window,
-	opengl::viewport_fun const &_set_viewport
+	window::instance_ptr const _window
 )
 {
 #ifdef SGE_OPENGL_HAVE_X11
@@ -53,8 +52,7 @@ sge::opengl::create_device_state(
 					awl::backends::x11::window_instance
 				>(
 					_window->awl_instance()
-				),
-				_set_viewport
+				)
 			)
 		);
 #elif FCPPT_WINDOWS_PLATFORM
