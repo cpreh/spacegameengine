@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/context.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/type_info.hpp>
+#include <fcppt/type_name.hpp>
 
 template<
 	typename T
@@ -69,7 +69,7 @@ sge::plugin::manager::plugin(
 	)
 		throw exception(
 			FCPPT_TEXT("plugin(): No plugins found of type: \"")
-			+ fcppt::type_info(typeid(T)).name()
+			+ fcppt::type_name(typeid(T))
 			+ FCPPT_TEXT("\"!")
 		);
 	

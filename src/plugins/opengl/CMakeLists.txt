@@ -95,14 +95,21 @@ ADD_LIBRARY (sgeopengl SHARED ${SGEOPENGLFILES})
 TARGET_LINK_LIBRARIES (
 	sgeopengl
 	sgecore
-	${OPENGL_LIBRARIES}
+	${OPENGL_gl_LIBRARY}
 	${GLEW_LIBRARY}
+	${AWL_LIBRARY}
 )
 
 IF (X11_FOUND)
 	TARGET_LINK_LIBRARIES (sgeopengl ${X11_LIBRARIES})
 
 	IF(X11_xf86vmode_FOUND)
+		# somehow this is not handled by FindX11
+		FIND_LIBRARY(
+			X11_xf86vmode_LIB
+			NAMES Xxf86vm
+		)
+
 		TARGET_LINK_LIBRARIES(
 			sgeopengl
 			${X11_xf86vmode_LIB}

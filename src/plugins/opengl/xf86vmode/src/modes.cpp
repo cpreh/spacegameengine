@@ -71,6 +71,10 @@ sge::opengl::xf86vmode::modes::modes(
 		);
 }
 
+sge::opengl::xf86vmode::modes::~modes()
+{
+}
+
 XF86VidModeModeInfo const &
 sge::opengl::xf86vmode::modes::operator[](
 	size_type const _index
