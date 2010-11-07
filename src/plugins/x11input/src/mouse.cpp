@@ -32,11 +32,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/event.hpp>
 #include <awl/backends/x11/event_processor.hpp>
 #include <awl/backends/x11/window_instance.hpp>
+#include <awl/backends/x11/signal/connection.hpp>
+#include <awl/backends/x11/signal/shared_connection.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
@@ -80,9 +81,9 @@ sge::x11input::mouse::mouse(
 	),
 	connections_(
 		fcppt::assign::make_container<
-			fcppt::signal::connection_manager::container
+			awl::backends::x11::signal::connection_manager::container
 		>(
-			fcppt::signal::shared_connection(
+			awl::backends::x11::signal::shared_connection(
 				_event_processor->register_callback(
 					MotionNotify,
 					std::tr1::bind(
@@ -94,7 +95,7 @@ sge::x11input::mouse::mouse(
 			)
 		)
 		(
-			fcppt::signal::shared_connection(
+			awl::backends::x11::signal::shared_connection(
 				_event_processor->register_callback(
 					ButtonPress,
 					std::tr1::bind(
@@ -106,7 +107,7 @@ sge::x11input::mouse::mouse(
 			)
 		)
 		(
-			fcppt::signal::shared_connection(
+			awl::backends::x11::signal::shared_connection(
 				_event_processor->register_callback(
 					ButtonRelease,
 					std::tr1::bind(

@@ -29,8 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/event_fwd.hpp>
 #include <awl/backends/x11/event_processor_ptr.hpp>
 #include <awl/backends/x11/window_instance_ptr.hpp>
+#include <awl/backends/x11/signal/connection_manager.hpp>
 #include <fcppt/signal/object.hpp>
-#include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <vector>
@@ -112,7 +112,7 @@ private:
 		x11input::mouse_ptr
 	> mouse_vector;
 
-	fcppt::signal::connection_manager const connections_;
+	awl::backends::x11::signal::connection_manager const connections_;
 
 	keyboard_vector keyboards_;
 

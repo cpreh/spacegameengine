@@ -29,10 +29,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/event_processor.hpp>
 #include <awl/backends/x11/window_instance.hpp>
+#include <awl/backends/x11/signal/connection.hpp>
+#include <awl/backends/x11/signal/shared_connection.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/output.hpp>
-#include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/polymorphic_pointer_cast.hpp>
@@ -63,9 +64,9 @@ sge::x11input::processor::processor(
 	acquired_(false),
 	connections_(
 		fcppt::assign::make_container<
-			fcppt::signal::connection_manager::container
+			awl::backends::x11::signal::connection_manager::container
 		>(
-			fcppt::signal::shared_connection(
+			awl::backends::x11::signal::shared_connection(
 				event_processor_->register_callback(
 					FocusIn,
 					std::tr1::bind(
@@ -77,7 +78,7 @@ sge::x11input::processor::processor(
 			)
 		)
 		(
-			fcppt::signal::shared_connection(
+			awl::backends::x11::signal::shared_connection(
 				event_processor_->register_callback(
 					FocusOut,
 					std::tr1::bind(
@@ -89,7 +90,7 @@ sge::x11input::processor::processor(
 			)
 		)
 		(
-			fcppt::signal::shared_connection(
+			awl::backends::x11::signal::shared_connection(
 				event_processor_->register_callback(
 					MapNotify,
 					std::tr1::bind(
@@ -101,7 +102,7 @@ sge::x11input::processor::processor(
 			)
 		)
 		(
-			fcppt::signal::shared_connection(
+			awl::backends::x11::signal::shared_connection(
 				event_processor_->register_callback(
 					UnmapNotify,
 					std::tr1::bind(

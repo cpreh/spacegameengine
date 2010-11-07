@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/window/instance.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <awl/event/processor.hpp>
 #include <awl/event/create_processor.hpp>
 #include <awl/window/instance.hpp>
@@ -44,7 +45,12 @@ sge::window::instance::~instance()
 sge::window::dim_type const
 sge::window::instance::size() const
 {
-	return window::dim_type::null(); // FIXME
+	return
+		fcppt::math::dim::structure_cast<
+			sge::window::dim_type
+		>(
+			instance_->size()
+		);
 }
 
 void

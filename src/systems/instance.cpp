@@ -471,6 +471,8 @@ sge::systems::instance::impl::init_renderer(
 				*window_param_,
 				_param
 			);
+
+		window_->show();
 	}
 
 	renderer_ =
