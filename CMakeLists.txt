@@ -106,6 +106,8 @@ ENDIF()
 
 FIND_PACKAGE(
 	Boost 1.44.0 REQUIRED
+	filesystem
+	system
 )
 
 INCLUDE_DIRECTORIES(SYSTEM ${Boost_INCLUDE_DIR})

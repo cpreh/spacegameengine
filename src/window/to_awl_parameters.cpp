@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <awl/window/dim.hpp>
 #include <awl/window/parameters.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/optional_impl.hpp>
