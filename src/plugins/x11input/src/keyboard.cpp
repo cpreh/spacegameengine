@@ -212,7 +212,6 @@ sge::x11input::keyboard::on_key_event(
 			] = is_pressed;
 	}
 
-
 	key_signal_(
 		input::keyboard::key_event(
 			key,

@@ -23,6 +23,7 @@ ADD_LIBRARY (sgex11input SHARED ${SGEX11INPUTFILES})
 TARGET_LINK_LIBRARIES (
 	sgex11input
 	sgecore
+	${X11_X11_LIB}
 	${X11_Xinput_LIB}
 )
 
