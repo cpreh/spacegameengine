@@ -49,9 +49,9 @@ class device
 	FCPPT_NONCOPYABLE(device)
 public:
 	device(
-		renderer::parameters const &param,
-		renderer::adapter_type adapter,
-		window::instance_ptr wnd
+		renderer::parameters const &,
+		renderer::adapter_type,
+		window::instance_ptr
 	);
 
 	~device();
@@ -162,11 +162,6 @@ public:
 		renderer::target_ptr
 	);
 
-	void
-	viewport(
-		renderer::viewport const &
-	);
-
 	renderer::glsl::program_ptr const
 	create_glsl_program();
 
@@ -185,7 +180,7 @@ public:
 		renderer::glsl::const_program_ptr
 	);
 
-	renderer::const_target_ptr const
+	renderer::target_ptr const
 	target() const;
 
 	renderer::target_ptr const

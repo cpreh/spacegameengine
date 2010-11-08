@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps_fwd.hpp>
 #include <sge/renderer/clip_plane.hpp>
 #include <sge/renderer/clip_plane_index.hpp>
-#include <sge/renderer/const_target_ptr.hpp>
 #include <sge/renderer/const_texture_base_ptr.hpp>
 #include <sge/renderer/cube_texture_ptr.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
@@ -54,7 +53,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture_stage_op_value.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/viewport_fwd.hpp>
 //#include <sge/renderer/volume_texture_ptr.hpp>
 #include <sge/renderer/filter/texture_fwd.hpp>
 #include <sge/renderer/glsl/const_program_ptr.hpp>
@@ -193,11 +191,6 @@ public:
 		renderer::target_ptr
 	) = 0;
 
-	virtual void
-	viewport(
-		renderer::viewport const &
-	) = 0;
-
 	SGE_SYMBOL
 	glsl::program_ptr const
 	create_glsl_program(
@@ -230,7 +223,7 @@ public:
 		renderer::glsl::const_program_ptr
 	) = 0;
 
-	virtual const_target_ptr const
+	virtual renderer::target_ptr const
 	target() const = 0;
 
 	virtual renderer::target_ptr const

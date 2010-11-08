@@ -27,12 +27,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../render_buffer.hpp"
 #include "../render_buffer_binding.hpp"
 #include "../context/use.hpp"
-#include <sge/renderer/texture.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/parameters.hpp>
+#include <sge/renderer/pixel_pos.hpp>
+#include <sge/renderer/screen_size.hpp>
+#include <sge/renderer/texture.hpp>
+#include <sge/renderer/viewport.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/comparison.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr.hpp>
@@ -45,6 +50,20 @@ sge::opengl::fbo_target::fbo_target(
 	opengl::depth_stencil_texture_ptr const _depth_stencil_texture
 )
 :
+	opengl::target(
+		renderer::viewport(
+			renderer::pixel_pos::null(),
+			fcppt::math::dim::structure_cast<
+				sge::renderer::screen_size
+			>(
+				texture_
+				?
+					_texture->dim()
+				:
+					_depth_stencil_texture->dim()
+			)
+		)
+	),
 	context_(
 		opengl::context::use<
 			fbo_context

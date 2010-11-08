@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim_type.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/size_type.hpp>
+#include <sge/renderer/viewport_fwd.hpp>
 #include <sge/image/view/const_object.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
@@ -64,6 +65,11 @@ public:
 
 	SGE_SYMBOL size_type
 	size() const;
+
+	virtual void
+	viewport(
+		renderer::viewport const &
+	) = 0;
 
 	SGE_SYMBOL virtual ~target();
 };

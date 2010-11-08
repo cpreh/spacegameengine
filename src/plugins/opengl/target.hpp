@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "target_fwd.hpp"
 #include <sge/renderer/target.hpp>
+#include <sge/renderer/viewport.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -36,8 +37,13 @@ class target
 {
 	FCPPT_NONCOPYABLE(target)
 protected:
-	target();
+	explicit target(
+		renderer::viewport const &
+	);
 public:
+	void
+	activate_viewport();
+
 	virtual void
 	bind() const = 0;
 
@@ -45,6 +51,13 @@ public:
 	unbind() const = 0;
 	
 	virtual ~target();
+private:
+	void
+	viewport(
+		renderer::viewport const &
+	);
+
+	renderer::viewport viewport_;
 };
 
 }

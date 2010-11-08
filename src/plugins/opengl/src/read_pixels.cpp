@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::read_pixels(
-	renderer::size_type const x,
-	renderer::size_type const y,
+	renderer::pixel_unit const x,
+	renderer::pixel_unit const y,
 	renderer::size_type const width,
 	renderer::size_type const height,
 	GLenum const format,
@@ -34,7 +34,7 @@ sge::opengl::read_pixels(
 	renderer::raw_pointer const dest
 )
 {
-	glReadPixels(
+	::glReadPixels(
 		static_cast<GLint>(x),
 		static_cast<GLint>(y),
 		static_cast<GLsizei>(width),

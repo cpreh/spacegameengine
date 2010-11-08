@@ -42,7 +42,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../set_texture_stage_scale.hpp"
 #include "../texture.hpp"
 #include "../vertex_buffer.hpp"
-#include "../viewport.hpp"
 #include "../volume_texture.hpp"
 #include "../convert/clear_bit.hpp"
 #include "../convert/clip_plane_index.hpp"
@@ -59,7 +58,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/i32.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/viewport.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
 #include <sge/renderer/state/default.hpp>
 #include <sge/window/instance.hpp>
@@ -153,19 +151,19 @@ sge::opengl::device::end_rendering()
 
 void
 sge::opengl::device::render(
-	renderer::const_index_buffer_ptr const ib,
-	renderer::first_vertex const first_vertex,
-	renderer::vertex_count const num_vertices,
-	renderer::indexed_primitive_type::type const ptype,
-	renderer::primitive_count const pcount,
-	renderer::first_index const first_index
+	renderer::const_index_buffer_ptr const _ib,
+	renderer::first_vertex const _first_vertex,
+	renderer::vertex_count const _num_vertices,
+	renderer::indexed_primitive_type::type const _ptype,
+	renderer::primitive_count const _pcount,
+	renderer::first_index const _first_index
 )
 {
 	index_buffer_base const & gl_ib(
 		dynamic_cast<
 			index_buffer_base const &
 		>(
-			*ib
+			*_ib
 		)
 	);
 
@@ -173,16 +171,18 @@ sge::opengl::device::render(
 
 	glDrawElements(
 		convert::indexed_primitive(
-			ptype
+			_ptype
 		),
-		static_cast<GLsizei>(
+		static_cast<
+			GLsizei
+		>(
 			renderer::indices_per_primitive(
-				ptype
-			) * pcount
+				_ptype
+			) * _pcount
 		),
 		gl_ib.gl_format(),
 		gl_ib.buffer_offset(
-			first_index
+			_first_index
 		)
 	);
 
@@ -426,6 +426,8 @@ sge::opengl::device::target(
 
 		target_->bind();
 
+		target_->activate_viewport();
+
 		projection_internal();
 
 		return;
@@ -440,23 +442,10 @@ sge::opengl::device::target(
 	);
 
 	gl_target->bind();
+	
+	target_->activate_viewport();
 
 	target_ = gl_target;
-}
-
-void
-sge::opengl::device::viewport(
-	renderer::viewport const &_viewport
-)
-{
-	opengl::viewport(
-		_viewport,
-		static_cast<
-			renderer::screen_unit
-		>(
-			target_->dim().h()
-		)
-	);
 }
 
 sge::renderer::glsl::program_ptr const
@@ -503,7 +492,7 @@ sge::opengl::device::glsl_program(
 	);
 }
 
-sge::renderer::const_target_ptr const
+sge::renderer::target_ptr const
 sge::opengl::device::target() const
 {
 	return target_;

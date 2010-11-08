@@ -24,14 +24,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/format_to_color.hpp"
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/bit_depth_bytes.hpp>
+#include <sge/renderer/pixel_unit.hpp>
+#include <sge/renderer/viewport.hpp>
 #include <sge/image/view/make_const.hpp>
 #include <sge/image/view/flipped.hpp>
 #include <sge/image/view/make.hpp>
 #include <sge/image/view/optional_pitch.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 
@@ -40,6 +43,16 @@ sge::opengl::default_target::default_target(
 	renderer::bit_depth::type const _depth
 )
 :
+	opengl::target(
+		renderer::viewport(
+			renderer::pixel_pos::null(),
+			fcppt::math::dim::structure_cast<
+				sge::renderer::screen_size
+			>(
+				_dim
+			)
+		)
+	),
 	buffer_(),
 	pos_(
 		renderer::pixel_pos::null()
@@ -100,8 +113,20 @@ sge::opengl::default_target::lock(
 	);
 
 	opengl::read_pixels(
-		pos_.x() + _dest.left(),
-		pos_.y() + _dest.top(),
+		pos_.x()
+		+
+		static_cast<
+			renderer::pixel_unit
+		>(
+			_dest.left()
+		),
+		pos_.y()
+		+
+		static_cast<
+			renderer::pixel_unit
+		>(
+			_dest.top()
+		),
 		_dest.dimension().w(),
 		_dest.dimension().h(),
 		format(),

@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_READ_PIXELS_HPP_INCLUDED
 
 #include "common.hpp"
-#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/pixel_unit.hpp>
 #include <sge/renderer/raw_pointer.hpp>
+#include <sge/renderer/size_type.hpp>
 
 namespace sge
 {
@@ -32,8 +33,8 @@ namespace opengl
 
 void
 read_pixels(
-	renderer::size_type x,
-	renderer::size_type y,
+	renderer::pixel_unit x,
+	renderer::pixel_unit y,
 	renderer::size_type width,
 	renderer::size_type height,
 	GLenum format,

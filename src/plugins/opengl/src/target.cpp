@@ -19,11 +19,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../target.hpp"
+#include "../viewport.hpp"
 
-sge::opengl::target::target()
+sge::opengl::target::target(
+	renderer::viewport const &_viewport
+)
+:
+	viewport_(
+		_viewport
+	)
 {
 }
 
 sge::opengl::target::~target()
 {
+}
+
+void
+sge::opengl::target::activate_viewport()
+{
+	opengl::viewport(
+		viewport_,
+		static_cast<
+			renderer::screen_unit
+		>(
+			dim().h()
+		)
+	);
+}
+
+void
+sge::opengl::target::viewport(
+	renderer::viewport const &_viewport
+)
+{
+	viewport_ = _viewport;
+
+	activate_viewport();
 }
