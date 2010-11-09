@@ -111,7 +111,7 @@ public:
 
 	void
 	init_renderer(
-		renderer::parameters const &
+		sge::systems::renderer const &
 	);
 
 	void
@@ -178,7 +178,7 @@ public:
 
 	result_type
 	operator()(
-		sge::renderer::parameters const &
+		sge::systems::renderer const &
 	) const;
 
 	result_type
@@ -350,7 +350,7 @@ visitor::visitor(
 
 visitor::result_type
 visitor::operator()(
-	sge::renderer::parameters const &_param
+	sge::systems::renderer const &_param
 ) const
 {
 	impl_.init_renderer(
@@ -445,10 +445,14 @@ sge::systems::instance::impl::init_window(
 
 void
 sge::systems::instance::impl::init_renderer(
-	renderer::parameters const &_param
+	sge::systems::renderer const &_param
 )
 {
-	renderer_plugin_ = default_plugin<renderer::system>();
+	sge::renderer::parameters const &renderer_param(
+		_param.parameters()
+	);
+
+	renderer_plugin_ = default_plugin<sge::renderer::system>();
 
 	renderer_system_.reset(
 		renderer_plugin_->get()()
@@ -463,13 +467,13 @@ sge::systems::instance::impl::init_renderer(
 
 		if(!window_param_->dim())
 			window_param_->dim(
-				_param.display_mode().size()
+				renderer_param.display_mode().size()
 			);
 
 		window_ =
 			renderer_system_->create_window(
 				*window_param_,
-				_param
+				renderer_param
 			);
 
 		window_->show();
@@ -477,8 +481,8 @@ sge::systems::instance::impl::init_renderer(
 
 	renderer_ =
 		renderer_system_->create_renderer(
-			_param,
-			static_cast<renderer::adapter_type>(0),
+			renderer_param,
+			static_cast<sge::renderer::adapter_type>(0),
 			window_
 		);
 }

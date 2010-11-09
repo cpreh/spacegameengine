@@ -18,38 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_ANY_HPP_INCLUDED
-#define SGE_SYSTEMS_ANY_HPP_INCLUDED
+#include "resize_manager.hpp"
+#include <sge/systems/viewport/manage_resize.hpp>
+#include <sge/systems/viewport/manager.hpp>
+#include <sge/systems/viewport/manager_unique_ptr.hpp>
+#include <boost/spirit/home/phoenix/core/argument.hpp>
+#include <boost/spirit/home/phoenix/object/construct.hpp>
+#include <boost/spirit/home/phoenix/object/new.hpp>
 
-#include <sge/systems/audio_loader.hpp>
-#include <sge/systems/audio_player.hpp>
-#include <sge/systems/basic_loader.hpp>
-#include <sge/systems/image_loader.hpp>
-#include <sge/systems/input.hpp>
-#include <sge/systems/parameterless.hpp>
-#include <sge/systems/renderer.hpp>
-#include <sge/window/parameters.hpp>
-#include <fcppt/variant/object_fwd.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-
-namespace sge
+sge::systems::viewport::factory const
+sge::systems::viewport::manage_resize()
 {
-namespace systems
-{
-
-typedef fcppt::variant::object<
-	boost::mpl::vector7<
-		window::parameters,
-		systems::renderer,
-		systems::image_loader,
-		systems::audio_loader,
-		systems::audio_player,
-		systems::input,
-		systems::parameterless::type
-	>
-> any;
-
+	return
+		boost::phoenix::construct<
+			viewport::manager_unique_ptr
+		>(
+			boost::phoenix::new_<
+				viewport::resize_manager
+			>(
+				boost::phoenix::arg_names::arg1
+			)
+		);
 }
-}
-
-#endif

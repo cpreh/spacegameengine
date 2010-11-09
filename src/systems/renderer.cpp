@@ -18,38 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_ANY_HPP_INCLUDED
-#define SGE_SYSTEMS_ANY_HPP_INCLUDED
-
-#include <sge/systems/audio_loader.hpp>
-#include <sge/systems/audio_player.hpp>
-#include <sge/systems/basic_loader.hpp>
-#include <sge/systems/image_loader.hpp>
-#include <sge/systems/input.hpp>
-#include <sge/systems/parameterless.hpp>
 #include <sge/systems/renderer.hpp>
-#include <sge/window/parameters.hpp>
-#include <fcppt/variant/object_fwd.hpp>
-#include <boost/mpl/vector/vector10.hpp>
 
-namespace sge
+sge::systems::renderer::renderer(
+	sge::renderer::parameters const &_parameters,
+	systems::viewport::factory const &_viewport_factory
+)
+:
+	parameters_(_parameters),
+	viewport_factory_(_viewport_factory)
 {
-namespace systems
-{
-
-typedef fcppt::variant::object<
-	boost::mpl::vector7<
-		window::parameters,
-		systems::renderer,
-		systems::image_loader,
-		systems::audio_loader,
-		systems::audio_player,
-		systems::input,
-		systems::parameterless::type
-	>
-> any;
-
-}
 }
 
-#endif
+sge::renderer::parameters const &
+sge::systems::renderer::parameters() const
+{
+	return parameters_;
+}
+
+sge::systems::viewport::factory const &
+sge::systems::renderer::viewport_factory() const
+{
+	return viewport_factory_;
+}

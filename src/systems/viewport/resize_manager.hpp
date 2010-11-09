@@ -18,37 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_ANY_HPP_INCLUDED
-#define SGE_SYSTEMS_ANY_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_VIEWPORT_RESIZE_MANAGER_HPP_INCLUDED
+#define SGE_SYSTEMS_VIEWPORT_RESIZE_MANAGER_HPP_INCLUDED
 
-#include <sge/systems/audio_loader.hpp>
-#include <sge/systems/audio_player.hpp>
-#include <sge/systems/basic_loader.hpp>
-#include <sge/systems/image_loader.hpp>
-#include <sge/systems/input.hpp>
-#include <sge/systems/parameterless.hpp>
-#include <sge/systems/renderer.hpp>
-#include <sge/window/parameters.hpp>
-#include <fcppt/variant/object_fwd.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/target_ptr.hpp>
+#include <sge/systems/viewport/manager.hpp>
+#include <awl/event/resize_fwd.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace systems
 {
+namespace viewport
+{
 
-typedef fcppt::variant::object<
-	boost::mpl::vector7<
-		window::parameters,
-		systems::renderer,
-		systems::image_loader,
-		systems::audio_loader,
-		systems::audio_player,
-		systems::input,
-		systems::parameterless::type
-	>
-> any;
+class resize_manager
+:
+	public sge::systems::viewport::manager
+{
+	FCPPT_NONCOPYABLE(
+		resize_manager
+	)
+public:
+	explicit resize_manager(
+		sge::renderer::device_ptr
+	);
 
+	~resize_manager();
+private:
+	void
+	on_resize(
+		awl::event::resize const &
+	);
+
+	sge::renderer::target_ptr const target_;
+
+	fcppt::signal::scoped_connection const resize_connection_;
+};
+
+}
 }
 }
 

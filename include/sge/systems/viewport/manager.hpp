@@ -18,37 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_ANY_HPP_INCLUDED
-#define SGE_SYSTEMS_ANY_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_VIEWPORT_MANAGER_HPP_INCLUDED
+#define SGE_SYSTEMS_VIEWPORT_MANAGER_HPP_INCLUDED
 
-#include <sge/systems/audio_loader.hpp>
-#include <sge/systems/audio_player.hpp>
-#include <sge/systems/basic_loader.hpp>
-#include <sge/systems/image_loader.hpp>
-#include <sge/systems/input.hpp>
-#include <sge/systems/parameterless.hpp>
-#include <sge/systems/renderer.hpp>
-#include <sge/window/parameters.hpp>
-#include <fcppt/variant/object_fwd.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <sge/systems/viewport/manager_fwd.hpp>
+#include <sge/class_symbol.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace systems
 {
+namespace viewport
+{
 
-typedef fcppt::variant::object<
-	boost::mpl::vector7<
-		window::parameters,
-		systems::renderer,
-		systems::image_loader,
-		systems::audio_loader,
-		systems::audio_player,
-		systems::input,
-		systems::parameterless::type
-	>
-> any;
+class SGE_CLASS_SYMBOL manager
+{
+	FCPPT_NONCOPYABLE(
+		manager
+	)
+protected:
+	SGE_SYMBOL
+	manager();
+public:
+	SGE_SYMBOL
+	virtual ~manager();
+};
 
+}
 }
 }
 

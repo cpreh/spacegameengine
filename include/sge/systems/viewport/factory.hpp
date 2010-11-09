@@ -18,37 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_ANY_HPP_INCLUDED
-#define SGE_SYSTEMS_ANY_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_VIEWPORT_FACTORY_HPP_INCLUDED
+#define SGE_SYSTEMS_VIEWPORT_FACTORY_HPP_INCLUDED
 
-#include <sge/systems/audio_loader.hpp>
-#include <sge/systems/audio_player.hpp>
-#include <sge/systems/basic_loader.hpp>
-#include <sge/systems/image_loader.hpp>
-#include <sge/systems/input.hpp>
-#include <sge/systems/parameterless.hpp>
-#include <sge/systems/renderer.hpp>
-#include <sge/window/parameters.hpp>
-#include <fcppt/variant/object_fwd.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <sge/systems/viewport/manager_unique_ptr.hpp>
+#include <sge/renderer/device_ptr.hpp>
+#include <fcppt/function/object.hpp>
 
 namespace sge
 {
 namespace systems
 {
+namespace viewport
+{
 
-typedef fcppt::variant::object<
-	boost::mpl::vector7<
-		window::parameters,
-		systems::renderer,
-		systems::image_loader,
-		systems::audio_loader,
-		systems::audio_player,
-		systems::input,
-		systems::parameterless::type
-	>
-> any;
+typedef fcppt::function::object<
+	viewport::manager_unique_ptr(
+		sge::renderer::device_ptr
+	)
+> factory;
 
+}
 }
 }
 

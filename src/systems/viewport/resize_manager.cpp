@@ -18,38 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_ANY_HPP_INCLUDED
-#define SGE_SYSTEMS_ANY_HPP_INCLUDED
+#include "resize_manager.hpp"
+#include <sge/renderer/device.hpp>
+#include <sge/window/instance.hpp>
+#include <awl/event/processor.hpp>
+#include <awl/event/resize.hpp>
+#include <fcppt/tr1/functional.hpp>
 
-#include <sge/systems/audio_loader.hpp>
-#include <sge/systems/audio_player.hpp>
-#include <sge/systems/basic_loader.hpp>
-#include <sge/systems/image_loader.hpp>
-#include <sge/systems/input.hpp>
-#include <sge/systems/parameterless.hpp>
-#include <sge/systems/renderer.hpp>
-#include <sge/window/parameters.hpp>
-#include <fcppt/variant/object_fwd.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-
-namespace sge
+sge::systems::viewport::resize_manager::resize_manager(
+	sge::renderer::device_ptr const _device
+)
+:
+	target_(
+		_device->target()
+	),
+	resize_connection_(
+		_device->window()->awl_event_processor()->resize_callback(
+			std::tr1::bind(
+				&resize_manager::on_resize,
+				this,
+				std::tr1::placeholders::_1
+			)
+		)
+	)
 {
-namespace systems
-{
-
-typedef fcppt::variant::object<
-	boost::mpl::vector7<
-		window::parameters,
-		systems::renderer,
-		systems::image_loader,
-		systems::audio_loader,
-		systems::audio_player,
-		systems::input,
-		systems::parameterless::type
-	>
-> any;
-
-}
 }
 
-#endif
+
+sge::systems::viewport::resize_manager::~resize_manager()
+{
+}
+
+void
+sge::systems::viewport::resize_manager::on_resize(
+	awl::event::resize const &_resize
+)
+{
+	
+}
