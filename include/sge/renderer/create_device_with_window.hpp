@@ -18,47 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SYSTEM_HPP_INCLUDED
-#define SGE_RENDERER_SYSTEM_HPP_INCLUDED
+#ifndef SGE_RENDERER_CREATE_DEVICE_WITH_WINDOW_HPP_INCLUDED
+#define SGE_RENDERER_CREATE_DEVICE_WITH_WINDOW_HPP_INCLUDED
 
-#include <sge/renderer/system_fwd.hpp>
 #include <sge/renderer/adapter_type.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
-#include <sge/window/instance_ptr.hpp>
+#include <sge/renderer/system_ptr.hpp>
 #include <sge/window/parameters_fwd.hpp>
 #include <sge/symbol.hpp>
-#include <sge/class_symbol.hpp>
-#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-class SGE_CLASS_SYMBOL system
-{
-	FCPPT_NONCOPYABLE(
-		system
-	)
-protected:
-	SGE_SYMBOL system();
-public:
-	virtual renderer::device_ptr const
-	create_renderer(
-		renderer::parameters const &,
-		renderer::adapter_type,
-		window::instance_ptr
-	) = 0;
-
-	virtual window::instance_ptr const
-	create_window(
-		window::parameters const &,
-		renderer::parameters const &
-	) = 0;
-
-	SGE_SYMBOL virtual ~system();
-};
+SGE_SYMBOL
+sge::renderer::device_ptr const
+create_device_with_window(
+	renderer::system_ptr,
+	renderer::parameters const &,
+	renderer::adapter_type,
+	window::parameters const &
+);
 
 }
 }

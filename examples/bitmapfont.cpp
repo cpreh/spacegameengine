@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/viewport/manage_resize.hpp>
 #include <sge/mainloop/catch_block.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/renderer/device.hpp>
@@ -62,20 +63,23 @@ try
 			)
 		)
 		(
-			sge::renderer::parameters(
-				sge::renderer::display_mode(
-					sge::renderer::screen_size(
-						1024,
-						768
+			sge::systems::renderer(
+				sge::renderer::parameters(
+					sge::renderer::display_mode(
+						sge::renderer::screen_size(
+							1024,
+							768
+						),
+						sge::renderer::bit_depth::depth32,
+						sge::renderer::refresh_rate_dont_care
 					),
-					sge::renderer::bit_depth::depth32,
-					sge::renderer::refresh_rate_dont_care
+					sge::renderer::depth_buffer::off,
+					sge::renderer::stencil_buffer::off,
+					sge::renderer::window_mode::windowed,
+					sge::renderer::vsync::on,
+					sge::renderer::no_multi_sampling
 				),
-				sge::renderer::depth_buffer::off,
-				sge::renderer::stencil_buffer::off,
-				sge::renderer::window_mode::windowed,
-				sge::renderer::vsync::on,
-				sge::renderer::no_multi_sampling
+				sge::systems::viewport::manage_resize()
 			)
 		)
 		(
