@@ -23,14 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/audio_loader.hpp>
 #include <sge/systems/image_loader.hpp>
 #include <sge/systems/renderer.hpp>
-#include <fcppt/assign/make_container.hpp>
-#include <fcppt/container/map.hpp>
+#include <sge/systems/parameterless.hpp>
+#include <sge/window/parameters.hpp>
+#include <fcppt/mpl/index_of.hpp>
 #include <fcppt/variant/apply_binary.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <fcppt/type_info.hpp>
-#include <typeinfo>
-#include <map>
-#include <utility>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace
 {
@@ -57,68 +55,27 @@ public:
 	) const;
 };
 
-typedef unsigned priority_type;
+typedef boost::mpl::vector7<
+	sge::window::parameters,
+	sge::systems::renderer,
+	sge::systems::input,
+	sge::systems::image_loader,
+	sge::systems::audio_loader,
+	sge::systems::audio_player,
+	sge::systems::parameterless::type
+> priority_vector;
 
-priority_type
-priority(
-	fcppt::type_info const &
-);
-
-typedef fcppt::container::map<
-	std::map<
-		fcppt::type_info,
-		priority_type
-	>
-> priority_map;
-	
-priority_map const priorities(
-	fcppt::assign::make_container<
-		priority_map
-	>
-	(
-		std::make_pair(
-			fcppt::type_info(typeid(sge::window::parameters)),
-			0
-		)
-	)
-	(
-		std::make_pair(
-			fcppt::type_info(typeid(sge::systems::renderer)),
-			1
-		)
-	)
-	(
-		std::make_pair(
-			fcppt::type_info(typeid(sge::systems::input)),
-			2	
-		)
-	)
-	(
-		std::make_pair(
-			fcppt::type_info(typeid(sge::systems::image_loader)),
-			3	
-		)
-	)
-	(
-		std::make_pair(
-			fcppt::type_info(typeid(sge::systems::audio_loader)),
-			4	
-		)
-	)
-	(
-		std::make_pair(
-			fcppt::type_info(typeid(sge::systems::audio_player)),
-			5
-		)
-	)
-	(
-		std::make_pair(
-			fcppt::type_info(typeid(sge::systems::parameterless::type)),
-			6
-		)
-	)
-);
-
+template<
+	typename T
+>
+struct priority
+:
+fcppt::mpl::index_of<
+	priority_vector,
+	T
+>
+{
+};
 
 }
 
@@ -159,17 +116,9 @@ compare::operator()(
 ) const
 {
 	return
-		priority(typeid(T))
+		priority<T>::value
 		<
-		priority(typeid(U));
-}
-
-priority_type
-priority(
-	fcppt::type_info const &_t
-)
-{
-	return priorities[_t];
+		priority<U>::value;
 }
 
 }
