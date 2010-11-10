@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/any.hpp>
 #include <sge/systems/audio_loader.hpp>
 #include <sge/systems/image_loader.hpp>
+#include <sge/systems/renderer.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/map.hpp>
 #include <fcppt/variant/apply_binary.hpp>
@@ -82,7 +83,7 @@ priority_map const priorities(
 	)
 	(
 		std::make_pair(
-			fcppt::type_info(typeid(sge::renderer::parameters)),
+			fcppt::type_info(typeid(sge::systems::renderer)),
 			1
 		)
 	)
