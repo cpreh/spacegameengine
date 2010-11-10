@@ -52,10 +52,10 @@ sge::systems::viewport::center(
 {
 	return
 		_target_dim.w()
-		< _window_dim.w()
+		> _window_dim.w()
 		||
 		_target_dim.h()
-		< _window_dim.h()
+		> _window_dim.h()
 		?
 			sge::renderer::viewport(
 				sge::renderer::pixel_pos::null(),
@@ -95,7 +95,7 @@ center_position(
 )
 {
 	FCPPT_ASSERT(
-		_window_size > _target_size
+		_window_size >= _target_size
 	);
 
 	return
