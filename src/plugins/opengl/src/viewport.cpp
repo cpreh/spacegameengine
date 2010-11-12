@@ -27,16 +27,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/text.hpp>
 
-#include <iostream>
-
 void
 sge::opengl::viewport(
 	renderer::viewport const &_viewport,
 	renderer::screen_unit const _height
 )
 {
-	std::cout << _viewport << '\n';
-
 	::glViewport(
 		static_cast<
 			GLint
@@ -46,7 +42,7 @@ sge::opengl::viewport(
 		static_cast<
 			GLint
 		>(
-			1200//_height
+			_height
 			- _viewport.size().h()
 			-
 			static_cast<

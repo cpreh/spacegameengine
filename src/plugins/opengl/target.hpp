@@ -40,9 +40,6 @@ protected:
 	explicit target(
 		renderer::viewport const &
 	);
-
-	renderer::viewport const &
-	viewport() const;
 public:
 	void
 	activate_viewport();

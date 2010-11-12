@@ -31,12 +31,6 @@ sge::opengl::target::target(
 {
 }
 
-sge::renderer::viewport const &
-sge::opengl::target::viewport() const
-{
-	return viewport_;
-}
-
 void
 sge::opengl::target::activate_viewport()
 {

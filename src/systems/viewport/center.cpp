@@ -46,15 +46,15 @@ center_position(
 
 sge::renderer::viewport const
 sge::systems::viewport::center(
-	sge::renderer::dim_type const &_target_dim,
+	sge::renderer::screen_size const &_screen_size,
 	sge::window::dim_type const &_window_dim
 )
 {
 	return
-		_target_dim.w()
+		_screen_size.w()
 		> _window_dim.w()
 		||
-		_target_dim.h()
+		_screen_size.h()
 		> _window_dim.h()
 		?
 			sge::renderer::viewport(
@@ -69,19 +69,15 @@ sge::systems::viewport::center(
 			sge::renderer::viewport(
 				sge::renderer::pixel_pos(
 					::center_position(
-						_target_dim.w(),
+						_screen_size.w(),
 						_window_dim.w()
 					),
 					::center_position(
-						_target_dim.h(),
+						_screen_size.h(),
 						_window_dim.h()
 					)
 				),
-				fcppt::math::dim::structure_cast<
-					sge::renderer::screen_size
-				>(
-					_target_dim
-				)
+				_screen_size
 			);
 }
 

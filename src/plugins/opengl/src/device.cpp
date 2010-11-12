@@ -63,7 +63,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/instance.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/make_shared_ptr.hpp>
@@ -95,11 +94,7 @@ sge::opengl::device::device(
 		fcppt::make_shared_ptr<
 			opengl::default_target
 		>(
-			fcppt::math::dim::structure_cast<
-				renderer::target::dim_type
-			>(
-				screen_size()
-			),
+			_window,
 			_parameters.display_mode().bit_depth()
 		)
 	),

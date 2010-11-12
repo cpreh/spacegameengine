@@ -34,6 +34,9 @@ sge::systems::viewport::resize_manager::resize_manager(
 	sge::renderer::device_ptr const _device
 )
 :
+	device_(
+		_device
+	),
 	target_(
 		_device->target()
 	),
@@ -62,7 +65,7 @@ sge::systems::viewport::resize_manager::on_resize(
 	target_->viewport(
 		sge::renderer::viewport(
 			viewport::center(
-				target_->dim(),
+				device_->screen_size(),
 				fcppt::math::dim::structure_cast<
 					sge::window::dim_type
 				>(

@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/flipped.hpp>
 #include <sge/image/view/make.hpp>
 #include <sge/image/view/optional_pitch.hpp>
+#include <sge/window/instance.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
@@ -39,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 sge::opengl::default_target::default_target(
-	dim_type const & _dim,
+	sge::window::instance_ptr const _window,
 	renderer::bit_depth::type const _depth
 )
 :
@@ -49,12 +50,12 @@ sge::opengl::default_target::default_target(
 			fcppt::math::dim::structure_cast<
 				sge::renderer::screen_size
 			>(
-				_dim
+				_window->size()
 			)
 		)
 	),
+	window_(_window),
 	buffer_(),
-	dim_(_dim),
 	stride_(
 		renderer::bit_depth_bytes(
 			_depth
@@ -94,15 +95,11 @@ sge::opengl::default_target::lock(
 	);
 
 	opengl::read_pixels(
-		viewport().pos().x()
-		+
 		static_cast<
 			renderer::pixel_unit
 		>(
 			_dest.left()
 		),
-		viewport().pos().y()
-		+
 		static_cast<
 			renderer::pixel_unit
 		>(
@@ -120,7 +117,7 @@ sge::opengl::default_target::lock(
 			image::view::flipped(
 				image::view::make(
 					buffer_.data(),
-					dim(),
+					_dest.dimension(),
 					opengl::convert::format_to_color(
 						format(),
 						format_type()
@@ -140,7 +137,12 @@ sge::opengl::default_target::unlock() const
 sge::renderer::target::dim_type const
 sge::opengl::default_target::dim() const
 {
-	return dim_;
+	return
+		fcppt::math::dim::structure_cast<
+			dim_type
+		>(
+			window_->size()
+		);
 }
 
 // currently 16bit and 32bit framebuffers are supported

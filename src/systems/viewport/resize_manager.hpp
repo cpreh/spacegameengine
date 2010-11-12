@@ -54,6 +54,8 @@ private:
 		awl::event::resize const &
 	);
 
+	sge::renderer::device_ptr const device_;
+
 	sge::renderer::target_ptr const target_;
 
 	fcppt::signal::scoped_connection const resize_connection_;

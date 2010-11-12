@@ -26,9 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/raw_value.hpp>
+#include <sge/window/instance_ptr.hpp>
 #include <fcppt/container/raw_vector_decl.hpp>
-#include <fcppt/math/vector/basic_decl.hpp>
-#include <fcppt/math/dim/basic_decl.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -42,8 +41,8 @@ class default_target
 {
 	FCPPT_NONCOPYABLE(default_target)
 public:
-	explicit default_target(
-		dim_type const &,
+	default_target(
+		sge::window::instance_ptr,
 		renderer::bit_depth::type
 	);
 
@@ -78,7 +77,7 @@ private:
 
 	mutable buffer_type buffer_;
 
-	dim_type dim_;
+	sge::window::instance_ptr const window_;
 
 	renderer::size_type const stride_;
 };
