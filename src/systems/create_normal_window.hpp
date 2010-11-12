@@ -18,38 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/window/to_awl_parameters.hpp>
-#include <sge/window/parameters.hpp>
-#include <awl/window/dim.hpp>
-#include <awl/window/parameters.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/assert.hpp>
-#include <fcppt/optional_impl.hpp>
+#ifndef SGE_SYSTEMS_CREATE_NORMAL_WINDOW_HPP_INCLUDED
+#define SGE_SYSTEMS_CREATE_NORMAL_WINDOW_HPP_INCLUDED
 
-awl::window::parameters
-sge::window::to_awl_parameters(
-	sge::window::parameters const &_param
-)
+#include <sge/systems/window_fwd.hpp>
+#include <sge/window/instance_ptr.hpp>
+
+namespace sge
 {
-	FCPPT_ASSERT(
-		_param.dim()
-	)
+namespace systems
+{
 
-	// TODO: add the io_service!
-	return
-		awl::window::parameters()
-		.title(
-			_param.title()
-		)
-		.class_name(
-			_param.class_name()
-		)
-		.size(
-			fcppt::math::dim::structure_cast<
-				awl::window::dim
-			>(
-				*_param.dim()
-			)
-		);
+sge::window::instance_ptr const
+create_normal_window(
+	sge::systems::window const &
+);
+
 }
+}
+
+#endif

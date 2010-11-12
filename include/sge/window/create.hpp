@@ -30,9 +30,10 @@ namespace sge
 namespace window
 {
 
-SGE_SYMBOL instance_ptr const
+SGE_SYMBOL
+sge::window::instance_ptr const
 create(
-	parameters const &
+	sge::window::parameters const &
 );
 
 }

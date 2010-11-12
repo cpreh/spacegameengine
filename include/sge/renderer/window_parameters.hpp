@@ -18,47 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SYSTEM_HPP_INCLUDED
-#define SGE_RENDERER_SYSTEM_HPP_INCLUDED
+#ifndef SGE_RENDERER_WINDOW_PARAMETERS_HPP_INCLUDED
+#define SGE_RENDERER_WINDOW_PARAMETERS_HPP_INCLUDED
 
-#include <sge/renderer/system_fwd.hpp>
-#include <sge/renderer/adapter_type.hpp>
-#include <sge/renderer/device_ptr.hpp>
-#include <sge/renderer/parameters_fwd.hpp>
-#include <sge/renderer/window_parameters_fwd.hpp>
-#include <sge/window/instance_ptr.hpp>
+#include <sge/window/parameters_fwd.hpp>
+#include <fcppt/string.hpp>
 #include <sge/symbol.hpp>
-#include <sge/class_symbol.hpp>
-#include <awl/window/instance_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-class SGE_CLASS_SYMBOL system
+class window_parameters
 {
-	FCPPT_NONCOPYABLE(
-		system
-	)
-protected:
-	SGE_SYMBOL system();
 public:
-	virtual renderer::device_ptr const
-	create_renderer(
-		renderer::parameters const &,
-		renderer::adapter_type,
-		sge::window::instance_ptr
-	) = 0;
+	SGE_SYMBOL
+	explicit
+	window_parameters(
+		fcppt::string const &title
+	);
 
-	virtual awl::window::instance_ptr const
-	create_window(
-		sge::renderer::window_parameters const &,
-		sge::renderer::parameters const &
-	) = 0;
+	SGE_SYMBOL
+	window_parameters &
+	class_name(
+		fcppt::string const &
+	);
 
-	SGE_SYMBOL virtual ~system();
+	SGE_SYMBOL
+	fcppt::string const &
+	title() const;
+
+	SGE_SYMBOL
+	fcppt::string const &
+	class_name() const;
+private:
+	fcppt::string title_;
+
+	fcppt::string class_name_;
 };
 
 }

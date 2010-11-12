@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/input/mouse/device_vector.hpp>
 #include <sge/window/instance_ptr.hpp>
-#include <sge/mainloop/dispatchable.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -41,8 +40,6 @@ namespace input
 {
 
 class SGE_CLASS_SYMBOL processor
-:
-	public mainloop::dispatchable
 {
 	FCPPT_NONCOPYABLE(
 		processor

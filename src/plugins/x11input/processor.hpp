@@ -80,9 +80,6 @@ private:
 	input::mouse::device_vector const
 	mice() const;
 
-	void
-	dispatch();
-
 	window::instance_ptr const
 	window() const;
 

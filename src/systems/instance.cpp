@@ -18,45 +18,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems/instance.hpp>
-#include <sge/systems/list.hpp>
-#include <sge/systems/viewport/manager.hpp>
-#include <sge/plugin/manager.hpp>
-#include <sge/plugin/object.hpp>
-#include <sge/plugin/iterator.hpp>
-#include <sge/plugin/context.hpp>
-#include <sge/plugin/context_base.hpp>
-#include <sge/renderer/system.hpp>
-#include <sge/renderer/plugin.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/input/system_ptr.hpp>
-#include <sge/input/system.hpp>
-#include <sge/input/processor_ptr.hpp>
-#include <sge/input/plugin.hpp>
-#include <sge/input/keyboard/collector.hpp>
-#include <sge/input/mouse/collector.hpp>
-#include <sge/image/multi_loader.hpp>
-#include <sge/image/plugin.hpp>
+#include "create_normal_window.hpp"
+#include "create_render_window.hpp"
+#include "wrap_window.hpp"
+#include <sge/audio/multi_loader.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/player_plugin.hpp>
-#include <sge/audio/multi_loader.hpp>
-#include <sge/collision/system.hpp>
 #include <sge/collision/plugin.hpp>
-#include <sge/font/system.hpp>
+#include <sge/collision/system.hpp>
 #include <sge/font/plugin.hpp>
+#include <sge/font/system.hpp>
+#include <sge/image/multi_loader.hpp>
+#include <sge/image/plugin.hpp>
+#include <sge/input/plugin.hpp>
+#include <sge/input/processor_ptr.hpp>
+#include <sge/input/system.hpp>
+#include <sge/input/system_ptr.hpp>
+#include <sge/input/keyboard/collector.hpp>
+#include <sge/input/mouse/collector.hpp>
+#include <sge/log/global.hpp>
 #include <sge/model/plugin.hpp>
 #include <sge/model/loader.hpp>
 #include <sge/model/loader_ptr.hpp>
+#include <sge/plugin/context.hpp>
+#include <sge/plugin/context_base.hpp>
+#include <sge/plugin/iterator.hpp>
+#include <sge/plugin/manager.hpp>
+#include <sge/plugin/object.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/plugin.hpp>
+#include <sge/renderer/system.hpp>
+#include <sge/systems/instance.hpp>
+#include <sge/systems/list.hpp>
+#include <sge/systems/viewport/manager.hpp>
 #include <sge/window/instance.hpp>
-#include <sge/window/create.hpp>
-#include <sge/log/global.hpp>
 #include <sge/exception.hpp>
+#include <awl/window/instance_ptr.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/holds_type.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/text.hpp>
@@ -112,9 +116,9 @@ public:
 
 	model::loader_ptr                               md3_loader_;
 
-	window::instance_ptr                            window_;
+	sge::window::instance_ptr                       window_;
 
-	fcppt::optional<window::parameters>             window_param_;
+	fcppt::optional<sge::systems::window>           window_param_;
 
 	void
 	init_renderer(
@@ -123,7 +127,7 @@ public:
 
 	void
 	init_window(
-		window::parameters const &
+		sge::systems::window const &
 	);
 
 	void
@@ -190,7 +194,7 @@ public:
 
 	result_type
 	operator()(
-		sge::window::parameters const &
+		sge::systems::window const &
 	) const;
 
 	result_type
@@ -367,7 +371,7 @@ visitor::operator()(
 
 visitor::result_type
 visitor::operator()(
-	sge::window::parameters const &_param
+	sge::systems::window const &_param
 ) const
 {
 	impl_.init_window(
@@ -444,10 +448,22 @@ visitor::operator()(
 
 void
 sge::systems::instance::impl::init_window(
-	window::parameters const &_window_param
+	sge::systems::window const &_window_param
 )
 {
-	window_param_ = _window_param;
+	if(
+		fcppt::variant::holds_type<
+			awl::window::instance_ptr
+		>(
+			_window_param.parameter()
+		)
+	)
+		window_ =
+			sge::systems::wrap_window(
+				_window_param
+			);
+	else
+		window_param_ = _window_param;
 }
 
 void
@@ -476,13 +492,9 @@ sge::systems::instance::impl::init_renderer(
 				FCPPT_TEXT("systems: renderer device requested, but no window parameter given!")
 			);
 
-		if(!window_param_->dim())
-			window_param_->dim(
-				renderer_param.display_mode().size()
-			);
-
 		window_ =
-			renderer_system_->create_window(
+			systems::create_render_window(
+				renderer_system_,
 				*window_param_,
 				renderer_param
 			);
@@ -691,9 +703,10 @@ sge::systems::instance::impl::post_init()
 void
 sge::systems::instance::impl::create_window()
 {
-	window_ = sge::window::create(
-		*window_param_
-	);
+	window_ =
+		sge::systems::create_normal_window(
+			*window_param_
+		);
 }
 
 template<

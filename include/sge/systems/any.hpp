@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/input.hpp>
 #include <sge/systems/parameterless.hpp>
 #include <sge/systems/renderer.hpp>
-#include <sge/window/parameters.hpp>
+#include <sge/systems/window.hpp>
 #include <fcppt/variant/object_fwd.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 
@@ -39,7 +39,7 @@ namespace systems
 
 typedef fcppt::variant::object<
 	boost::mpl::vector7<
-		window::parameters,
+		systems::window,
 		systems::renderer,
 		systems::image_loader,
 		systems::audio_loader,

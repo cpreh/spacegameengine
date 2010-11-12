@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/image_loader.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/parameterless.hpp>
-#include <sge/window/parameters.hpp>
+#include <sge/systems/window.hpp>
 #include <fcppt/mpl/index_of.hpp>
 #include <fcppt/variant/apply_binary.hpp>
 #include <fcppt/variant/object_impl.hpp>
@@ -56,7 +56,7 @@ public:
 };
 
 typedef boost::mpl::vector7<
-	sge::window::parameters,
+	sge::systems::window,
 	sge::systems::renderer,
 	sge::systems::input,
 	sge::systems::image_loader,

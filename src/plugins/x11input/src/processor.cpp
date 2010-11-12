@@ -246,11 +246,6 @@ sge::x11input::processor::mice() const
 		);
 }
 
-void
-sge::x11input::processor::dispatch()
-{
-}
-
 sge::window::instance_ptr const
 sge::x11input::processor::window() const
 {

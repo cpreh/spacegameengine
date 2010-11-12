@@ -23,15 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/bit_depth.hpp"
 #include "../convert/depth_buffer.hpp"
 #include "../convert/stencil_buffer.hpp"
-#include <sge/window/instance.hpp>
-#include <sge/window/to_awl_parameters.hpp>
+#include <sge/renderer/to_awl_parameters.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/parameters.hpp>
+#include <sge/window/create_from_awl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <awl/window/create_system.hpp>
 #include <awl/window/parameters.hpp>
-#include <awl/window/system.hpp>
 
 sge::opengl::system::system()
 :
@@ -72,41 +70,40 @@ sge::opengl::system::create_renderer(
 	return ret;
 }
 
-sge::window::instance_ptr const
+awl::window::instance_ptr const
 sge::opengl::system::create_window(
-	window::parameters const &_param,
-	renderer::parameters const &_rparam
+	sge::renderer::window_parameters const &_wparam,
+	sge::renderer::parameters const &_rparam
 )
 {
 	return
-		fcppt::make_shared_ptr<
-			sge::window::instance
-		>(
-			awl::window::create_system()->create(
-				sge::window::to_awl_parameters(
-					_param
+		sge::window::create_from_awl(
+			sge::window::to_awl_parameters(
+				_wparam
+			)
+			.size(
+				_rparam.display_mode().size()
+			)
+			.fullscreen(
+				_rparam.window_mode()
+				== sge::renderer::window_mode::fullscreen
+			)
+			.has_opengl(
+				true
+			)
+			.bit_depth(
+				opengl::convert::bit_depth(
+					_rparam.display_mode().bit_depth()
 				)
-				.fullscreen(
-					_rparam.window_mode()
-					== sge::renderer::window_mode::fullscreen
+			)
+			.stencil_buffer(
+				opengl::convert::stencil_buffer(
+					_rparam.stencil_buffer()
 				)
-				.has_opengl(
-					true
-				)
-				.bit_depth(
-					opengl::convert::bit_depth(
-						_rparam.display_mode().bit_depth()
-					)
-				)
-				.stencil_buffer(
-					opengl::convert::stencil_buffer(
-						_rparam.stencil_buffer()
-					)
-				)
-				.depth_buffer(
-					opengl::convert::depth_buffer(
-						_rparam.depth_buffer()
-					)
+			)
+			.depth_buffer(
+				opengl::convert::depth_buffer(
+					_rparam.depth_buffer()
 				)
 			)
 		);

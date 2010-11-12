@@ -18,29 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/window/create.hpp>
-#include <sge/window/parameters.hpp>
-#include <sge/window/instance.hpp>
-#include <awl/event/create_processor.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#ifndef SGE_WINDOW_SIMPLE_PARAMETERS_FWD_HPP_INCLUDED
+#define SGE_WINDOW_SIMPLE_PARAMETERS_FWD_HPP_INCLUDED
 
-sge::window::instance_ptr const
-sge::window::create(
-	sge::window::parameters const &_param
-)
+namespace sge
 {
-	return
-		fcppt::make_shared_ptr<
-			sge::window::instance
-		>(
-			_param.window(),
-			_param.event_processor()
-			?
-				_param.event_processor()
-			:
-				awl::event::create_processor(
-					_param.window()
-				),
-			_param.io_service()
-		);
+namespace window
+{
+
+class simple_parameters;
+
 }
+}
+
+#endif

@@ -18,29 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_CREATE_DEVICE_WITH_WINDOW_HPP_INCLUDED
-#define SGE_RENDERER_CREATE_DEVICE_WITH_WINDOW_HPP_INCLUDED
-
-#include <sge/renderer/adapter_type.hpp>
-#include <sge/renderer/device_ptr.hpp>
-#include <sge/renderer/parameters_fwd.hpp>
-#include <sge/renderer/system_ptr.hpp>
-#include <sge/window/parameters_fwd.hpp>
-#include <sge/symbol.hpp>
+#ifndef SGE_SYSTEMS_WINDOW_FWD_HPP_INCLUDED
+#define SGE_SYSTEMS_WINDOW_FWD_HPP_INCLUDED
 
 namespace sge
 {
-namespace renderer
+namespace systems
 {
 
-SGE_SYMBOL
-sge::renderer::device_ptr const
-create_device_with_window(
-	renderer::system_ptr,
-	renderer::parameters const &,
-	renderer::adapter_type,
-	window::parameters const &
-);
+class window;
 
 }
 }

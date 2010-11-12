@@ -18,72 +18,78 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_WINDOW_INSTANCE_HPP_INCLUDED
-#define SGE_WINDOW_INSTANCE_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_WINDOW_HPP_INCLUDED
+#define SGE_SYSTEMS_WINDOW_HPP_INCLUDED
 
-#include <sge/window/dim_type.hpp>
+#include <sge/window/simple_parameters.hpp>
+#include <sge/renderer/window_parameters.hpp>
 #include <sge/symbol.hpp>
-#include <awl/window/instance_ptr.hpp>
 #include <awl/event/processor_ptr.hpp>
 #include <awl/mainloop/io_service_ptr.hpp>
-#include <awl/mainloop/dispatcher_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <awl/window/instance_ptr.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace sge
 {
-namespace window
+namespace systems
 {
 
-class instance
+class window
 {
-	FCPPT_NONCOPYABLE(
-		instance
-	)
 public:
 	SGE_SYMBOL
-	explicit
-	instance(
-		awl::window::instance_ptr,
-		awl::event::processor_ptr,
-		awl::mainloop::io_service_ptr
+	explicit window(
+		sge::window::simple_parameters const &
 	);
 
 	SGE_SYMBOL
-	~instance();
-
-	typedef window::dim_type dim_type;
-
-	SGE_SYMBOL
-	dim_type const
-	size() const;
+	explicit window(
+		sge::renderer::window_parameters const &
+	);
 
 	SGE_SYMBOL
-	void
-	show();
+	explicit window(
+		awl::window::instance_ptr
+	);
 
 	SGE_SYMBOL
-	void
-	dispatch();
+	window &
+	event_processor(
+		awl::event::processor_ptr
+	);
 
 	SGE_SYMBOL
-	awl::window::instance_ptr const
-	awl_instance() const;
+	window &
+	io_service(
+		awl::mainloop::io_service_ptr
+	);
+
+	typedef fcppt::variant::object<
+		boost::mpl::vector3<
+			sge::window::simple_parameters,
+			sge::renderer::window_parameters,
+			awl::window::instance_ptr
+		>
+	> parameter_variant;
+
+	SGE_SYMBOL
+	parameter_variant const &
+	parameter() const;
 
 	SGE_SYMBOL
 	awl::event::processor_ptr const
-	awl_event_processor() const;
+	event_processor() const;
 
 	SGE_SYMBOL
 	awl::mainloop::io_service_ptr const
-	awl_io_service() const;
+	io_service() const;
 private:
-	awl::window::instance_ptr const instance_;
+	parameter_variant parameter_;
 
-	awl::event::processor_ptr const processor_;
+	awl::event::processor_ptr processor_;
 
-	awl::mainloop::io_service_ptr const io_service_;
-
-	awl::mainloop::dispatcher_ptr const dispatcher_;
+	awl::mainloop::io_service_ptr io_service_;
 };
 
 }

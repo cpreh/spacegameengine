@@ -18,72 +18,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_WINDOW_INSTANCE_HPP_INCLUDED
-#define SGE_WINDOW_INSTANCE_HPP_INCLUDED
+#ifndef SGE_WINDOW_SIMPLE_PARAMETERS_HPP_INCLUDED
+#define SGE_WINDOW_SIMPLE_PARAMETERS_HPP_INCLUDED
 
+#include <sge/window/simple_parameters_fwd.hpp>
 #include <sge/window/dim_type.hpp>
 #include <sge/symbol.hpp>
-#include <awl/window/instance_ptr.hpp>
-#include <awl/event/processor_ptr.hpp>
-#include <awl/mainloop/io_service_ptr.hpp>
-#include <awl/mainloop/dispatcher_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
 namespace window
 {
 
-class instance
+class simple_parameters
 {
-	FCPPT_NONCOPYABLE(
-		instance
-	)
 public:
 	SGE_SYMBOL
-	explicit
-	instance(
-		awl::window::instance_ptr,
-		awl::event::processor_ptr,
-		awl::mainloop::io_service_ptr
+	explicit simple_parameters(
+		fcppt::string const &title,
+		sge::window::dim_type const &
 	);
 
 	SGE_SYMBOL
-	~instance();
-
-	typedef window::dim_type dim_type;
-
-	SGE_SYMBOL
-	dim_type const
-	size() const;
+	simple_parameters &
+	class_name(
+		fcppt::string const &
+	);
 
 	SGE_SYMBOL
-	void
-	show();
+	fcppt::string const &
+	title() const;
 
 	SGE_SYMBOL
-	void
-	dispatch();
+	sge::window::dim_type const &
+	dim() const;
 
 	SGE_SYMBOL
-	awl::window::instance_ptr const
-	awl_instance() const;
-
-	SGE_SYMBOL
-	awl::event::processor_ptr const
-	awl_event_processor() const;
-
-	SGE_SYMBOL
-	awl::mainloop::io_service_ptr const
-	awl_io_service() const;
+	fcppt::string const &
+	class_name() const;
 private:
-	awl::window::instance_ptr const instance_;
+	fcppt::string title_;
 
-	awl::event::processor_ptr const processor_;
+	sge::window::dim_type dim_;
 
-	awl::mainloop::io_service_ptr const io_service_;
-
-	awl::mainloop::dispatcher_ptr const dispatcher_;
+	fcppt::string class_name_;
 };
 
 }

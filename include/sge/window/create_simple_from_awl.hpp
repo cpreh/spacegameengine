@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_WINDOW_TO_AWL_PARAMETERS_HPP_INCLUDED
-#define SGE_WINDOW_TO_AWL_PARAMETERS_HPP_INCLUDED
+#ifndef SGE_WINDOW_CREATE_SIMPLE_FROM_AWL_HPP_INCLUDED
+#define SGE_WINDOW_CREATE_SIMPLE_FROM_AWL_HPP_INCLUDED
 
-#include <sge/window/parameters_fwd.hpp>
+#include <sge/window/simple_parameters_fwd.hpp>
 #include <sge/symbol.hpp>
-#include <awl/window/parameters_fwd.hpp>
+#include <awl/window/instance_ptr.hpp>
 
 namespace sge
 {
@@ -31,9 +31,9 @@ namespace window
 {
 
 SGE_SYMBOL
-awl::window::parameters // intentionally not const
-to_awl_parameters(
-	sge::window::parameters const &
+awl::window::instance_ptr const
+create_simple_from_awl(
+	sge::window::simple_parameters const &
 );
 
 }

@@ -18,29 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "create_render_window.hpp"
+#include <sge/renderer/system.hpp>
+#include <sge/renderer/window_parameters.hpp>
+#include <sge/systems/window.hpp>
 #include <sge/window/create.hpp>
 #include <sge/window/parameters.hpp>
-#include <sge/window/instance.hpp>
-#include <awl/event/create_processor.hpp>
-#include <fcppt/make_shared_ptr.hpp>
 
 sge::window::instance_ptr const
-sge::window::create(
-	sge::window::parameters const &_param
+sge::systems::create_render_window(
+	sge::renderer::system_ptr const _render_sys,
+	sge::systems::window const &_window_param,
+	sge::renderer::parameters const &_render_param
 )
 {
 	return
-		fcppt::make_shared_ptr<
-			sge::window::instance
-		>(
-			_param.window(),
-			_param.event_processor()
-			?
-				_param.event_processor()
-			:
-				awl::event::create_processor(
-					_param.window()
-				),
-			_param.io_service()
+		sge::window::create(
+			sge::window::parameters(
+				_render_sys->create_window(
+					_window_param.parameter().get<
+						sge::renderer::window_parameters
+					>(),
+					_render_param
+				)
+			)
+			.event_processor(
+				_window_param.event_processor()
+			)
+			.io_service(
+				_window_param.io_service()
+			)
 		);
 }
