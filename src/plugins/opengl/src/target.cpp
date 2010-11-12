@@ -31,8 +31,10 @@ sge::opengl::target::target(
 {
 }
 
-sge::opengl::target::~target()
+sge::renderer::viewport const &
+sge::opengl::target::viewport() const
 {
+	return viewport_;
 }
 
 void
@@ -46,6 +48,10 @@ sge::opengl::target::activate_viewport()
 			dim().h()
 		)
 	);
+}
+
+sge::opengl::target::~target()
+{
 }
 
 void

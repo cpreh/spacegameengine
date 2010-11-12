@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "common.hpp"
 #include "target.hpp"
 #include <sge/renderer/bit_depth.hpp>
-#include <sge/renderer/pixel_pos.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/raw_value.hpp>
 #include <fcppt/container/raw_vector_decl.hpp>
@@ -55,16 +54,6 @@ public:
 
 	void
 	unbind() const;
-
-	void
-	pos(
-		renderer::pixel_pos const &
-	);
-
-	void
-	dim(
-		dim_type const &
-	);
 private:
 	image::view::const_object const
 	lock(
@@ -88,8 +77,6 @@ private:
 	> buffer_type;
 
 	mutable buffer_type buffer_;
-
-	renderer::pixel_pos pos_;
 
 	dim_type dim_;
 

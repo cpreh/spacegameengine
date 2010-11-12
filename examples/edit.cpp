@@ -109,6 +109,9 @@ try
 				sge::all_extensions
 			)
 		)
+		(
+			sge::systems::parameterless::font
+		)
 	);
 
 

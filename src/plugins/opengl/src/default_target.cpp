@@ -54,9 +54,6 @@ sge::opengl::default_target::default_target(
 		)
 	),
 	buffer_(),
-	pos_(
-		renderer::pixel_pos::null()
-	),
 	dim_(_dim),
 	stride_(
 		renderer::bit_depth_bytes(
@@ -79,22 +76,6 @@ sge::opengl::default_target::unbind() const
 {
 }
 
-void
-sge::opengl::default_target::pos(
-	renderer::pixel_pos const &_pos
-)
-{
-	pos_ = _pos;
-}
-
-void
-sge::opengl::default_target::dim(
-	dim_type const &_dim
-)
-{
-	dim_ = _dim;
-}
-
 sge::image::view::const_object const
 sge::opengl::default_target::lock(
 	renderer::lock_rect const &_dest
@@ -113,14 +94,14 @@ sge::opengl::default_target::lock(
 	);
 
 	opengl::read_pixels(
-		pos_.x()
+		viewport().pos().x()
 		+
 		static_cast<
 			renderer::pixel_unit
 		>(
 			_dest.left()
 		),
-		pos_.y()
+		viewport().pos().y()
 		+
 		static_cast<
 			renderer::pixel_unit
