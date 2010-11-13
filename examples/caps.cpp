@@ -38,6 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/window_mode.hpp>
 #include <sge/renderer/window_parameters.hpp>
+#include <awl/window/create_system.hpp>
+#include <awl/window/system_ptr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/text.hpp>
 
@@ -60,9 +62,14 @@ int main()
 		plugin->get()()
 	);
 
+	awl::window::system_ptr const window_sys(
+		awl::window::create_system()
+	);
+
 	fcppt::io::cout
 		<<
 		sge::renderer::create_device_with_window(
+			window_sys,
 			render_sys,
 			sge::renderer::parameters(
 				sge::renderer::display_mode(
