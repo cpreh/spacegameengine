@@ -18,26 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config/appdir.hpp>
-#include <fcppt/io/cout.hpp>
-#include <fcppt/text.hpp>
-#include <exception>
-#include <cstdlib>
-#include <iostream>
-#include <ostream>
+#ifndef SGE_RENDERER_CREATE_DEVICE_WITH_WINDOW_HPP_INCLUDED
+#define SGE_RENDERER_CREATE_DEVICE_WITH_WINDOW_HPP_INCLUDED
 
-int main()
-try
-{
-	fcppt::io::cout
-		<< sge::config::appdir()
-		<< FCPPT_TEXT('\n');
-}
-catch(
-	std::exception const &_exception
-)
-{
-	std::cerr << _exception.what() << '\n';
+#include <sge/renderer/adapter_type.hpp>
+#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/parameters_fwd.hpp>
+#include <sge/renderer/system_ptr.hpp>
+#include <sge/renderer/window_parameters_fwd.hpp>
+#include <sge/symbol.hpp>
 
-	return EXIT_FAILURE;
+namespace sge
+{
+namespace renderer
+{
+
+SGE_SYMBOL
+sge::renderer::device_ptr const
+create_device_with_window(
+	sge::renderer::system_ptr,
+	sge::renderer::parameters const &,
+	sge::renderer::adapter_type,
+	sge::renderer::window_parameters const &
+);
+
 }
+}
+
+#endif

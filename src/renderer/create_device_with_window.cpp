@@ -18,26 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config/appdir.hpp>
-#include <fcppt/io/cout.hpp>
-#include <fcppt/text.hpp>
-#include <exception>
-#include <cstdlib>
-#include <iostream>
-#include <ostream>
+#include <sge/renderer/create_device_with_window.hpp>
+#include <sge/renderer/system.hpp>
+#include <sge/window/create.hpp>
+#include <sge/window/parameters.hpp>
 
-int main()
-try
-{
-	fcppt::io::cout
-		<< sge::config::appdir()
-		<< FCPPT_TEXT('\n');
-}
-catch(
-	std::exception const &_exception
+sge::renderer::device_ptr const
+sge::renderer::create_device_with_window(
+	sge::renderer::system_ptr const _sys,
+	sge::renderer::parameters const &_rparam,
+	sge::renderer::adapter_type const _adapter,
+	sge::renderer::window_parameters const &_wparam
 )
 {
-	std::cerr << _exception.what() << '\n';
-
-	return EXIT_FAILURE;
+	return
+		_sys->create_renderer(
+			_rparam,
+			_adapter,
+			sge::window::create(
+				sge::window::parameters(
+					_sys->create_window(
+						_wparam,
+						_rparam
+					)
+				)
+			)
+		);
 }

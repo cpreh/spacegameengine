@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/window_mode.hpp>
-#include <sge/window/parameters.hpp>
+#include <sge/renderer/window_parameters.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/text.hpp>
 
@@ -84,7 +84,7 @@ int main()
 			>(
 				0
 			),
-			sge::window::parameters(
+			sge::renderer::window_parameters(
 				FCPPT_TEXT("sge caps")
 			)
 		)->caps()

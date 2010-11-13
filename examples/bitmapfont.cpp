@@ -21,8 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/viewport/manage_resize.hpp>
-#include <sge/mainloop/catch_block.hpp>
-#include <sge/mainloop/dispatch.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
@@ -40,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/media_path.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
+#include <sge/window/instance.hpp>
 #include <sge/extension_set.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
@@ -51,6 +50,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_shared_ptr.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
+#include <iostream>
+#include <ostream>
+#include <exception>
+#include <cstdlib>
 
 int main()
 try
@@ -58,8 +61,10 @@ try
 	sge::systems::instance const sys(
 		sge::systems::list()
 		(
-			sge::window::parameters(
-				FCPPT_TEXT("sge animtest")
+			sge::systems::window(
+				sge::renderer::window_parameters(
+					FCPPT_TEXT("sge animtest")
+				)
 			)
 		)
 		(
@@ -145,7 +150,7 @@ try
 
 	while(running)
 	{
-		sge::mainloop::dispatch();
+		sys.window()->dispatch();
 
 		sge::renderer::scoped_block const block_(
 			sys.renderer()
@@ -167,4 +172,11 @@ try
 		);
 	}
 }
-SGE_MAINLOOP_CATCH_BLOCK
+catch(
+	std::exception const &_exception
+)
+{
+	std::cerr << _exception.what() << '\n';
+
+	return EXIT_FAILURE;
+}
