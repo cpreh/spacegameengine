@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/viewport/manage_resize.hpp>
-#include <sge/window/parameters.hpp>
+#include <sge/window/instance.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/state/list.hpp>
@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/image/colors.hpp>
-#include <sge/mainloop/dispatch.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/time/second.hpp>
 #include <sge/exception.hpp>
@@ -47,8 +46,10 @@ try
 	sge::systems::instance sys(
 		sge::systems::list()
 		(
-			sge::window::parameters(
-				FCPPT_TEXT("sge fullscreen test")
+			sge::systems::window(
+				sge::renderer::window_parameters(
+					FCPPT_TEXT("sge fullscreen test")
+				)
 			)
 		)
 		(
@@ -89,7 +90,8 @@ try
 
 	while(!tm.update_b())
 	{
-		sge::mainloop::dispatch();
+		sys.window()->dispatch();
+
 		sge::renderer::scoped_block const block_(rend);
 	}
 }

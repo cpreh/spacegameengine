@@ -34,8 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/colors.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
-#include <sge/mainloop/dispatch.hpp>
-#include <sge/window/parameters.hpp>
+#include <sge/window/instance.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
@@ -59,8 +58,10 @@ try
 	sge::systems::instance const sys(
 		sge::systems::list()
 		(
-			sge::window::parameters(
-				FCPPT_TEXT("sge fonttest")
+			sge::systems::window(
+				sge::renderer::window_parameters(
+					FCPPT_TEXT("sge fonttest")
+				)
 			)
 		)
 		(
@@ -126,7 +127,7 @@ try
 
 	while (running)
 	{
-		sge::mainloop::dispatch();
+		sys.window()->dispatch();
 
 		sge::renderer::scoped_block const block(sys.renderer());
 

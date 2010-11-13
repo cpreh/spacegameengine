@@ -44,9 +44,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/viewport/manage_resize.hpp>
-#include <sge/mainloop/dispatch.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
+#include <sge/window/instance.hpp>
 #include <sge/all_extensions.hpp>
 #include <sge/exception.hpp>
 
@@ -81,8 +81,10 @@ try
 	sge::systems::instance sys(
 		sge::systems::list()
 		(
-			sge::window::parameters(
-				FCPPT_TEXT("sge gui test")
+			sge::systems::window(
+				sge::renderer::window_parameters(
+					FCPPT_TEXT("sge gui test")
+				)
 			)
 		)
 		(
@@ -217,7 +219,8 @@ try
 	sge::time::timer delete_timer(sge::time::second(static_cast<sge::time::unit>(2)));
 	while (running)
 	{
-		sge::mainloop::dispatch();
+		sys.window()->dispatch();
+
 		sge::renderer::scoped_block block(sys.renderer());
 
 		if (delete_timer.active() && delete_timer.expired())

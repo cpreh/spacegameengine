@@ -64,7 +64,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/manager.hpp>
 #include <sge/texture/add_image.hpp>
 #include <sge/texture/no_fragmented.hpp>
-#include <sge/mainloop/dispatch.hpp>
+#include <sge/window/instance.hpp>
 #include <sge/exception.hpp>
 #include <sge/extension_set.hpp>
 #include <sge/multi_loader.hpp>
@@ -172,8 +172,10 @@ try
 	sge::systems::instance sys(
 		sge::systems::list()
 		(
-			sge::window::parameters(
-				FCPPT_TEXT("sge dopplertest")
+			sge::systems::window(
+				sge::renderer::window_parameters(
+					FCPPT_TEXT("sge dopplertest")
+				)
 			)
 		)
 		(
@@ -481,7 +483,7 @@ try
 
 	while(running)
 	{
-		sge::mainloop::dispatch();
+		sys.window()->dispatch();
 		{
 			sys.renderer()->glsl_program(
 				sge::renderer::glsl::no_program()

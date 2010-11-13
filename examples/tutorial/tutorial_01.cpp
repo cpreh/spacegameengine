@@ -39,9 +39,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/file.hpp>
 #include <sge/image/file_ptr.hpp>
 #include <sge/image/multi_loader.hpp>
-#include <sge/mainloop/dispatch.hpp>
 #include <sge/texture/part_raw.hpp>
-#include <sge/window/parameters.hpp>
+#include <sge/window/instance.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/exception.hpp>
 #include <sge/extension_set.hpp>
@@ -62,8 +61,10 @@ try
 	sge::systems::instance const sys(
 		sge::systems::list()
 		(
-			sge::window::parameters(
-				FCPPT_TEXT("sge tutorial01")
+			sge::systems::window(
+				sge::renderer::window_parameters(
+					FCPPT_TEXT("sge tutorial01")
+				)
 			)
 		)
 		(
@@ -158,7 +159,7 @@ try
 
 	for (;;)
 	{
-		sge::mainloop::dispatch();
+		sys.window()->dispatch();
 
 		sge::renderer::scoped_block const block_(
 			sys.renderer()

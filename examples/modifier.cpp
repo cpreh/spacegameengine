@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/modifier/filter.hpp>
-#include <sge/mainloop/dispatch.hpp>
+#include <sge/window/instance.hpp>
 #include <sge/log/global.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -74,8 +74,10 @@ try
 	sge::systems::instance sys(
 		sge::systems::list()
 		(
-			sge::window::parameters(
-				FCPPT_TEXT("sge modifier test")
+			sge::systems::window(
+				sge::renderer::window_parameters(
+					FCPPT_TEXT("sge modifier test")
+				)
 			)
 		)
 		(
@@ -107,7 +109,7 @@ try
 
 	while(running)
 	{
-		sge::mainloop::dispatch();
+		sys.window()->dispatch();
 		sge::renderer::scoped_block const block_(sys.renderer());
 	}
 }

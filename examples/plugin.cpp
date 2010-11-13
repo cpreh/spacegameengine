@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/loader.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/log/global.hpp>
-#include <sge/mainloop/catch_block.hpp>
 #include <fcppt/mpl/for_each.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/io/cout.hpp>
@@ -39,7 +38,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/type_name.hpp>
 #include <fcppt/text.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <iostream>
+#include <ostream>
+#include <exception>
 #include <typeinfo>
+#include <cstdlib>
 
 namespace
 {
@@ -96,7 +99,14 @@ try
 		)
 	);
 }
-SGE_MAINLOOP_CATCH_BLOCK
+catch(
+	std::exception const &_exception
+)
+{
+	std::cerr << _exception.what() << '\n';
+
+	return EXIT_FAILURE;
+}
 
 namespace
 {

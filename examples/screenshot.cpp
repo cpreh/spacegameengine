@@ -21,8 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/viewport/manage_resize.hpp>
-#include <sge/mainloop/catch_block.hpp>
-#include <sge/mainloop/dispatch.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/scoped_block.hpp>
@@ -51,7 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/with_texture.hpp>
 #include <sge/sprite/render_one.hpp>
 #include <sge/config/media_path.hpp>
-#include <sge/window/parameters.hpp>
+#include <sge/window/instance.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -62,6 +60,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/spirit/home/phoenix/object/new.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
+#include <iostream>
+#include <ostream>
+#include <exception>
+#include <cstdlib>
 
 int main()
 try
@@ -69,8 +71,10 @@ try
 	sge::systems::instance const sys(
 		sge::systems::list()
 		(
-			sge::window::parameters(
-				FCPPT_TEXT("sge screenshot test")
+			sge::systems::window(
+				sge::renderer::window_parameters(
+					FCPPT_TEXT("sge screenshot test")
+				)
 			)
 		)
 		(
@@ -216,7 +220,7 @@ try
 
 	while(running)
 	{
-		sge::mainloop::dispatch();
+		sys.window()->dispatch();
 
 		sge::renderer::scoped_block const block_(
 			device
@@ -228,4 +232,11 @@ try
 		);
 	}
 }
-SGE_MAINLOOP_CATCH_BLOCK
+catch(
+	std::exception const &_exception
+)
+{
+	std::cerr << _exception.what() << '\n';
+
+	return EXIT_FAILURE;
+}

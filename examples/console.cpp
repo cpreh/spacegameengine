@@ -36,8 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/no_fragmented.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/multi_loader.hpp>
-#include <sge/window/parameters.hpp>
-#include <sge/mainloop/dispatch.hpp>
+#include <sge/window/instance.hpp>
 #include <sge/console/object.hpp>
 #include <sge/console/arg_list.hpp>
 #include <sge/console/gfx.hpp>
@@ -88,8 +87,10 @@ try
 	sge::systems::instance const sys(
 		sge::systems::list()
 		(
-			sge::window::parameters(
-				FCPPT_TEXT("sge console test")
+			sge::systems::window(
+				sge::renderer::window_parameters(
+					FCPPT_TEXT("sge console test")
+				)
 			)
 		)
 		(
@@ -227,8 +228,12 @@ try
 
 	while (running)
 	{
-		sge::mainloop::dispatch();
-		sge::renderer::scoped_block const block_(sys.renderer());
+		sys.window()->dispatch();
+
+		sge::renderer::scoped_block const block_(
+			sys.renderer()
+		);
+
 		gfx_.draw();
 	}
 }

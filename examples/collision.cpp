@@ -51,8 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/default_equal.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/action.hpp>
-#include <sge/mainloop/dispatch.hpp>
-#include <sge/window/parameters.hpp>
+#include <sge/window/instance.hpp>
 #include <sge/collision/system.hpp>
 #include <sge/collision/satellite.hpp>
 #include <sge/collision/world.hpp>
@@ -168,8 +167,10 @@ try
 	sge::systems::instance const sys(
 		sge::systems::list()
 		(
-			sge::window::parameters(
-				FCPPT_TEXT("sge physics")
+			sge::systems::window(
+				sge::renderer::window_parameters(
+					FCPPT_TEXT("sge physics")
+				)
 			)
 		)
 		(
@@ -192,7 +193,9 @@ try
 				sge::systems::viewport::manage_resize()
 			)
 		)
-		(sge::systems::parameterless::collision_system)
+		(
+			sge::systems::parameterless::collision_system
+		)
 		(
 			sge::systems::input(
 				sge::systems::input_helper_field(
@@ -403,6 +406,8 @@ try
 
 	while (running)
 	{
+		sys.window()->dispatch();
+
 		world->update(
 			frame_timer.elapsed_frames()
 		);
@@ -425,8 +430,6 @@ try
 				)
 			);
 		}
-
-		sge::mainloop::dispatch();
 
 		sge::renderer::scoped_block const block_(
 			sys.renderer()

@@ -36,7 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/algorithm/fill.hpp>
 #include <sge/image/algorithm/copy_and_convert.hpp>
 #include <sge/image/colors.hpp>
-#include <sge/mainloop/catch_block.hpp>
 #include <sge/exception.hpp>
 #include <sge/extension_set.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -52,6 +51,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/foreach.hpp>
 #include <algorithm>
 #include <iterator>
+#include <iostream>
+#include <ostream>
+#include <exception>
 #include <vector>
 #include <cstdlib>
 
@@ -260,4 +262,11 @@ try
 		FCPPT_TEXT("out.png")
 	);
 }
-SGE_MAINLOOP_CATCH_BLOCK
+catch(
+	std::exception const &_exception
+)
+{
+	std::cerr << _exception.what() << '\n';
+
+	return EXIT_FAILURE;
+}

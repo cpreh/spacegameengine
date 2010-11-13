@@ -50,8 +50,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/colors.hpp>
 #include <sge/image/multi_loader.hpp>
 #include <sge/texture/part_raw.hpp>
-#include <sge/mainloop/dispatch.hpp>
 #include <sge/config/media_path.hpp>
+#include <sge/window/instance.hpp>
 #include <sge/exception.hpp>
 #include <sge/extension_set.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -74,8 +74,10 @@ try
 	sge::systems::instance const sys(
 		sge::systems::list()
 		(
-			sge::window::parameters(
-				FCPPT_TEXT("sge targettest")
+			sge::systems::window(
+				sge::renderer::window_parameters(
+					FCPPT_TEXT("sge targettest")
+				)
 			)
 		)
 		(
@@ -294,7 +296,7 @@ try
 		}
 
 
-		sge::mainloop::dispatch();
+		sys.window()->dispatch();
 
 		sys.renderer()->state(
 			sge::renderer::state::list

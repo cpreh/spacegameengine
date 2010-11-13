@@ -25,8 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/colors.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
-#include <sge/mainloop/catch_block.hpp>
-#include <sge/mainloop/dispatch.hpp>
 #include <sge/renderer/aspect.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/light.hpp>
@@ -42,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/window_parameters.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/cull_mode.hpp>
@@ -63,8 +62,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/renderer.hpp>
+#include <sge/systems/window.hpp>
 #include <sge/systems/viewport/manage_resize.hpp>
-#include <sge/window/parameters.hpp>
+#include <sge/window/instance.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/quad.hpp>
@@ -81,7 +81,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
+#include <exception>
+#include <iostream>
+#include <ostream>
 #include <cmath>
+#include <cstdlib>
 
 namespace
 {
@@ -144,8 +148,10 @@ try
 	sge::systems::instance const sys(
 		sge::systems::list()
 		(
-			sge::window::parameters(
-				FCPPT_TEXT("sge cg1 ex04")
+			sge::systems::window(
+				sge::renderer::window_parameters(
+					FCPPT_TEXT("sge cg1 ex04")
+				)
 			)
 		)
 		(
@@ -398,7 +404,7 @@ try
 
 	while(running)
 	{
-		sge::mainloop::dispatch();
+		sys.window()->dispatch();
 
 		angle += fcppt::math::twopi<float_type>() * rotation_time.update();
 
@@ -430,7 +436,7 @@ try
 			);
 		}
 
-		sge::renderer::scoped_block const block_(
+		sge::renderer::scoped_block const block(
 			rend
 		);
 
@@ -443,4 +449,11 @@ try
 		);
 	}
 }
-SGE_MAINLOOP_CATCH_BLOCK
+catch(
+	std::exception const &_exception
+)
+{
+	std::cerr << _exception.what() << '\n';
+
+	return EXIT_FAILURE;
+}

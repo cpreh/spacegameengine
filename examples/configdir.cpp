@@ -19,9 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config/find_config_path.hpp>
-#include <sge/mainloop/catch_block.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/text.hpp>
+#include <iostream>
+#include <ostream>
+#include <exception>
+#include <cstdlib>
 
 int main()
 try
@@ -32,4 +35,11 @@ try
 		)
 		<< FCPPT_TEXT('\n');
 }
-SGE_MAINLOOP_CATCH_BLOCK
+catch(
+	std::exception const &_exception
+)
+{
+	std::cerr << _exception.what() << '\n';
+
+	return EXIT_FAILURE;
+}
