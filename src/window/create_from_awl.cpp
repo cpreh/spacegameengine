@@ -32,5 +32,3 @@ sge::window::create_from_awl(
 			_awl_param
 		);
 }
-
-#endif

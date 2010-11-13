@@ -18,44 +18,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_SYSTEM_HPP_INCLUDED
-#define SGE_OPENGL_SYSTEM_HPP_INCLUDED
+#include <sge/window/parameters.hpp>
 
-#include <sge/renderer/system.hpp>
-#include <fcppt/noncopyable.hpp>
-
-namespace sge
-{
-namespace opengl
-{
-
-class system
+sge::window::parameters::parameters(
+	awl::window::instance_ptr const _window
+)
 :
-	public renderer::system
+	window_(_window)
 {
-	FCPPT_NONCOPYABLE(
-		system
-	)
-public:
-	system();
-
-	~system();
-
-	renderer::device_ptr const
-	create_renderer(
-		renderer::parameters const &param,
-		renderer::adapter_type adapter,
-		window::instance_ptr
-	);
-
-	awl::window::instance_ptr const
-	create_window(
-		sge::renderer::window_parameters const &,
-		sge::renderer::parameters const &
-	);
-};
-
-}
 }
 
-#endif
+sge::window::parameters &
+sge::window::parameters::event_processor(
+	awl::event::processor_ptr const _event_processor
+)
+{
+	event_processor_ = _event_processor;
+
+	return *this;
+}
+
+sge::window::parameters &
+sge::window::parameters::io_service(
+	awl::mainloop::io_service_ptr const _io_service
+)
+{
+	io_service_ = _io_service;
+
+	return *this;
+}
+
+awl::window::instance_ptr const
+sge::window::parameters::window() const
+{
+	return window_;
+}
+
+awl::event::processor_ptr const
+sge::window::parameters::event_processor() const
+{
+	return event_processor_;
+}
+
+awl::mainloop::io_service_ptr const
+sge::window::parameters::io_service() const
+{
+	return io_service_;
+}

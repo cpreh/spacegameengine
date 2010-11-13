@@ -23,17 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/bit_depth.hpp"
 #include "../convert/depth_buffer.hpp"
 #include "../convert/stencil_buffer.hpp"
-#include <sge/renderer/to_awl_parameters.hpp>
-#include <sge/renderer/exception.hpp>
 #include <sge/renderer/parameters.hpp>
+#include <sge/renderer/to_awl_parameters.hpp>
 #include <sge/window/create_from_awl.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <awl/window/parameters.hpp>
 
 sge::opengl::system::system()
-:
-	weak_ref_()
 {
 }
 
@@ -48,26 +46,14 @@ sge::opengl::system::create_renderer(
 	window::instance_ptr const _wnd
 )
 {
-	if(
-		weak_ref_.lock()
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("The opengl plugin may only have one renderer!")
-		);
-
-	renderer::device_ptr const ret(
+	return
 		fcppt::make_shared_ptr<
 			device
 		>(
 			_param,
 			_adapter,
 			_wnd
-		)
-	);
-
-	weak_ref_ = ret;
-
-	return ret;
+		);
 }
 
 awl::window::instance_ptr const
@@ -78,11 +64,15 @@ sge::opengl::system::create_window(
 {
 	return
 		sge::window::create_from_awl(
-			sge::window::to_awl_parameters(
+			sge::renderer::to_awl_parameters(
 				_wparam
 			)
 			.size(
-				_rparam.display_mode().size()
+				fcppt::math::dim::structure_cast<
+					awl::window::dim
+				>(
+					_rparam.display_mode().size()
+				)
 			)
 			.fullscreen(
 				_rparam.window_mode()

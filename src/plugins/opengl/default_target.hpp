@@ -71,13 +71,13 @@ private:
 	GLenum
 	format_type() const;
 
+	sge::window::instance_ptr const window_;
+
 	typedef fcppt::container::raw_vector<
 		renderer::raw_value
 	> buffer_type;
 
 	mutable buffer_type buffer_;
-
-	sge::window::instance_ptr const window_;
 
 	renderer::size_type const stride_;
 };

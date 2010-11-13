@@ -18,44 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_SYSTEM_HPP_INCLUDED
-#define SGE_OPENGL_SYSTEM_HPP_INCLUDED
+#include "wrap_window.hpp"
+#include <sge/systems/window.hpp>
+#include <sge/window/create.hpp>
+#include <sge/window/parameters.hpp>
 
-#include <sge/renderer/system.hpp>
-#include <fcppt/noncopyable.hpp>
-
-namespace sge
+sge::window::instance_ptr const
+sge::systems::wrap_window(
+	sge::systems::window const &_param
+)
 {
-namespace opengl
-{
-
-class system
-:
-	public renderer::system
-{
-	FCPPT_NONCOPYABLE(
-		system
-	)
-public:
-	system();
-
-	~system();
-
-	renderer::device_ptr const
-	create_renderer(
-		renderer::parameters const &param,
-		renderer::adapter_type adapter,
-		window::instance_ptr
-	);
-
-	awl::window::instance_ptr const
-	create_window(
-		sge::renderer::window_parameters const &,
-		sge::renderer::parameters const &
-	);
-};
-
+	return
+		sge::window::create(
+			sge::window::parameters(
+				_param.parameter().get<
+					awl::window::instance_ptr
+				>()
+			)
+			.event_processor(
+				_param.event_processor()
+			)
+			.io_service(
+				_param.io_service()
+			)
+		);
 }
-}
-
-#endif

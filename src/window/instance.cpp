@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/instance.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <awl/event/processor.hpp>
 #include <awl/window/instance.hpp>
 #include <awl/mainloop/io_service.hpp>
@@ -44,11 +45,15 @@ sge::window::instance::instance(
 		io_service_
 		?
 			io_service_->create_dispatcher(
-				processor_
+				processor_,
+				std::tr1::bind(
+					&instance::dispatch,
+					this
+				)
 			)
 		:
 
-			awl::event::dispatcher_ptr()
+			awl::mainloop::dispatcher_ptr()
 	)
 {}
 

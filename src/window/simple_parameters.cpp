@@ -18,44 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_SYSTEM_HPP_INCLUDED
-#define SGE_OPENGL_SYSTEM_HPP_INCLUDED
+#include <sge/window/simple_parameters.hpp>
 
-#include <sge/renderer/system.hpp>
-#include <fcppt/noncopyable.hpp>
-
-namespace sge
-{
-namespace opengl
-{
-
-class system
+sge::window::simple_parameters::simple_parameters(
+	fcppt::string const &_title,
+	sge::window::dim_type const &_dim
+)
 :
-	public renderer::system
+	title_(_title),
+	dim_(_dim)
 {
-	FCPPT_NONCOPYABLE(
-		system
-	)
-public:
-	system();
-
-	~system();
-
-	renderer::device_ptr const
-	create_renderer(
-		renderer::parameters const &param,
-		renderer::adapter_type adapter,
-		window::instance_ptr
-	);
-
-	awl::window::instance_ptr const
-	create_window(
-		sge::renderer::window_parameters const &,
-		sge::renderer::parameters const &
-	);
-};
-
-}
 }
 
-#endif
+sge::window::simple_parameters &
+sge::window::simple_parameters::class_name(
+	fcppt::string const &_class_name
+)
+{
+	class_name_ = _class_name;
+
+	return *this;
+}
+
+fcppt::string const &
+sge::window::simple_parameters::title() const
+{
+	return title_;
+}
+
+sge::window::dim_type const &
+sge::window::simple_parameters::dim() const
+{
+	return dim_;
+}
+
+fcppt::string const &
+sge::window::simple_parameters::class_name() const
+{
+	return class_name_;
+}
