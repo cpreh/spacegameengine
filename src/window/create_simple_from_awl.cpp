@@ -19,19 +19,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/window/create_simple_from_awl.hpp>
-#include <sge/window/create_from_awl.hpp>
 #include <sge/window/simple_parameters.hpp>
 #include <awl/window/parameters.hpp>
+#include <awl/window/system.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 
 awl::window::instance_ptr const
 sge::window::create_simple_from_awl(
+	awl::window::system_ptr const _system,
 	sge::window::simple_parameters const &_param
 )
 {
 	return
-		sge::window::create_from_awl(
+		_system->create(
 			awl::window::parameters()
 			.title(
 				_param.title()

@@ -50,6 +50,7 @@ public:
 
 	awl::window::instance_ptr const
 	create_window(
+		awl::window::system_ptr,
 		sge::renderer::window_parameters const &,
 		sge::renderer::parameters const &
 	);

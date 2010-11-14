@@ -25,11 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/stencil_buffer.hpp"
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/to_awl_parameters.hpp>
-#include <sge/window/create_from_awl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <awl/window/parameters.hpp>
+#include <awl/window/system.hpp>
 
 sge::opengl::system::system()
 {
@@ -58,12 +58,13 @@ sge::opengl::system::create_renderer(
 
 awl::window::instance_ptr const
 sge::opengl::system::create_window(
+	awl::window::system_ptr const _system,
 	sge::renderer::window_parameters const &_wparam,
 	sge::renderer::parameters const &_rparam
 )
 {
 	return
-		sge::window::create_from_awl(
+		_system->create(
 			sge::renderer::to_awl_parameters(
 				_wparam
 			)

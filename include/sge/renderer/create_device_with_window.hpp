@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/system_ptr.hpp>
 #include <sge/renderer/window_parameters_fwd.hpp>
 #include <sge/symbol.hpp>
+#include <awl/window/system_ptr.hpp>
 
 namespace sge
 {
@@ -36,6 +37,7 @@ namespace renderer
 SGE_SYMBOL
 sge::renderer::device_ptr const
 create_device_with_window(
+	awl::window::system_ptr,
 	sge::renderer::system_ptr,
 	sge::renderer::parameters const &,
 	sge::renderer::adapter_type,

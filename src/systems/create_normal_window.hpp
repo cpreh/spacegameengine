@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/window_fwd.hpp>
 #include <sge/window/instance_ptr.hpp>
+#include <awl/window/system_ptr.hpp>
 
 namespace sge
 {
@@ -31,6 +32,7 @@ namespace systems
 
 sge::window::instance_ptr const
 create_normal_window(
+	awl::window::system_ptr,
 	sge::systems::window const &
 );
 
