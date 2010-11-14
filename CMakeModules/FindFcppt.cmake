@@ -24,8 +24,8 @@ ENDIF ()
 
 FIND_PATH(
 	FCPPT_INCLUDE_DIRS
-	NAMES version.hpp
-	PATHS ${FCPPT_ROOT}/include/fcppt
+	NAMES fcppt/version.hpp
+	PATHS ${FCPPT_ROOT}/include
 )
 
 MACRO(FIND_FCPPT_LIBRARY name)
