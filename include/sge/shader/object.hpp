@@ -1,6 +1,7 @@
 #ifndef SGE_SHADER_OBJECT_HPP_INCLUDED
 #define SGE_SHADER_OBJECT_HPP_INCLUDED
 
+#include <sge/shader/symbol.hpp>
 #include <sge/shader/value_type.hpp>
 #include <sge/shader/variable_sequence.hpp>
 #include <sge/shader/sampler_sequence.hpp>
@@ -24,7 +25,7 @@ FCPPT_NONCOPYABLE(object)
 public:
 	// NOTE: Currently, we restrict ourselves to shaders from
 	// files. There could be stream support, too. It's just laziness
-	explicit
+	SGE_SHADER_SYMBOL explicit
 	object(
 		renderer::device_ptr,
 		fcppt::filesystem::path const &vertex,
@@ -33,29 +34,29 @@ public:
 		variable_sequence const &variables,
 		sampler_sequence const &samplers);
 
-	void
+	SGE_SHADER_SYMBOL void
 	set_uniform(
 		renderer::glsl::string const &name,
 		value_type const &);
 
-	void
+	SGE_SHADER_SYMBOL void
 	update_texture(
 		renderer::glsl::string const &name,
 		renderer::texture_base_ptr);
 
-	renderer::glsl::program_ptr const
+	SGE_SHADER_SYMBOL renderer::glsl::program_ptr const
 	program();
 
 	// This is called by the scoped class, but you may call it manually, too
-	void
+	SGE_SHADER_SYMBOL void
 	activate();
 
 	// This is called by the scoped class, but you may call it manually, too
-	void
+	SGE_SHADER_SYMBOL void
 	deactivate();
 
 	// noncopyable classes are supposed to have a destructor
-	~object();
+	SGE_SHADER_SYMBOL ~object();
 private:
 	// This is unordered because std::maps perform badly with strings
 	typedef
