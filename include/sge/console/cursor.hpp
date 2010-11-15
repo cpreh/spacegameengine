@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CONSOLE_CURSOR_HPP_INCLUDED
 
 #include <sge/console/function_map.hpp>
+#include <sge/console/symbol.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/char_type.hpp>
 
@@ -36,51 +37,51 @@ public:
 	fcppt::string::size_type 
 	size_type;
 
-	SGE_SYMBOL cursor();
+	SGE_CONSOLE_SYMBOL cursor();
 
-	SGE_SYMBOL fcppt::string const
+	SGE_CONSOLE_SYMBOL fcppt::string const
 	edited(
 		bool
 	) const;
 
-	SGE_SYMBOL fcppt::string const
+	SGE_CONSOLE_SYMBOL fcppt::string const
 	string() const;
 
-	SGE_SYMBOL void
+	SGE_CONSOLE_SYMBOL void
 	string(
 		fcppt::string const &
 	);
 
-	SGE_SYMBOL void
+	SGE_CONSOLE_SYMBOL void
 	erase_word();
 
-	SGE_SYMBOL void
+	SGE_CONSOLE_SYMBOL void
 	erase_char();
 
-	SGE_SYMBOL void
+	SGE_CONSOLE_SYMBOL void
 	left();
 
-	SGE_SYMBOL void
+	SGE_CONSOLE_SYMBOL void
 	right();
 
-	SGE_SYMBOL void
+	SGE_CONSOLE_SYMBOL void
 	to_start();
 
-	SGE_SYMBOL void
+	SGE_CONSOLE_SYMBOL void
 	to_end();
 
-	SGE_SYMBOL bool
+	SGE_CONSOLE_SYMBOL bool
 	empty() const;
 
-	SGE_SYMBOL void
+	SGE_CONSOLE_SYMBOL void
 	insert(
 		fcppt::char_type
 	);
 
-	SGE_SYMBOL bool
+	SGE_CONSOLE_SYMBOL bool
 	at_start() const;
 
-	SGE_SYMBOL void
+	SGE_CONSOLE_SYMBOL void
 	complete_word(
 		function_map const &
 	);

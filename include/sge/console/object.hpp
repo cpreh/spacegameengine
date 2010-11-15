@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/fallback_signal.hpp>
 #include <sge/console/function_map.hpp>
 #include <sge/console/arg_list.hpp>
-#include <sge/symbol.hpp>
+#include <sge/console/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -45,12 +45,12 @@ class SGE_CLASS_SYMBOL object
 {
 FCPPT_NONCOPYABLE(object)
 public:
-	SGE_SYMBOL explicit 
+	SGE_CONSOLE_SYMBOL explicit 
 	object(
 		fcppt::char_type prefix
 	);
 
-	SGE_SYMBOL fcppt::signal::auto_connection
+	SGE_CONSOLE_SYMBOL fcppt::signal::auto_connection
 	insert(
 		fcppt::string const &name,
 		callback const &,
@@ -58,43 +58,43 @@ public:
 		fcppt::string const &long_description = fcppt::string()
 	);
 
-	SGE_SYMBOL fcppt::signal::auto_connection
+	SGE_CONSOLE_SYMBOL fcppt::signal::auto_connection
 	register_fallback(
 		fallback const &
 	);
 
-	SGE_SYMBOL fcppt::signal::auto_connection
+	SGE_CONSOLE_SYMBOL fcppt::signal::auto_connection
 	register_error_callback(
 		error_callback const &
 	);
 
-	SGE_SYMBOL fcppt::signal::auto_connection
+	SGE_CONSOLE_SYMBOL fcppt::signal::auto_connection
 	register_message_callback(
 		message_callback const &
 	);
 
-	SGE_SYMBOL void
+	SGE_CONSOLE_SYMBOL void
 	eval(
 		fcppt::string const &
 	);
 
-	SGE_SYMBOL void
+	SGE_CONSOLE_SYMBOL void
 	eval(
 		console::arg_list const &
 	);
 
-	SGE_SYMBOL function_map const &
+	SGE_CONSOLE_SYMBOL function_map const &
 	functions() const;
 
-	SGE_SYMBOL fcppt::char_type
+	SGE_CONSOLE_SYMBOL fcppt::char_type
 	prefix() const;
 
-	SGE_SYMBOL void
+	SGE_CONSOLE_SYMBOL void
 	emit_error(
 		fcppt::string const &
 	);
 
-	SGE_SYMBOL void
+	SGE_CONSOLE_SYMBOL void
 	emit_message(
 		fcppt::string const &
 	);
