@@ -241,7 +241,10 @@ sge::shader::object::activate()
 		samplers_)
 		renderer_->texture(
 			r.texture(),
-			r.texture_unit());
+			static_cast<
+				sge::renderer::stage_type
+			>(
+				r.texture_unit()));
 }
 
 void
@@ -254,7 +257,10 @@ sge::shader::object::deactivate()
 		samplers_)
 		renderer_->texture(
 			sge::renderer::no_texture(),
-			r.texture_unit());
+			static_cast<
+				sge::renderer::stage_type
+			>(
+				r.texture_unit()));
 }
 
 sge::shader::object::~object()

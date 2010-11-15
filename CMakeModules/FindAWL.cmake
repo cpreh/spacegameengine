@@ -1,13 +1,13 @@
 FIND_PATH(
 	AWL_INCLUDE_DIR
 	NAMES awl/config.hpp
-	PATHS ${AWL_ROOT}
+	PATHS ${AWL_ROOT}/include
 )
 
 FIND_LIBRARY(
 	AWL_LIBRARY
 	NAMES libawl
-	PATHS ${AWL_ROOT}
+	PATHS ${AWL_ROOT}/lib
 )
 
 INCLUDE(FindPackageHandleStandardArgs)
