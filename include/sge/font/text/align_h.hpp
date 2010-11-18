@@ -18,24 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_FLAGS_NONE_HPP_INCLUDED
-#define SGE_FONT_FLAGS_NONE_HPP_INCLUDED
-
-#include <sge/font/flags_field.hpp>
-#include <sge/symbol.hpp>
+#ifndef SGE_FONT_TEXT_ALIGN_H_HPP_INCLUDED
+#define SGE_FONT_TEXT_ALIGN_H_HPP_INCLUDED
 
 namespace sge
 {
 namespace font
 {
-
-namespace flags
+namespace text
 {
 
-SGE_SYMBOL extern flags_field const none;
-
+namespace align_h
+{
+enum type
+{
+	left,
+	right,
+	center
+};
 }
 
+}
 }
 }
 

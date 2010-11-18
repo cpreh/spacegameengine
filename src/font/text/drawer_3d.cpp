@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/drawer_3d.hpp>
+#include <sge/font/text/drawer_3d.hpp>
 #include <sge/texture/rect_fragmented.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/state/scoped.hpp>
@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <utility>
 
-sge::font::drawer_3d::drawer_3d(
+sge::font::text::drawer_3d::drawer_3d(
 	renderer::device_ptr const _rend,
 	sge::image::color::any::object const &_col
 )
@@ -68,11 +68,11 @@ sge::font::drawer_3d::drawer_3d(
 	sprites_()
 {}
 
-sge::font::drawer_3d::~drawer_3d()
+sge::font::text::drawer_3d::~drawer_3d()
 {}
 
 void
-sge::font::drawer_3d::begin_rendering(
+sge::font::text::drawer_3d::begin_rendering(
 	size_type const buffer_chars,
 	pos const &,
 	dim const &
@@ -86,7 +86,7 @@ sge::font::drawer_3d::begin_rendering(
 }
 
 void
-sge::font::drawer_3d::draw_char(
+sge::font::text::drawer_3d::draw_char(
 	fcppt::char_type const _char,
 	pos const &_pos,
 	const_image_view const &_data
@@ -139,7 +139,7 @@ sge::font::drawer_3d::draw_char(
 }
 
 void
-sge::font::drawer_3d::end_rendering()
+sge::font::text::drawer_3d::end_rendering()
 {
 	sys_.render(
 		sprites_.begin(),
@@ -150,7 +150,7 @@ sge::font::drawer_3d::end_rendering()
 }
 
 void
-sge::font::drawer_3d::color(
+sge::font::text::drawer_3d::color(
 	sge::image::color::any::object const &_col
 )
 {
@@ -158,7 +158,7 @@ sge::font::drawer_3d::color(
 }
 
 sge::texture::const_part_ptr const
-sge::font::drawer_3d::cached_texture(
+sge::font::text::drawer_3d::cached_texture(
 	fcppt::char_type const _ch,
 	const_image_view const &_data
 )

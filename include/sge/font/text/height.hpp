@@ -18,18 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/char_space.hpp>
-#include <sge/font/metrics.hpp>
-#include <sge/font/char_metric.hpp>
+#ifndef SGE_FONT_TEXT_HEIGHT_HPP_INCLUDED
+#define SGE_FONT_TEXT_HEIGHT_HPP_INCLUDED
 
-sge::font::unit
-sge::font::char_space(
-	sge::font::metrics_ptr const _metrics,
-	font::char_type const _char
-)
+#include <sge/font/text/symbol.hpp>
+#include <sge/font/unit.hpp>
+#include <sge/font/metrics_ptr.hpp>
+
+namespace sge
 {
-	return
-		_metrics->load_char(
-			_char
-		)->x_advance();
+namespace font
+{
+namespace text
+{
+
+SGE_FONT_TEXT_SYMBOL
+font::unit
+height(
+	font::metrics_ptr
+);
+
 }
+}
+}
+
+#endif

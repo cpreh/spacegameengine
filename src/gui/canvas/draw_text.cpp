@@ -21,22 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "log.hpp"
 #include <sge/gui/canvas/object.hpp>
 #include <sge/gui/canvas/font_drawer.hpp>
-#include <sge/font/text_part.hpp>
-#include <sge/font/draw_text.hpp>
+#include <sge/font/text/part.hpp>
+#include <sge/font/text/draw.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <algorithm>
 
-void sge::gui::canvas::object::draw_text(
+void
+sge::gui::canvas::object::draw_text(
 	font_info const &font,
 	fcppt::string const &text,
 	point const &pos,
 	dim const &max_size,
-	font::align_h::type const h,
-	font::align_v::type const v,
-	font::flags_field const &f,
+	font::text::align_h::type const h,
+	font::text::align_v::type const v,
+	font::text::flags_field const &f,
 	optional_character_pos cp,
 	point *const p)
 {
@@ -67,7 +68,7 @@ void sge::gui::canvas::object::draw_text(
 		cp = (*cp) - filter;
 	}
 
-	font::draw_text(
+	font::text::draw(
 		font.metrics(),
 		fcppt::make_shared_ptr<
 			canvas::font_drawer

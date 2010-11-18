@@ -18,24 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_ALIGN_V_HPP_INCLUDED
-#define SGE_FONT_ALIGN_V_HPP_INCLUDED
+#include <sge/font/text/char_space.hpp>
+#include <sge/font/metrics.hpp>
+#include <sge/font/char_metric.hpp>
 
-namespace sge
+sge::font::unit
+sge::font::text::char_space(
+	sge::font::metrics_ptr const _metrics,
+	font::char_type const _char
+)
 {
-namespace font
-{
-
-namespace align_v
-{
-enum type {
-	top,
-	bottom,
-	center
-};
+	return
+		_metrics->load_char(
+			_char
+		)->x_advance();
 }
-
-}
-}
-
-#endif

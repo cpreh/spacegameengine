@@ -21,16 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "next_or_last.hpp"
 #include <sge/console/gfx.hpp>
 #include <sge/console/object.hpp>
-#include <sge/font/drawer_3d.hpp>
-#include <sge/font/line_width.hpp>
-#include <sge/font/flags_none.hpp>
-#include <sge/font/height.hpp>
-#include <sge/font/draw_text.hpp>
+#include <sge/font/text/drawer_3d.hpp>
+#include <sge/font/text/line_width.hpp>
+#include <sge/font/text/flags_none.hpp>
+#include <sge/font/text/height.hpp>
+#include <sge/font/text/draw.hpp>
+#include <sge/font/text/part.hpp>
+#include <sge/font/pos.hpp>
 #include <sge/input/keyboard/key.hpp>
 #include <sge/input/keyboard/key_event.hpp>
-
-#include <sge/font/text_part.hpp>
-#include <sge/font/pos.hpp>
 #include <sge/time/second_f.hpp>
 #include <sge/sprite/external_system_impl.hpp>
 #include <sge/sprite/render_one.hpp>
@@ -70,13 +69,13 @@ wrap(
 	for (fcppt::string::const_iterator i = s.begin(); i != s.end();)
 	{
 
-		sge::font::text_part const tp = 
-			sge::font::line_width(
+		sge::font::text::part const tp = 
+			sge::font::text::line_width(
 				metrics,
 				i,
 				s.end(),
 				max_dim.w(),
-				sge::font::flags::none);
+				sge::font::text::flags::none);
 
 		lines.push_back(
 			fcppt::string(
@@ -109,7 +108,7 @@ sge::console::gfx::gfx(
 	),
 	font_drawer_(
 		fcppt::make_shared_ptr<
-			font::drawer_3d
+			font::text::drawer_3d
 		>(
 			_rend,
 			_font_color
@@ -185,18 +184,18 @@ sge::console::gfx::draw()
 
 	
 	output_line_sequence::size_type const line_count = 
-		background_.h() < font::height(font_metrics_)
+		background_.h() < font::text::height(font_metrics_)
 		?
 			0
 		:
 			static_cast<output_line_sequence::size_type>(
 				background_.h()/
-				font::height(
+				font::text::height(
 					font_metrics_));
 	
 	font::unit current_y = 
 		static_cast<font::unit>(
-			background_.y()+background_.h()-2*font::height(font_metrics_));
+			background_.y()+background_.h()-2*font::text::height(font_metrics_));
 			
 	for(
 		output_line_sequence::const_iterator 
@@ -211,7 +210,7 @@ sge::console::gfx::draw()
 		++i)
 	{
 		// draw history lines
-		font::draw_text(
+		font::text::draw(
 			font_metrics_,
 			font_drawer_,
 			*i,
@@ -220,12 +219,12 @@ sge::console::gfx::draw()
 				current_y),
 			font::dim(
 				background_.w(), 
-				background_.h() - font::height(font_metrics_)),
-			font::align_h::left,
-			font::align_v::top,
-			font::flags::none);
+				background_.h() - font::text::height(font_metrics_)),
+			font::text::align_h::left,
+			font::text::align_v::top,
+			font::text::flags::none);
 		current_y -= 
-			font::height(
+			font::text::height(
 				font_metrics_);
 	}
 
@@ -233,7 +232,7 @@ sge::console::gfx::draw()
 		input_line_.edited(
 			cursor_active_);
 
-	font::draw_text(
+	font::text::draw(
 		font_metrics_,
 		font_drawer_,
 		il,
@@ -241,15 +240,15 @@ sge::console::gfx::draw()
 			static_cast<font::unit>(
 				background_.x()),
 			static_cast<font::unit>(
-				background_.y()+background_.h()-font::height(font_metrics_))),
+				background_.y()+background_.h()-font::text::height(font_metrics_))),
 		font::dim(
 			static_cast<font::unit>(
 				background_.w()),
 			static_cast<font::unit>(
-				font::height(font_metrics_))),
-		font::align_h::left,
-		font::align_v::top,
-		font::flags::none);
+				font::text::height(font_metrics_))),
+		font::text::align_h::left,
+		font::text::align_v::top,
+		font::text::flags::none);
 
 	if (cursor_blink_.update_b())
 		cursor_active_ = !cursor_active_;

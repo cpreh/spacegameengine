@@ -18,49 +18,55 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_ALIGN_POS_V_HPP_INCLUDED
-#define SGE_FONT_ALIGN_POS_V_HPP_INCLUDED
+#ifndef SGE_FONT_TEXT_DRAWER_HPP_INCLUDED
+#define SGE_FONT_TEXT_DRAWER_HPP_INCLUDED
 
+#include <sge/font/text/drawer_fwd.hpp>
+#include <sge/font/text/symbol.hpp>
 #include <sge/font/pos.hpp>
 #include <sge/font/dim.hpp>
-#include <sge/font/text_part.hpp>
-#include <sge/font/align_v.hpp>
-#include <sge/font/exception.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/text.hpp>
+#include <sge/font/const_image_view.hpp>
+#include <sge/font/char_type.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <cstddef>
 
 namespace sge
 {
 namespace font
 {
-
-inline
-void
-align_pos_v(
-	pos &pos_,
-	dim const &max_sz,
-	text_part const &total_size,
-	align_v::type const align_v
-)
+namespace text
 {
-	switch(align_v)
-	{
-	case align_v::center:
-		pos_.y() += (max_sz.h() - total_size.size().h()) / 2;
-		return;
-	case align_v::bottom:
-		pos_.y() += max_sz.h() - total_size.size().h();
-		return;
-	case align_v::top:
-		return;
-	}
 
-	throw font::exception(
-		FCPPT_TEXT("Invalid font::align_v!")
-	);
+class SGE_CLASS_SYMBOL drawer
+{
+	FCPPT_NONCOPYABLE(drawer)
+public:
+	typedef std::size_t size_type;
+
+	virtual void
+	begin_rendering(
+		size_type buffer_chars,
+		pos const &start,
+		dim const &size
+	) = 0;
+
+	virtual void
+	draw_char(
+		font::char_type,
+		pos const &,
+		const_image_view const &data
+	) = 0;
+
+	virtual void
+	end_rendering() = 0;
+
+	SGE_FONT_TEXT_SYMBOL virtual ~drawer();
+protected:
+	SGE_FONT_TEXT_SYMBOL drawer();
+};
+
 }
-
 }
 }
 

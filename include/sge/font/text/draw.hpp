@@ -18,33 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/text_part.hpp>
+#ifndef SGE_FONT_TEXT_DRAW_HPP_INCLUDED
+#define SGE_FONT_TEXT_DRAW_HPP_INCLUDED
 
-sge::font::text_part::text_part(
-	dim const &size_,
-	string::const_iterator const end_,
-	string::const_iterator const next_begin_
-)
-:
-	size_(size_),
-	end_(end_),
-	next_begin_(next_begin_)
-{}
+#include <sge/font/text/align_h.hpp>
+#include <sge/font/text/align_v.hpp>
+#include <sge/font/text/flags_field.hpp>
+#include <sge/font/text/drawer_ptr.hpp>
+#include <sge/font/text/part_fwd.hpp>
+#include <sge/font/text/symbol.hpp>
+#include <sge/font/dim.hpp>
+#include <sge/font/metrics_ptr.hpp>
+#include <sge/font/pos.hpp>
+#include <sge/font/string.hpp>
 
-sge::font::dim const &
-sge::font::text_part::size() const
+namespace sge
 {
-	return size_;
+namespace font
+{
+namespace text
+{
+	
+SGE_FONT_TEXT_SYMBOL
+text::part const
+draw(
+	font::metrics_ptr,
+	text::drawer_ptr,
+	font::string const &text,
+	font::pos const &start_pos,
+	font::dim const &max_size,
+	text::align_h::type,
+	text::align_v::type,
+	text::flags_field const &
+);
+
+}
+}
 }
 
-sge::font::text_part::const_iterator
-sge::font::text_part::end() const
-{
-	return end_;
-}
-
-sge::font::text_part::const_iterator
-sge::font::text_part::next_begin() const
-{
-	return next_begin_;
-}
+#endif

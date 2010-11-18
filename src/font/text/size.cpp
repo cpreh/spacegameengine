@@ -18,49 +18,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/text_size.hpp>
-#include <sge/font/line_width.hpp>
-#include <sge/font/text_part.hpp>
-#include <sge/font/height.hpp>
+#include <sge/font/text/size.hpp>
+#include <sge/font/text/line_width.hpp>
+#include <sge/font/text/part.hpp>
+#include <sge/font/text/height.hpp>
 #include <sge/font/unit.hpp>
 #include <sge/font/dim.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 
-sge::font::text_part const
-sge::font::text_size(
+sge::font::text::part const
+sge::font::text::size(
 	sge::font::metrics_ptr const _metrics,
-	string::const_iterator sbeg,
-	string::const_iterator const send,
-	dim const &max_sz,
-	flags_field const &_flags
+	string::const_iterator _sbeg,
+	string::const_iterator const _send,
+	font::dim const &_max_sz,
+	text::flags_field const &_flags
 )
 {
-	dim sz(
-		dim::null()
+	font::dim sz(
+		font::dim::null()
 	);
 
-	unit const height(
-		font::height(
+	font::unit const height(
+		text::height(
 			_metrics
 		)
 	);
 
 	while(
-		sbeg != send
-		&& sz.h() + height <= max_sz.h()
+		_sbeg != _send
+		&& sz.h() + height <= _max_sz.h()
 	)
 	{
-		font::text_part const line_size(
-			font::line_width(
+		font::text::part const line_size(
+			text::line_width(
 				_metrics,
-				sbeg,
-				send,
-				max_sz.w(),
+				_sbeg,
+				_send,
+				_max_sz.w(),
 				_flags
 			)
 		);
 
-		unit const line_w(
+		font::unit const line_w(
 			line_size.size().w()
 		);
 
@@ -68,32 +68,32 @@ sge::font::text_size(
 
 		sz.h() += height;
 
-		sbeg = line_size.next_begin();
+		_sbeg = line_size.next_begin();
 
 		if(
-			_flags & flags::no_multi_line
+			_flags & text::flags::no_multi_line
 		)
 			break;
 	}
 
 	return
-		font::text_part(
+		font::text::part(
 			sz,
-			sbeg,
-			sbeg
+			_sbeg,
+			_sbeg
 		);
 }
 
-sge::font::text_part const
-sge::font::text_size(
+sge::font::text::part const
+sge::font::text::size(
 	sge::font::metrics_ptr const _metrics,
 	font::string const &_string,
-	dim const &_max_sz,
-	flags_field const &_flags
+	font::dim const &_max_sz,
+	text::flags_field const &_flags
 )
 {
 	return
-		font::text_size(
+		text::size(
 			_metrics,
 			_string.begin(),
 			_string.end(),

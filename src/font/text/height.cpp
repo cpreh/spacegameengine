@@ -18,50 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_ALIGN_POS_H_HPP_INCLUDED
-#define SGE_FONT_ALIGN_POS_H_HPP_INCLUDED
+#include <sge/font/text/height.hpp>
+#include <sge/font/metrics.hpp>
 
-#include <sge/font/pos.hpp>
-#include <sge/font/dim.hpp>
-#include <sge/font/text_part.hpp>
-#include <sge/font/align_h.hpp>
-#include <sge/font/exception.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/text.hpp>
-
-namespace sge
-{
-namespace font
-{
-
-inline
-void
-align_pos_h(
-	pos &pos_,
-	dim const &max_sz,
-	text_part const &line_size,
-	align_h::type const align_h
+sge::font::unit
+sge::font::text::height(
+	sge::font::metrics_ptr const _metrics
 )
 {
-	switch(align_h)
-	{
-	case align_h::center:
-		pos_.x() += (max_sz.w() - line_size.size().w()) / 2;
-		return;
-	case align_h::right:
-		pos_.x() += max_sz.w() - line_size.size().w();
-		return;
-	case align_h::left:
-		return;
-	}
-
-	throw font::exception(
-		FCPPT_TEXT("Invalid font::align_h!")
-	);
+	return
+		_metrics->line_height();
 }
-
-}
-}
-
-#endif

@@ -44,8 +44,8 @@ sge::gui::widgets::label::label(
 	parent_data const &_parent,
 	parameters _params,
 	fcppt::string const &_text,
-	sge::font::align_h::type _align_h,
-	sge::font::align_v::type _align_v,
+	sge::font::text::align_h::type _align_h,
+	sge::font::text::align_v::type _align_v,
 	optional_dim const &_static_size)
 :
 	base(
@@ -66,12 +66,12 @@ fcppt::string const sge::gui::widgets::label::text() const
 	return text_;
 }
 
-sge::font::align_h::type sge::gui::widgets::label::align_h() const
+sge::font::text::align_h::type sge::gui::widgets::label::align_h() const
 {
 	return align_h_;
 }
 
-sge::font::align_v::type sge::gui::widgets::label::align_v() const
+sge::font::text::align_v::type sge::gui::widgets::label::align_v() const
 {
 	return align_v_;
 }

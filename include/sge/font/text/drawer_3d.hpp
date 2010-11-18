@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_DRAWER_3D_HPP_INCLUDED
-#define SGE_FONT_DRAWER_3D_HPP_INCLUDED
+#ifndef SGE_FONT_TEXT_DRAWER_3D_HPP_INCLUDED
+#define SGE_FONT_TEXT_DRAWER_3D_HPP_INCLUDED
 
-#include <sge/font/drawer.hpp>
+#include <sge/font/text/drawer.hpp>
+#include <sge/font/text/symbol.hpp>
 #include <sge/font/pos.hpp>
 #include <sge/font/dim.hpp>
 #include <sge/font/image_view.hpp>
@@ -38,7 +39,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/choices.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/image/color/rgba8_format.hpp>
-#include <sge/symbol.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -49,40 +49,48 @@ namespace sge
 {
 namespace font
 {
+namespace text
+{
 
 class SGE_CLASS_SYMBOL drawer_3d
 :
-	public drawer
+	public text::drawer
 {
 	FCPPT_NONCOPYABLE(drawer_3d)
 public:
-	SGE_SYMBOL drawer_3d(
+	SGE_FONT_TEXT_SYMBOL
+	drawer_3d(
 		renderer::device_ptr rend,
 		image::color::any::object const &
 	);
 
-	SGE_SYMBOL ~drawer_3d();
+	SGE_FONT_TEXT_SYMBOL
+	~drawer_3d();
 
-	SGE_SYMBOL void
+	SGE_FONT_TEXT_SYMBOL
+	void
 	begin_rendering(
 		size_type buffer_chars,
 		pos const &start,
 		dim const &size
 	);
 
-	SGE_SYMBOL void
+	SGE_FONT_TEXT_SYMBOL
+	void
 	draw_char(
 		font::char_type,
 		pos const &,
-		const_image_view const &data
+		const_image_view const &
 	);
 
-	SGE_SYMBOL void
+	SGE_FONT_TEXT_SYMBOL
+	void
 	end_rendering();
 
-	SGE_SYMBOL void
+	SGE_FONT_TEXT_SYMBOL
+	void
 	color(
-		image::color::any::object const &col
+		image::color::any::object const &
 	);
 private:
 	texture::const_part_ptr const
@@ -133,6 +141,7 @@ private:
 	sprite_container sprites_;
 };
 
+}
 }
 }
 

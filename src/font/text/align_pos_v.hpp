@@ -18,26 +18,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_CHAR_SPACE_HPP_INCLUDED
-#define SGE_FONT_CHAR_SPACE_HPP_INCLUDED
+#ifndef SGE_FONT_TEXT_ALIGN_POS_V_HPP_INCLUDED
+#define SGE_FONT_TEXT_ALIGN_POS_V_HPP_INCLUDED
 
-#include <sge/font/metrics_ptr.hpp>
-#include <sge/font/unit.hpp>
-#include <sge/font/char_type.hpp>
-#include <sge/symbol.hpp>
+#include <sge/font/text/align_v.hpp>
+#include <sge/font/text/part.hpp>
+#include <sge/font/pos.hpp>
+#include <sge/font/dim.hpp>
+#include <sge/font/exception.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/text.hpp>
 
 namespace sge
 {
 namespace font
 {
+namespace text
+{
 
-SGE_SYMBOL
-unit
-char_space(
-	metrics_ptr,
-	char_type
-);
+inline
+void
+align_pos_v(
+	font::pos &_pos,
+	font::dim const &_max_sz,
+	text::part const &_total_size,
+	text::align_v::type const _align_v
+)
+{
+	switch(_align_v)
+	{
+	case align_v::center:
+		_pos.y() += (_max_sz.h() - _total_size.size().h()) / 2;
+		return;
+	case align_v::bottom:
+		_pos.y() += _max_sz.h() - _total_size.size().h();
+		return;
+	case align_v::top:
+		return;
+	}
 
+	throw font::exception(
+		FCPPT_TEXT("Invalid font::align_v!")
+	);
+}
+
+}
 }
 }
 

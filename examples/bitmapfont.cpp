@@ -31,10 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/colors.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/font/system.hpp>
-#include <sge/font/drawer_3d.hpp>
-#include <sge/font/text_part.hpp>
-#include <sge/font/draw_text.hpp>
-#include <sge/font/flags_none.hpp>
+#include <sge/font/text/drawer_3d.hpp>
+#include <sge/font/text/part.hpp>
+#include <sge/font/text/draw.hpp>
+#include <sge/font/text/flags_none.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
@@ -120,9 +120,9 @@ try
 		)
 	);
 
-	sge::font::drawer_ptr const font_drawer(
+	sge::font::text::drawer_ptr const font_drawer(
 		fcppt::make_shared_ptr<
-			sge::font::drawer_3d
+			sge::font::text::drawer_3d
 		>(
 			sys.renderer(),
 			sge::image::colors::white()
@@ -156,7 +156,7 @@ try
 			sys.renderer()
 		);
 
-		sge::font::draw_text(
+		sge::font::text::draw(
 			font_metrics,
 			font_drawer,
 			FCPPT_TEXT("test abcd"),
@@ -166,9 +166,9 @@ try
 			>(
 				sys.renderer()->screen_size()
 			),
-			sge::font::align_h::center,
-			sge::font::align_v::center,
-			sge::font::flags::none
+			sge::font::text::align_h::center,
+			sge::font::text::align_v::center,
+			sge::font::text::flags::none
 		);
 	}
 }

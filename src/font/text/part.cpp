@@ -18,9 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/flags_none.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
+#include <sge/font/text/part.hpp>
 
-sge::font::flags_field const
-sge::font::flags::none
-	= sge::font::flags_field::null();
+sge::font::text::part::part(
+	font::dim const &_size,
+	string::const_iterator const _end,
+	string::const_iterator const _next_begin
+)
+:
+	size_(_size),
+	end_(_end),
+	next_begin_(_next_begin)
+{}
+
+sge::font::dim const &
+sge::font::text::part::size() const
+{
+	return size_;
+}
+
+sge::font::text::part::const_iterator
+sge::font::text::part::end() const
+{
+	return end_;
+}
+
+sge::font::text::part::const_iterator
+sge::font::text::part::next_begin() const
+{
+	return next_begin_;
+}

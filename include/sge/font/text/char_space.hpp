@@ -18,16 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_DRAWER_FWD_HPP_INCLUDED
-#define SGE_FONT_DRAWER_FWD_HPP_INCLUDED
+#ifndef SGE_FONT_TEXT_CHAR_SPACE_HPP_INCLUDED
+#define SGE_FONT_TEXT_CHAR_SPACE_HPP_INCLUDED
+
+#include <sge/font/text/symbol.hpp>
+#include <sge/font/metrics_ptr.hpp>
+#include <sge/font/unit.hpp>
+#include <sge/font/char_type.hpp>
 
 namespace sge
 {
 namespace font
 {
+namespace text
+{
 
-class drawer;
+SGE_FONT_TEXT_SYMBOL
+font::unit
+char_space(
+	font::metrics_ptr,
+	font::char_type
+);
 
+}
 }
 }
 

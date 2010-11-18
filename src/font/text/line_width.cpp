@@ -18,73 +18,74 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/line_width.hpp>
-#include <sge/font/height.hpp>
-#include <sge/font/char_space.hpp>
-#include <sge/font/text_part.hpp>
+#include <sge/font/text/line_width.hpp>
+#include <sge/font/text/height.hpp>
+#include <sge/font/text/char_space.hpp>
+#include <sge/font/text/part.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/text.hpp>
 #include <locale>
 
-sge::font::text_part const
-sge::font::line_width(
+sge::font::text::part const
+sge::font::text::line_width(
 	sge::font::metrics_ptr const _metrics,
-	fcppt::string::const_iterator sbeg,
-	fcppt::string::const_iterator const send,
+	fcppt::string::const_iterator _sbeg,
+	fcppt::string::const_iterator const _send,
 	unit const _max_width,
 	flags_field const &_flags
 )
 {
-	unit
+	font::unit
 		width(0),
 		last_width(0);
 
-	unit const height(
-		font::height(
+	font::unit const height(
+		font::text::height(
 			_metrics
 		)
 	);
 
-	fcppt::string::const_iterator last_white = sbeg;
+	font::string::const_iterator last_white = _sbeg;
 
 	for(
 		;
-		sbeg != send;
-		++sbeg
+		_sbeg != _send;
+		++_sbeg
 	)
 	{
 		if(
-			*sbeg == FCPPT_TEXT('\n')
+			*_sbeg == FCPPT_TEXT('\n')
 		)
 			return
-				font::text_part(
-					dim(
+				font::text::part(
+					font::dim(
 						width,
 						height
 					),
-					sbeg,
+					_sbeg,
 					boost::next(
-						sbeg
+						_sbeg
 					)
 				);
 
 		if(
 			std::isspace(
-				*sbeg,
+				*_sbeg,
 				std::locale()
 			)
 		)
 		{
-			last_white = sbeg;
+			last_white = _sbeg;
 
 			last_width = width;
 		}
 
-		unit const new_width(
+		font::unit const new_width(
 			width
-			+ font::char_space(
+			+
+			font::text::char_space(
 				_metrics,
-				*sbeg
+				*_sbeg
 			)
 		);
 
@@ -95,7 +96,7 @@ sge::font::line_width(
 				last_width
 				&& !(_flags & flags::no_line_wrap)
 				?
-					font::text_part(
+					font::text::part(
 						font::dim(
 							last_width,
 							height
@@ -106,24 +107,24 @@ sge::font::line_width(
 						)
 					)
 				:
-					font::text_part(
+					font::text::part(
 						font::dim(
 							width,
 							height
 						),
-						sbeg,
-						sbeg
+						_sbeg,
+						_sbeg
 					);
 		width = new_width;
 	}
 
 	return
-		font::text_part(
+		font::text::part(
 			font::dim(
 				width,
 				height
 			),
-			send,
-			send
+			_send,
+			_send
 		);
 }

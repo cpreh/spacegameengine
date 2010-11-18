@@ -18,25 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_FLAGS_HPP_INCLUDED
-#define SGE_FONT_FLAGS_HPP_INCLUDED
+#include <sge/font/text/drawer.hpp>
 
-namespace sge
-{
-namespace font
-{
+sge::font::text::drawer::~drawer()
+{}
 
-namespace flags
-{
-enum type
-{
-	no_multi_line,
-	no_line_wrap,
-	size
-};
-}
-
-}
-}
-
-#endif
+sge::font::text::drawer::drawer()
+{}

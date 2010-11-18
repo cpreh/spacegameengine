@@ -20,33 +20,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "align_pos_v.hpp"
 #include "align_pos_h.hpp"
-#include <sge/font/draw_text.hpp>
+#include <sge/font/text/char_space.hpp>
+#include <sge/font/text/draw.hpp>
+#include <sge/font/text/drawer.hpp>
+#include <sge/font/text/height.hpp>
+#include <sge/font/text/line_width.hpp>
+#include <sge/font/text/part.hpp>
+#include <sge/font/text/size.hpp>
 #include <sge/font/metrics.hpp>
 #include <sge/font/char_metric.hpp>
-#include <sge/font/drawer.hpp>
-#include <sge/font/text_size.hpp>
-#include <sge/font/line_width.hpp>
-#include <sge/font/height.hpp>
-#include <sge/font/char_space.hpp>
-#include <sge/font/text_part.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
-sge::font::text_part const
-sge::font::draw_text(
+sge::font::text::part const
+sge::font::text::draw(
 	font::metrics_ptr const _metrics,
-	font::drawer_ptr const _drawer,
+	text::drawer_ptr const _drawer,
 	font::string const &_text,
-	pos const &_start_pos,
-	dim const &_max_sz,
-	align_h::type const _align_h,
-	align_v::type const _align_v,
-	flags_field const &_flags
+	font::pos const &_start_pos,
+	font::dim const &_max_sz,
+	text::align_h::type const _align_h,
+	text::align_v::type const _align_v,
+	text::flags_field const &_flags
 )
 {
 	unit const height(
-		font::height(
+		text::height(
 			_metrics
 		)
 	);
@@ -56,14 +56,14 @@ sge::font::draw_text(
 		|| height > _max_sz.h()
 	)
 		return
-			font::text_part(
+			font::text::part(
 				dim::null(),
 				_text.begin(),
 				_text.begin()
 			);
 
-	font::text_part const total_size(
-		font::text_size(
+	font::text::part const total_size(
+		font::text::size(
 			_metrics,
 			_text.begin(),
 			_text.end(),
@@ -74,7 +74,7 @@ sge::font::draw_text(
 
 	font::pos pos = _start_pos;
 
-	font::align_pos_v(
+	font::text::align_pos_v(
 		pos,
 		_max_sz,
 		total_size,
@@ -95,8 +95,8 @@ sge::font::draw_text(
 		sbeg != total_size.next_begin()
 	)
 	{
-		font::text_part const line_size(
-			font::line_width(
+		font::text::part const line_size(
+			font::text::line_width(
 				_metrics,
 				sbeg,
 				_text.end(),
@@ -107,7 +107,7 @@ sge::font::draw_text(
 
 		pos.x() = _start_pos.x();
 
-		font::align_pos_h(
+		font::text::align_pos_h(
 			pos,
 			_max_sz,
 			line_size,
@@ -133,7 +133,7 @@ sge::font::draw_text(
 			);
 
 			pos.x() +=
-				font::char_space(
+				font::text::char_space(
 					_metrics,
 					*sbeg
 				);

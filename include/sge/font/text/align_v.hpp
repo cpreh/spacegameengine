@@ -18,53 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_TEXT_PART_HPP_INCLUDED
-#define SGE_FONT_TEXT_PART_HPP_INCLUDED
-
-#include <sge/font/text_part_fwd.hpp>
-#include <sge/font/dim.hpp>
-#include <sge/font/string.hpp>
-#include <sge/symbol.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#ifndef SGE_FONT_TEXT_ALIGN_V_HPP_INCLUDED
+#define SGE_FONT_TEXT_ALIGN_V_HPP_INCLUDED
 
 namespace sge
 {
 namespace font
 {
-
-class text_part
+namespace text
 {
-public:
-	typedef string::const_iterator const_iterator;
 
-	SGE_SYMBOL text_part(
-		dim const &sz,
-		string::const_iterator end,
-		string::const_iterator next_begin
-	);
-
-	/// The size of this text part
-	SGE_SYMBOL dim const &
-	size() const;
-
-	/// The end() iterator for this text part.
-	/**
-	 * Don't render the text any further than this.
-	*/
-	SGE_SYMBOL const_iterator
-	end() const;
-
-	/// The next iterator one should start with to draw the next part.
-	SGE_SYMBOL const_iterator
-	next_begin() const;
-private:
-	dim size_;
-
-	const_iterator
-		end_,
-		next_begin_;
+namespace align_v
+{
+enum type
+{
+	top,
+	bottom,
+	center
 };
+}
 
+}
 }
 }
 

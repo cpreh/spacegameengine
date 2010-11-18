@@ -21,20 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_TEXT_SIZE_HPP_INCLUDED
 #define SGE_FONT_TEXT_SIZE_HPP_INCLUDED
 
+#include <sge/font/text/symbol.hpp>
+#include <sge/font/text/flags_field.hpp>
+#include <sge/font/text/part_fwd.hpp>
 #include <sge/font/metrics_ptr.hpp>
 #include <sge/font/dim.hpp>
-#include <sge/font/flags_field.hpp>
-#include <sge/font/text_part_fwd.hpp>
 #include <sge/font/string.hpp>
-#include <sge/symbol.hpp>
 
 namespace sge
 {
 namespace font
 {
+namespace text
+{
 
-SGE_SYMBOL font::text_part const
-text_size(
+SGE_FONT_TEXT_SYMBOL
+font::text::part const
+size(
 	metrics_ptr,	
 	string::const_iterator beg,
 	string::const_iterator end,
@@ -42,14 +45,16 @@ text_size(
 	flags_field const &
 );
 
-SGE_SYMBOL font::text_part const
-text_size(
+SGE_FONT_TEXT_SYMBOL
+font::text::part const
+size(
 	metrics_ptr,
 	string const &s,
 	dim const &max_size,
 	flags_field const &
 );
 
+}
 }
 }
 

@@ -18,22 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_FLAGS_FIELD_HPP_INCLUDED
-#define SGE_FONT_FLAGS_FIELD_HPP_INCLUDED
-
-#include <sge/font/flags.hpp>
-#include <fcppt/container/bitfield/basic_fwd.hpp>
+#ifndef SGE_FONT_TEXT_DRAWER_FWD_HPP_INCLUDED
+#define SGE_FONT_TEXT_DRAWER_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace font
 {
+namespace text
+{
 
-typedef fcppt::container::bitfield::basic<
-	flags::type,
-	flags::size
-> flags_field;
+class drawer;
 
+}
 }
 }
 

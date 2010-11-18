@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/const_texture_base_ptr.hpp>
 #include <sge/renderer/no_texture.hpp>
-#include <sge/texture/part_ptr.hpp>
+#include <sge/texture/const_part_ptr.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/utility/enable_if.hpp>
 
@@ -50,15 +50,15 @@ typename boost::enable_if<
 set_texture(
 	object<
 		Choices
-	> const &obj_,
-	sge::renderer::device_ptr const rend_
+	> const &_obj,
+	sge::renderer::device_ptr const _rend
 )
 {
 	texture::const_part_ptr const vtex(
-		obj_.texture()
+		_obj.texture()
 	);
 
-	rend_->texture(
+	_rend->texture(
 		vtex
 		?
 			renderer::const_texture_base_ptr(

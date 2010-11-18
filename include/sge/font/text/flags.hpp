@@ -18,21 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_DRAWER_PTR_HPP_INCLUDED
-#define SGE_FONT_DRAWER_PTR_HPP_INCLUDED
-
-#include <sge/font/drawer_fwd.hpp>
-#include <fcppt/shared_ptr.hpp>
+#ifndef SGE_FONT_TEXT_FLAGS_HPP_INCLUDED
+#define SGE_FONT_TEXT_FLAGS_HPP_INCLUDED
 
 namespace sge
 {
 namespace font
 {
+namespace text
+{
 
-typedef fcppt::shared_ptr<
-	drawer
-> drawer_ptr;
+namespace flags
+{
+enum type
+{
+	no_multi_line,
+	no_line_wrap,
+	size
+};
+}
 
+}
 }
 }
 

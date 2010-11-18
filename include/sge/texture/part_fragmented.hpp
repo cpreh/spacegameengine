@@ -37,9 +37,9 @@ namespace texture
 
 class part_fragmented
 :
-	public part
+	public texture::part
 {
-	FCPPT_NONCOPYALE(
+	FCPPT_NONCOPYABLE(
 		part_fragmented
 	)
 public:

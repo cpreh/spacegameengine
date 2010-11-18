@@ -33,10 +33,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/color.hpp>
 #include <sge/gui/export.hpp>
 #include <sge/gui/font_info.hpp>
-#include <sge/font/align_h.hpp>
-#include <sge/font/align_v.hpp>
-#include <sge/font/flags_field.hpp>
-#include <sge/font/flags_none.hpp>
+#include <sge/font/text/align_h.hpp>
+#include <sge/font/text/align_v.hpp>
+#include <sge/font/text/flags_field.hpp>
+#include <sge/font/text/flags_none.hpp>
 
 #include <fcppt/string.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -72,9 +72,9 @@ class object
 		fcppt::string const &,
 		point const &,
 		dim const &max_size,
-		font::align_h::type,
-		font::align_v::type,
-		font::flags_field const & = font::flags::none,
+		font::text::align_h::type,
+		font::text::align_v::type,
+		font::text::flags_field const & = font::text::flags::none,
 		optional_character_pos = optional_character_pos(),
 		point * = 0);
 

@@ -168,8 +168,8 @@ void sge::gui::skins::standard::draw(
 		b.caption(),
 		point::null(),
 		c.size(),
-		font::align_h::center,
-		font::align_v::center);
+		font::text::align_h::center,
+		font::text::align_v::center);
 
 	FCPPT_LOG_DEBUG(
 		mylogger,

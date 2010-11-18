@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/color.hpp>
 #include <sge/gui/point.hpp>
 #include <sge/gui/export.hpp>
-#include <sge/font/drawer.hpp>
+#include <sge/font/text/drawer.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/char_type.hpp>
@@ -37,7 +37,9 @@ namespace gui
 {
 namespace canvas
 {
-class SGE_CLASS_SYMBOL font_drawer : public font::drawer
+class SGE_CLASS_SYMBOL font_drawer
+:
+	public font::text::drawer
 {
 public:
 	SGE_GUI_SYMBOL font_drawer(

@@ -1,0 +1,59 @@
+REMOVE_DEFINITIONS(-D BOOST_ASIO_SEPARATE_COMPILATION)
+
+IF(NOT ENABLE_TEXTURE)
+	MESSAGE(
+		FATAL_ERROR
+		"For sgefonttexture to work you need to -D ENABLE_TEXTURE=ON"
+	)
+ENDIF()
+
+MACRO(
+	ADD_SGE_FONT_TEXT_INCLUDE_SOURCE_GROUP
+	SOURCEPATH
+)
+	ADD_SGE_SOURCE_GROUP(
+		"include\\\\\\\\sge\\\\\\\\font\\\\\\\\text" #cmake bitch
+		${CMAKE_SOURCE_DIR}/include/sge/font/text
+		"${SOURCEPATH}"
+		*.hpp
+		TEMPFILES
+	)
+
+	SET(SGEFONTTEXT_FILES ${SGEFONTTEXT_FILES} ${TEMPFILES})
+ENDMACRO()
+
+ADD_SGE_FONT_TEXT_INCLUDE_SOURCE_GROUP("")
+
+MACRO(
+	ADD_SGE_FONT_TEXT_SOURCE_GROUP
+	SOURCEPATH
+)
+	ADD_SGE_SOURCE_GROUP(
+		"src\\\\\\\\font\\\\\\\\text"
+		""
+		"${SOURCEPATH}"
+		*.?pp
+		TEMPFILES	
+	)
+
+	SET(SGEFONTTEXT_FILES ${SGEFONTTEXT_FILES} ${TEMPFILES})
+ENDMACRO()
+
+ADD_SGE_FONT_TEXT_SOURCE_GROUP("")
+
+ADD_LIBRARY (sgefonttext SHARED ${SGEFONTTEXT_FILES})
+
+TARGET_LINK_LIBRARIES (
+	sgefonttext
+	sgecore
+	sgetexture
+)
+
+INSTALL (TARGETS sgefonttext DESTINATION lib)
+
+INSTALL(
+	DIRECTORY
+	${CMAKE_SOURCE_DIR}/include/sge/font/text
+	DESTINATION
+	include/sge/font
+)
