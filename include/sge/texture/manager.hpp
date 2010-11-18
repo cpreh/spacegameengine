@@ -26,9 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/on_alloc_function.hpp>
 #include <sge/texture/fragmented_fwd.hpp>
 #include <sge/texture/detail/container_position.hpp>
+#include <sge/texture/symbol.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/image/view/const_object.hpp>
-#include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -40,27 +40,27 @@ class manager
 {
 	FCPPT_NONCOPYABLE(manager)
 public:
-	SGE_SYMBOL manager(
+	SGE_TEXTURE_SYMBOL manager(
 		sge::renderer::device_ptr rend,
 		on_alloc_function const &
 	);
 
-	SGE_SYMBOL ~manager();
+	SGE_TEXTURE_SYMBOL ~manager();
 
-	SGE_SYMBOL part_ptr const
+	SGE_TEXTURE_SYMBOL part_ptr const
 	add(
 		image::view::const_object const &
 	);
 
-	SGE_SYMBOL sge::renderer::device_ptr const
+	SGE_TEXTURE_SYMBOL sge::renderer::device_ptr const
 	renderer() const;
 
-	SGE_SYMBOL void
+	SGE_TEXTURE_SYMBOL void
 	on_alloc(
 		on_alloc_function const &
 	);
 
-	SGE_SYMBOL void
+	SGE_TEXTURE_SYMBOL void
 	free_empty_textures();
 private:
 	friend class fragmented;

@@ -18,25 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_CONSUME_AND_SET_FRAGMENT_HPP_INCLUDED
-#define SGE_TEXTURE_CONSUME_AND_SET_FRAGMENT_HPP_INCLUDED
+#ifndef SGE_TEXTURE_CONST_PART_PTR_HPP_INCLUDED
+#define SGE_TEXTURE_CONST_PART_PTR_HPP_INCLUDED
 
-#include <sge/texture/fragmented_fwd.hpp>
-#include <sge/texture/part_ptr.hpp>
-#include <sge/texture/symbol.hpp>
-#include <sge/image/view/const_object.hpp>
+#include <sge/texture/part_fwd.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
 namespace texture
 {
 
-SGE_TEXTURE_SYMBOL
-part_ptr const
-consume_and_set_fragment(
-	fragmented &,
-	image::view::const_object const &
-);
+typedef fcppt::shared_ptr<
+	part const
+> const_part_ptr;
 
 }
 }

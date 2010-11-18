@@ -22,14 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TEXTURE_GUARANTEED_FREE_HPP_INCLUDED
 
 #include <sge/texture/free_type.hpp>
-#include <sge/symbol.hpp>
+#include <sge/texture/symbol.hpp>
 
 namespace sge
 {
 namespace texture
 {
 
-SGE_SYMBOL free_type
+SGE_TEXTURE_SYMBOL free_type
 guaranteed_free();
 
 }

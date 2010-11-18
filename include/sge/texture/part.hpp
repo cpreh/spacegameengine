@@ -22,11 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TEXTURE_PART_HPP_INCLUDED
 
 #include <sge/texture/part_fwd.hpp>
+#include <sge/texture/symbol.hpp>
 #include <sge/renderer/texture_ptr.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/dim_type.hpp>
 #include <sge/image/view/const_object.hpp>
-#include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -39,9 +39,9 @@ class SGE_CLASS_SYMBOL part
 {
 	FCPPT_NONCOPYABLE(part)
 protected:
-	SGE_SYMBOL part();
+	SGE_TEXTURE_SYMBOL part();
 public:
-	SGE_SYMBOL virtual ~part();
+	SGE_TEXTURE_SYMBOL virtual ~part();
 
 	virtual void
 	data(
@@ -51,7 +51,7 @@ public:
 	virtual renderer::lock_rect const &
 	area() const = 0;
 
-	SGE_SYMBOL renderer::dim_type const
+	SGE_TEXTURE_SYMBOL renderer::dim_type const
 	dim() const;
 
 	virtual renderer::texture_ptr const

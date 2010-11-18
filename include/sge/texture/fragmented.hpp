@@ -25,10 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/manager_fwd.hpp>
 #include <sge/texture/part_ptr.hpp>
 #include <sge/texture/free_type.hpp>
+#include <sge/texture/symbol.hpp>
 #include <sge/texture/detail/optional_container_position.hpp>
 #include <sge/renderer/texture_ptr.hpp>
 #include <sge/renderer/dim_type.hpp>
-#include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -43,16 +43,16 @@ class SGE_CLASS_SYMBOL fragmented
 {
 	FCPPT_NONCOPYABLE(fragmented)
 protected:
-	SGE_SYMBOL fragmented();
+	SGE_TEXTURE_SYMBOL fragmented();
 public:
-	SGE_SYMBOL virtual ~fragmented();
+	SGE_TEXTURE_SYMBOL virtual ~fragmented();
 
 	virtual part_ptr const
 	consume_fragment(
 		renderer::dim_type const &
 	) = 0;
 
-	SGE_SYMBOL void
+	SGE_TEXTURE_SYMBOL void
 	return_fragment(
 		part const &
 	);
@@ -69,23 +69,23 @@ public:
 	virtual bool
 	empty() const = 0;
 
-	SGE_SYMBOL bool
+	SGE_TEXTURE_SYMBOL bool
 	full() const;
 
-	SGE_SYMBOL void
+	SGE_TEXTURE_SYMBOL void
 	manager(
 		texture::manager *
 	);
 
-	SGE_SYMBOL texture::manager *
+	SGE_TEXTURE_SYMBOL texture::manager *
 	manager() const;
 
-	SGE_SYMBOL void
+	SGE_TEXTURE_SYMBOL void
 	virtual on_return_fragment(
 		part const &
 	) = 0;
 
-	SGE_SYMBOL void
+	SGE_TEXTURE_SYMBOL void
 	container_position(
 		detail::container_position const &
 	);

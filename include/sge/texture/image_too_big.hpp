@@ -21,17 +21,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_IMAGE_TOO_BIG_HPP_INCLUDED
 #define SGE_TEXTURE_IMAGE_TOO_BIG_HPP_INCLUDED
 
+#include <sge/texture/symbol.hpp>
+#include <sge/class_symbol.hpp>
 #include <sge/exception.hpp>
-#include <sge/symbol.hpp>
 
 namespace sge
 {
 namespace texture
 {
 
-class SGE_CLASS_SYMBOL image_too_big : public exception {
+class SGE_CLASS_SYMBOL image_too_big
+:
+	public exception
+{
 public:
-	SGE_SYMBOL image_too_big();
+	SGE_TEXTURE_SYMBOL image_too_big();
 };
 
 }

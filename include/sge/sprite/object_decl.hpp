@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/repetition_type.hpp>
 #include <sge/sprite/texture_coordinates.hpp>
 #include <sge/sprite/color.hpp>
-#include <sge/texture/part_ptr.hpp>
+#include <sge/texture/const_part_ptr.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
 #include <majutsu/role_return_type.hpp>
