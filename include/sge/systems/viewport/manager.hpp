@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_VIEWPORT_MANAGER_HPP_INCLUDED
 
 #include <sge/systems/viewport/manager_fwd.hpp>
+#include <sge/systems/symbol.hpp>
 #include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -39,10 +39,10 @@ class SGE_CLASS_SYMBOL manager
 		manager
 	)
 protected:
-	SGE_SYMBOL
+	SGE_SYSTEMS_SYMBOL
 	manager();
 public:
-	SGE_SYMBOL
+	SGE_SYSTEMS_SYMBOL
 	virtual ~manager();
 };
 

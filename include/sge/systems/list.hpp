@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list_fwd.hpp>
 #include <sge/systems/any.hpp>
 #include <sge/systems/any_set.hpp>
-#include <sge/symbol.hpp>
+#include <sge/systems/symbol.hpp>
 
 namespace sge
 {
@@ -34,23 +34,23 @@ namespace systems
 class list
 {
 public:
-	SGE_SYMBOL list();
+	SGE_SYSTEMS_SYMBOL list();
 
-	SGE_SYMBOL explicit list(
+	SGE_SYSTEMS_SYMBOL explicit list(
 		any const &
 	);
 
-	SGE_SYMBOL list const
+	SGE_SYSTEMS_SYMBOL list const
 	operator()(
 		any const &
 	) const;
 
-	SGE_SYMBOL list const
+	SGE_SYSTEMS_SYMBOL list const
 	append(
 		list const &
 	) const;
 
-	SGE_SYMBOL any_set const &
+	SGE_SYSTEMS_SYMBOL any_set const &
 	get() const;
 private:
 	any_set states;

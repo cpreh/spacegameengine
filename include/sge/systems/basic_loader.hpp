@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_BASIC_LOADER_HPP_INCLUDED
 
 #include <sge/systems/basic_loader_fwd.hpp>
+#include <sge/systems/symbol.hpp>
 #include <sge/extension_set.hpp>
-#include <sge/symbol.hpp>
 #include <fcppt/nonassignable.hpp>
 
 namespace sge
@@ -42,15 +42,15 @@ class basic_loader
 public:
 	typedef Capabilities capabilities_type;
 
-	SGE_SYMBOL explicit basic_loader(
+	SGE_SYSTEMS_SYMBOL explicit basic_loader(
 		capabilities_type const &,
 		sge::extension_set const &
 	);
 
-	SGE_SYMBOL sge::extension_set const &
+	SGE_SYSTEMS_SYMBOL sge::extension_set const &
 	extensions() const;
 	
-	SGE_SYMBOL capabilities_type const &
+	SGE_SYSTEMS_SYMBOL capabilities_type const &
 	capabilities() const;
 private:
 	sge::extension_set const extensions_;

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/window/simple_parameters.hpp>
 #include <sge/renderer/window_parameters.hpp>
-#include <sge/symbol.hpp>
+#include <sge/systems/symbol.hpp>
 #include <awl/event/processor_ptr.hpp>
 #include <awl/mainloop/io_service_ptr.hpp>
 #include <awl/window/instance_ptr.hpp>
@@ -38,28 +38,28 @@ namespace systems
 class window
 {
 public:
-	SGE_SYMBOL
+	SGE_SYSTEMS_SYMBOL
 	explicit window(
 		sge::window::simple_parameters const &
 	);
 
-	SGE_SYMBOL
+	SGE_SYSTEMS_SYMBOL
 	explicit window(
 		sge::renderer::window_parameters const &
 	);
 
-	SGE_SYMBOL
+	SGE_SYSTEMS_SYMBOL
 	explicit window(
 		awl::window::instance_ptr
 	);
 
-	SGE_SYMBOL
+	SGE_SYSTEMS_SYMBOL
 	window &
 	event_processor(
 		awl::event::processor_ptr
 	);
 
-	SGE_SYMBOL
+	SGE_SYSTEMS_SYMBOL
 	window &
 	io_service(
 		awl::mainloop::io_service_ptr
@@ -73,15 +73,15 @@ public:
 		>
 	> parameter_variant;
 
-	SGE_SYMBOL
+	SGE_SYSTEMS_SYMBOL
 	parameter_variant const &
 	parameter() const;
 
-	SGE_SYMBOL
+	SGE_SYSTEMS_SYMBOL
 	awl::event::processor_ptr const
 	event_processor() const;
 
-	SGE_SYMBOL
+	SGE_SYSTEMS_SYMBOL
 	awl::mainloop::io_service_ptr const
 	io_service() const;
 private:

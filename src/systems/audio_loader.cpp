@@ -20,9 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "basic_loader_impl.hpp"
 #include <sge/systems/audio_loader.hpp>
+#include <sge/systems/symbol.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 
-template SGE_SYMBOL class
+template SGE_SYSTEMS_SYMBOL class
 sge::systems::basic_loader<
 	sge::audio::loader_capabilities_field
 >;
