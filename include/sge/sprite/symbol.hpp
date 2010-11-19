@@ -18,37 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_ANIMATION_BASE_HPP_INCLUDED
-#define SGE_SPRITE_ANIMATION_BASE_HPP_INCLUDED
+#ifndef SGE_SPRITE_SYMBOL_HPP_INCLUDED
+#define SGE_SPRITE_SYMBOL_HPP_INCLUDED
 
-#include <sge/sprite/symbol.hpp>
-#include <sge/class_symbol.hpp>
-#include <fcppt/noncopyable.hpp>
-
-namespace sge
-{
-namespace sprite
-{
-namespace animation
-{
-
-class SGE_CLASS_SYMBOL base
-{
-	FCPPT_NONCOPYABLE(base)
-protected:
-	SGE_SPRITE_SYMBOL base();
-public:
-	virtual bool
-	process() = 0;
-
-	virtual void
-	reset() = 0;
-
-	SGE_SPRITE_SYMBOL virtual ~base();
-};
-
-}
-}
-}
+#ifdef sgesprite_EXPORTS
+#include <fcppt/export_symbol.hpp>
+#define SGE_SPRITE_SYMBOL FCPPT_EXPORT_SYMBOL
+#else
+#include <fcppt/import_symbol.hpp>
+#define SGE_SPRITE_SYMBOL FCPPT_IMPORT_SYMBOL
+#endif
 
 #endif

@@ -22,11 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_ANIMATION_ENTITY_HPP_INCLUDED
 
 #include <sge/sprite/animation/entity_fwd.hpp>
+#include <sge/sprite/symbol.hpp>
 #include <sge/time/unit.hpp>
 #include <sge/time/duration.hpp>
 #include <sge/texture/const_part_ptr.hpp>
 #include <sge/renderer/dim_type.hpp>
-#include <sge/symbol.hpp>
 
 namespace sge
 {
@@ -38,23 +38,23 @@ namespace animation
 class entity
 {
 public:
-	SGE_SYMBOL entity(
+	SGE_SPRITE_SYMBOL entity(
 		time::duration const &delay,
 		sge::texture::const_part_ptr tex
 	);
 
-	SGE_SYMBOL time::unit
+	SGE_SPRITE_SYMBOL time::unit
 	delay() const;
 
-	SGE_SYMBOL sge::texture::const_part_ptr const
+	SGE_SPRITE_SYMBOL sge::texture::const_part_ptr const
 	tex() const;
 
-	SGE_SYMBOL void
+	SGE_SPRITE_SYMBOL void
 	tex(
 		sge::texture::const_part_ptr
 	);
 
-	SGE_SYMBOL renderer::dim_type const
+	SGE_SPRITE_SYMBOL renderer::dim_type const
 	dim() const;
 private:
 	time::unit delay_;

@@ -7,6 +7,13 @@ IF(NOT ENABLE_TEXTURE)
 	)
 ENDIF()
 
+IF(NOT ENABLE_SPRITE)
+	MESSAGE(
+		FATAL_ERROR
+		"For sgefonttexture to work you need to -D ENABLE_SPRITE=ON"
+	)
+ENDIF()
+
 MACRO(
 	ADD_SGE_FONT_TEXT_INCLUDE_SOURCE_GROUP
 	SOURCEPATH
@@ -46,6 +53,7 @@ ADD_LIBRARY (sgefonttext SHARED ${SGEFONTTEXT_FILES})
 TARGET_LINK_LIBRARIES (
 	sgefonttext
 	sgecore
+	sgesprite
 	sgetexture
 )
 

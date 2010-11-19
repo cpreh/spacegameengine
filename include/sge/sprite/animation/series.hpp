@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/animation/series_fwd.hpp>
 #include <sge/sprite/animation/entity.hpp>
 #include <sge/sprite/animation/entity_vector.hpp>
+#include <sge/sprite/symbol.hpp>
 #include <sge/renderer/dim_type.hpp>
-#include <sge/symbol.hpp>
 #include <vector>
 
 namespace sge
@@ -40,30 +40,30 @@ class series
 public:
 	typedef entity_vector::const_iterator const_iterator;
 
-	SGE_SYMBOL series();
+	SGE_SPRITE_SYMBOL series();
 
-	SGE_SYMBOL explicit series(
+	SGE_SPRITE_SYMBOL explicit series(
 		entity_vector const &
 	);
 
-	SGE_SYMBOL void
+	SGE_SPRITE_SYMBOL void
 	push_back(
 		entity const &
 	);
 
-	SGE_SYMBOL entity_vector &
+	SGE_SPRITE_SYMBOL entity_vector &
 	entities();
 
-	SGE_SYMBOL entity_vector const &
+	SGE_SPRITE_SYMBOL entity_vector const &
 	entities() const;
 
-	SGE_SYMBOL const_iterator
+	SGE_SPRITE_SYMBOL const_iterator
 	begin() const;
 
-	SGE_SYMBOL const_iterator
+	SGE_SPRITE_SYMBOL const_iterator
 	end() const;
 
-	SGE_SYMBOL bool
+	SGE_SPRITE_SYMBOL bool
 	empty() const;
 private:
 	entity_vector entities_;
