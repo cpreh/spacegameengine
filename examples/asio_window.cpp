@@ -23,38 +23,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/input.hpp>
 #include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/input_helper.hpp>
+#include <sge/systems/window.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
-#include <sge/window/instance.hpp>
-#include <sge/window/parameters.hpp>
 #include <sge/window/dim_type.hpp>
-#include <sge/mainloop/catch_block.hpp>
-#include <sge/mainloop/io_service.hpp>
-#include <sge/mainloop/asio/create_io_service.hpp>
+#include <sge/window/simple_parameters.hpp>
+#include <sge/window/instance.hpp>
+#include <awl/mainloop/io_service.hpp>
+#include <awl/mainloop/asio/create_io_service.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>
+#include <exception>
+#include <iostream>
+#include <ostream>
+#include <cstdlib>
 
 int main()
 try
 {
-	sge::mainloop::io_service_ptr const io_service(
-		sge::mainloop::asio::create_io_service()
+	awl::mainloop::io_service_ptr const io_service(
+		awl::mainloop::asio::create_io_service()
 	);
 
 	sge::systems::instance const sys(
 		sge::systems::list()
 		(
-			sge::window::parameters(
-				FCPPT_TEXT("sge asio test")
-			)
-			.dim(
-				sge::window::dim_type(
-					1024,
-					768
+			sge::systems::window(
+				sge::window::simple_parameters(
+					FCPPT_TEXT("sge asio test"),
+					sge::window::dim_type(
+						1024,
+						768
+					)
 				)
 			)
 			.io_service(
@@ -77,7 +81,7 @@ try
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
 				std::tr1::bind(
-					&sge::mainloop::io_service::stop,
+					&awl::mainloop::io_service::stop,
 					io_service
 				)
 			)
@@ -86,4 +90,13 @@ try
 
 	io_service->run();
 }
-SGE_MAINLOOP_CATCH_BLOCK
+catch(
+	std::exception const &_exception
+)
+{
+	std::cerr
+		<< _exception.what()
+		<< '\n';
+	
+	return EXIT_FAILURE;
+}

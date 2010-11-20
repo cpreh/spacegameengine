@@ -23,6 +23,7 @@ FIND_PACKAGE(
 
 ADD_SGE_EXAMPLE(anim "sgesprite;sgesystems;sgetexture;sgetime")
 ADD_SGE_EXAMPLE(appdir "sgeconfig")
+ADD_SGE_EXAMPLE(asio_window "sgesystems")
 ADD_SGE_EXAMPLE(bitmapfont "sgefonttext;sgesystems")
 ADD_SGE_EXAMPLE(bloom "")
 ADD_SGE_EXAMPLE(caps "sgeconfig")
@@ -54,15 +55,6 @@ ADD_SGE_EXAMPLE(tutorial/sprite_01 "sgesprite;sgesystems;sgetexture")
 ADD_SGE_EXAMPLE(tutorial/sprite_02 "sgesprite;sgesystems;sgetexture")
 
 ADD_SGE_EXAMPLE(cg1/ex04 "sgesystems;sgetime")
-
-#IF(SGE_HAVE_X11)
-#	ADD_SGE_EXAMPLE(asio_window)
-#ENDIF()
-
-# TODO: this should be part of the macro
-#IF (NOT MSVC)
-#	TARGET_LINK_LIBRARIES (sgesoundexample ${Boost_program_options_LIBRARIES})
-#ENDIF ()
 
 IF (ENABLE_CONSOLE)
 	ADD_SGE_EXAMPLE(console "sgeconsole;sgesystems")
