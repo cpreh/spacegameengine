@@ -11,7 +11,6 @@ FIND_PACKAGE(PNG 1.4.1)
 FIND_PACKAGE(Vorbis)
 
 OPTION (ENABLE_AUDIO_NULL "Build the null audio player plugin" OFF)
-OPTION (ENABLE_BITMAP_FONT "Build the bitmap font plugin" OFF)
 OPTION (ENABLE_MD3 "Build the md3 model loader plugin" ON)
 OPTION (ENABLE_WAVE "Build the wave loader plugin" ON)
 
@@ -40,10 +39,6 @@ OPTION (ENABLE_X11INPUT "Build the x11 input plugin" ${X11_Xinput_FOUND})
 IF(ENABLE_AUDIO_NULL)
 	ADD_SUBDIRECTORY (audio_null)
 ENDIF ()
-
-IF(ENABLE_BITMAP_FONT)
-	ADD_SUBDIRECTORY (bitmapfont)
-ENDIF()
 
 IF(ENABLE_BULLET)
 	ADD_SUBDIRECTORY (bullet)

@@ -18,29 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_BITMAPFONT_SYSTEM_HPP_INCLUDED
-#define SGE_BITMAPFONT_SYSTEM_HPP_INCLUDED
+#ifndef SGE_FONT_BITMAP_LOAD_RECT_HPP_INCLUDED
+#define SGE_FONT_BITMAP_LOAD_RECT_HPP_INCLUDED
 
-#include <sge/font/system.hpp>
+#include <sge/image/rect.hpp>
+#include <sge/parse/json/member_vector.hpp>
 
 namespace sge
 {
-namespace bitmapfont
+namespace font
+{
+namespace bitmap
 {
 
-class system
-:
-	public font::system
-{
-public:
-	font::metrics_ptr const
-	create_font(
-		fcppt::filesystem::path const &,
-		font::size_type font_height,
-		sge::image::multi_loader *
-	);
-};
+sge::image::rect const
+load_rect(
+	sge::parse::json::member_vector const &
+);
 
+}
 }
 }
 

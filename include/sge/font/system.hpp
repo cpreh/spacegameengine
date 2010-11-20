@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/system_fwd.hpp>
 #include <sge/font/metrics_ptr.hpp>
 #include <sge/font/size_type.hpp>
-#include <sge/image/multi_loader_fwd.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/filesystem/path.hpp>
@@ -46,8 +45,7 @@ public:
 	virtual metrics_ptr const
 	create_font(
 		fcppt::filesystem::path const &,
-		size_type font_height,
-		sge::image::multi_loader * = 0
+		size_type font_height
 	) = 0;
 };
 

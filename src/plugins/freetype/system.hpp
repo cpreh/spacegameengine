@@ -23,11 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "library.hpp"
 #include <sge/font/system.hpp>
-#include <sge/font/metrics.hpp>
 #include <fcppt/filesystem/path.hpp>
-#include <fcppt/weak_ptr.hpp>
-#include <map>
-#include <utility>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -38,25 +35,21 @@ class system
 :
 	public font::system
 {
+	FCPPT_NONCOPYABLE(
+		system
+	)
 public:
+	system();
+
+	~system();
+
 	font::metrics_ptr const
 	create_font(
 		fcppt::filesystem::path const &font_name,
-		font::size_type font_size,
-		sge::image::multi_loader *
+		font::size_type font_size
 	);
 private:
-	library library_;
-	typedef std::map<
-		std::pair<
-			font::size_type,
-			fcppt::filesystem::path
-		>,
-		fcppt::weak_ptr<
-			font::metrics
-		>
-	> loaded_fonts_list;
-	loaded_fonts_list loaded_fonts;
+	freetype::library library_;
 };
 
 }

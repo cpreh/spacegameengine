@@ -24,7 +24,7 @@ FIND_PACKAGE(
 ADD_SGE_EXAMPLE(anim "sgesprite;sgesystems;sgetexture;sgetime")
 ADD_SGE_EXAMPLE(appdir "sgeconfig")
 ADD_SGE_EXAMPLE(asio_window "sgesystems")
-ADD_SGE_EXAMPLE(bitmapfont "sgefonttext;sgesystems")
+ADD_SGE_EXAMPLE(bitmapfont "sgefontbitmap;sgefonttext;sgesystems")
 ADD_SGE_EXAMPLE(bloom "")
 ADD_SGE_EXAMPLE(caps "sgeconfig")
 ADD_SGE_EXAMPLE(cie "")

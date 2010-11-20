@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/capabilities_field.hpp>
-#include <sge/font/system.hpp>
+#include <sge/font/bitmap/create.hpp>
 #include <sge/font/text/drawer_3d.hpp>
 #include <sge/font/text/part.hpp>
 #include <sge/font/text/draw.hpp>
@@ -104,19 +104,15 @@ try
 				)
 			)
 		)
-		(
-			sge::systems::parameterless::font
-		)
 	);
 
 	sge::font::metrics_ptr const font_metrics(
-		sys.font_system()->create_font(
+		sge::font::bitmap::create(
 			sge::config::media_path()
 			/ FCPPT_TEXT("fonts")
 			/ FCPPT_TEXT("bitmap")
 			/ FCPPT_TEXT("font.png"),
-			0,
-			&sys.image_loader()
+			sys.image_loader()
 		)
 	);
 
