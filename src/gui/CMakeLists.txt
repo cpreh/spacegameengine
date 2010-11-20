@@ -14,6 +14,13 @@ IF(NOT ENABLE_TIME)
 	)
 ENDIF()
 
+IF(NOT ENABLE_CONFIG)
+	MESSAGE(
+		FATAL_ERROR
+		"For sgegui to work you need to -D ENABLE_CONFIG=ON"
+	)
+ENDIF()
+
 MACRO(
 	ADD_SGE_GUI_INCLUDE_SOURCE_GROUP
 	SOURCEPATH
@@ -80,6 +87,7 @@ TARGET_LINK_LIBRARIES (
 	sgecore
 	sgefonttext
 	sgetime
+	sgeconfig
 )
 
 INSTALL (TARGETS sgegui DESTINATION lib)

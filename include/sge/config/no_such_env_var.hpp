@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CONFIG_NO_SUCH_ENV_VAR_HPP_INCLUDED
 
 #include <sge/config/exception.hpp>
-#include <sge/symbol.hpp>
+#include <sge/config/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/string.hpp>
 
@@ -36,7 +36,7 @@ class SGE_CLASS_SYMBOL no_such_env_var
 	public exception
 {
 public:
-	SGE_SYMBOL explicit no_such_env_var(
+	SGE_CONFIG_SYMBOL explicit no_such_env_var(
 		fcppt::string const &env_var
 	);
 };

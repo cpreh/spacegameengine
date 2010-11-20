@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CONFIG_PATH_NOT_FOUND_HPP_INCLUDED
 
 #include <sge/config/exception.hpp>
-#include <sge/symbol.hpp>
+#include <sge/config/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/string.hpp>
 
@@ -36,13 +36,13 @@ class SGE_CLASS_SYMBOL path_not_found
 	public sge::config::exception
 {
 public:
-	SGE_SYMBOL explicit path_not_found(
+	SGE_CONFIG_SYMBOL
+	explicit path_not_found(
 		fcppt::string const &
 	);
 };
 
 }
 }
-
 
 #endif

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config/path_vector.hpp>
 #include <sge/config/optional_path.hpp>
-#include <sge/symbol.hpp>
+#include <sge/config/symbol.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/string.hpp>
 
@@ -32,7 +32,8 @@ namespace sge
 namespace config
 {
 
-SGE_SYMBOL optional_path const
+SGE_CONFIG_SYMBOL
+config::optional_path const
 find_path(
 	path_vector const &config_files,
 	fcppt::string const &what,
