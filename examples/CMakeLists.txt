@@ -47,9 +47,9 @@ ADD_SGE_EXAMPLE(target "sgesprite;sgesystems;sgetexture")
 ADD_SGE_EXAMPLE(vertex "sgesystems")
 
 ADD_SGE_EXAMPLE(tutorial/font "sgefonttext;sgesprite;sgesystems")
-ADD_SGE_EXAMPLE(tutorial/sound_01 "sgesystems")
-ADD_SGE_EXAMPLE(tutorial/sound_02 "sgesystems")
-#ADD_SGE_EXAMPLE(tutorial/sound_03)
+ADD_SGE_EXAMPLE(tutorial/sound_01 "sgeconfig;sgesystems")
+ADD_SGE_EXAMPLE(tutorial/sound_02 "sgeconfig;sgesystems")
+ADD_SGE_EXAMPLE(tutorial/sound_03 "sgeconfig;sgesystems;sgetime")
 ADD_SGE_EXAMPLE(tutorial/sprite_01 "sgesprite;sgesystems;sgetexture")
 ADD_SGE_EXAMPLE(tutorial/sprite_02 "sgesprite;sgesystems;sgetexture")
 

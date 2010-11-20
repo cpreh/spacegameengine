@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/systems/audio_player_default.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/audio/sound/positional.hpp>
 #include <sge/audio/player.hpp>
-#include <sge/audio/sound.hpp>
 #include <sge/audio/file.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/multi_loader.hpp>
@@ -37,6 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <exception>
+#include <iostream>
+#include <ostream>
 #include <cmath>
 #include <cstdlib>
 
@@ -46,7 +49,7 @@ try
 	sge::systems::instance sys(
 		sge::systems::list()
 		(
-			sge::systems::parameterless::audio_player
+			sge::systems::audio_player_default()
 		)
 		(
 			sge::systems::audio_loader(
@@ -62,38 +65,83 @@ try
 
 	sge::audio::file_ptr const file(
 		sys.audio_loader().load(
-			sge::config::media_path() / FCPPT_TEXT("ding.wav")
+			sge::config::media_path()
+			/ FCPPT_TEXT("ding.wav")
 		)
 	);
 
-	sge::audio::sound_ptr const sound = sys.audio_player()->create_nonstream_sound(file);
+	sge::audio::sound::positional_ptr const sound(
+		sys.audio_player()->create_positional_stream(
+			file,
+			sge::audio::sound::positional_parameters()
+		)
+	);
 
-	sound->positional(true);
-	sound->play(sge::audio::play_mode::loop);
+	sound->play(
+		sge::audio::sound::repeat::loop
+	);
 
-	sge::time::timer frame_timer(sge::time::second(static_cast<sge::time::unit>(1)));
-	sge::audio::scalar const rpm = static_cast<sge::audio::scalar>(1);
-	sge::audio::scalar const speed = static_cast<sge::audio::scalar>(
-		fcppt::math::twopi<sge::audio::scalar>() * rpm);
+	sge::time::timer frame_timer(
+		sge::time::second(
+			static_cast<
+				sge::time::unit
+			>(
+				1
+			)
+		)
+	);
+
+	sge::audio::scalar const rpm(
+		static_cast<
+			sge::audio::scalar
+		>(
+			1
+		)
+	);
+
+	sge::audio::scalar const speed(
+		static_cast<
+			sge::audio::scalar
+		>(
+			fcppt::math::twopi<
+				sge::audio::scalar
+			>()
+			* rpm
+		)
+	);
+
 	while (true)
 	{
-		sge::audio::scalar const angle =
-			static_cast<sge::audio::scalar>(frame_timer.elapsed_frames() * speed);
-		sound->pos(
+		sge::audio::scalar const angle(
+			static_cast<
+				sge::audio::scalar
+			>(
+				frame_timer.elapsed_frames()
+				*
+				speed
+			)
+		);
+
+		sound->position(
 			sge::audio::vector(
 				std::sin(angle),
 				static_cast<sge::audio::scalar>(0),
-				std::cos(angle)));
+				std::cos(angle)
+			)
+		);
+
 		sound->update();
 	}
 }
 catch(sge::exception const &e)
 {
 	fcppt::io::cerr << e.string() << FCPPT_TEXT('\n');
+
 	return EXIT_FAILURE;
 }
 catch(std::exception const &e)
 {
-	fcppt::io::cerr << e.what() << FCPPT_TEXT('\n');
+	std::cerr << e.what() << '\n';
+
 	return EXIT_FAILURE;
 }
