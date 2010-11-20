@@ -138,13 +138,13 @@ public:
 		case sge::input::mouse::axis::x:
 			sprite_.x(
 				sprite_.x()
-				+ _event.axis_position()
+				+ _event.axis_value()
 			);
 			break;
 		case sge::input::mouse::axis::y:
 			sprite_.y(
 				sprite_.y()
-				+ _event.axis_position()
+				+ _event.axis_value()
 			);
 			break;
 		default:

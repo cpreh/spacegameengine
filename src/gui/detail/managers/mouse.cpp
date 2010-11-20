@@ -69,13 +69,13 @@ key_to_mouse_coords(
 	{
 	case sge::input::mouse::axis::x:
 		return sge::gui::sprite::point(
-			static_cast<sge::gui::sprite::unit>(k.axis_position()),
+			static_cast<sge::gui::sprite::unit>(k.axis_value()),
 			static_cast<sge::gui::sprite::unit>(0)
 		);
 	case sge::input::mouse::axis::y:
 		return sge::gui::sprite::point(
 			static_cast<sge::gui::sprite::unit>(0),
-			static_cast<sge::gui::sprite::unit>(k.axis_position())
+			static_cast<sge::gui::sprite::unit>(k.axis_value())
 		);
 	default:
 		return sge::gui::sprite::point::null(); // TODO?

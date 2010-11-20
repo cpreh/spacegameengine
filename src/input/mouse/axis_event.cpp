@@ -22,11 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::input::mouse::axis_event::axis_event(
 	mouse::axis::type const _axis,
-	mouse::axis_position const _axis_position
+	mouse::axis_value const _axis_value
 )
 :
 	axis_(_axis),
-	axis_position_(_axis_position)
+	axis_value_(_axis_value)
 {
 }
 
@@ -36,8 +36,8 @@ sge::input::mouse::axis_event::axis() const
 	return axis_;
 }
 
-sge::input::mouse::axis_position
-sge::input::mouse::axis_event::axis_position() const
+sge::input::mouse::axis_value
+sge::input::mouse::axis_event::axis_value() const
 {
-	return axis_position_;
+	return axis_value_;
 }

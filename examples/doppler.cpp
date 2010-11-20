@@ -18,8 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/systems/audio_player_default.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/window/instance.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
@@ -34,13 +36,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global.hpp>
 #include <sge/audio/listener.hpp>
 #include <sge/audio/file.hpp>
-#include <sge/audio/sound.hpp>
+#include <sge/audio/sound/base.hpp>
+#include <sge/audio/sound/positional.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/multi_loader.hpp>
-#include <sge/input/system.hpp>
-#include <sge/input/action.hpp>
-#include <sge/input/key_pair.hpp>
-#include <sge/input/key_code.hpp>
+#include <sge/input/keyboard/action.hpp>
+#include <sge/input/keyboard/device.hpp>
+#include <sge/input/mouse/axis_event.hpp>
+#include <sge/input/mouse/device.hpp>
 #include <sge/image/multi_loader.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/rgba8.hpp>
@@ -58,12 +61,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/with_depth.hpp>
 #include <sge/sprite/default_sort.hpp>
 #include <sge/sprite/default_equal.hpp>
+#include <sge/systems/viewport/manage_resize.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/add_image.hpp>
 #include <sge/texture/no_fragmented.hpp>
-#include <sge/texture/default_creator.hpp>
-#include <sge/texture/default_creator_impl.hpp>
-#include <sge/mainloop/dispatch.hpp>
 #include <sge/exception.hpp>
 #include <sge/extension_set.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -73,6 +74,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
+#include <boost/spirit/home/phoenix/object/construct.hpp>
+#include <boost/spirit/home/phoenix/object/new.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <boost/assign/list_of.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -108,7 +111,7 @@ class sprite_functor
 public:
 	explicit sprite_functor(
 		sprite_object &s,
-		sge::audio::sound_ptr const sound
+		sge::audio::sound::positional_ptr const sound
 	)
 	:
 		s(s),
@@ -117,45 +120,44 @@ public:
 
 	void
 	operator()(
-		sge::input::key_pair const &k
+		sge::input::mouse::axis_event const &k
 	) const
 	{
-		switch (k.key().code())
+		switch (k.axis())
 		{
-		case sge::input::kc::mouse_x_axis:
+		case sge::input::mouse::axis::x:
 			s.x(
-				s.x() + k.value()
+				static_cast<sprite_object::unit>(s.x() + k.axis_value())
 			);
 
-			sound->vel(
+			sound->linear_velocity(
 				sge::audio::vector(
-					static_cast<sge::audio::scalar>(k.value()),
-					sound->vel().y(),
-					sound->vel().z()
+					static_cast<sge::audio::scalar>(k.axis_value()),
+					sound->linear_velocity().y(),
+					sound->linear_velocity().z()
 				)
 			);
 
 			break;
-		case sge::input::kc::mouse_y_axis:
+		case sge::input::mouse::axis::y:
 			s.y(
-				s.y() + k.value()
+				static_cast<sprite_object::unit>(s.y() + k.axis_value())
 			);
 
-			sound->vel(
+			sound->linear_velocity(
 				sge::audio::vector(
-					sound->vel().x(),
-					sound->vel().y(),
-					static_cast<sge::audio::scalar>(k.value())
+					sound->linear_velocity().x(),
+					sound->linear_velocity().y(),
+					static_cast<sge::audio::scalar>(k.axis_value())
 				)
 			);
 
 			break;
-
 		default:
 			break;
 		}
 
-		sound->pos(
+		sound->position(
 			sge::audio::vector(
 				static_cast<sge::audio::scalar>(s.pos().x()),
 				static_cast<sge::audio::scalar>(0),
@@ -165,7 +167,7 @@ public:
 	}
 private:
 	sprite_object &s;
-	sge::audio::sound_ptr const sound;
+	sge::audio::sound::positional_ptr const sound;
 };
 }
 
@@ -185,26 +187,41 @@ try
 	sge::systems::instance sys(
 		sge::systems::list()
 		(
-			sge::window::parameters(
-				FCPPT_TEXT("sge dopplertest")
+			sge::systems::window(
+				sge::renderer::window_parameters(
+					FCPPT_TEXT("sge dopplertest")
+				)
 			)
 		)
 		(
-			sge::renderer::parameters(
-				sge::renderer::display_mode(
-					screen_size,
-					sge::renderer::bit_depth::depth32,
-					sge::renderer::refresh_rate_dont_care
+			sge::systems::renderer(
+				sge::renderer::parameters(
+					sge::renderer::display_mode(
+						screen_size,
+						sge::renderer::bit_depth::depth32,
+						sge::renderer::refresh_rate_dont_care
+					),
+					sge::renderer::depth_buffer::off,
+					sge::renderer::stencil_buffer::off,
+					sge::renderer::window_mode::windowed,
+					sge::renderer::vsync::on,
+					sge::renderer::no_multi_sampling
 				),
-				sge::renderer::depth_buffer::off,
-				sge::renderer::stencil_buffer::off,
-				sge::renderer::window_mode::windowed,
-				sge::renderer::vsync::on,
-				sge::renderer::no_multi_sampling
+				sge::systems::viewport::manage_resize()
 			)
 		)
-		(sge::systems::parameterless::input)
-		(sge::systems::parameterless::audio_player)
+		(
+			sge::systems::input(
+				sge::systems::input_helper_field(
+					sge::systems::input_helper::keyboard_collector
+				)
+				|
+				sge::systems::input_helper::mouse_collector
+			)
+		)
+		(
+			sge::systems::audio_player_default()
+		)
 		(
 			sge::systems::image_loader(
 				sge::image::capabilities_field::null(),
@@ -248,20 +265,19 @@ try
 			)
 		);
 
-	typedef sge::texture::default_creator<
-		sge::texture::no_fragmented
-	> texture_creator;
-	
-	texture_creator const
-		creator(
-			sys.renderer(),
-			sge::image::color::format::rgba8,
-			sge::renderer::filter::linear
-		);
-
 	sge::texture::manager tex_man(
 		sys.renderer(),
-		creator
+		boost::phoenix::construct<
+			sge::texture::fragmented_unique_ptr
+		>(
+			boost::phoenix::new_<
+				sge::texture::no_fragmented
+			>(
+				sys.renderer(),
+				sge::image::color::format::rgba8,
+				sge::renderer::filter::linear
+			)
+		)
 	);
 
 	sge::texture::const_part_ptr const
@@ -342,8 +358,8 @@ try
 		sprite_parameters()
 		.pos(
 			sprite_object::point(
-				screen_size.w()/2-16,
-				screen_size.h()/2-16
+				static_cast<sprite_object::unit>(screen_size.w()/2-16),
+				static_cast<sprite_object::unit>(screen_size.h()/2-16)
 			)
 		)
 		.texture(
@@ -375,13 +391,18 @@ try
 		)
 	);
 
-	sge::audio::sound_ptr const sound_siren(
-		sys.audio_player()->create_nonstream_sound(
-			af_siren
+	sge::audio::sound::positional_ptr const sound_siren(
+		sys.audio_player()->create_positional_stream(
+			af_siren,
+			sge::audio::sound::positional_parameters()
+			.rolloff(
+				static_cast<sge::audio::scalar>(1)
+				/ static_cast<sge::audio::scalar>(screen_size.h())
+			)
 		)
 	);
 
-	sys.audio_player()->listener().pos(
+	sys.audio_player()->listener().position(
 		sge::audio::vector(
 			static_cast<sge::audio::scalar>(screen_size.w()/2),
 			static_cast<sge::audio::scalar>(0),
@@ -393,33 +414,24 @@ try
 		static_cast<sge::audio::scalar>(500)
 	);
 
-	sound_siren->positional(
-		true
-	);
-
-	sound_siren->rolloff(
-		static_cast<sge::audio::scalar>(1)
-		/ static_cast<sge::audio::scalar>(screen_size.h())
-	);
-
 	sound_siren->play(
-		sge::audio::play_mode::loop
+		sge::audio::sound::repeat::loop
 	);
 
 	bool running = true;
 
 	fcppt::signal::scoped_connection const cb(
-		sys.input_system()->register_callback(
-			sge::input::action(
-				sge::input::kc::key_escape,
+		sys.keyboard_collector()->key_callback(
+			sge::input::keyboard::action(
+				sge::input::keyboard::key_code::escape,
 				boost::phoenix::ref(running) = false
 			)
 		)
 	);
 
 	fcppt::signal::scoped_connection const pc(
-		sys.input_system()->register_callback(
-			sprite_functor(
+		sys.mouse_collector()->axis_callback(
+			::sprite_functor(
 				vectorer,
 				sound_siren
 			)
@@ -434,7 +446,7 @@ try
 
 	while(running)
 	{
-		sge::mainloop::dispatch();
+		sys.window()->dispatch();
 
 		sge::renderer::scoped_block const block_(
 			sys.renderer()
