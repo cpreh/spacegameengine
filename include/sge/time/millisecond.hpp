@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/time/unit.hpp>
 #include <sge/time/duration.hpp>
-#include <sge/symbol.hpp>
+#include <sge/time/symbol.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
 
 namespace sge
@@ -31,7 +31,7 @@ namespace sge
 namespace time
 {
 
-SGE_SYMBOL duration const
+SGE_TIME_SYMBOL duration const
 millisecond(
 	unit
 );

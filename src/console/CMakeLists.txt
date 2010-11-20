@@ -7,6 +7,13 @@ IF(NOT ENABLE_FONTTEXT)
 	)
 ENDIF()
 
+IF(NOT ENABLE_TIME)
+	MESSAGE(
+		FATAL_ERROR
+		"For sgeconsole to work you need to -D ENABLE_TIME=ON"
+	)
+ENDIF()
+
 MACRO(
 	ADD_SGE_CONSOLE_INCLUDE_SOURCE_GROUP
 	SOURCEPATH
@@ -47,6 +54,7 @@ TARGET_LINK_LIBRARIES (
 	sgeconsole
 	sgecore
 	sgefonttext
+	sgetime
 )
 
 INSTALL (TARGETS sgeconsole DESTINATION lib)

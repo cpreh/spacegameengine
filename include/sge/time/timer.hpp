@@ -43,7 +43,7 @@ public:
 	typedef funit      frames_type;
 	typedef unit       interval_type;
 
-	SGE_SYMBOL explicit timer(
+	SGE_TIME_SYMBOL explicit timer(
 		duration const &interval,
 		activation_state::type active_
 			= activation_state::active,
@@ -52,42 +52,42 @@ public:
 			= expiration_state::not_expired
 	);
 
-	SGE_SYMBOL frames_type
+	SGE_TIME_SYMBOL frames_type
 	update();
 
-	SGE_SYMBOL bool
+	SGE_TIME_SYMBOL bool
 	update_b();
 
-	SGE_SYMBOL frames_type
+	SGE_TIME_SYMBOL frames_type
 	elapsed_frames() const;
 
-	SGE_SYMBOL frames_type
+	SGE_TIME_SYMBOL frames_type
 	reset();
 
-	SGE_SYMBOL bool
+	SGE_TIME_SYMBOL bool
 	expired() const;
 
-	SGE_SYMBOL interval_type
+	SGE_TIME_SYMBOL interval_type
 	interval() const;
 
-	SGE_SYMBOL interval_type
+	SGE_TIME_SYMBOL interval_type
 	last_time() const;
 
-	SGE_SYMBOL void
+	SGE_TIME_SYMBOL void
 	interval(
 		duration const &
 	);
 
-	SGE_SYMBOL void
+	SGE_TIME_SYMBOL void
 	activate();
 
-	SGE_SYMBOL void
+	SGE_TIME_SYMBOL void
 	deactivate();
 
-	SGE_SYMBOL bool
+	SGE_TIME_SYMBOL bool
 	active() const;
 
-	SGE_SYMBOL void
+	SGE_TIME_SYMBOL void
 	expire();
 private:
 	callback const callback_;

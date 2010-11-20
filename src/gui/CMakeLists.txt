@@ -7,6 +7,12 @@ IF(NOT ENABLE_FONTTEXT)
 	)
 ENDIF()
 
+IF(NOT ENABLE_TIME)
+	MESSAGE(
+		FATAL_ERROR
+		"For sgegui to work you need to -D ENABLE_TIME=ON"
+	)
+ENDIF()
 
 MACRO(
 	ADD_SGE_GUI_INCLUDE_SOURCE_GROUP
@@ -73,6 +79,7 @@ TARGET_LINK_LIBRARIES (
 	sgegui
 	sgecore
 	sgefonttext
+	sgetime
 )
 
 INSTALL (TARGETS sgegui DESTINATION lib)

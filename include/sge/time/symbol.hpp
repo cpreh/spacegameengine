@@ -18,41 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TIME_FRAMES_COUNTER_HPP_INCLUDED
-#define SGE_TIME_FRAMES_COUNTER_HPP_INCLUDED
+#ifndef SGE_TIME_SYMBOL_HPP_INCLUDED
+#define SGE_TIME_SYMBOL_HPP_INCLUDED
 
-#include <sge/time/timer.hpp>
-#include <sge/time/unit.hpp>
-#include <sge/time/symbol.hpp>
-#include <fcppt/string.hpp>
-
-namespace sge
-{
-namespace time
-{
-
-class frames_counter
-{
-public:
-	SGE_TIME_SYMBOL frames_counter();
-
-	SGE_TIME_SYMBOL void
-	update();
-
-	SGE_TIME_SYMBOL fcppt::string const
-	frames_str() const;
-
-	SGE_TIME_SYMBOL time::unit
-	frames() const;
-private:
-	timer t;
-
-	time::unit
-		current_frames,
-		display_frames;
-};
-
-}
-}
+#ifdef sgetime_EXPORTS
+#include <fcppt/export_symbol.hpp>
+#define SGE_TIME_SYMBOL FCPPT_EXPORT_SYMBOL
+#else
+#include <fcppt/import_symbol.hpp>
+#define SGE_TIME_SYMBOL FCPPT_IMPORT_SYMBOL
+#endif
 
 #endif

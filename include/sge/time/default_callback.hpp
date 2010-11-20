@@ -22,17 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TIME_DEFAULT_CALLBACK_HPP_INCLUDED
 
 #include <sge/time/callback.hpp>
-#include <sge/symbol.hpp>
+#include <sge/time/symbol.hpp>
 
 namespace sge
 {
 namespace time
 {
 
-SGE_SYMBOL callback const
+SGE_TIME_SYMBOL callback const
 default_callback();
 
-SGE_SYMBOL void
+SGE_TIME_SYMBOL void
 default_callback(
 	callback const &
 );

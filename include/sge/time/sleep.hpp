@@ -22,14 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TIME_SLEEP_HPP_INCLUDED
 
 #include <sge/time/duration.hpp>
-#include <sge/symbol.hpp>
+#include <sge/time/symbol.hpp>
 
 namespace sge
 {
 namespace time
 {
 
-SGE_SYMBOL void
+SGE_TIME_SYMBOL void
 sleep(
 	duration const &
 );

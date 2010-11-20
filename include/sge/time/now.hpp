@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TIME_NOW_HPP_INCLUDED
 
 #include <sge/time/point.hpp>
-#include <sge/symbol.hpp>
+#include <sge/time/symbol.hpp>
 #include <fcppt/chrono/time_point_impl.hpp>
 
 namespace sge
@@ -30,7 +30,7 @@ namespace sge
 namespace time
 {
 
-SGE_SYMBOL point const
+SGE_TIME_SYMBOL point const
 now();
 
 }
