@@ -42,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/algorithm/std/accumulate.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/operator.hpp>

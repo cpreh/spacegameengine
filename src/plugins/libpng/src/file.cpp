@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/algorithm/copy_and_convert.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/optional_impl.hpp>
 
 sge::libpng::file::file(
