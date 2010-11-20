@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/audio_player_default.hpp>
+#include <sge/audio/sound/base.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file.hpp>
@@ -61,14 +62,14 @@ try
 		)
 	);
 
-	sge::audio::sound_ptr const sound(
-		sys.audio_player()->create_nonstream_sound(
+	sge::audio::sound::base_ptr const sound(
+		sys.audio_player()->create_nonpositional_stream(
 			file
 		)
 	);
 
 	sound->play(
-		sge::audio::play_mode::loop
+		sge::audio::sound::repeat::loop
 	);
 
 	while (true)

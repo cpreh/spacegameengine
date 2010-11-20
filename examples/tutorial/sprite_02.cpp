@@ -136,12 +136,20 @@ public:
 		{
 		case sge::input::mouse::axis::x:
 			s.x(
-				s.x() + k.axis_value()
+				static_cast<
+					sprite_object::unit
+				>(
+					s.x() + k.axis_value()
+				)
 			);
 			break;
 		case sge::input::mouse::axis::y:
 			s.y(
-				s.y() + k.axis_value()
+				static_cast<
+					sprite_object::unit
+				>(
+					s.y() + k.axis_value()
+				)
 			);
 			break;
 		default:

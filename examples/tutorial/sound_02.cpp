@@ -18,14 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/systems/audio_player_default.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/audio/player.hpp>
-#include <sge/audio/sound.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file.hpp>
 #include <sge/audio/multi_loader.hpp>
 #include <sge/audio/pool.hpp>
+#include <sge/audio/sound/base.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/exception.hpp>
 #include <sge/extension_set.hpp>
@@ -42,7 +43,7 @@ try
 	sge::systems::instance sys(
 		sge::systems::list()
 		(
-			sge::systems::parameterless::audio_player
+			sge::systems::audio_player_default()
 		)
 		(
 			sge::systems::audio_loader(
@@ -62,27 +63,39 @@ try
 	sge::audio::pool pool;
 
 	{
-		sge::audio::sound_ptr const sound_01(
-			sys.audio_player()->create_nonstream_sound(
+		sge::audio::sound::base_ptr const sound_01(
+			sys.audio_player()->create_nonpositional_stream(
 				sys.audio_loader().load(
 					sge::config::media_path() / FCPPT_TEXT("ding.wav")
 				)
 			)
 		);
 
-		sge::audio::sound_ptr const sound_02(
-			sys.audio_player()->create_stream_sound(
+		sge::audio::sound::base_ptr const sound_02(
+			sys.audio_player()->create_nonpositional_stream(
 				sys.audio_loader().load(
 					sge::config::media_path() / FCPPT_TEXT("siren.ogg")
 				)
 			)
 		);
 
-		pool.add(sound_01, sge::audio::stop_mode::play_once);
-		pool.add(sound_02, sge::audio::stop_mode::play_once);
+		pool.add(
+			sound_01,
+			sge::audio::stop_mode::play_once
+		);
 
-		sound_01->play(sge::audio::play_mode::once);
-		sound_02->play(sge::audio::play_mode::once);
+		pool.add(
+			sound_02,
+			sge::audio::stop_mode::play_once
+		);
+
+		sound_01->play(
+			sge::audio::sound::repeat::once
+		);
+
+		sound_02->play(
+			sge::audio::sound::repeat::once
+		);
 	}
 
 	while (!pool.sounds_finished())

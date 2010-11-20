@@ -16,7 +16,7 @@ MACRO (ADD_SGE_EXAMPLE EXAMPLE_NAME ADDITONAL_LIBRARIES)
 ENDMACRO ()
 
 FIND_PACKAGE(
-	Boost 1.41.0 REQUIRED
+	Boost 1.45.0 REQUIRED
 	COMPONENTS
 	program_options
 )
@@ -47,11 +47,11 @@ ADD_SGE_EXAMPLE(target "sgesprite;sgesystems;sgetexture")
 ADD_SGE_EXAMPLE(vertex "sgesystems")
 
 ADD_SGE_EXAMPLE(tutorial/font "sgefonttext;sgesprite;sgesystems")
-#ADD_SGE_EXAMPLE(tutorial/sound_01)
-#ADD_SGE_EXAMPLE(tutorial/sound_02)
+ADD_SGE_EXAMPLE(tutorial/sound_01 "sgesystems")
+ADD_SGE_EXAMPLE(tutorial/sound_02 "sgesystems")
 #ADD_SGE_EXAMPLE(tutorial/sound_03)
-ADD_SGE_EXAMPLE(tutorial/tutorial_01 "sgesprite;sgesystems;sgetexture")
-ADD_SGE_EXAMPLE(tutorial/tutorial_02 "sgesprite;sgesystems;sgetexture")
+ADD_SGE_EXAMPLE(tutorial/sprite_01 "sgesprite;sgesystems;sgetexture")
+ADD_SGE_EXAMPLE(tutorial/sprite_02 "sgesprite;sgesystems;sgetexture")
 
 ADD_SGE_EXAMPLE(cg1/ex04 "sgesystems;sgetime")
 
@@ -73,11 +73,3 @@ IF (ENABLE_GUI)
 	ADD_SGE_EXAMPLE(grid "sgegui;sgesystems")
 	ADD_SGE_EXAMPLE(gui "sgegui;sgesystems")
 ENDIF ()
-
-#ADD_EXECUTABLE (islandexample island/main.cpp quadtree/quadtree.cpp quadtree/mathstuff.cpp island/island_extractor.cpp island/skydome.cpp)
-#TARGET_LINK_LIBRARIES (islandexample sgecore)
-#INSTALL (TARGETS islandexample DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
-
-#ADD_EXECUTABLE (skydomeexample island/skydome.cpp island/skydome_examplecase.cpp)
-#TARGET_LINK_LIBRARIES (skydomeexample sgecore)
-#INSTALL (TARGETS skydomeexample DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
