@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "create_normal_window.hpp"
 #include "create_render_window.hpp"
+#include "plugin_path.hpp"
 #include "wrap_window.hpp"
 #include <sge/audio/multi_loader.hpp>
 #include <sge/audio/player.hpp>
@@ -56,6 +57,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/instance_ptr.hpp>
 #include <awl/window/system_ptr.hpp>
 #include <awl/window/create_system.hpp>
+#include <fcppt/filesystem/path.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/make_shared_ptr.hpp>
@@ -68,11 +70,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/type_info.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <boost/foreach.hpp>
 #include <typeinfo>
 
 class sge::systems::instance::impl
 {
+	FCPPT_NONCOPYABLE(
+		impl
+	)
 public:
 	plugin::manager                                 plugin_manager_;
 
@@ -121,6 +127,12 @@ public:
 	fcppt::optional<sge::systems::window>           window_param_;
 	awl::window::system_ptr                         window_system_;
 	sge::window::instance_ptr                       window_;
+
+	explicit impl(
+		fcppt::filesystem::path const &plugin_path
+	);
+
+	~impl();
 
 	void
 	init_renderer(
@@ -191,6 +203,11 @@ public:
 
 	result_type
 	operator()(
+		sge::systems::config const &
+	) const;
+
+	result_type
+	operator()(
 		sge::systems::renderer const &
 	) const;
 
@@ -230,28 +247,18 @@ private:
 }
 
 sge::systems::instance::instance(
-	list const &_list
+	systems::list const &_list
 )
 :
 	impl_(
 		fcppt::make_unique_ptr<
 			impl
-		>()
+		>(
+			sge::systems::plugin_path(
+				_list.get()
+			)
+		)
 	)
-{
-	reinit(
-		_list
-	);
-}
-
-sge::systems::instance::~instance()
-{
-}
-
-void
-sge::systems::instance::reinit(
-	systems::list const &_list
-)
 {
 	BOOST_FOREACH(
 		sge::systems::any const &elem,
@@ -265,6 +272,10 @@ sge::systems::instance::reinit(
 		);
 	
 	impl_->post_init();
+}
+
+sge::systems::instance::~instance()
+{
 }
 
 sge::plugin::manager &
@@ -363,6 +374,13 @@ visitor::visitor(
 
 visitor::result_type
 visitor::operator()(
+	sge::systems::config const &
+) const
+{
+}
+
+visitor::result_type
+visitor::operator()(
 	sge::systems::renderer const &_param
 ) const
 {
@@ -448,28 +466,18 @@ visitor::operator()(
 
 }
 
-void
-sge::systems::instance::impl::init_window(
-	sge::systems::window const &_window_param
+sge::systems::instance::impl::impl(
+	fcppt::filesystem::path const &_plugin_path
 )
-{
-	if(
-		fcppt::variant::holds_type<
-			awl::window::instance_ptr
-		>(
-			_window_param.parameter()
-		)
+:
+	plugin_manager_(
+		_plugin_path
 	)
-		window_ =
-			sge::systems::wrap_window(
-				_window_param
-			);
-	else
-	{
-		window_system_ = awl::window::create_system();
+{
+}
 
-		window_param_ = _window_param;
-	}
+sge::systems::instance::impl::~impl()
+{
 }
 
 void
@@ -526,6 +534,30 @@ sge::systems::instance::impl::init_renderer(
 		must_show
 	)
 		window_->show();
+}
+
+void
+sge::systems::instance::impl::init_window(
+	sge::systems::window const &_window_param
+)
+{
+	if(
+		fcppt::variant::holds_type<
+			awl::window::instance_ptr
+		>(
+			_window_param.parameter()
+		)
+	)
+		window_ =
+			sge::systems::wrap_window(
+				_window_param
+			);
+	else
+	{
+		window_system_ = awl::window::create_system();
+
+		window_param_ = _window_param;
+	}
 }
 
 void

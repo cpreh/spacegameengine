@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/context_fwd.hpp>
 #include <sge/plugin/iterator_fwd.hpp>
 #include <sge/symbol.hpp>
+#include <fcppt/filesystem/path.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <vector>
 #include <map>
@@ -53,7 +54,10 @@ class manager
 public:
 	typedef std::size_t size_type;
 
-	SGE_SYMBOL manager();
+	SGE_SYMBOL
+	explicit manager(
+		fcppt::filesystem::path const &
+	);
 
 	SGE_SYMBOL ~manager();
 
@@ -83,9 +87,9 @@ public:
 	SGE_SYMBOL size_type
 	size() const;
 private:
-	plugin_array plugins;
+	plugin_array plugins_;
 
-	plugin_map categories;
+	plugin_map categories_;
 };
 
 }

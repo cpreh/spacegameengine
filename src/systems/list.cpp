@@ -47,34 +47,34 @@ init_states()
 
 sge::systems::list::list()
 :
-	states(
+	states_(
 		init_states()
 	)
 {}
 
 sge::systems::list::list(
-	any const &any_
+	systems::any const &_any
 )
 :
-	states(
+	states_(
 		init_states()
 	)
 {
-	states.insert(
-		any_
+	states_.insert(
+		_any
 	);
 }
 
 sge::systems::list const
 sge::systems::list::operator()(
-	any const &any_
+	systems::any const &_any
 ) const
 {
 	list ret(*this);
 
 	if(
-		!ret.states.insert(
-			any_
+		!ret.states_.insert(
+			_any
 		).second
 	)
 	{
@@ -84,20 +84,21 @@ sge::systems::list::operator()(
 				<< FCPPT_TEXT("Duplicate system state given!")
 		);
 	}
+
 	return ret;
 }
 
 sge::systems::list const
 sge::systems::list::append(
-	list const &other_
+	systems::list const &_other
 ) const
 {
-	list ret(*this);
+	systems::list ret(*this);
 
 	// TODO: this could be optimized
 	BOOST_FOREACH(
 		any_set::const_reference ref,
-		other_.get()
+		_other.get()
 	)
 		ret = ret(ref);
 	
@@ -107,5 +108,5 @@ sge::systems::list::append(
 sge::systems::any_set const &
 sge::systems::list::get() const
 {
-	return states;
+	return states_;
 }

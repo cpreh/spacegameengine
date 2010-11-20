@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/context_base.hpp>
 #include <sge/log/global.hpp>
 #include <sge/library/function_not_found.hpp>
-#include <sge/config/plugin_path.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/filesystem/directory_iterator.hpp>
 #include <fcppt/filesystem/is_directory.hpp>
@@ -34,6 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/config.hpp>
 #include <boost/foreach.hpp>
+
+namespace
+{
 
 fcppt::char_type const *const plugin_extension =
 #ifdef FCPPT_DARWIN_PLATFORM
@@ -47,14 +49,21 @@ fcppt::char_type const *const plugin_extension =
 #endif
 	;
 
-sge::plugin::manager::manager()
+}
+
+sge::plugin::manager::manager(
+	fcppt::filesystem::path const &_path
+)
+:
+	plugins_(),
+	categories_()
 {
 	FCPPT_LOG_DEBUG(
 		log::global(),
 		fcppt::log::_
 			<< FCPPT_TEXT("Scanning for plugins in ")
 			<< fcppt::filesystem::path_to_string(
-				config::plugin_path()
+				_path
 			)
 	);
 
@@ -62,7 +71,7 @@ sge::plugin::manager::manager()
 
 	for(
 		fcppt::filesystem::directory_iterator it(
-			config::plugin_path()
+			_path
 		);
 		it != end;
 		++it
@@ -88,14 +97,14 @@ sge::plugin::manager::manager()
 
 		try
 		{
-			plugins.push_back(
-				context_base(
+			plugins_.push_back(
+				plugin::context_base(
 					*it
 				)
 			);
 		}
 		catch(
-			library::function_not_found const &e
+			library::function_not_found const &_exception
 		)
 		{
 			FCPPT_LOG_WARNING(
@@ -106,12 +115,14 @@ sge::plugin::manager::manager()
 					)
 					<< FCPPT_TEXT(" doesn't seem to be a valid sge plugin")
 					<< FCPPT_TEXT(" because the function \"")
-					<< fcppt::from_std_string(e.func())
+					<< fcppt::from_std_string(
+						_exception.func()
+					)
 					<< FCPPT_TEXT("\" is missing!")
 			);
 		}
 		catch(
-			exception const &e
+			sge::exception const &_exception
 		)
 		{
 			FCPPT_LOG_WARNING(
@@ -121,7 +132,7 @@ sge::plugin::manager::manager()
 						it->path()
 					)
 					<< FCPPT_TEXT(" failed to load: \"")
-					<< e.string()
+					<< _exception.string()
 					<< FCPPT_TEXT("\"!")
 			);
 		}
@@ -129,21 +140,20 @@ sge::plugin::manager::manager()
 
 	BOOST_FOREACH(
 		plugin_array::reference ref,
-		plugins
+		plugins_
 	)
 		for(
 			unsigned i = 1;
 			i < capabilities::last_guard_;
 			i <<= 1
 		)
-		{
-			unsigned const type = ref.type();
-
-			if(type & i)
-				categories[
+			if(
+				ref.type() & i
+			)
+				categories_[
 					static_cast<capabilities::type>(i)
 				].push_back(&ref);
-		}
+
 }
 
 sge::plugin::manager::~manager()

@@ -36,7 +36,7 @@ sge::plugin::manager::begin()
 {
 	return
 		iterator<T>(
-			categories[
+			categories_[
 				detail::traits<T>::plugin_type()
 			].begin()
 		);
@@ -50,7 +50,7 @@ sge::plugin::manager::end()
 {
 	return
 		iterator<T>(
-			categories[
+			categories_[
 				detail::traits<T>::plugin_type()
 			].end()
 		);
@@ -94,13 +94,13 @@ sge::plugin::manager::size_type
 sge::plugin::manager::size() const
 {
 	plugin_map::const_iterator const it(
-		categories.find(
+		categories_.find(
 			detail::traits<T>::plugin_type()
 		)
 	);
 
 	return
-		it == categories.end()
+		it == categories_.end()
 		?
 			0
 		:

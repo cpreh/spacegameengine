@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "any_compare.hpp"
 #include <sge/systems/any.hpp>
 #include <sge/systems/audio_loader.hpp>
+#include <sge/systems/config.hpp>
 #include <sge/systems/image_loader.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/parameterless.hpp>
@@ -55,7 +56,8 @@ public:
 	) const;
 };
 
-typedef boost::mpl::vector7<
+typedef boost::mpl::vector8<
+	sge::systems::config,
 	sge::systems::window,
 	sge::systems::renderer,
 	sge::systems::input,
@@ -81,8 +83,8 @@ fcppt::mpl::index_of<
 
 bool
 sge::systems::any_compare(
-	any const &_a,
-	any const &_b
+	systems::any const &_a,
+	systems::any const &_b
 )
 {
 	return

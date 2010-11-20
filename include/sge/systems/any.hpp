@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/audio_loader.hpp>
 #include <sge/systems/audio_player.hpp>
 #include <sge/systems/basic_loader.hpp>
+#include <sge/systems/config.hpp>
 #include <sge/systems/image_loader.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/parameterless.hpp>
@@ -38,7 +39,8 @@ namespace systems
 {
 
 typedef fcppt::variant::object<
-	boost::mpl::vector7<
+	boost::mpl::vector8<
+		systems::config,
 		systems::window,
 		systems::renderer,
 		systems::image_loader,

@@ -34,26 +34,31 @@ namespace systems
 class list
 {
 public:
-	SGE_SYSTEMS_SYMBOL list();
+	SGE_SYSTEMS_SYMBOL
+	list();
 
-	SGE_SYSTEMS_SYMBOL explicit list(
-		any const &
+	SGE_SYSTEMS_SYMBOL
+	explicit list(
+		systems::any const &
 	);
 
-	SGE_SYSTEMS_SYMBOL list const
+	SGE_SYSTEMS_SYMBOL
+	systems::list const
 	operator()(
-		any const &
+		systems::any const &
 	) const;
 
-	SGE_SYSTEMS_SYMBOL list const
+	SGE_SYSTEMS_SYMBOL
+	systems::list const
 	append(
-		list const &
+		systems::list const &
 	) const;
 
-	SGE_SYSTEMS_SYMBOL any_set const &
+	SGE_SYSTEMS_SYMBOL
+	systems::any_set const &
 	get() const;
 private:
-	any_set states;
+	systems::any_set states_;
 };
 
 }

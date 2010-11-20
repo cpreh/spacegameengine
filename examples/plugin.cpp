@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/config/plugin_path.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/context.hpp>
@@ -78,7 +79,9 @@ try
 		fcppt::log::level::debug
 	);
 
-	sge::plugin::manager man;
+	sge::plugin::manager man(
+		sge::config::plugin_path()
+	);
 
 	typedef boost::mpl::vector8<
 		sge::audio::loader,

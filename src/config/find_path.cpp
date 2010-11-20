@@ -34,21 +34,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::config::optional_path const
 sge::config::find_path(
-	path_vector const &config_files,
-	fcppt::string const &what,
-	path_vector const &hard_paths
+	config::path_vector const &_config_files,
+	fcppt::string const &_what,
+	config::path_vector const &_hard_paths
 )
 {
 	BOOST_FOREACH(
-		path_vector::const_reference r,
-		config_files
+		path_vector::const_reference ref,
+		_config_files
 	)
 	{
 		parse::ini::section_vector result;
 
 		if(
 			!parse::ini::parse_file(
-				r,
+				ref,
 				result
 			)
 		)
@@ -78,7 +78,7 @@ sge::config::find_path(
 				entries.begin(),
 				entries.end(),
 				parse::ini::entry_name_equal(
-					what
+					_what
 				)
 			)		
 		);
@@ -101,15 +101,15 @@ sge::config::find_path(
 	}
 
 	BOOST_FOREACH(
-		path_vector::const_reference path_,
-		hard_paths
+		path_vector::const_reference path,
+		_hard_paths
 	)
 		if(
 			fcppt::filesystem::exists(
-				path_
+				path
 			)
 		)
-			return path_;
+			return path;
 
 	return optional_path();
 }

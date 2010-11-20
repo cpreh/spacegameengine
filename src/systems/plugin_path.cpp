@@ -18,37 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "find_own_path.hpp"
-#include <sge/config/make_files.hpp>
-#include <sge/config/find_path.hpp>
-#include <sge/config/exception.hpp>
-#include <fcppt/optional_impl.hpp>
+#include "plugin_path.hpp"
+#include <sge/config/plugin_path.hpp>
+#include <sge/systems/config.hpp>
 #include <fcppt/text.hpp>
 
 fcppt::filesystem::path const
-sge::config::find_own_path(
-	fcppt::string const &_what,
-	path_vector const &_hard_paths
+sge::systems::plugin_path(
+	sge::systems::any_set const &_param
 )
 {
-	config::optional_path const ret(
-		config::find_path(
-			config::make_files(
-				FCPPT_TEXT("spacegameengine")
-			),
-			_what,
-			_hard_paths
+	sge::systems::any_set::iterator const it(
+		_param.find(
+			sge::systems::config(
+				FCPPT_TEXT("")
+			)
 		)
 	);
 
-	if(
-		!ret
-	)
-		throw config::exception(
-			FCPPT_TEXT("sge path ")
-			+ _what
-			+ FCPPT_TEXT(" not found!")
-		);
-	
-	return *ret;
+	return
+		it != _param.end()
+		?
+			it->get<
+				sge::systems::config
+			>()
+			.plugin_path()
+		:
+			sge::config::plugin_path();
 }

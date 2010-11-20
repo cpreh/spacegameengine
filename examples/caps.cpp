@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/config/plugin_path.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/object.hpp>
@@ -45,7 +46,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 int main()
 {
-	sge::plugin::manager manager;
+	sge::plugin::manager manager(
+		sge::config::plugin_path()
+	);
 
 	typedef
 	sge::plugin::object<

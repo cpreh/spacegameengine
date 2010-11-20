@@ -50,15 +50,10 @@ class instance
 	FCPPT_NONCOPYABLE(instance)
 public:
 	SGE_SYSTEMS_SYMBOL explicit instance(
-		list const &
+		systems::list const &
 	);
 
 	SGE_SYSTEMS_SYMBOL ~instance();
-
-	SGE_SYSTEMS_SYMBOL void
-	reinit(
-		list const &
-	);
 
 	SGE_SYSTEMS_SYMBOL plugin::manager &
 	plugin_manager();
