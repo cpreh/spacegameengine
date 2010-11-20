@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 BOOST_FUSION_ADAPT_STRUCT(
 	sge::parse::json::member,
 	(sge::parse::json::string, name)
-	(sge::parse::json::value, value_)
+	(sge::parse::json::value, value)
 )
 
 #endif

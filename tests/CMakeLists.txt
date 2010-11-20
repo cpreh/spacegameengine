@@ -42,4 +42,6 @@ IF(ENABLE_CONSOLE)
 	ADD_SGE_TEST(console/cursor "sgeconsole")
 ENDIF()
 
-ADD_SGE_TEST(parse/json "")
+IF(ENABLE_PARSE)
+	ADD_SGE_TEST(parse/json "sgeparse")
+ENDIF()

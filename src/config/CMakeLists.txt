@@ -1,3 +1,10 @@
+IF(NOT ENABLE_CONFIG)
+	MESSAGE(
+		FATAL_ERROR
+		"For sgeconfig to work you need to -D ENABLE_PARSE=ON"
+	)
+ENDIF()
+
 MACRO(
 	ADD_SGE_CONFIG_INCLUDE_SOURCE_GROUP
 	SOURCEPATH
@@ -37,6 +44,7 @@ ADD_LIBRARY (sgeconfig SHARED ${SGECONFIGFILES})
 TARGET_LINK_LIBRARIES (
 	sgeconfig
 	sgecore
+	sgeparse
 )
 
 INSTALL (TARGETS sgeconfig DESTINATION lib)

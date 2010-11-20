@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/ini/section_fwd.hpp>
 #include <sge/parse/ini/string.hpp>
-#include <sge/symbol.hpp>
+#include <sge/parse/symbol.hpp>
 
 namespace sge
 {
@@ -32,16 +32,21 @@ namespace parse
 namespace ini
 {
 
-class header_name_equal {
+class header_name_equal
+{
 public:
 	typedef bool result_type;
 
-	SGE_SYMBOL explicit header_name_equal(
-		string const &);
+	SGE_PARSE_SYMBOL
+	explicit header_name_equal(
+		string const &
+	);
 
-	SGE_SYMBOL result_type
+	SGE_PARSE_SYMBOL
+	result_type
 	operator()(
-		section const &) const;
+		section const &
+	) const;
 private:
 	string name_;
 };

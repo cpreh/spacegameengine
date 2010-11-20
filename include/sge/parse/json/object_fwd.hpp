@@ -28,7 +28,7 @@ namespace parse
 namespace json
 {
 
-class object;
+struct object;
 
 }
 }

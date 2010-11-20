@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_JSON_MEMBER_NOT_FOUND_HPP_INCLUDED
 
 #include <sge/parse/json/exception.hpp>
+#include <sge/parse/symbol.hpp>
 #include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
 #include <fcppt/string.hpp>
 
 namespace sge
@@ -38,7 +38,7 @@ class SGE_CLASS_SYMBOL member_not_found
 	public sge::parse::json::exception
 {
 public:
-	SGE_SYMBOL explicit member_not_found(
+	SGE_PARSE_SYMBOL explicit member_not_found(
 		fcppt::string const &
 	);
 };

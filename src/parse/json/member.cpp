@@ -25,14 +25,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::parse::json::member::member()
 :
 	name(),
-	value_()
+	value()
 {}
 
 sge::parse::json::member::member(
-	string const &name,
-	value const &value_
+	json::string const &_name,
+	json::value const &_value
 )
 :
-	name(name),
-	value_(value_)
+	name(_name),
+	value(_value)
 {}

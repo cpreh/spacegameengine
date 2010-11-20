@@ -83,7 +83,7 @@ find_member(
 			&json::get<
 				T
 			>(
-				it->value_
+				it->value
 			);
 }
 

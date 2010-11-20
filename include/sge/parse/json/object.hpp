@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/member_vector.hpp>
 #include <sge/parse/json/optional_member_vector.hpp>
 #include <sge/parse/json/member.hpp>
-#include <sge/symbol.hpp>
+#include <sge/parse/symbol.hpp>
 
 namespace sge
 {
@@ -34,11 +34,11 @@ namespace parse
 namespace json
 {
 
-class object {
-public:
-	SGE_SYMBOL object();
+struct object
+{
+	SGE_PARSE_SYMBOL object();
 
-	SGE_SYMBOL explicit object(
+	SGE_PARSE_SYMBOL explicit object(
 		optional_member_vector const &
 	);
 

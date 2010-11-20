@@ -22,17 +22,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_FAILURE_HPP_INCLUDED
 
 #include <sge/parse/exception.hpp>
+#include <sge/parse/symbol.hpp>
 #include <fcppt/string.hpp>
-#include <sge/symbol.hpp>
 
 namespace sge
 {
 namespace parse
 {
 
-class SGE_CLASS_SYMBOL failure : public exception {
+class SGE_CLASS_SYMBOL failure
+:
+	public parse::exception
+{
 public:
-	SGE_SYMBOL explicit failure(
+	SGE_PARSE_SYMBOL explicit failure(
 		string const &what,
 		string const &where
 	);
