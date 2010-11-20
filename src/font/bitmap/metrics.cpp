@@ -127,13 +127,13 @@ sge::font::bitmap::metrics::metrics(
 			FCPPT_LOG_WARNING(
 				log::global(),
 				fcppt::log::_
-					<< FCPPT_TEXT("Invalid character in bitmap font: ")
+					<< FCPPT_TEXT("Invalid character in bitmap font: \"")
 					<< name
+					<< FCPPT_TEXT("\"")
 			);
 
 			continue;
 		}
-
 
 		char_map_.insert(
 			std::make_pair(
@@ -143,11 +143,11 @@ sge::font::bitmap::metrics::metrics(
 				>(
 					sge::image::view::sub(
 						image_->view(),
-						load_rect(
+						font::bitmap::load_rect(
 							members
 						)
 					),
-					load_offset(
+					font::bitmap::load_offset(
 						members
 					),
 					parse::json::find_member_exn<

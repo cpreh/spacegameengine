@@ -109,8 +109,7 @@ public:
 				lit(FCPPT_TEXT('"'))
 				> *(
 					(
-						char_
-						- char_(FCPPT_TEXT("\\\""))
+						~char_(FCPPT_TEXT("\\\""))
 					)
 					|
 					(

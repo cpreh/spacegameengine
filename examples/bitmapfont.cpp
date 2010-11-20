@@ -42,10 +42,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/extension_set.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/io/cerr.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
@@ -167,6 +169,16 @@ try
 			sge::font::text::flags::none
 		);
 	}
+}
+catch(
+	fcppt::exception const &_exception
+)
+{
+	fcppt::io::cerr
+		<< _exception.string()
+		<< FCPPT_TEXT('\n');
+
+	return EXIT_FAILURE;
 }
 catch(
 	std::exception const &_exception
