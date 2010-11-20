@@ -20,15 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/plugin/manager.hpp>
-#include <sge/plugin/object.hpp>
-#include <sge/plugin/context.hpp>
-#include <sge/model/plugin.hpp>
+#include <sge/systems/viewport/manage_resize.hpp>
 #include <sge/model/loader.hpp>
 #include <sge/model/loader_ptr.hpp>
 #include <sge/model/object.hpp>
-#include <sge/input/system.hpp>
-#include <sge/input/action.hpp>
+#include <sge/input/keyboard/action.hpp>
+#include <sge/input/keyboard/device.hpp>
 #include <sge/renderer/vf/dynamic/format.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/state/list.hpp>
@@ -46,20 +43,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/image/create_texture.hpp>
-#include <sge/mainloop/catch_block.hpp>
 #include <sge/config/media_path.hpp>
-#include <sge/mainloop/dispatch.hpp>
+#include <sge/window/instance.hpp>
 #include <sge/extension_set.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/io/cifstream.hpp>
 #include <fcppt/math/matrix/perspective.hpp>
 #include <fcppt/math/pi.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/text.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
-#include <fstream>
+#include <exception>
+#include <ios>
+#include <iostream>
+#include <ostream>
+#include <cstdlib>
 
 int main()
 try
@@ -67,28 +66,39 @@ try
 	sge::systems::instance sys(
 		sge::systems::list()
 		(
-			sge::window::parameters(
-				FCPPT_TEXT("sge modeltest")
+			sge::systems::window(
+				sge::renderer::window_parameters(
+					FCPPT_TEXT("sge modeltest")
+				)
 			)
 		)
 		(
-			sge::renderer::parameters(
-				sge::renderer::display_mode(
-					sge::renderer::screen_size(
-						1024,
-						768
+			sge::systems::renderer(
+				sge::renderer::parameters(
+					sge::renderer::display_mode(
+						sge::renderer::screen_size(
+							1024,
+							768
+						),
+						sge::renderer::bit_depth::depth32,
+						sge::renderer::refresh_rate_dont_care
 					),
-					sge::renderer::bit_depth::depth32,
-					sge::renderer::refresh_rate_dont_care
+					sge::renderer::depth_buffer::off,
+					sge::renderer::stencil_buffer::off,
+					sge::renderer::window_mode::windowed,
+					sge::renderer::vsync::on,
+					sge::renderer::no_multi_sampling
 				),
-				sge::renderer::depth_buffer::off,
-				sge::renderer::stencil_buffer::off,
-				sge::renderer::window_mode::windowed,
-				sge::renderer::vsync::on,
-				sge::renderer::no_multi_sampling
+				sge::systems::viewport::manage_resize()
 			)
 		)
-		(sge::systems::parameterless::input)
+		(
+			sge::systems::input(
+				sge::systems::input_helper_field(
+					sge::systems::input_helper::keyboard_collector
+				)
+			)
+		)
 		(
 			sge::systems::image_loader(
 				sge::image::capabilities_field::null(),
@@ -99,27 +109,19 @@ try
 				)
 			)
 		)
-	);
-
-	sge::plugin::object<
-		sge::model::loader
-	>::ptr_type const model_plugin(
-		sys.plugin_manager().plugin<sge::model::loader>()
-		.load()
+		(
+			sge::systems::parameterless::md3_loader
+		)
 	);
 
 	sge::model::loader_ptr const loader(
-		model_plugin->get()()
-	);
-
-	fcppt::io::cifstream ifs(
-		sge::config::media_path() / FCPPT_TEXT("european_fnt_v2.md3"),
-		std::ios_base::binary
+		sys.md3_loader()
 	);
 
 	sge::model::object_ptr const object(
 		loader->load(
-			ifs
+			sge::config::media_path()
+			/ FCPPT_TEXT("european_fnt_v2.md3")
 		)
 	);
 
@@ -176,9 +178,9 @@ try
 	bool running = true;
 
 	fcppt::signal::scoped_connection const cb(
-		sys.input_system()->register_callback(
-			sge::input::action(
-				sge::input::kc::key_escape,
+		sys.keyboard_collector()->key_callback(
+			sge::input::keyboard::action(
+				sge::input::keyboard::key_code::escape,
 				boost::phoenix::ref(running) = false
 			)
 		)
@@ -205,7 +207,7 @@ try
 
 	while(running)
 	{
-		sge::mainloop::dispatch();
+		sys.window()->dispatch();
 
 		sge::renderer::scoped_block const block_(
 			sys.renderer()
@@ -221,4 +223,13 @@ try
 		);
 	}
 }
-SGE_MAINLOOP_CATCH_BLOCK
+catch(
+	std::exception const &_error
+)
+{
+	std::cerr
+		<< _error.what()
+		<< '\n';
+	
+	return EXIT_FAILURE;
+}

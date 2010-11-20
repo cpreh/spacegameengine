@@ -22,12 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/pool.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/multi_loader.hpp>
-#include <sge/audio/sound.hpp>
 #include <sge/audio/listener.hpp>
+#include <sge/audio/sound/base.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/time/second.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/log/global.hpp>
+#include <sge/systems/audio_player_default.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/exception.hpp>
@@ -56,11 +57,11 @@ try
 		/ FCPPT_TEXT("ding.wav")
 	);
 
-	bool const streaming = false;
-
 	sge::systems::instance sys(
 		sge::systems::list()
-		(sge::systems::parameterless::audio_player)
+		(
+			sge::systems::audio_player_default()
+		)
 		(
 			sge::systems::audio_loader(
 				sge::audio::loader_capabilities_field::null(),
@@ -81,22 +82,31 @@ try
 
 	sge::audio::pool pool;
 
-	sge::audio::sound_ptr sound =
-		streaming
-		? sys.audio_player()->create_stream_sound(soundfile)
-		: sys.audio_player()->create_nonstream_sound(soundfile);
+	sge::audio::sound::base_ptr sound(
+		sys.audio_player()->create_nonpositional_stream(
+			soundfile
+		)
+	);
 
-	sound->play(sge::audio::play_mode::loop);
+	sound->play(
+		sge::audio::sound::repeat::loop
+	);
 
-	pool.add(sound,sge::audio::stop_mode::play_once);
+	pool.add(
+		sound,
+		sge::audio::stop_mode::play_once
+	);
 
 	sge::time::timer t(sge::time::second(2));
+
 	while (!pool.sounds_finished())
 	{
 		pool.update();
+
 		if (t.update_b())
 		{
 			fcppt::io::cerr << FCPPT_TEXT("killing sound\n");
+
 			sound.reset();
 		}
 	}
