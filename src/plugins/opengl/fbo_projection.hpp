@@ -21,16 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_FBO_PROJECTION_HPP_INCLUDED
 #define SGE_OPENGL_FBO_PROJECTION_HPP_INCLUDED
 
-#include <sge/renderer/any_matrix.hpp>
+#include <sge/renderer/matrix4.hpp>
 
 namespace sge
 {
 namespace opengl
 {
 
-renderer::any_matrix const
+renderer::matrix4 const
 fbo_projection(
-	renderer::any_matrix const &);
+	renderer::matrix4 const &);
 
 }
 }

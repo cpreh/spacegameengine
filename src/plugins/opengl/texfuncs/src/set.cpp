@@ -39,7 +39,7 @@ sge::opengl::texfuncs::set(
 	GLenum const _format_type,
 	GLenum const _internal_format,
 	renderer::filter::texture const &_filter,
-	renderer::dim_type const &_dim,
+	renderer::dim2 const &_dim,
 	renderer::const_raw_pointer const _src
 )
 {

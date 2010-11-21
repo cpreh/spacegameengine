@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_ATLASING_BOUNDS_HPP_INCLUDED
 #define SGE_TEXTURE_ATLASING_BOUNDS_HPP_INCLUDED
 
-#include <sge/renderer/dim_type.hpp>
+#include <sge/renderer/dim2.hpp>
 
 namespace sge
 {
@@ -30,9 +30,9 @@ namespace texture
 namespace atlasing
 {
 
-renderer::dim_type const
+renderer::dim2 const
 bounds(
-	renderer::dim_type const &
+	renderer::dim2 const &
 );
 
 }

@@ -28,7 +28,7 @@ sge::texture::part::part()
 sge::texture::part::~part()
 {}
 
-sge::renderer::dim_type const
+sge::renderer::dim2 const
 sge::texture::part::dim() const
 {
 	return area().dimension();

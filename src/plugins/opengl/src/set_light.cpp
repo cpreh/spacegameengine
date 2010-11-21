@@ -24,12 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/light_index.hpp"
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/rgba32f_format.hpp>
-#include <sge/renderer/vector_convert.hpp>
-#include <sge/renderer/arithmetic_convert.hpp>
 #include <sge/renderer/light.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/math/vector/construct.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/math/vector/static.hpp>
 #include <fcppt/text.hpp>
 
 namespace
@@ -48,15 +48,15 @@ void light_float(
 void light_arithmetic(
 	GLenum index,
 	GLenum name,
-	sge::renderer::any_arithmetic const &);
+	sge::renderer::scalar const &);
 
 void light_pos(
 	GLenum index,
-	sge::renderer::any_vector3 const &);
+	sge::renderer::vector3 const &);
 
 void light_dir(
 	GLenum index,
-	sge::renderer::any_vector3 const &);
+	sge::renderer::vector3 const &);
 
 void light_color(
 	GLenum index,
@@ -128,13 +128,13 @@ void
 light_arithmetic(
 	GLenum const index,
 	GLenum const name,
-	sge::renderer::any_arithmetic const &value
+	sge::renderer::scalar const &value
 )
 {
 	light_float(
 		index,
 		name,
-		sge::renderer::arithmetic_convert<
+		static_cast<
 			GLfloat
 		>(
 			value
@@ -145,14 +145,14 @@ light_arithmetic(
 void
 light_pos(
 	GLenum const index,
-	sge::renderer::any_vector3 const &pos
+	sge::renderer::vector3 const &pos
 )
 {
 	sge::opengl::vector4f const pos4(
 		fcppt::math::vector::construct(
-			sge::renderer::vector_convert<
-				GLfloat,
-				3
+			fcppt::math::vector::structure_cast
+			<
+				fcppt::math::vector::static_<GLfloat,3>::type
 			>(
 				pos
 			),
@@ -169,15 +169,15 @@ light_pos(
 void
 light_dir(
 	GLenum const index,
-	sge::renderer::any_vector3 const &dir
+	sge::renderer::vector3 const &dir
 )
 {
 	light_float_ptr(
 		index,
 		GL_SPOT_DIRECTION,
-		sge::renderer::vector_convert<
-			GLfloat,
-			3
+		fcppt::math::vector::structure_cast
+		<
+			fcppt::math::vector::static_<GLfloat,3>::type
 		>(
 			dir
 		).data()

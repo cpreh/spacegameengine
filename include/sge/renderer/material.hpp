@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_MATERIAL_HPP_INCLUDED
 
 #include <sge/renderer/material_fwd.hpp>
-#include <sge/renderer/any_arithmetic.hpp>
+#include <sge/renderer/scalar.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/variant/object_impl.hpp>
@@ -40,7 +40,7 @@ public:
 		image::color::any::object const &ambient,
 		image::color::any::object const &specular,
 		image::color::any::object const &emissive,
-		any_arithmetic const &power
+		scalar const &power
 	);
 
 	SGE_SYMBOL image::color::any::object const &
@@ -55,7 +55,7 @@ public:
 	SGE_SYMBOL image::color::any::object const &
 	emissive() const;
 
-	SGE_SYMBOL any_arithmetic const &
+	SGE_SYMBOL scalar const &
 	power() const;
 private:
 	image::color::any::object
@@ -64,7 +64,7 @@ private:
 		specular_,
 		emissive_;
 	
-	any_arithmetic power_;
+	scalar power_;
 };
 
 }

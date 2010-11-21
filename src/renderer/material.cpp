@@ -25,7 +25,7 @@ sge::renderer::material::material(
 	image::color::any::object const &ambient_,
 	image::color::any::object const &specular_,
 	image::color::any::object const &emissive_,
-	any_arithmetic const &power_)
+	scalar const &power_)
 :
 	diffuse_(diffuse_),
 	ambient_(ambient_),
@@ -58,7 +58,7 @@ sge::renderer::material::emissive() const
 	return emissive_;
 }
 
-sge::renderer::any_arithmetic const &
+sge::renderer::scalar const &
 sge::renderer::material::power() const
 {
 	return power_;

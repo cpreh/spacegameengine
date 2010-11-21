@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 #include "../context/object_fwd.hpp"
 #include <sge/renderer/filter/texture_fwd.hpp>
-#include <sge/renderer/dim_type.hpp>
+#include <sge/renderer/dim2.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
 
 namespace sge
@@ -42,7 +42,7 @@ set(
 	GLenum type,
 	GLenum internal_format,
 	renderer::filter::texture const &filter,
-	renderer::dim_type const &dim,
+	renderer::dim2 const &dim,
 	renderer::const_raw_pointer src
 );
 

@@ -25,88 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/rgba32f_format.hpp>
-#include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/text.hpp>
-
-namespace
-{
-
-void
-material_color(
-	GLenum face,
-	GLenum type,
-	sge::image::color::any::object const &
-);
-
-class arithmetic_visitor
-{
-	FCPPT_NONASSIGNABLE(
-		arithmetic_visitor
-	)
-public:
-	typedef void result_type;
-
-	arithmetic_visitor(
-		GLenum face,
-		GLenum type
-	);
-
-	template<
-		typename T
-	>
-	result_type
-	operator()(
-		T
-	) const;
-private:
-	GLenum const
-		face_,
-		type_;
-};
-
-}
-
-void
-sge::opengl::set_material(
-	renderer::material const &_material
-)
-{
-	GLenum const face = GL_FRONT_AND_BACK;
-
-	::material_color(
-		face,
-		GL_AMBIENT,
-		_material.ambient()
-	);
-
-	::material_color(
-		face,
-		GL_DIFFUSE,
-		_material.diffuse()
-	);
-
-	::material_color(
-		face,
-		GL_SPECULAR,
-		_material.specular()
-	);
-
-	::material_color(
-		face,
-		GL_EMISSION,
-		_material.emissive()
-	);
-
-	fcppt::variant::apply_unary(
-		::arithmetic_visitor(
-			face,
-			GL_SHININESS
-		),
-		_material.power()
-	);
-}
 
 namespace
 {
@@ -167,31 +87,44 @@ material_color(
 	);
 }
 
-arithmetic_visitor::arithmetic_visitor(
-	GLenum const _face,
-	GLenum const _type
-)
-:
-	face_(_face),
-	type_(_type)
-{}
-
-template<
-	typename T
->
-void
-arithmetic_visitor::operator()(
-	T const _value
-) const
-{
-	::materialf(
-		face_,
-		type_,
-		static_cast<GLfloat>(
-			_value
-		)
-	);
-
 }
 
+void
+sge::opengl::set_material(
+	renderer::material const &_material
+)
+{
+	GLenum const face = GL_FRONT_AND_BACK;
+
+	::material_color(
+		face,
+		GL_AMBIENT,
+		_material.ambient()
+	);
+
+	::material_color(
+		face,
+		GL_DIFFUSE,
+		_material.diffuse()
+	);
+
+	::material_color(
+		face,
+		GL_SPECULAR,
+		_material.specular()
+	);
+
+	::material_color(
+		face,
+		GL_EMISSION,
+		_material.emissive()
+	);
+
+	::materialf(
+		face,
+		GL_SHININESS,
+		static_cast<GLfloat>(
+			_material.power()
+		)
+	);
 }

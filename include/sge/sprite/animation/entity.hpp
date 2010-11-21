@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/unit.hpp>
 #include <sge/time/duration.hpp>
 #include <sge/texture/const_part_ptr.hpp>
-#include <sge/renderer/dim_type.hpp>
+#include <sge/renderer/dim2.hpp>
 
 namespace sge
 {
@@ -54,7 +54,7 @@ public:
 		sge::texture::const_part_ptr
 	);
 
-	SGE_SPRITE_SYMBOL renderer::dim_type const
+	SGE_SPRITE_SYMBOL renderer::dim2 const
 	dim() const;
 private:
 	time::unit delay_;

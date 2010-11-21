@@ -37,14 +37,14 @@ sge::texture::atlasing::size(
 			s;
 }
 
-sge::renderer::dim_type const
+sge::renderer::dim2 const
 sge::texture::atlasing::size(
-	renderer::dim_type const &dim,
+	renderer::dim2 const &dim,
 	bool const force_atlasing
 )
 {
 	return
-		renderer::dim_type(
+		renderer::dim2(
 			size(
 				dim.w(),
 				force_atlasing

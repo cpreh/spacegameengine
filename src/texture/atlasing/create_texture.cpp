@@ -28,7 +28,7 @@ sge::texture::atlasing::create_texture(
 	renderer::device_ptr const _rend,
 	image::color::format::type const _format,
 	renderer::filter::texture const &_filter,
-	renderer::dim_type const &_dim
+	renderer::dim2 const &_dim
 )
 {
 	return _rend->create_texture(

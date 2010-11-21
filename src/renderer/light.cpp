@@ -29,8 +29,8 @@ sge::renderer::light::light(
 	attenuation_type const &const_attenuation_,
 	attenuation_type const &linear_attenuation_,
 	attenuation_type const &quadratic_attenuation_,
-	any_arithmetic const &distribution_exponent_,
-	any_arithmetic const &cutoff_angle_)
+	scalar const &distribution_exponent_,
+	scalar const &cutoff_angle_)
 :
 	ambient_(ambient_),
 	diffuse_(diffuse_),
@@ -92,13 +92,13 @@ sge::renderer::light::quadratic_attenuation() const
 	return quadratic_attenuation_;
 }
 
-sge::renderer::any_arithmetic const &
+sge::renderer::scalar const &
 sge::renderer::light::distribution_exponent() const
 {
 	return distribution_exponent_;
 }
 
-sge::renderer::any_arithmetic const &
+sge::renderer::scalar const &
 sge::renderer::light::cutoff_angle() const
 {
 	return cutoff_angle_;

@@ -33,7 +33,7 @@ sge::texture::rect_fragmented::rect_fragmented(
 	renderer::device_ptr const _rend,
 	image::color::format::type const _format,
 	renderer::filter::texture const &_filter,
-	renderer::dim_type const &_initial_size
+	renderer::dim2 const &_initial_size
 )
 :
 	rend_(_rend),
@@ -53,7 +53,7 @@ sge::texture::rect_fragmented::rect_fragmented(
 
 sge::texture::part_ptr const
 sge::texture::rect_fragmented::consume_fragment(
-	renderer::dim_type const &_dim
+	renderer::dim2 const &_dim
 )
 {
 	renderer::texture::dim_type const atlased_dim(

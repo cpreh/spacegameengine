@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/dim_type.hpp>
+#include <sge/renderer/dim2.hpp>
 #include <sge/renderer/texture_pos_type.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/image/file.hpp>
@@ -63,7 +63,7 @@ namespace
 sge::renderer::size_type
 calc_size(
 	sge::renderer::size_type const image_count,
-	sge::renderer::dim_type const &dim
+	sge::renderer::dim2 const &dim
 )
 {
 	for(sge::renderer::size_type i = 0; i <= 10; ++i)
@@ -80,7 +80,7 @@ calc_size(
 	);
 }
 
-sge::renderer::dim_type const
+sge::renderer::dim2 const
 first_dim(
 	fcppt::filesystem::path const &p,
 	sge::image::multi_loader &il
@@ -176,7 +176,7 @@ try
 		return EXIT_SUCCESS;
 	}
 
-	sge::renderer::dim_type const dim(
+	sge::renderer::dim2 const dim(
 		first_dim(
 			path,
 			il

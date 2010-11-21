@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TARGET_HPP_INCLUDED
 
 #include <sge/renderer/target_fwd.hpp>
-#include <sge/renderer/dim_type.hpp>
+#include <sge/renderer/dim2.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/viewport_fwd.hpp>
@@ -43,7 +43,7 @@ protected:
 	SGE_SYMBOL target();
 public:
 	typedef renderer::size_type          size_type;
-	typedef renderer::dim_type           dim_type;
+	typedef renderer::dim2               dim_type;
 	typedef lock_rect                    rect_type;
 
 	SGE_SYMBOL image::view::const_object const

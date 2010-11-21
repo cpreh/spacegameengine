@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/clip_plane_index.hpp"
 #include "../check_state.hpp"
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/vector_convert.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/math/vector/static.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/text.hpp>
 
@@ -38,11 +38,11 @@ sge::opengl::set_clip_plane(
 		opengl::convert::clip_plane_index(
 			_index
 		),
-		renderer::vector_convert<
-			GLdouble,
-			4
+		fcppt::math::vector::structure_cast
+		<
+			fcppt::math::vector::static_<GLdouble,4>::type
 		>(
-			_clip_plane
+			_clip_plane.get()
 		).data()
 	);
 

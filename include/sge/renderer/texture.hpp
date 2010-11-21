@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/texture_fwd.hpp>
 #include <sge/renderer/texture_base.hpp>
-#include <sge/renderer/dim_type.hpp>
+#include <sge/renderer/dim2.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/texture_pos_type.hpp>
 #include <sge/renderer/lock_mode.hpp>
@@ -47,7 +47,7 @@ protected:
 public:
 	SGE_SYMBOL virtual ~texture();
 
-	typedef renderer::dim_type dim_type;
+	typedef renderer::dim2    dim_type;
 
 	typedef lock_rect          rect_type;
 

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/symbol.hpp>
 #include <sge/renderer/texture_ptr.hpp>
 #include <sge/renderer/lock_rect.hpp>
-#include <sge/renderer/dim_type.hpp>
+#include <sge/renderer/dim2.hpp>
 #include <sge/image/view/const_object.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -51,7 +51,7 @@ public:
 	virtual renderer::lock_rect const &
 	area() const = 0;
 
-	SGE_TEXTURE_SYMBOL renderer::dim_type const
+	SGE_TEXTURE_SYMBOL renderer::dim2 const
 	dim() const;
 
 	virtual renderer::texture_ptr const

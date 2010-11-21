@@ -29,12 +29,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/adapter_type.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/parameters.hpp>
-#include <sge/renderer/dim_type.hpp>
+#include <sge/renderer/dim2.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/window/instance_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
 #include <stack>
 
 namespace sge
@@ -154,7 +155,7 @@ public:
 	void
 	transform(
 		renderer::matrix_mode::type,
-		renderer::any_matrix const &
+		renderer::matrix4 const &
 	);
 
 	void
@@ -191,7 +192,7 @@ public:
 
 	renderer::texture_ptr const
 	create_texture(
-		renderer::dim_type const &,
+		renderer::dim2 const &,
 		image::color::format::type,
 		renderer::filter::texture const &,
 		renderer::resource_flags_field const &
@@ -199,7 +200,7 @@ public:
 
 	renderer::depth_stencil_texture_ptr const
 	create_depth_stencil_texture(
-		renderer::dim_type const &,
+		renderer::dim2 const &,
 		renderer::depth_stencil_format::type
 	);
 
@@ -260,7 +261,7 @@ private:
 
 	device_state_ptr state_;
 
-	renderer::any_matrix projection_;
+	renderer::matrix4 projection_;
 
 	default_target_ptr default_target_;
 

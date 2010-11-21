@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/light_fwd.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <sge/renderer/any_vector3.hpp>
-#include <sge/renderer/any_arithmetic.hpp>
+#include <sge/renderer/vector3.hpp>
+#include <sge/renderer/scalar.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -37,9 +37,9 @@ namespace renderer
 class light
 {
 public:
-	typedef any_vector3 position_type;
-	typedef any_vector3 direction_type;
-	typedef any_arithmetic attenuation_type;
+	typedef vector3 position_type;
+	typedef vector3 direction_type;
+	typedef scalar attenuation_type;
 
 	SGE_SYMBOL light(
 		image::color::any::object const &ambient,
@@ -50,8 +50,8 @@ public:
 		attenuation_type const &const_attenuation,
 		attenuation_type const &linear_attenuation,
 		attenuation_type const &quadratic_attenuation,
-		any_arithmetic const &distribution_exponent,
-		any_arithmetic const &cutoff_angle
+		scalar const &distribution_exponent,
+		scalar const &cutoff_angle
 	);
 
 	SGE_SYMBOL image::color::any::object const &
@@ -78,10 +78,10 @@ public:
 	SGE_SYMBOL attenuation_type const &
 	quadratic_attenuation() const;
 
-	SGE_SYMBOL any_arithmetic const &
+	SGE_SYMBOL scalar const &
 	distribution_exponent() const;
 
-	SGE_SYMBOL any_arithmetic const &
+	SGE_SYMBOL scalar const &
 	cutoff_angle() const;
 private:
 	image::color::any::object
@@ -94,7 +94,7 @@ private:
 		const_attenuation_,
 		linear_attenuation_,
 		quadratic_attenuation_;
-	any_arithmetic
+	scalar
 		distribution_exponent_,
 		cutoff_angle_;
 };

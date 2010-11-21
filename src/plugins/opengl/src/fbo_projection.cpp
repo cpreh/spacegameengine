@@ -19,56 +19,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../fbo_projection.hpp"
+#include <sge/renderer/scalar.hpp>
 #include <fcppt/math/matrix/scaling.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
-#include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
-namespace
-{
-
-class multiply_visitor {
-public:
-	typedef sge::renderer::any_matrix result_type;
-
-	template<
-		typename T
-	>
-	result_type const
-	operator()(
-		T const &t) const;
-};
-
-}
-
-sge::renderer::any_matrix const
+sge::renderer::matrix4 const
 sge::opengl::fbo_projection(
-	renderer::any_matrix const &m)
+	renderer::matrix4 const &m)
 {
-	return fcppt::variant::apply_unary(
-		multiply_visitor(),
-		m
-	);
-}
-
-namespace
-{
-
-template<
-	typename T
->
-sge::renderer::any_matrix const
-multiply_visitor::operator()(
-	T const &t) const
-{
-	typedef typename T::value_type value_type;
-	return t * fcppt::math::matrix::scaling<
-		value_type
+	return m * fcppt::math::matrix::scaling<
+		sge::renderer::scalar
 	>(
-		static_cast<value_type>(1),
-		static_cast<value_type>(-1),
-		static_cast<value_type>(1)
+		static_cast<sge::renderer::scalar>(1),
+		static_cast<sge::renderer::scalar>(-1),
+		static_cast<sge::renderer::scalar>(1)
 	);
-}
-
 }

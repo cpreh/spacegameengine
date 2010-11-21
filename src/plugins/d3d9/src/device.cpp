@@ -360,7 +360,7 @@ sge::d3d9::device::target() const
 
 sge::renderer::texture_ptr const
 sge::d3d9::device::create_texture(
-	renderer::dim_type const &dim,
+	renderer::dim2 const &dim,
 	image::color::format::type const format,
 	renderer::filter::texture const &filter,
 	renderer::resource_flag_t const flags)

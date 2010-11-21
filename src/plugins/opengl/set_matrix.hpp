@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_SET_MATRIX_HPP_INCLUDED
 
 #include "context/object_fwd.hpp"
-#include <sge/renderer/any_matrix.hpp>
+#include <sge/renderer/matrix4.hpp>
 
 namespace sge
 {
@@ -32,7 +32,7 @@ namespace opengl
 void
 set_matrix(
 	context::object &,
-	renderer::any_matrix const &
+	renderer::matrix4 const &
 );
 
 }

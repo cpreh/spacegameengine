@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_LOCK_RECT_TO_COORDS_HPP_INCLUDED
 #define SGE_RENDERER_LOCK_RECT_TO_COORDS_HPP_INCLUDED
 
-#include <sge/renderer/dim_type.hpp>
+#include <sge/renderer/dim2.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/box/structure_cast.hpp>
@@ -44,7 +44,7 @@ typename fcppt::math::box::rect<
 >::type const
 lock_rect_to_coords(
 	lock_rect const &l,
-	dim_type const &dim
+	dim2 const &dim
 )
 {
 	typedef typename fcppt::math::box::rect<

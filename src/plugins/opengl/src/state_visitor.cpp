@@ -36,7 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/rgba32f_format.hpp>
 #include <sge/image/color/rgba32f.hpp>
-#include <sge/renderer/arithmetic_convert.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/unsupported.hpp>
@@ -135,7 +134,7 @@ sge::opengl::state_visitor::operator()(
 	{
 	case rs::zbuffer_clear_val:
 		glClearDepth(
-			renderer::arithmetic_convert<
+			static_cast<
 				GLdouble
 			>(
 				s.value()
@@ -155,7 +154,7 @@ sge::opengl::state_visitor::operator()(
 	case rs::fog_density:
 		glFogf(
 			convert::fog_float_state(s),
-			renderer::arithmetic_convert<
+			static_cast<
 				GLfloat
 			>(
 				s.value()

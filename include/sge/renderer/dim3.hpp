@@ -18,33 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VECTOR_CONVERT_HPP_INCLUDED
-#define SGE_RENDERER_VECTOR_CONVERT_HPP_INCLUDED
+#ifndef SGE_RENDERER_DIM3_HPP_INCLUDED
+#define SGE_RENDERER_DIM3_HPP_INCLUDED
 
-#include <sge/renderer/basic_any_vector.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/symbol.hpp>
-#include <fcppt/math/vector/static.hpp>
+#include <fcppt/math/dim/static.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-template<
-	typename DestType,
-	size_type Size
->
-SGE_SYMBOL
-typename fcppt::math::vector::static_<
-	DestType,
-	Size
->::type const
-vector_convert(
-	typename basic_any_vector<
-		Size
-	>::type const &
-);
+typedef 
+fcppt::math::dim::static_
+<
+	size_type,
+	3
+>::type 
+dim3;
 
 }
 }

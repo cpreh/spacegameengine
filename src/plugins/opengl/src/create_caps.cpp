@@ -57,7 +57,7 @@ sge::opengl::create_caps(
 			+ get_string(
 				GL_VERSION
 			),
-			renderer::dim_type(
+			renderer::dim2(
 				max_texture_size,
 				max_texture_size
 			),

@@ -50,13 +50,13 @@ sge::texture::no_fragmented::no_fragmented(
 
 sge::texture::part_ptr const
 sge::texture::no_fragmented::consume_fragment(
-	renderer::dim_type const &dim
+	renderer::dim2 const &dim
 )
 {
 	if(tex)
 		return part_ptr();
 
-	renderer::dim_type const real_dim(
+	renderer::dim2 const real_dim(
 		atlasing::bounds(
 			dim
 		)

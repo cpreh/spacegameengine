@@ -119,7 +119,7 @@ public:
 
 	renderer::texture_ptr const
 	create_texture(
-		renderer::dim_type const &dim,
+		renderer::dim2 const &dim,
 		image::color::format::type format,
 		renderer::filter::texture const &filter,
 		renderer::resource_flag_t flags);

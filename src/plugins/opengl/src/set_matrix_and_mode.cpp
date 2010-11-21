@@ -26,7 +26,7 @@ void
 sge::opengl::set_matrix_and_mode(
 	context::object &_context,
 	GLenum const _mode,
-	renderer::any_matrix const &_matrix
+	renderer::matrix4 const &_matrix
 )
 {
 	opengl::matrix_mode(

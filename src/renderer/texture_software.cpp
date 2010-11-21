@@ -45,7 +45,7 @@ sge::renderer::texture_software::texture_software(
 sge::renderer::texture_software::~texture_software()
 {}
 
-sge::renderer::dim_type const
+sge::renderer::dim2 const
 sge::renderer::texture_software::dim() const
 {
 	return dim_;

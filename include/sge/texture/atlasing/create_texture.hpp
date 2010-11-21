@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TEXTURE_ATLASING_CREATE_TEXTURE_HPP_INCLUDED
 
 #include <sge/renderer/device_ptr.hpp>
-#include <sge/renderer/dim_type.hpp>
+#include <sge/renderer/dim2.hpp>
 #include <sge/renderer/texture_ptr.hpp>
 #include <sge/renderer/filter/texture_fwd.hpp>
 #include <sge/image/color/format.hpp>
@@ -39,7 +39,7 @@ create_texture(
 	renderer::device_ptr,
 	image::color::format::type,
 	renderer::filter::texture const &,
-	renderer::dim_type const &
+	renderer::dim2 const &
 );
 
 }

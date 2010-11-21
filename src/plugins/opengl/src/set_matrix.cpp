@@ -27,89 +27,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/matrix/static.hpp>
 #include <fcppt/math/matrix/transpose.hpp>
-#include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/text.hpp>
-
-namespace
-{
-
-class visitor
-{
-	FCPPT_NONASSIGNABLE(
-		visitor
-	)
-public:
-	explicit visitor(
-		sge::opengl::context::object &
-	);
-
-	typedef void result_type;
-
-	result_type
-	operator()(
-		fcppt::math::matrix::static_<
-			float,
-			4,
-			4
-		>::type const &
-	) const;
-
-	result_type
-	operator()(
-		fcppt::math::matrix::static_<
-			double,
-			4,
-			4
-		>::type const &
-	) const;
-private:
-	sge::opengl::context::object &context_;
-};
-
-}
 
 void
 sge::opengl::set_matrix(
 	context::object &_context,
-	renderer::any_matrix const &_matrix
+	renderer::matrix4 const &_matrix
 )
-{
-	fcppt::variant::apply_unary(
-		visitor(
-			_context
-		),
-		_matrix
-	);
-}
-
-namespace
-{
-
-visitor::visitor(
-	sge::opengl::context::object &_context
-)
-:
-	context_(
-		_context
-	)
-{}
-
-visitor::result_type
-visitor::operator()(
-	fcppt::math::matrix::static_<
-		float,
-		4,
-		4
-	>::type const &_matrix
-) const
 {
 	if(
 		sge::opengl::context::use<
 			sge::opengl::matrix_context
 		>(
-			context_
+			_context
 		).have_transpose()
 	)
 		glLoadTransposeMatrixf(
@@ -126,38 +57,4 @@ visitor::operator()(
 		FCPPT_TEXT("glLoadMatrixf failed"),
 		sge::renderer::exception
 	)
-}
-
-visitor::result_type
-visitor::operator()(
-	fcppt::math::matrix::static_<
-		double,
-		4,
-		4
-	>::type const &_matrix
-) const
-{
-	if(
-		sge::opengl::context::use<
-			sge::opengl::matrix_context
-		>(
-			context_
-		).have_transpose()
-	)
-		glLoadTransposeMatrixd(
-			_matrix.data()
-		);
-	else
-		glLoadMatrixd(
-			fcppt::math::matrix::transpose(
-				_matrix
-			).data()
-		);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glLoadMatrixd failed"),
-		sge::renderer::exception
-	)
-}
-
 }

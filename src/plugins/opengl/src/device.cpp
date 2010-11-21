@@ -381,7 +381,7 @@ sge::opengl::device::texture(
 void
 sge::opengl::device::transform(
 	renderer::matrix_mode::type const mode,
-	renderer::any_matrix const &matrix
+	renderer::matrix4 const &matrix
 )
 {
 	if(
@@ -550,7 +550,7 @@ sge::opengl::device::create_texture(
 
 sge::renderer::depth_stencil_texture_ptr const
 sge::opengl::device::create_depth_stencil_texture(
-	renderer::dim_type const &_dim,
+	renderer::dim2 const &_dim,
 	renderer::depth_stencil_format::type const _format
 )
 {

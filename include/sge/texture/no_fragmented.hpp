@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part_ptr.hpp>
 #include <sge/texture/symbol.hpp>
 #include <sge/renderer/device_ptr.hpp>
-#include <sge/renderer/dim_type.hpp>
+#include <sge/renderer/dim2.hpp>
 #include <sge/renderer/filter/texture.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/class_symbol.hpp>
@@ -48,7 +48,7 @@ public:
 private:
 	SGE_TEXTURE_SYMBOL part_ptr const
 	consume_fragment(
-		renderer::dim_type const &
+		renderer::dim2 const &
 	);
 
 	SGE_TEXTURE_SYMBOL void

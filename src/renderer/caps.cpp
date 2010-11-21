@@ -28,7 +28,7 @@ sge::renderer::caps::caps(
 	adapter_type const adapter_,
 	fcppt::string const &driver_name_,
 	fcppt::string const &description_,
-	dim_type const &max_texture_size_,
+	dim2 const &max_texture_size_,
 	filter::anisotropy_type const max_anisotropy_,
 	bool const render_target_supported_,
 	bool const glsl_supported_,
@@ -63,7 +63,7 @@ sge::renderer::caps::description() const
 	return description_;
 }
 
-sge::renderer::dim_type const &
+sge::renderer::dim2 const &
 sge::renderer::caps::max_texture_size() const
 {
 	return max_texture_size_;

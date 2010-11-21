@@ -57,7 +57,7 @@ sge::font::text::drawer_3d::drawer_3d(
 				rend_->caps().preferred_texture_format(),
 				renderer::filter::linear,
 				fcppt::math::dim::quad<
-					renderer::dim_type
+					renderer::dim2
 				>(
 					256
 				)

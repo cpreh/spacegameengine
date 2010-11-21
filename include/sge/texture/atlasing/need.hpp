@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TEXTURE_ATLASING_NEED_HPP_INCLUDED
 
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/dim_type.hpp>
+#include <sge/renderer/dim2.hpp>
 
 namespace sge
 {
@@ -38,7 +38,7 @@ need(
 
 bool
 need(
-	renderer::dim_type const &
+	renderer::dim2 const &
 );
 
 }

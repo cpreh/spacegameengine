@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "common.hpp"
 #include "context/object_fwd.hpp"
-#include <sge/renderer/any_matrix.hpp>
+#include <sge/renderer/matrix4.hpp>
 
 namespace sge
 {
@@ -34,7 +34,7 @@ void
 set_matrix_and_mode(
 	context::object &,
 	GLenum mode,
-	renderer::any_matrix const &
+	renderer::matrix4 const &
 );
 
 }

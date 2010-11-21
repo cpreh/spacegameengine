@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/symbol.hpp>
 #include <sge/texture/detail/optional_container_position.hpp>
 #include <sge/renderer/texture_ptr.hpp>
-#include <sge/renderer/dim_type.hpp>
+#include <sge/renderer/dim2.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -49,7 +49,7 @@ public:
 
 	virtual part_ptr const
 	consume_fragment(
-		renderer::dim_type const &
+		renderer::dim2 const &
 	) = 0;
 
 	SGE_TEXTURE_SYMBOL void

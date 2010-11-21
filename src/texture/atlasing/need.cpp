@@ -32,7 +32,7 @@ sge::texture::atlasing::need(
 
 bool
 sge::texture::atlasing::need(
-	renderer::dim_type const &dim
+	renderer::dim2 const &dim
 )
 {
 	return

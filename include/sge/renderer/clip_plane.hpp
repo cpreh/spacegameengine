@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_CLIP_PLANE_HPP_INCLUDED
 #define SGE_RENDERER_CLIP_PLANE_HPP_INCLUDED
 
-#include <sge/renderer/any_vector4.hpp>
+#include <sge/renderer/vector4.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 namespace sge
@@ -30,7 +30,7 @@ namespace renderer
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
-	renderer::any_vector4,
+	renderer::vector4,
 	clip_plane
 )
 

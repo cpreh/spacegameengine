@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_FLOAT_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FLOAT_HPP_INCLUDED
 
-#include <sge/renderer/state/float_type.hpp>
+#include <sge/renderer/scalar.hpp>
 #include <sge/renderer/state/trampoline_fwd.hpp>
 #include <sge/renderer/state/var_fwd.hpp>
 #include <sge/symbol.hpp>
@@ -34,7 +34,7 @@ namespace state
 {
 
 namespace float_ {
-	typedef float_type base_type;
+	typedef scalar base_type;
 
 	namespace available_states {
 		enum type {

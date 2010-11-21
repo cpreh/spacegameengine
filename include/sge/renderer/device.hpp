@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_DEVICE_HPP_INCLUDED
 #define SGE_RENDERER_DEVICE_HPP_INCLUDED
 
-#include <sge/renderer/any_matrix.hpp>
+#include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/caps_fwd.hpp>
 #include <sge/renderer/clip_plane.hpp>
 #include <sge/renderer/clip_plane_index.hpp>
@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/depth_stencil_format.hpp>
 #include <sge/renderer/depth_stencil_texture_ptr.hpp>
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/dim_type.hpp>
+#include <sge/renderer/dim2.hpp>
 #include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/index_buffer_ptr.hpp>
@@ -183,7 +183,7 @@ public:
 	virtual void
 	transform(
 		matrix_mode::type,
-		any_matrix const &
+		matrix4 const &
 	) = 0;
 
 	virtual void
@@ -241,7 +241,7 @@ public:
 
 	virtual texture_ptr const
 	create_texture(
-		dim_type const &,
+		dim2 const &,
 		image::color::format::type,
 		filter::texture const &,
 		resource_flags_field const &
@@ -249,7 +249,7 @@ public:
 
 	virtual depth_stencil_texture_ptr const
 	create_depth_stencil_texture(
-		dim_type const &,
+		dim2 const &,
 		renderer::depth_stencil_format::type
 	) = 0;
 

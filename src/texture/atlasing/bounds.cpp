@@ -22,13 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/atlasing/bound.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 
-sge::renderer::dim_type const
+sge::renderer::dim2 const
 sge::texture::atlasing::bounds(
-	renderer::dim_type const &dim
+	renderer::dim2 const &dim
 )
 {
 	return
-		renderer::dim_type(
+		renderer::dim2(
 			bound(dim.w()),
 			bound(dim.h())
 		);

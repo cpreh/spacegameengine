@@ -37,7 +37,7 @@ sge::opengl::texfuncs::set_rect(
 	GLenum const _tex_type,
 	GLenum const _format,
 	GLenum const _type,
-	renderer::dim_type const &_dim,
+	renderer::dim2 const &_dim,
 	renderer::lock_rect const &_lock_rect,
 	renderer::const_raw_pointer const _src
 )

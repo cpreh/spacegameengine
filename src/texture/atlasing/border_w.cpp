@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/texture/atlasing/border_w.hpp>
-#include <sge/renderer/dim_type.hpp>
+#include <sge/renderer/dim2.hpp>
 #include <sge/renderer/sub_data.hpp>
 #include <sge/image/view/dim.hpp>
 #include <sge/image/view/sub.hpp>
@@ -36,7 +36,7 @@ sge::texture::atlasing::border_w(
 	renderer::lock_rect const &inner_area
 )
 {
-	renderer::dim_type const dim(
+	renderer::dim2 const dim(
 		image::view::dim(
 			src
 		)

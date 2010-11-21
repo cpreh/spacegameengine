@@ -86,7 +86,7 @@ sge::d3d9::create_caps(
 		adapter,
 		identifier.Driver,
 		identifier.Description,
-		sge::renderer::dim_type(
+		sge::renderer::dim2(
 			caps.MaxTextureWidth,
 			caps.MaxTextureHeight),
 		caps.MaxAnisotropy,
