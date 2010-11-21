@@ -24,6 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 template FCPPT_EXPORT_SYMBOL class
 sge::renderer::glsl::uniform::basic_value<
-	sge::renderer::glsl::float_type,
+	sge::renderer::scalar,
 	sge::renderer::glsl::uniform::float_value_type::type
 >;
