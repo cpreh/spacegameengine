@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/uniform/int_value_type.hpp>
 #include <sge/renderer/glsl/uniform/float_value_type.hpp>
 #include <sge/renderer/glsl/int_type.hpp>
-#include <sge/renderer/glsl/float_type.hpp>
+#include <sge/renderer/scalar.hpp>
 
 namespace sge
 {
@@ -50,7 +50,7 @@ struct make_enum_type<
 
 template<>
 struct make_enum_type<
-	glsl::float_type
+	scalar
 >
 {
 	typedef float_value_type::type type;
