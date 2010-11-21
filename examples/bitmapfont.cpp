@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/capabilities_field.hpp>
-#include <sge/font/system.hpp>
+#include <sge/font/bitmap/create.hpp>
 #include <sge/font/text/drawer_3d.hpp>
 #include <sge/font/text/part.hpp>
 #include <sge/font/text/draw.hpp>
@@ -42,10 +42,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/extension_set.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/io/cerr.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
@@ -104,19 +106,15 @@ try
 				)
 			)
 		)
-		(
-			sge::systems::parameterless::font
-		)
 	);
 
 	sge::font::metrics_ptr const font_metrics(
-		sys.font_system()->create_font(
+		sge::font::bitmap::create(
 			sge::config::media_path()
 			/ FCPPT_TEXT("fonts")
 			/ FCPPT_TEXT("bitmap")
 			/ FCPPT_TEXT("font.png"),
-			0,
-			&sys.image_loader()
+			sys.image_loader()
 		)
 	);
 
@@ -171,6 +169,16 @@ try
 			sge::font::text::flags::none
 		);
 	}
+}
+catch(
+	fcppt::exception const &_exception
+)
+{
+	fcppt::io::cerr
+		<< _exception.string()
+		<< FCPPT_TEXT('\n');
+
+	return EXIT_FAILURE;
 }
 catch(
 	std::exception const &_exception

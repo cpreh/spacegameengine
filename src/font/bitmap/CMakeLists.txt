@@ -1,0 +1,57 @@
+IF(NOT ENABLE_CONFIG)
+	MESSAGE(
+		FATAL_ERROR
+		"For sgefontbitmap to work you need to -D ENABLE_PARSE=ON"
+	)
+ENDIF()
+
+MACRO(
+	ADD_SGE_FONT_BITMAP_INCLUDE_SOURCE_GROUP
+	SOURCEPATH
+)
+	ADD_SGE_SOURCE_GROUP(
+		"include\\\\\\\\sge\\\\\\\\font\\\\\\\\bitmap" #cmake bitch
+		${CMAKE_SOURCE_DIR}/include/sge/font/bitmap
+		"${SOURCEPATH}"
+		*.hpp
+		TEMPFILES
+	)
+
+	SET(SGEFONTBITMAP_FILES ${SGEFONTBITMAP_FILES} ${TEMPFILES})
+ENDMACRO()
+
+ADD_SGE_FONT_BITMAP_INCLUDE_SOURCE_GROUP("")
+
+MACRO(
+	ADD_SGE_FONT_BITMAP_SOURCE_GROUP
+	SOURCEPATH
+)
+	ADD_SGE_SOURCE_GROUP(
+		"src\\\\\\\\font\\\\\\\\bitmap"
+		""
+		"${SOURCEPATH}"
+		*.?pp
+		TEMPFILES	
+	)
+
+	SET(SGEFONTBITMAP_FILES ${SGEFONTBITMAP_FILES} ${TEMPFILES})
+ENDMACRO()
+
+ADD_SGE_FONT_BITMAP_SOURCE_GROUP("")
+
+ADD_LIBRARY (sgefontbitmap SHARED ${SGEFONTBITMAP_FILES})
+
+TARGET_LINK_LIBRARIES (
+	sgefontbitmap
+	sgecore
+	sgeparse
+)
+
+INSTALL (TARGETS sgefontbitmap DESTINATION lib)
+
+INSTALL(
+	DIRECTORY
+	${CMAKE_SOURCE_DIR}/include/sge/font/bitmap
+	DESTINATION
+	include/sge/font
+)

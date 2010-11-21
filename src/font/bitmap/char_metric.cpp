@@ -18,40 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../system.hpp"
-#include <sge/plugin/info.hpp>
-#include <fcppt/export_symbol.hpp>
-#include <fcppt/text.hpp>
+#include <sge/font/bitmap/char_metric.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
-extern "C"
-{
-
-FCPPT_EXPORT_SYMBOL void
-plugin_version_info(
-	sge::plugin::info *
-);
-
-FCPPT_EXPORT_SYMBOL sge::font::system *
-create_font_system();
-
-FCPPT_EXPORT_SYMBOL void
-plugin_version_info(
-	sge::plugin::info *const p
+sge::font::bitmap::char_metric::char_metric(
+	font::const_image_view const &_pixmap,
+	font::pos const &_offset,
+	font::unit const _x_advance
 )
+:
+	pixmap_(_pixmap),
+	offset_(_offset),
+	x_advance_(_x_advance)
+{}
+
+sge::font::bitmap::char_metric::~char_metric()
+{}
+
+sge::font::const_image_view const
+sge::font::bitmap::char_metric::pixmap() const
 {
-	if(!p)
-		return;
-	p->name = FCPPT_TEXT("bitmapfont");
-	p->description = FCPPT_TEXT("");
-	p->min_core_version = 0x1;
-	p->plugin_version = 0x1;
-	p->type = sge::plugin::capabilities::font;
+	return pixmap_;
 }
 
-FCPPT_EXPORT_SYMBOL sge::font::system *
-create_font_system()
+sge::font::pos const
+sge::font::bitmap::char_metric::offset() const
 {
-	return new sge::bitmapfont::system();
+	return offset_;
 }
 
+sge::font::unit
+sge::font::bitmap::char_metric::x_advance() const
+{
+	return x_advance_;
 }

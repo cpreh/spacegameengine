@@ -18,54 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_BITMAPFONT_METRICS_HPP_INCLUDED
-#define SGE_BITMAPFONT_METRICS_HPP_INCLUDED
+#ifndef SGE_FONT_BITMAP_CREATE_HPP_INCLUDED
+#define SGE_FONT_BITMAP_CREATE_HPP_INCLUDED
 
-#include "char_metric_fwd.hpp"
-#include <sge/font/metrics.hpp>
-#include <sge/image/file_ptr.hpp>
+#include <sge/font/bitmap/symbol.hpp>
+#include <sge/font/metrics_ptr.hpp>
 #include <sge/image/multi_loader_fwd.hpp>
 #include <fcppt/filesystem/path.hpp>
-#include <fcppt/char_type.hpp>
-#include <map>
 
 namespace sge
 {
-namespace bitmapfont
+namespace font
+{
+namespace bitmap
 {
 
-class metrics
-:
-	public font::metrics
-{
-public:
-	metrics(
-		fcppt::filesystem::path const &,
-		sge::image::multi_loader &
-	);
+SGE_FONT_BITMAP_SYMBOL
+font::metrics_ptr const
+create(
+	fcppt::filesystem::path const &,
+	sge::image::multi_loader &
+);
 
-	~metrics();
-
-	font::char_metric_ptr const
-	load_char(
-		fcppt::char_type
-	);
-
-	font::unit
-	line_height() const;
-private:
-	sge::image::file_ptr image_;
-
-	font::unit line_height_;
-
-	typedef std::map<
-		fcppt::char_type,
-		char_metric_ptr
-	> char_map;
-
-	char_map char_map_;
-};
-
+}
 }
 }
 

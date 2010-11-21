@@ -18,33 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../system.hpp"
-#include "../metrics.hpp"
-#include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include "load_offset.hpp"
+#include <sge/parse/json/get.hpp>
+#include <sge/parse/json/find_member_exn.hpp>
+#include <sge/parse/json/member.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/font/exception.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/text.hpp>
 
-sge::freetype::system::system()
-{
-}
-
-sge::freetype::system::~system()
-{
-}
-
-sge::font::metrics_ptr const
-sge::freetype::system::create_font(
-	fcppt::filesystem::path const &_font_name,
-	font::size_type const _font_size
+sge::font::pos const
+sge::font::bitmap::load_offset(
+	sge::parse::json::member_vector const &_members
 )
 {
-	return
-		fcppt::make_shared_ptr<
-			freetype::metrics
+	parse::json::element_vector const &elements(
+		parse::json::find_member_exn<
+			parse::json::array
 		>(
-			std::tr1::ref(
-				library_
-			),
-			_font_name,
-			_font_size
+			_members,
+			FCPPT_TEXT("offset")
+		).elements
+	);
+
+	if(elements.size() != 2)
+		throw sge::font::exception(
+			FCPPT_TEXT("Bogus offset detected")
 		);
+
+	return font::pos(
+		parse::json::get<
+			int
+		>(
+			elements[0]
+		),
+		parse::json::get<
+			int
+		>(
+			elements[1]
+		)
+	);
 }

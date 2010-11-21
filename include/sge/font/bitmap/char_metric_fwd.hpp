@@ -18,41 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_BITMAPFONT_CHAR_METRIC_HPP_INCLUDED
-#define SGE_BITMAPFONT_CHAR_METRIC_HPP_INCLUDED
-
-#include <sge/font/char_metric.hpp>
-#include <fcppt/math/vector/basic_decl.hpp>
-#include <fcppt/variant/object_decl.hpp>
+#ifndef SGE_FONT_BITMAP_CHAR_METRIC_FWD_HPP_INCLUDED
+#define SGE_FONT_BITMAP_CHAR_METRIC_FWD_HPP_INCLUDED
 
 namespace sge
 {
-namespace bitmapfont
+namespace font
+{
+namespace bitmap
 {
 
-class char_metric : public font::char_metric {
-public:
-	char_metric(
-		font::const_image_view const &,
-		font::pos const &offset,
-		font::unit x_advance);
+class char_metric;
 
-	~char_metric();
-
-	font::const_image_view const
-	pixmap() const;
-
-	font::pos const
-	offset() const;
-
-	font::unit
-	x_advance() const;
-private:
-	font::const_image_view const pixmap_;
-	font::pos const offset_;
-	font::unit const x_advance_;
-};
-
+}
 }
 }
 

@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../metrics.hpp"
-#include "../char_metric.hpp"
-#include "../load_rect.hpp"
-#include "../load_offset.hpp"
+#include "load_rect.hpp"
+#include "load_offset.hpp"
+#include <sge/font/bitmap/metrics.hpp>
+#include <sge/font/bitmap/char_metric.hpp>
 #include <sge/parse/json/parse_file.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/array.hpp>
@@ -46,14 +46,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/foreach.hpp>
 #include <utility>
 
-sge::bitmapfont::metrics::metrics(
-	fcppt::filesystem::path const &path,
-	sge::image::multi_loader &loader
+sge::font::bitmap::metrics::metrics(
+	fcppt::filesystem::path const &_path,
+	sge::image::multi_loader &_loader
 )
 :
 	image_(
-		loader.load(
-			path
+		_loader.load(
+			_path
 		)
 	),
 	line_height_(),
@@ -61,7 +61,7 @@ sge::bitmapfont::metrics::metrics(
 {
 	fcppt::filesystem::path const json_file(
 		fcppt::filesystem::replace_extension(
-			path,
+			_path,
 			FCPPT_TEXT("json")
 		)
 	);
@@ -87,12 +87,12 @@ sge::bitmapfont::metrics::metrics(
 	);
 
 	line_height_
-	= parse::json::find_member_exn<
-		int
-	>(
-		top_members,
-		FCPPT_TEXT("line_height")
-	);
+		= parse::json::find_member_exn<
+			int
+		>(
+			top_members,
+			FCPPT_TEXT("line_height")
+		);
 
 	BOOST_FOREACH(
 		parse::json::element_vector::const_reference elem,
@@ -127,13 +127,13 @@ sge::bitmapfont::metrics::metrics(
 			FCPPT_LOG_WARNING(
 				log::global(),
 				fcppt::log::_
-					<< FCPPT_TEXT("Invalid character in bitmap font: ")
+					<< FCPPT_TEXT("Invalid character in bitmap font: \"")
 					<< name
+					<< FCPPT_TEXT("\"")
 			);
 
 			continue;
 		}
-
 
 		char_map_.insert(
 			std::make_pair(
@@ -143,11 +143,11 @@ sge::bitmapfont::metrics::metrics(
 				>(
 					sge::image::view::sub(
 						image_->view(),
-						load_rect(
+						font::bitmap::load_rect(
 							members
 						)
 					),
-					load_offset(
+					font::bitmap::load_offset(
 						members
 					),
 					parse::json::find_member_exn<
@@ -161,7 +161,7 @@ sge::bitmapfont::metrics::metrics(
 		);
 	}
 	catch(
-		exception const &e
+		sge::exception const &e
 	)
 	{
 		FCPPT_LOG_WARNING(
@@ -174,30 +174,32 @@ sge::bitmapfont::metrics::metrics(
 	}
 }
 
-sge::bitmapfont::metrics::~metrics()
+sge::font::bitmap::metrics::~metrics()
 {}
 
 sge::font::char_metric_ptr const
-sge::bitmapfont::metrics::load_char(
-	fcppt::char_type const c
+sge::font::bitmap::metrics::load_char(
+	fcppt::char_type const _ch
 )
 {
 	char_map::const_iterator const it(
 		char_map_.find(
-			c
+			_ch
 		)
 	);
 
-	if(it == char_map_.end())
+	if(
+		it == char_map_.end()
+	)
 		throw font::char_not_available(
-			c
+			_ch
 		);
 
 	return it->second;
 }
 
 sge::font::unit
-sge::bitmapfont::metrics::line_height() const
+sge::font::bitmap::metrics::line_height() const
 {
 	return line_height_;
 }

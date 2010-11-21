@@ -18,32 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../system.hpp"
-#include "../metrics.hpp"
-#include <sge/font/exception.hpp>
-#include <fcppt/tr1/functional.hpp>
-#include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_FONT_BITMAP_LOAD_OFFSET_HPP_INCLUDED
+#define SGE_FONT_BITMAP_LOAD_OFFSET_HPP_INCLUDED
 
-sge::font::metrics_ptr const
-sge::bitmapfont::system::create_font(
-	fcppt::filesystem::path const &path,
-	font::size_type const font_height,
-	sge::image::multi_loader *const loader
-)
+#include <sge/font/pos.hpp>
+#include <sge/parse/json/member_vector.hpp>
+
+namespace sge
 {
-	if(!loader)
-		throw font::exception(
-			FCPPT_TEXT("The bitmap font plugin needs an image loader passed in create_font!")
-		);
+namespace font
+{
+namespace bitmap
+{
 
-	return
-		fcppt::make_shared_ptr<
-			metrics
-		>(
-			path,
-			std::tr1::ref(
-				*loader
-			)
-		);
+sge::font::pos const
+load_offset(
+	sge::parse::json::member_vector const &
+);
+
 }
+}
+}
+
+#endif

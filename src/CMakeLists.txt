@@ -132,6 +132,7 @@ ENDIF ()
 
 INSTALL (TARGETS sgecore DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
 
+OPTION (ENABLE_FONTBITMAP "Build the bitmap font" ON)
 OPTION (ENABLE_CONFIG "Build the config library" ON)
 OPTION (ENABLE_CONSOLE "Build the console" ON)
 OPTION (ENABLE_FONTTEXT "Build the font text library" ON)
@@ -142,6 +143,10 @@ OPTION (ENABLE_SPRITE "Build the sprite library" ON)
 OPTION (ENABLE_SYSTEMS "Build the systems library" ON)
 OPTION (ENABLE_TEXTURE "Build the texture helpers" ON)
 OPTION (ENABLE_TIME "Build the time library" ON)
+
+IF(ENABLE_FONTBITMAP)
+	ADD_SUBDIRECTORY (font/bitmap)
+ENDIF()
 
 IF (ENABLE_CONFIG)
 	ADD_SUBDIRECTORY (config)

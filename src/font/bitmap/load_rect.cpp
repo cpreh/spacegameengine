@@ -18,34 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../load_rect.hpp"
+#include "load_rect.hpp"
 #include <sge/parse/json/get.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
 #include <sge/parse/json/member.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
+#include <sge/font/exception.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <sge/exception.hpp>
 #include <fcppt/text.hpp>
 
 sge::image::rect const
-sge::bitmapfont::load_rect(
-	sge::parse::json::member_vector const &members
+sge::font::bitmap::load_rect(
+	sge::parse::json::member_vector const &_members
 )
 {
 	parse::json::element_vector const &elements(
 		parse::json::find_member_exn<
 			parse::json::array
 		>(
-			members,
+			_members,
 			FCPPT_TEXT("rect")
 		).elements
 	);
 
 	if(elements.size() != 2)
-		throw exception(
+		throw sge::font::exception(
 			FCPPT_TEXT("Bogus rect detected")
 		);
 
@@ -66,7 +66,7 @@ sge::bitmapfont::load_rect(
 		);
 
 	if(first_elements.size() != 2 || second_elements.size() != 2)
-		throw exception(
+		throw sge::font::exception(
 			FCPPT_TEXT("Bogus rect subelements detected")
 		);
 

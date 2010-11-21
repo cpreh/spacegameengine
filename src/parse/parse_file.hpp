@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "parse_stream.hpp"
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/io/ifstream.hpp>
+#include <iosfwd>
 
 namespace sge
 {
@@ -35,21 +36,26 @@ template<
 >
 bool
 parse_file(
-	fcppt::filesystem::path const &path,
-	Result &result
+	fcppt::filesystem::path const &_path,
+	Result &_result
 )
 {
 	fcppt::io::ifstream ifs(
-		path,
+		_path,
 		std::ios_base::binary
+	);
+
+	ifs.unsetf(
+		std::ios_base::skipws
 	);
 
 	return 
 		ifs.is_open()
-		&& 
+		&&
+		// use ADL
 		parse_stream(
 			ifs,
-			result
+			_result
 		);
 }
 
