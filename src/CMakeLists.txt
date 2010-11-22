@@ -139,6 +139,7 @@ OPTION (ENABLE_FONTTEXT "Build the font text library" ON)
 OPTION (ENABLE_GUI "Build the gui" ON)
 OPTION (ENABLE_PARSE "Build the parse library" ON)
 OPTION (ENABLE_SHADER "Build the shader" ON)
+OPTION (ENABLE_CAMERA "Build the camera" ON)
 OPTION (ENABLE_SPRITE "Build the sprite library" ON)
 OPTION (ENABLE_SYSTEMS "Build the systems library" ON)
 OPTION (ENABLE_TEXTURE "Build the texture helpers" ON)
@@ -170,6 +171,10 @@ ENDIF ()
 
 IF (ENABLE_SHADER)
 	ADD_SUBDIRECTORY(shader)
+ENDIF ()
+
+IF (ENABLE_CAMERA)
+	ADD_SUBDIRECTORY(camera)
 ENDIF ()
 
 IF (ENABLE_SPRITE)
