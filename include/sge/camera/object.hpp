@@ -1,9 +1,10 @@
-#ifndef FRUITCUT_GRAPHICS_CAMERA_OBJECT_HPP_INCLUDED
-#define FRUITCUT_GRAPHICS_CAMERA_OBJECT_HPP_INCLUDED
+#ifndef SGE_CAMERA_OBJECT_HPP_INCLUDED
+#define SGE_CAMERA_OBJECT_HPP_INCLUDED
 
 #include <sge/camera/parameters_fwd.hpp>
 #include <sge/camera/projection/object.hpp>
 #include <sge/camera/gizmo_type.hpp>
+#include <sge/camera/symbol.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/scalar.hpp>
@@ -29,34 +30,44 @@ class object
 		object
 	)
 public:
+	SGE_CAMERA_SYMBOL
 	explicit
 	object(
 		parameters const &);
 	
+	SGE_CAMERA_SYMBOL
 	~object();
 	
+	SGE_CAMERA_SYMBOL
 	void
 	update(
 		renderer::scalar);
 	
+	SGE_CAMERA_SYMBOL
 	renderer::matrix4 const
 	world() const;
 
+	SGE_CAMERA_SYMBOL
 	renderer::matrix4 const
 	rotation() const;
 
+	SGE_CAMERA_SYMBOL
 	renderer::matrix4 const
 	translation() const;
 
+	SGE_CAMERA_SYMBOL
 	renderer::matrix4 const
 	projection() const;
 
+	SGE_CAMERA_SYMBOL
 	renderer::matrix4 const 
 	mvp() const;
 
+	SGE_CAMERA_SYMBOL
 	gizmo_type const &
 	gizmo() const;
 
+	SGE_CAMERA_SYMBOL
 	gizmo_type &
 	gizmo();
 private:
