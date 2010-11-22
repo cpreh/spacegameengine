@@ -59,6 +59,10 @@ sge::camera::object::object(
 {
 }
 
+sge::camera::object::~object()
+{
+}
+
 void
 sge::camera::object::update(
 	renderer::scalar const time_delta)

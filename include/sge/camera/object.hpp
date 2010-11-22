@@ -11,6 +11,8 @@
 #include <sge/input/mouse/axis_event_fwd.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -23,13 +25,15 @@ namespace camera
 /// could derive from the gizmo).
 class object
 {
+	FCPPT_NONCOPYABLE(
+		object
+	)
 public:
-	object(object const &) = delete;
-	object &operator=(object const &) = delete;
-
 	explicit
 	object(
 		parameters const &);
+	
+	~object();
 	
 	void
 	update(
