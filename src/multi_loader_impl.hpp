@@ -49,51 +49,51 @@ template<
 	typename Capabilities
 >
 sge::multi_loader<Loader, File, Exception, Capabilities>::multi_loader(
-	plugin::manager &pm,
-	extension_set const &extensions,
-	capabilities const &capabilities_
+	plugin::manager &_pm,
+	extension_set const &_extensions,
+	capabilities const &_capabilities
 )
 :
 	plugins_(),
 	loaders_()
 {
 	for (
-		plugin::iterator<loader> i = pm.begin<loader>();
-		i != pm.end<loader>();
+		plugin::iterator<loader> i = _pm.begin<loader>();
+		i != _pm.end<loader>();
 		++i
 	)
 	{
-		plugin_ptr const plugin_(
+		plugin_ptr const plugin(
 			i->load()
 		);
 
-		loader_ptr const loader_(
-			plugin_->get()()
+		loader_ptr const loader(
+			plugin->get()()
 		);
 
 		// check if this plugin might be useful
 		if(
 			fcppt::container::bitfield::is_subset_eq(
-				capabilities_,
-				loader_->capabilities()
+				_capabilities,
+				loader->capabilities()
 			)
 			&&
 			(
-				extensions == sge::all_extensions
+				_extensions == sge::all_extensions
 				||
 				!fcppt::algorithm::set_intersection(
-					extensions,
-					loader_->extensions()
+					_extensions,
+					loader->extensions()
 				).empty()
 			)
 		)
 		{
 			plugins_.push_back(
-				plugin_
+				plugin
 			);
 
 			loaders_.push_back(
-				loader_
+				loader
 			);
 		}
 		else
@@ -128,36 +128,44 @@ template<
 >
 typename sge::multi_loader<Loader, File, Exception, Capabilities>::file_ptr const
 sge::multi_loader<Loader, File, Exception, Capabilities>::load(
-	fcppt::filesystem::path const &file
+	fcppt::filesystem::path const &_file
 )
 {
-	if (!fcppt::filesystem::exists(file))
-		throw exception(
+	if(
+		!fcppt::filesystem::exists(
+			_file
+		)
+	)
+		throw sge::exception(
 			FCPPT_TEXT("file \"")
 			+ fcppt::filesystem::path_to_string(
-				file
+				_file
 			)
 			+ FCPPT_TEXT("\" does not exist")
 		);
 
-	if (!fcppt::filesystem::is_regular(file))
-		throw exception(
+	if(
+		!fcppt::filesystem::is_regular(
+			_file
+		)
+	)
+		throw sge::exception(
 			FCPPT_TEXT("file \"")
 			+ fcppt::filesystem::path_to_string(
-				file
+				_file
 			)
 			+ FCPPT_TEXT("\" is not a regular file")
 		);
 
 	fcppt::string const extension(
 		fcppt::filesystem::extension_without_dot(
-			file
+			_file
 		)
 	);
 
 	if (extension.empty())
-		throw loaders_exhausted(
-			file,
+		throw sge::loaders_exhausted(
+			_file,
 			FCPPT_TEXT("File has no extension!")
 		);
 
@@ -176,12 +184,12 @@ sge::multi_loader<Loader, File, Exception, Capabilities>::load(
 
 		return
 			ref->load(
-				file
+				_file
 			);
 	}
 
-	throw loaders_exhausted(
-		file,
+	throw sge::loaders_exhausted(
+		_file,
 		FCPPT_TEXT("Tried all loaders but none matched!")
 	);
 }
