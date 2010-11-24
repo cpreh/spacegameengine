@@ -40,6 +40,7 @@ public:
 		font::char_type
 	);
 
+	SGE_SYMBOL 
 	font::char_type
 	character() const;
 private:

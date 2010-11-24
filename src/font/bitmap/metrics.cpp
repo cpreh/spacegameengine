@@ -179,7 +179,7 @@ sge::font::bitmap::metrics::~metrics()
 
 sge::font::char_metric_ptr const
 sge::font::bitmap::metrics::load_char(
-	fcppt::char_type const _ch
+	font::char_type const _ch
 )
 {
 	char_map::const_iterator const it(

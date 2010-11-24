@@ -23,17 +23,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 sge::font::char_not_available::char_not_available(
-	font::char_type const character_
+	font::char_type const _character
 )
 :
 	exception(
 		fcppt::string(
 			FCPPT_TEXT("Character '")
 		)
-		+ character_
+		+ _character
 		+ FCPPT_TEXT("' is not available!")
 	),
-	character_(character_)
+	character_(_character)
 {}
 
 sge::font::char_type
