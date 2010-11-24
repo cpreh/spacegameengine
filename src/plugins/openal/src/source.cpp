@@ -40,7 +40,12 @@ sge::openal::source::source(
 	alSourcei(
 		source_id(),
 		AL_BUFFER,
-		_buffer);
+		static_cast<
+			ALint
+		>(
+			_buffer
+		)
+	);
 
 	SGE_OPENAL_CHECK_STATE(
 		FCPPT_TEXT("alSourcei failed"),
@@ -62,7 +67,11 @@ sge::openal::source::source(
 	alSourcei(
 		source_id(),
 		AL_BUFFER,
-		_buffer
+		static_cast<
+			ALint
+		>(
+			_buffer
+		)
 	);
 
 	SGE_OPENAL_CHECK_STATE(
