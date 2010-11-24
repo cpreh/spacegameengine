@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/parameters.hpp>
+#include <fcppt/math/compare.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/equal.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -172,13 +173,15 @@ compare_state_visitor::operator()(
 ) const
 {
 	return
-		state_.get<
-			sge::renderer::state::var<
-				Type,
-				State
-			>
-		>().value()
-		== _other.value();
+		fcppt::math::compare(
+			state_.get<
+				sge::renderer::state::var<
+					Type,
+					State
+				>
+			>().value(),
+			_other.value()
+		);
 }
 
 template<
