@@ -18,41 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/iconv/unsupported_conversion.hpp>
-#include <fcppt/from_std_string.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_ICONV_ENCODING_CONVERT_HPP_INCLUDED
+#define SGE_ICONV_ENCODING_CONVERT_HPP_INCLUDED
 
-sge::iconv::unsupported_conversion::unsupported_conversion(
-	iconv::encoding_string const &_source,
-	iconv::encoding_string const &_dest
-)
-:
-	sge::iconv::exception(
-		FCPPT_TEXT("Invalid conversion from ")
-		+ fcppt::from_std_string(
-			_source
-		)
-		+ FCPPT_TEXT(" to ")
-		+ fcppt::from_std_string(
-			_dest
-		)
-	)
+#include <sge/iconv/string_type.hpp>
+#include <sge/iconv/encoding.hpp>
+#include <sge/iconv/symbol.hpp>
+
+namespace sge
 {
-}
+namespace iconv
+{
 
+template<
+	encoding::type DestEncoding,
+	encoding::type SourceEncoding
+>
 SGE_ICONV_SYMBOL
-sge::iconv::unsupported_conversion::~unsupported_conversion() throw()
-{
+typename iconv::string_type<
+	DestEncoding
+>::type
+convert(
+	typename iconv::string_type<
+		SourceEncoding
+	>::type const &
+);
+
+}
 }
 
-sge::iconv::encoding_string const &
-sge::iconv::unsupported_conversion::source() const
-{
-	return source_;
-}
-
-sge::iconv::encoding_string const &
-sge::iconv::unsupported_conversion::dest() const
-{
-	return dest_;
-}
+#endif

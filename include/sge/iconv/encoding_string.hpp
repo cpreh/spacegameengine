@@ -18,41 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/iconv/unsupported_conversion.hpp>
-#include <fcppt/from_std_string.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_ICONV_ENCODING_STRING_HPP_INCLUDED
+#define SGE_ICONV_ENCODING_STRING_HPP_INCLUDED
 
-sge::iconv::unsupported_conversion::unsupported_conversion(
-	iconv::encoding_string const &_source,
-	iconv::encoding_string const &_dest
-)
-:
-	sge::iconv::exception(
-		FCPPT_TEXT("Invalid conversion from ")
-		+ fcppt::from_std_string(
-			_source
-		)
-		+ FCPPT_TEXT(" to ")
-		+ fcppt::from_std_string(
-			_dest
-		)
-	)
+#include <string>
+
+namespace sge
 {
+namespace iconv
+{
+
+typedef std::string encoding_string;
+
+}
 }
 
-SGE_ICONV_SYMBOL
-sge::iconv::unsupported_conversion::~unsupported_conversion() throw()
-{
-}
-
-sge::iconv::encoding_string const &
-sge::iconv::unsupported_conversion::source() const
-{
-	return source_;
-}
-
-sge::iconv::encoding_string const &
-sge::iconv::unsupported_conversion::dest() const
-{
-	return dest_;
-}
+#endif

@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/flatten.hpp>
 #include <majutsu/access_role.hpp>
 #include <majutsu/role_return_type.hpp>
-#include <fcppt/tr1/array.hpp>
+#include <fcppt/container/array.hpp>
 #include <boost/mpl/size.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/remove_if.hpp>
@@ -71,7 +71,7 @@ private:
 		Type
 	>::type flattened_types;
 
-	typedef std::tr1::array<
+	typedef fcppt::container::array<
 		size_type,
 		boost::mpl::size<
 			flattened_types

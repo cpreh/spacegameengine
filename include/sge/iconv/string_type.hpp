@@ -18,9 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ICONV_CHARSET_STRING_HPP_INCLUDED
-#define SGE_ICONV_CHARSET_STRING_HPP_INCLUDED
+#ifndef SGE_ICONV_STRING_TYPE_HPP_INCLUDED
+#define SGE_ICONV_STRING_TYPE_HPP_INCLUDED
 
+#include <sge/iconv/encoding.hpp>
+#include <boost/cstdint.hpp>
 #include <string>
 
 namespace sge
@@ -28,7 +30,40 @@ namespace sge
 namespace iconv
 {
 
-typedef std::string charset_string;
+template<
+	iconv::encoding::type
+>
+struct string_type;
+
+template<>
+struct string_type<
+	iconv::encoding::utf8
+>
+{
+	typedef std::basic_string<
+		boost::uint8_t
+	> type;
+};
+
+template<>
+struct string_type<
+	iconv::encoding::utf16
+>
+{
+	typedef std::basic_string<
+		boost::uint16_t
+	> type;
+};
+
+template<>
+struct string_type<
+	iconv::encoding::utf32
+>
+{
+	typedef std::basic_string<
+		boost::uint32_t
+	> type;
+};
 
 }
 }

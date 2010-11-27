@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_INDEX_ARRAY_TYPE_HPP_INCLUDED
 
 #include <sge/sprite/detail/indices_per_sprite.hpp>
-#include <fcppt/tr1/array.hpp>
+#include <fcppt/container/array.hpp>
 
 namespace sge
 {
@@ -31,7 +31,7 @@ namespace sprite
 namespace detail
 {
 
-typedef std::tr1::array<
+typedef fcppt::container::array<
 	unsigned,
 	indices_per_sprite
 > index_array_type;

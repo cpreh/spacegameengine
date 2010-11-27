@@ -18,41 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/iconv/unsupported_conversion.hpp>
-#include <fcppt/from_std_string.hpp>
+#include <sge/iconv/encoding_to_string.hpp>
+#include <sge/iconv/exception.hpp>
 #include <fcppt/text.hpp>
 
-sge::iconv::unsupported_conversion::unsupported_conversion(
-	iconv::encoding_string const &_source,
-	iconv::encoding_string const &_dest
+sge::iconv::encoding_string const
+sge::iconv::encoding_to_string(
+	iconv::encoding::type const _encoding
 )
-:
-	sge::iconv::exception(
-		FCPPT_TEXT("Invalid conversion from ")
-		+ fcppt::from_std_string(
-			_source
-		)
-		+ FCPPT_TEXT(" to ")
-		+ fcppt::from_std_string(
-			_dest
-		)
+{
+	switch(
+		_encoding
 	)
-{
-}
-
-SGE_ICONV_SYMBOL
-sge::iconv::unsupported_conversion::~unsupported_conversion() throw()
-{
-}
-
-sge::iconv::encoding_string const &
-sge::iconv::unsupported_conversion::source() const
-{
-	return source_;
-}
-
-sge::iconv::encoding_string const &
-sge::iconv::unsupported_conversion::dest() const
-{
-	return dest_;
+	{
+	case iconv::encoding::utf8:
+		return "UTF-8";
+	case iconv::encoding::utf16:
+		return "UTF-16";
+	case iconv::encoding::utf32:
+		return "UTF-32";
+	default:
+		throw sge::iconv::exception(
+			FCPPT_TEXT("Invalid encoding!")
+		);
+	}
 }

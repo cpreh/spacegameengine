@@ -35,8 +35,8 @@ class sge::iconv::object::impl
 	)
 public:
 	impl(
-		sge::iconv::charset_string const &source,
-		sge::iconv::charset_string const &dest
+		sge::iconv::encoding_string const &source,
+		sge::iconv::encoding_string const &dest
 	);
 
 	~impl();
@@ -45,8 +45,8 @@ public:
 };
 
 sge::iconv::object::object(
-	iconv::charset_string const &_source,
-	iconv::charset_string const &_dest
+	iconv::encoding_string const &_source,
+	iconv::encoding_string const &_dest
 )
 :
 	impl_(
@@ -72,7 +72,7 @@ sge::iconv::object::convert(
 	iconv::size_type &_out_bytes_left
 )
 {
-	std::size_t const ret(
+	::size_t const ret(
 		::iconv(
 			impl_->iconv_,
 			// TODO: check if this is really needed!
@@ -117,8 +117,8 @@ sge::iconv::object::convert(
 }
 
 sge::iconv::object::impl::impl(
-	sge::iconv::charset_string const &_source,
-	sge::iconv::charset_string const &_dest
+	sge::iconv::encoding_string const &_source,
+	sge::iconv::encoding_string const &_dest
 )
 :
 	iconv_(

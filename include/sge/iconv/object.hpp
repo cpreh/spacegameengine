@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_ICONV_OBJECT_HPP_INCLUDED
 #define SGE_ICONV_OBJECT_HPP_INCLUDED
 
-#include <sge/iconv/charset_string.hpp>
+#include <sge/iconv/encoding_string.hpp>
 #include <sge/iconv/conversion_status.hpp>
 #include <sge/iconv/size_type.hpp>
 #include <sge/iconv/raw_pointer.hpp>
@@ -43,8 +43,8 @@ class object
 public:
 	SGE_ICONV_SYMBOL
 	object(
-		iconv::charset_string const &source,
-		iconv::charset_string const &dest
+		iconv::encoding_string const &source,
+		iconv::encoding_string const &dest
 	);
 
 	SGE_ICONV_SYMBOL
