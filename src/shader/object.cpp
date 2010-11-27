@@ -41,9 +41,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/headers.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/algorithm/std/accumulate.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <boost/algorithm/string/replace.hpp>
+#include <boost/range/numeric.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/operator.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>
@@ -118,14 +118,14 @@ sge::shader::object::object(
 			FCPPT_TEXT("\ndoes not exist!"));
 
 	renderer::glsl::string const header = 
-		fcppt::algorithm::std::accumulate(
+		boost::accumulate(
 			_variables,
 			sge::renderer::glsl::string(),
 			boost::phoenix::arg_names::arg1 + 
 				boost::phoenix::bind(
 					&variable::declaration,
 					boost::phoenix::arg_names::arg2)) +
-		fcppt::algorithm::std::accumulate(
+		boost::accumulate(
 			_samplers,
 			sge::renderer::glsl::string(),
 			boost::phoenix::arg_names::arg1 + 

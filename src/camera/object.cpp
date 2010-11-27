@@ -32,11 +32,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/vector.hpp>
 #include <fcppt/io/cout.hpp>
-#include <fcppt/algorithm/inner_product.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/variant/object.hpp>
 // FFFFFFFFFFFFFFFFFFFFFFFUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
 #include <fcppt/function/object.hpp>
+#include <boost/range/numeric.hpp>
 #include <boost/bind.hpp>
 #include <algorithm>
 
@@ -92,7 +92,7 @@ sge::camera::object::update(
 		gizmo_.position() + 
 		movement_speed_ * 
 		time_delta * 
-		fcppt::algorithm::inner_product(
+		boost::inner_product(
 			gizmo_.array(),
 			dirs_,
 			renderer::vector3::null()));
