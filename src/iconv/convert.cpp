@@ -119,7 +119,6 @@ sge::iconv::convert(
 					)
 				)
 			)
-			* sizeof(typename dest_type::value_type)
 		);
 
 		iconv::conversion_status::type const status(

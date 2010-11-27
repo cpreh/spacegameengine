@@ -42,6 +42,10 @@ IF(ENABLE_CONSOLE)
 	ADD_SGE_TEST(console/cursor "sgeconsole")
 ENDIF()
 
+IF(ENABLE_ICONV)
+	ADD_SGE_TEST(iconv/main "sgeiconv")
+ENDIF()
+
 IF(ENABLE_PARSE)
 	ADD_SGE_TEST(parse/json "sgeparse")
 ENDIF()
