@@ -26,6 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/iconv/raw_pointer.hpp>
 #include <sge/iconv/size_type.hpp>
 #include <fcppt/container/raw_vector.hpp>
+#include <boost/preprocessor/seq/elem.hpp>
+#include <boost/preprocessor/seq/for_each_product.hpp>
 #include <iterator>
 
 template<
@@ -82,12 +84,16 @@ sge::iconv::convert(
 	);
 
 	iconv::const_raw_pointer source_ptr(
-		_source.data()
+		reinterpret_cast<
+			iconv::const_raw_pointer
+		>(
+			_source.data()
+		)
 	);
 
 	iconv::size_type in_bytes_left(
 		_source.size()
-		* sizeof(source_type::value_type)
+		* sizeof(typename source_type::value_type)
 	);
 
 	iconv::raw_pointer dest_ptr(
@@ -101,11 +107,19 @@ sge::iconv::convert(
 	for(;;)
 	{
 		iconv::size_type out_bytes_left(
-			std::distance(
-				dest_ptr,
-				dest_buffer.data_end()
+			static_cast<
+				iconv::size_type
+			>(
+				std::distance(
+					dest_ptr,
+					reinterpret_cast<
+						iconv::raw_pointer
+					>(
+						dest_buffer.data_end()
+					)
+				)
 			)
-			* sizeof(dest_type::value_type)
+			* sizeof(typename dest_type::value_type)
 		);
 
 		iconv::conversion_status::type const status(
@@ -120,7 +134,7 @@ sge::iconv::convert(
 		iconv::size_type const elements_converted(
 			dest_buffer.size()
 			- out_bytes_left
-			/ sizeof(dest_type::value_type)
+			/ sizeof(typename dest_type::value_type)
 		);
 
 		switch(
@@ -143,8 +157,39 @@ sge::iconv::convert(
 			);
 
 			dest_ptr =
-				dest_buffer.data()
-				+ elements_converted;
+				reinterpret_cast<
+					iconv::raw_pointer
+				>(
+					dest_buffer.data()
+					+ elements_converted
+				);
 		}
 	}
 }
+
+#define SGE_ICONV_INSTANTIATE_ENCODING(\
+	r,\
+	param\
+)\
+template \
+sge::iconv::string_type< \
+	BOOST_PP_SEQ_ELEM(0, param) \
+>::type \
+sge::iconv::convert<\
+	BOOST_PP_SEQ_ELEM(0, param),\
+	BOOST_PP_SEQ_ELEM(1, param)\
+>( \
+	iconv::string_type< \
+		BOOST_PP_SEQ_ELEM(1, param) \
+	>::type const & \
+);
+
+#define SGE_ICONV_ENCODINGS \
+(sge::iconv::encoding::utf8)\
+(sge::iconv::encoding::utf16)\
+(sge::iconv::encoding::utf32)
+
+BOOST_PP_SEQ_FOR_EACH_PRODUCT(
+	SGE_ICONV_INSTANTIATE_ENCODING,
+	(SGE_ICONV_ENCODINGS)(SGE_ICONV_ENCODINGS)
+)
