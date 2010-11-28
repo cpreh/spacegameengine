@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/iconv/encoding_to_string.hpp>
 #include <sge/iconv/exception.hpp>
+#include <fcppt/endianness/is_little_endian.hpp>
 #include <fcppt/text.hpp>
 
 sge::iconv::encoding_string const
@@ -34,12 +35,24 @@ sge::iconv::encoding_to_string(
 	case iconv::encoding::utf8:
 		return "UTF-8";
 	case iconv::encoding::utf16:
-		return "UTF-16";
+		return 
+			fcppt::endianness::is_little_endian()
+			?
+				"UTF-16LE"
+			:
+				"UTF-16BE";
 	case iconv::encoding::utf32:
-		return "UTF-32";
-	default:
-		throw sge::iconv::exception(
-			FCPPT_TEXT("Invalid encoding!")
-		);
+		return
+			fcppt::endianness::is_little_endian()
+			?
+				"UTF-32LE"
+			:
+				"UTF-32BE";
+	case iconv::encoding::wchar:
+		return "WCHAR_T";
 	}
+
+	throw sge::iconv::exception(
+		FCPPT_TEXT("Invalid encoding!")
+	);
 }

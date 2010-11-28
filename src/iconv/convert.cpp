@@ -186,7 +186,8 @@ sge::iconv::convert<\
 #define SGE_ICONV_ENCODINGS \
 (sge::iconv::encoding::utf8)\
 (sge::iconv::encoding::utf16)\
-(sge::iconv::encoding::utf32)
+(sge::iconv::encoding::utf32)\
+(sge::iconv::encoding::wchar)
 
 BOOST_PP_SEQ_FOR_EACH_PRODUCT(
 	SGE_ICONV_INSTANTIATE_ENCODING,

@@ -65,6 +65,14 @@ struct string_type<
 	> type;
 };
 
+template<>
+struct string_type<
+	iconv::encoding::wchar
+>
+{
+	typedef std::wstring type;
+};
+
 }
 }
 

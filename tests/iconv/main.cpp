@@ -60,7 +60,6 @@ BOOST_AUTO_TEST_CASE(iconv_main)
 		utf32_test.end()
 	);
 
-	// TODO: what to do about the BOM?
 	BOOST_REQUIRE(
 		out == L"馬鹿"
 	);

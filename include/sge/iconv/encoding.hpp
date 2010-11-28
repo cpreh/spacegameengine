@@ -32,7 +32,8 @@ enum type
 {
 	utf8,
 	utf16,
-	utf32
+	utf32,
+	wchar
 };
 }
 
