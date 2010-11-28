@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CONSOLE_EXCEPTION_HPP_INCLUDED
 
 #include <sge/console/symbol.hpp>
+#include <sge/font/text/string.hpp>
 #include <sge/exception.hpp>
 #include <sge/class_symbol.hpp>
-#include <fcppt/string.hpp>
 
 namespace sge
 {
@@ -37,8 +37,17 @@ class SGE_CLASS_SYMBOL exception
 {
 public:
 	SGE_CONSOLE_SYMBOL explicit exception(
-		fcppt::string const &
+		font::text::string const &
 	);
+
+	SGE_CONSOLE_SYMBOL
+	virtual ~exception() throw();
+
+	SGE_CONSOLE_SYMBOL
+	font::text::string const &
+	console_string() const;
+private:
+	font::text::string const console_string_;	
 };
 
 }

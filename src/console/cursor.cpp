@@ -19,33 +19,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/console/cursor.hpp>
-#include <fcppt/text.hpp>
+#include <sge/font/text/lit.hpp>
 
 sge::console::cursor::cursor()
 :
 	line_(
-		FCPPT_TEXT(" ")),
+		SGE_FONT_TEXT_LIT(" ")),
 	pos_(
 		static_cast<size_type>(
 			0))
 {
 }
 
-fcppt::string const
+sge::font::text::string const
 sge::console::cursor::edited(
 	bool const _active
 ) const
 {
-	fcppt::string l = 
+	font::text::string l = 
 		line_;
 	if (_active)
 		l[pos_] = 
-			FCPPT_TEXT('_');
+			SGE_FONT_TEXT_LIT('_');
 	return 
 		l;
 }
 
-fcppt::string const
+sge::font::text::string const
 sge::console::cursor::string() const
 {
 	// skip last space
@@ -59,11 +59,11 @@ sge::console::cursor::string() const
 
 void
 sge::console::cursor::string(
-	fcppt::string const &_line
+	font::text::string const &_line
 )
 {
 	line_ = 
-		_line+FCPPT_TEXT(' ');
+		_line + SGE_FONT_TEXT_LIT(' ');
 	pos_ = 
 		static_cast<size_type>(
 			line_.length()-1);
@@ -78,11 +78,11 @@ sge::console::cursor::erase_word()
 	size_type 
 		s = 
 			line_.rfind(
-				FCPPT_TEXT(' '),
+				SGE_FONT_TEXT_LIT(' '),
 				static_cast<size_type>(
 					pos_-1));
 
-	if (s == fcppt::string::npos)
+	if (s == font::text::string::npos)
 		s = 
 			static_cast<size_type>(
 				0);
@@ -152,7 +152,7 @@ sge::console::cursor::empty() const
 
 void
 sge::console::cursor::insert(
-	fcppt::char_type const c
+	font::text::char_type const c
 )
 {
 	line_.insert(

@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/make.hpp>
 #include <sge/image/algorithm/copy_and_convert.hpp>
 #include <sge/image/size_type.hpp>
+#include <sge/iconv/convert.hpp>
+#include <sge/iconv/string_type.hpp>
 #include <sge/font/exception.hpp>
 #include <sge/log/global.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -32,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/headers.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/assert.hpp>
 #include <fcppt/text.hpp>
 #include <ostream>
 
@@ -44,10 +47,31 @@ sge::freetype::char_metric::char_metric(
 	offset_(),
 	x_advance_()
 {
+	// TODO: we could implement a convert function that does this on chars
+	typedef sge::iconv::string_type<
+		sge::iconv::encoding::utf32
+	>::type utf32_string;
+
+	utf32_string const converted_string(
+		sge::iconv::convert<
+			sge::iconv::encoding::utf32,
+			sge::iconv::encoding::wchar
+		>(
+			font::string(
+				_ch,
+				1u
+			)
+		)
+	);
+
+	FCPPT_ASSERT(
+		converted_string.size() == 1u
+	);
+
 	if(
 		::FT_Load_Char(
 			_face.get(),
-			_ch, // FIXME!
+			converted_string[0],
 			FT_LOAD_DEFAULT
 		)
 	)

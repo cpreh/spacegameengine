@@ -23,10 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/font/text/drawer_fwd.hpp>
 #include <sge/font/text/symbol.hpp>
+#include <sge/font/text/char_type.hpp>
 #include <sge/font/pos.hpp>
 #include <sge/font/dim.hpp>
 #include <sge/font/const_image_view.hpp>
-#include <sge/font/char_type.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <cstddef>
@@ -53,7 +53,7 @@ public:
 
 	virtual void
 	draw_char(
-		font::char_type,
+		font::text::char_type,
 		pos const &,
 		const_image_view const &data
 	) = 0;

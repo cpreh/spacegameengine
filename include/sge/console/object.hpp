@@ -29,11 +29,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/function_map.hpp>
 #include <sge/console/arg_list.hpp>
 #include <sge/console/symbol.hpp>
+#include <sge/font/text/string.hpp>
+#include <sge/font/text/char_type.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/char_type.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -47,15 +47,15 @@ FCPPT_NONCOPYABLE(object)
 public:
 	SGE_CONSOLE_SYMBOL explicit 
 	object(
-		fcppt::char_type prefix
+		font::text::char_type prefix
 	);
 
 	SGE_CONSOLE_SYMBOL fcppt::signal::auto_connection
 	insert(
-		fcppt::string const &name,
+		font::text::string const &name,
 		callback const &,
-		fcppt::string const &short_description = fcppt::string(),
-		fcppt::string const &long_description = fcppt::string()
+		font::text::string const &short_description = font::text::string(),
+		font::text::string const &long_description = font::text::string()
 	);
 
 	SGE_CONSOLE_SYMBOL fcppt::signal::auto_connection
@@ -75,7 +75,7 @@ public:
 
 	SGE_CONSOLE_SYMBOL void
 	eval(
-		fcppt::string const &
+		font::text::string const &
 	);
 
 	SGE_CONSOLE_SYMBOL void
@@ -86,22 +86,22 @@ public:
 	SGE_CONSOLE_SYMBOL function_map const &
 	functions() const;
 
-	SGE_CONSOLE_SYMBOL fcppt::char_type
+	SGE_CONSOLE_SYMBOL font::text::char_type
 	prefix() const;
 
 	SGE_CONSOLE_SYMBOL void
 	emit_error(
-		fcppt::string const &
+		font::text::string const &
 	);
 
 	SGE_CONSOLE_SYMBOL void
 	emit_message(
-		fcppt::string const &
+		font::text::string const &
 	);
 private:
 	fcppt::signal::object<error_callback_fn> error_;
 	fcppt::signal::object<message_callback_fn> message_;
-	fcppt::char_type const prefix_;
+	font::text::char_type const prefix_;
 	function_map funcs_;
 	fallback_signal fallback_;
 	fcppt::signal::scoped_connection help_connection_,man_connection_;

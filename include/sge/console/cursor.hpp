@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/console/function_map.hpp>
 #include <sge/console/symbol.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/char_type.hpp>
+#include <sge/font/text/char_type.hpp>
+#include <sge/font/text/string.hpp>
 
 namespace sge
 {
@@ -34,22 +34,22 @@ class cursor
 {
 public:
 	typedef 
-	fcppt::string::size_type 
+	font::text::string::size_type 
 	size_type;
 
 	SGE_CONSOLE_SYMBOL cursor();
 
-	SGE_CONSOLE_SYMBOL fcppt::string const
+	SGE_CONSOLE_SYMBOL font::text::string const
 	edited(
 		bool
 	) const;
 
-	SGE_CONSOLE_SYMBOL fcppt::string const
+	SGE_CONSOLE_SYMBOL font::text::string const
 	string() const;
 
 	SGE_CONSOLE_SYMBOL void
 	string(
-		fcppt::string const &
+		font::text::string const &
 	);
 
 	SGE_CONSOLE_SYMBOL void
@@ -75,7 +75,7 @@ public:
 
 	SGE_CONSOLE_SYMBOL void
 	insert(
-		fcppt::char_type
+		font::text::char_type
 	);
 
 	SGE_CONSOLE_SYMBOL bool
@@ -86,7 +86,7 @@ public:
 		function_map const &
 	);
 private:
-	fcppt::string line_;
+	font::text::string line_;
 	size_type pos_;
 };
 }

@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/object.hpp>
 #include <sge/font/metrics_ptr.hpp>
 #include <sge/font/text/drawer_ptr.hpp>
+#include <sge/font/text/string.hpp>
 #include <sge/input/modifier/filter.hpp>
 #include <sge/input/keyboard/device_ptr.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
@@ -40,7 +41,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/external_system_decl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/string.hpp>
 #include <list>
 
 namespace sge
@@ -80,7 +80,7 @@ public:
 
 	SGE_CONSOLE_SYMBOL void
 	print(
-		fcppt::string const &
+		font::text::string const &
 	);
 
 	SGE_CONSOLE_SYMBOL sge::console::object &
@@ -90,7 +90,7 @@ public:
 	object() const;
 private:
 	typedef 
-	std::list<fcppt::string>
+	std::list<font::text::string>
 	input_history_sequence;
 
 	sge::console::object &object_;
@@ -132,12 +132,12 @@ private:
 
 	void
 	tab_complete(
-		fcppt::string &
+		font::text::string &
 	);
 
 	void
 	error(
-		fcppt::string const &
+		font::text::string const &
 	);
 };
 

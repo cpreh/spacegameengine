@@ -18,17 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_CHAR_TYPE_HPP_INCLUDED
-#define SGE_FONT_CHAR_TYPE_HPP_INCLUDED
+#include <sge/font/text/to_fcppt_string.hpp>
+#include <fcppt/from_std_wstring.hpp>
 
-namespace sge
+fcppt::string const
+sge::font::text::to_fcppt_string(
+	text::string const &_string
+)
 {
-namespace font
-{
-
-typedef wchar_t char_type;
-
+	return
+		fcppt::from_std_wstring(
+			_string
+		);
 }
-}
-
-#endif

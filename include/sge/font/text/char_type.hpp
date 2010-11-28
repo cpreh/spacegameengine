@@ -18,16 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_CHAR_TYPE_HPP_INCLUDED
-#define SGE_FONT_CHAR_TYPE_HPP_INCLUDED
+#ifndef SGE_FONT_TEXT_CHAR_TYPE_HPP_INCLUDED
+#define SGE_FONT_TEXT_CHAR_TYPE_HPP_INCLUDED
+
+#include <sge/font/char_type.hpp>
 
 namespace sge
 {
 namespace font
 {
+namespace text
+{
 
-typedef wchar_t char_type;
+typedef font::char_type char_type; // TODO: is this ok?
 
+}
 }
 }
 

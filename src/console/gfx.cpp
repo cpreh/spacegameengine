@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "next_or_last.hpp"
 #include <sge/console/gfx.hpp>
+#include <sge/console/exception.hpp>
 #include <sge/console/object.hpp>
 #include <sge/font/text/drawer_3d.hpp>
 #include <sge/font/text/line_width.hpp>
@@ -27,13 +28,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/height.hpp>
 #include <sge/font/text/draw.hpp>
 #include <sge/font/text/part.hpp>
+#include <sge/font/text/lit.hpp>
 #include <sge/font/pos.hpp>
 #include <sge/input/keyboard/key.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/time/second_f.hpp>
 #include <sge/sprite/external_system_impl.hpp>
 #include <sge/sprite/render_one.hpp>
-#include <sge/exception.hpp>
 #include <fcppt/container/map_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
@@ -48,25 +49,25 @@ namespace
 typedef
 std::vector
 <
-	fcppt::string
+	sge::font::text::string
 >
 line_sequence;
 
 line_sequence const
 wrap(
 	sge::font::metrics_ptr const metrics,
-	fcppt::string const &s,
+	sge::font::text::string const &s,
 	sge::font::dim const &max_dim)
 {
 	if (s.empty())
 		return line_sequence();
 
-	fcppt::string::const_iterator i = 
+	sge::font::text::string::const_iterator i = 
 		s.begin();
 
 	line_sequence lines;
 
-	for (fcppt::string::const_iterator i = s.begin(); i != s.end();)
+	for (sge::font::text::string::const_iterator i = s.begin(); i != s.end();)
 	{
 
 		sge::font::text::part const tp = 
@@ -78,7 +79,7 @@ wrap(
 				sge::font::text::flags::none);
 
 		lines.push_back(
-			fcppt::string(
+			sge::font::text::string(
 				i,
 				tp.end()));
 
@@ -228,7 +229,7 @@ sge::console::gfx::draw()
 				font_metrics_);
 	}
 
-	fcppt::string const il = 
+	font::text::string const il = 
 		input_line_.edited(
 			cursor_active_);
 
@@ -272,11 +273,11 @@ sge::console::gfx::active(
 
 void
 sge::console::gfx::print(
-	fcppt::string const &_s
+	font::text::string const &_s
 )
 {
 	BOOST_FOREACH(
-		fcppt::string const &l,
+		font::text::string const &l,
 		wrap(
 			font_metrics_,
 			_s,
@@ -321,8 +322,17 @@ sge::console::gfx::key_action(
 	if (!active_)
 		return;
 	
-	if ((k.character() == FCPPT_TEXT('w') || k.character() == FCPPT_TEXT('W'))
-	    && (s[input::keyboard::key_code::lctrl] || s[input::keyboard::key_code::rctrl]))
+	if(
+		(
+			k.character() == SGE_FONT_TEXT_LIT('w')
+			|| k.character() == SGE_FONT_TEXT_LIT('W')
+		)
+		&&
+		(
+			s[input::keyboard::key_code::lctrl]
+			|| s[input::keyboard::key_code::rctrl]
+		)
+	)
 	{
 		input_line_.erase_word();
 		return;
@@ -392,11 +402,13 @@ sge::console::gfx::key_action(
 				object_.eval(
 					input_line_.string());
 			}
-			catch (exception const &e)
+			catch (console::exception const &e)
 			{
 				print(
-					FCPPT_TEXT("console error: ")+
-					e.string());
+					SGE_FONT_TEXT_LIT("console error: ")
+					+
+					e.console_string()
+				);
 			}
 
 			// add executed command to each history (at the front)...
@@ -408,7 +420,8 @@ sge::console::gfx::key_action(
 
 			// clear input line
 			input_line_.string(
-				FCPPT_TEXT(""));
+				SGE_FONT_TEXT_LIT("")
+			);
 		break;
 		// else we get a million warnings about unhandled enumeration values
 		default: break;
@@ -417,9 +430,9 @@ sge::console::gfx::key_action(
 
 void
 sge::console::gfx::error(
-	fcppt::string const &s)
+	font::text::string const &s)
 {
 	print(
-		FCPPT_TEXT("command error: ")+
+		SGE_FONT_TEXT_LIT("command error: ")+
 		s);
 }

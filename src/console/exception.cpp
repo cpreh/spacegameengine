@@ -19,12 +19,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/console/exception.hpp>
+#include <fcppt/text.hpp>
 
 sge::console::exception::exception(
-	fcppt::string const &str
+	font::text::string const &_console_string
 )
 :
 	sge::exception(
-		str
+		FCPPT_TEXT("console error")
+	),
+	console_string_(
+		_console_string
 	)
 {}
+
+sge::console::exception::~exception() throw()
+{
+}
+
+
+sge::font::text::string const &
+sge::console::exception::console_string() const
+{
+	return console_string_;
+}

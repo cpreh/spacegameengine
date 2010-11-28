@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/console/signal.hpp>
 #include <sge/console/symbol.hpp>
-#include <fcppt/string.hpp>
+#include <sge/font/text/string.hpp>
 
 namespace sge
 {
@@ -34,21 +34,21 @@ class function
 {
 public:
 	SGE_CONSOLE_SYMBOL explicit function(
-		fcppt::string const &short_desc,
-		fcppt::string const &long_desc
+		font::text::string const &short_desc,
+		font::text::string const &long_desc
 	);
 
 	SGE_CONSOLE_SYMBOL sge::console::signal &
 	signal();
 
-	SGE_CONSOLE_SYMBOL fcppt::string const &
+	SGE_CONSOLE_SYMBOL font::text::string const &
 	short_description() const;
 
-	SGE_CONSOLE_SYMBOL fcppt::string const &
+	SGE_CONSOLE_SYMBOL font::text::string const &
 	long_description() const;
 private:
 	sge::console::signal signal_;
-	fcppt::string short_description_,long_description_;
+	font::text::string short_description_,long_description_;
 };
 
 }
