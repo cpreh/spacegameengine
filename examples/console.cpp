@@ -44,6 +44,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/sprite_object.hpp>
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/object_impl.hpp>
+#include <sge/font/text/lit.hpp>
+#include <sge/font/text/to_fcppt_string.hpp>
 #include <sge/font/system.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/exception.hpp>
@@ -63,18 +65,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-void fallback(
-	fcppt::string const &arg)
+void
+fallback(
+	sge::font::text::string const &_arg
+)
 {
 	fcppt::io::cout
 		<< FCPPT_TEXT("fallback called with argument:")
-		<< arg
+		<< sge::font::text::to_fcppt_string(
+			_arg
+		)
 		<< FCPPT_TEXT('\n');
 }
 
-void quit(bool &running,sge::console::arg_list const &)
+void
+quit(
+	bool &_running,
+	sge::console::arg_list const &
+)
 {
-	running = false;
+	_running = false;
 }
 
 }
@@ -134,12 +144,12 @@ try
 	);
 
 	sge::console::object object(
-		FCPPT_TEXT('/')
+		SGE_FONT_TEXT_LIT('/')
 	);
 
 	fcppt::signal::scoped_connection const c0(
 		object.insert(
-			FCPPT_TEXT("quit"),
+			SGE_FONT_TEXT_LIT("quit"),
 			std::tr1::bind(
 				&quit,
 				std::tr1::ref(
@@ -147,7 +157,7 @@ try
 				),
 				std::tr1::placeholders::_1
 			),
-			FCPPT_TEXT("quit test")
+			SGE_FONT_TEXT_LIT("quit test")
 		)
 	);
 

@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/console/cursor.hpp>
-#include <fcppt/text.hpp>
+#include <sge/font/text/lit.hpp>
 #include <boost/test/unit_test.hpp>
 
 BOOST_AUTO_TEST_CASE(cursor)
@@ -28,66 +28,66 @@ BOOST_AUTO_TEST_CASE(cursor)
 	
 	BOOST_REQUIRE(
 		c.edited(true) == 
-			FCPPT_TEXT("_"));
+			SGE_FONT_TEXT_LIT("_"));
 			
 	BOOST_REQUIRE(
 		c.edited(false) == 
-			FCPPT_TEXT(" "));
+			SGE_FONT_TEXT_LIT(" "));
 	
 	BOOST_REQUIRE(
 		c.string() == 
-			FCPPT_TEXT(""));
+			SGE_FONT_TEXT_LIT(""));
 			
 	BOOST_REQUIRE(
 		c.empty());
 	
 	c.insert(
-		FCPPT_TEXT('f'));
+		SGE_FONT_TEXT_LIT('f'));
 	c.insert(
-		FCPPT_TEXT('o'));
+		SGE_FONT_TEXT_LIT('o'));
 	c.insert(
-		FCPPT_TEXT('o'));
+		SGE_FONT_TEXT_LIT('o'));
 		
 	BOOST_REQUIRE(
 		c.edited(true) == 
-			FCPPT_TEXT("foo_"));
+			SGE_FONT_TEXT_LIT("foo_"));
 			
 	BOOST_REQUIRE(
 		c.edited(false) == 
-			FCPPT_TEXT("foo "));
+			SGE_FONT_TEXT_LIT("foo "));
 			
 	BOOST_REQUIRE(
 		c.string() == 
-			FCPPT_TEXT("foo"));
+			SGE_FONT_TEXT_LIT("foo"));
 	
 	c.erase_word();
 	
 	BOOST_REQUIRE(
 		c.edited(true) == 
-			FCPPT_TEXT("_"));
+			SGE_FONT_TEXT_LIT("_"));
 			
 	BOOST_REQUIRE(
 		c.edited(false) == 
-			FCPPT_TEXT(" "));
+			SGE_FONT_TEXT_LIT(" "));
 			
 	BOOST_REQUIRE(
 		c.string() == 
-			FCPPT_TEXT(""));
+			SGE_FONT_TEXT_LIT(""));
 	
 	c.string(
-		FCPPT_TEXT("bar"));
+		SGE_FONT_TEXT_LIT("bar"));
 		
 	BOOST_REQUIRE(
 		c.edited(true) == 
-			FCPPT_TEXT("bar_"));
+			SGE_FONT_TEXT_LIT("bar_"));
 			
 	BOOST_REQUIRE(
 		c.edited(false) == 
-			FCPPT_TEXT("bar "));
+			SGE_FONT_TEXT_LIT("bar "));
 			
 	BOOST_REQUIRE(
 		c.string() == 
-			FCPPT_TEXT("bar"));
+			SGE_FONT_TEXT_LIT("bar"));
 	
 	c.left();
 	c.left();
@@ -96,29 +96,29 @@ BOOST_AUTO_TEST_CASE(cursor)
 	
 	BOOST_REQUIRE(
 		c.edited(true) == 
-			FCPPT_TEXT("_ar "));
+			SGE_FONT_TEXT_LIT("_ar "));
 			
 	BOOST_REQUIRE(
 		c.edited(false) == 
-			FCPPT_TEXT("bar "));
+			SGE_FONT_TEXT_LIT("bar "));
 			
 	BOOST_REQUIRE(
 		c.string() == 
-			FCPPT_TEXT("bar"));
+			SGE_FONT_TEXT_LIT("bar"));
 	
 	c.erase_char();
 	
 	BOOST_REQUIRE(
 		c.edited(true) == 
-			FCPPT_TEXT("_r "));
+			SGE_FONT_TEXT_LIT("_r "));
 			
 	BOOST_REQUIRE(
 		c.edited(false) == 
-			FCPPT_TEXT("ar "));
+			SGE_FONT_TEXT_LIT("ar "));
 			
 	BOOST_REQUIRE(
 		c.string() == 
-			FCPPT_TEXT("ar"));
+			SGE_FONT_TEXT_LIT("ar"));
 	
 	c.erase_char();
 	c.erase_char();
@@ -126,53 +126,53 @@ BOOST_AUTO_TEST_CASE(cursor)
 	
 	BOOST_REQUIRE(
 		c.edited(true) == 
-			FCPPT_TEXT("_"));
+			SGE_FONT_TEXT_LIT("_"));
 			
 	BOOST_REQUIRE(
 		c.edited(false) == 
-			FCPPT_TEXT(" "));
+			SGE_FONT_TEXT_LIT(" "));
 			
 	BOOST_REQUIRE(
 		c.string() == 
-			FCPPT_TEXT(""));
+			SGE_FONT_TEXT_LIT(""));
 	
 	c.string(
-		FCPPT_TEXT("foo"));
+		SGE_FONT_TEXT_LIT("foo"));
 	
 	c.left();
 	c.left();
 	
 	c.insert(
-		FCPPT_TEXT('b'));
+		SGE_FONT_TEXT_LIT('b'));
 		
 	BOOST_REQUIRE(
 		c.edited(true) == 
-			FCPPT_TEXT("fb_o "));
+			SGE_FONT_TEXT_LIT("fb_o "));
 			
 	BOOST_REQUIRE(
 		c.edited(false) == 
-			FCPPT_TEXT("fboo "));
+			SGE_FONT_TEXT_LIT("fboo "));
 			
 	BOOST_REQUIRE(
 		c.string() == 
-			FCPPT_TEXT("fboo"));
+			SGE_FONT_TEXT_LIT("fboo"));
 	
 	c.left();
 	
 	c.insert(
-		FCPPT_TEXT('r'));
+		SGE_FONT_TEXT_LIT('r'));
 		
 	BOOST_REQUIRE(
 		c.edited(true) == 
-			FCPPT_TEXT("fr_oo "));
+			SGE_FONT_TEXT_LIT("fr_oo "));
 			
 	BOOST_REQUIRE(
 		c.edited(false) == 
-			FCPPT_TEXT("frboo "));
+			SGE_FONT_TEXT_LIT("frboo "));
 			
 	BOOST_REQUIRE(
 		c.string() == 
-			FCPPT_TEXT("frboo"));
+			SGE_FONT_TEXT_LIT("frboo"));
 	
 	c.right();
 	c.right();
@@ -184,29 +184,29 @@ BOOST_AUTO_TEST_CASE(cursor)
 	
 	BOOST_REQUIRE(
 		c.edited(true) == 
-			FCPPT_TEXT("frboo_"));
+			SGE_FONT_TEXT_LIT("frboo_"));
 			
 	BOOST_REQUIRE(
 		c.edited(false) == 
-			FCPPT_TEXT("frboo "));
+			SGE_FONT_TEXT_LIT("frboo "));
 			
 	BOOST_REQUIRE(
 		c.string() == 
-			FCPPT_TEXT("frboo"));
+			SGE_FONT_TEXT_LIT("frboo"));
 	
 	c.to_start();
 	
 	BOOST_REQUIRE(
 		c.edited(true) == 
-			FCPPT_TEXT("_rboo "));
+			SGE_FONT_TEXT_LIT("_rboo "));
 			
 	BOOST_REQUIRE(
 		c.edited(false) == 
-			FCPPT_TEXT("frboo "));
+			SGE_FONT_TEXT_LIT("frboo "));
 			
 	BOOST_REQUIRE(
 		c.string() == 
-			FCPPT_TEXT("frboo"));
+			SGE_FONT_TEXT_LIT("frboo"));
 			
 	BOOST_REQUIRE(
 		c.at_start());
@@ -215,18 +215,18 @@ BOOST_AUTO_TEST_CASE(cursor)
 	
 	BOOST_REQUIRE(
 		c.edited(true) == 
-			FCPPT_TEXT("frboo_"));
+			SGE_FONT_TEXT_LIT("frboo_"));
 			
 	BOOST_REQUIRE(
 		c.edited(false) == 
-			FCPPT_TEXT("frboo "));
+			SGE_FONT_TEXT_LIT("frboo "));
 			
 	BOOST_REQUIRE(
 		c.string() == 
-			FCPPT_TEXT("frboo"));
+			SGE_FONT_TEXT_LIT("frboo"));
 	
 	c.string(
-		FCPPT_TEXT("foo bar"));
+		SGE_FONT_TEXT_LIT("foo bar"));
 	c.left();
 	c.left();
 	c.left();
@@ -235,43 +235,43 @@ BOOST_AUTO_TEST_CASE(cursor)
 	
 	BOOST_REQUIRE(
 		c.edited(true) == 
-			FCPPT_TEXT("_bar "));
+			SGE_FONT_TEXT_LIT("_bar "));
 			
 	BOOST_REQUIRE(
 		c.edited(false) == 
-			FCPPT_TEXT(" bar "));
+			SGE_FONT_TEXT_LIT(" bar "));
 			
 	BOOST_REQUIRE(
 		c.string() == 
-			FCPPT_TEXT(" bar"));
+			SGE_FONT_TEXT_LIT(" bar"));
 			
 	c.erase_word();
 	
 	BOOST_REQUIRE(
 		c.edited(true) == 
-			FCPPT_TEXT("_bar "));
+			SGE_FONT_TEXT_LIT("_bar "));
 			
 	BOOST_REQUIRE(
 		c.edited(false) == 
-			FCPPT_TEXT(" bar "));
+			SGE_FONT_TEXT_LIT(" bar "));
 			
 	BOOST_REQUIRE(
 		c.string() == 
-			FCPPT_TEXT(" bar"));
+			SGE_FONT_TEXT_LIT(" bar"));
 	
 	c.string(
-		FCPPT_TEXT("foo"));
+		SGE_FONT_TEXT_LIT("foo"));
 	c.left();
 	c.left();
 
 	BOOST_REQUIRE(
 		c.edited(true) == 
-			FCPPT_TEXT("f_o "));
+			SGE_FONT_TEXT_LIT("f_o "));
 
 	c.insert(
-		FCPPT_TEXT('a'));
+		SGE_FONT_TEXT_LIT('a'));
 	
 	BOOST_REQUIRE(
 		c.edited(true) == 
-			FCPPT_TEXT("fa_o "));
+			SGE_FONT_TEXT_LIT("fa_o "));
 }
