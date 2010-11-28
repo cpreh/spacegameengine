@@ -20,21 +20,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "string_square.hpp"
 #include <sge/gui/unit.hpp>
+#include <sge/font/text/lit.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/text.hpp>
 
-fcppt::string const
+sge::font::text::string const
 sge::gui::utility::string_square(
 	dim const &s
 )
 {
-	fcppt::string const line(
-		static_cast<fcppt::string::size_type>(s.w()),
+	sge::font::text::string const line(
+		static_cast<sge::font::text::string::size_type>(s.w()),
 		FCPPT_TEXT('W')
 	);
 
-	fcppt::string result;
+	sge::font::text::string result;
 	for (unit i = 0; i < s.h(); ++i)
-		result += line+FCPPT_TEXT('\n');
+		result += line + SGE_FONT_TEXT_LIT('\n');
 	return result;
 }

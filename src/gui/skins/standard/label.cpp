@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/canvas/object.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/gui/unit.hpp>
+#include <sge/font/text/to_fcppt_string.hpp>
 #include <sge/image/colors.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
@@ -54,7 +55,9 @@ void sge::gui::skins::standard::draw(
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		fcppt::log::_ << FCPPT_TEXT("creating canvas from buffer"));
+		fcppt::log::_
+			<< FCPPT_TEXT("creating canvas from buffer")
+	);
 
 	canvas::object c(b.buffer());
 
@@ -75,9 +78,13 @@ void sge::gui::skins::standard::draw(
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		fcppt::log::_ << FCPPT_TEXT("drawing text (label \"")
-		        << b.text()
-		        << FCPPT_TEXT("\")"));
+		fcppt::log::_
+			<< FCPPT_TEXT("drawing text (label \"")
+			<< sge::font::text::to_fcppt_string(
+				b.text()
+			)
+			<< FCPPT_TEXT("\")")
+	);
 
 	// draw text centered
 	c.draw_text(
@@ -90,9 +97,13 @@ void sge::gui::skins::standard::draw(
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		fcppt::log::_ << FCPPT_TEXT("blitting (label \"")
-		        << b.text()
-		        << FCPPT_TEXT("\")"));
+		fcppt::log::_
+			<< FCPPT_TEXT("blitting (label \"")
+			<< sge::font::text::to_fcppt_string(
+				b.text()
+			)
+			<< FCPPT_TEXT("\")")
+	);
 
 	blit_invalid(
 		b,

@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert.hpp>
 #include <fcppt/text.hpp>
 #include <ostream>
+#include <string>
 
 sge::freetype::char_metric::char_metric(
 	freetype::face &_face,
@@ -57,9 +58,11 @@ sge::freetype::char_metric::char_metric(
 			sge::iconv::encoding::utf32,
 			sge::iconv::encoding::wchar
 		>(
-			font::string(
-				_ch,
-				1u
+			std::basic_string<
+				font::char_type
+			>(
+				1u,
+				_ch
 			)
 		)
 	);

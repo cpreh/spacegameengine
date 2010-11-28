@@ -20,17 +20,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/gui/detail/cursor_delegate.hpp>
 #include <sge/input/keyboard/key_event.hpp>
-#include <fcppt/text.hpp>
+#include <sge/font/text/lit.hpp>
 #include <algorithm>
 
-sge::gui::detail::cursor_delegate::cursor_delegate(fcppt::string &text)
+sge::gui::detail::cursor_delegate::cursor_delegate(
+	sge::font::text::string &_text
+)
 :
-	text(text),
-	pos_(text.length())
+	text_(_text),
+	pos_(_text.length())
 {
 }
 
-fcppt::string::size_type
+sge::font::text::string::size_type
 sge::gui::detail::cursor_delegate::pos() const
 {
 	return pos_;
@@ -44,7 +46,7 @@ sge::gui::detail::cursor_delegate::key_callback(
 	switch (c.key().code())
 	{
 		case input::keyboard::key_code::return_:
-			text += FCPPT_TEXT('\n');
+			text_ += SGE_FONT_TEXT_LIT('\n');
 		break;
 		case input::keyboard::key_code::left:
 			if (pos_ == 0)
@@ -52,23 +54,23 @@ sge::gui::detail::cursor_delegate::key_callback(
 
 			pos_--;
 
-			if (text[pos_] == FCPPT_TEXT('\n'))
+			if (text_[pos_] == SGE_FONT_TEXT_LIT('\n'))
 				pos_--;
 		break;
 		case input::keyboard::key_code::right:
-			pos_ = std::min(pos_+1,text.length());
-			if (text[pos_] == FCPPT_TEXT('\n'))
+			pos_ = std::min(pos_+1,text_.length());
+			if (text_[pos_] == SGE_FONT_TEXT_LIT('\n'))
 				pos_++;
 		break;
 		case input::keyboard::key_code::backspace:
 			if (pos_ == 0)
 				return;
 
-			text.erase(
-				text.begin()
+			text_.erase(
+				text_.begin()
 				+
 				static_cast<
-					fcppt::string::iterator::difference_type
+					sge::font::text::string::iterator::difference_type
 				>(
 					pos_
 				)
@@ -81,11 +83,11 @@ sge::gui::detail::cursor_delegate::key_callback(
 			if (c.key().character() == 0)
 				return;
 
-			text.insert(
-				text.begin()
+			text_.insert(
+				text_.begin()
 				+
 				static_cast<
-					fcppt::string::iterator::difference_type
+					sge::font::text::string::iterator::difference_type
 				>(
 					pos_
 				),

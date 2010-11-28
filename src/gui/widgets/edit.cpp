@@ -33,6 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/second_f.hpp>
 #include <sge/font/metrics.hpp>
 #include <sge/font/text/flags_none.hpp>
+#include <sge/font/text/char_to_fcppt_string.hpp>
+#include <sge/font/text/to_fcppt_string.hpp>
+#include <sge/font/text/lit.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/dim/output.hpp>
@@ -68,7 +71,7 @@ sge::gui::widgets::edit::edit(
 	parameters _params,
 	line_type const _type,
 	dim const &_desired_size,
-	fcppt::string const &_text
+	sge::font::text::string const &_text
 )
 :
 	base(
@@ -92,12 +95,16 @@ sge::gui::widgets::edit::edit(
 {
 }
 
-fcppt::string const sge::gui::widgets::edit::text() const
+sge::font::text::string const &
+sge::gui::widgets::edit::text() const
 {
 	return text_;
 }
 
-void sge::gui::widgets::edit::text(fcppt::string const &n)
+void
+sge::gui::widgets::edit::text(
+	sge::font::text::string const &n
+)
 {
 	text_ = n;
 	parent_manager().dirty(
@@ -208,7 +215,10 @@ void sge::gui::widgets::edit::refresh() const
 		mygraphlogger,
 		fcppt::log::_ << FCPPT_TEXT("redrawing text buffer"));
 
-	fcppt::string const ntext = text_+FCPPT_TEXT(' ');
+	sge::font::text::string const ntext(
+		text_
+		+ SGE_FONT_TEXT_LIT(' ')
+	);
 
 	FCPPT_LOG_DEBUG(
 		mygraphlogger,
@@ -243,7 +253,12 @@ void sge::gui::widgets::edit::refresh() const
 
 	FCPPT_LOG_DEBUG(
 		mygraphlogger,
-		fcppt::log::_ << FCPPT_TEXT("drawing text: ") << ntext);
+		fcppt::log::_
+			<< FCPPT_TEXT("drawing text: ")
+			<< sge::font::text::to_fcppt_string(
+				ntext
+			)
+	);
 
 	FCPPT_LOG_DEBUG(
 		mygraphlogger,
@@ -251,8 +266,10 @@ void sge::gui::widgets::edit::refresh() const
 
 	FCPPT_LOG_DEBUG(
 		mygraphlogger,
-		fcppt::log::_ << FCPPT_TEXT("text buffer size is: ")
-						<< text_buffer_.size());
+		fcppt::log::_
+			<< FCPPT_TEXT("text buffer size is: ")
+			<< text_buffer_.size()
+	);
 
 	point p;
 	c.draw_text(
@@ -275,8 +292,16 @@ void sge::gui::widgets::edit::refresh() const
 		unit const cursor_line = static_cast<unit>(
 			std::count(
 				ntext.begin(),
-				ntext.begin()+cursor.pos()+1,
-				FCPPT_TEXT('\n')));
+				ntext.begin()
+				+
+				static_cast<
+					sge::font::text::string::const_iterator::difference_type
+				>(
+					cursor.pos() + 1u
+				),
+				FCPPT_TEXT('\n')
+			)
+		);
 
 		FCPPT_LOG_DEBUG(
 			mygraphlogger,
@@ -284,7 +309,9 @@ void sge::gui::widgets::edit::refresh() const
 				<< FCPPT_TEXT("the cursor is on line ")
 				<< cursor_line
 				<< FCPPT_TEXT("and stands on the character: '")
-				<< ntext[cursor.pos()]
+				<< sge::font::text::char_to_fcppt_string(
+					ntext[cursor.pos()]
+				)
 				<< FCPPT_TEXT("'")
 		);
 

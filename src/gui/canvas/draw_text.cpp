@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::gui::canvas::object::draw_text(
 	font_info const &font,
-	fcppt::string const &text,
+	sge::font::text::string const &text,
 	point const &pos,
 	dim const &max_size,
 	font::text::align_h::type const h,
@@ -46,16 +46,16 @@ sge::gui::canvas::object::draw_text(
 	// determine which invisible characters have to be filtered
 	if (cp)
 	{
-		fcppt::string::size_type const filter(
+		sge::font::text::string::size_type const filter(
 			static_cast<
-				fcppt::string::size_type
+				sge::font::text::string::size_type
 			>(
 				std::count(
 					text.begin(),
 					text.begin()
 					+
 					static_cast<
-						fcppt::string::const_iterator::difference_type
+						sge::font::text::string::const_iterator::difference_type
 					>(
 						*cp
 					)

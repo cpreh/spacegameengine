@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::gui::dim const
 sge::gui::utility::unlimited_text_size(
 	font::metrics_ptr const f,
-	fcppt::string const &t
+	sge::font::text::string const &t
 )
 {
 	return fcppt::math::dim::structure_cast<dim>(

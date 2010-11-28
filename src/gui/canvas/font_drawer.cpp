@@ -78,7 +78,7 @@ sge::gui::canvas::font_drawer::begin_rendering(
 
 void
 sge::gui::canvas::font_drawer::draw_char(
-	fcppt::char_type const,
+	sge::font::text::char_type const,
 	font::pos const &pos,
 	font::const_image_view const &data
 )
