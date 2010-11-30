@@ -49,7 +49,8 @@ public:
 	typedef Result result_type;
 
 	explicit visitor(
-		sge::image::rect const &);
+		sge::image::rect const &
+	);
 
 	template<
 		typename T
@@ -59,33 +60,35 @@ public:
 		T const &
 	) const;
 private:
-	sge::image::rect const lr;
+	sge::image::rect const rect_;
 };
 
 }
 
 sge::image::view::object const
 sge::image::view::sub(
-	object const &src,
-	rect const &lr
+	object const &_src,
+	rect const &_rect
 )
 {
-	return sub_impl(
-		src,
-		lr
-	);
+	return
+		::sub_impl(
+			_src,
+			_rect
+		);
 }
 
 sge::image::view::const_object const
 sge::image::view::sub(
-	const_object const &src,
-	rect const &lr
+	const_object const &_src,
+	rect const &_rect
 )
 {
-	return sub_impl(
-		src,
-		lr
-	);
+	return
+		::sub_impl(
+			_src,
+			_rect
+		);
 }
 
 namespace
@@ -96,26 +99,29 @@ template<
 >
 View const
 sub_impl(
-	View const &v,
-	sge::image::rect const &r
+	View const &_view,
+	sge::image::rect const &_rect
 )
 {
-	return fcppt::variant::apply_unary(
-		visitor<View>(
-			r
-		),
-		v
-	);
+	return
+		fcppt::variant::apply_unary(
+			::visitor<
+				View
+			>(
+				_rect
+			),
+			_view
+		);
 }
 
 template<
 	typename Result
 >
 visitor<Result>::visitor(
-	sge::image::rect const &lr
+	sge::image::rect const &_rect
 )
 :
-	lr(lr)
+	rect_(_rect)
 {}
 
 template<
@@ -126,24 +132,25 @@ template<
 >
 typename visitor<Result>::result_type const
 visitor<Result>::operator()(
-	T const &v
+	T const &_value
 ) const
 {
 	// TODO: make this more generic!
 
-	return mizuiro::image::sub_view(
-		v,
-		typename T::bound_type(
-			typename T::dim_type(
-				lr.left(),
-				lr.top()
-			),
-			typename T::dim_type(
-				lr.w(),
-				lr.h()
+	return
+		mizuiro::image::sub_view(
+			_value,
+			typename T::bound_type(
+				typename T::dim_type(
+					rect_.left(),
+					rect_.top()
+				),
+				typename T::dim_type(
+					rect_.w(),
+					rect_.h()
+				)
 			)
-		)
-	);
+		);
 }
 
 }

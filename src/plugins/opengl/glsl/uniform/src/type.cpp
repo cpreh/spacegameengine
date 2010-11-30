@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../type.hpp"
 
 sge::opengl::glsl::uniform::type::type(
-	uniform::element_type::type const type_,
-	size_type const elements_)
+	uniform::element_type::type const _type,
+	size_type const _elements
+)
 :
-	type_(type_),
-	elements_(elements_)
+	type_(_type),
+	elements_(_elements)
 {}
 
 

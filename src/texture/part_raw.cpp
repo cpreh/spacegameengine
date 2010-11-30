@@ -25,23 +25,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/basic_impl.hpp>
 
 sge::texture::part_raw::part_raw(
-	renderer::texture_ptr const tex,
-	renderer::lock_rect const &area_
+	renderer::texture_ptr const _tex,
+	renderer::lock_rect const &_area
 )
 :
-	area_(area_),
-	tex(tex)
+	area_(_area),
+	tex_(_tex)
 {}
 
 sge::texture::part_raw::part_raw(
-	renderer::texture_ptr const tex
+	renderer::texture_ptr const _tex
 )
 :
 	area_(
 		renderer::lock_rect::vector::null(),
-		tex->dim()
+		_tex->dim()
 	),
-	tex(tex)
+	tex_(_tex)
 {}
 
 sge::texture::part_raw::~part_raw()
@@ -49,12 +49,12 @@ sge::texture::part_raw::~part_raw()
 
 void
 sge::texture::part_raw::data(
-	image::view::const_object const &src
+	image::view::const_object const &_src
 )
 {
 	renderer::sub_data(
-		tex,
-		src,
+		tex_,
+		_src,
 		area().pos()
 	);
 }
@@ -68,17 +68,17 @@ sge::texture::part_raw::area() const
 sge::renderer::texture_ptr const
 sge::texture::part_raw::texture()
 {
-	return tex;
+	return tex_;
 }
 
 sge::renderer::const_texture_ptr const
 sge::texture::part_raw::texture() const
 {
-	return tex;
+	return tex_;
 }
 
 bool
 sge::texture::part_raw::repeatable() const
 {
-	return area().dimension() == tex->dim();
+	return area().dimension() == tex_->dim();
 }

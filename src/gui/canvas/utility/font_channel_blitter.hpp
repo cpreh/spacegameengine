@@ -69,13 +69,14 @@ public:
 		mizuiro::color::channel::alpha &
 	) const;
 private:
-	float font_value() const;
+	float
+	font_value() const;
 
-	FontColor const &fontcolor;
+	FontColor const &fontcolor_;
 
-	FontPixel const &font;
+	FontPixel const &font_;
 
-	DstPixel &result;
+	DstPixel &result_;
 };
 
 }
@@ -92,14 +93,14 @@ sge::gui::utility::font_channel_blitter<
 	FontPixel,
 	DstPixel
 >::font_channel_blitter(
-	FontColor const &fontcolor,
-	FontPixel const &font,
-	DstPixel &result
+	FontColor const &_fontcolor,
+	FontPixel const &_font,
+	DstPixel &_result
 )
 :
-	fontcolor(fontcolor),
-	font(font),
-	result(result)
+	fontcolor_(_fontcolor),
+	font_(_font),
+	result_(_result)
 {}
 
 
@@ -125,20 +126,20 @@ sge::gui::utility::font_channel_blitter<
 ) const
 {
 	// FIXME: add range value, divide by max-min (for font_channel_type and channel_type)
-	float const font_value_(
+	float const value(
 		font_value()
 	);
 
-	result. template set
+	result_. template set
 	<
 		Channel
 	>(
 		static_cast<
 			channel_type
 		>(
-			static_cast<float>(fontcolor. template get<Channel>()) * font_value_
-			+ static_cast<float>(result. template get<Channel>())
-			* (1.f - font_value_)
+			static_cast<float>(fontcolor_. template get<Channel>()) * value
+			+ static_cast<float>(result_. template get<Channel>())
+			* (1.f - value)
 		)
 	);
 }
@@ -161,7 +162,7 @@ sge::gui::utility::font_channel_blitter<
 	mizuiro::color::channel::alpha &
 ) const
 {
-	result. template set<
+	result_. template set<
 		mizuiro::color::channel::alpha
 	>(
 		mizuiro::color::denormalize<
@@ -173,7 +174,7 @@ sge::gui::utility::font_channel_blitter<
 					mizuiro::color::channel::alpha,
 					float
 				>(
-					result
+					result_
 				)
 				+ font_value(),
 				1.f
@@ -200,7 +201,7 @@ sge::gui::utility::font_channel_blitter<
 			mizuiro::color::channel::alpha,
 			float
 		>(
-			font
+			font_
 		);
 }
 

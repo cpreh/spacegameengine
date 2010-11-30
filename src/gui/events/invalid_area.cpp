@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/events/invalid_area.hpp>
 
 sge::gui::events::invalid_area::invalid_area(
-	image_view const &texture_,
-	rect const &area_)
+	image_view const &_texture,
+	rect const &_area
+)
 :
-	texture_(texture_),
-	area_(area_)
+	texture_(_texture),
+	area_(_area)
 {}
 
 sge::gui::image_view const &

@@ -36,7 +36,7 @@ public:
 	typedef fcppt::io::ostream &result_type;
 
 	explicit visitor(
-		fcppt::io::ostream &s
+		fcppt::io::ostream &_stream
 	);
 
 	template<
@@ -47,31 +47,34 @@ public:
 		T const &
 	) const;
 private:
-	fcppt::io::ostream &s;
+	fcppt::io::ostream &stream_;
 };
 
 }
 
 fcppt::io::ostream &
 sge::image::color::any::operator<<(
-	fcppt::io::ostream &s,
-	object const &c
+	fcppt::io::ostream &_stream,
+	object const &_object
 )
 {
-	return fcppt::variant::apply_unary(
-		visitor(s),
-		c
-	);
+	return
+		fcppt::variant::apply_unary(
+			::visitor(
+				_stream
+			),
+			_object
+		);
 }
 
 namespace
 {
 
 visitor::visitor(
-	fcppt::io::ostream &s
+	fcppt::io::ostream &_stream
 )
 :
-	s(s)
+	stream_(_stream)
 {}
 
 template<
@@ -79,10 +82,10 @@ template<
 >
 visitor::result_type
 visitor::operator()(
-	T const &t
+	T const &_value
 ) const
 {
-	return s << t;
+	return stream_ << _value;
 }
 
 }

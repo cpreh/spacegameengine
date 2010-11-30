@@ -73,6 +73,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/spirit/home/phoenix/object/new.hpp>
@@ -108,14 +109,17 @@ typedef sge::sprite::object<
 
 class sprite_functor
 {
+	FCPPT_NONASSIGNABLE(
+		sprite_functor
+	)
 public:
 	explicit sprite_functor(
-		sprite_object &s,
-		sge::audio::sound::positional_ptr const sound
+		sprite_object &_sprite,
+		sge::audio::sound::positional_ptr const _sound
 	)
 	:
-		s(s),
-		sound(sound)
+		sprite_(_sprite),
+		sound_(_sound)
 	{}
 
 	void
@@ -126,28 +130,28 @@ public:
 		switch (k.axis())
 		{
 		case sge::input::mouse::axis::x:
-			s.x(
-				static_cast<sprite_object::unit>(s.x() + k.axis_value())
+			sprite_.x(
+				static_cast<sprite_object::unit>(sprite_.x() + k.axis_value())
 			);
 
-			sound->linear_velocity(
+			sound_->linear_velocity(
 				sge::audio::vector(
 					static_cast<sge::audio::scalar>(k.axis_value()),
-					sound->linear_velocity().y(),
-					sound->linear_velocity().z()
+					sound_->linear_velocity().y(),
+					sound_->linear_velocity().z()
 				)
 			);
 
 			break;
 		case sge::input::mouse::axis::y:
-			s.y(
-				static_cast<sprite_object::unit>(s.y() + k.axis_value())
+			sprite_.y(
+				static_cast<sprite_object::unit>(sprite_.y() + k.axis_value())
 			);
 
-			sound->linear_velocity(
+			sound_->linear_velocity(
 				sge::audio::vector(
-					sound->linear_velocity().x(),
-					sound->linear_velocity().y(),
+					sound_->linear_velocity().x(),
+					sound_->linear_velocity().y(),
 					static_cast<sge::audio::scalar>(k.axis_value())
 				)
 			);
@@ -157,17 +161,18 @@ public:
 			break;
 		}
 
-		sound->position(
+		sound_->position(
 			sge::audio::vector(
-				static_cast<sge::audio::scalar>(s.pos().x()),
+				static_cast<sge::audio::scalar>(sprite_.pos().x()),
 				static_cast<sge::audio::scalar>(0),
-				static_cast<sge::audio::scalar>(s.pos().y())
+				static_cast<sge::audio::scalar>(sprite_.pos().y())
 			)
 		);
 	}
 private:
-	sprite_object &s;
-	sge::audio::sound::positional_ptr const sound;
+	sprite_object &sprite_;
+
+	sge::audio::sound::positional_ptr const sound_;
 };
 }
 

@@ -77,9 +77,13 @@ public:
 		mizuiro::color::channel::alpha &
 	) const;
 private:
-	Source const src;
-	channel_type const src_alpha,dest_alpha;
-	DstPixel const &result;
+	Source const src_;
+
+	channel_type const
+		src_alpha_,
+		dest_alpha_;
+
+	DstPixel const &result_;
 };
 
 template<
@@ -90,16 +94,16 @@ channel_blitter<
 	Source,
 	DstPixel
 >::channel_blitter(
-	Source const &src,
-	channel_type const src_alpha,
-	channel_type const dest_alpha,
-	DstPixel const &result
+	Source const &_src,
+	channel_type const _src_alpha,
+	channel_type const _dest_alpha,
+	DstPixel const &_result
 )
 :
-	src(src),
-	src_alpha(src_alpha),
-	dest_alpha(dest_alpha),
-	result(result)
+	src_(_src),
+	src_alpha_(_src_alpha),
+	dest_alpha_(_dest_alpha),
+	result_(_result)
 {}
 
 template<
@@ -124,7 +128,7 @@ channel_blitter<
 		mizuiro::normalize<
 			float
 		>(
-			src_alpha
+			src_alpha_
 		)
 	);
 
@@ -132,15 +136,15 @@ channel_blitter<
 		mizuiro::normalize<
 			float
 		>(
-			dest_alpha
+			dest_alpha_
 		)
 	);
 
-	result. template set<Channel>(
+	result_. template set<Channel>(
 		static_cast<channel_type>(
-			static_cast<float>(src. template get<Channel>())
+			static_cast<float>(src_. template get<Channel>())
 			* src_floating
-			+ static_cast<float>(result. template get<Channel>())
+			+ static_cast<float>(result_. template get<Channel>())
 			* std::max(
 				dest_floating - src_floating,
 				0.0f
@@ -177,9 +181,9 @@ channel_blitter<
 		>()
 	);
 
-	result. template set<alpha>(
-		src. template get<alpha>()
-		+ result. template get<alpha>()
+	result_. template set<alpha>(
+		src_. template get<alpha>()
+		+ result_. template get<alpha>()
 		> alpha_max
 		?
 			alpha_max
@@ -187,13 +191,14 @@ channel_blitter<
 			static_cast<
 				channel_type
 			>(
-				src. template get<alpha>()
-				+ result. template get<alpha>()
+				src_. template get<alpha>()
+				+ result_. template get<alpha>()
 			)
 	);
 }
 
-class blitter {
+class blitter
+{
 public:
 	typedef void result_type;
 

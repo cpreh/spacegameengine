@@ -26,7 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../fbo_context.hpp"
 #include "../glsl/context.hpp"
 #include "../context/use.hpp"
+#include <sge/renderer/filter/anisotropy_type.hpp>
+#include <sge/renderer/adapter_type.hpp>
 #include <sge/renderer/caps.hpp>
+#include <sge/renderer/size_type.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
@@ -36,9 +39,13 @@ sge::opengl::create_caps(
 	context::object &_context
 )
 {
-	GLint const max_texture_size(
-		opengl::get_int(
-			GL_MAX_TEXTURE_SIZE
+	renderer::size_type const max_texture_size(
+		static_cast<
+			renderer::size_type
+		>(
+			opengl::get_int(
+				GL_MAX_TEXTURE_SIZE
+			)
 		)
 	);
 
@@ -46,7 +53,11 @@ sge::opengl::create_caps(
 		fcppt::make_unique_ptr<
 			renderer::caps
 		>(
-			0,
+			static_cast<
+				sge::renderer::adapter_type
+			>(
+				0 // FIXME!
+			),
 			get_string(
 				GL_VENDOR
 			),
@@ -61,12 +72,16 @@ sge::opengl::create_caps(
 				max_texture_size,
 				max_texture_size
 			),
-			opengl::get_int(
-				context::use<
-					texture_context
-				>(
-					_context
-				).max_anisotropy_flag()
+			static_cast<
+				sge::renderer::filter::anisotropy_type
+			>(
+				opengl::get_int(
+					context::use<
+						texture_context
+					>(
+						_context
+					).max_anisotropy_flag()
+				)
 			),
 			context::use<
 				fbo_context

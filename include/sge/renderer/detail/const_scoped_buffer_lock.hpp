@@ -37,21 +37,24 @@ template<
 	typename Ptr,
 	typename View
 >
-class const_scoped_buffer_lock {
+class const_scoped_buffer_lock
+{
 	FCPPT_NONCOPYABLE(const_scoped_buffer_lock)
 public:
 	SGE_SYMBOL explicit const_scoped_buffer_lock(
 		Ptr,
 		size_type first = 0,
-		size_type count = npos);
+		size_type count = npos
+	);
 
 	SGE_SYMBOL View const
 	value() const;
 
 	SGE_SYMBOL ~const_scoped_buffer_lock();
 private:
-	Ptr const ptr;
-	View const view;
+	Ptr const ptr_;
+
+	View const view_;
 };
 
 }

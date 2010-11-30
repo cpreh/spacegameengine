@@ -47,32 +47,34 @@ class type_comparator_impl
 	)
 public:
 	type_comparator_impl(
-		Obj &obj,
-		Callback &cb,
-		unsigned &count)
-		: obj(obj),
-			cb(cb),
-			count(count)
+		Obj &_obj,
+		Callback &_cb,
+		unsigned &_count
+	)
+	:
+		obj_(_obj),
+		cb_(_cb),
+		count_(_count)
 	{
-		count = 0;
+		_count = 0;
 	}
 
 	template<typename U>
 	void operator()(U *)
 	{
-		if (typeid(U) != typeid(obj))
+		if (typeid(U) != typeid(obj_))
 			return;
 
-		++count;
+		++count_;
 
 		typedef typename boost::mpl::if_<boost::is_const<Obj>,U const,U>::type dest_type;
-		cb(dynamic_cast<dest_type &>(obj));
+		cb_(dynamic_cast<dest_type &>(obj_));
 	}
 
 private:
-	Obj &obj;
-	Callback &cb;
-	unsigned &count;
+	Obj &obj_;
+	Callback &cb_;
+	unsigned &count_;
 };
 
 template<

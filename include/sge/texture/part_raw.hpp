@@ -69,7 +69,8 @@ public:
 	SGE_TEXTURE_SYMBOL bool repeatable() const;
 private:
 	renderer::lock_rect   const area_;
-	renderer::texture_ptr const tex;
+
+	renderer::texture_ptr const tex_;
 };
 
 }

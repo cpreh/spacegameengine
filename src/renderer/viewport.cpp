@@ -25,12 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 
 sge::renderer::viewport::viewport(
-	pixel_pos const &pos_,
-	screen_size const &size_
+	pixel_pos const &_pos,
+	screen_size const &_size
 )
 :
-	pos_(pos_),
-	size_(size_)
+	pos_(_pos),
+	size_(_size)
 {}
 
 sge::renderer::pixel_pos const &
@@ -47,12 +47,12 @@ sge::renderer::viewport::size() const
 
 fcppt::io::ostream &
 sge::renderer::operator<<(
-	fcppt::io::ostream &s,
-	viewport const &v
+	fcppt::io::ostream &_stream,
+	viewport const &_v
 )
 {
-	return s
-		<< v.pos()
+	return _stream
+		<< _v.pos()
 		<< FCPPT_TEXT(' ')
-		<< v.size();
+		<< _v.size();
 }

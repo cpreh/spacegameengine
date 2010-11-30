@@ -218,13 +218,13 @@ try
 		)
 	);
 	BOOST_FOREACH(
-		path_vector::const_reference path,
+		path_vector::const_reference cur_path,
 		paths
 	)
 	{
 		sge::image::file_ptr const img(
 			il.load(
-				path
+				cur_path
 			)
 		);
 

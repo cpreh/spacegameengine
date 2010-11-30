@@ -31,10 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <vector>
 
 sge::openal::context::context(
-	device &device_,
+	device &_device,
 	attribute_container const &attributes)
 :
-	device_(device_)
+	device_(_device)
 {
 	std::vector<ALCint> al_attributes;
 	BOOST_FOREACH(attribute_container::value_type const &v,attributes)

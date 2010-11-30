@@ -27,53 +27,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/basic_impl.hpp>
 
 sge::texture::part_fragmented::part_fragmented(
-	renderer::lock_rect const &outer_area_,
-	fragmented &fragment,
-	bool const need_atlasing_w,
-	bool const need_atlasing_h
+	renderer::lock_rect const &_outer_area,
+	fragmented &_fragment,
+	bool const _need_atlasing_w,
+	bool const _need_atlasing_h
 )
 :
-	outer_area_(outer_area_),
-	fragment(fragment),
-	need_atlasing_w(need_atlasing_w),
-	need_atlasing_h(need_atlasing_h),
+	outer_area_(_outer_area),
+	fragment_(_fragment),
+	need_atlasing_w_(_need_atlasing_w),
+	need_atlasing_h_(_need_atlasing_h),
 	inner_area_(
 		atlasing::inner_rect(
 			outer_area_,
-			need_atlasing_w,
-			need_atlasing_h
+			need_atlasing_w_,
+			need_atlasing_h_
 		)
 	)
 {}
 
 sge::texture::part_fragmented::~part_fragmented()
 {
-	fragment.return_fragment(*this);
+	fragment_.return_fragment(
+		*this
+	);
 }
 
 void
 sge::texture::part_fragmented::data(
-	image::view::const_object const &src
+	image::view::const_object const &_src
 )
 {
 	renderer::sub_data(
 		texture(),
-		src,
+		_src,
 		inner_area_.pos()
 	);
 
-	if(need_atlasing_h)
+	if(
+		need_atlasing_h_
+	)
 		atlasing::border_h(
 			texture(),
-			src,
+			_src,
 			outer_area_,
 			inner_area_
 		);
 
-	if(need_atlasing_w)
+	if(
+		need_atlasing_w_
+	)
 		atlasing::border_w(
 			texture(),
-			src,
+			_src,
 			outer_area_,
 			inner_area_
 		);
@@ -88,17 +94,17 @@ sge::texture::part_fragmented::area() const
 sge::renderer::texture_ptr const
 sge::texture::part_fragmented::texture()
 {
-	return fragment.texture();
+	return fragment_.texture();
 }
 
 sge::renderer::const_texture_ptr const
 sge::texture::part_fragmented::texture() const
 {
-	return fragment.texture();
+	return fragment_.texture();
 }
 
 bool
 sge::texture::part_fragmented::repeatable() const
 {
-	return !need_atlasing_w && !need_atlasing_h;
+	return !need_atlasing_w_ && !need_atlasing_h_;
 }

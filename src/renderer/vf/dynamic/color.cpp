@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/color.hpp>
 
 sge::renderer::vf::dynamic::color::color(
-	image::color::format::type const color_format_
+	image::color::format::type const _color_format
 )
 :
-	color_format_(color_format_)
+	color_format_(_color_format)
 {}
 
 sge::image::color::format::type

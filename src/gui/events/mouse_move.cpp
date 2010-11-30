@@ -20,6 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/gui/events/mouse_move.hpp>
 
-sge::gui::events::mouse_move::mouse_move(point const &pos_) : pos_(pos_)
+sge::gui::events::mouse_move::mouse_move(
+	point const &_pos
+)
+:
+	pos_(_pos)
 {
 }

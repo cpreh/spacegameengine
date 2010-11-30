@@ -22,14 +22,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/section.hpp>
 
 sge::parse::ini::header_name_equal::header_name_equal(
-	string const &name_)
+	string const &_name
+)
 :
-	name_(name_)
+	name_(_name)
 {}
 
 sge::parse::ini::header_name_equal::result_type
 sge::parse::ini::header_name_equal::operator()(
-	section const &sec) const
+	section const &_section
+) const
 {
-	return sec.header == name_;
+	return _section.header == name_;
 }

@@ -28,9 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-class view_size_visitor
+struct view_size_visitor
 {
-public:
 	typedef sge::renderer::size_type result_type;
 
 	template<
@@ -38,16 +37,15 @@ public:
 	>
 	result_type
 	operator()(
-		T const &t
+		T const &_t
 	) const
 	{
-		return t.size();
+		return _t.size();
 	}
 };
 
-class view_format_visitor
+struct view_format_visitor
 {
-public:
 	typedef sge::renderer::index::dynamic::format::type result_type;
 
 	template<
@@ -55,10 +53,10 @@ public:
 	>
 	result_type
 	operator()(
-		T const &t
+		T const &_t
 	) const
 	{
-		return t.format();
+		return _t.format();
 	}
 };
 
@@ -68,10 +66,10 @@ template<
 	bool IsConst
 >
 sge::renderer::index::dynamic::basic_view<IsConst>::basic_view(
-	any_type const &any_
+	any_type const &_any
 )
 :
-	any_(any_)
+	any_(_any)
 {}
 	
 template<
@@ -91,7 +89,7 @@ sge::renderer::index::dynamic::basic_view<IsConst>::size() const
 {
 	return
 		fcppt::variant::apply_unary(
-			view_size_visitor(),
+			::view_size_visitor(),
 			any()
 		);
 }
@@ -104,7 +102,7 @@ sge::renderer::index::dynamic::basic_view<IsConst>::format() const
 {
 	return 
 		fcppt::variant::apply_unary(
-			view_format_visitor(),
+			::view_format_visitor(),
 			any()
 		);
 }

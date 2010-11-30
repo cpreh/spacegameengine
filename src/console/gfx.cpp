@@ -62,9 +62,6 @@ wrap(
 	if (s.empty())
 		return line_sequence();
 
-	sge::font::text::string::const_iterator i = 
-		s.begin();
-
 	line_sequence lines;
 
 	for (sge::font::text::string::const_iterator i = s.begin(); i != s.end();)

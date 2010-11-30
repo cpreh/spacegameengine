@@ -85,7 +85,7 @@ public:
 	) const;
 
 private:
-	color const font_color;
+	color const font_color_;
 };
 
 }
@@ -93,10 +93,10 @@ private:
 }
 
 sge::gui::utility::font_blitter::font_blitter(
-	color const &font_color
+	color const &_font_color
 )
 :
-	font_color(font_color)
+	font_color_(_font_color)
 {
 }
 
@@ -111,8 +111,8 @@ boost::enable_if
 	sge::gui::utility::font_blitter::result_type
 >::type
 sge::gui::utility::font_blitter::operator()(
-	Font const &font_value,
-	Dst &result
+	Font const &_font_value,
+	Dst &_result
 ) const
 {
 	mizuiro::color::for_each_channel<
@@ -123,10 +123,10 @@ sge::gui::utility::font_blitter::operator()(
 			image::color::any::convert<
 				typename Dst::format
 			>(
-				font_color
+				font_color_
 			),
-			font_value,
-			result
+			_font_value,
+			_result
 		)
 	);
 }

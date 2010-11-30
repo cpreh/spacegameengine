@@ -27,14 +27,14 @@ template<
 	typename Pointer
 >
 sge::renderer::vf::dynamic::basic_view<Pointer>::basic_view(
-	pointer const data_,
-	size_type const size_,
-	dynamic::format const &format_
+	pointer const _data,
+	size_type const _size,
+	dynamic::format const &_format
 )
 :
-	data_(data_),
-	size_(size_),
-	format_(format_)
+	data_(_data),
+	size_(_size),
+	format_(_format)
 {}
 
 template<

@@ -69,18 +69,32 @@ public:
 	typedef void result_type;
 
 	call_draw(
-		sge::gui::skins::base &s,
-		sge::gui::events::invalid_area const &e)
-		: s(s),
-		  e(e) {}
+		sge::gui::skins::base &_skin,
+		sge::gui::events::invalid_area const &_event
+	)
+	:
+		skin_(_skin),
+		event_(_event)
+	{}
 
-	template<typename V>
-	void operator()(V &v) { s.draw(v,e); }
+	template<
+		typename V
+	>
+	void
+	operator()(
+		V &_value
+	)
+	{
+		skin_.draw(
+			_value,
+			event_
+		);
+	}
 
 	void value() const {}
 private:
-	sge::gui::skins::base &s;
-	sge::gui::events::invalid_area const &e;
+	sge::gui::skins::base &skin_;
+	sge::gui::events::invalid_area const &event_;
 };
 
 class call_optimal_size
@@ -91,19 +105,33 @@ class call_optimal_size
 public:
 	typedef sge::gui::dim result_type;
 
-	call_optimal_size(
-		sge::gui::skins::base const &s) : s(s) {}
+	explicit call_optimal_size(
+		sge::gui::skins::base const &_skin
+	)
+	:
+		skin_(_skin)
+	{}
 
-	template<typename V>
-	void operator()(V const &v)
+	template<
+		typename V
+	>
+	void
+	operator()(
+		V const &_value
+	)
 	{
-		sh = s.optimal_size(v);
+		sh_ = skin_.optimal_size(_value);
 	}
 
-	sge::gui::dim const value() const { return sh; }
+	sge::gui::dim const
+	value() const
+	{
+		return sh_;
+	}
 private:
-	sge::gui::skins::base const &s;
-	sge::gui::dim sh;
+	sge::gui::skins::base const &skin_;
+
+	sge::gui::dim sh_;
 };
 }
 

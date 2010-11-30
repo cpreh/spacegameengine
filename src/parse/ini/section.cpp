@@ -28,9 +28,9 @@ sge::parse::ini::section::section()
 {}
 
 sge::parse::ini::section::section(
-	string const &header
+	string const &_header
 )
 :
-	header(header),
+	header(_header),
 	entries()
 {}

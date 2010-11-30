@@ -126,10 +126,10 @@ class object : public sge::collision::satellite
 {
 public:
 	explicit object(
-		sprite_object &sprite_
+		sprite_object &_sprite
 	)
 	:
-		sprite_(sprite_)
+		sprite_(_sprite)
 	{
 	}
 

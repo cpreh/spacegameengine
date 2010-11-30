@@ -33,27 +33,27 @@ template<
 	typename Choices
 >
 sge::sprite::animation::texture<Choices>::texture(
-	animation::series const &nseries_,
-	loop_method::type const action,
-	object &spr,
-	time::callback const &time_function
+	animation::series const &_series,
+	loop_method::type const _action,
+	object &_spr,
+	time::callback const &_time_function
 )
 :
 	base(),
-	series_(nseries_),
-	action(action),
-	cur_timer(
+	series_(_series),
+	action_(_action),
+	cur_timer_(
 		time::second(
 			0
 		),
 		time::activation_state::active,
-		time_function
+		_time_function
 	),
-	spr(spr),
-	pos(series_.begin())
+	spr_(_spr),
+	pos_(series_.begin())
 {
 	if(series_.empty())
-		throw exception(
+		throw sge::exception(
 			FCPPT_TEXT("animation::texture series is empty!")
 		);
 	
@@ -67,28 +67,28 @@ bool
 sge::sprite::animation::texture<Choices>::process()
 {
 	if(
-		!cur_timer.expired()
+		!cur_timer_.expired()
 	)
 		return false;
 
 	if(
-		boost::next(pos) == series_.end()
+		boost::next(pos_) == series_.end()
 	)
 	{
 		handle_end();
 		return true;
 	}
 
-	++pos;
+	++pos_;
 
-	cur_timer.interval(
+	cur_timer_.interval(
 		time::duration(
-			pos->delay()
+			pos_->delay()
 		)
 	);
 
-	spr.texture(
-		pos->tex()
+	spr_.texture(
+		pos_->tex()
 	);
 
 	return false;
@@ -100,13 +100,13 @@ template<
 void
 sge::sprite::animation::texture<Choices>::reset()
 {
-	spr.texture(
+	spr_.texture(
 		series_.begin()->tex()
 	);
 	
-	pos = series_.begin();
+	pos_ = series_.begin();
 
-	cur_timer.interval(
+	cur_timer_.interval(
 		time::duration(
 			series_.begin()->delay()
 		)
@@ -128,7 +128,9 @@ template<
 void
 sge::sprite::animation::texture<Choices>::handle_end()
 {
-	switch(action)
+	switch(
+		action_
+	)
 	{
 	case loop_method::repeat:
 		reset();
@@ -137,7 +139,7 @@ sge::sprite::animation::texture<Choices>::handle_end()
 		return;
 	}
 
-	throw exception(
+	throw sge::exception(
 		FCPPT_TEXT("Invalid loop_method!")
 	);
 }

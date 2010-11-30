@@ -51,9 +51,9 @@ public:
 
 	SGE_SYMBOL ~const_scoped_target_lock();
 private:
-	const_target_ptr const target;
+	const_target_ptr const target_;
 
-	image::view::const_object const view;
+	image::view::const_object const view_;
 };
 
 }

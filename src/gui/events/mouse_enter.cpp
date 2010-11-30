@@ -20,6 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/gui/events/mouse_enter.hpp>
 
-sge::gui::events::mouse_enter::mouse_enter(point const &pos_) : pos_(pos_)
+sge::gui::events::mouse_enter::mouse_enter(
+	point const &_pos
+)
+:
+	pos_(_pos)
 {
 }

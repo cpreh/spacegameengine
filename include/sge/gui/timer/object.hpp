@@ -38,8 +38,8 @@ public:
 	object(time::duration const &,timer::callback);
 	void update();
 private:
-	time::timer t;
-	timer::callback cb;
+	time::timer timer_;
+	timer::callback callback_;
 };
 }
 }

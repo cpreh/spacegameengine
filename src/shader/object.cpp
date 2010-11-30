@@ -73,23 +73,23 @@ public:
 	// apply_unary needs this 
 	typedef void result_type;
 
-	sge::renderer::glsl::uniform::variable_ptr v;
+	sge::renderer::glsl::uniform::variable_ptr variable_;
 
 	explicit
 	uniform_setter(
-		sge::renderer::glsl::uniform::variable_ptr const v)
+		sge::renderer::glsl::uniform::variable_ptr const _variable)
 	:
-		v(v)
+		variable_(_variable)
 	{
 	}
 
 	template<typename T>
 	result_type
-	operator()(T const &t) const
+	operator()(T const &_value) const
 	{
 		sge::renderer::glsl::uniform::single_value(
-			v,
-			t);
+			variable_,
+			_value);
 	}
 };
 }

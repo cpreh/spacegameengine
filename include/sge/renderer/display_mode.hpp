@@ -53,7 +53,9 @@ public:
 	refresh_rate() const;
 private:
 	screen_size               size_;
+
 	renderer::bit_depth::type bit_depth_;
+
 	renderer::refresh_rate    refresh_rate_;
 };
 

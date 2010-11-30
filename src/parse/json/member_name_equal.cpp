@@ -22,14 +22,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/member.hpp>
 
 sge::parse::json::member_name_equal::member_name_equal(
-	string const &name_)
+	string const &_name
+)
 :
-	name_(name_)
+	name_(_name)
 {}
 
 bool
 sge::parse::json::member_name_equal::operator()(
-	member const &m) const
+	member const &_member
+) const
 {
-	return m.name == name_;
+	return _member.name == name_;
 }

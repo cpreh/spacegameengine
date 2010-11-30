@@ -27,26 +27,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/assert_message.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <typeinfo>
 
-class sge::renderer::texture_rw::lock_data {
+class sge::renderer::texture_rw::lock_data
+{
 public:
 	typedef fcppt::optional<
 		image::view::object
 	> optional_image;
 
-	lock_rect area;
-	optional_image view;
+	lock_rect area_;
+
+	optional_image view_;
 
 	lock_data(
-		lock_rect const &area,
-		optional_image const &view = optional_image()
+		lock_rect const &_area,
+		optional_image const &_view = optional_image()
 	)
 	:
-		area(area),
-		view(view)
+		area_(_area),
+		view_(_view)
 	{}
 };
 
@@ -75,75 +78,81 @@ sge::renderer::texture_rw::dim() const
 
 sge::image::view::object const
 sge::renderer::texture_rw::lock(
-	lock_rect const &lr,
-	lock_mode::type const lf
+	lock_rect const &_rect,
+	lock_mode::type const _mode
 )
 {
 	FCPPT_ASSERT_MESSAGE(
-		!locked,
+		!locked_,
 		FCPPT_TEXT("already locked texture_rw")
 	);
 
-	locked.reset(
-		new lock_data(
-			lr,
+	locked_.take(
+		fcppt::make_unique_ptr<
+			lock_data
+		>(
+			_rect,
 			read_->lock(
-				lr,
-				lf
+				_rect,
+				_mode
 			)
 		)
 	);
 
-	return *locked->view;
+	return *locked_->view_;
 }
 
 sge::image::view::const_object const
 sge::renderer::texture_rw::lock(
-	lock_rect const &lr
+	lock_rect const &_rect
 ) const
 {
 	FCPPT_ASSERT_MESSAGE(
-		!locked,
+		!locked_,
 		FCPPT_TEXT("already locked texture_rw")
 	);
 
-	locked.reset(
-		new lock_data(
-			lr
+	locked_.take(
+		fcppt::make_unique_ptr<
+			lock_data
+		>(
+			_rect
 		)
 	);
 
-	return read_->lock(
-		lr
-	);
+	return
+		read_->lock(
+			_rect
+		);
 }
 
 void
 sge::renderer::texture_rw::unlock() const
 {
 	FCPPT_ASSERT_MESSAGE(
-		locked,
+		locked_,
 		FCPPT_TEXT("unlocking texture_rw without (proper) locking")
 	);
 
 	// we didn't just lock to read?
-	if (locked->view)
+	if (locked_->view_)
 	{
 		scoped_texture_lock const lock_(
 			write_,
-			locked->area,
+			locked_->area_,
 			lock_mode::writeonly
 		);
 
 		image::algorithm::copy_and_convert(
 			image::view::make_const(
-				*locked->view
+				*locked_->view_
 			),
 			lock_.value());
 	}
 
 	read_->unlock();
-	locked.reset();
+
+	locked_.reset();
 }
 
 sge::renderer::resource_flags_field const

@@ -71,13 +71,13 @@ private:
 		fragmented const &
 	);
 
-	sge::renderer::device_ptr const rend;
+	sge::renderer::device_ptr const rend_;
 
 	on_alloc_function on_alloc_;
 
-	detail::fragmented_queue free_textures;
+	detail::fragmented_queue free_textures_;
 
-	detail::fragmented_list full_textures;
+	detail::fragmented_list full_textures_;
 };
 
 }

@@ -66,7 +66,7 @@ public:
 	result_type
 	operator()() const;
 private:
-	sge::plugin::manager &man;
+	sge::plugin::manager &man_;
 };
 
 }
@@ -115,9 +115,10 @@ namespace
 {
 
 print_plugins::print_plugins(
-	sge::plugin::manager &man)
+	sge::plugin::manager &_man
+)
 :
-	man(man)
+	man_(_man)
 {}
 
 template<
@@ -134,9 +135,9 @@ print_plugins::operator()() const
 
 	for(
 		sge::plugin::iterator<T> it(
-			man.begin<T>()
+			man_.begin<T>()
 		);
-		it != man.end<T>();
+		it != man_.end<T>();
 		++it
 	)
 	{

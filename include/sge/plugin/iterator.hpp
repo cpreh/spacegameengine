@@ -48,7 +48,7 @@ public:
 	typedef typename base_type::iterator_category iterator_category;
 
 	SGE_SYMBOL explicit iterator(
-		category_array::iterator it
+		category_array::iterator
 	);
 
 	SGE_SYMBOL void
@@ -75,7 +75,7 @@ public:
 		iterator const &
 	) const;
 private:
-	category_array::iterator it;
+	category_array::iterator it_;
 
 	friend class boost::iterator_core_access;
 };

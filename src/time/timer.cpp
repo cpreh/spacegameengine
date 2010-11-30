@@ -22,17 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/chrono/duration_impl.hpp>
 
 sge::time::timer::timer(
-	duration const &res_,
-	activation_state::type const active_,
-	callback const &callback_,
-	expiration_state::type const expired_
+	duration const &_res,
+	activation_state::type const _active,
+	callback const &_callback,
+	expiration_state::type const _expired
 )
 :
-	callback_(callback_),
-	interval_(res_.count()),
-	last_time_(callback_()),
-	active_(active_),
-	expired_(expired_)
+	callback_(_callback),
+	interval_(_res.count()),
+	last_time_(_callback()),
+	active_(_active),
+	expired_(_expired)
 {}
 
 sge::time::timer::frames_type
@@ -127,10 +127,11 @@ sge::time::timer::active() const
 
 void
 sge::time::timer::interval(
-	duration const &i
+	duration const &_duration
 )
 {
-	interval_ = i.count();
+	interval_ = _duration.count();
+
 	reset();
 }
 

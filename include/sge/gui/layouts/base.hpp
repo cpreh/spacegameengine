@@ -63,7 +63,7 @@ protected:
 		invalidation::type const &);
 
 private:
-	widgets::base *w;
+	widgets::base *widget_;
 
 	friend class widgets::base;
 	void connected_widget(widgets::base &);

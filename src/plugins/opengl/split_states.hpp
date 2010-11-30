@@ -61,7 +61,7 @@ private:
 		T const &
 	) const;
 
-	renderer::state::list &states;
+	renderer::state::list &states_;
 };
 
 }

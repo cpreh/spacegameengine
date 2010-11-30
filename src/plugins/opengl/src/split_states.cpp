@@ -32,10 +32,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 sge::opengl::split_states::split_states(
-	renderer::state::list &states
+	renderer::state::list &_states
 )
 :
-	states(states)
+	states_(_states)
 {}
 
 // TODO: those functions can be optimized
@@ -47,7 +47,7 @@ sge::opengl::split_states::update_stencil(
 )
 {
 	renderer::state::stencil_func::type const method(
-		states.get<renderer::state::stencil_func::type>()
+		states_.get<renderer::state::stencil_func::type>()
 	);
 
 	if(method == renderer::state::stencil_func::off)
@@ -74,12 +74,12 @@ sge::opengl::split_states::update_stencil(
 			method
 		),
 		static_cast<GLint>(
-			states.get(
+			states_.get(
 				renderer::state::int_::stencil_ref
 			)
 		),
 		static_cast<GLuint>(
-			states.get(
+			states_.get(
 				renderer::state::uint::stencil_mask
 			)
 		)
@@ -96,12 +96,12 @@ sge::opengl::split_states::update_blend()
 {
 	glBlendFunc(
 		convert::source_blend_func(
-			states.get<
+			states_.get<
 				renderer::state::source_blend_func::type
 			>()
 		),
 		convert::dest_blend_func(
-			states.get<
+			states_.get<
 				renderer::state::dest_blend_func::type
 			>()
 		)
@@ -117,7 +117,7 @@ void
 sge::opengl::split_states::update_alpha_test()
 {
 	renderer::state::alpha_func::type const func(
-		states.get<renderer::state::alpha_func::type>()
+		states_.get<renderer::state::alpha_func::type>()
 	);
 
 	if(func == renderer::state::alpha_func::off)
@@ -135,7 +135,7 @@ sge::opengl::split_states::update_alpha_test()
 		static_cast<
 			GLfloat
 		>(
-			states.get(
+			states_.get(
 				renderer::state::float_::alpha_test_ref
 			)
 		)

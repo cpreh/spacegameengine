@@ -48,17 +48,17 @@ fcppt::log::object mylogger(
 }
 
 sge::gui::canvas::font_drawer::font_drawer(
-	image_view &texture_,
-	color const color_,
-	optional_character_pos const &character_pos_,
-	point *const point_
+	image_view &_texture,
+	color const _color,
+	optional_character_pos const &_character_pos,
+	point *const _point
 )
 :
-	texture_(texture_),
-	color_(color_),
+	texture_(_texture),
+	color_(_color),
 	counter_(0),
-	character_pos_(character_pos_),
-	point_(point_)
+	character_pos_(_character_pos),
+	point_(_point)
 {
 	FCPPT_LOG_DEBUG(
 		mylogger,

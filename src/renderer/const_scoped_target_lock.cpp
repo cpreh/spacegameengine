@@ -22,22 +22,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target.hpp>
 
 sge::renderer::const_scoped_target_lock::const_scoped_target_lock(
-	const_target_ptr const target)
+	const_target_ptr const _target
+)
 :
-	target(target),
-	view(
-		target->lock()
+	target_(_target),
+	view_(
+		target_->lock()
 	)
 {}
 
 sge::renderer::const_scoped_target_lock::const_scoped_target_lock(
-	const_target_ptr const target,
-	lock_rect const &rect)
+	const_target_ptr const _target,
+	lock_rect const &_rect
+)
 :
-	target(target),
-	view(
-		target->lock(
-			rect
+	target_(_target),
+	view_(
+		target_->lock(
+			_rect
 		)
 	)
 {}
@@ -45,10 +47,10 @@ sge::renderer::const_scoped_target_lock::const_scoped_target_lock(
 sge::image::view::const_object const
 sge::renderer::const_scoped_target_lock::value() const
 {
-	return view;
+	return view_;
 }
 
 sge::renderer::const_scoped_target_lock::~const_scoped_target_lock()
 {
-	target->unlock();
+	target_->unlock();
 }

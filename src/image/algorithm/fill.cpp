@@ -50,22 +50,22 @@ public:
 		T const &
 	) const;
 private:
-	sge::image::color::any::object const col;
+	sge::image::color::any::object const col_;
 };
 
 }
 
 void
 sge::image::algorithm::fill(
-	view::object const &dest,
-	color::any::object const &c
+	view::object const &_dest,
+	color::any::object const &_col
 )
 {
 	fcppt::variant::apply_unary(
-		fill_visitor(
-			c
+		::fill_visitor(
+			_col
 		),
-		dest
+		_dest
 	);
 }
 
@@ -73,10 +73,10 @@ namespace
 {
 
 fill_visitor::fill_visitor(
-	sge::image::color::any::object const &col
+	sge::image::color::any::object const &_col
 )
 :
-	col(col)
+	col_(_col)
 {}
 
 template<
@@ -84,17 +84,18 @@ template<
 >
 fill_visitor::result_type
 fill_visitor::operator()(
-	T const &view
+	T const &_view
 ) const
 {
-	return mizuiro::image::algorithm::fill_c(
-		view,
-		sge::image::color::any::convert<
-			typename T::color_format
-		>(
-			col
-		)
-	);
+	return
+		mizuiro::image::algorithm::fill_c(
+			_view,
+			sge::image::color::any::convert<
+				typename T::color_format
+			>(
+				col_
+			)
+		);
 }
 
 }

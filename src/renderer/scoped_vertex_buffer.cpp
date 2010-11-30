@@ -22,12 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 
 sge::renderer::scoped_vertex_buffer::scoped_vertex_buffer(
-	renderer::device_ptr const device_,
-	renderer::const_vertex_buffer_ptr const vb_
+	renderer::device_ptr const _device,
+	renderer::const_vertex_buffer_ptr const _vb
 )
 :
-	device_(device_),
-	vb_(vb_)
+	device_(_device),
+	vb_(_vb)
 {
 	device_->set_vertex_buffer(
 		vb_

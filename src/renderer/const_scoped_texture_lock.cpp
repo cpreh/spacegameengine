@@ -22,33 +22,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture.hpp>
 
 sge::renderer::const_scoped_texture_lock::const_scoped_texture_lock(
-	const_texture_ptr const tex,
-	lock_rect const &rect)
+	const_texture_ptr const _tex,
+	lock_rect const &_rect
+)
 :
-	tex(tex),
-	view(
-		tex->lock(
-			rect
+	tex_(_tex),
+	view_(
+		tex_->lock(
+			_rect
 		)
 	)
 {}
 
 sge::renderer::const_scoped_texture_lock::const_scoped_texture_lock(
-	const_texture_ptr const tex)
+	const_texture_ptr const _tex
+)
 :
-	tex(tex),
-	view(
-		tex->lock()
+	tex_(_tex),
+	view_(
+		tex_->lock()
 	)
 {}
 
 sge::image::view::const_object const
 sge::renderer::const_scoped_texture_lock::value() const
 {
-	return view;
+	return view_;
 }
 
 sge::renderer::const_scoped_texture_lock::~const_scoped_texture_lock()
 {
-	tex->unlock();
+	tex_->unlock();
 }
