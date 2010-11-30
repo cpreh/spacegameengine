@@ -39,8 +39,8 @@ class format_printer
 public:
 	explicit 
 	format_printer(
-		renderer::glsl::string &s) 
-	: s(s) 
+		renderer::glsl::string &_s) 
+	: s(_s) 
 	{}
 
 	template
