@@ -68,10 +68,14 @@ private:
 	handle_end();
 
 	animation::series series_;
-	loop_method::type action;
-	time::timer cur_timer;
-	object &spr;
-	animation::series::const_iterator pos;
+
+	loop_method::type action_;
+
+	time::timer cur_timer_;
+
+	object &spr_;
+
+	animation::series::const_iterator pos_;
 };
 
 }

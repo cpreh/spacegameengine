@@ -23,50 +23,74 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/plugin/iterator.hpp>
 
-template<typename T>
+template<
+	typename T
+>
 sge::plugin::iterator<T>::iterator(
-	category_array::iterator const it)
+	category_array::iterator const _it
+)
 :
-	it(it)
+	it_(_it)
 {}
 
-template<typename T>
-void sge::plugin::iterator<T>::advance(const difference_type diff)
+template<
+	typename T
+>
+void
+sge::plugin::iterator<T>::advance(
+	difference_type const _diff
+)
 {
-	it+=diff;
+	it_ += _diff;
 }
 
-template<typename T>
-void sge::plugin::iterator<T>::increment()
+template<
+	typename T
+>
+void
+sge::plugin::iterator<T>::increment()
 {
-	++it;
+	++it_;
 }
 
-template<typename T>
-void sge::plugin::iterator<T>::decrement()
+template<
+	typename T
+>
+void
+sge::plugin::iterator<T>::decrement()
 {
-	--it;
+	--it_;
 }
 
-template<typename T>
-bool sge::plugin::iterator<T>::equal(const iterator& r) const
+template<
+	typename T
+>
+bool
+sge::plugin::iterator<T>::equal(
+	iterator const &_other
+) const
 {
-	return it == r.it;
+	return it_ == _other.it_;
 }
 
-template<typename T>
+template<
+	typename T
+>
 typename sge::plugin::iterator<T>::reference
 sge::plugin::iterator<T>::dereference() const
 {
-	return context<T>(**it);
+	return plugin::context<T>(**it_);
 }
 
-template<typename T>
+template<
+	typename T
+>
 typename sge::plugin::iterator<T>::difference_type
 sge::plugin::iterator<T>::distance_to(
-	iterator const &r) const
+	iterator const &_other
+) const
 {
-	return r.it - it;
+	return _other.it_ - it_;
 }
 
 #endif

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::gui::widgets::buttons::text::text(
 	parent_data const &_parent,
 	parameters _params,
-	fcppt::string const &_caption
+	sge::font::text::string const &_caption
 )
 :
 	base(
@@ -42,7 +42,7 @@ sge::gui::widgets::buttons::text::text(
 {
 }
 
-fcppt::string const
+sge::font::text::string const &
 sge::gui::widgets::buttons::text::caption() const
 {
 	return caption_;

@@ -28,9 +28,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 sge::gui::canvas::object::object(
-	image &texture_)
+	image &_texture
+)
 :
-	texture_(texture_),
+	texture_(_texture),
 	view_(texture_.view())
 {
 }
@@ -38,16 +39,20 @@ sge::gui::canvas::object::object(
 sge::gui::canvas::object::~object()
 {}
 
-sge::gui::dim const sge::gui::canvas::object::size() const
+sge::gui::dim const
+sge::gui::canvas::object::size() const
 {
 	return texture_.size();
 }
 
-sge::gui::rect const sge::gui::canvas::object::area() const
+sge::gui::rect const
+sge::gui::canvas::object::area() const
 {
-	return rect(
-		point::null(),
-		size());
+	return
+		rect(
+			point::null(),
+			size()
+		);
 }
 
 sge::gui::image_view &sge::gui::canvas::object::view()

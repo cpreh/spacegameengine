@@ -36,7 +36,8 @@ template<
 	typename T,
 	typename Alloc = std::allocator<T>
 >
-class store {
+class store
+{
 public:
 	typedef T value_type;
 	typedef Alloc allocator_type;
@@ -49,28 +50,30 @@ public:
 	typedef const_pointer const_iterator;
 
 	explicit store(
-		allocator_type const &alloc = allocator_type())
+		allocator_type const &_alloc = allocator_type()
+	)
 	:
-		alloc(alloc),
+		alloc_(_alloc),
 		data_(0),
 		data_end_(0),
 		cap_(0)
 	{}
 
 	explicit store(
-		size_type const sz,
-		allocator_type const &alloc = allocator_type())
+		size_type const _size,
+		allocator_type const &_alloc = allocator_type()
+	)
 	:
-		alloc(
-			alloc
+		alloc_(
+			_alloc
 		),
 		data_(
-			alloc.allocate(
-				sz
+			alloc_.allocate(
+				_size
 			)
 		),
 		data_end_(
-			data_ + sz
+			data_ + _size
 		),
 		cap_(
 			data_end_
@@ -78,41 +81,50 @@ public:
 	{}
 
 	store(
-		store const &s)
+		store const &_other
+	)
 	:
-		alloc(
-			s.alloc
+		alloc_(
+			_other.alloc_
 		),
 		data_(
-			alloc.allocate(s.size())
+			alloc_.allocate(
+				_other.size()
+			)
 		),
 		data_end_(
-			data_ + s.size()
+			data_ + _other.size()
 		),
 		cap_(
 			data_end_
 		)
 	{
 		std::copy(
-			s.data(),
-			s.data_end(),
+			_other.data(),
+			_other.data_end(),
 			data()
 		);
 	}
 
 	store &
 	operator=(
-		store const &s)
+		store const &_other
+	)
 	{
+		if(
+			this == &_other
+		)
+			return *this;
+
 		deallocate();
 
-		data_ = alloc.allocate(s.size());
-		data_end_ = data_ + s.size();
+		data_ = alloc_.allocate(_other.size());
+		data_end_ = data_ + _other.size();
 		cap_ = data_end_;
 
 		std::copy(
-			s.data(),
-			s.data_end(),
+			_other.data(),
+			_other.data_end(),
 			data()
 		);
 
@@ -193,12 +205,14 @@ public:
 		return data_end();
 	}
 
-	void make_space(
-		iterator const first,
-		size_type const sz)
+	void
+	make_space(
+		iterator const _first,
+		size_type const _sz
+	)
 	{
 		size_type const nsz(
-			size() + sz
+			size() + _sz
 		);
 
 		if(nsz > capacity())
@@ -211,21 +225,21 @@ public:
 			);
 
 			pointer const new_data(
-				alloc.allocate(
+				alloc_.allocate(
 					new_cap
 				)
 			);
 		
 			std::copy(
 				data_,
-				first,
+				_first,
 				new_data
 			);
 
 			std::copy(
-				first,
+				_first,
 				data_end_,
-				new_data + (first - begin()) + sz
+				new_data + (_first - begin()) + _sz
 			);
 
 			deallocate();
@@ -237,41 +251,45 @@ public:
 		else
 		{
 			std::copy_backward(
-				first,
+				_first,
 				end(),
-				data_end() + sz
+				data_end() + _sz
 			);
 
-			data_end_ += sz;
+			data_end_ += _sz;
 		}
 	}
 
-	void erase(
-		iterator const first,
-		iterator const last)
+	void
+	erase(
+		iterator const _first,
+		iterator const _last
+	)
 	{
 		std::copy(
-			last,
+			_last,
 			end(),
-			first
+			_first
 		);
 
 		data_end_ -= std::distance(
-			first,
-			last
+			_first,
+			_last
 		);
 	}
 private:
-	void deallocate()
+	void
+	deallocate()
 	{
 		if(data_)
-			alloc.deallocate(
+			alloc_.deallocate(
 				data_,
 				capacity()
 			);
 	}
 
-	allocator_type alloc;
+	allocator_type alloc_;
+
 	pointer
 		data_,
 		data_end_,

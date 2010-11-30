@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_GUI_DETAIL_CURSOR_DELEGATE_HPP_INCLUDED
 
 #include <sge/input/keyboard/key_event_fwd.hpp>
-#include <fcppt/string.hpp>
+#include <sge/font/text/string.hpp>
 #include <fcppt/nonassignable.hpp>
 
 namespace sge
@@ -37,16 +37,21 @@ class cursor_delegate
 		cursor_delegate
 	)
 public:
-	explicit cursor_delegate(fcppt::string &);
-	fcppt::string::size_type pos() const;
+	explicit cursor_delegate(
+		sge::font::text::string &
+	);
+
+	sge::font::text::string::size_type
+	pos() const;
 
 	void
 	key_callback(
 		input::keyboard::key_event const &
 	);
 private:
-	fcppt::string &text;
-	fcppt::string::size_type pos_;
+	sge::font::text::string &text_;
+
+	sge::font::text::string::size_type pos_;
 };
 }
 }

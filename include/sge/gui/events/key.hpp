@@ -42,7 +42,8 @@ public:
 	SGE_GUI_SYMBOL key(
 		input::keyboard::key_event const &,
 		input::modifier::states const &,
-		bool repeated);
+		bool repeated
+	);
 
 	SGE_GUI_SYMBOL input::keyboard::key_event const &
 	value() const;
@@ -53,9 +54,11 @@ public:
 	SGE_GUI_SYMBOL bool
 	repeated() const;
 private:
-	input::keyboard::key_event const kp;
-	input::modifier::states const s;
-	bool repeated_;
+	input::keyboard::key_event const value_;
+
+	input::modifier::states const modifiers_;
+
+	bool const repeated_;
 };
 }
 }

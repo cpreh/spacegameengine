@@ -54,15 +54,15 @@ private:
 
 void
 sge::image::algorithm::print(
-	fcppt::io::ostream &ostream_,
-	view::const_object const &view_
+	fcppt::io::ostream &_ostream,
+	view::const_object const &_view
 )
 {
 	fcppt::variant::apply_unary(
-		visitor(
-			ostream_
+		::visitor(
+			_ostream
 		),
-		view_
+		_view
 	);
 }
 
@@ -70,10 +70,10 @@ namespace
 {
 
 visitor::visitor(
-	fcppt::io::ostream &ostream_
+	fcppt::io::ostream &_ostream
 )
 :
-	ostream_(ostream_)
+	ostream_(_ostream)
 {}
 
 template<
@@ -81,12 +81,12 @@ template<
 >
 visitor::result_type
 visitor::operator()(
-	View const &view_
+	View const &_view
 ) const
 {
 	mizuiro::image::algorithm::print(
 		ostream_,
-		view_
+		_view
 	);
 }
 

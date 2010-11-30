@@ -41,6 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/timer.hpp>
 #include <sge/time/second.hpp>
 #include <sge/font/system.hpp>
+#include <sge/font/text/lit.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/viewport/manage_resize.hpp>
@@ -166,12 +167,12 @@ try
 	sge::gui::widgets::buttons::text left_top(
 		left,
 		sge::gui::widgets::parameters(),
-		FCPPT_TEXT("(left top) me!"));
+		SGE_FONT_TEXT_LIT("(left top) me!"));
 
 	sge::gui::widgets::buttons::text left_bottom(
 		left,
 		sge::gui::widgets::parameters(),
-		FCPPT_TEXT("(left bottom) me!"));
+		SGE_FONT_TEXT_LIT("(left bottom) me!"));
 
 	fcppt::shared_ptr<
 		sge::gui::widgets::buttons::text
@@ -183,14 +184,14 @@ try
 				right
 			),
 			sge::gui::widgets::parameters(),
-			FCPPT_TEXT("(right top) me!")
+			SGE_FONT_TEXT_LIT("(right top) me!")
 		)
 	);
 
 	sge::gui::widgets::buttons::text right_bottom(
 		right,
 		sge::gui::widgets::parameters(),
-		FCPPT_TEXT("(right bottom) me!"));
+		SGE_FONT_TEXT_LIT("(right bottom) me!"));
 
 	fcppt::io::cerr << "added buttons and children\n";
 

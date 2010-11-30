@@ -24,10 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/make_const.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <sge/image/size_type.hpp>
+#include <sge/image/exception.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
-#include <sge/exception.hpp>
 #include <boost/spirit/home/phoenix/bind/bind_function.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/operator/comparison.hpp>
@@ -35,25 +35,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::image::algorithm::convert_conditional(
-	raw_pointer const data,
-	dim_type const &dim,
-	color::format::type const fmt,
-	size_type const pitch,
-	accepted_format_array const &formats)
+	raw_pointer const _data,
+	dim_type const &_dim,
+	color::format::type const _format,
+	size_type const _pitch,
+	accepted_format_array const &_formats
+)
 {
-	if(std::find(formats.begin(), formats.end(), fmt) != formats.end())
+	if(
+		std::find(
+			_formats.begin(),
+			_formats.end(),
+			_format
+		)
+		!= _formats.end()
+	)
 		return;
 
 	size_type const stride(
 		color::format_stride(
-			fmt
+			_format
 		)
 	);
 
 	accepted_format_array::const_iterator const it(
 		std::find_if(
-			formats.begin(),
-			formats.end(),
+			_formats.begin(),
+			_formats.end(),
 			boost::phoenix::bind(
 				&color::format_stride,
 				boost::phoenix::arg_names::arg1
@@ -62,24 +70,27 @@ sge::image::algorithm::convert_conditional(
 		)
 	);
 
-	if(it == formats.end())
-		throw exception(
-			FCPPT_TEXT("No suitable color format in convert_conditional!"));
+	if(
+		it == _formats.end()
+	)
+		throw sge::image::exception(
+			FCPPT_TEXT("No suitable color format in convert_conditional!")
+		);
 
-	copy_and_convert(
+	image::algorithm::copy_and_convert(
 		view::make_const(
 			view::make(
-				data,
-				dim,
-				fmt,
-				pitch
+				_data,
+				_dim,
+				_format,
+				_pitch
 			)
 		),
 		view::make(
-			data,
-			dim,
+			_data,
+			_dim,
 			*it,
-			pitch
+			_pitch
 		)
 	);
 }

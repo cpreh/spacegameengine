@@ -29,14 +29,14 @@ template<
 	typename Type
 >
 sge::renderer::glsl::uniform::basic_value<Value, Type>::basic_value(
-	data_type const &data_,
-	size_type const elements_,
-	Type const type_
+	data_type const &_data,
+	size_type const _elements,
+	Type const _type
 )
 :
-	data_(data_),
-	elements_(elements_),
-	type_(type_)
+	data_(_data),
+	elements_(_elements),
+	type_(_type)
 {}
 
 template<

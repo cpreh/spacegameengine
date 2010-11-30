@@ -90,10 +90,10 @@ class input_functor
 	)
 public:
 	explicit input_functor(
-		bool &running
+		bool &_running
 	)
 	:
-		running(running)
+		running_(_running)
 	{}
 
 	void
@@ -106,10 +106,10 @@ public:
 			&&
 			k.key().code() == sge::input::keyboard::key_code::escape
 		)
-			running = false;
+			running_ = false;
 	}
 private:
-	bool &running;
+	bool &running_;
 };
 
 class sprite_functor
@@ -119,36 +119,36 @@ class sprite_functor
 	)
 public:
 	explicit sprite_functor(
-		sprite_object &s
+		sprite_object &_sprite
 	)
 	:
-		s(s)
+		sprite_(_sprite)
 	{}
 
 	void
 	operator()(
-		sge::input::mouse::axis_event const &k
+		sge::input::mouse::axis_event const &_event
 	) const
 	{
 		switch(
-			k.axis()
+			_event.axis()
 		)
 		{
 		case sge::input::mouse::axis::x:
-			s.x(
+			sprite_.x(
 				static_cast<
 					sprite_object::unit
 				>(
-					s.x() + k.axis_value()
+					sprite_.x() + _event.axis_value()
 				)
 			);
 			break;
 		case sge::input::mouse::axis::y:
-			s.y(
+			sprite_.y(
 				static_cast<
 					sprite_object::unit
 				>(
-					s.y() + k.axis_value()
+					sprite_.y() + _event.axis_value()
 				)
 			);
 			break;
@@ -157,7 +157,7 @@ public:
 		}
 	}
 private:
-	sprite_object &s;
+	sprite_object &sprite_;
 };
 }
 

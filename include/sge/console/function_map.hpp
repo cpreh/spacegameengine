@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CONSOLE_FUNCTION_MAP_HPP_INCLUDED
 
 #include <sge/console/function.hpp>
-#include <fcppt/string.hpp>
+#include <sge/font/text/string.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 
 namespace sge
@@ -31,7 +31,7 @@ namespace console
 {
 
 typedef boost::ptr_map<
-	fcppt::string,
+	font::text::string,
 	function
 > function_map;
 

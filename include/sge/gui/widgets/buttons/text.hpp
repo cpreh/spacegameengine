@@ -24,8 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widgets/buttons/base.hpp>
 #include <sge/gui/export.hpp>
 #include <sge/gui/font_info.hpp>
+#include <sge/font/text/string.hpp>
 #include <sge/class_symbol.hpp>
-#include <fcppt/string.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -35,17 +36,26 @@ namespace widgets
 {
 namespace buttons
 {
-class SGE_CLASS_SYMBOL text : public base
+
+class SGE_CLASS_SYMBOL text
+:
+	public base
 {
+	FCPPT_NONCOPYABLE(
+		text
+	)
 public:
 	SGE_GUI_SYMBOL text(
 		parent_data const &,
 		parameters,
-		fcppt::string const &);
+		sge::font::text::string const &
+	);
 
-	fcppt::string const caption() const;
+	SGE_GUI_SYMBOL
+	sge::font::text::string const &
+	caption() const;
 private:
-	fcppt::string caption_;
+	sge::font::text::string caption_;
 };
 }
 }

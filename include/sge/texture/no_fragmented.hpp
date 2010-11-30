@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/filter/texture.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/class_symbol.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -39,6 +40,9 @@ class SGE_CLASS_SYMBOL no_fragmented
 :
 	public fragmented
 {
+	FCPPT_NONCOPYABLE(
+		no_fragmented
+	)
 public:
 	SGE_TEXTURE_SYMBOL no_fragmented(
 		renderer::device_ptr,
@@ -46,31 +50,34 @@ public:
 		renderer::filter::texture const &
 	);
 private:
-	SGE_TEXTURE_SYMBOL part_ptr const
+	part_ptr const
 	consume_fragment(
 		renderer::dim2 const &
 	);
 
-	SGE_TEXTURE_SYMBOL void
+	void
 	on_return_fragment(
 		part const &
 	);
 
-	SGE_TEXTURE_SYMBOL renderer::texture_ptr const
+	renderer::texture_ptr const
 	texture() const;
 
-	SGE_TEXTURE_SYMBOL bool repeatable() const;
+	bool repeatable() const;
 
-	SGE_TEXTURE_SYMBOL free_type
+	free_type
 	free_value() const;
 
-	SGE_TEXTURE_SYMBOL bool
+	bool
 	empty() const;
 
-	renderer::device_ptr const rend;
-	image::color::format::type const format;
-	renderer::filter::texture const filter;
-	renderer::texture_ptr tex;
+	renderer::device_ptr const rend_;
+
+	image::color::format::type const format_;
+
+	renderer::filter::texture const filter_;
+
+	renderer::texture_ptr tex_;
 };
 
 }

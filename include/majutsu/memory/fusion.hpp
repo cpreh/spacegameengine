@@ -51,7 +51,8 @@ struct inner_type {
 template<
 	typename Type
 >
-class fusion {
+class fusion
+{
 public:
 	typedef typename flatten<
 		Type
@@ -86,11 +87,11 @@ public:
 	}
 
 	explicit fusion(
-		fusion const &other_
+		fusion const &_other
 	)
 	:
 		elements_(
-			other_.elements_
+			_other.elements_
 		)
 	{}
 
@@ -98,7 +99,7 @@ public:
 		typename Arguments
 	>
 	explicit fusion(
-		Arguments const &elements_
+		Arguments const &_elements
 	)
 	:
 		elements_(
@@ -106,7 +107,7 @@ public:
 				types,
 				tuple
 			>(
-				elements_
+				_elements
 			)
 		)
 	{}
@@ -119,7 +120,7 @@ public:
 		typename majutsu::role_return_type<
 			types,
 			Role
-		>::type const &t
+		>::type const &_value
 	)
 	{
 		typedef typename majutsu::detail::find_role<
@@ -130,7 +131,7 @@ public:
 		set_internal<
 			found_role
 		>(
-			t
+			_value
 		);
 	}
 
@@ -148,14 +149,15 @@ public:
 			Role
 		>::type found_role;
 
-		return boost::fusion::at<
-			detail::index_of<
-				types,
-				found_role
-			>
-		>(
-			elements_
-		);
+		return
+			boost::fusion::at<
+				detail::index_of<
+					types,
+					found_role
+				>
+			>(
+				elements_
+			);
 	}
 
 	template<
@@ -164,7 +166,7 @@ public:
 	>
 	void
 	set_internal(
-		Value const &value_
+		Value const &_value
 	)
 	{
 		boost::fusion::at<
@@ -174,7 +176,7 @@ public:
 			>
 		>(
 			elements_
-		) = value_;
+		) = _value;
 	}
 private:
 	tuple elements_;

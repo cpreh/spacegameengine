@@ -28,15 +28,18 @@ template<
 	typename View
 >
 sge::renderer::detail::const_scoped_buffer_lock<Ptr, View>::const_scoped_buffer_lock(
-	Ptr const ptr,
-	size_type const first,
-	size_type const count)
+	Ptr const _ptr,
+	size_type const _first,
+	size_type const _count
+)
 :
-	ptr(ptr),
-	view(
-		ptr->lock(
-			first,
-			count))
+	ptr_(_ptr),
+	view_(
+		ptr_->lock(
+			_first,
+			_count
+		)
+	)
 {}
 
 template<
@@ -46,7 +49,7 @@ template<
 View const
 sge::renderer::detail::const_scoped_buffer_lock<Ptr, View>::value() const
 {
-	return view;
+	return view_;
 }
 
 template<
@@ -55,7 +58,7 @@ template<
 >
 sge::renderer::detail::const_scoped_buffer_lock<Ptr, View>::~const_scoped_buffer_lock()
 {
-	ptr->unlock();
+	ptr_->unlock();
 }
 
 #endif

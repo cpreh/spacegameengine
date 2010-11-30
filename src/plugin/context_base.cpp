@@ -24,10 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/library/object_impl.hpp>
 
 sge::plugin::context_base::context_base(
-	fcppt::filesystem::path const &path_
+	fcppt::filesystem::path const &_path
 )
 :
-	path_(path_)
+	path_(_path)
 {
 	typedef void (*version_function)(sge::plugin::info*);
 

@@ -46,10 +46,10 @@ public:
 	typedef void result_type;
 
 	explicit generate_visitor(
-		Gen const &gen
+		Gen const &_gen
 	)
 	:
-		gen(gen)
+		gen_(_gen)
 	{}
 
 	template<
@@ -57,24 +57,24 @@ public:
 	>
 	result_type
 	operator()(
-		View const &v
+		View const &_view
 	) const
 	{
 		for(
 			typename View::iterator
 				it(
-					v.begin()
+					_view.begin()
 				),
 				end(
-					v.end()
+					_view.end()
 				);
 			it != end;
 			++it
 		)
-			*it = gen.operator()<typename View::value_type>();
+			*it = gen_.operator()<typename View::value_type>();
 	}
 private:
-	Gen const gen;
+	Gen const gen_;
 };
 
 }

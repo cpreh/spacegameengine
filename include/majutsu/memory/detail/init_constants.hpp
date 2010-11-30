@@ -43,10 +43,10 @@ class init_constants
 	)
 public:
 	explicit init_constants(
-		Memory &mem_
+		Memory &_mem
 	)
 	:
-		mem_(mem_)
+		mem_(_mem)
 	{}
 
 	template<

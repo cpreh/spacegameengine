@@ -21,27 +21,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/light.hpp>
 
 sge::renderer::light::light(
-	image::color::any::object const &ambient_,
-	image::color::any::object const &diffuse_,
-	image::color::any::object const &specular_,
-	position_type const &position_,
-	direction_type const &direction_,
-	attenuation_type const &const_attenuation_,
-	attenuation_type const &linear_attenuation_,
-	attenuation_type const &quadratic_attenuation_,
-	scalar const &distribution_exponent_,
-	scalar const &cutoff_angle_)
+	image::color::any::object const &_ambient,
+	image::color::any::object const &_diffuse,
+	image::color::any::object const &_specular,
+	position_type const &_position,
+	direction_type const &_direction,
+	attenuation_type const &_const_attenuation,
+	attenuation_type const &_linear_attenuation,
+	attenuation_type const &_quadratic_attenuation,
+	scalar const &_distribution_exponent,
+	scalar const &_cutoff_angle
+)
 :
-	ambient_(ambient_),
-	diffuse_(diffuse_),
-	specular_(specular_),
-	position_(position_),
-	direction_(direction_),
-	const_attenuation_(const_attenuation_),
-	linear_attenuation_(linear_attenuation_),
-	quadratic_attenuation_(quadratic_attenuation_),
-	distribution_exponent_(distribution_exponent_),
-	cutoff_angle_(cutoff_angle_)
+	ambient_(_ambient),
+	diffuse_(_diffuse),
+	specular_(_specular),
+	position_(_position),
+	direction_(_direction),
+	const_attenuation_(_const_attenuation),
+	linear_attenuation_(_linear_attenuation),
+	quadratic_attenuation_(_quadratic_attenuation),
+	distribution_exponent_(_distribution_exponent),
+	cutoff_angle_(_cutoff_angle)
 {}
 
 sge::image::color::any::object const &

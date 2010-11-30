@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../mode.hpp"
 
 sge::opengl::xrandr::mode::mode(
-	int const index_,
-	Rotation const rotation_,
-	renderer::refresh_rate const rate_
+	int const _index,
+	Rotation const _rotation,
+	renderer::refresh_rate const _rate
 )
 :
-	index_(index_),
-	rotation_(rotation_),
-	rate_(rate_)
+	index_(_index),
+	rotation_(_rotation),
+	rate_(_rate)
 {}
 
 int

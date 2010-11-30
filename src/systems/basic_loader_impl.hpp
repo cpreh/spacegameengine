@@ -27,12 +27,12 @@ template<
 	typename Capabilities
 >
 sge::systems::basic_loader<Capabilities>::basic_loader(
-	capabilities_type const &capabilities_,
-	sge::extension_set const &extensions_
+	capabilities_type const &_capabilities,
+	sge::extension_set const &_extensions
 )
 :
-	extensions_(extensions_),
-	capabilities_(capabilities_)
+	extensions_(_extensions),
+	capabilities_(_capabilities)
 {}
 
 template<

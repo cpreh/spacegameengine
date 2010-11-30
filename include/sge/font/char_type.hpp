@@ -21,15 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_CHAR_TYPE_HPP_INCLUDED
 #define SGE_FONT_CHAR_TYPE_HPP_INCLUDED
 
-#include <fcppt/char_type.hpp>
-
 namespace sge
 {
 namespace font
 {
 
-// TODO: we might need to use something else, like utf32
-typedef fcppt::char_type char_type;
+typedef wchar_t char_type;
 
 }
 }

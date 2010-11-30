@@ -32,12 +32,12 @@ template<
 	typename Format
 >
 sge::renderer::index::view<Format>::view(
-	pointer const data_,
-	size_type const size_
+	pointer const _data,
+	size_type const _size
 )
 :
-	data_(data_),
-	size_(size_)
+	data_(_data),
+	size_(_size)
 {
 	FCPPT_ASSERT(data_);
 }
@@ -46,11 +46,11 @@ template<
 	typename Format
 >
 sge::renderer::index::view<Format>::view(
-	nonconst_type const &other_
+	nonconst_type const &_other
 )
 :
-	data_(other_.data()),
-	size_(other_.size())
+	data_(_other.data()),
+	size_(_other.size())
 {
 }
 
@@ -58,18 +58,18 @@ template<
 	typename Format
 >
 sge::renderer::index::view<Format>::view(
-	dynamic_view_type const &view_
+	dynamic_view_type const &_view
 )
 :
 	data_(
-		view_.any(). template get<
+		_view.any(). template get<
 			view<
 				Format
 			>
 		>().data()
 	),
 	size_(
-		view_.size()
+		_view.size()
 	)
 {}
 

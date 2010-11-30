@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_ARG_LIST_HPP_INCLUDED
 #define SGE_CONSOLE_ARG_LIST_HPP_INCLUDED
 
-#include <fcppt/string.hpp>
+#include <sge/font/text/string.hpp>
 #include <vector>
 
 namespace sge
@@ -30,7 +30,7 @@ namespace console
 {
 
 typedef std::vector<
-	fcppt::string
+	font::text::string
 > arg_list;
 
 }

@@ -38,63 +38,75 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 
 sge::texture::no_fragmented::no_fragmented(
-	renderer::device_ptr const rend,
-	image::color::format::type const format,
-	renderer::filter::texture const &filter
+	renderer::device_ptr const _rend,
+	image::color::format::type const _format,
+	renderer::filter::texture const &_filter
 )
 :
- 	rend(rend),
-	format(format),
- 	filter(filter)
+ 	rend_(_rend),
+	format_(_format),
+ 	filter_(_filter)
 {}
 
 sge::texture::part_ptr const
 sge::texture::no_fragmented::consume_fragment(
-	renderer::dim2 const &dim
+	renderer::dim2 const &_dim
 )
 {
-	if(tex)
+	if(
+		tex_
+	)
 		return part_ptr();
 
 	renderer::dim2 const real_dim(
 		atlasing::bounds(
-			dim
+			_dim
 		)
 	);
 
-	tex = rend->create_texture(
-		real_dim,
-		format,
-		filter,
-		renderer::resource_flags::none
-	);
+	tex_ =
+		rend_->create_texture(
+			real_dim,
+			format_,
+			filter_,
+			renderer::resource_flags::none
+		);
 
-	if(real_dim != dim)
+	if(
+		real_dim != _dim
+	)
 		FCPPT_LOG_WARNING(
 			log::global(),
 			fcppt::log::_
 				<< FCPPT_TEXT("You used a texture::no_fragmented whose dimensions are not a power of 2.")\
 				FCPPT_TEXT(" This is slower to load and requires more texture memory because it needs atlasing and thus is not intuitive.")\
 				FCPPT_TEXT(" The texture's size was ")
-				<< dim
+				<< _dim
 				<< FCPPT_TEXT('.')
 		);
 
-	return part_ptr(
-		fcppt::make_shared_ptr<
-			part_fragmented
-		>(
-			renderer::lock_rect(
-				renderer::lock_rect::vector::null(),
-				atlasing::size(dim)
-			),
-			std::tr1::ref(
-				*this
-			),
-			atlasing::need(dim.w()),
-			atlasing::need(dim.h())
-		)
-	);
+	return
+		part_ptr(
+			fcppt::make_shared_ptr<
+				part_fragmented
+			>(
+				renderer::lock_rect(
+					renderer::lock_rect::vector::null(),
+					atlasing::size(
+						_dim
+					)
+				),
+				std::tr1::ref(
+					*this
+				),
+				atlasing::need(
+					_dim.w()
+				),
+				atlasing::need(
+					_dim.h()
+				)
+			)
+		);
 }
 
 void
@@ -102,13 +114,13 @@ sge::texture::no_fragmented::on_return_fragment(
 	part const &
 )
 {
-	tex.reset();
+	tex_.reset();
 }
 
 sge::renderer::texture_ptr const
 sge::texture::no_fragmented::texture() const
 {
-	return tex;
+	return tex_;
 }
 
 bool
@@ -126,5 +138,5 @@ sge::texture::no_fragmented::free_value() const
 bool
 sge::texture::no_fragmented::empty() const
 {
-	return !tex;
+	return !tex_;
 }

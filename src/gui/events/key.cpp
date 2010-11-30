@@ -22,26 +22,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/map_impl.hpp>
 
 sge::gui::events::key::key(
-	input::keyboard::key_event const &kp,
-	input::modifier::states const &s,
-	bool const repeated_)
+	input::keyboard::key_event const &_value,
+	input::modifier::states const &_modifiers,
+	bool const _repeated
+)
 :
-	kp(kp),
-	s(s),
-	repeated_(repeated_)
+	value_(_value),
+	modifiers_(_modifiers),
+	repeated_(_repeated)
 {
 }
 
 sge::input::keyboard::key_event const &
 sge::gui::events::key::value() const
 {
-	return kp;
+	return value_;
 }
 
 sge::input::modifier::states const &
 sge::gui::events::key::modifiers() const
 {
-	return s;
+	return modifiers_;
 }
 
 bool

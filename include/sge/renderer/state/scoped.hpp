@@ -43,7 +43,7 @@ public:
 	);
 	SGE_SYMBOL ~scoped();
 private:
-	device_ptr const rend;
+	device_ptr const rend_;
 };
 
 }

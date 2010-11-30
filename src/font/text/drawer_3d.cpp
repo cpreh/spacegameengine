@@ -87,7 +87,7 @@ sge::font::text::drawer_3d::begin_rendering(
 
 void
 sge::font::text::drawer_3d::draw_char(
-	font::char_type const _char,
+	text::char_type const _char,
 	pos const &_pos,
 	const_image_view const &_data
 )
@@ -159,7 +159,7 @@ sge::font::text::drawer_3d::color(
 
 sge::texture::const_part_ptr const
 sge::font::text::drawer_3d::cached_texture(
-	font::char_type const _ch,
+	text::char_type const _ch,
 	const_image_view const &_data
 )
 {

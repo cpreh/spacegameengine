@@ -23,10 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/font/text/drawer.hpp>
 #include <sge/font/text/symbol.hpp>
+#include <sge/font/text/char_type.hpp>
 #include <sge/font/pos.hpp>
 #include <sge/font/dim.hpp>
 #include <sge/font/image_view.hpp>
-#include <sge/font/char_type.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/const_part_ptr.hpp>
 #include <sge/renderer/device_ptr.hpp>
@@ -78,7 +78,7 @@ public:
 	SGE_FONT_TEXT_SYMBOL
 	void
 	draw_char(
-		font::char_type,
+		font::text::char_type,
 		pos const &,
 		const_image_view const &
 	);
@@ -95,7 +95,7 @@ public:
 private:
 	texture::const_part_ptr const
 	cached_texture(
-		font::char_type,
+		font::text::char_type,
 		const_image_view const &
 	);
 
@@ -106,7 +106,7 @@ private:
 	texture::manager texman_;
 
 	typedef std::map<
-		font::char_type,
+		font::text::char_type,
 		texture::const_part_ptr
 	> texture_map;
 

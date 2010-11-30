@@ -45,7 +45,7 @@ fcppt::log::object mylogger(
 
 sge::gui::layouts::base::base()
 :
-	w(0)
+	widget_(0)
 {
 }
 
@@ -120,43 +120,43 @@ void sge::gui::layouts::base::invalidate(
 sge::gui::widgets::base&
 sge::gui::layouts::base::connected_widget()
 {
-	return *w;
+	return *widget_;
 }
 
 sge::gui::widgets::base const &
 sge::gui::layouts::base::connected_widget() const
 {
-	return *w;
+	return *widget_;
 }
 
 sge::gui::layouts::base::~base()
 {}
 
 void sge::gui::layouts::base::set_widget_size(
-	widgets::base &w,
+	widgets::base &_widget,
 	dim const &d)
 {
-	w.size(d);
+	_widget.size(d);
 }
 
 void sge::gui::layouts::base::set_widget_pos(
-	widgets::base &w,
+	widgets::base &_widget,
 	point const &d)
 {
-	w.pos(d);
+	_widget.pos(d);
 }
 
 void sge::gui::layouts::base::compile_widget(
-	widgets::base &w,
+	widgets::base &_widget,
 	invalidation::type const &)
 {
-	w.compile_static();
+	_widget.compile_static();
 }
 
-void sge::gui::layouts::base::connected_widget(widgets::base &_w)
+void sge::gui::layouts::base::connected_widget(widgets::base &_widget)
 {
-	if (w)
+	if (widget_)
 		throw exception(FCPPT_TEXT("registered connected widgets::base twice"));
 
-	w = &_w;
+	widget_ = &_widget;
 }

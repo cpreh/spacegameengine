@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FONT_TEXT_PART_HPP_INCLUDED
 
 #include <sge/font/text/part_fwd.hpp>
+#include <sge/font/text/string.hpp>
 #include <sge/font/text/symbol.hpp>
 #include <sge/font/dim.hpp>
-#include <sge/font/string.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 
 namespace sge
@@ -37,12 +37,12 @@ namespace text
 class part
 {
 public:
-	typedef string::const_iterator const_iterator;
+	typedef text::string::const_iterator const_iterator;
 
 	SGE_FONT_TEXT_SYMBOL part(
 		dim const &sz,
-		string::const_iterator end,
-		string::const_iterator next_begin
+		const_iterator end,
+		const_iterator next_beg
 	);
 
 	/// The size of this text part

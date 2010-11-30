@@ -37,7 +37,7 @@ sge::font::text::part const
 sge::font::text::draw(
 	font::metrics_ptr const _metrics,
 	text::drawer_ptr const _drawer,
-	font::string const &_text,
+	text::string const &_text,
 	font::pos const &_start_pos,
 	font::dim const &_max_sz,
 	text::align_h::type const _align_h,
@@ -81,7 +81,7 @@ sge::font::text::draw(
 		_align_v
 	);
 
-	font::string::const_iterator sbeg(
+	text::string::const_iterator sbeg(
 		_text.begin()
 	);
 

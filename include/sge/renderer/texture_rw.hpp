@@ -84,7 +84,7 @@ private:
 
 	mutable fcppt::scoped_ptr<
 		lock_data
-	> locked;
+	> locked_;
 };
 
 }

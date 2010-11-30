@@ -24,12 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/chrono/duration_impl.hpp>
 
 sge::sprite::animation::entity::entity(
-	time::duration const &res,
-	texture::const_part_ptr const tex_
+	time::duration const &_res,
+	texture::const_part_ptr const _tex
 )
 :
-	delay_(res.count()),
-	tex_(tex_)
+	delay_(_res.count()),
+	tex_(_tex)
 {}
 
 sge::time::unit

@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 sge::iconv::unsupported_conversion::unsupported_conversion(
-	iconv::charset_string const &_source,
-	iconv::charset_string const &_dest
+	iconv::encoding_string const &_source,
+	iconv::encoding_string const &_dest
 )
 :
 	sge::iconv::exception(
@@ -45,13 +45,13 @@ sge::iconv::unsupported_conversion::~unsupported_conversion() throw()
 {
 }
 
-sge::iconv::charset_string const &
+sge::iconv::encoding_string const &
 sge::iconv::unsupported_conversion::source() const
 {
 	return source_;
 }
 
-sge::iconv::charset_string const &
+sge::iconv::encoding_string const &
 sge::iconv::unsupported_conversion::dest() const
 {
 	return dest_;

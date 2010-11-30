@@ -24,14 +24,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 
 sge::renderer::display_mode::display_mode(
-	screen_size const &size_,
-	renderer::bit_depth::type const bit_depth_,
-	renderer::refresh_rate const refresh_rate_
+	screen_size const &_size,
+	renderer::bit_depth::type const _bit_depth,
+	renderer::refresh_rate const _refresh_rate
 )
 :
-	size_(size_),
-	bit_depth_(bit_depth_),
-	refresh_rate_(refresh_rate_)
+	size_(_size),
+	bit_depth_(_bit_depth),
+	refresh_rate_(_refresh_rate)
 {}
 
 sge::renderer::screen_size const &
@@ -54,40 +54,41 @@ sge::renderer::display_mode::refresh_rate() const
 
 bool
 sge::renderer::operator==(
-	display_mode const &l,
-	display_mode const &r
+	display_mode const &_l,
+	display_mode const &_r
 )
 {
 	return
-		l.bit_depth() == r.bit_depth()
-		&& l.size() == r.size()
-		&& l.refresh_rate() == r.refresh_rate();
+		_l.bit_depth() == _r.bit_depth()
+		&& _l.size() == _r.size()
+		&& _l.refresh_rate() == _r.refresh_rate();
 }
 
 bool
 sge::renderer::operator!=(
-	display_mode const &l,
-	display_mode const &r
+	display_mode const &_l,
+	display_mode const &_r
 )
 {
-	return !(l==r);
+	return !(_l == _r);
 }
 
 fcppt::io::ostream &
 sge::renderer::operator<<(
-	fcppt::io::ostream &s,
-	display_mode const &mode
+	fcppt::io::ostream &_stream,
+	display_mode const &_mode
 )
 {
-	return s
+	return _stream
 		<< FCPPT_TEXT('(')
-		<< mode.size().w()
+		<< _mode.size().w()
 		<< FCPPT_TEXT('x')
-		<< mode.size().h()
+		<< _mode.size().h()
 		<< FCPPT_TEXT('x')
 		<< static_cast<unsigned>(
-			mode.bit_depth())
+			_mode.bit_depth()
+		)
 		<< FCPPT_TEXT('@')
-		<< mode.refresh_rate()
+		<< _mode.refresh_rate()
 		<< FCPPT_TEXT(')');
 }

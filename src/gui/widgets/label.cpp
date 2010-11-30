@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/gui/manager.hpp>
 #include <sge/gui/widgets/log.hpp>
+#include <sge/font/text/to_fcppt_string.hpp>
 #include <fcppt/log/parameters/inherited.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/log/headers.hpp>
@@ -43,7 +44,7 @@ fcppt::log::object mylogger(
 sge::gui::widgets::label::label(
 	parent_data const &_parent,
 	parameters _params,
-	fcppt::string const &_text,
+	sge::font::text::string const &_text,
 	sge::font::text::align_h::type _align_h,
 	sge::font::text::align_v::type _align_v,
 	optional_dim const &_static_size)
@@ -61,7 +62,8 @@ sge::gui::widgets::label::label(
 {
 }
 
-fcppt::string const sge::gui::widgets::label::text() const
+sge::font::text::string const &
+sge::gui::widgets::label::text() const
 {
 	return text_;
 }
@@ -76,14 +78,18 @@ sge::font::text::align_v::type sge::gui::widgets::label::align_v() const
 	return align_v_;
 }
 
-void sge::gui::widgets::label::text(
-	fcppt::string const &_text)
+void
+sge::gui::widgets::label::text(
+	sge::font::text::string const &_text
+)
 {
 	FCPPT_LOG_DEBUG(
 		mylogger,
 		fcppt::log::_
 			<< FCPPT_TEXT("setting text to: ")
-			<< _text
+			<< sge::font::text::to_fcppt_string(
+				_text
+			)
 	);
 	text_ = _text;
 	invalidate(

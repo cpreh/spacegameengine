@@ -77,11 +77,11 @@ private:
 
 	dim_type dim_;
 
-	image::color::format::type const cf;
+	image::color::format::type const cf_;
 
-	internal_vector raw_bytes;
+	internal_vector raw_bytes_;
 	// has to be mutable for unlock
-	mutable bool locked;
+	mutable bool locked_;
 
 	internal_vector::size_type
 	byte_count() const;

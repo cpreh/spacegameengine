@@ -21,17 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/timer/object.hpp>
 
 sge::gui::timer::object::object(
-	time::duration const &r,
-	timer::callback const cb
+	time::duration const &_duration,
+	timer::callback const _callback
 )
 :
-	t(r),
-	cb(cb)
+	timer_(_duration),
+	callback_(_callback)
 {
 }
 
 void sge::gui::timer::object::update()
 {
-	if (t.update_b())
-		cb();
+	if (timer_.update_b())
+		callback_();
 }

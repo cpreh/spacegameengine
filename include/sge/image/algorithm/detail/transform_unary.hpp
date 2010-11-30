@@ -45,10 +45,10 @@ public:
 	typedef void result_type;
 
 	explicit transform_unary(
-		Op const &op
+		Op const &_op
 	)
 	:
-		op(op)
+		op_(_op)
 	{}
 
 	template<
@@ -57,18 +57,18 @@ public:
 	>
 	result_type
 	operator()(
-		Src const &src,
-		Dest const &dest
+		Src const &_src,
+		Dest const &_dest
 	) const
 	{
 		mizuiro::image::algorithm::transform_binary(
-			src,
-			dest,
-			op
+			_src,
+			_dest,
+			op_
 		);
 	}
 private:
-	Op const op;
+	Op const op_;
 };
 
 }

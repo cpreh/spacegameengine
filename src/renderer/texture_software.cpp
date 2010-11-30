@@ -31,15 +31,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 sge::renderer::texture_software::texture_software(
-	dim_type const &new_dim,
-	image::color::format::type const cf
+	dim_type const &_new_dim,
+	image::color::format::type const _cf
 )
 :
 	dim_(),
-	cf(cf),
-	locked(false)
+	cf_(_cf),
+	locked_(false)
 {
-	resize(new_dim);
+	resize(
+		_new_dim
+	);
 }
 
 sge::renderer::texture_software::~texture_software()
@@ -53,53 +55,55 @@ sge::renderer::texture_software::dim() const
 
 sge::image::view::object const
 sge::renderer::texture_software::lock(
-	lock_rect const &lr,
+	lock_rect const &_rect,
 	lock_mode::type const
 )
 {
 	FCPPT_ASSERT_MESSAGE(
-		!locked,
+		!locked_,
 		FCPPT_TEXT("already locked software texture")
 	);
 
-	locked = true;
+	locked_ = true;
 
-	return image::view::sub(
-		image::view::make(
-			raw_bytes.data(),
-			dim(),
-			cf,
-			image::view::optional_pitch()
-		),
-		lr
-	);
+	return
+		image::view::sub(
+			image::view::make(
+				raw_bytes_.data(),
+				dim(),
+				cf_,
+				image::view::optional_pitch()
+			),
+			_rect
+		);
 }
 
 sge::image::view::const_object const
 sge::renderer::texture_software::lock(
-	lock_rect const &lr
+	lock_rect const &_rect
 ) const
 {
-	return image::view::sub(
-		image::view::make(
-			raw_bytes.data(),
-			dim(),
-			cf,
-			image::view::optional_pitch()
-		),
-		lr
-	);
+	return
+		image::view::sub(
+			image::view::make(
+				raw_bytes_.data(),
+				dim(),
+				cf_,
+				image::view::optional_pitch()
+			),
+			_rect
+		);
 }
 
 void
 sge::renderer::texture_software::unlock() const
 {
 	FCPPT_ASSERT_MESSAGE(
-		locked,
+		locked_,
 		FCPPT_TEXT("software texture was not locked, though you tried to unlock")
 	);
 
-	locked = false;
+	locked_ = false;
 }
 
 sge::renderer::resource_flags_field const
@@ -112,20 +116,26 @@ sge::renderer::texture_software::flags() const
 sge::renderer::texture_software::internal_vector::size_type
 sge::renderer::texture_software::byte_count() const
 {
-	return static_cast<
-		internal_vector::size_type
-	>(
-		dim().w()
-		* dim().h()
-		* image::color::format_stride(cf)
-	);
+	return
+		static_cast<
+			internal_vector::size_type
+		>(
+			dim().w()
+			* dim().h()
+			* image::color::format_stride(
+				cf_
+			)
+		);
 }
 
 void
 sge::renderer::texture_software::resize(
-	dim_type const &new_dim
+	dim_type const &_dim
 )
 {
-	dim_ = new_dim;
-	raw_bytes.resize(byte_count());
+	dim_ = _dim;
+
+	raw_bytes_.resize(
+		byte_count()
+	);
 }

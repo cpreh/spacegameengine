@@ -30,10 +30,10 @@ sge::gui::widgets::parent_data::parent_data(
 }
 
 sge::gui::widgets::parent_data::parent_data(
-	manager &manager_)
+	manager &_manager)
 :
 	widget_(0),
-	manager_(manager_)
+	manager_(_manager)
 {
 }
 

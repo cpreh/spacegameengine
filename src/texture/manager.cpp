@@ -37,7 +37,7 @@ namespace
 sge::texture::part_ptr const
 init_texture(
 	sge::texture::fragmented &,
-	sge::image::view::const_object const &src
+	sge::image::view::const_object const &
 );
 
 class move_visitor
@@ -64,20 +64,22 @@ public:
 		sge::texture::detail::fragmented_queue::iterator
 	) const;
 private:
-	sge::texture::fragmented const &tex;
-	sge::texture::detail::fragmented_list &full_textures;
-	sge::texture::detail::fragmented_queue &free_textures;
+	sge::texture::fragmented const &tex_;
+
+	sge::texture::detail::fragmented_list &full_textures_;
+
+	sge::texture::detail::fragmented_queue &free_textures_;
 };
 
 }
 
 sge::texture::manager::manager(
-	renderer::device_ptr const rend,
-	on_alloc_function const &on_alloc_
+	renderer::device_ptr const _rend,
+	on_alloc_function const &_on_alloc
 )
 :
-	rend(rend),
-	on_alloc_(on_alloc_)
+	rend_(_rend),
+	on_alloc_(_on_alloc)
 {}
 
 sge::texture::manager::~manager()
@@ -85,33 +87,39 @@ sge::texture::manager::~manager()
 
 sge::texture::part_ptr const
 sge::texture::manager::add(
-	image::view::const_object const &src
+	image::view::const_object const &_src
 )
 {
 	for(
-		detail::fragmented_queue::iterator it = free_textures.begin();
-		it != free_textures.end();
+		detail::fragmented_queue::iterator it = free_textures_.begin();
+		it != free_textures_.end();
 		++it
 	)
 		if(
-			part_ptr const current_part = init_texture(*it, src)
+			part_ptr const current_part =
+				init_texture(
+					*it,
+					_src
+				)
 		)
 		{
-			if(it->full())
+			if(
+				it->full()
+			)
 			{
 				fragmented *const tmp(
 					&*it
 				);
 
-				full_textures.transfer(
-					full_textures.end(),
+				full_textures_.transfer(
+					full_textures_.end(),
 					it,
-					free_textures
+					free_textures_
 				);
 
 				tmp->container_position(
 					boost::prior(
-						full_textures.end()
+						full_textures_.end()
 					)
 				);
 			}
@@ -125,12 +133,14 @@ sge::texture::manager::add(
 	part_ptr const new_part(
 		init_texture(
 			*ntex,
-			src
+			_src
 		)
 	);
 
-	if(!new_part)
-		throw image_too_big();
+	if(
+		!new_part
+	)
+		throw texture::image_too_big();
 
 	fragmented *const tmp(
 		ntex.get()
@@ -141,8 +151,8 @@ sge::texture::manager::add(
 	)
 		tmp->container_position(
 			fcppt::container::ptr::insert_unique_ptr(
-				full_textures,
-				full_textures.end(),
+				full_textures_,
+				full_textures_.end(),
 				move(
 					ntex
 				)
@@ -151,7 +161,7 @@ sge::texture::manager::add(
 	else
 		tmp->container_position(
 			fcppt::container::ptr::insert_unique_ptr_set(
-				free_textures,
+				free_textures_,
 				move(
 					ntex
 				)
@@ -164,15 +174,15 @@ sge::texture::manager::add(
 sge::renderer::device_ptr const
 sge::texture::manager::renderer() const
 {
-	return rend;
+	return rend_;
 }
 
 void
 sge::texture::manager::on_alloc(
-	on_alloc_function const &fun
+	on_alloc_function const &_on_alloc
 )
 {
-	on_alloc_ = fun;
+	on_alloc_ = _on_alloc;
 }
 
 void
@@ -180,12 +190,12 @@ sge::texture::manager::free_empty_textures()
 {
 	for(
 		detail::fragmented_queue::iterator it(
-			free_textures.begin()
+			free_textures_.begin()
 		),
 		next(
 			it
 		);
-		it != free_textures.end();
+		it != free_textures_.end();
 		it = next
 	)
 	{
@@ -195,7 +205,7 @@ sge::texture::manager::free_empty_textures()
 			it->empty()
 		)
 
-			free_textures.erase(
+			free_textures_.erase(
 				it
 			);
 	}
@@ -203,15 +213,17 @@ sge::texture::manager::free_empty_textures()
 
 void
 sge::texture::manager::part_freed(
-	detail::container_position const &pos,
-	fragmented const &frag)
+	detail::container_position const &_pos,
+	fragmented const &_frag
+)
 {
 	fcppt::variant::apply_unary(
-		move_visitor(
-			frag,
-			full_textures,
-			free_textures),
-		pos
+		::move_visitor(
+			_frag,
+			full_textures_,
+			free_textures_
+		),
+		_pos
 	);
 }
 
@@ -220,56 +232,69 @@ namespace
 
 sge::texture::part_ptr const
 init_texture(
-	sge::texture::fragmented &tex,
-	sge::image::view::const_object const &src
+	sge::texture::fragmented &_tex,
+	sge::image::view::const_object const &_src
 )
 {
-	sge::texture::part_ptr const p(
-		tex.consume_fragment(
+	sge::texture::part_ptr const part(
+		_tex.consume_fragment(
 			sge::image::view::dim(
-				src
+				_src
 			)
 		)
 	);
 
-	if(p)
-		p->data(src);
-	return p;
+	if(
+		part
+	)
+		part->data(
+			_src
+		);
+
+	return part;
 }
 
 
 move_visitor::move_visitor(
-	sge::texture::fragmented const &tex,
-	sge::texture::detail::fragmented_list &full_textures,
-	sge::texture::detail::fragmented_queue &free_textures
+	sge::texture::fragmented const &_tex,
+	sge::texture::detail::fragmented_list &_full_textures,
+	sge::texture::detail::fragmented_queue &_free_textures
 )
 :
-	tex(tex),
-	full_textures(full_textures),
-	free_textures(free_textures)
+	tex_(_tex),
+	full_textures_(_full_textures),
+	free_textures_(_free_textures)
 {}
 
 void
 move_visitor::operator()(
-	sge::texture::detail::fragmented_list::iterator const it
+	sge::texture::detail::fragmented_list::iterator const _it
 ) const
 {
-	if(tex.empty())
-		full_textures.erase(it);
+	if(
+		tex_.empty()
+	)
+		full_textures_.erase(
+			_it
+		);
 	else
-		free_textures.transfer(
-			it,
-			full_textures
+		free_textures_.transfer(
+			_it,
+			full_textures_
 		);
 }
 
 void
 move_visitor::operator()(
-	sge::texture::detail::fragmented_queue::iterator const it
+	sge::texture::detail::fragmented_queue::iterator const _it
 ) const
 {
-	if(tex.empty())
-		free_textures.erase(it);
+	if(
+		tex_.empty()
+	)
+		free_textures_.erase(
+			_it
+		);
 }
 
 }

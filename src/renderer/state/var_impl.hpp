@@ -29,9 +29,10 @@ template<
 >
 sge::renderer::state::var<T, States> &
 sge::renderer::state::var<T, States>::operator=(
-	value_type const &newval)
+	value_type const &_val
+)
 {
-	val_ = newval;
+	val_ = _val;
 	return *this;
 }
 
@@ -60,11 +61,11 @@ template<
 	typename States
 >
 sge::renderer::state::var<T, States>::var(
-	state_type const state_,
-	value_type const &val_)
+	state_type const _state,
+	value_type const &_val)
 :
-	state_(state_),
-	val_(val_)
+	state_(_state),
+	val_(_val)
 {}
 
 #endif

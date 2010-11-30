@@ -21,17 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/material.hpp>
 
 sge::renderer::material::material(
-	image::color::any::object const &diffuse_,
-	image::color::any::object const &ambient_,
-	image::color::any::object const &specular_,
-	image::color::any::object const &emissive_,
-	scalar const &power_)
+	image::color::any::object const &_diffuse,
+	image::color::any::object const &_ambient,
+	image::color::any::object const &_specular,
+	image::color::any::object const &_emissive,
+	scalar const &_power
+)
 :
-	diffuse_(diffuse_),
-	ambient_(ambient_),
-	specular_(specular_),
-	emissive_(emissive_),
-	power_(power_)
+	diffuse_(_diffuse),
+	ambient_(_ambient),
+	specular_(_specular),
+	emissive_(_emissive),
+	power_(_power)
 {}
 
 sge::image::color::any::object const &

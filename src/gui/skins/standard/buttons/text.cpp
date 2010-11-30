@@ -26,6 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/log.hpp>
 #include <sge/gui/unit.hpp>
 #include <sge/gui/internal_color.hpp>
+#include <sge/font/text/lit.hpp>
+#include <sge/font/text/to_fcppt_string.hpp>
 #include <sge/image/color/init.hpp>
 #include <sge/image/colors.hpp>
 #include <fcppt/math/box/output.hpp>
@@ -158,9 +160,13 @@ void sge::gui::skins::standard::draw(
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		fcppt::log::_ << FCPPT_TEXT("drawing text (button \"")
-		        << b.caption()
-		        << FCPPT_TEXT("\")"));
+		fcppt::log::_
+			<< FCPPT_TEXT("drawing text (button \"")
+			<< sge::font::text::to_fcppt_string(
+				b.caption()
+			)
+			<< FCPPT_TEXT("\")")
+	);
 
 	// draw text centered
 	c.draw_text(
@@ -173,9 +179,13 @@ void sge::gui::skins::standard::draw(
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
-		fcppt::log::_ << FCPPT_TEXT("blitting (button \"")
-		        << b.caption()
-		        << FCPPT_TEXT("\")"));
+		fcppt::log::_
+			<< FCPPT_TEXT("blitting (button \"")
+			<< sge::font::text::to_fcppt_string(
+				b.caption()
+			)
+			<< FCPPT_TEXT("\")")
+	);
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
@@ -198,7 +208,9 @@ sge::gui::dim const sge::gui::skins::standard::optimal_size(
 	dim const font_dim =
 		utility::unlimited_text_size(
 			standard_font().metrics(),
-			b.caption()+FCPPT_TEXT("aa"));
+			b.caption()
+			+ SGE_FONT_TEXT_LIT("aa")
+		);
 
 	return font_dim;
 }

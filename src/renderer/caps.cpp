@@ -25,24 +25,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 
 sge::renderer::caps::caps(
-	adapter_type const adapter_,
-	fcppt::string const &driver_name_,
-	fcppt::string const &description_,
-	dim2 const &max_texture_size_,
-	filter::anisotropy_type const max_anisotropy_,
-	bool const render_target_supported_,
-	bool const glsl_supported_,
-	image::color::format::type const preferred_texture_format_
+	adapter_type const _adapter,
+	fcppt::string const &_driver_name,
+	fcppt::string const &_description,
+	dim2 const &_max_texture_size,
+	filter::anisotropy_type const _max_anisotropy,
+	bool const _render_target_supported,
+	bool const _glsl_supported,
+	image::color::format::type const _preferred_texture_format
 )
 :
-	adapter_(adapter_),
-	driver_name_(driver_name_),
-	description_(description_),
-	max_texture_size_(max_texture_size_),
-	max_anisotropy_(max_anisotropy_),
-	render_target_supported_(render_target_supported_),
-	glsl_supported_(glsl_supported_),
-	preferred_texture_format_(preferred_texture_format_)
+	adapter_(_adapter),
+	driver_name_(_driver_name),
+	description_(_description),
+	max_texture_size_(_max_texture_size),
+	max_anisotropy_(_max_anisotropy),
+	render_target_supported_(_render_target_supported),
+	glsl_supported_(_glsl_supported),
+	preferred_texture_format_(_preferred_texture_format)
 {}
 
 sge::renderer::adapter_type

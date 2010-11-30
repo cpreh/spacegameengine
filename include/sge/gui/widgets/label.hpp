@@ -27,8 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/font_info.hpp>
 #include <sge/font/text/align_h.hpp>
 #include <sge/font/text/align_v.hpp>
+#include <sge/font/text/string.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/optional.hpp>
-#include <fcppt/string.hpp>
 
 namespace sge
 {
@@ -36,30 +37,57 @@ namespace gui
 {
 namespace widgets
 {
-class SGE_CLASS_SYMBOL label : public base
+
+class SGE_CLASS_SYMBOL label
+:
+	public base
 {
+	FCPPT_NONCOPYABLE(
+		label
+	)
 public:
 	SGE_GUI_SYMBOL label(
 		parent_data const &,
 		parameters,
-		fcppt::string const &,
+		sge::font::text::string const &,
 		sge::font::text::align_h::type = sge::font::text::align_h::left,
 		sge::font::text::align_v::type = sge::font::text::align_v::top,
-		optional_dim const &static_size = optional_dim());
+		optional_dim const &static_size = optional_dim()
+	);
 
-	SGE_GUI_SYMBOL sge::gui::color const color() const;
-	SGE_GUI_SYMBOL fcppt::string const text() const;
-	SGE_GUI_SYMBOL sge::font::text::align_h::type align_h() const;
-	SGE_GUI_SYMBOL sge::font::text::align_v::type align_v() const;
-	SGE_GUI_SYMBOL void text(fcppt::string const &_text);
-	SGE_GUI_SYMBOL optional_dim const &static_size() const;
+	SGE_GUI_SYMBOL
+	sge::gui::color const
+	color() const;
+
+	SGE_GUI_SYMBOL
+	sge::font::text::string const &
+	text() const;
+
+	SGE_GUI_SYMBOL
+	sge::font::text::align_h::type
+	align_h() const;
+
+	SGE_GUI_SYMBOL
+	sge::font::text::align_v::type
+	align_v() const;
+
+	SGE_GUI_SYMBOL
+	void
+	text(
+		sge::font::text::string const &
+	);
+
+	SGE_GUI_SYMBOL
+	optional_dim const &
+	static_size() const;
 private:
-	fcppt::string text_;
+	sge::font::text::string text_;
 	sge::font::text::align_h::type align_h_;
 	sge::font::text::align_v::type align_v_;
 	optional_dim static_size_;
 	sge::gui::color color_;
 };
+
 }
 }
 }

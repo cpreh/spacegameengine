@@ -24,9 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/exception.hpp>
 #include <fcppt/text.hpp>
 
-sge::openal::buffer_wrapper::buffer_wrapper(audio::file &file_)
+sge::openal::buffer_wrapper::buffer_wrapper(
+	audio::file &_file
+)
 :
-	file_(file_),
+	file_(_file),
 	refcount_(static_cast<unsigned>(1))
 {
 	alGenBuffers(static_cast<ALsizei>(1),&buffer_);

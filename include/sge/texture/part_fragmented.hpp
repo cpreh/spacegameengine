@@ -70,10 +70,13 @@ public:
 	SGE_TEXTURE_SYMBOL ~part_fragmented();
 private:
 	renderer::lock_rect outer_area_;
-	fragmented &fragment;
+
+	fragmented &fragment_;
+
 	bool
-		need_atlasing_w,
-		need_atlasing_h;
+		need_atlasing_w_,
+		need_atlasing_h_;
+
 	renderer::lock_rect inner_area_;
 };
 

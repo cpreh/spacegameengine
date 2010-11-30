@@ -44,7 +44,8 @@ template<
 	typename Elements,
 	typename Arguments
 >
-struct init_fusion_element {
+struct init_fusion_element
+{
 	template<
 		typename
 	>
@@ -68,10 +69,10 @@ struct init_fusion_element {
 	
 
 	explicit init_fusion_element(
-		Arguments const &arguments_
+		Arguments const &_arguments
 	)
 	:
-		arguments_(arguments_)
+		arguments_(_arguments)
 	{}
 
 	template<

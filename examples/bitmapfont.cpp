@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/part.hpp>
 #include <sge/font/text/draw.hpp>
 #include <sge/font/text/flags_none.hpp>
+#include <sge/font/text/lit.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
@@ -157,7 +158,7 @@ try
 		sge::font::text::draw(
 			font_metrics,
 			font_drawer,
-			FCPPT_TEXT("test abcd"),
+			SGE_FONT_TEXT_LIT("test abcd"),
 			sge::font::pos::null(),
 			fcppt::math::dim::structure_cast<
 				sge::font::dim

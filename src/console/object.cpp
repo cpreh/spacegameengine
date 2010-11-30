@@ -21,19 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/object.hpp>
 #include <sge/console/exception.hpp>
 #include <sge/console/function.hpp>
-#include <sge/parse/encoding.hpp>
+#include <sge/font/text/lit.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/text.hpp>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix_core.hpp>
-//#include <boost/spirit/include/phoenix_object.hpp>
-//#include <boost/spirit/include/phoenix_stl.hpp>
 #include <utility>
 
 sge::console::object::object(
-	fcppt::char_type const _prefix
+	font::text::char_type const _prefix
 )
 :
 	error_(),
@@ -44,29 +42,29 @@ sge::console::object::object(
 	fallback_(),
 	help_connection_(
 		insert(
-			FCPPT_TEXT("help"),
+			SGE_FONT_TEXT_LIT("help"),
 			std::tr1::bind(
 				&object::help_callback,
 				this,
 				std::tr1::placeholders::_1),
-			FCPPT_TEXT("Display help message"))),
+			SGE_FONT_TEXT_LIT("Display help message"))),
 	man_connection_(
 		insert(
-			FCPPT_TEXT("man"),
+			SGE_FONT_TEXT_LIT("man"),
 			std::tr1::bind(
 				&object::man_callback,
 				this,
 				std::tr1::placeholders::_1),
-			FCPPT_TEXT("Display information for a specific function")))
+			SGE_FONT_TEXT_LIT("Display information for a specific function")))
 {
 }
 
 fcppt::signal::auto_connection
 sge::console::object::insert(
-	fcppt::string const &name,
+	font::text::string const &name,
 	callback const &c,
-	fcppt::string const &short_description,
-	fcppt::string const &long_description
+	font::text::string const &short_description,
+	font::text::string const &long_description
 )
 {
 	function_map::iterator i = funcs_.find(name);
@@ -132,25 +130,37 @@ class eval_grammar : public boost::spirit::qi::grammar<
 public:
 	eval_grammar() : eval_grammar::base_type(start)
 	{
-		using sge::parse::encoding::char_;
-		using sge::parse::encoding::space;
+		namespace encoding = boost::spirit::standard_wide; // TODO
 
-		word  %=           +(char_ - space);
-		quoted_string %=   FCPPT_TEXT('"') >> +(char_ - FCPPT_TEXT('"')) >> FCPPT_TEXT('"');
-		argument %=        quoted_string | word;
-		start %=           argument % (+space);
+		using encoding::char_;
+		using encoding::space;
+
+		word %=
+			+~space;
+
+		quoted_string %=
+			SGE_FONT_TEXT_LIT('"')
+			>> +(~char_(SGE_FONT_TEXT_LIT('"')))
+			>> SGE_FONT_TEXT_LIT('"');
+
+		argument %=
+			quoted_string
+			| word;
+
+		start %=
+			argument % (+space);
 	}
 
-	boost::spirit::qi::rule<Iterator, fcppt::string()> word;
-	boost::spirit::qi::rule<Iterator, fcppt::string()> quoted_string;
-	boost::spirit::qi::rule<Iterator, fcppt::string()> argument;
+	boost::spirit::qi::rule<Iterator, sge::font::text::string()> word;
+	boost::spirit::qi::rule<Iterator, sge::font::text::string()> quoted_string;
+	boost::spirit::qi::rule<Iterator, sge::font::text::string()> argument;
 	boost::spirit::qi::rule<Iterator, sge::console::arg_list()> start;
 };
 }
 
 void
 sge::console::object::eval(
-	fcppt::string const &sp
+	font::text::string const &sp
 )
 {
 	if (sp.empty())
@@ -162,15 +172,15 @@ sge::console::object::eval(
 		return;
 	}
 
-	fcppt::string const s = sp.substr(1);
+	font::text::string const s = sp.substr(1);
 
 	arg_list args;
 
 	eval_grammar<
-		fcppt::string::const_iterator
+		font::text::string::const_iterator
 	> grammar;
 
-	fcppt::string::const_iterator beg = s.begin();
+	font::text::string::const_iterator beg = s.begin();
 
 	boost::spirit::qi::parse(
 		beg,
@@ -205,11 +215,11 @@ sge::console::object::eval(
 		it == funcs_.end()
 	)
 		throw console::exception(
-			FCPPT_TEXT("couldn't find command \"")
+			SGE_FONT_TEXT_LIT("couldn't find command \"")
 			+
 			args[0]
 			+
-			FCPPT_TEXT('"')
+			SGE_FONT_TEXT_LIT('"')
 		);
 
 	it->second->signal()(
@@ -223,7 +233,7 @@ sge::console::object::functions() const
 	return funcs_;
 }
 
-fcppt::char_type
+sge::font::text::char_type
 sge::console::object::prefix() const
 {
 	return prefix_;
@@ -231,7 +241,7 @@ sge::console::object::prefix() const
 
 void
 sge::console::object::emit_error(
-	fcppt::string const &s)
+	font::text::string const &s)
 {
 	error_(
 		s);
@@ -239,7 +249,7 @@ sge::console::object::emit_error(
 
 void
 sge::console::object::emit_message(
-	fcppt::string const &s)
+	font::text::string const &s)
 {
 	message_(
 		s);
@@ -250,14 +260,14 @@ sge::console::object::help_callback(
 	arg_list const &)
 {
 	emit_message(
-		fcppt::lexical_cast<fcppt::string>( 
+		fcppt::lexical_cast<font::text::string>( 
 			funcs_.size())
-		+ FCPPT_TEXT(" available functions:"));
+		+ SGE_FONT_TEXT_LIT(" available functions:"));
 
 	BOOST_FOREACH(function_map::value_type const &p,funcs_)
 		emit_message(
 			(p->first)+
-			FCPPT_TEXT(": ")+
+			SGE_FONT_TEXT_LIT(": ")+
 			(p.second)->short_description());
 }
 
@@ -268,7 +278,7 @@ sge::console::object::man_callback(
 	if (v.size() < 2)
 	{
 		emit_error(
-			FCPPT_TEXT("no function given"));
+			SGE_FONT_TEXT_LIT("no function given"));
 		return;
 	}
 
@@ -282,13 +292,18 @@ sge::console::object::man_callback(
 	if (i == fns.end())
 	{
 		emit_error(
-			FCPPT_TEXT("function \"")+v[1]+FCPPT_TEXT("\" not found"));
+			SGE_FONT_TEXT_LIT("function \"")
+			+ v[1]
+			+ SGE_FONT_TEXT_LIT("\" not found")
+		);
+
 		return;
 	}
 
 	if (i->second->long_description().empty())
 		emit_message(
-			FCPPT_TEXT("No manpage available"));
+			SGE_FONT_TEXT_LIT("No manpage available")
+		);
 	else	
 		emit_message(
 			i->second->long_description());

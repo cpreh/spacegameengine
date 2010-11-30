@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/drawer_3d.hpp>
 #include <sge/font/text/flags_none.hpp>
 #include <sge/font/text/part.hpp>
+#include <sge/font/text/lit.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
@@ -134,7 +135,7 @@ try
 		sge::font::text::draw(
 			metrics,
 			drawer,
-			FCPPT_TEXT("hello world 1234567890hello world 123456789hello world 123456789hello world 123456789000"),
+			SGE_FONT_TEXT_LIT("hello world 1234567890hello world 123456789hello world 123456789hello world 123456789000"),
 			sge::font::pos::null(),
 			fcppt::math::dim::structure_cast<
 				sge::font::dim

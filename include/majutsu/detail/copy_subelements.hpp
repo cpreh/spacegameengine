@@ -41,12 +41,12 @@ class copy_subelements
 	)
 public:
 	explicit copy_subelements(
-		DestClass &dest_,
-		SrcClass const &src_
+		DestClass &_dest,
+		SrcClass const &_src
 	)
 	:
-		dest_(dest_),
-		src_(src_)
+		dest_(_dest),
+		src_(_src)
 	{}
 
 	typedef void result_type;

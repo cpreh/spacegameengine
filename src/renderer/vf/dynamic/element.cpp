@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/element.hpp>
 
 sge::renderer::vf::dynamic::element::element(
-	any const &info_
+	any const &_info
 )
 :
-	info_(info_)
+	info_(_info)
 {}
 
 sge::renderer::vf::dynamic::any const &

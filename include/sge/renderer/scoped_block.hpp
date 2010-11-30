@@ -40,7 +40,7 @@ public:
 
 	SGE_SYMBOL ~scoped_block();
 private:
-	device_ptr const rend;
+	device_ptr const rend_;
 };
 
 }

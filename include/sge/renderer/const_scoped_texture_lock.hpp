@@ -51,8 +51,9 @@ public:
 
 	SGE_SYMBOL ~const_scoped_texture_lock();
 private:
-	const_texture_ptr const tex;
-	image::view::const_object const view;
+	const_texture_ptr const tex_;
+
+	image::view::const_object const view_;
 };
 
 }

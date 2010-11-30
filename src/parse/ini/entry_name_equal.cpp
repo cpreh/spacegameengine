@@ -22,14 +22,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/entry.hpp>
 
 sge::parse::ini::entry_name_equal::entry_name_equal(
-	string const &name_)
+	string const &_name
+)
 :
-	name_(name_)
+	name_(_name)
 {}
 
 sge::parse::ini::entry_name_equal::result_type
 sge::parse::ini::entry_name_equal::operator()(
-	entry const &e) const
+	entry const &_entry
+) const
 {
-	return e.name == name_;
+	return _entry.name == name_;
 }

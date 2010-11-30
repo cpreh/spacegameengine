@@ -22,15 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/height.hpp>
 #include <sge/font/text/char_space.hpp>
 #include <sge/font/text/part.hpp>
+#include <sge/font/text/lit.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/text.hpp>
 #include <locale>
 
 sge::font::text::part const
 sge::font::text::line_width(
 	sge::font::metrics_ptr const _metrics,
-	fcppt::string::const_iterator _sbeg,
-	fcppt::string::const_iterator const _send,
+	text::string::const_iterator _sbeg,
+	text::string::const_iterator const _send,
 	unit const _max_width,
 	flags_field const &_flags
 )
@@ -45,7 +45,7 @@ sge::font::text::line_width(
 		)
 	);
 
-	font::string::const_iterator last_white = _sbeg;
+	font::text::string::const_iterator last_white = _sbeg;
 
 	for(
 		;
@@ -54,7 +54,7 @@ sge::font::text::line_width(
 	)
 	{
 		if(
-			*_sbeg == FCPPT_TEXT('\n')
+			*_sbeg == SGE_FONT_TEXT_LIT('\n')
 		)
 			return
 				font::text::part(
