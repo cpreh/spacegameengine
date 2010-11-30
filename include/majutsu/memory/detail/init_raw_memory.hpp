@@ -42,10 +42,10 @@ class init_raw_memory
 	)
 public:
 	explicit init_raw_memory(
-		Memory &memory_
+		Memory &_memory
 	)
 	:
-		memory_(memory_)
+		memory_(_memory)
 	{}
 
 	template<
@@ -53,7 +53,7 @@ public:
 	>
 	void
 	operator()(
-		Pair const &pair
+		Pair const &_pair
 	) const
 	{
 		memory_. template set_internal<
@@ -65,7 +65,7 @@ public:
 			boost::fusion::at_c<
 				0
 			>(
-				pair
+				_pair
 			)
 		);
 	}
