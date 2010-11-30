@@ -32,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/parameters/inherited.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/log/headers.hpp>
-#include <fcppt/container/assign_multi_array.hpp>
 #include <fcppt/assert_message.hpp>
 #include <fcppt/type_name.hpp>
 #include <fcppt/text.hpp>
@@ -128,11 +127,11 @@ sge::gui::dim const sge::gui::layouts::grid::optimal_size() const
 	FCPPT_LOG_DEBUG(
 		mylogger,
 		fcppt::log::_ << FCPPT_TEXT("rolumn dimension is ")
-		        << rolumns.shape()[0] << FCPPT_TEXT('x') << rolumns.shape()[1]);
+		        << rolumns.dimension()[0] << FCPPT_TEXT('x') << rolumns.dimension()[1]);
 
 	for (
 		detail::grid_cache::rolumn_container::size_type i = 0;
-		i < rolumns.shape()[1];
+		i < rolumns.dimension()[1];
 		++i)
 		for (
 			unit j = static_cast<unit>(0);
@@ -147,10 +146,10 @@ sge::gui::dim const sge::gui::layouts::grid::optimal_size() const
 					<< FCPPT_TEXT(", rolumn ")
 					<< i
 					<< FCPPT_TEXT(", adding size ")
-					<< rolumns[j][i].size
+					<< rolumns[detail::grid_cache::rolumn_container::dim(j,i)].size
 			);
 
-			maxdims[j] += rolumns[j][i].size;
+			maxdims[j] += rolumns[detail::grid_cache::rolumn_container::dim(j,i)].size;
 		}
 
 	FCPPT_LOG_DEBUG(
@@ -300,11 +299,11 @@ void sge::gui::layouts::grid::adapt(
 
 	for (
 		detail::grid_cache::child_plane::size_type i = 0;
-		i < valid_cache().plane().shape()[axis];
+		i < valid_cache().plane().dimension()[axis];
 		++i
 		)
 	{
-		if (rolumns[axis][i].policy & flag)
+		if (rolumns[detail::grid_cache::rolumn_container::dim(axis,i)].policy & flag)
 		{
 			FCPPT_LOG_DEBUG(
 				mylogger,
@@ -333,8 +332,8 @@ Result field_swap_pos(
 {
 	return
 		swap
-			? f[b][a]
-			: f[a][b];
+			? f[typename Container::dim(b,a)]
+			: f[typename Container::dim(a,b)];
 }
 }
 
@@ -351,16 +350,16 @@ void sge::gui::layouts::grid::update_rolumn(
 						<< FCPPT_TEXT(" on axis ")
 						<< axis);
 	// update the cache
-	valid_cache().rolumns()[axis][rolumn].size += addition;
+	valid_cache().rolumns()[detail::grid_cache::rolumn_container::dim(axis,rolumn)].size += addition;
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
 		fcppt::log::_ << FCPPT_TEXT("added addition, plane dimensions are: ")
-		        << valid_cache().plane().shape()[0] << FCPPT_TEXT('x') << valid_cache().plane().shape()[1]);
+		        << valid_cache().plane().dimension()[0] << FCPPT_TEXT('x') << valid_cache().plane().dimension()[1]);
 
 	for (
 		detail::grid_cache::child_plane::size_type i = 0;
-		i < valid_cache().plane().shape()[1-axis];
+		i < valid_cache().plane().dimension()[1-axis];
 		++i)
 	{
 		FCPPT_LOG_DEBUG(
@@ -407,9 +406,9 @@ unsigned sge::gui::layouts::grid::count_flags(
 
 	for (
 		detail::grid_cache::rolumn_container::size_type i = 0;
-		i < rolumns.shape()[0];
+		i < rolumns.dimension()[0];
 		++i)
-		if (rolumns[axis][i].policy & flags)
+		if (rolumns[detail::grid_cache::rolumn_container::dim(axis,i)].policy & flags)
 			++count;
 
 	return count;
@@ -421,31 +420,28 @@ void sge::gui::layouts::grid::distribute_overhead(
 	detail::grid_cache::rolumn_container &rolumns =
 		valid_cache().volatile_rolumns();
 
-	// NOTE: operator= only works if the shapes match, so first reshape and resize here
-	fcppt::container::assign_multi_array(
-		rolumns,
-		valid_cache().rolumns());
+	rolumns = valid_cache().rolumns();
 
 	// we might have overhead space (difference "usable - real"), which we
 	// distribute evenly among rolumns
 	dim real = dim::null();
-	for (detail::grid_cache::rolumn_container::size_type i = 0; i < rolumns.shape()[1]; ++i)
+	for (detail::grid_cache::rolumn_container::size_type i = 0; i < rolumns.dimension()[1]; ++i)
 		real += dim(
-			rolumns[x_axis][i].size,
-			rolumns[y_axis][i].size);
+			rolumns[detail::grid_cache::rolumn_container::dim(x_axis,i)].size,
+			rolumns[detail::grid_cache::rolumn_container::dim(y_axis,i)].size);
 
 	dim const
 		diff = usable - real,
 		extra(
 			diff.w()/
-			static_cast<unit>(valid_cache().plane().shape()[0]),
+			static_cast<unit>(valid_cache().plane().dimension()[0]),
 			diff.h()/
-			static_cast<unit>(valid_cache().plane().shape()[1]));
+			static_cast<unit>(valid_cache().plane().dimension()[1]));
 
 
-	for (detail::grid_cache::rolumn_container::size_type i = 0; i < rolumns.shape()[1]; ++i)
+	for (detail::grid_cache::rolumn_container::size_type i = 0; i < rolumns.dimension()[1]; ++i)
 		for (detail::grid_cache::rolumn_container::size_type j = 0; j < 2; ++j)
-			rolumns[j][i].size += extra[static_cast<dim::size_type>(j)];
+			rolumns[detail::grid_cache::rolumn_container::dim(j,i)].size += extra[static_cast<dim::size_type>(j)];
 }
 
 // iterates through the whole table, calculating the minimal size for the
@@ -469,28 +465,28 @@ void sge::gui::layouts::grid::update_widgets()
 
 	// this pos represents the "screen position", not the position in the array
 	point pos = point::null();
-	for (detail::grid_cache::rolumn_container::size_type x = 0; x < c.shape()[0]; ++x)
+	for (detail::grid_cache::rolumn_container::size_type x = 0; x < c.dimension()[0]; ++x)
 	{
 		pos.y() = static_cast<unit>(0);
-		for (detail::grid_cache::rolumn_container::size_type y = 0; y < c.shape()[1]; ++y)
+		for (detail::grid_cache::rolumn_container::size_type y = 0; y < c.dimension()[1]; ++y)
 		{
 			widgets::base * const w =
-				c[x][y];
+				c[detail::grid_cache::rolumn_container::dim(x,y)];
 			if (w)
 				update_widget(
 					*w,
 					pos,
 					dim(
-						rolumns[x_axis][x].size,
-						rolumns[y_axis][y].size
+						rolumns[detail::grid_cache::rolumn_container::dim(x_axis,x)].size,
+						rolumns[detail::grid_cache::rolumn_container::dim(y_axis,y)].size
 					)
 				);
 
 			pos.y() +=
-				rolumns[y_axis][y].size;
+				rolumns[detail::grid_cache::rolumn_container::dim(y_axis,y)].size;
 		}
 		pos.x() +=
-			rolumns[x_axis][x].size;
+			rolumns[detail::grid_cache::rolumn_container::dim(x_axis,x)].size;
 	}
 
 	FCPPT_LOG_DEBUG(

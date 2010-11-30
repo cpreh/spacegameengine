@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widgets/base.hpp>
 #include <sge/gui/size_policy.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <boost/multi_array.hpp>
+#include <fcppt/container/grid/object.hpp>
 #include <vector>
 #include <map>
 
@@ -72,7 +72,7 @@ public:
 
 	// the "real" grid
 	typedef 
-	boost::multi_array
+	fcppt::container::grid::object
 	<
 		widgets::base *,
 		2
@@ -86,7 +86,7 @@ public:
 	> data_map;
 	// stores data per column and row (per rolumn)
 	typedef 
-	boost::multi_array
+	fcppt::container::grid::object
 	<
 		rolumn_data,
 		2

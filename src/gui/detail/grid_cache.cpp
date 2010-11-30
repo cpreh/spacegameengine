@@ -148,16 +148,16 @@ void sge::gui::detail::grid_cache::first_pass()
 				<< FCPPT_TEXT("converted position hint is ")
 				<< on_plane
 				<< FCPPT_TEXT(", resizing plane (original dim ")
-				<< plane_.shape()[0] << FCPPT_TEXT('x') << plane_.shape()[1]
+				<< plane_.dimension()[0] << FCPPT_TEXT('x') << plane_.dimension()[1]
 				<< FCPPT_TEXT(") to ")
 			        << index_dim(
 					std::max(
 						static_cast<child_plane::size_type>(on_plane.x()+1),
-						plane_.shape()[0]
+						plane_.dimension()[0]
 					),
 					std::max(
 						static_cast<child_plane::size_type>(on_plane.y()+1),
-						plane_.shape()[1]
+						plane_.dimension()[1]
 					)
 				)
 		);
@@ -166,25 +166,25 @@ void sge::gui::detail::grid_cache::first_pass()
 			index_dim(
 				std::max(
 					static_cast<child_plane::size_type>(on_plane.x()+1),
-					plane_.shape()[0]),
+					plane_.dimension()[0]),
 				std::max(
 					static_cast<child_plane::size_type>(on_plane.y()+1),
-					plane_.shape()[1])));
+					plane_.dimension()[1])));
 
 		// is there already a widget present at this spot?
-		if(plane_[on_plane.x()][on_plane.y()])
+		if(plane_[child_plane::dim(on_plane.x(),on_plane.y())])
 			throw exception(
 				FCPPT_TEXT("position ")+
 				fcppt::lexical_cast<fcppt::string>(hint)+
 				FCPPT_TEXT(" in grid already taken by a widget of type ")+
 				fcppt::type_name(
 					typeid(
-						*plane_[on_plane.x()][on_plane.y()]
+						*plane_[child_plane::dim(on_plane.x(),on_plane.y())]
 						)
 					)
 				);
 
-		plane_[on_plane.x()][on_plane.y()] = 
+		plane_[child_plane::dim(on_plane.x(),on_plane.y())] = 
 			const_cast<widgets::base *>(&w);
 
 		dim const optsize =
@@ -212,15 +212,15 @@ void sge::gui::detail::grid_cache::second_pass()
 	FCPPT_LOG_DEBUG(
 		mylogger,
 		fcppt::log::_ << FCPPT_TEXT("setting rolumn container dimensions to ")
-		        << std::max(plane_.shape()[0],plane_.shape()[1]));
+		        << std::max(plane_.dimension()[0],plane_.dimension()[1]));
 
 	rolumns_.resize(
 		index_dim(
 			static_cast<rolumn_container::size_type>(
 				2),
 			std::max(
-				plane_.shape()[0],
-				plane_.shape()[1])));
+				plane_.dimension()[0],
+				plane_.dimension()[1])));
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
@@ -229,15 +229,15 @@ void sge::gui::detail::grid_cache::second_pass()
 	index_vector p;
 	for(
 		p.x() = static_cast<size_type>(0);
-		p.x() < plane_.shape()[0];
+		p.x() < plane_.dimension()[0];
 		++p.x())
 	{
 		for(
 			p.y() = static_cast<size_type>(0);
-			p.y() < plane_.shape()[1];
+			p.y() < plane_.dimension()[1];
 			++p.y())
 		{
-			if (!plane_[p.x()][p.y()])
+			if (!plane_[child_plane::dim(p.x(),p.y())])
 			{
 				FCPPT_LOG_DEBUG(
 					mylogger,
@@ -273,7 +273,7 @@ void sge::gui::detail::grid_cache::second_pass()
 									<< rolumn_pos);
 
 				rolumn_data &d =
-					rolumns_[rolumn_pos.x()][rolumn_pos.y()];
+					rolumns_[child_plane::dim(rolumn_pos.x(),rolumn_pos.y())];
 
 				FCPPT_LOG_DEBUG(
 					mylogger,
@@ -285,7 +285,7 @@ void sge::gui::detail::grid_cache::second_pass()
 					fcppt::log::_ << FCPPT_TEXT("stored widget size in data cache is ")
 									<< data_
 							[
-								plane_[p.x()][p.y()]
+								plane_[child_plane::dim(p.x(),p.y())]
 							]
 						.size[static_cast<dim::size_type>(i)]);
 
@@ -295,7 +295,7 @@ void sge::gui::detail::grid_cache::second_pass()
 						d.size,
 						data_
 							[
-								plane_[p.x()][p.y()]
+								plane_[child_plane::dim(p.x(),p.y())]
 							]
 						.size
 							[
@@ -305,7 +305,7 @@ void sge::gui::detail::grid_cache::second_pass()
 					);
 
 				d.policy |=
-					plane_[p.x()][p.y()]->size_policy().index
+					plane_[child_plane::dim(p.x(),p.y())]->size_policy().index
 					(
 						static_cast<std::size_t>
 						(
