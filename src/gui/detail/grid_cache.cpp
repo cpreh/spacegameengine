@@ -18,12 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <fcppt/math/vector/structure_cast.hpp>
-#include <fcppt/math/vector/output.hpp>
 #include <sge/gui/detail/grid_cache.hpp>
 #include <sge/gui/unit.hpp>
 #include <sge/gui/exception.hpp>
 #include <sge/gui/log.hpp>
+#include <fcppt/container/grid/resize_preserve_init.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/is_negative.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/log/parameters/inherited.hpp>
@@ -162,16 +163,23 @@ void sge::gui::detail::grid_cache::first_pass()
 				)
 		);
 
-		plane_.resize(
+		fcppt::container::grid::resize_preserve_init(
+			plane_,
 			index_dim(
 				std::max(
 					static_cast<child_plane::size_type>(on_plane.x()+1),
 					plane_.dimension()[0]),
 				std::max(
 					static_cast<child_plane::size_type>(on_plane.y()+1),
-					plane_.dimension()[1])));
+					plane_.dimension()[1])
+			),
+			static_cast<
+				child_plane::value_type
+			>(
+				0
+			)
+		);
 
-		// is there already a widget present at this spot?
 		if(plane_[child_plane::dim(on_plane.x(),on_plane.y())])
 			throw exception(
 				FCPPT_TEXT("position ")+
@@ -214,13 +222,17 @@ void sge::gui::detail::grid_cache::second_pass()
 		fcppt::log::_ << FCPPT_TEXT("setting rolumn container dimensions to ")
 		        << std::max(plane_.dimension()[0],plane_.dimension()[1]));
 
-	rolumns_.resize(
+	fcppt::container::grid::resize_preserve_init(
+		rolumns_,
 		index_dim(
 			static_cast<rolumn_container::size_type>(
 				2),
 			std::max(
 				plane_.dimension()[0],
-				plane_.dimension()[1])));
+				plane_.dimension()[1])
+		),
+		rolumn_container::value_type()
+	);
 
 	FCPPT_LOG_DEBUG(
 		mylogger,
@@ -262,7 +274,7 @@ void sge::gui::detail::grid_cache::second_pass()
 							i),
 						p
 						[
-							static_cast<rolumn_container::size_type>(
+							static_cast<index_vector::size_type>(
 								i)
 						]
 					);

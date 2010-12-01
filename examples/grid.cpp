@@ -56,6 +56,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/exception.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -237,6 +238,10 @@ try
 catch (sge::exception const &e)
 {
 	fcppt::io::cerr << FCPPT_TEXT("caught sge exception: ") << e.string() << FCPPT_TEXT("\n");
+}
+catch (fcppt::exception const &e)
+{
+	fcppt::io::cerr << FCPPT_TEXT("caught fcppt exception: ") << e.string() << FCPPT_TEXT("\n");
 }
 catch (std::exception const &e)
 {
