@@ -133,6 +133,11 @@ public:
 	);
 
 	void
+	scissor_area(
+		renderer::scissor_area const &
+	);
+
+	void
 	texture_stage_op(
 		renderer::stage_type stage,
 		renderer::texture_stage_op::type,

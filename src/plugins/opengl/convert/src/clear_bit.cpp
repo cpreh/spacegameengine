@@ -44,6 +44,7 @@ sge::opengl::convert::clear_bit(
 	case rs::enable_lighting:
 	case rs::enable_multi_sampling:
 	case rs::enable_point_sprites:
+	case rs::enable_scissor_test:
 	case rs::write_to_zbuffer:
 		break;
 	}

@@ -18,38 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../bool.hpp"
-#include <sge/renderer/state/var.hpp>
+#include "../set_scissor_area.hpp"
+#include "../common.hpp"
+#include "../check_state.hpp"
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/pixel_rect.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/text.hpp>
 
-GLenum
-sge::opengl::convert::bool_(
-	renderer::state::bool_::type const _state
+void
+sge::opengl::set_scissor_area(
+	renderer::scissor_area const &_area
 )
 {
-	namespace rs = renderer::state::bool_::available_states;
-
-	switch(
-		_state.state()
-	)
-	{
-	case rs::enable_alpha_blending:
-		return GL_BLEND;
-	case rs::enable_lighting:
-		return GL_LIGHTING;
-	case rs::enable_scissor_test:
-		return GL_SCISSOR_TEST;
-	case rs::clear_backbuffer:
-	case rs::clear_zbuffer:
-	case rs::clear_stencil:
-	case rs::enable_multi_sampling:
-	case rs::enable_point_sprites:
-	case rs::write_to_zbuffer:
-		break;
-	}
-
-	throw renderer::exception(
-		FCPPT_TEXT("Invalid bool_state!")
+	sge::renderer::pixel_rect const rect(
+		_area.get()
 	);
+
+	::glScissor(
+		rect.left(),
+		rect.top(),
+		static_cast<
+			GLsizei
+		>(
+			rect.w()
+		),
+		static_cast<
+			GLsizei
+		>(
+			rect.h()
+		)
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("glScissor failed"),
+		sge::renderer::exception
+	)
 }

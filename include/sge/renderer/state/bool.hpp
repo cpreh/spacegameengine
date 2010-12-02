@@ -45,6 +45,7 @@ namespace bool_ {
 			enable_lighting,
 			enable_multi_sampling,
 			enable_point_sprites,
+			enable_scissor_test,
 			write_to_zbuffer
 		};
 	}
@@ -67,6 +68,7 @@ namespace bool_ {
 		enable_lighting,
 		enable_multi_sampling,
 		enable_point_sprites,
+		enable_scissor_test,
 		write_to_zbuffer;
 }
 

@@ -18,38 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../bool.hpp"
-#include <sge/renderer/state/var.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_RENDERER_PIXEL_RECT_HPP_INCLUDED
+#define SGE_RENDERER_PIXEL_RECT_HPP_INCLUDED
 
-GLenum
-sge::opengl::convert::bool_(
-	renderer::state::bool_::type const _state
-)
+#include <sge/renderer/pixel_unit.hpp>
+#include <fcppt/math/box/rect.hpp>
+
+namespace sge
 {
-	namespace rs = renderer::state::bool_::available_states;
+namespace renderer
+{
 
-	switch(
-		_state.state()
-	)
-	{
-	case rs::enable_alpha_blending:
-		return GL_BLEND;
-	case rs::enable_lighting:
-		return GL_LIGHTING;
-	case rs::enable_scissor_test:
-		return GL_SCISSOR_TEST;
-	case rs::clear_backbuffer:
-	case rs::clear_zbuffer:
-	case rs::clear_stencil:
-	case rs::enable_multi_sampling:
-	case rs::enable_point_sprites:
-	case rs::write_to_zbuffer:
-		break;
-	}
+typedef fcppt::math::box::rect<
+	pixel_unit
+>::type pixel_rect;
 
-	throw renderer::exception(
-		FCPPT_TEXT("Invalid bool_state!")
-	);
 }
+}
+
+#endif

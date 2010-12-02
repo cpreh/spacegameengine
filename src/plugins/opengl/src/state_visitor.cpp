@@ -194,6 +194,7 @@ sge::opengl::state_visitor::operator()(
 		return;
 	case rs::enable_alpha_blending:
 	case rs::enable_lighting:
+	case rs::enable_scissor_test:
 		opengl::enable_bool(
 			convert::bool_(s),
 			s.value()
@@ -251,7 +252,7 @@ sge::opengl::state_visitor::operator()(
 
 		return;
 	case rs::write_to_zbuffer:
-		glDepthMask(
+		::glDepthMask(
 			s.value()
 		);
 

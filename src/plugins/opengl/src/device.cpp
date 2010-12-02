@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../set_light.hpp"
 #include "../set_material.hpp"
 #include "../set_matrix_and_mode.hpp"
+#include "../set_scissor_area.hpp"
 #include "../set_texture.hpp"
 #include "../set_texture_stage.hpp"
 #include "../set_texture_stage_scale.hpp"
@@ -328,6 +329,16 @@ sge::opengl::device::clip_plane(
 	opengl::set_clip_plane(
 		_index,
 		_clip_plane
+	);
+}
+
+void
+sge::opengl::device::scissor_area(
+	renderer::scissor_area const &_area
+)
+{
+	opengl::set_scissor_area(
+		_area
 	);
 }
 

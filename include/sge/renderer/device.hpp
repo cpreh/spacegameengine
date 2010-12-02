@@ -42,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/scissor_area.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/stage_type.hpp>
@@ -158,6 +159,11 @@ public:
 	clip_plane(
 		clip_plane_index,
 		renderer::clip_plane const &
+	) = 0;
+
+	virtual void
+	scissor_area(
+		renderer::scissor_area const &
 	) = 0;
 
 	virtual void
