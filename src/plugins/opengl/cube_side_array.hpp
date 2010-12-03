@@ -23,14 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "common.hpp"
 #include <sge/renderer/cube_side.hpp>
-#include <fcppt/tr1/array.hpp>
+#include <fcppt/container/array.hpp>
 
 namespace sge
 {
 namespace opengl
 {
 
-typedef std::tr1::array<
+typedef fcppt::container::array<
 	GLenum,
 	sge::renderer::cube_side::size
 > cube_side_array;

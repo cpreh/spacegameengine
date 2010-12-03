@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/load_flags.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
-#include <fcppt/tr1/array.hpp>
+#include <fcppt/container/array.hpp>
 #include <boost/cstdint.hpp>
 #include <vector>
 #include <string>
@@ -90,10 +90,10 @@ public:
 	public:
 		explicit tag(std::istream& is);
 
-		string                           name;
-		vec3                             origin;
-		typedef std::tr1::array<vec3, 3> axis_array;
-		axis_array                       axis;
+		string name;
+		vec3 origin;
+		typedef fcppt::container::array<vec3, 3> axis_array;
+		axis_array axis;
 	};
 
 	class surface {
@@ -111,7 +111,7 @@ public:
 		class triangle {
 		public:
 			explicit triangle(std::istream &);
-			typedef std::tr1::array<s32, 3> index_array;
+			typedef fcppt::container::array<s32, 3> index_array;
 			index_array indices;
 		};
 

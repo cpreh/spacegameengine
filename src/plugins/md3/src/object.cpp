@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../object.hpp"
 #include <sge/log/global.hpp>
 #include <sge/exception.hpp>
+#include <fcppt/container/array.hpp>
 #include <fcppt/math/twopi.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/io/read.hpp>
 #include <fcppt/endianness/format.hpp>
-#include <fcppt/tr1/array.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/text.hpp>
@@ -228,7 +228,7 @@ sge::md3::object::part_names() const
 
 bool sge::md3::object::read_and_check_id3p(std::istream& is)
 {
-	typedef std::tr1::array<u8, 4> id3p_array;
+	typedef fcppt::container::array<u8, 4> id3p_array;
 	id3p_array id3p,
 	           to_check = { { 0x49, 0x44, 0x50, 0x33 } };
 	for(id3p_array::iterator i = id3p.begin(); i != id3p.end(); ++i)
@@ -242,7 +242,7 @@ template<
 inline sge::md3::object::string const
 sge::md3::object::read_string(std::istream& is)
 {
-	std::tr1::array<string::value_type, Max> tmp_name;
+	fcppt::container::array<string::value_type, Max> tmp_name;
 	is.read(reinterpret_cast<char*>(tmp_name.data()), tmp_name.size());
 
 	if(!std::count(tmp_name.begin(), tmp_name.end(), 0))
