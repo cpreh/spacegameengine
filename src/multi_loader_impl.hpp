@@ -67,7 +67,7 @@ sge::multi_loader<Loader, File, Exception, Capabilities>::multi_loader(
 			i->load()
 		);
 
-		loader_ptr const loader(
+		loader_ptr const loader_instance(
 			plugin->get()()
 		);
 
@@ -75,7 +75,7 @@ sge::multi_loader<Loader, File, Exception, Capabilities>::multi_loader(
 		if(
 			fcppt::container::bitfield::is_subset_eq(
 				_capabilities,
-				loader->capabilities()
+				loader_instance->capabilities()
 			)
 			&&
 			(
@@ -83,7 +83,7 @@ sge::multi_loader<Loader, File, Exception, Capabilities>::multi_loader(
 				||
 				!fcppt::algorithm::set_intersection(
 					_extensions,
-					loader->extensions()
+					loader_instance->extensions()
 				).empty()
 			)
 		)
@@ -93,7 +93,7 @@ sge::multi_loader<Loader, File, Exception, Capabilities>::multi_loader(
 			);
 
 			loaders_.push_back(
-				loader
+				loader_instance
 			);
 		}
 		else

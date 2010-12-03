@@ -67,13 +67,13 @@ sge::plugin::manager::manager(
 			)
 	);
 
-	fcppt::filesystem::directory_iterator const end;
+	fcppt::filesystem::directory_iterator const it_end;
 
 	for(
 		fcppt::filesystem::directory_iterator it(
 			_path
 		);
-		it != end;
+		it != it_end;
 		++it
 	)
 	{

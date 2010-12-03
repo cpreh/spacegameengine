@@ -39,14 +39,14 @@ template<
 	typename Format
 >
 sge::image::store<Format>::store(
-	dim_type const &dim
+	dim_type const &_dim
 )
 :
 	internal_(
 		convert_dim<
 			typename internal_type::dim_type
 		>(
-			dim
+			_dim
 		)
 	)
 {}
@@ -55,11 +55,11 @@ template<
 	typename Format
 >
 sge::image::store<Format>::store(
-	store const &other
+	store const &_other
 )
 :
 	internal_(
-		other.internal_
+		_other.internal_
 	)
 {}
 
@@ -68,10 +68,10 @@ template<
 >
 sge::image::store<Format> &
 sge::image::store<Format>::operator=(
-	store const &other
+	store const &_other
 )
 {
-	internal_ = other.internal_;
+	internal_ = _other.internal_;
 	return *this;
 }
 
@@ -123,11 +123,12 @@ template<
 typename sge::image::store<Format>::dim_type const
 sge::image::store<Format>::dim() const
 {
-	return convert_dim<
-		dim_type
-	>(
-		internal_.dim()
-	);
+	return
+		image::convert_dim<
+			dim_type
+		>(
+			internal_.dim()
+		);
 }
 
 #endif
