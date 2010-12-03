@@ -65,11 +65,11 @@ sge::input::keyboard::collector::collector(
 	devices_()
 {
 	BOOST_FOREACH(
-		keyboard::device_vector::value_type device,
+		keyboard::device_vector::value_type cur_device,
 		_processor->keyboards()
 	)
 		discover_callback(
-			device
+			cur_device
 		);
 }
 

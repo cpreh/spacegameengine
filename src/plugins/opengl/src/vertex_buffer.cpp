@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../context/use.hpp"
 #include "../convert_vertices.hpp"
 #include "../vbo_context.hpp"
+#include "../convert_lock_method.hpp"
 #include <sge/renderer/vf/dynamic/view.hpp>
 #include <sge/renderer/vf/dynamic/const_view.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
@@ -77,36 +78,37 @@ sge::opengl::vertex_buffer::unset_format() const
 
 sge::opengl::vertex_buffer::view_type const
 sge::opengl::vertex_buffer::lock(
-	renderer::lock_mode::type const flags,
-	size_type const offset,
-	size_type const range
+	renderer::lock_mode::type const _flags,
+	size_type const _offset,
+	size_type const _range
 )
 {
 	buf.lock(
-		convert_lock_method(
-			flags
+		opengl::convert_lock_method(
+			_flags
 		),
-		offset,
-		range
+		_offset,
+		_range
 	);
 
-	return view_type(
-		buf.data(),
-		buf.lock_size(),
-		format()
-	);
+	return
+		view_type(
+			buf.data(),
+			buf.lock_size(),
+			format()
+		);
 }
 
 sge::opengl::vertex_buffer::const_view_type const
 sge::opengl::vertex_buffer::lock(
-	size_type const offset,
-	size_type const range
+	size_type const _offset,
+	size_type const _range
 ) const
 {
 	buf.lock(
 		lock_method::readonly,
-		offset,
-		range
+		_offset,
+		_range
 	);
 
 	return
@@ -134,7 +136,7 @@ sge::opengl::vertex_buffer::unlock() const
 		renderer::vf::dynamic::ordered_element_list::const_reference elem,
 		elems
 	)
-		convert_vertices(
+		opengl::convert_vertices(
 			elem,
 			stride,
 			buf.lock_size() / stride,

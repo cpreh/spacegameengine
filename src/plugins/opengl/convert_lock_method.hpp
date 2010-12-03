@@ -18,17 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/gui/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_OPENGL_CONVERT_LOCK_METHOD_HPP_INCLUDED
+#define SGE_OPENGL_CONVERT_LOCK_METHOD_HPP_INCLUDED
 
-sge::gui::exception::exception(
-	fcppt::string const &_what
-)
-:
-	sge::exception(
-		FCPPT_TEXT("gui: ")
-		+
-		_what
-	)
+#include "lock_method.hpp"
+#include <sge/renderer/lock_mode.hpp>
+
+namespace sge
 {
+namespace opengl
+{
+
+opengl::lock_method::type
+convert_lock_method(
+	renderer::lock_mode::type
+);
+
 }
+}
+
+#endif

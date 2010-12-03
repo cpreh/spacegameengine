@@ -112,35 +112,41 @@ sge::opengl::cube_texture::~cube_texture()
 
 sge::image::view::object const
 sge::opengl::cube_texture::lock(
-	renderer::cube_side::type const side,
-	renderer::lock_rect const &src,
-	renderer::lock_mode::type const flags
+	renderer::cube_side::type const _side,
+	renderer::lock_rect const &_src,
+	renderer::lock_mode::type const _flags
 )
 {
 	check_not_locked();
 
-	locked_texture_ = &textures_[side];
+	locked_texture_ =
+		&textures_[
+			_side
+		];
 
 	return
 		locked_texture_->lock(
-			src,
-			flags
+			_src,
+			_flags
 		);
 }
 
 sge::image::view::const_object const
 sge::opengl::cube_texture::lock(
-	renderer::cube_side::type const side,
-	renderer::lock_rect const &src
+	renderer::cube_side::type const _side,
+	renderer::lock_rect const &_src
 ) const
 {
 	check_not_locked();
 
-	locked_texture_ = &textures_[side];
+	locked_texture_ =
+		&textures_[
+			_side
+		];
 
 	return
 		locked_texture_->lock(
-			src
+			_src
 		);
 }
 

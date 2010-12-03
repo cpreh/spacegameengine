@@ -32,25 +32,33 @@ sge::renderer::texture::~texture()
 
 sge::image::view::object const
 sge::renderer::texture::lock(
-	lock_mode::type const flags
+	lock_mode::type const _flags
 )
 {
-	return lock(rect(), flags);
+	return
+		lock(
+			rect(),
+			_flags
+		);
 }
 
 sge::image::view::const_object const
 sge::renderer::texture::lock() const
 {
-	return lock(rect());
+	return
+		lock(
+			rect()
+		);
 }
 
 sge::renderer::texture::rect_type const
 sge::renderer::texture::rect() const
 {
-	return rect_type(
-		pos_type::null(),
-		dim()
-	);
+	return
+		rect_type(
+			pos_type::null(),
+			dim()
+		);
 }
 
 sge::renderer::texture::size_type

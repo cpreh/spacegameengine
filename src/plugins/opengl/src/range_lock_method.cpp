@@ -18,17 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/gui/exception.hpp>
+#include "../range_lock_method.hpp"
+#include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
-sge::gui::exception::exception(
-	fcppt::string const &_what
+GLenum
+sge::opengl::range_lock_method(
+	lock_method::type const _method
 )
-:
-	sge::exception(
-		FCPPT_TEXT("gui: ")
-		+
-		_what
-	)
 {
+	switch(
+		_method
+	)
+	{
+	case lock_method::readonly:
+		return GL_MAP_READ_BIT | GL_MAP_INVALIDATE_RANGE_BIT;
+	case lock_method::writeonly:
+		return GL_MAP_WRITE_BIT;
+	case lock_method::readwrite:
+		return GL_MAP_READ_BIT | GL_MAP_WRITE_BIT;
+	}
+
+	throw renderer::exception(
+		FCPPT_TEXT("Invalid lock_method!")
+	);
 }

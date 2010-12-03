@@ -79,7 +79,7 @@ sge::opengl::glsl::context::use(
 	}
 	else
 	{
-		program_base_ptr const base(
+		program_base_ptr const prog_base(
 			fcppt::dynamic_pointer_cast<
 				program_base const
 			>(
@@ -87,9 +87,9 @@ sge::opengl::glsl::context::use(
 			)
 		);
 
-		base->use();
+		prog_base->use();
 
-		last_program_ = base;
+		last_program_ = prog_base;
 	}
 }
 

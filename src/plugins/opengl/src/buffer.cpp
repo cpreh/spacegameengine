@@ -21,9 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../buffer.hpp"
 #include "../common.hpp"
 #include "../vbo_base.hpp"
-#include "../lock_method.hpp"
+#include "../lock_flag_read.hpp"
+#include "../range_lock_method.hpp"
+#include "../normal_lock_method.hpp"
 #include "../convert/resource_flags.hpp"
-#include <sge/exception.hpp>
+#include <sge/renderer/exception.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/text.hpp>
 
@@ -49,7 +51,7 @@ sge::opengl::buffer::buffer(
 	size_type const nsz = size() * stride();
 
 	if(nsz == 0)
-		throw exception(
+		throw renderer::exception(
 			FCPPT_TEXT("ogl_buffer: cannot create an empty buffer!")
 		);
 
@@ -79,41 +81,41 @@ sge::opengl::buffer::~buffer()
 
 void
 sge::opengl::buffer::lock(
-	lock_flag_type const lockflags,
-	size_type const first,
-	size_type count
+	lock_flag_type const _lockflags,
+	size_type const _first,
+	size_type _count
 )
 {
 	if(dest_)
-		throw exception(
+		throw renderer::exception(
 			FCPPT_TEXT("ogl_buffer::lock(): you have to unlock before locking!")
 		);
 
 	if(
-		lock_flag_read(lockflags)
+		opengl::lock_flag_read(_lockflags)
 		&& !(flags() & renderer::resource_flags::readable)
 	)
-		throw exception(
+		throw renderer::exception(
 			FCPPT_TEXT("ogl_buffer: Cannot lock a writeonly buffer for reading!")
 		);
 
-	if(first > size())
-		throw exception(
+	if(_first > size())
+		throw renderer::exception(
 			FCPPT_TEXT("ogl_buffer::lock(): first out of range!")
 		);
 
-	if(count == npos)
-		count = size() - first;
+	if(_count == npos)
+		_count = size() - _first;
 
-	if(first + count > size())
-		throw exception(
+	if(_first + _count > size())
+		throw renderer::exception(
 			FCPPT_TEXT("ogl_buffer::lock(): first + count > size()")
 		);
 
 	bind_me();
 
 	if(
-		count < size()
+		_count < size()
 		&& vbo_base_.map_buffer_range_supported()
 	)
 	{
@@ -123,18 +125,18 @@ sge::opengl::buffer::lock(
 			>(
 				vbo_base_.map_buffer_range(
 					type_,
-					range_lock_method(
-						lockflags
+					opengl::range_lock_method(
+						_lockflags
 					),
 					static_cast<
 						GLsizei
 					>(
-						first * stride()
+						_first * stride()
 					),
 					static_cast<
 						GLsizei
 					>(
-						count * stride()
+						_count * stride()
 					)
 				)
 			);
@@ -149,23 +151,23 @@ sge::opengl::buffer::lock(
 			>(
 				vbo_base_.map_buffer(
 					type_,
-					normal_lock_method(
-						lockflags
+					opengl::normal_lock_method(
+						_lockflags
 					)
 				)
 			);
 
-		lock_offset_ = first * stride();
+		lock_offset_ = _first * stride();
 	}
 
-	lock_size_ = count * stride();
+	lock_size_ = _count * stride();
 }
 
 void
 sge::opengl::buffer::unlock()
 {
 	if(!dest_)
-		throw exception(
+		throw renderer::exception(
 			FCPPT_TEXT("ogl_buffer::unlock(), buffer is not locked! cannot unlock!")
 		);
 	
@@ -183,22 +185,22 @@ sge::opengl::buffer::unlock()
 
 void
 sge::opengl::buffer::sub_data(
-	const_pointer const data,
-	size_type const first,
-	size_type const count
+	const_pointer const _data,
+	size_type const _first,
+	size_type const _count
 )
 {
 	if(
-		first + count > size()
+		_first + _count > size()
 	)
-		throw exception(
+		throw renderer::exception(
 			FCPPT_TEXT("ogl_buffer::sub_data(), first + count out of range!")
 		);
 
 	if(
 		dest_
 	)
-		throw exception(
+		throw renderer::exception(
 			FCPPT_TEXT("ogl_buffer::sub_data(), buffer must not be locked!")
 		);
 
@@ -209,14 +211,14 @@ sge::opengl::buffer::sub_data(
 		static_cast<
 			GLsizei
 		>(
-			first * stride()
+			_first * stride()
 		),
 		static_cast<
 			GLsizei
 		>(
-			count * stride()
+			_count * stride()
 		),
-		data
+		_data
 	);
 }
 
@@ -292,7 +294,7 @@ sge::opengl::buffer::bind_me() const
 
 sge::opengl::buffer::pointer
 sge::opengl::buffer::buffer_offset(
-	size_type const sz
+	size_type const _sz
 ) const
 {
 	bind_me();
@@ -306,7 +308,7 @@ sge::opengl::buffer::buffer_offset(
 				static_cast<
 					GLsizei
 				>(
-					sz * stride()
+					_sz * stride()
 				)
 			)
 		);
@@ -316,7 +318,7 @@ void
 sge::opengl::buffer::check_lock() const
 {
 	if(!dest_)
-		throw exception(
+		throw renderer::exception(
 			FCPPT_TEXT("ogl_buffer used but the buffer has not been locked!")
 		);
 }

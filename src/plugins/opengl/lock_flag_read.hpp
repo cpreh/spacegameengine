@@ -18,17 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/gui/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_OPENGL_LOCK_FLAG_READ_HPP_INCLUDED
+#define SGE_OPENGL_LOCK_FLAG_READ_HPP_INCLUDED
 
-sge::gui::exception::exception(
-	fcppt::string const &_what
-)
-:
-	sge::exception(
-		FCPPT_TEXT("gui: ")
-		+
-		_what
-	)
+#include "lock_method.hpp"
+
+namespace sge
 {
+namespace opengl
+{
+
+bool
+lock_flag_read(
+	lock_method::type
+);
+
 }
+}
+
+#endif

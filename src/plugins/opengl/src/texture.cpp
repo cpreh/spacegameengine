@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 #include "../texture.hpp"
 #include "../basic_texture_impl.hpp"
+#include "../lock_flag_read.hpp"
+#include "../lock_flag_write.hpp"
+#include "../convert_lock_method.hpp"
 #include "../texfuncs/set.hpp"
 #include "../texfuncs/set_rect.hpp"
 #include "../texfuncs/get_image.hpp"
@@ -89,14 +92,14 @@ sge::opengl::texture::dim() const
 
 sge::image::view::object const
 sge::opengl::texture::lock(
-	renderer::lock_rect const &r,
-	renderer::lock_mode::type const lmode
+	renderer::lock_rect const &_rect,
+	renderer::lock_mode::type const _mode
 )
 {
 	lock_me(
-		r,
-		convert_lock_method(
-			lmode
+		_rect,
+		opengl::convert_lock_method(
+			_mode
 		)
 	);
 
@@ -105,11 +108,11 @@ sge::opengl::texture::lock(
 
 sge::image::view::const_object const
 sge::opengl::texture::lock(
-	renderer::lock_rect const &l
+	renderer::lock_rect const &_rect
 ) const
 {
 	lock_me(
-		l,
+		_rect,
 		lock_method::readonly
 	);
 
@@ -121,7 +124,11 @@ sge::opengl::texture::unlock() const
 {
 	pre_unlock();
 
-	if(lock_flag_write(lock_mode()))
+	if(
+		opengl::lock_flag_write(
+			lock_mode()
+		)
+	)
 	{
 		bind_me();
 
@@ -150,25 +157,29 @@ sge::opengl::texture::unlock() const
 
 void
 sge::opengl::texture::lock_me(
-	renderer::lock_rect const &l,
-	lock_method::type const method
+	renderer::lock_rect const &_rect,
+	lock_method::type const _method
 ) const
 {
 	if(
-		l.right() > dim().w()
-		|| l.bottom() > dim().h()
+		_rect.right() > dim().w()
+		|| _rect.bottom() > dim().h()
 	)
-		throw exception(
+		throw renderer::exception(
 			(
 				fcppt::format(
 					FCPPT_TEXT("ogl: lock_rect (%1%) out of range! dim is %2%!")
 				)
-				% l
+				% _rect
 				% dim()
 			).str()
 		);
 
-	bool const must_read = lock_flag_read(method);
+	bool const must_read(
+		opengl::lock_flag_read(
+			_method
+		)
+	);
 
 	bind_me();
 
@@ -176,16 +187,16 @@ sge::opengl::texture::lock_me(
 	// and set the lock size, the offset and the pitch accordingly
 	if(must_read)
 		do_lock(
-			method,
-			l.area(),
-			l.left() + l.top() * dim().w(),
-			dim().w() - l.dimension().w(),
-			l.dimension().w()
+			_method,
+			_rect.area(),
+			_rect.left() + _rect.top() * dim().w(),
+			dim().w() - _rect.dimension().w(),
+			_rect.dimension().w()
 		);
 	else
 		do_lock(
-			method,
-			l.area(),
+			_method,
+			_rect.area(),
 			0,
 			0,
 			0
@@ -200,10 +211,10 @@ sge::opengl::texture::lock_me(
 
 	post_lock();
 
-	if(l == rect())
+	if(_rect == rect())
 		lock_rect_.reset();
 	else
-		lock_rect_ = l;
+		lock_rect_ = _rect;
 }
 
 sge::image::view::object const

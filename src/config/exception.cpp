@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/exception.hpp>
 
 sge::config::exception::exception(
-	fcppt::string const &what
+	fcppt::string const &_what
 )
 :
 	sge::exception(
-		what
+		_what
 	)
 {}

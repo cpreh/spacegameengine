@@ -430,18 +430,20 @@ sge::openal::source::do_play()
 void 
 sge::openal::source::sync() const
 {
-	ALint play;
+	ALint play_mode;
+
 	alGetSourcei(
 		source_id(), 
 		AL_SOURCE_STATE, 
-		&play);
+		&play_mode
+	);
 
 	SGE_OPENAL_CHECK_STATE(
 		FCPPT_TEXT("alGetSourcei failed"),
 		audio::exception
 	)
 
-	switch (play)
+	switch (play_mode)
 	{
 		case AL_STOPPED:
 		case AL_INITIAL:

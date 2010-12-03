@@ -27,10 +27,10 @@ sge::parse::ini::entry::entry()
 {}
 
 sge::parse::ini::entry::entry(
-	string const &name,
-	string const &value
+	string const &_name,
+	string const &_value
 )
 :
-	name(name),
-	value(value)
+	name(_name),
+	value(_value)
 {}

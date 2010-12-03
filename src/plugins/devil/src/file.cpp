@@ -170,15 +170,23 @@ sge::devil::file::data(
 		)
 	);
 
-	image::dim_type const dim(
+	image::dim_type const cur_dim(
 		image::view::dim(
 			_src
 		)
 	);
 
 	ilTexImage(
-		static_cast<ILuint>(dim.w()),
-		static_cast<ILuint>(dim.h()),
+		static_cast<
+			ILuint
+		>(
+			cur_dim.w()
+		),
+		static_cast<
+			ILuint
+		>(
+			cur_dim.h()
+		),
 		1,
 		4, // always 4 channels
 		devil::to_il_format(

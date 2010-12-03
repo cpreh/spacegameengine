@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../index_buffer.hpp"
 #include "../common.hpp"
 #include "../vbo_context.hpp"
+#include "../convert_lock_method.hpp"
 #include "../context/use.hpp"
 #include <sge/renderer/index/dynamic/make_format.hpp>
 #include <sge/renderer/index/view.hpp>
@@ -122,17 +123,17 @@ template<
 >
 typename sge::opengl::index_buffer<T>::view_type const
 sge::opengl::index_buffer<T>::lock(
-	renderer::lock_mode::type const flags,
-	size_type const offset,
-	size_type const range
+	renderer::lock_mode::type const _flags,
+	size_type const _offset,
+	size_type const _range
 )
 {
 	buf.lock(
-		convert_lock_method(
-			flags
+		opengl::convert_lock_method(
+			_flags
 		),
-		offset,
-		range
+		_offset,
+		_range
 	);
 
 	return 
@@ -157,14 +158,14 @@ template<
 >
 typename sge::opengl::index_buffer<T>::const_view_type const
 sge::opengl::index_buffer<T>::lock(
-	size_type const offset,
-	size_type const range
+	size_type const _offset,
+	size_type const _range
 ) const
 {
 	buf.lock(
 		lock_method::readonly,
-		offset,
-		range
+		_offset,
+		_range
 	);
 
 	return 

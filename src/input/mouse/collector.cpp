@@ -64,11 +64,11 @@ sge::input::mouse::collector::collector(
 	devices_()
 {
 	BOOST_FOREACH(
-		mouse::device_vector::value_type device,
+		mouse::device_vector::value_type cur_device,
 		_processor->mice()
 	)
 		discover_callback(
-			device
+			cur_device
 		);
 }
 

@@ -290,33 +290,35 @@ void sge::gui::layouts::row::update_widgets(dim const &usable)
 		        << FCPPT_TEXT(" pixels extra space and ")
 		        << increment << FCPPT_TEXT(" is the increment"));
 
-	point pos;
-	master(pos) = increment;
+	point cur_pos;
+	master(cur_pos) = increment;
 
 	BOOST_FOREACH(widget_map::value_type &p,sizes)
 	{
-		slave(pos) =
+		slave(cur_pos) =
 			static_cast<unit>(
 				slave(usable)/2-slave(p.second)/2);
 
 		FCPPT_LOG_DEBUG(
 			mylogger,
-			fcppt::log::_ << FCPPT_TEXT("setting widgets::base (master) position to ")
-							<< master(pos)
-							<< FCPPT_TEXT(" and size to ")
-							<< p.second);
+			fcppt::log::_
+				<< FCPPT_TEXT("setting widgets::base (master) position to ")
+				<< master(cur_pos)
+				<< FCPPT_TEXT(" and size to ")
+				<< p.second
+		);
 
 		base::set_widget_size(
 			*p.first,
 			p.second);
 		base::set_widget_pos(
 			*p.first,
-			pos);
+			cur_pos);
 		base::compile_widget(
 			*p.first,
 			invalidation::size);
 
-		master(pos) += master(p.second)+increment;
+		master(cur_pos) += master(p.second)+increment;
 	}
 	FCPPT_LOG_DEBUG(mylogger,fcppt::log::_ << FCPPT_TEXT("update widgets end"));
 }

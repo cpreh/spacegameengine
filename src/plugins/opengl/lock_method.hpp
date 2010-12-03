@@ -21,9 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_LOCK_METHOD_HPP_INCLUDED
 #define SGE_OPENGL_LOCK_METHOD_HPP_INCLUDED
 
-#include "common.hpp"
-#include <sge/renderer/lock_mode.hpp>
-
 namespace sge
 {
 namespace opengl
@@ -38,26 +35,6 @@ enum type {
 };
 
 }
-
-lock_method::type
-convert_lock_method(
-	renderer::lock_mode::type
-);
-
-GLenum
-normal_lock_method(
-	lock_method::type
-);
-
-GLenum
-range_lock_method(
-	lock_method::type
-);
-
-bool lock_flag_write(
-	lock_method::type);
-bool lock_flag_read(
-	lock_method::type);
 
 }
 }

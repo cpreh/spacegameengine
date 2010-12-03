@@ -18,17 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/gui/exception.hpp>
-#include <fcppt/text.hpp>
+#include "../lock_flag_read.hpp"
 
-sge::gui::exception::exception(
-	fcppt::string const &_what
+bool
+sge::opengl::lock_flag_read(
+	lock_method::type const _method
 )
-:
-	sge::exception(
-		FCPPT_TEXT("gui: ")
-		+
-		_what
-	)
 {
+	return _method != lock_method::writeonly;
 }

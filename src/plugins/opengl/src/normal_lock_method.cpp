@@ -18,17 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/gui/exception.hpp>
+#include "../normal_lock_method.hpp"
+#include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
-sge::gui::exception::exception(
-	fcppt::string const &_what
+GLenum
+sge::opengl::normal_lock_method(
+	lock_method::type const _method
 )
-:
-	sge::exception(
-		FCPPT_TEXT("gui: ")
-		+
-		_what
-	)
 {
+	switch(
+		_method
+	)
+	{
+	case lock_method::readonly:
+		return GL_READ_ONLY;
+	case lock_method::writeonly:
+		return GL_WRITE_ONLY;
+	case lock_method::readwrite:
+		return GL_READ_WRITE;
+	}
+
+	throw renderer::exception(
+		FCPPT_TEXT("Invalid lock_method!")
+	);
 }

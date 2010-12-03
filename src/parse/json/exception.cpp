@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/exception.hpp>
 
 sge::parse::json::exception::exception(
-	fcppt::string const &string_
+	fcppt::string const &_string
 )
 :
 	sge::parse::exception(
-		string_
+		_string
 	)
 {}

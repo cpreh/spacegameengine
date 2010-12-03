@@ -48,6 +48,8 @@ public:
 	SGE_GUI_SYMBOL SGE_GUI_SKIN_DRAW_RETURN(widgets::base) fallback(
 		SGE_GUI_SKIN_DRAW_PARAMS(widgets::base));
 	SGE_GUI_SKIN_WIDGETS
+	using base::optimal_size;
+	using base::draw;
 	SGE_GUI_SYMBOL font_info const standard_font() const;
 private:
 	font_info const standard_font_;

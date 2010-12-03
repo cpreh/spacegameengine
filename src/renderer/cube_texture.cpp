@@ -29,45 +29,50 @@ sge::renderer::cube_texture::cube_texture()
 
 sge::image::view::object const
 sge::renderer::cube_texture::lock(
-	cube_side::type const side,
-	lock_mode::type const flags
+	cube_side::type const _side,
+	lock_mode::type const _flags
 )
 {
-	return lock(
-		side,
-		rect(),
-		flags
-	);
+	return
+		lock(
+			_side,
+			rect(),
+			_flags
+		);
 }
 
 sge::image::view::const_object const
 sge::renderer::cube_texture::lock(
-	cube_side::type const side) const
+	cube_side::type const _side
+) const
 {
-	return lock(
-		side,
-		rect()
-	);
+	return
+		lock(
+			_side,
+			rect()
+		);
 }
 
 sge::renderer::cube_texture::size_type
 sge::renderer::cube_texture::content() const
 {
-	return fcppt::math::quad(
-		border_size()
-	);
+	return
+		fcppt::math::quad(
+			border_size()
+		);
 }
 
 sge::renderer::cube_texture::rect_type const
 sge::renderer::cube_texture::rect() const
 {
-	return rect_type(
-		rect_type::vector::null(),
-		rect_type::dim(
-			border_size(),
-			border_size()
-		)
-	);
+	return
+		rect_type(
+			rect_type::vector::null(),
+			rect_type::dim(
+				border_size(),
+				border_size()
+			)
+		);
 }
 
 sge::renderer::cube_texture::~cube_texture()
