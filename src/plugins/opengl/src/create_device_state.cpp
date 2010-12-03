@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../create_device_state.hpp"
-#include "../config.hpp"
+#include <sge/opengl/config.hpp>
 #include <fcppt/config.hpp>
 #ifdef SGE_OPENGL_HAVE_X11
 #include "../x11/state.hpp"

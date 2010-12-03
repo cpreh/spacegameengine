@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../config.hpp"
+#include <sge/opengl/config.hpp>
 #ifdef SGE_OPENGL_HAVE_XF86VMODE
 #include "../xf86_vmode.hpp"
 #include "../../../xf86vmode/choose_mode.hpp"

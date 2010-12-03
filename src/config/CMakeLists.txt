@@ -5,6 +5,15 @@ IF(NOT ENABLE_CONFIG)
 	)
 ENDIF()
 
+CONFIGURE_FILE(
+	${CMAKE_SOURCE_DIR}/config_paths.hpp.in
+	${CMAKE_BINARY_DIR}/include/sge/config/config_paths.hpp
+)
+
+INCLUDE_DIRECTORIES(
+	${CMAKE_BINARY_DIR}/include
+)
+
 MACRO(
 	ADD_SGE_CONFIG_INCLUDE_SOURCE_GROUP
 	SOURCEPATH

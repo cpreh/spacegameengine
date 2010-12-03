@@ -2,7 +2,6 @@
 bin
 build
 doc
-src/config/config_paths.hpp
 src/plugins/opengl/config.hpp
 util/Include/Main
 util/Include/Main.o

@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../config.hpp"
+#include <sge/opengl/config.hpp>
 #if defined(SGE_OPENGL_HAVE_XRANDR)
 #include "../xrandr_mode.hpp"
 #include "../../../xrandr/choose_resolution.hpp"
