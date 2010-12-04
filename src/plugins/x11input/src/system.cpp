@@ -38,6 +38,8 @@ sge::x11input::system::~system()
 {
 }
 
+#include <iostream>
+
 sge::input::processor_ptr const
 sge::x11input::system::create_processor(
 	sge::window::instance_ptr const _window
@@ -70,6 +72,8 @@ sge::x11input::system::create_processor(
 		throw sge::exception(
 			FCPPT_TEXT("X Input extension not available!")
 		);
+
+	std::cout << "OPCODE " << opcode << '\n';
 
 	int major = 2, minor = 0;
 

@@ -22,13 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_MOUSE_HPP_INCLUDED
 
 #include "mouse_fwd.hpp"
-#include "color.hpp"
-#include "cursor.hpp"
 #include "device.hpp"
 #include "mouse_coordinate.hpp"
 #include "mouse_pos.hpp"
 #include "mouse_grab_fwd.hpp"
-#include "pixmap.hpp"
 #include <sge/input/mouse/device.hpp>
 #include <sge/input/mouse/axis_callback.hpp>
 #include <sge/input/mouse/axis_function.hpp>
@@ -114,12 +111,6 @@ private:
 	);
 
 	awl::backends::x11::window_instance_ptr const window_;
-
-	x11input::color const black_;
-
-	x11input::pixmap const no_bmp_;
-
-	x11input::cursor const cursor_;
 
 	mouse_pos mouse_last_;
 

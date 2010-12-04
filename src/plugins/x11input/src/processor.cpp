@@ -42,6 +42,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <X11/extensions/XInput2.h>
 
+#include <iostream>
+
 sge::x11input::processor::processor(
 	sge::window::instance_ptr const _window
 )
@@ -140,8 +142,6 @@ sge::x11input::processor::processor(
 		)
 	)
 {
-#if 0
-
 {
 	XIEventMask eventmask;
 	unsigned char mask[1] = { 0 }; /* the actual mask */
@@ -156,14 +156,37 @@ sge::x11input::processor::processor(
 
 	/* select on the window */
 	XISelectEvents(
-		wnd_->display()->get(),
-		wnd_->get(),
+		x11_window_->display()->get(),
+		x11_window_->get(),
 		&eventmask,
 		1
 	);
 
 }
-#endif
+{
+int ndevices;
+XIDeviceInfo *devices, *device;
+
+devices = XIQueryDevice(x11_window_->display()->get(), XIAllDevices, &ndevices);
+
+for (int i = 0; i < ndevices; i++) {
+    device = &devices[i];
+    std::cout << "Device "<< device->name << " id " << device->deviceid << '\n';
+
+    switch(device->use) {
+       case XIMasterPointer: std::cout << "master pointer\n"; break;
+       case XIMasterKeyboard: std::cout << "master keyboard\n"; break;
+       case XISlavePointer: std::cout << "slave pointer\n"; break;
+       case XISlaveKeyboard: std::cout << "slave keyboard\n"; break;
+       case XIFloatingSlave: std::cout << "floating slave\n"; break;
+    }
+
+    std::cout << "Device is attached to/paired with " <<  device->attachment << "\n\n";
+}
+
+XIFreeDeviceInfo(devices);
+
+}
 
 	/*
 	connections.connect(

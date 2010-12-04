@@ -18,50 +18,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../mouse_grab.hpp"
-#include "../handle_grab.hpp"
-#include "../pixmap_cursor.hpp"
 #include <X11/Xlib.h>
-#include <sge/time/sleep.hpp>
-#include <sge/time/second.hpp>
-#include <awl/backends/x11/window_instance.hpp>
+#include "../pixmap_cursor.hpp"
+#include <sge/input/exception.hpp>
 #include <awl/backends/x11/display.hpp>
+#include <fcppt/text.hpp>
 
-sge::x11input::mouse_grab::mouse_grab(
-	awl::backends::x11::window_instance_ptr const _window,
-	x11input::pixmap_cursor const &_cursor
+sge::x11input::pixmap_cursor::pixmap_cursor(
+	awl::backends::x11::display_ptr const _display,
+	Pixmap const _pixmap,
+	XColor _color
 )
 :
-	window_(_window)
-{
-	while(
-		!x11input::handle_grab(
-			::XGrabPointer(
-				window_->display()->get(),
-				window_->get(),
-				True,
-				PointerMotionMask
-				| ButtonPressMask
-				| ButtonReleaseMask,
-				GrabModeAsync,
-				GrabModeAsync,
-				window_->get(),
-				_cursor.get(),
-				CurrentTime
-			)
+ 	display_(_display),
+	cursor_(
+		::XCreatePixmapCursor(
+			display_->get(),
+			_pixmap,
+			_pixmap,
+			&_color,
+			&_color,
+			0,
+			0
 		)
 	)
-		sge::time::sleep(
-			sge::time::second(
-				1
-			)
+{
+	if(
+		cursor_ == None
+	)
+		throw sge::input::exception(
+			FCPPT_TEXT("XCreatePixmapCursor() failed!")
 		);
 }
 
-sge::x11input::mouse_grab::~mouse_grab()
+sge::x11input::pixmap_cursor::~pixmap_cursor()
 {
-	::XUngrabPointer(
-		window_->display()->get(),
-		CurrentTime
+	::XFreeCursor(
+		display_->get(),
+		get()
 	);
+}
+
+Cursor
+sge::x11input::pixmap_cursor::get() const
+{
+	return cursor_;
 }

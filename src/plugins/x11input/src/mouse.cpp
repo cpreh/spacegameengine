@@ -58,6 +58,7 @@ sge::x11input::mouse::mouse(
 )
 :
 	window_(_window),
+#if 0
 	black_(
 		_window->display(),
 		::XDefaultColormap(
@@ -79,6 +80,7 @@ sge::x11input::mouse::mouse(
 			_window
 		)
 	),
+#endif
 	connections_(
 		fcppt::assign::make_container<
 			awl::backends::x11::signal::connection_manager::container
@@ -132,6 +134,7 @@ sge::x11input::mouse::~mouse()
 void
 sge::x11input::mouse::grab()
 {
+#if 0
 	grab_.take(
 		fcppt::make_unique_ptr<
 			x11input::mouse_grab
@@ -140,6 +143,7 @@ sge::x11input::mouse::grab()
 			cursor_
 		)
 	);
+#endif
 }
 
 void

@@ -21,10 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_CURSOR_HPP_INCLUDED
 #define SGE_X11INPUT_CURSOR_HPP_INCLUDED
 
-#include "cursor_fwd.hpp"
-#include <awl/backends/x11/display_ptr.hpp>
+#include <sge/input/cursor/object.hpp>
+#include <sge/input/cursor/button_callback.hpp>
+#include <sge/input/cursor/move_callback.hpp>
+#include <sge/input/cursor/position.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <X11/Xlib.h>
 
 namespace sge
 {
@@ -32,25 +34,36 @@ namespace x11input
 {
 
 class cursor
+:
+	public sge::input::cursor::object
 {
 	FCPPT_NONCOPYABLE(
 		cursor
 	)
 public:
-	cursor(
-		awl::backends::x11::display_ptr,
-		Pixmap,
-		XColor
-	);
+	cursor();
 
 	~cursor();
 
-	Cursor
-	get() const;
-private:
-	awl::backends::x11::display_ptr const display_;
+	fcppt::signal::auto_connection
+	button_callback(
+		input::cursor::button_callback const &
+	);
 
-	Cursor cursor_;
+	fcppt::signal::auto_connection
+	move_callback(
+		input::cursor::move_callback const &
+	);
+
+	input::cursor::position const
+	position() const;
+
+	void
+	show();
+
+	void
+	hide();
+private:
 };
 
 }

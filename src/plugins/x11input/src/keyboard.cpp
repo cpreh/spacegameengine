@@ -139,11 +139,45 @@ sge::x11input::keyboard::mod_state() const
 	return modifiers_;
 }
 
+#include <X11/extensions/XInput2.h>
+#include <iostream>
+
 void
 sge::x11input::keyboard::on_key_event(
 	awl::backends::x11::event const &_event
 )
 {
+	std::cout << "KEYBOARD\n";
+
+	int opcode = 143;
+
+	XEvent ev(
+		_event.get()
+	);
+
+	if(ev.xcookie.type != GenericEvent)
+		std::cout << "not a generic event\n";
+
+    	if(ev.xcookie.extension != opcode)
+		std::cout << "invalid opcode\n";
+
+if (ev.xcookie.type == GenericEvent &&
+    ev.xcookie.extension == opcode &&
+    XGetEventData(window_->display()->get(), &ev.xcookie))
+{
+	std::cout << "BLBABLABLABLA\n";
+
+    switch(ev.xcookie.evtype)
+    {
+        case XI_ButtonPress:
+		std::cout << "BUTTON PRESS\n";
+            break;
+    }
+}
+XFreeEventData(window_->display()->get(), &ev.xcookie);
+#if 0
+	std::cout << "KEYBOARD\n";
+
 	XEvent const &xev(
 		_event.get()
 	);
@@ -218,4 +252,5 @@ sge::x11input::keyboard::on_key_event(
 			is_pressed
 		)
 	);
+#endif
 }
