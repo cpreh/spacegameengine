@@ -246,6 +246,30 @@ sge::x11input::processor::mice() const
 		);
 }
 
+fcppt::signal::auto_connection
+sge::x11input::processor::cursor_discover_callback(
+	input::cursor::discover_callback const &_callback
+)
+{
+}
+
+fcppt::signal::auto_connection
+sge::x11input::processor::cursor_remove_callback(
+	input::cursor::remove_callback const &_callback
+)
+{
+}
+
+sge::input::cursor::object_vector const
+sge::x11input::processor::cursors() const
+{
+}
+
+sge::input::cursor::object_ptr const
+sge::x11input::processor::main_cursor() const
+{
+}
+
 sge::window::instance_ptr const
 sge::x11input::processor::window() const
 {

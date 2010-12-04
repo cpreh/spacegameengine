@@ -22,6 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_PROCESSOR_HPP_INCLUDED
 
 #include <sge/input/processor_fwd.hpp>
+#include <sge/input/cursor/discover_callback.hpp>
+#include <sge/input/cursor/remove_callback.hpp>
+#include <sge/input/cursor/object_vector.hpp>
+#include <sge/input/cursor/object_ptr.hpp>
 #include <sge/input/keyboard/discover_callback.hpp>
 #include <sge/input/keyboard/remove_callback.hpp>
 #include <sge/input/keyboard/device_vector.hpp>
@@ -79,6 +83,25 @@ public:
 	virtual mouse::device_vector const
 	mice() const = 0;
 
+	//
+	// cursors
+	//
+	virtual fcppt::signal::auto_connection
+	cursor_discover_callback(
+		input::cursor::discover_callback const &
+	) = 0;
+
+	virtual fcppt::signal::auto_connection
+	cursor_remove_callback(
+		input::cursor::remove_callback const &
+	) = 0;
+
+	virtual cursor::object_vector const
+	cursors() const = 0;
+
+	virtual cursor::object_ptr const
+	main_cursor() const = 0;
+	
 	//
 	// other
 	//

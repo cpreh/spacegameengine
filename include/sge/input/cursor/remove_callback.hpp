@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_CURSOR_DISCOVER_FUNCTION_HPP_INCLUDED
-#define SGE_INPUT_CURSOR_DISCOVER_FUNCTION_HPP_INCLUDED
+#ifndef SGE_INPUT_CURSOR_REMOVE_CALLBACK_HPP_INCLUDED
+#define SGE_INPUT_CURSOR_REMOVE_CALLBACK_HPP_INCLUDED
 
-#include <sge/input/cursor/object_ptr.hpp>
+#include <sge/input/cursor/remove_function.hpp>
+#include <fcppt/function/object.hpp>
 
 namespace sge
 {
@@ -30,11 +31,9 @@ namespace input
 namespace cursor
 {
 
-typedef
-void
-discover_function(
-	cursor::object_ptr
-);
+typedef fcppt::function::object<
+	cursor::remove_function
+> remove_callback;
 
 }
 }

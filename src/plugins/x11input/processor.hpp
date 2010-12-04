@@ -80,6 +80,22 @@ private:
 	input::mouse::device_vector const
 	mice() const;
 
+	fcppt::signal::auto_connection
+	cursor_discover_callback(
+		input::cursor::discover_callback const &
+	);
+
+	fcppt::signal::auto_connection
+	cursor_remove_callback(
+		input::cursor::remove_callback const &
+	);
+
+	input::cursor::object_vector const
+	cursors() const;
+
+	input::cursor::object_ptr const
+	main_cursor() const;
+	
 	window::instance_ptr const
 	window() const;
 
