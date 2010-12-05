@@ -37,6 +37,10 @@ class overlap_filter
 	public btOverlapFilterCallback
 {
 public:
+	overlap_filter();
+
+	~overlap_filter();
+
 	bool 
 	needBroadphaseCollision(
 		btBroadphaseProxy*,

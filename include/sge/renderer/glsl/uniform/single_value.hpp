@@ -51,24 +51,24 @@ typename boost::disable_if<
 	void
 >::type
 single_value(
-	variable_ptr const var,
-	Value const &arg
+	variable_ptr const _var,
+	Value const &_arg
 )
 {
-	typedef typename make_basic_value<
+	typedef typename uniform::make_basic_value<
 		typename Value::value_type
-	>::type value;
+	>::type cur_value;
 
-	typedef typename value::data_type data_type;
+	typedef typename cur_value::data_type data_type;
 
-	var->set(
-		value(
+	_var->set(
+		cur_value(
 			data_type(
-				arg.begin(),
-				arg.end()
+				_arg.begin(),
+				_arg.end()
 			),
 			1u,
-			make_element_type<
+			uniform::make_element_type<
 				Value
 			>::value
 		)
@@ -86,17 +86,17 @@ typename boost::enable_if<
 	void
 >::type
 single_value(
-	variable_ptr const var,
-	Value const &arg
+	variable_ptr const _var,
+	Value const &_arg
 )
 {
-	single_value(
-		var,
+	uniform::single_value(
+		_var,
 		typename fcppt::math::vector::static_<
 			Value,
 			1
 		>::type(
-			arg
+			_arg
 		)
 	);
 }

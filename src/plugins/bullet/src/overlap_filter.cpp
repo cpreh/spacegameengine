@@ -45,6 +45,16 @@ mylogger(
 		FCPPT_TEXT("overlap_filter")));
 }
 
+sge::bullet::overlap_filter::overlap_filter()
+:
+	test_callback_()
+{
+}
+
+sge::bullet::overlap_filter::~overlap_filter()
+{
+}
+
 fcppt::signal::auto_connection
 sge::bullet::overlap_filter::register_callback(
 	collision::test_callback const &f)
