@@ -53,6 +53,7 @@ sge::x11input::keyboard::keyboard(
 		fcppt::assign::make_container<
 			awl::backends::x11::signal::connection_manager::container
 		>(
+	/*
 			awl::backends::x11::signal::shared_connection(
 				_event_processor->register_callback(
 					KeyPress,
@@ -75,6 +76,19 @@ sge::x11input::keyboard::keyboard(
 					)
 				)
 			)
+		)
+		(*/
+			awl::backends::x11::signal::shared_connection(
+				_event_processor->register_callback(
+					GenericEvent,
+					std::tr1::bind(
+						&keyboard::on_generic_event,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+
 		)
 	),
 	grab_(),
@@ -147,34 +161,6 @@ sge::x11input::keyboard::on_key_event(
 	awl::backends::x11::event const &_event
 )
 {
-	std::cout << "KEYBOARD\n";
-
-	int opcode = 143;
-
-	XEvent ev(
-		_event.get()
-	);
-
-	if(ev.xcookie.type != GenericEvent)
-		std::cout << "not a generic event\n";
-
-    	if(ev.xcookie.extension != opcode)
-		std::cout << "invalid opcode\n";
-
-if (ev.xcookie.type == GenericEvent &&
-    ev.xcookie.extension == opcode &&
-    XGetEventData(window_->display()->get(), &ev.xcookie))
-{
-	std::cout << "BLBABLABLABLA\n";
-
-    switch(ev.xcookie.evtype)
-    {
-        case XI_ButtonPress:
-		std::cout << "BUTTON PRESS\n";
-            break;
-    }
-}
-XFreeEventData(window_->display()->get(), &ev.xcookie);
 #if 0
 	std::cout << "KEYBOARD\n";
 
@@ -253,4 +239,40 @@ XFreeEventData(window_->display()->get(), &ev.xcookie);
 		)
 	);
 #endif
+}
+
+void
+sge::x11input::keyboard::on_generic_event(
+	awl::backends::x11::event const &_event
+)
+{
+	std::cout << "KEYBOARD\n";
+
+	int opcode = 143;
+
+	XEvent ev(
+		_event.get()
+	);
+
+	if(ev.xcookie.type != GenericEvent)
+		std::cout << "not a generic event\n";
+
+    	if(ev.xcookie.extension != opcode)
+		std::cout << "invalid opcode\n";
+
+if (ev.xcookie.type == GenericEvent &&
+    ev.xcookie.extension == opcode &&
+    XGetEventData(window_->display()->get(), &ev.xcookie))
+{
+	std::cout << "BLBABLABLABLA\n";
+
+    switch(ev.xcookie.evtype)
+    {
+        case XI_ButtonPress:
+		std::cout << "BUTTON PRESS\n";
+            break;
+    }
+}
+XFreeEventData(window_->display()->get(), &ev.xcookie);
+
 }

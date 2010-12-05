@@ -85,6 +85,11 @@ private:
 		awl::backends::x11::event const &
 	);
 
+	void
+	on_generic_event(
+		awl::backends::x11::event const &
+	);
+
 	awl::backends::x11::window_instance_ptr const window_;
 
 	awl::backends::x11::event_processor_ptr const event_processor_;

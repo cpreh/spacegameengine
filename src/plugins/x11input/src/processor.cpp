@@ -42,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <X11/extensions/XInput2.h>
 
+#include <sge/input/exception.hpp>
 #include <iostream>
 
 sge::x11input::processor::processor(
@@ -144,24 +145,31 @@ sge::x11input::processor::processor(
 {
 {
 	XIEventMask eventmask;
-	unsigned char mask[1] = { 0 }; /* the actual mask */
+	unsigned char mask[2] = { 0, 0 }; /* the actual mask */
 
 	eventmask.deviceid = XIAllDevices;
 	eventmask.mask_len = sizeof(mask); /* always in bytes */
 	eventmask.mask = mask;
 	/* now set the mask */
 	XISetMask(mask, XI_ButtonPress);
+	XISetMask(mask, XI_ButtonRelease);
 	XISetMask(mask, XI_Motion);
 	XISetMask(mask, XI_KeyPress);
+	XISetMask(mask, XI_KeyRelease);
 
 	/* select on the window */
-	XISelectEvents(
-		x11_window_->display()->get(),
-		x11_window_->get(),
-		&eventmask,
-		1
-	);
-
+	if(
+		::XISelectEvents(
+			x11_window_->display()->get(),
+			x11_window_->get(),
+			&eventmask,
+			1
+		)
+		!= Success
+	)
+		throw sge::input::exception(
+			FCPPT_TEXT("XISelectEvents failed!")
+		);
 }
 {
 int ndevices;
