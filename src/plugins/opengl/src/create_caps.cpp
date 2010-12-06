@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../get_string.hpp"
 #include "../get_int.hpp"
 #include "../texture_context.hpp"
-#include "../fbo_context.hpp"
+#include "../fbo/context.hpp"
 #include "../glsl/context.hpp"
 #include "../context/use.hpp"
 #include <sge/renderer/filter/anisotropy_type.hpp>
@@ -84,7 +84,7 @@ sge::opengl::create_caps(
 				)
 			),
 			context::use<
-				fbo_context
+				fbo::context
 			>(
 				_context
 			).is_supported(),

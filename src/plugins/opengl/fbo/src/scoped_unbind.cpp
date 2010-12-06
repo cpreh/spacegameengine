@@ -18,17 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_RENDER_BUFFER_BINDING_FWD_HPP_INCLUDED
-#define SGE_OPENGL_RENDER_BUFFER_BINDING_FWD_HPP_INCLUDED
+#include "../scoped_unbind.hpp"
+#include "../bind.hpp"
+#include "../context.hpp"
 
-namespace sge
+sge::opengl::fbo::scoped_unbind::scoped_unbind(
+	fbo::context const &_context
+)
+:
+	context_(_context)
 {
-namespace opengl
+}
+
+sge::opengl::fbo::scoped_unbind::~scoped_unbind()
 {
-
-class render_buffer_binding;
-
+	opengl::fbo::bind(
+		context_,
+		context_.last_buffer()
+	);
 }
-}
-
-#endif

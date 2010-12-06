@@ -18,25 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../bind_fbo.hpp"
-#include "../fbo_context.hpp"
-#include "../check_state.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_OPENGL_FBO_PROJECTION_HPP_INCLUDED
+#define SGE_OPENGL_FBO_PROJECTION_HPP_INCLUDED
 
-void
-sge::opengl::bind_fbo(
-	opengl::fbo_context const &_context,
-	GLuint const _id
-)
+#include <sge/renderer/matrix4.hpp>
+
+namespace sge
 {
-	_context.bind_framebuffer()(
-		_context.framebuffer_target(),
-		_id
-	);
+namespace opengl
+{
+namespace fbo
+{
 
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("Binding an fbo failed."),
-		sge::renderer::exception
-	)
+renderer::matrix4 const
+projection(
+	renderer::matrix4 const &
+);
+
 }
+}
+}
+
+#endif

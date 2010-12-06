@@ -18,28 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../render_buffer_binding.hpp"
 #include "../attach_render_buffer.hpp"
-#include "../check_state.hpp"
-#include "../fbo_context.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include "../object.hpp"
+#include "../render_buffer.hpp"
 
-void
-sge::opengl::attach_render_buffer(
-	fbo_context const &_context,
-	GLenum const _what,
-	GLuint const _buffer
+sge::opengl::fbo::render_buffer_binding::render_buffer_binding(
+	fbo::context const &_context,
+	fbo::object const &_fbo,
+	render_buffer const &_render_buffer,
+	GLenum const _what
 )
+:
+	context_(_context),
+	fbo_(_fbo),
+	what_(_what)
 {
-	_context.framebuffer_renderbuffer()(
-		_context.framebuffer_target(),
-		_what,
-		_context.renderbuffer_target(),
-		_buffer
-	);
+	fbo_.bind();
 
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("Attaching a render buffer to a frame buffer failed!"),
-		sge::renderer::exception
-	)
+	opengl::fbo::attach_render_buffer(
+		_context,
+		_what,
+		_render_buffer.id()
+	);
+}
+
+sge::opengl::fbo::render_buffer_binding::~render_buffer_binding()
+{
+	fbo_.bind();
+
+	opengl::fbo::attach_render_buffer(
+		context_,
+		what_,
+		0
+	);
 }

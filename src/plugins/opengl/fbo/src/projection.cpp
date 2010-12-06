@@ -18,20 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../fbo_projection.hpp"
+#include "../projection.hpp"
 #include <sge/renderer/scalar.hpp>
 #include <fcppt/math/matrix/scaling.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 
 sge::renderer::matrix4 const
-sge::opengl::fbo_projection(
-	renderer::matrix4 const &m)
+sge::opengl::fbo::projection(
+	renderer::matrix4 const &_matrix
+)
 {
-	return m * fcppt::math::matrix::scaling<
-		sge::renderer::scalar
-	>(
-		static_cast<sge::renderer::scalar>(1),
-		static_cast<sge::renderer::scalar>(-1),
-		static_cast<sge::renderer::scalar>(1)
-	);
+	return
+		_matrix
+		*
+		fcppt::math::matrix::scaling<
+			sge::renderer::scalar
+		>(
+			static_cast<sge::renderer::scalar>(1),
+			static_cast<sge::renderer::scalar>(-1),
+			static_cast<sge::renderer::scalar>(1)
+		);
 }

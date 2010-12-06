@@ -21,17 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_FBO_TARGET_FWD_HPP_INCLUDED
 #define SGE_OPENGL_FBO_TARGET_FWD_HPP_INCLUDED
 
-#include <fcppt/shared_ptr.hpp>
-
 namespace sge
 {
 namespace opengl
 {
+namespace fbo
+{
 
-class fbo_target;
+class target;
 
-typedef fcppt::shared_ptr<fbo_target> fbo_target_ptr;
-
+}
 }
 }
 

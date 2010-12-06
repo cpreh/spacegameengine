@@ -18,20 +18,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_FBO_PROJECTION_HPP_INCLUDED
-#define SGE_OPENGL_FBO_PROJECTION_HPP_INCLUDED
+#ifndef SGE_OPENGL_FBO_RENDER_BUFFER_HPP_INCLUDED
+#define SGE_OPENGL_FBO_RENDER_BUFFER_HPP_INCLUDED
 
-#include <sge/renderer/matrix4.hpp>
+#include "render_buffer_fwd.hpp"
+#include "context_fwd.hpp"
+#include "../common.hpp"
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace opengl
 {
+namespace fbo
+{
 
-renderer::matrix4 const
-fbo_projection(
-	renderer::matrix4 const &);
+class render_buffer
+{
+	FCPPT_NONCOPYABLE(
+		render_buffer
+	)
+public:
+	explicit render_buffer(
+		fbo::context const &
+	);
 
+	~render_buffer();
+
+	void
+	store(
+		GLenum what,
+		GLsizei width,
+		GLsizei height
+	);
+
+	GLuint
+	id() const;
+private:
+	void
+	bind() const;
+
+	fbo::context const &context_;
+
+	GLuint id_;
+};
+
+}
 }
 }
 

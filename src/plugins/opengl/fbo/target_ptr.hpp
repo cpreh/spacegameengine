@@ -18,40 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../fbo_texture_binding.hpp"
-#include "../fbo/object.hpp" // TODO!
-#include "../fbo_context.hpp"
-#include "../texture.hpp"
-#include "../texture_base.hpp"
-#include "../check_state.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_OPENGL_FBO_TARGET_PTR_HPP_INCLUDED
+#define SGE_OPENGL_FBO_TARGET_PTR_HPP_INCLUDED
 
-sge::opengl::fbo_texture_binding::fbo_texture_binding(
-	fbo_context const &_context,
-	opengl::texture_base_ptr const _texture,
-	fbo::object &_fbo,
-	GLenum const _attachment
-)
-:
-	texture_(_texture)
+#include "target_fwd.hpp"
+#include <fcppt/shared_ptr.hpp>
+
+namespace sge
 {
-	_fbo.bind();
+namespace opengl
+{
+namespace fbo
+{
 
-	_context.framebuffer_texture_2d()(
-		_context.framebuffer_target(),
-		_attachment,
-		_texture->type(),
-		_texture->id(),
-		0
-	);
+typedef fcppt::shared_ptr<
+	fbo::target
+> target_ptr;
 
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("Binding a texture to an fbo failed."),
-		sge::renderer::exception
-	)
+}
+}
 }
 
-sge::opengl::fbo_texture_binding::~fbo_texture_binding()
-{
-}
+#endif

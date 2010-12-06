@@ -18,16 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_FBO_CONTEXT_FWD_HPP_INCLUDED
-#define SGE_OPENGL_FBO_CONTEXT_FWD_HPP_INCLUDED
+#ifndef SGE_OPENGL_FBO_ATTACH_RENDER_BUFFER_HPP_INCLUDED
+#define SGE_OPENGL_FBO_ATTACH_RENDER_BUFFER_HPP_INCLUDED
+
+#include "context_fwd.hpp"
+#include "../common.hpp"
 
 namespace sge
 {
 namespace opengl
 {
+namespace fbo
+{
 
-class fbo_context;
+void
+attach_render_buffer(
+	fbo::context const &,
+	GLenum,
+	GLuint
+);
 
+}
 }
 }
 

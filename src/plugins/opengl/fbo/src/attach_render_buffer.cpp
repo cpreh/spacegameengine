@@ -18,48 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_RENDER_BUFFER_HPP_INCLUDED
-#define SGE_OPENGL_RENDER_BUFFER_HPP_INCLUDED
+#include "../attach_render_buffer.hpp"
+#include "../context.hpp"
+#include "../../check_state.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include "render_buffer_fwd.hpp"
-#include "common.hpp"
-#include "fbo_context_fwd.hpp"
-#include <fcppt/noncopyable.hpp>
-
-namespace sge
+void
+sge::opengl::fbo::attach_render_buffer(
+	fbo::context const &_context,
+	GLenum const _what,
+	GLuint const _buffer
+)
 {
-namespace opengl
-{
-
-class render_buffer
-{
-	FCPPT_NONCOPYABLE(render_buffer)
-public:
-	explicit render_buffer(
-		fbo_context const &
+	_context.framebuffer_renderbuffer()(
+		_context.framebuffer_target(),
+		_what,
+		_context.renderbuffer_target(),
+		_buffer
 	);
 
-	~render_buffer();
-
-	void
-	store(
-		GLenum what,
-		GLsizei width,
-		GLsizei height
-	);
-
-	GLuint
-	id() const;
-private:
-	void
-	bind() const;
-
-	fbo_context const &context_;
-
-	GLuint id_;
-};
-
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("Attaching a render buffer to a frame buffer failed!"),
+		sge::renderer::exception
+	)
 }
-}
-
-#endif

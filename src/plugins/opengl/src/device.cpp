@@ -29,8 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../depth_stencil_texture.hpp"
 #include "../device_state.hpp"
 #include "../enable_bool.hpp"
-#include "../fbo_projection.hpp"
-#include "../fbo_target.hpp"
 #include "../index_buffer.hpp"
 #include "../initial_states.hpp"
 #include "../set_clip_plane.hpp"
@@ -50,6 +48,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/light_index.hpp"
 #include "../convert/matrix_mode.hpp"
 #include "../convert/nonindexed_primitive.hpp"
+#include "../fbo/projection.hpp"
+#include "../fbo/target.hpp"
 #include "../glew/initialize.hpp"
 #include "../glsl/set_program.hpp"
 #include "../glsl/create_program.hpp"
@@ -516,7 +516,7 @@ sge::opengl::device::create_target(
 
 	return
 		fcppt::make_shared_ptr<
-			fbo_target
+			fbo::target
 		>(
 			std::tr1::ref(
 				context_
@@ -736,7 +736,7 @@ sge::opengl::device::projection_internal()
 		GL_PROJECTION,
 		fbo_active()
 		?
-			opengl::fbo_projection(
+			opengl::fbo::projection(
 				projection_
 			)
 		:

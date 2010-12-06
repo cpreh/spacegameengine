@@ -18,64 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../texture_binding.hpp"
 #include "../object.hpp"
 #include "../context.hpp"
-#include "../bind.hpp"
+#include "../../texture.hpp"
+#include "../../texture_base.hpp"
 #include "../../check_state.hpp"
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/unsupported.hpp>
 #include <fcppt/text.hpp>
 
-sge::opengl::fbo::object::object(
-	fbo::context const &_context
+sge::opengl::fbo::texture_binding::texture_binding(
+	fbo::context const &_context,
+	opengl::texture_base_ptr const _texture,
+	fbo::object &_fbo,
+	GLenum const _attachment
 )
 :
-	context_(_context)
+	texture_(_texture)
 {
-	if(
-		!_context.is_supported()
-	)
-		throw sge::renderer::unsupported(
-			FCPPT_TEXT("glGenFrameBuffers"),
-			FCPPT_TEXT("Opengl-3.0"),
-			FCPPT_TEXT("frame_buffer_ext")
-		);
+	_fbo.bind();
 
-	_context.gen_framebuffers()(
-		1,
-		&id_
+	_context.framebuffer_texture_2d()(
+		_context.framebuffer_target(),
+		_attachment,
+		_texture->type(),
+		_texture->id(),
+		0
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glGenFramebuffers failed"),
+		FCPPT_TEXT("Binding a texture to an fbo failed."),
 		sge::renderer::exception
 	)
 }
 
-sge::opengl::fbo::object::~object()
+sge::opengl::fbo::texture_binding::~texture_binding()
 {
-	context_.delete_framebuffers()(
-		1,
-		&id_
-	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glDeleteFramebuffers failed"),
-		sge::renderer::exception
-	)
-}
-
-void 
-sge::opengl::fbo::object::bind() const
-{
-	opengl::fbo::bind(
-		context_,
-		id()
-	);
-}
-
-GLuint
-sge::opengl::fbo::object::id() const
-{
-	return id_;
 }

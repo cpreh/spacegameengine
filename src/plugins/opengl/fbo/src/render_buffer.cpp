@@ -19,13 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../render_buffer.hpp"
-#include "../fbo_context.hpp"
-#include "../check_state.hpp"
+#include "../context.hpp"
+#include "../../check_state.hpp"
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
-sge::opengl::render_buffer::render_buffer(
-	fbo_context const &_context
+sge::opengl::fbo::render_buffer::render_buffer(
+	fbo::context const &_context
 )
 :
 	context_(_context)
@@ -41,7 +41,7 @@ sge::opengl::render_buffer::render_buffer(
 	)
 }
 
-sge::opengl::render_buffer::~render_buffer()
+sge::opengl::fbo::render_buffer::~render_buffer()
 {
 	context_.delete_renderbuffers()(
 		1,
@@ -55,7 +55,7 @@ sge::opengl::render_buffer::~render_buffer()
 }
 
 void
-sge::opengl::render_buffer::store(
+sge::opengl::fbo::render_buffer::store(
 	GLenum const _what,
 	GLsizei const _width,
 	GLsizei const _height
@@ -77,14 +77,13 @@ sge::opengl::render_buffer::store(
 }
 
 GLuint
-sge::opengl::render_buffer::id() const
+sge::opengl::fbo::render_buffer::id() const
 {
 	return id_;
 }
 
-
 void
-sge::opengl::render_buffer::bind() const
+sge::opengl::fbo::render_buffer::bind() const
 {
 	context_.bind_renderbuffer()(
 		context_.renderbuffer_target(),

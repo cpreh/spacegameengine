@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../fbo_context.hpp"
-#include "../common.hpp"
-#include "../glew/is_supported.hpp"
-#include "../context/make_id.hpp"
+#include "../context.hpp"
+#include "../../common.hpp"
+#include "../../glew/is_supported.hpp"
+#include "../../context/make_id.hpp"
 
-sge::opengl::fbo_context::fbo_context()
+sge::opengl::fbo::context::context()
 :
 	has_native_(
 		glew::is_supported("GL_VERSION_3_0")
@@ -211,122 +211,122 @@ sge::opengl::fbo_context::fbo_context()
 {
 }
 
-sge::opengl::fbo_context::~fbo_context()
+sge::opengl::fbo::context::~context()
 {
 }
 
 bool
-sge::opengl::fbo_context::is_supported() const
+sge::opengl::fbo::context::is_supported() const
 {
 	return
 		has_native_
 		|| has_ext_;
 }
 
-sge::opengl::fbo_context::gl_gen_framebuffers
-sge::opengl::fbo_context::gen_framebuffers() const
+sge::opengl::fbo::context::gl_gen_framebuffers
+sge::opengl::fbo::context::gen_framebuffers() const
 {
 	return gen_framebuffers_;
 }
 
-sge::opengl::fbo_context::gl_delete_framebuffers
-sge::opengl::fbo_context::delete_framebuffers() const
+sge::opengl::fbo::context::gl_delete_framebuffers
+sge::opengl::fbo::context::delete_framebuffers() const
 {
 	return delete_framebuffers_;
 }
 
-sge::opengl::fbo_context::gl_bind_framebuffer
-sge::opengl::fbo_context::bind_framebuffer() const
+sge::opengl::fbo::context::gl_bind_framebuffer
+sge::opengl::fbo::context::bind_framebuffer() const
 {
 	return bind_framebuffer_;
 }
 
-sge::opengl::fbo_context::gl_framebuffer_texture_2d
-sge::opengl::fbo_context::framebuffer_texture_2d() const
+sge::opengl::fbo::context::gl_framebuffer_texture_2d
+sge::opengl::fbo::context::framebuffer_texture_2d() const
 {
 	return framebuffer_texture_2d_;
 }
 
-sge::opengl::fbo_context::gl_check_framebuffer_status
-sge::opengl::fbo_context::check_framebuffer_status() const
+sge::opengl::fbo::context::gl_check_framebuffer_status
+sge::opengl::fbo::context::check_framebuffer_status() const
 {
 	return check_framebuffer_status_;
 }
 
-sge::opengl::fbo_context::gl_gen_renderbuffers
-sge::opengl::fbo_context::gen_renderbuffers() const
+sge::opengl::fbo::context::gl_gen_renderbuffers
+sge::opengl::fbo::context::gen_renderbuffers() const
 {
 	return gen_renderbuffers_;
 }
 
-sge::opengl::fbo_context::gl_delete_renderbuffers
-sge::opengl::fbo_context::delete_renderbuffers() const
+sge::opengl::fbo::context::gl_delete_renderbuffers
+sge::opengl::fbo::context::delete_renderbuffers() const
 {
 	return delete_renderbuffers_;
 }
 
-sge::opengl::fbo_context::gl_bind_renderbuffer
-sge::opengl::fbo_context::bind_renderbuffer() const
+sge::opengl::fbo::context::gl_bind_renderbuffer
+sge::opengl::fbo::context::bind_renderbuffer() const
 {
 	return bind_renderbuffer_;
 }
 
-sge::opengl::fbo_context::gl_renderbuffer_storage
-sge::opengl::fbo_context::renderbuffer_storage() const
+sge::opengl::fbo::context::gl_renderbuffer_storage
+sge::opengl::fbo::context::renderbuffer_storage() const
 {
 	return renderbuffer_storage_;
 }
 
-sge::opengl::fbo_context::gl_framebuffer_renderbuffer
-sge::opengl::fbo_context::framebuffer_renderbuffer() const
+sge::opengl::fbo::context::gl_framebuffer_renderbuffer
+sge::opengl::fbo::context::framebuffer_renderbuffer() const
 {
 	return framebuffer_renderbuffer_;
 }
 
 GLenum
-sge::opengl::fbo_context::framebuffer_target() const
+sge::opengl::fbo::context::framebuffer_target() const
 {
 	return framebuffer_target_;
 }
 
 GLenum
-sge::opengl::fbo_context::color_attachment() const
+sge::opengl::fbo::context::color_attachment() const
 {
 	return color_attachment_;
 }
 
 GLenum
-sge::opengl::fbo_context::framebuffer_complete() const
+sge::opengl::fbo::context::framebuffer_complete() const
 {
 	return framebuffer_complete_;
 }
 
 GLenum
-sge::opengl::fbo_context::renderbuffer_target() const
+sge::opengl::fbo::context::renderbuffer_target() const
 {
 	return renderbuffer_target_;
 }
 
 GLenum
-sge::opengl::fbo_context::depth_attachment() const
+sge::opengl::fbo::context::depth_attachment() const
 {
 	return depth_attachment_;
 }
 
 GLenum
-sge::opengl::fbo_context::stencil_attachment() const
+sge::opengl::fbo::context::stencil_attachment() const
 {
 	return stencil_attachment_;
 }
 
 GLuint
-sge::opengl::fbo_context::last_buffer() const
+sge::opengl::fbo::context::last_buffer() const
 {
 	return last_buffer_;
 }
 
 void
-sge::opengl::fbo_context::last_buffer(
+sge::opengl::fbo::context::last_buffer(
 	GLuint const _last_buffer
 )
 {
@@ -334,6 +334,6 @@ sge::opengl::fbo_context::last_buffer(
 }
 
 sge::opengl::context::id const
-sge::opengl::fbo_context::static_id(
+sge::opengl::fbo::context::static_id(
 	sge::opengl::context::make_id()
 );
