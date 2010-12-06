@@ -18,35 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_VIEW_SUB_HPP_INCLUDED
-#define SGE_IMAGE_VIEW_SUB_HPP_INCLUDED
+#include <sge/image/view/sub_out_of_range.hpp>
+#include <fcppt/math/box/output.hpp>
+#include <fcppt/format.hpp>
+#include <fcppt/text.hpp>
 
-#include <sge/image/view/object.hpp>
-#include <sge/image/view/const_object.hpp>
-#include <sge/image/rect.hpp>
-#include <sge/symbol.hpp>
-
-namespace sge
+sge::image::view::sub_out_of_range::sub_out_of_range(
+	sge::image::rect const &_outer,
+	sge::image::rect const &_inner
+)
+:
+	sge::image::exception(
+		(
+			fcppt::format(
+				FCPPT_TEXT("sub_out_of_range: %1% not in %2%!")		
+			)
+			% _inner
+			% _outer
+		).str()
+	),
+	outer_(_outer),
+	inner_(_inner)
 {
-namespace image
-{
-namespace view
-{
-
-SGE_SYMBOL object const
-sub(
-	view::object const &,
-	image::rect const &
-);
-
-SGE_SYMBOL const_object const
-sub(
-	view::const_object const &,
-	image::rect const &
-);
-
-}
-}
 }
 
-#endif
+sge::image::rect const &
+sge::image::view::sub_out_of_range::outer() const
+{
+	return outer_;
+}
+
+sge::image::rect const &
+sge::image::view::sub_out_of_range::inner() const
+{
+	return inner_;
+}
+
+sge::image::view::sub_out_of_range::~sub_out_of_range() throw()
+{
+}

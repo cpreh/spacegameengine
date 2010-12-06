@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_VIEW_SUB_HPP_INCLUDED
-#define SGE_IMAGE_VIEW_SUB_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_CHECKED_SUB_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_CHECKED_SUB_HPP_INCLUDED
 
 #include <sge/image/view/object.hpp>
 #include <sge/image/view/const_object.hpp>
@@ -34,13 +34,13 @@ namespace view
 {
 
 SGE_SYMBOL object const
-sub(
+checked_sub(
 	view::object const &,
 	image::rect const &
 );
 
 SGE_SYMBOL const_object const
-sub(
+checked_sub(
 	view::const_object const &,
 	image::rect const &
 );

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
 #include <sge/parse/json/get.hpp>
-#include <sge/image/view/sub.hpp>
+#include <sge/image/view/checked_sub.hpp>
 #include <sge/image/file.hpp>
 #include <sge/image/multi_loader.hpp>
 #include <sge/font/char_not_available.hpp>
@@ -141,7 +141,7 @@ sge::font::bitmap::metrics::metrics(
 				fcppt::make_shared_ptr<
 					char_metric
 				>(
-					sge::image::view::sub(
+					sge::image::view::checked_sub(
 						image_->view(),
 						font::bitmap::load_rect(
 							members
@@ -161,14 +161,14 @@ sge::font::bitmap::metrics::metrics(
 		);
 	}
 	catch(
-		sge::exception const &e
+		sge::exception const &_exception
 	)
 	{
 		FCPPT_LOG_WARNING(
 			log::global(),
 			fcppt::log::_
 				<< FCPPT_TEXT("Skipping character in bitmap font because \"")
-				<< e.string()
+				<< _exception.string()
 				<< FCPPT_TEXT('"')
 		);
 	}
