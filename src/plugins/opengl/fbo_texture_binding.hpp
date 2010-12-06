@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_FBO_TEXTURE_BINDING_HPP_INCLUDED
 #define SGE_OPENGL_FBO_TEXTURE_BINDING_HPP_INCLUDED
 
-#include "fbo_fwd.hpp"
+#include "fbo/object_fwd.hpp"
 #include "fbo_context_fwd.hpp"
 #include "texture_base_ptr.hpp"
 #include "common.hpp"
@@ -39,7 +39,7 @@ public:
 	explicit fbo_texture_binding(
 		fbo_context const &,
 		opengl::texture_base_ptr,
-		fbo &,
+		fbo::object &,
 		GLenum attachment
 	);
 

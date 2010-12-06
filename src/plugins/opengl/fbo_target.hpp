@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "texture_ptr.hpp"
 #include "depth_stencil_texture_ptr.hpp"
 #include "texture_base_ptr.hpp"
-#include "fbo.hpp"
+#include "fbo/object.hpp"
 #include "fbo_texture_binding.hpp"
 #include "fbo_context_fwd.hpp"
 #include "render_buffer_fwd.hpp"
@@ -94,7 +94,7 @@ private:
 
 	dim_type const dim_;
 
-	opengl::fbo fbo_;
+	opengl::fbo::object fbo_;
 
 	typedef boost::ptr_vector<
 		fbo_texture_binding

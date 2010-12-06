@@ -18,40 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_FBO_HPP_INCLUDED
-#define SGE_OPENGL_FBO_HPP_INCLUDED
+#ifndef SGE_OPENGL_FBO_INIT_VIEWPORT_HPP_INCLUDED
+#define SGE_OPENGL_FBO_INIT_VIEWPORT_HPP_INCLUDED
 
-#include "fbo_fwd.hpp"
-#include "common.hpp"
-#include "fbo_context_fwd.hpp"
-#include <fcppt/noncopyable.hpp>
+#include "../texture_ptr.hpp"
+#include "../depth_stencil_texture_ptr.hpp"
+#include <sge/renderer/viewport_fwd.hpp>
 
 namespace sge
 {
 namespace opengl
 {
-
-class fbo
+namespace fbo
 {
-	FCPPT_NONCOPYABLE(fbo)
-public:
-	explicit fbo(
-		fbo_context const &
-	);
 
-	~fbo();
+sge::renderer::viewport const
+init_viewport(
+	sge::opengl::texture_ptr,
+	sge::opengl::depth_stencil_texture_ptr
+);
 
-	void 
-	bind() const;
-
-	GLuint
-	id() const;
-private:
-	fbo_context const &context_;
-
-	GLuint id_;
-};
-
+}
 }
 }
 

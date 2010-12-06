@@ -18,15 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../fbo.hpp"
-#include "../fbo_context.hpp"
-#include "../check_state.hpp"
-#include "../bind_fbo.hpp"
+#include "../object.hpp"
+#include "../../fbo_context.hpp"
+#include "../../check_state.hpp"
+#include "../../bind_fbo.hpp"
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <fcppt/text.hpp>
 
-sge::opengl::fbo::fbo(
+sge::opengl::fbo::object::object(
 	fbo_context const &_context
 )
 :
@@ -52,7 +52,7 @@ sge::opengl::fbo::fbo(
 	)
 }
 
-sge::opengl::fbo::~fbo()
+sge::opengl::fbo::object::~object()
 {
 	context_.delete_framebuffers()(
 		1,
@@ -66,7 +66,7 @@ sge::opengl::fbo::~fbo()
 }
 
 void 
-sge::opengl::fbo::bind() const
+sge::opengl::fbo::object::bind() const
 {
 	opengl::bind_fbo(
 		context_,
@@ -75,7 +75,7 @@ sge::opengl::fbo::bind() const
 }
 
 GLuint
-sge::opengl::fbo::id() const
+sge::opengl::fbo::object::id() const
 {
 	return id_;
 }
