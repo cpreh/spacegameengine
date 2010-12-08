@@ -99,11 +99,9 @@ try
 
 	sge::font::metrics_ptr const metrics(
 		sys.font_system()->create_font(
-			FCPPT_TEXT("/usr/share/fonts/truetype/meiryo.ttc"),
-		/*
 			sge::config::media_path()
 			/ FCPPT_TEXT("fonts")
-			/ FCPPT_TEXT("default.ttf"),*/
+			/ FCPPT_TEXT("default.ttf"),
 			static_cast<sge::font::size_type>(15)
 		)
 	);
@@ -137,8 +135,7 @@ try
 		sge::font::text::draw(
 			metrics,
 			drawer,
-			//SGE_FONT_TEXT_LIT("hello world 1234567890hello world 123456789hello world 123456789hello world 123456789000"),
-			SGE_FONT_TEXT_LIT("\x99ac\x9e7f"),
+			SGE_FONT_TEXT_LIT("hello world 1234567890hello world 123456789hello world 123456789hello world 123456789000"),
 			sge::font::pos::null(),
 			fcppt::math::dim::structure_cast<
 				sge::font::dim
