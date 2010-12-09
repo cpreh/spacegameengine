@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/char_type.hpp>
 #include <sge/font/pos.hpp>
 #include <sge/font/dim.hpp>
-#include <sge/font/size_type.hpp>
 #include <sge/font/image_view.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/const_part_ptr.hpp>
@@ -71,17 +70,17 @@ public:
 	SGE_FONT_TEXT_SYMBOL
 	void
 	begin_rendering(
-		size_type buffer_chars,
-		pos const &start,
-		dim const &size
+		drawer::size_type buffer_chars,
+		font::pos const &start,
+		font::dim const &size
 	);
 
 	SGE_FONT_TEXT_SYMBOL
 	void
 	draw_char(
 		font::text::char_type,
-		pos const &,
-		const_image_view const &
+		font::pos const &,
+		font::const_image_view const &
 	);
 
 	SGE_FONT_TEXT_SYMBOL
@@ -97,7 +96,7 @@ private:
 	texture::const_part_ptr const
 	cached_texture(
 		font::text::char_type,
-		const_image_view const &
+		font::const_image_view const &
 	);
 
 	renderer::device_ptr const rend_;
@@ -120,16 +119,16 @@ private:
 			image::color::rgba8_format
 		>,
 		boost::mpl::vector2<
-			sprite::with_color,
-			sprite::with_texture
+			sge::sprite::with_color,
+			sge::sprite::with_texture
 		>
 	> sprite_choices;
 
-	typedef sprite::system<
+	typedef sge::sprite::system<
 		sprite_choices
 	>::type sprite_system;
 
-	typedef sprite::object<
+	typedef sge::sprite::object<
 		sprite_choices
 	> sprite_object;
 
