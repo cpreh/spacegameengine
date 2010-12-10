@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/instance.hpp>
 #include <sge/exception.hpp>
 #include <awl/backends/x11/display.hpp>
-#include <awl/backends/x11/window_instance.hpp>
+#include <awl/backends/x11/window/instance.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/polymorphic_pointer_cast.hpp>
 #include <fcppt/text.hpp>
@@ -43,9 +43,9 @@ sge::x11input::system::create_processor(
 	sge::window::instance_ptr const _window
 )
 {
-	awl::backends::x11::window_instance_ptr const x11_window(
+	awl::backends::x11::window::instance_ptr const x11_window(
 		fcppt::polymorphic_pointer_cast<
-			awl::backends::x11::window_instance
+			awl::backends::x11::window::instance
 		>(
 			_window->awl_instance()
 		)

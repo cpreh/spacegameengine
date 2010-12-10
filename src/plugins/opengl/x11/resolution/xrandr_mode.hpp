@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "instance.hpp"
 #include "../../xrandr/resolution_ptr.hpp"
 #include <sge/renderer/display_mode_fwd.hpp>
-#include <awl/backends/x11/window_instance_ptr.hpp>
+#include <awl/backends/x11/window/instance_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -46,7 +46,7 @@ class xrandr_mode
 public:
 	xrandr_mode(
 		renderer::display_mode const &,
-		awl::backends::x11::window_instance_ptr
+		awl::backends::x11::window::instance_ptr
 	);
 
 	~xrandr_mode();

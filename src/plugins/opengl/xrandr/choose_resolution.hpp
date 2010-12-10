@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "resolution_ptr.hpp"
 #include <sge/renderer/display_mode_fwd.hpp>
-#include <awl/backends/x11/window_instance_ptr.hpp>
+#include <awl/backends/x11/window/instance_ptr.hpp>
 
 namespace sge
 {
@@ -34,7 +34,7 @@ namespace xrandr
 
 xrandr::resolution_ptr const
 choose_resolution(
-	awl::backends::x11::window_instance_ptr,
+	awl::backends::x11::window::instance_ptr,
 	renderer::display_mode const &
 );
 

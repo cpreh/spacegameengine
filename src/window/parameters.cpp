@@ -21,19 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 
 sge::window::parameters::parameters(
+	awl::system::object_ptr const _system,
 	awl::window::instance_ptr const _window
 )
 :
-	window_(_window)
+	system_(_system),
+	window_(_window),
+	window_event_processor_(),
+	io_service_()
 {
 }
 
 sge::window::parameters &
-sge::window::parameters::event_processor(
-	awl::event::processor_ptr const _event_processor
+sge::window::parameters::window_event_processor(
+	awl::window::event::processor_ptr const _window_event_processor
 )
 {
-	event_processor_ = _event_processor;
+	window_event_processor_ = _window_event_processor;
 
 	return *this;
 }
@@ -48,16 +52,22 @@ sge::window::parameters::io_service(
 	return *this;
 }
 
+awl::system::object_ptr const
+sge::window::parameters::system() const
+{
+	return system_;
+}
+
 awl::window::instance_ptr const
 sge::window::parameters::window() const
 {
 	return window_;
 }
 
-awl::event::processor_ptr const
-sge::window::parameters::event_processor() const
+awl::window::event::processor_ptr const
+sge::window::parameters::window_event_processor() const
 {
-	return event_processor_;
+	return window_event_processor_;
 }
 
 awl::mainloop::io_service_ptr const

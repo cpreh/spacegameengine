@@ -18,41 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_XRANDR_CONFIGURATION_HPP_INCLUDED
-#define SGE_OPENGL_XRANDR_CONFIGURATION_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_WRAPPED_WINDOW_HPP_INCLUDED
+#define SGE_SYSTEMS_WRAPPED_WINDOW_HPP_INCLUDED
 
-#include "configuration_fwd.hpp"
-#include <awl/backends/x11/window/instance_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <X11/Xlib.h>
-#include <X11/extensions/Xrandr.h>
+#include <sge/systems/symbol.hpp>
+#include <awl/system/object_ptr.hpp>
+#include <awl/window/instance_ptr.hpp>
 
 namespace sge
 {
-namespace opengl
-{
-namespace xrandr
+namespace systems
 {
 
-class configuration
+class wrapped_window
 {
-	FCPPT_NONCOPYABLE(
-		configuration
-	)
 public:
-	explicit configuration(
-		awl::backends::x11::window::instance_ptr
+	SGE_SYSTEMS_SYMBOL
+	wrapped_window(
+		awl::system::object_ptr,
+		awl::window::instance_ptr
 	);
 
-	~configuration();
+	SGE_SYSTEMS_SYMBOL
+	awl::system::object_ptr const
+	system() const;
 
-	XRRScreenConfiguration *
-	get() const;
+	SGE_SYSTEMS_SYMBOL
+	awl::window::instance_ptr const
+	window() const;
 private:
-	XRRScreenConfiguration *const config_;
+	awl::system::object_ptr system_;
+
+	awl::window::instance_ptr window_;
 };
 
-}
 }
 }
 

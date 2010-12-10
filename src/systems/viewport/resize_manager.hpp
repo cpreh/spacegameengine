@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/target_ptr.hpp>
 #include <sge/systems/viewport/manager.hpp>
-#include <awl/event/resize_fwd.hpp>
+#include <awl/window/event/resize_fwd.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -51,7 +51,7 @@ public:
 private:
 	void
 	on_resize(
-		awl::event::resize const &
+		awl::window::event::resize const &
 	);
 
 	sge::renderer::device_ptr const device_;

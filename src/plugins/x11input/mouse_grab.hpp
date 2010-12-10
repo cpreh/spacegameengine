@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "mouse_grab_fwd.hpp"
 #include "cursor_fwd.hpp"
-#include <awl/backends/x11/window_instance_ptr.hpp>
+#include <awl/backends/x11/window/instance_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -38,13 +38,13 @@ class mouse_grab
 	)
 public:
 	mouse_grab(
-		awl::backends::x11::window_instance_ptr,
+		awl::backends::x11::window::instance_ptr,
 		x11input::cursor const &
 	);
 
 	~mouse_grab();
 private:
-	awl::backends::x11::window_instance_ptr const window_;
+	awl::backends::x11::window::instance_ptr const window_;
 };
 
 }

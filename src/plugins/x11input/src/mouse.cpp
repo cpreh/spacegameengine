@@ -29,11 +29,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/button_code.hpp>
 #include <sge/input/mouse/button_event.hpp>
 #include <awl/backends/x11/display.hpp>
-#include <awl/backends/x11/event.hpp>
-#include <awl/backends/x11/event_processor.hpp>
-#include <awl/backends/x11/window_instance.hpp>
-#include <awl/backends/x11/signal/connection.hpp>
-#include <awl/backends/x11/signal/shared_connection.hpp>
+#include <awl/backends/x11/window/event/object.hpp>
+#include <awl/backends/x11/window/event/processor.hpp>
+#include <awl/backends/x11/window/event/signal/connection.hpp>
+#include <awl/backends/x11/window/event/signal/shared_connection.hpp>
+#include <awl/backends/x11/window/instance.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
@@ -53,8 +53,8 @@ mouse_key_code(
 }
 
 sge::x11input::mouse::mouse(
-	awl::backends::x11::window_instance_ptr const _window,
-	awl::backends::x11::event_processor_ptr const _event_processor
+	awl::backends::x11::window::instance_ptr const _window,
+	awl::backends::x11::window::event::processor_ptr const _event_processor
 )
 :
 	window_(_window),
@@ -81,9 +81,9 @@ sge::x11input::mouse::mouse(
 	),
 	connections_(
 		fcppt::assign::make_container<
-			awl::backends::x11::signal::connection_manager::container
+			awl::backends::x11::window::event::signal::connection_manager::container
 		>(
-			awl::backends::x11::signal::shared_connection(
+			awl::backends::x11::window::event::signal::shared_connection(
 				_event_processor->register_callback(
 					MotionNotify,
 					std::tr1::bind(
@@ -95,7 +95,7 @@ sge::x11input::mouse::mouse(
 			)
 		)
 		(
-			awl::backends::x11::signal::shared_connection(
+			awl::backends::x11::window::event::signal::shared_connection(
 				_event_processor->register_callback(
 					ButtonPress,
 					std::tr1::bind(
@@ -107,7 +107,7 @@ sge::x11input::mouse::mouse(
 			)
 		)
 		(
-			awl::backends::x11::signal::shared_connection(
+			awl::backends::x11::window::event::signal::shared_connection(
 				_event_processor->register_callback(
 					ButtonRelease,
 					std::tr1::bind(
@@ -172,7 +172,7 @@ sge::x11input::mouse::axis_callback(
 
 void
 sge::x11input::mouse::on_motion(
-	awl::backends::x11::event const &_event
+	awl::backends::x11::window::event::object const &_event
 )
 {
 	warped_motion(
@@ -182,7 +182,7 @@ sge::x11input::mouse::on_motion(
 
 void
 sge::x11input::mouse::on_button_down(
-	awl::backends::x11::event const &_event
+	awl::backends::x11::window::event::object const &_event
 )
 {
 	button_event(
@@ -193,7 +193,7 @@ sge::x11input::mouse::on_button_down(
 
 void
 sge::x11input::mouse::on_button_up(
-	awl::backends::x11::event const &_event
+	awl::backends::x11::window::event::object const &_event
 )
 {
 	button_event(
@@ -204,7 +204,7 @@ sge::x11input::mouse::on_button_up(
 
 void
 sge::x11input::mouse::button_event(
-	awl::backends::x11::event const &_event,
+	awl::backends::x11::window::event::object const &_event,
 	bool const _pressed
 )
 {
@@ -220,7 +220,7 @@ sge::x11input::mouse::button_event(
 
 void
 sge::x11input::mouse::warped_motion(
-	awl::backends::x11::event const &_event
+	awl::backends::x11::window::event::object const &_event
 )
 {
 	XEvent xevent(

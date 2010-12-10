@@ -34,10 +34,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/axis_function.hpp>
 #include <sge/input/mouse/button_callback.hpp>
 #include <sge/input/mouse/button_function.hpp>
-#include <awl/backends/x11/event_fwd.hpp>
-#include <awl/backends/x11/event_processor_ptr.hpp>
-#include <awl/backends/x11/window_instance_ptr.hpp>
-#include <awl/backends/x11/signal/connection_manager.hpp>
+#include <awl/backends/x11/window/event/object_fwd.hpp>
+#include <awl/backends/x11/window/event/processor_ptr.hpp>
+#include <awl/backends/x11/window/event/signal/connection_manager.hpp>
+#include <awl/backends/x11/window/instance_ptr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
@@ -59,8 +59,8 @@ class mouse
 	)
 public:
 	mouse(
-		awl::backends::x11::window_instance_ptr,
-		awl::backends::x11::event_processor_ptr
+		awl::backends::x11::window::instance_ptr,
+		awl::backends::x11::window::event::processor_ptr
 	);
 
 	~mouse();
@@ -83,28 +83,28 @@ private:
 
 	void
 	on_motion(
-		awl::backends::x11::event const &
+		awl::backends::x11::window::event::object const &
 	);
 
 	void
 	on_button_down(
-		awl::backends::x11::event const &
+		awl::backends::x11::window::event::object const &
 	);
 
 	void
 	on_button_up(
-		awl::backends::x11::event const &
+		awl::backends::x11::window::event::object const &
 	);
 
 	void
 	button_event(
-		awl::backends::x11::event const &,
+		awl::backends::x11::window::event::object const &,
 		bool pressed
 	);
 
 	void
 	warped_motion(
-		awl::backends::x11::event const &
+		awl::backends::x11::window::event::object const &
 	);
 
 	void
@@ -113,7 +113,7 @@ private:
 		mouse_coordinate deltay
 	);
 
-	awl::backends::x11::window_instance_ptr const window_;
+	awl::backends::x11::window::instance_ptr const window_;
 
 	x11input::color const black_;
 
@@ -123,7 +123,7 @@ private:
 
 	mouse_pos mouse_last_;
 
-	awl::backends::x11::signal::connection_manager const connections_;
+	awl::backends::x11::window::event::signal::connection_manager const connections_;
 
 	fcppt::scoped_ptr<
 		mouse_grab

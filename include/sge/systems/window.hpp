@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/simple_parameters.hpp>
 #include <sge/renderer/window_parameters.hpp>
 #include <sge/systems/symbol.hpp>
-#include <awl/event/processor_ptr.hpp>
+#include <sge/systems/wrapped_window.hpp>
 #include <awl/mainloop/io_service_ptr.hpp>
-#include <awl/window/instance_ptr.hpp>
+#include <awl/window/event/processor_ptr.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 
@@ -50,13 +50,13 @@ public:
 
 	SGE_SYSTEMS_SYMBOL
 	explicit window(
-		awl::window::instance_ptr
+		sge::systems::wrapped_window const &
 	);
 
 	SGE_SYSTEMS_SYMBOL
 	window &
 	event_processor(
-		awl::event::processor_ptr
+		awl::window::event::processor_ptr
 	);
 
 	SGE_SYSTEMS_SYMBOL
@@ -69,7 +69,7 @@ public:
 		boost::mpl::vector3<
 			sge::window::simple_parameters,
 			sge::renderer::window_parameters,
-			awl::window::instance_ptr
+			sge::systems::wrapped_window
 		>
 	> parameter_variant;
 
@@ -78,8 +78,8 @@ public:
 	parameter() const;
 
 	SGE_SYSTEMS_SYMBOL
-	awl::event::processor_ptr const
-	event_processor() const;
+	awl::window::event::processor_ptr const
+	window_event_processor() const;
 
 	SGE_SYSTEMS_SYMBOL
 	awl::mainloop::io_service_ptr const
@@ -87,7 +87,7 @@ public:
 private:
 	parameter_variant parameter_;
 
-	awl::event::processor_ptr processor_;
+	awl::window::event::processor_ptr window_processor_;
 
 	awl::mainloop::io_service_ptr io_service_;
 };

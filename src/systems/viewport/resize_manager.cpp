@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/window/instance.hpp>
-#include <awl/event/processor.hpp>
-#include <awl/event/resize.hpp>
+#include <awl/window/event/processor.hpp>
+#include <awl/window/event/resize.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -41,7 +41,7 @@ sge::systems::viewport::resize_manager::resize_manager(
 		_device->target()
 	),
 	resize_connection_(
-		_device->window()->awl_event_processor()->resize_callback(
+		_device->window()->awl_window_event_processor()->resize_callback(
 			std::tr1::bind(
 				&resize_manager::on_resize,
 				this,
@@ -59,7 +59,7 @@ sge::systems::viewport::resize_manager::~resize_manager()
 
 void
 sge::systems::viewport::resize_manager::on_resize(
-	awl::event::resize const &_resize
+	awl::window::event::resize const &_resize
 )
 {
 	target_->viewport(

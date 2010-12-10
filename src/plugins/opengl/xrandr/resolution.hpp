@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "resolution_fwd.hpp"
 #include "mode.hpp"
 #include "configuration_ptr.hpp"
-#include <awl/backends/x11/window_instance_ptr.hpp>
+#include <awl/backends/x11/window/instance_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -41,7 +41,7 @@ class resolution
 	)
 public:
 	resolution(
-		awl::backends::x11::window_instance_ptr,
+		awl::backends::x11::window::instance_ptr,
 		xrandr::configuration_ptr,
 		xrandr::mode const &new_mode,
 		xrandr::mode const &old_mode
@@ -49,7 +49,7 @@ public:
 
 	~resolution();
 private:
-	awl::backends::x11::window_instance_ptr const window_;
+	awl::backends::x11::window::instance_ptr const window_;
 
 	xrandr::configuration_ptr const config_;
 

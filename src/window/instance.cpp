@@ -22,21 +22,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <awl/event/processor.hpp>
+#include <awl/window/event/processor.hpp>
 #include <awl/window/instance.hpp>
 #include <awl/mainloop/io_service.hpp>
 
 sge::window::instance::instance(
+	awl::system::object_ptr const _system,
 	awl::window::instance_ptr const _instance,
-	awl::event::processor_ptr const _processor,
+	awl::window::event::processor_ptr const _window_processor,
 	awl::mainloop::io_service_ptr const _io_service
 )
 :
+	system_(
+		_system
+	),
 	instance_(
 		_instance
 	),
-	processor_(
-		_processor
+	window_processor_(
+		_window_processor
 	),
 	io_service_(
 		_io_service
@@ -45,7 +49,7 @@ sge::window::instance::instance(
 		io_service_
 		?
 			io_service_->create_dispatcher(
-				processor_,
+				system_,
 				std::tr1::bind(
 					&instance::dispatch,
 					this
@@ -80,7 +84,13 @@ sge::window::instance::show()
 void
 sge::window::instance::dispatch()
 {
-	processor_->dispatch();
+	window_processor_->dispatch();
+}
+
+awl::system::object_ptr const
+sge::window::instance::awl_system() const
+{
+	return system_;
 }
 
 awl::window::instance_ptr const
@@ -89,10 +99,10 @@ sge::window::instance::awl_instance() const
 	return instance_;
 }
 
-awl::event::processor_ptr const
-sge::window::instance::awl_event_processor() const
+awl::window::event::processor_ptr const
+sge::window::instance::awl_window_event_processor() const
 {
-	return processor_;
+	return window_processor_;
 }
 
 awl::mainloop::io_service_ptr const

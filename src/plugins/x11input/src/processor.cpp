@@ -27,10 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global.hpp>
 #include <sge/window/instance.hpp>
 #include <awl/backends/x11/display.hpp>
-#include <awl/backends/x11/event_processor.hpp>
-#include <awl/backends/x11/window_instance.hpp>
-#include <awl/backends/x11/signal/connection.hpp>
-#include <awl/backends/x11/signal/shared_connection.hpp>
+#include <awl/backends/x11/window/instance.hpp>
+#include <awl/backends/x11/window/event/processor.hpp>
+#include <awl/backends/x11/window/event/signal/connection.hpp>
+#include <awl/backends/x11/window/event/signal/shared_connection.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/output.hpp>
@@ -49,24 +49,24 @@ sge::x11input::processor::processor(
 	window_(_window),
 	x11_window_(
 		fcppt::polymorphic_pointer_cast<
-			awl::backends::x11::window_instance
+			awl::backends::x11::window::instance
 		>(
 			_window->awl_instance()
 		)
 	),
 	event_processor_(
 		fcppt::polymorphic_pointer_cast<
-			awl::backends::x11::event_processor
+			awl::backends::x11::window::event::processor
 		>(
-			_window->awl_event_processor()	
+			_window->awl_window_event_processor()	
 		)
 	),
 	acquired_(false),
 	connections_(
 		fcppt::assign::make_container<
-			awl::backends::x11::signal::connection_manager::container
+			awl::backends::x11::window::event::signal::connection_manager::container
 		>(
-			awl::backends::x11::signal::shared_connection(
+			awl::backends::x11::window::event::signal::shared_connection(
 				event_processor_->register_callback(
 					FocusIn,
 					std::tr1::bind(
@@ -78,7 +78,7 @@ sge::x11input::processor::processor(
 			)
 		)
 		(
-			awl::backends::x11::signal::shared_connection(
+			awl::backends::x11::window::event::signal::shared_connection(
 				event_processor_->register_callback(
 					FocusOut,
 					std::tr1::bind(
@@ -90,7 +90,7 @@ sge::x11input::processor::processor(
 			)
 		)
 		(
-			awl::backends::x11::signal::shared_connection(
+			awl::backends::x11::window::event::signal::shared_connection(
 				event_processor_->register_callback(
 					MapNotify,
 					std::tr1::bind(
@@ -102,7 +102,7 @@ sge::x11input::processor::processor(
 			)
 		)
 		(
-			awl::backends::x11::signal::shared_connection(
+			awl::backends::x11::window::event::signal::shared_connection(
 				event_processor_->register_callback(
 					UnmapNotify,
 					std::tr1::bind(
@@ -278,7 +278,7 @@ sge::x11input::processor::window() const
 
 void
 sge::x11input::processor::on_acquire(
-	awl::backends::x11::event const &
+	awl::backends::x11::window::event::object const &
 )
 {
 	if(
@@ -312,7 +312,7 @@ sge::x11input::processor::on_acquire(
 
 void
 sge::x11input::processor::on_release(
-	awl::backends::x11::event const &
+	awl::backends::x11::window::event::object const &
 )
 {
 	if(
