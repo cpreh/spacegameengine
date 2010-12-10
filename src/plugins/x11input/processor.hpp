@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "mouse_ptr.hpp"
 #include <sge/input/processor.hpp>
 #include <sge/window/instance_ptr.hpp>
+#include <awl/backends/x11/system/event/processor_ptr.hpp>
 #include <awl/backends/x11/window/event/object_fwd.hpp>
 #include <awl/backends/x11/window/event/processor_ptr.hpp>
 #include <awl/backends/x11/window/event/signal/connection_manager.hpp>
@@ -114,6 +115,8 @@ private:
 	awl::backends::x11::window::instance_ptr const x11_window_;
 
 	awl::backends::x11::window::event::processor_ptr const event_processor_;
+
+	awl::backends::x11::system::event::processor_ptr const system_event_processor_;
 
 	bool acquired_;
 

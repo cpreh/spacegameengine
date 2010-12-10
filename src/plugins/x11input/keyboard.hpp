@@ -30,12 +30,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_repeat_callback.hpp>
 #include <sge/input/keyboard/key_function.hpp>
 #include <sge/input/keyboard/key_repeat_function.hpp>
-#include <awl/backends/x11/window/event/object_fwd.hpp>
-#include <awl/backends/x11/window/event/processor_ptr.hpp>
-#include <awl/backends/x11/window/event/signal/connection_manager.hpp>
+#include <awl/backends/x11/system/event/object_fwd.hpp>
+#include <awl/backends/x11/system/event/processor_ptr.hpp>
 #include <awl/backends/x11/window/instance_ptr.hpp>
 #include <fcppt/container/bitfield/basic_decl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
@@ -56,7 +56,7 @@ class keyboard
 public:
 	keyboard(
 		awl::backends::x11::window::instance_ptr,
-		awl::backends::x11::window::event::processor_ptr
+		awl::backends::x11::system::event::processor_ptr
 	);
 
 	~keyboard();
@@ -82,24 +82,19 @@ private:
 
 	void
 	on_key_event(
-		awl::backends::x11::window::event::object const &
-	);
-
-	void
-	on_generic_event(
-		awl::backends::x11::window::event::object const &
+		awl::backends::x11::system::event::object const &
 	);
 
 	awl::backends::x11::window::instance_ptr const window_;
 
-	awl::backends::x11::window::event::processor_ptr const event_processor_;
+	awl::backends::x11::system::event::processor_ptr const event_processor_;
 
 	bool const need_grab_;
 
-	awl::backends::x11::window::event::signal::connection_manager const connections_;
+	fcppt::signal::connection_manager const connections_;
 
 	fcppt::scoped_ptr<
-		keyboard_grab
+		x11input::keyboard_grab
 	> grab_;
 
 	fcppt::signal::object<

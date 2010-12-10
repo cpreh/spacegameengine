@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global.hpp>
 #include <sge/window/instance.hpp>
 #include <awl/backends/x11/display.hpp>
+#include <awl/backends/x11/system/event/processor.hpp>
 #include <awl/backends/x11/window/instance.hpp>
 #include <awl/backends/x11/window/event/processor.hpp>
 #include <awl/backends/x11/window/event/signal/connection.hpp>
@@ -62,6 +63,13 @@ sge::x11input::processor::processor(
 			awl::backends::x11::window::event::processor
 		>(
 			_window->awl_window_event_processor()	
+		)
+	),
+	system_event_processor_(
+		fcppt::polymorphic_pointer_cast<
+			awl::backends::x11::system::event::processor
+		>(
+			_window->awl_system_event_processor()
 		)
 	),
 	acquired_(false),
@@ -126,7 +134,7 @@ sge::x11input::processor::processor(
 			>
 			(
 				x11_window_,
-				event_processor_
+				system_event_processor_
 			)
 		)
 	),

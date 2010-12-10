@@ -26,20 +26,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/to_modifier.hpp>
 #include <awl/backends/x11/display.hpp>
+#include <awl/backends/x11/system/event/processor.hpp>
+#include <awl/backends/x11/system/event/object.hpp>
 #include <awl/backends/x11/window/instance.hpp>
-#include <awl/backends/x11/window/event/processor.hpp>
-#include <awl/backends/x11/window/event/object.hpp>
-#include <awl/backends/x11/window/event/signal/connection.hpp>
-#include <awl/backends/x11/window/event/signal/shared_connection.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 
+#include <X11/extensions/XInput2.h>
+
 sge::x11input::keyboard::keyboard(
 	awl::backends::x11::window::instance_ptr const _window,
-	awl::backends::x11::window::event::processor_ptr const _event_processor
+	awl::backends::x11::system::event::processor_ptr const _event_processor
 )
 :
 	window_(
@@ -51,38 +51,18 @@ sge::x11input::keyboard::keyboard(
 	),
 	connections_(
 		fcppt::assign::make_container<
-			awl::backends::x11::window::event::signal::connection_manager::container
+			fcppt::signal::connection_manager::container
 		>(
-	/*
-			awl::backends::x11::window::event::signal::shared_connection(
+			fcppt::signal::shared_connection(
 				_event_processor->register_callback(
-					KeyPress,
+					awl::backends::x11::system::event::opcode(
+						143 // FIXME
+					),
+					awl::backends::x11::system::event::type(
+						XI_KeyPress
+					),
 					std::tr1::bind(
 						&keyboard::on_key_event,
-						this,
-						std::tr1::placeholders::_1
-					)
-				)
-			)
-		)
-		(
-			awl::backends::x11::window::event::signal::shared_connection(
-				_event_processor->register_callback(
-					KeyRelease,
-					std::tr1::bind(
-						&keyboard::on_key_event,
-						this,
-						std::tr1::placeholders::_1
-					)
-				)
-			)
-		)
-		(*/
-			awl::backends::x11::signal::shared_connection(
-				_event_processor->register_callback(
-					GenericEvent,
-					std::tr1::bind(
-						&keyboard::on_generic_event,
 						this,
 						std::tr1::placeholders::_1
 					)
@@ -153,14 +133,50 @@ sge::x11input::keyboard::mod_state() const
 	return modifiers_;
 }
 
-#include <X11/extensions/XInput2.h>
 #include <iostream>
 
 void
 sge::x11input::keyboard::on_key_event(
-	awl::backends::x11::window::event::object const &_event
+	awl::backends::x11::system::event::object const &_event
 )
 {
+	std::cout << "KEYBOARD\n";
+
+	int opcode = 143;
+
+	XGenericEventCookie ev(
+		_event.get()
+	);
+
+	if(ev.type != GenericEvent)
+		std::cout << "not a generic event\n";
+
+    	if(ev.extension != opcode)
+		std::cout << "invalid opcode\n";
+
+#if 0
+    	if(
+		XGetEventData(window_->display()->get(), &ev)
+		== False
+	)
+		std::cout << "kaputt\n";
+#endif
+/*if (ev.type == GenericEvent &&
+    ev.extension == opcode &&
+    XGetEventData(window_->display()->get(), &ev))
+{
+	std::cout << "BLBABLABLABLA\n";
+
+    switch(ev.evtype)
+    {
+        case XI_ButtonPress:
+		std::cout << "BUTTON PRESS\n";
+            break;
+    }
+}
+XFreeEventData(window_->display()->get(), &ev);*/
+
+
 #if 0
 	std::cout << "KEYBOARD\n";
 
@@ -239,40 +255,4 @@ sge::x11input::keyboard::on_key_event(
 		)
 	);
 #endif
-}
-
-void
-sge::x11input::keyboard::on_generic_event(
-	awl::backends::x11::event const &_event
-)
-{
-	std::cout << "KEYBOARD\n";
-
-	int opcode = 143;
-
-	XEvent ev(
-		_event.get()
-	);
-
-	if(ev.xcookie.type != GenericEvent)
-		std::cout << "not a generic event\n";
-
-    	if(ev.xcookie.extension != opcode)
-		std::cout << "invalid opcode\n";
-
-if (ev.xcookie.type == GenericEvent &&
-    ev.xcookie.extension == opcode &&
-    XGetEventData(window_->display()->get(), &ev.xcookie))
-{
-	std::cout << "BLBABLABLABLA\n";
-
-    switch(ev.xcookie.evtype)
-    {
-        case XI_ButtonPress:
-		std::cout << "BUTTON PRESS\n";
-            break;
-    }
-}
-XFreeEventData(window_->display()->get(), &ev.xcookie);
-
 }
