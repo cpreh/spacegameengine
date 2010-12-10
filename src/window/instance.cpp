@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <awl/system/event/processor.hpp>
 #include <awl/window/event/processor.hpp>
 #include <awl/window/instance.hpp>
 #include <awl/mainloop/io_service.hpp>
@@ -30,6 +31,7 @@ sge::window::instance::instance(
 	awl::system::object_ptr const _system,
 	awl::window::instance_ptr const _instance,
 	awl::window::event::processor_ptr const _window_processor,
+	awl::system::event::processor_ptr const _system_processor,
 	awl::mainloop::io_service_ptr const _io_service
 )
 :
@@ -41,6 +43,9 @@ sge::window::instance::instance(
 	),
 	window_processor_(
 		_window_processor
+	),
+	system_processor_(
+		_system_processor
 	),
 	io_service_(
 		_io_service
@@ -84,7 +89,13 @@ sge::window::instance::show()
 void
 sge::window::instance::dispatch()
 {
-	window_processor_->dispatch();
+	// events might come in any order
+	// so make sure to process as much as possible in one go
+	while(
+		window_processor_->dispatch()
+		|| system_processor_->dispatch()
+	)
+	;
 }
 
 awl::system::object_ptr const
@@ -103,6 +114,12 @@ awl::window::event::processor_ptr const
 sge::window::instance::awl_window_event_processor() const
 {
 	return window_processor_;
+}
+
+awl::system::event::processor_ptr const
+sge::window::instance::awl_system_event_processor() const
+{
+	return system_processor_;
 }
 
 awl::mainloop::io_service_ptr const

@@ -28,6 +28,7 @@ sge::window::parameters::parameters(
 	system_(_system),
 	window_(_window),
 	window_event_processor_(),
+	system_event_processor_(),
 	io_service_()
 {
 }
@@ -38,6 +39,16 @@ sge::window::parameters::window_event_processor(
 )
 {
 	window_event_processor_ = _window_event_processor;
+
+	return *this;
+}
+
+sge::window::parameters &
+sge::window::parameters::system_event_processor(
+	awl::system::event::processor_ptr const _system_event_processor
+)
+{
+	system_event_processor_ = _system_event_processor;
 
 	return *this;
 }
@@ -68,6 +79,12 @@ awl::window::event::processor_ptr const
 sge::window::parameters::window_event_processor() const
 {
 	return window_event_processor_;
+}
+
+awl::system::event::processor_ptr const
+sge::window::parameters::system_event_processor() const
+{
+	return system_event_processor_;
 }
 
 awl::mainloop::io_service_ptr const

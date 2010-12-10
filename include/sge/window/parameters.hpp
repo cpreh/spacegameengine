@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/instance_ptr.hpp>
 #include <awl/window/event/processor_ptr.hpp>
 #include <awl/system/object_ptr.hpp>
+#include <awl/system/event/processor_ptr.hpp>
 #include <awl/mainloop/io_service_ptr.hpp>
 
 namespace sge
@@ -50,6 +51,12 @@ public:
 
 	SGE_SYMBOL
 	parameters &
+	system_event_processor(
+		awl::system::event::processor_ptr
+	);
+
+	SGE_SYMBOL
+	parameters &
 	io_service(
 		awl::mainloop::io_service_ptr
 	);
@@ -67,6 +74,10 @@ public:
 	window_event_processor() const;
 
 	SGE_SYMBOL
+	awl::system::event::processor_ptr const
+	system_event_processor() const;
+
+	SGE_SYMBOL
 	awl::mainloop::io_service_ptr const
 	io_service() const;
 private:
@@ -75,6 +86,8 @@ private:
 	awl::window::instance_ptr window_;
 
 	awl::window::event::processor_ptr window_event_processor_;
+
+	awl::system::event::processor_ptr system_event_processor_;
 
 	awl::mainloop::io_service_ptr io_service_;
 };

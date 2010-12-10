@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/instance_ptr.hpp>
 #include <awl/window/event/processor_ptr.hpp>
 #include <awl/system/object_ptr.hpp>
+#include <awl/system/event/processor_ptr.hpp>
 #include <awl/mainloop/io_service_ptr.hpp>
 #include <awl/mainloop/dispatcher_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -47,6 +48,7 @@ public:
 		awl::system::object_ptr,
 		awl::window::instance_ptr,
 		awl::window::event::processor_ptr,
+		awl::system::event::processor_ptr,
 		awl::mainloop::io_service_ptr
 	);
 
@@ -80,6 +82,10 @@ public:
 	awl_window_event_processor() const;
 
 	SGE_SYMBOL
+	awl::system::event::processor_ptr const
+	awl_system_event_processor() const;
+
+	SGE_SYMBOL
 	awl::mainloop::io_service_ptr const
 	awl_io_service() const;
 private:
@@ -88,6 +94,8 @@ private:
 	awl::window::instance_ptr const instance_;
 
 	awl::window::event::processor_ptr const window_processor_;
+
+	awl::system::event::processor_ptr const system_processor_;
 
 	awl::mainloop::io_service_ptr const io_service_;
 
