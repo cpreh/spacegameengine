@@ -18,64 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../fbo.hpp"
-#include "../fbo_context.hpp"
-#include "../check_state.hpp"
-#include "../bind_fbo.hpp"
-#include <sge/renderer/exception.hpp>
-#include <sge/renderer/unsupported.hpp>
+#include <sge/image/view/sub_out_of_range.hpp>
+#include <fcppt/math/box/output.hpp>
+#include <fcppt/format.hpp>
 #include <fcppt/text.hpp>
 
-sge::opengl::fbo::fbo(
-	fbo_context const &_context
+sge::image::view::sub_out_of_range::sub_out_of_range(
+	sge::image::rect const &_outer,
+	sge::image::rect const &_inner
 )
 :
-	context_(_context)
+	sge::image::exception(
+		(
+			fcppt::format(
+				FCPPT_TEXT("sub_out_of_range: %1% not in %2%!")		
+			)
+			% _inner
+			% _outer
+		).str()
+	),
+	outer_(_outer),
+	inner_(_inner)
 {
-	if(
-		!_context.is_supported()
-	)
-		throw sge::renderer::unsupported(
-			FCPPT_TEXT("glGenFrameBuffers"),
-			FCPPT_TEXT("Opengl-3.0"),
-			FCPPT_TEXT("frame_buffer_ext")
-		);
-
-	_context.gen_framebuffers()(
-		1,
-		&id_
-	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glGenFramebuffers failed"),
-		sge::renderer::exception
-	)
 }
 
-sge::opengl::fbo::~fbo()
+sge::image::rect const &
+sge::image::view::sub_out_of_range::outer() const
 {
-	context_.delete_framebuffers()(
-		1,
-		&id_
-	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glDeleteFramebuffers failed"),
-		sge::renderer::exception
-	)
+	return outer_;
 }
 
-void 
-sge::opengl::fbo::bind() const
+sge::image::rect const &
+sge::image::view::sub_out_of_range::inner() const
 {
-	opengl::bind_fbo(
-		context_,
-		id()
-	);
+	return inner_;
 }
 
-GLuint
-sge::opengl::fbo::id() const
+sge::image::view::sub_out_of_range::~sub_out_of_range() throw()
 {
-	return id_;
 }

@@ -23,12 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../context.hpp"
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
-#include <awl/backends/x11/window_instance.hpp>
+#include <awl/backends/x11/window/instance.hpp>
 #include <awl/backends/x11/display.hpp>
 
 sge::opengl::glx::current::current(
 	awl::backends::x11::display_ptr const _display,
-	awl::backends::x11::window_instance_ptr const _window,
+	awl::backends::x11::window::instance_ptr const _window,
 	context_ptr const _context
 )
 :

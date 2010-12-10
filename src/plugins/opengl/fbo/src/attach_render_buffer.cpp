@@ -18,21 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_FBO_TARGET_FWD_HPP_INCLUDED
-#define SGE_OPENGL_FBO_TARGET_FWD_HPP_INCLUDED
+#include "../attach_render_buffer.hpp"
+#include "../context.hpp"
+#include "../../check_state.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include <fcppt/shared_ptr.hpp>
-
-namespace sge
+void
+sge::opengl::fbo::attach_render_buffer(
+	fbo::context const &_context,
+	GLenum const _what,
+	GLuint const _buffer
+)
 {
-namespace opengl
-{
+	_context.framebuffer_renderbuffer()(
+		_context.framebuffer_target(),
+		_what,
+		_context.renderbuffer_target(),
+		_buffer
+	);
 
-class fbo_target;
-
-typedef fcppt::shared_ptr<fbo_target> fbo_target_ptr;
-
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("Attaching a render buffer to a frame buffer failed!"),
+		sge::renderer::exception
+	)
 }
-}
-
-#endif

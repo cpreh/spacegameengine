@@ -39,8 +39,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/window_mode.hpp>
 #include <sge/renderer/window_parameters.hpp>
-#include <awl/window/create_system.hpp>
-#include <awl/window/system_ptr.hpp>
+#include <awl/system/create.hpp>
+#include <awl/system/object_ptr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/text.hpp>
 
@@ -65,8 +65,8 @@ int main()
 		plugin->get()()
 	);
 
-	awl::window::system_ptr const window_sys(
-		awl::window::create_system()
+	awl::system::object_ptr const window_sys(
+		awl::system::create()
 	);
 
 	fcppt::io::cout

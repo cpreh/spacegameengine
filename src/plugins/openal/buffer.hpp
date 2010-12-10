@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGINS_OPENAL_BUFFER_HPP_INCLUDED
-#define SGE_PLUGINS_OPENAL_BUFFER_HPP_INCLUDED
+#ifndef SGE_OPENAL_BUFFER_HPP_INCLUDED
+#define SGE_OPENAL_BUFFER_HPP_INCLUDED
 
 #include "openal.hpp"
 #include <sge/audio/buffer.hpp>

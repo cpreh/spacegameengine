@@ -22,12 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../handle_grab.hpp"
 #include <X11/Xlib.h>
 #include <sge/input/exception.hpp>
-#include <awl/backends/x11/window_instance.hpp>
+#include <awl/backends/x11/window/instance.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <fcppt/text.hpp>
 
 sge::x11input::keyboard_grab::keyboard_grab(
-	awl::backends::x11::window_instance_ptr const _window
+	awl::backends::x11::window::instance_ptr const _window
 )
 :
 	window_(_window)

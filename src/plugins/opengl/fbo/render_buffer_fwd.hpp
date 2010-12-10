@@ -18,39 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_XRANDR_CONFIGURATION_HPP_INCLUDED
-#define SGE_OPENGL_XRANDR_CONFIGURATION_HPP_INCLUDED
-
-#include "configuration_fwd.hpp"
-#include <awl/backends/x11/window/instance_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <X11/Xlib.h>
-#include <X11/extensions/Xrandr.h>
+#ifndef SGE_OPENGL_FBO_RENDER_BUFFER_FWD_HPP_INCLUDED
+#define SGE_OPENGL_FBO_RENDER_BUFFER_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace opengl
 {
-namespace xrandr
+namespace fbo
 {
 
-class configuration
-{
-	FCPPT_NONCOPYABLE(
-		configuration
-	)
-public:
-	explicit configuration(
-		awl::backends::x11::window::instance_ptr
-	);
-
-	~configuration();
-
-	XRRScreenConfiguration *
-	get() const;
-private:
-	XRRScreenConfiguration *const config_;
-};
+class render_buffer;
 
 }
 }

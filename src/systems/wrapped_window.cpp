@@ -18,17 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_FBO_FWD_HPP_INCLUDED
-#define SGE_OPENGL_FBO_FWD_HPP_INCLUDED
+#include <sge/systems/wrapped_window.hpp>
 
-namespace sge
+sge::systems::wrapped_window::wrapped_window(
+	awl::system::object_ptr const _system,
+	awl::window::instance_ptr const _window
+)
+:
+	system_(_system),
+	window_(_window)
 {
-namespace opengl
+}
+
+awl::system::object_ptr const
+sge::systems::wrapped_window::system() const
 {
-
-class fbo;
-
-}
+	return system_;
 }
 
-#endif
+awl::window::instance_ptr const
+sge::systems::wrapped_window::window() const
+{
+	return window_;
+}

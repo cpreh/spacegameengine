@@ -81,14 +81,21 @@ sge::font::text::draw(
 		_align_v
 	);
 
-	text::string::const_iterator sbeg(
-		_text.begin()
+	font::text::align_pos_h(
+		pos,
+		_max_sz,
+		total_size,
+		_align_h
 	);
 
 	_drawer->begin_rendering(
 		_text.size(),
 		pos,
 		total_size.size()
+	);
+
+	text::string::const_iterator sbeg(
+		_text.begin()
 	);
 
 	while(

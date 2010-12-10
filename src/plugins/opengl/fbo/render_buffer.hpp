@@ -18,20 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../fbo_projection.hpp"
-#include <sge/renderer/scalar.hpp>
-#include <fcppt/math/matrix/scaling.hpp>
-#include <fcppt/math/matrix/arithmetic.hpp>
+#ifndef SGE_OPENGL_FBO_RENDER_BUFFER_HPP_INCLUDED
+#define SGE_OPENGL_FBO_RENDER_BUFFER_HPP_INCLUDED
 
-sge::renderer::matrix4 const
-sge::opengl::fbo_projection(
-	renderer::matrix4 const &m)
+#include "render_buffer_fwd.hpp"
+#include "context_fwd.hpp"
+#include "../common.hpp"
+#include <fcppt/noncopyable.hpp>
+
+namespace sge
 {
-	return m * fcppt::math::matrix::scaling<
-		sge::renderer::scalar
-	>(
-		static_cast<sge::renderer::scalar>(1),
-		static_cast<sge::renderer::scalar>(-1),
-		static_cast<sge::renderer::scalar>(1)
+namespace opengl
+{
+namespace fbo
+{
+
+class render_buffer
+{
+	FCPPT_NONCOPYABLE(
+		render_buffer
+	)
+public:
+	explicit render_buffer(
+		fbo::context const &
 	);
+
+	~render_buffer();
+
+	void
+	store(
+		GLenum what,
+		GLsizei width,
+		GLsizei height
+	);
+
+	GLuint
+	id() const;
+private:
+	void
+	bind() const;
+
+	fbo::context const &context_;
+
+	GLuint id_;
+};
+
 }
+}
+}
+
+#endif

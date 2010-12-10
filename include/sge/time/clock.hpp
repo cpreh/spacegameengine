@@ -21,14 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TIME_CLOCK_HPP_INCLUDED
 #define SGE_TIME_CLOCK_HPP_INCLUDED
 
+#include <fcppt/chrono/steady_clock.hpp>
 #include <fcppt/chrono/high_resolution_clock.hpp>
+#include <boost/mpl/if.hpp>
 
 namespace sge
 {
 namespace time
 {
 
-typedef fcppt::chrono::high_resolution_clock clock;
+typedef boost::mpl::if_c<
+	fcppt::chrono::high_resolution_clock::is_steady,
+	fcppt::chrono::high_resolution_clock,
+	fcppt::chrono::steady_clock
+>::type clock;
 
 }
 }

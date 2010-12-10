@@ -22,13 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../get_pointer.hpp"
 #include <sge/input/exception.hpp>
 #include <awl/backends/x11/display.hpp>
-#include <awl/backends/x11/window_instance.hpp>
+#include <awl/backends/x11/window/instance.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/text.hpp>
 
 sge::x11input::mouse_pos const
 sge::x11input::get_pointer(
-	awl::backends::x11::window_instance_ptr const _window
+	awl::backends::x11::window::instance_ptr const _window
 )
 {
 	Window

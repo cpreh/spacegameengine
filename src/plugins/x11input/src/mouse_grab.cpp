@@ -24,11 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/Xlib.h>
 #include <sge/time/sleep.hpp>
 #include <sge/time/second.hpp>
-#include <awl/backends/x11/window_instance.hpp>
+#include <awl/backends/x11/window/instance.hpp>
 #include <awl/backends/x11/display.hpp>
 
 sge::x11input::mouse_grab::mouse_grab(
-	awl::backends::x11::window_instance_ptr const _window,
+	awl::backends::x11::window::instance_ptr const _window,
 	x11input::pixmap_cursor const &_cursor
 )
 :

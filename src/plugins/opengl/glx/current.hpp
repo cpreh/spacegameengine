@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "context_ptr.hpp"
 #include <awl/backends/x11/display_ptr.hpp>
-#include <awl/backends/x11/window_instance_ptr.hpp>
+#include <awl/backends/x11/window/instance_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -41,7 +41,7 @@ class current
 public:
 	current(
 		awl::backends::x11::display_ptr,
-		awl::backends::x11::window_instance_ptr,
+		awl::backends::x11::window::instance_ptr,
 		glx::context_ptr
 	);
 

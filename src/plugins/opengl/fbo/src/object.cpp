@@ -18,25 +18,64 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../bind_fbo.hpp"
-#include "../fbo_context.hpp"
-#include "../check_state.hpp"
+#include "../object.hpp"
+#include "../context.hpp"
+#include "../bind.hpp"
+#include "../../check_state.hpp"
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/unsupported.hpp>
 #include <fcppt/text.hpp>
 
-void
-sge::opengl::bind_fbo(
-	opengl::fbo_context const &_context,
-	GLuint const _id
+sge::opengl::fbo::object::object(
+	fbo::context const &_context
 )
+:
+	context_(_context)
 {
-	_context.bind_framebuffer()(
-		_context.framebuffer_target(),
-		_id
+	if(
+		!_context.is_supported()
+	)
+		throw sge::renderer::unsupported(
+			FCPPT_TEXT("glGenFrameBuffers"),
+			FCPPT_TEXT("Opengl-3.0"),
+			FCPPT_TEXT("frame_buffer_ext")
+		);
+
+	_context.gen_framebuffers()(
+		1,
+		&id_
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("Binding an fbo failed."),
+		FCPPT_TEXT("glGenFramebuffers failed"),
 		sge::renderer::exception
 	)
+}
+
+sge::opengl::fbo::object::~object()
+{
+	context_.delete_framebuffers()(
+		1,
+		&id_
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("glDeleteFramebuffers failed"),
+		sge::renderer::exception
+	)
+}
+
+void 
+sge::opengl::fbo::object::bind() const
+{
+	opengl::fbo::bind(
+		context_,
+		id()
+	);
+}
+
+GLuint
+sge::opengl::fbo::object::id() const
+{
+	return id_;
 }

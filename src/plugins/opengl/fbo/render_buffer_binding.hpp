@@ -18,16 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_RENDER_BUFFER_FWD_HPP_INCLUDED
-#define SGE_OPENGL_RENDER_BUFFER_FWD_HPP_INCLUDED
+#ifndef SGE_OPENGL_FBO_RENDER_BUFFER_BINDING_HPP_INCLUDED
+#define SGE_OPENGL_FBO_RENDER_BUFFER_BINDING_HPP_INCLUDED
+
+#include "render_buffer_binding_fwd.hpp"
+#include "context_fwd.hpp"
+#include "object_fwd.hpp"
+#include "render_buffer_fwd.hpp"
+#include "../common.hpp"
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace opengl
 {
+namespace fbo
+{
 
-class render_buffer;
+class render_buffer_binding
+{
+	FCPPT_NONCOPYABLE(
+		render_buffer_binding
+	)
+public:
+	explicit render_buffer_binding(
+		fbo::context const &,
+		fbo::object const &,
+		fbo::render_buffer const &,
+		GLenum
+	);
 
+	~render_buffer_binding();
+private:
+	fbo::context const &context_;
+
+	fbo::object const &fbo_;
+
+	GLenum const what_;
+};
+
+}
 }
 }
 

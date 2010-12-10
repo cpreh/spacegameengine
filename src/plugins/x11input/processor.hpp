@@ -26,10 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "mouse_ptr.hpp"
 #include <sge/input/processor.hpp>
 #include <sge/window/instance_ptr.hpp>
-#include <awl/backends/x11/event_fwd.hpp>
-#include <awl/backends/x11/event_processor_ptr.hpp>
-#include <awl/backends/x11/window_instance_ptr.hpp>
-#include <awl/backends/x11/signal/connection_manager.hpp>
+#include <awl/backends/x11/window/event/object_fwd.hpp>
+#include <awl/backends/x11/window/event/processor_ptr.hpp>
+#include <awl/backends/x11/window/event/signal/connection_manager.hpp>
+#include <awl/backends/x11/window/instance_ptr.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -101,19 +101,19 @@ private:
 
 	void
 	on_acquire(
-		awl::backends::x11::event const &
+		awl::backends::x11::window::event::object const &
 	);
 
 	void
 	on_release(
-		awl::backends::x11::event const &
+		awl::backends::x11::window::event::object const &
 	);
 
 	sge::window::instance_ptr const window_;
 
-	awl::backends::x11::window_instance_ptr const x11_window_;
+	awl::backends::x11::window::instance_ptr const x11_window_;
 
-	awl::backends::x11::event_processor_ptr const event_processor_;
+	awl::backends::x11::window::event::processor_ptr const event_processor_;
 
 	bool acquired_;
 
@@ -125,7 +125,7 @@ private:
 		x11input::mouse_ptr
 	> mouse_vector;
 
-	awl::backends::x11::signal::connection_manager const connections_;
+	awl::backends::x11::window::event::signal::connection_manager const connections_;
 
 	keyboard_vector keyboards_;
 

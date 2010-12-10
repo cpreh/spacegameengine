@@ -24,7 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters_fwd.hpp>
 #include <sge/symbol.hpp>
 #include <awl/window/instance_ptr.hpp>
-#include <awl/event/processor_ptr.hpp>
+#include <awl/window/event/processor_ptr.hpp>
+#include <awl/system/object_ptr.hpp>
+#include <awl/system/event/processor_ptr.hpp>
 #include <awl/mainloop/io_service_ptr.hpp>
 
 namespace sge
@@ -36,14 +38,21 @@ class parameters
 {
 public:
 	SGE_SYMBOL
-	explicit parameters(
+	parameters(
+		awl::system::object_ptr,
 		awl::window::instance_ptr
 	);
 
 	SGE_SYMBOL
 	parameters &
-	event_processor(
-		awl::event::processor_ptr
+	window_event_processor(
+		awl::window::event::processor_ptr
+	);
+
+	SGE_SYMBOL
+	parameters &
+	system_event_processor(
+		awl::system::event::processor_ptr
 	);
 
 	SGE_SYMBOL
@@ -53,20 +62,32 @@ public:
 	);
 
 	SGE_SYMBOL
+	awl::system::object_ptr const
+	system() const;
+
+	SGE_SYMBOL
 	awl::window::instance_ptr const
 	window() const;
 
 	SGE_SYMBOL
-	awl::event::processor_ptr const
-	event_processor() const;
+	awl::window::event::processor_ptr const
+	window_event_processor() const;
+
+	SGE_SYMBOL
+	awl::system::event::processor_ptr const
+	system_event_processor() const;
 
 	SGE_SYMBOL
 	awl::mainloop::io_service_ptr const
 	io_service() const;
 private:
+	awl::system::object_ptr system_;
+
 	awl::window::instance_ptr window_;
 
-	awl::event::processor_ptr event_processor_;
+	awl::window::event::processor_ptr window_event_processor_;
+
+	awl::system::event::processor_ptr system_event_processor_;
 
 	awl::mainloop::io_service_ptr io_service_;
 };

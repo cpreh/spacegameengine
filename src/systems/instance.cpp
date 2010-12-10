@@ -55,8 +55,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/instance.hpp>
 #include <sge/exception.hpp>
 #include <awl/window/instance_ptr.hpp>
-#include <awl/window/system_ptr.hpp>
-#include <awl/window/create_system.hpp>
+#include <awl/system/create.hpp>
+#include <awl/system/object_ptr.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
@@ -125,7 +125,7 @@ public:
 	model::loader_ptr                               md3_loader_;
 
 	fcppt::optional<sge::systems::window>           window_param_;
-	awl::window::system_ptr                         window_system_;
+	awl::system::object_ptr                         window_system_;
 	sge::window::instance_ptr                       window_;
 
 	explicit impl(
@@ -543,7 +543,7 @@ sge::systems::instance::impl::init_window(
 {
 	if(
 		fcppt::variant::holds_type<
-			awl::window::instance_ptr
+			sge::systems::wrapped_window
 		>(
 			_window_param.parameter()
 		)
@@ -554,7 +554,7 @@ sge::systems::instance::impl::init_window(
 			);
 	else
 	{
-		window_system_ = awl::window::create_system();
+		window_system_ = awl::system::create();
 
 		window_param_ = _window_param;
 	}

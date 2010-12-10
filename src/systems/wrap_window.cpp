@@ -28,15 +28,20 @@ sge::systems::wrap_window(
 	sge::systems::window const &_param
 )
 {
+	sge::systems::wrapped_window const &wrapped(
+		_param.parameter().get<
+			sge::systems::wrapped_window
+		>()
+	);
+
 	return
 		sge::window::create(
 			sge::window::parameters(
-				_param.parameter().get<
-					awl::window::instance_ptr
-				>()
+				wrapped.system(),
+				wrapped.window()
 			)
-			.event_processor(
-				_param.event_processor()
+			.window_event_processor(
+				_param.window_event_processor()
 			)
 			.io_service(
 				_param.io_service()

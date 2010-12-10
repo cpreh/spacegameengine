@@ -24,7 +24,9 @@ sge::systems::window::window(
 	sge::window::simple_parameters const &_parameter
 )
 :
-	parameter_(_parameter)
+	parameter_(_parameter),
+	window_processor_(),
+	io_service_()
 {
 }
 
@@ -32,24 +34,28 @@ sge::systems::window::window(
 	sge::renderer::window_parameters const &_parameter
 )
 :
-	parameter_(_parameter)
+	parameter_(_parameter),
+	window_processor_(),
+	io_service_()
 {
 }
 
 sge::systems::window::window(
-	awl::window::instance_ptr const _parameter
+	sge::systems::wrapped_window const &_parameter
 )
 :
-	parameter_(_parameter)
+	parameter_(_parameter),
+	window_processor_(),
+	io_service_()
 {
 }
 
 sge::systems::window &
 sge::systems::window::event_processor(
-	awl::event::processor_ptr const _processor
+	awl::window::event::processor_ptr const _window_processor
 )
 {
-	processor_ = _processor;
+	window_processor_ = _window_processor;
 
 	return *this;
 }
@@ -70,10 +76,10 @@ sge::systems::window::parameter() const
 	return parameter_;
 }
 
-awl::event::processor_ptr const
-sge::systems::window::event_processor() const
+awl::window::event::processor_ptr const
+sge::systems::window::window_event_processor() const
 {
-	return processor_;
+	return window_processor_;
 }
 
 awl::mainloop::io_service_ptr const

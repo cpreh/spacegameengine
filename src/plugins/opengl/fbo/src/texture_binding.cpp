@@ -18,42 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_XRANDR_CONFIGURATION_HPP_INCLUDED
-#define SGE_OPENGL_XRANDR_CONFIGURATION_HPP_INCLUDED
+#include "../texture_binding.hpp"
+#include "../object.hpp"
+#include "../context.hpp"
+#include "../../texture.hpp"
+#include "../../texture_base.hpp"
+#include "../../check_state.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include "configuration_fwd.hpp"
-#include <awl/backends/x11/window/instance_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <X11/Xlib.h>
-#include <X11/extensions/Xrandr.h>
+sge::opengl::fbo::texture_binding::texture_binding(
+	fbo::context const &_context,
+	opengl::texture_base_ptr const _texture,
+	fbo::object &_fbo,
+	GLenum const _attachment
+)
+:
+	texture_(_texture)
+{
+	_fbo.bind();
 
-namespace sge
-{
-namespace opengl
-{
-namespace xrandr
-{
-
-class configuration
-{
-	FCPPT_NONCOPYABLE(
-		configuration
-	)
-public:
-	explicit configuration(
-		awl::backends::x11::window::instance_ptr
+	_context.framebuffer_texture_2d()(
+		_context.framebuffer_target(),
+		_attachment,
+		_texture->type(),
+		_texture->id(),
+		0
 	);
 
-	~configuration();
-
-	XRRScreenConfiguration *
-	get() const;
-private:
-	XRRScreenConfiguration *const config_;
-};
-
-}
-}
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("Binding a texture to an fbo failed."),
+		sge::renderer::exception
+	)
 }
 
-#endif
+sge::opengl::fbo::texture_binding::~texture_binding()
+{
+}

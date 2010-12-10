@@ -38,7 +38,7 @@ namespace text
 SGE_FONT_TEXT_SYMBOL
 font::text::part const
 size(
-	metrics_ptr,	
+	metrics_ptr,
 	text::string::const_iterator beg,
 	text::string::const_iterator end,
 	dim const &max_size,

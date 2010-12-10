@@ -18,20 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_FBO_PROJECTION_HPP_INCLUDED
-#define SGE_OPENGL_FBO_PROJECTION_HPP_INCLUDED
+#ifndef SGE_OPENGL_FBO_INIT_VIEWPORT_HPP_INCLUDED
+#define SGE_OPENGL_FBO_INIT_VIEWPORT_HPP_INCLUDED
 
-#include <sge/renderer/matrix4.hpp>
+#include "../texture_ptr.hpp"
+#include "../depth_stencil_texture_ptr.hpp"
+#include <sge/renderer/viewport_fwd.hpp>
 
 namespace sge
 {
 namespace opengl
 {
+namespace fbo
+{
 
-renderer::matrix4 const
-fbo_projection(
-	renderer::matrix4 const &);
+sge::renderer::viewport const
+init_viewport(
+	sge::opengl::texture_ptr,
+	sge::opengl::depth_stencil_texture_ptr
+);
 
+}
 }
 }
 

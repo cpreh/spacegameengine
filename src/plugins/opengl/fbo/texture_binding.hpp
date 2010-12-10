@@ -21,33 +21,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_FBO_TEXTURE_BINDING_HPP_INCLUDED
 #define SGE_OPENGL_FBO_TEXTURE_BINDING_HPP_INCLUDED
 
-#include "fbo_fwd.hpp"
-#include "fbo_context_fwd.hpp"
-#include "texture_base_ptr.hpp"
-#include "common.hpp"
+#include "object_fwd.hpp"
+#include "context_fwd.hpp"
+#include "../texture_base_ptr.hpp"
+#include "../common.hpp"
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace opengl
 {
-
-class fbo_texture_binding
+namespace fbo
 {
-	FCPPT_NONCOPYABLE(fbo_texture_binding)
+
+class texture_binding
+{
+	FCPPT_NONCOPYABLE(
+		texture_binding
+	)
 public:
-	explicit fbo_texture_binding(
-		fbo_context const &,
+	explicit texture_binding(
+		fbo::context const &,
 		opengl::texture_base_ptr,
-		fbo &,
+		fbo::object &,
 		GLenum attachment
 	);
 
-	~fbo_texture_binding();
+	~texture_binding();
 private:
 	opengl::texture_base_ptr const texture_;
 };
 
+}
 }
 }
 

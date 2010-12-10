@@ -18,60 +18,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "center.hpp"
-#include "resize_manager.hpp"
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/target.hpp>
+#include "../init_viewport.hpp"
+#include "../../depth_stencil_texture.hpp"
+#include "../../texture.hpp"
+#include <sge/log/global.hpp>
 #include <sge/renderer/viewport.hpp>
-#include <sge/window/instance.hpp>
-#include <awl/window/event/processor.hpp>
-#include <awl/window/event/resize.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/log/output.hpp>
+#include <fcppt/log/warning.hpp>
 
-sge::systems::viewport::resize_manager::resize_manager(
-	sge::renderer::device_ptr const _device
+sge::renderer::viewport const
+sge::opengl::fbo::init_viewport(
+	sge::opengl::texture_ptr const _texture,
+	sge::opengl::depth_stencil_texture_ptr const _depth_stencil_texture
 )
-:
-	device_(
-		_device
-	),
-	target_(
-		_device->target()
-	),
-	resize_connection_(
-		_device->window()->awl_window_event_processor()->resize_callback(
-			std::tr1::bind(
-				&resize_manager::on_resize,
-				this,
-				std::tr1::placeholders::_1
-			)
-		)
+{
+	if(
+		!_texture
+		&& !_depth_stencil_texture
 	)
-{
-}
+	{
+		FCPPT_LOG_WARNING(
+			sge::log::global(),
+			fcppt::log::_
+				<< FCPPT_TEXT("Both texture and depth_stencil_texture are null in a render target!")
+		);
 
+		return
+			sge::renderer::viewport(
+				sge::renderer::pixel_pos::null(),
+				sge::renderer::screen_size::null()
+			);
+	}
 
-sge::systems::viewport::resize_manager::~resize_manager()
-{
-}
-
-void
-sge::systems::viewport::resize_manager::on_resize(
-	awl::window::event::resize const &_resize
-)
-{
-	target_->viewport(
+	return
 		sge::renderer::viewport(
-			viewport::center(
-				device_->screen_size(),
-				fcppt::math::dim::structure_cast<
-					sge::window::dim_type
-				>(
-					_resize.dim()
-				)
+			sge::renderer::pixel_pos::null(),
+			fcppt::math::dim::structure_cast<
+				sge::renderer::screen_size
+			>(
+				_texture
+				?
+					_texture->dim()
+				:
+					_depth_stencil_texture->dim()
 			)
-		)
-	);
+		);
 }

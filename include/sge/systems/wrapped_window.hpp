@@ -18,39 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_RENDER_BUFFER_BINDING_HPP_INCLUDED
-#define SGE_OPENGL_RENDER_BUFFER_BINDING_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_WRAPPED_WINDOW_HPP_INCLUDED
+#define SGE_SYSTEMS_WRAPPED_WINDOW_HPP_INCLUDED
 
-#include "render_buffer_binding_fwd.hpp"
-#include "fbo_context_fwd.hpp"
-#include "fbo_fwd.hpp"
-#include "render_buffer_fwd.hpp"
-#include "common.hpp"
-#include <fcppt/noncopyable.hpp>
+#include <sge/systems/symbol.hpp>
+#include <awl/system/object_ptr.hpp>
+#include <awl/window/instance_ptr.hpp>
 
 namespace sge
 {
-namespace opengl
+namespace systems
 {
 
-class render_buffer_binding
+class wrapped_window
 {
-	FCPPT_NONCOPYABLE(render_buffer_binding)
 public:
-	explicit render_buffer_binding(
-		fbo_context const &,
-		fbo const &,
-		render_buffer const &,
-		GLenum
+	SGE_SYSTEMS_SYMBOL
+	wrapped_window(
+		awl::system::object_ptr,
+		awl::window::instance_ptr
 	);
 
-	~render_buffer_binding();
+	SGE_SYSTEMS_SYMBOL
+	awl::system::object_ptr const
+	system() const;
+
+	SGE_SYSTEMS_SYMBOL
+	awl::window::instance_ptr const
+	window() const;
 private:
-	fbo_context const &context_;
+	awl::system::object_ptr system_;
 
-	fbo const &fbo_;
-
-	GLenum const what_;
+	awl::window::instance_ptr window_;
 };
 
 }

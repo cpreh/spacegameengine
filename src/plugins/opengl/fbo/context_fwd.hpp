@@ -18,40 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_FBO_HPP_INCLUDED
-#define SGE_OPENGL_FBO_HPP_INCLUDED
-
-#include "fbo_fwd.hpp"
-#include "common.hpp"
-#include "fbo_context_fwd.hpp"
-#include <fcppt/noncopyable.hpp>
+#ifndef SGE_OPENGL_FBO_CONTEXT_FWD_HPP_INCLUDED
+#define SGE_OPENGL_FBO_CONTEXT_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace opengl
 {
-
-class fbo
+namespace fbo
 {
-	FCPPT_NONCOPYABLE(fbo)
-public:
-	explicit fbo(
-		fbo_context const &
-	);
 
-	~fbo();
+class context;
 
-	void 
-	bind() const;
-
-	GLuint
-	id() const;
-private:
-	fbo_context const &context_;
-
-	GLuint id_;
-};
-
+}
 }
 }
 

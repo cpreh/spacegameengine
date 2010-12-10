@@ -25,12 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/to_modifier.hpp>
-#include <awl/backends/x11/window_instance.hpp>
 #include <awl/backends/x11/display.hpp>
-#include <awl/backends/x11/event_processor.hpp>
-#include <awl/backends/x11/event.hpp>
-#include <awl/backends/x11/signal/connection.hpp>
-#include <awl/backends/x11/signal/shared_connection.hpp>
+#include <awl/backends/x11/window/instance.hpp>
+#include <awl/backends/x11/window/event/processor.hpp>
+#include <awl/backends/x11/window/event/object.hpp>
+#include <awl/backends/x11/window/event/signal/connection.hpp>
+#include <awl/backends/x11/window/event/signal/shared_connection.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -38,8 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional_impl.hpp>
 
 sge::x11input::keyboard::keyboard(
-	awl::backends::x11::window_instance_ptr const _window,
-	awl::backends::x11::event_processor_ptr const _event_processor
+	awl::backends::x11::window::instance_ptr const _window,
+	awl::backends::x11::window::event::processor_ptr const _event_processor
 )
 :
 	window_(
@@ -51,10 +51,10 @@ sge::x11input::keyboard::keyboard(
 	),
 	connections_(
 		fcppt::assign::make_container<
-			awl::backends::x11::signal::connection_manager::container
+			awl::backends::x11::window::event::signal::connection_manager::container
 		>(
 	/*
-			awl::backends::x11::signal::shared_connection(
+			awl::backends::x11::window::event::signal::shared_connection(
 				_event_processor->register_callback(
 					KeyPress,
 					std::tr1::bind(
@@ -66,7 +66,7 @@ sge::x11input::keyboard::keyboard(
 			)
 		)
 		(
-			awl::backends::x11::signal::shared_connection(
+			awl::backends::x11::window::event::signal::shared_connection(
 				_event_processor->register_callback(
 					KeyRelease,
 					std::tr1::bind(
@@ -158,7 +158,7 @@ sge::x11input::keyboard::mod_state() const
 
 void
 sge::x11input::keyboard::on_key_event(
-	awl::backends::x11::event const &_event
+	awl::backends::x11::window::event::object const &_event
 )
 {
 #if 0

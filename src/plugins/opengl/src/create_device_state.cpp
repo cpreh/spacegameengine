@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config.hpp>
 #ifdef SGE_OPENGL_HAVE_X11
 #include "../x11/state.hpp"
-#include <awl/backends/x11/window_instance.hpp>
+#include <awl/backends/x11/window/instance.hpp>
 #elif FCPPT_WINDOWS_PLATFORM
-#include <awl/backends/windows/window_instance.hpp>
+#include <awl/backends/windows/window/instance.hpp>
 #else
 #error "Implement me!"
 #endif
@@ -49,7 +49,7 @@ sge::opengl::create_device_state(
 				_parameters,
 				_adapter,
 				fcppt::polymorphic_pointer_cast<
-					awl::backends::x11::window_instance
+					awl::backends::x11::window::instance
 				>(
 					_window->awl_instance()
 				)

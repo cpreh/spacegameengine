@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_WARP_POINTER_HPP_INCLUDED
 
 #include "mouse_pos.hpp"
-#include <awl/backends/x11/window_instance_ptr.hpp>
+#include <awl/backends/x11/window/instance_ptr.hpp>
 
 namespace sge
 {
@@ -31,7 +31,7 @@ namespace x11input
 
 void
 warp_pointer(
-	awl::backends::x11::window_instance_ptr,
+	awl::backends::x11::window::instance_ptr,
 	x11input::mouse_pos const &
 );
 

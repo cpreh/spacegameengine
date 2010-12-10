@@ -35,13 +35,15 @@ namespace view
 
 SGE_SYMBOL object const
 sub(
-	object const &src,
-	rect const &);
+	view::object const &,
+	image::rect const &
+);
 
 SGE_SYMBOL const_object const
 sub(
-	const_object const &src,
-	rect const &);
+	view::const_object const &,
+	image::rect const &
+);
 
 }
 }

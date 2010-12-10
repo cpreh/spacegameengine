@@ -18,39 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_XRANDR_CONFIGURATION_HPP_INCLUDED
-#define SGE_OPENGL_XRANDR_CONFIGURATION_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_CHECKED_SUB_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_CHECKED_SUB_HPP_INCLUDED
 
-#include "configuration_fwd.hpp"
-#include <awl/backends/x11/window/instance_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <X11/Xlib.h>
-#include <X11/extensions/Xrandr.h>
+#include <sge/image/view/object.hpp>
+#include <sge/image/view/const_object.hpp>
+#include <sge/image/rect.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
-namespace opengl
+namespace image
 {
-namespace xrandr
+namespace view
 {
 
-class configuration
-{
-	FCPPT_NONCOPYABLE(
-		configuration
-	)
-public:
-	explicit configuration(
-		awl::backends::x11::window::instance_ptr
-	);
+SGE_SYMBOL object const
+checked_sub(
+	view::object const &,
+	image::rect const &
+);
 
-	~configuration();
-
-	XRRScreenConfiguration *
-	get() const;
-private:
-	XRRScreenConfiguration *const config_;
-};
+SGE_SYMBOL const_object const
+checked_sub(
+	view::const_object const &,
+	image::rect const &
+);
 
 }
 }

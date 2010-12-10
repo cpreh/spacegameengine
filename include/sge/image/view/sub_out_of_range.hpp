@@ -18,23 +18,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_BIND_FBO_HPP_INCLUDED
-#define SGE_OPENGL_BIND_FBO_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_SUB_OUT_OF_RANGE_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_SUB_OUT_OF_RANGE_HPP_INCLUDED
 
-#include "common.hpp"
-#include "fbo_context_fwd.hpp"
+#include <sge/image/exception.hpp>
+#include <sge/image/rect.hpp>
+#include <sge/class_symbol.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 
 namespace sge
 {
-namespace opengl
+namespace image
+{
+namespace view
 {
 
-void
-bind_fbo(
-	fbo_context const &,
-	GLuint
-);
+class SGE_CLASS_SYMBOL sub_out_of_range
+:
+	public sge::image::exception
+{
+public:
+	SGE_SYMBOL 
+	sub_out_of_range(
+		sge::image::rect const &outer,
+		sge::image::rect const &inner
+	);
 
+	SGE_SYMBOL 
+	sge::image::rect const &
+	outer() const;
+
+	SGE_SYMBOL 
+	sge::image::rect const &
+	inner() const;
+
+	SGE_SYMBOL
+	virtual ~sub_out_of_range() throw();
+private:
+	sge::image::rect
+		outer_,
+		inner_;
+};
+
+}
 }
 }
 

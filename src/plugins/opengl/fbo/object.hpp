@@ -18,38 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_XRANDR_CONFIGURATION_HPP_INCLUDED
-#define SGE_OPENGL_XRANDR_CONFIGURATION_HPP_INCLUDED
+#ifndef SGE_OPENGL_FBO_OBJECT_HPP_INCLUDED
+#define SGE_OPENGL_FBO_OBJECT_HPP_INCLUDED
 
-#include "configuration_fwd.hpp"
-#include <awl/backends/x11/window/instance_ptr.hpp>
+#include "object_fwd.hpp"
+#include "context_fwd.hpp"
+#include "../common.hpp"
 #include <fcppt/noncopyable.hpp>
-#include <X11/Xlib.h>
-#include <X11/extensions/Xrandr.h>
 
 namespace sge
 {
 namespace opengl
 {
-namespace xrandr
+namespace fbo
 {
 
-class configuration
+class object
 {
 	FCPPT_NONCOPYABLE(
-		configuration
+		object
 	)
 public:
-	explicit configuration(
-		awl::backends::x11::window::instance_ptr
+	explicit object(
+		fbo::context const &
 	);
 
-	~configuration();
+	~object();
 
-	XRRScreenConfiguration *
-	get() const;
+	void 
+	bind() const;
+
+	GLuint
+	id() const;
 private:
-	XRRScreenConfiguration *const config_;
+	fbo::context const &context_;
+
+	GLuint id_;
 };
 
 }

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../glx/context.hpp"
 #include <sge/renderer/parameters.hpp>
 #include <awl/backends/x11/visual.hpp>
-#include <awl/backends/x11/window_instance.hpp>
+#include <awl/backends/x11/window/instance.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/make_shared_ptr.hpp>
@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::x11::state::state(
 	renderer::parameters const &_param,
 	renderer::adapter_type const _adapter,
-	awl::backends::x11::window_instance_ptr const _window
+	awl::backends::x11::window::instance_ptr const _window
 )
 :
 	device_state(),

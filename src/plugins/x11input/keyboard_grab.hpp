@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_KEYBOARD_GRAB_HPP_INCLUDED
 
 #include "keyboard_grab_fwd.hpp"
-#include <awl/backends/x11/window_instance_ptr.hpp>
+#include <awl/backends/x11/window/instance_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -37,12 +37,12 @@ class keyboard_grab
 	)
 public:
 	explicit keyboard_grab(
-		awl::backends::x11::window_instance_ptr
+		awl::backends::x11::window::instance_ptr
 	);
 
 	~keyboard_grab();
 private:
-	awl::backends::x11::window_instance_ptr const window_;
+	awl::backends::x11::window::instance_ptr const window_;
 };
 
 }

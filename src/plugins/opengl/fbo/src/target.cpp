@@ -18,15 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../fbo_target.hpp"
-#include "../texture.hpp"
-#include "../depth_stencil_texture.hpp"
-#include "../bind_fbo.hpp"
-#include "../fbo_context.hpp"
-#include "../check_state.hpp"
+#include "../target.hpp"
+#include "../bind.hpp"
+#include "../context.hpp"
+#include "../init_viewport.hpp"
 #include "../render_buffer.hpp"
 #include "../render_buffer_binding.hpp"
-#include "../context/use.hpp"
+#include "../scoped_unbind.hpp"
+#include "../../check_state.hpp"
+#include "../../depth_stencil_texture.hpp"
+#include "../../texture.hpp"
+#include "../../context/use.hpp"
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/pixel_pos.hpp>
@@ -36,15 +38,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/comparison.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/text.hpp>
 
-sge::opengl::fbo_target::fbo_target(
+sge::opengl::fbo::target::target(
 	sge::opengl::context::object &_context,
 	sge::renderer::parameters const &_param,
 	opengl::texture_ptr const _texture,
@@ -52,22 +52,14 @@ sge::opengl::fbo_target::fbo_target(
 )
 :
 	opengl::target(
-		renderer::viewport(
-			renderer::pixel_pos::null(),
-			fcppt::math::dim::structure_cast<
-				sge::renderer::screen_size
-			>(
-				texture_
-				?
-					_texture->dim()
-				:
-					_depth_stencil_texture->dim()
-			)
+		fbo::init_viewport(
+			_texture,
+			_depth_stencil_texture
 		)
 	),
 	context_(
 		opengl::context::use<
-			fbo_context
+			fbo::context
 		>(
 			_context
 		)
@@ -86,6 +78,13 @@ sge::opengl::fbo_target::fbo_target(
 		context_
 	)
 {
+	// important: to bind buffers to an fbo
+	// it must be bound itself
+	// but this has to be undone after this function!
+	opengl::fbo::scoped_unbind const scoped_exit(
+		context_
+	);
+
 	if(
 		_texture
 	)
@@ -135,20 +134,14 @@ sge::opengl::fbo_target::fbo_target(
 		throw sge::renderer::exception(
 			FCPPT_TEXT("FBO is incomplete!")
 		);
-	
-	// restore the last binding
-	opengl::bind_fbo(
-		context_,
-		context_.last_buffer()
-	);
 }
 
-sge::opengl::fbo_target::~fbo_target()
+sge::opengl::fbo::target::~target()
 {
 }
 
 void
-sge::opengl::fbo_target::bind() const
+sge::opengl::fbo::target::bind() const
 {
 	fbo_.bind();
 
@@ -158,9 +151,9 @@ sge::opengl::fbo_target::bind() const
 }
 
 void
-sge::opengl::fbo_target::unbind() const
+sge::opengl::fbo::target::unbind() const
 {
-	opengl::bind_fbo(
+	opengl::fbo::bind(
 		context_,
 		0
 	);
@@ -171,7 +164,7 @@ sge::opengl::fbo_target::unbind() const
 }
 
 sge::image::view::const_object const
-sge::opengl::fbo_target::lock(
+sge::opengl::fbo::target::lock(
 	renderer::lock_rect const &_dest
 ) const
 {
@@ -182,19 +175,19 @@ sge::opengl::fbo_target::lock(
 }
 
 void
-sge::opengl::fbo_target::unlock() const
+sge::opengl::fbo::target::unlock() const
 {
 	texture_->unlock();
 }
 
 sge::renderer::target::dim_type const
-sge::opengl::fbo_target::dim() const
+sge::opengl::fbo::target::dim() const
 {
 	return dim_;
 }
 
 void
-sge::opengl::fbo_target::add_texture_binding(
+sge::opengl::fbo::target::add_texture_binding(
 	opengl::texture_base_ptr const _texture,
 	GLenum const _type
 )
@@ -202,7 +195,7 @@ sge::opengl::fbo_target::add_texture_binding(
 	fcppt::container::ptr::push_back_unique_ptr(
 		texture_bindings_,
 		fcppt::make_unique_ptr<
-			opengl::fbo_texture_binding
+			opengl::fbo::texture_binding
 		>(
 			std::tr1::ref(
 				context_
@@ -217,7 +210,7 @@ sge::opengl::fbo_target::add_texture_binding(
 }
 
 void
-sge::opengl::fbo_target::attach_buffer(
+sge::opengl::fbo::target::attach_buffer(
 	GLenum const _component,
 	GLenum const _attachment
 )
@@ -263,7 +256,7 @@ sge::opengl::fbo_target::attach_buffer(
 
 	render_buffer_binding_ptr ptr(
 		fcppt::make_unique_ptr<
-			render_buffer_binding
+			fbo::render_buffer_binding
 		>(
 			context_,
 			fbo_,

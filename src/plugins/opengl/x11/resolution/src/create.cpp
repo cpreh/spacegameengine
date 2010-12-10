@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/parameters.hpp>
 #include <sge/log/global.hpp>
 #include <sge/exception.hpp>
-#include <awl/backends/x11/window_instance.hpp>
+#include <awl/backends/x11/window/instance.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/text.hpp>
@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::x11::resolution::unique_ptr
 sge::opengl::x11::resolution::create(
-	awl::backends::x11::window_instance_ptr const _window,
+	awl::backends::x11::window::instance_ptr const _window,
 	renderer::parameters const &_param,
 	renderer::adapter_type const _adapter
 )

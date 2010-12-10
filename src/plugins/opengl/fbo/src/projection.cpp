@@ -18,40 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../fbo_texture_binding.hpp"
-#include "../fbo.hpp"
-#include "../fbo_context.hpp"
-#include "../texture.hpp"
-#include "../texture_base.hpp"
-#include "../check_state.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include "../projection.hpp"
+#include <sge/renderer/scalar.hpp>
+#include <fcppt/math/matrix/scaling.hpp>
+#include <fcppt/math/matrix/arithmetic.hpp>
 
-sge::opengl::fbo_texture_binding::fbo_texture_binding(
-	fbo_context const &_context,
-	opengl::texture_base_ptr const _texture,
-	fbo &_fbo,
-	GLenum const _attachment
+sge::renderer::matrix4 const
+sge::opengl::fbo::projection(
+	renderer::matrix4 const &_matrix
 )
-:
-	texture_(_texture)
 {
-	_fbo.bind();
-
-	_context.framebuffer_texture_2d()(
-		_context.framebuffer_target(),
-		_attachment,
-		_texture->type(),
-		_texture->id(),
-		0
-	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("Binding a texture to an fbo failed."),
-		sge::renderer::exception
-	)
-}
-
-sge::opengl::fbo_texture_binding::~fbo_texture_binding()
-{
+	return
+		_matrix
+		*
+		fcppt::math::matrix::scaling<
+			sge::renderer::scalar
+		>(
+			static_cast<sge::renderer::scalar>(1),
+			static_cast<sge::renderer::scalar>(-1),
+			static_cast<sge::renderer::scalar>(1)
+		);
 }

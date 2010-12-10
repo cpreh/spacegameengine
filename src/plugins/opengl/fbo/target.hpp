@@ -21,18 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_FBO_TARGET_HPP_INCLUDED
 #define SGE_OPENGL_FBO_TARGET_HPP_INCLUDED
 
-#include "fbo_target_fwd.hpp"
-#include "target.hpp"
-#include "texture_ptr.hpp"
-#include "depth_stencil_texture_ptr.hpp"
-#include "texture_base_ptr.hpp"
-#include "fbo.hpp"
-#include "fbo_texture_binding.hpp"
-#include "fbo_context_fwd.hpp"
+#include "target_fwd.hpp"
+#include "object.hpp"
+#include "texture_binding.hpp"
+#include "context_fwd.hpp"
 #include "render_buffer_fwd.hpp"
 #include "render_buffer_binding_fwd.hpp"
-#include "common.hpp"
-#include "context/object_fwd.hpp"
+#include "../target.hpp"
+#include "../texture_ptr.hpp"
+#include "../depth_stencil_texture_ptr.hpp"
+#include "../texture_base_ptr.hpp"
+#include "../common.hpp"
+#include "../context/object_fwd.hpp"
 #include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/texture_ptr.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
@@ -43,21 +43,25 @@ namespace sge
 {
 namespace opengl
 {
+namespace fbo
+{
 
-class fbo_target
+class target
 :
 	public opengl::target
 {
-	FCPPT_NONCOPYABLE(fbo_target)
+	FCPPT_NONCOPYABLE(
+		target
+	)
 public:
-	explicit fbo_target(
+	explicit target(
 		opengl::context::object &,
 		sge::renderer::parameters const &,
 		opengl::texture_ptr,
 		opengl::depth_stencil_texture_ptr
 	);
 
-	~fbo_target();
+	~target();
 
 	void
 	bind() const;
@@ -88,26 +92,26 @@ private:
 		GLenum attachment
 	);
 
-	fbo_context &context_;
+	fbo::context &context_;
 
 	sge::renderer::texture_ptr const texture_;
 
 	dim_type const dim_;
 
-	opengl::fbo fbo_;
+	opengl::fbo::object fbo_;
 
 	typedef boost::ptr_vector<
-		fbo_texture_binding
-	> fbo_texture_binding_vector;
+		fbo::texture_binding
+	> texture_binding_vector;
 
-	fbo_texture_binding_vector texture_bindings_;
+	texture_binding_vector texture_bindings_;
 
 	typedef boost::ptr_vector<
-		opengl::render_buffer
+		opengl::fbo::render_buffer
 	> render_buffer_vector;
 
 	typedef boost::ptr_vector<
-		opengl::render_buffer_binding
+		opengl::fbo::render_buffer_binding
 	> render_buffer_binding_vector;
 
 	render_buffer_vector render_buffers_;
@@ -115,6 +119,7 @@ private:
 	render_buffer_binding_vector render_buffer_bindings_;
 };
 
+}
 }
 }
 

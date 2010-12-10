@@ -44,7 +44,9 @@ sge::font::bitmap::load_rect(
 		).elements
 	);
 
-	if(elements.size() != 2)
+	if(
+		elements.size() != 2
+	)
 		throw sge::font::exception(
 			FCPPT_TEXT("Bogus rect detected")
 		);
@@ -65,7 +67,10 @@ sge::font::bitmap::load_rect(
 			).elements
 		);
 
-	if(first_elements.size() != 2 || second_elements.size() != 2)
+	if(
+		first_elements.size() != 2
+		|| second_elements.size() != 2
+	)
 		throw sge::font::exception(
 			FCPPT_TEXT("Bogus rect subelements detected")
 		);

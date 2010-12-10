@@ -18,28 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../attach_render_buffer.hpp"
-#include "../check_state.hpp"
-#include "../fbo_context.hpp"
+#include "../bind.hpp"
+#include "../context.hpp"
+#include "../../check_state.hpp"
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
 void
-sge::opengl::attach_render_buffer(
-	fbo_context const &_context,
-	GLenum const _what,
-	GLuint const _buffer
+sge::opengl::fbo::bind(
+	opengl::fbo::context const &_context,
+	GLuint const _id
 )
 {
-	_context.framebuffer_renderbuffer()(
+	_context.bind_framebuffer()(
 		_context.framebuffer_target(),
-		_what,
-		_context.renderbuffer_target(),
-		_buffer
+		_id
 	);
 
 	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("Attaching a render buffer to a frame buffer failed!"),
+		FCPPT_TEXT("Binding an fbo failed."),
 		sge::renderer::exception
 	)
 }

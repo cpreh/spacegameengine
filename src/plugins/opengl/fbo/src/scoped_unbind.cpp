@@ -18,42 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_XRANDR_CONFIGURATION_HPP_INCLUDED
-#define SGE_OPENGL_XRANDR_CONFIGURATION_HPP_INCLUDED
+#include "../scoped_unbind.hpp"
+#include "../bind.hpp"
+#include "../context.hpp"
 
-#include "configuration_fwd.hpp"
-#include <awl/backends/x11/window/instance_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <X11/Xlib.h>
-#include <X11/extensions/Xrandr.h>
+sge::opengl::fbo::scoped_unbind::scoped_unbind(
+	fbo::context const &_context
+)
+:
+	context_(_context)
+{
+}
 
-namespace sge
+sge::opengl::fbo::scoped_unbind::~scoped_unbind()
 {
-namespace opengl
-{
-namespace xrandr
-{
-
-class configuration
-{
-	FCPPT_NONCOPYABLE(
-		configuration
-	)
-public:
-	explicit configuration(
-		awl::backends::x11::window::instance_ptr
+	opengl::fbo::bind(
+		context_,
+		context_.last_buffer()
 	);
-
-	~configuration();
-
-	XRRScreenConfiguration *
-	get() const;
-private:
-	XRRScreenConfiguration *const config_;
-};
-
 }
-}
-}
-
-#endif

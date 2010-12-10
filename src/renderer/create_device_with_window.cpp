@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::device_ptr const
 sge::renderer::create_device_with_window(
-	awl::window::system_ptr const _awl_sys,
+	awl::system::object_ptr const _awl_sys,
 	sge::renderer::system_ptr const _sys,
 	sge::renderer::parameters const &_rparam,
 	sge::renderer::adapter_type const _adapter,
@@ -38,6 +38,7 @@ sge::renderer::create_device_with_window(
 			_adapter,
 			sge::window::create(
 				sge::window::parameters(
+					_awl_sys,
 					_sys->create_window(
 						_awl_sys,
 						_wparam,
