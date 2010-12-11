@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../keyboard_grab.hpp"
 #include "../keyboard_key.hpp"
 #include "../device_parameters.hpp"
+#include "../select_events.hpp"
 #include <X11/Xlib.h>
 #include <sge/input/keyboard/key.hpp>
 #include <sge/input/keyboard/key_event.hpp>
@@ -37,6 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional_impl.hpp>
 
 #include <X11/extensions/XInput2.h>
+
+#include <iostream>
 
 sge::x11input::keyboard::keyboard(
 	x11input::device_parameters const &_param
@@ -69,7 +72,21 @@ sge::x11input::keyboard::keyboard(
 					)
 				)
 			)
-
+		)
+		(
+			fcppt::signal::shared_connection(
+				_param.processor()->register_callback(
+					_param.opcode(),
+					awl::backends::x11::system::event::type(
+						XI_KeyRelease
+					),
+					std::tr1::bind(
+						&keyboard::on_key_event,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
 		)
 	),
 	grab_(),
@@ -79,6 +96,18 @@ sge::x11input::keyboard::keyboard(
 		sge::input::keyboard::mod_state::null()
 	)
 {
+	x11input::select_events(
+		_param.window(),
+		_param.id(),
+		fcppt::assign::make_container<
+			x11input::event_id_container
+		>(
+			XI_KeyPress
+		)
+		(
+			XI_KeyRelease
+		)
+	);
 }
 
 sge::x11input::keyboard::~keyboard()
@@ -133,8 +162,6 @@ sge::x11input::keyboard::mod_state() const
 {
 	return modifiers_;
 }
-
-#include <iostream>
 
 void
 sge::x11input::keyboard::on_key_event(

@@ -23,8 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/instance.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <fcppt/container/raw_vector.hpp>
+#include <fcppt/math/ceil_div.hpp>
 #include <fcppt/text.hpp>
 #include <boost/foreach.hpp>
+#include <algorithm>
 #include <limits>
 #include <X11/extensions/XInput2.h>
 
@@ -35,13 +37,35 @@ sge::x11input::select_events(
 	x11input::event_id_container const &_events
 )
 {
+	if(
+		_events.empty()
+	)
+		return;
+
+	typedef unsigned char bit_type;
+
 	typedef fcppt::container::raw_vector<
-		unsigned char
+		bit_type
 	> raw_container;
 
 	raw_container store(
-		_events.size()
-		/ std::numeric_limits<unsigned char>::digits
+		fcppt::math::ceil_div(
+			static_cast<
+				raw_container::size_type
+			>(
+				*std::max_element(
+					_events.begin(),
+					_events.end()
+				)
+			),
+			static_cast<
+				raw_container::size_type
+			>(
+				std::numeric_limits<
+					bit_type
+				>::digits
+			)
+		)
 	);
 
 	BOOST_FOREACH(

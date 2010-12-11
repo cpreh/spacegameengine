@@ -160,7 +160,7 @@ sge::x11input::processor::processor(
 			device.use
 		)
 		{
-		case XISlaveKeyboard:
+		case XIMasterKeyboard:
 			keyboards_.push_back(
 				fcppt::make_shared_ptr<
 					x11input::keyboard
