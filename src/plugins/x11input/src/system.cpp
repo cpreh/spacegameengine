@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/Xlib.h>
 #include <X11/extensions/XInput2.h>
 #include <sge/window/instance.hpp>
-#include <sge/exception.hpp>
+#include <sge/input/exception.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/window/instance.hpp>
 #include <fcppt/make_shared_ptr.hpp>
@@ -37,8 +37,6 @@ sge::x11input::system::system()
 sge::x11input::system::~system()
 {
 }
-
-#include <iostream>
 
 sge::input::processor_ptr const
 sge::x11input::system::create_processor(
@@ -69,11 +67,9 @@ sge::x11input::system::create_processor(
 			&error
 		)
 	)
-		throw sge::exception(
-			FCPPT_TEXT("X Input extension not available!")
+		throw sge::input::exception(
+			FCPPT_TEXT("X Input extension not available! Please install libXi!")
 		);
-
-	std::cout << "OPCODE " << opcode << '\n';
 
 	int major = 2, minor = 0;
 
@@ -85,7 +81,7 @@ sge::x11input::system::create_processor(
 		)
 		== BadRequest
 	)
-		throw sge::exception(
+		throw sge::input::exception(
 			FCPPT_TEXT("X Input extension is not version 2 or later!")
 		);
 
@@ -93,6 +89,7 @@ sge::x11input::system::create_processor(
 		fcppt::make_shared_ptr<
 			x11input::processor
 		>(
-			_window
+			_window,
+			opcode
 		);
 }

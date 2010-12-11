@@ -50,7 +50,8 @@ class processor
 	)
 public:
 	explicit processor(
-		sge::window::instance_ptr
+		sge::window::instance_ptr,
+		int opcode
 	);
 
 	~processor();
@@ -111,6 +112,8 @@ private:
 	);
 
 	sge::window::instance_ptr const window_;
+
+	int const opcode_;
 
 	awl::backends::x11::window::instance_ptr const x11_window_;
 

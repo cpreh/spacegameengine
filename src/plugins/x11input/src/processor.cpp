@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../mouse.hpp"
 #include "../keyboard.hpp"
 #include "../device.hpp"
+#include "../device_info.hpp"
 #include <sge/log/global.hpp>
 #include <sge/window/instance.hpp>
 #include <awl/backends/x11/display.hpp>
@@ -47,10 +48,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <iostream>
 
 sge::x11input::processor::processor(
-	sge::window::instance_ptr const _window
+	sge::window::instance_ptr const _window,
+	int const _opcode
 )
 :
 	window_(_window),
+	opcode_(_opcode),
 	x11_window_(
 		fcppt::polymorphic_pointer_cast<
 			awl::backends::x11::window::instance
@@ -125,33 +128,10 @@ sge::x11input::processor::processor(
 			)
 		)
 	),
-	keyboards_(
-		fcppt::assign::make_container<
-			keyboard_vector
-		>(
-			fcppt::make_shared_ptr<
-				x11input::keyboard
-			>
-			(
-				x11_window_,
-				system_event_processor_
-			)
-		)
-	),
-	mice_(
-		fcppt::assign::make_container<
-			mouse_vector
-		>(
-			fcppt::make_shared_ptr<
-				x11input::mouse
-			>(
-				x11_window_,
-				event_processor_
-			)
-		)
-	)
+	keyboards_(),
+	mice_()
 {
-{
+#if 0
 	XIEventMask eventmask;
 	unsigned char mask[2] = { 0, 0 }; /* the actual mask */
 
@@ -179,30 +159,35 @@ sge::x11input::processor::processor(
 			FCPPT_TEXT("XISelectEvents failed!")
 		);
 }
-{
-int ndevices;
-XIDeviceInfo *devices, *device;
+#endif
+	x11input::device_info const devices(
+		x11_window_->display(),
+		XIAllDevices
+	);
 
-devices = XIQueryDevice(x11_window_->display()->get(), XIAllDevices, &ndevices);
+	for(
+		int index = 0;
+		index < devices.size();
+		++index
+	)
+	{
+		XIDeviceInfo const &device(
+			devices[index]
+		);
 
-for (int i = 0; i < ndevices; i++) {
-    device = &devices[i];
-    std::cout << "Device "<< device->name << " id " << device->deviceid << '\n';
+		std::cout << "Device "<< device.name << " id " << device.deviceid << '\n';
 
-    switch(device->use) {
-       case XIMasterPointer: std::cout << "master pointer\n"; break;
-       case XIMasterKeyboard: std::cout << "master keyboard\n"; break;
-       case XISlavePointer: std::cout << "slave pointer\n"; break;
-       case XISlaveKeyboard: std::cout << "slave keyboard\n"; break;
-       case XIFloatingSlave: std::cout << "floating slave\n"; break;
-    }
+		switch(device.use)
+		{
+			case XIMasterPointer: std::cout << "master pointer\n"; break;
+			case XIMasterKeyboard: std::cout << "master keyboard\n"; break;
+			case XISlavePointer: std::cout << "slave pointer\n"; break;
+			case XISlaveKeyboard: std::cout << "slave keyboard\n"; break;
+			case XIFloatingSlave: std::cout << "floating slave\n"; break;
+		}
 
-    std::cout << "Device is attached to/paired with " <<  device->attachment << "\n\n";
-}
-
-XIFreeDeviceInfo(devices);
-
-}
+		std::cout << "Device is attached to/paired with " <<  device.attachment << "\n\n";
+	}
 
 	/*
 	connections.connect(

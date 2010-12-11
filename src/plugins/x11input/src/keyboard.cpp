@@ -140,41 +140,31 @@ sge::x11input::keyboard::on_key_event(
 	awl::backends::x11::system::event::object const &_event
 )
 {
-	std::cout << "KEYBOARD\n";
-
 	int opcode = 143;
 
 	XGenericEventCookie ev(
 		_event.get()
 	);
 
-	if(ev.type != GenericEvent)
-		std::cout << "not a generic event\n";
-
-    	if(ev.extension != opcode)
-		std::cout << "invalid opcode\n";
-
-#if 0
-    	if(
-		XGetEventData(window_->display()->get(), &ev)
-		== False
-	)
-		std::cout << "kaputt\n";
-#endif
-/*if (ev.type == GenericEvent &&
+if (ev.type == GenericEvent &&
     ev.extension == opcode &&
     XGetEventData(window_->display()->get(), &ev))
 {
-	std::cout << "BLBABLABLABLA\n";
-
     switch(ev.evtype)
     {
-        case XI_ButtonPress:
-		std::cout << "BUTTON PRESS\n";
+        case XI_KeyPress:
+	{
+	 XIDeviceEvent *event= static_cast<XIDeviceEvent *>(ev.data);
+
+    std::cout << "    device: " << event->deviceid << " (" << event->sourceid << ")\n";
+    std::cout << "    detail: " << event->detail << '\n';
+    if (event->flags & XIKeyRepeat)
+       std::cout << "    event is a key repeat.\n";
             break;
+	   }
     }
 }
-XFreeEventData(window_->display()->get(), &ev);*/
+XFreeEventData(window_->display()->get(), &ev);
 
 
 #if 0
