@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/processor.hpp>
 #include <sge/window/instance_ptr.hpp>
 #include <awl/backends/x11/system/event/processor_ptr.hpp>
+#include <awl/backends/x11/system/event/opcode.hpp>
 #include <awl/backends/x11/window/event/object_fwd.hpp>
 #include <awl/backends/x11/window/event/processor_ptr.hpp>
 #include <awl/backends/x11/window/event/signal/connection_manager.hpp>
@@ -52,7 +53,7 @@ class processor
 public:
 	explicit processor(
 		sge::window::instance_ptr,
-		int opcode
+		awl::backends::x11::system::event::opcode
 	);
 
 	~processor();
@@ -114,7 +115,7 @@ private:
 
 	sge::window::instance_ptr const window_;
 
-	int const opcode_;
+	awl::backends::x11::system::event::opcode const opcode_;
 
 	awl::backends::x11::window::instance_ptr const x11_window_;
 

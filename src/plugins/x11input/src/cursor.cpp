@@ -18,50 +18,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../device_info.hpp"
-#include <sge/input/exception.hpp>
-#include <awl/backends/x11/display.hpp>
-#include <fcppt/text.hpp>
-#include <X11/extensions/XInput2.h>
+#include "../cursor.hpp"
+#include "../device_parameters.hpp"
+#include <fcppt/math/vector/basic_impl.hpp>
 
-sge::x11input::device_info::device_info(
-	awl::backends::x11::display_ptr const _display,
-	int const _type
+sge::x11input::cursor::cursor(
+	x11input::device_parameters const &_param
 )
 :
-	devices_(
-		::XIQueryDevice(
-			_display->get(),
-			_type,
-			&size_
-		)
+	device(
+		_param.id()
 	)
 {
-	if(
-		devices_ == 0
-	)
-		throw sge::input::exception(
-			FCPPT_TEXT("XIQueryDevice failed!")
-		);
 }
 
-sge::x11input::device_info::~device_info()
+sge::x11input::cursor::~cursor()
 {
-	::XIFreeDeviceInfo(
-		devices_
-	);
 }
 
-XIDeviceInfo const &
-sge::x11input::device_info::operator[](
-	size_type const _index
-) const
+void
+sge::x11input::cursor::grab()
 {
-	return devices_[_index];
 }
 
-sge::x11input::device_info::size_type
-sge::x11input::device_info::size() const
+void
+sge::x11input::cursor::ungrab()
 {
-	return size_;
+}
+
+fcppt::signal::auto_connection
+sge::x11input::cursor::button_callback(
+	input::cursor::button_callback const &
+)
+{
+}
+
+fcppt::signal::auto_connection
+sge::x11input::cursor::move_callback(
+	input::cursor::move_callback const &
+)
+{
+}
+
+sge::input::cursor::position const
+sge::x11input::cursor::position() const
+{
+}
+
+void
+sge::x11input::cursor::show()
+{
+}
+
+void
+sge::x11input::cursor::hide()
+{
 }

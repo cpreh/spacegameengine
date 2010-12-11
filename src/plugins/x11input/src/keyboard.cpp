@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../keyboard.hpp"
 #include "../keyboard_grab.hpp"
 #include "../keyboard_key.hpp"
+#include "../device_parameters.hpp"
 #include <X11/Xlib.h>
 #include <sge/input/keyboard/key.hpp>
 #include <sge/input/keyboard/key_event.hpp>
@@ -41,9 +42,11 @@ sge::x11input::keyboard::keyboard(
 	x11input::device_parameters const &_param
 )
 :
-	device(),
+	x11input::device(
+		_param.id()
+	),
 	window_(
-		_window
+		_param.window()
 	),
 	need_grab_(
 		// TODO!
@@ -54,10 +57,8 @@ sge::x11input::keyboard::keyboard(
 			fcppt::signal::connection_manager::container
 		>(
 			fcppt::signal::shared_connection(
-				_event_processor->register_callback(
-					awl::backends::x11::system::event::opcode(
-						143 // FIXME
-					),
+				_param.processor()->register_callback(
+					_param.opcode(),
 					awl::backends::x11::system::event::type(
 						XI_KeyPress
 					),

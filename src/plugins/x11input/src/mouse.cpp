@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../get_pointer.hpp"
 #include "../warp_pointer.hpp"
 #include "../mouse_grab.hpp"
+#include "../device_parameters.hpp"
 #include <X11/Xlib.h>
 #include <sge/log/global.hpp>
 #include <sge/input/mouse/axis_event.hpp>
@@ -53,11 +54,15 @@ mouse_key_code(
 }
 
 sge::x11input::mouse::mouse(
-	awl::backends::x11::window::instance_ptr const _window,
-	awl::backends::x11::window::event::processor_ptr const _event_processor
+	x11input::device_parameters const &_param
 )
 :
-	window_(_window),
+	x11input::device(
+		_param.id()
+	),
+	window_(
+		_param.window()
+	),
 #if 0
 	black_(
 		_window->display(),
@@ -82,6 +87,8 @@ sge::x11input::mouse::mouse(
 	),
 #endif
 	connections_(
+		awl::backends::x11::window::event::signal::connection_manager::container()
+#if 0
 		fcppt::assign::make_container<
 			awl::backends::x11::window::event::signal::connection_manager::container
 		>(
@@ -120,6 +127,7 @@ sge::x11input::mouse::mouse(
 				)
 			)
 		)
+#endif
 	),
 	grab_(),
 	button_signal_(),

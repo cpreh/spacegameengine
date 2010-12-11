@@ -23,8 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../processor.hpp"
 #include "../mouse.hpp"
 #include "../keyboard.hpp"
+#include "../cursor.hpp"
 #include "../device.hpp"
-#include "../make_devices.hpp"
+#include "../device_info.hpp"
+#include "../device_parameters.hpp"
 #include <sge/log/global.hpp>
 #include <sge/window/instance.hpp>
 #include <awl/backends/x11/display.hpp>
@@ -49,7 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::x11input::processor::processor(
 	sge::window::instance_ptr const _window,
-	int const _opcode
+	awl::backends::x11::system::event::opcode const _opcode
 )
 :
 	window_(_window),
@@ -128,34 +130,66 @@ sge::x11input::processor::processor(
 			)
 		)
 	),
-	keyboards_(
-		x11input::make_devices<
-			x11input::keyboard
-		>(
-			XIMasterKeyboard,
-			x11_window_,
-			system_event_processor_
-		)
-	),
-	mice_(
-		x11input::make_devices<
-			x11input::mouse
-		>(
-			XISlavePointer,
-			x11_window_,
-			system_event_processor_
-		)
-	),
-	cursors_(
-		x11input::make_devices<
-			x11input::cursor
-		>(
-			XIMasterPointer,
-			x11_window_,
-			system_event_processor_
-		)
-	)
+	keyboards_(),
+	mice_(),
+	cursors_()
 {
+	x11input::device_info const devices(
+		x11_window_->display(),
+		XIAllDevices
+	);
+
+	for(
+		int index = 0;
+		index < devices.size();
+		++index
+	)
+	{
+		XIDeviceInfo const &device(
+			devices[index]
+		);
+
+		x11input::device_parameters const param(
+			device.deviceid,
+			opcode_,
+			x11_window_,
+			system_event_processor_
+		);
+
+		switch(
+			device.use
+		)
+		{
+		case XISlaveKeyboard:
+			keyboards_.push_back(
+				fcppt::make_shared_ptr<
+					x11input::keyboard
+				>(
+					param
+				)
+			);
+			break;
+		case XISlavePointer:
+			mice_.push_back(
+				fcppt::make_shared_ptr<
+					x11input::mouse
+				>(
+					param
+				)
+			);
+			break;
+		case XIMasterPointer:
+			cursors_.push_back(
+				fcppt::make_shared_ptr<
+					x11input::cursor
+				>(
+					param
+				)
+			);
+			break;
+		}
+	}
+
 #if 0
 	x11input::select_events(
 		x11_window_,

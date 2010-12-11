@@ -18,34 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_MAKE_DEVICES_HPP_INCLUDED
-#define SGE_X11INPUT_MAKE_DEVICES_HPP_INCLUDED
+#include "../device_parameters.hpp"
 
-#include <awl/backends/x11/system/event/processor_ptr.hpp>
-#include <awl/backends/x11/window/instance_ptr.hpp>
-#include <fcppt/shared_ptr.hpp>
-#include <vector>
-
-namespace sge
+sge::x11input::device_parameters::device_parameters(
+	int const _id,
+	awl::backends::x11::system::event::opcode const _opcode,
+	awl::backends::x11::window::instance_ptr const _window,
+	awl::backends::x11::system::event::processor_ptr const _processor
+)
+:
+	id_(_id),
+	opcode_(_opcode),
+	window_(_window),
+	processor_(_processor)
 {
-namespace x11input
-{
-
-template<
-	typename Ret
->
-std::vector<
-	fcppt::shared_ptr<
-		Ret
-	>
-> const
-make_devices(
-	int type,
-	awl::backends::x11::window::instance_ptr,
-	awl::backends::x11::system::event::processor_ptr
-);
-
-}
 }
 
-#endif
+int
+sge::x11input::device_parameters::id() const
+{
+	return id_;
+}
+
+awl::backends::x11::system::event::opcode const
+sge::x11input::device_parameters::opcode() const
+{
+	return opcode_;
+}
+
+awl::backends::x11::window::instance_ptr const
+sge::x11input::device_parameters::window() const
+{
+	return window_;
+}
+
+awl::backends::x11::system::event::processor_ptr const
+sge::x11input::device_parameters::processor() const
+{
+	return processor_;
+}

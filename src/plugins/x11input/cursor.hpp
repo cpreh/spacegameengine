@@ -51,6 +51,12 @@ public:
 
 	~cursor();
 
+	void
+	grab();
+
+	void
+	ungrab();
+private:
 	fcppt::signal::auto_connection
 	button_callback(
 		input::cursor::button_callback const &
@@ -69,7 +75,6 @@ public:
 
 	void
 	hide();
-private:
 };
 
 }

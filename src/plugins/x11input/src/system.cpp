@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/instance.hpp>
 #include <sge/input/exception.hpp>
 #include <awl/backends/x11/display.hpp>
+#include <awl/backends/x11/system/event/opcode.hpp>
 #include <awl/backends/x11/window/instance.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/polymorphic_pointer_cast.hpp>
@@ -90,6 +91,8 @@ sge::x11input::system::create_processor(
 			x11input::processor
 		>(
 			_window,
-			opcode
+			awl::backends::x11::system::event::opcode(
+				opcode
+			)
 		);
 }

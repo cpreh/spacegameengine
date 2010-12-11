@@ -22,8 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_DEVICE_PARAMETERS_HPP_INCLUDED
 
 #include "device_parameters_fwd.hpp"
-#include <awl/backends/x11/window/instance_ptr.hpp>
+#include <awl/backends/x11/system/event/opcode.hpp>
 #include <awl/backends/x11/system/event/processor_ptr.hpp>
+#include <awl/backends/x11/window/instance_ptr.hpp>
+#include <fcppt/nonassignable.hpp>
 
 namespace sge
 {
@@ -32,12 +34,36 @@ namespace x11input
 
 class device_parameters
 {
+	FCPPT_NONASSIGNABLE(
+		device_parameters
+	)
 public:
 	device_parameters(
 		int id,
+		awl::backends::x11::system::event::opcode,
 		awl::backends::x11::window::instance_ptr,
 		awl::backends::x11::system::event::processor_ptr
 	);
+
+	int
+	id() const;
+
+	awl::backends::x11::system::event::opcode const
+	opcode() const;
+
+	awl::backends::x11::window::instance_ptr const
+	window() const;
+
+	awl::backends::x11::system::event::processor_ptr const
+	processor() const;
+private:
+	int const id_;
+
+	awl::backends::x11::system::event::opcode const opcode_;
+
+	awl::backends::x11::window::instance_ptr const window_;
+
+	awl::backends::x11::system::event::processor_ptr const processor_;
 };
 
 }
