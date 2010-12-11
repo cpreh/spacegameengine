@@ -62,7 +62,7 @@ struct default_equal
 	) const
 	{
 		return
-			compare_depth(a, b)
+			sprite::compare_depth(a, b)
 			&& a.texture() == b.texture();
 
 	}
@@ -91,7 +91,7 @@ struct default_equal
 	) const
 	{
 		return
-			compare_depth(a, b);
+			sprite::compare_depth(a, b);
 	}
 
 	template<
