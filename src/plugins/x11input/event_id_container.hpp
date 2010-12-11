@@ -18,14 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../device.hpp"
+#ifndef SGE_X11INPUT_EVENT_ID_CONTAINER_HPP_INCLUDED
+#define SGE_X11INPUT_EVENT_ID_CONTAINER_HPP_INCLUDED
 
-sge::x11input::device::device(
-	int const _id
-)
-:
-	id_(_id)
-{}
+#include <vector>
 
-sge::x11input::device::~device()
-{}
+namespace sge
+{
+namespace x11input
+{
+
+typedef std::vector<
+	int
+> event_id_container;
+
+}
+}
+
+#endif

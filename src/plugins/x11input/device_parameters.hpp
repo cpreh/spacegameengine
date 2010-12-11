@@ -18,14 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../device.hpp"
+#ifndef SGE_X11INPUT_DEVICE_PARAMETERS_HPP_INCLUDED
+#define SGE_X11INPUT_DEVICE_PARAMETERS_HPP_INCLUDED
 
-sge::x11input::device::device(
-	int const _id
-)
-:
-	id_(_id)
-{}
+#include "device_parameters_fwd.hpp"
+#include <awl/backends/x11/window/instance_ptr.hpp>
+#include <awl/backends/x11/system/event/processor_ptr.hpp>
 
-sge::x11input::device::~device()
-{}
+namespace sge
+{
+namespace x11input
+{
+
+class device_parameters
+{
+public:
+	device_parameters(
+		int id,
+		awl::backends::x11::window::instance_ptr,
+		awl::backends::x11::system::event::processor_ptr
+	);
+};
+
+}
+}
+
+#endif

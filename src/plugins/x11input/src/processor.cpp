@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../mouse.hpp"
 #include "../keyboard.hpp"
 #include "../device.hpp"
-#include "../device_info.hpp"
+#include "../make_devices.hpp"
 #include <sge/log/global.hpp>
 #include <sge/window/instance.hpp>
 #include <awl/backends/x11/display.hpp>
@@ -128,38 +128,58 @@ sge::x11input::processor::processor(
 			)
 		)
 	),
-	keyboards_(),
-	mice_()
+	keyboards_(
+		x11input::make_devices<
+			x11input::keyboard
+		>(
+			XIMasterKeyboard,
+			x11_window_,
+			system_event_processor_
+		)
+	),
+	mice_(
+		x11input::make_devices<
+			x11input::mouse
+		>(
+			XISlavePointer,
+			x11_window_,
+			system_event_processor_
+		)
+	),
+	cursors_(
+		x11input::make_devices<
+			x11input::cursor
+		>(
+			XIMasterPointer,
+			x11_window_,
+			system_event_processor_
+		)
+	)
 {
 #if 0
-	XIEventMask eventmask;
-	unsigned char mask[2] = { 0, 0 }; /* the actual mask */
-
-	eventmask.deviceid = XIAllDevices;
-	eventmask.mask_len = sizeof(mask); /* always in bytes */
-	eventmask.mask = mask;
-	/* now set the mask */
-	XISetMask(mask, XI_ButtonPress);
-	XISetMask(mask, XI_ButtonRelease);
-	XISetMask(mask, XI_Motion);
-	XISetMask(mask, XI_KeyPress);
-	XISetMask(mask, XI_KeyRelease);
-
-	/* select on the window */
-	if(
-		::XISelectEvents(
-			x11_window_->display()->get(),
-			x11_window_->get(),
-			&eventmask,
-			1
+	x11input::select_events(
+		x11_window_,
+		XIAllDevices,
+		fcppt::assign::make_container<
+			x11input::event_id_container
+		>(
+			XI_ButtonPress
 		)
-		!= Success
-	)
-		throw sge::input::exception(
-			FCPPT_TEXT("XISelectEvents failed!")
-		);
-}
+		(
+			XI_ButtonRelease
+		)
+		(
+			XI_Motion
+		)
+		(
+			XI_KeyPress
+		)
+		(
+			XI_KeyRelease
+		)
+	);
 #endif
+#if 0
 	x11input::device_info const devices(
 		x11_window_->display(),
 		XIAllDevices
@@ -175,20 +195,25 @@ sge::x11input::processor::processor(
 			devices[index]
 		);
 
-		std::cout << "Device "<< device.name << " id " << device.deviceid << '\n';
-
-		switch(device.use)
+		switch(
+			device.use
+		)
 		{
-			case XIMasterPointer: std::cout << "master pointer\n"; break;
+		case XIMasterPointer:
+			cursors_.push_back(
+				fcppt::make_shared_ptr<
+					x11input::cursor
+				>()
+			);
+
+			std::cout << "master pointer\n"; break;
 			case XIMasterKeyboard: std::cout << "master keyboard\n"; break;
 			case XISlavePointer: std::cout << "slave pointer\n"; break;
 			case XISlaveKeyboard: std::cout << "slave keyboard\n"; break;
 			case XIFloatingSlave: std::cout << "floating slave\n"; break;
 		}
-
-		std::cout << "Device is attached to/paired with " <<  device.attachment << "\n\n";
 	}
-
+#endif
 	/*
 	connections.connect(
 		wnd->register_callback(

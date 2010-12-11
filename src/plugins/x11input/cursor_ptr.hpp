@@ -18,14 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../device.hpp"
+#ifndef SGE_X11INPUT_CURSOR_PTR_HPP_INCLUDED
+#define SGE_X11INPUT_CURSOR_PTR_HPP_INCLUDED
 
-sge::x11input::device::device(
-	int const _id
-)
-:
-	id_(_id)
-{}
+#include "cursor_fwd.hpp"
+#include <fcppt/shared_ptr.hpp>
 
-sge::x11input::device::~device()
-{}
+namespace sge
+{
+namespace x11input
+{
+
+typedef fcppt::shared_ptr<
+	cursor
+> cursor_ptr;
+
+}
+}
+
+#endif

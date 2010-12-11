@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_CURSOR_HPP_INCLUDED
 #define SGE_X11INPUT_CURSOR_HPP_INCLUDED
 
+#include "cursor_fwd.hpp"
+#include "device.hpp"
+#include "device_parameters_fwd.hpp"
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/move_callback.hpp>
@@ -35,13 +38,16 @@ namespace x11input
 
 class cursor
 :
-	public sge::input::cursor::object
+	public sge::input::cursor::object,
+	public x11input::device
 {
 	FCPPT_NONCOPYABLE(
 		cursor
 	)
 public:
-	cursor();
+	explicit cursor(
+		x11input::device_parameters const &
+	);
 
 	~cursor();
 

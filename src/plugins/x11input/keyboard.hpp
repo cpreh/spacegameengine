@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "keyboard_fwd.hpp"
 #include "device.hpp"
 #include "keyboard_grab_fwd.hpp"
+#include "device_parameters_fwd.hpp"
 #include <X11/Xlib.h>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_callback.hpp>
@@ -54,9 +55,8 @@ class keyboard
 		keyboard
 	)
 public:
-	keyboard(
-		awl::backends::x11::window::instance_ptr,
-		awl::backends::x11::system::event::processor_ptr
+	explicit keyboard(
+		x11input::device_parameters const &
 	);
 
 	~keyboard();

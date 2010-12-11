@@ -18,14 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../device.hpp"
+#ifndef SGE_X11INPUT_MAKE_DEVICES_HPP_INCLUDED
+#define SGE_X11INPUT_MAKE_DEVICES_HPP_INCLUDED
 
-sge::x11input::device::device(
-	int const _id
-)
-:
-	id_(_id)
-{}
+#include <awl/backends/x11/system/event/processor_ptr.hpp>
+#include <awl/backends/x11/window/instance_ptr.hpp>
+#include <fcppt/shared_ptr.hpp>
+#include <vector>
 
-sge::x11input::device::~device()
-{}
+namespace sge
+{
+namespace x11input
+{
+
+template<
+	typename Ret
+>
+std::vector<
+	fcppt::shared_ptr<
+		Ret
+	>
+> const
+make_devices(
+	int type,
+	awl::backends::x11::window::instance_ptr,
+	awl::backends::x11::system::event::processor_ptr
+);
+
+}
+}
+
+#endif

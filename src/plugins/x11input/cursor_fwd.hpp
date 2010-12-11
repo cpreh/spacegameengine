@@ -18,14 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../device.hpp"
+#ifndef SGE_X11INPUT_CURSOR_FWD_HPP_INCLUDED
+#define SGE_X11INPUT_CURSOR_FWD_HPP_INCLUDED
 
-sge::x11input::device::device(
-	int const _id
-)
-:
-	id_(_id)
-{}
+namespace sge
+{
+namespace x11input
+{
 
-sge::x11input::device::~device()
-{}
+class cursor;
+
+}
+}
+
+#endif

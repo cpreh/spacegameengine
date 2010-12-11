@@ -38,10 +38,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/extensions/XInput2.h>
 
 sge::x11input::keyboard::keyboard(
-	awl::backends::x11::window::instance_ptr const _window,
-	awl::backends::x11::system::event::processor_ptr const _event_processor
+	x11input::device_parameters const &_param
 )
 :
+	device(),
 	window_(
 		_window
 	),

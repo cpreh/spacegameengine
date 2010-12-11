@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_PROCESSOR_HPP_INCLUDED
 
 #include "device_fwd.hpp"
+#include "cursor_ptr.hpp"
 #include "keyboard_ptr.hpp"
 #include "mouse_ptr.hpp"
 #include <sge/input/processor.hpp>
@@ -131,11 +132,17 @@ private:
 		x11input::mouse_ptr
 	> mouse_vector;
 
+	typedef std::vector<
+		x11input::cursor_ptr
+	> cursor_vector;
+
 	awl::backends::x11::window::event::signal::connection_manager const connections_;
 
 	keyboard_vector keyboards_;
 
 	mouse_vector mice_;
+
+	cursor_vector cursors_;
 };
 
 }

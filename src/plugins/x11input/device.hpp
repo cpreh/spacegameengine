@@ -31,9 +31,13 @@ namespace x11input
 
 class device
 {
-	FCPPT_NONCOPYABLE(device)
+	FCPPT_NONCOPYABLE(
+		device
+	)
 protected:
-	device();
+	explicit device(
+		int device_id
+	);
 public:
 	virtual void
 	grab() = 0;
@@ -42,6 +46,8 @@ public:
 	ungrab() = 0;
 
 	virtual ~device();
+private:
+	int const id_;
 };
 
 }

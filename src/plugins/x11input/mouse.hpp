@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "mouse_coordinate.hpp"
 #include "mouse_pos.hpp"
 #include "mouse_grab_fwd.hpp"
+#include "device_parameters_fwd.hpp"
 #include <sge/input/mouse/device.hpp>
 #include <sge/input/mouse/axis_callback.hpp>
 #include <sge/input/mouse/axis_function.hpp>
@@ -55,9 +56,8 @@ class mouse
 		mouse
 	)
 public:
-	mouse(
-		awl::backends::x11::window::instance_ptr,
-		awl::backends::x11::window::event::processor_ptr
+	explicit mouse(
+		x11input::device_parameters const &
 	);
 
 	~mouse();
