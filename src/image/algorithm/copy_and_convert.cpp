@@ -37,8 +37,8 @@ public:
 	>
 	result_type
 	operator()(
-		Src const &src,
-		Dest const &dst
+		Src const &,
+		Dest const &
 	) const;
 };
 
@@ -46,14 +46,14 @@ public:
 
 void
 sge::image::algorithm::copy_and_convert(
-	view::const_object const &src,
-	view::object const &dest
+	view::const_object const &_src,
+	view::object const &_dest
 )
 {
 	fcppt::variant::apply_binary(
 		visitor(),
-		src,
-		dest
+		_src,
+		_dest
 	);
 }
 
@@ -67,14 +67,15 @@ template<
 >
 visitor::result_type
 visitor::operator()(
-	Src const &src,
-	Dest const &dest
+	Src const &_src,
+	Dest const &_dest
 ) const
 {
-	return mizuiro::image::algorithm::copy_and_convert(
-		src,
-		dest
-	);
+	return
+		mizuiro::image::algorithm::copy_and_convert(
+			_src,
+			_dest
+		);
 }
 
 }

@@ -43,29 +43,29 @@ sge::renderer::device::device()
 
 sge::renderer::glsl::program_ptr const
 sge::renderer::device::create_glsl_program(
-	glsl::optional_string const &vertex_shader_source_,
-	glsl::optional_string const &pixel_shader_source_
+	glsl::optional_string const &_vertex_shader_source,
+	glsl::optional_string const &_pixel_shader_source
 )
 {
 	glsl::program_ptr const ret(
-		create_glsl_program()
+		this->create_glsl_program()
 	);
 
 	if(
-		vertex_shader_source_
+		_vertex_shader_source
 	)
 		ret->vertex_shader(
-			create_glsl_vertex_shader(
-				*vertex_shader_source_	
+			this->create_glsl_vertex_shader(
+				*_vertex_shader_source
 			)
 		);
 	
 	if(
-		pixel_shader_source_
+		_pixel_shader_source
 	)
 		ret->pixel_shader(
-			create_glsl_pixel_shader(
-				*pixel_shader_source_
+			this->create_glsl_pixel_shader(
+				*_pixel_shader_source
 			)
 		);
 
@@ -76,8 +76,8 @@ sge::renderer::device::create_glsl_program(
 
 sge::renderer::glsl::program_ptr const
 sge::renderer::device::create_glsl_program(
-	glsl::optional_istream const &vertex_shader_source_,
-	glsl::optional_istream const &pixel_shader_source_
+	glsl::optional_istream const &_vertex_shader_source,
+	glsl::optional_istream const &_pixel_shader_source
 )
 {
 	typedef std::basic_ostringstream<
@@ -89,23 +89,23 @@ sge::renderer::device::create_glsl_program(
 		ps_stream;
 
 	if(
-		vertex_shader_source_
+		_vertex_shader_source
 	)
-		vs_stream << vertex_shader_source_->get().rdbuf();
+		vs_stream << _vertex_shader_source->get().rdbuf();
 
 	if(
-		pixel_shader_source_
+		_pixel_shader_source
 	)
-		ps_stream << pixel_shader_source_->get().rdbuf();
+		ps_stream << _pixel_shader_source->get().rdbuf();
 
 	return
-		create_glsl_program(
-			vertex_shader_source_
+		this->create_glsl_program(
+			_vertex_shader_source
 			?
 				vs_stream.str()
 			:
 				renderer::glsl::optional_string(),
-			pixel_shader_source_
+			_pixel_shader_source
 			?
 				ps_stream.str()
 			:
@@ -115,27 +115,31 @@ sge::renderer::device::create_glsl_program(
 
 sge::renderer::texture_ptr const
 sge::renderer::device::create_texture(
-	image::view::const_object const &v,
-	filter::texture const &filter,
-	resource_flags_field const &flags
+	image::view::const_object const &_view,
+	filter::texture const &_filter,
+	resource_flags_field const &_flags
 )
 {
 	texture_ptr const tex(
-		create_texture(
-			image::view::dim(v),
-			image::view::format(v),
-			filter,
-			flags
+		this->create_texture(
+			image::view::dim(
+				_view
+			),
+			image::view::format(
+				_view
+			),
+			_filter,
+			_flags
 		)
 	);
 
-	scoped_texture_lock const lock(
+	renderer::scoped_texture_lock const lock(
 		tex,
-		lock_mode::writeonly
+		renderer::lock_mode::writeonly
 	);
 
 	image::algorithm::copy_and_convert(
-		v,
+		_view,
 		lock.value()
 	);
 
@@ -176,26 +180,26 @@ sge::renderer::device::create_volume_texture(
 
 sge::renderer::vertex_buffer_ptr const
 sge::renderer::device::create_vertex_buffer(
-	vf::dynamic::const_view const &view,
-	resource_flags_field const &flags
+	vf::dynamic::const_view const &_view,
+	resource_flags_field const &_flags
 )
 {
 	vertex_buffer_ptr const vb(
-		create_vertex_buffer(
-			view.format(),
-			view.size(),
-			flags
+		this->create_vertex_buffer(
+			_view.format(),
+			_view.size(),
+			_flags
 		)
 	);
 
 	scoped_vertex_lock const lock(
 		vb,
-		lock_mode::writeonly
+		renderer::lock_mode::writeonly
 	);
 
 	fcppt::algorithm::copy_n(
-		view.data(),
-		view.format().stride() * view.size(),
+		_view.data(),
+		_view.format().stride() * _view.size(),
 		lock.value().data()
 	);
 
@@ -204,15 +208,15 @@ sge::renderer::device::create_vertex_buffer(
 
 sge::renderer::index_buffer_ptr const
 sge::renderer::device::create_index_buffer(
-	index::dynamic::const_view const &view,
-	resource_flags_field const &flags
+	index::dynamic::const_view const &_view,
+	resource_flags_field const &_flags
 )
 {
 	index_buffer_ptr const ib(
-		create_index_buffer(
-			view.format(),
-			view.size(),
-			flags
+		this->create_index_buffer(
+			_view.format(),
+			_view.size(),
+			_flags
 		)
 	);
 
@@ -222,7 +226,7 @@ sge::renderer::device::create_index_buffer(
 	);
 
 	index::dynamic::copy(
-		view,
+		_view,
 		lock.value()
 	);
 

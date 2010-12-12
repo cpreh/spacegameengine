@@ -52,10 +52,10 @@ template<
 >
 void
 fill_position_rotated(
-	Iterator iterator,
+	Iterator _iterator,
 	object<
 		Choices
-	> const &spr
+	> const &_sprite
 )
 {
 	typedef typename Choices::type_choices type_choices;
@@ -70,7 +70,7 @@ fill_position_rotated(
 		fcppt::math::vector::structure_cast<
 			pos2
 		>(
-			spr.rotation_center()
+			_sprite.rotation_center()
 		)
 	);
 
@@ -83,7 +83,7 @@ fill_position_rotated(
 			float_rect
 		>(
 			sprite::bounding_rect(
-				spr
+				_sprite
 			)
 		)
 	);
@@ -117,7 +117,7 @@ fill_position_rotated(
 	>::type rotation_type;
 	
 	rotation_type const rot(
-		spr.rotation()
+		_sprite.rotation()
 	);
 
 	funit const
@@ -143,9 +143,9 @@ fill_position_rotated(
 		funit
 	>::type depth_type;
 
-	depth_type const depth_(
-		depth(
-			spr
+	depth_type const depth(
+		detail::depth(
+			_sprite
 		)
 	);
 
@@ -153,12 +153,12 @@ fill_position_rotated(
 		typename position_array::const_reference ref,
 		positions
 	)
-		(*iterator++). template set<
+		(*_iterator++). template set<
 			vertex_pos
 		>(
-			construct(
+			fcppt::math::vector::construct(
 				(mat_rot * ref) + centerf,
-				depth_
+				depth
 			)
 		);
 }

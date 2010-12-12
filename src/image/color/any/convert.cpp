@@ -63,15 +63,16 @@ template<
 >
 mizuiro::color::object<Dest> const
 sge::image::color::any::convert(
-	object const &col
+	object const &_color
 )
 {
-	return fcppt::variant::apply_unary(
-		visitor<
-			Dest
-		>(),
-		col
-	);
+	return
+		fcppt::variant::apply_unary(
+			::visitor<
+				Dest
+			>(),
+			_color
+		);
 }
 
 namespace
@@ -85,14 +86,15 @@ template<
 >
 typename visitor<Dest>::result_type
 visitor<Dest>::operator()(
-	Source const &src
+	Source const &_src
 ) const
 {
-	return sge::image::color::convert<
-		Dest
-	>(
-		src
-	);
+	return
+		sge::image::color::convert<
+			Dest
+		>(
+			_src
+		);
 }
 
 }

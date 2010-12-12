@@ -39,17 +39,17 @@ template<
 typename boost::enable_if<
 	boost::mpl::contains<
 		typename Choices::elements,
-		with_visibility
+		sprite::with_visibility
 	>,
 	bool
 >::type
 visible(
 	object<
 		Choices
-	> const &object_
+	> const &_object
 )
 {
-	return object_.visible();
+	return _object.visible();
 }
 
 template<
@@ -58,7 +58,7 @@ template<
 typename boost::disable_if<
 	boost::mpl::contains<
 		typename Choices::elements,
-		with_visibility
+		sprite::with_visibility
 	>,
 	bool
 >::type

@@ -30,7 +30,8 @@ namespace
 template<
 	typename Dst
 >
-class visitor {
+class visitor
+{
 public:
 	typedef Dst result_type;
 
@@ -44,14 +45,14 @@ public:
 		result_type
 	>::type
 	operator()(
-		Src const &src
+		Src const &_src
 	) const
 	{
 		// casting to a byte buffer is ok
 		return reinterpret_cast<
 			Dst
 		>(
-			src.data()
+			_src.data()
 		);
 	}
 
@@ -65,10 +66,10 @@ public:
 		result_type
 	>::type
 	operator()(
-		Src const &src
+		Src const &_src
 	) const
 	{
-		return src.data().get();
+		return _src.data().get();
 	}
 };
 
@@ -78,34 +79,42 @@ template<
 >
 Dest
 data_impl(
-	View const &v)
+	View const &_view
+)
 {
-	return fcppt::variant::apply_unary(
-		visitor<Dest>(),
-		v
-	);
+	return
+		fcppt::variant::apply_unary(
+			::visitor<
+				Dest
+			>(),
+			_view
+		);
 }
 
 }
 
 sge::image::raw_pointer
 sge::image::view::data(
-	object const &v)
+	object const &_view
+)
 {
-	return data_impl<
-		raw_pointer
-	>(
-		v
-	);
+	return
+		::data_impl<
+			image::raw_pointer
+		>(
+			_view
+		);
 }
 
 sge::image::const_raw_pointer
 sge::image::view::data(
-	const_object const &v)
+	const_object const &_view
+)
 {
-	return data_impl<
-		const_raw_pointer
-	>(
-		v
-	);
+	return
+		::data_impl<
+			image::const_raw_pointer
+		>(
+			_view
+		);
 }

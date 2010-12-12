@@ -26,7 +26,7 @@ sge::image::unsupported_format::unsupported_format(
 	fcppt::string const &_string
 )
 :
-	file_exception(
+	image::file_exception(
 		_path,
 		FCPPT_TEXT("file has unsupported format: ")
 		+ _string

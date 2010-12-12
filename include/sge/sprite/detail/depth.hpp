@@ -46,10 +46,10 @@ typename boost::enable_if<
 depth(
 	object<
 		Choices
-	> const &sprite_
+	> const &_sprite
 )
 {
-	return sprite_.z();
+	return _sprite.z();
 }
 
 template<

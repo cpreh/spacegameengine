@@ -52,17 +52,17 @@ typename boost::enable_if<
 	>
 >::type
 fill_tex_coordinates_impl(
-	Iterator const &iterator,
+	Iterator const &_iterator,
 	object<
 		Choices
-	> const &sprite_
+	> const &_sprite
 )
 {
-	fill_tex_coordinates_rect<
+	detail::fill_tex_coordinates_rect<
 		Choices
 	>(
-		iterator,
-		sprite_.texture_coordinates()
+		_iterator,
+		_sprite.texture_coordinates()
 	);
 }
 
@@ -78,20 +78,20 @@ typename boost::enable_if<
 	void
 >::type
 fill_tex_coordinates_impl(
-	Iterator const &iterator,
+	Iterator const &_iterator,
 	object<
 		Choices
-	> const &sprite_
+	> const &_sprite
 )
 {
-	fill_tex_coordinates_rect<
+	detail::fill_tex_coordinates_rect<
 		Choices
 	>(
-		iterator,
-		convert_texture_rect(
+		_iterator,
+		detail::convert_texture_rect(
 			texture::area_texc(
-				sprite_.texture(),
-				sprite_.repetition()
+				_sprite.texture(),
+				_sprite.repetition()
 			)
 		)
 	);

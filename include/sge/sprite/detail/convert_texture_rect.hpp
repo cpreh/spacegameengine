@@ -37,7 +37,7 @@ typename texture_coordinates<
 	typename Rect::value_type
 >::type const
 convert_texture_rect(
-	Rect const &rect_
+	Rect const &_rect
 )
 {
 	typedef typename texture_coordinates<
@@ -49,12 +49,12 @@ convert_texture_rect(
 	return
 		return_type(
 			element_type(
-				rect_.left(),
-				rect_.top()
+				_rect.left(),
+				_rect.top()
 			),
 			element_type(
-				rect_.right(),
-				rect_.bottom()
+				_rect.right(),
+				_rect.bottom()
 			)
 		);
 }

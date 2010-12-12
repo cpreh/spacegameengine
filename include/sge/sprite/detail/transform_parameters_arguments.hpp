@@ -44,23 +44,23 @@ template<
 >
 ElementType const
 transform_parameters_arguments(
-	Parameters const &parameters_
+	Parameters const &_parameters
 )
 {
 	ElementType ret(
-		transform_init_arguments<
+		detail::transform_init_arguments<
 			Choices
 		>(
 			majutsu::subelements<
 				ElementType
 			>(
-				parameters_
+				_parameters
 			)
 		)
 	);
 
 	if(
-		parameters_. template get<
+		_parameters. template get<
 			detail::roles::use_center
 		>()
 	)

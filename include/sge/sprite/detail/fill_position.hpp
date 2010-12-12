@@ -48,25 +48,25 @@ typename boost::enable_if<
 	void
 >::type
 fill_position(
-	Iterator const iterator,
+	Iterator const _iterator,
 	object<
 		Choices
-	> const &spr
+	> const &_sprite
 )
 {
 	if(
 		fcppt::math::almost_zero(
-			spr.rotation()
+			_sprite.rotation()
 		)
 	)
-		fill_position_unrotated(
-			iterator,
-			spr
+		detail::fill_position_unrotated(
+			_iterator,
+			_sprite
 		);
 	else
-		fill_position_rotated(
-			iterator,
-			spr
+		detail::fill_position_rotated(
+			_iterator,
+			_sprite
 		);
 }
 
@@ -82,15 +82,15 @@ typename boost::disable_if<
 	void
 >::type
 fill_position(
-	Iterator const iterator,
+	Iterator const _iterator,
 	object<
 		Choices
-	> const &spr
+	> const &_sprite
 )
 {
 	fill_position_unrotated(
-		iterator,
-		spr
+		_iterator,
+		_sprite
 	);
 }
 

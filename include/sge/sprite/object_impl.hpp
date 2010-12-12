@@ -55,14 +55,14 @@ template<
 	typename Choices
 >
 sge::sprite::object<Choices>::object(
-	element_type const &nelements_
+	element_type const &_elements
 )
 :
 	elements_(
 		detail::transform_init_arguments<
 			Choices
 		>(
-			nelements_
+			_elements
 		)
 	)
 {
@@ -78,7 +78,7 @@ template<
 	typename Parameters
 >
 sge::sprite::object<Choices>::object(
-	Parameters const &parameters_
+	Parameters const &_parameters
 )
 :
 	elements_(
@@ -86,7 +86,7 @@ sge::sprite::object<Choices>::object(
 			element_type,
 			Choices
 		>(
-			parameters_
+			_parameters
 		)
 	)
 {
@@ -99,11 +99,11 @@ template<
 	typename Choices
 >
 sge::sprite::object<Choices>::object(
-	object const &other_
+	object const &_other
 )
 :
 	elements_(
-		other_.elements_
+		_other.elements_
 	)
 {
 	detail::assign_post(
@@ -116,15 +116,15 @@ template<
 >
 sge::sprite::object<Choices> &
 sge::sprite::object<Choices>::operator=(
-	object const &other_
+	object const &_other
 )
 {
 	detail::assign_pre(
 		*this,
-		other_
+		_other
 	);
 
-	elements_ = other_.elements_;
+	elements_ = _other.elements_;
 
 	detail::assign_post(
 		*this
@@ -314,12 +314,12 @@ template<
 >
 void
 sge::sprite::object<Choices>::x(
-	unit const x_
+	unit const _x
 )
 {
 	pos(
 		point(
-			x_,
+			_x,
 			y()
 		)
 	);
@@ -330,13 +330,13 @@ template<
 >
 void
 sge::sprite::object<Choices>::y(
-	unit const y_
+	unit const _y
 )
 {
 	pos(
 		point(
 			x(),
-			y_
+			_y
 		)
 	);
 }
@@ -346,13 +346,13 @@ template<
 >
 void
 sge::sprite::object<Choices>::z(
-	depth_type const depth_
+	depth_type const _depth
 ) 
 {
 	elements_. template set<
 		roles::depth
 	>(
-		depth_
+		_depth
 	);
 }
 
@@ -361,13 +361,13 @@ template<
 >
 void
 sge::sprite::object<Choices>::pos(
-	point const &pos_
+	point const &_pos
 )
 {
 	elements_. template set<
 		roles::pos
 	>(
-		pos_
+		_pos
 	);
 }
 
@@ -376,12 +376,12 @@ template<
 >
 void
 sge::sprite::object<Choices>::w(
-	unit const w_
+	unit const _w
 )
 {
 	size(
 		dim(
-			w_,
+			_w,
 			h()
 		)
 	);
@@ -392,13 +392,13 @@ template<
 >
 void
 sge::sprite::object<Choices>::h(
-	unit const h_
+	unit const _h
 ) 
 {
 	size(
 		dim(
 			w(),
-			h_
+			_h
 		)
 	);
 }
@@ -408,13 +408,13 @@ template<
 >
 void
 sge::sprite::object<Choices>::size(
-	dim const &dim_
+	dim const &_dim
 ) 
 {
 	elements_. template set<
 		roles::size
 	>(
-		dim_
+		_dim
 	);
 }
 
@@ -423,13 +423,13 @@ template<
 >
 void
 sge::sprite::object<Choices>::visible(
-	bool const visible_
+	bool const _visible
 )
 {
 	elements_. template set<
 		roles::visible
 	>(
-		visible_
+		_visible
 	);
 }
 
@@ -438,13 +438,13 @@ template<
 >
 void
 sge::sprite::object<Choices>::texture(
-	::sge::texture::const_part_ptr const texture_
+	::sge::texture::const_part_ptr const _texture
 )
 {
 	elements_. template set<
 		roles::texture
 	>(
-		texture_
+		_texture
 	);
 }
 
@@ -453,13 +453,13 @@ template<
 >
 void
 sge::sprite::object<Choices>::rotation(
-	rotation_type const rotation_
+	rotation_type const _rotation
 )
 {
 	elements_. template set<
 		roles::rotation
 	>(
-		rotation_
+		_rotation
 	);
 }
 
@@ -468,13 +468,13 @@ template<
 >
 void
 sge::sprite::object<Choices>::rotate_around(
-	point const &rotate_around_
+	point const &_rotate_around
 )
 {
 	elements_. template set<
 		roles::rotate_around
 	>(
-		rotate_around_
+		_rotate_around
 	);
 
 	elements_. template set<
@@ -502,13 +502,13 @@ template<
 >
 void
 sge::sprite::object<Choices>::repeat(
-	repetition_type const repeat_
+	repetition_type const _repeat
 )
 {
 	elements_. template set<
 		roles::repetition
 	>(
-		repeat_
+		_repeat
 	);
 }
 
@@ -517,13 +517,13 @@ template<
 >
 void
 sge::sprite::object<Choices>::texture_coordinates(
-	texture_coordinates_type const &coordinates_
+	texture_coordinates_type const &_coordinates
 )
 {
 	elements_. template set<
 		roles::texture_coordinates
 	>(
-		coordinates_
+		_coordinates
 	);
 }
 
@@ -532,13 +532,13 @@ template<
 >
 void
 sge::sprite::object<Choices>::color(
-	color_type const &color_
+	color_type const &_color
 )
 {
 	elements_. template set<
 		roles::color
 	>(
-		color_
+		_color
 	);
 }
 
@@ -547,7 +547,7 @@ template<
 >
 void
 sge::sprite::object<Choices>::order(
-	order_type const order_
+	order_type const _order
 )
 {
 	intrusive::detail::object_base_hook::unlink();
@@ -555,7 +555,7 @@ sge::sprite::object<Choices>::order(
 	elements_. template set<
 		roles::order
 	>(
-		order_
+		_order
 	);
 
 	detail::assign_post(
@@ -568,7 +568,7 @@ template<
 >
 void
 sge::sprite::object<Choices>::transfer(
-	system &system_
+	system &_system
 )
 {
 	intrusive::detail::object_base_hook::unlink();
@@ -576,7 +576,7 @@ sge::sprite::object<Choices>::transfer(
 	elements_. template set<
 		roles::adder
 	>(
-		system_.adder()
+		_system.adder()
 	);
 
 	detail::assign_post(
@@ -615,13 +615,13 @@ sge::sprite::object<Choices>::set(
 	typename majutsu::role_return_type<
 		flattened_types,
 		Role
-	>::type const &value_
+	>::type const &_value
 )
 {
 	elements_. template set<
 		Role
 	>(
-		value_
+		_value
 	);
 }
 

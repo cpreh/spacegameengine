@@ -47,21 +47,21 @@ typename boost::enable_if<
 	void
 >::type
 fill_tex_coordinates(
-	Iterator const &iterator,
+	Iterator const &_iterator,
 	object<
 		Choices
-	> const &sprite_
+	> const &_sprite
 )
 {
 	if(
-		!sprite_.texture()
-		|| !sprite_.texture()->texture()
+		!_sprite.texture()
+		|| !_sprite.texture()->texture()
 	)
 		return;
 	
-	fill_tex_coordinates_impl(
-		iterator,
-		sprite_
+	detail::fill_tex_coordinates_impl(
+		_iterator,
+		_sprite
 	);
 }
 

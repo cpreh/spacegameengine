@@ -45,14 +45,14 @@ typename boost::enable_if<
 assign_post(
 	object<
 		Choices
-	> &this_
+	> &_this
 )
 {
-	this_.template get<
+	_this.template get<
 		sge::sprite::roles::adder
 	>()->add(
-		this_,
-		this_.order()
+		_this,
+		_this.order()
 	);
 }
 

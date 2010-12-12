@@ -36,9 +36,9 @@ class index_generator
 public:
 	index_generator()
 	:
-		index(0),
-		ptr(
-			index_array.begin()
+		index_(0),
+		ptr_(
+			detail::index_array.begin()
 		)
 	{
 	}
@@ -52,17 +52,17 @@ public:
 			static_cast<
 				T
 			>(
-				*ptr++ + index
+				*ptr_++ + index_
 			)
 		);
 
 		if(
-			ptr == index_array.end()
+			ptr_ == detail::index_array.end()
 		)
 		{
-			ptr = index_array.begin();
+			ptr_ = detail::index_array.begin();
 
-			index +=
+			index_ +=
 				static_cast<
 					index_array_type::value_type
 				>(
@@ -72,8 +72,9 @@ public:
 		return ret;
 	}
 private:
-	mutable index_array_type::value_type index;
-	mutable index_array_type::const_iterator ptr;
+	mutable index_array_type::value_type index_;
+
+	mutable index_array_type::const_iterator ptr_;
 };
 
 }
