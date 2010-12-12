@@ -133,9 +133,9 @@ sge::renderer::device::create_texture(
 		)
 	);
 
-	scoped_texture_lock const lock(
+	renderer::scoped_texture_lock const lock(
 		tex,
-		lock_mode::writeonly
+		renderer::lock_mode::writeonly
 	);
 
 	image::algorithm::copy_and_convert(
@@ -180,26 +180,26 @@ sge::renderer::device::create_volume_texture(
 
 sge::renderer::vertex_buffer_ptr const
 sge::renderer::device::create_vertex_buffer(
-	vf::dynamic::const_view const &view,
-	resource_flags_field const &flags
+	vf::dynamic::const_view const &_view,
+	resource_flags_field const &_flags
 )
 {
 	vertex_buffer_ptr const vb(
-		create_vertex_buffer(
-			view.format(),
-			view.size(),
-			flags
+		this->create_vertex_buffer(
+			_view.format(),
+			_view.size(),
+			_flags
 		)
 	);
 
 	scoped_vertex_lock const lock(
 		vb,
-		lock_mode::writeonly
+		renderer::lock_mode::writeonly
 	);
 
 	fcppt::algorithm::copy_n(
-		view.data(),
-		view.format().stride() * view.size(),
+		_view.data(),
+		_view.format().stride() * _view.size(),
 		lock.value().data()
 	);
 
@@ -208,15 +208,15 @@ sge::renderer::device::create_vertex_buffer(
 
 sge::renderer::index_buffer_ptr const
 sge::renderer::device::create_index_buffer(
-	index::dynamic::const_view const &view,
-	resource_flags_field const &flags
+	index::dynamic::const_view const &_view,
+	resource_flags_field const &_flags
 )
 {
 	index_buffer_ptr const ib(
-		create_index_buffer(
-			view.format(),
-			view.size(),
-			flags
+		this->create_index_buffer(
+			_view.format(),
+			_view.size(),
+			_flags
 		)
 	);
 
@@ -226,7 +226,7 @@ sge::renderer::device::create_index_buffer(
 	);
 
 	index::dynamic::copy(
-		view,
+		_view,
 		lock.value()
 	);
 
