@@ -47,24 +47,30 @@ public:
 
 sge::image::view::object const
 sge::image::view::flipped(
-	object const &v
+	object const &_view
 )
 {
-	return fcppt::variant::apply_unary(
-		visitor<object>(),
-		v
-	);
+	return
+		fcppt::variant::apply_unary(
+			::visitor<
+				view::object
+			>(),
+			_view
+		);
 }
 
 sge::image::view::const_object const
 sge::image::view::flipped(
-	const_object const &v
+	const_object const &_view
 )
 {
-	return fcppt::variant::apply_unary(
-		visitor<const_object>(),
-		v
-	);
+	return
+		fcppt::variant::apply_unary(
+			::visitor<
+				view::const_object
+			>(),
+			_view
+		);
 }
 
 namespace
@@ -78,14 +84,17 @@ template<
 >
 typename visitor<View>::result_type
 visitor<View>::operator()(
-	T const &v
+	T const &_view
 ) const
 {
-	return typename visitor<View>::result_type(
-		mizuiro::image::flipped_view(
-			v
-		)
-	);
+	return
+		typename ::visitor<
+			View
+		>::result_type(
+			mizuiro::image::flipped_view(
+				_view
+			)
+		);
 }
 
 }
