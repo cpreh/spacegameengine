@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../keyboard_key.hpp"
 #include "../device_parameters.hpp"
 #include "../select_events.hpp"
+#include "../event_data.hpp"
 #include <X11/Xlib.h>
 #include <sge/input/keyboard/key.hpp>
 #include <sge/input/keyboard/key_event.hpp>
@@ -168,33 +169,38 @@ sge::x11input::keyboard::on_key_event(
 	awl::backends::x11::system::event::object const &_event
 )
 {
-	int opcode = 143;
-
-	XGenericEventCookie ev(
-		_event.get()
+	x11input::event_data const cookie(
+		window_->display(),
+		_event
 	);
 
-if (ev.type == GenericEvent &&
-    ev.extension == opcode &&
-    XGetEventData(window_->display()->get(), &ev))
-{
-    switch(ev.evtype)
-    {
-        case XI_KeyPress:
-	{
-	 XIDeviceEvent *event= static_cast<XIDeviceEvent *>(ev.data);
+	XIDeviceEvent const *const event= static_cast<XIDeviceEvent const *>(cookie.data());
 
-    std::cout << "    device: " << event->deviceid << " (" << event->sourceid << ")\n";
-    std::cout << "    detail: " << event->detail << '\n';
-    if (event->flags & XIKeyRepeat)
-       std::cout << "    event is a key repeat.\n";
-            break;
-	   }
-    }
-}
-XFreeEventData(window_->display()->get(), &ev);
+	std::cout << "    device: " << event->deviceid << " (" << event->sourceid << ")\n";
+	std::cout << "    detail: " << event->detail << '\n';
+	if (event->flags & XIKeyRepeat)
+		std::cout << "    event is a key repeat.\n";
+	
+	#if 0
+	for(
+		int i = 0;
+		i < event->buttons.mask_len;
+		++i
+	)
+		for(
+			unsigned j = 0;
+			j < 8;
+			++j
+		)
+			std::cout << std::boolalpha << (event->buttons.mask[i] & (1 << j)) << ' ';
 
+	std::cout << '\n';
 
+	#endif
+	if(event->event != window_->get())
+		std::cout << "not for this window\n";
+	else
+		std::cout << "for this window\n";
 #if 0
 	std::cout << "KEYBOARD\n";
 
