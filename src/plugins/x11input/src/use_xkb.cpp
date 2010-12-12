@@ -18,24 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_KEYBOARD_KEY_HPP_INCLUDED
-#define SGE_X11INPUT_KEYBOARD_KEY_HPP_INCLUDED
+#include "../use_xkb.hpp"
+#include <awl/backends/x11/display.hpp>
+#include <X11/XKBlib.h>
 
-#include <sge/input/keyboard/key_fwd.hpp>
-#include <awl/backends/x11/display_ptr.hpp>
-
-namespace sge
+bool
+sge::x11input::use_xkb(
+	awl::backends::x11::display_ptr const _display
+)
 {
-namespace x11input
-{
+	// TODO: do we have to initialize this?
+	int major = 1, minor = 0;
 
-sge::input::keyboard::key const
-keyboard_key(
-	awl::backends::x11::display_ptr,
-	int key_code
-);
-
+	return
+		::XkbUseExtension(
+			_display->get(),
+			&major,
+			&minor
+		)
+		== True;
 }
-}
-
-#endif

@@ -18,76 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../keyboard_key.hpp"
-#include "../translate_key_code.hpp"
-#include <sge/input/keyboard/key.hpp>
+#include "../xi_version.hpp"
 #include <awl/backends/x11/display.hpp>
-#include <X11/XKBlib.h>
+#include <X11/extensions/XInput2.h>
 
-#include <iostream>
-
-sge::input::keyboard::key const
-sge::x11input::keyboard_key(
+bool
+sge::x11input::xi_version(
 	awl::backends::x11::display_ptr const _display,
-	int const _key_code
+	int _major,
+	int _minor
 )
 {
-
-#if 0
-	XComposeStatus state;
-
-	KeySym ks;
-
-	int const num_chars(
-		XLookupString(
-			const_cast<
-				XKeyEvent *
-			>(
-				&_xev
-			),
-			0,
-			0,
-			&ks,
-			&state
-		)
-	);
-
-	// xev does it this way
-	char const char_code(
-		ks
-		>
-		static_cast<
-			KeySym
-		>(
-			std::numeric_limits<char>::max()
-		)
-		?
-			static_cast<char>(0)
-		:
-			static_cast<char>(ks)
-	);
-#endif
-	KeySym const key_sym(
-		::XkbKeycodeToKeysym(
-			_display->get(),
-			_key_code,
-			0,
-			0 // TODO!
-		)
-	);
-
-	if(
-		key_sym == NoSymbol
-	)
-		std::cout << "OH NO\n";
-	else
-		std::cout << std::hex << key_sym << '\n';
-
 	return
-		input::keyboard::key(
-			x11input::translate_key_code(
-				key_sym
-			),
-			0//char_code // TODO: translate this!
-		);
+		::XIQueryVersion(
+			_display->get(),
+			&_major,
+			&_minor
+		)
+		!= BadRequest;
 }

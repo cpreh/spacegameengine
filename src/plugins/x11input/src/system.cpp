@@ -19,15 +19,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../system.hpp"
+#include "../optional_opcode.hpp"
 #include "../processor.hpp"
-#include <X11/Xlib.h>
-#include <X11/extensions/XInput2.h>
+#include "../use_xkb.hpp"
+#include "../xi_opcode.hpp"
+#include "../xi_version.hpp"
 #include <sge/window/instance.hpp>
 #include <sge/input/exception.hpp>
-#include <awl/backends/x11/display.hpp>
-#include <awl/backends/x11/system/event/opcode.hpp>
 #include <awl/backends/x11/window/instance.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/polymorphic_pointer_cast.hpp>
 #include <fcppt/text.hpp>
 
@@ -51,39 +52,38 @@ sge::x11input::system::create_processor(
 			_window->awl_instance()
 		)
 	);
-
-	// check if XInput 2 is available
-	Display *const display(
-		x11_window->display()->get()
+	
+	x11input::optional_opcode const opcode(
+		x11input::xi_opcode(
+			x11_window->display()
+		)
 	);
 
-	int opcode, event, error;
-
 	if(
-		!::XQueryExtension(
-			display,
-			"XInputExtension",
-			&opcode,
-			&event,
-			&error
-		)
+		!opcode
 	)
 		throw sge::input::exception(
 			FCPPT_TEXT("X Input extension not available! Please install libXi!")
 		);
 
-	int major = 2, minor = 0;
-
 	if(
-		::XIQueryVersion(
-			display,
-			&major,
-			&minor
+		!x11input::xi_version(
+			x11_window->display(),
+			2,
+			0
 		)
-		== BadRequest
 	)
 		throw sge::input::exception(
 			FCPPT_TEXT("X Input extension is not version 2 or later!")
+		);
+	
+	if(
+		!x11input::use_xkb(
+			x11_window->display()
+		)
+	)
+		throw sge::input::exception(
+			FCPPT_TEXT("Xkb extension not available!")
 		);
 
 	return
@@ -91,8 +91,6 @@ sge::x11input::system::create_processor(
 			x11input::processor
 		>(
 			_window,
-			awl::backends::x11::system::event::opcode(
-				opcode
-			)
+			*opcode
 		);
 }

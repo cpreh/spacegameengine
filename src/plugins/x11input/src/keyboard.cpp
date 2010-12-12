@@ -67,7 +67,7 @@ sge::x11input::keyboard::keyboard(
 						XI_KeyPress
 					),
 					std::tr1::bind(
-						&keyboard::on_key_event,
+						&keyboard::on_key_press,
 						this,
 						std::tr1::placeholders::_1
 					)
@@ -82,7 +82,7 @@ sge::x11input::keyboard::keyboard(
 						XI_KeyRelease
 					),
 					std::tr1::bind(
-						&keyboard::on_key_event,
+						&keyboard::on_key_release,
 						this,
 						std::tr1::placeholders::_1
 					)
@@ -165,8 +165,31 @@ sge::x11input::keyboard::mod_state() const
 }
 
 void
-sge::x11input::keyboard::on_key_event(
+sge::x11input::keyboard::on_key_press(
 	awl::backends::x11::system::event::object const &_event
+)
+{
+	on_key_event(
+		_event,
+		true
+	);
+}
+
+void
+sge::x11input::keyboard::on_key_release(
+	awl::backends::x11::system::event::object const &_event
+)
+{
+	on_key_event(
+		_event,
+		false
+	);
+}
+
+void
+sge::x11input::keyboard::on_key_event(
+	awl::backends::x11::system::event::object const &_event,
+	bool const _pressed
 )
 {
 	x11input::event_data const cookie(
@@ -174,87 +197,19 @@ sge::x11input::keyboard::on_key_event(
 		_event
 	);
 
-	XIDeviceEvent const *const event= static_cast<XIDeviceEvent const *>(cookie.data());
-
-	std::cout << "    device: " << event->deviceid << " (" << event->sourceid << ")\n";
-	std::cout << "    detail: " << event->detail << '\n';
-	if (event->flags & XIKeyRepeat)
-		std::cout << "    event is a key repeat.\n";
-	
-	#if 0
-	for(
-		int i = 0;
-		i < event->buttons.mask_len;
-		++i
-	)
-		for(
-			unsigned j = 0;
-			j < 8;
-			++j
+	XIDeviceEvent const &event(
+		*static_cast<
+			XIDeviceEvent const *
+		>(
+			cookie.data()
 		)
-			std::cout << std::boolalpha << (event->buttons.mask[i] & (1 << j)) << ' ';
-
-	std::cout << '\n';
-
-	#endif
-	if(event->event != window_->get())
-		std::cout << "not for this window\n";
-	else
-		std::cout << "for this window\n";
-#if 0
-	std::cout << "KEYBOARD\n";
-
-	XEvent const &xev(
-		_event.get()
-	);
-
-	XKeyEvent const &key_event(
-		xev.xkey
 	);
 
 	input::keyboard::key const key(
 		x11input::keyboard_key(
-			key_event
+			window_->display(),
+			event.detail
 		)
-	);
-
-	// check for repeated key (thanks to SDL)
-	if(
-		xev.type == KeyRelease
-		&&
-		::XPending(
-			window_->display()->get()
-		)
-	)
-	{
-		XEvent peek;
-
-		::XPeekEvent(
-			window_->display()->get(),
-			&peek
-		);
-		
-		if(
-			peek.type == KeyPress &&
-			peek.xkey.keycode == xev.xkey.keycode &&
-			(peek.xkey.time - xev.xkey.time) < 2
-		)
-		{
-			::XNextEvent(
-				window_->display()->get(),
-				&peek
-			);
-
-			key_repeat_signal_(
-				key
-			);
-
-			return;
-		}
-	}
-
-	bool const is_pressed(
-		xev.type == KeyPress
 	);
 
 	{	
@@ -269,14 +224,20 @@ sge::x11input::keyboard::on_key_event(
 		)
 			modifiers_[
 				*mod
-			] = is_pressed;
+			] = _pressed;
 	}
 
-	key_signal_(
-		input::keyboard::key_event(
-			key,
-			is_pressed
-		)
-	);
-#endif
+	if(
+		event.flags & XIKeyRepeat
+	)
+		key_repeat_signal_(
+			key
+		);
+	else
+		key_signal_(
+			input::keyboard::key_event(
+				key,
+				_pressed
+			)
+		);
 }

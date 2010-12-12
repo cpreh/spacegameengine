@@ -81,8 +81,19 @@ private:
 	mod_state() const;
 
 	void
-	on_key_event(
+	on_key_press(
 		awl::backends::x11::system::event::object const &
+	);
+
+	void
+	on_key_release(
+		awl::backends::x11::system::event::object const &
+	);
+	
+	void
+	on_key_event(
+		awl::backends::x11::system::event::object const &,
+		bool pressed
 	);
 
 	awl::backends::x11::window::instance_ptr const window_;
