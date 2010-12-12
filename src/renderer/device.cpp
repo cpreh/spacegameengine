@@ -43,29 +43,29 @@ sge::renderer::device::device()
 
 sge::renderer::glsl::program_ptr const
 sge::renderer::device::create_glsl_program(
-	glsl::optional_string const &vertex_shader_source_,
-	glsl::optional_string const &pixel_shader_source_
+	glsl::optional_string const &_vertex_shader_source,
+	glsl::optional_string const &_pixel_shader_source
 )
 {
 	glsl::program_ptr const ret(
-		create_glsl_program()
+		this->create_glsl_program()
 	);
 
 	if(
-		vertex_shader_source_
+		_vertex_shader_source
 	)
 		ret->vertex_shader(
-			create_glsl_vertex_shader(
-				*vertex_shader_source_	
+			this->create_glsl_vertex_shader(
+				*_vertex_shader_source
 			)
 		);
 	
 	if(
-		pixel_shader_source_
+		_pixel_shader_source
 	)
 		ret->pixel_shader(
-			create_glsl_pixel_shader(
-				*pixel_shader_source_
+			this->create_glsl_pixel_shader(
+				*_pixel_shader_source
 			)
 		);
 
@@ -76,8 +76,8 @@ sge::renderer::device::create_glsl_program(
 
 sge::renderer::glsl::program_ptr const
 sge::renderer::device::create_glsl_program(
-	glsl::optional_istream const &vertex_shader_source_,
-	glsl::optional_istream const &pixel_shader_source_
+	glsl::optional_istream const &_vertex_shader_source,
+	glsl::optional_istream const &_pixel_shader_source
 )
 {
 	typedef std::basic_ostringstream<
@@ -89,23 +89,23 @@ sge::renderer::device::create_glsl_program(
 		ps_stream;
 
 	if(
-		vertex_shader_source_
+		_vertex_shader_source
 	)
-		vs_stream << vertex_shader_source_->get().rdbuf();
+		vs_stream << _vertex_shader_source->get().rdbuf();
 
 	if(
-		pixel_shader_source_
+		_pixel_shader_source
 	)
-		ps_stream << pixel_shader_source_->get().rdbuf();
+		ps_stream << _pixel_shader_source->get().rdbuf();
 
 	return
-		create_glsl_program(
-			vertex_shader_source_
+		this->create_glsl_program(
+			_vertex_shader_source
 			?
 				vs_stream.str()
 			:
 				renderer::glsl::optional_string(),
-			pixel_shader_source_
+			_pixel_shader_source
 			?
 				ps_stream.str()
 			:
@@ -115,17 +115,21 @@ sge::renderer::device::create_glsl_program(
 
 sge::renderer::texture_ptr const
 sge::renderer::device::create_texture(
-	image::view::const_object const &v,
-	filter::texture const &filter,
-	resource_flags_field const &flags
+	image::view::const_object const &_view,
+	filter::texture const &_filter,
+	resource_flags_field const &_flags
 )
 {
 	texture_ptr const tex(
-		create_texture(
-			image::view::dim(v),
-			image::view::format(v),
-			filter,
-			flags
+		this->create_texture(
+			image::view::dim(
+				_view
+			),
+			image::view::format(
+				_view
+			),
+			_filter,
+			_flags
 		)
 	);
 
@@ -135,7 +139,7 @@ sge::renderer::device::create_texture(
 	);
 
 	image::algorithm::copy_and_convert(
-		v,
+		_view,
 		lock.value()
 	);
 

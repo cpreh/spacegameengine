@@ -26,36 +26,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::texture_ptr const
 sge::image::create_texture(
-	renderer::device_ptr const renderer,
-	file_ptr const file,
-	renderer::filter::texture const &filter,
-	renderer::resource_flags_field const &flags
+	renderer::device_ptr const _renderer,
+	file_ptr const _file,
+	renderer::filter::texture const &_filter,
+	renderer::resource_flags_field const &_flags
 )
 {
 	return
-		renderer->create_texture(
-			file->view(),
-			filter,
-			flags
+		_renderer->create_texture(
+			_file->view(),
+			_filter,
+			_flags
 		);
 }
 
 sge::renderer::texture_ptr const
 sge::image::create_texture(
-	fcppt::filesystem::path const &file,
-	renderer::device_ptr const renderer,
-	multi_loader &loader,
-	renderer::filter::texture const &filter,
-	renderer::resource_flags_field const &flags
+	fcppt::filesystem::path const &_file,
+	renderer::device_ptr const _renderer,
+	multi_loader &_loader,
+	renderer::filter::texture const &_filter,
+	renderer::resource_flags_field const &_flags
 )
 {
 	return
-		create_texture(
-			renderer,
-			loader.load(
-				file
+		image::create_texture(
+			_renderer,
+			_loader.load(
+				_file
 			),
-			filter,
-			flags
+			_filter,
+			_flags
 		);
 }

@@ -27,7 +27,7 @@ sge::image::file_exception::file_exception(
 	fcppt::string const &_message
 )
 :
-	exception(
+	image::exception(
 		FCPPT_TEXT("\"")
 		+ fcppt::filesystem::path_to_string(
 			_path

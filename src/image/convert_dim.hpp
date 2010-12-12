@@ -34,14 +34,14 @@ template<
 >
 Dest const
 convert_dim(
-	Src const &src
+	Src const &_src
 )
 {
 	Dest dest;
 
 	std::copy(
-		src.begin(),
-		src.end(),
+		_src.begin(),
+		_src.end(),
 		dest.begin()
 	);
 
