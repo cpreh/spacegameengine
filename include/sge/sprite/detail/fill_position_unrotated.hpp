@@ -42,10 +42,10 @@ template<
 >
 void
 fill_position_unrotated(
-	Iterator iterator,
+	Iterator _iterator,
 	object<
 		Choices
-	> const &spr
+	> const &_sprite
 )
 {
 	typedef typename Choices::type_choices type_choices;
@@ -58,12 +58,12 @@ fill_position_unrotated(
 		type_choices
 	>::type rect_float;
 
-	rect_float const rect_(
+	rect_float const rect(
 		fcppt::math::box::structure_cast<
 			rect_float
 		>(
 			sprite::bounding_rect(
-				spr
+				_sprite
 			)
 		)
 	);
@@ -76,49 +76,49 @@ fill_position_unrotated(
 		typename type_choices::float_type
 	>::type depth_type;
 
-	depth_type const depth_(
-		depth(
-			spr
+	depth_type const depth(
+		detail::depth(
+			_sprite
 		)
 	);
 
-	(*iterator++). template set<
+	(*_iterator++). template set<
 		vertex_pos
 	>(
 		pos3(
-			rect_.left(),
-			rect_.top(),
-			depth_
+			rect.left(),
+			rect.top(),
+			depth
 		)
 	);
 
-	(*iterator++). template set<
+	(*_iterator++). template set<
 		vertex_pos
 	>(
 		pos3(
-			rect_.right(),
-			rect_.top(),
-			depth_
+			rect.right(),
+			rect.top(),
+			depth
 		)
 	);
 
-	(*iterator++). template set<
+	(*_iterator++). template set<
 		vertex_pos
 	>(
 		pos3(
-			rect_.right(),
-			rect_.bottom(),
-			depth_
+			rect.right(),
+			rect.bottom(),
+			depth
 		)
 	);
 
-	(*iterator++). template set<
+	(*_iterator++). template set<
 		vertex_pos
 	>(
 		pos3(
-			rect_.left(),
-			rect_.bottom(),
-			depth_
+			rect.left(),
+			rect.bottom(),
+			depth
 		)
 	);
 }

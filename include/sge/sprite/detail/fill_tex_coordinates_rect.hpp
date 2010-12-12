@@ -40,10 +40,10 @@ template<
 >
 void
 fill_tex_coordinates_rect(
-	Iterator iterator,
+	Iterator _iterator,
 	typename texture_coordinates<
 		typename Choices::type_choices::float_type
-	>::type const &rt
+	>::type const &_rt
 )
 {
 	typedef typename Choices::type_choices type_choices;
@@ -56,39 +56,39 @@ fill_tex_coordinates_rect(
 		type_choices
 	>::type vertex_texpos;
 
-	(*iterator++). template set<
+	(*_iterator++). template set<
 		vertex_texpos
 	>(
 		tex_pos(
-			rt.first.x(),
-			rt.first.y()
+			_rt.first.x(),
+			_rt.first.y()
 		)
 	);
 
-	(*iterator++). template set<
+	(*_iterator++). template set<
 		vertex_texpos
 	>(
 		tex_pos(
-			rt.second.x(),
-			rt.first.y()
+			_rt.second.x(),
+			_rt.first.y()
 		)
 	);
 
-	(*iterator++). template set<
+	(*_iterator++). template set<
 		vertex_texpos
 	>(
 		tex_pos(
-			rt.second.x(),
-			rt.second.y()
+			_rt.second.x(),
+			_rt.second.y()
 		)
 	);
 
-	(*iterator++). template set<
+	(*_iterator++). template set<
 		vertex_texpos
 	>(
 		tex_pos(
-			rt.first.x(),
-			rt.second.y()
+			_rt.first.x(),
+			_rt.second.y()
 		)
 	);
 }

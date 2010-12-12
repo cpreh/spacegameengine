@@ -46,19 +46,19 @@ typename boost::enable_if<
 assign_pre(
 	object<
 		Choices
-	> &this_,
+	> &_this,
 	object<
 		Choices
-	> const &other_
+	> const &_other
 )
 {
-	this_.unlink();
+	_this.unlink();
 
 	static_cast<
 		intrusive::detail::object_base_hook &
 	>(
-		this_
-	) = other_;
+		_this
+	) = _other;
 }
 
 template<
@@ -79,7 +79,8 @@ assign_pre(
 		Choices
 	> const &
 )
-{}
+{
+}
 
 }
 }

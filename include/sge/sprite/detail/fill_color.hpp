@@ -49,7 +49,7 @@ fill_color(
 	Iterator iterator,
 	object<
 		Choices
-	> const &sprite_
+	> const &_sprite
 )
 {
 	for(
@@ -62,7 +62,7 @@ fill_color(
 				typename Choices::type_choices
 			>::type
 		>(
-			sprite_.color()
+			_sprite.color()
 		);
 }
 
