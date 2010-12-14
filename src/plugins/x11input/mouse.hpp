@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "mouse_fwd.hpp"
 #include "device.hpp"
 #include "mouse_coordinate.hpp"
-#include "mouse_pos.hpp"
 #include "mouse_grab_fwd.hpp"
 #include "device_parameters_fwd.hpp"
 #include <sge/input/mouse/device.hpp>
@@ -32,13 +31,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/axis_function.hpp>
 #include <sge/input/mouse/button_callback.hpp>
 #include <sge/input/mouse/button_function.hpp>
-#include <awl/backends/x11/window/event/object_fwd.hpp>
-#include <awl/backends/x11/window/event/processor_ptr.hpp>
-#include <awl/backends/x11/window/event/signal/connection_manager.hpp>
+#include <awl/backends/x11/system/event/object_fwd.hpp>
 #include <awl/backends/x11/window/instance_ptr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object.hpp>
-#include <fcppt/math/vector/basic_decl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
 
@@ -80,28 +77,28 @@ private:
 
 	void
 	on_motion(
-		awl::backends::x11::window::event::object const &
+		awl::backends::x11::system::event::object const &
 	);
 
 	void
 	on_button_down(
-		awl::backends::x11::window::event::object const &
+		awl::backends::x11::system::event::object const &
 	);
 
 	void
 	on_button_up(
-		awl::backends::x11::window::event::object const &
+		awl::backends::x11::system::event::object const &
 	);
 
 	void
 	button_event(
-		awl::backends::x11::window::event::object const &,
+		awl::backends::x11::system::event::object const &,
 		bool pressed
 	);
 
 	void
 	warped_motion(
-		awl::backends::x11::window::event::object const &
+		awl::backends::x11::system::event::object const &
 	);
 
 	void
@@ -112,9 +109,7 @@ private:
 
 	awl::backends::x11::window::instance_ptr const window_;
 
-	mouse_pos mouse_last_;
-
-	awl::backends::x11::window::event::signal::connection_manager const connections_;
+	fcppt::signal::connection_manager const connections_;
 
 	fcppt::scoped_ptr<
 		mouse_grab

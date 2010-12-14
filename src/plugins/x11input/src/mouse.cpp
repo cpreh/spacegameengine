@@ -19,29 +19,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../mouse.hpp"
-#include "../get_pointer.hpp"
-#include "../warp_pointer.hpp"
 #include "../mouse_grab.hpp"
 #include "../device_parameters.hpp"
+#include "../select_events.hpp"
+#include "../event_data.hpp"
 #include <X11/Xlib.h>
-#include <sge/log/global.hpp>
 #include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/axis.hpp>
 #include <sge/input/mouse/button_code.hpp>
 #include <sge/input/mouse/button_event.hpp>
 #include <awl/backends/x11/display.hpp>
-#include <awl/backends/x11/window/event/object.hpp>
-#include <awl/backends/x11/window/event/processor.hpp>
-#include <awl/backends/x11/window/event/signal/connection.hpp>
-#include <awl/backends/x11/window/event/signal/shared_connection.hpp>
+#include <awl/backends/x11/system/event/object.hpp>
+#include <awl/backends/x11/system/event/processor.hpp>
 #include <awl/backends/x11/window/instance.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/log/headers.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
+#include <X11/extensions/XInput2.h>
 
 namespace
 {
@@ -63,38 +58,16 @@ sge::x11input::mouse::mouse(
 	window_(
 		_param.window()
 	),
-#if 0
-	black_(
-		_window->display(),
-		::XDefaultColormap(
-			window_->display()->get(),
-			window_->screen()
-		), // TODO: do we have to release this?
-		FCPPT_TEXT("black")
-	),
-	no_bmp_(
-		_window
-	),
-	cursor_(
-		_window->display(),
-		no_bmp_.get(),
-		black_.get()
-	),
-	mouse_last_(
-		x11input::get_pointer(
-			_window
-		)
-	),
-#endif
 	connections_(
-		awl::backends::x11::window::event::signal::connection_manager::container()
-#if 0
 		fcppt::assign::make_container<
-			awl::backends::x11::window::event::signal::connection_manager::container
+			fcppt::signal::connection_manager::container
 		>(
-			awl::backends::x11::window::event::signal::shared_connection(
-				_event_processor->register_callback(
-					MotionNotify,
+			fcppt::signal::shared_connection(
+				_param.processor()->register_callback(
+					_param.opcode(),
+					awl::backends::x11::system::event::type(
+						XI_RawMotion
+					),
 					std::tr1::bind(
 						&mouse::on_motion,
 						this,
@@ -104,9 +77,12 @@ sge::x11input::mouse::mouse(
 			)
 		)
 		(
-			awl::backends::x11::window::event::signal::shared_connection(
-				_event_processor->register_callback(
-					ButtonPress,
+			fcppt::signal::shared_connection(
+				_param.processor()->register_callback(
+					_param.opcode(),
+					awl::backends::x11::system::event::type(
+						XI_ButtonPress
+					),
 					std::tr1::bind(
 						&mouse::on_button_down,
 						this,
@@ -116,9 +92,12 @@ sge::x11input::mouse::mouse(
 			)
 		)
 		(
-			awl::backends::x11::window::event::signal::shared_connection(
-				_event_processor->register_callback(
-					ButtonRelease,
+			fcppt::signal::shared_connection(
+				_param.processor()->register_callback(
+					_param.opcode(),
+					awl::backends::x11::system::event::type(
+						XI_ButtonRelease
+					),
 					std::tr1::bind(
 						&mouse::on_button_up,
 						this,
@@ -127,12 +106,34 @@ sge::x11input::mouse::mouse(
 				)
 			)
 		)
-#endif
 	),
 	grab_(),
 	button_signal_(),
 	axis_signal_()
 {
+	x11input::select_events(
+		_param.window(),
+		_param.id(),
+		fcppt::assign::make_container<
+			x11input::event_id_container
+		>(
+			XI_ButtonPress
+		)
+		(
+			XI_ButtonRelease
+		)
+	);
+
+	x11input::select_events(
+		_param.window(),
+		_param.id(),
+		fcppt::assign::make_container<
+			x11input::event_id_container
+		>(
+			XI_RawMotion
+		)
+	);
+
 }
 
 sge::x11input::mouse::~mouse()
@@ -182,19 +183,48 @@ sge::x11input::mouse::axis_callback(
 		);
 }
 
+#include <sge/exception.hpp>
+#include <iostream>
+
 void
 sge::x11input::mouse::on_motion(
-	awl::backends::x11::window::event::object const &_event
+	awl::backends::x11::system::event::object const &_event
 )
+try
 {
-	warped_motion(
+	x11input::event_data const cookie(
+		window_->display(),
 		_event
 	);
+
+	XIRawEvent const &event(
+		*static_cast<
+			XIRawEvent const *
+		>(
+			cookie.data()
+		)
+	);
+	
+	XIValuatorState const &valuators(
+		event.valuators
+	);
+
+	double *valuator = valuators.values;
+	std::cout << "--------------\n";
+    for (int i = 0; i < valuators.mask_len * 8; i++)
+        if (XIMaskIsSet(valuators.mask, i)) {
+            std::cout << '\t' << i << ": " << *valuator << '\n';
+            valuator++;
+        }
+}
+catch(sge::exception const &)
+{
+	std::cout << "OH NO\n";
 }
 
 void
 sge::x11input::mouse::on_button_down(
-	awl::backends::x11::window::event::object const &_event
+	awl::backends::x11::system::event::object const &_event
 )
 {
 	button_event(
@@ -205,7 +235,7 @@ sge::x11input::mouse::on_button_down(
 
 void
 sge::x11input::mouse::on_button_up(
-	awl::backends::x11::window::event::object const &_event
+	awl::backends::x11::system::event::object const &_event
 )
 {
 	button_event(
@@ -216,10 +246,11 @@ sge::x11input::mouse::on_button_up(
 
 void
 sge::x11input::mouse::button_event(
-	awl::backends::x11::window::event::object const &_event,
+	awl::backends::x11::system::event::object const &_event,
 	bool const _pressed
 )
 {
+#if 0
 	button_signal_(
 		input::mouse::button_event(
 			::mouse_key_code(
@@ -228,101 +259,7 @@ sge::x11input::mouse::button_event(
 			_pressed
 		)
 	);
-}
-
-void
-sge::x11input::mouse::warped_motion(
-	awl::backends::x11::window::event::object const &_event
-)
-{
-	XEvent xevent(
-		_event.get()
-	);
-
-	if(
-		!grab_
-	)
-		return;
-
-	mouse_coordinate const
-		mouse_fudge_factor = 8,
-		w = window_->size().w(),
-		h = window_->size().h();
-
-	mouse_coordinate
-		deltax = xevent.xmotion.x - mouse_last_.x(),
-		deltay = xevent.xmotion.y - mouse_last_.y();
-
-	mouse_last_.x() = xevent.xmotion.x;
-	mouse_last_.y() = xevent.xmotion.y;
-
-	private_mouse_motion(
-		deltax,
-		deltay
-	);
-
-	if(
-		!((xevent.xmotion.x < mouse_fudge_factor) ||
-		(xevent.xmotion.x > (w-mouse_fudge_factor)) ||
-		(xevent.xmotion.y < mouse_fudge_factor) ||
-		(xevent.xmotion.y > (h-mouse_fudge_factor)) )
-	)
-		return;
-
-	while(
-		::XCheckTypedEvent(
-			window_->display()->get(),
-			MotionNotify,
-			&xevent
-		)
-	)
-	{
-		deltax = xevent.xmotion.x - mouse_last_.x();
-		deltay = xevent.xmotion.y - mouse_last_.y();
-
-		mouse_last_.x() = xevent.xmotion.x;
-		mouse_last_.y() = xevent.xmotion.y;
-
-		private_mouse_motion(
-			deltax,
-			deltay
-		);
-	}
-
-	mouse_last_.x() = w / 2;
-	mouse_last_.y() = h / 2;
-
-	x11input::warp_pointer(
-		window_,
-		mouse_last_
-	);
-
-	for(
-		unsigned i = 0;
-		i < 10;
-		++i
-	)
-	{
-		::XMaskEvent(
-			window_->display()->get(),
-			PointerMotionMask,
-			&xevent
-		);
-
-		if(
-			(xevent.xmotion.x > mouse_last_.x() - mouse_fudge_factor) &&
-			(xevent.xmotion.x < mouse_last_.x() + mouse_fudge_factor) &&
-			(xevent.xmotion.y > mouse_last_.y() - mouse_fudge_factor) &&
-			(xevent.xmotion.y < mouse_last_.y() + mouse_fudge_factor)
-		)
-			return;
-	}
-
-	FCPPT_LOG_WARNING(
-		log::global(),
-		fcppt::log::_
-			<< FCPPT_TEXT("Didn't detect mouse warp motion!")
-	);
+#endif
 }
 
 void
@@ -331,6 +268,7 @@ sge::x11input::mouse::private_mouse_motion(
 	mouse_coordinate const _deltay
 )
 {
+#if 0
 	if(
 		_deltax
 	)
@@ -350,6 +288,7 @@ sge::x11input::mouse::private_mouse_motion(
 				_deltay
 			)
 		);
+#endif
 }
 
 namespace

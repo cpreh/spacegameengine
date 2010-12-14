@@ -65,7 +65,10 @@ sge::x11input::select_events(
 					bit_type
 				>::digits
 			)
-		)
+		),
+		static_cast<
+			bit_type
+		>(0)
 	);
 
 	BOOST_FOREACH(
@@ -88,6 +91,23 @@ sge::x11input::select_events(
 		store.data()
 	};
 
+	if(
+		std::count(
+			_events.begin(),
+			_events.end(),
+			XI_RawMotion
+		)
+	)
+		::XISelectEvents(
+			_window->display()->get(),
+			XRootWindow(
+				_window->display()->get(),
+				0
+			),
+			&mask,
+			1
+		);
+	else
 	if(
 		::XISelectEvents(
 			_window->display()->get(),

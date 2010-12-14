@@ -76,13 +76,6 @@ sge::x11input::keyboard_key(
 		)
 	);
 
-	if(
-		key_sym == NoSymbol
-	)
-		std::cout << "OH NO\n";
-	else
-		std::cout << std::hex << key_sym << '\n';
-
 	return
 		input::keyboard::key(
 			x11input::translate_key_code(

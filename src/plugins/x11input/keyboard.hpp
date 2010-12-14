@@ -32,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_function.hpp>
 #include <sge/input/keyboard/key_repeat_function.hpp>
 #include <awl/backends/x11/system/event/object_fwd.hpp>
-#include <awl/backends/x11/system/event/processor_ptr.hpp>
 #include <awl/backends/x11/window/instance_ptr.hpp>
 #include <fcppt/container/bitfield/basic_decl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -97,8 +96,6 @@ private:
 	);
 
 	awl::backends::x11::window::instance_ptr const window_;
-
-	awl::backends::x11::system::event::processor_ptr const event_processor_;
 
 	bool const need_grab_;
 
