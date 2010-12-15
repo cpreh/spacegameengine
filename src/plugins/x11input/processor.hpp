@@ -28,10 +28,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/instance_ptr.hpp>
 #include <awl/backends/x11/window/event/object_fwd.hpp>
 #include <awl/backends/x11/window/event/processor_ptr.hpp>
-#include <awl/backends/x11/window/event/signal/connection_manager.hpp>
 #include <awl/backends/x11/window/instance_ptr.hpp>
-#include <fcppt/signal/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/connection_manager.hpp>
+#include <fcppt/signal/object.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <vector>
 
@@ -125,7 +125,7 @@ private:
 		x11input::mouse_ptr
 	> mouse_vector;
 
-	awl::backends::x11::window::event::signal::connection_manager const connections_;
+	fcppt::signal::connection_manager const connections_;
 
 	keyboard_vector keyboards_;
 
