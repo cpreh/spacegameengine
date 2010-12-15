@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/parameters/inherited.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
+#include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <BulletDynamics/Dynamics/btRigidBody.h>
 
 namespace
@@ -47,7 +48,10 @@ mylogger(
 
 sge::bullet::overlap_filter::overlap_filter()
 :
-	test_callback_()
+	test_callback_(
+		boost::phoenix::arg_names::arg1,
+		false
+	)
 {
 }
 
