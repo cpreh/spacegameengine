@@ -152,18 +152,18 @@ template<
 >
 void
 sge::sprite::intrusive::system<Choices>::render(
-	list const &sprites,
-	EqualFunction const &equal
+	list const &_sprites,
+	EqualFunction const &_equal
 )
 {
 	if(
-		sprites.empty()
+		_sprites.empty()
 	)
 		return;
 	
 	// TODO: better track the sprites size
 	renderer::size_type const sprite_count(
-		sprites.size()
+		_sprites.size()
 	);
 
 	base::allocate_buffers(
@@ -179,8 +179,8 @@ sge::sprite::intrusive::system<Choices>::render(
 	);
 
 	sprite::detail::fill_geometry(
-		sprites.begin(),
-		sprites.end(),
+		_sprites.begin(),
+		_sprites.end(),
 		base::vertex_buffer(),
 		base::index_buffer(),
 		sprite::detail::optional_size(
@@ -198,9 +198,9 @@ sge::sprite::intrusive::system<Choices>::render(
 	);
 
 	sprite::detail::render(
-		sprites.begin(),
-		sprites.end(),
-		equal,
+		_sprites.begin(),
+		_sprites.end(),
+		_equal,
 		rend,
 		ib
 	);

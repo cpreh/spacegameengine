@@ -54,23 +54,23 @@ template<
 >
 void
 fill_geometry(
-	It begin,
-	It const end,
-	renderer::vertex_buffer_ptr const vb,
-	renderer::index_buffer_ptr const ib,
-	optional_size const &num_sprites
+	It _begin,
+	It const _end,
+	renderer::vertex_buffer_ptr const _vb,
+	renderer::index_buffer_ptr const _ib,
+	optional_size const &_num_sprites
 )
 {
 	renderer::size_type const sprites_to_lock(
-		num_sprites
+		_num_sprites
 		?
-			*num_sprites
+			*_num_sprites
 		:
 			renderer::vertex_buffer::npos
 	);
 
 	renderer::scoped_vertex_lock const vblock(
-		vb,
+		_vb,
 		renderer::lock_mode::writeonly,
 		0,
 		sprites_to_lock
@@ -98,8 +98,10 @@ fill_geometry(
 	renderer::size_type count(0);
 
 	for(
-		It it(begin);
-		it != end;
+		It it(
+			_begin
+		);
+		it != _end;
 		++it
 	)
 	{
@@ -107,7 +109,11 @@ fill_geometry(
 			*it
 		);
 
-		if(!visible(spr))
+		if(
+			!detail::visible(
+				spr
+			)
+		)
 			continue;
 
 		fill_position(
@@ -132,7 +138,7 @@ fill_geometry(
 
 	renderer::index::dynamic::generate(
 		renderer::scoped_index_lock(
-			ib,
+			_ib,
 			renderer::lock_mode::writeonly,
 			0,
 			count * detail::indices_per_sprite

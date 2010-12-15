@@ -48,11 +48,11 @@ template<
 >
 void
 render(
-	In const beg,
-	In const end,
-	Comp const comp,
-	renderer::device_ptr const rend,
-	renderer::index_buffer_ptr const ib
+	In const _beg,
+	In const _end,
+	Comp const _comp,
+	renderer::device_ptr const _rend,
+	renderer::index_buffer_ptr const _ib
 )
 {
 	typedef typename std::iterator_traits<
@@ -64,35 +64,37 @@ render(
 	set_texture_pre<
 		typename object_type::elements
 	>(
-		rend
+		_rend
 	);
 
 	for(
-		In cur(beg), next(cur);
-		cur != end; cur = next
+		In cur(_beg), next(cur);
+		cur != _end; cur = next
 	)
 	{
 		renderer::size_type num_objects(0);
 
 		while(
-			next != end && comp(*cur, *next)
+			next != _end && _comp(*cur, *next)
 		)
 		{
 			++next;
 
 			if(
-				visible(*cur)
+				detail::visible(
+					*cur
+				)
 			)
 				++num_objects;
 		}
 
-		set_texture(
+		detail::set_texture(
 			*cur,
-			rend
+			_rend
 		);
 
-		rend->render(
-			ib,
+		_rend->render(
+			_ib,
 			renderer::first_vertex(
 				offset * detail::vertices_per_sprite
 			),

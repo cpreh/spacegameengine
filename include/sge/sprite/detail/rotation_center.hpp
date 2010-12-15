@@ -51,20 +51,20 @@ typename boost::enable_if<
 rotation_center(
 	object<
 		Choices
-	> const &sprite_
+	> const &_sprite
 )
 {
 	return
-		sprite_. template get<
+		_sprite. template get<
 			sge::sprite::roles::use_rotation
 		>()
 		?
-			sprite_. template get<
+			_sprite. template get<
 				sge::sprite::roles::rotate_around
 			>()
 		:
-			center(
-				sprite_
+			sprite::center(
+				_sprite
 			);
 }
 
@@ -83,12 +83,12 @@ typename boost::disable_if<
 rotation_center(
 	object<
 		Choices
-	> const &sprite_
+	> const &_sprite
 )
 {
 	return
-		center(
-			sprite_
+		sprite::center(
+			_sprite
 		);
 }
 

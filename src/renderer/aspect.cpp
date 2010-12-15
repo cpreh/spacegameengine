@@ -30,21 +30,24 @@ template<
 >
 T
 sge::renderer::aspect(
-	screen_size const &sz
+	screen_size const &_size
 )
 {
 	T const
-		w(static_cast<T>(sz.w())),
-		h(static_cast<T>(sz.h()));
+		w(static_cast<T>(_size.w())),
+		h(static_cast<T>(_size.h()));
 
 	FCPPT_ASSERT(
 		!fcppt::math::almost_zero(w)
 		&& !fcppt::math::almost_zero(h)
 	)
 
-	return w > h
-		? w / h
-		: h / w;
+	return
+		w > h
+		?
+			w / h
+		:
+			h / w;
 }
 
 #define SGE_INSTANTIATE_ASPECT(x)\

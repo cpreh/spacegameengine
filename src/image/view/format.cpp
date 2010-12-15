@@ -44,13 +44,14 @@ public:
 
 sge::image::color::format::type
 sge::image::view::format(
-	const_object const &view
+	const_object const &_view
 )
 {
-	return fcppt::variant::apply_unary(
-		visitor(),
-		view
-	);
+	return
+		fcppt::variant::apply_unary(
+			::visitor(),
+			_view
+		);
 }
 
 namespace
@@ -64,9 +65,10 @@ visitor::operator()(
 	T const &
 ) const
 {
-	return sge::image::color::format_static<
-		typename T::color_format
-	>::value;
+	return
+		sge::image::color::format_static<
+			typename T::color_format
+		>::value;
 }
 
 }

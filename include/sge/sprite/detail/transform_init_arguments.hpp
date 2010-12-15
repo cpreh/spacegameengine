@@ -47,27 +47,27 @@ template<
 typename boost::enable_if<
 	boost::mpl::contains<
 		typename Choices::elements,
-		with_texture
+		sprite::with_texture
 	>,
 	Class const
 >::type
 transform_init_arguments(
-	Class object_
+	Class _object
 )
 {
 	if(
-		object_. template get<
+		_object. template get<
 			sge::sprite::roles::size
 		>()
 		== texture_dim<
 			typename Choices::type_choices::unit_type
 		>()
 		&&
-		object_. template get<
+		_object. template get<
 			sge::sprite::roles::texture
 		>()
 	)
-		object_. template set<
+		_object. template set<
 			sge::sprite::roles::size
 		>(
 			fcppt::math::dim::structure_cast<
@@ -75,13 +75,13 @@ transform_init_arguments(
 					typename Choices::type_choices::unit_type
 				>::type
 			>(
-				object_. template get<
+				_object. template get<
 					sge::sprite::roles::texture
 				>()->area().dimension()
 			)
 		);
 	
-	return object_;
+	return _object;
 }
 
 template<
@@ -91,15 +91,15 @@ template<
 typename boost::disable_if<
 	boost::mpl::contains<
 		typename Choices::elements,
-		with_texture
+		sprite::with_texture
 	>,
 	Class const
 >::type
 transform_init_arguments(
-	Class const &object_
+	Class const &_object
 )
 {
-	return object_;
+	return _object;
 }
 
 }

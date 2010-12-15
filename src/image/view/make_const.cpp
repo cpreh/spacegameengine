@@ -46,13 +46,14 @@ public:
 
 sge::image::view::const_object const
 sge::image::view::make_const(
-	object const &view
+	object const &_view
 )
 {
-	return fcppt::variant::apply_unary(
-		visitor(),
-		view
-	);
+	return
+		fcppt::variant::apply_unary(
+			::visitor(),
+			_view
+		);
 }
 
 namespace
@@ -63,14 +64,15 @@ template<
 >
 visitor::result_type const
 visitor::operator()(
-	T const &v
+	T const &_view
 ) const
 {
-	return result_type(
-		mizuiro::image::make_const_view(
-			v
-		)
-	);
+	return
+		result_type(
+			mizuiro::image::make_const_view(
+				_view
+			)
+		);
 }
 
 }

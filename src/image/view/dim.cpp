@@ -46,13 +46,14 @@ public:
 
 sge::image::dim_type const
 sge::image::view::dim(
-	const_object const &v
+	const_object const &_view
 )
 {
-	return fcppt::variant::apply_unary(
-		visitor(),
-		v
-	);
+	return
+		fcppt::variant::apply_unary(
+			::visitor(),
+			_view
+		);
 }
 
 namespace
@@ -63,14 +64,15 @@ template<
 >
 visitor::result_type const
 visitor::operator()(
-	View const &view
+	View const &_view
 ) const
 {
-	return sge::image::convert_dim<
-		visitor::result_type
-	>(
-		view.dim()
-	);
+	return
+		sge::image::convert_dim<
+			visitor::result_type
+		>(
+			_view.dim()
+		);
 }
 
 }

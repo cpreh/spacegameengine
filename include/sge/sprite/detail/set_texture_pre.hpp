@@ -61,10 +61,10 @@ typename boost::disable_if<
 	void
 >::type
 set_texture_pre(
-	sge::renderer::device_ptr const rend_
+	sge::renderer::device_ptr const _rend
 )
 {
-	rend_->texture(
+	_rend->texture(
 		renderer::no_texture()
 	);
 }
