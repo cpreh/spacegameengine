@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture_ptr.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/lock_mode.hpp>
-#include <sge/image/view/object.hpp>
+#include <sge/image2d/view/object.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -49,14 +49,14 @@ public:
 		lock_mode::type
 	);
 
-	SGE_SYMBOL image::view::object const
+	SGE_SYMBOL image2d::view::object const
 	value() const;
 
 	SGE_SYMBOL ~scoped_texture_lock();
 private:
 	texture_ptr const tex_;
 
-	image::view::object const view_;
+	image2d::view::object const view_;
 };
 
 }

@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/view/sub.hpp>
+#include <sge/image2d/view/sub.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
@@ -34,7 +34,7 @@ template<
 View const
 sub_impl(
 	View const &,
-	sge::image::rect const &
+	sge::image2d::rect const &
 );
 
 template<
@@ -49,7 +49,7 @@ public:
 	typedef Result result_type;
 
 	explicit visitor(
-		sge::image::rect const &
+		sge::image2d::rect const &
 	);
 
 	template<
@@ -60,15 +60,15 @@ public:
 		T const &
 	) const;
 private:
-	sge::image::rect const rect_;
+	sge::image2d::rect const rect_;
 };
 
 }
 
-sge::image::view::object const
-sge::image::view::sub(
+sge::image2d::view::object const
+sge::image2d::view::sub(
 	object const &_src,
-	rect const &_rect
+	image2d::rect const &_rect
 )
 {
 	return
@@ -78,10 +78,10 @@ sge::image::view::sub(
 		);
 }
 
-sge::image::view::const_object const
-sge::image::view::sub(
+sge::image2d::view::const_object const
+sge::image2d::view::sub(
 	const_object const &_src,
-	rect const &_rect
+	image2d::rect const &_rect
 )
 {
 	return
@@ -100,7 +100,7 @@ template<
 View const
 sub_impl(
 	View const &_view,
-	sge::image::rect const &_rect
+	sge::image2d::rect const &_rect
 )
 {
 	return
@@ -118,7 +118,7 @@ template<
 	typename Result
 >
 visitor<Result>::visitor(
-	sge::image::rect const &_rect
+	sge::image2d::rect const &_rect
 )
 :
 	rect_(_rect)

@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/view/data.hpp>
+#include <sge/image2d/view/data.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <mizuiro/image/is_raw_view.hpp>
@@ -94,7 +94,7 @@ data_impl(
 }
 
 sge::image::raw_pointer
-sge::image::view::data(
+sge::image2d::view::data(
 	object const &_view
 )
 {
@@ -107,7 +107,7 @@ sge::image::view::data(
 }
 
 sge::image::const_raw_pointer
-sge::image::view::data(
+sge::image2d::view::data(
 	const_object const &_view
 )
 {

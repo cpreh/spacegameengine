@@ -34,7 +34,7 @@ namespace view
 {
 
 typedef boost::mpl::transform<
-	elements,
+	image2d::view::elements,
 	mizuiro::image::const_view<
 		boost::mpl::_1
 	>

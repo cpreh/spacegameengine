@@ -36,13 +36,13 @@ namespace view
 SGE_SYMBOL view::object const
 sub(
 	view::object const &,
-	image::rect const &
+	image2d::rect const &
 );
 
 SGE_SYMBOL view::const_object const
 sub(
 	view::const_object const &,
-	image::rect const &
+	image2d::rect const &
 );
 
 }

@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/algorithm/print.hpp>
+#include <sge/image2d/algorithm/print.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -53,7 +53,7 @@ private:
 }
 
 void
-sge::image::algorithm::print(
+sge::image2d::algorithm::print(
 	fcppt::io::ostream &_ostream,
 	view::const_object const &_view
 )

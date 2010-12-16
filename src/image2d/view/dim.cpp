@@ -18,9 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../convert_dim.hpp"
-#include <sge/image/view/dim.hpp>
-#include <sge/image/size_type.hpp>
+#include "../../image/convert_dim.hpp"
+#include <sge/image2d/view/dim.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
@@ -31,7 +30,7 @@ namespace
 class visitor
 {
 public:
-	typedef sge::image::dim_type result_type;
+	typedef sge::image2d::dim result_type;
 
 	template<
 		typename View
@@ -44,8 +43,8 @@ public:
 
 }
 
-sge::image::dim_type const
-sge::image::view::dim(
+sge::image2d::dim const
+sge::image2d::view::dim(
 	const_object const &_view
 )
 {

@@ -18,20 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE2D_LOADER_PTR_HPP_INCLUDED
-#define SGE_IMAGE2D_LOADER_PTR_HPP_INCLUDED
-
-#include <sge/image2d/loader_fwd.hpp>
-#include <fcppt/shared_ptr.hpp>
+#ifndef SGE_IMAGE_LOADER_FWD_HPP_INCLUDED
+#define SGE_IMAGE_LOADER_FWD_HPP_INCLUDED
 
 namespace sge
 {
-namespace image2d
+namespace image
 {
 
-typedef fcppt::shared_ptr<
-	image2d::loader
-> loader_ptr;
+class loader;
 
 }
 }

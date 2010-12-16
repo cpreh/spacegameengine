@@ -25,8 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "basic_texture.hpp"
 #include <sge/renderer/volume_texture.hpp>
 
-#if 0
-
 namespace sge
 {
 namespace opengl
@@ -34,17 +32,20 @@ namespace opengl
 
 namespace detail
 {
-
 typedef basic_texture<renderer::volume_texture> volume_texture_base;
-
 }
 
-class volume_texture : public detail::volume_texture_base {
+class volume_texture
+:
+	public detail::volume_texture_base
+{
 public:
 	volume_texture(
 		image_view_array const &,
 		const renderer::filter_args& filter,
-		resource_flag_type flags);
+		resource_flag_type flags
+	);
+
 	box_type const box() const;
 
 	void data(

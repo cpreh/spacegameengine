@@ -44,13 +44,13 @@ protected:
 public:
 	virtual void
 	data(
-		view::const_object const &
+		image2d::view::const_object const &
 	) = 0;
 
-	virtual view::const_object const
+	virtual image2d::view::const_object const
 	view() const = 0;
 
-	virtual image::dim const
+	virtual image2d::dim const
 	dim() const = 0;
 
 	virtual void

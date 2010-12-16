@@ -18,30 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_ALGORITHM_CONVERT_CONDITIONAL_HPP_INCLUDED
-#define SGE_IMAGE_ALGORITHM_CONVERT_CONDITIONAL_HPP_INCLUDED
+#ifndef SGE_IMAGE2D_ALGORITHM_CONVERT_CONDITIONAL_HPP_INCLUDED
+#define SGE_IMAGE2D_ALGORITHM_CONVERT_CONDITIONAL_HPP_INCLUDED
 
-#include <sge/image/algorithm/accepted_format_array.hpp>
+#include <sge/image2d/algorithm/accepted_format_array.hpp>
+#include <sge/image2d/dim.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/image/dim_type.hpp>
 #include <sge/image/size_type.hpp>
 #include <sge/image/raw_pointer.hpp>
 #include <sge/symbol.hpp>
 
 namespace sge
 {
-namespace image
+namespace image2d
 {
 namespace algorithm
 {
 
 SGE_SYMBOL void
 convert_conditional(
-	raw_pointer data,
-	dim_type const &,
-	color::format::type,
-	size_type pitch,
-	accepted_format_array const &
+	image::raw_pointer,
+	image2d::dim const &,
+	image::color::format::type,
+	image::size_type pitch,
+	algorithm::accepted_format_array const &
 );
 
 }

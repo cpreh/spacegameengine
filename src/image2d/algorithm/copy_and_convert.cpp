@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/algorithm/copy_and_convert.hpp>
+#include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <fcppt/variant/apply_binary.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <mizuiro/image/algorithm/copy_and_convert.hpp>
@@ -45,7 +45,7 @@ public:
 }
 
 void
-sge::image::algorithm::copy_and_convert(
+sge::image2d::algorithm::copy_and_convert(
 	view::const_object const &_src,
 	view::object const &_dest
 )

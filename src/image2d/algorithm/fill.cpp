@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/algorithm/fill.hpp>
+#include <sge/image2d/algorithm/fill.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
@@ -56,9 +56,9 @@ private:
 }
 
 void
-sge::image::algorithm::fill(
+sge::image2d::algorithm::fill(
 	view::object const &_dest,
-	color::any::object const &_col
+	image::color::any::object const &_col
 )
 {
 	fcppt::variant::apply_unary(

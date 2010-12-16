@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/view/checked_sub.hpp>
-#include <sge/image/view/sub.hpp>
-#include <sge/image/view/sub_out_of_range.hpp>
-#include <sge/image/view/dim.hpp>
-#include <sge/image/view/const_object.hpp>
-#include <sge/image/view/make_const.hpp>
-#include <sge/image/rect.hpp>
+#include <sge/image2d/view/checked_sub.hpp>
+#include <sge/image2d/view/sub.hpp>
+#include <sge/image2d/view/sub_out_of_range.hpp>
+#include <sge/image2d/view/dim.hpp>
+#include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/view/make_const.hpp>
+#include <sge/image2d/rect.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/box/contains.hpp>
 #include <fcppt/variant/object_impl.hpp>
@@ -34,36 +34,36 @@ namespace
 
 void
 check_condition(
-	sge::image::view::const_object const &,
-	sge::image::rect const &
+	sge::image2d::view::const_object const &,
+	sge::image2d::rect const &
 );
 
 }
 
-sge::image::view::object const
-sge::image::view::checked_sub(
+sge::image2d::view::object const
+sge::image2d::view::checked_sub(
 	view::object const &_src,
-	image::rect const &_rect
+	image2d::rect const &_rect
 )
 {
 	::check_condition(
-		sge::image::view::make_const(
+		sge::image2d::view::make_const(
 			_src
 		),
 		_rect
 	);
 
 	return
-		image::view::sub(
+		image2d::view::sub(
 			_src,
 			_rect
 		);
 }
 
-sge::image::view::const_object const
-sge::image::view::checked_sub(
+sge::image2d::view::const_object const
+sge::image2d::view::checked_sub(
 	view::const_object const &_src,
-	image::rect const &_rect
+	image2d::rect const &_rect
 )
 {
 	::check_condition(
@@ -72,7 +72,7 @@ sge::image::view::checked_sub(
 	);
 
 	return
-		image::view::sub(
+		image2d::view::sub(
 			_src,
 			_rect
 		);
@@ -83,13 +83,13 @@ namespace
 
 void
 check_condition(
-	sge::image::view::const_object const &_src,
-	sge::image::rect const &_rect
+	sge::image2d::view::const_object const &_src,
+	sge::image2d::rect const &_rect
 )
 {
-	sge::image::rect const outer(
-		sge::image::rect::vector::null(),
-		sge::image::view::dim(
+	sge::image2d::rect const outer(
+		sge::image2d::rect::vector::null(),
+		sge::image2d::view::dim(
 			_src
 		)
 	);
@@ -100,7 +100,7 @@ check_condition(
 			_rect
 		)
 	)
-		throw sge::image::view::sub_out_of_range(
+		throw sge::image2d::view::sub_out_of_range(
 			outer,
 			_rect
 		);

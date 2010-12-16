@@ -26,13 +26,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-namespace image
+namespace image2d
 {
 namespace algorithm
 {
 
 typedef std::vector<
-	color::format::type
+	image::color::format::type
 > accepted_format_array;
 
 }

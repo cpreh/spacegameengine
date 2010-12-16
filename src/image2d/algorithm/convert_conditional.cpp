@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/algorithm/convert_conditional.hpp>
-#include <sge/image/algorithm/copy_and_convert.hpp>
-#include <sge/image/view/make.hpp>
-#include <sge/image/view/make_const.hpp>
+#include <sge/image2d/algorithm/convert_conditional.hpp>
+#include <sge/image2d/algorithm/copy_and_convert.hpp>
+#include <sge/image2d/view/make.hpp>
+#include <sge/image2d/view/make_const.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <sge/image/size_type.hpp>
 #include <sge/image/exception.hpp>
@@ -34,12 +34,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <algorithm>
 
 void
-sge::image::algorithm::convert_conditional(
-	raw_pointer const _data,
-	dim_type const &_dim,
-	color::format::type const _format,
-	size_type const _pitch,
-	accepted_format_array const &_formats
+sge::image2d::algorithm::convert_conditional(
+	image::raw_pointer const _data,
+	image2d::dim const &_dim,
+	image::color::format::type const _format,
+	image::size_type const _pitch,
+	algorithm::accepted_format_array const &_formats
 )
 {
 	if(
@@ -52,8 +52,8 @@ sge::image::algorithm::convert_conditional(
 	)
 		return;
 
-	size_type const stride(
-		color::format_stride(
+	image::size_type const stride(
+		image::color::format_stride(
 			_format
 		)
 	);
@@ -63,7 +63,7 @@ sge::image::algorithm::convert_conditional(
 			_formats.begin(),
 			_formats.end(),
 			boost::phoenix::bind(
-				&color::format_stride,
+				&image::color::format_stride,
 				boost::phoenix::arg_names::arg1
 			)
 			== stride
@@ -77,7 +77,7 @@ sge::image::algorithm::convert_conditional(
 			FCPPT_TEXT("No suitable color format in convert_conditional!")
 		);
 
-	image::algorithm::copy_and_convert(
+	image2d::algorithm::copy_and_convert(
 		view::make_const(
 			view::make(
 				_data,

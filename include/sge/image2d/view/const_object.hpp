@@ -18,15 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_VIEW_CONST_OBJECT_HPP_INCLUDED
-#define SGE_IMAGE_VIEW_CONST_OBJECT_HPP_INCLUDED
+#ifndef SGE_IMAGE2D_VIEW_CONST_OBJECT_HPP_INCLUDED
+#define SGE_IMAGE2D_VIEW_CONST_OBJECT_HPP_INCLUDED
 
-#include <sge/image/view/const_elements.hpp>
+#include <sge/image2d/view/const_elements.hpp>
 #include <fcppt/variant/object_fwd.hpp>
 
 namespace sge
 {
-namespace image
+namespace image2d
 {
 namespace view
 {

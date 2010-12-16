@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_DETAIL_VIEW_TYPES_HPP_INCLUDED
 #define SGE_IMAGE_DETAIL_VIEW_TYPES_HPP_INCLUDED
 
-#include <sge/image/size_type.hpp>
 #include <mizuiro/image/view_impl.hpp>
 #include <mizuiro/image/raw_view.hpp>
 #include <mizuiro/image/interleaved.hpp>
@@ -40,7 +39,7 @@ namespace detail
 
 template<
 	typename Color,
-	image::size_type Dimension
+	typename Dim
 >
 struct view_types
 {
@@ -48,7 +47,7 @@ struct view_types
 		mizuiro::access::raw,
 		mizuiro::image::format<
 			mizuiro::image::dimension<
-				Dimension
+				Dim::value
 			>,
 			mizuiro::image::interleaved<
 				Color

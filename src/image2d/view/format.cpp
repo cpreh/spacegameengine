@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/view/format.hpp>
+#include <sge/image2d/view/format.hpp>
 #include <sge/image/color/format_static.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
@@ -43,7 +43,7 @@ public:
 }
 
 sge::image::color::format::type
-sge::image::view::format(
+sge::image2d::view::format(
 	const_object const &_view
 )
 {

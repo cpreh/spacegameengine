@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/view/sub_out_of_range.hpp>
+#include <sge/image2d/view/sub_out_of_range.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/text.hpp>
 
-sge::image::view::sub_out_of_range::sub_out_of_range(
-	sge::image::rect const &_outer,
-	sge::image::rect const &_inner
+sge::image2d::view::sub_out_of_range::sub_out_of_range(
+	sge::image2d::rect const &_outer,
+	sge::image2d::rect const &_inner
 )
 :
 	sge::image::exception(
@@ -42,18 +42,18 @@ sge::image::view::sub_out_of_range::sub_out_of_range(
 {
 }
 
-sge::image::rect const &
-sge::image::view::sub_out_of_range::outer() const
+sge::image2d::rect const &
+sge::image2d::view::sub_out_of_range::outer() const
 {
 	return outer_;
 }
 
-sge::image::rect const &
-sge::image::view::sub_out_of_range::inner() const
+sge::image2d::rect const &
+sge::image2d::view::sub_out_of_range::inner() const
 {
 	return inner_;
 }
 
-sge::image::view::sub_out_of_range::~sub_out_of_range() throw()
+sge::image2d::view::sub_out_of_range::~sub_out_of_range() throw()
 {
 }

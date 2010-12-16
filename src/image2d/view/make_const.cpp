@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/view/make_const.hpp>
+#include <sge/image2d/view/make_const.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <mizuiro/image/make_const_view.hpp>
@@ -31,7 +31,7 @@ namespace
 class visitor
 {
 public:
-	typedef sge::image::view::const_object result_type;
+	typedef sge::image2d::view::const_object result_type;
 
 	template<
 		typename T
@@ -44,8 +44,8 @@ public:
 
 }
 
-sge::image::view::const_object const
-sge::image::view::make_const(
+sge::image2d::view::const_object const
+sge::image2d::view::make_const(
 	object const &_view
 )
 {

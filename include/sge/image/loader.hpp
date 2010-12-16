@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE2D_LOADER_HPP_INCLUDED
-#define SGE_IMAGE2D_LOADER_HPP_INCLUDED
+#ifndef SGE_IMAGE_LOADER_HPP_INCLUDED
+#define SGE_IMAGE_LOADER_HPP_INCLUDED
 
-#include <sge/image2d/loader_fwd.hpp>
+#include <sge/image/loader_fwd.hpp>
+#include <sge/image/capabilities_field.hpp>
 #include <sge/image2d/file_ptr.hpp>
 #include <sge/image2d/view/const_object.hpp>
-#include <sge/image/capabilities_field.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <sge/extension_set.hpp>
@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-namespace image2d
+namespace image
 {
 
 class SGE_CLASS_SYMBOL loader
@@ -44,7 +44,7 @@ class SGE_CLASS_SYMBOL loader
 protected:
 	SGE_SYMBOL loader();
 public:
-	virtual const image2d::file_ptr
+	virtual image2d::file_ptr const
 	load(
 		fcppt::filesystem::path const &
 	) = 0;

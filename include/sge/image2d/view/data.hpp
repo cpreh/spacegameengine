@@ -18,28 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_VIEW_DATA_HPP_INCLUDED
-#define SGE_IMAGE_VIEW_DATA_HPP_INCLUDED
+#ifndef SGE_IMAGE2D_VIEW_DATA_HPP_INCLUDED
+#define SGE_IMAGE2D_VIEW_DATA_HPP_INCLUDED
 
-#include <sge/image/view/object.hpp>
-#include <sge/image/view/const_object.hpp>
+#include <sge/image2d/view/object.hpp>
+#include <sge/image2d/view/const_object.hpp>
 #include <sge/image/raw_pointer.hpp>
 #include <sge/symbol.hpp>
 
 namespace sge
 {
-namespace image
+namespace image2d
 {
 namespace view
 {
 
-SGE_SYMBOL raw_pointer
+SGE_SYMBOL image::raw_pointer
 data(
-	object const &);
+	view::object const &
+);
 
-SGE_SYMBOL const_raw_pointer
+SGE_SYMBOL image::const_raw_pointer
 data(
-	const_object const &);
+	view::const_object const &
+);
 
 }
 }

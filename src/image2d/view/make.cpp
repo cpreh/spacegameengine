@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../convert_dim.hpp"
-#include <sge/image/view/make.hpp>
-#include <sge/image/view/make_const.hpp>
+#include "../../image/convert_dim.hpp"
+#include <sge/image2d/view/make.hpp>
+#include <sge/image2d/view/make_const.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/mpl/invoke_on.hpp>
@@ -42,35 +42,35 @@ class operation
 		operation
 	)
 public:
-	typedef sge::image::view::object result_type;
+	typedef sge::image2d::view::object result_type;
 
 	operation(
 		sge::image::raw_pointer,
-		sge::image::dim_type const &,
-		sge::image::view::optional_pitch const &
+		sge::image2d::dim const &,
+		sge::image2d::view::optional_pitch const &
 	);
 
 	template<
 		typename View
 	>
-	sge::image::view::object const
+	sge::image2d::view::object const
 	operator()() const;
 private:
 	sge::image::raw_pointer const data_;
 
-	sge::image::dim_type const dim_;
+	sge::image2d::dim const dim_;
 
-	sge::image::view::optional_pitch const pitch_;
+	sge::image2d::view::optional_pitch const pitch_;
 };
 
 }
 
-sge::image::view::object const
-sge::image::view::make(
-	raw_pointer const _data,
-	dim_type const &_dim,
-	color::format::type const _format,
-	optional_pitch const _pitch
+sge::image2d::view::object const
+sge::image2d::view::make(
+	image::raw_pointer const _data,
+	image2d::dim const &_dim,
+	image::color::format::type const _format,
+	image2d::view::optional_pitch const _pitch
 )
 {
 
@@ -89,7 +89,7 @@ sge::image::view::make(
 			>
 		>(
 			static_cast<
-				size_type
+				image::size_type
 			>(
 				_format
 			),
@@ -101,19 +101,19 @@ sge::image::view::make(
 		);
 }
 
-sge::image::view::const_object const
-sge::image::view::make(
-	const_raw_pointer const _data,
-	dim_type const &_dim,
-	color::format::type const _format,
-	view::optional_pitch const _pitch
+sge::image2d::view::const_object const
+sge::image2d::view::make(
+	image::const_raw_pointer const _data,
+	image2d::dim const &_dim,
+	image::color::format::type const _format,
+	image2d::view::optional_pitch const _pitch
 )
 {
 	return
 		view::make_const(
 			view::make(
 				const_cast<
-					raw_pointer
+					image::raw_pointer
 				>(
 					_data
 				),
@@ -129,8 +129,8 @@ namespace
 
 operation::operation(
 	sge::image::raw_pointer const _data,
-	sge::image::dim_type const &_dim,
-	sge::image::view::optional_pitch const &_pitch
+	sge::image2d::dim const &_dim,
+	sge::image2d::view::optional_pitch const &_pitch
 )
 :
 	data_(_data),
@@ -141,11 +141,11 @@ operation::operation(
 template<
 	typename View
 >
-sge::image::view::object const
+sge::image2d::view::object const
 operation::operator()() const
 {
 	return
-		sge::image::view::object(
+		sge::image2d::view::object(
 			View(
 				sge::image::convert_dim<
 					typename View::dim_type

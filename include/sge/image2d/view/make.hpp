@@ -36,20 +36,20 @@ namespace image2d
 namespace view
 {
 
-SGE_SYMBOL vew::object const
+SGE_SYMBOL image2d::view::object const
 make(
 	image::raw_pointer,
 	image2d::dim const &,
 	image::color::format::type,
-	image2d::optional_pitch
+	image2d::view::optional_pitch
 );
 
-SGE_SYMBOL view::const_object const
+SGE_SYMBOL image2d::view::const_object const
 make(
 	image::const_raw_pointer,
 	image2d::dim const &,
 	image::color::format::type,
-	image2d::optional_pitch
+	image2d::view::optional_pitch
 );
 
 }

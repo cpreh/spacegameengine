@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/view/flipped.hpp>
+#include <sge/image2d/view/flipped.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <mizuiro/image/flipped_view.hpp>
@@ -45,8 +45,8 @@ public:
 
 }
 
-sge::image::view::object const
-sge::image::view::flipped(
+sge::image2d::view::object const
+sge::image2d::view::flipped(
 	object const &_view
 )
 {
@@ -59,8 +59,8 @@ sge::image::view::flipped(
 		);
 }
 
-sge::image::view::const_object const
-sge::image::view::flipped(
+sge::image2d::view::const_object const
+sge::image2d::view::flipped(
 	const_object const &_view
 )
 {

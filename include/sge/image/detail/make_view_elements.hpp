@@ -22,9 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_DETAIL_MAKE_VIEW_ELEMENTS_HPP_INCLUDED
 
 #include <sge/image/detail/view_types.hpp>
+#include <sge/image/color/elements.hpp>
 #include <sge/image/size_type.hpp>
-#include <boost/mpl/transform.hpp>
+#include <boost/mpl/integral_c.hpp>
 #include <boost/mpl/placeholders.hpp>
+#include <boost/mpl/transform.hpp>
 
 namespace sge
 {
@@ -39,10 +41,13 @@ template<
 struct make_view_elements
 :
 boost::mpl::transform<
-	color::elements,
+	image::color::elements,
 	image::detail::view_types<
 		boost::mpl::_1,
-		Dim
+		boost::mpl::integral_c<
+			image::size_type,
+			Dim
+		>
 	>
 >
 {
