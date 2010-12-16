@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_GRAY8_FORMAT_HPP_INCLUDED
 
 #include <sge/image/color/gray8_format.hpp>
+#include <sge/image/size_type.hpp>
 #include <mizuiro/image/format.hpp>
 #include <mizuiro/image/dimension_impl.hpp>
 #include <mizuiro/image/interleaved.hpp>
@@ -31,14 +32,20 @@ namespace sge
 namespace image
 {
 
-typedef mizuiro::image::format<
-	mizuiro::image::dimension<
-		2
-	>,
-	mizuiro::image::interleaved<
-		color::gray8_format
-	>
-> gray8_format;
+template<
+	image::size_type Dim
+>
+struct gray8_format
+{
+	typedef mizuiro::image::format<
+		mizuiro::image::dimension<
+			Dim
+		>,
+		mizuiro::image::interleaved<
+			color::gray8_format
+		>
+	> type;
+};
 
 }
 }

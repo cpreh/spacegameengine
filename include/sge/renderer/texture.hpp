@@ -47,11 +47,11 @@ protected:
 public:
 	SGE_SYMBOL virtual ~texture();
 
-	typedef renderer::dim2    dim_type;
+	typedef renderer::dim2 dim_type;
 
-	typedef lock_rect          rect_type;
+	typedef renderer::lock_rect rect_type;
 
-	typedef texture_pos_type   pos_type;
+	typedef renderer::texture_pos_type pos_type; // TODO: should this be here?
 
 	virtual dim_type const
 	dim() const = 0;
@@ -81,7 +81,8 @@ public:
 	SGE_SYMBOL rect_type const
 	rect() const;
 
-	SGE_SYMBOL size_type
+	SGE_SYMBOL
+	texture_base::size_type
 	content() const;
 };
 

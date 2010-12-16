@@ -18,34 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_RGBA8_FORMAT_HPP_INCLUDED
-#define SGE_IMAGE_RGBA8_FORMAT_HPP_INCLUDED
+#ifndef SGE_IMAGE2D_DIM_HPP_INCLUDED
+#define SGE_IMAGE2D_DIM_HPP_INCLUDED
 
-#include <sge/image/color/rgba8_format.hpp>
-#include <sge/image/size_type.hpp>
-#include <mizuiro/image/format.hpp>
-#include <mizuiro/image/dimension_impl.hpp>
-#include <mizuiro/image/interleaved.hpp>
+#include <sge/image/dim.hpp>
 
 namespace sge
 {
-namespace image
+namespace image2d
 {
 
-template<
-	image::size_type Dim
->
-struct rgba8_format
-{
-	typedef mizuiro::image::format<
-		mizuiro::image::dimension<
-			Dim
-		>,
-		mizuiro::image::interleaved<
-			color::rgba8_format
-		>
-	> type;
-};
+typedef sge::image::dim<
+	2
+>::type dim;
 
 }
 }

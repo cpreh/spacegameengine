@@ -18,34 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_RGBA8_FORMAT_HPP_INCLUDED
-#define SGE_IMAGE_RGBA8_FORMAT_HPP_INCLUDED
+#ifndef SGE_IMAGE2D_CREATE_TEXTURE_HPP_INCLUDED
+#define SGE_IMAGE2D_CREATE_TEXTURE_HPP_INCLUDED
 
-#include <sge/image/color/rgba8_format.hpp>
-#include <sge/image/size_type.hpp>
-#include <mizuiro/image/format.hpp>
-#include <mizuiro/image/dimension_impl.hpp>
-#include <mizuiro/image/interleaved.hpp>
+#include <sge/image2d/multi_loader_fwd.hpp>
+#include <sge/image2d/file_ptr.hpp>
+#include <sge/renderer/filter/texture_fwd.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/texture_ptr.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/filesystem/path.hpp>
 
 namespace sge
 {
-namespace image
+namespace image2d
 {
 
-template<
-	image::size_type Dim
->
-struct rgba8_format
-{
-	typedef mizuiro::image::format<
-		mizuiro::image::dimension<
-			Dim
-		>,
-		mizuiro::image::interleaved<
-			color::rgba8_format
-		>
-	> type;
-};
+SGE_SYMBOL renderer::texture_ptr const
+create_texture(
+	renderer::device_ptr,
+	image2d::file_ptr,
+	renderer::filter::texture const &,
+	renderer::resource_flags_field const &
+);
+
+SGE_SYMBOL renderer::texture_ptr const
+create_texture(
+	fcppt::filesystem::path const &,
+	renderer::device_ptr,
+	image2d::multi_loader &,
+	renderer::filter::texture const &,
+	renderer::resource_flags_field const &
+);
 
 }
 }

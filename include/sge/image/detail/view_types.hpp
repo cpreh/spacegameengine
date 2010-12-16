@@ -18,35 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_RGBA8_FORMAT_HPP_INCLUDED
-#define SGE_IMAGE_RGBA8_FORMAT_HPP_INCLUDED
+#ifndef SGE_IMAGE_DETAIL_VIEW_TYPES_HPP_INCLUDED
+#define SGE_IMAGE_DETAIL_VIEW_TYPES_HPP_INCLUDED
 
-#include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/size_type.hpp>
-#include <mizuiro/image/format.hpp>
-#include <mizuiro/image/dimension_impl.hpp>
+#include <mizuiro/image/view_impl.hpp>
+#include <mizuiro/image/raw_view.hpp>
 #include <mizuiro/image/interleaved.hpp>
+#include <mizuiro/image/dimension_impl.hpp>
+#include <mizuiro/image/format.hpp>
+#include <mizuiro/access/raw.hpp>
+#include <mizuiro/nonconst_tag.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace sge
 {
 namespace image
 {
+namespace detail
+{
 
 template<
-	image::size_type Dim
+	typename Color,
+	image::size_type Dimension
 >
-struct rgba8_format
+struct view_types
 {
-	typedef mizuiro::image::format<
-		mizuiro::image::dimension<
-			Dim
+	typedef mizuiro::image::view<
+		mizuiro::access::raw,
+		mizuiro::image::format<
+			mizuiro::image::dimension<
+				Dimension
+			>,
+			mizuiro::image::interleaved<
+				Color
+			>
 		>,
-		mizuiro::image::interleaved<
-			color::rgba8_format
-		>
+		mizuiro::nonconst_tag
 	> type;
 };
 
+}
 }
 }
 

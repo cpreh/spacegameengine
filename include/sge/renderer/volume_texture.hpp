@@ -21,52 +21,62 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VOLUME_TEXTURE_HPP_INCLUDED
 #define SGE_RENDERER_VOLUME_TEXTURE_HPP_INCLUDED
 
-#if 0
-
-#include <sge/symbol.hpp>
-#include <fcppt/math/dim.hpp>
-#include <fcppt/math/box.hpp>
+#include <sge/renderer/volume_texture_fwd.hpp>
+#include <sge/renderer/dim3.hpp>
+#include <sge/renderer/lock_box.hpp>
 #include <sge/renderer/texture_base.hpp>
-#include <sge/renderer/image_view.hpp>
-#include <vector>
+#include <sge/image3d/view/const_object.hpp>
+#include <sge/image3d/view/object.hpp>
+#include <sge/class_symbol.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-// FIXME: volume_textures are unsupported until we have something like a 3D image in GIL
-
-/*
-typedef fcppt::math::box<texture_base::size_type> lock_box;
-
-class volume_texture : public texture_base {
+class SGE_CLASS_SYMBOL volume_texture
+:
+	public renderer::texture_base
+{
+	FCPPT_NONCOPYABLE(
+		volume_texture
+	)
+protected:
+	SGE_SYMBOL
+	volume_texture();
 public:
-	// TODO: create a real 3d image type for this!
-	typedef fcppt::math::dim<size_type, 3> box_type;
+	SGE_SYMBOL
+	virtual ~volume_texture();
 
-	virtual const box_type box() const = 0;
-	virtual void lock(
-		lock_flag_type) = 0;
-	virtual void lock(
-		lock_box const &,
-		lock_flag_type) = 0;
-	virtual void unlock() = 0;
+	typedef renderer::dim3 dim_type;
 
-	size_type volume() const;
+	typedef renderer::lock_box box_type;
 
-	//virtual image_view_array const &data() = 0;
-private:
-	virtual void do_sub_data(
-		image_view_array const &,
-		lock_box const &) = 0;
+	virtual dim_type const
+	dim() const = 0;
+
+	virtual image3d::view::object const
+	lock(
+		box_type const &,
+		lock_mode::type
+	) = 0;
+
+	virtual image3d::view::const_object const
+	lock(
+		lock_box const &
+	);
+
+	virtual void
+	unlock() const = 0;
+
+	SGE_SYMBOL
+	texture_base::size_type
+	content() const;
 };
 
-typedef shared_ptr<volume_texture> volume_texture_ptr;
-*/
 }
 }
-
-#endif
 
 #endif

@@ -18,35 +18,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_RGBA8_FORMAT_HPP_INCLUDED
-#define SGE_IMAGE_RGBA8_FORMAT_HPP_INCLUDED
+#ifndef SGE_IMAGE2D_VIEW_SUB_OUT_OF_RANGE_HPP_INCLUDED
+#define SGE_IMAGE2D_VIEW_SUB_OUT_OF_RANGE_HPP_INCLUDED
 
-#include <sge/image/color/rgba8_format.hpp>
-#include <sge/image/size_type.hpp>
-#include <mizuiro/image/format.hpp>
-#include <mizuiro/image/dimension_impl.hpp>
-#include <mizuiro/image/interleaved.hpp>
+#include <sge/image2d/rect.hpp>
+#include <sge/image/exception.hpp>
+#include <sge/class_symbol.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 
 namespace sge
 {
-namespace image
+namespace image2d
+{
+namespace view
 {
 
-template<
-	image::size_type Dim
->
-struct rgba8_format
+class SGE_CLASS_SYMBOL sub_out_of_range
+:
+	public sge::image::exception
 {
-	typedef mizuiro::image::format<
-		mizuiro::image::dimension<
-			Dim
-		>,
-		mizuiro::image::interleaved<
-			color::rgba8_format
-		>
-	> type;
+public:
+	SGE_SYMBOL 
+	sub_out_of_range(
+		sge::image2d::rect const &outer,
+		sge::image2d::rect const &inner
+	);
+
+	SGE_SYMBOL 
+	sge::image2d::rect const &
+	outer() const;
+
+	SGE_SYMBOL 
+	sge::image2d::rect const &
+	inner() const;
+
+	SGE_SYMBOL
+	virtual ~sub_out_of_range() throw();
+private:
+	sge::image2d::rect
+		outer_,
+		inner_;
 };
 
+}
 }
 }
 

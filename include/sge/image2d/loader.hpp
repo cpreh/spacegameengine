@@ -18,33 +18,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_RGBA8_FORMAT_HPP_INCLUDED
-#define SGE_IMAGE_RGBA8_FORMAT_HPP_INCLUDED
+#ifndef SGE_IMAGE2D_LOADER_HPP_INCLUDED
+#define SGE_IMAGE2D_LOADER_HPP_INCLUDED
 
-#include <sge/image/color/rgba8_format.hpp>
-#include <sge/image/size_type.hpp>
-#include <mizuiro/image/format.hpp>
-#include <mizuiro/image/dimension_impl.hpp>
-#include <mizuiro/image/interleaved.hpp>
+#include <sge/image2d/loader_fwd.hpp>
+#include <sge/image2d/file_ptr.hpp>
+#include <sge/image2d/view/const_object.hpp>
+#include <sge/image/capabilities_field.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <sge/extension_set.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
-namespace image
+namespace image2d
 {
 
-template<
-	image::size_type Dim
->
-struct rgba8_format
+class SGE_CLASS_SYMBOL loader
 {
-	typedef mizuiro::image::format<
-		mizuiro::image::dimension<
-			Dim
-		>,
-		mizuiro::image::interleaved<
-			color::rgba8_format
-		>
-	> type;
+	FCPPT_NONCOPYABLE(
+		loader
+	)
+protected:
+	SGE_SYMBOL loader();
+public:
+	virtual const image2d::file_ptr
+	load(
+		fcppt::filesystem::path const &
+	) = 0;
+
+	virtual image2d::file_ptr const
+	create(
+		image2d::view::const_object const &
+	) = 0;
+
+	virtual image::capabilities_field const
+	capabilities() const = 0;
+
+	virtual sge::extension_set const
+	extensions() const = 0;
+
+	SGE_SYMBOL virtual ~loader();
 };
 
 }

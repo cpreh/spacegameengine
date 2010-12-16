@@ -30,7 +30,7 @@ namespace renderer
 {
 
 typedef fcppt::math::box::rect<
-	size_type
+	renderer::size_type
 >::type lock_rect;
 
 }

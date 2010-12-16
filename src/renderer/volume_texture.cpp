@@ -20,11 +20,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/volume_texture.hpp>
 
-#if 0
-sge::renderer::volume_texture::size_type
-sge::renderer::volume_texture::volume() const
+sge::renderer::volume_texture::volume_texture()
 {
-	return box().content();
 }
 
-#endif
+sge::renderer::volume_texture::~volume_texture()
+{
+}
+
+sge::renderer::volume_texture::size_type
+sge::renderer::volume_texture::content() const
+{
+	return dim().content();
+}
