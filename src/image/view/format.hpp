@@ -18,27 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/screenshot.hpp>
-#include <sge/renderer/const_scoped_target_lock.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/image2d/file.hpp>
-#include <sge/image/multi_loader.hpp>
-#include <sge/image/loader.hpp>
+#ifndef SGE_IMAGE_VIEW_FORMAT_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_FORMAT_HPP_INCLUDED
+
+#include "format_visitor.hpp"
+#include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
-void
-sge::renderer::screenshot(
-	const_device_ptr const _renderer,
-	image::multi_loader const &_loader,
-	fcppt::filesystem::path const &_file
+namespace sge
+{
+namespace image
+{
+namespace view
+{
+
+template<
+	typename ConstView
+>
+sge::image::color::format::type
+format(
+	ConstView const &_view
 )
 {
-	// FIXME
-	_loader.loaders().at(0)->create(
-		renderer::const_scoped_target_lock(
-			_renderer->target()
-		).value()
-	)->save(
-		_file
-	);
+	return
+		fcppt::variant::apply_unary(
+			sge::image::view::format_visitor(),
+			_view
+		);
 }
+
+}
+}
+}
+
+#endif

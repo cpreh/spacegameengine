@@ -18,27 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/screenshot.hpp>
-#include <sge/renderer/const_scoped_target_lock.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/image2d/file.hpp>
-#include <sge/image/multi_loader.hpp>
-#include <sge/image/loader.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#ifndef SGE_IMAGE_ALGORITHM_COPY_AND_CONVERT_VISITOR_HPP_INCLUDED
+#define SGE_IMAGE_ALGORITHM_COPY_AND_CONVERT_VISITOR_HPP_INCLUDED
 
-void
-sge::renderer::screenshot(
-	const_device_ptr const _renderer,
-	image::multi_loader const &_loader,
-	fcppt::filesystem::path const &_file
-)
+#include <mizuiro/image/algorithm/copy_and_convert.hpp>
+
+namespace sge
 {
-	// FIXME
-	_loader.loaders().at(0)->create(
-		renderer::const_scoped_target_lock(
-			_renderer->target()
-		).value()
-	)->save(
-		_file
-	);
+namespace image
+{
+namespace algorithm
+{
+
+struct copy_and_convert_visitor
+{
+	typedef void result_type;
+
+	template<
+		typename Src,
+		typename Dest
+	>
+	result_type
+	operator()(
+		Src const &_src,
+		Dest const &_dest
+	) const
+	{
+		return
+			mizuiro::image::algorithm::copy_and_convert(
+				_src,
+				_dest
+			);
+	}
+};
+
 }
+}
+}
+
+#endif

@@ -18,30 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/convert_dim.hpp"
+#include "../../image/view/dim.hpp"
 #include <sge/image2d/view/dim.hpp>
 #include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-
-namespace
-{
-
-class visitor
-{
-public:
-	typedef sge::image2d::dim result_type;
-
-	template<
-		typename View
-	>
-	result_type const
-	operator()(
-		View const &
-	) const;
-};
-
-}
 
 sge::image2d::dim const
 sge::image2d::view::dim(
@@ -49,29 +29,9 @@ sge::image2d::view::dim(
 )
 {
 	return
-		fcppt::variant::apply_unary(
-			::visitor(),
+		sge::image::view::dim<
+			sge::image2d::dim
+		>(
 			_view
 		);
-}
-
-namespace
-{
-
-template<
-	typename View
->
-visitor::result_type const
-visitor::operator()(
-	View const &_view
-) const
-{
-	return
-		sge::image::convert_dim<
-			visitor::result_type
-		>(
-			_view.dim()
-		);
-}
-
 }

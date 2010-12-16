@@ -18,28 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE2D_MULTI_LOADER_FWD_HPP_INCLUDED
-#define SGE_IMAGE2D_MULTI_LOADER_FWD_HPP_INCLUDED
+#include "../../image/view/dim.hpp"
+#include <sge/image3d/view/dim.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 
-#include <sge/multi_loader_fwd.hpp>
-#include <sge/image2d/file_fwd.hpp>
-#include <sge/image/loader_fwd.hpp>
-#include <sge/image/exception_fwd.hpp>
-#include <sge/image/capabilities_field.hpp>
-
-namespace sge
+sge::image3d::dim const
+sge::image3d::view::dim(
+	const_object const &_view
+)
 {
-namespace image2d
-{
-
-typedef sge::multi_loader<
-	sge::image::loader,
-	sge::image2d::file,
-	sge::image::exception,
-	sge::image::capabilities_field	
-> multi_loader;
-
+	return
+		sge::image::view::dim<
+			sge::image3d::dim
+		>(
+			_view
+		);
 }
-}
-
-#endif

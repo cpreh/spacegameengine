@@ -18,11 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE2D_MULTI_LOADER_HPP_INCLUDED
-#define SGE_IMAGE2D_MULTI_LOADER_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_DIM_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_DIM_HPP_INCLUDED
 
-#include <sge/image2d/multi_loader_fwd.hpp>
-#include <sge/image/exception.hpp>
-#include <sge/multi_loader.hpp>
+#include "dim_visitor.hpp"
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
+
+namespace sge
+{
+namespace image
+{
+namespace view
+{
+
+template<
+	typename Dim,
+	typename View
+>
+Dim const
+dim(
+	View const &_view
+)
+{
+	return
+		fcppt::variant::apply_unary(
+			sge::image::view::dim_visitor<
+				Dim
+			>(),
+			_view
+		);
+}
+
+}
+}
+}
 
 #endif

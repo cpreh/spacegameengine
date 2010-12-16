@@ -18,31 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../../image/algorithm/copy_and_convert.hpp"
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
-#include <fcppt/variant/apply_binary.hpp>
-#include <fcppt/variant/object_impl.hpp>
-#include <mizuiro/image/algorithm/copy_and_convert.hpp>
-
-namespace
-{
-
-class visitor
-{
-public:
-	typedef void result_type;
-
-	template<
-		typename Src,
-		typename Dest
-	>
-	result_type
-	operator()(
-		Src const &,
-		Dest const &
-	) const;
-};
-
-}
 
 void
 sge::image2d::algorithm::copy_and_convert(
@@ -50,32 +27,8 @@ sge::image2d::algorithm::copy_and_convert(
 	view::object const &_dest
 )
 {
-	fcppt::variant::apply_binary(
-		visitor(),
+	sge::image::algorithm::copy_and_convert(
 		_src,
 		_dest
 	);
-}
-
-namespace
-{
-
-
-template<
-	typename Src,
-	typename Dest
->
-visitor::result_type
-visitor::operator()(
-	Src const &_src,
-	Dest const &_dest
-) const
-{
-	return
-		mizuiro::image::algorithm::copy_and_convert(
-			_src,
-			_dest
-		);
-}
-
 }

@@ -18,29 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../../image/view/format.hpp"
 #include <sge/image2d/view/format.hpp>
-#include <sge/image/color/format_static.hpp>
-#include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
-
-namespace
-{
-
-class visitor
-{
-public:
-	typedef sge::image::color::format::type result_type;
-
-	template<
-		typename T
-	>
-	result_type
-	operator()(
-		T const &
-	) const;
-};
-
-}
 
 sge::image::color::format::type
 sge::image2d::view::format(
@@ -48,27 +27,7 @@ sge::image2d::view::format(
 )
 {
 	return
-		fcppt::variant::apply_unary(
-			::visitor(),
+		sge::image::view::format(
 			_view
 		);
-}
-
-namespace
-{
-
-template<
-	typename T
->
-visitor::result_type
-visitor::operator()(
-	T const &
-) const
-{
-	return
-		sge::image::color::format_static<
-			typename T::color_format
-		>::value;
-}
-
 }
