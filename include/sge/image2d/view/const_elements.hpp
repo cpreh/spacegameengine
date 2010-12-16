@@ -21,10 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE2D_VIEW_CONST_ELEMENTS_HPP_INCLUDED
 #define SGE_IMAGE2D_VIEW_CONST_ELEMENTS_HPP_INCLUDED
 
+#include <sge/image/detail/view/const_elements.hpp>
 #include <sge/image2d/view/elements.hpp>
-#include <mizuiro/image/const_view.hpp>
-#include <boost/mpl/transform.hpp>
-#include <boost/mpl/placeholders.hpp>
 
 namespace sge
 {
@@ -33,11 +31,8 @@ namespace image2d
 namespace view
 {
 
-typedef boost::mpl::transform<
-	image2d::view::elements,
-	mizuiro::image::const_view<
-		boost::mpl::_1
-	>
+typedef sge::image::detail::view::const_elements<
+	image2d::view::elements
 >::type const_elements;
 
 }

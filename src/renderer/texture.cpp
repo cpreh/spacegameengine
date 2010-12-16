@@ -56,7 +56,7 @@ sge::renderer::texture::rect() const
 {
 	return
 		rect_type(
-			pos_type::null(),
+			rect_type::vector::null(),
 			dim()
 		);
 }

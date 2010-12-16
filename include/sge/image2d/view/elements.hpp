@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE2D_VIEW_ELEMENTS_HPP_INCLUDED
 #define SGE_IMAGE2D_VIEW_ELEMENTS_HPP_INCLUDED
 
-#include <sge/image/detail/make_view_elements.hpp>
+#include <sge/image/detail/view/elements.hpp>
 
 namespace sge
 {
@@ -30,7 +30,7 @@ namespace image2d
 namespace view
 {
 
-typedef sge::image::detail::make_view_elements<
+typedef sge::image::detail::view::elements<
 	2
 >::type elements;
 

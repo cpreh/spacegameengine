@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/volume_texture_fwd.hpp>
 #include <sge/renderer/dim3.hpp>
 #include <sge/renderer/lock_box.hpp>
+#include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/texture_base.hpp>
 #include <sge/image3d/view/const_object.hpp>
 #include <sge/image3d/view/object.hpp>
@@ -57,6 +58,14 @@ public:
 	virtual dim_type const
 	dim() const = 0;
 
+	SGE_SYMBOL image3d::view::object const
+	lock(
+		lock_mode::type
+	);
+
+	SGE_SYMBOL image3d::view::const_object const
+	lock() const;
+
 	virtual image3d::view::object const
 	lock(
 		box_type const &,
@@ -66,10 +75,13 @@ public:
 	virtual image3d::view::const_object const
 	lock(
 		lock_box const &
-	);
+	) const = 0;
 
 	virtual void
 	unlock() const = 0;
+
+	SGE_SYMBOL box_type const
+	box() const;
 
 	SGE_SYMBOL
 	texture_base::size_type

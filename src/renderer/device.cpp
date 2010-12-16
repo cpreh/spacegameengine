@@ -119,17 +119,17 @@ sge::renderer::device::create_glsl_program(
 
 sge::renderer::texture_ptr const
 sge::renderer::device::create_texture(
-	image::view::const_object const &_view,
+	image2d::view::const_object const &_view,
 	filter::texture const &_filter,
 	resource_flags_field const &_flags
 )
 {
 	texture_ptr const tex(
 		this->create_texture(
-			image::view::dim(
+			image2d::view::dim(
 				_view
 			),
-			image::view::format(
+			image2d::view::format(
 				_view
 			),
 			_filter,
@@ -142,7 +142,7 @@ sge::renderer::device::create_texture(
 		renderer::lock_mode::writeonly
 	);
 
-	image::algorithm::copy_and_convert(
+	image2d::algorithm::copy_and_convert(
 		_view,
 		lock.value()
 	);
@@ -170,7 +170,7 @@ sge::renderer::device::create_volume_texture(
 		)
 	);
 
-	renderer::scopde_volume_texture_lock const lock(
+	renderer::scoped_volume_texture_lock const lock(
 		tex,
 		lock_mode::writeonly
 	);

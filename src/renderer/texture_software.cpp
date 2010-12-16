@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/texture_software.hpp>
 #include <sge/image/color/format_stride.hpp>
-#include <sge/image/view/make.hpp>
-#include <sge/image/view/sub.hpp>
+#include <sge/image2d/view/make.hpp>
+#include <sge/image2d/view/sub.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
@@ -53,7 +53,7 @@ sge::renderer::texture_software::dim() const
 	return dim_;
 }
 
-sge::image::view::object const
+sge::image2d::view::object const
 sge::renderer::texture_software::lock(
 	lock_rect const &_rect,
 	lock_mode::type const
@@ -67,29 +67,29 @@ sge::renderer::texture_software::lock(
 	locked_ = true;
 
 	return
-		image::view::sub(
-			image::view::make(
+		image2d::view::sub(
+			image2d::view::make(
 				raw_bytes_.data(),
 				dim(),
 				cf_,
-				image::view::optional_pitch()
+				image2d::view::optional_pitch()
 			),
 			_rect
 		);
 }
 
-sge::image::view::const_object const
+sge::image2d::view::const_object const
 sge::renderer::texture_software::lock(
 	lock_rect const &_rect
 ) const
 {
 	return
-		image::view::sub(
-			image::view::make(
+		image2d::view::sub(
+			image2d::view::make(
 				raw_bytes_.data(),
 				dim(),
 				cf_,
-				image::view::optional_pitch()
+				image2d::view::optional_pitch()
 			),
 			_rect
 		);

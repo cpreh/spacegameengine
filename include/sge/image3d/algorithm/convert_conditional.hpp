@@ -18,40 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_DETAIL_MAKE_VIEW_ELEMENTS_HPP_INCLUDED
-#define SGE_IMAGE_DETAIL_MAKE_VIEW_ELEMENTS_HPP_INCLUDED
+#ifndef SGE_IMAGE3D_ALGORITHM_CONVERT_CONDITIONAL_HPP_INCLUDED
+#define SGE_IMAGE3D_ALGORITHM_CONVERT_CONDITIONAL_HPP_INCLUDED
 
-#include <sge/image/detail/view_types.hpp>
-#include <sge/image/color/elements.hpp>
-#include <sge/image/size_type.hpp>
-#include <boost/mpl/integral_c.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/transform.hpp>
+#include <sge/image3d/algorithm/accepted_format_array.hpp>
+#include <sge/image3d/dim.hpp>
+#include <sge/image3d/pitch.hpp>
+#include <sge/image/color/format.hpp>
+#include <sge/image/raw_pointer.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
-namespace image
+namespace image3d
 {
-namespace detail
+namespace algorithm
 {
 
-template<
-	image::size_type Dim
->
-struct make_view_elements
-:
-boost::mpl::transform<
-	image::color::elements,
-	image::detail::view_types<
-		boost::mpl::_1,
-		boost::mpl::integral_c<
-			image::size_type,
-			Dim
-		>
-	>
->
-{
-};
+SGE_SYMBOL void
+convert_conditional(
+	image::raw_pointer,
+	image3d::dim const &,
+	image::color::format::type,
+	image3d::pitch, 
+	algorithm::accepted_format_array const &
+);
 
 }
 }

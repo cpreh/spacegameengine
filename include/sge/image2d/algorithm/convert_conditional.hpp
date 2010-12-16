@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image2d/algorithm/accepted_format_array.hpp>
 #include <sge/image2d/dim.hpp>
+#include <sge/image2d/pitch.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/image/size_type.hpp>
 #include <sge/image/raw_pointer.hpp>
 #include <sge/symbol.hpp>
 
@@ -40,7 +40,7 @@ convert_conditional(
 	image::raw_pointer,
 	image2d::dim const &,
 	image::color::format::type,
-	image::size_type pitch,
+	image2d::pitch, 
 	algorithm::accepted_format_array const &
 );
 

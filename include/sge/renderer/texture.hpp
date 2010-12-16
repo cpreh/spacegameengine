@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture_base.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/lock_rect.hpp>
-#include <sge/renderer/texture_pos_type.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/const_object.hpp>
@@ -50,8 +49,6 @@ public:
 	typedef renderer::dim2 dim_type;
 
 	typedef renderer::lock_rect rect_type;
-
-	typedef renderer::texture_pos_type pos_type; // TODO: should this be here?
 
 	virtual dim_type const
 	dim() const = 0;

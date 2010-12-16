@@ -29,7 +29,7 @@ namespace sge
 namespace renderer
 {
 
-typedef fcppt::math:::box::basic<
+typedef fcppt::math::box::basic<
 	renderer::size_type,
 	3
 > lock_box;

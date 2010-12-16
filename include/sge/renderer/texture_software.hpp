@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/image/view/object.hpp>
-#include <sge/image/view/const_object.hpp>
+#include <sge/image2d/view/object.hpp>
+#include <sge/image2d/view/const_object.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/container/raw_vector_decl.hpp>
@@ -54,13 +54,13 @@ public:
 	SGE_SYMBOL dim_type const
 	dim() const;
 
-	SGE_SYMBOL image::view::object const
+	SGE_SYMBOL image2d::view::object const
 	lock(
 		lock_rect const &,
 		lock_mode::type
 	);
 
-	SGE_SYMBOL image::view::const_object const
+	SGE_SYMBOL image2d::view::const_object const
 	lock(
 		lock_rect const &
 	) const;

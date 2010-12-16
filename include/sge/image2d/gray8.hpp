@@ -18,19 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_GRAY8_HPP_INCLUDED
-#define SGE_IMAGE_GRAY8_HPP_INCLUDED
+#ifndef SGE_IMAGE2D_GRAY8_HPP_INCLUDED
+#define SGE_IMAGE2D_GRAY8_HPP_INCLUDED
 
 #include <sge/image/gray8_format.hpp>
 #include <sge/image/store_fwd.hpp>
 
 namespace sge
 {
-namespace image
+namespace image2d
 {
 
-typedef store<
-	gray8_format
+typedef image::store<
+	image::gray8_format
 > gray8;
 
 }

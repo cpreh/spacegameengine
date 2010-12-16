@@ -18,43 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_DETAIL_VIEW_TYPES_HPP_INCLUDED
-#define SGE_IMAGE_DETAIL_VIEW_TYPES_HPP_INCLUDED
+#ifndef SGE_IMAGE3D_VIEW_SUB_OUT_OF_RANGE_HPP_INCLUDED
+#define SGE_IMAGE3D_VIEW_SUB_OUT_OF_RANGE_HPP_INCLUDED
 
-#include <mizuiro/image/view_impl.hpp>
-#include <mizuiro/image/raw_view.hpp>
-#include <mizuiro/image/interleaved.hpp>
-#include <mizuiro/image/dimension_impl.hpp>
-#include <mizuiro/image/format.hpp>
-#include <mizuiro/access/raw.hpp>
-#include <mizuiro/nonconst_tag.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <sge/image3d/box.hpp>
+#include <sge/image/exception.hpp>
+#include <sge/class_symbol.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 
 namespace sge
 {
-namespace image
+namespace image3d
 {
-namespace detail
+namespace view
 {
 
-template<
-	typename Color,
-	typename Dim
->
-struct view_types
+class SGE_CLASS_SYMBOL sub_out_of_range
+:
+	public sge::image::exception
 {
-	typedef mizuiro::image::view<
-		mizuiro::access::raw,
-		mizuiro::image::format<
-			mizuiro::image::dimension<
-				Dim::value
-			>,
-			mizuiro::image::interleaved<
-				Color
-			>
-		>,
-		mizuiro::nonconst_tag
-	> type;
+public:
+	SGE_SYMBOL 
+	sub_out_of_range(
+		sge::image3d::box const &outer,
+		sge::image3d::box const &inner
+	);
+
+	SGE_SYMBOL 
+	sge::image3d::rect const &
+	outer() const;
+
+	SGE_SYMBOL 
+	sge::image3d::rect const &
+	inner() const;
+
+	SGE_SYMBOL
+	virtual ~sub_out_of_range() throw();
+private:
+	sge::image3d::box
+		outer_,
+		inner_;
 };
 
 }

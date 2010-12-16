@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/bind.hpp>
 #include <boost/mpl/quote.hpp>
-#include <cstddef>
 
 namespace
 {
@@ -153,23 +152,11 @@ operation::operator()() const
 					dim_
 				),
 				data_,
-				static_cast<
-					typename View::pitch_type
-				>(
-					pitch_
-					?
-						static_cast<
-							std::ptrdiff_t
-						>(
-							*pitch_
-						)
-					:
-						static_cast<
-							std::ptrdiff_t
-						>(
-							0
-						)
-				)
+				pitch_
+				?
+					*pitch_
+				:
+					0
 			)
 		);
 }

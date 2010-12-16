@@ -44,7 +44,7 @@ sge::renderer::const_scoped_texture_lock::const_scoped_texture_lock(
 	)
 {}
 
-sge::image::view::const_object const
+sge::image2d::view::const_object const
 sge::renderer::const_scoped_texture_lock::value() const
 {
 	return view_;

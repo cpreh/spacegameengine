@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/gray8.hpp>
+#include <sge/image2d/gray8.hpp>
 #include <fcppt/export_symbol.hpp>
 #include "store_impl.hpp"
 
-template FCPPT_EXPORT_SYMBOL class sge::image::store<
-	sge::image::gray8_format
+template FCPPT_EXPORT_SYMBOL
+class sge::image::store<
+	sge::image2d::gray8_format
 >;
