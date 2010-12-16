@@ -18,14 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image2d/multi_loader.hpp>
-#include <sge/image/loader.hpp>
-#include <sge/image/plugin.hpp>
-#include "../instantiate_multi_loader.hpp"
+#ifndef SGE_IMAGE2D_RGBA8_FORMAT_HPP_INCLUDED
+#define SGE_IMAGE2D_RGBA8_FORMAT_HPP_INCLUDED
 
-SGE_INSTANTIATE_MULTI_LOADER(
-	sge::image::loader,
-	sge::image2d::file,
-	sge::image::exception,
-	sge::image::capabilities_field
-)
+#include <sge/image/rgba8_format.hpp>
+
+namespace sge
+{
+namespace image2d
+{
+
+typedef image::rgba8_format<
+	2
+>::type rgba8_format;
+
+}
+}
+
+#endif

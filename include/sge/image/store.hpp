@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_STORE_HPP_INCLUDED
 
 #include <sge/image/store_fwd.hpp>
-#include <sge/image/basic_dim.hpp>
+#include <sge/image/dim.hpp>
 #include <sge/symbol.hpp>
 #include <mizuiro/image/store_decl.hpp>
 #include <mizuiro/image/raw_view.hpp>
@@ -47,8 +47,8 @@ public:
 
 	typedef typename internal_type::const_pointer const_pointer;
 
-	typedef typename image::basic_dim<
-		Format::dimension::static_size
+	typedef typename image::dim<
+		Format::dim_type::static_size
 	>::type dim_type;
 
 	typedef typename internal_type::view_type view_type;
