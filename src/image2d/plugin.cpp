@@ -18,38 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_PLUGIN_HPP_INCLUDED
-#define SGE_IMAGE_PLUGIN_HPP_INCLUDED
+#include <sge/image2d/plugin.hpp>
+#include <sge/image2d/loader.hpp>
+#include "../plugin/address_name.hpp"
+#include "../plugin/instantiate_types.hpp"
 
-#include <sge/image/loader_fwd.hpp>
-#include <sge/plugin/detail/traits.hpp>
-#include <sge/plugin/detail/address_name.hpp>
-#include <sge/plugin/capabilities.hpp>
-#include <sge/symbol.hpp>
-
-namespace sge
+sge::plugin::detail::address_name
+sge::plugin::detail::traits<
+	sge::image2d::loader
+>::plugin_loader_name()
 {
-namespace plugin
-{
-namespace detail
-{
-
-template<>
-struct traits<
-	image::loader
->
-{
-	SGE_SYMBOL static address_name
-	plugin_loader_name();
-
-	SGE_SYMBOL static capabilities::type
-	plugin_type();
-
-	typedef image::loader *(*loader_fun)();
-};
-
-}
-}
+	return SGE_PLUGIN_ADDRESS_NAME("create_image2d_loader");
 }
 
-#endif
+sge::plugin::capabilities::type
+sge::plugin::detail::traits<
+	sge::image2d::loader
+>::plugin_type()
+{
+	return capabilities::image2d_loader;
+}
+
+SGE_PLUGIN_INSTANTIATE_TYPES(
+	sge::image2d::loader
+)

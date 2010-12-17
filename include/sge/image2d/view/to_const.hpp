@@ -18,10 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/loader.hpp>
+#ifndef SGE_IMAGE2D_VIEW_TO_CONST_HPP_INCLUDED
+#define SGE_IMAGE2D_VIEW_TO_CONST_HPP_INCLUDED
 
-sge::image::loader::loader()
-{}
+#include <sge/image2d/view/object.hpp>
+#include <sge/image2d/view/const_object.hpp>
+#include <sge/symbol.hpp>
 
-sge::image::loader::~loader()
-{}
+namespace sge
+{
+namespace image2d
+{
+namespace view
+{
+
+SGE_SYMBOL
+const_object const
+to_const(
+	object const &
+);
+
+}
+}
+}
+
+#endif

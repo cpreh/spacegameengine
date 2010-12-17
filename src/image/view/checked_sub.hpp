@@ -18,14 +18,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/multi_loader.hpp>
-#include <sge/image/loader.hpp>
-#include <sge/image/plugin.hpp>
-#include "../instantiate_multi_loader.hpp"
+#ifndef SGE_IMAGE_VIEW_CHECKED_SUB_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_CHECKED_SUB_HPP_INCLUDED
 
-SGE_INSTANTIATE_MULTI_LOADER(
-	sge::image::loader,
-	sge::image2d::file,
-	sge::image::exception,
-	sge::image::capabilities_field
+#include "checked_sub_condition.hpp"
+
+namespace sge
+{
+namespace image
+{
+namespace view
+{
+
+template<
+	typename Exception,
+	typename View,
+	typename Box,
+	typename SubFunction,
+	typename DimFunction
+>
+View const
+checked_sub(
+	View const &_src,
+	Box const &_box,
+	SubFunction const &_sub,
+	DimFunction const &_dim
 )
+{
+	sge::image::view::checked_sub_condition<
+		Exception
+	>(
+		_src,
+		_box,
+		_dim
+	);
+
+	return
+		_sub(
+			_src,
+			_box
+		);
+}
+
+}
+}
+}
+
+#endif

@@ -18,27 +18,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_MULTI_LOADER_FWD_HPP_INCLUDED
-#define SGE_IMAGE_MULTI_LOADER_FWD_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_CHECKED_SUB_CONDITION_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_CHECKED_SUB_CONDITION_HPP_INCLUDED
 
-#include <sge/multi_loader_fwd.hpp>
-#include <sge/image2d/file_fwd.hpp>
-#include <sge/image/loader_fwd.hpp>
-#include <sge/image/exception_fwd.hpp>
-#include <sge/image/capabilities_field.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/box/contains.hpp>
 
 namespace sge
 {
 namespace image
 {
+namespace view
+{
 
-typedef sge::multi_loader<
-	sge::image::loader,
-	sge::image2d::file,
-	sge::image::exception,
-	sge::image::capabilities_field	
-> multi_loader;
+template<
+	typename Exception,
+	typename View,
+	typename Box,
+	typename DimFunction
+>
+void
+checked_sub_condition(
+	View const &_src,
+	Box const &_box,
+	DimFunction const &_dim
+)
+{
+	Box const outer(
+		Box::vector::null(),
+		_dim(
+			_src
+		)
+	);
 
+	if(
+		!fcppt::math::box::contains(
+			outer,
+			_box
+		)
+	)
+		throw Exception(
+			outer,
+			_box
+		);
+}
+
+}
 }
 }
 

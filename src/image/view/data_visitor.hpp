@@ -18,51 +18,67 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_LOADER_HPP_INCLUDED
-#define SGE_IMAGE_LOADER_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_DATA_VISITOR_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_DATA_VISITOR_HPP_INCLUDED
 
-#include <sge/image/loader_fwd.hpp>
-#include <sge/image/capabilities_field.hpp>
-#include <sge/image2d/file_ptr.hpp>
-#include <sge/image2d/view/const_object.hpp>
-#include <sge/symbol.hpp>
-#include <sge/class_symbol.hpp>
-#include <sge/extension_set.hpp>
-#include <fcppt/filesystem/path.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <mizuiro/image/is_raw_view.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace sge
 {
 namespace image
 {
-
-class SGE_CLASS_SYMBOL loader
+namespace view
 {
-	FCPPT_NONCOPYABLE(
-		loader
-	)
-protected:
-	SGE_SYMBOL loader();
-public:
-	virtual image2d::file_ptr const
-	load(
-		fcppt::filesystem::path const &
-	) = 0;
 
-	virtual image2d::file_ptr const
-	create(
-		image2d::view::const_object const &
-	) = 0;
+template<
+	typename Dst
+>
+struct data_visitor
+{
+	typedef Dst result_type;
 
-	virtual image::capabilities_field const
-	capabilities() const = 0;
+	// This overload is currently not needed
+	template<
+		typename Src
+	>
+	typename boost::disable_if<
+		mizuiro::image::is_raw_view<
+			Src
+		>,
+		result_type
+	>::type
+	operator()(
+		Src const &_src
+	) const
+	{
+		// casting to a byte buffer is ok
+		return
+			reinterpret_cast<
+				Dst
+			>(
+				_src.data()
+			);
+	}
 
-	virtual sge::extension_set const
-	extensions() const = 0;
-
-	SGE_SYMBOL virtual ~loader();
+	template<
+		typename Src
+	>
+	typename boost::enable_if<
+		mizuiro::image::is_raw_view<
+			Src
+		>,
+		result_type
+	>::type
+	operator()(
+		Src const &_src
+	) const
+	{
+		return _src.data().get();
+	}
 };
 
+}
 }
 }
 

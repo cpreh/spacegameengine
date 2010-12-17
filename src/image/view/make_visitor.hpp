@@ -18,30 +18,76 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE2D_VIEW_MAKE_HPP_INCLUDED
-#define SGE_IMAGE2D_VIEW_MAKE_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_MAKE_VISITOR_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_MAKE_VISITOR_HPP_INCLUDED
 
-#include <sge/image2d/view/object.hpp>
-#include <sge/image2d/view/optional_pitch.hpp>
-#include <sge/image2d/dim.hpp>
-#include <sge/image/color/format.hpp>
+#include "../convert_dim.hpp"
 #include <sge/image/raw_pointer.hpp>
-#include <sge/symbol.hpp>
+#include <fcppt/nonassignable.hpp>
+#include <fcppt/optional_impl.hpp>
 
 namespace sge
 {
-namespace image2d
+namespace image
 {
 namespace view
 {
 
-SGE_SYMBOL image2d::view::object const
-make(
-	image::raw_pointer,
-	image2d::dim const &,
-	image::color::format::type,
-	image2d::view::optional_pitch const &
-);
+template<
+	typename Result,
+	typename Dim,
+	typename OptionalPitch
+>
+class make_visitor
+{
+	FCPPT_NONASSIGNABLE(
+		make_visitor
+	)
+public:
+	typedef Result result_type;
+
+	make_visitor(
+		sge::image::raw_pointer const _data,
+		Dim const &_dim,
+		OptionalPitch const &_pitch
+	)
+	:
+		data_(_data),
+		dim_(_dim),
+		pitch_(_pitch)
+	{
+	}
+
+	template<
+		typename View
+	>
+	result_type const
+	operator()() const
+	{
+		return
+			result_type(
+				View(
+					sge::image::convert_dim<
+						typename View::dim_type
+					>(
+						dim_
+					),
+					data_,
+					pitch_
+					?
+						*pitch_
+					:
+						0
+				)
+			);
+	}
+private:
+	sge::image::raw_pointer const data_;
+
+	Dim const dim_;
+
+	OptionalPitch const pitch_;
+};
 
 }
 }

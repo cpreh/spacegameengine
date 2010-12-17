@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture_software.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <sge/image2d/view/make.hpp>
+#include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/sub.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
@@ -85,7 +86,7 @@ sge::renderer::texture_software::lock(
 {
 	return
 		image2d::view::sub(
-			image2d::view::make(
+			image2d::view::make_const(
 				raw_bytes_.data(),
 				dim(),
 				cf_,

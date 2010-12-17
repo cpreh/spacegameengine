@@ -21,8 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE2D_VIEW_MAKE_CONST_HPP_INCLUDED
 #define SGE_IMAGE2D_VIEW_MAKE_CONST_HPP_INCLUDED
 
-#include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/view/optional_pitch.hpp>
+#include <sge/image2d/dim.hpp>
+#include <sge/image/color/format.hpp>
+#include <sge/image/const_raw_pointer.hpp>
 #include <sge/symbol.hpp>
 
 namespace sge
@@ -32,10 +35,12 @@ namespace image2d
 namespace view
 {
 
-SGE_SYMBOL
-const_object const
+SGE_SYMBOL image2d::view::const_object const
 make_const(
-	object const &
+	image::const_raw_pointer,
+	image2d::dim const &,
+	image::color::format::type,
+	image2d::view::optional_pitch const &
 );
 
 }

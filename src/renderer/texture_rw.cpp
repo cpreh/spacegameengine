@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture_rw.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
-#include <sge/image2d/view/make_const.hpp>
+#include <sge/image2d/view/to_const.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/comparison.hpp>
@@ -144,7 +144,7 @@ sge::renderer::texture_rw::unlock() const
 		);
 
 		image2d::algorithm::copy_and_convert(
-			image2d::view::make_const(
+			image2d::view::to_const(
 				*locked_->view_
 			),
 			lock_.value());

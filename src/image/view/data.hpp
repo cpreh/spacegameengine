@@ -18,22 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_ALGORITHM_ACCEPTED_FORMAT_ARRAY_HPP_INCLUDED
-#define SGE_IMAGE_ALGORITHM_ACCEPTED_FORMAT_ARRAY_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_DATA_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_DATA_HPP_INCLUDED
 
-#include <sge/image/color/format.hpp>
-#include <vector>
+#include "data_visitor.hpp"
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 namespace sge
 {
-namespace image2d
+namespace image
 {
-namespace algorithm
+namespace view
 {
 
-typedef std::vector<
-	image::color::format::type
-> accepted_format_array;
+template<
+	typename Dest,
+	typename View
+>
+Dest
+data(
+	View const &_view
+)
+{
+	return
+		fcppt::variant::apply_unary(
+			sge::image::view::data_visitor<
+				Dest
+			>(),
+			_view
+		);
+}
 
 }
 }

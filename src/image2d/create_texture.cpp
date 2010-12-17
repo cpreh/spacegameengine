@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image2d/create_texture.hpp>
 #include <sge/image2d/file.hpp>
-#include <sge/image/multi_loader.hpp>
+#include <sge/image2d/multi_loader.hpp>
 #include <sge/renderer/device.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
@@ -44,7 +44,7 @@ sge::renderer::texture_ptr const
 sge::image2d::create_texture(
 	fcppt::filesystem::path const &_file,
 	renderer::device_ptr const _renderer,
-	image::multi_loader &_loader,
+	image2d::multi_loader &_loader,
 	renderer::filter::texture const &_filter,
 	renderer::resource_flags_field const &_flags
 )

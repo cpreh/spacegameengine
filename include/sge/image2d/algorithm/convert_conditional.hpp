@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE2D_ALGORITHM_CONVERT_CONDITIONAL_HPP_INCLUDED
 #define SGE_IMAGE2D_ALGORITHM_CONVERT_CONDITIONAL_HPP_INCLUDED
 
-#include <sge/image2d/algorithm/accepted_format_array.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/pitch.hpp>
+#include <sge/image/algorithm/accepted_format_array.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/raw_pointer.hpp>
 #include <sge/symbol.hpp>
@@ -41,7 +41,7 @@ convert_conditional(
 	image2d::dim const &,
 	image::color::format::type,
 	image2d::pitch, 
-	algorithm::accepted_format_array const &
+	image::algorithm::accepted_format_array const &
 );
 
 }

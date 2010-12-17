@@ -18,29 +18,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
-#define SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
+#ifndef SGE_IMAGE2D_LOADER_HPP_INCLUDED
+#define SGE_IMAGE2D_LOADER_HPP_INCLUDED
+
+#include <sge/image2d/loader_fwd.hpp>
+#include <sge/image2d/file_ptr.hpp>
+#include <sge/image2d/view/const_object.hpp>
+#include <sge/image/capabilities_field.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <sge/extension_set.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
-namespace plugin
+namespace image2d
 {
-namespace capabilities
+
+class SGE_CLASS_SYMBOL loader
 {
-enum type
-{
-	nothing          = 0,
-	renderer         = 1,
-	input            = 1 << 1,
-	image2d_loader   = 1 << 2,
-	audio_player     = 1 << 3,
-	font             = 1 << 4,
-	audio_loader     = 1 << 5,
-	collision_system = 1 << 6,
-	model_loader     = 1 << 7,
-	last_guard_      = 1 << 8
+	FCPPT_NONCOPYABLE(
+		loader
+	)
+protected:
+	SGE_SYMBOL loader();
+public:
+	virtual image2d::file_ptr const
+	load(
+		fcppt::filesystem::path const &
+	) = 0;
+
+	virtual image2d::file_ptr const
+	create(
+		image2d::view::const_object const &
+	) = 0;
+
+	virtual image::capabilities_field const
+	capabilities() const = 0;
+
+	virtual sge::extension_set const
+	extensions() const = 0;
+
+	SGE_SYMBOL virtual ~loader();
 };
-}
 
 }
 }

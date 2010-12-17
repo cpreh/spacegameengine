@@ -18,24 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_ALGORITHM_ACCEPTED_FORMAT_ARRAY_HPP_INCLUDED
-#define SGE_IMAGE_ALGORITHM_ACCEPTED_FORMAT_ARRAY_HPP_INCLUDED
-
-#include <sge/image/color/format.hpp>
-#include <vector>
+#ifndef SGE_IMAGE2D_LOADER_FWD_HPP_INCLUDED
+#define SGE_IMAGE2D_LOADER_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace image2d
 {
-namespace algorithm
-{
 
-typedef std::vector<
-	image::color::format::type
-> accepted_format_array;
+class loader;
 
-}
 }
 }
 

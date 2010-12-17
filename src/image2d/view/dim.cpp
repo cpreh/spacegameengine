@@ -25,6 +25,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::image2d::dim const
 sge::image2d::view::dim(
+	object const &_view
+)
+{
+	return
+		sge::image::view::dim<
+			sge::image2d::dim
+		>(
+			_view
+		);
+}
+
+sge::image2d::dim const
+sge::image2d::view::dim(
 	const_object const &_view
 )
 {

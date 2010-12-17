@@ -18,16 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_LOADER_FWD_HPP_INCLUDED
-#define SGE_IMAGE_LOADER_FWD_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_TO_CONST_VISITOR_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_TO_CONST_VISITOR_HPP_INCLUDED
+
+#include <mizuiro/image/make_const_view.hpp>
 
 namespace sge
 {
 namespace image
 {
+namespace view
+{
 
-class loader;
+template<
+	typename Result
+>
+struct to_const_visitor
+{
+	typedef Result result_type;
 
+	template<
+		typename T
+	>
+	result_type const
+	operator()(
+		T const &_view
+	) const
+	{
+		return
+			result_type(
+				mizuiro::image::make_const_view(
+					_view
+				)
+			);
+	}
+};
+
+}
 }
 }
 

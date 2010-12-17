@@ -18,27 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/screenshot.hpp>
-#include <sge/renderer/const_scoped_target_lock.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/image2d/file.hpp>
-#include <sge/image2d/multi_loader.hpp>
-#include <sge/image2d/loader.hpp>
+#include "../../image/view/to_const.hpp"
+#include <sge/image2d/view/to_const.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
-void
-sge::renderer::screenshot(
-	const_device_ptr const _renderer,
-	image2d::multi_loader const &_loader,
-	fcppt::filesystem::path const &_file
+sge::image2d::view::const_object const
+sge::image2d::view::to_const(
+	object const &_view
 )
 {
-	// FIXME
-	_loader.loaders().at(0)->create(
-		renderer::const_scoped_target_lock(
-			_renderer->target()
-		).value()
-	)->save(
-		_file
-	);
+	return
+		sge::image::view::to_const<
+			sge::image2d::view::const_object
+		>(
+			_view
+		);
 }

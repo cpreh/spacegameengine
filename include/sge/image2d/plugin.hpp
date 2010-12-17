@@ -18,27 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/screenshot.hpp>
-#include <sge/renderer/const_scoped_target_lock.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/image2d/file.hpp>
-#include <sge/image2d/multi_loader.hpp>
-#include <sge/image2d/loader.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#ifndef SGE_IMAGE2D_PLUGIN_HPP_INCLUDED
+#define SGE_IMAGE2D_PLUGIN_HPP_INCLUDED
 
-void
-sge::renderer::screenshot(
-	const_device_ptr const _renderer,
-	image2d::multi_loader const &_loader,
-	fcppt::filesystem::path const &_file
-)
+#include <sge/image2d/loader_fwd.hpp>
+#include <sge/plugin/detail/traits.hpp>
+#include <sge/plugin/detail/address_name.hpp>
+#include <sge/plugin/capabilities.hpp>
+#include <sge/symbol.hpp>
+
+namespace sge
 {
-	// FIXME
-	_loader.loaders().at(0)->create(
-		renderer::const_scoped_target_lock(
-			_renderer->target()
-		).value()
-	)->save(
-		_file
-	);
+namespace plugin
+{
+namespace detail
+{
+
+template<>
+struct traits<
+	image2d::loader
+>
+{
+	SGE_SYMBOL static address_name
+	plugin_loader_name();
+
+	SGE_SYMBOL static capabilities::type
+	plugin_type();
+
+	typedef image2d::loader *(*loader_fun)();
+};
+
 }
+}
+}
+
+#endif
