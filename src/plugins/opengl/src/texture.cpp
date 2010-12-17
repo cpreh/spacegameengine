@@ -85,6 +85,10 @@ sge::opengl::texture::texture(
 	);
 }
 
+sge::opengl::texture::~texture()
+{
+}
+
 sge::opengl::texture::dim_type const
 sge::opengl::texture::dim() const
 {
@@ -131,12 +135,14 @@ sge::opengl::texture::unlock() const
 		)
 	)
 	{
-		bind_me();
+		bind();
 
 		renderer::lock_rect const lr(
 			lock_rect_
-				? *lock_rect_
-				: renderer::lock_rect(
+			?
+				*lock_rect_
+			:
+				renderer::lock_rect(
 					renderer::lock_rect::vector::null(),
 					dim()
 				)
@@ -182,7 +188,7 @@ sge::opengl::texture::lock_me(
 		)
 	);
 
-	bind_me();
+	bind();
 
 	// if we must read we have to lock the whole texture
 	// and set the lock size, the offset and the pitch accordingly
@@ -205,6 +211,7 @@ sge::opengl::texture::lock_me(
 
 	if(must_read)
 		texfuncs::get_image(
+			type(),
 			format(),
 			format_type(),
 			read_buffer()

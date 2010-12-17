@@ -106,5 +106,5 @@ sge::opengl::set_texture(
 		);
 	}
 
-	base.bind_me();
+	base.bind();
 }

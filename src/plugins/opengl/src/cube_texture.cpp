@@ -48,22 +48,18 @@ sge::opengl::cube_texture::cube_texture(
 	renderer::resource_flags_field const &_flags
 )
 :
-	detail::cube_texture_base(
-		_context,
-		_filter,
-		_flags,
-		context::use<
+	opengl::texture_base(
+		opengl::context::use<
 			cube_texture_context
 		>(
 			_context
-		).cube_texture_type(),
-		_format
+		).cube_texture_type()
 	),
 	size_(_size),
 	locked_texture_(0)
 {
 	cube_texture_context &cube_texture_context_(
-		context::use<
+		opengl::context::use<
 			cube_texture_context
 		>(
 			_context
@@ -163,6 +159,12 @@ sge::opengl::cube_texture::size_type
 sge::opengl::cube_texture::border_size() const
 {
 	return size_;
+}
+
+sge::renderer::resource_flags_field const
+sge::opengl::cube_texture::flags() const
+{
+	return textures_[0].flags();
 }
 
 void

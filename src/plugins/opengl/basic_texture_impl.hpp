@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_BASIC_TEXTURE_IMPL_HPP_INCLUDED
 #define SGE_OPENGL_BASIC_TEXTURE_IMPL_HPP_INCLUDED
 
+#include "basic_texture.hpp"
 #include "common.hpp"
 #include "texfuncs/bind.hpp"
 #include "texfuncs/set_filter.hpp"
@@ -32,18 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format_stride.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
-
-template<
-	typename Base
->
-void
-sge::opengl::basic_texture<Base>::bind_me() const
-{
-	texfuncs::bind(
-		type(),
-		id()
-	);
-}
 
 template<
 	typename Base
@@ -61,15 +50,6 @@ sge::opengl::basic_texture<Base>::set_my_filter() const
 template<
 	typename Base
 >
-GLuint
-sge::opengl::basic_texture<Base>::id() const
-{
-	return holder_.id();
-}
-
-template<
-	typename Base
->
 sge::renderer::filter::texture const &
 sge::opengl::basic_texture<Base>::filter() const
 {
@@ -81,11 +61,11 @@ template<
 >
 void
 sge::opengl::basic_texture<Base>::do_lock(
-	lock_method::type const method,
-	size_type const lock_size,
-	size_type const offset,
-	size_type const pitch,
-	size_type const block_size
+	lock_method::type const _method,
+	size_type const _lock_size,
+	size_type const _offset,
+	size_type const _pitch,
+	size_type const _block_size
 ) const
 {
 	check_not_locked();
@@ -93,13 +73,13 @@ sge::opengl::basic_texture<Base>::do_lock(
 	scoped_lock_ptr new_lock(
 		opengl::create_texture_lock(
 			context_,
-			method,
-			lock_size,
-			offset,
+			_method,
+			_lock_size,
+			_offset,
 			content(),
 			stride(),
-			pitch,
-			block_size,
+			_pitch,
+			_block_size,
 			flags()
 		)
 	);
@@ -203,7 +183,7 @@ template<
 void
 sge::opengl::basic_texture<Base>::pre_setdata() const
 {
-	bind_me();
+	bind();
 	set_my_filter();
 }
 
@@ -258,7 +238,6 @@ sge::opengl::basic_texture<Base>::basic_texture(
 	context_(_context),
 	filter_(_filter),
 	flags_(_flags),
-	holder_(),
 	format_(
 		convert::color_to_format(
 			_cformat

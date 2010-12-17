@@ -63,6 +63,8 @@ public:
 			= optional_type()
 	);
 
+	~texture();
+
 	dim_type const
 	dim() const;
 

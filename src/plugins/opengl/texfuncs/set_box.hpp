@@ -18,30 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../get_image.hpp"
-#include "../../common.hpp"
-#include "../../check_state.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_OPENGL_TEXFUNCS_SET_BOX_HPP_INCLUDED
+#define SGE_OPENGL_TEXFUNCS_SET_BOX_HPP_INCLUDED
+
+#include "../common.hpp"
+#include "../context/object_fwd.hpp"
+#include <sge/renderer/dim3.hpp>
+#include <sge/renderer/lock_box.hpp>
+#include <sge/renderer/const_raw_pointer.hpp>
+
+namespace sge
+{
+namespace opengl
+{
+namespace texfuncs
+{
 
 void
-sge::opengl::texfuncs::get_image(
-	GLenum const _texture_type,
-	GLenum const _format,
-	GLenum const _type,
-	renderer::raw_pointer const _dest
-)
-{
-	::glGetTexImage(
-		_texture_type,
-		0,
-		_format,
-		_type,
-		_dest
-	);
+set_box(
+	context::object &,
+	GLenum target,
+	GLenum format,
+	GLenum type,
+	renderer::dim3 const &dim,
+	renderer::lock_box const &dest,
+	renderer::const_raw_pointer src
+);
 
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glGetTexImage failed"),
-		sge::renderer::exception
-	)
 }
+}
+}
+
+#endif

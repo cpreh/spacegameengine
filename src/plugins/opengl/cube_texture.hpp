@@ -22,12 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_CUBE_TEXTURE_HPP_INCLUDED
 
 #include "common.hpp"
-#include "basic_texture.hpp"
+#include "texture_base.hpp"
 #include "context/object_fwd.hpp"
 #include <sge/renderer/cube_texture.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/texture_fwd.hpp>
+#include <sge/renderer/filter/texture_fwd.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/const_object.hpp>
+#include <sge/image/color/format.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
@@ -36,18 +39,10 @@ namespace sge
 namespace opengl
 {
 
-namespace detail
-{
-
-typedef basic_texture<
-	renderer::cube_texture
-> cube_texture_base;
-
-}
-
 class cube_texture
 :
-	public detail::cube_texture_base
+	public sge::renderer::cube_texture,
+	public sge::opengl::texture_base
 {
 	FCPPT_NONCOPYABLE(cube_texture)
 public:
@@ -79,6 +74,9 @@ public:
 
 	size_type
 	border_size() const;
+
+	renderer::resource_flags_field const
+	flags() const;
 private:
 	void
 	check_locked() const;

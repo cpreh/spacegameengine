@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "common.hpp"
 #include "texture_lock.hpp"
 #include "texture_base.hpp"
-#include "texture_holder.hpp"
 #include "lock_method.hpp"
 #include "context/object_fwd.hpp"
 #include <sge/renderer/filter/texture.hpp>
@@ -52,13 +51,7 @@ public:
 	typedef texture_lock::const_pointer const_pointer;
 protected:
 	void
-	bind_me() const;
-
-	void
 	set_my_filter() const;
-
-	GLuint
-	id() const;
 
 	renderer::filter::texture const &
 	filter() const;
@@ -141,8 +134,6 @@ private:
 	renderer::filter::texture const filter_;
 
 	renderer::resource_flags_field const flags_;
-
-	opengl::texture_holder const holder_;
 
 	GLenum const
 		format_,

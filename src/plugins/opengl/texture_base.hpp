@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_BASE_HPP_INCLUDED
 
 #include "texture_base_fwd.hpp"
+#include "texture_holder.hpp"
 #include "common.hpp"
 #include <fcppt/noncopyable.hpp>
 
@@ -37,11 +38,11 @@ public:
 	GLenum
 	type() const;
 
-	virtual void
-	bind_me() const = 0;
+	void
+	bind() const;
 
-	virtual GLuint
-	id() const = 0;
+	GLuint
+	id() const;
 
 	virtual ~texture_base();
 protected:
@@ -50,6 +51,8 @@ protected:
 	);
 private:
 	GLenum const type_;
+
+	opengl::texture_holder const holder_;
 };
 
 }

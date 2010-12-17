@@ -30,8 +30,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/volume_texture.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/filter/texture_fwd.hpp>
+#include <fcppt/math/box/basic_decl.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
 
 namespace sge
 {
@@ -80,7 +82,26 @@ public:
 	void
 	unlock() const;
 private:
+	void
+	lock_me(
+		box_type const &,
+		lock_method::type
+	) const;
+
+	image3d::view::object const
+	view();
+
+	image3d::view::const_object const
+	view() const;
+
+	dim_type const
+	lock_dim() const;
+
 	dim_type const dim_;
+
+	mutable fcppt::optional<
+		box_type
+	> lock_rect_;
 };
 
 }

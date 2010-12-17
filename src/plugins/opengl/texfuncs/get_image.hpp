@@ -33,6 +33,7 @@ namespace texfuncs
 
 void
 get_image(
+	GLenum tex_type,
 	GLenum format,
 	GLenum type,
 	renderer::raw_pointer dest
