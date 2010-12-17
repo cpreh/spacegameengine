@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/make_image.hpp>
 #include <sge/gui/image.hpp>
 #include <sge/gui/dim.hpp>
-#include <sge/image/file.hpp>
-#include <sge/image/algorithm/copy_and_convert.hpp>
+#include <sge/image2d/file.hpp>
+#include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/variant/object_impl.hpp>
@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::gui::image_ptr const
 sge::gui::make_image(
-	sge::image::file_ptr _image
+	sge::image2d::file_ptr _image
 )
 {
 	sge::gui::image_ptr i(
@@ -43,7 +43,7 @@ sge::gui::make_image(
 		)
 	);
 
-	sge::image::algorithm::copy_and_convert(
+	sge::image2d::algorithm::copy_and_convert(
 		_image->view(),
 		i->view()
 	);

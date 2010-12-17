@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DEVIL_LOADER_HPP_INCLUDED
 
 #include "library.hpp"
-#include <sge/image/loader.hpp>
+#include <sge/image2d/loader.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -31,25 +32,30 @@ namespace devil
 
 class loader
 :
-	public image::loader
+	public sge::image2d::loader
 {
+	FCPPT_NONCOPYABLE(
+		loader
+	)
 public:
 	loader();
 
-	image::file_ptr const
+	~loader();
+
+	image2d::file_ptr const
 	load(
 		fcppt::filesystem::path const &
 	);
 
-	image::file_ptr const
+	image2d::file_ptr const
 	create(
-		image::view::const_object const &src
+		image2d::view::const_object const &
 	);
 
 	image::capabilities_field const
 	capabilities() const;
 
-	extension_set const
+	sge::extension_set const
 	extensions() const;
 private:
 	library lib_;

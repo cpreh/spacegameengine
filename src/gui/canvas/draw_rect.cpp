@@ -19,8 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/gui/canvas/object.hpp>
-#include <sge/image/algorithm/fill.hpp>
-#include <sge/image/view/sub.hpp>
+#include <sge/image2d/algorithm/fill.hpp>
+#include <sge/image2d/view/sub.hpp>
+#include <sge/image2d/rect.hpp>
 #include <fcppt/assert_message.hpp>
 #include <fcppt/math/box/contains.hpp>
 #include <fcppt/math/box/structure_cast.hpp>
@@ -45,11 +46,11 @@ void sge::gui::canvas::object::draw_rect(
 	switch (t)
 	{
 		case rect_type::solid:
-			sge::image::algorithm::fill(
-				sge::image::view::sub(
+			sge::image2d::algorithm::fill(
+				sge::image2d::view::sub(
 					view_,
 					fcppt::math::box::structure_cast<
-						sge::image::rect
+						sge::image2d::rect
 					>(r)
 				),
 				c

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/text.hpp>
 
-sge::image::rect const
+sge::image2d::rect const
 sge::font::bitmap::load_rect(
 	sge::parse::json::member_vector const &_members
 )
@@ -75,8 +75,8 @@ sge::font::bitmap::load_rect(
 			FCPPT_TEXT("Bogus rect subelements detected")
 		);
 
-	return image::rect(
-		image::rect::vector(
+	return image2d::rect(
+		image2d::rect::vector(
 			parse::json::get<
 				int
 			>(
@@ -88,7 +88,7 @@ sge::font::bitmap::load_rect(
 				first_elements[1]
 			)
 		),
-		image::rect::dim(
+		image2d::rect::dim(
 			parse::json::get<
 				int
 			>(

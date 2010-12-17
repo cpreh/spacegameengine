@@ -23,11 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../error.hpp"
 #include "../format.hpp"
 #include <sge/image/color/format_stride.hpp>
-#include <sge/image/view/make.hpp>
-#include <sge/image/view/format.hpp>
-#include <sge/image/view/dim.hpp>
-#include <sge/image/algorithm/copy_and_convert.hpp>
+#include <sge/image/const_raw_pointer.hpp>
 #include <sge/image/exception.hpp>
+#include <sge/image2d/algorithm/copy_and_convert.hpp>
+#include <sge/image2d/view/dim.hpp>
+#include <sge/image2d/view/format.hpp>
+#include <sge/image2d/view/make.hpp>
+#include <sge/image2d/view/make_const.hpp>
+#include <sge/image2d/dim.hpp>
 #include <sge/log/global.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/warning.hpp>
@@ -94,7 +97,7 @@ sge::devil::file::file(
 }
 
 sge::devil::file::file(
-	image::view::const_object const &_src
+	image2d::view::const_object const &_src
 )
 :
 	impl_()
@@ -104,22 +107,26 @@ sge::devil::file::file(
 	);
 }
 
-sge::image::dim_type const
+sge::devil::file::~file()
+{
+}
+
+sge::image2d::dim const
 sge::devil::file::dim() const
 {
 	bind_me();
 
 	return
-		image::dim_type(
+		image2d::dim(
 			static_cast<
-				image::dim_type::value_type
+				image2d::dim::value_type
 			>(
 				::ilGetInteger(
 					IL_IMAGE_WIDTH
 				)
 			),
 			static_cast<
-				image::dim_type::value_type
+				image2d::dim::value_type
 			>(
 				::ilGetInteger(
 					IL_IMAGE_HEIGHT
@@ -130,7 +137,7 @@ sge::devil::file::dim() const
 
 void
 sge::devil::file::data(
-	image::view::const_object const &_src
+	image2d::view::const_object const &_src
 )
 {
 	bind_me();
@@ -139,14 +146,14 @@ sge::devil::file::data(
 		unsigned char
 	> raw_vector_t;
 
-	image::dim_type const src_dim(
-		image::view::dim(
+	image2d::dim const src_dim(
+		image2d::view::dim(
 			_src
 		)
 	);
 
 	image::color::format::type const fmt(
-		image::view::format(
+		image2d::view::format(
 			_src
 		)
 	);
@@ -160,18 +167,18 @@ sge::devil::file::data(
 		fmt
 	);
 
-	image::algorithm::copy_and_convert(
+	image2d::algorithm::copy_and_convert(
 		_src,
-		image::view::make(
+		image2d::view::make(
 			v.data(),
 			src_dim,
 			best_il_format,
-			image::view::optional_pitch()
+			image2d::view::optional_pitch()
 		)
 	);
 
-	image::dim_type const cur_dim(
-		image::view::dim(
+	image2d::dim const cur_dim(
+		image2d::view::dim(
 			_src
 		)
 	);
@@ -201,13 +208,13 @@ sge::devil::file::data(
 	check_errors();
 }
 
-sge::image::view::const_object const
+sge::image2d::view::const_object const
 sge::devil::file::view() const
 {
 	bind_me();
 
 	return
-		image::view::make(
+		image2d::view::make_const(
 			const_cast<
 				image::const_raw_pointer
 			>(
@@ -220,7 +227,7 @@ sge::devil::file::view() const
 				),
 				format()
 			),
-			image::view::optional_pitch()
+			image2d::view::optional_pitch()
 		);
 }
 

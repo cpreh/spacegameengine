@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DEVIL_FILE_HPP_INCLUDED
 
 #include "image_impl.hpp"
-#include <sge/image/file.hpp>
+#include <sge/image2d/file.hpp>
 #include <fcppt/filesystem/path.hpp>
 
 namespace sge
@@ -32,26 +32,31 @@ namespace devil
 
 class file
 :
-	public image::file
+	public sge::image2d::file
 {
+	FCPPT_NONCOPYABLE(
+		file
+	)
 public:
 	explicit file(
 		fcppt::filesystem::path const &
 	);
 
 	explicit file(
-		image::view::const_object const &
+		image2d::view::const_object const &
 	);
 
-	image::view::const_object const
+	~file();
+
+	image2d::view::const_object const
 	view() const;
 
 	void
 	data(
-		image::view::const_object const &
+		image2d::view::const_object const &
 	);
 
-	image::dim_type const
+	image2d::dim const
 	dim() const;
 
 	void

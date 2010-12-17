@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/symbol.hpp>
 #include <sge/renderer/texture_fwd.hpp>
 #include <sge/renderer/lock_rect.hpp>
-#include <sge/image/view/const_object.hpp>
+#include <sge/image2d/view/const_object.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -52,7 +52,7 @@ public:
 
 	SGE_TEXTURE_SYMBOL void
 	data(
-		image::view::const_object const &src
+		image2d::view::const_object const &src
 	);
 
 	SGE_TEXTURE_SYMBOL renderer::lock_rect const &

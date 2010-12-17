@@ -20,16 +20,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/texture/add_image.hpp>
 #include <sge/texture/manager.hpp>
-#include <sge/image/file.hpp>
+#include <sge/image2d/file.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
 sge::texture::part_ptr const
 sge::texture::add_image(
-	manager &man,
-	image::file_ptr const img
+	texture::manager &_manager,
+	image2d::file_ptr const _file
 )
 {
-	return man.add(
-		img->view()
-	);
+	return
+		_manager.add(
+			_file->view()
+		);
 }

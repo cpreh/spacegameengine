@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/texture_ptr.hpp>
 #include <sge/renderer/lock_rect.hpp>
-#include <sge/image/view/const_object.hpp>
+#include <sge/image2d/view/const_object.hpp>
 
 namespace sge
 {
@@ -35,7 +35,7 @@ namespace atlasing
 void
 border_h(
 	renderer::texture_ptr,
-	image::view::const_object const &src,
+	image2d::view::const_object const &src,
 	renderer::lock_rect const &outer_area,
 	renderer::lock_rect const &inner_area
 );

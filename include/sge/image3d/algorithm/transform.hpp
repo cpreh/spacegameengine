@@ -18,9 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_ALGORITHM_TRANSFORM_HPP_INCLUDED
-#define SGE_IMAGE_ALGORITHM_TRANSFORM_HPP_INCLUDED
+#ifndef SGE_IMAGE3D_ALGORITHM_TRANSFORM_HPP_INCLUDED
+#define SGE_IMAGE3D_ALGORITHM_TRANSFORM_HPP_INCLUDED
 
+// TODO!
+#if 0
 #include <sge/image/algorithm/detail/transform_unary.hpp>
 #include <sge/image/algorithm/detail/transform_binary.hpp>
 #include <sge/image/view/object.hpp>
@@ -190,4 +192,5 @@ transform(
 }
 }
 
+#endif
 #endif

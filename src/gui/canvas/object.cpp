@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/canvas/object.hpp>
 #include <sge/gui/unit.hpp>
 #include <sge/gui/log.hpp>
-#include <sge/image/view/make_const.hpp>
+#include <sge/image2d/view/to_const.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/text.hpp>
@@ -63,5 +63,8 @@ sge::gui::image_view &sge::gui::canvas::object::view()
 sge::gui::const_image_view const
 sge::gui::canvas::object::view() const
 {
-	return sge::image::view::make_const(view_);
+	return
+		sge::image2d::view::to_const(
+			view_
+		);
 }

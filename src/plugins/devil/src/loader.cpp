@@ -62,28 +62,34 @@ sge::devil::loader::loader()
 	check_errors();
 }
 
-sge::image::file_ptr const
-sge::devil::loader::load(
-	fcppt::filesystem::path const &p
-)
+sge::devil::loader::~loader()
 {
-	return fcppt::make_shared_ptr<
-		file
-	>(
-		p
-	);
 }
 
-sge::image::file_ptr const
-sge::devil::loader::create(
-	image::view::const_object const &src
+sge::image2d::file_ptr const
+sge::devil::loader::load(
+	fcppt::filesystem::path const &_path
 )
 {
-	return fcppt::make_shared_ptr<
-		file
-	>(
-		src
-	);
+	return
+		fcppt::make_shared_ptr<
+			devil::file
+		>(
+			_path
+		);
+}
+
+sge::image2d::file_ptr const
+sge::devil::loader::create(
+	image2d::view::const_object const &_src
+)
+{
+	return
+		fcppt::make_shared_ptr<
+			devil::file
+		>(
+			_src
+		);
 }
 
 sge::image::capabilities_field const

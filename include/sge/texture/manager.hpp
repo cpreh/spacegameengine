@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/detail/container_position.hpp>
 #include <sge/texture/symbol.hpp>
 #include <sge/renderer/device_ptr.hpp>
-#include <sge/image/view/const_object.hpp>
+#include <sge/image2d/view/const_object.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -49,7 +49,7 @@ public:
 
 	SGE_TEXTURE_SYMBOL part_ptr const
 	add(
-		image::view::const_object const &
+		image2d::view::const_object const &
 	);
 
 	SGE_TEXTURE_SYMBOL sge::renderer::device_ptr const

@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_ALGORITHM_TRANSFORM_HPP_INCLUDED
-#define SGE_IMAGE_ALGORITHM_TRANSFORM_HPP_INCLUDED
+#ifndef SGE_IMAGE2D_ALGORITHM_TRANSFORM_HPP_INCLUDED
+#define SGE_IMAGE2D_ALGORITHM_TRANSFORM_HPP_INCLUDED
 
 #include <sge/image/algorithm/detail/transform_unary.hpp>
 #include <sge/image/algorithm/detail/transform_binary.hpp>
-#include <sge/image/view/object.hpp>
-#include <sge/image/view/const_object.hpp>
+#include <sge/image2d/view/object.hpp>
+#include <sge/image2d/view/const_object.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/apply_binary.hpp>
 #include <fcppt/variant/apply_ternary.hpp>
@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-namespace image
+namespace image2d
 {
 namespace algorithm
 {
@@ -52,7 +52,7 @@ transform(
 	Op const &op
 )
 {
-	detail::transform_unary<
+	image::algorithm::detail::transform_unary<
 		Op
 	> const fun(
 		op
@@ -75,7 +75,7 @@ transform(
 )
 {
 	fcppt::variant::apply_binary(
-		detail::transform_unary<
+		image::algorithm::detail::transform_unary<
 			Op
 		>(
 			op
@@ -98,7 +98,7 @@ transform(
 {
 	fcppt::variant::apply_unary(
 		std::tr1::bind(
-			detail::transform_unary<
+			image::algorithm::detail::transform_unary<
 				Op
 			>(
 				op
@@ -123,7 +123,7 @@ transform(
 {
 	fcppt::variant::apply_unary(
 		std::tr1::bind(
-			detail::transform_unary<
+			image::algorithm::detail::transform_unary<
 				Op
 			>(
 				op
@@ -149,7 +149,7 @@ transform(
 {
 	fcppt::variant::apply_binary(
 		std::tr1::bind(
-			detail::transform_binary<
+			image::algorithm::detail::transform_binary<
 				Op
 			>(
 				op
@@ -175,7 +175,7 @@ transform(
 )
 {
 	fcppt::variant::apply_ternary(
-		detail::transform_binary<
+		image::algorithm::detail::transform_binary<
 			Op
 		>(
 			op
