@@ -21,9 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_VOLUME_TEXTURE_HPP_INCLUDED
 #define SGE_OPENGL_VOLUME_TEXTURE_HPP_INCLUDED
 
-#include "common.hpp"
 #include "basic_texture.hpp"
+#include "context/object_fwd.hpp"
+#include <sge/image/color/format.hpp>
+#include <sge/image3d/view/const_object.hpp>
+#include <sge/image3d/view/object.hpp>
+#include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/volume_texture.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/filter/texture_fwd.hpp>
+#include <fcppt/math/dim/basic_decl.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -32,42 +40,50 @@ namespace opengl
 
 namespace detail
 {
-typedef basic_texture<renderer::volume_texture> volume_texture_base;
+typedef basic_texture<
+	renderer::volume_texture
+> volume_texture_base;
 }
 
 class volume_texture
 :
 	public detail::volume_texture_base
 {
+	FCPPT_NONCOPYABLE(
+		volume_texture
+	)
 public:
 	volume_texture(
-		image_view_array const &,
-		const renderer::filter_args& filter,
-		resource_flag_type flags
+		opengl::context::object &,
+		dim_type const &,
+		sge::image::color::format::type,
+		sge::renderer::filter::texture const &,
+		sge::renderer::resource_flags_field const &
 	);
 
-	box_type const box() const;
+	~volume_texture();
 
-	void data(
-		image_view_array const&);
-	void do_sub_data(
-		image_view_array const&,
-		const renderer::lock_box& b);
+	dim_type const
+	dim() const;
 
-	void lock(
-		lock_flag_type);
-	void lock(
-		renderer::lock_box const &,
-		lock_flag_type);
+	image3d::view::object const
+	lock(
+		box_type const &,
+		renderer::lock_mode::type
+	);
 
-	void unlock();
+	image3d::view::const_object const
+	lock(
+		box_type const &
+	) const;
+
+	void
+	unlock() const;
 private:
-	const box_type box_;
+	dim_type const dim_;
 };
 
 }
 }
-
-#endif
 
 #endif

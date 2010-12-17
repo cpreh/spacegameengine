@@ -24,9 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "write_ptr.hpp"
 #include "context_base.hpp"
 #include "byte_vector.hpp"
-#include <sge/image/view/const_object.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/image/dim_type.hpp>
+#include <sge/image2d/dim.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/io/cofstream.hpp>
 #include <png.h>
@@ -42,7 +41,7 @@ class write_context
 public:
 	write_context(
 		fcppt::filesystem::path const &,
-		image::dim_type const &,
+		image2d::dim const &,
 		byte_vector &,
 		image::color::format::type);
 private:

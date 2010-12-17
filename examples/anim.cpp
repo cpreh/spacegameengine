@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
-#include <sge/image/multi_loader.hpp>
+#include <sge/image2d/multi_loader.hpp>
 #include <sge/image/capabilities.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/system.hpp>
@@ -129,7 +129,7 @@ try
 		sys.renderer()
 	);
 
-	sge::image::multi_loader &image_loader(
+	sge::image2d::multi_loader &image_loader(
 		sys.image_loader()
 	);
 

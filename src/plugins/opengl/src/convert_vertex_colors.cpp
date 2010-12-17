@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../convert_vertex_colors.hpp"
 #include <sge/renderer/vf/dynamic/color.hpp>
-#include <sge/image/algorithm/convert_conditional.hpp>
+#include <sge/image2d/algorithm/convert_conditional.hpp>
+#include <sge/image2d/dim.hpp>
+#include <sge/image2d/pitch.hpp>
 #include <sge/image/color/format.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <boost/assign/list_of.hpp>
@@ -34,14 +36,18 @@ sge::opengl::convert_vertex_colors(
 	renderer::size_type const _offset
 )
 {
-	sge::image::algorithm::convert_conditional(
+	sge::image2d::algorithm::convert_conditional(
 		_data + _offset,
-		sge::image::dim_type(
+		sge::image2d::dim(
 			1,
 			_num_vertices
 		),
 		_dcolor.color_format(),
-		_vertex_stride,
+		static_cast<
+			sge::image2d::pitch
+		>(
+			_vertex_stride
+		),
 		boost::assign::list_of
 			(sge::image::color::format::rgba8)
 			(sge::image::color::format::rgba32f)

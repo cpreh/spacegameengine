@@ -23,38 +23,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "byte_vector.hpp"
 #include <sge/image/color/format.hpp>
-#include <sge/image/file.hpp>
+#include <sge/image2d/dim.hpp>
+#include <sge/image2d/file.hpp>
+#include <sge/image2d/view/const_object.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace libpng
 {
+
 class file
 :
-	public image::file
+	public sge::image2d::file
 {
+	FCPPT_NONCOPYABLE(
+		file
+	)
 public:
 	explicit file(
 		fcppt::filesystem::path const &
 	);
 
 	explicit file(
-		image::view::const_object const &
+		image2d::view::const_object const &
 	);
 
-	void data(
-		image::view::const_object const &);
-	image::view::const_object const view() const;
-	image::dim_type const dim() const;
-	void save(
-		fcppt::filesystem::path const &);
+	~file();
+
+	void
+	data(
+		image2d::view::const_object const &
+	);
+
+	image2d::view::const_object const
+	view() const;
+
+	image2d::dim const
+	dim() const;
+
+	void
+	save(
+		fcppt::filesystem::path const &
+	);
 private:
-	image::dim_type dim_;
-	byte_vector bytes_;
+	image2d::dim dim_;
+
+	libpng::byte_vector bytes_;
+
 	image::color::format::type format_;
 };
+
 }
 }
 

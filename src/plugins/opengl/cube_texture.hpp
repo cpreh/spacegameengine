@@ -26,6 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "context/object_fwd.hpp"
 #include <sge/renderer/cube_texture.hpp>
 #include <sge/renderer/texture_fwd.hpp>
+#include <sge/image2d/view/object.hpp>
+#include <sge/image2d/view/const_object.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
@@ -59,14 +61,14 @@ public:
 
 	~cube_texture();
 
-	image::view::object const
+	image2d::view::object const
 	lock(
 		renderer::cube_side::type side,
 		renderer::lock_rect const &,
 		renderer::lock_mode::type
 	);
 
-	image::view::const_object const
+	image2d::view::const_object const
 	lock(
 		renderer::cube_side::type side,
 		renderer::lock_rect const &

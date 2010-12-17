@@ -32,7 +32,7 @@ plugin_version_info(
 );
 
 FCPPT_EXPORT_SYMBOL sge::image2d::loader *
-create_image_loader();
+create_image2d_loader();
 
 FCPPT_EXPORT_SYMBOL void
 plugin_version_info(
@@ -49,7 +49,7 @@ plugin_version_info(
 }
 
 FCPPT_EXPORT_SYMBOL sge::image2d::loader *
-create_image_loader()
+create_image2d_loader()
 {
 	return new sge::devil::loader();
 }

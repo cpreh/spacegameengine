@@ -680,6 +680,9 @@ sge::opengl::device::create_volume_texture(
 			fcppt::make_shared_ptr<
 				opengl::volume_texture
 			>(
+				std::tr1::ref(
+					context_
+				),
 				_dim,
 				_format,
 				_filter,
