@@ -18,32 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../../image/view/flipped.hpp"
 #include <sge/image2d/view/flipped.hpp>
-#include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <mizuiro/image/flipped_view.hpp>
-
-namespace
-{
-
-template<
-	typename View
->
-class visitor
-{
-public:
-	typedef View const result_type;
-
-	template<
-		typename T
-	>
-	result_type
-	operator()(
-		T const &
-	) const;
-};
-
-}
 
 sge::image2d::view::object const
 sge::image2d::view::flipped(
@@ -51,10 +28,7 @@ sge::image2d::view::flipped(
 )
 {
 	return
-		fcppt::variant::apply_unary(
-			::visitor<
-				view::object
-			>(),
+		sge::image::view::flipped(
 			_view
 		);
 }
@@ -65,36 +39,7 @@ sge::image2d::view::flipped(
 )
 {
 	return
-		fcppt::variant::apply_unary(
-			::visitor<
-				view::const_object
-			>(),
+		sge::image::view::flipped(
 			_view
 		);
-}
-
-namespace
-{
-
-template<
-	typename View
->
-template<
-	typename T
->
-typename visitor<View>::result_type
-visitor<View>::operator()(
-	T const &_view
-) const
-{
-	return
-		typename ::visitor<
-			View
-		>::result_type(
-			mizuiro::image::flipped_view(
-				_view
-			)
-		);
-}
-
 }

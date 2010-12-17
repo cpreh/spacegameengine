@@ -18,52 +18,71 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_PART_HPP_INCLUDED
-#define SGE_TEXTURE_PART_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_SUB_VISITOR_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_SUB_VISITOR_HPP_INCLUDED
 
-#include <sge/texture/part_fwd.hpp>
-#include <sge/texture/symbol.hpp>
-#include <sge/renderer/texture_ptr.hpp>
-#include <sge/renderer/lock_rect.hpp>
-#include <sge/renderer/dim2.hpp>
-#include <sge/image2d/view/const_object.hpp>
-#include <sge/class_symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include "../convert_dim.hpp"
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/nonassignable.hpp>
+#include <mizuiro/image/sub_view.hpp>
 
 namespace sge
 {
-namespace texture
+namespace image
+{
+namespace view
 {
 
-class SGE_CLASS_SYMBOL part
+template<
+	typename Result,
+	typename Box
+>
+class sub_visitor
 {
-	FCPPT_NONCOPYABLE(part)
-protected:
-	SGE_TEXTURE_SYMBOL part();
+	FCPPT_NONASSIGNABLE(
+		sub_visitor
+	)
 public:
-	SGE_TEXTURE_SYMBOL virtual ~part();
+	typedef Result result_type;
 
-	virtual void
-	data(
-		image2d::view::const_object const &
-	) = 0;
+	explicit sub_visitor(
+		Box const &_box
+	)
+	:
+		box_(_box)
+	{
+	}
 
-	virtual renderer::lock_rect const &
-	area() const = 0;
-
-	SGE_TEXTURE_SYMBOL renderer::dim2 const
-	dim() const;
-
-	virtual renderer::texture_ptr const
-	texture() = 0;
-
-	virtual renderer::const_texture_ptr const
-	texture() const = 0;
-
-	virtual bool
-	repeatable() const = 0;
+	template<
+		typename T
+	>
+	result_type const
+	operator()(
+		T const &_view
+	) const
+	{
+		return
+			mizuiro::image::sub_view(
+				_view,
+				typename T::bound_type(
+					sge::image::convert_dim<
+						typename T::bound_type::dim_type
+					>(
+						box_.pos()
+					),
+					sge::image::convert_dim<
+						typename T::bound_type::dim_type
+					>(
+						box_.dimension()
+					)
+				)
+			);
+	}
+private:
+	Box const box_;
 };
 
+}
 }
 }
 
