@@ -18,25 +18,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE2D_ALGORITHM_FILL_HPP_INCLUDED
-#define SGE_IMAGE2D_ALGORITHM_FILL_HPP_INCLUDED
+#ifndef SGE_IMAGE_ALGORITHM_FILL_VISITOR_HPP_INCLUDED
+#define SGE_IMAGE_ALGORITHM_FILL_VISITOR_HPP_INCLUDED
 
-#include <sge/image2d/view/object.hpp>
+#include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <sge/symbol.hpp>
+#include <fcppt/nonassignable.hpp>
+#include <mizuiro/color/object_impl.hpp>
+#include <mizuiro/image/algorithm/fill_c.hpp>
+#include <mizuiro/image/view_impl.hpp>
 
 namespace sge
 {
-namespace image2d
+namespace image
 {
 namespace algorithm
 {
 
-SGE_SYMBOL void
-fill(
-	view::object const &,
-	image::color::any::object const &
-);
+class fill_visitor
+{
+	FCPPT_NONASSIGNABLE(
+		fill_visitor
+	)
+public:
+	typedef void result_type;
+
+	explicit fill_visitor(
+		sge::image::color::any::object const &_color
+	)
+	:
+		color_(_color)
+	{
+	}
+
+	template<
+		typename T
+	>
+	result_type
+	operator()(
+		T const &_view
+	) const
+	{
+		mizuiro::image::algorithm::fill_c(
+			_view,
+			sge::image::color::any::convert<
+				typename T::color_format
+			>(
+				color_
+			)
+		);
+	}
+private:
+	sge::image::color::any::object const color_;
+};
 
 }
 }

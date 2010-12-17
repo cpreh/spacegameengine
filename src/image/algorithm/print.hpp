@@ -18,25 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE2D_ALGORITHM_FILL_HPP_INCLUDED
-#define SGE_IMAGE2D_ALGORITHM_FILL_HPP_INCLUDED
+#ifndef SGE_IMAGE_ALGORITHM_PRINT_HPP_INCLUDED
+#define SGE_IMAGE_ALGORITHM_PRINT_HPP_INCLUDED
 
-#include <sge/image2d/view/object.hpp>
-#include <sge/image/color/any/object.hpp>
-#include <sge/symbol.hpp>
+#include "print_visitor.hpp"
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/io/ostream.hpp>
 
 namespace sge
 {
-namespace image2d
+namespace image
 {
 namespace algorithm
 {
 
-SGE_SYMBOL void
-fill(
-	view::object const &,
-	image::color::any::object const &
-);
+template<
+	typename View
+>
+void
+print(
+	fcppt::io::ostream &_ostream,
+	View const &_view
+)
+{
+	fcppt::variant::apply_unary(
+		sge::image::algorithm::print_visitor(
+			_ostream
+		),
+		_view
+	);
+}
 
 }
 }

@@ -18,39 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../../image/algorithm/print.hpp"
 #include <sge/image2d/algorithm/print.hpp>
-#include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
-#include <fcppt/nonassignable.hpp>
-#include <mizuiro/image/algorithm/print.hpp>
-
-namespace
-{
-
-class visitor
-{
-	FCPPT_NONASSIGNABLE(
-		visitor
-	)
-public:
-	typedef void result_type;
-
-	explicit visitor(
-		fcppt::io::ostream &
-	);
-	
-	template<
-		typename View
-	>
-	result_type
-	operator()(
-		View const &
-	) const;
-private:
-	fcppt::io::ostream &ostream_;
-};
-
-}
 
 void
 sge::image2d::algorithm::print(
@@ -58,36 +27,8 @@ sge::image2d::algorithm::print(
 	view::const_object const &_view
 )
 {
-	fcppt::variant::apply_unary(
-		::visitor(
-			_ostream
-		),
+	sge::image::algorithm::print(
+		_ostream,
 		_view
 	);
-}
-
-namespace
-{
-
-visitor::visitor(
-	fcppt::io::ostream &_ostream
-)
-:
-	ostream_(_ostream)
-{}
-
-template<
-	typename View
->
-visitor::result_type
-visitor::operator()(
-	View const &_view
-) const
-{
-	mizuiro::image::algorithm::print(
-		ostream_,
-		_view
-	);
-}
-
 }

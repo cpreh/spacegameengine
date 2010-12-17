@@ -18,42 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../../image/algorithm/fill.hpp"
 #include <sge/image2d/algorithm/fill.hpp>
-#include <sge/image/color/any/convert.hpp>
-#include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
-#include <fcppt/nonassignable.hpp>
-#include <mizuiro/image/algorithm/fill_c.hpp>
-#include <mizuiro/image/view_impl.hpp>
-#include <mizuiro/color/object_impl.hpp>
-
-namespace
-{
-
-class fill_visitor
-{
-	FCPPT_NONASSIGNABLE(
-		fill_visitor
-	)
-public:
-	typedef void result_type;
-
-	explicit fill_visitor(
-		sge::image::color::any::object const &
-	);
-
-	template<
-		typename T
-	>
-	result_type
-	operator()(
-		T const &
-	) const;
-private:
-	sge::image::color::any::object const col_;
-};
-
-}
 
 void
 sge::image2d::algorithm::fill(
@@ -61,41 +27,8 @@ sge::image2d::algorithm::fill(
 	image::color::any::object const &_col
 )
 {
-	fcppt::variant::apply_unary(
-		::fill_visitor(
-			_col
-		),
-		_dest
+	sge::image::algorithm::fill(
+		_dest,
+		_col
 	);
-}
-
-namespace
-{
-
-fill_visitor::fill_visitor(
-	sge::image::color::any::object const &_col
-)
-:
-	col_(_col)
-{}
-
-template<
-	typename T
->
-fill_visitor::result_type
-fill_visitor::operator()(
-	T const &_view
-) const
-{
-	return
-		mizuiro::image::algorithm::fill_c(
-			_view,
-			sge::image::color::any::convert<
-				typename T::color_format
-			>(
-				col_
-			)
-		);
-}
-
 }
