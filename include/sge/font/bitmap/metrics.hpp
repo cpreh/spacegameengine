@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/bitmap/char_metric_ptr.hpp>
 #include <sge/font/metrics.hpp>
 #include <sge/font/char_type.hpp>
-#include <sge/image/file_ptr.hpp>
-#include <sge/image/multi_loader_fwd.hpp>
+#include <sge/image2d/file_ptr.hpp>
+#include <sge/image2d/multi_loader_fwd.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <map>
@@ -47,7 +47,7 @@ class metrics
 public:
 	metrics(
 		fcppt::filesystem::path const &,
-		sge::image::multi_loader &
+		sge::image2d::multi_loader &
 	);
 
 	~metrics();
@@ -60,7 +60,7 @@ public:
 	font::unit
 	line_height() const;
 private:
-	sge::image::file_ptr image_;
+	sge::image2d::file_ptr image_;
 
 	font::unit line_height_;
 

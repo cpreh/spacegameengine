@@ -30,8 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
 #include <fcppt/math/box/basic_decl.hpp>
-#include <fcppt/shared_ptr.hpp>
 #include <fcppt/optional.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -47,6 +47,9 @@ class texture
 :
 	public detail::texture_base
 {
+	FCPPT_NONCOPYABLE(
+		texture
+	)
 public:
 	typedef fcppt::optional<GLenum> optional_type;
 
@@ -63,13 +66,13 @@ public:
 	dim_type const
 	dim() const;
 
-	image::view::object const
+	image2d::view::object const
 	lock(
 		renderer::lock_rect const &,
 		renderer::lock_mode::type
 	);
 
-	image::view::const_object const
+	image2d::view::const_object const
 	lock(
 		renderer::lock_rect const &
 	) const;
@@ -83,10 +86,10 @@ private:
 		lock_method::type
 	) const;
 
-	image::view::object const
+	image2d::view::object const
 	view();
 
-	image::view::const_object const
+	image2d::view::const_object const
 	view() const;
 
 	dim_type const
@@ -98,8 +101,6 @@ private:
 		renderer::lock_rect
 	> lock_rect_;
 };
-
-typedef fcppt::shared_ptr<texture> texture_ptr;
 
 }
 }

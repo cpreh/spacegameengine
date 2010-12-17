@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "blit.hpp"
 #include <sge/image/color/convert.hpp>
 #include <sge/image/color/any/convert.hpp>
-#include <sge/image/algorithm/copy_and_convert.hpp>
-#include <sge/image/algorithm/transform.hpp>
-#include <sge/image/view/sub.hpp>
-#include <sge/image/view/make_const.hpp>
+#include <sge/image2d/algorithm/copy_and_convert.hpp>
+#include <sge/image2d/algorithm/transform.hpp>
+#include <sge/image2d/view/sub.hpp>
+#include <sge/image2d/view/make_const.hpp>
+#include <sge/image2d/rect.hpp>
 #include <fcppt/math/box/intersection.hpp>
 #include <fcppt/math/box/structure_cast.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
@@ -312,19 +313,19 @@ void sge::gui::utility::blit_invalid(
 
 	if (transparency)
 	{
-		sge::image::algorithm::transform(
-			sge::image::view::sub(
+		sge::image2d::algorithm::transform(
+			sge::image2d::view::sub(
 				src,
 				fcppt::math::box::structure_cast<
-					sge::image::rect
+					sge::image2d::rect
 				>(
 					is_translated_src
 				)
 			),
-			sge::image::view::sub(
+			sge::image2d::view::sub(
 				dst,
 				fcppt::math::box::structure_cast<
-					sge::image::rect
+					sge::image2d::rect
 				>(
 					is_translated_dst
 				)
@@ -334,19 +335,19 @@ void sge::gui::utility::blit_invalid(
 	}
 	else
 	{
-		sge::image::algorithm::copy_and_convert(
-			sge::image::view::sub(
+		sge::image2d::algorithm::copy_and_convert(
+			sge::image2d::view::sub(
 				src,
 				fcppt::math::box::structure_cast<
-					sge::image::rect
+					sge::image2d::rect
 				>(
 					is_translated_src
 				)
 			),
-			sge::image::view::sub(
+			sge::image2d::view::sub(
 				dst,
 				fcppt::math::box::structure_cast<
-					sge::image::rect
+					sge::image2d::rect
 				>(
 					is_translated_dst
 				)
@@ -372,26 +373,26 @@ void sge::gui::utility::blit(
 		clipped.pos() - dst_rect.pos(),
 		clipped.dimension());
 
-	sge::image::algorithm::transform(
-		sge::image::view::sub(
-			sge::image::view::sub(
+	sge::image2d::algorithm::transform(
+		sge::image2d::view::sub(
+			sge::image2d::view::sub(
 				src,
 				fcppt::math::box::structure_cast<
-					sge::image::rect
+					sge::image2d::rect
 				>(
 					src_rect
 				)
 			),
 			fcppt::math::box::structure_cast<
-				sge::image::rect
+				sge::image2d::rect
 			>(
 				src_trans
 			)
 		),
-		sge::image::view::sub(
+		sge::image2d::view::sub(
 			dst,
 			fcppt::math::box::structure_cast<
-				sge::image::rect
+				sge::image2d::rect
 			>(
 				clipped
 			)

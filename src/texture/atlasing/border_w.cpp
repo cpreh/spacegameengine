@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/atlasing/border_w.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/sub_data.hpp>
-#include <sge/image/view/dim.hpp>
-#include <sge/image/view/sub.hpp>
+#include <sge/image2d/view/dim.hpp>
+#include <sge/image2d/view/sub.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -31,20 +31,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::texture::atlasing::border_w(
 	renderer::texture_ptr const tex,
-	image::view::const_object const &src,
+	image2d::view::const_object const &src,
 	renderer::lock_rect const &outer_area,
 	renderer::lock_rect const &inner_area
 )
 {
 	renderer::dim2 const dim(
-		image::view::dim(
+		image2d::view::dim(
 			src
 		)
 	);
 
 	renderer::sub_data(
 		tex,
-		image::view::sub(
+		image2d::view::sub(
 			src,
 			renderer::lock_rect(
 				renderer::lock_rect::vector::null(),
@@ -65,7 +65,7 @@ sge::texture::atlasing::border_w(
 
 	renderer::sub_data(
 		tex,
-		image::view::sub(
+		image2d::view::sub(
 			src,
 			renderer::lock_rect(
 				renderer::lock_rect::vector(

@@ -29,8 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/collision/system.hpp>
 #include <sge/font/plugin.hpp>
 #include <sge/font/system.hpp>
-#include <sge/image/multi_loader.hpp>
-#include <sge/image/plugin.hpp>
+#include <sge/image2d/multi_loader.hpp>
+#include <sge/image2d/plugin.hpp>
 #include <sge/input/plugin.hpp>
 #include <sge/input/processor_ptr.hpp>
 #include <sge/input/system.hpp>
@@ -105,7 +105,7 @@ public:
 	sge::input::mouse::device_ptr                   mouse_collector_;
 
 	typedef fcppt::scoped_ptr<
-		sge::image::multi_loader
+		sge::image2d::multi_loader
 	> image_multi_loader_ptr;
 
 	image_multi_loader_ptr                          image_multi_loader_;
@@ -320,7 +320,7 @@ sge::systems::instance::mouse_collector() const
 	return impl_->mouse_collector_;
 }
 
-sge::image::multi_loader &
+sge::image2d::multi_loader &
 sge::systems::instance::image_loader() const
 {
 	return *impl_->image_multi_loader_;
@@ -628,7 +628,7 @@ sge::systems::instance::impl::init_image(
 {
 	image_multi_loader_.take(
 		fcppt::make_unique_ptr<
-			sge::image::multi_loader
+			sge::image2d::multi_loader
 		>(
 			std::tr1::ref(
 				plugin_manager_

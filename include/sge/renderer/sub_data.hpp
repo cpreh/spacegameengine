@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/texture_pos_type.hpp>
 #include <sge/renderer/texture_ptr.hpp>
-#include <sge/image/view/const_object.hpp>
+#include <sge/image2d/view/const_object.hpp>
 #include <sge/symbol.hpp>
 
 namespace sge
@@ -34,8 +34,8 @@ namespace renderer
 SGE_SYMBOL void
 sub_data(
 	texture_ptr,
-	image::view::const_object const &data,
-	texture_pos_type const &pos
+	image2d::view::const_object const &,
+	texture_pos_type const &
 );
 
 }

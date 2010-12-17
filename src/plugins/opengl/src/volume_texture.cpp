@@ -18,6 +18,66 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../volume_texture.hpp"
+#include "../basic_texture_impl.hpp"
+#include <sge/renderer/volume_texture.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/variant/object_impl.hpp>
+
+template class
+sge::opengl::basic_texture<
+	sge::renderer::volume_texture
+>;
+
+sge::opengl::volume_texture::volume_texture(
+	opengl::context::object &_context,
+	dim_type const &_dim,
+	sge::image::color::format::type const _format,
+	sge::renderer::filter::texture const &_filter,
+	sge::renderer::resource_flags_field const &_flags
+)
+:
+	detail::volume_texture_base(
+		_context,
+		_filter,
+		_flags,
+		GL_TEXTURE_3D, //TODO!
+		_format
+	),
+	dim_(_dim)
+{
+}
+
+sge::opengl::volume_texture::~volume_texture()
+{
+}
+
+sge::opengl::volume_texture::dim_type const
+sge::opengl::volume_texture::dim() const
+{
+	return dim_;
+}
+
+sge::image3d::view::object const
+sge::opengl::volume_texture::lock(
+	box_type const &_box,
+	renderer::lock_mode::type const _mode
+)
+{
+}
+
+sge::image3d::view::const_object const
+sge::opengl::volume_texture::lock(
+	box_type const &_box
+) const
+{
+}
+
+void
+sge::opengl::volume_texture::unlock() const
+{
+}
+
 #if 0
 #include "../common.hpp"
 #include "../volume_texture.hpp"

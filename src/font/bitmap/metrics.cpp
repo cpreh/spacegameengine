@@ -27,9 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
 #include <sge/parse/json/get.hpp>
-#include <sge/image/view/checked_sub.hpp>
-#include <sge/image/file.hpp>
-#include <sge/image/multi_loader.hpp>
+#include <sge/image2d/view/checked_sub.hpp>
+#include <sge/image2d/file.hpp>
+#include <sge/image2d/multi_loader.hpp>
 #include <sge/font/char_not_available.hpp>
 #include <sge/font/exception.hpp>
 #include <sge/log/global.hpp>
@@ -48,7 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::font::bitmap::metrics::metrics(
 	fcppt::filesystem::path const &_path,
-	sge::image::multi_loader &_loader
+	sge::image2d::multi_loader &_loader
 )
 :
 	image_(
@@ -141,7 +141,7 @@ sge::font::bitmap::metrics::metrics(
 				fcppt::make_shared_ptr<
 					char_metric
 				>(
-					sge::image::view::checked_sub(
+					sge::image2d::view::checked_sub(
 						image_->view(),
 						font::bitmap::load_rect(
 							members

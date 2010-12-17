@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/player.hpp>
 #include <sge/collision/system.hpp>
 #include <sge/font/system.hpp>
-#include <sge/image/loader.hpp>
+#include <sge/image2d/loader.hpp>
 #include <sge/input/system.hpp>
 #include <sge/model/loader.hpp>
 #include <sge/renderer/system.hpp>
@@ -88,7 +88,7 @@ try
 		sge::audio::player,
 		sge::collision::system,
 		sge::font::system,
-		sge::image::loader,
+		sge::image2d::loader,
 		sge::input::system,
 		sge::model::loader,
 		sge::renderer::system

@@ -29,11 +29,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/instance.hpp>
 #include <awl/backends/x11/window/event/processor.hpp>
 #include <awl/backends/x11/window/event/object.hpp>
-#include <awl/backends/x11/window/event/signal/connection.hpp>
-#include <awl/backends/x11/window/event/signal/shared_connection.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 
@@ -51,9 +50,9 @@ sge::x11input::keyboard::keyboard(
 	),
 	connections_(
 		fcppt::assign::make_container<
-			awl::backends::x11::window::event::signal::connection_manager::container
+			fcppt::signal::connection_manager::container
 		>(
-			awl::backends::x11::window::event::signal::shared_connection(
+			fcppt::signal::shared_connection(
 				_event_processor->register_callback(
 					KeyPress,
 					std::tr1::bind(
@@ -65,7 +64,7 @@ sge::x11input::keyboard::keyboard(
 			)
 		)
 		(
-			awl::backends::x11::window::event::signal::shared_connection(
+			fcppt::signal::shared_connection(
 				_event_processor->register_callback(
 					KeyRelease,
 					std::tr1::bind(

@@ -163,7 +163,7 @@ sge::opengl::fbo::target::unbind() const
 	);
 }
 
-sge::image::view::const_object const
+sge::image2d::view::const_object const
 sge::opengl::fbo::target::lock(
 	renderer::lock_rect const &_dest
 ) const

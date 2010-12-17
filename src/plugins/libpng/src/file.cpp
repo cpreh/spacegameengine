@@ -21,11 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../file.hpp"
 #include "../load_context.hpp"
 #include "../write_context.hpp"
-#include <sge/image/view/dim.hpp>
-#include <sge/image/view/format.hpp>
-#include <sge/image/view/make.hpp>
-#include <sge/image/algorithm/copy_and_convert.hpp>
+#include <sge/image2d/view/dim.hpp>
+#include <sge/image2d/view/format.hpp>
+#include <sge/image2d/view/make.hpp>
+#include <sge/image2d/view/make_const.hpp>
+#include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/image/color/format_stride.hpp>
+#include <sge/image/const_raw_pointer.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -43,21 +45,25 @@ sge::libpng::file::file(
 }
 
 sge::libpng::file::file(
-	image::view::const_object const &_view)
+	image2d::view::const_object const &_view)
 {
 	data(
 		_view);
 }
 
+sge::libpng::file::~file()
+{
+}
+
 void sge::libpng::file::data(
-	image::view::const_object const &_view)
+	image2d::view::const_object const &_view)
 {
 	dim_ =
-		image::view::dim(
+		image2d::view::dim(
 			_view);
 
 	format_ =
-		image::view::format(
+		image2d::view::format(
 			_view);
 
 	bytes_.resize(
@@ -65,27 +71,32 @@ void sge::libpng::file::data(
 		image::color::format_stride(
 			format_));
 
-	image::algorithm::copy_and_convert(
+	image2d::algorithm::copy_and_convert(
 		_view,
-		image::view::make(
+		image2d::view::make(
 			bytes_.data(),
 			dim_,
 			format_,
-			image::view::optional_pitch()));
+			image2d::view::optional_pitch()));
 }
 
-sge::image::view::const_object const sge::libpng::file::view() const
+sge::image2d::view::const_object const
+sge::libpng::file::view() const
 {
 	return
-		image::view::make(
-			reinterpret_cast<image::const_raw_pointer>(
+		image2d::view::make_const(
+			reinterpret_cast<
+				image::const_raw_pointer
+			>(
 				bytes_.data()),
 			dim(),
 			format_,
-			image::view::optional_pitch());
+			image2d::view::optional_pitch()
+		);
 }
 
-sge::image::dim_type const sge::libpng::file::dim() const
+sge::image2d::dim const
+sge::libpng::file::dim() const
 {
 	return dim_;
 }

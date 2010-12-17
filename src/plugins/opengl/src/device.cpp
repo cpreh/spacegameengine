@@ -667,22 +667,29 @@ sge::opengl::device::create_index_buffer(
 	);
 }
 
-#if 0
-const sge::renderer::volume_texture_ptr
+sge::renderer::volume_texture_ptr const
 sge::opengl::device::create_volume_texture(
-	renderer::volume_texture::image_view_array const &src,
-	const renderer::texture_filter& filter,
-	const renderer::volume_texture::resource_flag_type flags)
+	renderer::dim3 const &_dim,
+	image::color::format::type const _format,
+	renderer::filter::texture const &_filter,
+	renderer::resource_flags_field const &_flags
+)
 {
-	/*return renderer::volume_texture_ptr(
-		fcppt::make_shared_ptr<
-			volume_texture
-		>(
-			src,
-			filter,
-			flags));*/
+	return
+		renderer::volume_texture_ptr(
+			fcppt::make_shared_ptr<
+				opengl::volume_texture
+			>(
+				std::tr1::ref(
+					context_
+				),
+				_dim,
+				_format,
+				_filter,
+				_flags
+			)
+		);
 }
-#endif
 
 sge::renderer::caps const
 sge::opengl::device::caps() const

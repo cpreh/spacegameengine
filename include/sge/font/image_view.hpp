@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_IMAGE_VIEW_HPP_INCLUDED
 #define SGE_FONT_IMAGE_VIEW_HPP_INCLUDED
 
-#include <sge/image/view/object.hpp>
+#include <sge/image2d/view/object.hpp>
 
 namespace sge
 {
 namespace font
 {
 
-typedef image::view::object image_view;
+typedef image2d::view::object image_view;
 
 }
 }

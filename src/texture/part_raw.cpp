@@ -49,7 +49,7 @@ sge::texture::part_raw::~part_raw()
 
 void
 sge::texture::part_raw::data(
-	image::view::const_object const &_src
+	image2d::view::const_object const &_src
 )
 {
 	renderer::sub_data(

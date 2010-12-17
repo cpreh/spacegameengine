@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../context/object_fwd.hpp"
 #include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/texture_ptr.hpp>
+#include <sge/image2d/view/const_object.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
@@ -69,7 +70,7 @@ public:
 	void
 	unbind() const;
 private:
-	image::view::const_object const
+	image2d::view::const_object const
 	lock(
 		renderer::lock_rect const &
 	) const;

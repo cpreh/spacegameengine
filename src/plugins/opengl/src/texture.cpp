@@ -28,7 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texfuncs/set_rect.hpp"
 #include "../texfuncs/get_image.hpp"
 #include "../convert/format_to_color.hpp"
-#include <sge/image/view/make.hpp>
+#include <sge/image2d/view/make.hpp>
+#include <sge/image2d/view/make_const.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
@@ -90,7 +91,7 @@ sge::opengl::texture::dim() const
 	return dim_;
 }
 
-sge::image::view::object const
+sge::image2d::view::object const
 sge::opengl::texture::lock(
 	renderer::lock_rect const &_rect,
 	renderer::lock_mode::type const _mode
@@ -106,7 +107,7 @@ sge::opengl::texture::lock(
 	return view();
 }
 
-sge::image::view::const_object const
+sge::image2d::view::const_object const
 sge::opengl::texture::lock(
 	renderer::lock_rect const &_rect
 ) const
@@ -217,26 +218,26 @@ sge::opengl::texture::lock_me(
 		lock_rect_ = _rect;
 }
 
-sge::image::view::object const
+sge::image2d::view::object const
 sge::opengl::texture::view()
 {
 	return
-		image::view::make(
+		image2d::view::make(
 			real_write_buffer(),
 			lock_dim(),
 			convert::format_to_color(
 				format(),
 				format_type()
 			),
-			image::view::optional_pitch()
+			image2d::view::optional_pitch()
 		);
 }
 
-sge::image::view::const_object const
+sge::image2d::view::const_object const
 sge::opengl::texture::view() const
 {
 	return
-		image::view::make(
+		image2d::view::make_const(
 			static_cast<
 				const_pointer
 			>(
@@ -247,7 +248,7 @@ sge::opengl::texture::view() const
 				format(),
 				format_type()
 			),
-			image::view::optional_pitch()
+			image2d::view::optional_pitch()
 		);
 }
 

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/dim.hpp>
 #include <sge/gui/image_fwd.hpp>
 #include <sge/gui/image_view.hpp>
-#include <sge/image/rgba8.hpp>
+#include <sge/image2d/rgba8.hpp>
 #include <sge/image/store.hpp>
 
 namespace sge
@@ -41,7 +41,7 @@ public:
 	const_image_view const const_view() const;
 	void resize(dim const &);
 private:
-	typedef sge::image::rgba8 impl_type;
+	typedef sge::image2d::rgba8 impl_type;
 	impl_type impl_;
 };
 

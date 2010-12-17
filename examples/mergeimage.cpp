@@ -18,24 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image2d/dim.hpp>
+#include <sge/image2d/file.hpp>
+#include <sge/image2d/file_ptr.hpp>
+#include <sge/image2d/loader.hpp>
+#include <sge/image2d/multi_loader.hpp>
+#include <sge/image2d/rgba8.hpp>
+#include <sge/image2d/algorithm/copy_and_convert.hpp>
+#include <sge/image2d/algorithm/fill.hpp>
+#include <sge/image2d/view/sub.hpp>
+#include <sge/image2d/view/to_const.hpp>
+#include <sge/image/colors.hpp>
+#include <sge/image/store.hpp>
+#include <sge/renderer/dim2.hpp>
+#include <sge/renderer/lock_rect.hpp>
+#include <sge/renderer/texture_pos_type.hpp>
+#include <sge/renderer/size_type.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/renderer/size_type.hpp>
-#include <sge/renderer/dim2.hpp>
-#include <sge/renderer/texture_pos_type.hpp>
-#include <sge/renderer/lock_rect.hpp>
-#include <sge/image/file.hpp>
-#include <sge/image/file_ptr.hpp>
-#include <sge/image/loader.hpp>
-#include <sge/image/dim_type.hpp>
-#include <sge/image/multi_loader.hpp>
-#include <sge/image/rgba8.hpp>
-#include <sge/image/store.hpp>
-#include <sge/image/view/sub.hpp>
-#include <sge/image/view/make_const.hpp>
-#include <sge/image/algorithm/fill.hpp>
-#include <sge/image/algorithm/copy_and_convert.hpp>
-#include <sge/image/colors.hpp>
 #include <sge/exception.hpp>
 #include <sge/extension_set.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -83,7 +83,7 @@ calc_size(
 sge::renderer::dim2 const
 first_dim(
 	fcppt::filesystem::path const &p,
-	sge::image::multi_loader &il
+	sge::image2d::multi_loader &il
 )
 {
 	fcppt::filesystem::directory_iterator const it(
@@ -147,7 +147,7 @@ try
 		)
 	);
 
-	sge::image::multi_loader &il(
+	sge::image2d::multi_loader &il(
 		sys.image_loader()
 	);
 
@@ -190,7 +190,7 @@ try
 		)
 	);
 
-	typedef sge::image::rgba8 image_type;
+	typedef sge::image2d::rgba8 image_type;
 
 	image_type dest(
 		image_type::dim_type(
@@ -199,11 +199,11 @@ try
 		)
 	);
 
-	sge::image::view::object const dest_view(
+	sge::image2d::view::object const dest_view(
 		dest.view()
 	);
 
-	sge::image::algorithm::fill(
+	sge::image2d::algorithm::fill(
 		dest_view,
 		sge::image::colors::transparent()
 	);
@@ -222,7 +222,7 @@ try
 		paths
 	)
 	{
-		sge::image::file_ptr const img(
+		sge::image2d::file_ptr const img(
 			il.load(
 				cur_path
 			)
@@ -234,11 +234,11 @@ try
 			return EXIT_FAILURE;
 		}
 
-		sge::image::algorithm::copy_and_convert(
+		sge::image2d::algorithm::copy_and_convert(
 			img->view(),
-			sge::image::view::sub(
+			sge::image2d::view::sub(
 				dest_view,
-				sge::image::rect(
+				sge::image2d::rect(
 					pos,
 					dim
 				)
@@ -255,7 +255,7 @@ try
 
 	// FIXME!
 	il.loaders().at(0)->create(
-		sge::image::view::make_const(
+		sge::image2d::view::to_const(
 			dest_view
 		)
 	)->save(

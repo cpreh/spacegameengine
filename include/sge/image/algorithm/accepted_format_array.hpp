@@ -32,7 +32,7 @@ namespace algorithm
 {
 
 typedef std::vector<
-	color::format::type
+	image::color::format::type
 > accepted_format_array;
 
 }

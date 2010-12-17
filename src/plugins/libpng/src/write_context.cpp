@@ -22,8 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/file_exception.hpp>
 #include <sge/image/unsupported_format.hpp>
 #include <sge/image/exception.hpp>
-#include <sge/image/dim_type.hpp>
-#include <sge/image/view/dim.hpp>
+#include <sge/image2d/dim.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/text.hpp>
@@ -160,7 +159,7 @@ int color_type_from_format(
 
 sge::libpng::write_context::write_context(
 	fcppt::filesystem::path const &_path,
-	image::dim_type const &_dim,
+	image2d::dim const &_dim,
 	byte_vector &_bytes,
 	image::color::format::type const _format)
 :

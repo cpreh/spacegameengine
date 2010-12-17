@@ -29,7 +29,6 @@ namespace image
 {
 
 typedef raw_value *raw_pointer;
-typedef raw_value const *const_raw_pointer;
 
 }
 }

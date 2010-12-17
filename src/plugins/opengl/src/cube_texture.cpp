@@ -110,7 +110,7 @@ sge::opengl::cube_texture::~cube_texture()
 {
 }
 
-sge::image::view::object const
+sge::image2d::view::object const
 sge::opengl::cube_texture::lock(
 	renderer::cube_side::type const _side,
 	renderer::lock_rect const &_src,
@@ -131,7 +131,7 @@ sge::opengl::cube_texture::lock(
 		);
 }
 
-sge::image::view::const_object const
+sge::image2d::view::const_object const
 sge::opengl::cube_texture::lock(
 	renderer::cube_side::type const _side,
 	renderer::lock_rect const &_src

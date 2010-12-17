@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/raw_value.hpp>
 #include <sge/window/instance_ptr.hpp>
+#include <sge/image2d/view/const_object.hpp>
 #include <fcppt/container/raw_vector_decl.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -54,7 +55,7 @@ public:
 	void
 	unbind() const;
 private:
-	image::view::const_object const
+	image2d::view::const_object const
 	lock(
 		renderer::lock_rect const &dest
 	) const;

@@ -20,10 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/gui/canvas/font_drawer.hpp>
 #include <sge/font/rect.hpp>
-#include <sge/image/algorithm/transform.hpp>
-#include <sge/image/view/dim.hpp>
-#include <sge/image/view/make_const.hpp>
-#include <sge/image/view/sub.hpp>
+#include <sge/image2d/algorithm/transform.hpp>
+#include <sge/image2d/view/dim.hpp>
+#include <sge/image2d/view/make_const.hpp>
+#include <sge/image2d/view/sub.hpp>
+#include <sge/image2d/rect.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/box/structure_cast.hpp>
@@ -90,17 +91,17 @@ sge::gui::canvas::font_drawer::draw_char(
 	);
 
 	image_view const sub_view(
-		sge::image::view::sub(
+		sge::image2d::view::sub(
 			texture_,
 			fcppt::math::box::structure_cast<
-				sge::image::rect
+				sge::image2d::rect
 			>(
 				sge::font::rect(
 					pos,
 					fcppt::math::dim::structure_cast<
 						sge::font::dim
 					>(
-						sge::image::view::dim(
+						sge::image2d::view::dim(
 							data
 						)
 					)
@@ -138,7 +139,7 @@ sge::gui::canvas::font_drawer::draw_char(
 		);
 	}
 
-	sge::image::algorithm::transform(
+	sge::image2d::algorithm::transform(
 		data,
 		sub_view,
 		utility::font_blitter(

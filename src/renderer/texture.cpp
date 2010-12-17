@@ -30,7 +30,7 @@ sge::renderer::texture::~texture()
 {
 }
 
-sge::image::view::object const
+sge::image2d::view::object const
 sge::renderer::texture::lock(
 	lock_mode::type const _flags
 )
@@ -42,7 +42,7 @@ sge::renderer::texture::lock(
 		);
 }
 
-sge::image::view::const_object const
+sge::image2d::view::const_object const
 sge::renderer::texture::lock() const
 {
 	return
@@ -56,7 +56,7 @@ sge::renderer::texture::rect() const
 {
 	return
 		rect_type(
-			pos_type::null(),
+			rect_type::vector::null(),
 			dim()
 		);
 }

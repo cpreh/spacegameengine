@@ -36,9 +36,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/button_function.hpp>
 #include <awl/backends/x11/window/event/object_fwd.hpp>
 #include <awl/backends/x11/window/event/processor_ptr.hpp>
-#include <awl/backends/x11/window/event/signal/connection_manager.hpp>
 #include <awl/backends/x11/window/instance_ptr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -123,7 +123,7 @@ private:
 
 	mouse_pos mouse_last_;
 
-	awl::backends::x11::window::event::signal::connection_manager const connections_;
+	fcppt::signal::connection_manager const connections_;
 
 	fcppt::scoped_ptr<
 		mouse_grab
