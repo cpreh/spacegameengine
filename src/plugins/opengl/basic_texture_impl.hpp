@@ -128,7 +128,7 @@ sge::opengl::basic_texture<Base>::unlock() const
 				sge::image::view::make<
 					view_type
 				>(
-					lock_->write_pointer(),
+					lock_->write_view_pointer(),
 					lock_dim(),
 					convert::format_to_color(
 						format(),
@@ -140,6 +140,8 @@ sge::opengl::basic_texture<Base>::unlock() const
 
 			lock_->post_copy();
 		}
+
+		lock_->unlock();
 
 		set_area(
 			lock_area_
@@ -153,8 +155,6 @@ sge::opengl::basic_texture<Base>::unlock() const
 			lock_->write_pointer()
 		);
 	}
-
-	lock_->unlock();
 
 	lock_.reset();
 }
@@ -195,8 +195,6 @@ sge::opengl::basic_texture<Base>::lock_me(
 		)
 	);
 
-	lock_->lock();
-
 	bind();
 
 	if(
@@ -208,8 +206,10 @@ sge::opengl::basic_texture<Base>::lock_me(
 			type(),
 			format(),
 			format_type(),
-			lock_->view_pointer()
+			lock_->read_pointer()
 		);
+
+	lock_->lock();
 
 	if(
 		_lock_area == this->area()
@@ -226,7 +226,7 @@ typename sge::opengl::basic_texture<Base>::view_type const
 sge::opengl::basic_texture<Base>::view()
 {
 	// if we are currently reading a texture,
-	// we have mapped the whoel texture and
+	// we have mapped the whole texture and
 	// have to take a sub view
 	
 	bool const reading(
@@ -239,7 +239,11 @@ sge::opengl::basic_texture<Base>::view()
 		image::view::make<
 			view_type
 		>(
-			lock_->view_pointer(),
+			reading
+			?
+				lock_->read_view_pointer()
+			:
+				lock_->write_view_pointer(),
 			reading
 			?
 				dim()

@@ -60,10 +60,16 @@ public:
 	post_copy() = 0;
 
 	virtual pointer
+	read_pointer() = 0;
+
+	virtual pointer
 	write_pointer() = 0;
 
 	virtual pointer
-	view_pointer() = 0;
+	read_view_pointer() = 0;
+
+	virtual pointer
+	write_view_pointer() = 0;
 
 	virtual lock_method::type
 	method() const = 0;

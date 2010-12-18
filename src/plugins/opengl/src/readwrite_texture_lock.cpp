@@ -73,15 +73,27 @@ sge::opengl::readwrite_texture_lock::post_copy()
 }
 
 sge::opengl::readwrite_texture_lock::pointer
+sge::opengl::readwrite_texture_lock::read_pointer()
+{
+	return read_lock_.read_pointer();
+}
+
+sge::opengl::readwrite_texture_lock::pointer
 sge::opengl::readwrite_texture_lock::write_pointer()
 {
 	return write_lock_.write_pointer();
 }
 
 sge::opengl::readwrite_texture_lock::pointer
-sge::opengl::readwrite_texture_lock::view_pointer()
+sge::opengl::readwrite_texture_lock::read_view_pointer()
 {
-	return read_lock_.view_pointer();
+	return read_lock_.read_view_pointer();
+}
+
+sge::opengl::readwrite_texture_lock::pointer
+sge::opengl::readwrite_texture_lock::write_view_pointer()
+{
+	return write_lock_.write_view_pointer();
 }
 
 sge::opengl::lock_method::type

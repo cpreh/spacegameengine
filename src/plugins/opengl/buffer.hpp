@@ -105,14 +105,14 @@ public:
 	buffer_offset(
 		size_type offset
 	) const;
+
+	pointer
+	raw_buffer() const;
 private:
 	void
 	bind(
 		GLuint id
 	) const;
-
-	void
-	check_lock() const;
 
 	vbo_base &vbo_base_;
 

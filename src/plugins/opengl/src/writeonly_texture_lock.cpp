@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../writeonly_texture_lock.hpp"
 #include "../pbo_context.hpp"
 #include "../context/use.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
 sge::opengl::writeonly_texture_lock::writeonly_texture_lock(
 	context::object &_context,
@@ -77,15 +79,31 @@ sge::opengl::writeonly_texture_lock::post_copy()
 }
 
 sge::opengl::writeonly_texture_lock::pointer
-sge::opengl::writeonly_texture_lock::write_pointer()
+sge::opengl::writeonly_texture_lock::read_pointer()
 {
-	return buffer_.data();
+	throw sge::renderer::exception(
+		FCPPT_TEXT("No read_pointer in writeonly_texture_lock!")
+	);
 }
 
 sge::opengl::writeonly_texture_lock::pointer
-sge::opengl::writeonly_texture_lock::view_pointer()
+sge::opengl::writeonly_texture_lock::write_pointer()
 {
-	return write_pointer();
+	return buffer_.raw_buffer();
+}
+
+sge::opengl::writeonly_texture_lock::pointer
+sge::opengl::writeonly_texture_lock::read_view_pointer()
+{
+	throw sge::renderer::exception(
+		FCPPT_TEXT("No read_view_pointer in writeonly_texture_lock!")
+	);
+}
+
+sge::opengl::writeonly_texture_lock::pointer
+sge::opengl::writeonly_texture_lock::write_view_pointer()
+{
+	return buffer_.data();
 }
 
 sge::opengl::lock_method::type

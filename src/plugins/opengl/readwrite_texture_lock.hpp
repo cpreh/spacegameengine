@@ -64,10 +64,16 @@ private:
 	post_copy();
 
 	pointer
+	read_pointer();
+
+	pointer
 	write_pointer();
 
 	pointer
-	view_pointer();
+	read_view_pointer();
+
+	pointer
+	write_view_pointer();
 
 	lock_method::type
 	method() const;
