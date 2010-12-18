@@ -18,33 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE3D_VIEW_MAKE_CONST_HPP_INCLUDED
-#define SGE_IMAGE3D_VIEW_MAKE_CONST_HPP_INCLUDED
+#include "../../image/view/make_const_impl.hpp"
+#include <sge/image3d/view/make_const.hpp>
+#include <sge/image3d/view/make.hpp>
+#include <sge/image3d/view/to_const.hpp>
+#include <sge/image/raw_pointer.hpp>
 
-#include <sge/image3d/view/const_object.hpp>
-#include <sge/image3d/view/optional_pitch.hpp>
-#include <sge/image3d/dim.hpp>
-#include <sge/image/color/format.hpp>
-#include <sge/image/const_raw_pointer.hpp>
-#include <sge/symbol.hpp>
-
-namespace sge
+sge::image3d::view::const_object const
+sge::image3d::view::make_const(
+	image::const_raw_pointer const _data,
+	image3d::dim const &_dim,
+	image::color::format::type const _format,
+	image3d::view::optional_pitch const &_pitch
+)
 {
-namespace image3d
-{
-namespace view
-{
-
-SGE_SYMBOL image3d::view::const_object const
-make_const(
-	image::const_raw_pointer,
-	image3d::dim const &,
-	image::color::format::type,
-	image3d::view::optional_pitch const &
-);
-
+	return
+		sge::image::view::make_const<
+			sge::image3d::view::const_object
+		>(
+			const_cast<
+				image::raw_pointer
+			>(
+				_data
+			),
+			_dim,
+			_format,
+			_pitch,
+			&view::make,
+			&view::to_const
+		);
 }
-}
-}
-
-#endif
