@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../volume_texture.hpp"
 #include "../basic_texture_impl.hpp"
 #include "../texfuncs/set_3d.hpp"
-//#include "../texfuncs/set_rect_3d.hpp"
+#include "../texfuncs/set_rect_3d.hpp"
 #include <sge/renderer/volume_texture.hpp>
 
 template class
@@ -68,7 +68,6 @@ sge::opengl::volume_texture::set_area(
 	pointer const _dest
 ) const
 {
-#if 0
 	texfuncs::set_rect_3d(
 		context(),
 		type(),
@@ -78,7 +77,6 @@ sge::opengl::volume_texture::set_area(
 		_area,
 		_dest
 	);
-#endif
 }
 
 #if 0
