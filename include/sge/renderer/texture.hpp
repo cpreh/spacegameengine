@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/lock_mode.hpp>
+#include <sge/image2d/tag.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/symbol.hpp>
@@ -50,24 +51,32 @@ public:
 
 	typedef renderer::lock_rect rect_type;
 
+	typedef rect_type lock_area;
+
+	typedef sge::image2d::tag image_tag;
+
+	typedef image2d::view::object view_type;
+
+	typedef image2d::view::const_object const_view_type;
+
 	virtual dim_type const
 	dim() const = 0;
 
-	SGE_SYMBOL image2d::view::object const
+	SGE_SYMBOL view_type const
 	lock(
 		lock_mode::type
 	);
 
-	SGE_SYMBOL image2d::view::const_object const
+	SGE_SYMBOL const_view_type const
 	lock() const;
 
-	virtual image2d::view::object const
+	virtual view_type const
 	lock(
 		lock_rect const &,
 		lock_mode::type
 	) = 0;
 
-	virtual image2d::view::const_object const
+	virtual const_view_type const
 	lock(
 		lock_rect const &
 	) const = 0;
@@ -75,8 +84,13 @@ public:
 	virtual void
 	unlock() const = 0;
 
-	SGE_SYMBOL rect_type const
+	SGE_SYMBOL
+	rect_type const
 	rect() const;
+
+	SGE_SYMBOL
+	rect_type const
+	area() const;
 
 	SGE_SYMBOL
 	texture_base::size_type

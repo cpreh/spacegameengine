@@ -18,30 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/view/to_const_impl.hpp"
-#include <sge/image2d/view/to_const.hpp>
-#include <fcppt/variant/object_impl.hpp>
-#include <fcppt/export_symbol.hpp>
+#ifndef SGE_IMAGE_VIEW_SUB_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_SUB_HPP_INCLUDED
 
-template
-FCPPT_EXPORT_SYMBOL
-sge::image2d::view::const_object const
-sge::image::view::to_const<
-	sge::image2d::view::const_object,
-	sge::image2d::view::object
->(
-	sge::image2d::view::object const &
+#include <sge/symbol.hpp>
+
+namespace sge
+{
+namespace image
+{
+namespace view
+{
+
+template<
+	typename View,
+	typename Box
+>
+SGE_SYMBOL
+View const
+sub(
+	View const &,
+	Box const &
 );
 
-sge::image2d::view::const_object const
-sge::image2d::view::to_const(
-	object const &_view
-)
-{
-	return
-		sge::image::view::to_const<
-			sge::image2d::view::const_object
-		>(
-			_view
-		);
 }
+}
+}
+
+#endif

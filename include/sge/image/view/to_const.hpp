@@ -18,12 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_VIEW_SUB_HPP_INCLUDED
-#define SGE_IMAGE_VIEW_SUB_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_TO_CONST_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_TO_CONST_HPP_INCLUDED
 
-#include "sub_visitor.hpp"
-#include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
@@ -33,26 +31,14 @@ namespace view
 {
 
 template<
-	typename View,
-	typename Box
+	typename Dest,
+	typename Src
 >
-View const
-sub(
-	View const &_view,
-	Box const &_box
-)
-{
-	return
-		fcppt::variant::apply_unary(
-			sge::image::view::sub_visitor<
-				View,
-				Box
-			>(
-				_box
-			),
-			_view
-		);
-}
+SGE_SYMBOL
+Dest const
+to_const(
+	Src const &
+);
 
 }
 }

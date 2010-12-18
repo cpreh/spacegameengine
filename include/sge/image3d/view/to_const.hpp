@@ -18,23 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE3D_VIEW_PITCH_HPP_INCLUDED
-#define SGE_IMAGE3D_VIEW_PITCH_HPP_INCLUDED
+#ifndef SGE_IMAGE3D_VIEW_TO_CONST_HPP_INCLUDED
+#define SGE_IMAGE3D_VIEW_TO_CONST_HPP_INCLUDED
 
-#include <sge/image/difference_type.hpp>
-#include <fcppt/math/vector/static.hpp>
+#include <sge/image3d/view/object.hpp>
+#include <sge/image3d/view/const_object.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
-namespace image2d
+namespace image3d
 {
 namespace view
 {
 
-typedef fcppt::math::vector::static_<
-	sge::image::difference_type,
-	2
->::type pitch;
+SGE_SYMBOL
+const_object const
+to_const(
+	object const &
+);
 
 }
 }

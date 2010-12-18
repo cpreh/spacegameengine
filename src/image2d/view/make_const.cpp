@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/view/make_const.hpp"
+#include "../../image/view/make_const_impl.hpp"
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/make.hpp>
 #include <sge/image2d/view/to_const.hpp>

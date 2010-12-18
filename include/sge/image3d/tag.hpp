@@ -18,38 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_ALGORITHM_COPY_AND_CONVERT_HPP_INCLUDED
-#define SGE_IMAGE_ALGORITHM_COPY_AND_CONVERT_HPP_INCLUDED
-
-#include "copy_and_convert_visitor.hpp"
-#include <fcppt/variant/apply_binary.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#ifndef SGE_IMAGE3D_TAG_HPP_INCLUDED
+#define SGE_IMAGE3D_TAG_HPP_INCLUDED
 
 namespace sge
 {
-namespace image
-{
-namespace algorithm
+namespace image3d
 {
 
-template<
-	typename ConstView,
-	typename View
->
-void
-copy_and_convert(
-	ConstView const &_src,
-	View const &_dest
-)
+struct tag
 {
-	fcppt::variant::apply_binary(
-		algorithm::copy_and_convert_visitor(),
-		_src,
-		_dest
-	);
-}
+};
 
-}
 }
 }
 

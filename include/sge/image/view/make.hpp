@@ -21,16 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_VIEW_MAKE_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_MAKE_HPP_INCLUDED
 
-#include "make_visitor.hpp"
-#include <sge/image/size_type.hpp>
 #include <sge/image/raw_pointer.hpp>
 #include <sge/image/color/format.hpp>
-#include <fcppt/mpl/invoke_on.hpp>
-#include <mizuiro/image/is_raw_view.hpp>
-#include <boost/mpl/filter_view.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/bind.hpp>
-#include <boost/mpl/quote.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
@@ -41,48 +34,17 @@ namespace view
 
 template<
 	typename Result,
-	typename Elements,
 	typename Dim,
 	typename OptionalPitch
 >
+SGE_SYMBOL
 Result const
 make(
-	image::raw_pointer const _data,
-	Dim const &_dim,
-	image::color::format::type const _format,
-	OptionalPitch const &_pitch
-)
-{
-	// TODO: gcc-4.5: Check if this is a gcc bug
-
-	return
-		fcppt::mpl::invoke_on<
-			boost::mpl::filter_view<
-				Elements,
-				boost::mpl::bind<
-					boost::mpl::quote1<
-						mizuiro::image::is_raw_view
-					>,
-					boost::mpl::_1
-				>
-			>
-		>(
-			static_cast<
-				image::size_type
-			>(
-				_format
-			),
-			sge::image::view::make_visitor<
-				Result,
-				Dim,
-				OptionalPitch
-			>(
-				_data,
-				_dim,
-				_pitch
-			)
-		);
-}
+	image::raw_pointer,
+	Dim const &,
+	image::color::format::type,
+	OptionalPitch const &
+);
 
 }
 }

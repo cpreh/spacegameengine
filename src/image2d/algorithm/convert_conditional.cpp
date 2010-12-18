@@ -29,7 +29,7 @@ sge::image2d::algorithm::convert_conditional(
 	image::raw_pointer const _data,
 	image2d::dim const &_dim,
 	image::color::format::type const _format,
-	image2d::pitch const _pitch,
+	image2d::pitch const &_pitch,
 	image::algorithm::accepted_format_array const &_formats
 )
 {

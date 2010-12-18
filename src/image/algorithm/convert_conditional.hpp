@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/algorithm/accepted_format_array.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/format_stride.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
@@ -54,7 +55,7 @@ convert_conditional(
 	image::raw_pointer const _data,
 	Dim const &_dim,
 	image::color::format::type const _format,
-	Pitch const _pitch,
+	Pitch const &_pitch,
 	algorithm::accepted_format_array const &_formats,
 	CopyAndConvert const &_copy_and_convert,
 	Make const &_make,

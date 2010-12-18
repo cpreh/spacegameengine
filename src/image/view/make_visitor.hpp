@@ -73,11 +73,15 @@ public:
 						dim_
 					),
 					data_,
-					pitch_
-					?
-						*pitch_
-					:
-						0
+					sge::image::convert_dim<
+						typename View::pitch_type
+					>(
+						pitch_
+						?
+							*pitch_
+						:
+							OptionalPitch::value_type::null()
+					)
 				)
 			);
 	}

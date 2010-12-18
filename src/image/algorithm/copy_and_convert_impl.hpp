@@ -18,30 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/view/to_const_impl.hpp"
-#include <sge/image2d/view/to_const.hpp>
+#ifndef SGE_IMAGE_ALGORITHM_COPY_AND_CONVERT_IMPL_HPP_INCLUDED
+#define SGE_IMAGE_ALGORITHM_COPY_AND_CONVERT_IMPL_HPP_INCLUDED
+
+#include "copy_and_convert_visitor.hpp"
+#include <sge/image/algorithm/copy_and_convert.hpp>
+#include <fcppt/variant/apply_binary.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <fcppt/export_symbol.hpp>
 
-template
-FCPPT_EXPORT_SYMBOL
-sge::image2d::view::const_object const
-sge::image::view::to_const<
-	sge::image2d::view::const_object,
-	sge::image2d::view::object
->(
-	sge::image2d::view::object const &
-);
-
-sge::image2d::view::const_object const
-sge::image2d::view::to_const(
-	object const &_view
+template<
+	typename ConstView,
+	typename View
+>
+void
+sge::image::algorithm::copy_and_convert(
+	ConstView const &_src,
+	View const &_dest
 )
 {
-	return
-		sge::image::view::to_const<
-			sge::image2d::view::const_object
-		>(
-			_view
-		);
+	fcppt::variant::apply_binary(
+		algorithm::copy_and_convert_visitor(),
+		_src,
+		_dest
+	);
 }
+
+#endif

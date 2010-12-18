@@ -40,7 +40,7 @@ convert_conditional(
 	image::raw_pointer,
 	image2d::dim const &,
 	image::color::format::type,
-	image2d::pitch, 
+	image2d::pitch const &, 
 	image::algorithm::accepted_format_array const &
 );
 

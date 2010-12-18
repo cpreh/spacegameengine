@@ -34,7 +34,9 @@ namespace opengl
 
 class texture_lock
 {
-	FCPPT_NONCOPYABLE(texture_lock)
+	FCPPT_NONCOPYABLE(
+		texture_lock
+	)
 protected:
 	texture_lock();
 public:
@@ -46,22 +48,22 @@ public:
 	virtual ~texture_lock();
 
 	virtual void
-	post_lock() = 0;
+	lock() = 0;
+
+	virtual void
+	unlock() = 0;
 
 	virtual void
 	pre_unlock() = 0;
 
-	virtual pointer
-	write_pointer() const;
+	virtual void
+	post_copy() = 0;
 
 	virtual pointer
-	read_pointer() const;
+	write_pointer() = 0;
 
 	virtual pointer
-	real_write_pointer();
-
-	virtual const_pointer
-	real_read_pointer() const;
+	view_pointer() = 0;
 
 	virtual lock_method::type
 	method() const = 0;

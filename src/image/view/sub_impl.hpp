@@ -18,30 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/view/to_const_impl.hpp"
-#include <sge/image2d/view/to_const.hpp>
+#ifndef SGE_IMAGE_VIEW_SUB_IMPL_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_SUB_IMPL_HPP_INCLUDED
+
+#include "sub_visitor.hpp"
+#include <sge/image/view/sub.hpp>
+#include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <fcppt/export_symbol.hpp>
 
-template
-FCPPT_EXPORT_SYMBOL
-sge::image2d::view::const_object const
-sge::image::view::to_const<
-	sge::image2d::view::const_object,
-	sge::image2d::view::object
->(
-	sge::image2d::view::object const &
-);
+namespace sge
+{
+namespace image
+{
+namespace view
+{
 
-sge::image2d::view::const_object const
-sge::image2d::view::to_const(
-	object const &_view
+template<
+	typename View,
+	typename Box
+>
+View const
+sub(
+	View const &_view,
+	Box const &_box
 )
 {
 	return
-		sge::image::view::to_const<
-			sge::image2d::view::const_object
-		>(
+		fcppt::variant::apply_unary(
+			sge::image::view::sub_visitor<
+				View,
+				Box
+			>(
+				_box
+			),
 			_view
 		);
 }
+
+}
+}
+}
+
+#endif

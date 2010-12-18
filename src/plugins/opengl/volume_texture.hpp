@@ -24,16 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "basic_texture.hpp"
 #include "context/object_fwd.hpp"
 #include <sge/image/color/format.hpp>
-#include <sge/image3d/view/const_object.hpp>
-#include <sge/image3d/view/object.hpp>
-#include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/volume_texture.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/filter/texture_fwd.hpp>
-#include <fcppt/math/box/basic_decl.hpp>
-#include <fcppt/math/dim/basic_decl.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
 
 namespace sge
 {
@@ -42,9 +36,11 @@ namespace opengl
 
 namespace detail
 {
+
 typedef basic_texture<
 	renderer::volume_texture
 > volume_texture_base;
+
 }
 
 class volume_texture
@@ -55,53 +51,25 @@ class volume_texture
 		volume_texture
 	)
 public:
+	typedef detail::volume_texture_base base;
+
 	volume_texture(
 		opengl::context::object &,
-		dim_type const &,
+		base::dim_type const &,
 		sge::image::color::format::type,
 		sge::renderer::filter::texture const &,
 		sge::renderer::resource_flags_field const &
 	);
 
 	~volume_texture();
-
-	dim_type const
-	dim() const;
-
-	image3d::view::object const
-	lock(
-		box_type const &,
-		renderer::lock_mode::type
-	);
-
-	image3d::view::const_object const
-	lock(
-		box_type const &
-	) const;
-
-	void
-	unlock() const;
 private:
+	typedef base::pointer pointer;
+
 	void
-	lock_me(
-		box_type const &,
-		lock_method::type
+	set_area(
+		lock_area const &,
+		pointer
 	) const;
-
-	image3d::view::object const
-	view();
-
-	image3d::view::const_object const
-	view() const;
-
-	dim_type const
-	lock_dim() const;
-
-	dim_type const dim_;
-
-	mutable fcppt::optional<
-		box_type
-	> lock_rect_;
 };
 
 }

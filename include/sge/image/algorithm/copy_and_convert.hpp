@@ -18,37 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_VIEW_TO_CONST_HPP_INCLUDED
-#define SGE_IMAGE_VIEW_TO_CONST_HPP_INCLUDED
+#ifndef SGE_IMAGE_ALGORITHM_COPY_AND_CONVERT_HPP_INCLUDED
+#define SGE_IMAGE_ALGORITHM_COPY_AND_CONVERT_HPP_INCLUDED
 
-#include "to_const_visitor.hpp"
-#include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
 namespace image
 {
-namespace view
+namespace algorithm
 {
 
 template<
-	typename Dest,
-	typename Src
+	typename ConstView,
+	typename View
 >
-Dest const
-to_const(
-	Src const &_src
-)
-{
-	return
-		fcppt::variant::apply_unary(
-			sge::image::view::to_const_visitor<
-				Dest
-			>(),
-			_src
-		);
-}
+SGE_SYMBOL
+void
+copy_and_convert(
+	ConstView const &,
+	View const &
+);
 
 }
 }

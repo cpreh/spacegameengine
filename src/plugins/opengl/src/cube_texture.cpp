@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../common.hpp"
 #include "../cube_texture.hpp"
-#include "../basic_texture_impl.hpp"
 #include "../texture.hpp"
 #include "../cube_texture_context.hpp"
 #include "../context/use.hpp"
@@ -35,10 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/foreach_enumerator.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-
-template class sge::opengl::basic_texture<
-	sge::renderer::cube_texture
->;
+#include <fcppt/optional_impl.hpp>
 
 sge::opengl::cube_texture::cube_texture(
 	context::object &_context,

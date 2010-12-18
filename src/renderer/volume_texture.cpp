@@ -30,7 +30,7 @@ sge::renderer::volume_texture::~volume_texture()
 {
 }
 
-sge::image3d::view::object const
+sge::renderer::volume_texture::view_type const
 sge::renderer::volume_texture::lock(
 	lock_mode::type const _flags
 )
@@ -42,7 +42,7 @@ sge::renderer::volume_texture::lock(
 		);
 }
 
-sge::image3d::view::const_object const
+sge::renderer::volume_texture::const_view_type const
 sge::renderer::volume_texture::lock() const
 {
 	return
@@ -59,6 +59,12 @@ sge::renderer::volume_texture::box() const
 			box_type::vector::null(),
 			dim()
 		);
+}
+
+sge::renderer::volume_texture::box_type const
+sge::renderer::volume_texture::area() const
+{
+	return box();
 }
 
 sge::renderer::volume_texture::size_type

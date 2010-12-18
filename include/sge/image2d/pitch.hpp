@@ -21,14 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE2D_PITCH_HPP_INCLUDED
 #define SGE_IMAGE2D_PITCH_HPP_INCLUDED
 
-#include <sge/image/difference_type.hpp>
+#include <sge/image/pitch.hpp>
 
 namespace sge
 {
 namespace image2d
 {
 
-typedef sge::image::difference_type pitch;
+typedef sge::image::pitch<
+	2
+>::type pitch;
 
 }
 }

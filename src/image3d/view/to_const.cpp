@@ -19,28 +19,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../../image/view/to_const_impl.hpp"
-#include <sge/image2d/view/to_const.hpp>
+#include <sge/image3d/view/to_const.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/export_symbol.hpp>
 
 template
 FCPPT_EXPORT_SYMBOL
-sge::image2d::view::const_object const
+sge::image3d::view::const_object const
 sge::image::view::to_const<
-	sge::image2d::view::const_object,
-	sge::image2d::view::object
+	sge::image3d::view::const_object,
+	sge::image3d::view::object
 >(
-	sge::image2d::view::object const &
+	sge::image3d::view::object const &
 );
 
-sge::image2d::view::const_object const
-sge::image2d::view::to_const(
+sge::image3d::view::const_object const
+sge::image3d::view::to_const(
 	object const &_view
 )
 {
 	return
 		sge::image::view::to_const<
-			sge::image2d::view::const_object
+			sge::image3d::view::const_object
 		>(
 			_view
 		);

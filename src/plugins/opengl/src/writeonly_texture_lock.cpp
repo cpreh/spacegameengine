@@ -48,8 +48,12 @@ sge::opengl::writeonly_texture_lock::writeonly_texture_lock(
 {
 }
 
+sge::opengl::writeonly_texture_lock::~writeonly_texture_lock()
+{
+}
+
 void
-sge::opengl::writeonly_texture_lock::post_lock()
+sge::opengl::writeonly_texture_lock::lock()
 {
 	buffer_.lock(
 		lock_method::writeonly
@@ -57,21 +61,31 @@ sge::opengl::writeonly_texture_lock::post_lock()
 }
 
 void
-sge::opengl::writeonly_texture_lock::pre_unlock()
+sge::opengl::writeonly_texture_lock::unlock()
 {
 	buffer_.unlock();
 }
 
-sge::opengl::writeonly_texture_lock::pointer
-sge::opengl::writeonly_texture_lock::write_pointer() const
+void
+sge::opengl::writeonly_texture_lock::pre_unlock()
 {
-	return buffer_.buffer_offset(0);
+}
+
+void
+sge::opengl::writeonly_texture_lock::post_copy()
+{
 }
 
 sge::opengl::writeonly_texture_lock::pointer
-sge::opengl::writeonly_texture_lock::real_write_pointer()
+sge::opengl::writeonly_texture_lock::write_pointer()
 {
 	return buffer_.data();
+}
+
+sge::opengl::writeonly_texture_lock::pointer
+sge::opengl::writeonly_texture_lock::view_pointer()
+{
+	return write_pointer();
 }
 
 sge::opengl::lock_method::type

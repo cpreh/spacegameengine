@@ -24,13 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "texture_fwd.hpp"
 #include "common.hpp"
 #include "basic_texture.hpp"
-#include "lock_method.hpp"
 #include "context/object_fwd.hpp"
-#include <sge/renderer/texture.hpp>
 #include <sge/image/color/format.hpp>
-#include <fcppt/math/dim/basic_decl.hpp>
-#include <fcppt/math/box/basic_decl.hpp>
-#include <fcppt/optional.hpp>
+#include <sge/renderer/texture.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/filter/texture_fwd.hpp>
+#include <fcppt/optional_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -40,7 +39,11 @@ namespace opengl
 
 namespace detail
 {
-typedef basic_texture<renderer::texture> texture_base;
+
+typedef basic_texture<
+	renderer::texture
+> texture_base;
+
 }
 
 class texture
@@ -51,57 +54,30 @@ class texture
 		texture
 	)
 public:
-	typedef fcppt::optional<GLenum> optional_type;
+	typedef detail::texture_base base;
+
+	typedef fcppt::optional<
+		GLenum
+	> optional_type;
 
 	texture(
 		context::object &,
-		dim_type const &,
+		base::dim_type const &,
 		image::color::format::type,
 		renderer::filter::texture const &,
 		renderer::resource_flags_field const &,
-		optional_type type
-			= optional_type()
+		optional_type const &
 	);
 
 	~texture();
-
-	dim_type const
-	dim() const;
-
-	image2d::view::object const
-	lock(
-		renderer::lock_rect const &,
-		renderer::lock_mode::type
-	);
-
-	image2d::view::const_object const
-	lock(
-		renderer::lock_rect const &
-	) const;
-
-	void
-	unlock() const;
 private:
+	typedef base::pointer pointer;
+
 	void
-	lock_me(
-		renderer::lock_rect const &,
-		lock_method::type
+	set_area(
+		lock_area const &,
+		pointer
 	) const;
-
-	image2d::view::object const
-	view();
-
-	image2d::view::const_object const
-	view() const;
-
-	dim_type const
-	lock_dim() const;
-
-	dim_type const dim_;
-
-	mutable fcppt::optional<
-		renderer::lock_rect
-	> lock_rect_;
 };
 
 }

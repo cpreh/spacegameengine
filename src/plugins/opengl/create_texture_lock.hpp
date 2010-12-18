@@ -36,12 +36,9 @@ texture_lock_unique_ptr
 create_texture_lock(
 	context::object &,
 	lock_method::type,
-	texture_lock::size_type lock_size,
-	texture_lock::size_type offset,
-	texture_lock::size_type whole_size,
+	texture_lock::size_type read_size,
+	texture_lock::size_type write_size,
 	texture_lock::size_type stride,
-	texture_lock::size_type pitch,
-	texture_lock::size_type block_width,
 	renderer::resource_flags_field const &
 );
 

@@ -554,7 +554,8 @@ sge::opengl::device::create_texture(
 				_dim,
 				_format,
 				_filter,
-				_flags
+				_flags,
+				opengl::texture::optional_type()
 			)
 		);
 }

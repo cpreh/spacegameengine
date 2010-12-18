@@ -18,8 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/algorithm/copy_and_convert.hpp"
+#include "../../image/algorithm/copy_and_convert_impl.hpp"
 #include <sge/image3d/algorithm/copy_and_convert.hpp>
+#include <fcppt/export_symbol.hpp>
+
+template
+FCPPT_EXPORT_SYMBOL
+void
+sge::image::algorithm::copy_and_convert<
+	sge::image3d::view::const_object,
+	sge::image3d::view::object
+>(
+	sge::image3d::view::const_object const &,
+	sge::image3d::view::object const &
+);
 
 void
 sge::image3d::algorithm::copy_and_convert(

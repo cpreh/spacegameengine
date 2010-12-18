@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE3D_VIEW_MAKE_HPP_INCLUDED
 
 #include <sge/image3d/view/object.hpp>
-#include <sge/image3d/view/const_object.hpp>
 #include <sge/image3d/view/optional_pitch.hpp>
 #include <sge/image3d/dim.hpp>
 #include <sge/image/color/format.hpp>
@@ -41,15 +40,7 @@ make(
 	image::raw_pointer,
 	image3d::dim const &,
 	image::color::format::type,
-	image3d::view::optional_pitch
-);
-
-SGE_SYMBOL image3d::view::const_object const
-make(
-	image::const_raw_pointer,
-	image3d::dim const &,
-	image::color::format::type,
-	image3d::view::optional_pitch
+	image3d::view::optional_pitch const &
 );
 
 }

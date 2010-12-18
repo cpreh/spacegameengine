@@ -23,28 +23,279 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "basic_texture.hpp"
 #include "common.hpp"
-#include "texfuncs/bind.hpp"
-#include "texfuncs/set_filter.hpp"
+#include "convert_lock_method.hpp"
+#include "create_texture_lock.hpp"
+#include "lock_flag_read.hpp"
+#include "lock_flag_write.hpp"
+#include "range_check.hpp"
 #include "convert/color_to_format.hpp"
 #include "convert/color_to_format_type.hpp"
 #include "convert/color_to_internal_format.hpp"
-#include "create_texture_lock.hpp"
-#include <fcppt/container/bitfield/basic_impl.hpp>
+#include "convert/format_to_color.hpp"
+#include "texfuncs/get_image.hpp"
+#include "texfuncs/set_filter.hpp"
+#include <sge/image/algorithm/copy_and_convert.hpp>
 #include <sge/image/color/format_stride.hpp>
+#include <sge/image/view/make.hpp>
+#include <sge/image/view/sub.hpp>
+#include <sge/image/view/to_const.hpp>
 #include <sge/renderer/exception.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/box/output.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/output.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/format.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 
 template<
 	typename Base
 >
-void
-sge::opengl::basic_texture<Base>::set_my_filter() const
+typename sge::opengl::basic_texture<Base>::dim_type const
+sge::opengl::basic_texture<Base>::dim() const
 {
-	texfuncs::set_filter(
-		context_,
-		type(),
-		filter()
+	return dim_;
+}
+
+template<
+	typename Base
+>
+typename sge::opengl::basic_texture<Base>::view_type const
+sge::opengl::basic_texture<Base>::lock(
+	lock_area const &_area,
+	renderer::lock_mode::type const _mode
+)
+{
+	lock_me(
+		_area,
+		opengl::convert_lock_method(
+			_mode
+		)
 	);
+
+	return view();
+}
+
+template<
+	typename Base
+>
+typename sge::opengl::basic_texture<Base>::const_view_type const
+sge::opengl::basic_texture<Base>::lock(
+	lock_area const &_area
+) const
+{
+	lock_me(
+		_area,
+		lock_method::readonly
+	);
+
+	return view();
+}
+
+template<
+	typename Base
+>
+void
+sge::opengl::basic_texture<Base>::unlock() const
+{
+	check_locked();
+
+	lock_->pre_unlock();
+
+	if(
+		opengl::lock_flag_write(
+			lock_->method()
+		)
+	)
+	{
+		bind();
+
+		// if this is also a read lock
+		// we must copy the current view, which is
+		// a slice into the whole texture retrieved,
+		// to the destination buffer
+		if(
+			opengl::lock_flag_read(
+				lock_->method()
+			)
+		)
+		{
+			// this will only copy, not convert!
+			sge::image::algorithm::copy_and_convert(
+				view(),
+				sge::image::view::make<
+					view_type
+				>(
+					lock_->write_pointer(),
+					lock_dim(),
+					convert::format_to_color(
+						format(),
+						format_type()
+					),
+					optional_pitch()
+				)
+			);
+
+			lock_->post_copy();
+		}
+
+		set_area(
+			lock_area_
+			?
+				*lock_area_
+			:
+				lock_area(
+					lock_area::vector::null(),
+					dim()
+				),
+			lock_->write_pointer()
+		);
+	}
+
+	lock_->unlock();
+
+	lock_.reset();
+}
+
+template<
+	typename Base
+>
+void
+sge::opengl::basic_texture<Base>::lock_me(
+	lock_area const &_lock_area,
+	lock_method::type const _method
+) const
+{
+	if(
+		!opengl::range_check(
+			dim(),
+			_lock_area
+		)
+	)
+		throw renderer::exception(
+			(
+				fcppt::format(
+					FCPPT_TEXT("ogl: lock (%1%) out of range! dim is %2%!")
+				)
+				% _lock_area
+				% dim()
+			).str()
+		);
+
+	lock_.take(
+		opengl::create_texture_lock(
+			context_,
+			_method,
+			dim().content(),
+			_lock_area.area(),
+			stride(),
+			flags()
+		)
+	);
+
+	lock_->lock();
+
+	bind();
+
+	if(
+		opengl::lock_flag_read(
+			_method
+		)
+	)
+		texfuncs::get_image(
+			type(),
+			format(),
+			format_type(),
+			lock_->view_pointer()
+		);
+
+	if(
+		_lock_area == this->area()
+	)
+		lock_area_.reset();
+	else
+		lock_area_ = _lock_area;
+}
+
+template<
+	typename Base
+>
+typename sge::opengl::basic_texture<Base>::view_type const
+sge::opengl::basic_texture<Base>::view()
+{
+	// if we are currently reading a texture,
+	// we have mapped the whoel texture and
+	// have to take a sub view
+	
+	bool const reading(
+		opengl::lock_flag_read(
+			lock_->method()
+		)
+	);
+
+	view_type const ret(
+		image::view::make<
+			view_type
+		>(
+			lock_->view_pointer(),
+			reading
+			?
+				dim()
+			:
+				lock_dim(),
+			convert::format_to_color(
+				format(),
+				format_type()
+			),
+			optional_pitch()
+		)
+	);
+
+	return
+		reading
+		?
+			sge::image::view::sub<
+				view_type
+			>(
+				ret,
+				*lock_area_
+			)
+		:
+			ret;
+}
+
+template<
+	typename Base
+>
+typename sge::opengl::basic_texture<Base>::const_view_type const
+sge::opengl::basic_texture<Base>::view() const
+{
+	return
+		image::view::to_const<
+			const_view_type
+		>(
+			const_cast<
+				basic_texture *
+			>(
+				this
+			)->view()
+		);
+}
+
+template<
+	typename Base
+>
+typename sge::opengl::basic_texture<Base>::dim_type const
+sge::opengl::basic_texture<Base>::lock_dim() const
+{
+	return
+		lock_area_
+		?
+			lock_area_->dimension()
+		:
+			dim();
 }
 
 template<
@@ -54,137 +305,6 @@ sge::renderer::filter::texture const &
 sge::opengl::basic_texture<Base>::filter() const
 {
 	return filter_;
-}
-
-template<
-	typename Base
->
-void
-sge::opengl::basic_texture<Base>::do_lock(
-	lock_method::type const _method,
-	size_type const _lock_size,
-	size_type const _offset,
-	size_type const _pitch,
-	size_type const _block_size
-) const
-{
-	check_not_locked();
-
-	scoped_lock_ptr new_lock(
-		opengl::create_texture_lock(
-			context_,
-			_method,
-			_lock_size,
-			_offset,
-			content(),
-			stride(),
-			_pitch,
-			_block_size,
-			flags()
-		)
-	);
-
-	lock_.swap(
-		new_lock
-	);
-}
-
-template<
-	typename Base
->
-void
-sge::opengl::basic_texture<Base>::post_lock() const
-{
-	check_locked();
-
-	lock_->post_lock();
-}
-
-template<
-	typename Base
->
-void
-sge::opengl::basic_texture<Base>::pre_unlock() const
-{
-	check_locked();
-
-	lock_->pre_unlock();
-}
-
-template<
-	typename Base
->
-void
-sge::opengl::basic_texture<Base>::do_unlock() const
-{
-	check_locked();
-
-	lock_.reset();
-}
-
-template<
-	typename Base
->
-sge::opengl::lock_method::type
-sge::opengl::basic_texture<Base>::lock_mode() const
-{
-	check_locked();
-
-	return lock_->method();
-}
-
-template<
-	typename Base
->
-typename sge::opengl::basic_texture<Base>::pointer
-sge::opengl::basic_texture<Base>::read_buffer() const
-{
-	check_locked();
-
-	return lock_->read_pointer();
-}
-
-template<
-	typename Base
->
-typename sge::opengl::basic_texture<Base>::pointer
-sge::opengl::basic_texture<Base>::write_buffer() const
-{
-	check_locked();
-
-	return lock_->write_pointer();
-}
-
-template<
-	typename Base
->
-typename sge::opengl::basic_texture<Base>::const_pointer
-sge::opengl::basic_texture<Base>::real_read_buffer() const
-{
-	check_locked();
-
-	return lock_->real_read_pointer();
-}
-
-template<
-	typename Base
->
-typename sge::opengl::basic_texture<Base>::pointer
-sge::opengl::basic_texture<Base>::real_write_buffer() const
-{
-	check_locked();
-
-	return lock_->real_write_pointer();
-}
-
-template<
-	typename Base
->
-void
-sge::opengl::basic_texture<Base>::pre_setdata() const
-{
-	bind();
-	set_my_filter();
 }
 
 template<
@@ -231,34 +351,46 @@ sge::opengl::basic_texture<Base>::basic_texture(
 	renderer::filter::texture const &_filter,
 	renderer::resource_flags_field const &_flags,
 	GLenum const _type,
-	image::color::format::type const _cformat
+	image::color::format::type const _color_format,
+	dim_type const &_dim
 )
 :
 	texture_base(_type),
 	context_(_context),
 	filter_(_filter),
 	flags_(_flags),
+	dim_(_dim),
 	format_(
 		convert::color_to_format(
-			_cformat
+			_color_format
 		)
 	),
 	format_type_(
 		convert::color_to_format_type(
-			_cformat
+			_color_format
 		)
 	),
 	internal_format_(
 		convert::color_to_internal_format(
-			_cformat
+			_color_format
 		)
 	),
 	stride_(
 		image::color::format_stride(
-			_cformat
+			_color_format
 		)
-	)
-{}
+	),
+	lock_(),
+	lock_area_()
+{
+	bind();
+
+	texfuncs::set_filter(
+		context_,
+		type(),
+		filter()
+	);
+}
 
 template<
 	typename Base
@@ -291,7 +423,9 @@ template<
 void
 sge::opengl::basic_texture<Base>::check_locked() const
 {
-	if(!lock_)
+	if(
+		!lock_
+	)
 		throw renderer::exception(
 			FCPPT_TEXT("ogl::basic_texture not locked!")
 		);
@@ -303,7 +437,9 @@ template<
 void
 sge::opengl::basic_texture<Base>::check_not_locked() const
 {
-	if(lock_)
+	if(
+		lock_
+	)
 		throw renderer::exception(
 			FCPPT_TEXT("ogl::basic_texture already locked!")
 		);

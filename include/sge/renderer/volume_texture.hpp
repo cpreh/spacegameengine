@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture_base.hpp>
 #include <sge/image3d/view/const_object.hpp>
 #include <sge/image3d/view/object.hpp>
+#include <sge/image3d/tag.hpp>
 #include <sge/class_symbol.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -55,24 +56,32 @@ public:
 
 	typedef renderer::lock_box box_type;
 
+	typedef sge::image3d::tag image_tag;
+
+	typedef box_type lock_area;
+
+	typedef image3d::view::object view_type;
+
+	typedef image3d::view::const_object const_view_type;
+
 	virtual dim_type const
 	dim() const = 0;
 
-	SGE_SYMBOL image3d::view::object const
+	SGE_SYMBOL view_type const
 	lock(
 		lock_mode::type
 	);
 
-	SGE_SYMBOL image3d::view::const_object const
+	SGE_SYMBOL const_view_type const
 	lock() const;
 
-	virtual image3d::view::object const
+	virtual view_type const
 	lock(
 		box_type const &,
 		lock_mode::type
 	) = 0;
 
-	virtual image3d::view::const_object const
+	virtual const_view_type const
 	lock(
 		lock_box const &
 	) const = 0;
@@ -82,6 +91,9 @@ public:
 
 	SGE_SYMBOL box_type const
 	box() const;
+
+	SGE_SYMBOL box_type const
+	area() const;
 
 	SGE_SYMBOL
 	texture_base::size_type

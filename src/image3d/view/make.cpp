@@ -18,30 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/view/to_const_impl.hpp"
-#include <sge/image2d/view/to_const.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include "../../image/view/make_impl.hpp"
+#include <sge/image3d/view/make.hpp>
+#include <sge/image3d/view/object.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/export_symbol.hpp>
 
 template
 FCPPT_EXPORT_SYMBOL
-sge::image2d::view::const_object const
-sge::image::view::to_const<
-	sge::image2d::view::const_object,
-	sge::image2d::view::object
+sge::image3d::view::object const
+sge::image::view::make<
+	sge::image3d::view::object,
+	sge::image3d::dim,
+	sge::image3d::view::optional_pitch
 >(
-	sge::image2d::view::object const &
+	image::raw_pointer,
+	image3d::dim const &,
+	image::color::format::type,
+	image3d::view::optional_pitch const &
 );
 
-sge::image2d::view::const_object const
-sge::image2d::view::to_const(
-	object const &_view
+sge::image3d::view::object const
+sge::image3d::view::make(
+	image::raw_pointer const _data,
+	image3d::dim const &_dim,
+	image::color::format::type const _format,
+	image3d::view::optional_pitch const &_pitch
 )
 {
 	return
-		sge::image::view::to_const<
-			sge::image2d::view::const_object
+		sge::image::view::make<
+			sge::image3d::view::object
 		>(
-			_view
+			_data,
+			_dim,
+			_format,
+			_pitch
 		);
 }

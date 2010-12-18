@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE3D_VIEW_OPTIONAL_PITCH_HPP_INCLUDED
 #define SGE_IMAGE3D_VIEW_OPTIONAL_PITCH_HPP_INCLUDED
 
-#include <sge/image3d/view/pitch.hpp>
+#include <sge/image3d/pitch.hpp>
 #include <fcppt/optional_fwd.hpp>
 
 namespace sge
@@ -32,7 +32,7 @@ namespace view
 {
 
 typedef fcppt::optional<
-	view::pitch
+	image3d::pitch
 > optional_pitch;
 
 }

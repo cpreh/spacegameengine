@@ -18,30 +18,58 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/view/to_const_impl.hpp"
-#include <sge/image2d/view/to_const.hpp>
-#include <fcppt/variant/object_impl.hpp>
-#include <fcppt/export_symbol.hpp>
+#ifndef SGE_OPENGL_RANGE_CHECK_HPP_INCLUDED
+#define SGE_OPENGL_RANGE_CHECK_HPP_INCLUDED
 
-template
-FCPPT_EXPORT_SYMBOL
-sge::image2d::view::const_object const
-sge::image::view::to_const<
-	sge::image2d::view::const_object,
-	sge::image2d::view::object
->(
-	sge::image2d::view::object const &
-);
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/size_type.hpp>
+#include <boost/utility/enable_if.hpp>
 
-sge::image2d::view::const_object const
-sge::image2d::view::to_const(
-	object const &_view
+namespace sge
+{
+namespace opengl
+{
+
+template<
+	typename T,
+	typename M,
+	typename S,
+	fcppt::math::size_type N
+>
+typename boost::enable_if_c<
+	N == M::value,
+	bool
+>::type
+range_check(
+	fcppt::math::dim::basic<
+		T,
+		M,
+		S
+	> const &_dim,
+	fcppt::math::box::basic<
+		T,
+		N
+	> const &_box
 )
 {
-	return
-		sge::image::view::to_const<
-			sge::image2d::view::const_object
-		>(
-			_view
-		);
+	for(
+		typename fcppt::math::box::basic<
+			T,
+			N
+		>::size_type index = 0;
+		index < N;
+		++index
+	)
+		if(
+			_box.max()[index]
+			> _dim[index]
+		)
+			return false;
+	return true;
 }
+
+}
+}
+
+#endif

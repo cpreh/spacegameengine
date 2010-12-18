@@ -40,7 +40,7 @@ convert_conditional(
 	image::raw_pointer,
 	image3d::dim const &,
 	image::color::format::type,
-	image3d::pitch, 
+	image3d::pitch const &, 
 	algorithm::accepted_format_array const &
 );
 

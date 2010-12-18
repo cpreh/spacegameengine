@@ -18,11 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/view/make.hpp"
-#include <sge/image2d/view/elements.hpp>
+#include "../../image/view/make_impl.hpp"
 #include <sge/image2d/view/make.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/export_symbol.hpp>
+
+template
+FCPPT_EXPORT_SYMBOL
+sge::image2d::view::object const
+sge::image::view::make<
+	sge::image2d::view::object,
+	sge::image2d::dim,
+	sge::image2d::view::optional_pitch
+>(
+	image::raw_pointer,
+	image2d::dim const &,
+	image::color::format::type,
+	image2d::view::optional_pitch const &
+);
 
 sge::image2d::view::object const
 sge::image2d::view::make(
@@ -34,8 +48,7 @@ sge::image2d::view::make(
 {
 	return
 		sge::image::view::make<
-			sge::image2d::view::object,
-			sge::image2d::view::elements
+			sge::image2d::view::object
 		>(
 			_data,
 			_dim,
