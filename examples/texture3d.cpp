@@ -74,6 +74,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/variable_type.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/shader/variable.hpp>
+#include <sge/renderer/state/source_blend_func.hpp>
+#include <sge/renderer/state/dest_blend_func.hpp>
 #include <sge/shader/sampler.hpp>
 #include <sge/image3d/view/optional_pitch.hpp>
 #include <sge/image/const_raw_pointer.hpp>
@@ -403,6 +405,9 @@ try
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(sge::renderer::state::bool_::clear_zbuffer = true)
+			(sge::renderer::state::bool_::enable_alpha_blending = true)
+			(sge::renderer::state::source_blend_func::src_alpha)
+			(sge::renderer::state::dest_blend_func::inv_src_alpha)
 			(sge::renderer::state::cull_mode::off)
 			(sge::renderer::state::depth_func::less)
 			(sge::renderer::state::float_::zbuffer_clear_val = 1.f)
