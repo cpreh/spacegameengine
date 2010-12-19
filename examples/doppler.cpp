@@ -335,7 +335,7 @@ try
 		.depth(
 			static_cast<
 				sprite_object::depth_type
-			>(2)
+			>(0)
 		)
 		.default_color()
 		.elements()
@@ -349,7 +349,7 @@ try
 		.depth(
 			static_cast<
 				sprite_object::depth_type
-			>(0)
+			>(2)
 		)
 		.pos(
 			sprite_object::point::null()
