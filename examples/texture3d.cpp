@@ -89,15 +89,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/projection/perspective.hpp>
 #include <sge/renderer/aspect.hpp>
 #include <sge/renderer/filter/linear.hpp>
+#include <sge/renderer/filter/point.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/time/second.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/raw_vector.hpp>
+#include <fcppt/math/dim/input.hpp>
+#include <fcppt/math/dim/output.hpp>
 #include <fcppt/io/cifstream.hpp>
 #include <fcppt/exception.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/program_options.hpp>
 #include <iostream>
 #include <streambuf>
 #include <cstddef>
@@ -122,25 +126,6 @@ sge::renderer::vf::unspecified
 	tags::position
 > 
 position;
-
-/*
-namespace tags
-{
-SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(texcoord)
-}
-
-typedef 
-sge::renderer::vf::unspecified
-<
-	sge::renderer::vf::vector
-	<
-		sge::renderer::scalar,
-		3
-	>,
-	tags::position
-> 
-texcoord;
-*/
 
 typedef 
 sge::renderer::vf::format
@@ -194,7 +179,7 @@ create_cube(
 	for (sge::renderer::size_type i = 0; i < slices; ++i)
 	{
 		sge::renderer::scalar const z = 
-			static_cast<sge::renderer::scalar>(i)/static_cast<sge::renderer::scalar>(slices);
+			1.0f - static_cast<sge::renderer::scalar>(i)/static_cast<sge::renderer::scalar>(slices);
 		// left top
 		(*vb_it++).set<vf::position>(
 			position_vector(
@@ -307,9 +292,46 @@ texture3d::view() const
 }
 }
 
-int main()
+int 
+main(
+	int argc,
+	char*argv[])
 try
 {
+	boost::program_options::options_description desc(
+		"To use this sge example, you need a 3D texture somewhere on your file system.\n"
+		"The texture must consist of one file per slice and all slice files\n"
+		"have to be in the same directory.\n"
+		"You can specify said directory with \"directory\". The file names have the\n"
+		"format \"prefix.number\" where prefix can be specified via the \"prefix\"\n"
+		"option. The numbers start with 1.\n"
+		"The slice files themselves consist of 16 bit integers in little endian.\n"
+		"No header. Sample images can be found at\n\n"
+		"http://www-graphics.stanford.edu/data/voldata/\n\nOther options include");
+	desc.add_options()
+    ("help", "Produce help message")
+    ("directory", boost::program_options::value<fcppt::string>(), "Set the directory where to take the slices from (see above)")
+    ("prefix", boost::program_options::value<fcppt::string>(), "Slice prefix (see above)")
+    ("slice-count", boost::program_options::value<std::size_t>(), "How many slices are there")
+    ("slice-size", boost::program_options::value<std::size_t>(), "How big is one slice")
+    ("screen-size", boost::program_options::value<sge::renderer::screen_size>()->default_value(sge::renderer::screen_size(1024,768)), "Screen resolution, format: (x,y)");
+
+	boost::program_options::variables_map vm;
+	boost::program_options::store(
+		boost::program_options::parse_command_line(
+			argc, 
+			argv, 
+			desc), 
+		vm);
+	boost::program_options::notify(
+		vm);    
+
+	if (vm.count("help")) 
+	{
+		std::cout << desc << "\n";
+		return EXIT_SUCCESS;
+	}
+
 	sge::systems::instance const sys(
 		sge::systems::list()
 		(
@@ -323,10 +345,7 @@ try
 			sge::systems::renderer(
 				sge::renderer::parameters(
 					sge::renderer::display_mode(
-						sge::renderer::screen_size(
-							1024,
-							768
-						),
+						vm["screen-size"].as<sge::renderer::screen_size>(),
 						sge::renderer::bit_depth::depth32,
 						sge::renderer::refresh_rate_dont_care
 					),
@@ -351,10 +370,10 @@ try
 		sys.renderer());
 
 	texture3d mytex(
-		FCPPT_TEXT("/tmp/brain"),
-		FCPPT_TEXT("MRbrain"),
-		256,
-		109);
+		vm["directory"].as<fcppt::string>(),
+		vm["prefix"].as<fcppt::string>(),
+		vm["slice-size"].as<std::size_t>(),
+		vm["slice-count"].as<std::size_t>());
 
 	sge::shader::object shader(
 		rend,
@@ -388,7 +407,7 @@ try
 		create_cube(
 			rend,
 			shader,
-			50);
+			109);
 
 	bool running = true;
 
