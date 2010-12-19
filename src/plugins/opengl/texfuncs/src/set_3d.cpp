@@ -20,15 +20,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../set_3d.hpp"
 #include "../set_mipmap.hpp"
-#include "../../common.hpp"
+#include "../warn_min.hpp"
+#include "../warn_pow2.hpp"
 #include "../../check_state.hpp"
-#include <sge/log/global.hpp>
+#include "../../common.hpp"
+#include "../../volume_texture_context.hpp"
+#include "../../context/use.hpp"
 #include <sge/renderer/texture_creation_failed.hpp>
-#include <fcppt/math/is_power_of_2.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/output.hpp>
-#include <fcppt/log/warning.hpp>
-#include <fcppt/log/output.hpp>
 #include <fcppt/text.hpp>
 
 void
@@ -43,33 +43,20 @@ sge::opengl::texfuncs::set_3d(
 	renderer::const_raw_pointer const _src
 )
 {
-	if(
-		_dim.w() < 64
-		|| _dim.h() < 64
-		|| _dim.d() < 64
-	)
-		FCPPT_LOG_WARNING(
-			log::global(),
-			fcppt::log::_
-				<< FCPPT_TEXT("opengl implementations are not required to support textures smaller than 64x64.")\
-				FCPPT_TEXT(" Specified texture size was ")
-				<< _dim
-				<< FCPPT_TEXT('.')
-		);
+	opengl::texfuncs::warn_min(
+		_dim,
+		static_cast<
+			renderer::dim3::value_type
+		>(
+			16u
+		),
+		FCPPT_TEXT("volume textures")
+	);
 
-	if(
-		!fcppt::math::is_power_of_2(_dim.w())
-		|| !fcppt::math::is_power_of_2(_dim.h())
-		|| !fcppt::math::is_power_of_2(_dim.d())
-	)
-		FCPPT_LOG_WARNING(
-			log::global(),
-			fcppt::log::_
-				<< FCPPT_TEXT("opengl implementations are not required to support textures with dimensions that are not a power of 2.")\
-				FCPPT_TEXT(" Specified texture size was ")
-				<< _dim
-				<< FCPPT_TEXT('.')
-		);
+	opengl::texfuncs::warn_pow2(
+		_dim,
+		FCPPT_TEXT("volume textures")
+	);
 
 	texfuncs::set_mipmap(
 		_context,
@@ -77,13 +64,33 @@ sge::opengl::texfuncs::set_3d(
 		_filter
 	);
 
-	::glTexImage3D(
+	context::use<
+		opengl::volume_texture_context
+	>(
+		_context
+	).tex_image_3d()(
 		_texture_type,
 		0,
-		_internal_format,
-		static_cast<GLsizei>(_dim.w()),
-		static_cast<GLsizei>(_dim.h()),
-		static_cast<GLsizei>(_dim.h()),
+		static_cast<
+			GLint
+		>(
+			_internal_format
+		),
+		static_cast<
+			GLsizei
+		>(
+			_dim.w()
+		),
+		static_cast<
+			GLsizei
+		>(
+			_dim.h()
+		),
+		static_cast<
+			GLsizei
+		>(
+			_dim.h()
+		),
 		0,
 		_format,
 		_format_type,

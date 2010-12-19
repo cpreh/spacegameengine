@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../pbo_context.hpp"
 #include "../../range_check.hpp"
 #include "../../vbo_base.hpp"
+#include "../../volume_texture_context.hpp"
 #include "../../context/use.hpp"
 #include <sge/renderer/exception.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
@@ -74,7 +75,11 @@ sge::opengl::texfuncs::set_rect_3d(
 			.str()
 		);
 
-	::glTexSubImage3D(
+	context::use<
+		opengl::volume_texture_context
+	>(
+		_context
+	).tex_sub_image_3d()(
 		_target,
 		0,
 		static_cast<GLint>(_lock_box.left()),
