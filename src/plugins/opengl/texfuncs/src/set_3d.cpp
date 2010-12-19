@@ -20,8 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../set_3d.hpp"
 #include "../set_mipmap.hpp"
-#include "../../common.hpp"
 #include "../../check_state.hpp"
+#include "../../common.hpp"
+#include "../../volume_texture_context.hpp"
+#include "../../context/use.hpp"
 #include <sge/log/global.hpp>
 #include <sge/renderer/texture_creation_failed.hpp>
 #include <fcppt/math/is_power_of_2.hpp>
@@ -77,7 +79,11 @@ sge::opengl::texfuncs::set_3d(
 		_filter
 	);
 
-	::glTexImage3D(
+	context::use<
+		opengl::volume_texture_context
+	>(
+		_context
+	).tex_image_3d()(
 		_texture_type,
 		0,
 		_internal_format,

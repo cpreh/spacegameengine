@@ -42,6 +42,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture.hpp"
 #include "../vertex_buffer.hpp"
 #include "../volume_texture.hpp"
+#include "../volume_texture_context.hpp"
+#include "../context/use.hpp"
 #include "../convert/clear_bit.hpp"
 #include "../convert/clip_plane_index.hpp"
 #include "../convert/indexed_primitive.hpp"
@@ -59,6 +61,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/i32.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
 #include <sge/renderer/state/default.hpp>
 #include <sge/window/instance.hpp>
@@ -676,6 +679,19 @@ sge::opengl::device::create_volume_texture(
 	renderer::resource_flags_field const &_flags
 )
 {
+	if(
+		!context::use<
+			opengl::volume_texture_context
+		>(
+			context_
+		).have_volume_texture()
+	)
+		throw sge::renderer::unsupported(
+			FCPPT_TEXT("volume texture"),
+			FCPPT_TEXT("1.2"),
+			FCPPT_TEXT("")
+		);
+
 	return
 		renderer::volume_texture_ptr(
 			fcppt::make_shared_ptr<
