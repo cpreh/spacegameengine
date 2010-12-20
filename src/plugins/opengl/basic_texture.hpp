@@ -24,13 +24,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "common.hpp"
 #include "texture_lock.hpp"
 #include "texture_base.hpp"
-#include "texture_holder.hpp"
 #include "lock_method.hpp"
 #include "context/object_fwd.hpp"
 #include <sge/renderer/filter/texture.hpp>
+#include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/image/color/format.hpp>
+#include <sge/image/traits/pitch.hpp>
 #include <fcppt/container/bitfield/basic_decl.hpp>
+#include <fcppt/math/box/basic_decl.hpp>
+#include <fcppt/optional_decl.hpp>
 #include <fcppt/scoped_ptr.hpp>
 
 namespace sge
@@ -47,61 +50,54 @@ class basic_texture
 	public texture_base
 {
 public:
-	typedef typename Base::size_type size_type;
 	typedef texture_lock::pointer pointer;
 	typedef texture_lock::const_pointer const_pointer;
-protected:
-	void
-	bind_me() const;
 
-	void
-	set_my_filter() const;
+	typedef typename Base::size_type size_type;
+	typedef typename Base::dim_type dim_type;
+	typedef typename Base::lock_area lock_area;
+	typedef typename Base::view_type view_type;
+	typedef typename Base::const_view_type const_view_type;
 
-	GLuint
-	id() const;
+	// implementation for base class
+	dim_type const
+	dim() const;
 
-	renderer::filter::texture const &
-	filter() const;
+	view_type const
+	lock(
+		lock_area const &,
+		renderer::lock_mode::type
+	);
 
-	void
-	do_lock(
-		lock_method::type mode,
-		size_type size,
-		size_type offset,
-		size_type pitch,
-		size_type block_size
+	const_view_type const
+	lock(
+		lock_area const &
 	) const;
 
 	void
-	post_lock() const;
-
+	unlock() const;
+private:
+	// helper functions
 	void
-	pre_unlock() const;
+	lock_me(
+		lock_area const &,
+		lock_method::type
+	) const;
 
-	void
-	do_unlock() const;
+	view_type const
+	view();
 
-	lock_method::type
-	lock_mode() const;
+	const_view_type const
+	view() const;
 
-	pointer
-	read_buffer() const;
-
-	pointer
-	write_buffer() const;
-
-	const_pointer
-	real_read_buffer() const;
-
-	pointer
-	real_write_buffer() const;
-
-	void
-	pre_setdata() const;
+	dim_type const
+	lock_dim() const;
+protected:
+	renderer::filter::texture const &
+	filter() const;
 
 	using Base::content;
 
-public:
 	size_type
 	stride() const;
 
@@ -113,13 +109,14 @@ public:
 
 	GLenum
 	internal_format() const;
-protected:
+
 	basic_texture(
 		opengl::context::object &,
 		renderer::filter::texture const &,
 		renderer::resource_flags_field const &,
 		GLenum type,
-		image::color::format::type
+		image::color::format::type,
+		dim_type const &
 	);
 
 	opengl::context::object &
@@ -130,6 +127,12 @@ public:
 	renderer::resource_flags_field const
 	flags() const;
 private:
+	virtual void
+	set_area(
+		lock_area const &,
+		pointer dest
+	) const = 0;
+
 	void
 	check_locked() const;
 
@@ -142,7 +145,7 @@ private:
 
 	renderer::resource_flags_field const flags_;
 
-	opengl::texture_holder const holder_;
+	dim_type const dim_;
 
 	GLenum const
 		format_,
@@ -156,6 +159,18 @@ private:
 	> scoped_lock_ptr;
 
 	mutable scoped_lock_ptr lock_;
+
+	typedef fcppt::optional<
+		lock_area
+	> optional_lock_area;
+
+	mutable optional_lock_area lock_area_;
+
+	typedef fcppt::optional<
+		typename sge::image::traits::pitch<
+			typename Base::image_tag
+		>::type
+	> optional_pitch;
 };
 
 }

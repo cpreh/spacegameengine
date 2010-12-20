@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/texture_rw.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
-#include <sge/image/algorithm/copy_and_convert.hpp>
-#include <sge/image/view/make_const.hpp>
+#include <sge/image2d/algorithm/copy_and_convert.hpp>
+#include <sge/image2d/view/to_const.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/comparison.hpp>
@@ -36,7 +36,7 @@ class sge::renderer::texture_rw::lock_data
 {
 public:
 	typedef fcppt::optional<
-		image::view::object
+		image2d::view::object
 	> optional_image;
 
 	lock_rect area_;
@@ -76,7 +76,7 @@ sge::renderer::texture_rw::dim() const
 	return read_->dim();
 }
 
-sge::image::view::object const
+sge::image2d::view::object const
 sge::renderer::texture_rw::lock(
 	lock_rect const &_rect,
 	lock_mode::type const _mode
@@ -102,7 +102,7 @@ sge::renderer::texture_rw::lock(
 	return *locked_->view_;
 }
 
-sge::image::view::const_object const
+sge::image2d::view::const_object const
 sge::renderer::texture_rw::lock(
 	lock_rect const &_rect
 ) const
@@ -143,8 +143,8 @@ sge::renderer::texture_rw::unlock() const
 			lock_mode::writeonly
 		);
 
-		image::algorithm::copy_and_convert(
-			image::view::make_const(
+		image2d::algorithm::copy_and_convert(
+			image2d::view::to_const(
 				*locked_->view_
 			),
 			lock_.value());

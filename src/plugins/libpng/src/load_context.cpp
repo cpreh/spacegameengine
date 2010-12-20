@@ -82,12 +82,12 @@ sge::libpng::load_context::load_context(
 		read_ptr_->ptr(),
 		read_ptr_->info());
 
-	dim_ = image::dim_type(
-		static_cast<image::dim_type::value_type>(
+	dim_ = image2d::dim(
+		static_cast<image2d::dim::value_type>(
 			png_get_image_width(
 				read_ptr_->ptr(),
 				read_ptr_->info())),
-		static_cast<image::dim_type::value_type>(
+		static_cast<image2d::dim::value_type>(
 			png_get_image_height(
 				read_ptr_->ptr(),
 				read_ptr_->info())));
@@ -159,7 +159,7 @@ sge::libpng::load_context::load_context(
 	format_ = convert_format();
 }
 
-sge::image::dim_type const &sge::libpng::load_context::dim() const
+sge::image2d::dim const &sge::libpng::load_context::dim() const
 {
 	return dim_;
 }

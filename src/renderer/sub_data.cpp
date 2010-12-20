@@ -21,30 +21,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/sub_data.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
-#include <sge/image/algorithm/copy_and_convert.hpp>
-#include <sge/image/view/const_object.hpp>
-#include <sge/image/view/dim.hpp>
+#include <sge/image2d/algorithm/copy_and_convert.hpp>
+#include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/view/dim.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 
-void sge::renderer::sub_data(
-	texture_ptr const tex,
-	image::view::const_object const &view,
-	texture_pos_type const &p
+void
+sge::renderer::sub_data(
+	texture_ptr const _texture,
+	image2d::view::const_object const &_view,
+	texture_pos_type const &_pos
 )
 {
-	scoped_texture_lock const lock_(
-		tex,
-		lock_rect(
-			p,
-			image::view::dim(
-				view
+	scoped_texture_lock const lock(
+		_texture,
+		renderer::lock_rect(
+			_pos,
+			image2d::view::dim(
+				_view
 			)
 		),
-		lock_mode::writeonly
+		renderer::lock_mode::writeonly
 	);
 
-	image::algorithm::copy_and_convert(
-		view,
-		lock_.value()
+	image2d::algorithm::copy_and_convert(
+		_view,
+		lock.value()
 	);
 }

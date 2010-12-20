@@ -156,6 +156,7 @@ sge::opengl::depth_stencil_texture::debug()
 	bind_me();
 
 	texfuncs::get_image(
+		type(),
 		format_,
 		format_type_,
 		mizuiro::image::underlying_data_pointer(

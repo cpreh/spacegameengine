@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture_ptr.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <sge/image/view/const_object.hpp>
+#include <sge/image2d/view/const_object.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -45,7 +45,7 @@ public:
 
 	virtual void
 	data(
-		image::view::const_object const &
+		image2d::view::const_object const &
 	) = 0;
 
 	virtual renderer::lock_rect const &

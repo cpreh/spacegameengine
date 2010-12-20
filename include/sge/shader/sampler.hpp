@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/shader/symbol.hpp>
 #include <sge/renderer/glsl/string.hpp>
+#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/texture_base_ptr.hpp>
 
 namespace sge
@@ -41,7 +42,8 @@ public:
 	sampler(
 		renderer::glsl::string const &name,
 		renderer::texture_base_ptr = 
-			renderer::texture_base_ptr());
+			renderer::texture_base_ptr(),
+		renderer::size_type dimension = 2u);
 
 	SGE_SHADER_SYMBOL renderer::glsl::string const
 	name() const;

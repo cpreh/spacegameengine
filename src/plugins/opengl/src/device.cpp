@@ -42,6 +42,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture.hpp"
 #include "../vertex_buffer.hpp"
 #include "../volume_texture.hpp"
+#include "../volume_texture_context.hpp"
+#include "../context/use.hpp"
 #include "../convert/clear_bit.hpp"
 #include "../convert/clip_plane_index.hpp"
 #include "../convert/indexed_primitive.hpp"
@@ -59,6 +61,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/i32.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
 #include <sge/renderer/state/default.hpp>
 #include <sge/window/instance.hpp>
@@ -554,7 +557,8 @@ sge::opengl::device::create_texture(
 				_dim,
 				_format,
 				_filter,
-				_flags
+				_flags,
+				opengl::texture::optional_type()
 			)
 		);
 }
@@ -667,22 +671,42 @@ sge::opengl::device::create_index_buffer(
 	);
 }
 
-#if 0
-const sge::renderer::volume_texture_ptr
+sge::renderer::volume_texture_ptr const
 sge::opengl::device::create_volume_texture(
-	renderer::volume_texture::image_view_array const &src,
-	const renderer::texture_filter& filter,
-	const renderer::volume_texture::resource_flag_type flags)
+	renderer::dim3 const &_dim,
+	image::color::format::type const _format,
+	renderer::filter::texture const &_filter,
+	renderer::resource_flags_field const &_flags
+)
 {
-	/*return renderer::volume_texture_ptr(
-		fcppt::make_shared_ptr<
-			volume_texture
+	if(
+		!context::use<
+			opengl::volume_texture_context
 		>(
-			src,
-			filter,
-			flags));*/
+			context_
+		).have_volume_texture()
+	)
+		throw sge::renderer::unsupported(
+			FCPPT_TEXT("volume texture"),
+			FCPPT_TEXT("1.2"),
+			FCPPT_TEXT("")
+		);
+
+	return
+		renderer::volume_texture_ptr(
+			fcppt::make_shared_ptr<
+				opengl::volume_texture
+			>(
+				std::tr1::ref(
+					context_
+				),
+				_dim,
+				_format,
+				_filter,
+				_flags
+			)
+		);
 }
-#endif
 
 sge::renderer::caps const
 sge::opengl::device::caps() const

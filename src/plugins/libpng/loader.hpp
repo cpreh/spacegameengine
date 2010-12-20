@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LIBPNG_LOADER_HPP_INCLUDED
 #define SGE_LIBPNG_LOADER_HPP_INCLUDED
 
-#include <sge/image/loader.hpp>
+#include <sge/image2d/loader.hpp>
 #include <fcppt/filesystem/path.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -31,23 +32,30 @@ namespace libpng
 
 class loader
 :
-	public image::loader
+	public sge::image2d::loader
 {
+	FCPPT_NONCOPYABLE(
+		loader
+	)
 public:
-	image::file_ptr const
+	loader();
+
+	~loader();
+
+	image2d::file_ptr const
 	load(
 		fcppt::filesystem::path const &
 	);
 
-	image::file_ptr const
+	image2d::file_ptr const
 	create(
-		image::view::const_object const &
+		image2d::view::const_object const &
 	);
 
 	image::capabilities_field const
 	capabilities() const;
 
-	extension_set const
+	sge::extension_set const
 	extensions() const;
 };
 

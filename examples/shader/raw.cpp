@@ -219,7 +219,7 @@ try
 		)
 	);
 
-	sge::image::file_ptr const
+	sge::image2d::file_ptr const
 		image_bg(
 			sys.image_loader().load(
 				sge::config::media_path()

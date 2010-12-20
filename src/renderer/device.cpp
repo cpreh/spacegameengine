@@ -19,19 +19,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/scoped_texture_lock.hpp>
-#include <sge/renderer/scoped_index_lock.hpp>
-#include <sge/renderer/scoped_vertex_lock.hpp>
-#include <sge/renderer/texture.hpp>
 #include <sge/renderer/index_buffer.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
-#include <sge/renderer/vf/dynamic/format.hpp>
+#include <sge/renderer/scoped_index_lock.hpp>
+#include <sge/renderer/scoped_texture_lock.hpp>
+#include <sge/renderer/scoped_vertex_lock.hpp>
+#include <sge/renderer/scoped_volume_texture_lock.hpp>
+#include <sge/renderer/texture.hpp>
+#include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/index/dynamic/copy.hpp>
 #include <sge/renderer/glsl/program.hpp>
-#include <sge/image/view/format.hpp>
-#include <sge/image/view/dim.hpp>
-#include <sge/image/algorithm/copy_and_convert.hpp>
+#include <sge/renderer/vf/dynamic/format.hpp>
+#include <sge/image2d/algorithm/copy_and_convert.hpp>
+#include <sge/image2d/view/dim.hpp>
+#include <sge/image2d/view/format.hpp>
+#include <sge/image3d/algorithm/copy_and_convert.hpp>
+#include <sge/image3d/view/dim.hpp>
+#include <sge/image3d/view/format.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/algorithm/copy_n.hpp>
 #include <fcppt/assert.hpp>
@@ -115,17 +119,17 @@ sge::renderer::device::create_glsl_program(
 
 sge::renderer::texture_ptr const
 sge::renderer::device::create_texture(
-	image::view::const_object const &_view,
+	image2d::view::const_object const &_view,
 	filter::texture const &_filter,
 	resource_flags_field const &_flags
 )
 {
 	texture_ptr const tex(
 		this->create_texture(
-			image::view::dim(
+			image2d::view::dim(
 				_view
 			),
-			image::view::format(
+			image2d::view::format(
 				_view
 			),
 			_filter,
@@ -138,7 +142,7 @@ sge::renderer::device::create_texture(
 		renderer::lock_mode::writeonly
 	);
 
-	image::algorithm::copy_and_convert(
+	image2d::algorithm::copy_and_convert(
 		_view,
 		lock.value()
 	);
@@ -146,37 +150,38 @@ sge::renderer::device::create_texture(
 	return tex;
 }
 
-/*
 sge::renderer::volume_texture_ptr const
 sge::renderer::device::create_volume_texture(
-	image::view::const_object3 const &,
-	filter::texture const &filter,
-	resource_flags_field const & const flags
+	image3d::view::const_object const &_view,
+	filter::texture const &_filter,
+	resource_flags_field const &_flags
 )
 {
-	volume_texture_ptr const tex(
-		create_volume_texture(
-			image::view::dim(v),
-			image::view::format::(v),
-			filter,
-			flags
+	renderer::volume_texture_ptr const tex(
+		this->create_volume_texture(
+			image3d::view::dim(
+				_view
+			),
+			image3d::view::format(
+				_view
+			),
+			_filter,
+			_flags
 		)
 	);
 
-	scopde_volume_texture_lock const lock(
+	renderer::scoped_volume_texture_lock const lock(
 		tex,
 		lock_mode::writeonly
 	);
 
-	image::algorithm::copy_and_convert(
-		v,
+	image3d::algorithm::copy_and_convert(
+		_view,
 		lock.value()
 	);
 
 	return tex;
 }
-*/
-
 
 sge::renderer::vertex_buffer_ptr const
 sge::renderer::device::create_vertex_buffer(

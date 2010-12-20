@@ -36,9 +36,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
-#include <sge/image/file.hpp>
-#include <sge/image/file_ptr.hpp>
-#include <sge/image/multi_loader.hpp>
+#include <sge/image2d/file.hpp>
+#include <sge/image2d/file_ptr.hpp>
+#include <sge/image2d/multi_loader.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/config/media_path.hpp>
@@ -126,7 +126,7 @@ try
 		sys.renderer()
 	);
 
-	sge::image::file_ptr const image(
+	sge::image2d::file_ptr const image(
 		sys.image_loader().load(
 			sge::config::media_path()
 			/ FCPPT_TEXT("tux.png")

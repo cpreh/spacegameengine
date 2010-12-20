@@ -26,10 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/bit_depth_bytes.hpp>
 #include <sge/renderer/pixel_unit.hpp>
 #include <sge/renderer/viewport.hpp>
-#include <sge/image/view/make_const.hpp>
-#include <sge/image/view/flipped.hpp>
-#include <sge/image/view/make.hpp>
-#include <sge/image/view/optional_pitch.hpp>
+#include <sge/image2d/view/make_const.hpp>
+#include <sge/image2d/view/flipped.hpp>
+#include <sge/image2d/view/optional_pitch.hpp>
 #include <sge/window/instance.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
@@ -78,7 +77,7 @@ sge::opengl::default_target::unbind() const
 {
 }
 
-sge::image::view::const_object const
+sge::image2d::view::const_object const
 sge::opengl::default_target::lock(
 	renderer::lock_rect const &_dest
 ) const
@@ -114,17 +113,15 @@ sge::opengl::default_target::lock(
 	);
 
 	return
-		image::view::make_const(
-			image::view::flipped(
-				image::view::make(
-					buffer_.data(),
-					_dest.dimension(),
-					opengl::convert::format_to_color(
-						format(),
-						format_type()
-					),
-					image::view::optional_pitch()
-				)
+		image2d::view::flipped(
+			image2d::view::make_const(
+				buffer_.data(),
+				_dest.dimension(),
+				opengl::convert::format_to_color(
+					format(),
+					format_type()
+				),
+				image2d::view::optional_pitch()
 			)
 		);
 }

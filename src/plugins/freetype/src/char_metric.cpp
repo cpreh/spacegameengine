@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../face.hpp"
 #include "../char_metric.hpp"
 #include "../glyph.hpp"
-#include <sge/image/view/make.hpp>
-#include <sge/image/algorithm/copy_and_convert.hpp>
-#include <sge/image/size_type.hpp>
+#include <sge/image2d/view/make_const.hpp>
+#include <sge/image2d/algorithm/copy_and_convert.hpp>
+#include <sge/image2d/dim.hpp>
+#include <sge/image2d/pitch.hpp>
 #include <sge/iconv/convert.hpp>
 #include <sge/iconv/string_type.hpp>
 #include <sge/font/exception.hpp>
@@ -131,14 +132,14 @@ sge::freetype::char_metric::char_metric(
 			FCPPT_TEXT("FIXME: bitmap pitch < 0, case not handled!")
 		);
 
-	image::dim_type const dim(
+	sge::image2d::dim const dim(
 		static_cast<
-			image::dim_type::value_type
+			sge::image2d::dim::value_type
 		>(
 			bitmap.width
 		),
 		static_cast<
-			image::dim_type::value_type
+			sge::image2d::dim::value_type
 		>(
 			bitmap.rows
 		)
@@ -148,8 +149,8 @@ sge::freetype::char_metric::char_metric(
 		dim
 	);
 
-	image::algorithm::copy_and_convert(
-		sge::image::view::make(
+	sge::image2d::algorithm::copy_and_convert(
+		sge::image2d::view::make_const(
 			static_cast<
 				unsigned char const *
 			>(
@@ -158,7 +159,7 @@ sge::freetype::char_metric::char_metric(
 			dim,
 			sge::image::color::format::alpha8,
 			static_cast<
-				image::size_type
+				sge::image2d::pitch
 			>(
 				bitmap.pitch - bitmap.width
 			)

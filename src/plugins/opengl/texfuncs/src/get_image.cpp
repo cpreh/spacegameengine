@@ -26,13 +26,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::texfuncs::get_image(
+	GLenum const _texture_type,
 	GLenum const _format,
 	GLenum const _type,
 	renderer::raw_pointer const _dest
 )
 {
-	glGetTexImage(
-		GL_TEXTURE_2D,
+	::glGetTexImage(
+		_texture_type,
 		0,
 		_format,
 		_type,

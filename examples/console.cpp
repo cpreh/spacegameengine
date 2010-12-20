@@ -35,7 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/add_image.hpp>
 #include <sge/texture/no_fragmented.hpp>
 #include <sge/image/colors.hpp>
-#include <sge/image/multi_loader.hpp>
+#include <sge/image2d/file_ptr.hpp>
+#include <sge/image2d/multi_loader.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/console/object.hpp>
 #include <sge/console/arg_list.hpp>
@@ -167,7 +168,7 @@ try
 		)
 	);
 
-	sge::image::file_ptr const
+	sge::image2d::file_ptr const
 		image_bg(
 			sys.image_loader().load(
 				sge::config::media_path()

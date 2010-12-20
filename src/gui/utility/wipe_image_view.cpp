@@ -20,13 +20,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "wipe_image_view.hpp"
 #include <sge/image/colors.hpp>
-#include <sge/image/algorithm/fill.hpp>
+#include <sge/image2d/algorithm/fill.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
 void sge::gui::utility::wipe_image_view(
 	image_view const &v)
 {
-	sge::image::algorithm::fill(
+	sge::image2d::algorithm::fill(
 		v,
 		sge::image::colors::transparent()
 	);

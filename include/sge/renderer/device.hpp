@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_DEVICE_HPP_INCLUDED
 #define SGE_RENDERER_DEVICE_HPP_INCLUDED
 
-#include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/caps_fwd.hpp>
 #include <sge/renderer/clip_plane.hpp>
 #include <sge/renderer/clip_plane_index.hpp>
@@ -31,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/depth_stencil_texture_ptr.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/dim2.hpp>
+#include <sge/renderer/dim3.hpp>
 #include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/index_buffer_ptr.hpp>
@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/light_index.hpp>
 #include <sge/renderer/light_fwd.hpp>
 #include <sge/renderer/material_fwd.hpp>
+#include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <sge/renderer/primitive_count.hpp>
@@ -54,7 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture_stage_op_value.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
-//#include <sge/renderer/volume_texture_ptr.hpp>
+#include <sge/renderer/volume_texture_ptr.hpp>
 #include <sge/renderer/filter/texture_fwd.hpp>
 #include <sge/renderer/glsl/const_program_ptr.hpp>
 #include <sge/renderer/glsl/optional_istream.hpp>
@@ -68,7 +69,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list_fwd.hpp>
 #include <sge/renderer/vf/dynamic/const_view_fwd.hpp>
 #include <sge/renderer/vf/dynamic/format_fwd.hpp>
-#include <sge/image/view/const_object.hpp>
+#include <sge/image2d/view/const_object.hpp>
+#include <sge/image3d/view/const_object.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/window/instance_ptr.hpp>
 #include <sge/class_symbol.hpp>
@@ -240,14 +242,14 @@ public:
 
 	SGE_SYMBOL texture_ptr const
 	create_texture(
-		image::view::const_object const &,
+		image2d::view::const_object const &,
 		filter::texture const &,
 		resource_flags_field const &
 	);
 
 	virtual texture_ptr const
 	create_texture(
-		dim2 const &,
+		renderer::dim2 const &,
 		image::color::format::type,
 		filter::texture const &,
 		resource_flags_field const &
@@ -255,24 +257,24 @@ public:
 
 	virtual depth_stencil_texture_ptr const
 	create_depth_stencil_texture(
-		dim2 const &,
+		renderer::dim2 const &,
 		renderer::depth_stencil_format::type
 	) = 0;
 
-	/*
-	SGE_SYMBOL volume_texture_ptr const
+	SGE_SYMBOL renderer::volume_texture_ptr const
 	create_volume_texture(
-		image::view::const_object3 const &,
-		filter::texture const &filter,
-		resource_flags_field const & flags);
+		image3d::view::const_object const &,
+		filter::texture const &,
+		resource_flags_field const &
+	);
 
 	virtual volume_texture_ptr const
 	create_volume_texture(
-		dim3_type const &dim,
-		image::color::format::type format,
-		filter::texture const &filter,
-		resource_flags_field const & flags) = 0;
-	*/
+		renderer::dim3 const &,
+		image::color::format::type,
+		filter::texture const &,
+		resource_flags_field const &
+	) = 0;
 
 	virtual cube_texture_ptr const
 	create_cube_texture(

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/with_texture.hpp>
 #include <sge/sprite/with_depth.hpp>
 #include <sge/sprite/object_impl.hpp>
+#include <fcppt/math/compare.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/not.hpp>
@@ -60,8 +61,14 @@ struct default_compare
 	) const
 	{
 		return
-			a.z() < b.z()
-			|| a.texture() < b.texture();
+			fcppt::math::compare(
+				a.z(),
+				b.z()
+			)
+			?
+				a.texture() < b.texture()
+			:
+				a.z() < b.z();
 	}
 
 	template<

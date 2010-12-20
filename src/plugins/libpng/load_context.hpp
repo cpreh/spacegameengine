@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "read_ptr.hpp"
 #include "byte_vector.hpp"
 #include <sge/image/color/format.hpp>
-#include <sge/image/dim_type.hpp>
+#include <sge/image2d/dim.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
 #include <fcppt/io/cifstream.hpp>
@@ -46,7 +46,7 @@ public:
 		fcppt::filesystem::path const &
 	);
 
-	image::dim_type const &dim() const;
+	image2d::dim const &dim() const;
 	byte_vector &bytes();
 	byte_vector const &bytes() const;
 	image::color::format::type format() const;
@@ -55,7 +55,7 @@ private:
 
 	fcppt::io::cifstream file_;
 	fcppt::scoped_ptr<read_ptr> read_ptr_;
-	image::dim_type dim_;
+	image2d::dim dim_;
 	byte_vector bytes_;
 	image::color::format::type format_;
 

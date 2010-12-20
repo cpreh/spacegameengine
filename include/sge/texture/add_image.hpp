@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/manager_fwd.hpp>
 #include <sge/texture/part_ptr.hpp>
 #include <sge/texture/symbol.hpp>
-#include <sge/image/file_ptr.hpp>
+#include <sge/image2d/file_ptr.hpp>
 
 namespace sge
 {
@@ -35,7 +35,7 @@ SGE_TEXTURE_SYMBOL
 part_ptr const
 add_image(
 	manager &,
-	image::file_ptr
+	image2d::file_ptr
 );
 
 }

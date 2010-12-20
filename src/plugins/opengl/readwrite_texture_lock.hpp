@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "writeonly_texture_lock.hpp"
 #include "context/object_fwd.hpp"
 #include <sge/renderer/resource_flags_field.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -36,42 +37,50 @@ class readwrite_texture_lock
 :
 	public texture_lock
 {
+	FCPPT_NONCOPYABLE(
+		readwrite_texture_lock
+	)
 public:
 	readwrite_texture_lock(
 		context::object &,
-		size_type lock_size,
-		size_type offset,
-		size_type whole_size,
+		size_type read_size,
+		size_type write_size,
 		size_type stride,
-		size_type pitch,
-		size_type block_size,
 		renderer::resource_flags_field const &
 	);
+
+	~readwrite_texture_lock();
 private:
 	void
-	post_lock();
+	lock();
+
+	void
+	unlock();
 
 	void
 	pre_unlock();
 
-	pointer
-	read_pointer() const;
+	void
+	post_copy();
 
 	pointer
-	write_pointer() const;
-
-	const_pointer
-	real_read_pointer() const;
+	read_pointer();
 
 	pointer
-	real_write_pointer();
+	write_pointer();
+
+	pointer
+	read_view_pointer();
+
+	pointer
+	write_view_pointer();
 
 	lock_method::type
 	method() const;
 
-	readonly_texture_lock  read_lock;
+	opengl::readonly_texture_lock read_lock_;
 
-	writeonly_texture_lock write_lock;
+	opengl::writeonly_texture_lock write_lock_;
 };
 
 }

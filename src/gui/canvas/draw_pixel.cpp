@@ -19,8 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/gui/canvas/object.hpp>
-#include <sge/image/algorithm/fill.hpp>
-#include <sge/image/view/sub.hpp>
+#include <sge/image2d/algorithm/fill.hpp>
+#include <sge/image2d/view/sub.hpp>
+#include <sge/image2d/rect.hpp>
 #include <fcppt/math/box/contains_point.hpp>
 #include <fcppt/math/box/structure_cast.hpp>
 #include <fcppt/math/box/output.hpp>
@@ -40,11 +41,11 @@ void sge::gui::canvas::object::draw_pixel(
 		FCPPT_TEXT(" which is not inside rect ")+
 		fcppt::lexical_cast<fcppt::string>(area()));
 
-	sge::image::algorithm::fill(
-		sge::image::view::sub(
+	sge::image2d::algorithm::fill(
+		sge::image2d::view::sub(
 			view_,
 			fcppt::math::box::structure_cast<
-				sge::image::rect
+				sge::image2d::rect
 			>(
 				rect(
 					p,

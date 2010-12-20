@@ -30,34 +30,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::texture_lock_unique_ptr
 sge::opengl::create_texture_lock(
 	context::object &_context,
-	lock_method::type const method,
-	texture_lock::size_type const lock_size,
-	texture_lock::size_type const offset,
-	texture_lock::size_type const whole_size,
-	texture_lock::size_type const stride,
-	texture_lock::size_type const pitch,
-	texture_lock::size_type const block_size,
-	renderer::resource_flags_field const &flags
+	lock_method::type const _method,
+	texture_lock::size_type const _read_size,
+	texture_lock::size_type const _write_size,
+	texture_lock::size_type const _stride,
+	renderer::resource_flags_field const &_flags
 )
 {
-	switch(method)
+	switch(
+		_method
+	)
 	{
 	case lock_method::readonly:
 		return
 			texture_lock_unique_ptr(
 				fcppt::make_unique_ptr<
-					readonly_texture_lock
+					opengl::readonly_texture_lock
 				>(
 					std::tr1::ref(
 						_context
 					),
-					lock_size,
-					offset,
-					whole_size,
-					stride,
-					pitch,
-					block_size,
-					flags
+					_read_size,
+					_stride,
+					_flags
 				)
 			);
 	case lock_method::writeonly:
@@ -69,9 +64,9 @@ sge::opengl::create_texture_lock(
 					std::tr1::ref(
 						_context
 					),
-					lock_size,
-					stride,
-					flags
+					_write_size,
+					_stride,
+					_flags
 				)
 			);
 	case lock_method::readwrite:
@@ -83,13 +78,10 @@ sge::opengl::create_texture_lock(
 					std::tr1::ref(
 						_context
 					),
-					lock_size,
-					offset,
-					whole_size,
-					stride,
-					pitch,
-					block_size,
-					flags
+					_read_size,
+					_write_size,
+					_stride,
+					_flags
 				)
 			);
 	}

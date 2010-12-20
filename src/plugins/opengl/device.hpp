@@ -209,12 +209,13 @@ public:
 		renderer::depth_stencil_format::type
 	);
 
-	/*const renderer::volume_texture_ptr
+	renderer::volume_texture_ptr const
 	create_volume_texture(
-		renderer::volume_texture::image_view_array const &,
-		renderer::filter::texture const &filter,
-		renderer::volume_texture::resource_flags_field const &
-	);*/
+		renderer::dim3 const &,
+		image::color::format::type,
+		renderer::filter::texture const &,
+		renderer::resource_flags_field const &
+	);
 
 	renderer::cube_texture_ptr const
 	create_cube_texture(

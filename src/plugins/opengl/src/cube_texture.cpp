@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../common.hpp"
 #include "../cube_texture.hpp"
-#include "../basic_texture_impl.hpp"
 #include "../texture.hpp"
 #include "../cube_texture_context.hpp"
 #include "../context/use.hpp"
@@ -35,10 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/foreach_enumerator.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-
-template class sge::opengl::basic_texture<
-	sge::renderer::cube_texture
->;
+#include <fcppt/optional_impl.hpp>
 
 sge::opengl::cube_texture::cube_texture(
 	context::object &_context,
@@ -48,22 +44,18 @@ sge::opengl::cube_texture::cube_texture(
 	renderer::resource_flags_field const &_flags
 )
 :
-	detail::cube_texture_base(
-		_context,
-		_filter,
-		_flags,
-		context::use<
+	opengl::texture_base(
+		opengl::context::use<
 			cube_texture_context
 		>(
 			_context
-		).cube_texture_type(),
-		_format
+		).cube_texture_type()
 	),
 	size_(_size),
 	locked_texture_(0)
 {
 	cube_texture_context &cube_texture_context_(
-		context::use<
+		opengl::context::use<
 			cube_texture_context
 		>(
 			_context
@@ -110,7 +102,7 @@ sge::opengl::cube_texture::~cube_texture()
 {
 }
 
-sge::image::view::object const
+sge::image2d::view::object const
 sge::opengl::cube_texture::lock(
 	renderer::cube_side::type const _side,
 	renderer::lock_rect const &_src,
@@ -131,7 +123,7 @@ sge::opengl::cube_texture::lock(
 		);
 }
 
-sge::image::view::const_object const
+sge::image2d::view::const_object const
 sge::opengl::cube_texture::lock(
 	renderer::cube_side::type const _side,
 	renderer::lock_rect const &_src
@@ -163,6 +155,12 @@ sge::opengl::cube_texture::size_type
 sge::opengl::cube_texture::border_size() const
 {
 	return size_;
+}
+
+sge::renderer::resource_flags_field const
+sge::opengl::cube_texture::flags() const
+{
+	return textures_[0].flags();
 }
 
 void

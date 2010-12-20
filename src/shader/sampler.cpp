@@ -20,16 +20,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/shader/sampler.hpp>
 #include <fcppt/text.hpp>
+#include <boost/lexical_cast.hpp>
 #include <limits>
 
 sge::shader::sampler::sampler(
 	sge::renderer::glsl::string const &_name,
-	sge::renderer::texture_base_ptr const _texture)
+	sge::renderer::texture_base_ptr const _texture,
+	sge::renderer::size_type const _dimension)
 :
 	name_(
 		_name),
 	declaration_(
-		FCPPT_TEXT("uniform sampler2D ")+_name+FCPPT_TEXT(";")),
+		"uniform sampler"+
+		boost::lexical_cast<renderer::glsl::string>(
+			_dimension)+
+		"D "+
+		_name+
+		";"),
 	texture_(
 		_texture),
 	texture_unit_(

@@ -21,8 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_ALGORITHM_COPY_AND_CONVERT_HPP_INCLUDED
 #define SGE_IMAGE_ALGORITHM_COPY_AND_CONVERT_HPP_INCLUDED
 
-#include <sge/image/view/object.hpp>
-#include <sge/image/view/const_object.hpp>
 #include <sge/symbol.hpp>
 
 namespace sge
@@ -32,10 +30,16 @@ namespace image
 namespace algorithm
 {
 
-SGE_SYMBOL void
+template<
+	typename ConstView,
+	typename View
+>
+SGE_SYMBOL
+void
 copy_and_convert(
-	view::const_object const &src,
-	view::object const &dest);
+	ConstView const &,
+	View const &
+);
 
 }
 }

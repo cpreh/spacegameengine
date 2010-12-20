@@ -21,22 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_INSTANCE_HPP_INCLUDED
 #define SGE_SYSTEMS_INSTANCE_HPP_INCLUDED
 
-#include <sge/systems/list_fwd.hpp>
-#include <sge/systems/symbol.hpp>
-#include <sge/renderer/device_ptr.hpp>
-#include <sge/renderer/system_ptr.hpp>
+#include <sge/audio/multi_loader_fwd.hpp>
+#include <sge/audio/player_ptr.hpp>
+#include <sge/collision/system_ptr.hpp>
 #include <sge/font/system_ptr.hpp>
-#include <sge/model/loader_ptr.hpp>
 #include <sge/input/processor_ptr.hpp>
 #include <sge/input/system_ptr.hpp>
 #include <sge/input/keyboard/device_ptr.hpp>
 #include <sge/input/mouse/device_ptr.hpp>
-#include <sge/image/multi_loader_fwd.hpp>
-#include <sge/audio/player_ptr.hpp>
-#include <sge/audio/multi_loader_fwd.hpp>
-#include <sge/collision/system_ptr.hpp>
-#include <sge/window/instance_ptr.hpp>
+#include <sge/image2d/multi_loader_fwd.hpp>
+#include <sge/model/loader_ptr.hpp>
 #include <sge/plugin/manager_fwd.hpp>
+#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/system_ptr.hpp>
+#include <sge/systems/list_fwd.hpp>
+#include <sge/systems/symbol.hpp>
+#include <sge/window/instance_ptr.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -76,7 +76,7 @@ public:
 	SGE_SYSTEMS_SYMBOL sge::input::mouse::device_ptr const
 	mouse_collector() const;
 
-	SGE_SYSTEMS_SYMBOL sge::image::multi_loader &
+	SGE_SYSTEMS_SYMBOL sge::image2d::multi_loader &
 	image_loader() const;
 
 	SGE_SYSTEMS_SYMBOL sge::audio::multi_loader &

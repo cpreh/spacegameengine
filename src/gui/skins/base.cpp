@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/log.hpp>
 #include <sge/gui/unit.hpp>
 #include <sge/gui/exception.hpp>
-#include <sge/image/view/make_const.hpp>
+#include <sge/image2d/view/to_const.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/log/parameters/inherited.hpp>
@@ -239,7 +239,7 @@ void sge::gui::skins::base::blit_invalid(
 	bool const t)
 {
 	utility::blit_invalid(
-		sge::image::view::make_const(c.view()),
+		sge::image2d::view::to_const(c.view()),
 		rect(w.absolute_pos(),c.size()),
 		e.texture(),
 		e.area(),

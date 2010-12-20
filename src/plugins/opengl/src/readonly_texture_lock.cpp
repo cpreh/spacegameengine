@@ -21,18 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../readonly_texture_lock.hpp"
 #include "../pbo_context.hpp"
 #include "../context/use.hpp"
-#include <fcppt/container/raw_vector_impl.hpp>
-#include <fcppt/algorithm/copy_n.hpp>
-#include <fcppt/assert.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
 sge::opengl::readonly_texture_lock::readonly_texture_lock(
 	context::object &_context,
-	size_type const _lock_size,
-	size_type const _offset,
 	size_type const _whole_size,
 	size_type const _stride,
-	size_type const _pitch,
-	size_type const _block_size,
 	renderer::resource_flags_field const &_flags
 )
 :
@@ -51,47 +46,16 @@ sge::opengl::readonly_texture_lock::readonly_texture_lock(
 		_stride,
 		_flags,
 		0
-	),
-	lock_size_(
-		_lock_size * _stride
-	),
-	offset_(
-		_offset * _stride
-	),
-	pitch_(
-		_pitch * _stride
-	),
-	block_size_(
-		_block_size * _stride
 	)
-{}
-
-void
-sge::opengl::readonly_texture_lock::post_lock()
 {
-	do_lock();
+}
 
-	if(!pitch_)
-		return;
-
-	// if the pitch is set we copy the part to read
-	// in our own buffer so that the user sees a contiguous array
-
-	FCPPT_ASSERT(
-		lock_size_ % block_size_ == 0
-	);
-
-	cutout_buffer_.resize_uninitialized(
-		lock_size_
-	);
-
-	copy_read_part(
-		cutout_buffer_.data()
-	);
+sge::opengl::readonly_texture_lock::~readonly_texture_lock()
+{
 }
 
 void
-sge::opengl::readonly_texture_lock::do_lock()
+sge::opengl::readonly_texture_lock::lock()
 {
 	buffer_.lock(
 		lock_method::readonly
@@ -99,42 +63,47 @@ sge::opengl::readonly_texture_lock::do_lock()
 }
 
 void
-sge::opengl::readonly_texture_lock::copy_read_part(
-	pointer const dest
-) const
+sge::opengl::readonly_texture_lock::unlock()
 {
-	size_type i(offset_);
-
-	for(
-		pointer p(dest);
-		p != dest + lock_size_;
-		i += pitch_ + block_size_, p += block_size_
-	)
-		fcppt::algorithm::copy_n(
-			buffer_.data() + i,
-			block_size_,
-			p
-		);
+	buffer_.unlock();
 }
 
 void
 sge::opengl::readonly_texture_lock::pre_unlock()
 {
-	buffer_.unlock();
+}
+
+void
+sge::opengl::readonly_texture_lock::post_copy()
+{
 }
 
 sge::opengl::readonly_texture_lock::pointer
-sge::opengl::readonly_texture_lock::read_pointer() const
+sge::opengl::readonly_texture_lock::read_pointer()
 {
-	return buffer_.buffer_offset(0);
+	return buffer_.raw_buffer();
 }
 
-sge::opengl::readonly_texture_lock::const_pointer
-sge::opengl::readonly_texture_lock::real_read_pointer() const
+sge::opengl::readonly_texture_lock::pointer
+sge::opengl::readonly_texture_lock::write_pointer()
 {
-	return pitch_
-		? cutout_buffer_.data()
-		: read_pointer();
+	throw sge::renderer::exception(
+		FCPPT_TEXT("No write_pointer in readonly_texture_lock!")
+	);
+}
+
+sge::opengl::readonly_texture_lock::pointer
+sge::opengl::readonly_texture_lock::read_view_pointer()
+{
+	return buffer_.data();
+}
+
+sge::opengl::readonly_texture_lock::pointer
+sge::opengl::readonly_texture_lock::write_view_pointer()
+{
+	throw sge::renderer::exception(
+		FCPPT_TEXT("No write_view_pointer in readonly_texture_lock!")
+	);
 }
 
 sge::opengl::lock_method::type

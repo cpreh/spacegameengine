@@ -21,12 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_VIEW_MAKE_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_MAKE_HPP_INCLUDED
 
-#include <sge/image/view/object.hpp>
-#include <sge/image/view/const_object.hpp>
-#include <sge/image/view/optional_pitch.hpp>
-#include <sge/image/color/format.hpp>
-#include <sge/image/dim_type.hpp>
 #include <sge/image/raw_pointer.hpp>
+#include <sge/image/color/format.hpp>
 #include <sge/symbol.hpp>
 
 namespace sge
@@ -36,20 +32,18 @@ namespace image
 namespace view
 {
 
-SGE_SYMBOL object const
+template<
+	typename Result,
+	typename Dim,
+	typename OptionalPitch
+>
+SGE_SYMBOL
+Result const
 make(
-	raw_pointer,
-	dim_type const &,
-	color::format::type,
-	optional_pitch
-);
-
-SGE_SYMBOL const_object const
-make(
-	const_raw_pointer data,
-	dim_type const &,
-	color::format::type,
-	optional_pitch
+	image::raw_pointer,
+	Dim const &,
+	image::color::format::type,
+	OptionalPitch const &
 );
 
 }

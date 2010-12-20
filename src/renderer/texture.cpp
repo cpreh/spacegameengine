@@ -30,7 +30,7 @@ sge::renderer::texture::~texture()
 {
 }
 
-sge::image::view::object const
+sge::renderer::texture::view_type const
 sge::renderer::texture::lock(
 	lock_mode::type const _flags
 )
@@ -42,7 +42,7 @@ sge::renderer::texture::lock(
 		);
 }
 
-sge::image::view::const_object const
+sge::renderer::texture::const_view_type const
 sge::renderer::texture::lock() const
 {
 	return
@@ -56,9 +56,15 @@ sge::renderer::texture::rect() const
 {
 	return
 		rect_type(
-			pos_type::null(),
+			rect_type::vector::null(),
 			dim()
 		);
+}
+
+sge::renderer::texture::rect_type const
+sge::renderer::texture::area() const
+{
+	return rect();
 }
 
 sge::renderer::texture::size_type

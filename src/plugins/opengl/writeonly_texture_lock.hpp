@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "buffer.hpp"
 #include "context/object_fwd.hpp"
 #include <sge/renderer/resource_flags_field.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -35,6 +36,9 @@ class writeonly_texture_lock
 :
 	public texture_lock
 {
+	FCPPT_NONCOPYABLE(
+		writeonly_texture_lock
+	)
 public:
 	writeonly_texture_lock(
 		context::object &,
@@ -43,17 +47,31 @@ public:
 		renderer::resource_flags_field const &
 	);
 
+	~writeonly_texture_lock();
+
 	void
-	post_lock();
+	lock();
+
+	void
+	unlock();
 
 	void
 	pre_unlock();
 
-	pointer
-	write_pointer() const;
+	void
+	post_copy();
 
 	pointer
-	real_write_pointer();
+	read_pointer();
+
+	pointer
+	write_pointer();
+
+	pointer
+	read_view_pointer();
+
+	pointer
+	write_view_pointer();
 private:
 	lock_method::type
 	method() const;

@@ -21,25 +21,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/consume_and_set_fragment.hpp>
 #include <sge/texture/fragmented.hpp>
 #include <sge/texture/part.hpp>
-#include <sge/image/view/dim.hpp>
+#include <sge/image2d/view/dim.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 
 sge::texture::part_ptr const
 sge::texture::consume_and_set_fragment(
-	fragmented &f,
-	image::view::const_object const &view
+	fragmented &_fragment,
+	image2d::view::const_object const &_view
 )
 {
 	texture::part_ptr const ret(
-		f.consume_fragment(
-			image::view::dim(
-				view
+		_fragment.consume_fragment(
+			image2d::view::dim(
+				_view
 			)
 		)
 	);
 
 	ret->data(
-		view
+		_view
 	);
 
 	return ret;

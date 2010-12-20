@@ -19,12 +19,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/volume_texture.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 
-#if 0
-sge::renderer::volume_texture::size_type
-sge::renderer::volume_texture::volume() const
+sge::renderer::volume_texture::volume_texture()
 {
-	return box().content();
 }
 
-#endif
+sge::renderer::volume_texture::~volume_texture()
+{
+}
+
+sge::renderer::volume_texture::view_type const
+sge::renderer::volume_texture::lock(
+	lock_mode::type const _flags
+)
+{
+	return
+		lock(
+			box(),
+			_flags
+		);
+}
+
+sge::renderer::volume_texture::const_view_type const
+sge::renderer::volume_texture::lock() const
+{
+	return
+		lock(
+			box()
+		);
+}
+
+sge::renderer::volume_texture::box_type const
+sge::renderer::volume_texture::box() const
+{
+	return
+		box_type(
+			box_type::vector::null(),
+			dim()
+		);
+}
+
+sge::renderer::volume_texture::box_type const
+sge::renderer::volume_texture::area() const
+{
+	return box();
+}
+
+sge::renderer::volume_texture::size_type
+sge::renderer::volume_texture::content() const
+{
+	return dim().content();
+}

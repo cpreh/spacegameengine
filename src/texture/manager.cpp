@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/fragmented.hpp>
 #include <sge/texture/part.hpp>
 #include <sge/texture/image_too_big.hpp>
-#include <sge/image/view/dim.hpp>
+#include <sge/image2d/view/dim.hpp>
+#include <sge/image2d/view/const_object.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_set.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
@@ -37,7 +38,7 @@ namespace
 sge::texture::part_ptr const
 init_texture(
 	sge::texture::fragmented &,
-	sge::image::view::const_object const &
+	sge::image2d::view::const_object const &
 );
 
 class move_visitor
@@ -87,7 +88,7 @@ sge::texture::manager::~manager()
 
 sge::texture::part_ptr const
 sge::texture::manager::add(
-	image::view::const_object const &_src
+	image2d::view::const_object const &_src
 )
 {
 	for(
@@ -233,12 +234,12 @@ namespace
 sge::texture::part_ptr const
 init_texture(
 	sge::texture::fragmented &_tex,
-	sge::image::view::const_object const &_src
+	sge::image2d::view::const_object const &_src
 )
 {
 	sge::texture::part_ptr const part(
 		_tex.consume_fragment(
-			sge::image::view::dim(
+			sge::image2d::view::dim(
 				_src
 			)
 		)

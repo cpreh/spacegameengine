@@ -34,4 +34,3 @@ typedef mizuiro::size_type size_type;
 }
 
 #endif
-

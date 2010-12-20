@@ -21,9 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_VIEW_SUB_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_SUB_HPP_INCLUDED
 
-#include <sge/image/view/object.hpp>
-#include <sge/image/view/const_object.hpp>
-#include <sge/image/rect.hpp>
 #include <sge/symbol.hpp>
 
 namespace sge
@@ -33,16 +30,15 @@ namespace image
 namespace view
 {
 
-SGE_SYMBOL object const
+template<
+	typename View,
+	typename Box
+>
+SGE_SYMBOL
+View const
 sub(
-	view::object const &,
-	image::rect const &
-);
-
-SGE_SYMBOL const_object const
-sub(
-	view::const_object const &,
-	image::rect const &
+	View const &,
+	Box const &
 );
 
 }

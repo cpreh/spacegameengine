@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/media_path.hpp>
 #include <sge/gui/unit.hpp>
 #include <sge/gui/dim.hpp>
-#include <sge/image/file.hpp>
-#include <sge/image/multi_loader.hpp>
+#include <sge/image2d/file.hpp>
+#include <sge/image2d/multi_loader.hpp>
 #include <sge/texture/consume_and_set_fragment.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/filter/linear.hpp>
@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 sge::gui::cursor::default_::default_(
-	sge::image::multi_loader &il,
+	sge::image2d::multi_loader &il,
 	sge::renderer::device_ptr const _rend
 )
 :

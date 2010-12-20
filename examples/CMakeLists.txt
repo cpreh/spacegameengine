@@ -45,6 +45,7 @@ ADD_SGE_EXAMPLE(spritecolor "sgesprite;sgesystems")
 ADD_SGE_EXAMPLE(sound "${Boost_PROGRAM_OPTIONS_LIBRARY};sgesystems;sgetime")
 ADD_SGE_EXAMPLE(target "sgesprite;sgesystems;sgetexture")
 ADD_SGE_EXAMPLE(vertex "sgesystems")
+ADD_SGE_EXAMPLE(texture3d "${Boost_PROGRAM_OPTIONS_LIBRARY};sgesystems;sgetexture;sgecamera;sgeshader;sgetime;sgeconfig")
 
 ADD_SGE_EXAMPLE(tutorial/font "sgefonttext;sgesprite;sgesystems")
 ADD_SGE_EXAMPLE(tutorial/sound_01 "sgeconfig;sgesystems")

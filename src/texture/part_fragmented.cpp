@@ -55,7 +55,7 @@ sge::texture::part_fragmented::~part_fragmented()
 
 void
 sge::texture::part_fragmented::data(
-	image::view::const_object const &_src
+	image2d::view::const_object const &_src
 )
 {
 	renderer::sub_data(

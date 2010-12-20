@@ -243,7 +243,12 @@ sge::opengl::buffer::flags() const
 sge::opengl::buffer::pointer
 sge::opengl::buffer::data()
 {
-	check_lock();
+	if(
+		!dest_
+	)
+		throw renderer::exception(
+			FCPPT_TEXT("ogl_buffer used but the buffer has not been locked!")
+		);
 
 	return dest_ + lock_offset_;
 }
@@ -270,17 +275,6 @@ sge::opengl::buffer::lock_size() const
 }
 
 void
-sge::opengl::buffer::bind(
-	GLuint const _id
-) const
-{
-	vbo_base_.bind_buffer(
-		type_,
-		_id
-	);
-}
-
-void
 sge::opengl::buffer::unbind()
 {
 	bind(0);
@@ -297,6 +291,13 @@ sge::opengl::buffer::buffer_offset(
 	size_type const _sz
 ) const
 {
+	if(
+		dest_
+	)
+		throw renderer::exception(
+			FCPPT_TEXT("ogl_buffer::buffer_offset used but the buffer has been locked!")
+		);
+
 	bind_me();
 
 	return
@@ -314,11 +315,19 @@ sge::opengl::buffer::buffer_offset(
 		);
 }
 
-void
-sge::opengl::buffer::check_lock() const
+sge::opengl::buffer::pointer
+sge::opengl::buffer::raw_buffer() const
 {
-	if(!dest_)
-		throw renderer::exception(
-			FCPPT_TEXT("ogl_buffer used but the buffer has not been locked!")
-		);
+	return buffer_offset(0);
+}
+
+void
+sge::opengl::buffer::bind(
+	GLuint const _id
+) const
+{
+	vbo_base_.bind_buffer(
+		type_,
+		_id
+	);
 }

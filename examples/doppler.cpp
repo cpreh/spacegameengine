@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/device.hpp>
-#include <sge/image/multi_loader.hpp>
+#include <sge/image2d/multi_loader.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/rgba8_format.hpp>
@@ -249,7 +249,7 @@ try
 		)
 	);
 
-	sge::image::file_ptr const
+	sge::image2d::file_ptr const
 		image_bg(
 			sys.image_loader().load(
 				sge::config::media_path()
@@ -335,7 +335,7 @@ try
 		.depth(
 			static_cast<
 				sprite_object::depth_type
-			>(2)
+			>(0)
 		)
 		.default_color()
 		.elements()
@@ -349,7 +349,7 @@ try
 		.depth(
 			static_cast<
 				sprite_object::depth_type
-			>(0)
+			>(2)
 		)
 		.pos(
 			sprite_object::point::null()

@@ -23,78 +23,77 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::readwrite_texture_lock::readwrite_texture_lock(
 	context::object &_context,
-	size_type const lock_size,
-	size_type const offset,
-	size_type const whole_size,
-	size_type const stride,
-	size_type const pitch,
-	size_type const block_size,
-	renderer::resource_flags_field const &flags
+	size_type const _read_size,
+	size_type const _write_size,
+	size_type const _stride,
+	renderer::resource_flags_field const &_flags
 )
 :
-	read_lock(
+	read_lock_(
 		_context,
-		lock_size,
-		offset,
-		whole_size,
-		stride,
-		pitch,
-		block_size,
-		flags
+		_read_size,
+		_stride,
+		_flags
 	),
-	write_lock(
+	write_lock_(
 		_context,
-	  	lock_size,
-		stride,
-		flags
+	  	_write_size,
+		_stride,
+		_flags
 	)
-{}
+{
+}
+
+sge::opengl::readwrite_texture_lock::~readwrite_texture_lock()
+{
+}
 
 void
-sge::opengl::readwrite_texture_lock::post_lock()
+sge::opengl::readwrite_texture_lock::lock()
 {
-	// skip copying the read pointer to its internal
-	// buffer because we can copy it directly
-	// to the write buffer
-	read_lock.do_lock();
+	read_lock_.lock();
+}
 
-	write_lock.post_lock();
-
-	read_lock.copy_read_part(
-		real_write_pointer()
-	);
-
-	read_lock.pre_unlock();
+void
+sge::opengl::readwrite_texture_lock::unlock()
+{
+	write_lock_.unlock();
 }
 
 void
 sge::opengl::readwrite_texture_lock::pre_unlock()
 {
-	write_lock.pre_unlock();
+	write_lock_.lock();
+}
+
+void
+sge::opengl::readwrite_texture_lock::post_copy()
+{
+	read_lock_.unlock();
 }
 
 sge::opengl::readwrite_texture_lock::pointer
-sge::opengl::readwrite_texture_lock::read_pointer() const
+sge::opengl::readwrite_texture_lock::read_pointer()
 {
-	return read_lock.read_pointer();
+	return read_lock_.read_pointer();
 }
 
 sge::opengl::readwrite_texture_lock::pointer
-sge::opengl::readwrite_texture_lock::write_pointer() const
+sge::opengl::readwrite_texture_lock::write_pointer()
 {
-	return write_lock.write_pointer();
-}
-
-sge::opengl::readwrite_texture_lock::const_pointer
-sge::opengl::readwrite_texture_lock::real_read_pointer() const
-{
-	return write_lock.write_pointer();
+	return write_lock_.write_pointer();
 }
 
 sge::opengl::readwrite_texture_lock::pointer
-sge::opengl::readwrite_texture_lock::real_write_pointer()
+sge::opengl::readwrite_texture_lock::read_view_pointer()
 {
-	return write_lock.real_write_pointer();
+	return read_lock_.read_view_pointer();
+}
+
+sge::opengl::readwrite_texture_lock::pointer
+sge::opengl::readwrite_texture_lock::write_view_pointer()
+{
+	return write_lock_.write_view_pointer();
 }
 
 sge::opengl::lock_method::type

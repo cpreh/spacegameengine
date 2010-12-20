@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture_base.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/lock_mode.hpp>
-#include <sge/image/view/const_object.hpp>
-#include <sge/image/view/object.hpp>
+#include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/view/object.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -46,24 +46,24 @@ protected:
 public:
 	typedef lock_rect rect_type;
 
-	SGE_SYMBOL image::view::object const
+	SGE_SYMBOL image2d::view::object const
 	lock(
 		cube_side::type side,
 		lock_mode::type
 	);
 
-	SGE_SYMBOL image::view::const_object const
+	SGE_SYMBOL image2d::view::const_object const
 	lock(
 		cube_side::type side
 	) const;
 
-	virtual image::view::object const lock(
+	virtual image2d::view::object const lock(
 		cube_side::type side,
 		lock_rect const &,
 		lock_mode::type
 	) = 0;
 
-	virtual image::view::const_object const
+	virtual image2d::view::const_object const
 	lock(
 		cube_side::type side,
 		lock_rect const &

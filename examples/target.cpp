@@ -45,10 +45,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
-#include <sge/image/file.hpp>
-#include <sge/image/file_ptr.hpp>
+#include <sge/image2d/file.hpp>
+#include <sge/image2d/file_ptr.hpp>
+#include <sge/image2d/multi_loader.hpp>
 #include <sge/image/colors.hpp>
-#include <sge/image/multi_loader.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/window/instance.hpp>
@@ -119,7 +119,7 @@ try
 		)
 	);
 
-	sge::image::file_ptr const image(
+	sge::image2d::file_ptr const image(
 		sys.image_loader().load(
 			sge::config::media_path()
 			/ FCPPT_TEXT("tux.png")

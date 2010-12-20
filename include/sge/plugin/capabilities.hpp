@@ -27,11 +27,12 @@ namespace plugin
 {
 namespace capabilities
 {
-enum type {
+enum type
+{
 	nothing          = 0,
 	renderer         = 1,
 	input            = 1 << 1,
-	image_loader     = 1 << 2,
+	image2d_loader   = 1 << 2,
 	audio_player     = 1 << 3,
 	font             = 1 << 4,
 	audio_loader     = 1 << 5,

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/sprite/point.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/texture/no_fragmented.hpp>
-#include <sge/image/multi_loader_fwd.hpp>
+#include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
@@ -46,7 +46,7 @@ class SGE_CLASS_SYMBOL default_
 {
 public:
 	SGE_GUI_SYMBOL default_(
-		sge::image::multi_loader &,
+		sge::image2d::multi_loader &,
 		sge::renderer::device_ptr
 	);
 

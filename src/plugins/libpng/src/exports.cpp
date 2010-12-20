@@ -31,8 +31,8 @@ plugin_version_info(
 	sge::plugin::info *
 );
 
-FCPPT_EXPORT_SYMBOL sge::image::loader *
-create_image_loader();
+FCPPT_EXPORT_SYMBOL sge::image2d::loader *
+create_image2d_loader();
 
 FCPPT_EXPORT_SYMBOL void
 plugin_version_info(
@@ -45,11 +45,11 @@ plugin_version_info(
 	p->description = FCPPT_TEXT("");
 	p->plugin_version = 0x1;
 	p->min_core_version = 0x1;
-	p->type = sge::plugin::capabilities::image_loader;
+	p->type = sge::plugin::capabilities::image2d_loader;
 }
 
-FCPPT_EXPORT_SYMBOL sge::image::loader *
-create_image_loader()
+FCPPT_EXPORT_SYMBOL sge::image2d::loader *
+create_image2d_loader()
 {
 	return new sge::libpng::loader();
 }

@@ -27,7 +27,7 @@ sge::renderer::cube_texture::cube_texture()
 {
 }
 
-sge::image::view::object const
+sge::image2d::view::object const
 sge::renderer::cube_texture::lock(
 	cube_side::type const _side,
 	lock_mode::type const _flags
@@ -41,7 +41,7 @@ sge::renderer::cube_texture::lock(
 		);
 }
 
-sge::image::view::const_object const
+sge::image2d::view::const_object const
 sge::renderer::cube_texture::lock(
 	cube_side::type const _side
 ) const

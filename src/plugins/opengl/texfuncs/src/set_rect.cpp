@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../set_rect.hpp"
 #include "../../check_state.hpp"
 #include "../../pbo_context.hpp"
+#include "../../range_check.hpp"
 #include "../../vbo_base.hpp"
 #include "../../context/use.hpp"
 #include <sge/renderer/exception.hpp>
@@ -57,8 +58,10 @@ sge::opengl::texfuncs::set_rect(
 		);
 
 	if(
-		_lock_rect.right() > _dim.w()
-		|| _lock_rect.bottom() > _dim.h()
+		!opengl::range_check(
+			_dim,
+			_lock_rect
+		)
 	)
 		throw renderer::exception(
 			(

@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../loader.hpp"
 #include "../file.hpp"
-#include <sge/image/file_fwd.hpp>
 #include <sge/extension_set.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -41,7 +40,15 @@ sge::extension_set const extensions_(
 
 }
 
-sge::image::file_ptr const
+sge::libpng::loader::loader()
+{
+}
+
+sge::libpng::loader::~loader()
+{
+}
+
+sge::image2d::file_ptr const
 sge::libpng::loader::load(
 	fcppt::filesystem::path const &_path
 )
@@ -54,9 +61,9 @@ sge::libpng::loader::load(
 		);
 }
 
-sge::image::file_ptr const
+sge::image2d::file_ptr const
 sge::libpng::loader::create(
-	image::view::const_object const &p
+	image2d::view::const_object const &p
 )
 {
 	return
