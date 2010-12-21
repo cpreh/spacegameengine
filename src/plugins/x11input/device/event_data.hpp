@@ -18,50 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../device_info.hpp"
-#include <sge/input/exception.hpp>
-#include <awl/backends/x11/display.hpp>
-#include <fcppt/text.hpp>
-#include <X11/extensions/XInput2.h>
+#ifndef SGE_X11INPUT_DEVICE_EVENT_DATA_HPP_INCLUDED
+#define SGE_X11INPUT_DEVICE_EVENT_DATA_HPP_INCLUDED
 
-sge::x11input::device_info::device_info(
-	awl::backends::x11::display_ptr const _display,
-	int const _type
-)
-:
-	devices_(
-		::XIQueryDevice(
-			_display->get(),
-			_type,
-			&size_
-		)
-	)
-{
-	if(
-		devices_ == 0
-	)
-		throw sge::input::exception(
-			FCPPT_TEXT("XIQueryDevice failed!")
-		);
-}
+#include <awl/backends/x11/display_ptr.hpp>
+#include <awl/backends/x11/system/event/object_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <X11/Xlib.h>
 
-sge::x11input::device_info::~device_info()
+namespace sge
 {
-	::XIFreeDeviceInfo(
-		devices_
+namespace x11input
+{
+namespace device
+{
+
+class event_data
+{
+	FCPPT_NONCOPYABLE(
+		event_data
+	)
+public:
+	event_data(
+		awl::backends::x11::display_ptr,
+		awl::backends::x11::system::event::object const &
 	);
+
+	~event_data();
+
+	void const *
+	data() const;
+private:
+	awl::backends::x11::display_ptr const display_;
+
+	XGenericEventCookie store_;
+};
+
+}
+}
 }
 
-XIDeviceInfo const &
-sge::x11input::device_info::operator[](
-	size_type const _index
-) const
-{
-	return devices_[_index];
-}
-
-sge::x11input::device_info::size_type
-sge::x11input::device_info::size() const
-{
-	return size_;
-}
+#endif

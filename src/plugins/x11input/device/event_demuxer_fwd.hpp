@@ -18,24 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_SELECT_EVENTS_HPP_INCLUDED
-#define SGE_X11INPUT_SELECT_EVENTS_HPP_INCLUDED
-
-#include "event_id_container.hpp"
-#include <awl/backends/x11/window/instance_ptr.hpp>
+#ifndef SGE_X11INPUT_DEVICE_EVENT_DEMUXER_FWD_HPP_INCLUDED
+#define SGE_X11INPUT_DEVICE_EVENT_DEMUXER_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace x11input
 {
+namespace device
+{
 
-void
-select_events(
-	awl::backends::x11::window::instance_ptr,
-	int device,
-	x11input::event_id_container const &
-);
+class event_demuxer;
 
+}
 }
 }
 

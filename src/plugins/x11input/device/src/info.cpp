@@ -18,47 +18,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DEVICE_INFO_HPP_INCLUDED
-#define SGE_X11INPUT_DEVICE_INFO_HPP_INCLUDED
-
+#include "../info.hpp"
+#include <sge/input/exception.hpp>
+#include <awl/backends/x11/display.hpp>
+#include <fcppt/text.hpp>
 #include <X11/extensions/XInput2.h>
-#include <awl/backends/x11/display_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
 
-namespace sge
-{
-namespace x11input
-{
-
-class device_info
-{
-	FCPPT_NONCOPYABLE(
-		device_info
+sge::x11input::device::info::info(
+	awl::backends::x11::display_ptr const _display,
+	int const _type
+)
+:
+	devices_(
+		::XIQueryDevice(
+			_display->get(),
+			_type,
+			&size_
+		)
 	)
-public:
-	typedef int size_type;
+{
+	if(
+		devices_ == 0
+	)
+		throw sge::input::exception(
+			FCPPT_TEXT("XIQueryDevice failed!")
+		);
+}
 
-	device_info(
-		awl::backends::x11::display_ptr,
-		int type
+sge::x11input::device::info::~info()
+{
+	::XIFreeDeviceInfo(
+		devices_
 	);
-
-	~device_info();
-
-	XIDeviceInfo const &
-	operator[](
-		size_type index
-	) const;
-
-	size_type
-	size() const;
-private:
-	XIDeviceInfo *const devices_;
-
-	int size_;	
-};
-
-}
 }
 
-#endif
+XIDeviceInfo const &
+sge::x11input::device::info::operator[](
+	size_type const _index
+) const
+{
+	return devices_[_index];
+}
+
+sge::x11input::device::info::size_type
+sge::x11input::device::info::size() const
+{
+	return size_;
+}

@@ -18,17 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DEVICE_FWD_HPP_INCLUDED
-#define SGE_X11INPUT_DEVICE_FWD_HPP_INCLUDED
+#include "../event_data.hpp"
+#include <sge/input/exception.hpp>
+#include <awl/backends/x11/system/event/object.hpp>
+#include <awl/backends/x11/display.hpp>
+#include <fcppt/text.hpp>
+#include <X11/Xlib.h>
 
-namespace sge
+sge::x11input::device::event_data::event_data(
+	awl::backends::x11::display_ptr const _display,
+	awl::backends::x11::system::event::object const &_event
+)
+:
+	display_(
+		_display
+	),
+	store_(
+		_event.get()
+	)
 {
-namespace x11input
+	if(
+		::XGetEventData(
+			display_->get(),
+			&store_
+		)
+		== False
+	)
+		throw sge::input::exception(
+			FCPPT_TEXT("XGetEventData failed!")
+		);
+}
+
+sge::x11input::device::event_data::~event_data()
 {
-
-class device;
-
+	::XFreeEventData(
+		display_->get(),
+		&store_
+	);
 }
-}
 
-#endif
+void const *
+sge::x11input::device::event_data::data() const
+{
+	return store_.data;
+}

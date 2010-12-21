@@ -18,42 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../device_parameters.hpp"
+#ifndef SGE_X11INPUT_DEVICE_OBJECT_HPP_INCLUDED
+#define SGE_X11INPUT_DEVICE_OBJECT_HPP_INCLUDED
 
-sge::x11input::device_parameters::device_parameters(
-	int const _id,
-	awl::backends::x11::system::event::opcode const _opcode,
-	awl::backends::x11::window::instance_ptr const _window,
-	awl::backends::x11::system::event::processor_ptr const _processor
-)
-:
-	id_(_id),
-	opcode_(_opcode),
-	window_(_window),
-	processor_(_processor)
+#include "object_fwd.hpp"
+#include "id.hpp"
+#include <fcppt/noncopyable.hpp>
+
+namespace sge
 {
+namespace x11input
+{
+namespace device
+{
+
+class object
+{
+	FCPPT_NONCOPYABLE(
+		object
+	)
+protected:
+	explicit device(
+		object::id const &
+	);
+public:
+	virtual void
+	grab() = 0;
+
+	virtual void
+	ungrab() = 0;
+
+	virtual ~object();
+private:
+	device::id const id_;
+};
+
+}
+}
 }
 
-int
-sge::x11input::device_parameters::id() const
-{
-	return id_;
-}
-
-awl::backends::x11::system::event::opcode const
-sge::x11input::device_parameters::opcode() const
-{
-	return opcode_;
-}
-
-awl::backends::x11::window::instance_ptr const
-sge::x11input::device_parameters::window() const
-{
-	return window_;
-}
-
-awl::backends::x11::system::event::processor_ptr const
-sge::x11input::device_parameters::processor() const
-{
-	return processor_;
-}
+#endif

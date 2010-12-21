@@ -31,10 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/extensions/XInput2.h>
 
 void
-sge::x11input::select_events(
+sge::x11input::device::select_events(
 	awl::backends::x11::window::instance_ptr const _window,
-	int const _device,
-	x11input::event_id_container const &_events
+	x11input::device::id const _device,
+	x11input::device::event_id_container const &_events
 )
 {
 	if(
@@ -72,17 +72,17 @@ sge::x11input::select_events(
 	);
 
 	BOOST_FOREACH(
-		x11input::event_id_container::const_reference event,
+		x11input::device::event_id_container::const_reference event,
 		_events
 	)
 		XISetMask(
 			store.data(),
-			event
+			event.get()
 		);
 	
 	XIEventMask mask =
 	{
-		_device,
+		_device.get(),
 		static_cast<
 			int
 		>(

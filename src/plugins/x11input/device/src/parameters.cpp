@@ -18,47 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../event_data.hpp"
-#include <sge/input/exception.hpp>
-#include <awl/backends/x11/system/event/object.hpp>
-#include <awl/backends/x11/display.hpp>
-#include <fcppt/text.hpp>
-#include <X11/Xlib.h>
+#include "../device_parameters.hpp"
 
-sge::x11input::event_data::event_data(
-	awl::backends::x11::display_ptr const _display,
-	awl::backends::x11::system::event::object const &_event
+sge::x11input::device::parameters::parameters(
+	x11input::device::id const &_id,
+	awl::backends::x11::system::event::opcode const _opcode,
+	awl::backends::x11::window::instance_ptr const _window,
+	x11input::device::event_demuxer &_demuxer
 )
 :
-	display_(
-		_display
-	),
-	store_(
-		_event.get()
-	)
+	id_(_id),
+	opcode_(_opcode),
+	window_(_window),
+	demuxer_(_demuxer)
 {
-	if(
-		::XGetEventData(
-			display_->get(),
-			&store_
-		)
-		== False
-	)
-		throw sge::input::exception(
-			FCPPT_TEXT("XGetEventData failed!")
-		);
 }
 
-sge::x11input::event_data::~event_data()
+sge::x11input::device::id const
+sge::x11input::device::parameters::id() const
 {
-	::XFreeEventData(
-		display_->get(),
-		&store_
-	);
+	return id_;
 }
 
-void const *
-sge::x11input::event_data::data() const
+awl::backends::x11::system::event::opcode const
+sge::x11input::device::parameters::opcode() const
 {
-	return store_.data;
+	return opcode_;
+}
+
+awl::backends::x11::window::instance_ptr const
+sge::x11input::device::parameters::window() const
+{
+	return window_;
+}
+
+sge;:x11input::device::event_demuxer &
+sge::x11input::device::parameters::processor() const
+{
+	return demuxer_;
 }

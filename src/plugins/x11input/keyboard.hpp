@@ -22,16 +22,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_KEYBOARD_HPP_INCLUDED
 
 #include "keyboard_fwd.hpp"
-#include "device.hpp"
 #include "keyboard_grab_fwd.hpp"
-#include "device_parameters_fwd.hpp"
+#include "device/event_fwd.hpp"
+#include "device/object.hpp"
+#include "device/parameters_fwd.hpp"
 #include <X11/Xlib.h>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_callback.hpp>
 #include <sge/input/keyboard/key_repeat_callback.hpp>
 #include <sge/input/keyboard/key_function.hpp>
 #include <sge/input/keyboard/key_repeat_function.hpp>
-#include <awl/backends/x11/system/event/object_fwd.hpp>
 #include <awl/backends/x11/window/instance_ptr.hpp>
 #include <fcppt/container/bitfield/basic_decl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -48,14 +48,14 @@ namespace x11input
 class keyboard
 :
 	public sge::input::keyboard::device,
-	public x11input::device
+	public x11input::device::object
 {
 	FCPPT_NONCOPYABLE(
 		keyboard
 	)
 public:
 	explicit keyboard(
-		x11input::device_parameters const &
+		x11input::device::parameters const &
 	);
 
 	~keyboard();
@@ -81,17 +81,17 @@ private:
 
 	void
 	on_key_press(
-		awl::backends::x11::system::event::object const &
+		x11input::device::event const &
 	);
 
 	void
 	on_key_release(
-		awl::backends::x11::system::event::object const &
+		x11input::device::event const &
 	);
 	
 	void
 	on_key_event(
-		awl::backends::x11::system::event::object const &,
+		x11input::device::event const &,
 		bool pressed
 	);
 

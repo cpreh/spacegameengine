@@ -21,9 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../keyboard.hpp"
 #include "../keyboard_grab.hpp"
 #include "../keyboard_key.hpp"
-#include "../device_parameters.hpp"
-#include "../select_events.hpp"
-#include "../event_data.hpp"
+#include "../device/parameters.hpp"
+#include "../device/event_demuxer.hpp"
 #include <sge/input/keyboard/key.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/to_modifier.hpp>
@@ -40,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/extensions/XInput2.h>
 
 sge::x11input::keyboard::keyboard(
-	x11input::device_parameters const &_param
+	x11input::device::parameters const &_param
 )
 :
 	x11input::device(
@@ -58,8 +57,7 @@ sge::x11input::keyboard::keyboard(
 			fcppt::signal::connection_manager::container
 		>(
 			fcppt::signal::shared_connection(
-				_param.processor()->register_callback(
-					_param.opcode(),
+				_param.demuxer()->register_callback(
 					awl::backends::x11::system::event::type(
 						XI_KeyPress
 					),
@@ -73,7 +71,7 @@ sge::x11input::keyboard::keyboard(
 		)
 		(
 			fcppt::signal::shared_connection(
-				_param.processor()->register_callback(
+				event_processor_->register_callback(
 					_param.opcode(),
 					awl::backends::x11::system::event::type(
 						XI_KeyRelease
@@ -94,18 +92,6 @@ sge::x11input::keyboard::keyboard(
 		sge::input::keyboard::mod_state::null()
 	)
 {
-	x11input::select_events(
-		_param.window(),
-		_param.id(),
-		fcppt::assign::make_container<
-			x11input::event_id_container
-		>(
-			XI_KeyPress
-		)
-		(
-			XI_KeyRelease
-		)
-	);
 }
 
 sge::x11input::keyboard::~keyboard()
@@ -163,7 +149,7 @@ sge::x11input::keyboard::mod_state() const
 
 void
 sge::x11input::keyboard::on_key_press(
-	awl::backends::x11::system::event::object const &_event
+	x11input::device::event const &_event
 )
 {
 	on_key_event(
@@ -174,7 +160,7 @@ sge::x11input::keyboard::on_key_press(
 
 void
 sge::x11input::keyboard::on_key_release(
-	awl::backends::x11::system::event::object const &_event
+	x11input::device::event const &_event
 )
 {
 	on_key_event(
@@ -185,27 +171,14 @@ sge::x11input::keyboard::on_key_release(
 
 void
 sge::x11input::keyboard::on_key_event(
-	awl::backends::x11::system::event::object const &_event,
+	x11input::device::event const &_event,
 	bool const _pressed
 )
 {
-	x11input::event_data const cookie(
-		window_->display(),
-		_event
-	);
-
-	XIDeviceEvent const &event(
-		*static_cast<
-			XIDeviceEvent const *
-		>(
-			cookie.data()
-		)
-	);
-
 	input::keyboard::key const key(
 		x11input::keyboard_key(
 			window_->display(),
-			event.detail
+			_event.get().detail
 		)
 	);
 

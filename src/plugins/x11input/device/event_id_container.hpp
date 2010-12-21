@@ -18,20 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_EVENT_ID_CONTAINER_HPP_INCLUDED
-#define SGE_X11INPUT_EVENT_ID_CONTAINER_HPP_INCLUDED
+#ifndef SGE_X11INPUT_DEVICE_EVENT_ID_CONTAINER_HPP_INCLUDED
+#define SGE_X11INPUT_DEVICE_EVENT_ID_CONTAINER_HPP_INCLUDED
 
+#include <awl/backends/x11/system/event/type.hpp>
 #include <vector>
 
 namespace sge
 {
 namespace x11input
 {
+namespace device
+{
 
 typedef std::vector<
-	int
+	awl::backends::x11::system::event::type
 > event_id_container;
 
+}
 }
 }
 

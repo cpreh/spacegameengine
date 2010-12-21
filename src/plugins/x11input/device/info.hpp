@@ -18,14 +18,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../device.hpp"
+#ifndef SGE_X11INPUT_DEVICE_INFO_HPP_INCLUDED
+#define SGE_X11INPUT_DEVICE_INFO_HPP_INCLUDED
 
-sge::x11input::device::device(
-	int const _id
-)
-:
-	id_(_id)
-{}
+#include <X11/extensions/XInput2.h>
+#include <awl/backends/x11/display_ptr.hpp>
+#include <fcppt/noncopyable.hpp>
 
-sge::x11input::device::~device()
-{}
+namespace sge
+{
+namespace x11input
+{
+namespace device
+{
+
+class device_info
+{
+	FCPPT_NONCOPYABLE(
+		info
+	)
+public:
+	typedef int size_type;
+
+	info(
+		awl::backends::x11::display_ptr,
+		int type
+	);
+
+	~info();
+
+	XIDeviceInfo const &
+	operator[](
+		size_type index
+	) const;
+
+	size_type
+	size() const;
+private:
+	XIDeviceInfo *const devices_;
+
+	int size_;	
+};
+
+}
+}
+}
+
+#endif

@@ -18,41 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_EVENT_DATA_HPP_INCLUDED
-#define SGE_X11INPUT_EVENT_DATA_HPP_INCLUDED
+#include "../object.hpp"
 
-#include <awl/backends/x11/display_ptr.hpp>
-#include <awl/backends/x11/system/event/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <X11/Xlib.h>
+sge::x11input::device::object::object(
+	device::id const _id
+)
+:
+	id_(_id)
+{}
 
-namespace sge
-{
-namespace x11input
-{
-
-class event_data
-{
-	FCPPT_NONCOPYABLE(
-		event_data
-	)
-public:
-	event_data(
-		awl::backends::x11::display_ptr,
-		awl::backends::x11::system::event::object const &
-	);
-
-	~event_data();
-
-	void const *
-	data() const;
-private:
-	awl::backends::x11::display_ptr const display_;
-
-	XGenericEventCookie store_;
-};
-
-}
-}
-
-#endif
+sge::x11input::device::object::~object()
+{}

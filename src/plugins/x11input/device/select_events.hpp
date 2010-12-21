@@ -18,38 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DEVICE_HPP_INCLUDED
-#define SGE_X11INPUT_DEVICE_HPP_INCLUDED
+#ifndef SGE_X11INPUT_DEVICE_SELECT_EVENTS_HPP_INCLUDED
+#define SGE_X11INPUT_DEVICE_SELECT_EVENTS_HPP_INCLUDED
 
-#include "device_fwd.hpp"
-#include <fcppt/noncopyable.hpp>
+#include "id.hpp"
+#include "event_id_container.hpp"
+#include <awl/backends/x11/window/instance_ptr.hpp>
 
 namespace sge
 {
 namespace x11input
 {
-
-class device
+namespace device
 {
-	FCPPT_NONCOPYABLE(
-		device
-	)
-protected:
-	explicit device(
-		int device_id
-	);
-public:
-	virtual void
-	grab() = 0;
 
-	virtual void
-	ungrab() = 0;
+void
+select_events(
+	awl::backends::x11::window::instance_ptr,
+	x11input::device::id,
+	x11input::device::event_id_container const &
+);
 
-	virtual ~device();
-private:
-	int const id_;
-};
-
+}
 }
 }
 
