@@ -166,6 +166,9 @@ void
 sge::x11input::mouse::on_motion(
 	x11input::device::event const &_event
 )
+{
+	std::cout << _event.get().evtype << '\n';
+
 	XIValuatorState const &valuators(
 		_event.get().valuators
 	);
