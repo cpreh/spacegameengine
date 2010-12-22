@@ -42,13 +42,14 @@ class parameters
 	)
 public:
 	parameters(
-		x11input::device_id const &,
+		x11input::device::id const &,
 		awl::backends::x11::system::event::opcode,
 		awl::backends::x11::window::instance_ptr,
-		x11input::device::event_demuxer &
+		x11input::device::event_demuxer &window_demuxer,
+		x11input::device::event_demuxer &raw_demuxer
 	);
 
-	x11input::device_id const
+	x11input::device::id const
 	id() const;
 
 	awl::backends::x11::system::event::opcode const
@@ -58,15 +59,20 @@ public:
 	window() const;
 
 	x11input::device::event_demuxer &
-	demuxer() const;
+	window_demuxer() const;
+
+	x11input::device::event_demuxer &
+	raw_demuxer() const;
 private:
-	x11input::device_id const id_;
+	x11input::device::id const id_;
 
 	awl::backends::x11::system::event::opcode const opcode_;
 
 	awl::backends::x11::window::instance_ptr const window_;
 
-	x11input::device::event_demuxer &demuxer_;
+	x11input::device::event_demuxer &window_demuxer_;
+
+	x11input::device::event_demuxer &raw_demuxer_;
 };
 
 }

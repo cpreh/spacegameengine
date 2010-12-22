@@ -32,7 +32,7 @@ namespace x11input
 namespace device
 {
 
-class device_info
+class info
 {
 	FCPPT_NONCOPYABLE(
 		info

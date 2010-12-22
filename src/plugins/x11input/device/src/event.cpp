@@ -18,14 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../object.hpp"
+#include "../event.hpp"
 
-sge::x11input::device::object::object(
-	device::id const &_id
+sge::x11input::device::event::event(
+	XIDeviceEvent const &_event
 )
 :
-	id_(_id)
-{}
+	event_(_event)
+{
+}
 
-sge::x11input::device::object::~object()
-{}
+XIDeviceEvent const &
+sge::x11input::device::event::get() const
+{
+	return event_;
+}

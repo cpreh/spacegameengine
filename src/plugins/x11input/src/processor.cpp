@@ -24,14 +24,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../mouse.hpp"
 #include "../keyboard.hpp"
 #include "../cursor.hpp"
-#include "../device.hpp"
-#include "../device_info.hpp"
-#include "../device_parameters.hpp"
+#include "../device/object.hpp"
+#include "../device/info.hpp"
+#include "../device/parameters.hpp"
 #include <sge/log/global.hpp>
 #include <sge/window/instance.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
 #include <awl/backends/x11/window/instance.hpp>
+#include <awl/backends/x11/window/root.hpp>
 #include <awl/backends/x11/window/event/processor.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/log/debug.hpp>
@@ -74,6 +75,19 @@ sge::x11input::processor::processor(
 			awl::backends::x11::system::event::processor
 		>(
 			_window->awl_system_event_processor()
+		)
+	),
+	window_demuxer_(
+		system_event_processor_,
+		opcode_,
+		x11_window_
+	),
+	raw_demuxer_(
+		system_event_processor_,
+		opcode_,
+		awl::backends::x11::window::root(
+			x11_window_->display(),
+			x11_window_->screen()
 		)
 	),
 	acquired_(false),
@@ -133,7 +147,7 @@ sge::x11input::processor::processor(
 	mice_(),
 	cursors_()
 {
-	x11input::device_info const devices(
+	x11input::device::info const devices(
 		x11_window_->display(),
 		XIAllDevices
 	);
@@ -148,11 +162,14 @@ sge::x11input::processor::processor(
 			devices[index]
 		);
 
-		x11input::device_parameters const param(
-			device.deviceid,
+		x11input::device::parameters const param(
+			x11input::device::id(
+				device.deviceid
+			),
 			opcode_,
 			x11_window_,
-			system_event_processor_
+			window_demuxer_,
+			raw_demuxer_
 		);
 
 		switch(

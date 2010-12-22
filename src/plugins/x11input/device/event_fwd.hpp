@@ -18,14 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../object.hpp"
+#ifndef SGE_X11INPUT_DEVICE_EVENT_FWD_HPP_INCLUDED
+#define SGE_X11INPUT_DEVICE_EVENT_FWD_HPP_INCLUDED
 
-sge::x11input::device::object::object(
-	device::id const &_id
-)
-:
-	id_(_id)
-{}
+namespace sge
+{
+namespace x11input
+{
+namespace device
+{
 
-sge::x11input::device::object::~object()
-{}
+class event;
+
+}
+}
+}
+
+#endif

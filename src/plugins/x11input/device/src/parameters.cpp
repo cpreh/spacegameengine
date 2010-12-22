@@ -18,19 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../device_parameters.hpp"
+#include "../parameters.hpp"
 
 sge::x11input::device::parameters::parameters(
 	x11input::device::id const &_id,
 	awl::backends::x11::system::event::opcode const _opcode,
 	awl::backends::x11::window::instance_ptr const _window,
-	x11input::device::event_demuxer &_demuxer
+	x11input::device::event_demuxer &_window_demuxer,
+	x11input::device::event_demuxer &_raw_demuxer
 )
 :
 	id_(_id),
 	opcode_(_opcode),
 	window_(_window),
-	demuxer_(_demuxer)
+	window_demuxer_(_window_demuxer),
+	raw_demuxer_(_raw_demuxer)
 {
 }
 
@@ -52,8 +54,14 @@ sge::x11input::device::parameters::window() const
 	return window_;
 }
 
-sge;:x11input::device::event_demuxer &
-sge::x11input::device::parameters::processor() const
+sge::x11input::device::event_demuxer &
+sge::x11input::device::parameters::window_demuxer() const
 {
-	return demuxer_;
+	return window_demuxer_;
+}
+
+sge::x11input::device::event_demuxer &
+sge::x11input::device::parameters::raw_demuxer() const
+{
+	return raw_demuxer_;
 }

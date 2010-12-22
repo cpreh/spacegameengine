@@ -18,13 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../device::event_demuxer.hpp"
+#include "../event_demuxer.hpp"
+#include "../event.hpp"
+#include "../event_data.hpp"
 #include "../event_id_container.hpp"
 #include "../select_events.hpp"
-#include <fcppt/algorithm/map.hpp>
+#include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/signal/unregister/base_impl.hpp>
 #include <fcppt/signal/object_impl.hpp>
-#include <fcppt/tr1/bind.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <awl/backends/x11/system/event/processor.hpp>
+#include <awl/backends/x11/window/instance.hpp>
+#include <boost/foreach.hpp>
+#include <X11/extensions/XInput2.h>
 
 sge::x11input::device::event_demuxer::event_demuxer(
 	awl::backends::x11::system::event::processor_ptr const _system_processor,
@@ -47,7 +54,7 @@ fcppt::signal::auto_connection
 sge::x11input::device::event_demuxer::register_callback(
 	awl::backends::x11::system::event::type const &_type,
 	x11input::device::id const &_id,
-	x11input::device_callback const &_callback
+	x11input::device::event_callback const &_callback
 )
 {
 	if(
@@ -58,7 +65,7 @@ sge::x11input::device::event_demuxer::register_callback(
 		fcppt::container::ptr::insert_unique_ptr_map(
 			connections_,
 			_type,
-			system_processor_->connect(
+			system_processor_->register_callback(
 				opcode_,
 				_type,
 				std::tr1::bind(
@@ -68,32 +75,31 @@ sge::x11input::device::event_demuxer::register_callback(
 				)
 			)
 		);
+	
+	event_signal_map &inner_map(
+		signals_[
+			_id
+		]
+	);
 
-	signal_map::key_type const key(
-		std::make_pair(
-			_id,
+	event_signal_map::iterator it(
+		inner_map.find(
 			_type
 		)
 	);
 
-	signal_map::iterator it(
-		signals_.find(
-			key
-		)
-	);
-
 	if(
-		it == signals_.end()
+		it == inner_map.end()
 	)
 	{
 		it =
 			fcppt::container::ptr::insert_unique_ptr_map(
-				signals_,
-				key,
-				fcppt::make_unqiue_ptr<
+				inner_map,
+				_type,
+				fcppt::make_unique_ptr<
 					signal
 				>()
-			);
+			).first;
 
 		this->select_events(
 			_id
@@ -106,8 +112,8 @@ sge::x11input::device::event_demuxer::register_callback(
 			std::tr1::bind(
 				&event_demuxer::unregister,
 				this,
-				key.first,
-				key.second
+				_id,
+				_type
 			)
 		);
 }
@@ -117,7 +123,7 @@ sge::x11input::device::event_demuxer::on_event(
 	awl::backends::x11::system::event::object const &_event
 )
 {
-	x11input::event_data const cookie(
+	x11input::device::event_data const cookie(
 		window_->display(),
 		_event
 	);
@@ -131,13 +137,12 @@ sge::x11input::device::event_demuxer::on_event(
 	);
 
 	signals_[
-		std::make_pair(
-			device::id(
-				device_event.deviceid
-			),
-			awl::backends::x11::system::event::type(
-				device_event.type
-			)
+		device::id(
+			device_event.deviceid
+		)
+	][
+		awl::backends::x11::system::event::type(
+			device_event.evtype
 		)
 	](
 		device::event(
@@ -152,25 +157,52 @@ sge::x11input::device::event_demuxer::unregister(
 	awl::backends::x11::system::event::type const _type
 )
 {
-	signal_map::key_type const key(
-		_id,
-		_type
+	device_signal_map::iterator const device_it(
+		signals_.find(
+			_id
+		)
+	);
+
+	assert(
+		device_it
+		!= signals_.end()
+	);
+
+	event_signal_map &inner_map(
+		*device_it->second
+	);
+
+	event_signal_map::iterator const signal_it(
+		inner_map.find(
+			_type
+		)
+	);
+
+	assert(
+		signal_it
+		!= inner_map.end()
 	);
 
 	if(
-		signals_[
-			_key
-		].empty()
+		signal_it->second->empty()
 	)
 	{
-		singals_.erase(
-			_key
+		inner_map.erase(
+			signal_it
 		);
 
-		// TODO: remove a connection if there is no signal for the event left!
 		this->select_events(
 			_id
 		);
+
+		if(
+			inner_map.empty()
+		)
+			signals_.erase(
+				device_it
+			);
+
+		// TODO: remove a connection if there is no signal for the event left!
 	}
 }
 
@@ -179,18 +211,21 @@ sge::x11input::device::event_demuxer::select_events(
 	device::id const &_id
 )
 {
-	
-	x11input::select_events(
-		param_.window(),
-		param_.device_id(),
-		fcppt::algorithm::map<
-			x11input::event_id_container
-		>(
-			event_counts_,
-			std::tr1::bind(
-				&event_count_map::value_type::type,
-				std::tr1::placeholders::_1
-			)
-		)
+	x11input::device::event_id_container event_ids;
+
+	BOOST_FOREACH(
+		event_signal_map::value_type value,
+		signals_[
+			_id
+		]
+	)
+		event_ids.push_back(
+			value.first
+		);
+
+	x11input::device::select_events(
+		window_,
+		_id,
+		event_ids
 	);
 }

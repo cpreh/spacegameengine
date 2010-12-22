@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_PROCESSOR_HPP_INCLUDED
 #define SGE_X11INPUT_PROCESSOR_HPP_INCLUDED
 
-#include "device_fwd.hpp"
 #include "cursor_ptr.hpp"
 #include "keyboard_ptr.hpp"
 #include "mouse_ptr.hpp"
+#include "device/event_demuxer.hpp"
 #include <sge/input/processor.hpp>
 #include <sge/window/instance_ptr.hpp>
 #include <awl/backends/x11/system/event/processor_ptr.hpp>
@@ -122,6 +122,10 @@ private:
 	awl::backends::x11::window::event::processor_ptr const event_processor_;
 
 	awl::backends::x11::system::event::processor_ptr const system_event_processor_;
+
+	x11input::device::event_demuxer window_demuxer_;
+
+	x11input::device::event_demuxer raw_demuxer_;
 
 	bool acquired_;
 

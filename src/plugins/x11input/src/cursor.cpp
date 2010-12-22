@@ -19,14 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../cursor.hpp"
-#include "../device_parameters.hpp"
+#include "../device/parameters.hpp"
 #include <fcppt/math/vector/basic_impl.hpp>
 
 sge::x11input::cursor::cursor(
-	x11input::device_parameters const &_param
+	x11input::device::parameters const &_param
 )
 :
-	device(
+	device::object(
 		_param.id()
 	)
 {

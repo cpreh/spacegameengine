@@ -20,9 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../mouse.hpp"
 #include "../mouse_grab.hpp"
-#include "../device_parameters.hpp"
-#include "../select_events.hpp"
-#include "../event_data.hpp"
+#include "../device/event.hpp"
+#include "../device/event_demuxer.hpp"
+#include "../device/parameters.hpp"
 #include <X11/Xlib.h>
 #include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/axis.hpp>
@@ -49,10 +49,10 @@ mouse_key_code(
 }
 
 sge::x11input::mouse::mouse(
-	x11input::device_parameters const &_param
+	x11input::device::parameters const &_param
 )
 :
-	x11input::device(
+	x11input::device::object(
 		_param.id()
 	),
 	window_(
@@ -63,11 +63,11 @@ sge::x11input::mouse::mouse(
 			fcppt::signal::connection_manager::container
 		>(
 			fcppt::signal::shared_connection(
-				_param.processor()->register_callback(
-					_param.opcode(),
+				_param.raw_demuxer().register_callback(
 					awl::backends::x11::system::event::type(
 						XI_RawMotion
 					),
+					_param.id(),
 					std::tr1::bind(
 						&mouse::on_motion,
 						this,
@@ -78,11 +78,11 @@ sge::x11input::mouse::mouse(
 		)
 		(
 			fcppt::signal::shared_connection(
-				_param.processor()->register_callback(
-					_param.opcode(),
+				_param.window_demuxer().register_callback(
 					awl::backends::x11::system::event::type(
 						XI_ButtonPress
 					),
+					_param.id(),
 					std::tr1::bind(
 						&mouse::on_button_down,
 						this,
@@ -93,11 +93,11 @@ sge::x11input::mouse::mouse(
 		)
 		(
 			fcppt::signal::shared_connection(
-				_param.processor()->register_callback(
-					_param.opcode(),
+				_param.window_demuxer().register_callback(
 					awl::backends::x11::system::event::type(
 						XI_ButtonRelease
 					),
+					_param.id(),
 					std::tr1::bind(
 						&mouse::on_button_up,
 						this,
@@ -110,31 +110,7 @@ sge::x11input::mouse::mouse(
 	grab_(),
 	button_signal_(),
 	axis_signal_()
-{
-	x11input::select_events(
-		_param.window(),
-		_param.id(),
-		fcppt::assign::make_container<
-			x11input::event_id_container
-		>(
-			XI_ButtonPress
-		)
-		(
-			XI_ButtonRelease
-		)
-	);
-
-	x11input::select_events(
-		_param.window(),
-		_param.id(),
-		fcppt::assign::make_container<
-			x11input::event_id_container
-		>(
-			XI_RawMotion
-		)
-	);
-
-}
+{}
 
 sge::x11input::mouse::~mouse()
 {
@@ -188,43 +164,25 @@ sge::x11input::mouse::axis_callback(
 
 void
 sge::x11input::mouse::on_motion(
-	awl::backends::x11::system::event::object const &_event
+	x11input::device::event const &_event
 )
-try
-{
-	x11input::event_data const cookie(
-		window_->display(),
-		_event
-	);
-
-	XIRawEvent const &event(
-		*static_cast<
-			XIRawEvent const *
-		>(
-			cookie.data()
-		)
-	);
-	
 	XIValuatorState const &valuators(
-		event.valuators
+		_event.get().valuators
 	);
 
 	double *valuator = valuators.values;
-	std::cout << "--------------\n";
+	std::cout << "-------------- " << valuators.mask_len * 8 << '\n';
+
     for (int i = 0; i < valuators.mask_len * 8; i++)
         if (XIMaskIsSet(valuators.mask, i)) {
             std::cout << '\t' << i << ": " << *valuator << '\n';
             valuator++;
         }
 }
-catch(sge::exception const &)
-{
-	std::cout << "OH NO\n";
-}
 
 void
 sge::x11input::mouse::on_button_down(
-	awl::backends::x11::system::event::object const &_event
+	x11input::device::event const &_event
 )
 {
 	button_event(
@@ -235,7 +193,7 @@ sge::x11input::mouse::on_button_down(
 
 void
 sge::x11input::mouse::on_button_up(
-	awl::backends::x11::system::event::object const &_event
+	x11input::device::event const &_event
 )
 {
 	button_event(
@@ -246,7 +204,7 @@ sge::x11input::mouse::on_button_up(
 
 void
 sge::x11input::mouse::button_event(
-	awl::backends::x11::system::event::object const &_event,
+	x11input::device::event const &_event,
 	bool const _pressed
 )
 {

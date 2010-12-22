@@ -22,16 +22,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_MOUSE_HPP_INCLUDED
 
 #include "mouse_fwd.hpp"
-#include "device.hpp"
+#include "device/object.hpp"
+#include "device/event_fwd.hpp"
+#include "device/parameters_fwd.hpp"
 #include "mouse_coordinate.hpp"
 #include "mouse_grab_fwd.hpp"
-#include "device_parameters_fwd.hpp"
 #include <sge/input/mouse/device.hpp>
 #include <sge/input/mouse/axis_callback.hpp>
 #include <sge/input/mouse/axis_function.hpp>
 #include <sge/input/mouse/button_callback.hpp>
 #include <sge/input/mouse/button_function.hpp>
-#include <awl/backends/x11/system/event/object_fwd.hpp>
 #include <awl/backends/x11/window/instance_ptr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
@@ -47,14 +47,14 @@ namespace x11input
 class mouse
 :
 	public sge::input::mouse::device,
-	public x11input::device
+	public x11input::device::object
 {
 	FCPPT_NONCOPYABLE(
 		mouse
 	)
 public:
 	explicit mouse(
-		x11input::device_parameters const &
+		x11input::device::parameters const &
 	);
 
 	~mouse();
@@ -77,28 +77,23 @@ private:
 
 	void
 	on_motion(
-		awl::backends::x11::system::event::object const &
+		x11input::device::event const &
 	);
 
 	void
 	on_button_down(
-		awl::backends::x11::system::event::object const &
+		x11input::device::event const &
 	);
 
 	void
 	on_button_up(
-		awl::backends::x11::system::event::object const &
+		x11input::device::event const &
 	);
 
 	void
 	button_event(
-		awl::backends::x11::system::event::object const &,
+		x11input::device::event const &,
 		bool pressed
-	);
-
-	void
-	warped_motion(
-		awl::backends::x11::system::event::object const &
 	);
 
 	void

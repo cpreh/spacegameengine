@@ -38,8 +38,8 @@ class object
 		object
 	)
 protected:
-	explicit device(
-		object::id const &
+	explicit object(
+		device::id const &
 	);
 public:
 	virtual void

@@ -92,23 +92,6 @@ sge::x11input::device::select_events(
 	};
 
 	if(
-		std::count(
-			_events.begin(),
-			_events.end(),
-			XI_RawMotion
-		)
-	)
-		::XISelectEvents(
-			_window->display()->get(),
-			XRootWindow(
-				_window->display()->get(),
-				0
-			),
-			&mask,
-			1
-		);
-	else
-	if(
 		::XISelectEvents(
 			_window->display()->get(),
 			_window->get(),

@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../keyboard.hpp"
 #include "../keyboard_grab.hpp"
 #include "../keyboard_key.hpp"
-#include "../device/parameters.hpp"
+#include "../device/event.hpp"
 #include "../device/event_demuxer.hpp"
+#include "../device/parameters.hpp"
 #include <sge/input/keyboard/key.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/to_modifier.hpp>
@@ -42,7 +43,7 @@ sge::x11input::keyboard::keyboard(
 	x11input::device::parameters const &_param
 )
 :
-	x11input::device(
+	x11input::device::object(
 		_param.id()
 	),
 	window_(
@@ -57,10 +58,11 @@ sge::x11input::keyboard::keyboard(
 			fcppt::signal::connection_manager::container
 		>(
 			fcppt::signal::shared_connection(
-				_param.demuxer()->register_callback(
+				_param.window_demuxer().register_callback(
 					awl::backends::x11::system::event::type(
 						XI_KeyPress
 					),
+					_param.id(),
 					std::tr1::bind(
 						&keyboard::on_key_press,
 						this,
@@ -71,11 +73,11 @@ sge::x11input::keyboard::keyboard(
 		)
 		(
 			fcppt::signal::shared_connection(
-				event_processor_->register_callback(
-					_param.opcode(),
+				_param.window_demuxer().register_callback(
 					awl::backends::x11::system::event::type(
 						XI_KeyRelease
 					),
+					_param.id(),
 					std::tr1::bind(
 						&keyboard::on_key_release,
 						this,
@@ -198,7 +200,7 @@ sge::x11input::keyboard::on_key_event(
 	}
 
 	if(
-		event.flags & XIKeyRepeat
+		_event.get().flags & XIKeyRepeat
 	)
 		key_repeat_signal_(
 			key
