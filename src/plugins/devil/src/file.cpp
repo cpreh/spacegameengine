@@ -196,8 +196,12 @@ sge::devil::file::data(
 			cur_dim.h()
 		),
 		1,
-		sge::image::color::element_count(
-			best_il_format
+		static_cast<
+			ILubyte
+		>(
+			sge::image::color::element_count(
+				best_il_format
+			)
 		),
 		devil::to_il_format(
 			best_il_format
