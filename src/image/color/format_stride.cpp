@@ -68,7 +68,8 @@ sge::image::color::format_stride(
 		color::element_count(
 			_format
 		)
-		* base_size(
+		*
+		::base_size(
 			_format
 		);
 }

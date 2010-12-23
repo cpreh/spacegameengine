@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../file.hpp"
 #include "../error.hpp"
 #include "../format.hpp"
+#include <sge/image/color/element_count.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <sge/image/const_raw_pointer.hpp>
 #include <sge/image/exception.hpp>
@@ -195,7 +196,9 @@ sge::devil::file::data(
 			cur_dim.h()
 		),
 		1,
-		4, // always 4 channels
+		sge::image::color::element_count(
+			best_il_format
+		),
 		devil::to_il_format(
 			best_il_format
 		),
