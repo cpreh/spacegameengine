@@ -258,7 +258,7 @@ sge::opengl::basic_texture<Base>::view()
 	);
 
 	return
-		reading
+		reading && lock_area_
 		?
 			sge::image::view::sub<
 				view_type
