@@ -18,22 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DEVICE_EVENT_FWD_HPP_INCLUDED
-#define SGE_X11INPUT_DEVICE_EVENT_FWD_HPP_INCLUDED
+#ifndef SGE_X11INPUT_MOUSE_AXIS_HPP_INCLUDED
+#define SGE_X11INPUT_MOUSE_AXIS_HPP_INCLUDED
+
+#include <sge/input/mouse/axis.hpp>
 
 namespace sge
 {
 namespace x11input
 {
-namespace device
-{
 
-template<
-	typename ValueType
->
-class event;
+sge::input::mouse::axis::type
+mouse_axis(
+	int index
+);
 
-}
 }
 }
 

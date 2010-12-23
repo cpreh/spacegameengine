@@ -22,14 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_DEVICE_EVENT_DEMUXER_HPP_INCLUDED
 
 #include "event_demuxer_fwd.hpp"
-#include "event_callback.hpp"
-#include "event_function.hpp"
 #include "id.hpp"
 #include <awl/backends/x11/system/event/opcode.hpp>
 #include <awl/backends/x11/system/event/processor_ptr.hpp>
 #include <awl/backends/x11/system/event/type.hpp>
 #include <awl/backends/x11/system/event/object_fwd.hpp>
 #include <awl/backends/x11/window/instance_ptr.hpp>
+#include <fcppt/function/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_decl.hpp>
 #include <fcppt/signal/unregister/base_decl.hpp>
@@ -43,11 +42,19 @@ namespace x11input
 namespace device
 {
 
+template<
+	typename Event
+>
 class event_demuxer
 {
 	FCPPT_NONCOPYABLE(
 		event_demuxer
 	)
+
+	typedef void
+	signature(
+		Event const &
+	);
 public:
 	explicit event_demuxer(
 		awl::backends::x11::system::event::processor_ptr,
@@ -57,11 +64,15 @@ public:
 
 	~event_demuxer();
 
+	typedef fcppt::function::object<
+		signature
+	> callback;
+
 	fcppt::signal::auto_connection
 	register_callback(
 		awl::backends::x11::system::event::type const &,
 		x11input::device::id const &,
-		x11input::device::event_callback const &
+		callback const &
 	);
 private:
 	void
@@ -81,7 +92,7 @@ private:
 	);
 
 	typedef fcppt::signal::object<
-		x11input::device::event_function,
+		signature,
 		fcppt::signal::unregister::base
 	> signal;
 

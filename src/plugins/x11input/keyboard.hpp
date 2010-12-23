@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "keyboard_fwd.hpp"
 #include "keyboard_grab_fwd.hpp"
-#include "device/event_fwd.hpp"
+#include "device/window_event_fwd.hpp"
 #include "device/object.hpp"
 #include "device/parameters_fwd.hpp"
 #include <sge/input/keyboard/device.hpp>
@@ -80,17 +80,17 @@ private:
 
 	void
 	on_key_press(
-		x11input::device::event const &
+		x11input::device::window_event const &
 	);
 
 	void
 	on_key_release(
-		x11input::device::event const &
+		x11input::device::window_event const &
 	);
 	
 	void
 	on_key_event(
-		x11input::device::event const &,
+		x11input::device::window_event const &,
 		bool pressed
 	);
 

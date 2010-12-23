@@ -28,6 +28,9 @@ namespace x11input
 namespace device
 {
 
+template<
+	typename Event
+>
 class event_demuxer;
 
 }

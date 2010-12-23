@@ -18,8 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DEVICE_EVENT_FWD_HPP_INCLUDED
-#define SGE_X11INPUT_DEVICE_EVENT_FWD_HPP_INCLUDED
+#ifndef SGE_X11INPUT_DEVICE_WINDOW_EVENT_FWD_HPP_INCLUDED
+#define SGE_X11INPUT_DEVICE_WINDOW_EVENT_FWD_HPP_INCLUDED
+
+#include "event_fwd.hpp"
+#include <X11/extensions/XInput2.h>
 
 namespace sge
 {
@@ -28,10 +31,9 @@ namespace x11input
 namespace device
 {
 
-template<
-	typename ValueType
->
-class event;
+typedef device::event<
+	XIDeviceEvent
+> window_event;
 
 }
 }

@@ -24,8 +24,8 @@ sge::x11input::device::parameters::parameters(
 	x11input::device::id const &_id,
 	awl::backends::x11::system::event::opcode const _opcode,
 	awl::backends::x11::window::instance_ptr const _window,
-	x11input::device::event_demuxer &_window_demuxer,
-	x11input::device::event_demuxer &_raw_demuxer
+	x11input::device::window_demuxer &_window_demuxer,
+	x11input::device::raw_demuxer &_raw_demuxer
 )
 :
 	id_(_id),
@@ -54,13 +54,13 @@ sge::x11input::device::parameters::window() const
 	return window_;
 }
 
-sge::x11input::device::event_demuxer &
+sge::x11input::device::window_demuxer &
 sge::x11input::device::parameters::window_demuxer() const
 {
 	return window_demuxer_;
 }
 
-sge::x11input::device::event_demuxer &
+sge::x11input::device::raw_demuxer &
 sge::x11input::device::parameters::raw_demuxer() const
 {
 	return raw_demuxer_;

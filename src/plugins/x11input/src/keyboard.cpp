@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../keyboard.hpp"
 #include "../keyboard_grab.hpp"
 #include "../keyboard_key.hpp"
-#include "../device/event.hpp"
-#include "../device/event_demuxer.hpp"
+#include "../device/window_demuxer.hpp"
+#include "../device/window_event.hpp"
 #include "../device/parameters.hpp"
 #include <sge/input/keyboard/key.hpp>
 #include <sge/input/keyboard/key_event.hpp>
@@ -151,7 +151,7 @@ sge::x11input::keyboard::mod_state() const
 
 void
 sge::x11input::keyboard::on_key_press(
-	x11input::device::event const &_event
+	x11input::device::window_event const &_event
 )
 {
 	on_key_event(
@@ -162,7 +162,7 @@ sge::x11input::keyboard::on_key_press(
 
 void
 sge::x11input::keyboard::on_key_release(
-	x11input::device::event const &_event
+	x11input::device::window_event const &_event
 )
 {
 	on_key_event(
@@ -173,7 +173,7 @@ sge::x11input::keyboard::on_key_release(
 
 void
 sge::x11input::keyboard::on_key_event(
-	x11input::device::event const &_event,
+	x11input::device::window_event const &_event,
 	bool const _pressed
 )
 {

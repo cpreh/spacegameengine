@@ -34,7 +34,8 @@ enum type
 {
 	x,
 	y,
-	wheel
+	wheel,
+	unknown
 };
 }
 

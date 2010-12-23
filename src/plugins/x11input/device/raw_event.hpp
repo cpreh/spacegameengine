@@ -18,25 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DEVICE_EVENT_CALLBACK_HPP_INCLUDED
-#define SGE_X11INPUT_DEVICE_EVENT_CALLBACK_HPP_INCLUDED
+#ifndef SGE_X11INPUT_DEVICE_RAW_EVENT_HPP_INCLUDED
+#define SGE_X11INPUT_DEVICE_RAW_EVENT_HPP_INCLUDED
 
-#include "event_function.hpp"
-#include <fcppt/function/object_fwd.hpp>
-
-namespace sge
-{
-namespace x11input
-{
-namespace device
-{
-
-typedef fcppt::function::object<
-	event_function
-> event_callback;
-
-}
-}
-}
+#include "raw_event_fwd.hpp"
+#include "event.hpp"
 
 #endif

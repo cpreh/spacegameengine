@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_DEVICE_EVENT_HPP_INCLUDED
 
 #include "event_fwd.hpp"
-#include <X11/extensions/XInput2.h>
 
 namespace sge
 {
@@ -31,17 +30,22 @@ namespace x11input
 namespace device
 {
 
+template<
+	typename ValueType
+>
 class event
 {
 public:
+	typedef ValueType value_type;
+
 	explicit event(
-		XIDeviceEvent const &
+		value_type const &
 	);
 
-	XIDeviceEvent const &
+	value_type const &
 	get() const;
 private:
-	XIDeviceEvent const &event_;
+	value_type const &event_;
 };
 
 }

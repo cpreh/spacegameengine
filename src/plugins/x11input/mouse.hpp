@@ -23,10 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "mouse_fwd.hpp"
 #include "device/object.hpp"
-#include "device/event_fwd.hpp"
+#include "device/raw_event_fwd.hpp"
+#include "device/window_event_fwd.hpp"
 #include "device/parameters_fwd.hpp"
 #include "mouse_coordinate.hpp"
-#include "mouse_grab_fwd.hpp"
 #include <sge/input/mouse/device.hpp>
 #include <sge/input/mouse/axis_callback.hpp>
 #include <sge/input/mouse/axis_function.hpp>
@@ -37,7 +37,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr.hpp>
 
 namespace sge
 {
@@ -77,38 +76,28 @@ private:
 
 	void
 	on_motion(
-		x11input::device::event const &
+		x11input::device::raw_event const &
 	);
 
 	void
 	on_button_down(
-		x11input::device::event const &
+		x11input::device::window_event const &
 	);
 
 	void
 	on_button_up(
-		x11input::device::event const &
+		x11input::device::window_event const &
 	);
 
 	void
 	button_event(
-		x11input::device::event const &,
+		x11input::device::window_event const &,
 		bool pressed
-	);
-
-	void
-	private_mouse_motion(
-		mouse_coordinate deltax,
-		mouse_coordinate deltay
 	);
 
 	awl::backends::x11::window::instance_ptr const window_;
 
 	fcppt::signal::connection_manager const connections_;
-
-	fcppt::scoped_ptr<
-		mouse_grab
-	> grab_;
 
 	fcppt::signal::object<
 		sge::input::mouse::button_function

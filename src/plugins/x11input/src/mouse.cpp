@@ -19,11 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../mouse.hpp"
-#include "../mouse_grab.hpp"
-#include "../device/event.hpp"
-#include "../device/event_demuxer.hpp"
+#include "../mouse_axis.hpp"
+#include "../mouse_button_code.hpp"
+#include "../device/raw_demuxer.hpp"
+#include "../device/raw_event.hpp"
+#include "../device/window_demuxer.hpp"
+#include "../device/window_event.hpp"
 #include "../device/parameters.hpp"
-#include <X11/Xlib.h>
 #include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/axis.hpp>
 #include <sge/input/mouse/button_code.hpp>
@@ -37,16 +39,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <X11/extensions/XInput2.h>
-
-namespace
-{
-
-sge::input::mouse::button_code::type
-mouse_key_code(
-	unsigned x11code
-);
-
-}
 
 sge::x11input::mouse::mouse(
 	x11input::device::parameters const &_param
@@ -107,7 +99,6 @@ sge::x11input::mouse::mouse(
 			)
 		)
 	),
-	grab_(),
 	button_signal_(),
 	axis_signal_()
 {}
@@ -119,22 +110,11 @@ sge::x11input::mouse::~mouse()
 void
 sge::x11input::mouse::grab()
 {
-#if 0
-	grab_.take(
-		fcppt::make_unique_ptr<
-			x11input::mouse_grab
-		>(
-			window_,
-			cursor_
-		)
-	);
-#endif
 }
 
 void
 sge::x11input::mouse::ungrab()
 {
-	grab_.reset();
 }
 
 fcppt::signal::auto_connection
@@ -159,33 +139,55 @@ sge::x11input::mouse::axis_callback(
 		);
 }
 
-#include <sge/exception.hpp>
-#include <iostream>
-
 void
 sge::x11input::mouse::on_motion(
-	x11input::device::event const &_event
+	x11input::device::raw_event const &_event
 )
 {
-	std::cout << _event.get().evtype << '\n';
-
 	XIValuatorState const &valuators(
 		_event.get().valuators
 	);
 
-	double *valuator = valuators.values;
-	std::cout << "-------------- " << valuators.mask_len * 8 << '\n';
+	if(
+		valuators.mask_len == 0
+	)
+		return;
 
-    for (int i = 0; i < valuators.mask_len * 8; i++)
-        if (XIMaskIsSet(valuators.mask, i)) {
-            std::cout << '\t' << i << ": " << *valuator << '\n';
-            valuator++;
-        }
+	double const *valuator(
+		valuators.values
+	);
+
+	for(
+		int index = 0;
+		index < valuators.mask_len * 8;
+		index++
+	)
+	{
+		if(
+			XIMaskIsSet(
+				valuators.mask,
+				index
+			)
+		)
+		{
+			axis_signal_(
+				input::mouse::axis_event(
+					x11input::mouse_axis(
+						index
+					),
+					// TODO: how to scale this?
+					*valuator
+				)
+			);
+		}
+
+            ++valuator;
+	}
 }
 
 void
 sge::x11input::mouse::on_button_down(
-	x11input::device::event const &_event
+	x11input::device::window_event const &_event
 )
 {
 	button_event(
@@ -196,7 +198,7 @@ sge::x11input::mouse::on_button_down(
 
 void
 sge::x11input::mouse::on_button_up(
-	x11input::device::event const &_event
+	x11input::device::window_event const &_event
 )
 {
 	button_event(
@@ -207,72 +209,16 @@ sge::x11input::mouse::on_button_up(
 
 void
 sge::x11input::mouse::button_event(
-	x11input::device::event const &_event,
+	x11input::device::window_event const &_event,
 	bool const _pressed
 )
 {
-#if 0
 	button_signal_(
 		input::mouse::button_event(
-			::mouse_key_code(
-				_event.get().xbutton.button
+			x11input::mouse_button_code(
+				_event.get().detail
 			),
 			_pressed
 		)
 	);
-#endif
-}
-
-void
-sge::x11input::mouse::private_mouse_motion(
-	mouse_coordinate const _deltax,
-	mouse_coordinate const _deltay
-)
-{
-#if 0
-	if(
-		_deltax
-	)
-		axis_signal_(
-			input::mouse::axis_event(
-				input::mouse::axis::x,
-				_deltax
-			)
-		);
-
-	if(
-		_deltay
-	)
-		axis_signal_(
-			input::mouse::axis_event(
-				input::mouse::axis::y,
-				_deltay
-			)
-		);
-#endif
-}
-
-namespace
-{
-
-sge::input::mouse::button_code::type
-mouse_key_code(
-	unsigned const _x11code
-)
-{
-	switch(
-		_x11code
-	)
-	{
-	case 1:
-		return sge::input::mouse::button_code::left;
-	case 2:
-		return sge::input::mouse::button_code::middle;
-	case 3:
-		return sge::input::mouse::button_code::right;
-	}
-	
-	return sge::input::mouse::button_code::unknown;
-}
-
 }

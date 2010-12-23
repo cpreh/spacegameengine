@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DEVICE_EVENT_FUNCTION_HPP_INCLUDED
-#define SGE_X11INPUT_DEVICE_EVENT_FUNCTION_HPP_INCLUDED
+#ifndef SGE_X11INPUT_DEVICE_WINDOW_DEMUXER_FWD_HPP_INCLUDED
+#define SGE_X11INPUT_DEVICE_WINDOW_DEMUXER_FWD_HPP_INCLUDED
 
-#include "event_fwd.hpp"
+#include "event_demuxer_fwd.hpp"
+#include "window_event_fwd.hpp"
 
 namespace sge
 {
@@ -30,10 +31,9 @@ namespace x11input
 namespace device
 {
 
-typedef void
-event_function(
-	event const &
-);
+typedef device::event_demuxer<
+	device::window_event
+> window_demuxer;
 
 }
 }

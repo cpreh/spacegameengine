@@ -18,23 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DEVICE_EVENT_FWD_HPP_INCLUDED
-#define SGE_X11INPUT_DEVICE_EVENT_FWD_HPP_INCLUDED
+#include "../mouse_button_code.hpp"
 
-namespace sge
+sge::input::mouse::button_code::type
+sge::x11input::mouse_button_code(
+	int const _detail
+)
 {
-namespace x11input
-{
-namespace device
-{
-
-template<
-	typename ValueType
->
-class event;
-
+	switch(
+		_detail
+	)
+	{
+	case 1:
+		return sge::input::mouse::button_code::left;
+	case 2:
+		return sge::input::mouse::button_code::middle;
+	case 3:
+		return sge::input::mouse::button_code::right;
+	}
+	
+	return sge::input::mouse::button_code::unknown;
 }
-}
-}
-
-#endif

@@ -19,10 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../event_demuxer.hpp"
-#include "../event.hpp"
 #include "../event_data.hpp"
 #include "../event_id_container.hpp"
 #include "../select_events.hpp"
+#include "../raw_event.hpp"
+#include "../window_event.hpp"
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/signal/unregister/base_impl.hpp>
 #include <fcppt/signal/object_impl.hpp>
@@ -33,7 +34,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/foreach.hpp>
 #include <X11/extensions/XInput2.h>
 
-sge::x11input::device::event_demuxer::event_demuxer(
+template<
+	typename Event
+>
+sge::x11input::device::event_demuxer<Event>::event_demuxer(
 	awl::backends::x11::system::event::processor_ptr const _system_processor,
 	awl::backends::x11::system::event::opcode const &_opcode,
 	awl::backends::x11::window::instance_ptr const _window
@@ -46,15 +50,21 @@ sge::x11input::device::event_demuxer::event_demuxer(
 {
 }
 
-sge::x11input::device::event_demuxer::~event_demuxer()
+template<
+	typename Event
+>
+sge::x11input::device::event_demuxer<Event>::~event_demuxer()
 {
 }
 
+template<
+	typename Event
+>
 fcppt::signal::auto_connection
-sge::x11input::device::event_demuxer::register_callback(
+sge::x11input::device::event_demuxer<Event>::register_callback(
 	awl::backends::x11::system::event::type const &_type,
 	x11input::device::id const &_id,
-	x11input::device::event_callback const &_callback
+	callback const &_callback
 )
 {
 	if(
@@ -82,7 +92,7 @@ sge::x11input::device::event_demuxer::register_callback(
 		]
 	);
 
-	event_signal_map::iterator it(
+	typename event_signal_map::iterator it(
 		inner_map.find(
 			_type
 		)
@@ -118,8 +128,11 @@ sge::x11input::device::event_demuxer::register_callback(
 		);
 }
 
+template<
+	typename Event
+>
 void
-sge::x11input::device::event_demuxer::on_event(
+sge::x11input::device::event_demuxer<Event>::on_event(
 	awl::backends::x11::system::event::object const &_event
 )
 {
@@ -128,9 +141,11 @@ sge::x11input::device::event_demuxer::on_event(
 		_event
 	);
 
-	XIDeviceEvent const &device_event(
+	typedef typename Event::value_type xi_event;
+
+	xi_event const &device_event(
 		*static_cast<
-			XIDeviceEvent const *
+			xi_event const *
 		>(
 			cookie.data()
 		)
@@ -145,19 +160,22 @@ sge::x11input::device::event_demuxer::on_event(
 			device_event.evtype
 		)
 	](
-		device::event(
+		Event(
 			device_event
 		)
 	);
 }
 
+template<
+	typename Event
+>
 void
-sge::x11input::device::event_demuxer::unregister(
+sge::x11input::device::event_demuxer<Event>::unregister(
 	device::id const &_id,
 	awl::backends::x11::system::event::type const _type
 )
 {
-	device_signal_map::iterator const device_it(
+	typename device_signal_map::iterator const device_it(
 		signals_.find(
 			_id
 		)
@@ -172,7 +190,7 @@ sge::x11input::device::event_demuxer::unregister(
 		*device_it->second
 	);
 
-	event_signal_map::iterator const signal_it(
+	typename event_signal_map::iterator const signal_it(
 		inner_map.find(
 			_type
 		)
@@ -206,15 +224,18 @@ sge::x11input::device::event_demuxer::unregister(
 	}
 }
 
+template<
+	typename Event
+>
 void
-sge::x11input::device::event_demuxer::select_events(
+sge::x11input::device::event_demuxer<Event>::select_events(
 	device::id const &_id
 )
 {
 	x11input::device::event_id_container event_ids;
 
 	BOOST_FOREACH(
-		event_signal_map::value_type value,
+		typename event_signal_map::value_type value,
 		signals_[
 			_id
 		]
@@ -229,3 +250,13 @@ sge::x11input::device::event_demuxer::select_events(
 		event_ids
 	);
 }
+
+template class
+sge::x11input::device::event_demuxer<
+	sge::x11input::device::window_event
+>;
+
+template class
+sge::x11input::device::event_demuxer<
+	sge::x11input::device::raw_event
+>;

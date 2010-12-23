@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "parameters_fwd.hpp"
 #include "id.hpp"
-#include "event_demuxer_fwd.hpp"
+#include "raw_demuxer_fwd.hpp"
+#include "window_demuxer_fwd.hpp"
 #include <awl/backends/x11/system/event/opcode.hpp>
 #include <awl/backends/x11/window/instance_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -45,8 +46,8 @@ public:
 		x11input::device::id const &,
 		awl::backends::x11::system::event::opcode,
 		awl::backends::x11::window::instance_ptr,
-		x11input::device::event_demuxer &window_demuxer,
-		x11input::device::event_demuxer &raw_demuxer
+		x11input::device::window_demuxer &,
+		x11input::device::raw_demuxer &
 	);
 
 	x11input::device::id const
@@ -58,10 +59,10 @@ public:
 	awl::backends::x11::window::instance_ptr const
 	window() const;
 
-	x11input::device::event_demuxer &
+	x11input::device::window_demuxer &
 	window_demuxer() const;
 
-	x11input::device::event_demuxer &
+	x11input::device::raw_demuxer &
 	raw_demuxer() const;
 private:
 	x11input::device::id const id_;
@@ -70,9 +71,9 @@ private:
 
 	awl::backends::x11::window::instance_ptr const window_;
 
-	x11input::device::event_demuxer &window_demuxer_;
+	x11input::device::window_demuxer &window_demuxer_;
 
-	x11input::device::event_demuxer &raw_demuxer_;
+	x11input::device::raw_demuxer &raw_demuxer_;
 };
 
 }
