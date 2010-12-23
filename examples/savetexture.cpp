@@ -31,7 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/filter/linear.hpp>
+#include <sge/renderer/no_depth_stencil_texture.hpp>
 #include <sge/renderer/const_scoped_texture_lock.hpp>
+#include <sge/renderer/scoped_target.hpp>
 #include <sge/log/global.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
@@ -57,12 +59,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/with_depth.hpp>
 #include <sge/sprite/default_sort.hpp>
 #include <sge/sprite/default_equal.hpp>
+#include <sge/shader/vf_to_string.hpp>
+#include <sge/shader/object.hpp>
+#include <sge/shader/variable.hpp>
+#include <sge/shader/variable_type.hpp>
+#include <sge/shader/sampler.hpp>
+#include <sge/shader/scoped.hpp>
+#include <sge/shader/variable_sequence.hpp>
+#include <sge/shader/sampler_sequence.hpp>
 #include <sge/systems/viewport/manage_resize.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/add_image.hpp>
 #include <sge/texture/no_fragmented.hpp>
 #include <sge/exception.hpp>
 #include <sge/extension_set.hpp>
+#include <sge/renderer/scoped_vertex_buffer.hpp>
+#include <sge/renderer/vector2.hpp>
+#include <sge/renderer/scoped_vertex_lock.hpp>
+#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/vf/iterator.hpp>
+#include <sge/renderer/vf/vertex.hpp>
+#include <sge/renderer/vf/dynamic/make_format.hpp>
+#include <sge/renderer/vf/unspecified.hpp>
+#include <sge/renderer/vf/vector.hpp>
+#include <sge/renderer/vf/make_unspecified_tag.hpp>
+#include <sge/renderer/scalar.hpp>
+#include <sge/renderer/vf/format.hpp>
+#include <sge/renderer/vf/view.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -70,6 +97,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/spirit/home/phoenix/object/new.hpp>
@@ -82,9 +110,112 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <vector>
 #include <cstdlib>
 
-#if 0
 namespace
 {
+namespace screen_vf
+{
+namespace tags
+{
+SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(position)
+}
+
+typedef 
+sge::renderer::vf::unspecified
+<
+	sge::renderer::vf::vector
+	<
+		sge::renderer::scalar,
+		2
+	>,
+	tags::position
+> 
+position;
+}
+namespace screen_vf
+{
+typedef 
+sge::renderer::vf::format
+<
+	boost::mpl::vector1
+	<
+		position
+	>
+> 
+format;
+}
+namespace screen_vf
+{
+typedef 
+sge::renderer::vf::view
+<
+	format
+> 
+vertex_view;
+}
+namespace screen_vf
+{
+sge::renderer::vertex_buffer_ptr const
+create_quad(
+	sge::shader::object &shader,
+	sge::renderer::device_ptr const renderer)
+{
+	sge::renderer::vertex_buffer_ptr const vb(
+		renderer->create_vertex_buffer(
+			sge::renderer::vf::dynamic::make_format<format>(),
+			static_cast<sge::renderer::size_type>(
+				6),
+			sge::renderer::resource_flags::none));
+	
+	sge::shader::scoped scoped_shader(
+		shader);
+	
+	sge::renderer::scoped_vertex_buffer const scoped_vb_(
+		renderer,
+		vb);
+
+	sge::renderer::scoped_vertex_lock const vblock(
+		vb,
+		sge::renderer::lock_mode::writeonly);
+
+	vertex_view const vertices(
+		vblock.value());
+
+	vertex_view::iterator vb_it(
+		vertices.begin());
+
+	// Left top
+	(vb_it++)->set<position>(
+		position::packed_type(
+			-1, 1));
+
+	// Left bottom
+	(vb_it++)->set<position>(
+		position::packed_type(
+			-1,-1));
+
+	// Right top
+	(vb_it++)->set<position>(
+		position::packed_type(
+			1,1));
+
+	// Right top
+	(vb_it++)->set<position>(
+		position::packed_type(
+			1,1));
+
+	// Left bottom
+	(vb_it++)->set<position>(
+		position::packed_type(
+			-1,-1));
+
+	// Right bottom
+	(vb_it++)->set<position>(
+		position::packed_type(
+			1,-1));
+
+	return vb;
+}
+}
 
 typedef 
 sge::image::color::rgba8_format 
@@ -167,7 +298,6 @@ private:
 	sprite_object &sprite_;
 };
 }
-#endif
 
 int main(
 	int argc,
@@ -176,7 +306,7 @@ try
 {
 	if (argc != 2)
 	{
-		std::cerr << "usage: " << argv[0] << " <filename>\nWhere <filename> is the output file\n";
+		std::cerr << "usage: " << argv[0] << " <output-file>\n";
 		return EXIT_FAILURE;
 	}
 
@@ -233,21 +363,6 @@ try
 				sge::config::media_path()
 				/ FCPPT_TEXT("tux.png")));
 
-	sge::renderer::texture_ptr tex = 
-		sys.renderer()->create_texture(
-			image_bg->view(),
-			sge::renderer::filter::linear,
-			sge::renderer::resource_flags_field(
-				sge::renderer::resource_flags::readable));
-
-	sge::renderer::const_scoped_texture_lock slock(
-		tex);
-
-	sys.image_loader().loaders().at(0)->create(
-		slock.value())->save(
-		fcppt::from_std_string(
-			argv[1]));
-#if 0
 	sge::texture::manager tex_man(
 		sys.renderer(),
 		boost::phoenix::construct<sge::texture::fragmented_unique_ptr>(
@@ -269,6 +384,20 @@ try
 			sge::texture::add_image(
 				tex_man,
 				image_tux));
+
+	sge::renderer::texture_ptr target_texture(
+		sys.renderer()->create_texture(
+			fcppt::math::dim::structure_cast<sge::renderer::dim2>(
+				sys.renderer()->screen_size()),
+			sge::image::color::format::rgb8,
+			sge::renderer::filter::linear,
+			sge::renderer::resource_flags_field(
+				sge::renderer::resource_flags::readable)));
+
+	sge::renderer::target_ptr temp_target(
+		sys.renderer()->create_target(
+			target_texture,
+			sge::renderer::no_depth_stencil_texture()));
 
 	sprite_system ss(
 		sys.renderer());
@@ -340,11 +469,32 @@ try
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(sge::renderer::state::color::clear_color = sge::image::colors::black()));
 
-	while(running)
-	{
-		sys.window()->dispatch();
+	sge::shader::object shader_(
+		sys.renderer(),
+		sge::config::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("copy_vertex.glsl"),
+		sge::config::media_path()/FCPPT_TEXT("shaders")/FCPPT_TEXT("copy_fragment.glsl"),
+		sge::shader::vf_to_string<screen_vf::format>(),
+		fcppt::assign::make_container<sge::shader::variable_sequence>(
+			sge::shader::variable(
+				"target_size",
+				sge::shader::variable_type::const_,
+				fcppt::math::dim::structure_cast<sge::renderer::vector2>(
+					sys.renderer()->screen_size()))),
+		fcppt::assign::make_container<sge::shader::sampler_sequence>(
+			sge::shader::sampler(
+				"tex")));
 
-		sge::renderer::scoped_block const block_(
+	sge::renderer::vertex_buffer_ptr const quad_(
+		screen_vf::create_quad(
+			shader_,
+			sys.renderer()));
+
+	{
+		sge::renderer::scoped_target scoped_target(
+			sys.renderer(),
+			temp_target);
+
+		sge::renderer::scoped_block scoped_block(
 			sys.renderer());
 
 		std::vector<sprite_object> sprites;
@@ -362,7 +512,40 @@ try
 			sge::sprite::default_sort(),
 			sge::sprite::default_equal());
 	}
-#endif
+
+	sge::renderer::const_scoped_texture_lock slock(
+		target_texture);
+
+	sys.image_loader().loaders().at(0)->create(
+		slock.value())->save(
+		fcppt::from_std_string(
+			argv[1]));
+
+	while(running)
+	{
+		sys.window()->dispatch();
+
+		sge::renderer::scoped_block const block_(
+			sys.renderer());
+
+		shader_.update_texture(
+			"tex",
+			target_texture);
+
+		sge::shader::scoped scoped_shader(
+			shader_);
+
+		sge::renderer::scoped_vertex_buffer const scoped_vb_(
+			sys.renderer(),
+			quad_);
+
+		sys.renderer()->render(
+			sge::renderer::first_vertex(
+				0),
+			sge::renderer::vertex_count(
+				quad_->size()),
+			sge::renderer::nonindexed_primitive_type::triangle);
+	}
 }
 catch(sge::exception const &e)
 {
