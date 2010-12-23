@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/axis.hpp>
 #include <sge/input/mouse/button_code.hpp>
 #include <sge/input/mouse/button_event.hpp>
+#include <sge/input/exception.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/system/event/object.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
@@ -101,7 +102,39 @@ sge::x11input::mouse::mouse(
 	),
 	button_signal_(),
 	axis_signal_()
-{}
+{
+	int const nmodifiers = 1;
+	XIGrabModifiers modifiers[nmodifiers];
+	modifiers[0].modifiers = 0;
+
+	unsigned char mask[1] = { 0 };
+
+	XIEventMask event_mask =
+	{
+		_param.id().get(),
+		1,
+		mask
+	};
+
+//	if(
+		::XIGrabEnter(
+			window_->display()->get(),
+			_param.id().get(),
+			window_->get(),
+			None,
+			GrabModeSync,
+			GrabModeSync,
+			False,
+			&event_mask,
+			nmodifiers,
+			modifiers
+		);
+//		!= 0
+//	)
+//		throw sge::input::exception(
+//			FCPPT_TEXT("XIGrabEnter() failed!")
+//		);
+}
 
 sge::x11input::mouse::~mouse()
 {

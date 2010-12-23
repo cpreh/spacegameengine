@@ -43,11 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/polymorphic_pointer_cast.hpp>
 #include <fcppt/text.hpp>
 #include <ostream>
-
 #include <X11/extensions/XInput2.h>
-
-#include <sge/input/exception.hpp>
-#include <iostream>
 
 sge::x11input::processor::processor(
 	sge::window::instance_ptr const _window,
@@ -205,88 +201,6 @@ sge::x11input::processor::processor(
 			break;
 		}
 	}
-
-#if 0
-	x11input::select_events(
-		x11_window_,
-		XIAllDevices,
-		fcppt::assign::make_container<
-			x11input::event_id_container
-		>(
-			XI_ButtonPress
-		)
-		(
-			XI_ButtonRelease
-		)
-		(
-			XI_Motion
-		)
-		(
-			XI_KeyPress
-		)
-		(
-			XI_KeyRelease
-		)
-	);
-#endif
-#if 0
-	x11input::device_info const devices(
-		x11_window_->display(),
-		XIAllDevices
-	);
-
-	for(
-		int index = 0;
-		index < devices.size();
-		++index
-	)
-	{
-		XIDeviceInfo const &device(
-			devices[index]
-		);
-
-		switch(
-			device.use
-		)
-		{
-		case XIMasterPointer:
-			cursors_.push_back(
-				fcppt::make_shared_ptr<
-					x11input::cursor
-				>()
-			);
-
-			std::cout << "master pointer\n"; break;
-			case XIMasterKeyboard: std::cout << "master keyboard\n"; break;
-			case XISlavePointer: std::cout << "slave pointer\n"; break;
-			case XISlaveKeyboard: std::cout << "slave keyboard\n"; break;
-			case XIFloatingSlave: std::cout << "floating slave\n"; break;
-		}
-	}
-#endif
-	/*
-	connections.connect(
-		wnd->register_callback(
-			EnterNotify,
-			std::tr1::bind(
-				&processor::on_acquire,
-				this,
-				std::tr1::placeholders::_1
-			)
-		)
-	);
-
-	connections.connect(
-		wnd->register_callback(
-			LeaveNotify,
-			std::tr1::bind(
-				&processor::on_release,
-				this,
-				std::tr1::placeholders::_1
-			)
-		)
-	);
-*/
 }
 
 sge::x11input::processor::~processor()
@@ -380,6 +294,7 @@ sge::x11input::processor::on_acquire(
 	awl::backends::x11::window::event::object const &
 )
 {
+#if 0
 	if(
 		acquired_
 	)
@@ -407,6 +322,7 @@ sge::x11input::processor::on_acquire(
 		mouse->grab();
 
 	x11_window_->display()->sync();
+#endif
 }
 
 void
@@ -414,6 +330,7 @@ sge::x11input::processor::on_release(
 	awl::backends::x11::window::event::object const &
 )
 {
+#if 0
 	if(
 		!acquired_
 	)
@@ -438,4 +355,5 @@ sge::x11input::processor::on_release(
 		mice_
 	)
 		mouse->ungrab();
+#endif
 }
