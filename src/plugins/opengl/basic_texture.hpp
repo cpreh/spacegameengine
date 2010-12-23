@@ -152,6 +152,8 @@ private:
 		format_type_,
 		internal_format_;
 
+	sge::image::color::format::type const color_type_;
+
 	size_type const stride_;
 
 	typedef fcppt::scoped_ptr<

@@ -130,10 +130,7 @@ sge::opengl::basic_texture<Base>::unlock() const
 				>(
 					lock_->write_view_pointer(),
 					lock_dim(),
-					convert::format_to_color(
-						format(),
-						format_type()
-					),
+					color_type_,
 					optional_pitch()
 				)
 			);
@@ -249,10 +246,7 @@ sge::opengl::basic_texture<Base>::view()
 				dim()
 			:
 				lock_dim(),
-			convert::format_to_color(
-				format(),
-				format_type()
-			),
+			color_type_,
 			optional_pitch()
 		)
 	);
@@ -377,6 +371,12 @@ sge::opengl::basic_texture<Base>::basic_texture(
 	internal_format_(
 		convert::color_to_internal_format(
 			_color_format
+		)
+	),
+	color_type_(
+		convert::format_to_color(
+			format_,
+			format_type_
 		)
 	),
 	stride_(
