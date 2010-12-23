@@ -20,12 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../object.hpp"
 
-sge::x11input::device::object::object(
-	device::id const &_id
-)
-:
-	id_(_id)
-{}
+sge::x11input::device::object::object()
+{
+}
 
 sge::x11input::device::object::~object()
-{}
+{
+}

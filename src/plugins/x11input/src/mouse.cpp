@@ -21,36 +21,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../mouse.hpp"
 #include "../mouse_axis.hpp"
 #include "../mouse_button_code.hpp"
+#include "../device/parameters.hpp"
 #include "../device/raw_demuxer.hpp"
 #include "../device/raw_event.hpp"
 #include "../device/window_demuxer.hpp"
 #include "../device/window_event.hpp"
-#include "../device/parameters.hpp"
 #include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/axis.hpp>
 #include <sge/input/mouse/button_code.hpp>
 #include <sge/input/mouse/button_event.hpp>
-#include <sge/input/exception.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/system/event/object.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
 #include <awl/backends/x11/window/instance.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/text.hpp>
 #include <X11/extensions/XInput2.h>
 
 sge::x11input::mouse::mouse(
 	x11input::device::parameters const &_param
 )
 :
-	x11input::device::object(
-		_param.id()
-	),
-	window_(
-		_param.window()
-	),
+	x11input::device::object(),
 	connections_(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
@@ -103,37 +96,6 @@ sge::x11input::mouse::mouse(
 	button_signal_(),
 	axis_signal_()
 {
-	int const nmodifiers = 1;
-	XIGrabModifiers modifiers[nmodifiers];
-	modifiers[0].modifiers = 0;
-
-	unsigned char mask[1] = { 0 };
-
-	XIEventMask event_mask =
-	{
-		_param.id().get(),
-		1,
-		mask
-	};
-
-//	if(
-		::XIGrabEnter(
-			window_->display()->get(),
-			_param.id().get(),
-			window_->get(),
-			None,
-			GrabModeSync,
-			GrabModeSync,
-			False,
-			&event_mask,
-			nmodifiers,
-			modifiers
-		);
-//		!= 0
-//	)
-//		throw sge::input::exception(
-//			FCPPT_TEXT("XIGrabEnter() failed!")
-//		);
 }
 
 sge::x11input::mouse::~mouse()

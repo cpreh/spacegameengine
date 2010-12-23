@@ -18,38 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DEVICE_OBJECT_HPP_INCLUDED
-#define SGE_X11INPUT_DEVICE_OBJECT_HPP_INCLUDED
+#include "../cursor_button_code.hpp"
 
-#include "object_fwd.hpp"
-#include <fcppt/noncopyable.hpp>
-
-namespace sge
+sge::input::cursor::button_code::type
+sge::x11input::cursor_button_code(
+	int const _detail
+)
 {
-namespace x11input
-{
-namespace device
-{
-
-class object
-{
-	FCPPT_NONCOPYABLE(
-		object
+	switch(
+		_detail
 	)
-protected:
-	object();
-public:
-	virtual void
-	grab() = 0;
-
-	virtual void
-	ungrab() = 0;
-
-	virtual ~object();
-};
-
+	{
+	case 1:
+		return sge::input::cursor::button_code::left;
+	case 2:
+		return sge::input::cursor::button_code::middle;
+	case 3:
+		return sge::input::cursor::button_code::right;
+	}
+	
+	return sge::input::cursor::button_code::unknown;
 }
-}
-}
-
-#endif

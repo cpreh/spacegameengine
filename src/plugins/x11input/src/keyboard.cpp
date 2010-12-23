@@ -43,9 +43,7 @@ sge::x11input::keyboard::keyboard(
 	x11input::device::parameters const &_param
 )
 :
-	x11input::device::object(
-		_param.id()
-	),
+	x11input::device::object(),
 	window_(
 		_param.window()
 	),

@@ -32,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/axis_function.hpp>
 #include <sge/input/mouse/button_callback.hpp>
 #include <sge/input/mouse/button_function.hpp>
-#include <awl/backends/x11/window/instance_ptr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object.hpp>
@@ -94,8 +93,6 @@ private:
 		x11input::device::window_event const &,
 		bool pressed
 	);
-
-	awl::backends::x11::window::instance_ptr const window_;
 
 	fcppt::signal::connection_manager const connections_;
 
