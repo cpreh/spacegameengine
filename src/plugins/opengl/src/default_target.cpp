@@ -113,7 +113,7 @@ sge::opengl::default_target::lock(
 	);
 
 	return
-		image2d::view::flipped(
+//		image2d::view::flipped(
 			image2d::view::make_const(
 				buffer_.data(),
 				_dest.dimension(),
@@ -123,7 +123,7 @@ sge::opengl::default_target::lock(
 				),
 				image2d::view::optional_pitch()
 			)
-		);
+		/*)*/;
 }
 
 void
