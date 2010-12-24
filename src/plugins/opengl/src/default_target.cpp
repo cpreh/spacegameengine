@@ -48,7 +48,7 @@ sge::opengl::default_target::default_target(
 		renderer::viewport(
 			renderer::pixel_pos::null(),
 			fcppt::math::dim::structure_cast<
-				sge::renderer::screen_size
+				sge::renderer::pixel_size
 			>(
 				_window->size()
 			)
