@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/simple_parameters.hpp>
 #include <sge/window/instance.hpp>
 #include <awl/mainloop/io_service.hpp>
+#include <awl/mainloop/dispatcher.hpp>
 #include <awl/mainloop/asio/create_io_service.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
@@ -81,12 +82,28 @@ try
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
 				std::tr1::bind(
+					&awl::mainloop::dispatcher::stop,
+					sys.window()->awl_dispatcher()
+				)
+			)
+		)
+	);
+
+#if 0
+	fcppt::signal::scoped_connection const input_connection2(
+		sys.keyboard_collector()->key_callback(
+			sge::input::keyboard::action(
+				sge::input::keyboard::key_code::escape,
+				std::tr1::bind(
 					&awl::mainloop::io_service::stop,
 					io_service
 				)
 			)
 		)
 	);
+#endif
+
+	sys.window()->dispatch();
 
 	io_service->run();
 }
