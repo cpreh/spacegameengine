@@ -18,49 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_SET_MATRICES_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_SET_MATRICES_HPP_INCLUDED
-
 #include <sge/sprite/projection_matrix.hpp>
-#include <sge/sprite/transform_matrix.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/device_ptr.hpp>
-#include <sge/renderer/matrix_mode.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/math/matrix/orthogonal_xy.hpp>
 
-namespace sge
+sge::sprite::matrix const
+sge::sprite::projection_matrix()
 {
-namespace sprite
-{
-namespace detail
-{
-
-template<
-	typename TypeChoices
->
-void
-set_matrices(
-	renderer::device_ptr const _device
-)
-{
-	_device->transform(
-		sge::renderer::matrix_mode::world,
-		sprite::transform_matrix<
-			TypeChoices
-		>(
-			_device->screen_size()
-		)
-	);
-
-	_device->transform(
-		sge::renderer::matrix_mode::projection,
-		sprite::projection_matrix<
-			TypeChoices
-		>()
-	);
+	return
+		fcppt::math::matrix::orthogonal_xy<
+			sge::sprite::matrix::value_type
+		>();
 }
-
-}
-}
-}
-
-#endif

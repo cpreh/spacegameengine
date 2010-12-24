@@ -60,7 +60,7 @@ sge::systems::viewport::center(
 			sge::renderer::viewport(
 				sge::renderer::pixel_pos::null(),
 				fcppt::math::dim::structure_cast<
-					sge::renderer::screen_size
+					sge::renderer::pixel_size
 				>(
 					_window_dim
 				)
@@ -77,7 +77,11 @@ sge::systems::viewport::center(
 						_window_dim.h()
 					)
 				),
-				_screen_size
+				fcppt::math::dim::structure_cast<
+					sge::renderer::pixel_size
+				>(
+					_screen_size
+				)
 			);
 }
 

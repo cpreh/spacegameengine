@@ -18,61 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/sprite/transform_matrix.hpp>
 #include <sge/renderer/matrix_pixel_to_space.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
-#include <fcppt/math/matrix/translation.hpp>
-#include <fcppt/math/matrix/scaling.hpp>
-#include <fcppt/math/matrix/arithmetic.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <boost/type_traits/make_signed.hpp>
 
-sge::renderer::matrix4 const
-sge::renderer::matrix_pixel_to_space(
-	renderer::screen_size const &_sz
+sge::sprite::matrix const
+sge::sprite::transform_matrix(
+	sge::renderer::screen_size const &_dim
 )
 {
-	typedef sge::renderer::matrix4::value_type value_type;
-
-	typedef boost::make_signed<
-		renderer::screen_size::value_type
-	>::type signed_screen_unit;
-
 	return
-		fcppt::math::matrix::scaling(
-			2.f
-			/ static_cast<
-				value_type
-			>(
-				_sz.w()
-			),
-			-2.f
-			/ static_cast<
-				value_type
-			>(
-				_sz.h()
-			),
-			1.f
-		)
-		*
-		fcppt::math::matrix::translation(
-			static_cast<
-				value_type
-			>(
-				-static_cast<
-					signed_screen_unit
-				>(
-					_sz.w()
-				) / 2
-			),
-			static_cast<
-				value_type
-			>(
-				-static_cast<
-					signed_screen_unit
-				>(
-					_sz.h()
-				) / 2
-			),
-			0.f
+		renderer::matrix_pixel_to_space(
+			_dim
 		);
 }

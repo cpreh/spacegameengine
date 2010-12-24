@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_MATRIX_PIXEL_TO_SPACE_HPP_INCLUDED
 
 #include <sge/renderer/screen_size.hpp>
-#include <fcppt/math/matrix/static.hpp>
+#include <sge/renderer/matrix4.hpp>
 #include <sge/symbol.hpp>
 
 namespace sge
@@ -30,11 +30,8 @@ namespace sge
 namespace renderer
 {
 
-template<
-	typename T
->
 SGE_SYMBOL
-typename fcppt::math::matrix::static_<T, 4, 4>::type const
+sge::renderer::matrix4 const
 matrix_pixel_to_space(
 	screen_size const &
 );

@@ -18,24 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_FBO_PROJECTION_HPP_INCLUDED
-#define SGE_OPENGL_FBO_PROJECTION_HPP_INCLUDED
+#ifndef SGE_RENDERER_PIXEL_SIZE_HPP_INCLUDED
+#define SGE_RENDERER_PIXEL_SIZE_HPP_INCLUDED
 
-#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/pixel_unit.hpp>
+#include <fcppt/math/dim/static.hpp>
 
 namespace sge
 {
-namespace opengl
-{
-namespace fbo
+namespace renderer
 {
 
-renderer::matrix4 const
-projection(
-	renderer::matrix4 const &
-);
+typedef fcppt::math::dim::static_<
+	pixel_unit,
+	2
+>::type pixel_size;
 
-}
 }
 }
 

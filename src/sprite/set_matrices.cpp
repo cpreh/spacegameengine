@@ -18,24 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../projection.hpp"
-#include <sge/renderer/scalar.hpp>
-#include <fcppt/math/matrix/scaling.hpp>
-#include <fcppt/math/matrix/arithmetic.hpp>
+#include <sge/sprite/set_matrices.hpp>
+#include <sge/sprite/projection_matrix.hpp>
+#include <sge/sprite/transform_matrix.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/matrix_mode.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
 
-sge::renderer::matrix4 const
-sge::opengl::fbo::projection(
-	renderer::matrix4 const &_matrix
+void
+sge::sprite::set_matrices(
+	renderer::device_ptr const _device
 )
 {
-	return
-		_matrix
-		*
-		fcppt::math::matrix::scaling<
-			sge::renderer::scalar
-		>(
-			static_cast<sge::renderer::scalar>(1),
-			static_cast<sge::renderer::scalar>(-1),
-			static_cast<sge::renderer::scalar>(1)
-		);
+	_device->transform(
+		sge::renderer::matrix_mode::world,
+		sprite::transform_matrix(
+			_device->screen_size()
+		)
+	);
+
+	_device->transform(
+		sge::renderer::matrix_mode::projection,
+		sprite::projection_matrix()
+	);
 }

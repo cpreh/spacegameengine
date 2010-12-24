@@ -50,7 +50,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/light_index.hpp"
 #include "../convert/matrix_mode.hpp"
 #include "../convert/nonindexed_primitive.hpp"
-#include "../fbo/projection.hpp"
 #include "../fbo/target.hpp"
 #include "../glew/initialize.hpp"
 #include "../glsl/set_program.hpp"

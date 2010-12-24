@@ -18,41 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/viewport.hpp>
-#include <fcppt/math/vector/output.hpp>
-#include <fcppt/math/dim/output.hpp>
-#include <fcppt/text.hpp>
-#include <ostream>
+#ifndef SGE_SPRITE_SET_MATRICES_HPP_INCLUDED
+#define SGE_SPRITE_SET_MATRICES_HPP_INCLUDED
 
-sge::renderer::viewport::viewport(
-	pixel_pos const &_pos,
-	pixel_size const &_size
-)
-:
-	pos_(_pos),
-	size_(_size)
-{}
+#include <sge/sprite/symbol.hpp>
+#include <sge/renderer/device_ptr.hpp>
 
-sge::renderer::pixel_pos const &
-sge::renderer::viewport::pos() const
+namespace sge
 {
-	return pos_;
+namespace sprite
+{
+
+SGE_SPRITE_SYMBOL
+void
+set_matrices(
+	renderer::device_ptr
+);
+
+}
 }
 
-sge::renderer::pixel_size const &
-sge::renderer::viewport::size() const
-{
-	return size_;
-}
-
-fcppt::io::ostream &
-sge::renderer::operator<<(
-	fcppt::io::ostream &_stream,
-	viewport const &_v
-)
-{
-	return _stream
-		<< _v.pos()
-		<< FCPPT_TEXT(' ')
-		<< _v.size();
-}
+#endif

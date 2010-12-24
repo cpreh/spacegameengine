@@ -49,7 +49,7 @@ sge::opengl::fbo::init_viewport(
 		return
 			sge::renderer::viewport(
 				sge::renderer::pixel_pos::null(),
-				sge::renderer::screen_size::null()
+				sge::renderer::pixel_size::null()
 			);
 	}
 
@@ -57,7 +57,7 @@ sge::opengl::fbo::init_viewport(
 		sge::renderer::viewport(
 			sge::renderer::pixel_pos::null(),
 			fcppt::math::dim::structure_cast<
-				sge::renderer::screen_size
+				sge::renderer::pixel_size
 			>(
 				_texture
 				?
