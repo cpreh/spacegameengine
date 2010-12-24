@@ -18,22 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_MATRIX_PIXEL_TO_SPACE_HPP_INCLUDED
-#define SGE_RENDERER_MATRIX_PIXEL_TO_SPACE_HPP_INCLUDED
+#ifndef SGE_SPRITE_SET_MATRICES_HPP_INCLUDED
+#define SGE_SPRITE_SET_MATRICES_HPP_INCLUDED
 
-#include <sge/renderer/screen_size.hpp>
-#include <sge/renderer/matrix4.hpp>
-#include <sge/symbol.hpp>
+#include <sge/sprite/symbol.hpp>
+#include <sge/renderer/device_ptr.hpp>
 
 namespace sge
 {
-namespace renderer
+namespace sprite
 {
 
-SGE_SYMBOL
-sge::renderer::matrix4 const
-matrix_pixel_to_space(
-	screen_size const &
+SGE_SPRITE_SYMBOL
+void
+set_matrices(
+	renderer::device_ptr
 );
 
 }

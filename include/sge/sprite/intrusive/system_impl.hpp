@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/fill_geometry.hpp>
 #include <sge/sprite/detail/optional_size.hpp>
 #include <sge/sprite/detail/render.hpp>
-#include <sge/sprite/detail/set_matrices.hpp>
+#include <sge/sprite/set_matrices.hpp>
 #include <sge/sprite/render_states.hpp>
 #include <sge/sprite/system_base_impl.hpp>
 #include <sge/sprite/object_impl.hpp>
@@ -72,9 +72,7 @@ sge::sprite::intrusive::system<Choices>::render_all(
 	EqualFunction const &_equal
 )
 {
-	sprite::detail::set_matrices<
-		typename Choices::type_choices
-	>(
+	sprite::set_matrices(
 		base::renderer()
 	);
 
@@ -105,9 +103,7 @@ sge::sprite::intrusive::system<Choices>::render(
 	EqualFunction const &_equal
 )
 {
-	sprite::detail::set_matrices<
-		typename Choices::type_choices
-	>(
+	sprite::set_matrices(
 		base::renderer()
 	);
 
