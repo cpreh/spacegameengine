@@ -35,7 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/instance_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
 #include <stack>
 
 namespace sge
@@ -253,9 +252,6 @@ private:
 		renderer::state::bool_::trampoline_type const &
 	) const;
 
-	void
-	projection_internal();
-
 	bool
 	fbo_active() const;
 
@@ -266,8 +262,6 @@ private:
 	renderer::state::list current_states_;
 
 	device_state_ptr state_;
-
-	renderer::matrix4 projection_;
 
 	default_target_ptr default_target_;
 

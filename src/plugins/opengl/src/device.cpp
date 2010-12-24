@@ -91,9 +91,6 @@ sge::opengl::device::device(
 			_window
 		)
 	),
-	projection_(
-		fcppt::math::matrix::static_<float, 4, 4>::type::identity()
-	),
 	default_target_(
 		fcppt::make_shared_ptr<
 			opengl::default_target
@@ -114,8 +111,6 @@ sge::opengl::device::device(
 	state(
 		sge::renderer::state::default_()
 	);
-
-	projection_internal();
 
 	target_->bind();
 }
@@ -394,27 +389,17 @@ sge::opengl::device::texture(
 
 void
 sge::opengl::device::transform(
-	renderer::matrix_mode::type const mode,
-	renderer::matrix4 const &matrix
+	renderer::matrix_mode::type const _mode,
+	renderer::matrix4 const &_matrix
 )
 {
-	if(
-		mode == renderer::matrix_mode::projection
-	)
-	{
-		// TODO: what can we do about this?
-		projection_ = matrix;
-
-		projection_internal();
-	}
-	else
-		opengl::set_matrix_and_mode(
-			context_,
-			convert::matrix_mode(
-				mode
-			),
-			matrix
-		);
+	opengl::set_matrix_and_mode(
+		context_,
+		convert::matrix_mode(
+			_mode
+		),
+		_matrix
+	);
 }
 
 void
@@ -436,8 +421,6 @@ sge::opengl::device::target(
 		target_->bind();
 
 		target_->activate_viewport();
-
-		projection_internal();
 
 		return;
 	}
@@ -750,22 +733,6 @@ sge::opengl::device::clear_bit(
 			)
 		:
 			0;
-}
-
-void
-sge::opengl::device::projection_internal()
-{
-	opengl::set_matrix_and_mode(
-		context_,
-		GL_PROJECTION,
-		fbo_active()
-		?
-			opengl::fbo::projection(
-				projection_
-			)
-		:
-			projection_
-	);
 }
 
 bool
