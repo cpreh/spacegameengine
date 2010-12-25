@@ -18,37 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../image/view/flipped_impl.hpp"
-#include "../../image/view/instantiate_flipped.hpp"
-#include <sge/image2d/view/flipped.hpp>
+#ifndef SGE_IMAGE_VIEW_FLIPPED_IMPL_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_FLIPPED_IMPL_HPP_INCLUDED
+
+#include "flipped_visitor.hpp"
+#include <sge/image/view/flipped.hpp>
+#include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
-SGE_IMAGE_VIEW_INSTANTIATE_FLIPPED(
-	sge::image2d::view::object
-)
-
-SGE_IMAGE_VIEW_INSTANTIATE_FLIPPED(
-	sge::image2d::view::const_object
-)
-
-sge::image2d::view::object const
-sge::image2d::view::flipped(
-	object const &_view
+template<
+	typename View
+>
+View const
+sge::image::view::flipped(
+	View const &_view
 )
 {
 	return
-		sge::image::view::flipped(
+		fcppt::variant::apply_unary(
+			sge::image::view::flipped_visitor<
+				View
+			>(),
 			_view
 		);
 }
 
-sge::image2d::view::const_object const
-sge::image2d::view::flipped(
-	const_object const &_view
-)
-{
-	return
-		sge::image::view::flipped(
-			_view
-		);
-}
+#endif
