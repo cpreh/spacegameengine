@@ -112,9 +112,6 @@ try
 					sge::extension_set
 				>
 				(
-					FCPPT_TEXT("jpg")
-				)
-				(
 					FCPPT_TEXT("png")
 				)
 			)
@@ -143,7 +140,7 @@ try
 				tex_man,
 				sys.image_loader().load(
 					sge::config::media_path()
-					/ FCPPT_TEXT("cloudsquare.jpg")
+					/ FCPPT_TEXT("cloudsquare.png")
 				)
 			)
 		),

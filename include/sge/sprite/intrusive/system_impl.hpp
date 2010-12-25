@@ -81,12 +81,28 @@ sge::sprite::intrusive::system<Choices>::render_all(
 		sprite::render_states()
 	);
 
+	render_all_advanced(
+		_equal
+	);
+}
+
+template<
+	typename Choices
+>
+template<
+	typename EqualFunction
+>
+void
+sge::sprite::intrusive::system<Choices>::render_all_advanced(
+	EqualFunction const &_equal
+)
+{
 	BOOST_FOREACH(
-		typename level_map::value_type const &v,
+		typename level_map::value_type const &level,
 		sprite_levels_
 	)
-		render(
-			*v.second,
+		render_list(
+			*level.second,
 			_equal
 		);
 }
@@ -112,10 +128,8 @@ sge::sprite::intrusive::system<Choices>::render(
 		sprite::render_states()
 	);
 
-	render(
-		sprite_levels_[
-			_order
-		],
+	render_advanced(
+		_order,
 		_equal
 	);
 }
@@ -132,7 +146,7 @@ sge::sprite::intrusive::system<Choices>::render_advanced(
 	EqualFunction const &_equal
 )
 {
-	render(
+	render_list(
 		sprite_levels_[
 			_order
 		],
@@ -147,7 +161,7 @@ template<
 	typename EqualFunction
 >
 void
-sge::sprite::intrusive::system<Choices>::render(
+sge::sprite::intrusive::system<Choices>::render_list(
 	list const &_sprites,
 	EqualFunction const &_equal
 )
