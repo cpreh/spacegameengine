@@ -77,6 +77,14 @@ public:
 		typename EqualFunction
 	>
 	void
+	render_all_advanced(
+		EqualFunction const &
+	);
+
+	template<
+		typename EqualFunction
+	>
+	void
 	render(
 		order,
 		EqualFunction const &
@@ -102,7 +110,7 @@ private:
 		typename EqualFunction
 	>
 	void
-	render(
+	render_list(
 		list const &,
 		EqualFunction const &
 	);
