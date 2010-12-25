@@ -413,30 +413,22 @@ sge::opengl::device::target(
 	
 	target_->unbind();
 
-	if(!_target)
-	{
-		target_ = default_target_;
+	target_ =
+		_target
+		?
+			fcppt::dynamic_pointer_cast<
+				opengl::target
+			>(
+				_target
+			)
+		:
+			opengl::target_ptr(
+				default_target_
+			);
+		
+	target_->bind();
 
-		target_->bind();
-
-		target_->activate_viewport();
-
-		return;
-	}
-
-	opengl::target_ptr const gl_target(
-		fcppt::dynamic_pointer_cast<
-			opengl::target
-		>(
-			_target
-		)
-	);
-
-	gl_target->bind();
-	
 	target_->activate_viewport();
-
-	target_ = gl_target;
 }
 
 sge::renderer::glsl::program_ptr const
