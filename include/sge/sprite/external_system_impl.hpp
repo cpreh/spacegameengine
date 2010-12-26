@@ -122,10 +122,6 @@ sge::sprite::external_system<Choices>::render_advanced(
 		sprite_count
 	);
 
-	renderer::vertex_buffer_ptr const vb(
-		base::vertex_buffer()
-	);
-
 	renderer::index_buffer_ptr const ib(
 		base::index_buffer()
 	);
@@ -133,8 +129,7 @@ sge::sprite::external_system<Choices>::render_advanced(
 	detail::fill_geometry(
 		_begin,
 		_end,
-		vb,
-		ib,
+		base::buffers(),
 		detail::optional_size(
 			sprite_count
 		)
@@ -146,7 +141,7 @@ sge::sprite::external_system<Choices>::render_advanced(
 
 	renderer::scoped_vertex_buffer const vb_context(
 		rend,
-		vb
+		base::vertex_buffer()
 	);
 
 	detail::render(

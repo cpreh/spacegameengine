@@ -191,8 +191,7 @@ sge::sprite::intrusive::system<Choices>::render_list(
 	sprite::detail::fill_geometry(
 		_sprites.begin(),
 		_sprites.end(),
-		base::vertex_buffer(),
-		base::index_buffer(),
+		base::buffers(),
 		sprite::detail::optional_size(
 			sprite_count
 		)
@@ -204,7 +203,7 @@ sge::sprite::intrusive::system<Choices>::render_list(
 
 	renderer::scoped_vertex_buffer const vb_context(
 		rend,
-		vb
+		base::vertex_buffer()
 	);
 
 	sprite::detail::render(

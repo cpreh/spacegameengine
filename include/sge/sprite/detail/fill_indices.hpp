@@ -18,62 +18,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_SYSTEM_BASE_DECL_HPP_INCLUDED
-#define SGE_SPRITE_SYSTEM_BASE_DECL_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_FILL_INDICES_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_FILL_INDICES_HPP_INCLUDED
 
-#include <sge/sprite/system_base_fwd.hpp>
-#include <sge/sprite/detail/buffers.hpp>
-#include <sge/renderer/vf/dynamic/format.hpp>
-#include <sge/renderer/device_ptr.hpp>
+#include <sge/sprite/detail/indices_per_sprite.hpp>
+#include <sge/sprite/detail/index_generator.hpp>
+#include <sge/renderer/index/dynamic/generate.hpp>
+#include <sge/renderer/index_buffer_ptr.hpp>
+#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace sprite
 {
+namespace detail
+{
 
 template<
 	typename Choices
 >
-class system_base
+void
+fill_indices(
+	sge::renderer::index_buffer_ptr const _ib,
+	sge::renderer::size_type const _count
+)
 {
-	FCPPT_NONCOPYABLE(system_base)
-public:
-	sge::renderer::device_ptr const
-	renderer() const;
-protected:
-	explicit system_base(
-		sge::renderer::device_ptr
+	renderer::index::dynamic::generate(
+		renderer::scoped_index_lock(
+			_ib,
+			renderer::lock_mode::writeonly,
+			0,
+			_count
+			*
+			detail::indices_per_sprite<
+				Choices
+			>::value
+		).value(),
+		detail::index_generator<
+			Choices
+		>()
 	);
+}
 
-	~system_base();
-
-	void
-	allocate_buffers(
-		sge::renderer::size_type needed_sprites
-	);
-
-	sge::renderer::vertex_buffer_ptr const
-	vertex_buffer() const;
-
-	sge::renderer::index_buffer_ptr const
-	index_buffer() const;
-
-	typedef typename detail::buffers<
-		Choices
-	>::type buffers_type;
-
-	buffers_type const &
-	buffers() const;
-private:
-	sge::renderer::device_ptr const rend_;
-	
-	buffers_type buffers_;
-
-	static sge::renderer::vf::dynamic::format const dyn_vertex_fmt_;
-};
-
+}
 }
 }
 

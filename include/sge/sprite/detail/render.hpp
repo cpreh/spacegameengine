@@ -63,7 +63,7 @@ render(
 
 	renderer::size_type offset(0);
 
-	set_texture_pre<
+	detail::set_texture_pre<
 		typename object_type::elements
 	>(
 		_rend

@@ -109,6 +109,15 @@ sge::sprite::system_base<Choices>::index_buffer() const
 template<
 	typename Choices
 >
+typename sge::sprite::system_base<Choices>::buffers_type const &
+sge::sprite::system_base<Choices>::buffers() const
+{
+	return buffers_;
+}
+
+template<
+	typename Choices
+>
 sge::renderer::vf::dynamic::format const
 sge::sprite::system_base<Choices>::dyn_vertex_fmt_(
 	sge::renderer::vf::dynamic::make_format<
