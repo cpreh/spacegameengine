@@ -31,9 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/system_base_impl.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/renderer/state/scoped.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/index_buffer.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -180,14 +177,6 @@ sge::sprite::intrusive::system<Choices>::render_list(
 		sprite_count
 	);
 
-	renderer::vertex_buffer_ptr const vb(
-		base::vertex_buffer()
-	);
-
-	renderer::index_buffer_ptr const ib(
-		base::index_buffer()
-	);
-
 	sprite::detail::fill_geometry(
 		_sprites.begin(),
 		_sprites.end(),
@@ -197,12 +186,8 @@ sge::sprite::intrusive::system<Choices>::render_list(
 		)
 	);
 
-	renderer::device_ptr const rend(
-		base::renderer()
-	);
-
 	renderer::scoped_vertex_buffer const vb_context(
-		rend,
+		base::renderer(),
 		base::vertex_buffer()
 	);
 
@@ -210,8 +195,8 @@ sge::sprite::intrusive::system<Choices>::render_list(
 		_sprites.begin(),
 		_sprites.end(),
 		_equal,
-		rend,
-		ib
+		base::renderer(),
+		base::buffers()
 	);
 }
 

@@ -122,10 +122,6 @@ sge::sprite::external_system<Choices>::render_advanced(
 		sprite_count
 	);
 
-	renderer::index_buffer_ptr const ib(
-		base::index_buffer()
-	);
-
 	detail::fill_geometry(
 		_begin,
 		_end,
@@ -135,12 +131,8 @@ sge::sprite::external_system<Choices>::render_advanced(
 		)
 	);
 
-	renderer::device_ptr const rend(
-		base::renderer()
-	);
-
 	renderer::scoped_vertex_buffer const vb_context(
-		rend,
+		base::renderer(),
 		base::vertex_buffer()
 	);
 
@@ -148,8 +140,8 @@ sge::sprite::external_system<Choices>::render_advanced(
 		_begin,
 		_end,
 		_equal_fun,
-		rend,
-		ib
+		base::renderer(),
+		base::buffers()
 	);
 }
 
