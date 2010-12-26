@@ -21,6 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_FILL_POSITION_POINTS_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_FILL_POSITION_POINTS_HPP_INCLUDED
 
+#include <sge/sprite/detail/vertex_pos.hpp>
+#include <sge/sprite/detail/point_float3.hpp>
+#include <sge/sprite/detail/depth.hpp>
+
 namespace sge
 {
 namespace sprite
@@ -34,12 +38,30 @@ template<
 >
 void
 fill_position_points(
-	Iterator _iterator,
+	Iterator const _iterator,
 	object<
 		Choices
 	> const &_sprite
 )
 {
+	typedef typename Choices::type_choices type_choices;
+
+	(*_iterator). template set<
+		typename detail::vertex_pos<
+			type_choices
+		>::type
+	>(
+		typename detail::point_float3<
+			type_choices
+		>::type(
+			_sprite.x(),
+			_sprite.y(),
+			detail::depth(
+				_sprite
+			)
+		)
+	);
+
 }
 
 }

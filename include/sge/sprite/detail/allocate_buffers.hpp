@@ -18,11 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_VERTICES_PER_SPRITE_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_VERTICES_PER_SPRITE_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_ALLOCATE_BUFFERS_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_ALLOCATE_BUFFERS_HPP_INCLUDED
 
-#include <sge/sprite/detail/geometry_count.hpp>
+#include <sge/sprite/detail/allocate_index_buffer.hpp>
+#include <sge/sprite/detail/allocate_vertex_buffer.hpp>
 #include <sge/sprite/with_dim.hpp>
+#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/size_type.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/utility/enable_if.hpp>
 
@@ -34,33 +37,69 @@ namespace detail
 {
 
 template<
-	typename Choices
+	typename Choices,
+	typename DynVertex,
+	typename Buffers
 >
 typename boost::enable_if<
 	boost::mpl::contains<
 		typename Choices::elements,
 		sprite::with_dim
 	>,
-	detail::geometry_count
+	void
 >::type
-vertices_per_sprite()
+allocate_buffers(
+	sge::renderer::device_ptr const _renderer,
+	DynVertex const &_format,
+	sge::renderer::size_type const _num_sprites,
+	Buffers &_buffers
+)
 {
-	return 4;
+	detail::allocate_vertex_buffer<
+		Choices
+	>(
+		_renderer,
+		_format,
+		_num_sprites,
+		_buffers
+	);
+
+	detail::allocate_index_buffer<
+		Choices
+	>(
+		_renderer,
+		_num_sprites,
+		_buffers
+	);
 }
 
 template<
-	typename Choices
+	typename Choices,
+	typename DynVertex,
+	typename Buffers
 >
 typename boost::disable_if<
 	boost::mpl::contains<
 		typename Choices::elements,
 		sprite::with_dim
 	>,
-	detail::geometry_count
+	void
 >::type
-vertices_per_sprite()
+allocate_buffers(
+	sge::renderer::device_ptr const _renderer,
+	DynVertex const &_format,
+	sge::renderer::size_type const _num_sprites,
+	Buffers &_buffers
+)
 {
-	return 1;
+	detail::allocate_vertex_buffer<
+		Choices
+	>(
+		_renderer,
+		_format,
+		_num_sprites,
+		_buffers
+	);
 }
 
 }

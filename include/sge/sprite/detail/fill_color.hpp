@@ -54,7 +54,7 @@ fill_color(
 {
 	for(
 		unsigned i = 0;
-		i < detail::vertices_per_sprite;
+		i < detail::vertices_per_sprite<Choices>()
 		++i
 	)
 		(*iterator++). template set<

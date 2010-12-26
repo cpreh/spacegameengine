@@ -18,13 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_INDICES_PER_SPRITE_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_INDICES_PER_SPRITE_HPP_INCLUDED
-
-#include <sge/sprite/detail/geometry_count.hpp>
-#include <sge/sprite/with_dim.hpp>
-#include <boost/mpl/contains.hpp>
-#include <boost/utility/enable_if.hpp>
+#ifndef SGE_SPRITE_DETAIL_GEOMETRY_COUNT_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_GEOMETRY_COUNT_HPP_INCLUDED
 
 namespace sge
 {
@@ -33,20 +28,7 @@ namespace sprite
 namespace detail
 {
 
-template<
-	typename Choices
->
-typename boost::enable_if<
-	boost::mpl::contains<
-		typename Choices::elements,
-		sprite::with_dim
-	>,
-	detail::geometry_count
->::type
-indices_per_sprite()
-{
-	return 6;
-}
+typedef unsigned geometry_count;
 
 }
 }

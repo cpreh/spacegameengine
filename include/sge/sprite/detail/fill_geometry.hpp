@@ -82,7 +82,7 @@ fill_geometry(
 	>::value_type object_type;
 
 	typedef renderer::vf::view<
-		typename vertex_format_from_object<
+		typename detail::vertex_format_from_object<
 			object_type
 		>::type
 	> vertex_view;

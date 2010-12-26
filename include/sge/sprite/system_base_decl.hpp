@@ -22,9 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_SYSTEM_BASE_DECL_HPP_INCLUDED
 
 #include <sge/sprite/system_base_fwd.hpp>
+#include <sge/sprite/detail/buffers.hpp>
 #include <sge/renderer/vf/dynamic/format.hpp>
-#include <sge/renderer/vertex_buffer_ptr.hpp>
-#include <sge/renderer/index_buffer_ptr.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -41,16 +40,11 @@ class system_base
 {
 	FCPPT_NONCOPYABLE(system_base)
 public:
-#if 0
-	typedef typename sprite::matrix<
-		typename Choices::type_choices::float_type
-	>::type matrix;
-#endif
 	sge::renderer::device_ptr const
 	renderer() const;
 protected:
 	explicit system_base(
-		sge::renderer::device_ptr rend
+		sge::renderer::device_ptr
 	);
 
 	~system_base();
@@ -67,10 +61,12 @@ protected:
 	index_buffer() const;
 private:
 	sge::renderer::device_ptr const rend_;
+	
+	typedef typename detail::buffers<
+		Choices
+	> buffers;
 
-	sge::renderer::vertex_buffer_ptr vb_;
-
-	sge::renderer::index_buffer_ptr  ib_;
+	buffers buffers_;
 
 	static sge::renderer::vf::dynamic::format const dyn_vertex_fmt_;
 };
