@@ -18,13 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_VERTICES_PER_SPRITE_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_VERTICES_PER_SPRITE_HPP_INCLUDED
-
-#include <sge/sprite/detail/geometry_count_constant.hpp>
-#include <sge/sprite/with_dim.hpp>
-#include <boost/mpl/contains.hpp>
-#include <boost/utility/enable_if.hpp>
+#ifndef SGE_SPRITE_DETAIL_ROLES_INDEX_BUFFER_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_ROLES_INDEX_BUFFER_HPP_INCLUDED
 
 namespace sge
 {
@@ -32,51 +27,13 @@ namespace sprite
 {
 namespace detail
 {
-
-template<
-	typename Choices,
-	typename Enable = void
->
-struct vertices_per_sprite;
-
-template<
-	typename Choices
->
-struct vertices_per_sprite<
-	Choices,
-	typename boost::enable_if<
-		boost::mpl::contains<
-			typename Choices::elements,
-			sprite::with_dim
-		>
-	>::type
->
-:
-detail::geometry_count_constant<
-	4
->
+namespace roles
 {
-};
 
-template<
-	typename Choices
->
-struct vertices_per_sprite<
-	Choices,
-	typename boost::disable_if<
-		boost::mpl::contains<
-			typename Choices::elements,
-			sprite::with_dim
-		>
-	>::type
->
-:
-detail::geometry_count_constant<
-	1
->
-{
-};
+struct index_buffer
+{};
 
+}
 }
 }
 }

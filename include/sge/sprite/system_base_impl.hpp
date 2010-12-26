@@ -22,16 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_SYSTEM_BASE_IMPL_HPP_INCLUDED
 
 #include <sge/sprite/system_base_decl.hpp>
+#include <sge/sprite/detail/allocate_buffers.hpp>
 #include <sge/sprite/detail/vertex_format.hpp>
 #include <sge/sprite/detail/vertices_per_sprite.hpp>
-#include <sge/sprite/detail/indices_per_sprite.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/index_buffer.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
 
 template<
 	typename Choices
@@ -50,8 +44,7 @@ sge::sprite::system_base<Choices>::system_base(
 )
 :
 	rend_(_rend),
-	vb_(),
-	ib_()
+	buffers_()
 {}
 
 template<
@@ -65,24 +58,27 @@ template<
 >
 void
 sge::sprite::system_base<Choices>::allocate_buffers(
-	sge::renderer::size_type const num_sprites
+	sge::renderer::size_type const _num_sprites
 )
 {
 	if(
-		vb_ && vb_->size() >= num_sprites * detail::vertices_per_sprite
+		this->vertex_buffer()
+		&& this->vertex_buffer()->size()
+		>= _num_sprites
+		*
+		detail::vertices_per_sprite<
+		 	Choices
+		>::value
 	)
 		return;
 
-	vb_ = rend_->create_vertex_buffer(
+	detail::allocate_buffers<
+		Choices
+	>(
+		rend_,
 		dyn_vertex_fmt_,
-		num_sprites * detail::vertices_per_sprite,
-		renderer::resource_flags::dynamic
-	);
-
-	ib_ = rend_->create_index_buffer(
-		renderer::index::dynamic::format::i16,
-		num_sprites * detail::indices_per_sprite,
-		renderer::resource_flags::dynamic
+		_num_sprites,
+		buffers_
 	);
 }
 
@@ -92,7 +88,10 @@ template<
 sge::renderer::vertex_buffer_ptr const
 sge::sprite::system_base<Choices>::vertex_buffer() const
 {
-	return vb_;
+	return
+		buffers_. template get<
+			detail::roles::vertex_buffer
+		>();
 }
 
 template<
@@ -101,7 +100,19 @@ template<
 sge::renderer::index_buffer_ptr const
 sge::sprite::system_base<Choices>::index_buffer() const
 {
-	return ib_;
+	return
+		buffers_. template get<
+			detail::roles::index_buffer
+		>();
+}
+
+template<
+	typename Choices
+>
+typename sge::sprite::system_base<Choices>::buffers_type const &
+sge::sprite::system_base<Choices>::buffers() const
+{
+	return buffers_;
 }
 
 template<

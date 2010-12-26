@@ -21,12 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_FILL_POSITION_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_FILL_POSITION_HPP_INCLUDED
 
+#include <sge/sprite/detail/fill_position_points.hpp>
 #include <sge/sprite/detail/fill_position_rotated.hpp>
 #include <sge/sprite/detail/fill_position_unrotated.hpp>
+#include <sge/sprite/with_dim.hpp>
 #include <sge/sprite/with_rotation.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <fcppt/math/almost_zero.hpp>
+#include <boost/mpl/and.hpp>
 #include <boost/mpl/contains.hpp>
+#include <boost/mpl/not.hpp>
 #include <boost/utility/enable_if.hpp>
 
 namespace sge
@@ -41,9 +45,15 @@ template<
 	typename Choices
 >
 typename boost::enable_if<
-	boost::mpl::contains<
-		typename Choices::elements,
-		with_rotation
+	boost::mpl::and_<
+		boost::mpl::contains<
+			typename Choices::elements,
+			sprite::with_rotation
+		>,
+		boost::mpl::contains<
+			typename Choices::elements,
+			sprite::with_dim
+		>
 	>,
 	void
 >::type
@@ -74,10 +84,18 @@ template<
 	typename Iterator,
 	typename Choices
 >
-typename boost::disable_if<
-	boost::mpl::contains<
-		typename Choices::elements,
-		with_rotation
+typename boost::enable_if<
+	boost::mpl::and_<
+		boost::mpl::not_<
+			boost::mpl::contains<
+				typename Choices::elements,
+				sprite::with_rotation
+			>
+		>,
+		boost::mpl::contains<
+			typename Choices::elements,
+			sprite::with_dim
+		>
 	>,
 	void
 >::type
@@ -88,7 +106,32 @@ fill_position(
 	> const &_sprite
 )
 {
-	fill_position_unrotated(
+	detail::fill_position_unrotated(
+		_iterator,
+		_sprite
+	);
+}
+
+template<
+	typename Iterator,
+	typename Choices
+>
+typename boost::enable_if<
+	boost::mpl::not_<
+		boost::mpl::contains<
+			typename Choices::elements,
+			sprite::with_dim
+		>
+	>
+>::type
+fill_position(
+	Iterator const _iterator,
+	object<
+		Choices
+	> const &_sprite
+)
+{
+	detail::fill_position_points(
 		_iterator,
 		_sprite
 	);

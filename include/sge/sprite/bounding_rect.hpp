@@ -41,15 +41,15 @@ typename rect<
 bounding_rect(
 	object<
 		Choices
-	> const &sprite_
+	> const &_sprite
 )
 {
 	return
-		typename rect<
+		typename sprite::rect<
 			typename Choices::type_choices::unit_type
 		>::type(
-			sprite_.pos(),
-			sprite_.size()
+			_sprite.pos(),
+			_sprite.size()
 		);
 }
 
