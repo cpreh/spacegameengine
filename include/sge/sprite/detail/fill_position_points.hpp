@@ -46,6 +46,10 @@ fill_position_points(
 {
 	typedef typename Choices::type_choices type_choices;
 
+	typedef typename detail::point_float3<
+		type_choices
+	>::type point3;
+
 	(*_iterator). template set<
 		typename detail::vertex_pos<
 			type_choices
@@ -54,8 +58,16 @@ fill_position_points(
 		typename detail::point_float3<
 			type_choices
 		>::type(
-			_sprite.x(),
-			_sprite.y(),
+			static_cast<
+				typename point3::value_type
+			>(
+				_sprite.x()
+			),
+			static_cast<
+				typename point3::value_type
+			>(
+				_sprite.y()
+			),
 			detail::depth(
 				_sprite
 			)
