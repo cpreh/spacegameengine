@@ -24,11 +24,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/transform_init_arguments.hpp>
 #include <sge/sprite/roles/pos.hpp>
 #include <sge/sprite/detail/roles/use_center.hpp>
+#include <sge/sprite/with_dim.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/dim.hpp>
 #include <majutsu/subelements.hpp>
+#include <boost/mpl/contains.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace sge
 {
@@ -42,7 +45,13 @@ template<
 	typename Choices,
 	typename Parameters
 >
-ElementType const
+typename boost::enable_if<
+	boost::mpl::contains<
+		typename Choices::elements,
+		sprite::with_dim
+	>,
+	ElementType
+>::type const
 transform_parameters_arguments(
 	Parameters const &_parameters
 )
@@ -79,6 +88,34 @@ transform_parameters_arguments(
 		);
 
 	return ret;
+}
+
+template<
+	typename ElementType,
+	typename Choices,
+	typename Parameters
+>
+typename boost::disable_if<
+	boost::mpl::contains<
+		typename Choices::elements,
+		sprite::with_dim
+	>,
+	ElementType
+>::type const
+transform_parameters_arguments(
+	Parameters const &_parameters
+)
+{
+	return
+		detail::transform_init_arguments<
+			Choices
+		>(
+			majutsu::subelements<
+				ElementType
+			>(
+				_parameters
+			)
+		);
 }
 
 }
