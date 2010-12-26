@@ -64,7 +64,7 @@ private:
 	
 	typedef typename detail::buffers<
 		Choices
-	> buffers;
+	>::type buffers;
 
 	buffers buffers_;
 

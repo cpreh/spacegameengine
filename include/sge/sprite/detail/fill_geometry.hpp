@@ -69,17 +69,19 @@ fill_geometry(
 			renderer::vertex_buffer::npos
 	);
 
+	typedef typename std::iterator_traits<
+		It
+	>::value_type object_type;
+
+	typedef typename object_type::choices choices;
+
 	renderer::scoped_vertex_lock const vblock(
 		_vb,
 		renderer::lock_mode::writeonly,
 		0,
 		sprites_to_lock
-		* detail::vertices_per_sprite
+		* detail::vertices_per_sprite<choices>::value
 	);
-
-	typedef typename std::iterator_traits<
-		It
-	>::value_type object_type;
 
 	typedef renderer::vf::view<
 		typename detail::vertex_format_from_object<
@@ -131,7 +133,7 @@ fill_geometry(
 			spr
 		);
 
-		vb_it += detail::vertices_per_sprite;
+		vb_it += detail::vertices_per_sprite<choices>::value;
 
 		++count;
 	}
@@ -141,9 +143,15 @@ fill_geometry(
 			_ib,
 			renderer::lock_mode::writeonly,
 			0,
-			count * detail::indices_per_sprite
+			count
+			*
+			detail::indices_per_sprite<
+				choices
+			>::value
 		).value(),
-		index_generator()
+		detail::index_generator<
+			choices
+		>()
 	);
 }
 

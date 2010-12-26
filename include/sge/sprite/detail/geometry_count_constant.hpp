@@ -18,14 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/sprite/detail/index_array.hpp>
+#ifndef SGE_SPRITE_DETAIL_GEOMETRY_COUNT_CONSTANT_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_GEOMETRY_COUNT_CONSTANT_HPP_INCLUDED
 
-sge::sprite::detail::index_array_type const
-sge::sprite::detail::index_array = { {
-	0,
-	1,
-	2,
-	0,
-	2,
-	3
-} };
+#include <sge/sprite/detail/geometry_count.hpp>
+#include <boost/mpl/integral_c.hpp>
+
+namespace sge
+{
+namespace sprite
+{
+namespace detail
+{
+
+template<
+	detail::geometry_count Count
+>
+struct geometry_count_constant
+:
+boost::mpl::integral_c<
+	detail::geometry_count,
+	Count
+>
+{
+};
+
+}
+}
+}
+
+#endif

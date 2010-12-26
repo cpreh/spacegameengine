@@ -59,6 +59,8 @@ render(
 		In
 	>::value_type object_type;
 
+	typedef typename object_type::choices choices;
+
 	renderer::size_type offset(0);
 
 	set_texture_pre<
@@ -96,17 +98,29 @@ render(
 		_rend->render(
 			_ib,
 			renderer::first_vertex(
-				offset * detail::vertices_per_sprite
+				offset
+				*
+				detail::vertices_per_sprite<
+					choices
+				>::value
 			),
 			renderer::vertex_count(
-				num_objects * detail::vertices_per_sprite
+				num_objects
+				*
+				detail::vertices_per_sprite<
+					choices
+				>::value
 			),
 			renderer::indexed_primitive_type::triangle,
 			renderer::primitive_count(
 				num_objects * 2
 			),
 			renderer::first_index(
-				offset * detail::indices_per_sprite
+				offset
+				*
+				detail::indices_per_sprite<
+					choices
+				>::value
 			)
 		);
 

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_VERTICES_PER_SPRITE_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_VERTICES_PER_SPRITE_HPP_INCLUDED
 
-#include <sge/sprite/detail/geometry_count.hpp>
+#include <sge/sprite/detail/geometry_count_constant.hpp>
 #include <sge/sprite/with_dim.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -34,34 +34,48 @@ namespace detail
 {
 
 template<
-	typename Choices
+	typename Choices,
+	typename Enable = void
 >
-typename boost::enable_if<
-	boost::mpl::contains<
-		typename Choices::elements,
-		sprite::with_dim
-	>,
-	detail::geometry_count
->::type
-vertices_per_sprite()
-{
-	return 4;
-}
+struct vertices_per_sprite;
 
 template<
 	typename Choices
 >
-typename boost::disable_if<
-	boost::mpl::contains<
-		typename Choices::elements,
-		sprite::with_dim
-	>,
-	detail::geometry_count
->::type
-vertices_per_sprite()
+struct vertices_per_sprite<
+	Choices,
+	typename boost::enable_if<
+		boost::mpl::contains<
+			typename Choices::elements,
+			sprite::with_dim
+		>
+	>::type
+>
+:
+detail::geometry_count_constant<
+	4
+>
 {
-	return 1;
-}
+};
+
+template<
+	typename Choices
+>
+struct vertices_per_sprite<
+	Choices,
+	typename boost::disable_if<
+		boost::mpl::contains<
+			typename Choices::elements,
+			sprite::with_dim
+		>
+	>::type
+>
+:
+detail::geometry_count_constant<
+	1
+>
+{
+};
 
 }
 }

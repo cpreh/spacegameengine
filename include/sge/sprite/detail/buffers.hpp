@@ -29,8 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/memory/fusion.hpp>
 #include <majutsu/class.hpp>
 #include <majutsu/composite.hpp>
-#include <majutsu/fundamental.hpp>
 #include <majutsu/role.hpp>
+#include <majutsu/simple.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/mpl/if.hpp>
@@ -49,14 +49,14 @@ struct buffers
 {
 private:
 	typedef majutsu::role<
-		majutsu::fundamental<
+		majutsu::simple<
 			sge::renderer::vertex_buffer_ptr
 		>,
 		detail::roles::vertex_buffer
 	> vertex_buffer_role;
 
 	typedef majutsu::role<
-		majutsu::fundamental<
+		majutsu::simple<
 			sge::renderer::index_buffer_ptr
 		>,
 		detail::roles::index_buffer
@@ -64,7 +64,7 @@ private:
 public:
 	typedef majutsu::class_<
 		majutsu::composite<
-			boost::mpl::if_<
+			typename boost::mpl::if_<
 				boost::mpl::contains<
 					typename Choices::elements,
 					sprite::with_dim
@@ -76,7 +76,7 @@ public:
 				boost::mpl::vector1<
 					vertex_buffer_role
 				>
-			>
+			>::type
 		>,
 		majutsu::memory::fusion
 	> type;

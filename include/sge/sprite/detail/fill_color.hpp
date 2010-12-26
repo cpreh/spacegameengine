@@ -46,18 +46,18 @@ typename boost::enable_if<
 	void
 >::type
 fill_color(
-	Iterator iterator,
+	Iterator _iterator,
 	object<
 		Choices
 	> const &_sprite
 )
 {
 	for(
-		unsigned i = 0;
-		i < detail::vertices_per_sprite<Choices>()
-		++i
+		unsigned index = 0;
+		index < detail::vertices_per_sprite<Choices>::value;
+		++index
 	)
-		(*iterator++). template set<
+		(*_iterator++). template set<
 			typename vertex_color<
 				typename Choices::type_choices
 			>::type

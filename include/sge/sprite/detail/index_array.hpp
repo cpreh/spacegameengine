@@ -31,11 +31,36 @@ namespace sprite
 namespace detail
 {
 
-SGE_SPRITE_SYMBOL
-extern index_array_type const index_array;
+template<
+	typename Choices
+>
+struct index_array
+{
+	typedef typename detail::index_array_type<
+		Choices
+	>::type array;
+
+	static array const value;
+};
 
 }
 }
 }
+
+template<
+	typename Choices
+>
+typename sge::sprite::detail::index_array<Choices>::array const
+sge::sprite::detail::index_array<Choices>::value =
+{
+{
+	0,
+	1,
+	2,
+	0,
+	2,
+	3
+}
+};
 
 #endif

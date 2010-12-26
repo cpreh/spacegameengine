@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_ALLOCATE_VERTEX_BUFFER_HPP_INCLUDED
 
 #include <sge/sprite/detail/roles/vertex_buffer.hpp>
-#include <sge/sprite/detail/roles/vertices_per_sprite.hpp>
+#include <sge/sprite/detail/vertices_per_sprite.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/resource_flags.hpp>
@@ -43,7 +43,7 @@ template<
 >
 void
 allocate_vertex_buffer(
-	sge::renderer:;device_ptr const _renderer,
+	sge::renderer::device_ptr const _renderer,
 	DynVertex const &_format,
 	sge::renderer::size_type const _num_sprites,
 	Buffers &_buffers
@@ -58,7 +58,7 @@ allocate_vertex_buffer(
 			*
 			detail::vertices_per_sprite<
 				Choices
-			>(),
+			>::value,
 			renderer::resource_flags::dynamic
 		)
 	);

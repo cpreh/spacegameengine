@@ -62,19 +62,20 @@ sge::sprite::system_base<Choices>::allocate_buffers(
 )
 {
 	if(
-		vb_
-		&& vb_->size()
+		this->vertex_buffer()
+		&& this->vertex_buffer()->size()
 		>= _num_sprites
 		*
 		detail::vertices_per_sprite<
 		 	Choices
-		>()
+		>::value
 	)
 		return;
 
 	detail::allocate_buffers<
 		Choices
 	>(
+		rend_,
 		dyn_vertex_fmt_,
 		_num_sprites,
 		buffers_
