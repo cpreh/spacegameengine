@@ -66,7 +66,7 @@ public:
 	show();
 
 	SGE_SYMBOL
-	void
+	bool
 	dispatch();
 
 	SGE_SYMBOL
