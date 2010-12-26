@@ -68,7 +68,7 @@ fill_position_unrotated(
 		)
 	);
 
-	typedef typename point_float3<
+	typedef typename detail::point_float3<
 		type_choices
 	>::type pos3;
 

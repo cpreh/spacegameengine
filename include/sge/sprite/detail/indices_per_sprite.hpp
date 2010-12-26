@@ -21,6 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_INDICES_PER_SPRITE_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_INDICES_PER_SPRITE_HPP_INCLUDED
 
+#include <sge/sprite/detail/geometry_count_constant.hpp>
+#include <sge/sprite/with_dim.hpp>
+#include <boost/mpl/contains.hpp>
+#include <boost/utility/enable_if.hpp>
+
 namespace sge
 {
 namespace sprite
@@ -28,7 +33,30 @@ namespace sprite
 namespace detail
 {
 
-unsigned const indices_per_sprite = 6;
+template<
+	typename Choices,
+	typename Enable = void
+>
+struct indices_per_sprite;
+
+template<
+	typename Choices
+>
+struct indices_per_sprite<
+	Choices,
+	typename boost::enable_if<
+		boost::mpl::contains<
+			typename Choices::elements,
+			sprite::with_dim
+		>
+	>::type
+>
+:
+detail::geometry_count_constant<
+	6
+>
+{
+};
 
 }
 }

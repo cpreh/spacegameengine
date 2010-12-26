@@ -18,13 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_VERTICES_PER_SPRITE_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_VERTICES_PER_SPRITE_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_ALLOCATE_VERTEX_BUFFER_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_ALLOCATE_VERTEX_BUFFER_HPP_INCLUDED
 
-#include <sge/sprite/detail/geometry_count_constant.hpp>
-#include <sge/sprite/with_dim.hpp>
-#include <boost/mpl/contains.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <sge/sprite/detail/roles/vertex_buffer.hpp>
+#include <sge/sprite/detail/vertices_per_sprite.hpp>
+#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/resource_flags.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 
 namespace sge
 {
@@ -35,47 +38,31 @@ namespace detail
 
 template<
 	typename Choices,
-	typename Enable = void
+	typename DynVertex,
+	typename Buffers
 >
-struct vertices_per_sprite;
-
-template<
-	typename Choices
->
-struct vertices_per_sprite<
-	Choices,
-	typename boost::enable_if<
-		boost::mpl::contains<
-			typename Choices::elements,
-			sprite::with_dim
-		>
-	>::type
->
-:
-detail::geometry_count_constant<
-	4
->
+void
+allocate_vertex_buffer(
+	sge::renderer::device_ptr const _renderer,
+	DynVertex const &_format,
+	sge::renderer::size_type const _num_sprites,
+	Buffers &_buffers
+)
 {
-};
-
-template<
-	typename Choices
->
-struct vertices_per_sprite<
-	Choices,
-	typename boost::disable_if<
-		boost::mpl::contains<
-			typename Choices::elements,
-			sprite::with_dim
-		>
-	>::type
->
-:
-detail::geometry_count_constant<
-	1
->
-{
-};
+	_buffers. template set<
+		detail::roles::vertex_buffer
+	>(
+		_renderer->create_vertex_buffer(
+			_format,
+			_num_sprites
+			*
+			detail::vertices_per_sprite<
+				Choices
+			>::value,
+			renderer::resource_flags::dynamic
+		)
+	);
+}
 
 }
 }

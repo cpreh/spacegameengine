@@ -31,10 +31,18 @@ namespace sprite
 namespace detail
 {
 
-typedef fcppt::container::array<
-	unsigned,
-	indices_per_sprite
-> index_array_type;
+template<
+	typename Choices
+>
+struct index_array_type
+{
+	typedef fcppt::container::array<
+		unsigned,
+		detail::indices_per_sprite<
+			Choices
+		>::value
+	> type;
+};
 
 }
 }

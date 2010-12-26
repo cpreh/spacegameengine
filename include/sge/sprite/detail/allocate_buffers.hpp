@@ -18,12 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_FILL_COLOR_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_FILL_COLOR_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_ALLOCATE_BUFFERS_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_ALLOCATE_BUFFERS_HPP_INCLUDED
 
-#include <sge/sprite/detail/vertices_per_sprite.hpp>
-#include <sge/sprite/detail/vertex_color.hpp>
-#include <sge/sprite/object_impl.hpp>
+#include <sge/sprite/detail/allocate_index_buffer.hpp>
+#include <sge/sprite/detail/allocate_vertex_buffer.hpp>
+#include <sge/sprite/with_dim.hpp>
+#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/size_type.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/utility/enable_if.hpp>
 
@@ -35,55 +37,69 @@ namespace detail
 {
 
 template<
-	typename Iterator,
-	typename Choices
+	typename Choices,
+	typename DynVertex,
+	typename Buffers
 >
 typename boost::enable_if<
 	boost::mpl::contains<
 		typename Choices::elements,
-		with_color
+		sprite::with_dim
 	>,
 	void
 >::type
-fill_color(
-	Iterator _iterator,
-	object<
-		Choices
-	> const &_sprite
+allocate_buffers(
+	sge::renderer::device_ptr const _renderer,
+	DynVertex const &_format,
+	sge::renderer::size_type const _num_sprites,
+	Buffers &_buffers
 )
 {
-	for(
-		unsigned index = 0;
-		index < detail::vertices_per_sprite<Choices>::value;
-		++index
-	)
-		(*_iterator++). template set<
-			typename vertex_color<
-				typename Choices::type_choices
-			>::type
-		>(
-			_sprite.color()
-		);
+	detail::allocate_vertex_buffer<
+		Choices
+	>(
+		_renderer,
+		_format,
+		_num_sprites,
+		_buffers
+	);
+
+	detail::allocate_index_buffer<
+		Choices
+	>(
+		_renderer,
+		_num_sprites,
+		_buffers
+	);
 }
 
 template<
-	typename Iterator,
-	typename Choices
+	typename Choices,
+	typename DynVertex,
+	typename Buffers
 >
 typename boost::disable_if<
 	boost::mpl::contains<
 		typename Choices::elements,
-		with_color
+		sprite::with_dim
 	>,
 	void
 >::type
-fill_color(
-	Iterator,
-	object<
-		Choices
-	> const &
+allocate_buffers(
+	sge::renderer::device_ptr const _renderer,
+	DynVertex const &_format,
+	sge::renderer::size_type const _num_sprites,
+	Buffers &_buffers
 )
 {
+	detail::allocate_vertex_buffer<
+		Choices
+	>(
+		_renderer,
+		_format,
+		_num_sprites,
+		_buffers
+	);
 }
 
 }

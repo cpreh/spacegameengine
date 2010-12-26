@@ -59,6 +59,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/with_texture.hpp>
 #include <sge/sprite/with_color.hpp>
 #include <sge/sprite/with_depth.hpp>
+#include <sge/sprite/with_dim.hpp>
 #include <sge/sprite/default_sort.hpp>
 #include <sge/sprite/default_equal.hpp>
 #include <sge/systems/viewport/manage_resize.hpp>
@@ -96,10 +97,11 @@ typedef sge::sprite::choices<
 		float,
 		sprite_color
 	>,
-	boost::mpl::vector3<
+	boost::mpl::vector4<
 		sge::sprite::with_color,
 		sge::sprite::with_texture,
-		sge::sprite::with_depth
+		sge::sprite::with_depth,
+		sge::sprite::with_dim
 	> 
 > sprite_choices;
 

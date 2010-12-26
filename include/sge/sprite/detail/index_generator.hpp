@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_INDEX_GENERATOR_HPP_INCLUDED
 
 #include <sge/sprite/detail/index_array.hpp>
+#include <sge/sprite/detail/index_array_type.hpp>
 #include <sge/sprite/detail/vertices_per_sprite.hpp>
 
 namespace sge
@@ -31,14 +32,25 @@ namespace sprite
 namespace detail
 {
 
+template<
+	typename Choices
+>
 class index_generator
 {
+	typedef typename detail::index_array_type<
+		Choices
+	>::type index_array_type;
 public:
 	index_generator()
 	:
+		indices_(
+			detail::index_array<
+				Choices
+			>::value
+		),
 		index_(0),
 		ptr_(
-			detail::index_array.begin()
+			indices_.begin()
 		)
 	{
 	}
@@ -57,24 +69,29 @@ public:
 		);
 
 		if(
-			ptr_ == detail::index_array.end()
+			ptr_ == indices_.end()
 		)
 		{
-			ptr_ = detail::index_array.begin();
+			ptr_ = indices_.begin();
 
 			index_ +=
 				static_cast<
-					index_array_type::value_type
+					typename index_array_type::value_type
 				>(
-					vertices_per_sprite
+					detail::vertices_per_sprite<
+						Choices
+					>::value
 				);
 		}
+
 		return ret;
 	}
 private:
-	mutable index_array_type::value_type index_;
+	index_array_type const &indices_;
 
-	mutable index_array_type::const_iterator ptr_;
+	mutable typename index_array_type::value_type index_;
+
+	mutable typename index_array_type::const_iterator ptr_;
 };
 
 }
