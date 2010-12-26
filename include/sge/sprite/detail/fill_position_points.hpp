@@ -18,13 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_VERTICES_PER_SPRITE_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_VERTICES_PER_SPRITE_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_FILL_POSITION_POINTS_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_FILL_POSITION_POINTS_HPP_INCLUDED
 
-#include <sge/sprite/detail/geometry_count_constant.hpp>
-#include <sge/sprite/with_dim.hpp>
-#include <boost/mpl/contains.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <sge/sprite/detail/vertex_pos.hpp>
+#include <sge/sprite/detail/point_float3.hpp>
+#include <sge/sprite/detail/depth.hpp>
 
 namespace sge
 {
@@ -34,48 +33,36 @@ namespace detail
 {
 
 template<
-	typename Choices,
-	typename Enable = void
->
-struct vertices_per_sprite;
-
-template<
+	typename Iterator,
 	typename Choices
 >
-struct vertices_per_sprite<
-	Choices,
-	typename boost::enable_if<
-		boost::mpl::contains<
-			typename Choices::elements,
-			sprite::with_dim
-		>
-	>::type
->
-:
-detail::geometry_count_constant<
-	4
->
+void
+fill_position_points(
+	Iterator const _iterator,
+	object<
+		Choices
+	> const &_sprite
+)
 {
-};
+	typedef typename Choices::type_choices type_choices;
 
-template<
-	typename Choices
->
-struct vertices_per_sprite<
-	Choices,
-	typename boost::disable_if<
-		boost::mpl::contains<
-			typename Choices::elements,
-			sprite::with_dim
-		>
-	>::type
->
-:
-detail::geometry_count_constant<
-	1
->
-{
-};
+	(*_iterator). template set<
+		typename detail::vertex_pos<
+			type_choices
+		>::type
+	>(
+		typename detail::point_float3<
+			type_choices
+		>::type(
+			_sprite.x(),
+			_sprite.y(),
+			detail::depth(
+				_sprite
+			)
+		)
+	);
+
+}
 
 }
 }

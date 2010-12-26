@@ -18,13 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_VERTICES_PER_SPRITE_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_VERTICES_PER_SPRITE_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_FILL_INDICES_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_FILL_INDICES_HPP_INCLUDED
 
-#include <sge/sprite/detail/geometry_count_constant.hpp>
-#include <sge/sprite/with_dim.hpp>
-#include <boost/mpl/contains.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <sge/sprite/detail/indices_per_sprite.hpp>
+#include <sge/sprite/detail/index_generator.hpp>
+#include <sge/renderer/index/dynamic/generate.hpp>
+#include <sge/renderer/index_buffer_ptr.hpp>
+#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/scoped_index_lock.hpp>
+#include <sge/renderer/size_type.hpp>
 
 namespace sge
 {
@@ -34,48 +37,30 @@ namespace detail
 {
 
 template<
-	typename Choices,
-	typename Enable = void
->
-struct vertices_per_sprite;
-
-template<
 	typename Choices
 >
-struct vertices_per_sprite<
-	Choices,
-	typename boost::enable_if<
-		boost::mpl::contains<
-			typename Choices::elements,
-			sprite::with_dim
-		>
-	>::type
->
-:
-detail::geometry_count_constant<
-	4
->
+void
+fill_indices(
+	sge::renderer::index_buffer_ptr const _ib,
+	sge::renderer::size_type const _count
+)
 {
-};
-
-template<
-	typename Choices
->
-struct vertices_per_sprite<
-	Choices,
-	typename boost::disable_if<
-		boost::mpl::contains<
-			typename Choices::elements,
-			sprite::with_dim
-		>
-	>::type
->
-:
-detail::geometry_count_constant<
-	1
->
-{
-};
+	renderer::index::dynamic::generate(
+		renderer::scoped_index_lock(
+			_ib,
+			renderer::lock_mode::writeonly,
+			0,
+			_count
+			*
+			detail::indices_per_sprite<
+				Choices
+			>::value
+		).value(),
+		detail::index_generator<
+			Choices
+		>()
+	);
+}
 
 }
 }

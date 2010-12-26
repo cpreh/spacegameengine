@@ -18,13 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_VERTICES_PER_SPRITE_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_VERTICES_PER_SPRITE_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_GEOMETRY_COUNT_CONSTANT_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_GEOMETRY_COUNT_CONSTANT_HPP_INCLUDED
 
-#include <sge/sprite/detail/geometry_count_constant.hpp>
-#include <sge/sprite/with_dim.hpp>
-#include <boost/mpl/contains.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <sge/sprite/detail/geometry_count.hpp>
+#include <boost/mpl/integral_c.hpp>
 
 namespace sge
 {
@@ -34,45 +32,13 @@ namespace detail
 {
 
 template<
-	typename Choices,
-	typename Enable = void
+	detail::geometry_count Count
 >
-struct vertices_per_sprite;
-
-template<
-	typename Choices
->
-struct vertices_per_sprite<
-	Choices,
-	typename boost::enable_if<
-		boost::mpl::contains<
-			typename Choices::elements,
-			sprite::with_dim
-		>
-	>::type
->
+struct geometry_count_constant
 :
-detail::geometry_count_constant<
-	4
->
-{
-};
-
-template<
-	typename Choices
->
-struct vertices_per_sprite<
-	Choices,
-	typename boost::disable_if<
-		boost::mpl::contains<
-			typename Choices::elements,
-			sprite::with_dim
-		>
-	>::type
->
-:
-detail::geometry_count_constant<
-	1
+boost::mpl::integral_c<
+	detail::geometry_count,
+	Count
 >
 {
 };

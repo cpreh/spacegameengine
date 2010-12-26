@@ -18,39 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_VIEW_FLIPPED_HPP_INCLUDED
-#define SGE_IMAGE_VIEW_FLIPPED_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_INSTANTIATE_FLIPPED_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_INSTANTIATE_FLIPPED_HPP_INCLUDED
 
-#include "flipped_visitor.hpp"
-#include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include "flipped_impl.hpp"
+#include <fcppt/export_symbol.hpp>
 
-namespace sge
-{
-namespace image
-{
-namespace view
-{
-
-template<
-	typename View
->
-View const
-flipped(
-	View const &_view
-)
-{
-	return
-		fcppt::variant::apply_unary(
-			sge::image::view::flipped_visitor<
-				View
-			>(),
-			_view
-		);
-}
-
-}
-}
-}
+#define SGE_IMAGE_VIEW_INSTANTIATE_FLIPPED(\
+	viewtype\
+) \
+template FCPPT_EXPORT_SYMBOL \
+viewtype const \
+sge::image::view::flipped<\
+	viewtype\
+>(\
+	viewtype const &\
+);
 
 #endif

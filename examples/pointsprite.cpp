@@ -18,64 +18,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config/media_path.hpp>
-#include <sge/image/color/format.hpp>
-#include <sge/image2d/multi_loader.hpp>
+#include <sge/image/color/init.hpp>
+#include <sge/image/color/rgba8.hpp>
+#include <sge/image/color/rgba8_format.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
-#include <sge/renderer/display_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/screen_size.hpp>
-#include <sge/renderer/filter/linear.hpp>
 #include <sge/sprite/choices.hpp>
 #include <sge/sprite/default_equal.hpp>
-#include <sge/sprite/no_color.hpp>
-#include <sge/sprite/object_impl.hpp>
-#include <sge/sprite/parameters_impl.hpp>
+#include <sge/sprite/dont_sort.hpp>
+#include <sge/sprite/external_system_impl.hpp>
+#include <sge/sprite/object.hpp>
+#include <sge/sprite/parameters.hpp>
+#include <sge/sprite/render_one.hpp>
 #include <sge/sprite/system.hpp>
-#include <sge/sprite/with_repetition.hpp>
-#include <sge/sprite/with_rotation.hpp>
-#include <sge/sprite/with_texture.hpp>
-#include <sge/sprite/with_dim.hpp>
 #include <sge/sprite/type_choices.hpp>
-#include <sge/sprite/intrusive/system_impl.hpp>
-#include <sge/sprite/intrusive/tag.hpp>
+#include <sge/sprite/with_color.hpp>
+#include <sge/sprite/with_texture.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/parameterless.hpp>
 #include <sge/systems/viewport/manage_resize.hpp>
-#include <sge/texture/add_image.hpp>
-#include <sge/texture/no_fragmented.hpp>
-#include <sge/texture/manager.hpp>
-#include <sge/texture/part_fwd.hpp>
 #include <sge/window/instance.hpp>
-#include <sge/exception.hpp>
-#include <fcppt/assign/make_container.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/log/activate_levels.hpp>
+#include <fcppt/log/level.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
-#include <boost/spirit/home/phoenix/object/construct.hpp>
-#include <boost/spirit/home/phoenix/object/new.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
-#include <exception>
-#include <ostream>
+#include <vector>
 #include <cstdlib>
 
 int main()
 try
 {
-	sge::systems::instance sys(
+	fcppt::log::activate_levels(
+		sge::log::global(),
+		fcppt::log::level::debug
+	);
+
+	sge::systems::instance const sys(
 		sge::systems::list()
 		(
 			sge::systems::window(
 				sge::renderer::window_parameters(
-					FCPPT_TEXT("sge intrusive sprite test")
+					FCPPT_TEXT("sge animtest")
 				)
 			)
 		)
@@ -106,68 +101,17 @@ try
 				)
 			)
 		)
-		(
-			sge::systems::image_loader(
-				sge::image::capabilities_field::null(),
-				fcppt::assign::make_container<
-					sge::extension_set
-				>
-				(
-					FCPPT_TEXT("png")
-				)
-			)
-		)
 	);
-
-	sge::texture::manager tex_man(
-		sys.renderer(),
-		boost::phoenix::construct<
-			sge::texture::fragmented_unique_ptr
-		>(
-			boost::phoenix::new_<
-				sge::texture::no_fragmented
-			>
-			(
-				sys.renderer(),
-				sge::image::color::format::rgba8,
-				sge::renderer::filter::linear
-			)
-		)
-	);
-
-	sge::texture::const_part_ptr const
-		tex1(
-			sge::texture::add_image(
-				tex_man,
-				sys.image_loader().load(
-					sge::config::media_path()
-					/ FCPPT_TEXT("cloudsquare.png")
-				)
-			)
-		),
-		tex2(
-			sge::texture::add_image(
-				tex_man,
-				sys.image_loader().load(
-					sge::config::media_path()
-					/ FCPPT_TEXT("grass.png")
-				)
-			)
-		);
-
 
 	typedef sge::sprite::choices<
 		sge::sprite::type_choices<
 			int,
 			float,
-			sge::sprite::no_color
+			sge::image::color::rgba8_format
 		>,
-		boost::mpl::vector5<
-			sge::sprite::with_texture,
-			sge::sprite::with_rotation,
-			sge::sprite::with_repetition,
-			sge::sprite::with_dim,
-			sge::sprite::intrusive::tag
+		boost::mpl::vector2<
+			sge::sprite::with_color,
+			sge::sprite::with_texture
 		>
 	> sprite_choices;
 
@@ -183,57 +127,43 @@ try
 		sprite_choices
 	> sprite_parameters;
 
-	sprite_system system(
+	sprite_system ss(
 		sys.renderer()
 	);
 
-	sprite_object test(
-		sprite_parameters()
-		.pos(
-			sprite_object::point::null()
-		)
-		.texture(
-			tex1
-		)
-		.texture_size()
-		.order(
-			3u
-		)
-		.rotation(
-			1.5f
-		)
-		.system(
-			&system
-		)
-		.repetition(
-			2.f
-		)
-		.elements()
-	);
+	typedef std::vector<
+		sprite_object
+	> sprite_vector;
 
-	sprite_object test2;
+	sprite_vector sprites;
 
-	test2 = test;
+	for(
+		int i = 0;
+		i < 100;
+		++i
+	)
+		sprites.push_back(
+			sprite_object(
+				sprite_parameters()
+				.pos(
+					sprite_object::point(
+						100,
+						i
+					)
+				)
+				.color(
+					sge::image::color::rgba8
+					(
+						(sge::image::color::init::red %= 1.)
+						(sge::image::color::init::green %= 0.)
+						(sge::image::color::init::blue %= 0.)
+						(sge::image::color::init::alpha %= 1.)
+					)
+				)
+				.elements()
+			)
+		);
 
-	test2.pos(
-		sprite_object::point(
-			400,
-			50
-		)
-	);
-
-	test2.rotation(
-		-0.5f
-	);
-
-	test2.order(
-		2u
-	);
-
-	test2.texture(
-		tex2
-	);
-	
 	bool running = true;
 
 	fcppt::signal::scoped_connection const cb(
@@ -245,7 +175,9 @@ try
 		)
 	);
 
-	while(running)
+	while(
+		running
+	)
 	{
 		sys.window()->dispatch();
 
@@ -253,29 +185,22 @@ try
 			sys.renderer()
 		);
 
-		system.render_all(
+		ss.render(
+			sprites.begin(),
+			sprites.end(),
+			sge::sprite::dont_sort(),
 			sge::sprite::default_equal()
 		);
 	}
 
 }
 catch(
-	sge::exception const &e
+	fcppt::exception const &_error
 )
 {
 	fcppt::io::cerr
-		<< e.string()
+		<< _error.string()
 		<< FCPPT_TEXT('\n');
-	
-	return EXIT_FAILURE;
-}
-catch(
-	std::exception const &e
-)
-{
-	fcppt::io::cerr
-		<< e.what()
-		<< FCPPT_TEXT('\n');
-	
+
 	return EXIT_FAILURE;
 }

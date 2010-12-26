@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config.hpp>
 #include <sge/library/error.hpp>
 #ifdef FCPPT_WINDOWS_PLATFORM
-#include <sge/windows/windows.hpp>
-#include <sge/windows/format_message.hpp>
+#include <awl/backends/windows/windows.hpp>
+#include <awl/backends/windows/format_message.hpp>
 #elif FCPPT_POSIX_PLATFORM
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
@@ -39,14 +39,18 @@ sge::library::error()
 		dlerror()
 	);
 
-	return err
-		? fcppt::from_std_string(
-			err
-		)
-		: FCPPT_TEXT("no error");
+	return
+		err
+		?
+			fcppt::from_std_string(
+				err
+			)
+		:
+			FCPPT_TEXT("no error");
 #elif defined(FCPPT_WINDOWS_PLATFORM)
-	return sge::windows::format_message(
-		GetLastError()
-	);
+	return
+			awl::backends::windows::format_message(
+				::GetLastError()
+			);
 #endif
 }

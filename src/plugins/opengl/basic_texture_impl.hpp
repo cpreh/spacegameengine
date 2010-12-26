@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "texfuncs/set_filter.hpp"
 #include <sge/image/algorithm/copy_and_convert.hpp>
 #include <sge/image/color/format_stride.hpp>
+#include <sge/image/view/flipped.hpp>
 #include <sge/image/view/make.hpp>
 #include <sge/image/view/sub.hpp>
 #include <sge/image/view/to_const.hpp>
@@ -112,10 +113,10 @@ sge::opengl::basic_texture<Base>::unlock() const
 	{
 		bind();
 
-		// if this is also a read lock
+		// If this is also a read lock
 		// we must copy the current view, which is
 		// a slice into the whole texture retrieved,
-		// to the destination buffer
+		// to the destination buffer.
 		if(
 			opengl::lock_flag_read(
 				lock_->method()
@@ -222,9 +223,11 @@ template<
 typename sge::opengl::basic_texture<Base>::view_type const
 sge::opengl::basic_texture<Base>::view()
 {
-	// if we are currently reading a texture,
+	// If we are currently reading a texture,
 	// we have mapped the whole texture and
-	// have to take a sub view
+	// have to take a sub view.
+	// Also, opengl reads the image flipped,
+	// so we have to flip it too.
 	
 	bool const reading(
 		opengl::lock_flag_read(
@@ -254,11 +257,15 @@ sge::opengl::basic_texture<Base>::view()
 	return
 		reading && lock_area_
 		?
-			sge::image::view::sub<
+			sge::image::view::flipped<
 				view_type
 			>(
-				ret,
-				*lock_area_
+				sge::image::view::sub<
+					view_type
+				>(
+					ret,
+					*lock_area_
+				)
 			)
 		:
 			ret;
