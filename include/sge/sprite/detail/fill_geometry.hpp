@@ -116,17 +116,17 @@ fill_geometry(
 		)
 			continue;
 
-		fill_position(
+		sprite::detail::fill_position(
 			vb_it,
 			spr
 		);
 
-		fill_tex_coordinates(
+		sprite::detail::fill_tex_coordinates(
 			vb_it,
 			spr
 		);
 
-		fill_color(
+		sprite::detail::fill_color(
 			vb_it,
 			spr
 		);

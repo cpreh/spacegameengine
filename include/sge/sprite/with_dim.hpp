@@ -18,22 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONSOLE_SPRITE_ELEMENTS_HPP_INCLUDED
-#define SGE_CONSOLE_SPRITE_ELEMENTS_HPP_INCLUDED
+#ifndef SGE_SPRITE_WITH_DIM_HPP_INCLUDED
+#define SGE_SPRITE_WITH_DIM_HPP_INCLUDED
 
-#include <sge/sprite/with_dim.hpp>
-#include <sge/sprite/with_texture.hpp>
+#include <sge/sprite/primitives/dim.hpp>
+#include <sge/sprite/roles/size.hpp>
+#include <majutsu/role.hpp>
+#include <majutsu/composite.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 
 namespace sge
 {
-namespace console
+namespace sprite
 {
 
-typedef boost::mpl::vector2<
-	sprite::with_dim,
-	sprite::with_texture
-> sprite_elements;
+struct with_dim
+{
+	template<
+		typename Choices
+	>
+	struct apply
+	{
+		typedef majutsu::composite<
+			boost::mpl::vector1<
+				majutsu::role<
+					typename primitives::dim<
+						typename Choices::type_choices::unit_type
+					>::type,
+					roles::size
+				>
+			>
+		> type;
+	};
+};
 
 }
 }

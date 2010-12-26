@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/primitives/pos.hpp>
 #include <sge/sprite/primitives/dim.hpp>
 #include <sge/sprite/roles/pos.hpp>
-#include <sge/sprite/roles/size.hpp>
 #include <fcppt/mpl/implication.hpp>
 #include <majutsu/memory/fusion.hpp>
 #include <majutsu/class.hpp>
@@ -90,18 +89,12 @@ struct make_class
 				>
 			>::type,
 			typename boost::mpl::joint_view<
-				boost::mpl::vector2<
+				boost::mpl::vector1<
 					majutsu::role<
 						typename primitives::pos<
 							typename Choices::type_choices::unit_type
 						>::type,
 						sge::sprite::roles::pos
-					>,
-					majutsu::role<
-						typename primitives::dim<
-							typename Choices::type_choices::unit_type
-						>::type,
-						sge::sprite::roles::size
 					>
 				>,
 				ExtraElements

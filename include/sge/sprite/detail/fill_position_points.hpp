@@ -18,23 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONSOLE_SPRITE_ELEMENTS_HPP_INCLUDED
-#define SGE_CONSOLE_SPRITE_ELEMENTS_HPP_INCLUDED
-
-#include <sge/sprite/with_dim.hpp>
-#include <sge/sprite/with_texture.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#ifndef SGE_SPRITE_DETAIL_FILL_POSITION_POINTS_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_FILL_POSITION_POINTS_HPP_INCLUDED
 
 namespace sge
 {
-namespace console
+namespace sprite
+{
+namespace detail
 {
 
-typedef boost::mpl::vector2<
-	sprite::with_dim,
-	sprite::with_texture
-> sprite_elements;
+template<
+	typename Iterator,
+	typename Choices
+>
+void
+fill_position_points(
+	Iterator _iterator,
+	object<
+		Choices
+	> const &_sprite
+)
+{
+}
 
+}
 }
 }
 
