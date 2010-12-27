@@ -19,7 +19,7 @@ FUNCTION(
 		IF(NOT ENABLE_${SGELIB_UPPER})
 			MESSAGE(
 				STATUS
-				"${EXAMPLE_NAME} will not be built because ${SGELIB} is not enabled!"
+				"${EXAMPLE_NAME} example will not be built because ${SGELIB} is not enabled!"
 			)
 
 			RETURN()

@@ -125,6 +125,25 @@ template<
 	typename Choices
 >
 sge::sprite::parameters<Choices> const
+sge::sprite::parameters<Choices>::point_size(
+	typename majutsu::role_return_type<
+		flattened_types,
+		roles::point_size
+	>::type const &_point_size
+) const
+{
+	return
+		this->set<
+			roles::point_size
+		>(
+			_point_size
+		);
+}
+
+template<
+	typename Choices
+>
+sge::sprite::parameters<Choices> const
 sge::sprite::parameters<Choices>::texture_size() const
 {
 	return

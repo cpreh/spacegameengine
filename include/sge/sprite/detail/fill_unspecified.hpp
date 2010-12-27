@@ -18,13 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_FILL_COLOR_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_FILL_COLOR_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_FILL_UNSPECIFIED_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_FILL_UNSPECIFIED_HPP_INCLUDED
 
-#include <sge/sprite/detail/geometry_count.hpp>
-#include <sge/sprite/detail/vertices_per_sprite.hpp>
-#include <sge/sprite/detail/vertex_color.hpp>
-#include <sge/sprite/with_color.hpp>
+#include <sge/sprite/detail/vertex_unspecified_dim.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -43,29 +40,28 @@ template<
 typename boost::enable_if<
 	boost::mpl::contains<
 		typename Choices::elements,
-		sprite::with_color
+		sprite::with_unspecified_dim
 	>,
 	void
 >::type
-fill_color(
-	Iterator _iterator,
+fill_unspecified(
+	Iterator const _iterator,
 	object<
 		Choices
 	> const &_sprite
 )
 {
-	for(
-		detail::geometry_count index = 0;
-		index < detail::vertices_per_sprite<Choices>::value;
-		++index
-	)
-		(*_iterator++). template set<
-			typename detail::vertex_color<
-				typename Choices::type_choices
-			>::type
+	(*_iterator). template set<
+		typename detail::vertex_unspecified_dim<
+			typename Choices::type_choices
+		>::type
+	>(
+		static_cast<
+			typename Choices::type_choices::float_type
 		>(
-			_sprite.color()
-		);
+			_sprite.point_size()
+		)
+	);
 }
 
 template<
@@ -75,11 +71,11 @@ template<
 typename boost::disable_if<
 	boost::mpl::contains<
 		typename Choices::elements,
-		sprite::with_color
+		sprite::with_unspecified_dim
 	>,
 	void
 >::type
-fill_color(
+fill_unspecified(
 	Iterator,
 	object<
 		Choices

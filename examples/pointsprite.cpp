@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/type_choices.hpp>
 #include <sge/sprite/with_color.hpp>
+#include <sge/sprite/with_unspecified_dim.hpp>
 #include <sge/sprite/with_texture.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
@@ -109,9 +110,10 @@ try
 			float,
 			sge::image::color::rgba8_format
 		>,
-		boost::mpl::vector2<
+		boost::mpl::vector3<
 			sge::sprite::with_color,
-			sge::sprite::with_texture
+			sge::sprite::with_texture,
+			sge::sprite::with_unspecified_dim
 		>
 	> sprite_choices;
 
@@ -150,6 +152,9 @@ try
 						100,
 						i
 					)
+				)
+				.point_size(
+					100
 				)
 				.color(
 					sge::image::color::rgba8

@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/assign_post.hpp>
 #include <sge/sprite/roles/pos.hpp>
 #include <sge/sprite/roles/size.hpp>
+#include <sge/sprite/roles/point_size.hpp>
 #include <sge/sprite/roles/depth.hpp>
 #include <sge/sprite/roles/visible.hpp>
 #include <sge/sprite/roles/rotation.hpp>
@@ -196,6 +197,18 @@ sge::sprite::object<Choices>::size() const
 	return
 		elements_. template get<
 			roles::size
+		>();
+}
+
+template<
+	typename Choices
+>
+typename sge::sprite::object<Choices>::point_size_type
+sge::sprite::object<Choices>::point_size() const
+{
+	return
+		elements_. template get<
+			roles::point_size
 		>();
 }
 
@@ -415,6 +428,21 @@ sge::sprite::object<Choices>::size(
 		roles::size
 	>(
 		_dim
+	);
+}
+
+template<
+	typename Choices
+>
+void
+sge::sprite::object<Choices>::point_size(
+	point_size_type const _point_size
+) 
+{
+	elements_. template set<
+		roles::point_size
+	>(
+		_point_size
 	);
 }
 

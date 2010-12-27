@@ -18,25 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG_HPP_INCLUDED
-#define SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_VERTEX_UNSPECIFIED_DIM_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_VERTEX_UNSPECIFIED_DIM_HPP_INCLUDED
 
-#include <sge/renderer/vf/unspecified_tag.hpp>
-#include <sge/renderer/vf/string.hpp>
+#include <sge/sprite/unspecified_dim_tag.hpp>
+#include <sge/renderer/vf/unspecified.hpp>
 
-#define SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(\
-	tag_name\
-)\
-struct tag_name \
-{\
-	typedef ::sge::renderer::vf::unspecified_tag unspecified_tag; \
-\
-	static \
-	::sge::renderer::vf::string const \
-	name() \
-	{ \
-		return #tag_name; \
-	} \
+namespace sge
+{
+namespace sprite
+{
+namespace detail
+{
+
+template<
+	typename TypeChoices
+>
+struct vertex_unspecified_dim
+{
+	typedef renderer::vf::unspecified<
+		typename TypeChoices::float_type,
+		sprite::unspecified_dim_tag
+	> type;
 };
+
+}
+}
+}
 
 #endif

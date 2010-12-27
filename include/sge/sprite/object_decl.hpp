@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/intrusive/system_fwd.hpp>
 #include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/point.hpp>
+#include <sge/sprite/point_size.hpp>
 #include <sge/sprite/dim.hpp>
 #include <sge/sprite/depth_type.hpp>
 #include <sge/sprite/rotation_type.hpp>
@@ -102,6 +103,10 @@ public:
 		unit
 	>::type dim;
 
+	typedef typename sprite::point_size<
+		unit
+	>::type point_size_type;
+
 	typedef typename type_choices::color_type color_format;
 
 	typedef typename sprite::color<
@@ -155,6 +160,9 @@ public:
 
 	dim const
 	size() const;
+
+	point_size_type
+	point_size() const;
 
 	depth_type
 	z() const;
@@ -216,6 +224,11 @@ public:
 	void
 	size(
 		dim const &
+	);
+
+	void
+	point_size(
+		point_size_type
 	);
 
 	void
