@@ -21,8 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_FILL_COLOR_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_FILL_COLOR_HPP_INCLUDED
 
+#include <sge/sprite/detail/geometry_count.hpp>
 #include <sge/sprite/detail/vertices_per_sprite.hpp>
 #include <sge/sprite/detail/vertex_color.hpp>
+#include <sge/sprite/with_color.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -41,7 +43,7 @@ template<
 typename boost::enable_if<
 	boost::mpl::contains<
 		typename Choices::elements,
-		with_color
+		sprite::with_color
 	>,
 	void
 >::type
@@ -53,12 +55,12 @@ fill_color(
 )
 {
 	for(
-		unsigned index = 0;
+		detail::geometry_count index = 0;
 		index < detail::vertices_per_sprite<Choices>::value;
 		++index
 	)
 		(*_iterator++). template set<
-			typename vertex_color<
+			typename detail::vertex_color<
 				typename Choices::type_choices
 			>::type
 		>(
@@ -73,7 +75,7 @@ template<
 typename boost::disable_if<
 	boost::mpl::contains<
 		typename Choices::elements,
-		with_color
+		sprite::with_color
 	>,
 	void
 >::type

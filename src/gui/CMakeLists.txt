@@ -1,23 +1,7 @@
-IF(NOT ENABLE_FONTTEXT)
-	MESSAGE(
-		FATAL_ERROR
-		"For sgegui to work you need to -D ENABLE_FONTTEXT=ON"
-	)
-ENDIF()
-
-IF(NOT ENABLE_TIME)
-	MESSAGE(
-		FATAL_ERROR
-		"For sgegui to work you need to -D ENABLE_TIME=ON"
-	)
-ENDIF()
-
-IF(NOT ENABLE_CONFIG)
-	MESSAGE(
-		FATAL_ERROR
-		"For sgegui to work you need to -D ENABLE_CONFIG=ON"
-	)
-ENDIF()
+CHECK_DEPENDENCIES(
+	"FONTTEXT;TIME;CONFIG"
+	"gui"
+)
 
 MACRO(
 	ADD_SGE_GUI_INCLUDE_SOURCE_GROUP

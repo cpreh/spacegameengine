@@ -1,9 +1,7 @@
-IF(NOT ENABLE_CONFIG)
-	MESSAGE(
-		FATAL_ERROR
-		"For sgefontbitmap to work you need to -D ENABLE_PARSE=ON"
-	)
-ENDIF()
+CHECK_DEPENDENCIES(
+	"PARSE"
+	"bitmapfont"
+)
 
 MACRO(
 	ADD_SGE_FONT_BITMAP_INCLUDE_SOURCE_GROUP

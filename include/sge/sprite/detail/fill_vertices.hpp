@@ -23,8 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/detail/vertex_format_from_object.hpp>
 #include <sge/sprite/detail/vertices_per_sprite.hpp>
-#include <sge/sprite/detail/fill_position.hpp>
 #include <sge/sprite/detail/fill_color.hpp>
+#include <sge/sprite/detail/fill_position.hpp>
+#include <sge/sprite/detail/fill_unspecified.hpp>
 #include <sge/sprite/detail/fill_tex_coordinates.hpp>
 #include <sge/sprite/detail/visible.hpp>
 #include <sge/sprite/detail/optional_size.hpp>
@@ -124,6 +125,11 @@ fill_vertices(
 		);
 
 		sprite::detail::fill_color(
+			vb_it,
+			spr
+		);
+
+		sprite::detail::fill_unspecified(
 			vb_it,
 			spr
 		);

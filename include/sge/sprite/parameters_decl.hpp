@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/color.hpp>
 #include <sge/sprite/roles/depth.hpp>
 #include <sge/sprite/roles/order.hpp>
+#include <sge/sprite/roles/point_size.hpp>
 #include <sge/sprite/roles/pos.hpp>
 #include <sge/sprite/roles/repetition.hpp>
 #include <sge/sprite/roles/rotation.hpp>
@@ -96,6 +97,14 @@ public:
 		typename majutsu::role_return_type<
 			flattened_types,
 			roles::size
+		>::type const &
+	) const;
+
+	parameters const
+	point_size(
+		typename majutsu::role_return_type<
+			flattened_types,
+			roles::point_size
 		>::type const &
 	) const;
 

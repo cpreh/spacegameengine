@@ -18,12 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_FILL_POSITION_POINTS_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_FILL_POSITION_POINTS_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_VERTEX_UNSPECIFIED_DIM_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_VERTEX_UNSPECIFIED_DIM_HPP_INCLUDED
 
-#include <sge/sprite/detail/vertex_pos.hpp>
-#include <sge/sprite/detail/point_float3.hpp>
-#include <sge/sprite/detail/depth.hpp>
+#include <sge/sprite/unspecified_dim_tag.hpp>
+#include <sge/renderer/vf/unspecified.hpp>
 
 namespace sge
 {
@@ -33,48 +32,15 @@ namespace detail
 {
 
 template<
-	typename Iterator,
-	typename Choices
+	typename TypeChoices
 >
-void
-fill_position_points(
-	Iterator const _iterator,
-	object<
-		Choices
-	> const &_sprite
-)
+struct vertex_unspecified_dim
 {
-	typedef typename Choices::type_choices type_choices;
-
-	typedef typename detail::point_float3<
-		type_choices
-	>::type point3;
-
-	(*_iterator). template set<
-		typename detail::vertex_pos<
-			type_choices
-		>::type
-	>(
-		typename detail::point_float3<
-			type_choices
-		>::type(
-			static_cast<
-				typename point3::value_type
-			>(
-				_sprite.x()
-			),
-			static_cast<
-				typename point3::value_type
-			>(
-				_sprite.y()
-			),
-			detail::depth(
-				_sprite
-			)
-		)
-	);
-
-}
+	typedef renderer::vf::unspecified<
+		typename TypeChoices::float_type,
+		sprite::unspecified_dim_tag
+	> type;
+};
 
 }
 }

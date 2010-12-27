@@ -18,22 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_DETAIL_UNSPECIFIED_TAG_HPP_INCLUDED
-#define SGE_RENDERER_VF_DETAIL_UNSPECIFIED_TAG_HPP_INCLUDED
+#ifndef SGE_SPRITE_UNSPECIFIED_DIM_TAG_HPP_INCLUDED
+#define SGE_SPRITE_UNSPECIFIED_DIM_TAG_HPP_INCLUDED
+
+#include <sge/renderer/vf/unspecified_tag.hpp>
+#include <sge/renderer/vf/string.hpp>
 
 namespace sge
 {
-namespace renderer
-{
-namespace vf
-{
-namespace detail
+namespace sprite
 {
 
-typedef void unspecified_tag;
+struct unspecified_dim_tag
+{
+	typedef ::sge::renderer::vf::unspecified_tag unspecified_tag;
 
-}
-}
+	static
+	sge::renderer::vf::string const
+	name()
+	{
+		return "dim"; // TODO
+	}
+};
+
 }
 }
 

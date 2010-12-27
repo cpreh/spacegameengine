@@ -24,8 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/vertex_pos.hpp>
 #include <sge/sprite/detail/vertex_texpos.hpp>
 #include <sge/sprite/detail/vertex_color.hpp>
+#include <sge/sprite/detail/vertex_unspecified_dim.hpp>
 #include <sge/sprite/with_color.hpp>
 #include <sge/sprite/with_dim.hpp>
+#include <sge/sprite/with_unspecified_dim.hpp>
 #include <sge/sprite/with_texture.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <fcppt/mpl/inner.hpp>
@@ -60,7 +62,7 @@ private:
 		>::type
 	> basic;
 
-	typedef boost::mpl::vector2<
+	typedef boost::mpl::vector3<
 		boost::mpl::pair<
 			boost::mpl::vector1<
 				sprite::with_color
@@ -75,6 +77,15 @@ private:
 				sprite::with_dim
 			>,
 			detail::vertex_texpos<
+				type_choices
+			>
+		>,
+		boost::mpl::pair<
+			boost::mpl::vector2<
+				sprite::with_texture,
+				sprite::with_unspecified_dim
+			>,
+			detail::vertex_unspecified_dim<
 				type_choices
 			>
 		>
