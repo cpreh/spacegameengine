@@ -18,15 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/sprite/render_states.hpp>
+#include <sge/sprite/detail/normal_render_states.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 
-sge::renderer::state::list const &
-sge::sprite::render_states()
+
+sge::renderer::state::list const
+sge::sprite::detail::normal_render_states()
 {
-	static renderer::state::list const states_ = renderer::state::list
+	return
+		renderer::state::list
 		(renderer::state::bool_::enable_alpha_blending = true)
 		(renderer::state::source_blend_func::src_alpha)
 		(renderer::state::dest_blend_func::inv_src_alpha)
@@ -34,5 +36,4 @@ sge::sprite::render_states()
 		(renderer::state::depth_func::off)
 		(renderer::state::stencil_func::off)
 		(renderer::state::draw_mode::fill);
-	return states_;
 }

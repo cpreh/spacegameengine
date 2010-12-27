@@ -75,7 +75,9 @@ sge::sprite::intrusive::system<Choices>::render_all(
 
 	sge::renderer::state::scoped const state(
 		base::renderer(),
-		sprite::render_states()
+		sprite::render_states<
+			Choices
+		>()
 	);
 
 	render_all_advanced(
@@ -122,7 +124,9 @@ sge::sprite::intrusive::system<Choices>::render(
 
 	sge::renderer::state::scoped const state(
 		base::renderer(),
-		sprite::render_states()
+		sprite::render_states<
+			Choices
+		>()
 	);
 
 	render_advanced(

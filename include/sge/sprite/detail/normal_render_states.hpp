@@ -18,29 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_RENDER_STATES_HPP_INCLUDED
-#define SGE_SPRITE_RENDER_STATES_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_NORMAL_RENDER_STATES_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_NORMAL_RENDER_STATES_HPP_INCLUDED
 
-#include <sge/sprite/detail/render_states.hpp>
+#include <sge/sprite/symbol.hpp>
 #include <sge/renderer/state/list_fwd.hpp>
 
 namespace sge
 {
 namespace sprite
 {
-
-template<
-	typename Choices
->
-sge::renderer::state::list const
-render_states()
+namespace detail
 {
-	return
-		detail::render_states<
-			Choices
-		>::value;
-}
 
+SGE_SPRITE_SYMBOL
+sge::renderer::state::list const
+normal_render_states();
+
+}
 }
 }
 
