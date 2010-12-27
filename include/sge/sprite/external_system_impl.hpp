@@ -70,7 +70,9 @@ sge::sprite::external_system<Choices>::render(
 
 	sge::renderer::state::scoped const state(
 		base::renderer(),
-		sprite::render_states()
+		sprite::render_states<
+			Choices
+		>()
 	);
 
 	render_advanced(
