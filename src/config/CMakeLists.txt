@@ -1,9 +1,7 @@
-IF(NOT ENABLE_CONFIG)
-	MESSAGE(
-		FATAL_ERROR
-		"For sgeconfig to work you need to -D ENABLE_PARSE=ON"
-	)
-ENDIF()
+CHECK_DEPENDENCIES(
+	"PARSE"
+	"config"
+)
 
 CONFIGURE_FILE(
 	${CMAKE_SOURCE_DIR}/config_paths.hpp.in

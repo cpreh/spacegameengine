@@ -1,16 +1,7 @@
-IF(NOT ENABLE_TEXTURE)
-	MESSAGE(
-		FATAL_ERROR
-		"For sgefonttexture to work you need to -D ENABLE_TEXTURE=ON"
-	)
-ENDIF()
-
-IF(NOT ENABLE_SPRITE)
-	MESSAGE(
-		FATAL_ERROR
-		"For sgefonttexture to work you need to -D ENABLE_SPRITE=ON"
-	)
-ENDIF()
+CHECK_DEPENDENCIES(
+	"TEXTURE;SPRITE"
+	"fonttext"
+)
 
 MACRO(
 	ADD_SGE_FONT_TEXT_INCLUDE_SOURCE_GROUP
