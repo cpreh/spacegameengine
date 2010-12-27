@@ -1,3 +1,20 @@
+FIND_PACKAGE(
+	Iconv REQUIRED
+)
+
+IF(
+	NOT ICONV_FOUND
+)
+	MESSAGE(
+		FATAL_ERROR
+		"Iconv has not been found but was enabled. It is possible to disable iconv but this is not recommended."
+	)
+ENDIF()
+
+INCLUDE_DIRECTORIES(
+	${ICONV_INCLUDE_DIR}
+)
+
 MACRO(
 	ADD_SGE_ICONV_INCLUDE_SOURCE_GROUP
 	SOURCEPATH
@@ -38,6 +55,15 @@ TARGET_LINK_LIBRARIES (
 	sgeiconv
 	sgecore
 )
+
+IF(
+	NOT ICONV_HAVE_POSIX
+)
+	TARGET_LINK_LIBRARIES(
+		sgeiconv
+		${ICONV_LIBRARY}
+	)	
+ENDIF()
 
 INSTALL (TARGETS sgeiconv DESTINATION lib)
 
