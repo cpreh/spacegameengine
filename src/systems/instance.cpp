@@ -90,6 +90,10 @@ public:
 	plugin::object<font::system>::ptr_type          font_plugin_;
 	plugin::object<model::loader>::ptr_type         md3_plugin_;
 
+	fcppt::optional<sge::systems::window>           window_param_;
+	awl::system::object_ptr                         window_system_;
+	sge::window::instance_ptr                       window_;
+
 	sge::renderer::system_ptr                       renderer_system_;
 	sge::renderer::device_ptr                       renderer_;
 
@@ -123,10 +127,6 @@ public:
 	font::system_ptr                                font_system_;
 
 	model::loader_ptr                               md3_loader_;
-
-	fcppt::optional<sge::systems::window>           window_param_;
-	awl::system::object_ptr                         window_system_;
-	sge::window::instance_ptr                       window_;
 
 	explicit impl(
 		fcppt::filesystem::path const &plugin_path

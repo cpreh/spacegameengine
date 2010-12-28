@@ -306,7 +306,9 @@ sge::x11input::processor::on_acquire(
 	)
 		mouse->grab();
 
-	x11_window_->display()->sync();
+	x11_window_->display()->sync(
+		false
+	);
 }
 
 void

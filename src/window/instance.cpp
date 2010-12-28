@@ -131,3 +131,10 @@ sge::window::instance::awl_io_service() const
 {
 	return io_service_;
 }
+
+awl::mainloop::dispatcher_ptr const
+sge::window::instance::awl_dispatcher() const
+{
+	return dispatcher_;
+}
+

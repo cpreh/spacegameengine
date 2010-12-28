@@ -88,6 +88,10 @@ public:
 	SGE_SYMBOL
 	awl::mainloop::io_service_ptr const
 	awl_io_service() const;
+
+	SGE_SYMBOL
+	awl::mainloop::dispatcher_ptr const
+	awl_dispatcher() const;
 private:
 	awl::system::object_ptr const system_;
 
