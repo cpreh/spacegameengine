@@ -97,12 +97,22 @@ sge::opengl::vf::attribute_actor::operator()(
 			element_tag_
 		);
 
+	// glGetAttribLocation returns GLint but
+	// the rest of the functions expect GLuint
 	_combiner.enable_attribute(
-		*index_
+		static_cast<
+			GLuint
+		>(
+			*index_
+		)
 	);
 
 	attribute_context_.vertex_attrib_pointer()(
-		*index_,
+		static_cast<
+			GLuint
+		>(
+			*index_
+		),
 		elements_,
 		format_,
 		GL_TRUE, // normalized
@@ -120,10 +130,16 @@ sge::opengl::vf::attribute_actor::unuse(
 	client_state_combiner &_combiner
 ) const
 {
-	FCPPT_ASSERT(index_);
+	FCPPT_ASSERT(
+		index_
+	);
 
 	_combiner.disable_attribute(
-		*index_
+		static_cast<
+			GLuint
+		>(
+			*index_
+		)
 	);
 
 	index_.reset();

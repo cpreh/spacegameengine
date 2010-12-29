@@ -23,42 +23,83 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../calc_refresh_rate.hpp"
 #include "../resolution.hpp"
 #include <sge/renderer/display_mode.hpp>
-#include <sge/exception.hpp>
+#include <sge/renderer/exception.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::xf86vmode::resolution_ptr const
 sge::opengl::xf86vmode::choose_mode(
-	renderer::display_mode const &pmode,
-	modes const &m)
+	renderer::display_mode const &_display_mode,
+	xf86vmode::modes const &_modes
+)
 {
 	int best = -1;
-	for(modes::size_type i = 1; i < m.size(); ++i)
+
+	for(
+		modes::size_type index = 1;
+		index < _modes.size();
+		++index
+	)
 	{
-		XF86VidModeModeInfo const &mode = m[i];
-		unsigned const rate = calc_refresh_rate(mode);
+		XF86VidModeModeInfo const &mode(
+			_modes[
+				index
+			]
+		);
+
+		unsigned const rate(
+			xf86vmode::calc_refresh_rate(
+				mode
+			)
+		);
 
 		if(
-			mode.hdisplay == pmode.size().w() &&
-			mode.vdisplay == pmode.size().h() &&
-			rate  >= pmode.refresh_rate() &&
-			(best == -1 || rate >= calc_refresh_rate(m[best]))
+			mode.hdisplay == _display_mode.size().w()
+			&&
+			mode.vdisplay == _display_mode.size().h()
+			&&
+			rate  >= _display_mode.refresh_rate()
+			&&
+			(
+				best == -1
+				||
+				rate >=
+				xf86vmode::calc_refresh_rate(
+					_modes[
+						static_cast<
+							modes::size_type
+						>(
+							best
+						)
+					]
+				)
+			)
 		)
-			best = static_cast<int>(i);
+			best = static_cast<int>(index);
 	}
 
-	if(best == -1)
-		throw exception(
-			FCPPT_TEXT("No matching resolution found in xf86vmode!"));
+	if(
+		best == -1
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("No matching resolution found in xf86vmode!")
+		);
+
 	return
 		resolution_ptr(
 			fcppt::make_shared_ptr<
-				resolution
+				xf86vmode::resolution
 			>(
-				m.display(),
-				m.screen(),
-				m[best],
-				m[0]
+				_modes.display(),
+				_modes.screen(),
+				_modes[
+					static_cast<
+						modes::size_type
+					>(
+						best
+					)
+				],
+				_modes[0]
 			)
 		);
 }

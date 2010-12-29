@@ -36,7 +36,7 @@ sge::opengl::glsl::uniform::location(
 	char const *const _name
 )
 {
-	typename Environment::handle const ret(
+	GLint const ret(
 		_context.get_uniform_location()(
 			_program,
 			_name
