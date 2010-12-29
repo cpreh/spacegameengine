@@ -68,136 +68,136 @@ class parameters
 public:
 	parameters();
 
-	parameters const
+	parameters &
 	pos(
 		typename majutsu::role_return_type<
 			flattened_types,
 			roles::pos
 		>::type const &
-	) const;
+	);
 
-	parameters const
+	parameters &
 	center(
 		typename majutsu::role_return_type<
 			flattened_types,
 			roles::pos
 		>::type const &
-	) const;
+	);
 
-	parameters const
+	parameters &
 	texture(
 		typename majutsu::role_return_type<
 			flattened_types,
 			roles::texture
 		>::type const &
-	) const;
+	);
 
-	parameters const
+	parameters &
 	size(
 		typename majutsu::role_return_type<
 			flattened_types,
 			roles::size
 		>::type const &
-	) const;
+	);
 
-	parameters const
+	parameters &
 	point_size(
 		typename majutsu::role_return_type<
 			flattened_types,
 			roles::point_size
 		>::type const &
-	) const;
+	);
 
-	parameters const
-	texture_size() const;
+	parameters &
+	texture_size();
 
-	parameters const
+	parameters &
 	color(
 		typename majutsu::role_return_type<
 			flattened_types,
 			roles::color
 		>::type const &
-	) const;
+	);
 
-	parameters const
-	default_color() const;
+	parameters &
+	default_color();
 
-	parameters const
+	parameters &
 	depth(
 		typename majutsu::role_return_type<
 			flattened_types,
 			roles::depth
 		>::type const &
-	) const;
+	);
 
-	parameters const
+	parameters &
 	visible(
 		typename majutsu::role_return_type<
 			flattened_types,
 			roles::visible
 		>::type const &
-	) const;
+	);
 
-	parameters const
+	parameters &
 	rotation(
 		typename majutsu::role_return_type<
 			flattened_types,
 			roles::rotation
 		>::type const &
-	) const;
+	);
 
-	parameters const
-	no_rotation_point() const;
+	parameters &
+	no_rotation_point();
 
-	parameters const
+	parameters &
 	rotation_point(
 		typename majutsu::role_return_type<
 			flattened_types,
 			roles::rotate_around
 		>::type const &
-	) const;
+	);
 
-	parameters const
+	parameters &
 	repetition(
 		typename majutsu::role_return_type<
 			flattened_types,
 			roles::repetition
 		>::type const &
-	) const;
+	);
 
-	parameters const
+	parameters &
 	order(
 		typename majutsu::role_return_type<
 			flattened_types,
 			roles::order
 		>::type const &
-	) const;
+	);
 
-	parameters const
+	parameters &
 	adder(
 		typename majutsu::role_return_type<
 			flattened_types,
 			roles::adder
 		>::type const &
-	) const;
+	);
 
-	parameters const
+	parameters &
 	system(
 		typename sprite::system<
 			Choices
 		>::type *
-	) const;
+	);
 
 	template<
 		typename Role
 	>
-	parameters const
+	parameters &
 	set(
 		typename majutsu::role_return_type<
 			flattened_types,
 			Role
 		>::type const &
-	) const;
+	);
 
 	elements_type const &
 	elements() const;
