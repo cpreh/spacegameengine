@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/parameters_decl.hpp>
 #include <sge/sprite/texture_dim.hpp>
 #include <sge/sprite/roles/use_rotation.hpp>
-#include <sge/image/color/init.hpp>
+#include <sge/sprite/defaults/color.hpp>
 #include <sge/image/color/object.hpp>
 
 template<
@@ -181,14 +181,10 @@ sge::sprite::parameters<Choices>::default_color()
 {
 	return
 		this->color(
-			typename sge::image::color::object<
-				typename Choices::type_choices::color_type
-			>::type(
-				(sge::image::color::init::red %= 1.0)
-				(sge::image::color::init::green %= 1.0)
-				(sge::image::color::init::blue %= 1.0)
-				(sge::image::color::init::alpha %= 1.0)
-			)
+			sprite::defaults<
+				Choices,
+				roles::color
+			>::get()
 		);
 }
 

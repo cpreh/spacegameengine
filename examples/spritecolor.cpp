@@ -59,6 +59,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <cstdlib>
 
+#include <sge/sprite/default_parameters.hpp>
+#include <sge/sprite/defaults.hpp>
+
 int main()
 try
 {
@@ -134,10 +137,13 @@ try
 	);
 
 	sprite_object spr(
-		sprite_parameters()
-		.pos(
+		sge::sprite::default_parameters<
+			sprite_choices
+		>()
+		//sprite_parameters()
+		/*.pos(
 			sprite_object::point::null()
-		)
+		)*/
 		.size(
 			sprite_object::dim(
 				fcppt::math::dim::structure_cast<

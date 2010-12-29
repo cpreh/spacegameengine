@@ -54,6 +54,7 @@ class parameters
 {
 	typedef typename detail::make_class<
 		Choices,
+		// TODO: only add this when needed!
 		boost::mpl::vector1<
 			majutsu::role<
 				majutsu::fundamental<
@@ -63,9 +64,11 @@ class parameters
 			>
 		>
 	>::type elements_type;
+public:
+	typedef Choices choices;
 
 	typedef typename elements_type::memory_type::types flattened_types;
-public:
+
 	parameters();
 
 	parameters &
