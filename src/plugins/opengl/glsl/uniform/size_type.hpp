@@ -18,12 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_UNIFORM_TYPE_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_UNIFORM_TYPE_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLSL_UNIFORM_SIZE_TYPE_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_UNIFORM_SIZE_TYPE_HPP_INCLUDED
 
-#include "type_fwd.hpp"
-#include "element_type.hpp"
-#include "size_type.hpp"
+#include "../../common.hpp"
 
 namespace sge
 {
@@ -34,24 +32,7 @@ namespace glsl
 namespace uniform
 {
 
-class type
-{
-public:
-	type(
-		uniform::element_type::type,
-		uniform::size_type elements
-	);
-
-	uniform::element_type::type
-	element_type() const;
-
-	uniform::size_type
-	elements() const;
-private:
-	uniform::element_type::type type_;
-
-	uniform::size_type elements_;
-};
+typedef GLsizei size_type;
 
 }
 }

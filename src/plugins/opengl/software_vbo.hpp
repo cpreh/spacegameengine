@@ -134,11 +134,11 @@ private:
 		GLuint
 	> bound_buffer_map;
 
-	bound_buffer_map bound_buffers;
+	bound_buffer_map bound_buffers_;
 
-	GLuint nextid;
+	GLuint nextid_;
 
-	buffer_map buffers;
+	buffer_map buffers_;
 
 };
 
