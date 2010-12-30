@@ -93,7 +93,7 @@ sge::console::gfx::gfx(
 	renderer::device_ptr const _rend,
 	image::color::any::object const &_font_color,
 	font::metrics_ptr const _metrics,
-	input::keyboard::device_ptr const _keyboard,
+	input::keyboard::device &_keyboard,
 	sprite_object const &_background,
 	output_line_limit const _line_limit
 )

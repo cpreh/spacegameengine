@@ -211,7 +211,7 @@ try
 			/ FCPPT_TEXT("default.ttf"),
 			15
 		),
-		sys.keyboard_collector(),
+		*sys.keyboard_collector(),
 		sge::console::sprite_object(
 			sge::console::sprite_parameters()
 			.pos(

@@ -67,7 +67,8 @@ sge::gui::detail::managers::keyboard::keyboard(
 	sge::input::keyboard::device_ptr const is
 )
 :
-	input_filter(is),
+	input_filter(
+		*is),
 	ic(
 		input_filter.register_callback(
 			std::tr1::bind(

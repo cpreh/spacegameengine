@@ -101,7 +101,7 @@ try
 	);
 
 	sge::input::modifier::filter mf(
-		sys.keyboard_collector()
+		*sys.keyboard_collector()
 	);
 
 	fcppt::signal::scoped_connection const pc(

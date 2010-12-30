@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/drawer_ptr.hpp>
 #include <sge/font/text/string.hpp>
 #include <sge/input/modifier/filter.hpp>
-#include <sge/input/keyboard/device_ptr.hpp>
+#include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
 #include <sge/input/keyboard/key_fwd.hpp>
 #include <sge/time/timer.hpp>
@@ -59,7 +59,7 @@ public:
 		renderer::device_ptr,
 		image::color::any::object const &font_color,
 		font::metrics_ptr,
-		input::keyboard::device_ptr,
+		input::keyboard::device &,
 		sprite_object const &,
 		output_line_limit
 	);
