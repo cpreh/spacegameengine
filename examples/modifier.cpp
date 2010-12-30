@@ -20,15 +20,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/scoped_block.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/modifier/filter.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/log/global.hpp>
-#include <sge/exception.hpp>
+#include <fcppt/exception.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/container/map_impl.hpp>
@@ -69,14 +67,15 @@ try
 		fcppt::log::level::debug
 	);
 
-	sge::renderer::screen_size const screen_size(1024,768);
-
 	sge::systems::instance sys(
 		sge::systems::list()
 		(
 			sge::systems::window(
-				sge::renderer::window_parameters(
-					FCPPT_TEXT("sge modifier test")
+				sge::window::simple_parameters(
+					FCPPT_TEXT("sge modifier test"),
+					sge::window::dim_type(
+						1024,
+						768)
 				)
 			)
 		)
@@ -107,13 +106,14 @@ try
 	fcppt::signal::scoped_connection const pc(
 		mf.register_callback(&mod_callback));
 
+	sys.window()->show();
+
 	while(running)
 	{
 		sys.window()->dispatch();
-		sge::renderer::scoped_block const block_(sys.renderer());
 	}
 }
-catch(sge::exception const &e)
+catch(fcppt::exception const &e)
 {
 	fcppt::io::cerr << e.string() << FCPPT_TEXT('\n');
 	return EXIT_FAILURE;
