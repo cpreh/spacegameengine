@@ -18,23 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CHARCONV_STATUS_HPP_INCLUDED
-#define SGE_CHARCONV_STATUS_HPP_INCLUDED
+#ifndef SGE_CHARCONV_CONVERT_HPP_INCLUDED
+#define SGE_CHARCONV_CONVERT_HPP_INCLUDED
+
+#include <sge/charconv/encoding.hpp>
+#include <sge/charconv/string_type.hpp>
+#include <sge/charconv/system_ptr.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
 namespace charconv
 {
 
-namespace status
-{
-enum type
-{
-	ok,
-	output_too_small,
-	invalid_input
-};
-}
+template<
+	encoding::type DestEncoding,
+	encoding::type SourceEncoding
+>
+SGE_SYMBOL
+typename charconv::string_type<
+	DestEncoding
+>::type
+convert(
+	charconv::system_ptr,
+	typename charconv::string_type<
+		SourceEncoding
+	>::type const &
+);
 
 }
 }

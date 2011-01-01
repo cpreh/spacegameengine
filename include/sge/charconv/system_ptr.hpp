@@ -18,38 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CHARCONV_CONVERTER_HPP_INCLUDED
-#define SGE_CHARCONV_CONVERTER_HPP_INCLUDED
+#ifndef SGE_CHARCONV_SYSTEM_PTR_HPP_INCLUDED
+#define SGE_CHARCONV_SYSTEM_PTR_HPP_INCLUDED
 
-#include <sge/charconv/converter_fwd.hpp>
-#include <sge/charconv/conversion_status.hpp>
-#include <sge/charconv/input_range.hpp>
-#include <sge/charconv/output_range.hpp>
-#include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/charconv/system_fwd.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
 namespace charconv
 {
 
-class SGE_CLASS_SYMBOL converter
-{
-	FCPPT_NONCOPYABLE(
-		converter
-	)
-protected:
-	SGE_SYMBOL converter();
-public:
-	SGE_SYMBOL virtual ~converter();
-
-	virtual charconv::conversion_status::type
-	convert(
-		charconv::input_range &,
-		charconv::output_range &
-	) = 0;
-};
+typedef fcppt::shared_ptr<
+	charconv::system
+> system_ptr;
 
 }
 }
