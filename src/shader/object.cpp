@@ -168,7 +168,16 @@ sge::shader::object::object(
 		if (v.type() != variable_type::uniform)
 			continue;
 
+		uniforms_.insert(
+			uniform_map::value_type(
+				v.name(),
+					program_->uniform(v.name())));
+
+		set_uniform(
+			v.name(),
+			v.initial_value());
 		// TODO: See above
+		/*
 		fcppt::variant::apply_unary(
 			uniform_setter(
 				uniforms_.insert(
@@ -176,6 +185,7 @@ sge::shader::object::object(
 						v.name(),
 						program_->uniform(v.name()))).first->second),
 			v.initial_value());
+		*/
 	}
 
 	sampler::texture_unit_type current_tu = 
