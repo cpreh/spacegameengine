@@ -26,8 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/pitch.hpp>
-#include <sge/iconv/convert.hpp>
-#include <sge/iconv/string_type.hpp>
+#include <sge/charconv/convert.hpp>
+#include <sge/charconv/encoding.hpp>
+#include <sge/charconv/string_type.hpp>
 #include <sge/font/exception.hpp>
 #include <sge/log/global.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -42,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::freetype::char_metric::char_metric(
 	freetype::face &_face,
+	sge::charconv::system_ptr const _conv_system,
 	font::char_type const _ch
 )
 :
@@ -50,15 +52,16 @@ sge::freetype::char_metric::char_metric(
 	x_advance_()
 {
 	// TODO: we could implement a convert function that does this on chars
-	typedef sge::iconv::string_type<
-		sge::iconv::encoding::utf32
+	typedef sge::charconv::string_type<
+		sge::charconv::encoding::utf32
 	>::type utf32_string;
 
 	utf32_string const converted_string(
-		sge::iconv::convert<
-			sge::iconv::encoding::utf32,
-			sge::iconv::encoding::wchar
+		sge::charconv::convert<
+			sge::charconv::encoding::utf32,
+			sge::charconv::encoding::wchar
 		>(
+			_conv_system,
 			std::basic_string<
 				font::char_type
 			>(

@@ -18,49 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/iconv/convert.hpp>
-#include <sge/iconv/encoding.hpp>
-#include <sge/iconv/string_type.hpp>
-#include <boost/test/unit_test.hpp>
-#include <string>
-#include <iostream>
-#include <ostream>
+#include "../system.hpp"
+#include <sge/charconv/system_fwd.hpp>
+#include <sge/plugin/capabilities.hpp>
+#include <sge/plugin/info.hpp>
+#include <fcppt/export_symbol.hpp>
+#include <fcppt/text.hpp>
 
-BOOST_AUTO_TEST_CASE(iconv_main)
+extern "C"
 {
-	// TODO: adapt this to different platforms
-	std::string const test(
-		"馬鹿"
-	);
 
-	typedef sge::iconv::string_type<
-		sge::iconv::encoding::utf8
-	>::type utf8_string;
+FCPPT_EXPORT_SYMBOL void
+plugin_version_info(
+	sge::plugin::info *
+);
 
-	utf8_string const utf8_test(
-		test.begin(),
-		test.end()
-	);
+FCPPT_EXPORT_SYMBOL sge::charconv::system *
+create_charconv_system();
 
-	typedef sge::iconv::string_type<
-		sge::iconv::encoding::utf32
-	>::type utf32_string;
+FCPPT_EXPORT_SYMBOL void
+plugin_version_info(
+	sge::plugin::info *const _info
+)
+{
+	if(
+		!_info
+	)
+		return;
 
-	utf32_string const utf32_test(
-		sge::iconv::convert<
-			sge::iconv::encoding::utf32,
-			sge::iconv::encoding::utf8
-		>(
-			utf8_test
-		)
-	);
+	_info->name = FCPPT_TEXT("iconv");
+	_info->description = FCPPT_TEXT("Does conversions using iconv.");
+	_info->plugin_version = 0x1;
+	_info->min_core_version = 0x1;
+	_info->type = sge::plugin::capabilities::char_conv;
+}
 
-	std::wstring const out(
-		utf32_test.begin(),
-		utf32_test.end()
-	);
+FCPPT_EXPORT_SYMBOL sge::charconv::system *
+create_charconv_system()
+{
+	return new sge::iconv::system();
+}
 
-	BOOST_REQUIRE(
-		out == L"馬鹿"
-	);
 }
