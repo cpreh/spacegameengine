@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../encoding_to_string.hpp"
+#include <sge/charconv/exception.hpp>
 #include <fcppt/endianness/is_little_endian.hpp>
 #include <fcppt/text.hpp>
 

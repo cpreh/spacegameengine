@@ -146,7 +146,6 @@ OPTION (ENABLE_CONSOLE "Build the console" ON)
 OPTION (ENABLE_FONTBITMAP "Build the bitmap font" ON)
 OPTION (ENABLE_FONTTEXT "Build the font text library" ON)
 OPTION (ENABLE_GUI "Build the gui" ON)
-OPTION (ENABLE_ICONV "Build iconv" ON)
 OPTION (ENABLE_PARSE "Build the parse library" ON)
 OPTION (ENABLE_SHADER "Build the shader" ON)
 OPTION (ENABLE_SPRITE "Build the sprite library" ON)
@@ -176,10 +175,6 @@ ENDIF ()
 
 IF (ENABLE_GUI)
 	ADD_SUBDIRECTORY (gui)
-ENDIF ()
-
-IF (ENABLE_ICONV)
-	ADD_SUBDIRECTORY (iconv)
 ENDIF ()
 
 IF (ENABLE_PARSE)

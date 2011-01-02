@@ -39,15 +39,15 @@ class converter
 	public sge::charconv::converter
 {
 	FCPPT_NONCOPYABLE(
-		object
+		converter
 	)
 public:
-	object(
+	converter(
 		iconv::encoding_string const &source,
 		iconv::encoding_string const &dest
 	);
 
-	~object();
+	~converter();
 
 	charconv::conversion_status::type
 	convert(

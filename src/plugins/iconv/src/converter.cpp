@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/const_raw_pointer.hpp>
 #include <sge/charconv/exception.hpp>
 #include <sge/charconv/input_range.hpp>
-#include <sge/charconv/out_range.hpp>
+#include <sge/charconv/output_range.hpp>
 #include <sge/charconv/raw_pointer.hpp>
 #include <sge/charconv/unsupported_conversion.hpp>
 #include <fcppt/text.hpp>
@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cstddef>
 #include <cerrno>
 
-sge::iconv::converter::impl::impl(
+sge::iconv::converter::converter(
 	sge::iconv::encoding_string const &_source,
 	sge::iconv::encoding_string const &_dest
 )
@@ -56,15 +56,15 @@ sge::iconv::converter::impl::impl(
 		);
 }
 
-sge::iconv::object::impl::~impl()
+sge::iconv::converter::~converter()
 {
 	::iconv_close(
 		iconv_
 	);
 }
 
-sge::iconv::conversion_status::type
-sge::iconv::object::convert(
+sge::charconv::conversion_status::type
+sge::iconv::converter::convert(
 	charconv::input_range &_input,
 	charconv::output_range &_output
 )
@@ -108,7 +108,7 @@ sge::iconv::object::convert(
 	::size_t const ret(
 		::iconv(
 			iconv_,
-			source,
+			&source,
 			&in_bytes_left,
 			&dest,
 			&out_bytes_left
