@@ -1,10 +1,3 @@
-IF(NOT ENABLE_ICONV)
-	MESSAGE(
-		FATAL_ERROR
-		"For sgefreetype to work you need to -D ENABLE_ICONV=ON"
-	)
-ENDIF()
-
 MACRO(
 	ADD_SGE_FREETYPE_SOURCE_GROUP
 	SOURCEPATH
@@ -30,7 +23,6 @@ ADD_LIBRARY (sgefreetype SHARED ${SGEFREETYPEFILES})
 TARGET_LINK_LIBRARIES (
 	sgefreetype
 	sgecore
-	sgeiconv
 	${FCPPT_LIBRARIES}
 	${FREETYPE_LIBRARIES}
 )
