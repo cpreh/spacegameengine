@@ -18,32 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
-#define SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
+#include "../system.hpp"
+#include <sge/charconv/system_fwd.hpp>
+#include <sge/plugin/capabilities.hpp>
+#include <sge/plugin/info.hpp>
+#include <fcppt/export_symbol.hpp>
+#include <fcppt/text.hpp>
 
-namespace sge
+extern "C"
 {
-namespace plugin
+
+FCPPT_EXPORT_SYMBOL void
+plugin_version_info(
+	sge::plugin::info *
+);
+
+FCPPT_EXPORT_SYMBOL sge::charconv::system *
+create_charconv_system();
+
+FCPPT_EXPORT_SYMBOL void
+plugin_version_info(
+	sge::plugin::info *const _info
+)
 {
-namespace capabilities
+	if(
+		!_info
+	)
+		return;
+
+	_info->name = FCPPT_TEXT("iconv");
+	_info->description = FCPPT_TEXT("Does conversions using iconv.");
+	_info->plugin_version = 0x1;
+	_info->min_core_version = 0x1;
+	_info->type = sge::plugin::capabilities::char_conv;
+}
+
+FCPPT_EXPORT_SYMBOL sge::charconv::system *
+create_charconv_system()
 {
-enum type
-{
-	nothing          = 0,
-	renderer         = 1,
-	input            = 1 << 1,
-	image2d_loader   = 1 << 2,
-	audio_player     = 1 << 3,
-	font             = 1 << 4,
-	audio_loader     = 1 << 5,
-	collision_system = 1 << 6,
-	model_loader     = 1 << 7,
-	char_conv        = 1 << 8,
-	last_guard_      = 1 << 9
-};
+	return new sge::iconv::system();
 }
 
 }
-}
-
-#endif

@@ -18,32 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
-#define SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
+#include "../encoding_to_string.hpp"
+#include <sge/charconv/exception.hpp>
+#include <fcppt/endianness/is_little_endian.hpp>
+#include <fcppt/text.hpp>
 
-namespace sge
+sge::iconv::encoding_string const
+sge::iconv::encoding_to_string(
+	charconv::encoding::type const _encoding
+)
 {
-namespace plugin
-{
-namespace capabilities
-{
-enum type
-{
-	nothing          = 0,
-	renderer         = 1,
-	input            = 1 << 1,
-	image2d_loader   = 1 << 2,
-	audio_player     = 1 << 3,
-	font             = 1 << 4,
-	audio_loader     = 1 << 5,
-	collision_system = 1 << 6,
-	model_loader     = 1 << 7,
-	char_conv        = 1 << 8,
-	last_guard_      = 1 << 9
-};
-}
+	switch(
+		_encoding
+	)
+	{
+	case charconv::encoding::utf8:
+		return "UTF-8";
+	case charconv::encoding::utf16:
+		return 
+			fcppt::endianness::is_little_endian()
+			?
+				"UTF-16LE"
+			:
+				"UTF-16BE";
+	case charconv::encoding::utf32:
+		return
+			fcppt::endianness::is_little_endian()
+			?
+				"UTF-32LE"
+			:
+				"UTF-32BE";
+	case charconv::encoding::wchar:
+		return "WCHAR_T";
+	}
 
+	throw sge::charconv::exception(
+		FCPPT_TEXT("Invalid encoding!")
+	);
 }
-}
-
-#endif

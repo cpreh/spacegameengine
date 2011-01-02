@@ -18,30 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
-#define SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
+#ifndef SGE_CHARCONV_UNSUPPORTED_CONVERSION_HPP_INCLUDED
+#define SGE_CHARCONV_UNSUPPORTED_CONVERSION_HPP_INCLUDED
+
+#include <sge/charconv/exception.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
-namespace plugin
+namespace charconv
 {
-namespace capabilities
+
+class SGE_CLASS_SYMBOL unsupported_conversion
+:
+	public sge::charconv::exception
 {
-enum type
-{
-	nothing          = 0,
-	renderer         = 1,
-	input            = 1 << 1,
-	image2d_loader   = 1 << 2,
-	audio_player     = 1 << 3,
-	font             = 1 << 4,
-	audio_loader     = 1 << 5,
-	collision_system = 1 << 6,
-	model_loader     = 1 << 7,
-	char_conv        = 1 << 8,
-	last_guard_      = 1 << 9
+public:
+	SGE_SYMBOL
+	unsupported_conversion(
+		fcppt::string const &source,
+		fcppt::string const &dest
+	);
+
+	SGE_SYMBOL
+	~unsupported_conversion() throw();
+
+	SGE_SYMBOL
+	fcppt::string const &
+	source() const;
+
+	SGE_SYMBOL
+	fcppt::string const &
+	dest() const;
+private:
+	fcppt::string
+		source_,
+		dest_;
 };
-}
 
 }
 }

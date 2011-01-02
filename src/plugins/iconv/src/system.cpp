@@ -18,32 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
-#define SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
+#include "../system.hpp"
+#include "../converter.hpp"
+#include "../encoding_to_string.hpp"
+#include <fcppt/make_shared_ptr.hpp>
 
-namespace sge
+sge::iconv::system::system()
 {
-namespace plugin
-{
-namespace capabilities
-{
-enum type
-{
-	nothing          = 0,
-	renderer         = 1,
-	input            = 1 << 1,
-	image2d_loader   = 1 << 2,
-	audio_player     = 1 << 3,
-	font             = 1 << 4,
-	audio_loader     = 1 << 5,
-	collision_system = 1 << 6,
-	model_loader     = 1 << 7,
-	char_conv        = 1 << 8,
-	last_guard_      = 1 << 9
-};
 }
 
-}
+sge::iconv::system::~system()
+{
 }
 
-#endif
+sge::charconv::converter_ptr const
+sge::iconv::system::create_converter(
+	charconv::source_encoding const _source,
+	charconv::dest_encoding const _dest
+)
+{
+	return
+		fcppt::make_shared_ptr<
+			iconv::converter
+		>(
+			iconv::encoding_to_string(
+				_source.get()
+			),
+			iconv::encoding_to_string(
+				_dest.get()
+			)
+		);
+}

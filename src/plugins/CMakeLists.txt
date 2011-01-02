@@ -4,6 +4,7 @@ FIND_PACKAGE(Bullet)
 FIND_PACKAGE(DevIL)
 FIND_PACKAGE(DInput)
 FIND_PACKAGE(Freetype)
+FIND_PACKAGE(Iconv)
 FIND_PACKAGE(GLEW)
 FIND_PACKAGE(OpenGL)
 FIND_PACKAGE(OpenAL)
@@ -16,11 +17,13 @@ OPTION (ENABLE_WAVE "Build the wave loader plugin" ON)
 
 OPTION (ENABLE_BULLET "Build the bullet collision plugin" ${BULLET_FOUND})
 
+OPTION (ENABLE_DEVIL "Build the devil image loader plugin" ${IL_FOUND})
+
 OPTION (ENABLE_DINPUT "Build the direct input 8 plugin" ${DINPUT_FOUND})
 
-OPTION (ENABLE_FREETYPE "Build the freetype font plugin" ${FREETYPE_FOUND})
+OPTION (ENABLE_ICONV "Build the iconv conversion plugin" ${ICONV_FOUND})
 
-OPTION (ENABLE_DEVIL "Build the devil image loader plugin" ${IL_FOUND})
+OPTION (ENABLE_FREETYPE "Build the freetype font plugin" ${FREETYPE_FOUND})
 
 OPTION (ENABLE_OPENAL "Build the openal audio plugin" ${OPENAL_FOUND})
 
@@ -58,6 +61,10 @@ ENDIF ()
 
 IF (ENABLE_FREETYPE)
 	ADD_SUBDIRECTORY (freetype)
+ENDIF ()
+
+IF (ENABLE_ICONV)
+	ADD_SUBDIRECTORY (iconv)
 ENDIF ()
 
 IF (ENABLE_MD3)

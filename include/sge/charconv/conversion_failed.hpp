@@ -18,30 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
-#define SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
+#ifndef SGE_CHARCONV_CONVERSION_FAILED_HPP_INCLUDED
+#define SGE_CHARCONV_CONVERSION_FAILED_HPP_INCLUDED
+
+#include <sge/charconv/exception.hpp>
+#include <sge/class_symbol.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
-namespace plugin
+namespace charconv
 {
-namespace capabilities
+
+class SGE_CLASS_SYMBOL conversion_failed
+:
+	public sge::charconv::exception
 {
-enum type
-{
-	nothing          = 0,
-	renderer         = 1,
-	input            = 1 << 1,
-	image2d_loader   = 1 << 2,
-	audio_player     = 1 << 3,
-	font             = 1 << 4,
-	audio_loader     = 1 << 5,
-	collision_system = 1 << 6,
-	model_loader     = 1 << 7,
-	char_conv        = 1 << 8,
-	last_guard_      = 1 << 9
+public:
+	SGE_SYMBOL
+	conversion_failed();
 };
-}
 
 }
 }

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vf/unspecified_tag.hpp>
 #include <sge/renderer/vf/string.hpp>
+#include <fcppt/text.hpp>
 
 namespace sge
 {
@@ -37,7 +38,7 @@ struct unspecified_dim_tag
 	sge::renderer::vf::string const
 	name()
 	{
-		return "dim"; // TODO
+		return FCPPT_TEXT("dim"); // TODO
 	}
 };
 

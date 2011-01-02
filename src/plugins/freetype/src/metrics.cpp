@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::freetype::metrics::metrics(
 	library &_lib,
+	sge::charconv::system_ptr const _conv_system,
 	fcppt::filesystem::path const &_font_path,
 	font::size_type const _font_height
 )
@@ -37,9 +38,13 @@ sge::freetype::metrics::metrics(
 		_lib,
 		_font_path
 	),
+	conv_system_(
+		_conv_system
+	),
 	pixel_size_(
 		_font_height
-	)
+	),
+	buffer_()
 {
 	if(
 		::FT_Select_Charmap(
@@ -96,6 +101,7 @@ sge::freetype::metrics::load_char(
 			std::tr1::ref(
 				face_
 			),
+			conv_system_,
 			_ch
 		)
 	);
