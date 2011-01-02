@@ -18,40 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CHARCONV_SYSTEM_HPP_INCLUDED
-#define SGE_CHARCONV_SYSTEM_HPP_INCLUDED
+#include "../encoding_to_string.hpp"
+#include <fcppt/endianness/is_little_endian.hpp>
+#include <fcppt/text.hpp>
 
-#include <sge/charconv/system_fwd.hpp>
-#include <sge/charconv/dest_encoding.hpp>
-#include <sge/charconv/source_encoding.hpp>
-#include <sge/charconv/converter_ptr.hpp>
-#include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
-
-namespace sge
+sge::iconv::encoding_string const
+sge::iconv::encoding_to_string(
+	charconv::encoding::type const _encoding
+)
 {
-namespace charconv
-{
-
-class SGE_CLASS_SYMBOL system
-{
-	FCPPT_NONCOPYABLE(
-		system
+	switch(
+		_encoding
 	)
-protected:
-	SGE_SYMBOL system();
-public:
-	SGE_SYMBOL virtual ~system();
+	{
+	case charconv::encoding::utf8:
+		return "UTF-8";
+	case charconv::encoding::utf16:
+		return 
+			fcppt::endianness::is_little_endian()
+			?
+				"UTF-16LE"
+			:
+				"UTF-16BE";
+	case charconv::encoding::utf32:
+		return
+			fcppt::endianness::is_little_endian()
+			?
+				"UTF-32LE"
+			:
+				"UTF-32BE";
+	case charconv::encoding::wchar:
+		return "WCHAR_T";
+	}
 
-	virtual charconv::converter_ptr const
-	create_converter(
-		charconv::source_encoding,
-		charconv::dest_encoding
-	) = 0;
-};
-
+	throw sge::charconv::exception(
+		FCPPT_TEXT("Invalid encoding!")
+	);
 }
-}
-
-#endif

@@ -18,40 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CHARCONV_SYSTEM_HPP_INCLUDED
-#define SGE_CHARCONV_SYSTEM_HPP_INCLUDED
+#include "../system.hpp"
+#include "../converter.hpp"
+#include "../encoding_to_string.hpp"
+#include <fcppt/make_shared_ptr.hpp>
 
-#include <sge/charconv/system_fwd.hpp>
-#include <sge/charconv/dest_encoding.hpp>
-#include <sge/charconv/source_encoding.hpp>
-#include <sge/charconv/converter_ptr.hpp>
-#include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
-
-namespace sge
+sge::iconv::system::system()
 {
-namespace charconv
-{
-
-class SGE_CLASS_SYMBOL system
-{
-	FCPPT_NONCOPYABLE(
-		system
-	)
-protected:
-	SGE_SYMBOL system();
-public:
-	SGE_SYMBOL virtual ~system();
-
-	virtual charconv::converter_ptr const
-	create_converter(
-		charconv::source_encoding,
-		charconv::dest_encoding
-	) = 0;
-};
-
-}
 }
 
-#endif
+sge::iconv::system::~system()
+{
+}
+
+sge::charconv::converter_ptr const
+sge::iconv::system::create_converter(
+	charconv::source_encoding const _source,
+	charconv::dest_encoding const _dest
+)
+{
+	return
+		fcppt::make_shared_ptr<
+			iconv::converter
+		>(
+			iconv::encoding_to_string(
+				_source.get()
+			),
+			iconv::encoding_to_string(
+				_dest.get()
+			)
+		);
+}

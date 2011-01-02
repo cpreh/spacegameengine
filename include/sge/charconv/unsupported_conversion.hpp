@@ -18,37 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CHARCONV_SYSTEM_HPP_INCLUDED
-#define SGE_CHARCONV_SYSTEM_HPP_INCLUDED
+#ifndef SGE_CHARCONV_UNSUPPORTED_CONVERSION_HPP_INCLUDED
+#define SGE_CHARCONV_UNSUPPORTED_CONVERSION_HPP_INCLUDED
 
-#include <sge/charconv/system_fwd.hpp>
-#include <sge/charconv/dest_encoding.hpp>
-#include <sge/charconv/source_encoding.hpp>
-#include <sge/charconv/converter_ptr.hpp>
-#include <sge/class_symbol.hpp>
+#include <sge/charconv/exception.hpp>
 #include <sge/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
 namespace charconv
 {
 
-class SGE_CLASS_SYMBOL system
+class SGE_CLASS_SYMBOL unsupported_conversion
+:
+	public sge::charconv::exception
 {
-	FCPPT_NONCOPYABLE(
-		system
-	)
-protected:
-	SGE_SYMBOL system();
 public:
-	SGE_SYMBOL virtual ~system();
+	SGE_SYMBOL
+	unsupported_conversion(
+		fcppt::string const &source,
+		fcppt::string const &dest
+	);
 
-	virtual charconv::converter_ptr const
-	create_converter(
-		charconv::source_encoding,
-		charconv::dest_encoding
-	) = 0;
+	SGE_SYMBOL
+	~unsupported_conversion() throw();
+
+	SGE_SYMBOL
+	fcppt::string const &
+	source() const;
+
+	SGE_SYMBOL
+	fcppt::string const &
+	dest() const;
+private:
+	fcppt::string
+		source_,
+		dest_;
 };
 
 }
