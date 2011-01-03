@@ -40,8 +40,15 @@ public:
 	audio::scalar 
 	speed_of_sound() const { return audio::scalar(); }
 
+	audio::scalar 
+	doppler_factor() const { return audio::scalar(); }
+
 	void 
 	speed_of_sound(
+		audio::scalar) {}
+
+	void 
+	doppler_factor(
 		audio::scalar) {}
 
 	audio::scalar
