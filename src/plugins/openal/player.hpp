@@ -55,8 +55,15 @@ public:
 	audio::scalar 
 	speed_of_sound() const;
 
+	audio::scalar 
+	doppler_factor() const;
+
 	void 
 	speed_of_sound(
+		audio::scalar);
+
+	void 
+	doppler_factor(
 		audio::scalar);
 
 	audio::scalar 
