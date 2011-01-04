@@ -48,18 +48,22 @@ get_impl(
 {
 	typedef typename ValueType::element_type element_type;
 
-	sge::renderer::size_type const elements(
+	sge::opengl::glsl::uniform::size_type const elements(
 		sge::opengl::glsl::uniform::element_count(
 			_type.element_type()
 		)
 	);
 
 	typename ValueType::data_type data(
-		elements * _type.elements()
+		static_cast<
+			typename ValueType::data_type::size_type
+		>(
+			elements * _type.elements()
+		)
 	);
 
 	for(
-		sge::opengl::glsl::uniform::type::size_type i = 0;
+		sge::opengl::glsl::uniform::size_type i = 0;
 		i < _type.elements();
 		++i
 	)
@@ -80,7 +84,11 @@ get_impl(
 		sge::renderer::glsl::uniform::value(
 			ValueType(
 				data,
-				elements,
+				static_cast<
+					sge::renderer::size_type
+				>(
+					elements
+				),
 				sge::opengl::glsl::uniform::convert_type<
 					element_type
 				>(
@@ -103,14 +111,16 @@ sge::opengl::glsl::uniform::get(
 	type const &_type
 )
 {
-	switch(_type.element_type())
+	switch(
+		_type.element_type()
+	)
 	{
 	case element_type::int1:
 	case element_type::int2:
 	case element_type::int3:
 	case element_type::int4:
 		return
-			get_impl<
+			::get_impl<
 				Environment,
 				renderer::glsl::uniform::int_value
 			>(
@@ -133,7 +143,7 @@ sge::opengl::glsl::uniform::get(
 	case element_type::matrix3x4:
 	case element_type::matrix4x3:
 		return
-			get_impl<
+			::get_impl<
 				Environment,
 				renderer::glsl::uniform::float_value
 			>(

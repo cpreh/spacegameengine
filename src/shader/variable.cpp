@@ -19,15 +19,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/shader/variable.hpp>
+#include <sge/renderer/glsl/string.hpp>
+#include <sge/renderer/glsl/char.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/matrix/output.hpp>
 #include <fcppt/lexical_cast.hpp>
 #include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/io/ostringstream.hpp>
 #include <boost/format.hpp>
 #include <utility>
+#include <sstream>
 
 namespace
 {
@@ -43,7 +45,9 @@ lexical_cast(
 	// NOTE: Strictly speaking, this has to be a stringstream with
 	// char_type == glsl::string::value_type, which I assume to be
 	// std::string and char, respectively.
-	fcppt::io::ostringstream ss;
+	std::basic_ostringstream<
+		sge::renderer::glsl::char_type
+	> ss;
 	ss << std::showpoint << s;
 	return ss.str();
 }
@@ -70,7 +74,7 @@ public:
 	operator()(
 		int const v) const
 	{
-		return result_type(FCPPT_TEXT("int"),"("+lexical_cast(v)+")");
+		return result_type("int","("+lexical_cast(v)+")");
 	}
 
 	// Those could be made into a template taking vector::static_

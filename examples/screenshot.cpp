@@ -47,6 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/type_choices.hpp>
 #include <sge/sprite/no_color.hpp>
 #include <sge/sprite/with_texture.hpp>
+#include <sge/sprite/with_dim.hpp>
 #include <sge/sprite/render_one.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/window/instance.hpp>
@@ -150,8 +151,9 @@ try
 			float,
 			sge::sprite::no_color
 		>,
-		boost::mpl::vector1<
-			sge::sprite::with_texture
+		boost::mpl::vector2<
+			sge::sprite::with_texture,
+			sge::sprite::with_dim
 		>
 	> sprite_choices;
 

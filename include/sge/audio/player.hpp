@@ -53,8 +53,15 @@ public:
 	virtual scalar 
 	speed_of_sound() const = 0;
 
+	virtual scalar 
+	doppler_factor() const = 0;
+
 	virtual void 
 	speed_of_sound(
+		scalar) = 0;
+
+	virtual void
+	doppler_factor(
 		scalar) = 0;
 
 	virtual void

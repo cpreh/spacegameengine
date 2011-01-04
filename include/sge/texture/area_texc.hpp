@@ -45,22 +45,22 @@ template<
 >
 typename fcppt::math::box::rect<T>::type const
 area_texc(
-	const_part_ptr const part,
-	T const repeat
+	const_part_ptr const _part,
+	T const _repeat
 )
 {
 	if(
 		!fcppt::math::compare(
-			repeat,
+			_repeat,
 			static_cast<T>(1)
 		)
-		&& !part->repeatable()
+		&& !_part->repeatable()
 	)
 		FCPPT_LOG_WARNING(
 			log::global(),
 			fcppt::log::_
 				<< FCPPT_TEXT("texture not repeatable but repetition is ")
-				<< repeat
+				<< _repeat
 				<< FCPPT_TEXT('!')
 		);
 
@@ -68,20 +68,20 @@ area_texc(
 		T
 	>::type ret_type;
 	
-	ret_type ret_(
+	ret_type ret(
 		renderer::lock_rect_to_coords<
 			T
 		>(
-			part->area(),
-			part->texture()->dim()
+			_part->area(),
+			_part->texture()->dim()
 		)
 	);
 
-	ret_.dimension(
-		ret_.dimension() * repeat
+	ret.dimension(
+		ret.dimension() * _repeat
 	);
 
-	return ret_;
+	return ret;
 }
 
 }

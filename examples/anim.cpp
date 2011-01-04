@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/device.hpp>
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/image/capabilities.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/external_system_impl.hpp>
@@ -39,6 +40,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/no_color.hpp>
 #include <sge/sprite/choices.hpp>
 #include <sge/sprite/type_choices.hpp>
+#include <sge/sprite/with_dim.hpp>
+#include <sge/sprite/with_repetition.hpp>
 #include <sge/sprite/with_texture.hpp>
 #include <sge/sprite/render_one.hpp>
 #include <sge/sprite/animation/texture_impl.hpp>
@@ -174,8 +177,10 @@ try
 			float,
 			sge::sprite::no_color
 		>,
-		boost::mpl::vector1<
-			sge::sprite::with_texture
+		boost::mpl::vector3<
+			sge::sprite::with_dim,
+			sge::sprite::with_texture,
+			sge::sprite::with_repetition
 		>
 	> sprite_choices;
 
@@ -197,7 +202,7 @@ try
 
 	sprite_object spr(
 		sprite_parameters()
-		.center(
+		.pos(
 			sprite_object::point::null()
 		)
 		.size(
@@ -213,6 +218,9 @@ try
 					rend->screen_size().h()
 				)
 			)
+		)
+		.repetition(
+			2
 		)
 		.elements()
 	);
@@ -261,6 +269,10 @@ try
 	rend->state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
+			(
+				sge::renderer::state::color::clear_color
+					= sge::image::colors::blue()
+			)
 	);
 
 	while(running)

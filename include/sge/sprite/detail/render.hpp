@@ -21,18 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_RENDER_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_HPP_INCLUDED
 
-#include <sge/sprite/detail/vertices_per_sprite.hpp>
-#include <sge/sprite/detail/indices_per_sprite.hpp>
+#include <sge/sprite/detail/render_inner.hpp>
 #include <sge/sprite/detail/set_texture_pre.hpp>
 #include <sge/sprite/detail/set_texture.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/texture.hpp>
-#include <sge/renderer/indexed_primitive_type.hpp>
-#include <sge/renderer/first_vertex.hpp>
-#include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/primitive_count.hpp>
-#include <sge/renderer/first_index.hpp>
 #include <iterator>
 
 namespace sge
@@ -44,7 +36,8 @@ namespace detail
 
 template<
 	typename In,
-	typename Comp
+	typename Comp,
+	typename Buffers
 >
 void
 render(
@@ -52,7 +45,7 @@ render(
 	In const _end,
 	Comp const _comp,
 	renderer::device_ptr const _rend,
-	renderer::index_buffer_ptr const _ib
+	Buffers const &_buffers
 )
 {
 	typedef typename std::iterator_traits<
@@ -61,7 +54,7 @@ render(
 
 	renderer::size_type offset(0);
 
-	set_texture_pre<
+	detail::set_texture_pre<
 		typename object_type::elements
 	>(
 		_rend
@@ -93,21 +86,13 @@ render(
 			_rend
 		);
 
-		_rend->render(
-			_ib,
-			renderer::first_vertex(
-				offset * detail::vertices_per_sprite
-			),
-			renderer::vertex_count(
-				num_objects * detail::vertices_per_sprite
-			),
-			renderer::indexed_primitive_type::triangle,
-			renderer::primitive_count(
-				num_objects * 2
-			),
-			renderer::first_index(
-				offset * detail::indices_per_sprite
-			)
+		detail::render_inner<
+			typename object_type::choices
+		>(
+			_rend,
+			offset,
+			num_objects,
+			_buffers
 		);
 
 		offset += num_objects;

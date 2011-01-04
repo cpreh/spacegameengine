@@ -36,13 +36,15 @@ namespace font
 
 class SGE_CLASS_SYMBOL system
 {
-	FCPPT_NONCOPYABLE(system)
+	FCPPT_NONCOPYABLE(
+		system
+	)
 protected:
 	SGE_SYMBOL system();
 public:
 	SGE_SYMBOL virtual ~system();
 
-	virtual metrics_ptr const
+	virtual font::metrics_ptr const
 	create_font(
 		fcppt::filesystem::path const &,
 		size_type font_height

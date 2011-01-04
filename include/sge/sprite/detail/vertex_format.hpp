@@ -24,17 +24,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/vertex_pos.hpp>
 #include <sge/sprite/detail/vertex_texpos.hpp>
 #include <sge/sprite/detail/vertex_color.hpp>
+#include <sge/sprite/detail/vertex_unspecified_dim.hpp>
 #include <sge/sprite/with_color.hpp>
+#include <sge/sprite/with_dim.hpp>
+#include <sge/sprite/with_unspecified_dim.hpp>
 #include <sge/sprite/with_texture.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <fcppt/mpl/inner.hpp>
 #include <boost/mpl/vector/vector10.hpp>
-#include <boost/mpl/pair.hpp>
+#include <boost/mpl/and.hpp>
+#include <boost/mpl/bool.hpp>
 #include <boost/mpl/contains.hpp>
+#include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/fold.hpp>
+#include <boost/mpl/pair.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/push_back.hpp>
-#include <boost/mpl/eval_if.hpp>
 
 namespace sge
 {
@@ -57,28 +62,60 @@ private:
 		>::type
 	> basic;
 
-	typedef boost::mpl::vector2<
+	typedef boost::mpl::vector3<
 		boost::mpl::pair<
-			with_color,
-			vertex_color<
+			boost::mpl::vector1<
+				sprite::with_color
+			>,
+			detail::vertex_color<
 				type_choices
 			>
 		>,
 		boost::mpl::pair<
-			with_texture,
-			vertex_texpos<
+			boost::mpl::vector2<
+				sprite::with_texture,
+				sprite::with_dim
+			>,
+			detail::vertex_texpos<
+				type_choices
+			>
+		>,
+		boost::mpl::pair<
+			boost::mpl::vector2<
+				sprite::with_texture,
+				sprite::with_unspecified_dim
+			>,
+			detail::vertex_unspecified_dim<
 				type_choices
 			>
 		>
 	> optional_elements;
+
+	template<
+		typename Elements
+	>
+	struct test_all
+	:
+	boost::mpl::fold<
+		Elements,
+		boost::mpl::true_,
+		boost::mpl::and_<
+			boost::mpl::_1,
+			boost::mpl::contains<
+				typename Choices::elements,
+				boost::mpl::_2
+			>
+		>
+	>
+	{
+	};
 public:
 	typedef renderer::vf::format<
 		typename boost::mpl::fold<
 			optional_elements,
 			basic,
 			boost::mpl::eval_if<
-				boost::mpl::contains<
-					typename Choices::elements,
+				test_all<
 					boost::mpl::first<
 						boost::mpl::_2
 					>

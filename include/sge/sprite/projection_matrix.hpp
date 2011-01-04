@@ -22,27 +22,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_PROJECTION_MATRIX_HPP_INCLUDED
 
 #include <sge/sprite/matrix.hpp>
-#include <fcppt/math/matrix/orthogonal_xy.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
+#include <sge/sprite/symbol.hpp>
 
 namespace sge
 {
 namespace sprite
 {
 
-template<
-	typename Choices
->
-typename sprite::matrix<
-	typename Choices::float_type
->::type const
-projection_matrix()
-{
-	return
-		fcppt::math::matrix::orthogonal_xy<
-			typename Choices::float_type
-		>();
-}
+SGE_SPRITE_SYMBOL
+sge::sprite::matrix const
+projection_matrix();
 
 }
 }

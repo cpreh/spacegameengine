@@ -32,7 +32,9 @@ plugin_version_info(
 );
 
 FCPPT_EXPORT_SYMBOL sge::font::system *
-create_font_system();
+create_font_system(
+	sge::charconv::system_ptr
+);
 
 FCPPT_EXPORT_SYMBOL void
 plugin_version_info(
@@ -49,9 +51,14 @@ plugin_version_info(
 }
 
 FCPPT_EXPORT_SYMBOL sge::font::system *
-create_font_system()
+create_font_system(
+	sge::charconv::system_ptr const _charconv_system
+)
 {
-	return new sge::freetype::system();
+	return
+		new sge::freetype::system(
+			_charconv_system
+		);
 }
 
 }

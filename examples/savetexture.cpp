@@ -57,6 +57,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/with_texture.hpp>
 #include <sge/sprite/with_color.hpp>
 #include <sge/sprite/with_depth.hpp>
+#include <sge/sprite/with_dim.hpp>
 #include <sge/sprite/default_sort.hpp>
 #include <sge/sprite/default_equal.hpp>
 #include <sge/shader/vf_to_string.hpp>
@@ -217,6 +218,7 @@ create_quad(
 }
 }
 
+#if 0
 typedef 
 sge::image::color::rgba8_format 
 sprite_color;
@@ -230,11 +232,12 @@ sge::sprite::choices
 		float,
 		sprite_color
 	>,
-	boost::mpl::vector3
+	boost::mpl::vector4
 	<
 		sge::sprite::with_color,
 		sge::sprite::with_texture,
-		sge::sprite::with_depth
+		sge::sprite::with_depth,
+		sge::sprite::with_dim
 	> 
 > 
 sprite_choices;
@@ -297,6 +300,7 @@ public:
 private:
 	sprite_object &sprite_;
 };
+#endif
 }
 
 int main(
@@ -348,6 +352,7 @@ try
 				fcppt::assign::make_container<sge::extension_set>(
 					FCPPT_TEXT("png")))));
 
+#if 0
 	sge::image2d::file_ptr const
 		image_bg(
 			sys.image_loader().load(
@@ -384,6 +389,7 @@ try
 			sge::texture::add_image(
 				tex_man,
 				image_tux));
+#endif
 
 	sge::renderer::texture_ptr target_texture(
 		sys.renderer()->create_texture(
@@ -399,6 +405,7 @@ try
 			target_texture,
 			sge::renderer::no_depth_stencil_texture()));
 
+#if 0
 	sprite_system ss(
 		sys.renderer());
 
@@ -451,6 +458,12 @@ try
 				2))
 		.elements());
 
+	fcppt::signal::scoped_connection const pc(
+		sys.mouse_collector()->axis_callback(
+			::sprite_functor(
+				vectorer)));
+#endif
+
 	bool running = true;
 
 	fcppt::signal::scoped_connection const cb(
@@ -458,11 +471,6 @@ try
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
 				boost::phoenix::ref(running) = false)));
-
-	fcppt::signal::scoped_connection const pc(
-		sys.mouse_collector()->axis_callback(
-			::sprite_functor(
-				vectorer)));
 
 	sys.renderer()->state(
 		sge::renderer::state::list
@@ -497,20 +505,19 @@ try
 		sge::renderer::scoped_block scoped_block(
 			sys.renderer());
 
-		std::vector<sprite_object> sprites;
+		sge::shader::scoped scoped_shader(
+			shader_);
 
-		sprites.push_back(
-			bg);
-		sprites.push_back(
-			vectorer);
-		sprites.push_back(
-			tux);
+		sge::renderer::scoped_vertex_buffer const scoped_vb_(
+			sys.renderer(),
+			quad_);
 
-		ss.render(
-			sprites.begin(),
-			sprites.end(),
-			sge::sprite::default_sort(),
-			sge::sprite::default_equal());
+		sys.renderer()->render(
+			sge::renderer::first_vertex(
+				0),
+			sge::renderer::vertex_count(
+				quad_->size()),
+			sge::renderer::nonindexed_primitive_type::triangle);
 	}
 
 	sge::renderer::const_scoped_texture_lock slock(
@@ -520,7 +527,7 @@ try
 		slock.value())->save(
 		fcppt::from_std_string(
 			argv[1]));
-
+	/*
 	while(running)
 	{
 		sys.window()->dispatch();
@@ -546,6 +553,7 @@ try
 				quad_->size()),
 			sge::renderer::nonindexed_primitive_type::triangle);
 	}
+	*/
 }
 catch(sge::exception const &e)
 {

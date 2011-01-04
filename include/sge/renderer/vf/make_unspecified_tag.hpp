@@ -21,21 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG_HPP_INCLUDED
 #define SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG_HPP_INCLUDED
 
-#include <sge/renderer/vf/detail/unspecified_tag.hpp>
+#include <sge/renderer/vf/unspecified_tag.hpp>
 #include <sge/renderer/vf/string.hpp>
+#include <fcppt/text.hpp>
 
 #define SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(\
 	tag_name\
 )\
 struct tag_name \
 {\
-	typedef ::sge::renderer::vf::detail::unspecified_tag unspecified_tag; \
+	typedef ::sge::renderer::vf::unspecified_tag unspecified_tag; \
 \
 	static \
 	::sge::renderer::vf::string const \
 	name() \
 	{ \
-		return #tag_name; \
+		return FCPPT_TEXT(#tag_name); \
 	} \
 };
 

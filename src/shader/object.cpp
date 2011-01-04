@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global.hpp>
 #include <fcppt/filesystem/exists.hpp>
 #include <fcppt/filesystem/path.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/io/cifstream.hpp>
 #include <fcppt/io/cout.hpp>
@@ -41,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/headers.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/to_std_string.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/range/numeric.hpp>
@@ -108,13 +110,19 @@ sge::shader::object::object(
 	if (!fcppt::filesystem::exists(vertex))
 		throw exception(
 			FCPPT_TEXT("Vertex shader file\n")+
-			vertex.string()+
+			fcppt::filesystem::path_to_string(
+				vertex
+			)
+			+
 			FCPPT_TEXT("\ndoes not exist!"));
 	
 	if (!fcppt::filesystem::exists(fragment))
 		throw exception(
 			FCPPT_TEXT("Fragment shader file\n")+
-			fragment.string()+
+			fcppt::filesystem::path_to_string(
+				fragment
+			)
+			+
 			FCPPT_TEXT("\ndoes not exist!"));
 
 	renderer::glsl::string const header = 
@@ -137,13 +145,16 @@ sge::shader::object::object(
 		renderer_->create_glsl_program(
 			sge::renderer::glsl::optional_string(
 				boost::algorithm::replace_first_copy(
-					file_to_string(
+					::file_to_string(
 						vertex),
 					std::string("$$$HEADER$$$"),
-					format_declaration+header)),
+					fcppt::to_std_string(
+						format_declaration
+					)
+					+ header)),
 			sge::renderer::glsl::optional_string(
 				boost::algorithm::replace_first_copy(
-					file_to_string(
+					::file_to_string(
 						fragment),
 					std::string("$$$HEADER$$$"),
 					header)));
@@ -157,7 +168,16 @@ sge::shader::object::object(
 		if (v.type() != variable_type::uniform)
 			continue;
 
+		uniforms_.insert(
+			uniform_map::value_type(
+				v.name(),
+					program_->uniform(v.name())));
+
+		set_uniform(
+			v.name(),
+			v.initial_value());
 		// TODO: See above
+		/*
 		fcppt::variant::apply_unary(
 			uniform_setter(
 				uniforms_.insert(
@@ -165,6 +185,7 @@ sge::shader::object::object(
 						v.name(),
 						program_->uniform(v.name()))).first->second),
 			v.initial_value());
+		*/
 	}
 
 	sampler::texture_unit_type current_tu = 
@@ -241,7 +262,7 @@ sge::shader::object::update_texture(
 	throw 
 		sge::exception(
 			FCPPT_TEXT("The texture \"")+
-			name+
+			fcppt::from_std_string(name)+
 			FCPPT_TEXT("\" you tried to update in a shader doesn't exist!"));
 }
 

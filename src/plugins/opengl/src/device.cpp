@@ -50,7 +50,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/light_index.hpp"
 #include "../convert/matrix_mode.hpp"
 #include "../convert/nonindexed_primitive.hpp"
-#include "../fbo/projection.hpp"
 #include "../fbo/target.hpp"
 #include "../glew/initialize.hpp"
 #include "../glsl/set_program.hpp"
@@ -91,9 +90,6 @@ sge::opengl::device::device(
 			_window
 		)
 	),
-	projection_(
-		fcppt::math::matrix::static_<float, 4, 4>::type::identity()
-	),
 	default_target_(
 		fcppt::make_shared_ptr<
 			opengl::default_target
@@ -114,8 +110,6 @@ sge::opengl::device::device(
 	state(
 		sge::renderer::state::default_()
 	);
-
-	projection_internal();
 
 	target_->bind();
 }
@@ -394,27 +388,17 @@ sge::opengl::device::texture(
 
 void
 sge::opengl::device::transform(
-	renderer::matrix_mode::type const mode,
-	renderer::matrix4 const &matrix
+	renderer::matrix_mode::type const _mode,
+	renderer::matrix4 const &_matrix
 )
 {
-	if(
-		mode == renderer::matrix_mode::projection
-	)
-	{
-		// TODO: what can we do about this?
-		projection_ = matrix;
-
-		projection_internal();
-	}
-	else
-		opengl::set_matrix_and_mode(
-			context_,
-			convert::matrix_mode(
-				mode
-			),
-			matrix
-		);
+	opengl::set_matrix_and_mode(
+		context_,
+		convert::matrix_mode(
+			_mode
+		),
+		_matrix
+	);
 }
 
 void
@@ -429,32 +413,22 @@ sge::opengl::device::target(
 	
 	target_->unbind();
 
-	if(!_target)
-	{
-		target_ = default_target_;
+	target_ =
+		_target
+		?
+			fcppt::dynamic_pointer_cast<
+				opengl::target
+			>(
+				_target
+			)
+		:
+			opengl::target_ptr(
+				default_target_
+			);
+		
+	target_->bind();
 
-		target_->bind();
-
-		target_->activate_viewport();
-
-		projection_internal();
-
-		return;
-	}
-
-	opengl::target_ptr const gl_target(
-		fcppt::dynamic_pointer_cast<
-			opengl::target
-		>(
-			_target
-		)
-	);
-
-	gl_target->bind();
-	
 	target_->activate_viewport();
-
-	target_ = gl_target;
 }
 
 sge::renderer::glsl::program_ptr const
@@ -750,22 +724,6 @@ sge::opengl::device::clear_bit(
 			)
 		:
 			0;
-}
-
-void
-sge::opengl::device::projection_internal()
-{
-	opengl::set_matrix_and_mode(
-		context_,
-		GL_PROJECTION,
-		fbo_active()
-		?
-			opengl::fbo::projection(
-				projection_
-			)
-		:
-			projection_
-	);
 }
 
 bool

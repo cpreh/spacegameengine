@@ -48,7 +48,7 @@ sge::opengl::default_target::default_target(
 		renderer::viewport(
 			renderer::pixel_pos::null(),
 			fcppt::math::dim::structure_cast<
-				sge::renderer::screen_size
+				sge::renderer::pixel_size
 			>(
 				_window->size()
 			)
@@ -113,7 +113,7 @@ sge::opengl::default_target::lock(
 	);
 
 	return
-		image2d::view::flipped(
+//		image2d::view::flipped(
 			image2d::view::make_const(
 				buffer_.data(),
 				_dest.dimension(),
@@ -123,7 +123,7 @@ sge::opengl::default_target::lock(
 				),
 				image2d::view::optional_pitch()
 			)
-		);
+		/*)*/;
 }
 
 void

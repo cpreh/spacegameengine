@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "type_fwd.hpp"
 #include "element_type.hpp"
-#include "../../common.hpp"
+#include "size_type.hpp"
 
 namespace sge
 {
@@ -37,22 +37,20 @@ namespace uniform
 class type
 {
 public:
-	typedef GLsizei size_type;
-
 	type(
 		uniform::element_type::type,
-		size_type elements
+		uniform::size_type elements
 	);
 
 	uniform::element_type::type
 	element_type() const;
 
-	size_type
+	uniform::size_type
 	elements() const;
 private:
 	uniform::element_type::type type_;
 
-	size_type elements_;
+	uniform::size_type elements_;
 };
 
 }

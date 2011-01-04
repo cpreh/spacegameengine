@@ -40,7 +40,7 @@ sge::opengl::vf::unspecified_index(
 	)
 		throw sge::renderer::exception(
 			FCPPT_TEXT("Tried to set a vertex_buffer that uses unspecified elements, ")
-			FCPPT_TEXT("but a GLSL program is not set. ")
+			FCPPT_TEXT("but a GLSL program is not set.")
 			FCPPT_TEXT(" You have to set the GLSL program before setting the vertex buffer, ")
 			FCPPT_TEXT("e.g. device->set_glsl_program(prog); device->set_vertex_buffer(buf);")
 		);

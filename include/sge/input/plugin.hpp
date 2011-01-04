@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_PLUGIN_HPP_INCLUDED
 
 #include <sge/input/system_fwd.hpp>
-#include <sge/window/instance_fwd.hpp>
 #include <sge/plugin/detail/address_name.hpp>
 #include <sge/plugin/detail/traits.hpp>
 #include <sge/plugin/capabilities.hpp>

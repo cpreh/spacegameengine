@@ -1,16 +1,7 @@
-IF(NOT ENABLE_FONTTEXT)
-	MESSAGE(
-		FATAL_ERROR
-		"For sgeconsole to work you need to -D ENABLE_FONTTEXT=ON"
-	)
-ENDIF()
-
-IF(NOT ENABLE_TIME)
-	MESSAGE(
-		FATAL_ERROR
-		"For sgeconsole to work you need to -D ENABLE_TIME=ON"
-	)
-ENDIF()
+CHECK_DEPENDENCIES(
+	"FONTTEXT;TIME"
+	"console"
+)
 
 MACRO(
 	ADD_SGE_CONSOLE_INCLUDE_SOURCE_GROUP

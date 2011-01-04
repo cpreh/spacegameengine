@@ -24,11 +24,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "wrap_window.hpp"
 #include <sge/audio/multi_loader.hpp>
 #include <sge/audio/player.hpp>
+#include <sge/audio/player_ptr.hpp>
 #include <sge/audio/player_plugin.hpp>
 #include <sge/collision/plugin.hpp>
 #include <sge/collision/system.hpp>
+#include <sge/collision/system_ptr.hpp>
+#include <sge/charconv/plugin.hpp>
+#include <sge/charconv/system.hpp>
+#include <sge/charconv/system_ptr.hpp>
 #include <sge/font/plugin.hpp>
 #include <sge/font/system.hpp>
+#include <sge/font/system_ptr.hpp>
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/image2d/plugin.hpp>
 #include <sge/input/plugin.hpp>
@@ -46,9 +52,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/object.hpp>
-#include <sge/renderer/device.hpp>
+#include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/plugin.hpp>
 #include <sge/renderer/system.hpp>
+#include <sge/renderer/system_ptr.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/viewport/manager.hpp>
@@ -87,8 +94,13 @@ public:
 	plugin::object<sge::input::system>::ptr_type    input_plugin_;
 	plugin::object<audio::player>::ptr_type         audio_player_plugin_;
 	plugin::object<collision::system>::ptr_type     collision_plugin_;
+	plugin::object<charconv::system>::ptr_type      charconv_plugin_;
 	plugin::object<font::system>::ptr_type          font_plugin_;
 	plugin::object<model::loader>::ptr_type         md3_plugin_;
+
+	fcppt::optional<sge::systems::window>           window_param_;
+	awl::system::object_ptr                         window_system_;
+	sge::window::instance_ptr                       window_;
 
 	sge::renderer::system_ptr                       renderer_system_;
 	sge::renderer::device_ptr                       renderer_;
@@ -122,11 +134,9 @@ public:
 
 	font::system_ptr                                font_system_;
 
-	model::loader_ptr                               md3_loader_;
+	charconv::system_ptr                            charconv_system_;
 
-	fcppt::optional<sge::systems::window>           window_param_;
-	awl::system::object_ptr                         window_system_;
-	sge::window::instance_ptr                       window_;
+	model::loader_ptr                               md3_loader_;
 
 	explicit impl(
 		fcppt::filesystem::path const &plugin_path
@@ -169,6 +179,9 @@ public:
 
 	void
 	init_font();
+
+	void
+	init_charconv();
 
 	void
 	init_md3();
@@ -713,10 +726,24 @@ sge::systems::instance::impl::init_audio_player(
 void
 sge::systems::instance::impl::init_font()
 {
+	init_charconv();
+
 	font_plugin_ = default_plugin<sge::font::system>();
 
 	font_system_.reset(
-		font_plugin_->get()()
+		font_plugin_->get()(
+			charconv_system_
+		)
+	);
+}
+
+void
+sge::systems::instance::impl::init_charconv()
+{
+	charconv_plugin_ = default_plugin<sge::charconv::system>();
+
+	charconv_system_.reset(
+		charconv_plugin_->get()()
 	);
 }
 

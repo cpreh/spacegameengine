@@ -29,13 +29,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/foreach.hpp>
 
 sge::input::modifier::filter::filter(
-	sge::input::keyboard::device_ptr const _keyboard
+	sge::input::keyboard::device &_keyboard
 )
 :
 	signal_(),
 	repeat_signal_(),
 	ic_(
-		_keyboard->key_callback(
+		_keyboard.key_callback(
 			std::tr1::bind(
 				&filter::input_callback,
 				this,
@@ -44,7 +44,7 @@ sge::input::modifier::filter::filter(
 		)
 	),
 	irc_(
-		_keyboard->key_repeat_callback(
+		_keyboard.key_repeat_callback(
 			std::tr1::bind(
 				&filter::input_repeat_callback,
 				this,

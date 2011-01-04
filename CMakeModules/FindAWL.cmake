@@ -6,7 +6,7 @@ FIND_PATH(
 
 FIND_LIBRARY(
 	AWL_LIBRARY
-	NAMES libawl
+	NAMES awl
 	PATHS ${AWL_ROOT}/lib
 )
 

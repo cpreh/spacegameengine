@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../common.hpp"
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
 #include <sge/renderer/vf/dynamic/vector.hpp>
+#include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/text.hpp>
@@ -77,7 +78,12 @@ sge::opengl::vf::texpos_actor::texpos_actor(
 		);
 	else if(
 		index_
-		>= texture_context.max_level()
+		>=
+		static_cast<
+			renderer::vf::vertex_size
+		>(
+			texture_context.max_level()
+		)
 	)
 		throw renderer::exception(
 			(

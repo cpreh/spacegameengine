@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../viewport.hpp"
 #include "../check_state.hpp"
 #include "../common.hpp"
-#include <sge/renderer/viewport.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/pixel_unit.hpp>
+#include <sge/renderer/viewport.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/text.hpp>
@@ -42,14 +43,13 @@ sge::opengl::viewport(
 		static_cast<
 			GLint
 		>(
-			_height
-			- _viewport.size().h()
-			-
 			static_cast<
-				renderer::screen_unit
+				renderer::pixel_unit
 			>(
-				_viewport.pos().y()
+				_height
 			)
+			- _viewport.size().h()
+			- _viewport.pos().y()
 		),
 		static_cast<
 			GLsizei

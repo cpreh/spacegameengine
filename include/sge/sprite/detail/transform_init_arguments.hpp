@@ -25,11 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/size.hpp>
 #include <sge/sprite/roles/texture.hpp>
 #include <sge/sprite/texture_dim.hpp>
+#include <sge/sprite/with_dim.hpp>
 #include <sge/sprite/with_texture.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
+#include <boost/mpl/and.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/utility/enable_if.hpp>
 
@@ -45,9 +47,15 @@ template<
 	typename Class
 >
 typename boost::enable_if<
-	boost::mpl::contains<
-		typename Choices::elements,
-		sprite::with_texture
+	boost::mpl::and_<
+		boost::mpl::contains<
+			typename Choices::elements,
+			sprite::with_texture
+		>,
+		boost::mpl::contains<
+			typename Choices::elements,
+			sprite::with_dim
+		>
 	>,
 	Class const
 >::type
@@ -89,9 +97,15 @@ template<
 	typename Class
 >
 typename boost::disable_if<
-	boost::mpl::contains<
-		typename Choices::elements,
-		sprite::with_texture
+	boost::mpl::and_<
+		boost::mpl::contains<
+			typename Choices::elements,
+			sprite::with_texture
+		>,
+		boost::mpl::contains<
+			typename Choices::elements,
+			sprite::with_dim
+		>
 	>,
 	Class const
 >::type

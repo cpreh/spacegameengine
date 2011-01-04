@@ -29,14 +29,13 @@ sge::opengl::glsl::uniform::type::type(
 	elements_(_elements)
 {}
 
-
 sge::opengl::glsl::uniform::element_type::type
 sge::opengl::glsl::uniform::type::element_type() const
 {
 	return type_;
 }
 
-sge::opengl::glsl::uniform::type::size_type
+sge::opengl::glsl::uniform::size_type
 sge::opengl::glsl::uniform::type::elements() const
 {
 	return elements_;

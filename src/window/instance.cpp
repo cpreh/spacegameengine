@@ -85,16 +85,20 @@ sge::window::instance::show()
 	instance_->show();
 }
 
-void
+bool
 sge::window::instance::dispatch()
 {
 	// events might come in any order
 	// so make sure to process as much as possible in one go
+	bool events_processed = false;
+
 	while(
 		window_processor_->dispatch()
 		|| system_processor_->dispatch()
 	)
-	;
+		events_processed = true;
+
+	return events_processed;
 }
 
 awl::system::object_ptr const

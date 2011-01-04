@@ -45,6 +45,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/sprite_object.hpp>
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/object_impl.hpp>
+#include <sge/input/keyboard/action.hpp>
+#include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/key_event.hpp>
 #include <sge/font/text/lit.hpp>
 #include <sge/font/text/to_fcppt_string.hpp>
 #include <sge/font/system.hpp>
@@ -54,12 +57,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/text.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/spirit/home/phoenix/object/new.hpp>
+#include <boost/spirit/home/phoenix/core/reference.hpp>
+#include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <ostream>
 #include <cstdlib>
 
@@ -144,6 +150,16 @@ try
 		)
 	);
 
+	fcppt::signal::scoped_connection const cb(
+		sys.keyboard_collector()->key_callback(
+			sge::input::keyboard::action(
+				sge::input::keyboard::key_code::escape,
+				boost::phoenix::ref(running) = false
+			)
+		)
+	);
+
+
 	sge::console::object object(
 		SGE_FONT_TEXT_LIT('/')
 	);
@@ -211,7 +227,7 @@ try
 			/ FCPPT_TEXT("default.ttf"),
 			15
 		),
-		sys.keyboard_collector(),
+		*sys.keyboard_collector(),
 		sge::console::sprite_object(
 			sge::console::sprite_parameters()
 			.pos(

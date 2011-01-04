@@ -38,7 +38,8 @@ enum type
 	audio_loader     = 1 << 5,
 	collision_system = 1 << 6,
 	model_loader     = 1 << 7,
-	last_guard_      = 1 << 8
+	char_conv        = 1 << 8,
+	last_guard_      = 1 << 9
 };
 }
 

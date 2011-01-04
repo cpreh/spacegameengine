@@ -22,32 +22,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_TRANSFORM_MATRIX_HPP_INCLUDED
 
 #include <sge/sprite/matrix.hpp>
-#include <sge/renderer/matrix_pixel_to_space.hpp>
+#include <sge/sprite/symbol.hpp>
 #include <sge/renderer/screen_size.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
 
 namespace sge
 {
 namespace sprite
 {
 
-template<
-	typename TypeChoices
->
-typename sprite::matrix<
-	typename TypeChoices::float_type
->::type const
+SGE_SPRITE_SYMBOL
+sge::sprite::matrix const
 transform_matrix(
-	sge::renderer::screen_size const &_dim
-)
-{
-	return
-		renderer::matrix_pixel_to_space<
-			typename TypeChoices::float_type
-		>(
-			_dim
-		);
-}
+	sge::renderer::screen_size const &
+);
 
 }
 }

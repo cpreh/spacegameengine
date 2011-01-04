@@ -42,16 +42,24 @@ sge::opengl::texfuncs::set_filter(
 	texfuncs::parameter_int(
 		_type,
 		GL_TEXTURE_MIN_FILTER,
-		convert::texture_min_filter(
-			_filter.min()
+		static_cast<
+			GLint
+		>(
+			convert::texture_min_filter(
+				_filter.min()
+			)
 		)
 	);
 
 	texfuncs::parameter_int(
 		_type,
 		GL_TEXTURE_MAG_FILTER,
-		convert::texture_mag_filter(
-			_filter.mag()
+		static_cast<
+			GLint
+		>(
+			convert::texture_mag_filter(
+				_filter.mag()
+			)
 		)
 	);
 
@@ -86,7 +94,11 @@ sge::opengl::texfuncs::set_filter(
 		texfuncs::parameter_int(
 			_type,
 			context.anisotropy_flag(),
-			_filter.anisotropy()
+			static_cast<
+				GLint
+			>(
+				_filter.anisotropy()
+			)
 		);
 	}
 	catch(

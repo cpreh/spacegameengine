@@ -24,10 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/external_system_decl.hpp>
 #include <sge/sprite/system_base_impl.hpp>
 #include <sge/sprite/render_states.hpp>
+#include <sge/sprite/set_matrices.hpp>
 #include <sge/sprite/detail/fill_geometry.hpp>
 #include <sge/sprite/detail/optional_size.hpp>
 #include <sge/sprite/detail/render.hpp>
-#include <sge/sprite/detail/set_matrices.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/index_buffer.hpp>
@@ -64,15 +64,15 @@ sge::sprite::external_system<Choices>::render(
 	EqualFunction const &_equal_fun
 )
 {
-	detail::set_matrices<
-		typename Choices::type_choices
-	>(
+	sprite::set_matrices(
 		base::renderer()	
 	);
 
 	sge::renderer::state::scoped const state(
 		base::renderer(),
-		sprite::render_states()
+		sprite::render_states<
+			Choices
+		>()
 	);
 
 	render_advanced(
@@ -124,39 +124,26 @@ sge::sprite::external_system<Choices>::render_advanced(
 		sprite_count
 	);
 
-	renderer::vertex_buffer_ptr const vb(
-		base::vertex_buffer()
-	);
-
-	renderer::index_buffer_ptr const ib(
-		base::index_buffer()
-	);
-
 	detail::fill_geometry(
 		_begin,
 		_end,
-		vb,
-		ib,
+		base::buffers(),
 		detail::optional_size(
 			sprite_count
 		)
 	);
 
-	renderer::device_ptr const rend(
-		base::renderer()
-	);
-
 	renderer::scoped_vertex_buffer const vb_context(
-		rend,
-		vb
+		base::renderer(),
+		base::vertex_buffer()
 	);
 
 	detail::render(
 		_begin,
 		_end,
 		_equal_fun,
-		rend,
-		ib
+		base::renderer(),
+		base::buffers()
 	);
 }
 

@@ -54,7 +54,7 @@ public:
 
 	SGE_SYMBOL basic_value(
 		data_type const &,
-		size_type elements,
+		renderer::size_type elements,
 		Type
 	);
 
@@ -64,14 +64,16 @@ public:
 	SGE_SYMBOL pointer
 	data();
 
-	SGE_SYMBOL size_type
+	SGE_SYMBOL renderer::size_type
 	elements() const;
 
 	SGE_SYMBOL Type
 	type() const;
 private:
 	data_type data_;
-	size_type elements_;
+
+	renderer::size_type elements_;
+
 	Type type_;
 };
 

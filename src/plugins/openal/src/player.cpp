@@ -87,11 +87,32 @@ sge::openal::player::speed_of_sound() const
 			dest);
 }
 
+sge::audio::scalar 
+sge::openal::player::doppler_factor() const
+{
+	ALfloat dest;
+	alGetFloatv(
+		AL_DOPPLER_FACTOR,
+		&dest);
+	return 
+		static_cast<audio::scalar>(
+			dest);
+}
+
 void 
 sge::openal::player::speed_of_sound(
 	audio::scalar const dest)
 {
 	alSpeedOfSound(
+		static_cast<ALfloat>(
+			dest));
+}
+
+void 
+sge::openal::player::doppler_factor(
+	audio::scalar const dest)
+{
+	alDopplerFactor(
 		static_cast<ALfloat>(
 			dest));
 }

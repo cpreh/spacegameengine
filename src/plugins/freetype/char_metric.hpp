@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/char_type.hpp>
 #include <sge/image2d/alpha8.hpp>
 #include <sge/image/store.hpp>
+#include <sge/charconv/system_ptr.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -46,7 +47,8 @@ class char_metric
 	)
 public:
 	explicit char_metric(
-		face &,
+		freetype::face &,
+		sge::charconv::system_ptr,
 		font::char_type
 	);
 
@@ -65,9 +67,9 @@ private:
 
 	buffer_type buffer_;
 
-	font::pos   offset_;
+	font::pos offset_;
 
-	font::unit  x_advance_;
+	font::unit x_advance_;
 };
 
 }

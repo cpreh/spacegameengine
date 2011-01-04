@@ -98,7 +98,7 @@ sge::opengl::multi_texture_context::client_active_texture() const
 	return client_active_texture_;
 }
 
-GLenum
+GLint
 sge::opengl::multi_texture_context::max_level() const
 {
 	return max_level_;

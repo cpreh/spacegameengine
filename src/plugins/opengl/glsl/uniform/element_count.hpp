@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GLSL_UNIFORM_ELEMENT_COUNT_HPP_INCLUDED
 
 #include "element_type.hpp"
-#include <sge/renderer/size_type.hpp>
+#include "size_type.hpp"
 
 namespace sge
 {
@@ -33,7 +33,7 @@ namespace glsl
 namespace uniform
 {
 
-sge::renderer::size_type
+uniform::size_type
 element_count(
 	element_type::type
 );

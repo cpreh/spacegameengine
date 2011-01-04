@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/pitch.hpp>
 #include <sge/image/color/format.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <boost/assign/list_of.hpp>
 
 void
 sge::opengl::convert_vertex_colors(
@@ -43,13 +43,19 @@ sge::opengl::convert_vertex_colors(
 			_num_vertices
 		),
 		_dcolor.color_format(),
-		static_cast<
-			sge::image2d::pitch
-		>(
-			_vertex_stride
+		sge::image2d::pitch(
+			static_cast<
+				sge::image2d::pitch::value_type
+			>(
+				_vertex_stride
+			)
 		),
-		boost::assign::list_of
-			(sge::image::color::format::rgba8)
-			(sge::image::color::format::rgba32f)
+		fcppt::assign::make_container<
+			sge::image::algorithm::accepted_format_array
+		>(
+			sge::image::color::format::rgba8
+		)(
+			sge::image::color::format::rgba32f
+		)
 	);
 }

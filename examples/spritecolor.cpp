@@ -41,6 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/type_choices.hpp>
 #include <sge/sprite/with_color.hpp>
+#include <sge/sprite/with_dim.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/parameterless.hpp>
@@ -57,6 +58,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <cstdlib>
+
+#include <sge/sprite/default_parameters.hpp>
+#include <sge/sprite/defaults.hpp>
 
 int main()
 try
@@ -110,7 +114,8 @@ try
 			float,
 			sge::image::color::rgba8_format
 		>,
-		boost::mpl::vector1<
+		boost::mpl::vector2<
+			sge::sprite::with_dim,
 			sge::sprite::with_color
 		>
 	> sprite_choices;
@@ -132,10 +137,13 @@ try
 	);
 
 	sprite_object spr(
-		sprite_parameters()
-		.pos(
+		sge::sprite::default_parameters<
+			sprite_choices
+		>()
+		//sprite_parameters()
+		/*.pos(
 			sprite_object::point::null()
-		)
+		)*/
 		.size(
 			sprite_object::dim(
 				fcppt::math::dim::structure_cast<

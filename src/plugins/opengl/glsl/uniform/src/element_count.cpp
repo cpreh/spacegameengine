@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/exception.hpp>
 #include <fcppt/text.hpp>
 
-sge::renderer::size_type
+sge::opengl::glsl::uniform::size_type
 sge::opengl::glsl::uniform::element_count(
 	sge::opengl::glsl::uniform::element_type::type const _type
 )

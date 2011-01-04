@@ -51,7 +51,7 @@ public:
 	PFNGLCLIENTACTIVETEXTUREPROC
 	client_active_texture() const;
 
-	GLenum
+	GLint
 	max_level() const;
 
 	typedef void needs_before;
@@ -66,7 +66,7 @@ private:
 
 	PFNGLCLIENTACTIVETEXTUREPROC const client_active_texture_;
 
-	GLenum const max_level_;
+	GLint const max_level_;
 };
 
 }

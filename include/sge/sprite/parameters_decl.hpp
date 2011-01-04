@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/color.hpp>
 #include <sge/sprite/roles/depth.hpp>
 #include <sge/sprite/roles/order.hpp>
+#include <sge/sprite/roles/point_size.hpp>
 #include <sge/sprite/roles/pos.hpp>
 #include <sge/sprite/roles/repetition.hpp>
 #include <sge/sprite/roles/rotation.hpp>
@@ -53,6 +54,7 @@ class parameters
 {
 	typedef typename detail::make_class<
 		Choices,
+		// TODO: only add this when needed!
 		boost::mpl::vector1<
 			majutsu::role<
 				majutsu::fundamental<
@@ -62,133 +64,143 @@ class parameters
 			>
 		>
 	>::type elements_type;
+public:
+	typedef Choices choices;
 
 	typedef typename elements_type::memory_type::types flattened_types;
-public:
+
 	parameters();
 
-	parameters const
+	parameters &
 	pos(
 		typename majutsu::role_return_type<
 			flattened_types,
 			roles::pos
 		>::type const &
-	) const;
+	);
 
-	parameters const
+	parameters &
 	center(
 		typename majutsu::role_return_type<
 			flattened_types,
 			roles::pos
 		>::type const &
-	) const;
+	);
 
-	parameters const
+	parameters &
 	texture(
 		typename majutsu::role_return_type<
 			flattened_types,
 			roles::texture
 		>::type const &
-	) const;
+	);
 
-	parameters const
+	parameters &
 	size(
 		typename majutsu::role_return_type<
 			flattened_types,
 			roles::size
 		>::type const &
-	) const;
+	);
 
-	parameters const
-	texture_size() const;
+	parameters &
+	point_size(
+		typename majutsu::role_return_type<
+			flattened_types,
+			roles::point_size
+		>::type const &
+	);
 
-	parameters const
+	parameters &
+	texture_size();
+
+	parameters &
 	color(
 		typename majutsu::role_return_type<
 			flattened_types,
 			roles::color
 		>::type const &
-	) const;
+	);
 
-	parameters const
-	default_color() const;
+	parameters &
+	default_color();
 
-	parameters const
+	parameters &
 	depth(
 		typename majutsu::role_return_type<
 			flattened_types,
 			roles::depth
 		>::type const &
-	) const;
+	);
 
-	parameters const
+	parameters &
 	visible(
 		typename majutsu::role_return_type<
 			flattened_types,
 			roles::visible
 		>::type const &
-	) const;
+	);
 
-	parameters const
+	parameters &
 	rotation(
 		typename majutsu::role_return_type<
 			flattened_types,
 			roles::rotation
 		>::type const &
-	) const;
+	);
 
-	parameters const
-	no_rotation_point() const;
+	parameters &
+	no_rotation_point();
 
-	parameters const
+	parameters &
 	rotation_point(
 		typename majutsu::role_return_type<
 			flattened_types,
 			roles::rotate_around
 		>::type const &
-	) const;
+	);
 
-	parameters const
+	parameters &
 	repetition(
 		typename majutsu::role_return_type<
 			flattened_types,
 			roles::repetition
 		>::type const &
-	) const;
+	);
 
-	parameters const
+	parameters &
 	order(
 		typename majutsu::role_return_type<
 			flattened_types,
 			roles::order
 		>::type const &
-	) const;
+	);
 
-	parameters const
+	parameters &
 	adder(
 		typename majutsu::role_return_type<
 			flattened_types,
 			roles::adder
 		>::type const &
-	) const;
+	);
 
-	parameters const
+	parameters &
 	system(
 		typename sprite::system<
 			Choices
 		>::type *
-	) const;
+	);
 
 	template<
 		typename Role
 	>
-	parameters const
+	parameters &
 	set(
 		typename majutsu::role_return_type<
 			flattened_types,
 			Role
 		>::type const &
-	) const;
+	);
 
 	elements_type const &
 	elements() const;

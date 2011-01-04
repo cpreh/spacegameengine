@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/config.hpp>
 #include "../create.hpp"
+#include "../instance.hpp"
 #if defined(SGE_OPENGL_HAVE_XRANDR)
 #include "../xrandr_mode.hpp"
 #endif
@@ -45,7 +46,7 @@ sge::opengl::x11::resolution::create(
 	if(
 		_param.window_mode() == renderer::window_mode::windowed
 	)
-		return unique_ptr();
+		return resolution::unique_ptr();
 #if defined(SGE_OPENGL_HAVE_XRANDR)
 	try
 	{

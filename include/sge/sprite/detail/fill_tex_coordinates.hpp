@@ -23,8 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/detail/fill_tex_coordinates_impl.hpp>
 #include <sge/sprite/object_impl.hpp>
+#include <sge/sprite/with_dim.hpp>
 #include <sge/sprite/with_texture.hpp>
 #include <sge/texture/part.hpp>
+#include <boost/mpl/and.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/utility/enable_if.hpp>
 
@@ -40,9 +42,15 @@ template<
 	typename Choices
 >
 typename boost::enable_if<
-	boost::mpl::contains<
-		typename Choices::elements,
-		with_texture
+	boost::mpl::and_<
+		boost::mpl::contains<
+			typename Choices::elements,
+			sprite::with_texture
+		>,
+		boost::mpl::contains<
+			typename Choices::elements,
+			sprite::with_dim
+		>
 	>,
 	void
 >::type
@@ -70,9 +78,15 @@ template<
 	typename Choices
 >
 typename boost::disable_if<
-	boost::mpl::contains<
-		typename Choices::elements,
-		with_texture
+	boost::mpl::and_<
+		boost::mpl::contains<
+			typename Choices::elements,
+			sprite::with_texture
+		>,
+		boost::mpl::contains<
+			typename Choices::elements,
+			sprite::with_dim
+		>
 	>,
 	void
 >::type

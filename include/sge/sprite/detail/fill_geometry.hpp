@@ -21,25 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_FILL_GEOMETRY_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_FILL_GEOMETRY_HPP_INCLUDED
 
-#include <sge/sprite/detail/vertex_format_from_object.hpp>
-#include <sge/sprite/detail/indices_per_sprite.hpp>
-#include <sge/sprite/detail/vertices_per_sprite.hpp>
-#include <sge/sprite/detail/index_generator.hpp>
-#include <sge/sprite/detail/fill_position.hpp>
-#include <sge/sprite/detail/fill_color.hpp>
-#include <sge/sprite/detail/fill_tex_coordinates.hpp>
+#include <sge/sprite/detail/roles/index_buffer.hpp>
+#include <sge/sprite/detail/roles/vertex_buffer.hpp>
+#include <sge/sprite/detail/fill_indices.hpp>
+#include <sge/sprite/detail/fill_vertices.hpp>
 #include <sge/sprite/detail/optional_size.hpp>
-#include <sge/sprite/detail/visible.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/index_buffer.hpp>
-#include <sge/renderer/scoped_index_lock.hpp>
-#include <sge/renderer/scoped_vertex_lock.hpp>
-#include <sge/renderer/size_type.hpp>
-#include <sge/renderer/index/dynamic/generate.hpp>
-#include <sge/renderer/vf/view.hpp>
-#include <sge/renderer/vf/iterator.hpp>
-#include <sge/renderer/vf/vertex.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <sge/sprite/with_dim.hpp>
+#include <boost/mpl/contains.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <iterator>
 
 namespace sge
@@ -50,100 +39,71 @@ namespace detail
 {
 
 template<
-	typename It
+	typename It,
+	typename Buffers
 >
-void
+typename boost::enable_if<
+	boost::mpl::contains<
+		typename std::iterator_traits<
+			It
+		>::value_type::choices::elements,
+		sprite::with_dim
+	>,
+	void
+>::type
 fill_geometry(
 	It _begin,
 	It const _end,
-	renderer::vertex_buffer_ptr const _vb,
-	renderer::index_buffer_ptr const _ib,
-	optional_size const &_num_sprites
+	Buffers const &_buffers,
+	detail::optional_size const &_num_sprites
 )
 {
-	renderer::size_type const sprites_to_lock(
-		_num_sprites
-		?
-			*_num_sprites
-		:
-			renderer::vertex_buffer::npos
-	);
-
-	renderer::scoped_vertex_lock const vblock(
-		_vb,
-		renderer::lock_mode::writeonly,
-		0,
-		sprites_to_lock
-		* detail::vertices_per_sprite
-	);
-
-	typedef typename std::iterator_traits<
-		It
-	>::value_type object_type;
-
-	typedef renderer::vf::view<
-		typename vertex_format_from_object<
-			object_type
-		>::type
-	> vertex_view;
-
-	vertex_view const vertices(
-		vblock.value()
-	);
-
-	typename vertex_view::iterator vb_it(
-		vertices.begin()
-	);
-
-	renderer::size_type count(0);
-
-	for(
-		It it(
-			_begin
-		);
-		it != _end;
-		++it
-	)
-	{
-		object_type const &spr(
-			*it
-		);
-
-		if(
-			!detail::visible(
-				spr
-			)
+	detail::fill_indices<
+		typename std::iterator_traits<
+			It
+		>::value_type::choices
+	>(
+		_buffers.template get<
+			detail::roles::index_buffer
+		>(),
+		detail::fill_vertices(
+			_begin,
+			_end,
+			_buffers.template get<
+				detail::roles::vertex_buffer
+			>(),
+			_num_sprites
 		)
-			continue;
+	);
+}
 
-		fill_position(
-			vb_it,
-			spr
-		);
-
-		fill_tex_coordinates(
-			vb_it,
-			spr
-		);
-
-		fill_color(
-			vb_it,
-			spr
-		);
-
-		vb_it += detail::vertices_per_sprite;
-
-		++count;
-	}
-
-	renderer::index::dynamic::generate(
-		renderer::scoped_index_lock(
-			_ib,
-			renderer::lock_mode::writeonly,
-			0,
-			count * detail::indices_per_sprite
-		).value(),
-		index_generator()
+template<
+	typename It,
+	typename Buffers
+>
+typename boost::disable_if<
+	boost::mpl::contains<
+		typename std::iterator_traits<
+			It
+		>::value_type::choices::elements,
+		sprite::with_dim
+	>,
+	void
+>::type
+fill_geometry(
+	It _begin,
+	It const _end,
+	Buffers const &_buffers,
+	detail::optional_size const &_num_sprites
+)
+{
+	detail::fill_vertices(
+		_begin,
+		_end,
+		_buffers.template get<
+			detail::roles::vertex_buffer
+		>(),
+		_num_sprites
 	);
 }
 
