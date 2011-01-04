@@ -22,6 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/object_ptr.hpp>
+#include <sge/input/keyboard/action.hpp>
+#include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/button_event.hpp>
 #include <sge/input/mouse/device.hpp>
@@ -36,13 +39,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/dim_type.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/window/simple_parameters.hpp>
+#include <awl/mainloop/dispatcher.hpp>
 #include <awl/mainloop/io_service.hpp>
-#include <awl/mainloop/asio/create_io_service.hpp>
+#include <awl/mainloop/asio/create_io_service_base.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/signal/connection_manager.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/signal/shared_connection.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -137,7 +143,7 @@ int main()
 try
 {
 	awl::mainloop::io_service_ptr const io_service(
-		awl::mainloop::asio::create_io_service()
+		awl::mainloop::asio::create_io_service_base()
 	);
 
 	sge::systems::instance sys(
@@ -167,6 +173,18 @@ try
 
 	::device_manager const manager(
 		sys.input_processor()
+	);
+
+	fcppt::signal::scoped_connection const input_connection(
+		sys.keyboard_collector()->key_callback(
+			sge::input::keyboard::action(
+				sge::input::keyboard::key_code::escape,
+				std::tr1::bind(
+					&awl::mainloop::dispatcher::stop,
+					sys.window()->awl_dispatcher()
+				)
+			)
+		)
 	);
 
 	io_service->run();

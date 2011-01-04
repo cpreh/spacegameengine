@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/input_helper.hpp>
 #include <sge/systems/window.hpp>
-#include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/key_code.hpp>
 #include <sge/window/dim_type.hpp>
 #include <sge/window/simple_parameters.hpp>
 #include <sge/window/instance.hpp>
