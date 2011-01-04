@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../device/parameters.hpp"
 #include <sge/input/keyboard/key.hpp>
 #include <sge/input/keyboard/key_event.hpp>
+#include <sge/input/keyboard/key_repeat_event.hpp>
 #include <sge/input/keyboard/to_modifier.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/system/event/object.hpp>
@@ -201,7 +202,9 @@ sge::x11input::keyboard::on_key_event(
 		_event.get().flags & XIKeyRepeat
 	)
 		key_repeat_signal_(
-			key
+			input::keyboard::key_repeat_event(
+				key
+			)
 		);
 	else
 		key_signal_(

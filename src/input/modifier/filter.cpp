@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/modifier/states.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_event.hpp>
+#include <sge/input/keyboard/key_repeat_event.hpp>
 #include <sge/input/keyboard/key.hpp>
 #include <fcppt/container/map_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -127,7 +128,7 @@ sge::input::modifier::filter::input_callback(
 
 void
 sge::input::modifier::filter::input_repeat_callback(
-	keyboard::key const &_key
+	keyboard::key_repeat_event const &_key
 )
 {
 	repeat_signal_(

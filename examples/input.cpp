@@ -22,16 +22,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/object_ptr.hpp>
+#include <sge/input/cursor/object_vector.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/device_ptr.hpp>
+#include <sge/input/keyboard/device_vector.hpp>
+#include <sge/input/keyboard/key.hpp>
 #include <sge/input/keyboard/key_code.hpp>
+#include <sge/input/keyboard/key_event.hpp>
+#include <sge/input/keyboard/key_repeat_event.hpp>
 #include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/button_event.hpp>
 #include <sge/input/mouse/device.hpp>
 #include <sge/input/mouse/device_ptr.hpp>
+#include <sge/input/mouse/device_vector.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/processor_ptr.hpp>
 #include <sge/systems/input.hpp>
+#include <sge/systems/input_helper.hpp>
 #include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
@@ -109,6 +117,29 @@ private:
 	fcppt::signal::connection_manager const connections_;
 };
 
+class keyboard_listener
+{
+	FCPPT_NONCOPYABLE(
+		keyboard_listener
+	)
+public:
+	explicit keyboard_listener(
+		sge::input::keyboard::device_ptr
+	);
+private:
+	void
+	on_key_event(
+		sge::input::keyboard::key_event const &
+	);
+
+	void
+	on_key_repeat_event(
+		sge::input::keyboard::key_repeat_event const &
+	);
+
+	fcppt::signal::connection_manager const connections_;
+};
+
 class device_manager
 {
 	FCPPT_NONCOPYABLE(
@@ -139,6 +170,16 @@ private:
 		sge::input::cursor::object_ptr
 	);
 
+	void
+	on_keyboard_add(
+		sge::input::keyboard::device_ptr
+	);
+
+	void
+	on_keyboard_remove(
+		sge::input::keyboard::device_ptr
+	);
+
 	typedef boost::ptr_map<
 		sge::input::mouse::device_ptr,
 		::mouse_listener
@@ -149,11 +190,18 @@ private:
 		::cursor_listener
 	> cursor_listener_map;
 
+	typedef boost::ptr_map<
+		sge::input::keyboard::device_ptr,
+		::keyboard_listener
+	> keyboard_listener_map;
+
 	fcppt::signal::connection_manager const connections_;
 
 	mouse_listener_map mouse_listeners_;
 
 	cursor_listener_map cursor_listeners_;
+
+	keyboard_listener_map keyboard_listeners_;
 };
 
 }
@@ -183,7 +231,9 @@ try
 		)
 		(
 			sge::systems::input(
-				sge::systems::input_helper_field()
+				sge::systems::input_helper_field(
+					sge::systems::input_helper::keyboard_collector
+				)
 			)
 		)
 	);
@@ -194,7 +244,6 @@ try
 		sys.input_processor()
 	);
 
-#if 0
 	fcppt::signal::scoped_connection const input_connection(
 		sys.keyboard_collector()->key_callback(
 			sge::input::keyboard::action(
@@ -206,7 +255,6 @@ try
 			)
 		)
 	);
-#endif
 
 	io_service->run();
 }
@@ -342,6 +390,68 @@ cursor_listener::on_move_event(
 }
 
 
+keyboard_listener::keyboard_listener(
+	sge::input::keyboard::device_ptr const _device
+)
+:
+	connections_(
+		fcppt::assign::make_container<
+			fcppt::signal::connection_manager::container		
+		>(
+			fcppt::signal::shared_connection(
+				_device->key_callback(
+					std::tr1::bind(
+						&keyboard_listener::on_key_event,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+		(
+			fcppt::signal::shared_connection(
+				_device->key_repeat_callback(
+					std::tr1::bind(
+						&keyboard_listener::on_key_repeat_event,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+	)
+{
+}
+
+void
+keyboard_listener::on_key_event(
+	sge::input::keyboard::key_event const &_event
+)
+{
+	fcppt::io::cout
+		<< FCPPT_TEXT("key_event: ")
+		<< _event.key().code()
+		<< FCPPT_TEXT(' ')
+		<< _event.key().character()
+		<< FCPPT_TEXT(' ')
+		<< _event.pressed()
+		<< FCPPT_TEXT('\n');
+}
+
+void
+keyboard_listener::on_key_repeat_event(
+	sge::input::keyboard::key_repeat_event const &_event
+)
+{
+	fcppt::io::cout
+		<< FCPPT_TEXT("key_repeat_event: ")
+		<< _event.key().code()
+		<< FCPPT_TEXT(' ')
+		<< _event.key().character()
+		<< FCPPT_TEXT('\n');
+}
+
+
 device_manager::device_manager(
 	sge::input::processor_ptr const _processor
 )
@@ -395,7 +505,9 @@ device_manager::device_manager(
 		)
 
 	),
-	mouse_listeners_()
+	mouse_listeners_(),
+	cursor_listeners_(),
+	keyboard_listeners_()
 {
 	BOOST_FOREACH(
 		sge::input::mouse::device_vector::value_type const mouse,
@@ -411,6 +523,14 @@ device_manager::device_manager(
 	)
 		this->on_cursor_add(
 			cursor
+		);
+
+	BOOST_FOREACH(
+		sge::input::keyboard::device_vector::value_type const keyboard,
+		_processor->keyboards()
+	)
+		this->on_keyboard_add(
+			keyboard
 		);
 }
 
@@ -492,6 +612,47 @@ device_manager::on_cursor_remove(
 
 	fcppt::io::cout
 		<< FCPPT_TEXT("cursor_remove: ")
+		<< _device
+		<< FCPPT_TEXT('\n');
+}
+
+void
+device_manager::on_keyboard_add(
+	sge::input::keyboard::device_ptr const _device
+)
+{
+	assert(
+		fcppt::container::ptr::insert_unique_ptr_map(
+			keyboard_listeners_,
+			_device,
+			fcppt::make_unique_ptr<
+				::keyboard_listener
+			>(
+				_device
+			)
+		).second
+		== true
+	);
+
+	fcppt::io::cout
+		<< FCPPT_TEXT("keyboard_add: ")
+		<< _device
+		<< FCPPT_TEXT('\n');
+}
+
+void
+device_manager::on_keyboard_remove(
+	sge::input::keyboard::device_ptr const _device
+)
+{
+	assert(
+		keyboard_listeners_.erase(
+			_device
+		) == 1u
+	);
+
+	fcppt::io::cout
+		<< FCPPT_TEXT("keyboard_remove: ")
 		<< _device
 		<< FCPPT_TEXT('\n');
 }

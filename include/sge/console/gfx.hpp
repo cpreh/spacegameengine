@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/modifier/filter.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
-#include <sge/input/keyboard/key_fwd.hpp>
+#include <sge/input/keyboard/key_repeat_event_fwd.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/external_system_decl.hpp>
@@ -126,7 +126,7 @@ private:
 
 	void
 	key_action(
-		input::keyboard::key const &,
+		input::keyboard::key_repeat_event const &,
 		input::modifier::states const &
 	);
 

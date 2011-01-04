@@ -18,26 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_KEYBOARD_KEY_REPEAT_FUNCTION_HPP_INCLUDED
-#define SGE_INPUT_KEYBOARD_KEY_REPEAT_FUNCTION_HPP_INCLUDED
+#include <sge/input/keyboard/key_repeat_event.hpp>
 
-#include <sge/input/keyboard/key_repeat_event_fwd.hpp>
-
-namespace sge
+sge::input::keyboard::key_repeat_event::key_repeat_event(
+	keyboard::key const &_key
+)
+:
+	key_(_key)
 {
-namespace input
-{
-namespace keyboard
-{
-
-typedef
-void
-key_repeat_function(
-	keyboard::key_repeat_event const &
-);
-
-}
-}
 }
 
-#endif
+sge::input::keyboard::key const &
+sge::input::keyboard::key_repeat_event::key() const
+{
+	return key_;
+}

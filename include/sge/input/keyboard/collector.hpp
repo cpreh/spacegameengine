@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_callback.hpp>
 #include <sge/input/keyboard/key_repeat_callback.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
-#include <sge/input/keyboard/key_fwd.hpp>
+#include <sge/input/keyboard/key_repeat_event_fwd.hpp>
 #include <sge/input/keyboard/mod_state.hpp>
 #include <sge/input/processor_ptr.hpp>
 #include <sge/symbol.hpp>
@@ -85,7 +85,7 @@ private:
 
 	void
 	key_repeat_callback_internal(
-		keyboard::key const &
+		keyboard::key_repeat_event const &
 	);
 
 	void

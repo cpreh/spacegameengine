@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/modifier/states.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
-#include <sge/input/keyboard/key_fwd.hpp>
+#include <sge/input/keyboard/key_repeat_event_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
@@ -57,7 +57,7 @@ public:
 
 	typedef void
 	fn_repeat_callback_type (
-		keyboard::key const &,
+		keyboard::key_repeat_event const &,
 		states const &
 	);
 
@@ -102,7 +102,7 @@ private:
 
 	void
 	input_repeat_callback(
-		keyboard::key const &
+		keyboard::key_repeat_event const &
 	);
 };
 

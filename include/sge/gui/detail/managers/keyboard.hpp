@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/modifier/filter.hpp>
 #include <sge/input/modifier/states.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
-#include <sge/input/keyboard/key_fwd.hpp>
+#include <sge/input/keyboard/key_repeat_event_fwd.hpp>
 #include <sge/input/keyboard/device_ptr.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/optional.hpp>
@@ -72,7 +72,7 @@ private:
 		input::modifier::states const &,
 		bool);
 	void repeat_callback(
-		input::keyboard::key const &,
+		input::keyboard::key_repeat_event const &,
 		input::modifier::states const &);
 	void switch_focus(widget_container::iterator);
 };

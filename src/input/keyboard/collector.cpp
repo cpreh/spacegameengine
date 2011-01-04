@@ -130,7 +130,7 @@ sge::input::keyboard::collector::key_callback_internal(
 
 void
 sge::input::keyboard::collector::key_repeat_callback_internal(
-	keyboard::key const &_event
+	keyboard::key_repeat_event const &_event
 )
 {
 	repeat_signal_(

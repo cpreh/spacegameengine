@@ -26,8 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widgets/base.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/gui/exception.hpp>
-#include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/key.hpp>
+#include <sge/input/keyboard/key_event.hpp>
+#include <sge/input/keyboard/key_repeat_event.hpp>
 #include <fcppt/log/parameters/inherited.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/log/headers.hpp>
@@ -273,13 +274,13 @@ void sge::gui::detail::managers::keyboard::keyboard_focus(
 
 void
 sge::gui::detail::managers::keyboard::repeat_callback(
-	input::keyboard::key const &k,
+	input::keyboard::key_repeat_event const &k,
 	input::modifier::states const &s
 )
 {
 	input_callback(
 		input::keyboard::key_event(
-			k,
+			k.key(),
 			true
 		),
 		s,

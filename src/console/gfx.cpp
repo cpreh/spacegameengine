@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/pos.hpp>
 #include <sge/input/keyboard/key.hpp>
 #include <sge/input/keyboard/key_event.hpp>
+#include <sge/input/keyboard/key_repeat_event.hpp>
 #include <sge/time/second_f.hpp>
 #include <sge/sprite/external_system_impl.hpp>
 #include <sge/sprite/render_one.hpp>
@@ -305,14 +306,17 @@ sge::console::gfx::key_callback(
 )
 {
 	if (active_ && k.pressed())
-		key_action(
-			k.key(),
-			s);
+		this->key_action(
+			input::keyboard::key_repeat_event(
+				k.key()
+			),
+			s
+		);
 }
 
 void
 sge::console::gfx::key_action(
-	input::keyboard::key const &k,
+	input::keyboard::key_repeat_event const &k,
 	input::modifier::states const &s
 )
 {
@@ -321,8 +325,8 @@ sge::console::gfx::key_action(
 	
 	if(
 		(
-			k.character() == SGE_FONT_TEXT_LIT('w')
-			|| k.character() == SGE_FONT_TEXT_LIT('W')
+			k.key().character() == SGE_FONT_TEXT_LIT('w')
+			|| k.key().character() == SGE_FONT_TEXT_LIT('W')
 		)
 		&&
 		(
@@ -336,13 +340,13 @@ sge::console::gfx::key_action(
 	}
 
 	// is a printable character? then append to input
-	if(std::isprint(k.character(),std::locale()))
+	if(std::isprint(k.key().character(),std::locale()))
 	{
-		input_line_.insert(k.character());
+		input_line_.insert(k.key().character());
 		return;
 	}
 
-	switch (k.code())
+	switch (k.key().code())
 	{
 		case input::keyboard::key_code::delete_:
 			input_line_.erase_char();
