@@ -263,6 +263,7 @@ sge::x11input::processor::cursor_discover_callback(
 	input::cursor::discover_callback const &_callback
 )
 {
+	return fcppt::signal::auto_connection();
 }
 
 fcppt::signal::auto_connection
@@ -270,16 +271,31 @@ sge::x11input::processor::cursor_remove_callback(
 	input::cursor::remove_callback const &_callback
 )
 {
+	return fcppt::signal::auto_connection();
 }
 
 sge::input::cursor::object_vector const
 sge::x11input::processor::cursors() const
 {
+	return
+		input::cursor::object_vector(
+			cursors_.begin(),
+			cursors_.end()
+		);
 }
 
 sge::input::cursor::object_ptr const
 sge::x11input::processor::main_cursor() const
 {
+	// TODO: is this right?
+	return
+		!cursors_.empty()
+		?
+			sge::input::cursor::object_ptr(
+				cursors_.front()
+			)
+		:
+			sge::input::cursor::object_ptr();
 }
 
 sge::window::instance_ptr const

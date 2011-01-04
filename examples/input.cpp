@@ -45,6 +45,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/io/cout.hpp>
+#include <fcppt/math/vector/output.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/signal/shared_connection.hpp>
@@ -127,14 +129,31 @@ private:
 		sge::input::mouse::device_ptr
 	);
 
+	void
+	on_cursor_add(
+		sge::input::cursor::object_ptr
+	);
+
+	void
+	on_cursor_remove(
+		sge::input::cursor::object_ptr
+	);
+
 	typedef boost::ptr_map<
 		sge::input::mouse::device_ptr,
-		mouse_listener
+		::mouse_listener
 	> mouse_listener_map;
+
+	typedef boost::ptr_map<
+		sge::input::cursor::object_ptr,
+		::cursor_listener
+	> cursor_listener_map;
 
 	fcppt::signal::connection_manager const connections_;
 
 	mouse_listener_map mouse_listeners_;
+
+	cursor_listener_map cursor_listeners_;
 };
 
 }
@@ -175,6 +194,7 @@ try
 		sys.input_processor()
 	);
 
+#if 0
 	fcppt::signal::scoped_connection const input_connection(
 		sys.keyboard_collector()->key_callback(
 			sge::input::keyboard::action(
@@ -186,6 +206,7 @@ try
 			)
 		)
 	);
+#endif
 
 	io_service->run();
 }
@@ -241,6 +262,12 @@ mouse_listener::on_button_event(
 	sge::input::mouse::button_event const &_event
 )
 {
+	fcppt::io::cout
+		<< FCPPT_TEXT("mouse_button_event: ")
+		<< _event.button_code()
+		<< FCPPT_TEXT(' ')
+		<< _event.pressed()
+		<< FCPPT_TEXT('\n');
 }
 
 void
@@ -248,6 +275,12 @@ mouse_listener::on_axis_event(
 	sge::input::mouse::axis_event const &_event
 )
 {
+	fcppt::io::cout
+		<< FCPPT_TEXT("mouse_axis_event: ")
+		<< _event.axis()
+		<< FCPPT_TEXT(' ')
+		<< _event.axis_value()
+		<< FCPPT_TEXT('\n');
 }
 
 
@@ -289,6 +322,12 @@ cursor_listener::on_button_event(
 	sge::input::cursor::button_event const &_event
 )
 {
+	fcppt::io::cout
+		<< FCPPT_TEXT("cursor_button_event: ")
+		<< _event.button_code()
+		<< FCPPT_TEXT(' ')
+		<< _event.pressed()
+		<< FCPPT_TEXT('\n');
 }
 
 void
@@ -296,6 +335,10 @@ cursor_listener::on_move_event(
 	sge::input::cursor::move_event const &_event
 )
 {
+	fcppt::io::cout
+		<< FCPPT_TEXT("cursor_move_event: ")
+		<< _event.position()
+		<< FCPPT_TEXT('\n');
 }
 
 
@@ -328,6 +371,29 @@ device_manager::device_manager(
 				)
 			)
 		)
+		(
+			fcppt::signal::shared_connection(
+				_processor->cursor_discover_callback(
+					std::tr1::bind(
+						&device_manager::on_cursor_add,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+		(
+			fcppt::signal::shared_connection(
+				_processor->cursor_remove_callback(
+					std::tr1::bind(
+						&device_manager::on_cursor_remove,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+
 	),
 	mouse_listeners_()
 {
@@ -337,6 +403,14 @@ device_manager::device_manager(
 	)
 		this->on_mouse_add(
 			mouse
+		);
+	
+	BOOST_FOREACH(
+		sge::input::cursor::object_vector::value_type const cursor,
+		_processor->cursors()
+	)
+		this->on_cursor_add(
+			cursor
 		);
 }
 
@@ -357,6 +431,11 @@ device_manager::on_mouse_add(
 		).second
 		== true
 	);
+
+	fcppt::io::cout
+		<< FCPPT_TEXT("mouse_add: ")
+		<< _device
+		<< FCPPT_TEXT('\n');
 }
 
 void
@@ -369,6 +448,52 @@ device_manager::on_mouse_remove(
 			_device
 		) == 1u
 	);
+
+	fcppt::io::cout
+		<< FCPPT_TEXT("mouse_remove: ")
+		<< _device
+		<< FCPPT_TEXT('\n');
+}
+
+void
+device_manager::on_cursor_add(
+	sge::input::cursor::object_ptr const _device
+)
+{
+	assert(
+		fcppt::container::ptr::insert_unique_ptr_map(
+			cursor_listeners_,
+			_device,
+			fcppt::make_unique_ptr<
+				::cursor_listener
+			>(
+				_device
+			)
+		).second
+		== true
+	);
+
+	fcppt::io::cout
+		<< FCPPT_TEXT("cursor_add: ")
+		<< _device
+		<< FCPPT_TEXT('\n');
+}
+
+void
+device_manager::on_cursor_remove(
+	sge::input::cursor::object_ptr const _device
+)
+{
+	assert(
+		cursor_listeners_.erase(
+			_device
+		) == 1u
+	);
+
+	fcppt::io::cout
+		<< FCPPT_TEXT("cursor_remove: ")
+		<< _device
+		<< FCPPT_TEXT('\n');
 }
 
 }
