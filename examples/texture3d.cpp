@@ -431,7 +431,7 @@ try
 	sge::renderer::device_ptr const rend(
 		sys.renderer());
 
-	texture3d mytex(
+	testcase::texture3d mytex(
 		vm["directory"].as<fcppt::string>(),
 		vm["prefix"].as<fcppt::string>(),
 		vm["slice-size"].as<std::size_t>(),
@@ -456,7 +456,7 @@ try
 		//
 		// Deshalb sind diese $$$HEADER$$$ in den Shadern. Wenn man jetzt ein
 		// Vertexattribut hinzufügt, muss man am Shader nichts mehr ändern!
-		sge::shader::vf_to_string<vf::format>(),
+		sge::shader::vf_to_string<testcase::vf::format>(),
 		// Alle uniform-Variablen (und Konstanten), die man im Shader nutzen will.
 		// Wir brauchen nur die Modelviewprojection-Matrix von der Kamera im Shader.
 		// Diese Liste wird auch für $$$HEADER$$$ rangezogen
@@ -492,7 +492,7 @@ try
 				3)));
 
 	sge::renderer::vertex_buffer_ptr const vb = 
-		create_cube(
+		testcase::create_cube(
 			rend,
 			shader,
 			109);
