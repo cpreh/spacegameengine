@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/system_ptr.hpp>
 #include <sge/input/processor_ptr.hpp>
 #include <sge/input/system_ptr.hpp>
+#include <sge/input/cursor/object_ptr.hpp>
 #include <sge/input/keyboard/device_ptr.hpp>
 #include <sge/input/mouse/device_ptr.hpp>
 #include <sge/image2d/multi_loader_fwd.hpp>
@@ -69,6 +70,9 @@ public:
 
 	SGE_SYSTEMS_SYMBOL sge::input::processor_ptr const
 	input_processor() const;
+
+	SGE_SYSTEMS_SYMBOL sge::input::cursor::object_ptr const
+	cursor_demuxer() const;
 
 	SGE_SYSTEMS_SYMBOL sge::input::keyboard::device_ptr const
 	keyboard_collector() const;

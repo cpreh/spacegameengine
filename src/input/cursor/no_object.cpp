@@ -18,26 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_INPUT_HELPER_HPP_INCLUDED
-#define SGE_SYSTEMS_INPUT_HELPER_HPP_INCLUDED
+#include <sge/input/cursor/no_object.hpp>
+#include <fcppt/text.hpp>
 
-namespace sge
+sge::input::cursor::no_object::no_object()
+:
+	sge::input::exception(
+		FCPPT_TEXT("No cursor objects left!")
+	)
 {
-namespace systems
-{
-
-namespace input_helper
-{
-enum type
-{
-	cursor_demuxer,
-	keyboard_collector,
-	mouse_collector,
-	size
-};
 }
-
-}
-}
-
-#endif

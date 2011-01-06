@@ -98,9 +98,6 @@ private:
 	input::cursor::object_vector const
 	cursors() const;
 
-	input::cursor::object_ptr const
-	main_cursor() const;
-	
 	window::instance_ptr const
 	window() const;
 

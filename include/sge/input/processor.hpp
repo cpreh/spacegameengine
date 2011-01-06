@@ -99,9 +99,6 @@ public:
 	virtual cursor::object_vector const
 	cursors() const = 0;
 
-	virtual cursor::object_ptr const
-	main_cursor() const = 0;
-	
 	//
 	// other
 	//

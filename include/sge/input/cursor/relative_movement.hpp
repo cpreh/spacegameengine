@@ -18,25 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_INPUT_HELPER_HPP_INCLUDED
-#define SGE_SYSTEMS_INPUT_HELPER_HPP_INCLUDED
+#ifndef SGE_INPUT_CURSOR_RELATIVE_MOVEMENT_HPP_INCLUDED
+#define SGE_INPUT_CURSOR_RELATIVE_MOVEMENT_HPP_INCLUDED
 
 namespace sge
 {
-namespace systems
+namespace input
+{
+namespace cursor
 {
 
-namespace input_helper
+class relative_movement
 {
-enum type
-{
-	cursor_demuxer,
-	keyboard_collector,
-	mouse_collector,
-	size
+	FCPPT_NONCOPYABLE(
+		relative_movement
+	)
+public:
+	explicit relative_movement(
+		cursor::object_ptr	
+	);
+
+	~relative_movement();
+
+	fcppt::signal::auto_connection
+	move_callback(
+		cursor::relative_movement_callback const &	
+	);
+private:
+	cursor::object_ptr const cursor_;
 };
-}
 
+}
 }
 }
 

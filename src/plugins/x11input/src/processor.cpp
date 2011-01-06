@@ -284,20 +284,6 @@ sge::x11input::processor::cursors() const
 		);
 }
 
-sge::input::cursor::object_ptr const
-sge::x11input::processor::main_cursor() const
-{
-	// TODO: is this right?
-	return
-		!cursors_.empty()
-		?
-			sge::input::cursor::object_ptr(
-				cursors_.front()
-			)
-		:
-			sge::input::cursor::object_ptr();
-}
-
 sge::window::instance_ptr const
 sge::x11input::processor::window() const
 {

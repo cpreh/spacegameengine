@@ -126,9 +126,16 @@ public:
 
 	void
 	operator()(
-		sge::input::mouse::axis_event const &k
+		sge::input::cursor::move_event const &k
 	) const
 	{
+		sprite_.pos(
+			fcppt::math::vector::structure_cast<
+				sprite_object::point
+			>(
+				k.position()
+			)
+		);
 		switch (k.axis())
 		{
 		case sge::input::mouse::axis::x:
@@ -222,8 +229,6 @@ try
 				sge::systems::input_helper_field(
 					sge::systems::input_helper::keyboard_collector
 				)
-				|
-				sge::systems::input_helper::mouse_collector
 			)
 		)
 		(
@@ -249,6 +254,10 @@ try
 				)
 			)
 		)
+	);
+
+	sge::input::cursor::object_ptr const cursor(
+		sys.input_processor()->main_cursor()
 	);
 
 	sge::image2d::file_ptr const
@@ -354,7 +363,11 @@ try
 			>(2)
 		)
 		.pos(
-			sprite_object::point::null()
+			fcppt::math::vector::structure_cast<
+				sprite_object::point
+			>(
+				cursor->position()
+			)
 		)
 		.default_color()
 		.texture_size()
@@ -437,7 +450,7 @@ try
 	);
 
 	fcppt::signal::scoped_connection const pc(
-		sys.mouse_collector()->axis_callback(
+		cursor->move_callback(
 			::sprite_functor(
 				vectorer,
 				sound_siren

@@ -18,25 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_INPUT_HELPER_HPP_INCLUDED
-#define SGE_SYSTEMS_INPUT_HELPER_HPP_INCLUDED
+#ifndef SGE_INPUT_CURSOR_DEMUXER_FWD_HPP_INCLUDED
+#define SGE_INPUT_CURSOR_DEMUXER_FWD_HPP_INCLUDED
 
 namespace sge
 {
-namespace systems
+namespace input
+{
+namespace cursor
 {
 
-namespace input_helper
-{
-enum type
-{
-	cursor_demuxer,
-	keyboard_collector,
-	mouse_collector,
-	size
-};
+class demuxer;
+
 }
-
 }
 }
 

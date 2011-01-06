@@ -41,6 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/processor_ptr.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/system_ptr.hpp>
+#include <sge/input/cursor/demuxer.hpp>
 #include <sge/input/keyboard/collector.hpp>
 #include <sge/input/mouse/collector.hpp>
 #include <sge/log/global.hpp>
@@ -113,6 +114,7 @@ public:
 
 	sge::input::system_ptr                          input_system_;
 	sge::input::processor_ptr                       input_processor_;
+	sge::input::cursor::object_ptr                  cursor_demuxer_;
 	sge::input::keyboard::device_ptr                keyboard_collector_;
 	sge::input::mouse::device_ptr                   mouse_collector_;
 
@@ -319,6 +321,12 @@ sge::input::processor_ptr const
 sge::systems::instance::input_processor() const
 {
 	return impl_->input_processor_;
+}
+
+sge::input::cursor::object_ptr const
+sge::systems::instance::cursor_demuxer() const
+{
+	return impl_->cursor_demuxer_;
 }
 
 sge::input::keyboard::device_ptr const
@@ -602,7 +610,17 @@ sge::systems::instance::impl::init_input(
 		input_system_->create_processor(
 			window_
 		);
-	
+
+	if(
+		_param.input_helpers() & systems::input_helper::cursor_demuxer
+	)
+		cursor_demuxer_ =
+			fcppt::make_shared_ptr<
+				sge::input::cursor::demuxer
+			>(
+				input_processor_
+			);
+
 	if(
 		_param.input_helpers() & systems::input_helper::keyboard_collector
 	)
