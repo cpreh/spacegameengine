@@ -32,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/float_type.hpp>
 #include <sge/parse/json/int_type.hpp>
-#include <sge/parse/json/make_error_message.hpp>
 #include <sge/parse/encoding.hpp>
 #include <sge/parse/exception.hpp>
 #include <sge/parse/info_to_string.hpp>
@@ -191,25 +190,25 @@ public:
 				boost::phoenix::construct<
 					parse::exception
 				>(
-					boost::phoenix::bind(
-						parse::json::make_error_message,
-						boost::phoenix::construct<
-							fcppt::string
-						>(
-							boost::spirit::qi::labels::_1,
-							boost::spirit::qi::labels::_3
-						),
-						boost::phoenix::construct<
-							fcppt::string
-						>(
-							boost::spirit::qi::labels::_3,
-							boost::spirit::qi::labels::_2
-						),
-						boost::phoenix::bind(
-							&parse::info_to_string,
-							boost::spirit::qi::labels::_4
-						)
+					boost::phoenix::val(
+						FCPPT_TEXT("Json parsing failed: \"")
 					)
+					+
+					boost::phoenix::construct<
+						fcppt::string
+					>(
+						boost::spirit::qi::labels::_1,
+						boost::spirit::qi::labels::_3
+					)
+					+
+					FCPPT_TEXT("\" - expected ")
+					+
+					boost::phoenix::bind(
+						&info_to_string,
+						boost::spirit::qi::labels::_4
+					)
+					+
+					FCPPT_TEXT(" here.")
 				)
 			)
 		);
