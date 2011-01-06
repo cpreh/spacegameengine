@@ -17,7 +17,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-
+#include "texture_dimension_string.hpp"
 #include <sge/shader/sampler.hpp>
 #include <fcppt/text.hpp>
 #include <boost/lexical_cast.hpp>
@@ -25,16 +25,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::shader::sampler::sampler(
 	sge::renderer::glsl::string const &_name,
-	sge::renderer::texture_base_ptr const _texture,
-	sge::renderer::size_type const _dimension)
+	sge::renderer::texture_base_ptr const _texture)
 :
 	name_(
 		_name),
 	declaration_(
-		"uniform sampler"+
-		boost::lexical_cast<renderer::glsl::string>(
-			_dimension)+
-		"D "+
+		"uniform "+
+		texture_dimension_string(
+			*_texture)+
+		" "+
 		_name+
 		";"),
 	texture_(

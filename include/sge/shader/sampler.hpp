@@ -42,8 +42,7 @@ public:
 	sampler(
 		renderer::glsl::string const &name,
 		renderer::texture_base_ptr = 
-			renderer::texture_base_ptr(),
-		renderer::size_type dimension = 2u);
+			renderer::texture_base_ptr());
 
 	SGE_SHADER_SYMBOL renderer::glsl::string const
 	name() const;

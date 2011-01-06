@@ -485,11 +485,7 @@ try
 					sge::renderer::filter::linear,
 					// Hier könnte man eine Textur erstellen, die "readable" ist, wenn
 					// man die unbedingt wieder auslesen will
-					sge::renderer::resource_flags::none),
-				// Man muss bei 3D-Texturen noch angeben, dass die 3 Dimensionen hat.
-				// Das kann er aus dem obigen create_volume_texture leider nicht
-				// ableiten (ein TODO für Freundlich?)
-				3)));
+					sge::renderer::resource_flags::none))));
 
 	sge::renderer::vertex_buffer_ptr const vb = 
 		testcase::create_cube(
