@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_CURSOR_RELATIVE_MOVEMENT_HPP_INCLUDED
 
 #include <sge/input/cursor/relative_movement_fwd.hpp>
-#include <sge/input/cursor/move_callback.hpp>
 #include <sge/input/cursor/move_event_fwd.hpp>
-#include <sge/input/cursor/move_function.hpp>
+#include <sge/input/cursor/relative_move_callback.hpp>
+#include <sge/input/cursor/relative_move_function.hpp>
 #include <sge/input/cursor/object_ptr.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/symbol.hpp>
@@ -57,8 +57,8 @@ public:
 
 	SGE_SYMBOL
 	fcppt::signal::auto_connection
-	move_callback(
-		cursor::move_callback const &
+	relative_move_callback(
+		cursor::relative_move_callback const &
 	);
 private:
 	void
@@ -67,14 +67,14 @@ private:
 	);
 
 	typedef fcppt::signal::object<
-		cursor::move_function
-	> move_signal;
+		cursor::relative_move_function
+	> relative_move_signal;
 
 	cursor::object_ptr const cursor_;
 
 	cursor::position last_position_;
 
-	move_signal move_signal_;
+	relative_move_signal relative_move_signal_;
 
 	fcppt::signal::scoped_connection const connection_;
 };

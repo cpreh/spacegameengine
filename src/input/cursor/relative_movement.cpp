@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/relative_movement.hpp>
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/object.hpp>
+#include <sge/input/cursor/relative_move_event.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -33,7 +34,7 @@ sge::input::cursor::relative_movement::relative_movement(
 	last_position_(
 		cursor_->position()
 	),
-	move_signal_(),
+	relative_move_signal_(),
 	connection_(
 		cursor_->move_callback(
 			std::tr1::bind(
@@ -51,12 +52,12 @@ sge::input::cursor::relative_movement::~relative_movement()
 }
 
 fcppt::signal::auto_connection
-sge::input::cursor::relative_movement::move_callback(
-	cursor::move_callback const &_callback
+sge::input::cursor::relative_movement::relative_move_callback(
+	cursor::relative_move_callback const &_callback
 )
 {
 	return
-		move_signal_.connect(
+		relative_move_signal_.connect(
 			_callback
 		);
 }
@@ -66,8 +67,8 @@ sge::input::cursor::relative_movement::move_callback_internal(
 	cursor::move_event const &_event
 )
 {
-	move_signal_(
-		cursor::move_event(
+	relative_move_signal_(
+		cursor::relative_move_event(
 			_event.position()
 			- last_position_
 		)

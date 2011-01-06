@@ -40,10 +40,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound/positional.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/multi_loader.hpp>
+#include <sge/input/cursor/move_event.hpp>
+#include <sge/input/cursor/object.hpp>
+#include <sge/input/cursor/relative_movement.hpp>
+#include <sge/input/cursor/relative_move_event.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
-#include <sge/input/mouse/axis_event.hpp>
-#include <sge/input/mouse/device.hpp>
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/rgba8.hpp>
@@ -70,10 +72,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/extension_set.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/io/cerr.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/io/cerr.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
@@ -125,56 +128,45 @@ public:
 	{}
 
 	void
-	operator()(
-		sge::input::cursor::move_event const &k
+	normal_movement(
+		sge::input::cursor::move_event const &_event
 	) const
 	{
 		sprite_.pos(
 			fcppt::math::vector::structure_cast<
 				sprite_object::point
 			>(
-				k.position()
+				_event.position()
 			)
 		);
-		switch (k.axis())
-		{
-		case sge::input::mouse::axis::x:
-			sprite_.x(
-				static_cast<sprite_object::unit>(sprite_.x() + k.axis_value())
-			);
-
-			sound_->linear_velocity(
-				sge::audio::vector(
-					static_cast<sge::audio::scalar>(k.axis_value()),
-					sound_->linear_velocity().y(),
-					sound_->linear_velocity().z()
-				)
-			);
-
-			break;
-		case sge::input::mouse::axis::y:
-			sprite_.y(
-				static_cast<sprite_object::unit>(sprite_.y() + k.axis_value())
-			);
-
-			sound_->linear_velocity(
-				sge::audio::vector(
-					sound_->linear_velocity().x(),
-					sound_->linear_velocity().y(),
-					static_cast<sge::audio::scalar>(k.axis_value())
-				)
-			);
-
-			break;
-		default:
-			break;
-		}
 
 		sound_->position(
 			sge::audio::vector(
 				static_cast<sge::audio::scalar>(sprite_.pos().x()),
 				static_cast<sge::audio::scalar>(0),
 				static_cast<sge::audio::scalar>(sprite_.pos().y())
+			)
+		);
+	}
+
+	void
+	relative_movement(
+		sge::input::cursor::relative_move_event const &_event
+	)
+	{
+		sound_->linear_velocity(
+			sge::audio::vector(
+				static_cast<
+					sge::audio::scalar
+				>(
+					_event.position().x()
+				),
+				sound_->linear_velocity().y(),
+				static_cast<
+					sge::audio::scalar
+				>(
+					_event.position().y()
+				)
 			)
 		);
 	}
@@ -229,6 +221,8 @@ try
 				sge::systems::input_helper_field(
 					sge::systems::input_helper::keyboard_collector
 				)
+				|
+				sge::systems::input_helper::cursor_demuxer
 			)
 		)
 		(
@@ -257,7 +251,7 @@ try
 	);
 
 	sge::input::cursor::object_ptr const cursor(
-		sys.input_processor()->main_cursor()
+		sys.cursor_demuxer()
 	);
 
 	sge::image2d::file_ptr const
@@ -449,14 +443,39 @@ try
 		)
 	);
 
-	fcppt::signal::scoped_connection const pc(
+	::sprite_functor functor(
+		vectorer,
+		sound_siren
+	);
+
+	fcppt::signal::scoped_connection const normal_connection(
 		cursor->move_callback(
-			::sprite_functor(
-				vectorer,
-				sound_siren
+			std::tr1::bind(
+				&::sprite_functor::normal_movement,
+				std::tr1::ref(
+					functor
+				),
+				std::tr1::placeholders::_1
 			)
 		)
 	);
+
+	sge::input::cursor::relative_movement rel_movement(
+		cursor
+	);
+
+	fcppt::signal::scoped_connection const relative_connection(
+		rel_movement.relative_move_callback(
+			std::tr1::bind(
+				&::sprite_functor::relative_movement,
+				std::tr1::ref(
+					functor
+				),
+				std::tr1::placeholders::_1
+			)
+		)
+	);
+
 
 	sys.renderer()->state(
 		sge::renderer::state::list
