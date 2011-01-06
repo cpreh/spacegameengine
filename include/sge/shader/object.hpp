@@ -25,8 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/value_type.hpp>
 #include <sge/shader/variable_sequence.hpp>
 #include <sge/shader/sampler_sequence.hpp>
+#include <sge/shader/texture_variant.hpp>
+#include <sge/shader/texture_variant_impl.hpp>
 #include <sge/renderer/device_ptr.hpp>
-#include <sge/renderer/texture_base_ptr.hpp>
 #include <sge/renderer/glsl/string.hpp>
 #include <sge/renderer/glsl/program_ptr.hpp>
 #include <sge/renderer/glsl/uniform/variable_ptr.hpp>
@@ -62,7 +63,7 @@ public:
 	SGE_SHADER_SYMBOL void
 	update_texture(
 		renderer::glsl::string const &name,
-		renderer::texture_base_ptr);
+		texture_variant const &);
 
 	SGE_SHADER_SYMBOL renderer::glsl::program_ptr const
 	program();

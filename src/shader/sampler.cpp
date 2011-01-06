@@ -17,24 +17,126 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-
 #include <sge/shader/sampler.hpp>
+#include <sge/renderer/glsl/string.hpp>
+#include <sge/renderer/texture_base.hpp>
+#include <sge/renderer/texture_base_ptr.hpp>
+#include <sge/renderer/texture.hpp>
+#include <sge/renderer/texture_ptr.hpp>
+#include <sge/renderer/volume_texture_ptr.hpp>
+#include <sge/renderer/volume_texture.hpp>
+#include <sge/renderer/cube_texture_ptr.hpp>
+#include <sge/renderer/cube_texture.hpp>
+#include <sge/exception.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/apply_binary.hpp>
+#include <fcppt/type_name.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <typeinfo>
 #include <limits>
+
+namespace
+{
+struct to_base_ptr
+{
+	typedef
+	sge::renderer::texture_base_ptr
+	result_type;
+
+	template<typename T>
+	result_type const
+	operator()(
+		T const &t) const
+	{
+		return t;
+	}
+};
+
+struct test_assign
+{
+public:
+	typedef
+	void
+	result_type;
+
+	template<typename T,typename U>
+	typename
+	boost::disable_if_c
+	<
+		boost::is_same<T,U>::value,
+		result_type
+	>::type
+	operator()(
+		T const &,U const &) const
+	{
+		throw 
+			sge::exception(
+				FCPPT_TEXT("Texture type mismatch, tried to assign a ")+
+				fcppt::type_name(
+					typeid(U))+
+				FCPPT_TEXT(" to a texture of type ")+
+				fcppt::type_name(
+					typeid(T)));
+	}
+
+	template<typename T,typename U>
+	typename
+	boost::enable_if_c
+	<
+		boost::is_same<T,U>::value,
+		result_type
+	>::type
+	operator()(
+		T const &,U const &) const
+	{
+	}
+};
+
+struct texture_to_sampler
+{
+public:
+	typedef
+	sge::renderer::glsl::string
+	result_type;
+
+	result_type const
+	operator()(
+		sge::renderer::texture_ptr const &) const
+	{
+		return "sampler2D";
+	}
+
+	result_type const
+	operator()(
+		sge::renderer::volume_texture_ptr const &) const
+	{
+		return "sampler3D";
+	}
+
+	result_type const
+	operator()(
+		sge::renderer::cube_texture_ptr const &) const
+	{
+		return "samplerCube";
+	}
+};
+}
 
 sge::shader::sampler::sampler(
 	sge::renderer::glsl::string const &_name,
-	sge::renderer::texture_base_ptr const _texture,
-	sge::renderer::size_type const _dimension)
+	texture_variant const &_texture)
 :
 	name_(
 		_name),
 	declaration_(
-		"uniform sampler"+
-		boost::lexical_cast<renderer::glsl::string>(
-			_dimension)+
-		"D "+
+		"uniform "+
+		fcppt::variant::apply_unary(
+			texture_to_sampler(),
+			_texture)+
+		" "+
 		_name+
 		";"),
 	texture_(
@@ -74,13 +176,20 @@ sge::shader::sampler::texture_unit() const
 sge::renderer::texture_base_ptr const
 sge::shader::sampler::texture() const
 {
-	return texture_;
+	return 
+		fcppt::variant::apply_unary(
+			to_base_ptr(),
+			texture_);
 }
 
 void
 sge::shader::sampler::texture(
-	sge::renderer::texture_base_ptr const _texture)
+	texture_variant const &_texture)
 {
+	fcppt::variant::apply_binary(
+		test_assign(),
+		texture_,
+		_texture);
 	texture_ = _texture;
 }
 
