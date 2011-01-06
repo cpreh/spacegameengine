@@ -10,8 +10,6 @@
 #include <boost/mpl/void.hpp>
 #include <boost/mpl/for_each.hpp>
 #include <boost/mpl/at.hpp>
-#include <iostream>
-#include <typeinfo>
 
 namespace
 {
@@ -73,6 +71,5 @@ sge::shader::texture_dimension_string(
 		stringizer(
 			result,
 			b));
-	std::cout << "returning sampler"+result << "\n";
 	return "sampler"+result;
 }
