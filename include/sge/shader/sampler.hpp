@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SHADER_SAMPLER_HPP_INCLUDED
 
 #include <sge/shader/symbol.hpp>
+#include <sge/shader/texture_variant.hpp>
 #include <sge/renderer/glsl/string.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/texture_base_ptr.hpp>
@@ -41,8 +42,7 @@ public:
 	SGE_SHADER_SYMBOL explicit
 	sampler(
 		renderer::glsl::string const &name,
-		renderer::texture_base_ptr = 
-			renderer::texture_base_ptr());
+		texture_variant const &);
 
 	SGE_SHADER_SYMBOL renderer::glsl::string const
 	name() const;
@@ -67,12 +67,12 @@ public:
 	// this
 	SGE_SHADER_SYMBOL void
 	texture(
-		renderer::texture_base_ptr);
+		texture_variant const &);
 	
 	SGE_SHADER_SYMBOL ~sampler();
 private:
 	renderer::glsl::string name_,declaration_;
-	renderer::texture_base_ptr texture_;
+	texture_variant texture_;
 	texture_unit_type texture_unit_;
 };
 }

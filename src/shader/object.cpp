@@ -245,7 +245,7 @@ sge::shader::object::set_uniform(
 void
 sge::shader::object::update_texture(
 	sge::renderer::glsl::string const &name,
-	sge::renderer::texture_base_ptr const newtex)
+	texture_variant const &newtex)
 {
 	BOOST_FOREACH(
 		sampler_sequence::reference r,

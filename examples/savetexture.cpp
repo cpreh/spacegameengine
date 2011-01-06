@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/trampoline.hpp>
+#include <sge/renderer/texture_ptr.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/no_depth_stencil_texture.hpp>
 #include <sge/renderer/const_scoped_texture_lock.hpp>
@@ -490,7 +491,8 @@ try
 					sys.renderer()->screen_size()))),
 		fcppt::assign::make_container<sge::shader::sampler_sequence>(
 			sge::shader::sampler(
-				"tex")));
+				"tex",
+				sge::renderer::texture_ptr())));
 
 	sge::renderer::vertex_buffer_ptr const quad_(
 		screen_vf::create_quad(
