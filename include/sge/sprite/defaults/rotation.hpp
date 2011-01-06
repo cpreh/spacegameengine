@@ -18,19 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DEFAULTS_HPP_INCLUDED
-#define SGE_SPRITE_DEFAULTS_HPP_INCLUDED
+#ifndef SGE_SPRITE_DEFAULTS_ROTATION_HPP_INCLUDED
+#define SGE_SPRITE_DEFAULTS_ROTATION_HPP_INCLUDED
 
 #include <sge/sprite/defaults/fwd.hpp>
-#include <sge/sprite/defaults/color.hpp>
-#include <sge/sprite/defaults/pos.hpp>
-#include <sge/sprite/defaults/repetition.hpp>
-#include <sge/sprite/defaults/size.hpp>
-#include <sge/sprite/defaults/adder.hpp>
-#include <sge/sprite/defaults/rotation.hpp>
-#include <sge/sprite/defaults/order.hpp>
-#include <sge/sprite/defaults/texture.hpp>
-#include <sge/sprite/defaults/use_center.hpp> // TODO: put this in detail somehow
-#include <sge/sprite/defaults/visible.hpp>
+#include <sge/sprite/roles/rotation.hpp>
+#include <sge/sprite/rotation_type.hpp>
+
+namespace sge
+{
+namespace sprite
+{
+
+template<
+	typename Choices
+>
+struct defaults<
+	Choices,
+	roles::rotation
+>
+{
+	typedef typename sprite::rotation_type<
+		typename Choices::type_choices::float_type
+	>::type type;
+
+	static type
+	get()
+	{
+		return
+			static_cast<
+				type
+			>(
+				0
+			);
+	}
+};
+
+}
+}
 
 #endif
