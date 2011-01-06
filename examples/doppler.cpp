@@ -75,7 +75,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
@@ -119,11 +118,9 @@ class sprite_functor
 	)
 public:
 	explicit sprite_functor(
-		sprite_object &_sprite,
 		sge::audio::sound::positional_ptr const _sound
 	)
 	:
-		sprite_(_sprite),
 		sound_(_sound)
 	{}
 
@@ -132,19 +129,19 @@ public:
 		sge::input::cursor::move_event const &_event
 	) const
 	{
-		sprite_.pos(
-			fcppt::math::vector::structure_cast<
-				sprite_object::point
-			>(
-				_event.position()
-			)
-		);
-
 		sound_->position(
 			sge::audio::vector(
-				static_cast<sge::audio::scalar>(sprite_.pos().x()),
+				static_cast<
+					sge::audio::scalar
+				>(
+					_event.position().x()
+				),
 				static_cast<sge::audio::scalar>(0),
-				static_cast<sge::audio::scalar>(sprite_.pos().y())
+				static_cast<
+					sge::audio::scalar
+				>(
+					_event.position().y()
+				)
 			)
 		);
 	}
@@ -171,8 +168,6 @@ public:
 		);
 	}
 private:
-	sprite_object &sprite_;
-
 	sge::audio::sound::positional_ptr const sound_;
 };
 }
@@ -261,13 +256,6 @@ try
 				/ FCPPT_TEXT("grass.png")
 			)
 		),
-		image_vectorer(
-			sys.image_loader().load(
-				sge::config::media_path()
-				/ FCPPT_TEXT("gui")
-				/ FCPPT_TEXT("cursor.png")
-			)
-		),
 		image_tux(
 			sys.image_loader().load(
 				sge::config::media_path()
@@ -295,12 +283,6 @@ try
 			sge::texture::add_image(
 				tex_man,
 				image_bg
-			)
-		),
-		tex_vectorer(
-			sge::texture::add_image(
-				tex_man,
-				image_vectorer
 			)
 		),
 		tex_tux(
@@ -343,28 +325,6 @@ try
 			>(0)
 		)
 		.default_color()
-		.elements()
-	);
-
-	sprite_object vectorer(
-		sprite_parameters()
-		.texture(
-			tex_vectorer
-		)
-		.depth(
-			static_cast<
-				sprite_object::depth_type
-			>(2)
-		)
-		.pos(
-			fcppt::math::vector::structure_cast<
-				sprite_object::point
-			>(
-				cursor->position()
-			)
-		)
-		.default_color()
-		.texture_size()
 		.elements()
 	);
 
@@ -444,7 +404,6 @@ try
 	);
 
 	::sprite_functor functor(
-		vectorer,
 		sound_siren
 	);
 
@@ -496,7 +455,6 @@ try
 		> sprites;
 
 		sprites.push_back(bg);
-		sprites.push_back(vectorer);
 		sprites.push_back(tux);
 
 		ss.render(
