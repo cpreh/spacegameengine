@@ -23,8 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/cursor/demuxer_fwd.hpp>
 #include <sge/input/cursor/button_callback.hpp>
+#include <sge/input/cursor/button_event_fwd.hpp>
 #include <sge/input/cursor/button_function.hpp>
 #include <sge/input/cursor/move_callback.hpp>
+#include <sge/input/cursor/move_event_fwd.hpp>
 #include <sge/input/cursor/move_function.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/object_ptr.hpp>
