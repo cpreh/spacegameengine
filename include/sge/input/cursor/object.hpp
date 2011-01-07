@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/move_callback.hpp>
 #include <sge/input/cursor/position.hpp>
+#include <sge/input/cursor/window_mode.hpp>
 #include <sge/class_symbol.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -65,6 +66,11 @@ public:
 
 	virtual void
 	hide() = 0;
+
+	virtual void
+	window_mode(
+		cursor::window_mode::type
+	) = 0;
 };
 
 }

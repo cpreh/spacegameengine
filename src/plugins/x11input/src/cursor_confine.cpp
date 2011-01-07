@@ -18,50 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../mouse_grab.hpp"
-#include "../handle_grab.hpp"
-#include "../pixmap_cursor.hpp"
-#include <X11/Xlib.h>
-#include <sge/time/sleep.hpp>
-#include <sge/time/second.hpp>
-#include <awl/backends/x11/window/instance.hpp>
-#include <awl/backends/x11/display.hpp>
+#include "../cursor_confine.hpp"
 
-sge::x11input::mouse_grab::mouse_grab(
+sge::x11input::cursor_confine::cursor_confine(
 	awl::backends::x11::window::instance_ptr const _window,
-	x11input::pixmap_cursor const &_cursor
+	device::id const &_id
 )
-:
-	window_(_window)
 {
-	while(
-		!x11input::handle_grab(
-			::XGrabPointer(
-				window_->display()->get(),
-				window_->get(),
-				True,
-				PointerMotionMask
-				| ButtonPressMask
-				| ButtonReleaseMask,
-				GrabModeAsync,
-				GrabModeAsync,
-				window_->get(),
-				_cursor.get(),
-				CurrentTime
-			)
-		)
-	)
-		sge::time::sleep(
-			sge::time::second(
-				1
-			)
-		);
 }
 
-sge::x11input::mouse_grab::~mouse_grab()
+sge::x11input::cursor_confine::~cursor_confine()
 {
-	::XUngrabPointer(
-		window_->display()->get(),
-		CurrentTime
-	);
 }

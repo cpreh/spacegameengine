@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../cursor.hpp"
 #include "../cursor_button_code.hpp"
+#include "../cursor_confine.hpp"
 #include "../device/parameters.hpp"
 #include "../device/window_demuxer.hpp"
 #include "../device/window_event.hpp"
@@ -27,17 +28,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/position_unit.hpp>
+#include <sge/input/exception.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/text.hpp>
 #include <X11/extensions/XInput2.h>
 
 sge::x11input::cursor::cursor(
 	x11input::device::parameters const &_param
 )
 :
-	x11input::device::object(),
+	device_id_(
+		_param.id()
+	),
+	window_(
+		_param.window()
+	),
 	connections_(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
@@ -99,16 +107,6 @@ sge::x11input::cursor::~cursor()
 {
 }
 
-void
-sge::x11input::cursor::grab()
-{
-}
-
-void
-sge::x11input::cursor::ungrab()
-{
-}
-
 fcppt::signal::auto_connection
 sge::x11input::cursor::button_callback(
 	input::cursor::button_callback const &_callback
@@ -145,6 +143,37 @@ sge::x11input::cursor::show()
 void
 sge::x11input::cursor::hide()
 {
+}
+
+void
+sge::x11input::cursor::window_mode(
+	input::cursor::window_mode::type const _mode
+)
+{
+	switch(
+		_mode
+	)
+	{
+	case input::cursor::window_mode::confine:
+		cursor_confine_.take(
+			fcppt::make_unique_ptr<
+				x11input::cursor_confine
+			>(
+				window_,
+				device_id_
+			)
+		);
+		return;
+	case input::cursor::window_mode::move_freely:
+		cursor_confine_.reset();
+		return;
+	case input::cursor::window_mode::size:
+		break;
+	}
+
+	throw sge::input::exception(
+		FCPPT_TEXT("Invalid cursor::window_mode!")
+	);
 }
 
 void

@@ -18,12 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../object.hpp"
+#ifndef SGE_X11INPUT_CURSOR_CONFINE_HPP_INCLUDED
+#define SGE_X11INPUT_CURSOR_CONFINE_HPP_INCLUDED
 
-sge::x11input::device::object::object()
+#include "cursor_confine_fwd.hpp"
+#include "device/id.hpp"
+#include <awl/backends/x11/window/instance_ptr.hpp>
+#include <fcppt/noncopyable.hpp>
+
+namespace sge
 {
+namespace x11input
+{
+
+class cursor_confine
+{
+	FCPPT_NONCOPYABLE(
+		cursor_confine
+	)
+public:
+	cursor_confine(
+		awl::backends::x11::window::instance_ptr,
+		device::id const &
+	);
+
+	~cursor_confine();
+private:
+};
+
+}
 }
 
-sge::x11input::device::object::~object()
-{
-}
+#endif

@@ -43,7 +43,6 @@ sge::x11input::mouse::mouse(
 	x11input::device::parameters const &_param
 )
 :
-	x11input::device::object(),
 	connections_(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
@@ -99,16 +98,6 @@ sge::x11input::mouse::mouse(
 }
 
 sge::x11input::mouse::~mouse()
-{
-}
-
-void
-sge::x11input::mouse::grab()
-{
-}
-
-void
-sge::x11input::mouse::ungrab()
 {
 }
 

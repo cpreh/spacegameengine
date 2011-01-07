@@ -18,34 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_MOUSE_GRAB_HPP_INCLUDED
-#define SGE_X11INPUT_MOUSE_GRAB_HPP_INCLUDED
-
-#include "mouse_grab_fwd.hpp"
-#include "pixmap_cursor_fwd.hpp"
-#include <awl/backends/x11/window/instance_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#ifndef SGE_X11INPUT_CURSOR_CONFINE_FWD_HPP_INCLUDED
+#define SGE_X11INPUT_CURSOR_CONFINE_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace x11input
 {
 
-class mouse_grab
-{
-	FCPPT_NONCOPYABLE(
-		mouse_grab
-	)
-public:
-	mouse_grab(
-		awl::backends::x11::window::instance_ptr,
-		x11input::pixmap_cursor const &
-	);
-
-	~mouse_grab();
-private:
-	awl::backends::x11::window::instance_ptr const window_;
-};
+class cursor_confine;
 
 }
 }

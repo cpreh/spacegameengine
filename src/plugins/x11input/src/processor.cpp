@@ -23,19 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../mouse.hpp"
 #include "../keyboard.hpp"
 #include "../cursor.hpp"
-#include "../device/object.hpp"
 #include "../device/info.hpp"
 #include "../device/parameters.hpp"
-#include <sge/log/global.hpp>
 #include <sge/window/instance.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
 #include <awl/backends/x11/window/instance.hpp>
 #include <awl/backends/x11/window/root.hpp>
 #include <awl/backends/x11/window/event/processor.hpp>
-#include <fcppt/assign/make_container.hpp>
-#include <fcppt/log/debug.hpp>
-#include <fcppt/log/output.hpp>
 #include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
@@ -58,13 +53,6 @@ sge::x11input::processor::processor(
 			_window->awl_instance()
 		)
 	),
-	event_processor_(
-		fcppt::polymorphic_pointer_cast<
-			awl::backends::x11::window::event::processor
-		>(
-			_window->awl_window_event_processor()	
-		)
-	),
 	system_event_processor_(
 		fcppt::polymorphic_pointer_cast<
 			awl::backends::x11::system::event::processor
@@ -83,59 +71,6 @@ sge::x11input::processor::processor(
 		awl::backends::x11::window::root(
 			x11_window_->display(),
 			x11_window_->screen()
-		)
-	),
-	acquired_(false),
-	connections_(
-		fcppt::assign::make_container<
-			fcppt::signal::connection_manager::container
-		>(
-			fcppt::signal::shared_connection(
-				event_processor_->register_callback(
-					FocusIn,
-					std::tr1::bind(
-						&processor::on_acquire,
-						this,
-						std::tr1::placeholders::_1
-					)
-				)
-			)
-		)
-		(
-			fcppt::signal::shared_connection(
-				event_processor_->register_callback(
-					FocusOut,
-					std::tr1::bind(
-						&processor::on_release,
-						this,
-						std::tr1::placeholders::_1
-					)
-				)
-			)
-		)
-		(
-			fcppt::signal::shared_connection(
-				event_processor_->register_callback(
-					MapNotify,
-					std::tr1::bind(
-						&processor::on_acquire,
-						this,
-						std::tr1::placeholders::_1
-					)
-				)
-			)
-		)
-		(
-			fcppt::signal::shared_connection(
-				event_processor_->register_callback(
-					UnmapNotify,
-					std::tr1::bind(
-						&processor::on_release,
-						this,
-						std::tr1::placeholders::_1
-					)
-				)
-			)
 		)
 	),
 	keyboards_(),
@@ -288,75 +223,4 @@ sge::window::instance_ptr const
 sge::x11input::processor::window() const
 {
 	return window_;
-}
-
-void
-sge::x11input::processor::on_acquire(
-	awl::backends::x11::window::event::object const &
-)
-{
-#if 0
-	if(
-		acquired_
-	)
-		return;
-
-	acquired_ = true;
-
-	FCPPT_LOG_DEBUG(
-		log::global(),
-		fcppt::log::_
-			<< FCPPT_TEXT("x11: acquire window")
-	);
-
-	// TODO: what do we want to grab?
-	BOOST_FOREACH(
-		keyboard_vector::value_type keyboard,
-		keyboards_
-	)
-		keyboard->grab();
-
-	BOOST_FOREACH(
-		mouse_vector::value_type mouse,
-		mice_
-	)
-		mouse->grab();
-
-	x11_window_->display()->sync(
-		false
-	);
-#endif
-}
-
-void
-sge::x11input::processor::on_release(
-	awl::backends::x11::window::event::object const &
-)
-{
-#if 0
-	if(
-		!acquired_
-	)
-		return;
-
-	acquired_ = false;
-
-	FCPPT_LOG_DEBUG(
-		log::global(),
-		fcppt::log::_
-			<< FCPPT_TEXT("x11: release window")
-	);
-
-	BOOST_FOREACH(
-		keyboard_vector::reference keyboard,
-		keyboards_	
-	)
-		keyboard->ungrab();
-
-	BOOST_FOREACH(
-		mouse_vector::reference mouse,
-		mice_
-	)
-		mouse->ungrab();
-#endif
 }

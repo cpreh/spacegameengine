@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../keyboard.hpp"
-#include "../keyboard_grab.hpp"
 #include "../keyboard_key.hpp"
 #include "../device/window_demuxer.hpp"
 #include "../device/window_event.hpp"
@@ -44,13 +43,8 @@ sge::x11input::keyboard::keyboard(
 	x11input::device::parameters const &_param
 )
 :
-	x11input::device::object(),
 	window_(
 		_param.window()
-	),
-	need_grab_(
-		// TODO!
-		false // _wnd->fullscreen()
 	),
 	connections_(
 		fcppt::assign::make_container<
@@ -86,7 +80,6 @@ sge::x11input::keyboard::keyboard(
 			)
 		)
 	),
-	grab_(),
 	key_signal_(),
 	key_repeat_signal_(),
 	modifiers_(
@@ -97,27 +90,6 @@ sge::x11input::keyboard::keyboard(
 
 sge::x11input::keyboard::~keyboard()
 {
-}
-
-void
-sge::x11input::keyboard::grab()
-{
-	if(
-		need_grab_
-	)
-		grab_.take(
-			fcppt::make_unique_ptr<
-				x11input::keyboard_grab
-			>(
-				window_
-			)
-		);
-}
-
-void
-sge::x11input::keyboard::ungrab()
-{
-	grab_.reset();
 }
 
 fcppt::signal::auto_connection

@@ -22,10 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_KEYBOARD_HPP_INCLUDED
 
 #include "keyboard_fwd.hpp"
-#include "keyboard_grab_fwd.hpp"
-#include "device/window_event_fwd.hpp"
-#include "device/object.hpp"
 #include "device/parameters_fwd.hpp"
+#include "device/window_event_fwd.hpp"
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_callback.hpp>
 #include <sge/input/keyboard/key_repeat_callback.hpp>
@@ -37,7 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr.hpp>
 
 namespace sge
 {
@@ -46,8 +43,7 @@ namespace x11input
 
 class keyboard
 :
-	public sge::input::keyboard::device,
-	public x11input::device::object
+	public sge::input::keyboard::device
 {
 	FCPPT_NONCOPYABLE(
 		keyboard
@@ -58,12 +54,6 @@ public:
 	);
 
 	~keyboard();
-
-	void
-	grab();
-
-	void
-	ungrab();
 private:
 	fcppt::signal::auto_connection
 	key_callback(
@@ -96,13 +86,7 @@ private:
 
 	awl::backends::x11::window::instance_ptr const window_;
 
-	bool const need_grab_;
-
 	fcppt::signal::connection_manager const connections_;
-
-	fcppt::scoped_ptr<
-		x11input::keyboard_grab
-	> grab_;
 
 	fcppt::signal::object<
 		input::keyboard::key_function

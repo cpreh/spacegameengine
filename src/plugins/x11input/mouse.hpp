@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_MOUSE_HPP_INCLUDED
 
 #include "mouse_fwd.hpp"
-#include "device/object.hpp"
 #include "device/raw_event_fwd.hpp"
 #include "device/window_event_fwd.hpp"
 #include "device/parameters_fwd.hpp"
@@ -44,8 +43,7 @@ namespace x11input
 
 class mouse
 :
-	public sge::input::mouse::device,
-	public x11input::device::object
+	public sge::input::mouse::device
 {
 	FCPPT_NONCOPYABLE(
 		mouse
@@ -56,12 +54,6 @@ public:
 	);
 
 	~mouse();
-
-	void
-	grab();
-
-	void
-	ungrab();
 private:
 	fcppt::signal::auto_connection
 	button_callback(

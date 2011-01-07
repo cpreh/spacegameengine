@@ -132,6 +132,22 @@ sge::input::cursor::demuxer::hide()
 		throw sge::input::cursor::no_object();
 }
 
+void
+sge::input::cursor::demuxer::window_mode(
+	cursor::window_mode::type const _mode
+)
+{
+	if(
+		current_cursor()
+	)
+
+		current_cursor()->window_mode(
+			_mode
+		);
+	else
+		throw sge::input::cursor::no_object();
+}
+
 sge::input::cursor::object_ptr const
 sge::input::cursor::demuxer::current_cursor() const
 {

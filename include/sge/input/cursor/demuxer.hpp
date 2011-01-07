@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/object_ptr.hpp>
 #include <sge/input/cursor/position.hpp>
+#include <sge/input/cursor/window_mode.hpp>
 #include <sge/input/processor_ptr.hpp>
 #include <sge/class_symbol.hpp>
 #include <sge/symbol.hpp>
@@ -86,6 +87,12 @@ public:
 	SGE_SYMBOL
 	void
 	hide();
+
+	SGE_SYMBOL
+	void
+	window_mode(
+		cursor::window_mode::type
+	);
 
 	SGE_SYMBOL
 	cursor::object_ptr const

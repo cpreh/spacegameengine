@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_CURSOR_HPP_INCLUDED
 
 #include "cursor_fwd.hpp"
-#include "device/object.hpp"
+#include "cursor_confine_fwd.hpp"
+#include "device/id.hpp"
 #include "device/parameters_fwd.hpp"
 #include "device/window_event_fwd.hpp"
 #include <sge/input/cursor/object.hpp>
@@ -31,11 +32,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/move_callback.hpp>
 #include <sge/input/cursor/move_function.hpp>
 #include <sge/input/cursor/position.hpp>
+#include <sge/input/cursor/window_mode.hpp>
+#include <awl/backends/x11/window/instance_ptr.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr.hpp>
 
 namespace sge
 {
@@ -44,8 +48,7 @@ namespace x11input
 
 class cursor
 :
-	public sge::input::cursor::object,
-	public x11input::device::object
+	public sge::input::cursor::object
 {
 	FCPPT_NONCOPYABLE(
 		cursor
@@ -56,12 +59,6 @@ public:
 	);
 
 	~cursor();
-
-	void
-	grab();
-
-	void
-	ungrab();
 private:
 	fcppt::signal::auto_connection
 	button_callback(
@@ -81,6 +78,11 @@ private:
 
 	void
 	hide();
+
+	void
+	window_mode(
+		input::cursor::window_mode::type
+	);
 
 	void
 	on_motion(
@@ -103,6 +105,10 @@ private:
 		bool pressed
 	);
 
+	device::id const device_id_;
+
+	awl::backends::x11::window::instance_ptr const window_;
+
 	fcppt::signal::connection_manager const connections_;
 
 	sge::input::cursor::position position_;
@@ -114,6 +120,10 @@ private:
 	fcppt::signal::object<
 		sge::input::cursor::move_function
 	> move_signal_;
+
+	fcppt::scoped_ptr<
+		x11input::cursor_confine
+	> cursor_confine_;
 };
 
 }
