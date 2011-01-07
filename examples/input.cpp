@@ -597,6 +597,10 @@ device_manager::on_cursor_add(
 		<< FCPPT_TEXT("cursor_add: ")
 		<< _device
 		<< FCPPT_TEXT('\n');
+	
+	_device->window_mode(
+		sge::input::cursor::window_mode::confine
+	);
 }
 
 void

@@ -19,14 +19,111 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../cursor_confine.hpp"
+#include <sge/input/exception.hpp>
+#include <awl/backends/x11/window/instance.hpp>
+#include <awl/backends/x11/display.hpp>
+#include <fcppt/text.hpp>
+//#include <X11/extensions/XInput2.h>
+#include <sge/time/sleep.hpp>
+#include <sge/time/second.hpp>
+#include <X11/Xlib.h>
+
+#include <iostream>
 
 sge::x11input::cursor_confine::cursor_confine(
 	awl::backends::x11::window::instance_ptr const _window,
 	device::id const &_id
 )
+:
+	window_(_window)//,
+	//id_(_id),
+	//num_modifiers_(1),
+//	modifiers_()
 {
+	std::cout << _id.get() << '\n';
+
+	while(
+		::XGrabPointer(
+			window_->display()->get(),
+			window_->get(),
+			True,
+			0u,
+			GrabModeAsync,
+			GrabModeAsync,
+			window_->get(),
+			None,
+			CurrentTime
+		)
+		!= GrabSuccess
+	)
+		sge::time::sleep(
+			sge::time::second(
+				1
+			)
+		);
+
+#if 0
+	modifiers_.modifiers = 0;
+	modifiers_.status = 0;
+
+	unsigned char raw_data[4];
+
+	XISetMask(
+		raw_data,
+		XI_Motion
+	);
+
+	XISetMask(
+		raw_data,
+		XI_ButtonPress
+	);
+
+	XISetMask(
+		raw_data,
+		XI_ButtonRelease
+	);
+
+	XIEventMask mask =
+	{
+		id_.get(),
+		4,
+		raw_data
+	};
+
+	if(
+		::XIGrabEnter(
+			_window->display()->get(),
+			_id.get(),
+			_window->get(),
+			None,//_window->display()->get()->cursor,
+			GrabModeAsync,
+			GrabModeAsync,
+			True,
+			&mask,
+			num_modifiers_,
+			&modifiers_
+		)
+		== -1
+	)
+		throw sge::input::exception(
+			FCPPT_TEXT("XIGrabEnter failed!")
+		);
+#endif		
 }
 
 sge::x11input::cursor_confine::~cursor_confine()
 {
+	::XUngrabPointer(
+		window_->display()->get(),
+		CurrentTime
+	);
+#if 0
+	::XIUngrabEnter(
+		window_->display()->get(),
+		id_.get(),
+		window_->get(),
+		num_modifiers_,
+		&modifiers_
+	);
+#endif
 }

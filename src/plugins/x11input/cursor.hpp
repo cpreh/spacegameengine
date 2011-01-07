@@ -34,6 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/window_mode.hpp>
 #include <awl/backends/x11/window/instance_ptr.hpp>
+#include <awl/backends/x11/window/event/processor_ptr.hpp>
+#include <awl/backends/x11/window/event/object_fwd.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
@@ -55,7 +57,8 @@ class cursor
 	)
 public:
 	explicit cursor(
-		x11input::device::parameters const &
+		x11input::device::parameters const &,
+		awl::backends::x11::window::event::processor_ptr
 	);
 
 	~cursor();
@@ -105,11 +108,32 @@ private:
 		bool pressed
 	);
 
+	void
+	on_enter(
+		awl::backends::x11::window::event::object const &
+	);
+
+	void
+	on_leave(
+		awl::backends::x11::window::event::object const &
+	);
+
+	void
+	check_grab();
+
 	device::id const device_id_;
 
 	awl::backends::x11::window::instance_ptr const window_;
 
+	awl::backends::x11::window::event::processor_ptr const event_processor_;
+
 	fcppt::signal::connection_manager const connections_;
+
+	fcppt::signal::connection_manager const window_connections_;
+
+	sge::input::cursor::window_mode::type window_mode_;
+
+	bool entered_;
 
 	sge::input::cursor::position position_;
 

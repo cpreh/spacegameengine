@@ -29,15 +29,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/position_unit.hpp>
 #include <sge/input/exception.hpp>
+#include <sge/log/global.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/log/error.hpp>
+#include <fcppt/log/output.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/text.hpp>
+#include <awl/backends/x11/window/event/processor.hpp>
 #include <X11/extensions/XInput2.h>
+#include <X11/Xlib.h>
 
 sge::x11input::cursor::cursor(
-	x11input::device::parameters const &_param
+	x11input::device::parameters const &_param,
+	awl::backends::x11::window::event::processor_ptr const _event_processor
 )
 :
 	device_id_(
@@ -45,6 +51,9 @@ sge::x11input::cursor::cursor(
 	),
 	window_(
 		_param.window()
+	),
+	event_processor_(
+		_event_processor
 	),
 	connections_(
 		fcppt::assign::make_container<
@@ -94,6 +103,44 @@ sge::x11input::cursor::cursor(
 				)
 			)
 		)
+	),
+	window_connections_(
+		event_processor_
+		?
+			fcppt::assign::make_container<
+				fcppt::signal::connection_manager::container
+			>(
+				fcppt::signal::shared_connection(
+					event_processor_->register_callback(
+						FocusIn,
+						std::tr1::bind(
+							&cursor::on_enter,
+							this,
+							std::tr1::placeholders::_1
+						)
+					)
+				)
+			)
+			(
+				fcppt::signal::shared_connection(
+					event_processor_->register_callback(
+						FocusOut,
+						std::tr1::bind(
+							&cursor::on_leave,
+							this,
+							std::tr1::placeholders::_1
+						)
+					)
+				)
+			).container()
+		:
+			fcppt::signal::connection_manager::container()
+	),
+	window_mode_(
+		sge::input::cursor::window_mode::move_freely
+	),
+	entered_(
+		false
 	),
 	position_(
 		// TODO!
@@ -150,30 +197,9 @@ sge::x11input::cursor::window_mode(
 	input::cursor::window_mode::type const _mode
 )
 {
-	switch(
-		_mode
-	)
-	{
-	case input::cursor::window_mode::confine:
-		cursor_confine_.take(
-			fcppt::make_unique_ptr<
-				x11input::cursor_confine
-			>(
-				window_,
-				device_id_
-			)
-		);
-		return;
-	case input::cursor::window_mode::move_freely:
-		cursor_confine_.reset();
-		return;
-	case input::cursor::window_mode::size:
-		break;
-	}
+	window_mode_ = _mode;
 
-	throw sge::input::exception(
-		FCPPT_TEXT("Invalid cursor::window_mode!")
-	);
+	this->check_grab();
 }
 
 void
@@ -237,5 +263,78 @@ sge::x11input::cursor::button_event(
 			),
 			_pressed
 		)
+	);
+}
+
+void
+sge::x11input::cursor::on_enter(
+	awl::backends::x11::window::event::object const &
+)
+{
+	entered_ = true;
+
+	this->check_grab();
+}
+
+void
+sge::x11input::cursor::on_leave(
+	awl::backends::x11::window::event::object const &
+)
+{
+	entered_ = false;
+
+	this->check_grab();
+}
+
+void
+sge::x11input::cursor::check_grab()
+{
+	if(
+		!event_processor_
+	)
+	{
+		FCPPT_LOG_ERROR(
+			sge::log::global(),
+			fcppt::log::_
+				<< FCPPT_TEXT("Tried to confine a cursor that doesn't support it.")
+				<< FCPPT_TEXT(" XI2 currently doesn't allow cursor confinement so ")
+				<< FCPPT_TEXT(" it is only supported for the master cursor.")
+		);
+
+		return;
+	}
+
+	switch(
+		window_mode_
+	)
+	{
+	case input::cursor::window_mode::confine:
+		if(
+			!cursor_confine_
+			&& entered_
+		)
+			cursor_confine_.take(
+				fcppt::make_unique_ptr<
+					x11input::cursor_confine
+				>(
+					window_,
+					device_id_
+				)
+			);
+		else if(
+			!entered_
+		)
+			cursor_confine_.reset();
+
+		return;
+	case input::cursor::window_mode::move_freely:
+		cursor_confine_.reset();
+		return;
+	case input::cursor::window_mode::size:
+		break;
+	}
+
+	throw sge::input::exception(
+		FCPPT_TEXT("Invalid cursor::window_mode!")
 	);
 }

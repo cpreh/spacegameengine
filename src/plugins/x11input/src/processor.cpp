@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <boost/foreach.hpp> // some header breaks BOOST_FOREACH
 #include "../processor.hpp"
 #include "../mouse.hpp"
 #include "../keyboard.hpp"
@@ -36,7 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/polymorphic_pointer_cast.hpp>
 #include <fcppt/text.hpp>
-#include <ostream>
 #include <X11/extensions/XInput2.h>
 
 sge::x11input::processor::processor(
@@ -82,6 +80,14 @@ sge::x11input::processor::processor(
 		XIAllDevices
 	);
 
+	awl::backends::x11::window::event::processor_ptr const window_processor(
+		fcppt::polymorphic_pointer_cast<
+			awl::backends::x11::window::event::processor
+		>(
+			_window->awl_window_event_processor()
+		)
+	);
+
 	for(
 		int index = 0;
 		index < devices.size();
@@ -125,11 +131,17 @@ sge::x11input::processor::processor(
 			);
 			break;
 		case XIMasterPointer:
+			// HACK the grabs
 			cursors_.push_back(
 				fcppt::make_shared_ptr<
 					x11input::cursor
 				>(
-					param
+					param,
+					device.use == XIMasterPointer
+					?
+						window_processor
+					:
+						awl::backends::x11::window::event::processor_ptr()
 				)
 			);
 			break;
