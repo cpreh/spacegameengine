@@ -53,7 +53,7 @@ fill_indices(
 			_count
 			*
 			detail::indices_per_sprite<
-				Choices
+				typename Choices::elements
 			>::value
 		).value(),
 		detail::index_generator<

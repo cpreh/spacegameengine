@@ -21,28 +21,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_WGL_CURRENT_HPP_INCLUDED
 #define SGE_OPENGL_WGL_CURRENT_HPP_INCLUDED
 
+#include "context_fwd.hpp"
+#include <awl/backends/windows/gdi_device_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
-namespace windows
-{
-class gdi_device;
-}
-
 namespace opengl
 {
 namespace wgl
 {
 
-class context;
-
-class current {
-	FCPPT_NONCOPYABLE(current)
+class current
+{
+	FCPPT_NONCOPYABLE(
+		current
+	)
 public:
 	current(
-		windows::gdi_device const &,
-		context const &);
+		awl::backends::windows::gdi_device const &,
+		wgl::context const &
+	);
+
 	~current();
 };
 

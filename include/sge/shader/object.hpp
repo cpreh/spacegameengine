@@ -34,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/unordered_map.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/string.hpp>
 
 namespace sge
 {
@@ -51,7 +50,7 @@ public:
 		renderer::device_ptr,
 		fcppt::filesystem::path const &vertex,
 		fcppt::filesystem::path const &fragment,
-		fcppt::string const &format_declaration,
+		renderer::glsl::string const &format_declaration,
 		variable_sequence const &variables,
 		sampler_sequence const &samplers);
 

@@ -45,6 +45,39 @@ namespace
 {
 
 template<
+	typename View
+>
+struct view_has_alpha
+:
+mizuiro::color::has_channel
+<
+	typename View::format,
+	mizuiro::color::channel::alpha
+>
+{
+};
+
+template<
+	typename Src,
+	typename Dst
+>
+struct both_formats_have_alpha
+:
+boost::mpl::and_
+<
+	view_has_alpha
+	<
+		Src
+	>,
+	view_has_alpha
+	<
+		Dst
+	>
+>
+{
+};
+
+template<
 	typename Source,
 	typename DstPixel
 >
@@ -209,10 +242,10 @@ public:
 	>
 	typename boost::enable_if
 	<
-		boost::mpl::and_
+		both_formats_have_alpha
 		<
-			mizuiro::color::has_channel<typename Src::format,mizuiro::color::channel::alpha>,
-			mizuiro::color::has_channel<typename Dst::format,mizuiro::color::channel::alpha>
+			Src,
+			Dst
 		>,
 		result_type
 	>::type
@@ -227,10 +260,10 @@ public:
 	>
 	typename boost::disable_if
 	<
-		boost::mpl::and_
+		both_formats_have_alpha
 		<
-			mizuiro::color::has_channel<typename Src::format,mizuiro::color::channel::alpha>,
-			mizuiro::color::has_channel<typename Dst::format,mizuiro::color::channel::alpha>
+			Src,
+			Dst
 		>,
 		result_type
 	>::type
@@ -246,10 +279,10 @@ template<
 >
 typename boost::enable_if
 <
-	boost::mpl::and_
+	both_formats_have_alpha
 	<
-		mizuiro::color::has_channel<typename Src::format,mizuiro::color::channel::alpha>,
-		mizuiro::color::has_channel<typename Dst::format,mizuiro::color::channel::alpha>
+		Src,
+		Dst
 	>,
 	typename blitter::result_type
 >::type

@@ -57,7 +57,7 @@ materialf(
 	GLfloat const _value
 )
 {
-	glMaterialf(
+	::glMaterialf(
 		_face,
 		_type,
 		_value
@@ -76,7 +76,7 @@ material_color(
 	sge::image::color::any::object const &_color
 )
 {
-	::materialfv(
+	materialfv(
 		_face,
 		_type,
 		sge::image::color::any::convert<

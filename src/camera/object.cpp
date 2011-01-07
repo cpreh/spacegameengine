@@ -154,22 +154,22 @@ sge::camera::object::key_callback(
 	switch (k.key().code())
 	{
 		case sge::input::keyboard::key_code::space:
-			dirs_[1] = !k.pressed() ? 0 : 1;
+			dirs_[1] = !k.pressed() ? 0.f : 1.f;
 			break;
 		case sge::input::keyboard::key_code::lctrl:
-			dirs_[1] = !k.pressed() ? 0 : -1;
+			dirs_[1] = !k.pressed() ? 0.f : -1.f;
 			break;
 		case sge::input::keyboard::key_code::up:
-			dirs_[2] = !k.pressed() ? 0 : -1;
+			dirs_[2] = !k.pressed() ? 0.f : -1.f;
 			break;
 		case sge::input::keyboard::key_code::down:
-			dirs_[2] = !k.pressed() ? 0 : 1;
+			dirs_[2] = !k.pressed() ? 0.f : 1.f;
 			break;
 		case sge::input::keyboard::key_code::left:
-			dirs_[0] = !k.pressed() ? 0 : -1;
+			dirs_[0] = !k.pressed() ? 0.f : -1.f;
 			break;
 		case sge::input::keyboard::key_code::right:
-			dirs_[0] = !k.pressed() ? 0 : 1;
+			dirs_[0] = !k.pressed() ? 0.f : 1.f;
 			break;
 		default:
 			break;

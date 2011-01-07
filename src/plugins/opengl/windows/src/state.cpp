@@ -21,28 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../state.hpp"
 #include "../change_display_settings.hpp"
 #include <sge/renderer/parameters.hpp>
-#include <sge/exception.hpp>
-#include <fcppt/polymorphic_pointer_cast.hpp>
+#include <sge/renderer/exception.hpp>
+#include <awl/backends/windows/window/instance.hpp>
+#include <awl/backends/windows/windows.hpp>
 #include <fcppt/text.hpp>
-#include <sge/windows/window.hpp>
-#include <sge/windows/windows.hpp>
 
 sge::opengl::windows::state::state(
 	renderer::parameters const &_param,
 	renderer::adapter_type const _adapter,
-	window::instance_ptr const _wnd
+	awl::backends::windows::window::instance_ptr const _window
 )
 :
-	wnd_(
-		fcppt::polymorphic_pointer_cast<
-			sge::windows::window
-		>(
-			_wnd
-		)
+	window_(
+		_window
 	),
 	hdc_(
-		wnd_->hwnd(),
-		sge::windows::gdi_device::get_tag()
+		window_->hwnd(),
+		awl::backends::windows::gdi_device::get_tag()
 	),
 	context_(
 		hdc_
@@ -56,11 +51,13 @@ sge::opengl::windows::state::state(
 	if(
 		_param.window_mode() == renderer::window_mode::fullscreen
 	)
-		change_display_settings(
+		windows::change_display_settings(
 			_param.display_mode()
 		);
+}
 
-	wnd_->show();
+sge::opengl::windows::state::~state()
+{
 }
 
 void
@@ -73,7 +70,7 @@ sge::opengl::windows::state::swap_buffers()
 		)
 		== FALSE
 	)
-		throw exception(
+		throw sge::renderer::exception(
 			FCPPT_TEXT("wglSwapLayerBuffers() failed!")
 		);
 }

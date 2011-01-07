@@ -23,9 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/shader/vector_to_string.hpp>
 #include <sge/renderer/glsl/string.hpp>
+#include <sge/renderer/glsl/from_fcppt_string.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/unspecified.hpp>
 #include <sge/renderer/vf/vector.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <boost/format.hpp>
 
 namespace sge
@@ -36,6 +38,9 @@ namespace shader
 // and store the result in a string
 class format_printer
 {
+	FCPPT_NONASSIGNABLE(
+		format_printer
+	)
 public:
 	explicit 
 	format_printer(
@@ -58,8 +63,9 @@ public:
 		s += 
 			boost::str(
 				boost::format("in %s %s;\n")
-				% vector_to_string<T,N>()
-				% Tag::name());
+				% shader::vector_to_string<T,N>()
+				% renderer::glsl::from_fcppt_string(
+					Tag::name()));
 	}
 
 	template<typename T>
@@ -68,7 +74,7 @@ public:
 	{
 	}
 private:
-	fcppt::string &s;
+	renderer::glsl::string &s;
 };
 }
 }

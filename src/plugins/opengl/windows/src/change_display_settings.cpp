@@ -21,24 +21,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../change_display_settings.hpp"
 #include <sge/log/global.hpp>
 #include <sge/renderer/display_mode.hpp>
-#include <sge/windows/windows.hpp>
+#include <awl/backends/windows/windows.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/text.hpp>
-#include <cstring>
 
-void sge::opengl::windows::change_display_settings(
-	renderer::display_mode const &mode
+void
+sge::opengl::windows::change_display_settings(
+	renderer::display_mode const &_mode
 )
 {
-	DEVMODE settings;
-	std::memset(&settings, 0, sizeof(DEVMODE));
+	DEVMODE settings = { 0 };
+
 	settings.dmSize = sizeof(DEVMODE);
-	settings.dmPelsWidth    = mode.size().w();
-	settings.dmPelsHeight   = mode.size().h();
-	settings.dmBitsPerPel   = static_cast<UINT>(mode.bit_depth());
-	settings.dmDisplayFrequency = mode.refresh_rate();
+	settings.dmPelsWidth = _mode.size().w();
+	settings.dmPelsHeight = _mode.size().h();
+	settings.dmBitsPerPel = static_cast<UINT>(_mode.bit_depth());
+	settings.dmDisplayFrequency = _mode.refresh_rate();
 	settings.dmFields = DM_BITSPERPEL | DM_PELSWIDTH|DM_PELSHEIGHT | DM_DISPLAYFREQUENCY;
 
 	if(
@@ -52,7 +52,7 @@ void sge::opengl::windows::change_display_settings(
 			sge::log::global(),
 			fcppt::log::_
 				<< FCPPT_TEXT("Cannot change resolution to ")
-				<< mode
+				<< _mode
 				<< FCPPT_TEXT("! Reverting to window mode!")
 		);
 }

@@ -37,13 +37,13 @@ namespace detail
 {
 
 template<
-	typename Choices,
+	typename Elements,
 	typename DynVertex,
 	typename Buffers
 >
 typename boost::enable_if<
 	boost::mpl::contains<
-		typename Choices::elements,
+		Elements,
 		sprite::with_dim
 	>,
 	void
@@ -56,7 +56,7 @@ allocate_buffers(
 )
 {
 	detail::allocate_vertex_buffer<
-		Choices
+		Elements
 	>(
 		_renderer,
 		_format,
@@ -65,7 +65,7 @@ allocate_buffers(
 	);
 
 	detail::allocate_index_buffer<
-		Choices
+		Elements
 	>(
 		_renderer,
 		_num_sprites,
@@ -74,13 +74,13 @@ allocate_buffers(
 }
 
 template<
-	typename Choices,
+	typename Elements,
 	typename DynVertex,
 	typename Buffers
 >
 typename boost::disable_if<
 	boost::mpl::contains<
-		typename Choices::elements,
+		Elements,
 		sprite::with_dim
 	>,
 	void
@@ -93,7 +93,7 @@ allocate_buffers(
 )
 {
 	detail::allocate_vertex_buffer<
-		Choices
+		Elements
 	>(
 		_renderer,
 		_format,

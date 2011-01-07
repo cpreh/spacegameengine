@@ -69,14 +69,14 @@ fill_vertices(
 		It
 	>::value_type object_type;
 
-	typedef typename object_type::choices choices;
+	typedef typename object_type::choices::elements elements;
 
 	renderer::scoped_vertex_lock const vblock(
 		_vb,
 		renderer::lock_mode::writeonly,
 		0,
 		sprites_to_lock
-		* detail::vertices_per_sprite<choices>::value
+		* detail::vertices_per_sprite<elements>::value
 	);
 
 	typedef renderer::vf::view<
@@ -134,7 +134,7 @@ fill_vertices(
 			spr
 		);
 
-		vb_it += detail::vertices_per_sprite<choices>::value;
+		vb_it += detail::vertices_per_sprite<elements>::value;
 
 		++count;
 	}

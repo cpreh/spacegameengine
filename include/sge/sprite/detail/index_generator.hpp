@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/index_array.hpp>
 #include <sge/sprite/detail/index_array_type.hpp>
 #include <sge/sprite/detail/vertices_per_sprite.hpp>
+#include <fcppt/nonassignable.hpp>
 
 namespace sge
 {
@@ -40,6 +41,10 @@ class index_generator
 	typedef typename detail::index_array_type<
 		Choices
 	>::type index_array_type;
+
+	FCPPT_NONASSIGNABLE(
+		index_generator
+	)
 public:
 	index_generator()
 	:
@@ -79,7 +84,7 @@ public:
 					typename index_array_type::value_type
 				>(
 					detail::vertices_per_sprite<
-						Choices
+						typename Choices::elements
 					>::value
 				);
 		}

@@ -56,7 +56,7 @@ fill_color(
 {
 	for(
 		detail::geometry_count index = 0;
-		index < detail::vertices_per_sprite<Choices>::value;
+		index < detail::vertices_per_sprite<typename Choices::elements>::value;
 		++index
 	)
 		(*_iterator++). template set<

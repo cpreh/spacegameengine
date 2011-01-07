@@ -23,10 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../wgl/context.hpp"
 #include "../wgl/current.hpp"
+#include "../device_state.hpp"
 #include <sge/renderer/adapter_type.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
-//#include <sge/windows/gdi_device.hpp>
-#include <awl/windows/window_instance_ptr.hpp>
+#include <awl/backends/windows/gdi_device.hpp>
+#include <awl/backends/windows/window/instance_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -37,6 +38,8 @@ namespace windows
 {
 
 class state
+:
+	public sge::opengl::device_state
 {
 	FCPPT_NONCOPYABLE(
 		state
@@ -45,7 +48,7 @@ public:
 	state(
 		renderer::parameters const &,
 		renderer::adapter_type,
-		awl::windows::window_instance_ptr
+		awl::backends::windows::window::instance_ptr
 	);
 
 	~state();
@@ -53,9 +56,9 @@ public:
 	void
 	swap_buffers();
 private:
-	awl::windows::window_instance_ptr const window_;
+	awl::backends::windows::window::instance_ptr const window_;
 
-	sge::windows::gdi_device const hdc_;
+	awl::backends::windows::gdi_device const hdc_;
 
 	wgl::context const context_;
 

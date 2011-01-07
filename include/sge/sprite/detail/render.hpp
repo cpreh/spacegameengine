@@ -87,7 +87,7 @@ render(
 		);
 
 		detail::render_inner<
-			typename object_type::choices
+			typename object_type::choices::elements
 		>(
 			_rend,
 			offset,

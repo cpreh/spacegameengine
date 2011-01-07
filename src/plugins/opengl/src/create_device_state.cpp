@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../x11/state.hpp"
 #include <awl/backends/x11/window/instance.hpp>
 #elif FCPPT_WINDOWS_PLATFORM
+#include "../windows/state.hpp"
 #include <awl/backends/windows/window/instance.hpp>
 #else
 #error "Implement me!"
@@ -57,10 +58,18 @@ sge::opengl::create_device_state(
 		);
 #elif FCPPT_WINDOWS_PLATFORM
 	return
-		fcppt::make_unique_ptr<
-			windows::state
-		>(
-			// FIXME!
+		opengl::device_state_ptr(
+			fcppt::make_unique_ptr<
+				windows::state
+			>(
+				_parameters,
+				_adapter,
+				fcppt::polymorphic_pointer_cast<
+					awl::backends::windows::window::instance
+				>(
+					_window->awl_instance()
+				)
+			)
 		);
 #else
 #error "Implement me!"

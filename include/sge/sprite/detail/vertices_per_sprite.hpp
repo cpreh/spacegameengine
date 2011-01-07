@@ -34,19 +34,19 @@ namespace detail
 {
 
 template<
-	typename Choices,
+	typename Elements,
 	typename Enable = void
 >
 struct vertices_per_sprite;
 
 template<
-	typename Choices
+	typename Elements
 >
 struct vertices_per_sprite<
-	Choices,
+	Elements,
 	typename boost::enable_if<
 		boost::mpl::contains<
-			typename Choices::elements,
+			Elements,
 			sprite::with_dim
 		>
 	>::type
@@ -59,13 +59,13 @@ detail::geometry_count_constant<
 };
 
 template<
-	typename Choices
+	typename Elements
 >
 struct vertices_per_sprite<
-	Choices,
+	Elements,
 	typename boost::disable_if<
 		boost::mpl::contains<
-			typename Choices::elements,
+			Elements,
 			sprite::with_dim
 		>
 	>::type

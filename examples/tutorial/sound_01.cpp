@@ -72,7 +72,7 @@ try
 		sge::audio::sound::repeat::loop
 	);
 
-	while (true)
+	for(;;)
 		sound->update();
 }
 catch(sge::exception const &e)

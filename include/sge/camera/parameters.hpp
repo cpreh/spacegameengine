@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/nonassignable.hpp>
 
 namespace sge
 {
@@ -35,6 +36,9 @@ namespace camera
 {
 class parameters
 {
+	FCPPT_NONASSIGNABLE(
+		parameters
+	)
 public:
 	SGE_CAMERA_SYMBOL
 	explicit

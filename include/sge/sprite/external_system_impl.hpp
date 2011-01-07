@@ -120,7 +120,7 @@ sge::sprite::external_system<Choices>::render_advanced(
 		)
 	);
 
-	base::allocate_buffers(
+	this->allocate_buffers(
 		sprite_count
 	);
 

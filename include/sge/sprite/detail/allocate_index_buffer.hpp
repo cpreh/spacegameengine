@@ -38,7 +38,7 @@ namespace detail
 {
 
 template<
-	typename Choices,
+	typename Elements,
 	typename Buffers
 >
 void
@@ -56,7 +56,7 @@ allocate_index_buffer(
 			_num_sprites
 			*
 			detail::indices_per_sprite<
-				Choices
+				Elements
 			>(),
 			renderer::resource_flags::dynamic
 		)
