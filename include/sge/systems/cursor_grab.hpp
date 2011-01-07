@@ -18,40 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_INPUT_HPP_INCLUDED
-#define SGE_SYSTEMS_INPUT_HPP_INCLUDED
-
-#include <sge/systems/input_helper_field.hpp>
-#include <sge/systems/cursor_grab.hpp>
-#include <sge/systems/symbol.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
+#ifndef SGE_SYSTEMS_CURSOR_GRAB_HPP_INCLUDED
+#define SGE_SYSTEMS_CURSOR_GRAB_HPP_INCLUDED
 
 namespace sge
 {
 namespace systems
 {
 
-class input
+namespace cursor_grab
 {
-public:
-	SGE_SYSTEMS_SYMBOL
-	explicit input(
-		systems::input_helper_field const &,
-		systems::cursor_grab::type
-	);
-
-	SGE_SYSTEMS_SYMBOL
-	systems::input_helper_field const &
-	input_helpers() const;
-
-	SGE_SYSTEMS_SYMBOL
-	systems::cursor_grab::type
-	cursor_grab() const;
-private:
-	systems::input_helper_field input_helpers_;
-
-	systems::cursor_grab::type cursor_grab_;
+enum type
+{
+	automatic,
+	off
 };
+}
 
 }
 }

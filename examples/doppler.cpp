@@ -217,7 +217,8 @@ try
 					sge::systems::input_helper::keyboard_collector
 				)
 				|
-				sge::systems::input_helper::cursor_demuxer
+				sge::systems::input_helper::cursor_demuxer,
+				sge::systems::cursor_grab::off
 			)
 		)
 		(

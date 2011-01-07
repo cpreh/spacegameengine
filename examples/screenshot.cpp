@@ -102,7 +102,8 @@ try
 			sge::systems::input(
 				sge::systems::input_helper_field(
 					sge::systems::input_helper::keyboard_collector
-				)
+				),
+				sge::systems::cursor_grab::off
 			)
 		)
 		(

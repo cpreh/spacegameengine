@@ -18,42 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_INPUT_HPP_INCLUDED
-#define SGE_SYSTEMS_INPUT_HPP_INCLUDED
+#include "cursor_grabber.hpp"
+#include <sge/input/cursor/object.hpp>
+#include <sge/input/processor.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <boost/foreach.hpp>
 
-#include <sge/systems/input_helper_field.hpp>
-#include <sge/systems/cursor_grab.hpp>
-#include <sge/systems/symbol.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
+sge::systems::cursor_grabber::cursor_grabber(
+	sge::input::processor_ptr const _processor
+)
+:
+	connection_(
+		_processor->cursor_discover_callback(
+			std::tr1::bind(
+				&systems::cursor_grabber::cursor_discover,
+				this,
+				std::tr1::placeholders::_1
+			)
+		)
+	)
+{
+	BOOST_FOREACH(
+		input::cursor::object_vector::value_type cursor,
+		_processor->cursors()
+	)
+		this->cursor_discover(
+			cursor
+		);
+}
 
-namespace sge
+sge::systems::cursor_grabber::~cursor_grabber()
 {
-namespace systems
-{
+}
 
-class input
+void
+sge::systems::cursor_grabber::cursor_discover(
+	sge::input::cursor::object_ptr const _cursor
+)
 {
-public:
-	SGE_SYSTEMS_SYMBOL
-	explicit input(
-		systems::input_helper_field const &,
-		systems::cursor_grab::type
+	_cursor->window_mode(
+		sge::input::cursor::window_mode::confine
 	);
-
-	SGE_SYSTEMS_SYMBOL
-	systems::input_helper_field const &
-	input_helpers() const;
-
-	SGE_SYSTEMS_SYMBOL
-	systems::cursor_grab::type
-	cursor_grab() const;
-private:
-	systems::input_helper_field input_helpers_;
-
-	systems::cursor_grab::type cursor_grab_;
-};
-
 }
-}
-
-#endif

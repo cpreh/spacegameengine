@@ -18,39 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_INPUT_HPP_INCLUDED
-#define SGE_SYSTEMS_INPUT_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_CURSOR_GRABBER_HPP_INCLUDED
+#define SGE_SYSTEMS_CURSOR_GRABBER_HPP_INCLUDED
 
-#include <sge/systems/input_helper_field.hpp>
-#include <sge/systems/cursor_grab.hpp>
-#include <sge/systems/symbol.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
+#include <sge/input/cursor/object_ptr.hpp>
+#include <sge/input/processor_ptr.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace systems
 {
 
-class input
+class cursor_grabber
 {
+	FCPPT_NONCOPYABLE(
+		cursor_grabber
+	)
 public:
-	SGE_SYSTEMS_SYMBOL
-	explicit input(
-		systems::input_helper_field const &,
-		systems::cursor_grab::type
+	explicit cursor_grabber(
+		sge::input::processor_ptr
 	);
 
-	SGE_SYSTEMS_SYMBOL
-	systems::input_helper_field const &
-	input_helpers() const;
-
-	SGE_SYSTEMS_SYMBOL
-	systems::cursor_grab::type
-	cursor_grab() const;
+	~cursor_grabber();
 private:
-	systems::input_helper_field input_helpers_;
+	void
+	cursor_discover(
+		sge::input::cursor::object_ptr
+	);
 
-	systems::cursor_grab::type cursor_grab_;
+	fcppt::signal::scoped_connection const connection_;
 };
 
 }

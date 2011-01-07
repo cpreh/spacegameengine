@@ -233,7 +233,8 @@ try
 			sge::systems::input(
 				sge::systems::input_helper_field(
 					sge::systems::input_helper::keyboard_collector
-				)
+				),
+				sge::systems::cursor_grab::automatic
 			)
 		)
 	);
@@ -597,10 +598,6 @@ device_manager::on_cursor_add(
 		<< FCPPT_TEXT("cursor_add: ")
 		<< _device
 		<< FCPPT_TEXT('\n');
-	
-	_device->window_mode(
-		sge::input::cursor::window_mode::confine
-	);
 }
 
 void

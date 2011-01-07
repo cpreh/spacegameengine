@@ -21,14 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/input.hpp>
 
 sge::systems::input::input(
-	systems::input_helper_field const &_input_helpers
+	systems::input_helper_field const &_input_helpers,
+	systems::cursor_grab::type const _cursor_grab
 )
 :
-	input_helpers_(_input_helpers)
+	input_helpers_(_input_helpers),
+	cursor_grab_(_cursor_grab)
 {}
 
 sge::systems::input_helper_field const &
 sge::systems::input::input_helpers() const
 {
 	return input_helpers_;
+}
+
+sge::systems::cursor_grab::type
+sge::systems::input::cursor_grab() const
+{
+	return cursor_grab_;
 }

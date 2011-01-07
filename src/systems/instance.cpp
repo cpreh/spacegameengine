@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "create_normal_window.hpp"
 #include "create_render_window.hpp"
+#include "cursor_grabber.hpp"
 #include "plugin_path.hpp"
 #include "wrap_window.hpp"
 #include <sge/audio/multi_loader.hpp>
@@ -112,11 +113,16 @@ public:
 
 	viewport_manager_ptr                            viewport_manager_;
 
+	typedef fcppt::scoped_ptr<
+		sge::systems::cursor_grabber
+	> cursor_grabber;
+
 	sge::input::system_ptr                          input_system_;
 	sge::input::processor_ptr                       input_processor_;
 	sge::input::cursor::object_ptr                  cursor_demuxer_;
 	sge::input::keyboard::device_ptr                keyboard_collector_;
 	sge::input::mouse::device_ptr                   mouse_collector_;
+	cursor_grabber                                  cursor_grabber_;
 
 	typedef fcppt::scoped_ptr<
 		sge::image2d::multi_loader
@@ -640,6 +646,17 @@ sge::systems::instance::impl::init_input(
 			>(
 				input_processor_
 			);
+	
+	if(
+		_param.cursor_grab() == systems::cursor_grab::automatic
+	)
+		cursor_grabber_.take(
+			fcppt::make_unique_ptr<
+				systems::cursor_grabber
+			>(
+				input_processor_
+			)
+		);
 }
 
 void
