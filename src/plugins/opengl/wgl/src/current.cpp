@@ -20,20 +20,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../current.hpp"
 #include "../context.hpp"
-#include <sge/exception.hpp>
+#include <sge/renderer/exception.hpp>
+#include <awl/backends/windows/gdi_device.hpp>
 #include <fcppt/text.hpp>
-#include <sge/windows/gdi_device.hpp>
 
 sge::opengl::wgl::current::current(
-	windows::gdi_device const &dev,
-	context const &ctx)
+	awl::backends::windows::gdi_device const &_device,
+	wgl::context const &_context
+)
 {
-	if(wglMakeCurrent(dev.hdc(), ctx.hglrc()) == FALSE)
-		throw exception(
-			FCPPT_TEXT("wglMakeCurrent() failed!"));
+	if(
+		::wglMakeCurrent(
+			_device.hdc(),
+			_context.hglrc()
+		)
+		== FALSE
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("wglMakeCurrent() failed!")
+		);
 }
 
 sge::opengl::wgl::current::~current()
 {
-	wglMakeCurrent(0,0);
+	::wglMakeCurrent(
+		0,
+		0
+	);
 }

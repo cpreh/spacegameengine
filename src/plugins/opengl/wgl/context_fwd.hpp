@@ -18,22 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_WINDOWS_CHANGE_DISPLAY_SETTINGS_HPP_INCLUDED
-#define SGE_OPENGL_WINDOWS_CHANGE_DISPLAY_SETTINGS_HPP_INCLUDED
-
-#include <sge/renderer/display_mode_fwd.hpp>
+#ifndef SGE_OPENGL_WGL_CONTEXT_FWD_HPP_INCLUDED
+#define SGE_OPENGL_WGL_CONTEXT_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace opengl
 {
-namespace windows
+namespace wgl
 {
 
-void
-change_display_settings(
-	renderer::display_mode const &
-);
+class context;
 
 }
 }

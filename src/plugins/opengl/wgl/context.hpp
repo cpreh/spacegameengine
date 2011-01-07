@@ -21,30 +21,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_WGL_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_WGL_CONTEXT_HPP_INCLUDED
 
-#include <sge/windows/windows.hpp>
+#include "context_fwd.hpp"
+#include <awl/backends/windows/windows.hpp>
+#include <awl/backends/windows/gdi_device_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
-namespace windows
-{
-class gdi_device;
-}
-
 namespace opengl
 {
 namespace wgl
 {
 
-class context {
+class context
+{
 	FCPPT_NONCOPYABLE(context)
 public:
 	explicit context(
-		windows::gdi_device const &);
+		awl::backends::windows::gdi_device const &
+	);
+
 	~context();
-	HGLRC hglrc() const;
+
+	HGLRC
+	hglrc() const;
 private:
-	HGLRC glrc;
+	HGLRC glrc_;
 };
 
 }
