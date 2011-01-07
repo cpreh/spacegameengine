@@ -96,6 +96,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/raw_vector.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/math/dim/input.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/io/cifstream.hpp>
@@ -302,7 +303,8 @@ texture3d::texture3d(
 			throw 
 				fcppt::exception(
 					FCPPT_TEXT("Couldn't open file ")+
-					p.string());
+					fcppt::filesystem::path_to_string(
+						p));
 
 		// Das ist nur eine fancy Art und Weise, den kompletten Inhalt einer Datei
 		// zu 'nem String zu machen (hab ich auch nur c&pt)

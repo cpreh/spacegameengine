@@ -36,12 +36,12 @@ template<
 >
 class external_system
 :
-	public system_base<
+	public sprite::system_base<
 		Choices
 	>
 {
 public:
-	typedef system_base<
+	typedef sprite::system_base<
 		Choices
 	> base;
 

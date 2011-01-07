@@ -42,12 +42,12 @@ namespace detail
 {
 
 template<
-	typename Choices,
+	typename Elements,
 	typename Buffers
 >
 typename boost::enable_if<
 	boost::mpl::contains<
-		typename Choices::elements,
+		Elements,
 		sprite::with_dim
 	>,
 	void
@@ -67,14 +67,14 @@ render_inner(
 			_offset
 			*
 			detail::vertices_per_sprite<
-				Choices
+				Elements
 			>::value
 		),
 		renderer::vertex_count(
 			_num_objects
 			*
 			detail::vertices_per_sprite<
-				Choices
+				Elements
 			>::value
 		),
 		renderer::indexed_primitive_type::triangle,
@@ -85,19 +85,19 @@ render_inner(
 			_offset
 			*
 			detail::indices_per_sprite<
-				Choices
+				Elements
 			>::value
 		)
 	);
 }
 
 template<
-	typename Choices,
+	typename Elements,
 	typename Buffers
 >
 typename boost::disable_if<
 	boost::mpl::contains<
-		typename Choices::elements,
+		Elements,
 		sprite::with_dim
 	>,
 	void
@@ -114,14 +114,14 @@ render_inner(
 			_offset
 			*
 			detail::vertices_per_sprite<
-				Choices
+				Elements
 			>::value
 		),
 		renderer::vertex_count(
 			_num_objects
 			*
 			detail::vertices_per_sprite<
-				Choices
+				Elements
 			>::value
 		),
 		renderer::nonindexed_primitive_type::point

@@ -67,13 +67,13 @@ sge::sprite::system_base<Choices>::allocate_buffers(
 		>= _num_sprites
 		*
 		detail::vertices_per_sprite<
-		 	Choices
+		 	typename Choices::elements
 		>::value
 	)
 		return;
 
 	detail::allocate_buffers<
-		Choices
+		typename Choices::elements
 	>(
 		rend_,
 		dyn_vertex_fmt_,

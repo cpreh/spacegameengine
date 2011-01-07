@@ -39,7 +39,7 @@ struct index_array_type
 	typedef fcppt::container::array<
 		unsigned,
 		detail::indices_per_sprite<
-			Choices
+			typename Choices::elements
 		>::value
 	> type;
 };

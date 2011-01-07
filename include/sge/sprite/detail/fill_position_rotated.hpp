@@ -91,7 +91,7 @@ fill_position_rotated(
 	typedef fcppt::container::array<
 		pos2,
 		detail::vertices_per_sprite<
-			Choices
+			typename Choices::elements
 		>::value
 	> position_array;
 

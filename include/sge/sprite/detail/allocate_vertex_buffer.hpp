@@ -37,7 +37,7 @@ namespace detail
 {
 
 template<
-	typename Choices,
+	typename Elements,
 	typename DynVertex,
 	typename Buffers
 >
@@ -57,7 +57,7 @@ allocate_vertex_buffer(
 			_num_sprites
 			*
 			detail::vertices_per_sprite<
-				Choices
+				Elements
 			>::value,
 			renderer::resource_flags::dynamic
 		)

@@ -42,7 +42,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/headers.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/to_std_string.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/range/numeric.hpp>
@@ -100,7 +99,7 @@ sge::shader::object::object(
 	renderer::device_ptr const _renderer,
 	fcppt::filesystem::path const &vertex,
 	fcppt::filesystem::path const &fragment,
-	fcppt::string const &format_declaration,
+	renderer::glsl::string const &format_declaration,
 	variable_sequence const &_variables,
 	sampler_sequence const &_samplers)
 :
@@ -148,9 +147,7 @@ sge::shader::object::object(
 					::file_to_string(
 						vertex),
 					std::string("$$$HEADER$$$"),
-					fcppt::to_std_string(
-						format_declaration
-					)
+					format_declaration
 					+ header)),
 			sge::renderer::glsl::optional_string(
 				boost::algorithm::replace_first_copy(

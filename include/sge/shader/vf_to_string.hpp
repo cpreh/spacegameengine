@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/shader/format_printer.hpp>
 #include <sge/renderer/glsl/string.hpp>
-#include <fcppt/string.hpp>
 #include <boost/mpl/for_each.hpp>
 
 namespace sge
@@ -34,9 +33,9 @@ template<typename Format>
 renderer::glsl::string const
 vf_to_string()
 {
-	fcppt::string s;
+	renderer::glsl::string s;
 	boost::mpl::for_each<typename Format::elements>(
-		format_printer(
+		shader::format_printer(
 			s));
 	return s;
 }

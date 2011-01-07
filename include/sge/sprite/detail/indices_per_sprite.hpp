@@ -34,19 +34,19 @@ namespace detail
 {
 
 template<
-	typename Choices,
+	typename Elements,
 	typename Enable = void
 >
 struct indices_per_sprite;
 
 template<
-	typename Choices
+	typename Elements
 >
 struct indices_per_sprite<
-	Choices,
+	Elements,
 	typename boost::enable_if<
 		boost::mpl::contains<
-			typename Choices::elements,
+			Elements,
 			sprite::with_dim
 		>
 	>::type

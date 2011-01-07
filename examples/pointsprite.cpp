@@ -167,7 +167,7 @@ public:
 		velocity_ += 
 			delta * acceleration_;
 		sprite_.pos(
-			fcppt::math::vector::structure_cast<sprite_object::object::point>(
+			fcppt::math::vector::structure_cast<sprite_object::point>(
 				position_));
 		sprite_.color(
 			(static_cast<sge::time::funit>(1) - life_timer_.elapsed_frames()) * color_);

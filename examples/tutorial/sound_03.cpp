@@ -110,7 +110,7 @@ try
 		)
 	);
 
-	while (true)
+	for(;;)
 	{
 		sge::audio::scalar const angle(
 			static_cast<
