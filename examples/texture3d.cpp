@@ -343,6 +343,26 @@ texture3d::view() const
 			sge::image::color::format::gray8,
 			sge::image3d::view::optional_pitch());
 }
+
+}
+
+namespace
+{
+
+// FIXME!
+boost::program_options::typed_value<
+	fcppt::string,
+	fcppt::char_type
+> *
+po_string_value()
+{
+#ifdef FCPPT_NARROW_STRING
+	return boost::program_options::value<fcppt::string>();
+#else
+	return boost::program_options::wvalue<fcppt::string>();
+#endif
+}
+
 }
 
 int 
@@ -363,8 +383,8 @@ try
 		"http://www-graphics.stanford.edu/data/voldata/\n\nOther options include");
 	desc.add_options()
     ("help", "Produce help message")
-    ("directory", boost::program_options::value<fcppt::string>(), "Set the directory where to take the slices from (see above)")
-    ("prefix", boost::program_options::value<fcppt::string>(), "Slice prefix (see above)")
+    ("directory", ::po_string_value(), "Set the directory where to take the slices from (see above)")
+    ("prefix", ::po_string_value(), "Slice prefix (see above)")
     ("slice-count", boost::program_options::value<std::size_t>(), "How many slices are there")
     ("slice-size", boost::program_options::value<std::size_t>(), "How big is one slice")
     ("screen-size", boost::program_options::value<sge::renderer::screen_size>()->default_value(sge::renderer::screen_size(1024,768)), "Screen resolution, format: (x,y)");
