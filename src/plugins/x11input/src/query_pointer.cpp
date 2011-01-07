@@ -18,29 +18,66 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <X11/Xlib.h>
-#include <awl/backends/x11/display.hpp>
+#include "../query_pointer.hpp"
+#include <sge/input/cursor/position_unit.hpp>
 #include <awl/backends/x11/window/instance.hpp>
+#include <awl/backends/x11/display.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
-#include "../warp_pointer.hpp"
+#include <X11/extensions/XInput2.h>
 
-void
-sge::x11input::warp_pointer(
+sge::input::cursor::position const
+sge::x11input::query_pointer(
 	awl::backends::x11::window::instance_ptr const _window,
-	x11input::mouse_pos const &_pos
+	device::id const &_id
 )
 {
-	// always returns 1
+	Window
+		root_return,
+		child_return;
 	
-	::XWarpPointer(
-		_window->display()->get(),
-		None,
-		_window->get(),
-		0,
-		0,
-		0,
-		0,
-		_pos.x(),
-		_pos.y()
-	);
+	double
+		root_x_return,
+		root_y_return,
+		win_x_return,
+		win_y_return;
+	
+	XIButtonState buttons_return;
+
+	XIModifierState modifiers_return;
+
+	XIGroupState group_return;
+
+	if(
+		::XIQueryPointer(
+			_window->display()->get(),
+			_id.get(),
+			_window->get(),
+			&root_return,
+			&child_return,
+			&root_x_return,
+			&root_y_return,
+			&win_x_return,
+			&win_y_return,
+			&buttons_return,
+			&modifiers_return,
+			&group_return
+		)
+		== False
+	)
+		// TODO: what to do here?
+		return input::cursor::position::null();
+	
+	return
+		input::cursor::position(
+			static_cast<
+				input::cursor::position_unit
+			>(
+				win_x_return
+			),
+			static_cast<
+				input::cursor::position_unit
+			>(
+				win_y_return
+			)
+		);
 }

@@ -28,8 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/second.hpp>
 #include <X11/Xlib.h>
 
-#include <iostream>
-
 sge::x11input::cursor_confine::cursor_confine(
 	awl::backends::x11::window::instance_ptr const _window,
 	device::id const &_id
@@ -40,8 +38,6 @@ sge::x11input::cursor_confine::cursor_confine(
 	//num_modifiers_(1),
 //	modifiers_()
 {
-	std::cout << _id.get() << '\n';
-
 	while(
 		::XGrabPointer(
 			window_->display()->get(),

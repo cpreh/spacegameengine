@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "device/raw_event_fwd.hpp"
 #include "device/window_event_fwd.hpp"
 #include "device/parameters_fwd.hpp"
-#include "mouse_coordinate.hpp"
 #include <sge/input/mouse/device.hpp>
 #include <sge/input/mouse/axis_callback.hpp>
 #include <sge/input/mouse/axis_function.hpp>

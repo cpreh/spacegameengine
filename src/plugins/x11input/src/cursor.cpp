@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../cursor.hpp"
 #include "../cursor_button_code.hpp"
 #include "../cursor_confine.hpp"
+#include "../query_pointer.hpp"
 #include "../device/parameters.hpp"
 #include "../device/window_demuxer.hpp"
 #include "../device/window_event.hpp"
@@ -143,7 +144,10 @@ sge::x11input::cursor::cursor(
 		false
 	),
 	position_(
-		// TODO!
+		x11input::query_pointer(
+			window_,
+			device_id_
+		)
 	),
 	button_signal_(),
 	move_signal_()
