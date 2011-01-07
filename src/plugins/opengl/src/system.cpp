@@ -75,10 +75,6 @@ sge::opengl::system::create_window(
 					_rparam.display_mode().size()
 				)
 			)
-			.fullscreen(
-				_rparam.window_mode()
-				== sge::renderer::window_mode::fullscreen
-			)
 			.has_opengl(
 				true
 			)
