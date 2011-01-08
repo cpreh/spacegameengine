@@ -77,12 +77,6 @@ private:
 	position() const;
 
 	void
-	show();
-
-	void
-	hide();
-
-	void
 	window_mode(
 		input::cursor::window_mode::type
 	);

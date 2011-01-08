@@ -111,28 +111,6 @@ sge::input::cursor::demuxer::position() const
 }
 
 void
-sge::input::cursor::demuxer::show()
-{
-	if(
-		current_cursor()
-	)
-		current_cursor()->show();
-	else
-		throw sge::input::cursor::no_object();
-}
-
-void
-sge::input::cursor::demuxer::hide()
-{
-	if(
-		current_cursor()
-	)
-		current_cursor()->hide();
-	else
-		throw sge::input::cursor::no_object();
-}
-
-void
 sge::input::cursor::demuxer::window_mode(
 	cursor::window_mode::type const _mode
 )

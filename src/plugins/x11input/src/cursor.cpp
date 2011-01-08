@@ -187,16 +187,6 @@ sge::x11input::cursor::position() const
 }
 
 void
-sge::x11input::cursor::show()
-{
-}
-
-void
-sge::x11input::cursor::hide()
-{
-}
-
-void
 sge::x11input::cursor::window_mode(
 	input::cursor::window_mode::type const _mode
 )

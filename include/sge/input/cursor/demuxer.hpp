@@ -82,14 +82,6 @@ public:
 
 	SGE_SYMBOL
 	void
-	show();
-
-	SGE_SYMBOL
-	void
-	hide();
-
-	SGE_SYMBOL
-	void
 	window_mode(
 		cursor::window_mode::type
 	);

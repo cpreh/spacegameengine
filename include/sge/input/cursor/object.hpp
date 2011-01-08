@@ -62,12 +62,6 @@ public:
 	position() const = 0;
 
 	virtual void
-	show() = 0;
-
-	virtual void
-	hide() = 0;
-
-	virtual void
 	window_mode(
 		cursor::window_mode::type
 	) = 0;
