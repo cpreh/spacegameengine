@@ -59,13 +59,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/assert.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 #include <boost/foreach.hpp>
-#include <cassert>
 #include <cstdlib>
 
 namespace
@@ -540,7 +540,7 @@ device_manager::on_mouse_add(
 	sge::input::mouse::device_ptr const _device
 )
 {
-	assert(
+	FCPPT_ASSERT(
 		fcppt::container::ptr::insert_unique_ptr_map(
 			mouse_listeners_,
 			_device,
@@ -564,7 +564,7 @@ device_manager::on_mouse_remove(
 	sge::input::mouse::device_ptr const _device
 )
 {
-	assert(
+	FCPPT_ASSERT(
 		mouse_listeners_.erase(
 			_device
 		) == 1u
@@ -581,7 +581,7 @@ device_manager::on_cursor_add(
 	sge::input::cursor::object_ptr const _device
 )
 {
-	assert(
+	FCPPT_ASSERT(
 		fcppt::container::ptr::insert_unique_ptr_map(
 			cursor_listeners_,
 			_device,
@@ -605,7 +605,7 @@ device_manager::on_cursor_remove(
 	sge::input::cursor::object_ptr const _device
 )
 {
-	assert(
+	FCPPT_ASSERT(
 		cursor_listeners_.erase(
 			_device
 		) == 1u
@@ -622,7 +622,7 @@ device_manager::on_keyboard_add(
 	sge::input::keyboard::device_ptr const _device
 )
 {
-	assert(
+	FCPPT_ASSERT(
 		fcppt::container::ptr::insert_unique_ptr_map(
 			keyboard_listeners_,
 			_device,
@@ -646,7 +646,7 @@ device_manager::on_keyboard_remove(
 	sge::input::keyboard::device_ptr const _device
 )
 {
-	assert(
+	FCPPT_ASSERT(
 		keyboard_listeners_.erase(
 			_device
 		) == 1u
