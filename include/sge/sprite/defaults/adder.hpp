@@ -21,7 +21,7 @@ struct defaults<
 		Choices
 	> * type;
 
-	static type const
+	static type
 	get()
 	{
 		return 0;

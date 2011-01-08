@@ -164,6 +164,13 @@ sge::renderer::vf::view
 vertex_view;
 }
 
+sge::renderer::vertex_buffer_ptr const
+create_cube(
+	sge::renderer::device_ptr,
+	sge::shader::object &,
+	sge::renderer::size_type
+);
+
 // Hier ein kurzes Wort zu Vertexbuffern: Das sind letztendlich nur
 // Speicherbereiche auf dem Graka-RAM.
 sge::renderer::vertex_buffer_ptr const
