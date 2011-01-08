@@ -25,8 +25,6 @@ namespace
 {
 
 sge::input::key_code create_mouse_code(DWORD ofs);
-sge::input::key_code create_axis_neg_mouse_code(DWORD ofs);
-sge::input::key_code create_axis_pos_mouse_code(DWORD ofs);
 
 inline DWORD cast_key(const LONG key)
 {
@@ -43,49 +41,111 @@ inline bool is_di_mouse_axis(const DWORD di_mouse)
 }
 
 sge::dinput::mouse::mouse(
-	dinput_ptr const di,
-	fcppt::string const &name,
-	GUID const guid,
-	windows::window_ptr const window)
+	dinput::device_parameters const &_param
+)
 :
-	device(di,name,guid,window)
+	sge::input::mouse::device(),
+	dinput::device(
+		_param
+	)
 {
-	set_data_format(&c_dfDIMouse2);
-	enum_objects(enum_mouse_keys);
-	acquire();
+	this->set_data_format(
+		&c_dfDIMouse2
+	);
+
+	this->enum_objects(
+		enum_mouse_keys
+	);
+
+	this->acquire();
 }
 
-void sge::dinput::mouse::dispatch(signal_type &sig)
+void
+sge::dinput::mouse::dispatch()
 {
 	input_buffer data;
+
 	DWORD elements;
-	if(!get_input(data, elements))
+
+	if(
+		!this->get_input(
+			data,
+			elements
+		)
+	)
 		return;
 
-	for(unsigned i = 0; i < elements; ++i)
+	for(
+		DWORD index = 0;
+		index < elements;
+		++index
+	)
 	{
-		if(is_di_mouse_axis(data[i].dwOfs))
-			sig(
-				input::key_pair(
-					keys[data[i].dwOfs],
-					reinterpret_cast<long &>(data[i].dwData)));
+		DWORD const offset(
+			data[
+				index
+			].dwOfs
+		);
+
+		if(
+			is_di_mouse_axis(
+				offset
+			)
+		)
+			axis_signal_(
+				input::mouse::axis_event(
+					keys_[
+						offset
+					],
+					static_cast<
+						sge::input::mouse::axis_value
+					>(
+						data[
+							index
+						].dwData
+					)
+				)
+			);
 		else
-			sig(
-				input::key_pair(
-					keys[data[i].dwOfs],
-					(data[i].dwData & 0x80)
-						? static_cast<input::key_state>(1)
-						: 0));
+			button_signal_(
+				input::mouse::button_event(
+					keys_[
+						offset
+					],
+					data[
+						index
+					].dwData
+					& 0x80
+					!- 0
+				)
+			);
 	}
 }
 
-BOOL sge::dinput::mouse::enum_mouse_keys(LPCDIDEVICEOBJECTINSTANCE ddoi, LPVOID s)
+BOOL
+sge::dinput::mouse::enum_mouse_keys(
+	LPCDIDEVICEOBJECTINSTANCE _ddoi,
+	LPVOID _state
+)
 {
-	mouse& m = *static_cast<mouse*>(s);
-	m.keys[ddoi->dwOfs] = input::key_type(
-		//ddoi->tszName + m.name(),
-		create_mouse_code(
-			ddoi->dwOfs));
+	dinput::mouse &instance(
+		*static_cast<
+			dinput::mouse *
+		>(
+			_state
+		)
+	);
+
+	instance.keys[
+		_ddoi->dwOfs
+	] =
+		input::key_type(
+			//ddoi->tszName + m.name(),
+			create_mouse_code(
+				ddoi->dwOfs
+			)
+		);
+
 	return DIENUM_CONTINUE;
 }
 

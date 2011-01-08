@@ -22,8 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_MOUSE_HPP_INCLUDED
 
 #include "device.hpp"
+#include "device_parameters_fwd.hpp"
 #include "di.hpp"
-#include <fcppt/string.hpp>
+#include <sge/input/mouse/device.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <map>
 
 namespace sge
@@ -31,24 +33,58 @@ namespace sge
 namespace dinput
 {
 
-class mouse : public device {
+class mouse
+:
+	public sge::input::mouse::device,
+	public dinput::device
+{
+	FCPPT_NONCOPYABLE(
+		mouse
+	)
 public:
-	mouse(
-		dinput_ptr di,
-		fcppt::string const &name,
-		GUID guid,
-		windows::window_ptr window);
-	void dispatch(signal_type &);
+	explicit mouse(
+		dinput::device_parameters const &
+	);
+
+	~mouse();
+
+	fcppt::signal::auto_connection
+	button_callback(
+		mouse::button_callback const &
+	);
+
+	fcppt::signal::auto_connection
+	axis_callback(
+		mouse::axis_callback const &
+	);
+
+	void
+	dispatch();
 private:
-	static BOOL CALLBACK enum_mouse_keys(
-		LPCDIDEVICEOBJECTINSTANCE ddoi,
-		LPVOID ref);
+	static BOOL CALLBACK
+	enum_mouse_keys(
+		LPCDIDEVICEOBJECTINSTANCE,
+		LPVOID
+	);
+
+	typedef fcppt::signal::object<
+		sge::input::mouse::button_function
+	> button_signal;
+
+	typedef fcppt::signal::object<
+		sge::input::mouse::axis_function
+	> axis_signal;
+
+	button_signal button_signal_;
+
+	axis_signal axis_signal_;
 
 	typedef std::map<
-		unsigned,
+		UINT,
 		input::key_type
 	> key_map;
-	key_map keys;
+
+	key_map keys_;
 };
 
 }

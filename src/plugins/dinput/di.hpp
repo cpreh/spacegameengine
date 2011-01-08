@@ -30,17 +30,4 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #undef min
 #undef max
 
-namespace sge
-{
-namespace dinput
-{
-
-typedef IDirectInput8       direct_input;
-typedef IDirectInputDevice8 direct_input_device;
-typedef fcppt::shared_ptr<direct_input,fcppt::com_deleter> dinput_ptr;
-typedef fcppt::shared_ptr<direct_input_device,fcppt::com_deleter> dinput_device_ptr;
-
-}
-}
-
 #endif

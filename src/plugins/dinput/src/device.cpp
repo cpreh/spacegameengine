@@ -66,37 +66,47 @@ private:
 sge::dinput::device::~device()
 {}
 
-void sge::dinput::device::acquire()
+void
+sge::dinput::device::acquire()
 {
-	switch(device_->Acquire()) {
+	switch(
+		device_->Acquire()
+	)
+	{
 	case S_FALSE:
 	case DI_OK:
 		return;
 	case DIERR_OTHERAPPHASPRIO:
 		break;
 	default:
-		throw exception(
-			FCPPT_TEXT("Acquire() failed!"));
+		throw sge::input::exception(
+			FCPPT_TEXT("Acquire() failed!")
+		);
 	}
 }
 
-void sge::dinput::device::unacquire()
+void
+sge::dinput::device::unacquire()
 {
-	if(device_->Unacquire() != S_FALSE)
-		throw exception(
+	if(
+		device_->Unacquire()
+		!= S_FALSE
+	)
+		throw sge::input::exception(
 			FCPPT_TEXT("Unaquire() failed!")
 		);
 }
 
 sge::dinput::device::device(
-	dinput_ptr const di,
-	fcppt::string const &name_,
-	GUID const guid,
-	windows::window_ptr const window)
+	dinput_ptr const _di,
+	fcppt::string const &_name,
+	GUID const _guid,
+	awl::backends::windows::window::instance_ptr const _window
+)
 :
 	name_(name_),
-	activate_connection(
-		window->register_callback(
+	activate_connection_(
+		_window->register_callback(
 			WM_ACTIVATE,
 			activate_handler(
 				*this
@@ -105,84 +115,158 @@ sge::dinput::device::device(
 	),
 	device_()
 {
-	direct_input_device* d;
-	if(di->CreateDevice(guid, &d, 0) != DI_OK)
-		throw exception(
-			FCPPT_TEXT("dinput: cannot create input device!"));
-	device_.reset(d);
-	set_cooperative_level(window->hwnd(),coop_level);
-	set_property(DIPROP_BUFFERSIZE, &buffer_settings.diph);
+	direct_input_device* ret;
+	
+	if(
+		_di->CreateDevice(
+			_guid,
+			&ret,
+			0
+		)
+		!= DI_OK
+	)
+		throw sge::input::exception(
+			FCPPT_TEXT("dinput: cannot create input device!")
+		);
+
+	device_.reset(
+		ret
+	);
+
+	this->set_cooperative_level(
+		_window->hwnd(),
+		coop_level
+	);
+
+	this->set_property(
+		DIPROP_BUFFERSIZE,
+		&buffer_settings.diph
+	);
 }
 
-void sge::dinput::device::set_cooperative_level(
-	HWND const hwnd,
-	DWORD const flags)
+void
+sge::dinput::device::set_cooperative_level(
+	HWND const _hwnd,
+	DWORD const _flags
+)
 {
-	if(device_->SetCooperativeLevel(hwnd, flags) != DI_OK)
-		throw exception(
-			FCPPT_TEXT("SetCooperativeLevel() failed!"));
+	if(
+		device_->SetCooperativeLevel(
+			_hwnd,
+			_flags
+		)
+		!= DI_OK
+	)
+		throw sge::dinput::exception(
+			FCPPT_TEXT("SetCooperativeLevel() failed!")
+		);
 }
 
-void sge::dinput::device::set_data_format(
-	LPCDIDATAFORMAT const df)
+void
+sge::dinput::device::set_data_format(
+	LPCDIDATAFORMAT const _df
+)
 {
-	if(device_->SetDataFormat(df) != DI_OK)
-		throw exception(
-			FCPPT_TEXT("SetDataFormat() failed!"));
+	if(
+		device_->SetDataFormat(
+			_df
+		)
+		!= DI_OK
+	)
+		throw sge::input::exception(
+			FCPPT_TEXT("SetDataFormat() failed!")
+		);
 }
 
-void sge::dinput::device::set_property(
-	REFGUID guid,
-	LPCDIPROPHEADER diph)
+void
+sge::dinput::device::set_property(
+	REFGUID _guid,
+	LPCDIPROPHEADER _diph
+)
 {
-	if(device_->SetProperty(guid, diph) != DI_OK)
-		throw exception(
-			FCPPT_TEXT("SetProperty() failed!"));
+	if(
+		device_->SetProperty(
+			_guid,
+			_diph
+		)
+		!= DI_OK
+	)
+		throw sge::input::exception(
+			FCPPT_TEXT("SetProperty() failed!")
+		);
 }
 
-void sge::dinput::device::poll()
+void
+sge::dinput::device::poll()
 {
-	if(device_->Poll() != DI_OK)
-		throw exception(FCPPT_TEXT("Poll() failed!"));
+	if(
+		device_->Poll()
+		!= DI_OK
+	)
+		throw sge::input::exception(
+			FCPPT_TEXT("Poll() failed!")
+		);
 }
 
-bool sge::dinput::device::get_input(
-	input_buffer &data,
-	DWORD &elements,
-	unsigned const d)
+bool
+sge::dinput::device::get_input(
+	input_buffer &_data,
+	DWORD &_elements
+)
 {
-	elements = static_cast<DWORD>(data.size());
-	HRESULT const res = device_->GetDeviceData(
-		sizeof(DIDEVICEOBJECTDATA),
-		data.data(),
-		&elements,
-		0);
+	_elements = static_cast<DWORD>(data.size());
 
-	switch(res) {
+	HRESULT const result(
+		device_->GetDeviceData(
+			sizeof(DIDEVICEOBJECTDATA),
+			_data.data(),
+			&_elements,
+			0
+		)
+	);
+
+	switch(
+		result
+	)
+	{
 	case DI_OK:
 	case DI_BUFFEROVERFLOW:
 		return true;
 	case DIERR_INPUTLOST:
 		acquire();
-		return get_input(
-			data,
-			elements,
-			d + 1);
+
+		return
+			this->get_input(
+				_data,
+				_elements,
+			);
 	case DIERR_NOTACQUIRED:
-		acquire();
+		this->acquire();
+
 		return false;
 	default:
-		throw exception(
-			FCPPT_TEXT("GetDeviceData() failed!"));
+		throw sge::input::exception(
+			FCPPT_TEXT("GetDeviceData() failed!")
+		);
 	}
 }
 
-void sge::dinput::device::enum_objects(
-	LPDIENUMDEVICEOBJECTSCALLBACK const fun)
+void
+sge::dinput::device::enum_objects(
+	LPDIENUMDEVICEOBJECTSCALLBACK const _fun
+)
 {
-	if(device_->EnumObjects(fun, this, DIDFT_ALL) != DI_OK)
-		throw exception(
-			FCPPT_TEXT("enumerating objects failed!"));
+	if(
+		device_->EnumObjects(
+			_fun,
+			this,
+			DIDFT_ALL
+		)
+		!= DI_OK
+	)
+		throw sge::input::exception(
+			FCPPT_TEXT("enumerating objects failed!")
+		);
 }
 
 fcppt::string const &

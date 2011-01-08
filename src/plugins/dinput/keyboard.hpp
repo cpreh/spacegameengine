@@ -22,16 +22,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_KEYBOARD_HPP_INCLUDED
 
 #include "device.hpp"
-#include "key_converter.hpp"
-#include "signal.hpp"
+#include "device_parameters_fwd.hpp"
 #include "di.hpp"
-#include <sge/input/key_type.hpp>
-#include <sge/input/key_state.hpp>
-#include <sge/input/mod_state.hpp>
+#include "key_converter_fwd.hpp"
+#include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/key_function.hpp>
+#include <sge/input/keyboard/key_repeat_function.hpp>
+#include <sge/input/keyboard/mod_state.hpp>
 #include <sge/time/timer.hpp>
+#include <awl/backends/windows/window/instance_ptr.hpp>
+#include <fcppt/container/bitfield/basic_decl.hpp>
+#include <fcppt/signal/object_decl.hpp>
+#include <fcppt/char_type.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/char_type.hpp>
 #include <map>
 
 namespace sge
@@ -39,43 +44,77 @@ namespace sge
 namespace dinput
 {
 
-class keyboard : public device {
+class keyboard
+:
+	public sge::input::keyboard::device,
+	public dinput::device
+{
+	FCPPT_NONCOPYABLE(
+		keyboard
+	)
 public:
 	keyboard(
-		dinput_ptr,
-		fcppt::string const &name,
-		GUID guid,
-		windows::window_ptr window,
-		key_converter const &conv,
-		repeat_signal_type &repeat_sig);
+		dinput::device_parameters const &
+		dinput::key_converter const &,
+	);
 
-	void dispatch(signal_type &);
+	~keyboard();
 
-	input::key_state
-	query_key(
-		fcppt::string const &name);
+	fcppt::signal::auto_connection
+	key_callback(
+		sge::input::keyboard::key_callback const &		
+	);
+
+	fcppt::signal::auto_connection
+	key_repeat_callback(
+		sge::input::keyboard::key_repeat_callback const &
+	);
+
+	sge::input::keyboard::mod_state const
+	mod_state() const;
+
+	void
+	dispatch();
 private:
 	fcppt::char_type
 	keycode_to_char(
-		input::key_code key) const;
+		input::key_code key
+	) const;
 
 	static BOOL CALLBACK
 	enum_keyboard_keys(
-		LPCDIDEVICEOBJECTINSTANCE ddoi,
-		LPVOID ref);
+		LPCDIDEVICEOBJECTINSTANCE,
+		LPVOID
+	);
 
-	input::mod_state modifiers;
-	key_converter const &conv;
-	HKL kblayout;
-	repeat_signal_type &repeat_sig;
-	time::timer repeat_time;
-	fcppt::optional<input::key_type> old_key;
+	sge::input::keyboard::mod_state modifiers_;
+
+	dinput::key_converter const &conv_;
+
+	HKL kblayout_;
+
+	typedef fcppt::signal::object<
+		sge::input::keyboard::key_function
+	> key_signal;
+
+	typedef fcppt::signal::object<
+		sge::input::keyboard::key_repeat_function
+	> key_repeat_signal;
+
+	key_signal key_signal_;
+
+	key_repeat_signal_ key_repeat_signal_;
+
+	sge::time::timer repeat_time_;
+
+	fcppt::optional<input::key_type> old_key_;
+
 	typedef std::map<
 		unsigned,
-		input::key_type
+		input::keyboard::key_code::type
 	> key_map;
 
-	key_map keys;
+	key_map keys_;
 };
 
 }

@@ -20,168 +20,225 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../keyboard.hpp"
 #include "../keyboard_repeat.hpp"
-#include <sge/input/key_pair.hpp>
-#include <sge/log/global.hpp>
-#include <sge/exception.hpp>
+#include <sge/input/keyboard/key.hpp>
+#include <sge/input/keyboard/key_code.hpp>
+#include <sge/input/keyboard/key_event.hpp>
+#include <sge/input/keyboard/key_repeat_event.hpp>
+#include <sge/input/exception.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
-#include <fcppt/log/output.hpp>
-#include <fcppt/log/warning.hpp>
-#include <fcppt/tr1/array.hpp>
+#include <fcppt/container/array.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/signal/object_impl.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <ostream>
 
 sge::dinput::keyboard::keyboard(
-	dinput_ptr const di,
-	fcppt::string const &name,
-	GUID const guid,
-	windows::window_ptr const window,
-	key_converter const &conv,
-	repeat_signal_type &repeat_sig)
+	dinput::device_parameters const &_parameters,
+	dinput::key_converter const &_conv
+)
 :
-	device(
-		di,
-		name,
-		guid,
-		window),
-	modifiers(false, false, false),
-	conv(conv),
-	kblayout(GetKeyboardLayout(0)),
-	repeat_sig(repeat_sig),
-	repeat_time(
-		keyboard_repeat(),
+	sge::input::keyboard::device(),
+	dinput::device(
+		_parameters
+	),
+	modifiers_(
+		sge::input::keyboard::mod_state::null()
+	),
+	conv_(_conv),
+	kblayout_(
+		::GetKeyboardLayout(
+			0
+		)
+	),
+	key_signal_(),
+	key_repeat_signal_(),
+	repeat_time_(
+		dinput::keyboard_repeat(),
 		sge::time::activation_state::active
 	),
-	old_key(),
-	keys()
+	old_key_(),
+	keys_()
 {
-	set_data_format(&c_dfDIKeyboard);
-	enum_objects(enum_keyboard_keys);
+	this->set_data_format(
+		&c_dfDIKeyboard
+	);
+
+	this->enum_objects(
+		enum_keyboard_keys
+	);
+
 	acquire();
 }
 
-void sge::dinput::keyboard::dispatch(signal_type &sig)
+fcppt::signal::auto_connection
+sge::dinput::keyboard::key_callback(
+	sge::input::keyboard::key_callback const &_callback
+)
+{
+	return
+		key_signal_.connect(
+			_callback
+		);
+}
+
+fcppt::signal::auto_connection
+sge::dinput::keyboard::key_repeat_callback(
+	sge::input::keyboard::key_repeat_callback const &_callback
+)
+{
+	return
+		key_repeat_signal_.connect(
+			_callback
+		);
+}
+
+sge::input::keyboard::mod_state const
+sge::dinput::keyboard::mod_state() const
+{
+	return modifiers_;
+}
+
+void
+sge::dinput::keyboard::dispatch()
 {
 	input_buffer data;
+
 	DWORD elements;
-	if(!get_input(data,elements))
+
+	if(
+		!this->get_input(
+			data,
+			elements
+		)
+	)
 		return;
 
-	for(unsigned i = 0; i < elements; ++i)
+	for(
+		unsigned index = 0;
+		index < elements;
+		++index
+	)
 	{
-		input::key_type key = keys[data[i].dwOfs];
+		DWORD const offset(
+			data[index].dwOfs
+		);
 
 		bool const key_value(
-			static_cast<bool>(
-				(data[i].dwData & 0x80) == 0
-			)
+			(offset & 0x80)
+			!= 0
 		);
 
-		switch(data[i].dwOfs) {
+		switch(
+			offset
+		)
+		{
 		case VK_CONTROL:
-			modifiers.ctrl = key_value;
+			modifiers_.set(
+				sge::input::keyboard::modifiers::ctrl,
+				key_value
+			);
 			break;
 		case VK_MENU:
-			modifiers.alt = key_value;
+			modifiers_set(
+				sge::input::keyboard::modifiers::alt,
+				key_value
+			);
 			break;
 		case VK_SHIFT:
-			modifiers.shift = key_value;
+			modifiers_.set(
+				sge::input::keyboard::modifiers::shift,
+				key_value
+			);
 			break;
 		}
 
-		key.char_code(
-			keycode_to_char(
-				key.code()
-			)
+		input::keyboard::key_code::type const key_code(
+			keys_[
+				offset
+			]
 		);
 
-		sig(
-			input::key_pair(
+		input::keyboard::key const key(
+			key_code,
+			dinput::keycode_to_char(
+				key_code,
+				conv_,
+				kblayout_
+			)
+		)
+
+		key_signal_(
+			input::keyboard::key_event(
 				key,
 				key_value
-				? 1
-				: 0
 			)
 		);
 
-		if(!key_value)
+		if(
+			!key_value
+		)
 		{
 			old_key.reset();
-			repeat_time.reset();
+
+			repeat_time_.reset();
 		}
-		else if(!old_key || *old_key != key)
+		else if(
+			!old_key_
+			|| *old_key_ != key_code
+		)
 		{
 			repeat_time.reset();
-			old_key = key;
+
+			old_key_ = key_code;
 		}
 	}
 
-	if(old_key && repeat_time.update_b())
-		repeat_sig(
-			*old_key
+	if(
+		old_key_
+		&&
+		repeat_time_.update_b()
+	)
+		key_repeat_signal_(
+			sge::input::keyboard::key_repeat_event(
+				key
+			)
 		);
 }
 
-BOOL sge::dinput::keyboard::enum_keyboard_keys(LPCDIDEVICEOBJECTINSTANCE ddoi,  LPVOID s)
+BOOL
+sge::dinput::keyboard::enum_keyboard_keys(
+	LPCDIDEVICEOBJECTINSTANCE _ddoi,
+	LPVOID _state
+)
 {
-	keyboard &k = *static_cast<keyboard*>(s);
-
-	fcppt::string const key_name(
-		ddoi->tszName
+	dinput::keyboard &instance(
+		*static_cast<
+			dinput::keyboard *
+		>(
+			_state
+		)
 	);
 
-	k.keys[ddoi->dwOfs] = input::key_type(
-		//k.name() + key_name,
-		k.conv.create_key_code(
-			ddoi->dwOfs),
-		key_name.size() == 1
-			? key_name[0]
-			: 0);
+	fcppt::string const key_name(
+		_ddoi->tszName
+	);
+
+	instance.keys_[
+		_ddoi->dwOfs
+	] =
+		input::keyboard::key(
+			//k.name() + key_name,
+			instance.conv_.create_key_code(
+				_ddoi->dwOfs
+			),
+			key_name.size() == 1
+			?
+				key_name[0]
+			:
+				0
+			)
+		);
+
 	return DIENUM_CONTINUE;
-}
-
-fcppt::char_type
-sge::dinput::keyboard::keycode_to_char(
-	input::key_code const key) const
-{
-	std::tr1::array<BYTE,256> state;
-	BYTE const key_up = 0, key_down = 0x80;
-	state[VK_SHIFT]   = modifiers.shift ? key_down : key_up;
-	state[VK_MENU]    = modifiers.alt   ? key_down : key_up;
-	state[VK_CONTROL] = modifiers.ctrl  ? key_down : key_up;
-
-	unsigned const
-		dik = conv.create_dik(key),
-		vk = MapVirtualKeyEx(dik, 1, kblayout);
-
-	WORD result;
-	switch(
-		ToAsciiEx(
-			vk,
-			dik,
-			state.data(),
-			&result,
-			0,
-			kblayout))
-	{
-	case 0:
-		FCPPT_LOG_WARNING(
-			sge::log::global(),
-			fcppt::log::_
-				<< FCPPT_TEXT("No translation found for dik: ")
-				<< dik);
-		return 0;
-	case 1:
-		return static_cast<fcppt::char_type>(result & 0xFF);
-	case 2:
-		FCPPT_LOG_WARNING(
-			sge::log::global(),
-			fcppt::log::_
-				<< FCPPT_TEXT("stub: Key names with more than one char are not supported."));
-		return 0;
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid return value of ToAsciiEx!"));
-	}
 }

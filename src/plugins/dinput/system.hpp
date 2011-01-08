@@ -21,15 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DINPUT_SYSTEM_HPP_INCLUDED
 #define SGE_DINPUT_SYSTEM_HPP_INCLUDED
 
-#include "key_converter.hpp"
-#include "device.hpp"
-#include "di.hpp"
-#include "signal.hpp"
+#include <sge/input/processor_ptr.hpp>
 #include <sge/input/system.hpp>
-#include <sge/windows/window_ptr.hpp>
-#include <fcppt/signal/auto_connection.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
-#include <map>
+#include <sge/window/instance_ptr.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -40,45 +35,18 @@ class system
 :
 	public input::system
 {
+	FCPPT_NONCOPYABLE(
+		system
+	)
 public:
-	explicit system(
-		windows::window_ptr
+	system();
+
+	~system();
+	
+	input::processor_ptr const
+	create_processor(
+		sge::window::instance_ptr
 	);
-
-	fcppt::signal::auto_connection
-	register_callback(
-		input::callback const &
-	);
-
-	fcppt::signal::auto_connection
-	register_repeat_callback(
-		input::repeat_callback const &
-	);
-
-	void
-	dispatch();
-
-	window::instance_ptr const
-	window() const;
-private:
-	signal_type sig;
-	repeat_signal_type repeat_sig;
-
-	typedef dinput_device_ptr key_map;
-	typedef std::map<std::string, key_map> key_mapper_u;
-	typedef std::multimap<std::string, key_map> key_mapper_m;
-	typedef std::pair<std::string,key_map> key_map_pair;
-	typedef boost::ptr_vector<device> device_array;
-	typedef std::map<input::key_code, bool> key_code_press_map;
-	key_mapper_u         map_u;
-	key_mapper_m         map_m;
-	key_code_press_map   key_codes_pressed;
-	device_array         devices;
-	dinput_ptr           di;
-	windows::window_ptr  wnd;
-	key_converter        key_conv;
-
-	static BOOL CALLBACK di_enum_devices_callback(LPCDIDEVICEINSTANCE ddi, LPVOID s);
 };
 
 }
