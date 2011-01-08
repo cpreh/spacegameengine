@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../translate_key_code.hpp"
 #include <sge/input/keyboard/key.hpp>
 #include <awl/backends/x11/display.hpp>
-#include <X11/XKBlib.h>
-
-#include <iostream>
+#include <X11/Xlib.h>
+#include <X11/Xutil.h>
+#include <limits>
+//#include <X11/XKBlib.h>
 
 sge::input::keyboard::key const
 sge::x11input::keyboard_key(
@@ -33,28 +34,47 @@ sge::x11input::keyboard_key(
 )
 {
 
-#if 0
 	XComposeStatus state;
 
-	KeySym ks;
+	KeySym key_sym;
+
+	// HACK HACK
+	XKeyEvent xev =
+	{
+		KeyPress,
+		0,
+		False,
+		_display->get(),
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0u,
+		_key_code,
+		False
+	};
 
 	int const num_chars(
 		XLookupString(
 			const_cast<
 				XKeyEvent *
 			>(
-				&_xev
+				&xev
 			),
 			0,
 			0,
-			&ks,
+			&key_sym,
 			&state
 		)
 	);
 
 	// xev does it this way
 	char const char_code(
-		ks
+		key_sym	
 		>
 		static_cast<
 			KeySym
@@ -64,9 +84,18 @@ sge::x11input::keyboard_key(
 		?
 			static_cast<char>(0)
 		:
-			static_cast<char>(ks)
+			static_cast<char>(key_sym)
 	);
-#endif
+
+	return
+		input::keyboard::key(
+			x11input::translate_key_code(
+				key_sym
+			),
+			char_code
+		);
+
+#if 0
 	KeySym const key_sym(
 		::XkbKeycodeToKeysym(
 			_display->get(),
@@ -83,4 +112,5 @@ sge::x11input::keyboard_key(
 			),
 			0//char_code // TODO: translate this!
 		);
+	#endif
 }
