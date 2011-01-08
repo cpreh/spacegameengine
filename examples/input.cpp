@@ -182,17 +182,17 @@ private:
 
 	typedef boost::ptr_map<
 		sge::input::mouse::device_ptr,
-		::mouse_listener
+		mouse_listener
 	> mouse_listener_map;
 
 	typedef boost::ptr_map<
 		sge::input::cursor::object_ptr,
-		::cursor_listener
+		cursor_listener
 	> cursor_listener_map;
 
 	typedef boost::ptr_map<
 		sge::input::keyboard::device_ptr,
-		::keyboard_listener
+		keyboard_listener
 	> keyboard_listener_map;
 
 	fcppt::signal::connection_manager const connections_;
@@ -545,7 +545,7 @@ device_manager::on_mouse_add(
 			mouse_listeners_,
 			_device,
 			fcppt::make_unique_ptr<
-				::mouse_listener
+				mouse_listener
 			>(
 				_device
 			)
@@ -586,7 +586,7 @@ device_manager::on_cursor_add(
 			cursor_listeners_,
 			_device,
 			fcppt::make_unique_ptr<
-				::cursor_listener
+				cursor_listener
 			>(
 				_device
 			)
@@ -627,7 +627,7 @@ device_manager::on_keyboard_add(
 			keyboard_listeners_,
 			_device,
 			fcppt::make_unique_ptr<
-				::keyboard_listener
+				keyboard_listener
 			>(
 				_device
 			)
