@@ -18,54 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DINPUT_KEY_CONVERTER_HPP_INCLUDED
-#define SGE_DINPUT_KEY_CONVERTER_HPP_INCLUDED
-
-#include "di.hpp"
-#include "key_converter_fwd.hpp"
-#include <sge/input/keyboard/key_code.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <vector>
-#include <map>
+#ifndef SGE_DINPUT_KEY_CONVERTER_FWD_HPP_INCLUDED
+#define SGE_DINPUT_KEY_CONVERTER_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace dinput
 {
 
-class key_converter
-{
-	FCPPT_NONCOPYABLE(
-		key_converter
-	)
-public:
-	key_converter();
-
-	~key_converter();
-
-	input::keyboard::key_code::type
-	create_key_code(
-		DWORD ofs
-	) const;
-
-	DWORD
-	create_dik(
-		input::keyboard::key_code::type
-	) const;
-private:
-	typedef std::vector<
-		input::keyboard::key_code::type
-	> key_vector;
-
-	key_vector key_vector_;
-
-	typedef std::map<
-		input::keyboard::key_code::type,
-		DWORD
-	> reverse_map;
-
-	reverse_map reverse_map_;
-};
+class key_converter;
 
 }
 }

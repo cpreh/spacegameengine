@@ -17,54 +17,41 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+#ifndef SGE_DINPUT_DEVICE_PARAMETERS_HPP_INCLUDED
+#define SGE_DINPUT_DEVICE_PARAMETERS_HPP_INCLUDED
 
-#ifndef SGE_DINPUT_KEY_CONVERTER_HPP_INCLUDED
-#define SGE_DINPUT_KEY_CONVERTER_HPP_INCLUDED
-
+#include "device_parameters_fwd.hpp"
 #include "di.hpp"
-#include "key_converter_fwd.hpp"
-#include <sge/input/keyboard/key_code.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <vector>
-#include <map>
+#include "dinput_ptr.hpp"
+#include <awl/backends/windows/window/instance_ptr.hpp>
+#include <fcppt/nonassignable.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
 namespace dinput
 {
 
-class key_converter
+class device_parameters
 {
-	FCPPT_NONCOPYABLE(
-		key_converter
+	FCPPT_NONASSIGNABLE(
+		device_parameters
 	)
 public:
-	key_converter();
-
-	~key_converter();
-
-	input::keyboard::key_code::type
-	create_key_code(
-		DWORD ofs
-	) const;
-
-	DWORD
-	create_dik(
-		input::keyboard::key_code::type
-	) const;
+	device_parameters(
+		dinput::dinput_ptr,
+		fcppt::string const &name,
+		GUID,
+		awl::backends::windows::window::instance_ptr
+	);
 private:
-	typedef std::vector<
-		input::keyboard::key_code::type
-	> key_vector;
+	dinput::dinput_ptr const device_;
 
-	key_vector key_vector_;
+	fcppt::string const name_;
 
-	typedef std::map<
-		input::keyboard::key_code::type,
-		DWORD
-	> reverse_map;
+	GUID const guid_;
 
-	reverse_map reverse_map_;
+	awl::backends::windows::window::instance_ptr const window_;
 };
 
 }

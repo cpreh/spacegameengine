@@ -21,12 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DINPUT_DEVICE_HPP_INCLUDED
 #define SGE_DINPUT_DEVICE_HPP_INCLUDED
 
+#include "device_parameters_fwd.hpp"
 #include "di.hpp"
-#include "signal.hpp"
-#include <sge/windows/window_ptr.hpp>
-#include <sge/input/key_type.hpp>
+#include "dinput_device_ptr.hpp"
+#include <fcppt/container/array.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/tr1/array.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
 #include <cstddef>
@@ -36,50 +35,73 @@ namespace sge
 namespace dinput
 {
 
-class device {
-	FCPPT_NONCOPYABLE(device)
+class device
+{
+	FCPPT_NONCOPYABLE(
+		device
+	)
 public:
-	virtual void dispatch(signal_type &) = 0;
+	virtual void
+	dispatch() = 0;
+
 	virtual ~device();
 
 	static std::size_t const buffer_size = 1024;
 
-	void acquire();
-	void unacquire();
+	void
+	acquire();
+
+	void
+	unacquire();
 protected:
-	device(
-		dinput_ptr di,
-		fcppt::string const &name,
-		GUID Guid,
-		windows::window_ptr window
+	explicit device(
+		dinput::device_parameters const &
 	);
 
-	void poll();
-	void set_data_format(
-		LPCDIDATAFORMAT lpdf);
-	void set_property(
-		REFGUID rguidProp,
-		LPCDIPROPHEADER pdiph);
+	void
+	poll();
+	
+	void
+	set_data_format(
+		LPCDIDATAFORMAT
+	);
 
-	typedef std::tr1::array<
+	void
+	set_property(
+		REFGUID,
+		LPCDIPROPHEADER
+	);
+
+	typedef fcppt::container::array<
 		DIDEVICEOBJECTDATA,
 		buffer_size
 	> input_buffer;
 
-	bool get_input(
-		input_buffer &buf,
-		DWORD &elements,
-		unsigned d = 0);
-	void enum_objects(
-		LPDIENUMDEVICEOBJECTSCALLBACK fun);
-	fcppt::string const &name() const;
+	bool
+	get_input(
+		input_buffer &,
+		DWORD &elements
+	);
+
+	void
+	enum_objects(
+		LPDIENUMDEVICEOBJECTSCALLBACK
+	);
+
+	fcppt::string const &
+	name() const;
 private:
-	void set_cooperative_level(
-		HWND hwnd,
-		DWORD flags);
+	void
+	set_cooperative_level(
+		HWND,
+		DWORD flags
+	);
+
 	fcppt::string const name_;
-	fcppt::signal::scoped_connection const activate_connection;
-	dinput_device_ptr device_;
+
+	fcppt::signal::scoped_connection const activate_connection_;
+
+	dinput::dinput_device_ptr device_;
 };
 
 }

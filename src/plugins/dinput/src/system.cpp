@@ -19,135 +19,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../system.hpp"
-#include "../keyboard.hpp"
-#include "../mouse.hpp"
-#include <sge/exception.hpp>
-#include <sge/windows/window.hpp>
-#include <fcppt/text.hpp>
-#include <boost/foreach.hpp>
+#include "../proecssor.hpp"
+#include <fcppt/make_unique_ptr.hpp>
 
-sge::dinput::system::system(
-	windows::window_ptr const wnd)
-:
-	wnd(wnd)
+sge::dinput::system::system()
 {
-	direct_input* d;
-	if(DirectInput8Create(
-		GetModuleHandle(0),
-		DIRECTINPUT_VERSION,
-		IID_IDirectInput8A,
-		reinterpret_cast<LPVOID*>(&d), // this is undefined but Direct Input wants us to do it
-		0)
-	!= DI_OK)
-		throw exception(
-			FCPPT_TEXT("Cannot create direct input!"));
-	di.reset(d);
-
-	if(di->EnumDevices(
-		DI8DEVCLASS_ALL,
-		di_enum_devices_callback,
-		this,
-		 DIEDFL_ATTACHEDONLY)
-	!= DI_OK)
-		throw exception(
-			FCPPT_TEXT("DirectInput Enumeration failed!"));
 }
 
-fcppt::signal::auto_connection
-sge::dinput::system::register_callback(
-	input::callback const &c)
+sge::dinput::system::~system()
 {
-	return sig.connect(c);
 }
-
-fcppt::signal::auto_connection
-sge::dinput::system::register_repeat_callback(
-	input::repeat_callback const &c)
+	
+sge::input::processor_ptr const
+sge::dinput::system::create_processor(
+	sge::window::instance_ptr const _window
+)
 {
-	return repeat_sig.connect(c);
-}
-
-void sge::dinput::system::dispatch()
-{
-	BOOST_FOREACH(device_array::reference r, devices)
-		r.dispatch(sig);
-	// FIXME: dispatch repeated signals as well
-}
-
-BOOL sge::dinput::system::di_enum_devices_callback(
-	LPCDIDEVICEINSTANCE ddi,
-	LPVOID s)
-{
-	system &sys = *static_cast<system*>(s);
-
-	unsigned char const dev_type
-		= static_cast<unsigned char>(
-			ddi->dwDevType & 0xFF);
-
-	fcppt::string const product_name
-		= ddi->tszProductName;
-
-	switch(dev_type) {
-	case DI8DEVTYPE_KEYBOARD:
-		sys.devices.push_back(
-			new keyboard(
-				sys.di,
-				product_name,
-				ddi->guidInstance,
-				sys.wnd,
-				sys.key_conv,
-				sys.repeat_sig
-			)
+	return
+		fcppt::make_unique_ptr<
+			sge::dinput::processor
+		>(
+			_window
 		);
-		break;
-	case DI8DEVTYPE_MOUSE:
-		sys.devices.push_back(
-			new mouse(
-				sys.di,
-				product_name,
-				ddi->guidInstance,
-				sys.wnd
-			)
-		);
-		break;
-	/*
-	case DI8DEVTYPE_JOYSTICK:
-		SetDataFormat(Device,&c_dfDIJoystick2);
-
-		DIPROPRANGE	Range;
-		Range.diph.dwHeaderSize	= sizeof(DIPROPHEADER);
-		Range.diph.dwSize		= sizeof(DIPROPRANGE);
-		Range.diph.dwObj		= 0;
-		Range.diph.dwHow		= DIPH_DEVICE;
-		Range.lMin				= -1000;
-		Range.lMax				= +1000;
-		SetProperty(Device,DIPROP_RANGE,&Range.diph);
-
-		DIPROPDWORD	DeadZone;
-		DeadZone.diph.dwHeaderSize	= sizeof(DIPROPHEADER);
-		DeadZone.diph.dwSize		= sizeof(DIPROPDWORD);
-		DeadZone.diph.dwObj			= 0;
-		DeadZone.diph.dwHow			= DIPH_DEVICE;
-		DeadZone.dwData				= 1000;
-		SetProperty(Device,DIPROP_DEADZONE,&DeadZone.diph);
-
-		DIPROPDWORD	Saturation;
-		Saturation.diph.dwHeaderSize	= sizeof(DIPROPHEADER);
-		Saturation.diph.dwSize			= sizeof(DIPROPDWORD);
-		Saturation.diph.dwObj			= 0;
-		Saturation.diph.dwHow			= DIPH_DEVICE;
-		Saturation.dwData				= 9000;
-		SetProperty(Device,DIPROP_SATURATION,&Saturation.diph);
-
-		++sys->joysticks;*/
-	}
-	return DIENUM_CONTINUE;
-}
-
-sge::window::instance_ptr const
-sge::dinput::system::window() const
-{
-	return fcppt::static_pointer_cast<
-		sge::window::instance
-	>(wnd);
 }
