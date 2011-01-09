@@ -21,9 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DINPUT_PROCESSOR_HPP_INCLUDED
 #define SGE_DINPUT_PROCESSOR_HPP_INCLUDED
 
+#include "cursor_ptr.hpp"
 #include "device_fwd.hpp"
 #include "di.hpp"
+#include "dinput_ptr.hpp"
 #include "key_converter.hpp"
+#include "keyboard_ptr.hpp"
+#include "mouse_ptr.hpp"
 #include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/object_vector.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
@@ -35,10 +39,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/window/instance_ptr.hpp>
+#include <awl/backends/windows/window/event/processor_ptr.hpp>
+#include <awl/backends/windows/window/event/return_type.hpp>
 #include <awl/backends/windows/window/instance_ptr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
-#include <map>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <vector>
 
 namespace sge
 {
@@ -54,6 +60,7 @@ class processor
 	)
 public:
 	explicit processor(
+		dinput::dinput_ptr,
 		sge::window::instance_ptr
 	);
 
@@ -104,23 +111,42 @@ private:
 	void
 	dispatch();
 
+	awl::backends::windows::window::event::return_type
+	on_activate(
+		UINT,
+		WPARAM,
+		LPARAM
+	);
+
 	static BOOL CALLBACK
-	di_enum_devices_callback(
+	enum_devices_callback(
 		LPCDIDEVICEINSTANCE,
 		LPVOID
 	);
 
-	typedef boost::ptr_vector<
-		dinput::device
-	> device_array;
+	typedef std::vector<
+		dinput::keyboard_ptr
+	> keyboard_vector;
 
-	device_array devices_;
-	
-	dinput::dinput_ptr dinput_;
+	typedef std::vector<
+		dinput::mouse_ptr
+	> mouse_vector;
+
+	dinput::dinput_ptr const dinput_;
+
+	keyboard_vector keyboards_;
+
+	mouse_vector mice_;
+
+	dinput::cursor_ptr const cursor_;
 
 	sge::window::instance_ptr const window_;
 	
 	awl::backends::windows::window::instance_ptr const windows_window_;
+
+	awl::backends::windows::window::event::processor_ptr const event_processor_;
+
+	fcppt::signal::scoped_connection const activate_connection_;
 
 	dinput::key_converter key_conv_;
 };

@@ -18,61 +18,68 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../system.hpp"
+#include "../processor.hpp"
 #include "../cursor.hpp"
+#include "../device_parameters.hpp"
 #include "../di.hpp"
 #include "../keyboard.hpp"
 #include "../mouse.hpp"
 #include <sge/input/exception.hpp>
 #include <sge/window/instance.hpp>
+#include <awl/backends/windows/window/event/processor.hpp>
 #include <awl/backends/windows/window/instance.hpp>
-#include <awl/backends/windows/module_handle.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/dynamic_pointer_cast.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <boost/foreach.hpp>
 
 sge::dinput::processor::processor(
+	dinput::dinput_ptr const _dinput,
 	sge::window::instance_ptr const _window
 )
 :
-	devices_(),
-	dinput_(),
+	dinput_(_dinput),
+	keyboards_(),
+	mice_(),
+	cursor_(
+		fcppt::make_shared_ptr<
+			dinput::cursor
+		>()
+	),
 	window_(_window),
 	windows_window_(
 		fcppt::dynamic_pointer_cast<
 			awl::backends::windows::window::instance
 		>(
-			_window->awl_window()
+			_window->awl_instance()
+		)
+	),
+	event_processor_(
+		fcppt::dynamic_pointer_cast<
+			awl::backends::windows::window::event::processor
+		>(
+			_window->awl_window_event_processor()
+		)
+	),
+	activate_connection_(
+		event_processor_->register_callback(
+			WM_ACTIVATE,
+			std::tr1::bind(
+				&dinput::processor::on_activate,
+				this,
+				std::tr1::placeholders::_1,
+				std::tr1::placeholders::_2,
+				std::tr1::placeholders::_3
+			)
 		)
 	),
 	key_conv_()
 {
-	IDirectInput8 *instance;
-
-	if(
-		::DirectInput8Create(
-			awl::backends::windows::module_handle(),
-			DIRECTINPUT_VERSION,
-			IID_IDirectInput8A,
-			reinterpret_cast<LPVOID *>(&instance), // this is undefined but Direct Input wants us to do it
-			0
-		)
-		!= DI_OK
-	)
-		throw sge::input::exception(
-			FCPPT_TEXT("Cannot create direct input!")
-		);
-
-	dinput_.reset(
-		instance
-	);
-
 	if(
 		dinput_->EnumDevices(
 			DI8DEVCLASS_ALL,
-			di_enum_devices_callback,
+			enum_devices_callback,
 			this,
 			DIEDFL_ATTACHEDONLY
 		)
@@ -88,60 +95,81 @@ sge::dinput::processor::~processor()
 }
 
 fcppt::signal::auto_connection
-sge::dinput::processor:keyboard_discover_callback(
+sge::dinput::processor::keyboard_discover_callback(
 	input::keyboard::discover_callback const &
 )
 {
+	return fcppt::signal::auto_connection();
 }
 
 fcppt::signal::auto_connection
-sge::dinput::processor:keyboard_remove_callback(
+sge::dinput::processor::keyboard_remove_callback(
 	input::keyboard::remove_callback const &
 )
 {
+	return fcppt::signal::auto_connection();
 }
 
 sge::input::keyboard::device_vector const
-sge::dinput::processor:keyboards() const
+sge::dinput::processor::keyboards() const
 {
+	return
+		sge::input::keyboard::device_vector(
+			keyboards_.begin(),
+			keyboards_.end()
+		);
 }
 
 fcppt::signal::auto_connection
-sge::dinput::processor:mouse_discover_callback(
+sge::dinput::processor::mouse_discover_callback(
 	input::mouse::discover_callback const &
 )
 {
+	return fcppt::signal::auto_connection();
 }
 
 fcppt::signal::auto_connection
-sge::dinput::processor:mouse_remove_callback(
+sge::dinput::processor::mouse_remove_callback(
 	input::mouse::remove_callback const &
 )
 {
+	return fcppt::signal::auto_connection();
 }
 
 sge::input::mouse::device_vector const
-sge::dinput::processor:mice() const
+sge::dinput::processor::mice() const
 {
+	return
+		sge::input::mouse::device_vector(
+			mice_.begin(),
+			mice_.end()
+		);
 }
 
 fcppt::signal::auto_connection
-sge::dinput::processor:cursor_discover_callback(
+sge::dinput::processor::cursor_discover_callback(
 	input::cursor::discover_callback const &
 )
 {
+	return fcppt::signal::auto_connection();
 }
 
 fcppt::signal::auto_connection
-sge::dinput::processor:cursor_remove_callback(
+sge::dinput::processor::cursor_remove_callback(
 	input::cursor::remove_callback const &
 )
 {
+	return fcppt::signal::auto_connection();
 }
 
 sge::input::cursor::object_vector const
-sge::dinput::processor:cursors() const
+sge::dinput::processor::cursors() const
 {
+	return
+		sge::input::cursor::object_vector(
+			1u,
+			cursor_
+		);
 }
 
 sge::window::instance_ptr const
@@ -153,15 +181,33 @@ sge::dinput::processor::window() const
 void
 sge::dinput::processor::dispatch()
 {
+#if 0
 	BOOST_FOREACH(
 		device_array::reference device,
 		devices_
 	)
 		device.dispatch();
+#endif
+}
+
+awl::backends::windows::window::event::return_type
+sge::dinput::processor::on_activate(
+	UINT,
+	WPARAM const _wparam,
+	LPARAM
+)
+{
+#if 0
+	if(_wparam)
+		device.acquire();
+	else
+		device.unacquire();
+#endif
+	return awl::backends::windows::window::event::return_type();
 }
 
 BOOL
-sge::dinput::processor::di_enum_devices_callback(
+sge::dinput::processor::enum_devices_callback(
 	LPCDIDEVICEINSTANCE _ddi,
 	LPVOID _state
 )
@@ -195,20 +241,18 @@ sge::dinput::processor::di_enum_devices_callback(
 	)
 	{
 	case DI8DEVTYPE_KEYBOARD:
-		fcppt::container::ptr::push_back_unique_ptr(
-			instance.devices_,
-			fcppt::make_unique_ptr<
+		instance.keyboards_.push_back(
+			fcppt::make_shared_ptr<
 				dinput::keyboard
 			>(
 				parameters,
-				instance.key_conv_,
+				instance.key_conv_
 			)
 		);
 		break;
 	case DI8DEVTYPE_MOUSE:
-		fcppt::container::ptr::push_back_unique_ptr(
-			instance.devices_,
-			fcppt::make_unique_ptr<
+		instance.mice_.push_back(
+			fcppt::make_shared_ptr<
 				dinput::mouse
 			>(
 				parameters

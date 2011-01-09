@@ -18,47 +18,58 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/keyboard/key.hpp>
+#include "../cursor.hpp"
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/signal/object_impl.hpp>
 
-sge::input::keyboard::key::key(
-	key_code::type const _code,
-	keyboard::char_type const _character
-)
+sge::dinput::cursor::cursor()
 :
-	code_(_code),
-	character_(_character)
+	button_signal_(),
+	move_signal_(),
+	connections_()
 {
 }
 
-sge::input::keyboard::key_code::type
-sge::input::keyboard::key::code() const
+sge::dinput::cursor::~cursor()
 {
-	return code_;
 }
 
-sge::input::keyboard::char_type
-sge::input::keyboard::key::character() const
-{
-	return character_;
-}
-
-bool
-sge::input::keyboard::operator==(
-	keyboard::key const &_a,
-	keyboard::key const &_b
+fcppt::signal::auto_connection
+sge::dinput::cursor::button_callback(
+	input::cursor::button_callback const &_callback
 )
 {
 	return
-		_a.code() == _b.code()
-		&& _a.character() == _b.character();
+		button_signal_.connect(
+			_callback
+		);
 }
 
-bool
-sge::input::keyboard::operator!=(
-	keyboard::key const &_a,
-	keyboard::key const &_b
+fcppt::signal::auto_connection
+sge::dinput::cursor::move_callback(
+	input::cursor::move_callback const &_callback
 )
 {
 	return
-		!(_a == _b);
+		move_signal_.connect(
+			_callback
+		);
+}
+
+sge::input::cursor::position const
+sge::dinput::cursor::position() const
+{
+	return sge::input::cursor::position();
+}
+
+void
+sge::dinput::cursor::window_mode(
+	input::cursor::window_mode::type const _mode
+)
+{
+}
+
+void
+sge::dinput::cursor::dispatch()
+{
 }

@@ -17,90 +17,73 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+#ifndef SGE_DINPUT_CURSOR_HPP_INCLUDED
+#define SGE_DINPUT_CURSOR_HPP_INCLUDED
 
-#ifndef SGE_DINPUT_MOUSE_HPP_INCLUDED
-#define SGE_DINPUT_MOUSE_HPP_INCLUDED
-
-#include "mouse_fwd.hpp"
-#include "device.hpp"
-#include "device_parameters_fwd.hpp"
-#include "di.hpp"
-#include <sge/input/mouse/axis.hpp>
-#include <sge/input/mouse/axis_callback.hpp>
-#include <sge/input/mouse/axis_function.hpp>
-#include <sge/input/mouse/button_callback.hpp>
-#include <sge/input/mouse/button_code.hpp>
-#include <sge/input/mouse/button_function.hpp>
-#include <sge/input/mouse/device.hpp>
+#include "cursor_fwd.hpp"
+#include <sge/input/cursor/button_callback.hpp>
+#include <sge/input/cursor/button_function.hpp>
+#include <sge/input/cursor/move_callback.hpp>
+#include <sge/input/cursor/move_function.hpp>
+#include <sge/input/cursor/object.hpp>
+#include <sge/input/cursor/position.hpp>
+#include <sge/input/cursor/window_mode.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object_decl.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <map>
 
 namespace sge
 {
 namespace dinput
 {
 
-class mouse
+class cursor
 :
-	public sge::input::mouse::device,
-	public dinput::device
+	public sge::input::cursor::object
 {
 	FCPPT_NONCOPYABLE(
-		mouse
+		cursor
 	)
 public:
-	explicit mouse(
-		dinput::device_parameters const &
-	);
+	cursor();
 
-	~mouse();
+	~cursor();
 
 	fcppt::signal::auto_connection
 	button_callback(
-		input::mouse::button_callback const &
+		input::cursor::button_callback const &
 	);
 
 	fcppt::signal::auto_connection
-	axis_callback(
-		input::mouse::axis_callback const &
+	move_callback(
+		input::cursor::move_callback const &
+	);
+
+	input::cursor::position const
+	position() const;
+
+	void
+	window_mode(
+		input::cursor::window_mode::type
 	);
 
 	void
 	dispatch();
 private:
-	static BOOL CALLBACK
-	enum_mouse_keys(
-		LPCDIDEVICEOBJECTINSTANCE,
-		LPVOID
-	);
-
 	typedef fcppt::signal::object<
-		sge::input::mouse::axis_function
-	> axis_signal;
-
-	typedef fcppt::signal::object<
-		sge::input::mouse::button_function
+		input::cursor::button_function
 	> button_signal;
 
-	axis_signal axis_signal_;
+	typedef fcppt::signal::object<
+		input::cursor::move_function
+	> move_signal;
 
 	button_signal button_signal_;
 
-	typedef std::map<
-		DWORD,
-		input::mouse::axis::type
-	> axis_map;
+	move_signal move_signal_;
 
-	typedef std::map<
-		DWORD,
-		input::mouse::button_code::type
-	> button_map;
-
-	axis_map axis_;
-
-	button_map buttons_;
+	fcppt::signal::connection_manager const connections_;
 };
 
 }

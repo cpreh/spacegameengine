@@ -18,47 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/keyboard/key.hpp>
+#ifndef SGE_DINPUT_IS_MOUSE_AXIS_HPP_INCLUDED
+#define SGE_DINPUT_IS_MOUSE_AXIS_HPP_INCLUDED
 
-sge::input::keyboard::key::key(
-	key_code::type const _code,
-	keyboard::char_type const _character
-)
-:
-	code_(_code),
-	character_(_character)
-{
-}
+#include "di.hpp"
 
-sge::input::keyboard::key_code::type
-sge::input::keyboard::key::code() const
+namespace sge
 {
-	return code_;
-}
-
-sge::input::keyboard::char_type
-sge::input::keyboard::key::character() const
+namespace dinput
 {
-	return character_;
-}
 
 bool
-sge::input::keyboard::operator==(
-	keyboard::key const &_a,
-	keyboard::key const &_b
-)
-{
-	return
-		_a.code() == _b.code()
-		&& _a.character() == _b.character();
+is_mouse_axis(
+	DWORD
+);
+
+}
 }
 
-bool
-sge::input::keyboard::operator!=(
-	keyboard::key const &_a,
-	keyboard::key const &_b
-)
-{
-	return
-		!(_a == _b);
-}
+#endif

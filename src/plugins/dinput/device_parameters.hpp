@@ -17,6 +17,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+
 #ifndef SGE_DINPUT_DEVICE_PARAMETERS_HPP_INCLUDED
 #define SGE_DINPUT_DEVICE_PARAMETERS_HPP_INCLUDED
 
@@ -44,8 +45,20 @@ public:
 		GUID,
 		awl::backends::windows::window::instance_ptr
 	);
+
+	dinput::dinput_ptr const
+	instance() const;
+
+	fcppt::string const
+	name() const;
+
+	GUID
+	guid() const;
+
+	awl::backends::windows::window::instance_ptr const
+	window() const;
 private:
-	dinput::dinput_ptr const device_;
+	dinput::dinput_ptr const instance_;
 
 	fcppt::string const name_;
 

@@ -21,11 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DINPUT_KEYBOARD_HPP_INCLUDED
 #define SGE_DINPUT_KEYBOARD_HPP_INCLUDED
 
+#include "keyboard_fwd.hpp"
 #include "device.hpp"
 #include "device_parameters_fwd.hpp"
 #include "di.hpp"
 #include "key_converter_fwd.hpp"
+#include <sge/input/keyboard/char_type.hpp>
 #include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/key.hpp>
+#include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_function.hpp>
 #include <sge/input/keyboard/key_repeat_function.hpp>
 #include <sge/input/keyboard/mod_state.hpp>
@@ -33,7 +37,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/instance_ptr.hpp>
 #include <fcppt/container/bitfield/basic_decl.hpp>
 #include <fcppt/signal/object_decl.hpp>
-#include <fcppt/char_type.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
 #include <fcppt/string.hpp>
@@ -54,8 +57,8 @@ class keyboard
 	)
 public:
 	keyboard(
-		dinput::device_parameters const &
-		dinput::key_converter const &,
+		dinput::device_parameters const &,
+		dinput::key_converter const &
 	);
 
 	~keyboard();
@@ -76,9 +79,9 @@ public:
 	void
 	dispatch();
 private:
-	fcppt::char_type
+	sge::input::keyboard::char_type
 	keycode_to_char(
-		input::key_code key
+		input::keyboard::key_code::type
 	) const;
 
 	static BOOL CALLBACK
@@ -103,14 +106,18 @@ private:
 
 	key_signal key_signal_;
 
-	key_repeat_signal_ key_repeat_signal_;
+	key_repeat_signal key_repeat_signal_;
 
 	sge::time::timer repeat_time_;
 
-	fcppt::optional<input::key_type> old_key_;
+	typedef fcppt::optional<
+		input::keyboard::key
+	> optional_key;
+	
+	optional_key old_key_;
 
 	typedef std::map<
-		unsigned,
+		DWORD,
 		input::keyboard::key_code::type
 	> key_map;
 

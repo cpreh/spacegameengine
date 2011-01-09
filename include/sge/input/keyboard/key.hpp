@@ -55,6 +55,20 @@ private:
 	keyboard::char_type character_;
 };
 
+SGE_SYMBOL
+bool
+operator==(
+	keyboard::key const &,
+	keyboard::key const &
+);
+
+SGE_SYMBOL
+bool
+operator!=(
+	keyboard::key const &,
+	keyboard::key const &
+);
+
 }
 }
 }
