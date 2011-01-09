@@ -18,31 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_ALPHA8_FORMAT_HPP_INCLUDED
-#define SGE_IMAGE_ALPHA8_FORMAT_HPP_INCLUDED
+#include <sge/image3d/rgba32f.hpp>
+#include <fcppt/export_symbol.hpp>
+#include "../image/store_impl.hpp"
 
-#include <sge/image/color/alpha8_format.hpp>
-#include <sge/image/basic_format.hpp>
-#include <sge/image/size_type.hpp>
-
-namespace sge
-{
-namespace image
-{
-
-template<
-	image::size_type Dim
->
-struct alpha8_format
-:
-image::basic_format<
-	Dim,
-	color::alpha8_format
->
-{
-};
-
-}
-}
-
-#endif
+template FCPPT_EXPORT_SYMBOL
+class sge::image::store<
+	sge::image3d::rgba32f_format
+>;

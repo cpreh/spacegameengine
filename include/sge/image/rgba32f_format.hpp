@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_ALPHA8_FORMAT_HPP_INCLUDED
-#define SGE_IMAGE_ALPHA8_FORMAT_HPP_INCLUDED
+#ifndef SGE_IMAGE_RGBA32F_FORMAT_HPP_INCLUDED
+#define SGE_IMAGE_RGBA32F_FORMAT_HPP_INCLUDED
 
-#include <sge/image/color/alpha8_format.hpp>
+#include <sge/image/color/rgba32f_format.hpp>
 #include <sge/image/basic_format.hpp>
 #include <sge/image/size_type.hpp>
 
@@ -33,11 +33,11 @@ namespace image
 template<
 	image::size_type Dim
 >
-struct alpha8_format
+struct rgba32f_format
 :
 image::basic_format<
 	Dim,
-	color::alpha8_format
+	color::rgba32f_format
 >
 {
 };
