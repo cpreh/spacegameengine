@@ -18,47 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/keyboard/key.hpp>
+#include "../mouse_axis_code.hpp"
+#include "../cast_key.hpp"
+#include "../di.hpp"
 
-sge::input::keyboard::key::key(
-	key_code::type const _code,
-	keyboard::char_type const _character
-)
-:
-	code_(_code),
-	character_(_character)
-{
-}
-
-sge::input::keyboard::key_code::type
-sge::input::keyboard::key::code() const
-{
-	return code_;
-}
-
-sge::input::keyboard::char_type
-sge::input::keyboard::key::character() const
-{
-	return character_;
-}
-
-bool
-sge::input::keyboard::operator==(
-	keyboard::key const &_a,
-	keyboard::key const &_b
+sge::input::mouse::axis::type
+sge::dinput::mouse_axis_code(
+	DWORD const _code
 )
 {
-	return
-		_a.code() == _b.code()
-		&& _a.character() == _b.character();
-}
+	if(
+		_code == dinput::cast_key(DIMOFS_X)
+	)
+		return sge::input::mouse::axis::x;
+	else if(
+		_code == dinput::cast_key(DIMOFS_Y)
+	)
+		return sge::input::mouse::axis::y;
+	else if(
+		_code == dinput::cast_key(DIMOFS_Z)
+	)
+		return sge::input::mouse::axis::wheel;
 
-bool
-sge::input::keyboard::operator!=(
-	keyboard::key const &_a,
-	keyboard::key const &_b
-)
-{
-	return
-		!(_a == _b);
+	return sge::input::mouse::axis::unknown;
 }

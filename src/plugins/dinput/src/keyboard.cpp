@@ -19,11 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../keyboard.hpp"
+#include "../key_converter.hpp"
 #include "../keyboard_repeat.hpp"
+#include "../keycode_to_char.hpp"
 #include <sge/input/keyboard/key.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/key_repeat_event.hpp>
+#include <sge/input/keyboard/modifier.hpp>
 #include <sge/input/exception.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/container/array.hpp>
@@ -69,6 +72,10 @@ sge::dinput::keyboard::keyboard(
 	);
 
 	acquire();
+}
+
+sge::dinput::keyboard::~keyboard()
+{
 }
 
 fcppt::signal::auto_connection
@@ -135,19 +142,19 @@ sge::dinput::keyboard::dispatch()
 		{
 		case VK_CONTROL:
 			modifiers_.set(
-				sge::input::keyboard::modifiers::ctrl,
+				sge::input::keyboard::modifier::ctrl,
 				key_value
 			);
 			break;
 		case VK_MENU:
-			modifiers_set(
-				sge::input::keyboard::modifiers::alt,
+			modifiers_.set(
+				sge::input::keyboard::modifier::alt,
 				key_value
 			);
 			break;
 		case VK_SHIFT:
 			modifiers_.set(
-				sge::input::keyboard::modifiers::shift,
+				sge::input::keyboard::modifier::shift,
 				key_value
 			);
 			break;
@@ -163,10 +170,11 @@ sge::dinput::keyboard::dispatch()
 			key_code,
 			dinput::keycode_to_char(
 				key_code,
+				modifiers_,
 				conv_,
 				kblayout_
 			)
-		)
+		);
 
 		key_signal_(
 			input::keyboard::key_event(
@@ -179,18 +187,18 @@ sge::dinput::keyboard::dispatch()
 			!key_value
 		)
 		{
-			old_key.reset();
+			old_key_.reset();
 
 			repeat_time_.reset();
 		}
 		else if(
 			!old_key_
-			|| *old_key_ != key_code
+			|| *old_key_ != key
 		)
 		{
-			repeat_time.reset();
+			repeat_time_.reset();
 
-			old_key_ = key_code;
+			old_key_ = key;
 		}
 	}
 
@@ -201,7 +209,7 @@ sge::dinput::keyboard::dispatch()
 	)
 		key_repeat_signal_(
 			sge::input::keyboard::key_repeat_event(
-				key
+				*old_key_
 			)
 		);
 }
@@ -220,24 +228,11 @@ sge::dinput::keyboard::enum_keyboard_keys(
 		)
 	);
 
-	fcppt::string const key_name(
-		_ddoi->tszName
-	);
-
 	instance.keys_[
 		_ddoi->dwOfs
 	] =
-		input::keyboard::key(
-			//k.name() + key_name,
-			instance.conv_.create_key_code(
-				_ddoi->dwOfs
-			),
-			key_name.size() == 1
-			?
-				key_name[0]
-			:
-				0
-			)
+		instance.conv_.create_key_code(
+			_ddoi->dwOfs
 		);
 
 	return DIENUM_CONTINUE;

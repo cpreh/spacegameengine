@@ -18,47 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/keyboard/key.hpp>
+#ifndef SGE_DINPUT_KEYBOARD_PTR_HPP_INCLUDED
+#define SGE_DINPUT_KEYBOARD_PTR_HPP_INCLUDED
 
-sge::input::keyboard::key::key(
-	key_code::type const _code,
-	keyboard::char_type const _character
-)
-:
-	code_(_code),
-	character_(_character)
+#include "keyboard_fwd.hpp"
+#include <fcppt/shared_ptr.hpp>
+
+namespace sge
 {
+namespace dinput
+{
+
+typedef fcppt::shared_ptr<
+	dinput::keyboard
+> keyboard_ptr;
+
+}
 }
 
-sge::input::keyboard::key_code::type
-sge::input::keyboard::key::code() const
-{
-	return code_;
-}
-
-sge::input::keyboard::char_type
-sge::input::keyboard::key::character() const
-{
-	return character_;
-}
-
-bool
-sge::input::keyboard::operator==(
-	keyboard::key const &_a,
-	keyboard::key const &_b
-)
-{
-	return
-		_a.code() == _b.code()
-		&& _a.character() == _b.character();
-}
-
-bool
-sge::input::keyboard::operator!=(
-	keyboard::key const &_a,
-	keyboard::key const &_b
-)
-{
-	return
-		!(_a == _b);
-}
+#endif

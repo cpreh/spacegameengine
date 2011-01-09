@@ -19,9 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../device.hpp"
-#include <sge/windows/window.hpp>
-#include <sge/exception.hpp>
-#include <fcppt/nonassignable.hpp>
+#include "../device_parameters.hpp"
+#include "../di.hpp"
+#include <sge/input/exception.hpp>
+#include <awl/backends/windows/window/instance.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 
@@ -29,7 +30,8 @@ namespace
 {
 
 DWORD const coop_level(
-	DISCL_FOREGROUND | DISCL_EXCLUSIVE);
+	DISCL_FOREGROUND | DISCL_EXCLUSIVE
+);
 
 DIPROPDWORD const buffer_settings = {
 	{
@@ -39,26 +41,6 @@ DIPROPDWORD const buffer_settings = {
 		DIPH_DEVICE,
 	},
 	sge::dinput::device::buffer_size
-};
-
-class activate_handler {
-	FCPPT_NONASSIGNABLE(
-		activate_handler
-	)
-public:
-	typedef sge::windows::callback_return_type result_type;
-
-	explicit activate_handler(
-		sge::dinput::device &);
-
-	result_type const
-	operator()(
-		sge::windows::window &,
-		sge::windows::event_type,
-		WPARAM,
-		LPARAM) const;
-private:
-	sge::dinput::device &device;
 };
 
 }
@@ -98,28 +80,17 @@ sge::dinput::device::unacquire()
 }
 
 sge::dinput::device::device(
-	dinput_ptr const _di,
-	fcppt::string const &_name,
-	GUID const _guid,
-	awl::backends::windows::window::instance_ptr const _window
+	dinput::device_parameters const &_param
 )
 :
-	name_(name_),
-	activate_connection_(
-		_window->register_callback(
-			WM_ACTIVATE,
-			activate_handler(
-				*this
-			)
-		)
-	),
+	name_(_param.name()),
 	device_()
 {
-	direct_input_device* ret;
+	IDirectInputDevice8 *ret;
 	
 	if(
-		_di->CreateDevice(
-			_guid,
+		_param.instance()->CreateDevice(
+			_param.guid(),
 			&ret,
 			0
 		)
@@ -134,7 +105,7 @@ sge::dinput::device::device(
 	);
 
 	this->set_cooperative_level(
-		_window->hwnd(),
+		_param.window()->hwnd(),
 		coop_level
 	);
 
@@ -157,7 +128,7 @@ sge::dinput::device::set_cooperative_level(
 		)
 		!= DI_OK
 	)
-		throw sge::dinput::exception(
+		throw sge::input::exception(
 			FCPPT_TEXT("SetCooperativeLevel() failed!")
 		);
 }
@@ -214,7 +185,7 @@ sge::dinput::device::get_input(
 	DWORD &_elements
 )
 {
-	_elements = static_cast<DWORD>(data.size());
+	_elements = static_cast<DWORD>(_data.size());
 
 	HRESULT const result(
 		device_->GetDeviceData(
@@ -238,7 +209,7 @@ sge::dinput::device::get_input(
 		return
 			this->get_input(
 				_data,
-				_elements,
+				_elements
 			);
 	case DIERR_NOTACQUIRED:
 		this->acquire();
@@ -279,30 +250,3 @@ sge::dinput::device::name() const
 #ifndef _MSC_VER
 std::size_t const sge::dinput::device::buffer_size;
 #endif
-
-namespace
-{
-
-activate_handler::activate_handler(
-	sge::dinput::device &device)
-:
-	device(device)
-{}
-
-activate_handler::result_type const
-activate_handler::operator()(
-	sge::windows::window &,
-	sge::windows::event_type,
-	WPARAM const wparam,
-	LPARAM) const
-{
-	bool const active = wparam != 0 ? true : false;
-	if(active)
-		device.acquire();
-	else
-		device.unacquire();
-
-	return sge::windows::callback_return_type();
-}
-
-}

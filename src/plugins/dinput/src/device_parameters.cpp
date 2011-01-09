@@ -18,47 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/keyboard/key.hpp>
+#include "../device_parameters.hpp"
 
-sge::input::keyboard::key::key(
-	key_code::type const _code,
-	keyboard::char_type const _character
+sge::dinput::device_parameters::device_parameters(
+		dinput::dinput_ptr const _instance,
+		fcppt::string const &_name,
+		GUID const _guid,
+		awl::backends::windows::window::instance_ptr const _window
 )
 :
-	code_(_code),
-	character_(_character)
+	instance_(_instance),
+	name_(_name),
+	guid_(_guid),
+	window_(_window)
 {
 }
 
-sge::input::keyboard::key_code::type
-sge::input::keyboard::key::code() const
+sge::dinput::dinput_ptr const
+sge::dinput::device_parameters::instance() const
 {
-	return code_;
+	return instance_;
 }
 
-sge::input::keyboard::char_type
-sge::input::keyboard::key::character() const
+fcppt::string const
+sge::dinput::device_parameters::name() const
 {
-	return character_;
+	return name_;
 }
 
-bool
-sge::input::keyboard::operator==(
-	keyboard::key const &_a,
-	keyboard::key const &_b
-)
+GUID
+sge::dinput::device_parameters::guid() const
 {
-	return
-		_a.code() == _b.code()
-		&& _a.character() == _b.character();
+	return guid_;
 }
 
-bool
-sge::input::keyboard::operator!=(
-	keyboard::key const &_a,
-	keyboard::key const &_b
-)
+awl::backends::windows::window::instance_ptr const
+sge::dinput::device_parameters::window() const
 {
-	return
-		!(_a == _b);
+	return window_;
 }

@@ -26,7 +26,7 @@ sge::dinput::key_converter::key_converter()
 :
 	key_vector_(
 		256,
-		input::keyboard::key_code::none
+		input::keyboard::key_code::unknown
 	)
 {
 	key_vector_[DIK_0] = input::keyboard::key_code::_0;
@@ -169,6 +169,10 @@ sge::dinput::key_converter::key_converter()
 			>(
 				index
 			);
+}
+
+sge::dinput::key_converter::~key_converter()
+{
 }
 
 sge::input::keyboard::key_code::type

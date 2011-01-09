@@ -19,29 +19,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../keyboard_repeat.hpp"
-#include <sge/windows/windows.hpp>
+#include <sge/input/exception.hpp>
 #include <sge/time/millisecond.hpp>
+#include <awl/backends/windows/windows.hpp>
 #include <fcppt/chrono/duration_impl.hpp>
-#include <sge/exception.hpp>
 #include <fcppt/text.hpp>
 
 sge::time::duration const
 sge::dinput::keyboard_repeat()
 {
 	int ret = 0;
+
 	if(
-		SystemParametersInfo(
+		::SystemParametersInfo(
 			SPI_GETKEYBOARDDELAY,
 			0,
 			&ret,
 			0
 		) == 0
 	)
-		throw exception(
+		throw sge::input::exception(
 			FCPPT_TEXT("SystemParametersInfo() failed!")
 		);
 
-	return time::millisecond(
-		ret * 250
-	);
+	return
+		time::millisecond(
+			ret * 250
+		);
 }

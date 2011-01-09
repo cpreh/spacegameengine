@@ -72,24 +72,25 @@ sge::dinput::keycode_to_char(
 
 	assign_state(
 		state[VK_SHIFT],
-		modifiers & sge::input::keyboard::modifier::shift
+		_modifiers & sge::input::keyboard::modifier::shift
 	);
 
 	assign_state(
 		state[VK_MENU],
-		modifiers & sge::input::keyboard::modifier::alt
+		_modifiers & sge::input::keyboard::modifier::alt
 	);
 
 	assign_state(
 		state[VK_CONTROL],
-		modifiers & sge::input::keyboard::modifier::ctrl
+		_modifiers & sge::input::keyboard::modifier::ctrl
 	);
 
 	UINT const
 		dik(
 			_conv.create_dik(
 				_key
-			),
+			)
+		),
 		vk(
 			::MapVirtualKeyEx(
 				dik,
