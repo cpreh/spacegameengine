@@ -19,14 +19,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../cursor.hpp"
+#include <awl/backends/windows/window/event/processor.hpp>
+#include <awl/backends/windows/window/event/object.hpp>
+#include <awl/backends/windows/windows.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object_impl.hpp>
+#include <fcppt/signal/shared_connection.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/optional_impl.hpp>
 
-sge::dinput::cursor::cursor()
+sge::dinput::cursor::cursor(
+	awl::backends::windows::window::event::processor_ptr const _processor
+)
 :
 	button_signal_(),
 	move_signal_(),
-	connections_()
+	connections_(
+		fcppt::assign::make_container<
+			fcppt::signal::connection_manager::container
+		>(
+			fcppt::signal::shared_connection(
+				_processor->register_callback(
+					WM_MOUSEMOVE,
+					std::tr1::bind(
+						&dinput::cursor::on_move,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+	)
 {
 }
 
@@ -69,7 +94,10 @@ sge::dinput::cursor::window_mode(
 {
 }
 
-void
-sge::dinput::cursor::dispatch()
+awl::backends::windows::window::event::return_type
+sge::dinput::cursor::on_move(
+	awl::backends::windows::window::event::object const &_event
+)
 {
+	return awl::backends::windows::window::event::return_type();
 }

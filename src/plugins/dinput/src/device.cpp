@@ -30,7 +30,7 @@ namespace
 {
 
 DWORD const coop_level(
-	DISCL_FOREGROUND | DISCL_EXCLUSIVE
+	DISCL_FOREGROUND | DISCL_NONEXCLUSIVE
 );
 
 DIPROPDWORD const buffer_settings = {

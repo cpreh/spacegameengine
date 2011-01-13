@@ -29,6 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/window_mode.hpp>
+#include <awl/backends/windows/window/event/object_fwd.hpp>
+#include <awl/backends/windows/window/event/processor_ptr.hpp>
+#include <awl/backends/windows/window/event/return_type.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object_decl.hpp>
@@ -47,7 +50,9 @@ class cursor
 		cursor
 	)
 public:
-	cursor();
+	explicit cursor(
+		awl::backends::windows::window::event::processor_ptr
+	);
 
 	~cursor();
 
@@ -68,10 +73,12 @@ public:
 	window_mode(
 		input::cursor::window_mode::type
 	);
-
-	void
-	dispatch();
 private:
+	awl::backends::windows::window::event::return_type
+	on_move(
+		awl::backends::windows::window::event::object const &
+	);
+
 	typedef fcppt::signal::object<
 		input::cursor::button_function
 	> button_signal;

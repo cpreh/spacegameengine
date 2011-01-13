@@ -40,13 +40,6 @@ sge::dinput::processor::processor(
 )
 :
 	dinput_(_dinput),
-	keyboards_(),
-	mice_(),
-	cursor_(
-		fcppt::make_shared_ptr<
-			dinput::cursor
-		>()
-	),
 	window_(_window),
 	windows_window_(
 		fcppt::dynamic_pointer_cast<
@@ -62,15 +55,22 @@ sge::dinput::processor::processor(
 			_window->awl_window_event_processor()
 		)
 	),
+	keyboards_(),
+	mice_(),
+	cursor_(
+		fcppt::make_shared_ptr<
+			dinput::cursor
+		>(
+			event_processor_
+		)
+	),
 	activate_connection_(
 		event_processor_->register_callback(
 			WM_ACTIVATE,
 			std::tr1::bind(
 				&dinput::processor::on_activate,
 				this,
-				std::tr1::placeholders::_1,
-				std::tr1::placeholders::_2,
-				std::tr1::placeholders::_3
+				std::tr1::placeholders::_1
 			)
 		)
 	),
@@ -192,13 +192,13 @@ sge::dinput::processor::dispatch()
 
 awl::backends::windows::window::event::return_type
 sge::dinput::processor::on_activate(
-	UINT,
-	WPARAM const _wparam,
-	LPARAM
+	awl::backends::windows::window::event::object const &_event
 )
 {
 #if 0
-	if(_wparam)
+	if(
+		_event.wparam()
+	)
 		device.acquire();
 	else
 		device.unacquire();

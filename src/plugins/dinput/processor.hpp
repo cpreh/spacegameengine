@@ -39,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/window/instance_ptr.hpp>
+#include <awl/backends/windows/window/event/object_fwd.hpp>
 #include <awl/backends/windows/window/event/processor_ptr.hpp>
 #include <awl/backends/windows/window/event/return_type.hpp>
 #include <awl/backends/windows/window/instance_ptr.hpp>
@@ -113,9 +114,7 @@ private:
 
 	awl::backends::windows::window::event::return_type
 	on_activate(
-		UINT,
-		WPARAM,
-		LPARAM
+		awl::backends::windows::window::event::object const &
 	);
 
 	static BOOL CALLBACK
@@ -134,18 +133,18 @@ private:
 
 	dinput::dinput_ptr const dinput_;
 
-	keyboard_vector keyboards_;
-
-	mouse_vector mice_;
-
-	dinput::cursor_ptr const cursor_;
-
 	sge::window::instance_ptr const window_;
 	
 	awl::backends::windows::window::instance_ptr const windows_window_;
 
 	awl::backends::windows::window::event::processor_ptr const event_processor_;
 
+	keyboard_vector keyboards_;
+
+	mouse_vector mice_;
+
+	dinput::cursor_ptr const cursor_;
+	
 	fcppt::signal::scoped_connection const activate_connection_;
 
 	dinput::key_converter key_conv_;
