@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "cursor_ptr.hpp"
 #include "device_fwd.hpp"
+#include "device_ptr.hpp"
 #include "di.hpp"
 #include "dinput_ptr.hpp"
 #include "key_converter.hpp"
@@ -39,12 +40,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/window/instance_ptr.hpp>
+#include <awl/backends/windows/system/event/object_fwd.hpp>
+#include <awl/backends/windows/system/event/processor_ptr.hpp>
+#include <awl/backends/windows/system/event/timer.hpp>
 #include <awl/backends/windows/window/event/object_fwd.hpp>
 #include <awl/backends/windows/window/event/processor_ptr.hpp>
 #include <awl/backends/windows/window/event/return_type.hpp>
 #include <awl/backends/windows/window/instance_ptr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/connection_manager.hpp>
 #include <vector>
 
 namespace sge
@@ -109,13 +113,22 @@ public:
 	sge::window::instance_ptr const
 	window() const;
 private:
-	void
-	dispatch();
-
 	awl::backends::windows::window::event::return_type
 	on_activate(
 		awl::backends::windows::window::event::object const &
 	);
+
+	void
+	on_timer(
+		awl::backends::windows::system::event::object const &
+	);
+
+	typedef std::vector<
+		dinput::device_ptr
+	> device_vector;
+
+	device_vector const
+	all_devices() const;
 
 	static BOOL CALLBACK
 	enum_devices_callback(
@@ -139,15 +152,19 @@ private:
 
 	awl::backends::windows::window::event::processor_ptr const event_processor_;
 
+	awl::backends::windows::system::event::processor_ptr const system_processor_;
+
 	keyboard_vector keyboards_;
 
 	mouse_vector mice_;
 
 	dinput::cursor_ptr const cursor_;
-	
-	fcppt::signal::scoped_connection const activate_connection_;
 
 	dinput::key_converter key_conv_;
+
+	awl::backends::windows::system::event::timer const poll_timer_;
+
+	fcppt::signal::connection_manager const connections_;
 };
 
 }

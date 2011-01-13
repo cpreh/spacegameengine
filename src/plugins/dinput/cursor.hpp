@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "cursor_fwd.hpp"
 #include <sge/input/cursor/button_callback.hpp>
+#include <sge/input/cursor/button_code.hpp>
 #include <sge/input/cursor/button_function.hpp>
 #include <sge/input/cursor/move_callback.hpp>
 #include <sge/input/cursor/move_function.hpp>
@@ -73,10 +74,23 @@ public:
 	window_mode(
 		input::cursor::window_mode::type
 	);
+
+	void
+	acquire();
+
+	void
+	unacquire();
 private:
 	awl::backends::windows::window::event::return_type
 	on_move(
 		awl::backends::windows::window::event::object const &
+	);
+
+	awl::backends::windows::window::event::return_type
+	on_button(
+		awl::backends::windows::window::event::object const &,
+		sge::input::cursor::button_code::type,
+		bool down
 	);
 
 	typedef fcppt::signal::object<

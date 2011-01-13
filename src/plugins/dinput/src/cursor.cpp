@@ -19,6 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../cursor.hpp"
+#include <sge/input/cursor/button_code.hpp>
+#include <sge/input/cursor/button_event.hpp>
+#include <sge/input/cursor/move_event.hpp>
+#include <sge/input/cursor/position.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
 #include <awl/backends/windows/window/event/object.hpp>
 #include <awl/backends/windows/windows.hpp>
@@ -47,6 +51,90 @@ sge::dinput::cursor::cursor(
 						&dinput::cursor::on_move,
 						this,
 						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+		(
+			fcppt::signal::shared_connection(
+				_processor->register_callback(
+					WM_LBUTTONDOWN,
+					std::tr1::bind(
+						&dinput::cursor::on_button,
+						this,
+						std::tr1::placeholders::_1,
+						sge::input::cursor::button_code::left,
+						true
+					)
+				)
+			)
+		)
+		(
+			fcppt::signal::shared_connection(
+				_processor->register_callback(
+					WM_LBUTTONUP,
+					std::tr1::bind(
+						&dinput::cursor::on_button,
+						this,
+						std::tr1::placeholders::_1,
+						sge::input::cursor::button_code::left,
+						false
+					)
+				)
+			)
+		)
+		(
+			fcppt::signal::shared_connection(
+				_processor->register_callback(
+					WM_MBUTTONDOWN,
+					std::tr1::bind(
+						&dinput::cursor::on_button,
+						this,
+						std::tr1::placeholders::_1,
+						sge::input::cursor::button_code::middle,
+						true
+					)
+				)
+			)
+		)
+		(
+			fcppt::signal::shared_connection(
+				_processor->register_callback(
+					WM_MBUTTONUP,
+					std::tr1::bind(
+						&dinput::cursor::on_button,
+						this,
+						std::tr1::placeholders::_1,
+						sge::input::cursor::button_code::middle,
+						false
+					)
+				)
+			)
+		)
+		(
+			fcppt::signal::shared_connection(
+				_processor->register_callback(
+					WM_RBUTTONDOWN,
+					std::tr1::bind(
+						&dinput::cursor::on_button,
+						this,
+						std::tr1::placeholders::_1,
+						sge::input::cursor::button_code::right,
+						true
+					)
+				)
+			)
+		)
+		(
+			fcppt::signal::shared_connection(
+				_processor->register_callback(
+					WM_RBUTTONUP,
+					std::tr1::bind(
+						&dinput::cursor::on_button,
+						this,
+						std::tr1::placeholders::_1,
+						sge::input::cursor::button_code::right,
+						false
 					)
 				)
 			)
@@ -94,10 +182,50 @@ sge::dinput::cursor::window_mode(
 {
 }
 
+void
+sge::dinput::cursor::acquire()
+{
+}
+
+void
+sge::dinput::cursor::unacquire()
+{
+}
+
 awl::backends::windows::window::event::return_type
 sge::dinput::cursor::on_move(
 	awl::backends::windows::window::event::object const &_event
 )
 {
+	move_signal_(
+		sge::input::cursor::move_event(
+			sge::input::cursor::position(
+				LOWORD(
+					_event.lparam()
+				),
+				HIWORD(
+					_event.lparam()
+				)
+			)
+		)
+	);
+
+	return awl::backends::windows::window::event::return_type();
+}
+
+awl::backends::windows::window::event::return_type
+sge::dinput::cursor::on_button(
+	awl::backends::windows::window::event::object const &,
+	sge::input::cursor::button_code::type const _code,
+	bool const _down
+)
+{
+	button_signal_(
+		sge::input::cursor::button_event(
+			_code,
+			_down
+		)
+	);
+
 	return awl::backends::windows::window::event::return_type();
 }
