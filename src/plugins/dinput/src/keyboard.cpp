@@ -132,7 +132,7 @@ sge::dinput::keyboard::dispatch()
 		);
 
 		bool const key_value(
-			(offset & 0x80)
+			(data[index].dwData & 0x80)
 			!= 0
 		);
 
