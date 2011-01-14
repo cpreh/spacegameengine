@@ -18,38 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/window_parameters.hpp>
-#include <sge/window/default_class_name.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_WINDOW_PARAMETERS_DEFAULT_CLASS_NAME_HPP_INCLUDED
+#define SGE_WINDOW_PARAMETERS_DEFAULT_CLASS_NAME_HPP_INCLUDED
 
-sge::renderer::window_parameters::window_parameters(
-	fcppt::string const &_title
-)
-:
-	title_(_title),
-	class_name_(
-		sge::window::default_class_name()
-	)
-{}
+#include <sge/symbol.hpp>
+#include <fcppt/string.hpp>
 
-sge::renderer::window_parameters &
-sge::renderer::window_parameters::class_name(
-	fcppt::string const &_class_name
-)
+namespace sge
 {
-	class_name_ = _class_name;
+namespace window
+{
 
-	return *this;
+SGE_SYMBOL
+fcppt::string const
+default_class_name();
+
+}
 }
 
-fcppt::string const &
-sge::renderer::window_parameters::title() const
-{
-	return title_;
-}
-
-fcppt::string const &
-sge::renderer::window_parameters::class_name() const
-{
-	return class_name_;
-}
+#endif

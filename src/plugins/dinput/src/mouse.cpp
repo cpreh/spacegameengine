@@ -150,10 +150,14 @@ sge::dinput::mouse::enum_mouse_keys(
 )
 {
 	dinput::mouse &instance(
-		*static_cast<
-			dinput::mouse *
+		dynamic_cast<
+			dinput::mouse &
 		>(
-			_state
+			*static_cast<
+				dinput::device *
+			>(
+				_state
+			)
 		)
 	);
 

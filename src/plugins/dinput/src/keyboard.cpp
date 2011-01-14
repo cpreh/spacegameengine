@@ -221,10 +221,14 @@ sge::dinput::keyboard::enum_keyboard_keys(
 )
 {
 	dinput::keyboard &instance(
-		*static_cast<
-			dinput::keyboard *
+		dynamic_cast<
+			dinput::keyboard &
 		>(
-			_state
+			*static_cast<
+				dinput::device *
+			>(
+				_state
+			)
 		)
 	);
 

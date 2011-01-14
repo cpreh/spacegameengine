@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/window/simple_parameters.hpp>
+#include <sge/window/default_class_name.hpp>
 
 sge::window::simple_parameters::simple_parameters(
 	fcppt::string const &_title,
@@ -26,7 +27,10 @@ sge::window::simple_parameters::simple_parameters(
 )
 :
 	title_(_title),
-	dim_(_dim)
+	dim_(_dim),
+	class_name_(
+		sge::window::default_class_name()
+	)
 {
 }
 
