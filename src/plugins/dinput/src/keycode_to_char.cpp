@@ -100,14 +100,24 @@ sge::dinput::keycode_to_char(
 			)
 		);
 
-	WORD result;
+	typedef fcppt::container::array<
+		wchar_t,
+		2
+	> result_array;
+
+	result_array result;
 
 	switch(
-		::ToAsciiEx(
+		::ToUnicodeEx(
 			vk,
 			dik,
 			state.data(),
-			&result,
+			result.data(),
+			static_cast<
+				int
+			>(
+				result.size()
+			),
 			0,
 			_kblayout
 		)
@@ -124,12 +134,9 @@ sge::dinput::keycode_to_char(
 		return 0;
 	case 1:
 		return
-			static_cast<
-				fcppt::char_type
-			>(
-				result
-			);
+			result[0];
 	case 2:
+	case -1: // indicates a dead key
 		FCPPT_LOG_WARNING(
 			sge::log::global(),
 			fcppt::log::_
