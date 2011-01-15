@@ -22,6 +22,8 @@ OPTION (ENABLE_DEVIL "Build the devil image loader plugin" ${IL_FOUND})
 OPTION (ENABLE_DINPUT "Build the direct input 8 plugin" ${DINPUT_FOUND})
 
 OPTION (ENABLE_ICONV "Build the iconv conversion plugin" ${ICONV_FOUND})
+# NOTE: Enable this by default when on Windows?
+OPTION (ENABLE_WINCONV "Build the winconv conversion plugin" 0)
 
 OPTION (ENABLE_FREETYPE "Build the freetype font plugin" ${FREETYPE_FOUND})
 
@@ -65,6 +67,10 @@ ENDIF ()
 
 IF (ENABLE_ICONV)
 	ADD_SUBDIRECTORY (iconv)
+ENDIF ()
+
+IF (ENABLE_WINCONV)
+	ADD_SUBDIRECTORY (winconv)
 ENDIF ()
 
 IF (ENABLE_MD3)
