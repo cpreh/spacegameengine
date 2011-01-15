@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/running_to_false.hpp>
 #include <sge/systems/viewport/manage_resize.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
@@ -51,8 +52,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <boost/spirit/home/phoenix/core/reference.hpp>
-#include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <iostream>
 #include <ostream>
 #include <exception>
@@ -143,7 +142,9 @@ try
 		sys.keyboard_collector()->key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
-				boost::phoenix::ref(running) = false
+				sge::systems::running_to_false(
+					running
+				)
 			)
 		)
 	);

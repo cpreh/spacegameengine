@@ -44,6 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/lit.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/running_to_false.hpp>
 #include <sge/systems/viewport/manage_resize.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
@@ -61,9 +62,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/text.hpp>
-
-#include <boost/spirit/home/phoenix/core/reference.hpp>
-#include <boost/spirit/home/phoenix/operator/self.hpp>
 
 #include <iostream>
 #include <ostream>
@@ -206,14 +204,18 @@ try
 		sys.keyboard_collector()->key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
-				boost::phoenix::ref(running) = false
+				sge::systems::running_to_false(
+					running
+				)
 			)
 		)
 	);
 
 	fcppt::signal::scoped_connection const conn2(
 		left.register_clicked(
-			boost::phoenix::ref(running) = false
+			sge::systems::running_to_false(
+				running
+			)
 		)
 	);
 
