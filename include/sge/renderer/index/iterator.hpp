@@ -18,14 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_DYNAMIC_BASIC_VIEW_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_DYNAMIC_BASIC_VIEW_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_ITERATOR_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_ITERATOR_HPP_INCLUDED
 
-#include <sge/renderer/index/dynamic/basic_view_fwd.hpp>
-#include <sge/renderer/index/dynamic/format.hpp>
-#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/index/iterator_fwd.hpp>
+#include <sge/renderer/index/detail/iterator_base.hpp>
 #include <sge/symbol.hpp>
-#include <boost/mpl/if.hpp>
 
 namespace sge
 {
@@ -33,50 +31,74 @@ namespace renderer
 {
 namespace index
 {
-namespace dynamic
-{
 
 template<
-	bool IsConst
+	typename Format
 >
-class basic_view
+class iterator
+:
+	public detail::iterator_base<
+		Format
+	>::type
 {
 public:
-	typedef typename boost::mpl::if_c<
-		IsConst,
-		renderer::const_raw_poiner,
-		renderer::raw_pointer
-	>::type pointer;
-		
-	typedef renderer::size_type size_type;
+	typedef detail::iterator_base<
+		Format
+	> base;
+
+	typedef typename base::value_type value_type;
+
+	typedef typename base::reference reference;
+
+	typedef typename base::pointer pointer;
+
+	typedef typename base::difference_type difference_type;
+
+	typedef typename base::iterator_category iterator_category;
 
 	SGE_SYMBOL
-	explicit basic_view(
-		pointer,
-		size_type,
-		dynamic::format::type
+	explicit iterator(
+		pointer
 	);
-	
-	SGE_SYMBOL
-	pointer
-	data() const;
+
+	typedef index::iterator<
+		typename index::to_nonconst_format<
+			Format
+		>::type
+	> nonconst_iterator;
 
 	SGE_SYMBOL
-	size_type
-	size() const;
-
-	SGE_SYMBOL
-	dynamic::format::type
-	format() const;
+	iterator(
+		nonconst_iterator const &
+	);
 private:
+	void
+	advance(
+		difference_type
+	);
+
+	void
+	increment();
+
+	void
+	decrement();
+
+	bool
+	equal(
+		iterator const &
+	) const;
+
+	difference_type
+	distance_to(
+		iterator const &
+	) const;
+
+	reference
+	dereference() const;
+
 	pointer data_;
-
-	size_type size_;
-
-	dynamic::format::type format_;
 };
 
-}
 }
 }
 }

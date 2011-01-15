@@ -18,12 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../index_buffer_base.hpp"
+#ifndef SGE_RENDERER_INDEX_DIFFERENCE_TYPE_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_DIFFERENCE_TYPE_HPP_INCLUDED
 
-sge::opengl::index_buffer_base::index_buffer_base()
+#include <sge/renderer/index/size_type.hpp>
+#include <boost/type_traits/make_signed.hpp>
+
+namespace sge
 {
+namespace renderer
+{
+namespace index
+{
+
+typedef boost::make_signed<
+	index::size_type
+>::type difference_type;
+
+}
+}
 }
 
-sge::opengl::index_buffer_base::~index_buffer_base()
-{
-}
+#endif

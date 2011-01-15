@@ -39,8 +39,7 @@ namespace detail
 template<
 	typename VertexFormat
 >
-struct
-iterator_base
+struct iterator_base
 {
 	typedef boost::iterator_facade<
 		vf::iterator<

@@ -22,12 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_INDEX_VIEW_HPP_INCLUDED
 
 #include <sge/renderer/index/view_fwd.hpp>
+#include <sge/renderer/index/const_tag.hpp>
+#include <sge/renderer/index/format_fwd.hpp>
 #include <sge/renderer/index/is_format.hpp>
-#include <sge/renderer/index/dynamic/format.hpp>
+#include <sge/renderer/index/iterator_fwd.hpp>
+#include <sge/renderer/index/size_type.hpp>
+#include <sge/renderer/index/to_nonconst_format.hpp>
 #include <sge/renderer/index/dynamic/basic_view_fwd.hpp>
-#include <sge/renderer/size_type.hpp>
 #include <sge/symbol.hpp>
-#include <boost/type_traits/is_const.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <boost/static_assert.hpp>
 
 namespace sge
@@ -44,29 +47,33 @@ class view
 {
 public:
 	BOOST_STATIC_ASSERT(
-		is_format<
+		index::is_format<
 			Format
 		>::value
 	);
 
 	typedef Format format_type;
 
-	typedef typename format_type::type value_type;
-	typedef value_type &reference;
-	typedef value_type *pointer;
-	typedef pointer iterator;
+	typedef typename format_type::index_type value_type;
 
-	typedef view<
-		typename Format::const_type
-	> const_type;
+	typedef typename format_type::pointer pointer;
 
-	typedef view<
-		typename Format::nonconst_type
+	typedef renderer::index::size_type size_type;
+
+	typedef index::iterator<
+		Format
+	> iterator;
+
+	typedef index::view<
+		typename index::to_nonconst_format<
+			Format
+		>::type
 	> nonconst_type;
 
 	typedef dynamic::basic_view<
-		boost::is_const<
-			value_type
+		boost::is_same<
+			Constness,
+			index::const_tag
 		>::value
 	> dynamic_view_type;		
 
@@ -75,7 +82,7 @@ public:
 		size_type
 	);
 
-	SGE_SYMBOL view(
+	SGE_SYMBOL explicit view(
 		nonconst_type const &
 	);
 
@@ -94,9 +101,6 @@ public:
 
 	SGE_SYMBOL iterator
 	end() const;
-
-	SGE_SYMBOL index::dynamic::format::type
-	format() const;
 private:
 	pointer data_;
 

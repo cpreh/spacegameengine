@@ -18,43 +18,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_IS_FORMAT_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_IS_FORMAT_HPP_INCLUDED
-
-#include <sge/renderer/index/format_fwd.hpp>
-#include <boost/type_traits/integral_constant.hpp>
-
-namespace sge
-{
-namespace renderer
-{
-namespace index
-{
+#include <sge/renderer/index/const_proxy.hpp>
+#include <sge/renderer/index/const_format_16.hpp>
+#include <sge/renderer/index/const_format_32.hpp>
+#include <fcppt/export_symbol.hpp>
+#include <cstring>
 
 template<
 	typename Format
 >
-struct is_format
+sge::renderer::index::const_proxy<Format>::const_proxy(
+	pointer const _data
+)
 :
-boost::false_type
-{};
+	data_(_data)
+{
+}
 
 template<
-	typename Index,
-	typename Constness
+	typename Format
 >
-struct is_format<
-	index::format<
-		Index,
-		Constness
-	>
->
-:
-boost::true_type
-{};
+typename sge::renderer::index::const_proxy<Format>::value_type
+sge::renderer::index::const_proxy<Format>::get() const
+{
+	value_type ret;
 
-}
-}
+	std::memcpy(
+		&ret,
+		sizeof(value_type),
+		data_
+	);
+
+	return ret;
 }
 
-#endif
+#define SGE_RENDERER_INDEX_DEFINE_CONST_PROXY(\
+	format\
+)\
+template FCPPT_EXPORT_SYMBOL \
+class sge::renderer::index::const_proxy<\
+	format\
+>;
+
+SGE_RENDERER_INDEX_DEFINE_CONST_PROXY(
+	sge::renderer::index::const_format_16
+)
+
+SGE_RENDERER_INDEX_DEFINE_CONST_PROXY(
+	sge::renderer::index::const_format_32
+)
+
+#undef SGE_RENDERER_INDEX_DEFINE_CONST_PROXY

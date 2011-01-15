@@ -55,43 +55,56 @@ public:
 	typedef vertex_size size_type;
 
 	explicit view(
-		dynamic_view_type const &v
+		dynamic_view_type const &_view
 	)
 	:
-		data(v.data()),
-		size(v.size())
+		data_(
+			_view.data()
+		),
+		size_(
+			_view.size()
+		)
 	{}
 
 	template<
 		typename OtherView
 	>
 	explicit view(
-		dynamic::basic_view<OtherView> const &v
+		dynamic::basic_view<
+			OtherView
+		> const &_view
 	)
 	:
-		data(v.data()),
-		size(v.size())
+		data_(
+			_view.data()
+		),
+		size_(
+			_view.size()
+		)
 	{}
 
 	iterator
 	begin() const
 	{
-		return iterator(
-			data
-		);
+		return
+			iterator(
+				data_
+			);
 	}
 
 	iterator
 	end() const
 	{
-		return iterator(
-			data + size
-		);
+		return
+			iterator(
+				data_
+				+ size_
+			);
 	}
 private:
-	pointer   const data;
+	pointer const data_;
 
-	size_type const size;
+	size_type const size_;
 };
 
 }

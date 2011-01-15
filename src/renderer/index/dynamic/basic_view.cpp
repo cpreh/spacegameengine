@@ -21,64 +21,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/dynamic/basic_view.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <fcppt/variant/object_impl.hpp>
-#include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/export_symbol.hpp>
-
-namespace
-{
-
-struct view_size_visitor
-{
-	typedef sge::renderer::size_type result_type;
-
-	template<
-		typename T
-	>
-	result_type
-	operator()(
-		T const &_t
-	) const
-	{
-		return _t.size();
-	}
-};
-
-struct view_format_visitor
-{
-	typedef sge::renderer::index::dynamic::format::type result_type;
-
-	template<
-		typename T
-	>
-	result_type
-	operator()(
-		T const &_t
-	) const
-	{
-		return _t.format();
-	}
-};
-
-}
 
 template<
 	bool IsConst
 >
 sge::renderer::index::dynamic::basic_view<IsConst>::basic_view(
-	any_type const &_any
+	pointer const _data,
+	size_type const _size,
+	dynamic::format::type const _format
 )
 :
-	any_(_any)
+	data_(_data),
+	size_(_size),
+	format_(_format)
 {}
 	
 template<
 	bool IsConst
 >
-typename sge::renderer::index::dynamic::basic_view<IsConst>::any_type const &
-sge::renderer::index::dynamic::basic_view<IsConst>::any() const
+typename sge::renderer::index::dynamic::basic_view<IsConst>::pointer
+sge::renderer::index::dynamic::basic_view<IsConst>::data() const
 {
-	return any_;
+	return data_;
 }
 
 template<
@@ -87,11 +52,7 @@ template<
 sge::renderer::size_type
 sge::renderer::index::dynamic::basic_view<IsConst>::size() const
 {
-	return
-		fcppt::variant::apply_unary(
-			::view_size_visitor(),
-			any()
-		);
+	return size_;
 }
 
 template<
@@ -100,11 +61,7 @@ template<
 sge::renderer::index::dynamic::format::type
 sge::renderer::index::dynamic::basic_view<IsConst>::format() const
 {
-	return 
-		fcppt::variant::apply_unary(
-			::view_format_visitor(),
-			any()
-		);
+	return format_;
 }
 
 #define SGE_RENDERER_INDEX_DYNAMIC_DEFINE_BASIC_VIEW(x)\

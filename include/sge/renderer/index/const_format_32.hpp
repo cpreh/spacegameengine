@@ -18,13 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_FORMAT_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_FORMAT_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_CONST_FORMAT_32_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_CONST_FORMAT_32_HPP_INCLUDED
 
 #include <sge/renderer/index/format_fwd.hpp>
+#include <sge/renderer/index/i32.hpp>
 #include <sge/renderer/index/const_tag.hpp>
-#include <sge/renderer/const_raw_pointer.hpp>
-#include <sge/renderer/raw_pointer.hpp>
 
 namespace sge
 {
@@ -33,25 +32,10 @@ namespace renderer
 namespace index
 {
 
-template<
-	typename Index,
-	typename Constness
->
-struct format
-{
-	typedef Index index_type;
-
-	typedef Constness constness;
-
-	typedef typename boost::mpl::if_<
-		boost::is_same<
-			Constness,
-			index::const_tag
-		>,
-		renderer::const_raw_pointer,
-		renderer::raw_pointer
-	>::type pointer;
-};
+typedef index::format<
+	index::i32,
+	index::const_tag
+> const_format_32;
 
 }
 }

@@ -18,12 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_DYNAMIC_VIEW_FORMAT_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_DYNAMIC_VIEW_FORMAT_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_TO_NONCONST_FORMAT_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_TO_NONCONST_FORMAT_HPP_INCLUDED
 
-#include <sge/renderer/index/dynamic/const_view.hpp>
-#include <sge/renderer/index/dynamic/format.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/index/format.hpp>
+#include <sge/renderer/index/nonconst_tag.hpp>
 
 namespace sge
 {
@@ -31,15 +30,18 @@ namespace renderer
 {
 namespace index
 {
-namespace dynamic
+
+template<
+	typename Format
+>
+struct to_nonconst_format
 {
+	typedef index::format<
+		typename Format::index_type,
+		index::nonconst_tag
+	> type;
+};
 
-SGE_SYMBOL format::type
-view_format(
-	const_view const &
-);
-
-}
 }
 }
 }

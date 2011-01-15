@@ -18,13 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_FORMAT_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_FORMAT_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_DETAIL_ITERATOR_BASE_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_DETAIL_ITERATOR_BASE_HPP_INCLUDED
 
-#include <sge/renderer/index/format_fwd.hpp>
-#include <sge/renderer/index/const_tag.hpp>
-#include <sge/renderer/const_raw_pointer.hpp>
-#include <sge/renderer/raw_pointer.hpp>
+#include <sge/renderer/index/const_proxy_fwd.hpp>
+#include <sge/renderer/index/difference_type.hpp>
+#include <sge/renderer/index/iterator_fwd.hpp>
+#include <sge/renderer/index/nonconst_tag.hpp>
+#include <sge/renderer/index/proxy_fwd.hpp>
+#include <boost/iterator/iterator_facade.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <iterator>
 
 namespace sge
 {
@@ -32,27 +37,37 @@ namespace renderer
 {
 namespace index
 {
+namespace detail
+{
 
 template<
-	typename Index,
-	typename Constness
+	typename Format
 >
-struct format
+struct iterator_base
 {
-	typedef Index index_type;
-
-	typedef Constness constness;
-
-	typedef typename boost::mpl::if_<
-		boost::is_same<
-			Constness,
-			index::const_tag
+	typedef boost::iterator_facade<
+		index::iterator<
+			Format
 		>,
-		renderer::const_raw_pointer,
-		renderer::raw_pointer
-	>::type pointer;
+		typename Format::index_type,
+		std::random_access_iterator_tag,
+		typename boost::mpl::if_<
+			boost::is_same<
+				typename Format::constness,
+				index::nonconst_tag
+			>,
+			index::proxy<
+				Format
+			>,
+			index::const_proxy<
+				Format
+			>
+		>::type,
+		index::difference_type
+	> type;
 };
 
+}
 }
 }
 }

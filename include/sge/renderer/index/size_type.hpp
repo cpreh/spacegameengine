@@ -18,38 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_INDEX_BUFFER_BASE_HPP_INCLUDED
-#define SGE_OPENGL_INDEX_BUFFER_BASE_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_SIZE_TYPE_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_SIZE_TYPE_HPP_INCLUDED
 
-#include "common.hpp"
-#include <sge/renderer/index_buffer.hpp>
+#include <cstddef>
 
 namespace sge
 {
-namespace opengl
+namespace renderer
+{
+namespace index
 {
 
-class index_buffer_base
-:
-	public renderer::index_buffer
-{
-protected:
-	index_buffer_base();
-public:
-	virtual GLenum
-	gl_format() const = 0;
+typedef std::size_t size_type;
 
-	virtual void *
-	buffer_offset(
-		size_type
-	) const = 0;
-
-	virtual void
-	bind_me() const = 0;
-
-	virtual ~index_buffer_base();
-};
-
+}
 }
 }
 

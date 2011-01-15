@@ -18,13 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_FORMAT_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_FORMAT_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_PROXY_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_PROXY_HPP_INCLUDED
 
-#include <sge/renderer/index/format_fwd.hpp>
-#include <sge/renderer/index/const_tag.hpp>
-#include <sge/renderer/const_raw_pointer.hpp>
-#include <sge/renderer/raw_pointer.hpp>
+#include <sge/renderer/index/proxy_fwd.hpp>
+#include <sge/renderer/index/nonconst_tag.hpp>
+#include <sge/symbol.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/static_assert.hpp>
 
 namespace sge
 {
@@ -34,23 +35,38 @@ namespace index
 {
 
 template<
-	typename Index,
-	typename Constness
+	typename Format
 >
-struct format
+class proxy
 {
-	typedef Index index_type;
-
-	typedef Constness constness;
-
-	typedef typename boost::mpl::if_<
+public:
+	BOOST_STATIC_ASSERT((
 		boost::is_same<
-			Constness,
-			index::const_tag
-		>,
-		renderer::const_raw_pointer,
-		renderer::raw_pointer
-	>::type pointer;
+			typename Format::constness,
+			format::nonconst_tag
+		>::value
+	));
+
+	typedef typename Format::value_type value_type;
+
+	typedef typename Format::pointer pointer;
+
+	SGE_SYMBOL
+	explicit proxy(
+		pointer
+	);
+
+	SGE_SYMBOL
+	void
+	set(
+		value_type
+	);
+
+	SGE_SYMBOL
+	value_type
+	get() const;
+private:
+	pointer data_;
 };
 
 }

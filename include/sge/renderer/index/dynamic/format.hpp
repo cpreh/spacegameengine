@@ -32,7 +32,8 @@ namespace dynamic
 
 namespace format
 {
-enum type {
+enum type
+{
 	i16,
 	i32
 };

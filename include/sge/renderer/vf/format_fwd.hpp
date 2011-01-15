@@ -32,7 +32,7 @@ namespace vf
 
 template<
 	typename ElementList,
-	typename Constness = nonconst_tag
+	typename Constness = vf::nonconst_tag
 >
 struct format;
 

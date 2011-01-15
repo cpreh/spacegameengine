@@ -152,15 +152,15 @@ sge::opengl::device::render(
 	renderer::first_index const _first_index
 )
 {
-	index_buffer_base const & gl_ib(
+	opengl::index_buffer const & gl_ib(
 		dynamic_cast<
-			index_buffer_base const &
+			opengl::index_buffer_base const &
 		>(
 			*_ib
 		)
 	);
 
-	gl_ib.bind_me();
+	gl_ib.bind();
 
 	glDrawElements(
 		convert::indexed_primitive(
@@ -187,17 +187,25 @@ sge::opengl::device::render(
 
 void
 sge::opengl::device::render(
-	renderer::first_vertex const first_vertex,
-	renderer::vertex_count const num_vertices,
-	renderer::nonindexed_primitive_type::type const ptype
+	renderer::first_vertex const _first_vertex,
+	renderer::vertex_count const _num_vertices,
+	renderer::nonindexed_primitive_type::type const _ptype
 )
 {
-	glDrawArrays(
+	::glDrawArrays(
 		convert::nonindexed_primitive(
-			ptype
+			_ptype
 		),
-		static_cast<GLsizei>(first_vertex),
-		static_cast<GLint>(num_vertices)
+		static_cast<
+			GLsizei
+		>(
+			_first_vertex
+		),
+		static_cast<
+			GLint
+		>(
+			_num_vertices
+		)
 	);
 
 	SGE_OPENGL_CHECK_STATE(
@@ -208,25 +216,25 @@ sge::opengl::device::render(
 
 void
 sge::opengl::device::set_vertex_buffer(
-	renderer::const_vertex_buffer_ptr const vb
+	renderer::const_vertex_buffer_ptr const _vb
 )
 {
 	dynamic_cast<
 		opengl::vertex_buffer const &
 	>(
-		*vb
+		*_vb
 	).set_format();
 }
 
 void
 sge::opengl::device::unset_vertex_buffer(
-	renderer::const_vertex_buffer_ptr const vb
+	renderer::const_vertex_buffer_ptr const _vb
 )
 {
 	dynamic_cast<
 		opengl::vertex_buffer const &
 	>(
-		*vb
+		*_vb
 	).unset_format();
 }
 
@@ -269,11 +277,11 @@ sge::opengl::device::pop_state()
 
 void
 sge::opengl::device::material(
-	renderer::material const &mat
+	renderer::material const &_mat
 )
 {
 	opengl::set_material(
-		mat
+		_mat
 	);
 }
 
@@ -559,90 +567,70 @@ sge::opengl::device::create_depth_stencil_texture(
 
 sge::renderer::cube_texture_ptr const
 sge::opengl::device::create_cube_texture(
-	renderer::size_type const border_size,
-	image::color::format::type const format,
-	renderer::filter::texture const &filter,
-	renderer::resource_flags_field const &flags
+	renderer::size_type const _border_size,
+	image::color::format::type const _format,
+	renderer::filter::texture const &_filter,
+	renderer::resource_flags_field const &_flags
 )
 {
-	return renderer::cube_texture_ptr(
-		fcppt::make_shared_ptr<
-			cube_texture
-		>(
-			std::tr1::ref(
-				context_
-			),
-			border_size,
-			format,
-			filter,
-			flags
-		)
-	);
+	return
+		renderer::cube_texture_ptr(
+			fcppt::make_shared_ptr<
+				opengl::cube_texture
+			>(
+				std::tr1::ref(
+					context_
+				),
+				_border_size,
+				_format,
+				_filter,
+				_flags
+			)
+		);
 }
 
 sge::renderer::vertex_buffer_ptr const
 sge::opengl::device::create_vertex_buffer(
-	renderer::vf::dynamic::format const &format,
-	renderer::size_type const sz,
-	renderer::resource_flags_field const &flags
+	renderer::vf::dynamic::format const &_format,
+	renderer::size_type const _size,
+	renderer::resource_flags_field const &_flags
 )
 {
-	return renderer::vertex_buffer_ptr(
-		fcppt::make_shared_ptr<
-			opengl::vertex_buffer
-		>(
-			std::tr1::ref(
-				context_
-			),
-			format,
-			sz,
-			flags
-		)
-	);
+	return
+		renderer::vertex_buffer_ptr(
+			fcppt::make_shared_ptr<
+				opengl::vertex_buffer
+			>(
+				std::tr1::ref(
+					context_
+				),
+				_format,
+				_size,
+				_flags
+			)
+		);
 }
 
 sge::renderer::index_buffer_ptr const
 sge::opengl::device::create_index_buffer(
-	renderer::index::dynamic::format::type const format,
-	renderer::size_type const sz,
-	renderer::resource_flags_field const &flags
+	renderer::index::dynamic::format::type const _format,
+	renderer::size_type const _size,
+	renderer::resource_flags_field const &_flags
 )
 {
-	switch(format)
-	{
-	case renderer::index::dynamic::format::i16:
-		return renderer::index_buffer_ptr(
+	return
+		renderer::index_buffer_ptr(
 			fcppt::make_shared_ptr<
-				opengl::index_buffer<
-					sge::renderer::index::i16
-				>
+				opengl::index_buffer
 			>(
 				std::tr1::ref(
 					context_
 				),
-				sz,
-				flags
+				_format,
+				_size,
+				_flags
 			)
 		);
-	case renderer::index::dynamic::format::i32:
-		return renderer::index_buffer_ptr(
-			fcppt::make_shared_ptr<
-				opengl::index_buffer<
-					sge::renderer::index::i32
-				>
-			>(
-				std::tr1::ref(
-					context_
-				),
-				sz,
-				flags
-			)
-		);
-	}
-
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid index::format!")
-	);
 }
 
 sge::renderer::volume_texture_ptr const

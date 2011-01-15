@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDEX_FORMAT_FWD_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_FORMAT_FWD_HPP_INCLUDED
 
+#include <sge/renderer/index/nonconst_tag.hpp>
+
 namespace sge
 {
 namespace renderer
@@ -29,7 +31,8 @@ namespace index
 {
 
 template<
-	typename Index
+	typename Index,
+	typename Constness = index::nonconst_tag
 >
 struct format;
 

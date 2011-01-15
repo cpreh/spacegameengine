@@ -63,10 +63,10 @@ struct format
 	typedef typename boost::mpl::if_<
 		boost::is_same<
 			Constness,
-			const_tag
+			vf::const_tag
 		>,
-		const_raw_pointer,
-		raw_pointer
+		renderer::const_raw_pointer,
+		renderer::raw_pointer
 	>::type pointer;
 };
 

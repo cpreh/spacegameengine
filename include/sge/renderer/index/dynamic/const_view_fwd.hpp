@@ -32,7 +32,7 @@ namespace index
 namespace dynamic
 {
 
-typedef basic_view<
+typedef index::dynamic::basic_view<
 	true
 > const_view;
 

@@ -21,27 +21,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_INDEX_BUFFER_HPP_INCLUDED
 #define SGE_OPENGL_INDEX_BUFFER_HPP_INCLUDED
 
-#include "common.hpp"
-#include "index_buffer_base.hpp"
 #include "buffer.hpp"
+#include "common.hpp"
 #include "context/object_fwd.hpp"
+#include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/index_buffer.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 
 namespace sge
 {
 namespace opengl
 {
 
-template<
-	typename T
->
 class index_buffer
 :
-	public index_buffer_base
+	public sge::renderer::index_buffer
 {
+	FCPPT_NONCOPYABLE(
+		index_buffer
+	)
 public:
 	index_buffer(
 		context::object &,
+		renderer::index::dynamic::format::type,
 		size_type,
 		renderer::resource_flags_field const &
 	);
@@ -55,7 +57,7 @@ public:
 	) const;
 
 	void
-	bind_me() const;
+	bind() const;
 private:
 	view_type const
 	lock(
@@ -82,7 +84,9 @@ private:
 	renderer::index::dynamic::format::type
 	format() const;
 
-	mutable buffer buf;
+	renderer::index::dynamic::format::type const format_;
+
+	mutable buffer buffer_;
 };
 
 }
