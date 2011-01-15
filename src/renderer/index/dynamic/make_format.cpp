@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2010 Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2011 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "format_traits.hpp"
+#include "format_enum_static.hpp"
+#include "../instantiate_all.hpp"
 #include <sge/renderer/index/dynamic/make_format.hpp>
-#include <sge/renderer/index/format.hpp>
 #include <fcppt/export_symbol.hpp>
 #include <boost/type_traits/remove_const.hpp>
 
@@ -31,37 +31,23 @@ sge::renderer::index::dynamic::format::type
 sge::renderer::index::dynamic::make_format()
 {
 	return
-		format_traits<
-			typename boost::remove_const<
-				typename Format::type
-			>::type
+		index::dynamic::format_enum_static<
+			Format
 		>::value;
 }
 
-#define SGE_RENDERER_INDEX_DYNAMIC_INSTANTIATE_MAKE_FORMAT(x)\
+#define SGE_RENDERER_INDEX_DYNAMIC_INSTANTIATE_MAKE_FORMAT(\
+	cur_format\
+)\
 template \
 FCPPT_EXPORT_SYMBOL \
 sge::renderer::index::dynamic::format::type \
 sge::renderer::index::dynamic::make_format<\
-	sge::renderer::index::format<\
-		x\
-	> \
+	cur_format \
 >();
 
-SGE_RENDERER_INDEX_DYNAMIC_INSTANTIATE_MAKE_FORMAT(
-	sge::renderer::index::i16
-)
-
-SGE_RENDERER_INDEX_DYNAMIC_INSTANTIATE_MAKE_FORMAT(
-	sge::renderer::index::i16 const
-)
-
-SGE_RENDERER_INDEX_DYNAMIC_INSTANTIATE_MAKE_FORMAT(
-	sge::renderer::index::i32
-)
-
-SGE_RENDERER_INDEX_DYNAMIC_INSTANTIATE_MAKE_FORMAT(
-	sge::renderer::index::i32 const
+SGE_RENDERER_INDEX_INSTANTIATE_ALL(
+	SGE_RENDERER_INDEX_DYNAMIC_INSTANTIATE_MAKE_FORMAT
 )
 
 #undef SGE_RENDERER_INDEX_DYNAMIC_INSTANTIATE_MAKE_FORMAT

@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2010 Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2011 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,19 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_DYNAMIC_DETAIL_VARIANT_TYPES_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_DYNAMIC_DETAIL_VARIANT_TYPES_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_DETAIL_ITERATOR_BASE_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_DETAIL_ITERATOR_BASE_HPP_INCLUDED
 
-#include <sge/renderer/index/i16.hpp>
-#include <sge/renderer/index/i32.hpp>
-#include <boost/mpl/transform.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/bool.hpp>
+#include <sge/renderer/index/const_proxy_fwd.hpp>
+#include <sge/renderer/index/difference_type.hpp>
+#include <sge/renderer/index/iterator_fwd.hpp>
+#include <sge/renderer/index/nonconst_tag.hpp>
+#include <sge/renderer/index/proxy_fwd.hpp>
+#include <boost/iterator/iterator_facade.hpp>
 #include <boost/mpl/if.hpp>
-#include <boost/mpl/identity.hpp>
-#include <boost/mpl/lambda.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-#include <boost/type_traits/add_const.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <iterator>
 
 namespace sge
 {
@@ -38,42 +37,39 @@ namespace renderer
 {
 namespace index
 {
-namespace dynamic
-{
 namespace detail
 {
 
 template<
-	bool IsConst
+	typename Format
 >
-struct variant_types
-:
-boost::mpl::transform<
-	boost::mpl::vector2<
-		index::i16,
-		index::i32
-	>,
-	boost::mpl::if_<
-		boost::mpl::bool_<
-			IsConst
+struct iterator_base
+{
+	typedef boost::iterator_facade<
+		index::iterator<
+			Format
 		>,
-		boost::mpl::lambda<
-			boost::add_const<
-				boost::mpl::_1
+		typename Format::index_type,
+		std::random_access_iterator_tag,
+		typename boost::mpl::if_<
+			boost::is_same<
+				typename Format::constness,
+				index::nonconst_tag
+			>,
+			index::proxy<
+				Format
+			>,
+			index::const_proxy<
+				Format
 			>
-		>,
-		boost::mpl::identity<
-			boost::mpl::_1
-		>
-	>
->
-{};
+		>::type,
+		index::difference_type
+	> type;
+};
 
-}
 }
 }
 }
 }
 
 #endif
-

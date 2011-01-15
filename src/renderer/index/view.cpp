@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2010 Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2011 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,15 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "instantiate_all.hpp"
 #include <sge/renderer/index/view.hpp>
+#include <sge/renderer/index/iterator.hpp>
 #include <sge/renderer/index/dynamic/make_format.hpp>
 #include <sge/renderer/index/dynamic/basic_view.hpp>
-#include <sge/renderer/index/format.hpp>
-#include <sge/renderer/index/i16.hpp>
-#include <sge/renderer/index/i32.hpp>
 #include <fcppt/export_symbol.hpp>
 #include <fcppt/assert.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
 template<
 	typename Format
@@ -39,7 +37,9 @@ sge::renderer::index::view<Format>::view(
 	data_(_data),
 	size_(_size)
 {
-	FCPPT_ASSERT(data_);
+	FCPPT_ASSERT(
+		data_
+	);
 }
 
 template<
@@ -62,16 +62,20 @@ sge::renderer::index::view<Format>::view(
 )
 :
 	data_(
-		_view.any(). template get<
-			view<
-				Format
-			>
-		>().data()
+		_view.data()
 	),
 	size_(
 		_view.size()
 	)
-{}
+{
+	FCPPT_ASSERT(
+		_view.format()
+		==
+		sge::renderer::index::dynamic::make_format<
+			Format
+		>()
+	)
+}
 
 template<
 	typename Format
@@ -97,7 +101,10 @@ template<
 typename sge::renderer::index::view<Format>::iterator
 sge::renderer::index::view<Format>::begin() const
 {
-	return data();
+	return
+		iterator(
+			data()
+		);
 }
 
 template<
@@ -106,42 +113,28 @@ template<
 typename sge::renderer::index::view<Format>::iterator
 sge::renderer::index::view<Format>::end() const
 {
-	return begin() + size();
-}
-
-template<
-	typename Format
->
-sge::renderer::index::dynamic::format::type
-sge::renderer::index::view<Format>::format() const
-{
 	return
-		dynamic::make_format<
-			Format
-		>();
+		iterator(
+			begin()
+			+
+			static_cast<
+				typename iterator::difference_type
+			>(
+				size()
+			)
+		);
 }
 
-#define SGE_RENDERER_INDEX_DEFINE_VIEW(x)\
-template FCPPT_EXPORT_SYMBOL class sge::renderer::index::view<\
-	sge::renderer::index::format<\
-		x\
-	> \
+#define SGE_RENDERER_INDEX_DEFINE_VIEW(\
+	format\
+)\
+template FCPPT_EXPORT_SYMBOL \
+class sge::renderer::index::view<\
+	format \
 >;
 
-SGE_RENDERER_INDEX_DEFINE_VIEW(
-	sge::renderer::index::i16
-)
-
-SGE_RENDERER_INDEX_DEFINE_VIEW(
-	sge::renderer::index::i16 const
-)
-
-SGE_RENDERER_INDEX_DEFINE_VIEW(
-	sge::renderer::index::i32
-)
-
-SGE_RENDERER_INDEX_DEFINE_VIEW(
-	sge::renderer::index::i32 const
+SGE_RENDERER_INDEX_INSTANTIATE_ALL(
+	SGE_RENDERER_INDEX_DEFINE_VIEW
 )
 
 #undef SGE_RENDERER_INDEX_DEFINE_VIEW

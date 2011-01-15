@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2010 Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2011 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,12 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../index_buffer_base.hpp"
+#ifndef SGE_IMAGE_RGB32F_FORMAT_HPP_INCLUDED
+#define SGE_IMAGE_RGB32F_FORMAT_HPP_INCLUDED
 
-sge::opengl::index_buffer_base::index_buffer_base()
+#include <sge/image/color/rgb32f_format.hpp>
+#include <sge/image/basic_format.hpp>
+#include <sge/image/size_type.hpp>
+
+namespace sge
 {
+namespace image
+{
+
+template<
+	image::size_type Dim
+>
+struct rgb32f_format
+:
+image::basic_format<
+	Dim,
+	color::rgb32f_format
+>
+{
+};
+
+}
 }
 
-sge::opengl::index_buffer_base::~index_buffer_base()
-{
-}
+#endif

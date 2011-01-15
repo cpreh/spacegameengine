@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2010 Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2011 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_DYNAMIC_DETAIL_GENERATE_VISITOR_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_DYNAMIC_DETAIL_GENERATE_VISITOR_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_TO_NONCONST_FORMAT_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_TO_NONCONST_FORMAT_HPP_INCLUDED
 
-#include <fcppt/nonassignable.hpp>
+#include <sge/renderer/index/format.hpp>
+#include <sge/renderer/index/nonconst_tag.hpp>
 
 namespace sge
 {
@@ -29,56 +30,18 @@ namespace renderer
 {
 namespace index
 {
-namespace dynamic
-{
-namespace detail
-{
 
 template<
-	typename Gen
+	typename Format
 >
-class generate_visitor
+struct to_nonconst_format
 {
-	FCPPT_NONASSIGNABLE(
-		generate_visitor
-	)
-public:
-	typedef void result_type;
-
-	explicit generate_visitor(
-		Gen const &_gen
-	)
-	:
-		gen_(_gen)
-	{}
-
-	template<
-		typename View
-	>
-	result_type
-	operator()(
-		View const &_view
-	) const
-	{
-		for(
-			typename View::iterator
-				it(
-					_view.begin()
-				),
-				end(
-					_view.end()
-				);
-			it != end;
-			++it
-		)
-			*it = gen_.operator()<typename View::value_type>();
-	}
-private:
-	Gen const gen_;
+	typedef index::format<
+		typename Format::index_type,
+		index::nonconst_tag
+	> type;
 };
 
-}
-}
 }
 }
 }

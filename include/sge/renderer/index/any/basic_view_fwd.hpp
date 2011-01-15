@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2010 Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2011 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,38 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_INDEX_BUFFER_BASE_HPP_INCLUDED
-#define SGE_OPENGL_INDEX_BUFFER_BASE_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_ANY_BASIC_VIEW_FWD_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_ANY_BASIC_VIEW_FWD_HPP_INCLUDED
 
-#include "common.hpp"
-#include <sge/renderer/index_buffer.hpp>
+#include <sge/renderer/index/any/detail/variant_types.hpp>
+#include <fcppt/variant/object_fwd.hpp>
 
 namespace sge
 {
-namespace opengl
+namespace renderer
+{
+namespace index
+{
+namespace any
 {
 
-class index_buffer_base
-:
-	public renderer::index_buffer
+template<
+	typename Constness
+>
+struct basic_view
 {
-protected:
-	index_buffer_base();
-public:
-	virtual GLenum
-	gl_format() const = 0;
-
-	virtual void *
-	buffer_offset(
-		size_type
-	) const = 0;
-
-	virtual void
-	bind_me() const = 0;
-
-	virtual ~index_buffer_base();
+	typedef fcppt::variant::object<
+		typename any::detail::variant_types<
+			Constness
+		>::type
+	> type;
 };
 
+}
+}
 }
 }
 

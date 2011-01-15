@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2010 Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2011 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -22,10 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_ALPHA8_FORMAT_HPP_INCLUDED
 
 #include <sge/image/color/alpha8_format.hpp>
+#include <sge/image/basic_format.hpp>
 #include <sge/image/size_type.hpp>
-#include <mizuiro/image/format.hpp>
-#include <mizuiro/image/dimension_impl.hpp>
-#include <mizuiro/image/interleaved.hpp>
 
 namespace sge
 {
@@ -36,15 +34,12 @@ template<
 	image::size_type Dim
 >
 struct alpha8_format
+:
+image::basic_format<
+	Dim,
+	color::alpha8_format
+>
 {
-	typedef mizuiro::image::format<
-		mizuiro::image::dimension<
-			Dim
-		>,
-		mizuiro::image::interleaved<
-			color::alpha8_format
-		>
-	> type;
 };
 
 }

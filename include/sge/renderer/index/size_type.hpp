@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2010 Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2011 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,11 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_DYNAMIC_DETAIL_MAKE_VIEW_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_DYNAMIC_DETAIL_MAKE_VIEW_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_SIZE_TYPE_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_SIZE_TYPE_HPP_INCLUDED
 
-#include <sge/renderer/index/view_fwd.hpp>
-#include <sge/renderer/index/format.hpp>
+#include <cstddef>
 
 namespace sge
 {
@@ -30,25 +29,9 @@ namespace renderer
 {
 namespace index
 {
-namespace dynamic
-{
-namespace detail
-{
 
-template<
-	typename Element
->
-struct make_view
-{
-	typedef index::view<
-		index::format<
-			Element
-		>
-	> type;
-};
+typedef std::size_t size_type;
 
-}
-}
 }
 }
 }

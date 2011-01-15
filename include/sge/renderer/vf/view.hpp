@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2010 Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2011 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -55,43 +55,56 @@ public:
 	typedef vertex_size size_type;
 
 	explicit view(
-		dynamic_view_type const &v
+		dynamic_view_type const &_view
 	)
 	:
-		data(v.data()),
-		size(v.size())
+		data_(
+			_view.data()
+		),
+		size_(
+			_view.size()
+		)
 	{}
 
 	template<
 		typename OtherView
 	>
 	explicit view(
-		dynamic::basic_view<OtherView> const &v
+		dynamic::basic_view<
+			OtherView
+		> const &_view
 	)
 	:
-		data(v.data()),
-		size(v.size())
+		data_(
+			_view.data()
+		),
+		size_(
+			_view.size()
+		)
 	{}
 
 	iterator
 	begin() const
 	{
-		return iterator(
-			data
-		);
+		return
+			iterator(
+				data_
+			);
 	}
 
 	iterator
 	end() const
 	{
-		return iterator(
-			data + size
-		);
+		return
+			iterator(
+				data_
+				+ size_
+			);
 	}
 private:
-	pointer   const data;
+	pointer const data_;
 
-	size_type const size;
+	size_type const size_;
 };
 
 }

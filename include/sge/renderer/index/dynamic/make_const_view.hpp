@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2010 Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2011 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDEX_DYNAMIC_MAKE_CONST_VIEW_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_DYNAMIC_MAKE_CONST_VIEW_HPP_INCLUDED
 
-#include <sge/renderer/index/dynamic/view.hpp>
-#include <sge/renderer/index/dynamic/const_view.hpp>
+#include <sge/renderer/index/dynamic/view_fwd.hpp>
+#include <sge/renderer/index/dynamic/const_view_fwd.hpp>
 #include <sge/symbol.hpp>
 
 namespace sge
@@ -34,9 +34,10 @@ namespace index
 namespace dynamic
 {
 
-SGE_SYMBOL const_view const
+SGE_SYMBOL
+dynamic::const_view const
 make_const_view(
-	view const &
+	dynamic::view const &
 );
 
 }

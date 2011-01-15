@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2010 Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2011 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,13 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_DYNAMIC_FORMAT_TRAITS_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_DYNAMIC_FORMAT_TRAITS_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_ANY_DETAIL_GENERATE_VISITOR_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_ANY_DETAIL_GENERATE_VISITOR_HPP_INCLUDED
 
-#include <sge/renderer/index/dynamic/format.hpp>
-#include <sge/renderer/index/i16.hpp>
-#include <sge/renderer/index/i32.hpp>
-#include <boost/mpl/integral_c.hpp>
+#include <sge/renderer/index/iterator.hpp>
+#include <sge/renderer/index/proxy.hpp>
+#include <fcppt/nonassignable.hpp>
 
 namespace sge
 {
@@ -32,37 +31,55 @@ namespace renderer
 {
 namespace index
 {
-namespace dynamic
+namespace any
 {
-namespace
+namespace detail
 {
 
 template<
-	typename
+	typename Gen
 >
-struct format_traits;
+class generate_visitor
+{
+	FCPPT_NONASSIGNABLE(
+		generate_visitor
+	)
+public:
+	typedef void result_type;
 
-template<>
-struct format_traits<
-	i16
->
-:
-boost::mpl::integral_c<
-	format::type,
-	format::i16
->
-{};
+	explicit generate_visitor(
+		Gen const &_gen
+	)
+	:
+		gen_(_gen)
+	{}
 
-template<>
-struct format_traits<
-	i32
->
-:
-boost::mpl::integral_c<
-	format::type,
-	format::i32
->
-{};
+	template<
+		typename View
+	>
+	result_type
+	operator()(
+		View const &_view
+	) const
+	{
+		for(
+			typename View::iterator
+				it(
+					_view.begin()
+				),
+				end(
+					_view.end()
+				);
+			it != end;
+			++it
+		)
+			(*it).set(
+				gen_.operator()<typename View::value_type>()
+			);
+	}
+private:
+	Gen const gen_;
+};
 
 }
 }

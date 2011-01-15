@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2010 Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2011 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -17,17 +17,22 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+
 #ifndef SGE_DINPUT_CURSOR_HPP_INCLUDED
 #define SGE_DINPUT_CURSOR_HPP_INCLUDED
 
 #include "cursor_fwd.hpp"
 #include <sge/input/cursor/button_callback.hpp>
+#include <sge/input/cursor/button_code.hpp>
 #include <sge/input/cursor/button_function.hpp>
 #include <sge/input/cursor/move_callback.hpp>
 #include <sge/input/cursor/move_function.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/window_mode.hpp>
+#include <awl/backends/windows/window/event/object_fwd.hpp>
+#include <awl/backends/windows/window/event/processor_ptr.hpp>
+#include <awl/backends/windows/window/event/return_type.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object_decl.hpp>
@@ -46,7 +51,9 @@ class cursor
 		cursor
 	)
 public:
-	cursor();
+	explicit cursor(
+		awl::backends::windows::window::event::processor_ptr
+	);
 
 	~cursor();
 
@@ -69,8 +76,23 @@ public:
 	);
 
 	void
-	dispatch();
+	acquire();
+
+	void
+	unacquire();
 private:
+	awl::backends::windows::window::event::return_type
+	on_move(
+		awl::backends::windows::window::event::object const &
+	);
+
+	awl::backends::windows::window::event::return_type
+	on_button(
+		awl::backends::windows::window::event::object const &,
+		sge::input::cursor::button_code::type,
+		bool down
+	);
+
 	typedef fcppt::signal::object<
 		input::cursor::button_function
 	> button_signal;

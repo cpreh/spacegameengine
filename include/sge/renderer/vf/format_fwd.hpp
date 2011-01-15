@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2010 Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2011 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -32,7 +32,7 @@ namespace vf
 
 template<
 	typename ElementList,
-	typename Constness = nonconst_tag
+	typename Constness = vf::nonconst_tag
 >
 struct format;
 

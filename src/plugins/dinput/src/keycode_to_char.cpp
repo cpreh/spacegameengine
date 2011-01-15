@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2010 Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2011 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -16,6 +16,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
 
 #include "../keycode_to_char.hpp"
 #include "../key_converter.hpp"
@@ -99,14 +100,24 @@ sge::dinput::keycode_to_char(
 			)
 		);
 
-	WORD result;
+	typedef fcppt::container::array<
+		wchar_t,
+		2
+	> result_array;
+
+	result_array result;
 
 	switch(
-		::ToAsciiEx(
+		::ToUnicodeEx(
 			vk,
 			dik,
 			state.data(),
-			&result,
+			result.data(),
+			static_cast<
+				int
+			>(
+				result.size()
+			),
 			0,
 			_kblayout
 		)
@@ -123,12 +134,9 @@ sge::dinput::keycode_to_char(
 		return 0;
 	case 1:
 		return
-			static_cast<
-				fcppt::char_type
-			>(
-				result
-			);
+			result[0];
 	case 2:
+	case -1: // indicates a dead key
 		FCPPT_LOG_WARNING(
 			sge::log::global(),
 			fcppt::log::_

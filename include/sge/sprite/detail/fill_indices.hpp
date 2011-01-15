@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2010 Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2011 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/detail/indices_per_sprite.hpp>
 #include <sge/sprite/detail/index_generator.hpp>
-#include <sge/renderer/index/dynamic/generate.hpp>
+#include <sge/renderer/index/any/generate.hpp>
+#include <sge/renderer/index/any/make_view.hpp>
 #include <sge/renderer/index_buffer_ptr.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
@@ -45,17 +46,21 @@ fill_indices(
 	sge::renderer::size_type const _count
 )
 {
-	renderer::index::dynamic::generate(
-		renderer::scoped_index_lock(
-			_ib,
-			renderer::lock_mode::writeonly,
-			0,
-			_count
-			*
-			detail::indices_per_sprite<
-				typename Choices::elements
-			>::value
-		).value(),
+	renderer::scoped_index_lock const lock(
+		_ib,
+		renderer::lock_mode::writeonly,
+		0,
+		_count
+		*
+		detail::indices_per_sprite<
+			typename Choices::elements
+		>::value
+	);
+
+	renderer::index::any::generate(
+		renderer::index::any::make_view(
+			lock.value()
+		),
 		detail::index_generator<
 			Choices
 		>()

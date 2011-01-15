@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2010 Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2011 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -22,8 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_INDEX_FORMAT_HPP_INCLUDED
 
 #include <sge/renderer/index/format_fwd.hpp>
-#include <boost/type_traits/add_const.hpp>
-#include <boost/type_traits/remove_const.hpp>
+#include <sge/renderer/index/const_tag.hpp>
+#include <sge/renderer/const_raw_pointer.hpp>
+#include <sge/renderer/raw_pointer.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 namespace sge
 {
@@ -33,23 +36,23 @@ namespace index
 {
 
 template<
-	typename Index
+	typename Index,
+	typename Constness
 >
 struct format
 {
-	typedef Index type;
+	typedef Index index_type;
 
-	typedef format<
-		typename boost::add_const<
-			type
-		>::type
-	> const_type;
+	typedef Constness constness;
 
-	typedef format<
-		typename boost::remove_const<
-			type
-		>::type
-	> nonconst_type;
+	typedef typename boost::mpl::if_<
+		boost::is_same<
+			Constness,
+			index::const_tag
+		>,
+		renderer::const_raw_pointer,
+		renderer::raw_pointer
+	>::type pointer;
 };
 
 }

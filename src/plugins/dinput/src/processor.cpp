@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2010 Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2011 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -21,13 +21,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../processor.hpp"
 #include "../cursor.hpp"
 #include "../device_parameters.hpp"
+#include "../device.hpp"
 #include "../di.hpp"
 #include "../keyboard.hpp"
 #include "../mouse.hpp"
 #include <sge/input/exception.hpp>
 #include <sge/window/instance.hpp>
+#include <awl/backends/windows/system/event/object.hpp>
+#include <awl/backends/windows/system/event/processor.hpp>
+#include <awl/backends/windows/window/event/object.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
 #include <awl/backends/windows/window/instance.hpp>
+#include <fcppt/algorithm/append.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/signal/connection_manager.hpp>
+#include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -40,13 +48,6 @@ sge::dinput::processor::processor(
 )
 :
 	dinput_(_dinput),
-	keyboards_(),
-	mice_(),
-	cursor_(
-		fcppt::make_shared_ptr<
-			dinput::cursor
-		>()
-	),
 	window_(_window),
 	windows_window_(
 		fcppt::dynamic_pointer_cast<
@@ -62,19 +63,54 @@ sge::dinput::processor::processor(
 			_window->awl_window_event_processor()
 		)
 	),
-	activate_connection_(
-		event_processor_->register_callback(
-			WM_ACTIVATE,
-			std::tr1::bind(
-				&dinput::processor::on_activate,
-				this,
-				std::tr1::placeholders::_1,
-				std::tr1::placeholders::_2,
-				std::tr1::placeholders::_3
-			)
+	system_processor_(
+		fcppt::dynamic_pointer_cast<
+			awl::backends::windows::system::event::processor
+		>(
+			_window->awl_system_event_processor()
 		)
 	),
-	key_conv_()
+	keyboards_(),
+	mice_(),
+	cursor_(
+		fcppt::make_shared_ptr<
+			dinput::cursor
+		>(
+			event_processor_
+		)
+	),
+	key_conv_(),
+	poll_timer_(
+		USER_TIMER_MINIMUM
+	),
+	connections_(
+		fcppt::assign::make_container<
+			fcppt::signal::connection_manager::container
+		>(
+			fcppt::signal::shared_connection(
+				event_processor_->register_callback(
+					WM_ACTIVATE,
+					std::tr1::bind(
+						&dinput::processor::on_activate,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+		(
+			fcppt::signal::shared_connection(
+				system_processor_->register_callback(
+					WM_TIMER,
+					std::tr1::bind(
+						&dinput::processor::on_timer,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+	)
 {
 	if(
 		dinput_->EnumDevices(
@@ -178,32 +214,73 @@ sge::dinput::processor::window() const
 	return window_;
 }
 
-void
-sge::dinput::processor::dispatch()
-{
-#if 0
-	BOOST_FOREACH(
-		device_array::reference device,
-		devices_
-	)
-		device.dispatch();
-#endif
-}
-
 awl::backends::windows::window::event::return_type
 sge::dinput::processor::on_activate(
-	UINT,
-	WPARAM const _wparam,
-	LPARAM
+	awl::backends::windows::window::event::object const &_event
 )
 {
-#if 0
-	if(_wparam)
-		device.acquire();
+	if(
+		_event.wparam()
+	)
+	{
+		BOOST_FOREACH(
+			device_vector::value_type device,
+			this->all_devices()
+		)
+			device->acquire();
+
+		cursor_->acquire();
+	}
 	else
-		device.unacquire();
-#endif
+	{
+		BOOST_FOREACH(
+			device_vector::value_type device,
+			this->all_devices()
+		)
+			device->unacquire();
+
+		cursor_->unacquire();
+	}
+
 	return awl::backends::windows::window::event::return_type();
+}
+
+void
+sge::dinput::processor::on_timer(
+	awl::backends::windows::system::event::object const &_event
+)
+{
+	if(
+		_event.wparam() != poll_timer_.id()
+	)
+		return;
+	
+	BOOST_FOREACH(
+		device_vector::value_type device,
+		this->all_devices()
+	)
+		device->dispatch();
+}
+
+sge::dinput::processor::device_vector const
+sge::dinput::processor::all_devices() const
+{
+	// TODO: this should be optimized with iterator ranges
+
+	device_vector ret(
+		keyboards_.begin(),
+		keyboards_.end()
+	);
+
+	fcppt::algorithm::append(
+		ret,
+		device_vector(
+			mice_.begin(),
+			mice_.end()
+		)
+	);
+
+	return ret;
 }
 
 BOOL

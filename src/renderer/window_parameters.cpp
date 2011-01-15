@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2010 Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2011 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -19,17 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/window_parameters.hpp>
+#include <sge/window/default_class_name.hpp>
 #include <fcppt/text.hpp>
-
-namespace
-{
-
-fcppt::string const
-default_class(
-	FCPPT_TEXT("sgeclass")
-);
-
-}
 
 sge::renderer::window_parameters::window_parameters(
 	fcppt::string const &_title
@@ -37,7 +28,7 @@ sge::renderer::window_parameters::window_parameters(
 :
 	title_(_title),
 	class_name_(
-		default_class
+		sge::window::default_class_name()
 	)
 {}
 
