@@ -2,8 +2,6 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 SET (CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS ON)
 
-SET (CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMakeModules)
-
 PROJECT (spacegameengine)
 
 IF(${CMAKE_BINARY_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
@@ -16,6 +14,10 @@ IF(${CMAKE_BINARY_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
 		"just created:\nrm -rf CMakeCache.txt CMakeFiles"
 	)
 ENDIF()
+
+OPTION(EXTRA_CMAKE_MODULE_PATH "Extra paths to search for cmake modules" "")
+
+SET (CMAKE_MODULE_PATH "${EXTRA_CMAKE_MODULE_PATH};${CMAKE_SOURCE_DIR}/CMakeModules")
 
 INCLUDE (CheckCXXCompilerFlag)
 INCLUDE (CheckCXXSourceRuns)
@@ -280,4 +282,10 @@ INSTALL (
 	DIRECTORY include/
 	DESTINATION include
 	REGEX ".*gui.*|.*xcb.*" EXCLUDE
+)
+
+INSTALL(
+	FILES
+	${CMAKE_SOURCE_DIR}/FindSGE.cmake
+	DESTINATION share/cmake/Modules
 )
