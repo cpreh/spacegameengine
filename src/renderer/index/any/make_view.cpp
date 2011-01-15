@@ -18,19 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/index/dynamic/make_const_view.hpp>
-#include <sge/renderer/index/dynamic/const_view.hpp>
+#include <sge/renderer/index/any/make_view.hpp>
+#include <sge/renderer/index/any/view.hpp>
 #include <sge/renderer/index/dynamic/view.hpp>
+#include <sge/renderer/index/format_16.hpp>
+#include <sge/renderer/index/format_32.hpp>
+#include <sge/renderer/index/view.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/text.hpp>
 
-sge::renderer::index::dynamic::const_view const
-sge::renderer::index::dynamic::make_const_view(
-	view const &_view
+sge::renderer::index::any::view const
+sge::renderer::index::any::make_view(
+	renderer::index::dynamic::view const &_view
 )
 {
-	return
-		dynamic::const_view(
-			_view.data(),
-			_view.size(),
-			_view.format()
-		);
+	switch(
+		_view.format()
+	)
+	{
+	case index::dynamic::format::i16:
+		return
+			index::view<
+				index::format_16
+			>(
+				_view.data(),
+				_view.size()
+			);
+	case index::dynamic::format::i32:
+		return
+			index::view<
+				index::format_32
+			>(
+				_view.data(),
+				_view.size()
+			);
+	}
+
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid format in index::any::make_view!")
+	);
 }

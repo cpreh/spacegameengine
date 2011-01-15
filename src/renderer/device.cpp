@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_volume_texture_lock.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/index/dynamic/copy.hpp>
+#include <sge/renderer/index/dynamic/format_stride.hpp>
 #include <sge/renderer/glsl/program.hpp>
 #include <sge/renderer/vf/dynamic/format.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
@@ -37,13 +37,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image3d/view/dim.hpp>
 #include <sge/image3d/view/format.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/algorithm/copy_n.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <cstring>
 #include <sstream>
 
 sge::renderer::device::device()
-{}
+{
+}
 
 sge::renderer::glsl::program_ptr const
 sge::renderer::device::create_glsl_program(
@@ -197,15 +198,16 @@ sge::renderer::device::create_vertex_buffer(
 		)
 	);
 
-	scoped_vertex_lock const lock(
+	renderer::scoped_vertex_lock const lock(
 		vb,
 		renderer::lock_mode::writeonly
 	);
 
-	fcppt::algorithm::copy_n(
+	std::memcpy(
+		lock.value().data(),
 		_view.data(),
-		_view.format().stride() * _view.size(),
-		lock.value().data()
+		_view.format().stride()
+		* _view.size()
 	);
 
 	return vb;
@@ -217,7 +219,7 @@ sge::renderer::device::create_index_buffer(
 	resource_flags_field const &_flags
 )
 {
-	index_buffer_ptr const ib(
+	renderer::index_buffer_ptr const ib(
 		this->create_index_buffer(
 			_view.format(),
 			_view.size(),
@@ -225,18 +227,24 @@ sge::renderer::device::create_index_buffer(
 		)
 	);
 
-	scoped_index_lock const lock(
+	renderer::scoped_index_lock const lock(
 		ib,
 		lock_mode::writeonly
 	);
 
-	index::dynamic::copy(
-		_view,
-		lock.value()
+	std::memcpy(
+		lock.value().data(),
+		_view.data(),
+		renderer::index::dynamic::format_stride(
+			_view.format()
+		)
+		*
+		_view.size()
 	);
 
 	return ib;
 }
 
 sge::renderer::device::~device()
-{}
+{
+}

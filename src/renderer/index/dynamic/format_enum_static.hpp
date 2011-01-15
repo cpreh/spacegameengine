@@ -18,16 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_CONST_PROXY_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_CONST_PROXY_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_DYNAMIC_FORMAT_ENUM_STATIC_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_DYNAMIC_FORMAT_ENUM_STATIC_HPP_INCLUDED
 
-#include <sge/renderer/index/const_proxy_fwd.hpp>
-#include <sge/renderer/index/const_tag.hpp>
-#include <sge/renderer/index/format.hpp>
-#include <sge/symbol.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <sge/renderer/index/dynamic/format.hpp>
+#include <sge/renderer/index/format_is_16.hpp>
+#include <sge/renderer/index/format_is_32.hpp>
+#include <sge/renderer/index/i16.hpp>
+#include <sge/renderer/index/i32.hpp>
+#include <boost/mpl/integral_c.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/static_assert.hpp>
 
 namespace sge
 {
@@ -35,39 +36,55 @@ namespace renderer
 {
 namespace index
 {
+namespace dynamic
+{
+namespace
+{
+
+template<
+	typename Format,
+	typename Enable = void
+>
+struct format_enum_static;
 
 template<
 	typename Format
 >
-class const_proxy
-{
-	FCPPT_NONASSIGNABLE(
-		const_proxy
-	)
-public:
-	BOOST_STATIC_ASSERT((
-		boost::is_same<
-			typename Format::constness,
-			index::const_tag
-		>::value
-	));
+struct format_enum_static<
+	Format,
+	typename boost::enable_if<
+		index::format_is_16<
+			Format
+		>
+	>::type
+>
+:
+boost::mpl::integral_c<
+	format::type,
+	format::i16
+>
+{};
 
-	typedef typename Format::index_type value_type;
+template<
+	typename Format
+>
+struct format_enum_static<
+	Format,
+	typename boost::enable_if<
+		index::format_is_32<
+			Format
+		>
+	>::type
+>
+:
+boost::mpl::integral_c<
+	format::type,
+	format::i32
+>
+{};
 
-	typedef typename Format::pointer pointer;
-
-	SGE_SYMBOL
-	explicit const_proxy(
-		pointer
-	);
-
-	SGE_SYMBOL
-	value_type
-	get() const;
-private:
-	pointer const data_;
-};
-
+}
+}
 }
 }
 }

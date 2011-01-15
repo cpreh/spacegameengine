@@ -45,8 +45,8 @@ sge::renderer::index::const_proxy<Format>::get() const
 
 	std::memcpy(
 		&ret,
-		sizeof(value_type),
-		data_
+		data_,
+		sizeof(value_type)
 	);
 
 	return ret;

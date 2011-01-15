@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_DYNAMIC_GENERATE_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_DYNAMIC_GENERATE_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_ANY_DETAIL_GENERATE_VISITOR_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_ANY_DETAIL_GENERATE_VISITOR_HPP_INCLUDED
 
-#include <sge/renderer/index/dynamic/detail/generate_visitor.hpp>
-#include <sge/renderer/index/dynamic/view.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <sge/renderer/index/iterator.hpp>
+#include <sge/renderer/index/proxy.hpp>
+#include <fcppt/nonassignable.hpp>
 
 namespace sge
 {
@@ -31,28 +31,57 @@ namespace renderer
 {
 namespace index
 {
-namespace dynamic
+namespace any
+{
+namespace detail
 {
 
 template<
 	typename Gen
 >
-void
-generate(
-	view const &v,
-	Gen const &gen
-)
+class generate_visitor
 {
-	fcppt::variant::apply_unary(
-		detail::generate_visitor<
-			Gen
-		>(
-			gen
-		),
-		v.any()
-	);
-}
+	FCPPT_NONASSIGNABLE(
+		generate_visitor
+	)
+public:
+	typedef void result_type;
 
+	explicit generate_visitor(
+		Gen const &_gen
+	)
+	:
+		gen_(_gen)
+	{}
+
+	template<
+		typename View
+	>
+	result_type
+	operator()(
+		View const &_view
+	) const
+	{
+		for(
+			typename View::iterator
+				it(
+					_view.begin()
+				),
+				end(
+					_view.end()
+				);
+			it != end;
+			++it
+		)
+			(*it).set(
+				gen_.operator()<typename View::value_type>()
+			);
+	}
+private:
+	Gen const gen_;
+};
+
+}
 }
 }
 }

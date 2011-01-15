@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/const_proxy.hpp>
 #include <sge/renderer/index/format_16.hpp>
 #include <sge/renderer/index/format_32.hpp>
-#include <sge/renderer/index/to_nonconst_format.hpp>
+#include <sge/renderer/index/to_const_format.hpp>
 #include <cstring>
 
 template<
@@ -46,8 +46,8 @@ sge::renderer::index::proxy<Format>::set(
 {
 	std::memcpy(
 		data_,
-		sizeof(value_type),
-		&_value
+		&_value,
+		sizeof(value_type)
 	);
 }
 
@@ -59,7 +59,7 @@ sge::renderer::index::proxy<Format>::get() const
 {
 	return
 		index::const_proxy<
-			typename index::to_nonconst_format<
+			typename index::to_const_format<
 				Format
 			>::type
 		>(

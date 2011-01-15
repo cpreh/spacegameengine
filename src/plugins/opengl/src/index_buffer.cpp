@@ -30,10 +30,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::index_buffer::index_buffer(
 	context::object &_context,
+	renderer::index::dynamic::format::type const _format,
 	size_type const _size,
 	renderer::resource_flags_field const &_flags
 )
 :
+	format_(_format),
 	buffer_(
 		context::use<
 			opengl::vbo_context
@@ -65,7 +67,7 @@ sge::opengl::index_buffer::gl_format() const
 	case renderer::index::dynamic::format::i16:
 		return GL_UNSIGNED_SHORT;
 	case renderer::index::dynamic::format::i32:
-		return GL_UNSIGNED_INT:
+		return GL_UNSIGNED_INT;
 	}
 
 	throw sge::renderer::exception(
@@ -85,7 +87,7 @@ sge::opengl::index_buffer::buffer_offset(
 }
 
 void
-sge::opengl::index_buffer<T>::bind() const
+sge::opengl::index_buffer::bind() const
 {
 	buffer_.bind_me();
 }
@@ -107,12 +109,13 @@ sge::opengl::index_buffer::lock(
 
 	return 
 		view_type(
-			buffer_.data()
+			buffer_.data(),
 			buffer_.lock_size()
 			/
 			renderer::index::dynamic::format_stride(
 				format_
-			)
+			),
+			format_
 		);
 }
 
@@ -130,12 +133,13 @@ sge::opengl::index_buffer::lock(
 
 	return 
 		const_view_type(
-			buffer_.data()
+			buffer_.data(),
 			buffer_.lock_size()
 			/
 			renderer::index::dynamic::format_stride(
 				format_
-			)
+			),
+			format_
 		);
 }
 
@@ -145,7 +149,7 @@ sge::opengl::index_buffer::unlock() const
 	buffer_.unlock();
 }
 
-typename sge::opengl::index_buffer<T>::size_type
+sge::opengl::index_buffer::size_type
 sge::opengl::index_buffer::size() const
 {
 	return buffer_.size();

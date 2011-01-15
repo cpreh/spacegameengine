@@ -41,8 +41,17 @@ sge::renderer::index::iterator<Format>::iterator(
 	nonconst_iterator const &_other
 )
 :
-	data_(_other.data_)
+	data_(_other.data())
 {
+}
+
+template<
+	typename Format
+>
+typename sge::renderer::index::iterator<Format>::pointer
+sge::renderer::index::iterator<Format>::data() const
+{
+	return data_;
 }
 
 template<
@@ -112,7 +121,12 @@ sge::renderer::index::iterator<Format>::distance_to(
 			_other.data_
 			- data_
 		)
-		/ sizeof(value_type);
+		/
+		static_cast<
+			difference_type
+		>(
+			sizeof(value_type)
+		);
 }
 
 template<

@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_DYNAMIC_COPY_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_DYNAMIC_COPY_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_FORMAT_IS_32_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_FORMAT_IS_32_HPP_INCLUDED
 
-#include <sge/renderer/index/dynamic/view.hpp>
-#include <sge/renderer/index/dynamic/const_view.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/index/i32.hpp>
+#include <sge/renderer/index/format.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 namespace sge
 {
@@ -31,16 +31,19 @@ namespace renderer
 {
 namespace index
 {
-namespace dynamic
+
+template<
+	typename Format
+>
+struct format_is_32
+:
+boost::is_same<
+	typename Format::index_type,
+	index::i32
+>
 {
+};
 
-SGE_SYMBOL void
-copy(
-	const_view const &src,
-	view const &dest
-);
-
-}
 }
 }
 }

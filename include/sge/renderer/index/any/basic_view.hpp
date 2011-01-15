@@ -18,31 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_DYNAMIC_MAKE_CONST_VIEW_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_DYNAMIC_MAKE_CONST_VIEW_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_ANY_BASIC_VIEW_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_ANY_BASIC_VIEW_HPP_INCLUDED
 
-#include <sge/renderer/index/dynamic/view_fwd.hpp>
-#include <sge/renderer/index/dynamic/const_view_fwd.hpp>
-#include <sge/symbol.hpp>
-
-namespace sge
-{
-namespace renderer
-{
-namespace index
-{
-namespace dynamic
-{
-
-SGE_SYMBOL
-dynamic::const_view const
-make_const_view(
-	dynamic::view const &
-);
-
-}
-}
-}
-}
+#include <sge/renderer/index/any/basic_view_fwd.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 #endif

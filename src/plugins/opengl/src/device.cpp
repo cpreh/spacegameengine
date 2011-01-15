@@ -154,7 +154,7 @@ sge::opengl::device::render(
 {
 	opengl::index_buffer const & gl_ib(
 		dynamic_cast<
-			opengl::index_buffer_base const &
+			opengl::index_buffer const &
 		>(
 			*_ib
 		)

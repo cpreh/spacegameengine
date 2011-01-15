@@ -20,16 +20,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "instantiate_all.hpp"
 #include <sge/renderer/index/view.hpp>
+#include <sge/renderer/index/iterator.hpp>
 #include <sge/renderer/index/dynamic/make_format.hpp>
 #include <sge/renderer/index/dynamic/basic_view.hpp>
 #include <fcppt/export_symbol.hpp>
 #include <fcppt/assert.hpp>
 
 template<
-	typename Format,
-	typename Constness
+	typename Format
 >
-sge::renderer::index::view<Format, Constness>::view(
+sge::renderer::index::view<Format>::view(
 	pointer const _data,
 	size_type const _size
 )
@@ -43,10 +43,9 @@ sge::renderer::index::view<Format, Constness>::view(
 }
 
 template<
-	typename Format,
-	typename Constness
+	typename Format
 >
-sge::renderer::index::view<Format, Constness>::view(
+sge::renderer::index::view<Format>::view(
 	nonconst_type const &_other
 )
 :
@@ -72,7 +71,7 @@ sge::renderer::index::view<Format>::view(
 	FCPPT_ASSERT(
 		_view.format()
 		==
-		sge::renderer::vf::dynamic::make_format<
+		sge::renderer::index::dynamic::make_format<
 			Format
 		>()
 	)
@@ -118,7 +117,11 @@ sge::renderer::index::view<Format>::end() const
 		iterator(
 			begin()
 			+
-			size()
+			static_cast<
+				typename iterator::difference_type
+			>(
+				size()
+			)
 		);
 }
 

@@ -72,7 +72,7 @@ public:
 
 	typedef dynamic::basic_view<
 		boost::is_same<
-			Constness,
+			typename Format::constness,
 			index::const_tag
 		>::value
 	> dynamic_view_type;		
@@ -82,7 +82,7 @@ public:
 		size_type
 	);
 
-	SGE_SYMBOL explicit view(
+	SGE_SYMBOL view(
 		nonconst_type const &
 	);
 

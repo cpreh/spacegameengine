@@ -22,8 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_INDEX_ITERATOR_HPP_INCLUDED
 
 #include <sge/renderer/index/iterator_fwd.hpp>
+#include <sge/renderer/index/to_nonconst_format.hpp>
 #include <sge/renderer/index/detail/iterator_base.hpp>
 #include <sge/symbol.hpp>
+#include <boost/iterator/iterator_facade.hpp>
 
 namespace sge
 {
@@ -42,19 +44,21 @@ class iterator
 	>::type
 {
 public:
-	typedef detail::iterator_base<
+	typedef typename detail::iterator_base<
 		Format
-	> base;
+	>::type base;
 
 	typedef typename base::value_type value_type;
 
 	typedef typename base::reference reference;
 
-	typedef typename base::pointer pointer;
+	typedef typename Format::pointer pointer;
 
 	typedef typename base::difference_type difference_type;
 
 	typedef typename base::iterator_category iterator_category;
+
+	friend class boost::iterator_core_access;
 
 	SGE_SYMBOL
 	explicit iterator(
@@ -71,28 +75,38 @@ public:
 	iterator(
 		nonconst_iterator const &
 	);
+
+	SGE_SYMBOL
+	pointer
+	data() const;
 private:
+	SGE_SYMBOL
 	void
 	advance(
 		difference_type
 	);
 
+	SGE_SYMBOL
 	void
 	increment();
 
+	SGE_SYMBOL
 	void
 	decrement();
 
+	SGE_SYMBOL
 	bool
 	equal(
 		iterator const &
 	) const;
 
+	SGE_SYMBOL
 	difference_type
 	distance_to(
 		iterator const &
 	) const;
 
+	SGE_SYMBOL
 	reference
 	dereference() const;
 

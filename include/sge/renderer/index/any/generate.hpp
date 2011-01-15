@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_DYNAMIC_FORMAT_TRAITS_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_DYNAMIC_FORMAT_TRAITS_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_ANY_GENERATE_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_ANY_GENERATE_HPP_INCLUDED
 
-#include <sge/renderer/index/dynamic/format.hpp>
-#include <sge/renderer/index/i16.hpp>
-#include <sge/renderer/index/i32.hpp>
-#include <boost/mpl/integral_c.hpp>
+#include <sge/renderer/index/any/detail/generate_visitor.hpp>
+#include <sge/renderer/index/any/view.hpp>
+#include <sge/renderer/index/view.hpp>
+#include <fcppt/variant/apply_unary.hpp>
 
 namespace sge
 {
@@ -32,39 +32,28 @@ namespace renderer
 {
 namespace index
 {
-namespace dynamic
-{
-namespace
+namespace any
 {
 
 template<
-	typename
+	typename Gen
 >
-struct format_traits;
-
-template<>
-struct format_traits<
-	i16
->
-:
-boost::mpl::integral_c<
-	format::type,
-	format::i16
->
-{};
-
-template<>
-struct format_traits<
-	i32
->
-:
-boost::mpl::integral_c<
-	format::type,
-	format::i32
->
-{};
-
+void
+generate(
+	any::view const &_view,
+	Gen const &_gen
+)
+{
+	fcppt::variant::apply_unary(
+		any::detail::generate_visitor<
+			Gen
+		>(
+			_gen
+		),
+		_view
+	);
 }
+
 }
 }
 }

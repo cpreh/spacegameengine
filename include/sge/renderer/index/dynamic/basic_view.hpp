@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/index/dynamic/basic_view_fwd.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
+#include <sge/renderer/const_raw_pointer.hpp>
+#include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/symbol.hpp>
 #include <boost/mpl/if.hpp>
@@ -44,7 +46,7 @@ class basic_view
 public:
 	typedef typename boost::mpl::if_c<
 		IsConst,
-		renderer::const_raw_poiner,
+		renderer::const_raw_pointer,
 		renderer::raw_pointer
 	>::type pointer;
 		
@@ -56,7 +58,7 @@ public:
 		size_type,
 		dynamic::format::type
 	);
-	
+
 	SGE_SYMBOL
 	pointer
 	data() const;
