@@ -25,7 +25,7 @@ sge::camera::parameters::parameters(
 	projection::object const &_projection,
 	renderer::scalar const _movement_speed,
 	renderer::scalar const _rotation_speed,
-	renderer::vector3 const &_position,
+	gizmo_type const &_gizmo,
 	sge::input::keyboard::device &_keyboard,
 	sge::input::mouse::device &_mouse)
 :
@@ -35,8 +35,8 @@ sge::camera::parameters::parameters(
 		_movement_speed),
 	rotation_speed_(
 		_rotation_speed),
-	position_(
-		_position),
+	gizmo_(
+		_gizmo),
 	keyboard_(
 		_keyboard),
 	mouse_(
@@ -63,10 +63,10 @@ sge::camera::parameters::rotation_speed() const
 	return rotation_speed_;
 }
 
-sge::renderer::vector3 const &
-sge::camera::parameters::position() const
+sge::camera::gizmo_type const &
+sge::camera::parameters::gizmo() const
 {
-	return position_;
+	return gizmo_;
 }
 
 sge::input::keyboard::device &

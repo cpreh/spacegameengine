@@ -65,15 +65,7 @@ sge::camera::object::object(
 	rotation_speed_(
 		params.rotation_speed()),
 	gizmo_(
-		gizmo_type()
-			.position(
-				params.position())
-			.forward(
-				renderer::vector3(0,0,1))
-			.up(
-				renderer::vector3(0,1,0))
-			.right(
-				renderer::vector3(1,0,0))),
+		params.gizmo()),
 	dirs_(
 		renderer::vector3::null())
 {

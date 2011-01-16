@@ -52,6 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/device.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/window/instance.hpp>
+#include <sge/camera/identity_gizmo.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -586,7 +587,7 @@ try
 			static_cast<sge::renderer::scalar>(
 				200.0),
 			// position
-			sge::renderer::vector3::null(),
+			sge::camera::identity_gizmo(),
 			// Maus und Keyboard
 			*sys.keyboard_collector(),
 			*sys.mouse_collector()));

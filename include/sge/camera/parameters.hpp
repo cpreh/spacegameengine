@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/projection/object.hpp>
 #include <sge/camera/symbol.hpp>
+#include <sge/camera/gizmo_type.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/vector3.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -46,7 +46,7 @@ public:
 		projection::object const &,
 		renderer::scalar movement_speed,
 		renderer::scalar rotation_speed,
-		renderer::vector3 const &position,
+		gizmo_type const &g,
 		sge::input::keyboard::device &,
 		sge::input::mouse::device &);
 
@@ -63,8 +63,8 @@ public:
 	rotation_speed() const;
 
 	SGE_CAMERA_SYMBOL
-	renderer::vector3 const &
-	position() const;
+	gizmo_type const &
+	gizmo() const;
 
 	SGE_CAMERA_SYMBOL
 	sge::input::keyboard::device &
@@ -77,7 +77,7 @@ private:
 	projection::object projection_;
 	renderer::scalar movement_speed_;
 	renderer::scalar rotation_speed_;
-	renderer::vector3 position_;
+	gizmo_type gizmo_;
 	sge::input::keyboard::device &keyboard_;
 	sge::input::mouse::device &mouse_;
 };
