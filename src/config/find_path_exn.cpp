@@ -25,16 +25,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 fcppt::filesystem::path const
 sge::config::find_path_exn(
-	path_vector const &config_files,
-	fcppt::string const &what,
-	path_vector const &hard_paths
+	path_vector const &_config_files,
+	fcppt::string const &_what,
+	path_vector const &_hard_paths
 )
 {
 	optional_path const ret(
-		find_path(
-			config_files,
-			what,
-			hard_paths
+		config::find_path(
+			_config_files,
+			_what,
+			_hard_paths
 		)
 	);
 
@@ -42,7 +42,7 @@ sge::config::find_path_exn(
 		!ret
 	)
 		throw config::path_not_found(
-			what
+			_what
 		);
 	
 	return *ret;

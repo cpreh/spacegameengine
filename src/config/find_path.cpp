@@ -19,16 +19,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config/find_path.hpp>
+#include <sge/log/global.hpp>
 #include <sge/parse/ini/parse_file.hpp>
 #include <sge/parse/ini/header_name_equal.hpp>
 #include <sge/parse/ini/entry_name_equal.hpp>
 #include <sge/parse/ini/entry.hpp>
 #include <sge/parse/ini/section.hpp>
 #include <sge/parse/ini/section_vector.hpp>
-#include <fcppt/filesystem/path.hpp>
 #include <fcppt/filesystem/exists.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/filesystem/path.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/log/error.hpp>
+#include <fcppt/log/output.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/text.hpp>
 #include <boost/foreach.hpp>
 #include <algorithm>
 
@@ -52,7 +56,18 @@ sge::config::find_path(
 				result
 			)
 		)
+		{
+			FCPPT_LOG_ERROR(
+				sge::log::global(),
+				fcppt::log::_
+					<< FCPPT_TEXT("Failed to parse ini file ")
+					<< fcppt::filesystem::path_to_string(
+						ref
+					)
+			);
+
 			continue;
+		}
 
 		parse::ini::section_vector::const_iterator const section_it(
 			std::find_if(
@@ -67,7 +82,18 @@ sge::config::find_path(
 		if(
 			section_it == result.end()
 		)
+		{
+			FCPPT_LOG_ERROR(
+				sge::log::global(),
+				fcppt::log::_
+					<< FCPPT_TEXT("Cannot find section [paths] in ")
+					<< fcppt::filesystem::path_to_string(
+						ref
+					)
+			);
+
 			continue;
+		}
 
 		parse::ini::entry_vector const &entries(
 			section_it->entries
@@ -86,18 +112,42 @@ sge::config::find_path(
 		if(
 			entry_it == entries.end()
 		)
-			continue;
+		{
+			FCPPT_LOG_ERROR(
+				sge::log::global(),
+				fcppt::log::_
+					<< FCPPT_TEXT("Cannot find entry ")
+					<< _what
+					<< FCPPT_TEXT(" in section [paths] in ")
+					<< fcppt::filesystem::path_to_string(
+						ref
+					)
+			);
 
-		fcppt::filesystem::path const path_(
+			continue;
+		}
+
+		fcppt::filesystem::path const ret_path(
 			entry_it->value
 		);
 
 		if(
 			fcppt::filesystem::exists(
-				path_
+				ret_path
 			)
 		)
-			return path_;
+			return ret_path;
+		else
+		{
+			FCPPT_LOG_ERROR(
+				sge::log::global(),
+				fcppt::log::_
+					<< fcppt::filesystem::path_to_string(
+						ret_path
+					)
+					<< FCPPT_TEXT(" does not exist!")
+			);
+		}
 	}
 
 	BOOST_FOREACH(

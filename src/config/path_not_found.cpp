@@ -30,4 +30,5 @@ sge::config::path_not_found::path_not_found(
 		+ _what
 		+ FCPPT_TEXT("\"!")
 	)
-{}
+{
+}

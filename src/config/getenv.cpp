@@ -65,12 +65,12 @@ sge::config::getenv(
 	return 
 		ret
 		?
-			optional_string(
+			config::optional_string(
 				fcppt::from_std_string(
 					ret
 				)
 			)
 		:
-			optional_string();
+			config::optional_string();
 #endif
 }

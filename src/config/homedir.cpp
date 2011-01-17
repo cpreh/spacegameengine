@@ -28,12 +28,12 @@ sge::config::homedir()
 {
 #ifdef FCPPT_POSIX_PLATFORM
 	return
-		getenv_exn(
+		config::getenv_exn(
 			FCPPT_TEXT("HOME")
 		);
 #elif FCPPT_WINDOWS_PLATFORM
 	return
-		getenv_exn(
+		config::getenv_exn(
 			FCPPT_TEXT("USERPROFILE")
 		);
 #else

@@ -20,27 +20,71 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config/make_files.hpp>
 #include <sge/config/homedir.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/config.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #ifdef FCPPT_WINDOWS_PLATFORM
 #include <sge/config/appdir.hpp>
 #endif
-#include <boost/assign/list_of.hpp>
 
 sge::config::path_vector const
 sge::config::make_files(
-	fcppt::string const &config_basename
+	fcppt::string const &_config_basename
 )
 {
 #ifdef FCPPT_WINDOWS_PLATFORM
-	return boost::assign::list_of
-		(appdir() / (config_basename + FCPPT_TEXT(".txt")))
-		(homedir() / (config_basename + FCPPT_TEXT(".txt"))
+	fcppt::string const suffix(
+		FCPPT_TEXT(".txt")
 	);
+
+	return
+		fcppt::assign::make_container<
+			config::path_vector
+		>(
+			config::appdir()
+			/
+			(
+				_config_basename
+				+ suffix
+			)
+		)
+		(
+			config::homedir()
+			/
+			(
+				_config_basename
+				+ suffix
+			)
+		);
 #elif FCPPT_POSIX_PLATFORM
-	return boost::assign::list_of
-		(homedir() / (FCPPT_TEXT(".") + config_basename + FCPPT_TEXT(".conf")))
-		(fcppt::filesystem::path(FCPPT_TEXT("/etc")) / (config_basename + FCPPT_TEXT(".conf"))
+	fcppt::string const suffix(
+		FCPPT_TEXT(".conf")
 	);
+
+	return
+		fcppt::assign::make_container<
+			config::path_vector
+		>(
+			config::homedir()
+			/
+			(
+				FCPPT_TEXT(".")
+				+ _config_basename
+				+ suffix
+			)
+		)
+		(
+			fcppt::filesystem::path(
+				FCPPT_TEXT("/etc")
+			)
+			/
+			(
+				_config_basename
+				+ suffix
+			)
+		);
+#else
+#error "config::make_files not implemented!"
 #endif
 }

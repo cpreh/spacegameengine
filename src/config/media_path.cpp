@@ -29,7 +29,7 @@ fcppt::filesystem::path const
 sge::config::media_path()
 {
 	static fcppt::filesystem::path const ret(
-		find_own_path(
+		config::find_own_path(
 			FCPPT_TEXT("media_path"),
 			fcppt::assign::make_container<
 				sge::config::path_vector

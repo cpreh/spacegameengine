@@ -40,38 +40,38 @@ namespace
 
 fcppt::filesystem::path const
 try_create_path(
-	fcppt::filesystem::path const &p
+	fcppt::filesystem::path const &_path
 )
 {
 	if(
 		!fcppt::filesystem::exists(
-			p
+			_path
 		)
 	)
 		fcppt::filesystem::create_directories_recursive(
-			p
+			_path
 		);
 
 	if(
 		!fcppt::filesystem::is_directory(
-			p
+			_path
 		)
 	)
 		throw sge::config::exception(
 			fcppt::filesystem::path_to_string(
-				p
+				_path
 			)
 			+ FCPPT_TEXT(" is not a directory!")
 		);
 
-	return p;
+	return _path;
 }
 
 }
 
 fcppt::filesystem::path const
 sge::config::find_config_path(
-	fcppt::string const &appname
+	fcppt::string const &_appname
 )
 {
 #if defined(FCPPT_WINDOWS_PLATFORM)
@@ -82,7 +82,7 @@ sge::config::find_config_path(
 					FCPPT_TEXT("APPDIR")
 				)
 			)
-			/ appname
+			/ _appname
 		);
 #elif defined(FCPPT_POSIX_PLATFORM)
 	optional_string const xdg_config_path(
@@ -100,9 +100,9 @@ sge::config::find_config_path(
 	);
 	
 	return
-		try_create_path(
+		::try_create_path(
 			path
-			/ appname
+			/ _appname
 		);
 #else
 #error "don't know how to find a config path"

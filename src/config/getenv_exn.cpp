@@ -26,20 +26,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 fcppt::string const
 sge::config::getenv_exn(
-	fcppt::string const &s
+	fcppt::string const &_name
 )
 {
 	optional_string const ret(
-		getenv(
-			s
+		::getenv(
+			_name.c_str()
 		)
 	);
 
 	if(
 		!ret
 	)
-		throw no_such_env_var(
-			s
+		throw config::no_such_env_var(
+			_name
 		);
 	
 	return *ret;

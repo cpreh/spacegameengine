@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config/appdir.hpp>
-#include <sge/exception.hpp>
+#include <sge/config/exception.hpp>
 #include <fcppt/config.hpp>
 #include <fcppt/text.hpp>
 #if defined(FCPPT_WINDOWS_PLATFORM)
@@ -50,15 +50,16 @@ sge::config::appdir()
 			static_cast<DWORD>(buf.size())
 		)
 	)
-		throw exception(
+		throw config::exception(
 			FCPPT_TEXT("GetModuleFileName() failed!")
 		);
 
-	return fcppt::filesystem::remove_filename(
-		fcppt::string(
-			buf.data()
-		)
-	);
+	return
+		fcppt::filesystem::remove_filename(
+			fcppt::string(
+				buf.data()
+			)
+		);
 #elif defined(FCPPT_POSIX_PLATFORM)
 	fcppt::filesystem::path const self(
 		"/proc/self/exe"
@@ -69,17 +70,18 @@ sge::config::appdir()
 			self
 		)
 	)
-		throw exception(
+		throw config::exception(
 			FCPPT_TEXT("/prof/self/exe does not exist")
 		);
 
-	return fcppt::filesystem::remove_filename(
-		fcppt::filesystem::readlink(
-			self
-		)
-	);
+	return
+		fcppt::filesystem::remove_filename(
+			fcppt::filesystem::readlink(
+				self
+			)
+		);
 #else
-	throw exception(
+	throw config::exception(
 		FCPPT_TEXT("Can't find the application's path!")
 	);
 #endif
