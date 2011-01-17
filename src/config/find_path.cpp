@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/filesystem/exists.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/log/debug.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -49,6 +50,23 @@ sge::config::find_path(
 	)
 	{
 		parse::ini::section_vector result;
+
+		if(
+			!fcppt::filesystem::exists(
+				ref
+			)
+		)
+		{
+			FCPPT_LOG_DEBUG(
+				sge::log::global(),
+				fcppt::log::_
+					<< FCPPT_TEXT("Config file ")
+					<< ref
+					<< FCPPT_TEXT(" does not exist.")
+			);
+
+			continue;
+		}
 
 		if(
 			!parse::ini::parse_file(
@@ -132,22 +150,26 @@ sge::config::find_path(
 		);
 
 		if(
-			fcppt::filesystem::exists(
+			!fcppt::filesystem::exists(
 				ret_path
 			)
 		)
-			return ret_path;
-		else
 		{
 			FCPPT_LOG_ERROR(
 				sge::log::global(),
 				fcppt::log::_
+					<< _what
+					<< FCPPT_TEXT(" points to ")
 					<< fcppt::filesystem::path_to_string(
 						ret_path
 					)
-					<< FCPPT_TEXT(" does not exist!")
+					<< FCPPT_TEXT(" which does not exist!")
 			);
+
+			continue;
 		}
+		
+		return ret_path;
 	}
 
 	BOOST_FOREACH(

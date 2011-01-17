@@ -56,7 +56,8 @@ parse_file(
 		parse_stream(
 			ifs,
 			_result
-		);
+		)
+		&& ifs.eof();
 }
 
 }

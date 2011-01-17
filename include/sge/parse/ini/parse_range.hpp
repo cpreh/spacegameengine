@@ -38,20 +38,23 @@ template<
 >
 bool
 parse_range(
-	In &beg,
-	In const end,
-	section_vector &result
+	In &_beg,
+	In const _end,
+	section_vector &_result
 )
 {
-	grammar<In> parser;
+	ini::grammar<
+		In
+	> parser;
 
-	return boost::spirit::qi::phrase_parse(
-		beg,
-		end,
-		parser,
-		encoding::blank,
-		result
-	);
+	return
+		boost::spirit::qi::phrase_parse(
+			_beg,
+			_end,
+			parser,
+			encoding::blank,
+			_result
+		);
 }
 
 }

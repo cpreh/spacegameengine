@@ -20,10 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config/find_config_path.hpp>
 #include <fcppt/io/cout.hpp>
+#include <fcppt/io/cerr.hpp>
+#include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
-#include <iostream>
-#include <ostream>
-#include <exception>
 #include <cstdlib>
 
 int main()
@@ -36,10 +35,12 @@ try
 		<< FCPPT_TEXT('\n');
 }
 catch(
-	std::exception const &_exception
+	fcppt::exception const &_exception
 )
 {
-	std::cerr << _exception.what() << '\n';
+	fcppt::io::cerr
+		<< _exception.string()
+		<< FCPPT_TEXT('\n');
 
 	return EXIT_FAILURE;
 }

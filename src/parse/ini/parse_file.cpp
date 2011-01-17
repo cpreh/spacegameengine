@@ -24,13 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 bool
 sge::parse::ini::parse_file(
-	fcppt::filesystem::path const &path,
-	section_vector &result
+	fcppt::filesystem::path const &_path,
+	section_vector &_result
 )
 {
 	return
 		parse::parse_file(
-			path,
-			result	
+			_path,
+			_result	
 		);
 }

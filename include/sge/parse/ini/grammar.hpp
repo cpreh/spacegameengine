@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/spirit/include/qi_action.hpp>
 #include <boost/spirit/include/qi_nonterminal.hpp>
 #include <boost/spirit/include/qi_directive.hpp>
+#include <boost/spirit/include/qi_eol.hpp>
 
 namespace sge
 {
@@ -66,28 +67,29 @@ public:
 		using encoding::char_;
 		using boost::spirit::lit;
 		using boost::spirit::lexeme;
+		using boost::spirit::eol;
 
-		char_seq %= +(char_ - lit(FCPPT_TEXT('\n')));
+		char_seq %=
+			+(
+				char_
+				- eol
+			);
 
 		entry_ %=
 			!char_(FCPPT_TEXT('['))
-			>> +(
-				char_
-				- lit(FCPPT_TEXT('='))
-			)
+			>> +~char_(FCPPT_TEXT('='))
 			>> lit(FCPPT_TEXT('='))
 			>> char_seq
-			>> lit(FCPPT_TEXT('\n'));
+			>> eol;
+
 
 		header_ %=
 			lexeme[
 				FCPPT_TEXT('[')
-				>> +(
-					char_ - FCPPT_TEXT(']')
-				)
+				>> +~char_(FCPPT_TEXT(']'))
 				>> FCPPT_TEXT(']')
 			]
-			>> lit(FCPPT_TEXT('\n'));
+			>> eol;
 
 		section_ %=
 			header_

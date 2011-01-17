@@ -30,8 +30,8 @@ sge::config::getenv_exn(
 )
 {
 	optional_string const ret(
-		::getenv(
-			_name.c_str()
+		config::getenv(
+			_name
 		)
 	);
 
