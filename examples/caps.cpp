@@ -41,10 +41,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/window_parameters.hpp>
 #include <awl/system/create.hpp>
 #include <awl/system/object_ptr.hpp>
+#include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
+#include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
+#include <cstdlib>
 
 int main()
+try
 {
 	sge::plugin::manager manager(
 		sge::config::plugin_path()
@@ -99,4 +103,14 @@ int main()
 			)
 		)->caps()
 		<< FCPPT_TEXT('\n');
+}
+catch(
+	fcppt::exception const &_error
+)
+{
+	fcppt::io::cerr
+		<< _error.string()
+		<< FCPPT_TEXT('\n');
+
+	return EXIT_FAILURE;
 }

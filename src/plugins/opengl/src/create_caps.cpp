@@ -49,6 +49,14 @@ sge::opengl::create_caps(
 		)
 	);
 
+	opengl::texture_context const &texture_context(
+		context::use<
+			texture_context
+		>(
+			_context
+		)
+	);
+
 	return
 		fcppt::make_unique_ptr<
 			renderer::caps
@@ -58,10 +66,10 @@ sge::opengl::create_caps(
 			>(
 				0 // FIXME!
 			),
-			get_string(
+			opengl::get_string(
 				GL_VENDOR
 			),
-			get_string(
+			opengl::get_string(
 				GL_RENDERER
 			)
 			+ FCPPT_TEXT(' ')
@@ -75,13 +83,13 @@ sge::opengl::create_caps(
 			static_cast<
 				sge::renderer::filter::anisotropy_type
 			>(
-				opengl::get_int(
-					context::use<
-						texture_context
-					>(
-						_context
-					).max_anisotropy_flag()
-				)
+				texture_context.anisotropic_filter_supported()
+				?
+					opengl::get_int(
+						texture_context.max_anisotropy_flag()
+					)
+				:
+					0
 			),
 			context::use<
 				fbo::context
