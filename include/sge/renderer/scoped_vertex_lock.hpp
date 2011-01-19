@@ -31,7 +31,7 @@ namespace renderer
 {
 
 typedef detail::scoped_buffer_lock<
-	vertex_buffer_ptr,
+	renderer::vertex_buffer_ptr,
 	vf::dynamic::view
 > scoped_vertex_lock;
 

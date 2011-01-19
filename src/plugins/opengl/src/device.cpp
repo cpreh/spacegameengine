@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../default_target.hpp"
 #include "../depth_stencil_texture.hpp"
 #include "../device_state.hpp"
+#include "../draw_elements.hpp"
 #include "../enable_bool.hpp"
 #include "../index_buffer.hpp"
 #include "../initial_states.hpp"
@@ -46,7 +47,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../context/use.hpp"
 #include "../convert/clear_bit.hpp"
 #include "../convert/clip_plane_index.hpp"
-#include "../convert/indexed_primitive.hpp"
 #include "../convert/light_index.hpp"
 #include "../convert/matrix_mode.hpp"
 #include "../convert/nonindexed_primitive.hpp"
@@ -61,7 +61,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/unsupported.hpp>
-#include <sge/renderer/indices_per_primitive.hpp>
 #include <sge/renderer/state/default.hpp>
 #include <sge/window/instance.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -107,7 +106,7 @@ sge::opengl::device::device(
 {
 	glew::initialize();
 
-	state(
+	this->state(
 		sge::renderer::state::default_()
 	);
 
@@ -152,50 +151,15 @@ sge::opengl::device::render(
 	renderer::first_index const _first_index
 )
 {
-	opengl::index_buffer const & gl_ib(
-		dynamic_cast<
-			opengl::index_buffer const &
-		>(
-			*_ib
-		)
+	opengl::draw_elements(
+		context_,
+		_ib,
+		_first_vertex,
+		_num_vertices,
+		_ptype,
+		_pcount,
+		_first_index
 	);
-
-	gl_ib.bind();
-
-	::glDrawRangeElements(
-		convert::indexed_primitive(
-			_ptype
-		),
-		static_cast<
-			GLuint
-		>(
-			_first_vertex.get()
-		),
-		static_cast<
-			GLuint
-		>(
-			_first_vertex.get()
-			+
-			_num_vertices.get()
-			- 1u
-		),
-		static_cast<
-			GLsizei
-		>(
-			renderer::indices_per_primitive(
-				_ptype
-			) * _pcount
-		),
-		gl_ib.gl_format(),
-		gl_ib.buffer_offset(
-			_first_index
-		)
-	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glDrawElements failed"),
-		sge::renderer::exception
-	)
 }
 
 void

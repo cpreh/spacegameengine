@@ -18,23 +18,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SCOPED_INDEX_LOCK_HPP_INCLUDED
-#define SGE_RENDERER_SCOPED_INDEX_LOCK_HPP_INCLUDED
+#ifndef SGE_OPENGL_DRAW_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_DRAW_CONTEXT_HPP_INCLUDED
 
-#include <sge/renderer/detail/scoped_buffer_lock.hpp>
-#include <sge/renderer/index/dynamic/view.hpp>
-#include <sge/renderer/index_buffer_ptr.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include "context/base.hpp"
+#include "context/id.hpp"
+#include "common.hpp"
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
-namespace renderer
+namespace opengl
 {
 
-typedef detail::scoped_buffer_lock<
-	renderer::index_buffer_ptr,
-	index::dynamic::view
-> scoped_index_lock;
+class draw_context
+:
+	public context::base
+{
+	FCPPT_NONCOPYABLE(draw_context)
+public:
+	draw_context();
+
+	~draw_context();
+
+	bool
+	draw_range_elements_supported() const;
+
+	bool
+	draw_elements_supported() const;
+
+	typedef PFNGLDRAWRANGEELEMENTSPROC gl_draw_range_elements;
+
+	gl_draw_range_elements
+	draw_range_elements() const;
+
+	typedef void needs_before;
+
+	static context::id const static_id;
+private:
+	bool const
+		draw_range_elements_supported_,
+		draw_range_elements_ext_supported_,
+		draw_elements_supported_;
+
+	gl_draw_range_elements const draw_range_elements_;
+};
 
 }
 }

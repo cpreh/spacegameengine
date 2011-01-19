@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "const_scoped_buffer_lock_impl.hpp"
-#include <sge/renderer/scoped_vertex_lock.hpp>
+#include <sge/renderer/const_scoped_vertex_lock.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <fcppt/export_symbol.hpp>
 

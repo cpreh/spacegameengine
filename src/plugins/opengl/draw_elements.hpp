@@ -18,23 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SCOPED_INDEX_LOCK_HPP_INCLUDED
-#define SGE_RENDERER_SCOPED_INDEX_LOCK_HPP_INCLUDED
+#ifndef SGE_PLUGINS_OPENGL_DRAW_ELEMENTS_HPP_INCLUDED
+#define SGE_PLUGINS_OPENGL_DRAW_ELEMENTS_HPP_INCLUDED
 
-#include <sge/renderer/detail/scoped_buffer_lock.hpp>
-#include <sge/renderer/index/dynamic/view.hpp>
-#include <sge/renderer/index_buffer_ptr.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include "context/object_fwd.hpp"
+#include <sge/renderer/const_index_buffer_ptr.hpp>
+#include <sge/renderer/first_index.hpp>
+#include <sge/renderer/first_vertex.hpp>
+#include <sge/renderer/indexed_primitive_type.hpp>
+#include <sge/renderer/primitive_count.hpp>
+#include <sge/renderer/vertex_count.hpp>
 
 namespace sge
 {
-namespace renderer
+namespace opengl
 {
 
-typedef detail::scoped_buffer_lock<
-	renderer::index_buffer_ptr,
-	index::dynamic::view
-> scoped_index_lock;
+void
+draw_elements(
+	opengl::context::object &,
+	renderer::const_index_buffer_ptr,
+	renderer::first_vertex,
+	renderer::vertex_count,
+	renderer::indexed_primitive_type::type,
+	renderer::primitive_count,
+	renderer::first_index
+);
 
 }
 }
