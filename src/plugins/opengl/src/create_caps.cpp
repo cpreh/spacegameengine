@@ -73,7 +73,7 @@ sge::opengl::create_caps(
 				GL_RENDERER
 			)
 			+ FCPPT_TEXT(' ')
-			+ get_string(
+			+ opengl::get_string(
 				GL_VERSION
 			),
 			renderer::dim2(

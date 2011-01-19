@@ -162,9 +162,22 @@ sge::opengl::device::render(
 
 	gl_ib.bind();
 
-	glDrawElements(
+	::glDrawRangeElements(
 		convert::indexed_primitive(
 			_ptype
+		),
+		static_cast<
+			GLuint
+		>(
+			_first_vertex.get()
+		),
+		static_cast<
+			GLuint
+		>(
+			_first_vertex.get()
+			+
+			_num_vertices.get()
+			- 1u
 		),
 		static_cast<
 			GLsizei
