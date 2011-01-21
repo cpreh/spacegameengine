@@ -176,6 +176,13 @@ sge::dinput::cursor::position() const
 }
 
 void
+sge::dinput::cursor::visibility(
+	bool const _value
+)
+{
+}
+
+void
 sge::dinput::cursor::window_mode(
 	input::cursor::window_mode::type const _mode
 )

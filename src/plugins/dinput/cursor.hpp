@@ -71,6 +71,11 @@ public:
 	position() const;
 
 	void
+	visibility(
+		bool
+	);
+
+	void
 	window_mode(
 		input::cursor::window_mode::type
 	);
