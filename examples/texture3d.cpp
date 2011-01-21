@@ -452,7 +452,7 @@ try
 			sge::systems::input(
 				sge::systems::input_helper_field(
 					sge::systems::input_helper::keyboard_collector) | sge::systems::input_helper::mouse_collector,
-				sge::systems::cursor_grab::off
+				sge::systems::cursor_option_field::null()
 			)
 		)
 	);

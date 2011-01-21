@@ -18,20 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_CURSOR_GRAB_HPP_INCLUDED
-#define SGE_SYSTEMS_CURSOR_GRAB_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_CURSOR_OPTION_HPP_INCLUDED
+#define SGE_SYSTEMS_CURSOR_OPTION_HPP_INCLUDED
 
 namespace sge
 {
 namespace systems
 {
 
-namespace cursor_grab
+namespace cursor_option
 {
 enum type
 {
-	automatic,
-	off
+	confine,
+	hide,
+	size
 };
 }
 

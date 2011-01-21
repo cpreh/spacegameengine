@@ -234,7 +234,10 @@ try
 				sge::systems::input_helper_field(
 					sge::systems::input_helper::keyboard_collector
 				),
-				sge::systems::cursor_grab::automatic
+				sge::systems::cursor_option_field(
+					sge::systems::cursor_option::confine
+				)
+				| sge::systems::cursor_option::hide
 			)
 		)
 	);
@@ -364,9 +367,6 @@ cursor_listener::cursor_listener(
 		)
 	)
 {
-	_device->visibility(
-		false
-	);
 }
 
 void

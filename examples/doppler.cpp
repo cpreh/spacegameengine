@@ -217,7 +217,7 @@ try
 				)
 				|
 				sge::systems::input_helper::cursor_demuxer,
-				sge::systems::cursor_grab::off
+				sge::systems::cursor_option_field::null()
 			)
 		)
 		(

@@ -18,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_CURSOR_GRABBER_HPP_INCLUDED
-#define SGE_SYSTEMS_CURSOR_GRABBER_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_CURSOR_MODIFIER_HPP_INCLUDED
+#define SGE_SYSTEMS_CURSOR_MODIFIER_HPP_INCLUDED
 
 #include <sge/input/cursor/object_ptr.hpp>
 #include <sge/input/processor_ptr.hpp>
+#include <sge/systems/cursor_option_field.hpp>
+#include <fcppt/container/bitfield/basic_decl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -31,22 +33,25 @@ namespace sge
 namespace systems
 {
 
-class cursor_grabber
+class cursor_modifier
 {
 	FCPPT_NONCOPYABLE(
-		cursor_grabber
+		cursor_modifier
 	)
 public:
-	explicit cursor_grabber(
-		sge::input::processor_ptr
+	explicit cursor_modifier(
+		sge::input::processor_ptr,
+		systems::cursor_option_field const &
 	);
 
-	~cursor_grabber();
+	~cursor_modifier();
 private:
 	void
 	cursor_discover(
 		sge::input::cursor::object_ptr
 	);
+
+	systems::cursor_option_field const options_;
 
 	fcppt::signal::scoped_connection const connection_;
 };

@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGINS_OPENGL_DRAW_ELEMENTS_HPP_INCLUDED
-#define SGE_PLUGINS_OPENGL_DRAW_ELEMENTS_HPP_INCLUDED
+#ifndef SGE_OPENGL_DRAW_ELEMENTS_HPP_INCLUDED
+#define SGE_OPENGL_DRAW_ELEMENTS_HPP_INCLUDED
 
 #include "context/object_fwd.hpp"
 #include <sge/renderer/const_index_buffer_ptr.hpp>

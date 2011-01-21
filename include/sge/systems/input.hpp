@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_INPUT_HPP_INCLUDED
 
 #include <sge/systems/input_helper_field.hpp>
-#include <sge/systems/cursor_grab.hpp>
+#include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/symbol.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 
@@ -37,7 +37,7 @@ public:
 	SGE_SYSTEMS_SYMBOL
 	explicit input(
 		systems::input_helper_field const &,
-		systems::cursor_grab::type
+		systems::cursor_option_field const &
 	);
 
 	SGE_SYSTEMS_SYMBOL
@@ -45,12 +45,12 @@ public:
 	input_helpers() const;
 
 	SGE_SYSTEMS_SYMBOL
-	systems::cursor_grab::type
-	cursor_grab() const;
+	systems::cursor_option_field const &
+	cursor_options() const;
 private:
 	systems::input_helper_field input_helpers_;
 
-	systems::cursor_grab::type cursor_grab_;
+	systems::cursor_option_field cursor_options_;
 };
 
 }
