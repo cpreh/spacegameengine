@@ -83,6 +83,7 @@ sge::dinput::processor::processor(
 	poll_timer_(
 		USER_TIMER_MINIMUM
 	),
+	acquired_(false),
 	connections_(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
@@ -219,8 +220,10 @@ sge::dinput::processor::on_activate(
 	awl::backends::windows::window::event::object const &_event
 )
 {
+	acquired_ = (_event.wparam() != 0);
+	
 	if(
-		_event.wparam()
+		acquired_
 	)
 	{
 		BOOST_FOREACH(
@@ -245,6 +248,7 @@ sge::dinput::processor::on_activate(
 	return awl::backends::windows::window::event::return_type();
 }
 
+
 void
 sge::dinput::processor::on_timer(
 	awl::backends::windows::system::event::object const &_event
@@ -255,6 +259,11 @@ sge::dinput::processor::on_timer(
 	)
 		return;
 	
+	if(
+		!acquired_
+	)
+		return;
+
 	BOOST_FOREACH(
 		device_vector::value_type device,
 		this->all_devices()

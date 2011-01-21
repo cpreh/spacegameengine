@@ -48,7 +48,7 @@ DIPROPDWORD const buffer_settings = {
 sge::dinput::device::~device()
 {}
 
-void
+bool
 sge::dinput::device::acquire()
 {
 	switch(
@@ -57,9 +57,9 @@ sge::dinput::device::acquire()
 	{
 	case S_FALSE:
 	case DI_OK:
-		return;
+		return true;
 	case DIERR_OTHERAPPHASPRIO:
-		break;
+		return false;
 	default:
 		throw sge::input::exception(
 			FCPPT_TEXT("Acquire() failed!")
@@ -204,7 +204,10 @@ sge::dinput::device::get_input(
 	case DI_BUFFEROVERFLOW:
 		return true;
 	case DIERR_INPUTLOST:
-		acquire();
+		if(
+			!this->acquire()
+		)
+			return false;
 
 		return
 			this->get_input(

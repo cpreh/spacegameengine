@@ -47,8 +47,6 @@ sge::dinput::mouse::mouse(
 	this->enum_objects(
 		enum_mouse_keys
 	);
-
-	this->acquire();
 }
 
 sge::dinput::mouse::~mouse()

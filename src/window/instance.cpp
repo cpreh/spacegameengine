@@ -92,11 +92,27 @@ sge::window::instance::dispatch()
 	// so make sure to process as much as possible in one go
 	bool events_processed = false;
 
+	bool more_messages = true;
+
 	while(
-		window_processor_->dispatch()
-		|| system_processor_->dispatch()
+		more_messages
 	)
-		events_processed = true;
+	{
+		more_messages =
+			system_processor_->dispatch();
+
+		more_messages =
+			window_processor_->dispatch()
+			||
+			more_messages;
+
+		if(
+			more_messages
+		)
+			events_processed = true;
+		else
+			break;
+	}
 
 	return events_processed;
 }

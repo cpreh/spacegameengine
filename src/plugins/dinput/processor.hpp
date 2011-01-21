@@ -164,6 +164,8 @@ private:
 
 	awl::backends::windows::system::event::timer const poll_timer_;
 
+	bool acquired_;
+
 	fcppt::signal::connection_manager const connections_;
 };
 

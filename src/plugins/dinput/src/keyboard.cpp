@@ -70,8 +70,6 @@ sge::dinput::keyboard::keyboard(
 	this->enum_objects(
 		enum_keyboard_keys
 	);
-
-	acquire();
 }
 
 sge::dinput::keyboard::~keyboard()

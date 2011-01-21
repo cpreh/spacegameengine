@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "di.hpp"
 #include "dinput_device_ptr.hpp"
 #include <fcppt/container/array.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
 #include <cstddef>
@@ -49,7 +48,7 @@ public:
 
 	static std::size_t const buffer_size = 1024;
 
-	void
+	bool
 	acquire();
 
 	void
@@ -99,8 +98,6 @@ private:
 	);
 
 	fcppt::string const name_;
-
-	fcppt::signal::scoped_connection const activate_connection_;
 
 	dinput::dinput_device_ptr device_;
 };
