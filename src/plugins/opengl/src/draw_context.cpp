@@ -33,9 +33,7 @@ sge::opengl::draw_context::draw_context()
 		glDrawRangeElementsEXT
 	),
 	draw_elements_supported_(
-		glew::is_supported(
-			"GL_VERSION_1_1"
-		)
+		glDrawElements
 	),
 	draw_range_elements_(
 		draw_range_elements_supported_
