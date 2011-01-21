@@ -364,6 +364,9 @@ cursor_listener::cursor_listener(
 		)
 	)
 {
+	_device->visibility(
+		false
+	);
 }
 
 void

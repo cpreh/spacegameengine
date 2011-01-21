@@ -111,6 +111,22 @@ sge::input::cursor::demuxer::position() const
 }
 
 void
+sge::input::cursor::demuxer::visibility(
+	bool const _value
+)
+{
+	if(
+		current_cursor()
+	)
+
+		current_cursor()->visibility(
+			_value
+		);
+	else
+		throw sge::input::cursor::no_object();
+}
+
+void
 sge::input::cursor::demuxer::window_mode(
 	cursor::window_mode::type const _mode
 )

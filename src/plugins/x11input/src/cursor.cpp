@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../cursor.hpp"
 #include "../cursor_button_code.hpp"
 #include "../cursor_confine.hpp"
+#include "../cursor_define.hpp"
 #include "../query_pointer.hpp"
 #include "../device/parameters.hpp"
 #include "../device/window_demuxer.hpp"
@@ -37,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <awl/backends/x11/window/event/processor.hpp>
 #include <X11/extensions/XInput2.h>
@@ -150,7 +152,9 @@ sge::x11input::cursor::cursor(
 		)
 	),
 	button_signal_(),
-	move_signal_()
+	move_signal_(),
+	cursor_confine_(),
+	cursor_define_()
 {
 }
 
@@ -184,6 +188,31 @@ sge::input::cursor::position const
 sge::x11input::cursor::position() const
 {
 	return position_;
+}
+
+void
+sge::x11input::cursor::visibility(
+	bool const _value
+)
+{
+	if(
+		!_value && cursor_define_
+	)
+		return;
+	
+	if(
+		_value
+	)
+		cursor_define_.reset();
+	else
+		cursor_define_.take(
+			fcppt::make_unique_ptr<
+				x11input::cursor_define
+			>(
+				window_,
+				device_id_
+			)
+		);
 }
 
 void

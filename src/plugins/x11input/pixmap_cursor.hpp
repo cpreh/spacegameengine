@@ -39,8 +39,7 @@ class pixmap_cursor
 public:
 	pixmap_cursor(
 		awl::backends::x11::display_ptr,
-		Pixmap,
-		XColor
+		Pixmap
 	);
 
 	~pixmap_cursor();

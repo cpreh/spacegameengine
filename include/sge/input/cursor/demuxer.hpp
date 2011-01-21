@@ -82,6 +82,12 @@ public:
 
 	SGE_SYMBOL
 	void
+	visibility(
+		bool
+	);
+
+	SGE_SYMBOL
+	void
 	window_mode(
 		cursor::window_mode::type
 	);

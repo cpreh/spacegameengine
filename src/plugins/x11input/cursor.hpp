@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "cursor_fwd.hpp"
 #include "cursor_confine_fwd.hpp"
+#include "cursor_define_fwd.hpp"
 #include "device/id.hpp"
 #include "device/parameters_fwd.hpp"
 #include "device/window_event_fwd.hpp"
@@ -75,6 +76,11 @@ private:
 
 	input::cursor::position const
 	position() const;
+
+	void
+	visibility(
+		bool
+	);
 
 	void
 	window_mode(
@@ -142,6 +148,10 @@ private:
 	fcppt::scoped_ptr<
 		x11input::cursor_confine
 	> cursor_confine_;
+
+	fcppt::scoped_ptr<
+		x11input::cursor_define
+	> cursor_define_;
 };
 
 }

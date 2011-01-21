@@ -62,6 +62,11 @@ public:
 	position() const = 0;
 
 	virtual void
+	visibility(
+		bool
+	) = 0;
+
+	virtual void
 	window_mode(
 		cursor::window_mode::type
 	) = 0;

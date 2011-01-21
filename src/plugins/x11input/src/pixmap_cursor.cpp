@@ -24,10 +24,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/display.hpp>
 #include <fcppt/text.hpp>
 
+namespace
+{
+
+XColor black = { 0, 0, 0, 0, 0, 0 };
+
+}
+
 sge::x11input::pixmap_cursor::pixmap_cursor(
 	awl::backends::x11::display_ptr const _display,
-	Pixmap const _pixmap,
-	XColor _color
+	Pixmap const _pixmap
 )
 :
  	display_(_display),
@@ -36,8 +42,8 @@ sge::x11input::pixmap_cursor::pixmap_cursor(
 			display_->get(),
 			_pixmap,
 			_pixmap,
-			&_color,
-			&_color,
+			&black,
+			&black,
 			0,
 			0
 		)

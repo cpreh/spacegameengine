@@ -18,10 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_DYNAMIC_CONST_VIEW_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_DYNAMIC_CONST_VIEW_HPP_INCLUDED
+#include "../cursor_define.hpp"
+#include <sge/input/exception.hpp>
+#include <awl/backends/x11/window/instance.hpp>
+#include <awl/backends/x11/display.hpp>
+#include <fcppt/text.hpp>
+#include <X11/extensions/XInput2.h>
 
-#include <sge/renderer/index/dynamic/const_view_fwd.hpp>
-#include <sge/renderer/index/dynamic/basic_view.hpp>
+sge::x11input::cursor_define::cursor_define(
+	awl::backends::x11::window::instance_ptr const _window,
+	device::id const &_id
+)
+:
+	window_(_window),
+	id_(_id),
+	pixmap_(
+		_window
+	),
+	pixmap_cursor_(
+		_window->display(),
+		pixmap_.get()
+	)
+{
+	if(
+		::XIDefineCursor(
+			_window->display()->get(),
+			_id.get(),
+			_window->get(),
+			pixmap_cursor_.get()
+		)
+		!= Success
+	)
+		throw sge::input::exception(
+			FCPPT_TEXT("XIDefineCursor failed!")
+		);
+}
 
-#endif
+sge::x11input::cursor_define::~cursor_define()
+{
+	::XIUndefineCursor(
+		window_->display()->get(),
+		id_.get(),
+		window_->get()
+	);
+}
