@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_CURSOR_HPP_INCLUDED
 
 #include "cursor_fwd.hpp"
+#include "cursor_define_fwd.hpp"
 #include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/button_code.hpp>
 #include <sge/input/cursor/button_function.hpp>
@@ -37,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object_decl.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr.hpp>
 
 namespace sge
 {
@@ -98,6 +100,10 @@ private:
 		bool down
 	);
 
+	typedef fcppt::scoped_ptr<
+		dinput::cursor_define
+	> cursor_define_ptr;
+
 	typedef fcppt::signal::object<
 		input::cursor::button_function
 	> button_signal;
@@ -105,6 +111,10 @@ private:
 	typedef fcppt::signal::object<
 		input::cursor::move_function
 	> move_signal;
+
+	awl::backends::windows::window::event::processor_ptr const event_processor_;
+
+	cursor_define_ptr cursor_define_;
 
 	button_signal button_signal_;
 

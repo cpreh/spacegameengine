@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../cursor.hpp"
+#include "../cursor_define.hpp"
 #include <sge/input/cursor/button_code.hpp>
 #include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/move_event.hpp>
@@ -32,12 +33,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 
 sge::dinput::cursor::cursor(
-	awl::backends::windows::window::event::processor_ptr const _processor
+	awl::backends::windows::window::event::processor_ptr const _event_processor
 )
 :
+	event_processor_(_event_processor),
+	cursor_define_(),
 	button_signal_(),
 	move_signal_(),
 	connections_(
@@ -45,7 +49,7 @@ sge::dinput::cursor::cursor(
 			fcppt::signal::connection_manager::container
 		>(
 			fcppt::signal::shared_connection(
-				_processor->register_callback(
+				_event_processor->register_callback(
 					WM_MOUSEMOVE,
 					std::tr1::bind(
 						&dinput::cursor::on_move,
@@ -57,7 +61,7 @@ sge::dinput::cursor::cursor(
 		)
 		(
 			fcppt::signal::shared_connection(
-				_processor->register_callback(
+				_event_processor->register_callback(
 					WM_LBUTTONDOWN,
 					std::tr1::bind(
 						&dinput::cursor::on_button,
@@ -71,7 +75,7 @@ sge::dinput::cursor::cursor(
 		)
 		(
 			fcppt::signal::shared_connection(
-				_processor->register_callback(
+				_event_processor->register_callback(
 					WM_LBUTTONUP,
 					std::tr1::bind(
 						&dinput::cursor::on_button,
@@ -85,7 +89,7 @@ sge::dinput::cursor::cursor(
 		)
 		(
 			fcppt::signal::shared_connection(
-				_processor->register_callback(
+				_event_processor->register_callback(
 					WM_MBUTTONDOWN,
 					std::tr1::bind(
 						&dinput::cursor::on_button,
@@ -99,7 +103,7 @@ sge::dinput::cursor::cursor(
 		)
 		(
 			fcppt::signal::shared_connection(
-				_processor->register_callback(
+				_event_processor->register_callback(
 					WM_MBUTTONUP,
 					std::tr1::bind(
 						&dinput::cursor::on_button,
@@ -113,7 +117,7 @@ sge::dinput::cursor::cursor(
 		)
 		(
 			fcppt::signal::shared_connection(
-				_processor->register_callback(
+				_event_processor->register_callback(
 					WM_RBUTTONDOWN,
 					std::tr1::bind(
 						&dinput::cursor::on_button,
@@ -127,7 +131,7 @@ sge::dinput::cursor::cursor(
 		)
 		(
 			fcppt::signal::shared_connection(
-				_processor->register_callback(
+				_event_processor->register_callback(
 					WM_RBUTTONUP,
 					std::tr1::bind(
 						&dinput::cursor::on_button,
@@ -180,6 +184,23 @@ sge::dinput::cursor::visibility(
 	bool const _value
 )
 {
+	if(
+		_value == !cursor_define_
+	)
+		return;
+
+	if(
+		_value
+	)
+		cursor_define_.reset();
+	else
+		cursor_define_.take(
+			fcppt::make_unique_ptr<
+				dinput::cursor_define
+			>(
+				event_processor_
+			)
+		);
 }
 
 void
