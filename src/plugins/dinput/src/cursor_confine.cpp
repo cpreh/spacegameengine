@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../cursor_confine.hpp"
 #include <sge/input/exception.hpp>
 #include <awl/backends/windows/window/client_rect.hpp>
+#include <awl/backends/windows/window/client_rect_to_screen.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
@@ -34,7 +35,7 @@ typedef fcppt::optional<
 
 void
 clip_cursor(
-	optional_rect const &_rect
+	optional_rect _rect
 )
 {
 	if(
@@ -59,8 +60,11 @@ sge::dinput::cursor_confine::cursor_confine(
 )
 {
 	clip_cursor(
-		awl::backends::windows::window::client_rect(
-			*_window
+		awl::backends::windows::window::client_rect_to_screen(
+			*_window,
+			awl::backends::windows::window::client_rect(
+				*_window
+			)
 		)
 	);
 }

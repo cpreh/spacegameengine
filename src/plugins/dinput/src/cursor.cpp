@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/exception.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
 #include <awl/backends/windows/window/event/object.hpp>
+#include <awl/backends/windows/window/screen_to_client.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -198,6 +199,12 @@ sge::dinput::cursor::position() const
 	)
 		throw sge::input::exception(
 			FCPPT_TEXT("GetCursorPos() failed!")
+		);
+
+	ret =
+		awl::backends::windows::window::screen_to_client(
+			*window_,
+			ret
 		);
 
 	return
