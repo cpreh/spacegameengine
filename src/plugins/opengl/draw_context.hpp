@@ -44,9 +44,6 @@ public:
 	bool
 	draw_range_elements_supported() const;
 
-	bool
-	draw_elements_supported() const;
-
 	typedef PFNGLDRAWRANGEELEMENTSPROC gl_draw_range_elements;
 
 	gl_draw_range_elements
@@ -58,8 +55,7 @@ public:
 private:
 	bool const
 		draw_range_elements_supported_,
-		draw_range_elements_ext_supported_,
-		draw_elements_supported_;
+		draw_range_elements_ext_supported_;
 
 	gl_draw_range_elements const draw_range_elements_;
 };

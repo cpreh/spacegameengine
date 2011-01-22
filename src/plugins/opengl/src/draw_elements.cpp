@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
-#include <sge/renderer/unsupported.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/text.hpp>
@@ -135,28 +134,15 @@ sge::opengl::draw_elements(
 		return;
 	}
 	
-	if(
-		context.draw_elements_supported()
-	)
-	{
-		::glDrawElements(
-			primitive_type,
-			primitive_count,
-			format,
-			offset
-		);
-
-		SGE_OPENGL_CHECK_STATE(
-			FCPPT_TEXT("glDrawElements failed"),
-			sge::renderer::exception
-		)
-
-		return;
-	}
-	
-	throw sge::renderer::unsupported(
-		FCPPT_TEXT("render with index buffer"),
-		FCPPT_TEXT("1.1"),
-		FCPPT_TEXT("glDrawRangeElementsExt")
+	::glDrawElements(
+		primitive_type,
+		primitive_count,
+		format,
+		offset
 	);
+
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("glDrawElements failed"),
+		sge::renderer::exception
+	)
 }

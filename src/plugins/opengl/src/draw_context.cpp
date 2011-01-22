@@ -32,9 +32,6 @@ sge::opengl::draw_context::draw_context()
 	draw_range_elements_ext_supported_(
 		glDrawRangeElementsEXT
 	),
-	draw_elements_supported_(
-		glDrawElements
-	),
 	draw_range_elements_(
 		draw_range_elements_supported_
 		?
@@ -59,12 +56,6 @@ sge::opengl::draw_context::draw_range_elements_supported() const
 	return
 		draw_range_elements_supported_
 		|| draw_range_elements_ext_supported_;
-}
-
-bool
-sge::opengl::draw_context::draw_elements_supported() const
-{
-	return draw_elements_supported_;
 }
 
 sge::opengl::draw_context::gl_draw_range_elements
