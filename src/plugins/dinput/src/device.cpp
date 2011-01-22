@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../device_parameters.hpp"
 #include "../di.hpp"
 #include <sge/input/exception.hpp>
+#include <awl/backends/windows/system/event/handle.hpp>
 #include <awl/backends/windows/window/instance.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
@@ -46,7 +47,8 @@ DIPROPDWORD const buffer_settings = {
 }
 
 sge::dinput::device::~device()
-{}
+{
+}
 
 bool
 sge::dinput::device::acquire()
@@ -113,6 +115,10 @@ sge::dinput::device::device(
 		DIPROP_BUFFERSIZE,
 		&buffer_settings.diph
 	);
+
+	this->set_event_handle(
+		_param.event_handle()->get()
+	);
 }
 
 void
@@ -165,6 +171,27 @@ sge::dinput::device::set_property(
 		throw sge::input::exception(
 			FCPPT_TEXT("SetProperty() failed!")
 		);
+}
+
+void
+sge::dinput::device::set_event_handle(
+	HANDLE const _handle
+)
+{
+	switch(
+		device_->SetEventNotification(
+			_handle
+		)
+	)
+	{
+	case DI_OK:
+	case DI_POLLEDDEVICE:
+		return;
+	default:
+		throw sge::input::exception(
+			FCPPT_TEXT("SetEventNotification() failed!")
+		);
+	}
 }
 
 void

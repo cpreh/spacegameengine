@@ -19,11 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../cursor.hpp"
+#include "../cursor_confine.hpp"
 #include "../cursor_define.hpp"
 #include <sge/input/cursor/button_code.hpp>
 #include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/position.hpp>
+#include <sge/input/cursor/position_unit.hpp>
+#include <sge/input/cursor/window_mode.hpp>
+#include <sge/input/exception.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
 #include <awl/backends/windows/window/event/object.hpp>
 #include <awl/backends/windows/windows.hpp>
@@ -35,15 +39,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/text.hpp>
 
 sge::dinput::cursor::cursor(
-	awl::backends::windows::window::event::processor_ptr const _event_processor
+	awl::backends::windows::window::event::processor_ptr const _event_processor,
+	awl::backends::windows::window::instance_ptr const _window
 )
 :
 	event_processor_(_event_processor),
+	window_(_window),
 	cursor_define_(),
+	cursor_confine_(),
 	button_signal_(),
 	move_signal_(),
+	acquired_(false),
+	window_mode_(
+		sge::input::cursor::window_mode::move_freely
+	),
 	connections_(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
@@ -176,7 +188,31 @@ sge::dinput::cursor::move_callback(
 sge::input::cursor::position const
 sge::dinput::cursor::position() const
 {
-	return sge::input::cursor::position();
+	POINT ret;
+
+	if(
+		::GetCursorPos(
+			&ret
+		)
+		== 0
+	)
+		throw sge::input::exception(
+			FCPPT_TEXT("GetCursorPos() failed!")
+		);
+
+	return
+		sge::input::cursor::position(
+			static_cast<
+				sge::input::cursor::position_unit
+			>(
+				ret.x
+			),
+			static_cast<
+				sge::input::cursor::position_unit
+			>(
+				ret.y
+			)
+		);
 }
 
 void
@@ -208,16 +244,25 @@ sge::dinput::cursor::window_mode(
 	input::cursor::window_mode::type const _mode
 )
 {
+	window_mode_ = _mode;
+
+	this->update_confine();
 }
 
 void
 sge::dinput::cursor::acquire()
 {
+	acquired_ = true;
+
+	this->update_confine();
 }
 
 void
 sge::dinput::cursor::unacquire()
 {
+	acquired_ = false;
+
+	this->update_confine();
 }
 
 awl::backends::windows::window::event::return_type
@@ -256,4 +301,27 @@ sge::dinput::cursor::on_button(
 	);
 
 	return awl::backends::windows::window::event::return_type();
+}
+
+void
+sge::dinput::cursor::update_confine()
+{
+	if(
+		window_mode_ == sge::input::cursor::window_mode::confine
+		&& acquired_
+	)
+	{
+		if(
+			!cursor_confine_
+		)
+			cursor_confine_.take(
+				fcppt::make_unique_ptr<
+					dinput::cursor_confine
+				>(
+					window_
+				)
+			);
+	}
+	else
+		cursor_confine_.reset();
 }

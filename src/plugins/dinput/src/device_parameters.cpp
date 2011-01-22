@@ -21,16 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../device_parameters.hpp"
 
 sge::dinput::device_parameters::device_parameters(
-		dinput::dinput_ptr const _instance,
-		fcppt::string const &_name,
-		GUID const _guid,
-		awl::backends::windows::window::instance_ptr const _window
+	dinput::dinput_ptr const _instance,
+	fcppt::string const &_name,
+	GUID const _guid,
+	awl::backends::windows::window::instance_ptr const _window,
+	awl::backends::windows::system::event::handle_ptr const _event_handle
 )
 :
 	instance_(_instance),
 	name_(_name),
 	guid_(_guid),
-	window_(_window)
+	window_(_window),
+	event_handle_(_event_handle)
 {
 }
 
@@ -56,4 +58,10 @@ awl::backends::windows::window::instance_ptr const
 sge::dinput::device_parameters::window() const
 {
 	return window_;
+}
+
+awl::backends::windows::system::event::handle_ptr const
+sge::dinput::device_parameters::event_handle() const
+{
+	return event_handle_;
 }

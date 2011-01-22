@@ -72,6 +72,11 @@ protected:
 		LPCDIPROPHEADER
 	);
 
+	void
+	set_event_handle(
+		HANDLE
+	);
+
 	typedef fcppt::container::array<
 		DIDEVICEOBJECTDATA,
 		buffer_size

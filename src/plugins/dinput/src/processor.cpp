@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../mouse.hpp"
 #include <sge/input/exception.hpp>
 #include <sge/window/instance.hpp>
-#include <awl/backends/windows/system/event/object.hpp>
 #include <awl/backends/windows/system/event/processor.hpp>
 #include <awl/backends/windows/window/event/object.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
@@ -76,13 +75,14 @@ sge::dinput::processor::processor(
 		fcppt::make_shared_ptr<
 			dinput::cursor
 		>(
-			event_processor_
+			event_processor_,
+			windows_window_
 		)
 	),
-	key_conv_(),
-	poll_timer_(
-		USER_TIMER_MINIMUM
+	event_handle_(
+		system_processor_->create_event_handle()
 	),
+	key_conv_(),
 	acquired_(false),
 	connections_(
 		fcppt::assign::make_container<
@@ -101,12 +101,10 @@ sge::dinput::processor::processor(
 		)
 		(
 			fcppt::signal::shared_connection(
-				system_processor_->register_callback(
-					WM_TIMER,
+				system_processor_->register_handle_callback(
 					std::tr1::bind(
-						&dinput::processor::on_timer,
-						this,
-						std::tr1::placeholders::_1
+						&dinput::processor::on_handle_ready,
+						this
 					)
 				)
 			)
@@ -248,17 +246,9 @@ sge::dinput::processor::on_activate(
 	return awl::backends::windows::window::event::return_type();
 }
 
-
 void
-sge::dinput::processor::on_timer(
-	awl::backends::windows::system::event::object const &_event
-)
+sge::dinput::processor::on_handle_ready()
 {
-	if(
-		_event.wparam() != poll_timer_.id()
-	)
-		return;
-	
 	if(
 		!acquired_
 	)
@@ -319,7 +309,8 @@ sge::dinput::processor::enum_devices_callback(
 		instance.dinput_,
 		product_name,
 		_ddi->guidInstance,
-		instance.windows_window_
+		instance.windows_window_,
+		instance.event_handle_
 	);
 	
 	switch(

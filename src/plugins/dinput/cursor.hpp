@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_CURSOR_HPP_INCLUDED
 
 #include "cursor_fwd.hpp"
+#include "cursor_confine_fwd.hpp"
 #include "cursor_define_fwd.hpp"
 #include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/button_code.hpp>
@@ -34,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/object_fwd.hpp>
 #include <awl/backends/windows/window/event/processor_ptr.hpp>
 #include <awl/backends/windows/window/event/return_type.hpp>
+#include <awl/backends/windows/window/instance_ptr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object_decl.hpp>
@@ -54,7 +56,8 @@ class cursor
 	)
 public:
 	explicit cursor(
-		awl::backends::windows::window::event::processor_ptr
+		awl::backends::windows::window::event::processor_ptr,
+		awl::backends::windows::window::instance_ptr
 	);
 
 	~cursor();
@@ -100,9 +103,16 @@ private:
 		bool down
 	);
 
+	void
+	update_confine();
+
 	typedef fcppt::scoped_ptr<
 		dinput::cursor_define
 	> cursor_define_ptr;
+
+	typedef fcppt::scoped_ptr<
+		dinput::cursor_confine
+	> cursor_confine_ptr;
 
 	typedef fcppt::signal::object<
 		input::cursor::button_function
@@ -114,7 +124,15 @@ private:
 
 	awl::backends::windows::window::event::processor_ptr const event_processor_;
 
+	awl::backends::windows::window::instance_ptr const window_;
+
+	bool acquired_;
+
+	sge::input::cursor::window_mode::type window_mode_;
+
 	cursor_define_ptr cursor_define_;
+
+	cursor_confine_ptr cursor_confine_;
 
 	button_signal button_signal_;
 

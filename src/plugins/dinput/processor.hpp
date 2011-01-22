@@ -40,9 +40,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/window/instance_ptr.hpp>
-#include <awl/backends/windows/system/event/object_fwd.hpp>
+#include <awl/backends/windows/system/event/handle_ptr.hpp>
 #include <awl/backends/windows/system/event/processor_ptr.hpp>
-#include <awl/backends/windows/system/event/timer.hpp>
 #include <awl/backends/windows/window/event/object_fwd.hpp>
 #include <awl/backends/windows/window/event/processor_ptr.hpp>
 #include <awl/backends/windows/window/event/return_type.hpp>
@@ -119,9 +118,7 @@ private:
 	);
 
 	void
-	on_timer(
-		awl::backends::windows::system::event::object const &
-	);
+	on_handle_ready();
 
 	typedef std::vector<
 		dinput::device_ptr
@@ -162,7 +159,7 @@ private:
 
 	dinput::key_converter key_conv_;
 
-	awl::backends::windows::system::event::timer const poll_timer_;
+	awl::backends::windows::system::event::handle_ptr const event_handle_;
 
 	bool acquired_;
 
