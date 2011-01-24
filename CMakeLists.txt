@@ -82,24 +82,6 @@ SET (BINARY_PATH ${CMAKE_BINARY_DIR}/bin)
 SET (LIBRARY_OUTPUT_PATH ${BINARY_PATH})
 SET (EXECUTABLE_OUTPUT_PATH ${BINARY_PATH})
 
-# Create package file for relocateable package
-SET (PKGFILE "${CMAKE_BINARY_DIR}/spacegameengine.pc")
-FILE(
-	WRITE ${PKGFILE}
-	"prefix=${CMAKE_INSTALL_PREFIX}\n"
-	"exec_prefix=\${prefix}\n"
-	"libdir=\${prefix}/lib\n"
-	"includedir=\${prefix}/include\n"
-	"\n"
-	"Name: Spacegameengine\n"
-	"Description: A portable, easy to use engine written in C++\n"
-	"Version: 0.1\n"
-	"Requires:\n"
-	"Libs: -L\${libdir} -lsgecore\n"
-)
-
-INSTALL (FILES ${PKGFILE} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/pkgconfig)
-
 # FIND BOOST
 SET (Boost_ADDITIONAL_VERSIONS "1.45" "1.45.0")
 
