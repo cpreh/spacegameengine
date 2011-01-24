@@ -292,15 +292,9 @@ IF (ENABLE_EXAMPLES)
 	ADD_SUBDIRECTORY (examples)
 ENDIF ()
 
-INSTALL (
+INSTALL(
 	DIRECTORY media/
 	DESTINATION share/games/sge/media
-)
-
-INSTALL (
-	DIRECTORY include/
-	DESTINATION include
-	REGEX ".*gui.*|.*xcb.*" EXCLUDE
 )
 
 INSTALL(
