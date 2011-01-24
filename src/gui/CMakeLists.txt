@@ -175,35 +175,7 @@ SET(
 	src/gui/widgets/parent_data.cpp
 )
 
-APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
-	"${SGE_GUI_FILES}"
-	SGE_GUI_FILES_ABS
-)
-
-ADD_LIBRARY(
-	sgegui
-	SHARED
-	${SGE_GUI_FILES_ABS}
-)
-
-TARGET_LINK_LIBRARIES(
-	sgegui
-	sgecore
-	sgeconfig
-	sgefonttext
-	sgetime
-)
-
-INSTALL(
-	TARGETS
-	sgegui
-	DESTINATION
-	lib
-)
-
-INSTALL(
-	DIRECTORY
-	${CMAKE_SOURCE_DIR}/include/sge/gui
-	DESTINATION
-	include/sge
+ADD_SGE_BASE_LIBRARY(
+	gui
+	"sgeconfig;sgefonttext;sgetime"
 )

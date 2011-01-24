@@ -72,33 +72,7 @@ SET(
 	src/systems/wrapped_window.cpp
 )
 
-APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
-	"${SGE_SYSTEMS_FILES}"
-	SGE_SYSTEMS_FILES_ABS
-)
-
-ADD_LIBRARY(
-	sgesystems
-	SHARED
-	${SGE_SYSTEMS_FILES_ABS}
-)
-
-TARGET_LINK_LIBRARIES(
-	sgesystems
-	sgecore
-	sgeconfig
-)
-
-INSTALL(
-	TARGETS
-	sgesystems
-	DESTINATION
-	lib
-)
-
-INSTALL(
-	DIRECTORY
-	${CMAKE_SOURCE_DIR}/include/sge/systems
-	DESTINATION
-	include/sge
+ADD_SGE_BASE_LIBRARY(
+	systems
+	"sgeconfig"
 )

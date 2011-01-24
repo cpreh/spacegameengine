@@ -19,32 +19,7 @@ SET(
 	src/camera/projection/to_matrix.cpp
 )
 
-APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
-	"${SGE_CAMERA_FILES}"
-	SGE_CAMERA_FILES_ABS
-)
-
-ADD_LIBRARY(
-	sgecamera
-	SHARED
-	${SGE_CAMERA_FILES_ABS}
-)
-
-TARGET_LINK_LIBRARIES(
-	sgecamera
-	sgecore
-)
-
-INSTALL(
-	TARGETS
-	sgecamera
-	DESTINATION
-	lib
-)
-
-INSTALL(
-	DIRECTORY
-	${CMAKE_SOURCE_DIR}/include/sge/camera
-	DESTINATION
-	include/sge
+ADD_SGE_BASE_LIBRARY(
+	camera
+	""
 )

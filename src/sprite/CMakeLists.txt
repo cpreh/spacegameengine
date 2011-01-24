@@ -172,32 +172,7 @@ SET(
 	src/sprite/transform_matrix.cpp
 )
 
-APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
-	"${SGE_SPRITE_FILES}"
-	SGE_SPRITE_FILES_ABS
-)
-
-ADD_LIBRARY(
-	sgesprite
-	SHARED
-	${SGE_SPRITE_FILES_ABS}
-)
-
-TARGET_LINK_LIBRARIES(
-	sgesprite
-	sgecore
-)
-
-INSTALL(
-	TARGETS
-	sgesprite
-	DESTINATION
-	lib
-)
-
-INSTALL(
-	DIRECTORY
-	${CMAKE_SOURCE_DIR}/include/sge/sprite
-	DESTINATION
-	include/sge
+ADD_SGE_BASE_LIBRARY(
+	sprite
+	""
 )

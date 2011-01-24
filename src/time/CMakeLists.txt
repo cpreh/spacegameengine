@@ -31,32 +31,7 @@ SET(
 	src/time/timer.cpp
 )
 
-APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
-	"${SGE_TIME_FILES}"
-	SGE_TIME_FILES_ABS
-)
-
-ADD_LIBRARY(
-	sgetime
-	SHARED
-	${SGE_TIME_FILES_ABS}
-)
-
-TARGET_LINK_LIBRARIES(
-	sgetime
-	sgecore
-)
-
-INSTALL(
-	TARGETS
-	sgetime
-	DESTINATION
-	lib
-)
-
-INSTALL(
-	DIRECTORY
-	${CMAKE_SOURCE_DIR}/include/sge/time
-	DESTINATION
-	include/sge
+ADD_SGE_BASE_LIBRARY(
+	time
+	""
 )

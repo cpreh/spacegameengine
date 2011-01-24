@@ -58,32 +58,7 @@ SET(
 	src/texture/rect_fragmented.cpp
 )
 
-APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
-	"${SGE_TEXTURE_FILES}"
-	SGE_TEXTURE_FILES_ABS
-)
-
-ADD_LIBRARY(
-	sgetexture
-	SHARED
-	${SGE_TEXTURE_FILES_ABS}
-)
-
-TARGET_LINK_LIBRARIES(
-	sgetexture
-	sgecore
-)
-
-INSTALL(
-	TARGETS
-	sgetexture
-	DESTINATION
-	lib
-)
-
-INSTALL(
-	DIRECTORY
-	${CMAKE_SOURCE_DIR}/include/sge/texture
-	DESTINATION
-	include/sge
+ADD_SGE_BASE_LIBRARY(
+	texture
+	""
 )

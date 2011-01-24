@@ -48,33 +48,7 @@ SET(
 	src/config/plugin_path.cpp
 )
 
-APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
-	"${SGE_CONFIG_FILES}"
-	SGE_CONFIG_FILES_ABS
-)
-
-ADD_LIBRARY(
-	sgeconfig
-	SHARED
-	${SGE_CONFIG_FILES_ABS}
-)
-
-TARGET_LINK_LIBRARIES(
-	sgeconfig
-	sgecore
-	sgeparse
-)
-
-INSTALL(
-	TARGETS
-	sgeconfig
-	DESTINATION
-	lib
-)
-
-INSTALL(
-	DIRECTORY
-	${CMAKE_SOURCE_DIR}/include/sge/config
-	DESTINATION
-	include/sge
+ADD_SGE_BASE_LIBRARY(
+	config
+	"sgeparse"
 )

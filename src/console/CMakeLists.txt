@@ -42,34 +42,7 @@ SET(
 	src/console/object.cpp
 )
 
-APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
-	"${SGE_CONSOLE_FILES}"
-	SGE_CONSOLE_FILES_ABS
-)
-
-ADD_LIBRARY(
-	sgeconsole
-	SHARED
-	${SGE_CONSOLE_FILES_ABS}
-)
-
-TARGET_LINK_LIBRARIES(
-	sgeconsole
-	sgecore
-	sgefonttext
-	sgetime
-)
-
-INSTALL(
-	TARGETS
-	sgeconsole
-	DESTINATION
-	lib
-)
-
-INSTALL(
-	DIRECTORY
-	${CMAKE_SOURCE_DIR}/include/sge/console
-	DESTINATION
-	include/sge
+ADD_SGE_BASE_LIBRARY(
+	console
+	"sgefonttext;sgetime"
 )

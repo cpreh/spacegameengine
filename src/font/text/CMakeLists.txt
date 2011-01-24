@@ -44,34 +44,7 @@ SET(
 	src/font/text/to_fcppt_string.cpp
 )
 
-APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
-	"${SGE_FONT_TEXT_FILES}"
-	SGE_FONT_TEXT_FILES_ABS
-)
-
-ADD_LIBRARY(
-	sgefonttext
-	SHARED
-	${SGE_FONT_TEXT_FILES_ABS}
-)
-
-TARGET_LINK_LIBRARIES(
-	sgefonttext
-	sgecore
-	sgesprite
-	sgetexture
-)
-
-INSTALL(
-	TARGETS
-	sgefonttext
-	DESTINATION
-	lib
-)
-
-INSTALL(
-	DIRECTORY
-	${CMAKE_SOURCE_DIR}/include/sge/font/text
-	DESTINATION
-	include/sge
+ADD_SGE_BASE_LIBRARY(
+	font_text
+	"sgesprite;sgetexture"
 )

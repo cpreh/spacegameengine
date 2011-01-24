@@ -89,32 +89,7 @@ SET(
 	src/parse/parse_stream.hpp
 )
 
-APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
-	"${SGE_PARSE_FILES}"
-	SGE_PARSE_FILES_ABS
-)
-
-ADD_LIBRARY(
-	sgeparse
-	SHARED
-	${SGE_PARSE_FILES_ABS}
-)
-
-TARGET_LINK_LIBRARIES(
-	sgeparse
-	sgecore
-)
-
-INSTALL(
-	TARGETS
-	sgeparse
-	DESTINATION
-	lib
-)
-
-INSTALL(
-	DIRECTORY
-	${CMAKE_SOURCE_DIR}/include/sge/parse
-	DESTINATION
-	include/sge
+ADD_SGE_BASE_LIBRARY(
+	parse
+	""
 )

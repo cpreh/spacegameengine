@@ -27,32 +27,7 @@ SET(
 	src/shader/variable.cpp
 )
 
-APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
-	"${SGE_SHADER_FILES}"
-	SGE_SHADER_FILES_ABS
-)
-
-ADD_LIBRARY(
-	sgeshader
-	SHARED
-	${SGE_SHADER_FILES_ABS}
-)
-
-TARGET_LINK_LIBRARIES(
-	sgeshader
-	sgecore
-)
-
-INSTALL(
-	TARGETS
-	sgeshader
-	DESTINATION
-	lib
-)
-
-INSTALL(
-	DIRECTORY
-	${CMAKE_SOURCE_DIR}/include/sge/shader
-	DESTINATION
-	include/sge
+ADD_SGE_BASE_LIBRARY(
+	shader
+	""
 )
