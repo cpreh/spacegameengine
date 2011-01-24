@@ -12,48 +12,69 @@ INCLUDE_DIRECTORIES(
 	${CMAKE_BINARY_DIR}/include
 )
 
-MACRO(
-	ADD_SGE_CONFIG_INCLUDE_SOURCE_GROUP
-	SOURCEPATH
+SET(
+	SGE_CONFIG_FILES
+	include/sge/config/appdir.hpp
+	include/sge/config/exception.hpp
+	include/sge/config/find_config_path.hpp
+	include/sge/config/find_path.hpp
+	include/sge/config/find_path_exn.hpp
+	include/sge/config/getenv.hpp
+	include/sge/config/getenv_exn.hpp
+	include/sge/config/homedir.hpp
+	include/sge/config/make_files.hpp
+	include/sge/config/media_path.hpp
+	include/sge/config/no_such_env_var.hpp
+	include/sge/config/optional_path.hpp
+	include/sge/config/optional_string.hpp
+	include/sge/config/path_not_found.hpp
+	include/sge/config/path_vector.hpp
+	include/sge/config/plugin_path.hpp
+	include/sge/config/symbol.hpp
+	src/config/appdir.cpp
+	src/config/exception.cpp
+	src/config/find_config_path.cpp
+	src/config/find_own_path.cpp
+	src/config/find_own_path.hpp
+	src/config/find_path.cpp
+	src/config/find_path_exn.cpp
+	src/config/getenv.cpp
+	src/config/getenv_exn.cpp
+	src/config/homedir.cpp
+	src/config/make_files.cpp
+	src/config/media_path.cpp
+	src/config/no_such_env_var.cpp
+	src/config/path_not_found.cpp
+	src/config/plugin_path.cpp
 )
-	ADD_SGE_SOURCE_GROUP(
-		"include\\\\\\\\sge\\\\\\\\config" #cmake bitch
-		${CMAKE_SOURCE_DIR}/include/sge/config
-		"${SOURCEPATH}"
-		*.hpp
-		TEMPFILES
-	)
 
-	SET(SGECONFIGFILES ${SGECONFIGFILES} ${TEMPFILES})
-ENDMACRO()
-
-ADD_SGE_CONFIG_INCLUDE_SOURCE_GROUP("")
-
-MACRO(
-	ADD_SGE_CONFIG_SOURCE_GROUP
-	SOURCEPATH
+APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
+	"${SGE_CONFIG_FILES}"
+	SGE_CONFIG_FILES_ABS
 )
-	ADD_SGE_SOURCE_GROUP(
-		"src\\\\\\\\config"
-		""
-		"${SOURCEPATH}"
-		*.?pp
-		TEMPFILES	
-	)
 
-	SET(SGECONFIGFILES ${SGECONFIGFILES} ${TEMPFILES})
-ENDMACRO()
+ADD_LIBRARY(
+	sgeconfig
+	SHARED
+	${SGE_CONFIG_FILES_ABS}
+)
 
-ADD_SGE_CONFIG_SOURCE_GROUP("")
-
-ADD_LIBRARY (sgeconfig SHARED ${SGECONFIGFILES})
-
-TARGET_LINK_LIBRARIES (
+TARGET_LINK_LIBRARIES(
 	sgeconfig
 	sgecore
 	sgeparse
 )
 
-INSTALL (TARGETS sgeconfig DESTINATION lib)
+INSTALL(
+	TARGETS
+	sgeconfig
+	DESTINATION
+	lib
+)
 
-INSTALL(DIRECTORY ${CMAKE_SOURCE_DIR}/include/sge/config DESTINATION include/sge)
+INSTALL(
+	DIRECTORY
+	${CMAKE_SOURCE_DIR}/include/sge/config
+	DESTINATION
+	include/sge
+)

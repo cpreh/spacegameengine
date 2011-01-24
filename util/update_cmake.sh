@@ -1,5 +1,23 @@
-#!/bin/sh
-update_cmake \
+#!/bin/bash
+
+function die()
+{
+	exit -1
+}
+
+function update_cmake_file()
+{
+	local cmakefile="$1"	
+
+	update_cmake \
+		"${cmakefile}" \
+		"${@:2}" \
+		|| die
+
+	mv "${cmakefile}".new "${cmakefile}" || die
+}
+
+update_cmake_file \
 	src/CMakeLists.txt \
 	SGE_CORE_INCLUDE_FILES \
 	-n \
@@ -22,10 +40,8 @@ update_cmake \
 	include/sge/plugin \
 	include/sge/renderer \
 	include/sge/window \
-	|| exit
-mv src/CMakeLists.txt.new src/CMakeLists.txt || exit
 
-update_cmake \
+update_cmake_file \
 	src/CMakeLists.txt \
 	SGE_CORE_SRC_FILES \
 	-n \
@@ -47,15 +63,18 @@ update_cmake \
 	src/plugin \
 	src/renderer \
 	src/window \
-	|| exit
 
-mv src/CMakeLists.txt.new src/CMakeLists.txt || exit
+function update_sublibrary()
+{
+	local sublibrary="$1"
 
-update_cmake \
-	src/camera/CMakeLists.txt \
-	SGE_CAMERA_FILES \
-	include/sge/camera \
-	src/camera \
-	|| exit
+	update_cmake_file \
+		src/"${sublibrary}"/CMakeLists.txt \
+		SGE_$(echo "${sublibrary}" | tr "[:lower:]" "[:upper:]")_FILES \
+		include/sge/"${sublibrary}" \
+		src/"${sublibrary}"
+}
 
-mv src/camera/CMakeLists.txt.new src/camera/CMakeLists.txt || exit
+update_sublibrary camera
+
+update_sublibrary config
