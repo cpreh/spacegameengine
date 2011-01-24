@@ -50,3 +50,12 @@ update_cmake \
 	|| exit
 
 mv src/CMakeLists.txt.new src/CMakeLists.txt || exit
+
+update_cmake \
+	src/camera/CMakeLists.txt \
+	SGE_CAMERA_FILES \
+	include/sge/camera \
+	src/camera \
+	|| exit
+
+mv src/camera/CMakeLists.txt.new src/camera/CMakeLists.txt || exit
