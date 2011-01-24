@@ -39,7 +39,7 @@ update_cmake_file \
 	include/sge/model \
 	include/sge/plugin \
 	include/sge/renderer \
-	include/sge/window \
+	include/sge/window
 
 update_cmake_file \
 	src/CMakeLists.txt \
@@ -62,7 +62,7 @@ update_cmake_file \
 	src/model \
 	src/plugin \
 	src/renderer \
-	src/window \
+	src/window
 
 function update_sublibrary()
 {
@@ -77,6 +77,7 @@ function update_sublibrary()
 		src/"${sublibrary}"
 }
 
+# base libs
 update_sublibrary camera
 
 update_sublibrary config
@@ -102,3 +103,41 @@ update_sublibrary systems
 update_sublibrary texture
 
 update_sublibrary time
+
+# plugins
+update_cmake_file \
+	src/plugins/opengl/CMakeLists.txt \
+	SGE_OPENGL_FILES \
+	-n \
+	src/plugins/opengl \
+	-r \
+	src/plugins/opengl/context \
+	src/plugins/opengl/convert \
+	src/plugins/opengl/fbo \
+	src/plugins/opengl/glew \
+	src/plugins/opengl/glsl \
+	src/plugins/opengl/src \
+	src/plugins/opengl/texfuncs \
+	src/plugins/opengl/vf
+
+update_cmake_file \
+	src/plugins/opengl/CMakeLists.txt \
+	SGE_OPENGL_WIN32_FILES \
+	src/plugins/opengl/wgl \
+	src/plugins/opengl/windows
+	
+update_cmake_file \
+	src/plugins/opengl/CMakeLists.txt \
+	SGE_OPENGL_X11_FILES \
+	src/plugins/opengl/glx \
+	src/plugins/opengl/x11
+
+update_cmake_file \
+	src/plugins/opengl/CMakeLists.txt \
+	SGE_OPENGL_XF86VMODE_FILES \
+	src/plugins/opengl/xf86vmode
+
+update_cmake_file \
+	src/plugins/opengl/CMakeLists.txt \
+	SGE_OPENGL_XRANDR_FILES \
+	src/plugins/opengl/xrandr

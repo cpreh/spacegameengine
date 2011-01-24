@@ -1,44 +1,605 @@
-MACRO(
-	ADD_SGE_OPENGL_SOURCE_GROUP
-	SOURCEPATH
+SET(
+	SGE_OPENGL_FILES
+	src/plugins/opengl/apply_states.hpp
+	src/plugins/opengl/basic_texture.hpp
+	src/plugins/opengl/basic_texture_impl.hpp
+	src/plugins/opengl/buffer.hpp
+	src/plugins/opengl/buffer_fwd.hpp
+	src/plugins/opengl/caps_unique_ptr.hpp
+	src/plugins/opengl/check_state.hpp
+	src/plugins/opengl/common.hpp
+	src/plugins/opengl/context/base.hpp
+	src/plugins/opengl/context/base_fwd.hpp
+	src/plugins/opengl/context/base_unique_ptr.hpp
+	src/plugins/opengl/context/container.hpp
+	src/plugins/opengl/context/id.hpp
+	src/plugins/opengl/context/make_id.hpp
+	src/plugins/opengl/context/make_object.hpp
+	src/plugins/opengl/context/object.hpp
+	src/plugins/opengl/context/object_fwd.hpp
+	src/plugins/opengl/context/src/base.cpp
+	src/plugins/opengl/context/src/container.cpp
+	src/plugins/opengl/context/src/make_id.cpp
+	src/plugins/opengl/context/src/object.cpp
+	src/plugins/opengl/context/use.hpp
+	src/plugins/opengl/context/use_fwd.hpp
+	src/plugins/opengl/convert/alpha_func.hpp
+	src/plugins/opengl/convert/bit_depth.hpp
+	src/plugins/opengl/convert/bool.hpp
+	src/plugins/opengl/convert/clear_bit.hpp
+	src/plugins/opengl/convert/clip_plane_index.hpp
+	src/plugins/opengl/convert/color_to_format.hpp
+	src/plugins/opengl/convert/color_to_format_type.hpp
+	src/plugins/opengl/convert/color_to_internal_format.hpp
+	src/plugins/opengl/convert/cube_side.hpp
+	src/plugins/opengl/convert/cull_mode.hpp
+	src/plugins/opengl/convert/depth_buffer.hpp
+	src/plugins/opengl/convert/depth_func.hpp
+	src/plugins/opengl/convert/depth_stencil_to_format.hpp
+	src/plugins/opengl/convert/depth_stencil_to_format_type.hpp
+	src/plugins/opengl/convert/depth_stencil_to_internal_format.hpp
+	src/plugins/opengl/convert/dest_blend_func.hpp
+	src/plugins/opengl/convert/draw_mode.hpp
+	src/plugins/opengl/convert/fog_float_state.hpp
+	src/plugins/opengl/convert/fog_mode.hpp
+	src/plugins/opengl/convert/format_to_color.hpp
+	src/plugins/opengl/convert/format_to_string.hpp
+	src/plugins/opengl/convert/format_type_to_string.hpp
+	src/plugins/opengl/convert/indexed_primitive.hpp
+	src/plugins/opengl/convert/light_index.hpp
+	src/plugins/opengl/convert/matrix_mode.hpp
+	src/plugins/opengl/convert/nonindexed_primitive.hpp
+	src/plugins/opengl/convert/resource_flags.hpp
+	src/plugins/opengl/convert/source_blend_func.hpp
+	src/plugins/opengl/convert/src/alpha_func.cpp
+	src/plugins/opengl/convert/src/bit_depth.cpp
+	src/plugins/opengl/convert/src/bool.cpp
+	src/plugins/opengl/convert/src/clear_bit.cpp
+	src/plugins/opengl/convert/src/clip_plane_index.cpp
+	src/plugins/opengl/convert/src/color_to_format.cpp
+	src/plugins/opengl/convert/src/color_to_format_type.cpp
+	src/plugins/opengl/convert/src/color_to_internal_format.cpp
+	src/plugins/opengl/convert/src/cube_side.cpp
+	src/plugins/opengl/convert/src/cull_mode.cpp
+	src/plugins/opengl/convert/src/depth_buffer.cpp
+	src/plugins/opengl/convert/src/depth_func.cpp
+	src/plugins/opengl/convert/src/depth_stencil_to_format.cpp
+	src/plugins/opengl/convert/src/depth_stencil_to_format_type.cpp
+	src/plugins/opengl/convert/src/depth_stencil_to_internal_format.cpp
+	src/plugins/opengl/convert/src/dest_blend_func.cpp
+	src/plugins/opengl/convert/src/draw_mode.cpp
+	src/plugins/opengl/convert/src/fog_float_state.cpp
+	src/plugins/opengl/convert/src/fog_mode.cpp
+	src/plugins/opengl/convert/src/format_to_color.cpp
+	src/plugins/opengl/convert/src/format_to_string.cpp
+	src/plugins/opengl/convert/src/format_type_to_string.cpp
+	src/plugins/opengl/convert/src/indexed_primitive.cpp
+	src/plugins/opengl/convert/src/light_index.cpp
+	src/plugins/opengl/convert/src/matrix_mode.cpp
+	src/plugins/opengl/convert/src/nonindexed_primitive.cpp
+	src/plugins/opengl/convert/src/resource_flags.cpp
+	src/plugins/opengl/convert/src/source_blend_func.cpp
+	src/plugins/opengl/convert/src/stencil_buffer.cpp
+	src/plugins/opengl/convert/src/stencil_func.cpp
+	src/plugins/opengl/convert/src/texture_mag_filter.cpp
+	src/plugins/opengl/convert/src/texture_min_filter.cpp
+	src/plugins/opengl/convert/src/texture_stage_arg.cpp
+	src/plugins/opengl/convert/src/texture_stage_arg_value.cpp
+	src/plugins/opengl/convert/src/texture_stage_op.cpp
+	src/plugins/opengl/convert/src/texture_stage_op_value.cpp
+	src/plugins/opengl/convert/stencil_buffer.hpp
+	src/plugins/opengl/convert/stencil_func.hpp
+	src/plugins/opengl/convert/texture_mag_filter.hpp
+	src/plugins/opengl/convert/texture_min_filter.hpp
+	src/plugins/opengl/convert/texture_stage_arg.hpp
+	src/plugins/opengl/convert/texture_stage_arg_value.hpp
+	src/plugins/opengl/convert/texture_stage_op.hpp
+	src/plugins/opengl/convert/texture_stage_op_value.hpp
+	src/plugins/opengl/convert_lock_method.hpp
+	src/plugins/opengl/convert_vertex_colors.hpp
+	src/plugins/opengl/convert_vertices.hpp
+	src/plugins/opengl/create_caps.hpp
+	src/plugins/opengl/create_device_state.hpp
+	src/plugins/opengl/create_texture_lock.hpp
+	src/plugins/opengl/create_vbo_impl.hpp
+	src/plugins/opengl/cube_side_array.hpp
+	src/plugins/opengl/cube_texture.hpp
+	src/plugins/opengl/cube_texture_context.hpp
+	src/plugins/opengl/default_target.hpp
+	src/plugins/opengl/default_target_fwd.hpp
+	src/plugins/opengl/default_target_ptr.hpp
+	src/plugins/opengl/depth_stencil_texture.hpp
+	src/plugins/opengl/depth_stencil_texture_fwd.hpp
+	src/plugins/opengl/depth_stencil_texture_ptr.hpp
+	src/plugins/opengl/device.hpp
+	src/plugins/opengl/device_state.hpp
+	src/plugins/opengl/device_state_fwd.hpp
+	src/plugins/opengl/device_state_ptr.hpp
+	src/plugins/opengl/disable.hpp
+	src/plugins/opengl/draw_context.hpp
+	src/plugins/opengl/draw_elements.hpp
+	src/plugins/opengl/enable.hpp
+	src/plugins/opengl/enable_bool.hpp
+	src/plugins/opengl/error_string.hpp
+	src/plugins/opengl/fbo/attach_render_buffer.hpp
+	src/plugins/opengl/fbo/bind.hpp
+	src/plugins/opengl/fbo/context.hpp
+	src/plugins/opengl/fbo/context_fwd.hpp
+	src/plugins/opengl/fbo/init_viewport.hpp
+	src/plugins/opengl/fbo/object.hpp
+	src/plugins/opengl/fbo/object_fwd.hpp
+	src/plugins/opengl/fbo/render_buffer.hpp
+	src/plugins/opengl/fbo/render_buffer_binding.hpp
+	src/plugins/opengl/fbo/render_buffer_binding_fwd.hpp
+	src/plugins/opengl/fbo/render_buffer_fwd.hpp
+	src/plugins/opengl/fbo/scoped_unbind.hpp
+	src/plugins/opengl/fbo/src/attach_render_buffer.cpp
+	src/plugins/opengl/fbo/src/bind.cpp
+	src/plugins/opengl/fbo/src/context.cpp
+	src/plugins/opengl/fbo/src/init_viewport.cpp
+	src/plugins/opengl/fbo/src/object.cpp
+	src/plugins/opengl/fbo/src/render_buffer.cpp
+	src/plugins/opengl/fbo/src/render_buffer_binding.cpp
+	src/plugins/opengl/fbo/src/scoped_unbind.cpp
+	src/plugins/opengl/fbo/src/target.cpp
+	src/plugins/opengl/fbo/src/texture_binding.cpp
+	src/plugins/opengl/fbo/target.hpp
+	src/plugins/opengl/fbo/target_fwd.hpp
+	src/plugins/opengl/fbo/target_ptr.hpp
+	src/plugins/opengl/fbo/texture_binding.hpp
+	src/plugins/opengl/get_float.hpp
+	src/plugins/opengl/get_int.hpp
+	src/plugins/opengl/get_string.hpp
+	src/plugins/opengl/glew/initialize.hpp
+	src/plugins/opengl/glew/is_supported.hpp
+	src/plugins/opengl/glew/src/initialize.cpp
+	src/plugins/opengl/glew/src/is_supported.cpp
+	src/plugins/opengl/glew/string.hpp
+	src/plugins/opengl/glsl/arb/environment.hpp
+	src/plugins/opengl/glsl/arb/handle.hpp
+	src/plugins/opengl/glsl/arb/program_context.hpp
+	src/plugins/opengl/glsl/arb/program_context_fwd.hpp
+	src/plugins/opengl/glsl/arb/shader_context.hpp
+	src/plugins/opengl/glsl/arb/shader_context_fwd.hpp
+	src/plugins/opengl/glsl/arb/src/program_context.cpp
+	src/plugins/opengl/glsl/arb/src/shader_context.cpp
+	src/plugins/opengl/glsl/arb/src/uniform_context.cpp
+	src/plugins/opengl/glsl/arb/uniform_context.hpp
+	src/plugins/opengl/glsl/arb/uniform_context_fwd.hpp
+	src/plugins/opengl/glsl/attachment.hpp
+	src/plugins/opengl/glsl/attachment_fwd.hpp
+	src/plugins/opengl/glsl/const_program_base_ptr.hpp
+	src/plugins/opengl/glsl/context.hpp
+	src/plugins/opengl/glsl/context_fwd.hpp
+	src/plugins/opengl/glsl/create_pixel_shader.hpp
+	src/plugins/opengl/glsl/create_program.hpp
+	src/plugins/opengl/glsl/create_shader.hpp
+	src/plugins/opengl/glsl/create_vertex_shader.hpp
+	src/plugins/opengl/glsl/format_error.hpp
+	src/plugins/opengl/glsl/handle.hpp
+	src/plugins/opengl/glsl/instantiate.hpp
+	src/plugins/opengl/glsl/make_shader_type.hpp
+	src/plugins/opengl/glsl/native/environment.hpp
+	src/plugins/opengl/glsl/native/handle.hpp
+	src/plugins/opengl/glsl/native/program_context.hpp
+	src/plugins/opengl/glsl/native/program_context_fwd.hpp
+	src/plugins/opengl/glsl/native/shader_context.hpp
+	src/plugins/opengl/glsl/native/shader_context_fwd.hpp
+	src/plugins/opengl/glsl/native/src/program_context.cpp
+	src/plugins/opengl/glsl/native/src/shader_context.cpp
+	src/plugins/opengl/glsl/native/src/uniform_context.cpp
+	src/plugins/opengl/glsl/native/uniform_context.hpp
+	src/plugins/opengl/glsl/native/uniform_context_fwd.hpp
+	src/plugins/opengl/glsl/pixel_shader.hpp
+	src/plugins/opengl/glsl/program.hpp
+	src/plugins/opengl/glsl/program_base.hpp
+	src/plugins/opengl/glsl/program_base_fwd.hpp
+	src/plugins/opengl/glsl/program_contexts.hpp
+	src/plugins/opengl/glsl/program_holder.hpp
+	src/plugins/opengl/glsl/programfuncs/attach_shader.hpp
+	src/plugins/opengl/glsl/programfuncs/create.hpp
+	src/plugins/opengl/glsl/programfuncs/delete.hpp
+	src/plugins/opengl/glsl/programfuncs/detach_shader.hpp
+	src/plugins/opengl/glsl/programfuncs/get_attrib_location.hpp
+	src/plugins/opengl/glsl/programfuncs/get_integer.hpp
+	src/plugins/opengl/glsl/programfuncs/info_log.hpp
+	src/plugins/opengl/glsl/programfuncs/info_log_length.hpp
+	src/plugins/opengl/glsl/programfuncs/link.hpp
+	src/plugins/opengl/glsl/programfuncs/link_status.hpp
+	src/plugins/opengl/glsl/programfuncs/src/attach_shader.cpp
+	src/plugins/opengl/glsl/programfuncs/src/create.cpp
+	src/plugins/opengl/glsl/programfuncs/src/delete.cpp
+	src/plugins/opengl/glsl/programfuncs/src/detach_shader.cpp
+	src/plugins/opengl/glsl/programfuncs/src/get_attrib_location.cpp
+	src/plugins/opengl/glsl/programfuncs/src/get_integer.cpp
+	src/plugins/opengl/glsl/programfuncs/src/info_log.cpp
+	src/plugins/opengl/glsl/programfuncs/src/info_log_length.cpp
+	src/plugins/opengl/glsl/programfuncs/src/link.cpp
+	src/plugins/opengl/glsl/programfuncs/src/link_status.cpp
+	src/plugins/opengl/glsl/programfuncs/src/use.cpp
+	src/plugins/opengl/glsl/programfuncs/use.hpp
+	src/plugins/opengl/glsl/set_program.hpp
+	src/plugins/opengl/glsl/shader.hpp
+	src/plugins/opengl/glsl/shader_arb.hpp
+	src/plugins/opengl/glsl/shader_base.hpp
+	src/plugins/opengl/glsl/shader_base_fwd.hpp
+	src/plugins/opengl/glsl/shader_contexts.hpp
+	src/plugins/opengl/glsl/shader_fwd.hpp
+	src/plugins/opengl/glsl/shader_native.hpp
+	src/plugins/opengl/glsl/shader_type.hpp
+	src/plugins/opengl/glsl/shaderfuncs/compile.hpp
+	src/plugins/opengl/glsl/shaderfuncs/compile_status.hpp
+	src/plugins/opengl/glsl/shaderfuncs/create.hpp
+	src/plugins/opengl/glsl/shaderfuncs/delete.hpp
+	src/plugins/opengl/glsl/shaderfuncs/get_integer.hpp
+	src/plugins/opengl/glsl/shaderfuncs/info_log.hpp
+	src/plugins/opengl/glsl/shaderfuncs/info_log_length.hpp
+	src/plugins/opengl/glsl/shaderfuncs/source.hpp
+	src/plugins/opengl/glsl/shaderfuncs/src/compile.cpp
+	src/plugins/opengl/glsl/shaderfuncs/src/compile_status.cpp
+	src/plugins/opengl/glsl/shaderfuncs/src/create.cpp
+	src/plugins/opengl/glsl/shaderfuncs/src/delete.cpp
+	src/plugins/opengl/glsl/shaderfuncs/src/get_integer.cpp
+	src/plugins/opengl/glsl/shaderfuncs/src/info_log.cpp
+	src/plugins/opengl/glsl/shaderfuncs/src/info_log_length.cpp
+	src/plugins/opengl/glsl/shaderfuncs/src/source.cpp
+	src/plugins/opengl/glsl/src/attachment.cpp
+	src/plugins/opengl/glsl/src/context.cpp
+	src/plugins/opengl/glsl/src/create_pixel_shader.cpp
+	src/plugins/opengl/glsl/src/create_program.cpp
+	src/plugins/opengl/glsl/src/create_shader.cpp
+	src/plugins/opengl/glsl/src/create_vertex_shader.cpp
+	src/plugins/opengl/glsl/src/make_shader_type.cpp
+	src/plugins/opengl/glsl/src/pixel_shader.cpp
+	src/plugins/opengl/glsl/src/program.cpp
+	src/plugins/opengl/glsl/src/program_base.cpp
+	src/plugins/opengl/glsl/src/program_holder.cpp
+	src/plugins/opengl/glsl/src/set_program.cpp
+	src/plugins/opengl/glsl/src/shader.cpp
+	src/plugins/opengl/glsl/src/shader_base.cpp
+	src/plugins/opengl/glsl/src/vertex_shader.cpp
+	src/plugins/opengl/glsl/uniform/contexts.hpp
+	src/plugins/opengl/glsl/uniform/convert_type.hpp
+	src/plugins/opengl/glsl/uniform/element_columns.hpp
+	src/plugins/opengl/glsl/uniform/element_count.hpp
+	src/plugins/opengl/glsl/uniform/element_rows.hpp
+	src/plugins/opengl/glsl/uniform/element_size_float.hpp
+	src/plugins/opengl/glsl/uniform/element_size_int.hpp
+	src/plugins/opengl/glsl/uniform/element_type.hpp
+	src/plugins/opengl/glsl/uniform/get.hpp
+	src/plugins/opengl/glsl/uniform/is_matrix.hpp
+	src/plugins/opengl/glsl/uniform/location.hpp
+	src/plugins/opengl/glsl/uniform/set.hpp
+	src/plugins/opengl/glsl/uniform/set_float.hpp
+	src/plugins/opengl/glsl/uniform/set_int.hpp
+	src/plugins/opengl/glsl/uniform/set_matrix.hpp
+	src/plugins/opengl/glsl/uniform/set_visitor.hpp
+	src/plugins/opengl/glsl/uniform/size_type.hpp
+	src/plugins/opengl/glsl/uniform/src/convert_type.cpp
+	src/plugins/opengl/glsl/uniform/src/element_columns.cpp
+	src/plugins/opengl/glsl/uniform/src/element_count.cpp
+	src/plugins/opengl/glsl/uniform/src/element_rows.cpp
+	src/plugins/opengl/glsl/uniform/src/element_size_float.cpp
+	src/plugins/opengl/glsl/uniform/src/element_size_int.cpp
+	src/plugins/opengl/glsl/uniform/src/get.cpp
+	src/plugins/opengl/glsl/uniform/src/is_matrix.cpp
+	src/plugins/opengl/glsl/uniform/src/location.cpp
+	src/plugins/opengl/glsl/uniform/src/set.cpp
+	src/plugins/opengl/glsl/uniform/src/set_float.cpp
+	src/plugins/opengl/glsl/uniform/src/set_int.cpp
+	src/plugins/opengl/glsl/uniform/src/set_matrix.cpp
+	src/plugins/opengl/glsl/uniform/src/set_visitor.cpp
+	src/plugins/opengl/glsl/uniform/src/type.cpp
+	src/plugins/opengl/glsl/uniform/src/variable.cpp
+	src/plugins/opengl/glsl/uniform/type.hpp
+	src/plugins/opengl/glsl/uniform/type_fwd.hpp
+	src/plugins/opengl/glsl/uniform/variable.hpp
+	src/plugins/opengl/glsl/uniform/variable_arb.hpp
+	src/plugins/opengl/glsl/uniform/variable_native.hpp
+	src/plugins/opengl/glsl/vertex_shader.hpp
+	src/plugins/opengl/hardware_vbo.hpp
+	src/plugins/opengl/index_buffer.hpp
+	src/plugins/opengl/initial_states.hpp
+	src/plugins/opengl/lock_flag_read.hpp
+	src/plugins/opengl/lock_flag_write.hpp
+	src/plugins/opengl/lock_method.hpp
+	src/plugins/opengl/make_buffer_type.hpp
+	src/plugins/opengl/matrix_context.hpp
+	src/plugins/opengl/matrix_mode.hpp
+	src/plugins/opengl/multi_sample_context.hpp
+	src/plugins/opengl/multi_sample_context_fwd.hpp
+	src/plugins/opengl/multi_texture_context.hpp
+	src/plugins/opengl/multi_texture_context_fwd.hpp
+	src/plugins/opengl/normal_lock_method.hpp
+	src/plugins/opengl/pbo_context.hpp
+	src/plugins/opengl/point_sprite_context.hpp
+	src/plugins/opengl/point_sprite_context_fwd.hpp
+	src/plugins/opengl/range_check.hpp
+	src/plugins/opengl/range_lock_method.hpp
+	src/plugins/opengl/read_pixels.hpp
+	src/plugins/opengl/readonly_texture_lock.hpp
+	src/plugins/opengl/readwrite_texture_lock.hpp
+	src/plugins/opengl/set_client_texture_level.hpp
+	src/plugins/opengl/set_clip_plane.hpp
+	src/plugins/opengl/set_light.hpp
+	src/plugins/opengl/set_material.hpp
+	src/plugins/opengl/set_matrix.hpp
+	src/plugins/opengl/set_matrix_and_mode.hpp
+	src/plugins/opengl/set_scissor_area.hpp
+	src/plugins/opengl/set_texture.hpp
+	src/plugins/opengl/set_texture_level.hpp
+	src/plugins/opengl/set_texture_stage.hpp
+	src/plugins/opengl/set_texture_stage_scale.hpp
+	src/plugins/opengl/software_vbo.hpp
+	src/plugins/opengl/split_states.hpp
+	src/plugins/opengl/split_states_fwd.hpp
+	src/plugins/opengl/src/apply_states.cpp
+	src/plugins/opengl/src/buffer.cpp
+	src/plugins/opengl/src/convert_lock_method.cpp
+	src/plugins/opengl/src/convert_vertex_colors.cpp
+	src/plugins/opengl/src/convert_vertices.cpp
+	src/plugins/opengl/src/create_caps.cpp
+	src/plugins/opengl/src/create_device_state.cpp
+	src/plugins/opengl/src/create_texture_lock.cpp
+	src/plugins/opengl/src/create_vbo_impl.cpp
+	src/plugins/opengl/src/cube_texture.cpp
+	src/plugins/opengl/src/cube_texture_context.cpp
+	src/plugins/opengl/src/default_target.cpp
+	src/plugins/opengl/src/depth_stencil_texture.cpp
+	src/plugins/opengl/src/device.cpp
+	src/plugins/opengl/src/device_state.cpp
+	src/plugins/opengl/src/disable.cpp
+	src/plugins/opengl/src/draw_context.cpp
+	src/plugins/opengl/src/draw_elements.cpp
+	src/plugins/opengl/src/enable.cpp
+	src/plugins/opengl/src/enable_bool.cpp
+	src/plugins/opengl/src/error_string.cpp
+	src/plugins/opengl/src/exports.cpp
+	src/plugins/opengl/src/get_float.cpp
+	src/plugins/opengl/src/get_int.cpp
+	src/plugins/opengl/src/get_string.cpp
+	src/plugins/opengl/src/hardware_vbo.cpp
+	src/plugins/opengl/src/index_buffer.cpp
+	src/plugins/opengl/src/initial_states.cpp
+	src/plugins/opengl/src/lock_flag_read.cpp
+	src/plugins/opengl/src/lock_flag_write.cpp
+	src/plugins/opengl/src/make_buffer_type.cpp
+	src/plugins/opengl/src/matrix_context.cpp
+	src/plugins/opengl/src/matrix_mode.cpp
+	src/plugins/opengl/src/multi_sample_context.cpp
+	src/plugins/opengl/src/multi_texture_context.cpp
+	src/plugins/opengl/src/normal_lock_method.cpp
+	src/plugins/opengl/src/pbo_context.cpp
+	src/plugins/opengl/src/point_sprite_context.cpp
+	src/plugins/opengl/src/range_lock_method.cpp
+	src/plugins/opengl/src/read_pixels.cpp
+	src/plugins/opengl/src/readonly_texture_lock.cpp
+	src/plugins/opengl/src/readwrite_texture_lock.cpp
+	src/plugins/opengl/src/set_client_texture_level.cpp
+	src/plugins/opengl/src/set_clip_plane.cpp
+	src/plugins/opengl/src/set_light.cpp
+	src/plugins/opengl/src/set_material.cpp
+	src/plugins/opengl/src/set_matrix.cpp
+	src/plugins/opengl/src/set_matrix_and_mode.cpp
+	src/plugins/opengl/src/set_scissor_area.cpp
+	src/plugins/opengl/src/set_texture.cpp
+	src/plugins/opengl/src/set_texture_level.cpp
+	src/plugins/opengl/src/set_texture_stage.cpp
+	src/plugins/opengl/src/set_texture_stage_scale.cpp
+	src/plugins/opengl/src/software_vbo.cpp
+	src/plugins/opengl/src/split_states.cpp
+	src/plugins/opengl/src/state_visitor.cpp
+	src/plugins/opengl/src/system.cpp
+	src/plugins/opengl/src/target.cpp
+	src/plugins/opengl/src/tex_envf_ext.cpp
+	src/plugins/opengl/src/texture.cpp
+	src/plugins/opengl/src/texture_base.cpp
+	src/plugins/opengl/src/texture_context.cpp
+	src/plugins/opengl/src/texture_holder.cpp
+	src/plugins/opengl/src/texture_lock.cpp
+	src/plugins/opengl/src/vbo_base.cpp
+	src/plugins/opengl/src/vbo_context.cpp
+	src/plugins/opengl/src/vertex_buffer.cpp
+	src/plugins/opengl/src/viewport.cpp
+	src/plugins/opengl/src/volume_texture.cpp
+	src/plugins/opengl/src/volume_texture_context.cpp
+	src/plugins/opengl/src/writeonly_texture_lock.cpp
+	src/plugins/opengl/state_visitor.hpp
+	src/plugins/opengl/system.hpp
+	src/plugins/opengl/target.hpp
+	src/plugins/opengl/target_fwd.hpp
+	src/plugins/opengl/target_ptr.hpp
+	src/plugins/opengl/tex_envf_ext.hpp
+	src/plugins/opengl/texfuncs/bind.hpp
+	src/plugins/opengl/texfuncs/delete.hpp
+	src/plugins/opengl/texfuncs/gen.hpp
+	src/plugins/opengl/texfuncs/get_image.hpp
+	src/plugins/opengl/texfuncs/need_mipmap.hpp
+	src/plugins/opengl/texfuncs/parameter_int.hpp
+	src/plugins/opengl/texfuncs/set.hpp
+	src/plugins/opengl/texfuncs/set_3d.hpp
+	src/plugins/opengl/texfuncs/set_box.hpp
+	src/plugins/opengl/texfuncs/set_filter.hpp
+	src/plugins/opengl/texfuncs/set_mipmap.hpp
+	src/plugins/opengl/texfuncs/set_rect.hpp
+	src/plugins/opengl/texfuncs/set_rect_3d.hpp
+	src/plugins/opengl/texfuncs/src/bind.cpp
+	src/plugins/opengl/texfuncs/src/delete.cpp
+	src/plugins/opengl/texfuncs/src/gen.cpp
+	src/plugins/opengl/texfuncs/src/get_image.cpp
+	src/plugins/opengl/texfuncs/src/need_mipmap.cpp
+	src/plugins/opengl/texfuncs/src/parameter_int.cpp
+	src/plugins/opengl/texfuncs/src/set.cpp
+	src/plugins/opengl/texfuncs/src/set_3d.cpp
+	src/plugins/opengl/texfuncs/src/set_box.cpp
+	src/plugins/opengl/texfuncs/src/set_filter.cpp
+	src/plugins/opengl/texfuncs/src/set_mipmap.cpp
+	src/plugins/opengl/texfuncs/src/set_rect.cpp
+	src/plugins/opengl/texfuncs/src/set_rect_3d.cpp
+	src/plugins/opengl/texfuncs/warn_min.hpp
+	src/plugins/opengl/texfuncs/warn_pow2.hpp
+	src/plugins/opengl/texture.hpp
+	src/plugins/opengl/texture_base.hpp
+	src/plugins/opengl/texture_base_fwd.hpp
+	src/plugins/opengl/texture_base_ptr.hpp
+	src/plugins/opengl/texture_context.hpp
+	src/plugins/opengl/texture_fwd.hpp
+	src/plugins/opengl/texture_holder.hpp
+	src/plugins/opengl/texture_lock.hpp
+	src/plugins/opengl/texture_lock_fwd.hpp
+	src/plugins/opengl/texture_lock_unique_ptr.hpp
+	src/plugins/opengl/texture_ptr.hpp
+	src/plugins/opengl/vbo_base.hpp
+	src/plugins/opengl/vbo_base_fwd.hpp
+	src/plugins/opengl/vbo_base_unique_ptr.hpp
+	src/plugins/opengl/vbo_context.hpp
+	src/plugins/opengl/vector3f.hpp
+	src/plugins/opengl/vector4f.hpp
+	src/plugins/opengl/vertex_buffer.hpp
+	src/plugins/opengl/vf/actor.hpp
+	src/plugins/opengl/vf/actor_fwd.hpp
+	src/plugins/opengl/vf/actor_parameters.hpp
+	src/plugins/opengl/vf/actor_parameters_fwd.hpp
+	src/plugins/opengl/vf/actor_ptr.hpp
+	src/plugins/opengl/vf/attribute_actor.hpp
+	src/plugins/opengl/vf/attribute_context.hpp
+	src/plugins/opengl/vf/attribute_context_fwd.hpp
+	src/plugins/opengl/vf/client_state.hpp
+	src/plugins/opengl/vf/client_state_combiner.hpp
+	src/plugins/opengl/vf/client_state_combiner_fwd.hpp
+	src/plugins/opengl/vf/color_actor.hpp
+	src/plugins/opengl/vf/context.hpp
+	src/plugins/opengl/vf/context_fwd.hpp
+	src/plugins/opengl/vf/convert_color_type.hpp
+	src/plugins/opengl/vf/convert_element_type.hpp
+	src/plugins/opengl/vf/disable_vertex_attrib_array.hpp
+	src/plugins/opengl/vf/enable_vertex_attrib_array.hpp
+	src/plugins/opengl/vf/format.hpp
+	src/plugins/opengl/vf/fp_actor.hpp
+	src/plugins/opengl/vf/normal_actor.hpp
+	src/plugins/opengl/vf/pointer.hpp
+	src/plugins/opengl/vf/pointer_actor.hpp
+	src/plugins/opengl/vf/pos_actor.hpp
+	src/plugins/opengl/vf/src/actor.cpp
+	src/plugins/opengl/vf/src/actor_parameters.cpp
+	src/plugins/opengl/vf/src/attribute_actor.cpp
+	src/plugins/opengl/vf/src/attribute_context.cpp
+	src/plugins/opengl/vf/src/client_state.cpp
+	src/plugins/opengl/vf/src/client_state_combiner.cpp
+	src/plugins/opengl/vf/src/color_actor.cpp
+	src/plugins/opengl/vf/src/context.cpp
+	src/plugins/opengl/vf/src/convert_color_type.cpp
+	src/plugins/opengl/vf/src/convert_element_type.cpp
+	src/plugins/opengl/vf/src/disable_vertex_attrib_array.cpp
+	src/plugins/opengl/vf/src/enable_vertex_attrib_array.cpp
+	src/plugins/opengl/vf/src/format.cpp
+	src/plugins/opengl/vf/src/fp_actor.cpp
+	src/plugins/opengl/vf/src/normal_actor.cpp
+	src/plugins/opengl/vf/src/pointer_actor.cpp
+	src/plugins/opengl/vf/src/pos_actor.cpp
+	src/plugins/opengl/vf/src/texpos_actor.cpp
+	src/plugins/opengl/vf/src/to_actor.cpp
+	src/plugins/opengl/vf/src/to_actor_visitor.cpp
+	src/plugins/opengl/vf/src/unspecified_elements.cpp
+	src/plugins/opengl/vf/src/unspecified_elements_visitor.cpp
+	src/plugins/opengl/vf/src/unspecified_format.cpp
+	src/plugins/opengl/vf/src/unspecified_format_visitor.cpp
+	src/plugins/opengl/vf/src/unspecified_index.cpp
+	src/plugins/opengl/vf/src/vertex_attrib_pointer.cpp
+	src/plugins/opengl/vf/texpos_actor.hpp
+	src/plugins/opengl/vf/to_actor.hpp
+	src/plugins/opengl/vf/to_actor_visitor.hpp
+	src/plugins/opengl/vf/unspecified_elements.hpp
+	src/plugins/opengl/vf/unspecified_elements_visitor.hpp
+	src/plugins/opengl/vf/unspecified_format.hpp
+	src/plugins/opengl/vf/unspecified_format_visitor.hpp
+	src/plugins/opengl/vf/unspecified_index.hpp
+	src/plugins/opengl/vf/vertex_attrib_pointer.hpp
+	src/plugins/opengl/viewport.hpp
+	src/plugins/opengl/volume_texture.hpp
+	src/plugins/opengl/volume_texture_context.hpp
+	src/plugins/opengl/writeonly_texture_lock.hpp
 )
-	ADD_SGE_SOURCE_GROUP(
-		"src\\\\\\\\plugins\\\\\\\\opengl"
-		""
-		"${SOURCEPATH}"
-		*.?pp
-		TEMPFILES
-	)
 
-	SET(SGEOPENGLFILES ${SGEOPENGLFILES} ${TEMPFILES})
-ENDMACRO()
+SET(
+	SGE_OPENGL_WIN32_FILES
+	src/plugins/opengl/wgl/context.hpp
+	src/plugins/opengl/wgl/context_fwd.hpp
+	src/plugins/opengl/wgl/current.hpp
+	src/plugins/opengl/wgl/src/context.cpp
+	src/plugins/opengl/wgl/src/current.cpp
+	src/plugins/opengl/windows/change_display_settings.hpp
+	src/plugins/opengl/windows/src/change_display_settings.cpp
+	src/plugins/opengl/windows/src/state.cpp
+	src/plugins/opengl/windows/state.hpp
+)
 
-ADD_SGE_OPENGL_SOURCE_GROUP("")
-ADD_SGE_OPENGL_SOURCE_GROUP(context)
-ADD_SGE_OPENGL_SOURCE_GROUP(context/src)
-ADD_SGE_OPENGL_SOURCE_GROUP(convert)
-ADD_SGE_OPENGL_SOURCE_GROUP(convert/src)
-ADD_SGE_OPENGL_SOURCE_GROUP(fbo)
-ADD_SGE_OPENGL_SOURCE_GROUP(fbo/src)
-ADD_SGE_OPENGL_SOURCE_GROUP(glew)
-ADD_SGE_OPENGL_SOURCE_GROUP(glew/src)
-ADD_SGE_OPENGL_SOURCE_GROUP(glsl)
-ADD_SGE_OPENGL_SOURCE_GROUP(glsl/arb)
-ADD_SGE_OPENGL_SOURCE_GROUP(glsl/arb/src)
-ADD_SGE_OPENGL_SOURCE_GROUP(glsl/native)
-ADD_SGE_OPENGL_SOURCE_GROUP(glsl/native/src)
-ADD_SGE_OPENGL_SOURCE_GROUP(glsl/programfuncs)
-ADD_SGE_OPENGL_SOURCE_GROUP(glsl/programfuncs/src)
-ADD_SGE_OPENGL_SOURCE_GROUP(glsl/shaderfuncs)
-ADD_SGE_OPENGL_SOURCE_GROUP(glsl/shaderfuncs/src)
-ADD_SGE_OPENGL_SOURCE_GROUP(glsl/src)
-ADD_SGE_OPENGL_SOURCE_GROUP(glsl/uniform)
-ADD_SGE_OPENGL_SOURCE_GROUP(glsl/uniform/src)
-ADD_SGE_OPENGL_SOURCE_GROUP(src)
-ADD_SGE_OPENGL_SOURCE_GROUP(texfuncs)
-ADD_SGE_OPENGL_SOURCE_GROUP(texfuncs/src)
-ADD_SGE_OPENGL_SOURCE_GROUP(vf)
-ADD_SGE_OPENGL_SOURCE_GROUP(vf/src)
+SET(
+	SGE_OPENGL_X11_FILES
+	src/plugins/opengl/glx/context.hpp
+	src/plugins/opengl/glx/context_fwd.hpp
+	src/plugins/opengl/glx/context_ptr.hpp
+	src/plugins/opengl/glx/current.hpp
+	src/plugins/opengl/glx/src/context.cpp
+	src/plugins/opengl/glx/src/current.cpp
+	src/plugins/opengl/x11/resolution/create.hpp
+	src/plugins/opengl/x11/resolution/instance.hpp
+	src/plugins/opengl/x11/resolution/instance_fwd.hpp
+	src/plugins/opengl/x11/resolution/src/create.cpp
+	src/plugins/opengl/x11/resolution/src/instance.cpp
+	src/plugins/opengl/x11/resolution/src/xf86_vmode.cpp
+	src/plugins/opengl/x11/resolution/src/xrandr_mode.cpp
+	src/plugins/opengl/x11/resolution/unique_ptr.hpp
+	src/plugins/opengl/x11/resolution/xf86_vmode.hpp
+	src/plugins/opengl/x11/resolution/xrandr_mode.hpp
+	src/plugins/opengl/x11/src/state.cpp
+	src/plugins/opengl/x11/state.hpp
+)
+
+SET(
+	SGE_OPENGL_XF86VMODE_FILES
+	src/plugins/opengl/xf86vmode/calc_refresh_rate.hpp
+	src/plugins/opengl/xf86vmode/check_extension.hpp
+	src/plugins/opengl/xf86vmode/choose_mode.hpp
+	src/plugins/opengl/xf86vmode/modes.hpp
+	src/plugins/opengl/xf86vmode/modes_fwd.hpp
+	src/plugins/opengl/xf86vmode/resolution.hpp
+	src/plugins/opengl/xf86vmode/resolution_fwd.hpp
+	src/plugins/opengl/xf86vmode/resolution_ptr.hpp
+	src/plugins/opengl/xf86vmode/src/calc_refresh_rate.cpp
+	src/plugins/opengl/xf86vmode/src/check_extension.cpp
+	src/plugins/opengl/xf86vmode/src/choose_mode.cpp
+	src/plugins/opengl/xf86vmode/src/modes.cpp
+	src/plugins/opengl/xf86vmode/src/resolution.cpp
+)
+
+SET(
+	SGE_OPENGL_XRANDR_FILES
+	src/plugins/opengl/xrandr/check_extension.hpp
+	src/plugins/opengl/xrandr/choose_resolution.hpp
+	src/plugins/opengl/xrandr/configuration.hpp
+	src/plugins/opengl/xrandr/configuration_fwd.hpp
+	src/plugins/opengl/xrandr/configuration_ptr.hpp
+	src/plugins/opengl/xrandr/current_resolution.hpp
+	src/plugins/opengl/xrandr/mode.hpp
+	src/plugins/opengl/xrandr/mode_fwd.hpp
+	src/plugins/opengl/xrandr/resolution.hpp
+	src/plugins/opengl/xrandr/resolution_fwd.hpp
+	src/plugins/opengl/xrandr/resolution_ptr.hpp
+	src/plugins/opengl/xrandr/set_resolution.hpp
+	src/plugins/opengl/xrandr/src/check_extension.cpp
+	src/plugins/opengl/xrandr/src/choose_resolution.cpp
+	src/plugins/opengl/xrandr/src/configuration.cpp
+	src/plugins/opengl/xrandr/src/current_resolution.cpp
+	src/plugins/opengl/xrandr/src/mode.cpp
+	src/plugins/opengl/xrandr/src/resolution.cpp
+	src/plugins/opengl/xrandr/src/set_resolution.cpp
+)
+
+APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
+	"${SGE_OPENGL_FILES}"
+	SGE_OPENGL_FILES_ABS
+)
 
 INCLUDE_DIRECTORIES(${OPENGL_INCLUDE_DIR})
 
@@ -52,20 +613,20 @@ IF (X11_FOUND)
 
 	INCLUDE_DIRECTORIES(${X11_X11_INCLUDE})
 
-	ADD_SGE_OPENGL_SOURCE_GROUP(glx)
-	ADD_SGE_OPENGL_SOURCE_GROUP(glx/src)
-	ADD_SGE_OPENGL_SOURCE_GROUP(x11)
-	ADD_SGE_OPENGL_SOURCE_GROUP(x11/resolution)
-	ADD_SGE_OPENGL_SOURCE_GROUP(x11/resolution/src)
-	ADD_SGE_OPENGL_SOURCE_GROUP(x11/src)
+	APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
+		"${SGE_OPENGL_X11_FILES}"
+		SGE_OPENGL_FILES_ABS
+	)
 
 	IF(X11_xf86vmode_FOUND)
 		SET (SGE_OPENGL_HAVE_XF86VMODE TRUE)
 
 		INCLUDE_DIRECTORIES(${X11_xf86vmode_INCLUDE_PATH})
 
-		ADD_SGE_OPENGL_SOURCE_GROUP(xf86vmode)
-		ADD_SGE_OPENGL_SOURCE_GROUP(xf86vmode/src)
+		APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
+			"${SGE_OPENGL_XF86VMODE_FILES}"
+			SGE_OPENGL_FILES_ABS
+		)
 	ENDIF()
 
 	IF(X11_Xrandr_FOUND)
@@ -73,14 +634,16 @@ IF (X11_FOUND)
 
 		INCLUDE_DIRECTORIES(${X11_Xrandr_INCLUDE_PATH})
 
-		ADD_SGE_OPENGL_SOURCE_GROUP(xrandr)
-		ADD_SGE_OPENGL_SOURCE_GROUP(xrandr/src)
+		APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
+			"${SGE_OPENGL_XRANDR_FILES}"
+			SGE_OPENGL_FILES_ABS
+		)
 	ENDIF()
 ELSEIF (WIN32)
-	ADD_SGE_OPENGL_SOURCE_GROUP(wgl)
-	ADD_SGE_OPENGL_SOURCE_GROUP(wgl/src)
-	ADD_SGE_OPENGL_SOURCE_GROUP(windows)
-	ADD_SGE_OPENGL_SOURCE_GROUP(windows/src)
+	APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
+		"${SGE_OPENGL_WIN32_FILES}"
+		SGE_OPENGL_FILES_ABS
+	)
 ENDIF ()
 
 CONFIGURE_FILE(
@@ -94,7 +657,11 @@ INCLUDE_DIRECTORIES(${OPENGL_INCLUDE_DIR})
 
 INCLUDE_DIRECTORIES(${GLEW_INCLUDE_PATH})
 
-ADD_LIBRARY (sgeopengl SHARED ${SGEOPENGLFILES})
+ADD_LIBRARY (
+	sgeopengl
+	SHARED
+	${SGE_OPENGL_FILES_ABS}
+)
 
 TARGET_LINK_LIBRARIES (
 	sgeopengl
@@ -128,4 +695,9 @@ IF (X11_FOUND)
 	ENDIF()
 ENDIF ()
 
-INSTALL (TARGETS sgeopengl DESTINATION lib/sge)
+INSTALL(
+	TARGETS
+	sgeopengl
+	DESTINATION
+	lib/sge
+)

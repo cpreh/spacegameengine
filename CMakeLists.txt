@@ -166,7 +166,7 @@ MACRO(
 
 	SET(
 		${RESULT}
-		${TEMP_RESULT}
+		"${${RESULT}};${TEMP_RESULT}"
 	)
 ENDMACRO()
 
