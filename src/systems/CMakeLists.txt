@@ -5,50 +5,100 @@ IF(NOT ENABLE_CONFIG)
 	)
 ENDIF()
 
-MACRO(
-	ADD_SGE_SYSTEMS_INCLUDE_SOURCE_GROUP
-	SOURCEPATH
+SET(
+	SGE_SYSTEMS_FILES
+	include/sge/systems/any.hpp
+	include/sge/systems/any_set.hpp
+	include/sge/systems/audio_loader.hpp
+	include/sge/systems/audio_player.hpp
+	include/sge/systems/audio_player_default.hpp
+	include/sge/systems/basic_loader.hpp
+	include/sge/systems/basic_loader_fwd.hpp
+	include/sge/systems/config.hpp
+	include/sge/systems/cursor_option.hpp
+	include/sge/systems/cursor_option_field.hpp
+	include/sge/systems/image_loader.hpp
+	include/sge/systems/input.hpp
+	include/sge/systems/input_helper.hpp
+	include/sge/systems/input_helper_field.hpp
+	include/sge/systems/instance.hpp
+	include/sge/systems/instance_fwd.hpp
+	include/sge/systems/list.hpp
+	include/sge/systems/list_fwd.hpp
+	include/sge/systems/parameterless.hpp
+	include/sge/systems/renderer.hpp
+	include/sge/systems/running_to_false.hpp
+	include/sge/systems/symbol.hpp
+	include/sge/systems/viewport/dont_manage.hpp
+	include/sge/systems/viewport/factory.hpp
+	include/sge/systems/viewport/manage_resize.hpp
+	include/sge/systems/viewport/manager.hpp
+	include/sge/systems/viewport/manager_fwd.hpp
+	include/sge/systems/viewport/manager_unique_ptr.hpp
+	include/sge/systems/window.hpp
+	include/sge/systems/window_fwd.hpp
+	include/sge/systems/wrapped_window.hpp
+	src/systems/any_compare.cpp
+	src/systems/any_compare.hpp
+	src/systems/audio_loader.cpp
+	src/systems/audio_player.cpp
+	src/systems/audio_player_default.cpp
+	src/systems/basic_loader_impl.hpp
+	src/systems/config.cpp
+	src/systems/create_normal_window.cpp
+	src/systems/create_normal_window.hpp
+	src/systems/create_render_window.cpp
+	src/systems/create_render_window.hpp
+	src/systems/cursor_modifier.cpp
+	src/systems/cursor_modifier.hpp
+	src/systems/image_loader.cpp
+	src/systems/input.cpp
+	src/systems/instance.cpp
+	src/systems/list.cpp
+	src/systems/plugin_path.cpp
+	src/systems/plugin_path.hpp
+	src/systems/renderer.cpp
+	src/systems/running_to_false.cpp
+	src/systems/viewport/center.cpp
+	src/systems/viewport/center.hpp
+	src/systems/viewport/dont_manage.cpp
+	src/systems/viewport/manage_resize.cpp
+	src/systems/viewport/manager.cpp
+	src/systems/viewport/resize_manager.cpp
+	src/systems/viewport/resize_manager.hpp
+	src/systems/window.cpp
+	src/systems/wrap_window.cpp
+	src/systems/wrap_window.hpp
+	src/systems/wrapped_window.cpp
 )
-	ADD_SGE_SOURCE_GROUP(
-		"include\\\\\\\\sge\\\\\\\\systems" #cmake bitch
-		${CMAKE_SOURCE_DIR}/include/sge/systems
-		"${SOURCEPATH}"
-		*.hpp
-		TEMPFILES
-	)
 
-	SET(SGESYSTEMSFILES ${SGESYSTEMSFILES} ${TEMPFILES})
-ENDMACRO()
-
-ADD_SGE_SYSTEMS_INCLUDE_SOURCE_GROUP("")
-ADD_SGE_SYSTEMS_INCLUDE_SOURCE_GROUP(viewport)
-
-MACRO(
-	ADD_SGE_SYSTEMS_SOURCE_GROUP
-	SOURCEPATH
+APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
+	"${SGE_SYSTEMS_FILES}"
+	SGE_SYSTEMS_FILES_ABS
 )
-	ADD_SGE_SOURCE_GROUP(
-		"src\\\\\\\\systems"
-		""
-		"${SOURCEPATH}"
-		*.?pp
-		TEMPFILES	
-	)
 
-	SET(SGESYSTEMSFILES ${SGESYSTEMSFILES} ${TEMPFILES})
-ENDMACRO()
+ADD_LIBRARY(
+	sgesystems
+	SHARED
+	${SGE_SYSTEMS_FILES_ABS}
+)
 
-ADD_SGE_SYSTEMS_SOURCE_GROUP("")
-ADD_SGE_SYSTEMS_SOURCE_GROUP(viewport)
-
-ADD_LIBRARY (sgesystems SHARED ${SGESYSTEMSFILES})
-
-TARGET_LINK_LIBRARIES (
+TARGET_LINK_LIBRARIES(
 	sgesystems
 	sgecore
 	sgeconfig
 )
 
-INSTALL (TARGETS sgesystems DESTINATION lib)
+INSTALL(
+	TARGETS
+	sgesystems
+	DESTINATION
+	lib
+)
 
-INSTALL(DIRECTORY ${CMAKE_SOURCE_DIR}/include/sge/systems DESTINATION include/sge)
+INSTALL(
+	DIRECTORY
+	${CMAKE_SOURCE_DIR}/include/sge/systems
+	DESTINATION
+	include/sge
+)

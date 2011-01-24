@@ -3,53 +3,50 @@ CHECK_DEPENDENCIES(
 	"bitmapfont"
 )
 
-MACRO(
-	ADD_SGE_FONT_BITMAP_INCLUDE_SOURCE_GROUP
-	SOURCEPATH
+SET(
+	SGE_FONT_BITMAP_FILES
+	include/sge/font/bitmap/char_metric.hpp
+	include/sge/font/bitmap/char_metric_fwd.hpp
+	include/sge/font/bitmap/char_metric_ptr.hpp
+	include/sge/font/bitmap/create.hpp
+	include/sge/font/bitmap/metrics.hpp
+	include/sge/font/bitmap/symbol.hpp
+	src/font/bitmap/char_metric.cpp
+	src/font/bitmap/create.cpp
+	src/font/bitmap/load_offset.cpp
+	src/font/bitmap/load_offset.hpp
+	src/font/bitmap/load_rect.cpp
+	src/font/bitmap/load_rect.hpp
+	src/font/bitmap/metrics.cpp
 )
-	ADD_SGE_SOURCE_GROUP(
-		"include\\\\\\\\sge\\\\\\\\font\\\\\\\\bitmap" #cmake bitch
-		${CMAKE_SOURCE_DIR}/include/sge/font/bitmap
-		"${SOURCEPATH}"
-		*.hpp
-		TEMPFILES
-	)
 
-	SET(SGEFONTBITMAP_FILES ${SGEFONTBITMAP_FILES} ${TEMPFILES})
-ENDMACRO()
-
-ADD_SGE_FONT_BITMAP_INCLUDE_SOURCE_GROUP("")
-
-MACRO(
-	ADD_SGE_FONT_BITMAP_SOURCE_GROUP
-	SOURCEPATH
+APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
+	"${SGE_FONT_BITMAP_FILES}"
+	SGE_FONT_BITMAP_FILES_ABS
 )
-	ADD_SGE_SOURCE_GROUP(
-		"src\\\\\\\\font\\\\\\\\bitmap"
-		""
-		"${SOURCEPATH}"
-		*.?pp
-		TEMPFILES	
-	)
 
-	SET(SGEFONTBITMAP_FILES ${SGEFONTBITMAP_FILES} ${TEMPFILES})
-ENDMACRO()
+ADD_LIBRARY(
+	sgefontbitmap
+	SHARED
+	${SGE_FONT_BITMAP_FILES_ABS}
+)
 
-ADD_SGE_FONT_BITMAP_SOURCE_GROUP("")
-
-ADD_LIBRARY (sgefontbitmap SHARED ${SGEFONTBITMAP_FILES})
-
-TARGET_LINK_LIBRARIES (
+TARGET_LINK_LIBRARIES(
 	sgefontbitmap
 	sgecore
 	sgeparse
 )
 
-INSTALL (TARGETS sgefontbitmap DESTINATION lib)
+INSTALL(
+	TARGETS
+	sgefontbitmap
+	DESTINATION
+	lib
+)
 
 INSTALL(
 	DIRECTORY
 	${CMAKE_SOURCE_DIR}/include/sge/font/bitmap
 	DESTINATION
-	include/sge/font
+	include/sge
 )

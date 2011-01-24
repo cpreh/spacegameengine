@@ -3,54 +3,75 @@ CHECK_DEPENDENCIES(
 	"fonttext"
 )
 
-MACRO(
-	ADD_SGE_FONT_TEXT_INCLUDE_SOURCE_GROUP
-	SOURCEPATH
+SET(
+	SGE_FONT_TEXT_FILES
+	include/sge/font/text/align_h.hpp
+	include/sge/font/text/align_v.hpp
+	include/sge/font/text/char_space.hpp
+	include/sge/font/text/char_to_fcppt_string.hpp
+	include/sge/font/text/char_type.hpp
+	include/sge/font/text/draw.hpp
+	include/sge/font/text/drawer.hpp
+	include/sge/font/text/drawer_3d.hpp
+	include/sge/font/text/drawer_fwd.hpp
+	include/sge/font/text/drawer_ptr.hpp
+	include/sge/font/text/flags.hpp
+	include/sge/font/text/flags_field.hpp
+	include/sge/font/text/flags_none.hpp
+	include/sge/font/text/from_fcppt_string.hpp
+	include/sge/font/text/height.hpp
+	include/sge/font/text/line_width.hpp
+	include/sge/font/text/lit.hpp
+	include/sge/font/text/part.hpp
+	include/sge/font/text/part_fwd.hpp
+	include/sge/font/text/size.hpp
+	include/sge/font/text/string.hpp
+	include/sge/font/text/symbol.hpp
+	include/sge/font/text/to_fcppt_string.hpp
+	src/font/text/align_pos_h.hpp
+	src/font/text/align_pos_v.hpp
+	src/font/text/char_space.cpp
+	src/font/text/char_to_fcppt_string.cpp
+	src/font/text/draw.cpp
+	src/font/text/drawer.cpp
+	src/font/text/drawer_3d.cpp
+	src/font/text/flags_none.cpp
+	src/font/text/from_fcppt_string.cpp
+	src/font/text/height.cpp
+	src/font/text/line_width.cpp
+	src/font/text/part.cpp
+	src/font/text/size.cpp
+	src/font/text/to_fcppt_string.cpp
 )
-	ADD_SGE_SOURCE_GROUP(
-		"include\\\\\\\\sge\\\\\\\\font\\\\\\\\text" #cmake bitch
-		${CMAKE_SOURCE_DIR}/include/sge/font/text
-		"${SOURCEPATH}"
-		*.hpp
-		TEMPFILES
-	)
 
-	SET(SGEFONTTEXT_FILES ${SGEFONTTEXT_FILES} ${TEMPFILES})
-ENDMACRO()
-
-ADD_SGE_FONT_TEXT_INCLUDE_SOURCE_GROUP("")
-
-MACRO(
-	ADD_SGE_FONT_TEXT_SOURCE_GROUP
-	SOURCEPATH
+APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
+	"${SGE_FONT_TEXT_FILES}"
+	SGE_FONT_TEXT_FILES_ABS
 )
-	ADD_SGE_SOURCE_GROUP(
-		"src\\\\\\\\font\\\\\\\\text"
-		""
-		"${SOURCEPATH}"
-		*.?pp
-		TEMPFILES	
-	)
 
-	SET(SGEFONTTEXT_FILES ${SGEFONTTEXT_FILES} ${TEMPFILES})
-ENDMACRO()
+ADD_LIBRARY(
+	sgefonttext
+	SHARED
+	${SGE_FONT_TEXT_FILES_ABS}
+)
 
-ADD_SGE_FONT_TEXT_SOURCE_GROUP("")
-
-ADD_LIBRARY (sgefonttext SHARED ${SGEFONTTEXT_FILES})
-
-TARGET_LINK_LIBRARIES (
+TARGET_LINK_LIBRARIES(
 	sgefonttext
 	sgecore
 	sgesprite
 	sgetexture
 )
 
-INSTALL (TARGETS sgefonttext DESTINATION lib)
+INSTALL(
+	TARGETS
+	sgefonttext
+	DESTINATION
+	lib
+)
 
 INSTALL(
 	DIRECTORY
 	${CMAKE_SOURCE_DIR}/include/sge/font/text
 	DESTINATION
-	include/sge/font
+	include/sge
 )

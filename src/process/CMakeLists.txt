@@ -1,40 +1,40 @@
-MACRO(
-	ADD_SGE_PROCESS_INCLUDE_SOURCE_GROUP
-	SOURCEPATH
+SET(
+	SGE_PROCESS_FILES
+	include/sge/process/argument_list.hpp
+	include/sge/process/call.hpp
+	include/sge/process/exit_code.hpp
+	include/sge/process/output.hpp
+	include/sge/process/symbol.hpp
+	src/process/call.cpp
+	src/process/output.cpp
 )
-	ADD_SGE_SOURCE_GROUP(
-		"include\\\\\\\\sge\\\\\\\\process" #cmake bitch
-		${CMAKE_SOURCE_DIR}/include/sge/process
-		"${SOURCEPATH}"
-		*.hpp
-		TEMPFILES
-	)
 
-	SET(SGEPROCESSFILES ${SGEPROCESSFILES} ${TEMPFILES})
-ENDMACRO()
-
-ADD_SGE_PROCESS_INCLUDE_SOURCE_GROUP("")
-
-MACRO(
-	ADD_SGE_PROCESS_SOURCE_GROUP
-	SOURCEPATH
+APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
+	"${SGE_PROCESS_FILES}"
+	SGE_PROCESS_FILES_ABS
 )
-	ADD_SGE_SOURCE_GROUP(
-		"src\\\\\\\\process"
-		""
-		"${SOURCEPATH}"
-		*.?pp
-		TEMPFILES	
-	)
 
-	SET(SGEPROCESSFILES ${SGEPROCESSFILES} ${TEMPFILES})
-ENDMACRO()
+ADD_LIBRARY(
+	sgeprocess
+	SHARED
+	${SGE_PROCESS_FILES_ABS}
+)
 
-ADD_SGE_PROCESS_SOURCE_GROUP("")
+TARGET_LINK_LIBRARIES(
+	sgeprocess
+	sgecore
+)
 
-ADD_LIBRARY (sgeprocess SHARED ${SGEPROCESSFILES})
-TARGET_LINK_LIBRARIES (sgeprocess sgecore)
+INSTALL(
+	TARGETS
+	sgeprocess
+	DESTINATION
+	lib
+)
 
-INSTALL (TARGETS sgeprocess DESTINATION lib)
-
-INSTALL(DIRECTORY ${CMAKE_SOURCE_DIR}/include/sge/process DESTINATION include/sge)
+INSTALL(
+	DIRECTORY
+	${CMAKE_SOURCE_DIR}/include/sge/process
+	DESTINATION
+	include/sge
+)

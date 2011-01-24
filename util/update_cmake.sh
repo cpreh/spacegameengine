@@ -68,9 +68,11 @@ function update_sublibrary()
 {
 	local sublibrary="$1"
 
+	local upperpath="${sublibrary^^}"
+
 	update_cmake_file \
 		src/"${sublibrary}"/CMakeLists.txt \
-		SGE_$(echo "${sublibrary}" | tr "[:lower:]" "[:upper:]")_FILES \
+		SGE_"${upperpath////_}"_FILES \
 		include/sge/"${sublibrary}" \
 		src/"${sublibrary}"
 }
@@ -78,3 +80,25 @@ function update_sublibrary()
 update_sublibrary camera
 
 update_sublibrary config
+
+update_sublibrary console
+
+update_sublibrary font/bitmap
+
+update_sublibrary font/text
+
+update_sublibrary gui
+
+update_sublibrary parse
+
+update_sublibrary process
+
+update_sublibrary shader
+
+update_sublibrary sprite
+
+update_sublibrary systems
+
+update_sublibrary texture
+
+update_sublibrary time

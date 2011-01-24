@@ -1,44 +1,89 @@
-MACRO(
-	ADD_SGE_TEXTURE_INCLUDE_SOURCE_GROUP
-	SOURCEPATH
+SET(
+	SGE_TEXTURE_FILES
+	include/sge/texture/add_image.hpp
+	include/sge/texture/area_texc.hpp
+	include/sge/texture/atlasing/border_h.hpp
+	include/sge/texture/atlasing/border_w.hpp
+	include/sge/texture/atlasing/bound.hpp
+	include/sge/texture/atlasing/bounds.hpp
+	include/sge/texture/atlasing/create_texture.hpp
+	include/sge/texture/atlasing/gap.hpp
+	include/sge/texture/atlasing/inner_rect.hpp
+	include/sge/texture/atlasing/need.hpp
+	include/sge/texture/atlasing/size.hpp
+	include/sge/texture/const_part_ptr.hpp
+	include/sge/texture/consume_and_set_fragment.hpp
+	include/sge/texture/detail/container_position.hpp
+	include/sge/texture/detail/fragmented_list.hpp
+	include/sge/texture/detail/fragmented_queue.hpp
+	include/sge/texture/detail/fragmented_sort.hpp
+	include/sge/texture/detail/optional_container_position.hpp
+	include/sge/texture/fragmented.hpp
+	include/sge/texture/fragmented_fwd.hpp
+	include/sge/texture/fragmented_unique_ptr.hpp
+	include/sge/texture/free_type.hpp
+	include/sge/texture/guaranteed_free.hpp
+	include/sge/texture/image_too_big.hpp
+	include/sge/texture/manager.hpp
+	include/sge/texture/manager_fwd.hpp
+	include/sge/texture/no_fragmented.hpp
+	include/sge/texture/on_alloc_function.hpp
+	include/sge/texture/part.hpp
+	include/sge/texture/part_fragmented.hpp
+	include/sge/texture/part_fwd.hpp
+	include/sge/texture/part_ptr.hpp
+	include/sge/texture/part_raw.hpp
+	include/sge/texture/rect_fragmented.hpp
+	include/sge/texture/symbol.hpp
+	src/texture/add_image.cpp
+	src/texture/atlasing/border_h.cpp
+	src/texture/atlasing/border_w.cpp
+	src/texture/atlasing/bound.cpp
+	src/texture/atlasing/bounds.cpp
+	src/texture/atlasing/create_texture.cpp
+	src/texture/atlasing/gap.cpp
+	src/texture/atlasing/inner_rect.cpp
+	src/texture/atlasing/need.cpp
+	src/texture/atlasing/size.cpp
+	src/texture/consume_and_set_fragment.cpp
+	src/texture/detail/fragmented_sort.cpp
+	src/texture/fragmented.cpp
+	src/texture/guaranteed_free.cpp
+	src/texture/image_too_big.cpp
+	src/texture/manager.cpp
+	src/texture/no_fragmented.cpp
+	src/texture/part.cpp
+	src/texture/part_fragmented.cpp
+	src/texture/part_raw.cpp
+	src/texture/rect_fragmented.cpp
 )
-	ADD_SGE_SOURCE_GROUP(
-		"include\\\\\\\\sge\\\\\\\\texture" #cmake bitch
-		${CMAKE_SOURCE_DIR}/include/sge/texture
-		"${SOURCEPATH}"
-		*.hpp
-		TEMPFILES
-	)
 
-	SET(SGETEXTUREFILES ${SGETEXTUREFILES} ${TEMPFILES})
-ENDMACRO()
-
-ADD_SGE_TEXTURE_INCLUDE_SOURCE_GROUP("")
-ADD_SGE_TEXTURE_INCLUDE_SOURCE_GROUP(atlasing)
-ADD_SGE_TEXTURE_INCLUDE_SOURCE_GROUP(detail)
-
-MACRO(
-	ADD_SGE_TEXTURE_SOURCE_GROUP
-	SOURCEPATH
+APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
+	"${SGE_TEXTURE_FILES}"
+	SGE_TEXTURE_FILES_ABS
 )
-	ADD_SGE_SOURCE_GROUP(
-		"src\\\\\\\\texture"
-		""
-		"${SOURCEPATH}"
-		*.?pp
-		TEMPFILES	
-	)
 
-	SET(SGETEXTUREFILES ${SGETEXTUREFILES} ${TEMPFILES})
-ENDMACRO()
+ADD_LIBRARY(
+	sgetexture
+	SHARED
+	${SGE_TEXTURE_FILES_ABS}
+)
 
-ADD_SGE_TEXTURE_SOURCE_GROUP("")
-ADD_SGE_TEXTURE_SOURCE_GROUP(atlasing)
-ADD_SGE_TEXTURE_SOURCE_GROUP(detail)
+TARGET_LINK_LIBRARIES(
+	sgetexture
+	sgecore
+)
 
-ADD_LIBRARY (sgetexture SHARED ${SGETEXTUREFILES})
-TARGET_LINK_LIBRARIES (sgetexture sgecore)
+INSTALL(
+	TARGETS
+	sgetexture
+	DESTINATION
+	lib
+)
 
-INSTALL (TARGETS sgetexture DESTINATION lib)
-
-INSTALL(DIRECTORY ${CMAKE_SOURCE_DIR}/include/sge/texture DESTINATION include/sge)
+INSTALL(
+	DIRECTORY
+	${CMAKE_SOURCE_DIR}/include/sge/texture
+	DESTINATION
+	include/sge
+)

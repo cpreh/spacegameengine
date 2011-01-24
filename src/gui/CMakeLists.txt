@@ -3,75 +3,207 @@ CHECK_DEPENDENCIES(
 	"gui"
 )
 
-MACRO(
-	ADD_SGE_GUI_INCLUDE_SOURCE_GROUP
-	SOURCEPATH
+SET(
+	SGE_GUI_FILES
+	include/sge/gui/activation_state.hpp
+	include/sge/gui/axis_type.hpp
+	include/sge/gui/canvas/font_drawer.hpp
+	include/sge/gui/canvas/fwd.hpp
+	include/sge/gui/canvas/line_type.hpp
+	include/sge/gui/canvas/object.hpp
+	include/sge/gui/canvas/optional_character_pos.hpp
+	include/sge/gui/canvas/rect_type.hpp
+	include/sge/gui/canvas/strip_type.hpp
+	include/sge/gui/color.hpp
+	include/sge/gui/cursor/base.hpp
+	include/sge/gui/cursor/base_fwd.hpp
+	include/sge/gui/cursor/base_ptr.hpp
+	include/sge/gui/cursor/const_base_ptr.hpp
+	include/sge/gui/cursor/default.hpp
+	include/sge/gui/depth_type.hpp
+	include/sge/gui/detail/cursor_delegate.hpp
+	include/sge/gui/detail/grid_cache.hpp
+	include/sge/gui/detail/managers/compiler.hpp
+	include/sge/gui/detail/managers/fwd.hpp
+	include/sge/gui/detail/managers/keyboard.hpp
+	include/sge/gui/detail/managers/mouse.hpp
+	include/sge/gui/detail/managers/render.hpp
+	include/sge/gui/detail/managers/time.hpp
+	include/sge/gui/detail/submanager.hpp
+	include/sge/gui/dim.hpp
+	include/sge/gui/events/fwd.hpp
+	include/sge/gui/events/invalid_area.hpp
+	include/sge/gui/events/key.hpp
+	include/sge/gui/events/keyboard_enter.hpp
+	include/sge/gui/events/keyboard_leave.hpp
+	include/sge/gui/events/mouse_click.hpp
+	include/sge/gui/events/mouse_enter.hpp
+	include/sge/gui/events/mouse_leave.hpp
+	include/sge/gui/events/mouse_move.hpp
+	include/sge/gui/exception.hpp
+	include/sge/gui/export.hpp
+	include/sge/gui/font_info.hpp
+	include/sge/gui/image.hpp
+	include/sge/gui/image_fwd.hpp
+	include/sge/gui/image_view.hpp
+	include/sge/gui/internal_color.hpp
+	include/sge/gui/invalidation.hpp
+	include/sge/gui/key_handling.hpp
+	include/sge/gui/keyboard_focus.hpp
+	include/sge/gui/layouts/base.hpp
+	include/sge/gui/layouts/base_fwd.hpp
+	include/sge/gui/layouts/base_ptr.hpp
+	include/sge/gui/layouts/grid.hpp
+	include/sge/gui/layouts/horizontal.hpp
+	include/sge/gui/layouts/null.hpp
+	include/sge/gui/layouts/row.hpp
+	include/sge/gui/layouts/vertical.hpp
+	include/sge/gui/log.hpp
+	include/sge/gui/make_image.hpp
+	include/sge/gui/manager.hpp
+	include/sge/gui/manager_fwd.hpp
+	include/sge/gui/media_path.hpp
+	include/sge/gui/point.hpp
+	include/sge/gui/rect.hpp
+	include/sge/gui/size_policy.hpp
+	include/sge/gui/skins/base.hpp
+	include/sge/gui/skins/standard.hpp
+	include/sge/gui/sprite/choices.hpp
+	include/sge/gui/sprite/depth_type.hpp
+	include/sge/gui/sprite/dim.hpp
+	include/sge/gui/sprite/float_type.hpp
+	include/sge/gui/sprite/object.hpp
+	include/sge/gui/sprite/parameters.hpp
+	include/sge/gui/sprite/point.hpp
+	include/sge/gui/sprite/system.hpp
+	include/sge/gui/sprite/type_choices.hpp
+	include/sge/gui/sprite/unit.hpp
+	include/sge/gui/timer/callback.hpp
+	include/sge/gui/timer/fwd.hpp
+	include/sge/gui/timer/object.hpp
+	include/sge/gui/unit.hpp
+	include/sge/gui/widgets/backdrop.hpp
+	include/sge/gui/widgets/base.hpp
+	include/sge/gui/widgets/buttons/base.hpp
+	include/sge/gui/widgets/buttons/image.hpp
+	include/sge/gui/widgets/buttons/text.hpp
+	include/sge/gui/widgets/edit.hpp
+	include/sge/gui/widgets/fwd.hpp
+	include/sge/gui/widgets/graphics.hpp
+	include/sge/gui/widgets/label.hpp
+	include/sge/gui/widgets/log.hpp
+	include/sge/gui/widgets/optional_dim.hpp
+	include/sge/gui/widgets/optional_point.hpp
+	include/sge/gui/widgets/parameters.hpp
+	include/sge/gui/widgets/parameters_fwd.hpp
+	include/sge/gui/widgets/parent_data.hpp
+	src/gui/canvas/draw_line.cpp
+	src/gui/canvas/draw_line_strip.cpp
+	src/gui/canvas/draw_pixel.cpp
+	src/gui/canvas/draw_rect.cpp
+	src/gui/canvas/draw_text.cpp
+	src/gui/canvas/font_drawer.cpp
+	src/gui/canvas/log.cpp
+	src/gui/canvas/log.hpp
+	src/gui/canvas/object.cpp
+	src/gui/canvas/utility/channel_adder.hpp
+	src/gui/canvas/utility/font_blitter.hpp
+	src/gui/canvas/utility/font_channel_blitter.hpp
+	src/gui/canvas/utility/make_font_channel_blitter.hpp
+	src/gui/canvas/utility/set_pixel.hpp
+	src/gui/cursor/base.cpp
+	src/gui/cursor/default.cpp
+	src/gui/detail/cursor_delegate.cpp
+	src/gui/detail/grid_cache.cpp
+	src/gui/detail/managers/compiler.cpp
+	src/gui/detail/managers/keyboard.cpp
+	src/gui/detail/managers/mouse.cpp
+	src/gui/detail/managers/render.cpp
+	src/gui/detail/managers/time.cpp
+	src/gui/detail/submanager.cpp
+	src/gui/events/invalid_area.cpp
+	src/gui/events/key.cpp
+	src/gui/events/mouse_click.cpp
+	src/gui/events/mouse_enter.cpp
+	src/gui/events/mouse_move.cpp
+	src/gui/exception.cpp
+	src/gui/font_info.cpp
+	src/gui/image.cpp
+	src/gui/invalidation.cpp
+	src/gui/layouts/base.cpp
+	src/gui/layouts/grid.cpp
+	src/gui/layouts/horizontal.cpp
+	src/gui/layouts/null.cpp
+	src/gui/layouts/row.cpp
+	src/gui/layouts/vertical.cpp
+	src/gui/log.cpp
+	src/gui/make_image.cpp
+	src/gui/manager.cpp
+	src/gui/media_path.cpp
+	src/gui/size_policy.cpp
+	src/gui/skins/base.cpp
+	src/gui/skins/standard/backdrop.cpp
+	src/gui/skins/standard/buttons/image.cpp
+	src/gui/skins/standard/buttons/text.cpp
+	src/gui/skins/standard/edit.cpp
+	src/gui/skins/standard/graphics.cpp
+	src/gui/skins/standard/label.cpp
+	src/gui/skins/standard/standard.cpp
+	src/gui/timer/object.cpp
+	src/gui/utility/blit.cpp
+	src/gui/utility/blit.hpp
+	src/gui/utility/ptr_find.hpp
+	src/gui/utility/string_square.cpp
+	src/gui/utility/string_square.hpp
+	src/gui/utility/type_comparator.hpp
+	src/gui/utility/unlimited_text_size.cpp
+	src/gui/utility/unlimited_text_size.hpp
+	src/gui/utility/wipe_image_view.cpp
+	src/gui/utility/wipe_image_view.hpp
+	src/gui/utility/wipe_texture.cpp
+	src/gui/utility/wipe_texture.hpp
+	src/gui/widgets/backdrop.cpp
+	src/gui/widgets/base.cpp
+	src/gui/widgets/buttons/base.cpp
+	src/gui/widgets/buttons/image.cpp
+	src/gui/widgets/buttons/text.cpp
+	src/gui/widgets/edit.cpp
+	src/gui/widgets/graphics.cpp
+	src/gui/widgets/label.cpp
+	src/gui/widgets/log.cpp
+	src/gui/widgets/parameters.cpp
+	src/gui/widgets/parent_data.cpp
 )
-	ADD_SGE_SOURCE_GROUP(
-		"include\\\\\\\\sge\\\\\\\\gui" #cmake bitch
-		${CMAKE_SOURCE_DIR}/include/sge/gui
-		"${SOURCEPATH}"
-		*.hpp
-		TEMPFILES
-	)
 
-	SET(SGEGUIFILES ${SGEGUIFILES} ${TEMPFILES})
-ENDMACRO()
-
-ADD_SGE_GUI_INCLUDE_SOURCE_GROUP("")
-ADD_SGE_GUI_INCLUDE_SOURCE_GROUP(canvas)
-ADD_SGE_GUI_INCLUDE_SOURCE_GROUP(cursor)
-ADD_SGE_GUI_INCLUDE_SOURCE_GROUP(detail)
-ADD_SGE_GUI_INCLUDE_SOURCE_GROUP(detail/managers)
-ADD_SGE_GUI_INCLUDE_SOURCE_GROUP(events)
-ADD_SGE_GUI_INCLUDE_SOURCE_GROUP(layouts)
-ADD_SGE_GUI_INCLUDE_SOURCE_GROUP(skins)
-ADD_SGE_GUI_INCLUDE_SOURCE_GROUP(sprite)
-ADD_SGE_GUI_INCLUDE_SOURCE_GROUP(timer)
-ADD_SGE_GUI_INCLUDE_SOURCE_GROUP(widgets)
-ADD_SGE_GUI_INCLUDE_SOURCE_GROUP(widgets/buttons)
-
-MACRO(
-	ADD_SGE_GUI_SOURCE_GROUP
-	SOURCEPATH
+APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
+	"${SGE_GUI_FILES}"
+	SGE_GUI_FILES_ABS
 )
-	ADD_SGE_SOURCE_GROUP(
-		"src\\\\\\\\gui"
-		""
-		"${SOURCEPATH}"
-		*.?pp
-		TEMPFILES	
-	)
 
-	SET(SGEGUIFILES ${SGEGUIFILES} ${TEMPFILES})
-ENDMACRO()
+ADD_LIBRARY(
+	sgegui
+	SHARED
+	${SGE_GUI_FILES_ABS}
+)
 
-ADD_SGE_GUI_SOURCE_GROUP("")
-ADD_SGE_GUI_SOURCE_GROUP(canvas)
-ADD_SGE_GUI_SOURCE_GROUP(canvas/utility)
-ADD_SGE_GUI_SOURCE_GROUP(cursor)
-ADD_SGE_GUI_SOURCE_GROUP(detail)
-ADD_SGE_GUI_SOURCE_GROUP(detail/managers)
-ADD_SGE_GUI_SOURCE_GROUP(events)
-ADD_SGE_GUI_SOURCE_GROUP(layouts)
-ADD_SGE_GUI_SOURCE_GROUP(skins)
-ADD_SGE_GUI_SOURCE_GROUP(skins/standard)
-ADD_SGE_GUI_SOURCE_GROUP(skins/standard/buttons)
-ADD_SGE_GUI_SOURCE_GROUP(timer)
-ADD_SGE_GUI_SOURCE_GROUP(utility)
-ADD_SGE_GUI_SOURCE_GROUP(widgets)
-ADD_SGE_GUI_SOURCE_GROUP(widgets/buttons)
-
-ADD_LIBRARY (sgegui SHARED ${SGEGUIFILES})
-
-TARGET_LINK_LIBRARIES (
+TARGET_LINK_LIBRARIES(
 	sgegui
 	sgecore
+	sgeconfig
 	sgefonttext
 	sgetime
-	sgeconfig
 )
 
-INSTALL (TARGETS sgegui DESTINATION lib)
+INSTALL(
+	TARGETS
+	sgegui
+	DESTINATION
+	lib
+)
 
-INSTALL(DIRECTORY ${CMAKE_SOURCE_DIR}/include/sge/gui DESTINATION include/sge)
+INSTALL(
+	DIRECTORY
+	${CMAKE_SOURCE_DIR}/include/sge/gui
+	DESTINATION
+	include/sge
+)

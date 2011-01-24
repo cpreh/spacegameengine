@@ -3,49 +3,73 @@ CHECK_DEPENDENCIES(
 	"console"
 )
 
-MACRO(
-	ADD_SGE_CONSOLE_INCLUDE_SOURCE_GROUP
-	SOURCEPATH
+SET(
+	SGE_CONSOLE_FILES
+	include/sge/console/arg_list.hpp
+	include/sge/console/callback.hpp
+	include/sge/console/callback_type.hpp
+	include/sge/console/cursor.hpp
+	include/sge/console/error_callback.hpp
+	include/sge/console/error_callback_fn.hpp
+	include/sge/console/exception.hpp
+	include/sge/console/fallback.hpp
+	include/sge/console/fallback_signal.hpp
+	include/sge/console/fallback_type.hpp
+	include/sge/console/function.hpp
+	include/sge/console/function_map.hpp
+	include/sge/console/gfx.hpp
+	include/sge/console/gfx_fwd.hpp
+	include/sge/console/message_callback.hpp
+	include/sge/console/message_callback_fn.hpp
+	include/sge/console/object.hpp
+	include/sge/console/object_fwd.hpp
+	include/sge/console/output_line_limit.hpp
+	include/sge/console/output_line_sequence.hpp
+	include/sge/console/pointed_history.hpp
+	include/sge/console/signal.hpp
+	include/sge/console/sprite_choices.hpp
+	include/sge/console/sprite_elements.hpp
+	include/sge/console/sprite_object.hpp
+	include/sge/console/sprite_parameters.hpp
+	include/sge/console/sprite_system.hpp
+	include/sge/console/sprite_type_choices.hpp
+	include/sge/console/symbol.hpp
+	src/console/cursor.cpp
+	src/console/exception.cpp
+	src/console/function.cpp
+	src/console/gfx.cpp
+	src/console/next_or_last.hpp
+	src/console/object.cpp
 )
-	ADD_SGE_SOURCE_GROUP(
-		"include\\\\\\\\sge\\\\\\\\console" #cmake bitch
-		${CMAKE_SOURCE_DIR}/include/sge/console
-		"${SOURCEPATH}"
-		*.hpp
-		TEMPFILES
-	)
 
-	SET(SGECONSOLEFILES ${SGECONSOLEFILES} ${TEMPFILES})
-ENDMACRO()
-
-ADD_SGE_CONSOLE_INCLUDE_SOURCE_GROUP("")
-
-MACRO(
-	ADD_SGE_CONSOLE_SOURCE_GROUP
-	SOURCEPATH
+APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
+	"${SGE_CONSOLE_FILES}"
+	SGE_CONSOLE_FILES_ABS
 )
-	ADD_SGE_SOURCE_GROUP(
-		"src\\\\\\\\console"
-		""
-		"${SOURCEPATH}"
-		*.?pp
-		TEMPFILES	
-	)
 
-	SET(SGECONSOLEFILES ${SGECONSOLEFILES} ${TEMPFILES})
-ENDMACRO()
+ADD_LIBRARY(
+	sgeconsole
+	SHARED
+	${SGE_CONSOLE_FILES_ABS}
+)
 
-ADD_SGE_CONSOLE_SOURCE_GROUP("")
-
-ADD_LIBRARY (sgeconsole SHARED ${SGECONSOLEFILES})
-
-TARGET_LINK_LIBRARIES (
+TARGET_LINK_LIBRARIES(
 	sgeconsole
 	sgecore
 	sgefonttext
 	sgetime
 )
 
-INSTALL (TARGETS sgeconsole DESTINATION lib)
+INSTALL(
+	TARGETS
+	sgeconsole
+	DESTINATION
+	lib
+)
 
-INSTALL(DIRECTORY ${CMAKE_SOURCE_DIR}/include/sge/console DESTINATION include/sge)
+INSTALL(
+	DIRECTORY
+	${CMAKE_SOURCE_DIR}/include/sge/console
+	DESTINATION
+	include/sge
+)

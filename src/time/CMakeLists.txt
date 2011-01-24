@@ -1,44 +1,62 @@
-MACRO(
-	ADD_SGE_TIME_INCLUDE_SOURCE_GROUP
-	SOURCEPATH
+SET(
+	SGE_TIME_FILES
+	include/sge/time/activation_state.hpp
+	include/sge/time/callback.hpp
+	include/sge/time/clock.hpp
+	include/sge/time/default_callback.hpp
+	include/sge/time/duration.hpp
+	include/sge/time/expiration_state.hpp
+	include/sge/time/frames_counter.hpp
+	include/sge/time/funit.hpp
+	include/sge/time/microsecond.hpp
+	include/sge/time/millisecond.hpp
+	include/sge/time/nanosecond.hpp
+	include/sge/time/now.hpp
+	include/sge/time/point.hpp
+	include/sge/time/second.hpp
+	include/sge/time/second_f.hpp
+	include/sge/time/sleep.hpp
+	include/sge/time/symbol.hpp
+	include/sge/time/timer.hpp
+	include/sge/time/unit.hpp
+	src/time/default_callback.cpp
+	src/time/frames_counter.cpp
+	src/time/microsecond.cpp
+	src/time/millisecond.cpp
+	src/time/nanosecond.cpp
+	src/time/now.cpp
+	src/time/second.cpp
+	src/time/second_f.cpp
+	src/time/sleep.cpp
+	src/time/timer.cpp
 )
-	ADD_SGE_SOURCE_GROUP(
-		"include\\\\\\\\sge\\\\\\\\time" #cmake bitch
-		${CMAKE_SOURCE_DIR}/include/sge/time
-		"${SOURCEPATH}"
-		*.hpp
-		TEMPFILES
-	)
 
-	SET(SGETIMEFILES ${SGETIMEFILES} ${TEMPFILES})
-ENDMACRO()
-
-ADD_SGE_TIME_INCLUDE_SOURCE_GROUP("")
-
-MACRO(
-	ADD_SGE_TIME_SOURCE_GROUP
-	SOURCEPATH
+APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
+	"${SGE_TIME_FILES}"
+	SGE_TIME_FILES_ABS
 )
-	ADD_SGE_SOURCE_GROUP(
-		"src\\\\\\\\time"
-		""
-		"${SOURCEPATH}"
-		*.?pp
-		TEMPFILES	
-	)
 
-	SET(SGETIMEFILES ${SGETIMEFILES} ${TEMPFILES})
-ENDMACRO()
+ADD_LIBRARY(
+	sgetime
+	SHARED
+	${SGE_TIME_FILES_ABS}
+)
 
-ADD_SGE_TIME_SOURCE_GROUP("")
-
-ADD_LIBRARY (sgetime SHARED ${SGETIMEFILES})
-
-TARGET_LINK_LIBRARIES (
+TARGET_LINK_LIBRARIES(
 	sgetime
 	sgecore
 )
 
-INSTALL (TARGETS sgetime DESTINATION lib)
+INSTALL(
+	TARGETS
+	sgetime
+	DESTINATION
+	lib
+)
 
-INSTALL(DIRECTORY ${CMAKE_SOURCE_DIR}/include/sge/time DESTINATION include/sge)
+INSTALL(
+	DIRECTORY
+	${CMAKE_SOURCE_DIR}/include/sge/time
+	DESTINATION
+	include/sge
+)

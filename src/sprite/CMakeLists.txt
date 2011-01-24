@@ -1,54 +1,203 @@
-MACRO(
-	ADD_SGE_SPRITE_INCLUDE_SOURCE_GROUP
-	SOURCEPATH
+SET(
+	SGE_SPRITE_FILES
+	include/sge/sprite/animation/base.hpp
+	include/sge/sprite/animation/entity.hpp
+	include/sge/sprite/animation/entity_fwd.hpp
+	include/sge/sprite/animation/entity_vector.hpp
+	include/sge/sprite/animation/loop_method.hpp
+	include/sge/sprite/animation/series.hpp
+	include/sge/sprite/animation/series_fwd.hpp
+	include/sge/sprite/animation/texture_decl.hpp
+	include/sge/sprite/animation/texture_fwd.hpp
+	include/sge/sprite/animation/texture_impl.hpp
+	include/sge/sprite/bounding_rect.hpp
+	include/sge/sprite/center.hpp
+	include/sge/sprite/choices.hpp
+	include/sge/sprite/color.hpp
+	include/sge/sprite/compare_depth.hpp
+	include/sge/sprite/default_compare.hpp
+	include/sge/sprite/default_equal.hpp
+	include/sge/sprite/default_parameters.hpp
+	include/sge/sprite/default_sort.hpp
+	include/sge/sprite/defaults.hpp
+	include/sge/sprite/defaults/adder.hpp
+	include/sge/sprite/defaults/color.hpp
+	include/sge/sprite/defaults/fwd.hpp
+	include/sge/sprite/defaults/order.hpp
+	include/sge/sprite/defaults/pos.hpp
+	include/sge/sprite/defaults/repetition.hpp
+	include/sge/sprite/defaults/rotation.hpp
+	include/sge/sprite/defaults/size.hpp
+	include/sge/sprite/defaults/texture.hpp
+	include/sge/sprite/defaults/use_center.hpp
+	include/sge/sprite/defaults/visible.hpp
+	include/sge/sprite/depth_type.hpp
+	include/sge/sprite/detail/allocate_buffers.hpp
+	include/sge/sprite/detail/allocate_index_buffer.hpp
+	include/sge/sprite/detail/allocate_vertex_buffer.hpp
+	include/sge/sprite/detail/assign_post.hpp
+	include/sge/sprite/detail/assign_pre.hpp
+	include/sge/sprite/detail/buffers.hpp
+	include/sge/sprite/detail/convert_texture_rect.hpp
+	include/sge/sprite/detail/depth.hpp
+	include/sge/sprite/detail/fill_color.hpp
+	include/sge/sprite/detail/fill_geometry.hpp
+	include/sge/sprite/detail/fill_indices.hpp
+	include/sge/sprite/detail/fill_position.hpp
+	include/sge/sprite/detail/fill_position_points.hpp
+	include/sge/sprite/detail/fill_position_rotated.hpp
+	include/sge/sprite/detail/fill_position_unrotated.hpp
+	include/sge/sprite/detail/fill_tex_coordinates.hpp
+	include/sge/sprite/detail/fill_tex_coordinates_impl.hpp
+	include/sge/sprite/detail/fill_tex_coordinates_rect.hpp
+	include/sge/sprite/detail/fill_unspecified.hpp
+	include/sge/sprite/detail/fill_vertices.hpp
+	include/sge/sprite/detail/geometry_count.hpp
+	include/sge/sprite/detail/geometry_count_constant.hpp
+	include/sge/sprite/detail/index_array.hpp
+	include/sge/sprite/detail/index_array_type.hpp
+	include/sge/sprite/detail/index_generator.hpp
+	include/sge/sprite/detail/indices_per_sprite.hpp
+	include/sge/sprite/detail/initialize_default_parameters.hpp
+	include/sge/sprite/detail/make_class.hpp
+	include/sge/sprite/detail/normal_render_states.hpp
+	include/sge/sprite/detail/optional_size.hpp
+	include/sge/sprite/detail/point_float.hpp
+	include/sge/sprite/detail/point_float3.hpp
+	include/sge/sprite/detail/rect_float.hpp
+	include/sge/sprite/detail/render.hpp
+	include/sge/sprite/detail/render_inner.hpp
+	include/sge/sprite/detail/render_states.hpp
+	include/sge/sprite/detail/roles/index_buffer.hpp
+	include/sge/sprite/detail/roles/use_center.hpp
+	include/sge/sprite/detail/roles/vertex_buffer.hpp
+	include/sge/sprite/detail/rotation_center.hpp
+	include/sge/sprite/detail/set_texture.hpp
+	include/sge/sprite/detail/set_texture_pre.hpp
+	include/sge/sprite/detail/transform_init_arguments.hpp
+	include/sge/sprite/detail/transform_parameters_arguments.hpp
+	include/sge/sprite/detail/vertex_color.hpp
+	include/sge/sprite/detail/vertex_format.hpp
+	include/sge/sprite/detail/vertex_format_from_object.hpp
+	include/sge/sprite/detail/vertex_pos.hpp
+	include/sge/sprite/detail/vertex_texpos.hpp
+	include/sge/sprite/detail/vertex_unspecified_dim.hpp
+	include/sge/sprite/detail/vertices_per_sprite.hpp
+	include/sge/sprite/detail/visible.hpp
+	include/sge/sprite/dim.hpp
+	include/sge/sprite/dont_sort.hpp
+	include/sge/sprite/external_system_decl.hpp
+	include/sge/sprite/external_system_fwd.hpp
+	include/sge/sprite/external_system_impl.hpp
+	include/sge/sprite/intrusive/adder_base.hpp
+	include/sge/sprite/intrusive/adder_decl.hpp
+	include/sge/sprite/intrusive/adder_impl.hpp
+	include/sge/sprite/intrusive/detail/level_map.hpp
+	include/sge/sprite/intrusive/detail/list.hpp
+	include/sge/sprite/intrusive/detail/object_base_hook.hpp
+	include/sge/sprite/intrusive/order.hpp
+	include/sge/sprite/intrusive/system_decl.hpp
+	include/sge/sprite/intrusive/system_fwd.hpp
+	include/sge/sprite/intrusive/system_impl.hpp
+	include/sge/sprite/intrusive/tag.hpp
+	include/sge/sprite/matrix.hpp
+	include/sge/sprite/no_color.hpp
+	include/sge/sprite/object.hpp
+	include/sge/sprite/object_decl.hpp
+	include/sge/sprite/object_fwd.hpp
+	include/sge/sprite/object_impl.hpp
+	include/sge/sprite/parameters.hpp
+	include/sge/sprite/parameters_decl.hpp
+	include/sge/sprite/parameters_fwd.hpp
+	include/sge/sprite/parameters_impl.hpp
+	include/sge/sprite/point.hpp
+	include/sge/sprite/point_size.hpp
+	include/sge/sprite/primitives/adder.hpp
+	include/sge/sprite/primitives/bool.hpp
+	include/sge/sprite/primitives/color.hpp
+	include/sge/sprite/primitives/coordinates.hpp
+	include/sge/sprite/primitives/dim.hpp
+	include/sge/sprite/primitives/float.hpp
+	include/sge/sprite/primitives/order.hpp
+	include/sge/sprite/primitives/point_size.hpp
+	include/sge/sprite/primitives/pos.hpp
+	include/sge/sprite/primitives/texture.hpp
+	include/sge/sprite/projection_matrix.hpp
+	include/sge/sprite/rect.hpp
+	include/sge/sprite/render_one.hpp
+	include/sge/sprite/render_states.hpp
+	include/sge/sprite/repetition_type.hpp
+	include/sge/sprite/roles/adder.hpp
+	include/sge/sprite/roles/color.hpp
+	include/sge/sprite/roles/depth.hpp
+	include/sge/sprite/roles/order.hpp
+	include/sge/sprite/roles/point_size.hpp
+	include/sge/sprite/roles/pos.hpp
+	include/sge/sprite/roles/repetition.hpp
+	include/sge/sprite/roles/rotate_around.hpp
+	include/sge/sprite/roles/rotation.hpp
+	include/sge/sprite/roles/size.hpp
+	include/sge/sprite/roles/texture.hpp
+	include/sge/sprite/roles/texture_coordinates.hpp
+	include/sge/sprite/roles/use_rotation.hpp
+	include/sge/sprite/roles/visible.hpp
+	include/sge/sprite/rotation_type.hpp
+	include/sge/sprite/set_matrices.hpp
+	include/sge/sprite/symbol.hpp
+	include/sge/sprite/system.hpp
+	include/sge/sprite/system_base_decl.hpp
+	include/sge/sprite/system_base_fwd.hpp
+	include/sge/sprite/system_base_impl.hpp
+	include/sge/sprite/texture_coordinates.hpp
+	include/sge/sprite/texture_dim.hpp
+	include/sge/sprite/transform_matrix.hpp
+	include/sge/sprite/type_choices.hpp
+	include/sge/sprite/unspecified_dim_tag.hpp
+	include/sge/sprite/with_color.hpp
+	include/sge/sprite/with_depth.hpp
+	include/sge/sprite/with_dim.hpp
+	include/sge/sprite/with_repetition.hpp
+	include/sge/sprite/with_rotation.hpp
+	include/sge/sprite/with_rotation_center.hpp
+	include/sge/sprite/with_texture.hpp
+	include/sge/sprite/with_texture_coordinates.hpp
+	include/sge/sprite/with_unspecified_dim.hpp
+	include/sge/sprite/with_visibility.hpp
+	src/sprite/animation/base.cpp
+	src/sprite/animation/entity.cpp
+	src/sprite/animation/series.cpp
+	src/sprite/detail/normal_render_states.cpp
+	src/sprite/projection_matrix.cpp
+	src/sprite/set_matrices.cpp
+	src/sprite/transform_matrix.cpp
 )
-	ADD_SGE_SOURCE_GROUP(
-		"include\\\\\\\\sge\\\\\\\\sprite" #cmake bitch
-		${CMAKE_SOURCE_DIR}/include/sge/sprite
-		"${SOURCEPATH}"
-		*.hpp
-		TEMPFILES
-	)
 
-	SET(SGESPRITEFILES ${SGESPRITEFILES} ${TEMPFILES})
-ENDMACRO()
-
-ADD_SGE_SPRITE_INCLUDE_SOURCE_GROUP("")
-ADD_SGE_SPRITE_INCLUDE_SOURCE_GROUP(animation)
-ADD_SGE_SPRITE_INCLUDE_SOURCE_GROUP(defaults)
-ADD_SGE_SPRITE_INCLUDE_SOURCE_GROUP(detail)
-ADD_SGE_SPRITE_INCLUDE_SOURCE_GROUP(detail/roles)
-ADD_SGE_SPRITE_INCLUDE_SOURCE_GROUP(intrusive)
-ADD_SGE_SPRITE_INCLUDE_SOURCE_GROUP(intrusive/detail)
-ADD_SGE_SPRITE_INCLUDE_SOURCE_GROUP(primitives)
-ADD_SGE_SPRITE_INCLUDE_SOURCE_GROUP(roles)
-
-MACRO(
-	ADD_SGE_SPRITE_SOURCE_GROUP
-	SOURCEPATH
+APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
+	"${SGE_SPRITE_FILES}"
+	SGE_SPRITE_FILES_ABS
 )
-	ADD_SGE_SOURCE_GROUP(
-		"src\\\\\\\\sprite"
-		""
-		"${SOURCEPATH}"
-		*.?pp
-		TEMPFILES	
-	)
 
-	SET(SGESPRITEFILES ${SGESPRITEFILES} ${TEMPFILES})
-ENDMACRO()
+ADD_LIBRARY(
+	sgesprite
+	SHARED
+	${SGE_SPRITE_FILES_ABS}
+)
 
-ADD_SGE_SPRITE_SOURCE_GROUP("")
-ADD_SGE_SPRITE_SOURCE_GROUP(animation)
-ADD_SGE_SPRITE_SOURCE_GROUP(detail)
-
-ADD_LIBRARY (sgesprite SHARED ${SGESPRITEFILES})
-
-TARGET_LINK_LIBRARIES (
+TARGET_LINK_LIBRARIES(
 	sgesprite
 	sgecore
 )
 
-INSTALL (TARGETS sgesprite DESTINATION lib)
+INSTALL(
+	TARGETS
+	sgesprite
+	DESTINATION
+	lib
+)
 
-INSTALL(DIRECTORY ${CMAKE_SOURCE_DIR}/include/sge/sprite DESTINATION include/sge)
+INSTALL(
+	DIRECTORY
+	${CMAKE_SOURCE_DIR}/include/sge/sprite
+	DESTINATION
+	include/sge
+)

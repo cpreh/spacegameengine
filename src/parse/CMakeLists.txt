@@ -1,55 +1,120 @@
-MACRO(
-	ADD_SGE_PARSE_INCLUDE_SOURCE_GROUP
-	SOURCEPATH
+SET(
+	SGE_PARSE_FILES
+	include/sge/parse/encoding.hpp
+	include/sge/parse/exception.hpp
+	include/sge/parse/failure.hpp
+	include/sge/parse/info_to_string.hpp
+	include/sge/parse/ini/detail/adapt_entry.hpp
+	include/sge/parse/ini/detail/adapt_section.hpp
+	include/sge/parse/ini/entry.hpp
+	include/sge/parse/ini/entry_fwd.hpp
+	include/sge/parse/ini/entry_name_equal.hpp
+	include/sge/parse/ini/entry_vector.hpp
+	include/sge/parse/ini/grammar.hpp
+	include/sge/parse/ini/header_name_equal.hpp
+	include/sge/parse/ini/output/grammar.hpp
+	include/sge/parse/ini/output/to_file.hpp
+	include/sge/parse/ini/output/to_range.hpp
+	include/sge/parse/ini/output/to_stream.hpp
+	include/sge/parse/ini/parse_file.hpp
+	include/sge/parse/ini/parse_range.hpp
+	include/sge/parse/ini/parse_stream.hpp
+	include/sge/parse/ini/section.hpp
+	include/sge/parse/ini/section_fwd.hpp
+	include/sge/parse/ini/section_vector.hpp
+	include/sge/parse/ini/string.hpp
+	include/sge/parse/json/array.hpp
+	include/sge/parse/json/array_fwd.hpp
+	include/sge/parse/json/detail/adapt_array.hpp
+	include/sge/parse/json/detail/adapt_member.hpp
+	include/sge/parse/json/detail/adapt_object.hpp
+	include/sge/parse/json/detail/find_member_return_type.hpp
+	include/sge/parse/json/detail/get_return_type.hpp
+	include/sge/parse/json/element_vector.hpp
+	include/sge/parse/json/exception.hpp
+	include/sge/parse/json/find_member.hpp
+	include/sge/parse/json/find_member_exn.hpp
+	include/sge/parse/json/float_type.hpp
+	include/sge/parse/json/get.hpp
+	include/sge/parse/json/grammar.hpp
+	include/sge/parse/json/int_type.hpp
+	include/sge/parse/json/invalid_get.hpp
+	include/sge/parse/json/member.hpp
+	include/sge/parse/json/member_fwd.hpp
+	include/sge/parse/json/member_name_equal.hpp
+	include/sge/parse/json/member_not_found.hpp
+	include/sge/parse/json/member_vector.hpp
+	include/sge/parse/json/null.hpp
+	include/sge/parse/json/object.hpp
+	include/sge/parse/json/object_fwd.hpp
+	include/sge/parse/json/optional_element_vector.hpp
+	include/sge/parse/json/optional_member_vector.hpp
+	include/sge/parse/json/output/grammar.hpp
+	include/sge/parse/json/output/to_file.hpp
+	include/sge/parse/json/output/to_range.hpp
+	include/sge/parse/json/output/to_stream.hpp
+	include/sge/parse/json/parse_file.hpp
+	include/sge/parse/json/parse_file_exn.hpp
+	include/sge/parse/json/parse_range.hpp
+	include/sge/parse/json/parse_stream.hpp
+	include/sge/parse/json/string.hpp
+	include/sge/parse/json/value.hpp
+	include/sge/parse/symbol.hpp
+	src/parse/exception.cpp
+	src/parse/info_to_string.cpp
+	src/parse/ini/entry.cpp
+	src/parse/ini/entry_name_equal.cpp
+	src/parse/ini/header_name_equal.cpp
+	src/parse/ini/output/to_file.cpp
+	src/parse/ini/output/to_stream.cpp
+	src/parse/ini/parse_file.cpp
+	src/parse/ini/parse_stream.cpp
+	src/parse/ini/section.cpp
+	src/parse/json/array.cpp
+	src/parse/json/exception.cpp
+	src/parse/json/invalid_get.cpp
+	src/parse/json/member.cpp
+	src/parse/json/member_name_equal.cpp
+	src/parse/json/member_not_found.cpp
+	src/parse/json/object.cpp
+	src/parse/json/output/to_file.cpp
+	src/parse/json/output/to_stream.cpp
+	src/parse/json/parse_file.cpp
+	src/parse/json/parse_file_exn.cpp
+	src/parse/json/parse_stream.cpp
+	src/parse/output/to_file.hpp
+	src/parse/output/to_stream.hpp
+	src/parse/parse_file.hpp
+	src/parse/parse_file_exn.hpp
+	src/parse/parse_stream.hpp
 )
-	ADD_SGE_SOURCE_GROUP(
-		"include\\\\\\\\sge\\\\\\\\parse" #cmake bitch
-		${CMAKE_SOURCE_DIR}/include/sge/parse
-		"${SOURCEPATH}"
-		*.hpp
-		TEMPFILES
-	)
 
-	SET(SGEPARSEFILES ${SGEPARSEFILES} ${TEMPFILES})
-ENDMACRO()
-
-ADD_SGE_PARSE_INCLUDE_SOURCE_GROUP("")
-ADD_SGE_PARSE_INCLUDE_SOURCE_GROUP(ini)
-ADD_SGE_PARSE_INCLUDE_SOURCE_GROUP(ini/detail)
-ADD_SGE_PARSE_INCLUDE_SOURCE_GROUP(ini/output)
-ADD_SGE_PARSE_INCLUDE_SOURCE_GROUP(json)
-ADD_SGE_PARSE_INCLUDE_SOURCE_GROUP(json/detail)
-ADD_SGE_PARSE_INCLUDE_SOURCE_GROUP(json/output)
-
-MACRO(
-	ADD_SGE_PARSE_SOURCE_GROUP
-	SOURCEPATH
+APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
+	"${SGE_PARSE_FILES}"
+	SGE_PARSE_FILES_ABS
 )
-	ADD_SGE_SOURCE_GROUP(
-		"src\\\\\\\\parse"
-		""
-		"${SOURCEPATH}"
-		*.?pp
-		TEMPFILES	
-	)
 
-	SET(SGEPARSEFILES ${SGEPARSEFILES} ${TEMPFILES})
-ENDMACRO()
+ADD_LIBRARY(
+	sgeparse
+	SHARED
+	${SGE_PARSE_FILES_ABS}
+)
 
-ADD_SGE_PARSE_SOURCE_GROUP("")
-ADD_SGE_PARSE_SOURCE_GROUP(output)
-ADD_SGE_PARSE_SOURCE_GROUP(ini)
-ADD_SGE_PARSE_SOURCE_GROUP(ini/output)
-ADD_SGE_PARSE_SOURCE_GROUP(json)
-ADD_SGE_PARSE_SOURCE_GROUP(json/output)
-
-ADD_LIBRARY (sgeparse SHARED ${SGEPARSEFILES})
-
-TARGET_LINK_LIBRARIES (
+TARGET_LINK_LIBRARIES(
 	sgeparse
 	sgecore
 )
 
-INSTALL (TARGETS sgeparse DESTINATION lib)
+INSTALL(
+	TARGETS
+	sgeparse
+	DESTINATION
+	lib
+)
 
-INSTALL(DIRECTORY ${CMAKE_SOURCE_DIR}/include/sge/parse DESTINATION include/sge)
+INSTALL(
+	DIRECTORY
+	${CMAKE_SOURCE_DIR}/include/sge/parse
+	DESTINATION
+	include/sge
+)
