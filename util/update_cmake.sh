@@ -77,6 +77,16 @@ function update_sublibrary()
 		src/"${sublibrary}"
 }
 
+function update_plugin()
+{
+	local plugin="$1"
+
+	update_cmake_file \
+		src/plugins/"${plugin}"/CMakeLists.txt \
+		SGE_"${plugin^^}"_FILES \
+		src/plugins/"${plugin}"
+}
+
 # base libs
 update_sublibrary camera
 
@@ -141,3 +151,6 @@ update_cmake_file \
 	src/plugins/opengl/CMakeLists.txt \
 	SGE_OPENGL_XRANDR_FILES \
 	src/plugins/opengl/xrandr
+
+update_plugin audio_null
+
