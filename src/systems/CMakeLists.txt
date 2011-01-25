@@ -1,9 +1,7 @@
-IF(NOT ENABLE_CONFIG)
-	MESSAGE(
-		FATAL_ERROR
-		"For sgesystems to work you need to -D ENABLE_CONFIG=ON"
-	)
-ENDIF()
+CHECK_DEPENDENCIES(
+	"CONFIG"
+	"systems"
+)
 
 SET(
 	SGE_SYSTEMS_FILES

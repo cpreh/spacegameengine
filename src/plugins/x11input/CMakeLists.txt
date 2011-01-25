@@ -1,9 +1,7 @@
-IF(NOT ENABLE_TIME)
-	MESSAGE(
-		FATAL_ERROR
-		"For sgex11input to work you need to -D ENABLE_TIME=ON"
-	)
-ENDIF()
+CHECK_DEPENDENCIES(
+	"TIME"
+	"x11input"
+)
 
 SET(
 	SGE_X11INPUT_FILES
