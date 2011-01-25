@@ -31,32 +31,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/position_unit.hpp>
 #include <sge/input/exception.hpp>
-#include <sge/log/global.hpp>
+//#include <sge/log/global.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/log/error.hpp>
-#include <fcppt/log/output.hpp>
+//#include <fcppt/log/error.hpp>
+//#include <fcppt/log/output.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <awl/backends/x11/window/event/processor.hpp>
 #include <X11/extensions/XInput2.h>
 #include <X11/Xlib.h>
 
 sge::x11input::cursor::cursor(
-	x11input::device::parameters const &_param,
-	awl::backends::x11::window::event::processor_ptr const _event_processor
+	x11input::device::parameters const &_param
 )
 :
+	sge::input::cursor::object(),
+	sge::x11input::device::object(),
 	device_id_(
 		_param.id()
 	),
 	window_(
 		_param.window()
-	),
-	event_processor_(
-		_event_processor
 	),
 	connections_(
 		fcppt::assign::make_container<
@@ -107,38 +104,6 @@ sge::x11input::cursor::cursor(
 			)
 		)
 	),
-	window_connections_(
-		event_processor_
-		?
-			fcppt::assign::make_container<
-				fcppt::signal::connection_manager::container
-			>(
-				fcppt::signal::shared_connection(
-					event_processor_->register_callback(
-						FocusIn,
-						std::tr1::bind(
-							&cursor::on_enter,
-							this,
-							std::tr1::placeholders::_1
-						)
-					)
-				)
-			)
-			(
-				fcppt::signal::shared_connection(
-					event_processor_->register_callback(
-						FocusOut,
-						std::tr1::bind(
-							&cursor::on_leave,
-							this,
-							std::tr1::placeholders::_1
-						)
-					)
-				)
-			).container()
-		:
-			fcppt::signal::connection_manager::container()
-	),
 	window_mode_(
 		sge::input::cursor::window_mode::move_freely
 	),
@@ -160,6 +125,22 @@ sge::x11input::cursor::cursor(
 
 sge::x11input::cursor::~cursor()
 {
+}
+
+void
+sge::x11input::cursor::on_enter()
+{
+	entered_ = true;
+
+	this->check_grab();
+}
+
+void
+sge::x11input::cursor::on_leave()
+{
+	entered_ = false;
+
+	this->check_grab();
 }
 
 fcppt::signal::auto_connection
@@ -290,28 +271,9 @@ sge::x11input::cursor::button_event(
 }
 
 void
-sge::x11input::cursor::on_enter(
-	awl::backends::x11::window::event::object const &
-)
-{
-	entered_ = true;
-
-	this->check_grab();
-}
-
-void
-sge::x11input::cursor::on_leave(
-	awl::backends::x11::window::event::object const &
-)
-{
-	entered_ = false;
-
-	this->check_grab();
-}
-
-void
 sge::x11input::cursor::check_grab()
 {
+#if 0
 	if(
 		!event_processor_
 	)
@@ -326,7 +288,7 @@ sge::x11input::cursor::check_grab()
 
 		return;
 	}
-
+#endif
 	switch(
 		window_mode_
 	)

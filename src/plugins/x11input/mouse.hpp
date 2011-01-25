@@ -22,14 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_MOUSE_HPP_INCLUDED
 
 #include "mouse_fwd.hpp"
+#include "device/object.hpp"
+#include "device/parameters_fwd.hpp"
 #include "device/raw_event_fwd.hpp"
 #include "device/window_event_fwd.hpp"
-#include "device/parameters_fwd.hpp"
-#include <sge/input/mouse/device.hpp>
 #include <sge/input/mouse/axis_callback.hpp>
 #include <sge/input/mouse/axis_function.hpp>
 #include <sge/input/mouse/button_callback.hpp>
 #include <sge/input/mouse/button_function.hpp>
+#include <sge/input/mouse/device.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object.hpp>
@@ -42,7 +43,8 @@ namespace x11input
 
 class mouse
 :
-	public sge::input::mouse::device
+	public sge::input::mouse::device,
+	public sge::x11input::device::object
 {
 	FCPPT_NONCOPYABLE(
 		mouse
@@ -53,6 +55,12 @@ public:
 	);
 
 	~mouse();
+
+	void
+	on_enter();
+
+	void
+	on_leave();
 private:
 	fcppt::signal::auto_connection
 	button_callback(
@@ -84,6 +92,8 @@ private:
 		x11input::device::window_event const &,
 		bool pressed
 	);
+
+	bool entered_;
 
 	fcppt::signal::connection_manager const connections_;
 

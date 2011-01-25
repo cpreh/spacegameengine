@@ -30,6 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/instance.hpp>
 #include <awl/backends/x11/window/root.hpp>
 #include <awl/backends/x11/window/event/processor.hpp>
+#include <fcppt/algorithm/append.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
@@ -49,6 +52,13 @@ sge::x11input::processor::processor(
 			awl::backends::x11::window::instance
 		>(
 			_window->awl_instance()
+		)
+	),
+	window_event_processor_(
+		fcppt::polymorphic_pointer_cast<
+			awl::backends::x11::window::event::processor
+		>(
+			_window->awl_window_event_processor()
 		)
 	),
 	system_event_processor_(
@@ -73,19 +83,39 @@ sge::x11input::processor::processor(
 	),
 	keyboards_(),
 	mice_(),
-	cursors_()
+	cursors_(),
+	connections_(
+		fcppt::assign::make_container<
+			fcppt::signal::connection_manager::container
+		>(
+			fcppt::signal::shared_connection(
+				window_event_processor_->register_callback(
+					FocusIn,
+					std::tr1::bind(
+						&processor::on_enter,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+		(
+			fcppt::signal::shared_connection(
+				window_event_processor_->register_callback(
+					FocusOut,
+					std::tr1::bind(
+						&processor::on_leave,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+	)
 {
 	x11input::device::info const devices(
 		x11_window_->display(),
 		XIAllDevices
-	);
-
-	awl::backends::x11::window::event::processor_ptr const window_processor(
-		fcppt::polymorphic_pointer_cast<
-			awl::backends::x11::window::event::processor
-		>(
-			_window->awl_window_event_processor()
-		)
 	);
 
 	for(
@@ -139,12 +169,8 @@ sge::x11input::processor::processor(
 				fcppt::make_shared_ptr<
 					x11input::cursor
 				>(
-					param,
-					device.use == XIMasterPointer
-					?
-						window_processor
-					:
-						awl::backends::x11::window::event::processor_ptr()
+					// FIXME: tell this device if it is the master pointer!
+					param
 				)
 			);
 			break;
@@ -238,4 +264,48 @@ sge::window::instance_ptr const
 sge::x11input::processor::window() const
 {
 	return window_;
+}
+
+sge::x11input::processor::device_vector const
+sge::x11input::processor::devices() const
+{
+	// TODO: optimize this with a view
+	device_vector ret(
+		cursors_.begin(),
+		cursors_.end()
+	);
+
+	fcppt::algorithm::append(
+		ret,
+		device_vector(
+			mice_.begin(),
+			mice_.end()
+		)
+	);
+
+	return ret;
+}
+
+void
+sge::x11input::processor::on_enter(
+	awl::backends::x11::window::event::object const &
+)
+{
+	BOOST_FOREACH(
+		device_vector::value_type device,
+		devices()
+	)
+		device->on_enter();
+}
+
+void
+sge::x11input::processor::on_leave(
+	awl::backends::x11::window::event::object const &
+)
+{
+	BOOST_FOREACH(
+		device_vector::value_type device,
+		devices()
+	)
+		device->on_leave();
 }

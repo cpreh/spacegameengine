@@ -43,6 +43,9 @@ sge::x11input::mouse::mouse(
 	x11input::device::parameters const &_param
 )
 :
+	sge::input::mouse::device(),
+	sge::x11input::device::object(),
+	entered_(false),
 	connections_(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
@@ -101,6 +104,18 @@ sge::x11input::mouse::~mouse()
 {
 }
 
+void
+sge::x11input::mouse::on_enter()
+{
+	entered_ = true;
+}
+
+void
+sge::x11input::mouse::on_leave()
+{
+	entered_ = false;
+}
+
 fcppt::signal::auto_connection
 sge::x11input::mouse::button_callback(
 	input::mouse::button_callback const &_callback
@@ -128,6 +143,12 @@ sge::x11input::mouse::on_motion(
 	x11input::device::raw_event const &_event
 )
 {
+	// ignore events while not in our own window
+	if(
+		!entered_
+	)
+		return;
+
 	XIValuatorState const &valuators(
 		_event.get().valuators
 	);

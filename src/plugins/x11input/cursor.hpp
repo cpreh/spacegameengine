@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "cursor_confine_fwd.hpp"
 #include "cursor_define_fwd.hpp"
 #include "device/id.hpp"
+#include "device/object.hpp"
 #include "device/parameters_fwd.hpp"
 #include "device/window_event_fwd.hpp"
 #include <sge/input/cursor/object.hpp>
@@ -35,8 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/window_mode.hpp>
 #include <awl/backends/x11/window/instance_ptr.hpp>
-#include <awl/backends/x11/window/event/processor_ptr.hpp>
-#include <awl/backends/x11/window/event/object_fwd.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
@@ -51,18 +50,24 @@ namespace x11input
 
 class cursor
 :
-	public sge::input::cursor::object
+	public sge::input::cursor::object,
+	public sge::x11input::device::object
 {
 	FCPPT_NONCOPYABLE(
 		cursor
 	)
 public:
 	explicit cursor(
-		x11input::device::parameters const &,
-		awl::backends::x11::window::event::processor_ptr
+		x11input::device::parameters const &
 	);
 
 	~cursor();
+
+	void
+	on_enter();
+
+	void
+	on_leave();
 private:
 	fcppt::signal::auto_connection
 	button_callback(
@@ -109,27 +114,13 @@ private:
 	);
 
 	void
-	on_enter(
-		awl::backends::x11::window::event::object const &
-	);
-
-	void
-	on_leave(
-		awl::backends::x11::window::event::object const &
-	);
-
-	void
 	check_grab();
 
 	device::id const device_id_;
 
 	awl::backends::x11::window::instance_ptr const window_;
 
-	awl::backends::x11::window::event::processor_ptr const event_processor_;
-
 	fcppt::signal::connection_manager const connections_;
-
-	fcppt::signal::connection_manager const window_connections_;
 
 	sge::input::cursor::window_mode::type window_mode_;
 

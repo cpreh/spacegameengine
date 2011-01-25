@@ -22,6 +22,9 @@ SET(
 	src/plugins/x11input/device/event_id_container.hpp
 	src/plugins/x11input/device/id.hpp
 	src/plugins/x11input/device/info.hpp
+	src/plugins/x11input/device/object.hpp
+	src/plugins/x11input/device/object_fwd.hpp
+	src/plugins/x11input/device/object_ptr.hpp
 	src/plugins/x11input/device/parameters.hpp
 	src/plugins/x11input/device/parameters_fwd.hpp
 	src/plugins/x11input/device/raw_demuxer.hpp
@@ -33,6 +36,7 @@ SET(
 	src/plugins/x11input/device/src/event_data.cpp
 	src/plugins/x11input/device/src/event_demuxer.cpp
 	src/plugins/x11input/device/src/info.cpp
+	src/plugins/x11input/device/src/object.cpp
 	src/plugins/x11input/device/src/parameters.cpp
 	src/plugins/x11input/device/src/select_events.cpp
 	src/plugins/x11input/device/window_demuxer.hpp

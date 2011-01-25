@@ -24,14 +24,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "cursor_ptr.hpp"
 #include "keyboard_ptr.hpp"
 #include "mouse_ptr.hpp"
+#include "device/object_ptr.hpp"
 #include "device/raw_demuxer.hpp"
 #include "device/window_demuxer.hpp"
 #include <sge/input/processor.hpp>
 #include <sge/window/instance_ptr.hpp>
-#include <awl/backends/x11/system/event/processor_ptr.hpp>
 #include <awl/backends/x11/system/event/opcode.hpp>
+#include <awl/backends/x11/system/event/processor_ptr.hpp>
+#include <awl/backends/x11/window/event/object_fwd.hpp>
+#include <awl/backends/x11/window/event/processor_ptr.hpp>
 #include <awl/backends/x11/window/instance_ptr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <vector>
@@ -98,11 +102,30 @@ private:
 	window::instance_ptr const
 	window() const;
 
+	typedef std::vector<
+		device::object_ptr
+	> device_vector;
+
+	device_vector const
+	devices() const;
+
+	void
+	on_enter(
+		awl::backends::x11::window::event::object const &
+	);
+
+	void
+	on_leave(
+		awl::backends::x11::window::event::object const &
+	);
+
 	sge::window::instance_ptr const window_;
 
 	awl::backends::x11::system::event::opcode const opcode_;
 
 	awl::backends::x11::window::instance_ptr const x11_window_;
+
+	awl::backends::x11::window::event::processor_ptr const window_event_processor_;
 
 	awl::backends::x11::system::event::processor_ptr const system_event_processor_;
 
@@ -127,6 +150,8 @@ private:
 	mouse_vector mice_;
 
 	cursor_vector cursors_;
+
+	fcppt::signal::connection_manager const connections_;
 };
 
 }
