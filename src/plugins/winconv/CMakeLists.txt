@@ -1,26 +1,13 @@
-MACRO(
-	ADD_SGE_WINCONV_SOURCE_GROUP
-	SOURCEPATH
-)
-	ADD_SGE_SOURCE_GROUP(
-		"src\\\\\\\\plugins\\\\\\\\winconv"
-		""
-		"${SOURCEPATH}"
-		*.?pp
-		TEMPFILES
-	)
-
-	SET(SGEWINCONVFILES ${SGEWINCONVFILES} ${TEMPFILES})
-ENDMACRO()
-
-ADD_SGE_WINCONV_SOURCE_GROUP("")
-ADD_SGE_WINCONV_SOURCE_GROUP(src)
-
-ADD_LIBRARY (sgewinconv SHARED ${SGEWINCONVFILES})
-
-TARGET_LINK_LIBRARIES (
-	sgewinconv
-	sgecore
+SET(
+	SGE_WINCONV_FILES
+	src/plugins/winconv/converter.hpp
+	src/plugins/winconv/src/converter.cpp
+	src/plugins/winconv/src/exports.cpp
+	src/plugins/winconv/src/system.cpp
+	src/plugins/winconv/system.hpp
 )
 
-INSTALL (TARGETS sgewinconv DESTINATION lib/sge)
+ADD_SGE_PLUGIN(
+	winconv
+	""
+)

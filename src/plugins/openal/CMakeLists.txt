@@ -1,25 +1,42 @@
-MACRO(
-	ADD_SGE_OPENAL_SOURCE_GROUP
-	SOURCEPATH
+SET(
+	SGE_OPENAL_FILES
+	src/plugins/openal/alc_error_string.hpp
+	src/plugins/openal/buffer.hpp
+	src/plugins/openal/buffer_wrapper.hpp
+	src/plugins/openal/check_alc_state.hpp
+	src/plugins/openal/check_state.hpp
+	src/plugins/openal/context.hpp
+	src/plugins/openal/device.hpp
+	src/plugins/openal/error_string.hpp
+	src/plugins/openal/file_format.hpp
+	src/plugins/openal/listener.hpp
+	src/plugins/openal/log.hpp
+	src/plugins/openal/openal.hpp
+	src/plugins/openal/player.hpp
+	src/plugins/openal/source.hpp
+	src/plugins/openal/source_wrapper.hpp
+	src/plugins/openal/src/alc_error_string.cpp
+	src/plugins/openal/src/buffer.cpp
+	src/plugins/openal/src/buffer_wrapper.cpp
+	src/plugins/openal/src/context.cpp
+	src/plugins/openal/src/device.cpp
+	src/plugins/openal/src/error_string.cpp
+	src/plugins/openal/src/exports.cpp
+	src/plugins/openal/src/file_format.cpp
+	src/plugins/openal/src/listener.cpp
+	src/plugins/openal/src/log.cpp
+	src/plugins/openal/src/player.cpp
+	src/plugins/openal/src/source.cpp
+	src/plugins/openal/src/source_wrapper.cpp
+	src/plugins/openal/src/stream_sound.cpp
+	src/plugins/openal/stream_sound.hpp
 )
-	ADD_SGE_SOURCE_GROUP(
-		"src\\\\\\\\plugins\\\\\\\\openal"
-		""
-		"${SOURCEPATH}"
-		*.?pp
-		TEMPFILES
-	)
 
-	SET(SGEOPENALFILES ${SGEOPENALFILES} ${TEMPFILES})
-ENDMACRO()
+INCLUDE_DIRECTORIES(
+	${OPENAL_INCLUDE_DIR}
+)
 
-ADD_SGE_OPENAL_SOURCE_GROUP("")
-ADD_SGE_OPENAL_SOURCE_GROUP(src)
-
-INCLUDE_DIRECTORIES(${OPENAL_INCLUDE_DIR})
-
-ADD_LIBRARY (sgeopenal SHARED ${SGEOPENALFILES})
-
-TARGET_LINK_LIBRARIES (sgeopenal sgecore ${OPENAL_LIBRARY})
-
-INSTALL (TARGETS sgeopenal DESTINATION lib/sge)
+ADD_SGE_PLUGIN(
+	openal
+	${OPENAL_LIBRARY}
+)

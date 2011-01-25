@@ -1,33 +1,21 @@
-MACRO(
-	ADD_SGE_VORBIS_SOURCE_GROUP
-	SOURCEPATH
-)
-	ADD_SGE_SOURCE_GROUP(
-		"src\\\\\\\\plugins\\\\\\\\vorbis"
-		""
-		"${SOURCEPATH}"
-		*.?pp
-		TEMPFILES
-	)
-
-	SET(SGEVORBISFILES ${SGEVORBISFILES} ${TEMPFILES})
-ENDMACRO()
-
-ADD_SGE_VORBIS_SOURCE_GROUP("")
-ADD_SGE_VORBIS_SOURCE_GROUP(src)
-
-INCLUDE_DIRECTORIES(${VORBIS_INCLUDE_DIR})
-
-INCLUDE_DIRECTORIES(${OGG_INCLUDE_DIR})
-
-ADD_LIBRARY (sgevorbis SHARED ${SGEVORBISFILES})
-
-TARGET_LINK_LIBRARIES (
-	sgevorbis
-	sgecore
-	${OGG_LIBRARY}
-	${VORBIS_LIBRARY}
-	${VORBIS_FILE_LIBRARY}
+SET(
+	SGE_VORBIS_FILES
+	src/plugins/vorbis/file.hpp
+	src/plugins/vorbis/loader.hpp
+	src/plugins/vorbis/src/exports.cpp
+	src/plugins/vorbis/src/file.cpp
+	src/plugins/vorbis/src/loader.cpp
 )
 
-INSTALL (TARGETS sgevorbis DESTINATION lib/sge)
+INCLUDE_DIRECTORIES(
+	${VORBIS_INCLUDE_DIR}
+)
+
+INCLUDE_DIRECTORIES(
+	${OGG_INCLUDE_DIR}
+)
+
+ADD_SGE_PLUGIN(
+	vorbis
+	"${OGG_LIBRARY};${VORBIS_LIBRARY};${VORBIS_FILE_LIBRARY}"
+)

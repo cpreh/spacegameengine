@@ -1,23 +1,15 @@
-MACRO(
-	ADD_SGE_MD3_SOURCE_GROUP
-	SOURCEPATH
+SET(
+	SGE_MD3_FILES
+	src/plugins/md3/funit.hpp
+	src/plugins/md3/loader.hpp
+	src/plugins/md3/object.hpp
+	src/plugins/md3/src/exports.cpp
+	src/plugins/md3/src/loader.cpp
+	src/plugins/md3/src/object.cpp
+	src/plugins/md3/vertex_format.hpp
 )
-	ADD_SGE_SOURCE_GROUP(
-		"src\\\\\\\\plugins\\\\\\\\md3"
-		""
-		"${SOURCEPATH}"
-		*.?pp
-		TEMPFILES
-	)
 
-	SET(SGEMD3FILES ${SGEMD3FILES} ${TEMPFILES})
-ENDMACRO()
-
-ADD_SGE_MD3_SOURCE_GROUP("")
-ADD_SGE_MD3_SOURCE_GROUP(src)
-
-ADD_LIBRARY (sgemd3 SHARED ${SGEMD3FILES})
-
-TARGET_LINK_LIBRARIES (sgemd3 sgecore)
-
-INSTALL (TARGETS sgemd3 DESTINATION lib/sge) 
+ADD_SGE_PLUGIN(
+	md3
+	""
+)

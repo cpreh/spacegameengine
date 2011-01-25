@@ -155,3 +155,25 @@ update_cmake_file \
 update_plugin audio_null
 
 update_plugin bullet
+
+update_plugin devil
+
+update_plugin dinput
+
+update_plugin freetype
+
+update_plugin iconv
+
+update_plugin libpng
+
+update_plugin md3
+
+update_plugin openal
+
+update_plugin vorbis
+
+update_plugin wave
+
+update_plugin winconv
+
+update_plugin x11input

@@ -1,22 +1,13 @@
-MACRO(
-	ADD_SGE_WAVE_SOURCE_GROUP
-	SOURCEPATH
+SET(
+	SGE_WAVE_FILES
+	src/plugins/wave/file.hpp
+	src/plugins/wave/loader.hpp
+	src/plugins/wave/src/exports.cpp
+	src/plugins/wave/src/file.cpp
+	src/plugins/wave/src/loader.cpp
 )
-	ADD_SGE_SOURCE_GROUP(
-		"src\\\\\\\\plugins\\\\\\\\wave"
-		""
-		"${SOURCEPATH}"
-		*.?pp
-		TEMPFILES
-	)
 
-	SET(SGEWAVEFILES ${SGEWAVEFILES} ${TEMPFILES})
-ENDMACRO()
-
-ADD_SGE_WAVE_SOURCE_GROUP("")
-ADD_SGE_WAVE_SOURCE_GROUP(src)
-
-ADD_LIBRARY (sgewave SHARED ${SGEWAVEFILES})
-TARGET_LINK_LIBRARIES (sgewave sgecore)
-
-INSTALL (TARGETS sgewave DESTINATION lib/sge)
+ADD_SGE_PLUGIN(
+	wave
+	""
+)

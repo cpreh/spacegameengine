@@ -1,39 +1,29 @@
+SET(
+	SGE_ICONV_FILES
+	src/plugins/iconv/converter.hpp
+	src/plugins/iconv/encoding_string.hpp
+	src/plugins/iconv/encoding_to_string.hpp
+	src/plugins/iconv/src/converter.cpp
+	src/plugins/iconv/src/encoding_to_string.cpp
+	src/plugins/iconv/src/exports.cpp
+	src/plugins/iconv/src/system.cpp
+	src/plugins/iconv/system.hpp
+)
+
 INCLUDE_DIRECTORIES(
 	${ICONV_INCLUDE_DIR}
-)
-
-MACRO(
-	ADD_SGE_ICONV_SOURCE_GROUP
-	SOURCEPATH
-)
-	ADD_SGE_SOURCE_GROUP(
-		"src\\\\\\\\plugins\\\\\\\\iconv"
-		""
-		"${SOURCEPATH}"
-		*.?pp
-		TEMPFILES
-	)
-
-	SET(SGEICONVFILES ${SGEICONVFILES} ${TEMPFILES})
-ENDMACRO()
-
-ADD_SGE_ICONV_SOURCE_GROUP("")
-ADD_SGE_ICONV_SOURCE_GROUP(src)
-
-ADD_LIBRARY (sgeiconv SHARED ${SGEICONVFILES})
-
-TARGET_LINK_LIBRARIES (
-	sgeiconv
-	sgecore
 )
 
 IF(
 	NOT ICONV_HAVE_POSIX
 )
-	TARGET_LINK_LIBRARIES(
-		sgeiconv
+	SET(
+		ICONV_LINK_LIBRARY
 		${ICONV_LIBRARY}
-	)	
+	)
 ENDIF()
-
-INSTALL (TARGETS sgeiconv DESTINATION lib/sge)
+		
+ADD_SGE_PLUGIN(
+	iconv
+	"${ICONV_LINK_LIBRARY}"
+)

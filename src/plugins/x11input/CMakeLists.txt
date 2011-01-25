@@ -1,18 +1,3 @@
-MACRO(
-	ADD_SGE_X11INPUT_SOURCE_GROUP
-	SOURCEPATH
-)
-	ADD_SGE_SOURCE_GROUP(
-		"src\\\\\\\\plugins\\\\\\\\x11input"
-		""
-		"${SOURCEPATH}"
-		*.?pp
-		TEMPFILES
-	)
-
-	SET(SGEX11INPUTFILES ${SGEX11INPUTFILES} ${TEMPFILES})
-ENDMACRO()
-
 IF(NOT ENABLE_TIME)
 	MESSAGE(
 		FATAL_ERROR
@@ -20,21 +5,93 @@ IF(NOT ENABLE_TIME)
 	)
 ENDIF()
 
-ADD_SGE_X11INPUT_SOURCE_GROUP("")
-ADD_SGE_X11INPUT_SOURCE_GROUP(device)
-ADD_SGE_X11INPUT_SOURCE_GROUP(device/src)
-ADD_SGE_X11INPUT_SOURCE_GROUP(src)
-
-INCLUDE_DIRECTORIES(${X11_Xinput_INCLUDE_PATH})
-
-ADD_LIBRARY (sgex11input SHARED ${SGEX11INPUTFILES})
-
-TARGET_LINK_LIBRARIES (
-	sgex11input
-	sgecore
-	sgetime
-	${X11_X11_LIB}
-	${X11_Xinput_LIB}
+SET(
+	SGE_X11INPUT_FILES
+	src/plugins/x11input/color.hpp
+	src/plugins/x11input/cursor.hpp
+	src/plugins/x11input/cursor_button_code.hpp
+	src/plugins/x11input/cursor_confine.hpp
+	src/plugins/x11input/cursor_confine_fwd.hpp
+	src/plugins/x11input/cursor_define.hpp
+	src/plugins/x11input/cursor_define_fwd.hpp
+	src/plugins/x11input/cursor_fwd.hpp
+	src/plugins/x11input/cursor_ptr.hpp
+	src/plugins/x11input/device/event.hpp
+	src/plugins/x11input/device/event_data.hpp
+	src/plugins/x11input/device/event_demuxer.hpp
+	src/plugins/x11input/device/event_demuxer_fwd.hpp
+	src/plugins/x11input/device/event_fwd.hpp
+	src/plugins/x11input/device/event_id_container.hpp
+	src/plugins/x11input/device/id.hpp
+	src/plugins/x11input/device/info.hpp
+	src/plugins/x11input/device/parameters.hpp
+	src/plugins/x11input/device/parameters_fwd.hpp
+	src/plugins/x11input/device/raw_demuxer.hpp
+	src/plugins/x11input/device/raw_demuxer_fwd.hpp
+	src/plugins/x11input/device/raw_event.hpp
+	src/plugins/x11input/device/raw_event_fwd.hpp
+	src/plugins/x11input/device/select_events.hpp
+	src/plugins/x11input/device/src/event.cpp
+	src/plugins/x11input/device/src/event_data.cpp
+	src/plugins/x11input/device/src/event_demuxer.cpp
+	src/plugins/x11input/device/src/info.cpp
+	src/plugins/x11input/device/src/parameters.cpp
+	src/plugins/x11input/device/src/select_events.cpp
+	src/plugins/x11input/device/window_demuxer.hpp
+	src/plugins/x11input/device/window_demuxer_fwd.hpp
+	src/plugins/x11input/device/window_event.hpp
+	src/plugins/x11input/device/window_event_fwd.hpp
+	src/plugins/x11input/keyboard.hpp
+	src/plugins/x11input/keyboard_fwd.hpp
+	src/plugins/x11input/keyboard_key.hpp
+	src/plugins/x11input/keyboard_ptr.hpp
+	src/plugins/x11input/mouse.hpp
+	src/plugins/x11input/mouse_axis.hpp
+	src/plugins/x11input/mouse_button_code.hpp
+	src/plugins/x11input/mouse_fwd.hpp
+	src/plugins/x11input/mouse_ptr.hpp
+	src/plugins/x11input/optional_opcode.hpp
+	src/plugins/x11input/pixmap.hpp
+	src/plugins/x11input/pixmap_cursor.hpp
+	src/plugins/x11input/pixmap_cursor_fwd.hpp
+	src/plugins/x11input/processor.hpp
+	src/plugins/x11input/query_pointer.hpp
+	src/plugins/x11input/src/color.cpp
+	src/plugins/x11input/src/cursor.cpp
+	src/plugins/x11input/src/cursor_button_code.cpp
+	src/plugins/x11input/src/cursor_confine.cpp
+	src/plugins/x11input/src/cursor_define.cpp
+	src/plugins/x11input/src/exports.cpp
+	src/plugins/x11input/src/keyboard.cpp
+	src/plugins/x11input/src/keyboard_key.cpp
+	src/plugins/x11input/src/mouse.cpp
+	src/plugins/x11input/src/mouse_axis.cpp
+	src/plugins/x11input/src/mouse_button_code.cpp
+	src/plugins/x11input/src/pixmap.cpp
+	src/plugins/x11input/src/pixmap_cursor.cpp
+	src/plugins/x11input/src/processor.cpp
+	src/plugins/x11input/src/query_pointer.cpp
+	src/plugins/x11input/src/system.cpp
+	src/plugins/x11input/src/translate_key_code.cpp
+	src/plugins/x11input/src/use_xkb.cpp
+	src/plugins/x11input/src/xi_opcode.cpp
+	src/plugins/x11input/src/xi_version.cpp
+	src/plugins/x11input/system.hpp
+	src/plugins/x11input/translate_key_code.hpp
+	src/plugins/x11input/use_xkb.hpp
+	src/plugins/x11input/xi_opcode.hpp
+	src/plugins/x11input/xi_version.hpp
 )
 
-INSTALL (TARGETS sgex11input DESTINATION lib/sge)
+INCLUDE_DIRECTORIES(
+	${X11_X11_INCLUDE_PATH}
+)
+
+INCLUDE_DIRECTORIES(
+	${X11_Xinput_INCLUDE_PATH}
+)
+
+ADD_SGE_PLUGIN(
+	x11input
+	"sgetime;${X11_X11_LIB};${X11_Xinput_LIB}"
+)

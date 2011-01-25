@@ -11,9 +11,13 @@ FIND_PACKAGE(OpenAL)
 FIND_PACKAGE(PNG 1.4.1)
 FIND_PACKAGE(Vorbis)
 
+# These plugins have no dependencies and are enabled by default
 OPTION (ENABLE_AUDIO_NULL "Build the null audio player plugin" OFF)
+
 OPTION (ENABLE_MD3 "Build the md3 model loader plugin" ON)
+
 OPTION (ENABLE_WAVE "Build the wave loader plugin" ON)
+
 
 OPTION (ENABLE_BULLET "Build the bullet collision plugin" ${BULLET_FOUND})
 
@@ -29,17 +33,69 @@ OPTION (ENABLE_FREETYPE "Build the freetype font plugin" ${FREETYPE_FOUND})
 
 OPTION (ENABLE_OPENAL "Build the openal audio plugin" ${OPENAL_FOUND})
 
-IF(OPENGL_FOUND AND GLEW_FOUND)
-	OPTION (ENABLE_OPENGL "Build the opengl render plugin" ON)
+IF(
+	OPENGL_FOUND AND GLEW_FOUND
+)
+	SET(
+		OPENGL_AVAILABLE
+		TRUE
+	)
 ELSE()
-	OPTION (ENABLE_OPENGL "Build the opengl render plugin" OFF)
+	SET(
+		OPENGL_AVAILABLE
+		FALSE
+	)
 ENDIF()
+
+OPTION (ENABLE_OPENGL "Build the opengl render plugin" ${OPENGL_AVAILABLE})
 
 OPTION (ENABLE_PNG "Build the libpng plugin" ${PNG_FOUND})
 
 OPTION (ENABLE_VORBIS "Build the vorbis loader plugin" ${VORBIS_FOUND})
 
 OPTION (ENABLE_X11INPUT "Build the x11 input plugin" ${X11_Xinput_FOUND})
+
+
+MACRO(
+	ADD_SGE_PLUGIN
+	PLUGIN_NAME
+	ADDITONAL_DEPS
+)
+	SET(
+		SGE_PLUGIN_NAME
+		sge${PLUGIN_NAME}
+	)
+
+	STRING(
+		TOUPPER
+		${PLUGIN_NAME}
+		UPPER_PLUGIN_NAME
+	)
+
+	APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
+		"${SGE_${UPPER_PLUGIN_NAME}_FILES}"
+		SGE_${UPPER_PLUGIN_NAME}_FILES_ABS
+	)
+
+	ADD_LIBRARY(
+		${SGE_PLUGIN_NAME}
+		SHARED
+		${SGE_${UPPER_PLUGIN_NAME}_FILES_ABS}
+	)
+
+	TARGET_LINK_LIBRARIES(
+		${SGE_PLUGIN_NAME}
+		sgecore
+		${ADDITONAL_DEPS}
+	)
+
+	INSTALL(
+		TARGETS
+		${SGE_PLUGIN_NAME}
+		DESTINATION
+		lib/sge
+	)
+ENDMACRO()
 
 IF(ENABLE_AUDIO_NULL)
 	ADD_SUBDIRECTORY (audio_null)

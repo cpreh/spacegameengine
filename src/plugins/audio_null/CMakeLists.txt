@@ -9,13 +9,7 @@ SET(
 	src/plugins/audio_null/src/player.cpp
 )
 
-APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
-	"${SGE_AUDIO_NULL_FILES}"
-	SGE_AUDIO_NULL_FILES_ABS
+ADD_SGE_PLUGIN(
+	audio_null
+	""
 )
-
-ADD_LIBRARY (sgeaudionull SHARED ${SGE_AUDIO_NULL_FILES_ABS})
-
-TARGET_LINK_LIBRARIES (sgeaudionull sgecore)
-
-INSTALL (TARGETS sgeaudionull DESTINATION lib/sge)
