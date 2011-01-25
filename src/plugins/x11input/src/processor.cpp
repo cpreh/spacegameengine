@@ -121,7 +121,10 @@ sge::x11input::processor::processor(
 				)
 			);
 			break;
-		case XISlavePointer:
+		case XIMasterPointer:
+		// FIXME: Use master pointers only for now
+		// because slave pointers are unsuable with RawMotions
+		//case XISlavePointer:
 			mice_.push_back(
 				fcppt::make_shared_ptr<
 					x11input::mouse
@@ -129,8 +132,8 @@ sge::x11input::processor::processor(
 					param
 				)
 			);
-			break;
-		case XIMasterPointer:
+		//	break;
+		//case XIMasterPointer:
 			// HACK the grabs
 			cursors_.push_back(
 				fcppt::make_shared_ptr<
