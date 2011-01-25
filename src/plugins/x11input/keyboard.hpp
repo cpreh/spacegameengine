@@ -22,10 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_KEYBOARD_HPP_INCLUDED
 
 #include "keyboard_fwd.hpp"
+#include "input_context_fwd.hpp"
 #include "device/parameters_fwd.hpp"
 #include "device/window_event_fwd.hpp"
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_callback.hpp>
+#include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_repeat_callback.hpp>
 #include <sge/input/keyboard/key_function.hpp>
 #include <sge/input/keyboard/key_repeat_function.hpp>
@@ -49,8 +51,9 @@ class keyboard
 		keyboard
 	)
 public:
-	explicit keyboard(
-		x11input::device::parameters const &
+	keyboard(
+		x11input::device::parameters const &,
+		x11input::input_context const &
 	);
 
 	~keyboard();
@@ -79,12 +82,14 @@ private:
 	);
 	
 	void
-	on_key_event(
-		x11input::device::window_event const &,
+	update_modifiers(
+		sge::input::keyboard::key_code::type,
 		bool pressed
 	);
 
 	awl::backends::x11::window::instance_ptr const window_;
+
+	x11input::input_context const &input_context_;
 
 	fcppt::signal::connection_manager const connections_;
 

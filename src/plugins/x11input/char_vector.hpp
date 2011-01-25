@@ -18,22 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_KEYBOARD_KEY_HPP_INCLUDED
-#define SGE_X11INPUT_KEYBOARD_KEY_HPP_INCLUDED
+#ifndef SGE_X11INPUT_CHAR_VECTOR_HPP_INCLUDED
+#define SGE_X11INPUT_CHAR_VECTOR_HPP_INCLUDED
 
-#include <sge/input/keyboard/key_fwd.hpp>
-#include <awl/backends/x11/display_ptr.hpp>
+#include <sge/input/keyboard/char_type.hpp>
+#include <fcppt/container/raw_vector_fwd.hpp>
 
 namespace sge
 {
 namespace x11input
 {
 
-sge::input::keyboard::key const
-keyboard_key(
-	awl::backends::x11::display_ptr,
-	int key_code
-);
+typedef fcppt::container::raw_vector<
+	sge::input::keyboard::char_type
+> char_vector;
 
 }
 }

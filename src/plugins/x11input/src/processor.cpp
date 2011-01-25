@@ -19,9 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../processor.hpp"
-#include "../mouse.hpp"
-#include "../keyboard.hpp"
 #include "../cursor.hpp"
+#include "../input_context.hpp"
+#include "../input_method.hpp"
+#include "../keyboard.hpp"
+#include "../mouse.hpp"
 #include "../device/info.hpp"
 #include "../device/parameters.hpp"
 #include <sge/window/instance.hpp>
@@ -36,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/polymorphic_pointer_cast.hpp>
 #include <fcppt/text.hpp>
 #include <X11/extensions/XInput2.h>
@@ -79,6 +82,23 @@ sge::x11input::processor::processor(
 		awl::backends::x11::window::root(
 			x11_window_->display(),
 			x11_window_->screen()
+		)
+	),
+	input_method_(
+		fcppt::make_unique_ptr<
+			x11input::input_method
+		>(
+			x11_window_->display(),
+			FCPPT_TEXT("xterm")//_window.class_name() // FIXME!
+		)
+	),
+	input_context_(
+		fcppt::make_unique_ptr<
+			x11input::input_context
+		>(
+			input_method_->get(),
+			input_method_->class_name(),
+			x11_window_
 		)
 	),
 	keyboards_(),
@@ -147,7 +167,10 @@ sge::x11input::processor::processor(
 				fcppt::make_shared_ptr<
 					x11input::keyboard
 				>(
-					param
+					param,
+					std::tr1::ref(
+						*input_context_
+					)
 				)
 			);
 			break;

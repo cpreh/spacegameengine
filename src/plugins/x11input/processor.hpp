@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_PROCESSOR_HPP_INCLUDED
 
 #include "cursor_ptr.hpp"
+#include "input_context_fwd.hpp"
+#include "input_method_fwd.hpp"
 #include "keyboard_ptr.hpp"
 #include "mouse_ptr.hpp"
 #include "device/object_ptr.hpp"
@@ -38,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr.hpp>
 #include <vector>
 
 namespace sge
@@ -132,6 +135,18 @@ private:
 	x11input::device::window_demuxer window_demuxer_;
 
 	x11input::device::raw_demuxer raw_demuxer_;
+
+	typedef fcppt::scoped_ptr<
+		x11input::input_method
+	> input_method_ptr;
+
+	input_method_ptr input_method_;
+
+	typedef fcppt::scoped_ptr<
+		x11input::input_context
+	> input_context_ptr;
+
+	input_context_ptr input_context_;
 
 	typedef std::vector<
 		x11input::keyboard_ptr

@@ -5,6 +5,7 @@ CHECK_DEPENDENCIES(
 
 SET(
 	SGE_X11INPUT_FILES
+	src/plugins/x11input/char_vector.hpp
 	src/plugins/x11input/color.hpp
 	src/plugins/x11input/cursor.hpp
 	src/plugins/x11input/cursor_button_code.hpp
@@ -43,10 +44,19 @@ SET(
 	src/plugins/x11input/device/window_demuxer_fwd.hpp
 	src/plugins/x11input/device/window_event.hpp
 	src/plugins/x11input/device/window_event_fwd.hpp
+	src/plugins/x11input/input_context.hpp
+	src/plugins/x11input/input_context_fwd.hpp
+	src/plugins/x11input/input_method.hpp
+	src/plugins/x11input/input_method_fwd.hpp
+	src/plugins/x11input/key_code_to_key_sym.hpp
+	src/plugins/x11input/key_vector.hpp
 	src/plugins/x11input/keyboard.hpp
 	src/plugins/x11input/keyboard_fwd.hpp
-	src/plugins/x11input/keyboard_key.hpp
+	src/plugins/x11input/keyboard_keys.hpp
 	src/plugins/x11input/keyboard_ptr.hpp
+	src/plugins/x11input/looked_up_string.hpp
+	src/plugins/x11input/looked_up_string_fwd.hpp
+	src/plugins/x11input/lookup_string.hpp
 	src/plugins/x11input/mouse.hpp
 	src/plugins/x11input/mouse_axis.hpp
 	src/plugins/x11input/mouse_button_code.hpp
@@ -64,8 +74,13 @@ SET(
 	src/plugins/x11input/src/cursor_confine.cpp
 	src/plugins/x11input/src/cursor_define.cpp
 	src/plugins/x11input/src/exports.cpp
+	src/plugins/x11input/src/input_context.cpp
+	src/plugins/x11input/src/input_method.cpp
+	src/plugins/x11input/src/key_code_to_key_sym.cpp
 	src/plugins/x11input/src/keyboard.cpp
-	src/plugins/x11input/src/keyboard_key.cpp
+	src/plugins/x11input/src/keyboard_keys.cpp
+	src/plugins/x11input/src/looked_up_string.cpp
+	src/plugins/x11input/src/lookup_string.cpp
 	src/plugins/x11input/src/mouse.cpp
 	src/plugins/x11input/src/mouse_axis.cpp
 	src/plugins/x11input/src/mouse_button_code.cpp
