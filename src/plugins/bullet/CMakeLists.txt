@@ -1,28 +1,66 @@
-MACRO(
-	ADD_SGE_BULLET_SOURCE_GROUP
-	SOURCEPATH
+SET(
+	SGE_BULLET_FILES
+	src/plugins/bullet/body.hpp
+	src/plugins/bullet/body_fwd.hpp
+	src/plugins/bullet/body_manager.hpp
+	src/plugins/bullet/box.hpp
+	src/plugins/bullet/bullet_shape_ptr.hpp
+	src/plugins/bullet/collision_proxy.hpp
+	src/plugins/bullet/collision_proxy_fwd.hpp
+	src/plugins/bullet/convert/dim_to_sge.hpp
+	src/plugins/bullet/convert/point_to_sge.hpp
+	src/plugins/bullet/convert/to_bullet.hpp
+	src/plugins/bullet/convert/to_bullet_impl.hpp
+	src/plugins/bullet/dim.hpp
+	src/plugins/bullet/group.hpp
+	src/plugins/bullet/group_fwd.hpp
+	src/plugins/bullet/group_id.hpp
+	src/plugins/bullet/log.hpp
+	src/plugins/bullet/overlap_filter.hpp
+	src/plugins/bullet/point.hpp
+	src/plugins/bullet/shape_body_connection.hpp
+	src/plugins/bullet/shape_world_connection.hpp
+	src/plugins/bullet/shapes/base.hpp
+	src/plugins/bullet/shapes/base_fwd.hpp
+	src/plugins/bullet/shapes/box.hpp
+	src/plugins/bullet/shapes/sphere.hpp
+	src/plugins/bullet/src/body.cpp
+	src/plugins/bullet/src/body_manager.cpp
+	src/plugins/bullet/src/collision_proxy.cpp
+	src/plugins/bullet/src/exports.cpp
+	src/plugins/bullet/src/group.cpp
+	src/plugins/bullet/src/log.cpp
+	src/plugins/bullet/src/overlap_filter.cpp
+	src/plugins/bullet/src/shape_body_connection.cpp
+	src/plugins/bullet/src/shape_world_connection.cpp
+	src/plugins/bullet/src/shapes/base.cpp
+	src/plugins/bullet/src/shapes/box.cpp
+	src/plugins/bullet/src/shapes/sphere.cpp
+	src/plugins/bullet/src/system.cpp
+	src/plugins/bullet/src/world.cpp
+	src/plugins/bullet/src/world_hack.cpp
+	src/plugins/bullet/system.hpp
+	src/plugins/bullet/unit.hpp
+	src/plugins/bullet/world.hpp
+	src/plugins/bullet/world_fwd.hpp
+	src/plugins/bullet/world_hack.hpp
 )
-	ADD_SGE_SOURCE_GROUP(
-		"src\\\\\\\\plugins\\\\\\\\bullet"
-		""
-		"${SOURCEPATH}"
-		*.?pp
-		TEMPFILES
-	)
 
-	SET(SGEBULLETFILES ${SGEBULLETFILES} ${TEMPFILES})
-ENDMACRO()
-
-ADD_SGE_BULLET_SOURCE_GROUP("")
-ADD_SGE_BULLET_SOURCE_GROUP(convert)
-ADD_SGE_BULLET_SOURCE_GROUP(shapes)
-ADD_SGE_BULLET_SOURCE_GROUP(src)
-ADD_SGE_BULLET_SOURCE_GROUP(src/shapes)
+APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
+	"${SGE_BULLET_FILES}"
+	SGE_BULLET_FILES_ABS
+)
 
 INCLUDE_DIRECTORIES(SYSTEM ${BULLET_INCLUDE_DIRS})
 
-ADD_LIBRARY (sgebullet SHARED ${SGEBULLETFILES})
+ADD_LIBRARY (sgebullet SHARED ${SGE_BULLET_FILES_ABS})
 
-TARGET_LINK_LIBRARIES (sgebullet sgecore ${BULLET_LIBRARIES})
+TARGET_LINK_LIBRARIES (
+	sgebullet
+	sgecore
+	${BULLET_COLLISION_LIBRARY}
+	${BULLET_DYNAMICS_LIBRARY}
+	${BULLET_MATH_LIBRARY}
+)
 
 INSTALL (TARGETS sgebullet DESTINATION lib/sge)

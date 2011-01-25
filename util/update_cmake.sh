@@ -154,3 +154,4 @@ update_cmake_file \
 
 update_plugin audio_null
 
+update_plugin bullet
