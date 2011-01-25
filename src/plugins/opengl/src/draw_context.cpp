@@ -31,6 +31,7 @@ sge::opengl::draw_context::draw_context()
 	),
 	draw_range_elements_ext_supported_(
 		glDrawRangeElementsEXT
+		!= 0
 	),
 	draw_range_elements_(
 		draw_range_elements_supported_
