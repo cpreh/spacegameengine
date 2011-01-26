@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "looked_up_string_fwd.hpp"
 #include "input_context_fwd.hpp"
-#include <awl/backends/x11/display_ptr.hpp>
 #include <X11/extensions/XInput2.h>
 
 namespace sge
@@ -33,7 +32,6 @@ namespace x11input
 
 x11input::looked_up_string const
 lookup_string(
-	awl::backends::x11::display_ptr,
 	x11input::input_context const &,
 	XIDeviceEvent const &
 );

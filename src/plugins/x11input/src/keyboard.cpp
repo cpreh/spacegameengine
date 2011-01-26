@@ -134,7 +134,6 @@ sge::x11input::keyboard::on_key_press(
 {
 	sge::x11input::looked_up_string const lookup(
 		x11input::lookup_string(
-			window_->display(),
 			input_context_,
 			_event.get()
 		)

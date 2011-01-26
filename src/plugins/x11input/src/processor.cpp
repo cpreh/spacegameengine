@@ -89,7 +89,7 @@ sge::x11input::processor::processor(
 			x11input::input_method
 		>(
 			x11_window_->display(),
-			FCPPT_TEXT("xterm")//_window.class_name() // FIXME!
+			FCPPT_TEXT("")//_window.class_name() // FIXME!
 		)
 	),
 	input_context_(

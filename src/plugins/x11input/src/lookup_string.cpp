@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../looked_up_string.hpp"
 #include "../translate_key_code.hpp"
 #include <sge/input/exception.hpp>
-#include <awl/backends/x11/display.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/text.hpp>
 #include <X11/extensions/XInput2.h>
@@ -58,7 +57,6 @@ do_lookup(
 
 sge::x11input::looked_up_string const
 sge::x11input::lookup_string(
-	awl::backends::x11::display_ptr const _display,
 	x11input::input_context const &_input_context,
 	XIDeviceEvent const &_event
 )
@@ -71,7 +69,7 @@ sge::x11input::lookup_string(
 		KeyPress,
 		_event.serial,
 		_event.send_event,
-		_display->get(),//_event.display,
+		_event.display,
 		_event.event,
 		_event.root,
 		_event.child,
