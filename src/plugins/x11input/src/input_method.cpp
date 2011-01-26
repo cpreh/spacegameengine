@@ -20,20 +20,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../input_method.hpp"
 #include <sge/input/exception.hpp>
+#include <awl/backends/x11/window/class_hint.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/to_std_string.hpp>
 #include <X11/Xlib.h>
 
 sge::x11input::input_method::input_method(
 	awl::backends::x11::display_ptr const _display,
-	fcppt::string const &_class_name
+	awl::backends::x11::window::class_hint_ptr const _class_hint
 )
 :
-	class_name_(
-		fcppt::to_std_string(
-			_class_name
-		)
+	class_hint_(
+		_class_hint
 	),
 	xim_(
 		::XOpenIM(
@@ -42,12 +40,12 @@ sge::x11input::input_method::input_method(
 			const_cast<
 				char *
 			>(
-				class_name_.c_str()
+				_class_hint->res_name().c_str()
 			),
 			const_cast<
 				char *
 			>(
-				class_name_.c_str()
+				_class_hint->res_class().c_str()
 			)
 		)
 	)
@@ -73,8 +71,8 @@ sge::x11input::input_method::get() const
 	return xim_;
 }
 
-std::string const
-sge::x11input::input_method::class_name() const
+awl::backends::x11::window::class_hint_ptr const
+sge::x11input::input_method::class_hint() const
 {
-	return class_name_;
+	return class_hint_;
 }

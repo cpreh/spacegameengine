@@ -22,10 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_INPUT_METHOD_HPP_INCLUDED
 
 #include "input_method_fwd.hpp"
+#include <awl/backends/x11/window/class_hint_ptr.hpp>
 #include <awl/backends/x11/display_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/string.hpp>
-#include <string>
 #include <X11/Xlib.h>
 
 namespace sge
@@ -41,7 +40,7 @@ class input_method
 public:
 	input_method(
 		awl::backends::x11::display_ptr,
-		fcppt::string const &class_name
+		awl::backends::x11::window::class_hint_ptr
 	);
 
 	~input_method();
@@ -49,10 +48,10 @@ public:
 	XIM
 	get() const;
 
-	std::string const
-	class_name() const;
+	awl::backends::x11::window::class_hint_ptr const
+	class_hint() const;
 private:
-	std::string const class_name_;
+	awl::backends::x11::window::class_hint_ptr const class_hint_;
 
 	XIM const xim_;
 };

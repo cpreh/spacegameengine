@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_INPUT_CONTEXT_HPP_INCLUDED
 
 #include "input_context_fwd.hpp"
+#include <awl/backends/x11/window/class_hint_ptr.hpp>
 #include <awl/backends/x11/window/instance_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <string>
 #include <X11/Xlib.h>
 
 namespace sge
@@ -40,7 +40,7 @@ class input_context
 public:
 	input_context(
 		XIM,
-		std::string const &class_name,
+		awl::backends::x11::window::class_hint_ptr,
 		awl::backends::x11::window::instance_ptr
 	);
 

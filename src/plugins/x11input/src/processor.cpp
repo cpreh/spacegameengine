@@ -89,7 +89,7 @@ sge::x11input::processor::processor(
 			x11input::input_method
 		>(
 			x11_window_->display(),
-			FCPPT_TEXT("")//_window.class_name() // FIXME!
+			x11_window_->class_hint()
 		)
 	),
 	input_context_(
@@ -97,7 +97,7 @@ sge::x11input::processor::processor(
 			x11input::input_context
 		>(
 			input_method_->get(),
-			input_method_->class_name(),
+			input_method_->class_hint(),
 			x11_window_
 		)
 	),

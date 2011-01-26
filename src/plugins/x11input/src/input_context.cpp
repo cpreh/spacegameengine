@@ -20,13 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../input_context.hpp"
 #include <sge/input/exception.hpp>
+#include <awl/backends/x11/window/class_hint.hpp>
 #include <awl/backends/x11/window/instance.hpp>
 #include <fcppt/text.hpp>
 #include <X11/Xlib.h>
 
 sge::x11input::input_context::input_context(
 	XIM const _xim,
-	std::string const &_class_name,
+	awl::backends::x11::window::class_hint_ptr const _class_hint,
 	awl::backends::x11::window::instance_ptr const _window
 )
 :
@@ -40,9 +41,9 @@ sge::x11input::input_context::input_context(
 			XNInputStyle,
 			XIMPreeditNothing | XIMStatusNothing,
 			XNResourceName,
-			_class_name.c_str(),
+			_class_hint->res_name().c_str(),
 			XNResourceClass,
-			_class_name.c_str(),
+			_class_hint->res_class().c_str(),
 			NULL
 		)
 	)
