@@ -149,6 +149,8 @@ SET(
 	src/plugins/opengl/fbo/texture_binding.hpp
 	src/plugins/opengl/get_float.hpp
 	src/plugins/opengl/get_int.hpp
+	src/plugins/opengl/get_ints.hpp
+	src/plugins/opengl/get_scissor_area.hpp
 	src/plugins/opengl/get_string.hpp
 	src/plugins/opengl/glew/initialize.hpp
 	src/plugins/opengl/glew/is_supported.hpp
@@ -357,6 +359,8 @@ SET(
 	src/plugins/opengl/src/exports.cpp
 	src/plugins/opengl/src/get_float.cpp
 	src/plugins/opengl/src/get_int.cpp
+	src/plugins/opengl/src/get_ints.cpp
+	src/plugins/opengl/src/get_scissor_area.cpp
 	src/plugins/opengl/src/get_string.cpp
 	src/plugins/opengl/src/hardware_vbo.cpp
 	src/plugins/opengl/src/index_buffer.cpp

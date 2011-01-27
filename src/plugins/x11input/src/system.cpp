@@ -40,6 +40,9 @@ sge::x11input::system::~system()
 {
 }
 
+#include <X11/Xlib.h>
+#include <clocale>
+
 sge::input::processor_ptr const
 sge::x11input::system::create_processor(
 	sge::window::instance_ptr const _window
@@ -84,6 +87,29 @@ sge::x11input::system::create_processor(
 	)
 		throw sge::input::exception(
 			FCPPT_TEXT("Xkb extension not available!")
+		);
+
+	::setlocale(
+		LC_ALL,
+		""
+	);
+
+	if(
+		::XSupportsLocale()
+		== False
+	)
+		throw sge::input::exception(
+			FCPPT_TEXT("X doesn't support this locale!")
+		);
+
+	if(
+		::XSetLocaleModifiers(
+			"@im=ibus"
+		)
+		== NULL
+	)
+		throw sge::input::exception(
+			FCPPT_TEXT("XSetLocaleModifiers() failed!")
 		);
 
 	return

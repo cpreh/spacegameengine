@@ -312,6 +312,9 @@ public:
 		resource_flags_field const &
 	) = 0;
 
+	virtual renderer::scissor_area const
+	scissor_area() const = 0;
+
 	virtual renderer::caps const
 	caps() const = 0;
 

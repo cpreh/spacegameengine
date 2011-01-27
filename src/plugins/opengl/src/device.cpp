@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../device_state.hpp"
 #include "../draw_elements.hpp"
 #include "../enable_bool.hpp"
+#include "../get_scissor_area.hpp"
 #include "../index_buffer.hpp"
 #include "../initial_states.hpp"
 #include "../set_clip_plane.hpp"
@@ -63,8 +64,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/state/default.hpp>
 #include <sge/window/instance.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/make_shared_ptr.hpp>
@@ -647,6 +649,12 @@ sge::opengl::device::create_volume_texture(
 		);
 }
 
+sge::renderer::scissor_area const
+sge::opengl::device::scissor_area() const
+{
+	return opengl::get_scissor_area();	
+}
+	
 sge::renderer::caps const
 sge::opengl::device::caps() const
 {

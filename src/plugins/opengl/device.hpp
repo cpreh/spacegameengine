@@ -238,6 +238,9 @@ public:
 		renderer::resource_flags_field const &
 	);
 
+	renderer::scissor_area const
+	scissor_area() const;
+
 	renderer::caps const
 	caps() const;
 

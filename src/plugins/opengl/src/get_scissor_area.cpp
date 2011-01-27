@@ -18,20 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../get_int.hpp"
+#include "../get_scissor_area.hpp"
 #include "../get_ints.hpp"
+#include <fcppt/container/array.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 
-GLint
-sge::opengl::get_int(
-	GLenum const _what
-)
+sge::renderer::scissor_area const
+sge::opengl::get_scissor_area()
 {
-	GLint ret;
+	fcppt::container::array<
+		GLint,
+		4
+	> temp;
 
 	opengl::get_ints(
-		_what,
-		&ret
+		GL_SCISSOR_BOX,
+		temp.data()
 	);
 
-	return ret;
+	return
+		sge::renderer::scissor_area(
+			sge::renderer::pixel_rect(
+				sge::renderer::pixel_rect::vector(
+					temp[0],
+					temp[1]
+				),
+				sge::renderer::pixel_rect::dim(
+					temp[2],
+					temp[3]
+				)
+			)
+		);
 }
