@@ -55,8 +55,6 @@ do_lookup(
 
 }
 
-#include <iostream>
-
 sge::x11input::looked_up_string const
 sge::x11input::lookup_string(
 	x11input::input_context const &_input_context,
@@ -64,17 +62,6 @@ sge::x11input::lookup_string(
 )
 {
 	KeySym key_sym;
-
-	std::cout
-		<< "states: "
-		<< _event.mods.base
-		<< ' '
-		<< _event.mods.latched
-		<< ' '
-		<< _event.mods.locked
-		<< ' '
-		<< _event.mods.effective
-		<< '\n';
 
 	// HACK HACK
 	XKeyPressedEvent xev =

@@ -31,19 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 
-#include "../texfuncs/get_image.hpp"
-#include <mizuiro/image/store.hpp>
-#include <mizuiro/image/format.hpp>
-#include <mizuiro/image/dimension.hpp>
-#include <mizuiro/image/interleaved.hpp>
-#include <mizuiro/image/raw_view.hpp>
-#include <mizuiro/image/underlying_data_pointer.hpp>
-#include <mizuiro/color/homogenous.hpp>
-#include <mizuiro/color/layout/alpha.hpp>
-#include <mizuiro/access/raw.hpp>
-
-#include <iostream>
-
 sge::opengl::depth_stencil_texture::depth_stencil_texture(
 	opengl::context::object &_context,
 	dim_type const &_dim,
@@ -122,62 +109,4 @@ sge::renderer::resource_flags_field const
 sge::opengl::depth_stencil_texture::flags() const
 {
 	return renderer::resource_flags::none;
-}
-
-#include <iostream>
-
-void
-sge::opengl::depth_stencil_texture::debug()
-{
-	typedef mizuiro::image::format<
-		mizuiro::image::dimension<
-			2
-		>,
-		mizuiro::image::interleaved<
-			mizuiro::color::homogenous<
-				float,
-				mizuiro::color::layout::alpha
-			>
-		>
-	> format;
-
-	typedef mizuiro::image::store<
-		format,
-		mizuiro::access::raw
-	> store;
-
-	store img(
-		store::dim_type(
-			dim().w(),
-			dim().h()
-		)
-	);
-
-	bind_me();
-
-	texfuncs::get_image(
-		type(),
-		format_,
-		format_type_,
-		mizuiro::image::underlying_data_pointer(
-			img.view()
-		)
-	);
-
-	store::view_type const view(
-		img.view());
-
-	std::cout << "P2\n";
-	std::cout << dim().w() << " " << dim().h() << "\n";
-	std::cout << "255" << "\n";
-
-	for(
-		store::view_type::iterator it(
-			view.begin()
-		);
-		it != view.end();
-		++it
-	)
-		std::cout << 
-			static_cast<int>((*it).get<mizuiro::color::channel::alpha>()*255) << " ";
 }

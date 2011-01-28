@@ -122,11 +122,6 @@ private:
 		awl::backends::x11::window::event::object const &
 	);
 
-	void
-	on_key_press(
-		awl::backends::x11::window::event::object const &
-	);
-
 	sge::window::instance_ptr const window_;
 
 	awl::backends::x11::system::event::opcode const opcode_;

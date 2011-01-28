@@ -131,18 +131,6 @@ sge::x11input::processor::processor(
 				)
 			)
 		)
-		(
-			fcppt::signal::shared_connection(
-				window_event_processor_->register_callback(
-					KeyPress,
-					std::tr1::bind(
-						&processor::on_key_press,
-						this,
-						std::tr1::placeholders::_1
-					)
-				)
-			)
-		)
 	)
 {
 	x11input::device::info const devices(
@@ -343,15 +331,4 @@ sge::x11input::processor::on_leave(
 		devices()
 	)
 		device->on_leave();
-}
-
-#include <awl/backends/x11/window/event/object.hpp>
-#include <iostream>
-
-void
-sge::x11input::processor::on_key_press(
-	awl::backends::x11::window::event::object const &_event
-)
-{
-	std::cout << "NORMAL MODIFIER: " << _event.get().xkey.state << '\n';		
 }

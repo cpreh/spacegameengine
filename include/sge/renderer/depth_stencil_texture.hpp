@@ -50,9 +50,6 @@ public:
 
 	SGE_SYMBOL size_type
 	content() const;
-
-	virtual void
-	debug() = 0; // TODO: remove this!
 };
 
 }
