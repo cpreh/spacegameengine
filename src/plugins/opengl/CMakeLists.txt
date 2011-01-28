@@ -116,6 +116,7 @@ SET(
 	src/plugins/opengl/device_state_fwd.hpp
 	src/plugins/opengl/device_state_ptr.hpp
 	src/plugins/opengl/disable.hpp
+	src/plugins/opengl/draw_arrays.hpp
 	src/plugins/opengl/draw_context.hpp
 	src/plugins/opengl/draw_elements.hpp
 	src/plugins/opengl/enable.hpp
@@ -351,6 +352,7 @@ SET(
 	src/plugins/opengl/src/device.cpp
 	src/plugins/opengl/src/device_state.cpp
 	src/plugins/opengl/src/disable.cpp
+	src/plugins/opengl/src/draw_arrays.cpp
 	src/plugins/opengl/src/draw_context.cpp
 	src/plugins/opengl/src/draw_elements.cpp
 	src/plugins/opengl/src/enable.cpp

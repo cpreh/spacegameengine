@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../default_target.hpp"
 #include "../depth_stencil_texture.hpp"
 #include "../device_state.hpp"
+#include "../draw_arrays.hpp"
 #include "../draw_elements.hpp"
 #include "../enable_bool.hpp"
 #include "../get_scissor_area.hpp"
@@ -50,7 +51,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/clip_plane_index.hpp"
 #include "../convert/light_index.hpp"
 #include "../convert/matrix_mode.hpp"
-#include "../convert/nonindexed_primitive.hpp"
 #include "../fbo/target.hpp"
 #include "../glew/initialize.hpp"
 #include "../glsl/set_program.hpp"
@@ -171,26 +171,11 @@ sge::opengl::device::render(
 	renderer::nonindexed_primitive_type::type const _ptype
 )
 {
-	::glDrawArrays(
-		convert::nonindexed_primitive(
-			_ptype
-		),
-		static_cast<
-			GLsizei
-		>(
-			_first_vertex
-		),
-		static_cast<
-			GLint
-		>(
-			_num_vertices
-		)
+	opengl::draw_arrays(
+		_first_vertex,
+		_num_vertices,
+		_ptype
 	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glDrawArrays failed"),
-		sge::renderer::exception
-	)
 }
 
 void
