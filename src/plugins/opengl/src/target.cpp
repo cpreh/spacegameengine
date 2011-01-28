@@ -57,3 +57,10 @@ sge::opengl::target::viewport(
 
 	activate_viewport();
 }
+
+sge::renderer::viewport const
+sge::opengl::target::viewport() const
+{
+	return viewport_;
+}
+

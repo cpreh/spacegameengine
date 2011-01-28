@@ -71,6 +71,10 @@ public:
 		renderer::viewport const &
 	) = 0;
 
+	virtual
+	renderer::viewport const
+	viewport() const = 0;
+
 	SGE_SYMBOL virtual ~target();
 };
 

@@ -57,6 +57,9 @@ private:
 		renderer::viewport const &
 	);
 
+	renderer::viewport const
+	viewport() const;
+
 	renderer::viewport viewport_;
 };
 
