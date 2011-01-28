@@ -86,6 +86,11 @@ render(
 			_rend
 		);
 
+		if(
+			num_objects == 0
+		)
+			continue;
+
 		detail::render_inner<
 			typename object_type::choices::elements
 		>(
