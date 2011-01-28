@@ -40,8 +40,8 @@ sge::x11input::system::~system()
 {
 }
 
-#include <X11/Xlib.h>
-#include <clocale>
+//#include <X11/Xlib.h>
+//#include <clocale>
 
 sge::input::processor_ptr const
 sge::x11input::system::create_processor(
@@ -89,6 +89,7 @@ sge::x11input::system::create_processor(
 			FCPPT_TEXT("Xkb extension not available!")
 		);
 
+#if 0
 	::setlocale(
 		LC_ALL,
 		""
@@ -111,7 +112,7 @@ sge::x11input::system::create_processor(
 		throw sge::input::exception(
 			FCPPT_TEXT("XSetLocaleModifiers() failed!")
 		);
-
+#endif
 	return
 		fcppt::make_shared_ptr<
 			x11input::processor
