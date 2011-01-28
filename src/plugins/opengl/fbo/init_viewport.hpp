@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../texture_ptr.hpp"
 #include "../depth_stencil_texture_ptr.hpp"
-#include <sge/renderer/viewport_fwd.hpp>
+#include <sge/renderer/viewport.hpp>
 
 namespace sge
 {

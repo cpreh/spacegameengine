@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../texture.hpp"
 #include <sge/log/global.hpp>
 #include <sge/renderer/viewport.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -48,22 +49,26 @@ sge::opengl::fbo::init_viewport(
 
 		return
 			sge::renderer::viewport(
-				sge::renderer::pixel_pos::null(),
-				sge::renderer::pixel_size::null()
+				sge::renderer::pixel_rect(
+					sge::renderer::pixel_rect::vector::null(),
+					sge::renderer::pixel_rect::dim::null()
+				)
 			);
 	}
 
 	return
 		sge::renderer::viewport(
-			sge::renderer::pixel_pos::null(),
-			fcppt::math::dim::structure_cast<
-				sge::renderer::pixel_size
-			>(
-				_texture
-				?
-					_texture->dim()
-				:
-					_depth_stencil_texture->dim()
+			sge::renderer::pixel_rect(
+				sge::renderer::pixel_rect::vector::null(),
+				fcppt::math::dim::structure_cast<
+					sge::renderer::pixel_rect::dim
+				>(
+					_texture
+					?
+						_texture->dim()
+					:
+						_depth_stencil_texture->dim()
+				)
 			)
 		);
 }

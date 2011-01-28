@@ -20,12 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "center.hpp"
 #include <sge/renderer/dim2.hpp>
-#include <sge/renderer/pixel_pos.hpp>
 #include <sge/renderer/pixel_unit.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/window/dim_type.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -58,29 +58,33 @@ sge::systems::viewport::center(
 		> _window_dim.h()
 		?
 			sge::renderer::viewport(
-				sge::renderer::pixel_pos::null(),
-				fcppt::math::dim::structure_cast<
-					sge::renderer::pixel_size
-				>(
-					_window_dim
+				sge::renderer::pixel_rect(
+					sge::renderer::pixel_rect::vector::null(),
+					fcppt::math::dim::structure_cast<
+						sge::renderer::pixel_rect::dim
+					>(
+						_window_dim
+					)
 				)
 			)
 		:
 			sge::renderer::viewport(
-				sge::renderer::pixel_pos(
-					::center_position(
-						_screen_size.w(),
-						_window_dim.w()
+				sge::renderer::pixel_rect(
+					sge::renderer::pixel_rect::vector(
+						::center_position(
+							_screen_size.w(),
+							_window_dim.w()
+						),
+						::center_position(
+							_screen_size.h(),
+							_window_dim.h()
+						)
 					),
-					::center_position(
-						_screen_size.h(),
-						_window_dim.h()
+					fcppt::math::dim::structure_cast<
+						sge::renderer::pixel_rect::dim
+					>(
+						_screen_size
 					)
-				),
-				fcppt::math::dim::structure_cast<
-					sge::renderer::pixel_size
-				>(
-					_screen_size
 				)
 			);
 }

@@ -30,7 +30,7 @@ namespace renderer
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
-	pixel_rect,
+	renderer::pixel_rect,
 	scissor_area
 )
 

@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/instance.hpp>
 #include <awl/window/event/processor.hpp>
 #include <awl/window/event/resize.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -63,14 +64,12 @@ sge::systems::viewport::resize_manager::on_resize(
 )
 {
 	target_->viewport(
-		sge::renderer::viewport(
-			viewport::center(
-				device_->screen_size(),
-				fcppt::math::dim::structure_cast<
-					sge::window::dim_type
-				>(
-					_resize.dim()
-				)
+		systems::viewport::center(
+			device_->screen_size(),
+			fcppt::math::dim::structure_cast<
+				sge::window::dim_type
+			>(
+				_resize.dim()
 			)
 		)
 	);

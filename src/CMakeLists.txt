@@ -583,9 +583,7 @@ SET(
 	include/sge/renderer/nonindexed_primitive_type.hpp
 	include/sge/renderer/parameters.hpp
 	include/sge/renderer/parameters_fwd.hpp
-	include/sge/renderer/pixel_pos.hpp
 	include/sge/renderer/pixel_rect.hpp
-	include/sge/renderer/pixel_size.hpp
 	include/sge/renderer/pixel_unit.hpp
 	include/sge/renderer/plugin.hpp
 	include/sge/renderer/primitive_count.hpp
@@ -748,7 +746,6 @@ SET(
 	include/sge/renderer/vf/view.hpp
 	include/sge/renderer/vf/view_fwd.hpp
 	include/sge/renderer/viewport.hpp
-	include/sge/renderer/viewport_fwd.hpp
 	include/sge/renderer/volume_texture.hpp
 	include/sge/renderer/volume_texture_fwd.hpp
 	include/sge/renderer/volume_texture_ptr.hpp
@@ -1040,7 +1037,6 @@ SET(
 	src/renderer/vf/dynamic/unspecified.cpp
 	src/renderer/vf/dynamic/vector.cpp
 	src/renderer/vf/dynamic/view.cpp
-	src/renderer/viewport.cpp
 	src/renderer/volume_texture.cpp
 	src/renderer/window_parameters.cpp
 	src/window/create.cpp

@@ -22,10 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../check_state.hpp"
 #include "../common.hpp"
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/pixel_unit.hpp>
 #include <sge/renderer/viewport.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/text.hpp>
 
 void
@@ -34,11 +36,15 @@ sge::opengl::viewport(
 	renderer::screen_unit const _height
 )
 {
+	sge::renderer::pixel_rect const rect(
+		_viewport.get()
+	);
+
 	::glViewport(
 		static_cast<
 			GLint
 		>(
-			_viewport.pos().x()
+			rect.pos().x()
 		),
 		static_cast<
 			GLint
@@ -48,18 +54,18 @@ sge::opengl::viewport(
 			>(
 				_height
 			)
-			- _viewport.size().h()
-			- _viewport.pos().y()
+			- rect.dimension().h()
+			- rect.pos().y()
 		),
 		static_cast<
 			GLsizei
 		>(
-			_viewport.size().w()
+			rect.dimension().w()
 		),
 		static_cast<
 			GLsizei
 		>(
-			_viewport.size().h()
+			rect.dimension().h()
 		)
 	);
 

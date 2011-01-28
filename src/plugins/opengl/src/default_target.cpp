@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/format_to_color.hpp"
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/bit_depth_bytes.hpp>
+#include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/pixel_unit.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/image2d/view/make_const.hpp>
@@ -46,11 +47,13 @@ sge::opengl::default_target::default_target(
 :
 	opengl::target(
 		renderer::viewport(
-			renderer::pixel_pos::null(),
-			fcppt::math::dim::structure_cast<
-				sge::renderer::pixel_size
-			>(
-				_window->size()
+			renderer::pixel_rect(
+				renderer::pixel_rect::vector::null(),
+				fcppt::math::dim::structure_cast<
+					sge::renderer::pixel_rect::dim
+				>(
+					_window->size()
+				)
 			)
 		)
 	),

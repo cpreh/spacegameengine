@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../target.hpp"
 #include "../viewport.hpp"
+#include <fcppt/math/box/basic_impl.hpp>
 
 sge::opengl::target::target(
 	renderer::viewport const &_viewport

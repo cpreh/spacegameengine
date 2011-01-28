@@ -31,11 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../context/use.hpp"
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/parameters.hpp>
-#include <sge/renderer/pixel_pos.hpp>
-#include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/variant/object_impl.hpp>

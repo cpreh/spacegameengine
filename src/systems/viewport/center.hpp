@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_VIEWPORT_CENTER_HPP_INCLUDED
 
 #include <sge/renderer/screen_size.hpp>
-#include <sge/renderer/viewport_fwd.hpp>
+#include <sge/renderer/viewport.hpp>
 #include <sge/window/dim_type.hpp>
 
 namespace sge
