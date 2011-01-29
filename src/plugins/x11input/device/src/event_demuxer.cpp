@@ -148,36 +148,37 @@ sge::x11input::device::event_demuxer<Event>::register_callback(
 			)
 		);
 	
-	event_signal_map &inner_map(
-		signals_[
-			_id
-		]
+	event_pair const pair(
+		_type,	
+		_id
 	);
 
-	typename event_signal_map::iterator it(
-		inner_map.find(
-			_type
+	typename signal_map::iterator it(
+		signals_.find(
+			pair
 		)
 	);
 
 	if(
-		it == inner_map.end()
+		it == signals_.end()
 	)
+	{
 		it =
 			fcppt::container::ptr::insert_unique_ptr_map(
-				inner_map,
-				_type,
+				signals_,
+				pair,
 				fcppt::make_unique_ptr<
 					signal
 				>()
 			).first;
 
-	x11input::device::select_events(
-		window_,
-		_id,
-		_type,
-		true
-	);
+		x11input::device::select_events(
+			window_,
+			_id,
+			_type,
+			true
+		);
+	}
 
 	return
 		it->second->connect(
@@ -215,12 +216,13 @@ sge::x11input::device::event_demuxer<Event>::on_event(
 	);
 
 	signals_[
-		::device_id(
-			device_event
-		)
-	][
-		awl::backends::x11::system::event::type(
-			device_event.evtype
+		event_pair(
+			awl::backends::x11::system::event::type(
+				device_event.evtype
+			),
+			::device_id(
+				device_event
+			)
 		)
 	](
 		Event(
@@ -238,53 +240,34 @@ sge::x11input::device::event_demuxer<Event>::unregister(
 	awl::backends::x11::system::event::type const _type
 )
 {
-	typename device_signal_map::iterator const device_it(
+	typename signal_map::iterator const it(
 		signals_.find(
-			_id
+			event_pair(
+				_type,
+				_id
+			)
 		)
 	);
 
 	assert(
-		device_it
+		it
 		!= signals_.end()
 	);
 
-	event_signal_map &inner_map(
-		*device_it->second
-	);
-
-	typename event_signal_map::iterator const signal_it(
-		inner_map.find(
-			_type
-		)
-	);
-
-	assert(
-		signal_it
-		!= inner_map.end()
-	);
-
-	x11input::device::select_events(
-		window_,
-		_id,
-		_type,
-		false
-	);
-
 	if(
-		signal_it->second->empty()
+		it->second->empty()
 	)
 	{
-		inner_map.erase(
-			signal_it
+		signals_.erase(
+			it
 		);
 
-		if(
-			inner_map.empty()
-		)
-			signals_.erase(
-				device_it
-			);
+		x11input::device::select_events(
+			window_,
+			_id,
+			_type,
+			false
+		);
 
 		// TODO: remove a connection if there is no signal for the event left!
 	}

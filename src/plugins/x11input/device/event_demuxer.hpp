@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/unregister/base_decl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
+#include <utility>
 
 namespace sge
 {
@@ -91,15 +92,15 @@ private:
 		fcppt::signal::unregister::base
 	> signal;
 
-	typedef boost::ptr_map<
+	typedef std::pair<
 		awl::backends::x11::system::event::type,
-		signal
-	> event_signal_map;
+		x11input::device::id
+	> event_pair;
 
 	typedef boost::ptr_map<
-		x11input::device::id,
-		event_signal_map
-	> device_signal_map;
+		event_pair,
+		signal
+	> signal_map;
 
 	typedef boost::ptr_map<
 		awl::backends::x11::system::event::type,
@@ -114,7 +115,7 @@ private:
 
 	connection_map connections_;
 
-	device_signal_map signals_;
+	signal_map signals_;
 };
 
 }
