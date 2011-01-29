@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../event_demuxer.hpp"
 #include "../event_data.hpp"
-#include "../event_id_container.hpp"
 #include "../id.hpp"
 #include "../hierarchy_event.hpp"
 #include "../select_events.hpp"
