@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../system.hpp"
 #include "../optional_opcode.hpp"
 #include "../processor.hpp"
-#include "../use_xkb.hpp"
 #include "../xi_opcode.hpp"
 #include "../xi_version.hpp"
 #include <sge/window/instance.hpp>
@@ -78,15 +77,6 @@ sge::x11input::system::create_processor(
 	)
 		throw sge::input::exception(
 			FCPPT_TEXT("X Input extension is not version 2 or later!")
-		);
-	
-	if(
-		!x11input::use_xkb(
-			x11_window->display()
-		)
-	)
-		throw sge::input::exception(
-			FCPPT_TEXT("Xkb extension not available!")
 		);
 
 #if 0
