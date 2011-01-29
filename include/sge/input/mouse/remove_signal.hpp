@@ -18,22 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../object.hpp"
+#ifndef SGE_INPUT_MOUSE_REMOVE_SIGNAL_HPP_INCLUDED
+#define SGE_INPUT_MOUSE_REMOVE_SIGNAL_HPP_INCLUDED
 
-sge::x11input::device::object::object(
-	device::id const _id
-)
-:
-	id_(_id)
+#include <sge/input/mouse/remove_function.hpp>
+#include <fcppt/signal/object_fwd.hpp>
+
+namespace sge
 {
+namespace input
+{
+namespace mouse
+{
+
+typedef fcppt::signal::object<
+	mouse::remove_function
+> remove_signal;
+
+}
+}
 }
 
-sge::x11input::device::object::~object()
-{
-}
-
-sge::x11input::device::id const
-sge::x11input::device::object::id() const
-{
-	return id_;
-}
+#endif

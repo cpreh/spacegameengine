@@ -49,6 +49,10 @@ sge::x11input::keyboard::keyboard(
 	x11input::input_context const &_input_context
 )
 :
+	sge::input::keyboard::device(),
+	sge::x11input::device::object(
+		_param.id()
+	),
 	window_(
 		_param.window()
 	),
@@ -96,6 +100,16 @@ sge::x11input::keyboard::keyboard(
 }
 
 sge::x11input::keyboard::~keyboard()
+{
+}
+
+void
+sge::x11input::keyboard::on_enter()
+{
+}
+
+void
+sge::x11input::keyboard::on_leave()
 {
 }
 

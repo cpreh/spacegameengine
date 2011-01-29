@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_DEVICE_OBJECT_HPP_INCLUDED
 
 #include "object_fwd.hpp"
+#include "id.hpp"
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -37,7 +38,9 @@ class object
 		object
 	)
 protected:
-	object();
+	explicit object(
+		device::id
+	);
 public:
 	virtual
 	~object();
@@ -47,6 +50,11 @@ public:
 
 	virtual void
 	on_leave() = 0;
+
+	device::id const
+	id() const;
+private:
+	device::id const id_;
 };
 
 }

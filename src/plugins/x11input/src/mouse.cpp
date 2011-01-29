@@ -44,7 +44,9 @@ sge::x11input::mouse::mouse(
 )
 :
 	sge::input::mouse::device(),
-	sge::x11input::device::object(),
+	sge::x11input::device::object(
+		_param.id()
+	),
 	entered_(false),
 	connections_(
 		fcppt::assign::make_container<

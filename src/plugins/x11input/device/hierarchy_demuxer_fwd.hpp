@@ -18,22 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../object.hpp"
+#ifndef SGE_X11INPUT_DEVICE_HIERARCHY_DEMUXER_FWD_HPP_INCLUDED
+#define SGE_X11INPUT_DEVICE_HIERARCHY_DEMUXER_FWD_HPP_INCLUDED
 
-sge::x11input::device::object::object(
-	device::id const _id
-)
-:
-	id_(_id)
+#include "event_demuxer_fwd.hpp"
+#include "hierarchy_event_fwd.hpp"
+
+namespace sge
 {
+namespace x11input
+{
+namespace device
+{
+
+typedef device::event_demuxer<
+	device::hierarchy_event
+> hierarchy_demuxer;
+
+}
+}
 }
 
-sge::x11input::device::object::~object()
-{
-}
-
-sge::x11input::device::id const
-sge::x11input::device::object::id() const
-{
-	return id_;
-}
+#endif

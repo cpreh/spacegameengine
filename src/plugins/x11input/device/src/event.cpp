@@ -50,3 +50,8 @@ template class
 sge::x11input::device::event<
 	XIRawEvent
 >;
+
+template class
+sge::x11input::device::event<
+	XIHierarchyEvent
+>;

@@ -24,7 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../input_method.hpp"
 #include "../keyboard.hpp"
 #include "../mouse.hpp"
+#include "../device/hierarchy_event.hpp"
 #include "../device/info.hpp"
+#include "../device/object.hpp"
 #include "../device/parameters.hpp"
 #include <sge/window/instance.hpp>
 #include <awl/backends/x11/display.hpp>
@@ -33,14 +35,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/root.hpp>
 #include <awl/backends/x11/window/event/processor.hpp>
 #include <fcppt/algorithm/append.hpp>
+#include <fcppt/algorithm/find_if_exn.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/signal/connection_manager.hpp>
+#include <fcppt/signal/object_impl.hpp>
 #include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/polymorphic_pointer_cast.hpp>
 #include <fcppt/text.hpp>
+#include <boost/spirit/home/phoenix/bind/bind_member_function.hpp>
+#include <boost/spirit/home/phoenix/core/argument.hpp>
+#include <boost/spirit/home/phoenix/operator/comparison.hpp>
+#include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <X11/extensions/XInput2.h>
 
 sge::x11input::processor::processor(
@@ -84,6 +92,11 @@ sge::x11input::processor::processor(
 			x11_window_->screen()
 		)
 	),
+	hierarchy_demuxer_(
+		system_event_processor_,
+		opcode_,
+		x11_window_
+	),
 	input_method_(
 		fcppt::make_unique_ptr<
 			x11input::input_method
@@ -104,10 +117,34 @@ sge::x11input::processor::processor(
 	keyboards_(),
 	mice_(),
 	cursors_(),
+	keyboard_discover_(),
+	keyboard_remove_(),
+	mouse_discover_(),
+	mouse_remove_(),
+	cursor_discover_(),
+	cursor_remove_(),
 	connections_(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
 		>(
+			fcppt::signal::shared_connection(
+				hierarchy_demuxer_.register_callback(
+					awl::backends::x11::system::event::type(
+						XI_HierarchyChanged
+					),
+					// TODO: this should be simplified a little
+					sge::x11input::device::id(
+						XIAllDevices
+					),
+					std::tr1::bind(
+						&processor::on_hierarchy_changed,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+		(
 			fcppt::signal::shared_connection(
 				window_event_processor_->register_callback(
 					FocusIn,
@@ -151,13 +188,11 @@ sge::x11input::processor::processor(
 		);
 
 		x11input::device::parameters const param(
-			x11input::device::id(
-				device.deviceid
-			),
-			opcode_,
-			x11_window_,
-			window_demuxer_,
-			raw_demuxer_
+			this->device_parameters(
+				x11input::device::id(
+					device.deviceid
+				)
+			)
 		);
 
 		switch(
@@ -166,13 +201,8 @@ sge::x11input::processor::processor(
 		{
 		case XIMasterKeyboard:
 			keyboards_.push_back(
-				fcppt::make_shared_ptr<
-					x11input::keyboard
-				>(
-					param,
-					std::tr1::ref(
-						*input_context_
-					)
+				this->create_keyboard(
+					param
 				)
 			);
 			break;
@@ -181,20 +211,14 @@ sge::x11input::processor::processor(
 		// because slave pointers are unsuable with RawMotions
 		//case XISlavePointer:
 			mice_.push_back(
-				fcppt::make_shared_ptr<
-					x11input::mouse
-				>(
+				this->create_mouse(
 					param
 				)
 			);
 		//	break;
 		//case XIMasterPointer:
-			// HACK the grabs
 			cursors_.push_back(
-				fcppt::make_shared_ptr<
-					x11input::cursor
-				>(
-					// FIXME: tell this device if it is the master pointer!
+				this->create_cursor(
 					param
 				)
 			);
@@ -212,7 +236,10 @@ sge::x11input::processor::keyboard_discover_callback(
 	input::keyboard::discover_callback const &_callback
 )
 {
-	return fcppt::signal::auto_connection();
+	return
+		keyboard_discover_.connect(
+			_callback
+		);
 }
 
 fcppt::signal::auto_connection
@@ -220,7 +247,10 @@ sge::x11input::processor::keyboard_remove_callback(
 	input::keyboard::remove_callback const &_callback
 )
 {
-	return fcppt::signal::auto_connection();
+	return
+		keyboard_remove_.connect(
+			_callback
+		);
 }
 
 sge::input::keyboard::device_vector const
@@ -238,7 +268,10 @@ sge::x11input::processor::mouse_discover_callback(
 	input::mouse::discover_callback const &_callback
 )
 {
-	return fcppt::signal::auto_connection();
+	return
+		mouse_discover_.connect(
+			_callback
+		);
 }
 
 fcppt::signal::auto_connection
@@ -246,7 +279,10 @@ sge::x11input::processor::mouse_remove_callback(
 	input::mouse::remove_callback const &_callback
 )
 {
-	return fcppt::signal::auto_connection();
+	return
+		mouse_remove_.connect(
+			_callback
+		);
 }
 
 sge::input::mouse::device_vector const
@@ -264,7 +300,10 @@ sge::x11input::processor::cursor_discover_callback(
 	input::cursor::discover_callback const &_callback
 )
 {
-	return fcppt::signal::auto_connection();
+	return
+		cursor_discover_.connect(
+			_callback
+		);
 }
 
 fcppt::signal::auto_connection
@@ -272,7 +311,10 @@ sge::x11input::processor::cursor_remove_callback(
 	input::cursor::remove_callback const &_callback
 )
 {
-	return fcppt::signal::auto_connection();
+	return
+		cursor_remove_.connect(
+			_callback
+		);
 }
 
 sge::input::cursor::object_vector const
@@ -309,6 +351,226 @@ sge::x11input::processor::devices() const
 	);
 
 	return ret;
+}
+
+sge::x11input::device::parameters const
+sge::x11input::processor::device_parameters(
+	x11input::device::id const _id
+)
+{
+	return
+		x11input::device::parameters(
+			_id,
+			opcode_,
+			x11_window_,
+			window_demuxer_,
+			raw_demuxer_
+		);
+}
+
+sge::x11input::keyboard_ptr const
+sge::x11input::processor::create_keyboard(
+	x11input::device::parameters const &_param
+) const
+{
+	return
+		fcppt::make_shared_ptr<
+			x11input::keyboard
+		>(
+			_param,
+			std::tr1::ref(
+				*input_context_
+			)
+		);
+}
+
+sge::x11input::mouse_ptr const
+sge::x11input::processor::create_mouse(
+	x11input::device::parameters const &_param
+) const
+{
+	return
+		fcppt::make_shared_ptr<
+			x11input::mouse
+		>(
+			_param
+		);
+}
+
+sge::x11input::cursor_ptr const
+sge::x11input::processor::create_cursor(
+	x11input::device::parameters const &_param
+) const
+{
+	return
+		fcppt::make_shared_ptr<
+			x11input::cursor
+		>(
+			// FIXME: tell this device if it is the master pointer!
+			_param
+		);
+}
+
+void
+sge::x11input::processor::on_hierarchy_changed(
+	sge::x11input::device::hierarchy_event const &_event
+)
+{
+	XIHierarchyEvent const &event(
+		_event.get()
+	);
+
+	for(
+		int index = 0;
+		index < event.num_info;
+		++index
+	)
+	{
+		XIHierarchyInfo	const &info(
+			event.info[
+				index
+			]
+		);
+
+		sge::x11input::device::id const device_id(
+			info.deviceid
+		);
+
+		if(
+			info.flags & XIMasterAdded
+		)
+		{
+			x11input::device::parameters const param(
+				this->device_parameters(
+					device_id
+				)
+			);
+
+			switch(
+				info.use
+			)
+			{
+			case XIMasterKeyboard:
+				this->add_device(
+					keyboards_,
+					keyboard_discover_,
+					this->create_keyboard(
+						param
+					)
+				);
+
+				return;
+			case XIMasterPointer:
+				this->add_device(
+					mice_,
+					mouse_discover_,
+					this->create_mouse(
+						param
+					)
+				);
+
+				this->add_device(
+					cursors_,
+					cursor_discover_,
+					this->create_cursor(
+						param
+					)
+				);
+
+				return;
+			}
+		}
+		else if(
+			info.flags & XIMasterRemoved
+		)
+		{
+			switch(
+				info.use
+			)
+			{
+			case XIMasterKeyboard:
+				this->remove_device(
+					keyboards_,
+					keyboard_remove_,
+					device_id
+				);
+
+				return;
+			case XIMasterPointer:
+				this->remove_device(
+					mice_,
+					mouse_remove_,
+					device_id
+				);
+
+				this->remove_device(
+					cursors_,
+					cursor_remove_,
+					device_id
+				);
+
+				return;
+			}
+		}
+	}
+}
+
+template<
+	typename Container,
+	typename Signal,
+	typename DevicePtr
+>
+void
+sge::x11input::processor::add_device(
+	Container &_container,
+	Signal &_signal,
+	DevicePtr const _device
+)
+{
+	_container.push_back(
+		_device
+	);
+
+	_signal(
+		_device
+	);
+}
+
+template<
+	typename Container,
+	typename Signal
+>
+void
+sge::x11input::processor::remove_device(
+	Container &_container,
+	Signal &_signal,
+	x11input::device::id const &_id
+)
+{
+	typename Container::iterator const it(
+		fcppt::algorithm::find_if_exn(
+			_container.begin(),
+			_container.end(),
+			boost::phoenix::bind(
+				&x11input::device::object::id,
+				*boost::phoenix::arg_names::arg1
+			)
+			==
+			_id
+		)
+	);
+
+	typename Container::value_type const ptr(
+		*it
+	);
+
+	_container.erase(
+		it
+	);
+
+	_signal(
+		ptr
+	);
 }
 
 void

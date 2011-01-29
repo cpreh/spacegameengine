@@ -293,6 +293,7 @@ SET(
 	include/sge/input/cursor/demuxer_fwd.hpp
 	include/sge/input/cursor/discover_callback.hpp
 	include/sge/input/cursor/discover_function.hpp
+	include/sge/input/cursor/discover_signal.hpp
 	include/sge/input/cursor/move_callback.hpp
 	include/sge/input/cursor/move_event.hpp
 	include/sge/input/cursor/move_event_fwd.hpp
@@ -312,6 +313,7 @@ SET(
 	include/sge/input/cursor/relative_movement_fwd.hpp
 	include/sge/input/cursor/remove_callback.hpp
 	include/sge/input/cursor/remove_function.hpp
+	include/sge/input/cursor/remove_signal.hpp
 	include/sge/input/cursor/window_mode.hpp
 	include/sge/input/exception.hpp
 	include/sge/input/keyboard/action.hpp
@@ -324,6 +326,7 @@ SET(
 	include/sge/input/keyboard/device_vector.hpp
 	include/sge/input/keyboard/discover_callback.hpp
 	include/sge/input/keyboard/discover_function.hpp
+	include/sge/input/keyboard/discover_signal.hpp
 	include/sge/input/keyboard/is_alt.hpp
 	include/sge/input/keyboard/is_ctrl.hpp
 	include/sge/input/keyboard/is_shift.hpp
@@ -343,6 +346,7 @@ SET(
 	include/sge/input/keyboard/optional_modifier.hpp
 	include/sge/input/keyboard/remove_callback.hpp
 	include/sge/input/keyboard/remove_function.hpp
+	include/sge/input/keyboard/remove_signal.hpp
 	include/sge/input/keyboard/to_modifier.hpp
 	include/sge/input/modifier/filter.hpp
 	include/sge/input/modifier/states.hpp
@@ -365,8 +369,10 @@ SET(
 	include/sge/input/mouse/device_vector.hpp
 	include/sge/input/mouse/discover_callback.hpp
 	include/sge/input/mouse/discover_function.hpp
+	include/sge/input/mouse/discover_signal.hpp
 	include/sge/input/mouse/remove_callback.hpp
 	include/sge/input/mouse/remove_function.hpp
+	include/sge/input/mouse/remove_signal.hpp
 	include/sge/input/nullary_function.hpp
 	include/sge/input/plugin.hpp
 	include/sge/input/processor.hpp

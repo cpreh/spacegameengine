@@ -48,8 +48,7 @@ sge::x11input::cursor::cursor(
 )
 :
 	sge::input::cursor::object(),
-	sge::x11input::device::object(),
-	device_id_(
+	sge::x11input::device::object(
 		_param.id()
 	),
 	window_(
@@ -113,7 +112,7 @@ sge::x11input::cursor::cursor(
 	position_(
 		x11input::query_pointer(
 			window_,
-			device_id_
+			_param.id()
 		)
 	),
 	button_signal_(),
@@ -191,7 +190,7 @@ sge::x11input::cursor::visibility(
 				x11input::cursor_define
 			>(
 				window_,
-				device_id_
+				this->id()
 			)
 		);
 }
@@ -303,7 +302,7 @@ sge::x11input::cursor::check_grab()
 					x11input::cursor_confine
 				>(
 					window_,
-					device_id_
+					this->id()
 				)
 			);
 		else if(

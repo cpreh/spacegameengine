@@ -21,6 +21,10 @@ SET(
 	src/plugins/x11input/device/event_demuxer_fwd.hpp
 	src/plugins/x11input/device/event_fwd.hpp
 	src/plugins/x11input/device/event_id_container.hpp
+	src/plugins/x11input/device/hierarchy_demuxer.hpp
+	src/plugins/x11input/device/hierarchy_demuxer_fwd.hpp
+	src/plugins/x11input/device/hierarchy_event.hpp
+	src/plugins/x11input/device/hierarchy_event_fwd.hpp
 	src/plugins/x11input/device/id.hpp
 	src/plugins/x11input/device/info.hpp
 	src/plugins/x11input/device/object.hpp

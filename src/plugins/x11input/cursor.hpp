@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "cursor_fwd.hpp"
 #include "cursor_confine_fwd.hpp"
 #include "cursor_define_fwd.hpp"
-#include "device/id.hpp"
 #include "device/object.hpp"
 #include "device/parameters_fwd.hpp"
 #include "device/window_event_fwd.hpp"
@@ -115,8 +114,6 @@ private:
 
 	void
 	check_grab();
-
-	device::id const device_id_;
 
 	awl::backends::x11::window::instance_ptr const window_;
 

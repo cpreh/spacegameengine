@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../event_demuxer.hpp"
 #include "../event_data.hpp"
 #include "../event_id_container.hpp"
+#include "../id.hpp"
+#include "../hierarchy_event.hpp"
 #include "../select_events.hpp"
 #include "../raw_event.hpp"
 #include "../window_event.hpp"
@@ -28,11 +30,72 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/unregister/base_impl.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/type_traits/generate_has_member_function.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
 #include <awl/backends/x11/window/instance.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <boost/foreach.hpp>
 #include <X11/extensions/XInput2.h>
+
+namespace
+{
+
+FCPPT_TYPE_TRAITS_GENERATE_HAS_MEMBER_FUNCTION(
+	deviceid_impl
+);
+
+template<
+	typename T
+>
+struct has_deviceid
+:
+::has_deviceid_impl<
+	T,
+	int T::*
+>
+{
+};
+
+template<
+	typename T
+>
+typename boost::disable_if<
+	::has_deviceid<
+		T
+	>,
+	sge::x11input::device::id
+>::type const
+device_id(
+	T const &
+)
+{
+	return
+		sge::x11input::device::id(
+			XIAllDevices
+		);
+}
+
+template<
+	typename T
+>
+typename boost::enable_if<
+	::has_deviceid<
+		T
+	>,
+	sge::x11input::device::id
+>::type const
+device_id(
+	T const &_event
+)
+{
+	return
+		sge::x11input::device::id(
+			_event.deviceid
+		);
+}
+
+}
 
 template<
 	typename Event
@@ -152,8 +215,8 @@ sge::x11input::device::event_demuxer<Event>::on_event(
 	);
 
 	signals_[
-		device::id(
-			device_event.deviceid
+		::device_id(
+			device_event
 		)
 	][
 		awl::backends::x11::system::event::type(
@@ -259,4 +322,9 @@ sge::x11input::device::event_demuxer<
 template class
 sge::x11input::device::event_demuxer<
 	sge::x11input::device::raw_event
+>;
+
+template class
+sge::x11input::device::event_demuxer<
+	sge::x11input::device::hierarchy_event
 >;

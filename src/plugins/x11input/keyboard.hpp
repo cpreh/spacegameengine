@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "keyboard_fwd.hpp"
 #include "input_context_fwd.hpp"
+#include "device/object.hpp"
 #include "device/parameters_fwd.hpp"
 #include "device/window_event_fwd.hpp"
 #include <sge/input/keyboard/device.hpp>
@@ -45,7 +46,8 @@ namespace x11input
 
 class keyboard
 :
-	public sge::input::keyboard::device
+	public sge::input::keyboard::device,
+	public sge::x11input::device::object
 {
 	FCPPT_NONCOPYABLE(
 		keyboard
@@ -57,6 +59,12 @@ public:
 	);
 
 	~keyboard();
+
+	void
+	on_enter();
+
+	void
+	on_leave();
 private:
 	fcppt::signal::auto_connection
 	key_callback(

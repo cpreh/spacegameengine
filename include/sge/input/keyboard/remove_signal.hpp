@@ -18,22 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../object.hpp"
+#ifndef SGE_INPUT_KEYBOARD_REMOVE_SIGNAL_HPP_INCLUDED
+#define SGE_INPUT_KEYBOARD_REMOVE_SIGNAL_HPP_INCLUDED
 
-sge::x11input::device::object::object(
-	device::id const _id
-)
-:
-	id_(_id)
+#include <sge/input/keyboard/remove_function.hpp>
+#include <fcppt/signal/object_fwd.hpp>
+
+namespace sge
 {
+namespace input
+{
+namespace keyboard
+{
+
+typedef fcppt::signal::object<
+	keyboard::remove_function
+> remove_signal;
+
+}
+}
 }
 
-sge::x11input::device::object::~object()
-{
-}
-
-sge::x11input::device::id const
-sge::x11input::device::object::id() const
-{
-	return id_;
-}
+#endif
