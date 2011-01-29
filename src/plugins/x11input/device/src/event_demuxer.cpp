@@ -174,8 +174,11 @@ sge::x11input::device::event_demuxer<Event>::register_callback(
 				>()
 			).first;
 
-		this->select_events(
-			_id
+		x11input::device::select_events(
+			window_,
+			_id,
+			_type,
+			true
 		);
 	}
 
@@ -272,8 +275,11 @@ sge::x11input::device::event_demuxer<Event>::unregister(
 			signal_it
 		);
 
-		this->select_events(
-			_id
+		x11input::device::select_events(
+			window_,
+			_id,
+			_type,
+			false
 		);
 
 		if(
@@ -285,33 +291,6 @@ sge::x11input::device::event_demuxer<Event>::unregister(
 
 		// TODO: remove a connection if there is no signal for the event left!
 	}
-}
-
-template<
-	typename Event
->
-void
-sge::x11input::device::event_demuxer<Event>::select_events(
-	device::id const &_id
-)
-{
-	x11input::device::event_id_container event_ids;
-
-	BOOST_FOREACH(
-		typename event_signal_map::value_type value,
-		signals_[
-			_id
-		]
-	)
-		event_ids.push_back(
-			value.first
-		);
-
-	x11input::device::select_events(
-		window_,
-		_id,
-		event_ids
-	);
 }
 
 template class

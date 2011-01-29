@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_DEVICE_SELECT_EVENTS_HPP_INCLUDED
 
 #include "id.hpp"
-#include "event_id_container.hpp"
+#include <awl/backends/x11/system/event/type.hpp>
 #include <awl/backends/x11/window/instance_ptr.hpp>
 
 namespace sge
@@ -36,7 +36,8 @@ void
 select_events(
 	awl::backends::x11::window::instance_ptr,
 	x11input::device::id,
-	x11input::device::event_id_container const &
+	awl::backends::x11::system::event::type,
+	bool remove
 );
 
 }
