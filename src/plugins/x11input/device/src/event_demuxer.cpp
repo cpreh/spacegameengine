@@ -163,7 +163,6 @@ sge::x11input::device::event_demuxer<Event>::register_callback(
 	if(
 		it == inner_map.end()
 	)
-	{
 		it =
 			fcppt::container::ptr::insert_unique_ptr_map(
 				inner_map,
@@ -173,13 +172,12 @@ sge::x11input::device::event_demuxer<Event>::register_callback(
 				>()
 			).first;
 
-		x11input::device::select_events(
-			window_,
-			_id,
-			_type,
-			true
-		);
-	}
+	x11input::device::select_events(
+		window_,
+		_id,
+		_type,
+		true
+	);
 
 	return
 		it->second->connect(
@@ -266,19 +264,19 @@ sge::x11input::device::event_demuxer<Event>::unregister(
 		!= inner_map.end()
 	);
 
+	x11input::device::select_events(
+		window_,
+		_id,
+		_type,
+		false
+	);
+
 	if(
 		signal_it->second->empty()
 	)
 	{
 		inner_map.erase(
 			signal_it
-		);
-
-		x11input::device::select_events(
-			window_,
-			_id,
-			_type,
-			false
 		);
 
 		if(

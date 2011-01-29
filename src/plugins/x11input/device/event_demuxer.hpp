@@ -86,11 +86,6 @@ private:
 		awl::backends::x11::system::event::type
 	);
 
-	void
-	select_events(
-		device::id const &
-	);
-
 	typedef fcppt::signal::object<
 		signature,
 		fcppt::signal::unregister::base
