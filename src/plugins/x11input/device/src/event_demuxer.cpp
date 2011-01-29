@@ -42,15 +42,15 @@ namespace
 {
 
 FCPPT_TYPE_TRAITS_GENERATE_HAS_MEMBER_FUNCTION(
-	deviceid_impl
+	deviceid
 );
 
 template<
 	typename T
 >
-struct has_deviceid
+struct has_deviceid_wrapped
 :
-::has_deviceid_impl<
+::has_deviceid<
 	T,
 	int T::*
 >
@@ -61,7 +61,7 @@ template<
 	typename T
 >
 typename boost::disable_if<
-	::has_deviceid<
+	::has_deviceid_wrapped<
 		T
 	>,
 	sge::x11input::device::id
@@ -80,7 +80,7 @@ template<
 	typename T
 >
 typename boost::enable_if<
-	::has_deviceid<
+	::has_deviceid_wrapped<
 		T
 	>,
 	sge::x11input::device::id

@@ -37,7 +37,7 @@ select_events(
 	awl::backends::x11::window::instance_ptr,
 	x11input::device::id,
 	awl::backends::x11::system::event::type,
-	bool remove
+	bool add
 );
 
 }

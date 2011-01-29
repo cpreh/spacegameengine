@@ -32,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/operator/comparison.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
-#include <boost/foreach.hpp>
 #include <algorithm>
 #include <limits>
 #include <vector>
@@ -69,7 +68,7 @@ sge::x11input::device::select_events(
 	awl::backends::x11::window::instance_ptr const _window,
 	x11input::device::id const _device,
 	awl::backends::x11::system::event::type const _type,
-	bool const _remove
+	bool const _add
 )
 {
 	// Warning: The following code is crap so I commented it.
@@ -95,6 +94,13 @@ sge::x11input::device::select_events(
 			&num_masks
 		)
 	);
+
+	if(
+		num_masks == -1
+	)
+		throw sge::input::exception(
+			FCPPT_TEXT("XIGetSelectedEvents() failed!")
+		);
 
 	// somehow boost::is_pod thinks that XIEventMask is not a POD
 	typedef std::vector<
@@ -201,14 +207,15 @@ sge::x11input::device::select_events(
 	}
 
 	if(
-		_remove
+		_add
 	)
-		XIClearMask(
+		XISetMask(
 			store.data(),
 			_type.get()
 		);
 	else
-		XISetMask(
+
+		XIClearMask(
 			store.data(),
 			_type.get()
 		);
