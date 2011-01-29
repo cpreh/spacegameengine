@@ -133,19 +133,21 @@ sge::x11input::processor::processor(
 		)
 	)
 {
-	x11input::device::info const devices(
+	x11input::device::info const current_devices(
 		x11_window_->display(),
 		XIAllDevices
 	);
 
 	for(
 		int index = 0;
-		index < devices.size();
+		index < current_devices.size();
 		++index
 	)
 	{
 		XIDeviceInfo const &device(
-			devices[index]
+			current_devices[
+				index
+			]
 		);
 
 		x11input::device::parameters const param(
