@@ -5,16 +5,24 @@ CHECK_DEPENDENCIES(
 
 SET(
 	SGE_X11INPUT_FILES
-	src/plugins/x11input/char_vector.hpp
 	src/plugins/x11input/color.hpp
-	src/plugins/x11input/cursor.hpp
-	src/plugins/x11input/cursor_button_code.hpp
-	src/plugins/x11input/cursor_confine.hpp
-	src/plugins/x11input/cursor_confine_fwd.hpp
-	src/plugins/x11input/cursor_define.hpp
-	src/plugins/x11input/cursor_define_fwd.hpp
-	src/plugins/x11input/cursor_fwd.hpp
-	src/plugins/x11input/cursor_ptr.hpp
+	src/plugins/x11input/cursor/button_code.hpp
+	src/plugins/x11input/cursor/confine.hpp
+	src/plugins/x11input/cursor/confine_fwd.hpp
+	src/plugins/x11input/cursor/define.hpp
+	src/plugins/x11input/cursor/define_fwd.hpp
+	src/plugins/x11input/cursor/object.hpp
+	src/plugins/x11input/cursor/object_fwd.hpp
+	src/plugins/x11input/cursor/object_ptr.hpp
+	src/plugins/x11input/cursor/pixmap.hpp
+	src/plugins/x11input/cursor/pixmap_fwd.hpp
+	src/plugins/x11input/cursor/query_pointer.hpp
+	src/plugins/x11input/cursor/src/button_code.cpp
+	src/plugins/x11input/cursor/src/confine.cpp
+	src/plugins/x11input/cursor/src/define.cpp
+	src/plugins/x11input/cursor/src/object.cpp
+	src/plugins/x11input/cursor/src/pixmap.cpp
+	src/plugins/x11input/cursor/src/query_pointer.cpp
 	src/plugins/x11input/device/event.hpp
 	src/plugins/x11input/device/event_data.hpp
 	src/plugins/x11input/device/event_demuxer.hpp
@@ -51,53 +59,45 @@ SET(
 	src/plugins/x11input/input_context_fwd.hpp
 	src/plugins/x11input/input_method.hpp
 	src/plugins/x11input/input_method_fwd.hpp
-	src/plugins/x11input/key_code_to_key_sym.hpp
-	src/plugins/x11input/key_vector.hpp
-	src/plugins/x11input/keyboard.hpp
-	src/plugins/x11input/keyboard_fwd.hpp
-	src/plugins/x11input/keyboard_keys.hpp
-	src/plugins/x11input/keyboard_ptr.hpp
-	src/plugins/x11input/looked_up_string.hpp
-	src/plugins/x11input/looked_up_string_fwd.hpp
-	src/plugins/x11input/lookup_string.hpp
-	src/plugins/x11input/mouse.hpp
-	src/plugins/x11input/mouse_axis.hpp
-	src/plugins/x11input/mouse_button_code.hpp
-	src/plugins/x11input/mouse_fwd.hpp
-	src/plugins/x11input/mouse_ptr.hpp
+	src/plugins/x11input/keyboard/char_vector.hpp
+	src/plugins/x11input/keyboard/device.hpp
+	src/plugins/x11input/keyboard/device_fwd.hpp
+	src/plugins/x11input/keyboard/device_ptr.hpp
+	src/plugins/x11input/keyboard/key_code_to_key_sym.hpp
+	src/plugins/x11input/keyboard/key_vector.hpp
+	src/plugins/x11input/keyboard/keys.hpp
+	src/plugins/x11input/keyboard/looked_up_string.hpp
+	src/plugins/x11input/keyboard/looked_up_string_fwd.hpp
+	src/plugins/x11input/keyboard/lookup_string.hpp
+	src/plugins/x11input/keyboard/src/device.cpp
+	src/plugins/x11input/keyboard/src/key_code_to_key_sym.cpp
+	src/plugins/x11input/keyboard/src/keys.cpp
+	src/plugins/x11input/keyboard/src/looked_up_string.cpp
+	src/plugins/x11input/keyboard/src/lookup_string.cpp
+	src/plugins/x11input/keyboard/src/translate_key_code.cpp
+	src/plugins/x11input/keyboard/translate_key_code.hpp
+	src/plugins/x11input/mouse/axis.hpp
+	src/plugins/x11input/mouse/button_code.hpp
+	src/plugins/x11input/mouse/device.hpp
+	src/plugins/x11input/mouse/device_fwd.hpp
+	src/plugins/x11input/mouse/device_ptr.hpp
+	src/plugins/x11input/mouse/src/axis.cpp
+	src/plugins/x11input/mouse/src/button_code.cpp
+	src/plugins/x11input/mouse/src/device.cpp
 	src/plugins/x11input/optional_opcode.hpp
 	src/plugins/x11input/pixmap.hpp
-	src/plugins/x11input/pixmap_cursor.hpp
-	src/plugins/x11input/pixmap_cursor_fwd.hpp
 	src/plugins/x11input/processor.hpp
-	src/plugins/x11input/query_pointer.hpp
 	src/plugins/x11input/src/color.cpp
-	src/plugins/x11input/src/cursor.cpp
-	src/plugins/x11input/src/cursor_button_code.cpp
-	src/plugins/x11input/src/cursor_confine.cpp
-	src/plugins/x11input/src/cursor_define.cpp
 	src/plugins/x11input/src/exports.cpp
 	src/plugins/x11input/src/input_context.cpp
 	src/plugins/x11input/src/input_method.cpp
-	src/plugins/x11input/src/key_code_to_key_sym.cpp
-	src/plugins/x11input/src/keyboard.cpp
-	src/plugins/x11input/src/keyboard_keys.cpp
-	src/plugins/x11input/src/looked_up_string.cpp
-	src/plugins/x11input/src/lookup_string.cpp
-	src/plugins/x11input/src/mouse.cpp
-	src/plugins/x11input/src/mouse_axis.cpp
-	src/plugins/x11input/src/mouse_button_code.cpp
 	src/plugins/x11input/src/pixmap.cpp
-	src/plugins/x11input/src/pixmap_cursor.cpp
 	src/plugins/x11input/src/processor.cpp
-	src/plugins/x11input/src/query_pointer.cpp
 	src/plugins/x11input/src/system.cpp
-	src/plugins/x11input/src/translate_key_code.cpp
 	src/plugins/x11input/src/use_xkb.cpp
 	src/plugins/x11input/src/xi_opcode.cpp
 	src/plugins/x11input/src/xi_version.cpp
 	src/plugins/x11input/system.hpp
-	src/plugins/x11input/translate_key_code.hpp
 	src/plugins/x11input/use_xkb.hpp
 	src/plugins/x11input/xi_opcode.hpp
 	src/plugins/x11input/xi_version.hpp

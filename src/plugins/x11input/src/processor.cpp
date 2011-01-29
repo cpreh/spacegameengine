@@ -19,15 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../processor.hpp"
-#include "../cursor.hpp"
 #include "../input_context.hpp"
 #include "../input_method.hpp"
-#include "../keyboard.hpp"
-#include "../mouse.hpp"
+#include "../cursor/object.hpp"
 #include "../device/hierarchy_event.hpp"
 #include "../device/info.hpp"
 #include "../device/object.hpp"
 #include "../device/parameters.hpp"
+#include "../keyboard/device.hpp"
+#include "../mouse/device.hpp"
 #include <sge/window/instance.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
@@ -368,14 +368,14 @@ sge::x11input::processor::device_parameters(
 		);
 }
 
-sge::x11input::keyboard_ptr const
+sge::x11input::keyboard::device_ptr const
 sge::x11input::processor::create_keyboard(
 	x11input::device::parameters const &_param
 ) const
 {
 	return
 		fcppt::make_shared_ptr<
-			x11input::keyboard
+			x11input::keyboard::device
 		>(
 			_param,
 			std::tr1::ref(
@@ -384,27 +384,27 @@ sge::x11input::processor::create_keyboard(
 		);
 }
 
-sge::x11input::mouse_ptr const
+sge::x11input::mouse::device_ptr const
 sge::x11input::processor::create_mouse(
 	x11input::device::parameters const &_param
 ) const
 {
 	return
 		fcppt::make_shared_ptr<
-			x11input::mouse
+			x11input::mouse::device
 		>(
 			_param
 		);
 }
 
-sge::x11input::cursor_ptr const
+sge::x11input::cursor::object_ptr const
 sge::x11input::processor::create_cursor(
 	x11input::device::parameters const &_param
 ) const
 {
 	return
 		fcppt::make_shared_ptr<
-			x11input::cursor
+			x11input::cursor::object
 		>(
 			// FIXME: tell this device if it is the master pointer!
 			_param

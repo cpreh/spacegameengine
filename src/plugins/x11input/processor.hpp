@@ -21,11 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_PROCESSOR_HPP_INCLUDED
 #define SGE_X11INPUT_PROCESSOR_HPP_INCLUDED
 
-#include "cursor_ptr.hpp"
 #include "input_context_fwd.hpp"
 #include "input_method_fwd.hpp"
-#include "keyboard_ptr.hpp"
-#include "mouse_ptr.hpp"
+#include "cursor/object_ptr.hpp"
 #include "device/id.hpp"
 #include "device/hierarchy_demuxer.hpp"
 #include "device/hierarchy_event_fwd.hpp"
@@ -33,6 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "device/parameters_fwd.hpp"
 #include "device/raw_demuxer.hpp"
 #include "device/window_demuxer.hpp"
+#include "keyboard/device_ptr.hpp"
+#include "mouse/device_ptr.hpp"
 #include <sge/input/processor.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/discover_signal.hpp>
@@ -137,17 +137,17 @@ private:
 		x11input::device::id
 	);
 
-	x11input::keyboard_ptr const
+	x11input::keyboard::device_ptr const
 	create_keyboard(
 		x11input::device::parameters const &
 	) const;
 
-	x11input::mouse_ptr const
+	x11input::mouse::device_ptr const
 	create_mouse(
 		x11input::device::parameters const &
 	) const;
 
-	x11input::cursor_ptr const
+	x11input::cursor::object_ptr const
 	create_cursor(
 		x11input::device::parameters const &
 	) const;
@@ -219,15 +219,15 @@ private:
 	input_context_ptr input_context_;
 
 	typedef std::vector<
-		x11input::keyboard_ptr
+		x11input::keyboard::device_ptr
 	> keyboard_vector;
 
 	typedef std::vector<
-		x11input::mouse_ptr
+		x11input::mouse::device_ptr
 	> mouse_vector;
 
 	typedef std::vector<
-		x11input::cursor_ptr
+		x11input::cursor::object_ptr
 	> cursor_vector;
 
 	keyboard_vector keyboards_;
