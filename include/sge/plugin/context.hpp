@@ -39,7 +39,7 @@ class context
 {
 public:
 	SGE_SYMBOL explicit context(
-		context_base &base_
+		context_base &
 	);
 
 	typedef fcppt::shared_ptr<

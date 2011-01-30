@@ -18,30 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
-#define SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
+#ifndef SGE_PLUGIN_CAPABILITIES_FIELD_HPP_INCLUDED
+#define SGE_PLUGIN_CAPABILITIES_FIELD_HPP_INCLUDED
+
+#include <sge/plugin/capabilities.hpp>
+#include <fcppt/container/bitfield/basic_fwd.hpp>
 
 namespace sge
 {
 namespace plugin
 {
 
-namespace capabilities
-{
-enum type
-{
-	renderer,
-	input,
-	image2d_loader,
-	audio_player,
-	font,
-	audio_loader,
-	collision_system,
-	model_loader,
-	char_conv,
-	size
-};
-}
+typedef fcppt::container::bitfield::basic<
+	capabilities::type,
+	capabilities::size
+> capabilities_field;
 
 }
 }

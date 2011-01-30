@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/filesystem/is_directory.hpp>
 #include <fcppt/filesystem/extension_without_dot.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/foreach_numerator.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
@@ -142,19 +143,21 @@ sge::plugin::manager::manager(
 		plugin_array::reference ref,
 		plugins_
 	)
-		for(
-			unsigned i = 1;
-			i < capabilities::last_guard_;
-			i <<= 1
+		FCPPT_FOREACH_ENUMERATOR(
+			capabilitiies::type index,
+			capabilitiies::size
 		)
 			if(
-				ref.type() & i
+				ref.type() & index
 			)
 				categories_[
-					static_cast<capabilities::type>(i)
-				].push_back(&ref);
+					index
+				].push_back(
+					&ref
+				);
 
 }
 
 sge::plugin::manager::~manager()
-{}
+{
+}

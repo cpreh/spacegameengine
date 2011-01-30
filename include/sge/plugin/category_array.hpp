@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_CATEGORY_ARRAY_HPP_INCLUDED
 #define SGE_PLUGIN_CATEGORY_ARRAY_HPP_INCLUDED
 
+#include <sge/plugin/context_base_fwd.hpp>
 #include <vector>
 
 namespace sge
@@ -28,9 +29,9 @@ namespace sge
 namespace plugin
 {
 
-class context_base;
-
-typedef std::vector<context_base*> category_array;
+typedef std::vector<
+	plugin::context_base *
+> category_array;
 
 }
 }

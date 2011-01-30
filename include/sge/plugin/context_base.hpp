@@ -39,7 +39,7 @@ class context_base
 {
 public:
 	SGE_SYMBOL explicit context_base(
-		fcppt::filesystem::path const &p
+		fcppt::filesystem::path const &
 	);
 
 	SGE_SYMBOL fcppt::string const &
