@@ -92,3 +92,19 @@ sge::opengl::texture::set_area(
 		_dest
 	);
 }
+
+sge::renderer::surface_ptr const
+sge::opengl::texture::surface(
+	renderer::stage_type const _stage
+)
+{
+	return
+		fcppt::make_shared_ptr<
+			opengl::texture_surface
+		>(
+			this->id(),
+			this->type(),
+			_stage
+		);
+}
+

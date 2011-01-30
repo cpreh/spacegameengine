@@ -26,6 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/surface_ptr.hpp>
+#include <sge/renderer/stage_type.hpp>
 #include <sge/image2d/tag.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/const_object.hpp>
@@ -83,6 +85,11 @@ public:
 
 	virtual void
 	unlock() const = 0;
+
+	virtual renderer::surface_ptr const
+	surface(
+		renderer::stage_type
+	) = 0;
 
 	SGE_SYMBOL
 	rect_type const

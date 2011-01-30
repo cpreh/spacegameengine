@@ -1,0 +1,139 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2011 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+
+#include "../onscreen_surface.hpp"
+#include "../common.hpp"
+#include "../read_pixels.hpp"
+#include "../convert/format_to_color.hpp"
+#include <sge/renderer/bit_depth_bytes.hpp>
+#include <sge/renderer/exception.hpp>
+#include <sge/renderer/pixel_unit.hpp>
+#include <sge/image2d/view/make_const.hpp>
+//#include <sge/image2d/view/flipped.hpp>
+#include <sge/image2d/view/optional_pitch.hpp>
+#include <sge/window/instance.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/text.hpp>
+
+sge::opengl::onscreen_surface::onscreen_surface(
+	sge::window::instance_ptr const _window,
+	renderer::bit_depth::type const _depth
+)
+:
+	sge::renderer::surface(),
+	window_(_window),
+	buffer_(),
+	stride_(
+		renderer::bit_depth_bytes(
+			_depth
+		)
+	)
+{}
+
+sge::opengl::onscreen_surface::~onscreen_surface()
+{
+}
+
+sge::image2d::view::const_object const
+sge::opengl::onscreen_surface::lock(
+	renderer::lock_rect const &_dest
+) const
+{
+	if(
+		!buffer_.empty()
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("renderer::target()::lock(): already locked!")
+		);
+
+	buffer_.resize_uninitialized(
+		_dest.dimension().content()
+		* stride_
+	);
+
+	opengl::read_pixels(
+		static_cast<
+			renderer::pixel_unit
+		>(
+			_dest.left()
+		),
+		static_cast<
+			renderer::pixel_unit
+		>(
+			_dest.top()
+		),
+		_dest.dimension().w(),
+		_dest.dimension().h(),
+		format(),
+		format_type(),
+		buffer_.data()
+	);
+
+	return
+//		image2d::view::flipped(
+			image2d::view::make_const(
+				buffer_.data(),
+				_dest.dimension(),
+				opengl::convert::format_to_color(
+					format(),
+					format_type()
+				),
+				image2d::view::optional_pitch()
+			)
+		/*)*/;
+}
+
+void
+sge::opengl::onscreen_surface::unlock() const
+{
+	buffer_.free_memory();
+}
+
+sge::renderer::target::dim_type const
+sge::opengl::onscreen_surface::dim() const
+{
+	return
+		fcppt::math::dim::structure_cast<
+			dim_type
+		>(
+			window_->size()
+		);
+}
+
+// currently 16bit and 32bit framebuffers are supported
+// GL_UNSIGNED_BYTE is enough to read 32bit values so take this
+
+GLenum
+sge::opengl::onscreen_surface::format() const
+{
+	return GL_RGBA;
+}
+
+GLenum
+sge::opengl::onscreen_surface::format_type() const
+{
+	return GL_UNSIGNED_BYTE;
+}

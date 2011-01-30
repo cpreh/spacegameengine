@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::fbo::texture_binding::texture_binding(
 	fbo::context const &_context,
-	opengl::texture_base_ptr const _texture,
+	opengl::texture_surface_ptr const _surface,
 	fbo::object &_fbo,
 	GLenum const _attachment
 )
@@ -41,9 +41,9 @@ sge::opengl::fbo::texture_binding::texture_binding(
 	_context.framebuffer_texture_2d()(
 		_context.framebuffer_target(),
 		_attachment,
-		_texture->type(),
-		_texture->id(),
-		0
+		_surface->texture_type(),
+		_surface->texture_id(),
+		_surface->stage()
 	);
 
 	SGE_OPENGL_CHECK_STATE(

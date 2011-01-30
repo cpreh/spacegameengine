@@ -26,6 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "basic_texture.hpp"
 #include "context/object_fwd.hpp"
 #include <sge/image/color/format.hpp>
+#include <sge/renderer/surface_ptr.hpp>
+#include <sge/renderer/stage_type.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/filter/texture_fwd.hpp>
@@ -78,6 +80,11 @@ private:
 		lock_area const &,
 		pointer
 	) const;
+
+	renderer::surface_ptr const
+	surface(
+		renderer::stage_type
+	);
 };
 
 }

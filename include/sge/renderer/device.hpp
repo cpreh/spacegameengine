@@ -237,10 +237,13 @@ public:
 	target() const = 0;
 
 	virtual renderer::target_ptr const
+	create_target() = 0;
+
+	SGE_SYMBOL
 	create_target(
 		renderer::texture_ptr,
 		renderer::depth_stencil_texture_ptr
-	) = 0;
+	);
 
 	SGE_SYMBOL texture_ptr const
 	create_texture(

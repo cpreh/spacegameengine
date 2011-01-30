@@ -204,7 +204,8 @@ sge::opengl::basic_texture<Base>::lock_me(
 			type(),
 			format(),
 			format_type(),
-			lock_->read_pointer()
+			lock_->read_pointer(),
+			0u
 		);
 
 	lock_->lock();

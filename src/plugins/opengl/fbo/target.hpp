@@ -70,16 +70,18 @@ public:
 	void
 	unbind() const;
 private:
-	image2d::view::const_object const
-	lock(
-		renderer::lock_rect const &
-	) const;
+	void
+	add_surface(
+		renderer::surface_ptr
+	);
 
 	void
-	unlock() const;
+	remove_surface(
+		renderer::surface_ptr
+	);
 
-	dim_type const
-	dim() const;
+	renderer::surface_vector const
+	surfaces() const;
 
 	void
 	add_texture_binding(

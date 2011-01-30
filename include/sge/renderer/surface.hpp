@@ -18,56 +18,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_DEFAULT_TARGET_HPP_INCLUDED
-#define SGE_OPENGL_DEFAULT_TARGET_HPP_INCLUDED
+#ifndef SGE_RENDERER_SURFACE_HPP_INCLUDED
+#define SGE_RENDERER_SURFACE_HPP_INCLUDED
 
-#include "target.hpp"
-#include <sge/renderer/bit_depth.hpp>
-#include <sge/renderer/surface_ptr.hpp>
-#include <sge/renderer/surface_vector.hpp>
-#include <sge/window/instance_ptr.hpp>
+#include <sge/renderer/surface_fwd.hpp>
+#include <sge/renderer/dim2.hpp>
+#include <sge/renderer/lock_rect.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/image2d/view/const_object.hpp>
+#include <sge/class_symbol.hpp>
+#include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
-namespace opengl
+namespace renderer
 {
 
-class default_target
-:
-	public opengl::target
+class SGE_CLASS_SYMBOL surface
 {
 	FCPPT_NONCOPYABLE(
-		default_target
+		surface
 	)
+protected:
+	SGE_SYMBOL surface();
 public:
-	default_target(
-		sge::window::instance_ptr,
-		renderer::bit_depth::type
-	);
+	typedef renderer::size_type size_type;
 
-	~default_target();
+	typedef renderer::dim2 dim_type;
 
-	void
-	bind() const;
+	typedef renderer::lock_rect rect_type;
+	
+	SGE_SYMBOL
+	image2d::view::const_object const
+	lock() const;
 
-	void
-	unbind() const;
+	virtual image2d::view::const_object const
+	lock(
+		lock_rect const &
+	) const = 0;
 
-	void
-	add_surface(
-		renderer::surface_ptr
-	);
+	virtual void
+	unlock() const = 0;
 
-	void
-	remove_surface(
-		renderer::surface_ptr
-	);
+	virtual dim_type const
+	dim() const = 0;
 
-	renderer::surface_vector const
-	surfaces() const;
-private:
-	sge::renderer::surface_ptr const main_surface_;
+	SGE_SYMBOL
+	rect_type const
+	rect() const;
+
+	SGE_SYMBOL
+	size_type
+	size() const;
 };
 
 }

@@ -18,57 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_DEFAULT_TARGET_HPP_INCLUDED
-#define SGE_OPENGL_DEFAULT_TARGET_HPP_INCLUDED
+#ifndef SGE_RENDERER_SURFACE_VECTOR_HPP_INCLUDED
+#define SGE_RENDERER_SURFACE_VECTOR_HPP_INCLUDED
 
-#include "target.hpp"
-#include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/surface_ptr.hpp>
-#include <sge/renderer/surface_vector.hpp>
-#include <sge/window/instance_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <vector>
 
 namespace sge
 {
-namespace opengl
+namespace renderer
 {
 
-class default_target
-:
-	public opengl::target
-{
-	FCPPT_NONCOPYABLE(
-		default_target
-	)
-public:
-	default_target(
-		sge::window::instance_ptr,
-		renderer::bit_depth::type
-	);
-
-	~default_target();
-
-	void
-	bind() const;
-
-	void
-	unbind() const;
-
-	void
-	add_surface(
-		renderer::surface_ptr
-	);
-
-	void
-	remove_surface(
-		renderer::surface_ptr
-	);
-
-	renderer::surface_vector const
-	surfaces() const;
-private:
-	sge::renderer::surface_ptr const main_surface_;
-};
+typedef std::vector<
+	renderer::surface_ptr
+> surface_vector;
 
 }
 }

@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_DEFAULT_TARGET_HPP_INCLUDED
-#define SGE_OPENGL_DEFAULT_TARGET_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_SURFACE_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_SURFACE_HPP_INCLUDED
 
-#include "target.hpp"
-#include <sge/renderer/bit_depth.hpp>
-#include <sge/renderer/surface_ptr.hpp>
-#include <sge/renderer/surface_vector.hpp>
-#include <sge/window/instance_ptr.hpp>
+#include "texture_surface_fwd.hpp"
+#include <sge/renderer/surface.hpp>
+#include <sge/image2d/view/const_object.hpp>
+#include <sge/class_symbol.hpp>
+#include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -33,41 +33,26 @@ namespace sge
 namespace opengl
 {
 
-class default_target
-:
-	public opengl::target
+class SGE_CLASS_SYMBOL texture_surface
 {
 	FCPPT_NONCOPYABLE(
-		default_target
+		texture_surface
 	)
 public:
-	default_target(
-		sge::window::instance_ptr,
-		renderer::bit_depth::type
-	);
-
-	~default_target();
-
-	void
-	bind() const;
-
-	void
-	unbind() const;
-
-	void
-	add_surface(
-		renderer::surface_ptr
-	);
-
-	void
-	remove_surface(
-		renderer::surface_ptr
-	);
-
-	renderer::surface_vector const
-	surfaces() const;
+	texture_surface();
+	
+	~texture_surface();
 private:
-	sge::renderer::surface_ptr const main_surface_;
+	image2d::view::const_object const
+	lock(
+		lock_rect const &
+	) const;
+
+	void
+	unlock() const;
+
+	dim_type const
+	dim() const;
 };
 
 }

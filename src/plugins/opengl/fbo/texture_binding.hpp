@@ -42,7 +42,7 @@ class texture_binding
 public:
 	explicit texture_binding(
 		fbo::context const &,
-		opengl::texture_base_ptr,
+		opengl::texture_surface_ptr,
 		fbo::object &,
 		GLenum attachment
 	);

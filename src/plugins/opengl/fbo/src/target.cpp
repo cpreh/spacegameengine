@@ -162,33 +162,29 @@ sge::opengl::fbo::target::unbind() const
 	);
 }
 
-sge::image2d::view::const_object const
-sge::opengl::fbo::target::lock(
-	renderer::lock_rect const &_dest
-) const
+void
+sge::opengl::fbo::target::add_surface(
+	renderer::surface_ptr const _surface
+)
 {
-	return
-		texture_->lock(
-			_dest
-		);
 }
 
 void
-sge::opengl::fbo::target::unlock() const
+sge::opengl::fbo::target::remove_surface(
+	renderer::surface_ptr const _surface
+)
 {
-	texture_->unlock();
 }
 
-sge::renderer::target::dim_type const
-sge::opengl::fbo::target::dim() const
+sge::renderer::surface_vector const
+sge::opengl::fbo::target::surfaces() const
 {
-	return dim_;
 }
 
 void
 sge::opengl::fbo::target::add_texture_binding(
-	opengl::texture_base_ptr const _texture,
-	GLenum const _type
+	opengl::texture_surface_ptr const _surface,
+	GLenum const _attachment
 )
 {
 	fcppt::container::ptr::push_back_unique_ptr(
@@ -203,7 +199,7 @@ sge::opengl::fbo::target::add_texture_binding(
 			std::tr1::ref(
 				fbo_
 			),
-			_type
+			_attachment
 		)
 	);
 }
