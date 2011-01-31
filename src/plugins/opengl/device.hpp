@@ -205,6 +205,12 @@ public:
 		renderer::depth_stencil_format::type
 	);
 
+	renderer::depth_stencil_surface_ptr const
+	create_depth_stencil_surface(
+		renderer::dim2 const &,
+		renderer::depth_stencil_format::type
+	);
+
 	renderer::volume_texture_ptr const
 	create_volume_texture(
 		renderer::dim3 const &,

@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/const_vertex_buffer_ptr.hpp>
 #include <sge/renderer/cube_texture_ptr.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
+#include <sge/renderer/depth_stencil_surface_ptr.hpp>
 #include <sge/renderer/depth_stencil_texture_ptr.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/dim2.hpp>
@@ -246,7 +247,7 @@ public:
 		resource_flags_field const &
 	);
 
-	virtual texture_ptr const
+	virtual renderer::texture_ptr const
 	create_texture(
 		renderer::dim2 const &,
 		image::color::format::type,
@@ -254,8 +255,14 @@ public:
 		resource_flags_field const &
 	) = 0;
 
-	virtual depth_stencil_texture_ptr const
+	virtual renderer::depth_stencil_texture_ptr const
 	create_depth_stencil_texture(
+		renderer::dim2 const &,
+		renderer::depth_stencil_format::type
+	) = 0;
+
+	virtual renderer::depth_stencil_surface_ptr const
+	create_depth_stencil_surface(
 		renderer::dim2 const &,
 		renderer::depth_stencil_format::type
 	) = 0;

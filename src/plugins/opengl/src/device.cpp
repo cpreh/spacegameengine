@@ -52,6 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/clip_plane_index.hpp"
 #include "../convert/light_index.hpp"
 #include "../convert/matrix_mode.hpp"
+#include "../fbo/create_depth_stencil_surface.hpp"
 #include "../fbo/target.hpp"
 #include "../glew/initialize.hpp"
 #include "../glsl/set_program.hpp"
@@ -508,6 +509,24 @@ sge::opengl::device::create_depth_stencil_texture(
 				),
 				_dim,
 				_format
+			)
+		);
+}
+
+sge::renderer::depth_stencil_surface_ptr const
+sge::opengl::device::create_depth_stencil_surface(
+	renderer::dim2 const &_dim,
+	renderer::depth_stencil_format::type const _type
+)
+{
+	return
+		renderer::depth_stencil_surface_ptr(
+			opengl::fbo::create_depth_stencil_surface(
+				std::tr1::ref(
+					context_
+				),
+				_dim,
+				_type
 			)
 		);
 }
