@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SURFACE_HPP_INCLUDED
-#define SGE_RENDERER_SURFACE_HPP_INCLUDED
+#ifndef SGE_RENDERER_TEXTURE_SURFACE_HPP_INCLUDED
+#define SGE_RENDERER_TEXTURE_SURFACE_HPP_INCLUDED
 
-#include <sge/renderer/surface_fwd.hpp>
+#include <sge/renderer/texture_surface_fwd.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/size_type.hpp>
@@ -35,14 +35,18 @@ namespace sge
 namespace renderer
 {
 
-class SGE_CLASS_SYMBOL surface
+class SGE_CLASS_SYMBOL texture_surface
 {
 	FCPPT_NONCOPYABLE(
-		surface
+		texture_surface
 	)
 protected:
-	SGE_SYMBOL surface();
+	SGE_SYMBOL
+	texture_surface();
 public:
+	SGE_SYMBOL
+	virtual ~texture_surface();
+
 	typedef renderer::size_type size_type;
 
 	typedef renderer::dim2 dim_type;

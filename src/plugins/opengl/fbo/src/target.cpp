@@ -164,9 +164,20 @@ sge::opengl::fbo::target::unbind() const
 
 void
 sge::opengl::fbo::target::add_surface(
-	renderer::surface_ptr const _surface
+	renderer::surface_ptr const _surface,
+	renderer::surface_usage::type const _usage
 )
 {
+	FCPPT_TRY_DYNAMIC_CAST(
+		opengl::texture_surface *,
+		surface,
+		_surface
+	)
+		this->add_texture_binding(
+			surface,
+			_usage
+		);
+	
 }
 
 void

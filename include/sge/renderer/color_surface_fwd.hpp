@@ -18,20 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SURFACE_PTR_HPP_INCLUDED
-#define SGE_RENDERER_SURFACE_PTR_HPP_INCLUDED
-
-#include <sge/renderer/surface_fwd.hpp>
-#include <fcppt/shared_ptr.hpp>
+#ifndef SGE_RENDERER_TEXTURE_SURFACE_FWD_HPP_INCLUDED
+#define SGE_RENDERER_TEXTURE_SURFACE_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace renderer
 {
 
-typedef fcppt::shared_ptr<
-	renderer::surface
-> surface_ptr;
+class texture_surface;
 
 }
 }

@@ -239,12 +239,6 @@ public:
 	virtual renderer::target_ptr const
 	create_target() = 0;
 
-	SGE_SYMBOL
-	create_target(
-		renderer::texture_ptr,
-		renderer::depth_stencil_texture_ptr
-	);
-
 	SGE_SYMBOL texture_ptr const
 	create_texture(
 		image2d::view::const_object const &,

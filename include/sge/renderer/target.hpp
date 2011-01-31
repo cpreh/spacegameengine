@@ -22,8 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TARGET_HPP_INCLUDED
 
 #include <sge/renderer/target_fwd.hpp>
-#include <sge/renderer/surface_ptr.hpp>
-#include <sge/renderer/surface_vector.hpp>
+#include <sge/renderer/depth_stencil_surface_ptr.hpp>
+#include <sge/renderer/depth_stencil_surface_vector.hpp>
+#include <sge/renderer/texture_surface_ptr.hpp>
+#include <sge/renderer/texture_surface_vector.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -44,16 +46,31 @@ protected:
 public:
 	virtual void
 	add_surface(
-		renderer::surface_ptr
+		renderer::texture_surface_ptr
 	) = 0;
 
 	virtual void
 	remove_surface(
-		renderer::surface_ptr
+		renderer::texture_surface_ptr
+	) = 0;
+
+	virtual void
+	add_surface(
+		renderer::depth_stencil_surface_ptr
+	) = 0;
+
+	virtual void
+	remove_surface(
+		renderer::depth_stencil_surface_ptr
 	) = 0;
 
 	virtual renderer::surface_vector const
-	surfaces() const = 0;
+	texture_surfaces() const = 0;
+
+	virtual renderer::depth_stencil_surface_vector const
+	depth_stencil_surfaces() const = 0;
+
+	virtual renderer::
 
 	SGE_SYMBOL
 	virtual ~target();
