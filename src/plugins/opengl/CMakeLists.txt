@@ -146,6 +146,7 @@ SET(
 	src/plugins/opengl/fbo/target_fwd.hpp
 	src/plugins/opengl/fbo/target_ptr.hpp
 	src/plugins/opengl/fbo/texture_binding.hpp
+	src/plugins/opengl/fbo/texture_binding_fwd.hpp
 	src/plugins/opengl/get_float.hpp
 	src/plugins/opengl/get_floats.hpp
 	src/plugins/opengl/get_int.hpp
@@ -408,6 +409,7 @@ SET(
 	src/plugins/opengl/src/texture_holder.cpp
 	src/plugins/opengl/src/texture_lock.cpp
 	src/plugins/opengl/src/texture_surface.cpp
+	src/plugins/opengl/src/texture_surface_base.cpp
 	src/plugins/opengl/src/vbo_base.cpp
 	src/plugins/opengl/src/vbo_context.cpp
 	src/plugins/opengl/src/vertex_buffer.cpp

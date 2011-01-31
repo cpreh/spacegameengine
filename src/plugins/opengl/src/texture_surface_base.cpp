@@ -18,47 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_SURFACE_BASE_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_SURFACE_BASE_HPP_INCLUDED
+#include "../texture_surface_base.hpp"
 
-#include "texture_surface_base_fwd.hpp"
-#include "common.hpp"
-#include <sge/renderer/stage_type.hpp>
-#include <fcppt/noncopyable.hpp>
-
-namespace sge
+sge::opengl::texture_surface_base::texture_surface_base(
+	GLuint const _texture_id,
+	sge::renderer::stage_type const _stage
+)
+:
+	texture_id_(_texture_id),
+	stage_(_stage)
 {
-namespace opengl
-{
-
-class texture_surface_base
-{
-	FCPPT_NONCOPYABLE(
-		texture_surface_base
-	)
-protected:
-	explicit texture_surface_base(
-		GLuint id,
-		sge::renderer::stage_type
-	);
-public:
-	virtual ~texture_surface_base();
-
-	GLuint
-	texture_id() const;
-
-	sge::renderer::stage_type const
-	stage() const;
-
-	virtual GLenum	
-	texture_type() const = 0;
-private:
-	GLuint const texture_id_;
-
-	sge::renderer::stage_type const stage_;
-};
-
-}
 }
 
-#endif
+sge::opengl::texture_surface_base::~texture_surface_base()
+{
+}
+
+GLuint
+sge::opengl::texture_surface_base::texture_id() const
+{
+	return texture_id_;
+}
+
+sge::renderer::stage_type const
+sge::opengl::texture_surface_base::stage() const
+{
+	return stage_;
+}

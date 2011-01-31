@@ -85,6 +85,20 @@ sge::opengl::default_target::remove_surface(
 {
 }
 
+void
+sge::opengl::default_target::add_surface(
+	renderer::depth_stencil_surface_ptr
+)
+{
+}
+
+void
+sge::opengl::default_target::remove_surface(
+	renderer::depth_stencil_surface_ptr
+)
+{
+}
+
 sge::renderer::color_surface_vector const
 sge::opengl::default_target::color_surfaces() const
 {
@@ -92,5 +106,23 @@ sge::opengl::default_target::color_surfaces() const
 		renderer::color_surface_vector(
 			1u,
 			main_surface_
+		);
+}
+
+sge::renderer::depth_stencil_surface_vector const
+sge::opengl::default_target::depth_stencil_surfaces() const
+{
+	return
+		renderer::depth_stencil_surface_vector();
+}
+
+sge::renderer::screen_unit
+sge::opengl::default_target::height() const
+{
+	return
+		static_cast<
+			renderer::screen_unit
+		>(
+			main_surface_->dim().w()
 		);
 }
