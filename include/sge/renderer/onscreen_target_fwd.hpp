@@ -18,56 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TARGET_HPP_INCLUDED
-#define SGE_RENDERER_TARGET_HPP_INCLUDED
-
-#include <sge/renderer/target_fwd.hpp>
-#include <sge/renderer/color_surface_ptr.hpp>
-#include <sge/renderer/depth_stencil_surface_ptr.hpp>
-#include <sge/renderer/target_base.hpp>
-#include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#ifndef SGE_RENDERER_ONSCREEN_TARGET_FWD_HPP_INCLUDED
+#define SGE_RENDERER_ONSCREEN_TARGET_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace renderer
 {
 
-class SGE_CLASS_SYMBOL target
-:
-	public sge::renderer::target_base
-{
-	FCPPT_NONCOPYABLE(
-		target
-	)
-protected:
-	SGE_SYMBOL
-	target();
-public:
-	virtual void
-	add_surface(
-		renderer::color_surface_ptr
-	) = 0;
-
-	virtual void
-	remove_surface(
-		renderer::color_surface_ptr
-	) = 0;
-
-	virtual void
-	add_surface(
-		renderer::depth_stencil_surface_ptr
-	) = 0;
-
-	virtual void
-	remove_surface(
-		renderer::depth_stencil_surface_ptr
-	) = 0;
-
-	SGE_SYMBOL
-	virtual ~target();
-};
+class onscreen_target;
 
 }
 }

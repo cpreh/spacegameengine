@@ -18,20 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_DEPTH_STENCIL_SURFACE_VECTOR_HPP_INCLUDED
-#define SGE_RENDERER_DEPTH_STENCIL_SURFACE_VECTOR_HPP_INCLUDED
-
-#include <sge/renderer/depth_stencil_surface_ptr.hpp>
-#include <vector>
+#ifndef SGE_RENDERER_TARGET_BASE_FWD_HPP_INCLUDED
+#define SGE_RENDERER_TARGET_BASE_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace renderer
 {
 
-typedef std::vector<
-	renderer::depth_stencil_surface_ptr
-> depth_stencil_surface_vector;
+class target_base;
 
 }
 }

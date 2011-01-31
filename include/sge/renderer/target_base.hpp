@@ -18,20 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_COLOR_SURFACE_VECTOR_HPP_INCLUDED
-#define SGE_RENDERER_COLOR_SURFACE_VECTOR_HPP_INCLUDED
+#ifndef SGE_RENDERER_TARGET_BASE_HPP_INCLUDED
+#define SGE_RENDERER_TARGET_BASE_HPP_INCLUDED
 
-#include <sge/renderer/color_surface_ptr.hpp>
-#include <vector>
+#include <sge/renderer/target_base_fwd.hpp>
+#include <sge/renderer/viewport.hpp>
+#include <sge/class_symbol.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-typedef std::vector<
-	renderer::color_surface_ptr
-> color_surface_vector;
+class SGE_CLASS_SYMBOL target_base
+{
+	FCPPT_NONCOPYABLE(
+		target_base
+	)
+protected:
+	SGE_SYMBOL
+	target_base();
+public:
+        virtual void
+        viewport(
+                renderer::viewport const &
+        ) = 0;
+
+        virtual
+        renderer::viewport const
+        viewport() const = 0;
+
+	SGE_SYMBOL
+	virtual ~target_base();
+};
 
 }
 }

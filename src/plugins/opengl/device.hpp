@@ -186,9 +186,6 @@ public:
 	);
 
 	renderer::target_ptr const
-	target() const;
-
-	renderer::target_ptr const
 	create_target();
 
 	renderer::texture_ptr const
@@ -241,8 +238,14 @@ public:
 		renderer::resource_flags_field const &
 	);
 
+	renderer::onscreen_target_ptr const
+	onscreen_target() const;
+
 	renderer::scissor_area const
 	scissor_area() const;
+
+	renderer::target_ptr const
+	target() const;
 
 	renderer::matrix4 const
 	transform(
@@ -272,9 +275,9 @@ private:
 
 	renderer::state::list current_states_;
 
-	device_state_ptr state_;
+	opengl::device_state_ptr state_;
 
-	default_target_ptr default_target_;
+	opengl::default_target_ptr const default_target_;
 
 	opengl::target_ptr target_;
 

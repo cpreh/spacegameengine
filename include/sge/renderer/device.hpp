@@ -44,6 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
+#include <sge/renderer/onscreen_target_ptr.hpp>
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/scissor_area.hpp>
@@ -235,9 +236,6 @@ public:
 	) = 0;
 
 	virtual renderer::target_ptr const
-	target() const = 0;
-
-	virtual renderer::target_ptr const
 	create_target() = 0;
 
 	SGE_SYMBOL texture_ptr const
@@ -316,8 +314,14 @@ public:
 		resource_flags_field const &
 	) = 0;
 
+	virtual renderer::onscreen_target_ptr const
+	onscreen_target() const = 0;
+
 	virtual renderer::scissor_area const
 	scissor_area() const = 0;
+
+	virtual renderer::target_ptr const
+	target() const = 0;
 
 	virtual renderer::matrix4 const
 	transform(
