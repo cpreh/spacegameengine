@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_SURFACE_HPP_INCLUDED
 
 #include "texture_surface_fwd.hpp"
-#include <sge/renderer/surface.hpp>
+#include <sge/renderer/color_surface.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/class_symbol.hpp>
 #include <sge/symbol.hpp>
@@ -34,6 +34,8 @@ namespace opengl
 {
 
 class SGE_CLASS_SYMBOL texture_surface
+:
+	public sge::renderer::color_surface
 {
 	FCPPT_NONCOPYABLE(
 		texture_surface

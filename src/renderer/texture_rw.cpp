@@ -155,6 +155,24 @@ sge::renderer::texture_rw::unlock() const
 	locked_.reset();
 }
 
+sge::renderer::color_surface_ptr const
+sge::renderer::texture_rw::surface(
+	renderer::stage_type const _stage
+)
+{
+	// TODO?
+	return
+		read_->surface(
+			_stage
+		);
+}
+
+sge::renderer::stage_type
+sge::renderer::texture_rw::stages() const
+{
+	return renderer::stage_type(1);
+}
+
 sge::renderer::resource_flags_field const
 sge::renderer::texture_rw::flags() const
 {

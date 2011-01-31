@@ -434,10 +434,15 @@ SET(
 	include/sge/renderer/caps_fwd.hpp
 	include/sge/renderer/clip_plane.hpp
 	include/sge/renderer/clip_plane_index.hpp
+	include/sge/renderer/color_surface.hpp
+	include/sge/renderer/color_surface_fwd.hpp
+	include/sge/renderer/color_surface_ptr.hpp
+	include/sge/renderer/color_surface_vector.hpp
+	include/sge/renderer/const_color_surface_ptr.hpp
 	include/sge/renderer/const_index_buffer_ptr.hpp
 	include/sge/renderer/const_raw_pointer.hpp
+	include/sge/renderer/const_scoped_color_surface_lock.hpp
 	include/sge/renderer/const_scoped_index_lock.hpp
-	include/sge/renderer/const_scoped_target_lock.hpp
 	include/sge/renderer/const_scoped_texture_lock.hpp
 	include/sge/renderer/const_scoped_vertex_lock.hpp
 	include/sge/renderer/const_target_ptr.hpp
@@ -451,6 +456,10 @@ SET(
 	include/sge/renderer/default_target.hpp
 	include/sge/renderer/depth_buffer.hpp
 	include/sge/renderer/depth_stencil_format.hpp
+	include/sge/renderer/depth_stencil_surface.hpp
+	include/sge/renderer/depth_stencil_surface_fwd.hpp
+	include/sge/renderer/depth_stencil_surface_ptr.hpp
+	include/sge/renderer/depth_stencil_surface_vector.hpp
 	include/sge/renderer/depth_stencil_texture.hpp
 	include/sge/renderer/depth_stencil_texture_fwd.hpp
 	include/sge/renderer/depth_stencil_texture_ptr.hpp
@@ -942,9 +951,10 @@ SET(
 	src/renderer/aspect.cpp
 	src/renderer/bit_depth_bytes.cpp
 	src/renderer/caps.cpp
+	src/renderer/color_surface.cpp
 	src/renderer/const_scoped_buffer_lock_impl.hpp
+	src/renderer/const_scoped_color_surface_lock.cpp
 	src/renderer/const_scoped_index_lock.cpp
-	src/renderer/const_scoped_target_lock.cpp
 	src/renderer/const_scoped_texture_lock.cpp
 	src/renderer/const_scoped_vertex_lock.cpp
 	src/renderer/create_device_with_window.cpp

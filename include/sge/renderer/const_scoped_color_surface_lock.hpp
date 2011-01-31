@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_CONST_SCOPED_TARGET_LOCK_HPP_INCLUDED
-#define SGE_RENDERER_CONST_SCOPED_TARGET_LOCK_HPP_INCLUDED
+#ifndef SGE_RENDERER_CONST_SCOPED_COLOR_SURFACE_LOCK_HPP_INCLUDED
+#define SGE_RENDERER_CONST_SCOPED_COLOR_SURFACE_LOCK_HPP_INCLUDED
 
-#include <sge/renderer/const_target_ptr.hpp>
+#include <sge/renderer/const_color_surface_ptr.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/symbol.hpp>
@@ -33,25 +33,27 @@ namespace sge
 namespace renderer
 {
 
-class const_scoped_target_lock
+class const_scoped_color_surface_lock
 {
-	FCPPT_NONCOPYABLE(const_scoped_target_lock)
+	FCPPT_NONCOPYABLE(
+		const_scoped_color_surface_lock
+	)
 public:
-	SGE_SYMBOL explicit const_scoped_target_lock(
-		const_target_ptr
+	SGE_SYMBOL explicit const_scoped_color_surface_lock(
+		const_color_surface_ptr
 	);
 
-	SGE_SYMBOL const_scoped_target_lock(
-		const_target_ptr,
+	SGE_SYMBOL const_scoped_color_surface_lock(
+		const_color_surface_ptr,
 		lock_rect const &
 	);
 
 	SGE_SYMBOL image2d::view::const_object const
 	value() const;
 
-	SGE_SYMBOL ~const_scoped_target_lock();
+	SGE_SYMBOL ~const_scoped_color_surface_lock();
 private:
-	const_target_ptr const target_;
+	const_color_surface_ptr const color_surface_;
 
 	image2d::view::const_object const view_;
 };

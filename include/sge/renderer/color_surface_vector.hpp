@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SURFACE_VECTOR_HPP_INCLUDED
-#define SGE_RENDERER_SURFACE_VECTOR_HPP_INCLUDED
+#ifndef SGE_RENDERER_COLOR_SURFACE_VECTOR_HPP_INCLUDED
+#define SGE_RENDERER_COLOR_SURFACE_VECTOR_HPP_INCLUDED
 
-#include <sge/renderer/surface_ptr.hpp>
+#include <sge/renderer/color_surface_ptr.hpp>
 #include <vector>
 
 namespace sge
@@ -30,8 +30,8 @@ namespace renderer
 {
 
 typedef std::vector<
-	renderer::surface_ptr
-> surface_vector;
+	renderer::color_surface_ptr
+> color_surface_vector;
 
 }
 }

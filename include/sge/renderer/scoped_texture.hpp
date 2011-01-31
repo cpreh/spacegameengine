@@ -40,7 +40,7 @@ public:
 	explicit scoped_texture(
 		renderer::device_ptr,
 		renderer::const_texture_base_ptr,
-		renderer::stage_type = 0
+		renderer::stage_type
 	);
 
 	SGE_SYMBOL

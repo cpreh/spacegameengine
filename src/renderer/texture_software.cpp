@@ -107,6 +107,20 @@ sge::renderer::texture_software::unlock() const
 	locked_ = false;
 }
 
+sge::renderer::color_surface_ptr const
+sge::renderer::texture_software::surface(
+	renderer::stage_type const _stage
+)
+{
+	// FIXME
+}
+
+sge::renderer::stage_type
+sge::renderer::texture_software::stages() const
+{
+	return renderer::stage_type(1);
+}
+
 sge::renderer::resource_flags_field const
 sge::renderer::texture_software::flags() const
 {

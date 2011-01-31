@@ -30,10 +30,10 @@ namespace depth_stencil_format
 {
 enum type
 {
+	d8,
 	d16,
-	d24,
-	d32
-	// TODO: add stencil formats as well
+	d32,
+	d24s8
 };
 }
 

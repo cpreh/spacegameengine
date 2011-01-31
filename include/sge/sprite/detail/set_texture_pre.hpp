@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/with_texture.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/no_texture.hpp>
+#include <sge/renderer/stage_type.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/utility/enable_if.hpp>
 
@@ -65,7 +66,8 @@ set_texture_pre(
 )
 {
 	_rend->texture(
-		renderer::no_texture()
+		renderer::no_texture(),
+		sge::renderer::stage_type(0)
 	);
 }
 

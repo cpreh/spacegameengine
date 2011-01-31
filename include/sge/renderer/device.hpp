@@ -187,7 +187,7 @@ public:
 	virtual void
 	texture(
 		const_texture_base_ptr,
-		stage_type = 0 
+		stage_type
 	) = 0;
 
 	virtual void

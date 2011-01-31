@@ -18,30 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/screenshot.hpp>
-#include <sge/renderer/const_scoped_color_surface_lock.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/target.hpp>
-#include <sge/image2d/file.hpp>
-#include <sge/image2d/multi_loader.hpp>
-#include <sge/image2d/loader.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#ifndef SGE_RENDERER_DEPTH_STENCIL_SURFACE_HPP_INCLUDED
+#define SGE_RENDERER_DEPTH_STENCIL_SURFACE_HPP_INCLUDED
 
-void
-sge::renderer::screenshot(
-	const_device_ptr const _renderer,
-	image2d::multi_loader const &_loader,
-	fcppt::filesystem::path const &_file
-)
+#include <sge/renderer/depth_stencil_surface_fwd.hpp>
+
+namespace sge
 {
-	renderer::const_scoped_color_surface_lock const lock(
-		_renderer->target()->color_surfaces().at(0) // FIXME!
-	);
+namespace renderer
+{
 
-	// FIXME
-	_loader.loaders().at(0)->create(
-		lock.value()
-	)->save(
-		_file
-	);
+class SGE_CLASS_SYMBOL depth_stencil_surface
+{
+	FCPPT_NONCOPYABLE(
+		depth_stencil_surface
+	)
+protected:
+	SGE_SYMBOL
+	depth_stencil_surface();
+public:
+	SGE_SYMBOL
+	virtual ~depth_stencil_surface();
+
+	// TODO!
+};
+
 }
+}
+
+#endif

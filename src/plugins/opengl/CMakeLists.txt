@@ -316,6 +316,7 @@ SET(
 	src/plugins/opengl/multi_texture_context.hpp
 	src/plugins/opengl/multi_texture_context_fwd.hpp
 	src/plugins/opengl/normal_lock_method.hpp
+	src/plugins/opengl/onscreen_surface.hpp
 	src/plugins/opengl/pbo_context.hpp
 	src/plugins/opengl/point_sprite_context.hpp
 	src/plugins/opengl/point_sprite_context_fwd.hpp
@@ -379,6 +380,7 @@ SET(
 	src/plugins/opengl/src/multi_sample_context.cpp
 	src/plugins/opengl/src/multi_texture_context.cpp
 	src/plugins/opengl/src/normal_lock_method.cpp
+	src/plugins/opengl/src/onscreen_surface.cpp
 	src/plugins/opengl/src/pbo_context.cpp
 	src/plugins/opengl/src/point_sprite_context.cpp
 	src/plugins/opengl/src/range_lock_method.cpp
@@ -407,6 +409,7 @@ SET(
 	src/plugins/opengl/src/texture_context.cpp
 	src/plugins/opengl/src/texture_holder.cpp
 	src/plugins/opengl/src/texture_lock.cpp
+	src/plugins/opengl/src/texture_surface.cpp
 	src/plugins/opengl/src/vbo_base.cpp
 	src/plugins/opengl/src/vbo_context.cpp
 	src/plugins/opengl/src/vertex_buffer.cpp
@@ -459,6 +462,9 @@ SET(
 	src/plugins/opengl/texture_lock_fwd.hpp
 	src/plugins/opengl/texture_lock_unique_ptr.hpp
 	src/plugins/opengl/texture_ptr.hpp
+	src/plugins/opengl/texture_surface.hpp
+	src/plugins/opengl/texture_surface_fwd.hpp
+	src/plugins/opengl/texture_surface_ptr.hpp
 	src/plugins/opengl/vbo_base.hpp
 	src/plugins/opengl/vbo_base_fwd.hpp
 	src/plugins/opengl/vbo_base_unique_ptr.hpp

@@ -18,39 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/const_scoped_target_lock.hpp>
-#include <sge/renderer/target.hpp>
+#include <sge/renderer/const_scoped_color_surface_lock.hpp>
+#include <sge/renderer/color_surface.hpp>
 
-sge::renderer::const_scoped_target_lock::const_scoped_target_lock(
-	const_target_ptr const _target
+sge::renderer::const_scoped_color_surface_lock::const_scoped_color_surface_lock(
+	const_color_surface_ptr const _color_surface
 )
 :
-	target_(_target),
+	color_surface_(_color_surface),
 	view_(
-		target_->lock()
+		color_surface_->lock()
 	)
 {}
 
-sge::renderer::const_scoped_target_lock::const_scoped_target_lock(
-	const_target_ptr const _target,
+sge::renderer::const_scoped_color_surface_lock::const_scoped_color_surface_lock(
+	const_color_surface_ptr const _color_surface,
 	lock_rect const &_rect
 )
 :
-	target_(_target),
+	color_surface_(_color_surface),
 	view_(
-		target_->lock(
+		color_surface_->lock(
 			_rect
 		)
 	)
 {}
 
 sge::image2d::view::const_object const
-sge::renderer::const_scoped_target_lock::value() const
+sge::renderer::const_scoped_color_surface_lock::value() const
 {
 	return view_;
 }
 
-sge::renderer::const_scoped_target_lock::~const_scoped_target_lock()
+sge::renderer::const_scoped_color_surface_lock::~const_scoped_color_surface_lock()
 {
-	target_->unlock();
+	color_surface_->unlock();
 }

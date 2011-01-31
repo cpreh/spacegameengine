@@ -93,7 +93,7 @@ sge::opengl::texture::set_area(
 	);
 }
 
-sge::renderer::surface_ptr const
+sge::renderer::color_surface_ptr const
 sge::opengl::texture::surface(
 	renderer::stage_type const _stage
 )
@@ -102,9 +102,15 @@ sge::opengl::texture::surface(
 		fcppt::make_shared_ptr<
 			opengl::texture_surface
 		>(
+#if 0
 			this->id(),
 			this->type(),
 			_stage
+#endif
 		);
 }
 
+sge::renderer::stage_type
+sge::opengl::texture::stages() const
+{
+}

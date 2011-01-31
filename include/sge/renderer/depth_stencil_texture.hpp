@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_DEPTH_STENCIL_TEXTURE_HPP_INCLUDED
 
 #include <sge/renderer/depth_stencil_texture_fwd.hpp>
-#include <sge/renderer/texture_base.hpp>
+#include <sge/renderer/depth_stencil_surface_ptr.hpp>
 #include <sge/renderer/dim2.hpp>
+#include <sge/renderer/texture_base.hpp>
 #include <sge/class_symbol.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -37,7 +38,9 @@ class SGE_CLASS_SYMBOL depth_stencil_texture
 :
 	public renderer::texture_base
 {
-	FCPPT_NONCOPYABLE(depth_stencil_texture)
+	FCPPT_NONCOPYABLE(
+		depth_stencil_texture
+	)
 protected:
 	SGE_SYMBOL depth_stencil_texture();
 public:
@@ -47,6 +50,10 @@ public:
 
 	virtual dim2 const
 	dim() const = 0;
+
+	SGE_SYMBOL
+	virtual renderer::depth_stencil_surface_ptr const
+	surface() const = 0;
 
 	SGE_SYMBOL size_type
 	content() const;

@@ -18,30 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/screenshot.hpp>
-#include <sge/renderer/const_scoped_color_surface_lock.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/target.hpp>
-#include <sge/image2d/file.hpp>
-#include <sge/image2d/multi_loader.hpp>
-#include <sge/image2d/loader.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <sge/renderer/color_surface.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 
-void
-sge::renderer::screenshot(
-	const_device_ptr const _renderer,
-	image2d::multi_loader const &_loader,
-	fcppt::filesystem::path const &_file
-)
+sge::renderer::color_surface::color_surface()
 {
-	renderer::const_scoped_color_surface_lock const lock(
-		_renderer->target()->color_surfaces().at(0) // FIXME!
-	);
+}
 
-	// FIXME
-	_loader.loaders().at(0)->create(
-		lock.value()
-	)->save(
-		_file
-	);
+sge::renderer::color_surface::~color_surface()
+{
+}
+
+sge::image2d::view::const_object const
+sge::renderer::color_surface::lock() const
+{
+	return
+		this->lock(
+			this->rect()
+		);
+}
+
+sge::renderer::color_surface::rect_type const
+sge::renderer::color_surface::rect() const
+{
+	return
+		rect_type(
+			rect_type::vector::null(),
+			this->dim()
+		);
+}
+
+sge::renderer::color_surface::size_type
+sge::renderer::color_surface::size() const
+{
+	return
+		this->dim().content();
 }

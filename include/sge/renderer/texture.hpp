@@ -22,12 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TEXTURE_HPP_INCLUDED
 
 #include <sge/renderer/texture_fwd.hpp>
+#include <sge/renderer/color_surface_ptr.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/stage_type.hpp>
 #include <sge/renderer/texture_base.hpp>
-#include <sge/renderer/texture_surface_ptr.hpp>
 #include <sge/image2d/tag.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/const_object.hpp>
@@ -88,12 +88,12 @@ public:
 	virtual void
 	unlock() const = 0;
 
-	virtual renderer::texture_surface_ptr const
+	virtual renderer::color_surface_ptr const
 	surface(
 		renderer::stage_type
 	) = 0;
 
-	sge::renderer::stage_type
+	virtual sge::renderer::stage_type
 	stages() const = 0;
 
 	SGE_SYMBOL

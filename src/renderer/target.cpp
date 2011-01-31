@@ -19,34 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/target.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
 sge::renderer::target::target()
-{}
-
-sge::image2d::view::const_object const
-sge::renderer::target::lock() const
 {
-	return lock(
-		rect()
-	);
-}
-
-sge::renderer::target::rect_type const
-sge::renderer::target::rect() const
-{
-	return rect_type(
-		rect_type::vector::null(),
-		dim()
-	);
-}
-
-sge::renderer::target::size_type
-sge::renderer::target::size() const
-{
-	return dim().content();
 }
 
 sge::renderer::target::~target()
-{}
+{
+}
