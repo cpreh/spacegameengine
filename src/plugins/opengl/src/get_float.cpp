@@ -19,9 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../get_float.hpp"
-#include "../check_state.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include "../get_floats.hpp"
 
 GLfloat
 sge::opengl::get_float(
@@ -30,15 +28,10 @@ sge::opengl::get_float(
 {
 	GLfloat ret;
 
-	glGetFloatv(
+	opengl::get_floats(
 		_what,
 		&ret
 	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glGetFloatv failed"),
-		sge::renderer::exception
-	)
 
 	return ret;
 }

@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../draw_arrays.hpp"
 #include "../draw_elements.hpp"
 #include "../enable_bool.hpp"
+#include "../get_matrix.hpp"
 #include "../get_scissor_area.hpp"
 #include "../index_buffer.hpp"
 #include "../initial_states.hpp"
@@ -66,6 +67,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/instance.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/assert.hpp>
@@ -640,6 +642,17 @@ sge::opengl::device::scissor_area() const
 	return opengl::get_scissor_area();	
 }
 	
+sge::renderer::matrix4 const
+sge::opengl::device::transform(
+	renderer::matrix_mode::type const _mode
+)
+{
+	return
+		opengl::get_matrix(
+			_mode
+		);
+}
+
 sge::renderer::caps const
 sge::opengl::device::caps() const
 {
