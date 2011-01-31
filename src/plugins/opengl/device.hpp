@@ -241,6 +241,11 @@ public:
 	renderer::scissor_area const
 	scissor_area() const;
 
+	renderer::matrix4 const
+	transform(
+		renderer::matrix_mode::type
+	);
+
 	renderer::caps const
 	caps() const;
 

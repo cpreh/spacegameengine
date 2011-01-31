@@ -18,43 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../set_matrix.hpp"
-#include "../check_state.hpp"
-#include "../matrix_context.hpp"
-#include "../context/use.hpp"
-#include "../common.hpp"
-#include <sge/renderer/exception.hpp>
+#include "../get_matrix.hpp"
+#include "../get_floats.hpp"
+#include "../convert/matrix_mode.hpp"
+#include <fcppt/container/array.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
-#include <fcppt/math/matrix/static.hpp>
 #include <fcppt/math/matrix/transpose.hpp>
-#include <fcppt/nonassignable.hpp>
-#include <fcppt/text.hpp>
 
-void
-sge::opengl::set_matrix(
-	context::object &_context,
-	renderer::matrix4 const &_matrix
+sge::renderer::matrix4 const
+sge::opengl::get_matrix(
+	renderer::matrix_mode::type const _mode
 )
 {
-	if(
-		sge::opengl::context::use<
-			sge::opengl::matrix_context
-		>(
-			_context
-		).have_transpose()
-	)
-		::glLoadTransposeMatrixf(
-			_matrix.data()
-		);
-	else
-		::glLoadMatrixf(
-			fcppt::math::matrix::transpose(
-				_matrix
-			).data()
-		);
+	fcppt::container::array<
+		GLfloat,
+		16
+	> temp;
 
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glLoadMatrixf failed"),
-		sge::renderer::exception
-	)
+	opengl::get_floats(
+		convert::matrix_mode(
+			_mode
+		),
+		temp.data()
+	);
+
+	return
+		fcppt::math::matrix::transpose(
+			sge::renderer::matrix4(
+				temp.begin(),
+				temp.end()
+			)
+		);
 }

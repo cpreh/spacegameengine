@@ -18,43 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../set_matrix.hpp"
+#include "../get_floats.hpp"
 #include "../check_state.hpp"
-#include "../matrix_context.hpp"
-#include "../context/use.hpp"
-#include "../common.hpp"
 #include <sge/renderer/exception.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
-#include <fcppt/math/matrix/static.hpp>
-#include <fcppt/math/matrix/transpose.hpp>
-#include <fcppt/nonassignable.hpp>
 #include <fcppt/text.hpp>
 
 void
-sge::opengl::set_matrix(
-	context::object &_context,
-	renderer::matrix4 const &_matrix
+sge::opengl::get_floats(
+	GLenum const _what,
+	GLfloat *const _ret
 )
 {
-	if(
-		sge::opengl::context::use<
-			sge::opengl::matrix_context
-		>(
-			_context
-		).have_transpose()
-	)
-		::glLoadTransposeMatrixf(
-			_matrix.data()
-		);
-	else
-		::glLoadMatrixf(
-			fcppt::math::matrix::transpose(
-				_matrix
-			).data()
-		);
+	::glGetFloatv(
+		_what,
+		_ret
+	);
 
 	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glLoadMatrixf failed"),
+		FCPPT_TEXT("glGetFloatv failed"),
 		sge::renderer::exception
 	)
 }
