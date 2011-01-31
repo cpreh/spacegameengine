@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "common.hpp"
 #include "context/object_fwd.hpp"
 #include <sge/renderer/depth_stencil_format.hpp>
+#include <sge/renderer/depth_stencil_surface_ptr.hpp>
 #include <sge/renderer/depth_stencil_texture.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
 
@@ -59,11 +60,11 @@ public:
 	dim_type const
 	dim() const;
 
+	renderer::depth_stencil_surface_ptr const
+	surface() const;
+
 	renderer::resource_flags_field const
 	flags() const;
-
-	void
-	debug(); // TODO: remove this!
 private:
 	texture_holder const holder_;
 

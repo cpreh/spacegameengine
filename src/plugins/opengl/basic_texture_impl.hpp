@@ -41,6 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/sub.hpp>
 #include <sge/image/view/to_const.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/stage_type.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/box/output.hpp>
@@ -205,7 +206,7 @@ sge::opengl::basic_texture<Base>::lock_me(
 			format(),
 			format_type(),
 			lock_->read_pointer(),
-			0u
+			renderer::stage_type(0u)
 		);
 
 	lock_->lock();

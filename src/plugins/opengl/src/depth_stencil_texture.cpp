@@ -105,6 +105,12 @@ sge::opengl::depth_stencil_texture::dim() const
 	return dim_;
 }
 
+
+sge::renderer::depth_stencil_surface_ptr const
+sge::opengl::depth_stencil_texture::surface() const
+{
+}
+
 sge::renderer::resource_flags_field const
 sge::opengl::depth_stencil_texture::flags() const
 {

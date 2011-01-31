@@ -70,7 +70,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/assert.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
@@ -456,32 +455,14 @@ sge::opengl::device::target() const
 }
 
 sge::renderer::target_ptr const
-sge::opengl::device::create_target(
-	renderer::texture_ptr const _texture,
-	renderer::depth_stencil_texture_ptr const _depth_stencil_texture
-)
+sge::opengl::device::create_target()
 {
-	FCPPT_ASSERT(
-		_texture || _depth_stencil_texture
-	);
-
 	return
 		fcppt::make_shared_ptr<
 			fbo::target
 		>(
 			std::tr1::ref(
 				context_
-			),
-			parameters_,
-			fcppt::dynamic_pointer_cast<
-				opengl::texture
-			>(
-				_texture
-			),
-			fcppt::dynamic_pointer_cast<
-				opengl::depth_stencil_texture
-			>(
-				_depth_stencil_texture
 			)
 		);
 }

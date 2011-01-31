@@ -18,17 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_SURFACE_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_SURFACE_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_SURFACE_BASE_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_SURFACE_BASE_HPP_INCLUDED
 
-#include "texture_surface_fwd.hpp"
+#include "texture_surface_base_fwd.hpp"
 #include "common.hpp"
-#include "texture_surface_base.hpp"
-#include <sge/renderer/color_surface.hpp>
-#include <sge/image2d/view/const_object.hpp>
-#include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#include <sge/renderer/stage_type.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -36,40 +31,29 @@ namespace sge
 namespace opengl
 {
 
-class SGE_CLASS_SYMBOL texture_surface
-:
-	public sge::renderer::color_surface,
-	public opengl::texture_surface_base
+class texture_surface_base
 {
 	FCPPT_NONCOPYABLE(
-		texture_surface
+		texture_surface_base
 	)
-public:
-	texture_surface(
-		GLenum type,
+protected:
+	explicit texture_surface_base(
 		GLuint id,
-		renderer::stage_type
+		sge::renderer::stage_type
 	);
-	
-	~texture_surface();
+public:
+	GLuint
+	texture_id() const;
+
+	sge::renderer::stage_type const
+	stage() const;
+
+	virtual GLenum	
+	texture_type() const = 0;
 private:
-	image2d::view::const_object const
-	lock(
-		rect_type const &
-	) const;
+	GLuint const texture_id_;
 
-	void
-	unlock() const;
-
-	dim_type const
-	dim() const;
-
-	GLenum
-	texture_type() const;
-
-	GLenum const type_;
-
-	dim_type const dim_;
+	sge::renderer::stage_type const stage_;
 };
 
 }

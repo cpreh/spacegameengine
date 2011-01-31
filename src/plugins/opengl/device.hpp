@@ -189,10 +189,7 @@ public:
 	target() const;
 
 	renderer::target_ptr const
-	create_target(
-		renderer::texture_ptr,
-		renderer::depth_stencil_texture_ptr
-	);
+	create_target();
 
 	renderer::texture_ptr const
 	create_texture(

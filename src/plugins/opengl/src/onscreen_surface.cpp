@@ -43,7 +43,7 @@ sge::opengl::onscreen_surface::onscreen_surface(
 	renderer::bit_depth::type const _depth
 )
 :
-	sge::renderer::surface(),
+	sge::renderer::color_surface(),
 	window_(_window),
 	buffer_(),
 	stride_(
@@ -112,7 +112,7 @@ sge::opengl::onscreen_surface::unlock() const
 	buffer_.free_memory();
 }
 
-sge::renderer::target::dim_type const
+sge::opengl::onscreen_surface::dim_type const
 sge::opengl::onscreen_surface::dim() const
 {
 	return

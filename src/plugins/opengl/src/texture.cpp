@@ -21,9 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture.hpp"
 #include "../basic_texture_impl.hpp"
 #include "../common.hpp"
+#include "../texture_surface.hpp"
 #include "../texfuncs/set.hpp"
 #include "../texfuncs/set_rect.hpp"
 #include <sge/renderer/texture.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 
 template class
@@ -102,11 +104,9 @@ sge::opengl::texture::surface(
 		fcppt::make_shared_ptr<
 			opengl::texture_surface
 		>(
-#if 0
 			this->id(),
 			this->type(),
 			_stage
-#endif
 		);
 }
 

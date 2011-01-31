@@ -21,20 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture_binding.hpp"
 #include "../object.hpp"
 #include "../context.hpp"
-#include "../../texture.hpp"
-#include "../../texture_base.hpp"
 #include "../../check_state.hpp"
+#include "../../texture_surface_base.hpp"
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::fbo::texture_binding::texture_binding(
 	fbo::context const &_context,
-	opengl::texture_surface_ptr const _surface,
+	opengl::texture_surface_base_ptr const _surface,
 	fbo::object &_fbo,
 	GLenum const _attachment
 )
 :
-	texture_(_texture)
+	surface_(_surface)
 {
 	_fbo.bind();
 
@@ -43,7 +42,11 @@ sge::opengl::fbo::texture_binding::texture_binding(
 		_attachment,
 		_surface->texture_type(),
 		_surface->texture_id(),
-		_surface->stage()
+		static_cast<
+			GLint
+		>(
+			_surface->stage()
+		)
 	);
 
 	SGE_OPENGL_CHECK_STATE(

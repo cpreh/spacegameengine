@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 
 sge::opengl::default_target::default_target(
 	sge::window::instance_ptr const _window,
@@ -45,7 +46,7 @@ sge::opengl::default_target::default_target(
 			)
 		)
 	),
-	main_surface(
+	main_surface_(
 		fcppt::make_shared_ptr<
 			opengl::onscreen_surface
 		>(
@@ -72,23 +73,23 @@ sge::opengl::default_target::unbind() const
 
 void
 sge::opengl::default_target::add_surface(
-	renderer::surface_ptr
+	renderer::color_surface_ptr
 )
 {
 }
 
 void
 sge::opengl::default_target::remove_surface(
-	renderer::surface_ptr
+	renderer::color_surface_ptr
 )
 {
 }
 
-sge::renderer::surface_vector const
-sge::opengl::default_target::surfaces() const
+sge::renderer::color_surface_vector const
+sge::opengl::default_target::color_surfaces() const
 {
 	return
-		renderer::surface_vector(
+		renderer::color_surface_vector(
 			1u,
 			main_surface_
 		);

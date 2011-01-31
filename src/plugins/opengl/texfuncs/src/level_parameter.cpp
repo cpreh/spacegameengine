@@ -18,46 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../target.hpp"
-#include "../viewport.hpp"
-#include <fcppt/math/box/basic_impl.hpp>
+#include "../level_parameter.hpp"
+#include "../../check_state.hpp"
+#include "../../common.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-sge::opengl::target::target(
-	renderer::viewport const &_viewport
+GLint
+sge::opengl::texfuncs::level_parameter(
+	GLenum const _texture,
+	renderer::stage_type const _stage,
+	GLenum const _what
 )
-:
-	viewport_(
-		_viewport
-	)
 {
-}
+	GLint ret;
 
-void
-sge::opengl::target::activate_viewport()
-{
-	opengl::viewport(
-		viewport_,
-		this->height()
+	::glGetTexLevelParameteriv(
+		_texture,
+		static_cast<
+			GLint
+		>(
+			_stage.get()
+		),
+		_what,
+		&ret
 	);
+
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("glGetTexLevelParameteriv() failed!"),
+		sge::renderer::exception
+	);
+
+	return ret;
 }
-
-sge::opengl::target::~target()
-{
-}
-
-void
-sge::opengl::target::viewport(
-	renderer::viewport const &_viewport
-)
-{
-	viewport_ = _viewport;
-
-	activate_viewport();
-}
-
-sge::renderer::viewport const
-sge::opengl::target::viewport() const
-{
-	return viewport_;
-}
-

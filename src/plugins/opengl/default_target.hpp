@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/color_surface_vector.hpp>
 #include <sge/renderer/depth_stencil_surface_ptr.hpp>
 #include <sge/renderer/depth_stencil_surface_vector.hpp>
+#include <sge/renderer/screen_unit.hpp>
 #include <sge/window/instance_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -55,7 +56,7 @@ public:
 
 	void
 	unbind() const;
-
+private:
 	void
 	add_surface(
 		renderer::color_surface_ptr
@@ -66,13 +67,26 @@ public:
 		renderer::color_surface_ptr
 	);
 
+	void
+	add_surface(
+		renderer::depth_stencil_surface_ptr
+	);
+
+	void
+	remove_surface(
+		renderer::depth_stencil_surface_ptr
+	);
+
 	renderer::color_surface_vector const
 	color_surfaces() const;
 
 	renderer::depth_stencil_surface_vector const
 	depth_stencil_surfaces() const;
-private:
-	sge::renderer::surface_ptr const main_surface_;
+
+	renderer::screen_unit
+	height() const;
+
+	sge::renderer::color_surface_ptr const main_surface_;
 };
 
 }

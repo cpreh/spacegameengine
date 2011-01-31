@@ -126,7 +126,6 @@ SET(
 	src/plugins/opengl/fbo/bind.hpp
 	src/plugins/opengl/fbo/context.hpp
 	src/plugins/opengl/fbo/context_fwd.hpp
-	src/plugins/opengl/fbo/init_viewport.hpp
 	src/plugins/opengl/fbo/object.hpp
 	src/plugins/opengl/fbo/object_fwd.hpp
 	src/plugins/opengl/fbo/render_buffer.hpp
@@ -137,7 +136,6 @@ SET(
 	src/plugins/opengl/fbo/src/attach_render_buffer.cpp
 	src/plugins/opengl/fbo/src/bind.cpp
 	src/plugins/opengl/fbo/src/context.cpp
-	src/plugins/opengl/fbo/src/init_viewport.cpp
 	src/plugins/opengl/fbo/src/object.cpp
 	src/plugins/opengl/fbo/src/render_buffer.cpp
 	src/plugins/opengl/fbo/src/render_buffer_binding.cpp
@@ -427,6 +425,7 @@ SET(
 	src/plugins/opengl/texfuncs/delete.hpp
 	src/plugins/opengl/texfuncs/gen.hpp
 	src/plugins/opengl/texfuncs/get_image.hpp
+	src/plugins/opengl/texfuncs/level_parameter.hpp
 	src/plugins/opengl/texfuncs/need_mipmap.hpp
 	src/plugins/opengl/texfuncs/parameter_int.hpp
 	src/plugins/opengl/texfuncs/set.hpp
@@ -440,6 +439,7 @@ SET(
 	src/plugins/opengl/texfuncs/src/delete.cpp
 	src/plugins/opengl/texfuncs/src/gen.cpp
 	src/plugins/opengl/texfuncs/src/get_image.cpp
+	src/plugins/opengl/texfuncs/src/level_parameter.cpp
 	src/plugins/opengl/texfuncs/src/need_mipmap.cpp
 	src/plugins/opengl/texfuncs/src/parameter_int.cpp
 	src/plugins/opengl/texfuncs/src/set.cpp
@@ -463,6 +463,9 @@ SET(
 	src/plugins/opengl/texture_lock_unique_ptr.hpp
 	src/plugins/opengl/texture_ptr.hpp
 	src/plugins/opengl/texture_surface.hpp
+	src/plugins/opengl/texture_surface_base.hpp
+	src/plugins/opengl/texture_surface_base_fwd.hpp
+	src/plugins/opengl/texture_surface_base_ptr.hpp
 	src/plugins/opengl/texture_surface_fwd.hpp
 	src/plugins/opengl/texture_surface_ptr.hpp
 	src/plugins/opengl/vbo_base.hpp

@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TARGET_HPP_INCLUDED
 
 #include "target_fwd.hpp"
+#include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/target.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <fcppt/math/box/basic_decl.hpp>
@@ -60,6 +61,10 @@ private:
 
 	renderer::viewport const
 	viewport() const;
+
+	virtual
+	renderer::screen_unit
+	height() const = 0;
 
 	renderer::viewport viewport_;
 };

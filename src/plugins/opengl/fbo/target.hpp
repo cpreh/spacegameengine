@@ -22,21 +22,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_FBO_TARGET_HPP_INCLUDED
 
 #include "target_fwd.hpp"
-#include "object.hpp"
-#include "texture_binding.hpp"
 #include "context_fwd.hpp"
 #include "render_buffer_fwd.hpp"
 #include "render_buffer_binding_fwd.hpp"
-#include "../target.hpp"
-#include "../texture_ptr.hpp"
-#include "../depth_stencil_texture_ptr.hpp"
-#include "../texture_base_ptr.hpp"
+#include "object.hpp"
+#include "texture_binding_fwd.hpp"
 #include "../common.hpp"
+#include "../target.hpp"
+#include "../texture_surface_base_ptr.hpp"
 #include "../context/object_fwd.hpp"
-#include <sge/renderer/parameters_fwd.hpp>
-#include <sge/renderer/texture_ptr.hpp>
-#include <sge/image2d/view/const_object.hpp>
-#include <fcppt/math/dim/basic_decl.hpp>
+#include <sge/renderer/color_surface_ptr.hpp>
+#include <sge/renderer/color_surface_vector.hpp>
+#include <sge/renderer/depth_stencil_surface_ptr.hpp>
+#include <sge/renderer/depth_stencil_surface_vector.hpp>
+#include <sge/renderer/screen_unit.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
@@ -56,10 +55,7 @@ class target
 	)
 public:
 	explicit target(
-		opengl::context::object &,
-		sge::renderer::parameters const &,
-		opengl::texture_ptr,
-		opengl::depth_stencil_texture_ptr
+		opengl::context::object &
 	);
 
 	~target();
@@ -72,20 +68,36 @@ public:
 private:
 	void
 	add_surface(
-		renderer::surface_ptr
+		renderer::color_surface_ptr
 	);
 
 	void
 	remove_surface(
-		renderer::surface_ptr
+		renderer::color_surface_ptr
 	);
 
-	renderer::surface_vector const
-	surfaces() const;
+	void
+	add_surface(
+		renderer::depth_stencil_surface_ptr
+	);
+
+	void
+	remove_surface(
+		renderer::depth_stencil_surface_ptr
+	);
+
+	renderer::color_surface_vector const
+	color_surfaces() const;
+
+	renderer::depth_stencil_surface_vector const
+	depth_stencil_surfaces() const;
+
+	renderer::screen_unit
+	height() const;
 
 	void
 	add_texture_binding(
-		opengl::texture_base_ptr,
+		opengl::texture_surface_base_ptr,
 		GLenum
 	);
 
@@ -96,10 +108,6 @@ private:
 	);
 
 	fbo::context &context_;
-
-	sge::renderer::texture_ptr const texture_;
-
-	dim_type const dim_;
 
 	opengl::fbo::object fbo_;
 

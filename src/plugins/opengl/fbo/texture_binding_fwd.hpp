@@ -18,60 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_SURFACE_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_SURFACE_HPP_INCLUDED
-
-#include "texture_surface_fwd.hpp"
-#include "common.hpp"
-#include "texture_surface_base.hpp"
-#include <sge/renderer/color_surface.hpp>
-#include <sge/image2d/view/const_object.hpp>
-#include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/noncopyable.hpp>
+#ifndef SGE_OPENGL_FBO_TEXTURE_BINDING_FWD_HPP_INCLUDED
+#define SGE_OPENGL_FBO_TEXTURE_BINDING_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace opengl
 {
-
-class SGE_CLASS_SYMBOL texture_surface
-:
-	public sge::renderer::color_surface,
-	public opengl::texture_surface_base
+namespace fbo
 {
-	FCPPT_NONCOPYABLE(
-		texture_surface
-	)
-public:
-	texture_surface(
-		GLenum type,
-		GLuint id,
-		renderer::stage_type
-	);
-	
-	~texture_surface();
-private:
-	image2d::view::const_object const
-	lock(
-		rect_type const &
-	) const;
 
-	void
-	unlock() const;
+class texture_binding;
 
-	dim_type const
-	dim() const;
-
-	GLenum
-	texture_type() const;
-
-	GLenum const type_;
-
-	dim_type const dim_;
-};
-
+}
 }
 }
 

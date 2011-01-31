@@ -21,16 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../target.hpp"
 #include "../bind.hpp"
 #include "../context.hpp"
-#include "../init_viewport.hpp"
 #include "../render_buffer.hpp"
 #include "../render_buffer_binding.hpp"
 #include "../scoped_unbind.hpp"
+#include "../texture_binding.hpp"
 #include "../../check_state.hpp"
 #include "../../depth_stencil_texture.hpp"
-#include "../../texture.hpp"
+#include "../../texture_surface.hpp"
 #include "../../context/use.hpp"
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/parameters.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
@@ -39,21 +38,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/assert.hpp>
+#include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::fbo::target::target(
-	sge::opengl::context::object &_context,
-	sge::renderer::parameters const &_param,
-	opengl::texture_ptr const _texture,
-	opengl::depth_stencil_texture_ptr const _depth_stencil_texture
+	sge::opengl::context::object &_context
 )
 :
 	opengl::target(
-		fbo::init_viewport(
-			_texture,
-			_depth_stencil_texture
+		sge::renderer::viewport(
+			sge::renderer::pixel_rect::null()
 		)
 	),
 	context_(
@@ -63,20 +59,11 @@ sge::opengl::fbo::target::target(
 			_context
 		)
 	),
-	texture_(
-		_texture
-	),
-	dim_(
-		texture_
-		?
-			texture_->dim()
-		:
-			dim_type::null()
-	),
 	fbo_(
 		context_
 	)
 {
+#if 0
 	// important: to bind buffers to an fbo
 	// it must be bound itself
 	// but this has to be undone after this function!
@@ -133,6 +120,7 @@ sge::opengl::fbo::target::target(
 		throw sge::renderer::exception(
 			FCPPT_TEXT("FBO is incomplete!")
 		);
+#endif
 }
 
 sge::opengl::fbo::target::~target()
@@ -164,37 +152,34 @@ sge::opengl::fbo::target::unbind() const
 
 void
 sge::opengl::fbo::target::add_surface(
-	renderer::surface_ptr const _surface,
-	renderer::surface_usage::type const _usage
+	renderer::color_surface_ptr const _surface
 )
 {
-	FCPPT_TRY_DYNAMIC_CAST(
-		opengl::texture_surface *,
-		surface,
-		_surface
-	)
-		this->add_texture_binding(
-			surface,
-			_usage
-		);
-	
+	this->add_texture_binding(
+		fcppt::dynamic_pointer_cast<
+			opengl::texture_surface
+		>(
+			_surface
+		),
+		context_.color_attachment()
+	);
 }
 
 void
 sge::opengl::fbo::target::remove_surface(
-	renderer::surface_ptr const _surface
+	renderer::color_surface_ptr const _surface
 )
 {
 }
 
-sge::renderer::surface_vector const
-sge::opengl::fbo::target::surfaces() const
+sge::renderer::color_surface_vector const
+sge::opengl::fbo::target::color_surfaces() const
 {
 }
 
 void
 sge::opengl::fbo::target::add_texture_binding(
-	opengl::texture_surface_ptr const _surface,
+	opengl::texture_surface_base_ptr const _surface,
 	GLenum const _attachment
 )
 {
@@ -206,7 +191,7 @@ sge::opengl::fbo::target::add_texture_binding(
 			std::tr1::ref(
 				context_
 			),
-			_texture,
+			_surface,
 			std::tr1::ref(
 				fbo_
 			),
@@ -221,6 +206,7 @@ sge::opengl::fbo::target::attach_buffer(
 	GLenum const _attachment
 )
 {
+#if 0
 	{
 		typedef fcppt::unique_ptr<
 			render_buffer
@@ -277,4 +263,5 @@ sge::opengl::fbo::target::attach_buffer(
 			ptr
 		)
 	);
+#endif
 }

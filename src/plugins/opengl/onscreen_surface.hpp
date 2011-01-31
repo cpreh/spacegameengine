@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "common.hpp"
 #include <sge/renderer/bit_depth.hpp>
+#include <sge/renderer/color_surface.hpp>
 #include <sge/renderer/raw_value.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/surface.hpp>
 #include <sge/window/instance_ptr.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <fcppt/container/raw_vector_decl.hpp>
@@ -38,7 +38,7 @@ namespace opengl
 
 class onscreen_surface
 :
-	public sge::renderer::surface
+	public sge::renderer::color_surface
 {
 	FCPPT_NONCOPYABLE(
 		onscreen_surface
@@ -53,7 +53,7 @@ public:
 private:
 	image2d::view::const_object const
 	lock(
-		renderer::lock_rect const &dest
+		renderer::lock_rect const &
 	) const;
 
 	void
@@ -71,6 +71,8 @@ private:
 	typedef fcppt::container::raw_vector<
 		renderer::raw_value
 	> buffer_type;
+
+	sge::window::instance_ptr const window_;
 
 	mutable buffer_type buffer_;
 

@@ -19,16 +19,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../texture_surface.hpp"
+#include "../texfuncs/level_parameter.hpp"
+#include <fcppt/math/dim/basic_impl.hpp>
 
-sge::opengl::texture_surface::texture_surface()
+sge::opengl::texture_surface::texture_surface(
+	GLenum const _type,
+	GLuint const _id,
+	renderer::stage_type const _stage
+)
 :
+	sge::renderer::color_surface(),
+	sge::opengl::texture_surface_base(
+		_id,
+		_stage
+	),
+	type_(
+		_type
+	),
 	dim_(
-		opengl::texlevel_parameters(
+		opengl::texfuncs::level_parameter(
 			_type,
 			_stage,
 			GL_TEXTURE_WIDTH
 		),
-		opengl::texlevel_parameters(
+		opengl::texfuncs::level_parameter(
 			_type,
 			_stage,
 			GL_TEXTURE_HEIGHT
@@ -43,9 +57,10 @@ sge::opengl::texture_surface::~texture_surface()
 
 sge::image2d::view::const_object const
 sge::opengl::texture_surface::lock(
-	lock_rect const &_rect
+	rect_type const &_rect
 ) const
 {
+#if 0
 	lock_.reset(
 		fcppt::make_unique_ptr<
 			opengl::readonly_texture_lock
@@ -79,18 +94,27 @@ sge::opengl::texture_surface::lock(
 			),
 			lock_area_
 		);
+#endif
 }
 
 void
 sge::opengl::texture_surface::unlock() const
 {
+#if 0
 	lock_->unlock();
 
 	lock_.reset();
+#endif
 }
 
 sge::opengl::texture_surface::dim_type const
 sge::opengl::texture_surface::dim() const
 {
 	return dim_;
+}
+
+GLenum
+sge::opengl::texture_surface::texture_type() const
+{
+	return type_;
 }
