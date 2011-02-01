@@ -21,8 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../query_pointer.hpp"
 #include <sge/input/cursor/position_unit.hpp>
 #include <awl/backends/x11/window/instance.hpp>
+#include <awl/backends/x11/deleter.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/scoped_ptr.hpp>
 #include <X11/extensions/XInput2.h>
 
 sge::input::cursor::position const
@@ -67,6 +69,15 @@ sge::x11input::cursor::query_pointer(
 		// TODO: what to do here?
 		return input::cursor::position::null();
 	
+	typedef fcppt::scoped_ptr<
+		unsigned char,
+		awl::backends::x11::deleter
+	> scoped_mask;
+	
+	scoped_mask scoped_buttons_mask(
+		buttons_return.mask
+	);
+
 	return
 		input::cursor::position(
 			static_cast<
