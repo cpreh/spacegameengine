@@ -22,8 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_FBO_RENDER_BUFFER_HPP_INCLUDED
 
 #include "render_buffer_fwd.hpp"
+#include "render_buffer_holder.hpp"
 #include "context_fwd.hpp"
 #include "../common.hpp"
+#include <sge/renderer/dim2.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -40,17 +42,12 @@ class render_buffer
 	)
 public:
 	explicit render_buffer(
-		fbo::context const &
+		fbo::context const &,
+		GLenum internal_format,
+		sge::renderer::dim2 const &
 	);
 
 	~render_buffer();
-
-	void
-	store(
-		GLenum what,
-		GLsizei width,
-		GLsizei height
-	);
 
 	GLuint
 	id() const;
@@ -60,7 +57,7 @@ private:
 
 	fbo::context const &context_;
 
-	GLuint id_;
+	fbo::render_buffer_holder const holder_;
 };
 
 }

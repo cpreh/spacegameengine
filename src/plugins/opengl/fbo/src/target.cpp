@@ -170,6 +170,19 @@ sge::opengl::fbo::target::remove_surface(
 	renderer::color_surface_ptr const _surface
 )
 {
+	fcppt::algorithm::remove(
+		texture_bindings_,
+		boost::phoenix::bind(
+			&fbo:;texture_binding::surface,
+			boost::phoenix::arg_names::arg1
+		)
+		==
+		fcppt::dynamic_pointer_cast<
+			opengl::texture_surface
+		>(
+			_surface
+		)
+	);
 }
 
 void

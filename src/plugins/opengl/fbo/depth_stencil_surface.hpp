@@ -18,30 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../depth_stencil_to_format_type.hpp"
-#include "../../common.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_OPENGL_FBO_DEPTH_STENCIL_SURFACE_HPP_INCLUDED
+#define SGE_OPENGL_FBO_DEPTH_STENCIL_SURFACE_HPP_INCLUDED
 
-GLenum
-sge::opengl::convert::depth_stencil_to_format_type(
-	renderer::depth_stencil_format::type const _type
-)
+#include "render_buffer.hpp"
+#include "context_fwd.hpp"
+#include "../common.hpp"
+#include <sge/renderer/depth_stencil_surface.hpp>
+#include <sge/renderer/dim2.hpp>
+#include <fcppt/noncopyable.hpp>
+
+namespace sge
 {
-	switch(
-		_type
-	)
-	{
-	case sge::renderer::depth_stencil_format::d8:
-		return GL_UNSIGNED_BYTE;
-	case sge::renderer::depth_stencil_format::d16:
-		return GL_UNSIGNED_SHORT;
-	case sge::renderer::depth_stencil_format::d32:
-	case sge::renderer::depth_stencil_format::d24s8:
-		return GL_FLOAT;
-	}
+namespace opengl
+{
+namespace fbo
+{
 
-	throw sge::renderer::exception(	
-		FCPPT_TEXT("Invalid depth_stencil_format in depth_stencil_to_format_type()!")
+class depth_stencil_surface
+:
+	public sge::renderer::depth_stencil_surface
+{
+	FCPPT_NONCOPYABLE(
+		depth_stencil_surface
+	)
+public:
+	explicit depth_stencil_surface(
+		fbo::context const &,
+		GLenum internal_format,
+		sge::renderer::dim2 const &
 	);
+
+	~depth_stencil_surface();
+private:
+	fbo::render_buffer const render_buffer_;
+};	
+
 }
+}
+}
+
+#endif

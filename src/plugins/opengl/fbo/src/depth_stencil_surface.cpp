@@ -18,30 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../depth_stencil_to_format_type.hpp"
-#include "../../common.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include "../depth_stencil_surface.hpp"
 
-GLenum
-sge::opengl::convert::depth_stencil_to_format_type(
-	renderer::depth_stencil_format::type const _type
+sge::opengl::fbo::depth_stencil_surface::depth_stencil_surface(
+	fbo::context const &_context,
+	GLenum const _internal_format,
+	sge::renderer::dim2 const &_dim
 )
-{
-	switch(
-		_type
+:
+	render_buffer_(
+		_context,
+		_internal_format,
+		_dim
 	)
-	{
-	case sge::renderer::depth_stencil_format::d8:
-		return GL_UNSIGNED_BYTE;
-	case sge::renderer::depth_stencil_format::d16:
-		return GL_UNSIGNED_SHORT;
-	case sge::renderer::depth_stencil_format::d32:
-	case sge::renderer::depth_stencil_format::d24s8:
-		return GL_FLOAT;
-	}
+{
+}
 
-	throw sge::renderer::exception(	
-		FCPPT_TEXT("Invalid depth_stencil_format in depth_stencil_to_format_type()!")
-	);
+sge::opengl::fbo::depth_stencil_surface::~depth_stencil_surface()
+{
 }

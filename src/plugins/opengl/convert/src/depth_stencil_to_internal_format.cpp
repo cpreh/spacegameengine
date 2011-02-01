@@ -32,10 +32,14 @@ sge::opengl::convert::depth_stencil_to_internal_format(
 		_type
 	)
 	{
+//	case sge::renderer::depth_stencil_format::d8:
+//		return GL_DEPTH_COMPONENT8;
 	case sge::renderer::depth_stencil_format::d16:
 		return GL_DEPTH_COMPONENT16;
 	case sge::renderer::depth_stencil_format::d32:
 		return GL_DEPTH_COMPONENT32;
+	case sge::renderer::depth_stencil_format::d24s8:
+		return GL_DEPTH_COMPONENT24;
 	}
 
 	throw sge::renderer::exception(

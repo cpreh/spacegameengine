@@ -49,6 +49,9 @@ public:
 	);
 
 	~texture_binding();
+
+	opengl::texture_surface_base_ptr const
+	surface() const;
 private:
 	opengl::texture_surface_base_ptr const surface_;
 };
