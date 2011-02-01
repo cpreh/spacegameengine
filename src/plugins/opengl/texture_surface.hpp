@@ -26,8 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "texture_surface_base.hpp"
 #include <sge/renderer/color_surface.hpp>
 #include <sge/image2d/view/const_object.hpp>
-#include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -36,7 +34,7 @@ namespace sge
 namespace opengl
 {
 
-class SGE_CLASS_SYMBOL texture_surface
+class texture_surface
 :
 	public sge::renderer::color_surface,
 	public opengl::texture_surface_base
@@ -63,11 +61,6 @@ private:
 
 	dim_type const
 	dim() const;
-
-	GLenum
-	texture_type() const;
-
-	GLenum const type_;
 
 	dim_type const dim_;
 };

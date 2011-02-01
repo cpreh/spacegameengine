@@ -31,7 +31,7 @@ sge::opengl::texfuncs::parameter_int(
 	GLint const _value
 )
 {
-	glTexParameteri(
+	::glTexParameteri(
 		_type,
 		_name,
 		_value

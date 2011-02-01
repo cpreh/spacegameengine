@@ -108,6 +108,7 @@ SET(
 	src/plugins/opengl/depth_stencil_texture.hpp
 	src/plugins/opengl/depth_stencil_texture_fwd.hpp
 	src/plugins/opengl/depth_stencil_texture_ptr.hpp
+	src/plugins/opengl/depth_stencil_texture_surface.hpp
 	src/plugins/opengl/device.hpp
 	src/plugins/opengl/device_state.hpp
 	src/plugins/opengl/device_state_fwd.hpp
@@ -358,6 +359,7 @@ SET(
 	src/plugins/opengl/src/cube_texture.cpp
 	src/plugins/opengl/src/cube_texture_context.cpp
 	src/plugins/opengl/src/depth_stencil_texture.cpp
+	src/plugins/opengl/src/depth_stencil_texture_surface.cpp
 	src/plugins/opengl/src/device.cpp
 	src/plugins/opengl/src/device_state.cpp
 	src/plugins/opengl/src/disable.cpp
@@ -435,6 +437,7 @@ SET(
 	src/plugins/opengl/texfuncs/delete.hpp
 	src/plugins/opengl/texfuncs/gen.hpp
 	src/plugins/opengl/texfuncs/get_image.hpp
+	src/plugins/opengl/texfuncs/get_parameter_int.hpp
 	src/plugins/opengl/texfuncs/level_parameter.hpp
 	src/plugins/opengl/texfuncs/need_mipmap.hpp
 	src/plugins/opengl/texfuncs/parameter_int.hpp
@@ -449,6 +452,7 @@ SET(
 	src/plugins/opengl/texfuncs/src/delete.cpp
 	src/plugins/opengl/texfuncs/src/gen.cpp
 	src/plugins/opengl/texfuncs/src/get_image.cpp
+	src/plugins/opengl/texfuncs/src/get_parameter_int.cpp
 	src/plugins/opengl/texfuncs/src/level_parameter.cpp
 	src/plugins/opengl/texfuncs/src/need_mipmap.cpp
 	src/plugins/opengl/texfuncs/src/parameter_int.cpp

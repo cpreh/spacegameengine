@@ -23,13 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/depth_stencil_to_format.hpp"
 #include "../convert/depth_stencil_to_format_type.hpp"
 #include "../convert/depth_stencil_to_internal_format.hpp"
-#include "../texfuncs/bind.hpp"
+#include "../depth_stencil_texture_surface.hpp"
 #include "../texfuncs/set.hpp"
 #include "../texfuncs/set_filter.hpp"
 #include <sge/renderer/filter/point.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 
 sge::opengl::depth_stencil_texture::depth_stencil_texture(
 	opengl::context::object &_context,
@@ -54,7 +55,7 @@ sge::opengl::depth_stencil_texture::depth_stencil_texture(
 		)
 	)
 {
-	bind_me();
+	this->bind();
 
 	sge::renderer::filter::texture const filter(
 		sge::renderer::filter::point
@@ -90,15 +91,6 @@ sge::opengl::depth_stencil_texture::id() const
 	return holder_.id();
 }
 
-void
-sge::opengl::depth_stencil_texture::bind_me() const
-{
-	texfuncs::bind(
-		type(),
-		id()
-	);
-}
-
 sge::opengl::depth_stencil_texture::dim_type const
 sge::opengl::depth_stencil_texture::dim() const
 {
@@ -109,6 +101,15 @@ sge::opengl::depth_stencil_texture::dim() const
 sge::renderer::depth_stencil_surface_ptr const
 sge::opengl::depth_stencil_texture::surface() const
 {
+	this->bind();
+
+	return
+		fcppt::make_shared_ptr<
+			opengl::depth_stencil_texture_surface
+		>(
+			this->id(),
+			this->type()
+		);
 }
 
 sge::renderer::resource_flags_field const

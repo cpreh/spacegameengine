@@ -54,9 +54,6 @@ public:
 	GLuint
 	id() const;
 
-	void
-	bind_me() const;
-
 	dim_type const
 	dim() const;
 

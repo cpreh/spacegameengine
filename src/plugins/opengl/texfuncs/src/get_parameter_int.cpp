@@ -18,45 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../render_buffer_binding.hpp"
-#include "../attach_render_buffer.hpp"
-#include "../object.hpp"
-#include "../render_buffer.hpp"
+#include "../get_parameter_int.hpp"
+#include "../../check_state.hpp"
+#include "../../common.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-sge::opengl::fbo::render_buffer_binding::render_buffer_binding(
-	fbo::context const &_context,
-	fbo::object const &_fbo,
-	fbo::render_buffer const &_render_buffer,
-	GLenum const _what
+GLint
+sge::opengl::texfuncs::get_parameter_int(
+	GLenum const _type,
+	GLenum const _name
 )
-:
-	context_(_context),
-	fbo_(_fbo),
-	render_buffer_(_render_buffer),
-	what_(_what)
 {
-	fbo_.bind();
+	GLint ret;
 
-	opengl::fbo::attach_render_buffer(
-		_context,
-		_what,
-		_render_buffer.id()
+	::glGetTexParameteriv(
+		_type,
+		_name,
+		&ret
 	);
-}
 
-sge::opengl::fbo::render_buffer_binding::~render_buffer_binding()
-{
-	fbo_.bind();
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("glTexParameteri failed"),
+		sge::renderer::exception
+	)
 
-	opengl::fbo::attach_render_buffer(
-		context_,
-		what_,
-		0
-	);
-}
-
-sge::opengl::fbo::render_buffer const &
-sge::opengl::fbo::render_buffer_binding::render_buffer() const
-{
-	return render_buffer_;
+	return ret;
 }

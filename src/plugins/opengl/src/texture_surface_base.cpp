@@ -21,10 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture_surface_base.hpp"
 
 sge::opengl::texture_surface_base::texture_surface_base(
+	GLenum const _texture_type,
 	GLuint const _texture_id,
 	sge::renderer::stage_type const _stage
 )
 :
+	texture_type_(_texture_type),
 	texture_id_(_texture_id),
 	stage_(_stage)
 {
@@ -32,6 +34,12 @@ sge::opengl::texture_surface_base::texture_surface_base(
 
 sge::opengl::texture_surface_base::~texture_surface_base()
 {
+}
+
+GLenum	
+sge::opengl::texture_surface_base::texture_type() const
+{
+	return texture_type_;
 }
 
 GLuint

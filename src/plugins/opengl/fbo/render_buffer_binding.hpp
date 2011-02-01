@@ -49,10 +49,15 @@ public:
 	);
 
 	~render_buffer_binding();
+
+	fbo::render_buffer const &
+	render_buffer() const;
 private:
 	fbo::context const &context_;
 
 	fbo::object const &fbo_;
+
+	fbo::render_buffer const &render_buffer_;
 
 	GLenum const what_;
 };

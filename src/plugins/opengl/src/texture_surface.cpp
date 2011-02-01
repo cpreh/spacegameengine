@@ -30,11 +30,9 @@ sge::opengl::texture_surface::texture_surface(
 :
 	sge::renderer::color_surface(),
 	sge::opengl::texture_surface_base(
+		_type,
 		_id,
 		_stage
-	),
-	type_(
-		_type
 	),
 	dim_(
 		opengl::texfuncs::level_parameter(
@@ -111,10 +109,4 @@ sge::opengl::texture_surface::dim_type const
 sge::opengl::texture_surface::dim() const
 {
 	return dim_;
-}
-
-GLenum
-sge::opengl::texture_surface::texture_type() const
-{
-	return type_;
 }

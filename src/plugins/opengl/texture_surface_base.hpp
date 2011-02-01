@@ -38,21 +38,24 @@ class texture_surface_base
 	)
 protected:
 	explicit texture_surface_base(
+		GLenum texture_type,
 		GLuint id,
 		sge::renderer::stage_type
 	);
 public:
 	virtual ~texture_surface_base();
 
+	GLenum	
+	texture_type() const;
+
 	GLuint
 	texture_id() const;
 
 	sge::renderer::stage_type const
 	stage() const;
-
-	virtual GLenum	
-	texture_type() const = 0;
 private:
+	GLenum const texture_type_;
+
 	GLuint const texture_id_;
 
 	sge::renderer::stage_type const stage_;

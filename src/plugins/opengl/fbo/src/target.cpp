@@ -49,6 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/spirit/home/phoenix/bind/bind_member_function.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/operator/comparison.hpp>
+#include <boost/spirit/home/phoenix/operator/self.hpp>
 
 sge::opengl::fbo::target::target(
 	sge::opengl::context::object &_context
@@ -311,6 +312,21 @@ sge::opengl::fbo::target::remove_buffer_binding(
 	opengl::fbo::render_buffer const &_buffer
 )
 {
+#if 0
+	if(
+		!fcppt::algorithm::ptr_container_erase_if(
+			render_buffer_bindings_,
+			boost::phoenix::bind(
+				&fbo::render_buffer_binding::render_buffer,
+				&boost::phoenix::arg_names::arg1
+			)
+			== &_buffer
+		)
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("fbo::target::remove_surface(): Invalid surface!")
+		);
+#endif
 }
 
 void
