@@ -262,6 +262,8 @@ sge::opengl::fbo::target::add_texture_binding(
 			_attachment
 		)
 	);
+
+	this->check();
 }
 
 void
@@ -290,6 +292,8 @@ sge::opengl::fbo::target::add_buffer_binding(
 			_attachment
 		)
 	);
+
+	this->check();
 }
 
 void
