@@ -30,6 +30,7 @@ namespace parameterless
 {
 enum type
 {
+	charconv,
 	collision_system,
 	md3_loader,
 	font
