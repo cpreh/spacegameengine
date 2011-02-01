@@ -134,6 +134,7 @@ sge::opengl::fbo::target::add_surface(
 	renderer::depth_stencil_surface_ptr const _surface
 )
 {
+#if 0
 	if(
 		context_.depth_stencil_attachment()
 		== 0
@@ -143,7 +144,7 @@ sge::opengl::fbo::target::add_surface(
 			FCPPT_TEXT("3.0"),
 			FCPPT_TEXT("")
 		);
-
+#endif
 	if(
 		opengl::fbo::depth_stencil_surface_ptr const ptr =
 			fcppt::dynamic_pointer_cast<

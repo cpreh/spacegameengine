@@ -57,6 +57,7 @@ sge::opengl::fbo::texture_binding::texture_binding(
 
 sge::opengl::fbo::texture_binding::~texture_binding()
 {
+	// FIXME: how to detach this?
 }
 
 
