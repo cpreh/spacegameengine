@@ -312,13 +312,12 @@ sge::opengl::fbo::target::remove_buffer_binding(
 	opengl::fbo::render_buffer const &_buffer
 )
 {
-#if 0
 	if(
 		!fcppt::algorithm::ptr_container_erase_if(
 			render_buffer_bindings_,
-			boost::phoenix::bind(
+			&boost::phoenix::bind(
 				&fbo::render_buffer_binding::render_buffer,
-				&boost::phoenix::arg_names::arg1
+				boost::phoenix::arg_names::arg1
 			)
 			== &_buffer
 		)
@@ -326,7 +325,6 @@ sge::opengl::fbo::target::remove_buffer_binding(
 		throw sge::renderer::exception(
 			FCPPT_TEXT("fbo::target::remove_surface(): Invalid surface!")
 		);
-#endif
 }
 
 void
