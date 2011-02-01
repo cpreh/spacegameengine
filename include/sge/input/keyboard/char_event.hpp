@@ -18,11 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_KEYBOARD_KEY_HPP_INCLUDED
-#define SGE_INPUT_KEYBOARD_KEY_HPP_INCLUDED
+#ifndef SGE_INPUT_CHARBOARD_CHAR_EVENT_HPP_INCLUDED
+#define SGE_INPUT_CHARBOARD_CHAR_EVENT_HPP_INCLUDED
 
-#include <sge/input/keyboard/key_fwd.hpp>
-#include <sge/input/keyboard/key_code.hpp>
+#include <sge/input/keyboard/char_event_fwd.hpp>
 #include <sge/input/keyboard/char_type.hpp>
 #include <sge/symbol.hpp>
 
@@ -33,41 +32,27 @@ namespace input
 namespace keyboard
 {
 
-class key
+class char_event
 {
 public:
 	SGE_SYMBOL
-	key(
-		key_code::type,
-		keyboard::char_type
+	char_event(
+		keyboard::char_type,
+		bool repeated
 	);
-
-	SGE_SYMBOL
-	key_code::type
-	code() const;
 
 	SGE_SYMBOL
 	keyboard::char_type
 	character() const;
+
+	SGE_SYMBOL
+	bool
+	repeated() const;
 private:
-	key_code::type code_;
-
 	keyboard::char_type character_;
+
+	bool repeated_;
 };
-
-SGE_SYMBOL
-bool
-operator==(
-	keyboard::key const &,
-	keyboard::key const &
-);
-
-SGE_SYMBOL
-bool
-operator!=(
-	keyboard::key const &,
-	keyboard::key const &
-);
 
 }
 }

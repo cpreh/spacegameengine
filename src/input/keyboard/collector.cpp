@@ -62,13 +62,14 @@ sge::input::keyboard::collector::collector(
 	),
 	signal_(),
 	repeat_signal_(),
+	char_signal_(),
 	devices_()
 {
 	BOOST_FOREACH(
 		keyboard::device_vector::value_type cur_device,
 		_processor->keyboards()
 	)
-		discover_callback(
+		this->discover_callback(
 			cur_device
 		);
 }
@@ -95,6 +96,17 @@ sge::input::keyboard::collector::key_repeat_callback(
 {
 	return
 		repeat_signal_.connect(
+			_callback
+		);
+}
+
+fcppt::signal::auto_connection
+sge::input::keyboard::collector::char_callback(
+	keyboard::char_callback const &_callback
+)
+{
+	return
+		char_signal_.connect(
 			_callback
 		);
 }
@@ -139,6 +151,16 @@ sge::input::keyboard::collector::key_repeat_callback_internal(
 }
 
 void
+sge::input::keyboard::collector::char_callback_internal(
+	keyboard::char_event const &_event
+)
+{
+	char_signal_(
+		_event
+	);
+}
+
+void
 sge::input::keyboard::collector::discover_callback(
 	keyboard::device_ptr const _device
 )
@@ -167,6 +189,17 @@ sge::input::keyboard::collector::discover_callback(
 					_device->key_repeat_callback(
 						std::tr1::bind(
 							&collector::key_repeat_callback_internal,
+							this,
+							std::tr1::placeholders::_1
+						)
+					)
+				)
+			)
+			(
+				fcppt::signal::shared_connection(
+					_device->char_callback(
+						std::tr1::bind(
+							&collector::char_callback_internal,
 							this,
 							std::tr1::placeholders::_1
 						)

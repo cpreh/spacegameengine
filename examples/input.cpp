@@ -24,10 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/object_ptr.hpp>
 #include <sge/input/cursor/object_vector.hpp>
 #include <sge/input/keyboard/action.hpp>
+#include <sge/input/keyboard/char_event.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/device_ptr.hpp>
 #include <sge/input/keyboard/device_vector.hpp>
-#include <sge/input/keyboard/key.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/key_repeat_event.hpp>
@@ -135,6 +135,11 @@ private:
 	void
 	on_key_repeat_event(
 		sge::input::keyboard::key_repeat_event const &
+	);
+
+	void
+	on_char_event(
+		sge::input::keyboard::char_event const &
 	);
 
 	fcppt::signal::connection_manager const connections_;
@@ -423,6 +428,17 @@ keyboard_listener::keyboard_listener(
 				)
 			)
 		)
+		(
+			fcppt::signal::shared_connection(
+				_device->char_callback(
+					std::tr1::bind(
+						&keyboard_listener::on_char_event,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
 	)
 {
 }
@@ -434,9 +450,7 @@ keyboard_listener::on_key_event(
 {
 	fcppt::io::cout
 		<< FCPPT_TEXT("key_event: ")
-		<< _event.key().code()
-		<< FCPPT_TEXT(' ')
-		<< _event.key().character()
+		<< _event.key_code()
 		<< FCPPT_TEXT(' ')
 		<< _event.pressed()
 		<< FCPPT_TEXT('\n');
@@ -449,9 +463,20 @@ keyboard_listener::on_key_repeat_event(
 {
 	fcppt::io::cout
 		<< FCPPT_TEXT("key_repeat_event: ")
-		<< _event.key().code()
+		<< _event.key_code()
+		<< FCPPT_TEXT('\n');
+}
+
+void
+keyboard_listener::on_char_event(
+	sge::input::keyboard::char_event const &_event
+)
+{
+	fcppt::io::cout
+		<< FCPPT_TEXT("char_event: ")
+		<< _event.character()
 		<< FCPPT_TEXT(' ')
-		<< _event.key().character()
+		<< _event.repeated()
 		<< FCPPT_TEXT('\n');
 }
 

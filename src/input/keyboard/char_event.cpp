@@ -18,47 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/keyboard/key.hpp>
+#include <sge/input/keyboard/char_event.hpp>
 
-sge::input::keyboard::key::key(
-	key_code::type const _code,
-	keyboard::char_type const _character
+sge::input::keyboard::char_event::char_event(
+	keyboard::char_type const _character,
+	bool const _repeated
 )
 :
-	code_(_code),
-	character_(_character)
+	character_(_character),
+	repeated_(_repeated)
 {
-}
-
-sge::input::keyboard::key_code::type
-sge::input::keyboard::key::code() const
-{
-	return code_;
 }
 
 sge::input::keyboard::char_type
-sge::input::keyboard::key::character() const
+sge::input::keyboard::char_event::character() const
 {
 	return character_;
 }
 
 bool
-sge::input::keyboard::operator==(
-	keyboard::key const &_a,
-	keyboard::key const &_b
-)
+sge::input::keyboard::char_event::repeated() const
 {
-	return
-		_a.code() == _b.code()
-		&& _a.character() == _b.character();
-}
-
-bool
-sge::input::keyboard::operator!=(
-	keyboard::key const &_a,
-	keyboard::key const &_b
-)
-{
-	return
-		!(_a == _b);
+	return repeated_;
 }

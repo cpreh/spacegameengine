@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/drawer_ptr.hpp>
 #include <sge/font/text/string.hpp>
 #include <sge/input/modifier/filter.hpp>
+#include <sge/input/keyboard/char_event_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
 #include <sge/input/keyboard/key_repeat_event_fwd.hpp>
@@ -102,8 +103,9 @@ private:
 	input::modifier::filter input_modifier_filter_;
 
 	fcppt::signal::scoped_connection const
-		ic_,
-		irc_,
+		key_connection_,
+		key_repeat_connection_,
+		char_connection_,
 		error_conn_,
 		message_conn_;
 
@@ -122,6 +124,11 @@ private:
 	key_callback(
 		input::keyboard::key_event const &,
 		input::modifier::states const &
+	);
+
+	void
+	char_callback(
+		input::keyboard::char_event const &
 	);
 
 	void

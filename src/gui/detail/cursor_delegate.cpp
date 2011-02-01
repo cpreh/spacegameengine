@@ -43,7 +43,7 @@ sge::gui::detail::cursor_delegate::key_callback(
 	input::keyboard::key_event const &c
 )
 {
-	switch (c.key().code())
+	switch (c.key_code())
 	{
 		case input::keyboard::key_code::return_:
 			text_ += SGE_FONT_TEXT_LIT('\n');
