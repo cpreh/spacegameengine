@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_FBO_DEPTH_STENCIL_SURFACE_HPP_INCLUDED
 #define SGE_OPENGL_FBO_DEPTH_STENCIL_SURFACE_HPP_INCLUDED
 
+#include "depth_stencil_surface_fwd.hpp"
 #include "render_buffer.hpp"
 #include "context_fwd.hpp"
 #include "../common.hpp"
@@ -50,6 +51,9 @@ public:
 	);
 
 	~depth_stencil_surface();
+
+	fbo::render_buffer const &
+	render_buffer() const;
 private:
 	fbo::render_buffer const render_buffer_;
 };	

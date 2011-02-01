@@ -112,7 +112,7 @@ public:
 	renderbuffer_target() const;
 
 	GLenum
-	depth_attachment() const;
+	depth_stencil_attachment() const;
 
 	GLenum
 	stencil_attachment() const;
@@ -158,7 +158,7 @@ private:
 		color_attachment_,
 		framebuffer_complete_,
 		renderbuffer_target_,
-		depth_attachment_,
+		depth_stencil_attachment_,
 		stencil_attachment_;
 
 	GLuint last_buffer_;

@@ -125,6 +125,8 @@ SET(
 	src/plugins/opengl/fbo/context_fwd.hpp
 	src/plugins/opengl/fbo/create_depth_stencil_surface.hpp
 	src/plugins/opengl/fbo/depth_stencil_surface.hpp
+	src/plugins/opengl/fbo/depth_stencil_surface_fwd.hpp
+	src/plugins/opengl/fbo/depth_stencil_surface_ptr.hpp
 	src/plugins/opengl/fbo/object.hpp
 	src/plugins/opengl/fbo/object_fwd.hpp
 	src/plugins/opengl/fbo/render_buffer.hpp
@@ -132,7 +134,6 @@ SET(
 	src/plugins/opengl/fbo/render_buffer_binding_fwd.hpp
 	src/plugins/opengl/fbo/render_buffer_fwd.hpp
 	src/plugins/opengl/fbo/render_buffer_holder.hpp
-	src/plugins/opengl/fbo/scoped_unbind.hpp
 	src/plugins/opengl/fbo/src/attach_render_buffer.cpp
 	src/plugins/opengl/fbo/src/bind.cpp
 	src/plugins/opengl/fbo/src/context.cpp
@@ -142,12 +143,13 @@ SET(
 	src/plugins/opengl/fbo/src/render_buffer.cpp
 	src/plugins/opengl/fbo/src/render_buffer_binding.cpp
 	src/plugins/opengl/fbo/src/render_buffer_holder.cpp
-	src/plugins/opengl/fbo/src/scoped_unbind.cpp
 	src/plugins/opengl/fbo/src/target.cpp
+	src/plugins/opengl/fbo/src/temporary_bind.cpp
 	src/plugins/opengl/fbo/src/texture_binding.cpp
 	src/plugins/opengl/fbo/target.hpp
 	src/plugins/opengl/fbo/target_fwd.hpp
 	src/plugins/opengl/fbo/target_ptr.hpp
+	src/plugins/opengl/fbo/temporary_bind.hpp
 	src/plugins/opengl/fbo/texture_binding.hpp
 	src/plugins/opengl/fbo/texture_binding_fwd.hpp
 	src/plugins/opengl/get_float.hpp

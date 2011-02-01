@@ -18,28 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../depth_stencil_surface.hpp"
+#include "../temporary_bind.hpp"
+#include "../bind.hpp"
+#include "../context.hpp"
+#include "../object.hpp"
 
-sge::opengl::fbo::depth_stencil_surface::depth_stencil_surface(
-	fbo::context const &_context,
-	GLenum const _internal_format,
-	sge::renderer::dim2 const &_dim
+sge::opengl::fbo::temporary_bind::temporary_bind(
+	fbo::context &_context,
+	fbo::object const &_object
 )
 :
-	render_buffer_(
-		_context,
-		_internal_format,
-		_dim
+	context_(_context),
+	last_buffer_(
+		_context.last_buffer()
 	)
 {
+	_object.bind();	
 }
 
-sge::opengl::fbo::depth_stencil_surface::~depth_stencil_surface()
+sge::opengl::fbo::temporary_bind::~temporary_bind()
 {
-}
-
-sge::opengl::fbo::render_buffer const &
-sge::opengl::fbo::depth_stencil_surface::render_buffer() const
-{
-	return render_buffer_;
+	opengl::fbo::bind(
+		context_,
+		last_buffer_
+	);
+	
+	context_.last_buffer(
+		last_buffer_
+	);
 }

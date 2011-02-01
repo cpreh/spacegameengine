@@ -96,10 +96,23 @@ private:
 	);
 
 	void
-	attach_buffer(
-		GLenum component,
+	add_buffer_binding(
+		fbo::render_buffer const &,
 		GLenum attachment
 	);
+
+	void
+	remove_texture_binding(
+		opengl::texture_surface_base_ptr
+	);
+
+	void
+	remove_buffer_binding(
+		fbo::render_buffer const &
+	);
+
+	void
+	check();
 
 	fbo::context &context_;
 
@@ -112,14 +125,8 @@ private:
 	texture_binding_vector texture_bindings_;
 
 	typedef boost::ptr_vector<
-		opengl::fbo::render_buffer
-	> render_buffer_vector;
-
-	typedef boost::ptr_vector<
 		opengl::fbo::render_buffer_binding
 	> render_buffer_binding_vector;
-
-	render_buffer_vector render_buffers_;
 
 	render_buffer_binding_vector render_buffer_bindings_;
 };

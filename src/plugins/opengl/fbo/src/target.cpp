@@ -21,9 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../target.hpp"
 #include "../bind.hpp"
 #include "../context.hpp"
+#include "../depth_stencil_surface_ptr.hpp"
+#include "../depth_stencil_surface.hpp"
 #include "../render_buffer.hpp"
 #include "../render_buffer_binding.hpp"
-#include "../scoped_unbind.hpp"
+#include "../temporary_bind.hpp"
 #include "../texture_binding.hpp"
 #include "../../check_state.hpp"
 #include "../../depth_stencil_texture.hpp"
@@ -31,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../context/use.hpp"
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/texture.hpp>
+#include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <fcppt/algorithm/ptr_container_erase_if.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
@@ -67,64 +70,6 @@ sge::opengl::fbo::target::target(
 		context_
 	)
 {
-#if 0
-	// important: to bind buffers to an fbo
-	// it must be bound itself
-	// but this has to be undone after this function!
-	opengl::fbo::scoped_unbind const scoped_exit(
-		context_
-	);
-
-	if(
-		_texture
-	)
-		add_texture_binding(
-			_texture,
-			context_.color_attachment()
-		);
-
-	if(
-		_depth_stencil_texture
-	)
-		add_texture_binding(
-			_depth_stencil_texture,
-			context_.depth_attachment()
-		);
-	else if(
-		_param.depth_buffer() != renderer::depth_buffer::off
-	)
-		attach_buffer(
-			GL_DEPTH_COMPONENT,
-			context_.depth_attachment()
-		);
-	
-	if(
-		_param.stencil_buffer() != renderer::stencil_buffer::off
-	)
-		attach_buffer(
-			GL_STENCIL_INDEX,
-			context_.stencil_attachment()
-		);
-
-	GLenum const status(
-		context_.check_framebuffer_status()(
-			context_.framebuffer_target()
-		)
-	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("Checking the fbo status failed."),
-		sge::renderer::exception
-	)
-
-	if(
-		status !=
-		context_.framebuffer_complete()
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("FBO is incomplete!")
-		);
-#endif
 }
 
 sge::opengl::fbo::target::~target()
@@ -174,24 +119,13 @@ sge::opengl::fbo::target::remove_surface(
 	renderer::color_surface_ptr const _surface
 )
 {
-	if(
-		!fcppt::algorithm::ptr_container_erase_if(
-			texture_bindings_,
-			boost::phoenix::bind(
-				&fbo::texture_binding::surface,
-				boost::phoenix::arg_names::arg1
-			)
-			==
-			fcppt::dynamic_pointer_cast<
-				opengl::texture_surface
-			>(
-				_surface
-			)
+	this->remove_texture_binding(
+		fcppt::dynamic_pointer_cast<
+			opengl::texture_surface_base
+		>(
+			_surface
 		)
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("fbo::target::remove_surface(): Invalid surface!")
-		);
+	);
 }
 
 void
@@ -199,6 +133,53 @@ sge::opengl::fbo::target::add_surface(
 	renderer::depth_stencil_surface_ptr const _surface
 )
 {
+	if(
+		context_.depth_stencil_attachment()
+		== 0
+	)
+		throw sge::renderer::unsupported(
+			FCPPT_TEXT("depth_stencil_surface target attachment!"),
+			FCPPT_TEXT("3.0"),
+			FCPPT_TEXT("")
+		);
+
+	if(
+		opengl::fbo::depth_stencil_surface_ptr const ptr =
+			fcppt::dynamic_pointer_cast<
+				opengl::fbo::depth_stencil_surface
+			>(
+				_surface
+			)
+	)
+	{
+		this->add_buffer_binding(
+			ptr->render_buffer(),
+			context_.depth_stencil_attachment()
+		);
+
+		return;
+	}
+
+	if(
+		opengl::texture_surface_base_ptr const ptr =
+			fcppt::dynamic_pointer_cast<
+				opengl::texture_surface_base
+			>(
+				_surface
+			)
+	)
+	{
+		this->add_texture_binding(
+			ptr,
+			context_.depth_stencil_attachment()
+		);
+
+		return;
+	}
+
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid depth_stencil_surface in add_surface!")
+	);
 }
 
 void
@@ -206,6 +187,41 @@ sge::opengl::fbo::target::remove_surface(
 	renderer::depth_stencil_surface_ptr const _surface
 )
 {
+	if(
+		opengl::fbo::depth_stencil_surface_ptr const ptr =
+			fcppt::dynamic_pointer_cast<
+				opengl::fbo::depth_stencil_surface
+			>(
+				_surface
+			)
+	)
+	{
+		this->remove_buffer_binding(
+			ptr->render_buffer()
+		);
+
+		return;
+	}
+
+	if(
+		opengl::texture_surface_base_ptr const ptr =
+			fcppt::dynamic_pointer_cast<
+				opengl::texture_surface_base
+			>(
+				_surface
+			)
+	)
+	{
+		this->remove_texture_binding(
+			ptr
+		);
+
+		return;
+	}
+
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid depth_stencil_surface in remove_surface!")
+	);
 }
 
 sge::renderer::screen_unit
@@ -219,6 +235,11 @@ sge::opengl::fbo::target::add_texture_binding(
 	GLenum const _attachment
 )
 {
+	opengl::fbo::temporary_bind const scoped_exit(
+		context_,
+		fbo_
+	);
+
 	fcppt::container::ptr::push_back_unique_ptr(
 		texture_bindings_,
 		fcppt::make_unique_ptr<
@@ -237,67 +258,80 @@ sge::opengl::fbo::target::add_texture_binding(
 }
 
 void
-sge::opengl::fbo::target::attach_buffer(
-	GLenum const _component,
+sge::opengl::fbo::target::add_buffer_binding(
+	fbo::render_buffer const &_buffer,
 	GLenum const _attachment
 )
 {
-#if 0
-	{
-		typedef fcppt::unique_ptr<
-			render_buffer
-		> render_buffer_ptr;
-
-		render_buffer_ptr ptr(
-			fcppt::make_unique_ptr<
-				render_buffer
-			>(
-				context_
-			)
-		);
-
-		ptr->store(
-			_component,
-			static_cast<
-				GLsizei
-			>(
-				dim().w()
-			),
-			static_cast<
-				GLsizei
-			>(
-				dim().h()
-			)
-		);
-
-		fcppt::container::ptr::push_back_unique_ptr(
-			render_buffers_,
-			move(
-				ptr
-			)
-		);
-	}
-
-	typedef fcppt::unique_ptr<
-		render_buffer_binding
-	> render_buffer_binding_ptr;
-
-	render_buffer_binding_ptr ptr(
-		fcppt::make_unique_ptr<
-			fbo::render_buffer_binding
-		>(
-			context_,
-			fbo_,
-			render_buffers_.back(),
-			_attachment
-		)
+	opengl::fbo::temporary_bind const scoped_exit(
+		context_,
+		fbo_
 	);
 
 	fcppt::container::ptr::push_back_unique_ptr(
 		render_buffer_bindings_,
-		move(
-			ptr
+		fcppt::make_unique_ptr<
+			fbo::render_buffer_binding
+		>(
+			std::tr1::ref(
+				context_
+			),
+			std::tr1::ref(
+				fbo_
+			),
+			_buffer,
+			_attachment
 		)
 	);
-#endif
+}
+
+void
+sge::opengl::fbo::target::remove_texture_binding(
+	opengl::texture_surface_base_ptr const _surface
+)
+{
+	if(
+		!fcppt::algorithm::ptr_container_erase_if(
+			texture_bindings_,
+			boost::phoenix::bind(
+				&fbo::texture_binding::surface,
+				boost::phoenix::arg_names::arg1
+			)
+			==
+			_surface
+		)
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("fbo::target::remove_surface(): Invalid surface!")
+		);
+}
+
+void
+sge::opengl::fbo::target::remove_buffer_binding(
+	opengl::fbo::render_buffer const &_buffer
+)
+{
+}
+
+void
+sge::opengl::fbo::target::check()
+{
+	GLenum const status(
+		context_.check_framebuffer_status()(
+			context_.framebuffer_target()
+		)
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("Checking the fbo status failed."),
+		sge::renderer::exception
+	)
+
+	if(
+		status !=
+		context_.framebuffer_complete()
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("FBO is incomplete!")
+		);
 }

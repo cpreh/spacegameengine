@@ -18,22 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../scoped_unbind.hpp"
-#include "../bind.hpp"
-#include "../context.hpp"
+#ifndef SGE_OPENGL_FBO_TEMPORARY_BIND_HPP_INCLUDED
+#define SGE_OPENGL_FBO_TEMPORARY_BIND_HPP_INCLUDED
 
-sge::opengl::fbo::scoped_unbind::scoped_unbind(
-	fbo::context const &_context
-)
-:
-	context_(_context)
-{
-}
+#include "context_fwd.hpp"
+#include "object_fwd.hpp"
+#include "../common.hpp"
+#include <fcppt/noncopyable.hpp>
 
-sge::opengl::fbo::scoped_unbind::~scoped_unbind()
+namespace sge
 {
-	opengl::fbo::bind(
-		context_,
-		context_.last_buffer()
+namespace opengl
+{
+namespace fbo
+{
+
+class temporary_bind
+{
+	FCPPT_NONCOPYABLE(
+		temporary_bind
+	)
+public:
+	explicit temporary_bind(
+		fbo::context &,
+		fbo::object const &
 	);
+
+	~temporary_bind();
+private:
+	fbo::context &context_;
+
+	GLuint const last_buffer_;
+};
+
 }
+}
+}
+
+#endif

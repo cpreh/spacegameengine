@@ -185,16 +185,12 @@ sge::opengl::fbo::context::context()
 			:
 				0
 	),
-	depth_attachment_(
+	depth_stencil_attachment_(
 		has_native_
 		?
-			GL_DEPTH_ATTACHMENT
+			GL_DEPTH_STENCIL_ATTACHMENT
 		:
-			has_ext_
-			?
-				GL_DEPTH_ATTACHMENT_EXT
-			:
-				0
+			0
 	),
 	stencil_attachment_(
 		has_native_
@@ -308,9 +304,9 @@ sge::opengl::fbo::context::renderbuffer_target() const
 }
 
 GLenum
-sge::opengl::fbo::context::depth_attachment() const
+sge::opengl::fbo::context::depth_stencil_attachment() const
 {
-	return depth_attachment_;
+	return depth_stencil_attachment_;
 }
 
 GLenum

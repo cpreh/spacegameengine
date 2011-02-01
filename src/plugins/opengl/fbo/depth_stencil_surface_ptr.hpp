@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_FBO_SCOPED_UNBIND_HPP_INCLUDED
-#define SGE_OPENGL_FBO_SCOPED_UNBIND_HPP_INCLUDED
+#ifndef SGE_OPENGL_FBO_DEPTH_STENCIL_SURFACE_PTR_HPP_INCLUDED
+#define SGE_OPENGL_FBO_DEPTH_STENCIL_SURFACE_PTR_HPP_INCLUDED
 
-#include "context_fwd.hpp"
-#include <fcppt/noncopyable.hpp>
+#include "depth_stencil_surface_fwd.hpp"
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
@@ -31,20 +31,9 @@ namespace opengl
 namespace fbo
 {
 
-class scoped_unbind
-{
-	FCPPT_NONCOPYABLE(
-		scoped_unbind
-	)
-public:
-	explicit scoped_unbind(
-		fbo::context const &
-	);
-
-	~scoped_unbind();
-private:
-	fbo::context const &context_;
-};
+typedef fcppt::shared_ptr<
+	fbo::depth_stencil_surface
+> depth_stencil_surface_ptr;
 
 }
 }
