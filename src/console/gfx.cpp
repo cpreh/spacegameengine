@@ -30,7 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/part.hpp>
 #include <sge/font/text/lit.hpp>
 #include <sge/font/pos.hpp>
-#include <sge/input/keyboard/key.hpp>
+#include <sge/input/keyboard/char_event.hpp>
+#include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/key_repeat_event.hpp>
 #include <sge/time/second_f.hpp>
@@ -116,7 +117,7 @@ sge::console::gfx::gfx(
 	input_modifier_filter_(
 		_keyboard
 	),
-	ic_(
+	key_connection_(
 		input_modifier_filter_.register_callback(
 			std::tr1::bind(
 				&gfx::key_callback,
@@ -126,13 +127,22 @@ sge::console::gfx::gfx(
 			)
 		)
 	),
-	irc_(
+	key_repeat_connection_(
 		input_modifier_filter_.register_repeat_callback(
 			std::tr1::bind(
 				&gfx::key_action,
 				this,
 				std::tr1::placeholders::_1,
 				std::tr1::placeholders::_2
+			)
+		)
+	),
+	char_connection_(
+		_keyboard.char_callback(
+			std::tr1::bind(
+				&gfx::char_callback,
+				this,
+				std::tr1::placeholders::_1
 			)
 		)
 	),
@@ -308,46 +318,54 @@ sge::console::gfx::key_callback(
 	if (active_ && k.pressed())
 		this->key_action(
 			input::keyboard::key_repeat_event(
-				k.key()
+				k.key_code()
 			),
 			s
 		);
 }
 
 void
-sge::console::gfx::key_action(
-	input::keyboard::key_repeat_event const &k,
-	input::modifier::states const &s
+sge::console::gfx::char_callback(
+	input::keyboard::char_event const &_event
 )
 {
 	if (!active_)
 		return;
-	
+
+	// is a printable character? then append to input
 	if(
-		(
-			k.key().character() == SGE_FONT_TEXT_LIT('w')
-			|| k.key().character() == SGE_FONT_TEXT_LIT('W')
-		)
-		&&
-		(
-			s[input::keyboard::key_code::lctrl]
-			|| s[input::keyboard::key_code::rctrl]
+		std::isprint(
+			_event.character(),
+			std::locale()
 		)
 	)
 	{
-		input_line_.erase_word();
+		input_line_.insert(
+			_event.character()
+		);
+
 		return;
 	}
+}
 
-	// is a printable character? then append to input
-	if(std::isprint(k.key().character(),std::locale()))
-	{
-		input_line_.insert(k.key().character());
+void
+sge::console::gfx::key_action(
+	input::keyboard::key_repeat_event const &_event,
+	input::modifier::states const &_states
+)
+{
+	if (!active_)
 		return;
-	}
 
-	switch (k.key().code())
+	switch (_event.key_code())
 	{
+		case input::keyboard::key_code::w:
+			if(	
+				_states[input::keyboard::key_code::lctrl]
+				|| _states[input::keyboard::key_code::rctrl]
+			)
+				input_line_.erase_word();
+		break;
 		case input::keyboard::key_code::delete_:
 			input_line_.erase_char();
 		break;
@@ -403,12 +421,12 @@ sge::console::gfx::key_action(
 				object_.eval(
 					input_line_.string());
 			}
-			catch (console::exception const &e)
+			catch (console::exception const &error)
 			{
 				print(
 					SGE_FONT_TEXT_LIT("console error: ")
 					+
-					e.console_string()
+					error.console_string()
 				);
 			}
 

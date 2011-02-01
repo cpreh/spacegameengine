@@ -26,6 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../device/object.hpp"
 #include "../device/parameters_fwd.hpp"
 #include "../device/window_event_fwd.hpp"
+#include <sge/input/keyboard/char_callback.hpp>
+#include <sge/input/keyboard/char_function.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_callback.hpp>
 #include <sge/input/keyboard/key_code.hpp>
@@ -78,6 +80,11 @@ private:
 		input::keyboard::key_repeat_callback const &
 	);
 
+	fcppt::signal::auto_connection
+	char_callback(
+		input::keyboard::char_callback const &
+	);
+
 	sge::input::keyboard::mod_state const
 	mod_state() const;
 
@@ -110,6 +117,10 @@ private:
 	fcppt::signal::object<
 		input::keyboard::key_repeat_function
 	> key_repeat_signal_;
+
+	fcppt::signal::object<
+		input::keyboard::char_function
+	> char_signal_;
 
 	sge::input::keyboard::mod_state modifiers_;
 };

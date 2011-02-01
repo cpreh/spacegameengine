@@ -20,14 +20,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../device.hpp"
 #include "../key_code_to_key_sym.hpp"
-#include "../keys.hpp"
 #include "../looked_up_string.hpp"
 #include "../lookup_string.hpp"
 #include "../translate_key_code.hpp"
 #include "../../device/window_demuxer.hpp"
 #include "../../device/window_event.hpp"
 #include "../../device/parameters.hpp"
-#include <sge/input/keyboard/key.hpp>
+#include <sge/input/keyboard/char_event.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/key_repeat_event.hpp>
 #include <sge/input/keyboard/to_modifier.hpp>
@@ -93,6 +92,7 @@ sge::x11input::keyboard::device::device(
 	),
 	key_signal_(),
 	key_repeat_signal_(),
+	char_signal_(),
 	modifiers_(
 		sge::input::keyboard::mod_state::null()
 	)
@@ -135,6 +135,17 @@ sge::x11input::keyboard::device::key_repeat_callback(
 		);
 }
 
+fcppt::signal::auto_connection
+sge::x11input::keyboard::device::char_callback(
+	input::keyboard::char_callback const &_callback
+)
+{
+	return
+		char_signal_.connect(
+			_callback
+		);
+}
+
 sge::input::keyboard::mod_state const
 sge::x11input::keyboard::device::mod_state() const
 {
@@ -153,30 +164,18 @@ sge::x11input::keyboard::device::on_key_press(
 		)
 	);
 
-	x11input::keyboard::key_vector const keys(
-		x11input::keyboard::keys(
-			lookup
-		)
-	);
-
-	assert(
-		!keys.empty()
+	bool const is_repeated(
+		_event.get().flags & XIKeyRepeat
 	);
 
 	if(
-		_event.get().flags & XIKeyRepeat
+		is_repeated
 	)
-	{
-		BOOST_FOREACH(
-			x11input::keyboard::key_vector::const_reference key,
-			keys
-		)
-			key_repeat_signal_(
-				input::keyboard::key_repeat_event(
-					key
-				)
-			);
-	}
+		key_repeat_signal_(
+			input::keyboard::key_repeat_event(
+				lookup.key_code()
+			)
+		);
 	else
 	{
 		this->update_modifiers(
@@ -184,17 +183,24 @@ sge::x11input::keyboard::device::on_key_press(
 			true
 		);
 
-		BOOST_FOREACH(
-			x11input::keyboard::key_vector::const_reference key,
-			keys
-		)
-			key_signal_(
-				input::keyboard::key_event(
-					key,
-					true
-				)
-			);
+		key_signal_(
+			input::keyboard::key_event(
+				lookup.key_code(),
+				true
+			)
+		);
 	}
+
+	BOOST_FOREACH(
+		x11input::keyboard::char_vector::value_type element,
+		lookup.char_codes()
+	)
+		char_signal_(
+			input::keyboard::char_event(
+				element,
+				is_repeated
+			)
+		);
 }
 
 void
@@ -218,10 +224,7 @@ sge::x11input::keyboard::device::on_key_release(
 		
 	key_signal_(
 		input::keyboard::key_event(
-			sge::input::keyboard::key(
-				key_code,
-				0
-			),
+			key_code,
 			false
 		)
 	);

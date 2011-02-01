@@ -106,7 +106,7 @@ public:
 		if(
 			k.pressed()
 			&&
-			k.key().code() == sge::input::keyboard::key_code::escape
+			k.key_code() == sge::input::keyboard::key_code::escape
 		)
 			running_ = false;
 	}

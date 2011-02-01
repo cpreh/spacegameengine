@@ -18,41 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../keys.hpp"
-#include "../key_vector.hpp"
-#include "../looked_up_string.hpp"
-#include <sge/input/keyboard/key.hpp>
-#include <boost/foreach.hpp>
+#ifndef SGE_INPUT_KEYBOARD_CHAR_FUNCTION_HPP_INCLUDED
+#define SGE_INPUT_KEYBOARD_CHAR_FUNCTION_HPP_INCLUDED
 
-sge::x11input::keyboard::key_vector const
-sge::x11input::keyboard::keys(
-	x11input::keyboard::looked_up_string const &_string
-)
+#include <sge/input/keyboard/char_event_fwd.hpp>
+
+namespace sge
 {
-	if(
-		_string.char_codes().empty()
-	)
-		return
-			x11input::keyboard::key_vector(
-				1u,
-				sge::input::keyboard::key(
-					_string.key_code(),
-					0
-				)
-			);
+namespace input
+{
+namespace keyboard
+{
 
-	x11input::keyboard::key_vector ret;
+typedef
+void
+char_function(
+	char_event const &
+);
 
-	BOOST_FOREACH(	
-		x11input::keyboard::char_vector::const_reference code,
-		_string.char_codes()
-	)
-		ret.push_back(
-			sge::input::keyboard::key(
-				_string.key_code(),
-				code
-			)
-		);
-	
-	return ret;
 }
+}
+}
+
+#endif

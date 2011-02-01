@@ -18,22 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_KEYBOARD_KEY_VECTOR_HPP_INCLUDED
-#define SGE_X11INPUT_KEYBOARD_KEY_VECTOR_HPP_INCLUDED
-
-#include <sge/input/keyboard/key.hpp>
-#include <vector>
+#ifndef SGE_INPUT_CHARBOARD_CHAR_EVENT_FWD_HPP_INCLUDED
+#define SGE_INPUT_CHARBOARD_CHAR_EVENT_FWD_HPP_INCLUDED
 
 namespace sge
 {
-namespace x11input
+namespace input
 {
 namespace keyboard
 {
 
-typedef std::vector<
-	sge::input::keyboard::key
-> key_vector;
+class char_event;
 
 }
 }

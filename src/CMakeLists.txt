@@ -317,6 +317,10 @@ SET(
 	include/sge/input/cursor/window_mode.hpp
 	include/sge/input/exception.hpp
 	include/sge/input/keyboard/action.hpp
+	include/sge/input/keyboard/char_callback.hpp
+	include/sge/input/keyboard/char_event.hpp
+	include/sge/input/keyboard/char_event_fwd.hpp
+	include/sge/input/keyboard/char_function.hpp
 	include/sge/input/keyboard/char_type.hpp
 	include/sge/input/keyboard/collector.hpp
 	include/sge/input/keyboard/collector_fwd.hpp
@@ -330,13 +334,11 @@ SET(
 	include/sge/input/keyboard/is_alt.hpp
 	include/sge/input/keyboard/is_ctrl.hpp
 	include/sge/input/keyboard/is_shift.hpp
-	include/sge/input/keyboard/key.hpp
 	include/sge/input/keyboard/key_callback.hpp
 	include/sge/input/keyboard/key_code.hpp
 	include/sge/input/keyboard/key_event.hpp
 	include/sge/input/keyboard/key_event_fwd.hpp
 	include/sge/input/keyboard/key_function.hpp
-	include/sge/input/keyboard/key_fwd.hpp
 	include/sge/input/keyboard/key_repeat_callback.hpp
 	include/sge/input/keyboard/key_repeat_event.hpp
 	include/sge/input/keyboard/key_repeat_event_fwd.hpp
@@ -893,12 +895,12 @@ SET(
 	src/input/cursor/relative_movement.cpp
 	src/input/exception.cpp
 	src/input/keyboard/action.cpp
+	src/input/keyboard/char_event.cpp
 	src/input/keyboard/collector.cpp
 	src/input/keyboard/device.cpp
 	src/input/keyboard/is_alt.cpp
 	src/input/keyboard/is_ctrl.cpp
 	src/input/keyboard/is_shift.cpp
-	src/input/keyboard/key.cpp
 	src/input/keyboard/key_event.cpp
 	src/input/keyboard/key_repeat_event.cpp
 	src/input/keyboard/to_modifier.cpp

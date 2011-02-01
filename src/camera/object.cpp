@@ -143,7 +143,7 @@ void
 sge::camera::object::key_callback(
 	sge::input::keyboard::key_event const &k)
 {
-	switch (k.key().code())
+	switch (k.key_code())
 	{
 		case sge::input::keyboard::key_code::space:
 			dirs_[1] = !k.pressed() ? 0.f : 1.f;

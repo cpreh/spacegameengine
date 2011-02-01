@@ -52,8 +52,6 @@ void mod_callback(
 
 	if (mods[sge::input::keyboard::key_code::alt])
 		fcppt::io::cerr << FCPPT_TEXT("A-");
-
-	fcppt::io::cerr << kp.key().character() << FCPPT_TEXT('\n');
 }
 
 }

@@ -64,14 +64,11 @@ SET(
 	src/plugins/x11input/keyboard/device_fwd.hpp
 	src/plugins/x11input/keyboard/device_ptr.hpp
 	src/plugins/x11input/keyboard/key_code_to_key_sym.hpp
-	src/plugins/x11input/keyboard/key_vector.hpp
-	src/plugins/x11input/keyboard/keys.hpp
 	src/plugins/x11input/keyboard/looked_up_string.hpp
 	src/plugins/x11input/keyboard/looked_up_string_fwd.hpp
 	src/plugins/x11input/keyboard/lookup_string.hpp
 	src/plugins/x11input/keyboard/src/device.cpp
 	src/plugins/x11input/keyboard/src/key_code_to_key_sym.cpp
-	src/plugins/x11input/keyboard/src/keys.cpp
 	src/plugins/x11input/keyboard/src/looked_up_string.cpp
 	src/plugins/x11input/keyboard/src/lookup_string.cpp
 	src/plugins/x11input/keyboard/src/translate_key_code.cpp
