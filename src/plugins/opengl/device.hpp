@@ -22,10 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_DEVICE_HPP_INCLUDED
 
 #include "common.hpp"
-#include "default_target_ptr.hpp"
-#include "target_ptr.hpp"
 #include "device_state_ptr.hpp"
+#include "onscreen_target_ptr.hpp"
+#include "target_ptr.hpp"
 #include "context/object.hpp"
+#include "fbo/target_ptr.hpp"
 #include <sge/renderer/adapter_type.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/parameters.hpp>
@@ -46,7 +47,9 @@ class device
 :
 	public renderer::device
 {
-	FCPPT_NONCOPYABLE(device)
+	FCPPT_NONCOPYABLE(
+		device
+	)
 public:
 	device(
 		renderer::parameters const &,
@@ -277,7 +280,9 @@ private:
 
 	opengl::device_state_ptr state_;
 
-	opengl::default_target_ptr const default_target_;
+	opengl::onscreen_target_ptr const onscreen_target_;
+
+	opengl::fbo::target_ptr fbo_target_;
 
 	opengl::target_ptr target_;
 

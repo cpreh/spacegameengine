@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../default_target.hpp"
+#include "../onscreen_target.hpp"
 #include "../onscreen_surface.hpp"
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/viewport.hpp>
@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 
-sge::opengl::default_target::default_target(
+sge::opengl::onscreen_target::onscreen_target(
 	sge::window::instance_ptr const _window,
 	renderer::bit_depth::type const _depth
 )
@@ -57,67 +57,29 @@ sge::opengl::default_target::default_target(
 {
 }
 
-sge::opengl::default_target::~default_target()
+sge::opengl::onscreen_target::~onscreen_target()
 {
 }
 
 void
-sge::opengl::default_target::bind() const
+sge::opengl::onscreen_target::bind() const
 {
 }
 
 void
-sge::opengl::default_target::unbind() const
+sge::opengl::onscreen_target::unbind() const
 {
 }
 
-void
-sge::opengl::default_target::add_surface(
-	renderer::color_surface_ptr
-)
-{
-}
 
-void
-sge::opengl::default_target::remove_surface(
-	renderer::color_surface_ptr
-)
+sge::renderer::color_surface_ptr const
+sge::opengl::onscreen_target::surface() const
 {
-}
-
-void
-sge::opengl::default_target::add_surface(
-	renderer::depth_stencil_surface_ptr
-)
-{
-}
-
-void
-sge::opengl::default_target::remove_surface(
-	renderer::depth_stencil_surface_ptr
-)
-{
-}
-
-sge::renderer::color_surface_vector const
-sge::opengl::default_target::color_surfaces() const
-{
-	return
-		renderer::color_surface_vector(
-			1u,
-			main_surface_
-		);
-}
-
-sge::renderer::depth_stencil_surface_vector const
-sge::opengl::default_target::depth_stencil_surfaces() const
-{
-	return
-		renderer::depth_stencil_surface_vector();
+	return main_surface_;
 }
 
 sge::renderer::screen_unit
-sge::opengl::default_target::height() const
+sge::opengl::onscreen_target::height() const
 {
 	return
 		static_cast<

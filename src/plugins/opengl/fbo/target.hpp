@@ -32,10 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture_surface_base_ptr.hpp"
 #include "../context/object_fwd.hpp"
 #include <sge/renderer/color_surface_ptr.hpp>
-#include <sge/renderer/color_surface_vector.hpp>
 #include <sge/renderer/depth_stencil_surface_ptr.hpp>
-#include <sge/renderer/depth_stencil_surface_vector.hpp>
 #include <sge/renderer/screen_unit.hpp>
+#include <sge/renderer/target.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
@@ -48,6 +47,7 @@ namespace fbo
 
 class target
 :
+	public sge::renderer::target,
 	public opengl::target
 {
 	FCPPT_NONCOPYABLE(
@@ -85,12 +85,6 @@ private:
 	remove_surface(
 		renderer::depth_stencil_surface_ptr
 	);
-
-	renderer::color_surface_vector const
-	color_surfaces() const;
-
-	renderer::depth_stencil_surface_vector const
-	depth_stencil_surfaces() const;
 
 	renderer::screen_unit
 	height() const;

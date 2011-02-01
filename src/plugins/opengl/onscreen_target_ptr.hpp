@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_DEFAULT_TARGET_PTR_HPP_INCLUDED
-#define SGE_OPENGL_DEFAULT_TARGET_PTR_HPP_INCLUDED
+#ifndef SGE_OPENGL_ONSCREEN_TARGET_PTR_HPP_INCLUDED
+#define SGE_OPENGL_ONSCREEN_TARGET_PTR_HPP_INCLUDED
 
-#include "default_target_fwd.hpp"
+#include "onscreen_target_fwd.hpp"
 #include <fcppt/shared_ptr.hpp>
 
 namespace sge
@@ -30,8 +30,8 @@ namespace opengl
 {
 
 typedef fcppt::shared_ptr<
-	default_target
-> default_target_ptr;
+	onscreen_target
+> onscreen_target_ptr;
 
 }
 }

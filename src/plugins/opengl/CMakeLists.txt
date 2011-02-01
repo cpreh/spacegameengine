@@ -105,9 +105,6 @@ SET(
 	src/plugins/opengl/cube_side_array.hpp
 	src/plugins/opengl/cube_texture.hpp
 	src/plugins/opengl/cube_texture_context.hpp
-	src/plugins/opengl/default_target.hpp
-	src/plugins/opengl/default_target_fwd.hpp
-	src/plugins/opengl/default_target_ptr.hpp
 	src/plugins/opengl/depth_stencil_texture.hpp
 	src/plugins/opengl/depth_stencil_texture_fwd.hpp
 	src/plugins/opengl/depth_stencil_texture_ptr.hpp
@@ -318,6 +315,9 @@ SET(
 	src/plugins/opengl/multi_texture_context_fwd.hpp
 	src/plugins/opengl/normal_lock_method.hpp
 	src/plugins/opengl/onscreen_surface.hpp
+	src/plugins/opengl/onscreen_target.hpp
+	src/plugins/opengl/onscreen_target_fwd.hpp
+	src/plugins/opengl/onscreen_target_ptr.hpp
 	src/plugins/opengl/pbo_context.hpp
 	src/plugins/opengl/point_sprite_context.hpp
 	src/plugins/opengl/point_sprite_context_fwd.hpp
@@ -351,7 +351,6 @@ SET(
 	src/plugins/opengl/src/create_vbo_impl.cpp
 	src/plugins/opengl/src/cube_texture.cpp
 	src/plugins/opengl/src/cube_texture_context.cpp
-	src/plugins/opengl/src/default_target.cpp
 	src/plugins/opengl/src/depth_stencil_texture.cpp
 	src/plugins/opengl/src/device.cpp
 	src/plugins/opengl/src/device_state.cpp
@@ -382,6 +381,7 @@ SET(
 	src/plugins/opengl/src/multi_texture_context.cpp
 	src/plugins/opengl/src/normal_lock_method.cpp
 	src/plugins/opengl/src/onscreen_surface.cpp
+	src/plugins/opengl/src/onscreen_target.cpp
 	src/plugins/opengl/src/pbo_context.cpp
 	src/plugins/opengl/src/point_sprite_context.cpp
 	src/plugins/opengl/src/range_lock_method.cpp

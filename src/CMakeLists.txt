@@ -437,7 +437,6 @@ SET(
 	include/sge/renderer/color_surface.hpp
 	include/sge/renderer/color_surface_fwd.hpp
 	include/sge/renderer/color_surface_ptr.hpp
-	include/sge/renderer/color_surface_vector.hpp
 	include/sge/renderer/const_color_surface_ptr.hpp
 	include/sge/renderer/const_index_buffer_ptr.hpp
 	include/sge/renderer/const_raw_pointer.hpp
@@ -459,7 +458,6 @@ SET(
 	include/sge/renderer/depth_stencil_surface.hpp
 	include/sge/renderer/depth_stencil_surface_fwd.hpp
 	include/sge/renderer/depth_stencil_surface_ptr.hpp
-	include/sge/renderer/depth_stencil_surface_vector.hpp
 	include/sge/renderer/depth_stencil_texture.hpp
 	include/sge/renderer/depth_stencil_texture_fwd.hpp
 	include/sge/renderer/depth_stencil_texture_ptr.hpp
@@ -596,6 +594,9 @@ SET(
 	include/sge/renderer/no_texture.hpp
 	include/sge/renderer/nonindexed_primitive_count.hpp
 	include/sge/renderer/nonindexed_primitive_type.hpp
+	include/sge/renderer/onscreen_target.hpp
+	include/sge/renderer/onscreen_target_fwd.hpp
+	include/sge/renderer/onscreen_target_ptr.hpp
 	include/sge/renderer/parameters.hpp
 	include/sge/renderer/parameters_fwd.hpp
 	include/sge/renderer/pixel_rect.hpp
@@ -659,6 +660,8 @@ SET(
 	include/sge/renderer/system_fwd.hpp
 	include/sge/renderer/system_ptr.hpp
 	include/sge/renderer/target.hpp
+	include/sge/renderer/target_base.hpp
+	include/sge/renderer/target_base_fwd.hpp
 	include/sge/renderer/target_fwd.hpp
 	include/sge/renderer/target_ptr.hpp
 	include/sge/renderer/texture.hpp
@@ -1002,6 +1005,7 @@ SET(
 	src/renderer/no_multi_sampling.cpp
 	src/renderer/no_texture.cpp
 	src/renderer/nonindexed_primitive_count.cpp
+	src/renderer/onscreen_target.cpp
 	src/renderer/parameters.cpp
 	src/renderer/plugin.cpp
 	src/renderer/refresh_rate_dont_care.cpp
@@ -1033,6 +1037,7 @@ SET(
 	src/renderer/sub_data.cpp
 	src/renderer/system.cpp
 	src/renderer/target.cpp
+	src/renderer/target_base.cpp
 	src/renderer/texture.cpp
 	src/renderer/texture_base.cpp
 	src/renderer/texture_creation_failed.cpp

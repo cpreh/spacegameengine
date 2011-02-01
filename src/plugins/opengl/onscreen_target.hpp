@@ -18,15 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_DEFAULT_TARGET_HPP_INCLUDED
-#define SGE_OPENGL_DEFAULT_TARGET_HPP_INCLUDED
+#ifndef SGE_OPENGL_ONSCREEN_TARGET_HPP_INCLUDED
+#define SGE_OPENGL_ONSCREEN_TARGET_HPP_INCLUDED
 
+#include "onscreen_target_fwd.hpp"
 #include "target.hpp"
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/color_surface_ptr.hpp>
-#include <sge/renderer/color_surface_vector.hpp>
-#include <sge/renderer/depth_stencil_surface_ptr.hpp>
-#include <sge/renderer/depth_stencil_surface_vector.hpp>
+#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/window/instance_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -36,20 +35,21 @@ namespace sge
 namespace opengl
 {
 
-class default_target
+class onscreen_target
 :
+	public sge::renderer::onscreen_target,
 	public opengl::target
 {
 	FCPPT_NONCOPYABLE(
-		default_target
+		onscreen_target
 	)
 public:
-	default_target(
+	onscreen_target(
 		sge::window::instance_ptr,
 		renderer::bit_depth::type
 	);
 
-	~default_target();
+	~onscreen_target();
 
 	void
 	bind() const;
@@ -57,31 +57,8 @@ public:
 	void
 	unbind() const;
 private:
-	void
-	add_surface(
-		renderer::color_surface_ptr
-	);
-
-	void
-	remove_surface(
-		renderer::color_surface_ptr
-	);
-
-	void
-	add_surface(
-		renderer::depth_stencil_surface_ptr
-	);
-
-	void
-	remove_surface(
-		renderer::depth_stencil_surface_ptr
-	);
-
-	renderer::color_surface_vector const
-	color_surfaces() const;
-
-	renderer::depth_stencil_surface_vector const
-	depth_stencil_surfaces() const;
+	renderer::color_surface_ptr const
+	surface() const;
 
 	renderer::screen_unit
 	height() const;

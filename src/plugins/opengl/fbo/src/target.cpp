@@ -186,16 +186,6 @@ sge::opengl::fbo::target::remove_surface(
 {
 }
 
-sge::renderer::color_surface_vector const
-sge::opengl::fbo::target::color_surfaces() const
-{
-}
-
-sge::renderer::depth_stencil_surface_vector const
-sge::opengl::fbo::target::depth_stencil_surfaces() const
-{
-}
-
 sge::renderer::screen_unit
 sge::opengl::fbo::target::height() const
 {

@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../create_caps.hpp"
 #include "../create_device_state.hpp"
 #include "../cube_texture.hpp"
-#include "../default_target.hpp"
 #include "../depth_stencil_texture.hpp"
 #include "../device_state.hpp"
 #include "../draw_arrays.hpp"
@@ -35,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../get_scissor_area.hpp"
 #include "../index_buffer.hpp"
 #include "../initial_states.hpp"
+#include "../onscreen_target.hpp"
 #include "../set_clip_plane.hpp"
 #include "../set_light.hpp"
 #include "../set_material.hpp"
@@ -93,16 +93,17 @@ sge::opengl::device::device(
 			_window
 		)
 	),
-	default_target_(
+	onscreen_target_(
 		fcppt::make_shared_ptr<
-			opengl::default_target
+			opengl::onscreen_target
 		>(
 			_window,
 			_parameters.display_mode().bit_depth()
 		)
 	),
+	fbo_target_(),
 	target_(
-		default_target_
+		onscreen_target_
 	),
 	caps_(),
 	state_levels_(),
@@ -381,23 +382,28 @@ sge::opengl::device::target(
 )
 {
 	if(
-		_target == target_
+		_target == fbo_target_
 	)
 		return;
+	
+	fbo_target_ =
+		fcppt::dynamic_pointer_cast<
+			opengl::fbo::target
+		>(
+			_target
+		);
 	
 	target_->unbind();
 
 	target_ =
 		_target
 		?
-			fcppt::dynamic_pointer_cast<
-				opengl::target
-			>(
-				_target
+			opengl::target_ptr(
+				fbo_target_
 			)
 		:
 			opengl::target_ptr(
-				default_target_
+				onscreen_target_
 			);
 		
 	target_->bind();
@@ -452,7 +458,7 @@ sge::opengl::device::glsl_program(
 sge::renderer::target_ptr const
 sge::opengl::device::target() const
 {
-	return target_;
+	return fbo_target_;
 }
 
 sge::renderer::target_ptr const
@@ -636,6 +642,12 @@ sge::opengl::device::create_volume_texture(
 		);
 }
 
+sge::renderer::onscreen_target_ptr const
+sge::opengl::device::onscreen_target() const
+{
+	return onscreen_target_;
+}
+
 sge::renderer::scissor_area const
 sge::opengl::device::scissor_area() const
 {
@@ -700,5 +712,5 @@ sge::opengl::device::clear_bit(
 bool
 sge::opengl::device::fbo_active() const
 {
-	return target_ != default_target_;
+	return fbo_target_;
 }

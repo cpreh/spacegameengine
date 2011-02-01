@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "target_fwd.hpp"
 #include <sge/renderer/screen_unit.hpp>
-#include <sge/renderer/target.hpp>
+#include <sge/renderer/target_base.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <fcppt/math/box/basic_decl.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -35,9 +35,11 @@ namespace opengl
 
 class target
 :
-	public sge::renderer::target
+	public virtual sge::renderer::target_base
 {
-	FCPPT_NONCOPYABLE(target)
+	FCPPT_NONCOPYABLE(
+		target
+	)
 protected:
 	explicit target(
 		renderer::viewport const &

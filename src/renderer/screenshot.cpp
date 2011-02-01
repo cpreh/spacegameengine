@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/screenshot.hpp>
 #include <sge/renderer/const_scoped_color_surface_lock.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/target.hpp>
+#include <sge/renderer/onscreen_target.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/image2d/loader.hpp>
@@ -35,7 +35,7 @@ sge::renderer::screenshot(
 )
 {
 	renderer::const_scoped_color_surface_lock const lock(
-		_renderer->target()->color_surfaces().at(0) // FIXME!
+		_renderer->onscreen_target()->surface()
 	);
 
 	// FIXME
