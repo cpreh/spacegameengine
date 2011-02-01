@@ -102,15 +102,15 @@ sge::opengl::texture::surface(
 	renderer::stage_type const _stage
 )
 {
-	// important for the construct of texture_surface to work!
+	// important for the constructor of texture_surface to work!
 	this->bind();
 
 	return
 		fcppt::make_shared_ptr<
 			opengl::texture_surface
 		>(
-			this->id(),
 			this->type(),
+			this->id(),
 			_stage
 		);
 }

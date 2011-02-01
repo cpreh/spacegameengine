@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_VIEWPORT_RESIZE_MANAGER_HPP_INCLUDED
 
 #include <sge/renderer/device_ptr.hpp>
-#include <sge/renderer/target_ptr.hpp>
+#include <sge/renderer/target_base_ptr.hpp>
 #include <sge/systems/viewport/manager.hpp>
 #include <awl/window/event/resize_fwd.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -56,7 +56,7 @@ private:
 
 	sge::renderer::device_ptr const device_;
 
-	sge::renderer::target_ptr const target_;
+	sge::renderer::target_base_ptr const target_;
 
 	fcppt::signal::scoped_connection const resize_connection_;
 };

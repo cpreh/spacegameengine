@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "center.hpp"
 #include "resize_manager.hpp"
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/target.hpp>
+#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/window/instance.hpp>
 #include <awl/window/event/processor.hpp>
@@ -39,7 +39,7 @@ sge::systems::viewport::resize_manager::resize_manager(
 		_device
 	),
 	target_(
-		_device->target()
+		_device->onscreen_target()
 	),
 	resize_connection_(
 		_device->window()->awl_window_event_processor()->resize_callback(

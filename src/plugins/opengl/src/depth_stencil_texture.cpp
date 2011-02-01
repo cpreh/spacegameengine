@@ -107,8 +107,8 @@ sge::opengl::depth_stencil_texture::surface() const
 		fcppt::make_shared_ptr<
 			opengl::depth_stencil_texture_surface
 		>(
-			this->id(),
-			this->type()
+			this->type(),
+			this->id()
 		);
 }
 

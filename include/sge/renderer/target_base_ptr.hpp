@@ -18,38 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../texture_base.hpp"
-#include "../texfuncs/bind.hpp"
+#ifndef SGE_RENDERER_TARGET_BASE_PTR_HPP_INCLUDED
+#define SGE_RENDERER_TARGET_BASE_PTR_HPP_INCLUDED
 
-GLenum
-sge::opengl::texture_base::type() const
+#include <sge/renderer/target_base_fwd.hpp>
+#include <fcppt/shared_ptr.hpp>
+
+namespace sge
 {
-	return type_;
+namespace renderer
+{
+
+typedef fcppt::shared_ptr<
+	renderer::target_base
+> target_base_ptr;
+
+}
 }
 
-void
-sge::opengl::texture_base::bind() const
-{
-	texfuncs::bind(
-		type(),
-		id()
-	);
-}
-
-GLuint
-sge::opengl::texture_base::id() const
-{
-	return holder_.id();
-}
-
-sge::opengl::texture_base::~texture_base()
-{
-}
-
-sge::opengl::texture_base::texture_base(
-	GLenum const _type
-)
-:
-	type_(_type),
-	holder_()
-{}
+#endif

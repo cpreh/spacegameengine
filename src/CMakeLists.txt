@@ -663,6 +663,7 @@ SET(
 	include/sge/renderer/target.hpp
 	include/sge/renderer/target_base.hpp
 	include/sge/renderer/target_base_fwd.hpp
+	include/sge/renderer/target_base_ptr.hpp
 	include/sge/renderer/target_from_texture.hpp
 	include/sge/renderer/target_fwd.hpp
 	include/sge/renderer/target_ptr.hpp
