@@ -58,3 +58,10 @@ sge::opengl::fbo::texture_binding::texture_binding(
 sge::opengl::fbo::texture_binding::~texture_binding()
 {
 }
+
+
+sge::opengl::texture_surface_base_ptr const
+sge::opengl::fbo::texture_binding::surface() const
+{
+	return surface_;
+}

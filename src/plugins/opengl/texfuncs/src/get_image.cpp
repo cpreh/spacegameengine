@@ -36,7 +36,7 @@ sge::opengl::texfuncs::get_image(
 	::glGetTexImage(
 		_texture_type,
 		static_cast<
-			GLuint
+			GLint
 		>(
 			_stage
 		),

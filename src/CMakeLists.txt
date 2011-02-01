@@ -963,6 +963,7 @@ SET(
 	src/renderer/create_device_with_window.cpp
 	src/renderer/cube_texture.cpp
 	src/renderer/default_target.cpp
+	src/renderer/depth_stencil_surface.cpp
 	src/renderer/depth_stencil_texture.cpp
 	src/renderer/detail/npos.cpp
 	src/renderer/device.cpp

@@ -18,35 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_DEPTH_STENCIL_SURFACE_HPP_INCLUDED
-#define SGE_RENDERER_DEPTH_STENCIL_SURFACE_HPP_INCLUDED
+#include <sge/renderer/depth_stencil_surface.hpp>
 
-#include <sge/renderer/depth_stencil_surface_fwd.hpp>
-#include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
-
-namespace sge
+sge::renderer::depth_stencil_surface::depth_stencil_surface()
 {
-namespace renderer
-{
-
-class SGE_CLASS_SYMBOL depth_stencil_surface
-{
-	FCPPT_NONCOPYABLE(
-		depth_stencil_surface
-	)
-protected:
-	SGE_SYMBOL
-	depth_stencil_surface();
-public:
-	SGE_SYMBOL
-	virtual ~depth_stencil_surface();
-
-	// TODO!
-};
-
-}
 }
 
-#endif
+sge::renderer::depth_stencil_surface::~depth_stencil_surface()
+{
+}

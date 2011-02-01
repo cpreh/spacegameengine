@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/viewport.hpp>
+#include <fcppt/algorithm/ptr_container_erase_if.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
@@ -42,6 +43,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/text.hpp>
+#include <boost/spirit/home/phoenix/bind/bind_member_function.hpp>
+#include <boost/spirit/home/phoenix/core/argument.hpp>
+#include <boost/spirit/home/phoenix/operator/comparison.hpp>
 
 sge::opengl::fbo::target::target(
 	sge::opengl::context::object &_context
@@ -170,19 +174,24 @@ sge::opengl::fbo::target::remove_surface(
 	renderer::color_surface_ptr const _surface
 )
 {
-	fcppt::algorithm::remove(
-		texture_bindings_,
-		boost::phoenix::bind(
-			&fbo:;texture_binding::surface,
-			boost::phoenix::arg_names::arg1
+	if(
+		!fcppt::algorithm::ptr_container_erase_if(
+			texture_bindings_,
+			boost::phoenix::bind(
+				&fbo::texture_binding::surface,
+				boost::phoenix::arg_names::arg1
+			)
+			==
+			fcppt::dynamic_pointer_cast<
+				opengl::texture_surface
+			>(
+				_surface
+			)
 		)
-		==
-		fcppt::dynamic_pointer_cast<
-			opengl::texture_surface
-		>(
-			_surface
-		)
-	);
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("fbo::target::remove_surface(): Invalid surface!")
+		);
 }
 
 void

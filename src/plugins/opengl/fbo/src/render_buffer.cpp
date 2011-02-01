@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 sge::opengl::fbo::render_buffer::render_buffer(
-	fbo::context const &_context
+	fbo::context const &_context,
 	GLenum const _internal_format,
 	sge::renderer::dim2 const &_dim
 )
