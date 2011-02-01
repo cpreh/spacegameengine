@@ -37,9 +37,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/texture.hpp>
+#include <sge/renderer/target_from_texture.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
-#include <sge/renderer/no_depth_stencil_texture.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/var.hpp>
@@ -214,9 +214,9 @@ try
 	);
 
 	sge::renderer::target_ptr const target(
-		sys.renderer()->create_target(
-			target_texture,
-			sge::renderer::no_depth_stencil_texture()
+		sge::renderer::target_from_texture(
+			sys.renderer(),
+			target_texture
 		)
 	);
 
@@ -276,7 +276,9 @@ try
 
 			sys.renderer()->texture(
 				sge::renderer::no_texture(),
-				0
+				sge::renderer::stage_type(
+					0u
+				)
 			);
 
 			sge::renderer::scoped_target const target_(

@@ -591,7 +591,6 @@ SET(
 	include/sge/renderer/matrix_mode.hpp
 	include/sge/renderer/matrix_pixel_to_space.hpp
 	include/sge/renderer/multi_sample_type.hpp
-	include/sge/renderer/no_depth_stencil_texture.hpp
 	include/sge/renderer/no_multi_sampling.hpp
 	include/sge/renderer/no_texture.hpp
 	include/sge/renderer/nonindexed_primitive_count.hpp
@@ -664,6 +663,7 @@ SET(
 	include/sge/renderer/target.hpp
 	include/sge/renderer/target_base.hpp
 	include/sge/renderer/target_base_fwd.hpp
+	include/sge/renderer/target_from_texture.hpp
 	include/sge/renderer/target_fwd.hpp
 	include/sge/renderer/target_ptr.hpp
 	include/sge/renderer/texture.hpp
@@ -1004,7 +1004,6 @@ SET(
 	src/renderer/light.cpp
 	src/renderer/material.cpp
 	src/renderer/matrix_pixel_to_space.cpp
-	src/renderer/no_depth_stencil_texture.cpp
 	src/renderer/no_multi_sampling.cpp
 	src/renderer/no_texture.cpp
 	src/renderer/nonindexed_primitive_count.cpp
@@ -1041,6 +1040,7 @@ SET(
 	src/renderer/system.cpp
 	src/renderer/target.cpp
 	src/renderer/target_base.cpp
+	src/renderer/target_from_texture.cpp
 	src/renderer/texture.cpp
 	src/renderer/texture_base.cpp
 	src/renderer/texture_creation_failed.cpp

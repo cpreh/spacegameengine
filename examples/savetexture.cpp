@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/target_from_texture.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/trampoline.hpp>
@@ -402,11 +403,12 @@ try
 			sge::renderer::resource_flags_field(
 				sge::renderer::resource_flags::readable)));
 
-	sge::renderer::target_ptr temp_target(
-		sys.renderer()->create_target(
-			target_texture,
-			sge::renderer::no_depth_stencil_texture()));
-
+	sge::renderer::target_ptr const temp_target(
+		sge::renderer::target_from_texture(
+			sys.renderer(),
+			target_texture
+		)
+	);
 #if 0
 	sprite_system ss(
 		sys.renderer());

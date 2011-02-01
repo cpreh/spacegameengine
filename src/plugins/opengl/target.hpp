@@ -55,7 +55,7 @@ public:
 	unbind() const = 0;
 	
 	virtual ~target();
-private:
+
 	void
 	viewport(
 		renderer::viewport const &
@@ -63,7 +63,7 @@ private:
 
 	renderer::viewport const
 	viewport() const;
-
+private:
 	virtual
 	renderer::screen_unit
 	height() const = 0;

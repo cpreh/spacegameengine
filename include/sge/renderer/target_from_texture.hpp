@@ -18,10 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/no_depth_stencil_texture.hpp>
+#ifndef SGE_RENDERER_TARGET_FROM_TEXTURE_HPP_INCLUDED
+#define SGE_RENDERER_TARGET_FROM_TEXTURE_HPP_INCLUDED
 
-sge::renderer::depth_stencil_texture_ptr const
-sge::renderer::no_depth_stencil_texture()
+#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/target_ptr.hpp>
+#include <sge/renderer/texture_ptr.hpp>
+#include <sge/symbol.hpp>
+
+namespace sge
 {
-	return depth_stencil_texture_ptr();
+namespace renderer
+{
+
+SGE_SYMBOL
+renderer::target_ptr const
+target_from_texture(
+	renderer::device_ptr,
+	renderer::texture_ptr
+);
+
 }
+}
+
+#endif

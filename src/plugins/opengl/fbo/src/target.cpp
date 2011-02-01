@@ -228,6 +228,12 @@ sge::opengl::fbo::target::remove_surface(
 sge::renderer::screen_unit
 sge::opengl::fbo::target::height() const
 {
+	return
+		static_cast<
+			renderer::screen_unit
+		>(
+			this->viewport().get().h()
+		);
 }
 
 void

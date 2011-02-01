@@ -60,4 +60,3 @@ sge::opengl::target::viewport() const
 {
 	return viewport_;
 }
-

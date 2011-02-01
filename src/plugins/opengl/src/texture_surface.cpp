@@ -35,15 +35,23 @@ sge::opengl::texture_surface::texture_surface(
 		_stage
 	),
 	dim_(
-		opengl::texfuncs::level_parameter(
-			_type,
-			_stage,
-			GL_TEXTURE_WIDTH
+		static_cast<
+			sge::renderer::size_type
+		>(
+			opengl::texfuncs::level_parameter(
+				_type,
+				_stage,
+				GL_TEXTURE_WIDTH
+			)
 		),
-		opengl::texfuncs::level_parameter(
-			_type,
-			_stage,
-			GL_TEXTURE_HEIGHT
+		static_cast<
+			sge::renderer::size_type
+		>(
+			opengl::texfuncs::level_parameter(
+				_type,
+				_stage,
+				GL_TEXTURE_HEIGHT
+			)
 		)
 	)
 {
