@@ -18,45 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../target.hpp"
-#include "../viewport.hpp"
-#include <fcppt/math/box/basic_impl.hpp>
+#include "../target_base.hpp"
 
-sge::opengl::target::target(
-	renderer::viewport const &_viewport
-)
-:
-	viewport_(
-		_viewport
-	)
+sge::opengl::target_base::target_base()
 {
 }
 
-void
-sge::opengl::target::activate_viewport()
+sge::opengl::target_base::~target_base()
 {
-	opengl::viewport(
-		viewport_,
-		this->height()
-	);
-}
-
-sge::opengl::target::~target()
-{
-}
-
-void
-sge::opengl::target::viewport(
-	renderer::viewport const &_viewport
-)
-{
-	viewport_ = _viewport;
-
-	activate_viewport();
-}
-
-sge::renderer::viewport const
-sge::opengl::target::viewport() const
-{
-	return viewport_;
 }

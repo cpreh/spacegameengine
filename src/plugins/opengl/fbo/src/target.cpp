@@ -27,10 +27,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../render_buffer_binding.hpp"
 #include "../temporary_bind.hpp"
 #include "../texture_binding.hpp"
+#include "../../basic_target_impl.hpp"
 #include "../../check_state.hpp"
 #include "../../texture_surface.hpp"
 #include "../../context/use.hpp"
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/target.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
@@ -45,7 +47,7 @@ sge::opengl::fbo::target::target(
 	sge::opengl::context::object &_context
 )
 :
-	opengl::target(
+	base(
 		sge::renderer::viewport(
 			sge::renderer::pixel_rect::null()
 		)
@@ -288,3 +290,8 @@ sge::opengl::fbo::target::check()
 			FCPPT_TEXT("FBO is incomplete!")
 		);
 }
+
+template class
+sge::opengl::basic_target<
+	sge::renderer::target
+>;

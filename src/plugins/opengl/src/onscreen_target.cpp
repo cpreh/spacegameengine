@@ -19,7 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../onscreen_target.hpp"
+#include "../basic_target_impl.hpp"
 #include "../onscreen_surface.hpp"
+#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/window/instance.hpp>
@@ -34,7 +36,7 @@ sge::opengl::onscreen_target::onscreen_target(
 	renderer::bit_depth::type const _depth
 )
 :
-	opengl::target(
+	base(
 		renderer::viewport(
 			renderer::pixel_rect(
 				renderer::pixel_rect::vector::null(),
@@ -88,3 +90,8 @@ sge::opengl::onscreen_target::height() const
 			main_surface_->dim().w()
 		);
 }
+
+template class
+sge::opengl::basic_target<
+	sge::renderer::onscreen_target
+>;

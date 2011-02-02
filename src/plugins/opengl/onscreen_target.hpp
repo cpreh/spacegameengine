@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_ONSCREEN_TARGET_HPP_INCLUDED
 
 #include "onscreen_target_fwd.hpp"
-#include "target.hpp"
+#include "basic_target.hpp"
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/color_surface_ptr.hpp>
 #include <sge/renderer/onscreen_target.hpp>
@@ -37,13 +37,18 @@ namespace opengl
 
 class onscreen_target
 :
-	public sge::renderer::onscreen_target,
-	public opengl::target
+	public opengl::basic_target<
+		sge::renderer::onscreen_target
+	>
 {
 	FCPPT_NONCOPYABLE(
 		onscreen_target
 	)
 public:
+	typedef opengl::basic_target<
+		sge::renderer::onscreen_target
+	> base;
+
 	onscreen_target(
 		sge::window::instance_ptr,
 		renderer::bit_depth::type

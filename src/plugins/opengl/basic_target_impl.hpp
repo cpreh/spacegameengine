@@ -18,40 +18,63 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_ONSCREEN_TARGET_HPP_INCLUDED
-#define SGE_RENDERER_ONSCREEN_TARGET_HPP_INCLUDED
+#include "basic_target.hpp"
+#include "viewport.hpp"
+#include <fcppt/math/box/basic_impl.hpp>
 
-#include <sge/renderer/onscreen_target_fwd.hpp>
-#include <sge/renderer/color_surface_ptr.hpp>
-#include <sge/renderer/target_base.hpp>
-#include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
-
-namespace sge
-{
-namespace renderer
-{
-
-class SGE_CLASS_SYMBOL onscreen_target
+template<
+	typename Base
+>
+sge::opengl::basic_target<Base>::basic_target(
+	renderer::viewport const &_viewport
+)
 :
-	public sge::renderer::target_base
-{
-	FCPPT_NONCOPYABLE(
-		onscreen_target
+	Base(),
+	opengl::target_base(),
+	viewport_(
+		_viewport
 	)
-protected:
-	SGE_SYMBOL
-	onscreen_target();
-public:
-	virtual renderer::color_surface_ptr const
-	surface() const = 0;
-
-	SGE_SYMBOL
-	virtual ~onscreen_target();
-};
-
-}
+{
 }
 
-#endif
+template<
+	typename Base
+>
+sge::opengl::basic_target<Base>::~basic_target()
+{
+}
+
+
+template<
+	typename Base
+>
+void
+sge::opengl::basic_target<Base>::activate_viewport()
+{
+	opengl::viewport(
+		viewport_,
+		this->height()
+	);
+}
+
+template<
+	typename Base
+>
+void
+sge::opengl::basic_target<Base>::viewport(
+	renderer::viewport const &_viewport
+)
+{
+	viewport_ = _viewport;
+
+	activate_viewport();
+}
+
+template<
+	typename Base
+>
+sge::renderer::viewport const
+sge::opengl::basic_target<Base>::viewport() const
+{
+	return viewport_;
+}

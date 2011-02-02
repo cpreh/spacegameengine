@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "context_fwd.hpp"
 #include "render_buffer_fwd.hpp"
 #include "object.hpp"
+#include "../basic_target.hpp"
 #include "../common.hpp"
-#include "../target.hpp"
 #include "../texture_surface_base_ptr.hpp"
 #include "../context/object_fwd.hpp"
 #include <sge/renderer/color_surface_ptr.hpp>
@@ -49,13 +49,18 @@ namespace fbo
 
 class target
 :
-	public sge::renderer::target,
-	public opengl::target
+	public opengl::basic_target<
+		sge::renderer::target
+	>
 {
 	FCPPT_NONCOPYABLE(
 		target
 	)
 public:
+	typedef opengl::basic_target<
+		sge::renderer::target
+	> base;
+
 	explicit target(
 		opengl::context::object &
 	);

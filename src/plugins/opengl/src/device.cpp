@@ -398,11 +398,11 @@ sge::opengl::device::target(
 	target_ =
 		_target
 		?
-			opengl::target_ptr(
+			opengl::target_base_ptr(
 				fbo_target_
 			)
 		:
-			opengl::target_ptr(
+			opengl::target_base_ptr(
 				onscreen_target_
 			);
 		

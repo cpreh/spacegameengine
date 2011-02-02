@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "common.hpp"
 #include "device_state_ptr.hpp"
 #include "onscreen_target_ptr.hpp"
-#include "target_ptr.hpp"
+#include "target_base_ptr.hpp"
 #include "context/object.hpp"
 #include "fbo/target_ptr.hpp"
 #include <sge/renderer/adapter_type.hpp>
@@ -284,7 +284,7 @@ private:
 
 	opengl::fbo::target_ptr fbo_target_;
 
-	opengl::target_ptr target_;
+	opengl::target_base_ptr target_;
 
 	typedef std::stack<
 		renderer::state::list

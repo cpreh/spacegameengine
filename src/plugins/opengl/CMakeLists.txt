@@ -1,6 +1,8 @@
 SET(
 	SGE_OPENGL_FILES
 	src/plugins/opengl/apply_states.hpp
+	src/plugins/opengl/basic_target.hpp
+	src/plugins/opengl/basic_target_impl.hpp
 	src/plugins/opengl/basic_texture.hpp
 	src/plugins/opengl/basic_texture_impl.hpp
 	src/plugins/opengl/buffer.hpp
@@ -415,7 +417,7 @@ SET(
 	src/plugins/opengl/src/split_states.cpp
 	src/plugins/opengl/src/state_visitor.cpp
 	src/plugins/opengl/src/system.cpp
-	src/plugins/opengl/src/target.cpp
+	src/plugins/opengl/src/target_base.cpp
 	src/plugins/opengl/src/tex_envf_ext.cpp
 	src/plugins/opengl/src/texture.cpp
 	src/plugins/opengl/src/texture_base.cpp
@@ -433,9 +435,9 @@ SET(
 	src/plugins/opengl/src/writeonly_texture_lock.cpp
 	src/plugins/opengl/state_visitor.hpp
 	src/plugins/opengl/system.hpp
-	src/plugins/opengl/target.hpp
-	src/plugins/opengl/target_fwd.hpp
-	src/plugins/opengl/target_ptr.hpp
+	src/plugins/opengl/target_base.hpp
+	src/plugins/opengl/target_base_fwd.hpp
+	src/plugins/opengl/target_base_ptr.hpp
 	src/plugins/opengl/tex_envf_ext.hpp
 	src/plugins/opengl/texfuncs/bind.hpp
 	src/plugins/opengl/texfuncs/delete.hpp

@@ -18,58 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TARGET_HPP_INCLUDED
-#define SGE_OPENGL_TARGET_HPP_INCLUDED
-
-#include "target_fwd.hpp"
-#include <sge/renderer/screen_unit.hpp>
-#include <sge/renderer/target_base.hpp>
-#include <sge/renderer/viewport.hpp>
-#include <fcppt/math/box/basic_decl.hpp>
-#include <fcppt/noncopyable.hpp>
+#ifndef SGE_OPENGL_TARGET_BASE_FWD_HPP_INCLUDED
+#define SGE_OPENGL_TARGET_BASE_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace opengl
 {
 
-class target
-:
-	public virtual sge::renderer::target_base
-{
-	FCPPT_NONCOPYABLE(
-		target
-	)
-protected:
-	explicit target(
-		renderer::viewport const &
-	);
-public:
-	void
-	activate_viewport();
-
-	virtual void
-	bind() const = 0;
-
-	virtual void
-	unbind() const = 0;
-	
-	virtual ~target();
-
-	void
-	viewport(
-		renderer::viewport const &
-	);
-
-	renderer::viewport const
-	viewport() const;
-private:
-	virtual
-	renderer::screen_unit
-	height() const = 0;
-
-	renderer::viewport viewport_;
-};
+class target_base;
 
 }
 }

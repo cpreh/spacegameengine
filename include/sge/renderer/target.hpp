@@ -37,7 +37,7 @@ namespace renderer
 
 class SGE_CLASS_SYMBOL target
 :
-	public virtual sge::renderer::target_base
+	public sge::renderer::target_base
 {
 	FCPPT_NONCOPYABLE(
 		target
