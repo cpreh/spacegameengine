@@ -101,6 +101,7 @@ sge::opengl::texture_surface::lock(
 			lock_area_
 		);
 #endif
+	return sge::image2d::view::const_object(); // FIXME!
 }
 
 void

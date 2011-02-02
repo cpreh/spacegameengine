@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_FBO_TEXTURE_BINDING_HPP_INCLUDED
 
 #include "texture_binding_fwd.hpp"
-#include "object_fwd.hpp"
+#include "attachment.hpp"
 #include "context_fwd.hpp"
+#include "object_fwd.hpp"
 #include "../texture_surface_base_ptr.hpp"
 #include "../common.hpp"
 #include <fcppt/noncopyable.hpp>
@@ -36,6 +37,8 @@ namespace fbo
 {
 
 class texture_binding
+:
+	public fbo::attachment
 {
 	FCPPT_NONCOPYABLE(
 		texture_binding

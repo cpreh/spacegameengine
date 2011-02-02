@@ -657,6 +657,7 @@ SET(
 	include/sge/renderer/state/var_fwd.hpp
 	include/sge/renderer/stencil_buffer.hpp
 	include/sge/renderer/sub_data.hpp
+	include/sge/renderer/surface_index.hpp
 	include/sge/renderer/system.hpp
 	include/sge/renderer/system_fwd.hpp
 	include/sge/renderer/system_ptr.hpp

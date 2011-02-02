@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_FBO_RENDER_BUFFER_BINDING_HPP_INCLUDED
 
 #include "render_buffer_binding_fwd.hpp"
+#include "attachment.hpp"
 #include "context_fwd.hpp"
 #include "object_fwd.hpp"
 #include "render_buffer_fwd.hpp"
@@ -36,6 +37,8 @@ namespace fbo
 {
 
 class render_buffer_binding
+:
+	public fbo::attachment
 {
 	FCPPT_NONCOPYABLE(
 		render_buffer_binding

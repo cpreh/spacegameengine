@@ -54,7 +54,7 @@ sge::opengl::vf::pos_actor::on_use(
 	vf::pointer const _src
 ) const
 {
-	glVertexPointer(
+	::glVertexPointer(
 		elements_,
 		format_,
 		static_cast<
