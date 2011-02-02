@@ -392,7 +392,7 @@ sge::opengl::device::target(
 		>(
 			_target
 		);
-	
+
 	target_->unbind();
 
 	target_ =

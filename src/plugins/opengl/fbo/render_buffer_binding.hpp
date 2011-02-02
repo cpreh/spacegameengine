@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "render_buffer_binding_fwd.hpp"
 #include "attachment.hpp"
 #include "context_fwd.hpp"
-#include "object_fwd.hpp"
 #include "render_buffer_fwd.hpp"
 #include "../common.hpp"
 #include <fcppt/noncopyable.hpp>
@@ -46,21 +45,13 @@ class render_buffer_binding
 public:
 	explicit render_buffer_binding(
 		fbo::context const &,
-		fbo::object const &,
 		fbo::render_buffer const &,
 		GLenum
 	);
 
 	~render_buffer_binding();
-
-	fbo::render_buffer const &
-	render_buffer() const;
 private:
 	fbo::context const &context_;
-
-	fbo::object const &fbo_;
-
-	fbo::render_buffer const &render_buffer_;
 
 	GLenum const what_;
 };

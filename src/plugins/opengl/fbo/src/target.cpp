@@ -100,6 +100,11 @@ sge::opengl::fbo::target::color_surface(
 	renderer::surface_index const _index
 )
 {
+	opengl::fbo::temporary_bind const scoped_exit(
+		context_,
+		fbo_
+	);
+
 	color_attachments_.erase(
 		_index
 	);
@@ -136,6 +141,11 @@ sge::opengl::fbo::target::depth_stencil_surface(
 			FCPPT_TEXT("3.0"),
 			FCPPT_TEXT("")
 		);
+
+	opengl::fbo::temporary_bind const scoped_exit(
+		context_,
+		fbo_
+	);
 
 	if(
 		!_surface
@@ -206,11 +216,6 @@ sge::opengl::fbo::target::create_texture_binding(
 	GLenum const _attachment
 )
 {
-	opengl::fbo::temporary_bind const scoped_exit(
-		context_,
-		fbo_
-	);
-
 	attachment_unique_ptr ret(
 		fcppt::make_unique_ptr<
 			opengl::fbo::texture_binding
@@ -219,9 +224,6 @@ sge::opengl::fbo::target::create_texture_binding(
 				context_
 			),
 			_surface,
-			std::tr1::ref(
-				fbo_
-			),
 			_attachment
 		)
 	);
@@ -240,20 +242,12 @@ sge::opengl::fbo::target::create_buffer_binding(
 	GLenum const _attachment
 )
 {
-	opengl::fbo::temporary_bind const scoped_exit(
-		context_,
-		fbo_
-	);
-
 	attachment_unique_ptr ret(
 		fcppt::make_unique_ptr<
 			fbo::render_buffer_binding
 		>(
 			std::tr1::ref(
 				context_
-			),
-			std::tr1::ref(
-				fbo_
 			),
 			_buffer,
 			_attachment

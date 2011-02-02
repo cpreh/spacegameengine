@@ -44,7 +44,6 @@ sge::opengl::basic_target<Base>::~basic_target()
 {
 }
 
-
 template<
 	typename Base
 >

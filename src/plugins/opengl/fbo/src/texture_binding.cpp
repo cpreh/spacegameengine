@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../texture_binding.hpp"
-#include "../object.hpp"
 #include "../context.hpp"
 #include "../../check_state.hpp"
 #include "../../texture_surface_base.hpp"
@@ -29,14 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::fbo::texture_binding::texture_binding(
 	fbo::context const &_context,
 	opengl::texture_surface_base_ptr const _surface,
-	fbo::object &_fbo,
 	GLenum const _attachment
 )
 :
 	surface_(_surface)
 {
-	_fbo.bind();
-
 	_context.framebuffer_texture_2d()(
 		_context.framebuffer_target(),
 		_attachment,
@@ -58,11 +54,4 @@ sge::opengl::fbo::texture_binding::texture_binding(
 sge::opengl::fbo::texture_binding::~texture_binding()
 {
 	// FIXME: how to detach this?
-}
-
-
-sge::opengl::texture_surface_base_ptr const
-sge::opengl::fbo::texture_binding::surface() const
-{
-	return surface_;
 }

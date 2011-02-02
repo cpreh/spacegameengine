@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "texture_binding_fwd.hpp"
 #include "attachment.hpp"
 #include "context_fwd.hpp"
-#include "object_fwd.hpp"
 #include "../texture_surface_base_ptr.hpp"
 #include "../common.hpp"
 #include <fcppt/noncopyable.hpp>
@@ -47,14 +46,10 @@ public:
 	explicit texture_binding(
 		fbo::context const &,
 		opengl::texture_surface_base_ptr,
-		fbo::object &,
 		GLenum attachment
 	);
 
 	~texture_binding();
-
-	opengl::texture_surface_base_ptr const
-	surface() const;
 private:
 	opengl::texture_surface_base_ptr const surface_;
 };
