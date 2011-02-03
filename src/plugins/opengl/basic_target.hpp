@@ -54,6 +54,7 @@ public:
 	void
 	activate_viewport();
 
+private:
 	void
 	viewport(
 		renderer::viewport const &
@@ -61,7 +62,7 @@ public:
 
 	renderer::viewport const
 	viewport() const;
-private:
+
 	virtual
 	renderer::screen_unit
 	height() const = 0;

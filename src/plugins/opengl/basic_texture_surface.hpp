@@ -18,32 +18,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../depth_stencil_texture_surface.hpp"
-#include "../basic_texture_surface_impl.hpp"
-#include <sge/renderer/depth_stencil_surface.hpp>
-#include <sge/renderer/stage_type.hpp>
+#ifndef SGE_OPENGL_BASIC_TEXTURE_SURFACE_HPP_INCLUDED
+#define SGE_OPENGL_BASIC_TEXTURE_SURFACE_HPP_INCLUDED
 
-sge::opengl::depth_stencil_texture_surface::depth_stencil_texture_surface(
-	GLenum const _texture_type,
-	GLuint const _id
-)
+#include "common.hpp"
+#include "texture_surface_base.hpp"
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/noncopyable.hpp>
+
+namespace sge
+{
+namespace opengl
+{
+
+template<
+	typename Base
+>
+class basic_texture_surface
 :
-	base(
-		_texture_type,
-		_id,
-		renderer::stage_type(
-			0u
-		)
+	public Base,
+	public opengl::texture_surface_base
+{
+	FCPPT_NONCOPYABLE(
+		basic_texture_surface
 	)
-{
-}
+public:
+	typedef typename Base::dim_type dim_type;
+
+	basic_texture_surface(
+		GLenum texture_type,
+		GLuint id,
+		renderer::stage_type
+	);
 	
+	~basic_texture_surface();
+private:
+	// TODO:!
+	dim_type const
+	dim() const;
 
-sge::opengl::depth_stencil_texture_surface::~depth_stencil_texture_surface()
-{
+	dim_type const dim_;
+};
+
+}
 }
 
-template class
-sge::opengl::basic_texture_surface<
-	sge::renderer::depth_stencil_surface
->;
+#endif

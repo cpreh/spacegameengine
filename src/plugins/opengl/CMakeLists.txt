@@ -5,6 +5,8 @@ SET(
 	src/plugins/opengl/basic_target_impl.hpp
 	src/plugins/opengl/basic_texture.hpp
 	src/plugins/opengl/basic_texture_impl.hpp
+	src/plugins/opengl/basic_texture_surface.hpp
+	src/plugins/opengl/basic_texture_surface_impl.hpp
 	src/plugins/opengl/buffer.hpp
 	src/plugins/opengl/buffer_fwd.hpp
 	src/plugins/opengl/caps_unique_ptr.hpp

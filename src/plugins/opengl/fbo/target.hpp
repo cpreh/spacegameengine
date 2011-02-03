@@ -33,10 +33,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../context/object_fwd.hpp"
 #include <sge/renderer/color_surface_ptr.hpp>
 #include <sge/renderer/depth_stencil_surface_ptr.hpp>
+#include <sge/renderer/dim2.hpp>
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/surface_index.hpp>
 #include <sge/renderer/target.hpp>
+#include <fcppt/math/vector/basic_decl.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 
@@ -100,6 +103,14 @@ private:
 	);
 
 	void
+	add_dim(
+		sge::renderer::dim2 const &
+	);
+
+	void
+	remove_dim();
+
+	void
 	check();
 
 	fbo::context &context_;
@@ -118,6 +129,12 @@ private:
 	> scoped_attachment;
 
 	scoped_attachment depth_stencil_attachment_;
+
+	typedef fcppt::optional<
+		sge::renderer::dim2
+	> optional_dim;
+
+	optional_dim dim_;
 };
 
 }

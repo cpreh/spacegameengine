@@ -102,7 +102,7 @@ sge::opengl::texture::surface(
 	renderer::stage_type const _stage
 )
 {
-	// important for the constructor of texture_surface to work!
+	// TODO: clean this up!
 	this->bind();
 
 	return

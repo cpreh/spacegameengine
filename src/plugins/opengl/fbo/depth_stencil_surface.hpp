@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "context_fwd.hpp"
 #include "../common.hpp"
 #include <sge/renderer/depth_stencil_surface.hpp>
-#include <sge/renderer/dim2.hpp>
+#include <fcppt/math/dim/basic_decl.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -47,7 +47,7 @@ public:
 	explicit depth_stencil_surface(
 		fbo::context const &,
 		GLenum internal_format,
-		sge::renderer::dim2 const &
+		dim_type const &
 	);
 
 	~depth_stencil_surface();
@@ -55,7 +55,12 @@ public:
 	fbo::render_buffer const &
 	render_buffer() const;
 private:
+	dim_type const
+	dim() const;
+
 	fbo::render_buffer const render_buffer_;
+
+	dim_type const dim_;
 };	
 
 }

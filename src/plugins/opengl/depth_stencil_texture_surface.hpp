@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_DEPTH_STENCIL_TEXTURE_SURFACE_HPP_INCLUDED
 #define SGE_OPENGL_DEPTH_STENCIL_TEXTURE_SURFACE_HPP_INCLUDED
 
+#include "basic_texture_surface.hpp"
 #include "common.hpp"
-#include "texture_surface_base.hpp"
 #include <sge/renderer/depth_stencil_surface.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -33,13 +33,18 @@ namespace opengl
 
 class depth_stencil_texture_surface
 :
-	public sge::renderer::depth_stencil_surface,
-	public opengl::texture_surface_base
+	public opengl::basic_texture_surface<
+		sge::renderer::depth_stencil_surface
+	>
 {
 	FCPPT_NONCOPYABLE(
 		depth_stencil_texture_surface
 	)
 public:
+	typedef opengl::basic_texture_surface<
+		sge::renderer::depth_stencil_surface
+	> base;
+
 	depth_stencil_texture_surface(
 		GLenum texture_type,
 		GLuint id

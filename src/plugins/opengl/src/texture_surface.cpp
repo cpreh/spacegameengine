@@ -19,8 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../texture_surface.hpp"
+#include "../basic_texture_surface_impl.hpp"
 #include "../texfuncs/level_parameter.hpp"
-#include <fcppt/math/dim/basic_impl.hpp>
+#include <sge/renderer/color_surface.hpp>
 
 sge::opengl::texture_surface::texture_surface(
 	GLenum const _type,
@@ -28,31 +29,10 @@ sge::opengl::texture_surface::texture_surface(
 	renderer::stage_type const _stage
 )
 :
-	sge::renderer::color_surface(),
-	sge::opengl::texture_surface_base(
+	base(
 		_type,
 		_id,
 		_stage
-	),
-	dim_(
-		static_cast<
-			sge::renderer::size_type
-		>(
-			opengl::texfuncs::level_parameter(
-				_type,
-				_stage,
-				GL_TEXTURE_WIDTH
-			)
-		),
-		static_cast<
-			sge::renderer::size_type
-		>(
-			opengl::texfuncs::level_parameter(
-				_type,
-				_stage,
-				GL_TEXTURE_HEIGHT
-			)
-		)
 	)
 {
 }
@@ -114,8 +94,7 @@ sge::opengl::texture_surface::unlock() const
 #endif
 }
 
-sge::opengl::texture_surface::dim_type const
-sge::opengl::texture_surface::dim() const
-{
-	return dim_;
-}
+template class
+sge::opengl::basic_texture_surface<
+	sge::renderer::color_surface
+>;

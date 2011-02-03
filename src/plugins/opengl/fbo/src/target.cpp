@@ -37,9 +37,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/viewport.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/output.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/dynamic_pointer_cast.hpp>
+#include <fcppt/format.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/text.hpp>
 
@@ -63,7 +67,8 @@ sge::opengl::fbo::target::target(
 		context_
 	),
 	color_attachments_(),
-	depth_stencil_attachment_()
+	depth_stencil_attachment_(),
+	dim_()
 {
 }
 
@@ -112,6 +117,11 @@ sge::opengl::fbo::target::color_surface(
 	if(
 		_surface
 	)
+	{
+		this->add_dim(
+			_surface->dim()
+		);
+
 		fcppt::container::ptr::insert_unique_ptr_map(
 			color_attachments_,
 			_index,
@@ -125,6 +135,9 @@ sge::opengl::fbo::target::color_surface(
 				+ _index.get()
 			)
 		);
+	}
+	else
+		this->remove_dim();
 }
 
 void
@@ -141,7 +154,7 @@ sge::opengl::fbo::target::depth_stencil_surface(
 			FCPPT_TEXT("3.0"),
 			FCPPT_TEXT("")
 		);
-
+	
 	opengl::fbo::temporary_bind const scoped_exit(
 		context_,
 		fbo_
@@ -153,8 +166,14 @@ sge::opengl::fbo::target::depth_stencil_surface(
 	{
 		depth_stencil_attachment_.reset();
 
+		this->remove_dim();
+
 		return;
 	}
+
+	this->add_dim(
+		_surface->dim()
+	);
 
 	if(
 		opengl::fbo::depth_stencil_surface_ptr const ptr =
@@ -203,11 +222,15 @@ sge::renderer::screen_unit
 sge::opengl::fbo::target::height() const
 {
 	return
-		static_cast<
-			renderer::screen_unit
-		>(
-			this->viewport().get().h()
-		);
+		dim_
+		?
+			static_cast<
+				renderer::screen_unit
+			>(
+				dim_->h()
+			)
+		:
+			0u;
 }
 
 sge::opengl::fbo::attachment_unique_ptr
@@ -260,6 +283,42 @@ sge::opengl::fbo::target::create_buffer_binding(
 		move(
 			ret
 		);
+}
+
+void
+sge::opengl::fbo::target::add_dim(
+	sge::renderer::dim2 const &_dim
+)
+{
+	if(
+		!dim_
+	)
+		dim_ = _dim;
+	else if(
+		*dim_ != _dim
+	)
+		throw sge::renderer::exception(
+			(
+				fcppt::format(
+					FCPPT_TEXT("Current target dimension %1% is different ")
+					FCPPT_TEXT("from the new surface dimension %2%!")
+				)
+				%
+				*dim_
+				%
+				_dim
+			).str()
+		);
+}
+
+void
+sge::opengl::fbo::target::remove_dim()
+{
+	if(
+		color_attachments_.empty()
+		&& !depth_stencil_attachment_
+	)
+		dim_.reset();
 }
 
 void

@@ -18,53 +18,60 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_SURFACE_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_SURFACE_HPP_INCLUDED
-
-#include "texture_surface_fwd.hpp"
 #include "basic_texture_surface.hpp"
-#include "common.hpp"
-#include <sge/renderer/color_surface.hpp>
-#include <sge/image2d/view/const_object.hpp>
-#include <fcppt/noncopyable.hpp>
+#include "texfuncs/level_parameter.hpp"
+#include <fcppt/math/dim/basic_impl.hpp>
 
-namespace sge
-{
-namespace opengl
-{
-
-class texture_surface
+template<
+	typename Base
+>
+sge::opengl::basic_texture_surface<Base>::basic_texture_surface(
+	GLenum const _type,
+	GLuint const _id,
+	renderer::stage_type const _stage
+)
 :
-	public opengl::basic_texture_surface<
-		sge::renderer::color_surface
-	>
-{
-	FCPPT_NONCOPYABLE(
-		texture_surface
+	Base(),
+	sge::opengl::texture_surface_base(
+		_type,
+		_id,
+		_stage
+	),
+	dim_(
+		static_cast<
+			sge::renderer::size_type
+		>(
+			opengl::texfuncs::level_parameter(
+				_type,
+				_stage,
+				GL_TEXTURE_WIDTH
+			)
+		),
+		static_cast<
+			sge::renderer::size_type
+		>(
+			opengl::texfuncs::level_parameter(
+				_type,
+				_stage,
+				GL_TEXTURE_HEIGHT
+			)
+		)
 	)
-public:
-	typedef opengl::basic_texture_surface<
-		sge::renderer::color_surface
-	> base;
-
-	texture_surface(
-		GLenum type,
-		GLuint id,
-		renderer::stage_type
-	);
-	
-	~texture_surface();
-private:
-	image2d::view::const_object const
-	lock(
-		rect_type const &
-	) const;
-
-	void
-	unlock() const;
-};
-
-}
+{
 }
 
-#endif
+template<
+	typename Base
+>
+sge::opengl::basic_texture_surface<Base>::~basic_texture_surface()
+{
+}
+
+template<
+	typename Base
+>
+typename sge::opengl::basic_texture_surface<Base>::dim_type const
+sge::opengl::basic_texture_surface<Base>::dim() const
+{
+	return dim_;
+}

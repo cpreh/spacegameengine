@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 
+// TODO: this should inherit from basic_texture as well!
 sge::opengl::depth_stencil_texture::depth_stencil_texture(
 	opengl::context::object &_context,
 	dim_type const &_dim,
@@ -101,6 +102,7 @@ sge::opengl::depth_stencil_texture::dim() const
 sge::renderer::depth_stencil_surface_ptr const
 sge::opengl::depth_stencil_texture::surface() const
 {
+	// TODO: clean this up!
 	this->bind();
 
 	return
