@@ -1211,7 +1211,7 @@ OPTION (ENABLE_CONFIG "Build the config library" ON)
 OPTION (ENABLE_CONSOLE "Build the console" ON)
 OPTION (ENABLE_FONTBITMAP "Build the bitmap font" ON)
 OPTION (ENABLE_FONTTEXT "Build the font text library" ON)
-OPTION (ENABLE_GUI "Build the gui" ON)
+OPTION (ENABLE_GUI "Build the gui" OFF)
 OPTION (ENABLE_PARSE "Build the parse library" ON)
 # This is off by default, since it doesn't work on non-unix machines
 OPTION (ENABLE_PROCESS "Build the process framework" OFF)
