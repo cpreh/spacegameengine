@@ -18,54 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TARGET_HPP_INCLUDED
-#define SGE_RENDERER_TARGET_HPP_INCLUDED
-
-#include <sge/renderer/target_fwd.hpp>
-#include <sge/renderer/color_surface_ptr.hpp>
-#include <sge/renderer/depth_stencil_surface_ptr.hpp>
+#include <sge/renderer/add_depth_stencil_surface_to_target.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/optional_dim2.hpp>
-#include <sge/renderer/surface_index.hpp>
-#include <sge/renderer/target_base.hpp>
-#include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/renderer/target.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/text.hpp>
 
-namespace sge
+void
+sge::renderer::add_depth_stencil_surface_to_target(
+	renderer::device_ptr const _device,
+	renderer::target_ptr const _target,
+	renderer::depth_stencil_format::type const _format
+)
 {
-namespace renderer
-{
+	renderer::optional_dim2 const dim(
+		_target->dim()
+	);
 
-class SGE_CLASS_SYMBOL target
-:
-	public sge::renderer::target_base
-{
-	FCPPT_NONCOPYABLE(
-		target
+	if(
+		!dim
 	)
-protected:
-	SGE_SYMBOL
-	target();
-public:
-	virtual void
-	color_surface(
-		renderer::color_surface_ptr,
-		renderer::surface_index
-	) = 0;
-
-	virtual void
-	depth_stencil_surface(
-		renderer::depth_stencil_surface_ptr
-	) = 0;
-
-	virtual renderer::optional_dim2 const
-	dim() const = 0;
-
-	SGE_SYMBOL
-	virtual ~target();
-};
-
+		throw sge::renderer::exception(
+			FCPPT_TEXT("To add a depth_stencil_surface with the correct dimensions to a target, ")
+			FCPPT_TEXT("you should add a color_surface first!")
+		);
+	
+	_target->depth_stencil_surface(
+		_device->create_depth_stencil_surface(
+			*dim,
+			_format
+		)
+	);
 }
-}
-
-#endif

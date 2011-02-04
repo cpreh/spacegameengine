@@ -429,6 +429,7 @@ SET(
 	include/sge/plugin/object.hpp
 	include/sge/plugin/object_fwd.hpp
 	include/sge/renderer/adapter_type.hpp
+	include/sge/renderer/add_depth_stencil_surface_to_target.hpp
 	include/sge/renderer/aspect.hpp
 	include/sge/renderer/bit_depth.hpp
 	include/sge/renderer/bit_depth_bytes.hpp
@@ -598,6 +599,7 @@ SET(
 	include/sge/renderer/onscreen_target.hpp
 	include/sge/renderer/onscreen_target_fwd.hpp
 	include/sge/renderer/onscreen_target_ptr.hpp
+	include/sge/renderer/optional_dim2.hpp
 	include/sge/renderer/parameters.hpp
 	include/sge/renderer/parameters_fwd.hpp
 	include/sge/renderer/pixel_rect.hpp
@@ -955,6 +957,7 @@ SET(
 	src/plugin/object_impl.hpp
 	src/plugin/version_fun.cpp
 	src/plugin/version_fun.hpp
+	src/renderer/add_depth_stencil_surface_to_target.cpp
 	src/renderer/aspect.cpp
 	src/renderer/bit_depth_bytes.cpp
 	src/renderer/caps.cpp

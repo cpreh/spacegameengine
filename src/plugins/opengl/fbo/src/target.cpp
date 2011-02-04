@@ -234,6 +234,12 @@ sge::opengl::fbo::target::depth_stencil_surface(
 	);
 }
 
+sge::renderer::optional_dim2 const
+sge::opengl::fbo::target::dim() const
+{
+	return dim_;
+}
+
 sge::renderer::screen_unit
 sge::opengl::fbo::target::height() const
 {

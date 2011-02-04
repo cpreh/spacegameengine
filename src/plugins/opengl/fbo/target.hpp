@@ -87,6 +87,9 @@ private:
 		renderer::depth_stencil_surface_ptr
 	);
 
+	renderer::optional_dim2 const
+	dim() const;
+
 	renderer::screen_unit
 	height() const;
 
@@ -130,11 +133,7 @@ private:
 
 	scoped_attachment depth_stencil_attachment_;
 
-	typedef fcppt::optional<
-		sge::renderer::dim2
-	> optional_dim;
-
-	optional_dim dim_;
+	renderer::optional_dim2 dim_;
 };
 
 }
