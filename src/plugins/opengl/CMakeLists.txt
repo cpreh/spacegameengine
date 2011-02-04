@@ -125,6 +125,7 @@ SET(
 	src/plugins/opengl/enable_bool.hpp
 	src/plugins/opengl/error_string.hpp
 	src/plugins/opengl/fbo/attach_render_buffer.hpp
+	src/plugins/opengl/fbo/attach_texture_2d.hpp
 	src/plugins/opengl/fbo/attachment.hpp
 	src/plugins/opengl/fbo/attachment_fwd.hpp
 	src/plugins/opengl/fbo/attachment_unique_ptr.hpp
@@ -144,6 +145,7 @@ SET(
 	src/plugins/opengl/fbo/render_buffer_fwd.hpp
 	src/plugins/opengl/fbo/render_buffer_holder.hpp
 	src/plugins/opengl/fbo/src/attach_render_buffer.cpp
+	src/plugins/opengl/fbo/src/attach_texture_2d.cpp
 	src/plugins/opengl/fbo/src/attachment.cpp
 	src/plugins/opengl/fbo/src/bind.cpp
 	src/plugins/opengl/fbo/src/context.cpp

@@ -19,11 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../texture_binding.hpp"
-#include "../context.hpp"
-#include "../../check_state.hpp"
+#include "../attach_texture_2d.hpp"
 #include "../../texture_surface_base.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
 
 sge::opengl::fbo::texture_binding::texture_binding(
 	fbo::context const &_context,
@@ -31,27 +28,26 @@ sge::opengl::fbo::texture_binding::texture_binding(
 	GLenum const _attachment
 )
 :
-	surface_(_surface)
+	context_(_context),
+	surface_(_surface),
+	attachment_(_attachment)
 {
-	_context.framebuffer_texture_2d()(
-		_context.framebuffer_target(),
+	fbo::attach_texture_2d(
+		_context,
 		_attachment,
 		_surface->texture_type(),
 		_surface->texture_id(),
-		static_cast<
-			GLint
-		>(
-			_surface->stage()
-		)
+		_surface->stage()
 	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("Binding a texture to an fbo failed."),
-		sge::renderer::exception
-	)
 }
 
 sge::opengl::fbo::texture_binding::~texture_binding()
 {
-	// FIXME: how to detach this?
+	fbo::attach_texture_2d(
+		context_,
+		attachment_,
+		surface_->texture_type(),
+		0u,
+		surface_->stage()
+	);
 }

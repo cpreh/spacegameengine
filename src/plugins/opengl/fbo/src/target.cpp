@@ -75,6 +75,14 @@ sge::opengl::fbo::target::target(
 
 sge::opengl::fbo::target::~target()
 {
+	opengl::fbo::temporary_bind const scoped_exit(
+		context_,
+		fbo_
+	);
+
+	depth_stencil_attachment_.reset();
+
+	color_attachments_.clear();
 }
 
 void

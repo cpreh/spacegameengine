@@ -34,7 +34,7 @@ namespace fbo
 void
 attach_render_buffer(
 	fbo::context const &,
-	GLenum,
+	GLenum attachment,
 	GLuint
 );
 

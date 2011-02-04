@@ -18,48 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_FBO_TEXTURE_BINDING_HPP_INCLUDED
-#define SGE_OPENGL_FBO_TEXTURE_BINDING_HPP_INCLUDED
+#include "../attach_texture_2d.hpp"
+#include "../context.hpp"
+#include "../../check_state.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include "texture_binding_fwd.hpp"
-#include "attachment.hpp"
-#include "context_fwd.hpp"
-#include "../texture_surface_base_ptr.hpp"
-#include "../common.hpp"
-#include <fcppt/noncopyable.hpp>
-
-namespace sge
+void
+sge::opengl::fbo::attach_texture_2d(
+	fbo::context const &_context,
+	GLenum const _attachment,
+	GLenum const _texture_type,
+	GLuint const _texture_id,
+	renderer::stage_type const _stage
+)
 {
-namespace opengl
-{
-namespace fbo
-{
-
-class texture_binding
-:
-	public fbo::attachment
-{
-	FCPPT_NONCOPYABLE(
-		texture_binding
-	)
-public:
-	explicit texture_binding(
-		fbo::context const &,
-		opengl::texture_surface_base_ptr,
-		GLenum attachment
+	_context.framebuffer_texture_2d()(
+		_context.framebuffer_target(),
+		_attachment,
+		_texture_type,
+		_texture_id,
+		static_cast<
+			GLint
+		>(
+			_stage.get()
+		)
 	);
 
-	~texture_binding();
-private:
-	fbo::context const &context_;
-
-	opengl::texture_surface_base_ptr const surface_;
-
-	GLenum const attachment_;
-};
-
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("Binding a texture to an fbo failed."),
+		sge::renderer::exception
+	)
 }
-}
-}
-
-#endif
