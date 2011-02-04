@@ -18,25 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DINPUT_KEYCODE_TO_CHAR_HPP_INCLUDED
-#define SGE_DINPUT_KEYCODE_TO_CHAR_HPP_INCLUDED
+#ifndef SGE_DINPUT_STATE_ARRAY_HPP_INCLUDED
+#define SGE_DINPUT_STATE_ARRAY_HPP_INCLUDED
 
-#include "char_vector.hpp"
 #include "di.hpp"
-#include "state_array.hpp"
+#include <fcppt/container/array_fwd.hpp>
 
 namespace sge
 {
 namespace dinput
 {
 
-sge::dinput::char_vector const
-keycode_to_chars(
-	UINT virtual_code,
-	UINT di_code,
-	dinput::state_array const &,
-	HKL
-);
+typedef fcppt::container::array<
+	BYTE,
+	256
+> state_array;
 
 }
 }

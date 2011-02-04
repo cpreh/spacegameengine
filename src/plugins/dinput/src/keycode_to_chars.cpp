@@ -19,88 +19,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../keycode_to_chars.hpp"
-#include "../key_converter.hpp"
 #include "../di.hpp"
 #include <sge/input/exception.hpp>
-#include <sge/log/global.hpp>
-#include <fcppt/container/array.hpp>
-#include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/container/array_impl.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
-#include <fcppt/log/output.hpp>
-#include <fcppt/log/warning.hpp>
 #include <fcppt/text.hpp>
-
-namespace
-{
-
-BYTE const
-	key_up(
-		0
-	),
-	key_down(
-		0x80
-	);
-
-void
-assign_state(
-	BYTE &_key,
-	bool const _value
-)
-{
-	_key =
-		_value
-		?
-			key_down
-		:
-			key_up;
-}
-
-}
 
 sge::dinput::char_vector const
 sge::dinput::keycode_to_chars(
-	input::keyboard::key_code::type const _key,
-	sge::input::keyboard::mod_state const &_modifiers,
-	dinput::key_converter const &_conv,
+	UINT const _virtual_code,
+	UINT const _di_code,
+	dinput::state_array const &_states,
 	HKL const _kblayout
 )
 {
-	typedef fcppt::container::array<
-		BYTE,
-		256
-	> state_array;
-
-	state_array state;
-
-	assign_state(
-		state[VK_SHIFT],
-		_modifiers & sge::input::keyboard::modifier::shift
-	);
-
-	assign_state(
-		state[VK_MENU],
-		_modifiers & sge::input::keyboard::modifier::alt
-	);
-
-	assign_state(
-		state[VK_CONTROL],
-		_modifiers & sge::input::keyboard::modifier::ctrl
-	);
-
-	UINT const
-		dik(
-			_conv.create_dik(
-				_key
-			)
-		),
-		vk(
-			::MapVirtualKeyEx(
-				dik,
-				1,
-				_kblayout
-			)
-		);
-
 	// FIXME: How do we determine how big this buffer should be?
 	dinput::char_vector result(
 		32
@@ -108,9 +40,9 @@ sge::dinput::keycode_to_chars(
 
 	int const ret(
 		::ToUnicodeEx(
-			vk,
-			dik,
-			state.data(),
+			_virtual_code,
+			_di_code,
+			_states.data(),
 			result.data(),
 			static_cast<
 				int
@@ -132,15 +64,7 @@ sge::dinput::keycode_to_chars(
 	if(
 		ret == -1
 	)
-	{
-		FCPPT_LOG_WARNING(
-			sge::log::global(),
-			fcppt::log::_
-				<< FCPPT_TEXT("stub: Key names with more than one char are not supported.")
-			);
-
 		return dinput::char_vector();
-	}
 
 	result.resize(
 		static_cast<

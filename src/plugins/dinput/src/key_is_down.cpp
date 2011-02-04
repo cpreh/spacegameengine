@@ -18,27 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DINPUT_KEYCODE_TO_CHAR_HPP_INCLUDED
-#define SGE_DINPUT_KEYCODE_TO_CHAR_HPP_INCLUDED
+#include "../key_is_down.hpp"
 
-#include "char_vector.hpp"
-#include "di.hpp"
-#include "state_array.hpp"
-
-namespace sge
+bool
+sge::dinput::key_is_down(
+	BYTE const _key
+)
 {
-namespace dinput
-{
-
-sge::dinput::char_vector const
-keycode_to_chars(
-	UINT virtual_code,
-	UINT di_code,
-	dinput::state_array const &,
-	HKL
-);
-
+	return
+		(_key & 0x80)
+		!= 0;
 }
-}
-
-#endif

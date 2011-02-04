@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "device_parameters_fwd.hpp"
 #include "di.hpp"
 #include "key_converter_fwd.hpp"
+#include "state_array.hpp"
 #include <sge/input/keyboard/char_callback.hpp>
 #include <sge/input/keyboard/char_type.hpp>
 #include <sge/input/keyboard/device.hpp>
@@ -37,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/mod_state.hpp>
 #include <sge/time/timer.hpp>
 #include <awl/backends/windows/window/instance_ptr.hpp>
-#include <fcppt/container/bitfield/basic_decl.hpp>
+#include <fcppt/container/array_decl.hpp>
 #include <fcppt/signal/object_decl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
@@ -97,8 +98,6 @@ private:
 		LPVOID
 	);
 
-	sge::input::keyboard::mod_state modifiers_;
-
 	dinput::key_converter const &conv_;
 
 	HKL kblayout_;
@@ -135,6 +134,8 @@ private:
 	> key_map;
 
 	key_map keys_;
+
+	dinput::state_array states_;
 };
 
 }

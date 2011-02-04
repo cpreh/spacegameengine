@@ -18,27 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DINPUT_KEYCODE_TO_CHAR_HPP_INCLUDED
-#define SGE_DINPUT_KEYCODE_TO_CHAR_HPP_INCLUDED
+#include "../map_virtual_key.hpp"
+#include "../di.hpp"
+#include <fcppt/optional_impl.hpp>
 
-#include "char_vector.hpp"
-#include "di.hpp"
-#include "state_array.hpp"
-
-namespace sge
+sge::dinput::optional_uint const
+sge::dinput::map_virtual_key(
+	UINT const _dik,
+	HKL const _hkl
+)
 {
-namespace dinput
-{
+	UINT const ret(
+		::MapVirtualKeyEx(
+			_dik,
+			MAPVK_VSC_TO_VK,
+			_hkl
+		)
+	);
 
-sge::dinput::char_vector const
-keycode_to_chars(
-	UINT virtual_code,
-	UINT di_code,
-	dinput::state_array const &,
-	HKL
-);
-
+	return
+		ret != 0
+		?
+			optional_uint(
+				ret
+			)
+		:
+			optional_uint();
 }
-}
-
-#endif
