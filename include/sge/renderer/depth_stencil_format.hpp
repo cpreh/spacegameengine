@@ -30,7 +30,6 @@ namespace depth_stencil_format
 {
 enum type
 {
-	d8,
 	d16,
 	d32,
 	d24s8

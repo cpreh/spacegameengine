@@ -421,12 +421,12 @@ sge::console::gfx::key_action(
 				object_.eval(
 					input_line_.string());
 			}
-			catch (console::exception const &error)
+			catch (console::exception const &_error)
 			{
 				print(
 					SGE_FONT_TEXT_LIT("console error: ")
 					+
-					error.console_string()
+					_error.console_string()
 				);
 			}
 

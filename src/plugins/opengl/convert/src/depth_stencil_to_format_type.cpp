@@ -32,8 +32,6 @@ sge::opengl::convert::depth_stencil_to_format_type(
 		_type
 	)
 	{
-	case sge::renderer::depth_stencil_format::d8:
-		return GL_UNSIGNED_BYTE;
 	case sge::renderer::depth_stencil_format::d16:
 		return GL_UNSIGNED_SHORT;
 	case sge::renderer::depth_stencil_format::d32:
