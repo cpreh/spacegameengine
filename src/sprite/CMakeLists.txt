@@ -39,7 +39,6 @@ SET(
 	include/sge/sprite/detail/assign_pre.hpp
 	include/sge/sprite/detail/buffers.hpp
 	include/sge/sprite/detail/convert_texture_rect.hpp
-	include/sge/sprite/detail/depth.hpp
 	include/sge/sprite/detail/fill_color.hpp
 	include/sge/sprite/detail/fill_geometry.hpp
 	include/sge/sprite/detail/fill_indices.hpp
@@ -60,10 +59,12 @@ SET(
 	include/sge/sprite/detail/indices_per_sprite.hpp
 	include/sge/sprite/detail/initialize_default_parameters.hpp
 	include/sge/sprite/detail/make_class.hpp
+	include/sge/sprite/detail/make_position.hpp
+	include/sge/sprite/detail/needs_depth.hpp
 	include/sge/sprite/detail/normal_render_states.hpp
 	include/sge/sprite/detail/optional_size.hpp
 	include/sge/sprite/detail/point_float.hpp
-	include/sge/sprite/detail/point_float3.hpp
+	include/sge/sprite/detail/pos_packed_type.hpp
 	include/sge/sprite/detail/rect_float.hpp
 	include/sge/sprite/detail/render.hpp
 	include/sge/sprite/detail/render_inner.hpp

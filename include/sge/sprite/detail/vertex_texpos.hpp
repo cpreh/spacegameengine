@@ -31,12 +31,12 @@ namespace detail
 {
 
 template<
-	typename TypeChoices
+	typename Choices
 >
 struct vertex_texpos
 {
 	typedef renderer::vf::texpos<
-		typename TypeChoices::float_type,
+		typename Choices::type_choices::float_type,
 		2
 	> type;
 };

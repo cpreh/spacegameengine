@@ -18,13 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_DEPTH_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_DEPTH_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_POS_PACKED_TYPE_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_POS_PACKED_TYPE_HPP_INCLUDED
 
-#include <sge/sprite/with_depth.hpp>
-#include <sge/sprite/object_impl.hpp>
-#include <boost/mpl/contains.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <sge/sprite/detail/vertex_pos.hpp>
+#include <fcppt/math/vector/static.hpp>
 
 namespace sge
 {
@@ -36,43 +34,12 @@ namespace detail
 template<
 	typename Choices
 >
-typename boost::enable_if<
-	boost::mpl::contains<
-		typename Choices::elements,
-		with_depth
-	>,
-	typename object<Choices>::depth_type
->::type
-depth(
-	object<
-		Choices
-	> const &_sprite
-)
+struct pos_packed_type
 {
-	return _sprite.z();
-}
-
-template<
-	typename Choices
->
-typename boost::disable_if<
-	boost::mpl::contains<
-		typename Choices::elements,
-		with_depth
-	>,
-	typename object<Choices>::depth_type
->::type
-depth(
-	object<
+	typedef typename detail::vertex_pos<
 		Choices
-	> const &
-)
-{
-	return
-		static_cast<
-			typename object<Choices>::depth_type
-		>(0);
-}
+	>::type::packed_type type;
+};
 
 }
 }

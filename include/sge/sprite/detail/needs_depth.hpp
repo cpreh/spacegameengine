@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_VERTEX_COLOR_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_VERTEX_COLOR_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_NEEDS_DEPTH_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_NEEDS_DEPTH_HPP_INCLUDED
 
-#include <sge/renderer/vf/color.hpp>
+#include <sge/sprite/with_depth.hpp>
+#include <boost/mpl/contains.hpp>
 
 namespace sge
 {
@@ -33,11 +34,13 @@ namespace detail
 template<
 	typename Choices
 >
-struct vertex_color
+struct needs_depth
+:
+boost::mpl::contains<
+	typename Choices::elements,
+	sprite::with_depth
+>
 {
-	typedef renderer::vf::color<
-		typename Choices::type_choices::color_type
-	> type;
 };
 
 }
