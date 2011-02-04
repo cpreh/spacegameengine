@@ -219,6 +219,7 @@ SET(
 	src/plugins/opengl/glsl/program_contexts.hpp
 	src/plugins/opengl/glsl/program_holder.hpp
 	src/plugins/opengl/glsl/programfuncs/attach_shader.hpp
+	src/plugins/opengl/glsl/programfuncs/bind_frag_data_location.hpp
 	src/plugins/opengl/glsl/programfuncs/create.hpp
 	src/plugins/opengl/glsl/programfuncs/delete.hpp
 	src/plugins/opengl/glsl/programfuncs/detach_shader.hpp
@@ -229,6 +230,7 @@ SET(
 	src/plugins/opengl/glsl/programfuncs/link.hpp
 	src/plugins/opengl/glsl/programfuncs/link_status.hpp
 	src/plugins/opengl/glsl/programfuncs/src/attach_shader.cpp
+	src/plugins/opengl/glsl/programfuncs/src/bind_frag_data_location.cpp
 	src/plugins/opengl/glsl/programfuncs/src/create.cpp
 	src/plugins/opengl/glsl/programfuncs/src/delete.cpp
 	src/plugins/opengl/glsl/programfuncs/src/detach_shader.cpp

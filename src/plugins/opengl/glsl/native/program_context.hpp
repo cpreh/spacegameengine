@@ -67,6 +67,8 @@ public:
 
 	typedef PFNGLGETATTRIBLOCATIONPROC gl_get_attrib_location;
 
+	typedef PFNGLBINDFRAGDATALOCATIONPROC gl_bind_frag_data_location;
+
 	gl_create_program
 	create_program() const;
 	
@@ -93,6 +95,9 @@ public:
 
 	gl_get_attrib_location
 	get_attrib_location() const;
+
+	gl_bind_frag_data_location
+	bind_frag_data_location() const;
 
 	GLenum
 	link_status_type() const;
@@ -121,6 +126,8 @@ private:
 	gl_program_info_log const program_info_log_;
 
 	gl_get_attrib_location const get_attrib_location_;
+
+	gl_bind_frag_data_location const bind_frag_data_location_;
 
 	GLenum const
 		link_status_type_,

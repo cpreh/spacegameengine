@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/string.hpp>
 #include <sge/renderer/glsl/vertex_shader_ptr.hpp>
 #include <sge/renderer/glsl/shader_ptr.hpp>
+#include <sge/renderer/stage_type.hpp>
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/string.hpp>
@@ -86,6 +87,12 @@ private:
 	void
 	pixel_shader(
 		sge::renderer::glsl::pixel_shader_ptr
+	);
+
+	void
+	color_surface_location(
+		renderer::stage_type,
+		renderer::glsl::string const &
 	);
 
 	void
