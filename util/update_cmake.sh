@@ -100,8 +100,6 @@ update_sublibrary font/bitmap
 
 update_sublibrary font/text
 
-update_sublibrary gui
-
 update_sublibrary parse
 
 update_sublibrary process

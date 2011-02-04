@@ -353,45 +353,6 @@ try
 				fcppt::assign::make_container<sge::extension_set>(
 					FCPPT_TEXT("png")))));
 
-#if 0
-	sge::image2d::file_ptr const
-		image_bg(
-			sys.image_loader().load(
-				sge::config::media_path()
-				/ FCPPT_TEXT("grass.png"))),
-		image_vectorer(
-			sys.image_loader().load(
-				sge::config::media_path()
-				/ FCPPT_TEXT("gui")
-				/ FCPPT_TEXT("cursor.png"))),
-		image_tux(
-			sys.image_loader().load(
-				sge::config::media_path()
-				/ FCPPT_TEXT("tux.png")));
-
-	sge::texture::manager tex_man(
-		sys.renderer(),
-		boost::phoenix::construct<sge::texture::fragmented_unique_ptr>(
-			boost::phoenix::new_<sge::texture::no_fragmented>(
-				sys.renderer(),
-				sge::image::color::format::rgba8,
-				sge::renderer::filter::linear)));
-
-	sge::texture::const_part_ptr const
-		tex_bg(
-			sge::texture::add_image(
-				tex_man,
-				image_bg)),
-		tex_vectorer(
-			sge::texture::add_image(
-				tex_man,
-				image_vectorer)),
-		tex_tux(
-			sge::texture::add_image(
-				tex_man,
-				image_tux));
-#endif
-
 	sge::renderer::texture_ptr target_texture(
 		sys.renderer()->create_texture(
 			fcppt::math::dim::structure_cast<sge::renderer::dim2>(
@@ -407,64 +368,6 @@ try
 			target_texture
 		)
 	);
-#if 0
-	sprite_system ss(
-		sys.renderer());
-
-	sprite_object bg(
-		sprite_parameters()
-		.texture(
-			tex_bg)
-		.pos(
-			sprite_object::point::null())
-		.size(
-			fcppt::math::dim::structure_cast<sprite_object::dim>(
-				screen_size))
-		.depth(
-			static_cast<sprite_object::depth_type>(
-				-2))
-		.default_color()
-		.elements());
-
-	sprite_object vectorer(
-		sprite_parameters()
-		.texture(
-			tex_vectorer)
-		.depth(
-			static_cast<sprite_object::depth_type>(
-				0))
-		.pos(
-			sprite_object::point::null())
-		.default_color()
-		.texture_size()
-		.elements());
-
-	sprite_object tux(
-		sprite_parameters()
-		.pos(
-			sprite_object::point(
-				static_cast<sprite_object::unit>(screen_size.w()/2-16),
-				static_cast<sprite_object::unit>(screen_size.h()/2-16)))
-		.texture(
-			tex_tux)
-		.size(
-			sprite_object::dim(32,32))
-		.color(
-			sge::image::color::rgba8(
-				(sge::image::color::init::red %= 1.0)
-				(sge::image::color::init::green %= 1.0)
-				(sge::image::color::init::blue %= 1.0)
-				(sge::image::color::init::alpha %= 0.25)))
-		.depth(
-			static_cast<sprite_object::depth_type>(
-				2))
-		.elements());
-
-	fcppt::signal::scoped_connection const pc(
-		sys.mouse_collector()->axis_callback(
-			::sprite_functor(
-				vectorer)));
-#endif
 
 	bool running = true;
 

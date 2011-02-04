@@ -678,8 +678,6 @@ SET(
 	include/sge/renderer/texture_fwd.hpp
 	include/sge/renderer/texture_pos_type.hpp
 	include/sge/renderer/texture_ptr.hpp
-	include/sge/renderer/texture_rw.hpp
-	include/sge/renderer/texture_software.hpp
 	include/sge/renderer/texture_stage_arg.hpp
 	include/sge/renderer/texture_stage_arg_value.hpp
 	include/sge/renderer/texture_stage_op.hpp
@@ -1049,8 +1047,6 @@ SET(
 	src/renderer/texture.cpp
 	src/renderer/texture_base.cpp
 	src/renderer/texture_creation_failed.cpp
-	src/renderer/texture_rw.cpp
-	src/renderer/texture_software.cpp
 	src/renderer/to_awl_parameters.cpp
 	src/renderer/unsupported.cpp
 	src/renderer/vertex_buffer.cpp
@@ -1214,7 +1210,6 @@ OPTION (ENABLE_CONFIG "Build the config library" ON)
 OPTION (ENABLE_CONSOLE "Build the console" ON)
 OPTION (ENABLE_FONTBITMAP "Build the bitmap font" ON)
 OPTION (ENABLE_FONTTEXT "Build the font text library" ON)
-OPTION (ENABLE_GUI "Build the gui" OFF)
 OPTION (ENABLE_PARSE "Build the parse library" ON)
 # This is off by default, since it doesn't work on non-unix machines
 OPTION (ENABLE_PROCESS "Build the process framework" OFF)
@@ -1242,10 +1237,6 @@ ENDIF()
 
 IF (ENABLE_FONTTEXT)
 	ADD_SUBDIRECTORY (font/text)
-ENDIF ()
-
-IF (ENABLE_GUI)
-	ADD_SUBDIRECTORY (gui)
 ENDIF ()
 
 IF (ENABLE_PARSE)
