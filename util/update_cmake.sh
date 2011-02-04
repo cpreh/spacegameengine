@@ -15,6 +15,8 @@ function update_cmake_file()
 		|| die
 
 	mv "${cmakefile}".new "${cmakefile}" || die
+
+	chmod -x "${cmakefile}" || die
 }
 
 update_cmake_file \

@@ -113,6 +113,7 @@ sge::renderer::texture_software::surface(
 )
 {
 	// FIXME
+	return renderer::color_surface_ptr();
 }
 
 sge::renderer::stage_type

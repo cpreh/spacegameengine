@@ -18,13 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../keycode_to_char.hpp"
+#include "../keycode_to_chars.hpp"
 #include "../key_converter.hpp"
 #include "../di.hpp"
 #include <sge/input/exception.hpp>
 #include <sge/log/global.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/text.hpp>
@@ -56,8 +57,8 @@ assign_state(
 
 }
 
-sge::input::keyboard::char_type
-sge::dinput::keycode_to_char(
+sge::dinput::char_vector const
+sge::dinput::keycode_to_chars(
 	input::keyboard::key_code::type const _key,
 	sge::input::keyboard::mod_state const &_modifiers,
 	dinput::key_converter const &_conv,
@@ -100,14 +101,12 @@ sge::dinput::keycode_to_char(
 			)
 		);
 
-	typedef fcppt::container::array<
-		wchar_t,
-		2
-	> result_array;
+	// FIXME: How do we determine how big this buffer should be?
+	dinput::char_vector result(
+		32
+	);
 
-	result_array result;
-
-	switch(
+	int const ret(
 		::ToUnicodeEx(
 			vk,
 			dik,
@@ -121,32 +120,35 @@ sge::dinput::keycode_to_char(
 			0,
 			_kblayout
 		)
+	);
+
+	if(
+		ret < -1
 	)
-	{
-	case 0:
-		FCPPT_LOG_WARNING(
-			sge::log::global(),
-			fcppt::log::_
-				<< FCPPT_TEXT("No translation found for dik: ")
-				<< dik
+		throw sge::input::exception(
+			FCPPT_TEXT("Invalid return value of ToUnicodeEx!")
 		);
 
-		return 0;
-	case 1:
-		return
-			result[0];
-	case 2:
-	case -1: // indicates a dead key
+	if(
+		ret == -1
+	)
+	{
 		FCPPT_LOG_WARNING(
 			sge::log::global(),
 			fcppt::log::_
 				<< FCPPT_TEXT("stub: Key names with more than one char are not supported.")
 			);
 
-		return 0;
-	default:
-		throw sge::input::exception(
-			FCPPT_TEXT("Invalid return value of ToAsciiEx!")
-		);
+		return dinput::char_vector();
 	}
+
+	result.resize(
+		static_cast<
+			dinput::char_vector::size_type
+		>(
+			ret
+		)
+	);
+
+	return result;
 }

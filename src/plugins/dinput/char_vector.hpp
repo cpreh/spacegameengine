@@ -18,27 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DINPUT_KEYCODE_TO_CHAR_HPP_INCLUDED
-#define SGE_DINPUT_KEYCODE_TO_CHAR_HPP_INCLUDED
+#ifndef SGE_DINPUT_CHAR_VECTOR_HPP_INCLUDED
+#define SGE_DINPUT_CHAR_VECTOR_HPP_INCLUDED
 
-#include "key_converter_fwd.hpp"
-#include "di.hpp"
 #include <sge/input/keyboard/char_type.hpp>
-#include <sge/input/keyboard/key_code.hpp>
-#include <sge/input/keyboard/mod_state.hpp>
+#include <fcppt/container/raw_vector_fwd.hpp>
 
 namespace sge
 {
 namespace dinput
 {
 
-sge::input::keyboard::char_type
-keycode_to_char(
-	sge::input::keyboard::key_code::type,
-	sge::input::keyboard::mod_state const &,
-	dinput::key_converter const &,
-	HKL
-);
+typedef fcppt::container::raw_vector<
+	sge::input::keyboard::char_type
+> char_vector;
 
 }
 }

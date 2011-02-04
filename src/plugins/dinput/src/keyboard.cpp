@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../keyboard.hpp"
 #include "../key_converter.hpp"
 #include "../keyboard_repeat.hpp"
-#include "../keycode_to_char.hpp"
-#include <sge/input/keyboard/key.hpp>
+#include "../keycode_to_chars.hpp"
+#include <sge/input/keyboard/char_event.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/key_repeat_event.hpp>
@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/string.hpp>
@@ -56,11 +57,12 @@ sge::dinput::keyboard::keyboard(
 	),
 	key_signal_(),
 	key_repeat_signal_(),
+	char_signal_(),
 	repeat_time_(
 		dinput::keyboard_repeat(),
 		sge::time::activation_state::active
 	),
-	old_key_(),
+	old_key_code_(),
 	keys_()
 {
 	this->set_data_format(
@@ -94,6 +96,17 @@ sge::dinput::keyboard::key_repeat_callback(
 {
 	return
 		key_repeat_signal_.connect(
+			_callback
+		);
+}
+
+fcppt::signal::auto_connection
+sge::dinput::keyboard::char_callback(
+	sge::input::keyboard::char_callback const &_callback
+)
+{
+	return
+		char_signal_.connect(
 			_callback
 		);
 }
@@ -164,50 +177,59 @@ sge::dinput::keyboard::dispatch()
 			]
 		);
 
-		input::keyboard::key const key(
-			key_code,
-			dinput::keycode_to_char(
-				key_code,
-				modifiers_,
-				conv_,
-				kblayout_
-			)
-		);
-
 		key_signal_(
 			input::keyboard::key_event(
-				key,
+				key_code,
 				key_value
 			)
 		);
 
 		if(
+			key_value
+		)
+			BOOST_FOREACH(
+				dinput::char_vector::value_type ch,
+				dinput::keycode_to_chars(
+					key_code,
+					modifiers_,
+					conv_,
+					kblayout_
+				)
+			)
+				char_signal_(
+					sge::input::keyboard::char_event(
+						ch,
+						false
+					)
+				);
+
+		if(
 			!key_value
 		)
 		{
-			old_key_.reset();
+			old_key_code_.reset();
 
 			repeat_time_.reset();
 		}
 		else if(
-			!old_key_
-			|| *old_key_ != key
+			!old_key_code_
+			|| *old_key_code_ != key_code
 		)
 		{
 			repeat_time_.reset();
 
-			old_key_ = key;
+			old_key_code_ = key_code;
 		}
 	}
 
 	if(
-		old_key_
+		old_key_code_
 		&&
 		repeat_time_.update_b()
 	)
 		key_repeat_signal_(
 			sge::input::keyboard::key_repeat_event(
-				*old_key_
+				*old_key_code_
 			)
 		);
 }

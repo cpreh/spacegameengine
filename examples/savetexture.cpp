@@ -34,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/texture_ptr.hpp>
 #include <sge/renderer/filter/linear.hpp>
-#include <sge/renderer/no_depth_stencil_texture.hpp>
 #include <sge/renderer/const_scoped_texture_lock.hpp>
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/log/global.hpp>
