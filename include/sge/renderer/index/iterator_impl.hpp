@@ -18,10 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "instantiate_all.hpp"
-#include <sge/renderer/index/iterator.hpp>
-#include <sge/renderer/index/const_proxy.hpp>
-#include <sge/renderer/index/proxy.hpp>
+#ifndef SGE_RENDERER_INDEX_ITERATOR_IMPL_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_ITERATOR_IMPL_HPP_INCLUDED
+
+#include <sge/renderer/index/iterator_decl.hpp>
+#include <sge/renderer/index/const_proxy_impl.hpp>
+#include <sge/renderer/index/proxy_impl.hpp>
 
 template<
 	typename Format
@@ -141,16 +143,4 @@ sge::renderer::index::iterator<Format>::dereference() const
 		);
 }
 
-#define SGE_RENDERER_INDEX_DEFINE_ITERATOR(\
-	format\
-)\
-template FCPPT_EXPORT_SYMBOL \
-class sge::renderer::index::iterator<\
-	format \
->;
-
-SGE_RENDERER_INDEX_INSTANTIATE_ALL(
-	SGE_RENDERER_INDEX_DEFINE_ITERATOR
-)
-
-#undef SGE_RENDERER_INDEX_DEFINE_ITERATOR
+#endif

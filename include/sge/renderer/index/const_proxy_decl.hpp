@@ -18,11 +18,58 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_CONST_PROXY_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_CONST_PROXY_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_CONST_PROXY_DECL_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_CONST_PROXY_DECL_HPP_INCLUDED
 
 #include <sge/renderer/index/const_proxy_fwd.hpp>
-#include <sge/renderer/index/const_proxy_decl.hpp>
-#include <sge/renderer/index/const_proxy_impl.hpp>
+#include <sge/renderer/index/const_tag.hpp>
+#include <sge/renderer/index/format.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/nonassignable.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/static_assert.hpp>
+
+namespace sge
+{
+namespace renderer
+{
+namespace index
+{
+
+template<
+	typename Format
+>
+class const_proxy
+{
+	FCPPT_NONASSIGNABLE(
+		const_proxy
+	)
+public:
+	BOOST_STATIC_ASSERT((
+		boost::is_same<
+			typename Format::constness,
+			index::const_tag
+		>::value
+	));
+
+	typedef typename Format::index_type value_type;
+
+	typedef typename Format::pointer pointer;
+
+	SGE_SYMBOL
+	explicit const_proxy(
+		pointer
+	);
+
+	SGE_SYMBOL
+	value_type
+	get() const;
+private:
+	pointer const data_;
+};
+
+}
+}
+}
 
 #endif

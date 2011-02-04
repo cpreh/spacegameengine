@@ -541,7 +541,9 @@ SET(
 	include/sge/renderer/index/const_format_16.hpp
 	include/sge/renderer/index/const_format_32.hpp
 	include/sge/renderer/index/const_proxy.hpp
+	include/sge/renderer/index/const_proxy_decl.hpp
 	include/sge/renderer/index/const_proxy_fwd.hpp
+	include/sge/renderer/index/const_proxy_impl.hpp
 	include/sge/renderer/index/const_tag.hpp
 	include/sge/renderer/index/detail/iterator_base.hpp
 	include/sge/renderer/index/difference_type.hpp
@@ -565,10 +567,14 @@ SET(
 	include/sge/renderer/index/i32.hpp
 	include/sge/renderer/index/is_format.hpp
 	include/sge/renderer/index/iterator.hpp
+	include/sge/renderer/index/iterator_decl.hpp
 	include/sge/renderer/index/iterator_fwd.hpp
+	include/sge/renderer/index/iterator_impl.hpp
 	include/sge/renderer/index/nonconst_tag.hpp
 	include/sge/renderer/index/proxy.hpp
+	include/sge/renderer/index/proxy_decl.hpp
 	include/sge/renderer/index/proxy_fwd.hpp
+	include/sge/renderer/index/proxy_impl.hpp
 	include/sge/renderer/index/size_type.hpp
 	include/sge/renderer/index/to_const_format.hpp
 	include/sge/renderer/index/to_nonconst_format.hpp
@@ -992,15 +998,12 @@ SET(
 	src/renderer/glsl/uniform/variable.cpp
 	src/renderer/glsl/vertex_shader.cpp
 	src/renderer/index/any/make_view.cpp
-	src/renderer/index/const_proxy.cpp
 	src/renderer/index/dynamic/basic_view.cpp
 	src/renderer/index/dynamic/format_enum_static.hpp
 	src/renderer/index/dynamic/format_stride.cpp
 	src/renderer/index/dynamic/make_const_view.cpp
 	src/renderer/index/dynamic/make_format.cpp
 	src/renderer/index/instantiate_all.hpp
-	src/renderer/index/iterator.cpp
-	src/renderer/index/proxy.cpp
 	src/renderer/index/view.cpp
 	src/renderer/index_buffer.cpp
 	src/renderer/indices_per_primitive.cpp

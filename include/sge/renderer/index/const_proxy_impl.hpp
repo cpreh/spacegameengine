@@ -18,17 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/index/proxy.hpp>
-#include <sge/renderer/index/const_proxy.hpp>
-#include <sge/renderer/index/format_16.hpp>
-#include <sge/renderer/index/format_32.hpp>
-#include <sge/renderer/index/to_const_format.hpp>
+#ifndef SGE_RENDERER_INDEX_CONST_PROXY_IMPL_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_CONST_PROXY_IMPL_HPP_INCLUDED
+
+#include <sge/renderer/index/const_proxy_decl.hpp>
+#include <sge/renderer/index/const_format_16.hpp>
+#include <sge/renderer/index/const_format_32.hpp>
+#include <fcppt/export_symbol.hpp>
 #include <cstring>
 
 template<
 	typename Format
 >
-sge::renderer::index::proxy<Format>::proxy(
+sge::renderer::index::const_proxy<Format>::const_proxy(
 	pointer const _data
 )
 :
@@ -39,48 +41,18 @@ sge::renderer::index::proxy<Format>::proxy(
 template<
 	typename Format
 >
-void
-sge::renderer::index::proxy<Format>::set(
-	value_type const _value
-)
+typename sge::renderer::index::const_proxy<Format>::value_type
+sge::renderer::index::const_proxy<Format>::get() const
 {
+	value_type ret;
+
 	std::memcpy(
+		&ret,
 		data_,
-		&_value,
 		sizeof(value_type)
 	);
+
+	return ret;
 }
 
-template<
-	typename Format
->
-typename sge::renderer::index::proxy<Format>::value_type
-sge::renderer::index::proxy<Format>::get() const
-{
-	return
-		index::const_proxy<
-			typename index::to_const_format<
-				Format
-			>::type
-		>(
-			data_
-		).get();
-}
-
-#define SGE_RENDERER_INDEX_DEFINE_PROXY(\
-	format\
-)\
-template FCPPT_EXPORT_SYMBOL \
-class sge::renderer::index::proxy<\
-	format\
->;
-
-SGE_RENDERER_INDEX_DEFINE_PROXY(
-	sge::renderer::index::format_16
-)
-
-SGE_RENDERER_INDEX_DEFINE_PROXY(
-	sge::renderer::index::format_32
-)
-
-#undef SGE_RENDERER_INDEX_DEFINE_PROXY
+#endif

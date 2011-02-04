@@ -18,54 +18,60 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/index/const_proxy.hpp>
-#include <sge/renderer/index/const_format_16.hpp>
-#include <sge/renderer/index/const_format_32.hpp>
-#include <fcppt/export_symbol.hpp>
-#include <cstring>
+#ifndef SGE_RENDERER_INDEX_PROXY_DECL_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_PROXY_DECL_HPP_INCLUDED
+
+#include <sge/renderer/index/proxy_fwd.hpp>
+#include <sge/renderer/index/format.hpp>
+#include <sge/renderer/index/nonconst_tag.hpp>
+#include <fcppt/nonassignable.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/static_assert.hpp>
+
+namespace sge
+{
+namespace renderer
+{
+namespace index
+{
 
 template<
 	typename Format
 >
-sge::renderer::index::const_proxy<Format>::const_proxy(
-	pointer const _data
-)
-:
-	data_(_data)
+class proxy
 {
-}
+	FCPPT_NONASSIGNABLE(
+		proxy
+	)
+public:
+	BOOST_STATIC_ASSERT((
+		boost::is_same<
+			typename Format::constness,
+			index::nonconst_tag
+		>::value
+	));
 
-template<
-	typename Format
->
-typename sge::renderer::index::const_proxy<Format>::value_type
-sge::renderer::index::const_proxy<Format>::get() const
-{
-	value_type ret;
+	typedef typename Format::index_type value_type;
 
-	std::memcpy(
-		&ret,
-		data_,
-		sizeof(value_type)
+	typedef typename Format::pointer pointer;
+
+	explicit proxy(
+		pointer
 	);
 
-	return ret;
+	void
+	set(
+		value_type
+	);
+
+	value_type
+	get() const;
+private:
+	pointer const data_;
+};
+
+}
+}
 }
 
-#define SGE_RENDERER_INDEX_DEFINE_CONST_PROXY(\
-	format\
-)\
-template FCPPT_EXPORT_SYMBOL \
-class sge::renderer::index::const_proxy<\
-	format\
->;
-
-SGE_RENDERER_INDEX_DEFINE_CONST_PROXY(
-	sge::renderer::index::const_format_16
-)
-
-SGE_RENDERER_INDEX_DEFINE_CONST_PROXY(
-	sge::renderer::index::const_format_32
-)
-
-#undef SGE_RENDERER_INDEX_DEFINE_CONST_PROXY
+#endif
