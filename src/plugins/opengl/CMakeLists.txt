@@ -495,7 +495,6 @@ SET(
 	src/plugins/opengl/texture_surface_base_fwd.hpp
 	src/plugins/opengl/texture_surface_base_ptr.hpp
 	src/plugins/opengl/texture_surface_fwd.hpp
-	src/plugins/opengl/texture_surface_ptr.hpp
 	src/plugins/opengl/vbo_base.hpp
 	src/plugins/opengl/vbo_base_fwd.hpp
 	src/plugins/opengl/vbo_base_unique_ptr.hpp
