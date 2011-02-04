@@ -18,29 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../create_depth_stencil_surface.hpp"
+#include "../depth_stencil_format_to_attachment.hpp"
 #include "../context.hpp"
-#include "../depth_stencil_surface.hpp"
-#include "../../context/use.hpp"
-#include <fcppt/make_shared_ptr.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-sge::renderer::depth_stencil_surface_ptr const
-sge::opengl::fbo::create_depth_stencil_surface(
-	opengl::context::object &_context,
-	renderer::dim2 const &_dim,
+GLenum
+sge::opengl::fbo::depth_stencil_format_to_attachment(
+	fbo::context const &_context,
 	renderer::depth_stencil_format::type const _format
 )
 {
-	return
-		fcppt::make_shared_ptr<
-			fbo::depth_stencil_surface
-		>(
-			opengl::context::use<
-				fbo::context
-			>(
-				_context
-			),
-			_format,
-			_dim
-		);
+	switch(
+		_format
+	)
+	{
+	case renderer::depth_stencil_format::d16:
+	case renderer::depth_stencil_format::d32:
+		return _context.depth_attachment();
+	case renderer::depth_stencil_format::d24s8:
+		return _context.depth_stencil_attachment();
+	}
+
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid depth_stencil_format in depth_stencil_format_to_attachment()!")
+	);
 }

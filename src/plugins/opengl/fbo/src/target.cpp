@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../attachment.hpp"
 #include "../bind.hpp"
 #include "../context.hpp"
+#include "../depth_stencil_format_to_attachment.hpp"
 #include "../depth_stencil_surface_ptr.hpp"
 #include "../depth_stencil_surface.hpp"
 #include "../render_buffer_binding.hpp"
@@ -145,8 +146,15 @@ sge::opengl::fbo::target::depth_stencil_surface(
 	renderer::depth_stencil_surface_ptr const _surface
 )
 {
+	GLenum const attachment(
+		fbo::depth_stencil_format_to_attachment(
+			context_,
+			_surface->format()
+		)
+	);
+
 	if(
-		context_.depth_stencil_attachment()
+		attachment
 		== 0
 	)
 		throw sge::renderer::unsupported(
@@ -187,7 +195,7 @@ sge::opengl::fbo::target::depth_stencil_surface(
 		depth_stencil_attachment_.take(
 			this->create_buffer_binding(
 				ptr->render_buffer(),
-				context_.depth_stencil_attachment()
+				attachment
 			)
 		);
 
@@ -206,7 +214,7 @@ sge::opengl::fbo::target::depth_stencil_surface(
 		depth_stencil_attachment_.take(
 			this->create_texture_binding(
 				ptr,
-				context_.depth_stencil_attachment()
+				attachment
 			)
 		);
 

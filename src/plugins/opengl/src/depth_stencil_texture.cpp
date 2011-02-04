@@ -46,14 +46,7 @@ sge::opengl::depth_stencil_texture::depth_stencil_texture(
 	holder_(),
 	dim_(_dim),
 	format_(
-		convert::depth_stencil_to_format(
-			_format
-		)
-	),
-	format_type_(
-		convert::depth_stencil_to_format_type(
-			_format
-		)
+		_format
 	)
 {
 	this->bind();
@@ -71,8 +64,12 @@ sge::opengl::depth_stencil_texture::depth_stencil_texture(
 	texfuncs::set(
 		_context,
 		type(),
-		format_,
-		format_type_,
+		convert::depth_stencil_to_format(
+			_format
+		),
+		convert::depth_stencil_to_format_type(
+			_format
+		),
 		convert::depth_stencil_to_internal_format(
 			_format
 		),
@@ -110,7 +107,8 @@ sge::opengl::depth_stencil_texture::surface() const
 			opengl::depth_stencil_texture_surface
 		>(
 			this->type(),
-			this->id()
+			this->id(),
+			format_
 		);
 }
 

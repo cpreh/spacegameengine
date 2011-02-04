@@ -67,9 +67,7 @@ private:
 
 	dim_type const dim_;
 
-	GLenum const
-		format_,
-		format_type_;
+	renderer::depth_stencil_format::type const format_;
 };
 
 }

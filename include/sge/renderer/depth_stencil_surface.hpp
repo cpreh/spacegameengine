@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_DEPTH_STENCIL_SURFACE_HPP_INCLUDED
 
 #include <sge/renderer/depth_stencil_surface_fwd.hpp>
+#include <sge/renderer/depth_stencil_format.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/class_symbol.hpp>
 #include <sge/symbol.hpp>
@@ -48,6 +49,9 @@ public:
 
 	virtual dim_type const
 	dim() const = 0;
+
+	virtual renderer::depth_stencil_format::type
+	format() const = 0;
 
 	// TODO!
 };

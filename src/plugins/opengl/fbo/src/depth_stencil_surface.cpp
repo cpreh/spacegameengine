@@ -19,19 +19,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../depth_stencil_surface.hpp"
+#include "../../convert/depth_stencil_to_internal_format.hpp"
 #include <fcppt/math/dim/basic_impl.hpp>
 
 sge::opengl::fbo::depth_stencil_surface::depth_stencil_surface(
 	fbo::context const &_context,
-	GLenum const _internal_format,
+	renderer::depth_stencil_format::type const _format,
 	sge::renderer::dim2 const &_dim
 )
 :
 	render_buffer_(
 		_context,
-		_internal_format,
+		opengl::convert::depth_stencil_to_internal_format(
+			_format
+		),
 		_dim
 	),
+	format_(_format),
 	dim_(_dim)
 {
 }
@@ -44,6 +48,12 @@ sge::opengl::fbo::render_buffer const &
 sge::opengl::fbo::depth_stencil_surface::render_buffer() const
 {
 	return render_buffer_;
+}
+
+sge::renderer::depth_stencil_format::type
+sge::opengl::fbo::depth_stencil_surface::format() const
+{
+	return format_;
 }
 
 sge::opengl::fbo::depth_stencil_surface::dim_type const

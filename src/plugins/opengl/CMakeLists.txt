@@ -132,6 +132,7 @@ SET(
 	src/plugins/opengl/fbo/context.hpp
 	src/plugins/opengl/fbo/context_fwd.hpp
 	src/plugins/opengl/fbo/create_depth_stencil_surface.hpp
+	src/plugins/opengl/fbo/depth_stencil_format_to_attachment.hpp
 	src/plugins/opengl/fbo/depth_stencil_surface.hpp
 	src/plugins/opengl/fbo/depth_stencil_surface_fwd.hpp
 	src/plugins/opengl/fbo/depth_stencil_surface_ptr.hpp
@@ -147,6 +148,7 @@ SET(
 	src/plugins/opengl/fbo/src/bind.cpp
 	src/plugins/opengl/fbo/src/context.cpp
 	src/plugins/opengl/fbo/src/create_depth_stencil_surface.cpp
+	src/plugins/opengl/fbo/src/depth_stencil_format_to_attachment.cpp
 	src/plugins/opengl/fbo/src/depth_stencil_surface.cpp
 	src/plugins/opengl/fbo/src/object.cpp
 	src/plugins/opengl/fbo/src/render_buffer.cpp

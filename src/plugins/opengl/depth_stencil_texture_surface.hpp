@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "basic_texture_surface.hpp"
 #include "common.hpp"
+#include <sge/renderer/depth_stencil_format.hpp>
 #include <sge/renderer/depth_stencil_surface.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -47,10 +48,16 @@ public:
 
 	depth_stencil_texture_surface(
 		GLenum texture_type,
-		GLuint id
+		GLuint id,
+		renderer::depth_stencil_format::type
 	);
 	
 	~depth_stencil_texture_surface();
+private:
+	renderer::depth_stencil_format::type
+	format() const;
+
+	renderer::depth_stencil_format::type const format_;
 };
 
 }
