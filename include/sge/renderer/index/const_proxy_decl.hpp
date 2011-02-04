@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/const_proxy_fwd.hpp>
 #include <sge/renderer/index/const_tag.hpp>
 #include <sge/renderer/index/format.hpp>
-#include <sge/symbol.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/static_assert.hpp>
@@ -56,12 +55,10 @@ public:
 
 	typedef typename Format::pointer pointer;
 
-	SGE_SYMBOL
 	explicit const_proxy(
 		pointer
 	);
 
-	SGE_SYMBOL
 	value_type
 	get() const;
 private:

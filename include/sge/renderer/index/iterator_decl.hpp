@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/iterator_fwd.hpp>
 #include <sge/renderer/index/to_nonconst_format.hpp>
 #include <sge/renderer/index/detail/iterator_base.hpp>
-#include <sge/symbol.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 
 namespace sge
@@ -60,7 +59,6 @@ public:
 
 	friend class boost::iterator_core_access;
 
-	SGE_SYMBOL
 	explicit iterator(
 		pointer
 	);
@@ -71,42 +69,34 @@ public:
 		>::type
 	> nonconst_iterator;
 
-	SGE_SYMBOL
 	iterator(
 		nonconst_iterator const &
 	);
 
-	SGE_SYMBOL
 	pointer
 	data() const;
 private:
-	SGE_SYMBOL
 	void
 	advance(
 		difference_type
 	);
 
-	SGE_SYMBOL
 	void
 	increment();
 
-	SGE_SYMBOL
 	void
 	decrement();
 
-	SGE_SYMBOL
 	bool
 	equal(
 		iterator const &
 	) const;
 
-	SGE_SYMBOL
 	difference_type
 	distance_to(
 		iterator const &
 	) const;
 
-	SGE_SYMBOL
 	reference
 	dereference() const;
 
