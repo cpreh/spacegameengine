@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/second_f.hpp>
 #include <sge/sprite/external_system_impl.hpp>
 #include <sge/sprite/render_one.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/container/map_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
@@ -114,26 +115,15 @@ sge::console::gfx::gfx(
 			_font_color
 		)
 	),
-	input_modifier_filter_(
+	keyboard_(
 		_keyboard
 	),
 	key_connection_(
-		input_modifier_filter_.register_callback(
+		keyboard_.key_callback(
 			std::tr1::bind(
 				&gfx::key_callback,
 				this,
-				std::tr1::placeholders::_1,
-				std::tr1::placeholders::_2
-			)
-		)
-	),
-	key_repeat_connection_(
-		input_modifier_filter_.register_repeat_callback(
-			std::tr1::bind(
-				&gfx::key_action,
-				this,
-				std::tr1::placeholders::_1,
-				std::tr1::placeholders::_2
+				std::tr1::placeholders::_1
 			)
 		)
 	),
@@ -311,16 +301,18 @@ sge::console::gfx::object() const
 
 void
 sge::console::gfx::key_callback(
-	input::keyboard::key_event const &k,
-	input::modifier::states const &s
+	input::keyboard::key_event const &_key
 )
 {
-	if (active_ && k.pressed())
+	if (
+		active_
+		&&
+		_key.pressed()
+	)
 		this->key_action(
 			input::keyboard::key_repeat_event(
-				k.key_code()
-			),
-			s
+				_key.key_code()
+			)
 		);
 }
 
@@ -350,8 +342,7 @@ sge::console::gfx::char_callback(
 
 void
 sge::console::gfx::key_action(
-	input::keyboard::key_repeat_event const &_event,
-	input::modifier::states const &_states
+	input::keyboard::key_repeat_event const &_event
 )
 {
 	if (!active_)
@@ -360,9 +351,9 @@ sge::console::gfx::key_action(
 	switch (_event.key_code())
 	{
 		case input::keyboard::key_code::w:
-			if(	
-				_states[input::keyboard::key_code::lctrl]
-				|| _states[input::keyboard::key_code::rctrl]
+			if(
+				keyboard_.mod_state()
+				& input::keyboard::modifier::ctrl
 			)
 				input_line_.erase_word();
 		break;

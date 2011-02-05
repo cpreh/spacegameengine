@@ -350,8 +350,6 @@ SET(
 	include/sge/input/keyboard/remove_function.hpp
 	include/sge/input/keyboard/remove_signal.hpp
 	include/sge/input/keyboard/to_modifier.hpp
-	include/sge/input/modifier/filter.hpp
-	include/sge/input/modifier/states.hpp
 	include/sge/input/mouse/axis.hpp
 	include/sge/input/mouse/axis_callback.hpp
 	include/sge/input/mouse/axis_event.hpp
@@ -924,13 +922,6 @@ SET(
 	src/input/keyboard/key_event.cpp
 	src/input/keyboard/key_repeat_event.cpp
 	src/input/keyboard/to_modifier.cpp
-	src/input/modifier/container.hpp
-	src/input/modifier/filter.cpp
-	src/input/modifier/list.cpp
-	src/input/modifier/list.hpp
-	src/input/modifier/object.cpp
-	src/input/modifier/object.hpp
-	src/input/modifier/types.hpp
 	src/input/mouse/axis_event.cpp
 	src/input/mouse/button_event.cpp
 	src/input/mouse/collector.cpp
