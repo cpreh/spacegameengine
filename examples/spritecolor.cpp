@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/color/init.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/colors.hpp>
@@ -153,14 +152,8 @@ try
 				)
 			)
 		)
-		.color(
-			sge::image::color::rgba8
-			(
-				(sge::image::color::init::red %= 1.)
-				(sge::image::color::init::green %= 0.)
-				(sge::image::color::init::blue %= 0.)
-				(sge::image::color::init::alpha %= 1.)
-			)
+		.any_color(
+			sge::image::colors::red()
 		)
 		.elements()
 	);

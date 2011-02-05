@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/size.hpp>
 #include <sge/sprite/roles/texture.hpp>
 #include <sge/sprite/roles/visible.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <majutsu/role_return_type.hpp>
 #include <majutsu/role.hpp>
 #include <majutsu/fundamental.hpp>
@@ -120,6 +121,11 @@ public:
 			flattened_types,
 			roles::color
 		>::type const &
+	);
+
+	parameters &
+	any_color(
+		sge::image::color::any::object const &
 	);
 
 	parameters &
