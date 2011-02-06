@@ -41,6 +41,7 @@ SET(
 	include/sge/audio/sound/positional.hpp
 	include/sge/audio/sound/positional_fwd.hpp
 	include/sge/audio/sound/positional_parameters.hpp
+	include/sge/audio/sound/positional_parameters_fwd.hpp
 	include/sge/audio/sound/positional_ptr.hpp
 	include/sge/audio/sound/repeat.hpp
 	include/sge/audio/stop_mode.hpp

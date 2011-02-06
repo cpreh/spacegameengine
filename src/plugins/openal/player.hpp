@@ -32,8 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/listener_fwd.hpp>
 #include <sge/audio/sound/positional_ptr.hpp>
 #include <sge/audio/sound/base_ptr.hpp>
-#include <sge/audio/sound/positional_parameters.hpp>
+#include <sge/audio/sound/positional_parameters_fwd.hpp>
 #include <sge/audio/scalar.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -43,6 +44,9 @@ class player
 : 
 	public audio::player
 {
+	FCPPT_NONCOPYABLE(
+		player
+	);
 public:
 	explicit
 	player();

@@ -30,7 +30,12 @@ sge::audio_null::listener::listener()
 		audio::vector::null()
 	),
 	direction_()
-{}
+{
+}
+
+sge::audio_null::listener::~listener()
+{
+}
 
 sge::audio::vector const
 sge::audio_null::listener::position() const
@@ -40,9 +45,10 @@ sge::audio_null::listener::position() const
 
 void
 sge::audio_null::listener::position(
-	audio::vector const &p)
+	audio::vector const &_position
+)
 {
-	position_ = p;
+	position_ = _position;
 }
 
 sge::audio::vector const
@@ -53,9 +59,10 @@ sge::audio_null::listener::linear_velocity() const
 
 void
 sge::audio_null::listener::linear_velocity(
-	audio::vector const &p)
+	audio::vector const &_linear_velocity
+)
 {
-	linear_velocity_ = p;
+	linear_velocity_ = _linear_velocity;
 }
 
 sge::audio::angle const
@@ -66,8 +73,9 @@ sge::audio_null::listener::direction() const
 
 void
 sge::audio_null::listener::direction(
-	audio::angle const &d)
+	audio::angle const &_direction
+)
 {
-	direction_ = d;
+	direction_ = _direction;
 }
 

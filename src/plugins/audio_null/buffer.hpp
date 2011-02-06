@@ -21,14 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_NULL_BUFFER_HPP_INCLUDED
 #define SGE_AUDIO_NULL_BUFFER_HPP_INCLUDED
 
-#include "positional.hpp"
 #include <sge/audio/buffer.hpp>
+#include <sge/audio/sound/base_ptr.hpp>
+#include <sge/audio/sound/positional_ptr.hpp>
+#include <sge/audio/sound/positional_parameters_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace audio_null
 {
+
 class buffer
 :
 	public sge::audio::buffer
@@ -37,29 +40,19 @@ class buffer
 		buffer
 	);
 public:
-	buffer()
-	{
-	}
+	buffer();
 	
-	~buffer()
-	{
-	}
+	~buffer();
 
 	audio::sound::positional_ptr const
 	create_positional(
-		audio::sound::positional_parameters const&)
-	{
-		return audio::sound::positional_ptr(
-			new positional());
-	}
+		audio::sound::positional_parameters const &
+	);
 
 	audio::sound::base_ptr const
-	create_nonpositional()
-	{
-		return audio::sound::base_ptr(
-			new positional());
-	}
+	create_nonpositional();
 };
+
 }
 }
 

@@ -22,91 +22,114 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_NULL_POSITIONAL_HPP_INCLUDED
 
 #include <sge/audio/sound/positional.hpp>
+#include <sge/audio/sound/play_status.hpp>
+#include <sge/audio/sound/repeat.hpp>
+#include <sge/audio/scalar.hpp>
+#include <sge/audio/vector.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace audio_null
 {
+
 class positional
 :
 	public sge::audio::sound::positional
 {
+	FCPPT_NONCOPYABLE(
+		positional
+	);
 public:
+	positional();
+
+	~positional();
+
 	void 
 	play(
-		sge::audio::sound::repeat::type) {}
+		sge::audio::sound::repeat::type
+	);
 
 	sge::audio::sound::repeat::type
-	repeat() const { return sge::audio::sound::repeat::once; }
+	repeat() const;
 
 	void 
-	toggle_pause() {}
+	toggle_pause();
 
 	audio::sound::play_status::type 
-	status() const { return audio::sound::play_status::stopped; }
+	status() const;
 
 	void 
-	stop() {}
+	stop();
 
 	void
-	update() {}
+	update();
 
 	audio::vector const 
-	position() const { return audio::vector(); }
+	position() const;
 
 	void 
 	position(
-		audio::vector const &) {}
+		audio::vector const &
+	);
 
 	audio::vector const 
-	linear_velocity() const { return audio::vector(); }
+	linear_velocity() const;
 
 	void 
 	linear_velocity(
-		audio::vector const &) { }
+		audio::vector const &
+	);
 
 	void 
 	gain(
-		audio::scalar) {}
+		audio::scalar
+	);
 
 	audio::scalar 
-	gain() const { return audio::scalar(); }
+	gain() const;
 
 	void 
 	pitch(
-		audio::scalar) {}
+		audio::scalar
+	);
 
 	audio::scalar 
-	pitch() const { return audio::scalar(); }
+	pitch() const;
 
 	void 
 	rolloff(
-		audio::scalar) {}
+		audio::scalar
+	);
 
 	audio::scalar 
-	rolloff() const { return audio::scalar(); }
+	rolloff() const;
 
 	void 
 	direction(
-		audio::vector const &) {}
+		audio::vector const &
+	);
 
 	audio::vector const 
-	direction() const { return audio::vector(); } 
+	direction() const;
 
 	void 
 	inner_cone_angle(
-		audio::scalar) {}
+		audio::scalar
+	);
 
 	audio::scalar 
-	inner_cone_angle() const { return audio::scalar(); }
+	inner_cone_angle() const;
 
 	void 
 	outer_cone_angle(
-		audio::scalar) {}
+		audio::scalar
+	);
 
 	audio::scalar 
-	outer_cone_angle() const { return audio::scalar(); }
+	outer_cone_angle() const;
 };
+
 }
 }
 

@@ -27,7 +27,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::audio_null::player::player()
 :
 	listener_()
-{}
+{
+}
+
+sge::audio_null::player::~player()
+{
+}
 
 sge::audio::listener &
 sge::audio_null::player::listener()
@@ -35,32 +40,83 @@ sge::audio_null::player::listener()
 	return listener_;
 }
 
+sge::audio::scalar 
+sge::audio_null::player::speed_of_sound() const
+{
+	return audio::scalar();
+}
+
+sge::audio::scalar 
+sge::audio_null::player::doppler_factor() const
+{
+	return audio::scalar();
+}
+
+void 
+sge::audio_null::player::speed_of_sound(
+	audio::scalar
+)
+{
+}
+
+void 
+sge::audio_null::player::doppler_factor(
+	audio::scalar
+)
+{
+}
+
+sge::audio::scalar
+sge::audio_null::player::gain() const
+{
+	return audio::scalar();
+}
+
+void
+sge::audio_null::player::gain(
+	audio::scalar
+)
+{
+}
+
 sge::audio::buffer_ptr const
 sge::audio_null::player::create_buffer(
-	audio::file_ptr)
+	audio::file_ptr
+)
 {
 	return 
 		sge::audio::buffer_ptr(
-			new buffer());
+			fcppt::make_shared_ptr<
+				audio_null::buffer
+			>()
+		);
 }
 
 sge::audio::sound::positional_ptr const 
 sge::audio_null::player::create_positional_stream(
 	audio::file_ptr,
-	audio::sound::positional_parameters const &)
+	audio::sound::positional_parameters const &
+)
 {
 	return 
 		sge::audio::sound::positional_ptr(
-			new positional());
+			fcppt::make_shared_ptr<
+				audio_null::positional
+			>()
+		);
 }
 
 sge::audio::sound::base_ptr const 
 sge::audio_null::player::create_nonpositional_stream(
-	audio::file_ptr)
+	audio::file_ptr
+)
 {
 	return 
 		sge::audio::sound::positional_ptr(
-			new positional());
+			fcppt::make_shared_ptr<
+				audio_null::positional
+			>()
+		);
 }
 
 sge::audio::player_capabilities_field const
