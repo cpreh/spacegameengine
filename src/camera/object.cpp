@@ -39,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/range/numeric.hpp>
 #include <boost/bind.hpp>
 #include <algorithm>
+#include <iostream>
 
 sge::camera::object::object(
 	parameters const &params)
@@ -67,7 +68,9 @@ sge::camera::object::object(
 	gizmo_(
 		params.gizmo()),
 	dirs_(
-		renderer::vector3::null())
+		renderer::vector3::null()),
+	active_(
+		params.active())
 {
 }
 
@@ -77,13 +80,13 @@ sge::camera::object::~object()
 
 void
 sge::camera::object::update(
-	renderer::scalar const time_delta)
+	time::funit const time_delta)
 {
-//	fcppt::io::cout << "Gizmo is: " << gizmo_.forward() << ", " << gizmo_.up() << ", " << gizmo_.right() << ", position: " << gizmo_.position() << "\n";
 	gizmo_.position( 
 		gizmo_.position() + 
 		movement_speed_ * 
-		time_delta * 
+		static_cast<sge::renderer::scalar>(
+			time_delta) * 
 		boost::inner_product(
 			gizmo_.array(),
 			dirs_,
@@ -139,10 +142,29 @@ sge::camera::object::gizmo()
 	return gizmo_;
 }
 
+SGE_CAMERA_SYMBOL
+void
+sge::camera::object::active(
+	bool const _active)
+{
+	active_ = 
+		_active;
+}
+
+SGE_CAMERA_SYMBOL
+bool 
+sge::camera::object::active()
+{
+	return active_;
+}
+
 void
 sge::camera::object::key_callback(
 	sge::input::keyboard::key_event const &k)
 {
+	if (!active_)
+		return;
+
 	switch (k.key_code())
 	{
 		case sge::input::keyboard::key_code::space:
@@ -151,16 +173,16 @@ sge::camera::object::key_callback(
 		case sge::input::keyboard::key_code::lctrl:
 			dirs_[1] = !k.pressed() ? 0.f : -1.f;
 			break;
-		case sge::input::keyboard::key_code::up:
+		case sge::input::keyboard::key_code::w:
 			dirs_[2] = !k.pressed() ? 0.f : -1.f;
 			break;
-		case sge::input::keyboard::key_code::down:
+		case sge::input::keyboard::key_code::s:
 			dirs_[2] = !k.pressed() ? 0.f : 1.f;
 			break;
-		case sge::input::keyboard::key_code::left:
+		case sge::input::keyboard::key_code::a:
 			dirs_[0] = !k.pressed() ? 0.f : -1.f;
 			break;
-		case sge::input::keyboard::key_code::right:
+		case sge::input::keyboard::key_code::d:
 			dirs_[0] = !k.pressed() ? 0.f : 1.f;
 			break;
 		default:
@@ -172,6 +194,9 @@ void
 sge::camera::object::mouse_axis_callback(
 	sge::input::mouse::axis_event const &k)
 {
+	if (!active_)
+		return;
+
 	renderer::scalar const angle = 
 		static_cast<renderer::scalar>(k.axis_value())/rotation_speed_;
 

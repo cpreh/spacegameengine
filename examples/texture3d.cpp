@@ -590,7 +590,8 @@ try
 			sge::camera::identity_gizmo(),
 			// Maus und Keyboard
 			*sys.keyboard_collector(),
-			*sys.mouse_collector()));
+			*sys.mouse_collector(),
+			true));
 
 	sge::time::timer frame_timer(
 		sge::time::second(

@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/projection/object.hpp>
 #include <sge/camera/gizmo_type.hpp>
 #include <sge/camera/symbol.hpp>
+#include <sge/time/funit.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/scalar.hpp>
@@ -61,7 +62,7 @@ public:
 	SGE_CAMERA_SYMBOL
 	void
 	update(
-		renderer::scalar);
+		time::funit);
 	
 	SGE_CAMERA_SYMBOL
 	renderer::matrix4 const
@@ -90,6 +91,15 @@ public:
 	SGE_CAMERA_SYMBOL
 	gizmo_type &
 	gizmo();
+
+	SGE_CAMERA_SYMBOL
+	void
+	active(
+		bool);
+
+	SGE_CAMERA_SYMBOL
+	bool 
+	active();
 private:
 	fcppt::signal::scoped_connection keyboard_connection_,mouse_axis_connection_;
 	projection::object const projection_;
@@ -102,6 +112,7 @@ private:
 	// Those are the directions the camera currently moves in
 	// (corresponds to the movement keys currently pressed)
 	renderer::vector3 dirs_;
+	bool active_;
 
 	void
 	key_callback(
