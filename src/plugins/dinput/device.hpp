@@ -39,7 +39,7 @@ class device
 {
 	FCPPT_NONCOPYABLE(
 		device
-	)
+	);
 public:
 	virtual void
 	dispatch() = 0;

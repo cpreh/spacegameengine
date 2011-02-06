@@ -38,7 +38,7 @@ class device_parameters
 {
 	FCPPT_NONASSIGNABLE(
 		device_parameters
-	)
+	);
 public:
 	device_parameters(
 		dinput::dinput_ptr,

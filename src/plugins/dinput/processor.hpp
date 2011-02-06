@@ -61,7 +61,7 @@ class processor
 {
 	FCPPT_NONCOPYABLE(
 		processor
-	)
+	);
 public:
 	explicit processor(
 		dinput::dinput_ptr,

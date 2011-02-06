@@ -34,7 +34,7 @@ class cursor_confine
 {
 	FCPPT_NONCOPYABLE(
 		cursor_confine
-	)
+	);
 public:
 	explicit cursor_confine(
 		awl::backends::windows::window::instance_ptr

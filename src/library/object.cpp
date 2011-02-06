@@ -79,7 +79,9 @@ library_vector libraries;
 
 struct sge::library::object::destroyer
 {
-	FCPPT_NONCOPYABLE(destroyer)
+	FCPPT_NONCOPYABLE(
+		destroyer
+	);
 public:
 	destroyer()
 	{

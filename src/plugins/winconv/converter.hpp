@@ -40,7 +40,7 @@ class converter
 {
 	FCPPT_NONCOPYABLE(
 		converter
-	)
+	);
 public:
 	converter(
 		charconv::source_encoding const &source,

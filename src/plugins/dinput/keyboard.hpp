@@ -57,7 +57,7 @@ class keyboard
 {
 	FCPPT_NONCOPYABLE(
 		keyboard
-	)
+	);
 public:
 	keyboard(
 		dinput::device_parameters const &,

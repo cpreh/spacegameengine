@@ -33,7 +33,7 @@ class pixmap_cursor
 {
 	FCPPT_NONCOPYABLE(
 		pixmap_cursor
-	)
+	);
 public:
 	pixmap_cursor();
 
