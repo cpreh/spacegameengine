@@ -35,9 +35,12 @@ template<
 struct choices
 {
 	typedef TypeChoices type_choices;
+
 	typedef Elements elements;
 
-	FCPPT_RESTRICT_TYPEDEF_STRUCT(choices)
+	FCPPT_RESTRICT_TYPEDEF_STRUCT(
+		choices
+	);
 };
 
 }

@@ -51,7 +51,9 @@ boost::mpl::if_<
 	>
 >
 {
-	FCPPT_RESTRICT_TYPEDEF_STRUCT(system)
+	FCPPT_RESTRICT_TYPEDEF_STRUCT(
+		system
+	);
 };
 
 }
