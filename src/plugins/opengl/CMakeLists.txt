@@ -52,6 +52,7 @@ SET(
 	src/plugins/opengl/convert/indexed_primitive.hpp
 	src/plugins/opengl/convert/light_index.hpp
 	src/plugins/opengl/convert/matrix_mode.hpp
+	src/plugins/opengl/convert/matrix_mode_get.hpp
 	src/plugins/opengl/convert/nonindexed_primitive.hpp
 	src/plugins/opengl/convert/resource_flags.hpp
 	src/plugins/opengl/convert/source_blend_func.hpp
@@ -80,6 +81,7 @@ SET(
 	src/plugins/opengl/convert/src/indexed_primitive.cpp
 	src/plugins/opengl/convert/src/light_index.cpp
 	src/plugins/opengl/convert/src/matrix_mode.cpp
+	src/plugins/opengl/convert/src/matrix_mode_get.cpp
 	src/plugins/opengl/convert/src/nonindexed_primitive.cpp
 	src/plugins/opengl/convert/src/resource_flags.cpp
 	src/plugins/opengl/convert/src/source_blend_func.cpp
@@ -388,7 +390,7 @@ SET(
 	src/plugins/opengl/src/get_floats.cpp
 	src/plugins/opengl/src/get_int.cpp
 	src/plugins/opengl/src/get_ints.cpp
-	src/plugins/opengl/src/get_marix.cpp
+	src/plugins/opengl/src/get_matrix.cpp
 	src/plugins/opengl/src/get_scissor_area.cpp
 	src/plugins/opengl/src/get_string.cpp
 	src/plugins/opengl/src/hardware_vbo.cpp

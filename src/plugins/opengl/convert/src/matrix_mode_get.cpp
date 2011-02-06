@@ -18,35 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../get_matrix.hpp"
-#include "../get_floats.hpp"
-#include "../convert/matrix_mode.hpp"
-#include <fcppt/container/array.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
-#include <fcppt/math/matrix/transpose.hpp>
+#include "../matrix_mode_get.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-sge::renderer::matrix4 const
-sge::opengl::get_matrix(
+GLenum
+sge::opengl::convert::matrix_mode_get(
 	renderer::matrix_mode::type const _mode
 )
 {
-	fcppt::container::array<
-		GLfloat,
-		16
-	> temp;
+	switch(
+		_mode
+	)
+	{
+	case renderer::matrix_mode::world:
+		return GL_MODELVIEW_MATRIX;
+	case renderer::matrix_mode::projection:
+		return GL_PROJECTION_MATRIX;
+	case renderer::matrix_mode::texture:
+		return GL_TEXTURE_MATRIX;
+	}
 
-	opengl::get_floats(
-		convert::matrix_mode(
-			_mode
-		),
-		temp.data()
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid matrix_mode!")
 	);
-
-	return
-		fcppt::math::matrix::transpose(
-			sge::renderer::matrix4(
-				temp.begin(),
-				temp.end()
-			)
-		);
 }

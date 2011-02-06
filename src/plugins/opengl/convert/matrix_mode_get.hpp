@@ -18,28 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../matrix_mode.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_OPENGL_CONVERT_MATRIX_MODE_GET_HPP_INCLUDED
+#define SGE_OPENGL_CONVERT_MATRIX_MODE_GET_HPP_INCLUDED
+
+#include "../common.hpp"
+#include <sge/renderer/matrix_mode.hpp>
+
+namespace sge
+{
+namespace opengl
+{
+namespace convert
+{
 
 GLenum
-sge::opengl::convert::matrix_mode(
-	renderer::matrix_mode::type const _mode
-)
-{
-	switch(
-		_mode
-	)
-	{
-	case renderer::matrix_mode::world:
-		return GL_MODELVIEW;
-	case renderer::matrix_mode::projection:
-		return GL_PROJECTION;
-	case renderer::matrix_mode::texture:
-		return GL_TEXTURE;
-	}
+matrix_mode_get(
+	renderer::matrix_mode::type
+);
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid matrix_mode!")
-	);
 }
+}
+}
+
+#endif
