@@ -36,7 +36,9 @@ namespace sound
 {
 class SGE_CLASS_SYMBOL base
 {
-FCPPT_NONCOPYABLE(base)
+	FCPPT_NONCOPYABLE(
+		base
+	);
 public:
 	SGE_SYMBOL explicit
 	base();

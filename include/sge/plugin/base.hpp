@@ -32,7 +32,9 @@ namespace plugin
 class base
 {
 public:
-	FCPPT_NONCOPYABLE(base)
+	FCPPT_NONCOPYABLE(
+		base
+	);
 protected:
 	SGE_SYMBOL base();
 public:

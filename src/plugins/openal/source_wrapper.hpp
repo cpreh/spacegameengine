@@ -30,10 +30,12 @@ namespace openal
 {
 class source_wrapper
 {
-FCPPT_NONCOPYABLE(source_wrapper)
-
+	FCPPT_NONCOPYABLE(
+		source_wrapper
+	);
 public:
 	source_wrapper();
+
 	~source_wrapper();
 
 	ALuint value_;

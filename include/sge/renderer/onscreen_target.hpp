@@ -39,7 +39,7 @@ class SGE_CLASS_SYMBOL onscreen_target
 {
 	FCPPT_NONCOPYABLE(
 		onscreen_target
-	)
+	);
 protected:
 	SGE_SYMBOL
 	onscreen_target();

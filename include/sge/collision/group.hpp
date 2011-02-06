@@ -34,7 +34,9 @@ namespace collision
 
 class SGE_CLASS_SYMBOL group
 {
-	FCPPT_NONCOPYABLE(group)
+	FCPPT_NONCOPYABLE(
+		group
+	);
 protected:
 	SGE_SYMBOL group();
 public:

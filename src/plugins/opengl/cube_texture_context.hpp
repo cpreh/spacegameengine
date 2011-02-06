@@ -36,7 +36,9 @@ class cube_texture_context
 :
 	public context::base
 {
-	FCPPT_NONCOPYABLE(cube_texture_context)
+	FCPPT_NONCOPYABLE(
+		cube_texture_context
+	);
 public:
 	cube_texture_context();
 

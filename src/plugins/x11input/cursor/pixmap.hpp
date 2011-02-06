@@ -37,7 +37,7 @@ class pixmap
 {
 	FCPPT_NONCOPYABLE(
 		pixmap
-	)
+	);
 public:
 	pixmap(
 		awl::backends::x11::display_ptr,

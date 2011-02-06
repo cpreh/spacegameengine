@@ -35,7 +35,9 @@ class draw_context
 :
 	public context::base
 {
-	FCPPT_NONCOPYABLE(draw_context)
+	FCPPT_NONCOPYABLE(
+		draw_context
+	);
 public:
 	draw_context();
 

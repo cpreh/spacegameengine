@@ -45,7 +45,7 @@ class relative_movement
 {
 	FCPPT_NONCOPYABLE(
 		relative_movement
-	)
+	);
 public:
 	SGE_SYMBOL
 	explicit relative_movement(

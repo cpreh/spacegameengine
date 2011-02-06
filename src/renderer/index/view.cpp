@@ -74,7 +74,7 @@ sge::renderer::index::view<Format>::view(
 		sge::renderer::index::dynamic::make_format<
 			Format
 		>()
-	)
+	);
 }
 
 template<

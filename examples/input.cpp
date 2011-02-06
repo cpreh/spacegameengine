@@ -75,7 +75,7 @@ class mouse_listener
 {
 	FCPPT_NONCOPYABLE(
 		mouse_listener
-	)
+	);
 public:
 	explicit mouse_listener(
 		sge::input::mouse::device_ptr
@@ -98,7 +98,7 @@ class cursor_listener
 {
 	FCPPT_NONCOPYABLE(
 		cursor_listener
-	)
+	);
 public:
 	explicit cursor_listener(
 		sge::input::cursor::object_ptr
@@ -121,7 +121,7 @@ class keyboard_listener
 {
 	FCPPT_NONCOPYABLE(
 		keyboard_listener
-	)
+	);
 public:
 	explicit keyboard_listener(
 		sge::input::keyboard::device_ptr
@@ -149,7 +149,7 @@ class device_manager
 {
 	FCPPT_NONCOPYABLE(
 		device_manager
-	)
+	);
 public:
 	explicit device_manager(
 		sge::input::processor_ptr

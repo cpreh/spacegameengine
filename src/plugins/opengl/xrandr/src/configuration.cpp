@@ -36,7 +36,7 @@ sge::opengl::xrandr::configuration::configuration(
 {
 	FCPPT_ASSERT(
 		config_
-	)
+	);
 }
 
 ::XRRScreenConfiguration *

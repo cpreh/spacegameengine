@@ -37,7 +37,9 @@ namespace vf
 
 class format
 {
-	FCPPT_NONCOPYABLE(format)
+	FCPPT_NONCOPYABLE(
+		format
+	);
 public:
 	explicit format(
 		sge::opengl::context::object &,

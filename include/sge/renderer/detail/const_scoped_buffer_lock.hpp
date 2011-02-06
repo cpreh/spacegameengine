@@ -39,7 +39,9 @@ template<
 >
 class const_scoped_buffer_lock
 {
-	FCPPT_NONCOPYABLE(const_scoped_buffer_lock)
+	FCPPT_NONCOPYABLE(
+		const_scoped_buffer_lock
+	);
 public:
 	SGE_SYMBOL explicit const_scoped_buffer_lock(
 		Ptr,

@@ -37,7 +37,9 @@ namespace vf
 
 class client_state_combiner
 {
-	FCPPT_NONCOPYABLE(client_state_combiner)
+	FCPPT_NONCOPYABLE(
+		client_state_combiner
+	);
 public:
 	explicit client_state_combiner(
 		opengl::context::object &

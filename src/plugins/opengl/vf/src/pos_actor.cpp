@@ -47,7 +47,12 @@ sge::opengl::vf::pos_actor::pos_actor(
 			_pos.type().elements()
 		)
 	)
-{}
+{
+}
+
+sge::opengl::vf::pos_actor::~pos_actor()
+{
+}
 
 void
 sge::opengl::vf::pos_actor::on_use(

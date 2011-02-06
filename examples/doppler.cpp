@@ -114,7 +114,7 @@ class sprite_functor
 {
 	FCPPT_NONASSIGNABLE(
 		sprite_functor
-	)
+	);
 public:
 	explicit sprite_functor(
 		sge::audio::sound::positional_ptr const _sound

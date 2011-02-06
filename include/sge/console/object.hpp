@@ -43,7 +43,9 @@ namespace console
 
 class SGE_CLASS_SYMBOL object
 {
-FCPPT_NONCOPYABLE(object)
+	FCPPT_NONCOPYABLE(
+		object
+	);
 public:
 	SGE_CONSOLE_SYMBOL explicit 
 	object(

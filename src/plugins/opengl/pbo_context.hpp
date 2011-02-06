@@ -37,7 +37,9 @@ class pbo_context
 :
 	public context::base
 {
-	FCPPT_NONCOPYABLE(pbo_context)
+	FCPPT_NONCOPYABLE(
+		pbo_context
+	);
 public:
 	pbo_context();
 

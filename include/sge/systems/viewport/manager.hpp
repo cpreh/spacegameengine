@@ -37,7 +37,7 @@ class SGE_CLASS_SYMBOL manager
 {
 	FCPPT_NONCOPYABLE(
 		manager
-	)
+	);
 protected:
 	SGE_SYSTEMS_SYMBOL
 	manager();

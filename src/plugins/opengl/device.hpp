@@ -49,7 +49,7 @@ class device
 {
 	FCPPT_NONCOPYABLE(
 		device
-	)
+	);
 public:
 	device(
 		renderer::parameters const &,

@@ -52,7 +52,7 @@ class gfx
 {
 	FCPPT_NONCOPYABLE(
 		gfx
-	)
+	);
 public:
 	SGE_CONSOLE_SYMBOL gfx(
 		sge::console::object &,

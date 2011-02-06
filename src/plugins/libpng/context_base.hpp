@@ -33,7 +33,7 @@ class context_base
 {
 	FCPPT_NONCOPYABLE(
 		context_base
-	)
+	);
 protected:
 	explicit context_base(
 		fcppt::filesystem::path const &

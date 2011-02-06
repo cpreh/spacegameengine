@@ -36,9 +36,11 @@ namespace glsl
 
 class SGE_CLASS_SYMBOL pixel_shader
 :
-	public shader
+	public glsl::shader
 {
-	FCPPT_NONCOPYABLE(pixel_shader)
+	FCPPT_NONCOPYABLE(
+		pixel_shader
+	);
 protected:
 	SGE_SYMBOL pixel_shader();
 public:

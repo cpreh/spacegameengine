@@ -95,6 +95,10 @@ sge::opengl::vf::texpos_actor::texpos_actor(
 		);
 }
 
+sge::opengl::vf::texpos_actor::~texpos_actor()
+{
+}
+
 void
 sge::opengl::vf::texpos_actor::on_use(
 	vf::pointer const _src

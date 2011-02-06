@@ -34,7 +34,9 @@ namespace animation
 
 class SGE_CLASS_SYMBOL base
 {
-	FCPPT_NONCOPYABLE(base)
+	FCPPT_NONCOPYABLE(
+		base
+	);
 protected:
 	SGE_SPRITE_SYMBOL base();
 public:

@@ -40,7 +40,7 @@ class format_printer
 {
 	FCPPT_NONASSIGNABLE(
 		format_printer
-	)
+	);
 public:
 	explicit 
 	format_printer(

@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENAL_CONTEXT_HPP_INCLUDED
 
 #include "openal.hpp"
+#include "device_fwd.hpp"
 #include <fcppt/noncopyable.hpp>
 #include <vector>
 #include <utility>
@@ -30,11 +31,12 @@ namespace sge
 {
 namespace openal
 {
-class device;
 
 class context
 {
-FCPPT_NONCOPYABLE(context)
+	FCPPT_NONCOPYABLE(
+		context
+	);
 public:
 	typedef 
 	std::vector
@@ -45,7 +47,7 @@ public:
 	
 	explicit
 	context(
-		device &,
+		openal::device &,
 		attribute_container const & = attribute_container());
 	
 	ALCcontext *
@@ -57,7 +59,7 @@ public:
 	~context();
 private:
 	ALCcontext *context_;
-	device &device_;
+	openal::device &device_;
 };
 }
 }

@@ -37,7 +37,9 @@ namespace texture
 
 class SGE_CLASS_SYMBOL part
 {
-	FCPPT_NONCOPYABLE(part)
+	FCPPT_NONCOPYABLE(
+		part
+	);
 protected:
 	SGE_TEXTURE_SYMBOL part();
 public:

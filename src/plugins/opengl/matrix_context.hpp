@@ -34,7 +34,9 @@ class matrix_context
 :
 	public context::base
 {
-	FCPPT_NONCOPYABLE(matrix_context)
+	FCPPT_NONCOPYABLE(
+		matrix_context
+	);
 public:
 	matrix_context();
 

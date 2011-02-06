@@ -24,6 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/collision/shapes/base.hpp>
 #include <sge/collision/shapes/sphere_fwd.hpp>
 #include <sge/collision/unit.hpp>
+#include <sge/class_symbol.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -31,10 +34,16 @@ namespace collision
 {
 namespace shapes
 {
-class sphere
+class SGE_CLASS_SYMBOL sphere
 :
 	public virtual base
 {
+	FCPPT_NONCOPYABLE(
+		sphere
+	);
+protected:
+	SGE_SYMBOL
+	sphere();
 public:
 	virtual unit 
 	radius() const = 0;
@@ -42,6 +51,9 @@ public:
 	virtual void 
 	radius(
 		unit) = 0;
+	
+	SGE_SYMBOL
+	virtual ~sphere();
 };
 }
 }

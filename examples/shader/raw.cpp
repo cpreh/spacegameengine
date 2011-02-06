@@ -120,7 +120,7 @@ class sprite_functor
 {
 	FCPPT_NONASSIGNABLE(
 		sprite_functor
-	)
+	);
 public:
 	explicit sprite_functor(
 		sprite_object &_sprite

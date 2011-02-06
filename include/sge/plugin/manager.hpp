@@ -50,7 +50,9 @@ class manager
 		category_array
 	> plugin_map;
 
-	FCPPT_NONCOPYABLE(manager)
+	FCPPT_NONCOPYABLE(
+		manager
+	);
 public:
 	typedef std::size_t size_type;
 

@@ -37,7 +37,7 @@ class const_scoped_color_surface_lock
 {
 	FCPPT_NONCOPYABLE(
 		const_scoped_color_surface_lock
-	)
+	);
 public:
 	SGE_SYMBOL explicit const_scoped_color_surface_lock(
 		const_color_surface_ptr

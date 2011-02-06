@@ -50,7 +50,7 @@ class event_demuxer
 {
 	FCPPT_NONCOPYABLE(
 		event_demuxer
-	)
+	);
 
 	typedef void
 	signature(

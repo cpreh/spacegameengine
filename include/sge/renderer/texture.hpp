@@ -41,11 +41,11 @@ namespace renderer
 
 class SGE_CLASS_SYMBOL texture
 :
-	public texture_base
+	public renderer::texture_base
 {
 	FCPPT_NONCOPYABLE(
 		texture
-	)
+	);
 protected:
 	SGE_SYMBOL texture();
 public:

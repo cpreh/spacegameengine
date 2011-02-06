@@ -39,7 +39,7 @@ class SGE_CLASS_SYMBOL color_surface
 {
 	FCPPT_NONCOPYABLE(
 		color_surface
-	)
+	);
 protected:
 	SGE_SYMBOL
 	color_surface();

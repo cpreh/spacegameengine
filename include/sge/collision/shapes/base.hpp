@@ -37,7 +37,9 @@ namespace shapes
 
 class SGE_CLASS_SYMBOL base
 {
-	FCPPT_NONCOPYABLE(base)
+	FCPPT_NONCOPYABLE(
+		base
+	);
 protected:
 	SGE_SYMBOL base();
 public:

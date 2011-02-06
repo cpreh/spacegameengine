@@ -39,7 +39,7 @@ class define
 {
 	FCPPT_NONCOPYABLE(
 		define
-	)
+	);
 public:
 	define(
 		awl::backends::x11::window::instance_ptr,

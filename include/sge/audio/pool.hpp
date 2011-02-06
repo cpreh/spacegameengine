@@ -35,7 +35,9 @@ namespace audio
 {
 class SGE_CLASS_SYMBOL pool
 {
-	FCPPT_NONCOPYABLE(pool)
+	FCPPT_NONCOPYABLE(
+		pool
+	);
 public:
 	SGE_SYMBOL explicit 
 	pool();

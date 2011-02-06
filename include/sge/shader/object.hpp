@@ -41,7 +41,7 @@ namespace shader
 {
 class object
 {
-FCPPT_NONCOPYABLE(object)
+FCPPT_NONCOPYABLE(object);
 public:
 	// NOTE: Currently, we restrict ourselves to shaders from
 	// files. There could be stream support, too. It's just laziness

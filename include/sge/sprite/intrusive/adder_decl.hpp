@@ -42,7 +42,9 @@ class adder
 		Choices
 	>
 {
-	FCPPT_NONCOPYABLE(adder)
+	FCPPT_NONCOPYABLE(
+		adder
+	);
 public:
 	typedef typename detail::level_map<
 		Choices

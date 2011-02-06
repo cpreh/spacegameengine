@@ -24,16 +24,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::freetype::library::library()
 {
-	if(FT_Init_FreeType(&impl))
-		throw exception(FCPPT_TEXT("FT_Init_FreeType() failed!"));
+	if(
+		::FT_Init_FreeType(
+			&impl_
+		)
+	)
+		throw sge::exception(
+			FCPPT_TEXT("FT_Init_FreeType() failed!")
+		);
 }
 
 sge::freetype::library::~library()
 {
-	FT_Done_FreeType(impl);
+	::FT_Done_FreeType(
+		impl_
+	);
 }
 
-FT_Library sge::freetype::library::lib() const
+FT_Library
+sge::freetype::library::lib() const
 {
-	return impl;
+	return impl_;
 }

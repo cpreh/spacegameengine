@@ -40,7 +40,7 @@ class system
 {
 	FCPPT_NONCOPYABLE(
 		system
-	)
+	);
 public:
 	explicit system(
 		sge::charconv::system_ptr

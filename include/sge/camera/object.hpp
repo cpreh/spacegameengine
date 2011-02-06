@@ -48,7 +48,7 @@ class object
 {
 	FCPPT_NONCOPYABLE(
 		object
-	)
+	);
 public:
 	SGE_CAMERA_SYMBOL
 	explicit

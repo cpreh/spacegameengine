@@ -35,7 +35,9 @@ namespace state
 
 class scoped
 {
-	FCPPT_NONCOPYABLE(scoped)
+	FCPPT_NONCOPYABLE(
+		scoped
+	);
 public:
 	SGE_SYMBOL scoped(
 		device_ptr,

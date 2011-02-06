@@ -49,7 +49,9 @@ namespace opengl
 
 class state_visitor
 {
-	FCPPT_NONASSIGNABLE(state_visitor)
+	FCPPT_NONASSIGNABLE(
+		state_visitor
+	);
 public:
 	typedef void result_type;
 

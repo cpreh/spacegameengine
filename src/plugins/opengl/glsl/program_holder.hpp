@@ -36,7 +36,9 @@ template<
 >
 class program_holder
 {
-	FCPPT_NONCOPYABLE(program_holder)
+	FCPPT_NONCOPYABLE(
+		program_holder
+	);
 public:
 	typedef typename Environment::program_context program_context;
 

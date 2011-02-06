@@ -36,7 +36,7 @@ class SGE_CLASS_SYMBOL target_base
 {
 	FCPPT_NONCOPYABLE(
 		target_base
-	)
+	);
 protected:
 	SGE_SYMBOL
 	target_base();

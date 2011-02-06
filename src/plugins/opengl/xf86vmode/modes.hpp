@@ -41,7 +41,7 @@ class modes
 {
 	FCPPT_NONCOPYABLE(
 		modes
-	)
+	);
 public:
 	typedef std::size_t size_type;
 

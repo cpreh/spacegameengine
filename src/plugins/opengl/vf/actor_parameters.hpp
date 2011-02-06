@@ -37,7 +37,7 @@ class actor_parameters
 {
 	FCPPT_NONASSIGNABLE(
 		actor_parameters
-	)
+	);
 public:
 	explicit actor_parameters(
 		sge::renderer::size_type stride,

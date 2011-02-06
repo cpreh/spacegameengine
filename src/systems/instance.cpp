@@ -87,7 +87,7 @@ class sge::systems::instance::impl
 {
 	FCPPT_NONCOPYABLE(
 		impl
-	)
+	);
 public:
 	plugin::manager                                 plugin_manager_;
 
@@ -214,7 +214,7 @@ class visitor
 {
 	FCPPT_NONASSIGNABLE(
 		visitor
-	)
+	);
 public:
 	typedef void result_type;
 

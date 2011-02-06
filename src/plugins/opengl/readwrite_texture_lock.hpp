@@ -39,7 +39,7 @@ class readwrite_texture_lock
 {
 	FCPPT_NONCOPYABLE(
 		readwrite_texture_lock
-	)
+	);
 public:
 	readwrite_texture_lock(
 		context::object &,

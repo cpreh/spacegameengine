@@ -57,7 +57,9 @@ class SGE_CLASS_SYMBOL drawer_3d
 :
 	public text::drawer
 {
-	FCPPT_NONCOPYABLE(drawer_3d)
+	FCPPT_NONCOPYABLE(
+		drawer_3d
+	);
 public:
 	SGE_FONT_TEXT_SYMBOL
 	drawer_3d(

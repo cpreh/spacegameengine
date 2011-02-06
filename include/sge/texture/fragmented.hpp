@@ -41,7 +41,9 @@ namespace texture
 
 class SGE_CLASS_SYMBOL fragmented
 {
-	FCPPT_NONCOPYABLE(fragmented)
+	FCPPT_NONCOPYABLE(
+		fragmented
+	);
 protected:
 	SGE_TEXTURE_SYMBOL fragmented();
 public:

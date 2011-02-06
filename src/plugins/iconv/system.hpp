@@ -38,7 +38,7 @@ class system
 {
 	FCPPT_NONCOPYABLE(
 		system
-	)
+	);
 public:
 	system();
 

@@ -41,7 +41,9 @@ class context
 :
 	public opengl::context::base
 {
-	FCPPT_NONCOPYABLE(context)
+	FCPPT_NONCOPYABLE(
+		context
+	);
 public:
 	context();
 

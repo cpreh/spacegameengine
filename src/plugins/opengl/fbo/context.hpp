@@ -40,7 +40,7 @@ class context
 {
 	FCPPT_NONCOPYABLE(
 		context
-	)
+	);
 public:
 	context();
 

@@ -39,7 +39,9 @@ namespace renderer
 
 class SGE_CLASS_SYMBOL vertex_buffer
 {
-	FCPPT_NONCOPYABLE(vertex_buffer)
+	FCPPT_NONCOPYABLE(
+		vertex_buffer
+	);
 protected:
 	SGE_SYMBOL vertex_buffer();
 public:

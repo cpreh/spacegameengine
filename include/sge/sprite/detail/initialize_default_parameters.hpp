@@ -38,7 +38,7 @@ class initialize_default_parameters
 {
 	FCPPT_NONASSIGNABLE(
 		initialize_default_parameters
-	)
+	);
 public:
 	explicit
 	initialize_default_parameters(

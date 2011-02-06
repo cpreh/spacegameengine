@@ -30,7 +30,7 @@ class functor
 {
 	FCPPT_NONASSIGNABLE(
 		functor
-	)
+	);
 public:
 	functor(
 		sge::input::keyboard::key_code::type,

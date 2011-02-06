@@ -54,7 +54,7 @@ class texture
 {
 	FCPPT_NONCOPYABLE(
 		texture
-	)
+	);
 public:
 	typedef detail::texture_base base;
 

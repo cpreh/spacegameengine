@@ -42,7 +42,7 @@ class set_visitor
 {
 	FCPPT_NONASSIGNABLE(
 		set_visitor
-	)
+	);
 public:
 	typedef type result_type;
 

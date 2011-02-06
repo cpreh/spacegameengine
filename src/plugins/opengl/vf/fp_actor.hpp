@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "pointer.hpp"
 #include "actor_parameters_fwd.hpp"
 #include "../common.hpp"
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -36,8 +37,13 @@ namespace vf
 
 class fp_actor
 :
-	public pointer_actor
+	public vf::pointer_actor
 {
+	FCPPT_NONCOPYABLE(
+		fp_actor
+	);
+public:
+	virtual ~fp_actor();
 protected:
 	explicit fp_actor(
 		vf::actor_parameters const &,

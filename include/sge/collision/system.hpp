@@ -37,7 +37,9 @@ namespace collision
 
 class SGE_CLASS_SYMBOL system
 {
-	FCPPT_NONCOPYABLE(system)
+	FCPPT_NONCOPYABLE(
+		system
+	);
 protected:
 	SGE_SYMBOL system();
 public:

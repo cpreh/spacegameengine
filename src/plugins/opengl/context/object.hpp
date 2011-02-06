@@ -37,7 +37,9 @@ namespace context
 
 class object
 {
-	FCPPT_NONCOPYABLE(object)
+	FCPPT_NONCOPYABLE(
+		object
+	);
 public:
 	object();
 

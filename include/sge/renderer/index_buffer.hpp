@@ -39,7 +39,9 @@ namespace renderer
 
 class SGE_CLASS_SYMBOL index_buffer
 {
-	FCPPT_NONCOPYABLE(index_buffer)
+	FCPPT_NONCOPYABLE(
+		index_buffer
+	);
 protected:
 	SGE_SYMBOL index_buffer();
 public:

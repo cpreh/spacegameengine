@@ -43,7 +43,7 @@ class state
 {
 	FCPPT_NONCOPYABLE(
 		state
-	)
+	);
 public:
 	state(
 		renderer::parameters const &,

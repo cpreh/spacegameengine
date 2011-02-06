@@ -40,7 +40,7 @@ class instance
 {
 	FCPPT_NONCOPYABLE(
 		instance
-	)
+	);
 public:
 	SGE_SYMBOL
 	explicit

@@ -36,15 +36,17 @@ namespace audio
 
 class SGE_CLASS_SYMBOL file
 {
-FCPPT_NONCOPYABLE(file)
+	FCPPT_NONCOPYABLE(
+		file
+	);
 protected:
 	SGE_SYMBOL explicit
 	file();
 public:
 	virtual sample_count 
 	read(
-			sample_count samples, 
-			sample_container &) = 0;
+		sample_count samples, 
+		sample_container &) = 0;
 	
 	virtual sample_count 
 	read_all(

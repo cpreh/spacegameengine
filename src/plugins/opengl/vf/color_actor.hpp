@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "pointer.hpp"
 #include "../common.hpp"
 #include <sge/renderer/vf/dynamic/color_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -36,14 +37,18 @@ namespace vf
 
 class color_actor
 :
-	public fp_actor
+	public vf::fp_actor
 {
+	FCPPT_NONCOPYABLE(
+		color_actor
+	);
 public:
 	explicit color_actor(
 		actor_parameters const &,
 		sge::renderer::vf::dynamic::color const & 
 	);
 
+	~color_actor();
 private:
 	void
 	on_use(

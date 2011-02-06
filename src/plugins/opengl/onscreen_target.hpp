@@ -43,7 +43,7 @@ class onscreen_target
 {
 	FCPPT_NONCOPYABLE(
 		onscreen_target
-	)
+	);
 public:
 	typedef opengl::basic_target<
 		sge::renderer::onscreen_target

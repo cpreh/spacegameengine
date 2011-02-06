@@ -40,7 +40,7 @@ class depth_stencil_texture_surface
 {
 	FCPPT_NONCOPYABLE(
 		depth_stencil_texture_surface
-	)
+	);
 public:
 	typedef opengl::basic_texture_surface<
 		sge::renderer::depth_stencil_surface

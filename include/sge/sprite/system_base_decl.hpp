@@ -38,7 +38,9 @@ template<
 >
 class system_base
 {
-	FCPPT_NONCOPYABLE(system_base)
+	FCPPT_NONCOPYABLE(
+		system_base
+	);
 public:
 	sge::renderer::device_ptr const
 	renderer() const;

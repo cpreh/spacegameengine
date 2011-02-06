@@ -21,6 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../fp_actor.hpp"
 #include "../client_state_combiner.hpp"
 
+sge::opengl::vf::fp_actor::~fp_actor()
+{
+}
+
 sge::opengl::vf::fp_actor::fp_actor(
 	vf::actor_parameters const &_param,
 	GLenum const _client_state

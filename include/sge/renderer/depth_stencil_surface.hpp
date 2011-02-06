@@ -37,7 +37,7 @@ class SGE_CLASS_SYMBOL depth_stencil_surface
 {
 	FCPPT_NONCOPYABLE(
 		depth_stencil_surface
-	)
+	);
 protected:
 	SGE_SYMBOL
 	depth_stencil_surface();

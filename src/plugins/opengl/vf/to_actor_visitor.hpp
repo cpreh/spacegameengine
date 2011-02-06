@@ -41,7 +41,7 @@ class to_actor_visitor
 {
 	FCPPT_NONASSIGNABLE(
 		to_actor_visitor
-	)
+	);
 public:
 	explicit to_actor_visitor(
 		actor_parameters const &

@@ -31,7 +31,7 @@ class visitor
 {
 	FCPPT_NONASSIGNABLE(
 		visitor
-	)
+	);
 public:
 	typedef fcppt::io::ostream &result_type;
 

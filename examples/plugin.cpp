@@ -52,7 +52,7 @@ class print_plugins
 {
 	FCPPT_NONASSIGNABLE(
 		print_plugins
-	)
+	);
 public:
 	typedef void result_type;
 

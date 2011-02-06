@@ -37,7 +37,7 @@ class temporary_bind
 {
 	FCPPT_NONCOPYABLE(
 		temporary_bind
-	)
+	);
 public:
 	explicit temporary_bind(
 		fbo::context &,

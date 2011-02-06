@@ -40,7 +40,7 @@ class fill_visitor
 {
 	FCPPT_NONASSIGNABLE(
 		fill_visitor
-	)
+	);
 public:
 	typedef void result_type;
 

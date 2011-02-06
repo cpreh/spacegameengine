@@ -43,7 +43,7 @@ class depth_stencil_surface
 {
 	FCPPT_NONCOPYABLE(
 		depth_stencil_surface
-	)
+	);
 public:
 	explicit depth_stencil_surface(
 		fbo::context const &,

@@ -44,7 +44,7 @@ class xf86_vmode
 {
 	FCPPT_NONCOPYABLE(
 		xf86_vmode
-	)
+	);
 public:
 	xf86_vmode(
 		renderer::display_mode const &,

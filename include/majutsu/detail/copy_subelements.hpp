@@ -38,7 +38,7 @@ class copy_subelements
 {
 	FCPPT_NONASSIGNABLE(
 		copy_subelements
-	)
+	);
 public:
 	explicit copy_subelements(
 		DestClass &_dest,

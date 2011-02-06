@@ -31,7 +31,9 @@ namespace opengl
 
 class texture_holder
 {
-	FCPPT_NONCOPYABLE(texture_holder)
+	FCPPT_NONCOPYABLE(
+		texture_holder
+	);
 public:
 	texture_holder();
 

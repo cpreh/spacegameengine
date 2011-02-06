@@ -53,7 +53,9 @@ class program
 	public renderer::glsl::program,
 	public program_base
 {
-	FCPPT_NONCOPYABLE(program)
+	FCPPT_NONCOPYABLE(
+		program
+	);
 public:
 	explicit program(
 		opengl::context::object &

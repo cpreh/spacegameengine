@@ -42,7 +42,7 @@ class const_proxy
 {
 	FCPPT_NONASSIGNABLE(
 		const_proxy
-	)
+	);
 public:
 	BOOST_STATIC_ASSERT((
 		boost::is_same<

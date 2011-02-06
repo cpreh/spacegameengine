@@ -43,7 +43,7 @@ class basic_target
 {
 	FCPPT_NONCOPYABLE(
 		basic_target
-	)
+	);
 protected:
 	explicit basic_target(
 		renderer::viewport const &

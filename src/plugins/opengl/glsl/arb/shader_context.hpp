@@ -41,7 +41,9 @@ class shader_context
 :
 	public opengl::context::base
 {
-	FCPPT_NONCOPYABLE(shader_context)
+	FCPPT_NONCOPYABLE(
+		shader_context
+	);
 public:
 	shader_context();
 

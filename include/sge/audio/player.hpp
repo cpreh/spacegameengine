@@ -42,7 +42,9 @@ namespace audio
 class SGE_CLASS_SYMBOL player
 {
 public:
-	FCPPT_NONCOPYABLE(player)
+	FCPPT_NONCOPYABLE(
+		player
+	);
 protected:
 	SGE_SYMBOL explicit
 	player();

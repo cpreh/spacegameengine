@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "actor.hpp"
 #include "actor_parameters_fwd.hpp"
 #include <sge/renderer/vf/vertex_size.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -34,8 +35,13 @@ namespace vf
 
 class pointer_actor
 :
-	public actor
+	public vf::actor
 {
+	FCPPT_NONCOPYABLE(
+		pointer_actor
+	);
+public:
+	virtual ~pointer_actor();
 protected:
 	explicit pointer_actor(
 		actor_parameters const &

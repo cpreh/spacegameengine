@@ -40,7 +40,7 @@ class SGE_CLASS_SYMBOL depth_stencil_texture
 {
 	FCPPT_NONCOPYABLE(
 		depth_stencil_texture
-	)
+	);
 protected:
 	SGE_SYMBOL depth_stencil_texture();
 public:

@@ -34,7 +34,9 @@ namespace renderer
 
 class scoped_texture
 {
-	FCPPT_NONCOPYABLE(scoped_texture)
+	FCPPT_NONCOPYABLE(
+		scoped_texture
+	);
 public:
 	SGE_SYMBOL
 	explicit scoped_texture(

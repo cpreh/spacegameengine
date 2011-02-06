@@ -35,7 +35,7 @@ class attachment
 {
 	FCPPT_NONCOPYABLE(
 		attachment
-	)
+	);
 protected:
 	attachment();
 public:

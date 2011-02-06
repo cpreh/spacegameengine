@@ -38,7 +38,7 @@ class confine
 {
 	FCPPT_NONCOPYABLE(
 		confine
-	)
+	);
 public:
 	confine(
 		awl::backends::x11::window::instance_ptr,

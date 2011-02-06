@@ -44,7 +44,7 @@ class SGE_CLASS_SYMBOL volume_texture
 {
 	FCPPT_NONCOPYABLE(
 		volume_texture
-	)
+	);
 protected:
 	SGE_SYMBOL
 	volume_texture();

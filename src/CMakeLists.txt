@@ -810,6 +810,7 @@ SET(
 	src/audio/player_plugin.cpp
 	src/audio/pool.cpp
 	src/audio/sound/base.cpp
+	src/audio/sound/positional.cpp
 	src/audio/sound/positional_parameters.cpp
 	src/charconv/conversion_failed.cpp
 	src/charconv/convert.cpp
@@ -825,6 +826,8 @@ SET(
 	src/collision/satellite.cpp
 	src/collision/shape_ambiguity.cpp
 	src/collision/shapes/base.cpp
+	src/collision/shapes/box.cpp
+	src/collision/shapes/sphere.cpp
 	src/collision/system.cpp
 	src/collision/world.cpp
 	src/exception.cpp

@@ -21,6 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../pointer_actor.hpp"
 #include "../actor_parameters.hpp"
 
+sge::opengl::vf::pointer_actor::~pointer_actor()
+{
+}
+
 sge::opengl::vf::pointer_actor::pointer_actor(
 	actor_parameters const &_param
 )

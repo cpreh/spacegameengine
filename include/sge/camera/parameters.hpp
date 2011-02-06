@@ -38,7 +38,7 @@ class parameters
 {
 	FCPPT_NONASSIGNABLE(
 		parameters
-	)
+	);
 public:
 	SGE_CAMERA_SYMBOL
 	explicit

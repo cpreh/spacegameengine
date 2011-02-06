@@ -42,6 +42,10 @@ sge::opengl::vf::normal_actor::normal_actor(
 {
 }
 
+sge::opengl::vf::normal_actor::~normal_actor()
+{
+}
+
 void
 sge::opengl::vf::normal_actor::on_use(
 	vf::pointer const _src

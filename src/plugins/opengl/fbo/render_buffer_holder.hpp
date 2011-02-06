@@ -36,7 +36,7 @@ class render_buffer_holder
 {
 	FCPPT_NONCOPYABLE(
 		render_buffer_holder
-	)
+	);
 public:
 	explicit render_buffer_holder(
 		fbo::context const &

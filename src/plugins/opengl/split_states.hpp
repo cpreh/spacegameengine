@@ -36,7 +36,7 @@ class split_states
 {
 	FCPPT_NONASSIGNABLE(
 		split_states
-	)
+	);
 public:
 	explicit split_states(
 		renderer::state::list &

@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/system_base_decl.hpp>
 #include <sge/renderer/device_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -40,6 +41,9 @@ class external_system
 		Choices
 	>
 {
+	FCPPT_NONCOPYABLE(
+		external_system
+	);
 public:
 	typedef sprite::system_base<
 		Choices

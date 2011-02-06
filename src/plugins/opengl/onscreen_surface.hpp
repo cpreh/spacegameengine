@@ -42,7 +42,7 @@ class onscreen_surface
 {
 	FCPPT_NONCOPYABLE(
 		onscreen_surface
-	)
+	);
 public:
 	onscreen_surface(
 		sge::window::instance_ptr,

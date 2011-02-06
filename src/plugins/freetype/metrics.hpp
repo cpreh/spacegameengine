@@ -44,7 +44,7 @@ class metrics
 {
 	FCPPT_NONCOPYABLE(
 		metrics
-	)
+	);
 public:
 	metrics(
 		library &,

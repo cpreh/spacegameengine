@@ -31,7 +31,7 @@ namespace shader
 {
 class scoped
 {
-FCPPT_NONCOPYABLE(scoped)
+FCPPT_NONCOPYABLE(scoped);
 public:
 	SGE_SHADER_SYMBOL explicit
 	scoped(

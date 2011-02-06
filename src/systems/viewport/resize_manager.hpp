@@ -41,7 +41,7 @@ class resize_manager
 {
 	FCPPT_NONCOPYABLE(
 		resize_manager
-	)
+	);
 public:
 	explicit resize_manager(
 		sge::renderer::device_ptr

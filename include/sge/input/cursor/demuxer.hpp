@@ -54,7 +54,7 @@ class SGE_CLASS_SYMBOL demuxer
 {
 	FCPPT_NONCOPYABLE(
 		demuxer
-	)
+	);
 public:
 	SGE_SYMBOL
 	explicit demuxer(

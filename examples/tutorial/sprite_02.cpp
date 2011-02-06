@@ -89,7 +89,7 @@ class input_functor
 {
 	FCPPT_NONASSIGNABLE(
 		input_functor
-	)
+	);
 public:
 	explicit input_functor(
 		bool &_running
@@ -118,7 +118,7 @@ class sprite_functor
 {
 	FCPPT_NONASSIGNABLE(
 		sprite_functor
-	)
+	);
 public:
 	explicit sprite_functor(
 		sprite_object &_sprite

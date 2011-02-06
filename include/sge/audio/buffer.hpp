@@ -33,7 +33,9 @@ namespace audio
 {
 class SGE_CLASS_SYMBOL buffer
 {
-FCPPT_NONCOPYABLE(buffer)
+	FCPPT_NONCOPYABLE(
+		buffer
+	);
 public:
 	SGE_SYMBOL explicit 
 	buffer();

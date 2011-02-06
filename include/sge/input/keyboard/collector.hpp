@@ -55,7 +55,7 @@ class collector
 {
 	FCPPT_NONCOPYABLE(
 		collector
-	)
+	);
 public:
 	SGE_SYMBOL
 	explicit collector(

@@ -41,7 +41,9 @@ class depth_stencil_texture
 	public sge::renderer::depth_stencil_texture,
 	public opengl::texture_base
 {
-	FCPPT_NONCOPYABLE(depth_stencil_texture)
+	FCPPT_NONCOPYABLE(
+		depth_stencil_texture
+	);
 public:
 	explicit depth_stencil_texture(
 		opengl::context::object &,

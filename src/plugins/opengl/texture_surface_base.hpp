@@ -35,7 +35,7 @@ class texture_surface_base
 {
 	FCPPT_NONCOPYABLE(
 		texture_surface_base
-	)
+	);
 protected:
 	explicit texture_surface_base(
 		GLenum texture_type,

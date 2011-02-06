@@ -36,7 +36,7 @@ class object
 {
 	FCPPT_NONCOPYABLE(
 		object
-	)
+	);
 protected:
 	explicit object(
 		device::id

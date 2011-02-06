@@ -41,7 +41,7 @@ class texture_surface
 {
 	FCPPT_NONCOPYABLE(
 		texture_surface
-	)
+	);
 public:
 	typedef opengl::basic_texture_surface<
 		sge::renderer::color_surface

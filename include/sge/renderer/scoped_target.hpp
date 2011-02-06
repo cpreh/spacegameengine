@@ -33,7 +33,9 @@ namespace renderer
 
 class scoped_target
 {
-	FCPPT_NONCOPYABLE(scoped_target)
+	FCPPT_NONCOPYABLE(
+		scoped_target
+	);
 public:
 	SGE_SYMBOL explicit scoped_target(
 		renderer::device_ptr,

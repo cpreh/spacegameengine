@@ -41,7 +41,7 @@ class sub_visitor
 {
 	FCPPT_NONASSIGNABLE(
 		sub_visitor
-	)
+	);
 public:
 	typedef Result result_type;
 

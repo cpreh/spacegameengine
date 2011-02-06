@@ -32,7 +32,9 @@ namespace renderer
 
 class scoped_block
 {
-	FCPPT_NONCOPYABLE(scoped_block)
+	FCPPT_NONCOPYABLE(
+		scoped_block
+	);
 public:
 	SGE_SYMBOL explicit scoped_block(
 		device_ptr

@@ -49,7 +49,9 @@ namespace systems
 
 class instance
 {
-	FCPPT_NONCOPYABLE(instance)
+	FCPPT_NONCOPYABLE(
+		instance
+	);
 public:
 	SGE_SYSTEMS_SYMBOL explicit instance(
 		systems::list const &

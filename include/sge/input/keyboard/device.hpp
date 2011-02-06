@@ -42,7 +42,7 @@ class SGE_CLASS_SYMBOL device
 {
 	FCPPT_NONCOPYABLE(
 		device
-	)
+	);
 protected:
 	SGE_SYMBOL device();
 public:

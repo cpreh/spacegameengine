@@ -41,7 +41,7 @@ class file
 {
 	FCPPT_NONCOPYABLE(
 		file
-	)
+	);
 public:
 	explicit file(
 		fcppt::filesystem::path const &

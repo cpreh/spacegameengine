@@ -38,7 +38,7 @@ class scoped_volume_texture_lock
 {
 	FCPPT_NONCOPYABLE(
 		scoped_volume_texture_lock
-	)
+	);
 public:
 	SGE_SYMBOL scoped_volume_texture_lock(
 		volume_texture_ptr,

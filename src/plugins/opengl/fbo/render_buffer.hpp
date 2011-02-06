@@ -39,7 +39,7 @@ class render_buffer
 {
 	FCPPT_NONCOPYABLE(
 		render_buffer
-	)
+	);
 public:
 	explicit render_buffer(
 		fbo::context const &,

@@ -24,6 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/collision/shapes/base.hpp>
 #include <sge/collision/shapes/box_fwd.hpp>
 #include <sge/collision/dim.hpp>
+#include <sge/class_symbol.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -31,18 +34,30 @@ namespace collision
 {
 namespace shapes
 {
-class box
+
+class SGE_CLASS_SYMBOL box
 :
 	public virtual base
 {
+	FCPPT_NONCOPYABLE(
+		box
+	);
+protected:
+	SGE_SYMBOL
+	box();
 public:
 	virtual collision::dim const 
 	dim() const = 0;
 	
 	virtual void 
 	dim(
-		collision::dim const &) = 0;
+		collision::dim const &
+	) = 0;
+
+	SGE_SYMBOL
+	virtual ~box();
 };
+
 }
 }
 }

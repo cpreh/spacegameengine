@@ -40,7 +40,7 @@ class make_offsets
 {
 	FCPPT_NONASSIGNABLE(
 		make_offsets
-	)
+	);
 public:
 	explicit make_offsets(
 		offset_list &_offsets

@@ -41,7 +41,7 @@ class basic_texture_surface
 {
 	FCPPT_NONCOPYABLE(
 		basic_texture_surface
-	)
+	);
 public:
 	typedef typename Base::dim_type dim_type;
 

@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 #include <sge/renderer/vf/dynamic/texpos_fwd.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -39,13 +40,18 @@ namespace vf
 
 class texpos_actor
 :
-	public fp_actor
+	public vf::fp_actor
 {
+	FCPPT_NONCOPYABLE(
+		texpos_actor
+	);
 public:
 	explicit texpos_actor(
 		actor_parameters const &,
 		sge::renderer::vf::dynamic::texpos const &
 	);
+
+	~texpos_actor();
 private:
 	void
 	on_use(

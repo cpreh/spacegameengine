@@ -21,22 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENAL_BUFFER_WRAPPER_HPP_INCLUDED
 #define SGE_OPENAL_BUFFER_WRAPPER_HPP_INCLUDED
 
+#include <sge/audio/file_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include "openal.hpp"
 
 namespace sge
 {
-namespace audio
-{
-class file;
-}
-
 namespace openal
 {
 class buffer_wrapper
 {
-	FCPPT_NONCOPYABLE(buffer_wrapper)
-	public:
+	FCPPT_NONCOPYABLE(
+		buffer_wrapper
+	);
+public:
 	explicit buffer_wrapper(audio::file &);
 	ALuint albuffer() const;
 	audio::file &file();
@@ -44,7 +42,7 @@ class buffer_wrapper
 	void add_instance();
 	bool remove_instance();
 
-	private:
+private:
 	audio::file &file_;
 	ALuint buffer_;
 	unsigned refcount_;

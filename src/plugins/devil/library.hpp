@@ -28,10 +28,14 @@ namespace sge
 namespace devil
 {
 
-class library {
-	FCPPT_NONCOPYABLE(library)
+class library
+{
+	FCPPT_NONCOPYABLE(
+		library
+	);
 public:
 	library();
+
 	~library();
 };
 

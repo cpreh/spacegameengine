@@ -35,11 +35,11 @@ namespace texture
 
 class part_raw
 :
-	public part
+	public texture::part
 {
 	FCPPT_NONCOPYABLE(
 		part_raw
-	)
+	);
 public:
 	SGE_TEXTURE_SYMBOL explicit part_raw(
 		renderer::texture_ptr

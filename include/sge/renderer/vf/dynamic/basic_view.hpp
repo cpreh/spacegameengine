@@ -43,7 +43,7 @@ class basic_view
 {
 	FCPPT_NONASSIGNABLE(
 		basic_view
-	)
+	);
 public:
 	typedef Pointer     pointer;
 	typedef vertex_size size_type;

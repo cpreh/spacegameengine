@@ -32,7 +32,9 @@ namespace opengl
 
 class vbo_base
 {
-	FCPPT_NONCOPYABLE(vbo_base)
+	FCPPT_NONCOPYABLE(
+		vbo_base
+	);
 protected:
 	vbo_base();
 public:

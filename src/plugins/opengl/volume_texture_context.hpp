@@ -37,7 +37,7 @@ class volume_texture_context
 {
 	FCPPT_NONCOPYABLE(
 		volume_texture_context
-	)
+	);
 public:
 	volume_texture_context();
 

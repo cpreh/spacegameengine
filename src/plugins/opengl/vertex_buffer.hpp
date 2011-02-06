@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "context/object_fwd.hpp"
 #include <sge/renderer/vf/dynamic/format_fwd.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -36,6 +37,9 @@ class vertex_buffer
 :
 	public renderer::vertex_buffer
 {
+	FCPPT_NONCOPYABLE(
+		vertex_buffer
+	);
 public:
 	vertex_buffer(
 		context::object &,

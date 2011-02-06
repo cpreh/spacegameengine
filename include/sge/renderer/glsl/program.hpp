@@ -41,7 +41,9 @@ namespace glsl
 
 class SGE_CLASS_SYMBOL program
 {
-	FCPPT_NONCOPYABLE(program)
+	FCPPT_NONCOPYABLE(
+		program
+	);
 protected:
 	SGE_SYMBOL program();
 public:

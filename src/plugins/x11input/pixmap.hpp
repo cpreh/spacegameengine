@@ -35,7 +35,7 @@ class pixmap
 {
 	FCPPT_NONCOPYABLE(
 		pixmap
-	)
+	);
 public:
 	explicit pixmap(
 		awl::backends::x11::window::instance_ptr

@@ -40,7 +40,7 @@ class parameters
 {
 	FCPPT_NONASSIGNABLE(
 		parameters
-	)
+	);
 public:
 	parameters(
 		x11input::device::id const &,

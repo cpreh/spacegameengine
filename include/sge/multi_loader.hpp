@@ -42,7 +42,9 @@ template<
 >
 class multi_loader
 {
-	FCPPT_NONCOPYABLE(multi_loader)
+	FCPPT_NONCOPYABLE(
+		multi_loader
+	);
 public:
 	typedef Loader loader;
 	typedef File file;

@@ -58,7 +58,7 @@ class target
 {
 	FCPPT_NONCOPYABLE(
 		target
-	)
+	);
 public:
 	typedef opengl::basic_target<
 		sge::renderer::target

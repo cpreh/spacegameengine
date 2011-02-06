@@ -41,7 +41,7 @@ class texture_binding
 {
 	FCPPT_NONCOPYABLE(
 		texture_binding
-	)
+	);
 public:
 	explicit texture_binding(
 		fbo::context const &,

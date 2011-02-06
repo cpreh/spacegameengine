@@ -36,7 +36,7 @@ class shape_world_connection
 {
 	FCPPT_NONCOPYABLE(
 		shape_world_connection
-	)
+	);
 public:
 	explicit
 	shape_world_connection(

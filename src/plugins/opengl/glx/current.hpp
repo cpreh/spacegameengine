@@ -37,7 +37,7 @@ class current
 {
 	FCPPT_NONCOPYABLE(
 		current
-	)
+	);
 public:
 	current(
 		awl::backends::x11::display_ptr,

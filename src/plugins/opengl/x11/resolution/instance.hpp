@@ -35,7 +35,9 @@ namespace resolution
 
 class instance
 {
-	FCPPT_NONCOPYABLE(instance)
+	FCPPT_NONCOPYABLE(
+		instance
+	);
 protected:
 	instance();
 public:

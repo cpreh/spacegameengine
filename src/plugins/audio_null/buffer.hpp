@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "positional.hpp"
 #include <sge/audio/buffer.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -32,7 +33,18 @@ class buffer
 :
 	public sge::audio::buffer
 {
+	FCPPT_NONCOPYABLE(
+		buffer
+	);
 public:
+	buffer()
+	{
+	}
+	
+	~buffer()
+	{
+	}
+
 	audio::sound::positional_ptr const
 	create_positional(
 		audio::sound::positional_parameters const&)

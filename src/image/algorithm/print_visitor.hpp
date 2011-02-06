@@ -36,7 +36,7 @@ class print_visitor
 {
 	FCPPT_NONASSIGNABLE(
 		print_visitor
-	)
+	);
 public:
 	typedef void result_type;
 

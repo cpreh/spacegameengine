@@ -33,7 +33,7 @@ class shape_body_connection
 {
 	FCPPT_NONCOPYABLE(
 		shape_body_connection
-	)
+	);
 public:
 	explicit
 	shape_body_connection(

@@ -43,7 +43,9 @@ namespace context
 */
 class container
 {
-	FCPPT_NONCOPYABLE(container)
+	FCPPT_NONCOPYABLE(
+		container
+	);
 public:
 	typedef base value_type;
 

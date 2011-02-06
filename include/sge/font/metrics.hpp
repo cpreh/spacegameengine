@@ -35,7 +35,9 @@ namespace font
 
 class SGE_CLASS_SYMBOL metrics
 {
-	FCPPT_NONCOPYABLE(metrics)
+	FCPPT_NONCOPYABLE(
+		metrics
+	);
 protected:
 	SGE_SYMBOL metrics();
 public:
