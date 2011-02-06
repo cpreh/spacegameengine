@@ -531,13 +531,13 @@ sge::systems::instance::impl::init_renderer(
 		renderer_plugin_->get()()
 	);
 
-	bool const must_show(
+	if(
 		!window_
-	);
-
-	if(!window_)
+	)
 	{
-		if(!window_param_)
+		if(
+			!window_param_
+		)
 			throw sge::exception(
 				FCPPT_TEXT("systems: renderer device requested, but no window parameter given!")
 			);
@@ -563,13 +563,6 @@ sge::systems::instance::impl::init_renderer(
 			renderer_	
 		)
 	);
-
-	// show the window after the viewport manager has been constructed
-
-	if(
-		must_show
-	)
-		window_->show();
 }
 
 void
@@ -811,9 +804,16 @@ void
 sge::systems::instance::impl::post_init()
 {
 	if(
-		window_param_ && !window_
+		window_param_
 	)
-		create_window();
+	{
+		if(
+			!window_
+		)
+			this->create_window();
+
+		window_->show();
+	}
 }
 
 void
