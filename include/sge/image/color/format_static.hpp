@@ -53,7 +53,9 @@ struct format_static
 		value < format::size
 	);
 
-	FCPPT_RESTRICT_TYPEDEF_STRUCT(format_static)
+	FCPPT_RESTRICT_TYPEDEF_STRUCT(
+		format_static
+	);
 };
 
 }

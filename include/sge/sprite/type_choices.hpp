@@ -36,10 +36,14 @@ template<
 struct type_choices
 {
 	typedef Unit unit_type;
+
 	typedef Float float_type;
+
 	typedef Color color_type;
 
-	FCPPT_RESTRICT_TYPEDEF_STRUCT(type_choices)
+	FCPPT_RESTRICT_TYPEDEF_STRUCT(
+		type_choices
+	);
 };
 
 }

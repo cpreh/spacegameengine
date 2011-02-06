@@ -40,7 +40,9 @@ struct object
 		Format
 	> type;
 
-	FCPPT_RESTRICT_TYPEDEF_STRUCT(object)
+	FCPPT_RESTRICT_TYPEDEF_STRUCT(
+		object
+	);
 };
 
 }
