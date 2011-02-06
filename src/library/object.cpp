@@ -97,7 +97,9 @@ sge::library::object::object(
 :
 #ifdef FCPPT_WINDOWS_PLATFORM
 	destroyer_(
-		new destroyer()
+		fcppt::make_unique_ptr<
+			destroyer
+		>()
 	),
 	handle(
 		static_cast<void*>(

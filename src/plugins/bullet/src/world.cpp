@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/null.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <boost/foreach.hpp>
 #include <limits>
@@ -132,8 +133,12 @@ sge::bullet::world::create_body(
 {
 	return 
 		collision::body_ptr(
-			new body(
-				*this,
+			fcppt::make_shared_ptr<
+				body
+			>(
+				std::tr1::ref(
+					*this
+				),
 				_shapes,
 				fcppt::math::vector::structure_cast<point>(
 					_position),
@@ -148,6 +153,7 @@ sge::bullet::world::create_sphere(
 	collision::solidity::type const _solidity,
 	collision::point const &_position)
 {
+	// FIXME
 	return 
 		collision::shapes::sphere_ptr(
 			new shapes::sphere(
@@ -155,7 +161,9 @@ sge::bullet::world::create_sphere(
 					_satellite
 				),
 				constrain_,
-				*this,
+				std::tr1::ref(
+					*this
+				),
 				_radius,
 				_solidity,
 				_position));
@@ -168,6 +176,7 @@ sge::bullet::world::create_box(
 	collision::solidity::type const _solidity,
 	collision::point const &_position)
 {
+	// FIXME
 	return
 		collision::shapes::box_ptr(
 			new shapes::box(
@@ -175,7 +184,9 @@ sge::bullet::world::create_box(
 					_satellite
 				),
 				constrain_,
-				*this,
+				std::tr1::ref(
+					*this
+				),
 				_position,
 				_solidity,
 				_dim));
@@ -186,7 +197,9 @@ sge::bullet::world::create_group()
 {
 	return 
 		collision::group_ptr(
-			new group(
+			fcppt::make_shared_ptr<
+				group
+			>(
 				next_group_id()));
 }
 

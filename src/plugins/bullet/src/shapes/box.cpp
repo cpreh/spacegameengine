@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/headers.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/output.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 
 namespace
@@ -50,7 +51,9 @@ sge::bullet::shapes::box::box(
 :
 	base(
 		bullet_shape_ptr(
-			new btBoxShape(
+			fcppt::make_unique_ptr<
+				btBoxShape
+			>(
 				// btBoxShape wants _halfdimensions_, so 1/2 here
 				convert::to_bullet(
 					_dim/
