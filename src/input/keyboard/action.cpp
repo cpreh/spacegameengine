@@ -30,7 +30,7 @@ class functor
 {
 	FCPPT_NONASSIGNABLE(
 		functor
-	)
+	);
 public:
 	functor(
 		sge::input::keyboard::key_code::type,
@@ -81,7 +81,7 @@ functor::operator()(
 {
 	if(
 		_event.pressed()
-		&& _event.key().code() == code_
+		&& _event.key_code() == code_
 	)
 		fun_();
 }

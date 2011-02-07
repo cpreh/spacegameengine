@@ -38,7 +38,9 @@ class attribute_context
 :
 	public opengl::context::base
 {
-	FCPPT_NONCOPYABLE(attribute_context)
+	FCPPT_NONCOPYABLE(
+		attribute_context
+	);
 public:
 	attribute_context();
 

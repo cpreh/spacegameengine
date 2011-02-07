@@ -81,6 +81,10 @@ sge::openal::stream_sound::stream_sound(
 	)
 }
 
+sge::openal::stream_sound::~stream_sound()
+{
+}
+
 void 
 sge::openal::stream_sound::update()
 {

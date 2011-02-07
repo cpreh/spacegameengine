@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_FBO_RENDER_BUFFER_BINDING_HPP_INCLUDED
 
 #include "render_buffer_binding_fwd.hpp"
+#include "attachment.hpp"
 #include "context_fwd.hpp"
-#include "object_fwd.hpp"
 #include "render_buffer_fwd.hpp"
 #include "../common.hpp"
 #include <fcppt/noncopyable.hpp>
@@ -36,14 +36,15 @@ namespace fbo
 {
 
 class render_buffer_binding
+:
+	public fbo::attachment
 {
 	FCPPT_NONCOPYABLE(
 		render_buffer_binding
-	)
+	);
 public:
 	explicit render_buffer_binding(
 		fbo::context const &,
-		fbo::object const &,
 		fbo::render_buffer const &,
 		GLenum
 	);
@@ -51,8 +52,6 @@ public:
 	~render_buffer_binding();
 private:
 	fbo::context const &context_;
-
-	fbo::object const &fbo_;
 
 	GLenum const what_;
 };

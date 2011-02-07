@@ -36,7 +36,7 @@ class current
 {
 	FCPPT_NONCOPYABLE(
 		current
-	)
+	);
 public:
 	current(
 		awl::backends::windows::gdi_device const &,

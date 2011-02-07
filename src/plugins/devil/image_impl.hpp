@@ -29,12 +29,18 @@ namespace sge
 namespace devil
 {
 
-class image_impl {
-	FCPPT_NONCOPYABLE(image_impl)
+class image_impl
+{
+	FCPPT_NONCOPYABLE(
+		image_impl
+	);
 public:
 	image_impl();
+
 	~image_impl();
-	ILuint id() const;
+
+	ILuint
+	id() const;
 private:
 	ILuint id_;
 };

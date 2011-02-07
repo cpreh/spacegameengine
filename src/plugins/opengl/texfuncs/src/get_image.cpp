@@ -29,12 +29,17 @@ sge::opengl::texfuncs::get_image(
 	GLenum const _texture_type,
 	GLenum const _format,
 	GLenum const _type,
-	renderer::raw_pointer const _dest
+	renderer::raw_pointer const _dest,
+	renderer::stage_type const _stage
 )
 {
 	::glGetTexImage(
 		_texture_type,
-		0,
+		static_cast<
+			GLint
+		>(
+			_stage
+		),
 		_format,
 		_type,
 		_dest

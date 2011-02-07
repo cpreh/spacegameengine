@@ -41,7 +41,9 @@ class program_context
 :
 	public opengl::context::base
 {
-	FCPPT_NONCOPYABLE(program_context)
+	FCPPT_NONCOPYABLE(
+		program_context
+	);
 public:
 	program_context();
 
@@ -66,6 +68,9 @@ public:
 	typedef PFNGLGETINFOLOGARBPROC gl_program_info_log;
 
 	typedef PFNGLGETATTRIBLOCATIONARBPROC gl_get_attrib_location;
+
+	// note: this is not supported by ARB
+	typedef PFNGLBINDFRAGDATALOCATIONPROC gl_bind_frag_data_location;
 
 	gl_create_program
 	create_program() const;
@@ -93,6 +98,9 @@ public:
 
 	gl_get_attrib_location
 	get_attrib_location() const;
+
+	gl_bind_frag_data_location
+	bind_frag_data_location() const;
 
 	GLenum
 	link_status_type() const;

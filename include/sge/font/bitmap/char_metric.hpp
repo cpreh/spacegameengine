@@ -39,7 +39,7 @@ class char_metric
 {
 	FCPPT_NONCOPYABLE(
 		char_metric
-	)
+	);
 public:
 	char_metric(
 		font::const_image_view const &,

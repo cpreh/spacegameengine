@@ -33,7 +33,9 @@ namespace renderer
 
 class scoped_vertex_buffer
 {
-	FCPPT_NONCOPYABLE(scoped_vertex_buffer)
+	FCPPT_NONCOPYABLE(
+		scoped_vertex_buffer
+	);
 public:
 	SGE_SYMBOL scoped_vertex_buffer(
 		renderer::device_ptr,

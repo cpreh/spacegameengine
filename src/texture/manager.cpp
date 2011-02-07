@@ -45,7 +45,7 @@ class move_visitor
 {
 	FCPPT_NONASSIGNABLE(
 		move_visitor
-	)
+	);
 public:
 	typedef void result_type;
 

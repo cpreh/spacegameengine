@@ -81,6 +81,10 @@ sge::opengl::vf::attribute_actor::attribute_actor(
 		);
 }
 
+sge::opengl::vf::attribute_actor::~attribute_actor()
+{
+}
+
 void
 sge::opengl::vf::attribute_actor::operator()(
 	client_state_combiner &_combiner,

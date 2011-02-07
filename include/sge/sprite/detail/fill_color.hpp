@@ -61,7 +61,7 @@ fill_color(
 	)
 		(*_iterator++). template set<
 			typename detail::vertex_color<
-				typename Choices::type_choices
+				Choices
 			>::type
 		>(
 			_sprite.color()

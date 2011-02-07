@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture_base.hpp"
 #include "../texfuncs/bind.hpp"
 
-GLenum sge::opengl::texture_base::type() const
+GLenum
+sge::opengl::texture_base::type() const
 {
 	return type_;
 }
@@ -42,7 +43,8 @@ sge::opengl::texture_base::id() const
 }
 
 sge::opengl::texture_base::~texture_base()
-{}
+{
+}
 
 sge::opengl::texture_base::texture_base(
 	GLenum const _type

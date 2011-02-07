@@ -39,7 +39,9 @@ template<
 >
 class trampoline
 {
-	FCPPT_NONCOPYABLE(trampoline)
+	FCPPT_NONCOPYABLE(
+		trampoline
+	);
 public:
 	typedef States state_type;
 

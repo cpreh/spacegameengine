@@ -22,10 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_DEVICE_HPP_INCLUDED
 
 #include "common.hpp"
-#include "default_target_ptr.hpp"
-#include "target_ptr.hpp"
 #include "device_state_ptr.hpp"
+#include "onscreen_target_ptr.hpp"
+#include "target_base_ptr.hpp"
 #include "context/object.hpp"
+#include "fbo/target_ptr.hpp"
 #include <sge/renderer/adapter_type.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/parameters.hpp>
@@ -46,7 +47,9 @@ class device
 :
 	public renderer::device
 {
-	FCPPT_NONCOPYABLE(device)
+	FCPPT_NONCOPYABLE(
+		device
+	);
 public:
 	device(
 		renderer::parameters const &,
@@ -186,13 +189,7 @@ public:
 	);
 
 	renderer::target_ptr const
-	target() const;
-
-	renderer::target_ptr const
-	create_target(
-		renderer::texture_ptr,
-		renderer::depth_stencil_texture_ptr
-	);
+	create_target();
 
 	renderer::texture_ptr const
 	create_texture(
@@ -204,6 +201,12 @@ public:
 
 	renderer::depth_stencil_texture_ptr const
 	create_depth_stencil_texture(
+		renderer::dim2 const &,
+		renderer::depth_stencil_format::type
+	);
+
+	renderer::depth_stencil_surface_ptr const
+	create_depth_stencil_surface(
 		renderer::dim2 const &,
 		renderer::depth_stencil_format::type
 	);
@@ -238,8 +241,19 @@ public:
 		renderer::resource_flags_field const &
 	);
 
+	renderer::onscreen_target_ptr const
+	onscreen_target() const;
+
 	renderer::scissor_area const
 	scissor_area() const;
+
+	renderer::target_ptr const
+	target() const;
+
+	renderer::matrix4 const
+	transform(
+		renderer::matrix_mode::type
+	);
 
 	renderer::caps const
 	caps() const;
@@ -264,11 +278,13 @@ private:
 
 	renderer::state::list current_states_;
 
-	device_state_ptr state_;
+	opengl::device_state_ptr state_;
 
-	default_target_ptr default_target_;
+	opengl::onscreen_target_ptr const onscreen_target_;
 
-	opengl::target_ptr target_;
+	opengl::fbo::target_ptr fbo_target_;
+
+	opengl::target_base_ptr target_;
 
 	typedef std::stack<
 		renderer::state::list

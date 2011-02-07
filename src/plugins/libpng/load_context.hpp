@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
 #include <fcppt/io/cifstream.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <png.h>
 #include <cstddef>
@@ -41,6 +42,9 @@ class load_context
 :
 	public context_base
 {
+	FCPPT_NONCOPYABLE(
+		load_context
+	);
 public:
 	explicit load_context(
 		fcppt::filesystem::path const &

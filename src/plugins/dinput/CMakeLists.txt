@@ -6,6 +6,7 @@ CHECK_DEPENDENCIES(
 SET(
 	SGE_DINPUT_FILES
 	src/plugins/dinput/cast_key.hpp
+	src/plugins/dinput/char_vector.hpp
 	src/plugins/dinput/cursor.hpp
 	src/plugins/dinput/cursor_confine.hpp
 	src/plugins/dinput/cursor_confine_fwd.hpp
@@ -25,16 +26,19 @@ SET(
 	src/plugins/dinput/joystick.hpp
 	src/plugins/dinput/key_converter.hpp
 	src/plugins/dinput/key_converter_fwd.hpp
+	src/plugins/dinput/key_is_down.hpp
 	src/plugins/dinput/keyboard.hpp
 	src/plugins/dinput/keyboard_fwd.hpp
 	src/plugins/dinput/keyboard_ptr.hpp
 	src/plugins/dinput/keyboard_repeat.hpp
-	src/plugins/dinput/keycode_to_char.hpp
+	src/plugins/dinput/keycode_to_chars.hpp
+	src/plugins/dinput/map_virtual_key.hpp
 	src/plugins/dinput/mouse.hpp
 	src/plugins/dinput/mouse_axis_code.hpp
 	src/plugins/dinput/mouse_button_code.hpp
 	src/plugins/dinput/mouse_fwd.hpp
 	src/plugins/dinput/mouse_ptr.hpp
+	src/plugins/dinput/optional_uint.hpp
 	src/plugins/dinput/pixmap_cursor.hpp
 	src/plugins/dinput/processor.hpp
 	src/plugins/dinput/signal.hpp
@@ -48,15 +52,18 @@ SET(
 	src/plugins/dinput/src/is_mouse_axis.cpp
 	src/plugins/dinput/src/joystick.cpp
 	src/plugins/dinput/src/key_converter.cpp
+	src/plugins/dinput/src/key_is_down.cpp
 	src/plugins/dinput/src/keyboard.cpp
 	src/plugins/dinput/src/keyboard_repeat.cpp
-	src/plugins/dinput/src/keycode_to_char.cpp
+	src/plugins/dinput/src/keycode_to_chars.cpp
+	src/plugins/dinput/src/map_virtual_key.cpp
 	src/plugins/dinput/src/mouse.cpp
 	src/plugins/dinput/src/mouse_axis_code.cpp
 	src/plugins/dinput/src/mouse_button_code.cpp
 	src/plugins/dinput/src/pixmap_cursor.cpp
 	src/plugins/dinput/src/processor.cpp
 	src/plugins/dinput/src/system.cpp
+	src/plugins/dinput/state_array.hpp
 	src/plugins/dinput/system.hpp
 )
 

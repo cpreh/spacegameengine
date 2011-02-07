@@ -47,7 +47,9 @@ class shader
 		Environment
 	>
 {
-	FCPPT_NONCOPYABLE(shader)
+	FCPPT_NONCOPYABLE(
+		shader
+	);
 public:
 	typedef typename Type::base_type base_type;
 

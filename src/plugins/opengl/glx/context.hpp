@@ -37,7 +37,7 @@ class context
 {
 	FCPPT_NONCOPYABLE(
 		context
-	)
+	);
 public:
 	context(
 		awl::backends::x11::display_ptr,

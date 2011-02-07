@@ -29,7 +29,7 @@ sge::opengl::matrix_mode(
 	GLenum const _mode
 )
 {
-	glMatrixMode(
+	::glMatrixMode(
 		_mode
 	);
 

@@ -43,7 +43,7 @@ class metrics
 {
 	FCPPT_NONCOPYABLE(
 		metrics
-	)
+	);
 public:
 	metrics(
 		fcppt::filesystem::path const &,

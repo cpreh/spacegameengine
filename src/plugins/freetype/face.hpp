@@ -34,7 +34,9 @@ namespace freetype
 
 class face
 {
-	FCPPT_NONCOPYABLE(face)
+	FCPPT_NONCOPYABLE(
+		face
+	);
 public:
 	explicit face(
 		library &,
@@ -42,8 +44,12 @@ public:
 	);
 
 	~face();
-	FT_Face get() const;
-	FT_Face operator->() const;
+
+	FT_Face
+	get() const;
+
+	FT_Face
+	operator->() const;
 private:
 	FT_Face impl;
 };

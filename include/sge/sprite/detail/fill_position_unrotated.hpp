@@ -21,11 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_FILL_POSITION_UNROTATED_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_FILL_POSITION_UNROTATED_HPP_INCLUDED
 
-#include <sge/sprite/detail/vertex_pos.hpp>
+#include <sge/sprite/detail/make_position.hpp>
+#include <sge/sprite/detail/point_float.hpp>
 #include <sge/sprite/detail/rect_float.hpp>
-#include <sge/sprite/detail/point_float3.hpp>
-#include <sge/sprite/detail/depth.hpp>
-#include <sge/sprite/depth_type.hpp>
+#include <sge/sprite/detail/vertex_pos.hpp>
 #include <sge/sprite/bounding_rect.hpp>
 #include <fcppt/math/box/structure_cast.hpp>
 
@@ -51,7 +50,7 @@ fill_position_unrotated(
 	typedef typename Choices::type_choices type_choices;
 
 	typedef typename detail::vertex_pos<
-		type_choices
+		Choices
 	>::type vertex_pos;
 
 	typedef typename detail::rect_float<
@@ -68,16 +67,20 @@ fill_position_unrotated(
 		)
 	);
 
-	typedef typename detail::point_float3<
+	typedef typename detail::point_float<
 		type_choices
-	>::type pos3;
+	>::type point_float;
 
-	typedef typename sprite::depth_type<
-		typename type_choices::float_type
-	>::type depth_type;
-
-	depth_type const depth(
-		detail::depth(
+	(*_iterator++). template set<
+		vertex_pos
+	>(
+		detail::make_position<
+			Choices
+		>(
+			point_float(
+				rect.left(),
+				rect.top()
+			),
 			_sprite
 		)
 	);
@@ -85,40 +88,42 @@ fill_position_unrotated(
 	(*_iterator++). template set<
 		vertex_pos
 	>(
-		pos3(
-			rect.left(),
-			rect.top(),
-			depth
+		detail::make_position<
+			Choices
+		>(
+			point_float(
+				rect.right(),
+				rect.top()
+			),
+			_sprite
 		)
 	);
 
 	(*_iterator++). template set<
 		vertex_pos
 	>(
-		pos3(
-			rect.right(),
-			rect.top(),
-			depth
+		detail::make_position<
+			Choices
+		>(
+			point_float(
+				rect.right(),
+				rect.bottom()
+			),
+			_sprite
 		)
 	);
 
 	(*_iterator++). template set<
 		vertex_pos
 	>(
-		pos3(
-			rect.right(),
-			rect.bottom(),
-			depth
-		)
-	);
-
-	(*_iterator++). template set<
-		vertex_pos
-	>(
-		pos3(
-			rect.left(),
-			rect.bottom(),
-			depth
+		detail::make_position<
+			Choices
+		>(
+			point_float(
+				rect.left(),
+				rect.bottom()
+			),
+			_sprite
 		)
 	);
 }

@@ -39,7 +39,9 @@ template<
 >
 class attachment
 {
-	FCPPT_NONCOPYABLE(attachment)
+	FCPPT_NONCOPYABLE(
+		attachment
+	);
 public:
 	typedef typename Environment::handle handle;
 

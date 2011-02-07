@@ -25,13 +25,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../color_actor.hpp"
 #include "../texpos_actor.hpp"
 #include "../attribute_actor.hpp"
+#include <fcppt/make_unique_ptr.hpp>
 
 sge::opengl::vf::to_actor_visitor::to_actor_visitor(
 	actor_parameters const &_parameters
 )
 :
 	parameters_(_parameters)
-{}
+{
+}
 
 sge::opengl::vf::to_actor_visitor::result_type
 sge::opengl::vf::to_actor_visitor::operator()(
@@ -40,7 +42,9 @@ sge::opengl::vf::to_actor_visitor::operator()(
 {
 	return
 		actor_ptr(
-			new vf::pos_actor(
+			fcppt::make_unique_ptr<
+				vf::pos_actor
+			>(
 				parameters_,
 				_pos
 			)
@@ -54,7 +58,9 @@ sge::opengl::vf::to_actor_visitor::operator()(
 {
 	return
 		actor_ptr(
-			new vf::normal_actor(
+			fcppt::make_unique_ptr<
+				vf::normal_actor
+			>(
 				parameters_,
 				_normal
 			)
@@ -68,7 +74,9 @@ sge::opengl::vf::to_actor_visitor::operator()(
 {
 	return
 		actor_ptr(
-			new vf::color_actor(
+			fcppt::make_unique_ptr<
+				vf::color_actor
+			>(
 				parameters_,
 				_color
 			)
@@ -82,7 +90,9 @@ sge::opengl::vf::to_actor_visitor::operator()(
 {
 	return
 		actor_ptr(
-			new vf::texpos_actor(
+			fcppt::make_unique_ptr<
+				vf::texpos_actor
+			>(
 				parameters_,
 				_texpos
 			)
@@ -96,7 +106,9 @@ sge::opengl::vf::to_actor_visitor::operator()(
 {
 	return
 		actor_ptr(
-			new vf::attribute_actor(
+			fcppt::make_unique_ptr<
+				vf::attribute_actor
+			>(
 				parameters_,
 				_unspecified
 			)

@@ -35,7 +35,9 @@ namespace glsl
 
 class program_base
 {
-	FCPPT_NONCOPYABLE(program_base)
+	FCPPT_NONCOPYABLE(
+		program_base
+	);
 protected:
 	program_base();
 public:

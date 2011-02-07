@@ -36,9 +36,11 @@ namespace glsl
 
 class SGE_CLASS_SYMBOL vertex_shader
 :
-	public shader
+	public glsl::shader
 {
-	FCPPT_NONCOPYABLE(vertex_shader)
+	FCPPT_NONCOPYABLE(
+		vertex_shader
+	);
 protected:
 	SGE_SYMBOL vertex_shader();
 public:

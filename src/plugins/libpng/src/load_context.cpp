@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/lexical_cast.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/string.hpp>
 #include <climits>
@@ -59,8 +60,10 @@ sge::libpng::load_context::load_context(
 				FCPPT_TEXT("not a png file")
 			);
 
-	read_ptr_.reset(
-		new read_ptr(
+	read_ptr_.take(
+		fcppt::make_unique_ptr<
+			read_ptr
+		>(
 			png_create_read_struct(
 				PNG_LIBPNG_VER_STRING,
 				static_cast<png_voidp>(

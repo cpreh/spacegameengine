@@ -34,7 +34,9 @@ namespace collision
 
 class SGE_CLASS_SYMBOL satellite
 {
-	FCPPT_NONCOPYABLE(satellite)
+	FCPPT_NONCOPYABLE(
+		satellite
+	);
 protected:
 	SGE_SYMBOL satellite();
 public:

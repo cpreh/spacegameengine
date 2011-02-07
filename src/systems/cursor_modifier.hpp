@@ -37,7 +37,7 @@ class cursor_modifier
 {
 	FCPPT_NONCOPYABLE(
 		cursor_modifier
-	)
+	);
 public:
 	explicit cursor_modifier(
 		sge::input::processor_ptr,

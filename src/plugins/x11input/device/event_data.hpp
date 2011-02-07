@@ -37,7 +37,7 @@ class event_data
 {
 	FCPPT_NONCOPYABLE(
 		event_data
-	)
+	);
 public:
 	event_data(
 		awl::backends::x11::display_ptr,

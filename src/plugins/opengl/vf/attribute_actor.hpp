@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../context/object_fwd.hpp"
 #include <sge/renderer/vf/dynamic/unspecified_fwd.hpp>
 #include <sge/renderer/vf/string.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
 
 namespace sge
@@ -41,13 +42,18 @@ namespace vf
 
 class attribute_actor
 :
-	public pointer_actor
+	public vf::pointer_actor
 {
+	FCPPT_NONCOPYABLE(
+		attribute_actor
+	);
 public:
 	explicit attribute_actor(
 		actor_parameters const &,
 		renderer::vf::dynamic::unspecified const &
 	);
+
+	~attribute_actor();
 private:
 	void
 	operator()(

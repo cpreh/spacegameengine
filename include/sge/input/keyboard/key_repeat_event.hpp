@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_KEYBOARD_KEY_REPEAT_EVENT_HPP_INCLUDED
 
 #include <sge/input/keyboard/key_repeat_event_fwd.hpp>
-#include <sge/input/keyboard/key.hpp>
+#include <sge/input/keyboard/key_code.hpp>
 #include <sge/symbol.hpp>
 
 namespace sge
@@ -37,14 +37,14 @@ class key_repeat_event
 public:
 	SGE_SYMBOL
 	explicit key_repeat_event(
-		keyboard::key const &
+		keyboard::key_code::type
 	);
 
 	SGE_SYMBOL
-	keyboard::key const &
-	key() const;
+	keyboard::key_code::type
+	key_code() const;
 private:
-	keyboard::key key_;
+	keyboard::key_code::type key_code_;
 };
 
 }

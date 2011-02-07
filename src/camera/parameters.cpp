@@ -27,7 +27,8 @@ sge::camera::parameters::parameters(
 	renderer::scalar const _rotation_speed,
 	gizmo_type const &_gizmo,
 	sge::input::keyboard::device &_keyboard,
-	sge::input::mouse::device &_mouse)
+	sge::input::mouse::device &_mouse,
+	bool const _active)
 :
 	projection_(
 		_projection),
@@ -40,7 +41,9 @@ sge::camera::parameters::parameters(
 	keyboard_(
 		_keyboard),
 	mouse_(
-		_mouse)
+		_mouse),
+	active_(
+		_active)
 {
 	
 }
@@ -79,4 +82,10 @@ sge::input::mouse::device &
 sge::camera::parameters::mouse() const
 {
 	return mouse_;
+}
+
+bool
+sge::camera::parameters::active() const
+{
+	return active_;
 }

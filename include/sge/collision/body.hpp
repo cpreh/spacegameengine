@@ -35,7 +35,9 @@ namespace collision
 
 class SGE_CLASS_SYMBOL body
 {
-	FCPPT_NONCOPYABLE(body)
+	FCPPT_NONCOPYABLE(
+		body
+	);
 protected:
 	SGE_SYMBOL body();
 public:

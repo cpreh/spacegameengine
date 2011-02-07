@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_BUFFER_HPP_INCLUDED
 
 #include <sge/audio/sound/positional_ptr.hpp>
-#include <sge/audio/sound/positional_parameters.hpp>
+#include <sge/audio/sound/positional_parameters_fwd.hpp>
 #include <sge/audio/sound/base_ptr.hpp>
 #include <sge/class_symbol.hpp>
+#include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -33,7 +34,9 @@ namespace audio
 {
 class SGE_CLASS_SYMBOL buffer
 {
-FCPPT_NONCOPYABLE(buffer)
+	FCPPT_NONCOPYABLE(
+		buffer
+	);
 public:
 	SGE_SYMBOL explicit 
 	buffer();

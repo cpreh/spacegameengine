@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "source.hpp"
 #include <sge/audio/file_ptr.hpp>
 #include <sge/audio/sample_count.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -33,6 +34,9 @@ class stream_sound
 : 
 	public source
 {
+	FCPPT_NONCOPYABLE(
+		stream_sound
+	);
 public:
 	explicit
 	stream_sound(
@@ -42,6 +46,8 @@ public:
 	stream_sound(
 		audio::sound::positional_parameters const &,
 		audio::file_ptr);
+	
+	~stream_sound();
 
 	void 
 	update();

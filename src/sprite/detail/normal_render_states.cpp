@@ -19,6 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/sprite/detail/normal_render_states.hpp>
+#include <sge/renderer/state/bool.hpp>
+#include <sge/renderer/state/cull_mode.hpp>
+#include <sge/renderer/state/depth_func.hpp>
+#include <sge/renderer/state/dest_blend_func.hpp>
+#include <sge/renderer/state/draw_mode.hpp>
+#include <sge/renderer/state/source_blend_func.hpp>
+#include <sge/renderer/state/stencil_func.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/trampoline.hpp>

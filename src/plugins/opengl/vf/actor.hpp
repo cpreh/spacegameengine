@@ -36,8 +36,9 @@ namespace vf
 
 class actor
 {
-public:
-	FCPPT_NONCOPYABLE(actor)
+	FCPPT_NONCOPYABLE(
+		actor
+	);
 protected:
 	actor();
 public:

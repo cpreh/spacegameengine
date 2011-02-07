@@ -21,9 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture.hpp"
 #include "../basic_texture_impl.hpp"
 #include "../common.hpp"
+#include "../texture_surface.hpp"
+#include "../texfuncs/get_parameter_int.hpp"
 #include "../texfuncs/set.hpp"
 #include "../texfuncs/set_rect.hpp"
+#include <sge/renderer/stage_type.hpp>
 #include <sge/renderer/texture.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 
 template class
@@ -91,4 +95,40 @@ sge::opengl::texture::set_area(
 		_area,
 		_dest
 	);
+}
+
+sge::renderer::color_surface_ptr const
+sge::opengl::texture::surface(
+	renderer::stage_type const _stage
+)
+{
+	// TODO: clean this up!
+	this->bind();
+
+	return
+		fcppt::make_shared_ptr<
+			opengl::texture_surface
+		>(
+			this->type(),
+			this->id(),
+			_stage
+		);
+}
+
+sge::renderer::stage_type
+sge::opengl::texture::stages() const
+{
+	this->bind();
+
+	return
+		renderer::stage_type(
+			static_cast<
+				renderer::stage_type::value_type
+			>(
+				texfuncs::get_parameter_int(
+					this->type(),
+					GL_TEXTURE_BASE_LEVEL
+				)
+			)
+		);
 }

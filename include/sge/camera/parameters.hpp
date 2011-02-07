@@ -38,7 +38,7 @@ class parameters
 {
 	FCPPT_NONASSIGNABLE(
 		parameters
-	)
+	);
 public:
 	SGE_CAMERA_SYMBOL
 	explicit
@@ -48,7 +48,8 @@ public:
 		renderer::scalar rotation_speed,
 		gizmo_type const &g,
 		sge::input::keyboard::device &,
-		sge::input::mouse::device &);
+		sge::input::mouse::device &,
+		bool);
 
 	SGE_CAMERA_SYMBOL
 	projection::object const &
@@ -73,6 +74,9 @@ public:
 	SGE_CAMERA_SYMBOL
 	sge::input::mouse::device &
 	mouse() const;
+
+	bool
+	active() const;
 private:
 	projection::object projection_;
 	renderer::scalar movement_speed_;
@@ -80,6 +84,7 @@ private:
 	gizmo_type gizmo_;
 	sge::input::keyboard::device &keyboard_;
 	sge::input::mouse::device &mouse_;
+	bool active_;
 };
 }
 }

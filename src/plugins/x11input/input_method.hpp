@@ -36,7 +36,7 @@ class input_method
 {
 	FCPPT_NONCOPYABLE(
 		input_method
-	)
+	);
 public:
 	input_method(
 		awl::backends::x11::display_ptr,

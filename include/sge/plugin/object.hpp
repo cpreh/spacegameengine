@@ -40,9 +40,11 @@ template<
 >
 class object
 :
-	public base
+	public plugin::base
 {
-	FCPPT_NONCOPYABLE(object)
+	FCPPT_NONCOPYABLE(
+		object
+	);
 public:
 	typedef typename detail::traits<
 		T

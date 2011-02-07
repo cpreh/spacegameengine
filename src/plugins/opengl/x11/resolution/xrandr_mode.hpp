@@ -42,7 +42,7 @@ class xrandr_mode
 {
 	FCPPT_NONCOPYABLE(
 		xrandr_mode
-	)
+	);
 public:
 	xrandr_mode(
 		renderer::display_mode const &,

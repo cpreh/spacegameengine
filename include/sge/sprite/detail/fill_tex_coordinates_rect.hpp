@@ -48,12 +48,12 @@ fill_tex_coordinates_rect(
 {
 	typedef typename Choices::type_choices type_choices;
 
-	typedef typename point_float<
+	typedef typename detail::point_float<
 		type_choices
 	>::type tex_pos;
 
 	typedef typename detail::vertex_texpos<
-		type_choices
+		Choices
 	>::type vertex_texpos;
 
 	(*_iterator++). template set<

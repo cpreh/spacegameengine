@@ -38,7 +38,9 @@ namespace texture
 
 class manager
 {
-	FCPPT_NONCOPYABLE(manager)
+	FCPPT_NONCOPYABLE(
+		manager
+	);
 public:
 	SGE_TEXTURE_SYMBOL manager(
 		sge::renderer::device_ptr rend,

@@ -38,9 +38,11 @@ namespace renderer
 
 class SGE_CLASS_SYMBOL cube_texture
 :
-	public texture_base
+	public renderer::texture_base
 {
-	FCPPT_NONCOPYABLE(cube_texture)
+	FCPPT_NONCOPYABLE(
+		cube_texture
+	);
 protected:
 	SGE_SYMBOL cube_texture();
 public:

@@ -38,7 +38,9 @@ namespace time
 
 class timer
 {
-	FCPPT_NONCOPYABLE(timer)
+	FCPPT_NONCOPYABLE(
+		timer
+	);
 public:
 	typedef funit      frames_type;
 	typedef unit       interval_type;

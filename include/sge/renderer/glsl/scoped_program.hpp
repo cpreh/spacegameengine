@@ -35,7 +35,9 @@ namespace glsl
 
 class scoped_program
 {
-	FCPPT_NONCOPYABLE(scoped_program)
+	FCPPT_NONCOPYABLE(
+		scoped_program
+	);
 public:
 	SGE_SYMBOL
 	explicit scoped_program(

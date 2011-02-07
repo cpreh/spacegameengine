@@ -38,7 +38,9 @@ namespace arb
 
 struct environment
 {
-	FCPPT_RESTRICT_TYPEDEF_STRUCT(environment)
+	FCPPT_RESTRICT_TYPEDEF_STRUCT(
+		environment
+	);
 public:
 	typedef arb::handle handle;
 

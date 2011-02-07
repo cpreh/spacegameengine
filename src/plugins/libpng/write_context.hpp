@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/dim.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/io/cofstream.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <png.h>
 
 namespace sge
@@ -38,6 +39,9 @@ class write_context
 :
 	public context_base
 {
+	FCPPT_NONCOPYABLE(
+		write_context
+	);
 public:
 	write_context(
 		fcppt::filesystem::path const &,

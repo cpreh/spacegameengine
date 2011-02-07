@@ -22,6 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_KEYBOARD_COLLECTOR_HPP_INCLUDED
 
 #include <sge/input/keyboard/collector_fwd.hpp>
+#include <sge/input/keyboard/char_callback.hpp>
+#include <sge/input/keyboard/char_event_fwd.hpp>
+#include <sge/input/keyboard/char_function.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/device_ptr.hpp>
 #include <sge/input/keyboard/key_function.hpp>
@@ -52,7 +55,7 @@ class collector
 {
 	FCPPT_NONCOPYABLE(
 		collector
-	)
+	);
 public:
 	SGE_SYMBOL
 	explicit collector(
@@ -75,6 +78,12 @@ public:
 	);
 
 	SGE_SYMBOL
+	fcppt::signal::auto_connection
+	char_callback(
+		keyboard::char_callback const &
+	);
+
+	SGE_SYMBOL
 	keyboard::mod_state const
 	mod_state() const;
 private:
@@ -86,6 +95,11 @@ private:
 	void
 	key_repeat_callback_internal(
 		keyboard::key_repeat_event const &
+	);
+
+	void
+	char_callback_internal(
+		keyboard::char_event const &
 	);
 
 	void
@@ -106,6 +120,10 @@ private:
 		keyboard::key_repeat_function
 	> key_repeat_signal;
 
+	typedef fcppt::signal::object<
+		keyboard::char_function
+	> char_signal;
+
 	typedef boost::ptr_map<
 		keyboard::device_ptr,
 		fcppt::signal::connection_manager
@@ -116,6 +134,8 @@ private:
 	key_signal signal_;
 
 	key_repeat_signal repeat_signal_;
+
+	char_signal char_signal_;
 
 	keyboard_map devices_;
 };

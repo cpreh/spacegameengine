@@ -37,7 +37,9 @@ namespace library
 
 class object
 {
-	FCPPT_NONCOPYABLE(object)
+	FCPPT_NONCOPYABLE(
+		object
+	);
 public:
 	SGE_SYMBOL explicit object(
 		fcppt::filesystem::path const &

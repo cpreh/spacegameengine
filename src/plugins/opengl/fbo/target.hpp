@@ -22,23 +22,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_FBO_TARGET_HPP_INCLUDED
 
 #include "target_fwd.hpp"
-#include "object.hpp"
-#include "texture_binding.hpp"
+#include "attachment_fwd.hpp"
+#include "attachment_unique_ptr.hpp"
 #include "context_fwd.hpp"
 #include "render_buffer_fwd.hpp"
-#include "render_buffer_binding_fwd.hpp"
-#include "../target.hpp"
-#include "../texture_ptr.hpp"
-#include "../depth_stencil_texture_ptr.hpp"
-#include "../texture_base_ptr.hpp"
+#include "object.hpp"
+#include "../basic_target.hpp"
 #include "../common.hpp"
+#include "../texture_surface_base_ptr.hpp"
 #include "../context/object_fwd.hpp"
-#include <sge/renderer/parameters_fwd.hpp>
-#include <sge/renderer/texture_ptr.hpp>
-#include <sge/image2d/view/const_object.hpp>
-#include <fcppt/math/dim/basic_decl.hpp>
+#include <sge/renderer/color_surface_ptr.hpp>
+#include <sge/renderer/depth_stencil_surface_ptr.hpp>
+#include <sge/renderer/dim2.hpp>
+#include <sge/renderer/screen_unit.hpp>
+#include <sge/renderer/surface_index.hpp>
+#include <sge/renderer/target.hpp>
+#include <fcppt/math/vector/basic_decl.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <fcppt/optional_decl.hpp>
+#include <fcppt/scoped_ptr.hpp>
+#include <boost/ptr_container/ptr_map.hpp>
 
 namespace sge
 {
@@ -49,17 +52,20 @@ namespace fbo
 
 class target
 :
-	public opengl::target
+	public opengl::basic_target<
+		sge::renderer::target
+	>
 {
 	FCPPT_NONCOPYABLE(
 		target
-	)
+	);
 public:
+	typedef opengl::basic_target<
+		sge::renderer::target
+	> base;
+
 	explicit target(
-		opengl::context::object &,
-		sge::renderer::parameters const &,
-		opengl::texture_ptr,
-		opengl::depth_stencil_texture_ptr
+		opengl::context::object &
 	);
 
 	~target();
@@ -70,54 +76,64 @@ public:
 	void
 	unbind() const;
 private:
-	image2d::view::const_object const
-	lock(
-		renderer::lock_rect const &
-	) const;
-
 	void
-	unlock() const;
-
-	dim_type const
-	dim() const;
-
-	void
-	add_texture_binding(
-		opengl::texture_base_ptr,
-		GLenum
+	color_surface(
+		renderer::color_surface_ptr,
+		renderer::surface_index
 	);
 
 	void
-	attach_buffer(
-		GLenum component,
+	depth_stencil_surface(
+		renderer::depth_stencil_surface_ptr
+	);
+
+	renderer::optional_dim2 const
+	dim() const;
+
+	renderer::screen_unit
+	height() const;
+
+	fbo::attachment_unique_ptr
+	create_texture_binding(
+		opengl::texture_surface_base_ptr,
 		GLenum attachment
 	);
 
+	fbo::attachment_unique_ptr
+	create_buffer_binding(
+		fbo::render_buffer const &,
+		GLenum attachment
+	);
+
+	void
+	add_dim(
+		sge::renderer::dim2 const &
+	);
+
+	void
+	remove_dim();
+
+	void
+	check();
+
 	fbo::context &context_;
-
-	sge::renderer::texture_ptr const texture_;
-
-	dim_type const dim_;
 
 	opengl::fbo::object fbo_;
 
-	typedef boost::ptr_vector<
-		fbo::texture_binding
-	> texture_binding_vector;
+	typedef boost::ptr_map<
+		renderer::surface_index,
+		fbo::attachment
+	> attachment_map;
 
-	texture_binding_vector texture_bindings_;
+	attachment_map color_attachments_;
 
-	typedef boost::ptr_vector<
-		opengl::fbo::render_buffer
-	> render_buffer_vector;
+	typedef fcppt::scoped_ptr<
+		fbo::attachment
+	> scoped_attachment;
 
-	typedef boost::ptr_vector<
-		opengl::fbo::render_buffer_binding
-	> render_buffer_binding_vector;
+	scoped_attachment depth_stencil_attachment_;
 
-	render_buffer_vector render_buffers_;
-
-	render_buffer_binding_vector render_buffer_bindings_;
+	renderer::optional_dim2 dim_;
 };
 
 }

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../common.hpp"
 #include <sge/renderer/raw_pointer.hpp>
+#include <sge/renderer/stage_type.hpp>
 
 namespace sge
 {
@@ -36,7 +37,8 @@ get_image(
 	GLenum tex_type,
 	GLenum format,
 	GLenum type,
-	renderer::raw_pointer dest
+	renderer::raw_pointer dest,
+	renderer::stage_type
 );
 
 }

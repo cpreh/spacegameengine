@@ -41,7 +41,7 @@ class part_fragmented
 {
 	FCPPT_NONCOPYABLE(
 		part_fragmented
-	)
+	);
 public:
 	SGE_TEXTURE_SYMBOL part_fragmented(
 		renderer::lock_rect const &outer_rect,

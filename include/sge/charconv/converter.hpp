@@ -38,7 +38,7 @@ class SGE_CLASS_SYMBOL converter
 {
 	FCPPT_NONCOPYABLE(
 		converter
-	)
+	);
 protected:
 	SGE_SYMBOL converter();
 public:

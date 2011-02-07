@@ -87,7 +87,7 @@ class sge::systems::instance::impl
 {
 	FCPPT_NONCOPYABLE(
 		impl
-	)
+	);
 public:
 	plugin::manager                                 plugin_manager_;
 
@@ -214,7 +214,7 @@ class visitor
 {
 	FCPPT_NONASSIGNABLE(
 		visitor
-	)
+	);
 public:
 	typedef void result_type;
 
@@ -365,6 +365,12 @@ sge::systems::instance::audio_player() const
 	return impl_->audio_player_;
 }
 
+sge::charconv::system_ptr const
+sge::systems::instance::charconv_system() const
+{
+	return impl_->charconv_system_;
+}
+
 sge::collision::system_ptr const
 sge::systems::instance::collision_system() const
 {
@@ -475,6 +481,9 @@ visitor::operator()(
 		_type
 	)
 	{
+	case sge::systems::parameterless::charconv:
+		impl_.init_charconv();
+		return;
 	case sge::systems::parameterless::collision_system:
 		impl_.init_collision_system();
 		return;
@@ -522,13 +531,13 @@ sge::systems::instance::impl::init_renderer(
 		renderer_plugin_->get()()
 	);
 
-	bool const must_show(
+	if(
 		!window_
-	);
-
-	if(!window_)
+	)
 	{
-		if(!window_param_)
+		if(
+			!window_param_
+		)
 			throw sge::exception(
 				FCPPT_TEXT("systems: renderer device requested, but no window parameter given!")
 			);
@@ -554,13 +563,6 @@ sge::systems::instance::impl::init_renderer(
 			renderer_	
 		)
 	);
-
-	// show the window after the viewport manager has been constructed
-
-	if(
-		must_show
-	)
-		window_->show();
 }
 
 void
@@ -762,7 +764,7 @@ sge::systems::instance::impl::init_audio_player(
 void
 sge::systems::instance::impl::init_font()
 {
-	init_charconv();
+	this->init_charconv();
 
 	font_plugin_ = default_plugin<sge::font::system>();
 
@@ -776,6 +778,11 @@ sge::systems::instance::impl::init_font()
 void
 sge::systems::instance::impl::init_charconv()
 {
+	if(
+		charconv_plugin_
+	)
+		return;
+
 	charconv_plugin_ = default_plugin<sge::charconv::system>();
 
 	charconv_system_.reset(
@@ -797,9 +804,16 @@ void
 sge::systems::instance::impl::post_init()
 {
 	if(
-		window_param_ && !window_
+		window_param_
 	)
-		create_window();
+	{
+		if(
+			!window_
+		)
+			this->create_window();
+
+		window_->show();
+	}
 }
 
 void

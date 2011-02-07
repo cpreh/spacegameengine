@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/traits/pitch.hpp>
 #include <fcppt/container/bitfield/basic_decl.hpp>
 #include <fcppt/math/box/basic_decl.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
 #include <fcppt/scoped_ptr.hpp>
 
@@ -49,6 +50,9 @@ class basic_texture
 	public Base,
 	public texture_base
 {
+	FCPPT_NONCOPYABLE(
+		basic_texture
+	);
 public:
 	typedef texture_lock::pointer pointer;
 	typedef texture_lock::const_pointer const_pointer;

@@ -37,7 +37,7 @@ class object
 {
 	FCPPT_NONCOPYABLE(
 		object
-	)
+	);
 public:
 	explicit object(
 		fbo::context const &

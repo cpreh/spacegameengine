@@ -36,14 +36,17 @@ namespace model
 
 class SGE_CLASS_SYMBOL loader
 {
-	FCPPT_NONCOPYABLE(loader)
+	FCPPT_NONCOPYABLE(
+		loader
+	);
 protected:
 	SGE_SYMBOL loader();
 public:
 	virtual object_ptr const
 	load(
 		fcppt::filesystem::path const &,
-		load_flags::type = load_flags::none) = 0;
+		load_flags::type = load_flags::none
+	) = 0;
 
 	SGE_SYMBOL virtual ~loader();
 };

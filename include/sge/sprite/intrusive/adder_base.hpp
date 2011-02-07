@@ -37,7 +37,9 @@ template<
 >
 class adder_base
 {
-	FCPPT_NONCOPYABLE(adder_base)
+	FCPPT_NONCOPYABLE(
+		adder_base
+	);
 protected:
 	adder_base()
 	{}

@@ -35,7 +35,7 @@ class color
 {
 	FCPPT_NONCOPYABLE(
 		color
-	)
+	);
 public:
 	color(
 		awl::backends::x11::display_ptr,

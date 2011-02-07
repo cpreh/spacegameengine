@@ -36,7 +36,7 @@ class input_context
 {
 	FCPPT_NONCOPYABLE(
 		input_context
-	)
+	);
 public:
 	input_context(
 		XIM,

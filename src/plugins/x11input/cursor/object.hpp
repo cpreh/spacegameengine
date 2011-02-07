@@ -56,7 +56,7 @@ class object
 {
 	FCPPT_NONCOPYABLE(
 		object
-	)
+	);
 public:
 	explicit object(
 		x11input::device::parameters const &

@@ -24,12 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../instantiate.hpp"
 #include "../program_contexts.hpp"
 #include "../uniform/variable.hpp"
-#include "../programfuncs/link.hpp"
-#include "../programfuncs/link_status.hpp"
+#include "../programfuncs/bind_frag_data_location.hpp"
+#include "../programfuncs/get_attrib_location.hpp"
 #include "../programfuncs/info_log.hpp"
 #include "../programfuncs/info_log_length.hpp"
+#include "../programfuncs/link.hpp"
+#include "../programfuncs/link_status.hpp"
 #include "../programfuncs/use.hpp"
-#include "../programfuncs/get_attrib_location.hpp"
 #include "../uniform/contexts.hpp"
 #include "../../context/use.hpp"
 #include <sge/renderer/glsl/shader.hpp>
@@ -164,6 +165,29 @@ template<
 	typename Environment
 >
 void
+sge::opengl::glsl::program<Environment>::color_surface_location(
+	renderer::stage_type const _stage,
+	renderer::glsl::string const &_name
+)
+{
+	programfuncs::bind_frag_data_location<
+		Environment
+	>(
+		holder_.context(),
+		holder_.id(),
+		static_cast<
+			GLuint
+		>(
+			_stage.get()
+		),
+		_name.c_str()
+	);
+}
+
+template<
+	typename Environment
+>
+void
 sge::opengl::glsl::program<Environment>::link()
 {
 	programfuncs::link<
@@ -212,14 +236,14 @@ template<
 >
 void
 sge::opengl::glsl::program<Environment>::do_use(
-	handle const handle_
+	handle const _handle
 ) const
 {
 	programfuncs::use<
 		Environment
 	>(
 		holder_.context(),
-		handle_
+		_handle
 	);
 }
 

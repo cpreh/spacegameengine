@@ -47,7 +47,7 @@ class SGE_CLASS_SYMBOL processor
 {
 	FCPPT_NONCOPYABLE(
 		processor
-	)
+	);
 protected:
 	SGE_SYMBOL processor();
 public:

@@ -23,13 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "openal.hpp"
 #include "source_wrapper.hpp"
-#include <sge/audio/sound/positional_parameters.hpp>
+#include <sge/audio/sound/positional_parameters_fwd.hpp>
 #include <sge/audio/sound/play_status.hpp>
 #include <sge/audio/sound/repeat.hpp>
 #include <sge/audio/sound/positional.hpp>
 #include <sge/audio/vector.hpp>
 #include <sge/audio/scalar.hpp>
-#include <fcppt/shared_ptr.hpp>
+#include <fcppt/math/vector/basic_decl.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -39,6 +40,9 @@ class source
 : 
 	public audio::sound::positional
 {
+	FCPPT_NONCOPYABLE(
+		source
+	);
 public:
 	explicit
 	source(
@@ -55,6 +59,8 @@ public:
 	explicit 
 	source(
 		audio::sound::positional_parameters const &);
+
+	~source();
 
 	void 
 	play(

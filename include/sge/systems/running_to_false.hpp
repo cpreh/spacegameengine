@@ -34,7 +34,7 @@ class running_to_false
 {
 	FCPPT_NONASSIGNABLE(
 		running_to_false
-	)
+	);
 public:
 	SGE_SYSTEMS_SYMBOL
 	explicit running_to_false(

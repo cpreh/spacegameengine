@@ -38,11 +38,11 @@ namespace texture
 
 class SGE_CLASS_SYMBOL no_fragmented
 :
-	public fragmented
+	public texture::fragmented
 {
 	FCPPT_NONCOPYABLE(
 		no_fragmented
-	)
+	);
 public:
 	SGE_TEXTURE_SYMBOL no_fragmented(
 		renderer::device_ptr,

@@ -36,7 +36,9 @@ class point_sprite_context
 :
 	public opengl::context::base
 {
-	FCPPT_NONCOPYABLE(point_sprite_context)
+	FCPPT_NONCOPYABLE(
+		point_sprite_context
+	);
 public:
 	point_sprite_context();
 

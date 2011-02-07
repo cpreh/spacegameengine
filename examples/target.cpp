@@ -37,9 +37,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/texture.hpp>
+#include <sge/renderer/target_from_texture.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
-#include <sge/renderer/no_depth_stencil_texture.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/var.hpp>
@@ -163,44 +163,6 @@ try
 		sys.renderer()
 	);
 
-	sprite_object my_object(
-		sprite_parameters()
-		.pos(
-			sprite_object::point(
-				100,
-				0
-			)
-		)
-		.texture(
-			fcppt::make_shared_ptr<
-				sge::texture::part_raw
-			>(
-				image_texture
-			)
-		)
-		.texture_size()
-		.elements()
-	);
-
-	sprite_object my_object_2(
-		sprite_parameters()
-		.pos(
-			sprite_object::point(
-				100,
-				20
-			)
-		)
-		.texture(
-			fcppt::make_shared_ptr<
-				sge::texture::part_raw
-			>(
-				image_texture
-			)
-		)
-		.texture_size()
-		.elements()
-	);
-
 	sge::renderer::texture_ptr const target_texture(
 		sys.renderer()->create_texture(
 			sge::renderer::texture::dim_type(
@@ -209,14 +171,14 @@ try
 			),
 			sge::image::color::format::rgba8,
 			sge::renderer::filter::linear,
-			sge::renderer::resource_flags::none
+			sge::renderer::resource_flags::readable // TODO
 		)
 	);
 
 	sge::renderer::target_ptr const target(
-		sys.renderer()->create_target(
-			target_texture,
-			sge::renderer::no_depth_stencil_texture()
+		sge::renderer::target_from_texture(
+			sys.renderer(),
+			target_texture
 		)
 	);
 
@@ -236,6 +198,94 @@ try
 		.elements()
 	);
 
+	{
+		sys.renderer()->state(
+			sge::renderer::state::list
+			(
+				sge::renderer::state::bool_::clear_backbuffer = true
+			)
+			(
+				sge::renderer::state::color::clear_color
+					= sge::image::colors::red()
+			)
+		);
+
+		sprite_object my_object(
+			sprite_parameters()
+			.pos(
+				sprite_object::point(
+					100,
+					0
+				)
+			)
+			.texture(
+				fcppt::make_shared_ptr<
+					sge::texture::part_raw
+				>(
+					image_texture
+				)
+			)
+			.texture_size()
+			.elements()
+		);
+
+		sprite_object my_object_2(
+			sprite_parameters()
+			.pos(
+				sprite_object::point(
+					100,
+					20
+				)
+			)
+			.texture(
+				fcppt::make_shared_ptr<
+					sge::texture::part_raw
+				>(
+					image_texture
+				)
+			)
+			.texture_size()
+			.elements()
+		);
+
+		sys.renderer()->state(
+			sge::renderer::state::list
+			(
+				sge::renderer::state::bool_::clear_backbuffer = true
+			)
+			(
+				sge::renderer::state::color::clear_color
+					= sge::image::colors::red()
+			)
+		);
+
+		sys.renderer()->texture(
+			sge::renderer::no_texture(),
+			sge::renderer::stage_type(
+				0u
+			)
+		);
+
+		sge::renderer::scoped_target const target_(
+			sys.renderer(),
+			target
+		);
+
+		sge::renderer::scoped_block const block_(
+			sys.renderer()
+		);
+
+		sge::sprite::render_one(
+			ss,
+			my_object
+		);
+
+		sge::sprite::render_one(
+			ss,
+			my_object_2
+		);
+	}
+
 	sys.renderer()->state(
 		sge::renderer::state::list
 		(
@@ -243,7 +293,7 @@ try
 		)
 		(
 			sge::renderer::state::color::clear_color
-				= sge::image::colors::red()
+				= sge::image::colors::blue()
 		)
 	);
 
@@ -262,56 +312,7 @@ try
 
 	while (running)
 	{
-		{
-			sys.renderer()->state(
-				sge::renderer::state::list
-				(
-					sge::renderer::state::bool_::clear_backbuffer = true
-				)
-				(
-					sge::renderer::state::color::clear_color
-						= sge::image::colors::red()
-				)
-			);
-
-			sys.renderer()->texture(
-				sge::renderer::no_texture(),
-				0
-			);
-
-			sge::renderer::scoped_target const target_(
-				sys.renderer(),
-				target
-			);
-
-			sge::renderer::scoped_block const block_(
-				sys.renderer()
-			);
-
-			sge::sprite::render_one(
-				ss,
-				my_object
-			);
-
-			sge::sprite::render_one(
-				ss,
-				my_object_2
-			);
-		}
-
-
 		sys.window()->dispatch();
-
-		sys.renderer()->state(
-			sge::renderer::state::list
-			(
-				sge::renderer::state::bool_::clear_backbuffer = true
-			)
-			(
-				sge::renderer::state::color::clear_color
-					= sge::image::colors::blue()
-			)
-		);
 
 		sge::renderer::scoped_block const block_(
 			sys.renderer()

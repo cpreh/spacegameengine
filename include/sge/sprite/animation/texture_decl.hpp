@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/object_fwd.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/time/callback.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -41,8 +42,11 @@ template<
 >
 class texture
 :
-	public base
+	public animation::base
 {
+	FCPPT_NONCOPYABLE(	
+		texture
+	);
 public:
 	typedef sprite::object<
 		Choices

@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/use_rotation.hpp>
 #include <sge/sprite/defaults/color.hpp>
 #include <sge/image/color/object.hpp>
+#include <sge/image/color/any/convert.hpp>
 
 template<
 	typename Choices
@@ -170,6 +171,24 @@ sge::sprite::parameters<Choices>::color(
 			roles::color
 		>(
 			_color
+		);
+}
+
+template<
+	typename Choices
+>
+sge::sprite::parameters<Choices> &
+sge::sprite::parameters<Choices>::any_color(
+	sge::image::color::any::object const &_color
+)
+{
+	return
+		this->color(
+			sge::image::color::any::convert<
+				typename Choices::type_choices::color_type
+			>(
+				_color
+			)
 		);
 }
 

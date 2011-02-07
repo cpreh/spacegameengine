@@ -74,7 +74,7 @@ class processor
 {
 	FCPPT_NONCOPYABLE(
 		processor
-	)
+	);
 public:
 	explicit processor(
 		sge::window::instance_ptr,

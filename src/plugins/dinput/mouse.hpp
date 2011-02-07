@@ -49,7 +49,7 @@ class mouse
 {
 	FCPPT_NONCOPYABLE(
 		mouse
-	)
+	);
 public:
 	explicit mouse(
 		dinput::device_parameters const &

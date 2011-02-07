@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "common.hpp"
 #include "context/object_fwd.hpp"
 #include <sge/renderer/depth_stencil_format.hpp>
+#include <sge/renderer/depth_stencil_surface_ptr.hpp>
 #include <sge/renderer/depth_stencil_texture.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
 
@@ -40,7 +41,9 @@ class depth_stencil_texture
 	public sge::renderer::depth_stencil_texture,
 	public opengl::texture_base
 {
-	FCPPT_NONCOPYABLE(depth_stencil_texture)
+	FCPPT_NONCOPYABLE(
+		depth_stencil_texture
+	);
 public:
 	explicit depth_stencil_texture(
 		opengl::context::object &,
@@ -53,25 +56,20 @@ public:
 	GLuint
 	id() const;
 
-	void
-	bind_me() const;
-
 	dim_type const
 	dim() const;
 
+	renderer::depth_stencil_surface_ptr const
+	surface() const;
+
 	renderer::resource_flags_field const
 	flags() const;
-
-	void
-	debug(); // TODO: remove this!
 private:
 	texture_holder const holder_;
 
 	dim_type const dim_;
 
-	GLenum const
-		format_,
-		format_type_;
+	renderer::depth_stencil_format::type const format_;
 };
 
 }

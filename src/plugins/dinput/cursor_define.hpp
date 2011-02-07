@@ -40,7 +40,7 @@ class cursor_define
 {
 	FCPPT_NONCOPYABLE(
 		cursor_define
-	)
+	);
 public:
 	explicit cursor_define(
 		awl::backends::windows::window::event::processor_ptr

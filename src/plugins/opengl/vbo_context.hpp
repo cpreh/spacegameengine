@@ -37,7 +37,9 @@ class vbo_context
 :
 	public context::base
 {
-	FCPPT_NONCOPYABLE(vbo_context)
+	FCPPT_NONCOPYABLE(
+		vbo_context
+	);
 public:
 	vbo_context();
 

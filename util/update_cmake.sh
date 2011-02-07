@@ -15,6 +15,8 @@ function update_cmake_file()
 		|| die
 
 	mv "${cmakefile}".new "${cmakefile}" || die
+
+	chmod -x "${cmakefile}" || die
 }
 
 update_cmake_file \
@@ -97,8 +99,6 @@ update_sublibrary console
 update_sublibrary font/bitmap
 
 update_sublibrary font/text
-
-update_sublibrary gui
 
 update_sublibrary parse
 

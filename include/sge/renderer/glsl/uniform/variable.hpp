@@ -38,16 +38,18 @@ namespace uniform
 
 class SGE_CLASS_SYMBOL variable
 {
-	FCPPT_NONCOPYABLE(variable)
+	FCPPT_NONCOPYABLE(
+		variable
+	);
 protected:
 	SGE_SYMBOL variable();
 public:
-	//virtual value const
-	//get() const = 0;
+	virtual uniform::value const
+	get() const = 0;
 
 	virtual void
 	set(
-		value const &
+		uniform::value const &
 	) = 0;
 
 	SGE_SYMBOL virtual ~variable();

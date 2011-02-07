@@ -38,7 +38,7 @@ class SGE_CLASS_SYMBOL file
 {
 	FCPPT_NONCOPYABLE(
 		file
-	)
+	);
 protected:
 	SGE_SYMBOL file();
 public:

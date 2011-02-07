@@ -54,11 +54,9 @@ template<
 struct vertex_format
 {
 private:
-	typedef typename Choices::type_choices type_choices;
-
 	typedef boost::mpl::vector1<
-		typename vertex_pos<
-			type_choices
+		typename detail::vertex_pos<
+			Choices
 		>::type
 	> basic;
 
@@ -68,7 +66,7 @@ private:
 				sprite::with_color
 			>,
 			detail::vertex_color<
-				type_choices
+				Choices
 			>
 		>,
 		boost::mpl::pair<
@@ -77,7 +75,7 @@ private:
 				sprite::with_dim
 			>,
 			detail::vertex_texpos<
-				type_choices
+				Choices
 			>
 		>,
 		boost::mpl::pair<
@@ -86,7 +84,7 @@ private:
 				sprite::with_unspecified_dim
 			>,
 			detail::vertex_unspecified_dim<
-				type_choices
+				Choices
 			>
 		>
 	> optional_elements;

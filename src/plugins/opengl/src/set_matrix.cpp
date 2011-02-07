@@ -43,11 +43,11 @@ sge::opengl::set_matrix(
 			_context
 		).have_transpose()
 	)
-		glLoadTransposeMatrixf(
+		::glLoadTransposeMatrixf(
 			_matrix.data()
 		);
 	else
-		glLoadMatrixf(
+		::glLoadMatrixf(
 			fcppt::math::matrix::transpose(
 				_matrix
 			).data()

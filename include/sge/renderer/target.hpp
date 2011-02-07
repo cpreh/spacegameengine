@@ -22,13 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TARGET_HPP_INCLUDED
 
 #include <sge/renderer/target_fwd.hpp>
-#include <sge/renderer/dim2.hpp>
-#include <sge/renderer/lock_rect.hpp>
-#include <sge/renderer/size_type.hpp>
-#include <sge/renderer/viewport.hpp>
-#include <sge/image2d/view/const_object.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/color_surface_ptr.hpp>
+#include <sge/renderer/depth_stencil_surface_ptr.hpp>
+#include <sge/renderer/optional_dim2.hpp>
+#include <sge/renderer/surface_index.hpp>
+#include <sge/renderer/target_base.hpp>
 #include <sge/class_symbol.hpp>
+#include <sge/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -37,45 +37,32 @@ namespace renderer
 {
 
 class SGE_CLASS_SYMBOL target
+:
+	public sge::renderer::target_base
 {
-	FCPPT_NONCOPYABLE(target)
+	FCPPT_NONCOPYABLE(
+		target
+	);
 protected:
-	SGE_SYMBOL target();
+	SGE_SYMBOL
+	target();
 public:
-	typedef renderer::size_type          size_type;
-	typedef renderer::dim2               dim_type;
-	typedef lock_rect                    rect_type;
-
-	SGE_SYMBOL image2d::view::const_object const
-	lock() const;
-
-	virtual image2d::view::const_object const
-	lock(
-		lock_rect const &dest
-	) const = 0;
-
 	virtual void
-	unlock() const = 0;
-
-	virtual dim_type const
-	dim() const = 0;
-
-	SGE_SYMBOL rect_type const
-	rect() const;
-
-	SGE_SYMBOL size_type
-	size() const;
-
-	virtual void
-	viewport(
-		renderer::viewport const &
+	color_surface(
+		renderer::color_surface_ptr,
+		renderer::surface_index
 	) = 0;
 
-	virtual
-	renderer::viewport const
-	viewport() const = 0;
+	virtual void
+	depth_stencil_surface(
+		renderer::depth_stencil_surface_ptr
+	) = 0;
 
-	SGE_SYMBOL virtual ~target();
+	virtual renderer::optional_dim2 const
+	dim() const = 0;
+
+	SGE_SYMBOL
+	virtual ~target();
 };
 
 }

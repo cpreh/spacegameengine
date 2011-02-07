@@ -53,7 +53,7 @@ fill_unspecified(
 {
 	(*_iterator). template set<
 		typename detail::vertex_unspecified_dim<
-			typename Choices::type_choices
+			Choices
 		>::type
 	>(
 		static_cast<

@@ -44,7 +44,9 @@ class cube_texture
 	public sge::renderer::cube_texture,
 	public sge::opengl::texture_base
 {
-	FCPPT_NONCOPYABLE(cube_texture)
+	FCPPT_NONCOPYABLE(
+		cube_texture
+	);
 public:
 	cube_texture(
 		context::object &,

@@ -5,6 +5,7 @@ SET(
 	include/sge/camera/gizmo_type.hpp
 	include/sge/camera/identity_gizmo.hpp
 	include/sge/camera/object.hpp
+	include/sge/camera/object_fwd.hpp
 	include/sge/camera/parameters.hpp
 	include/sge/camera/parameters_fwd.hpp
 	include/sge/camera/projection/object.hpp

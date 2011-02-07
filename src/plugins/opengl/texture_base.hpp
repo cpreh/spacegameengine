@@ -33,7 +33,9 @@ namespace opengl
 
 class texture_base
 {
-	FCPPT_NONCOPYABLE(texture_base)
+	FCPPT_NONCOPYABLE(
+		texture_base
+	);
 public:
 	GLenum
 	type() const;

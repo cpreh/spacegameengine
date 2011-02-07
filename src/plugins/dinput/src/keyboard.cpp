@@ -20,9 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../keyboard.hpp"
 #include "../key_converter.hpp"
+#include "../key_is_down.hpp"
 #include "../keyboard_repeat.hpp"
-#include "../keycode_to_char.hpp"
-#include <sge/input/keyboard/key.hpp>
+#include "../keycode_to_chars.hpp"
+#include "../map_virtual_key.hpp"
+#include <sge/input/keyboard/char_event.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/key_repeat_event.hpp>
@@ -31,10 +33,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/chrono/duration_impl.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <algorithm>
 
 sge::dinput::keyboard::keyboard(
 	dinput::device_parameters const &_parameters,
@@ -45,9 +49,6 @@ sge::dinput::keyboard::keyboard(
 	dinput::device(
 		_parameters
 	),
-	modifiers_(
-		sge::input::keyboard::mod_state::null()
-	),
 	conv_(_conv),
 	kblayout_(
 		::GetKeyboardLayout(
@@ -56,13 +57,21 @@ sge::dinput::keyboard::keyboard(
 	),
 	key_signal_(),
 	key_repeat_signal_(),
+	char_signal_(),
 	repeat_time_(
 		dinput::keyboard_repeat(),
 		sge::time::activation_state::active
 	),
-	old_key_(),
-	keys_()
+	old_key_code_(),
+	keys_(),
+	states_()
 {
+	std::fill(
+		states_.begin(),
+		states_.end(),
+		0
+	);
+
 	this->set_data_format(
 		&c_dfDIKeyboard
 	);
@@ -98,10 +107,52 @@ sge::dinput::keyboard::key_repeat_callback(
 		);
 }
 
+fcppt::signal::auto_connection
+sge::dinput::keyboard::char_callback(
+	sge::input::keyboard::char_callback const &_callback
+)
+{
+	return
+		char_signal_.connect(
+			_callback
+		);
+}
+
 sge::input::keyboard::mod_state const
 sge::dinput::keyboard::mod_state() const
 {
-	return modifiers_;
+	sge::input::keyboard::mod_state ret(
+		sge::input::keyboard::mod_state::null()
+	);
+
+	if(
+		dinput::key_is_down(
+			states_[
+				VK_CONTROL
+			]
+		)
+	)
+		ret |= sge::input::keyboard::modifier::ctrl;
+	
+	if(
+		dinput::key_is_down(
+			states_[
+				VK_MENU
+			]
+		)
+	)
+		ret |= sge::input::keyboard::modifier::alt;
+
+	if(
+		dinput::key_is_down(
+			states_[
+				VK_SHIFT
+			]
+		)
+	)
+		ret |= sge::input::keyboard::modifier::shift;
+
+	return ret;
 }
 
 void
@@ -130,33 +181,16 @@ sge::dinput::keyboard::dispatch()
 		);
 
 		bool const key_value(
-			(data[index].dwData & 0x80)
-			!= 0
+			dinput::key_is_down(
+				static_cast<
+					BYTE
+				>(
+					data[
+						index
+					].dwData
+				)
+			)
 		);
-
-		switch(
-			offset
-		)
-		{
-		case VK_CONTROL:
-			modifiers_.set(
-				sge::input::keyboard::modifier::ctrl,
-				key_value
-			);
-			break;
-		case VK_MENU:
-			modifiers_.set(
-				sge::input::keyboard::modifier::alt,
-				key_value
-			);
-			break;
-		case VK_SHIFT:
-			modifiers_.set(
-				sge::input::keyboard::modifier::shift,
-				key_value
-			);
-			break;
-		}
 
 		input::keyboard::key_code::type const key_code(
 			keys_[
@@ -164,50 +198,81 @@ sge::dinput::keyboard::dispatch()
 			]
 		);
 
-		input::keyboard::key const key(
-			key_code,
-			dinput::keycode_to_char(
+		key_signal_(
+			input::keyboard::key_event(
 				key_code,
-				modifiers_,
-				conv_,
+				key_value
+			)
+		);
+
+		
+		dinput::optional_uint const virtual_code(
+			dinput::map_virtual_key(
+				offset,
 				kblayout_
 			)
 		);
 
-		key_signal_(
-			input::keyboard::key_event(
-				key,
+		if(
+			virtual_code
+			&& *virtual_code < states_.size()
+		)
+			states_[
+				*virtual_code
+			] =
 				key_value
+				?
+					0x80
+				:
+					0;
+
+		if(
+			key_value
+			&& virtual_code
+		)
+			BOOST_FOREACH(
+				dinput::char_vector::value_type ch,
+				dinput::keycode_to_chars(
+					*virtual_code,
+					offset,
+					states_,
+					kblayout_
+				)
 			)
-		);
+				char_signal_(
+					sge::input::keyboard::char_event(
+						ch,
+						false
+					)
+				);
 
 		if(
 			!key_value
 		)
 		{
-			old_key_.reset();
+			old_key_code_.reset();
 
 			repeat_time_.reset();
 		}
 		else if(
-			!old_key_
-			|| *old_key_ != key
+			!old_key_code_
+			|| *old_key_code_ != key_code
 		)
 		{
 			repeat_time_.reset();
 
-			old_key_ = key;
+			old_key_code_ = key_code;
 		}
 	}
 
 	if(
-		old_key_
+		old_key_code_
 		&&
 		repeat_time_.update_b()
 	)
 		key_repeat_signal_(
 			sge::input::keyboard::key_repeat_event(
-				*old_key_
+				*old_key_code_
 			)
 		);
 }

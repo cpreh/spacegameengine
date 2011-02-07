@@ -40,7 +40,7 @@ class view
 {
 	FCPPT_NONASSIGNABLE(
 		view
-	)
+	);
 public:
 	typedef vf::iterator<
 		VertexFormat

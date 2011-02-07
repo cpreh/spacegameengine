@@ -38,7 +38,7 @@ class looked_up_string
 {
 	FCPPT_NONASSIGNABLE(
 		looked_up_string
-	)
+	);
 public:
 	looked_up_string(
 		x11input::keyboard::char_vector const &,

@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/const_vertex_buffer_ptr.hpp>
 #include <sge/renderer/cube_texture_ptr.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
+#include <sge/renderer/depth_stencil_surface_ptr.hpp>
 #include <sge/renderer/depth_stencil_texture_ptr.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/dim2.hpp>
@@ -43,6 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
+#include <sge/renderer/onscreen_target_ptr.hpp>
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/scissor_area.hpp>
@@ -86,7 +88,9 @@ namespace renderer
 
 class SGE_CLASS_SYMBOL device
 {
-	FCPPT_NONCOPYABLE(device)
+	FCPPT_NONCOPYABLE(
+		device
+	);
 protected:
 	SGE_SYMBOL device();
 public:
@@ -187,7 +191,7 @@ public:
 	virtual void
 	texture(
 		const_texture_base_ptr,
-		stage_type = 0 
+		stage_type
 	) = 0;
 
 	virtual void
@@ -234,13 +238,7 @@ public:
 	) = 0;
 
 	virtual renderer::target_ptr const
-	target() const = 0;
-
-	virtual renderer::target_ptr const
-	create_target(
-		renderer::texture_ptr,
-		renderer::depth_stencil_texture_ptr
-	) = 0;
+	create_target() = 0;
 
 	SGE_SYMBOL texture_ptr const
 	create_texture(
@@ -249,7 +247,7 @@ public:
 		resource_flags_field const &
 	);
 
-	virtual texture_ptr const
+	virtual renderer::texture_ptr const
 	create_texture(
 		renderer::dim2 const &,
 		image::color::format::type,
@@ -257,8 +255,14 @@ public:
 		resource_flags_field const &
 	) = 0;
 
-	virtual depth_stencil_texture_ptr const
+	virtual renderer::depth_stencil_texture_ptr const
 	create_depth_stencil_texture(
+		renderer::dim2 const &,
+		renderer::depth_stencil_format::type
+	) = 0;
+
+	virtual renderer::depth_stencil_surface_ptr const
+	create_depth_stencil_surface(
 		renderer::dim2 const &,
 		renderer::depth_stencil_format::type
 	) = 0;
@@ -312,8 +316,19 @@ public:
 		resource_flags_field const &
 	) = 0;
 
+	virtual renderer::onscreen_target_ptr const
+	onscreen_target() const = 0;
+
 	virtual renderer::scissor_area const
 	scissor_area() const = 0;
+
+	virtual renderer::target_ptr const
+	target() const = 0;
+
+	virtual renderer::matrix4 const
+	transform(
+		renderer::matrix_mode::type
+	) = 0;
 
 	virtual renderer::caps const
 	caps() const = 0;

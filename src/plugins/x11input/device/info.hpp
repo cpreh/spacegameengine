@@ -36,7 +36,7 @@ class info
 {
 	FCPPT_NONCOPYABLE(
 		info
-	)
+	);
 public:
 	typedef int size_type;
 

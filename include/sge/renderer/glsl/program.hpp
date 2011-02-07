@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/pixel_shader_ptr.hpp>
 #include <sge/renderer/glsl/uniform/variable_ptr.hpp>
 #include <sge/renderer/glsl/string.hpp>
+#include <sge/renderer/stage_type.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/string.hpp>
@@ -40,13 +41,15 @@ namespace glsl
 
 class SGE_CLASS_SYMBOL program
 {
-	FCPPT_NONCOPYABLE(program)
+	FCPPT_NONCOPYABLE(
+		program
+	);
 protected:
 	SGE_SYMBOL program();
 public:
 	virtual glsl::uniform::variable_ptr const
 	uniform(
-		string const &
+		glsl::string const &
 	) = 0;
 
 	virtual void
@@ -57,6 +60,12 @@ public:
 	virtual void
 	pixel_shader(
 		pixel_shader_ptr
+	) = 0;
+
+	virtual void
+	color_surface_location(
+		renderer::stage_type,
+		glsl::string const &
 	) = 0;
 
 	virtual void

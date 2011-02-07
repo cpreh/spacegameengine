@@ -39,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/file.hpp>
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/positional.hpp>
+#include <sge/audio/sound/positional_parameters.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/multi_loader.hpp>
 #include <sge/input/cursor/move_event.hpp>
@@ -114,7 +115,7 @@ class sprite_functor
 {
 	FCPPT_NONASSIGNABLE(
 		sprite_functor
-	)
+	);
 public:
 	explicit sprite_functor(
 		sge::audio::sound::positional_ptr const _sound

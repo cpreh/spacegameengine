@@ -38,7 +38,9 @@ namespace opengl
 
 class buffer
 {
-	FCPPT_NONCOPYABLE(buffer)
+	FCPPT_NONCOPYABLE(
+		buffer
+	);
 public:
 	typedef renderer::size_type                  size_type;
 	typedef sge::renderer::raw_value             value_type;

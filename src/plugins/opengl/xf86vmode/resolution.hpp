@@ -37,7 +37,7 @@ class resolution
 {
 	FCPPT_NONCOPYABLE(
 		resolution
-	)
+	);
 public:
 	resolution(
 		awl::backends::x11::display_ptr,

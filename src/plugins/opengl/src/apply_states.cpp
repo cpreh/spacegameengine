@@ -44,7 +44,7 @@ class compare_state_visitor
 {
 	FCPPT_NONASSIGNABLE(
 		compare_state_visitor
-	)
+	);
 public:
 	explicit compare_state_visitor(
 		sge::renderer::state::any const &_state

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/metrics_ptr.hpp>
 #include <sge/font/text/drawer_ptr.hpp>
 #include <sge/font/text/string.hpp>
-#include <sge/input/modifier/filter.hpp>
+#include <sge/input/keyboard/char_event_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
 #include <sge/input/keyboard/key_repeat_event_fwd.hpp>
@@ -52,7 +52,7 @@ class gfx
 {
 	FCPPT_NONCOPYABLE(
 		gfx
-	)
+	);
 public:
 	SGE_CONSOLE_SYMBOL gfx(
 		sge::console::object &,
@@ -99,11 +99,12 @@ private:
 
 	font::text::drawer_ptr const font_drawer_;
 
-	input::modifier::filter input_modifier_filter_;
+	input::keyboard::device &keyboard_;
 
 	fcppt::signal::scoped_connection const
-		ic_,
-		irc_,
+		key_connection_,
+		key_repeat_connection_,
+		char_connection_,
 		error_conn_,
 		message_conn_;
 
@@ -120,14 +121,17 @@ private:
 
 	void
 	key_callback(
-		input::keyboard::key_event const &,
-		input::modifier::states const &
+		input::keyboard::key_event const &
+	);
+
+	void
+	char_callback(
+		input::keyboard::char_event const &
 	);
 
 	void
 	key_action(
-		input::keyboard::key_repeat_event const &,
-		input::modifier::states const &
+		input::keyboard::key_repeat_event const &
 	);
 
 	void

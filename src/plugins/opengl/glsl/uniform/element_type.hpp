@@ -30,8 +30,10 @@ namespace glsl
 namespace uniform
 {
 
-namespace element_type {
-enum type {
+namespace element_type
+{
+enum type
+{
 	nothing,
 	int1,
 	int2,

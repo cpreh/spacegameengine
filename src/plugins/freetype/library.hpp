@@ -32,13 +32,18 @@ namespace freetype
 
 class library
 {
-	FCPPT_NONCOPYABLE(library)
+	FCPPT_NONCOPYABLE(
+		library
+	);
 public:
 	library();
+
 	~library();
-	FT_Library lib() const;
+
+	FT_Library
+	lib() const;
 private:
-	FT_Library impl;
+	FT_Library impl_;
 };
 
 }

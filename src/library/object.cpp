@@ -79,7 +79,9 @@ library_vector libraries;
 
 struct sge::library::object::destroyer
 {
-	FCPPT_NONCOPYABLE(destroyer)
+	FCPPT_NONCOPYABLE(
+		destroyer
+	);
 public:
 	destroyer()
 	{
@@ -95,7 +97,9 @@ sge::library::object::object(
 :
 #ifdef FCPPT_WINDOWS_PLATFORM
 	destroyer_(
-		new destroyer()
+		fcppt::make_unique_ptr<
+			destroyer
+		>()
 	),
 	handle(
 		static_cast<void*>(

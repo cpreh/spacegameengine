@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/buffer_ptr.hpp>
 #include <sge/audio/player_capabilities_field.hpp>
 #include <sge/audio/sound/positional_ptr.hpp>
-#include <sge/audio/sound/positional_parameters.hpp>
+#include <sge/audio/sound/positional_parameters_fwd.hpp>
 #include <sge/audio/sound/base_ptr.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/symbol.hpp>
@@ -42,7 +42,9 @@ namespace audio
 class SGE_CLASS_SYMBOL player
 {
 public:
-	FCPPT_NONCOPYABLE(player)
+	FCPPT_NONCOPYABLE(
+		player
+	);
 protected:
 	SGE_SYMBOL explicit
 	player();

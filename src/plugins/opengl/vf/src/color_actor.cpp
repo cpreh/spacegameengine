@@ -53,7 +53,12 @@ sge::opengl::vf::color_actor::color_actor(
 			)
 		)
 	)
-{}
+{
+}
+
+sge::opengl::vf::color_actor::~color_actor()
+{
+}
 
 void
 sge::opengl::vf::color_actor::on_use(

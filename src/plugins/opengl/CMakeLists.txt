@@ -1,8 +1,12 @@
 SET(
 	SGE_OPENGL_FILES
 	src/plugins/opengl/apply_states.hpp
+	src/plugins/opengl/basic_target.hpp
+	src/plugins/opengl/basic_target_impl.hpp
 	src/plugins/opengl/basic_texture.hpp
 	src/plugins/opengl/basic_texture_impl.hpp
+	src/plugins/opengl/basic_texture_surface.hpp
+	src/plugins/opengl/basic_texture_surface_impl.hpp
 	src/plugins/opengl/buffer.hpp
 	src/plugins/opengl/buffer_fwd.hpp
 	src/plugins/opengl/caps_unique_ptr.hpp
@@ -48,6 +52,7 @@ SET(
 	src/plugins/opengl/convert/indexed_primitive.hpp
 	src/plugins/opengl/convert/light_index.hpp
 	src/plugins/opengl/convert/matrix_mode.hpp
+	src/plugins/opengl/convert/matrix_mode_get.hpp
 	src/plugins/opengl/convert/nonindexed_primitive.hpp
 	src/plugins/opengl/convert/resource_flags.hpp
 	src/plugins/opengl/convert/source_blend_func.hpp
@@ -76,6 +81,7 @@ SET(
 	src/plugins/opengl/convert/src/indexed_primitive.cpp
 	src/plugins/opengl/convert/src/light_index.cpp
 	src/plugins/opengl/convert/src/matrix_mode.cpp
+	src/plugins/opengl/convert/src/matrix_mode_get.cpp
 	src/plugins/opengl/convert/src/nonindexed_primitive.cpp
 	src/plugins/opengl/convert/src/resource_flags.cpp
 	src/plugins/opengl/convert/src/source_blend_func.cpp
@@ -105,12 +111,10 @@ SET(
 	src/plugins/opengl/cube_side_array.hpp
 	src/plugins/opengl/cube_texture.hpp
 	src/plugins/opengl/cube_texture_context.hpp
-	src/plugins/opengl/default_target.hpp
-	src/plugins/opengl/default_target_fwd.hpp
-	src/plugins/opengl/default_target_ptr.hpp
 	src/plugins/opengl/depth_stencil_texture.hpp
 	src/plugins/opengl/depth_stencil_texture_fwd.hpp
 	src/plugins/opengl/depth_stencil_texture_ptr.hpp
+	src/plugins/opengl/depth_stencil_texture_surface.hpp
 	src/plugins/opengl/device.hpp
 	src/plugins/opengl/device_state.hpp
 	src/plugins/opengl/device_state_fwd.hpp
@@ -123,34 +127,51 @@ SET(
 	src/plugins/opengl/enable_bool.hpp
 	src/plugins/opengl/error_string.hpp
 	src/plugins/opengl/fbo/attach_render_buffer.hpp
+	src/plugins/opengl/fbo/attach_texture_2d.hpp
+	src/plugins/opengl/fbo/attachment.hpp
+	src/plugins/opengl/fbo/attachment_fwd.hpp
+	src/plugins/opengl/fbo/attachment_unique_ptr.hpp
 	src/plugins/opengl/fbo/bind.hpp
 	src/plugins/opengl/fbo/context.hpp
 	src/plugins/opengl/fbo/context_fwd.hpp
-	src/plugins/opengl/fbo/init_viewport.hpp
+	src/plugins/opengl/fbo/create_depth_stencil_surface.hpp
+	src/plugins/opengl/fbo/depth_stencil_format_to_attachment.hpp
+	src/plugins/opengl/fbo/depth_stencil_surface.hpp
+	src/plugins/opengl/fbo/depth_stencil_surface_fwd.hpp
+	src/plugins/opengl/fbo/depth_stencil_surface_ptr.hpp
 	src/plugins/opengl/fbo/object.hpp
 	src/plugins/opengl/fbo/object_fwd.hpp
 	src/plugins/opengl/fbo/render_buffer.hpp
 	src/plugins/opengl/fbo/render_buffer_binding.hpp
 	src/plugins/opengl/fbo/render_buffer_binding_fwd.hpp
 	src/plugins/opengl/fbo/render_buffer_fwd.hpp
-	src/plugins/opengl/fbo/scoped_unbind.hpp
+	src/plugins/opengl/fbo/render_buffer_holder.hpp
 	src/plugins/opengl/fbo/src/attach_render_buffer.cpp
+	src/plugins/opengl/fbo/src/attach_texture_2d.cpp
+	src/plugins/opengl/fbo/src/attachment.cpp
 	src/plugins/opengl/fbo/src/bind.cpp
 	src/plugins/opengl/fbo/src/context.cpp
-	src/plugins/opengl/fbo/src/init_viewport.cpp
+	src/plugins/opengl/fbo/src/create_depth_stencil_surface.cpp
+	src/plugins/opengl/fbo/src/depth_stencil_format_to_attachment.cpp
+	src/plugins/opengl/fbo/src/depth_stencil_surface.cpp
 	src/plugins/opengl/fbo/src/object.cpp
 	src/plugins/opengl/fbo/src/render_buffer.cpp
 	src/plugins/opengl/fbo/src/render_buffer_binding.cpp
-	src/plugins/opengl/fbo/src/scoped_unbind.cpp
+	src/plugins/opengl/fbo/src/render_buffer_holder.cpp
 	src/plugins/opengl/fbo/src/target.cpp
+	src/plugins/opengl/fbo/src/temporary_bind.cpp
 	src/plugins/opengl/fbo/src/texture_binding.cpp
 	src/plugins/opengl/fbo/target.hpp
 	src/plugins/opengl/fbo/target_fwd.hpp
 	src/plugins/opengl/fbo/target_ptr.hpp
+	src/plugins/opengl/fbo/temporary_bind.hpp
 	src/plugins/opengl/fbo/texture_binding.hpp
+	src/plugins/opengl/fbo/texture_binding_fwd.hpp
 	src/plugins/opengl/get_float.hpp
+	src/plugins/opengl/get_floats.hpp
 	src/plugins/opengl/get_int.hpp
 	src/plugins/opengl/get_ints.hpp
+	src/plugins/opengl/get_matrix.hpp
 	src/plugins/opengl/get_scissor_area.hpp
 	src/plugins/opengl/get_string.hpp
 	src/plugins/opengl/glew/initialize.hpp
@@ -200,6 +221,7 @@ SET(
 	src/plugins/opengl/glsl/program_contexts.hpp
 	src/plugins/opengl/glsl/program_holder.hpp
 	src/plugins/opengl/glsl/programfuncs/attach_shader.hpp
+	src/plugins/opengl/glsl/programfuncs/bind_frag_data_location.hpp
 	src/plugins/opengl/glsl/programfuncs/create.hpp
 	src/plugins/opengl/glsl/programfuncs/delete.hpp
 	src/plugins/opengl/glsl/programfuncs/detach_shader.hpp
@@ -210,6 +232,7 @@ SET(
 	src/plugins/opengl/glsl/programfuncs/link.hpp
 	src/plugins/opengl/glsl/programfuncs/link_status.hpp
 	src/plugins/opengl/glsl/programfuncs/src/attach_shader.cpp
+	src/plugins/opengl/glsl/programfuncs/src/bind_frag_data_location.cpp
 	src/plugins/opengl/glsl/programfuncs/src/create.cpp
 	src/plugins/opengl/glsl/programfuncs/src/delete.cpp
 	src/plugins/opengl/glsl/programfuncs/src/detach_shader.cpp
@@ -314,6 +337,10 @@ SET(
 	src/plugins/opengl/multi_texture_context.hpp
 	src/plugins/opengl/multi_texture_context_fwd.hpp
 	src/plugins/opengl/normal_lock_method.hpp
+	src/plugins/opengl/onscreen_surface.hpp
+	src/plugins/opengl/onscreen_target.hpp
+	src/plugins/opengl/onscreen_target_fwd.hpp
+	src/plugins/opengl/onscreen_target_ptr.hpp
 	src/plugins/opengl/pbo_context.hpp
 	src/plugins/opengl/point_sprite_context.hpp
 	src/plugins/opengl/point_sprite_context_fwd.hpp
@@ -347,8 +374,8 @@ SET(
 	src/plugins/opengl/src/create_vbo_impl.cpp
 	src/plugins/opengl/src/cube_texture.cpp
 	src/plugins/opengl/src/cube_texture_context.cpp
-	src/plugins/opengl/src/default_target.cpp
 	src/plugins/opengl/src/depth_stencil_texture.cpp
+	src/plugins/opengl/src/depth_stencil_texture_surface.cpp
 	src/plugins/opengl/src/device.cpp
 	src/plugins/opengl/src/device_state.cpp
 	src/plugins/opengl/src/disable.cpp
@@ -360,8 +387,10 @@ SET(
 	src/plugins/opengl/src/error_string.cpp
 	src/plugins/opengl/src/exports.cpp
 	src/plugins/opengl/src/get_float.cpp
+	src/plugins/opengl/src/get_floats.cpp
 	src/plugins/opengl/src/get_int.cpp
 	src/plugins/opengl/src/get_ints.cpp
+	src/plugins/opengl/src/get_matrix.cpp
 	src/plugins/opengl/src/get_scissor_area.cpp
 	src/plugins/opengl/src/get_string.cpp
 	src/plugins/opengl/src/hardware_vbo.cpp
@@ -375,6 +404,8 @@ SET(
 	src/plugins/opengl/src/multi_sample_context.cpp
 	src/plugins/opengl/src/multi_texture_context.cpp
 	src/plugins/opengl/src/normal_lock_method.cpp
+	src/plugins/opengl/src/onscreen_surface.cpp
+	src/plugins/opengl/src/onscreen_target.cpp
 	src/plugins/opengl/src/pbo_context.cpp
 	src/plugins/opengl/src/point_sprite_context.cpp
 	src/plugins/opengl/src/range_lock_method.cpp
@@ -396,13 +427,15 @@ SET(
 	src/plugins/opengl/src/split_states.cpp
 	src/plugins/opengl/src/state_visitor.cpp
 	src/plugins/opengl/src/system.cpp
-	src/plugins/opengl/src/target.cpp
+	src/plugins/opengl/src/target_base.cpp
 	src/plugins/opengl/src/tex_envf_ext.cpp
 	src/plugins/opengl/src/texture.cpp
 	src/plugins/opengl/src/texture_base.cpp
 	src/plugins/opengl/src/texture_context.cpp
 	src/plugins/opengl/src/texture_holder.cpp
 	src/plugins/opengl/src/texture_lock.cpp
+	src/plugins/opengl/src/texture_surface.cpp
+	src/plugins/opengl/src/texture_surface_base.cpp
 	src/plugins/opengl/src/vbo_base.cpp
 	src/plugins/opengl/src/vbo_context.cpp
 	src/plugins/opengl/src/vertex_buffer.cpp
@@ -412,14 +445,16 @@ SET(
 	src/plugins/opengl/src/writeonly_texture_lock.cpp
 	src/plugins/opengl/state_visitor.hpp
 	src/plugins/opengl/system.hpp
-	src/plugins/opengl/target.hpp
-	src/plugins/opengl/target_fwd.hpp
-	src/plugins/opengl/target_ptr.hpp
+	src/plugins/opengl/target_base.hpp
+	src/plugins/opengl/target_base_fwd.hpp
+	src/plugins/opengl/target_base_ptr.hpp
 	src/plugins/opengl/tex_envf_ext.hpp
 	src/plugins/opengl/texfuncs/bind.hpp
 	src/plugins/opengl/texfuncs/delete.hpp
 	src/plugins/opengl/texfuncs/gen.hpp
 	src/plugins/opengl/texfuncs/get_image.hpp
+	src/plugins/opengl/texfuncs/get_parameter_int.hpp
+	src/plugins/opengl/texfuncs/level_parameter.hpp
 	src/plugins/opengl/texfuncs/need_mipmap.hpp
 	src/plugins/opengl/texfuncs/parameter_int.hpp
 	src/plugins/opengl/texfuncs/set.hpp
@@ -433,6 +468,8 @@ SET(
 	src/plugins/opengl/texfuncs/src/delete.cpp
 	src/plugins/opengl/texfuncs/src/gen.cpp
 	src/plugins/opengl/texfuncs/src/get_image.cpp
+	src/plugins/opengl/texfuncs/src/get_parameter_int.cpp
+	src/plugins/opengl/texfuncs/src/level_parameter.cpp
 	src/plugins/opengl/texfuncs/src/need_mipmap.cpp
 	src/plugins/opengl/texfuncs/src/parameter_int.cpp
 	src/plugins/opengl/texfuncs/src/set.cpp
@@ -455,6 +492,11 @@ SET(
 	src/plugins/opengl/texture_lock_fwd.hpp
 	src/plugins/opengl/texture_lock_unique_ptr.hpp
 	src/plugins/opengl/texture_ptr.hpp
+	src/plugins/opengl/texture_surface.hpp
+	src/plugins/opengl/texture_surface_base.hpp
+	src/plugins/opengl/texture_surface_base_fwd.hpp
+	src/plugins/opengl/texture_surface_base_ptr.hpp
+	src/plugins/opengl/texture_surface_fwd.hpp
 	src/plugins/opengl/vbo_base.hpp
 	src/plugins/opengl/vbo_base_fwd.hpp
 	src/plugins/opengl/vbo_base_unique_ptr.hpp

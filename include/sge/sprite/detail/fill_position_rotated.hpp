@@ -21,19 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_FILL_POSITION_ROTATED_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_FILL_POSITION_ROTATED_HPP_INCLUDED
 
+#include <sge/sprite/detail/make_position.hpp>
 #include <sge/sprite/detail/point_float.hpp>
 #include <sge/sprite/detail/rect_float.hpp>
 #include <sge/sprite/detail/vertices_per_sprite.hpp>
-#include <sge/sprite/detail/depth.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/bounding_rect.hpp>
-#include <sge/sprite/depth_type.hpp>
 #include <fcppt/math/matrix/static.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/matrix/vector.hpp>
 #include <fcppt/math/box/structure_cast.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
-#include <fcppt/math/vector/construct.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/container/array.hpp>
 #include <boost/foreach.hpp>
@@ -138,18 +136,8 @@ fill_position_rotated(
 	);
 
 	typedef typename detail::vertex_pos<
-		type_choices
+		Choices
 	>::type vertex_pos;
-
-	typedef typename sprite::depth_type<
-		funit
-	>::type depth_type;
-
-	depth_type const depth(
-		detail::depth(
-			_sprite
-		)
-	);
 
 	BOOST_FOREACH(
 		typename position_array::const_reference ref,
@@ -158,9 +146,11 @@ fill_position_rotated(
 		(*_iterator++). template set<
 			vertex_pos
 		>(
-			fcppt::math::vector::construct(
+			detail::make_position<
+				Choices
+			>(
 				(mat_rot * ref) + centerf,
-				depth
+				_sprite
 			)
 		);
 }

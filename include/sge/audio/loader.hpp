@@ -37,7 +37,9 @@ namespace audio
 
 class SGE_CLASS_SYMBOL loader
 {
-	FCPPT_NONCOPYABLE(loader)
+	FCPPT_NONCOPYABLE(
+		loader
+	);
 protected:
 	SGE_SYMBOL loader();
 public:

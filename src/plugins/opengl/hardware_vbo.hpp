@@ -32,9 +32,11 @@ namespace opengl
 
 class hardware_vbo
 :
-	public vbo_base
+	public opengl::vbo_base
 {
-	FCPPT_NONCOPYABLE(hardware_vbo)
+	FCPPT_NONCOPYABLE(
+		hardware_vbo
+	);
 public:
 	hardware_vbo();
 

@@ -40,7 +40,7 @@ class context
 {
 	FCPPT_NONCOPYABLE(
 		context
-	)
+	);
 public:
 	context();
 
@@ -115,7 +115,7 @@ public:
 	depth_attachment() const;
 
 	GLenum
-	stencil_attachment() const;
+	depth_stencil_attachment() const;
 
 	GLuint
 	last_buffer() const;
@@ -159,7 +159,7 @@ private:
 		framebuffer_complete_,
 		renderbuffer_target_,
 		depth_attachment_,
-		stencil_attachment_;
+		depth_stencil_attachment_;
 
 	GLuint last_buffer_;
 };

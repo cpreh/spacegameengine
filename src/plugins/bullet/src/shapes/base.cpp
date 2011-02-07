@@ -35,8 +35,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/parameters/inherited.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/log/headers.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/assert_message.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 
 namespace
@@ -175,10 +177,18 @@ sge::bullet::shapes::base::meta_body(
 	if (body_connection_)
 		throw collision::shape_ambiguity();
 
-	body_connection_.reset(
-		new shape_body_connection(
-			*this,
-			_meta_body));
+	body_connection_.take(
+		fcppt::make_unique_ptr<
+			shape_body_connection
+		>(
+			std::tr1::ref(
+				*this
+			),
+			std::tr1::ref(
+				_meta_body
+			)
+		)
+	);
 	
 	// since now the shape (or body) isn't static anymore, don't set the mass to zero (1 is arbitrary)
 	btScalar const mass = 

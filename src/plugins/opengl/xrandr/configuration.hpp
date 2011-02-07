@@ -38,7 +38,7 @@ class configuration
 {
 	FCPPT_NONCOPYABLE(
 		configuration
-	)
+	);
 public:
 	explicit configuration(
 		awl::backends::x11::window::instance_ptr

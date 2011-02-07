@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../common.hpp"
 #include <sge/renderer/glsl/uniform/variable.hpp>
 #include <sge/renderer/glsl/string.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -42,6 +43,9 @@ class variable
 :
 	public renderer::glsl::uniform::variable
 {
+	FCPPT_NONCOPYABLE(
+		variable
+	);
 public:
 	typedef typename Environment::handle handle;
 

@@ -36,7 +36,9 @@ class multi_texture_context
 :
 	public context::base
 {
-	FCPPT_NONCOPYABLE(multi_texture_context)
+	FCPPT_NONCOPYABLE(
+		multi_texture_context
+	);
 public:
 	multi_texture_context();
 

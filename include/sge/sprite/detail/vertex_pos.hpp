@@ -22,6 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_VERTEX_POS_HPP_INCLUDED
 
 #include <sge/renderer/vf/pos.hpp>
+#include <sge/sprite/detail/needs_depth.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/mpl/int.hpp>
 
 namespace sge
 {
@@ -31,13 +34,23 @@ namespace detail
 {
 
 template<
-	typename TypeChoices
+	typename Choices
 >
 struct vertex_pos
 {
 	typedef renderer::vf::pos<
-		typename TypeChoices::float_type,
-		3
+		typename Choices::type_choices::float_type,
+		boost::mpl::if_<
+			typename detail::needs_depth<
+				Choices
+			>::type,
+			boost::mpl::int_<
+				3
+			>,
+			boost::mpl::int_<
+				2
+			>
+		>::type::value
 	> type;
 };
 

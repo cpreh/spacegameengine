@@ -19,8 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/screenshot.hpp>
-#include <sge/renderer/const_scoped_target_lock.hpp>
+#include <sge/renderer/const_scoped_color_surface_lock.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/onscreen_target.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/image2d/loader.hpp>
@@ -33,11 +34,13 @@ sge::renderer::screenshot(
 	fcppt::filesystem::path const &_file
 )
 {
+	renderer::const_scoped_color_surface_lock const lock(
+		_renderer->onscreen_target()->surface()
+	);
+
 	// FIXME
 	_loader.loaders().at(0)->create(
-		renderer::const_scoped_target_lock(
-			_renderer->target()
-		).value()
+		lock.value()
 	)->save(
 		_file
 	);

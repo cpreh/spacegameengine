@@ -40,7 +40,9 @@ namespace text
 
 class SGE_CLASS_SYMBOL drawer
 {
-	FCPPT_NONCOPYABLE(drawer)
+	FCPPT_NONCOPYABLE(
+		drawer
+	);
 public:
 	typedef std::size_t size_type;
 

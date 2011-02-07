@@ -49,7 +49,7 @@ class volume_texture
 {
 	FCPPT_NONCOPYABLE(
 		volume_texture
-	)
+	);
 public:
 	typedef detail::volume_texture_base base;
 

@@ -33,7 +33,7 @@ class device_state
 {
 	FCPPT_NONCOPYABLE(
 		device_state
-	)
+	);
 protected:
 	device_state();
 public:

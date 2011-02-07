@@ -36,7 +36,9 @@ namespace renderer
 
 class scoped_texture_lock
 {
-	FCPPT_NONCOPYABLE(scoped_texture_lock)
+	FCPPT_NONCOPYABLE(
+		scoped_texture_lock
+	);
 public:
 	SGE_SYMBOL scoped_texture_lock(
 		texture_ptr,

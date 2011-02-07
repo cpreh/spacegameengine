@@ -35,7 +35,7 @@ class audio_player
 {
 	FCPPT_NONASSIGNABLE(
 		audio_player
-	)
+	);
 public:
 	SGE_SYSTEMS_SYMBOL explicit audio_player(
 		audio::player_capabilities_field const &

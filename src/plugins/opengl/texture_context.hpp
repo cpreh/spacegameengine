@@ -37,7 +37,9 @@ class texture_context
 :
 	public context::base
 {
-	FCPPT_NONCOPYABLE(texture_context)
+	FCPPT_NONCOPYABLE(
+		texture_context
+	);
 public:
 	texture_context();
 

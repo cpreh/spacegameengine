@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/size_type.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/class_symbol.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -40,8 +41,11 @@ namespace texture
 
 class SGE_CLASS_SYMBOL rect_fragmented
 :
-	public fragmented
+	public texture::fragmented
 {
+	FCPPT_NONCOPYABLE(
+		rect_fragmented
+	);
 public:
 	SGE_TEXTURE_SYMBOL rect_fragmented(
 		renderer::device_ptr,

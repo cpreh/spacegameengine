@@ -38,7 +38,7 @@ class basic_loader
 {
 	FCPPT_NONASSIGNABLE(
 		basic_loader
-	)
+	);
 public:
 	typedef Capabilities capabilities_type;
 

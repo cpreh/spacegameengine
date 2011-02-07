@@ -51,6 +51,9 @@ sge::opengl::glsl::native::program_context::program_context()
 	get_attrib_location_(
 		glGetAttribLocation
 	),
+	bind_frag_data_location_(
+		glBindFragDataLocation
+	),
 	link_status_type_(
 		GL_LINK_STATUS
 	),
@@ -114,6 +117,12 @@ sge::opengl::glsl::native::program_context::gl_get_attrib_location
 sge::opengl::glsl::native::program_context::get_attrib_location() const
 {
 	return get_attrib_location_;
+}
+
+sge::opengl::glsl::native::program_context::gl_bind_frag_data_location
+sge::opengl::glsl::native::program_context::bind_frag_data_location() const
+{
+	return bind_frag_data_location_;
 }
 
 GLenum

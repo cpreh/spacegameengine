@@ -40,7 +40,7 @@ class init_constants
 {
 	FCPPT_NONASSIGNABLE(
 		init_constants
-	)
+	);
 public:
 	explicit init_constants(
 		Memory &_mem

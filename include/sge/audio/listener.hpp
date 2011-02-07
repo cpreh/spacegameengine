@@ -35,7 +35,9 @@ namespace audio
 
 class SGE_CLASS_SYMBOL listener
 {
-	FCPPT_NONCOPYABLE(listener)
+	FCPPT_NONCOPYABLE(
+		listener
+	);
 protected:
 	SGE_SYMBOL explicit
 	listener();

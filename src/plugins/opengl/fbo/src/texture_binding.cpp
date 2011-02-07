@@ -19,39 +19,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../texture_binding.hpp"
-#include "../object.hpp"
-#include "../context.hpp"
-#include "../../texture.hpp"
-#include "../../texture_base.hpp"
-#include "../../check_state.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include "../attach_texture_2d.hpp"
+#include "../../texture_surface_base.hpp"
 
 sge::opengl::fbo::texture_binding::texture_binding(
 	fbo::context const &_context,
-	opengl::texture_base_ptr const _texture,
-	fbo::object &_fbo,
+	opengl::texture_surface_base_ptr const _surface,
 	GLenum const _attachment
 )
 :
-	texture_(_texture)
+	context_(_context),
+	surface_(_surface),
+	attachment_(_attachment)
 {
-	_fbo.bind();
-
-	_context.framebuffer_texture_2d()(
-		_context.framebuffer_target(),
+	fbo::attach_texture_2d(
+		_context,
 		_attachment,
-		_texture->type(),
-		_texture->id(),
-		0
+		_surface->texture_type(),
+		_surface->texture_id(),
+		_surface->stage()
 	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("Binding a texture to an fbo failed."),
-		sge::renderer::exception
-	)
 }
 
 sge::opengl::fbo::texture_binding::~texture_binding()
 {
+	fbo::attach_texture_2d(
+		context_,
+		attachment_,
+		surface_->texture_type(),
+		0u,
+		surface_->stage()
+	);
 }

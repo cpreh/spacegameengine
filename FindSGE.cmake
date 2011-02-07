@@ -9,7 +9,7 @@
 
 FIND_PATH(
 	SGE_INCLUDE_DIRS
-	NAMES sge/config.hpp
+	NAMES sge/exception.hpp
 )
 
 FIND_LIBRARY(

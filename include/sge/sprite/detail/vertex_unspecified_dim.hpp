@@ -32,12 +32,12 @@ namespace detail
 {
 
 template<
-	typename TypeChoices
+	typename Choices
 >
 struct vertex_unspecified_dim
 {
 	typedef renderer::vf::unspecified<
-		typename TypeChoices::float_type,
+		typename Choices::type_choices::float_type,
 		sprite::unspecified_dim_tag
 	> type;
 };

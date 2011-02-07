@@ -19,41 +19,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../target.hpp"
+#include "../attachment.hpp"
 #include "../bind.hpp"
 #include "../context.hpp"
-#include "../init_viewport.hpp"
-#include "../render_buffer.hpp"
+#include "../depth_stencil_format_to_attachment.hpp"
+#include "../depth_stencil_surface_ptr.hpp"
+#include "../depth_stencil_surface.hpp"
 #include "../render_buffer_binding.hpp"
-#include "../scoped_unbind.hpp"
+#include "../temporary_bind.hpp"
+#include "../texture_binding.hpp"
+#include "../../basic_target_impl.hpp"
 #include "../../check_state.hpp"
-#include "../../depth_stencil_texture.hpp"
-#include "../../texture.hpp"
+#include "../../texture_surface.hpp"
 #include "../../context/use.hpp"
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/parameters.hpp>
-#include <sge/renderer/texture.hpp>
+#include <sge/renderer/target.hpp>
+#include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/viewport.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/dim/comparison.hpp>
-#include <fcppt/variant/object_impl.hpp>
-#include <fcppt/assert.hpp>
+#include <fcppt/math/dim/output.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/dynamic_pointer_cast.hpp>
+#include <fcppt/format.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::fbo::target::target(
-	sge::opengl::context::object &_context,
-	sge::renderer::parameters const &_param,
-	opengl::texture_ptr const _texture,
-	opengl::depth_stencil_texture_ptr const _depth_stencil_texture
+	sge::opengl::context::object &_context
 )
 :
-	opengl::target(
-		fbo::init_viewport(
-			_texture,
-			_depth_stencil_texture
+	base(
+		sge::renderer::viewport(
+			sge::renderer::pixel_rect::null()
 		)
 	),
 	context_(
@@ -63,80 +64,25 @@ sge::opengl::fbo::target::target(
 			_context
 		)
 	),
-	texture_(
-		_texture
-	),
-	dim_(
-		texture_
-		?
-			texture_->dim()
-		:
-			dim_type::null()
-	),
 	fbo_(
 		context_
-	)
+	),
+	color_attachments_(),
+	depth_stencil_attachment_(),
+	dim_()
 {
-	// important: to bind buffers to an fbo
-	// it must be bound itself
-	// but this has to be undone after this function!
-	opengl::fbo::scoped_unbind const scoped_exit(
-		context_
-	);
-
-	if(
-		_texture
-	)
-		add_texture_binding(
-			_texture,
-			context_.color_attachment()
-		);
-
-	if(
-		_depth_stencil_texture
-	)
-		add_texture_binding(
-			_depth_stencil_texture,
-			context_.depth_attachment()
-		);
-	else if(
-		_param.depth_buffer() != renderer::depth_buffer::off
-	)
-		attach_buffer(
-			GL_DEPTH_COMPONENT,
-			context_.depth_attachment()
-		);
-	
-	if(
-		_param.stencil_buffer() != renderer::stencil_buffer::off
-	)
-		attach_buffer(
-			GL_STENCIL_INDEX,
-			context_.stencil_attachment()
-		);
-
-	GLenum const status(
-		context_.check_framebuffer_status()(
-			context_.framebuffer_target()
-		)
-	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("Checking the fbo status failed."),
-		sge::renderer::exception
-	)
-
-	if(
-		status !=
-		context_.framebuffer_complete()
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("FBO is incomplete!")
-		);
 }
 
 sge::opengl::fbo::target::~target()
 {
+	opengl::fbo::temporary_bind const scoped_exit(
+		context_,
+		fbo_
+	);
+
+	depth_stencil_attachment_.reset();
+
+	color_attachments_.clear();
 }
 
 void
@@ -162,112 +108,265 @@ sge::opengl::fbo::target::unbind() const
 	);
 }
 
-sge::image2d::view::const_object const
-sge::opengl::fbo::target::lock(
-	renderer::lock_rect const &_dest
-) const
+void
+sge::opengl::fbo::target::color_surface(
+	renderer::color_surface_ptr const _surface,
+	renderer::surface_index const _index
+)
 {
-	return
-		texture_->lock(
-			_dest
+	opengl::fbo::temporary_bind const scoped_exit(
+		context_,
+		fbo_
+	);
+
+	color_attachments_.erase(
+		_index
+	);
+
+	if(
+		_surface
+	)
+	{
+		this->add_dim(
+			_surface->dim()
 		);
+
+		fcppt::container::ptr::insert_unique_ptr_map(
+			color_attachments_,
+			_index,
+			this->create_texture_binding(
+				fcppt::dynamic_pointer_cast<
+					opengl::texture_surface
+				>(
+					_surface
+				),
+				context_.color_attachment()
+				+ _index.get()
+			)
+		);
+	}
+	else
+		this->remove_dim();
 }
 
 void
-sge::opengl::fbo::target::unlock() const
+sge::opengl::fbo::target::depth_stencil_surface(
+	renderer::depth_stencil_surface_ptr const _surface
+)
 {
-	texture_->unlock();
+	GLenum const attachment(
+		fbo::depth_stencil_format_to_attachment(
+			context_,
+			_surface->format()
+		)
+	);
+
+	if(
+		attachment
+		== 0
+	)
+		throw sge::renderer::unsupported(
+			FCPPT_TEXT("depth_stencil_surface target attachment!"),
+			FCPPT_TEXT("3.0"),
+			FCPPT_TEXT("")
+		);
+	
+	opengl::fbo::temporary_bind const scoped_exit(
+		context_,
+		fbo_
+	);
+
+	if(
+		!_surface
+	)
+	{
+		depth_stencil_attachment_.reset();
+
+		this->remove_dim();
+
+		return;
+	}
+
+	this->add_dim(
+		_surface->dim()
+	);
+
+	if(
+		opengl::fbo::depth_stencil_surface_ptr const ptr =
+			fcppt::dynamic_pointer_cast<
+				opengl::fbo::depth_stencil_surface
+			>(
+				_surface
+			)
+	)
+	{
+		depth_stencil_attachment_.take(
+			this->create_buffer_binding(
+				ptr->render_buffer(),
+				attachment
+			)
+		);
+
+		return;
+	}
+
+	if(
+		opengl::texture_surface_base_ptr const ptr =
+			fcppt::dynamic_pointer_cast<
+				opengl::texture_surface_base
+			>(
+				_surface
+			)
+	)
+	{
+		depth_stencil_attachment_.take(
+			this->create_texture_binding(
+				ptr,
+				attachment
+			)
+		);
+
+		return;
+	}
+
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid depth_stencil_surface in add_surface!")
+	);
 }
 
-sge::renderer::target::dim_type const
+sge::renderer::optional_dim2 const
 sge::opengl::fbo::target::dim() const
 {
 	return dim_;
 }
 
-void
-sge::opengl::fbo::target::add_texture_binding(
-	opengl::texture_base_ptr const _texture,
-	GLenum const _type
+sge::renderer::screen_unit
+sge::opengl::fbo::target::height() const
+{
+	return
+		dim_
+		?
+			static_cast<
+				renderer::screen_unit
+			>(
+				dim_->h()
+			)
+		:
+			0u;
+}
+
+sge::opengl::fbo::attachment_unique_ptr
+sge::opengl::fbo::target::create_texture_binding(
+	opengl::texture_surface_base_ptr const _surface,
+	GLenum const _attachment
 )
 {
-	fcppt::container::ptr::push_back_unique_ptr(
-		texture_bindings_,
+	attachment_unique_ptr ret(
 		fcppt::make_unique_ptr<
 			opengl::fbo::texture_binding
 		>(
 			std::tr1::ref(
 				context_
 			),
-			_texture,
-			std::tr1::ref(
-				fbo_
-			),
-			_type
-		)
-	);
-}
-
-void
-sge::opengl::fbo::target::attach_buffer(
-	GLenum const _component,
-	GLenum const _attachment
-)
-{
-	{
-		typedef fcppt::unique_ptr<
-			render_buffer
-		> render_buffer_ptr;
-
-		render_buffer_ptr ptr(
-			fcppt::make_unique_ptr<
-				render_buffer
-			>(
-				context_
-			)
-		);
-
-		ptr->store(
-			_component,
-			static_cast<
-				GLsizei
-			>(
-				dim().w()
-			),
-			static_cast<
-				GLsizei
-			>(
-				dim().h()
-			)
-		);
-
-		fcppt::container::ptr::push_back_unique_ptr(
-			render_buffers_,
-			move(
-				ptr
-			)
-		);
-	}
-
-	typedef fcppt::unique_ptr<
-		render_buffer_binding
-	> render_buffer_binding_ptr;
-
-	render_buffer_binding_ptr ptr(
-		fcppt::make_unique_ptr<
-			fbo::render_buffer_binding
-		>(
-			context_,
-			fbo_,
-			render_buffers_.back(),
+			_surface,
 			_attachment
 		)
 	);
 
-	fcppt::container::ptr::push_back_unique_ptr(
-		render_buffer_bindings_,
+	this->check();
+
+	return
 		move(
-			ptr
+			ret
+		);
+}
+
+sge::opengl::fbo::attachment_unique_ptr
+sge::opengl::fbo::target::create_buffer_binding(
+	fbo::render_buffer const &_buffer,
+	GLenum const _attachment
+)
+{
+	attachment_unique_ptr ret(
+		fcppt::make_unique_ptr<
+			fbo::render_buffer_binding
+		>(
+			std::tr1::ref(
+				context_
+			),
+			_buffer,
+			_attachment
 		)
 	);
+
+	this->check();
+
+	return
+		move(
+			ret
+		);
 }
+
+void
+sge::opengl::fbo::target::add_dim(
+	sge::renderer::dim2 const &_dim
+)
+{
+	if(
+		!dim_
+	)
+		dim_ = _dim;
+	else if(
+		*dim_ != _dim
+	)
+		throw sge::renderer::exception(
+			(
+				fcppt::format(
+					FCPPT_TEXT("Current target dimension %1% is different ")
+					FCPPT_TEXT("from the new surface dimension %2%!")
+				)
+				%
+				*dim_
+				%
+				_dim
+			).str()
+		);
+}
+
+void
+sge::opengl::fbo::target::remove_dim()
+{
+	if(
+		color_attachments_.empty()
+		&& !depth_stencil_attachment_
+	)
+		dim_.reset();
+}
+
+void
+sge::opengl::fbo::target::check()
+{
+	GLenum const status(
+		context_.check_framebuffer_status()(
+			context_.framebuffer_target()
+		)
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("Checking the fbo status failed."),
+		sge::renderer::exception
+	)
+
+	if(
+		status !=
+		context_.framebuffer_complete()
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("FBO is incomplete!")
+		);
+}
+
+template class
+sge::opengl::basic_target<
+	sge::renderer::target
+>;

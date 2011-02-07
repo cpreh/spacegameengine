@@ -41,7 +41,9 @@ class uniform_context
 :
 	public opengl::context::base
 {
-	FCPPT_NONCOPYABLE(uniform_context)
+	FCPPT_NONCOPYABLE(
+		uniform_context
+	);
 public:
 	uniform_context();
 

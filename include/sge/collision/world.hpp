@@ -47,7 +47,9 @@ namespace collision
 {
 class SGE_CLASS_SYMBOL world
 {
-	FCPPT_NONCOPYABLE(world)
+	FCPPT_NONCOPYABLE(
+		world
+	);
 protected:
 	SGE_SYMBOL world();
 public:

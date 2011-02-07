@@ -35,9 +35,11 @@ namespace uniform
 {
 
 template<>
-GLint location<false>(
+GLint
+location<false>(
 	traits<false>::handle program,
-	char const *name);
+	char const *name
+);
 
 }
 }

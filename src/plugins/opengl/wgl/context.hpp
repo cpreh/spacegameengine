@@ -35,7 +35,9 @@ namespace wgl
 
 class context
 {
-	FCPPT_NONCOPYABLE(context)
+	FCPPT_NONCOPYABLE(
+		context
+	);
 public:
 	explicit context(
 		awl::backends::windows::gdi_device const &

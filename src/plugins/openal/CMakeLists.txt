@@ -7,6 +7,7 @@ SET(
 	src/plugins/openal/check_state.hpp
 	src/plugins/openal/context.hpp
 	src/plugins/openal/device.hpp
+	src/plugins/openal/device_fwd.hpp
 	src/plugins/openal/error_string.hpp
 	src/plugins/openal/file_format.hpp
 	src/plugins/openal/listener.hpp

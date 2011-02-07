@@ -44,7 +44,7 @@ class index_generator
 
 	FCPPT_NONASSIGNABLE(
 		index_generator
-	)
+	);
 public:
 	index_generator()
 	:

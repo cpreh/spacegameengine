@@ -25,15 +25,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../create_caps.hpp"
 #include "../create_device_state.hpp"
 #include "../cube_texture.hpp"
-#include "../default_target.hpp"
 #include "../depth_stencil_texture.hpp"
 #include "../device_state.hpp"
 #include "../draw_arrays.hpp"
 #include "../draw_elements.hpp"
 #include "../enable_bool.hpp"
+#include "../get_matrix.hpp"
 #include "../get_scissor_area.hpp"
 #include "../index_buffer.hpp"
 #include "../initial_states.hpp"
+#include "../onscreen_target.hpp"
 #include "../set_clip_plane.hpp"
 #include "../set_light.hpp"
 #include "../set_material.hpp"
@@ -51,6 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/clip_plane_index.hpp"
 #include "../convert/light_index.hpp"
 #include "../convert/matrix_mode.hpp"
+#include "../fbo/create_depth_stencil_surface.hpp"
 #include "../fbo/target.hpp"
 #include "../glew/initialize.hpp"
 #include "../glsl/set_program.hpp"
@@ -66,9 +68,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/instance.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/assert.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
@@ -91,16 +93,17 @@ sge::opengl::device::device(
 			_window
 		)
 	),
-	default_target_(
+	onscreen_target_(
 		fcppt::make_shared_ptr<
-			opengl::default_target
+			opengl::onscreen_target
 		>(
 			_window,
 			_parameters.display_mode().bit_depth()
 		)
 	),
+	fbo_target_(),
 	target_(
-		default_target_
+		onscreen_target_
 	),
 	caps_(),
 	state_levels_(),
@@ -379,23 +382,28 @@ sge::opengl::device::target(
 )
 {
 	if(
-		_target == target_
+		_target == fbo_target_
 	)
 		return;
 	
+	fbo_target_ =
+		fcppt::dynamic_pointer_cast<
+			opengl::fbo::target
+		>(
+			_target
+		);
+
 	target_->unbind();
 
 	target_ =
 		_target
 		?
-			fcppt::dynamic_pointer_cast<
-				opengl::target
-			>(
-				_target
+			opengl::target_base_ptr(
+				fbo_target_
 			)
 		:
-			opengl::target_ptr(
-				default_target_
+			opengl::target_base_ptr(
+				onscreen_target_
 			);
 		
 	target_->bind();
@@ -450,36 +458,18 @@ sge::opengl::device::glsl_program(
 sge::renderer::target_ptr const
 sge::opengl::device::target() const
 {
-	return target_;
+	return fbo_target_;
 }
 
 sge::renderer::target_ptr const
-sge::opengl::device::create_target(
-	renderer::texture_ptr const _texture,
-	renderer::depth_stencil_texture_ptr const _depth_stencil_texture
-)
+sge::opengl::device::create_target()
 {
-	FCPPT_ASSERT(
-		_texture || _depth_stencil_texture
-	);
-
 	return
 		fcppt::make_shared_ptr<
 			fbo::target
 		>(
 			std::tr1::ref(
 				context_
-			),
-			parameters_,
-			fcppt::dynamic_pointer_cast<
-				opengl::texture
-			>(
-				_texture
-			),
-			fcppt::dynamic_pointer_cast<
-				opengl::depth_stencil_texture
-			>(
-				_depth_stencil_texture
 			)
 		);
 }
@@ -525,6 +515,24 @@ sge::opengl::device::create_depth_stencil_texture(
 				),
 				_dim,
 				_format
+			)
+		);
+}
+
+sge::renderer::depth_stencil_surface_ptr const
+sge::opengl::device::create_depth_stencil_surface(
+	renderer::dim2 const &_dim,
+	renderer::depth_stencil_format::type const _type
+)
+{
+	return
+		renderer::depth_stencil_surface_ptr(
+			opengl::fbo::create_depth_stencil_surface(
+				std::tr1::ref(
+					context_
+				),
+				_dim,
+				_type
 			)
 		);
 }
@@ -634,12 +642,29 @@ sge::opengl::device::create_volume_texture(
 		);
 }
 
+sge::renderer::onscreen_target_ptr const
+sge::opengl::device::onscreen_target() const
+{
+	return onscreen_target_;
+}
+
 sge::renderer::scissor_area const
 sge::opengl::device::scissor_area() const
 {
 	return opengl::get_scissor_area();	
 }
 	
+sge::renderer::matrix4 const
+sge::opengl::device::transform(
+	renderer::matrix_mode::type const _mode
+)
+{
+	return
+		opengl::get_matrix(
+			_mode
+		);
+}
+
 sge::renderer::caps const
 sge::opengl::device::caps() const
 {
@@ -687,5 +712,5 @@ sge::opengl::device::clear_bit(
 bool
 sge::opengl::device::fbo_active() const
 {
-	return target_ != default_target_;
+	return fbo_target_;
 }

@@ -31,12 +31,12 @@ namespace detail
 {
 
 template<
-	typename TypeChoices
+	typename Choices
 >
 struct vertex_color
 {
 	typedef renderer::vf::color<
-		typename TypeChoices::color_type
+		typename Choices::type_choices::color_type
 	> type;
 };
 

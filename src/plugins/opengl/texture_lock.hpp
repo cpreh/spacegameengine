@@ -36,7 +36,7 @@ class texture_lock
 {
 	FCPPT_NONCOPYABLE(
 		texture_lock
-	)
+	);
 protected:
 	texture_lock();
 public:

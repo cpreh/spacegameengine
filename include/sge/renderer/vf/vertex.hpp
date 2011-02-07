@@ -47,7 +47,9 @@ template<
 >
 class vertex
 {
-	FCPPT_NONASSIGNABLE(vertex)
+	FCPPT_NONASSIGNABLE(
+		vertex
+	);
 public:
 	typedef typename VertexFormat::pointer pointer;
 

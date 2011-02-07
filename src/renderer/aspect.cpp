@@ -40,7 +40,7 @@ sge::renderer::aspect(
 	FCPPT_ASSERT(
 		!fcppt::math::almost_zero(w)
 		&& !fcppt::math::almost_zero(h)
-	)
+	);
 
 	return
 		w > h

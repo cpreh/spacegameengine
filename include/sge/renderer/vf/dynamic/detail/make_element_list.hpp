@@ -38,7 +38,9 @@ namespace detail
 
 class make_element_list
 {
-	FCPPT_NONASSIGNABLE(make_element_list)
+	FCPPT_NONASSIGNABLE(
+		make_element_list
+	);
 public:
 	explicit make_element_list(
 		element_list &_elems

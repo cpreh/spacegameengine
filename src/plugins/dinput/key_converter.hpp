@@ -37,7 +37,7 @@ class key_converter
 {
 	FCPPT_NONCOPYABLE(
 		key_converter
-	)
+	);
 public:
 	key_converter();
 

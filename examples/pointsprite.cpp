@@ -70,6 +70,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/timer.hpp>
 #include <sge/time/funit.hpp>
 #include <sge/time/second_f.hpp>
+#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cifstream.hpp>
 #include <fcppt/log/activate_levels.hpp>
@@ -81,8 +82,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/random/make_inclusive_range.hpp>
 #include <fcppt/random/make_last_exclusive_range.hpp>
 #include <fcppt/random/uniform.hpp>
-#include <fcppt/exception.hpp>
 #include <fcppt/math/twopi.hpp>
+#include <fcppt/exception.hpp>
+#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <mizuiro/color/operators/scalar_multiply.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -294,14 +297,15 @@ particles::particles(
 			explosion_rng_()),
 		sge::time::activation_state::inactive),
 	texture_(
-		sge::texture::part_ptr(
-			new sge::texture::part_raw(
-				sys.renderer()->create_texture(
-					sys.image_loader().load(
-						sge::config::media_path() 
-							/ FCPPT_TEXT("smooth_particle.png"))->view(),
-					sge::renderer::filter::linear,
-					sge::renderer::resource_flags::none))))
+		fcppt::make_shared_ptr<
+			sge::texture::part_raw
+		>(
+			sys.renderer()->create_texture(
+				sys.image_loader().load(
+					sge::config::media_path() 
+						/ FCPPT_TEXT("smooth_particle.png"))->view(),
+				sge::renderer::filter::linear,
+				sge::renderer::resource_flags::none)))
 {
 }
 
@@ -336,8 +340,11 @@ particles::update()
 				radius * std::cos(angle),
 				radius * std::sin(angle));
 
-			particles_.push_back(
-				new particle(
+			fcppt::container::ptr::push_back_unique_ptr(
+				particles_,
+				fcppt::make_unique_ptr<
+					particle
+				>(
 					sge::time::second_f(
 						lifetime_rng_()),
 					sprite_parameters()
@@ -447,12 +454,6 @@ try
 		)
 	);
 
-	/*
-	sge::renderer::scoped_texture scoped_tex(
-		sys.renderer(),
-		point_tex);
-	*/
-
 	fcppt::io::cifstream fragment_stream(
 		sge::config::media_path()
 		/ FCPPT_TEXT("shaders")
@@ -496,54 +497,6 @@ try
 			(sge::renderer::state::dest_blend_func::inv_src_alpha)
 		);
 
-	/*
-	sprite_system ss(
-		sys.renderer()
-	);
-	*/
-
-#if 0
-	typedef std::vector<
-		sprite_object
-	> sprite_vector;
-
-	sprite_vector sprites;
-
-	for(
-		int i = 0;
-		i < 1;
-		++i
-	)
-		sprites.push_back(
-			sprite_object(
-				sprite_parameters()
-				.pos(
-					sprite_object::point(
-						100,
-						200 + i
-					)
-				)
-				.point_size(
-					100
-				)
-				.texture(
-					sge::texture::part_ptr(
-						new sge::texture::part_raw(
-							point_tex)))
-				.color(
-					sge::image::color::rgba8
-					(
-						(sge::image::color::init::red %= 1.)
-						(sge::image::color::init::green %= 0.)
-						(sge::image::color::init::blue %= 0.)
-						(sge::image::color::init::alpha %= 1.)
-					)
-				)
-				.elements()
-			)
-		);
-#endif
-
 	bool running = true;
 
 	fcppt::signal::scoped_connection const cb(
@@ -574,15 +527,6 @@ try
 
 		ps.update();
 		ps.render();
-
-		/*
-		ss.render(
-			sprites.begin(),
-			sprites.end(),
-			sge::sprite::dont_sort(),
-			sge::sprite::default_equal()
-		);
-		*/
 	}
 
 }

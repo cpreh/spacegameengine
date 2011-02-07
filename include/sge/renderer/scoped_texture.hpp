@@ -34,13 +34,15 @@ namespace renderer
 
 class scoped_texture
 {
-	FCPPT_NONCOPYABLE(scoped_texture)
+	FCPPT_NONCOPYABLE(
+		scoped_texture
+	);
 public:
 	SGE_SYMBOL
 	explicit scoped_texture(
 		renderer::device_ptr,
 		renderer::const_texture_base_ptr,
-		renderer::stage_type = 0
+		renderer::stage_type
 	);
 
 	SGE_SYMBOL

@@ -35,7 +35,9 @@ namespace renderer
 
 class SGE_CLASS_SYMBOL texture_base
 {
-	FCPPT_NONCOPYABLE(texture_base)
+	FCPPT_NONCOPYABLE(
+		texture_base
+	);
 protected:
 	SGE_SYMBOL texture_base();
 public:

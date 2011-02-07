@@ -38,7 +38,9 @@ template<
 >
 class shader_base
 {
-	FCPPT_NONCOPYABLE(shader_base)
+	FCPPT_NONCOPYABLE(
+		shader_base
+	);
 protected:
 	explicit shader_base(
 		opengl::context::object &,

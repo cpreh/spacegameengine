@@ -58,12 +58,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/collision/satellite.hpp>
 #include <sge/collision/world.hpp>
 #include <sge/exception.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/io/cerr.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/math/vector/output.hpp>
-#include <fcppt/assign/make_container.hpp>
-#include <fcppt/io/cerr.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <exception>
@@ -280,7 +282,13 @@ try
 	sge::collision::shapes::base_ptr const shape_a(
 		world->create_box(
 			sge::collision::satellite_ptr(
-				new object(s_a)
+				fcppt::make_unique_ptr<
+					object
+				>(
+					std::tr1::ref(
+						s_a
+					)
+				)
 			),
 			sge::collision::dim(
 				static_cast<sge::collision::unit>(
@@ -322,7 +330,13 @@ try
 	sge::collision::shapes::base_ptr const shape_b(
 		world->create_box(
 			sge::collision::satellite_ptr(
-				new object(s_b)
+				fcppt::make_unique_ptr<
+					object
+				>(
+					std::tr1::ref(
+						s_b
+					)
+				)
 			),
 			sge::collision::dim(
 				static_cast<sge::collision::unit>(

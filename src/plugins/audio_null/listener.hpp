@@ -23,26 +23,55 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/listener.hpp>
 #include <sge/audio/angle.hpp>
+#include <sge/audio/vector.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace audio_null
 {
 
-class listener : public audio::listener {
+class listener
+:
+	public audio::listener
+{
+	FCPPT_NONCOPYABLE(
+		listener
+	);
 public:
 	listener();
-	audio::vector const position() const;
-	void position(audio::vector const &);
-	audio::vector const linear_velocity() const;
-	void linear_velocity(audio::vector const &);
-	audio::angle const direction() const;
-	void direction(audio::angle const &);
+
+	~listener();
+
+	audio::vector const
+	position() const;
+
+	void
+	position(
+		audio::vector const &
+	);
+
+	audio::vector const
+	linear_velocity() const;
+
+	void
+	linear_velocity(
+		audio::vector const &
+	);
+
+	audio::angle const
+	direction() const;
+
+	void
+	direction(
+		audio::angle const &
+	);
 private:
 	audio::vector
 		position_,
 		linear_velocity_;
+
 	audio::angle direction_;
 };
 

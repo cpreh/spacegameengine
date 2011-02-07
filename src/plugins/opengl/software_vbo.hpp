@@ -34,14 +34,15 @@ namespace opengl
 
 class software_vbo
 :
-	public vbo_base
+	public opengl::vbo_base
 {
-	FCPPT_NONCOPYABLE(software_vbo)
+	FCPPT_NONCOPYABLE(
+		software_vbo
+	);
 public:
 	software_vbo();
 
 	~software_vbo();
-
 private:
 	GLuint
 	gen_buffer();

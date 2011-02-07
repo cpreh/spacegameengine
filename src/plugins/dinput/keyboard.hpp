@@ -26,16 +26,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "device_parameters_fwd.hpp"
 #include "di.hpp"
 #include "key_converter_fwd.hpp"
+#include "state_array.hpp"
+#include <sge/input/keyboard/char_callback.hpp>
 #include <sge/input/keyboard/char_type.hpp>
 #include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/key.hpp>
+#include <sge/input/keyboard/key_callback.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_function.hpp>
+#include <sge/input/keyboard/key_repeat_callback.hpp>
 #include <sge/input/keyboard/key_repeat_function.hpp>
 #include <sge/input/keyboard/mod_state.hpp>
 #include <sge/time/timer.hpp>
 #include <awl/backends/windows/window/instance_ptr.hpp>
-#include <fcppt/container/bitfield/basic_decl.hpp>
+#include <fcppt/container/array_decl.hpp>
 #include <fcppt/signal/object_decl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
@@ -54,7 +57,7 @@ class keyboard
 {
 	FCPPT_NONCOPYABLE(
 		keyboard
-	)
+	);
 public:
 	keyboard(
 		dinput::device_parameters const &,
@@ -71,6 +74,11 @@ public:
 	fcppt::signal::auto_connection
 	key_repeat_callback(
 		sge::input::keyboard::key_repeat_callback const &
+	);
+
+	fcppt::signal::auto_connection
+	char_callback(
+		sge::input::keyboard::char_callback const &
 	);
 
 	sge::input::keyboard::mod_state const
@@ -90,8 +98,6 @@ private:
 		LPVOID
 	);
 
-	sge::input::keyboard::mod_state modifiers_;
-
 	dinput::key_converter const &conv_;
 
 	HKL kblayout_;
@@ -104,17 +110,23 @@ private:
 		sge::input::keyboard::key_repeat_function
 	> key_repeat_signal;
 
+	typedef fcppt::signal::object<
+		sge::input::keyboard::char_function
+	> char_signal;
+
 	key_signal key_signal_;
 
 	key_repeat_signal key_repeat_signal_;
 
+	char_signal char_signal_;
+
 	sge::time::timer repeat_time_;
 
 	typedef fcppt::optional<
-		input::keyboard::key
-	> optional_key;
+		input::keyboard::key_code::type
+	> optional_key_code;
 	
-	optional_key old_key_;
+	optional_key_code old_key_code_;
 
 	typedef std::map<
 		DWORD,
@@ -122,6 +134,8 @@ private:
 	> key_map;
 
 	key_map keys_;
+
+	dinput::state_array states_;
 };
 
 }

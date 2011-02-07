@@ -38,7 +38,7 @@ class readonly_texture_lock
 {
 	FCPPT_NONCOPYABLE(
 		readonly_texture_lock
-	)
+	);
 public:
 	readonly_texture_lock(
 		context::object &,

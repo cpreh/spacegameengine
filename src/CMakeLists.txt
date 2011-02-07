@@ -41,6 +41,7 @@ SET(
 	include/sge/audio/sound/positional.hpp
 	include/sge/audio/sound/positional_fwd.hpp
 	include/sge/audio/sound/positional_parameters.hpp
+	include/sge/audio/sound/positional_parameters_fwd.hpp
 	include/sge/audio/sound/positional_ptr.hpp
 	include/sge/audio/sound/repeat.hpp
 	include/sge/audio/stop_mode.hpp
@@ -317,6 +318,10 @@ SET(
 	include/sge/input/cursor/window_mode.hpp
 	include/sge/input/exception.hpp
 	include/sge/input/keyboard/action.hpp
+	include/sge/input/keyboard/char_callback.hpp
+	include/sge/input/keyboard/char_event.hpp
+	include/sge/input/keyboard/char_event_fwd.hpp
+	include/sge/input/keyboard/char_function.hpp
 	include/sge/input/keyboard/char_type.hpp
 	include/sge/input/keyboard/collector.hpp
 	include/sge/input/keyboard/collector_fwd.hpp
@@ -330,13 +335,11 @@ SET(
 	include/sge/input/keyboard/is_alt.hpp
 	include/sge/input/keyboard/is_ctrl.hpp
 	include/sge/input/keyboard/is_shift.hpp
-	include/sge/input/keyboard/key.hpp
 	include/sge/input/keyboard/key_callback.hpp
 	include/sge/input/keyboard/key_code.hpp
 	include/sge/input/keyboard/key_event.hpp
 	include/sge/input/keyboard/key_event_fwd.hpp
 	include/sge/input/keyboard/key_function.hpp
-	include/sge/input/keyboard/key_fwd.hpp
 	include/sge/input/keyboard/key_repeat_callback.hpp
 	include/sge/input/keyboard/key_repeat_event.hpp
 	include/sge/input/keyboard/key_repeat_event_fwd.hpp
@@ -348,8 +351,6 @@ SET(
 	include/sge/input/keyboard/remove_function.hpp
 	include/sge/input/keyboard/remove_signal.hpp
 	include/sge/input/keyboard/to_modifier.hpp
-	include/sge/input/modifier/filter.hpp
-	include/sge/input/modifier/states.hpp
 	include/sge/input/mouse/axis.hpp
 	include/sge/input/mouse/axis_callback.hpp
 	include/sge/input/mouse/axis_event.hpp
@@ -427,6 +428,7 @@ SET(
 	include/sge/plugin/object.hpp
 	include/sge/plugin/object_fwd.hpp
 	include/sge/renderer/adapter_type.hpp
+	include/sge/renderer/add_depth_stencil_surface_to_target.hpp
 	include/sge/renderer/aspect.hpp
 	include/sge/renderer/bit_depth.hpp
 	include/sge/renderer/bit_depth_bytes.hpp
@@ -434,10 +436,14 @@ SET(
 	include/sge/renderer/caps_fwd.hpp
 	include/sge/renderer/clip_plane.hpp
 	include/sge/renderer/clip_plane_index.hpp
+	include/sge/renderer/color_surface.hpp
+	include/sge/renderer/color_surface_fwd.hpp
+	include/sge/renderer/color_surface_ptr.hpp
+	include/sge/renderer/const_color_surface_ptr.hpp
 	include/sge/renderer/const_index_buffer_ptr.hpp
 	include/sge/renderer/const_raw_pointer.hpp
+	include/sge/renderer/const_scoped_color_surface_lock.hpp
 	include/sge/renderer/const_scoped_index_lock.hpp
-	include/sge/renderer/const_scoped_target_lock.hpp
 	include/sge/renderer/const_scoped_texture_lock.hpp
 	include/sge/renderer/const_scoped_vertex_lock.hpp
 	include/sge/renderer/const_target_ptr.hpp
@@ -451,6 +457,9 @@ SET(
 	include/sge/renderer/default_target.hpp
 	include/sge/renderer/depth_buffer.hpp
 	include/sge/renderer/depth_stencil_format.hpp
+	include/sge/renderer/depth_stencil_surface.hpp
+	include/sge/renderer/depth_stencil_surface_fwd.hpp
+	include/sge/renderer/depth_stencil_surface_ptr.hpp
 	include/sge/renderer/depth_stencil_texture.hpp
 	include/sge/renderer/depth_stencil_texture_fwd.hpp
 	include/sge/renderer/depth_stencil_texture_ptr.hpp
@@ -531,7 +540,9 @@ SET(
 	include/sge/renderer/index/const_format_16.hpp
 	include/sge/renderer/index/const_format_32.hpp
 	include/sge/renderer/index/const_proxy.hpp
+	include/sge/renderer/index/const_proxy_decl.hpp
 	include/sge/renderer/index/const_proxy_fwd.hpp
+	include/sge/renderer/index/const_proxy_impl.hpp
 	include/sge/renderer/index/const_tag.hpp
 	include/sge/renderer/index/detail/iterator_base.hpp
 	include/sge/renderer/index/difference_type.hpp
@@ -555,10 +566,14 @@ SET(
 	include/sge/renderer/index/i32.hpp
 	include/sge/renderer/index/is_format.hpp
 	include/sge/renderer/index/iterator.hpp
+	include/sge/renderer/index/iterator_decl.hpp
 	include/sge/renderer/index/iterator_fwd.hpp
+	include/sge/renderer/index/iterator_impl.hpp
 	include/sge/renderer/index/nonconst_tag.hpp
 	include/sge/renderer/index/proxy.hpp
+	include/sge/renderer/index/proxy_decl.hpp
 	include/sge/renderer/index/proxy_fwd.hpp
+	include/sge/renderer/index/proxy_impl.hpp
 	include/sge/renderer/index/size_type.hpp
 	include/sge/renderer/index/to_const_format.hpp
 	include/sge/renderer/index/to_nonconst_format.hpp
@@ -582,11 +597,14 @@ SET(
 	include/sge/renderer/matrix_mode.hpp
 	include/sge/renderer/matrix_pixel_to_space.hpp
 	include/sge/renderer/multi_sample_type.hpp
-	include/sge/renderer/no_depth_stencil_texture.hpp
 	include/sge/renderer/no_multi_sampling.hpp
 	include/sge/renderer/no_texture.hpp
 	include/sge/renderer/nonindexed_primitive_count.hpp
 	include/sge/renderer/nonindexed_primitive_type.hpp
+	include/sge/renderer/onscreen_target.hpp
+	include/sge/renderer/onscreen_target_fwd.hpp
+	include/sge/renderer/onscreen_target_ptr.hpp
+	include/sge/renderer/optional_dim2.hpp
 	include/sge/renderer/parameters.hpp
 	include/sge/renderer/parameters_fwd.hpp
 	include/sge/renderer/pixel_rect.hpp
@@ -646,10 +664,15 @@ SET(
 	include/sge/renderer/state/var_fwd.hpp
 	include/sge/renderer/stencil_buffer.hpp
 	include/sge/renderer/sub_data.hpp
+	include/sge/renderer/surface_index.hpp
 	include/sge/renderer/system.hpp
 	include/sge/renderer/system_fwd.hpp
 	include/sge/renderer/system_ptr.hpp
 	include/sge/renderer/target.hpp
+	include/sge/renderer/target_base.hpp
+	include/sge/renderer/target_base_fwd.hpp
+	include/sge/renderer/target_base_ptr.hpp
+	include/sge/renderer/target_from_texture.hpp
 	include/sge/renderer/target_fwd.hpp
 	include/sge/renderer/target_ptr.hpp
 	include/sge/renderer/texture.hpp
@@ -660,8 +683,6 @@ SET(
 	include/sge/renderer/texture_fwd.hpp
 	include/sge/renderer/texture_pos_type.hpp
 	include/sge/renderer/texture_ptr.hpp
-	include/sge/renderer/texture_rw.hpp
-	include/sge/renderer/texture_software.hpp
 	include/sge/renderer/texture_stage_arg.hpp
 	include/sge/renderer/texture_stage_arg_value.hpp
 	include/sge/renderer/texture_stage_op.hpp
@@ -790,6 +811,7 @@ SET(
 	src/audio/player_plugin.cpp
 	src/audio/pool.cpp
 	src/audio/sound/base.cpp
+	src/audio/sound/positional.cpp
 	src/audio/sound/positional_parameters.cpp
 	src/charconv/conversion_failed.cpp
 	src/charconv/convert.cpp
@@ -805,6 +827,8 @@ SET(
 	src/collision/satellite.cpp
 	src/collision/shape_ambiguity.cpp
 	src/collision/shapes/base.cpp
+	src/collision/shapes/box.cpp
+	src/collision/shapes/sphere.cpp
 	src/collision/system.cpp
 	src/collision/world.cpp
 	src/exception.cpp
@@ -893,22 +917,15 @@ SET(
 	src/input/cursor/relative_movement.cpp
 	src/input/exception.cpp
 	src/input/keyboard/action.cpp
+	src/input/keyboard/char_event.cpp
 	src/input/keyboard/collector.cpp
 	src/input/keyboard/device.cpp
 	src/input/keyboard/is_alt.cpp
 	src/input/keyboard/is_ctrl.cpp
 	src/input/keyboard/is_shift.cpp
-	src/input/keyboard/key.cpp
 	src/input/keyboard/key_event.cpp
 	src/input/keyboard/key_repeat_event.cpp
 	src/input/keyboard/to_modifier.cpp
-	src/input/modifier/container.hpp
-	src/input/modifier/filter.cpp
-	src/input/modifier/list.cpp
-	src/input/modifier/list.hpp
-	src/input/modifier/object.cpp
-	src/input/modifier/object.hpp
-	src/input/modifier/types.hpp
 	src/input/mouse/axis_event.cpp
 	src/input/mouse/button_event.cpp
 	src/input/mouse/collector.cpp
@@ -939,17 +956,20 @@ SET(
 	src/plugin/object_impl.hpp
 	src/plugin/version_fun.cpp
 	src/plugin/version_fun.hpp
+	src/renderer/add_depth_stencil_surface_to_target.cpp
 	src/renderer/aspect.cpp
 	src/renderer/bit_depth_bytes.cpp
 	src/renderer/caps.cpp
+	src/renderer/color_surface.cpp
 	src/renderer/const_scoped_buffer_lock_impl.hpp
+	src/renderer/const_scoped_color_surface_lock.cpp
 	src/renderer/const_scoped_index_lock.cpp
-	src/renderer/const_scoped_target_lock.cpp
 	src/renderer/const_scoped_texture_lock.cpp
 	src/renderer/const_scoped_vertex_lock.cpp
 	src/renderer/create_device_with_window.cpp
 	src/renderer/cube_texture.cpp
 	src/renderer/default_target.cpp
+	src/renderer/depth_stencil_surface.cpp
 	src/renderer/depth_stencil_texture.cpp
 	src/renderer/detail/npos.cpp
 	src/renderer/device.cpp
@@ -973,25 +993,22 @@ SET(
 	src/renderer/glsl/uniform/variable.cpp
 	src/renderer/glsl/vertex_shader.cpp
 	src/renderer/index/any/make_view.cpp
-	src/renderer/index/const_proxy.cpp
 	src/renderer/index/dynamic/basic_view.cpp
 	src/renderer/index/dynamic/format_enum_static.hpp
 	src/renderer/index/dynamic/format_stride.cpp
 	src/renderer/index/dynamic/make_const_view.cpp
 	src/renderer/index/dynamic/make_format.cpp
 	src/renderer/index/instantiate_all.hpp
-	src/renderer/index/iterator.cpp
-	src/renderer/index/proxy.cpp
 	src/renderer/index/view.cpp
 	src/renderer/index_buffer.cpp
 	src/renderer/indices_per_primitive.cpp
 	src/renderer/light.cpp
 	src/renderer/material.cpp
 	src/renderer/matrix_pixel_to_space.cpp
-	src/renderer/no_depth_stencil_texture.cpp
 	src/renderer/no_multi_sampling.cpp
 	src/renderer/no_texture.cpp
 	src/renderer/nonindexed_primitive_count.cpp
+	src/renderer/onscreen_target.cpp
 	src/renderer/parameters.cpp
 	src/renderer/plugin.cpp
 	src/renderer/refresh_rate_dont_care.cpp
@@ -1023,11 +1040,11 @@ SET(
 	src/renderer/sub_data.cpp
 	src/renderer/system.cpp
 	src/renderer/target.cpp
+	src/renderer/target_base.cpp
+	src/renderer/target_from_texture.cpp
 	src/renderer/texture.cpp
 	src/renderer/texture_base.cpp
 	src/renderer/texture_creation_failed.cpp
-	src/renderer/texture_rw.cpp
-	src/renderer/texture_software.cpp
 	src/renderer/to_awl_parameters.cpp
 	src/renderer/unsupported.cpp
 	src/renderer/vertex_buffer.cpp
@@ -1080,6 +1097,13 @@ FOREACH(
 		${REL_PATH}
 	)
 ENDFOREACH()
+
+INSTALL(
+	DIRECTORY
+	${CMAKE_SOURCE_DIR}/include/majutsu
+	DESTINATION
+	include
+)
 
 MACRO(
 	ADD_SGE_BASE_LIBRARY
@@ -1191,7 +1215,6 @@ OPTION (ENABLE_CONFIG "Build the config library" ON)
 OPTION (ENABLE_CONSOLE "Build the console" ON)
 OPTION (ENABLE_FONTBITMAP "Build the bitmap font" ON)
 OPTION (ENABLE_FONTTEXT "Build the font text library" ON)
-OPTION (ENABLE_GUI "Build the gui" ON)
 OPTION (ENABLE_PARSE "Build the parse library" ON)
 # This is off by default, since it doesn't work on non-unix machines
 OPTION (ENABLE_PROCESS "Build the process framework" OFF)
@@ -1219,10 +1242,6 @@ ENDIF()
 
 IF (ENABLE_FONTTEXT)
 	ADD_SUBDIRECTORY (font/text)
-ENDIF ()
-
-IF (ENABLE_GUI)
-	ADD_SUBDIRECTORY (gui)
 ENDIF ()
 
 IF (ENABLE_PARSE)

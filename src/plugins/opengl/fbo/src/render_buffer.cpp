@@ -21,65 +21,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../render_buffer.hpp"
 #include "../context.hpp"
 #include "../../check_state.hpp"
+#include "../../common.hpp"
 #include <sge/renderer/exception.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::fbo::render_buffer::render_buffer(
-	fbo::context const &_context
+	fbo::context const &_context,
+	GLenum const _internal_format,
+	sge::renderer::dim2 const &_dim
 )
 :
-	context_(_context)
-{
-	context_.gen_renderbuffers()(
-		1,
-		&id_
-	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("Generating a render buffer failed."),
-		sge::renderer::exception
+	context_(_context),
+	holder_(
+		_context
 	)
-}
-
-sge::opengl::fbo::render_buffer::~render_buffer()
-{
-	context_.delete_renderbuffers()(
-		1,
-		&id_
-	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("Deleting a render buffer failed."),
-		sge::renderer::exception
-	)
-}
-
-void
-sge::opengl::fbo::render_buffer::store(
-	GLenum const _what,
-	GLsizei const _width,
-	GLsizei const _height
-)
 {
 	bind();
 
 	context_.renderbuffer_storage()(
 		context_.renderbuffer_target(),
-		_what,
-		_width,
-		_height
+		_internal_format,
+		static_cast<
+			GLsizei
+		>(
+			_dim.w()
+		),
+		static_cast<
+			GLsizei
+		>(
+			_dim.h()
+		)
 	);
 
 	SGE_OPENGL_CHECK_STATE(
 		FCPPT_TEXT("Setting the storage of a render buffer failed."),
 		sge::renderer::exception
 	)
+
+}
+
+sge::opengl::fbo::render_buffer::~render_buffer()
+{
 }
 
 GLuint
 sge::opengl::fbo::render_buffer::id() const
 {
-	return id_;
+	return holder_.id();
 }
 
 void

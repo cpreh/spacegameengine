@@ -44,7 +44,7 @@ class char_metric
 {
 	FCPPT_NONCOPYABLE(
 		char_metric
-	)
+	);
 public:
 	explicit char_metric(
 		freetype::face &,

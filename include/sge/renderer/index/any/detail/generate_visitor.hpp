@@ -43,7 +43,7 @@ class generate_visitor
 {
 	FCPPT_NONASSIGNABLE(
 		generate_visitor
-	)
+	);
 public:
 	typedef void result_type;
 

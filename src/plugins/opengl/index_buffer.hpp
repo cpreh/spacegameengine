@@ -39,7 +39,7 @@ class index_buffer
 {
 	FCPPT_NONCOPYABLE(
 		index_buffer
-	)
+	);
 public:
 	index_buffer(
 		context::object &,
