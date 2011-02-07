@@ -18,41 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LIBRARY_FUNCTION_NOT_FOUND_HPP_INCLUDED
-#define SGE_LIBRARY_FUNCTION_NOT_FOUND_HPP_INCLUDED
-
-#include <sge/library/function_string.hpp>
-#include <sge/exception.hpp>
-#include <sge/symbol.hpp>
-#include <sge/class_symbol.hpp>
-#include <fcppt/string.hpp>
+#ifndef SGE_PLUGIN_INFO_FWD_HPP_INCLUDED
+#define SGE_PLUGIN_INFO_FWD_HPP_INCLUDED
 
 namespace sge
 {
-namespace library
+namespace plugin
 {
 
-class SGE_CLASS_SYMBOL function_not_found
-:
-	public exception
-{
-public:
-	SGE_SYMBOL function_not_found(
-		fcppt::string const &lib,
-		function_string const &
-	);
-
-	SGE_SYMBOL fcppt::string const &
-	lib() const;
-
-	SGE_SYMBOL function_string const &
-	func() const;
-
-	SGE_SYMBOL virtual ~function_not_found() throw();
-private:
-	fcppt::string lib_;
-	function_string func_;
-};
+class info;
 
 }
 }

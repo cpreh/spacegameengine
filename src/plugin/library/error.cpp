@@ -18,54 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_OBJECT_IMPL_HPP_INCLUDED
-#define SGE_PLUGIN_OBJECT_IMPL_HPP_INCLUDED
-
-#include "library/object.hpp"
-#include "library/load_function.hpp"
-#include <sge/plugin/object.hpp>
-#include <sge/plugin/detail/traits.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-
-template<
-	typename T
->
-sge::plugin::object<T>::object(
-	fcppt::filesystem::path const &_path
-)
-:
-	lib_(
-		fcppt::make_unique_ptr<
-			library::object
-		>(
-			_path
-		)
-	),
-	loader_(
-		library::load_function<
-			loader_fun
-		>(
-			*lib_,
-			detail::traits<T>::plugin_loader_name()
-		)
-	)
-{
-}
-
-template<
-	typename T
->
-sge::plugin::object<T>::~object()
-{
-}
-
-template<
-	typename T
->
-typename sge::plugin::object<T>::loader_fun
-sge::plugin::object<T>::get() const
-{
-	return loader_;
-}
-
+#include "error.hpp"
+#include <fcppt/config.hpp>
+#ifdef FCPPT_WINDOWS_PLATFORM
+#include <awl/backends/windows/windows.hpp>
+#include <awl/backends/windows/format_message.hpp>
+#elif FCPPT_POSIX_PLATFORM
+#include <fcppt/from_std_string.hpp>
+#include <fcppt/text.hpp>
+#include <dlfcn.h>
+#else
+#error "Implement me!"
 #endif
+
+fcppt::string const
+sge::plugin::library::error()
+{
+#if defined( FCPPT_POSIX_PLATFORM)
+	char const *const err(
+		dlerror()
+	);
+
+	return
+		err
+		?
+			fcppt::from_std_string(
+				err
+			)
+		:
+			FCPPT_TEXT("no error");
+#elif defined(FCPPT_WINDOWS_PLATFORM)
+	return
+			awl::backends::windows::format_message(
+				::GetLastError()
+			);
+#endif
+}

@@ -18,54 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_OBJECT_IMPL_HPP_INCLUDED
-#define SGE_PLUGIN_OBJECT_IMPL_HPP_INCLUDED
+#include "load_info.hpp"
+#include "version_function_name.hpp"
 
-#include "library/object.hpp"
-#include "library/load_function.hpp"
-#include <sge/plugin/object.hpp>
-#include <sge/plugin/detail/traits.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-
-template<
-	typename T
->
-sge::plugin::object<T>::object(
+sge::plugin::info const
+sge::plugin::load_info(
 	fcppt::filesystem::path const &_path
 )
-:
-	lib_(
-		fcppt::make_unique_ptr<
-			library::object
-		>(
-			_path
-		)
-	),
-	loader_(
+{
+	typedef sge::plugin::info const
+	(*version_function)();
+
+	library::object lib(
+		this->path()
+	);
+
+	return
 		library::load_function<
-			loader_fun
+			version_function
 		>(
-			*lib_,
-			detail::traits<T>::plugin_loader_name()
-		)
-	)
-{
+			lib.load_function<
+				version_function
+			>(
+				plugin::version_function_name
+			)
+		)();
 }
-
-template<
-	typename T
->
-sge::plugin::object<T>::~object()
-{
-}
-
-template<
-	typename T
->
-typename sge::plugin::object<T>::loader_fun
-sge::plugin::object<T>::get() const
-{
-	return loader_;
-}
-
-#endif

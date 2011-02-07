@@ -18,61 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "version_fun.hpp"
+#include "load_info.hpp"
 #include <sge/plugin/context_base.hpp>
 #include <sge/plugin/info.hpp>
-#include <sge/library/object_impl.hpp>
 
 sge::plugin::context_base::context_base(
 	fcppt::filesystem::path const &_path
 )
 :
-	path_(_path)
+	ref_(),
+	path_(_path),
+	info_(
+		plugin::load_info(
+			_path
+		)
+	)
 {
-	typedef void (*version_function)(sge::plugin::info*);
-
-	library::object lib(path());
-
-	version_function vf(
-		lib.load_function<version_function>(version_fun)
-	);
-
-	info info_;
-
-	vf(&info_);
-
-	name_ = info_.name;
-	description_ = info_.description;
-	version_ = info_.plugin_version;
-	type_ = info_.type;
-}
-
-fcppt::string const &
-sge::plugin::context_base::name() const
-{
-	return name_;
-}
-
-fcppt::string const &
-sge::plugin::context_base::description() const
-{
-	return description_;
-}
-
-unsigned
-sge::plugin::context_base::version() const
-{
-	return version_;
-}
-
-sge::plugin::capabilities::type
-sge::plugin::context_base::type() const
-{
-	return type_;
 }
 
 fcppt::filesystem::path const &
 sge::plugin::context_base::path() const
 {
 	return path_;
+}
+
+sge::plugin::info const &
+sge::plugin::context_base::info() const
+{
+	return info_;
 }

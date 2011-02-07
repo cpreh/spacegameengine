@@ -104,7 +104,7 @@ sge::multi_loader<Loader, File, Exception, Capabilities>::multi_loader(
 					<< FCPPT_TEXT("loader ")
 					<< fcppt::type_name(typeid(loader))
 					<< FCPPT_TEXT(" didn't find plugin \"")
-					<< i->info().name()
+					<< i->base().path()
 					<< FCPPT_TEXT("\" to be useful.")
 			)
 		}

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/context.hpp>
-#include <sge/exception.hpp>
+#include <sge/plugin/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name.hpp>
 
@@ -67,7 +67,7 @@ sge::plugin::manager::plugin(
 	if(
 		_index >= size<T>()
 	)
-		throw exception(
+		throw sge::plugin::exception(
 			FCPPT_TEXT("plugin(): No plugins found of type: \"")
 			+ fcppt::type_name(typeid(T))
 			+ FCPPT_TEXT("\"!")

@@ -36,7 +36,6 @@ update_cmake_file \
 	include/sge/image2d \
 	include/sge/image3d \
 	include/sge/input \
-	include/sge/library \
 	include/sge/log \
 	include/sge/model \
 	include/sge/plugin \
@@ -59,7 +58,6 @@ update_cmake_file \
 	src/image2d \
 	src/image3d \
 	src/input \
-	src/library \
 	src/log \
 	src/model \
 	src/plugin \

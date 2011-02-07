@@ -18,18 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LIBRARY_FUNCTION_STRING_HPP_INCLUDED
-#define SGE_LIBRARY_FUNCTION_STRING_HPP_INCLUDED
-
-#include <string>
+#ifndef SGE_PLUGIN_LIBRARY_OBJECT_FWD_HPP_INCLUDED
+#define SGE_PLUGIN_LIBRARY_OBJECT_FWD_HPP_INCLUDED
 
 namespace sge
+{
+namespace plugin
 {
 namespace library
 {
 
-typedef std::string function_string;
+class object;
 
+}
 }
 }
 

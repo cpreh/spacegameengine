@@ -18,40 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/library/function_not_found.hpp>
-#include <sge/library/error.hpp>
-#include <fcppt/from_std_string.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_PLUGIN_LIBRARY_SYMBOL_STRING_HPP_INCLUDED
+#define SGE_PLUGIN_LIBRARY_SYMBOL_STRING_HPP_INCLUDED
 
-sge::library::function_not_found::function_not_found(
-	fcppt::string const &_lib,
-	std::string const &_func
-)
-:
-	sge::exception(
-		FCPPT_TEXT("Failed to load function ")
-		+ fcppt::from_std_string(_func)
-		+ FCPPT_TEXT(" from object::library ")
-		+ _lib
-		+ FCPPT_TEXT(" : ")
-		+ error()
-	),
-	lib_(_lib),
-	func_(_func)
-{}
+#include <string>
 
-
-fcppt::string const &
-sge::library::function_not_found::lib() const
+namespace sge
 {
-	return lib_;
+namespace plugin
+{
+namespace library
+{
+
+typedef std::string symbol_string;
+
+}
+}
 }
 
-sge::library::function_string const &
-sge::library::function_not_found::func() const
-{
-	return func_;
-}
-
-sge::library::function_not_found::~function_not_found() throw()
-{}
+#endif

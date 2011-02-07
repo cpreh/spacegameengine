@@ -41,15 +41,6 @@ namespace plugin
 
 class manager
 {
-	typedef std::vector<
-		context_base
-	> plugin_array;
-
-	typedef std::map<
-		capabilities::type,
-		category_array
-	> plugin_map;
-
 	FCPPT_NONCOPYABLE(
 		manager
 	);
@@ -89,6 +80,15 @@ public:
 	SGE_SYMBOL size_type
 	size() const;
 private:
+	typedef std::vector<
+		context_base
+	> plugin_array;
+
+	typedef std::map<
+		capabilities::type,
+		plugin::category_array
+	> plugin_map;
+
 	plugin_array plugins_;
 
 	plugin_map categories_;

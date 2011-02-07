@@ -1,4 +1,4 @@
-/*
+l/*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2011 Carl Philipp Reh (sefi@s-e-f-i.de)
 
@@ -18,39 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <fcppt/config.hpp>
-#include <sge/library/error.hpp>
-#ifdef FCPPT_WINDOWS_PLATFORM
-#include <awl/backends/windows/windows.hpp>
-#include <awl/backends/windows/format_message.hpp>
-#elif FCPPT_POSIX_PLATFORM
-#include <fcppt/from_std_string.hpp>
-#include <fcppt/text.hpp>
-#include <dlfcn.h>
-#else
-#error "Implement me!"
-#endif
+#ifndef SGE_PLUGIN_LIBRARY_FUNCTION_MAP_HPP_INCLUDED
+#define SGE_PLUGIN_LIBRARY_FUNCTION_MAP_HPP_INCLUDED
 
-fcppt::string const
-sge::library::error()
+#include <sge/plugin/library/function_base.hpp>
+#include <sge/plugin/library/symbol_string.hpp>
+#include <sge/symbol.hpp>
+#include <map>
+
+namespace sge
 {
-#if defined( FCPPT_POSIX_PLATFORM)
-	char const *const err(
-		dlerror()
+namespace plugin
+{
+namespace library
+{
+
+class function_map
+{
+public:
+	typedef std::map<
+		library::symbol_string,
+		library::function_base
+	> container;
+
+	SGE_SYMBOL
+	explicit function_map(
+		container const &
 	);
 
-	return
-		err
-		?
-			fcppt::from_std_string(
-				err
-			)
-		:
-			FCPPT_TEXT("no error");
-#elif defined(FCPPT_WINDOWS_PLATFORM)
-	return
-			awl::backends::windows::format_message(
-				::GetLastError()
-			);
-#endif
+	SGE_SYMBOL
+	library::function_base
+	function(
+		library::symbol_string const &
+	) const;
+private:
+	container functions_;
+};
+
 }
+}
+}
+
+#endif

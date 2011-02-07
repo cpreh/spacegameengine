@@ -23,35 +23,57 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/export_symbol.hpp>
 #include <fcppt/text.hpp>
 
-extern "C"
+namespace
 {
 
-FCPPT_EXPORT_SYMBOL void
-plugin_version_info(
-	sge::plugin::info *
+sge::plugin::info const info(
+	FCPPT_TEXT("audionull"),
+	FCPPT_TEXT("audio plugin that does not do anything"),
+	sge::plugin::version(0x1),
+	sge::plugin::min_core_version(0x1)
+	sge::plugin::capabilities::audio_player
 );
 
-FCPPT_EXPORT_SYMBOL sge::audio::player *
-create_audio_player();
-
-FCPPT_EXPORT_SYMBOL void
-plugin_version_info(
-	sge::plugin::info *const p
-)
-{
-	if(!p)
-		return;
-	p->name = FCPPT_TEXT("audionull");
-	p->description = FCPPT_TEXT("audio plugin that does not do anything");
-	p->plugin_version = 0x1;
-	p->min_core_version = 0x1;
-	p->type = sge::plugin::capabilities::audio_player;
-}
-
-FCPPT_EXPORT_SYMBOL sge::audio::player *
+sge::audio::player_ptr const
 create_audio_player()
 {
-	return new sge::audio_null::player();
+	return
+		fcppt::make_shared_ptr<
+			sge::audio_null::player
+		>();
 }
 
 }
+
+#if defined(FCPPT_POSIX_PLATFORM)
+#define SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(\
+	function_map,\
+	info\
+)\
+extern "C" \
+{\
+	FCPPT_EXPORT_SYMBOL \
+	sge::plugin::function_map sge_plugin_functions(\
+		function_map\
+	);\
+}
+
+#elif defined(FCPPT_WINDOWS_PLATFORM)
+
+#define SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(\
+	function_map,\
+	info\
+)\
+extern "C" \
+{ \
+	FCPPT_EXPORT_SYMBOL \
+	sge::plugin::library::function_map const \
+	load_function_map()\
+	{\
+		return function_map;\
+	}\
+#else
+#error "Don't know how to load functions from plugins!"
+#endif
+
+SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(

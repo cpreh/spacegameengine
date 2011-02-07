@@ -18,54 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_OBJECT_IMPL_HPP_INCLUDED
-#define SGE_PLUGIN_OBJECT_IMPL_HPP_INCLUDED
+#include "load_function_base.hpp"
+#include <fcppt/config.hpp>
 
-#include "library/object.hpp"
-#include "library/load_function.hpp"
-#include <sge/plugin/object.hpp>
-#include <sge/plugin/detail/traits.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-
-template<
-	typename T
->
-sge::plugin::object<T>::object(
-	fcppt::filesystem::path const &_path
+sge::plugin::library::function_base
+sge::plugin::library::load_function_base(
+	library::object &_object,
+	library::symbol_string const &_name
 )
-:
-	lib_(
-		fcppt::make_unique_ptr<
-			library::object
+{
+	char const *const function_name = "sge_plugin_functions";
+
+#if defined(FCPPT_WINDOWS_PLATFORM)
+	
+	library::function_map const *const map(
+		reinterpret_cast<
+			library::function_base
 		>(
-			_path
+			_object.load(
+				function_name
+			)
 		)
-	),
-	loader_(
-		library::load_function<
-			loader_fun
+	);
+#elif defined(FCPPT_POSIX_PLATFORM)
+	return
+		static_cast<
+			library::function_map *
 		>(
-			*lib_,
-			detail::traits<T>::plugin_loader_name()
-		)
-	)
-{
-}
-
-template<
-	typename T
->
-sge::plugin::object<T>::~object()
-{
-}
-
-template<
-	typename T
->
-typename sge::plugin::object<T>::loader_fun
-sge::plugin::object<T>::get() const
-{
-	return loader_;
-}
-
+			_object.load(
+				"sge_plugin_functions"
+			)
+		)->functions(
+			_name
+		);
+#else
+#error "Don't know how to load library functions!"
 #endif
+}

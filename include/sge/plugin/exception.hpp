@@ -18,30 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LIBRARY_OBJECT_IMPL_HPP_INCLUDED
-#define SGE_LIBRARY_OBJECT_IMPL_HPP_INCLUDED
+#ifndef SGE_PLUGIN_EXCEPTION_HPP_INCLUDED
+#define SGE_PLUGIN_EXCEPTION_HPP_INCLUDED
 
-#include <sge/library/object.hpp>
-#include <sge/library/function_not_found.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
+#include <sge/exception.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/string.hpp>
 
-template<
-	typename Fun
->
-Fun
-sge::library::object::load_function(
-	function_string const &_fun
-)
+namespace sge
 {
-	Fun const ptr = reinterpret_cast<Fun>(load_address_base(_fun));
-	if(!ptr)
-		throw function_not_found(
-			fcppt::filesystem::path_to_string(
-				name().string()
-			),
-			_fun
-		);
-	return ptr;
+namespace plugin
+{
+
+class SGE_CLASS_SYMBOL exception
+:
+	public sge::exception
+{
+public:
+	SGE_SYMBOL
+	explicit exception(
+		fcppt::string const &
+	);
+};
+
+}
 }
 
 #endif

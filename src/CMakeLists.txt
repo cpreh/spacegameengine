@@ -382,11 +382,6 @@ SET(
 	include/sge/input/system.hpp
 	include/sge/input/system_fwd.hpp
 	include/sge/input/system_ptr.hpp
-	include/sge/library/error.hpp
-	include/sge/library/function_not_found.hpp
-	include/sge/library/function_string.hpp
-	include/sge/library/object.hpp
-	include/sge/library/object_impl.hpp
 	include/sge/loaders_exhausted.hpp
 	include/sge/log/global.hpp
 	include/sge/log/global_context.hpp
@@ -412,6 +407,7 @@ SET(
 	include/sge/multi_loader_fwd.hpp
 	include/sge/plugin/base.hpp
 	include/sge/plugin/capabilities.hpp
+	include/sge/plugin/capabilities_field.hpp
 	include/sge/plugin/category_array.hpp
 	include/sge/plugin/context.hpp
 	include/sge/plugin/context_base.hpp
@@ -420,13 +416,23 @@ SET(
 	include/sge/plugin/detail/address_name.hpp
 	include/sge/plugin/detail/iterator_base_type.hpp
 	include/sge/plugin/detail/traits.hpp
+	include/sge/plugin/exception.hpp
 	include/sge/plugin/info.hpp
+	include/sge/plugin/info_fwd.hpp
 	include/sge/plugin/iterator.hpp
 	include/sge/plugin/iterator_fwd.hpp
+	include/sge/plugin/library/exception.hpp
+	include/sge/plugin/library/function_base.hpp
+	include/sge/plugin/library/function_map.hpp
+	include/sge/plugin/library/object_fwd.hpp
+	include/sge/plugin/library/symbol_not_found.hpp
+	include/sge/plugin/library/symbol_string.hpp
 	include/sge/plugin/manager.hpp
 	include/sge/plugin/manager_fwd.hpp
+	include/sge/plugin/min_core_version.hpp
 	include/sge/plugin/object.hpp
 	include/sge/plugin/object_fwd.hpp
+	include/sge/plugin/version.hpp
 	include/sge/renderer/adapter_type.hpp
 	include/sge/renderer/add_depth_stencil_surface_to_target.hpp
 	include/sge/renderer/aspect.hpp
@@ -934,9 +940,6 @@ SET(
 	src/input/processor.cpp
 	src/input/system.cpp
 	src/instantiate_multi_loader.hpp
-	src/library/error.cpp
-	src/library/function_not_found.cpp
-	src/library/object.cpp
 	src/loaders_exhausted.cpp
 	src/log/global.cpp
 	src/log/global_context.cpp
@@ -951,11 +954,22 @@ SET(
 	src/plugin/info.cpp
 	src/plugin/instantiate_types.hpp
 	src/plugin/iterator_impl.hpp
+	src/plugin/library/error.cpp
+	src/plugin/library/error.hpp
+	src/plugin/library/load_function.hpp
+	src/plugin/library/load_function_base.cpp
+	src/plugin/library/load_function_base.hpp
+	src/plugin/library/loaded_symbol.hpp
+	src/plugin/library/object.cpp
+	src/plugin/library/object.hpp
+	src/plugin/library/symbol_not_found.cpp
+	src/plugin/load_info.cpp
+	src/plugin/load_info.hpp
 	src/plugin/manager.cpp
 	src/plugin/manager_impl.hpp
 	src/plugin/object_impl.hpp
-	src/plugin/version_fun.cpp
-	src/plugin/version_fun.hpp
+	src/plugin/version_function_name.cpp
+	src/plugin/version_function_name.hpp
 	src/renderer/add_depth_stencil_surface_to_target.cpp
 	src/renderer/aspect.cpp
 	src/renderer/bit_depth_bytes.cpp

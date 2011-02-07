@@ -21,10 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_INFO_HPP_INCLUDED
 #define SGE_PLUGIN_INFO_HPP_INCLUDED
 
+#include <sge/plugin/info_fwd.hpp>
 #include <sge/plugin/capabilities_field.hpp>
 #include <sge/plugin/min_core_version.hpp>
 #include <sge/plugin/version.hpp>
 #include <sge/symbol.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/string.hpp>
 
 namespace sge
@@ -35,13 +37,34 @@ namespace plugin
 class info
 {
 public:
-	SGE_SYMBOL info(
+	SGE_SYMBOL
+	info(
 		fcppt::string const &name,
 		fcppt::string const &description,
 		plugin::version,
 		plugin::min_core_version,
 		plugin::capabilities_field const &
 	);
+
+	SGE_SYMBOL
+	fcppt::string const &
+	name() const;
+
+	SGE_SYMBOL
+	fcppt::string const &
+	description() const;
+
+	SGE_SYMBOL
+	plugin::version const
+	version() const;
+
+	SGE_SYMBOL
+	plugin::min_core_version const
+	min_core_version() const;
+
+	SGE_SYMBOL
+	plugin::capabilities_field const &
+	capabilities() const;
 private:
 	fcppt::string const name_;
 
@@ -51,7 +74,7 @@ private:
 
 	plugin::min_core_version min_core_version_;
 
-	capabilities_field capabilities_;
+	plugin::capabilities_field capabilities_;
 };
 
 }

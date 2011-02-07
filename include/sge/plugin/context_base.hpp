@@ -24,11 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/context_base_fwd.hpp>
 #include <sge/plugin/context_fwd.hpp>
 #include <sge/plugin/base.hpp>
-#include <sge/plugin/capabilities.hpp>
+#include <sge/plugin/info.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/filesystem/path.hpp>
 #include <fcppt/weak_ptr.hpp>
-#include <fcppt/string.hpp>
 
 namespace sge
 {
@@ -42,38 +41,23 @@ public:
 		fcppt::filesystem::path const &
 	);
 
-	SGE_SYMBOL fcppt::string const &
-	name() const;
-
-	SGE_SYMBOL fcppt::string const &
-	description() const;
-
-	SGE_SYMBOL unsigned
-	version() const;
-
-	SGE_SYMBOL capabilities::type
-	type() const;
-
 	SGE_SYMBOL fcppt::filesystem::path const &
 	path() const;
+
+	SGE_SYMBOL plugin::info const &
+	info() const;
 private:
 	template<
 		typename T
 	> friend class context;
 
 	fcppt::weak_ptr<
-		base
-	> ref;
+		plugin::base
+	> ref_;
 
 	fcppt::filesystem::path path_;
 
-	fcppt::string name_;
-
-	fcppt::string description_;
-
-	unsigned version_;
-
-	capabilities::type type_;
+	plugin::info info_;
 };
 
 }

@@ -20,11 +20,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/plugin/info.hpp>
 
-sge::plugin::info::info()
+sge::plugin::info::info(
+	fcppt::string const &_name,
+	fcppt::string const &_description,
+	plugin::version const _version,
+	plugin::min_core_version const _min_core_version,
+	plugin::capabilities_field const &_capabilities
+)
 :
-	name(0),
-	description(0),
-	plugin_version(0),
-	min_core_version(0),
-	type(capabilities::nothing)
-{}
+	name_(_name),
+	description_(_description),
+	version_(_version),
+	min_core_version_(_min_core_version),
+	capabilities_(_capabilities)
+{
+}
+
+fcppt::string const &
+sge::plugin::info::name() const
+{
+	return name_;
+}
+
+fcppt::string const &
+sge::plugin::info::description() const
+{
+	return description_;
+}
+
+sge::plugin::version const
+sge::plugin::info::version() const
+{
+	return version_;
+}
+
+sge::plugin::min_core_version const
+sge::plugin::info::min_core_version() const
+{
+	return min_core_version_;
+}
+
+sge::plugin::capabilities_field const &
+sge::plugin::info::capabilities() const
+{
+	return capabilities_;
+}

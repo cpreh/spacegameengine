@@ -35,7 +35,8 @@ sge::plugin::context<T>::context(
 )
 :
 	base_(&_base)
-{}
+{
+}
 
 template<
 	typename T
@@ -43,18 +44,23 @@ template<
 typename sge::plugin::context<T>::ptr_type
 sge::plugin::context<T>::load()
 {
-	fcppt::shared_ptr<
-		base
-	> const ptr_base(
-		base_->ref.lock()
+	typedef fcppt::shared_ptr<
+		plugin::base
+	> base_ptr;
+	
+	base_ptr const ptr(
+		base_->ref_.lock()
 	);
 
-	if(ptr_base)
-		return fcppt::polymorphic_pointer_cast<
-			plugin::object<T>
-		>(
-			ptr_base
-		);
+	if(
+		ptr
+	)
+		return
+			fcppt::polymorphic_pointer_cast<
+				plugin::object<T>
+			>(
+				ptr
+			);
 
 	ptr_type const new_ptr(
 		fcppt::make_shared_ptr<
@@ -66,7 +72,7 @@ sge::plugin::context<T>::load()
 		)
 	);
 
-	base_->ref = new_ptr;
+	base_->ref_ = new_ptr;
 
 	return new_ptr;
 }
@@ -75,7 +81,7 @@ template<
 	typename T
 >
 sge::plugin::context_base const &
-sge::plugin::context<T>::info() const
+sge::plugin::context<T>::base() const
 {
 	return *base_;
 }

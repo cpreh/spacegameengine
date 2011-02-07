@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/library/object.hpp>
-#include <sge/library/error.hpp>
-#include <sge/exception.hpp>
+#include "error.hpp"
+#include "object.hpp"
+#include <sge/plugin/library/exception.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
@@ -45,10 +45,12 @@ namespace
 
 void
 free_library(
-	HMODULE const module
+	HMODULE const _module
 )
 {
-	FreeLibrary(module);
+	::FreeLibrary(
+		_module
+	);
 }
 
 struct context
@@ -56,7 +58,8 @@ struct context
 	FCPPT_NONCOPYABLE(context);
 public:
 	explicit context(
-		HMODULE const hinst)
+		HMODULE const hinst
+	)
 	:
 		hinst(hinst)
 	{}
@@ -77,7 +80,7 @@ library_vector libraries;
 
 }
 
-struct sge::library::object::destroyer
+struct sge::plugin::library::object::destroyer
 {
 	FCPPT_NONCOPYABLE(
 		destroyer
@@ -91,59 +94,55 @@ public:
 
 #endif
 
-sge::library::object::object(
-	fcppt::filesystem::path const &nname
+sge::plugin::library::object::object(
+	fcppt::filesystem::path const &_name
 )
 :
+	name_(_name),
 #ifdef FCPPT_WINDOWS_PLATFORM
 	destroyer_(
 		fcppt::make_unique_ptr<
 			destroyer
 		>()
 	),
-	handle(
-		static_cast<void*>(
-			::LoadLibrary(
-				fcppt::filesystem::path_to_string(
-					nname
-				).c_str()
-			)
+	handle_(
+		::LoadLibrary(
+			fcppt::filesystem::path_to_string(
+				_name
+			).c_str()
 		)
 	)
 #elif FCPPT_POSIX_PLATFORM
-	handle(
-		dlopen(
+	handle_(
+		::dlopen(
 			fcppt::to_std_string(
 				fcppt::filesystem::path_to_string(
-					nname
+					_name
 				)
 			).c_str(),
 			RTLD_NOW | RTLD_GLOBAL
 		)
 	)
 #endif
-	, name_(nname)
 {
-	if(!handle)
-		throw exception(
+	if(
+		!handle
+	)
+		throw sge::exception(
 			fcppt::string(
-				FCPPT_TEXT("failed to load library::object: "))
-				+ error()
+				FCPPT_TEXT("Failed to load library::object: "))
+				+ library::error()
 			);
 }
 
-sge::library::object::~object()
+sge::plugin::library::object::~object()
 {
-	if(!handle)
+	if(
+		!handle_
+	)
 		return;
 
 #ifdef FCPPT_WINDOWS_PLATFORM
-	HMODULE const module(
-		static_cast<HMODULE>(
-			handle
-		)
-	);
-
 	// NOTE: we can't free the library here,
 	// because an exception might be propagating that
 	// has been risen from a dll
@@ -162,22 +161,25 @@ sge::library::object::~object()
 		);
 	else
 		free_library(
-			module
+			handle_
 		);
 #elif FCPPT_POSIX_PLATFORM
-	dlclose(handle);
+	::dlclose(
+		handle_
+	);
 #endif
 }
 
 fcppt::filesystem::path const &
-sge::library::object::name() const
+sge::plugin::library::object::name() const
 {
 	return name_;
 }
 
-sge::library::object::base_fun
-sge::library::object::load_address_base(
-	std::string const &fun)
+sge::plugin::library::laoded_symbol
+sge::plugin::library::object::load_address_base(
+	library::symbol_string const &_fun
+)
 {
 #ifdef FCPPT_WINDOWS_PLATFORM
 	FARPROC const ret(
@@ -186,39 +188,39 @@ sge::library::object::load_address_base(
 			fun.c_str())
 	);
 
-	if(!ret)
-		throw exception(
+	if(
+		!ret_
+	)
+		throw sge::plugin::library::exception(
 			FCPPT_TEXT("Function ")
-			+ fcppt::from_std_string(fun)
+			+ fcppt::from_std_string(_fun)
 			+ FCPPT_TEXT(" not found in ")
 			+ fcppt::filesystem::path_to_string(
 				name_
 			)
 		);
 
-	return reinterpret_cast<base_fun>(
-		ret
-	);
+	return ret;
 #elif FCPPT_POSIX_PLATFORM
-	dlerror(); // clear last error
+	::dlerror(); // clear last error
 
-	union {
-		void *dl_ptr;
-		base_fun dl_fun;
-	} ret;
-
-	ret.dl_ptr = dlsym(
-		handle,
-		fun.c_str()
+	void *const ret(
+		::dlsym(
+			this->handle(),
+			fun.c_str()
+		)
 	);
 
-	if(dlerror())
-		throw exception(
-			fcppt::from_std_string(fun)
+	if(
+		::dlerror()
+		!= 0
+	)
+		throw sge::plugin::library::exception(
+			fcppt::from_std_string(_fun)
 			+ FCPPT_TEXT(" not found in library ")
 			+ name().string()
 		);
 
-	return ret.dl_fun;
+	return ret;
 #endif
 }

@@ -18,54 +18,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_OBJECT_IMPL_HPP_INCLUDED
-#define SGE_PLUGIN_OBJECT_IMPL_HPP_INCLUDED
+#ifndef SGE_PLUGIN_LIBRARY_SYMBOL_NOT_FOUND_HPP_INCLUDED
+#define SGE_PLUGIN_LIBRARY_SYMBOL_NOT_FOUND_HPP_INCLUDED
 
-#include "library/object.hpp"
-#include "library/load_function.hpp"
-#include <sge/plugin/object.hpp>
-#include <sge/plugin/detail/traits.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <sge/plugin/library/exception.hpp>
+#include <sge/plugin/library/symbol_string.hpp>
+#include <sge/symbol.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/string.hpp>
 
-template<
-	typename T
->
-sge::plugin::object<T>::object(
-	fcppt::filesystem::path const &_path
-)
+namespace sge
+{
+namespace plugin
+{
+namespace library
+{
+
+class SGE_CLASS_SYMBOL symbol_not_found
 :
-	lib_(
-		fcppt::make_unique_ptr<
-			library::object
-		>(
-			_path
-		)
-	),
-	loader_(
-		library::load_function<
-			loader_fun
-		>(
-			*lib_,
-			detail::traits<T>::plugin_loader_name()
-		)
-	)
+	public library::exception
 {
-}
+public:
+	SGE_SYMBOL
+	symbol_not_found(
+		fcppt::string const &,
+		library::symbol_string const &
+	);
 
-template<
-	typename T
->
-sge::plugin::object<T>::~object()
-{
-}
+	SGE_SYMBOL
+	fcppt::string const &
+	library_name() const;
 
-template<
-	typename T
->
-typename sge::plugin::object<T>::loader_fun
-sge::plugin::object<T>::get() const
-{
-	return loader_;
+	SGE_SYMBOL
+	library::symbol_string const &
+	symbol() const;
+
+	SGE_SYMBOL
+	virtual ~symbol_not_found() throw();
+private:
+	fcppt::string library_name_;
+
+	library::symbol_string symbol_;
+};
+
+}
+}
 }
 
 #endif
