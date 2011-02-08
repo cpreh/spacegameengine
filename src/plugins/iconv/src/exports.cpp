@@ -19,44 +19,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../system.hpp"
-#include <sge/charconv/system_fwd.hpp>
+#include <sge/charconv/system_ptr.hpp>
+#include <sge/plugin/library/make_interface.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/info.hpp>
-#include <fcppt/export_symbol.hpp>
+#include <sge/plugin/min_core_version.hpp>
+#include <sge/plugin/version.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 
-extern "C"
+namespace
 {
 
-FCPPT_EXPORT_SYMBOL void
-plugin_version_info(
-	sge::plugin::info *
+sge::plugin::info const info(
+	FCPPT_TEXT("iconv"),
+	FCPPT_TEXT("Provides charset conversions via POSIX iconv."),
+	sge::plugin::version(0x1),
+	sge::plugin::min_core_version(0x1),
+	sge::plugin::capabilities::char_conv
 );
 
-FCPPT_EXPORT_SYMBOL sge::charconv::system *
-create_charconv_system();
-
-FCPPT_EXPORT_SYMBOL void
-plugin_version_info(
-	sge::plugin::info *const _info
-)
-{
-	if(
-		!_info
-	)
-		return;
-
-	_info->name = FCPPT_TEXT("iconv");
-	_info->description = FCPPT_TEXT("Does conversions using iconv.");
-	_info->plugin_version = 0x1;
-	_info->min_core_version = 0x1;
-	_info->type = sge::plugin::capabilities::char_conv;
-}
-
-FCPPT_EXPORT_SYMBOL sge::charconv::system *
+sge::charconv::system_ptr const
 create_charconv_system()
 {
-	return new sge::iconv::system();
+	return
+		fcppt::make_shared_ptr<
+			sge::iconv::system
+		>();
 }
 
 }
+
+SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(
+	info,
+	(create_charconv_system)
+)

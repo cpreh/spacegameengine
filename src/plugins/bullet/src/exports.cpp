@@ -19,39 +19,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../system.hpp"
+#include <sge/collision/system_ptr.hpp>
+#include <sge/plugin/library/make_interface.hpp>
+#include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/info.hpp>
-#include <fcppt/export_symbol.hpp>
+#include <sge/plugin/min_core_version.hpp>
+#include <sge/plugin/version.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 
-extern "C"
+namespace
 {
 
-FCPPT_EXPORT_SYMBOL void
-plugin_version_info(
-	sge::plugin::info *
+sge::plugin::info const info(
+	FCPPT_TEXT("bullet"),
+	FCPPT_TEXT("Provides some wrappers around bullet."),
+	sge::plugin::version(0x1),
+	sge::plugin::min_core_version(0x1),
+	sge::plugin::capabilities::collision_system
 );
 
-FCPPT_EXPORT_SYMBOL sge::collision::system *
-create_collision_system();
-
-FCPPT_EXPORT_SYMBOL void
-plugin_version_info(
-	sge::plugin::info *const p
-)
-{
-	if(!p)
-		return;
-	p->name = FCPPT_TEXT("bullet");
-	p->description = FCPPT_TEXT("");
-	p->plugin_version = 0x1;
-	p->min_core_version = 0x1;
-	p->type = sge::plugin::capabilities::collision_system;
-}
-
-FCPPT_EXPORT_SYMBOL sge::collision::system *
+sge::collision::system_ptr const
 create_collision_system()
 {
-	return new sge::bullet::system();
+	return
+		fcppt::make_shared_ptr<
+			sge::bullet::system
+		>();
 }
 
 }
+
+SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(
+	info,
+	(create_collision_system)
+)

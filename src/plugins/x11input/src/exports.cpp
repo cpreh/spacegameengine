@@ -19,44 +19,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../system.hpp"
+#include <sge/input/system_ptr.hpp>
+#include <sge/plugin/library/make_interface.hpp>
+#include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/info.hpp>
+#include <sge/plugin/min_core_version.hpp>
+#include <sge/plugin/version.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/export_symbol.hpp>
 
-extern "C"
+namespace
 {
 
-FCPPT_EXPORT_SYMBOL void
-plugin_version_info(
-	sge::plugin::info *
+sge::plugin::info const info(
+	FCPPT_TEXT("x11input"),
+	FCPPT_TEXT("Uses XI2 to handle keyboards and mice."),
+	sge::plugin::version(0x1),
+	sge::plugin::min_core_version(0x1),
+	sge::plugin::capabilities::input
 );
 
-FCPPT_EXPORT_SYMBOL sge::input::system *
-create_input_system();
-
-FCPPT_EXPORT_SYMBOL void
-plugin_version_info(
-	sge::plugin::info *const _info
-)
-{
-	if(!_info)
-		return;
-
-	_info->name = FCPPT_TEXT("x11input");
-
-	_info->description = FCPPT_TEXT("Handles keyboard and mouse.");
-
-	_info->type = sge::plugin::capabilities::input;
-
-	_info->plugin_version = 0x1;
-
-	_info->min_core_version = 0x1;
-}
-
-FCPPT_EXPORT_SYMBOL sge::input::system *
+sge::input::system_ptr const
 create_input_system()
 {
-	return new sge::x11input::system();
+	return
+		fcppt::make_shared_ptr<
+			sge::x11input::system
+		>();
 }
 
 }
+
+SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(
+	info,
+	(create_input_system)
+)

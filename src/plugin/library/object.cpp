@@ -120,7 +120,7 @@ sge::plugin::library::object::object(
 					_name
 				)
 			).c_str(),
-			RTLD_NOW | RTLD_GLOBAL
+			RTLD_NOW
 		)
 	)
 #endif

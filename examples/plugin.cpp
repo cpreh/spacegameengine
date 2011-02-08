@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/context_base.hpp>
+#include <sge/plugin/info.hpp>
 #include <sge/audio/loader.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/collision/system.hpp>
@@ -142,14 +143,14 @@ print_plugins::operator()() const
 	)
 	{
 		sge::plugin::context_base const &base(
-			it->info()
+			it->base()
 		);
 
 		fcppt::io::cout
 			<< FCPPT_TEXT("\tname: \"")
-			<< base.name()
+			<< base.info().name()
 			<< FCPPT_TEXT("\", description: \"")
-			<< base.description()
+			<< base.info().description()
 			<< FCPPT_TEXT("\"\n");
 	}
 }

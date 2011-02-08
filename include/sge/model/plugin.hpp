@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MODEL_PLUGIN_HPP_INCLUDED
 #define SGE_MODEL_PLUGIN_HPP_INCLUDED
 
-#include <sge/model/loader_fwd.hpp>
+#include <sge/model/loader_ptr.hpp>
 #include <sge/plugin/detail/address_name.hpp>
 #include <sge/plugin/detail/traits.hpp>
 #include <sge/plugin/capabilities.hpp>
@@ -45,7 +45,7 @@ struct traits<
 	SGE_SYMBOL static capabilities::type
 	plugin_type();
 
-	typedef model::loader* (*loader_fun)();
+	typedef model::loader_ptr const (*loader_fun)();
 };
 
 }

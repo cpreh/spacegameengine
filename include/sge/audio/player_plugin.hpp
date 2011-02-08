@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_PLAYER_PLUGIN_HPP_INCLUDED
 #define SGE_AUDIO_PLAYER_PLUGIN_HPP_INCLUDED
 
-#include <sge/audio/player_fwd.hpp>
+#include <sge/audio/player_ptr.hpp>
 #include <sge/plugin/detail/traits.hpp>
 #include <sge/plugin/detail/address_name.hpp>
 #include <sge/plugin/capabilities.hpp>
@@ -46,7 +46,7 @@ public:
 	SGE_SYMBOL static capabilities::type
 	plugin_type();
 
-	typedef audio::player* (*loader_fun)();
+	typedef audio::player_ptr const (*loader_fun)();
 };
 
 }

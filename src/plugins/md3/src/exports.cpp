@@ -19,39 +19,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../loader.hpp"
+#include <sge/model/loader_ptr.hpp>
+#include <sge/plugin/library/make_interface.hpp>
+#include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/info.hpp>
-#include <fcppt/export_symbol.hpp>
+#include <sge/plugin/min_core_version.hpp>
+#include <sge/plugin/version.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 
-extern "C"
+namespace
 {
 
-FCPPT_EXPORT_SYMBOL void
-plugin_version_info(
-	sge::plugin::info *
+sge::plugin::info const info(
+	FCPPT_TEXT("md3"),
+	FCPPT_TEXT("Provides loading of md3 model files."),
+	sge::plugin::version(0x1),
+	sge::plugin::min_core_version(0x1),
+	sge::plugin::capabilities::model_loader
 );
 
-FCPPT_EXPORT_SYMBOL sge::model::loader *
-create_model_loader();
-
-FCPPT_EXPORT_SYMBOL void
-plugin_version_info(
-	sge::plugin::info *const i
-)
-{
-	if(!i)
-		return;
-	i->name = FCPPT_TEXT("md3");
-	i->description = FCPPT_TEXT("Provides loading of md3 model files.");
-	i->type = sge::plugin::capabilities::model_loader;
-	i->plugin_version = 0x1;
-	i->min_core_version = 0x1;
-}
-
-FCPPT_EXPORT_SYMBOL sge::model::loader *
+sge::model::loader_ptr const
 create_model_loader()
 {
-	return new sge::md3::loader();
+	return
+		fcppt::make_shared_ptr<
+			sge::md3::loader
+		>();
 }
 
 }
+
+SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(
+	info,
+	(create_model_loader)
+)

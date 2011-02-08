@@ -55,3 +55,9 @@ sge::plugin::library::function_map::function(
 	
 	return it->second;
 }
+
+sge::plugin::library::function_map::container const &
+sge::plugin::library::function_map::get() const
+{
+	return functions_;
+}

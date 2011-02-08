@@ -51,6 +51,10 @@ public:
 	function(
 		library::symbol_string const &
 	) const;
+
+	SGE_SYMBOL
+	container const &
+	get() const;
 private:
 	container functions_;
 };

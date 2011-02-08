@@ -19,46 +19,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../system.hpp"
+#include <sge/charconv/system_ptr.hpp>
+#include <sge/font/system_ptr.hpp>
+#include <sge/plugin/library/make_interface.hpp>
+#include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/info.hpp>
-#include <fcppt/export_symbol.hpp>
+#include <sge/plugin/min_core_version.hpp>
+#include <sge/plugin/version.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 
-extern "C"
+namespace
 {
 
-FCPPT_EXPORT_SYMBOL void
-plugin_version_info(
-	sge::plugin::info *
+sge::plugin::info const info(
+	FCPPT_TEXT("freetype"),
+	FCPPT_TEXT("Provides loading of truetype fonts."),
+	sge::plugin::version(0x1),
+	sge::plugin::min_core_version(0x1),
+	sge::plugin::capabilities::font
 );
 
-FCPPT_EXPORT_SYMBOL sge::font::system *
-create_font_system(
-	sge::charconv::system_ptr
-);
-
-FCPPT_EXPORT_SYMBOL void
-plugin_version_info(
-	sge::plugin::info *const p
-)
-{
-	if(!p)
-		return;
-	p->name = FCPPT_TEXT("freetype");
-	p->description = FCPPT_TEXT("");
-	p->min_core_version = 0x1;
-	p->plugin_version = 0x1;
-	p->type = sge::plugin::capabilities::font;
-}
-
-FCPPT_EXPORT_SYMBOL sge::font::system *
+sge::font::system_ptr const
 create_font_system(
 	sge::charconv::system_ptr const _charconv_system
 )
 {
 	return
-		new sge::freetype::system(
+		fcppt::make_shared_ptr<
+			sge::freetype::system
+		>(
 			_charconv_system
 		);
 }
 
 }
+
+SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(
+	info,
+	(create_font_system)
+)

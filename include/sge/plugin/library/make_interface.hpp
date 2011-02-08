@@ -49,6 +49,7 @@ sge_info_function() \
 }\
 \
 extern "C" \
+{ \
 FCPPT_EXPORT_SYMBOL \
 SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_PRE \
 	fcppt::assign::make_container<\
@@ -68,6 +69,7 @@ SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_PRE \
 		void,\
 		plugin_functions\
 	) \
-SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_POST
+SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_POST \
+}
 
 #endif

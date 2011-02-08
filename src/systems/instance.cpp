@@ -527,9 +527,7 @@ sge::systems::instance::impl::init_renderer(
 
 	renderer_plugin_ = default_plugin<sge::renderer::system>();
 
-	renderer_system_.reset(
-		renderer_plugin_->get()()
-	);
+	renderer_system_ = renderer_plugin_->get()();
 
 	if(
 		!window_
@@ -610,9 +608,7 @@ sge::systems::instance::impl::init_input(
 
 	input_plugin_ = default_plugin<sge::input::system>();
 
-	input_system_.reset(
-		input_plugin_->get()()
-	);
+	input_system_ = input_plugin_->get()();
 
 	input_processor_ =
 		input_system_->create_processor(
@@ -667,9 +663,7 @@ sge::systems::instance::impl::init_collision_system()
 {
 	collision_plugin_ = default_plugin<sge::collision::system>();
 
-	collision_system_.reset(
-		collision_plugin_->get()()
-	);
+	collision_system_ = collision_plugin_->get()();
 }
 
 void
@@ -739,9 +733,7 @@ sge::systems::instance::impl::init_audio_player(
 		{
 			audio_player_plugin_ = plugin;
 			
-			audio_player_.reset(
-				audio_player_plugin_->get()()
-			);
+			audio_player_ = audio_player_plugin_->get()();
 
 			return;
 		}
@@ -756,9 +748,7 @@ sge::systems::instance::impl::init_audio_player(
 
 	audio_player_plugin_ = default_plugin<sge::audio::player>();
 
-	audio_player_.reset(
-		audio_player_plugin_->get()()
-	);
+	audio_player_ = audio_player_plugin_->get()();
 }
 
 void
@@ -768,11 +758,10 @@ sge::systems::instance::impl::init_font()
 
 	font_plugin_ = default_plugin<sge::font::system>();
 
-	font_system_.reset(
+	font_system_ =
 		font_plugin_->get()(
 			charconv_system_
-		)
-	);
+		);
 }
 
 void
@@ -785,9 +774,7 @@ sge::systems::instance::impl::init_charconv()
 
 	charconv_plugin_ = default_plugin<sge::charconv::system>();
 
-	charconv_system_.reset(
-		charconv_plugin_->get()()
-	);
+	charconv_system_ = charconv_plugin_->get()();
 }
 
 void
@@ -795,9 +782,7 @@ sge::systems::instance::impl::init_md3()
 {
 	md3_plugin_ = default_plugin<sge::model::loader>();
 
-	md3_loader_.reset(
-		md3_plugin_->get()()
-	);
+	md3_loader_ = md3_plugin_->get()();
 }
 
 void

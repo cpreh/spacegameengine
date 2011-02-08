@@ -19,39 +19,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../loader.hpp"
+#include <sge/image2d/loader_ptr.hpp>
+#include <sge/plugin/library/make_interface.hpp>
+#include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/info.hpp>
+#include <sge/plugin/min_core_version.hpp>
+#include <sge/plugin/version.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/export_symbol.hpp>
 
-extern "C"
+namespace
 {
 
-FCPPT_EXPORT_SYMBOL void
-plugin_version_info(
-	sge::plugin::info *
+sge::plugin::info const info(
+	FCPPT_TEXT("libpng"),
+	FCPPT_TEXT("Provides loading and saving of png files."),
+	sge::plugin::version(0x1),
+	sge::plugin::min_core_version(0x1),
+	sge::plugin::capabilities::image2d_loader
 );
 
-FCPPT_EXPORT_SYMBOL sge::image2d::loader *
-create_image2d_loader();
-
-FCPPT_EXPORT_SYMBOL void
-plugin_version_info(
-	sge::plugin::info *const p
-)
-{
-	if(!p)
-		return;
-	p->name = FCPPT_TEXT("libpng");
-	p->description = FCPPT_TEXT("");
-	p->plugin_version = 0x1;
-	p->min_core_version = 0x1;
-	p->type = sge::plugin::capabilities::image2d_loader;
-}
-
-FCPPT_EXPORT_SYMBOL sge::image2d::loader *
+sge::image2d::loader_ptr const
 create_image2d_loader()
 {
-	return new sge::libpng::loader();
+	return
+		fcppt::make_shared_ptr<
+			sge::libpng::loader
+		>();
 }
 
 }
+
+SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(
+	info,
+	(create_image2d_loader)
+)
