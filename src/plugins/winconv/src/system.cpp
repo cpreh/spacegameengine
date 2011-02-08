@@ -41,5 +41,6 @@ sge::winconv::system::create_converter(
 			winconv::converter
 		>(
 			_source,
-			_dest);
+			_dest
+		);
 }

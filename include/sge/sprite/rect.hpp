@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_RECT_HPP_INCLUDED
 
 #include <fcppt/math/box/rect.hpp>
+#include <fcppt/restrict_typedef_struct.hpp>
 
 namespace sge
 {
@@ -37,6 +38,9 @@ fcppt::math::box::rect<
 	UnitType
 >
 {
+	FCPPT_RESTRICT_TYPEDEF_STRUCT(
+		rect
+	);
 };
 
 }

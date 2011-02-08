@@ -25,16 +25,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config.hpp>
 
 #if defined(FCPPT_POSIX_PLATFORM)
+#include <fcppt/export_symbol.hpp>
 
 #define SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_PRE \
+extern "C" \
+{ \
+FCPPT_EXPORT_SYMBOL \
 sge::plugin::library::function_map sge_plugin_functions(
 
 #elif defined(FCPPT_WINDOWS_PLATFORM)
 
 #define SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_PRE \
-sge::plugin::library::function_map const \
-sge_plugin_function_map( \
-	return 
+namespace \
+{ \
+sge::plugin::library::function_map sge_plugin_functions_global(
 
 #else
 #error "Don't know what the library interface should look like!"

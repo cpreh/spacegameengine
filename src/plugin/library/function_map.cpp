@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/plugin/library/function_map.hpp>
 #include <sge/plugin/library/exception.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 
 sge::plugin::library::function_map::function_map(
@@ -48,7 +49,9 @@ sge::plugin::library::function_map::function(
 		throw sge::plugin::library::exception(
 			FCPPT_TEXT("Missing function \"")
 			+
-			_name
+			fcppt::from_std_string(
+				_name
+			)
 			+
 			FCPPT_TEXT("\" in a library!")
 		);

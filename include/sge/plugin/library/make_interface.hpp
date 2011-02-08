@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/library/function_map.hpp>
 #include <sge/plugin/info.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/export_symbol.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <utility>
 
@@ -48,9 +47,6 @@ sge_info_function() \
 \
 }\
 \
-extern "C" \
-{ \
-FCPPT_EXPORT_SYMBOL \
 SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_PRE \
 	fcppt::assign::make_container<\
 		sge::plugin::library::function_map::container\
@@ -69,7 +65,6 @@ SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_PRE \
 		void,\
 		plugin_functions\
 	) \
-SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_POST \
-}
+SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_POST
 
 #endif

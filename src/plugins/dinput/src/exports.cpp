@@ -19,32 +19,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../system.hpp"
+#include <sge/input/system_ptr.hpp>
+#include <sge/plugin/library/make_interface.hpp>
+#include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/info.hpp>
-#include <fcppt/export_symbol.hpp>
+#include <sge/plugin/min_core_version.hpp>
+#include <sge/plugin/version.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 
-extern "C"
+namespace
 {
 
-FCPPT_EXPORT_SYMBOL void
-plugin_version_info(
-	sge::plugin::info *const _info
-)
-{
-	if(!_info)
-		return;
+sge::plugin::info const info(
+	FCPPT_TEXT("dinput"),
+	FCPPT_TEXT("Implements keyboard and mouse via DirectInpu8."),
+	sge::plugin::version(0x1),
+	sge::plugin::min_core_version(0x1),
+	sge::plugin::capabilities::input
+);
 
-	_info->name = FCPPT_TEXT("direct input plugin");
-	_info->description = FCPPT_TEXT("");
-	_info->min_core_version = 0x1;
-	_info->plugin_version = 0x1;
-	_info->type = sge::plugin::capabilities::input;
-}
-
-FCPPT_EXPORT_SYMBOL sge::input::system *
+sge::input::system_ptr const
 create_input_system()
 {
-	return new sge::dinput::system();
+	return
+		fcppt::make_shared_ptr<
+			sge::dinput::system
+		>();
 }
 
 }
+
+SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(
+	info,
+	(create_input_system)
+)

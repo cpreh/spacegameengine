@@ -26,12 +26,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #if defined(FCPPT_POSIX_PLATFORM)
 
 #define SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_POST \
-);
+);\
+}
 
 #elif defined(FCPPT_WINDOWS_PLATFORM)
 
+#include <sge/plugin/library/function_map.hpp>
+#include <fcppt/export_symbol.hpp>
+
 #define SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_POST \
-	;\
+	);\
+}\
+extern "C" \
+{ \
+FCPPT_EXPORT_SYMBOL \
+sge::plugin::library::function_map const * \
+sge_plugin_functions() \
+{\
+	return &sge_plugin_functions_global;\
+}\
 }
 
 #else

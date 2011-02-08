@@ -33,7 +33,7 @@ sge::plugin::library::load_function_base(
 	char const *const map_name = "sge_plugin_functions";
 
 #if defined(FCPPT_WINDOWS_PLATFORM)
-	typedef library::function_map *(map_function*)();
+	typedef library::function_map const *(*map_function)();
 	
 	return
 		reinterpret_cast<

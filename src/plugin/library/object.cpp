@@ -45,31 +45,36 @@ namespace
 
 void
 free_library(
-	HMODULE const _module
+	HMODULE const _handle
 )
 {
 	::FreeLibrary(
-		_module
+		_handle
 	);
 }
 
 struct context
 {
-	FCPPT_NONCOPYABLE(context);
+	FCPPT_NONCOPYABLE(
+		context
+	);
 public:
 	explicit context(
-		HMODULE const hinst
+		HMODULE const _handle
 	)
 	:
-		hinst(hinst)
-	{}
+		handle_(_handle)
+	{
+	}
 
 	~context()
 	{
-		free_library(hinst);
+		free_library(
+			handle_
+		);
 	}
 private:
-	HMODULE const hinst;
+	HMODULE const handle_;
 };
 
 typedef boost::ptr_vector<
@@ -156,7 +161,7 @@ sge::plugin::library::object::~object()
 			fcppt::make_unique_ptr<
 				context
 			>(
-				module
+				handle_
 			)
 		);
 	else
