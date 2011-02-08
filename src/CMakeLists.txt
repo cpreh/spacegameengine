@@ -421,9 +421,14 @@ SET(
 	include/sge/plugin/info_fwd.hpp
 	include/sge/plugin/iterator.hpp
 	include/sge/plugin/iterator_fwd.hpp
+	include/sge/plugin/library/detail/interface_post.hpp
+	include/sge/plugin/library/detail/interface_pre.hpp
+	include/sge/plugin/library/detail/iterate_functions.hpp
+	include/sge/plugin/library/detail/version_function_name.hpp
 	include/sge/plugin/library/exception.hpp
 	include/sge/plugin/library/function_base.hpp
 	include/sge/plugin/library/function_map.hpp
+	include/sge/plugin/library/make_interface.hpp
 	include/sge/plugin/library/object_fwd.hpp
 	include/sge/plugin/library/symbol_not_found.hpp
 	include/sge/plugin/library/symbol_string.hpp
@@ -951,11 +956,14 @@ SET(
 	src/plugin/base.cpp
 	src/plugin/context_base.cpp
 	src/plugin/context_impl.hpp
+	src/plugin/exception.cpp
 	src/plugin/info.cpp
 	src/plugin/instantiate_types.hpp
 	src/plugin/iterator_impl.hpp
 	src/plugin/library/error.cpp
 	src/plugin/library/error.hpp
+	src/plugin/library/exception.cpp
+	src/plugin/library/function_map.cpp
 	src/plugin/library/load_function.hpp
 	src/plugin/library/load_function_base.cpp
 	src/plugin/library/load_function_base.hpp
@@ -968,8 +976,6 @@ SET(
 	src/plugin/manager.cpp
 	src/plugin/manager_impl.hpp
 	src/plugin/object_impl.hpp
-	src/plugin/version_function_name.cpp
-	src/plugin/version_function_name.hpp
 	src/renderer/add_depth_stencil_surface_to_target.cpp
 	src/renderer/aspect.cpp
 	src/renderer/bit_depth_bytes.cpp

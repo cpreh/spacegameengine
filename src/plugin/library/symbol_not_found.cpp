@@ -55,11 +55,11 @@ sge::plugin::library::symbol_not_found::library_name() const
 }
 
 sge::plugin::library::symbol_string const &
-sge::plugin::library::function_not_found::symbol() const
+sge::plugin::library::symbol_not_found::symbol() const
 {
 	return symbol_;
 }
 
-sge::plugin::library::function_not_found::~function_not_found() throw()
+sge::plugin::library::symbol_not_found::~symbol_not_found() throw()
 {
 }

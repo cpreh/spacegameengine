@@ -18,29 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "load_info.hpp"
-#include "library/object.hpp"
-#include "library/load_function.hpp"
-#include <sge/plugin/library/detail/version_function_name.hpp>
-#include <sge/plugin/info.hpp>
+#ifndef SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_POST_HPP_INCLUDED
+#define SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_POST_HPP_INCLUDED
 
-sge::plugin::info const
-sge::plugin::load_info(
-	fcppt::filesystem::path const &_path
-)
-{
-	typedef sge::plugin::info const
-	(*version_function)();
+#include <fcppt/config.hpp>
 
-	library::object lib(
-		_path
-	);
+#if defined(FCPPT_POSIX_PLATFORM)
 
-	return
-		library::load_function<
-			version_function
-		>(
-			lib,
-			plugin::library::detail::version_function_name
-		)();
+#define SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_POST \
+);
+
+#elif defined(FCPPT_WINDOWS_PLATFORM)
+
+#define SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_POST \
+	;\
 }
+
+#else
+#error "Don't know what the library interface should look like!"
+#endif
+
+#endif

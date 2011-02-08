@@ -18,29 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "load_info.hpp"
-#include "library/object.hpp"
-#include "library/load_function.hpp"
-#include <sge/plugin/library/detail/version_function_name.hpp>
-#include <sge/plugin/info.hpp>
+#ifndef SGE_PLUGIN_LIBRARY_DETAIL_VERSION_FUNCTION_NAME_HPP_INCLUDED
+#define SGE_PLUGIN_LIBRARY_DETAIL_VERSION_FUNCTION_NAME_HPP_INCLUDED
 
-sge::plugin::info const
-sge::plugin::load_info(
-	fcppt::filesystem::path const &_path
-)
+#include <sge/plugin/library/symbol_string.hpp>
+
+namespace sge
 {
-	typedef sge::plugin::info const
-	(*version_function)();
+namespace plugin
+{
+namespace library
+{
+namespace detail
+{
 
-	library::object lib(
-		_path
-	);
+library::symbol_string const
+version_function_name
+	= "sge_plugin_version_info";
 
-	return
-		library::load_function<
-			version_function
-		>(
-			lib,
-			plugin::library::detail::version_function_name
-		)();
 }
+}
+}
+}
+
+#endif

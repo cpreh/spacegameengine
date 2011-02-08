@@ -126,9 +126,9 @@ sge::plugin::library::object::object(
 #endif
 {
 	if(
-		!handle
+		!handle_
 	)
-		throw sge::exception(
+		throw sge::plugin::library::exception(
 			fcppt::string(
 				FCPPT_TEXT("Failed to load library::object: "))
 				+ library::error()
@@ -176,27 +176,28 @@ sge::plugin::library::object::name() const
 	return name_;
 }
 
-sge::plugin::library::laoded_symbol
-sge::plugin::library::object::load_address_base(
+sge::plugin::library::loaded_symbol
+sge::plugin::library::object::load(
 	library::symbol_string const &_fun
 )
 {
 #ifdef FCPPT_WINDOWS_PLATFORM
 	FARPROC const ret(
-		GetProcAddress(
-			static_cast<HMODULE>(handle),
-			fun.c_str())
+		::GetProcAddress(
+			handle_,
+			_fun.c_str()
+		)
 	);
 
 	if(
-		!ret_
+		!ret
 	)
 		throw sge::plugin::library::exception(
 			FCPPT_TEXT("Function ")
 			+ fcppt::from_std_string(_fun)
 			+ FCPPT_TEXT(" not found in ")
 			+ fcppt::filesystem::path_to_string(
-				name_
+				this->name()
 			)
 		);
 
@@ -206,8 +207,8 @@ sge::plugin::library::object::load_address_base(
 
 	void *const ret(
 		::dlsym(
-			this->handle(),
-			fun.c_str()
+			handle_,
+			_fun.c_str()
 		)
 	);
 
@@ -218,7 +219,7 @@ sge::plugin::library::object::load_address_base(
 		throw sge::plugin::library::exception(
 			fcppt::from_std_string(_fun)
 			+ FCPPT_TEXT(" not found in library ")
-			+ name().string()
+			+ this->name().string()
 		);
 
 	return ret;

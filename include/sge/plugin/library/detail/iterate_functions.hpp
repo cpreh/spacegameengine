@@ -18,9 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "version_function_name.hpp"
+#ifndef SGE_PLUGIN_LIBRARY_DETAIL_ITERATE_FUNCTIONS_HPP_INCLUDED
+#define SGE_PLUGIN_LIBRARY_DETAIL_ITERATE_FUNCTIONS_HPP_INCLUDED
 
-sge::library::function_string const
-sge::plugin::version_function_name(
-	"plugin_version_info"
-);
+#include <sge/plugin/library/function_base.hpp>
+#include <sge/plugin/library/symbol_string.hpp>
+#include <boost/preprocessor/stringize.hpp>
+#include <utility>
+
+#define SGE_PLUGIN_LIBRARY_DETAIL_ITERATE_FUNCTIONS(\
+	req,\
+	data,\
+	elem\
+)\
+(\
+	std::make_pair(\
+		sge::plugin::library::symbol_string(\
+			BOOST_PP_STRINGIZE(\
+				elem\
+			)\
+		),\
+		reinterpret_cast<\
+			sge::plugin::library::function_base\
+		>(\
+			elem\
+		)\
+	)\
+)
+
+#endif

@@ -18,17 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "version_fun.hpp"
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/context_base.hpp>
+#include <sge/plugin/info.hpp>
+#include <sge/plugin/library/symbol_not_found.hpp>
 #include <sge/log/global.hpp>
-#include <sge/library/function_not_found.hpp>
 #include <sge/exception.hpp>
 #include <fcppt/filesystem/directory_iterator.hpp>
 #include <fcppt/filesystem/is_directory.hpp>
 #include <fcppt/filesystem/extension_without_dot.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/foreach_numerator.hpp>
+#include <fcppt/foreach_enumerator.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/text.hpp>
@@ -100,12 +100,12 @@ sge::plugin::manager::manager(
 		{
 			plugins_.push_back(
 				plugin::context_base(
-					*it
+					it->path()
 				)
 			);
 		}
 		catch(
-			library::function_not_found const &_exception
+			library::symbol_not_found const &_exception
 		)
 		{
 			FCPPT_LOG_WARNING(
@@ -115,9 +115,9 @@ sge::plugin::manager::manager(
 						it->path()
 					)
 					<< FCPPT_TEXT(" doesn't seem to be a valid sge plugin")
-					<< FCPPT_TEXT(" because the function \"")
+					<< FCPPT_TEXT(" because the symbol \"")
 					<< fcppt::from_std_string(
-						_exception.func()
+						_exception.symbol()
 					)
 					<< FCPPT_TEXT("\" is missing!")
 			);
@@ -144,11 +144,11 @@ sge::plugin::manager::manager(
 		plugins_
 	)
 		FCPPT_FOREACH_ENUMERATOR(
-			capabilitiies::type index,
-			capabilitiies::size
+			index,
+			plugin::capabilities
 		)
 			if(
-				ref.type() & index
+				ref.info().capabilities() & index
 			)
 				categories_[
 					index

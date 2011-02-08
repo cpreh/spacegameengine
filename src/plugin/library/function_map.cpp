@@ -18,20 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_VERSION_FUNCTION_NAME_HPP_INCLUDED
-#define SGE_PLUGIN_VERSION_FUNCTION_NAME_HPP_INCLUDED
+#include <sge/plugin/library/function_map.hpp>
+#include <sge/plugin/library/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include <sge/library/function_string.hpp>
-
-namespace sge
+sge::plugin::library::function_map::function_map(
+	container const &_functions
+)
+:
+	functions_(_functions)
 {
-namespace plugin
-{
-
-extern library::function_string const
-version_function_name;
-
-}
 }
 
-#endif
+sge::plugin::library::function_base
+sge::plugin::library::function_map::function(
+	library::symbol_string const &_name
+) const
+{
+	container::const_iterator const it(
+		functions_.find(
+			_name
+		)
+	);
+
+	// this should not happen
+	if(
+		it == functions_.end()
+	)
+		throw sge::plugin::library::exception(
+			FCPPT_TEXT("Missing function \"")
+			+
+			_name
+			+
+			FCPPT_TEXT("\" in a library!")
+		);
+	
+	return it->second;
+}

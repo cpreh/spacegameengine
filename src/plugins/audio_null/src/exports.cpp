@@ -19,8 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../player.hpp"
+#include <sge/audio/player_ptr.hpp>
+#include <sge/plugin/library/make_interface.hpp>
+#include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/info.hpp>
-#include <fcppt/export_symbol.hpp>
+#include <sge/plugin/min_core_version.hpp>
+#include <sge/plugin/version.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 
 namespace
@@ -30,7 +35,7 @@ sge::plugin::info const info(
 	FCPPT_TEXT("audionull"),
 	FCPPT_TEXT("audio plugin that does not do anything"),
 	sge::plugin::version(0x1),
-	sge::plugin::min_core_version(0x1)
+	sge::plugin::min_core_version(0x1),
 	sge::plugin::capabilities::audio_player
 );
 
@@ -45,35 +50,7 @@ create_audio_player()
 
 }
 
-#if defined(FCPPT_POSIX_PLATFORM)
-#define SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(\
-	function_map,\
-	info\
-)\
-extern "C" \
-{\
-	FCPPT_EXPORT_SYMBOL \
-	sge::plugin::function_map sge_plugin_functions(\
-		function_map\
-	);\
-}
-
-#elif defined(FCPPT_WINDOWS_PLATFORM)
-
-#define SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(\
-	function_map,\
-	info\
-)\
-extern "C" \
-{ \
-	FCPPT_EXPORT_SYMBOL \
-	sge::plugin::library::function_map const \
-	load_function_map()\
-	{\
-		return function_map;\
-	}\
-#else
-#error "Don't know how to load functions from plugins!"
-#endif
-
 SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(
+	info,
+	(create_audio_player)
+)

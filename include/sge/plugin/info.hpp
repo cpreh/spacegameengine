@@ -66,9 +66,9 @@ public:
 	plugin::capabilities_field const &
 	capabilities() const;
 private:
-	fcppt::string const name_;
+	fcppt::string name_;
 
-	fcppt::string const description_;
+	fcppt::string description_;
 
 	plugin::version version_;
 
