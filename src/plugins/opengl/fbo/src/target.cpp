@@ -123,6 +123,8 @@ sge::opengl::fbo::target::color_surface(
 		_index
 	);
 
+	this->remove_dim();
+
 	if(
 		_surface
 	)
@@ -145,8 +147,6 @@ sge::opengl::fbo::target::color_surface(
 			)
 		);
 	}
-	else
-		this->remove_dim();
 }
 
 void
@@ -176,16 +176,14 @@ sge::opengl::fbo::target::depth_stencil_surface(
 		fbo_
 	);
 
+	depth_stencil_attachment_.reset();
+
+	this->remove_dim();
+
 	if(
 		!_surface
 	)
-	{
-		depth_stencil_attachment_.reset();
-
-		this->remove_dim();
-
 		return;
-	}
 
 	this->add_dim(
 		_surface->dim()
