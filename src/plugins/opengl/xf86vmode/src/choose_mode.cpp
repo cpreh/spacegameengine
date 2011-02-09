@@ -58,7 +58,7 @@ sge::opengl::xf86vmode::choose_mode(
 			&&
 			mode.vdisplay == _display_mode.size().h()
 			&&
-			rate  >= _display_mode.refresh_rate()
+			rate  >= _display_mode.refresh_rate().get()
 			&&
 			(
 				best == -1

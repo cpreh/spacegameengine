@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 #include "../get_string.hpp"
 #include "../get_int.hpp"
-#include "../texture_context.hpp"
+#include "../context/use.hpp"
 #include "../fbo/context.hpp"
 #include "../glsl/context.hpp"
-#include "../context/use.hpp"
+#include "../texture/context.hpp"
 #include <sge/renderer/filter/anisotropy_type.hpp>
 #include <sge/renderer/adapter_type.hpp>
 #include <sge/renderer/caps.hpp>
@@ -49,9 +49,9 @@ sge::opengl::create_caps(
 		)
 	);
 
-	opengl::texture_context const &texture_context(
+	opengl::texture::context const &texture_context(
 		context::use<
-			texture_context
+			texture::context
 		>(
 			_context
 		)

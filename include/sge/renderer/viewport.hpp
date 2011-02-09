@@ -32,7 +32,7 @@ namespace renderer
 FCPPT_MAKE_STRONG_TYPEDEF(
 	renderer::pixel_rect,
 	viewport
-)
+);
 
 }
 }

@@ -19,13 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../texpos_actor.hpp"
-#include "../convert_element_type.hpp"
 #include "../actor_parameters.hpp"
+#include "../convert_element_type.hpp"
 #include "../../check_state.hpp"
-#include "../../multi_texture_context.hpp"
-#include "../../set_client_texture_level.hpp"
-#include "../../context/use.hpp"
 #include "../../common.hpp"
+#include "../../context/use.hpp"
+#include "../../texture/multi_context.hpp"
+#include "../../texture/funcs/set_client_level.hpp"
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
 #include <sge/renderer/vf/dynamic/vector.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
@@ -61,9 +61,9 @@ sge::opengl::vf::texpos_actor::texpos_actor(
 		_element.index()
 	)
 {
-	multi_texture_context &texture_context(
+	texture::multi_context &texture_context(
 		opengl::context::use<
-			multi_texture_context
+			texture::multi_context
 		>(
 			context_
 		)
@@ -104,7 +104,7 @@ sge::opengl::vf::texpos_actor::on_use(
 	vf::pointer const _src
 ) const
 {
-	opengl::set_client_texture_level(
+	opengl::texture::funcs::set_client_level(
 		context_,
 		sge::renderer::stage_type(
 			static_cast<
@@ -115,7 +115,7 @@ sge::opengl::vf::texpos_actor::on_use(
 		)
 	);
 
-	glTexCoordPointer(
+	::glTexCoordPointer(
 		elements_,
 		format_,
 		static_cast<

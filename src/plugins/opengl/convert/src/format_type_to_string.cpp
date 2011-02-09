@@ -19,16 +19,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../format_type_to_string.hpp"
+#include "../../common.hpp"
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
 fcppt::string const
 sge::opengl::convert::format_type_to_string(
-	GLenum const _format_type
+	opengl::color_format_type const _format_type
 )
 {
 	switch(
-		_format_type
+		_format_type.get()
 	)
 	{
 	case GL_UNSIGNED_BYTE:

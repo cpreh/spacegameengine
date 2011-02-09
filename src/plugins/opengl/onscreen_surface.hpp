@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_ONSCREEN_SURFACE_HPP_INCLUDED
 #define SGE_OPENGL_ONSCREEN_SURFACE_HPP_INCLUDED
 
-#include "common.hpp"
+#include "color_format.hpp"
+#include "color_format_type.hpp"
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/color_surface.hpp>
 #include <sge/renderer/raw_value.hpp>
@@ -62,10 +63,10 @@ private:
 	dim_type const
 	dim() const;
 
-	GLenum
+	opengl::color_format const
 	format() const;
 
-	GLenum
+	opengl::color_format_type const
 	format_type() const;
 
 	typedef fcppt::container::raw_vector<

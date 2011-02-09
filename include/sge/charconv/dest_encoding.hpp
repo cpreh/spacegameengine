@@ -32,7 +32,7 @@ namespace charconv
 FCPPT_MAKE_STRONG_TYPEDEF(
 	encoding::type,
 	dest_encoding
-)
+);
 
 }
 }

@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "texture_binding_fwd.hpp"
 #include "attachment.hpp"
 #include "context_fwd.hpp"
-#include "../texture_surface_base_ptr.hpp"
 #include "../common.hpp"
+#include "../texture/surface_base_ptr.hpp"
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -45,7 +45,7 @@ class texture_binding
 public:
 	explicit texture_binding(
 		fbo::context const &,
-		opengl::texture_surface_base_ptr,
+		opengl::texture::surface_base_ptr,
 		GLenum attachment
 	);
 
@@ -53,7 +53,7 @@ public:
 private:
 	fbo::context const &context_;
 
-	opengl::texture_surface_base_ptr const surface_;
+	opengl::texture::surface_base_ptr const surface_;
 
 	GLenum const attachment_;
 };

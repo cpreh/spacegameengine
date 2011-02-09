@@ -25,23 +25,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::read_pixels(
-	renderer::pixel_unit const x,
-	renderer::pixel_unit const y,
-	renderer::size_type const width,
-	renderer::size_type const height,
-	GLenum const format,
-	GLenum const type,
-	renderer::raw_pointer const dest
+	renderer::pixel_unit const _pos_x,
+	renderer::pixel_unit const _pos_y,
+	renderer::size_type const _width,
+	renderer::size_type const _height,
+	opengl::color_format const _format,
+	opengl::color_format_type const _format_type,
+	renderer::raw_pointer const _dest
 )
 {
 	::glReadPixels(
-		static_cast<GLint>(x),
-		static_cast<GLint>(y),
-		static_cast<GLsizei>(width),
-		static_cast<GLsizei>(height),
-		format,
-		type,
-		dest
+		static_cast<
+			GLint
+		>(
+			_pos_x
+		),
+		static_cast<
+			GLint
+		>(
+			_pos_y
+		),
+		static_cast<
+			GLsizei
+		>(
+			_width
+		),
+		static_cast<
+			GLsizei
+		>(
+			_height
+		),
+		_format.get(),
+		_format_type.get(),
+		_dest
 	);
 
 	SGE_OPENGL_CHECK_STATE(

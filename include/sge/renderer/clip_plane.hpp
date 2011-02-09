@@ -32,7 +32,7 @@ namespace renderer
 FCPPT_MAKE_STRONG_TYPEDEF(
 	renderer::vector4,
 	clip_plane
-)
+);
 
 }
 }

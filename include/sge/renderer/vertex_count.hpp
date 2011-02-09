@@ -32,7 +32,7 @@ namespace renderer
 FCPPT_MAKE_STRONG_TYPEDEF(
 	size_type,
 	vertex_count	
-)
+);
 
 }
 }

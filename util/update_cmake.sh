@@ -125,7 +125,7 @@ update_cmake_file \
 	src/plugins/opengl/glew \
 	src/plugins/opengl/glsl \
 	src/plugins/opengl/src \
-	src/plugins/opengl/texfuncs \
+	src/plugins/opengl/texture \
 	src/plugins/opengl/vf
 
 update_cmake_file \

@@ -25,11 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 fcppt::string const
 sge::opengl::convert::format_to_string(
-	GLenum const _format
+	opengl::color_format const _format
 )
 {
 	switch(
-		_format
+		_format.get()
 	)
 	{
 	case GL_COLOR_INDEX:

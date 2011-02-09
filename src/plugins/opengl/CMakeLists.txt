@@ -3,14 +3,12 @@ SET(
 	src/plugins/opengl/apply_states.hpp
 	src/plugins/opengl/basic_target.hpp
 	src/plugins/opengl/basic_target_impl.hpp
-	src/plugins/opengl/basic_texture.hpp
-	src/plugins/opengl/basic_texture_impl.hpp
-	src/plugins/opengl/basic_texture_surface.hpp
-	src/plugins/opengl/basic_texture_surface_impl.hpp
 	src/plugins/opengl/buffer.hpp
 	src/plugins/opengl/buffer_fwd.hpp
 	src/plugins/opengl/caps_unique_ptr.hpp
 	src/plugins/opengl/check_state.hpp
+	src/plugins/opengl/color_format.hpp
+	src/plugins/opengl/color_format_type.hpp
 	src/plugins/opengl/common.hpp
 	src/plugins/opengl/context/base.hpp
 	src/plugins/opengl/context/base_fwd.hpp
@@ -35,7 +33,6 @@ SET(
 	src/plugins/opengl/convert/color_to_format.hpp
 	src/plugins/opengl/convert/color_to_format_type.hpp
 	src/plugins/opengl/convert/color_to_internal_format.hpp
-	src/plugins/opengl/convert/cube_side.hpp
 	src/plugins/opengl/convert/cull_mode.hpp
 	src/plugins/opengl/convert/depth_buffer.hpp
 	src/plugins/opengl/convert/depth_func.hpp
@@ -64,7 +61,6 @@ SET(
 	src/plugins/opengl/convert/src/color_to_format.cpp
 	src/plugins/opengl/convert/src/color_to_format_type.cpp
 	src/plugins/opengl/convert/src/color_to_internal_format.cpp
-	src/plugins/opengl/convert/src/cube_side.cpp
 	src/plugins/opengl/convert/src/cull_mode.cpp
 	src/plugins/opengl/convert/src/depth_buffer.cpp
 	src/plugins/opengl/convert/src/depth_func.cpp
@@ -87,34 +83,14 @@ SET(
 	src/plugins/opengl/convert/src/source_blend_func.cpp
 	src/plugins/opengl/convert/src/stencil_buffer.cpp
 	src/plugins/opengl/convert/src/stencil_func.cpp
-	src/plugins/opengl/convert/src/texture_mag_filter.cpp
-	src/plugins/opengl/convert/src/texture_min_filter.cpp
-	src/plugins/opengl/convert/src/texture_stage_arg.cpp
-	src/plugins/opengl/convert/src/texture_stage_arg_value.cpp
-	src/plugins/opengl/convert/src/texture_stage_op.cpp
-	src/plugins/opengl/convert/src/texture_stage_op_value.cpp
 	src/plugins/opengl/convert/stencil_buffer.hpp
 	src/plugins/opengl/convert/stencil_func.hpp
-	src/plugins/opengl/convert/texture_mag_filter.hpp
-	src/plugins/opengl/convert/texture_min_filter.hpp
-	src/plugins/opengl/convert/texture_stage_arg.hpp
-	src/plugins/opengl/convert/texture_stage_arg_value.hpp
-	src/plugins/opengl/convert/texture_stage_op.hpp
-	src/plugins/opengl/convert/texture_stage_op_value.hpp
 	src/plugins/opengl/convert_lock_method.hpp
 	src/plugins/opengl/convert_vertex_colors.hpp
 	src/plugins/opengl/convert_vertices.hpp
 	src/plugins/opengl/create_caps.hpp
 	src/plugins/opengl/create_device_state.hpp
-	src/plugins/opengl/create_texture_lock.hpp
 	src/plugins/opengl/create_vbo_impl.hpp
-	src/plugins/opengl/cube_side_array.hpp
-	src/plugins/opengl/cube_texture.hpp
-	src/plugins/opengl/cube_texture_context.hpp
-	src/plugins/opengl/depth_stencil_texture.hpp
-	src/plugins/opengl/depth_stencil_texture_fwd.hpp
-	src/plugins/opengl/depth_stencil_texture_ptr.hpp
-	src/plugins/opengl/depth_stencil_texture_surface.hpp
 	src/plugins/opengl/device.hpp
 	src/plugins/opengl/device_state.hpp
 	src/plugins/opengl/device_state_fwd.hpp
@@ -326,6 +302,7 @@ SET(
 	src/plugins/opengl/hardware_vbo.hpp
 	src/plugins/opengl/index_buffer.hpp
 	src/plugins/opengl/initial_states.hpp
+	src/plugins/opengl/internal_color_format.hpp
 	src/plugins/opengl/lock_flag_read.hpp
 	src/plugins/opengl/lock_flag_write.hpp
 	src/plugins/opengl/lock_method.hpp
@@ -334,8 +311,6 @@ SET(
 	src/plugins/opengl/matrix_mode.hpp
 	src/plugins/opengl/multi_sample_context.hpp
 	src/plugins/opengl/multi_sample_context_fwd.hpp
-	src/plugins/opengl/multi_texture_context.hpp
-	src/plugins/opengl/multi_texture_context_fwd.hpp
 	src/plugins/opengl/normal_lock_method.hpp
 	src/plugins/opengl/onscreen_surface.hpp
 	src/plugins/opengl/onscreen_target.hpp
@@ -347,19 +322,12 @@ SET(
 	src/plugins/opengl/range_check.hpp
 	src/plugins/opengl/range_lock_method.hpp
 	src/plugins/opengl/read_pixels.hpp
-	src/plugins/opengl/readonly_texture_lock.hpp
-	src/plugins/opengl/readwrite_texture_lock.hpp
-	src/plugins/opengl/set_client_texture_level.hpp
 	src/plugins/opengl/set_clip_plane.hpp
 	src/plugins/opengl/set_light.hpp
 	src/plugins/opengl/set_material.hpp
 	src/plugins/opengl/set_matrix.hpp
 	src/plugins/opengl/set_matrix_and_mode.hpp
 	src/plugins/opengl/set_scissor_area.hpp
-	src/plugins/opengl/set_texture.hpp
-	src/plugins/opengl/set_texture_level.hpp
-	src/plugins/opengl/set_texture_stage.hpp
-	src/plugins/opengl/set_texture_stage_scale.hpp
 	src/plugins/opengl/software_vbo.hpp
 	src/plugins/opengl/split_states.hpp
 	src/plugins/opengl/split_states_fwd.hpp
@@ -370,12 +338,7 @@ SET(
 	src/plugins/opengl/src/convert_vertices.cpp
 	src/plugins/opengl/src/create_caps.cpp
 	src/plugins/opengl/src/create_device_state.cpp
-	src/plugins/opengl/src/create_texture_lock.cpp
 	src/plugins/opengl/src/create_vbo_impl.cpp
-	src/plugins/opengl/src/cube_texture.cpp
-	src/plugins/opengl/src/cube_texture_context.cpp
-	src/plugins/opengl/src/depth_stencil_texture.cpp
-	src/plugins/opengl/src/depth_stencil_texture_surface.cpp
 	src/plugins/opengl/src/device.cpp
 	src/plugins/opengl/src/device_state.cpp
 	src/plugins/opengl/src/disable.cpp
@@ -402,7 +365,6 @@ SET(
 	src/plugins/opengl/src/matrix_context.cpp
 	src/plugins/opengl/src/matrix_mode.cpp
 	src/plugins/opengl/src/multi_sample_context.cpp
-	src/plugins/opengl/src/multi_texture_context.cpp
 	src/plugins/opengl/src/normal_lock_method.cpp
 	src/plugins/opengl/src/onscreen_surface.cpp
 	src/plugins/opengl/src/onscreen_target.cpp
@@ -410,93 +372,147 @@ SET(
 	src/plugins/opengl/src/point_sprite_context.cpp
 	src/plugins/opengl/src/range_lock_method.cpp
 	src/plugins/opengl/src/read_pixels.cpp
-	src/plugins/opengl/src/readonly_texture_lock.cpp
-	src/plugins/opengl/src/readwrite_texture_lock.cpp
-	src/plugins/opengl/src/set_client_texture_level.cpp
 	src/plugins/opengl/src/set_clip_plane.cpp
 	src/plugins/opengl/src/set_light.cpp
 	src/plugins/opengl/src/set_material.cpp
 	src/plugins/opengl/src/set_matrix.cpp
 	src/plugins/opengl/src/set_matrix_and_mode.cpp
 	src/plugins/opengl/src/set_scissor_area.cpp
-	src/plugins/opengl/src/set_texture.cpp
-	src/plugins/opengl/src/set_texture_level.cpp
-	src/plugins/opengl/src/set_texture_stage.cpp
-	src/plugins/opengl/src/set_texture_stage_scale.cpp
 	src/plugins/opengl/src/software_vbo.cpp
 	src/plugins/opengl/src/split_states.cpp
 	src/plugins/opengl/src/state_visitor.cpp
 	src/plugins/opengl/src/system.cpp
 	src/plugins/opengl/src/target_base.cpp
-	src/plugins/opengl/src/tex_envf_ext.cpp
-	src/plugins/opengl/src/texture.cpp
-	src/plugins/opengl/src/texture_base.cpp
-	src/plugins/opengl/src/texture_context.cpp
-	src/plugins/opengl/src/texture_holder.cpp
-	src/plugins/opengl/src/texture_lock.cpp
-	src/plugins/opengl/src/texture_surface.cpp
-	src/plugins/opengl/src/texture_surface_base.cpp
 	src/plugins/opengl/src/vbo_base.cpp
 	src/plugins/opengl/src/vbo_context.cpp
 	src/plugins/opengl/src/vertex_buffer.cpp
 	src/plugins/opengl/src/viewport.cpp
-	src/plugins/opengl/src/volume_texture.cpp
-	src/plugins/opengl/src/volume_texture_context.cpp
-	src/plugins/opengl/src/writeonly_texture_lock.cpp
 	src/plugins/opengl/state_visitor.hpp
 	src/plugins/opengl/system.hpp
 	src/plugins/opengl/target_base.hpp
 	src/plugins/opengl/target_base_fwd.hpp
 	src/plugins/opengl/target_base_ptr.hpp
-	src/plugins/opengl/tex_envf_ext.hpp
-	src/plugins/opengl/texfuncs/bind.hpp
-	src/plugins/opengl/texfuncs/delete.hpp
-	src/plugins/opengl/texfuncs/gen.hpp
-	src/plugins/opengl/texfuncs/get_image.hpp
-	src/plugins/opengl/texfuncs/get_parameter_int.hpp
-	src/plugins/opengl/texfuncs/level_parameter.hpp
-	src/plugins/opengl/texfuncs/need_mipmap.hpp
-	src/plugins/opengl/texfuncs/parameter_int.hpp
-	src/plugins/opengl/texfuncs/set.hpp
-	src/plugins/opengl/texfuncs/set_3d.hpp
-	src/plugins/opengl/texfuncs/set_box.hpp
-	src/plugins/opengl/texfuncs/set_filter.hpp
-	src/plugins/opengl/texfuncs/set_mipmap.hpp
-	src/plugins/opengl/texfuncs/set_rect.hpp
-	src/plugins/opengl/texfuncs/set_rect_3d.hpp
-	src/plugins/opengl/texfuncs/src/bind.cpp
-	src/plugins/opengl/texfuncs/src/delete.cpp
-	src/plugins/opengl/texfuncs/src/gen.cpp
-	src/plugins/opengl/texfuncs/src/get_image.cpp
-	src/plugins/opengl/texfuncs/src/get_parameter_int.cpp
-	src/plugins/opengl/texfuncs/src/level_parameter.cpp
-	src/plugins/opengl/texfuncs/src/need_mipmap.cpp
-	src/plugins/opengl/texfuncs/src/parameter_int.cpp
-	src/plugins/opengl/texfuncs/src/set.cpp
-	src/plugins/opengl/texfuncs/src/set_3d.cpp
-	src/plugins/opengl/texfuncs/src/set_box.cpp
-	src/plugins/opengl/texfuncs/src/set_filter.cpp
-	src/plugins/opengl/texfuncs/src/set_mipmap.cpp
-	src/plugins/opengl/texfuncs/src/set_rect.cpp
-	src/plugins/opengl/texfuncs/src/set_rect_3d.cpp
-	src/plugins/opengl/texfuncs/warn_min.hpp
-	src/plugins/opengl/texfuncs/warn_pow2.hpp
-	src/plugins/opengl/texture.hpp
-	src/plugins/opengl/texture_base.hpp
-	src/plugins/opengl/texture_base_fwd.hpp
-	src/plugins/opengl/texture_base_ptr.hpp
-	src/plugins/opengl/texture_context.hpp
-	src/plugins/opengl/texture_fwd.hpp
-	src/plugins/opengl/texture_holder.hpp
-	src/plugins/opengl/texture_lock.hpp
-	src/plugins/opengl/texture_lock_fwd.hpp
-	src/plugins/opengl/texture_lock_unique_ptr.hpp
-	src/plugins/opengl/texture_ptr.hpp
-	src/plugins/opengl/texture_surface.hpp
-	src/plugins/opengl/texture_surface_base.hpp
-	src/plugins/opengl/texture_surface_base_fwd.hpp
-	src/plugins/opengl/texture_surface_base_ptr.hpp
-	src/plugins/opengl/texture_surface_fwd.hpp
+	src/plugins/opengl/texture/activate.hpp
+	src/plugins/opengl/texture/base.hpp
+	src/plugins/opengl/texture/base_fwd.hpp
+	src/plugins/opengl/texture/base_ptr.hpp
+	src/plugins/opengl/texture/basic.hpp
+	src/plugins/opengl/texture/basic_impl.hpp
+	src/plugins/opengl/texture/basic_surface.hpp
+	src/plugins/opengl/texture/basic_surface_impl.hpp
+	src/plugins/opengl/texture/bind_context.hpp
+	src/plugins/opengl/texture/bind_context_fwd.hpp
+	src/plugins/opengl/texture/const_base_ptr.hpp
+	src/plugins/opengl/texture/context.hpp
+	src/plugins/opengl/texture/convert/cube_side.hpp
+	src/plugins/opengl/texture/convert/mag_filter.hpp
+	src/plugins/opengl/texture/convert/min_filter.hpp
+	src/plugins/opengl/texture/convert/src/cube_side.cpp
+	src/plugins/opengl/texture/convert/src/mag_filter.cpp
+	src/plugins/opengl/texture/convert/src/min_filter.cpp
+	src/plugins/opengl/texture/convert/src/stage_arg.cpp
+	src/plugins/opengl/texture/convert/src/stage_arg_value.cpp
+	src/plugins/opengl/texture/convert/src/stage_op.cpp
+	src/plugins/opengl/texture/convert/src/stage_op_value.cpp
+	src/plugins/opengl/texture/convert/stage_arg.hpp
+	src/plugins/opengl/texture/convert/stage_arg_value.hpp
+	src/plugins/opengl/texture/convert/stage_op.hpp
+	src/plugins/opengl/texture/convert/stage_op_value.hpp
+	src/plugins/opengl/texture/create_lock.hpp
+	src/plugins/opengl/texture/cube.hpp
+	src/plugins/opengl/texture/cube_context.hpp
+	src/plugins/opengl/texture/cube_side_array.hpp
+	src/plugins/opengl/texture/depth_stencil.hpp
+	src/plugins/opengl/texture/depth_stencil_fwd.hpp
+	src/plugins/opengl/texture/depth_stencil_ptr.hpp
+	src/plugins/opengl/texture/depth_stencil_surface.hpp
+	src/plugins/opengl/texture/funcs/bind.hpp
+	src/plugins/opengl/texture/funcs/delete.hpp
+	src/plugins/opengl/texture/funcs/envf.hpp
+	src/plugins/opengl/texture/funcs/gen.hpp
+	src/plugins/opengl/texture/funcs/get_image.hpp
+	src/plugins/opengl/texture/funcs/get_parameter_int.hpp
+	src/plugins/opengl/texture/funcs/level_parameter.hpp
+	src/plugins/opengl/texture/funcs/need_mipmap.hpp
+	src/plugins/opengl/texture/funcs/parameter_int.hpp
+	src/plugins/opengl/texture/funcs/set.hpp
+	src/plugins/opengl/texture/funcs/set_3d.hpp
+	src/plugins/opengl/texture/funcs/set_active_level.hpp
+	src/plugins/opengl/texture/funcs/set_box.hpp
+	src/plugins/opengl/texture/funcs/set_client_level.hpp
+	src/plugins/opengl/texture/funcs/set_filter.hpp
+	src/plugins/opengl/texture/funcs/set_mipmap.hpp
+	src/plugins/opengl/texture/funcs/set_rect.hpp
+	src/plugins/opengl/texture/funcs/set_rect_3d.hpp
+	src/plugins/opengl/texture/funcs/src/bind.cpp
+	src/plugins/opengl/texture/funcs/src/delete.cpp
+	src/plugins/opengl/texture/funcs/src/envf.cpp
+	src/plugins/opengl/texture/funcs/src/gen.cpp
+	src/plugins/opengl/texture/funcs/src/get_image.cpp
+	src/plugins/opengl/texture/funcs/src/get_parameter_int.cpp
+	src/plugins/opengl/texture/funcs/src/level_parameter.cpp
+	src/plugins/opengl/texture/funcs/src/need_mipmap.cpp
+	src/plugins/opengl/texture/funcs/src/parameter_int.cpp
+	src/plugins/opengl/texture/funcs/src/set.cpp
+	src/plugins/opengl/texture/funcs/src/set_3d.cpp
+	src/plugins/opengl/texture/funcs/src/set_active_level.cpp
+	src/plugins/opengl/texture/funcs/src/set_box.cpp
+	src/plugins/opengl/texture/funcs/src/set_client_level.cpp
+	src/plugins/opengl/texture/funcs/src/set_filter.cpp
+	src/plugins/opengl/texture/funcs/src/set_mipmap.cpp
+	src/plugins/opengl/texture/funcs/src/set_rect.cpp
+	src/plugins/opengl/texture/funcs/src/set_rect_3d.cpp
+	src/plugins/opengl/texture/funcs/warn_min.hpp
+	src/plugins/opengl/texture/funcs/warn_pow2.hpp
+	src/plugins/opengl/texture/holder.hpp
+	src/plugins/opengl/texture/id.hpp
+	src/plugins/opengl/texture/lock_base.hpp
+	src/plugins/opengl/texture/lock_base_fwd.hpp
+	src/plugins/opengl/texture/lock_base_unique_ptr.hpp
+	src/plugins/opengl/texture/multi_context.hpp
+	src/plugins/opengl/texture/multi_context_fwd.hpp
+	src/plugins/opengl/texture/object.hpp
+	src/plugins/opengl/texture/object_fwd.hpp
+	src/plugins/opengl/texture/object_ptr.hpp
+	src/plugins/opengl/texture/optional_type.hpp
+	src/plugins/opengl/texture/readonly_lock.hpp
+	src/plugins/opengl/texture/readwrite_lock.hpp
+	src/plugins/opengl/texture/scoped_work_bind.hpp
+	src/plugins/opengl/texture/scoped_work_bind_fwd.hpp
+	src/plugins/opengl/texture/set_stage_funcs.hpp
+	src/plugins/opengl/texture/set_stage_scale.hpp
+	src/plugins/opengl/texture/src/activate.cpp
+	src/plugins/opengl/texture/src/base.cpp
+	src/plugins/opengl/texture/src/bind_context.cpp
+	src/plugins/opengl/texture/src/context.cpp
+	src/plugins/opengl/texture/src/create_lock.cpp
+	src/plugins/opengl/texture/src/cube.cpp
+	src/plugins/opengl/texture/src/cube_context.cpp
+	src/plugins/opengl/texture/src/depth_stencil.cpp
+	src/plugins/opengl/texture/src/depth_stencil_surface.cpp
+	src/plugins/opengl/texture/src/holder.cpp
+	src/plugins/opengl/texture/src/lock_base.cpp
+	src/plugins/opengl/texture/src/multi_context.cpp
+	src/plugins/opengl/texture/src/object.cpp
+	src/plugins/opengl/texture/src/readonly_lock.cpp
+	src/plugins/opengl/texture/src/readwrite_lock.cpp
+	src/plugins/opengl/texture/src/scoped_work_bind.cpp
+	src/plugins/opengl/texture/src/set_stage_funcs.cpp
+	src/plugins/opengl/texture/src/set_stage_scale.cpp
+	src/plugins/opengl/texture/src/surface.cpp
+	src/plugins/opengl/texture/src/surface_base.cpp
+	src/plugins/opengl/texture/src/volume.cpp
+	src/plugins/opengl/texture/src/volume_context.cpp
+	src/plugins/opengl/texture/src/writeonly_lock.cpp
+	src/plugins/opengl/texture/surface.hpp
+	src/plugins/opengl/texture/surface_base.hpp
+	src/plugins/opengl/texture/surface_base_fwd.hpp
+	src/plugins/opengl/texture/surface_base_ptr.hpp
+	src/plugins/opengl/texture/surface_fwd.hpp
+	src/plugins/opengl/texture/type.hpp
+	src/plugins/opengl/texture/volume.hpp
+	src/plugins/opengl/texture/volume_context.hpp
+	src/plugins/opengl/texture/writeonly_lock.hpp
 	src/plugins/opengl/vbo_base.hpp
 	src/plugins/opengl/vbo_base_fwd.hpp
 	src/plugins/opengl/vbo_base_unique_ptr.hpp
@@ -564,9 +580,6 @@ SET(
 	src/plugins/opengl/vf/unspecified_index.hpp
 	src/plugins/opengl/vf/vertex_attrib_pointer.hpp
 	src/plugins/opengl/viewport.hpp
-	src/plugins/opengl/volume_texture.hpp
-	src/plugins/opengl/volume_texture_context.hpp
-	src/plugins/opengl/writeonly_texture_lock.hpp
 )
 
 SET(

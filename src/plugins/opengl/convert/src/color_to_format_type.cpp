@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
-GLenum
+sge::opengl::color_format_type const
 sge::opengl::convert::color_to_format_type(
 	image::color::format::type const _fmt
 )
@@ -35,12 +35,18 @@ sge::opengl::convert::color_to_format_type(
 	case image::color::format::argb8:
 	case image::color::format::bgra8:
 	case image::color::format::rgb8:
-		return GL_UNSIGNED_BYTE;
+		return
+			opengl::color_format_type(
+				GL_UNSIGNED_BYTE
+			);
 	case image::color::format::rgba32f:
 	case image::color::format::argb32f:
 	case image::color::format::bgra32f:
 	case image::color::format::rgb32f:
-		return GL_FLOAT;
+		return
+			opengl::color_format_type(
+				GL_FLOAT
+			);
 	case image::color::format::size:
 		break;
 	}

@@ -31,7 +31,7 @@ namespace plugin
 FCPPT_MAKE_STRONG_TYPEDEF(
 	unsigned,
 	min_core_version
-)
+);
 
 }
 }

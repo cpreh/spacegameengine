@@ -50,7 +50,7 @@ sge::opengl::xrandr::set_resolution(
 				static_cast<
 					short
 				>(
-					_mode.rate()
+					_mode.rate().get()
 				),
 				CurrentTime
 			) != Success

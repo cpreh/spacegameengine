@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_CONVERT_FORMAT_TYPE_TO_STRING_HPP_INCLUDED
 #define SGE_OPENGL_CONVERT_FORMAT_TYPE_TO_STRING_HPP_INCLUDED
 
-#include "../common.hpp"
+#include "../color_format_type.hpp"
 #include <fcppt/string.hpp>
 
 namespace sge
@@ -33,7 +33,7 @@ namespace convert
 
 fcppt::string const
 format_type_to_string(
-	GLenum
+	opengl::color_format_type
 );
 
 }

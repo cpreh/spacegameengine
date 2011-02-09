@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_READ_PIXELS_HPP_INCLUDED
 #define SGE_OPENGL_READ_PIXELS_HPP_INCLUDED
 
-#include "common.hpp"
+#include "color_format.hpp"
+#include "color_format_type.hpp"
 #include <sge/renderer/pixel_unit.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/size_type.hpp>
@@ -37,8 +38,8 @@ read_pixels(
 	renderer::pixel_unit y,
 	renderer::size_type width,
 	renderer::size_type height,
-	GLenum format,
-	GLenum type,
+	opengl::color_format,
+	opengl::color_format_type,
 	renderer::raw_pointer dest
 );
 

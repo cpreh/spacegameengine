@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "pointer.hpp"
 #include "actor_parameters_fwd.hpp"
 #include "../context/object_fwd.hpp"
-#include "../multi_texture_context_fwd.hpp"
 #include "../common.hpp"
 #include <sge/renderer/vf/dynamic/texpos_fwd.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>

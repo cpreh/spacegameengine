@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
-GLenum
+sge::opengl::color_format_type const
 sge::opengl::convert::depth_stencil_to_format_type(
 	renderer::depth_stencil_format::type const _type
 )
@@ -33,10 +33,16 @@ sge::opengl::convert::depth_stencil_to_format_type(
 	)
 	{
 	case sge::renderer::depth_stencil_format::d16:
-		return GL_UNSIGNED_SHORT;
+		return
+			opengl::color_format_type(
+				GL_UNSIGNED_SHORT
+			);
 	case sge::renderer::depth_stencil_format::d32:
 	case sge::renderer::depth_stencil_format::d24s8:
-		return GL_FLOAT;
+		return
+			opengl::color_format_type(
+				GL_FLOAT
+			);
 	}
 
 	throw sge::renderer::exception(	

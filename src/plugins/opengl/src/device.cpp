@@ -24,8 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 #include "../create_caps.hpp"
 #include "../create_device_state.hpp"
-#include "../cube_texture.hpp"
-#include "../depth_stencil_texture.hpp"
 #include "../device_state.hpp"
 #include "../draw_arrays.hpp"
 #include "../draw_elements.hpp"
@@ -40,13 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../set_material.hpp"
 #include "../set_matrix_and_mode.hpp"
 #include "../set_scissor_area.hpp"
-#include "../set_texture.hpp"
-#include "../set_texture_stage.hpp"
-#include "../set_texture_stage_scale.hpp"
-#include "../texture.hpp"
 #include "../vertex_buffer.hpp"
-#include "../volume_texture.hpp"
-#include "../volume_texture_context.hpp"
 #include "../context/use.hpp"
 #include "../convert/clear_bit.hpp"
 #include "../convert/clip_plane_index.hpp"
@@ -59,6 +51,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glsl/create_program.hpp"
 #include "../glsl/create_vertex_shader.hpp"
 #include "../glsl/create_pixel_shader.hpp"
+#include "../texture/activate.hpp"
+#include "../texture/cube.hpp"
+#include "../texture/depth_stencil.hpp"
+#include "../texture/object.hpp"
+#include "../texture/optional_type.hpp"
+#include "../texture/set_stage_funcs.hpp"
+#include "../texture/set_stage_scale.hpp"
+#include "../texture/volume.hpp"
+#include "../texture/volume_context.hpp"
 #include <sge/renderer/index/i16.hpp>
 #include <sge/renderer/index/i32.hpp>
 #include <sge/renderer/caps.hpp>
@@ -321,14 +322,14 @@ sge::opengl::device::texture_stage_op(
 	renderer::texture_stage_op_value::type const _value
 )
 {
-	opengl::set_texture_stage(
+	opengl::texture::set_stage_funcs(
 		context_,
 		_stage,
 		_op,
 		_value
 	);
 
-	opengl::set_texture_stage_scale(
+	opengl::texture::set_stage_scale(
 		_value
 	);
 }
@@ -340,7 +341,7 @@ sge::opengl::device::texture_stage_arg(
 	renderer::texture_stage_arg_value::type const _value
 )
 {
-	opengl::set_texture_stage(
+	opengl::texture::set_stage_funcs(
 		context_,
 		_stage,
 		_arg,
@@ -354,7 +355,7 @@ sge::opengl::device::texture(
 	renderer::stage_type const _stage
 )
 {
-	opengl::set_texture(
+	opengl::texture::activate(
 		context_,
 		_texture,
 		_stage
@@ -485,7 +486,7 @@ sge::opengl::device::create_texture(
 	return
 		renderer::texture_ptr(
 			fcppt::make_shared_ptr<
-				opengl::texture
+				opengl::texture::object
 			>(
 				std::tr1::ref(
 					context_
@@ -508,7 +509,7 @@ sge::opengl::device::create_depth_stencil_texture(
 	return
 		renderer::depth_stencil_texture_ptr(
 			fcppt::make_shared_ptr<
-				opengl::depth_stencil_texture
+				opengl::texture::depth_stencil
 			>(
 				std::tr1::ref(
 					context_
@@ -548,7 +549,7 @@ sge::opengl::device::create_cube_texture(
 	return
 		renderer::cube_texture_ptr(
 			fcppt::make_shared_ptr<
-				opengl::cube_texture
+				opengl::texture::cube
 			>(
 				std::tr1::ref(
 					context_
@@ -615,7 +616,7 @@ sge::opengl::device::create_volume_texture(
 {
 	if(
 		!context::use<
-			opengl::volume_texture_context
+			opengl::texture::volume_context
 		>(
 			context_
 		).have_volume_texture()
@@ -629,7 +630,7 @@ sge::opengl::device::create_volume_texture(
 	return
 		renderer::volume_texture_ptr(
 			fcppt::make_shared_ptr<
-				opengl::volume_texture
+				opengl::texture::volume
 			>(
 				std::tr1::ref(
 					context_

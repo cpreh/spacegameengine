@@ -28,16 +28,16 @@ void
 sge::opengl::fbo::attach_texture_2d(
 	fbo::context const &_context,
 	GLenum const _attachment,
-	GLenum const _texture_type,
-	GLuint const _texture_id,
+	opengl::texture::type const _texture_type,
+	opengl::texture::id const _texture_id,
 	renderer::stage_type const _stage
 )
 {
 	_context.framebuffer_texture_2d()(
 		_context.framebuffer_target(),
 		_attachment,
-		_texture_type,
-		_texture_id,
+		_texture_type.get(),
+		_texture_id.get(),
 		static_cast<
 			GLint
 		>(

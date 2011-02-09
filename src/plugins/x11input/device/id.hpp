@@ -33,7 +33,7 @@ namespace device
 FCPPT_MAKE_STRONG_TYPEDEF(
 	int,
 	id
-)
+);
 
 }
 }

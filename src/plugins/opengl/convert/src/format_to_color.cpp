@@ -21,19 +21,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../format_to_color.hpp"
 #include "../format_to_string.hpp"
 #include "../format_type_to_string.hpp"
+#include "../../common.hpp"
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
 sge::image::color::format::type
 sge::opengl::convert::format_to_color(
-	GLenum const _format,
-	GLenum const _format_type
+	opengl::color_format const _format,
+	opengl::color_format_type const _format_type
 )
 {
-	switch(_format)
+	switch(
+		_format.get()
+	)
 	{
 	case GL_RGBA:
-		switch(_format_type)
+		switch(
+			_format_type.get()
+		)
 		{
 		case GL_UNSIGNED_BYTE:
 			return image::color::format::rgba8;
@@ -42,7 +47,9 @@ sge::opengl::convert::format_to_color(
 		}
 		break;
 	case GL_BGRA:
-		switch(_format_type)
+		switch(
+			_format_type.get()
+		)
 		{
 		case GL_UNSIGNED_BYTE:
 			return image::color::format::bgra8;
@@ -52,17 +59,17 @@ sge::opengl::convert::format_to_color(
 		break;
 	case GL_RGB:
 		if(
-			_format_type == GL_UNSIGNED_BYTE
+			_format_type.get() == GL_UNSIGNED_BYTE
 		)
 			return image::color::format::rgb8;
 	case GL_ALPHA:
 		if(
-			_format_type == GL_UNSIGNED_BYTE
+			_format_type.get() == GL_UNSIGNED_BYTE
 		)
 			return image::color::format::alpha8;
 	case GL_LUMINANCE:
 		if(
-			_format_type == GL_UNSIGNED_BYTE
+			_format_type.get() == GL_UNSIGNED_BYTE
 		)
 			return image::color::format::gray8;
 	}

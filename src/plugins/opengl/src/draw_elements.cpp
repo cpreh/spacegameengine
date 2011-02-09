@@ -44,7 +44,7 @@ sge::opengl::draw_elements(
 )
 {
 	if(
-		_num_vertices == 0u
+		_num_vertices.get() == 0u
 	)
 	{
 		FCPPT_LOG_WARNING(
@@ -88,7 +88,7 @@ sge::opengl::draw_elements(
 			renderer::indices_per_primitive(
 				_ptype
 			)
-			* _pcount
+			* _pcount.get()
 		)
 	);
 	
@@ -98,7 +98,7 @@ sge::opengl::draw_elements(
 
 	GLvoid *const offset(
 		gl_ib.buffer_offset(
-			_first_index
+			_first_index.get()
 		)
 	);
 

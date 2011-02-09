@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_CONVERT_COLOR_TO_INTERNAL_FORMAT_HPP_INCLUDED
 #define SGE_OPENGL_CONVERT_COLOR_TO_INTERNAL_FORMAT_HPP_INCLUDED
 
-#include "../common.hpp"
+#include "../internal_color_format.hpp"
 #include <sge/image/color/format.hpp>
 
 namespace sge
@@ -31,7 +31,7 @@ namespace opengl
 namespace convert
 {
 
-GLenum
+opengl::internal_color_format const
 color_to_internal_format(
 	image::color::format::type
 );

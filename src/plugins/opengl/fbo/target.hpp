@@ -29,8 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "object.hpp"
 #include "../basic_target.hpp"
 #include "../common.hpp"
-#include "../texture_surface_base_ptr.hpp"
 #include "../context/object_fwd.hpp"
+#include "../texture/surface_base_ptr.hpp"
 #include <sge/renderer/color_surface_ptr.hpp>
 #include <sge/renderer/depth_stencil_surface_ptr.hpp>
 #include <sge/renderer/dim2.hpp>
@@ -95,7 +95,7 @@ private:
 
 	fbo::attachment_unique_ptr
 	create_texture_binding(
-		opengl::texture_surface_base_ptr,
+		opengl::texture::surface_base_ptr,
 		GLenum attachment
 	);
 

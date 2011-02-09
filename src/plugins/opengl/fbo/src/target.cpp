@@ -30,8 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture_binding.hpp"
 #include "../../basic_target_impl.hpp"
 #include "../../check_state.hpp"
-#include "../../texture_surface.hpp"
 #include "../../context/use.hpp"
+#include "../../texture/surface.hpp"
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/target.hpp>
 #include <sge/renderer/unsupported.hpp>
@@ -138,7 +138,7 @@ sge::opengl::fbo::target::color_surface(
 			_index,
 			this->create_texture_binding(
 				fcppt::dynamic_pointer_cast<
-					opengl::texture_surface
+					opengl::texture::surface
 				>(
 					_surface
 				),
@@ -209,9 +209,9 @@ sge::opengl::fbo::target::depth_stencil_surface(
 	}
 
 	if(
-		opengl::texture_surface_base_ptr const ptr =
+		opengl::texture::surface_base_ptr const ptr =
 			fcppt::dynamic_pointer_cast<
-				opengl::texture_surface_base
+				opengl::texture::surface_base
 			>(
 				_surface
 			)
@@ -255,7 +255,7 @@ sge::opengl::fbo::target::height() const
 
 sge::opengl::fbo::attachment_unique_ptr
 sge::opengl::fbo::target::create_texture_binding(
-	opengl::texture_surface_base_ptr const _surface,
+	opengl::texture::surface_base_ptr const _surface,
 	GLenum const _attachment
 )
 {

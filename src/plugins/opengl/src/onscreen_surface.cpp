@@ -87,8 +87,8 @@ sge::opengl::onscreen_surface::lock(
 		),
 		_dest.dimension().w(),
 		_dest.dimension().h(),
-		format(),
-		format_type(),
+		this->format(),
+		this->format_type(),
 		buffer_.data()
 	);
 
@@ -98,8 +98,8 @@ sge::opengl::onscreen_surface::lock(
 				buffer_.data(),
 				_dest.dimension(),
 				opengl::convert::format_to_color(
-					format(),
-					format_type()
+					this->format(),
+					this->format_type()
 				),
 				image2d::view::optional_pitch()
 			)
@@ -126,14 +126,20 @@ sge::opengl::onscreen_surface::dim() const
 // currently 16bit and 32bit framebuffers are supported
 // GL_UNSIGNED_BYTE is enough to read 32bit values so take this
 
-GLenum
+sge::opengl::color_format const
 sge::opengl::onscreen_surface::format() const
 {
-	return GL_RGBA;
+	return
+		opengl::color_format(
+			GL_RGBA
+		);
 }
 
-GLenum
+sge::opengl::color_format_type const
 sge::opengl::onscreen_surface::format_type() const
 {
-	return GL_UNSIGNED_BYTE;
+	return
+		opengl::color_format_type(
+			GL_UNSIGNED_BYTE
+		);
 }

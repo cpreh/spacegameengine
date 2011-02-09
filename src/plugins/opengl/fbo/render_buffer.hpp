@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "render_buffer_fwd.hpp"
 #include "render_buffer_holder.hpp"
 #include "context_fwd.hpp"
-#include "../common.hpp"
+#include "../internal_color_format.hpp"
 #include <sge/renderer/dim2.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -43,7 +43,7 @@ class render_buffer
 public:
 	explicit render_buffer(
 		fbo::context const &,
-		GLenum internal_format,
+		opengl::internal_color_format,
 		sge::renderer::dim2 const &
 	);
 

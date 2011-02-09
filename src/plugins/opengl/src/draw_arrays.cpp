@@ -36,7 +36,7 @@ sge::opengl::draw_arrays(
 )
 {
 	if(
-		_num_vertices == 0u
+		_num_vertices.get() == 0u
 	)
 	{
 		FCPPT_LOG_WARNING(
@@ -56,12 +56,12 @@ sge::opengl::draw_arrays(
 		static_cast<
 			GLsizei
 		>(
-			_first_vertex
+			_first_vertex.get()
 		),
 		static_cast<
 			GLint
 		>(
-			_num_vertices
+			_num_vertices.get()
 		)
 	);
 

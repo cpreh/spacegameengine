@@ -20,11 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../texture_binding.hpp"
 #include "../attach_texture_2d.hpp"
-#include "../../texture_surface_base.hpp"
+#include "../../texture/surface_base.hpp"
 
 sge::opengl::fbo::texture_binding::texture_binding(
 	fbo::context const &_context,
-	opengl::texture_surface_base_ptr const _surface,
+	opengl::texture::surface_base_ptr const _surface,
 	GLenum const _attachment
 )
 :
@@ -35,8 +35,8 @@ sge::opengl::fbo::texture_binding::texture_binding(
 	fbo::attach_texture_2d(
 		_context,
 		_attachment,
-		_surface->texture_type(),
-		_surface->texture_id(),
+		_surface->type(),
+		_surface->id(),
 		_surface->stage()
 	);
 }
@@ -46,8 +46,10 @@ sge::opengl::fbo::texture_binding::~texture_binding()
 	fbo::attach_texture_2d(
 		context_,
 		attachment_,
-		surface_->texture_type(),
-		0u,
+		surface_->type(),
+		opengl::texture::id(
+			0u
+		),
 		surface_->stage()
 	);
 }

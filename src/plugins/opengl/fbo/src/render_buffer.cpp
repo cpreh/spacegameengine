@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::fbo::render_buffer::render_buffer(
 	fbo::context const &_context,
-	GLenum const _internal_format,
+	opengl::internal_color_format const _internal_format,
 	sge::renderer::dim2 const &_dim
 )
 :
@@ -37,11 +37,15 @@ sge::opengl::fbo::render_buffer::render_buffer(
 		_context
 	)
 {
-	bind();
+	this->bind();
 
 	context_.renderbuffer_storage()(
 		context_.renderbuffer_target(),
-		_internal_format,
+		static_cast<
+			GLenum
+		>(
+			_internal_format.get()
+		),
 		static_cast<
 			GLsizei
 		>(
@@ -76,7 +80,7 @@ sge::opengl::fbo::render_buffer::bind() const
 {
 	context_.bind_renderbuffer()(
 		context_.renderbuffer_target(),
-		id()
+		this->id()
 	);
 
 	SGE_OPENGL_CHECK_STATE(
