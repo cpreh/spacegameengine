@@ -316,35 +316,35 @@ sge::opengl::device::scissor_area(
 
 void
 sge::opengl::device::texture_stage_op(
-	renderer::stage_type const stage,
-	renderer::texture_stage_op::type const op,
-	renderer::texture_stage_op_value::type const value
+	renderer::stage_type const _stage,
+	renderer::texture_stage_op::type const _op,
+	renderer::texture_stage_op_value::type const _value
 )
 {
 	opengl::set_texture_stage(
 		context_,
-		stage,
-		op,
-		value
+		_stage,
+		_op,
+		_value
 	);
 
 	opengl::set_texture_stage_scale(
-		value
+		_value
 	);
 }
 
 void
 sge::opengl::device::texture_stage_arg(
-	renderer::stage_type const stage,
-	renderer::texture_stage_arg::type const arg,
-	renderer::texture_stage_arg_value::type const value
+	renderer::stage_type const _stage,
+	renderer::texture_stage_arg::type const _arg,
+	renderer::texture_stage_arg_value::type const _value
 )
 {
 	opengl::set_texture_stage(
 		context_,
-		stage,
-		arg,
-		value
+		_stage,
+		_arg,
+		_value
 	);
 }
 
@@ -446,12 +446,12 @@ sge::opengl::device::create_glsl_pixel_shader(
 
 void
 sge::opengl::device::glsl_program(
-	renderer::glsl::const_program_ptr const prog
+	renderer::glsl::const_program_ptr const _program
 )
 {
 	glsl::set_program(
 		context_,
-		prog
+		_program
 	);
 }
 
@@ -671,7 +671,7 @@ sge::opengl::device::caps() const
 	if(!caps_)
 	{
 		caps_.take(
-			create_caps(
+			opengl::create_caps(
 				context_
 			)
 		);

@@ -112,8 +112,6 @@ sge::opengl::basic_texture<Base>::unlock() const
 		)
 	)
 	{
-		bind();
-
 		// If this is also a read lock
 		// we must copy the current view, which is
 		// a slice into the whole texture retrieved,
@@ -142,7 +140,9 @@ sge::opengl::basic_texture<Base>::unlock() const
 
 		lock_->unlock();
 
-		set_area(
+		this->bind();
+
+		this->set_area(
 			lock_area_
 			?
 				*lock_area_
