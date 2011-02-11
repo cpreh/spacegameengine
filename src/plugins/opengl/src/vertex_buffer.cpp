@@ -61,7 +61,7 @@ sge::opengl::vertex_buffer::vertex_buffer(
 void
 sge::opengl::vertex_buffer::set_format() const
 {
-	buf.bind_me();
+	buf.bind();
 
 	format_.use_me(
 		buf.buffer_offset(

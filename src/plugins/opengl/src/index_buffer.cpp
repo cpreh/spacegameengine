@@ -89,7 +89,7 @@ sge::opengl::index_buffer::buffer_offset(
 void
 sge::opengl::index_buffer::bind() const
 {
-	buffer_.bind_me();
+	buffer_.bind();
 }
 
 sge::opengl::index_buffer::view_type const

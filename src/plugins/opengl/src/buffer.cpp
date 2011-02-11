@@ -55,7 +55,7 @@ sge::opengl::buffer::buffer(
 			FCPPT_TEXT("ogl_buffer: cannot create an empty buffer!")
 		);
 
-	bind_me();
+	this->bind();
 
 	vbo_base_.buffer_data(
 		type_,
@@ -112,7 +112,7 @@ sge::opengl::buffer::lock(
 			FCPPT_TEXT("ogl_buffer::lock(): first + count > size()")
 		);
 
-	bind_me();
+	this->bind();
 
 	if(
 		_count < size()
@@ -171,7 +171,7 @@ sge::opengl::buffer::unlock()
 			FCPPT_TEXT("ogl_buffer::unlock(), buffer is not locked! cannot unlock!")
 		);
 	
-	bind_me();
+	this->bind();
 
 	vbo_base_.unmap_buffer(
 		type_
@@ -204,7 +204,7 @@ sge::opengl::buffer::sub_data(
 			FCPPT_TEXT("ogl_buffer::sub_data(), buffer must not be locked!")
 		);
 
-	bind_me();
+	this->bind();
 
 	vbo_base_.buffer_sub_data(
 		type_,
@@ -277,13 +277,17 @@ sge::opengl::buffer::lock_size() const
 void
 sge::opengl::buffer::unbind()
 {
-	bind(0);
+	this->bind_id(
+		0
+	);
 }
 
 void
-sge::opengl::buffer::bind_me() const
+sge::opengl::buffer::bind() const
 {
-	bind(id_);
+	this->bind_id(
+		id_
+	);
 }
 
 sge::opengl::buffer::pointer
@@ -298,7 +302,7 @@ sge::opengl::buffer::buffer_offset(
 			FCPPT_TEXT("ogl_buffer::buffer_offset used but the buffer has been locked!")
 		);
 
-	bind_me();
+	this->bind();
 
 	return
 		static_cast<
@@ -322,7 +326,7 @@ sge::opengl::buffer::raw_buffer() const
 }
 
 void
-sge::opengl::buffer::bind(
+sge::opengl::buffer::bind_id(
 	GLuint const _id
 ) const
 {

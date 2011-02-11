@@ -35,12 +35,12 @@ sge::opengl::vf::format::format(
 	context_(
 		_context
 	),
-	fmt(
+	fmt_(
 		_fmt
 	)
 {
 	renderer::vf::dynamic::ordered_element_list const &elems(
-		fmt.elements()
+		fmt_.elements()
 	);
 
 	BOOST_FOREACH(
@@ -48,10 +48,10 @@ sge::opengl::vf::format::format(
 		elems
 	)
 		fcppt::container::ptr::push_back_unique_ptr(
-			actors,
-			to_actor(
+			actors_,
+			vf::to_actor(
 				elem,
-				fmt.stride(),
+				fmt_.stride(),
 				_context
 			)
 		);
@@ -64,12 +64,12 @@ sge::opengl::vf::format::~format()
 sge::renderer::vf::dynamic::format const &
 sge::opengl::vf::format::get() const
 {
-	return fmt;
+	return fmt_;
 }
 
 void
 sge::opengl::vf::format::use_me(
-	vf::pointer const src
+	vf::pointer const _src
 ) const
 {
 	client_state_combiner states_(
@@ -78,14 +78,14 @@ sge::opengl::vf::format::use_me(
 
 	BOOST_FOREACH(
 		actor_array::reference actor,
-		actors
+		actors_
 	)
 		actor(
 			states_,
 			static_cast<
 				unsigned char const *
 			>(
-				src
+				_src
 			)
 			+ actor.offset()
 		);
@@ -99,10 +99,10 @@ sge::opengl::vf::format::unuse_me() const
 	);
 
 	BOOST_FOREACH(
-		actor_array::reference c,
-		actors
+		actor_array::reference current,
+		actors_
 	)
-		c.unuse(
+		current.unuse(
 			states_
 		);
 }

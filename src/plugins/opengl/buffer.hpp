@@ -101,7 +101,7 @@ public:
 	unbind();
 
 	void
-	bind_me() const;
+	bind() const;
 
 	pointer
 	buffer_offset(
@@ -112,7 +112,7 @@ public:
 	raw_buffer() const;
 private:
 	void
-	bind(
+	bind_id(
 		GLuint id
 	) const;
 

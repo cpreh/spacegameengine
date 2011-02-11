@@ -61,13 +61,13 @@ public:
 private:
 	opengl::context::object &context_;
 
-	renderer::vf::dynamic::format const fmt;
+	renderer::vf::dynamic::format const fmt_;
 
 	typedef boost::ptr_vector<
-		actor
+		vf::actor
 	> actor_array;
 
-	mutable actor_array actors;
+	mutable actor_array actors_;
 };
 
 }
