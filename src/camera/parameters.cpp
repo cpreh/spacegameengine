@@ -28,7 +28,7 @@ sge::camera::parameters::parameters(
 	gizmo_type const &_gizmo,
 	sge::input::keyboard::device &_keyboard,
 	sge::input::mouse::device &_mouse,
-	bool const _active)
+	activation_state::type const _activation)
 :
 	projection_(
 		_projection),
@@ -42,8 +42,8 @@ sge::camera::parameters::parameters(
 		_keyboard),
 	mouse_(
 		_mouse),
-	active_(
-		_active)
+	activation_(
+		_activation)
 {
 	
 }
@@ -84,8 +84,8 @@ sge::camera::parameters::mouse() const
 	return mouse_;
 }
 
-bool
-sge::camera::parameters::active() const
+sge::camera::activation_state::type
+sge::camera::parameters::activation() const
 {
-	return active_;
+	return activation_;
 }

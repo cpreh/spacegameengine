@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/projection/object.hpp>
 #include <sge/camera/symbol.hpp>
+#include <sge/camera/activation_state.hpp>
 #include <sge/camera/gizmo_type.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
@@ -49,7 +50,7 @@ public:
 		gizmo_type const &g,
 		sge::input::keyboard::device &,
 		sge::input::mouse::device &,
-		bool);
+		activation_state::type);
 
 	SGE_CAMERA_SYMBOL
 	projection::object const &
@@ -75,8 +76,8 @@ public:
 	sge::input::mouse::device &
 	mouse() const;
 
-	bool
-	active() const;
+	activation_state::type
+	activation() const;
 private:
 	projection::object projection_;
 	renderer::scalar movement_speed_;
@@ -84,7 +85,7 @@ private:
 	gizmo_type gizmo_;
 	sge::input::keyboard::device &keyboard_;
 	sge::input::mouse::device &mouse_;
-	bool active_;
+	activation_state::type activation_;
 };
 }
 }

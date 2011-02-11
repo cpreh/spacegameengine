@@ -591,7 +591,7 @@ try
 			// Maus und Keyboard
 			*sys.keyboard_collector(),
 			*sys.mouse_collector(),
-			true));
+			sge::camera::activation_state::active));
 
 	sge::time::timer frame_timer(
 		sge::time::second(

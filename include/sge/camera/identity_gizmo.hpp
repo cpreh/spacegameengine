@@ -28,7 +28,9 @@ namespace sge
 {
 namespace camera
 {
-SGE_CAMERA_SYMBOL gizmo_type const
+// NOTE: This _deliberately_ returns nonconst, so you can do:
+// identity_gizmo().position(...) which is pretty handy
+SGE_CAMERA_SYMBOL gizmo_type
 identity_gizmo();
 }
 }

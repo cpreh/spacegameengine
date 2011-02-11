@@ -69,8 +69,8 @@ sge::camera::object::object(
 		params.gizmo()),
 	dirs_(
 		renderer::vector3::null()),
-	active_(
-		params.active())
+	activation_(
+		params.activation())
 {
 }
 
@@ -144,25 +144,25 @@ sge::camera::object::gizmo()
 
 SGE_CAMERA_SYMBOL
 void
-sge::camera::object::active(
-	bool const _active)
+sge::camera::object::activation(
+	activation_state::type const _activation)
 {
-	active_ = 
-		_active;
+	activation_ = 
+		activation_;
 }
 
 SGE_CAMERA_SYMBOL
-bool 
-sge::camera::object::active()
+sge::camera::activation_state::type 
+sge::camera::object::activation()
 {
-	return active_;
+	return activation_;
 }
 
 void
 sge::camera::object::key_callback(
 	sge::input::keyboard::key_event const &k)
 {
-	if (!active_)
+	if (activation_ == activation_state::inactive)
 		return;
 
 	switch (k.key_code())
@@ -194,7 +194,7 @@ void
 sge::camera::object::mouse_axis_callback(
 	sge::input::mouse::axis_event const &k)
 {
-	if (!active_)
+	if (activation_ == activation_state::inactive)
 		return;
 
 	renderer::scalar const angle = 

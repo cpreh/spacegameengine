@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/parameters_fwd.hpp>
 #include <sge/camera/projection/object.hpp>
 #include <sge/camera/gizmo_type.hpp>
+#include <sge/camera/activation_state.hpp>
 #include <sge/camera/symbol.hpp>
 #include <sge/time/funit.hpp>
 #include <sge/renderer/matrix4.hpp>
@@ -94,12 +95,12 @@ public:
 
 	SGE_CAMERA_SYMBOL
 	void
-	active(
-		bool);
+	activation(
+		activation_state::type);
 
 	SGE_CAMERA_SYMBOL
-	bool 
-	active();
+	activation_state::type 
+	activation();
 private:
 	fcppt::signal::scoped_connection keyboard_connection_,mouse_axis_connection_;
 	projection::object const projection_;
@@ -112,7 +113,7 @@ private:
 	// Those are the directions the camera currently moves in
 	// (corresponds to the movement keys currently pressed)
 	renderer::vector3 dirs_;
-	bool active_;
+	activation_state::type activation_;
 
 	void
 	key_callback(
