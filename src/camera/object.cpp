@@ -142,16 +142,14 @@ sge::camera::object::gizmo()
 	return gizmo_;
 }
 
-SGE_CAMERA_SYMBOL
 void
 sge::camera::object::activation(
 	activation_state::type const _activation)
 {
 	activation_ = 
-		activation_;
+		_activation;
 }
 
-SGE_CAMERA_SYMBOL
 sge::camera::activation_state::type 
 sge::camera::object::activation()
 {
