@@ -80,10 +80,11 @@ sge::opengl::texture::bind_context::bind_for_rendering(
 	);
 
 	if(
-		!last_type
-		||
-		_texture->type()
-		!= *last_type
+		last_type
+		!=
+		texture::optional_type(
+			_texture->type()
+		)
 	)
 	{
 		if(
