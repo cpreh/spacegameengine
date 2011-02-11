@@ -60,9 +60,9 @@ class basic
 		basic
 	);
 public:
-	typedef texture::lock_base::pointer pointer;
+	typedef opengl::texture::lock_base::pointer pointer;
 
-	typedef texture::lock_base::const_pointer const_pointer;
+	typedef opengl::texture::lock_base::const_pointer const_pointer;
 
 	typedef typename Base::size_type size_type;
 
@@ -132,7 +132,7 @@ protected:
 		opengl::context::object &,
 		renderer::filter::texture const &,
 		renderer::resource_flags_field const &,
-		texture::type,
+		opengl::texture::type,
 		image::color::format::type,
 		dim_type const &
 	);
@@ -144,7 +144,7 @@ public:
 private:
 	virtual void
 	set_area(
-		texture::scoped_work_bind const &,
+		opengl::texture::scoped_work_bind const &,
 		lock_area const &,
 		pointer dest
 	) const = 0;
@@ -174,7 +174,7 @@ private:
 	size_type const stride_;
 
 	typedef fcppt::scoped_ptr<
-		texture::lock_base
+		opengl::texture::lock_base
 	> scoped_lock_ptr;
 
 	mutable scoped_lock_ptr lock_;

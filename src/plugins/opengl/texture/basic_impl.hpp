@@ -211,7 +211,7 @@ sge::opengl::texture::basic<Base>::lock_me(
 			renderer::stage_type(0u)
 		);
 
-		texture::funcs::get_image(
+		opengl::texture::funcs::get_image(
 			binding,
 			this->type(),
 			this->format(),
@@ -296,7 +296,7 @@ sge::opengl::texture::basic<Base>::view() const
 			const_view_type
 		>(
 			const_cast<
-				texture::basic<Base> *
+				opengl::texture::basic<Base> *
 			>(
 				this
 			)->view()
@@ -378,12 +378,12 @@ sge::opengl::texture::basic<Base>::basic(
 	opengl::context::object &_context,
 	renderer::filter::texture const &_filter,
 	renderer::resource_flags_field const &_flags,
-	texture::type const _type,
+	opengl::texture::type const _type,
 	image::color::format::type const _color_format,
 	dim_type const &_dim
 )
 :
-	texture::base(_type),
+	opengl::texture::base(_type),
 	context_(_context),
 	filter_(_filter),
 	flags_(_flags),

@@ -38,7 +38,7 @@ sge::opengl::windows::change_display_settings(
 	settings.dmPelsWidth = _mode.size().w();
 	settings.dmPelsHeight = _mode.size().h();
 	settings.dmBitsPerPel = static_cast<UINT>(_mode.bit_depth());
-	settings.dmDisplayFrequency = _mode.refresh_rate();
+	settings.dmDisplayFrequency = _mode.refresh_rate().get();
 	settings.dmFields = DM_BITSPERPEL | DM_PELSWIDTH|DM_PELSHEIGHT | DM_DISPLAYFREQUENCY;
 
 	if(
