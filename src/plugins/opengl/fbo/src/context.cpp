@@ -29,7 +29,7 @@ sge::opengl::fbo::context::context()
 		glew::is_supported("GL_VERSION_3_0")
 	),
 	has_ext_(
-		glew::is_supported("gl_framebuffer_ext")
+		glew::is_supported("GL_EXT_framebuffer_object")
 	),
 	gen_framebuffers_(
 		has_native_
