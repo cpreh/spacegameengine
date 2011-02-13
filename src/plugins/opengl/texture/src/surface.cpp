@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../surface.hpp"
 #include "../basic_surface_impl.hpp"
 #include <sge/renderer/color_surface.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 sge::opengl::texture::surface::surface(
 	texture::scoped_work_bind const &_binding,

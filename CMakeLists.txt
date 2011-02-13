@@ -115,9 +115,8 @@ CHECK_SYMBOL_EXISTS(
 
 UNSET(CMAKE_REQUIRED_INCLUDES)
 
-IF(NOT ${MIZUIRO_HAVE_FCPPT})
-	MESSAGE(FATAL_ERROR "Please compile mizuiro with -D ENABLE_FCPPT=ON!")
-	RETURN()
+IF(NOT MIZUIRO_HAVE_FCPPT)
+	MESSAGE(WARNING "mizuiro has not been compiled with -D ENABLE_FCPPT=ON. Ternany visitation will not work.")
 ENDIF()
 
 # FIND AWL

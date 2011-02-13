@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/volume_texture.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 sge::renderer::volume_texture::volume_texture()
 {

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/make.hpp>
 #include <sge/image2d/view/to_const.hpp>
 #include <sge/image/raw_pointer.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 sge::image2d::view::const_object const
 sge::image2d::view::make_const(
