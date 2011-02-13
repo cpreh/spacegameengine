@@ -636,6 +636,7 @@ SET(
 	include/sge/renderer/scoped_target.hpp
 	include/sge/renderer/scoped_texture.hpp
 	include/sge/renderer/scoped_texture_lock.hpp
+	include/sge/renderer/scoped_transform.hpp
 	include/sge/renderer/scoped_vertex_buffer.hpp
 	include/sge/renderer/scoped_vertex_lock.hpp
 	include/sge/renderer/scoped_volume_texture_lock.hpp
@@ -1039,6 +1040,7 @@ SET(
 	src/renderer/scoped_target.cpp
 	src/renderer/scoped_texture.cpp
 	src/renderer/scoped_texture_lock.cpp
+	src/renderer/scoped_transform.cpp
 	src/renderer/scoped_vertex_buffer.cpp
 	src/renderer/scoped_vertex_lock.cpp
 	src/renderer/scoped_volume_texture_lock.cpp

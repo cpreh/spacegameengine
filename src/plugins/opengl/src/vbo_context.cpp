@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::vbo_context::vbo_context()
 :
 	impl_(
-		create_vbo_impl(
+		opengl::create_vbo_impl(
 			glew::is_supported("GL_VERSION_1_5")
 			|| glew::is_supported("GL_ARB_vertex_buffer_object")
 		)

@@ -18,39 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../make_buffer_type.hpp"
-#include "../glew/is_supported.hpp"
-#include <sge/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_RENDERER_SCOPED_TRANSFORM_HPP_INCLUDED
+#define SGE_RENDERER_SCOPED_TRANSFORM_HPP_INCLUDED
 
-GLenum
-sge::opengl::make_buffer_type(
-	bool const _hardware_supported,
-	glew::string const &_gl_version,
-	GLenum const _normal_type,
-	glew::string const &_extension,
-	GLenum const _extension_type
-)
+#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/matrix_mode.hpp>
+#include <sge/renderer/matrix4.hpp>
+#include <sge/symbol.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/noncopyable.hpp>
+
+namespace sge
 {
-	return
-		_hardware_supported
-		?
-			glew::is_supported(
-				_gl_version
-			)
-			?
-				_normal_type
-			:
-				glew::is_supported(
-					_extension
-				)
-				?
-					_extension_type
-				:
-					throw sge::exception(
-						FCPPT_TEXT("Should not happen.")
-					)
-		:
-			_normal_type
-		;
+namespace renderer
+{
+
+class scoped_transform
+{
+	FCPPT_NONCOPYABLE(
+		scoped_transform
+	);
+public:
+	SGE_SYMBOL
+	scoped_transform(
+		renderer::device_ptr,
+		renderer::matrix_mode::type,
+		renderer::matrix4 const &
+	);
+
+	SGE_SYMBOL
+	~scoped_transform();
+private:
+	renderer::device_ptr const device_;
+
+	renderer::matrix_mode::type const mode_;
+
+	renderer::matrix4 const old_matrix_;
+};
+
 }
+}
+
+#endif

@@ -18,39 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../make_buffer_type.hpp"
-#include "../glew/is_supported.hpp"
-#include <sge/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/renderer/scoped_transform.hpp>
+#include <sge/renderer/device.hpp>
+#include <fcppt/math/matrix/basic_impl.hpp>
 
-GLenum
-sge::opengl::make_buffer_type(
-	bool const _hardware_supported,
-	glew::string const &_gl_version,
-	GLenum const _normal_type,
-	glew::string const &_extension,
-	GLenum const _extension_type
+sge::renderer::scoped_transform::scoped_transform(
+	renderer::device_ptr const _device,
+	renderer::matrix_mode::type const _mode,
+	renderer::matrix4 const &_new_matrix
 )
+:
+	device_(_device),
+	mode_(_mode),
+	old_matrix_(
+		_device->transform(
+			_mode
+		)
+	)
 {
-	return
-		_hardware_supported
-		?
-			glew::is_supported(
-				_gl_version
-			)
-			?
-				_normal_type
-			:
-				glew::is_supported(
-					_extension
-				)
-				?
-					_extension_type
-				:
-					throw sge::exception(
-						FCPPT_TEXT("Should not happen.")
-					)
-		:
-			_normal_type
-		;
+	device_->transform(
+		_mode,
+		_new_matrix
+	);
+}
+
+sge::renderer::scoped_transform::~scoped_transform()
+{
+	device_->transform(
+		mode_,
+		old_matrix_
+	);
 }
