@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_CUBE_SIDE_ARRAY_HPP_INCLUDED
 
 #include "type.hpp"
-#include <sge/renderer/cube_side.hpp>
+#include <sge/renderer/texture/cube_side.hpp>
 #include <fcppt/container/array.hpp>
 
 namespace sge
@@ -34,7 +34,7 @@ namespace texture
 
 typedef fcppt::container::array<
 	texture::type,
-	sge::renderer::cube_side::size
+	sge::renderer::texture::cube_side::size
 > cube_side_array;
 
 }

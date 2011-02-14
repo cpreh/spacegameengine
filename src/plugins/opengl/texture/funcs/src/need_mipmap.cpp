@@ -24,18 +24,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 bool
 sge::opengl::texture::funcs::need_mipmap(
-	sge::renderer::filter::min::type const _filter
+	sge::renderer::texture::filter::min::type const _filter
 )
 {
 	switch(
 		_filter
 	)
 	{
-	case sge::renderer::filter::min::mipmap:
-	case sge::renderer::filter::min::trilinear:
+	case sge::renderer::texture::filter::min::mipmap:
+	case sge::renderer::texture::filter::min::trilinear:
 		return true;
-	case sge::renderer::filter::min::point:
-	case sge::renderer::filter::min::linear:
+	case sge::renderer::texture::filter::min::point:
+	case sge::renderer::texture::filter::min::linear:
 		return false;
 	}
 	

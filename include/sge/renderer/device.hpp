@@ -25,15 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/clip_plane.hpp>
 #include <sge/renderer/clip_plane_index.hpp>
 #include <sge/renderer/const_index_buffer_ptr.hpp>
-#include <sge/renderer/const_texture_base_ptr.hpp>
 #include <sge/renderer/const_vertex_buffer_ptr.hpp>
-#include <sge/renderer/cube_texture_ptr.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
 #include <sge/renderer/depth_stencil_surface_ptr.hpp>
-#include <sge/renderer/depth_stencil_texture_ptr.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <sge/renderer/dim3.hpp>
 #include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/index_buffer_ptr.hpp>
@@ -47,20 +43,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/onscreen_target_ptr.hpp>
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/sampler_stage_arg.hpp>
+#include <sge/renderer/sampler_stage_arg_value.hpp>
+#include <sge/renderer/sampler_stage_op.hpp>
+#include <sge/renderer/sampler_stage_op_value.hpp>
 #include <sge/renderer/scissor_area.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/stage_type.hpp>
 #include <sge/renderer/target_ptr.hpp>
-#include <sge/renderer/texture_ptr.hpp>
-#include <sge/renderer/texture_stage_arg.hpp>
-#include <sge/renderer/texture_stage_arg_value.hpp>
-#include <sge/renderer/texture_stage_op.hpp>
-#include <sge/renderer/texture_stage_op_value.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/volume_texture_ptr.hpp>
-#include <sge/renderer/filter/texture_fwd.hpp>
 #include <sge/renderer/glsl/const_program_ptr.hpp>
 #include <sge/renderer/glsl/optional_istream.hpp>
 #include <sge/renderer/glsl/optional_string.hpp>
@@ -71,11 +64,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/dynamic/const_view.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/state/list_fwd.hpp>
+#include <sge/renderer/texture/const_base_ptr.hpp>
+#include <sge/renderer/texture/cube_parameters_fwd.hpp>
+#include <sge/renderer/texture/cube_ptr.hpp>
+#include <sge/renderer/texture/depth_stencil_ptr.hpp>
+#include <sge/renderer/texture/planar_parameters_fwd.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/volume_parameters_fwd.hpp>
+#include <sge/renderer/texture/volume_ptr.hpp>
 #include <sge/renderer/vf/dynamic/const_view_fwd.hpp>
 #include <sge/renderer/vf/dynamic/format_fwd.hpp>
-#include <sge/image2d/view/const_object.hpp>
-#include <sge/image3d/view/const_object.hpp>
-#include <sge/image/color/format.hpp>
 #include <sge/window/instance_ptr.hpp>
 #include <sge/class_symbol.hpp>
 #include <sge/symbol.hpp>
@@ -175,22 +173,22 @@ public:
 	) = 0;
 
 	virtual void
-	texture_stage_op(
+	sampler_stage_op(
 		stage_type,
-		renderer::texture_stage_op::type,
-		renderer::texture_stage_op_value::type
+		renderer::sampler_stage_op::type,
+		renderer::sampler_stage_op_value::type
 	) = 0;
 
 	virtual void
-	texture_stage_arg(
+	sampler_stage_arg(
 		stage_type,
-		renderer::texture_stage_arg::type,
-		renderer::texture_stage_arg_value::type
+		renderer::sampler_stage_arg::type,
+		renderer::sampler_stage_arg_value::type
 	) = 0;
 
 	virtual void
 	texture(
-		const_texture_base_ptr,
+		texture::const_base_ptr,
 		stage_type
 	) = 0;
 
@@ -240,22 +238,12 @@ public:
 	virtual renderer::target_ptr const
 	create_target() = 0;
 
-	SGE_SYMBOL texture_ptr const
-	create_texture(
-		image2d::view::const_object const &,
-		filter::texture const &,
-		resource_flags_field const &
-	);
-
-	virtual renderer::texture_ptr const
-	create_texture(
-		renderer::dim2 const &,
-		image::color::format::type,
-		filter::texture const &,
-		resource_flags_field const &
+	virtual renderer::texture::planar_ptr const
+	create_planar_texture(
+		renderer::texture::planar_parameters const &
 	) = 0;
 
-	virtual renderer::depth_stencil_texture_ptr const
+	virtual renderer::texture::depth_stencil_ptr const
 	create_depth_stencil_texture(
 		renderer::dim2 const &,
 		renderer::depth_stencil_format::type
@@ -267,27 +255,14 @@ public:
 		renderer::depth_stencil_format::type
 	) = 0;
 
-	SGE_SYMBOL renderer::volume_texture_ptr const
+	virtual renderer::texture::volume_ptr const
 	create_volume_texture(
-		image3d::view::const_object const &,
-		filter::texture const &,
-		resource_flags_field const &
-	);
-
-	virtual volume_texture_ptr const
-	create_volume_texture(
-		renderer::dim3 const &,
-		image::color::format::type,
-		filter::texture const &,
-		resource_flags_field const &
+		renderer::texture::volume_parameters const &
 	) = 0;
 
-	virtual cube_texture_ptr const
+	virtual renderer::texture::cube_ptr const
 	create_cube_texture(
-		size_type border_size,
-		image::color::format::type format,
-		filter::texture const &filter,
-		resource_flags_field const &
+		renderer::texture::cube_parameters const &
 	) = 0;
 
 	SGE_SYMBOL vertex_buffer_ptr const

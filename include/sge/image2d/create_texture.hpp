@@ -23,10 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image2d/multi_loader_fwd.hpp>
 #include <sge/image2d/file_ptr.hpp>
-#include <sge/renderer/filter/texture_fwd.hpp>
+#include <sge/renderer/texture/filter/object_fwd.hpp>
+#include <sge/renderer/texture/address_mode2_fwd.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/device_ptr.hpp>
-#include <sge/renderer/texture_ptr.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/filesystem/path.hpp>
 
@@ -35,20 +36,22 @@ namespace sge
 namespace image2d
 {
 
-SGE_SYMBOL renderer::texture_ptr const
+SGE_SYMBOL renderer::texture::planar_ptr const
 create_texture(
 	renderer::device_ptr,
 	image2d::file_ptr,
-	renderer::filter::texture const &,
+	renderer::texture::filter::object const &,
+	renderer::texture::address_mode2 const &,
 	renderer::resource_flags_field const &
 );
 
-SGE_SYMBOL renderer::texture_ptr const
+SGE_SYMBOL renderer::texture::planar_ptr const
 create_texture(
 	fcppt::filesystem::path const &,
 	renderer::device_ptr,
 	image2d::multi_loader &,
-	renderer::filter::texture const &,
+	renderer::texture::filter::object const &,
+	renderer::texture::address_mode2 const &,
 	renderer::resource_flags_field const &
 );
 

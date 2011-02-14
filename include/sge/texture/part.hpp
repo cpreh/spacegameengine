@@ -23,9 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/texture/part_fwd.hpp>
 #include <sge/texture/symbol.hpp>
-#include <sge/renderer/texture_ptr.hpp>
-#include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/dim2.hpp>
+#include <sge/renderer/lock_rect.hpp>
+#include <sge/renderer/texture/const_planar_ptr.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -41,9 +42,11 @@ class SGE_CLASS_SYMBOL part
 		part
 	);
 protected:
-	SGE_TEXTURE_SYMBOL part();
+	SGE_TEXTURE_SYMBOL
+	part();
 public:
-	SGE_TEXTURE_SYMBOL virtual ~part();
+	SGE_TEXTURE_SYMBOL
+	virtual ~part();
 
 	virtual void
 	data(
@@ -56,10 +59,10 @@ public:
 	SGE_TEXTURE_SYMBOL renderer::dim2 const
 	dim() const;
 
-	virtual renderer::texture_ptr const
+	virtual renderer::texture::planar_ptr const
 	texture() = 0;
 
-	virtual renderer::const_texture_ptr const
+	virtual renderer::texture::const_planar_ptr const
 	texture() const = 0;
 
 	virtual bool

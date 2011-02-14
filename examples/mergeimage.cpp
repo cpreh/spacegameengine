@@ -32,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/store.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/lock_rect.hpp>
-#include <sge/renderer/texture_pos_type.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
@@ -208,8 +207,8 @@ try
 		sge::image::colors::transparent()
 	);
 
-	sge::renderer::texture_pos_type pos(
-		sge::renderer::texture_pos_type::null()
+	sge::image2d::rect::vector pos(
+		sge::image2d::rect::vector::null()
 	);
 
 	path_vector const paths(

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/texture/part.hpp>
 #include <sge/texture/symbol.hpp>
-#include <sge/renderer/texture_ptr.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
@@ -41,36 +41,45 @@ class part_raw
 		part_raw
 	);
 public:
-	SGE_TEXTURE_SYMBOL explicit part_raw(
-		renderer::texture_ptr
+	SGE_TEXTURE_SYMBOL
+	explicit part_raw(
+		renderer::texture::planar_ptr
 	);
 
-	SGE_TEXTURE_SYMBOL part_raw(
-		renderer::texture_ptr,
+	SGE_TEXTURE_SYMBOL
+	part_raw(
+		renderer::texture::planar_ptr,
 		renderer::lock_rect const &
 	);
 
-	SGE_TEXTURE_SYMBOL ~part_raw();
+	SGE_TEXTURE_SYMBOL
+	~part_raw();
 
-	SGE_TEXTURE_SYMBOL void
+	SGE_TEXTURE_SYMBOL
+	void
 	data(
 		image2d::view::const_object const &
 	);
 
-	SGE_TEXTURE_SYMBOL renderer::lock_rect const &
+	SGE_TEXTURE_SYMBOL
+	renderer::lock_rect const &
 	area() const;
 
-	SGE_TEXTURE_SYMBOL renderer::texture_ptr const
+	SGE_TEXTURE_SYMBOL
+	renderer::texture::planar_ptr const
 	texture();
 
-	SGE_TEXTURE_SYMBOL renderer::const_texture_ptr const
+	SGE_TEXTURE_SYMBOL
+	renderer::texture::const_planar_ptr const
 	texture() const;
 
-	SGE_TEXTURE_SYMBOL bool repeatable() const;
+	SGE_TEXTURE_SYMBOL
+	bool
+	repeatable() const;
 private:
-	renderer::lock_rect   const area_;
+	renderer::lock_rect const area_;
 
-	renderer::texture_ptr const tex_;
+	renderer::texture::planar_ptr const tex_;
 };
 
 }

@@ -320,7 +320,7 @@ sge::opengl::texture::basic<Base>::lock_dim() const
 template<
 	typename Base
 >
-sge::renderer::filter::texture const &
+sge::renderer::texture::filter::object const &
 sge::opengl::texture::basic<Base>::filter() const
 {
 	return filter_;
@@ -376,7 +376,7 @@ template<
 >
 sge::opengl::texture::basic<Base>::basic(
 	opengl::context::object &_context,
-	renderer::filter::texture const &_filter,
+	renderer::texture::filter::object const &_filter,
 	renderer::resource_flags_field const &_flags,
 	opengl::texture::type const _type,
 	image::color::format::type const _color_format,

@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/colors.hpp>
+#include <sge/image2d/create_texture.hpp>
 #include <sge/all_extensions.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/input/keyboard/action.hpp>
@@ -37,8 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/uniform/single_value.hpp>
 #include <sge/renderer/glsl/program.hpp>
 #include <sge/renderer/glsl/no_program.hpp>
-#include <sge/renderer/texture.hpp>
-#include <sge/renderer/filter/linear.hpp>
+#include <sge/renderer/texture/address_mode2.hpp>
+#include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/image2d/multi_loader.hpp>
 #include <sge/image2d/file.hpp>
@@ -58,7 +59,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/with_color.hpp>
 #include <sge/sprite/with_unspecified_dim.hpp>
 #include <sge/sprite/with_texture.hpp>
-#include <sge/renderer/texture.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/parameterless.hpp>
@@ -300,11 +300,14 @@ particles::particles(
 		fcppt::make_shared_ptr<
 			sge::texture::part_raw
 		>(
-			sys.renderer()->create_texture(
-				sys.image_loader().load(
-					sge::config::media_path() 
-						/ FCPPT_TEXT("smooth_particle.png"))->view(),
-				sge::renderer::filter::linear,
+			sge::image2d::create_texture(
+				sge::config::media_path() 
+					/ FCPPT_TEXT("smooth_particle.png"),
+				sys.renderer(),
+				sys.image_loader(),
+				sge::renderer::texture::filter::linear,
+				sge::renderer::texture::address_mode2(
+					sge::renderer::texture::address_mode::clamp),
 				sge::renderer::resource_flags::none)))
 {
 }

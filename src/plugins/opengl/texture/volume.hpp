@@ -24,10 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "basic.hpp"
 #include "scoped_work_bind_fwd.hpp"
 #include "../context/object_fwd.hpp"
-#include <sge/image/color/format.hpp>
-#include <sge/renderer/volume_texture.hpp>
-#include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/filter/texture_fwd.hpp>
+#include <sge/renderer/texture/volume.hpp>
+#include <sge/renderer/texture/volume_parameters_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -41,7 +39,7 @@ namespace detail
 {
 
 typedef texture::basic<
-	renderer::volume_texture
+	renderer::texture::volume
 > volume_texture_base;
 
 }
@@ -58,10 +56,7 @@ public:
 
 	volume(
 		opengl::context::object &,
-		base::dim_type const &,
-		sge::image::color::format::type,
-		sge::renderer::filter::texture const &,
-		sge::renderer::resource_flags_field const &
+		renderer::texture::volume_parameters const &
 	);
 
 	~volume();

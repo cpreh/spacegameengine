@@ -26,6 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/atlasing/size.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/texture/address_mode2.hpp>
+#include <sge/renderer/texture/address_mode.hpp>
+#include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/log/global.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/math/dim/output.hpp>
@@ -40,13 +43,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::texture::no_fragmented::no_fragmented(
 	renderer::device_ptr const _rend,
 	image::color::format::type const _format,
-	renderer::filter::texture const &_filter
+	renderer::texture::filter::object const &_filter
 )
 :
  	rend_(_rend),
 	format_(_format),
  	filter_(_filter)
-{}
+{
+}
+
+sge::texture::no_fragmented::~no_fragmented()
+{
+}
 
 sge::texture::part_ptr const
 sge::texture::no_fragmented::consume_fragment(
@@ -56,7 +64,7 @@ sge::texture::no_fragmented::consume_fragment(
 	if(
 		tex_
 	)
-		return part_ptr();
+		return texture::part_ptr();
 
 	renderer::dim2 const real_dim(
 		atlasing::bounds(
@@ -65,11 +73,16 @@ sge::texture::no_fragmented::consume_fragment(
 	);
 
 	tex_ =
-		rend_->create_texture(
-			real_dim,
-			format_,
-			filter_,
-			renderer::resource_flags::none
+		rend_->create_planar_texture(
+			renderer::texture::planar_parameters(	
+				real_dim,
+				format_,
+				filter_,
+				renderer::texture::address_mode2(
+					renderer::texture::address_mode::clamp
+				),
+				renderer::resource_flags::none
+			)
 		);
 
 	if(
@@ -86,9 +99,9 @@ sge::texture::no_fragmented::consume_fragment(
 		);
 
 	return
-		part_ptr(
+		texture::part_ptr(
 			fcppt::make_shared_ptr<
-				part_fragmented
+				texture::part_fragmented
 			>(
 				renderer::lock_rect(
 					renderer::lock_rect::vector::null(),
@@ -117,7 +130,7 @@ sge::texture::no_fragmented::on_return_fragment(
 	tex_.reset();
 }
 
-sge::renderer::texture_ptr const
+sge::renderer::texture::planar_ptr const
 sge::texture::no_fragmented::texture() const
 {
 	return tex_;
@@ -132,7 +145,12 @@ sge::texture::no_fragmented::repeatable() const
 sge::texture::free_type
 sge::texture::no_fragmented::free_value() const
 {
-	return empty() ? 0 : guaranteed_free();
+	return
+		this->empty()
+		?
+			0
+		:
+			texture::guaranteed_free();
 }
 
 bool

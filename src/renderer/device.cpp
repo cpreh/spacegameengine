@@ -22,20 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index_buffer.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
-#include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
-#include <sge/renderer/scoped_volume_texture_lock.hpp>
-#include <sge/renderer/texture.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/index/dynamic/format_stride.hpp>
 #include <sge/renderer/glsl/program.hpp>
 #include <sge/renderer/vf/dynamic/format.hpp>
-#include <sge/image2d/algorithm/copy_and_convert.hpp>
-#include <sge/image2d/view/dim.hpp>
-#include <sge/image2d/view/format.hpp>
-#include <sge/image3d/algorithm/copy_and_convert.hpp>
-#include <sge/image3d/view/dim.hpp>
-#include <sge/image3d/view/format.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -116,72 +107,6 @@ sge::renderer::device::create_glsl_program(
 			:
 				renderer::glsl::optional_string()
 		);
-}
-
-sge::renderer::texture_ptr const
-sge::renderer::device::create_texture(
-	image2d::view::const_object const &_view,
-	filter::texture const &_filter,
-	resource_flags_field const &_flags
-)
-{
-	texture_ptr const tex(
-		this->create_texture(
-			image2d::view::dim(
-				_view
-			),
-			image2d::view::format(
-				_view
-			),
-			_filter,
-			_flags
-		)
-	);
-
-	renderer::scoped_texture_lock const lock(
-		tex,
-		renderer::lock_mode::writeonly
-	);
-
-	image2d::algorithm::copy_and_convert(
-		_view,
-		lock.value()
-	);
-
-	return tex;
-}
-
-sge::renderer::volume_texture_ptr const
-sge::renderer::device::create_volume_texture(
-	image3d::view::const_object const &_view,
-	filter::texture const &_filter,
-	resource_flags_field const &_flags
-)
-{
-	renderer::volume_texture_ptr const tex(
-		this->create_volume_texture(
-			image3d::view::dim(
-				_view
-			),
-			image3d::view::format(
-				_view
-			),
-			_filter,
-			_flags
-		)
-	);
-
-	renderer::scoped_volume_texture_lock const lock(
-		tex,
-		lock_mode::writeonly
-	);
-
-	image3d::algorithm::copy_and_convert(
-		_view,
-		lock.value()
-	);
-
-	return tex;
 }
 
 sge::renderer::vertex_buffer_ptr const

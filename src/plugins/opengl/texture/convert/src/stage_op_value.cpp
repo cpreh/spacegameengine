@@ -24,33 +24,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 GLenum
 sge::opengl::texture::convert::stage_arg_op_value(
-	renderer::texture_stage_op_value::type const _value
+	renderer::sampler_stage_op_value::type const _value
 )
 {
 	switch(
 		_value
 	)
 	{
-	case renderer::texture_stage_op_value::arg0:
+	case renderer::sampler_stage_op_value::arg0:
 		return GL_REPLACE;
-	case renderer::texture_stage_op_value::modulate:
-	case renderer::texture_stage_op_value::modulate2x:
-	case renderer::texture_stage_op_value::modulate4x:
+	case renderer::sampler_stage_op_value::modulate:
+	case renderer::sampler_stage_op_value::modulate2x:
+	case renderer::sampler_stage_op_value::modulate4x:
 		return GL_MODULATE;
-	case renderer::texture_stage_op_value::add:
-	case renderer::texture_stage_op_value::add2x:
-	case renderer::texture_stage_op_value::add4x:
+	case renderer::sampler_stage_op_value::add:
+	case renderer::sampler_stage_op_value::add2x:
+	case renderer::sampler_stage_op_value::add4x:
 		return GL_ADD;
-	case renderer::texture_stage_op_value::substract:
+	case renderer::sampler_stage_op_value::substract:
 		return GL_SUBTRACT;
-	case renderer::texture_stage_op_value::add_signed:
-	case renderer::texture_stage_op_value::add_signed2x:
+	case renderer::sampler_stage_op_value::add_signed:
+	case renderer::sampler_stage_op_value::add_signed2x:
 		return GL_ADD_SIGNED;
-	case renderer::texture_stage_op_value::interpolate:
+	case renderer::sampler_stage_op_value::interpolate:
 		return GL_INTERPOLATE;
 	}
 
 	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid texture_stage_op_value!")
+		FCPPT_TEXT("Invalid sampler_stage_op_value!")
 	);
 }

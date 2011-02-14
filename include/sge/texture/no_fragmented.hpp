@@ -26,7 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/symbol.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <sge/renderer/filter/texture.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/filter/object.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -44,26 +45,31 @@ class SGE_CLASS_SYMBOL no_fragmented
 		no_fragmented
 	);
 public:
-	SGE_TEXTURE_SYMBOL no_fragmented(
+	SGE_TEXTURE_SYMBOL
+	no_fragmented(
 		renderer::device_ptr,
 		image::color::format::type,
-		renderer::filter::texture const &
+		renderer::texture::filter::object const &
 	);
+
+	SGE_TEXTURE_SYMBOL
+	~no_fragmented();
 private:
-	part_ptr const
+	texture::part_ptr const
 	consume_fragment(
 		renderer::dim2 const &
 	);
 
 	void
 	on_return_fragment(
-		part const &
+		texture::part const &
 	);
 
-	renderer::texture_ptr const
+	renderer::texture::planar_ptr const
 	texture() const;
 
-	bool repeatable() const;
+	bool
+	repeatable() const;
 
 	free_type
 	free_value() const;
@@ -75,9 +81,9 @@ private:
 
 	image::color::format::type const format_;
 
-	renderer::filter::texture const filter_;
+	renderer::texture::filter::object const filter_;
 
-	renderer::texture_ptr tex_;
+	renderer::texture::planar_ptr tex_;
 };
 
 }

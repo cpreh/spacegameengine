@@ -25,10 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/stage_arg_value.hpp"
 #include "../convert/stage_op.hpp"
 #include "../convert/stage_op_value.hpp"
-#include <sge/renderer/texture_stage_op.hpp>
-#include <sge/renderer/texture_stage_op_value.hpp>
-#include <sge/renderer/texture_stage_arg.hpp>
-#include <sge/renderer/texture_stage_arg_value.hpp>
+#include <sge/renderer/sampler_stage_op.hpp>
+#include <sge/renderer/sampler_stage_op_value.hpp>
+#include <sge/renderer/sampler_stage_arg.hpp>
+#include <sge/renderer/sampler_stage_arg_value.hpp>
 
 template<
 	typename Arg,
@@ -71,13 +71,13 @@ sge::opengl::texture::set_stage_funcs(\
 );
 
 SGE_OPENGL_INSTANTIATE_TEXTURE_SET_STAGE_FUNCS(
-	sge::renderer::texture_stage_op::type,
-	sge::renderer::texture_stage_op_value::type
+	sge::renderer::sampler_stage_op::type,
+	sge::renderer::sampler_stage_op_value::type
 )
 
 SGE_OPENGL_INSTANTIATE_TEXTURE_SET_STAGE_FUNCS(
-	sge::renderer::texture_stage_arg::type,
-	sge::renderer::texture_stage_arg_value::type
+	sge::renderer::sampler_stage_arg::type,
+	sge::renderer::sampler_stage_arg_value::type
 )
 
 #undef SGE_OPENGL_INSTANTIATE_TEXTURE_SET_STAGE_FUNCS

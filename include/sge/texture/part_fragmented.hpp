@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part.hpp>
 #include <sge/texture/fragmented_fwd.hpp>
 #include <sge/texture/symbol.hpp>
-#include <sge/renderer/texture_fwd.hpp>
+#include <sge/renderer/texture/const_planar_ptr.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
@@ -43,35 +44,42 @@ class part_fragmented
 		part_fragmented
 	);
 public:
-	SGE_TEXTURE_SYMBOL part_fragmented(
+	SGE_TEXTURE_SYMBOL
+	part_fragmented(
 		renderer::lock_rect const &outer_rect,
 		fragmented &,
 		bool need_atlasing_w,
 		bool need_atlasing_h
 	);
 
-	SGE_TEXTURE_SYMBOL void
+	SGE_TEXTURE_SYMBOL
+	void
 	data(
-		image2d::view::const_object const &src
+		image2d::view::const_object const &
 	);
 
-	SGE_TEXTURE_SYMBOL renderer::lock_rect const &
+	SGE_TEXTURE_SYMBOL
+	renderer::lock_rect const &
 	area() const;
 
-	SGE_TEXTURE_SYMBOL renderer::texture_ptr const
+	SGE_TEXTURE_SYMBOL
+	renderer::texture::planar_ptr const
 	texture();
 
-	SGE_TEXTURE_SYMBOL renderer::const_texture_ptr const
+	SGE_TEXTURE_SYMBOL
+	renderer::texture::const_planar_ptr const
 	texture() const;
 
-	SGE_TEXTURE_SYMBOL bool
+	SGE_TEXTURE_SYMBOL
+	bool
 	repeatable() const;
 
-	SGE_TEXTURE_SYMBOL ~part_fragmented();
+	SGE_TEXTURE_SYMBOL
+	~part_fragmented();
 private:
 	renderer::lock_rect outer_area_;
 
-	fragmented &fragment_;
+	texture::fragmented &fragment_;
 
 	bool
 		need_atlasing_w_,
@@ -79,7 +87,6 @@ private:
 
 	renderer::lock_rect inner_area_;
 };
-
 
 }
 }

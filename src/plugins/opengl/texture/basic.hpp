@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../internal_color_format.hpp"
 #include "../lock_method.hpp"
 #include "../context/object_fwd.hpp"
-#include <sge/renderer/filter/texture.hpp>
+#include <sge/renderer/texture/filter/object.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/image/color/format.hpp>
@@ -108,7 +108,7 @@ private:
 	dim_type const
 	lock_dim() const;
 protected:
-	renderer::filter::texture const &
+	renderer::texture::filter::object const &
 	filter() const;
 
 	using Base::content;
@@ -130,7 +130,7 @@ protected:
 
 	basic(
 		opengl::context::object &,
-		renderer::filter::texture const &,
+		renderer::texture::filter::object const &,
 		renderer::resource_flags_field const &,
 		opengl::texture::type,
 		image::color::format::type,
@@ -157,7 +157,7 @@ private:
 
 	opengl::context::object &context_;
 
-	renderer::filter::texture const filter_;
+	renderer::texture::filter::object const filter_;
 
 	renderer::resource_flags_field const flags_;
 

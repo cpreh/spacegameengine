@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../context/object_fwd.hpp"
 #include <sge/renderer/depth_stencil_format.hpp>
 #include <sge/renderer/depth_stencil_surface_ptr.hpp>
-#include <sge/renderer/depth_stencil_texture.hpp>
+#include <sge/renderer/texture/depth_stencil.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
 
 namespace sge
@@ -38,7 +38,7 @@ namespace texture
 
 class depth_stencil
 :
-	public sge::renderer::depth_stencil_texture,
+	public sge::renderer::texture::depth_stencil,
 	public opengl::texture::base
 {
 	FCPPT_NONCOPYABLE(
