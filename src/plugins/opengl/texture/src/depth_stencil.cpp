@@ -27,7 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../convert/depth_stencil_to_format.hpp"
 #include "../../convert/depth_stencil_to_format_type.hpp"
 #include "../../convert/depth_stencil_to_internal_format.hpp"
-#include <sge/renderer/filter/point.hpp>
+#include <sge/renderer/texture/filter/object.hpp>
+#include <sge/renderer/texture/filter/point.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
@@ -40,7 +41,7 @@ sge::opengl::texture::depth_stencil::depth_stencil(
 	renderer::depth_stencil_format::type const _format
 )
 :
-	renderer::depth_stencil_texture(),
+	renderer::texture::depth_stencil(),
 	opengl::texture::base(
 		opengl::texture::type(
 			GL_TEXTURE_2D
@@ -58,8 +59,8 @@ sge::opengl::texture::depth_stencil::depth_stencil(
 		renderer::stage_type(0u)
 	);
 
-	sge::renderer::filter::texture const filter(
-		sge::renderer::filter::point
+	sge::renderer::texture::filter::object const filter(
+		sge::renderer::texture::filter::point
 	);
 
 	texture::funcs::set_filter(

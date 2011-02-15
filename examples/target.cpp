@@ -36,7 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/parameters.hpp>
-#include <sge/renderer/texture.hpp>
 #include <sge/renderer/target_from_texture.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
@@ -44,7 +43,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/list.hpp>
-#include <sge/renderer/filter/linear.hpp>
+#include <sge/renderer/texture/filter/linear.hpp>
+#include <sge/renderer/texture/address_mode2.hpp>
+#include <sge/renderer/texture/create_planar_from_view.hpp>
+#include <sge/renderer/texture/planar_parameters.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/image2d/file.hpp>
@@ -127,10 +130,14 @@ try
 		)
 	);
 
-	sge::renderer::texture_ptr const image_texture(
-		sys.renderer()->create_texture(
+	sge::renderer::texture::planar_ptr const image_texture(
+		sge::renderer::texture::create_planar_from_view(
+			sys.renderer(),
 			image->view(),
-			sge::renderer::filter::linear,
+			sge::renderer::texture::filter::linear,
+			sge::renderer::texture::address_mode2(
+				sge::renderer::texture::address_mode::clamp
+			),
 			sge::renderer::resource_flags::readable
 		)
 	);
@@ -163,15 +170,20 @@ try
 		sys.renderer()
 	);
 
-	sge::renderer::texture_ptr const target_texture(
-		sys.renderer()->create_texture(
-			sge::renderer::texture::dim_type(
-				640,
-				480
-			),
-			sge::image::color::format::rgba8,
-			sge::renderer::filter::linear,
-			sge::renderer::resource_flags::readable // TODO
+	sge::renderer::texture::planar_ptr const target_texture(
+		sys.renderer()->create_planar_texture(
+			sge::renderer::texture::planar_parameters(
+				sge::renderer::dim2(
+					640,
+					480
+				),
+				sge::image::color::format::rgba8,
+				sge::renderer::texture::filter::linear,
+				sge::renderer::texture::address_mode2(
+					sge::renderer::texture::address_mode::clamp
+				),
+				sge::renderer::resource_flags::readable // TODO
+			)
 		)
 	);
 

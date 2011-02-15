@@ -32,8 +32,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/with_texture.hpp>
 #include <sge/sprite/render_one.hpp>
 #include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/filter/linear.hpp>
-#include <sge/renderer/device.hpp>
+#include <sge/renderer/texture/filter/linear.hpp>
+#include <sge/renderer/texture/address_mode2.hpp>
+#include <sge/renderer/texture/create_planar_from_view.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
@@ -135,10 +137,14 @@ try
 		)
 	);
 
-	sge::renderer::texture_ptr const image_texture(
-		sys.renderer()->create_texture(
+	sge::renderer::texture::planar_ptr const image_texture(
+		sge::renderer::texture::create_planar_from_view(
+			sys.renderer(),
 			image->view(),
-			sge::renderer::filter::linear,
+			sge::renderer::texture::filter::linear,
+			sge::renderer::texture::address_mode2(
+				sge::renderer::texture::address_mode::clamp
+			),
 			sge::renderer::resource_flags::none
 		)
 	);

@@ -37,7 +37,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/float.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/volume_texture.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
@@ -88,8 +87,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/vf_to_string.hpp>
 #include <sge/camera/projection/perspective.hpp>
 #include <sge/renderer/aspect.hpp>
-#include <sge/renderer/filter/linear.hpp>
-#include <sge/renderer/filter/point.hpp>
+#include <sge/renderer/texture/filter/linear.hpp>
+#include <sge/renderer/texture/address_mode3.hpp>
+#include <sge/renderer/texture/create_volume_from_view.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/time/second.hpp>
@@ -508,11 +508,14 @@ try
 			(sge::shader::sampler(
 				"tex",
 				// Selbsterklärend
-				rend->create_volume_texture(
+				sge::renderer::texture::create_volume_from_view(
+					rend,
 					mytex.view(),
 					// Lineare Filterung. trilinear und point sind auch möglich (und
 					// sogar anisotropisch, aber das ist ungetestet)
-					sge::renderer::filter::linear,
+					sge::renderer::texture::filter::linear,
+					sge::renderer::texture::address_mode3(
+						sge::renderer::texture::address_mode::repeat),
 					// Hier könnte man eine Textur erstellen, die "readable" ist, wenn
 					// man die unbedingt wieder auslesen will
 					sge::renderer::resource_flags::none))));

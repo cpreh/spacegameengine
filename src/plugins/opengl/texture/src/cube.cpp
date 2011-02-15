@@ -20,11 +20,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../cube.hpp"
 #include "../cube_context.hpp"
-#include "../object.hpp"
+#include "../planar.hpp"
 #include "../convert/cube_side.hpp"
 #include "../../common.hpp"
 #include "../../context/use.hpp"
 #include "../../glew/is_supported.hpp"
+#include <sge/renderer/texture/cube_parameters.hpp>
+#include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
@@ -38,10 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::texture::cube::cube(
 	opengl::context::object &_context,
-	size_type const _size,
-	image::color::format::type const _format,
-	renderer::filter::texture const &_filter,
-	renderer::resource_flags_field const &_flags
+	renderer::texture::cube_parameters const &_param
 )
 :
 	opengl::texture::base(
@@ -51,7 +50,9 @@ sge::opengl::texture::cube::cube(
 			_context
 		).cube_texture_type()
 	),
-	size_(_size),
+	size_(
+		_param.dim()
+	),
 	locked_texture_(0)
 {
 	texture::cube_context &cube_context_(
@@ -71,25 +72,31 @@ sge::opengl::texture::cube::cube(
 	       		FCPPT_TEXT("gl_arb_texture::cube")
 		);
 
+	sge::renderer::texture::planar_parameters const planar_param(
+		texture::planar::dim_type(
+			size_,
+			size_
+		),
+		_param.color_format(),
+		_param.filter(),
+		_param.address_mode(),
+		_param.resource_flags()
+
+	);
+
 	FCPPT_FOREACH_ENUMERATOR(
 		index,
-		sge::renderer::cube_side
+		sge::renderer::texture::cube_side
 	)
 		fcppt::container::ptr::push_back_unique_ptr(
 			textures_,
 			fcppt::make_unique_ptr<
-				texture::object
+				texture::planar
 			>(
 				std::tr1::ref(
 					_context
 				),
-				texture::object::dim_type(
-					size_,
-					size_
-				),
-				_format,
-				_filter,
-				_flags,
+				planar_param,
 				convert::cube_side(
 					cube_context_.cube_sides(),
 					index
@@ -104,7 +111,7 @@ sge::opengl::texture::cube::~cube()
 
 sge::image2d::view::object const
 sge::opengl::texture::cube::lock(
-	renderer::cube_side::type const _side,
+	renderer::texture::cube_side::type const _side,
 	renderer::lock_rect const &_src,
 	renderer::lock_mode::type const _flags
 )
@@ -125,7 +132,7 @@ sge::opengl::texture::cube::lock(
 
 sge::image2d::view::const_object const
 sge::opengl::texture::cube::lock(
-	renderer::cube_side::type const _side,
+	renderer::texture::cube_side::type const _side,
 	renderer::lock_rect const &_src
 ) const
 {

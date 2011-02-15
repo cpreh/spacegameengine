@@ -6,7 +6,7 @@ SET(
 	include/sge/texture/atlasing/border_w.hpp
 	include/sge/texture/atlasing/bound.hpp
 	include/sge/texture/atlasing/bounds.hpp
-	include/sge/texture/atlasing/create_texture.hpp
+	include/sge/texture/atlasing/create.hpp
 	include/sge/texture/atlasing/gap.hpp
 	include/sge/texture/atlasing/inner_rect.hpp
 	include/sge/texture/atlasing/need.hpp
@@ -33,14 +33,16 @@ SET(
 	include/sge/texture/part_fwd.hpp
 	include/sge/texture/part_ptr.hpp
 	include/sge/texture/part_raw.hpp
+	include/sge/texture/pos_type.hpp
 	include/sge/texture/rect_fragmented.hpp
+	include/sge/texture/sub_data.hpp
 	include/sge/texture/symbol.hpp
 	src/texture/add_image.cpp
 	src/texture/atlasing/border_h.cpp
 	src/texture/atlasing/border_w.cpp
 	src/texture/atlasing/bound.cpp
 	src/texture/atlasing/bounds.cpp
-	src/texture/atlasing/create_texture.cpp
+	src/texture/atlasing/create.cpp
 	src/texture/atlasing/gap.cpp
 	src/texture/atlasing/inner_rect.cpp
 	src/texture/atlasing/need.cpp
@@ -56,6 +58,7 @@ SET(
 	src/texture/part_fragmented.cpp
 	src/texture/part_raw.cpp
 	src/texture/rect_fragmented.cpp
+	src/texture/sub_data.cpp
 )
 
 ADD_SGE_BASE_LIBRARY(

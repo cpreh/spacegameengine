@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../check_state.hpp"
 #include "../../../common.hpp"
 #include "../../../context/use.hpp"
-#include <sge/renderer/texture_creation_failed.hpp>
+#include <sge/renderer/texture/creation_failed.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/text.hpp>
@@ -39,7 +39,7 @@ sge::opengl::texture::funcs::set_3d(
 	opengl::color_format const _format,
 	opengl::color_format_type const _format_type,
 	opengl::internal_color_format const _internal_format,
-	renderer::filter::texture const &_filter,
+	renderer::texture::filter::object const &_filter,
 	renderer::dim3 const &_dim,
 	renderer::const_raw_pointer const _src
 )
@@ -102,6 +102,6 @@ sge::opengl::texture::funcs::set_3d(
 			)
 			% _dim
 		).str(),
-		sge::renderer::texture_creation_failed
+		sge::renderer::texture::creation_failed
 	);
 }

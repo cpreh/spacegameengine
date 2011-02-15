@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../common.hpp"
 #include "../../../context/use.hpp"
 #include <sge/log/global.hpp>
-#include <sge/renderer/filter/texture.hpp>
+#include <sge/renderer/texture/filter/object.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/text.hpp>
@@ -35,7 +35,7 @@ sge::opengl::texture::funcs::set_mipmap(
 	texture::scoped_work_bind const &_scoped_work,
 	opengl::context::object &_context,
 	texture::type const _type,
-	renderer::filter::texture const &_filter
+	renderer::texture::filter::object const &_filter
 )
 {
 	bool const need_mipmap(

@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/font/text/drawer_3d.hpp>
 #include <sge/texture/rect_fragmented.hpp>
-#include <sge/renderer/filter/linear.hpp>
+#include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/image2d/view/dim.hpp>
@@ -56,7 +56,7 @@ sge::font::text::drawer_3d::drawer_3d(
 			>(
 				rend_,
 				rend_->caps().preferred_texture_format(),
-				renderer::filter::linear,
+				renderer::texture::filter::linear,
 				fcppt::math::dim::quad<
 					renderer::dim2
 				>(

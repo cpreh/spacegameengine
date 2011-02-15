@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/screen_size.hpp>
-#include <sge/renderer/filter/linear.hpp>
+#include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/sprite/choices.hpp>
 #include <sge/sprite/default_equal.hpp>
 #include <sge/sprite/no_color.hpp>
@@ -130,7 +130,7 @@ try
 			(
 				sys.renderer(),
 				sge::image::color::format::rgba8,
-				sge::renderer::filter::linear
+				sge::renderer::texture::filter::linear
 			)
 		)
 	);

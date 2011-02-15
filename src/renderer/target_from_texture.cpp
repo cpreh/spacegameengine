@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/surface_index.hpp>
 #include <sge/renderer/stage_type.hpp>
 #include <sge/renderer/target.hpp>
-#include <sge/renderer/texture.hpp>
 #include <sge/renderer/viewport.hpp>
+#include <sge/renderer/texture/planar.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::renderer::target_ptr const
 sge::renderer::target_from_texture(
 	renderer::device_ptr const _device,
-	renderer::texture_ptr const _texture
+	renderer::texture::planar_ptr const _texture
 )
 {
 	sge::renderer::target_ptr const target(

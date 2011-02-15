@@ -25,32 +25,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../funcs/set_3d.hpp"
 #include "../funcs/set_rect_3d.hpp"
 #include "../../context/use.hpp"
-#include <sge/renderer/volume_texture.hpp>
+#include <sge/renderer/texture/volume.hpp>
+#include <sge/renderer/texture/volume_parameters.hpp>
 
 template class
 sge::opengl::texture::basic<
-	sge::renderer::volume_texture
+	sge::renderer::texture::volume
 >;
 
 sge::opengl::texture::volume::volume(
 	opengl::context::object &_context,
-	dim_type const &_dim,
-	sge::image::color::format::type const _format,
-	sge::renderer::filter::texture const &_filter,
-	sge::renderer::resource_flags_field const &_flags
+	renderer::texture::volume_parameters const &_param
 )
 :
 	detail::volume_texture_base(
 		_context,
-		_filter,
-		_flags,
+		_param.filter(),
+		_param.resource_flags(),
 		opengl::context::use<
 			opengl::texture::volume_context
 		>(
 			_context
 		).volume_texture_type(),
-		_format,
-		_dim
+		_param.color_format(),
+		_param.dim()
 	)
 {
 	opengl::texture::scoped_work_bind const binding(

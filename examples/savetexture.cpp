@@ -32,9 +32,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/trampoline.hpp>
-#include <sge/renderer/texture_ptr.hpp>
-#include <sge/renderer/filter/linear.hpp>
-#include <sge/renderer/const_scoped_texture_lock.hpp>
+#include <sge/renderer/texture/address_mode2.hpp>
+#include <sge/renderer/texture/const_scoped_planar_lock.hpp>
+#include <sge/renderer/texture/planar_parameters.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/log/global.hpp>
 #include <sge/input/keyboard/action.hpp>
@@ -353,14 +355,17 @@ try
 				fcppt::assign::make_container<sge::extension_set>(
 					FCPPT_TEXT("png")))));
 
-	sge::renderer::texture_ptr target_texture(
-		sys.renderer()->create_texture(
-			fcppt::math::dim::structure_cast<sge::renderer::dim2>(
-				sys.renderer()->screen_size()),
-			sge::image::color::format::rgb8,
-			sge::renderer::filter::linear,
-			sge::renderer::resource_flags_field(
-				sge::renderer::resource_flags::readable)));
+	sge::renderer::texture::planar_ptr target_texture(
+		sys.renderer()->create_planar_texture(
+			sge::renderer::texture::planar_parameters(
+				fcppt::math::dim::structure_cast<sge::renderer::dim2>(
+					sys.renderer()->screen_size()),
+				sge::image::color::format::rgb8,
+				sge::renderer::texture::filter::linear,
+				sge::renderer::texture::address_mode2(
+					sge::renderer::texture::address_mode::clamp),
+				sge::renderer::resource_flags_field(
+					sge::renderer::resource_flags::readable))));
 
 	sge::renderer::target_ptr const temp_target(
 		sge::renderer::target_from_texture(
@@ -396,7 +401,7 @@ try
 		fcppt::assign::make_container<sge::shader::sampler_sequence>(
 			sge::shader::sampler(
 				"tex",
-				sge::renderer::texture_ptr())));
+				sge::renderer::texture::planar_ptr())));
 
 	sge::renderer::vertex_buffer_ptr const quad_(
 		screen_vf::create_quad(
@@ -426,7 +431,7 @@ try
 			sge::renderer::nonindexed_primitive_type::triangle);
 	}
 
-	sge::renderer::const_scoped_texture_lock slock(
+	sge::renderer::texture::const_scoped_planar_lock slock(
 		target_texture);
 
 	sys.image_loader().loaders().at(0)->create(

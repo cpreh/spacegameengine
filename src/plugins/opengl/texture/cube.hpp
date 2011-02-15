@@ -23,13 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "base.hpp"
 #include "../context/object_fwd.hpp"
-#include <sge/renderer/cube_texture.hpp>
+#include <sge/renderer/texture/cube.hpp>
+#include <sge/renderer/texture/cube_parameters_fwd.hpp>
+#include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/texture_fwd.hpp>
-#include <sge/renderer/filter/texture_fwd.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/const_object.hpp>
-#include <sge/image/color/format.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
@@ -42,7 +41,7 @@ namespace texture
 
 class cube
 :
-	public sge::renderer::cube_texture,
+	public sge::renderer::texture::cube,
 	public sge::opengl::texture::base
 {
 	FCPPT_NONCOPYABLE(
@@ -51,24 +50,21 @@ class cube
 public:
 	cube(
 		opengl::context::object &,
-		size_type border_size,
-		image::color::format::type format,
-		renderer::filter::texture const &,
-		renderer::resource_flags_field const &
+		renderer::texture::cube_parameters const &
 	);
 
 	~cube();
 
 	image2d::view::object const
 	lock(
-		renderer::cube_side::type side,
+		renderer::texture::cube_side::type side,
 		renderer::lock_rect const &,
 		renderer::lock_mode::type
 	);
 
 	image2d::view::const_object const
 	lock(
-		renderer::cube_side::type side,
+		renderer::texture::cube_side::type side,
 		renderer::lock_rect const &
 	) const;
 
@@ -89,10 +85,10 @@ private:
 
 	size_type const size_;
 
-	mutable renderer::texture *locked_texture_;
+	mutable renderer::texture::planar *locked_texture_;
 
 	typedef boost::ptr_vector<
-		renderer::texture
+		renderer::texture::planar
 	> texture_vector;
 
 	mutable texture_vector textures_;

@@ -24,16 +24,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 GLenum
 sge::opengl::texture::convert::mag_filter(
-	renderer::filter::mag::type const _arg
+	renderer::texture::filter::mag::type const _arg
 )
 {
 	switch(
 		_arg
 	)
 	{
-	case renderer::filter::mag::point:
+	case renderer::texture::filter::mag::point:
 		return GL_NEAREST;
-	case renderer::filter::mag::linear:
+	case renderer::texture::filter::mag::linear:
 		return GL_LINEAR;
 	}
 

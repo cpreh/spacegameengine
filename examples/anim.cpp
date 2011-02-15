@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/trampoline.hpp>
-#include <sge/renderer/filter/linear.hpp>
+#include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/image2d/multi_loader.hpp>
@@ -146,7 +146,7 @@ try
 			>(
 				rend,
 				sge::image::color::format::rgba8,
-				sge::renderer::filter::linear
+				sge::renderer::texture::filter::linear
 			)
 		)
 	);

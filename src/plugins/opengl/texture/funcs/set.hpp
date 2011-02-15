@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../color_format_type.hpp"
 #include "../../internal_color_format.hpp"
 #include "../../context/object_fwd.hpp"
-#include <sge/renderer/filter/texture_fwd.hpp>
+#include <sge/renderer/texture/filter/object_fwd.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
 
@@ -48,7 +48,7 @@ set(
 	opengl::color_format,
 	opengl::color_format_type,
 	opengl::internal_color_format,
-	renderer::filter::texture const &,
+	renderer::texture::filter::object const &,
 	renderer::dim2 const &,
 	renderer::const_raw_pointer src
 );

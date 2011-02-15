@@ -30,9 +30,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/trampoline.hpp>
-#include <sge/renderer/filter/linear.hpp>
+#include <sge/renderer/texture/address_mode2.hpp>
+#include <sge/renderer/texture/planar_parameters.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/target_from_texture.hpp>
-#include <sge/renderer/texture.hpp>
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
@@ -253,7 +255,7 @@ try
 
 				sys.renderer(),
 				sge::image::color::format::rgba8,
-				sge::renderer::filter::linear
+				sge::renderer::texture::filter::linear
 			)
 		)
 	);
@@ -392,16 +394,21 @@ try
 	);
 	*/
 
-	sge::renderer::texture_ptr const target_texture(
-		sys.renderer()->create_texture(
-			fcppt::math::dim::structure_cast<
-				sge::renderer::texture::dim_type
-			>(
-				screen_size
-			),
-			sge::image::color::format::rgba8,
-			sge::renderer::filter::linear,
-			sge::renderer::resource_flags::none
+	sge::renderer::texture::planar_ptr const target_texture(
+		sys.renderer()->create_planar_texture(
+			sge::renderer::texture::planar_parameters(
+				fcppt::math::dim::structure_cast<
+					sge::renderer::dim2
+				>(
+					screen_size
+				),
+				sge::image::color::format::rgba8,
+				sge::renderer::texture::filter::linear,
+				sge::renderer::texture::address_mode2(
+					sge::renderer::texture::address_mode::clamp
+				),
+				sge::renderer::resource_flags::none
+			)
 		)
 	);
 

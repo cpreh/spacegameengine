@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_NO_TEXTURE_HPP_INCLUDED
 #define SGE_RENDERER_NO_TEXTURE_HPP_INCLUDED
 
-#include <sge/renderer/const_texture_base_ptr.hpp>
+#include <sge/renderer/texture/const_base_ptr.hpp>
 #include <sge/symbol.hpp>
 
 namespace sge
@@ -30,7 +30,7 @@ namespace renderer
 {
 
 SGE_SYMBOL
-renderer::const_texture_base_ptr const
+renderer::texture::const_base_ptr const
 no_texture();
 
 }

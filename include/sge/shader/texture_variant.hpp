@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SHADER_TEXTURE_VARIANT_HPP_INCLUDED
 #define SGE_SHADER_TEXTURE_VARIANT_HPP_INCLUDED
 
-#include <sge/renderer/texture_ptr.hpp>
-#include <sge/renderer/cube_texture_ptr.hpp>
-#include <sge/renderer/volume_texture_ptr.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
+#include <sge/renderer/texture/cube_ptr.hpp>
+#include <sge/renderer/texture/volume_ptr.hpp>
 #include <fcppt/variant/object.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 
@@ -36,9 +36,9 @@ fcppt::variant::object
 <
 	boost::mpl::vector3
 	<
-		sge::renderer::texture_ptr,
-		sge::renderer::volume_texture_ptr,
-		sge::renderer::cube_texture_ptr
+		sge::renderer::texture::planar_ptr,
+		sge::renderer::texture::volume_ptr,
+		sge::renderer::texture::cube_ptr
 	>
 >
 texture_variant;

@@ -24,25 +24,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::texture::fragmented::fragmented()
 :
-	man(0)
-{}
+	manager_(0),
+	iterator_()
+{
+}
 
 sge::texture::fragmented::~fragmented()
-{}
+{
+}
 
 void
 sge::texture::fragmented::return_fragment(
-	part const &p
+	texture::part const &_part
 )
 {
-	on_return_fragment(p);
+	this->on_return_fragment(
+		_part
+	);
 
-	if(manager())
+	if(
+		this->manager()
+	)
 	{
-		FCPPT_ASSERT(iter);
+		FCPPT_ASSERT(
+			iterator_
+		);
 
-		manager()->part_freed(
-			*iter,
+		this->manager()->part_freed(
+			*iterator_,
 			*this
 		);
 	}
@@ -51,27 +60,28 @@ sge::texture::fragmented::return_fragment(
 bool
 sge::texture::fragmented::full() const
 {
-	return free_value() == 0;
+	return
+		this->free_value() == 0;
 }
 
 void
 sge::texture::fragmented::manager(
-	texture::manager *const nman
+	texture::manager *const _manager
 )
 {
-	man = nman;
+	manager_ = _manager;
 }
 
 sge::texture::manager *
 sge::texture::fragmented::manager() const
 {
-	return man;
+	return manager_;
 }
 
 void
 sge::texture::fragmented::container_position(
-	detail::container_position const &nit
+	detail::container_position const &_iterator
 )
 {
-	iter = nit;
+	iterator_ = _iterator;
 }
