@@ -32,7 +32,6 @@ SET(
 	include/sge/config/plugin_path.hpp
 	include/sge/config/symbol.hpp
 	src/config/appdir.cpp
-	src/config/config_paths.hpp
 	src/config/exception.cpp
 	src/config/find_config_path.cpp
 	src/config/find_own_path.cpp

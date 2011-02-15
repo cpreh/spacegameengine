@@ -113,7 +113,6 @@ SET(
 	include/sge/collision/world.hpp
 	include/sge/collision/world_fwd.hpp
 	include/sge/collision/world_ptr.hpp
-	include/sge/config.hpp
 	include/sge/error/check_state.hpp
 	include/sge/exception.hpp
 	include/sge/extension_set.hpp
