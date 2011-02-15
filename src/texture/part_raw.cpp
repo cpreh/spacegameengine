@@ -19,22 +19,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/texture/part_raw.hpp>
-#include <sge/renderer/texture.hpp>
-#include <sge/renderer/sub_data.hpp>
+#include <sge/texture/sub_data.hpp>
+#include <sge/renderer/texture/planar.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 
 sge::texture::part_raw::part_raw(
-	renderer::texture_ptr const _tex,
+	renderer::texture::planar_ptr const _tex,
 	renderer::lock_rect const &_area
 )
 :
 	area_(_area),
 	tex_(_tex)
-{}
+{
+}
 
 sge::texture::part_raw::part_raw(
-	renderer::texture_ptr const _tex
+	renderer::texture::planar_ptr const _tex
 )
 :
 	area_(
@@ -42,20 +43,22 @@ sge::texture::part_raw::part_raw(
 		_tex->dim()
 	),
 	tex_(_tex)
-{}
+{
+}
 
 sge::texture::part_raw::~part_raw()
-{}
+{
+}
 
 void
 sge::texture::part_raw::data(
 	image2d::view::const_object const &_src
 )
 {
-	renderer::sub_data(
+	texture::sub_data(
 		tex_,
 		_src,
-		area().pos()
+		this->area().pos()
 	);
 }
 
@@ -65,13 +68,13 @@ sge::texture::part_raw::area() const
 	return area_;
 }
 
-sge::renderer::texture_ptr const
+sge::renderer::texture::planar_ptr const
 sge::texture::part_raw::texture()
 {
 	return tex_;
 }
 
-sge::renderer::const_texture_ptr const
+sge::renderer::texture::const_planar_ptr const
 sge::texture::part_raw::texture() const
 {
 	return tex_;
@@ -80,5 +83,7 @@ sge::texture::part_raw::texture() const
 bool
 sge::texture::part_raw::repeatable() const
 {
-	return area().dimension() == tex_->dim();
+	return
+		this->area().dimension()
+		== tex_->dim();
 }

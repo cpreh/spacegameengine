@@ -22,13 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../base.hpp"
 #include "../bind_context.hpp"
 #include "../../context/use.hpp"
-#include <sge/renderer/texture_base.hpp>
+#include <sge/renderer/texture/base.hpp>
 #include <fcppt/dynamic_pointer_cast.hpp>
 
 void
 sge::opengl::texture::activate(
 	opengl::context::object &_context,
-	sge::renderer::const_texture_base_ptr const _texture,
+	sge::renderer::texture::const_base_ptr const _texture,
 	sge::renderer::stage_type const _stage
 )
 {

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../fbo/context.hpp"
 #include "../glsl/context.hpp"
 #include "../texture/context.hpp"
-#include <sge/renderer/filter/anisotropy_type.hpp>
+#include <sge/renderer/texture/filter/anisotropy_type.hpp>
 #include <sge/renderer/adapter_type.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/size_type.hpp>
@@ -81,7 +81,7 @@ sge::opengl::create_caps(
 				max_texture_size
 			),
 			static_cast<
-				sge::renderer::filter::anisotropy_type
+				sge::renderer::texture::filter::anisotropy_type
 			>(
 				texture_context.anisotropic_filter_supported()
 				?

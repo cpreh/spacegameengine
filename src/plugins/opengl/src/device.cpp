@@ -54,8 +54,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture/activate.hpp"
 #include "../texture/cube.hpp"
 #include "../texture/depth_stencil.hpp"
-#include "../texture/object.hpp"
 #include "../texture/optional_type.hpp"
+#include "../texture/planar.hpp"
 #include "../texture/set_stage_funcs.hpp"
 #include "../texture/set_stage_scale.hpp"
 #include "../texture/volume.hpp"
@@ -316,10 +316,10 @@ sge::opengl::device::scissor_area(
 }
 
 void
-sge::opengl::device::texture_stage_op(
+sge::opengl::device::sampler_stage_op(
 	renderer::stage_type const _stage,
-	renderer::texture_stage_op::type const _op,
-	renderer::texture_stage_op_value::type const _value
+	renderer::sampler_stage_op::type const _op,
+	renderer::sampler_stage_op_value::type const _value
 )
 {
 	opengl::texture::set_stage_funcs(
@@ -335,10 +335,10 @@ sge::opengl::device::texture_stage_op(
 }
 
 void
-sge::opengl::device::texture_stage_arg(
+sge::opengl::device::sampler_stage_arg(
 	renderer::stage_type const _stage,
-	renderer::texture_stage_arg::type const _arg,
-	renderer::texture_stage_arg_value::type const _value
+	renderer::sampler_stage_arg::type const _arg,
+	renderer::sampler_stage_arg_value::type const _value
 )
 {
 	opengl::texture::set_stage_funcs(
@@ -351,7 +351,7 @@ sge::opengl::device::texture_stage_arg(
 
 void
 sge::opengl::device::texture(
-	renderer::const_texture_base_ptr const _texture,
+	renderer::texture::const_base_ptr const _texture,
 	renderer::stage_type const _stage
 )
 {
@@ -475,39 +475,33 @@ sge::opengl::device::create_target()
 		);
 }
 
-sge::renderer::texture_ptr const
-sge::opengl::device::create_texture(
-	renderer::texture::dim_type const &_dim,
-	image::color::format::type const _format,
-	renderer::filter::texture const &_filter,
-	renderer::resource_flags_field const &_flags
+sge::renderer::texture::planar_ptr const
+sge::opengl::device::create_planar_texture(
+	renderer::texture::planar_parameters const &_params
 )
 {
 	return
-		renderer::texture_ptr(
+		renderer::texture::planar_ptr(
 			fcppt::make_shared_ptr<
-				opengl::texture::object
+				opengl::texture::planar
 			>(
 				std::tr1::ref(
 					context_
 				),
-				_dim,
-				_format,
-				_filter,
-				_flags,
+				_params,
 				opengl::texture::optional_type()
 			)
 		);
 }
 
-sge::renderer::depth_stencil_texture_ptr const
+sge::renderer::texture::depth_stencil_ptr const
 sge::opengl::device::create_depth_stencil_texture(
 	renderer::dim2 const &_dim,
 	renderer::depth_stencil_format::type const _format
 )
 {
 	return
-		renderer::depth_stencil_texture_ptr(
+		renderer::texture::depth_stencil_ptr(
 			fcppt::make_shared_ptr<
 				opengl::texture::depth_stencil
 			>(
@@ -538,26 +532,51 @@ sge::opengl::device::create_depth_stencil_surface(
 		);
 }
 
-sge::renderer::cube_texture_ptr const
+sge::renderer::texture::volume_ptr const
+sge::opengl::device::create_volume_texture(
+	renderer::texture::volume_parameters const &_param
+)
+{
+	if(
+		!context::use<
+			opengl::texture::volume_context
+		>(
+			context_
+		).have_volume_texture()
+	)
+		throw sge::renderer::unsupported(
+			FCPPT_TEXT("volume texture"),
+			FCPPT_TEXT("1.2"),
+			FCPPT_TEXT("")
+		);
+
+	return
+		renderer::texture::volume_ptr(
+			fcppt::make_shared_ptr<
+				opengl::texture::volume
+			>(
+				std::tr1::ref(
+					context_
+				),
+				_param
+			)
+		);
+}
+
+sge::renderer::texture::cube_ptr const
 sge::opengl::device::create_cube_texture(
-	renderer::size_type const _border_size,
-	image::color::format::type const _format,
-	renderer::filter::texture const &_filter,
-	renderer::resource_flags_field const &_flags
+	renderer::texture::cube_parameters const &_param
 )
 {
 	return
-		renderer::cube_texture_ptr(
+		renderer::texture::cube_ptr(
 			fcppt::make_shared_ptr<
 				opengl::texture::cube
 			>(
 				std::tr1::ref(
 					context_
 				),
-				_border_size,
-				_format,
-				_filter,
-				_flags
+				_param
 			)
 		);
 }
@@ -601,43 +620,6 @@ sge::opengl::device::create_index_buffer(
 				),
 				_format,
 				_size,
-				_flags
-			)
-		);
-}
-
-sge::renderer::volume_texture_ptr const
-sge::opengl::device::create_volume_texture(
-	renderer::dim3 const &_dim,
-	image::color::format::type const _format,
-	renderer::filter::texture const &_filter,
-	renderer::resource_flags_field const &_flags
-)
-{
-	if(
-		!context::use<
-			opengl::texture::volume_context
-		>(
-			context_
-		).have_volume_texture()
-	)
-		throw sge::renderer::unsupported(
-			FCPPT_TEXT("volume texture"),
-			FCPPT_TEXT("1.2"),
-			FCPPT_TEXT("")
-		);
-
-	return
-		renderer::volume_texture_ptr(
-			fcppt::make_shared_ptr<
-				opengl::texture::volume
-			>(
-				std::tr1::ref(
-					context_
-				),
-				_dim,
-				_format,
-				_filter,
 				_flags
 			)
 		);

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_FUNCS_NEED_MIPMAP_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_FUNCS_NEED_MIPMAP_HPP_INCLUDED
 
-#include <sge/renderer/filter/min.hpp>
+#include <sge/renderer/texture/filter/min.hpp>
 
 namespace sge
 {
@@ -34,7 +34,7 @@ namespace funcs
 
 bool
 need_mipmap(
-	sge::renderer::filter::min::type
+	sge::renderer::texture::filter::min::type
 );
 
 }

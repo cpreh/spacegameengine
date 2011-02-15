@@ -472,10 +472,10 @@ SET(
 	src/plugins/opengl/texture/lock_base_unique_ptr.hpp
 	src/plugins/opengl/texture/multi_context.hpp
 	src/plugins/opengl/texture/multi_context_fwd.hpp
-	src/plugins/opengl/texture/object.hpp
-	src/plugins/opengl/texture/object_fwd.hpp
-	src/plugins/opengl/texture/object_ptr.hpp
 	src/plugins/opengl/texture/optional_type.hpp
+	src/plugins/opengl/texture/planar.hpp
+	src/plugins/opengl/texture/planar_fwd.hpp
+	src/plugins/opengl/texture/planar_ptr.hpp
 	src/plugins/opengl/texture/readonly_lock.hpp
 	src/plugins/opengl/texture/readwrite_lock.hpp
 	src/plugins/opengl/texture/scoped_work_bind.hpp
@@ -494,7 +494,7 @@ SET(
 	src/plugins/opengl/texture/src/holder.cpp
 	src/plugins/opengl/texture/src/lock_base.cpp
 	src/plugins/opengl/texture/src/multi_context.cpp
-	src/plugins/opengl/texture/src/object.cpp
+	src/plugins/opengl/texture/src/planar.cpp
 	src/plugins/opengl/texture/src/readonly_lock.cpp
 	src/plugins/opengl/texture/src/readwrite_lock.cpp
 	src/plugins/opengl/texture/src/scoped_work_bind.cpp

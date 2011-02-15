@@ -25,11 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part_fwd.hpp>
 #include <sge/texture/part_ptr.hpp>
 #include <sge/texture/symbol.hpp>
-#include <sge/renderer/filter/texture_fwd.hpp>
 #include <sge/renderer/device_ptr.hpp>
-#include <sge/renderer/texture_ptr.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/size_type.hpp>
+#include <sge/renderer/texture/filter/object_fwd.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -50,39 +50,47 @@ public:
 	SGE_TEXTURE_SYMBOL rect_fragmented(
 		renderer::device_ptr,
 		image::color::format::type,
-		renderer::filter::texture const &,
+		renderer::texture::filter::object const &,
 		renderer::dim2 const &initial_size
 	);
+
+	SGE_TEXTURE_SYMBOL
+	~rect_fragmented();
 private:
-	SGE_TEXTURE_SYMBOL part_ptr const
+	SGE_TEXTURE_SYMBOL
+	texture::part_ptr const
 	consume_fragment(
 		renderer::dim2 const &
 	);
 
-	SGE_TEXTURE_SYMBOL void
+	SGE_TEXTURE_SYMBOL
+	void
 	on_return_fragment(
-		part const &
+		texture::part const &
 	);
 
-	SGE_TEXTURE_SYMBOL renderer::texture_ptr const
+	SGE_TEXTURE_SYMBOL
+	renderer::texture::planar_ptr const
 	texture() const;
 
-	SGE_TEXTURE_SYMBOL bool repeatable() const;
+	SGE_TEXTURE_SYMBOL
+	bool
+	repeatable() const;
 
-	SGE_TEXTURE_SYMBOL free_type
+	SGE_TEXTURE_SYMBOL
+	texture::free_type
 	free_value() const;
 
-	SGE_TEXTURE_SYMBOL bool
+	SGE_TEXTURE_SYMBOL
+	bool
 	empty() const;
-
-	renderer::device_ptr const rend_;
 
 	renderer::size_type
 		cur_x_,
 		cur_y_,
 		cur_height_;
 
-	renderer::texture_ptr const tex_;
+	renderer::texture::planar_ptr const tex_;
 
 	renderer::size_type texture_count_;
 };

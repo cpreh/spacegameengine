@@ -28,7 +28,8 @@ namespace renderer
 
 namespace resource_flags
 {
-enum type {
+enum type
+{
 	dynamic,
 	readable,
 	size

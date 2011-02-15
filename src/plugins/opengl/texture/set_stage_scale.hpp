@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_SET_STAGE_SCALE_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_SET_STAGE_SCALE_HPP_INCLUDED
 
-#include <sge/renderer/texture_stage_op_value.hpp>
+#include <sge/renderer/sampler_stage_op_value.hpp>
 
 namespace sge
 {
@@ -32,7 +32,7 @@ namespace texture
 
 void
 set_stage_scale(
-	renderer::texture_stage_op_value::type
+	renderer::sampler_stage_op_value::type
 );
 
 }

@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/free_type.hpp>
 #include <sge/texture/symbol.hpp>
 #include <sge/texture/detail/optional_container_position.hpp>
-#include <sge/renderer/texture_ptr.hpp>
 #include <sge/renderer/dim2.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/class_symbol.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -59,7 +59,7 @@ public:
 		part const &
 	);
 
-	virtual renderer::texture_ptr const
+	virtual renderer::texture::planar_ptr const
 	texture() const = 0;
 
 	virtual bool
@@ -92,9 +92,9 @@ public:
 		detail::container_position const &
 	);
 private:
-	texture::manager *man;
+	texture::manager *manager_;
 
-	detail::optional_container_position iter;
+	detail::optional_container_position iterator_;
 };
 
 }

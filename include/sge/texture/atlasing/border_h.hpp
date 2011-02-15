@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_ATLASING_BORDER_H_HPP_INCLUDED
 #define SGE_TEXTURE_ATLASING_BORDER_H_HPP_INCLUDED
 
-#include <sge/renderer/texture_ptr.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/image2d/view/const_object.hpp>
 
@@ -34,7 +34,7 @@ namespace atlasing
 
 void
 border_h(
-	renderer::texture_ptr,
+	renderer::texture::planar_ptr,
 	image2d::view::const_object const &src,
 	renderer::lock_rect const &outer_area,
 	renderer::lock_rect const &inner_area

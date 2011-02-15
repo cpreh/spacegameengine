@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::texture::type const
 sge::opengl::texture::convert::cube_side(
 	texture::cube_side_array const &_cube_sides,
-	renderer::cube_side::type const _side
+	renderer::texture::cube_side::type const _side
 )
 {
 	cube_side_array::size_type const pos(

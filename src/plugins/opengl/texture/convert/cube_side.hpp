@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../cube_side_array.hpp"
 #include "../type.hpp"
-#include <sge/renderer/cube_side.hpp>
+#include <sge/renderer/texture/cube_side.hpp>
 
 namespace sge
 {
@@ -37,7 +37,7 @@ namespace convert
 texture::type const
 cube_side(
 	texture::cube_side_array const &,
-	renderer::cube_side::type
+	renderer::texture::cube_side::type
 );
 
 }

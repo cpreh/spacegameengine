@@ -20,10 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/texture/rect_fragmented.hpp>
 #include <sge/texture/part_fragmented.hpp>
-#include <sge/texture/atlasing/create_texture.hpp>
+#include <sge/texture/atlasing/create.hpp>
 #include <sge/texture/atlasing/size.hpp>
-#include <sge/renderer/texture.hpp>
-#include <sge/renderer/device.hpp>
+#include <sge/renderer/texture/planar.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
@@ -32,16 +31,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::texture::rect_fragmented::rect_fragmented(
 	renderer::device_ptr const _rend,
 	image::color::format::type const _format,
-	renderer::filter::texture const &_filter,
+	renderer::texture::filter::object const &_filter,
 	renderer::dim2 const &_initial_size
 )
 :
-	rend_(_rend),
 	cur_x_(0),
 	cur_y_(0),
 	cur_height_(0),
 	tex_(
-		atlasing::create_texture(
+		atlasing::create(
 			_rend,
 			_format,
 			_filter,
@@ -49,14 +47,19 @@ sge::texture::rect_fragmented::rect_fragmented(
 		)
 	),
 	texture_count_(0)
-{}
+{
+}
+
+sge::texture::rect_fragmented::~rect_fragmented()
+{
+}
 
 sge::texture::part_ptr const
 sge::texture::rect_fragmented::consume_fragment(
 	renderer::dim2 const &_dim
 )
 {
-	renderer::texture::dim_type const atlased_dim(
+	renderer::texture::planar::dim_type const atlased_dim(
 		atlasing::size(
 			_dim,
 			true
@@ -67,7 +70,7 @@ sge::texture::rect_fragmented::consume_fragment(
 	if(
 		cur_y_ + _dim.h() >= tex_->dim().h()
 	)
-		return part_ptr();
+		return texture::part_ptr();
 
 	// if the current line is full advance to the next
 	if(
@@ -82,11 +85,11 @@ sge::texture::rect_fragmented::consume_fragment(
 	if(
 		cur_y_ + _dim.h() >= tex_->dim().h()
 	)
-		return part_ptr();
+		return texture::part_ptr();
 
-	part_ptr const ret(
+	texture::part_ptr const ret(
 		fcppt::make_shared_ptr<
-			part_fragmented
+			texture::part_fragmented
 		>(
 			renderer::lock_rect(
 				renderer::lock_rect::vector(
@@ -104,6 +107,7 @@ sge::texture::rect_fragmented::consume_fragment(
 	);
 
 	cur_x_ += _dim.w() + 1;
+
 	cur_height_ = std::max(cur_height_, _dim.h());
 
 	++texture_count_;
@@ -119,7 +123,7 @@ sge::texture::rect_fragmented::on_return_fragment(
 	--texture_count_;
 }
 
-sge::renderer::texture_ptr const
+sge::renderer::texture::planar_ptr const
 sge::texture::rect_fragmented::texture() const
 {
 	return tex_;
@@ -138,8 +142,8 @@ sge::texture::rect_fragmented::free_value() const
 		static_cast<
 			free_type
 		>(
-			(texture()->dim().h() - cur_height_)
-			* texture()->dim().w()
+			(this->texture()->dim().h() - cur_height_)
+			* this->texture()->dim().w()
 		);	
 }
 

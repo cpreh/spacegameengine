@@ -140,23 +140,23 @@ public:
 	);
 
 	void
-	texture_stage_op(
+	sampler_stage_op(
 		renderer::stage_type stage,
-		renderer::texture_stage_op::type,
-		renderer::texture_stage_op_value::type
+		renderer::sampler_stage_op::type,
+		renderer::sampler_stage_op_value::type
 	);
 
 	void
-	texture_stage_arg(
+	sampler_stage_arg(
 		renderer::stage_type stage,
-		renderer::texture_stage_arg::type,
-		renderer::texture_stage_arg_value::type
+		renderer::sampler_stage_arg::type,
+		renderer::sampler_stage_arg_value::type
 	);
 
 	void
 	texture(
-		renderer::const_texture_base_ptr tex,
-		renderer::stage_type stage
+		renderer::texture::const_base_ptr,
+		renderer::stage_type
 	);
 
 	void
@@ -191,15 +191,12 @@ public:
 	renderer::target_ptr const
 	create_target();
 
-	renderer::texture_ptr const
-	create_texture(
-		renderer::dim2 const &,
-		image::color::format::type,
-		renderer::filter::texture const &,
-		renderer::resource_flags_field const &
+	renderer::texture::planar_ptr const
+	create_planar_texture(
+		renderer::texture::planar_parameters const &
 	);
 
-	renderer::depth_stencil_texture_ptr const
+	renderer::texture::depth_stencil_ptr const
 	create_depth_stencil_texture(
 		renderer::dim2 const &,
 		renderer::depth_stencil_format::type
@@ -211,20 +208,14 @@ public:
 		renderer::depth_stencil_format::type
 	);
 
-	renderer::volume_texture_ptr const
+	renderer::texture::volume_ptr const
 	create_volume_texture(
-		renderer::dim3 const &,
-		image::color::format::type,
-		renderer::filter::texture const &,
-		renderer::resource_flags_field const &
+		renderer::texture::volume_parameters const &
 	);
 
-	renderer::cube_texture_ptr const
+	renderer::texture::cube_ptr const
 	create_cube_texture(
-		renderer::size_type border_size,
-		image::color::format::type,
-		renderer::filter::texture const &,
-		renderer::resource_flags_field const &
+		renderer::texture::cube_parameters const &
 	);
 
 	renderer::vertex_buffer_ptr const

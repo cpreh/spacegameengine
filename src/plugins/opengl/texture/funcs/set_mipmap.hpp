@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../scoped_work_bind_fwd.hpp"
 #include "../type.hpp"
 #include "../../context/object_fwd.hpp"
-#include <sge/renderer/filter/texture_fwd.hpp>
+#include <sge/renderer/texture/filter/object_fwd.hpp>
 
 namespace sge
 {
@@ -40,7 +40,7 @@ set_mipmap(
 	texture::scoped_work_bind const &,
 	opengl::context::object &,
 	texture::type,
-	renderer::filter::texture const &
+	renderer::texture::filter::object const &
 );
 
 }

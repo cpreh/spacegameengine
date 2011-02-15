@@ -24,20 +24,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 GLenum
 sge::opengl::texture::convert::stage_arg_op(
-	renderer::texture_stage_op::type const _op
+	renderer::sampler_stage_op::type const _op
 )
 {
 	switch(
 		_op
 	)
 	{
-	case renderer::texture_stage_op::color:
+	case renderer::sampler_stage_op::color:
 		return GL_COMBINE_RGB;
-	case renderer::texture_stage_op::alpha:
+	case renderer::sampler_stage_op::alpha:
 		return GL_COMBINE_ALPHA;
 	}
 
 	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid texture_stage_op!")
+		FCPPT_TEXT("Invalid sampler_stage_op!")
 	);
 }

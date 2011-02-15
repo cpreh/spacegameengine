@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_AREA_TEXC_HPP_INCLUDED
 #define SGE_TEXTURE_AREA_TEXC_HPP_INCLUDED
 
-#include <sge/texture/part_ptr.hpp>
+#include <sge/texture/const_part_ptr.hpp>
 #include <sge/texture/part.hpp>
 #include <sge/renderer/lock_rect_to_coords.hpp>
-#include <sge/renderer/texture.hpp>
+#include <sge/renderer/texture/planar.hpp>
 #include <sge/log/global.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
@@ -45,7 +45,7 @@ template<
 >
 typename fcppt::math::box::rect<T>::type const
 area_texc(
-	const_part_ptr const _part,
+	texture::const_part_ptr const _part,
 	T const _repeat
 )
 {

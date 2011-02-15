@@ -456,25 +456,16 @@ SET(
 	include/sge/renderer/const_raw_pointer.hpp
 	include/sge/renderer/const_scoped_color_surface_lock.hpp
 	include/sge/renderer/const_scoped_index_lock.hpp
-	include/sge/renderer/const_scoped_texture_lock.hpp
 	include/sge/renderer/const_scoped_vertex_lock.hpp
 	include/sge/renderer/const_target_ptr.hpp
-	include/sge/renderer/const_texture_base_ptr.hpp
 	include/sge/renderer/const_vertex_buffer_ptr.hpp
 	include/sge/renderer/create_device_with_window.hpp
-	include/sge/renderer/cube_side.hpp
-	include/sge/renderer/cube_texture.hpp
-	include/sge/renderer/cube_texture_fwd.hpp
-	include/sge/renderer/cube_texture_ptr.hpp
 	include/sge/renderer/default_target.hpp
 	include/sge/renderer/depth_buffer.hpp
 	include/sge/renderer/depth_stencil_format.hpp
 	include/sge/renderer/depth_stencil_surface.hpp
 	include/sge/renderer/depth_stencil_surface_fwd.hpp
 	include/sge/renderer/depth_stencil_surface_ptr.hpp
-	include/sge/renderer/depth_stencil_texture.hpp
-	include/sge/renderer/depth_stencil_texture_fwd.hpp
-	include/sge/renderer/depth_stencil_texture_ptr.hpp
 	include/sge/renderer/detail/const_scoped_buffer_lock.hpp
 	include/sge/renderer/detail/npos.hpp
 	include/sge/renderer/detail/scoped_buffer_lock.hpp
@@ -487,15 +478,6 @@ SET(
 	include/sge/renderer/display_mode_fwd.hpp
 	include/sge/renderer/dynamic_vector.hpp
 	include/sge/renderer/exception.hpp
-	include/sge/renderer/filter/anisotropy_type.hpp
-	include/sge/renderer/filter/linear.hpp
-	include/sge/renderer/filter/mag.hpp
-	include/sge/renderer/filter/min.hpp
-	include/sge/renderer/filter/mip.hpp
-	include/sge/renderer/filter/point.hpp
-	include/sge/renderer/filter/texture.hpp
-	include/sge/renderer/filter/texture_fwd.hpp
-	include/sge/renderer/filter/trilinear.hpp
 	include/sge/renderer/first_index.hpp
 	include/sge/renderer/first_vertex.hpp
 	include/sge/renderer/glsl/char.hpp
@@ -630,17 +612,18 @@ SET(
 	include/sge/renderer/resource_flags.hpp
 	include/sge/renderer/resource_flags_field.hpp
 	include/sge/renderer/resource_flags_none.hpp
+	include/sge/renderer/sampler_stage_arg.hpp
+	include/sge/renderer/sampler_stage_arg_value.hpp
+	include/sge/renderer/sampler_stage_op.hpp
+	include/sge/renderer/sampler_stage_op_value.hpp
 	include/sge/renderer/scalar.hpp
 	include/sge/renderer/scissor_area.hpp
 	include/sge/renderer/scoped_block.hpp
 	include/sge/renderer/scoped_index_lock.hpp
 	include/sge/renderer/scoped_target.hpp
-	include/sge/renderer/scoped_texture.hpp
-	include/sge/renderer/scoped_texture_lock.hpp
 	include/sge/renderer/scoped_transform.hpp
 	include/sge/renderer/scoped_vertex_buffer.hpp
 	include/sge/renderer/scoped_vertex_lock.hpp
-	include/sge/renderer/scoped_volume_texture_lock.hpp
 	include/sge/renderer/screen_size.hpp
 	include/sge/renderer/screen_unit.hpp
 	include/sge/renderer/screenshot.hpp
@@ -676,7 +659,6 @@ SET(
 	include/sge/renderer/state/var.hpp
 	include/sge/renderer/state/var_fwd.hpp
 	include/sge/renderer/stencil_buffer.hpp
-	include/sge/renderer/sub_data.hpp
 	include/sge/renderer/surface_index.hpp
 	include/sge/renderer/system.hpp
 	include/sge/renderer/system_fwd.hpp
@@ -688,18 +670,60 @@ SET(
 	include/sge/renderer/target_from_texture.hpp
 	include/sge/renderer/target_fwd.hpp
 	include/sge/renderer/target_ptr.hpp
-	include/sge/renderer/texture.hpp
-	include/sge/renderer/texture_base.hpp
-	include/sge/renderer/texture_base_fwd.hpp
-	include/sge/renderer/texture_base_ptr.hpp
-	include/sge/renderer/texture_creation_failed.hpp
-	include/sge/renderer/texture_fwd.hpp
-	include/sge/renderer/texture_pos_type.hpp
-	include/sge/renderer/texture_ptr.hpp
-	include/sge/renderer/texture_stage_arg.hpp
-	include/sge/renderer/texture_stage_arg_value.hpp
-	include/sge/renderer/texture_stage_op.hpp
-	include/sge/renderer/texture_stage_op_value.hpp
+	include/sge/renderer/texture/address_mode.hpp
+	include/sge/renderer/texture/address_mode2.hpp
+	include/sge/renderer/texture/address_mode2_fwd.hpp
+	include/sge/renderer/texture/address_mode3.hpp
+	include/sge/renderer/texture/address_mode3_fwd.hpp
+	include/sge/renderer/texture/address_mode_s.hpp
+	include/sge/renderer/texture/address_mode_t.hpp
+	include/sge/renderer/texture/address_mode_u.hpp
+	include/sge/renderer/texture/base.hpp
+	include/sge/renderer/texture/base_fwd.hpp
+	include/sge/renderer/texture/base_ptr.hpp
+	include/sge/renderer/texture/basic_parameters.hpp
+	include/sge/renderer/texture/basic_parameters_fwd.hpp
+	include/sge/renderer/texture/basic_scoped_lock.hpp
+	include/sge/renderer/texture/const_base_ptr.hpp
+	include/sge/renderer/texture/const_basic_scoped_lock.hpp
+	include/sge/renderer/texture/const_planar_ptr.hpp
+	include/sge/renderer/texture/const_scoped_planar_lock.hpp
+	include/sge/renderer/texture/const_scoped_volume_lock.hpp
+	include/sge/renderer/texture/const_volume_ptr.hpp
+	include/sge/renderer/texture/create_planar_from_view.hpp
+	include/sge/renderer/texture/create_volume_from_view.hpp
+	include/sge/renderer/texture/creation_failed.hpp
+	include/sge/renderer/texture/cube.hpp
+	include/sge/renderer/texture/cube_fwd.hpp
+	include/sge/renderer/texture/cube_parameters.hpp
+	include/sge/renderer/texture/cube_parameters_fwd.hpp
+	include/sge/renderer/texture/cube_ptr.hpp
+	include/sge/renderer/texture/cube_side.hpp
+	include/sge/renderer/texture/depth_stencil.hpp
+	include/sge/renderer/texture/depth_stencil_fwd.hpp
+	include/sge/renderer/texture/depth_stencil_ptr.hpp
+	include/sge/renderer/texture/filter/anisotropy_type.hpp
+	include/sge/renderer/texture/filter/linear.hpp
+	include/sge/renderer/texture/filter/mag.hpp
+	include/sge/renderer/texture/filter/min.hpp
+	include/sge/renderer/texture/filter/mip.hpp
+	include/sge/renderer/texture/filter/object.hpp
+	include/sge/renderer/texture/filter/object_fwd.hpp
+	include/sge/renderer/texture/filter/point.hpp
+	include/sge/renderer/texture/filter/trilinear.hpp
+	include/sge/renderer/texture/planar.hpp
+	include/sge/renderer/texture/planar_fwd.hpp
+	include/sge/renderer/texture/planar_parameters.hpp
+	include/sge/renderer/texture/planar_parameters_fwd.hpp
+	include/sge/renderer/texture/planar_ptr.hpp
+	include/sge/renderer/texture/scoped.hpp
+	include/sge/renderer/texture/scoped_planar_lock.hpp
+	include/sge/renderer/texture/scoped_volume_lock.hpp
+	include/sge/renderer/texture/volume.hpp
+	include/sge/renderer/texture/volume_fwd.hpp
+	include/sge/renderer/texture/volume_parameters.hpp
+	include/sge/renderer/texture/volume_parameters_fwd.hpp
+	include/sge/renderer/texture/volume_ptr.hpp
 	include/sge/renderer/to_awl_parameters.hpp
 	include/sge/renderer/unsupported.hpp
 	include/sge/renderer/vector2.hpp
@@ -786,9 +810,6 @@ SET(
 	include/sge/renderer/vf/view.hpp
 	include/sge/renderer/vf/view_fwd.hpp
 	include/sge/renderer/viewport.hpp
-	include/sge/renderer/volume_texture.hpp
-	include/sge/renderer/volume_texture_fwd.hpp
-	include/sge/renderer/volume_texture_ptr.hpp
 	include/sge/renderer/vsync.hpp
 	include/sge/renderer/window_mode.hpp
 	include/sge/renderer/window_parameters.hpp
@@ -986,22 +1007,14 @@ SET(
 	src/renderer/const_scoped_buffer_lock_impl.hpp
 	src/renderer/const_scoped_color_surface_lock.cpp
 	src/renderer/const_scoped_index_lock.cpp
-	src/renderer/const_scoped_texture_lock.cpp
 	src/renderer/const_scoped_vertex_lock.cpp
 	src/renderer/create_device_with_window.cpp
-	src/renderer/cube_texture.cpp
 	src/renderer/default_target.cpp
 	src/renderer/depth_stencil_surface.cpp
-	src/renderer/depth_stencil_texture.cpp
 	src/renderer/detail/npos.cpp
 	src/renderer/device.cpp
 	src/renderer/display_mode.cpp
 	src/renderer/exception.cpp
-	src/renderer/filter/linear.cpp
-	src/renderer/filter/mip.cpp
-	src/renderer/filter/point.cpp
-	src/renderer/filter/texture.cpp
-	src/renderer/filter/trilinear.cpp
 	src/renderer/glsl/exception.cpp
 	src/renderer/glsl/from_fcppt_string.cpp
 	src/renderer/glsl/no_program.cpp
@@ -1039,12 +1052,9 @@ SET(
 	src/renderer/scoped_buffer_lock_impl.hpp
 	src/renderer/scoped_index_lock.cpp
 	src/renderer/scoped_target.cpp
-	src/renderer/scoped_texture.cpp
-	src/renderer/scoped_texture_lock.cpp
 	src/renderer/scoped_transform.cpp
 	src/renderer/scoped_vertex_buffer.cpp
 	src/renderer/scoped_vertex_lock.cpp
-	src/renderer/scoped_volume_texture_lock.cpp
 	src/renderer/screenshot.cpp
 	src/renderer/state/any_sort.cpp
 	src/renderer/state/any_sort_functor.cpp
@@ -1060,14 +1070,36 @@ SET(
 	src/renderer/state/trampoline_impl.hpp
 	src/renderer/state/uint.cpp
 	src/renderer/state/var_impl.hpp
-	src/renderer/sub_data.cpp
 	src/renderer/system.cpp
 	src/renderer/target.cpp
 	src/renderer/target_base.cpp
 	src/renderer/target_from_texture.cpp
-	src/renderer/texture.cpp
-	src/renderer/texture_base.cpp
-	src/renderer/texture_creation_failed.cpp
+	src/renderer/texture/address_mode2.cpp
+	src/renderer/texture/address_mode3.cpp
+	src/renderer/texture/base.cpp
+	src/renderer/texture/basic_parameters_impl.hpp
+	src/renderer/texture/basic_scoped_lock_impl.hpp
+	src/renderer/texture/const_basic_scoped_lock_impl.hpp
+	src/renderer/texture/const_scoped_planar_lock.cpp
+	src/renderer/texture/const_scoped_volume_lock.cpp
+	src/renderer/texture/create_planar_from_view.cpp
+	src/renderer/texture/create_volume_from_view.cpp
+	src/renderer/texture/creation_failed.cpp
+	src/renderer/texture/cube.cpp
+	src/renderer/texture/cube_parameters.cpp
+	src/renderer/texture/depth_stencil.cpp
+	src/renderer/texture/filter/linear.cpp
+	src/renderer/texture/filter/mip.cpp
+	src/renderer/texture/filter/point.cpp
+	src/renderer/texture/filter/texture.cpp
+	src/renderer/texture/filter/trilinear.cpp
+	src/renderer/texture/planar.cpp
+	src/renderer/texture/planar_parameters.cpp
+	src/renderer/texture/scoped.cpp
+	src/renderer/texture/scoped_planar_lock.cpp
+	src/renderer/texture/scoped_volume_lock.cpp
+	src/renderer/texture/volume.cpp
+	src/renderer/texture/volume_parameters.cpp
 	src/renderer/to_awl_parameters.cpp
 	src/renderer/unsupported.cpp
 	src/renderer/vertex_buffer.cpp
@@ -1083,7 +1115,6 @@ SET(
 	src/renderer/vf/dynamic/unspecified.cpp
 	src/renderer/vf/dynamic/vector.cpp
 	src/renderer/vf/dynamic/view.cpp
-	src/renderer/volume_texture.cpp
 	src/renderer/window_parameters.cpp
 	src/window/create.cpp
 	src/window/create_simple_from_awl.cpp

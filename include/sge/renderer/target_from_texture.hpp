@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/target_ptr.hpp>
-#include <sge/renderer/texture_ptr.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/symbol.hpp>
 
 namespace sge
@@ -35,7 +35,7 @@ SGE_SYMBOL
 renderer::target_ptr const
 target_from_texture(
 	renderer::device_ptr,
-	renderer::texture_ptr
+	renderer::texture::planar_ptr
 );
 
 }

@@ -29,31 +29,31 @@ namespace
 
 GLenum
 stage_value_scale(
-	sge::renderer::texture_stage_op_value::type const _value
+	sge::renderer::sampler_stage_op_value::type const _value
 )
 {
 	switch(
 		_value
 	)
 	{
-	case sge::renderer::texture_stage_op_value::arg0:
-	case sge::renderer::texture_stage_op_value::modulate:
-	case sge::renderer::texture_stage_op_value::add:
-	case sge::renderer::texture_stage_op_value::substract:
-	case sge::renderer::texture_stage_op_value::add_signed:
-	case sge::renderer::texture_stage_op_value::interpolate:
+	case sge::renderer::sampler_stage_op_value::arg0:
+	case sge::renderer::sampler_stage_op_value::modulate:
+	case sge::renderer::sampler_stage_op_value::add:
+	case sge::renderer::sampler_stage_op_value::substract:
+	case sge::renderer::sampler_stage_op_value::add_signed:
+	case sge::renderer::sampler_stage_op_value::interpolate:
 		return 1;
-	case sge::renderer::texture_stage_op_value::modulate2x:
-	case sge::renderer::texture_stage_op_value::add2x:
-	case sge::renderer::texture_stage_op_value::add_signed2x:
+	case sge::renderer::sampler_stage_op_value::modulate2x:
+	case sge::renderer::sampler_stage_op_value::add2x:
+	case sge::renderer::sampler_stage_op_value::add_signed2x:
 		return 2;
-	case sge::renderer::texture_stage_op_value::modulate4x:
-	case sge::renderer::texture_stage_op_value::add4x:
+	case sge::renderer::sampler_stage_op_value::modulate4x:
+	case sge::renderer::sampler_stage_op_value::add4x:
 		return 4;
 	}
 
 	throw sge::renderer::exception(
-		FCPPT_TEXT("Invalid texture_stage_op_value!")
+		FCPPT_TEXT("Invalid sampler_stage_op_value!")
 	);
 }
 
@@ -61,7 +61,7 @@ stage_value_scale(
 
 void
 sge::opengl::texture::set_stage_scale(
-	renderer::texture_stage_op_value::type const _value
+	renderer::sampler_stage_op_value::type const _value
 )
 {
 	GLenum const scale(

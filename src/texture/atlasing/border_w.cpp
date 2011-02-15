@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/texture/atlasing/border_w.hpp>
+#include <sge/texture/sub_data.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <sge/renderer/sub_data.hpp>
 #include <sge/image2d/view/dim.hpp>
 #include <sge/image2d/view/sub.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
@@ -30,57 +30,60 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::texture::atlasing::border_w(
-	renderer::texture_ptr const tex,
-	image2d::view::const_object const &src,
-	renderer::lock_rect const &outer_area,
-	renderer::lock_rect const &inner_area
+	renderer::texture::planar_ptr const _texture,
+	image2d::view::const_object const &_source,
+	renderer::lock_rect const &_outer_area,
+	renderer::lock_rect const &_inner_area
 )
 {
 	renderer::dim2 const dim(
 		image2d::view::dim(
-			src
+			_source
 		)
 	);
 
-	renderer::sub_data(
-		tex,
+	texture::sub_data(
+		_texture,
 		image2d::view::sub(
-			src,
+			_source,
 			renderer::lock_rect(
 				renderer::lock_rect::vector::null(),
 				renderer::lock_rect::dim(
-					1,
+					1u,
 					dim.h()
 				)
 			)
 		),
-		renderer::texture_pos_type(
-			outer_area.left(),
-			inner_area.top()
+		texture::pos_type(
+			_outer_area.left(),
+			_inner_area.top()
 		)
 	);
 
-	if(inner_area.right() + 1 == outer_area.right())
+	if(
+		_inner_area.right() + 1u
+		== _outer_area.right()
+	)
 		return;
 
-	renderer::sub_data(
-		tex,
+	texture::sub_data(
+		_texture,
 		image2d::view::sub(
-			src,
+			_source,
 			renderer::lock_rect(
 				renderer::lock_rect::vector(
-					dim.w() - 1,
+					dim.w() - 1u,
 					0
 				),
 				renderer::lock_rect::dim(
-					1,
+					1u,
 					dim.h()
 				)
 			)
 		),
-		renderer::texture_pos_type(
-			outer_area.right() - 1,
-			inner_area.top()
+		texture::pos_type(
+			_outer_area.right() - 1u,
+			_inner_area.top()
 		)
 	);
 }
