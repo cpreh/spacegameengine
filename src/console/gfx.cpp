@@ -42,7 +42,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/assert.hpp>
 #include <boost/foreach.hpp>
 #include <locale>
@@ -108,12 +107,8 @@ sge::console::gfx::gfx(
 		_metrics
 	),
 	font_drawer_(
-		fcppt::make_shared_ptr<
-			font::text::drawer_3d
-		>(
-			_rend,
-			_font_color
-		)
+		_rend,
+		_font_color
 	),
 	keyboard_(
 		_keyboard

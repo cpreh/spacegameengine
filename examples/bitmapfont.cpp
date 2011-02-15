@@ -51,7 +51,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/make_shared_ptr.hpp>
 #include <iostream>
 #include <ostream>
 #include <exception>
@@ -119,14 +118,9 @@ try
 		)
 	);
 
-	sge::font::text::drawer_ptr const font_drawer(
-		fcppt::make_shared_ptr<
-			sge::font::text::drawer_3d
-		>(
-			sys.renderer(),
-			sge::image::colors::white()
-		)
-	);
+	sge::font::text::drawer_3d font_drawer(
+		sys.renderer(),
+		sge::image::colors::white());
 
 	sys.renderer()->state(
 		sge::renderer::state::list

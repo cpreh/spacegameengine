@@ -30,8 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/font/metrics_ptr.hpp>
-#include <sge/font/text/drawer_ptr.hpp>
 #include <sge/font/text/string.hpp>
+#include <sge/font/text/drawer_3d.hpp>
 #include <sge/input/keyboard/char_event_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
@@ -97,7 +97,7 @@ private:
 
 	font::metrics_ptr const font_metrics_;
 
-	font::text::drawer_ptr const font_drawer_;
+	font::text::drawer_3d font_drawer_;
 
 	input::keyboard::device &keyboard_;
 

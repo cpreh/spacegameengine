@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::font::text::part const
 sge::font::text::draw(
 	font::metrics_ptr const _metrics,
-	text::drawer_ptr const _drawer,
+	text::drawer &_drawer,
 	text::string const &_text,
 	font::pos const &_start_pos,
 	font::dim const &_max_sz,
@@ -88,7 +88,7 @@ sge::font::text::draw(
 		_align_h
 	);
 
-	_drawer->begin_rendering(
+	_drawer.begin_rendering(
 		_text.size(),
 		pos,
 		total_size.size()
@@ -133,7 +133,7 @@ sge::font::text::draw(
 				)
 			);
 
-			_drawer->draw_char(
+			_drawer.draw_char(
 				*sbeg,
 				pos + cm->offset(),
 				cm->pixmap()
@@ -151,7 +151,7 @@ sge::font::text::draw(
 		pos.y() += height;
 	}
 
-	_drawer->end_rendering();
+	_drawer.end_rendering();
 
 	return total_size;
 }
