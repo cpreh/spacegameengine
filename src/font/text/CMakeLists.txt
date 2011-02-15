@@ -14,7 +14,6 @@ SET(
 	include/sge/font/text/drawer.hpp
 	include/sge/font/text/drawer_3d.hpp
 	include/sge/font/text/drawer_fwd.hpp
-	include/sge/font/text/drawer_ptr.hpp
 	include/sge/font/text/flags.hpp
 	include/sge/font/text/flags_field.hpp
 	include/sge/font/text/flags_none.hpp
