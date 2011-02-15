@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/char_metric.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
 sge::font::text::part const
@@ -38,8 +39,7 @@ sge::font::text::draw(
 	font::metrics_ptr const _metrics,
 	text::drawer &_drawer,
 	text::string const &_text,
-	font::pos const &_start_pos,
-	font::dim const &_max_sz,
+	font::rect const &_bounding_box,
 	text::align_h::type const _align_h,
 	text::align_v::type const _align_v,
 	text::flags_field const &_flags
@@ -53,7 +53,7 @@ sge::font::text::draw(
 
 	if(
 		_text.empty()
-		|| height > _max_sz.h()
+		|| height > _bounding_box.dimension().h()
 	)
 		return
 			font::text::part(
@@ -67,23 +67,23 @@ sge::font::text::draw(
 			_metrics,
 			_text.begin(),
 			_text.end(),
-			_max_sz,
+			_bounding_box.dimension(),
 			_flags
 		)
 	);
 
-	font::pos pos = _start_pos;
+	font::pos pos = _bounding_box.pos();
 
 	font::text::align_pos_v(
 		pos,
-		_max_sz,
+		_bounding_box.dimension(),
 		total_size,
 		_align_v
 	);
 
 	font::text::align_pos_h(
 		pos,
-		_max_sz,
+		_bounding_box.dimension(),
 		total_size,
 		_align_h
 	);
@@ -107,16 +107,16 @@ sge::font::text::draw(
 				_metrics,
 				sbeg,
 				_text.end(),
-				_max_sz.w(),
+				_bounding_box.dimension().w(),
 				_flags
 			)
 		);
 
-		pos.x() = _start_pos.x();
+		pos.x() = _bounding_box.pos().x();
 
 		font::text::align_pos_h(
 			pos,
-			_max_sz,
+			_bounding_box.dimension(),
 			line_size,
 			_align_h
 		);

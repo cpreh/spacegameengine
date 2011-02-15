@@ -38,6 +38,35 @@ SET(
 	src/console/exception.cpp
 	src/console/function.cpp
 	src/console/gfx.cpp
+	src/console/include/arg_list.hpp
+	src/console/include/callback.hpp
+	src/console/include/callback_type.hpp
+	src/console/include/cursor.hpp
+	src/console/include/error_callback.hpp
+	src/console/include/error_callback_fn.hpp
+	src/console/include/exception.hpp
+	src/console/include/fallback.hpp
+	src/console/include/fallback_signal.hpp
+	src/console/include/fallback_type.hpp
+	src/console/include/function.hpp
+	src/console/include/function_map.hpp
+	src/console/include/gfx.hpp
+	src/console/include/gfx_fwd.hpp
+	src/console/include/message_callback.hpp
+	src/console/include/message_callback_fn.hpp
+	src/console/include/object.hpp
+	src/console/include/object_fwd.hpp
+	src/console/include/output_line_limit.hpp
+	src/console/include/output_line_sequence.hpp
+	src/console/include/pointed_history.hpp
+	src/console/include/signal.hpp
+	src/console/include/sprite_choices.hpp
+	src/console/include/sprite_elements.hpp
+	src/console/include/sprite_object.hpp
+	src/console/include/sprite_parameters.hpp
+	src/console/include/sprite_system.hpp
+	src/console/include/sprite_type_choices.hpp
+	src/console/include/symbol.hpp
 	src/console/next_or_last.hpp
 	src/console/object.cpp
 )

@@ -30,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/part.hpp>
 #include <sge/font/text/lit.hpp>
 #include <sge/font/pos.hpp>
+#include <sge/font/dim.hpp>
+#include <sge/font/rect.hpp>
 #include <sge/input/keyboard/char_event.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_event.hpp>
@@ -208,12 +210,13 @@ sge::console::gfx::draw()
 			font_metrics_,
 			font_drawer_,
 			*i,
-			font::pos(
-				background_.x(),
-				current_y),
-			font::dim(
-				background_.w(), 
-				background_.h() - font::text::height(font_metrics_)),
+			font::rect(
+				font::pos(
+					background_.x(),
+					current_y),
+				font::dim(
+					background_.w(), 
+					background_.h() - font::text::height(font_metrics_))),
 			font::text::align_h::left,
 			font::text::align_v::top,
 			font::text::flags::none);
@@ -230,16 +233,17 @@ sge::console::gfx::draw()
 		font_metrics_,
 		font_drawer_,
 		il,
-		font::pos(
-			static_cast<font::unit>(
-				background_.x()),
-			static_cast<font::unit>(
-				background_.y()+background_.h()-font::text::height(font_metrics_))),
-		font::dim(
-			static_cast<font::unit>(
-				background_.w()),
-			static_cast<font::unit>(
-				font::text::height(font_metrics_))),
+		font::rect(
+			font::pos(
+				static_cast<font::unit>(
+					background_.x()),
+				static_cast<font::unit>(
+					background_.y()+background_.h()-font::text::height(font_metrics_))),
+			font::dim(
+				static_cast<font::unit>(
+					background_.w()),
+				static_cast<font::unit>(
+					font::text::height(font_metrics_)))),
 		font::text::align_h::left,
 		font::text::align_v::top,
 		font::text::flags::none);

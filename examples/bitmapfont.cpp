@@ -27,6 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/state/var.hpp>
+#include <sge/renderer/onscreen_target.hpp>
+#include <sge/renderer/viewport.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/image/colors.hpp>
@@ -46,7 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/box/structure_cast.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/exception.hpp>
@@ -155,12 +157,8 @@ try
 			font_metrics,
 			font_drawer,
 			SGE_FONT_TEXT_LIT("test abcd"),
-			sge::font::pos::null(),
-			fcppt::math::dim::structure_cast<
-				sge::font::dim
-			>(
-				sys.renderer()->screen_size()
-			),
+			fcppt::math::box::structure_cast<sge::font::rect>(
+				sys.renderer()->onscreen_target()->viewport().get()),
 			sge::font::text::align_h::center,
 			sge::font::text::align_v::center,
 			sge::font::text::flags::none

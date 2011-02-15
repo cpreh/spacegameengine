@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/running_to_false.hpp>
 #include <sge/systems/viewport/manage_resize.hpp>
 #include <sge/font/metrics.hpp>
+#include <sge/font/rect.hpp>
 #include <sge/font/system.hpp>
 #include <sge/font/text/draw.hpp>
 #include <sge/font/text/drawer_3d.hpp>
@@ -33,14 +34,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
+#include <sge/renderer/onscreen_target.hpp>
+#include <sge/renderer/viewport.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/window/instance.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
-#include <fcppt/math/vector/basic_impl.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/box/structure_cast.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/text.hpp>
@@ -132,12 +133,8 @@ try
 			metrics,
 			drawer,
 			SGE_FONT_TEXT_LIT("hello world 1234567890hello world 123456789hello world 123456789hello world 123456789000"),
-			sge::font::pos::null(),
-			fcppt::math::dim::structure_cast<
-				sge::font::dim
-			>(
-				sys.renderer()->screen_size()
-			),
+			fcppt::math::box::structure_cast<sge::font::rect>(
+				sys.renderer()->onscreen_target()->viewport().get()),
 			sge::font::text::align_h::center,
 			sge::font::text::align_v::center,
 			sge::font::text::flags::none

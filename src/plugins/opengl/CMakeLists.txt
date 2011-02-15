@@ -10,6 +10,7 @@ SET(
 	src/plugins/opengl/color_format.hpp
 	src/plugins/opengl/color_format_type.hpp
 	src/plugins/opengl/common.hpp
+	src/plugins/opengl/config.hpp
 	src/plugins/opengl/context/base.hpp
 	src/plugins/opengl/context/base_fwd.hpp
 	src/plugins/opengl/context/base_unique_ptr.hpp
