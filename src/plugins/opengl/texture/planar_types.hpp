@@ -18,20 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_PLANAR_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_PLANAR_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_PLANAR_TYPES_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_PLANAR_TYPES_HPP_INCLUDED
 
-#include "planar_fwd.hpp"
-#include "planar_basic.hpp"
-#include "basic.hpp"
-#include "optional_type.hpp"
-#include "scoped_work_bind_fwd.hpp"
-#include "../context/object_fwd.hpp"
-#include <sge/renderer/color_surface_ptr.hpp>
-#include <sge/renderer/stage_type.hpp>
-#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
@@ -40,38 +31,11 @@ namespace opengl
 namespace texture
 {
 
-class planar
-:
-	public texture::planar_basic
+struct planar_types
 {
-	FCPPT_NONCOPYABLE(
-		planar
-	);
-public:
-	planar(
-		context::object &,
-		renderer::texture::planar_parameters const &,
-		opengl::texture::optional_type const &
-	);
+	typedef sge::renderer::texture::planar base;
 
-	~planar();
-private:
-	typedef texture::planar_basic::pointer pointer;
-
-	void
-	set_area(
-		opengl::texture::scoped_work_bind const &,
-		lock_area const &,
-		pointer
-	) const;
-
-	renderer::color_surface_ptr const
-	surface(
-		renderer::stage_type
-	);
-
-	sge::renderer::stage_type
-	stages() const;
+	typedef sge::renderer::texture::planar_parameters parameters;
 };
 
 }

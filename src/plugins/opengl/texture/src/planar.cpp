@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../planar.hpp"
+#include "../planar_types.hpp"
 #include "../basic_impl.hpp"
 #include "../scoped_work_bind.hpp"
 #include "../surface.hpp"
@@ -34,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 template class
 sge::opengl::texture::basic<
-	sge::renderer::texture::planar
+	sge::opengl::texture::planar_types
 >;
 
 sge::opengl::texture::planar::planar(
@@ -43,10 +44,8 @@ sge::opengl::texture::planar::planar(
 	optional_type const &_type
 )
 :
-	object_base(
+	texture::planar_basic(
 		_context,
-		_param.filter(),
-		_param.resource_flags(),
 		_type
 		?
 			*_type
@@ -54,8 +53,7 @@ sge::opengl::texture::planar::planar(
 			opengl::texture::type(
 				GL_TEXTURE_2D
 			),
-		_param.color_format(),
-		_param.dim()
+		_param
 	)
 {
 	opengl::texture::scoped_work_bind const binding(

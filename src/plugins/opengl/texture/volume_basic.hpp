@@ -18,16 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_VOLUME_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_VOLUME_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_VOLUME_BASIC_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_VOLUME_BASIC_HPP_INCLUDED
 
-#include "basic.hpp"
-#include "volume_basic.hpp"
-#include "scoped_work_bind_fwd.hpp"
-#include "../context/object_fwd.hpp"
-#include <sge/renderer/texture/volume.hpp>
-#include <sge/renderer/texture/volume_parameters_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include "basic_fwd.hpp"
+#include "volume_types.hpp"
 
 namespace sge
 {
@@ -36,30 +31,9 @@ namespace opengl
 namespace texture
 {
 
-class volume
-:
-	public texture::volume_basic
-{
-	FCPPT_NONCOPYABLE(
-		volume
-	);
-public:
-	volume(
-		opengl::context::object &,
-		renderer::texture::volume_parameters const &
-	);
-
-	~volume();
-private:
-	typedef texture::volume_basic::pointer pointer;
-
-	void
-	set_area(
-		opengl::texture::scoped_work_bind const &,
-		lock_area const &,
-		pointer
-	) const;
-};
+typedef texture::basic<
+	texture::volume_types
+> volume_basic;
 
 }
 }

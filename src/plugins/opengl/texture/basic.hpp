@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_BASIC_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_BASIC_HPP_INCLUDED
 
+#include "basic_fwd.hpp"
 #include "base.hpp"
 #include "lock_base.hpp"
 #include "scoped_work_bind_fwd.hpp"
@@ -49,30 +50,32 @@ namespace texture
 {
 
 template<
-	typename Base
+	typename Types
 >
 class basic
 :
-	public Base,
+	public Types::base,
 	public texture::base
 {
 	FCPPT_NONCOPYABLE(
 		basic
 	);
 public:
+	typedef typename Types::base base_type;
+
 	typedef opengl::texture::lock_base::pointer pointer;
 
 	typedef opengl::texture::lock_base::const_pointer const_pointer;
 
-	typedef typename Base::size_type size_type;
+	typedef typename base_type::size_type size_type;
 
-	typedef typename Base::dim_type dim_type;
+	typedef typename base_type::dim_type dim_type;
 
-	typedef typename Base::lock_area lock_area;
+	typedef typename base_type::lock_area lock_area;
 
-	typedef typename Base::view_type view_type;
+	typedef typename base_type::view_type view_type;
 
-	typedef typename Base::const_view_type const_view_type;
+	typedef typename base_type::const_view_type const_view_type;
 
 	// implementation for base class
 	dim_type const
@@ -111,7 +114,7 @@ protected:
 	renderer::texture::filter::object const &
 	filter() const;
 
-	using Base::content;
+	using base_type::content;
 
 	size_type
 	stride() const;
@@ -128,13 +131,12 @@ protected:
 	opengl::context::object &
 	context() const;
 
+	typedef typename Types::parameters parameters_type;
+
 	basic(
 		opengl::context::object &,
-		renderer::texture::filter::object const &,
-		renderer::resource_flags_field const &,
 		opengl::texture::type,
-		image::color::format::type,
-		dim_type const &
+		parameters_type const &
 	);
 public:
 	~basic();
@@ -159,7 +161,7 @@ private:
 
 	renderer::texture::filter::object const filter_;
 
-	renderer::resource_flags_field const flags_;
+	renderer::resource_flags_field const resource_flags_;
 
 	dim_type const dim_;
 
@@ -187,7 +189,7 @@ private:
 
 	typedef fcppt::optional<
 		typename sge::image::traits::pitch<
-			typename Base::image_tag
+			typename base_type::image_tag
 		>::type
 	> optional_pitch;
 };

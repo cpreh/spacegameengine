@@ -53,19 +53,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 template<
-	typename Base
+	typename Types
 >
-typename sge::opengl::texture::basic<Base>::dim_type const
-sge::opengl::texture::basic<Base>::dim() const
+typename sge::opengl::texture::basic<Types>::dim_type const
+sge::opengl::texture::basic<Types>::dim() const
 {
 	return dim_;
 }
 
 template<
-	typename Base
+	typename Types
 >
-typename sge::opengl::texture::basic<Base>::view_type const
-sge::opengl::texture::basic<Base>::lock(
+typename sge::opengl::texture::basic<Types>::view_type const
+sge::opengl::texture::basic<Types>::lock(
 	lock_area const &_area,
 	renderer::lock_mode::type const _mode
 )
@@ -81,10 +81,10 @@ sge::opengl::texture::basic<Base>::lock(
 }
 
 template<
-	typename Base
+	typename Types
 >
-typename sge::opengl::texture::basic<Base>::const_view_type const
-sge::opengl::texture::basic<Base>::lock(
+typename sge::opengl::texture::basic<Types>::const_view_type const
+sge::opengl::texture::basic<Types>::lock(
 	lock_area const &_area
 ) const
 {
@@ -97,10 +97,10 @@ sge::opengl::texture::basic<Base>::lock(
 }
 
 template<
-	typename Base
+	typename Types
 >
 void
-sge::opengl::texture::basic<Base>::unlock() const
+sge::opengl::texture::basic<Types>::unlock() const
 {
 	this->check_locked();
 
@@ -164,10 +164,10 @@ sge::opengl::texture::basic<Base>::unlock() const
 }
 
 template<
-	typename Base
+	typename Types
 >
 void
-sge::opengl::texture::basic<Base>::lock_me(
+sge::opengl::texture::basic<Types>::lock_me(
 	lock_area const &_lock_area,
 	lock_method::type const _method
 ) const
@@ -232,10 +232,10 @@ sge::opengl::texture::basic<Base>::lock_me(
 }
 
 template<
-	typename Base
+	typename Types
 >
-typename sge::opengl::texture::basic<Base>::view_type const
-sge::opengl::texture::basic<Base>::view()
+typename sge::opengl::texture::basic<Types>::view_type const
+sge::opengl::texture::basic<Types>::view()
 {
 	// If we are currently reading a texture,
 	// we have mapped the whole texture and
@@ -286,17 +286,17 @@ sge::opengl::texture::basic<Base>::view()
 }
 
 template<
-	typename Base
+	typename Types
 >
-typename sge::opengl::texture::basic<Base>::const_view_type const
-sge::opengl::texture::basic<Base>::view() const
+typename sge::opengl::texture::basic<Types>::const_view_type const
+sge::opengl::texture::basic<Types>::view() const
 {
 	return
 		image::view::to_const<
 			const_view_type
 		>(
 			const_cast<
-				opengl::texture::basic<Base> *
+				opengl::texture::basic<Types> *
 			>(
 				this
 			)->view()
@@ -304,10 +304,10 @@ sge::opengl::texture::basic<Base>::view() const
 }
 
 template<
-	typename Base
+	typename Types
 >
-typename sge::opengl::texture::basic<Base>::dim_type const
-sge::opengl::texture::basic<Base>::lock_dim() const
+typename sge::opengl::texture::basic<Types>::dim_type const
+sge::opengl::texture::basic<Types>::lock_dim() const
 {
 	return
 		lock_area_
@@ -318,89 +318,96 @@ sge::opengl::texture::basic<Base>::lock_dim() const
 }
 
 template<
-	typename Base
+	typename Types
 >
 sge::renderer::texture::filter::object const &
-sge::opengl::texture::basic<Base>::filter() const
+sge::opengl::texture::basic<Types>::filter() const
 {
 	return filter_;
 }
 
 template<
-	typename Base
+	typename Types
 >
-typename sge::opengl::texture::basic<Base>::size_type
-sge::opengl::texture::basic<Base>::stride() const
+typename sge::opengl::texture::basic<Types>::size_type
+sge::opengl::texture::basic<Types>::stride() const
 {
 	return stride_;
 }
 
 template<
-	typename Base
+	typename Types
 >
 sge::opengl::color_format const 
-sge::opengl::texture::basic<Base>::format() const
+sge::opengl::texture::basic<Types>::format() const
 {
 	return format_;
 }
 
 template<
-	typename Base
+	typename Types
 >
 sge::opengl::color_format_type const
-sge::opengl::texture::basic<Base>::format_type() const
+sge::opengl::texture::basic<Types>::format_type() const
 {
 	return format_type_;
 }
 
 template<
-	typename Base
+	typename Types
 >
 sge::opengl::internal_color_format const
-sge::opengl::texture::basic<Base>::internal_format() const
+sge::opengl::texture::basic<Types>::internal_format() const
 {
 	return internal_format_;
 }
 
 template<
-	typename Base
+	typename Types
 >
 sge::opengl::context::object &
-sge::opengl::texture::basic<Base>::context() const
+sge::opengl::texture::basic<Types>::context() const
 {
 	return context_;
 }
 
 template<
-	typename Base
+	typename Types
 >
-sge::opengl::texture::basic<Base>::basic(
+sge::opengl::texture::basic<Types>::basic(
 	opengl::context::object &_context,
-	renderer::texture::filter::object const &_filter,
-	renderer::resource_flags_field const &_flags,
 	opengl::texture::type const _type,
-	image::color::format::type const _color_format,
-	dim_type const &_dim
+	parameters_type const &_parameters
 )
 :
-	opengl::texture::base(_type),
-	context_(_context),
-	filter_(_filter),
-	flags_(_flags),
-	dim_(_dim),
+	opengl::texture::base(
+		_type
+	),
+	context_(
+		_context
+	),
+	filter_(
+		_parameters.filter()
+	),
+	resource_flags_(
+		_parameters.resource_flags()
+	),
+	dim_(
+		_parameters.dim()
+	),
 	format_(
 		opengl::convert::color_to_format(
-			_color_format
+			_parameters.color_format()
 		)
 	),
 	format_type_(
 		opengl::convert::color_to_format_type(
-			_color_format
+			_parameters.color_format()
 		)
 	),
 	internal_format_(
 		opengl::convert::color_to_internal_format(
-			_color_format
+			_parameters.color_format()
 		)
 	),
 	color_type_(
@@ -411,17 +418,21 @@ sge::opengl::texture::basic<Base>::basic(
 	),
 	stride_(
 		image::color::format_stride(
-			_color_format
+			_parameters.color_format()
 		)
 	),
 	lock_(),
 	lock_area_()
 {
+	// note: What is done here is important to do before the
+	// constructor of the derived class runs!
 	opengl::texture::scoped_work_bind const binding(
 		context_,
 		*this,
 		renderer::stage_type(0u)
 	);
+
+	// TODO: set address mode!
 
 	opengl::texture::funcs::set_filter(
 		binding,
@@ -432,26 +443,26 @@ sge::opengl::texture::basic<Base>::basic(
 }
 
 template<
-	typename Base
+	typename Types
 >
-sge::opengl::texture::basic<Base>::~basic()
+sge::opengl::texture::basic<Types>::~basic()
 {
 }
 
 template<
-	typename Base
+	typename Types
 >
 sge::renderer::resource_flags_field const
-sge::opengl::texture::basic<Base>::flags() const
+sge::opengl::texture::basic<Types>::flags() const
 {
-	return flags_;
+	return resource_flags_;
 }
 
 template<
-	typename Base
+	typename Types
 >
 void
-sge::opengl::texture::basic<Base>::check_locked() const
+sge::opengl::texture::basic<Types>::check_locked() const
 {
 	if(
 		!lock_
@@ -462,10 +473,10 @@ sge::opengl::texture::basic<Base>::check_locked() const
 }
 
 template<
-	typename Base
+	typename Types
 >
 void
-sge::opengl::texture::basic<Base>::check_not_locked() const
+sge::opengl::texture::basic<Types>::check_not_locked() const
 {
 	if(
 		lock_

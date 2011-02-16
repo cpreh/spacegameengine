@@ -397,6 +397,7 @@ SET(
 	src/plugins/opengl/texture/base_fwd.hpp
 	src/plugins/opengl/texture/base_ptr.hpp
 	src/plugins/opengl/texture/basic.hpp
+	src/plugins/opengl/texture/basic_fwd.hpp
 	src/plugins/opengl/texture/basic_impl.hpp
 	src/plugins/opengl/texture/basic_surface.hpp
 	src/plugins/opengl/texture/basic_surface_impl.hpp
@@ -473,8 +474,10 @@ SET(
 	src/plugins/opengl/texture/multi_context_fwd.hpp
 	src/plugins/opengl/texture/optional_type.hpp
 	src/plugins/opengl/texture/planar.hpp
+	src/plugins/opengl/texture/planar_basic.hpp
 	src/plugins/opengl/texture/planar_fwd.hpp
 	src/plugins/opengl/texture/planar_ptr.hpp
+	src/plugins/opengl/texture/planar_types.hpp
 	src/plugins/opengl/texture/readonly_lock.hpp
 	src/plugins/opengl/texture/readwrite_lock.hpp
 	src/plugins/opengl/texture/scoped_work_bind.hpp
@@ -511,7 +514,9 @@ SET(
 	src/plugins/opengl/texture/surface_fwd.hpp
 	src/plugins/opengl/texture/type.hpp
 	src/plugins/opengl/texture/volume.hpp
+	src/plugins/opengl/texture/volume_basic.hpp
 	src/plugins/opengl/texture/volume_context.hpp
+	src/plugins/opengl/texture/volume_types.hpp
 	src/plugins/opengl/texture/writeonly_lock.hpp
 	src/plugins/opengl/vbo_base.hpp
 	src/plugins/opengl/vbo_base_fwd.hpp

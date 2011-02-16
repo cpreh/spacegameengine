@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../volume.hpp"
+#include "../volume_types.hpp"
 #include "../basic_impl.hpp"
 #include "../scoped_work_bind.hpp"
 #include "../volume_context.hpp"
@@ -30,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 template class
 sge::opengl::texture::basic<
-	sge::renderer::texture::volume
+	sge::opengl::texture::volume_types
 >;
 
 sge::opengl::texture::volume::volume(
@@ -38,17 +39,14 @@ sge::opengl::texture::volume::volume(
 	renderer::texture::volume_parameters const &_param
 )
 :
-	detail::volume_texture_base(
+	texture::volume_basic(
 		_context,
-		_param.filter(),
-		_param.resource_flags(),
 		opengl::context::use<
 			opengl::texture::volume_context
 		>(
 			_context
 		).volume_texture_type(),
-		_param.color_format(),
-		_param.dim()
+		_param
 	)
 {
 	opengl::texture::scoped_work_bind const binding(
