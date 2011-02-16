@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/atlasing/size.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/log/global.hpp>
@@ -43,12 +42,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::texture::no_fragmented::no_fragmented(
 	renderer::device_ptr const _rend,
 	image::color::format::type const _format,
-	renderer::texture::filter::object const &_filter
+	renderer::texture::filter::object const &_filter,
+	renderer::texture::address_mode2 const &_address_mode
 )
 :
  	rend_(_rend),
 	format_(_format),
- 	filter_(_filter)
+ 	filter_(_filter),
+	address_mode_(_address_mode),
+	tex_()
 {
 }
 
@@ -78,9 +80,7 @@ sge::texture::no_fragmented::consume_fragment(
 				real_dim,
 				format_,
 				filter_,
-				renderer::texture::address_mode2(
-					renderer::texture::address_mode::clamp
-				),
+				address_mode_,
 				renderer::resource_flags::none
 			)
 		);
@@ -139,7 +139,12 @@ sge::texture::no_fragmented::texture() const
 bool
 sge::texture::no_fragmented::repeatable() const
 {
-	return true;
+	return
+		address_mode_.address_mode_s().get()
+		== renderer::texture::address_mode::repeat
+		&&
+		address_mode_.address_mode_t().get()
+		== renderer::texture::address_mode::repeat;
 }
 
 sge::texture::free_type

@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/symbol.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/dim2.hpp>
+#include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/filter/object.hpp>
 #include <sge/image/color/format.hpp>
@@ -49,7 +50,8 @@ public:
 	no_fragmented(
 		renderer::device_ptr,
 		image::color::format::type,
-		renderer::texture::filter::object const &
+		renderer::texture::filter::object const &,
+		renderer::texture::address_mode2 const &
 	);
 
 	SGE_TEXTURE_SYMBOL
@@ -82,6 +84,8 @@ private:
 	image::color::format::type const format_;
 
 	renderer::texture::filter::object const filter_;
+
+	renderer::texture::address_mode2 const address_mode_;
 
 	renderer::texture::planar_ptr tex_;
 };

@@ -255,7 +255,10 @@ try
 
 				sys.renderer(),
 				sge::image::color::format::rgba8,
-				sge::renderer::texture::filter::linear
+				sge::renderer::texture::filter::linear,
+				sge::renderer::texture::address_mode2(
+					sge::renderer::texture::address_mode::repeat
+				)
 			)
 		)
 	);
