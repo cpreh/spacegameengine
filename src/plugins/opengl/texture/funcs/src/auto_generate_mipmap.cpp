@@ -20,12 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../auto_generate_mipmap.hpp"
 #include "../parameter_int.hpp"
-#include "../need_mipmap.hpp"
 #include "../../context.hpp"
 #include "../../../common.hpp"
 #include "../../../context/use.hpp"
 #include <sge/log/global.hpp>
-#include <sge/renderer/texture/filter/object.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/text.hpp>
@@ -34,16 +32,9 @@ void
 sge::opengl::texture::funcs::auto_generate_mipmap(
 	texture::scoped_work_bind const &_scoped_work,
 	opengl::context::object &_context,
-	texture::type const _type,
-	renderer::texture::filter::object const &_filter
+	texture::type const _type
 )
 {
-	bool const need_mipmap(
-		funcs::need_mipmap(
-			_filter.min()
-		)
-	);
-
 	if(
 		!opengl::context::use<
 			texture::context
@@ -52,15 +43,12 @@ sge::opengl::texture::funcs::auto_generate_mipmap(
 		).generate_mipmap_flag_supported()
 	)
 	{
-		if(
-			need_mipmap
-		)
-			FCPPT_LOG_ERROR(
-				sge::log::global(),
-				fcppt::log::_
-					<< FCPPT_TEXT("Building mipmaps is not supported.")
-					<< FCPPT_TEXT(" The min_filter will not work correctly.")
-			);
+		FCPPT_LOG_ERROR(
+			sge::log::global(),
+			fcppt::log::_
+				<< FCPPT_TEXT("Building mipmaps is not supported.")
+				<< FCPPT_TEXT(" The min_filter will not work correctly.")
+		);
 
 		return;
 	}
@@ -69,6 +57,6 @@ sge::opengl::texture::funcs::auto_generate_mipmap(
 		_scoped_work,
 		_type,
 		GL_GENERATE_MIPMAP,
-		need_mipmap
+		GL_TRUE
 	);
 }
