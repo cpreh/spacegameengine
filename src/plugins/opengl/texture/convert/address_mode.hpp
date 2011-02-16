@@ -18,17 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_FUNCS_SET_3D_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_FUNCS_SET_3D_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_CONVERT_ADDRESS_MODE_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_CONVERT_ADDRESS_MODE_HPP_INCLUDED
 
-#include "../scoped_work_bind_fwd.hpp"
-#include "../type.hpp"
-#include "../../color_format.hpp"
-#include "../../color_format_type.hpp"
-#include "../../internal_color_format.hpp"
-#include "../../context/object_fwd.hpp"
-#include <sge/renderer/dim3.hpp>
-#include <sge/renderer/const_raw_pointer.hpp>
+#include "../../common.hpp"
+#include <sge/renderer/texture/address_mode.hpp>
 
 namespace sge
 {
@@ -36,19 +30,12 @@ namespace opengl
 {
 namespace texture
 {
-namespace funcs
+namespace convert
 {
 
-void
-set_3d(
-	texture::scoped_work_bind const &,
-	opengl::context::object &,
-	texture::type,
-	opengl::color_format,
-	opengl::color_format_type,
-	opengl::internal_color_format,
-	renderer::dim3 const &,
-	renderer::const_raw_pointer src
+GLenum
+address_mode(
+	renderer::texture::address_mode::type
 );
 
 }

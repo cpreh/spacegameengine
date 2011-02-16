@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../scoped_work_bind.hpp"
 #include "../surface.hpp"
 #include "../funcs/get_parameter_int.hpp"
-#include "../funcs/set.hpp"
+#include "../funcs/set_2d.hpp"
 #include "../funcs/set_rect.hpp"
 #include "../../common.hpp"
 #include <sge/renderer/stage_type.hpp>
@@ -62,14 +62,12 @@ sge::opengl::texture::planar::planar(
 		renderer::stage_type(0u)
 	);
 
-	opengl::texture::funcs::set(
+	opengl::texture::funcs::set_2d(
 		binding,
-		_context,
 		this->type(),
 		this->format(),
 		this->format_type(),
 		this->internal_format(),
-		this->filter(),
 		this->dim(),
 		0
 	);

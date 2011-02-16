@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../depth_stencil.hpp"
 #include "../depth_stencil_surface.hpp"
 #include "../scoped_work_bind.hpp"
-#include "../funcs/set.hpp"
+#include "../funcs/set_2d.hpp"
 #include "../funcs/set_filter.hpp"
 #include "../../common.hpp"
 #include "../../convert/depth_stencil_to_format.hpp"
@@ -70,9 +70,8 @@ sge::opengl::texture::depth_stencil::depth_stencil(
 		filter
 	);
 
-	texture::funcs::set(
+	texture::funcs::set_2d(
 		binding,
-		_context,
 		this->type(),
 		convert::depth_stencil_to_format(
 			_format
@@ -83,7 +82,6 @@ sge::opengl::texture::depth_stencil::depth_stencil(
 		convert::depth_stencil_to_internal_format(
 			_format
 		),
-		filter,
 		this->dim(),
 		0
 	);

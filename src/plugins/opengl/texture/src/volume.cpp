@@ -62,7 +62,6 @@ sge::opengl::texture::volume::volume(
 		this->format(),
 		this->format_type(),
 		this->internal_format(),
-		this->filter(),
 		this->dim(),
 		0
 	);

@@ -18,42 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_FUNCS_SET_3D_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_FUNCS_SET_3D_HPP_INCLUDED
+#include "../address_mode.hpp"
+#include "../../../common.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include "../scoped_work_bind_fwd.hpp"
-#include "../type.hpp"
-#include "../../color_format.hpp"
-#include "../../color_format_type.hpp"
-#include "../../internal_color_format.hpp"
-#include "../../context/object_fwd.hpp"
-#include <sge/renderer/dim3.hpp>
-#include <sge/renderer/const_raw_pointer.hpp>
-
-namespace sge
+GLenum
+sge::opengl::texture::convert::address_mode(
+	renderer::texture::address_mode::type const _mode
+)
 {
-namespace opengl
-{
-namespace texture
-{
-namespace funcs
-{
+	switch(
+		_mode
+	)
+	{
+	case renderer::texture::address_mode::clamp:
+		return GL_CLAMP;
+	case renderer::texture::address_mode::mirror_repeat:
+		return GL_MIRRORED_REPEAT;
+	case renderer::texture::address_mode::repeat:
+		return GL_REPEAT;
+	}
 
-void
-set_3d(
-	texture::scoped_work_bind const &,
-	opengl::context::object &,
-	texture::type,
-	opengl::color_format,
-	opengl::color_format_type,
-	opengl::internal_color_format,
-	renderer::dim3 const &,
-	renderer::const_raw_pointer src
-);
-
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid texture::address_mode!")
+	);
 }
-}
-}
-}
-
-#endif

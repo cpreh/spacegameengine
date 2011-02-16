@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_BASIC_IMPL_HPP_INCLUDED
 
 #include "basic.hpp"
+#include "address_mode.hpp"
 #include "create_lock.hpp"
 #include "scoped_work_bind.hpp"
 #include "funcs/get_image.hpp"
@@ -432,7 +433,11 @@ sge::opengl::texture::basic<Types>::basic(
 		renderer::stage_type(0u)
 	);
 
-	// TODO: set address mode!
+	opengl::texture::address_mode(
+		binding,
+		this->type(),
+		_parameters.address_mode()
+	);
 
 	opengl::texture::funcs::set_filter(
 		binding,

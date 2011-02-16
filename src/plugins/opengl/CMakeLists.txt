@@ -393,6 +393,7 @@ SET(
 	src/plugins/opengl/target_base_fwd.hpp
 	src/plugins/opengl/target_base_ptr.hpp
 	src/plugins/opengl/texture/activate.hpp
+	src/plugins/opengl/texture/address_mode.hpp
 	src/plugins/opengl/texture/base.hpp
 	src/plugins/opengl/texture/base_fwd.hpp
 	src/plugins/opengl/texture/base_ptr.hpp
@@ -405,9 +406,13 @@ SET(
 	src/plugins/opengl/texture/bind_context_fwd.hpp
 	src/plugins/opengl/texture/const_base_ptr.hpp
 	src/plugins/opengl/texture/context.hpp
+	src/plugins/opengl/texture/convert/address_mode.hpp
+	src/plugins/opengl/texture/convert/address_mode_type.hpp
 	src/plugins/opengl/texture/convert/cube_side.hpp
 	src/plugins/opengl/texture/convert/mag_filter.hpp
 	src/plugins/opengl/texture/convert/min_filter.hpp
+	src/plugins/opengl/texture/convert/src/address_mode.cpp
+	src/plugins/opengl/texture/convert/src/address_mode_type.cpp
 	src/plugins/opengl/texture/convert/src/cube_side.cpp
 	src/plugins/opengl/texture/convert/src/mag_filter.cpp
 	src/plugins/opengl/texture/convert/src/min_filter.cpp
@@ -427,6 +432,7 @@ SET(
 	src/plugins/opengl/texture/depth_stencil_fwd.hpp
 	src/plugins/opengl/texture/depth_stencil_ptr.hpp
 	src/plugins/opengl/texture/depth_stencil_surface.hpp
+	src/plugins/opengl/texture/funcs/auto_generate_mipmap.hpp
 	src/plugins/opengl/texture/funcs/bind.hpp
 	src/plugins/opengl/texture/funcs/delete.hpp
 	src/plugins/opengl/texture/funcs/envf.hpp
@@ -436,15 +442,15 @@ SET(
 	src/plugins/opengl/texture/funcs/level_parameter.hpp
 	src/plugins/opengl/texture/funcs/need_mipmap.hpp
 	src/plugins/opengl/texture/funcs/parameter_int.hpp
-	src/plugins/opengl/texture/funcs/set.hpp
+	src/plugins/opengl/texture/funcs/set_2d.hpp
 	src/plugins/opengl/texture/funcs/set_3d.hpp
 	src/plugins/opengl/texture/funcs/set_active_level.hpp
 	src/plugins/opengl/texture/funcs/set_box.hpp
 	src/plugins/opengl/texture/funcs/set_client_level.hpp
 	src/plugins/opengl/texture/funcs/set_filter.hpp
-	src/plugins/opengl/texture/funcs/set_mipmap.hpp
 	src/plugins/opengl/texture/funcs/set_rect.hpp
 	src/plugins/opengl/texture/funcs/set_rect_3d.hpp
+	src/plugins/opengl/texture/funcs/src/auto_generate_mipmap.cpp
 	src/plugins/opengl/texture/funcs/src/bind.cpp
 	src/plugins/opengl/texture/funcs/src/delete.cpp
 	src/plugins/opengl/texture/funcs/src/envf.cpp
@@ -454,13 +460,12 @@ SET(
 	src/plugins/opengl/texture/funcs/src/level_parameter.cpp
 	src/plugins/opengl/texture/funcs/src/need_mipmap.cpp
 	src/plugins/opengl/texture/funcs/src/parameter_int.cpp
-	src/plugins/opengl/texture/funcs/src/set.cpp
+	src/plugins/opengl/texture/funcs/src/set_2d.cpp
 	src/plugins/opengl/texture/funcs/src/set_3d.cpp
 	src/plugins/opengl/texture/funcs/src/set_active_level.cpp
 	src/plugins/opengl/texture/funcs/src/set_box.cpp
 	src/plugins/opengl/texture/funcs/src/set_client_level.cpp
 	src/plugins/opengl/texture/funcs/src/set_filter.cpp
-	src/plugins/opengl/texture/funcs/src/set_mipmap.cpp
 	src/plugins/opengl/texture/funcs/src/set_rect.cpp
 	src/plugins/opengl/texture/funcs/src/set_rect_3d.cpp
 	src/plugins/opengl/texture/funcs/warn_min.hpp
@@ -485,6 +490,7 @@ SET(
 	src/plugins/opengl/texture/set_stage_funcs.hpp
 	src/plugins/opengl/texture/set_stage_scale.hpp
 	src/plugins/opengl/texture/src/activate.cpp
+	src/plugins/opengl/texture/src/address_mode.cpp
 	src/plugins/opengl/texture/src/base.cpp
 	src/plugins/opengl/texture/src/bind_context.cpp
 	src/plugins/opengl/texture/src/context.cpp

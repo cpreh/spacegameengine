@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../set_mipmap.hpp"
+#include "../auto_generate_mipmap.hpp"
 #include "../parameter_int.hpp"
 #include "../need_mipmap.hpp"
 #include "../../context.hpp"
@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 void
-sge::opengl::texture::funcs::set_mipmap(
+sge::opengl::texture::funcs::auto_generate_mipmap(
 	texture::scoped_work_bind const &_scoped_work,
 	opengl::context::object &_context,
 	texture::type const _type,

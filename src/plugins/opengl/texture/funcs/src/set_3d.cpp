@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../set_3d.hpp"
-#include "../set_mipmap.hpp"
 #include "../warn_min.hpp"
 #include "../warn_pow2.hpp"
 #include "../../volume_context.hpp"
@@ -33,13 +32,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::texture::funcs::set_3d(
-	texture::scoped_work_bind const &_scoped_work,
+	texture::scoped_work_bind const &,
 	opengl::context::object &_context,
 	texture::type const _type,
 	opengl::color_format const _format,
 	opengl::color_format_type const _format_type,
 	opengl::internal_color_format const _internal_format,
-	renderer::texture::filter::object const &_filter,
 	renderer::dim3 const &_dim,
 	renderer::const_raw_pointer const _src
 )
@@ -57,13 +55,6 @@ sge::opengl::texture::funcs::set_3d(
 	opengl::texture::funcs::warn_pow2(
 		_dim,
 		FCPPT_TEXT("volume textures")
-	);
-
-	funcs::set_mipmap(
-		_scoped_work,
-		_context,
-		_type,
-		_filter
 	);
 
 	context::use<

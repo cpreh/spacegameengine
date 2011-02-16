@@ -18,34 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_FUNCS_SET_MIPMAP_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_FUNCS_SET_MIPMAP_HPP_INCLUDED
+#include "../address_mode_type.hpp"
+#include "../../../common.hpp"
+#include <sge/renderer/texture/address_mode_s.hpp>
+#include <sge/renderer/texture/address_mode_t.hpp>
+#include <sge/renderer/texture/address_mode_u.hpp>
 
-#include "../scoped_work_bind_fwd.hpp"
-#include "../type.hpp"
-#include "../../context/object_fwd.hpp"
-#include <sge/renderer/texture/filter/object_fwd.hpp>
-
-namespace sge
+GLenum
+sge::opengl::texture::convert::address_mode_type<
+	sge::renderer::texture::address_mode_s
+>::get()
 {
-namespace opengl
-{
-namespace texture
-{
-namespace funcs
-{
-
-void
-set_mipmap(
-	texture::scoped_work_bind const &,
-	opengl::context::object &,
-	texture::type,
-	renderer::texture::filter::object const &
-);
-
-}
-}
-}
+	return GL_TEXTURE_WRAP_S;
 }
 
-#endif
+GLenum
+sge::opengl::texture::convert::address_mode_type<
+	sge::renderer::texture::address_mode_t
+>::get()
+{
+	return GL_TEXTURE_WRAP_T;
+}
+
+GLenum
+sge::opengl::texture::convert::address_mode_type<
+	sge::renderer::texture::address_mode_u
+>::get()
+{
+	return GL_TEXTURE_WRAP_R;
+}
