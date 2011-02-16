@@ -25,8 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/export_symbol.hpp>
 
-template class
-FCPPT_EXPORT_SYMBOL
+template FCPPT_EXPORT_SYMBOL class
 sge::renderer::texture::basic_parameters<
 	sge::renderer::dim2,
 	sge::renderer::texture::address_mode2

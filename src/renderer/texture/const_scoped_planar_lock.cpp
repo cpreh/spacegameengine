@@ -26,8 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/const_object.hpp>
 #include <fcppt/export_symbol.hpp>
 
-template class
-FCPPT_EXPORT_SYMBOL
+template FCPPT_EXPORT_SYMBOL class
 sge::renderer::texture::const_basic_scoped_lock<
 	sge::renderer::texture::const_planar_ptr,
 	sge::renderer::lock_rect,

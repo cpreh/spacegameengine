@@ -62,13 +62,13 @@ address_mode_impl(
 	sge::renderer::texture::address_mode2 const &_mode
 )
 {
-	::address_mode_one(
+	address_mode_one(
 		_binding,
 		_type,
 		_mode.address_mode_s()
 	);
 
-	::address_mode_one(
+	address_mode_one(
 		_binding,
 		_type,
 		_mode.address_mode_t()
@@ -82,7 +82,7 @@ address_mode_impl(
 	sge::renderer::texture::address_mode3 const &_mode
 )
 {
-	::address_mode_impl(
+	address_mode_impl(
 		_binding,
 		_type,
 		sge::renderer::texture::address_mode2(
@@ -91,7 +91,7 @@ address_mode_impl(
 		)
 	);
 
-	::address_mode_one(
+	address_mode_one(
 		_binding,
 		_type,
 		_mode.address_mode_u()
