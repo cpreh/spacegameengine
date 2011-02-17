@@ -395,12 +395,15 @@ try
 	sprite_object sprite(
 		sprite_parameters()
 		.pos(
-			sprite_object::point::null()
+			sprite_object::point(
+				-500,
+				-500
+			)
 		)
 		.size(
 			sprite_object::dim(
-				1000u,
-				1000u
+				1000,
+				1000
 			)
 		)
 		.repetition(
