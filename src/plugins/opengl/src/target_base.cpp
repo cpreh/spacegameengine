@@ -27,3 +27,11 @@ sge::opengl::target_base::target_base()
 sge::opengl::target_base::~target_base()
 {
 }
+
+void
+sge::opengl::target_base::use()
+{
+	this->bind();
+
+	this->activate_viewport();
+}

@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/instance.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 
@@ -38,14 +37,7 @@ sge::opengl::onscreen_target::onscreen_target(
 :
 	base(
 		renderer::viewport(
-			renderer::pixel_rect(
-				renderer::pixel_rect::vector::null(),
-				fcppt::math::dim::structure_cast<
-					sge::renderer::pixel_rect::dim
-				>(
-					_window->size()
-				)
-			)
+			renderer::pixel_rect::null()
 		)
 	),
 	main_surface_(

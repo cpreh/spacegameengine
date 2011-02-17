@@ -46,6 +46,9 @@ public:
 
 	virtual void
 	unbind() const = 0;
+
+	void
+	use();
 };
 
 }

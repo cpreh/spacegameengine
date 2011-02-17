@@ -116,7 +116,7 @@ sge::opengl::device::device(
 		sge::renderer::state::default_()
 	);
 
-	target_->bind();
+	target_->use();
 }
 
 sge::opengl::device::~device()
@@ -406,10 +406,8 @@ sge::opengl::device::target(
 			opengl::target_base_ptr(
 				onscreen_target_
 			);
-		
-	target_->bind();
 
-	target_->activate_viewport();
+	target_->use();
 }
 
 sge::renderer::glsl::program_ptr const
