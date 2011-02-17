@@ -106,6 +106,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <exception>
@@ -137,6 +138,21 @@ make_texture(
 				sge::renderer::resource_flags::none
 			)
 		);
+}
+
+template<
+	typename Sprite,
+	typename Iterator
+>
+void
+advance_texture(
+	Sprite &_sprite,
+	Iterator &_iterator
+)
+{
+	_sprite.texture(
+		*++_iterator
+	);
 }
 
 }
@@ -212,7 +228,7 @@ try
 				static_cast<
 					sge::renderer::scalar
 				>(
-					10
+					100
 				)
 			),
 			// movementspeed
@@ -411,18 +427,25 @@ try
 		)
 	);
 
-#if 0
-	fcppt::signal::scoped_connection const input_connection(
+	fcppt::signal::scoped_connection const texture_connection(
 		sys.keyboard_collector()->key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::n,
-				sge::systems::running_to_false(
-					running
+				std::tr1::bind(
+					advance_texture<
+						sprite_object,
+						cyclic_texture_iterator
+					>,
+					std::tr1::ref(
+						sprite
+					),
+					std::tr1::ref(
+						texture_iterator
+					)
 				)
 			)
 		)
 	);
-#endif
 
 	sge::time::timer frame_timer(
 		sge::time::second(
