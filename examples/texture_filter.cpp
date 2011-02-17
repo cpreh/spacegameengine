@@ -24,6 +24,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/parameters.hpp>
 #include <sge/camera/projection/perspective.hpp>
 #include <sge/image/colors.hpp>
+#include <sge/image/size_type.hpp>
+#include <sge/image/store.hpp>
+#include <sge/image2d/dim.hpp>
+#include <sge/image2d/gray8.hpp>
+#include <sge/image2d/rect.hpp>
+#include <sge/image2d/algorithm/copy_and_convert.hpp>
+#include <sge/image2d/algorithm/fill.hpp>
+#include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/view/object.hpp>
+#include <sge/image2d/view/sub.hpp>
+#include <sge/image2d/view/to_const.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
@@ -31,11 +42,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/depth_buffer.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/display_mode.hpp>
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
+#include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/screen_size.hpp>
@@ -46,6 +59,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/list.hpp>
+#include <sge/renderer/texture/address_mode.hpp>
+#include <sge/renderer/texture/address_mode2.hpp>
+#include <sge/renderer/texture/create_planar_from_view.hpp>
+#include <sge/renderer/texture/filter/mip.hpp>
+#include <sge/renderer/texture/filter/linear.hpp>
+#include <sge/renderer/texture/filter/object.hpp>
+#include <sge/renderer/texture/filter/point.hpp>
+#include <sge/renderer/texture/filter/trilinear.hpp>
 #include <sge/sprite/choices.hpp>
 #include <sge/sprite/external_system_impl.hpp>
 #include <sge/sprite/no_color.hpp>
@@ -67,22 +88,58 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/running_to_false.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/systems/viewport/manage_resize.hpp>
+#include <sge/texture/part_ptr.hpp>
+#include <sge/texture/part_raw.hpp>
 #include <sge/time/second.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/window/instance.hpp>
+#include <fcppt/cyclic_iterator.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/container/array.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <exception>
 #include <iostream>
 #include <ostream>
 #include <cstdlib>
+
+namespace
+{
+
+sge::texture::part_ptr const
+make_texture(
+	sge::renderer::device_ptr const _device,
+	sge::image2d::view::const_object const &_view,
+	sge::renderer::texture::filter::object const &_filter
+)
+{
+	return
+		fcppt::make_shared_ptr<
+			sge::texture::part_raw
+		>(
+			sge::renderer::texture::create_planar_from_view(
+				_device,
+				_view,
+				_filter,
+				sge::renderer::texture::address_mode2(
+					sge::renderer::texture::address_mode::repeat
+				),
+				sge::renderer::resource_flags::none
+			)
+		);
+}
+
+}
 
 int 
 main()
@@ -178,6 +235,118 @@ try
 		)
 	);
 
+	sge::image2d::dim const block_size(
+		16u,
+		16u
+	);
+
+	sge::image::size_type const num_blocks(
+		16u
+	);
+
+	typedef sge::image2d::gray8 store_type;
+
+	store_type whole_store(
+		block_size * num_blocks
+	);
+
+	{
+		store_type white_store(
+			block_size
+		);
+
+		sge::image2d::algorithm::fill(
+			white_store.view(),
+			sge::image::colors::white()
+		);
+
+		store_type black_store(
+			block_size
+		);
+
+		sge::image2d::algorithm::fill(
+			black_store.view(),
+			sge::image::colors::black()
+		);
+		
+		for(
+			sge::image::size_type y = 0;
+			y < num_blocks;
+			++y
+		)
+			for(
+				sge::image::size_type x = 0;
+				x < num_blocks;
+				++x
+			)
+				sge::image2d::algorithm::copy_and_convert(
+					sge::image2d::view::to_const(
+						(((x + y) % 2u) == 0u)
+						?
+							white_store.view()
+						:
+							black_store.view()
+					),
+					sge::image2d::view::sub(
+						sge::image2d::view::object(
+							whole_store.view()
+						),
+						sge::image2d::rect(
+							sge::image2d::rect::vector(
+								x * block_size.w(),
+								y * block_size.h()
+							),
+							block_size
+						)
+					)
+				);
+	}
+
+	typedef fcppt::container::array<
+		sge::texture::part_ptr,
+		4u
+	> texture_array;
+
+	sge::image2d::view::const_object const texture_view(
+		sge::image2d::view::to_const(
+			whole_store.view()
+		)
+	);
+
+	texture_array const textures =
+	{{
+		make_texture(
+			sys.renderer(),
+			texture_view,
+			sge::renderer::texture::filter::point
+		),
+		make_texture(
+			sys.renderer(),
+			texture_view,
+			sge::renderer::texture::filter::linear
+		),
+		make_texture(
+			sys.renderer(),
+			texture_view,
+			sge::renderer::texture::filter::mip
+		),
+		make_texture(
+			sys.renderer(),
+			texture_view,
+			sge::renderer::texture::filter::trilinear
+		)
+	}};
+
+	typedef fcppt::cyclic_iterator<
+		texture_array::const_iterator
+	> cyclic_texture_iterator;
+
+	cyclic_texture_iterator texture_iterator(
+		textures.begin(),
+		textures.begin(),
+		textures.end()
+	);
+
 	typedef sge::sprite::choices<
 		sge::sprite::type_choices<
 			int,
@@ -222,8 +391,8 @@ try
 			100u
 		)
 		.texture(
-			sge::texture::const_part_ptr()
-		) // TODO!
+			*texture_iterator
+		)
 		.elements()
 	);
 
@@ -241,6 +410,19 @@ try
 			)
 		)
 	);
+
+#if 0
+	fcppt::signal::scoped_connection const input_connection(
+		sys.keyboard_collector()->key_callback(
+			sge::input::keyboard::action(
+				sge::input::keyboard::key_code::n,
+				sge::systems::running_to_false(
+					running
+				)
+			)
+		)
+	);
+#endif
 
 	sge::time::timer frame_timer(
 		sge::time::second(
