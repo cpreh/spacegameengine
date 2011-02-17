@@ -20,39 +20,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/aspect.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/instantiate_arithmetic.hpp>
 #include <fcppt/math/almost_zero.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/export_symbol.hpp>
 
-template<
-	typename T
->
-T
+sge::renderer::scalar
 sge::renderer::aspect(
 	screen_size const &_size
 )
 {
-	T const
-		w(static_cast<T>(_size.w())),
-		h(static_cast<T>(_size.h()));
+	sge::renderer::scalar const
+		width(
+			static_cast<
+				renderer::scalar
+			>(
+				_size.w()
+			)
+		),
+		height(
+			static_cast<
+				renderer::scalar
+			>(
+				_size.h()
+			)
+		);
 
 	FCPPT_ASSERT(
-		!fcppt::math::almost_zero(w)
-		&& !fcppt::math::almost_zero(h)
+		!fcppt::math::almost_zero(
+			width
+		)
+		&&
+		!fcppt::math::almost_zero(
+			height
+		)
 	);
 
 	return
-		w > h
+		width > height
 		?
-			w / h
+			width / height
 		:
-			h / w;
+			height / width;
 }
-
-#define SGE_INSTANTIATE_ASPECT(x)\
-template FCPPT_EXPORT_SYMBOL x sge::renderer::aspect(sge::renderer::screen_size const &);
-
-FCPPT_MATH_INSTANTIATE_ARITHMETIC(SGE_INSTANTIATE_ASPECT)
-
-#undef SGE_INSTANTIATE_ASPECT

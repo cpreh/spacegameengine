@@ -297,9 +297,7 @@ try
 	rend->transform(
 		sge::renderer::matrix_mode::projection,
 		fcppt::math::matrix::perspective(
-			sge::renderer::aspect<
-				float_type
-			>(
+			sge::renderer::aspect(
 				rend->screen_size()
 			),
 			fcppt::math::pi<float_type>() / 2,

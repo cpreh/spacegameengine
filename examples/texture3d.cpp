@@ -571,7 +571,7 @@ try
 			// Perspektivische Projektion. projection::orthogonal() wäre auch möglich
 			sge::camera::projection::perspective(
 				// aspect
-				sge::renderer::aspect<sge::renderer::scalar>(
+				sge::renderer::aspect(
 					rend->screen_size()),
 				// fov
 				fcppt::math::deg_to_rad(
