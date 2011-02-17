@@ -126,6 +126,7 @@ SET(
 	include/sge/sprite/projection_matrix.hpp
 	include/sge/sprite/rect.hpp
 	include/sge/sprite/render_one.hpp
+	include/sge/sprite/render_one_advanced.hpp
 	include/sge/sprite/render_states.hpp
 	include/sge/sprite/repetition_type.hpp
 	include/sge/sprite/roles/adder.hpp

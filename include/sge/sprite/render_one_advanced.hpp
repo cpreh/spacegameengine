@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_RENDER_ONE_HPP_INCLUDED
-#define SGE_SPRITE_RENDER_ONE_HPP_INCLUDED
+#ifndef SGE_SPRITE_RENDER_ONE_ADVANCED_HPP_INCLUDED
+#define SGE_SPRITE_RENDER_ONE_ADVANCED_HPP_INCLUDED
 
 #include <sge/sprite/external_system_impl.hpp>
 #include <sge/sprite/object_fwd.hpp>
@@ -35,7 +35,7 @@ template<
 	typename Choices
 >
 void
-render_one(
+render_one_advanced(
 	external_system<
 		Choices
 	> &_system,
@@ -44,7 +44,7 @@ render_one(
 	> const &_sprite
 )
 {
-	_system.render(
+	_system.render_advanced(
 		&_sprite,
 		&_sprite + 1u,
 		sprite::dont_sort(),

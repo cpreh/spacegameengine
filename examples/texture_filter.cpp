@@ -50,7 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/external_system_impl.hpp>
 #include <sge/sprite/no_color.hpp>
 #include <sge/sprite/parameters.hpp>
-#include <sge/sprite/render_one.hpp>
+#include <sge/sprite/render_one_advanced.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/type_choices.hpp>
 #include <sge/sprite/with_dim.hpp>
@@ -285,7 +285,7 @@ try
 			camera.projection()
 		);
 
-		sge::sprite::render_one(
+		sge::sprite::render_one_advanced(
 			sprite_sys,
 			sprite
 		);
