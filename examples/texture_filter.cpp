@@ -181,7 +181,7 @@ try
 						sge::renderer::bit_depth::depth32,
 						sge::renderer::refresh_rate_dont_care
 					),
-					sge::renderer::depth_buffer::d24,
+					sge::renderer::depth_buffer::off,
 					sge::renderer::stencil_buffer::off,
 					sge::renderer::window_mode::windowed,
 					sge::renderer::vsync::on,
@@ -235,7 +235,7 @@ try
 			static_cast<
 				sge::renderer::scalar
 			>(
-				0.2
+				2.0
 			),
 			// mousespeed
 			static_cast<
