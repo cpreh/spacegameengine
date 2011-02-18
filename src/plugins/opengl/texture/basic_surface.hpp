@@ -57,11 +57,10 @@ public:
 	);
 	
 	~basic_surface();
-private:
-	// TODO:!
+protected:
 	dim_type const
 	dim() const;
-
+private:
 	dim_type const dim_;
 };
 

@@ -20,14 +20,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../surface.hpp"
 #include "../basic_surface_impl.hpp"
+#include "../readonly_lock.hpp"
+#include "../scoped_work_bind.hpp"
+#include "../funcs/get_image.hpp"
+#include "../../convert/format_to_color.hpp"
+#include <sge/image/color/format_stride.hpp>
+#include <sge/image2d/view/make_const.hpp>
+#include <sge/image2d/view/optional_pitch.hpp>
+#include <sge/image2d/view/sub.hpp>
 #include <sge/renderer/color_surface.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/variant/object_impl.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/optional_impl.hpp>
 
 sge::opengl::texture::surface::surface(
 	texture::scoped_work_bind const &_binding,
+	opengl::context::object &_context,
 	texture::type const _type,
 	texture::id const _id,
-	renderer::stage_type const _stage
+	renderer::stage_type const _stage,
+	renderer::resource_flags_field const &_resource_flags,
+	opengl::color_format const _color_format,
+	opengl::color_format_type const _color_format_type
 )
 :
 	base(
@@ -35,7 +50,17 @@ sge::opengl::texture::surface::surface(
 		_type,
 		_id,
 		_stage
-	)
+	),
+	context_(_context),
+	stage_(_stage),
+	resource_flags_(_resource_flags),
+	color_format_(
+		_color_format
+	),
+	color_format_type_(
+		_color_format_type
+	),
+	lock_()
 {
 }
 	
@@ -45,55 +70,69 @@ sge::opengl::texture::surface::~surface()
 
 sge::image2d::view::const_object const
 sge::opengl::texture::surface::lock(
-	rect_type const &_rect
+	rect_type const &_lock_rect
 ) const
 {
-#if 0
-	lock_.reset(
-		fcppt::make_unique_ptr<
-			opengl::readonly_texture_lock
-		>(
-			context_,
-			dim().content(),
-			stride_,
-			flags_
+	sge::image::color::format::type const image_color_format(
+		opengl::convert::format_to_color(
+			color_format_,
+			color_format_type_
 		)
 	);
 
-	lock_->lock();
-
-	texfuncs::get_image(
-		type_,
-		format_,
-		format_type_,
-		lock_->read_pointer(),
-		stage_
+	lock_.take(
+		fcppt::make_unique_ptr<
+			opengl::texture::readonly_lock
+		>(
+			std::tr1::ref(
+				context_
+			),
+			this->dim().content(),
+			image::color::format_stride(
+				image_color_format
+			),
+			resource_flags_
+		)
 	);
 
-	lock_->pre_unlock();
+	{
+		opengl::texture::scoped_work_bind const binding(
+			context_,
+			this->type(),
+			this->id(),
+			stage_
+		);
+
+		texture::funcs::get_image(
+			binding,
+			this->type(),
+			color_format_,
+			color_format_type_,
+			lock_->read_pointer(),
+			stage_
+		);
+	}
+
+	lock_->lock();
 
 	return
-		sge::image::view::sub(
-			sge::image2d::view::make(
+		sge::image2d::view::sub(
+			sge::image2d::view::make_const(
 				lock_->read_view_pointer(),
-				dim(),
-				sge_format_,
+				this->dim(),
+				image_color_format,
 				image2d::view::optional_pitch()
 			),
-			lock_area_
+			_lock_rect
 		);
-#endif
-	return sge::image2d::view::const_object(); // FIXME!
 }
 
 void
 sge::opengl::texture::surface::unlock() const
 {
-#if 0
 	lock_->unlock();
 
 	lock_.reset();
-#endif
 }
 
 template class

@@ -51,7 +51,8 @@ sge::opengl::texture::volume::volume(
 {
 	opengl::texture::scoped_work_bind const binding(
 		_context,
-		*this,
+		this->type(),
+		this->id(),
 		renderer::stage_type(0u)
 	);
 

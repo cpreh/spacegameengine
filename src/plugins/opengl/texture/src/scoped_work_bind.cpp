@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::texture::scoped_work_bind::scoped_work_bind(
 	opengl::context::object &_context,
-	opengl::texture::base const &_texture,
+	opengl::texture::type const _type,
+	opengl::texture::id const _id,
 	renderer::stage_type const _stage
 )
 :
@@ -44,7 +45,8 @@ sge::opengl::texture::scoped_work_bind::scoped_work_bind(
 {
 	bind_context_.bind_for_work(
 		_context,
-		_texture,
+		_type,
+		_id,
 		_stage
 	);
 }

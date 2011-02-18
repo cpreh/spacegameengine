@@ -143,7 +143,8 @@ sge::opengl::texture::basic<Types>::unlock() const
 
 		opengl::texture::scoped_work_bind const binding(
 			context_,
-			*this,
+			this->type(),
+			this->id(),
 			renderer::stage_type(0u)
 		);
 
@@ -208,7 +209,8 @@ sge::opengl::texture::basic<Types>::lock_me(
 	{
 		opengl::texture::scoped_work_bind const binding(
 			context_,
-			*this,
+			this->type(),
+			this->id(),
 			renderer::stage_type(0u)
 		);
 
@@ -429,7 +431,8 @@ sge::opengl::texture::basic<Types>::basic(
 	// constructor of the derived class runs!
 	opengl::texture::scoped_work_bind const binding(
 		context_,
-		*this,
+		this->type(),
+		this->id(),
 		renderer::stage_type(0u)
 	);
 

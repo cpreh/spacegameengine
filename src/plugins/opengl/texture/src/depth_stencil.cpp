@@ -55,7 +55,8 @@ sge::opengl::texture::depth_stencil::depth_stencil(
 {
 	opengl::texture::scoped_work_bind const binding(
 		_context,
-		*this,
+		this->type(),
+		this->id(),
 		renderer::stage_type(0u)
 	);
 
@@ -102,7 +103,8 @@ sge::opengl::texture::depth_stencil::surface() const
 {
 	opengl::texture::scoped_work_bind const binding(
 		context_,
-		*this,
+		this->type(),
+		this->id(),
 		renderer::stage_type(0u)
 	);
 

@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_SCOPED_WORK_BIND_HPP_INCLUDED
 
 #include "scoped_work_bind_fwd.hpp"
-#include "base_fwd.hpp"
 #include "bind_context_fwd.hpp"
+#include "id.hpp"
+#include "type.hpp"
 #include "../context/object_fwd.hpp"
 #include <sge/renderer/stage_type.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -43,7 +44,8 @@ class scoped_work_bind
 public:
 	scoped_work_bind(
 		opengl::context::object &,
-		opengl::texture::base const &,
+		opengl::texture::type,
+		opengl::texture::id,
 		renderer::stage_type
 	);
 

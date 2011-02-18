@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_BIND_CONTEXT_HPP_INCLUDED
 
 #include "bind_context_fwd.hpp"
-#include "base_fwd.hpp"
 #include "const_base_ptr.hpp"
+#include "id.hpp"
 #include "optional_type.hpp"
+#include "type.hpp"
 #include "../context/base.hpp"
 #include "../context/id.hpp"
 #include "../context/object_fwd.hpp"
@@ -70,7 +71,8 @@ public:
 	void
 	bind_for_work(
 		opengl::context::object &,
-		opengl::texture::base const &,
+		texture::type,
+		texture::id,
 		renderer::stage_type
 	);
 

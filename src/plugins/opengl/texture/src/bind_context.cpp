@@ -149,7 +149,8 @@ sge::opengl::texture::bind_context::unbind_for_rendering(
 void
 sge::opengl::texture::bind_context::bind_for_work(
 	opengl::context::object &_context,
-	opengl::texture::base const &_texture,
+	texture::type const _type,
+	texture::id const _id,
 	renderer::stage_type const _stage
 )
 {
@@ -166,8 +167,8 @@ sge::opengl::texture::bind_context::bind_for_work(
 	);
 
 	texture::funcs::bind(
-		_texture.type(),
-		_texture.id()
+		_type,
+		_id
 	);
 }
 
