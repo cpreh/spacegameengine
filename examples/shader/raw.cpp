@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/glsl/uniform/variable.hpp>
 #include <sge/renderer/glsl/uniform/single_value.hpp>
+#include <sge/renderer/glsl/create_program_from_streams.hpp>
 #include <sge/renderer/glsl/program.hpp>
 #include <sge/renderer/glsl/no_program.hpp>
 #include <sge/texture/part_raw.hpp>
@@ -457,7 +458,8 @@ try
 	);
 
 	sge::renderer::glsl::program_ptr const p(
-		sys.renderer()->create_glsl_program(
+		sge::renderer::glsl::create_program_from_streams(
+			sys.renderer(),
 			sge::renderer::glsl::istream_ref(
 				vertex_stream
 			),

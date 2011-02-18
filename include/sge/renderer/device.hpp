@@ -55,8 +55,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/glsl/const_program_ptr.hpp>
-#include <sge/renderer/glsl/optional_istream.hpp>
-#include <sge/renderer/glsl/optional_string.hpp>
 #include <sge/renderer/glsl/pixel_shader_ptr.hpp>
 #include <sge/renderer/glsl/program_ptr.hpp>
 #include <sge/renderer/glsl/string.hpp>
@@ -200,20 +198,6 @@ public:
 	target(
 		renderer::target_ptr
 	) = 0;
-
-	SGE_SYMBOL
-	glsl::program_ptr const
-	create_glsl_program(
-		glsl::optional_string const &vertex_shader_source,
-		glsl::optional_string const &pixel_shader_source
-	);
-
-	SGE_SYMBOL
-	glsl::program_ptr const
-	create_glsl_program(
-		glsl::optional_istream const &vertex_shader_source,
-		glsl::optional_istream const &pixel_shader_source
-	);
 
 	virtual glsl::program_ptr const
 	create_glsl_program() = 0;

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/object.hpp>
 #include <sge/exception.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/glsl/create_program_from_strings.hpp>
 #include <sge/renderer/glsl/optional_string.hpp>
 #include <sge/renderer/glsl/string.hpp>
 #include <sge/renderer/glsl/uniform/single_value.hpp>
@@ -140,7 +141,8 @@ sge::shader::object::object(
 					boost::phoenix::arg_names::arg2));
 
 	program_ = 
-		renderer_->create_glsl_program(
+		sge::renderer::glsl::create_program_from_strings(
+			renderer_,
 			sge::renderer::glsl::optional_string(
 				boost::algorithm::replace_first_copy(
 					::file_to_string(

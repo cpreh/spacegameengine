@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/init.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/rgba8_format.hpp>
-#include <sge/image/colors.hpp>
 #include <sge/image2d/create_texture.hpp>
 #include <sge/all_extensions.hpp>
 #include <sge/config/media_path.hpp>
@@ -36,8 +35,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/glsl/uniform/variable.hpp>
 #include <sge/renderer/glsl/uniform/single_value.hpp>
+#include <sge/renderer/glsl/create_program_from_streams.hpp>
+#include <sge/renderer/glsl/istream_ref.hpp>
 #include <sge/renderer/glsl/program.hpp>
-#include <sge/renderer/glsl/no_program.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
@@ -75,12 +75,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cifstream.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/log/level.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/random/make_inclusive_range.hpp>
-#include <fcppt/random/make_last_exclusive_range.hpp>
 #include <fcppt/random/uniform.hpp>
 #include <fcppt/math/twopi.hpp>
 #include <fcppt/exception.hpp>
@@ -468,7 +466,8 @@ try
 		/ FCPPT_TEXT("pointsprite_vertex.glsl"));
 
 	sge::renderer::glsl::program_ptr const p(
-		sys.renderer()->create_glsl_program(
+		sge::renderer::glsl::create_program_from_streams(
+			sys.renderer(),
 			sge::renderer::glsl::istream_ref(
 				vertex_stream),
 			sge::renderer::glsl::istream_ref(

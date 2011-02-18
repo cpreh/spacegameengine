@@ -483,6 +483,8 @@ SET(
 	include/sge/renderer/first_vertex.hpp
 	include/sge/renderer/glsl/char.hpp
 	include/sge/renderer/glsl/const_program_ptr.hpp
+	include/sge/renderer/glsl/create_program_from_streams.hpp
+	include/sge/renderer/glsl/create_program_from_strings.hpp
 	include/sge/renderer/glsl/exception.hpp
 	include/sge/renderer/glsl/from_fcppt_string.hpp
 	include/sge/renderer/glsl/int_type.hpp
@@ -1019,6 +1021,8 @@ SET(
 	src/renderer/device.cpp
 	src/renderer/display_mode.cpp
 	src/renderer/exception.cpp
+	src/renderer/glsl/create_program_from_streams.cpp
+	src/renderer/glsl/create_program_from_strings.cpp
 	src/renderer/glsl/exception.cpp
 	src/renderer/glsl/from_fcppt_string.cpp
 	src/renderer/glsl/no_program.cpp

@@ -18,12 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/glsl/create_program_from_strings.hpp>
+#include <sge/renderer/glsl/program.hpp>
 #include <sge/renderer/device.hpp>
+#include <fcppt/optional_impl.hpp>
 
-sge::renderer::device::device()
+sge::renderer::glsl::program_ptr const
+sge::renderer::glsl::create_program_from_strings(
+	sge::renderer::device_ptr const _device,
+	glsl::optional_string const &_vertex_shader_source,
+	glsl::optional_string const &_pixel_shader_source
+)
 {
-}
+	glsl::program_ptr const ret(
+		_device->create_glsl_program()
+	);
 
-sge::renderer::device::~device()
-{
+	if(
+		_vertex_shader_source
+	)
+		ret->vertex_shader(
+			_device->create_glsl_vertex_shader(
+				*_vertex_shader_source
+			)
+		);
+	
+	if(
+		_pixel_shader_source
+	)
+		ret->pixel_shader(
+			_device->create_glsl_pixel_shader(
+				*_pixel_shader_source
+			)
+		);
+
+	ret->link();
+
+	return ret;
 }
