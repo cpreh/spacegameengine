@@ -53,6 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/renderer/aspect.hpp>
 #include <sge/renderer/bit_depth.hpp>
+#include <sge/renderer/caps.hpp>
 #include <sge/renderer/depth_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/device_ptr.hpp>
@@ -75,8 +76,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
-#include <sge/renderer/texture/filter/mip.hpp>
+#include <sge/renderer/texture/filter/anisotropic.hpp>
+#include <sge/renderer/texture/filter/anisotropy_type.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
+#include <sge/renderer/texture/filter/mip.hpp>
 #include <sge/renderer/texture/filter/object.hpp>
 #include <sge/renderer/texture/filter/point.hpp>
 #include <sge/renderer/texture/filter/trilinear.hpp>
@@ -109,6 +112,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/instance.hpp>
 #include <fcppt/cyclic_iterator.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/lexical_cast.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/array.hpp>
@@ -349,13 +353,17 @@ try
 
 	typedef fcppt::container::array<
 		string_texture_pair,
-		4u
+		5u
 	> texture_array;
 
 	sge::image2d::view::const_object const texture_view(
 		sge::image2d::view::to_const(
 			whole_store.view()
 		)
+	);
+
+	sge::renderer::texture::filter::anisotropy_type const anisotropy(
+		sys.renderer()->caps().max_anisotropy()
 	);
 
 	texture_array const textures =
@@ -390,6 +398,22 @@ try
 				sys.renderer(),
 				texture_view,
 				sge::renderer::texture::filter::trilinear
+			)
+		),
+		std::make_pair(
+			SGE_FONT_TEXT_LIT("anisotropic ")
+			+ fcppt::lexical_cast<
+				sge::font::text::string
+			>(
+				anisotropy
+			)
+			+ SGE_FONT_TEXT_LIT('x'),
+			make_texture(
+				sys.renderer(),
+				texture_view,
+				sge::renderer::texture::filter::anisotropic(
+					anisotropy
+				)
 			)
 		)
 	}};
