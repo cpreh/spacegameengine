@@ -19,18 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/index_buffer.hpp>
-#include <sge/renderer/indices_per_primitive.hpp>
-#include <sge/renderer/scoped_index_lock.hpp>
-#include <sge/renderer/scoped_vertex_lock.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/index/dynamic/format_stride.hpp>
 #include <sge/renderer/glsl/program.hpp>
-#include <sge/renderer/vf/dynamic/format.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/assert.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <cstring>
 #include <sstream>
 
 sge::renderer::device::device()
@@ -107,67 +97,6 @@ sge::renderer::device::create_glsl_program(
 			:
 				renderer::glsl::optional_string()
 		);
-}
-
-sge::renderer::vertex_buffer_ptr const
-sge::renderer::device::create_vertex_buffer(
-	vf::dynamic::const_view const &_view,
-	resource_flags_field const &_flags
-)
-{
-	vertex_buffer_ptr const vb(
-		this->create_vertex_buffer(
-			_view.format(),
-			_view.size(),
-			_flags
-		)
-	);
-
-	renderer::scoped_vertex_lock const lock(
-		vb,
-		renderer::lock_mode::writeonly
-	);
-
-	std::memcpy(
-		lock.value().data(),
-		_view.data(),
-		_view.format().stride()
-		* _view.size()
-	);
-
-	return vb;
-}
-
-sge::renderer::index_buffer_ptr const
-sge::renderer::device::create_index_buffer(
-	index::dynamic::const_view const &_view,
-	resource_flags_field const &_flags
-)
-{
-	renderer::index_buffer_ptr const ib(
-		this->create_index_buffer(
-			_view.format(),
-			_view.size(),
-			_flags
-		)
-	);
-
-	renderer::scoped_index_lock const lock(
-		ib,
-		lock_mode::writeonly
-	);
-
-	std::memcpy(
-		lock.value().data(),
-		_view.data(),
-		renderer::index::dynamic::format_stride(
-			_view.format()
-		)
-		*
-		_view.size()
-	);
-
-	return ib;
 }
 
 sge::renderer::device::~device()

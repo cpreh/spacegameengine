@@ -459,6 +459,8 @@ SET(
 	include/sge/renderer/const_target_ptr.hpp
 	include/sge/renderer/const_vertex_buffer_ptr.hpp
 	include/sge/renderer/create_device_with_window.hpp
+	include/sge/renderer/create_index_buffer_from_view.hpp
+	include/sge/renderer/create_vertex_buffer_from_view.hpp
 	include/sge/renderer/default_target.hpp
 	include/sge/renderer/depth_buffer.hpp
 	include/sge/renderer/depth_stencil_format.hpp
@@ -1009,6 +1011,8 @@ SET(
 	src/renderer/const_scoped_index_lock.cpp
 	src/renderer/const_scoped_vertex_lock.cpp
 	src/renderer/create_device_with_window.cpp
+	src/renderer/create_index_buffer_from_view.cpp
+	src/renderer/create_vertex_buffer_from_view.cpp
 	src/renderer/default_target.cpp
 	src/renderer/depth_stencil_surface.cpp
 	src/renderer/detail/npos.cpp

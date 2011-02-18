@@ -61,7 +61,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/program_ptr.hpp>
 #include <sge/renderer/glsl/string.hpp>
 #include <sge/renderer/glsl/vertex_shader_ptr.hpp>
-#include <sge/renderer/index/dynamic/const_view.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/state/list_fwd.hpp>
 #include <sge/renderer/texture/const_base_ptr.hpp>
@@ -72,7 +71,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
 #include <sge/renderer/texture/volume_ptr.hpp>
-#include <sge/renderer/vf/dynamic/const_view_fwd.hpp>
 #include <sge/renderer/vf/dynamic/format_fwd.hpp>
 #include <sge/window/instance_ptr.hpp>
 #include <sge/class_symbol.hpp>
@@ -265,24 +263,12 @@ public:
 		renderer::texture::cube_parameters const &
 	) = 0;
 
-	SGE_SYMBOL vertex_buffer_ptr const
-	create_vertex_buffer(
-		vf::dynamic::const_view const &,
-		resource_flags_field const &
-	);
-
 	virtual vertex_buffer_ptr const
 	create_vertex_buffer(
 		vf::dynamic::format const &,
 		size_type size,
 		resource_flags_field const &
 	) = 0;
-
-	SGE_SYMBOL index_buffer_ptr const
-	create_index_buffer(
-		index::dynamic::const_view const &,
-		resource_flags_field const &
-	);
 
 	virtual index_buffer_ptr const
 	create_index_buffer(
