@@ -329,6 +329,7 @@ SET(
 	include/sge/input/keyboard/device_fwd.hpp
 	include/sge/input/keyboard/device_ptr.hpp
 	include/sge/input/keyboard/device_vector.hpp
+	include/sge/input/keyboard/digit.hpp
 	include/sge/input/keyboard/discover_callback.hpp
 	include/sge/input/keyboard/discover_function.hpp
 	include/sge/input/keyboard/discover_signal.hpp
@@ -337,6 +338,7 @@ SET(
 	include/sge/input/keyboard/is_shift.hpp
 	include/sge/input/keyboard/key_callback.hpp
 	include/sge/input/keyboard/key_code.hpp
+	include/sge/input/keyboard/key_code_to_digit.hpp
 	include/sge/input/keyboard/key_event.hpp
 	include/sge/input/keyboard/key_event_fwd.hpp
 	include/sge/input/keyboard/key_function.hpp
@@ -346,6 +348,7 @@ SET(
 	include/sge/input/keyboard/key_repeat_function.hpp
 	include/sge/input/keyboard/mod_state.hpp
 	include/sge/input/keyboard/modifier.hpp
+	include/sge/input/keyboard/optional_digit.hpp
 	include/sge/input/keyboard/optional_modifier.hpp
 	include/sge/input/keyboard/remove_callback.hpp
 	include/sge/input/keyboard/remove_function.hpp
@@ -961,6 +964,7 @@ SET(
 	src/input/keyboard/is_alt.cpp
 	src/input/keyboard/is_ctrl.cpp
 	src/input/keyboard/is_shift.cpp
+	src/input/keyboard/key_code_to_digit.cpp
 	src/input/keyboard/key_event.cpp
 	src/input/keyboard/key_repeat_event.cpp
 	src/input/keyboard/to_modifier.cpp

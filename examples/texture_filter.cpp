@@ -51,6 +51,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
+#include <sge/input/keyboard/key_code_to_digit.hpp>
+#include <sge/input/keyboard/key_event.hpp>
+#include <sge/input/keyboard/optional_digit.hpp>
 #include <sge/renderer/aspect.hpp>
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/caps.hpp>
@@ -110,7 +113,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/second.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/window/instance.hpp>
-#include <fcppt/cyclic_iterator.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/lexical_cast.hpp>
 #include <fcppt/make_shared_ptr.hpp>
@@ -160,30 +162,61 @@ make_texture(
 		);
 }
 
-template<
-	typename Sprite,
-	typename Iterator
->
-void
-advance_texture(
-	Sprite &_sprite,
-	Iterator &_iterator,
-	sge::font::text::string &_text
-)
-{
-	++_iterator;
-
-	_text = _iterator->first;
-
-	_sprite.texture(
-		_iterator->second
-	);
-}
-
 typedef std::pair<
 	sge::font::text::string,
 	sge::texture::const_part_ptr
 > string_texture_pair;
+
+template<
+	typename Sprite,
+	typename Textures
+>
+void
+change_texture(
+	sge::input::keyboard::key_event const &_event,
+	Sprite &_sprite,
+	sge::font::text::string &_text,
+	Textures const &_textures
+)
+{
+	if(
+		!_event.pressed()
+	)
+		return;
+	
+	sge::input::keyboard::optional_digit const digit(
+		sge::input::keyboard::key_code_to_digit(
+			_event.key_code()
+		)
+	);
+
+	if(
+		!digit
+	)
+		return;
+	
+	typename Textures::size_type const index(
+		digit->get() - 1u
+	);
+
+	if(
+		index
+		>= _textures.size()
+	)
+		return;
+
+	typename Textures::const_reference ref(
+		_textures[
+			index
+		]
+	);
+
+	_text = ref.first;
+
+	_sprite.texture(
+		ref.second
+	);
+}
 
 }
 
@@ -418,16 +451,6 @@ try
 		)
 	}};
 
-	typedef fcppt::cyclic_iterator<
-		texture_array::const_iterator
-	> cyclic_texture_iterator;
-
-	cyclic_texture_iterator texture_iterator(
-		textures.begin(),
-		textures.begin(),
-		textures.end()
-	);
-
 	typedef sge::sprite::choices<
 		sge::sprite::type_choices<
 			int,
@@ -479,13 +502,20 @@ try
 			100u
 		)
 		.texture(
-			texture_iterator->second
+			sge::texture::const_part_ptr()
 		)
 		.elements()
 	);
 
 	sge::font::text::string current_text(
-		texture_iterator->first
+		SGE_FONT_TEXT_LIT("Press 1 through ")
+		+
+		fcppt::lexical_cast<
+			sge::font::text::string
+		>(
+			textures.size()
+		)
+		+ SGE_FONT_TEXT_LIT(" to select a filter!")
 	);
 
 	bool running(
@@ -505,23 +535,19 @@ try
 
 	fcppt::signal::scoped_connection const texture_connection(
 		sys.keyboard_collector()->key_callback(
-			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::n,
-				std::tr1::bind(
-					advance_texture<
-						sprite_object,
-						cyclic_texture_iterator
-					>,
-					std::tr1::ref(
-						sprite
-					),
-					std::tr1::ref(
-						texture_iterator
-					),
-					std::tr1::ref(
-						current_text
-					)
-				)
+			std::tr1::bind(
+				change_texture<
+					sprite_object,
+					texture_array
+				>,
+				std::tr1::placeholders::_1,
+				std::tr1::ref(
+					sprite
+				),
+				std::tr1::ref(
+					current_text
+				),
+				textures
 			)
 		)
 	);
