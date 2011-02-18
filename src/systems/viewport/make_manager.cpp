@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "make_manager.hpp"
 #include "basic_manager.hpp"
 #include <sge/systems/viewport/manager_unique_ptr.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/spirit/home/phoenix/object/new.hpp>
