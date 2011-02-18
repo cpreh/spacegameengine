@@ -69,6 +69,17 @@ sge::opengl::texture::funcs::set_filter(
 	);
 
 	if(
+		funcs::need_mipmap(
+			_filter.min()
+		)
+	)
+		opengl::texture::funcs::auto_generate_mipmap(
+			_scoped_work,
+			_context,
+			_type
+		);
+
+	if(
 		!_filter.anisotropy()
 	)
 		return;
@@ -121,15 +132,4 @@ sge::opengl::texture::funcs::set_filter(
 
 		throw;
 	}
-
-	if(
-		funcs::need_mipmap(
-			_filter.min()
-		)
-	)
-		opengl::texture::funcs::auto_generate_mipmap(
-			_scoped_work,
-			_context,
-			_type
-		);
 }

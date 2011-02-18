@@ -471,10 +471,6 @@ try
 	{
 		sys.window()->dispatch();
 
-		sge::renderer::scoped_block const block_(
-			sys.renderer()
-		);
-
 		camera.update(
 			static_cast<
 				sge::renderer::scalar
@@ -491,6 +487,10 @@ try
 		sys.renderer()->transform(
 			sge::renderer::matrix_mode::projection,
 			camera.projection()
+		);
+
+		sge::renderer::scoped_block const block(
+			sys.renderer()
 		);
 
 		sge::sprite::render_one_advanced(
