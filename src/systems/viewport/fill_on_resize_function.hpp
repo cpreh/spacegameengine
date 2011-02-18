@@ -18,25 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "resize_manager.hpp"
-#include <sge/systems/viewport/manage_resize.hpp>
-#include <sge/systems/viewport/manager.hpp>
-#include <sge/systems/viewport/manager_unique_ptr.hpp>
-#include <boost/spirit/home/phoenix/core/argument.hpp>
-#include <boost/spirit/home/phoenix/object/construct.hpp>
-#include <boost/spirit/home/phoenix/object/new.hpp>
+#ifndef SGE_SYSTEMS_VIEWPORT_FILL_ON_RESIZE_FUNCTION_HPP_INCLUDED
+#define SGE_SYSTEMS_VIEWPORT_FILL_ON_RESIZE_FUNCTION_HPP_INCLUDED
 
-sge::systems::viewport::factory const
-sge::systems::viewport::manage_resize()
+#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/viewport.hpp>
+#include <awl/window/event/resize_fwd.hpp>
+
+namespace sge
 {
-	return
-		boost::phoenix::construct<
-			viewport::manager_unique_ptr
-		>(
-			boost::phoenix::new_<
-				viewport::resize_manager
-			>(
-				boost::phoenix::arg_names::arg1
-			)
-		);
+namespace systems
+{
+namespace viewport
+{
+
+sge::renderer::viewport const
+fill_on_resize_function(
+	sge::renderer::device_ptr,
+	awl::window::event::resize const &
+);
+
 }
+}
+}
+
+#endif

@@ -18,59 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "center.hpp"
-#include "resize_manager.hpp"
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/onscreen_target.hpp>
+#include "fill_on_resize_function.hpp"
 #include <sge/renderer/viewport.hpp>
-#include <sge/window/instance.hpp>
-#include <awl/window/event/processor.hpp>
-#include <awl/window/event/resize.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <awl/window/event/resize.hpp>
 
-sge::systems::viewport::resize_manager::resize_manager(
-	sge::renderer::device_ptr const _device
-)
-:
-	device_(
-		_device
-	),
-	target_(
-		_device->onscreen_target()
-	),
-	resize_connection_(
-		_device->window()->awl_window_event_processor()->resize_callback(
-			std::tr1::bind(
-				&resize_manager::on_resize,
-				this,
-				std::tr1::placeholders::_1
-			)
-		)
-	)
-{
-}
-
-
-sge::systems::viewport::resize_manager::~resize_manager()
-{
-}
-
-void
-sge::systems::viewport::resize_manager::on_resize(
+sge::renderer::viewport const
+sge::systems::viewport::fill_on_resize_function(
+	sge::renderer::device_ptr,
 	awl::window::event::resize const &_resize
 )
 {
-	target_->viewport(
-		systems::viewport::center(
-			device_->screen_size(),
-			fcppt::math::dim::structure_cast<
-				sge::window::dim_type
-			>(
-				_resize.dim()
+	return
+		sge::renderer::viewport(
+			sge::renderer::pixel_rect(
+				sge::renderer::pixel_rect::vector::null(),
+				fcppt::math::dim::structure_cast<
+					sge::renderer::pixel_rect::dim
+				>(
+					_resize.dim()
+				)
 			)
-		)
-	);
+		);
 }

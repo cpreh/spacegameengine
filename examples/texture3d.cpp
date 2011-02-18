@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/running_to_false.hpp>
-#include <sge/systems/viewport/manage_resize.hpp>
+#include <sge/systems/viewport/center_on_resize.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/pos.hpp>
@@ -444,7 +444,7 @@ try
 					sge::renderer::no_multi_sampling
 				),
 				// Copypaste
-				sge::systems::viewport::manage_resize()
+				sge::systems::viewport::center_on_resize()
 			)
 		)
 		(

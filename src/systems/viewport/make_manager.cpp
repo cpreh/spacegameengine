@@ -18,31 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TEXTURE_FILTER_ANISOTROPIC_HPP_INCLUDED
-#define SGE_RENDERER_TEXTURE_FILTER_ANISOTROPIC_HPP_INCLUDED
+#include "make_manager.hpp"
+#include "basic_manager.hpp"
+#include <sge/systems/viewport/manager_unique_ptr.hpp>
+#include <boost/spirit/home/phoenix/core/argument.hpp>
+#include <boost/spirit/home/phoenix/object/construct.hpp>
+#include <boost/spirit/home/phoenix/object/new.hpp>
 
-#include <sge/renderer/texture/filter/object.hpp>
-#include <sge/renderer/texture/filter/anisotropy_type.hpp>
-#include <sge/symbol.hpp>
-
-namespace sge
+sge::systems::viewport::factory const
+sge::systems::viewport::make_manager(
+	viewport::resize_function const &_resize_function
+)
 {
-namespace renderer
-{
-namespace texture
-{
-namespace filter
-{
-
-SGE_SYMBOL
-filter::object const
-anisotropic(
-	filter::anisotropy_type
-);
-
+	return
+		boost::phoenix::construct<
+			viewport::manager_unique_ptr
+		>(
+			boost::phoenix::new_<
+				viewport::basic_manager
+			>(
+				boost::phoenix::arg_names::arg1,
+				_resize_function
+			)
+		);
 }
-}
-}
-}
-
-#endif

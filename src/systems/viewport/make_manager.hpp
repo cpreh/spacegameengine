@@ -18,29 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TEXTURE_FILTER_ANISOTROPIC_HPP_INCLUDED
-#define SGE_RENDERER_TEXTURE_FILTER_ANISOTROPIC_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_VIEWPORT_MAKE_MANAGER_HPP_INCLUDED
+#define SGE_SYSTEMS_VIEWPORT_MAKE_MANAGER_HPP_INCLUDED
 
-#include <sge/renderer/texture/filter/object.hpp>
-#include <sge/renderer/texture/filter/anisotropy_type.hpp>
-#include <sge/symbol.hpp>
+#include "resize_function.hpp"
+#include <sge/systems/viewport/factory.hpp>
 
 namespace sge
 {
-namespace renderer
+namespace systems
 {
-namespace texture
-{
-namespace filter
+namespace viewport
 {
 
-SGE_SYMBOL
-filter::object const
-anisotropic(
-	filter::anisotropy_type
+viewport::factory const
+make_manager(
+	viewport::resize_function const &
 );
 
-}
 }
 }
 }

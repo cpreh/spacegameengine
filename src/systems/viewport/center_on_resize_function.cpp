@@ -18,31 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TEXTURE_FILTER_ANISOTROPIC_HPP_INCLUDED
-#define SGE_RENDERER_TEXTURE_FILTER_ANISOTROPIC_HPP_INCLUDED
+#include "center.hpp"
+#include "center_on_resize_function.hpp"
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/viewport.hpp>
+#include <awl/window/event/resize.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 
-#include <sge/renderer/texture/filter/object.hpp>
-#include <sge/renderer/texture/filter/anisotropy_type.hpp>
-#include <sge/symbol.hpp>
-
-namespace sge
+sge::renderer::viewport const
+sge::systems::viewport::center_on_resize_function(
+	sge::renderer::device_ptr const _device,
+	awl::window::event::resize const &_resize
+)
 {
-namespace renderer
-{
-namespace texture
-{
-namespace filter
-{
-
-SGE_SYMBOL
-filter::object const
-anisotropic(
-	filter::anisotropy_type
-);
-
+	return
+		systems::viewport::center(
+			_device->screen_size(),
+			fcppt::math::dim::structure_cast<
+				sge::window::dim_type
+			>(
+				_resize.dim()
+			)
+		);
 }
-}
-}
-}
-
-#endif

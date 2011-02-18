@@ -63,7 +63,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list.hpp>
 #include <sge/systems/parameterless.hpp>
 #include <sge/systems/running_to_false.hpp>
-#include <sge/systems/viewport/manage_resize.hpp>
+#include <sge/systems/viewport/center_on_resize.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/time/duration.hpp>
@@ -436,7 +436,7 @@ try
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling
 				),
-				sge::systems::viewport::manage_resize()
+				sge::systems::viewport::center_on_resize()
 			)
 		)
 		(

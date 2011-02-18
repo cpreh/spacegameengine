@@ -18,13 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_VIEWPORT_RESIZE_MANAGER_HPP_INCLUDED
-#define SGE_SYSTEMS_VIEWPORT_RESIZE_MANAGER_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_VIEWPORT_BASIC_MANAGER_HPP_INCLUDED
+#define SGE_SYSTEMS_VIEWPORT_BASIC_MANAGER_HPP_INCLUDED
 
+#include "resize_function.hpp"
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/target_base_ptr.hpp>
 #include <sge/systems/viewport/manager.hpp>
 #include <awl/window/event/resize_fwd.hpp>
+#include <fcppt/function/object.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -35,19 +37,20 @@ namespace systems
 namespace viewport
 {
 
-class resize_manager
+class basic_manager
 :
 	public sge::systems::viewport::manager
 {
 	FCPPT_NONCOPYABLE(
-		resize_manager
+		basic_manager
 	);
 public:
-	explicit resize_manager(
-		sge::renderer::device_ptr
+	explicit basic_manager(
+		sge::renderer::device_ptr,
+		systems::viewport::resize_function const &
 	);
-
-	~resize_manager();
+	
+	~basic_manager();
 private:
 	void
 	on_resize(
@@ -57,6 +60,8 @@ private:
 	sge::renderer::device_ptr const device_;
 
 	sge::renderer::target_base_ptr const target_;
+
+	systems::viewport::resize_function const resize_function_;
 
 	fcppt::signal::scoped_connection const resize_connection_;
 };
