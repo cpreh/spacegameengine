@@ -18,27 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TEXTURE_FILTER_MIP_HPP_INCLUDED
-#define SGE_RENDERER_TEXTURE_FILTER_MIP_HPP_INCLUDED
-
 #include <sge/renderer/texture/filter/object.hpp>
-#include <sge/symbol.hpp>
 
-namespace sge
+sge::renderer::texture::filter::object::object(
+	filter::min::type const _min,
+	filter::mag::type const _mag,
+	filter::anisotropy_type const _anisotropy
+)
+:
+	min_(_min),
+	mag_(_mag),
+	anisotropy_(_anisotropy)
 {
-namespace renderer
-{
-namespace texture
-{
-namespace filter
-{
-
-SGE_SYMBOL extern
-filter::object const mip;
-
-}
-}
-}
 }
 
-#endif
+sge::renderer::texture::filter::min::type
+sge::renderer::texture::filter::object::min() const
+{
+	return min_;
+}
+
+sge::renderer::texture::filter::mag::type
+sge::renderer::texture::filter::object::mag() const
+{
+	return mag_;
+}
+
+sge::renderer::texture::filter::anisotropy_type const
+sge::renderer::texture::filter::object::anisotropy() const
+{
+	return anisotropy_;
+}

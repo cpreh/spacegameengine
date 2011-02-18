@@ -80,7 +80,7 @@ sge::opengl::texture::funcs::set_filter(
 		);
 
 	if(
-		!_filter.anisotropy()
+		_filter.anisotropy().get() == 0u
 	)
 		return;
 
@@ -114,7 +114,7 @@ sge::opengl::texture::funcs::set_filter(
 			static_cast<
 				GLint
 			>(
-				_filter.anisotropy()
+				_filter.anisotropy().get()
 			)
 		);
 	}

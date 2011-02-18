@@ -23,5 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::renderer::texture::filter::object const
 sge::renderer::texture::filter::point(
 	min::point,
-	mag::point
+	mag::point,
+	sge::renderer::texture::filter::anisotropy_type(
+		0u
+	)
 );

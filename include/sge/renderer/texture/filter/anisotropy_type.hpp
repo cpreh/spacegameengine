@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_FILTER_ANISOTROPY_TYPE_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_FILTER_ANISOTROPY_TYPE_HPP_INCLUDED
 
+#include <fcppt/strong_typedef.hpp>
+
 namespace sge
 {
 namespace renderer
@@ -30,7 +32,10 @@ namespace texture
 namespace filter
 {
 
-typedef unsigned anisotropy_type;
+FCPPT_MAKE_STRONG_TYPEDEF(
+	unsigned,
+	anisotropy_type
+);
 
 }
 }

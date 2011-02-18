@@ -706,7 +706,7 @@ SET(
 	include/sge/renderer/texture/filter/linear.hpp
 	include/sge/renderer/texture/filter/mag.hpp
 	include/sge/renderer/texture/filter/min.hpp
-	include/sge/renderer/texture/filter/mip.hpp
+	include/sge/renderer/texture/filter/mipmap.hpp
 	include/sge/renderer/texture/filter/object.hpp
 	include/sge/renderer/texture/filter/object_fwd.hpp
 	include/sge/renderer/texture/filter/point.hpp
@@ -1090,9 +1090,9 @@ SET(
 	src/renderer/texture/depth_stencil.cpp
 	src/renderer/texture/filter/anisotropic.cpp
 	src/renderer/texture/filter/linear.cpp
-	src/renderer/texture/filter/mip.cpp
+	src/renderer/texture/filter/mipmap.cpp
+	src/renderer/texture/filter/object.cpp
 	src/renderer/texture/filter/point.cpp
-	src/renderer/texture/filter/texture.cpp
 	src/renderer/texture/filter/trilinear.cpp
 	src/renderer/texture/planar.cpp
 	src/renderer/texture/planar_parameters.cpp

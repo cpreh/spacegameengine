@@ -79,7 +79,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/filter/anisotropic.hpp>
 #include <sge/renderer/texture/filter/anisotropy_type.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
-#include <sge/renderer/texture/filter/mip.hpp>
+#include <sge/renderer/texture/filter/mipmap.hpp>
 #include <sge/renderer/texture/filter/object.hpp>
 #include <sge/renderer/texture/filter/point.hpp>
 #include <sge/renderer/texture/filter/trilinear.hpp>
@@ -389,7 +389,7 @@ try
 			make_texture(
 				sys.renderer(),
 				texture_view,
-				sge::renderer::texture::filter::mip
+				sge::renderer::texture::filter::mipmap
 			)
 		),
 		std::make_pair(
@@ -457,18 +457,22 @@ try
 		sys.renderer()
 	);
 
+	sprite_object::unit const sprite_size(
+		1000
+	);
+
 	sprite_object sprite(
 		sprite_parameters()
 		.pos(
 			sprite_object::point(
-				-500,
-				-500
+				-(sprite_size / 2),
+				-(sprite_size / 2)
 			)
 		)
 		.size(
 			sprite_object::dim(
-				1000,
-				1000
+				sprite_size,
+				sprite_size
 			)
 		)
 		.repetition(

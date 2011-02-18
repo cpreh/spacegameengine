@@ -42,7 +42,7 @@ public:
 	SGE_SYMBOL object(
 		filter::min::type,
 		filter::mag::type,
-		filter::anisotropy_type anisotropy_level = 0
+		filter::anisotropy_type
 	);
 
 	SGE_SYMBOL filter::min::type
@@ -51,7 +51,7 @@ public:
 	SGE_SYMBOL filter::mag::type
 	mag() const;
 
-	SGE_SYMBOL filter::anisotropy_type
+	SGE_SYMBOL filter::anisotropy_type const
 	anisotropy() const;
 private:
 	filter::min::type min_;

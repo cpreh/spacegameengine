@@ -18,10 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/texture/filter/mip.hpp>
+#include <sge/renderer/texture/filter/mipmap.hpp>
 
 sge::renderer::texture::filter::object const
-sge::renderer::texture::filter::mip(
+sge::renderer::texture::filter::mipmap(
 	min::mipmap,
-	mag::linear
+	mag::linear,
+	sge::renderer::texture::filter::anisotropy_type(
+		0u
+	)
 );
