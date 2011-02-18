@@ -23,6 +23,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/object.hpp>
 #include <sge/camera/parameters.hpp>
 #include <sge/camera/projection/perspective.hpp>
+#include <sge/config/media_path.hpp>
+#include <sge/font/metrics_ptr.hpp>
+#include <sge/font/rect.hpp>
+#include <sge/font/size_type.hpp>
+#include <sge/font/system.hpp>
+#include <sge/font/text/align_h.hpp>
+#include <sge/font/text/align_v.hpp>
+#include <sge/font/text/draw.hpp>
+#include <sge/font/text/drawer_3d.hpp>
+#include <sge/font/text/flags_none.hpp>
+#include <sge/font/text/lit.hpp>
+#include <sge/font/text/part.hpp>
+#include <sge/font/text/string.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/size_type.hpp>
 #include <sge/image/store.hpp>
@@ -84,11 +97,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/parameterless.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/running_to_false.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/systems/viewport/manage_resize.hpp>
-#include <sge/texture/part_ptr.hpp>
+#include <sge/texture/const_part_ptr.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/time/second.hpp>
 #include <sge/time/timer.hpp>
@@ -104,6 +118,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -112,12 +127,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <exception>
 #include <iostream>
 #include <ostream>
+#include <utility>
 #include <cstdlib>
 
 namespace
 {
 
-sge::texture::part_ptr const
+sge::texture::const_part_ptr const
 make_texture(
 	sge::renderer::device_ptr const _device,
 	sge::image2d::view::const_object const &_view,
@@ -147,13 +163,23 @@ template<
 void
 advance_texture(
 	Sprite &_sprite,
-	Iterator &_iterator
+	Iterator &_iterator,
+	sge::font::text::string &_text
 )
 {
+	++_iterator;
+
+	_text = _iterator->first;
+
 	_sprite.texture(
-		*++_iterator
+		_iterator->second
 	);
 }
+
+typedef std::pair<
+	sge::font::text::string,
+	sge::texture::const_part_ptr
+> string_texture_pair;
 
 }
 
@@ -201,6 +227,9 @@ try
 				)
 				| sge::systems::cursor_option::hide
 			)
+		)
+		(
+			sge::systems::parameterless::font
 		)
 	);
 
@@ -319,7 +348,7 @@ try
 	}
 
 	typedef fcppt::container::array<
-		sge::texture::part_ptr,
+		string_texture_pair,
 		4u
 	> texture_array;
 
@@ -331,25 +360,37 @@ try
 
 	texture_array const textures =
 	{{
-		make_texture(
-			sys.renderer(),
-			texture_view,
-			sge::renderer::texture::filter::point
+		std::make_pair(
+			SGE_FONT_TEXT_LIT("point"),
+			make_texture(
+				sys.renderer(),
+				texture_view,
+				sge::renderer::texture::filter::point
+			)
 		),
-		make_texture(
-			sys.renderer(),
-			texture_view,
-			sge::renderer::texture::filter::linear
+		std::make_pair(
+			SGE_FONT_TEXT_LIT("linear"),
+			make_texture(
+				sys.renderer(),
+				texture_view,
+				sge::renderer::texture::filter::linear
+			)
 		),
-		make_texture(
-			sys.renderer(),
-			texture_view,
-			sge::renderer::texture::filter::mip
+		std::make_pair(
+			SGE_FONT_TEXT_LIT("mipmap"),
+			make_texture(
+				sys.renderer(),
+				texture_view,
+				sge::renderer::texture::filter::mip
+			)
 		),
-		make_texture(
-			sys.renderer(),
-			texture_view,
-			sge::renderer::texture::filter::trilinear
+		std::make_pair(
+			SGE_FONT_TEXT_LIT("trilinear"),
+			make_texture(
+				sys.renderer(),
+				texture_view,
+				sge::renderer::texture::filter::trilinear
+			)
 		)
 	}};
 
@@ -410,9 +451,13 @@ try
 			100u
 		)
 		.texture(
-			*texture_iterator
+			texture_iterator->second
 		)
 		.elements()
+	);
+
+	sge::font::text::string current_text(
+		texture_iterator->first
 	);
 
 	bool running(
@@ -444,10 +489,31 @@ try
 					),
 					std::tr1::ref(
 						texture_iterator
+					),
+					std::tr1::ref(
+						current_text
 					)
 				)
 			)
 		)
+	);
+
+	sge::font::metrics_ptr const font_metrics(
+		sys.font_system()->create_font(
+			sge::config::media_path()
+			/ FCPPT_TEXT("fonts")
+			/ FCPPT_TEXT("default.ttf"),
+			static_cast<
+				sge::font::size_type
+			>(
+				30
+			)
+		)
+	);
+
+	sge::font::text::drawer_3d font_drawer(
+		sys.renderer(),
+		sge::image::colors::red()
 	);
 
 	sge::time::timer frame_timer(
@@ -479,6 +545,10 @@ try
 			)
 		);
 
+		sge::renderer::scoped_block const block(
+			sys.renderer()
+		);
+
 		sys.renderer()->transform(
 			sge::renderer::matrix_mode::world,
 			camera.world()
@@ -489,13 +559,26 @@ try
 			camera.projection()
 		);
 
-		sge::renderer::scoped_block const block(
-			sys.renderer()
-		);
-
 		sge::sprite::render_one_advanced(
 			sprite_sys,
 			sprite
+		);
+
+		sge::font::text::draw(
+			font_metrics,
+			font_drawer,
+			current_text,
+			sge::font::rect(
+				sge::font::rect::vector::null(),
+				fcppt::math::dim::structure_cast<
+					sge::font::rect::dim
+				>(
+					sys.renderer()->screen_size()	
+				)
+			),
+			sge::font::text::align_h::left,
+			sge::font::text::align_v::top,
+			sge::font::text::flags::none
 		);
 	}
 }
