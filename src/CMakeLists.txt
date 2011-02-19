@@ -388,6 +388,7 @@ SET(
 	include/sge/loaders_exhausted.hpp
 	include/sge/log/global.hpp
 	include/sge/log/global_context.hpp
+	include/sge/model/exception.hpp
 	include/sge/model/index.hpp
 	include/sge/model/index_sequence.hpp
 	include/sge/model/load_flags.hpp
@@ -979,6 +980,7 @@ SET(
 	src/loaders_exhausted.cpp
 	src/log/global.cpp
 	src/log/global_context.cpp
+	src/model/exception.cpp
 	src/model/loader.cpp
 	src/model/object.cpp
 	src/model/plugin.cpp

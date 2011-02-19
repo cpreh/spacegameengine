@@ -162,11 +162,6 @@ make_texture(
 		);
 }
 
-typedef std::pair<
-	sge::font::text::string,
-	sge::texture::const_part_ptr
-> string_texture_pair;
-
 template<
 	typename Sprite,
 	typename Textures
@@ -383,6 +378,11 @@ try
 					)
 				);
 	}
+
+	typedef std::pair<
+		sge::font::text::string,
+		sge::texture::const_part_ptr
+	> string_texture_pair;
 
 	typedef fcppt::container::array<
 		string_texture_pair,

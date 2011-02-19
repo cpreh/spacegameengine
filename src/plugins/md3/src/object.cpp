@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../object.hpp"
 #include <sge/log/global.hpp>
-#include <sge/exception.hpp>
+#include <sge/model/exception.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/math/twopi.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
@@ -133,8 +133,13 @@ sge::md3::object::indices(
 			r.indices)
 		{
 			result.push_back(
-				static_cast<model::index>(
-					ind + ib_offset));
+				static_cast<
+					model::index
+				>(
+					ind
+				)
+				+ ib_offset
+			);
 		}
 	}
 
@@ -240,41 +245,80 @@ template<
 	sge::md3::object::string::size_type Max
 >
 inline sge::md3::object::string const
-sge::md3::object::read_string(std::istream& is)
+sge::md3::object::read_string(
+	std::istream &_stream
+)
 {
-	fcppt::container::array<string::value_type, Max> tmp_name;
-	is.read(reinterpret_cast<char*>(tmp_name.data()), tmp_name.size());
+	fcppt::container::array<
+		string::value_type,
+		Max
+	> tmp_name;
 
-	if(!std::count(tmp_name.begin(), tmp_name.end(), 0))
-		throw exception(FCPPT_TEXT("String in md3 file not ended with a 0!"));
+	_stream.read(
+		reinterpret_cast<
+			char *
+		>(
+			tmp_name.data()
+		),
+		static_cast<
+			std::streamsize
+		>(
+			tmp_name.size()
+		)
+	);
+
+	if(
+		!std::count(
+			tmp_name.begin(),
+			tmp_name.end(),
+			0
+		)
+	)
+		throw sge::model::exception(
+			FCPPT_TEXT("String in md3 file not ended with a 0!")
+		);
 
 	return tmp_name.data();
 }
 
-inline sge::md3::object::vec3 sge::md3::object::convert_normal(const s16 normal)
+inline
+sge::md3::object::vec3 sge::md3::object::convert_normal(
+	s16 const _normal
+)
 {
 	funit const
-		lat = static_cast<funit>((normal >> 8) & 255) * (fcppt::math::twopi<funit>()) / 255,
-		lng = static_cast<funit>(normal & 255) * (fcppt::math::twopi<funit>()) / 255;
+		lat = static_cast<funit>((_normal >> 8) & 255) * (fcppt::math::twopi<funit>()) / 255,
+		lng = static_cast<funit>(_normal & 255) * (fcppt::math::twopi<funit>()) / 255;
 
-	return vec3(
-		std::cos(lat) * std::sin(lng),
-		std::sin(lat) * std::sin(lng),
-		std::cos(lng)
-	);
+	return
+		vec3(
+			std::cos(lat) * std::sin(lng),
+			std::sin(lat) * std::sin(lng),
+			std::cos(lng)
+		);
 }
 
 sge::md3::object::surface_vector::const_reference
 sge::md3::object::surface_by_name(
-	fcppt::string const &name) const
+	fcppt::string const &_name
+) const
 {
 	BOOST_FOREACH(
 		surface_vector::const_reference surf,
-		surfaces_)
-		if (surf.name == name)
+		surfaces_
+	)
+		if(
+			surf.name == _name
+		)
 			return surf;
 	
-	throw exception(FCPPT_TEXT("Couldn't find surface called \"")+name+FCPPT_TEXT("\""));
+	throw sge::model::exception(
+		FCPPT_TEXT("Couldn't find surface called \"")
+		+
+		_name
+		+
+		FCPPT_TEXT('"')
+	);
 }
 
 
