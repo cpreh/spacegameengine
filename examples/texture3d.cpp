@@ -42,7 +42,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/colors.hpp>
@@ -389,12 +388,12 @@ try
 		"No header. Sample images can be found at\n\n"
 		"http://www-graphics.stanford.edu/data/voldata/\n\nOther options include");
 	desc.add_options()
-    ("help", "Produce help message")
-    ("directory", ::po_string_value(), "Set the directory where to take the slices from (see above)")
-    ("prefix", ::po_string_value(), "Slice prefix (see above)")
-    ("slice-count", boost::program_options::value<std::size_t>(), "How many slices are there")
-    ("slice-size", boost::program_options::value<std::size_t>(), "How big is one slice")
-    ("screen-size", boost::program_options::value<sge::renderer::screen_size>()->default_value(sge::renderer::screen_size(1024,768)), "Screen resolution, format: (x,y)");
+	("help", "Produce help message")
+	("directory", ::po_string_value(), "Set the directory where to take the slices from (see above)")
+	("prefix", ::po_string_value(), "Slice prefix (see above)")
+	("slice-count", boost::program_options::value<std::size_t>(), "How many slices are there")
+	("slice-size", boost::program_options::value<std::size_t>(), "How big is one slice")
+	("screen-size", boost::program_options::value<sge::window::dim>()->default_value(sge::window::dim(1024,768)), "Screen resolution, format: (x,y)");
 
 	boost::program_options::variables_map vm;
 	boost::program_options::store(
@@ -412,6 +411,10 @@ try
 		return EXIT_SUCCESS;
 	}
 
+	sge::window::dim const window_dim(
+		vm["screen-size"].as<sge::window::dim>()
+	);
+
 	// systems::instance ist eine Hilfsklasse, die es einem abnimmt, alle
 	// Plugins, die man so braucht, manuell zu laden und zusammenzustecken.
 	// Später arbeitet man nur noch mit sys.renderer(), sys.image_loader() usw.
@@ -422,29 +425,26 @@ try
 		sge::systems::list()
 		(
 			sge::systems::window(
-				sge::renderer::window_parameters(
+				sge::window::simple_parameters(
 					// Fenstertitel offenbar
-					FCPPT_TEXT("sge test for 3d textures")
+					FCPPT_TEXT("sge test for 3d textures"),
+					window_dim
 				)
 			)
 		)
 		(
 			sge::systems::renderer(
 				sge::renderer::parameters(
-					sge::renderer::display_mode(
-						// screen-size aus der Kommandozeile
-						vm["screen-size"].as<sge::renderer::screen_size>(),
-						sge::renderer::bit_depth::depth32,
-						sge::renderer::refresh_rate_dont_care
-					),
+					sge::renderer::optional_display_mode(),
 					sge::renderer::depth_buffer::d24,
 					sge::renderer::stencil_buffer::off,
-					sge::renderer::window_mode::windowed,
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling
 				),
 				// Copypaste
-				sge::systems::viewport::center_on_resize()
+				sge::systems::viewport::center_on_resize(
+					window_dim
+				)
 			)
 		)
 		(
@@ -572,7 +572,8 @@ try
 			sge::camera::projection::perspective(
 				// aspect
 				sge::renderer::aspect(
-					rend->screen_size()),
+					window_dim
+				),
 				// fov
 				fcppt::math::deg_to_rad(
 					static_cast<sge::renderer::scalar>(

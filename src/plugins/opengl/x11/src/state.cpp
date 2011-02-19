@@ -37,9 +37,6 @@ sge::opengl::x11::state::state(
 )
 :
 	device_state(),
-	screen_size_(
-		_param.display_mode().size()
-	),
 	window_(
 		_window
 	),

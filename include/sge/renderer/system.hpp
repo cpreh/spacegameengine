@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/adapter_type.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
-#include <sge/renderer/window_parameters_fwd.hpp>
 #include <sge/window/instance_ptr.hpp>
+#include <sge/window/simple_parameters_fwd.hpp>
 #include <sge/symbol.hpp>
 #include <sge/class_symbol.hpp>
 #include <awl/window/instance_ptr.hpp>
@@ -56,7 +56,7 @@ public:
 	virtual awl::window::instance_ptr const
 	create_window(
 		awl::system::object_ptr,
-		sge::renderer::window_parameters const &,
+		sge::window::simple_parameters const &,
 		sge::renderer::parameters const &
 	) = 0;
 

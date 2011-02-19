@@ -20,10 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/set_matrices.hpp>
 #include <sge/sprite/projection_matrix.hpp>
-#include <sge/sprite/transform_matrix.hpp>
+#include <sge/renderer/active_target.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/matrix_mode.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
+#include <sge/renderer/target_base.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
 
 void
@@ -32,14 +33,11 @@ sge::sprite::set_matrices(
 )
 {
 	_device->transform(
-		sge::renderer::matrix_mode::world,
-		sprite::transform_matrix(
-			_device->screen_size()
-		)
-	);
-
-	_device->transform(
 		sge::renderer::matrix_mode::projection,
-		sprite::projection_matrix()
+		sprite::projection_matrix(
+			sge::renderer::active_target(
+				_device
+			)->viewport()
+		)
 	);
 }

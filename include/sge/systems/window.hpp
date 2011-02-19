@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_WINDOW_HPP_INCLUDED
 
 #include <sge/window/simple_parameters.hpp>
-#include <sge/renderer/window_parameters.hpp>
 #include <sge/systems/symbol.hpp>
 #include <sge/systems/wrapped_window.hpp>
 #include <awl/mainloop/io_service_ptr.hpp>
@@ -45,11 +44,6 @@ public:
 
 	SGE_SYSTEMS_SYMBOL
 	explicit window(
-		sge::renderer::window_parameters const &
-	);
-
-	SGE_SYSTEMS_SYMBOL
-	explicit window(
 		sge::systems::wrapped_window const &
 	);
 
@@ -66,9 +60,8 @@ public:
 	);
 
 	typedef fcppt::variant::object<
-		boost::mpl::vector3<
+		boost::mpl::vector2<
 			sge::window::simple_parameters,
-			sge::renderer::window_parameters,
 			sge::systems::wrapped_window
 		>
 	> parameter_variant;

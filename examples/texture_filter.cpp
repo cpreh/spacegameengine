@@ -54,25 +54,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_code_to_digit.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/optional_digit.hpp>
+#include <sge/renderer/active_target.hpp>
 #include <sge/renderer/aspect.hpp>
-#include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/depth_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/device_ptr.hpp>
-#include <sge/renderer/display_mode.hpp>
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
+#include <sge/renderer/optional_display_mode.hpp>
 #include <sge/renderer/parameters.hpp>
-#include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/stencil_buffer.hpp>
+#include <sge/renderer/target_base.hpp>
 #include <sge/renderer/vsync.hpp>
-#include <sge/renderer/window_mode.hpp>
-#include <sge/renderer/window_parameters.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/list.hpp>
@@ -107,15 +104,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/running_to_false.hpp>
 #include <sge/systems/window.hpp>
-#include <sge/systems/viewport/center_on_resize.hpp>
+#include <sge/systems/viewport/fill_on_resize.hpp>
 #include <sge/texture/const_part_ptr.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/time/second.hpp>
 #include <sge/time/timer.hpp>
+#include <sge/window/dim.hpp>
 #include <sge/window/instance.hpp>
+#include <sge/window/simple_parameters.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/lexical_cast.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
@@ -223,29 +223,25 @@ try
 		sge::systems::list()
 		(
 			sge::systems::window(
-				sge::renderer::window_parameters(
-					FCPPT_TEXT("sge texture filter example")
+				sge::window::simple_parameters(
+					FCPPT_TEXT("sge texture filter example"),
+					sge::window::dim(
+						1024,
+						768
+					)
 				)
 			)
 		)
 		(
 			sge::systems::renderer(
 				sge::renderer::parameters(
-					sge::renderer::display_mode(
-						sge::renderer::screen_size(
-							1024,
-							768
-						),
-						sge::renderer::bit_depth::depth32,
-						sge::renderer::refresh_rate_dont_care
-					),
+					sge::renderer::optional_display_mode(),
 					sge::renderer::depth_buffer::off,
 					sge::renderer::stencil_buffer::off,
-					sge::renderer::window_mode::windowed,
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling
 				),
-				sge::systems::viewport::center_on_resize()
+				sge::systems::viewport::fill_on_resize()
 			)
 		)
 		(
@@ -268,9 +264,10 @@ try
 	sge::camera::object camera(
 		sge::camera::parameters(
 			sge::camera::projection::perspective(
-				sge::renderer::aspect(
-					sys.renderer()->screen_size()
-				),
+				1.3333, // FIXME!
+				/*sge::renderer::aspect(
+					
+				),*/
 				// fov
 				fcppt::math::deg_to_rad(
 					static_cast<
@@ -627,7 +624,9 @@ try
 				fcppt::math::dim::structure_cast<
 					sge::font::rect::dim
 				>(
-					sys.renderer()->screen_size()	
+					sge::renderer::active_target(
+						sys.renderer()
+					)->viewport().get().dimension()
 				)
 			),
 			sge::font::text::align_h::left,

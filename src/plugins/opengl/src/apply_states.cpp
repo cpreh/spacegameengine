@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../state_visitor.hpp"
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
-#include <sge/renderer/parameters.hpp>
 #include <fcppt/math/compare.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/equal.hpp>
@@ -82,7 +81,8 @@ sge::opengl::apply_states(
 	opengl::context::object &_context,
 	sge::renderer::state::list &_current_states,
 	sge::renderer::state::list const &_new_states,
-	sge::renderer::parameters const &_param
+	renderer::depth_buffer::type const _depth_buffer,
+	renderer::stencil_buffer::type const _stencil_buffer
 )
 {
 	opengl::split_states split(
@@ -92,8 +92,8 @@ sge::opengl::apply_states(
 	opengl::state_visitor const visitor(
 		_context,
 		split,
-		_param.depth_buffer(),
-		_param.stencil_buffer()
+		_depth_buffer,
+		_stencil_buffer
 	);
 
 	BOOST_FOREACH(

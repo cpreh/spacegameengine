@@ -20,10 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../state.hpp"
 #include "../change_display_settings.hpp"
-#include <sge/renderer/parameters.hpp>
+#include <sge/renderer/display_mode.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/parameters.hpp>
 #include <awl/backends/windows/window/instance.hpp>
 #include <awl/backends/windows/windows.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::windows::state::state(
@@ -49,10 +51,10 @@ sge::opengl::windows::state::state(
 {
 
 	if(
-		_param.window_mode() == renderer::window_mode::fullscreen
+		_param.display_mode()
 	)
 		windows::change_display_settings(
-			_param.display_mode()
+			*_param.display_mode()
 		);
 }
 

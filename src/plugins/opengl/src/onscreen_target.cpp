@@ -31,8 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_shared_ptr.hpp>
 
 sge::opengl::onscreen_target::onscreen_target(
-	sge::window::instance_ptr const _window,
-	renderer::bit_depth::type const _depth
+	sge::window::instance_ptr const _window
 )
 :
 	base(
@@ -44,8 +43,7 @@ sge::opengl::onscreen_target::onscreen_target(
 		fcppt::make_shared_ptr<
 			opengl::onscreen_surface
 		>(
-			_window,
-			_depth
+			_window
 		)
 	)
 {

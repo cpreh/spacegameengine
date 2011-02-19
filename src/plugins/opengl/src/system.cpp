@@ -23,10 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/bit_depth.hpp"
 #include "../convert/depth_buffer.hpp"
 #include "../convert/stencil_buffer.hpp"
+#include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/parameters.hpp>
-#include <sge/renderer/to_awl_parameters.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
+#include <sge/window/to_awl_parameters.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <awl/system/object.hpp>
 #include <awl/window/parameters.hpp>
@@ -59,28 +58,25 @@ sge::opengl::system::create_renderer(
 awl::window::instance_ptr const
 sge::opengl::system::create_window(
 	awl::system::object_ptr const _system,
-	sge::renderer::window_parameters const &_wparam,
+	sge::window::simple_parameters const &_wparam,
 	sge::renderer::parameters const &_rparam
 )
 {
 	return
 		_system->create(
-			sge::renderer::to_awl_parameters(
+			sge::window::to_awl_parameters(
 				_wparam
-			)
-			.size(
-				fcppt::math::dim::structure_cast<
-					awl::window::dim
-				>(
-					_rparam.display_mode().size()
-				)
 			)
 			.has_opengl(
 				true
 			)
 			.bit_depth(
 				opengl::convert::bit_depth(
-					_rparam.display_mode().bit_depth()
+					_rparam.display_mode()
+					?
+						_rparam.display_mode()->bit_depth()
+					:
+						sge::renderer::bit_depth::depth32
 				)
 			)
 			.stencil_buffer(

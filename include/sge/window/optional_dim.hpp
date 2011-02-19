@@ -18,17 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/sprite/transform_matrix.hpp>
-#include <sge/renderer/matrix_pixel_to_space.hpp>
-#include <fcppt/math/matrix/basic_impl.hpp>
+#ifndef SGE_WINDOW_OPTIONAL_DIM_HPP_INCLUDED
+#define SGE_WINDOW_OPTIONAL_DIM_HPP_INCLUDED
 
-sge::sprite::matrix const
-sge::sprite::transform_matrix(
-	sge::renderer::screen_size const &_dim
-)
+#include <sge/window/dim.hpp>
+#include <fcppt/optional_fwd.hpp>
+
+namespace sge
 {
-	return
-		renderer::matrix_pixel_to_space(
-			_dim
-		);
+namespace window
+{
+
+typedef fcppt::optional<
+	window::dim
+> optional_dim;
+
 }
+}
+
+#endif

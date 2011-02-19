@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/viewport/factory.hpp>
 #include <sge/systems/symbol.hpp>
+#include <sge/window/dim.hpp>
 
 namespace sge
 {
@@ -33,7 +34,9 @@ namespace viewport
 
 SGE_SYSTEMS_SYMBOL
 viewport::factory const
-center_on_resize();
+center_on_resize(
+	sge::window::dim const &
+);
 
 }
 }

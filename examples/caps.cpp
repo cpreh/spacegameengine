@@ -22,28 +22,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/object.hpp>
-#include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/create_device_with_window.hpp>
 #include <sge/renderer/depth_buffer.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/display_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
+#include <sge/renderer/optional_display_mode.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/plugin.hpp>
-#include <sge/renderer/refresh_rate_dont_care.hpp>
-#include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/stencil_buffer.hpp>
 #include <sge/renderer/system_ptr.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/vsync.hpp>
-#include <sge/renderer/window_mode.hpp>
-#include <sge/renderer/window_parameters.hpp>
+#include <sge/window/dim.hpp>
+#include <sge/window/simple_parameters.hpp>
 #include <awl/system/create.hpp>
 #include <awl/system/object_ptr.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <cstdlib>
 
@@ -79,17 +77,9 @@ try
 			window_sys,
 			render_sys,
 			sge::renderer::parameters(
-				sge::renderer::display_mode(
-					sge::renderer::screen_size(
-						1024,
-						768
-					),
-					sge::renderer::bit_depth::depth32,
-					sge::renderer::refresh_rate_dont_care
-				),
+				sge::renderer::optional_display_mode(),
 				sge::renderer::depth_buffer::off,
 				sge::renderer::stencil_buffer::off,
-				sge::renderer::window_mode::windowed,
 				sge::renderer::vsync::on,
 				sge::renderer::no_multi_sampling
 			),
@@ -98,8 +88,12 @@ try
 			>(
 				0
 			),
-			sge::renderer::window_parameters(
-				FCPPT_TEXT("sge caps")
+			sge::window::simple_parameters(
+				FCPPT_TEXT("sge caps"),
+				sge::window::dim(
+					1024,
+					768
+				)
 			)
 		)->caps()
 		<< FCPPT_TEXT('\n');

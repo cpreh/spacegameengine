@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "color_format.hpp"
 #include "color_format_type.hpp"
-#include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/color_surface.hpp>
 #include <sge/renderer/raw_value.hpp>
 #include <sge/renderer/size_type.hpp>
@@ -45,9 +44,8 @@ class onscreen_surface
 		onscreen_surface
 	);
 public:
-	onscreen_surface(
-		sge::window::instance_ptr,
-		renderer::bit_depth::type
+	explicit onscreen_surface(
+		sge::window::instance_ptr
 	);
 
 	~onscreen_surface();

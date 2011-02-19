@@ -22,39 +22,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/pixel_unit.hpp>
 #include <sge/renderer/viewport.hpp>
-#include <sge/renderer/screen_size.hpp>
-#include <sge/renderer/size_type.hpp>
-#include <sge/window/dim_type.hpp>
+#include <sge/window/dim.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/assert.hpp>
 
-// TODO: reason about all those different size_types!
-
 namespace
 {
 
 sge::renderer::pixel_unit
 center_position(
-	sge::renderer::size_type,
-	sge::window::dim_type::value_type
+	sge::window::dim::value_type,
+	sge::window::dim::value_type
 );
 
 }
 
 sge::renderer::viewport const
 sge::systems::viewport::center(
-	sge::renderer::screen_size const &_screen_size,
-	sge::window::dim_type const &_window_dim
+	sge::window::dim const &_ref_dim,
+	sge::window::dim const &_window_dim
 )
 {
 	return
-		_screen_size.w()
+		_ref_dim.w()
 		> _window_dim.w()
 		||
-		_screen_size.h()
+		_ref_dim.h()
 		> _window_dim.h()
 		?
 			sge::renderer::viewport(
@@ -72,18 +68,18 @@ sge::systems::viewport::center(
 				sge::renderer::pixel_rect(
 					sge::renderer::pixel_rect::vector(
 						::center_position(
-							_screen_size.w(),
+							_ref_dim.w(),
 							_window_dim.w()
 						),
 						::center_position(
-							_screen_size.h(),
+							_ref_dim.h(),
 							_window_dim.h()
 						)
 					),
 					fcppt::math::dim::structure_cast<
 						sge::renderer::pixel_rect::dim
 					>(
-						_screen_size
+						_ref_dim
 					)
 				)
 			);
@@ -94,8 +90,8 @@ namespace
 
 sge::renderer::pixel_unit
 center_position(
-	sge::renderer::size_type const _target_size,
-	sge::window::dim_type::value_type const _window_size
+	sge::window::dim::value_type const _target_size,
+	sge::window::dim::value_type const _window_size
 )
 {
 	FCPPT_ASSERT(

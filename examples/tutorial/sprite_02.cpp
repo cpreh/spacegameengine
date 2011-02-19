@@ -35,7 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
@@ -167,33 +166,33 @@ private:
 int main()
 try
 {
+	sge::window::dim const window_dim(
+		640,
+		480
+	);
+
 	sge::systems::instance const sys(
 		sge::systems::list()
 		(
 			sge::systems::window(
-				sge::renderer::window_parameters(
-					FCPPT_TEXT("sge tutorial02")
+				sge::window::simple_parameters(
+					FCPPT_TEXT("sge tutorial02"),
+					window_dim
 				)
 			)
 		)
 		(
 			sge::systems::renderer(
 				sge::renderer::parameters(
-					sge::renderer::display_mode(
-						sge::renderer::screen_size(
-							640,
-							480
-						),
-						sge::renderer::bit_depth::depth32,
-						sge::renderer::refresh_rate_dont_care
-					),
+					sge::renderer::optional_display_mode(),
 					sge::renderer::depth_buffer::off,
 					sge::renderer::stencil_buffer::off,
-					sge::renderer::window_mode::windowed,
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling
 				),
-				sge::systems::viewport::center_on_resize()
+				sge::systems::viewport::center_on_resize(
+					window_dim
+				)
 			)
 		)
 		(

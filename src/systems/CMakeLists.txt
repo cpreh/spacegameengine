@@ -15,6 +15,7 @@ SET(
 	include/sge/systems/config.hpp
 	include/sge/systems/cursor_option.hpp
 	include/sge/systems/cursor_option_field.hpp
+	include/sge/systems/exception.hpp
 	include/sge/systems/image_loader.hpp
 	include/sge/systems/input.hpp
 	include/sge/systems/input_helper.hpp
@@ -31,6 +32,8 @@ SET(
 	include/sge/systems/viewport/dont_manage.hpp
 	include/sge/systems/viewport/factory.hpp
 	include/sge/systems/viewport/fill_on_resize.hpp
+	include/sge/systems/viewport/manage_callback.hpp
+	include/sge/systems/viewport/manage_function.hpp
 	include/sge/systems/viewport/manager.hpp
 	include/sge/systems/viewport/manager_fwd.hpp
 	include/sge/systems/viewport/manager_unique_ptr.hpp
@@ -50,6 +53,7 @@ SET(
 	src/systems/create_render_window.hpp
 	src/systems/cursor_modifier.cpp
 	src/systems/cursor_modifier.hpp
+	src/systems/exception.cpp
 	src/systems/image_loader.cpp
 	src/systems/input.cpp
 	src/systems/instance.cpp

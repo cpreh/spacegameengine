@@ -18,25 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TO_AWL_PARAMETERS_HPP_INCLUDED
-#define SGE_RENDERER_TO_AWL_PARAMETERS_HPP_INCLUDED
+#include <sge/systems/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include <sge/renderer/window_parameters_fwd.hpp>
-#include <sge/symbol.hpp>
-#include <awl/window/parameters_fwd.hpp>
-
-namespace sge
+sge::systems::exception::exception(
+	fcppt::string const &_what
+)
+:
+	sge::exception(
+		FCPPT_TEXT("systems: ")
+		+ _what
+	)
 {
-namespace renderer
-{
-
-SGE_SYMBOL
-awl::window::parameters // intentionally not const
-to_awl_parameters(
-	sge::renderer::window_parameters const &
-);
-
 }
-}
-
-#endif

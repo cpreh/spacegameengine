@@ -21,26 +21,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/parameters.hpp>
 
 sge::renderer::parameters::parameters(
-	renderer::display_mode const &_mode,
+	renderer::optional_display_mode const &_display_mode,
 	renderer::depth_buffer::type const _depth_buffer,
 	renderer::stencil_buffer::type const _stencil_buffer,
-	renderer::window_mode::type const _window_mode,
 	renderer::vsync::type const _vsync,
 	renderer::multi_sample_type const _samples
 )
 :
-	mode_(_mode),
+	display_mode_(_display_mode),
 	depth_buffer_(_depth_buffer),
 	stencil_buffer_(_stencil_buffer),
-	window_mode_(_window_mode),
 	vsync_(_vsync),
 	samples_(_samples)
-{}
+{
+}
 
-sge::renderer::display_mode const &
+sge::renderer::optional_display_mode const &
 sge::renderer::parameters::display_mode() const
 {
-	return mode_;
+	return display_mode_;
 }
 
 sge::renderer::depth_buffer::type
@@ -53,12 +52,6 @@ sge::renderer::stencil_buffer::type
 sge::renderer::parameters::stencil_buffer() const
 {
 	return stencil_buffer_;
-}
-
-sge::renderer::window_mode::type
-sge::renderer::parameters::window_mode() const
-{
-	return window_mode_;
 }
 
 sge::renderer::vsync::type

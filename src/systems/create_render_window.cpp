@@ -20,10 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "create_render_window.hpp"
 #include <sge/renderer/system.hpp>
-#include <sge/renderer/window_parameters.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/window/create.hpp>
 #include <sge/window/parameters.hpp>
+#include <sge/window/simple_parameters.hpp>
 
 sge::window::instance_ptr const
 sge::systems::create_render_window(
@@ -40,7 +40,7 @@ sge::systems::create_render_window(
 				_render_sys->create_window(
 					_awl_sys,
 					_window_param.parameter().get<
-						sge::renderer::window_parameters
+						sge::window::simple_parameters
 					>(),
 					_render_param
 				)

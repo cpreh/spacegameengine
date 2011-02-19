@@ -152,7 +152,6 @@ SET(
 	include/sge/sprite/system_base_impl.hpp
 	include/sge/sprite/texture_coordinates.hpp
 	include/sge/sprite/texture_dim.hpp
-	include/sge/sprite/transform_matrix.hpp
 	include/sge/sprite/type_choices.hpp
 	include/sge/sprite/unspecified_dim_tag.hpp
 	include/sge/sprite/with_color.hpp
@@ -171,7 +170,6 @@ SET(
 	src/sprite/detail/normal_render_states.cpp
 	src/sprite/projection_matrix.cpp
 	src/sprite/set_matrices.cpp
-	src/sprite/transform_matrix.cpp
 )
 
 ADD_SGE_BASE_LIBRARY(

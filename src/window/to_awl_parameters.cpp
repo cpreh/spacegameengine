@@ -18,25 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_PROJECTION_MATRIX_HPP_INCLUDED
-#define SGE_SPRITE_PROJECTION_MATRIX_HPP_INCLUDED
+#include <sge/window/to_awl_parameters.hpp>
+#include <sge/window/convert_size_hints.hpp>
+#include <awl/window/dim.hpp>
+#include <sge/window/simple_parameters.hpp>
+#include <awl/window/parameters.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
 
-#include <sge/sprite/matrix.hpp>
-#include <sge/sprite/symbol.hpp>
-#include <sge/renderer/viewport.hpp>
-
-namespace sge
+awl::window::parameters
+sge::window::to_awl_parameters(
+	sge::window::simple_parameters const &_param
+)
 {
-namespace sprite
-{
-
-SGE_SPRITE_SYMBOL
-sge::sprite::matrix const
-projection_matrix(
-	sge::renderer::viewport const &
-);
-
+	return
+		sge::window::convert_size_hints(
+			awl::window::parameters(),
+			_param.size_hints()
+		)
+		.title(
+			_param.title()
+		)
+		.class_name(
+			_param.class_name()
+		)
+		.size(
+			fcppt::math::dim::structure_cast<
+				awl::window::dim
+			>(
+				_param.dim()
+			)
+		);
 }
-}
-
-#endif

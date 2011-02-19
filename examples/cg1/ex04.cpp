@@ -33,14 +33,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/material.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
-#include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/window_parameters.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/cull_mode.hpp>
@@ -64,13 +62,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/running_to_false.hpp>
 #include <sge/systems/window.hpp>
-#include <sge/systems/viewport/center_on_resize.hpp>
+#include <sge/systems/viewport/fill_on_resize.hpp>
 #include <sge/window/instance.hpp>
+#include <sge/window/simple_parameters.hpp>
 #include <fcppt/assert.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/quad.hpp>
 #include <fcppt/math/pi.hpp>
 #include <fcppt/math/twopi.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/perspective.hpp>
 #include <fcppt/math/matrix/rotation_y.hpp>
@@ -148,29 +148,25 @@ try
 		sge::systems::list()
 		(
 			sge::systems::window(
-				sge::renderer::window_parameters(
-					FCPPT_TEXT("sge cg1 ex04")
+				sge::window::simple_parameters(
+					FCPPT_TEXT("sge cg1 ex04"),
+					sge::window::dim(
+						1024,
+						768
+					)
 				)
 			)
 		)
 		(
 			sge::systems::renderer(
 				sge::renderer::parameters(
-					sge::renderer::display_mode(
-						sge::renderer::screen_size(
-							1024,
-							768
-						),
-						sge::renderer::bit_depth::depth32,
-						sge::renderer::refresh_rate_dont_care
-					),
+					sge::renderer::optional_display_mode(),
 					sge::renderer::depth_buffer::d24,
 					sge::renderer::stencil_buffer::off,
-					sge::renderer::window_mode::windowed,
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling
 				),
-				sge::systems::viewport::center_on_resize()
+				sge::systems::viewport::fill_on_resize()
 			)
 		)
 		(
@@ -294,18 +290,6 @@ try
 		)
 	);
 
-	rend->transform(
-		sge::renderer::matrix_mode::projection,
-		fcppt::math::matrix::perspective(
-			sge::renderer::aspect(
-				rend->screen_size()
-			),
-			fcppt::math::pi<float_type>() / 2,
-			static_cast<float_type>(1),
-			static_cast<float_type>(256)
-		)
-	);
-
 	typedef sge::image::color::rgba32f rgba32f_color;
 
 	rend->state(
@@ -402,9 +386,28 @@ try
 		vb
 	);
 
-	while(running)
+	while(
+		running
+	)
 	{
 		sys.window()->dispatch();
+
+		rend->transform(
+			sge::renderer::matrix_mode::projection,
+			fcppt::math::matrix::perspective(
+				sge::renderer::aspect(
+					fcppt::math::dim::structure_cast<
+						sge::renderer::screen_size
+					>(
+						sys.window()->size()
+					)
+				),
+				fcppt::math::pi<float_type>() / 2,
+				static_cast<float_type>(1),
+				static_cast<float_type>(256)
+			)
+		);
+
 
 		angle += fcppt::math::twopi<float_type>() * rotation_time.update();
 

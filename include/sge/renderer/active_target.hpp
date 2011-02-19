@@ -18,21 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_WINDOW_MODE_HPP_INCLUDED
-#define SGE_RENDERER_WINDOW_MODE_HPP_INCLUDED
+#ifndef SGE_RENDERER_ACTIVE_TARGET_HPP_INCLUDED
+#define SGE_RENDERER_ACTIVE_TARGET_HPP_INCLUDED
+
+#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/target_base_ptr.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-namespace window_mode
-{
-enum type {
-	windowed,
-	fullscreen
-};
-}
+SGE_SYMBOL
+renderer::target_base_ptr const
+active_target(
+	renderer::device_ptr
+);
 
 }
 }

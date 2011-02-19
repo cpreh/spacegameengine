@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config/media_path.hpp>
-#include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/system.hpp>
@@ -62,11 +61,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/all_extensions.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/io/cerr.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/log/level.hpp>
-#include <fcppt/io/cerr.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/exception.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
@@ -83,33 +83,33 @@ try
 		fcppt::log::level::debug
 	);
 
+	sge::window::dim const dimensions(
+		1024,
+		768
+	);
+
 	sge::systems::instance sys(
 		sge::systems::list()
 		(
 			sge::systems::window(
-				sge::renderer::window_parameters(
-					FCPPT_TEXT("sge animtest")
+				sge::window::simple_parameters(
+					FCPPT_TEXT("sge animtest"),
+					dimensions
 				)
 			)
 		)
 		(
 			sge::systems::renderer(
 				sge::renderer::parameters(
-					sge::renderer::display_mode(
-						sge::renderer::screen_size(
-							1024,
-							768
-						),
-						sge::renderer::bit_depth::depth32,
-						sge::renderer::refresh_rate_dont_care
-					),
+					sge::renderer::optional_display_mode(),
 					sge::renderer::depth_buffer::off,
 					sge::renderer::stencil_buffer::off,
-					sge::renderer::window_mode::windowed,
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling
 				),
-				sge::systems::viewport::center_on_resize()
+				sge::systems::viewport::center_on_resize(
+					dimensions
+				)
 			)
 		)
 		(
@@ -210,15 +210,10 @@ try
 		)
 		.size(
 			sprite_object::dim(
-				static_cast<
-					sprite_object::unit
+				fcppt::math::dim::structure_cast<
+					sprite_object::dim
 				>(
-					rend->screen_size().w()
-				),
-				static_cast<
-					sprite_object::unit
-				>(
-					rend->screen_size().h()
+					dimensions
 				)
 			)
 		)

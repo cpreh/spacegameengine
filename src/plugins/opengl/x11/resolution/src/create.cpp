@@ -27,14 +27,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #if defined(SGE_OPENGL_HAVE_XF86_VMODE)
 #include "../xf86_vmode.hpp"
 #endif
+#include <sge/renderer/display_mode.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/log/global.hpp>
 #include <sge/exception.hpp>
 #include <awl/backends/x11/window/instance.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/text.hpp>
 
 sge::opengl::x11::resolution::unique_ptr
 sge::opengl::x11::resolution::create(
@@ -44,7 +46,7 @@ sge::opengl::x11::resolution::create(
 )
 {
 	if(
-		_param.window_mode() == renderer::window_mode::windowed
+		!_param.display_mode()
 	)
 		return resolution::unique_ptr();
 #if defined(SGE_OPENGL_HAVE_XRANDR)
@@ -55,7 +57,7 @@ sge::opengl::x11::resolution::create(
 				fcppt::make_unique_ptr<
 					resolution::xrandr_mode
 				>(
-					_param.display_mode(),
+					*_param.display_mode(),
 					_window
 				)
 			);
@@ -78,7 +80,7 @@ sge::opengl::x11::resolution::create(
 				fcppt::make_unique_ptr<
 					resolution::xf86_vmode
 				>(
-					_param.display_mode(),
+					*_param.display_mode(),
 					_window->display(),
 					_window->screen()
 				)

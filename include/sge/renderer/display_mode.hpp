@@ -52,11 +52,11 @@ public:
 	SGE_SYMBOL renderer::refresh_rate
 	refresh_rate() const;
 private:
-	screen_size               size_;
+	renderer::screen_size size_;
 
 	renderer::bit_depth::type bit_depth_;
 
-	renderer::refresh_rate    refresh_rate_;
+	renderer::refresh_rate refresh_rate_;
 };
 
 SGE_SYMBOL fcppt::io::ostream &

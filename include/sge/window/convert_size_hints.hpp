@@ -18,20 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_WINDOW_DIM_TYPE_HPP_INCLUDED
-#define SGE_WINDOW_DIM_TYPE_HPP_INCLUDED
+#ifndef SGE_WINDOW_CONVERT_SIZE_HINTS_HPP_INCLUDED
+#define SGE_WINDOW_CONVERT_SIZE_HINTS_HPP_INCLUDED
 
-#include <fcppt/math/dim/static.hpp>
+#include <sge/window/size_hints_fwd.hpp>
+#include <sge/symbol.hpp>
+#include <awl/window/parameters_fwd.hpp>
 
 namespace sge
 {
 namespace window
 {
 
-typedef fcppt::math::dim::static_<
-	unsigned,
-	2
->::type dim_type;
+SGE_SYMBOL
+awl::window::parameters
+convert_size_hints(
+	awl::window::parameters const &,
+	sge::window::size_hints const &
+);
 
 }
 }

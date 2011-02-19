@@ -442,6 +442,7 @@ SET(
 	include/sge/plugin/object.hpp
 	include/sge/plugin/object_fwd.hpp
 	include/sge/plugin/version.hpp
+	include/sge/renderer/active_target.hpp
 	include/sge/renderer/adapter_type.hpp
 	include/sge/renderer/add_depth_stencil_surface_to_target.hpp
 	include/sge/renderer/aspect.hpp
@@ -596,7 +597,6 @@ SET(
 	include/sge/renderer/material_fwd.hpp
 	include/sge/renderer/matrix4.hpp
 	include/sge/renderer/matrix_mode.hpp
-	include/sge/renderer/matrix_pixel_to_space.hpp
 	include/sge/renderer/multi_sample_type.hpp
 	include/sge/renderer/no_multi_sampling.hpp
 	include/sge/renderer/no_texture.hpp
@@ -606,6 +606,7 @@ SET(
 	include/sge/renderer/onscreen_target_fwd.hpp
 	include/sge/renderer/onscreen_target_ptr.hpp
 	include/sge/renderer/optional_dim2.hpp
+	include/sge/renderer/optional_display_mode.hpp
 	include/sge/renderer/parameters.hpp
 	include/sge/renderer/parameters_fwd.hpp
 	include/sge/renderer/pixel_rect.hpp
@@ -732,7 +733,6 @@ SET(
 	include/sge/renderer/texture/volume_parameters.hpp
 	include/sge/renderer/texture/volume_parameters_fwd.hpp
 	include/sge/renderer/texture/volume_ptr.hpp
-	include/sge/renderer/to_awl_parameters.hpp
 	include/sge/renderer/unsupported.hpp
 	include/sge/renderer/vector2.hpp
 	include/sge/renderer/vector3.hpp
@@ -819,22 +819,24 @@ SET(
 	include/sge/renderer/vf/view_fwd.hpp
 	include/sge/renderer/viewport.hpp
 	include/sge/renderer/vsync.hpp
-	include/sge/renderer/window_mode.hpp
-	include/sge/renderer/window_parameters.hpp
-	include/sge/renderer/window_parameters_fwd.hpp
 	include/sge/symbol.hpp
+	include/sge/window/convert_size_hints.hpp
 	include/sge/window/create.hpp
 	include/sge/window/create_simple_from_awl.hpp
 	include/sge/window/default_class_name.hpp
-	include/sge/window/dim_type.hpp
+	include/sge/window/dim.hpp
 	include/sge/window/instance.hpp
 	include/sge/window/instance_fwd.hpp
 	include/sge/window/instance_ptr.hpp
+	include/sge/window/optional_dim.hpp
 	include/sge/window/parameters.hpp
 	include/sge/window/parameters_fwd.hpp
 	include/sge/window/pos_type.hpp
 	include/sge/window/simple_parameters.hpp
 	include/sge/window/simple_parameters_fwd.hpp
+	include/sge/window/size_hints.hpp
+	include/sge/window/size_hints_fwd.hpp
+	include/sge/window/to_awl_parameters.hpp
 )
 
 SET(
@@ -1009,6 +1011,7 @@ SET(
 	src/plugin/manager.cpp
 	src/plugin/manager_impl.hpp
 	src/plugin/object_impl.hpp
+	src/renderer/active_target.cpp
 	src/renderer/add_depth_stencil_surface_to_target.cpp
 	src/renderer/aspect.cpp
 	src/renderer/bit_depth_bytes.cpp
@@ -1053,7 +1056,6 @@ SET(
 	src/renderer/indices_per_primitive.cpp
 	src/renderer/light.cpp
 	src/renderer/material.cpp
-	src/renderer/matrix_pixel_to_space.cpp
 	src/renderer/no_multi_sampling.cpp
 	src/renderer/no_texture.cpp
 	src/renderer/nonindexed_primitive_count.cpp
@@ -1115,7 +1117,6 @@ SET(
 	src/renderer/texture/scoped_volume_lock.cpp
 	src/renderer/texture/volume.cpp
 	src/renderer/texture/volume_parameters.cpp
-	src/renderer/to_awl_parameters.cpp
 	src/renderer/unsupported.cpp
 	src/renderer/vertex_buffer.cpp
 	src/renderer/vf/dynamic/basic_view_impl.hpp
@@ -1130,13 +1131,15 @@ SET(
 	src/renderer/vf/dynamic/unspecified.cpp
 	src/renderer/vf/dynamic/vector.cpp
 	src/renderer/vf/dynamic/view.cpp
-	src/renderer/window_parameters.cpp
+	src/window/convert_size_hints.cpp
 	src/window/create.cpp
 	src/window/create_simple_from_awl.cpp
 	src/window/default_class_name.cpp
 	src/window/instance.cpp
 	src/window/parameters.cpp
 	src/window/simple_parameters.cpp
+	src/window/size_hints.cpp
+	src/window/to_awl_parameters.cpp
 )
 
 APPEND_SOURCE_DIR_AND_MAKE_GROUPS(

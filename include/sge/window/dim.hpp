@@ -18,15 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_WINDOW_PARAMETERS_FWD_HPP_INCLUDED
-#define SGE_RENDERER_WINDOW_PARAMETERS_FWD_HPP_INCLUDED
+#ifndef SGE_WINDOW_DIM_HPP_INCLUDED
+#define SGE_WINDOW_DIM_HPP_INCLUDED
+
+#include <fcppt/math/dim/static.hpp>
 
 namespace sge
 {
-namespace renderer
+namespace window
 {
 
-class window_parameters;
+typedef fcppt::math::dim::static_<
+	unsigned,
+	2
+>::type dim;
 
 }
 }

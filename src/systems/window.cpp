@@ -31,16 +31,6 @@ sge::systems::window::window(
 }
 
 sge::systems::window::window(
-	sge::renderer::window_parameters const &_parameter
-)
-:
-	parameter_(_parameter),
-	window_processor_(),
-	io_service_()
-{
-}
-
-sge::systems::window::window(
 	sge::systems::wrapped_window const &_parameter
 )
 :

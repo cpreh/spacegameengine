@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WINDOW_INSTANCE_HPP_INCLUDED
 #define SGE_WINDOW_INSTANCE_HPP_INCLUDED
 
-#include <sge/window/dim_type.hpp>
+#include <sge/window/dim.hpp>
 #include <sge/symbol.hpp>
 #include <awl/window/instance_ptr.hpp>
 #include <awl/window/event/processor_ptr.hpp>
@@ -55,10 +55,8 @@ public:
 	SGE_SYMBOL
 	~instance();
 
-	typedef window::dim_type dim_type;
-
 	SGE_SYMBOL
-	dim_type const
+	window::dim const
 	size() const;
 
 	SGE_SYMBOL

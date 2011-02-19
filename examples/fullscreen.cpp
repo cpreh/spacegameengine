@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/systems/viewport/center_on_resize.hpp>
+#include <sge/systems/viewport/dont_manage.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/device.hpp>
@@ -34,8 +34,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/timer.hpp>
 #include <sge/time/second.hpp>
 #include <sge/exception.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/text.hpp>
 #include <ostream>
 #include <exception>
 #include <cstdlib>
@@ -43,12 +44,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int main()
 try
 {
+	sge::window::dim const window_dim(
+		800,
+		600
+	);
+
 	sge::systems::instance sys(
 		sge::systems::list()
 		(
 			sge::systems::window(
-				sge::renderer::window_parameters(
-					FCPPT_TEXT("sge fullscreen test")
+				sge::window::simple_parameters(
+					FCPPT_TEXT("sge fullscreen test"),
+					window_dim
 				)
 			)
 		)
@@ -56,20 +63,20 @@ try
 			sge::systems::renderer(
 				sge::renderer::parameters(
 					sge::renderer::display_mode(
-						sge::renderer::screen_size(
-							800,
-							600
+						fcppt::math::dim::structure_cast<
+							sge::renderer::screen_size
+						>(
+							window_dim
 						),
 						sge::renderer::bit_depth::depth32,
 						sge::renderer::refresh_rate_dont_care
 					),
 					sge::renderer::depth_buffer::off,
 					sge::renderer::stencil_buffer::off,
-					sge::renderer::window_mode::fullscreen,
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling
 				),
-				sge::systems::viewport::center_on_resize()
+				sge::systems::viewport::dont_manage()
 			)
 		)
 	);

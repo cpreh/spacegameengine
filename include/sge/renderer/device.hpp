@@ -48,7 +48,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/sampler_stage_op.hpp>
 #include <sge/renderer/sampler_stage_op_value.hpp>
 #include <sge/renderer/scissor_area.hpp>
-#include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/stage_type.hpp>
 #include <sge/renderer/target_ptr.hpp>
@@ -277,9 +276,6 @@ public:
 
 	virtual renderer::caps const
 	caps() const = 0;
-
-	virtual renderer::screen_size const
-	screen_size() const = 0;
 
 	virtual sge::window::instance_ptr const
 	window() const = 0;

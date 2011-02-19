@@ -180,7 +180,7 @@ try
 		fcppt::log::level::debug
 	);
 
-	sge::renderer::screen_size const screen_size(
+	sge::window::dim const window_dim(
 		1024,
 		768
 	);
@@ -189,26 +189,24 @@ try
 		sge::systems::list()
 		(
 			sge::systems::window(
-				sge::renderer::window_parameters(
-					FCPPT_TEXT("sge dopplertest")
+				sge::window::simple_parameters(
+					FCPPT_TEXT("sge dopplertest"),
+					window_dim
 				)
 			)
 		)
 		(
 			sge::systems::renderer(
 				sge::renderer::parameters(
-					sge::renderer::display_mode(
-						screen_size,
-						sge::renderer::bit_depth::depth32,
-						sge::renderer::refresh_rate_dont_care
-					),
+					sge::renderer::optional_display_mode(),
 					sge::renderer::depth_buffer::off,
 					sge::renderer::stencil_buffer::off,
-					sge::renderer::window_mode::windowed,
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling
 				),
-				sge::systems::viewport::center_on_resize()
+				sge::systems::viewport::center_on_resize(
+					window_dim
+				)
 			)
 		)
 		(
@@ -320,7 +318,7 @@ try
 			fcppt::math::dim::structure_cast<
 				sprite_object::dim
 			>(
-				screen_size
+				window_dim
 			)
 		)
 		.depth(
@@ -336,8 +334,22 @@ try
 		sprite_parameters()
 		.pos(
 			sprite_object::point(
-				static_cast<sprite_object::unit>(screen_size.w()/2-16),
-				static_cast<sprite_object::unit>(screen_size.h()/2-16)
+				static_cast<
+					sprite_object::unit
+				>(
+					window_dim.w()
+					/
+					2
+					-16u
+				),
+				static_cast<
+					sprite_object::unit
+				>(
+					window_dim.h()
+					/
+					2
+					-16u
+				)
 			)
 		)
 		.texture(
@@ -375,16 +387,16 @@ try
 			sge::audio::sound::positional_parameters()
 			.rolloff(
 				static_cast<sge::audio::scalar>(1)
-				/ static_cast<sge::audio::scalar>(screen_size.h())
+				/ static_cast<sge::audio::scalar>(window_dim.h())
 			)
 		)
 	);
 
 	sys.audio_player()->listener().position(
 		sge::audio::vector(
-			static_cast<sge::audio::scalar>(screen_size.w()/2),
+			static_cast<sge::audio::scalar>(window_dim.w()/2),
 			static_cast<sge::audio::scalar>(0),
-			static_cast<sge::audio::scalar>(screen_size.h()/2)
+			static_cast<sge::audio::scalar>(window_dim.h()/2)
 		)
 	);
 

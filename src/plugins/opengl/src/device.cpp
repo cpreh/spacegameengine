@@ -64,6 +64,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/i32.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/parameters.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/state/default.hpp>
 #include <sge/window/instance.hpp>
@@ -82,7 +83,12 @@ sge::opengl::device::device(
 	window::instance_ptr const _window
 )
 :
-	parameters_(_parameters),
+	depth_buffer_(
+		_parameters.depth_buffer()
+	),
+	stencil_buffer_(
+		_parameters.stencil_buffer()
+	),
 	window_(_window),
 	current_states_(
 		opengl::initial_states()
@@ -98,8 +104,7 @@ sge::opengl::device::device(
 		fcppt::make_shared_ptr<
 			opengl::onscreen_target
 		>(
-			_window,
-			_parameters.display_mode().bit_depth()
+			_window
 		)
 	),
 	fbo_target_(),
@@ -215,7 +220,8 @@ sge::opengl::device::state(
 		context_,
 		current_states_,
 		_states,
-		parameters_
+		depth_buffer_,
+		stencil_buffer_
 	);
 }
 
@@ -659,12 +665,6 @@ sge::opengl::device::caps() const
 	}
 
 	return *caps_;
-}
-
-sge::renderer::screen_size const
-sge::opengl::device::screen_size() const
-{
-	return parameters_.display_mode().size();
 }
 
 sge::window::instance_ptr const

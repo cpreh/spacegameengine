@@ -38,7 +38,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/system_ptr.hpp>
 #include <sge/systems/list_fwd.hpp>
 #include <sge/systems/symbol.hpp>
+#include <sge/systems/viewport/manage_callback.hpp>
 #include <sge/window/instance_ptr.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -53,59 +55,83 @@ class instance
 		instance
 	);
 public:
-	SGE_SYSTEMS_SYMBOL explicit instance(
+	SGE_SYSTEMS_SYMBOL
+	explicit instance(
 		systems::list const &
 	);
 
-	SGE_SYSTEMS_SYMBOL ~instance();
+	SGE_SYSTEMS_SYMBOL
+	~instance();
 
-	SGE_SYSTEMS_SYMBOL plugin::manager &
+	SGE_SYSTEMS_SYMBOL
+	plugin::manager &
 	plugin_manager();
 
-	SGE_SYSTEMS_SYMBOL sge::renderer::system_ptr const
+	SGE_SYSTEMS_SYMBOL
+	sge::renderer::system_ptr const
 	renderer_system() const;
 
-	SGE_SYSTEMS_SYMBOL sge::renderer::device_ptr const
+	SGE_SYSTEMS_SYMBOL
+	sge::renderer::device_ptr const
 	renderer() const;
 
-	SGE_SYSTEMS_SYMBOL sge::input::system_ptr const
+	SGE_SYSTEMS_SYMBOL
+	sge::input::system_ptr const
 	input_system() const;
 
-	SGE_SYSTEMS_SYMBOL sge::input::processor_ptr const
+	SGE_SYSTEMS_SYMBOL
+	sge::input::processor_ptr const
 	input_processor() const;
 
-	SGE_SYSTEMS_SYMBOL sge::input::cursor::object_ptr const
+	SGE_SYSTEMS_SYMBOL
+	sge::input::cursor::object_ptr const
 	cursor_demuxer() const;
 
-	SGE_SYSTEMS_SYMBOL sge::input::keyboard::device_ptr const
+	SGE_SYSTEMS_SYMBOL
+	sge::input::keyboard::device_ptr const
 	keyboard_collector() const;
 
-	SGE_SYSTEMS_SYMBOL sge::input::mouse::device_ptr const
+	SGE_SYSTEMS_SYMBOL
+	sge::input::mouse::device_ptr const
 	mouse_collector() const;
 
-	SGE_SYSTEMS_SYMBOL sge::image2d::multi_loader &
+	SGE_SYSTEMS_SYMBOL
+	sge::image2d::multi_loader &
 	image_loader() const;
 
-	SGE_SYSTEMS_SYMBOL sge::audio::multi_loader &
+	SGE_SYSTEMS_SYMBOL
+	sge::audio::multi_loader &
 	audio_loader() const;
 
-	SGE_SYSTEMS_SYMBOL sge::audio::player_ptr const
+	SGE_SYSTEMS_SYMBOL
+	sge::audio::player_ptr const
 	audio_player() const;
 
-	SGE_SYSTEMS_SYMBOL charconv::system_ptr const
+	SGE_SYSTEMS_SYMBOL
+	charconv::system_ptr const
 	charconv_system() const;
 
-	SGE_SYSTEMS_SYMBOL collision::system_ptr const
+	SGE_SYSTEMS_SYMBOL
+	collision::system_ptr const
 	collision_system() const;
 
-	SGE_SYSTEMS_SYMBOL font::system_ptr const
+	SGE_SYSTEMS_SYMBOL
+	font::system_ptr const
 	font_system() const;
 
-	SGE_SYSTEMS_SYMBOL model::loader_ptr const
+	SGE_SYSTEMS_SYMBOL
+	model::loader_ptr const
 	md3_loader() const;
 
-	SGE_SYSTEMS_SYMBOL sge::window::instance_ptr const
+	SGE_SYSTEMS_SYMBOL
+	sge::window::instance_ptr const
 	window() const;
+
+	SGE_SYSTEMS_SYMBOL
+	fcppt::signal::auto_connection
+	manage_viewport_callback(
+		systems::viewport::manage_callback const &
+	);
 
 	class impl;
 private:

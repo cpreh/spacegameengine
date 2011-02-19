@@ -68,12 +68,12 @@ sge::window::instance::instance(
 sge::window::instance::~instance()
 {}
 
-sge::window::dim_type const
+sge::window::dim const
 sge::window::instance::size() const
 {
 	return
 		fcppt::math::dim::structure_cast<
-			sge::window::dim_type
+			sge::window::dim
 		>(
 			instance_->size()
 		);

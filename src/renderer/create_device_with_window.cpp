@@ -29,7 +29,7 @@ sge::renderer::create_device_with_window(
 	sge::renderer::system_ptr const _sys,
 	sge::renderer::parameters const &_rparam,
 	sge::renderer::adapter_type const _adapter,
-	sge::renderer::window_parameters const &_wparam
+	sge::window::simple_parameters const &_wparam
 )
 {
 	return

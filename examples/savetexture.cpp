@@ -320,7 +320,7 @@ try
 		sge::log::global(),
 		fcppt::log::level::debug);
 
-	sge::renderer::screen_size const screen_size(
+	sge::window::dim const window_dim(
 		1024,
 		768);
 
@@ -328,21 +328,26 @@ try
 		sge::systems::list()
 		(
 			sge::systems::window(
-				sge::renderer::window_parameters(
-					FCPPT_TEXT("sge dopplertest"))))
+				sge::window::simple_parameters(
+					FCPPT_TEXT("sge save texture example"),
+					window_dim
+				)
+			)
+		)
 		(
 			sge::systems::renderer(
 				sge::renderer::parameters(
-					sge::renderer::display_mode(
-						screen_size,
-						sge::renderer::bit_depth::depth32,
-						sge::renderer::refresh_rate_dont_care),
+					sge::renderer::optional_display_mode(),
 					sge::renderer::depth_buffer::off,
 					sge::renderer::stencil_buffer::off,
-					sge::renderer::window_mode::windowed,
 					sge::renderer::vsync::on,
-					sge::renderer::no_multi_sampling),
-				sge::systems::viewport::center_on_resize()))
+					sge::renderer::no_multi_sampling
+				),
+				sge::systems::viewport::center_on_resize(
+					window_dim
+				)
+			)
+		)
 		(
 			sge::systems::input(
 				sge::systems::input_helper_field(
@@ -359,7 +364,8 @@ try
 		sys.renderer()->create_planar_texture(
 			sge::renderer::texture::planar_parameters(
 				fcppt::math::dim::structure_cast<sge::renderer::dim2>(
-					sys.renderer()->screen_size()),
+					window_dim
+				),
 				sge::image::color::format::rgb8,
 				sge::renderer::texture::filter::linear,
 				sge::renderer::texture::address_mode2(
@@ -397,7 +403,7 @@ try
 				"target_size",
 				sge::shader::variable_type::const_,
 				fcppt::math::dim::structure_cast<sge::renderer::vector2>(
-					sys.renderer()->screen_size()))),
+					window_dim))),
 		fcppt::assign::make_container<sge::shader::sampler_sequence>(
 			sge::shader::sampler(
 				"tex",
@@ -438,33 +444,6 @@ try
 		slock.value())->save(
 		fcppt::from_std_string(
 			argv[1]));
-	/*
-	while(running)
-	{
-		sys.window()->dispatch();
-
-		sge::renderer::scoped_block const block_(
-			sys.renderer());
-
-		shader_.update_texture(
-			"tex",
-			target_texture);
-
-		sge::shader::scoped scoped_shader(
-			shader_);
-
-		sge::renderer::scoped_vertex_buffer const scoped_vb_(
-			sys.renderer(),
-			quad_);
-
-		sys.renderer()->render(
-			sge::renderer::first_vertex(
-				0),
-			sge::renderer::vertex_count(
-				quad_->size()),
-			sge::renderer::nonindexed_primitive_type::triangle);
-	}
-	*/
 }
 catch(sge::exception const &e)
 {

@@ -21,7 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_SYSTEM_HPP_INCLUDED
 #define SGE_OPENGL_SYSTEM_HPP_INCLUDED
 
+#include <sge/renderer/adapter_type.hpp>
+#include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/system.hpp>
+#include <sge/window/instance_ptr.hpp>
+#include <sge/window/simple_parameters_fwd.hpp>
+#include <awl/system/object_ptr.hpp>
+#include <awl/window/instance_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -43,15 +50,15 @@ public:
 
 	renderer::device_ptr const
 	create_renderer(
-		renderer::parameters const &param,
-		renderer::adapter_type adapter,
+		renderer::parameters const &,
+		renderer::adapter_type,
 		window::instance_ptr
 	);
 
 	awl::window::instance_ptr const
 	create_window(
 		awl::system::object_ptr,
-		sge::renderer::window_parameters const &,
+		sge::window::simple_parameters const &,
 		sge::renderer::parameters const &
 	);
 };

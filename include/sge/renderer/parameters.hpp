@@ -22,13 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_PARAMETERS_HPP_INCLUDED
 
 #include <sge/renderer/parameters_fwd.hpp>
+#include <sge/renderer/depth_buffer.hpp>
 #include <sge/renderer/display_mode.hpp>
 #include <sge/renderer/multi_sample_type.hpp>
-#include <sge/renderer/depth_buffer.hpp>
+#include <sge/renderer/optional_display_mode.hpp>
 #include <sge/renderer/stencil_buffer.hpp>
-#include <sge/renderer/window_mode.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/symbol.hpp>
+#include <fcppt/optional_impl.hpp>
 
 namespace sge
 {
@@ -39,16 +40,15 @@ class parameters
 {
 public:
 	SGE_SYMBOL parameters(
-		renderer::display_mode const &,
+		renderer::optional_display_mode const &,
 		renderer::depth_buffer::type,
 		renderer::stencil_buffer::type,
-		renderer::window_mode::type,
 		renderer::vsync::type,
 		renderer::multi_sample_type
 	);
 
 	SGE_SYMBOL
-	renderer::display_mode const &
+	renderer::optional_display_mode const &
 	display_mode() const;
 
 	SGE_SYMBOL
@@ -60,10 +60,6 @@ public:
 	stencil_buffer() const;
 
 	SGE_SYMBOL
-	renderer::window_mode::type
-	window_mode() const;
-
-	SGE_SYMBOL
 	renderer::vsync::type
 	vsync() const;
 
@@ -71,12 +67,15 @@ public:
 	renderer::multi_sample_type
 	samples() const;
 private:
-	renderer::display_mode         mode_;
-	renderer::depth_buffer::type   depth_buffer_;
+	renderer::optional_display_mode display_mode_;
+
+	renderer::depth_buffer::type depth_buffer_;
+
 	renderer::stencil_buffer::type stencil_buffer_;
-	renderer::window_mode::type    window_mode_;
-	renderer::vsync::type          vsync_;
-	renderer::multi_sample_type    samples_;
+
+	renderer::vsync::type vsync_;
+
+	renderer::multi_sample_type samples_;
 };
 
 }

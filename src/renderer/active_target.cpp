@@ -18,25 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_PROJECTION_MATRIX_HPP_INCLUDED
-#define SGE_SPRITE_PROJECTION_MATRIX_HPP_INCLUDED
+#include <sge/renderer/active_target.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/onscreen_target.hpp>
+#include <sge/renderer/target.hpp>
+#include <sge/renderer/target_base_ptr.hpp>
 
-#include <sge/sprite/matrix.hpp>
-#include <sge/sprite/symbol.hpp>
-#include <sge/renderer/viewport.hpp>
-
-namespace sge
+sge::renderer::target_base_ptr const
+sge::renderer::active_target(
+	renderer::device_ptr const _device
+)
 {
-namespace sprite
-{
-
-SGE_SPRITE_SYMBOL
-sge::sprite::matrix const
-projection_matrix(
-	sge::renderer::viewport const &
-);
-
+	return
+		_device->target()
+		?
+			renderer::target_base_ptr(
+				_device->target()
+			)
+		:
+			renderer::target_base_ptr(
+				_device->onscreen_target()
+			);
 }
-}
-
-#endif

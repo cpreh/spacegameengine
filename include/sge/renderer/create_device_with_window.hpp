@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/system_ptr.hpp>
-#include <sge/renderer/window_parameters_fwd.hpp>
+#include <sge/window/simple_parameters_fwd.hpp>
 #include <sge/symbol.hpp>
 #include <awl/system/object_ptr.hpp>
 
@@ -41,7 +41,7 @@ create_device_with_window(
 	sge::renderer::system_ptr,
 	sge::renderer::parameters const &,
 	sge::renderer::adapter_type,
-	sge::renderer::window_parameters const &
+	sge::window::simple_parameters const &
 );
 
 }

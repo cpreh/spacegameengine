@@ -18,23 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_MATRIX_PIXEL_TO_SPACE_HPP_INCLUDED
-#define SGE_RENDERER_MATRIX_PIXEL_TO_SPACE_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_EXCEPTION_HPP_INCLUDED
+#define SGE_SYSTEMS_EXCEPTION_HPP_INCLUDED
 
-#include <sge/renderer/screen_size.hpp>
-#include <sge/renderer/matrix4.hpp>
-#include <sge/symbol.hpp>
+#include <sge/systems/symbol.hpp>
+#include <sge/exception.hpp>
+#include <sge/class_symbol.hpp>
+#include <fcppt/string.hpp>
 
 namespace sge
 {
-namespace renderer
+namespace systems
 {
 
-SGE_SYMBOL
-sge::renderer::matrix4 const
-matrix_pixel_to_space(
-	screen_size const &
-);
+class SGE_CLASS_SYMBOL exception
+:
+	public sge::exception
+{
+public:
+	SGE_SYSTEMS_SYMBOL explicit exception(
+		fcppt::string const &
+	);
+};
 
 }
 }

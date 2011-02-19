@@ -31,8 +31,7 @@ sge::systems::viewport::fill_on_resize()
 		systems::viewport::make_manager(
 			std::tr1::bind(
 				&systems::viewport::fill_on_resize_function,
-				std::tr1::placeholders::_1,
-				std::tr1::placeholders::_2
+				std::tr1::placeholders::_1
 			)
 		);
 }

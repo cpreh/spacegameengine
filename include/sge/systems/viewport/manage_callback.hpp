@@ -18,24 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_TRANSFORM_MATRIX_HPP_INCLUDED
-#define SGE_SPRITE_TRANSFORM_MATRIX_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_VIEWPORT_MANAGE_CALLBACK_HPP_INCLUDED
+#define SGE_SYSTEMS_VIEWPORT_MANAGE_CALLBACK_HPP_INCLUDED
 
-#include <sge/sprite/matrix.hpp>
-#include <sge/sprite/symbol.hpp>
-#include <sge/renderer/screen_size.hpp>
+#include <sge/systems/viewport/manage_function.hpp>
+#include <fcppt/function/object_fwd.hpp>
 
 namespace sge
 {
-namespace sprite
+namespace systems
+{
+namespace viewport
 {
 
-SGE_SPRITE_SYMBOL
-sge::sprite::matrix const
-transform_matrix(
-	sge::renderer::screen_size const &
-);
+typedef fcppt::function::object<
+	viewport::manage_function
+> manage_callback;
 
+}
 }
 }
 

@@ -24,9 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "resize_function.hpp"
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/target_base_ptr.hpp>
+#include <sge/systems/viewport/manage_callback.hpp>
+#include <sge/systems/viewport/manage_function.hpp>
 #include <sge/systems/viewport/manager.hpp>
 #include <awl/window/event/resize_fwd.hpp>
 #include <fcppt/function/object.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/object_decl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -51,6 +55,11 @@ public:
 	);
 	
 	~basic_manager();
+
+	fcppt::signal::auto_connection
+	manage_callback(
+		systems::viewport::manage_callback const &
+	);
 private:
 	void
 	on_resize(
@@ -64,6 +73,12 @@ private:
 	systems::viewport::resize_function const resize_function_;
 
 	fcppt::signal::scoped_connection const resize_connection_;
+
+	typedef fcppt::signal::object<
+		systems::viewport::manage_function
+	> manage_signal;
+
+	manage_signal manage_signal_;
 };
 
 }

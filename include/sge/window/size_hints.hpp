@@ -18,44 +18,61 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_WINDOW_PARAMETERS_HPP_INCLUDED
-#define SGE_RENDERER_WINDOW_PARAMETERS_HPP_INCLUDED
+#ifndef SGE_WINDOW_SIZE_HINTS_HPP_INCLUDED
+#define SGE_WINDOW_SIZE_HINTS_HPP_INCLUDED
 
-#include <sge/window/parameters_fwd.hpp>
-#include <fcppt/string.hpp>
+#include <sge/window/size_hints_fwd.hpp>
+#include <sge/window/dim.hpp>
+#include <sge/window/optional_dim.hpp>
 #include <sge/symbol.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/optional_impl.hpp>
 
 namespace sge
 {
-namespace renderer
+namespace window
 {
 
-class window_parameters
+class size_hints
 {
 public:
 	SGE_SYMBOL
-	explicit
-	window_parameters(
-		fcppt::string const &title
+	size_hints();
+
+	SGE_SYMBOL
+	size_hints &
+	exact_size_hint(
+		window::dim const &
 	);
 
 	SGE_SYMBOL
-	window_parameters &
-	class_name(
-		fcppt::string const &
+	size_hints &
+	minimum_size_hint(
+		window::dim const &
 	);
 
 	SGE_SYMBOL
-	fcppt::string const &
-	title() const;
+	size_hints &
+	maximum_size_hint(
+		window::dim const &
+	);
 
 	SGE_SYMBOL
-	fcppt::string const &
-	class_name() const;
+	window::optional_dim const &
+	exact_size_hint() const;
+
+	SGE_SYMBOL
+	window::optional_dim const &
+	minimum_size_hint() const;
+
+	SGE_SYMBOL
+	window::optional_dim const &
+	maximum_size_hint() const;
 private:
-	fcppt::string title_;
-
-	fcppt::string class_name_;
+	window::optional_dim
+		exact_size_hint_,
+		minimum_size_hint_,
+		maximum_size_hint_;
 };
 
 }

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/instance.hpp>
 #include <awl/window/event/processor.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
+#include <fcppt/signal/object_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
 
 sge::systems::viewport::basic_manager::basic_manager(
@@ -48,12 +49,24 @@ sge::systems::viewport::basic_manager::basic_manager(
 				std::tr1::placeholders::_1
 			)
 		)
-	)
+	),
+	manage_signal_()
 {
 }
 
 sge::systems::viewport::basic_manager::~basic_manager()
 {
+}
+
+fcppt::signal::auto_connection
+sge::systems::viewport::basic_manager::manage_callback(
+	systems::viewport::manage_callback const &_callback
+)
+{
+	return
+		manage_signal_.connect(
+			_callback
+		);
 }
 
 void
@@ -63,8 +76,11 @@ sge::systems::viewport::basic_manager::on_resize(
 {
 	target_->viewport(
 		resize_function_(
-			device_,
 			_resize
 		)
+	);
+
+	manage_signal_(
+		device_
 	);
 }

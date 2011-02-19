@@ -58,11 +58,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/plugin.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/system_ptr.hpp>
+#include <sge/systems/exception.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/viewport/manager.hpp>
 #include <sge/window/instance.hpp>
-#include <sge/exception.hpp>
 #include <awl/window/instance_ptr.hpp>
 #include <awl/system/create.hpp>
 #include <awl/system/object_ptr.hpp>
@@ -395,6 +395,17 @@ sge::systems::instance::window() const
 	return impl_->window_;
 }
 
+fcppt::signal::auto_connection
+sge::systems::instance::manage_viewport_callback(
+	systems::viewport::manage_callback const &_callback
+)
+{
+	return
+		impl_->viewport_manager_->manage_callback(
+			_callback
+		);
+}
+
 namespace
 {
 
@@ -495,7 +506,7 @@ visitor::operator()(
 		return;
 	}
 
-	throw sge::exception(
+	throw sge::systems::exception(
 		FCPPT_TEXT("Invalid systems::parameterless!")
 	);
 }
@@ -536,7 +547,7 @@ sge::systems::instance::impl::init_renderer(
 		if(
 			!window_param_
 		)
-			throw sge::exception(
+			throw sge::systems::exception(
 				FCPPT_TEXT("systems: renderer device requested, but no window parameter given!")
 			);
 
@@ -599,11 +610,11 @@ sge::systems::instance::impl::init_input(
 		if(
 			!window_param_
 		)
-			throw sge::exception(
+			throw sge::systems::exception(
 				FCPPT_TEXT("systems: input system requested, but no window parameter given!")
 			);
 
-		create_window();
+		this->create_window();
 	}
 
 	input_plugin_ = default_plugin<sge::input::system>();

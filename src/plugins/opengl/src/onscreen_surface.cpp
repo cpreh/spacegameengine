@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 #include "../read_pixels.hpp"
 #include "../convert/format_to_color.hpp"
-#include <sge/renderer/bit_depth_bytes.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/pixel_unit.hpp>
 #include <sge/image2d/view/make_const.hpp>
@@ -39,19 +38,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 sge::opengl::onscreen_surface::onscreen_surface(
-	sge::window::instance_ptr const _window,
-	renderer::bit_depth::type const _depth
+	sge::window::instance_ptr const _window
 )
 :
 	sge::renderer::color_surface(),
 	window_(_window),
 	buffer_(),
 	stride_(
-		renderer::bit_depth_bytes(
-			_depth
-		)
+		4u
 	)
-{}
+{
+}
 
 sge::opengl::onscreen_surface::~onscreen_surface()
 {

@@ -18,21 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/to_awl_parameters.hpp>
-#include <sge/renderer/window_parameters.hpp>
-#include <awl/window/parameters.hpp>
+#ifndef SGE_SYSTEMS_VIEWPORT_MANAGE_FUNCTION_HPP_INCLUDED
+#define SGE_SYSTEMS_VIEWPORT_MANAGE_FUNCTION_HPP_INCLUDED
 
-awl::window::parameters
-sge::renderer::to_awl_parameters(
-	sge::renderer::window_parameters const &_param
-)
+#include <sge/renderer/device_ptr.hpp>
+
+namespace sge
 {
-	return
-		awl::window::parameters()
-		.title(
-			_param.title()
-		)
-		.class_name(
-			_param.class_name()
-		);
+namespace systems
+{
+namespace viewport
+{
+
+typedef
+void
+manage_function(
+	sge::renderer::device_ptr
+);
+
 }
+}
+}
+
+#endif

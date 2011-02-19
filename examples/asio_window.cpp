@@ -27,9 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
-#include <sge/window/dim_type.hpp>
-#include <sge/window/simple_parameters.hpp>
+#include <sge/window/dim.hpp>
 #include <sge/window/instance.hpp>
+#include <sge/window/simple_parameters.hpp>
 #include <awl/mainloop/io_service.hpp>
 #include <awl/mainloop/dispatcher.hpp>
 #include <awl/mainloop/asio/create_io_service_base.hpp>
@@ -56,7 +56,7 @@ try
 			sge::systems::window(
 				sge::window::simple_parameters(
 					FCPPT_TEXT("sge asio test"),
-					sge::window::dim_type(
+					sge::window::dim(
 						1024,
 						768
 					)

@@ -29,4 +29,5 @@ sge::renderer::exception::exception(
 		FCPPT_TEXT("renderer: ")
 		+ _what
 	)
-{}
+{
+}

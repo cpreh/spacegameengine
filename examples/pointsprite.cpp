@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/device.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
-#include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/glsl/uniform/variable.hpp>
 #include <sge/renderer/glsl/uniform/single_value.hpp>
@@ -95,6 +94,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
+
+sge::window::dim const window_dim(
+	1024,
+	768
+);
+
 typedef sge::sprite::choices<
 	sge::sprite::type_choices<
 		int,
@@ -271,13 +276,13 @@ particles::particles(
 			static_cast<sge::renderer::scalar>(
 				0),
 			static_cast<sge::renderer::scalar>(
-				sys.renderer()->screen_size().w()))),
+				window_dim.w()))),
 	position_y_rng_(
 		fcppt::random::make_inclusive_range(
 			static_cast<sge::renderer::scalar>(
 				0),
 			static_cast<sge::renderer::scalar>(
-				sys.renderer()->screen_size().h()))),
+				window_dim.h()))),
 	size_rng_(
 		fcppt::random::make_inclusive_range(
 			static_cast<sge::renderer::scalar>(
@@ -414,29 +419,24 @@ try
 		sge::systems::list()
 		(
 			sge::systems::window(
-				sge::renderer::window_parameters(
-					FCPPT_TEXT("sge animtest")
+				sge::window::simple_parameters(
+					FCPPT_TEXT("sge point sprite example"),
+					window_dim
 				)
 			)
 		)
 		(
 			sge::systems::renderer(
 				sge::renderer::parameters(
-					sge::renderer::display_mode(
-						sge::renderer::screen_size(
-							1024,
-							768
-						),
-						sge::renderer::bit_depth::depth32,
-						sge::renderer::refresh_rate_dont_care
-					),
+					sge::renderer::optional_display_mode(),
 					sge::renderer::depth_buffer::off,
 					sge::renderer::stencil_buffer::off,
-					sge::renderer::window_mode::windowed,
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling
 				),
-				sge::systems::viewport::center_on_resize()
+				sge::systems::viewport::center_on_resize(
+					window_dim
+				)
 			)
 		)
 		(

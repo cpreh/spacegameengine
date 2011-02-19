@@ -22,8 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_VIEWPORT_MANAGER_HPP_INCLUDED
 
 #include <sge/systems/viewport/manager_fwd.hpp>
+#include <sge/systems/viewport/manage_callback.hpp>
 #include <sge/systems/symbol.hpp>
 #include <sge/class_symbol.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -44,6 +46,11 @@ protected:
 public:
 	SGE_SYSTEMS_SYMBOL
 	virtual ~manager();
+
+	virtual fcppt::signal::auto_connection
+	manage_callback(
+		systems::viewport::manage_callback const &
+	) = 0;
 };
 
 }

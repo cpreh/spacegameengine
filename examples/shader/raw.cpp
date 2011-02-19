@@ -36,7 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/target_from_texture.hpp>
 #include <sge/renderer/scoped_target.hpp>
-#include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/glsl/uniform/variable.hpp>
 #include <sge/renderer/glsl/uniform/single_value.hpp>
@@ -168,7 +167,7 @@ try
 		fcppt::log::level::debug
 	);
 
-	sge::renderer::screen_size const screen_size(
+	sge::window::dim const window_dim(
 		1024,
 		768
 	);
@@ -177,26 +176,24 @@ try
 		sge::systems::list()
 		(
 			sge::systems::window(
-				sge::renderer::window_parameters(
-					FCPPT_TEXT("sge dopplertest")
+				sge::window::simple_parameters(
+					FCPPT_TEXT("sge dopplertest"),
+					window_dim
 				)
 			)
 		)
 		(
 			sge::systems::renderer(
 				sge::renderer::parameters(
-					sge::renderer::display_mode(
-						screen_size,
-						sge::renderer::bit_depth::depth32,
-						sge::renderer::refresh_rate_dont_care
-					),
+					sge::renderer::optional_display_mode(),
 					sge::renderer::depth_buffer::off,
 					sge::renderer::stencil_buffer::off,
-					sge::renderer::window_mode::windowed,
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling
 				),
-				sge::systems::viewport::center_on_resize()
+				sge::systems::viewport::center_on_resize(
+					window_dim
+				)
 			)
 		)
 		(
@@ -308,7 +305,7 @@ try
 				fcppt::math::dim::structure_cast<
 					sprite_object::dim
 				>(
-					screen_size
+					window_dim
 				)
 			)
 			.depth(
@@ -341,8 +338,8 @@ try
 		sprite_parameters()
 		.pos(
 			sprite_object::point(
-				screen_size.w()/2-16,
-				screen_size.h()/2-16
+				window_dim.w()/2-16,
+				window_dim.h()/2-16
 			)
 		)
 		.texture(
@@ -404,7 +401,7 @@ try
 				fcppt::math::dim::structure_cast<
 					sge::renderer::dim2
 				>(
-					screen_size
+					window_dim
 				),
 				sge::image::color::format::rgba8,
 				sge::renderer::texture::filter::linear,

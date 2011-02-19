@@ -19,14 +19,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/sprite/projection_matrix.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
-#include <fcppt/math/matrix/orthogonal_xy.hpp>
+#include <fcppt/math/matrix/orthogonal.hpp>
 
 sge::sprite::matrix const
-sge::sprite::projection_matrix()
+sge::sprite::projection_matrix(
+	sge::renderer::viewport const &_viewport
+)
 {
 	return
-		fcppt::math::matrix::orthogonal_xy<
+		fcppt::math::matrix::orthogonal<
 			sge::sprite::matrix::value_type
-		>();
+		>(
+			static_cast<
+				sge::sprite::matrix::value_type
+			>(
+				0
+			),
+			static_cast<
+				sge::sprite::matrix::value_type
+			>(
+				_viewport.get().dimension().w()
+			),
+			static_cast<
+				sge::sprite::matrix::value_type
+			>(
+				_viewport.get().dimension().h()
+			),
+			static_cast<
+				sge::sprite::matrix::value_type
+			>(
+				0
+			),
+			static_cast<
+				sge::sprite::matrix::value_type
+			>(
+				0
+			),
+			static_cast<
+				sge::sprite::matrix::value_type
+			>(
+				10
+			)
+		);
 }

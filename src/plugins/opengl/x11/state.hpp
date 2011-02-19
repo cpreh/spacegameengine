@@ -27,12 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glx/current.hpp"
 #include "../glx/context_ptr.hpp"
 #include <sge/renderer/adapter_type.hpp>
-#include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
 #include <awl/backends/x11/window/instance_ptr.hpp>
 #include <awl/backends/x11/const_visual_ptr.hpp>
 #include <awl/backends/x11/display_ptr.hpp>
-#include <fcppt/math/dim/basic_decl.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -62,8 +60,6 @@ public:
 	void
 	swap_buffers();
 private:
-	renderer::screen_size const screen_size_;
-
 	awl::backends::x11::window::instance_ptr const window_;
 
 	awl::backends::x11::display_ptr const display_;

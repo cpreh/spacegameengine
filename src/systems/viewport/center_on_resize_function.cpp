@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "center.hpp"
 #include "center_on_resize_function.hpp"
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <awl/window/event/resize.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
@@ -29,15 +28,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::viewport const
 sge::systems::viewport::center_on_resize_function(
-	sge::renderer::device_ptr const _device,
+	sge::window::dim const &_ref_dim,
 	awl::window::event::resize const &_resize
 )
 {
 	return
 		systems::viewport::center(
-			_device->screen_size(),
+			_ref_dim,
 			fcppt::math::dim::structure_cast<
-				sge::window::dim_type
+				sge::window::dim
 			>(
 				_resize.dim()
 			)

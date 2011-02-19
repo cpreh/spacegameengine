@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/window.hpp>
-#include <sge/window/dim_type.hpp>
+#include <sge/window/dim.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/window/simple_parameters.hpp>
 #include <awl/mainloop/dispatcher.hpp>
@@ -224,7 +224,7 @@ try
 			sge::systems::window(
 				sge::window::simple_parameters(
 					FCPPT_TEXT("sge input example"),
-					sge::window::dim_type(
+					sge::window::dim(
 						1024,
 						768
 					)
