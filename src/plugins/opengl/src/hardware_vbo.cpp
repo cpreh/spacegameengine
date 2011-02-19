@@ -22,42 +22,81 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../check_state.hpp"
 #include "../glew/is_supported.hpp"
 #include <sge/renderer/exception.hpp>
-#include <sge/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert.hpp>
 
 sge::opengl::hardware_vbo::hardware_vbo()
+:
+	have_version_1_5_(
+		sge::opengl::glew::is_supported(
+			"GL_VERSION_1_5"
+		)
+	),
+	have_arb_(
+		sge::opengl::glew::is_supported(
+			"GL_ARB_vertex_buffer_object"
+		)
+	),
+	gl_gen_buffers_(
+		have_version_1_5_
+		?
+			glGenBuffers
+		:
+			glGenBuffersARB
+	),
+	gl_delete_buffers_(
+		have_version_1_5_
+		?
+			glDeleteBuffers
+		:
+			glDeleteBuffersARB
+	),
+	gl_bind_buffer_(
+		have_version_1_5_
+		?
+			glBindBuffer
+		:
+			glBindBufferARB
+	),
+	gl_map_buffer_(
+		have_version_1_5_
+		?
+			glMapBuffer
+		:
+			glMapBufferARB
+	),
+	gl_unmap_buffer_(
+		have_version_1_5_
+		?
+			glUnmapBuffer
+		:
+			glUnmapBufferARB
+	),
+	gl_buffer_data_(
+		have_version_1_5_
+		?
+			glBufferData
+		:
+			glBufferDataARB
+	),
+	gl_buffer_sub_data_(
+		have_version_1_5_
+		?
+			glBufferSubData
+		:
+			glBufferSubDataARB
+	),
+	gl_map_buffer_range_(
+		glMapBufferRange
+	)
 {
 	if(
-		sge::opengl::glew::is_supported("GL_VERSION_1_5")
+		!have_version_1_5_
+		&& !have_arb_
 	)
-	{
-		gl_gen_buffers = glGenBuffers;
-		gl_delete_buffers = glDeleteBuffers;
-		gl_bind_buffer = glBindBuffer;
-		gl_map_buffer = glMapBuffer;
-		gl_unmap_buffer = glUnmapBuffer;
-		gl_buffer_data = glBufferData;
-		gl_buffer_sub_data = glBufferSubData;
-	}
-	else if(
-		sge::opengl::glew::is_supported("GL_ARB_vertex_buffer_object")
-	)
-	{
-		gl_gen_buffers = glGenBuffersARB;
-		gl_delete_buffers = glDeleteBuffersARB;
-		gl_bind_buffer = glBindBufferARB;
-		gl_map_buffer = glMapBufferARB;
-		gl_unmap_buffer = glUnmapBufferARB;
-		gl_buffer_data = glBufferDataARB;
-		gl_buffer_sub_data = glBufferSubDataARB;
-	}
-	else
-		throw sge::exception(
+		throw sge::renderer::exception(
 			FCPPT_TEXT("Invalid initialization of hardware_vbo!")
 		);
-	
-	gl_map_buffer_range = glMapBufferRange;
 }
 
 sge::opengl::hardware_vbo::~hardware_vbo()
@@ -68,7 +107,11 @@ GLuint
 sge::opengl::hardware_vbo::gen_buffer()
 {
 	GLuint id;
-	gl_gen_buffers(1, &id);
+
+	gl_gen_buffers_(
+		1,
+		&id
+	);
 
 	SGE_OPENGL_CHECK_STATE(
 		FCPPT_TEXT("glGenBuffers failed"),
@@ -80,10 +123,13 @@ sge::opengl::hardware_vbo::gen_buffer()
 
 void
 sge::opengl::hardware_vbo::delete_buffer(
-	GLuint const id
+	GLuint const _id
 )
 {
-	gl_delete_buffers(1, &id);
+	gl_delete_buffers_(
+		1,
+		&_id
+	);
 
 	SGE_OPENGL_CHECK_STATE(
 		FCPPT_TEXT("glDeleteBuffers failed"),
@@ -93,11 +139,14 @@ sge::opengl::hardware_vbo::delete_buffer(
 
 void
 sge::opengl::hardware_vbo::bind_buffer(
-	GLenum const type,
-	GLuint const id
+	GLenum const _type,
+	GLuint const _id
 )
 {
-	gl_bind_buffer(type, id);
+	gl_bind_buffer_(
+		_type,
+		_id
+	);
 
 	SGE_OPENGL_CHECK_STATE(
 		FCPPT_TEXT("glBindBuffer failed"),
@@ -107,15 +156,17 @@ sge::opengl::hardware_vbo::bind_buffer(
 
 GLvoid *
 sge::opengl::hardware_vbo::map_buffer(
-	GLenum const type,
-	GLenum const flags
+	GLenum const _type,
+	GLenum const _flags
 )
 {
 	GLvoid *const ret(
-		static_cast<GLvoid *>(
-			gl_map_buffer(
-				type,
-				flags
+		static_cast<
+			GLvoid *
+		>(
+			gl_map_buffer_(
+				_type,
+				_flags
 			)
 		)
 	);
@@ -130,22 +181,22 @@ sge::opengl::hardware_vbo::map_buffer(
 
 GLvoid *
 sge::opengl::hardware_vbo::map_buffer_range(
-	GLenum const type,
-	GLenum const flags,
-	GLsizei const first,
-	GLsizei const size
+	GLenum const _type,
+	GLenum const _flags,
+	GLsizei const _first,
+	GLsizei const _size
 )
 {
 	FCPPT_ASSERT(
-		gl_map_buffer_range
+		gl_map_buffer_range_
 	);
 
 	GLvoid *const ret(
-		gl_map_buffer_range(
-			type,
-			first,
-			size,
-			flags
+		gl_map_buffer_range_(
+			_type,
+			_first,
+			_size,
+			_flags
 		)
 	);
 
@@ -160,15 +211,17 @@ sge::opengl::hardware_vbo::map_buffer_range(
 bool
 sge::opengl::hardware_vbo::map_buffer_range_supported() const
 {
-	return gl_map_buffer_range != 0;
+	return gl_map_buffer_range_ != 0;
 }
 
 void
 sge::opengl::hardware_vbo::unmap_buffer(
-	GLenum const type
+	GLenum const _type
 )
 {
-	gl_unmap_buffer(type);
+	gl_unmap_buffer_(
+		_type
+	);
 
 	SGE_OPENGL_CHECK_STATE(
 		FCPPT_TEXT("glUnmapBuffer failed"),
@@ -178,17 +231,17 @@ sge::opengl::hardware_vbo::unmap_buffer(
 
 void
 sge::opengl::hardware_vbo::buffer_data(
-	GLenum const type,
-	GLsizei const size,
-	GLvoid const *const data,
-	GLenum const flags
+	GLenum const _type,
+	GLsizei const _size,
+	GLvoid const *const _data,
+	GLenum const _flags
 )
 {
-	gl_buffer_data(
-		type,
-		size,
-		data,
-		flags
+	gl_buffer_data_(
+		_type,
+		_size,
+		_data,
+		_flags
 	);
 
 	SGE_OPENGL_CHECK_STATE(
@@ -199,17 +252,17 @@ sge::opengl::hardware_vbo::buffer_data(
 
 void
 sge::opengl::hardware_vbo::buffer_sub_data(
-	GLenum const type,
-	GLsizei const first,
-	GLsizei const size,
-	GLvoid const *const data
+	GLenum const _type,
+	GLsizei const _first,
+	GLsizei const _size,
+	GLvoid const *const _data
 )
 {
-	gl_buffer_sub_data(
-		type,
-		first,
-		size,
-		data
+	gl_buffer_sub_data_(
+		_type,
+		_first,
+		_size,
+		_data
 	);
 
 	SGE_OPENGL_CHECK_STATE(
@@ -221,10 +274,15 @@ sge::opengl::hardware_vbo::buffer_sub_data(
 void *
 sge::opengl::hardware_vbo::buffer_offset(
 	GLenum,
-	GLsizei const offset
+	GLsizei const _offset
 ) const
 {
-	return reinterpret_cast<void *>(offset);
+	return
+		reinterpret_cast<
+			void *
+		>(
+			_offset
+		);
 }
 
 bool

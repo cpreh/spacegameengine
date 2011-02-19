@@ -103,14 +103,25 @@ private:
 	bool
 	hardware_supported() const;
 
-	PFNGLGENBUFFERSPROC gl_gen_buffers;
-	PFNGLDELETEBUFFERSPROC gl_delete_buffers;
-	PFNGLBINDBUFFERPROC gl_bind_buffer;
-	PFNGLMAPBUFFERPROC gl_map_buffer;
-	PFNGLUNMAPBUFFERPROC gl_unmap_buffer;
-	PFNGLBUFFERDATAPROC gl_buffer_data;
-	PFNGLBUFFERSUBDATAPROC gl_buffer_sub_data;
-	PFNGLMAPBUFFERRANGEPROC gl_map_buffer_range;
+	bool const
+		have_version_1_5_,
+		have_arb_;
+
+	PFNGLGENBUFFERSPROC const gl_gen_buffers_;
+
+	PFNGLDELETEBUFFERSPROC const gl_delete_buffers_;
+
+	PFNGLBINDBUFFERPROC const gl_bind_buffer_;
+
+	PFNGLMAPBUFFERPROC const gl_map_buffer_;
+
+	PFNGLUNMAPBUFFERPROC const gl_unmap_buffer_;
+
+	PFNGLBUFFERDATAPROC const gl_buffer_data_;
+
+	PFNGLBUFFERSUBDATAPROC const gl_buffer_sub_data_;
+
+	PFNGLMAPBUFFERRANGEPROC const gl_map_buffer_range_;
 };
 
 }

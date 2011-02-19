@@ -30,7 +30,7 @@ SGE_ERROR_CHECK_STATE(\
 	exception,\
 	message,\
 	GLenum,\
-	glGetError(),\
+	::glGetError(),\
 	GL_NO_ERROR,\
 	sge::opengl::error_string\
 )
