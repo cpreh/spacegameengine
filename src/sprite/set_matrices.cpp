@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/active_target.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/matrix_mode.hpp>
+#include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/target_base.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
@@ -32,6 +33,11 @@ sge::sprite::set_matrices(
 	renderer::device_ptr const _device
 )
 {
+	_device->transform(
+		sge::renderer::matrix_mode::world,
+		sge::renderer::matrix4::identity()
+	);
+
 	_device->transform(
 		sge::renderer::matrix_mode::projection,
 		sprite::projection_matrix(
