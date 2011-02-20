@@ -446,6 +446,7 @@ SET(
 	include/sge/renderer/adapter_type.hpp
 	include/sge/renderer/add_depth_stencil_surface_to_target.hpp
 	include/sge/renderer/aspect.hpp
+	include/sge/renderer/aspect_from_viewport.hpp
 	include/sge/renderer/bit_depth.hpp
 	include/sge/renderer/bit_depth_bytes.hpp
 	include/sge/renderer/caps.hpp
@@ -1014,6 +1015,7 @@ SET(
 	src/renderer/active_target.cpp
 	src/renderer/add_depth_stencil_surface_to_target.cpp
 	src/renderer/aspect.cpp
+	src/renderer/aspect_from_viewport.cpp
 	src/renderer/bit_depth_bytes.cpp
 	src/renderer/caps.cpp
 	src/renderer/color_surface.cpp

@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/identity_gizmo.hpp>
 #include <sge/camera/object.hpp>
 #include <sge/camera/parameters.hpp>
-#include <sge/camera/projection/perspective.hpp>
+#include <sge/camera/projection/object.hpp>
+#include <sge/camera/projection/update_perspective_from_viewport.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/font/metrics_ptr.hpp>
 #include <sge/font/rect.hpp>
@@ -219,7 +220,7 @@ int
 main()
 try
 {
-	sge::systems::instance const sys(
+	sge::systems::instance sys(
 		sge::systems::list()
 		(
 			sge::systems::window(
@@ -263,43 +264,18 @@ try
 
 	sge::camera::object camera(
 		sge::camera::parameters(
-			sge::camera::projection::perspective(
-				1.3333, // FIXME!
-				/*sge::renderer::aspect(
-					
-				),*/
-				// fov
-				fcppt::math::deg_to_rad(
-					static_cast<
-						sge::renderer::scalar
-					>(
-						90
-					)
-				),
-				// near
-				static_cast<
-					sge::renderer::scalar
-				>(
-					0.1
-				),
-				// far
-				static_cast<
-					sge::renderer::scalar
-				>(
-					100
-				)
-			),
+			sge::camera::projection::object(),
 			// movementspeed
 			static_cast<
 				sge::renderer::scalar
 			>(
-				2.0
+				4.
 			),
 			// mousespeed
 			static_cast<
 				sge::renderer::scalar
 			>(
-				200.0
+				200.
 			),
 			// position
 			sge::camera::identity_gizmo(),
@@ -545,6 +521,38 @@ try
 					current_text
 				),
 				textures
+			)
+		)
+	);
+
+	fcppt::signal::scoped_connection const viewport_connection(
+		sys.manage_viewport_callback(
+			std::tr1::bind(
+				sge::camera::projection::update_perspective_from_viewport,
+				std::tr1::placeholders::_1,
+				std::tr1::ref(
+					camera
+				),
+				// fov
+				static_cast<
+					sge::renderer::scalar
+				>(
+					fcppt::math::deg_to_rad(
+						90.
+					)
+				),
+				// near
+				static_cast<
+					sge::renderer::scalar
+				>(
+					0.1
+				),
+				// far
+				static_cast<
+					sge::renderer::scalar
+				>(
+					1000.
+				)
 			)
 		)
 	);

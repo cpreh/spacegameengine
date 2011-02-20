@@ -13,12 +13,14 @@ SET(
 	include/sge/camera/projection/orthogonal.hpp
 	include/sge/camera/projection/perspective.hpp
 	include/sge/camera/projection/to_matrix.hpp
+	include/sge/camera/projection/update_perspective_from_viewport.hpp
 	include/sge/camera/symbol.hpp
 	src/camera/identity_gizmo.cpp
 	src/camera/object.cpp
 	src/camera/parameters.cpp
 	src/camera/projection/perspective.cpp
 	src/camera/projection/to_matrix.cpp
+	src/camera/projection/update_perspective_from_viewport.cpp
 )
 
 ADD_SGE_BASE_LIBRARY(
