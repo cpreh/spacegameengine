@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scalar.hpp>
 #include <fcppt/math/matrix/orthogonal_xy.hpp>
 #include <fcppt/math/matrix/perspective.hpp>
+#include <fcppt/math/matrix/scaling.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 
@@ -58,7 +59,7 @@ sge::camera::projection::to_matrix(
 	object const &o)
 {
 	if (o.empty())
-		return sge::renderer::matrix4();
+		return fcppt::math::matrix::scaling<renderer::scalar>(0, 0, 0);
 	return 
 		fcppt::variant::apply_unary(
 			conversion_operator(),
