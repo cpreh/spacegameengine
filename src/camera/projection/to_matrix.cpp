@@ -57,6 +57,8 @@ sge::renderer::matrix4 const
 sge::camera::projection::to_matrix(
 	object const &o)
 {
+	if (o.empty())
+		return sge::renderer::matrix4();
 	return 
 		fcppt::variant::apply_unary(
 			conversion_operator(),
