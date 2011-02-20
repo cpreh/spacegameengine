@@ -82,6 +82,15 @@ public:
 	projection() const;
 
 	SGE_CAMERA_SYMBOL
+	projection::object const
+	projection_object() const;
+
+	SGE_CAMERA_SYMBOL
+	void
+	projection_object(
+		projection::object const &);
+
+	SGE_CAMERA_SYMBOL
 	renderer::matrix4 const 
 	mvp() const;
 
@@ -103,8 +112,8 @@ public:
 	activation();
 private:
 	fcppt::signal::scoped_connection keyboard_connection_,mouse_axis_connection_;
-	projection::object const projection_;
-	renderer::matrix4 const projection_matrix_;
+	projection::object projection_;
+	renderer::matrix4 projection_matrix_;
 	// Rotation speed means mouse sensitivity, movement-speed should be
 	// self-explanatory
 	renderer::scalar const movement_speed_,rotation_speed_;
