@@ -123,6 +123,24 @@ sge::camera::object::projection() const
 	return projection_matrix_;
 }
 
+sge::camera::projection::object const
+sge::camera::object::projection_object() const
+{
+	return projection_;
+}
+
+void
+sge::camera::object::projection_object(
+	projection::object const &_projection)
+{
+	projection_ = 
+		_projection;
+	projection_matrix_ = 
+		projection::to_matrix(
+			projection_);
+}
+
+
 sge::renderer::matrix4 const 
 sge::camera::object::mvp() const
 {
