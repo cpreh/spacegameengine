@@ -607,7 +607,6 @@ SET(
 	include/sge/renderer/onscreen_target_fwd.hpp
 	include/sge/renderer/onscreen_target_ptr.hpp
 	include/sge/renderer/optional_dim2.hpp
-	include/sge/renderer/optional_display_mode.hpp
 	include/sge/renderer/parameters.hpp
 	include/sge/renderer/parameters_fwd.hpp
 	include/sge/renderer/pixel_rect.hpp
@@ -633,6 +632,7 @@ SET(
 	include/sge/renderer/scoped_transform.hpp
 	include/sge/renderer/scoped_vertex_buffer.hpp
 	include/sge/renderer/scoped_vertex_lock.hpp
+	include/sge/renderer/screen_mode.hpp
 	include/sge/renderer/screen_size.hpp
 	include/sge/renderer/screen_unit.hpp
 	include/sge/renderer/screenshot.hpp
@@ -819,6 +819,7 @@ SET(
 	include/sge/renderer/vf/view.hpp
 	include/sge/renderer/vf/view_fwd.hpp
 	include/sge/renderer/viewport.hpp
+	include/sge/renderer/visual_depth.hpp
 	include/sge/renderer/vsync.hpp
 	include/sge/symbol.hpp
 	include/sge/window/convert_size_hints.hpp

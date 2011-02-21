@@ -18,20 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_OPTIONAL_DISPLAY_MODE_HPP_INCLUDED
-#define SGE_RENDERER_OPTIONAL_DISPLAY_MODE_HPP_INCLUDED
+#ifndef SGE_OPENGL_EXTRACT_BIT_DEPTH_HPP_INCLUDED
+#define SGE_OPENGL_EXTRACT_BIT_DEPTH_HPP_INCLUDED
 
-#include <sge/renderer/display_mode_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <sge/renderer/screen_mode.hpp>
+#include <awl/window/bit_depth.hpp>
 
 namespace sge
 {
-namespace renderer
+namespace opengl
 {
 
-typedef fcppt::optional<
-	sge::renderer::display_mode
-> optional_display_mode;
+awl::window::bit_depth::type
+extract_bit_depth(
+	renderer::screen_mode const &
+);
 
 }
 }
