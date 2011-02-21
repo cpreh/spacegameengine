@@ -298,6 +298,18 @@ sge::console::gfx::object() const
 		object_;
 }
 
+sge::console::sprite_object &
+sge::console::gfx::background_sprite()
+{
+	return background_;
+}
+
+sge::console::sprite_object const &
+sge::console::gfx::background_sprite() const
+{
+	return background_;
+}
+
 void
 sge::console::gfx::key_callback(
 	input::keyboard::key_event const &_key

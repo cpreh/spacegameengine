@@ -88,6 +88,12 @@ public:
 
 	SGE_CONSOLE_SYMBOL sge::console::object const &
 	object() const;
+
+	sprite_object &
+	background_sprite();
+
+	sprite_object const &
+	background_sprite() const;
 private:
 	typedef 
 	std::list<font::text::string>
