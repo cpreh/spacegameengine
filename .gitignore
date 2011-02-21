@@ -1,7 +1,3 @@
-.kdev4
-bin
-build
-doc
 util/Include/Main
 util/Include/Main.o
 util/Include/Main.hi
