@@ -46,7 +46,7 @@ typename boost::enable_if<
 	>,
 	typename object<
 		Choices
-	>::point
+	>::vector
 >::type
 rotation_center(
 	object<
@@ -78,7 +78,7 @@ typename boost::disable_if<
 	>,
 	typename object<
 		Choices
-	>::point
+	>::vector
 >::type
 rotation_center(
 	object<

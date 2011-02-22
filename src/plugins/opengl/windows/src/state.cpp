@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::windows::state::state(
 	renderer::parameters const &_param,
-	renderer::adapter_type const _adapter,
+	renderer::adapter const _adapter,
 	awl::backends::windows::window::instance_ptr const _window
 )
 :

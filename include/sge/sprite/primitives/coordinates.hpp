@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_PRIMITIVES_COORDINATES_HPP_INCLUDED
 #define SGE_SPRITE_PRIMITIVES_COORDINATES_HPP_INCLUDED
 
-#include <sge/sprite/primitives/pos.hpp>
+#include <sge/sprite/primitives/vector.hpp>
 #include <majutsu/simple.hpp>
 #include <utility>
 
@@ -38,7 +38,7 @@ template<
 struct coordinates
 {
 private:
-	typedef typename primitives::pos<
+	typedef typename primitives::vector<
 		Type
 	>::type::type vector2;
 public:

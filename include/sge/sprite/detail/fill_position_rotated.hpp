@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_FILL_POSITION_ROTATED_HPP_INCLUDED
 
 #include <sge/sprite/detail/make_position.hpp>
-#include <sge/sprite/detail/point_float.hpp>
 #include <sge/sprite/detail/rect_float.hpp>
+#include <sge/sprite/detail/vector_float.hpp>
 #include <sge/sprite/detail/vertices_per_sprite.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/bounding_rect.hpp>
@@ -60,7 +60,7 @@ fill_position_rotated(
 
 	typedef typename type_choices::float_type funit;
 
-	typedef typename detail::point_float<
+	typedef typename detail::vector_float<
 		type_choices
 	>::type pos2;
 

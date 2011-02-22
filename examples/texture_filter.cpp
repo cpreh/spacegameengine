@@ -58,7 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/active_target.hpp>
 #include <sge/renderer/aspect.hpp>
 #include <sge/renderer/caps.hpp>
-#include <sge/renderer/depth_buffer.hpp>
+#include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/matrix_mode.hpp>
@@ -67,7 +67,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/stencil_buffer.hpp>
 #include <sge/renderer/target_base.hpp>
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
@@ -237,8 +236,7 @@ try
 			sge::systems::renderer(
 				sge::renderer::parameters(
 					sge::renderer::visual_depth::depth32,
-					sge::renderer::depth_buffer::off,
-					sge::renderer::stencil_buffer::off,
+					sge::renderer::depth_stencil_buffer::off,
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling
 				),
@@ -460,7 +458,7 @@ try
 	sprite_object sprite(
 		sprite_parameters()
 		.pos(
-			sprite_object::point(
+			sprite_object::vector(
 				-(sprite_size / 2),
 				-(sprite_size / 2)
 			)

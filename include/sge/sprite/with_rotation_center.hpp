@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_WITH_ROTATION_CENTER_HPP_INCLUDED
 #define SGE_SPRITE_WITH_ROTATION_CENTER_HPP_INCLUDED
 
-#include <sge/sprite/primitives/pos.hpp>
+#include <sge/sprite/primitives/vector.hpp>
 #include <sge/sprite/primitives/bool.hpp>
 #include <sge/sprite/roles/rotate_around.hpp>
 #include <sge/sprite/roles/use_rotation.hpp>
@@ -44,7 +44,7 @@ struct with_rotation_center
 		typedef majutsu::composite<
 			boost::mpl::vector2<
 				majutsu::role<
-					typename primitives::pos<
+					typename primitives::vector<
 						typename Choices::type_choices::unit_type
 					>::type,
 					roles::rotate_around

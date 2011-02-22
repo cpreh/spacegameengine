@@ -443,12 +443,14 @@ SET(
 	include/sge/plugin/object_fwd.hpp
 	include/sge/plugin/version.hpp
 	include/sge/renderer/active_target.hpp
-	include/sge/renderer/adapter_type.hpp
+	include/sge/renderer/adapter.hpp
 	include/sge/renderer/add_depth_stencil_surface_to_target.hpp
 	include/sge/renderer/aspect.hpp
 	include/sge/renderer/aspect_from_viewport.hpp
 	include/sge/renderer/bit_depth.hpp
 	include/sge/renderer/bit_depth_bytes.hpp
+	include/sge/renderer/buffer_has_depth.hpp
+	include/sge/renderer/buffer_has_stencil.hpp
 	include/sge/renderer/caps.hpp
 	include/sge/renderer/caps_fwd.hpp
 	include/sge/renderer/clip_plane.hpp
@@ -468,7 +470,7 @@ SET(
 	include/sge/renderer/create_index_buffer_from_view.hpp
 	include/sge/renderer/create_vertex_buffer_from_view.hpp
 	include/sge/renderer/default_target.hpp
-	include/sge/renderer/depth_buffer.hpp
+	include/sge/renderer/depth_stencil_buffer.hpp
 	include/sge/renderer/depth_stencil_format.hpp
 	include/sge/renderer/depth_stencil_surface.hpp
 	include/sge/renderer/depth_stencil_surface_fwd.hpp
@@ -667,7 +669,6 @@ SET(
 	include/sge/renderer/state/uint_type.hpp
 	include/sge/renderer/state/var.hpp
 	include/sge/renderer/state/var_fwd.hpp
-	include/sge/renderer/stencil_buffer.hpp
 	include/sge/renderer/surface_index.hpp
 	include/sge/renderer/system.hpp
 	include/sge/renderer/system_fwd.hpp
@@ -1018,6 +1019,8 @@ SET(
 	src/renderer/aspect.cpp
 	src/renderer/aspect_from_viewport.cpp
 	src/renderer/bit_depth_bytes.cpp
+	src/renderer/buffer_has_depth.cpp
+	src/renderer/buffer_has_stencil.cpp
 	src/renderer/caps.cpp
 	src/renderer/color_surface.cpp
 	src/renderer/const_scoped_buffer_lock_impl.hpp

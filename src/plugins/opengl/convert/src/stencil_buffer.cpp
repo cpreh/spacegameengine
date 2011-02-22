@@ -24,19 +24,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 awl::window::stencil_buffer::type
 sge::opengl::convert::stencil_buffer(
-	sge::renderer::stencil_buffer::type const _mode
+	sge::renderer::depth_stencil_buffer::type const _mode
 )
 {
 	switch(
 		_mode
 	)
 	{
-	case sge::renderer::stencil_buffer::off:
+	case sge::renderer::depth_stencil_buffer::off:
+	case sge::renderer::depth_stencil_buffer::d16:
+	case sge::renderer::depth_stencil_buffer::d24:
+	case sge::renderer::depth_stencil_buffer::d32:
 		return awl::window::stencil_buffer::off;
-	case sge::renderer::stencil_buffer::d16:
-		return awl::window::stencil_buffer::depth16;
-	case sge::renderer::stencil_buffer::d24:
-		return awl::window::stencil_buffer::depth24;
+	case sge::renderer::depth_stencil_buffer::d24s8:
+		return awl::window::stencil_buffer::depth8;
 	}
 
 	throw sge::renderer::exception(

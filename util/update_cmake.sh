@@ -156,6 +156,8 @@ update_plugin bullet
 
 update_plugin devil
 
+update_plugin d3d9
+
 update_plugin dinput
 
 update_plugin freetype

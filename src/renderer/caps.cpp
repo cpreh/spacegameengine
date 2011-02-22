@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 
 sge::renderer::caps::caps(
-	adapter_type const _adapter,
+	renderer::adapter const _adapter,
 	fcppt::string const &_driver_name,
 	fcppt::string const &_description,
 	dim2 const &_max_texture_size,
@@ -46,7 +46,7 @@ sge::renderer::caps::caps(
 {
 }
 
-sge::renderer::adapter_type
+sge::renderer::adapter const
 sge::renderer::caps::adapter() const
 {
 	return adapter_;

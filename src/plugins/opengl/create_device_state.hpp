@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "device_state_ptr.hpp"
 #include <sge/renderer/parameters_fwd.hpp>
-#include <sge/renderer/adapter_type.hpp>
+#include <sge/renderer/adapter.hpp>
 #include <sge/window/instance_ptr.hpp>
 
 namespace sge
@@ -34,7 +34,7 @@ namespace opengl
 opengl::device_state_ptr
 create_device_state(
 	renderer::parameters const &,
-	renderer::adapter_type,
+	renderer::adapter,
 	window::instance_ptr
 );
 

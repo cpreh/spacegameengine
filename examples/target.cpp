@@ -92,8 +92,7 @@ try
 			sge::systems::renderer(
 				sge::renderer::parameters(
 					sge::renderer::visual_depth::depth32,
-					sge::renderer::depth_buffer::off,
-					sge::renderer::stencil_buffer::off,
+					sge::renderer::depth_stencil_buffer::off,
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling
 				),
@@ -196,7 +195,7 @@ try
 	sprite_object rendered_stuff(
 		sprite_parameters()
 		.pos(
-			sprite_object::point::null()
+			sprite_object::vector::null()
 		)
 		.texture(
 			fcppt::make_shared_ptr<
@@ -224,7 +223,7 @@ try
 		sprite_object my_object(
 			sprite_parameters()
 			.pos(
-				sprite_object::point(
+				sprite_object::vector(
 					100,
 					0
 				)
@@ -243,7 +242,7 @@ try
 		sprite_object my_object_2(
 			sprite_parameters()
 			.pos(
-				sprite_object::point(
+				sprite_object::vector(
 					100,
 					20
 				)

@@ -102,8 +102,7 @@ try
 			sge::systems::renderer(
 				sge::renderer::parameters(
 					sge::renderer::visual_depth::depth32,
-					sge::renderer::depth_buffer::off,
-					sge::renderer::stencil_buffer::off,
+					sge::renderer::depth_stencil_buffer::off,
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling
 				),
@@ -206,7 +205,7 @@ try
 	sprite_object spr(
 		sprite_parameters()
 		.pos(
-			sprite_object::point::null()
+			sprite_object::vector::null()
 		)
 		.size(
 			sprite_object::dim(

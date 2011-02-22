@@ -185,8 +185,7 @@ try
 			sge::systems::renderer(
 				sge::renderer::parameters(
 					sge::renderer::visual_depth::depth32,
-					sge::renderer::depth_buffer::off,
-					sge::renderer::stencil_buffer::off,
+					sge::renderer::depth_stencil_buffer::off,
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling
 				),
@@ -245,7 +244,7 @@ try
 	sprite_object s_a(
 		sprite_parameters()
 		.pos(
-			sprite_object::point(600,0)
+			sprite_object::vector(600,0)
 		)
 		.size(
 			sprite_object::dim(10,10)
@@ -263,7 +262,7 @@ try
 	sprite_object s_b(
 		sprite_parameters()
 		.pos(
-			sprite_object::point(10,0)
+			sprite_object::vector(10,0)
 		)
 		.size(
 			sprite_object::dim(10,10)

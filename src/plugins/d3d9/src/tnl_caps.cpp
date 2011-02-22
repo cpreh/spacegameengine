@@ -19,29 +19,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../tnl_caps.hpp"
+#include "../d3dinclude.hpp"
+#include "../systemfuncs/get_caps.hpp"
 
 DWORD
 sge::d3d9::tnl_caps(
-	renderer::adapter_type const adapter,
-	d3d_ptr const sys)
+	d3d9::d3d_ptr const _system,
+	renderer::adapter const _adapter
+)
 {
-	DWORD r = 0;
-
-	D3DCAPS9 caps;
-
-	sys->GetDeviceCaps(
-		adapter,
-		D3DDEVTYPE_HAL,
-		&caps
+	D3DCAPS9 const caps(
+		systemfuncs::get_caps(
+			_system,
+			_adapter
+		)
 	);
 
-	if(caps.DevCaps & D3DDEVCAPS_HWTRANSFORMANDLIGHT)
+	DWORD ret(
+		0
+	);
+
+	if(
+		caps.DevCaps & D3DDEVCAPS_HWTRANSFORMANDLIGHT
+	)
 	{
-		r |= D3DCREATE_HARDWARE_VERTEXPROCESSING;
-		if(caps.DevCaps & D3DDEVCAPS_PUREDEVICE)
-			r |= D3DCREATE_PUREDEVICE;
+		ret |= D3DCREATE_HARDWARE_VERTEXPROCESSING;
+
+		if(
+			caps.DevCaps & D3DDEVCAPS_PUREDEVICE
+		)
+			ret |= D3DCREATE_PUREDEVICE;
 	}
 	else
-		r |= D3DCREATE_SOFTWARE_VERTEXPROCESSING;
-	return r;
+		ret |= D3DCREATE_SOFTWARE_VERTEXPROCESSING;
+
+	return ret;
 }

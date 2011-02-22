@@ -119,8 +119,7 @@ try
 			sge::systems::renderer(
 				sge::renderer::parameters(
 					sge::renderer::visual_depth::depth32,
-					sge::renderer::depth_buffer::off,
-					sge::renderer::stencil_buffer::off,
+					sge::renderer::depth_stencil_buffer::off,
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling
 				),
@@ -236,7 +235,7 @@ try
 		sge::console::sprite_object(
 			sge::console::sprite_parameters()
 			.pos(
-				sge::console::sprite_object::point::null()
+				sge::console::sprite_object::vector::null()
 			)
 			.texture(
 				tex_bg

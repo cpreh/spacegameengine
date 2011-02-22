@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_CONVERT_STENCIL_BUFFER_HPP_INCLUDED
 #define SGE_OPENGL_CONVERT_STENCIL_BUFFER_HPP_INCLUDED
 
-#include <sge/renderer/stencil_buffer.hpp>
+#include <sge/renderer/depth_stencil_buffer.hpp>
 #include <awl/window/stencil_buffer.hpp>
 
 namespace sge
@@ -33,7 +33,7 @@ namespace convert
 
 awl::window::stencil_buffer::type
 stencil_buffer(
-	sge::renderer::stencil_buffer::type
+	sge::renderer::depth_stencil_buffer::type
 );
 
 }

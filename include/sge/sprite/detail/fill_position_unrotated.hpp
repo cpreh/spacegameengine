@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_FILL_POSITION_UNROTATED_HPP_INCLUDED
 
 #include <sge/sprite/detail/make_position.hpp>
-#include <sge/sprite/detail/point_float.hpp>
 #include <sge/sprite/detail/rect_float.hpp>
+#include <sge/sprite/detail/vector_float.hpp>
 #include <sge/sprite/detail/vertex_pos.hpp>
 #include <sge/sprite/bounding_rect.hpp>
 #include <fcppt/math/box/structure_cast.hpp>
@@ -67,9 +67,9 @@ fill_position_unrotated(
 		)
 	);
 
-	typedef typename detail::point_float<
+	typedef typename detail::vector_float<
 		type_choices
-	>::type point_float;
+	>::type vector_float;
 
 	(*_iterator++). template set<
 		vertex_pos
@@ -77,7 +77,7 @@ fill_position_unrotated(
 		detail::make_position<
 			Choices
 		>(
-			point_float(
+			vector_float(
 				rect.left(),
 				rect.top()
 			),
@@ -91,7 +91,7 @@ fill_position_unrotated(
 		detail::make_position<
 			Choices
 		>(
-			point_float(
+			vector_float(
 				rect.right(),
 				rect.top()
 			),
@@ -105,7 +105,7 @@ fill_position_unrotated(
 		detail::make_position<
 			Choices
 		>(
-			point_float(
+			vector_float(
 				rect.right(),
 				rect.bottom()
 			),
@@ -119,7 +119,7 @@ fill_position_unrotated(
 		detail::make_position<
 			Choices
 		>(
-			point_float(
+			vector_float(
 				rect.left(),
 				rect.bottom()
 			),

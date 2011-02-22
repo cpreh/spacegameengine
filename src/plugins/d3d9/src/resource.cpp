@@ -21,13 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../resource.hpp"
 
 sge::d3d9::resource::resource()
-{}
+{
+}
 
-void sge::d3d9::resource::on_loss()
-{}
+void
+sge::d3d9::resource::on_loss()
+{
+}
 
-void sge::d3d9::resource::on_reset()
-{}
+void
+sge::d3d9::resource::on_reset()
+{
+}
 
 sge::d3d9::resource::~resource()
-{}
+{
+}

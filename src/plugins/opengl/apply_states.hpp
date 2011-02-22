@@ -23,8 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "context/object_fwd.hpp"
 #include <sge/renderer/state/list_fwd.hpp>
-#include <sge/renderer/depth_buffer.hpp>
-#include <sge/renderer/stencil_buffer.hpp>
+#include <sge/renderer/depth_stencil_buffer.hpp>
 
 namespace sge
 {
@@ -36,8 +35,7 @@ apply_states(
 	opengl::context::object &,
 	sge::renderer::state::list &current_states,
 	sge::renderer::state::list const &new_states,
-	renderer::depth_buffer::type,
-	renderer::stencil_buffer::type
+	renderer::depth_stencil_buffer::type
 );
 
 }

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../device_state.hpp"
 #include "../glx/current.hpp"
 #include "../glx/context_ptr.hpp"
-#include <sge/renderer/adapter_type.hpp>
+#include <sge/renderer/adapter.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
 #include <awl/backends/x11/window/instance_ptr.hpp>
 #include <awl/backends/x11/const_visual_ptr.hpp>
@@ -51,7 +51,7 @@ class state
 public:
 	state(
 		renderer::parameters const &,
-		renderer::adapter_type,
+		renderer::adapter,
 		awl::backends::x11::window::instance_ptr
 	);
 

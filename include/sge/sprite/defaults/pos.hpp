@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/defaults/fwd.hpp>
 #include <sge/sprite/roles/pos.hpp>
-#include <sge/sprite/point.hpp>
+#include <sge/sprite/vector.hpp>
 
 namespace sge
 {
@@ -38,7 +38,7 @@ struct defaults<
 	roles::pos
 >
 {
-	typedef typename sge::sprite::point<
+	typedef typename sge::sprite::vector<
 		typename Choices::type_choices::unit_type
 	>::type type;
 

@@ -19,8 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../create_caps.hpp"
+#include "../systemfuncs/get_caps.hpp"
 #include <sge/renderer/caps.hpp>
-#include <sge/exception.hpp>
+#include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
 namespace
@@ -64,16 +65,30 @@ add_display_modes(
 
 sge::renderer::caps const
 sge::d3d9::create_caps(
-	renderer::adapter_type const adapter,
-	d3d_ptr const sys)
+	d3d9::d3d_ptr const _system,
+	renderer::adapter const _adapter
+)
 {
-	D3DCAPS9 caps;
-	if(sys->GetDeviceCaps(adapter,D3DDEVTYPE_HAL,&caps) != D3D_OK)
-		throw exception(FCPPT_TEXT("GetDeviceCaps failed"));
+	D3DCAPS9 const caps(
+		d3d9::systemfuncs::get_caps(
+			_system,
+			_adapter
+		)
+	);
 
 	D3DADAPTER_IDENTIFIER9 identifier;
-	if(sys->GetAdapterIdentifier(adapter,0,&identifier) != D3D_OK)
-		throw exception(FCPPT_TEXT("GetAdapterIdentifier failed"));
+
+	if(
+		_sys->GetAdapterIdentifier(
+			_adapter.get(),
+			0,
+			&identifier
+		)	
+		!= D3D_OK
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("GetAdapterIdentifier failed")
+		);
 
 	/*display_mode_array display_modes;
 	add_display_modes(display_modes, adapter, bit_depth::depth16, D3DFMT_A1R5G5B5, sys);
@@ -82,17 +97,20 @@ sge::d3d9::create_caps(
 	add_display_modes(display_modes, adapter, bit_depth::depth32, D3DFMT_A8R8G8B8, sys);
 	add_display_modes(display_modes, adapter, bit_depth::depth32, D3DFMT_X8R8G8B8, sys);*/
 
-	return renderer::caps(
-		adapter,
-		identifier.Driver,
-		identifier.Description,
-		sge::renderer::dim2(
-			caps.MaxTextureWidth,
-			caps.MaxTextureHeight),
-		caps.MaxAnisotropy,
-		false, // FIXME: find out if render to texture is supported
-		false // no glsl
-	);
+	return
+		renderer::caps(
+			_adapter,
+			identifier.Driver,
+			identifier.Description,
+			sge::renderer::dim2(
+				caps.MaxTextureWidth,
+				caps.MaxTextureHeight
+			),
+			sge::renderer::texture::filter::anisotropy_type(
+				caps.MaxAnisotropy
+			),
+			false, // FIXME: find out if render to texture is supported
+			false, // no glsl
+			sge::image::color::format::argb8
+		);
 }
-
-

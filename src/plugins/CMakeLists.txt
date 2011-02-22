@@ -2,6 +2,7 @@ SET (LIBRARY_OUTPUT_PATH ${SGE_PLUGIN_BUILD_PATH})
 
 FIND_PACKAGE(Bullet)
 FIND_PACKAGE(DevIL)
+FIND_PACKAGE(D3D9)
 FIND_PACKAGE(DInput)
 FIND_PACKAGE(Freetype)
 FIND_PACKAGE(Iconv)
@@ -20,6 +21,9 @@ OPTION (ENABLE_WAVE "Build the wave loader plugin" ON)
 
 
 OPTION (ENABLE_BULLET "Build the bullet collision plugin" ${BULLET_FOUND})
+
+#OPTION (ENABLE_D3D9 "Build the d3d9 render plugin" ${D3D9_FOUND})
+OPTION (ENABLE_D3D9 "Build the d3d9 render plugin" OFF)
 
 OPTION (ENABLE_DEVIL "Build the devil image loader plugin" ${IL_FOUND})
 

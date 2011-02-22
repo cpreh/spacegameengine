@@ -63,7 +63,6 @@ SET(
 	include/sge/sprite/detail/needs_depth.hpp
 	include/sge/sprite/detail/normal_render_states.hpp
 	include/sge/sprite/detail/optional_size.hpp
-	include/sge/sprite/detail/point_float.hpp
 	include/sge/sprite/detail/pos_packed_type.hpp
 	include/sge/sprite/detail/rect_float.hpp
 	include/sge/sprite/detail/render.hpp
@@ -77,6 +76,7 @@ SET(
 	include/sge/sprite/detail/set_texture_pre.hpp
 	include/sge/sprite/detail/transform_init_arguments.hpp
 	include/sge/sprite/detail/transform_parameters_arguments.hpp
+	include/sge/sprite/detail/vector_float.hpp
 	include/sge/sprite/detail/vertex_color.hpp
 	include/sge/sprite/detail/vertex_format.hpp
 	include/sge/sprite/detail/vertex_format_from_object.hpp
@@ -111,7 +111,6 @@ SET(
 	include/sge/sprite/parameters_decl.hpp
 	include/sge/sprite/parameters_fwd.hpp
 	include/sge/sprite/parameters_impl.hpp
-	include/sge/sprite/point.hpp
 	include/sge/sprite/point_size.hpp
 	include/sge/sprite/primitives/adder.hpp
 	include/sge/sprite/primitives/bool.hpp
@@ -121,8 +120,8 @@ SET(
 	include/sge/sprite/primitives/float.hpp
 	include/sge/sprite/primitives/order.hpp
 	include/sge/sprite/primitives/point_size.hpp
-	include/sge/sprite/primitives/pos.hpp
 	include/sge/sprite/primitives/texture.hpp
+	include/sge/sprite/primitives/vector.hpp
 	include/sge/sprite/projection_matrix.hpp
 	include/sge/sprite/rect.hpp
 	include/sge/sprite/render_one.hpp
@@ -154,6 +153,7 @@ SET(
 	include/sge/sprite/texture_dim.hpp
 	include/sge/sprite/type_choices.hpp
 	include/sge/sprite/unspecified_dim_tag.hpp
+	include/sge/sprite/vector.hpp
 	include/sge/sprite/with_color.hpp
 	include/sge/sprite/with_depth.hpp
 	include/sge/sprite/with_dim.hpp

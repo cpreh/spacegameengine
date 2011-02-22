@@ -27,13 +27,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "target_base_ptr.hpp"
 #include "context/object.hpp"
 #include "fbo/target_ptr.hpp"
-#include <sge/renderer/adapter_type.hpp>
-#include <sge/renderer/depth_buffer.hpp>
+#include <sge/renderer/adapter.hpp>
+#include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/stencil_buffer.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/window/instance_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -55,7 +54,7 @@ class device
 public:
 	device(
 		renderer::parameters const &,
-		renderer::adapter_type,
+		renderer::adapter,
 		window::instance_ptr
 	);
 
@@ -262,9 +261,7 @@ private:
 	bool
 	fbo_active() const;
 
-	renderer::depth_buffer::type const depth_buffer_;
-
-	renderer::stencil_buffer::type const stencil_buffer_;
+	renderer::depth_stencil_buffer::type const depth_stencil_buffer_;
 
 	window::instance_ptr const window_;
 

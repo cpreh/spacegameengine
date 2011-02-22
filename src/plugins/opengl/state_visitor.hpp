@@ -38,8 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/draw_mode.hpp>
 #include <sge/renderer/state/source_blend_func.hpp>
 #include <sge/renderer/state/dest_blend_func.hpp>
-#include <sge/renderer/depth_buffer.hpp>
-#include <sge/renderer/stencil_buffer.hpp>
+#include <sge/renderer/depth_stencil_buffer.hpp>
 #include <fcppt/nonassignable.hpp>
 
 namespace sge
@@ -58,8 +57,7 @@ public:
 	explicit state_visitor(
 		opengl::context::object &,
 		split_states &,
-		renderer::depth_buffer::type,
-		renderer::stencil_buffer::type
+		renderer::depth_stencil_buffer::type
 	);
 
 	~state_visitor();
@@ -84,9 +82,7 @@ private:
 
 	split_states &states_;
 
-	renderer::depth_buffer::type const depth_type_;
-
-	renderer::stencil_buffer::type const stencil_type_;
+	renderer::depth_stencil_buffer::type const depth_stencil_buffer_;
 };
 
 }

@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "instance.hpp"
 #include "../../xf86vmode/modes.hpp"
 #include "../../xf86vmode/resolution_ptr.hpp"
-#include <sge/renderer/adapter_type.hpp>
 #include <sge/renderer/display_mode_fwd.hpp>
 #include <awl/backends/x11/display_ptr.hpp>
 #include <fcppt/noncopyable.hpp>

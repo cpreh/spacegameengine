@@ -81,8 +81,7 @@ sge::opengl::apply_states(
 	opengl::context::object &_context,
 	sge::renderer::state::list &_current_states,
 	sge::renderer::state::list const &_new_states,
-	renderer::depth_buffer::type const _depth_buffer,
-	renderer::stencil_buffer::type const _stencil_buffer
+	renderer::depth_stencil_buffer::type const _depth_stencil_buffer
 )
 {
 	opengl::split_states split(
@@ -92,8 +91,7 @@ sge::opengl::apply_states(
 	opengl::state_visitor const visitor(
 		_context,
 		split,
-		_depth_buffer,
-		_stencil_buffer
+		_depth_stencil_buffer
 	);
 
 	BOOST_FOREACH(

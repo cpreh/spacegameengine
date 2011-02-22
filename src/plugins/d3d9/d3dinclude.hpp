@@ -21,27 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_D3DINCLUDE_HPP_INCLUDED
 #define SGE_D3D9_D3DINCLUDE_HPP_INCLUDED
 
-#include <sge/windows/windows.hpp>
+#include <awl/backends/windows/windows.hpp>
 #include <d3d9.h>
-#include <fcppt/shared_ptr.hpp>
-#include <sge/com_deleter.hpp>
-
-namespace sge
-{
-namespace d3d9
-{
-
-typedef shared_ptr<IDirect3D9,com_deleter>                  d3d_ptr;
-typedef shared_ptr<IDirect3DDevice9,com_deleter>            d3d_device_ptr;
-typedef shared_ptr<IDirect3DCubeTexture9,com_deleter>       d3d_cube_texture_ptr;
-typedef shared_ptr<IDirect3DTexture9,com_deleter>           d3d_texture_ptr;
-typedef shared_ptr<IDirect3DVolumeTexture9,com_deleter>     d3d_volume_texture_ptr;
-typedef shared_ptr<IDirect3DIndexBuffer9,com_deleter>       d3d_index_buffer_ptr;
-typedef shared_ptr<IDirect3DVertexBuffer9,com_deleter>      d3d_vertex_buffer_ptr;
-typedef shared_ptr<IDirect3DSurface9,com_deleter>           d3d_surface_ptr;
-typedef shared_ptr<IDirect3DVertexDeclaration9,com_deleter> d3d_vertex_declaration_ptr;
-
-}
-}
 
 #endif

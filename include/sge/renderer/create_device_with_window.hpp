@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_CREATE_DEVICE_WITH_WINDOW_HPP_INCLUDED
 #define SGE_RENDERER_CREATE_DEVICE_WITH_WINDOW_HPP_INCLUDED
 
-#include <sge/renderer/adapter_type.hpp>
+#include <sge/renderer/adapter.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/system_ptr.hpp>
@@ -40,7 +40,7 @@ create_device_with_window(
 	awl::system::object_ptr,
 	sge::renderer::system_ptr,
 	sge::renderer::parameters const &,
-	sge::renderer::adapter_type,
+	sge::renderer::adapter,
 	sge::window::simple_parameters const &
 );
 

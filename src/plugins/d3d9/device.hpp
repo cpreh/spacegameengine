@@ -21,138 +21,225 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_DEVICE_HPP_INCLUDED
 #define SGE_D3D9_DEVICE_HPP_INCLUDED
 
+#include "d3d_ptr.hpp"
 #include "resource_list.hpp"
-#include "d3dinclude.hpp"
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/caps.hpp>
-#include <sge/windows/window_fwd.hpp>
+#include <sge/renderer/parameters_fwd.hpp>
+#include <sge/window/instance_ptr.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
 
-class device : public sge::renderer::device {
+class device
+:
+	public sge::renderer::device
+{
+	FCPPT_NONCOPYABLE(
+		device
+	);
 public:
 	device(
-		d3d_device_ptr device,
-		renderer::parameters const &param,
-		D3DPRESENT_PARAMETERS const &,
-		windows::window_ptr,
-		renderer::caps const &)
+		d3d9::d3d_ptr,
+		renderer::adapter,
+		renderer::parameters const &,
+		window::instance_ptr
+	);
 
-	void begin_rendering();
-	void end_rendering();
-	void render(
-		renderer::const_vertex_buffer_ptr vb,
-		renderer::const_index_buffer_ptr ib,
-		renderer::size_type first_vertex,
-		renderer::size_type num_vertices,
-		renderer::indexed_primitive_type::type ptype,
-		renderer::size_type primitive_count,
-		renderer::size_type first_index);
-	void render(
-		renderer::const_vertex_buffer_ptr vb,
-		renderer::size_type first_vertex,
-		renderer::size_type num_vertices,
-		renderer::nonindexed_primitive_type::type ptype);
+	~device();
 
-	void state(
-		renderer::state::list const &);
-	void push_state(
-		renderer::state::list const &);
-	void pop_state();
+	void
+	begin_rendering();
 
-	void material(
-		renderer::material const &mat);
-	void enable_light(
-		renderer::light_index index,
-		bool enable);
-	void light(
-		renderer::light_index index,
-		renderer::light const &);
-	void texture_stage_op(
-		renderer::stage_type stage,
-		renderer::texture_stage_op::type,
-		renderer::texture_stage_op_value::type);
-	void texture_stage_arg(
-		renderer::stage_type stage,
-		renderer::texture_stage_arg::type,
-		renderer::texture_stage_arg_value::type);
+	void
+	end_rendering();
 
-	void texture(
-		renderer::const_texture_base_ptr tex,
-		renderer::stage_type stage);
+	void
+	render(
+		const_index_buffer_ptr,
+		first_vertex,
+		vertex_count,
+		indexed_primitive_type::type ptype,
+		primitive_count,
+		first_index
+	);
 
-	void transform(
-		renderer::any_matrix const &mat);
-	void projection(
-		renderer::any_matrix const &mat);
-	void texture_transform(
-		renderer::any_matrix const &mat);
+	void
+	render(
+		first_vertex,
+		vertex_count,
+		nonindexed_primitive_type::type ptype
+	);
 
-	void target(
-		renderer::texture_ptr);
+	void
+	set_vertex_buffer(
+		const_vertex_buffer_ptr
+	);
 
-	void viewport(
-		renderer::viewport const &);
+	void
+	unset_vertex_buffer(
+		const_vertex_buffer_ptr
+	);
 
-	void viewport_mode(
-		renderer::viewport_mode::type);
+	void
+	state(
+		renderer::state::list const &
+	);
 
-	renderer::glsl::program_ptr const
-	create_glsl_program(
-		renderer::glsl::optional_string const &vertex_shader_source,
-		renderer::glsl::optional_string const &pixel_shader_source);
+	void
+	push_state(
+		renderer::state::list const &
+	);
 
-	renderer::glsl::program_ptr const
-	create_glsl_program(
-		renderer::glsl::optional_istream const &vertex_shader_source,
-		renderer::glsl::optional_istream const &pixel_shader_source);
+	void
+	pop_state();
 
-	void glsl_program(
-		renderer::glsl::program_ptr);
+	void
+	material(
+		renderer::material const &
+	);
 
-	renderer::const_target_ptr const
+	void
+	enable_light(
+		light_index,
+		bool enable
+	);
+
+	void
+	light(
+		light_index,
+		renderer::light const &
+	);
+
+	void
+	enable_clip_plane(
+		clip_plane_index,
+		bool enable
+	);
+
+	void
+	clip_plane(
+		clip_plane_index,
+		renderer::clip_plane const &
+	);
+
+	void
+	scissor_area(
+		renderer::scissor_area const &
+	);
+
+	void
+	sampler_stage_op(
+		stage_type,
+		renderer::sampler_stage_op::type,
+		renderer::sampler_stage_op_value::type
+	);
+
+	void
+	sampler_stage_arg(
+		stage_type,
+		renderer::sampler_stage_arg::type,
+		renderer::sampler_stage_arg_value::type
+	);
+
+	void
+	texture(
+		texture::const_base_ptr,
+		stage_type
+	);
+
+	void
+	transform(
+		matrix_mode::type,
+		matrix4 const &
+	);
+
+	void
+	target(
+		renderer::target_ptr
+	);
+
+	glsl::program_ptr const
+	create_glsl_program();
+
+	glsl::vertex_shader_ptr const
+	create_glsl_vertex_shader(
+		glsl::string const &
+	);
+
+	glsl::pixel_shader_ptr const
+	create_glsl_pixel_shader(
+		glsl::string const &
+	);
+
+	void
+	glsl_program(
+		renderer::glsl::const_program_ptr
+	);
+
+	renderer::target_ptr const
+	create_target();
+
+	renderer::texture::planar_ptr const
+	create_planar_texture(
+		renderer::texture::planar_parameters const &
+	);
+
+	renderer::texture::depth_stencil_ptr const
+	create_depth_stencil_texture(
+		renderer::dim2 const &,
+		renderer::depth_stencil_format::type
+	);
+
+	renderer::depth_stencil_surface_ptr const
+	create_depth_stencil_surface(
+		renderer::dim2 const &,
+		renderer::depth_stencil_format::type
+	);
+
+	renderer::texture::volume_ptr const
+	create_volume_texture(
+		renderer::texture::volume_parameters const &
+	);
+
+	renderer::texture::cube_ptr const
+	create_cube_texture(
+		renderer::texture::cube_parameters const &
+	);
+
+	vertex_buffer_ptr const
+	create_vertex_buffer(
+		vf::dynamic::format const &,
+		size_type size,
+		resource_flags_field const &
+	);
+
+	index_buffer_ptr const
+	create_index_buffer(
+		index::dynamic::format::type,
+		size_type size,
+		resource_flags_field const &
+	);
+
+	renderer::onscreen_target_ptr const
+	onscreen_target() const;
+
+	renderer::scissor_area const
+	scissor_area() const;
+
+	renderer::target_ptr const
 	target() const;
 
-	renderer::texture_ptr const
-	create_texture(
-		renderer::dim2 const &dim,
-		image::color::format::type format,
-		renderer::filter::texture const &filter,
-		renderer::resource_flag_t flags);
-
-	/*const volume_texture_ptr create_volume_texture(
-		volume_texture::image_view_array const &,
-		filter::texture const &filter,
-		resource_flag_t flags);*/
-
-	renderer::cube_texture_ptr const
-	create_cube_texture(
-		renderer::size_type border_size,
-		image::color::format::type format,
-		renderer::filter::texture const &filter,
-		renderer::resource_flag_t flags);
-
-	renderer::vertex_buffer_ptr const
-	create_vertex_buffer(
-		renderer::vf::dynamic_format const &,
-		renderer::size_type size,
-		renderer::resource_flag_t flags);
-
-	renderer::index_buffer_ptr const
-	create_index_buffer(
-		renderer::index::format::type,
-		renderer::size_type size,
-		renderer::resource_flag_t flags);
+	renderer::matrix4 const
+	transform(
+		renderer::matrix_mode::type
+	);
 
 	renderer::caps const
 	caps() const;
-
-	renderer::screen_size const
-	screen_size() const;
 
 	sge::window::instance_ptr const
 	window() const;
@@ -162,23 +249,29 @@ private:
 	>
 	Ptr const
 	add_resource(
-		Ptr);
+		Ptr
+	);
 
-	void init();
-	void release_resources();
-	void set_vertex_buffer(
-		renderer::const_vertex_buffer_ptr buffer);
-	void set_index_buffer(
-		renderer::const_index_buffer_ptr buffer);
+	void
+	reinit_resources();
 
-	d3d_device_ptr const device_;
-	windows::window_ptr const wnd;
+	void
+	release_resources();
+
+	void
+	set_index_buffer(
+		renderer::const_index_buffer_ptr
+	);
+
+	d3d9::d3d_device_ptr const device_;
+
 	renderer::caps const caps_;
-	d3d_surface_ptr default_render_target;
-	resource_list resources;
-	d3d_vertex_declaration_ptr vertex_declaration;
-	renderer::const_vertex_buffer_ptr vb;
-	renderer::const_index_buffer_ptr ib;
+
+	d3d9::resource_list resources_;
+
+	//renderer::const_vertex_buffer_ptr vb;
+
+	//renderer::const_index_buffer_ptr ib;
 };
 
 }
