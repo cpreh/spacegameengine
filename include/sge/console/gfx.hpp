@@ -89,10 +89,10 @@ public:
 	SGE_CONSOLE_SYMBOL sge::console::object const &
 	object() const;
 
-	sprite_object &
+	SGE_CONSOLE_SYMBOL sprite_object &
 	background_sprite();
 
-	sprite_object const &
+	SGE_CONSOLE_SYMBOL sprite_object const &
 	background_sprite() const;
 private:
 	typedef 
