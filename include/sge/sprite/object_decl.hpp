@@ -26,15 +26,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/intrusive/tag.hpp>
 #include <sge/sprite/intrusive/order.hpp>
 #include <sge/sprite/intrusive/system_fwd.hpp>
-#include <sge/sprite/object_fwd.hpp>
-#include <sge/sprite/point.hpp>
-#include <sge/sprite/point_size.hpp>
-#include <sge/sprite/dim.hpp>
+#include <sge/sprite/color.hpp>
 #include <sge/sprite/depth_type.hpp>
+#include <sge/sprite/dim.hpp>
+#include <sge/sprite/object_fwd.hpp>
+#include <sge/sprite/point_size.hpp>
 #include <sge/sprite/rotation_type.hpp>
 #include <sge/sprite/repetition_type.hpp>
 #include <sge/sprite/texture_coordinates.hpp>
-#include <sge/sprite/color.hpp>
+#include <sge/sprite/vector.hpp>
 #include <sge/texture/const_part_ptr.hpp>
 #include <fcppt/math/dim/basic_decl.hpp>
 #include <fcppt/math/vector/basic_decl.hpp>
@@ -95,9 +95,9 @@ public:
 		float_type
 	>::type texture_coordinates_type;
 
-	typedef typename sprite::point<
+	typedef typename sprite::vector<
 		unit
-	>::type point;
+	>::type vector;
 
 	typedef typename sprite::dim<
 		unit
@@ -149,7 +149,7 @@ public:
 	unit
 	y() const;
 
-	point const
+	vector const
 	pos() const;
 
 	unit
@@ -173,7 +173,7 @@ public:
 	rotation_type
 	rotation() const;
 
-	point const
+	vector const
 	rotation_center() const;
 
 	repetition_type
@@ -208,7 +208,7 @@ public:
 
 	void
 	pos(
-		point const &
+		vector const &
 	);
 
 	void
@@ -248,7 +248,7 @@ public:
 
 	void
 	rotate_around(
-		point const &
+		vector const &
 	);
 
 	void

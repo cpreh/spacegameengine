@@ -251,7 +251,7 @@ try
 	sprite_object my_object(
 		sprite_parameters()
 		.pos(
-			sprite_object::point::null()
+			sprite_object::vector::null()
 		)
 		.texture(
 			fcppt::make_shared_ptr<

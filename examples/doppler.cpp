@@ -312,7 +312,7 @@ try
 			tex_bg
 		)
 		.pos(
-			sprite_object::point::null()
+			sprite_object::vector::null()
 		)
 		.size(
 			fcppt::math::dim::structure_cast<
@@ -333,7 +333,7 @@ try
 	sprite_object tux(
 		sprite_parameters()
 		.pos(
-			sprite_object::point(
+			sprite_object::vector(
 				static_cast<
 					sprite_object::unit
 				>(

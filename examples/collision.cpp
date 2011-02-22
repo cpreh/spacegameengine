@@ -245,7 +245,7 @@ try
 	sprite_object s_a(
 		sprite_parameters()
 		.pos(
-			sprite_object::point(600,0)
+			sprite_object::vector(600,0)
 		)
 		.size(
 			sprite_object::dim(10,10)
@@ -263,7 +263,7 @@ try
 	sprite_object s_b(
 		sprite_parameters()
 		.pos(
-			sprite_object::point(10,0)
+			sprite_object::vector(10,0)
 		)
 		.size(
 			sprite_object::dim(10,10)

@@ -18,29 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_POINT_FLOAT_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_POINT_FLOAT_HPP_INCLUDED
+#ifndef SGE_SPRITE_VECTOR_HPP_INCLUDED
+#define SGE_SPRITE_VECTOR_HPP_INCLUDED
 
-#include <sge/sprite/primitives/pos.hpp>
+#include <sge/sprite/primitives/vector.hpp>
 
 namespace sge
 {
 namespace sprite
 {
-namespace detail
-{
 
 template<
-	typename TypeChoices
+	typename UnitType
 >
-struct point_float
+struct vector 
 {
-	typedef typename primitives::pos<
-		typename TypeChoices::float_type
+	typedef typename primitives::vector<
+		UnitType	
 	>::type::type type;
 };
 
-}
 }
 }
 

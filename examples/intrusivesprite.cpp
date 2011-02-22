@@ -192,7 +192,7 @@ try
 	sprite_object test(
 		sprite_parameters()
 		.pos(
-			sprite_object::point::null()
+			sprite_object::vector::null()
 		)
 		.texture(
 			tex1
@@ -218,7 +218,7 @@ try
 	test2 = test;
 
 	test2.pos(
-		sprite_object::point(
+		sprite_object::vector(
 			400,
 			50
 		)

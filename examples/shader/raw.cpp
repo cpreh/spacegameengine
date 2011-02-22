@@ -296,7 +296,7 @@ try
 	sprite_object bg(
 		sprite_parameters()
 			.pos(
-				sprite_object::point::null()
+				sprite_object::vector::null()
 			)
 			.texture(
 				tex_bg
@@ -319,7 +319,7 @@ try
 	sprite_object pointer(
 		sprite_parameters()
 		.pos(
-			sprite_object::point::null()
+			sprite_object::vector::null()
 		)
 		.texture(
 			tex_pointer
@@ -337,7 +337,7 @@ try
 	sprite_object tux(
 		sprite_parameters()
 		.pos(
-			sprite_object::point(
+			sprite_object::vector(
 				window_dim.w()/2-16,
 				window_dim.h()/2-16
 			)
@@ -423,7 +423,7 @@ try
 	sprite_object target_spr(
 		sprite_parameters()
 		.pos(
-			sprite_object::point::null()
+			sprite_object::vector::null()
 		)
 		.texture(
 			fcppt::make_shared_ptr<

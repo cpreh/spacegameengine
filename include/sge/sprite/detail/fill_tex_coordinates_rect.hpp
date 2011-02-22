@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_FILL_TEX_COORDINATES_RECT_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_FILL_TEX_COORDINATES_RECT_HPP_INCLUDED
 
-#include <sge/sprite/detail/point_float.hpp>
+#include <sge/sprite/detail/vector_float.hpp>
 #include <sge/sprite/detail/vertex_texpos.hpp>
 #include <sge/sprite/texture_coordinates.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
@@ -48,7 +48,7 @@ fill_tex_coordinates_rect(
 {
 	typedef typename Choices::type_choices type_choices;
 
-	typedef typename detail::point_float<
+	typedef typename detail::vector_float<
 		type_choices
 	>::type tex_pos;
 

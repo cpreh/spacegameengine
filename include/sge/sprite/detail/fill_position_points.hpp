@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_FILL_POSITION_POINTS_HPP_INCLUDED
 
 #include <sge/sprite/detail/make_position.hpp>
-#include <sge/sprite/detail/point_float.hpp>
+#include <sge/sprite/detail/vector_float.hpp>
 #include <sge/sprite/detail/vertex_pos.hpp>
 
 namespace sge
@@ -46,9 +46,9 @@ fill_position_points(
 {
 	typedef typename Choices::type_choices type_choices;
 
-	typedef typename detail::point_float<
+	typedef typename detail::vector_float<
 		type_choices
-	>::type point_float;
+	>::type vector_float;
 
 	(*_iterator). template set<
 		typename detail::vertex_pos<
@@ -58,14 +58,14 @@ fill_position_points(
 		detail::make_position<
 			Choices
 		>(
-			point_float(
+			vector_float(
 				static_cast<
-					typename point_float::value_type
+					typename vector_float::value_type
 				>(
 					_sprite.x()
 				),
 				static_cast<
-					typename point_float::value_type
+					typename vector_float::value_type
 				>(
 					_sprite.y()
 				)

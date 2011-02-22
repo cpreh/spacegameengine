@@ -178,7 +178,7 @@ try
 	sprite_object bg(
 		sprite_parameters()
 		.pos(
-			sprite_object::point::null()
+			sprite_object::vector::null()
 		)
 		.texture(tex)
 		.texture_size()

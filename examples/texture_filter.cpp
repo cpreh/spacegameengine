@@ -460,7 +460,7 @@ try
 	sprite_object sprite(
 		sprite_parameters()
 		.pos(
-			sprite_object::point(
+			sprite_object::vector(
 				-(sprite_size / 2),
 				-(sprite_size / 2)
 			)

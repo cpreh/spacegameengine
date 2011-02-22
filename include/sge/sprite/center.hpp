@@ -35,16 +35,16 @@ namespace sprite
 template<
 	typename Choices
 >
-typename object<Choices>::point
+typename object<Choices>::vector
 center(
 	object<
 		Choices
-	> const &spr
+	> const &_spr
 )
 {
 	return
-		spr.pos()
-		+ spr.size() / 2;
+		_spr.pos()
+		+ _spr.size() / 2;
 }
 
 template<
@@ -54,15 +54,15 @@ void
 center(
 	object<
 		Choices
-	> &spr,
+	> &_spr,
 	typename object<
 		Choices
-	>::point const &center_
+	>::vector const &_center
 )
 {
-	spr.pos(
-		center_
-		- spr.size() / 2
+	_spr.pos(
+		_center
+		- _spr.size() / 2
 	);
 }
 

@@ -161,7 +161,7 @@ sge::sprite::object<Choices>::y() const
 template<
 	typename Choices
 >
-typename sge::sprite::object<Choices>::point const
+typename sge::sprite::object<Choices>::vector const
 sge::sprite::object<Choices>::pos() const
 {
 	return
@@ -251,7 +251,7 @@ sge::sprite::object<Choices>::rotation() const
 template<
 	typename Choices
 >
-typename sge::sprite::object<Choices>::point const
+typename sge::sprite::object<Choices>::vector const
 sge::sprite::object<Choices>::rotation_center() const
 {
 	return
@@ -331,7 +331,7 @@ sge::sprite::object<Choices>::x(
 )
 {
 	pos(
-		point(
+		vector(
 			_x,
 			y()
 		)
@@ -347,7 +347,7 @@ sge::sprite::object<Choices>::y(
 )
 {
 	pos(
-		point(
+		vector(
 			x(),
 			_y
 		)
@@ -374,7 +374,7 @@ template<
 >
 void
 sge::sprite::object<Choices>::pos(
-	point const &_pos
+	vector const &_pos
 )
 {
 	elements_. template set<
@@ -496,7 +496,7 @@ template<
 >
 void
 sge::sprite::object<Choices>::rotate_around(
-	point const &_rotate_around
+	vector const &_rotate_around
 )
 {
 	elements_. template set<

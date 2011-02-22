@@ -236,7 +236,7 @@ try
 		sge::console::sprite_object(
 			sge::console::sprite_parameters()
 			.pos(
-				sge::console::sprite_object::point::null()
+				sge::console::sprite_object::vector::null()
 			)
 			.texture(
 				tex_bg

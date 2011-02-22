@@ -172,7 +172,7 @@ public:
 		velocity_ += 
 			delta * acceleration_;
 		sprite_.pos(
-			fcppt::math::vector::structure_cast<sprite_object::point>(
+			fcppt::math::vector::structure_cast<sprite_object::vector>(
 				position_));
 		sprite_.color(
 			(static_cast<sge::time::funit>(1) - life_timer_.elapsed_frames()) * color_);
@@ -328,10 +328,10 @@ particles::update()
 				explosion_rng_()));
 		explosion_timer_.reset();
 
-		sprite_object::point center(
-			static_cast<sprite_object::point::value_type>(
+		sprite_object::vector center(
+			static_cast<sprite_object::vector::value_type>(
 				position_x_rng_()),
-			static_cast<sprite_object::point::value_type>(
+			static_cast<sprite_object::vector::value_type>(
 				position_y_rng_()));
 		
 		for (unsigned i = 0; i < particle_count_; ++i)
@@ -357,7 +357,7 @@ particles::update()
 						.pos(
 							center)
 						.point_size(
-							static_cast<sprite_object::point::value_type>(
+							static_cast<sprite_object::vector::value_type>(
 								size_rng_()))
 						.texture(
 							texture_)
