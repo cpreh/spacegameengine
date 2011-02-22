@@ -35,7 +35,7 @@ sge::renderer::aspect_from_viewport(
 			fcppt::math::dim::structure_cast<
 				sge::renderer::screen_size
 			>(
-				_viewport.get().dimension()
+				_viewport.get().size()
 			)
 		);
 }

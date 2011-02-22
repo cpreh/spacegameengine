@@ -67,7 +67,7 @@ sge::opengl::onscreen_surface::lock(
 		);
 
 	buffer_.resize_uninitialized(
-		_dest.dimension().content()
+		_dest.size().content()
 		* stride_
 	);
 
@@ -82,8 +82,8 @@ sge::opengl::onscreen_surface::lock(
 		>(
 			_dest.top()
 		),
-		_dest.dimension().w(),
-		_dest.dimension().h(),
+		_dest.size().w(),
+		_dest.size().h(),
 		this->format(),
 		this->format_type(),
 		buffer_.data()
@@ -93,7 +93,7 @@ sge::opengl::onscreen_surface::lock(
 //		image2d::view::flipped(
 			image2d::view::make_const(
 				buffer_.data(),
-				_dest.dimension(),
+				_dest.size(),
 				opengl::convert::format_to_color(
 					this->format(),
 					this->format_type()

@@ -54,18 +54,18 @@ sge::opengl::viewport(
 			>(
 				_height
 			)
-			- rect.dimension().h()
+			- rect.size().h()
 			- rect.pos().y()
 		),
 		static_cast<
 			GLsizei
 		>(
-			rect.dimension().w()
+			rect.size().w()
 		),
 		static_cast<
 			GLsizei
 		>(
-			rect.dimension().h()
+			rect.size().h()
 		)
 	);
 

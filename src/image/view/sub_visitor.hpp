@@ -73,7 +73,7 @@ public:
 					sge::image::convert_dim<
 						typename T::bound_type::dim_type
 					>(
-						box_.dimension()
+						box_.size()
 					)
 				)
 			);

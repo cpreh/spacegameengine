@@ -634,7 +634,7 @@ try
 				>(
 					sge::renderer::active_target(
 						sys.renderer()
-					)->viewport().get().dimension()
+					)->viewport().get().size()
 				)
 			),
 			sge::font::text::align_h::left,

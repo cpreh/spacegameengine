@@ -84,6 +84,6 @@ bool
 sge::texture::part_raw::repeatable() const
 {
 	return
-		this->area().dimension()
+		this->dim()
 		== tex_->dim();
 }
