@@ -28,7 +28,7 @@ sge::renderer::create_device_with_window(
 	awl::system::object_ptr const _awl_sys,
 	sge::renderer::system_ptr const _sys,
 	sge::renderer::parameters const &_rparam,
-	sge::renderer::adapter_type const _adapter,
+	sge::renderer::adapter const _adapter,
 	sge::window::simple_parameters const &_wparam
 )
 {

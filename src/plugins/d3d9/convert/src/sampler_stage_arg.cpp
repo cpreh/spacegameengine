@@ -18,22 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_CONVERT_TEXTURE_STAGE_ARG_HPP_INCLUDED
-#define SGE_D3D9_CONVERT_TEXTURE_STAGE_ARG_HPP_INCLUDED
-
-#include "d3dinclude.hpp"
-#include <sge/renderer/texture_stage_arg.hpp>
-
-namespace sge
-{
-namespace d3d9
-{
+#include "../sampler_stage_arg.hpp"
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
 D3DTEXTURESTAGESTATETYPE
-convert_texture_stage_arg(
-	renderer::texture_stage_arg::type);
-
+sge::d3d9::convert::sampler_stage_arg(
+	renderer::sampler_stage_arg::type const _arg
+)
+{
+	// TODO: maybe we have to swap numbers here
+	switch(
+		_arg
+	)
+	{
+	case renderer::sampler_stage_arg::rgb0:
+		return D3DTSS_COLORARG0;
+	case renderer::sampler_stage_arg::rgb1:
+		return D3DTSS_COLORARG1;
+	case renderer::sampler_stage_arg::rgb2:
+		return D3DTSS_COLORARG2;
+	case renderer::sampler_stage_arg::alpha0:
+		return D3DTSS_ALPHAARG0;
+	case renderer::sampler_stage_arg::alpha1:
+		return D3DTSS_ALPHAARG1;
+	case renderer::sampler_stage_arg::alpha2:
+		return D3DTSS_ALPHAARG2;
+	}
+	
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid sampler_stage_arg!")
+	);
 }
-}
-
-#endif

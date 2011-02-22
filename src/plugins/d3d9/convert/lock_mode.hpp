@@ -18,24 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../convert_texture_stage_op.hpp"
-#include <sge/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_D3D9_CONVERT_LOCK_MODE_HPP_INCLUDED
+#define SGE_D3D9_CONVERT_LOCK_MODE_HPP_INCLUDED
 
-D3DTEXTURESTAGESTATETYPE
-sge::d3d9::convert_texture_stage_op(
-	renderer::texture_stage_op::type const r)
+#include "../d3dinclude.hpp"
+#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
+
+namespace sge
 {
-	switch(r) {
-	case renderer::texture_stage_op::color:
-		return D3DTSS_COLOROP;
-	case renderer::texture_stage_op::alpha:
-		return D3DTSS_ALPHAOP;
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid texture_stage_op!")
-		);
-	}
+namespace d3d9
+{
+namespace convert
+{
+
+DWORD
+lock_mode(
+	renderer::lock_mode::type,
+	renderer::resource_flags_field const &
+);
+
+}
+}
 }
 
-
+#endif

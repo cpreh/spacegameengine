@@ -18,13 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../convert_to_pool.hpp"
+#ifndef SGE_D3D9_CONVERT_SAMPLER_STAGE_OP_HPP_INCLUDED
+#define SGE_D3D9_CONVERT_SAMPLER_STAGE_OP_HPP_INCLUDED
 
-D3DPOOL
-sge::d3d9::convert_to_pool(
-	renderer::resource_flag_t const r)
+#include "../d3dinclude.hpp"
+#include <sge/renderer/sampler_stage_op.hpp>
+
+namespace sge
 {
-	return r & renderer::resource_flags::dynamic
-		? D3DPOOL_DEFAULT
-		: D3DPOOL_MANAGED;
+namespace d3d9
+{
+namespace convert
+{
+
+D3DTEXTURESTAGESTATETYPE
+sampler_stage_op(
+	renderer::sampler_stage_op::type
+);
+
 }
+}
+}
+
+#endif

@@ -18,10 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_D3DINCLUDE_HPP_INCLUDED
-#define SGE_D3D9_D3DINCLUDE_HPP_INCLUDED
+#ifndef SGE_RENDERER_ADAPTER_HPP_INCLUDED
+#define SGE_RENDERER_ADAPTER_HPP_INCLUDED
 
-#include <awl/backends/windows/windows.hpp>
-#include <d3d9.h>
+#include <fcppt/strong_typedef.hpp>
+
+namespace sge
+{
+namespace renderer
+{
+
+FCPPT_MAKE_STRONG_TYPEDEF(
+	unsigned,
+	adapter
+);
+
+}
+}
 
 #endif

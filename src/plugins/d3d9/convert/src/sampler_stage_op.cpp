@@ -18,10 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_D3DINCLUDE_HPP_INCLUDED
-#define SGE_D3D9_D3DINCLUDE_HPP_INCLUDED
+#include "../sampler_stage_op.hpp"
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include <awl/backends/windows/windows.hpp>
-#include <d3d9.h>
+D3DTEXTURESTAGESTATETYPE
+sge::d3d9::convert::sampler_stage_op(
+	renderer::sampler_stage_op::type const _type
+)
+{
+	switch(
+		_type
+	)
+	{
+	case renderer::sampler_stage_op::color:
+		return D3DTSS_COLOROP;
+	case renderer::sampler_stage_op::alpha:
+		return D3DTSS_ALPHAOP;
+	}
 
-#endif
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid sampler_stage_op!")
+	);
+}

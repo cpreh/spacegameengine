@@ -18,26 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../convert_nonindexed_primitive.hpp"
-#include <sge/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_PLUGINS_D3D9_D3D_SURFACE_PTR_HPP_INCLUDED
+#define SGE_PLUGINS_D3D9_D3D_SURFACE_PTR_HPP_INCLUDED
 
-D3DPRIMITIVETYPE
-sge::d3d9::convert_nonindexed_primitive(
-	renderer::nonindexed_primitive_type::type const r)
+#include "d3dinclude.hpp"
+#include <fcppt/shared_ptr.hpp>
+#include <fcppt/com_deleter.hpp>
+
+namespace sge
 {
-	switch(r) {
-	case renderer::nonindexed_primitive_type::point:
-		return D3DPT_POINTLIST;
-	case renderer::nonindexed_primitive_type::line_strip:
-		return D3DPT_LINESTRIP;
-	case renderer::nonindexed_primitive_type::triangle_strip:
-		return D3DPT_TRIANGLESTRIP;
-	case renderer::nonindexed_primitive_type::triangle_fan:
-		return D3DPT_TRIANGLEFAN;
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid non indexed primitive type!")
-		);
-	}
+namespace d3d9
+{
+
+typedef fcppt::shared_ptr<
+	IDirect3DSurface9,
+	fcppt::com_deleter
+> d3d_surface_ptr;
+
 }
+}
+
+#endif

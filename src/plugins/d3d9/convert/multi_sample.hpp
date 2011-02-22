@@ -18,54 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_SYSTEM_HPP_INCLUDED
-#define SGE_D3D9_SYSTEM_HPP_INCLUDED
+#ifndef SGE_D3D9_CONVERT_MULTI_SAMPLE_HPP_INCLUDED
+#define SGE_D3D9_CONVERT_MULTI_SAMPLE_HPP_INCLUDED
 
-#include "d3dinclude.hpp"
-#include <sge/renderer/adapter_type.hpp>
-#include <sge/renderer/device_ptr.hpp>
-#include <sge/renderer/parameters_fwd.hpp>
-#include <sge/renderer/system.hpp>
-#include <sge/window/instance_ptr.hpp>
-#include <sge/window/simple_parameters_fwd.hpp>
-#include <awl/system/object_ptr.hpp>
-#include <awl/window/instance_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include "../d3dinclude.hpp"
+#include <sge/renderer/multi_sample_type.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
-
-class system
-:
-	public renderer::system
+namespace convert
 {
-	FCPPT_NONCOPYABLE(
-		system
-	);
-public:
-	system();
 
-	~system();
+D3DMULTISAMPLE_TYPE
+multi_sample(
+	renderer::multi_sample_type
+);
 
-	renderer::device_ptr const
-	create_renderer(
-		renderer::parameters const &,
-		renderer::adapter_type,
-		sge::window::instance_ptr
-	);
-
-	awl::window::instance_ptr const
-	create_window(
-		awl::system::object_ptr,
-		sge::window::simple_parameters const &,
-		sge::renderer::parameters const &
-	);
-private:
-	d3d_ptr const sys_;
-};
-
+}
 }
 }
 

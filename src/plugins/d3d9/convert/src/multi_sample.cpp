@@ -18,15 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../convert_multi_sample.hpp"
-#include <sge/exception.hpp>
+#include "../multi_sample.hpp"
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
 D3DMULTISAMPLE_TYPE
-sge::d3d9::convert_multi_sample(
-	renderer::multi_sample_type const r)
+sge::d3d9::convert::multi_sample(
+	renderer::multi_sample_type const _value
+)
 {
-	switch(r) {
+	switch(
+		_value.get()
+	)
+	{
 	case 0:
 	case 1:
 		return D3DMULTISAMPLE_NONE;
@@ -60,9 +65,9 @@ sge::d3d9::convert_multi_sample(
 		return D3DMULTISAMPLE_15_SAMPLES;
 	case 16:
 		return D3DMULTISAMPLE_16_SAMPLES;
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid multi_sample_type value (must be <= 16)!")
-		);
 	}
+
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid multi_sample_type value (must be <= 16)!")
+	);
 }

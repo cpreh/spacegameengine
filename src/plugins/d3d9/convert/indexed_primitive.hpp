@@ -18,27 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../convert_texture_stage_arg_value.hpp"
-#include <sge/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_D3D9_CONVERT_INDEXED_PRIMITIVE_HPP_INCLUDED
+#define SGE_D3D9_CONVERT_INDEXED_PRIMITIVE_HPP_INCLUDED
 
-DWORD
-sge::d3d9::convert_texture_stage_arg_value(
-	renderer::texture_stage_arg_value::type const r)
+#include "../d3dinclude.hpp"
+#include <sge/renderer/indexed_primitive_type.hpp>
+
+namespace sge
 {
-	switch(r) {
-	case renderer::texture_stage_arg_value::constant:
-		return D3DTA_CONSTANT;
-	case renderer::texture_stage_arg_value::current:
-		return D3DTA_CURRENT;
-//		return D3DTA_DIFFUSE;
-//		return D3DTA_SPECULAR;
-//		return D3DTA_TEMP;
-	case renderer::texture_stage_arg_value::texture:
-		return D3DTA_TEXTURE;
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid texture_stage_arg_value!")
-		);
-	}
+namespace d3d9
+{
+namespace convert
+{
+
+D3DPRIMITIVETYPE
+indexed_primitive(
+	renderer::indexed_primitive_type::type
+);
+
 }
+}
+}
+
+#endif

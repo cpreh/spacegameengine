@@ -18,18 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../convert_lock_flags.hpp"
+#ifndef SGE_D3D9_CONVERT_SAMPLER_STAGE_ARG_VALUE_HPP_INCLUDED
+#define SGE_D3D9_CONVERT_SAMPLER_STAGE_ARG_VALUE_HPP_INCLUDED
+
+#include "../d3dinclude.hpp"
+#include <sge/renderer/sampler_stage_arg_value.hpp>
+
+namespace sge
+{
+namespace d3d9
+{
+namespace convert
+{
 
 DWORD
-sge::d3d9::convert_lock_flags(
-	renderer::lock_flag_t const lf,
-	renderer::resource_flag_t const rf)
-{
-	DWORD l = 0;
-	if(
-		(lf & renderer::lock_flags::writeonly)
-		&& (rf & renderer::resource_flags::dynamic)
-	)
-		l |= D3DLOCK_DISCARD;
-	return l;
+sampler_stage_arg_value(
+	renderer::sampler_stage_arg_value::type
+);
+
 }
+}
+}
+
+#endif

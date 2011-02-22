@@ -18,22 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_CONVERT_TEXTURE_STAGE_ARG_VALUE_HPP_INCLUDED
-#define SGE_D3D9_CONVERT_TEXTURE_STAGE_ARG_VALUE_HPP_INCLUDED
-
-#include "d3dinclude.hpp"
-#include <sge/renderer/texture_stage_arg_value.hpp>
-
-namespace sge
-{
-namespace d3d9
-{
+#include "../resource_flags.hpp"
+#include "../../d3dinclude.hpp"
+#include <fcppt/container/bitfield/basic_impl.hpp>
 
 DWORD
-convert_texture_stage_arg(
-	renderer::texture_stage_arg_value::type);
+sge::d3d9::convert::resource_flags(
+	renderer::resource_flags_field const &_flags
+)
+{
+	DWORD ret(
+		0
+	);
 
-}
-}
+	if(
+		_flags & renderer::resource_flags::dynamic
+	)
+		ret |= D3DUSAGE_DYNAMIC;
 
-#endif
+	if(
+		!(_flags & renderer::resource_flags::readable)
+	)
+		ret |= D3DUSAGE_WRITEONLY;
+
+	return ret;
+}

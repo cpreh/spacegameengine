@@ -18,22 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../convert_indexed_primitive.hpp"
-#include <sge/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_D3D9_CONVERT_NONINDEXED_PRIMITIVE_HPP_INCLUDED
+#define SGE_D3D9_CONVERT_NONINDEXED_PRIMITIVE_HPP_INCLUDED
+
+#include "../d3dinclude.hpp"
+#include <sge/renderer/nonindexed_primitive_type.hpp>
+
+namespace sge
+{
+namespace d3d9
+{
+namespace convert
+{
 
 D3DPRIMITIVETYPE
-sge::d3d9::convert_indexed_primitive(
-	renderer::indexed_primitive_type::type const r)
-{
-	switch(r) {
-	case renderer::indexed_primitive_type::line:
-		return D3DPT_LINELIST;
-	case renderer::indexed_primitive_type::triangle:
-		return D3DPT_TRIANGLELIST;
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid indexed primitive type!")
-		);
-	}
+nonindexed_primitive(
+	renderer::nonindexed_primitive_type::type
+);
+
 }
+}
+}
+
+#endif

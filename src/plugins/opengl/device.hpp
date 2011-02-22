@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "target_base_ptr.hpp"
 #include "context/object.hpp"
 #include "fbo/target_ptr.hpp"
-#include <sge/renderer/adapter_type.hpp>
+#include <sge/renderer/adapter.hpp>
 #include <sge/renderer/depth_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
@@ -55,7 +55,7 @@ class device
 public:
 	device(
 		renderer::parameters const &,
-		renderer::adapter_type,
+		renderer::adapter,
 		window::instance_ptr
 	);
 

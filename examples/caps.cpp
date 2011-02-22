@@ -83,9 +83,7 @@ try
 				sge::renderer::vsync::on,
 				sge::renderer::no_multi_sampling
 			),
-			static_cast<
-				sge::renderer::adapter_type
-			>(
+			sge::renderer::adapter(
 				0
 			),
 			sge::window::simple_parameters(

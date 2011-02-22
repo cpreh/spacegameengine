@@ -18,21 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_CONVERT_MULTI_SAMPLE_HPP_INCLUDED
-#define SGE_D3D9_CONVERT_MULTI_SAMPLE_HPP_INCLUDED
+#ifndef SGE_D3D9_CONVERT_SAMPLER_STAGE_ARG_HPP_INCLUDED
+#define SGE_D3D9_CONVERT_SAMPLER_STAGE_ARG_HPP_INCLUDED
 
-#include "d3dinclude.hpp"
-#include <sge/renderer/multi_sampling.hpp>
+#include "../d3dinclude.hpp"
+#include <sge/renderer/sampler_stage_arg.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
+namespace convert
+{
 
-D3DMULTISAMPLE_TYPE
-convert_multi_sample(
-	renderer::multi_sample_type);
+D3DTEXTURESTAGESTATETYPE
+sampler_stage_arg(
+	renderer::sampler_stage_arg::type
+);
 
+}
 }
 }
 

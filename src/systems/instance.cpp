@@ -563,7 +563,9 @@ sge::systems::instance::impl::init_renderer(
 	renderer_ =
 		renderer_system_->create_renderer(
 			renderer_param,
-			static_cast<sge::renderer::adapter_type>(0),
+			sge::renderer::adapter(
+				0
+			),
 			window_
 		);
 	

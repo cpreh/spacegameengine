@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../wgl/context.hpp"
 #include "../wgl/current.hpp"
 #include "../device_state.hpp"
-#include <sge/renderer/adapter_type.hpp>
+#include <sge/renderer/adapter.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
 #include <awl/backends/windows/gdi_device.hpp>
 #include <awl/backends/windows/window/instance_ptr.hpp>
@@ -47,7 +47,7 @@ class state
 public:
 	state(
 		renderer::parameters const &,
-		renderer::adapter_type,
+		renderer::adapter,
 		awl::backends::windows::window::instance_ptr
 	);
 

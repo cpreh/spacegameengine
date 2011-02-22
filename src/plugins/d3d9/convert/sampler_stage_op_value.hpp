@@ -18,16 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../convert_resource_flags.hpp"
+#ifndef SGE_D3D9_CONVERT_SAMPLER_STAGE_OP_VALUE_HPP_INCLUDED
+#define SGE_D3D9_CONVERT_SAMPLER_STAGE_OP_VALUE_HPP_INCLUDED
+
+#include "../d3dinclude.hpp"
+#include <sge/renderer/sampler_stage_op_value.hpp>
+
+namespace sge
+{
+namespace d3d9
+{
+namespace convert
+{
 
 DWORD
-sge::d3d9::convert_resource_flags(
-	renderer::resource_flag_t const r)
-{
-	DWORD l = 0;
-	if(r & renderer::resource_flags::dynamic)
-		l |= D3DUSAGE_DYNAMIC;
-	if(r & renderer::resource_flags::writeonly)
-		l |= D3DUSAGE_WRITEONLY;
-	return l;
+sampler_stage_op_value(
+	renderer::sampler_stage_op_value::type
+);
+
 }
+}
+}
+
+#endif

@@ -40,7 +40,7 @@ sge::opengl::system::~system()
 sge::renderer::device_ptr const
 sge::opengl::system::create_renderer(
 	renderer::parameters const &_param,
-	renderer::adapter_type const _adapter,
+	renderer::adapter const _adapter,
 	window::instance_ptr const _wnd
 )
 {

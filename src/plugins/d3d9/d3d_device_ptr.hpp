@@ -18,20 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_CONVERT_INDEXED_PRIMITIVE_HPP_INCLUDED
-#define SGE_D3D9_CONVERT_INDEXED_PRIMITIVE_HPP_INCLUDED
+#ifndef SGE_PLUGINS_D3D9_D3D_DEVICE_PTR_HPP_INCLUDED
+#define SGE_PLUGINS_D3D9_D3D_DEVICE_PTR_HPP_INCLUDED
 
 #include "d3dinclude.hpp"
-#include <sge/renderer/indexed_primitive.hpp>
+#include <fcppt/shared_ptr.hpp>
+#include <fcppt/com_deleter.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
 
-D3DPRIMITIVETYPE
-convert_indexed_primitive(
-	renderer::indexed_primitive_type::type);
+typedef fcppt::shared_ptr<
+	IDirect3DDevice9,
+	fcppt::com_deleter
+> d3d_device_ptr;
 
 }
 }

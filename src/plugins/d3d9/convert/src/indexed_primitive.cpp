@@ -18,17 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_ADAPTER_TYPE_HPP_INCLUDED
-#define SGE_RENDERER_ADAPTER_TYPE_HPP_INCLUDED
+#include "../indexed_primitive.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-namespace sge
+D3DPRIMITIVETYPE
+sge::d3d9::convert::indexed_primitive(
+	renderer::indexed_primitive_type::type const _type
+)
 {
-namespace renderer
-{
+	switch(
+		_type
+	)
+	{
+	case renderer::indexed_primitive_type::line:
+		return D3DPT_LINELIST;
+	case renderer::indexed_primitive_type::triangle:
+		return D3DPT_TRIANGLELIST;
+	}
 
-typedef unsigned adapter_type;
-
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid indexed primitive type!")
+	);
 }
-}
-
-#endif

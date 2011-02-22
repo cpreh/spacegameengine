@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_SYSTEM_HPP_INCLUDED
 
 #include <sge/renderer/system_fwd.hpp>
-#include <sge/renderer/adapter_type.hpp>
+#include <sge/renderer/adapter.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
 #include <sge/window/instance_ptr.hpp>
@@ -49,7 +49,7 @@ public:
 	virtual renderer::device_ptr const
 	create_renderer(
 		renderer::parameters const &,
-		renderer::adapter_type,
+		renderer::adapter,
 		sge::window::instance_ptr
 	) = 0;
 

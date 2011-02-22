@@ -18,31 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../convert_texture_stage_arg.hpp"
-#include <sge/exception.hpp>
-#include <fcppt/text.hpp>
+#include "../resource_flags_to_pool.hpp"
+#include "../../d3dinclude.hpp"
+#include <fcppt/container/bitfield/basic_impl.hpp>
 
-D3DTEXTURESTAGESTATETYPE
-sge::d3d9::convert_texture_stage_arg(
-	renderer::texture_stage_arg::type const r)
+D3DPOOL
+sge::d3d9::convert::resource_flags_to_pool(
+	renderer::resource_flags_field const &_flags
+)
 {
-	// TODO: maybe we have to swap numbers here
-	switch(r) {
-	case renderer::texture_stage_arg::rgb0:
-		return D3DTSS_COLORARG0;
-	case renderer::texture_stage_arg::rgb1:
-		return D3DTSS_COLORARG1;
-	case renderer::texture_stage_arg::rgb2:
-		return D3DTSS_COLORARG2;
-	case renderer::texture_stage_arg::alpha0:
-		return D3DTSS_ALPHAARG0;
-	case renderer::texture_stage_arg::alpha1:
-		return D3DTSS_ALPHAARG1;
-	case renderer::texture_stage_arg::alpha2:
-		return D3DTSS_ALPHAARG2;
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid texture_stage_arg!")
-		);
-	}
+	return
+		_flags & renderer::resource_flags::dynamic
+		?
+			D3DPOOL_DEFAULT
+		:
+			D3DPOOL_MANAGED;
 }

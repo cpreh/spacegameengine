@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "unique_ptr.hpp"
 #include <sge/renderer/parameters_fwd.hpp>
-#include <sge/renderer/adapter_type.hpp>
+#include <sge/renderer/adapter.hpp>
 #include <awl/backends/x11/window/instance_ptr.hpp>
 
 namespace sge
@@ -39,7 +39,7 @@ resolution::unique_ptr
 create(
 	awl::backends::x11::window::instance_ptr,
 	renderer::parameters const &,
-	renderer::adapter_type
+	renderer::adapter
 );
 
 }

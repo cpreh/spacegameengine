@@ -43,7 +43,7 @@ sge::opengl::x11::resolution::unique_ptr
 sge::opengl::x11::resolution::create(
 	awl::backends::x11::window::instance_ptr const _window,
 	renderer::parameters const &_param,
-	renderer::adapter_type const _adapter
+	renderer::adapter const _adapter
 )
 {
 	if(

@@ -18,20 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_CONVERT_TEXTURE_STAGE_OP_VALUE_HPP_INCLUDED
-#define SGE_D3D9_CONVERT_TEXTURE_STAGE_OP_VALUE_HPP_INCLUDED
+#ifndef SGE_PLUGINS_D3D9_D3D_CUBE_TEXTURE_PTR_HPP_INCLUDED
+#define SGE_PLUGINS_D3D9_D3D_CUBE_TEXTURE_PTR_HPP_INCLUDED
 
 #include "d3dinclude.hpp"
-#include <sge/renderer/texture_stage_op_value.hpp>
+#include <fcppt/shared_ptr.hpp>
+#include <fcppt/com_deleter.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
 
-DWORD
-convert_texture_stage_op_value(
-	renderer::texture_stage_op_value::type);
+typedef fcppt::shared_ptr<
+	IDirect3DCubeTexture9,
+	fcppt::com_deleter
+> d3d_cube_texture_ptr;
 
 }
 }

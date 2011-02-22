@@ -18,10 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_D3DINCLUDE_HPP_INCLUDED
-#define SGE_D3D9_D3DINCLUDE_HPP_INCLUDED
+#include "../lock_mode.hpp"
+#include "../../d3dinclude.hpp"
+#include <fcppt/container/bitfield/basic_impl.hpp>
 
-#include <awl/backends/windows/windows.hpp>
-#include <d3d9.h>
-
-#endif
+DWORD
+sge::d3d9::convert::lock_mode(
+	renderer::lock_mode::type const _mode,
+	renderer::resource_flags_field const &_flags
+)
+{
+	return
+		(
+			_mode == renderer::lock_mode::writeonly
+		)
+		&&
+		(
+			_flags & renderer::resource_flags::dynamic
+		)
+		?
+			D3DLOCK_DISCARD
+		:
+			0;
+}

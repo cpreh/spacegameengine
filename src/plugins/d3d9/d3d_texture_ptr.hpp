@@ -18,53 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_SYSTEM_HPP_INCLUDED
-#define SGE_D3D9_SYSTEM_HPP_INCLUDED
+#ifndef SGE_PLUGINS_D3D9_D3D_TEXTURE_PTR_HPP_INCLUDED
+#define SGE_PLUGINS_D3D9_D3D_TEXTURE_PTR_HPP_INCLUDED
 
 #include "d3dinclude.hpp"
-#include <sge/renderer/adapter_type.hpp>
-#include <sge/renderer/device_ptr.hpp>
-#include <sge/renderer/parameters_fwd.hpp>
-#include <sge/renderer/system.hpp>
-#include <sge/window/instance_ptr.hpp>
-#include <sge/window/simple_parameters_fwd.hpp>
-#include <awl/system/object_ptr.hpp>
-#include <awl/window/instance_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/shared_ptr.hpp>
+#include <fcppt/com_deleter.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
 
-class system
-:
-	public renderer::system
-{
-	FCPPT_NONCOPYABLE(
-		system
-	);
-public:
-	system();
-
-	~system();
-
-	renderer::device_ptr const
-	create_renderer(
-		renderer::parameters const &,
-		renderer::adapter_type,
-		sge::window::instance_ptr
-	);
-
-	awl::window::instance_ptr const
-	create_window(
-		awl::system::object_ptr,
-		sge::window::simple_parameters const &,
-		sge::renderer::parameters const &
-	);
-private:
-	d3d_ptr const sys_;
-};
+typedef fcppt::shared_ptr<
+	IDirect3DTexture9,
+	fcppt::com_deleter
+> d3d_texture_ptr;
 
 }
 }

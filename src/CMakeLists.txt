@@ -443,7 +443,7 @@ SET(
 	include/sge/plugin/object_fwd.hpp
 	include/sge/plugin/version.hpp
 	include/sge/renderer/active_target.hpp
-	include/sge/renderer/adapter_type.hpp
+	include/sge/renderer/adapter.hpp
 	include/sge/renderer/add_depth_stencil_surface_to_target.hpp
 	include/sge/renderer/aspect.hpp
 	include/sge/renderer/aspect_from_viewport.hpp

@@ -18,33 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../convert_texture_stage_op_value.hpp"
-#include <sge/exception.hpp>
+#include "../sampler_stage_op_value.hpp"
+#include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
 DWORD
-sge::d3d9::convert_texture_stage_op_value(
-	renderer::texture_stage_op_value::type const r)
+sge::d3d9::convert::sampler_stage_op_value(
+	renderer::sampler_stage_op_value::type const _value
+)
 {
-	switch(r) {
+	switch(
+		_value
+	)
+	{
 	//	return D3DTOP_DISABLE;
 	//	return D3DTOP_SELECTARG1;
 	//	return D3DTOP_SELECTARG2;
-	//case texture_stage_op_value::arg0:
+	//case sampler_stage_op_value::arg0:
 	//	return D3DTOP_SELECTARG0; // TODO: maybe we have to use a different arg number here
-	case renderer::texture_stage_op_value::modulate:
+	case renderer::sampler_stage_op_value::modulate:
 		return D3DTOP_MODULATE;
-	case renderer::texture_stage_op_value::modulate2x:
+	case renderer::sampler_stage_op_value::modulate2x:
 		return D3DTOP_MODULATE2X;
-	case renderer::texture_stage_op_value::modulate4x:
+	case renderer::sampler_stage_op_value::modulate4x:
 		return D3DTOP_MODULATE4X;
-	case renderer::texture_stage_op_value::add:
+	case renderer::sampler_stage_op_value::add:
 		return D3DTOP_ADD;
-	case renderer::texture_stage_op_value::add_signed:
+	case renderer::sampler_stage_op_value::add_signed:
 		return D3DTOP_ADDSIGNED;
-	case renderer::texture_stage_op_value::add_signed2x:
+	case renderer::sampler_stage_op_value::add_signed2x:
 		return D3DTOP_ADDSIGNED2X;
-	case renderer::texture_stage_op_value::substract:
+	case renderer::sampler_stage_op_value::substract:
 		return D3DTOP_SUBTRACT;
 	//	return D3DTOP_ADDSMOOTH;
 	//	return D3DTOP_BLENDDIFFUSEALPHA;
@@ -62,11 +66,9 @@ sge::d3d9::convert_texture_stage_op_value(
 //		return D3DTOP_DOTPRODUCT3;
 //		return D3DTOP_MULTIPLYADD;
 //		return D3DTOP_LERP;
-	default:
-		throw exception(
-			FCPPT_TEXT("Invalid texture_stage_op_value!")
-		);
 	}
+
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid sampler_stage_op_value!")
+	);
 }
-
-

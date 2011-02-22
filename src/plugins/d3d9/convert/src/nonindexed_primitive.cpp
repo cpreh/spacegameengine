@@ -18,10 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_D3DINCLUDE_HPP_INCLUDED
-#define SGE_D3D9_D3DINCLUDE_HPP_INCLUDED
+#include "../nonindexed_primitive.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include <awl/backends/windows/windows.hpp>
-#include <d3d9.h>
+D3DPRIMITIVETYPE
+sge::d3d9::convert::nonindexed_primitive(
+	renderer::nonindexed_primitive_type::type const _type
+)
+{
+	switch(
+		_type
+	)
+	{
+	case renderer::nonindexed_primitive_type::point:
+		return D3DPT_POINTLIST;
+	case renderer::nonindexed_primitive_type::line_strip:
+		return D3DPT_LINESTRIP;
+	case renderer::nonindexed_primitive_type::triangle_strip:
+		return D3DPT_TRIANGLESTRIP;
+	case renderer::nonindexed_primitive_type::triangle_fan:
+		return D3DPT_TRIANGLEFAN;
+	}
 
-#endif
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid non indexed primitive type!")
+	);
+}

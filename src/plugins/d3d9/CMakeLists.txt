@@ -1,6 +1,81 @@
-FILE (GLOB_RECURSE sged3d9files src/*.cpp)
+SET(
+	SGE_D3D9_FILES
+	src/plugins/d3d9/convert/indexed_primitive.hpp
+	src/plugins/d3d9/convert/lock_mode.hpp
+	src/plugins/d3d9/convert/multi_sample.hpp
+	src/plugins/d3d9/convert/nonindexed_primitive.hpp
+	src/plugins/d3d9/convert/resource_flags.hpp
+	src/plugins/d3d9/convert/resource_flags_to_pool.hpp
+	src/plugins/d3d9/convert/sampler_stage_arg.hpp
+	src/plugins/d3d9/convert/sampler_stage_arg_value.hpp
+	src/plugins/d3d9/convert/sampler_stage_op.hpp
+	src/plugins/d3d9/convert/sampler_stage_op_value.hpp
+	src/plugins/d3d9/convert/src/indexed_primitive.cpp
+	src/plugins/d3d9/convert/src/lock_mode.cpp
+	src/plugins/d3d9/convert/src/multi_sample.cpp
+	src/plugins/d3d9/convert/src/nonindexed_primitive.cpp
+	src/plugins/d3d9/convert/src/resource_flags.cpp
+	src/plugins/d3d9/convert/src/resource_flags_to_pool.cpp
+	src/plugins/d3d9/convert/src/sampler_stage_arg.cpp
+	src/plugins/d3d9/convert/src/sampler_stage_arg_value.cpp
+	src/plugins/d3d9/convert/src/sampler_stage_op.cpp
+	src/plugins/d3d9/convert/src/sampler_stage_op_value.cpp
+	src/plugins/d3d9/create_caps.hpp
+	src/plugins/d3d9/d3d_cube_texture_ptr.hpp
+	src/plugins/d3d9/d3d_device_ptr.hpp
+	src/plugins/d3d9/d3d_index_buffer_ptr.hpp
+	src/plugins/d3d9/d3d_ptr.hpp
+	src/plugins/d3d9/d3d_surface_ptr.hpp
+	src/plugins/d3d9/d3d_texture_ptr.hpp
+	src/plugins/d3d9/d3d_vertex_buffer_ptr.hpp
+	src/plugins/d3d9/d3d_vertex_declaration_ptr.hpp
+	src/plugins/d3d9/d3d_volume_texture_ptr.hpp
+	src/plugins/d3d9/d3dinclude.hpp
+	src/plugins/d3d9/device.hpp
+	src/plugins/d3d9/index_buffer.hpp
+	src/plugins/d3d9/present_parameters.hpp
+	src/plugins/d3d9/resource.hpp
+	src/plugins/d3d9/resource_list.hpp
+	src/plugins/d3d9/src/conversion.cpp
+	src/plugins/d3d9/src/create_caps.cpp
+	src/plugins/d3d9/src/device.cpp
+	src/plugins/d3d9/src/exports.cpp
+	src/plugins/d3d9/src/index_buffer.cpp
+	src/plugins/d3d9/src/material.cpp
+	src/plugins/d3d9/src/present_parameters.cpp
+	src/plugins/d3d9/src/resource.cpp
+	src/plugins/d3d9/src/system.cpp
+	src/plugins/d3d9/src/target.cpp
+	src/plugins/d3d9/src/texture_functions.cpp
+	src/plugins/d3d9/src/tnl_caps.cpp
+	src/plugins/d3d9/src/transform.cpp
+	src/plugins/d3d9/src/vertex_buffer.cpp
+	src/plugins/d3d9/src/vertex_format.cpp
+	src/plugins/d3d9/system.hpp
+	src/plugins/d3d9/target.hpp
+	src/plugins/d3d9/texture/base.hpp
+	src/plugins/d3d9/texture/basic.hpp
+	src/plugins/d3d9/texture/basic_impl.hpp
+	src/plugins/d3d9/texture/cube.hpp
+	src/plugins/d3d9/texture/planar.hpp
+	src/plugins/d3d9/texture/src/base.cpp
+	src/plugins/d3d9/texture/src/cube.cpp
+	src/plugins/d3d9/texture/src/planar.cpp
+	src/plugins/d3d9/texture/src/volume.cpp
+	src/plugins/d3d9/texture/volume.hpp
+	src/plugins/d3d9/texture_functions.hpp
+	src/plugins/d3d9/tnl_caps.hpp
+	src/plugins/d3d9/transform.hpp
+	src/plugins/d3d9/vertex_buffer.hpp
+	src/plugins/d3d9/vertex_format.hpp
+)
 
-ADD_LIBRARY (sged3d9 SHARED ${sged3d9files})
-TARGET_LINK_LIBRARIES (sged3d9 sgecore D3D9)
+INCLUDE_DIRECTORIES(
+	SYSTEM
+	${D3D9_INCLUDE_DIR}
+)
 
-INSTALL (TARGETS sged3d9 DESTINATION ${pluginpath})
+ADD_SGE_PLUGIN(
+	"d3d9"
+	"${D3D9_LIBRARIES}"
+)

@@ -18,21 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_CONVERT_TEXTURE_STAGE_OP_HPP_INCLUDED
-#define SGE_D3D9_CONVERT_TEXTURE_STAGE_OP_HPP_INCLUDED
+#ifndef SGE_D3D9_CONVERT_RESOURCE_FLAGS_HPP_INCLUDED
+#define SGE_D3D9_CONVERT_RESOURCE_FLAGS_HPP_INCLUDED
 
-#include "d3dinclude.hpp"
-#include <sge/renderer/texture_stage_op.hpp>
+#include "../d3dinclude.hpp"
+#include <sge/renderer/resource_flags_field.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
+namespace convert
+{
 
-D3DTEXTURESTAGESTATETYPE
-convert_texture_stage_op(
-	renderer::texture_stage_op::type);
+DWORD
+resource_flags(
+	renderer::resource_flags_field const &
+);
 
+}
 }
 }
 

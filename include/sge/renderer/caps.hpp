@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_CAPS_HPP_INCLUDED
 
 #include <sge/renderer/caps_fwd.hpp>
-#include <sge/renderer/adapter_type.hpp>
+#include <sge/renderer/adapter.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/texture/filter/anisotropy_type.hpp>
 #include <sge/image/color/format.hpp>
@@ -40,17 +40,17 @@ class caps
 {
 public:
 	SGE_SYMBOL caps(
-		adapter_type adapter_,
+		renderer::adapter,
 		fcppt::string const &driver_name,
 		fcppt::string const &description,
 		dim2 const &max_texure_size,
-		texture::filter::anisotropy_type max_anisotropy_,
+		texture::filter::anisotropy_type max_anisotropy,
 		bool render_target_supported,
 		bool glsl_supported,
 		image::color::format::type preferred_texture_format
 	);
 
-	SGE_SYMBOL adapter_type
+	SGE_SYMBOL renderer::adapter const
 	adapter() const;
 
 	SGE_SYMBOL fcppt::string const &
@@ -74,7 +74,7 @@ public:
 	SGE_SYMBOL image::color::format::type
 	preferred_texture_format() const;
 private:
-	adapter_type adapter_;
+	renderer::adapter adapter_;
 
 	fcppt::string driver_name_;
 
