@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_BASIC_TEXTURE_HPP_INCLUDED
-#define SGE_D3D9_BASIC_TEXTURE_HPP_INCLUDED
+#ifndef SGE_D3D9_TEXTURE_BASIC_HPP_INCLUDED
+#define SGE_D3D9_TEXTURE_BASIC_HPP_INCLUDED
 
 #include "texture_base.hpp"
 #include "resource.hpp"
@@ -32,12 +32,18 @@ namespace sge
 namespace d3d9
 {
 
-class renderer;
-
-template<typename Base>
-class basic_texture : public Base, public texture_base, public resource {
+template<
+	typename Base
+>
+class basic
+:
+	public Base,
+	public d3d9::texture::base,
+	public d3d9::resource
+{
 public:
-	basic_texture(renderer&, const filter_args& filter, resource_flag_t flags);
+	basic_texture(
+		filter_args & filter, resource_flag_t flags);
 protected:
 	resource_flag_t flags() const;
 	void on_reset();

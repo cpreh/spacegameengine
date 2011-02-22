@@ -76,12 +76,12 @@ sge::opengl::system::create_window(
 			)
 			.stencil_buffer(
 				opengl::convert::stencil_buffer(
-					_rparam.stencil_buffer()
+					_rparam.depth_stencil_buffer()
 				)
 			)
 			.depth_buffer(
 				opengl::convert::depth_buffer(
-					_rparam.depth_buffer()
+					_rparam.depth_stencil_buffer()
 				)
 			)
 		);

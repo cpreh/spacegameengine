@@ -18,40 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../tnl_caps.hpp"
-#include "../d3dinclude.hpp"
-#include "../systemfuncs/get_caps.hpp"
+#include <sge/renderer/buffer_has_depth.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-DWORD
-sge::d3d9::tnl_caps(
-	d3d9::d3d_ptr const _system,
-	renderer::adapter const _adapter
+bool
+sge::renderer::buffer_has_depth(
+	renderer::depth_stencil_buffer::type const _buffer
 )
 {
-	D3DCAPS9 const caps(
-		systemfuncs::get_caps(
-			_system,
-			_adapter
-		)
-	);
-
-	DWORD ret(
-		0
-	);
-
-	if(
-		caps.DevCaps & D3DDEVCAPS_HWTRANSFORMANDLIGHT
+	switch(
+		_buffer
 	)
 	{
-		ret |= D3DCREATE_HARDWARE_VERTEXPROCESSING;
-
-		if(
-			caps.DevCaps & D3DDEVCAPS_PUREDEVICE
-		)
-			ret |= D3DCREATE_PUREDEVICE;
+	case sge::renderer::depth_stencil_buffer::off:
+		return false;
+	case sge::renderer::depth_stencil_buffer::d16:
+	case sge::renderer::depth_stencil_buffer::d24:
+	case sge::renderer::depth_stencil_buffer::d24s8:
+	case sge::renderer::depth_stencil_buffer::d32:
+		return true;
 	}
-	else
-		ret |= D3DCREATE_SOFTWARE_VERTEXPROCESSING;
 
-	return ret;
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid depth_stencil_buffer!")
+	);
 }

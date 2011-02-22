@@ -21,6 +21,7 @@ SET(
 	src/plugins/d3d9/convert/src/sampler_stage_op.cpp
 	src/plugins/d3d9/convert/src/sampler_stage_op_value.cpp
 	src/plugins/d3d9/create_caps.hpp
+	src/plugins/d3d9/create_device.hpp
 	src/plugins/d3d9/d3d_cube_texture_ptr.hpp
 	src/plugins/d3d9/d3d_device_ptr.hpp
 	src/plugins/d3d9/d3d_index_buffer_ptr.hpp
@@ -33,16 +34,23 @@ SET(
 	src/plugins/d3d9/d3dinclude.hpp
 	src/plugins/d3d9/device.hpp
 	src/plugins/d3d9/index_buffer.hpp
-	src/plugins/d3d9/present_parameters.hpp
+	src/plugins/d3d9/parameters/convert/bit_depth.hpp
+	src/plugins/d3d9/parameters/convert/src/bit_depth.cpp
+	src/plugins/d3d9/parameters/convert/src/visual_depth.cpp
+	src/plugins/d3d9/parameters/create.hpp
+	src/plugins/d3d9/parameters/depth_stencil_format.hpp
+	src/plugins/d3d9/parameters/extract_back_buffer_format.hpp
+	src/plugins/d3d9/parameters/src/create.cpp
+	src/plugins/d3d9/parameters/src/extract_back_buffer_format.cpp
 	src/plugins/d3d9/resource.hpp
 	src/plugins/d3d9/resource_list.hpp
 	src/plugins/d3d9/src/conversion.cpp
 	src/plugins/d3d9/src/create_caps.cpp
+	src/plugins/d3d9/src/create_device.cpp
 	src/plugins/d3d9/src/device.cpp
 	src/plugins/d3d9/src/exports.cpp
 	src/plugins/d3d9/src/index_buffer.cpp
 	src/plugins/d3d9/src/material.cpp
-	src/plugins/d3d9/src/present_parameters.cpp
 	src/plugins/d3d9/src/resource.cpp
 	src/plugins/d3d9/src/system.cpp
 	src/plugins/d3d9/src/target.cpp
@@ -52,6 +60,8 @@ SET(
 	src/plugins/d3d9/src/vertex_buffer.cpp
 	src/plugins/d3d9/src/vertex_format.cpp
 	src/plugins/d3d9/system.hpp
+	src/plugins/d3d9/systemfuncs/get_caps.hpp
+	src/plugins/d3d9/systemfuncs/src/get_caps.cpp
 	src/plugins/d3d9/target.hpp
 	src/plugins/d3d9/texture/base.hpp
 	src/plugins/d3d9/texture/basic.hpp

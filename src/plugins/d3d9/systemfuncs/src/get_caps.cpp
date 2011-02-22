@@ -18,24 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_DEPTH_BUFFER_HPP_INCLUDED
-#define SGE_RENDERER_DEPTH_BUFFER_HPP_INCLUDED
+#include "../get_caps.hpp"
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-namespace sge
+D3DCAPS9 const
+sge::d3d9::systemfuncs::get_caps(
+	d3d9::d3d_ptr const _system,
+	renderer::adapter const _adapter
+)
 {
-namespace renderer
-{
+	D3DCAPS9 caps;
 
-namespace depth_buffer
-{
-enum type {
-	off,
-	d16 = 16,
-	d24 = 24
-};
-}
+	if(
+		_sys->GetDeviceCaps(
+			_adapter.get(),
+			D3DDEVTYPE_HAL,
+			&caps
+		)
+		!= D3D_OK
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("GetDeviceCaps failed")
+		);
 
+	return caps;
 }
-}
-
-#endif

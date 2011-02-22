@@ -22,15 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::parameters::parameters(
 	renderer::screen_mode const &_screen_mode,
-	renderer::depth_buffer::type const _depth_buffer,
-	renderer::stencil_buffer::type const _stencil_buffer,
+	renderer::depth_stencil_buffer::type const _depth_stencil_buffer,
 	renderer::vsync::type const _vsync,
 	renderer::multi_sample_type const _samples
 )
 :
 	screen_mode_(_screen_mode),
-	depth_buffer_(_depth_buffer),
-	stencil_buffer_(_stencil_buffer),
+	depth_stencil_buffer_(_depth_stencil_buffer),
 	vsync_(_vsync),
 	samples_(_samples)
 {
@@ -42,16 +40,10 @@ sge::renderer::parameters::screen_mode() const
 	return screen_mode_;
 }
 
-sge::renderer::depth_buffer::type
-sge::renderer::parameters::depth_buffer() const
+sge::renderer::depth_stencil_buffer::type
+sge::renderer::parameters::depth_stencil_buffer() const
 {
-	return depth_buffer_;
-}
-
-sge::renderer::stencil_buffer::type
-sge::renderer::parameters::stencil_buffer() const
-{
-	return stencil_buffer_;
+	return depth_stencil_buffer_;
 }
 
 sge::renderer::vsync::type

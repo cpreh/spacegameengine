@@ -30,18 +30,25 @@ namespace d3d9
 {
 
 class resource
-: public
-	boost::intrusive::list_base_hook<
+:
+	public boost::intrusive::list_base_hook<
 		boost::intrusive::link_mode<
 			boost::intrusive::auto_unlink
 		>
 	>
 {
-	FCPPT_NONCOPYABLE(resource);
+	FCPPT_NONCOPYABLE(
+		resource
+	);
 public:
 	resource();
-	virtual void on_loss();
-	virtual void on_reset();
+
+	virtual void
+	on_loss();
+
+	virtual void
+	on_reset();
+
 	virtual ~resource();
 };
 

@@ -24,12 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/object.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/create_device_with_window.hpp>
-#include <sge/renderer/depth_buffer.hpp>
+#include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/plugin.hpp>
-#include <sge/renderer/stencil_buffer.hpp>
 #include <sge/renderer/system_ptr.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/visual_depth.hpp>
@@ -78,8 +77,7 @@ try
 			render_sys,
 			sge::renderer::parameters(
 				sge::renderer::visual_depth::depth32,
-				sge::renderer::depth_buffer::off,
-				sge::renderer::stencil_buffer::off,
+				sge::renderer::depth_stencil_buffer::off,
 				sge::renderer::vsync::on,
 				sge::renderer::no_multi_sampling
 			),

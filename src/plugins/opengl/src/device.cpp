@@ -83,11 +83,8 @@ sge::opengl::device::device(
 	window::instance_ptr const _window
 )
 :
-	depth_buffer_(
-		_parameters.depth_buffer()
-	),
-	stencil_buffer_(
-		_parameters.stencil_buffer()
+	depth_stencil_buffer_(
+		_parameters.depth_stencil_buffer()
 	),
 	window_(_window),
 	current_states_(
@@ -220,8 +217,7 @@ sge::opengl::device::state(
 		context_,
 		current_states_,
 		_states,
-		depth_buffer_,
-		stencil_buffer_
+		depth_stencil_buffer_
 	);
 }
 

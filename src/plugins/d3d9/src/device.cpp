@@ -19,21 +19,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../device.hpp"
-#include "../texture.hpp"
 //#include "../volume_texture.hpp"
-#include "../cube_texture.hpp"
-#include "../vertex_buffer.hpp"
 #include "../index_buffer.hpp"
+//#include "../material.hpp"
 #include "../target.hpp"
-#include "../material.hpp"
-#include <sge/renderer/parameters.hpp>
-#include <sge/stub.hpp>
-#include <sge/bit.hpp>
-#include <sge/exception.hpp>
-#include <sge/make_shared_ptr.hpp>
+#include "../vertex_buffer.hpp"
+#include "../texture/cube.hpp"
+#include "../texture/planar.hpp"
+#include "../texture/volume.hpp"
+#include <sge/renderer/exception.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt//make_shared_ptr.hpp>
 #include <algorithm>
 
+#if 0
 namespace
 {
 
@@ -47,48 +46,61 @@ void set_transform(sge::d3d9::d3d_device_ptr device, D3DTRANSFORMSTATETYPE, cons
 void set_render_target(sge::d3d9::d3d_device_ptr device, sge::d3d9::d3d_surface_ptr target);
 
 }
+#endif
 
 sge::d3d9::device::device(
-	d3d_device_ptr const device,
-	renderer::parameters const &param,
-	D3DPRESENT_PARAMETERS const &present_parameters,
-	windows::window_ptr const window_,
-	renderer::caps const &caps_)
+	d3d9::d3d_ptr const _system,
+	renderer::adapter const _adapter,
+	renderer::parameters const &_param,
+	window::instance_ptr const _window
+)
 :
-	device(device),
+	device_(device),
 	screen_size_(param.mode().size()),
 	preset_parameters(present_parameters),
 	window_(window_),
 	caps_(caps_)
 {
-	init();
 }
 
+sge::d3d9::device::~device()
+{
+}
+
+#if 0
 void
 sge::d3d9::device::begin_rendering()
 {
 	if(
-		device->Clear(
+		device_->Clear(
 			0,
 			0,
-			clear_flags,
-			clear_color,
-			zbuffer_clear_val,
-			stencil_clear_val
-		) != D3D_OK
+			clear_flags_,
+			clear_color_,
+			zbuffer_clear_val_,
+			stencil_clear_val_
+		)
+		!= D3D_OK
 	)
-		throw exception(
+		throw sge::renderer::exception(
 			FCPPT_TEXT("Clear() failed!")
 		);
 
-	if(device->BeginScene() != D3D_OK)
-		throw exception(FCPPT_TEXT("BeginScene() failed!"));
+	if(
+		device_->BeginScene()
+		!= D3D_OK
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("BeginScene() failed!")
+		);
 }
 
 void
 sge::d3d9::device::end_rendering()
 {
-	if(device->EndScene() != D3D_OK)
+	if(
+		device_->EndScene() != D3D_OK
+	)
 		throw exception(FCPPT_TEXT("EndScene() failed!"));
 
 	switch(
@@ -461,16 +473,20 @@ template<
 >
 Ptr const
 sge::d3d9::device::add_resource(
-	Ptr const ptr)
+	Ptr const _ptr
+)
 {
 	resources.push_back(
-		*ptr
+		*_ptr
 	);
-	return ptr;
+
+	return _ptr;
 }
 
-void sge::d3d9::device::init()
+void
+sge::d3d9::device::reinit_resources()
 {
+#if 0
 	IDirect3DSurface9 *surface;
 
 	if(device->GetRenderTarget(0,&surface) != D3D_OK)
@@ -478,9 +494,10 @@ void sge::d3d9::device::init()
 
 	default_render_target.reset(surface);
 
+#endif
 	std::for_each(
-		resources.begin(),
-		resources.end(),
+		resources_.begin(),
+		resources_.end(),
 		std::tr1::bind(
 			&resource::on_reset,
 			std::tr1::placeholders::_1
@@ -488,20 +505,23 @@ void sge::d3d9::device::init()
 	);
 }
 
-void sge::d3d9::renderer::release_resources()
+void
+sge::d3d9::renderer::release_resources()
 {
 	std::for_each(
-		resources.begin(),
-		resources.end(),
+		resources_.begin(),
+		resources_.end(),
 		std::tr1::bind(
 			&resource::on_loss,
 			std::tr1::placeholders::_1
 		)
 	);
 
+#if 0
 	default_render_target.reset();
 
 	vertex_declaration.reset();
+#endif
 }
 
 /*
@@ -815,3 +835,4 @@ void set_render_target(const sge::d3d9::d3d_device_ptr device, const sge::d3d9::
 }
 
 }
+#endif

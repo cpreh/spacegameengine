@@ -36,17 +36,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/rgba32f_format.hpp>
 #include <sge/image/color/rgba32f.hpp>
-#include <sge/renderer/state/var.hpp>
+#include <sge/renderer/buffer_has_depth.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/unsupported.hpp>
+#include <sge/renderer/state/var.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::state_visitor::state_visitor(
 	opengl::context::object &_context,
 	split_states &_states,
-	renderer::depth_buffer::type const _depth_type,
-	renderer::stencil_buffer::type const _stencil_type
+	renderer::depth_stencil_buffer::type const _depth_stencil_buffer
 )
 :
 	multi_sample_context_(
@@ -64,8 +64,7 @@ sge::opengl::state_visitor::state_visitor(
 		)
 	),
 	states_(_states),
-	depth_type_(_depth_type),
-	stencil_type_(_stencil_type)
+	depth_stencil_buffer_(_depth_stencil_buffer)
 {
 }
 
@@ -75,15 +74,19 @@ sge::opengl::state_visitor::~state_visitor()
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
-	renderer::state::int_::type const s
+	renderer::state::int_::type const _state
 ) const
 {
 	namespace rs = renderer::state::int_::available_states;
 
-	switch(s.state())
+	switch(
+		_state.state()
+	)
 	{
 	case rs::stencil_clear_val:
-		glClearStencil(s.value());
+		::glClearStencil(
+			_state.value()
+		);
 
 		SGE_OPENGL_CHECK_STATE(
 			FCPPT_TEXT("glClearStencil failed"),
@@ -92,7 +95,7 @@ sge::opengl::state_visitor::operator()(
 		return;
 	case rs::stencil_ref:
 		states_.update_stencil(
-			stencil_type_
+			depth_stencil_buffer_
 		);
 		return;
 	}
@@ -104,16 +107,18 @@ sge::opengl::state_visitor::operator()(
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
-	renderer::state::uint::type const s
+	renderer::state::uint::type const _state
 ) const
 {
 	namespace rs = renderer::state::uint::available_states;
 
-	switch(s.state())
+	switch(
+		_state.state()
+	)
 	{
 	case rs::stencil_mask:
 		states_.update_stencil(
-			stencil_type_
+			depth_stencil_buffer_
 		);
 		return;
 	}
@@ -125,19 +130,21 @@ sge::opengl::state_visitor::operator()(
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
-	renderer::state::float_::type const &s
+	renderer::state::float_::type const &_state
 ) const
 {
 	namespace rs = renderer::state::float_::available_states;
 
-	switch(s.state())
+	switch(
+		_state.state()
+	)
 	{
 	case rs::zbuffer_clear_val:
-		glClearDepth(
+		::glClearDepth(
 			static_cast<
 				GLdouble
 			>(
-				s.value()
+				_state.value()
 			)
 		);
 
@@ -145,6 +152,7 @@ sge::opengl::state_visitor::operator()(
 			FCPPT_TEXT("glClearDepth failed"),
 			sge::renderer::exception
 		)
+
 		return;
 	case rs::alpha_test_ref:
 		states_.update_alpha_test();
@@ -152,12 +160,14 @@ sge::opengl::state_visitor::operator()(
 	case rs::fog_start:
 	case rs::fog_end:
 	case rs::fog_density:
-		glFogf(
-			convert::fog_float_state(s),
+		::glFogf(
+			convert::fog_float_state(
+				_state
+			),
 			static_cast<
 				GLfloat
 			>(
-				s.value()
+				_state.value()
 			)
 		);
 
@@ -165,9 +175,9 @@ sge::opengl::state_visitor::operator()(
 			FCPPT_TEXT("glFogf failed"),
 			sge::renderer::exception
 		)
+
 		return;
 	}
-
 
 	throw sge::renderer::exception(
 		FCPPT_TEXT("Invalid float_state!")
@@ -176,7 +186,7 @@ sge::opengl::state_visitor::operator()(
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
-	renderer::state::bool_::type const s
+	renderer::state::bool_::type const _state
 ) const
 {
 	// don't complain about unsupported but disabled states in case we don't support them
@@ -185,7 +195,7 @@ sge::opengl::state_visitor::operator()(
 	namespace rs = renderer::state::bool_::available_states;
 
 	switch(
-		s.state()
+		_state.state()
 	)
 	{
 	case rs::clear_backbuffer:
@@ -196,8 +206,10 @@ sge::opengl::state_visitor::operator()(
 	case rs::enable_lighting:
 	case rs::enable_scissor_test:
 		opengl::enable_bool(
-			convert::bool_(s),
-			s.value()
+			convert::bool_(
+				_state
+			),
+			_state.value()
 		);
 		return;
 	case rs::enable_point_sprites:
@@ -206,7 +218,7 @@ sge::opengl::state_visitor::operator()(
 		)
 		{
 			if(
-				!s.value()
+				!_state.value()
 			)
 				return;
 
@@ -219,12 +231,12 @@ sge::opengl::state_visitor::operator()(
 
 		opengl::enable_bool(
 			point_sprite_context_.point_sprite_flag(),
-			s.value()
+			_state.value()
 		);
 
 		opengl::enable_bool(
 			point_sprite_context_.vertex_shader_size_flag(),
-			s.value()
+			_state.value()
 		);
 
 		return;
@@ -234,7 +246,7 @@ sge::opengl::state_visitor::operator()(
 		)
 		{
 			if(
-				!s.value()
+				!_state.value()
 			)
 				return;
 
@@ -247,13 +259,13 @@ sge::opengl::state_visitor::operator()(
 
 		opengl::enable_bool(
 			multi_sample_context_.flag(),
-			s.value()
+			_state.value()
 		);
 
 		return;
 	case rs::write_to_zbuffer:
 		::glDepthMask(
-			s.value()
+			_state.value()
 		);
 
 		SGE_OPENGL_CHECK_STATE(
@@ -271,7 +283,7 @@ sge::opengl::state_visitor::operator()(
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
-	renderer::state::color::type const &s
+	renderer::state::color::type const &_state
 ) const
 {
 	namespace rs = renderer::state::color::available_states;
@@ -280,14 +292,16 @@ sge::opengl::state_visitor::operator()(
 		image::color::any::convert<
 			image::color::rgba32f_format
 		>(
-			s.value()
+			_state.value()
 		)
 	);
 
-	switch(s.state())
+	switch(
+		_state.state()
+	)
 	{
 	case rs::clear_color:
-		glClearColor(
+		::glClearColor(
 			fcolor.get<mizuiro::color::channel::red>(),
 			fcolor.get<mizuiro::color::channel::green>(),
 			fcolor.get<mizuiro::color::channel::blue>(),
@@ -300,17 +314,19 @@ sge::opengl::state_visitor::operator()(
 		)
 		return;
 	case rs::ambient_light_color:
-		glLightModelfv(
+		::glLightModelfv(
 			GL_LIGHT_MODEL_AMBIENT,
 			fcolor.data()
 		);
+
 		SGE_OPENGL_CHECK_STATE(
 			FCPPT_TEXT("glLightMOdelfv failed"),
 			sge::renderer::exception
 		)
+
 		return;
 	case rs::fog_color:
-		glFogfv(
+		::glFogfv(
 			GL_FOG_COLOR,
 			fcolor.data()
 		);
@@ -319,6 +335,7 @@ sge::opengl::state_visitor::operator()(
 			FCPPT_TEXT("glFogfv failed"),
 			sge::renderer::exception
 		)
+
 		return;
 	}
 
@@ -329,11 +346,11 @@ sge::opengl::state_visitor::operator()(
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
-	renderer::state::cull_mode::type const m
+	renderer::state::cull_mode::type const _mode
 ) const
 {
 	if(
-		m == renderer::state::cull_mode::off
+		_mode == renderer::state::cull_mode::off
 	)
 	{
 		opengl::disable(
@@ -347,9 +364,9 @@ sge::opengl::state_visitor::operator()(
 		GL_CULL_FACE
 	);
 
-	glCullFace(
+	::glCullFace(
 		convert::cull_mode(
-			m
+			_mode
 		)
 	);
 
@@ -361,11 +378,11 @@ sge::opengl::state_visitor::operator()(
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
-	renderer::state::depth_func::type const f
+	renderer::state::depth_func::type const _func
 ) const
 {
 	if(
-		f == renderer::state::depth_func::off
+		_func == renderer::state::depth_func::off
 	)
 	{
 		opengl::disable(
@@ -376,7 +393,9 @@ sge::opengl::state_visitor::operator()(
 	}
 
 	if(
-		depth_type_ == renderer::depth_buffer::off
+		!sge::renderer::buffer_has_depth(
+			depth_stencil_buffer_
+		)
 	)
 		throw sge::renderer::exception(
 			FCPPT_TEXT("You tried to use a depth_func besides depth_func::off.")
@@ -387,9 +406,9 @@ sge::opengl::state_visitor::operator()(
 		GL_DEPTH_TEST
 	);
 
-	glDepthFunc(
+	::glDepthFunc(
 		convert::depth_func(
-			f
+			_func	
 		)
 	);
 
@@ -405,7 +424,7 @@ sge::opengl::state_visitor::operator()(
 ) const
 {
 	states_.update_stencil(
-		stencil_type_
+		depth_stencil_buffer_
 	);
 }
 
@@ -452,13 +471,13 @@ sge::opengl::state_visitor::operator()(
 
 sge::opengl::state_visitor::result_type
 sge::opengl::state_visitor::operator()(
-	renderer::state::draw_mode::type const m
+	renderer::state::draw_mode::type const _mode
 ) const
 {
-	glPolygonMode(
+	::glPolygonMode(
 		GL_FRONT_AND_BACK,
 		convert::draw_mode(
-			m
+			_mode
 		)
 	);
 

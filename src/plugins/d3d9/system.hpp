@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_SYSTEM_HPP_INCLUDED
 #define SGE_D3D9_SYSTEM_HPP_INCLUDED
 
-#include "d3dinclude.hpp"
+#include "d3d_ptr.hpp"
 #include <sge/renderer/adapter_type.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/parameters_fwd.hpp>
@@ -63,7 +63,7 @@ public:
 		sge::renderer::parameters const &
 	);
 private:
-	d3d_ptr const sys_;
+	d3d9::d3d_ptr const sys_;
 };
 
 }

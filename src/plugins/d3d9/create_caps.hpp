@@ -32,8 +32,8 @@ namespace d3d9
 
 renderer::caps const
 create_caps(
-	renderer::adapter,
-	d3d9::d3d_ptr
+	d3d9::d3d_ptr,
+	renderer::adapter
 );
 
 }

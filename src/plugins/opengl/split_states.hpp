@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "split_states_fwd.hpp"
 #include "common.hpp"
 #include <sge/renderer/state/list_fwd.hpp>
-#include <sge/renderer/stencil_buffer.hpp>
+#include <sge/renderer/depth_stencil_buffer.hpp>
 #include <fcppt/nonassignable.hpp>
 
 namespace sge
@@ -44,7 +44,7 @@ public:
 
 	void
 	update_stencil(
-		renderer::stencil_buffer::type
+		renderer::depth_stencil_buffer::type
 	);
 
 	void

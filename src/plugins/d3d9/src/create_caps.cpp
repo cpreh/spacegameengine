@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../create_caps.hpp"
+#include "../systemfuncs/get_caps.hpp"
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
@@ -64,23 +65,16 @@ add_display_modes(
 
 sge::renderer::caps const
 sge::d3d9::create_caps(
-	renderer::adapter const _adapter,
-	d3d9::d3d_ptr const _sys
+	d3d9::d3d_ptr const _system,
+	renderer::adapter const _adapter
 )
 {
-	D3DCAPS9 caps;
-
-	if(
-		_sys->GetDeviceCaps(
-			_adapter.get(),
-			D3DDEVTYPE_HAL,
-			&caps
+	D3DCAPS9 const caps(
+		d3d9::systemfuncs::get_caps(
+			_system,
+			_adapter
 		)
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("GetDeviceCaps failed")
-		);
+	);
 
 	D3DADAPTER_IDENTIFIER9 identifier;
 

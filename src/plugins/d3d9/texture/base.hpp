@@ -21,27 +21,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_TEXTURE_BASE_HPP_INCLUDED
 #define SGE_D3D9_TEXTURE_BASE_HPP_INCLUDED
 
-#include "d3dinclude.hpp"
+#include "../d3dinclude.hpp"
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
+namespace texture
+{
 
-class texture_base {
-	FCPPT_NONCOPYABLE(texture_base)
+class base
+{
+	FCPPT_NONCOPYABLE(
+		base
+	);
 protected:
-	explicit texture_base(
-		IDirect3DBaseTexture9 *);
+	explicit base(
+		IDirect3DBaseTexture9 *
+	);
 
-	virtual ~texture_base();
+	virtual ~base();
 public:
-	IDirect3DBaseTexture9 *base() const;
+	IDirect3DBaseTexture9 *
+	get() const;
 private:
 	IDirect3DBaseTexture9 *const base_;
 };
 
+}
 }
 }
 

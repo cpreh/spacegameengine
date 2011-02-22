@@ -18,26 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_PRESENT_PARAMETERS_HPP_INCLUDED
-#define SGE_D3D9_PRESENT_PARAMETERS_HPP_INCLUDED
+#ifndef SGE_D3D_SYSTEMFUNCS_GET_CAPS_HPP_INCLUDED
+#define SGE_D3D_SYSTEMFUNCS_GET_CAPS_HPP_INCLUDED
 
+#include "d3d_ptr.hpp"
 #include "d3dinclude.hpp"
-#include <sge/renderer/parameters_fwd.hpp>
-#include <sge/renderer/adapter_type.hpp>
-#include <sge/windows/window_fwd.hpp>
+#include <sge/renderer/caps.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
+namespace systemfuncs
+{
 
-D3DPRESENT_PARAMETERS const
-create_present_parameters(
-	renderer::parameters const &,
-	renderer::adapter_type,
-	window::window_ptr,
-	d3d_ptr);
+D3DCAPS9 const
+get_caps(
+	d3d9::d3d_ptr,
+	renderer::adapter
+);
 
+}
 }
 }
 

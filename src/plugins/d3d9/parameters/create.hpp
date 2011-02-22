@@ -18,23 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STENCIL_BUFFER_HPP_INCLUDED
-#define SGE_RENDERER_STENCIL_BUFFER_HPP_INCLUDED
+#ifndef SGE_D3D9_PARAMETERS_CREATE_HPP_INCLUDED
+#define SGE_D3D9_PARAMETERS_CREATE_HPP_INCLUDED
+
+#include "d3dinclude.hpp"
+#include <sge/renderer/parameters_fwd.hpp>
+#include <sge/renderer/adapter_type.hpp>
+#include <sge/windows/window_fwd.hpp>
 
 namespace sge
 {
-namespace renderer
+namespace d3d9
+{
+namespace parameters
 {
 
-namespace stencil_buffer
-{
-enum type {
-	off,
-	d16 = 16,
-	d24 = 24
-};
+D3DPRESENT_PARAMETERS const
+create(
+	d3d9::d3d_ptr,
+	renderer::parameters const &,
+	renderer::adapter,
+	awl::backends::windows::window::instance_ptr
+);
+
 }
-
 }
 }
 

@@ -28,23 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-D3DFORMAT
-search_format(
-	sge::renderer::display_mode const &mode,
-	d3d_ptr const sys)
-{
-	switch(mode.depth()) {
-	case sge::renderer::bit_depth::d16:
-		return D3DFMT_R5G6B5;
-	case sge::renderer::bit_depth::d32:
-		return D3DFMT_X8R8G8B8;
-	default:
-		throw sge::exception(
-			FCPPT_TEXT("You may only pass valid bit_depths!")
-		);
-	}
-}
-
 bool check_stencil_match(
 	sge::renderer::adapter_type const adapter,
 	D3DFORMAT const screen_format,
@@ -96,34 +79,67 @@ search_stencil_format(
 }
 
 D3DPRESENT_PARAMETERS const
-sge::d3d9::create_present_parameters(
-	renderer::parameters const &param,
-	renderer::adapter_type const adapter,
-	windows::window_ptr const wnd,
-	d3d_ptr const sys)
+sge::d3d9::parameters::create(
+	d3d9::d3d_ptr const _system,
+	renderer::parameters const &_param,
+	renderer::adapter_type const _adapter,
+	awl::backends::windows::window::instance_ptr const _window
+)
 {
-	D3DFORMAT const format(
-		search_format(
-			param.mode(),
-			sys
+	D3DFORMAT const back_buffer_format(
+		parameters::extract_back_buffer_format(
+			_param.screen_mode()
 		)
 	);
 
-	D3DPRESENT_PARAMETERS pp;
-	pp.AutoDepthStencilFormat = search_stencil_format(adapter,format,sys);
-	pp.BackBufferCount = 1;
-	pp.BackBufferFormat = format;
-	pp.BackBufferHeight = param.mode().height();
-	pp.BackBufferWidth = param.mode().width();
-	pp.EnableAutoDepthStencil = TRUE;
-	pp.Flags = D3DPRESENTFLAG_DISCARD_DEPTHSTENCI;
-	pp.FullScreen_RefreshRateInHz = param.wmode() == renderer::window_mode::windowed ? 0 : param.mode().refresh_rate();
-	pp.hDeviceWindow = wnd->hwnd();
-	pp.MultiSampleQuality = 0;
-	pp.MultiSampleType = convert_multi_sample(param.samples());
-	pp.PresentationInterval = param.vsync ? D3DPRESENT_INTERVAL_ONE : D3DPRESENT_INTERVAL_IMMEDIATE;
-	pp.SwapEffect = D3DSWAPEFFECT_DISCARD;
-	pp.Windowed = param.windowed;
+	sge::renderer::screen_size const back_buffer_size(
+		parameters::extract_size(
+			_param.screen_mode(),
+			_window
+		)
+	);
 
-	return pp;
+	bool const is_windowed(
+		fcppt::variant::holds_type<
+			sge::renderer::visual_depth::type
+		>(
+			_param.screen_mode()
+		)
+	);
+
+	D3DPRESENT_PARAMETERS const ret =
+	{
+		back_buffer_size.w(), // BackBufferWidth
+		back_buffer_size.h(), // BackBufferHeight 
+		back_buffer_format, // BackBufferFormat
+		1u, // BackBufferCount,
+		convert::multi_sample_type(
+			_param.multi_samples()
+		),
+		0u, // MultiSampleQuality TODO?
+		D3DSWAPEFFECT_DISCARD, // SwapEffect
+		_window->hwnd(), // hDeviceWindow 
+		is_windowed, // Windowed
+		_param.depth_stencil_buffer() != sge::renderer::depth_stencil_buffer::off // EnableAutoDepthStencil
+		params::depth_stencil_format(
+			_system,
+			_adapter,
+			_param.depth_stencil_buffer()
+		), // AutoDepthStencilFormat
+		D3DPRESENTFLAG_DISCARD_DEPTHSTENCIL, // Flags
+		is_windowed
+		?
+			0
+		:
+			_param.screen_mode().get<
+				sge::renderer::display_mode
+			>().refresh_rate(), // FullScreen_RefreshRateInHz
+		_param.vsync() == sge::renderer::vsync::on
+		?
+			D3DPRESENT_INTERVAL_ONE
+		:
+			D3DPRESENT_INTERVAL_IMMEDIATE // PresentationInterval
+	};
+
+	return ret;
 }

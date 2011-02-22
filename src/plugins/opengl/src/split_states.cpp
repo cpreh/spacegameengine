@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../convert/dest_blend_func.hpp"
 #include "../convert/alpha_func.hpp"
 #include <sge/renderer/state/list.hpp>
+#include <sge/renderer/buffer_has_stencil.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
@@ -36,21 +37,24 @@ sge::opengl::split_states::split_states(
 )
 :
 	states_(_states)
-{}
+{
+}
 
 // TODO: those functions can be optimized
 // to set all things in one go for a state::list
 
 void
 sge::opengl::split_states::update_stencil(
-	renderer::stencil_buffer::type const _stencil_type
+	renderer::depth_stencil_buffer::type const _depth_stencil_type
 )
 {
 	renderer::state::stencil_func::type const method(
 		states_.get<renderer::state::stencil_func::type>()
 	);
 
-	if(method == renderer::state::stencil_func::off)
+	if(
+		method == renderer::state::stencil_func::off
+	)
 	{
 		opengl::disable(
 			GL_STENCIL_TEST
@@ -60,25 +64,33 @@ sge::opengl::split_states::update_stencil(
 	}
 
 	if(
-		_stencil_type == sge::renderer::stencil_buffer::off
+		!sge::renderer::buffer_has_stencil(
+			_depth_stencil_type
+		)
 	)
 		throw sge::renderer::exception(
 			FCPPT_TEXT("You tried to use a stencil_func besides stencil_func::off.")
 			FCPPT_TEXT(" This will only work if you request a stencil buffer in renderer::parameters!")
 		);
 
-	enable(GL_STENCIL_TEST);
+	opengl::enable(
+		GL_STENCIL_TEST
+	);
 
-	glStencilFunc(
+	::glStencilFunc(
 		convert::stencil_func(
 			method
 		),
-		static_cast<GLint>(
+		static_cast<
+			GLint
+		>(
 			states_.get(
 				renderer::state::int_::stencil_ref
 			)
 		),
-		static_cast<GLuint>(
+		static_cast<
+			GLuint
+		>(
 			states_.get(
 				renderer::state::uint::stencil_mask
 			)
@@ -94,7 +106,7 @@ sge::opengl::split_states::update_stencil(
 void
 sge::opengl::split_states::update_blend()
 {
-	glBlendFunc(
+	::glBlendFunc(
 		convert::source_blend_func(
 			states_.get<
 				renderer::state::source_blend_func::type
@@ -120,13 +132,20 @@ sge::opengl::split_states::update_alpha_test()
 		states_.get<renderer::state::alpha_func::type>()
 	);
 
-	if(func == renderer::state::alpha_func::off)
+	if(
+		func == renderer::state::alpha_func::off
+	)
 	{
-		disable(GL_ALPHA_TEST);
+		opengl::disable(
+			GL_ALPHA_TEST
+		);
+
 		return;
 	}
 
-	enable(GL_ALPHA_TEST);
+	opengl::enable(
+		GL_ALPHA_TEST
+	);
 
 	glAlphaFunc(
 		convert::alpha_func(
