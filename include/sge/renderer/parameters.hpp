@@ -25,11 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/depth_buffer.hpp>
 #include <sge/renderer/display_mode.hpp>
 #include <sge/renderer/multi_sample_type.hpp>
-#include <sge/renderer/optional_display_mode.hpp>
+#include <sge/renderer/screen_mode.hpp>
 #include <sge/renderer/stencil_buffer.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/symbol.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 namespace sge
 {
@@ -40,7 +40,7 @@ class parameters
 {
 public:
 	SGE_SYMBOL parameters(
-		renderer::optional_display_mode const &,
+		renderer::screen_mode const &,
 		renderer::depth_buffer::type,
 		renderer::stencil_buffer::type,
 		renderer::vsync::type,
@@ -48,8 +48,8 @@ public:
 	);
 
 	SGE_SYMBOL
-	renderer::optional_display_mode const &
-	display_mode() const;
+	renderer::screen_mode const &
+	screen_mode() const;
 
 	SGE_SYMBOL
 	renderer::depth_buffer::type
@@ -67,7 +67,7 @@ public:
 	renderer::multi_sample_type
 	samples() const;
 private:
-	renderer::optional_display_mode display_mode_;
+	renderer::screen_mode screen_mode_;
 
 	renderer::depth_buffer::type depth_buffer_;
 

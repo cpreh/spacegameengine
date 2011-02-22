@@ -195,7 +195,7 @@ sge::opengl::texture::basic<Types>::lock_me(
 			context_,
 			_method,
 			this->dim().content(),
-			_lock_area.area(),
+			_lock_area.content(),
 			this->stride(),
 			this->flags()
 		)
@@ -315,9 +315,9 @@ sge::opengl::texture::basic<Types>::lock_dim() const
 	return
 		lock_area_
 		?
-			lock_area_->dimension()
+			lock_area_->size()
 		:
-			dim();
+			this->dim();
 }
 
 template<

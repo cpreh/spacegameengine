@@ -83,8 +83,10 @@ SET(
 	src/plugins/opengl/convert/src/source_blend_func.cpp
 	src/plugins/opengl/convert/src/stencil_buffer.cpp
 	src/plugins/opengl/convert/src/stencil_func.cpp
+	src/plugins/opengl/convert/src/visual_depth.cpp
 	src/plugins/opengl/convert/stencil_buffer.hpp
 	src/plugins/opengl/convert/stencil_func.hpp
+	src/plugins/opengl/convert/visual_depth.hpp
 	src/plugins/opengl/convert_lock_method.hpp
 	src/plugins/opengl/convert_vertex_colors.hpp
 	src/plugins/opengl/convert_vertices.hpp
@@ -102,6 +104,7 @@ SET(
 	src/plugins/opengl/enable.hpp
 	src/plugins/opengl/enable_bool.hpp
 	src/plugins/opengl/error_string.hpp
+	src/plugins/opengl/extract_bit_depth.hpp
 	src/plugins/opengl/fbo/attach_render_buffer.hpp
 	src/plugins/opengl/fbo/attach_texture_2d.hpp
 	src/plugins/opengl/fbo/attachment.hpp
@@ -349,6 +352,7 @@ SET(
 	src/plugins/opengl/src/enable_bool.cpp
 	src/plugins/opengl/src/error_string.cpp
 	src/plugins/opengl/src/exports.cpp
+	src/plugins/opengl/src/extract_bit_depth.cpp
 	src/plugins/opengl/src/get_float.cpp
 	src/plugins/opengl/src/get_floats.cpp
 	src/plugins/opengl/src/get_int.cpp

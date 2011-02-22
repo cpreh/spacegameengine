@@ -43,8 +43,8 @@ typename fcppt::math::box::rect<
 	Ret
 >::type const
 lock_rect_to_coords(
-	lock_rect const &l,
-	dim2 const &dim
+	renderer::lock_rect const &_rect,
+	renderer::dim2 const &_dim
 )
 {
 	typedef typename fcppt::math::box::rect<
@@ -55,7 +55,7 @@ lock_rect_to_coords(
 		fcppt::math::box::structure_cast<
 			ret_type
 		>(
-			l
+			_rect
 		)
 	);
 
@@ -68,17 +68,18 @@ lock_rect_to_coords(
 		fcppt::math::dim::structure_cast<
 			sdim_type
 		>(
-			dim
+			_dim
 		)
 	);
 
-	return ret_type(
-		typename ret_type::vector(
-			srect.left() / sdim.w(),
-			srect.top() / sdim.h()
-		),
-		srect.dimension() / sdim
-	);
+	return
+		ret_type(
+			typename ret_type::vector(
+				srect.left() / sdim.w(),
+				srect.top() / sdim.h()
+			),
+			srect.size() / sdim
+		);
 }
 
 }

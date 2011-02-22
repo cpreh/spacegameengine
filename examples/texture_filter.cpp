@@ -63,13 +63,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
-#include <sge/renderer/optional_display_mode.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/stencil_buffer.hpp>
 #include <sge/renderer/target_base.hpp>
+#include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/color.hpp>
@@ -236,7 +236,7 @@ try
 		(
 			sge::systems::renderer(
 				sge::renderer::parameters(
-					sge::renderer::optional_display_mode(),
+					sge::renderer::visual_depth::depth32,
 					sge::renderer::depth_buffer::off,
 					sge::renderer::stencil_buffer::off,
 					sge::renderer::vsync::on,
@@ -634,7 +634,7 @@ try
 				>(
 					sge::renderer::active_target(
 						sys.renderer()
-					)->viewport().get().dimension()
+					)->viewport().get().size()
 				)
 			),
 			sge::font::text::align_h::left,

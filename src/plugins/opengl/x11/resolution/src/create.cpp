@@ -34,8 +34,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/instance.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
+#include <fcppt/variant/holds_type.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::x11::resolution::unique_ptr
@@ -46,9 +47,19 @@ sge::opengl::x11::resolution::create(
 )
 {
 	if(
-		!_param.display_mode()
+		!fcppt::variant::holds_type<
+			sge::renderer::display_mode
+		>(
+			_param.screen_mode()
+		)
 	)
 		return resolution::unique_ptr();
+	
+	sge::renderer::display_mode const display_mode(
+		_param.screen_mode().get<
+			sge::renderer::display_mode
+		>()
+	);
 #if defined(SGE_OPENGL_HAVE_XRANDR)
 	try
 	{
@@ -57,7 +68,7 @@ sge::opengl::x11::resolution::create(
 				fcppt::make_unique_ptr<
 					resolution::xrandr_mode
 				>(
-					*_param.display_mode(),
+					display_mode,
 					_window
 				)
 			);
@@ -80,7 +91,7 @@ sge::opengl::x11::resolution::create(
 				fcppt::make_unique_ptr<
 					resolution::xf86_vmode
 				>(
-					*_param.display_mode(),
+					display_mode,
 					_window->display(),
 					_window->screen()
 				)

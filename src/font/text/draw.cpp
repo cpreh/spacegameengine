@@ -53,7 +53,7 @@ sge::font::text::draw(
 
 	if(
 		_text.empty()
-		|| height > _bounding_box.dimension().h()
+		|| height > _bounding_box.size().h()
 	)
 		return
 			font::text::part(
@@ -67,7 +67,7 @@ sge::font::text::draw(
 			_metrics,
 			_text.begin(),
 			_text.end(),
-			_bounding_box.dimension(),
+			_bounding_box.size(),
 			_flags
 		)
 	);
@@ -76,14 +76,14 @@ sge::font::text::draw(
 
 	font::text::align_pos_v(
 		pos,
-		_bounding_box.dimension(),
+		_bounding_box.size(),
 		total_size,
 		_align_v
 	);
 
 	font::text::align_pos_h(
 		pos,
-		_bounding_box.dimension(),
+		_bounding_box.size(),
 		total_size,
 		_align_h
 	);
@@ -107,7 +107,7 @@ sge::font::text::draw(
 				_metrics,
 				sbeg,
 				_text.end(),
-				_bounding_box.dimension().w(),
+				_bounding_box.size().w(),
 				_flags
 			)
 		);
@@ -116,7 +116,7 @@ sge::font::text::draw(
 
 		font::text::align_pos_h(
 			pos,
-			_bounding_box.dimension(),
+			_bounding_box.size(),
 			line_size,
 			_align_h
 		);

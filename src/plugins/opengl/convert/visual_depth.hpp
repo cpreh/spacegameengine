@@ -18,24 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/aspect_from_viewport.hpp>
-#include <sge/renderer/aspect.hpp>
-#include <sge/renderer/viewport.hpp>
-#include <fcppt/math/box/basic_impl.hpp>
-#include <fcppt/math/dim/basic_impl.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
+#ifndef SGE_OPENGL_CONVERT_VISUAL_DEPTH_HPP_INCLUDED
+#define SGE_OPENGL_CONVERT_VISUAL_DEPTH_HPP_INCLUDED
 
-sge::renderer::scalar
-sge::renderer::aspect_from_viewport(
-	renderer::viewport const &_viewport
-)
+#include <sge/renderer/visual_depth.hpp>
+#include <awl/window/bit_depth.hpp>
+
+namespace sge
 {
-	return
-		sge::renderer::aspect(
-			fcppt::math::dim::structure_cast<
-				sge::renderer::screen_size
-			>(
-				_viewport.get().size()
-			)
-		);
+namespace opengl
+{
+namespace convert
+{
+
+awl::window::bit_depth::type
+visual_depth(
+	sge::renderer::visual_depth::type
+);
+
 }
+}
+}
+
+#endif

@@ -20,10 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../system.hpp"
 #include "../device.hpp"
-#include "../convert/bit_depth.hpp"
+#include "../extract_bit_depth.hpp"
 #include "../convert/depth_buffer.hpp"
 #include "../convert/stencil_buffer.hpp"
-#include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/window/to_awl_parameters.hpp>
 #include <fcppt/make_shared_ptr.hpp>
@@ -71,12 +70,8 @@ sge::opengl::system::create_window(
 				true
 			)
 			.bit_depth(
-				opengl::convert::bit_depth(
-					_rparam.display_mode()
-					?
-						_rparam.display_mode()->bit_depth()
-					:
-						sge::renderer::bit_depth::depth32
+				opengl::extract_bit_depth(
+					_rparam.screen_mode()
 				)
 			)
 			.stencil_buffer(

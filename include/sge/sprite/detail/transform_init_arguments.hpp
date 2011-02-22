@@ -85,7 +85,7 @@ transform_init_arguments(
 			>(
 				_object. template get<
 					sge::sprite::roles::texture
-				>()->area().dimension()
+				>()->area().size()
 			)
 		);
 	

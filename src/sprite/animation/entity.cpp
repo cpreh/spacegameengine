@@ -30,7 +30,8 @@ sge::sprite::animation::entity::entity(
 :
 	delay_(_res.count()),
 	tex_(_tex)
-{}
+{
+}
 
 sge::time::unit
 sge::sprite::animation::entity::delay() const
@@ -55,5 +56,5 @@ sge::sprite::animation::entity::tex(
 sge::renderer::dim2 const
 sge::sprite::animation::entity::dim() const
 {
-	return tex_->area().dimension();
+	return tex_->area().size();
 }

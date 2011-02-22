@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2009 Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2011 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,3 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_OPENGL_EXTRACT_BIT_DEPTH_HPP_INCLUDED
+#define SGE_OPENGL_EXTRACT_BIT_DEPTH_HPP_INCLUDED
+
+#include <sge/renderer/screen_mode.hpp>
+#include <awl/window/bit_depth.hpp>
+
+namespace sge
+{
+namespace opengl
+{
+
+awl::window::bit_depth::type
+extract_bit_depth(
+	renderer::screen_mode const &
+);
+
+}
+}
+
+#endif

@@ -25,7 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/parameters.hpp>
 #include <awl/backends/windows/window/instance.hpp>
 #include <awl/backends/windows/windows.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/variant/holds_type.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::windows::state::state(
@@ -49,12 +50,17 @@ sge::opengl::windows::state::state(
 		context_
 	)
 {
-
 	if(
-		_param.display_mode()
+		fcppt::variant::holds_type<
+			sge::renderer::display_mode
+		>(
+			_param.screen_mode()
+		)
 	)
 		windows::change_display_settings(
-			*_param.display_mode()
+			_param.screen_mode().get<
+				sge::renderer::display_mode
+			>()
 		);
 }
 

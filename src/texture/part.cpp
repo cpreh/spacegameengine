@@ -23,13 +23,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/basic_impl.hpp>
 
 sge::texture::part::part()
-{}
+{
+}
 
 sge::texture::part::~part()
-{}
+{
+}
 
 sge::renderer::dim2 const
 sge::texture::part::dim() const
 {
-	return area().dimension();
+	return
+		this->area().size();
 }

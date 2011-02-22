@@ -40,12 +40,12 @@ sge::sprite::projection_matrix(
 			static_cast<
 				sge::sprite::matrix::value_type
 			>(
-				_viewport.get().dimension().w()
+				_viewport.get().size().w()
 			),
 			static_cast<
 				sge::sprite::matrix::value_type
 			>(
-				_viewport.get().dimension().h()
+				_viewport.get().size().h()
 			),
 			static_cast<
 				sge::sprite::matrix::value_type

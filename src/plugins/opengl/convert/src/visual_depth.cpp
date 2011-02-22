@@ -18,22 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_OPTIONAL_DISPLAY_MODE_HPP_INCLUDED
-#define SGE_RENDERER_OPTIONAL_DISPLAY_MODE_HPP_INCLUDED
+#include "../visual_depth.hpp"
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include <sge/renderer/display_mode_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
-
-namespace sge
+awl::window::bit_depth::type
+sge::opengl::convert::visual_depth(
+	sge::renderer::visual_depth::type const _mode
+)
 {
-namespace renderer
-{
+	switch(
+		_mode
+	)
+	{
+	case sge::renderer::visual_depth::depth16:
+		return awl::window::bit_depth::depth16;
+	case sge::renderer::visual_depth::depth32:
+		return awl::window::bit_depth::depth32;
+	}
 
-typedef fcppt::optional<
-	sge::renderer::display_mode
-> optional_display_mode;
-
+	throw sge::renderer::exception(
+		FCPPT_TEXT("Invalid visual_depth!")
+	);
 }
-}
-
-#endif
