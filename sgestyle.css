@@ -51,19 +51,30 @@ body
 {
 	padding:50px;
 	text-align:center;
+	border-radius:1em;
+	-moz-border-radius:1em;
 }
 
 #header
 {
 	background-color:#60849a;
+	background-image: -webkit-gradient(
+			linear,
+			left bottom,
+			left top,
+			color-stop(0.09, rgb(0,94,152)),
+			color-stop(0.78, rgb(96,132,154))
+	);
+	background-image: -moz-linear-gradient(
+			center bottom,
+			rgb(0,94,152) 9%,
+			rgb(96,132,154) 78%
+	);
+
 	border-color:black;
 	border-width:1px;
 	border-style:solid;
-	text-shadow: 3px 3px 3px white;
-	border-top-left-radius:2%;
-	-moz-border-radius-topleft:2%;
-	border-top-right-radius:2%;
-	-moz-border-radius-topright:2%;
+	text-shadow: 2px 2px 3px white;
 }
 
 #footer
@@ -74,8 +85,6 @@ body
 	bottom:7%;
 	margin-top: 1em;
 	padding:6pt;
-	border-radius:2em;
-	-moz-border-radius:2em;
 }
 
 #overview
