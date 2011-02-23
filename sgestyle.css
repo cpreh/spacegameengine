@@ -1,3 +1,11 @@
+body
+{
+	font-family:Arial,sans-serif;
+	background-color:#005f98;
+	color:#29303b;
+	text-decoration:none;
+}
+
 img
 {
 	border:0;
@@ -27,14 +35,6 @@ a:active
 	color:#753206;
 }
 
-body
-{
-	font-family:Helvetica,Arial,sans-serif;
-	background-color:#005f98;
-	color:#29303b;
-	text-decoration:none;
-}
-
 #content
 {
 	background-color:#edf8ed;
@@ -43,7 +43,7 @@ body
 	padding:1%;
 	left:25%;
 	width:50%;
-	border-radius:3%;
+	border-radius:2em;
 	-moz-border-radius:3%;
 }
 
@@ -74,7 +74,7 @@ body
 	border-color:black;
 	border-width:1px;
 	border-style:solid;
-	text-shadow: 2px 2px 3px white;
+	text-shadow: 2px 2px 5px white;
 }
 
 #footer
@@ -94,10 +94,15 @@ body
 	border-collapse:collapse;
 }
 
-#overview tr,th,td
+#overview th,td,tr
 {
-	border-color:#cccccc;
+	border-color:#3c779a;
 	border-width:1px;
+	border-style:dotted;
+}
+
+#overview tr
+{
 	border-style:solid;
 }
 
@@ -124,8 +129,6 @@ body
 	font-family:"";
 }
 
-
-
 pre.programlisting
 {
 	background-color: #faf9f9;
@@ -143,15 +146,3 @@ pre.programlisting
 	padding:0.5em;
 	width:80%;
 }
-
-/*
-a.section:link
-{
-	text-decoration:none;
-}
-
-a.link:link
-{
-	text-decoration:none;
-}
-*/
