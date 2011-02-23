@@ -18,80 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../present_parameters.hpp"
-#include "../convert_multi_sample.hpp"
-#include <sge/exception.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/tr1/array.hpp>
-#include <boost/foreach.hpp>
-
-namespace
-{
-
-bool check_stencil_match(
-	sge::renderer::adapter_type const adapter,
-	D3DFORMAT const screen_format,
-	D3DFORMAT const to_test,
-	sge::d3d9::d3d_ptr const sys)
-{
-	return sys->CheckDepthStencilMatch(
-		adapter,
-		D3DDEVTYPE_HAL,
-		screen_format,
-		screen_format,
-		to_test
-	) == D3D_OK;
-}
-
-D3DFORMAT
-search_stencil_format(
-	sge::renderer::adapter_type const adapter,
-	D3DFORMAT const screen_format,
-	sge::d3d9::d3d_ptr const sys)
-{
-	typedef std::tr1::array<
-		D3DFORMAT,
-		2
-	> array_type;
-
-	array_type const array = {{
-		D3DFMT_D24S8,
-		D3DFMT_D16
-	}};
-
-	BOOST_FOREACH(
-		array_type::const_reference fmt,
-		array
-	)
-		if(
-			check_stencil_match(
-				adapter,
-				screen_format,
-				D3DFMT_D24S8,
-				fmt
-			)
-		)
-			return fmt;
-
-	return D3DFMT_UNKNOWN;
-}
-
-}
+#include "../create.hpp"
+#include "../extract_back_buffer_format.hpp"
+#include "../extract_size.hpp"
+#include "../convert/depth_stencil_buffer.hpp"
+#include "../convert/multi_sample.hpp"
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/depth_stencil_buffer.hpp>
+#include <sge/renderer/display_mode.hpp>
+#include <sge/renderer/parameters.hpp>
+#include <sge/renderer/visual_depth.hpp>
+#include <sge/renderer/vsync.hpp>
+#include <awl/backends/windows/window/instance.hpp>
+#include <fcppt/variant/holds_type.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 D3DPRESENT_PARAMETERS const
 sge::d3d9::parameters::create(
-	d3d9::d3d_ptr const _system,
 	renderer::parameters const &_param,
-	renderer::adapter_type const _adapter,
 	awl::backends::windows::window::instance_ptr const _window
 )
 {
-	D3DFORMAT const back_buffer_format(
-		parameters::extract_back_buffer_format(
-			_param.screen_mode()
-		)
-	);
-
 	sge::renderer::screen_size const back_buffer_size(
 		parameters::extract_size(
 			_param.screen_mode(),
@@ -111,29 +58,29 @@ sge::d3d9::parameters::create(
 	{
 		back_buffer_size.w(), // BackBufferWidth
 		back_buffer_size.h(), // BackBufferHeight 
-		back_buffer_format, // BackBufferFormat
+		parameters::extract_back_buffer_format(
+			_param.screen_mode()
+		), // BackBufferFormat
 		1u, // BackBufferCount,
-		convert::multi_sample_type(
-			_param.multi_samples()
+		parameters::convert::multi_sample(
+			_param.samples()
 		),
 		0u, // MultiSampleQuality TODO?
 		D3DSWAPEFFECT_DISCARD, // SwapEffect
 		_window->hwnd(), // hDeviceWindow 
 		is_windowed, // Windowed
-		_param.depth_stencil_buffer() != sge::renderer::depth_stencil_buffer::off // EnableAutoDepthStencil
-		params::depth_stencil_format(
-			_system,
-			_adapter,
+		_param.depth_stencil_buffer() != sge::renderer::depth_stencil_buffer::off, // EnableAutoDepthStencil
+		parameters::convert::depth_stencil_buffer(
 			_param.depth_stencil_buffer()
 		), // AutoDepthStencilFormat
 		D3DPRESENTFLAG_DISCARD_DEPTHSTENCIL, // Flags
 		is_windowed
 		?
-			0
+			0u
 		:
 			_param.screen_mode().get<
 				sge::renderer::display_mode
-			>().refresh_rate(), // FullScreen_RefreshRateInHz
+			>().refresh_rate().get(), // FullScreen_RefreshRateInHz
 		_param.vsync() == sge::renderer::vsync::on
 		?
 			D3DPRESENT_INTERVAL_ONE

@@ -79,7 +79,7 @@ sge::d3d9::create_caps(
 	D3DADAPTER_IDENTIFIER9 identifier;
 
 	if(
-		_sys->GetAdapterIdentifier(
+		_system->GetAdapterIdentifier(
 			_adapter.get(),
 			0,
 			&identifier

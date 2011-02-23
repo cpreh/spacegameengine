@@ -35,33 +35,44 @@ namespace d3d9
 class vertex_buffer
 :
 	public sge::renderer::vertex_buffer,
-	public resource
+	public d3d9::resource
 {
+	FCPPT_NONCOPYABLE(
+		vertex_buffer
+	);
 public:
 	vertex_buffer(
-		d3d_device_ptr device,
-		renderer::vf::dynamic_format const &,
+		d3d9::d3d_device_ptr,
+		renderer::vf::dynamic::format const &,
 		size_type size,
-		resource_flag_type flags);
+		renderer::resource_flags_field const &
+	);
+
+	~vertex_buffer();
 
 	view_type const
 	lock(
-		lock_flag_type flags,
+		renderer::lock_mode::type,
 		size_type offset,
-		size_type range);
+		size_type range
+	);
 
 	const_view_type const
 	lock(
 		size_type offset,
-		size_type range) const;
+		size_type range
+	) const;
 
-	void unlock() const;
+	void
+	unlock() const;
 
-	size_type size() const;
+	size_type
+	size() const;
 
-	resource_flag_type flags() const;
+	renderer::resource_flags_field const
+	flags() const;
 
-	renderer::vf::dynamic_format const &
+	renderer::vf::dynamic::format const &
 	format() const;
 private:
 	void init();

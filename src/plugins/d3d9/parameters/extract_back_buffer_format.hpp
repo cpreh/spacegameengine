@@ -31,7 +31,7 @@ namespace d3d9
 namespace parameters
 {
 
-D3DFORMAT const
+D3DFORMAT 
 extract_back_buffer_format(
 	sge::renderer::screen_mode const &
 );

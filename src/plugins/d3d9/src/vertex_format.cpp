@@ -37,10 +37,11 @@ vertex_type(
 }
 
 sge::d3d9::vertex_format::vertex_format(
-	d3d_device_ptr const device_,
-	sge::renderer::vf::dynamic_format const &format_)
+	d3d9::d3d_device_ptr const _device,
+	sge::renderer::vf::dynamic::format const &_format
+)
 :
-	format_(format_)
+	format_(_format)
 {
 	container::raw_vector<
 		D3DVERTEXELEMENT9

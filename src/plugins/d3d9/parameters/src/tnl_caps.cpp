@@ -18,26 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_CONVERT_MULTI_SAMPLE_HPP_INCLUDED
-#define SGE_D3D9_CONVERT_MULTI_SAMPLE_HPP_INCLUDED
+#include "../tnl_caps.hpp"
+#include "../../d3dinclude.hpp"
+#include "../../systemfuncs/get_caps.hpp"
 
-#include "../d3dinclude.hpp"
-#include <sge/renderer/multi_sample_type.hpp>
-
-namespace sge
+DWORD
+sge::d3d9::parameters::tnl_caps(
+	d3d9::d3d_ptr const _system,
+	renderer::adapter const _adapter
+)
 {
-namespace d3d9
-{
-namespace convert
-{
+	D3DCAPS9 const caps(
+		systemfuncs::get_caps(
+			_system,
+			_adapter
+		)
+	);
 
-D3DMULTISAMPLE_TYPE
-multi_sample(
-	renderer::multi_sample_type
-);
+	DWORD ret(
+		0
+	);
 
-}
-}
-}
+	if(
+		caps.DevCaps & D3DDEVCAPS_HWTRANSFORMANDLIGHT
+	)
+	{
+		ret |= D3DCREATE_HARDWARE_VERTEXPROCESSING;
 
-#endif
+		if(
+			caps.DevCaps & D3DDEVCAPS_PUREDEVICE
+		)
+			ret |= D3DCREATE_PUREDEVICE;
+	}
+	else
+		ret |= D3DCREATE_SOFTWARE_VERTEXPROCESSING;
+
+	return ret;
+}

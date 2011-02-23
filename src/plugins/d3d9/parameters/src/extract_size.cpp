@@ -18,25 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TNL_CAPS_HPP_INCLUDED
-#define SGE_D3D9_TNL_CAPS_HPP_INCLUDED
+#include "../extract_size.hpp"
+#include <sge/renderer/display_mode.hpp>
+#include <sge/renderer/screen_mode.hpp>
+#include <awl/backends/windows/window/instance.hpp>
+#include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/variant/holds_type.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
-#include "d3dinclude.hpp"
-#include "d3d_ptr.hpp"
-#include <sge/renderer/adapter.hpp>
-
-namespace sge
+sge::renderer::screen_size const
+sge::d3d9::parameters::extract_size(
+	renderer::screen_mode const &_screen_mode,
+	awl::window::instance_ptr const _window
+)
 {
-namespace d3d9
-{
-
-DWORD
-tnl_caps(
-	d3d9::d3d_ptr,
-	renderer::adapter
-);
-
+	return
+		fcppt::variant::holds_type<
+			sge::renderer::display_mode
+		>(
+			_screen_mode	
+		)
+		?
+			_screen_mode.get<
+				sge::renderer::display_mode
+			>().size()
+		:
+			fcppt::math::dim::structure_cast<
+				sge::renderer::screen_size
+			>(
+				_window->size()
+			);
 }
-}
-
-#endif

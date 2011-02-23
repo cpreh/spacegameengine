@@ -18,8 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_PARAMETERS_DEPTH_STENCIL_FORMAT_HPP_INCLUDED
-#define SGE_D3D9_PARAMETERS_DEPTH_STENCIL_FORMAT_HPP_INCLUDED
+#ifndef SGE_D3D9_PARAMETERS_CONVERT_MULTI_SAMPLE_HPP_INCLUDED
+#define SGE_D3D9_PARAMETERS_CONVERT_MULTI_SAMPLE_HPP_INCLUDED
+
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/multi_sample_type.hpp>
 
 namespace sge
 {
@@ -27,11 +30,15 @@ namespace d3d9
 {
 namespace parameters
 {
+namespace convert
+{
 
-D3DFORMAT
-depth_stencil_format(
+D3DMULTISAMPLE_TYPE
+multi_sample(
+	renderer::multi_sample_type
 );
 
+}
 }
 }
 }

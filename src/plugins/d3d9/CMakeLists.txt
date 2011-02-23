@@ -2,7 +2,6 @@ SET(
 	SGE_D3D9_FILES
 	src/plugins/d3d9/convert/indexed_primitive.hpp
 	src/plugins/d3d9/convert/lock_mode.hpp
-	src/plugins/d3d9/convert/multi_sample.hpp
 	src/plugins/d3d9/convert/nonindexed_primitive.hpp
 	src/plugins/d3d9/convert/resource_flags.hpp
 	src/plugins/d3d9/convert/resource_flags_to_pool.hpp
@@ -12,7 +11,6 @@ SET(
 	src/plugins/d3d9/convert/sampler_stage_op_value.hpp
 	src/plugins/d3d9/convert/src/indexed_primitive.cpp
 	src/plugins/d3d9/convert/src/lock_mode.cpp
-	src/plugins/d3d9/convert/src/multi_sample.cpp
 	src/plugins/d3d9/convert/src/nonindexed_primitive.cpp
 	src/plugins/d3d9/convert/src/resource_flags.cpp
 	src/plugins/d3d9/convert/src/resource_flags_to_pool.cpp
@@ -35,13 +33,21 @@ SET(
 	src/plugins/d3d9/device.hpp
 	src/plugins/d3d9/index_buffer.hpp
 	src/plugins/d3d9/parameters/convert/bit_depth.hpp
+	src/plugins/d3d9/parameters/convert/depth_stencil_buffer.hpp
+	src/plugins/d3d9/parameters/convert/multi_sample.hpp
 	src/plugins/d3d9/parameters/convert/src/bit_depth.cpp
+	src/plugins/d3d9/parameters/convert/src/depth_stencil_buffer.cpp
+	src/plugins/d3d9/parameters/convert/src/multi_sample.cpp
 	src/plugins/d3d9/parameters/convert/src/visual_depth.cpp
+	src/plugins/d3d9/parameters/convert/visual_depth.hpp
 	src/plugins/d3d9/parameters/create.hpp
-	src/plugins/d3d9/parameters/depth_stencil_format.hpp
 	src/plugins/d3d9/parameters/extract_back_buffer_format.hpp
+	src/plugins/d3d9/parameters/extract_size.hpp
 	src/plugins/d3d9/parameters/src/create.cpp
 	src/plugins/d3d9/parameters/src/extract_back_buffer_format.cpp
+	src/plugins/d3d9/parameters/src/extract_size.cpp
+	src/plugins/d3d9/parameters/src/tnl_caps.cpp
+	src/plugins/d3d9/parameters/tnl_caps.hpp
 	src/plugins/d3d9/resource.hpp
 	src/plugins/d3d9/resource_list.hpp
 	src/plugins/d3d9/src/conversion.cpp
@@ -55,7 +61,6 @@ SET(
 	src/plugins/d3d9/src/system.cpp
 	src/plugins/d3d9/src/target.cpp
 	src/plugins/d3d9/src/texture_functions.cpp
-	src/plugins/d3d9/src/tnl_caps.cpp
 	src/plugins/d3d9/src/transform.cpp
 	src/plugins/d3d9/src/vertex_buffer.cpp
 	src/plugins/d3d9/src/vertex_format.cpp
@@ -74,7 +79,6 @@ SET(
 	src/plugins/d3d9/texture/src/volume.cpp
 	src/plugins/d3d9/texture/volume.hpp
 	src/plugins/d3d9/texture_functions.hpp
-	src/plugins/d3d9/tnl_caps.hpp
 	src/plugins/d3d9/transform.hpp
 	src/plugins/d3d9/vertex_buffer.hpp
 	src/plugins/d3d9/vertex_format.hpp

@@ -19,21 +19,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../target.hpp"
-#include <sge/exception.hpp>
-#include <sge/stub.hpp>
 
 sge::d3d9::target::target(
-	const d3d_device_ptr device,
-	const dim_type& dim_)
+	d3d_device_ptr const _device
+)
 :
-	resource(),
-	device(device),
-	dim_(dim_)
+	sge::renderer::target(),
+	d3d9::resource(),
+	device_(_device)
 {
-	init();
 }
 
-void sge::d3d9::render_target::init()
+sge::d3d9::target::~target()
+{
+}
+
+void
+sge::d3d9::target::color_surface(
+	renderer::color_surface_ptr const _surface,
+	renderer::surface_index const _index
+)
+{
+}
+
+void
+sge::d3d9::target::depth_stencil_surface(
+	renderer::depth_stencil_surface_ptr const _surface
+)
+{
+}
+
+sge;:renderer::optional_dim2 const
+sge::d3d9::target::dim() const
+{
+}
+
+#if 0
+void
+sge::d3d9::render_target::init()
 {
 	/*
 	IDirect3DTexture9* t;
@@ -54,20 +77,22 @@ void sge::d3d9::render_target::init()
 	surface.reset(s);
 	*/
 }
+#endif
 
-void sge::d3d9::render_target::on_loss()
+void
+sge::d3d9::target::on_loss()
 {
+#if 0
 	surface.reset();
+
 	tex.reset();
+#endif
 }
 
-void sge::d3d9::render_target::on_reset()
+void
+sge::d3d9::render_target::on_reset()
 {
+#if 0
 	init();
-}
-
-sge::render_target::dim_type const
-sge::d3d9::render_target::dim() const
-{
-	return dim_;
+#endif
 }

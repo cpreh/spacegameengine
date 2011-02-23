@@ -18,40 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../tnl_caps.hpp"
-#include "../d3dinclude.hpp"
-#include "../systemfuncs/get_caps.hpp"
+#ifndef SGE_D3D9_PARAMETERS_CONVERT_DEPTH_STENCIL_BUFFER_HPP_INCLUDED
+#define SGE_D3D9_PARAMETERS_CONVERT_DEPTH_STENCIL_BUFFER_HPP_INCLUDED
 
-DWORD
-sge::d3d9::tnl_caps(
-	d3d9::d3d_ptr const _system,
-	renderer::adapter const _adapter
-)
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/depth_stencil_buffer.hpp>
+
+namespace sge
 {
-	D3DCAPS9 const caps(
-		systemfuncs::get_caps(
-			_system,
-			_adapter
-		)
-	);
+namespace d3d9
+{
+namespace parameters
+{
+namespace convert
+{
 
-	DWORD ret(
-		0
-	);
+D3DFORMAT
+depth_stencil_buffer(
+	sge::renderer::depth_stencil_buffer::type
+);
 
-	if(
-		caps.DevCaps & D3DDEVCAPS_HWTRANSFORMANDLIGHT
-	)
-	{
-		ret |= D3DCREATE_HARDWARE_VERTEXPROCESSING;
-
-		if(
-			caps.DevCaps & D3DDEVCAPS_PUREDEVICE
-		)
-			ret |= D3DCREATE_PUREDEVICE;
-	}
-	else
-		ret |= D3DCREATE_SOFTWARE_VERTEXPROCESSING;
-
-	return ret;
 }
+}
+}
+}
+
+#endif

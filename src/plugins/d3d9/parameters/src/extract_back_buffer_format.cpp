@@ -48,7 +48,7 @@ struct visitor
 
 }
 
-D3DFORMAT const
+D3DFORMAT
 sge::d3d9::parameters::extract_back_buffer_format(
 	sge::renderer::screen_mode const &_mode
 )
@@ -69,7 +69,7 @@ visitor::operator()(
 ) const
 {
 	return
-		sge::d3d::parameters::convert::visual_depth(
+		sge::d3d9::parameters::convert::visual_depth(
 			_depth
 		);
 }
@@ -80,7 +80,7 @@ visitor::operator()(
 ) const
 {
 	return
-		sge::d3d::parameters::convert::bit_depth(
+		sge::d3d9::parameters::convert::bit_depth(
 			_mode.bit_depth()
 		);
 }
