@@ -38,12 +38,11 @@ body
 #content
 {
 	background-color:#edf8ed;
-	position:fixed;
+	position:relative;
 	margin:1%;
 	padding:1%;
 	left:25%;
 	width:50%;
-	height:100%;
 	border-radius:3%;
 	-moz-border-radius:3%;
 }
@@ -70,12 +69,13 @@ body
 #footer
 {
 	border:none;
-	position:absolute;
+	background-color:#c8dce9;
+	position:relative;
 	bottom:7%;
-	margin:0px;
+	margin-top: 1em;
 	padding:6pt;
-	left:25%;
-	right:25%;
+	border-radius:2em;
+	-moz-border-radius:2em;
 }
 
 #overview
