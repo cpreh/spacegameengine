@@ -29,7 +29,8 @@ namespace vf
 {
 
 template<
-	typename VertexFormat
+	typename Part,
+	typename Constness
 >
 class iterator;
 

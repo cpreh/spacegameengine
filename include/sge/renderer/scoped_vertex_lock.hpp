@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_SCOPED_VERTEX_LOCK_HPP_INCLUDED
 #define SGE_RENDERER_SCOPED_VERTEX_LOCK_HPP_INCLUDED
 
-#include <sge/renderer/detail/scoped_buffer_lock.hpp>
+#include <sge/renderer/basic_scoped_buffer_lock.hpp>
 #include <sge/renderer/vf/dynamic/view.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 
@@ -30,7 +30,7 @@ namespace sge
 namespace renderer
 {
 
-typedef detail::scoped_buffer_lock<
+typedef renderer::basic_scoped_buffer_lock<
 	renderer::vertex_buffer_ptr,
 	vf::dynamic::view
 > scoped_vertex_lock;

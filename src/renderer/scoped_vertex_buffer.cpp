@@ -23,13 +23,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::scoped_vertex_buffer::scoped_vertex_buffer(
 	renderer::device_ptr const _device,
+	renderer::vf::dynamic::part_index const _part_index,
 	renderer::const_vertex_buffer_ptr const _vb
 )
 :
 	device_(_device),
+	part_index_(_part_index),
 	vb_(_vb)
 {
 	device_->set_vertex_buffer(
+		part_index_,
 		vb_
 	);
 }
@@ -37,6 +40,7 @@ sge::renderer::scoped_vertex_buffer::scoped_vertex_buffer(
 sge::renderer::scoped_vertex_buffer::~scoped_vertex_buffer()
 {
 	device_->unset_vertex_buffer(
+		part_index_,
 		vb_
 	);
 }

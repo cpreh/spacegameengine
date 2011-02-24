@@ -18,49 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SCOPED_BUFFER_LOCK_IMPL_HPP_INCLUDED
-#define SGE_RENDERER_SCOPED_BUFFER_LOCK_IMPL_HPP_INCLUDED
+#ifndef SGE_RENDERER_BASIC_SCOPED_BUFFER_LOCK_HPP_INCLUDED
+#define SGE_RENDERER_BASIC_SCOPED_BUFFER_LOCK_HPP_INCLUDED
 
-#include <sge/renderer/detail/scoped_buffer_lock.hpp>
+#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/npos.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <sge/symbol.hpp>
 
-template<
-	typename Ptr,
-	typename View
->
-sge::renderer::detail::scoped_buffer_lock<Ptr, View>::scoped_buffer_lock(
-	Ptr const _ptr,
-	lock_mode::type const _flags,
-	size_type const _first,
-	size_type const _count
-)
-:
-	ptr_(_ptr),
-	view_(
-		ptr_->lock(
-			_flags,
-			_first,
-			_count
-		)
-	)
-{}
-
-template<
-	typename Ptr,
-	typename View
->
-View const
-sge::renderer::detail::scoped_buffer_lock<Ptr, View>::value() const
+namespace sge
 {
-	return view_;
+namespace renderer
+{
+
+template<
+	typename Ptr,
+	typename View
+>
+class basic_scoped_buffer_lock
+{
+	FCPPT_NONCOPYABLE(
+		basic_scoped_buffer_lock
+	);
+public:
+	SGE_SYMBOL basic_scoped_buffer_lock(
+		Ptr,
+		lock_mode::type,
+		size_type first = 0,
+		size_type count = renderer::npos()
+	);
+
+	SGE_SYMBOL View const
+	value() const;
+
+	SGE_SYMBOL ~basic_scoped_buffer_lock();
+private:
+	Ptr const ptr_;
+
+	View const view_;
+};
+
 }
-
-template<
-	typename Ptr,
-	typename View
->
-sge::renderer::detail::scoped_buffer_lock<Ptr, View>::~scoped_buffer_lock()
-{
-	ptr_->unlock();
 }
 
 #endif

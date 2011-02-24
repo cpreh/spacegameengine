@@ -29,13 +29,16 @@ template<
 sge::renderer::vf::dynamic::basic_view<Pointer>::basic_view(
 	pointer const _data,
 	size_type const _size,
-	dynamic::format const &_format
+	dynamic::part const &_part,
+	dynamic::part_index const _part_index
 )
 :
 	data_(_data),
 	size_(_size),
-	format_(_format)
-{}
+	part_(_part),
+	part_index_(_part_index)
+{
+}
 
 template<
 	typename Pointer
@@ -58,10 +61,19 @@ sge::renderer::vf::dynamic::basic_view<Pointer>::size() const
 template<
 	typename Pointer
 >
-sge::renderer::vf::dynamic::format const &
-sge::renderer::vf::dynamic::basic_view<Pointer>::format() const
+sge::renderer::vf::dynamic::part const &
+sge::renderer::vf::dynamic::basic_view<Pointer>::part() const
 {
-	return format_;
+	return part_;
+}
+
+template<
+	typename Pointer
+>
+sge::renderer::vf::dynamic::part_index const
+sge::renderer::vf::dynamic::basic_view<Pointer>::part_index() const
+{
+	return part_index_;
 }
 
 #endif

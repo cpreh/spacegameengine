@@ -18,49 +18,60 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_DETAIL_SCOPED_BUFFER_LOCK_HPP_INCLUDED
-#define SGE_RENDERER_DETAIL_SCOPED_BUFFER_LOCK_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_PART_LIST_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_PART_LIST_HPP_INCLUDED
 
-#include <sge/renderer/detail/npos.hpp>
-#include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/size_type.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/vf/dynamic/detail/make_part.hpp>
+#include <sge/renderer/vf/dynamic/part_list.hpp>
+#include <fcppt/nonassignable.hpp>
 
 namespace sge
 {
 namespace renderer
 {
+namespace vf
+{
+namespace dynamic
+{
 namespace detail
 {
 
-template<
-	typename Ptr,
-	typename View
->
-class scoped_buffer_lock
+class make_part_list
 {
-	FCPPT_NONCOPYABLE(
-		scoped_buffer_lock
+	FCPPT_NONASSIGNABLE(
+		make_part_list
 	);
 public:
-	SGE_SYMBOL scoped_buffer_lock(
-		Ptr,
-		lock_mode::type,
-		size_type first = 0,
-		size_type count = npos
-	);
+	explicit make_part_list(
+		part_list &_parts
+	)
+	:
+		parts_(_parts)
+	{
+	}
 
-	SGE_SYMBOL View const
-	value() const;
+	typedef void result_type;
 
-	SGE_SYMBOL ~scoped_buffer_lock();
+	template<
+		typename Type
+	>
+	result_type
+	operator()(
+		Type const &
+	) const
+	{
+		parts_.push_back(
+			detail::make_part<
+				Type
+			>()
+		);
+	}
 private:
-	Ptr const ptr_;
-
-	View const view_;
+	part_list &parts_;
 };
 
+}
+}
 }
 }
 }

@@ -23,11 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/detail/roles/vertex_buffer.hpp>
 #include <sge/sprite/detail/vertices_per_sprite.hpp>
+#include <sge/sprite/detail/vf_part_index.hpp>
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
+#include <utility>
 
 namespace sge
 {
@@ -49,17 +51,27 @@ allocate_vertex_buffer(
 	Buffers &_buffers
 )
 {
+	sge::renderer::vertex_declaration_ptr const vertex_declaration(
+		_renderer->create_vertex_declaration(
+			_format
+		)
+	);
+
 	_buffers. template set<
 		detail::roles::vertex_buffer
 	>(
-		_renderer->create_vertex_buffer(
-			_format,
-			_num_sprites
-			*
-			detail::vertices_per_sprite<
-				Elements
-			>::value,
-			renderer::resource_flags::dynamic
+		std::make_pair(
+			vertex_declaration,
+			_renderer->create_vertex_buffer(
+				vertex_declaration,
+				detail::vf_part_index(),
+				_num_sprites
+				*
+				detail::vertices_per_sprite<
+					Elements
+				>::value,
+				renderer::resource_flags::dynamic
+			)
 		)
 	);
 }

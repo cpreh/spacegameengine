@@ -21,10 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_DYNAMIC_MAKE_FORMAT_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_MAKE_FORMAT_HPP_INCLUDED
 
-#include <sge/renderer/vf/dynamic/element_list.hpp>
-#include <sge/renderer/vf/dynamic/offset_list.hpp>
-#include <sge/renderer/vf/dynamic/detail/make_element_list.hpp>
-#include <sge/renderer/vf/dynamic/detail/make_offsets.hpp>
+#include <sge/renderer/vf/dynamic/detail/make_part_list.hpp>
 #include <sge/renderer/vf/dynamic/format.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <boost/mpl/for_each.hpp>
@@ -44,34 +41,19 @@ template<
 dynamic::format const
 make_format()
 {
-	typedef typename Format::elements elements;
-
-	typedef typename Format::offsets offsets;
-
-	element_list elems;
+	dynamic::part_list parts;
 
 	boost::mpl::for_each<
-		elements
+		typename Format::parts
 	>(
-		detail::make_element_list(
-			elems
-		)
-	);
-
-	offset_list offs;
-
-	boost::mpl::for_each<
-		offsets
-	>(
-		detail::make_offsets(
-			offs
+		detail::make_part_list(
+			parts
 		)
 	);
 
 	return
-		format(
-			elems,
-			offs
+		dynamic::format(
+			parts
 		);
 }
 

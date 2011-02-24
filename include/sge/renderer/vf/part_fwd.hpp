@@ -18,24 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_CONST_SCOPED_INDEX_LOCK_HPP_INCLUDED
-#define SGE_RENDERER_CONST_SCOPED_INDEX_LOCK_HPP_INCLUDED
-
-#include <sge/renderer/const_basic_scoped_buffer_lock.hpp>
-#include <sge/renderer/index/dynamic/const_view.hpp>
-#include <sge/renderer/const_index_buffer_ptr.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#ifndef SGE_RENDERER_VF_PART_FWD_HPP_INCLUDED
+#define SGE_RENDERER_VF_PART_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace renderer
 {
+namespace vf
+{
 
-typedef renderer::const_basic_scoped_buffer_lock<
-	renderer::const_index_buffer_ptr,
-	index::dynamic::const_view
-> const_scoped_index_lock;
+template<
+	typename ElementList
+>
+struct part;
 
+}
 }
 }
 

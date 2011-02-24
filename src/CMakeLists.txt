@@ -447,6 +447,7 @@ SET(
 	include/sge/renderer/add_depth_stencil_surface_to_target.hpp
 	include/sge/renderer/aspect.hpp
 	include/sge/renderer/aspect_from_viewport.hpp
+	include/sge/renderer/basic_scoped_buffer_lock.hpp
 	include/sge/renderer/bit_depth.hpp
 	include/sge/renderer/bit_depth_bytes.hpp
 	include/sge/renderer/buffer_has_depth.hpp
@@ -458,6 +459,7 @@ SET(
 	include/sge/renderer/color_surface.hpp
 	include/sge/renderer/color_surface_fwd.hpp
 	include/sge/renderer/color_surface_ptr.hpp
+	include/sge/renderer/const_basic_scoped_buffer_lock.hpp
 	include/sge/renderer/const_color_surface_ptr.hpp
 	include/sge/renderer/const_index_buffer_ptr.hpp
 	include/sge/renderer/const_raw_pointer.hpp
@@ -475,9 +477,6 @@ SET(
 	include/sge/renderer/depth_stencil_surface.hpp
 	include/sge/renderer/depth_stencil_surface_fwd.hpp
 	include/sge/renderer/depth_stencil_surface_ptr.hpp
-	include/sge/renderer/detail/const_scoped_buffer_lock.hpp
-	include/sge/renderer/detail/npos.hpp
-	include/sge/renderer/detail/scoped_buffer_lock.hpp
 	include/sge/renderer/device.hpp
 	include/sge/renderer/device_fwd.hpp
 	include/sge/renderer/device_ptr.hpp
@@ -605,6 +604,7 @@ SET(
 	include/sge/renderer/no_texture.hpp
 	include/sge/renderer/nonindexed_primitive_count.hpp
 	include/sge/renderer/nonindexed_primitive_type.hpp
+	include/sge/renderer/npos.hpp
 	include/sge/renderer/onscreen_target.hpp
 	include/sge/renderer/onscreen_target_fwd.hpp
 	include/sge/renderer/onscreen_target_ptr.hpp
@@ -743,6 +743,9 @@ SET(
 	include/sge/renderer/vertex_buffer_fwd.hpp
 	include/sge/renderer/vertex_buffer_ptr.hpp
 	include/sge/renderer/vertex_count.hpp
+	include/sge/renderer/vertex_declaration.hpp
+	include/sge/renderer/vertex_declaration_fwd.hpp
+	include/sge/renderer/vertex_declaration_ptr.hpp
 	include/sge/renderer/vf/color.hpp
 	include/sge/renderer/vf/color_base.hpp
 	include/sge/renderer/vf/const_tag.hpp
@@ -764,6 +767,8 @@ SET(
 	include/sge/renderer/vf/dynamic/detail/make_element.hpp
 	include/sge/renderer/vf/dynamic/detail/make_element_list.hpp
 	include/sge/renderer/vf/dynamic/detail/make_offsets.hpp
+	include/sge/renderer/vf/dynamic/detail/make_part.hpp
+	include/sge/renderer/vf/dynamic/detail/make_part_list.hpp
 	include/sge/renderer/vf/dynamic/detail/make_unspecified_element.hpp
 	include/sge/renderer/vf/dynamic/detail/make_vector.hpp
 	include/sge/renderer/vf/dynamic/element.hpp
@@ -777,6 +782,10 @@ SET(
 	include/sge/renderer/vf/dynamic/ordered_element.hpp
 	include/sge/renderer/vf/dynamic/ordered_element_fwd.hpp
 	include/sge/renderer/vf/dynamic/ordered_element_list.hpp
+	include/sge/renderer/vf/dynamic/part.hpp
+	include/sge/renderer/vf/dynamic/part_fwd.hpp
+	include/sge/renderer/vf/dynamic/part_index.hpp
+	include/sge/renderer/vf/dynamic/part_list.hpp
 	include/sge/renderer/vf/dynamic/pos.hpp
 	include/sge/renderer/vf/dynamic/pos_fwd.hpp
 	include/sge/renderer/vf/dynamic/texpos.hpp
@@ -801,6 +810,9 @@ SET(
 	include/sge/renderer/vf/make_unspecified_tag.hpp
 	include/sge/renderer/vf/nonconst_tag.hpp
 	include/sge/renderer/vf/normal.hpp
+	include/sge/renderer/vf/part.hpp
+	include/sge/renderer/vf/part_fwd.hpp
+	include/sge/renderer/vf/pointer.hpp
 	include/sge/renderer/vf/pos.hpp
 	include/sge/renderer/vf/single_base.hpp
 	include/sge/renderer/vf/string.hpp
@@ -814,11 +826,15 @@ SET(
 	include/sge/renderer/vf/vector_base.hpp
 	include/sge/renderer/vf/vector_fwd.hpp
 	include/sge/renderer/vf/vertex.hpp
+	include/sge/renderer/vf/vertex_decl.hpp
 	include/sge/renderer/vf/vertex_difference.hpp
 	include/sge/renderer/vf/vertex_fwd.hpp
+	include/sge/renderer/vf/vertex_impl.hpp
 	include/sge/renderer/vf/vertex_size.hpp
 	include/sge/renderer/vf/view.hpp
+	include/sge/renderer/vf/view_decl.hpp
 	include/sge/renderer/vf/view_fwd.hpp
+	include/sge/renderer/vf/view_impl.hpp
 	include/sge/renderer/viewport.hpp
 	include/sge/renderer/visual_depth.hpp
 	include/sge/renderer/vsync.hpp
@@ -1018,12 +1034,13 @@ SET(
 	src/renderer/add_depth_stencil_surface_to_target.cpp
 	src/renderer/aspect.cpp
 	src/renderer/aspect_from_viewport.cpp
+	src/renderer/basic_scoped_buffer_lock_impl.hpp
 	src/renderer/bit_depth_bytes.cpp
 	src/renderer/buffer_has_depth.cpp
 	src/renderer/buffer_has_stencil.cpp
 	src/renderer/caps.cpp
 	src/renderer/color_surface.cpp
-	src/renderer/const_scoped_buffer_lock_impl.hpp
+	src/renderer/const_basic_scoped_buffer_lock_impl.hpp
 	src/renderer/const_scoped_color_surface_lock.cpp
 	src/renderer/const_scoped_index_lock.cpp
 	src/renderer/const_scoped_vertex_lock.cpp
@@ -1032,7 +1049,6 @@ SET(
 	src/renderer/create_vertex_buffer_from_view.cpp
 	src/renderer/default_target.cpp
 	src/renderer/depth_stencil_surface.cpp
-	src/renderer/detail/npos.cpp
 	src/renderer/device.cpp
 	src/renderer/display_mode.cpp
 	src/renderer/exception.cpp
@@ -1065,13 +1081,13 @@ SET(
 	src/renderer/no_multi_sampling.cpp
 	src/renderer/no_texture.cpp
 	src/renderer/nonindexed_primitive_count.cpp
+	src/renderer/npos.cpp
 	src/renderer/onscreen_target.cpp
 	src/renderer/parameters.cpp
 	src/renderer/plugin.cpp
 	src/renderer/refresh_rate_dont_care.cpp
 	src/renderer/resource_flags_none.cpp
 	src/renderer/scoped_block.cpp
-	src/renderer/scoped_buffer_lock_impl.hpp
 	src/renderer/scoped_index_lock.cpp
 	src/renderer/scoped_target.cpp
 	src/renderer/scoped_transform.cpp
@@ -1132,6 +1148,7 @@ SET(
 	src/renderer/vf/dynamic/format.cpp
 	src/renderer/vf/dynamic/normal.cpp
 	src/renderer/vf/dynamic/ordered_element.cpp
+	src/renderer/vf/dynamic/part.cpp
 	src/renderer/vf/dynamic/pos.cpp
 	src/renderer/vf/dynamic/texpos.cpp
 	src/renderer/vf/dynamic/unspecified.cpp

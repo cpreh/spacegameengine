@@ -33,20 +33,29 @@ namespace vf
 {
 
 template<
-	typename VertexFormat
+	typename Part,
+	typename Constness
 >
 class iterator
 :
 	public detail::iterator_base<
-		VertexFormat
+		Part,
+		Constness
 	>::type
 {
-	typedef typename detail::iterator_base<VertexFormat>::type base;
+	typedef typename detail::iterator_base<
+		Part,
+		Constness
+	>::type base;
 public:
 	typedef typename base::value_type value_type;
+
 	typedef typename base::reference reference;
+
 	typedef typename base::pointer pointer;
+
 	typedef typename base::difference_type difference_type;
+
 	typedef typename base::iterator_category iterator_category;
 private:
 	typedef value_type vertex_type;
@@ -89,6 +98,7 @@ private:
 	internal_pointer data_;
 
 	template<
+		typename,
 		typename
 	> friend class view;
 };

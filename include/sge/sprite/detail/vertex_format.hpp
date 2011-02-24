@@ -21,25 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_VERTEX_FORMAT_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_VERTEX_FORMAT_HPP_INCLUDED
 
-#include <sge/sprite/detail/vertex_pos.hpp>
-#include <sge/sprite/detail/vertex_texpos.hpp>
-#include <sge/sprite/detail/vertex_color.hpp>
-#include <sge/sprite/detail/vertex_unspecified_dim.hpp>
-#include <sge/sprite/with_color.hpp>
-#include <sge/sprite/with_dim.hpp>
-#include <sge/sprite/with_unspecified_dim.hpp>
-#include <sge/sprite/with_texture.hpp>
+#include <sge/sprite/detail/vertex_format_part.hpp>
 #include <sge/renderer/vf/format.hpp>
-#include <fcppt/mpl/inner.hpp>
 #include <boost/mpl/vector/vector10.hpp>
-#include <boost/mpl/and.hpp>
-#include <boost/mpl/bool.hpp>
-#include <boost/mpl/contains.hpp>
-#include <boost/mpl/eval_if.hpp>
-#include <boost/mpl/fold.hpp>
-#include <boost/mpl/pair.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/push_back.hpp>
 
 namespace sge
 {
@@ -53,82 +37,12 @@ template<
 >
 struct vertex_format
 {
-private:
-	typedef boost::mpl::vector1<
-		typename detail::vertex_pos<
-			Choices
-		>::type
-	> basic;
-
-	typedef boost::mpl::vector3<
-		boost::mpl::pair<
-			boost::mpl::vector1<
-				sprite::with_color
-			>,
-			detail::vertex_color<
-				Choices
-			>
-		>,
-		boost::mpl::pair<
-			boost::mpl::vector2<
-				sprite::with_texture,
-				sprite::with_dim
-			>,
-			detail::vertex_texpos<
-				Choices
-			>
-		>,
-		boost::mpl::pair<
-			boost::mpl::vector2<
-				sprite::with_texture,
-				sprite::with_unspecified_dim
-			>,
-			detail::vertex_unspecified_dim<
-				Choices
-			>
-		>
-	> optional_elements;
-
-	template<
-		typename Elements
-	>
-	struct test_all
-	:
-	boost::mpl::fold<
-		Elements,
-		boost::mpl::true_,
-		boost::mpl::and_<
-			boost::mpl::_1,
-			boost::mpl::contains<
-				typename Choices::elements,
-				boost::mpl::_2
-			>
-		>
-	>
-	{
-	};
-public:
 	typedef renderer::vf::format<
-		typename boost::mpl::fold<
-			optional_elements,
-			basic,
-			boost::mpl::eval_if<
-				test_all<
-					boost::mpl::first<
-						boost::mpl::_2
-					>
-				>,
-				boost::mpl::push_back<
-					boost::mpl::_1,
-					fcppt::mpl::inner<
-						boost::mpl::second<
-							boost::mpl::_2
-						>
-					>
-				>,
-				boost::mpl::_1
-			>
-		>::type
+		boost::mpl::vector1<
+			typename detail::vertex_format_part<
+				Choices
+			>::type
+		>
 	> type;
 };
 

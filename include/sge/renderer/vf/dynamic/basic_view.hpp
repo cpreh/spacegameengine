@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_DYNAMIC_BASIC_VIEW_HPP_INCLUDED
 
 #include <sge/renderer/vf/dynamic/basic_view_fwd.hpp>
-#include <sge/renderer/vf/dynamic/format_fwd.hpp>
+#include <sge/renderer/vf/dynamic/part_fwd.hpp>
+#include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/symbol.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -45,29 +46,41 @@ class basic_view
 		basic_view
 	);
 public:
-	typedef Pointer     pointer;
+	typedef Pointer pointer;
+
 	typedef vertex_size size_type;
 
-	SGE_SYMBOL basic_view(
+	SGE_SYMBOL
+	basic_view(
 		pointer data,
 		size_type elements,
-		dynamic::format const &
+		dynamic::part const &,
+		dynamic::part_index
 	);
 
-	SGE_SYMBOL pointer
+	SGE_SYMBOL
+	pointer
 	data() const;
 
-	SGE_SYMBOL size_type
+	SGE_SYMBOL
+	size_type
 	size() const;
 
-	SGE_SYMBOL dynamic::format const &
-	format() const;
+	SGE_SYMBOL
+	dynamic::part const &
+	part() const;
+
+	SGE_SYMBOL
+	dynamic::part_index const
+	part_index() const;
 private:
-	pointer data_;
+	pointer const data_;
 
-	size_type size_;
+	size_type const size_;
 
-	dynamic::format const &format_;
+	dynamic::part const &part_;
+
+	dynamic::part_index const part_index_;
 };
 
 }

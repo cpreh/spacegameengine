@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "const_scoped_buffer_lock_impl.hpp"
+#include "const_basic_scoped_buffer_lock_impl.hpp"
 #include <sge/renderer/const_scoped_index_lock.hpp>
 #include <sge/renderer/index_buffer.hpp>
 #include <fcppt/export_symbol.hpp>
 
 template FCPPT_EXPORT_SYMBOL class
-sge::renderer::detail::const_scoped_buffer_lock<
+sge::renderer::const_basic_scoped_buffer_lock<
 	sge::renderer::const_index_buffer_ptr,
 	sge::renderer::index::dynamic::const_view
 >;

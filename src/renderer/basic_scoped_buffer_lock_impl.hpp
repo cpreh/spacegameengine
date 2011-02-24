@@ -18,11 +18,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/detail/npos.hpp>
+#ifndef SGE_RENDERER_BASIC_SCOPED_BUFFER_LOCK_IMPL_HPP_INCLUDED
+#define SGE_RENDERER_BASIC_SCOPED_BUFFER_LOCK_IMPL_HPP_INCLUDED
 
-sge::renderer::size_type const
-sge::renderer::detail::npos(
-	static_cast<
-		sge::renderer::size_type
-	>(
-		-1));
+#include <sge/renderer/basic_scoped_buffer_lock.hpp>
+
+template<
+	typename Ptr,
+	typename View
+>
+sge::renderer::basic_scoped_buffer_lock<Ptr, View>::basic_scoped_buffer_lock(
+	Ptr const _ptr,
+	lock_mode::type const _flags,
+	size_type const _first,
+	size_type const _count
+)
+:
+	ptr_(_ptr),
+	view_(
+		ptr_->lock(
+			_flags,
+			_first,
+			_count
+		)
+	)
+{}
+
+template<
+	typename Ptr,
+	typename View
+>
+View const
+sge::renderer::basic_scoped_buffer_lock<Ptr, View>::value() const
+{
+	return view_;
+}
+
+template<
+	typename Ptr,
+	typename View
+>
+sge::renderer::basic_scoped_buffer_lock<Ptr, View>::~basic_scoped_buffer_lock()
+{
+	ptr_->unlock();
+}
+
+#endif

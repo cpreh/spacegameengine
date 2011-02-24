@@ -38,15 +38,15 @@ namespace detail
 inline
 void
 copy_n(
-	const_raw_pointer const src,
-	vertex_size const sz,
-	raw_pointer const dest
+	const_raw_pointer const _src,
+	vertex_size const _sz,
+	raw_pointer const _dest
 )
 {
 	std::memcpy(
-		dest,
-		src,
-		sz
+		_dest,
+		_src,
+		_sz
 	);
 }
 

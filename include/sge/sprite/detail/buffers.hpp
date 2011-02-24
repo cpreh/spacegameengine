@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/detail/roles/vertex_buffer.hpp>
 #include <sge/sprite/detail/roles/index_buffer.hpp>
+#include <sge/sprite/detail/vertex_buffer_declaration_pair.hpp>
 #include <sge/sprite/with_dim.hpp>
 #include <sge/renderer/index_buffer_ptr.hpp>
-#include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <majutsu/memory/fusion.hpp>
 #include <majutsu/class.hpp>
 #include <majutsu/composite.hpp>
@@ -50,7 +50,7 @@ struct buffers
 private:
 	typedef majutsu::role<
 		majutsu::simple<
-			sge::renderer::vertex_buffer_ptr
+			sge::sprite::detail::vertex_buffer_declaration_pair
 		>,
 		detail::roles::vertex_buffer
 	> vertex_buffer_role;

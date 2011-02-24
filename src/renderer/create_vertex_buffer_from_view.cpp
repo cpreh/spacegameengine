@@ -23,19 +23,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/vf/dynamic/const_view.hpp>
-#include <sge/renderer/vf/dynamic/format.hpp>
+#include <sge/renderer/vf/dynamic/part.hpp>
 #include <cstring>
 
 sge::renderer::vertex_buffer_ptr const
 sge::renderer::create_vertex_buffer_from_view(
 	renderer::device_ptr const _device,
+	renderer::vertex_declaration_ptr const _vertex_declaration,
 	renderer::vf::dynamic::const_view const &_view,
 	renderer::resource_flags_field const &_resource_flags
 )
 {
 	renderer::vertex_buffer_ptr const buffer(
 		_device->create_vertex_buffer(
-			_view.format(),
+			_vertex_declaration,
+			_view.part_index(),
 			_view.size(),
 			_resource_flags
 		)
@@ -49,7 +51,7 @@ sge::renderer::create_vertex_buffer_from_view(
 	std::memcpy(
 		lock.value().data(),
 		_view.data(),
-		_view.format().stride()
+		_view.part().stride()
 		* _view.size()
 	);
 

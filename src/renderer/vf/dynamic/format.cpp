@@ -19,47 +19,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/vf/dynamic/format.hpp>
-#include <sge/exception.hpp>
-#include <fcppt/text.hpp>
 
 sge::renderer::vf::dynamic::format::format(
-	element_list const &elem,
-	offset_list const &offs
+	part_list const &_parts
 )
+:
+	parts_(_parts)
 {
-	if(elem.size() + 1 != offs.size())
-		throw exception(
-			FCPPT_TEXT("dynamic::format: Invalid sizes of vectors!")
-		);
-
-	if(elem.empty() || offs.empty())
-		throw exception(
-			FCPPT_TEXT("dynamic::format: Format cannot be empty!")
-		);
-
-	for(
-		element_list::size_type i(0);
-		i < elem.size();
-		++i
-	)
-		elements_.push_back(
-			ordered_element(
-				elem[i],
-				offs[i]
-			)
-		);
-
-	stride_ = offs.back();
 }
 
-sge::renderer::vf::dynamic::ordered_element_list const &
-sge::renderer::vf::dynamic::format::elements() const
+sge::renderer::vf::dynamic::part_list const &
+sge::renderer::vf::dynamic::format::parts() const
 {
-	return elements_;
-}
-
-sge::renderer::vf::vertex_size
-sge::renderer::vf::dynamic::format::stride() const
-{
-	return stride_;
+	return parts_;
 }

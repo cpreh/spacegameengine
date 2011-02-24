@@ -45,13 +45,15 @@ sge::sprite::system_base<Choices>::system_base(
 :
 	rend_(_rend),
 	buffers_()
-{}
+{
+}
 
 template<
 	typename Choices
 >
 sge::sprite::system_base<Choices>::~system_base()
-{}
+{
+}
 
 template<
 	typename Choices
@@ -91,7 +93,7 @@ sge::sprite::system_base<Choices>::vertex_buffer() const
 	return
 		buffers_. template get<
 			detail::roles::vertex_buffer
-		>();
+		>().second;
 }
 
 template<

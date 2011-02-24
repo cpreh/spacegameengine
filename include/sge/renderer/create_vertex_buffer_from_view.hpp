@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device_ptr.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
+#include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <sge/symbol.hpp>
 
 namespace sge
@@ -36,6 +37,7 @@ SGE_SYMBOL
 renderer::vertex_buffer_ptr const
 create_vertex_buffer_from_view(
 	renderer::device_ptr,
+	renderer::vertex_declaration_ptr,
 	renderer::vf::dynamic::const_view const &,
 	renderer::resource_flags_field const &
 );

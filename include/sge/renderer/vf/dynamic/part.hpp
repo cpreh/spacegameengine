@@ -18,24 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_CONST_SCOPED_INDEX_LOCK_HPP_INCLUDED
-#define SGE_RENDERER_CONST_SCOPED_INDEX_LOCK_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DYNAMIC_PART_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_PART_HPP_INCLUDED
 
-#include <sge/renderer/const_basic_scoped_buffer_lock.hpp>
-#include <sge/renderer/index/dynamic/const_view.hpp>
-#include <sge/renderer/const_index_buffer_ptr.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <sge/renderer/vf/dynamic/part_fwd.hpp>
+#include <sge/renderer/vf/dynamic/ordered_element_list.hpp>
+#include <sge/renderer/vf/dynamic/offset_list.hpp>
+#include <sge/renderer/vf/dynamic/element_list.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
 namespace renderer
 {
+namespace vf
+{
+namespace dynamic
+{
 
-typedef renderer::const_basic_scoped_buffer_lock<
-	renderer::const_index_buffer_ptr,
-	index::dynamic::const_view
-> const_scoped_index_lock;
+class part
+{
+public:
+	SGE_SYMBOL part(
+		element_list const &,
+		offset_list const &
+	);
 
+	SGE_SYMBOL ordered_element_list const &
+	elements() const;
+
+	SGE_SYMBOL vertex_size
+	stride() const;
+private:
+	ordered_element_list elements_;
+
+	vertex_size stride_;
+};
+
+}
+}
 }
 }
 

@@ -19,14 +19,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/index_buffer.hpp>
-#include <sge/renderer/detail/npos.hpp>
+#include <sge/renderer/npos.hpp>
 
 sge::renderer::index_buffer::index_buffer()
-{}
+{
+}
 
 sge::renderer::size_type const
 sge::renderer::index_buffer::npos(
-	sge::renderer::detail::npos);
+	sge::renderer::npos()
+);
 
 sge::renderer::index_buffer::~index_buffer()
-{}
+{
+}

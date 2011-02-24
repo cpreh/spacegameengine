@@ -21,8 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_FORMAT_FWD_HPP_INCLUDED
 #define SGE_RENDERER_VF_FORMAT_FWD_HPP_INCLUDED
 
-#include <sge/renderer/vf/nonconst_tag.hpp>
-
 namespace sge
 {
 namespace renderer
@@ -31,8 +29,7 @@ namespace vf
 {
 
 template<
-	typename ElementList,
-	typename Constness = vf::nonconst_tag
+	typename PartList
 >
 struct format;
 

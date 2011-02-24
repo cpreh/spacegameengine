@@ -18,25 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_CONST_SCOPED_INDEX_LOCK_HPP_INCLUDED
-#define SGE_RENDERER_CONST_SCOPED_INDEX_LOCK_HPP_INCLUDED
+#ifndef SGE_RENDERER_CONST_BASIC_SCOPED_BUFFER_LOCK_IMPL_HPP_INCLUDED
+#define SGE_RENDERER_CONST_BASIC_SCOPED_BUFFER_LOCK_IMPL_HPP_INCLUDED
 
 #include <sge/renderer/const_basic_scoped_buffer_lock.hpp>
-#include <sge/renderer/index/dynamic/const_view.hpp>
-#include <sge/renderer/const_index_buffer_ptr.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
-namespace sge
+template<
+	typename Ptr,
+	typename View
+>
+sge::renderer::const_basic_scoped_buffer_lock<Ptr, View>::const_basic_scoped_buffer_lock(
+	Ptr const _ptr,
+	size_type const _first,
+	size_type const _count
+)
+:
+	ptr_(_ptr),
+	view_(
+		ptr_->lock(
+			_first,
+			_count
+		)
+	)
 {
-namespace renderer
-{
-
-typedef renderer::const_basic_scoped_buffer_lock<
-	renderer::const_index_buffer_ptr,
-	index::dynamic::const_view
-> const_scoped_index_lock;
-
 }
+
+template<
+	typename Ptr,
+	typename View
+>
+View const
+sge::renderer::const_basic_scoped_buffer_lock<Ptr, View>::value() const
+{
+	return view_;
+}
+
+template<
+	typename Ptr,
+	typename View
+>
+sge::renderer::const_basic_scoped_buffer_lock<Ptr, View>::~const_basic_scoped_buffer_lock()
+{
+	ptr_->unlock();
 }
 
 #endif

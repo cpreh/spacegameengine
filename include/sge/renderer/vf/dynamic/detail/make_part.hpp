@@ -18,47 +18,67 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_DETAIL_CONST_SCOPED_BUFFER_LOCK_HPP_INCLUDED
-#define SGE_RENDERER_DETAIL_CONST_SCOPED_BUFFER_LOCK_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_PART_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_PART_HPP_INCLUDED
 
-#include <sge/renderer/detail/npos.hpp>
-#include <sge/renderer/size_type.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <sge/symbol.hpp>
+#include <sge/renderer/vf/dynamic/element_list.hpp>
+#include <sge/renderer/vf/dynamic/offset_list.hpp>
+#include <sge/renderer/vf/dynamic/detail/make_element_list.hpp>
+#include <sge/renderer/vf/dynamic/detail/make_offsets.hpp>
+#include <sge/renderer/vf/dynamic/part.hpp>
+#include <sge/renderer/vf/part.hpp>
+#include <boost/mpl/for_each.hpp>
 
 namespace sge
 {
 namespace renderer
 {
+namespace vf
+{
+namespace dynamic
+{
 namespace detail
 {
 
 template<
-	typename Ptr,
-	typename View
+	typename Part
 >
-class const_scoped_buffer_lock
+dynamic::part const
+make_part()
 {
-	FCPPT_NONCOPYABLE(
-		const_scoped_buffer_lock
+	typedef typename Part::elements elements;
+
+	typedef typename Part::offsets offsets;
+
+	element_list elems;
+
+	boost::mpl::for_each<
+		elements
+	>(
+		detail::make_element_list(
+			elems
+		)
 	);
-public:
-	SGE_SYMBOL explicit const_scoped_buffer_lock(
-		Ptr,
-		size_type first = 0,
-		size_type count = npos
+
+	offset_list offs;
+
+	boost::mpl::for_each<
+		offsets
+	>(
+		detail::make_offsets(
+			offs
+		)
 	);
 
-	SGE_SYMBOL View const
-	value() const;
+	return
+		dynamic::part(
+			elems,
+			offs
+		);
+}
 
-	SGE_SYMBOL ~const_scoped_buffer_lock();
-private:
-	Ptr const ptr_;
-
-	View const view_;
-};
-
+}
+}
 }
 }
 }

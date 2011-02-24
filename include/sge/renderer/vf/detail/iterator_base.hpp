@@ -37,20 +37,24 @@ namespace detail
 {
 
 template<
-	typename VertexFormat
+	typename Part,
+	typename Constness
 >
 struct iterator_base
 {
 	typedef boost::iterator_facade<
 		vf::iterator<
-			VertexFormat
+			Part,
+			Constness
 		>,
-		vertex<
-			VertexFormat
+		vf::vertex<
+			Part,
+			Constness
 		>,
 		std::random_access_iterator_tag,
 		vf::vertex<
-			VertexFormat
+			Part,
+			Constness
 		>,
 		vf::vertex_difference
 	> type;

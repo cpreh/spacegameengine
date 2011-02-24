@@ -53,6 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target_ptr.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
+#include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <sge/renderer/glsl/const_program_ptr.hpp>
 #include <sge/renderer/glsl/pixel_shader_ptr.hpp>
 #include <sge/renderer/glsl/program_ptr.hpp>
@@ -69,6 +70,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
 #include <sge/renderer/texture/volume_ptr.hpp>
 #include <sge/renderer/vf/dynamic/format_fwd.hpp>
+#include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/window/instance_ptr.hpp>
 #include <sge/class_symbol.hpp>
 #include <sge/symbol.hpp>
@@ -112,11 +114,13 @@ public:
 
 	virtual void
 	set_vertex_buffer(
-		const_vertex_buffer_ptr
+		vf::dynamic::part_index,
+		renderer::const_vertex_buffer_ptr
 	) = 0;
 
 	virtual void
 	unset_vertex_buffer(
+		vf::dynamic::part_index,
 		const_vertex_buffer_ptr
 	) = 0;
 
@@ -246,9 +250,15 @@ public:
 		renderer::texture::cube_parameters const &
 	) = 0;
 
+	virtual renderer::vertex_declaration_ptr const
+	create_vertex_declaration(
+		vf::dynamic::format const &
+	) const = 0;
+
 	virtual vertex_buffer_ptr const
 	create_vertex_buffer(
-		vf::dynamic::format const &,
+		renderer::vertex_declaration_ptr,
+		vf::dynamic::part_index,
 		size_type size,
 		resource_flags_field const &
 	) = 0;

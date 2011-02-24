@@ -77,13 +77,16 @@ SET(
 	include/sge/sprite/detail/transform_init_arguments.hpp
 	include/sge/sprite/detail/transform_parameters_arguments.hpp
 	include/sge/sprite/detail/vector_float.hpp
+	include/sge/sprite/detail/vertex_buffer_declaration_pair.hpp
 	include/sge/sprite/detail/vertex_color.hpp
 	include/sge/sprite/detail/vertex_format.hpp
-	include/sge/sprite/detail/vertex_format_from_object.hpp
+	include/sge/sprite/detail/vertex_format_part.hpp
+	include/sge/sprite/detail/vertex_format_part_from_object.hpp
 	include/sge/sprite/detail/vertex_pos.hpp
 	include/sge/sprite/detail/vertex_texpos.hpp
 	include/sge/sprite/detail/vertex_unspecified_dim.hpp
 	include/sge/sprite/detail/vertices_per_sprite.hpp
+	include/sge/sprite/detail/vf_part_index.hpp
 	include/sge/sprite/detail/visible.hpp
 	include/sge/sprite/dim.hpp
 	include/sge/sprite/dont_sort.hpp

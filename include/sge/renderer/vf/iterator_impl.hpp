@@ -25,36 +25,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/back.hpp>
 
 template<
-	typename VertexFormat
+	typename Part,
+	typename Constness
 >
-typename sge::renderer::vf::iterator<VertexFormat>::difference_type
-sge::renderer::vf::iterator<VertexFormat>::stride()
+typename sge::renderer::vf::iterator<Part, Constness>::difference_type
+sge::renderer::vf::iterator<Part, Constness>::stride()
 {
 	return
 		static_cast<
 			difference_type
 		>(
 			boost::mpl::back<
-				typename VertexFormat::offsets
+				typename Part::offsets
 			>::type::value
 		);
 }
 
 template<
-	typename VertexFormat
+	typename Part,
+	typename Constness
 >
-sge::renderer::vf::iterator<VertexFormat>::iterator(
+sge::renderer::vf::iterator<Part, Constness>::iterator(
 	internal_pointer const _data
 )
 :
 	data_(_data)
-{}
+{
+}
 
 template<
-	typename VertexFormat
+	typename Part,
+	typename Constness
 >
 void
-sge::renderer::vf::iterator<VertexFormat>::advance(
+sge::renderer::vf::iterator<Part, Constness>::advance(
 	difference_type const _diff
 )
 {
@@ -62,28 +66,31 @@ sge::renderer::vf::iterator<VertexFormat>::advance(
 }
 
 template<
-	typename VertexFormat
+	typename Part,
+	typename Constness
 >
 void
-sge::renderer::vf::iterator<VertexFormat>::increment()
+sge::renderer::vf::iterator<Part, Constness>::increment()
 {
 	data_ += stride();
 }
 
 template<
-	typename VertexFormat
+	typename Part,
+	typename Constness
 >
 void
-sge::renderer::vf::iterator<VertexFormat>::decrement()
+sge::renderer::vf::iterator<Part, Constness>::decrement()
 {
 	data_ -= stride();
 }
 
 template<
-	typename VertexFormat
+	typename Part,
+	typename Constness
 >
 bool
-sge::renderer::vf::iterator<VertexFormat>::equal(
+sge::renderer::vf::iterator<Part, Constness>::equal(
 	iterator const &_other
 ) const
 {
@@ -91,10 +98,11 @@ sge::renderer::vf::iterator<VertexFormat>::equal(
 }
 
 template<
-	typename VertexFormat
+	typename Part,
+	typename Constness
 >
-typename sge::renderer::vf::iterator<VertexFormat>::difference_type
-sge::renderer::vf::iterator<VertexFormat>::distance_to(
+typename sge::renderer::vf::iterator<Part, Constness>::difference_type
+sge::renderer::vf::iterator<Part, Constness>::distance_to(
 	iterator const &_other
 ) const
 {
@@ -105,10 +113,11 @@ sge::renderer::vf::iterator<VertexFormat>::distance_to(
 }
 
 template<
-	typename VertexFormat
+	typename Part,
+	typename Constness
 >
-typename sge::renderer::vf::iterator<VertexFormat>::vertex_type
-sge::renderer::vf::iterator<VertexFormat>::dereference() const
+typename sge::renderer::vf::iterator<Part, Constness>::vertex_type
+sge::renderer::vf::iterator<Part, Constness>::dereference() const
 {
 	return
 		vertex_type(

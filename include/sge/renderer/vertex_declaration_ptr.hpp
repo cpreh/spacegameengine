@@ -18,31 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_VERTEX_FORMAT_FROM_OBJECT_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_VERTEX_FORMAT_FROM_OBJECT_HPP_INCLUDED
+#ifndef SGE_RENDERER_VERTEX_DECLARATION_PTR_HPP_INCLUDED
+#define SGE_RENDERER_VERTEX_DECLARATION_PTR_HPP_INCLUDED
 
-#include <sge/sprite/detail/vertex_format.hpp>
+#include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
-namespace sprite
-{
-namespace detail
+namespace renderer
 {
 
-template<
-	typename Object
->
-struct vertex_format_from_object
-:
-vertex_format<
-	typename Object::choices
->
-{};
+typedef fcppt::shared_ptr<
+	renderer::vertex_declaration
+> vertex_declaration_ptr;
 
-}
 }
 }
 
 #endif
-

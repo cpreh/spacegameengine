@@ -18,8 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_VERTEX_FWD_HPP_INCLUDED
-#define SGE_RENDERER_VF_VERTEX_FWD_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_VERTEX_DECL_HPP_INCLUDED
+#define SGE_RENDERER_VF_VERTEX_DECL_HPP_INCLUDED
+
+#include <sge/renderer/vf/vertex_fwd.hpp>
+#include <sge/renderer/vf/pointer.hpp>
+#include <fcppt/nonassignable.hpp>
+#include <boost/mpl/contains.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace sge
 {
@@ -32,7 +38,52 @@ template<
 	typename Part,
 	typename Constness
 >
-class vertex;
+class vertex
+{
+	FCPPT_NONASSIGNABLE(
+		vertex
+	);
+public:
+	typedef typename vf::pointer<
+		Constness
+	>::type pointer;
+
+	typedef typename Part::elements elements;
+
+	typedef typename Part::offsets offsets;
+
+	explicit vertex(
+		pointer
+	);
+
+	template<
+		typename Field
+	>
+	typename boost::enable_if<
+		boost::mpl::contains<
+			elements,
+			Field
+		>,
+		void
+	>::type
+	set(
+		typename Field::packed_type const &
+	);
+
+	template<
+		typename Field
+	>
+	typename boost::enable_if<
+		boost::mpl::contains<
+			elements,
+			Field
+		>,
+		typename Field::packed_type
+	>::type
+	get() const;
+private:
+	pointer const data_;
+};
 
 }
 }

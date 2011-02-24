@@ -18,23 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_CONST_SCOPED_INDEX_LOCK_HPP_INCLUDED
-#define SGE_RENDERER_CONST_SCOPED_INDEX_LOCK_HPP_INCLUDED
+#ifndef SGE_RENDERER_CONST_BASIC_SCOPED_BUFFER_LOCK_HPP_INCLUDED
+#define SGE_RENDERER_CONST_BASIC_SCOPED_BUFFER_LOCK_HPP_INCLUDED
 
-#include <sge/renderer/const_basic_scoped_buffer_lock.hpp>
-#include <sge/renderer/index/dynamic/const_view.hpp>
-#include <sge/renderer/const_index_buffer_ptr.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <sge/renderer/npos.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <sge/symbol.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-typedef renderer::const_basic_scoped_buffer_lock<
-	renderer::const_index_buffer_ptr,
-	index::dynamic::const_view
-> const_scoped_index_lock;
+template<
+	typename Ptr,
+	typename View
+>
+class const_basic_scoped_buffer_lock
+{
+	FCPPT_NONCOPYABLE(
+		const_basic_scoped_buffer_lock
+	);
+public:
+	SGE_SYMBOL explicit const_basic_scoped_buffer_lock(
+		Ptr,
+		size_type first = 0,
+		size_type count = renderer::npos()
+	);
+
+	SGE_SYMBOL View const
+	value() const;
+
+	SGE_SYMBOL ~const_basic_scoped_buffer_lock();
+private:
+	Ptr const ptr_;
+
+	View const view_;
+};
 
 }
 }

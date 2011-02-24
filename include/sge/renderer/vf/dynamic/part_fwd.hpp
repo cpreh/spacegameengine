@@ -18,21 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_DETAIL_NPOS_HPP_INCLUDED
-#define SGE_RENDERER_DETAIL_NPOS_HPP_INCLUDED
-
-#include <sge/renderer/size_type.hpp>
-#include <sge/symbol.hpp>
+#ifndef SGE_RENDERER_VF_DYNAMIC_PART_FWD_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_PART_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace renderer
 {
-namespace detail
+namespace vf
+{
+namespace dynamic
 {
 
-SGE_SYMBOL extern size_type const npos;
+class part;
 
+}
 }
 }
 }

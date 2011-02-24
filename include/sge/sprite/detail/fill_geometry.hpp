@@ -71,7 +71,7 @@ fill_geometry(
 			_end,
 			_buffers.template get<
 				detail::roles::vertex_buffer
-			>(),
+			>().second,
 			_num_sprites
 		)
 	);
@@ -102,7 +102,7 @@ fill_geometry(
 		_end,
 		_buffers.template get<
 			detail::roles::vertex_buffer
-		>(),
+		>().second,
 		_num_sprites
 	);
 }
