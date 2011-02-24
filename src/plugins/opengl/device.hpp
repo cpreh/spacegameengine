@@ -85,12 +85,19 @@ public:
 
 	void
 	set_vertex_buffer(
+		vf::dynamic::part_index,
 		renderer::const_vertex_buffer_ptr
 	);
 
 	void
 	unset_vertex_buffer(
+		vf::dynamic::part_index,
 		renderer::const_vertex_buffer_ptr
+	);
+
+	void
+	vertex_declaration(
+		renderer::vertex_declaration_ptr
 	);
 
 	void
@@ -219,9 +226,15 @@ public:
 		renderer::texture::cube_parameters const &
 	);
 
+	renderer::vertex_declaration_ptr const
+	create_vertex_declaration(
+		renderer::vf::dynamic::format const &
+	);
+
 	renderer::vertex_buffer_ptr const
 	create_vertex_buffer(
-		renderer::vf::dynamic::format const &,
+		renderer::vertex_declaration_ptr,
+		renderer::vf::dynamic::part_index,
 		renderer::size_type,
 		renderer::resource_flags_field const &
 	);

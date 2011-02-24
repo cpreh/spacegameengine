@@ -186,6 +186,7 @@ sge::opengl::device::render(
 
 void
 sge::opengl::device::set_vertex_buffer(
+	vf::dynamic::part_index const _part,
 	renderer::const_vertex_buffer_ptr const _vb
 )
 {
@@ -198,6 +199,7 @@ sge::opengl::device::set_vertex_buffer(
 
 void
 sge::opengl::device::unset_vertex_buffer(
+	vf::dynamic::part_index const _part,
 	renderer::const_vertex_buffer_ptr const _vb
 )
 {
@@ -206,6 +208,14 @@ sge::opengl::device::unset_vertex_buffer(
 	>(
 		*_vb
 	).unset_format();
+}
+
+void
+sge::opengl::device::vertex_declaration(
+	renderer::vertex_declaration_ptr const _declaration
+)
+{
+	
 }
 
 void
@@ -581,9 +591,28 @@ sge::opengl::device::create_cube_texture(
 		);
 }
 
+sge::renderer::vertex_declaration_ptr const
+sge::opengl::device::create_vertex_declaration(
+	renderer::vf::dynamic::format const &_format
+)
+{
+	return
+		renderer::vertex_declaration_ptr(
+			fcppt::make_shared_ptr<
+				opengl::vertex_declaration
+			>(
+				std::tr1::ref(
+					context_
+				),
+				_format
+			)
+		);	
+}
+
 sge::renderer::vertex_buffer_ptr const
 sge::opengl::device::create_vertex_buffer(
-	renderer::vf::dynamic::format const &_format,
+	renderer::vertex_declaration_ptr const _declaration,
+	renderer::vf::dynamic::part_index const _part,
 	renderer::size_type const _size,
 	renderer::resource_flags_field const &_flags
 )

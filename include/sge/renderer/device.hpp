@@ -121,7 +121,12 @@ public:
 	virtual void
 	unset_vertex_buffer(
 		vf::dynamic::part_index,
-		const_vertex_buffer_ptr
+		renderer::const_vertex_buffer_ptr
+	) = 0;
+
+	virtual void
+	vertex_declaration(
+		renderer::vertex_declaration_ptr
 	) = 0;
 
 	virtual void
@@ -253,7 +258,7 @@ public:
 	virtual renderer::vertex_declaration_ptr const
 	create_vertex_declaration(
 		vf::dynamic::format const &
-	) const = 0;
+	) = 0;
 
 	virtual vertex_buffer_ptr const
 	create_vertex_buffer(
