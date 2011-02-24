@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
 #include <fcppt/weak_ptr_decl.hpp>
+#include <map>
 #include <vector>
 
 namespace sge
@@ -98,11 +99,18 @@ private:
 		texture::optional_type
 	> texture_type_vector;
 
+	typedef std::map<
+		texture::type,
+		renderer::stage_type::value_type
+	> texture_type_map;
+
 	texture_vector
 		render_textures_,
 		temp_textures_;
 	
 	texture_type_vector last_types_;
+
+	texture_type_map texture_type_counts_;
 };
 
 }
