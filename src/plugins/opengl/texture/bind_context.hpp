@@ -87,6 +87,11 @@ public:
 
 	static context::id const static_id;
 private:
+	void
+	decrement_type_count(
+		texture::type
+	);
+
 	typedef fcppt::weak_ptr<
 		opengl::texture::base const
 	> texture_weak_ptr;
