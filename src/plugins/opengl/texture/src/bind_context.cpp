@@ -82,29 +82,29 @@ sge::opengl::texture::bind_context::bind_for_rendering(
 
 	if(
 		last_type
-		!= 
+		== 
 		texture::optional_type(
 			_texture->type()
 		)
 	)
-	{
-		if(
-			last_type
-		)
-			this->decrement_type_count(
-				*last_type
-			);
+		return;
+	
+	if(
+		last_type
+	)
+		this->decrement_type_count(
+			*last_type
+		);
 
-		if(
-			texture_type_counts_[
-				_texture->type()
-			]++
-			== 0u
-		)
-			opengl::enable(
-				_texture->type().get()
-			);
-	}
+	if(
+		texture_type_counts_[
+			_texture->type()
+		]++
+		== 0u
+	)
+		opengl::enable(
+			_texture->type().get()
+		);
 
 	last_types_[
 		_stage.get()
