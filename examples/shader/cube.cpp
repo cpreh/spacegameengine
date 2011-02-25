@@ -24,11 +24,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/projection/object.hpp>
 #include <sge/camera/projection/update_perspective_from_viewport.hpp>
 #include <sge/config/media_path.hpp>
+#include <sge/extension_set.hpp>
+#include <sge/font/metrics_ptr.hpp>
+#include <sge/font/rect.hpp>
+#include <sge/font/size_type.hpp>
+#include <sge/font/system.hpp>
+#include <sge/font/text/align_h.hpp>
+#include <sge/font/text/align_v.hpp>
+#include <sge/font/text/drawer_3d.hpp>
+#include <sge/font/text/draw.hpp>
+#include <sge/font/text/flags_none.hpp>
+#include <sge/font/text/lit.hpp>
+#include <sge/font/text/part.hpp>
+#include <sge/font/text/string.hpp>
+#include <sge/image2d/file.hpp>
+#include <sge/image2d/multi_loader.hpp>
+#include <sge/image/capabilities_field.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/collector.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/log/global.hpp>
+#include <sge/renderer/active_target.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/first_vertex.hpp>
@@ -36,16 +53,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
-#include <sge/systems/image_loader.hpp>
-#include <sge/image/capabilities_field.hpp>
-#include <sge/extension_set.hpp>
-#include <sge/renderer/texture/planar_ptr.hpp>
-#include <sge/renderer/texture/create_planar_from_view.hpp>
-#include <sge/renderer/texture/address_mode2.hpp>
-#include <sge/renderer/texture/address_mode.hpp>
-#include <sge/renderer/texture/filter/linear.hpp>
-#include <sge/image2d/multi_loader.hpp>
-#include <sge/image2d/file.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scalar.hpp>
@@ -63,23 +70,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/stencil_func.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/var.hpp>
+#include <sge/renderer/target_base.hpp>
+#include <sge/renderer/texture/address_mode2.hpp>
+#include <sge/renderer/texture/address_mode.hpp>
+#include <sge/renderer/texture/create_planar_from_view.hpp>
+#include <sge/renderer/texture/filter/linear.hpp>
+#include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/vertex_buffer_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
-#include <sge/renderer/vf/make_unspecified_tag.hpp>
-#include <sge/renderer/vf/unspecified.hpp>
-#include <sge/renderer/vf/vector.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/iterator.hpp>
+#include <sge/renderer/vf/make_unspecified_tag.hpp>
 #include <sge/renderer/vf/part.hpp>
 #include <sge/renderer/vf/pos.hpp>
 #include <sge/renderer/vf/texpos.hpp>
+#include <sge/renderer/vf/unspecified.hpp>
+#include <sge/renderer/vf/vector.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/view.hpp>
+#include <sge/renderer/viewport.hpp>
 #include <sge/renderer/visual_depth.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/shader/object.hpp>
@@ -90,11 +104,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/variable_type.hpp>
 #include <sge/shader/vf_to_string.hpp>
 #include <sge/systems/cursor_option_field.hpp>
+#include <sge/systems/image_loader.hpp>
 #include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/input_helper.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/parameterless.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/running_to_false.hpp>
 #include <sge/systems/viewport/fill_on_resize.hpp>
@@ -106,22 +122,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/simple_parameters.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
+#include <fcppt/exception.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/log/level.hpp>
+#include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/matrix/basic_impl.hpp>
+#include <fcppt/math/twopi.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/exception.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <boost/mpl/vector/vector10.hpp>
-#include <cstdlib>
 #include <exception>
 #include <iostream>
 #include <ostream>
+#include <cmath>
+#include <cstdlib>
 
 namespace
 {
@@ -681,6 +701,19 @@ fill_vb_with_cube(
 		texcoord_vector(
 			0,0));
 }
+
+void
+toggle_bumpmapping(
+	sge::shader::object &shader,
+	bool &enabled)
+{
+	sge::shader::scoped scoped_shader(
+		shader);
+	enabled = !enabled;
+	shader.update_uniform(
+		"enabled",
+		enabled ? 1 : 0);
+}
 }
 
 int main()
@@ -703,6 +736,7 @@ try
 					sge::renderer::vsync::on,
 					sge::renderer::no_multi_sampling),
 				sge::systems::viewport::fill_on_resize()))
+			(sge::systems::parameterless::font)
 			(sge::systems::image_loader(
 				sge::image::capabilities_field::null(),
 				fcppt::assign::make_container<sge::extension_set>(
@@ -713,15 +747,25 @@ try
 				sge::systems::cursor_option_field(
 					sge::systems::cursor_option::hide) | sge::systems::cursor_option::confine)));
 
-	sge::renderer::texture::planar_ptr const normal_texture =
-		sge::renderer::texture::create_planar_from_view(
-			sys.renderer(),
-			sys.image_loader().load(
-				sge::config::media_path()/FCPPT_TEXT("normal_map.png"))->view(),
-			sge::renderer::texture::filter::linear,
-			sge::renderer::texture::address_mode2(
-				sge::renderer::texture::address_mode::clamp),
-			sge::renderer::resource_flags::none);
+	sge::renderer::texture::planar_ptr const 
+		normal_texture =
+			sge::renderer::texture::create_planar_from_view(
+				sys.renderer(),
+				sys.image_loader().load(
+					sge::config::media_path()/FCPPT_TEXT("normal_map.png"))->view(),
+				sge::renderer::texture::filter::linear,
+				sge::renderer::texture::address_mode2(
+					sge::renderer::texture::address_mode::clamp),
+				sge::renderer::resource_flags::none),
+		color_texture = 
+			sge::renderer::texture::create_planar_from_view(
+				sys.renderer(),
+				sys.image_loader().load(
+					sge::config::media_path()/FCPPT_TEXT("color_map.png"))->view(),
+				sge::renderer::texture::filter::linear,
+				sge::renderer::texture::address_mode2(
+					sge::renderer::texture::address_mode::clamp),
+				sge::renderer::resource_flags::none);
 
 	bool running = 
 		true;
@@ -773,23 +817,41 @@ try
 			(sge::shader::variable(
 				"mvp",
 				sge::shader::variable_type::uniform,
-				sge::renderer::matrix4()))
-			/*
+				sge::renderer::matrix4::identity()))
 			(sge::shader::variable(
-				"mv",
+				"radius",
+				sge::shader::variable_type::const_,
+				static_cast<sge::renderer::scalar>(
+					4)))
+			(sge::shader::variable(
+				"enabled",
 				sge::shader::variable_type::uniform,
-				sge::renderer::matrix4()))*/
+				1))
 			(sge::shader::variable(
 				"light_position",
-				sge::shader::variable_type::const_,
-				sge::renderer::vector3(
-					3,
-					4,
-					5))),
+				sge::shader::variable_type::uniform,
+				sge::renderer::vector3::null())),
 		fcppt::assign::make_container<sge::shader::sampler_sequence>
 			(sge::shader::sampler(
 				"normal_texture",
-				normal_texture)));
+				normal_texture))
+			(sge::shader::sampler(
+				"color_texture",
+				color_texture)));
+
+	bool enabled = 
+		true;
+
+	fcppt::signal::scoped_connection const cb_enabled(
+		sys.keyboard_collector()->key_callback(
+			sge::input::keyboard::action(
+				sge::input::keyboard::key_code::e,
+				std::tr1::bind(
+					&toggle_bumpmapping,
+					std::tr1::ref(
+						shader),
+					std::tr1::ref(
+						enabled)))));
 
 	sge::renderer::vertex_declaration_ptr const vertex_declaration(
 		sys.renderer()->create_vertex_declaration(
@@ -820,19 +882,25 @@ try
 			(sge::renderer::state::stencil_func::off)
 			(sge::renderer::state::color::clear_color = sge::image::colors::black()));
 
-	sge::time::timer frame_timer(
-		sge::time::second(1));
+	sge::time::timer 
+		frame_timer(
+			sge::time::second(
+				1)),
+		revolve_timer(
+			sge::time::second(
+				15));
 
-	sge::shader::scoped scoped_shader(
-		shader);
-
-	sge::renderer::scoped_vertex_declaration const vb_declaration_context(
+	sge::font::text::drawer_3d font_drawer(
 		sys.renderer(),
-		vertex_declaration);
+		sge::image::colors::red());
 
-	sge::renderer::scoped_vertex_buffer const vb_context(
-		sys.renderer(),
-		vb);
+	sge::font::metrics_ptr const font_metrics(
+		sys.font_system()->create_font(
+			sge::config::media_path()
+				/ FCPPT_TEXT("fonts")
+				/ FCPPT_TEXT("default.ttf"),
+			static_cast<sge::font::size_type>(
+				30)));
 
 	while(running)
 	{
@@ -844,21 +912,57 @@ try
 		sge::renderer::scoped_block const block_(
 			sys.renderer());
 
-		shader.update_uniform(
-			"mvp",
-			camera.mvp());
+		{
+			sge::shader::scoped scoped_shader(
+				shader);
 
-		/*
-		shader.update_uniform(
-			"mv",
-			camera.world());
-		*/
+			sge::renderer::scoped_vertex_declaration const vb_declaration_context(
+				sys.renderer(),
+				vertex_declaration);
 
-		sys.renderer()->render(
-			sge::renderer::first_vertex(0),
-			sge::renderer::vertex_count(
-				vb->size()),
-			sge::renderer::nonindexed_primitive_type::triangle);
+			sge::renderer::scoped_vertex_buffer const vb_context(
+				sys.renderer(),
+				vb);
+
+			shader.update_uniform(
+				"mvp",
+				camera.mvp());
+
+			sge::renderer::scalar const elapsed = 
+				static_cast<sge::renderer::scalar>(
+					revolve_timer.elapsed_frames());
+			if (revolve_timer.expired())
+				revolve_timer.reset();
+
+			shader.update_uniform(
+				"light_position",
+				sge::renderer::vector3(
+					std::sin(
+						fcppt::math::twopi<sge::renderer::scalar>() * 
+						elapsed),
+					0,
+					std::cos(
+						fcppt::math::twopi<sge::renderer::scalar>() * 
+						elapsed)));
+
+			sys.renderer()->render(
+				sge::renderer::first_vertex(0),
+				sge::renderer::vertex_count(
+					vb->size()),
+				sge::renderer::nonindexed_primitive_type::triangle);
+		}
+
+		sge::font::text::draw(
+			font_metrics,
+			font_drawer,
+			SGE_FONT_TEXT_LIT("Press 'e' to toggle bump mapping"),
+			sge::font::rect(
+				sge::font::rect::vector::null(),
+				fcppt::math::dim::structure_cast<sge::font::rect::dim>(
+					sge::renderer::active_target(sys.renderer())->viewport().get().size())),
+			sge::font::text::align_h::left,
+			sge::font::text::align_v::top,
+			sge::font::text::flags::none);
 	}
 }
 catch(fcppt::exception const &e)

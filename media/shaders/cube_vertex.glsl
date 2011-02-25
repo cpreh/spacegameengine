@@ -29,12 +29,24 @@ main()
 			gl_MultiTexCoord0);
 	varying_light_position = 
 		vec3(
-			dot(light_position,vertex_tangent),
-			dot(light_position,vertex_binormal),
-			dot(light_position,vertex_normal));
+			dot(
+				radius * light_position,
+				vertex_tangent),
+			dot(
+				radius * light_position,
+				vertex_binormal),
+			dot(
+				radius * light_position,
+				vertex_normal));
 	varying_vertex_position = 
 		vec3(
-			dot(vertex_position,vertex_tangent),
-			dot(vertex_position,vertex_binormal),
-			dot(vertex_position,vertex_normal));
+			dot(
+				vertex_position,
+				vertex_tangent),
+			dot(
+				vertex_position,
+				vertex_binormal),
+			dot(
+				vertex_position,
+				vertex_normal));
 }
