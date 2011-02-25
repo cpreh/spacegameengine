@@ -35,6 +35,22 @@ namespace sge
 {
 namespace shader
 {
+
+template<
+	typename Result,
+	typename Part
+>
+struct do_copy
+:
+boost::mpl::copy<
+	typename Part::elements,
+	boost::mpl::back_inserter<
+		Result
+	>
+>
+{
+};
+
 template<typename Format>
 renderer::glsl::string const
 vf_to_string()
@@ -42,11 +58,9 @@ vf_to_string()
 	typedef typename boost::mpl::fold<
 		typename Format::parts,
 		boost::mpl::vector0<>,
-		boost::mpl::copy<
-			boost::mpl::_2,
-			boost::mpl::back_inserter<
-				boost::mpl::_1
-			>
+		do_copy<
+			boost::mpl::_1,
+			boost::mpl::_2
 		>
 	>::type all_elements;
 			
