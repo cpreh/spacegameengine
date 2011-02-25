@@ -18,18 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VERTEX_BUFFER_HPP_INCLUDED
-#define SGE_OPENGL_VERTEX_BUFFER_HPP_INCLUDED
+#ifndef SGE_OPENGL_VERTEX_DECLARATION_HPP_INCLUDED
+#define SGE_OPENGL_VERTEX_DECLARATION_HPP_INCLUDED
 
-#include "vertex_buffer_fwd.hpp"
-#include "buffer.hpp"
 #include "vertex_declaration_fwd.hpp"
 #include "context/object_fwd.hpp"
 #include "vf/part_fwd.hpp"
-#include <sge/renderer/vf/dynamic/part.hpp>
+#include <sge/renderer/vertex_declaration.hpp>
+#include <sge/renderer/vf/dynamic/format.hpp>
+#include <sge/renderer/vf/dynamic/part_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
-#include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -37,62 +36,38 @@ namespace sge
 namespace opengl
 {
 
-class vertex_buffer
+class vertex_declaration
 :
-	public renderer::vertex_buffer
+	public sge::renderer::vertex_declaration
 {
 	FCPPT_NONCOPYABLE(
-		vertex_buffer
+		vertex_declaration
 	);
 public:
-	vertex_buffer(
-		context::object &,
-		renderer::vf::dynamic::part_index,
-		renderer::vf::dynamic::part const &,
-		size_type,
-		renderer::resource_flags_field const &
+	vertex_declaration(
+		opengl::context::object &,
+		renderer::vf::dynamic::format const &
 	);
 
-	void
-	use(
-		opengl::vf::part const &
+	~vertex_declaration();
+
+	sge::renderer::vf::dynamic::part const &
+	format_part(
+		sge::renderer::vf::dynamic::part_index
 	) const;
 
-	void
-	unuse(
-		opengl::vf::part const &
+	opengl::vf::part const &
+	gl_format_part(
+		sge::renderer::vf::dynamic::part_index
 	) const;
 private:
-	view_type const
-	lock(
-		renderer::lock_mode::type,
-		size_type offset,
-		size_type range
-	);
+	sge::renderer::vf::dynamic::format const format_;
 
-	const_view_type const
-	lock(
-		size_type offset,
-		size_type range
-	) const;
+	typedef boost::ptr_vector<
+		opengl::vf::part
+	> part_vector;
 
-	void
-	unlock() const;
-
-	size_type
-	size() const;
-
-	renderer::resource_flags_field const
-	flags() const;
-
-	renderer::vf::dynamic::part const
-	format_part() const;
-
-	renderer::vf::dynamic::part_index const part_index_;
-
-	renderer::vf::dynamic::part const format_part_;
-
-	mutable opengl::buffer buffer_;
+	part_vector parts_;
 };
 
 }

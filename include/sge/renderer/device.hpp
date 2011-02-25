@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/clip_plane_index.hpp>
 #include <sge/renderer/const_index_buffer_ptr.hpp>
 #include <sge/renderer/const_vertex_buffer_ptr.hpp>
+#include <sge/renderer/const_vertex_declaration_ptr.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
 #include <sge/renderer/depth_stencil_surface_ptr.hpp>
 #include <sge/renderer/device_fwd.hpp>
@@ -113,20 +114,14 @@ public:
 	) = 0;
 
 	virtual void
-	set_vertex_buffer(
-		vf::dynamic::part_index,
-		renderer::const_vertex_buffer_ptr
-	) = 0;
-
-	virtual void
-	unset_vertex_buffer(
-		vf::dynamic::part_index,
+	vertex_buffer(
+		renderer::vf::dynamic::part_index,
 		renderer::const_vertex_buffer_ptr
 	) = 0;
 
 	virtual void
 	vertex_declaration(
-		renderer::vertex_declaration_ptr
+		renderer::const_vertex_declaration_ptr
 	) = 0;
 
 	virtual void

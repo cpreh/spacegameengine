@@ -18,42 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SCOPED_VERTEX_BUFFER_HPP_INCLUDED
-#define SGE_RENDERER_SCOPED_VERTEX_BUFFER_HPP_INCLUDED
+#include "../set_vertex_declaration.hpp"
+#include "../vertex_context.hpp"
+#include "../vertex_declaration.hpp"
+#include "../context/use.hpp"
+#include <fcppt/dynamic_pointer_cast.hpp>
 
-#include <sge/renderer/const_vertex_buffer_ptr.hpp>
-#include <sge/renderer/device_ptr.hpp>
-#include <sge/renderer/vf/dynamic/part_index.hpp>
-#include <sge/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
-
-namespace sge
+void
+sge::opengl::set_vertex_declaration(
+	opengl::context::object &_context,
+	renderer::const_vertex_declaration_ptr const _declaration
+)
 {
-namespace renderer
-{
-
-class scoped_vertex_buffer
-{
-	FCPPT_NONCOPYABLE(
-		scoped_vertex_buffer
+	opengl::context::use<
+		opengl::vertex_context
+	>(
+		_context
+	).vertex_declaration(
+		fcppt::dynamic_pointer_cast<
+			opengl::vertex_declaration const
+		>(
+			_declaration
+		)
 	);
-public:
-	SGE_SYMBOL
-	scoped_vertex_buffer(
-		renderer::device_ptr,
-		renderer::vf::dynamic::part_index,
-		renderer::const_vertex_buffer_ptr
-	);
-
-	SGE_SYMBOL
-	~scoped_vertex_buffer();
-private:
-	renderer::device_ptr const device_;
-
-	renderer::vf::dynamic::part_index const part_index_;
-};
-
 }
-}
-
-#endif

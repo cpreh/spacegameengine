@@ -10,6 +10,8 @@ SET(
 	src/plugins/opengl/color_format.hpp
 	src/plugins/opengl/color_format_type.hpp
 	src/plugins/opengl/common.hpp
+	src/plugins/opengl/const_vertex_buffer_ptr.hpp
+	src/plugins/opengl/const_vertex_declaration_ptr.hpp
 	src/plugins/opengl/context/base.hpp
 	src/plugins/opengl/context/base_fwd.hpp
 	src/plugins/opengl/context/base_unique_ptr.hpp
@@ -331,6 +333,8 @@ SET(
 	src/plugins/opengl/set_matrix.hpp
 	src/plugins/opengl/set_matrix_and_mode.hpp
 	src/plugins/opengl/set_scissor_area.hpp
+	src/plugins/opengl/set_vertex_buffer.hpp
+	src/plugins/opengl/set_vertex_declaration.hpp
 	src/plugins/opengl/software_vbo.hpp
 	src/plugins/opengl/split_states.hpp
 	src/plugins/opengl/split_states_fwd.hpp
@@ -382,6 +386,8 @@ SET(
 	src/plugins/opengl/src/set_matrix.cpp
 	src/plugins/opengl/src/set_matrix_and_mode.cpp
 	src/plugins/opengl/src/set_scissor_area.cpp
+	src/plugins/opengl/src/set_vertex_buffer.cpp
+	src/plugins/opengl/src/set_vertex_declaration.cpp
 	src/plugins/opengl/src/software_vbo.cpp
 	src/plugins/opengl/src/split_states.cpp
 	src/plugins/opengl/src/state_visitor.cpp
@@ -390,6 +396,8 @@ SET(
 	src/plugins/opengl/src/vbo_base.cpp
 	src/plugins/opengl/src/vbo_context.cpp
 	src/plugins/opengl/src/vertex_buffer.cpp
+	src/plugins/opengl/src/vertex_context.cpp
+	src/plugins/opengl/src/vertex_delcaration.cpp
 	src/plugins/opengl/src/viewport.cpp
 	src/plugins/opengl/state_visitor.hpp
 	src/plugins/opengl/system.hpp
@@ -535,6 +543,10 @@ SET(
 	src/plugins/opengl/vector3f.hpp
 	src/plugins/opengl/vector4f.hpp
 	src/plugins/opengl/vertex_buffer.hpp
+	src/plugins/opengl/vertex_buffer_fwd.hpp
+	src/plugins/opengl/vertex_context.hpp
+	src/plugins/opengl/vertex_declaration.hpp
+	src/plugins/opengl/vertex_declaration_fwd.hpp
 	src/plugins/opengl/vf/actor.hpp
 	src/plugins/opengl/vf/actor_fwd.hpp
 	src/plugins/opengl/vf/actor_parameters.hpp
@@ -553,9 +565,10 @@ SET(
 	src/plugins/opengl/vf/convert_element_type.hpp
 	src/plugins/opengl/vf/disable_vertex_attrib_array.hpp
 	src/plugins/opengl/vf/enable_vertex_attrib_array.hpp
-	src/plugins/opengl/vf/format.hpp
 	src/plugins/opengl/vf/fp_actor.hpp
 	src/plugins/opengl/vf/normal_actor.hpp
+	src/plugins/opengl/vf/part.hpp
+	src/plugins/opengl/vf/part_fwd.hpp
 	src/plugins/opengl/vf/pointer.hpp
 	src/plugins/opengl/vf/pointer_actor.hpp
 	src/plugins/opengl/vf/pos_actor.hpp
@@ -571,9 +584,9 @@ SET(
 	src/plugins/opengl/vf/src/convert_element_type.cpp
 	src/plugins/opengl/vf/src/disable_vertex_attrib_array.cpp
 	src/plugins/opengl/vf/src/enable_vertex_attrib_array.cpp
-	src/plugins/opengl/vf/src/format.cpp
 	src/plugins/opengl/vf/src/fp_actor.cpp
 	src/plugins/opengl/vf/src/normal_actor.cpp
+	src/plugins/opengl/vf/src/part.cpp
 	src/plugins/opengl/vf/src/pointer_actor.cpp
 	src/plugins/opengl/vf/src/pos_actor.cpp
 	src/plugins/opengl/vf/src/texpos_actor.cpp

@@ -38,7 +38,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../set_material.hpp"
 #include "../set_matrix_and_mode.hpp"
 #include "../set_scissor_area.hpp"
+#include "../set_vertex_buffer.hpp"
+#include "../set_vertex_declaration.hpp"
 #include "../vertex_buffer.hpp"
+#include "../vertex_declaration.hpp"
 #include "../context/use.hpp"
 #include "../convert/clear_bit.hpp"
 #include "../convert/clip_plane_index.hpp"
@@ -73,6 +76,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/basic_impl.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
@@ -185,37 +189,31 @@ sge::opengl::device::render(
 }
 
 void
-sge::opengl::device::set_vertex_buffer(
-	vf::dynamic::part_index const _part,
-	renderer::const_vertex_buffer_ptr const _vb
+sge::opengl::device::vertex_buffer(
+	renderer::vf::dynamic::part_index const _index,
+	renderer::const_vertex_buffer_ptr const _vertex_buffer
 )
 {
-	dynamic_cast<
-		opengl::vertex_buffer const &
-	>(
-		*_vb
-	).set_format();
-}
-
-void
-sge::opengl::device::unset_vertex_buffer(
-	vf::dynamic::part_index const _part,
-	renderer::const_vertex_buffer_ptr const _vb
-)
-{
-	dynamic_cast<
-		opengl::vertex_buffer const &
-	>(
-		*_vb
-	).unset_format();
+	opengl::set_vertex_buffer(
+		std::tr1::ref(
+			context_
+		),
+		_index,
+		_vertex_buffer
+	);
 }
 
 void
 sge::opengl::device::vertex_declaration(
-	renderer::vertex_declaration_ptr const _declaration
+	renderer::const_vertex_declaration_ptr const _vertex_declaration
 )
 {
-	
+	opengl::set_vertex_declaration(
+		std::tr1::ref(
+			context_
+		),
+		_vertex_declaration
+	);
 }
 
 void
@@ -625,7 +623,14 @@ sge::opengl::device::create_vertex_buffer(
 				std::tr1::ref(
 					context_
 				),
-				_format,
+				_part,
+				fcppt::dynamic_pointer_cast<
+					opengl::vertex_declaration
+				>(
+					_declaration
+				)->format_part(
+					_part
+				),
 				_size,
 				_flags
 			)
@@ -680,7 +685,9 @@ sge::opengl::device::transform(
 sge::renderer::caps const
 sge::opengl::device::caps() const
 {
-	if(!caps_)
+	if(
+		!caps_
+	)
 	{
 		caps_.take(
 			opengl::create_caps(

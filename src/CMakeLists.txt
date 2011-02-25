@@ -468,6 +468,7 @@ SET(
 	include/sge/renderer/const_scoped_vertex_lock.hpp
 	include/sge/renderer/const_target_ptr.hpp
 	include/sge/renderer/const_vertex_buffer_ptr.hpp
+	include/sge/renderer/const_vertex_declaration_ptr.hpp
 	include/sge/renderer/create_device_with_window.hpp
 	include/sge/renderer/create_index_buffer_from_view.hpp
 	include/sge/renderer/create_vertex_buffer_from_view.hpp
@@ -602,6 +603,8 @@ SET(
 	include/sge/renderer/multi_sample_type.hpp
 	include/sge/renderer/no_multi_sampling.hpp
 	include/sge/renderer/no_texture.hpp
+	include/sge/renderer/no_vertex_buffer.hpp
+	include/sge/renderer/no_vertex_declaration.hpp
 	include/sge/renderer/nonindexed_primitive_count.hpp
 	include/sge/renderer/nonindexed_primitive_type.hpp
 	include/sge/renderer/npos.hpp
@@ -633,6 +636,7 @@ SET(
 	include/sge/renderer/scoped_target.hpp
 	include/sge/renderer/scoped_transform.hpp
 	include/sge/renderer/scoped_vertex_buffer.hpp
+	include/sge/renderer/scoped_vertex_declaration.hpp
 	include/sge/renderer/scoped_vertex_lock.hpp
 	include/sge/renderer/screen_mode.hpp
 	include/sge/renderer/screen_size.hpp
@@ -1080,6 +1084,8 @@ SET(
 	src/renderer/material.cpp
 	src/renderer/no_multi_sampling.cpp
 	src/renderer/no_texture.cpp
+	src/renderer/no_vertex_buffer.cpp
+	src/renderer/no_vertex_declaration.cpp
 	src/renderer/nonindexed_primitive_count.cpp
 	src/renderer/npos.cpp
 	src/renderer/onscreen_target.cpp
@@ -1092,6 +1098,7 @@ SET(
 	src/renderer/scoped_target.cpp
 	src/renderer/scoped_transform.cpp
 	src/renderer/scoped_vertex_buffer.cpp
+	src/renderer/scoped_vertex_declaration.cpp
 	src/renderer/scoped_vertex_lock.cpp
 	src/renderer/screenshot.cpp
 	src/renderer/state/any_sort.cpp
@@ -1141,6 +1148,7 @@ SET(
 	src/renderer/texture/volume_parameters.cpp
 	src/renderer/unsupported.cpp
 	src/renderer/vertex_buffer.cpp
+	src/renderer/vertex_declaration.cpp
 	src/renderer/vf/dynamic/basic_view_impl.hpp
 	src/renderer/vf/dynamic/color.cpp
 	src/renderer/vf/dynamic/const_view.cpp

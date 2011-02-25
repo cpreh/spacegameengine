@@ -18,41 +18,60 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SCOPED_VERTEX_BUFFER_HPP_INCLUDED
-#define SGE_RENDERER_SCOPED_VERTEX_BUFFER_HPP_INCLUDED
+#ifndef SGE_OPENGL_VF_PART_HPP_INCLUDED
+#define SGE_OPENGL_VF_PART_HPP_INCLUDED
 
-#include <sge/renderer/const_vertex_buffer_ptr.hpp>
-#include <sge/renderer/device_ptr.hpp>
-#include <sge/renderer/vf/dynamic/part_index.hpp>
-#include <sge/symbol.hpp>
+#include "part_fwd.hpp"
+#include "actor_fwd.hpp"
+#include "pointer.hpp"
+#include "../context/object_fwd.hpp"
+#include <sge/renderer/vf/dynamic/part.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
 
 namespace sge
 {
-namespace renderer
+namespace opengl
+{
+namespace vf
 {
 
-class scoped_vertex_buffer
+class part
 {
 	FCPPT_NONCOPYABLE(
-		scoped_vertex_buffer
+		part	
 	);
 public:
-	SGE_SYMBOL
-	scoped_vertex_buffer(
-		renderer::device_ptr,
-		renderer::vf::dynamic::part_index,
-		renderer::const_vertex_buffer_ptr
+	explicit part(
+		sge::opengl::context::object &,
+		renderer::vf::dynamic::part const &
 	);
 
-	SGE_SYMBOL
-	~scoped_vertex_buffer();
-private:
-	renderer::device_ptr const device_;
+	~part();
 
-	renderer::vf::dynamic::part_index const part_index_;
+	renderer::vf::dynamic::part const &
+	get() const;
+
+	void
+	use_me(
+		vf::pointer
+	) const;
+
+	void
+	unuse_me() const;
+private:
+	opengl::context::object &context_;
+
+	renderer::vf::dynamic::part const part_;
+
+	typedef boost::ptr_vector<
+		vf::actor
+	> actor_array;
+
+	mutable actor_array actors_;
 };
 
+}
 }
 }
 

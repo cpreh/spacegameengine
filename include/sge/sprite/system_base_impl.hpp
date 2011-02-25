@@ -99,6 +99,18 @@ sge::sprite::system_base<Choices>::vertex_buffer() const
 template<
 	typename Choices
 >
+sge::renderer::vertex_declaration_ptr const
+sge::sprite::system_base<Choices>::vertex_declaration() const
+{
+	return
+		buffers_. template get<
+			detail::roles::vertex_buffer
+		>().first;
+}
+
+template<
+	typename Choices
+>
 sge::renderer::index_buffer_ptr const
 sge::sprite::system_base<Choices>::index_buffer() const
 {

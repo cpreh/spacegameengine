@@ -18,42 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SCOPED_VERTEX_BUFFER_HPP_INCLUDED
-#define SGE_RENDERER_SCOPED_VERTEX_BUFFER_HPP_INCLUDED
+#include <sge/renderer/scoped_vertex_declaration.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/no_vertex_declaration.hpp>
 
-#include <sge/renderer/const_vertex_buffer_ptr.hpp>
-#include <sge/renderer/device_ptr.hpp>
-#include <sge/renderer/vf/dynamic/part_index.hpp>
-#include <sge/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
-
-namespace sge
+sge::renderer::scoped_vertex_declaration::scoped_vertex_declaration(
+	renderer::device_ptr const _device,
+	renderer::const_vertex_declaration_ptr const _declaration
+)
+:
+	device_(_device)
 {
-namespace renderer
-{
-
-class scoped_vertex_buffer
-{
-	FCPPT_NONCOPYABLE(
-		scoped_vertex_buffer
+	device_->vertex_declaration(
+		_declaration
 	);
-public:
-	SGE_SYMBOL
-	scoped_vertex_buffer(
-		renderer::device_ptr,
-		renderer::vf::dynamic::part_index,
-		renderer::const_vertex_buffer_ptr
-	);
-
-	SGE_SYMBOL
-	~scoped_vertex_buffer();
-private:
-	renderer::device_ptr const device_;
-
-	renderer::vf::dynamic::part_index const part_index_;
-};
-
-}
 }
 
-#endif
+sge::renderer::scoped_vertex_declaration::~scoped_vertex_declaration()
+{
+	device_->vertex_declaration(
+		renderer::no_vertex_declaration()
+	);
+}

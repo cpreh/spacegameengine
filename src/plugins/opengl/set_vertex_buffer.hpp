@@ -18,40 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SCOPED_VERTEX_BUFFER_HPP_INCLUDED
-#define SGE_RENDERER_SCOPED_VERTEX_BUFFER_HPP_INCLUDED
+#ifndef SGE_OPENGL_SET_VERTEX_BUFFER_HPP_INCLUDED
+#define SGE_OPENGL_SET_VERTEX_BUFFER_HPP_INCLUDED
 
-#include <sge/renderer/const_vertex_buffer_ptr.hpp>
-#include <sge/renderer/device_ptr.hpp>
+#include "context/object_fwd.hpp"
 #include <sge/renderer/vf/dynamic/part_index.hpp>
-#include <sge/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/renderer/const_vertex_buffer_ptr.hpp>
 
 namespace sge
 {
-namespace renderer
+namespace opengl
 {
 
-class scoped_vertex_buffer
-{
-	FCPPT_NONCOPYABLE(
-		scoped_vertex_buffer
-	);
-public:
-	SGE_SYMBOL
-	scoped_vertex_buffer(
-		renderer::device_ptr,
-		renderer::vf::dynamic::part_index,
-		renderer::const_vertex_buffer_ptr
-	);
-
-	SGE_SYMBOL
-	~scoped_vertex_buffer();
-private:
-	renderer::device_ptr const device_;
-
-	renderer::vf::dynamic::part_index const part_index_;
-};
+void
+set_vertex_buffer(
+	opengl::context::object &,
+	renderer::vf::dynamic::part_index,
+	renderer::const_vertex_buffer_ptr
+);
 
 }
 }

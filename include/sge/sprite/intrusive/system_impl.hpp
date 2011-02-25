@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/object_impl.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
+#include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <boost/foreach.hpp>
@@ -51,13 +52,15 @@ sge::sprite::intrusive::system<Choices>::system(
 	adder_(
 		sprite_levels_
 	)
-{}
+{
+}
 
 template<
 	typename Choices
 >
 sge::sprite::intrusive::system<Choices>::~system()
-{}
+{
+}
 
 template<
 	typename Choices
@@ -191,9 +194,14 @@ sge::sprite::intrusive::system<Choices>::render_list(
 		)
 	);
 
+	renderer::scoped_vertex_declaration const vb_declaration(
+		base::renderer(),
+		base::vertex_declaration()
+	);
+
 	renderer::scoped_vertex_buffer const vb_context(
 		base::renderer(),
-		detail::vf_part_index(),
+		sprite::detail::vf_part_index(),
 		base::vertex_buffer()
 	);
 

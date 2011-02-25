@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/index_buffer.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
+#include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <iterator>
@@ -47,7 +48,15 @@ sge::sprite::external_system<Choices>::external_system(
  	base(
 		_rend
 	)
-{}
+{
+}
+
+template<
+	typename Choices
+>
+sge::sprite::external_system<Choices>::~external_system()
+{
+}
 
 template<
 	typename Choices
@@ -132,6 +141,11 @@ sge::sprite::external_system<Choices>::render_advanced(
 		detail::optional_size(
 			sprite_count
 		)
+	);
+
+	renderer::scoped_vertex_declaration const vb_declaration(
+		base::renderer(),
+		base::vertex_declaration()
 	);
 
 	renderer::scoped_vertex_buffer const vb_context(

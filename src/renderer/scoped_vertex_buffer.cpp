@@ -20,27 +20,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/no_vertex_buffer.hpp>
 
 sge::renderer::scoped_vertex_buffer::scoped_vertex_buffer(
 	renderer::device_ptr const _device,
 	renderer::vf::dynamic::part_index const _part_index,
-	renderer::const_vertex_buffer_ptr const _vb
+	renderer::const_vertex_buffer_ptr const _vertex_buffer
 )
 :
 	device_(_device),
-	part_index_(_part_index),
-	vb_(_vb)
+	part_index_(_part_index)
 {
-	device_->set_vertex_buffer(
+	device_->vertex_buffer(
 		part_index_,
-		vb_
+		_vertex_buffer
 	);
 }
 
 sge::renderer::scoped_vertex_buffer::~scoped_vertex_buffer()
 {
-	device_->unset_vertex_buffer(
+	device_->vertex_buffer(
 		part_index_,
-		vb_
+		renderer::no_vertex_buffer()
 	);
 }

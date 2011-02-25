@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../format.hpp"
+#include "../part.hpp"
 #include "../to_actor.hpp"
 #include "../actor.hpp"
 #include "../client_state_combiner.hpp"
@@ -27,20 +27,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/linear_set_impl.hpp>
 #include <boost/foreach.hpp>
 
-sge::opengl::vf::format::format(
+sge::opengl::vf::part::part(
 	sge::opengl::context::object &_context,
-	renderer::vf::dynamic::format const &_fmt
+	renderer::vf::dynamic::part const &_part
 )
 :
 	context_(
 		_context
 	),
-	fmt_(
-		_fmt
+	part_(
+		_part
 	)
 {
 	renderer::vf::dynamic::ordered_element_list const &elems(
-		fmt_.elements()
+		part_.elements()
 	);
 
 	BOOST_FOREACH(
@@ -51,24 +51,24 @@ sge::opengl::vf::format::format(
 			actors_,
 			vf::to_actor(
 				elem,
-				fmt_.stride(),
+				part_.stride(),
 				_context
 			)
 		);
 }
 
-sge::opengl::vf::format::~format()
+sge::opengl::vf::part::~part()
 {
 }
 
-sge::renderer::vf::dynamic::format const &
-sge::opengl::vf::format::get() const
+sge::renderer::vf::dynamic::part const &
+sge::opengl::vf::part::get() const
 {
-	return fmt_;
+	return part_;
 }
 
 void
-sge::opengl::vf::format::use_me(
+sge::opengl::vf::part::use_me(
 	vf::pointer const _src
 ) const
 {
@@ -92,7 +92,7 @@ sge::opengl::vf::format::use_me(
 }
 
 void
-sge::opengl::vf::format::unuse_me() const
+sge::opengl::vf::part::unuse_me() const
 {
 	client_state_combiner states_(
 		context_

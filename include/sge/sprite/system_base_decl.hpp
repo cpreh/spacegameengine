@@ -25,6 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/buffers.hpp>
 #include <sge/renderer/vf/dynamic/format.hpp>
 #include <sge/renderer/device_ptr.hpp>
+#include <sge/renderer/index_buffer_ptr.hpp>
+#include <sge/renderer/vertex_buffer_ptr.hpp>
+#include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -58,6 +61,9 @@ protected:
 
 	sge::renderer::vertex_buffer_ptr const
 	vertex_buffer() const;
+
+	sge::renderer::vertex_declaration_ptr const
+	vertex_declaration() const;
 
 	sge::renderer::index_buffer_ptr const
 	index_buffer() const;

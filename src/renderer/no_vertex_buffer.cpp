@@ -18,60 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VF_FORMAT_HPP_INCLUDED
-#define SGE_OPENGL_VF_FORMAT_HPP_INCLUDED
+#include <sge/renderer/no_vertex_buffer.hpp>
 
-#include "actor_fwd.hpp"
-#include "pointer.hpp"
-#include "../context/object_fwd.hpp"
-#include <sge/renderer/vf/dynamic/format.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
-
-namespace sge
+sge::renderer::const_vertex_buffer_ptr const
+sge::renderer::no_vertex_buffer()
 {
-namespace opengl
-{
-namespace vf
-{
-
-class format
-{
-	FCPPT_NONCOPYABLE(
-		format
-	);
-public:
-	explicit format(
-		sge::opengl::context::object &,
-		renderer::vf::dynamic::format const &
-	);
-
-	~format();
-
-	renderer::vf::dynamic::format const &
-	get() const;
-
-	void
-	use_me(
-		vf::pointer
-	) const;
-
-	void
-	unuse_me() const;
-private:
-	opengl::context::object &context_;
-
-	renderer::vf::dynamic::format const fmt_;
-
-	typedef boost::ptr_vector<
-		vf::actor
-	> actor_array;
-
-	mutable actor_array actors_;
-};
-
+	return renderer::const_vertex_buffer_ptr();
 }
-}
-}
-
-#endif

@@ -84,20 +84,14 @@ public:
 	);
 
 	void
-	set_vertex_buffer(
-		vf::dynamic::part_index,
-		renderer::const_vertex_buffer_ptr
-	);
-
-	void
-	unset_vertex_buffer(
-		vf::dynamic::part_index,
+	vertex_buffer(
+		renderer::vf::dynamic::part_index,
 		renderer::const_vertex_buffer_ptr
 	);
 
 	void
 	vertex_declaration(
-		renderer::vertex_declaration_ptr
+		renderer::const_vertex_declaration_ptr
 	);
 
 	void

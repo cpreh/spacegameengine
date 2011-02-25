@@ -19,10 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../vertex_buffer.hpp"
-#include "../context/use.hpp"
 #include "../convert_vertices.hpp"
 #include "../vbo_context.hpp"
 #include "../convert_lock_method.hpp"
+#include "../context/use.hpp"
+#include "../vf/part.hpp"
 #include <sge/renderer/vf/dynamic/view.hpp>
 #include <sge/renderer/vf/dynamic/const_view.hpp>
 #include <fcppt/container/bitfield/basic_impl.hpp>
@@ -31,16 +32,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::vertex_buffer::vertex_buffer(
 	context::object &_context,
-	renderer::vf::dynamic::format const &_format,
+	renderer::vf::dynamic::part_index const _part_index,
+	renderer::vf::dynamic::part const &_format_part,
 	size_type const _size,
 	renderer::resource_flags_field const &_flags
 )
 :
-	format_(
-		_context,
-		_format
-	),
-	buf(
+	part_index_(_part_index),
+	format_part_(_format_part),
+	buffer_(
 		context::use<
 			vbo_context
 		>(
@@ -52,28 +52,33 @@ sge::opengl::vertex_buffer::vertex_buffer(
 			_context
 		).vertex_buffer_type(),
 		_size,
-		_format.stride(),
+		_format_part.stride(),
 		_flags,
 		0
 	)
-{}
+{
+}
 
 void
-sge::opengl::vertex_buffer::set_format() const
+sge::opengl::vertex_buffer::use(
+	opengl::vf::part const &_format_part
+) const
 {
-	buf.bind();
+	buffer_.bind();
 
-	format_.use_me(
-		buf.buffer_offset(
+	_format_part.use_me(
+		buffer_.buffer_offset(
 			0
 		)
 	);
 }
 
 void
-sge::opengl::vertex_buffer::unset_format() const
+sge::opengl::vertex_buffer::unuse(
+	opengl::vf::part const &_format_part
+) const
 {
-	format_.unuse_me();
+	_format_part.unuse_me();
 }
 
 sge::opengl::vertex_buffer::view_type const
@@ -83,7 +88,7 @@ sge::opengl::vertex_buffer::lock(
 	size_type const _range
 )
 {
-	buf.lock(
+	buffer_.lock(
 		opengl::convert_lock_method(
 			_flags
 		),
@@ -93,9 +98,10 @@ sge::opengl::vertex_buffer::lock(
 
 	return
 		view_type(
-			buf.data(),
-			buf.lock_size(),
-			format()
+			buffer_.data(),
+			buffer_.lock_size(),
+			this->format_part(),
+			part_index_
 		);
 }
 
@@ -105,7 +111,7 @@ sge::opengl::vertex_buffer::lock(
 	size_type const _range
 ) const
 {
-	buf.lock(
+	buffer_.lock(
 		lock_method::readonly,
 		_offset,
 		_range
@@ -113,9 +119,10 @@ sge::opengl::vertex_buffer::lock(
 
 	return
 		const_view_type(
-			buf.data(),
-			buf.lock_size(),
-			format()
+			buffer_.data(),
+			buffer_.lock_size(),
+			this->format_part(),
+			part_index_
 		);
 }
 
@@ -123,14 +130,16 @@ void
 sge::opengl::vertex_buffer::unlock() const
 {
 	renderer::vf::dynamic::ordered_element_list const &elems(
-		format().elements()
+		format_part_.elements()
 	);
 
 	renderer::size_type const stride(
-		format().stride()
+		format_part_.stride()
 	);
 
-	FCPPT_ASSERT(buf.lock_size() % stride == 0);
+	FCPPT_ASSERT(
+		buffer_.lock_size() % stride == 0
+	);
 
 	BOOST_FOREACH(
 		renderer::vf::dynamic::ordered_element_list::const_reference elem,
@@ -139,27 +148,27 @@ sge::opengl::vertex_buffer::unlock() const
 		opengl::convert_vertices(
 			elem,
 			stride,
-			buf.lock_size() / stride,
-			buf.data()
+			buffer_.lock_size() / stride,
+			buffer_.data()
 		);
 
-	buf.unlock();
+	buffer_.unlock();
 }
 
 sge::opengl::vertex_buffer::size_type
 sge::opengl::vertex_buffer::size() const
 {
-	return buf.size();
+	return buffer_.size();
 }
 
 sge::renderer::resource_flags_field const
 sge::opengl::vertex_buffer::flags() const
 {
-	return buf.flags();
+	return buffer_.flags();
 }
 
-sge::renderer::vf::dynamic::format const &
-sge::opengl::vertex_buffer::format() const
+sge::renderer::vf::dynamic::part const
+sge::opengl::vertex_buffer::format_part() const
 {
-	return format_.get();
+	return format_part_;
 }

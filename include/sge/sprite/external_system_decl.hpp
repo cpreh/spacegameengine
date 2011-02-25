@@ -57,6 +57,8 @@ public:
 		renderer::device_ptr
 	);
 
+	~external_system();
+
 	template<
 		typename Iterator,
 		typename SortFunction,

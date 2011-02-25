@@ -37,8 +37,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
+#include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/cull_mode.hpp>
@@ -51,6 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/normal.hpp>
+#include <sge/renderer/vf/part.hpp>
 #include <sge/renderer/vf/pos.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/vertex.hpp>
@@ -100,15 +103,21 @@ typedef sge::renderer::vf::normal<
 	float_type
 > normal_type;
 
-typedef sge::renderer::vf::format<
+typedef sge::renderer::vf::part<
 	boost::mpl::vector2<
 		pos_type,
 		normal_type
 	>
+> vertex_main_part;
+
+typedef sge::renderer::vf::format<
+	boost::mpl::vector1<
+		vertex_main_part
+	>
 > vertex_format;
 
 typedef sge::renderer::vf::view<
-	vertex_format
+	vertex_main_part
 > vertex_view;
 
 typedef vertex_view::iterator vertex_iterator;
@@ -187,12 +196,23 @@ try
 		/ static_cast<float_type>(40)
 	);
 
-	sge::renderer::vertex_buffer_ptr const vb(
-		rend->create_vertex_buffer(
+	sge::renderer::vertex_declaration_ptr const vertex_declaration(
+		rend->create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<
 				vertex_format
-			>(),
-			6 * static_cast<
+			>()
+		)
+	);
+
+	sge::renderer::vertex_buffer_ptr const vb(
+		rend->create_vertex_buffer(
+			vertex_declaration,
+			sge::renderer::vf::dynamic::part_index(
+				0u
+			),
+			6u
+			*
+			static_cast<
 				sge::renderer::size_type
 			>(
 				fcppt::math::quad(
@@ -380,8 +400,16 @@ try
 
 	float_type angle(0);
 
+	sge::renderer::scoped_vertex_declaration const scoped_declaration(
+		rend,
+		vertex_declaration
+	);
+
 	sge::renderer::scoped_vertex_buffer const scoped_vb(
 		rend,
+		sge::renderer::vf::dynamic::part_index(
+			0u
+		),
 		vb
 	);
 

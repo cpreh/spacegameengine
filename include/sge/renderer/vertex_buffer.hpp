@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/vf/dynamic/view_fwd.hpp>
 #include <sge/renderer/vf/dynamic/const_view_fwd.hpp>
-#include <sge/renderer/vf/dynamic/format_fwd.hpp>
+#include <sge/renderer/vf/dynamic/part_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
@@ -75,8 +75,8 @@ public:
 	virtual resource_flags_field const
 	flags() const = 0;
 
-	virtual vf::dynamic::format const &
-	format() const = 0;
+	virtual vf::dynamic::part const
+	format_part() const = 0;
 
 	SGE_SYMBOL virtual ~vertex_buffer();
 };

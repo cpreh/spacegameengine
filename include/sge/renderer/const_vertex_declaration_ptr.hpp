@@ -18,40 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SCOPED_VERTEX_BUFFER_HPP_INCLUDED
-#define SGE_RENDERER_SCOPED_VERTEX_BUFFER_HPP_INCLUDED
+#ifndef SGE_RENDERER_CONST_VERTEX_DECLARATION_PTR_HPP_INCLUDED
+#define SGE_RENDERER_CONST_VERTEX_DECLARATION_PTR_HPP_INCLUDED
 
-#include <sge/renderer/const_vertex_buffer_ptr.hpp>
-#include <sge/renderer/device_ptr.hpp>
-#include <sge/renderer/vf/dynamic/part_index.hpp>
-#include <sge/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <fcppt/shared_ptr.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-class scoped_vertex_buffer
-{
-	FCPPT_NONCOPYABLE(
-		scoped_vertex_buffer
-	);
-public:
-	SGE_SYMBOL
-	scoped_vertex_buffer(
-		renderer::device_ptr,
-		renderer::vf::dynamic::part_index,
-		renderer::const_vertex_buffer_ptr
-	);
-
-	SGE_SYMBOL
-	~scoped_vertex_buffer();
-private:
-	renderer::device_ptr const device_;
-
-	renderer::vf::dynamic::part_index const part_index_;
-};
+typedef fcppt::shared_ptr<
+	renderer::vertex_declaration const
+> const_vertex_declaration_ptr;
 
 }
 }
