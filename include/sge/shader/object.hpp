@@ -54,7 +54,7 @@ public:
 		sampler_sequence const &samplers);
 
 	SGE_SHADER_SYMBOL void
-	set_uniform(
+	update_uniform(
 		renderer::glsl::string const &name,
 		value_type const &);
 

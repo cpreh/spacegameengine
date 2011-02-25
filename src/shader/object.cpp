@@ -49,6 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/spirit/home/phoenix/operator.hpp>
 #include <boost/spirit/home/phoenix/bind.hpp>
 #include <streambuf>
+#include <iostream>
 
 namespace
 {
@@ -171,7 +172,7 @@ sge::shader::object::object(
 				v.name(),
 					program_->uniform(v.name())));
 
-		set_uniform(
+		update_uniform(
 			v.name(),
 			v.initial_value());
 		// TODO: See above
@@ -220,7 +221,7 @@ sge::shader::object::object(
 }
 
 void
-sge::shader::object::set_uniform(
+sge::shader::object::update_uniform(
 	sge::renderer::glsl::string const &name,
 	value_type const &v)
 {
@@ -229,10 +230,10 @@ sge::shader::object::set_uniform(
 
 	if (i == uniforms_.end())
 		throw exception(
-			FCPPT_TEXT("Uniform ")+
+			FCPPT_TEXT("Error in update_uniform: The uniform variable \"")+
 			fcppt::from_std_string(
 				name)+
-			FCPPT_TEXT(" was not found"));
+			FCPPT_TEXT("\" was not foundW"));
 
 	fcppt::variant::apply_unary(
 		uniform_setter(
