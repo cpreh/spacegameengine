@@ -74,9 +74,27 @@ sge::opengl::texture::bind_context::bind_for_rendering(
 		_texture->id()
 	);
 
-	last_types_[
-		_stage.get()
-	] = _texture->type();
+	texture::optional_type const last_type(
+		last_types_[
+			_stage.get()
+		]
+	);
+
+	if(
+		last_type
+		== 
+		texture::optional_type(
+			_texture->type()
+		)
+	)
+		return;
+	
+	if(
+		last_type
+	)
+		this->decrement_type_count(
+			*last_type
+		);
 
 	if(
 		texture_type_counts_[
@@ -87,6 +105,10 @@ sge::opengl::texture::bind_context::bind_for_rendering(
 		opengl::enable(
 			_texture->type().get()
 		);
+
+	last_types_[
+		_stage.get()
+	] = _texture->type();
 }
 
 void
@@ -101,18 +123,13 @@ sge::opengl::texture::bind_context::unbind_for_rendering(
 		].lock()
 	);
 
-	texture::funcs::set_active_level(
-		_context,
-		_stage
-	);
-
 	texture::optional_type const last_type(
 		last_types_[
 			_stage.get()
 		]
 	);
 
-	render_textures_[
+	last_types_[
 		_stage.get()
 	].reset();
 
@@ -121,6 +138,15 @@ sge::opengl::texture::bind_context::unbind_for_rendering(
 	)
 		return;
 
+	texture::funcs::set_active_level(
+		_context,
+		_stage
+	);
+
+	render_textures_[
+		_stage.get()
+	].reset();
+
 	texture::funcs::bind(
 		*last_type,
 		texture::id(
@@ -128,15 +154,9 @@ sge::opengl::texture::bind_context::unbind_for_rendering(
 		)
 	);
 
-	if(
-		--texture_type_counts_[
-			*last_type
-		]
-		== 0u
-	)
-		opengl::disable(
-			last_type->get()
-		);
+	this->decrement_type_count(
+		*last_type
+	);
 }
 
 void
@@ -200,3 +220,19 @@ sge::opengl::context::id const
 sge::opengl::texture::bind_context::static_id(
 	sge::opengl::context::make_id()
 );
+
+void
+sge::opengl::texture::bind_context::decrement_type_count(
+	texture::type const _type
+)
+{
+	if(
+		--texture_type_counts_[
+			_type
+		]
+		== 0u
+	)
+		opengl::disable(
+			_type.get()
+		);
+}
