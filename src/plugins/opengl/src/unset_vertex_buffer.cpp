@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../set_vertex_buffer.hpp"
 #include "../unset_vertex_buffer.hpp"
 #include "../vertex_buffer.hpp"
 #include "../vertex_context.hpp"
@@ -30,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert.hpp>
 
 void
-sge::opengl::set_vertex_buffer(
+sge::opengl::unset_vertex_buffer(
 	opengl::context::object &_context,
 	renderer::const_vertex_buffer_ptr const _buffer
 )
@@ -51,39 +50,18 @@ sge::opengl::set_vertex_buffer(
 		_buffer->format_part_index()
 	);
 
-	{
-		opengl::const_vertex_buffer_ptr const old_buffer(
-			context.vertex_buffer(
-				index
-			)
-		);
-
-		if(
-			old_buffer
-		)
-			opengl::unset_vertex_buffer(
-				_context,
-				old_buffer
-			);
-	}
-
-	opengl::const_vertex_buffer_ptr const gl_buffer(
-		fcppt::dynamic_pointer_cast<
-			opengl::vertex_buffer const
-		>(
-			_buffer
-		)
-	);
-
-
-	context.vertex_buffer(
-		index,
-		gl_buffer
-	);
-
-	gl_buffer->use(
+	fcppt::dynamic_pointer_cast<
+		opengl::vertex_buffer const
+	>(
+		_buffer
+	)->unuse(
 		context.vertex_declaration()->gl_format_part(
 			index
 		)
+	);
+
+	context.vertex_buffer(
+		index,
+		opengl::const_vertex_buffer_ptr()
 	);
 }

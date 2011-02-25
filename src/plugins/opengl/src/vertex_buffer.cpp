@@ -172,3 +172,9 @@ sge::opengl::vertex_buffer::format_part() const
 {
 	return format_part_;
 }
+
+sge::renderer::vf::dynamic::part_index const
+sge::opengl::vertex_buffer::format_part_index() const
+{
+	return part_index_;
+}

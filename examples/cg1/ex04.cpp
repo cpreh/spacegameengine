@@ -407,9 +407,6 @@ try
 
 	sge::renderer::scoped_vertex_buffer const scoped_vb(
 		rend,
-		sge::renderer::vf::dynamic::part_index(
-			0u
-		),
 		vb
 	);
 

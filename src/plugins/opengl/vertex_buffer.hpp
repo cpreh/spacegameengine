@@ -88,6 +88,9 @@ private:
 	renderer::vf::dynamic::part const
 	format_part() const;
 
+	renderer::vf::dynamic::part_index const
+	format_part_index() const;
+
 	renderer::vf::dynamic::part_index const part_index_;
 
 	renderer::vf::dynamic::part const format_part_;

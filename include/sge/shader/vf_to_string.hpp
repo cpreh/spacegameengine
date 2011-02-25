@@ -25,6 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/glsl/string.hpp>
 #include <boost/mpl/for_each.hpp>
 
+#include <boost/mpl/back_inserter.hpp>
+#include <boost/mpl/copy.hpp>
+#include <boost/mpl/fold.hpp>
+#include <boost/mpl/placeholders.hpp>
+#include <boost/mpl/vector/vector10.hpp>
+
 namespace sge
 {
 namespace shader
@@ -33,8 +39,19 @@ template<typename Format>
 renderer::glsl::string const
 vf_to_string()
 {
+	typedef typename boost::mpl::fold<
+		typename Format::parts,
+		boost::mpl::vector0<>,
+		boost::mpl::copy<
+			boost::mpl::_2,
+			boost::mpl::back_inserter<
+				boost::mpl::_1
+			>
+		>
+	>::type all_elements;
+			
 	renderer::glsl::string s;
-	boost::mpl::for_each<typename Format::elements>(
+	boost::mpl::for_each<all_elements>(
 		shader::format_printer(
 			s));
 	return s;

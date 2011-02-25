@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/pos.hpp>
+#include <sge/renderer/vf/part.hpp>
 #include <sge/renderer/vf/color.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/iterator.hpp>
@@ -37,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
+#include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
@@ -104,10 +106,16 @@ try
 		rgba8_format
 	> color_type;
 
-	typedef sge::renderer::vf::format<
+	typedef sge::renderer::vf::part<
 		boost::mpl::vector2<
 			pos3_type,
 			color_type
+		>
+	> format_part;
+
+	typedef sge::renderer::vf::format<
+		boost::mpl::vector1<
+			format_part
 		>
 	> format;
 
@@ -115,9 +123,16 @@ try
 		sys.renderer()
 	);
 
+	sge::renderer::vertex_declaration_ptr const vertex_declaration(
+		rend->create_vertex_declaration(
+			sge::renderer::vf::dynamic::make_format<format>()
+		)
+	);
+
 	sge::renderer::vertex_buffer_ptr const vb(
 		rend->create_vertex_buffer(
-			sge::renderer::vf::dynamic::make_format<format>(),
+			vertex_declaration,
+			sge::renderer::vf::dynamic::part_index(0u),
 			3,
 			sge::renderer::resource_flags::none
 		)
@@ -130,7 +145,7 @@ try
 		);
 
 		typedef sge::renderer::vf::view<
-			format
+			format_part
 		> vertex_view;
 
 		vertex_view const vertices(
@@ -199,6 +214,11 @@ try
 			(sge::renderer::state::color::clear_color
 				= sge::image::colors::black()
 		)
+	);
+
+	sge::renderer::scoped_vertex_declaration const vb_declaration_context(
+		rend,
+		vertex_declaration
 	);
 
 	sge::renderer::scoped_vertex_buffer const vb_context(

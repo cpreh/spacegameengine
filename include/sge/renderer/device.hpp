@@ -114,8 +114,12 @@ public:
 	) = 0;
 
 	virtual void
-	vertex_buffer(
-		renderer::vf::dynamic::part_index,
+	activate_vertex_buffer(
+		renderer::const_vertex_buffer_ptr
+	) = 0;
+
+	virtual void
+	deactivate_vertex_buffer(
 		renderer::const_vertex_buffer_ptr
 	) = 0;
 

@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../set_scissor_area.hpp"
 #include "../set_vertex_buffer.hpp"
 #include "../set_vertex_declaration.hpp"
+#include "../unset_vertex_buffer.hpp"
 #include "../vertex_buffer.hpp"
 #include "../vertex_declaration.hpp"
 #include "../context/use.hpp"
@@ -189,8 +190,7 @@ sge::opengl::device::render(
 }
 
 void
-sge::opengl::device::vertex_buffer(
-	renderer::vf::dynamic::part_index const _index,
+sge::opengl::device::activate_vertex_buffer(
 	renderer::const_vertex_buffer_ptr const _vertex_buffer
 )
 {
@@ -198,7 +198,19 @@ sge::opengl::device::vertex_buffer(
 		std::tr1::ref(
 			context_
 		),
-		_index,
+		_vertex_buffer
+	);
+}
+
+void
+sge::opengl::device::deactivate_vertex_buffer(
+	renderer::const_vertex_buffer_ptr const _vertex_buffer
+)
+{
+	opengl::unset_vertex_buffer(
+		std::tr1::ref(
+			context_
+		),
 		_vertex_buffer
 	);
 }

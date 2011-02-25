@@ -393,6 +393,7 @@ SET(
 	src/plugins/opengl/src/state_visitor.cpp
 	src/plugins/opengl/src/system.cpp
 	src/plugins/opengl/src/target_base.cpp
+	src/plugins/opengl/src/unset_vertex_buffer.cpp
 	src/plugins/opengl/src/vbo_base.cpp
 	src/plugins/opengl/src/vbo_context.cpp
 	src/plugins/opengl/src/vertex_buffer.cpp
@@ -536,6 +537,7 @@ SET(
 	src/plugins/opengl/texture/volume_context.hpp
 	src/plugins/opengl/texture/volume_types.hpp
 	src/plugins/opengl/texture/writeonly_lock.hpp
+	src/plugins/opengl/unset_vertex_buffer.hpp
 	src/plugins/opengl/vbo_base.hpp
 	src/plugins/opengl/vbo_base_fwd.hpp
 	src/plugins/opengl/vbo_base_unique_ptr.hpp

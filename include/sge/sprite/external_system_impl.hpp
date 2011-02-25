@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/fill_geometry.hpp>
 #include <sge/sprite/detail/optional_size.hpp>
 #include <sge/sprite/detail/render.hpp>
-#include <sge/sprite/detail/vf_part_index.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/index_buffer.hpp>
@@ -150,7 +149,6 @@ sge::sprite::external_system<Choices>::render_advanced(
 
 	renderer::scoped_vertex_buffer const vb_context(
 		base::renderer(),
-		detail::vf_part_index(),
 		base::vertex_buffer()
 	);
 

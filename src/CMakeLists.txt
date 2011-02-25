@@ -603,7 +603,6 @@ SET(
 	include/sge/renderer/multi_sample_type.hpp
 	include/sge/renderer/no_multi_sampling.hpp
 	include/sge/renderer/no_texture.hpp
-	include/sge/renderer/no_vertex_buffer.hpp
 	include/sge/renderer/no_vertex_declaration.hpp
 	include/sge/renderer/nonindexed_primitive_count.hpp
 	include/sge/renderer/nonindexed_primitive_type.hpp
@@ -1084,7 +1083,6 @@ SET(
 	src/renderer/material.cpp
 	src/renderer/no_multi_sampling.cpp
 	src/renderer/no_texture.cpp
-	src/renderer/no_vertex_buffer.cpp
 	src/renderer/no_vertex_declaration.cpp
 	src/renderer/nonindexed_primitive_count.cpp
 	src/renderer/npos.cpp

@@ -84,8 +84,12 @@ public:
 	);
 
 	void
-	vertex_buffer(
-		renderer::vf::dynamic::part_index,
+	activate_vertex_buffer(
+		renderer::const_vertex_buffer_ptr
+	);
+
+	void
+	deactivate_vertex_buffer(
 		renderer::const_vertex_buffer_ptr
 	);
 

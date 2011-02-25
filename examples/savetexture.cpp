@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/vertex_declaration_ptr.hpp>
 #include <sge/renderer/target_from_texture.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
@@ -85,6 +86,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/vf/iterator.hpp>
+#include <sge/renderer/vf/part.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/unspecified.hpp>
@@ -119,7 +121,9 @@ namespace screen_vf
 {
 namespace tags
 {
+
 SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(position)
+
 }
 
 typedef 
@@ -133,38 +137,45 @@ sge::renderer::vf::unspecified
 	tags::position
 > 
 position;
-}
-namespace screen_vf
-{
-typedef 
-sge::renderer::vf::format
+
+typedef
+sge::renderer::vf::part
 <
 	boost::mpl::vector1
 	<
 		position
 	>
+> part;
+
+typedef 
+sge::renderer::vf::format
+<
+	boost::mpl::vector1
+	<
+		part
+	>
 > 
 format;
-}
-namespace screen_vf
-{
+
 typedef 
 sge::renderer::vf::view
 <
-	format
+	part
 > 
 vertex_view;
-}
-namespace screen_vf
-{
+
 sge::renderer::vertex_buffer_ptr const
 create_quad(
+	sge::renderer::vertex_declaration_ptr const _declaration,
 	sge::shader::object &shader,
 	sge::renderer::device_ptr const renderer)
 {
 	sge::renderer::vertex_buffer_ptr const vb(
 		renderer->create_vertex_buffer(
-			sge::renderer::vf::dynamic::make_format<format>(),
+			_declaration,
+			sge::renderer::vf::dynamic::part_index(
+				0u
+			),
 			static_cast<sge::renderer::size_type>(
 				6),
 			sge::renderer::resource_flags::none));
@@ -219,90 +230,6 @@ create_quad(
 	return vb;
 }
 }
-
-#if 0
-typedef 
-sge::image::color::rgba8_format 
-sprite_color;
-
-typedef 
-sge::sprite::choices
-<
-	sge::sprite::type_choices
-	<
-		int,
-		float,
-		sprite_color
-	>,
-	boost::mpl::vector4
-	<
-		sge::sprite::with_color,
-		sge::sprite::with_texture,
-		sge::sprite::with_depth,
-		sge::sprite::with_dim
-	> 
-> 
-sprite_choices;
-
-typedef 
-sge::sprite::object
-<
-	sprite_choices
-> 
-sprite_object;
-
-typedef 
-sge::sprite::system
-<
-	sprite_choices
->::type 
-sprite_system;
-
-typedef 
-sge::sprite::parameters
-<
-	sprite_choices
-> 
-sprite_parameters;
-
-class sprite_functor
-{
-FCPPT_NONASSIGNABLE(sprite_functor)
-public:
-	explicit 
-	sprite_functor(
-		sprite_object &_sprite)
-	:
-		sprite_(
-			_sprite)
-	{}
-
-	void
-	operator()(
-		sge::input::mouse::axis_event const &k) const
-	{
-		switch (k.axis())
-		{
-		case sge::input::mouse::axis::x:
-			sprite_.x(
-				static_cast<sprite_object::unit>(
-					sprite_.x() + k.axis_value())
-			);
-
-			break;
-		case sge::input::mouse::axis::y:
-			sprite_.y(
-				static_cast<sprite_object::unit>(
-					sprite_.y() + k.axis_value()));
-			break;
-		default:
-			break;
-		}
-	}
-private:
-	sprite_object &sprite_;
-};
-#endif
 }
 
 int main(
@@ -408,8 +335,17 @@ try
 				"tex",
 				sge::renderer::texture::planar_ptr())));
 
+	sge::renderer::vertex_declaration_ptr const vertex_declaration(
+		sys.renderer()->create_vertex_declaration(
+			sge::renderer::vf::dynamic::make_format<
+				screen_vf::format
+			>()
+		)
+	);
+
 	sge::renderer::vertex_buffer_ptr const quad_(
 		screen_vf::create_quad(
+			vertex_declaration,
 			shader_,
 			sys.renderer()));
 
