@@ -160,14 +160,32 @@ sge::renderer::vf::unspecified
 > 
 vertex_normal;
 
+namespace tags
+{
+SGE_RENDERER_VF_MAKE_UNSPECIFIED_TAG(vertex_tangent)
+}
+
+typedef 
+sge::renderer::vf::unspecified
+<
+	sge::renderer::vf::vector
+	<
+		sge::renderer::scalar,
+		3
+	>,
+	tags::vertex_tangent
+> 
+vertex_tangent;
+
 typedef 
 sge::renderer::vf::part
 <
-	boost::mpl::vector3
+	boost::mpl::vector4
 	<
 		position,
 		texcoord,
-		vertex_normal
+		vertex_normal,
+		vertex_tangent
 	>
 > 
 format_part;
@@ -211,6 +229,10 @@ fill_vb_with_cube(
 	vertex_normal_vector;
 
 	typedef 
+	vf::vertex_tangent::packed_type 
+	vertex_tangent_vector;
+
+	typedef 
 	vf::texcoord::packed_type 
 	texcoord_vector;
 
@@ -221,6 +243,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			0,-1,0));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			1,0,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			0,0));
@@ -230,6 +255,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			0,-1,0));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			1,0,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			0,1));
@@ -239,6 +267,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			0,-1,0));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			1,0,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			1,1));
@@ -249,6 +280,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			0,-1,0));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			1,0,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			1,1));
@@ -258,6 +292,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			0,-1,0));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			1,0,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			1,0));
@@ -267,6 +304,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			0,-1,0));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			1,0,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			0,0));
@@ -277,6 +317,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			0,1,0));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			1,0,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			0,0));
@@ -286,6 +329,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			0,1,0));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			1,0,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			0,1));
@@ -295,6 +341,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			0,1,0));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			1,0,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			1,1));
@@ -305,6 +354,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			0,1,0));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			1,0,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			1,1));
@@ -314,6 +366,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			0,1,0));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			1,0,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			1,0));
@@ -323,6 +378,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			0,1,0));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			1,0,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			0,0));
@@ -333,6 +391,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			-1,0,0));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			0,1,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			0,0));
@@ -342,6 +403,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			-1,0,0));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			0,1,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			0,1));
@@ -351,6 +415,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			-1,0,0));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			0,1,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			1,1));
@@ -361,6 +428,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			-1,0,0));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			0,1,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			1,1));
@@ -370,6 +440,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			-1,0,0));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			0,1,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			1,0));
@@ -379,6 +452,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			-1,0,0));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			0,1,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			0,0));
@@ -389,6 +465,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			1,0,0));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			0,1,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			0,0));
@@ -398,6 +477,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			1,0,0));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			0,1,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			0,1));
@@ -407,6 +489,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			1,0,0));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			0,1,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			1,1));
@@ -417,6 +502,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			1,0,0));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			0,1,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			1,1));
@@ -426,6 +514,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			1,0,0));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			0,1,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			1,0));
@@ -435,6 +526,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			1,0,0));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			0,1,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			0,0));
@@ -445,6 +539,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			0,0,1));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			1,0,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			0,0));
@@ -454,6 +551,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			0,0,1));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			1,0,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			0,1));
@@ -463,6 +563,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			0,0,1));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			1,0,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			1,1));
@@ -473,6 +576,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			0,0,1));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			1,0,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			1,1));
@@ -482,6 +588,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			0,0,1));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			1,0,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			1,0));
@@ -491,6 +600,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			0,0,1));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			1,0,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			0,0));
@@ -501,6 +613,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			0,0,-1));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			1,0,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			0,0));
@@ -510,6 +625,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			0,0,-1));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			1,0,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			0,1));
@@ -519,6 +637,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			0,0,-1));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			1,0,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			1,1));
@@ -529,6 +650,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			0,0,-1));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			1,0,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			1,1));
@@ -538,6 +662,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			0,0,-1));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			1,0,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			1,0));
@@ -547,6 +674,9 @@ fill_vb_with_cube(
 	(*vb_it).set<vf::vertex_normal>(
 		vertex_normal_vector(
 			0,0,-1));
+	(*vb_it).set<vf::vertex_tangent>(
+		vertex_tangent_vector(
+			1,0,0));
 	(*vb_it++).set<vf::texcoord>(
 		texcoord_vector(
 			0,0));
