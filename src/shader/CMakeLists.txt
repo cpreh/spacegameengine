@@ -1,5 +1,7 @@
 SET(
 	SGE_SHADER_FILES
+	include/sge/shader/detail/all_parts.hpp
+	include/sge/shader/detail/copy_parts.hpp
 	include/sge/shader/format_printer.hpp
 	include/sge/shader/mat4.hpp
 	include/sge/shader/object.hpp
