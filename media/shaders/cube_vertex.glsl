@@ -2,9 +2,6 @@
 
 $$$HEADER$$$
 
-in vec3 vertex_normal;
-in vec3 vertex_tangent;
-
 varying vec2 varying_texcoord;
 varying vec3 varying_light_position;
 varying vec3 varying_vertex_position;
