@@ -89,14 +89,14 @@ sge::libpng::file::view() const
 				image::const_raw_pointer
 			>(
 				bytes_.data()),
-			dim(),
+			this->size(),
 			format_,
 			image2d::view::optional_pitch()
 		);
 }
 
 sge::image2d::dim const
-sge::libpng::file::dim() const
+sge::libpng::file::size() const
 {
 	return dim_;
 }
@@ -106,7 +106,7 @@ void sge::libpng::file::save(
 {
 	write_context context(
 		p,
-		dim(),
+		this->size(),
 		bytes_,
 		format_);
 }

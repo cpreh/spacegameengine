@@ -113,7 +113,7 @@ sge::devil::file::~file()
 }
 
 sge::image2d::dim const
-sge::devil::file::dim() const
+sge::devil::file::size() const
 {
 	bind_me();
 
@@ -227,7 +227,7 @@ sge::devil::file::view() const
 			>(
 				ilGetData()
 			),
-			dim(),
+			this->size(),
 			devil::convert_format(
 				ilGetInteger(
 					IL_IMAGE_BITS_PER_PIXEL

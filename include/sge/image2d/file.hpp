@@ -51,7 +51,7 @@ public:
 	view() const = 0;
 
 	virtual image2d::dim const
-	dim() const = 0;
+	size() const = 0;
 
 	virtual void
 	save(

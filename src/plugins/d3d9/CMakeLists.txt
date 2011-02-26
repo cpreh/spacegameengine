@@ -1,5 +1,6 @@
 SET(
 	SGE_D3D9_FILES
+	src/plugins/d3d9/convert/color_format.hpp
 	src/plugins/d3d9/convert/indexed_primitive.hpp
 	src/plugins/d3d9/convert/lock_mode.hpp
 	src/plugins/d3d9/convert/nonindexed_primitive.hpp
@@ -9,6 +10,7 @@ SET(
 	src/plugins/d3d9/convert/sampler_stage_arg_value.hpp
 	src/plugins/d3d9/convert/sampler_stage_op.hpp
 	src/plugins/d3d9/convert/sampler_stage_op_value.hpp
+	src/plugins/d3d9/convert/src/color_format.cpp
 	src/plugins/d3d9/convert/src/indexed_primitive.cpp
 	src/plugins/d3d9/convert/src/lock_mode.cpp
 	src/plugins/d3d9/convert/src/nonindexed_primitive.cpp
@@ -81,11 +83,15 @@ SET(
 	src/plugins/d3d9/texture/cube_basic.hpp
 	src/plugins/d3d9/texture/cube_types.hpp
 	src/plugins/d3d9/texture/planar.hpp
+	src/plugins/d3d9/texture/pool.hpp
 	src/plugins/d3d9/texture/src/base.cpp
 	src/plugins/d3d9/texture/src/create_planar.cpp
 	src/plugins/d3d9/texture/src/cube.cpp
 	src/plugins/d3d9/texture/src/planar.cpp
+	src/plugins/d3d9/texture/src/pool.cpp
+	src/plugins/d3d9/texture/src/usage.cpp
 	src/plugins/d3d9/texture/src/volume.cpp
+	src/plugins/d3d9/texture/usage.hpp
 	src/plugins/d3d9/texture/volume.hpp
 	src/plugins/d3d9/texture_functions.hpp
 	src/plugins/d3d9/transform.hpp

@@ -62,7 +62,7 @@ public:
 	view() const;
 
 	image2d::dim const
-	dim() const;
+	size() const;
 
 	void
 	save(
