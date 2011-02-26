@@ -89,7 +89,7 @@ first_dim(
 		p
 	);
 
-	return il.load(*it)->dim();
+	return il.load(*it)->size();
 }
 
 typedef std::vector<
@@ -227,7 +227,7 @@ try
 			)
 		);
 
-		if(img->dim() != dim)
+		if(img->size() != dim)
 		{
 			fcppt::io::cerr << FCPPT_TEXT("some dimensions do not match!\n");
 			return EXIT_FAILURE;
