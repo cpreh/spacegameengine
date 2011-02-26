@@ -31,15 +31,6 @@ namespace sge
 namespace d3d9
 {
 
-IDirect3DTexture9 *
-create_texture(
-	d3d_device_ptr,
-	rendereR::texture_dim const &dim,
-	renderer::texture::filter const &filter,
-	renderer::resource_flag_t flags,
-	bool system_mem,
-	bool render_target);
-
 sge::texture::pointer lock_texture(
 	d3d_texture_ptr,
 	renderer::lock_rect const *rect,

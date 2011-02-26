@@ -80,7 +80,8 @@ sge::opengl::texture::cube::cube(
 		_param.color_format(),
 		_param.filter(),
 		_param.address_mode(),
-		_param.resource_flags()
+		_param.resource_flags(),
+		_param.capabilities()
 
 	);
 
@@ -169,6 +170,12 @@ sge::renderer::resource_flags_field const
 sge::opengl::texture::cube::flags() const
 {
 	return textures_[0].flags();
+}
+
+sge::renderer::texture::capabilities_field const
+sge::opengl::texture::cube::capabilities() const
+{
+	return textures_[0].capabilities();
 }
 
 void

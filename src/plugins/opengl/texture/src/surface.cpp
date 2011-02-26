@@ -42,7 +42,8 @@ sge::opengl::texture::surface::surface(
 	renderer::stage_type const _stage,
 	renderer::resource_flags_field const &_resource_flags,
 	opengl::color_format const _color_format,
-	opengl::color_format_type const _color_format_type
+	opengl::color_format_type const _color_format_type,
+	bool const _is_render_target
 )
 :
 	base(
@@ -60,12 +61,19 @@ sge::opengl::texture::surface::surface(
 	color_format_type_(
 		_color_format_type
 	),
+	is_render_target_(_is_render_target),
 	lock_()
 {
 }
 	
 sge::opengl::texture::surface::~surface()
 {
+}
+
+bool
+sge::opengl::texture::surface::is_render_target() const
+{
+	return is_render_target_;
 }
 
 sge::image2d::view::const_object const

@@ -18,38 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TEXTURE_BASE_HPP_INCLUDED
-#define SGE_D3D9_TEXTURE_BASE_HPP_INCLUDED
+#ifndef SGE_SHADER_DETAIL_ALL_PARTS_HPP_INCLUDED
+#define SGE_SHADER_DETAIL_ALL_PARTS_HPP_INCLUDED
 
-#include "../d3dinclude.hpp"
-#include <fcppt/noncopyable.hpp>
+#include <sge/shader/detail/copy_parts.hpp>
+#include <boost/mpl/fold.hpp>
+#include <boost/mpl/placeholders.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 
 namespace sge
 {
-namespace d3d9
+namespace shader
 {
-namespace texture
+namespace detail
 {
 
-class base
+template<
+	typename Format
+>
+struct all_parts
+:
+boost::mpl::fold<
+	typename Format::parts,
+	boost::mpl::vector0<>,
+	detail::copy_parts<
+		boost::mpl::_1,
+		boost::mpl::_2
+	>
+>
 {
-	FCPPT_NONCOPYABLE(
-		base
-	);
-protected:
-	explicit base(
-		IDirect3DBaseTexture9 *
-	);
-
-	virtual ~base();
-public:
-	IDirect3DBaseTexture9 *
-	get() const;
-	
-	void
-	reset_base();
-private:
-	IDirect3DBaseTexture9 *base_;
 };
 
 }

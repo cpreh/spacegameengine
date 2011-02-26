@@ -18,46 +18,81 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_BASIC_TEXTURE_IMPL_HPP_INCLUDED
-#define SGE_D3D9_BASIC_TEXTURE_IMPL_HPP_INCLUDED
+#ifndef SGE_D3D9_TEXTURE_BASIC_IMPL_HPP_INCLUDED
+#define SGE_D3D9_TEXTURE_BASIC_IMPL_HPP_INCLUDED
 
-template<typename Base>
-sge::d3d9::basic_texture<Base>::basic_texture(renderer& rend,
-                                              const filter_args& filter_,
-                                              const resource_flag_t flags_)
- : texture_base(0),
-   resource(rend, flags_),
-   filter_(filter_),
-   flags_(flags_)
-{}
+#include "basic.hpp"
 
-template<typename Base>
-const sge::filter_args& sge::d3d9::basic_texture<Base>::filter() const
+template<
+	typename Types
+>
+sge::d3d9::texture::basic<Type>::basic(
+	d3d9::d3d_device_ptr const _device,
+	parameters_type const &_params
+)
+:
+	Types::base(),
+	d3d9::texture::base(0),
+	d3d9::resource(),
+	device_(_device),
+	params_(_params)
 {
-	return filter_;
 }
 
 template<
-	typename Base
+	typename Types
 >
-void sge::d3d9::basic_texture<Base>::on_reset()
+sge::d3d9::texture::basic<Type>::~basic()
 {
-	base(do_reset());
 }
 
 template<
-	typename Base
+	typename Types
 >
-void sge::d3d9::basic_texture<Base>::on_loss()
+typename sge::d3d9::texture::basic<Types>::parameters_type const &
+sge::d3d9::texture::basic<Types>::parameters() const
 {
-	do_loss();
-	base(0);
+	return params_;
 }
 
-template<typename Base>
-sge::resource_flag_t sge::d3d9::basic_texture<Base>::flags() const
+template<
+	typename Types
+>
+sge::d3d9::d3d_device_ptr const
+sge::d3d9::texture::basic<Types>::device() const
 {
-	return flags_;
+	return device_;
+}
+
+template<
+	typename Types
+>
+void
+sge::d3d9::texture::basic<Types>::on_reset()
+{
+	texture::base(
+		this->do_reset()
+	);
+}
+
+template<
+	typename Types
+>
+void
+sge::d3d9::texture::basic<Types>::on_loss()
+{
+	this->do_loss();
+
+	this->reset_base();
+}
+
+template<
+	typename Types
+>
+sge::renderer::resource_flags_field const
+sge::d3d9::texture::basic<Types>::flags() const
+{
+	return this->parameters().resource_flags();
 }
 
 #endif

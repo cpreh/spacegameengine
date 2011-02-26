@@ -67,10 +67,14 @@ public:
 		renderer::stage_type,
 		renderer::resource_flags_field const &,
 		opengl::color_format,
-		opengl::color_format_type
+		opengl::color_format_type,
+		bool is_render_target
 	);
 	
 	~surface();
+
+	bool
+	is_render_target() const;
 private:
 	image2d::view::const_object const
 	lock(
@@ -89,6 +93,8 @@ private:
 	opengl::color_format const color_format_;
 
 	opengl::color_format_type const color_format_type_;
+
+	bool const is_render_target_;
 
 	typedef fcppt::scoped_ptr<
 		texture::lock_base

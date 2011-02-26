@@ -70,8 +70,10 @@ public:
 
 	template<typename T>
 	void
-	operator()(T const &t) const
+	operator()(T const &) const
 	{
+		// shaders don't need declarations
+		// for non unspecified types
 	}
 private:
 	renderer::glsl::string &s;

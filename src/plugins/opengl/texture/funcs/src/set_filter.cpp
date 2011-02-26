@@ -20,13 +20,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../set_filter.hpp"
 #include "../auto_generate_mipmap.hpp"
-#include "../need_mipmap.hpp"
 #include "../parameter_int.hpp"
 #include "../../convert/min_filter.hpp"
 #include "../../convert/mag_filter.hpp"
 #include "../../context.hpp"
 #include "../../../context/use.hpp"
 #include "../../../common.hpp"
+#include <sge/renderer/texture/filter/need_mipmap.hpp>
 #include <sge/renderer/texture/filter/object.hpp>
 #include <sge/log/global.hpp>
 #include <sge/exception.hpp>
@@ -69,7 +69,7 @@ sge::opengl::texture::funcs::set_filter(
 	);
 
 	if(
-		funcs::need_mipmap(
+		sge::renderer::texture::filter::need_mipmap(
 			_filter.min()
 		)
 	)

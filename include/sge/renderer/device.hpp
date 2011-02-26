@@ -256,15 +256,15 @@ public:
 
 	virtual renderer::vertex_declaration_ptr const
 	create_vertex_declaration(
-		vf::dynamic::format const &
+		renderer::vf::dynamic::format const &
 	) = 0;
 
-	virtual vertex_buffer_ptr const
+	virtual renderer::vertex_buffer_ptr const
 	create_vertex_buffer(
 		renderer::vertex_declaration_ptr,
-		vf::dynamic::part_index,
-		size_type size,
-		resource_flags_field const &
+		renderer::vf::dynamic::part_index,
+		renderer::size_type size,
+		renderer::resource_flags_field const &
 	) = 0;
 
 	virtual index_buffer_ptr const

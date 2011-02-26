@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
+#include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/log/global.hpp>
 #include <fcppt/math/dim/comparison.hpp>
@@ -81,7 +82,8 @@ sge::texture::no_fragmented::consume_fragment(
 				format_,
 				filter_,
 				address_mode_,
-				renderer::resource_flags::none
+				renderer::resource_flags::none,
+				renderer::texture::capabilities_field::null()
 			)
 		);
 

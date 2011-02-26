@@ -21,54 +21,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SHADER_VF_TO_STRING_HPP_INCLUDED
 #define SGE_SHADER_VF_TO_STRING_HPP_INCLUDED
 
+#include <sge/shader/detail/all_parts.hpp>
 #include <sge/shader/format_printer.hpp>
 #include <sge/renderer/glsl/string.hpp>
 #include <boost/mpl/for_each.hpp>
-
-#include <boost/mpl/back_inserter.hpp>
-#include <boost/mpl/copy.hpp>
-#include <boost/mpl/fold.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/vector/vector10.hpp>
 
 namespace sge
 {
 namespace shader
 {
 
-template<
-	typename Result,
-	typename Part
->
-struct do_copy
-:
-boost::mpl::copy<
-	typename Part::elements,
-	boost::mpl::back_inserter<
-		Result
-	>
->
-{
-};
-
 template<typename Format>
 renderer::glsl::string const
 vf_to_string()
 {
-	typedef typename boost::mpl::fold<
-		typename Format::parts,
-		boost::mpl::vector0<>,
-		do_copy<
-			boost::mpl::_1,
-			boost::mpl::_2
-		>
-	>::type all_elements;
-			
-	renderer::glsl::string s;
-	boost::mpl::for_each<all_elements>(
+		
+	renderer::glsl::string ret;
+
+	boost::mpl::for_each<
+		typename detail::all_parts<
+			Format
+		>::type
+	>(
 		shader::format_printer(
-			s));
-	return s;
+			ret
+		)
+	);
+
+	return ret;
 }
 }
 }

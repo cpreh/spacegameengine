@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/address_mode.hpp>
+#include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 
@@ -43,7 +44,8 @@ sge::texture::atlasing::create(
 				renderer::texture::address_mode2(
 					renderer::texture::address_mode::clamp
 				),
-				renderer::resource_flags::none
+				renderer::resource_flags::none,
+				renderer::texture::capabilities_field::null()
 			)
 		);
 }

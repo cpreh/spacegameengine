@@ -75,13 +75,13 @@ public:
 	);
 
 	void
-	set_vertex_buffer(
-		const_vertex_buffer_ptr
+	activate_vertex_buffer(
+		renderer::const_vertex_buffer_ptr
 	);
 
 	void
-	unset_vertex_buffer(
-		const_vertex_buffer_ptr
+	deactivate_vertex_buffer(
+		renderer::const_vertex_buffer_ptr
 	);
 
 	void
@@ -104,25 +104,25 @@ public:
 
 	void
 	enable_light(
-		light_index,
+		renderer::light_index,
 		bool enable
 	);
 
 	void
 	light(
-		light_index,
+		renderer::light_index,
 		renderer::light const &
 	);
 
 	void
 	enable_clip_plane(
-		clip_plane_index,
+		renderer::clip_plane_index,
 		bool enable
 	);
 
 	void
 	clip_plane(
-		clip_plane_index,
+		renderer::clip_plane_index,
 		renderer::clip_plane const &
 	);
 
@@ -133,14 +133,14 @@ public:
 
 	void
 	sampler_stage_op(
-		stage_type,
+		renderer::stage_type,
 		renderer::sampler_stage_op::type,
 		renderer::sampler_stage_op_value::type
 	);
 
 	void
 	sampler_stage_arg(
-		stage_type,
+		renderer::stage_type,
 		renderer::sampler_stage_arg::type,
 		renderer::sampler_stage_arg_value::type
 	);
@@ -148,13 +148,13 @@ public:
 	void
 	texture(
 		texture::const_base_ptr,
-		stage_type
+		renderer::stage_type
 	);
 
 	void
 	transform(
-		matrix_mode::type,
-		matrix4 const &
+		renderer::matrix_mode::type,
+		renderer::matrix4 const &
 	);
 
 	void
@@ -162,17 +162,17 @@ public:
 		renderer::target_ptr
 	);
 
-	glsl::program_ptr const
+	renderer::glsl::program_ptr const
 	create_glsl_program();
 
-	glsl::vertex_shader_ptr const
+	renderer::glsl::vertex_shader_ptr const
 	create_glsl_vertex_shader(
-		glsl::string const &
+		renderer::glsl::string const &
 	);
 
-	glsl::pixel_shader_ptr const
+	renderer::glsl::pixel_shader_ptr const
 	create_glsl_pixel_shader(
-		glsl::string const &
+		renderer::glsl::string const &
 	);
 
 	void
@@ -210,11 +210,17 @@ public:
 		renderer::texture::cube_parameters const &
 	);
 
-	vertex_buffer_ptr const
+	renderer::vertex_declaration_ptr const
+	create_vertex_declaration(
+		renderer::vf::dynamic::format const &
+	);
+
+	renderer::vertex_buffer_ptr const
 	create_vertex_buffer(
-		vf::dynamic::format const &,
-		size_type size,
-		resource_flags_field const &
+		renderer::vertex_declaration_ptr,
+		renderer::vf::dynamic::part_index,
+		renderer::size_type size,
+		renderer::resource_flags_field const &
 	);
 
 	index_buffer_ptr const
@@ -268,10 +274,6 @@ private:
 	renderer::caps const caps_;
 
 	d3d9::resource_list resources_;
-
-	//renderer::const_vertex_buffer_ptr vb;
-
-	//renderer::const_index_buffer_ptr ib;
 };
 
 }

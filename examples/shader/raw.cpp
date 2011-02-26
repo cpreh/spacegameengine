@@ -31,6 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
+#include <sge/renderer/texture/capabilities.hpp>
+#include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
@@ -407,7 +409,10 @@ try
 				sge::renderer::texture::address_mode2(
 					sge::renderer::texture::address_mode::clamp
 				),
-				sge::renderer::resource_flags::none
+				sge::renderer::resource_flags::none,
+				sge::renderer::texture::capabilities_field(
+					sge::renderer::texture::capabilities::render_target
+				)
 			)
 		)
 	);

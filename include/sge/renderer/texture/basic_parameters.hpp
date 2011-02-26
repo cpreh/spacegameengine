@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TEXTURE_BASIC_PARAMETERS_HPP_INCLUDED
 
 #include <sge/renderer/texture/basic_parameters_fwd.hpp>
+#include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/filter/object.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/image/color/format.hpp>
@@ -48,7 +49,8 @@ public:
 		sge::image::color::format::type,
 		texture::filter::object const &,
 		AddressMode const &,
-		renderer::resource_flags_field const &
+		renderer::resource_flags_field const &,
+		texture::capabilities_field const &
 	);
 
 	SGE_SYMBOL
@@ -70,6 +72,10 @@ public:
 	SGE_SYMBOL
 	renderer::resource_flags_field const &
 	resource_flags() const;
+
+	SGE_SYMBOL
+	texture::capabilities_field const &
+	capabilities() const;
 private:
 	Dim dim_;
 
@@ -81,6 +87,7 @@ private:
 
 	renderer::resource_flags_field resource_flags_;
 
+	texture::capabilities_field capabilities_;
 };
 
 }

@@ -18,77 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../cube_texture.hpp"
-#include <sge/stub.hpp>
-#include <sge/renderer/scoped_lock.hpp>
+#include "../cube.hpp"
 
-sge::d3d9::cube_texture::cube_texture(renderer& r,
-                                      const d3d_device_ptr device,
-                                      const cube_side_array* const data,
-                                      const size_type sz,
-                                      const filter_args& filter_,
-                                      const resource_flag_t flags)
-:  detail::cube_texture_base_type(r, filter_, flags),
-   device(device),
-   sz(sz),
-   lock_dest(0)
+sge::d3d9::texture::cube::cube(
+	d3d9::d3d_device_ptr const _device,
+	renderer::texture::cube_parameters const &_params
+)
+:
+	texture::cube_basic(
+		_device,
+		_params
+	)
 {
-	do_reset();
-
-	if(data)
-		sge::cube_texture::set_data(*data);
 }
 
-IDirect3DBaseTexture9* sge::d3d9::cube_texture::do_reset()
+sge::d3d9::texture::cube::~cube()
 {
-	SGE_STUB_FUNCTION
+}
+
+image2d::view::object const
+sge::d3d9::texture::cube::lock(
+	renderer::texture::cube_side::type,
+	renderer::lock_rect const &,
+	renderer::lock_mode::type
+)
+{
+}
+
+image2d::view::const_object const
+sge::d3d9::texture::cube::lock(
+	renderer::texture::cube_side::type,
+	renderer::lock_rect const &
+) const
+{
+}
+
+void
+sge::d3d9::texture::cube::unlock() const
+{
+}
+
+sge::d3d9::texture::cube::size_type
+sge::d3d9::texture::cube::border_size() const
+{
+}
+
+IDirect3DBaseTexture9 *
+sge::d3d9::texture::cube::do_reset()
+{
 	return 0;
-}
-
-void sge::d3d9::cube_texture::lock(const cube_side::type side, const lock_rect* const r)
-{
-	SGE_STUB_FUNCTION
-}
-
-void sge::d3d9::cube_texture::unlock()
-{
-	SGE_STUB_FUNCTION
-}
-
-sge::cube_texture::pointer sge::d3d9::cube_texture::data()
-{
-	return lock_dest;
-}
-
-sge::cube_texture::const_pointer sge::d3d9::cube_texture::data() const
-{
-	return lock_dest;
-}
-
-void sge::d3d9::cube_texture::set_data(const cube_side::type side,
-                                       const const_pointer data)
-{
-	SGE_STUB_FUNCTION
-}
-
-void sge::d3d9::cube_texture::set_data(const cube_side::type side,
-                                       const const_pointer data,
-                                       const lock_rect& r)
-{
-	SGE_STUB_FUNCTION
-}
-
-sge::cube_texture::size_type sge::d3d9::cube_texture::border_size() const
-{
-	return sz;
-}
-
-sge::cube_texture::size_type sge::d3d9::cube_texture::size() const
-{
-	return border_size() * border_size();
-}
-
-void sge::d3d9::cube_texture::do_loss()
-{
-	tex.reset();
 }

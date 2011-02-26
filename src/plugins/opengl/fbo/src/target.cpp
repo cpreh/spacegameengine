@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../check_state.hpp"
 #include "../../context/use.hpp"
 #include "../../texture/surface.hpp"
+#include "../../texture/surface_ptr.hpp"
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/target.hpp>
 #include <sge/renderer/unsupported.hpp>
@@ -129,6 +130,22 @@ sge::opengl::fbo::target::color_surface(
 		_surface
 	)
 	{
+		opengl::texture::surface_ptr const texture_surface(
+			fcppt::dynamic_pointer_cast<
+				opengl::texture::surface
+			>(
+				_surface
+			)
+		);
+
+		if(
+			!texture_surface->is_render_target()
+		)
+			throw sge::renderer::exception(
+				FCPPT_TEXT("You tried to use a texture as a render target ")
+				FCPPT_TEXT("which hasn't been created as such!")
+			);
+
 		this->add_dim(
 			_surface->dim()
 		);
@@ -137,11 +154,7 @@ sge::opengl::fbo::target::color_surface(
 			color_attachments_,
 			_index,
 			this->create_texture_binding(
-				fcppt::dynamic_pointer_cast<
-					opengl::texture::surface
-				>(
-					_surface
-				),
+				texture_surface,
 				context_.color_attachment()
 				+ _index.get()
 			)

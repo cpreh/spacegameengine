@@ -20,16 +20,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/target_from_texture.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/surface_index.hpp>
 #include <sge/renderer/stage_type.hpp>
 #include <sge/renderer/target.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/texture/planar.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 #include <fcppt/math/box/basic_impl.hpp>
 #include <fcppt/math/dim/basic_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/basic_impl.hpp>
+#include <fcppt/text.hpp>
 
 sge::renderer::target_ptr const
 sge::renderer::target_from_texture(
@@ -37,6 +40,18 @@ sge::renderer::target_from_texture(
 	renderer::texture::planar_ptr const _texture
 )
 {
+	if(
+		!(
+			_texture->capabilities()
+			&
+			sge::renderer::texture::capabilities::render_target
+		)
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("renderer::target_from_texture() called with a texture ")
+			FCPPT_TEXT("that is not a render target!")
+		);
+
 	sge::renderer::target_ptr const target(
 		_device->create_target()
 	);

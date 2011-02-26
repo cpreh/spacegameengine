@@ -18,54 +18,76 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TEXTURE_HPP_INCLUDED
-#define SGE_D3D9_TEXTURE_HPP_INCLUDED
+#ifndef SGE_D3D9_TEXTURE_PLANAR_HPP_INCLUDED
+#define SGE_D3D9_TEXTURE_PLANAR_HPP_INCLUDED
 
-#include "basic_texture.hpp"
-#include "d3dinclude.hpp"
-#include <sge/renderer/texture.hpp>
+#include "basic.hpp"
+#include "planar_basic.hpp"
+#include "../d3d_device_ptr.hpp"
+#include "../d3d_texture_ptr.hpp"
+#include "../d3dinclude.hpp"
+#include <sge/renderer/texture/planar_parameters_fwd.hpp>
+#include <sge/renderer/color_surface_ptr.hpp>
+#include <sge/renderer/lock_rect.hpp>
+#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/stage_type.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
-
-class renderer;
-
-namespace detail
+namespace texture
 {
 
-typedef basic_texture<sge::texture> texture_base_type;
-
-}
-
-class texture : public detail::texture_base_type {
+class planar
+:
+	public texture::planar_basic
+{
+	FCPPT_NONCOPYABLE(
+		planar
+	);
 public:
-	texture(
-		d3d_device_ptr device,
-		dim_type const &dim,
-		renderer::filter::texture const &,
-		renderer::resource_flag_t flags);
+	planar(
+		d3d9::d3d_device_ptr,
+		renderer::texture::planar_parameters const &
+	);
 
-	dim_type const dim() const;
+	~planar();
 
-	void lock(lock_flag_t);
-	void lock(const lock_rect&, lock_flag_t);
-	void unlock();
+	dim_type const
+	dim() const;
 
-	pointer data();
-	const_pointer data() const;
+	view_type const
+	lock(
+		renderer::lock_rect const &,
+		renderer::lock_mode::type
+	);
+
+	const_view_type const
+	lock(
+		renderer::lock_rect const &
+	) const;
+
+	void
+	unlock() const;
+
+	renderer::color_surface_ptr const
+	surface(
+		renderer::stage_type
+	);
+
+	sge::renderer::stage_type
+	stages() const;
 private:
-	void lock(const lock_rect* r, lock_flag_t);
+	IDirect3DBaseTexture9 *
+	do_reset();
 
-	void do_loss();
-	IDirect3DBaseTexture9* do_reset();
+	d3d_texture_ptr
+		texture_,
+		temp_texture_;
 
-	d3d_device_ptr   device;
-	d3d_texture_ptr  tex;
-	d3d_texture_ptr  temp_tex;
-	dim_type         dim_;
-	pointer          lock_dest;
+	sge::renderer::raw_pointer lock_dest_;
 };
 
 }
