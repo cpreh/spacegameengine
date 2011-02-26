@@ -18,6 +18,10 @@ SET(
 	src/plugins/d3d9/convert/src/sampler_stage_arg_value.cpp
 	src/plugins/d3d9/convert/src/sampler_stage_op.cpp
 	src/plugins/d3d9/convert/src/sampler_stage_op_value.cpp
+	src/plugins/d3d9/convert/src/vertex_role.cpp
+	src/plugins/d3d9/convert/src/vertex_type.cpp
+	src/plugins/d3d9/convert/vertex_role.hpp
+	src/plugins/d3d9/convert/vertex_type.hpp
 	src/plugins/d3d9/create_caps.hpp
 	src/plugins/d3d9/create_device.hpp
 	src/plugins/d3d9/d3d_cube_texture_ptr.hpp
@@ -63,17 +67,22 @@ SET(
 	src/plugins/d3d9/src/texture_functions.cpp
 	src/plugins/d3d9/src/transform.cpp
 	src/plugins/d3d9/src/vertex_buffer.cpp
-	src/plugins/d3d9/src/vertex_format.cpp
+	src/plugins/d3d9/src/vertex_declaration.cpp
 	src/plugins/d3d9/system.hpp
 	src/plugins/d3d9/systemfuncs/get_caps.hpp
 	src/plugins/d3d9/systemfuncs/src/get_caps.cpp
 	src/plugins/d3d9/target.hpp
 	src/plugins/d3d9/texture/base.hpp
 	src/plugins/d3d9/texture/basic.hpp
+	src/plugins/d3d9/texture/basic_fwd.hpp
 	src/plugins/d3d9/texture/basic_impl.hpp
+	src/plugins/d3d9/texture/create_planar.hpp
 	src/plugins/d3d9/texture/cube.hpp
+	src/plugins/d3d9/texture/cube_basic.hpp
+	src/plugins/d3d9/texture/cube_types.hpp
 	src/plugins/d3d9/texture/planar.hpp
 	src/plugins/d3d9/texture/src/base.cpp
+	src/plugins/d3d9/texture/src/create_planar.cpp
 	src/plugins/d3d9/texture/src/cube.cpp
 	src/plugins/d3d9/texture/src/planar.cpp
 	src/plugins/d3d9/texture/src/volume.cpp
@@ -81,7 +90,7 @@ SET(
 	src/plugins/d3d9/texture_functions.hpp
 	src/plugins/d3d9/transform.hpp
 	src/plugins/d3d9/vertex_buffer.hpp
-	src/plugins/d3d9/vertex_format.hpp
+	src/plugins/d3d9/vertex_declaration.hpp
 )
 
 INCLUDE_DIRECTORIES(

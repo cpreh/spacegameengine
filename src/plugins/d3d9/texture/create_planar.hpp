@@ -18,16 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TEXTURE_BASIC_HPP_INCLUDED
-#define SGE_D3D9_TEXTURE_BASIC_HPP_INCLUDED
+#ifndef SGE_D3D9_TEXTURE_CREATE_PLANAR_HPP_INCLUDED
+#define SGE_D3D9_TEXTURE_CREATE_PLANAR_HPP_INCLUDED
 
-#include "basic_fwd.hpp"
-#include "base.hpp"
 #include "../d3d_device_ptr.hpp"
-#include "../d3dinclude.hpp"
-#include "../resource.hpp"
-#include <sge/renderer/resource_flags_type.hpp>
-#include <fcppt/noncopyable.hpp>
+#include "../d3d_texture_ptr.hpp"
+#include <sge/renderer/texture/planar_parameters_fwd.hpp>
 
 namespace sge
 {
@@ -36,53 +32,11 @@ namespace d3d9
 namespace texture
 {
 
-template<
-	typename Types
->
-class basic
-:
-	public Types::base,
-	public d3d9::texture::base,
-	public d3d9::resource
-{
-	FCPPT_NONCYOPABLE(
-		basic
-	);
-public:
-	typedef typename Types::parameters parameters_type;
-
-	basic(
-		d3d9::d3d_device_ptr,
-		parameters_type const &
-	);
-
-	~basic();
-
-	parameters_type const &
-	parameters() const;
-protected:
-	d3d9::d3d_device_ptr const
-	device() const;
-
-	sge::renderer::resource_flags_field const 
-	flags() const;
-
-	void
-	on_reset();
-
-	void
-	on_loss();
-private:
-	virtual IDirect3DBaseTexture9 *
-	do_reset() = 0;
-
-	virtual void
-	do_loss() = 0;
-
-	d3d9::d3d_device_ptr const device_;
-
-	parameters_type const parameters_;
-};
+d3d9::d3d_texture_ptr const
+create_planar(
+	d3d_device_ptr,
+	renderer::texture::planar_parameters const &
+);
 
 }
 }

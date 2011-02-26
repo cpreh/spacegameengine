@@ -18,60 +18,74 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_CUBE_TEXTURE_HPP_INCLUDED
-#define SGE_D3D9_CUBE_TEXTURE_HPP_INCLUDED
+#ifndef SGE_D3D9_TEXTURE_CUBE_HPP_INCLUDED
+#define SGE_D3D9_TEXTURE_CUBE_HPP_INCLUDED
 
-#include "basic_texture.hpp"
-#include "d3dinclude.hpp"
-#include <sge/renderer/cube_texture.hpp>
+#include "cube_basic.hpp"
+#include "../d3d_cube_texture_ptr.hpp"
+#include "../d3d_device_ptr.hpp"
+#include "../d3dinclude.hpp"
+#include <sge/renderer/texture/cube_parameters_fwd.hpp>
+#include <sge/renderer/texture/cube_side.hpp>
+#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/lock_rect.hpp>
+#include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/view/object.hpp>
+#include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
-
-namespace detail
+namespace texture
 {
 
-typedef basic_texture<sge::cube_texture> cube_texture_base_type;
-
-}
-
-class cube_texture : public detail::cube_texture_base_type {
-	friend class renderer;
-private:
-	cube_texture(renderer& r,
-	             d3d_device_ptr device,
-	             const cube_side_array* data,
-	             size_type sz,
-	             const filter_args& filter,
-	             resource_flag_t flags);
+class cube
+:
+	public texture::cube_basic
+{
+	FCPPT_NONCOPYABLE(
+		cube
+	);
 public:
-	size_type size() const;
-	size_type border_size() const;
+	cube(
+		d3d9::d3d_device_ptr,
+		renderer::texture::cube_parameters const &
+	);
 
-	void set_data(cube_side::type side, const_pointer p);
-	void set_data(cube_side::type side, const_pointer p, const lock_rect& r);
+	~cube();
+public:
+	image2d::view::object const
+	lock(
+		renderer::texture::cube_side::type,
+		renderer::lock_rect const &,
+		renderer::lock_mode::type
+	);
 
-	void lock(cube_side::type side);
-	void lock(cube_side::type side, const lock_rect&);
-	void unlock();
+	image2d::view::const_object const
+	lock(
+		renderer::texture::cube_side::type,
+		renderer::lock_rect const &
+	) const;
 
-	pointer data();
-	const_pointer data() const;
+	void
+	unlock() const;
+
+	size_type
+	border_size() const;
 private:
-	void lock(cube_side::type side, const lock_rect* r);
-	void do_loss();
-	IDirect3DBaseTexture9* do_reset();
+	IDirect3DBaseTexture9 *
+	do_reset();
 
-	void init(const cube_side_array* data = 0);
+	void
+	init();
 
-	d3d_device_ptr        device;
-	d3d_cube_texture_ptr  tex;
-	size_type             sz;
-	pointer               lock_dest;
+	d3d9::d3d_cube_texture_ptr texture_;
+
+	sge::renderer::raw_pointer lock_dest_;
 };
 
+}
 }
 }
 

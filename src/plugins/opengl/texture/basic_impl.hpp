@@ -332,6 +332,15 @@ sge::opengl::texture::basic<Types>::filter() const
 template<
 	typename Types
 >
+sge::renderer::texture::capabilities_field const
+sge::opengl::texture::basic<Types>::capabilities() const
+{
+	return capabilities_;
+}
+
+template<
+	typename Types
+>
 typename sge::opengl::texture::basic<Types>::size_type
 sge::opengl::texture::basic<Types>::stride() const
 {
@@ -394,6 +403,9 @@ sge::opengl::texture::basic<Types>::basic(
 	),
 	resource_flags_(
 		_parameters.resource_flags()
+	),
+	capabilities_(
+		_parameters.capabilities()
 	),
 	dim_(
 		_parameters.dim()

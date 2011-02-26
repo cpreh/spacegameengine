@@ -35,14 +35,16 @@ sge::renderer::texture::basic_parameters<
 	sge::image::color::format::type const _color_format,
 	texture::filter::object const &_filter,
 	AddressMode const &_address_mode,
-	renderer::resource_flags_field const &_resource_flags
+	renderer::resource_flags_field const &_resource_flags,
+	texture::capabilities_field const &_capabilities
 )
 :
 	dim_(_dim),
 	color_format_(_color_format),
 	filter_(_filter),
 	address_mode_(_address_mode),
-	resource_flags_(_resource_flags)
+	resource_flags_(_resource_flags),
+	capabilities_(_capabilities)
 {
 }
 
@@ -109,6 +111,19 @@ sge::renderer::texture::basic_parameters<
 >::resource_flags() const
 {
 	return resource_flags_;
+}
+
+template<
+	typename Dim,
+	typename AddressMode
+>
+sge::renderer::texture::capabilities_field const &
+sge::renderer::texture::basic_parameters<
+	Dim,
+	AddressMode
+>::capabilities() const
+{
+	return capabilities_;
 }
 
 #endif

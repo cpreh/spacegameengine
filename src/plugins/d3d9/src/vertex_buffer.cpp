@@ -19,171 +19,221 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../vertex_buffer.hpp"
-#include "../convert_to_pool.hpp"
-#include "../convert_resource_flags.hpp"
-#include "../convert_lock_flags.hpp"
-#include <sge/exception.hpp>
+#include "../d3dinclude.hpp"
+#include "../convert/lock_mode.hpp"
+#include "../convert/resource_flags_to_pool.hpp"
+#include "../convert/resource_flags.hpp"
+#include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
 sge::d3d9::vertex_buffer::vertex_buffer(
-	d3d_device_ptr const device_,
-	renderer::vf::dynamic_format const &format,
-	size_type const sz,
-	resource_flag_type const flags_)
+	d3d9::d3d_device_ptr const _device,
+	renderer::vf::dynamic::part const &_format_part,
+	renderer::vf::dynamic::part_index const _format_part_index,
+	size_type const _size,
+	resource_flag_type const _resource_flags
+)
 :
-	device_(device_),
-	lock_dest(0),
-	flags_(flags_),
-	sz(sz),
-	d3d_format(
-		device_,
-		format
-	)
+	device_(_device),
+	format_part_(_format_part),
+	format_part_index_(_format_part_index),
+	size_(_size),
+	resource_flags_(_resource_flags),
+	buffer_(),
+	lock_dest_(0)
 {
-	init();
+	this->init();
 }
 
 sge::d3d9::vertex_buffer::view_type const
 sge::d3d9::vertex_buffer::lock(
-	lock_flag_type const lflags,
-	size_type const first,
-	size_type const count)
+	renderer::lock_mode::type const _lock_mode,
+	size_type const _first,
+	size_type const _count
+)
 {
-	do_lock(
-		convert_lock_flags(
-			lflags,
-			flags()
+	this->do_lock(
+		convert::lock_mode(
+			_lock_mode,
+			this->flags()
 		),
-		first,
-		count
+		_first,
+		_count
 	);
 
-	return view_type(
-		lock_dest,
-		count,
-		format()
-	);
+	return
+		view_type(
+			lock_dest_,
+			_count,
+			this->format_part(),
+			this->format_part_index()
+		);
 }
 
 sge::d3d9::vertex_buffer::const_view_type const
 sge::d3d9::vertex_buffer::lock(
-	size_type const offset,
-	size_type const range) const
+	size_type const _first,
+	size_type const _count
+) const
 {
-	do_lock(
+	this->do_lock(
 		D3DLOCK_READONLY,
-		offset,
-		range
+		_first,
+		_count
 	);
 
-	return const_view_type(
-		lock_dest,
-		count,
-		format()
-	);
+	return
+		const_view_type(
+			lock_dest_,
+			_count,
+			this->format_part(),
+			this->format_part_index()
+		);
 }
 
 void
 sge::d3d9::vertex_buffer::unlock() const
 {
-	if(!lock_dest)
-		throw exception(
-			FCPPT_TEXT("d3d::vertex_buffer::unlock() you have to lock first!")
+	if(
+		!lock_dest_
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("d3d9::vertex_buffer::unlock() you have to lock first!")
 		);
 
+// FIXME!
 /*#ifndef SGE_USE_ARGB
 	if(get_vertex_format().uses(vertex_usage::diffuse))
 		for(iterator it = begin(); it != end(); ++it)
 			it->diffuse() = rgba_to_argb(it->diffuse());
 #endif*/
-	if(buffer->Unlock() != D3D_OK)
-		throw exception(
+	if(
+		buffer->Unlock()
+		!= D3D_OK
+	)
+		throw sge::renderer::exception(
 			FCPPT_TEXT("Cannot unlock d3d vertex buffer!")
 		);
 
-	lock_dest = 0;
+	lock_dest_ = 0;
 }
 
 sge::d3d9::vertex_buffer::size_type
 sge::d3d9::vertex_buffer::size() const
 {
-	return sz;
+	return size_;
 }
 
 sge::d3d9::vertex_buffer::resource_flag_type
 sge::d3d9::vertex_buffer::flags() const
 {
-	return flags_;
+	return resource_flags_;
 }
 
-sge::renderer::vf::dynamic_format const &
+sge::renderer::vf::dynamic::format_part const
 sge::d3d9::vertex_buffer::format() const
 {
-	return d3d_format.format();
+	return format_part_;
+}
+
+sge::renderer::vf::dynamic::part_index const
+sge::d3d9::vertex_buffer::format_part_index() const
+{
+	return format_part_index_;
 }
 
 void
 sge::d3d9::vertex_buffer::init()
 {
-	IDirect3DVertexBuffer9 *p;
+	IDirect3DVertexBuffer9 *ret
 
 	if(
 		device_->CreateVertexBuffer(
-			static_cast<UINT>(stride() * size()),
-			convert_resource_flags(
-				flags()
+			static_cast<
+				UINT
+			>(
+				this->stride()
+				* this->size()
 			),
-			d3d_format.fvf(),
-			convert_to_pool(
-				flags()
+			convert::resource_flags(
+				this->flags()
 			),
-			&p,
+			0, // no FVF
+			convert::resource_flags_to_pool(
+				this->flags()
+			),
+			&ret,
 			0
-		) != D3D_OK
+		)
+		!= D3D_OK
 	)
-		throw exception(
+		throw sge::renderer::exception(
 			FCPPT_TEXT("Cannot create vertex buffer!")
 		);
 
-	buffer.reset(p);
+	buffer_.reset(
+		ret
+	);
 }
 
-void sge::d3d9::vertex_buffer::on_loss()
+void
+sge::d3d9::vertex_buffer::on_loss()
 {
-	buffer.reset();
+	buffer_.reset();
 }
 
-void sge::d3d9::vertex_buffer::on_reset()
+void
+sge::d3d9::vertex_buffer::on_reset()
 {
-	init();
+	this->init();
 }
 
 void
 sge::d3d9::vertex_buffer::do_lock(
-	DWORD const lflags,
-	size_type const offset,
-	size_type const count) const
+	DWORD const _lock_flags,
+	size_type const _first,
+	size_type const _count
+) const
 {
-	if(lock_dest)
-		throw exception(
+	if(
+		lock_dest_
+	)
+		throw sge::renderer::exception(
 			FCPPT_TEXT("d3d::vertex_buffer::lock() you have to unlock first!")
-	);
+		);
 
-	void *p = 0;
+	void *data = 0;
 
 	if(
-		buffer->Lock(
-			static_cast<UINT>(offset * stride()),
-			static_cast<UINT>(count * stride()),
-			&p,
-			lflags
-		) != D3D_OK
+		buffer_->Lock(
+			static_cast<
+				UINT
+			>(
+				_offset
+				* this->stride()
+			),
+			static_cast<
+				UINT
+			>(
+				_count
+				* this->stride()
+			),
+			&data,
+			_lock_flags
+		)
+		!= D3D_OK
 	)
-		throw exception(
+		throw sge::renderer::exception(
 			FCPPT_TEXT("Cannot lock d3d vertex buffer!")
 		);
 
-	lock_dest = static_cast<renderer::raw_pointer>(p);
+	lock_dest_ =
+		static_cast<
+			renderer::raw_pointer
+		>(
+			data
+		);
+// FIXME!
 /*#ifndef SGE_USE_ARGB
 	if(get_vertex_format().uses(vertex_usage::diffuse))
 		for(iterator it = begin(); it != end(); ++it)
@@ -194,5 +244,5 @@ sge::d3d9::vertex_buffer::do_lock(
 sge::d3d9::vertex_buffer::size_type
 sge::d3d9::vertex_buffer::stride() const
 {
-	return d3d_format.stride();
+	return format_part_.stride();
 }

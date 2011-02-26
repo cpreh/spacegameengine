@@ -453,7 +453,6 @@ SET(
 	src/plugins/opengl/texture/funcs/get_image.hpp
 	src/plugins/opengl/texture/funcs/get_parameter_int.hpp
 	src/plugins/opengl/texture/funcs/level_parameter.hpp
-	src/plugins/opengl/texture/funcs/need_mipmap.hpp
 	src/plugins/opengl/texture/funcs/parameter_int.hpp
 	src/plugins/opengl/texture/funcs/set_2d.hpp
 	src/plugins/opengl/texture/funcs/set_3d.hpp
@@ -471,7 +470,6 @@ SET(
 	src/plugins/opengl/texture/funcs/src/get_image.cpp
 	src/plugins/opengl/texture/funcs/src/get_parameter_int.cpp
 	src/plugins/opengl/texture/funcs/src/level_parameter.cpp
-	src/plugins/opengl/texture/funcs/src/need_mipmap.cpp
 	src/plugins/opengl/texture/funcs/src/parameter_int.cpp
 	src/plugins/opengl/texture/funcs/src/set_2d.cpp
 	src/plugins/opengl/texture/funcs/src/set_3d.cpp
@@ -531,6 +529,7 @@ SET(
 	src/plugins/opengl/texture/surface_base_fwd.hpp
 	src/plugins/opengl/texture/surface_base_ptr.hpp
 	src/plugins/opengl/texture/surface_fwd.hpp
+	src/plugins/opengl/texture/surface_ptr.hpp
 	src/plugins/opengl/texture/type.hpp
 	src/plugins/opengl/texture/volume.hpp
 	src/plugins/opengl/texture/volume_basic.hpp

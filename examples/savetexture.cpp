@@ -38,6 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/planar_ptr.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
+#include <sge/renderer/texture/capabilities.hpp>
+#include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/scoped_target.hpp>
 #include <sge/log/global.hpp>
 #include <sge/input/keyboard/action.hpp>
@@ -297,7 +299,14 @@ try
 				sge::renderer::texture::address_mode2(
 					sge::renderer::texture::address_mode::clamp),
 				sge::renderer::resource_flags_field(
-					sge::renderer::resource_flags::readable))));
+					sge::renderer::resource_flags::readable
+				),
+				sge::renderer::texture::capabilities_field(
+					sge::renderer::texture::capabilities::render_target
+				)
+			)
+		)
+	);
 
 	sge::renderer::target_ptr const temp_target(
 		sge::renderer::target_from_texture(

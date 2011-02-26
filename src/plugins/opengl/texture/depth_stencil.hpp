@@ -61,6 +61,9 @@ public:
 
 	renderer::resource_flags_field const
 	flags() const;
+
+	renderer::texture::capabilities_field const
+	capabilities() const;
 private:
 	opengl::context::object &context_;
 

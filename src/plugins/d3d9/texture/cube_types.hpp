@@ -18,38 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TEXTURE_BASE_HPP_INCLUDED
-#define SGE_D3D9_TEXTURE_BASE_HPP_INCLUDED
+#ifndef SGE_D3D9_TEXTURE_CUBE_TYPES_HPP_INCLUDED
+#define SGE_D3D9_TEXTURE_CUBE_TYPES_HPP_INCLUDED
 
-#include "../d3dinclude.hpp"
-#include <fcppt/noncopyable.hpp>
+#include <sge/renderer/texture/cube_fwd.hpp>
+#include <sge/renderer/texture/cube_parameters_fwd.hpp>
 
 namespace sge
 {
-namespace d3d9
+namespace opengl
 {
 namespace texture
 {
 
-class base
+struct cube_types
 {
-	FCPPT_NONCOPYABLE(
-		base
-	);
-protected:
-	explicit base(
-		IDirect3DBaseTexture9 *
-	);
+	typedef sge::renderer::texture::cube base;
 
-	virtual ~base();
-public:
-	IDirect3DBaseTexture9 *
-	get() const;
-	
-	void
-	reset_base();
-private:
-	IDirect3DBaseTexture9 *base_;
+	typedef sge::renderer::texture::cube_parameters parameters;
 };
 
 }

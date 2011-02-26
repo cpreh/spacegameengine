@@ -18,73 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TEXTURE_BASIC_HPP_INCLUDED
-#define SGE_D3D9_TEXTURE_BASIC_HPP_INCLUDED
+#ifndef SGE_D3D9_VERTEX_DECLARATION_HPP_INCLUDED
+#define SGE_D3D9_VERTEX_DECLARATION_HPP_INCLUDED
 
-#include "basic_fwd.hpp"
-#include "base.hpp"
-#include "../d3d_device_ptr.hpp"
-#include "../d3dinclude.hpp"
-#include "../resource.hpp"
-#include <sge/renderer/resource_flags_type.hpp>
+#include "d3d_device_ptr.hpp"
+#include "d3d_vertex_declaration_ptr.hpp"
+#include "d3dinclude.hpp"
+#include <sge/renderer/vf/dynamic/format.hpp>
+#include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <sge/renderer/size_type.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
-namespace texture
-{
 
-template<
-	typename Types
->
-class basic
+class vertex_declaration
 :
-	public Types::base,
-	public d3d9::texture::base,
-	public d3d9::resource
+	public sge::renderer::vertex_declaration
 {
-	FCPPT_NONCYOPABLE(
-		basic
+	FCPPT_NONCOPYABLE(
+		vertex_declaration
 	);
 public:
-	typedef typename Types::parameters parameters_type;
-
-	basic(
+	vertex_declaration(
 		d3d9::d3d_device_ptr,
-		parameters_type const &
+		sge::renderer::vf::dynamic::format const &
 	);
 
-	~basic();
+	~vertex_declaration();
 
-	parameters_type const &
-	parameters() const;
-protected:
-	d3d9::d3d_device_ptr const
-	device() const;
+	d3d9::d3d_vertex_declaration_ptr const
+	get() const;
 
-	sge::renderer::resource_flags_field const 
-	flags() const;
+	sge::renderer::vf::dynamic::format const &
+	format() const;
 
-	void
-	on_reset();
-
-	void
-	on_loss();
+	renderer::size_type
+	stride(
+		renderer::vf::dynamic::part_index
+	) const;
 private:
-	virtual IDirect3DBaseTexture9 *
-	do_reset() = 0;
+	sge::renderer::vf::dynamic::format const format_;
 
-	virtual void
-	do_loss() = 0;
-
-	d3d9::d3d_device_ptr const device_;
-
-	parameters_type const parameters_;
+	d3d9::d3d_vertex_declaration_ptr declaration_;
 };
 
-}
 }
 }
 

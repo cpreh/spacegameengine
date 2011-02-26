@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../lock_method.hpp"
 #include "../context/object_fwd.hpp"
 #include <sge/renderer/texture/filter/object.hpp>
+#include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/image/color/format.hpp>
@@ -114,6 +115,9 @@ protected:
 	renderer::texture::filter::object const &
 	filter() const;
 
+	renderer::texture::capabilities_field const
+	capabilities() const;
+
 	using base_type::content;
 
 	size_type
@@ -162,6 +166,8 @@ private:
 	renderer::texture::filter::object const filter_;
 
 	renderer::resource_flags_field const resource_flags_;
+
+	renderer::texture::capabilities_field const capabilities_;
 
 	dim_type const dim_;
 

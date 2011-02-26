@@ -697,6 +697,8 @@ SET(
 	include/sge/renderer/texture/basic_parameters.hpp
 	include/sge/renderer/texture/basic_parameters_fwd.hpp
 	include/sge/renderer/texture/basic_scoped_lock.hpp
+	include/sge/renderer/texture/capabilities.hpp
+	include/sge/renderer/texture/capabilities_field.hpp
 	include/sge/renderer/texture/const_base_ptr.hpp
 	include/sge/renderer/texture/const_basic_scoped_lock.hpp
 	include/sge/renderer/texture/const_planar_ptr.hpp
@@ -721,6 +723,7 @@ SET(
 	include/sge/renderer/texture/filter/mag.hpp
 	include/sge/renderer/texture/filter/min.hpp
 	include/sge/renderer/texture/filter/mipmap.hpp
+	include/sge/renderer/texture/filter/need_mipmap.hpp
 	include/sge/renderer/texture/filter/object.hpp
 	include/sge/renderer/texture/filter/object_fwd.hpp
 	include/sge/renderer/texture/filter/point.hpp
@@ -775,6 +778,7 @@ SET(
 	include/sge/renderer/vf/dynamic/detail/make_unspecified_element.hpp
 	include/sge/renderer/vf/dynamic/detail/make_vector.hpp
 	include/sge/renderer/vf/dynamic/element.hpp
+	include/sge/renderer/vf/dynamic/element_fwd.hpp
 	include/sge/renderer/vf/dynamic/element_list.hpp
 	include/sge/renderer/vf/dynamic/format.hpp
 	include/sge/renderer/vf/dynamic/format_fwd.hpp
@@ -1134,6 +1138,7 @@ SET(
 	src/renderer/texture/filter/anisotropic.cpp
 	src/renderer/texture/filter/linear.cpp
 	src/renderer/texture/filter/mipmap.cpp
+	src/renderer/texture/filter/need_mipmap.cpp
 	src/renderer/texture/filter/object.cpp
 	src/renderer/texture/filter/point.cpp
 	src/renderer/texture/filter/trilinear.cpp

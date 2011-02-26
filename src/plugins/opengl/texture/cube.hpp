@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "base.hpp"
 #include "../context/object_fwd.hpp"
+#include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/cube.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
@@ -76,6 +77,9 @@ public:
 
 	renderer::resource_flags_field const
 	flags() const;
+
+	renderer::texture::capabilities_field const
+	capabilities() const;
 private:
 	void
 	check_locked() const;

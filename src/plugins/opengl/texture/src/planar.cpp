@@ -123,7 +123,9 @@ sge::opengl::texture::planar::surface(
 			_stage,
 			this->flags(),
 			this->format(),
-			this->format_type()
+			this->format_type(),
+			this->capabilities()
+			& sge::renderer::texture::capabilities::render_target
 		);
 }
 

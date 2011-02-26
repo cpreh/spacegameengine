@@ -32,9 +32,11 @@ namespace image
 namespace color
 {
 
-SGE_SYMBOL size_type
+SGE_SYMBOL
+size_type
 format_stride(
-	format::type);
+	format::type
+);
 
 }
 }

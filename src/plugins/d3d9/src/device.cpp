@@ -19,11 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../device.hpp"
+#include "../create_device.hpp"
 //#include "../volume_texture.hpp"
 #include "../index_buffer.hpp"
 //#include "../material.hpp"
 #include "../target.hpp"
 #include "../vertex_buffer.hpp"
+#include "../systemfuncs/create_caps.hpp"
 #include "../texture/cube.hpp"
 #include "../texture/planar.hpp"
 #include "../texture/volume.hpp"
@@ -55,11 +57,20 @@ sge::d3d9::device::device(
 	window::instance_ptr const _window
 )
 :
-	device_(device),
-	screen_size_(param.mode().size()),
-	preset_parameters(present_parameters),
-	window_(window_),
-	caps_(caps_)
+	device_(
+		d3d9::create_device(
+			_system,
+			_param,
+			_adapeter,
+			_window
+		)
+	),
+	window_(_window),
+	caps_(
+		systemfuncs::create_caps(
+			_caps
+		)
+	)
 {
 }
 

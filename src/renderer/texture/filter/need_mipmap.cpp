@@ -18,42 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TEXTURE_BASE_HPP_INCLUDED
-#define SGE_D3D9_TEXTURE_BASE_HPP_INCLUDED
+#include <sge/renderer/texture/filter/need_mipmap.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include "../d3dinclude.hpp"
-#include <fcppt/noncopyable.hpp>
-
-namespace sge
+bool
+sge::renderer::texture::filter::need_mipmap(
+	sge::renderer::texture::filter::min::type const _filter
+)
 {
-namespace d3d9
-{
-namespace texture
-{
-
-class base
-{
-	FCPPT_NONCOPYABLE(
-		base
-	);
-protected:
-	explicit base(
-		IDirect3DBaseTexture9 *
-	);
-
-	virtual ~base();
-public:
-	IDirect3DBaseTexture9 *
-	get() const;
+	switch(
+		_filter
+	)
+	{
+	case sge::renderer::texture::filter::min::mipmap:
+	case sge::renderer::texture::filter::min::trilinear:
+		return true;
+	case sge::renderer::texture::filter::min::point:
+	case sge::renderer::texture::filter::min::linear:
+		return false;
+	}
 	
-	void
-	reset_base();
-private:
-	IDirect3DBaseTexture9 *base_;
-};
-
+	throw renderer::exception(
+		FCPPT_TEXT("Invalid texture filter!")
+	);
 }
-}
-}
-
-#endif

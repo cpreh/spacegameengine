@@ -25,28 +25,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_lock.hpp>
 #include <sge/exception.hpp>
 
-sge::d3d9::texture::texture(
-	d3d_device_ptr const device,
-	dim_type const &dim_,
-	renderer::texture::filter const &filter,
-	renderer::resource_flag_t const nflags)
+sge::d3d9::texture::planar::planar(
+	d3d9::d3d_device_ptr const _device,
+	renderer::texture::planar_parameters const &_params
+)
 :
-	detail::texture_base_type(
-		r,
-		filter,
-		nflags
-	),
-	device(device),
-	dim_(dim_),
+	texture::planar_basic(
+		_device,
+		_params
+	)
 	tex(
-		create_texture(
-			device,
-			dim(),
-			filter(),
-			flags(),
-			false
+		texture::create_planar(
+			_device,
+			_params
 		)
-	),
+	)
 	lock_dest(0)
 {}
 

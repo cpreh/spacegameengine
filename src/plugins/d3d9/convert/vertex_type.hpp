@@ -18,26 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_FUNCS_NEED_MIPMAP_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_FUNCS_NEED_MIPMAP_HPP_INCLUDED
+#ifndef SGE_D3D9_CONVERT_VERTEX_TYPE_HPP_INCLUDED
+#define SGE_D3D9_CONVERT_VERTEX_TYPE_HPP_INCLUDED
 
-#include <sge/renderer/texture/filter/min.hpp>
+#include "../d3dinclude.hpp"
+#include <sge/renderer/vf/dynamic/element_fwd.hpp>
 
 namespace sge
 {
-namespace opengl
+namespace d3d9
 {
-namespace texture
-{
-namespace funcs
+namespace convert
 {
 
-bool
-need_mipmap(
-	sge::renderer::texture::filter::min::type
+D3DDECLTYPE
+vertex_type(
+	renderer::vf::dynamic::element const &
 );
 
-}
 }
 }
 }

@@ -18,28 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../need_mipmap.hpp"
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_D3D9_CONVERT_VERTEX_ROLE_HPP_INCLUDED
+#define SGE_D3D9_CONVERT_VERTEX_ROLE_HPP_INCLUDED
 
-bool
-sge::opengl::texture::funcs::need_mipmap(
-	sge::renderer::texture::filter::min::type const _filter
-)
+#include "../d3dinclude.hpp"
+#include <sge/renderer/vf/dynamic/element_fwd.hpp>
+
+namespace sge
 {
-	switch(
-		_filter
-	)
-	{
-	case sge::renderer::texture::filter::min::mipmap:
-	case sge::renderer::texture::filter::min::trilinear:
-		return true;
-	case sge::renderer::texture::filter::min::point:
-	case sge::renderer::texture::filter::min::linear:
-		return false;
-	}
-	
-	throw renderer::exception(
-		FCPPT_TEXT("Invalid texture filter!")
-	);
+namespace d3d9
+{
+namespace convert
+{
+
+D3DDECLUSAGE
+vertex_role(
+	renderer::vf::dynamic::element const &
+);
+
 }
+}
+}
+
+#endif
