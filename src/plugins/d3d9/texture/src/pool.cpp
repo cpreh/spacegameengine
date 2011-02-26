@@ -18,24 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_D3D_VERTEX_BUFFER_PTR_HPP_INCLUDED
-#define SGE_D3D9_D3D_VERTEX_BUFFER_PTR_HPP_INCLUDED
+#include "../pool.hpp"
+#include "../../convert/resource_flags_to_pool.hpp"
+#include "../../d3dinclude.hpp"
+#include <sge/renderer/texture/capabilities.hpp>
+#include <fcppt/container/bitfield/basic_impl.hpp>
 
-#include "d3dinclude.hpp"
-#include <fcppt/shared_ptr.hpp>
-#include <fcppt/com_deleter.hpp>
-
-namespace sge
+D3DPOOL
+sge::d3d9::texture::pool(
+	renderer::resource_flags const &_flags,
+	renderer::texture::capabilities_field const &_caps
+)
 {
-namespace d3d9
-{
-
-typedef fcppt::shared_ptr<
-	IDirect3DVertexBuffer9,
-	fcppt::com_deleter
-> d3d_vertex_buffer_ptr;
-
+	return
+		(
+			_caps
+			& sge::renderer::texture::capabilities::render_target
+		)
+		?
+			D3DPOOL_DEFAULT
+		:
+			d3d9::convert::resource_flags_to_pool(
+				_flags
+			);
 }
-}
-
-#endif

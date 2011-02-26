@@ -26,7 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../d3d_device_ptr.hpp"
 #include "../d3dinclude.hpp"
 #include "../resource.hpp"
-#include <sge/renderer/resource_flags_type.hpp>
+#include <sge/renderer/texture/capabilities_field.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
@@ -66,6 +67,9 @@ protected:
 
 	sge::renderer::resource_flags_field const 
 	flags() const;
+
+	sge::renderer::texture::capabilities_field const
+	capabilities() const;
 
 	void
 	on_reset();

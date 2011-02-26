@@ -19,13 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../device.hpp"
+#include "../create_caps.hpp"
 #include "../create_device.hpp"
 //#include "../volume_texture.hpp"
 #include "../index_buffer.hpp"
 //#include "../material.hpp"
 #include "../target.hpp"
 #include "../vertex_buffer.hpp"
-#include "../systemfuncs/create_caps.hpp"
 #include "../texture/cube.hpp"
 #include "../texture/planar.hpp"
 #include "../texture/volume.hpp"

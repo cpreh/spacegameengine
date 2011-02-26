@@ -55,13 +55,15 @@ sge::d3d9::texture::create_texture(
 			:
 				1,
 			texture::usage(
-				_params.resource_flags()
+				_params.resource_flags(),
+				_params.capabilities()
 			),
 			d3d9::convert::color_format(
 				_params.color_format()
 			),
 			texture::pool(
-				_params.resource_flags()
+				_params.resource_flags(),
+				_params.capabilities()
 			),
 			&ret,
 			0
