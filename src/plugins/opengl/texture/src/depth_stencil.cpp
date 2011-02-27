@@ -122,7 +122,7 @@ sge::opengl::texture::depth_stencil::surface() const
 }
 
 sge::renderer::resource_flags_field const
-sge::opengl::texture::depth_stencil::flags() const
+sge::opengl::texture::depth_stencil::resource_flags() const
 {
 	return renderer::resource_flags::none;
 }

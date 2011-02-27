@@ -60,7 +60,7 @@ public:
 	surface() const;
 
 	renderer::resource_flags_field const
-	flags() const;
+	resource_flags() const;
 
 	renderer::texture::capabilities_field const
 	capabilities() const;
